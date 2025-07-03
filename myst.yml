@@ -1,0 +1,14 @@
+version: 1
+
+site:
+  title: Programación 1 - UNRN Andina
+  template: book-theme
+  favicon: images/favicon.ico
+  options:
+    logo: images/P1.png
+project:
+  github: https://github.com/INGCOM-UNRN-P1/INGCOM-UNRN-P1.github.io
+  title: Programación 1
+  description: Sitio de la cátedra B6003 de Ingeniería en Computación
+  # authors: [ Martín René Vilugrón ]
+  id: a1cc80a8-3217-49d3-9022-1f4d25f6518e
