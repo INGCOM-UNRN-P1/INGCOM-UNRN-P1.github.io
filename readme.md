@@ -35,3 +35,8 @@ $> uvx --from mystmd myst start
 
 Que se encargará de instalar todo lo necesario para comenzar a usar la 
 herramienta.
+
+
+## Kudos
+
+- @gonmolina por la ayuda con MystMD
