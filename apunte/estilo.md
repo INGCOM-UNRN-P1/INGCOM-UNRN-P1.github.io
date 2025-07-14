@@ -117,17 +117,27 @@ conocido antes de tomar lo que tenga.
 +uno = dos + tres;
 ```
 
-### Regla `0x0005`: Las llaves de los bloques van en una línea propia
+### Regla `0x0005`: Todas las estructuras de control van con llaves
+
+Aunque las llaves son técnicamente opcionales, para mantener la prolijidad y
+consistencia, deben ir siempre. Ademas, nos evitamos que al modificar el programa
+luego nos encontremos con que el programa hace algo inesperado.
 
 ```c
-if (condicion)
-{
+if (condicion){
     //camino true
-}
-else
-{
+} else {
     //camino false
 }
+```
+
+Incluso para bloques de una sola línea.
+
+```diff
+- if (condicion) accion;
++ if (condicion) {
++     accion;
++ }
 ```
 
 ### Regla `0x0006`: Los lazos sin `break` y `continue` en su lugar, lazos con bandera
@@ -178,7 +188,7 @@ Las variables globales pueden ser modificadas desde cualquier parte del
 programa, lo que puede causar efectos secundarios inesperados y
 dificultar el rastreo de errores.
 
-### Regla `0x000C`: Siempre que sea posible\*, una responsabilidad por función
+### Regla `0x000C`: Siempre que sea posible, una responsabilidad por función
 
 Cada función debe encargarse de una sola tarea o responsabilidad. Esto
 mejora la legibilidad y facilita la reutilización y el mantenimiento del
@@ -254,14 +264,7 @@ del propósito del retorno al darle un nombre explicito.
 
 ### Regla `0x0012`: Todos los lazos y condicionales van con llaves
 
-Incluso para bloques de una sola línea.
-
-```diff
-- if (condicion) accion;
-+ if (condicion) {
-+     accion;
-+ }
-```
+truthiness
 
 ### Regla `0x0013`: Cada bloque lleva cuatro espacios más que el que lo contiene
 
@@ -407,7 +410,7 @@ estrictamente necesario, ya que puede ocultar errores de tipo.
 
 ### Regla `0x0022`: Evitar usar múltiples niveles de punteros a menos que sea absolutamente necesario
 
-Esto complica la lectura y el manejo, especialmente cuando se trata de asignación 
+Esto complica la lectura y el manejo, especialmente cuando se trata de asignación
 o liberación de memoria.
 
 ### Regla `0x0023`: Documentar la propiedad de los recursos al usar punteros
@@ -421,12 +424,12 @@ importante documentar quién es responsable de liberar la memoria:
  */
 ```
 
-Recuerden que no es posible que el programa diferencie la memoria dinámica de la 
+Recuerden que no es posible que el programa diferencie la memoria dinámica de la
 automática.
 
 ### Regla `0x0024`: Siempre usar const en punteros y parámetros que no deben ser modificados
 
-El uso de const proporciona garantías adicionales y ayuda a evitar modificaciones 
+El uso de const proporciona garantías adicionales y ayuda a evitar modificaciones
 accidentales:
 
 ```c
@@ -435,7 +438,7 @@ void funcion(const int *ptr);
 
 ### Regla `0x0025`: Los punteros nulos deben ser inicializados como NULL, no 0
 
-Usa `NULL` para inicializar y verificar punteros, no 0, para mayor claridad y 
+Usa `NULL` para inicializar y verificar punteros, no 0, para mayor claridad y
 coherencia semántica.
 
 ```c
