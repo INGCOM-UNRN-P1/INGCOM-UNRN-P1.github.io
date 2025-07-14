@@ -13,6 +13,7 @@ exports:
 abstract: |
   La introducción a la cátedra con los terminos y condicones de la misma.
 ---
+
 # Las cuestiones de estilo
 
 Este documento reúne un conjunto de reglas de estilo diseñadas para
@@ -48,7 +49,7 @@ nuevas reglas, clasificaciones, explicacioes y potenciales excepciones.
 
 (En algún momento dejaremos)
 
-### Regla `0x0000`: La claridad y  prolijidad son muy importantes
+### Regla `0x0000`: La claridad y prolijidad son muy importantes
 
 El código debe ser claro y fácil de entender para cualquiera que lo lea,
 no solo para quien lo escribe. Un código limpio y prolijo evita errores,
@@ -169,7 +170,7 @@ evitarse, delegando la entrada y salida a otras funciones.
  * @returns caracteristicas del valor de retorno.
  *          POST:
  */
- ```
+```
 
 ### Regla `0x000B`: Sin usar variables globales, no están permitidas
 
@@ -177,7 +178,7 @@ Las variables globales pueden ser modificadas desde cualquier parte del
 programa, lo que puede causar efectos secundarios inesperados y
 dificultar el rastreo de errores.
 
-### Regla `0x000C`: Siempre que sea posible*, una responsabilidad por función
+### Regla `0x000C`: Siempre que sea posible\*, una responsabilidad por función
 
 Cada función debe encargarse de una sola tarea o responsabilidad. Esto
 mejora la legibilidad y facilita la reutilización y el mantenimiento del
@@ -399,14 +400,15 @@ siempre usar `->` en lugar de `.`:
 ptr->campo = valor;
 ```
 
-### Regla `0x0021`: Evitar el uso de punteros genéricos (void *) siempre que sea posible
+### Regla `0x0021`: Evitar el uso de punteros genéricos (void \*) siempre que sea posible
 
 El uso de punteros genéricos debe ser evitado a menos que sea
 estrictamente necesario, ya que puede ocultar errores de tipo.
 
 ### Regla `0x0022`: Evitar usar múltiples niveles de punteros a menos que sea absolutamente necesario
 
-Esto complica la lectura y el manejo, especialmente cuando se trata de asignación o liberación de memoria.
+Esto complica la lectura y el manejo, especialmente cuando se trata de asignación 
+o liberación de memoria.
 
 ### Regla `0x0023`: Documentar la propiedad de los recursos al usar punteros
 
@@ -419,11 +421,13 @@ importante documentar quién es responsable de liberar la memoria:
  */
 ```
 
-Recuerden que no es posible que el programa diferencie la memoria dinámica de la automática.
+Recuerden que no es posible que el programa diferencie la memoria dinámica de la 
+automática.
 
 ### Regla `0x0024`: Siempre usar const en punteros y parámetros que no deben ser modificados
 
-El uso de const proporciona garantías adicionales y ayuda a evitar modificaciones accidentales:
+El uso de const proporciona garantías adicionales y ayuda a evitar modificaciones 
+accidentales:
 
 ```c
 void funcion(const int *ptr);
@@ -431,7 +435,8 @@ void funcion(const int *ptr);
 
 ### Regla `0x0025`: Los punteros nulos deben ser inicializados como NULL, no 0
 
-Usa `NULL` para inicializar y verificar punteros, no 0, para mayor claridad y coherencia semántica.
+Usa `NULL` para inicializar y verificar punteros, no 0, para mayor claridad y 
+coherencia semántica.
 
 ```c
 int *ptr = NULL;
@@ -543,8 +548,8 @@ caracter de continuación `\` para seguir en la linea siguiente.
 
 Haga lo que hacen los demás, escriba para las 80 columnas y todos saldremos ganando.
 
-* [Emacs Wiki: Regla de las ochenta columnas](http://www.emacswiki.org/emacs/EightyColumnRule)
-* [Programmers' Stack Exchange: ¿Sigue siendo relevante el límite de 80 caracteres?](http://programmers.stackexchange.com/questions/604/is-the-80-character-limit-still-relevant-in-times-of-widescreen-monitors)
+- [Emacs Wiki: Regla de las ochenta columnas](http://www.emacswiki.org/emacs/EightyColumnRule)
+- [Programmers' Stack Exchange: ¿Sigue siendo relevante el límite de 80 caracteres?](http://programmers.stackexchange.com/questions/604/is-the-80-character-limit-still-relevant-in-times-of-widescreen-monitors)
 
 ### Regla `0x002E`: Compará explicitamente valores, no te fíes de su "veracidad"
 

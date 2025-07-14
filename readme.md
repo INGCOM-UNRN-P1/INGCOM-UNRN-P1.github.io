@@ -1,9 +1,7 @@
-
 # Bienvenidos a Programación 1
 
-Esta materia se encuentra en el primer año de la 
-carrera de Ingeniería en Computación de la [Universidad
-Nacional de Rio Negro](https://www.unrn.edu.ar).
+Esta materia se encuentra en el primer año de la carrera de Ingeniería
+en Computación de la [Universidad Nacional de Rio Negro](https://www.unrn.edu.ar).
 
 Este sitio recopila todo el material común de la cátedra, incluyendo
 practicas, bibliografía y memes.
@@ -16,7 +14,7 @@ configurar la generación del sitio para incluir los otros documentos del
 repositorio.
 :::
 
-## Se aceptan contribuciones!
+## ¡Se aceptan contribuciones!
 
 Este sitio usa MyST Markdown, estamos en fase de configuración, pero el
 repositorio tiene bastante material.
@@ -33,9 +31,7 @@ fácil de ejecutarla en sus computadoras es usar [uv](https://docs.astral.sh/uv/
 $> uvx --from mystmd myst start
 ```
 
-Que se encargará de instalar todo lo necesario para comenzar a usar la 
-herramienta.
-
+Que se encargará de instalar todo lo necesario para comenzar a usar la herramienta.
 
 ## Kudos
 
