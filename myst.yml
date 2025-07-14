@@ -12,3 +12,5 @@ project:
   description: Sitio de la cátedra B6003 de Ingeniería en Computación
   # authors: [ Martín René Vilugrón ]
   id: a1cc80a8-3217-49d3-9022-1f4d25f6518e
+bibliography:
+  - bibliografia.bib
