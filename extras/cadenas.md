@@ -43,7 +43,7 @@ escriben datos en una memoria destino **asumiendo ciegamente que hay espacio suf
 
 Imagina este código:
 
-```C
+```c
 #include <stdio.h>
 #include <string.h>
 
@@ -111,7 +111,7 @@ las funciones de cadena tradicionales. Estas funciones, como `strcpy_s()`,
 `strcat_s()` y `snprintf_s()`, generalmente toman un argumento adicional:
 el tamaño del búfer de destino.
 
-```C
+```c
 // Ejemplo con strcpy_s
 char buffer[10];
 const char* origen = "Texto largo";
@@ -141,7 +141,7 @@ de alta calidad.
   almacena la   longitud y la capacidad en una cabecera justo antes del puntero
   a los datos, lo que la   hace compatible con funciones C que esperan un `char*`.
 
-  ```C
+  ```c
   // Ejemplo (conceptual) de uso de SDS
   #include "sds.h"
 
@@ -158,35 +158,6 @@ de alta calidad.
 - **The Better String Library (bstring):** Otra biblioteca robusta y bien
   establecida que ofrece un enfoque similar a SDS.
 
-#### 3. El Camino de C++: `std::string`
-
-El lenguaje C++ resolvió este problema de raíz integrando una clase de cadena en
-su biblioteca estándar: `std::string`.
-
-`std::string` es un **objeto** que gestiona su propia memoria dinámicamente. Almacena
-internamente la longitud, la capacidad y los datos. Todas sus operaciones (como la
-concatenación con `+` o el método `append()`) son seguras y gestionan la memoria
-automáticamente.
-
-```Cpp
-#include <iostream>
-#include <string>
-
-int main() {
-    std::string s1 = "Hola "; // Asignación simple
-    std::string s2 = "Mundo C++";
-
-    // La concatenación es segura y automática.
-    // El objeto s1 se redimensiona si es necesario.
-    s1 += s2;
-
-    std::cout << s1 << std::endl; // Imprime "Hola Mundo C++"
-    std::cout << "Longitud: " << s1.length() << std::endl; // Longitud en O(1)
-
-    return 0;
-}
-
-```
 
 ### Tabla Comparativa
 
