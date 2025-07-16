@@ -6,14 +6,6 @@ en Computación de la [Universidad Nacional de Rio Negro](https://www.unrn.edu.a
 Este sitio recopila todo el material común de la cátedra, incluyendo
 practicas, bibliografía y memes.
 
-La idea es ir trabajando en el apunte de la cátedra.
-
-:::{note}
-Aunque parece que no hay mucho, es porque me esta faltando aprender a
-configurar la generación del sitio para incluir los otros documentos del
-repositorio.
-:::
-
 ## Contenido
 
 Primero, esta el [apunte](apunte/catedra.md), pensado mas o menos para ir siguiendo el dictado de las
