@@ -14,6 +14,15 @@ configurar la generación del sitio para incluir los otros documentos del
 repositorio.
 :::
 
+## Contenido
+
+Primero, esta el [apunte](apunte/catedra.md), pensado mas o menos para ir siguiendo el dictado de las
+clases
+
+Despues, hay articulos sueltos sobre temas importantes, como por ejemplo, [cadenas seguras](./extras/cadenas.md),
+[El estado de un programa](./extras/estado.md), la guia de [`printf`](./extras/printf.md), sobre los
+[roles de las variables](extras/roles.md) y como [implementar un lazo `do..while` con `while` y `break`](./extras/simular.md).
+
 ## ¡Se aceptan contribuciones!
 
 Este sitio usa MyST Markdown, estamos en fase de configuración, pero el
@@ -35,4 +44,4 @@ Que se encargará de instalar todo lo necesario para comenzar a usar la herramie
 
 ## Kudos
 
-- @gonmolina por la ayuda con MystMD
+- [@gonmolina](https://github.com/gonmolina) por la ayuda con MystMD
