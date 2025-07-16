@@ -3,7 +3,7 @@ version: 1
 site:
   title: Programación 1 - UNRN Andina
   template: book-theme
-  favicon: images/favicon.ico
+  favicon: favicon.ico
   options:
     logo: images/P1.png
 project:
