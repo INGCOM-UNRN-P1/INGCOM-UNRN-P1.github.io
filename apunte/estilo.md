@@ -73,16 +73,20 @@ claramente su propósito. Esto ayuda a que el código sea autodescriptivo,
 sin necesidad de comentarios adicionales. Usar nombres significativos
 facilita la lectura y comprensión.
 
-```diff
-// Malos identificadores
-- int a, b;
-- a = obtener_precio();
-- b = calcular_descuento(a);
+Malos identificadores
 
-// Identificadores descriptivos
-+ int precio, descuento;
-+ precio = obtener_precio();
-+ descuento = calcular_descuento(precio);
+```c
+int a, b;
+a = obtener_precio();
+b = calcular_descuento(a);
+```
+
+Buenos identificadores
+
+```c
+int precio, descuento;
+precio = obtener_precio();
+descuento = calcular_descuento(precio);
 ```
 
 #### Pero, no tengas miedo de los nombres cortos de variables
@@ -110,11 +114,56 @@ Igual, si aplican las condiciones anteriores quizas tengamos alguna otra.
 Es importante que una variable utilizada como R-Value tenga un valor
 conocido antes de tomar lo que tenga.
 
+Incorrecto:
+
+```c
+int contador;
+```
+
+Correcto:
+
+```c
+int contador = 0;
+```
+
+#### Incluyendo evitar inicializaciones implícitas en estructuras.
+
+Incorrecto:
+
+```c
+struct Datos datos;
+```
+
+Correcto:
+
+```c
+struct Datos datos = {0};
+```
+
 ### Regla `0x0004`: Un espacio antes y después de cada operador
 
 ```diff
 -uno=dos+tres;
 +uno = dos + tres;
+```
+
+### Regla: Las llaves de los bloques van en una línea propia.
+
+Incorrecto:
+
+```c
+if (condicion) {
+    accion();
+}
+```
+
+Correcto:
+
+```c
+if (condicion)
+{
+    accion();
+}
 ```
 
 ### Regla `0x0005`: Todas las estructuras de control van con llaves
@@ -262,9 +311,12 @@ del propósito del retorno al darle un nombre explicito.
 #define NO_FUNCIONO -1
 ```
 
-### Regla `0x0012`: Todos los lazos y condicionales van con llaves
+### Regla `0x0012`: Todas las comparaciones deben ser explicitas
 
-truthiness
+En C, cualquier valor numérico distinto de cero se considera **verdadero** en
+un contexto lógico, mientras que cero se considera **falso**. Esto se lo
+llama "truthyness" y depender de ello no ayuda a la legibilidad del código y
+por lo tanto, no esta permitido.
 
 ### Regla `0x0013`: Cada bloque lleva cuatro espacios más que el que lo contiene
 
@@ -576,3 +628,236 @@ return caracter == NULL;
 something( primero( xs ) != '\0' );
 while ( trabajando == false );
 ```
+
+### Desarrolla y compila siempre con todas las advertencias (y más) activadas.
+
+No hay excusas. Desarrolla y compila siempre con las advertencias activadas. Resulta, sin embargo, que `-Wall` y `-Wextra` en realidad no activan «todas» las advertencias. Hay algunas otras que pueden ser realmente útiles:
+
+```make
+CFLAGS += -Wall -Wextra -Wpedantic \
+          -Wformat=2 -Wno-unused-parameter -Wshadow \
+          -Wwrite-strings -Wstrict-prototypes -Wold-style-definition \
+          -Wredundant-decls -Wnested-externs -Wmissing-include-dirs
+
+# Warnings de GCC que Clang no proporciona:
+ifeq ($(CC),gcc)
+    CFLAGS += -Wjump-misses-init -Wlogical-op
+endif
+```
+
+Compilar con las optimizaciones activadas también puede ayudar a detectar errores:
+
+```make
+CFLAGS += -O2
+```
+
+#### Proporcionar guardas de inclusión para todas las cabeceras para evitar la doble inclusión
+
+[Include guards](https://en.wikipedia.org/wiki/Include_guard) permite incluir un archivo de cabecera «dos veces» sin que se interrumpa la compilación.
+
+```c
+// Good
+#ifndef INCLUDED_ALPHABET_H
+#define INCLUDED_ALPHABET_H
+
+...
+
+#endif // ifndef INCLUDED_ALPHABET_H
+```
+
+[Rob Pike argumenta en contra de las protecciones de inclusión](http://www.lysator.liu.se/c/pikestyle.html), diciendo que nunca se deben incluir archivos en archivos de inclusión. Dice que las protecciones de inclusión «resultan en miles de líneas de código innecesarias que pasan por el analizador léxico».
+
+De hecho, [GCC detectará los include guards](http://gcc.gnu.org/onlinedocs/cppinternals/Guard-Macros.html), y no leerá tales ficheros una segunda vez. No sé si otros compiladores realizan esta optimización.
+
+No creo que sea una buena idea requerir a tus usuarios que incluyan las dependencias de tus ficheros de cabecera. Las dependencias de tus archivos de cabecera no deberían considerarse realmente «públicas». Aplicaría la regla «no dependas de lo que incluyen tus ficheros de cabecera», pero se desmorona en cuanto los ficheros de cabecera utilizan cosas que no necesitas, como `FILE` o `bool`. Los usuarios no deberían preocuparse por eso si no lo necesitan.
+
+Así que, escribe siempre «include guards», y haz la vida de tus usuarios más fácil.
+
+#### Comenta `#include`s de bibliotecas no estándar para decir qué símbolos utilizas de ellas
+
+Los espacios de nombres son uno de los grandes avances del desarrollo de software. Por desgracia, C se lo perdió (los ámbitos no son espacios de nombres). Pero, como los espacios de nombres son tan fantásticos, deberíamos intentar simularlos con comentarios.
+
+```c
+#include <test.h> // Test, tests_run
+#include "trie.h" // Trie, Trie_*
+```
+
+Esto ofrece algunas ventajas:
+
+- los lectores no se ven obligados a consultar la documentación o utilizar `grep` para averiguar dónde está definido un símbolo (o, si no sigue la regla siguiente, de dónde procede): su código simplemente se lo dice
+- los desarrolladores tienen la esperanza de poder determinar qué `#include`s se pueden eliminar y cuáles no
+- los desarrolladores se ven forzados a considerar la contaminación del espacio de nombres (que de otro modo se ignora en la mayoría del código C), y les anima a proporcionar sólo cabeceras pequeñas y bien definidas
+
+El inconveniente es que los comentarios `#include` no se comprueban ni se hacen cumplir. He estado intentando escribir un comprobador para esto durante bastante tiempo, pero por ahora, no hay nada que impida que los comentarios sean erróneos - ya sea mencionando símbolos que ya no se usan, o no mencionando símbolos que sí se usan. En tu proyecto, intenta cortar estos problemas de raíz, para evitar que se extiendan. Siempre debes poder confiar en tu código. Este mantenimiento es molesto, seguro, pero creo que los comentarios `#include` merecen la pena en conjunto.
+
+Encontrar de dónde vienen las cosas es siempre uno de mis principales retos cuando aprendo una base de código. Podría ser mucho más fácil. Nunca he visto ningún proyecto que escriba comentarios `#include` así, pero me encantaría que se convirtiera en algo habitual.
+
+#### `#include` la definición de todo lo que utilices.
+
+No dependas de lo que incluyan tus cabeceras. Si tu código usa un símbolo, incluye el fichero de cabecera donde ese símbolo está definido. Entonces, si tus cabeceras cambian sus inclusiones, tu código no se romperá.
+
+Además, combinado con la regla de comentario `#include` anterior, esto ahorra a tus lectores y compañeros desarrolladores tener que seguir un rastro de inclusiones sólo para encontrar la definición de un símbolo que estás usando. Tu código debería decirles de dónde viene.
+
+#### Evitar las cabeceras unificadas
+
+Las cabeceras unificadas son generalmente malas, porque liberan al desarrollador de la biblioteca de la responsabilidad de proporcionar módulos sueltos claramente separados por su propósito y abstracción. Incluso si el desarrollador (piensa que) hace esto de todos modos, una cabecera unificada aumenta el tiempo de compilación, y acopla el programa del usuario a toda la biblioteca, independientemente de si la necesita. Hay muchas otras desventajas, mencionadas en los puntos anteriores.
+
+Hubo una buena exposición sobre las cabeceras unificadas en [Programmers' Stack Exchange](http://programmers.stackexchange.com/questions/185773/library-design-provide-a-common-header-file-or-multiple-headers). Una respuesta menciona que es razonable que algo como GTK+ sólo proporcione un único archivo de cabecera. Estoy de acuerdo, pero creo que eso se debe al mal diseño de GTK+, y no es intrínseco a un conjunto de herramientas gráficas.
+
+Es más difícil para los usuarios escribir múltiples `#include`s al igual que es más difícil para los usuarios escribir tipos. Traer dificultad a esto es perderse el bosque por los árboles.
+
+## Reglas para fusionar - Guía de Estilo
+
+Estas reglas fueron desarrolladas por separado y quedaron olvidadas en un repositorio
+
+Esta guía de estilo define las convenciones de codificación para el lenguaje C. Su objetivo es mejorar la claridad, mantenibilidad y coherencia del código en todos los proyectos.
+
+## Principios Clave
+
+- **Claridad:** El código debe ser fácil de entender.
+- **Mantenibilidad:** Debe ser sencillo de modificar y extender.
+- **Consistencia:** El uso de un estilo uniforme mejora la colaboración.
+- **Eficiencia:** Se debe optimizar el rendimiento sin sacrificar legibilidad.
+
+## Reglas de Estilo
+
+### Identificadores
+
+- **Regla 0x01h: Los identificadores deben ser descriptivos.**
+  - Ejemplo incorrecto:
+    ```c
+    int x;
+    ```
+  - Ejemplo correcto:
+    ```c
+    int cantidad_items;
+    ```
+
+### Declaraciones y Asignaciones
+
+- **Regla 0x02h: Una declaración de variable por línea.**
+
+  - Incorrecto:
+    ```c
+    int a, b, c;
+    ```
+  - Correcto:
+    ```c
+    int a;
+    int b;
+    int c;
+    ```
+
+- **Regla 0x03h: Siempre inicializar variables a un valor conocido.**
+
+  - Incorrecto:
+    ```c
+    int contador;
+    ```
+  - Correcto:
+    ```c
+    int contador = 0;
+    ```
+
+- **Regla 0x89h: Evitar inicializaciones implícitas en estructuras.**
+  - Incorrecto:
+    ```c
+    struct Datos datos;
+    ```
+  - Correcto:
+    ```c
+    struct Datos datos = {0};
+    ```
+
+### Formato de Código
+
+- **Regla 0x04h: Un espacio antes y después de cada operador.**
+
+  - Incorrecto:
+    ```c
+    a=b+c*d;
+    ```
+  - Correcto:
+    ```c
+    a = b + c * d;
+    ```
+
+- **Regla 0x05h: Las llaves de los bloques van en una línea propia.**
+
+  - Incorrecto:
+    ```c
+    if (condicion) {
+        accion();
+    }
+    ```
+  - Correcto:
+    ```c
+    if (condicion)
+    {
+        accion();
+    }
+    ```
+
+- **Regla 0x95h: Todos los lazos y condicionales deben usar llaves.**
+
+  - Incorrecto:
+    ```c
+    if (x > 0) x++;
+    ```
+  - Correcto:
+    ```c
+    if (x > 0)
+    {
+        x++;
+    }
+    ```
+
+- **Regla 0x96h: Usar cuatro espacios por nivel de indentación.**
+
+### Control de Flujo
+
+- **Regla 0x97h: Evitar `goto`.** Su uso complica el seguimiento del flujo del programa.
+- **Regla 0x98h: Evitar el operador condicional ternario (`?:`).** Prefiera estructuras `if` para claridad.
+- **Regla 0x07h: Evitar lazos `for`, prefiriendo `while`.**
+- **Regla 0x06h: No usar `break` y `continue` innecesariamente; usar banderas en su lugar.**
+
+### Funciones
+
+- **Regla 0x08h: Una sola instrucción `return` por función.**
+  - Esto mejora la claridad del flujo de ejecución.
+- **Regla 0x09h: Las funciones no deben incluir `printf` o `scanf`, salvo que ese sea su propósito.**
+- **Regla 0x10h: Cada función debe documentarse completamente.**
+- **Regla 0x80h: Limitar la longitud de las funciones.**
+- **Regla 0x81h: Evitar nombres de variables de un solo carácter (excepto en iteradores).**
+- **Regla 0x82h: No anidar más de tres niveles de control.**
+- **Regla 0x83h: Usar `static` en funciones y variables que no necesiten visibilidad global.**
+- **Regla 0x84h: Preferir `const` en parámetros que no se modifican dentro de una función.**
+
+### Manejo de Memoria
+
+- **Regla 0x11h: Evitar el uso de variables globales.**
+- **Regla 0x67h: Siempre verificar el éxito de la asignación de memoria dinámica.**
+- **Regla 0x7Ah: Liberar memoria en orden inverso a su asignación.**
+- **Regla 0x68h: Liberar siempre la memoria dinámica.**
+- **Regla 0x66h: Los punteros deben declararse con el asterisco pegado al identificador.**
+
+### Estructuras y Arreglos
+
+- **Regla 0x14h: Los arreglos estáticos deben tener un tamaño fijo al compilar.**
+- **Regla 0x6Ch: Las estructuras deben inicializarse completamente al ser declaradas.**
+- **Regla 0x6Dh: Usar `typedef` para estructuras complejas.**
+- **Regla 0x6Eh: Acceder a estructuras a través de punteros usando `->`.**
+- **Regla 0x6Fh: Evitar punteros genéricos (`void*`) salvo necesidad justificada.**
+
+### Archivos y Entrada/Salida
+
+- **Regla 0x6Ah: Prefiera `fgets` en lugar de `gets` o `scanf`.**
+- **Regla 0x6Bh: Manejar correctamente la apertura y cierre de archivos.**
+
+### Otras Consideraciones
+
+- **Regla 0x16h: Evitar condiciones ambiguas dependientes del tipo de dato.**
+- **Regla 0x95h: Los valores de retorno numéricos deben definirse como constantes del preprocesador.**
+- **Regla 0x79h: Documentar explícitamente el uso de punteros nulos.**
+
+

@@ -1,5 +1,7 @@
-# Guía gradual para aprender a programar
-
+---
+title: 2 - Introducción a la programación en C
+subtitle: La sintaxis y programas básicos.
+---
 ## Introducción
 
 Antes de lanzarte al mundo de la programación, entendé esto: programar no es aprender un lenguaje, es aprender a pensar. El lenguaje es la herramienta, pero el arte está en construir instrucciones lógicas para resolver problemas. Esta guía no es para aprender C a fondo, sino para que empieces a razonar como programador. ¡Y lo harás en C porque si podés con C, podés con cualquier cosa!
