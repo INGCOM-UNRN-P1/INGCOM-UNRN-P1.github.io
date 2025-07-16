@@ -1,5 +1,5 @@
 ---
-title: Introducción a Programación 1
+title: 1 - Introducción a Programación 1
 short_title: Introduccion
 subtitle: Los terminos, condiciones y temas del cuatrimestre.
 authors:
