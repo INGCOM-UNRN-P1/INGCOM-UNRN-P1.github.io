@@ -1,5 +1,6 @@
 ---
 title: Referencia del lenguaje C
+short_title: 4 - C en profundidad
 subtitle: La sintaxis y programas básicos.
 ---
 

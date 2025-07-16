@@ -1,6 +1,6 @@
 ---
-title: 1 - Introducción a Programación 1
-short_title: Introduccion
+title: Introducción a Programación 1
+short_title: 1 - Introduccion
 subtitle: Los terminos, condiciones y temas del cuatrimestre.
 authors:
   - name: Martín René Vilugrón

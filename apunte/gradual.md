@@ -1,10 +1,17 @@
 ---
-title: 2 - Introducción a la programación en C
+title: Introducción a la programación en C
+short_title: 2 - C base
 subtitle: La sintaxis y programas básicos.
 ---
 ## Introducción
 
-Antes de lanzarte al mundo de la programación, entendé esto: programar no es aprender un lenguaje, es aprender a pensar. El lenguaje es la herramienta, pero el arte está en construir instrucciones lógicas para resolver problemas. Esta guía no es para aprender C a fondo, sino para que empieces a razonar como programador. ¡Y lo harás en C porque si podés con C, podés con cualquier cosa!
+Antes de lanzarte al mundo de la programación, hay algo que tiene quedar claro: programar no es aprender un lenguaje, es aprender a pensar. El lenguaje es la herramienta, pero el arte está en construir instrucciones lógicas para resolver problemas. 
+
+Programar es darle instrucciones exactas a una computadora para que haga algo por vos. Pero hay una diferencia clave: la computadora **no entiende ambigüedades**. No sabe lo que "más o menos" significa. Cada paso tiene que estar perfectamente definido.
+
+Al programar si te olvidás un detalle, deja de funcionar. Por eso hay que aprender a **pensar como una máquina**, pero también a **estructurar como un humano inteligente**.
+
+En C, no hay atajos y eso es bueno. Te obliga a pensar de forma clara y lógica.
 
 ## 1. Las herramientas del aprendiz
 

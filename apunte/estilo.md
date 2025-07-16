@@ -1,6 +1,6 @@
 ---
 title: Cuestiones de estilo
-short_title: Estilo
+short_title: 0x0000 - Estilo
 subtitle: Para que podemos usar variables.
 authors:
   - name: Martín René Vilugrón

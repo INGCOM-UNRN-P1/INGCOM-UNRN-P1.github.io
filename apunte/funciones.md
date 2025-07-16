@@ -1,5 +1,6 @@
 ---
-title: 3 - Funciones y descomposición funcional
+title: Funciones y descomposición funcional
+short_title: 3 - Funciones
 subtitle: Dividiendo problemas en partes mas chicas.
 ---
 
@@ -476,6 +477,32 @@ Incorporar este tipo de razonamiento te prepara para escribir programas **más r
 
 La documentación es una herramienta clave en la programación. Ayuda a que otras personas (y vos mismo, en el futuro) puedan entender rápidamente qué hace cada parte del programa sin tener que leer todo el código.
 
+### Comentarios
+
+Los comentarios son texto libre que podemos agregar a nuestros programas sin que este
+sea procesado por el compilador, lo podemos pensar como anotaciones y observaciones
+del código que escribamos.
+
+Durante la cursada, les vamos a exigir que completen comentarios especificos llamados
+documentación, la cual debe tener una forma especifica. Y aunque esto no es estrictamente necesario para el funcionamiento del programa, los ayudará a entender
+mejor el problema que estan resolviendo al ponerlo en sus propias palabras.
+
+Este es un comentario de una sola línea, que pueden usar para reforzar alguna explicacion de algo que vean
+flojo (pero puntual)
+
+```c
+// este es un comentario de una única linea, todo lo que esta a la derecha es ignorado
+```
+
+Y este es un comentario de bloque, que se usa para documentar funciones, pero tambien lo pueden usar para desactivar
+una parte del programa
+```c
+/*
+Este es un comentario de bloque, todo lo que esta dentro del bloque es
+ignorado, y este, a diferencia del otro, puede abarcar múltiples lineas.
+*/
+```
+
 ### ¿Por qué documentar funciones?
 
 - Para **aclarar su propósito**.
@@ -493,6 +520,10 @@ Una buena documentación puede colocarse como comentario justo encima de la func
 - (Opcional) **Precondiciones** o supuestos.
 
 ### Ejemplo:
+
+Los comentarios de documentacion que les pediremos que completen, tienen esta forma, la misma no es casual
+está pensada para una herramienta que toma estos comentarios y construye un manual del código que si nos dá el
+tiempo la veremos, [Doxygen](https://doxygen.nl/).
 
 ```c
 /**
@@ -512,6 +543,7 @@ int calcular_area(int base, int altura) {
 - **Usá frases completas** y claras.
 - **Sé preciso**, evitá generalidades como "hace cálculos".
 - **Actualizá los comentarios** si cambiás la función.
-- Documentá **todas las funciones públicas** (llamadas desde `main()` u otras).
+- Documentá **todas las funciones** (llamadas desde `main()` u otras).
 
 > Un código sin documentación es como un mapa sin leyenda. Podés adivinar el camino, pero probablemente te pierdas.
+
