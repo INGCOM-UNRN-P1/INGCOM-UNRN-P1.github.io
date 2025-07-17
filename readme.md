@@ -1,19 +1,22 @@
 # Bienvenidos a Programación 1
 
-Esta materia se encuentra en el primer año de la carrera de Ingeniería
-en Computación de la [Universidad Nacional de Rio Negro](https://www.unrn.edu.ar).
+Esta materia se encuentra en el primer año de la carrera de Ingeniería en
+Computación de la [Universidad Nacional de Rio Negro](https://www.unrn.edu.ar).
 
-Este sitio recopila todo el material común de la cátedra, incluyendo
-practicas, bibliografía y memes.
+Este sitio recopila todo el material común de la cátedra, incluyendo practicas,
+bibliografía y memes.
 
 ## Contenido
 
-Primero, esta el [apunte](apunte/catedra.md), pensado mas o menos para ir siguiendo el dictado de las
-clases
+Primero, esta el [apunte](apunte/catedra.md), pensado mas o menos para ir
+siguiendo el dictado de las clases
 
-Despues, hay articulos sueltos sobre temas importantes, como por ejemplo, [cadenas seguras](./extras/cadenas.md),
-[El estado de un programa](./extras/estado.md), la guia de [`printf`](./extras/printf.md), sobre los
-[roles de las variables](extras/roles.md) y como [implementar un lazo `do..while` con `while` y `break`](./extras/simular.md).
+Despues, hay articulos sueltos sobre temas importantes, como por ejemplo,
+[cadenas seguras](./extras/cadenas.md),
+[El estado de un programa](./extras/estado.md), la guia de
+[`printf`](./extras/printf.md), sobre los
+[roles de las variables](extras/roles.md) y como
+[implementar un lazo `do..while` con `while` y `break`](./extras/simular.md).
 
 ## ¡Se aceptan contribuciones!
 
@@ -32,7 +35,8 @@ fácil de ejecutarla en sus computadoras es usar [uv](https://docs.astral.sh/uv/
 $> uvx --from mystmd myst start
 ```
 
-Que se encargará de instalar todo lo necesario para comenzar a usar la herramienta.
+Que se encargará de instalar todo lo necesario para comenzar a usar la
+herramienta.
 
 ## Kudos
 
