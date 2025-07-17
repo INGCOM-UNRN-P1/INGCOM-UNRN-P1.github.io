@@ -113,6 +113,14 @@ int numero;
 numero = 17;
 ```
 
+### ¿Es necesario inicializar las variables?
+
+Pero si siempre tiene cero...
+
+Si declarás una variable pero no le das un valor inicial, su contenido es **indeterminado**: puede tener cualquier cosa, lo que se conoce como "basura". En sistemas operativos modernos, muchas veces la memoria se entrega inicializada en cero para evitar que se filtren datos de otros programas, pero **no podés confiar en esto**.
+
+A medida que tu programa corre y reutiliza memoria, es posible que una variable sin inicializar contenga valores viejos, distintos de cero, o cualquier cosa inesperada. Por eso, **siempre inicializá tus variables** antes de usarlas. Esto evita errores difíciles de detectar y hace tu código más seguro y predecible.
+
 ### Reglas del juego
 
 - Las variables deben declararse antes de usarse.
