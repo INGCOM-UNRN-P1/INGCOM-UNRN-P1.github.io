@@ -3,13 +3,22 @@ title: Introducción a la programación en C
 short_title: 2 - C base
 subtitle: La sintaxis y programas básicos.
 ---
+
 ## Introducción
 
-Antes de lanzarte al mundo de la programación, hay algo que tiene quedar claro: programar no es aprender un lenguaje, es aprender a pensar. El lenguaje es la herramienta, pero el arte está en construir instrucciones lógicas para resolver problemas. 
+Antes de lanzarte al mundo de la programación, hay algo que tiene quedar claro:
+programar no es aprender un lenguaje, es aprender a pensar. El lenguaje es la
+herramienta, pero el arte está en construir instrucciones lógicas para resolver
+problemas.
 
-Programar es darle instrucciones exactas a una computadora para que haga algo por vos. Pero hay una diferencia clave: la computadora **no entiende ambigüedades**. No sabe lo que "más o menos" significa. Cada paso tiene que estar perfectamente definido.
+Programar es darle instrucciones exactas a una computadora para que haga algo
+por vos. Pero hay una diferencia clave: la computadora **no entiende
+ambigüedades**. No sabe lo que "más o menos" significa. Cada paso tiene que
+estar perfectamente definido.
 
-Al programar si te olvidás un detalle, deja de funcionar. Por eso hay que aprender a **pensar como una máquina**, pero también a **estructurar como un humano inteligente**.
+Al programar si te olvidás un detalle, deja de funcionar. Por eso hay que
+aprender a **pensar como una máquina**, pero también a **estructurar como un
+humano inteligente**.
 
 En C, no hay atajos y eso es bueno. Te obliga a pensar de forma clara y lógica.
 
@@ -49,9 +58,12 @@ Hola, mundo!
 
 ```
 
-:::{attention} No te dejes estar
-Si no ves el mensaje que esta dentro de la instrucción `printf`, hay algún problema
-que es necesario solucionar. No te trabes acá que bloquea lo que viene a continuación.
+:::{attention}
+
+No te dejes estar Si no ves el mensaje que esta dentro de la instrucción
+`printf`, hay algún problema que es necesario solucionar. No te trabes acá que
+bloquea lo que viene a continuación.
+
 :::
 
 ## 2. El Algoritmo: pensar antes de escribir
@@ -59,7 +71,8 @@ que es necesario solucionar. No te trabes acá que bloquea lo que viene a contin
 ### Mentalidad de programador
 
 1. **Leé el problema. Entendelo. Dibujalo.**
-2. **Dividilo en pasos simples**, cosa que una máquina sin intuición pueda seguir.
+2. **Dividilo en pasos simples**, cosa que una máquina sin intuición pueda
+   seguir.
 3. **Usá papel y lápiz**. No escribas código antes de saber qué querés que haga.
 4. **Convertí esos pasos en instrucciones en C.**
 
@@ -90,7 +103,8 @@ int main() {
 
 ### ¿Qué son?
 
-Una variable es un nombre simbólico para un espacio en memoria que guarda un valor. Pensalo como una caja con una etiqueta y un contenido que podés cambiar.
+Una variable es un nombre simbólico para un espacio en memoria que guarda un
+valor. Pensalo como una caja con una etiqueta y un contenido que podés cambiar.
 
 ### Tipos básicos en C
 
@@ -117,9 +131,16 @@ numero = 17;
 
 Pero si siempre tiene cero...
 
-Si declarás una variable pero no le das un valor inicial, su contenido es **indeterminado**: puede tener cualquier cosa, lo que se conoce como "basura". En sistemas operativos modernos, muchas veces la memoria se entrega inicializada en cero para evitar que se filtren datos de otros programas, pero **no podés confiar en esto**.
+Si declarás una variable pero no le das un valor inicial, su contenido es
+**indeterminado**: puede tener cualquier cosa, lo que se conoce como "basura".
+En sistemas operativos modernos, muchas veces la memoria se entrega inicializada
+en cero para evitar que se filtren datos de otros programas, pero **no podés
+confiar en esto**.
 
-A medida que tu programa corre y reutiliza memoria, es posible que una variable sin inicializar contenga valores viejos, distintos de cero, o cualquier cosa inesperada. Por eso, **siempre inicializá tus variables** antes de usarlas. Esto evita errores difíciles de detectar y hace tu código más seguro y predecible.
+A medida que tu programa corre y reutiliza memoria, es posible que una variable
+sin inicializar contenga valores viejos, distintos de cero, o cualquier cosa
+inesperada. Por eso, **siempre inicializá tus variables** antes de usarlas. Esto
+evita errores difíciles de detectar y hace tu código más seguro y predecible.
 
 ### Reglas del juego
 
@@ -133,9 +154,9 @@ A medida que tu programa corre y reutiliza memoria, es posible que una variable 
 :label: Mostrando valores
 :enumerator: Valores
 
-Escribí un programa que guarde tu edad, tu altura en metros y tu inicial, y los muestre por pantalla.
-Dejá esta información directamente en las variables, a continuación vamos a ver
-como pedir esto por teclado.
+Escribí un programa que guarde tu edad, tu altura en metros y tu inicial, y los
+muestre por pantalla. Dejá esta información directamente en las variables, a
+continuación vamos a ver como pedir esto por teclado.
 ```
 
 ````{solution} Mostrando valores
@@ -164,8 +185,9 @@ int main() {
 
 ### `scanf()` - Leer datos desde el teclado
 
-La función `scanf()` sirve para que el programa reciba datos del usuario. Necesitás indicar el tipo de dato y pasar a que variable le asignaras el valor obtenido.
-(mas adelante vamos a ver para que esta el `&` y que significa)
+La función `scanf()` sirve para que el programa reciba datos del usuario.
+Necesitás indicar el tipo de dato y pasar a que variable le asignaras el valor
+obtenido. (mas adelante vamos a ver para que esta el `&` y que significa)
 
 ```c
 int edad;
@@ -302,7 +324,9 @@ int main() {
 
 ## 6. Bucles: repetir hasta dominar el universo
 
-Un **bucle** (o _loop_) es una estructura que permite repetir una o más instrucciones mientras se cumpla una condición. Esta es la forma en la que le decís a la máquina: _"hacelo muchas veces sin que yo tenga que copiar y pegar"_.
+Un **bucle** (o _loop_) es una estructura que permite repetir una o más
+instrucciones mientras se cumpla una condición. Esta es la forma en la que le
+decís a la máquina: _"hacelo muchas veces sin que yo tenga que copiar y pegar"_.
 
 Hay tres formas principales de bucles en C:
 
@@ -321,7 +345,10 @@ while (i < 5) {
 ```
 
 :::{note} `while`
-El bloque dentro de `while` se ejecuta mientras la condición (`i < 5`) sea verdadera. Si nunca lo es, el bloque no se ejecuta.
+
+El bloque dentro de `while` se ejecuta mientras la condición
+(`i < 5`) sea verdadera. Si nunca lo es, el bloque no se ejecuta.
+
 :::
 
 #### Flujo
@@ -348,11 +375,13 @@ flowchart TD
 :enumerator: while
 
 Escribí un programa que imprima los números del 10 al 1 usando `while`.
+
 :::
 
 ````{solution} lazo_while
 :label: solucion-lazo_while
 :class: dropdown
+
 ```{code-block} c
 :linenos:
 #include <stdio.h>
@@ -379,7 +408,8 @@ for (int i = 0; i < 5; i++) {
 Este tipo de bucle es ideal cuando sabés cuántas veces querés repetir.
 
 :::{admonition} Las partes del `for`
-`for (inicio; condición; paso) { bloque }`
+
+ `for (inicio; condición; paso) { bloque }`
 
 - **inicio:** una sola vez al comenzar.
 - **condición:** se evalúa antes de cada iteración.
@@ -404,7 +434,8 @@ while (i < 5) {                 // condición
 :label: lazo_for
 :enumerator: for
 
-Usá un `for` para mostrar los múltiplos de 3 entre 0 y 30.
+Usá un `for` para mostrar los múltiplos de 3 entre 0 y 30. 
+
 :::
 
 ````{solution} lazo_for
@@ -435,11 +466,11 @@ do {
 } while (clave != 123);
 ```
 
-Este tipo de bucle garantiza **al menos una ejecución**. Ideal para menús o ingreso de datos que deben ejecutarse al menos una vez.
+Este tipo de bucle garantiza **al menos una ejecución**. Ideal para menús o
+ingreso de datos que deben ejecutarse al menos una vez.
 
-:::{warning}
-Tené cuidado con los bucles infinitos. Si la condición **nunca** se vuelve falsa, el programa quedará atrapado en un ciclo eterno.
-:::
+:::{warning} Tené cuidado con los bucles infinitos. Si la condición **nunca** se
+vuelve falsa, el programa quedará atrapado en un ciclo eterno. :::
 
 #### Flujo
 
@@ -459,8 +490,9 @@ flowchart TD
 :label: lazo_repeat
 :enumerator: for
 
-Usá un lazo `do..while` para controlar el acceso a un edificio, pidiendole al usuario que
-ingrese un número usado como clave.
+Usá un lazo `do..while` para controlar el acceso a un edificio, pidiendole al
+usuario que ingrese un número usado como clave. 
+
 :::
 
 ````{solution} lazo_repeat
@@ -497,11 +529,14 @@ int main() {
 
 ### `break` y `continue` — Atajos dentro del ciclo
 
-En C, `break` y `continue` son dos instrucciones de control que permiten modificar el flujo normal de un bucle. Aunque pueden resultar útiles en ciertos contextos, su uso abusivo o descontrolado puede reducir la claridad del código.
+En C, `break` y `continue` son dos instrucciones de control que permiten
+modificar el flujo normal de un bucle. Aunque pueden resultar útiles en ciertos
+contextos, su uso abusivo o descontrolado puede reducir la claridad del código.
 
 #### `break`
 
-Sirve para **salir completamente del bucle**, sin importar si la condición sigue siendo verdadera.
+Sirve para **salir completamente del bucle**, sin importar si la condición sigue
+siendo verdadera.
 
 ```c
 for (int i = 1; i <= 10; i++) {
@@ -514,7 +549,8 @@ for (int i = 1; i <= 10; i++) {
 
 #### `continue`
 
-Sirve para **saltar al final del ciclo actual** y seguir con la siguiente vuelta.
+Sirve para **saltar al final del ciclo actual** y seguir con la siguiente
+vuelta.
 
 ```c
 for (int i = 1; i <= 5; i++) {
@@ -525,20 +561,29 @@ for (int i = 1; i <= 5; i++) {
 }
 ```
 
-:::{tip}
-Usá `break` cuando ya no tenga sentido seguir iterando, y `continue` cuando quieras saltear un caso particular.
+:::{tip} 
+
+Usá `break` cuando ya no tenga sentido seguir iterando, y `continue`
+cuando quieras saltear un caso particular. 
+
 :::
 
 :::{admonition} Observación
-La cátedra establece que el uso de `break` y `continue` no esta permitido por dos motivos:
 
-1. **Reducen la legibilidad del código**: cuando hay muchas salidas posibles dentro de un bucle, se vuelve más difícil entender cuándo y por qué termina.
-2. **Evitan el desarrollo del pensamiento algorítmico**: recurrir a estos atajos puede impedir que el estudiante busque una solución más clara, estructurada y general al problema.
+La cátedra establece que el uso de `break` y `continue` no esta permitido 
+por dos motivos:
 
-Por eso, en las primeras etapas del aprendizaje, los evitaremos para fortalecer la comprensión de la lógica de control.
+1. **Reducen la legibilidad del código**: cuando hay muchas salidas posibles
+   dentro de un bucle, se vuelve más difícil entender cuándo y por qué termina.
+2. **Evitan el desarrollo del pensamiento algorítmico**: recurrir a estos atajos
+   puede impedir que el estudiante busque una solución más clara, estructurada y
+   general al problema.
 
-En lugar de usar estos atajos, les pediremos que utilicen lazos con bandera, que se explican a continuación.
-:::
+Por eso, en las primeras etapas del aprendizaje, los evitaremos para fortalecer
+la comprensión de la lógica de control.
+
+En lugar de usar estos atajos, les pediremos que utilicen lazos con bandera, que
+se explican a continuación. :::
 
 ### Ejercicio 7
 
@@ -626,13 +671,17 @@ int main() {
 
 ### Bucles con bandera (`flag`)
 
-En algunos casos, no podemos reescribir el lazo para que no utilice break, simplemente
-por que no hay una expresion que lo permita, o porque simplemente es necesario salir del lazo
-antes, por lo que es necesario aplicar una estrategia clásica en programación estructurada.
+En algunos casos, no podemos reescribir el lazo para que no utilice break,
+simplemente por que no hay una expresion que lo permita, o porque simplemente es
+necesario salir del lazo antes, por lo que es necesario aplicar una estrategia
+clásica en programación estructurada.
 
-El uso de una **variable bandera** para controlar la repetición de un bucle. En lugar de usar `break`, se define una variable booleana que indica si se debe continuar o no.
+El uso de una **variable bandera** para controlar la repetición de un bucle. En
+lugar de usar `break`, se define una variable booleana que indica si se debe
+continuar o no.
 
-Desde el estándar C99, podés usar el tipo `bool` del encabezado `stdbool.h`, lo cual mejora la legibilidad.
+Desde el estándar C99, podés usar el tipo `bool` del encabezado `stdbool.h`, lo
+cual mejora la legibilidad.
 
 #### Ejemplo:
 
@@ -662,7 +711,8 @@ int main() {
 
 - Mejora la legibilidad y estructura lógica.
 - Permite definir con claridad la condición de corte.
-- Favorece el razonamiento algorítmico en vez de usar interrupciones abruptas como `break`.
+- Favorece el razonamiento algorítmico en vez de usar interrupciones abruptas
+  como `break`.
 
 ### Ejercicio 8
 
@@ -670,7 +720,9 @@ int main() {
 :label: lazo_continue
 :enumerator: continue
 
-Reescribí el ingreso de clave usando una bandera booleana en lugar de `break` o `do...while`.
+Reescribí el ingreso de clave usando una bandera booleana en lugar de `break` o
+`do...while`. 
+
 :::
 
 ````{solution} lazo_continue
@@ -718,7 +770,8 @@ int main() {
 Cuando estés atascado:
 
 - Escribí el algoritmo en tus propias palabras, si, en español.
-- Dibujá un diagrama de flujo, no tiene que ser perfecto, solo para cambiar el punto de vista.
+- Dibujá un diagrama de flujo, no tiene que ser perfecto, solo para cambiar el
+  punto de vista.
 - Usá una prueba de escritorio (dry-run).
 - Y si todo lo demas falla, meté `printf` por todos.
 
@@ -728,7 +781,8 @@ Cuando estés atascado:
 
 ## 9. No sigas más allá (todavía)
 
-No te adelantes a funciones, punteros, structs ni arrays. Primero entendé lo esencial:
+No te adelantes a funciones, punteros, structs ni arrays. Primero entendé lo
+esencial:
 
 - El código se ejecuta de arriba a abajo.
 - Las variables viven en la memoria.

@@ -20,19 +20,19 @@ utilizando ampliamente debido a sus características fundamentales:
 - **Eficiencia**: El código compilado en C es muy rápido, cercano al rendimiento
   del lenguaje ensamblador.
 
-- **Portabilidad**: Permite escribir programas que pueden ejecutarse en distintos
-  sistemas operativos con mínimas modificaciones.
+- **Portabilidad**: Permite escribir programas que pueden ejecutarse en
+  distintos sistemas operativos con mínimas modificaciones.
 
-- **Historia y Origen:** Nació de la necesidad de tener un lenguaje eficiente
-  y portable para desarrollar el sistema operativo UNIX.
+- **Historia y Origen:** Nació de la necesidad de tener un lenguaje eficiente y
+  portable para desarrollar el sistema operativo UNIX.
 
 - **Evolución y Estandarización:** Lejos de ser un lenguaje inamovible, C ha
   estado en constante revisión y mejora. Ha sido estandarizado primero por el
-  {abbr}`ANSI (Instituto Nacional Estadounidense de Estándares)` y luego por
-  la {abbr}`ISO (Organización Internacional de Normalización)` e
-  {abbr}`IEC (Comisión Electrotécnica Internacional)`.
-  De forma de mantener no solo la vigencia el lenguaje sinó su compatibilidad entre
-  implementaciones, más adelante veremos algo al respecto a este tema.
+  {abbr}`ANSI (Instituto Nacional Estadounidense de Estándares)` y luego por la
+  {abbr}`ISO (Organización Internacional de Normalización)` e
+  {abbr}`IEC (Comisión Electrotécnica Internacional)`. De forma de mantener no
+  solo la vigencia el lenguaje sinó su compatibilidad entre implementaciones,
+  más adelante veremos algo al respecto a este tema.
 
   - [ANSI X3.159-1989](https://nvlpubs.nist.gov/nistpubs/Legacy/FIPS/fipspub160.pdf)
   - [ISO/IEC 9899:1990](https://www.iso.org/standard/17782.html)
@@ -43,25 +43,27 @@ utilizando ampliamente debido a sus características fundamentales:
 
 - **Influencia:** C ha servido como base e inspiración para muchos de los
   lenguajes más utilizados hoy en día, incluyendo C++, C#, Java, JavaScript,
-  Objective-C y PHP. Aprender C te da una base sólida para entender cómo funcionan
-  muchos otros lenguajes, aprovecharemos esto en Programación 2 el cuatrimestre
-  siguiente.
+  Objective-C y PHP. Aprender C te da una base sólida para entender cómo
+  funcionan muchos otros lenguajes, aprovecharemos esto en Programación 2 el
+  cuatrimestre siguiente.
 
-- **Popularidad**: Figura entre los lenguajes más usados según el [índice TIOBE](https://www.tiobe.com/tiobe-index/c/), que mide el "interes" en los diferentes
-  lenguajes de programación, al momento de escribir esto, se encuentra en el puesto
-  número 3.
+- **Popularidad**: Figura entre los lenguajes más usados según el
+  [índice TIOBE](https://www.tiobe.com/tiobe-index/c/), que mide el "interes" en
+  los diferentes lenguajes de programación, al momento de escribir esto, se
+  encuentra en el puesto número 3.
 
 ## Características Principales de C
 
 ### Nivel de Abstracción
 
 Aunque C es considerado un lenguaje de **nivel medio**, en el momento en el que
-fue creado, era de "alto nivel", esto teniendo en cuenta la comparación con otros
-lenguajes y en particular, el {term}`Lenguaje Ensamblador`.
+fue creado, era de "alto nivel", esto teniendo en cuenta la comparación con
+otros lenguajes y en particular, el {term}`Lenguaje Ensamblador`.
 
-Hoy en día y con el desarrollo de nuevos lenguajes, y teniendo en cuenta que pasaron _solo_ 50 años de que fué creado, se lo sitúa en un nivel superior a los de bajo
-nivel, pero inferior a los que actualmente son considerados de alto nivel como
-Python o Java.
+Hoy en día y con el desarrollo de nuevos lenguajes, y teniendo en cuenta que
+pasaron _solo_ 50 años de que fué creado, se lo sitúa en un nivel superior a los
+de bajo nivel, pero inferior a los que actualmente son considerados de alto
+nivel como Python o Java.
 
 Esto le da un balance único:
 
@@ -81,15 +83,15 @@ línea por línea en tiempo de ejecución.
   antes de ser ejecutado por otro programa, llamado compilador.
 - **Imperativo:** Un programa consiste en una secuencia de instrucciones que
   modifican el estado (las variables) del programa.
-- **Estructurado:** El código se organiza en bloques lógicos y funciones, lo
-  que promueve la claridad y la reutilización.
+- **Estructurado:** El código se organiza en bloques lógicos y funciones, lo que
+  promueve la claridad y la reutilización.
 
 ### Fortalezas y debilidades del lenguaje
 
 Ademas de las razones para aprender y utilizar el lenguaje que estan mas arriba,
 hay un conjunto adicional de fortalezas importantes para tratar:
 
-1. **Acceso a conceptos de bajo nivel**
+#### Acceso a conceptos de bajo nivel
 
 Para ser utilizado como lenguaje de programacion para sistemas, C provee acceso
 a conceptos directamente relacionados con el hardware que lo ejecutará.
@@ -97,14 +99,14 @@ Conceptos como el tamaño en memoria, punteros, segmentos y las instrucciones so
 en definitiva muy similares a las que la computadora utiliza, de forma que los
 programas sean lo mas rápidos posibles.
 
-2. **C es un lenguaje pequeño**
+#### C es un lenguaje pequeño
 
 El lenguaje provee un conjunto de instrucciones reducido, tengan en cuenta que
 el documento que define el lenguaje original, el K&R Segunda Edición cubre el
 lenguaje completo en 49 páginas. Todo lo demas provisto por el lenguaje es
 cubierto con la libreria estándar integrada implementada con funciones.
 
-3. **C es un lenguaje permisivo**
+#### C es un lenguaje permisivo
 
 El lenguaje asume que sabes lo que estas haciendo, por lo que permite hacer una
 mayor cantidad de cosas, para bien y para mal
@@ -112,8 +114,8 @@ mayor cantidad de cosas, para bien y para mal
 ### Debilidades
 
 El lenguaje C, a pesar de su gran popularidad y potencia, presenta ciertas
-debilidades inherentes que deben ser comprendidas para un desarrollo eficiente
-y seguro. Es crucial conocer estas limitaciones desde su origen para establecer
+debilidades inherentes que deben ser comprendidas para un desarrollo eficiente y
+seguro. Es crucial conocer estas limitaciones desde su origen para establecer
 estrategias que las prevengan.
 
 Estas surgen de la misma fuente que muchas de sus fortalezas: la cercanía del
@@ -140,22 +142,23 @@ autor original de un programa, pueden ser difíciles de entender. Otro problema
 es la naturaleza concisa de los programas en C. C fue diseñado en un momento en
 que la comunicación interactiva con las computadoras era tediosa en el mejor de
 los casos. Como resultado, C fue creado a propósito para ser conciso y minimizar
-el tiempo requerido para ingresar y editar programas. La flexibilidad de C también
-puede ser un factor negativo; los programadores que son demasiado inteligentes
-para su propio bien pueden hacer que los programas sean casi imposibles de entender.
+el tiempo requerido para ingresar y editar programas. La flexibilidad de C
+también puede ser un factor negativo; los programadores que son demasiado
+inteligentes para su propio bien pueden hacer que los programas sean casi
+imposibles de entender.
 
 #### Los programas en C pueden ser difíciles de modificar
 
 Los programas grandes escritos en C pueden ser difíciles de cambiar si no han
 sido diseñados pensando en el mantenimiento. Los lenguajes de programación
-modernos suelen proporcionar características como clases y paquetes que
-soportan la división de un programa grande en piezas más manejables. C,
+modernos suelen proporcionar características como clases y paquetes que soportan
+la división de un programa grande en piezas más manejables. C,
 desafortunadamente, carece de tales características.
 
 ### C obfuscado
 
-Incluso los fans mas acerrimos del lenguaje estan de acuerdo que el lenguaje puede
-volverse dificil de leer con facilidad.
+Incluso los fans mas acerrimos del lenguaje estan de acuerdo que el lenguaje
+puede volverse dificil de leer con facilidad.
 
 Esta "capacidad" del lenguaje se acentua en la competencia anual de código C
 obfuscado [IOCC](https://www.ioccc.org/), en la que se buscan las formas más
@@ -193,26 +196,26 @@ int main()                      // punto de entrada del programa
 ### Piezas por pieza
 
 1. `#include <stdio.h>`: Es una **directiva del preprocesador**. Le indica al
-   compilador que incluya la librería estándar de entrada/salida (`stdio.h`), que
-   contiene la definición de la función `printf`.
+   compilador que incluya la librería estándar de entrada/salida (`stdio.h`),
+   que contiene la definición de la función `printf`.
 
 2. `int main()`: Es el **punto de entrada** del programa. Todo programa en C
-   comienza su ejecución aquí. La palabra `int` indica que la función devolverá un
-   número entero.
+   comienza su ejecución aquí. La palabra `int` indica que la función devolverá
+   un número entero.
 
 3. `{ ... }`: Las llaves definen un **bloque de código**. Todo lo que está
    dentro de las llaves pertenece a la función `main`.
 
 4. `printf("Hola mundo C.\n");`: Es una **instrucción** que llama a la función
-   `printf` para imprimir el texto en la consola. `\n` es un carácter especial que
-   representa un salto de línea.
+   `printf` para imprimir el texto en la consola. `\n` es un carácter especial
+   que representa un salto de línea.
 
 5. `return 0;`: Es la instrucción que **finaliza la función `main`** y devuelve
    un valor al sistema operativo. Por convención, `0` significa que el programa
    terminó sin errores.
 
-6. El código del ejemplo, hace uso de comentarios de linea para ayudarlos a ubicar
-   la pieza especifica que se describe en esta lista.
+6. El código del ejemplo, hace uso de comentarios de linea para ayudarlos a
+   ubicar la pieza especifica que se describe en esta lista.
 
 ### Compilación y Ejecución
 
@@ -248,25 +251,6 @@ Mientras que la **gramática** determina si el código tiene sentido lógico y
 estructural. Es posible que algo sea sintácticamente válido pero gramaticalmente
 incorrecto.
 
-### Comentarios
-
-Los comentarios es texto libre que podemos agregar a nuestros programas sin que este
-sea procesado por el compilador, lo podemos pensar como anotaciones y observaciones
-del código que escribamos.
-
-Durante la cursada, les vamos a exigir que completen comentarios especificos llamados
-documentación, la cual debe tener una forma especifica. Y aunque esto no es estrictamente necesario para el funcionamiento del programa, los ayudará a entender
-mejor el problema que estan resolviendo al ponerlo en sus propias palabras.
-
-```c
-// este es un comentario de una única linea, todo lo que esta a la derecha es ignorado
-
-/*
-Este es un comentario de bloque, todo lo que esta dentro del bloque es
-ignorado, y este, a diferencia del otro, puede abarcar múltiples lineas.
-*/
-```
-
 ### Identificadores y Palabras Reservadas
 
 **Identificadores:** Son los nombres que damos a variables y funciones. Deben
@@ -280,7 +264,8 @@ guiones bajos. C distingue entre mayúsculas y minúsculas (`suma` es diferente 
 - No pueden ser palabras reservadas.
 
 **Palabras Reservadas:** Son palabras con un significado especial en C y no
-pueden ser usadas como identificadores (ej: `int`, `if`, `else`, `while`, `return`).
+pueden ser usadas como identificadores (ej: `int`, `if`, `else`, `while`,
+`return`).
 
 #### Ejemplos
 
@@ -310,9 +295,10 @@ antes de ser usadas.
   - `int`: El entero estándar (usualmente 32 bits).
   - `short`: Entero corto.
   - `long`: Entero largo.
-  - Pueden ser `signed` (con signo, por defecto) o `unsigned` (sin signo, solo positivos).
-  - La librería `<stdint.h>` define tipos con tamaño específico como `int32_t`
-    o `uint8_t`.
+  - Pueden ser `signed` (con signo, por defecto) o `unsigned` (sin signo, solo
+    positivos).
+  - La librería `<stdint.h>` define tipos con tamaño específico como `int32_t` o
+    `uint8_t`.
 
 - **Números Reales (Punto Flotante):**
 
@@ -321,11 +307,12 @@ antes de ser usadas.
 
 - **Caracteres:**
 
-  - `char`: Almacena un único carácter (ej: `'a'`). Se encierra entre comillas simples.
+  - `char`: Almacena un único carácter (ej: `'a'`). Se encierra entre comillas
+    simples.
 
 - **Lógicos (Booleanos):**
-  - `bool`: Almacena `true` o `false`. Requiere incluir la librería `<stdbool.h>`
-    (estándar desde C99).
+  - `bool`: Almacena `true` o `false`. Requiere incluir la librería
+    `<stdbool.h>` (estándar desde C99).
 
 > **Nota:** C no tiene un tipo de dato `string` nativo. Las cadenas de texto se
 > manejan como arreglos de caracteres, un tema que se verá más adelante.
@@ -353,8 +340,8 @@ indicar de forma "literal"
 `printf("cadena de formato", var1, var2, ...);`
 
 Usa códigos de formato para imprimir variables: `%d` para `int`, `%f` para
-`double`/`float`, `%c` para `char`. Se pueden imprimir multiples variables
-en una única llamada a `printf`.
+`double`/`float`, `%c` para `char`. Se pueden imprimir multiples variables en
+una única llamada a `printf`.
 
 ```c
 printf("numero: %d\n caracter:%c", 123, 'a');
@@ -371,29 +358,40 @@ printf("numero: %d\n caracter:%c", 123, 'a');
 
 ##### Secuencias de escape
 
-Una secuencia de escape es una forma de cambiar como el compilador tratará el siguiente
-caracter. El código siempre empieza con una barra invertida (\). Este simbolo indica que hay un tratamiento especial para lo que viene a continuación.
+Una secuencia de escape es una forma de cambiar como el compilador tratará el
+siguiente caracter. El código siempre empieza con una barra invertida (\). Este
+simbolo indica que hay un tratamiento especial para lo que viene a continuación.
 
 Esto tiene dos propósitos:
 
-- Dar un significado especial a un carácter normal: Por ejemplo, la letra n por sí sola es solo una n. Pero si le antepones la barra (`\n`), le estás dando el poder especial de crear una nueva línea en el texto. Has "escapado" de su significado literal para convertirlo en un comando.
+- Dar un significado especial a un carácter normal: Por ejemplo, la letra n por
+  sí sola es solo una n. Pero si le antepones la barra (`\n`), le estás dando el
+  poder especial de crear una nueva línea en el texto. Has "escapado" de su
+  significado literal para convertirlo en un comando.
 
-- Quitar el significado especial a un carácter de control: En C, las comillas dobles (`"`) se usan para delimitar una cadena de texto. Pero, ¿y si queres imprimir unas comillas dobles literalmente? Si directamente usas `"`, el compilador va a entender que
-  cadena de texto ha terminado. Para evitarlo, usas la secuencia de escape `\"`. La barra invertida le quita el poder de "delimitar la cadena" y lo convierte en un simple carácter de comillas para imprimir.
+- Quitar el significado especial a un carácter de control: En C, las comillas
+  dobles (`"`) se usan para delimitar una cadena de texto. Pero, ¿y si queres
+  imprimir unas comillas dobles literalmente? Si directamente usas `"`, el
+  compilador va a entender que cadena de texto ha terminado. Para evitarlo, usas
+  la secuencia de escape `\"`. La barra invertida le quita el poder de
+  "delimitar la cadena" y lo convierte en un simple carácter de comillas para
+  imprimir.
 
 - `\n` Nueva Línea (Line Feed), Mueve el cursor al inicio de la siguiente línea.
 - `\t` Tabulación Horizontal, Inserta un espacio de tabulación horizontal.
-- `\0` Carácter Nulo (NULL), Carácter con valor cero, utilizado como terminador en las cadenas de caracteres de C.
+- `\0` Carácter Nulo (NULL), Carácter con valor cero, utilizado como terminador
+  en las cadenas de caracteres de C.
 - `\\` Barra Invertida, Representa un carácter de barra invertida (`\`).
-- `\"` Comillas Dobles, Representa un carácter de comillas dobles (`"`) dentro de un literal de cadena.
-- `\'` Comilla Simple, Representa un carácter de comilla simple (`'`) dentro de un literal de carácter.
+- `\"` Comillas Dobles, Representa un carácter de comillas dobles (`"`) dentro
+  de un literal de cadena.
+- `\'` Comilla Simple, Representa un carácter de comilla simple (`'`) dentro de
+  un literal de carácter.
 
 #### `scanf` (entrada)
 
-`scanf("%d", &variable);`
-Lee un valor desde la consola y lo guarda en la dirección de memoria de una
-variable. El `&` es fundamental y se explicará para que está en detalle más
-adelante.
+`scanf("%d", &variable);` Lee un valor desde la consola y lo guarda en la
+dirección de memoria de una variable. El `&` es fundamental y se explicará para
+que está en detalle más adelante.
 
 Utiliza los mismos marcadores de formato que `printf`.
 
@@ -416,16 +414,14 @@ scanf("%d", &edad);
 
 - **Lógicos:** `&&` (Y lógico), `||` (O lógico), `!` (NO lógico).
 
-
 ## Estructuras de Control
 
 Permiten alterar el flujo de un programa con decisiones.
 
-:::{card} 🪐 Cuestión de estilo
-:link: ./estilo.md#regla-0x0005-todas-las-estructuras-de-control-van-con-llaves
-Todas las estructuras de control van con llaves, por mas que sean tecnicamente opcionales.
-:::
-#regla-0x0005-todas-las-estructuras-de-control-van-con-llaves
+:::{card} 🪐 Cuestión de estilo :link:
+./estilo.md#regla-0x0005-todas-las-estructuras-de-control-van-con-llaves Todas
+las estructuras de control van con llaves, por mas que sean tecnicamente
+opcionales. ::: #regla-0x0005-todas-las-estructuras-de-control-van-con-llaves
 
 estilo#regla-0x0013-cada-bloque-lleva-cuatro-espacios-m-s-que-el-que-lo-contiene
 
@@ -471,8 +467,8 @@ switch (expresion) {
 }
 ```
 
-Es importante destacar que la instrucción `break` es opcional, y puede ser utilizada
-para agrupar "casos".
+Es importante destacar que la instrucción `break` es opcional, y puede ser
+utilizada para agrupar "casos".
 
 ```c
 switch (x) {
@@ -501,8 +497,8 @@ for (int i = 0; i < 10; i++) {
 
 #### `while`: Lazo indefinido
 
-Se ejecuta mientras la condición sea verdadera.
-La condición se evalúa al principio. `while (condicion) { ... }`
+Se ejecuta mientras la condición sea verdadera. La condición se evalúa al
+principio. `while (condicion) { ... }`
 
 ```c
 int i = 0;
@@ -514,8 +510,8 @@ while (i < 10) {
 
 #### `do-while`: Lazo indefinido invertido
 
-Se ejecuta al menos una vez y luego evalúa la
-condición al final. `do { ... } while (condicion);`
+Se ejecuta al menos una vez y luego evalúa la condición al final.
+`do { ... } while (condicion);`
 
 ```c
 int i = 0;
@@ -538,7 +534,7 @@ TODO: Agregar ejemplos y detalles
 Son bloques de código reutilizables que realizan una tarea específica. Son la
 base de la programación estructurada.
 
-### Definición:
+### Definición
 
 ```C
 /**
@@ -571,8 +567,8 @@ int resultado = sumar(3, 4);
 > - Una función debe tener un único punto de salida (`return`).
 >
 > - Las funciones no deben interactuar directamente con el usuario (usando
->   `printf` o `scanf`), sino recibir datos a través de sus parámetros y devolver
->   resultados con `return`. Su propósito es procesar, no interactuar.
+>   `printf` o `scanf`), sino recibir datos a través de sus parámetros y
+>   devolver resultados con `return`. Su propósito es procesar, no interactuar.
 >
 > - Toda función debe tener un comentario de documentación explicando su
 >   propósito, parámetros y valor de retorno.
@@ -593,20 +589,29 @@ int sumar(int a, int b) {
 
 ## Bibliografía y Recursos Adicionales
 
-- Kernighan, B. W., & Ritchie, D. M. (1988). _The C Programming Language
-  (2nd ed.)_. Prentice Hall. (El libro de referencia por los creadores del
-  lenguaje, también conocido como "K&R").
+- Kernighan, B. W., & Ritchie, D. M. (1988). _The C Programming Language (2nd
+  ed.)_. Prentice Hall. (El libro de referencia por los creadores del lenguaje,
+  también conocido como "K&R").
 
-- King, K. N. (2008). _C Programming: A Modern Approach (2nd ed.)_. W. W.
-  Norton & Company. (Una excelente alternativa moderna, muy detallada y con
-  buenos ejemplos).
+- King, K. N. (2008). _C Programming: A Modern Approach (2nd ed.)_. W. W. Norton
+  & Company. (Una excelente alternativa moderna, muy detallada y con buenos
+  ejemplos).
 
 ## Glosario
 
-:::{glossary}
-Lenguaje Ensamblador
-: El lenguaje ensamblador (assembly language) es un lenguaje de programación de bajo nivel que representa las instrucciones de código de máquina de una arquitectura de procesador específica mediante mnemónicos. Mantiene una correspondencia casi directa (a menudo uno a uno) con las operaciones del hardware. Requiere un programa llamado ensamblador (assembler) para traducir los mnemónicos al código de máquina ejecutable por el procesador. Ofrece control preciso sobre el hardware con una legibilidad superior a la del código máquina.
+:::{glossary} Lenguaje Ensamblador : El lenguaje ensamblador (assembly language)
+es un lenguaje de programación de bajo nivel que representa las instrucciones de
+código de máquina de una arquitectura de procesador específica mediante
+mnemónicos. Mantiene una correspondencia casi directa (a menudo uno a uno) con
+las operaciones del hardware. Requiere un programa llamado ensamblador
+(assembler) para traducir los mnemónicos al código de máquina ejecutable por el
+procesador. Ofrece control preciso sobre el hardware con una legibilidad
+superior a la del código máquina.
 
-Lenguaje de Máquina
-: El lenguaje de máquina (machine language o machine code) es el conjunto de instrucciones en formato binario (secuencias de ceros y unos) que la unidad central de procesamiento (CPU) de una computadora puede ejecutar directamente. Es el nivel más bajo de lenguaje de programación, específico para cada arquitectura de procesador. Todas las formas de software deben ser traducidas o interpretadas a este lenguaje para poder ser ejecutadas por el hardware.
-:::
+Lenguaje de Máquina : El lenguaje de máquina (machine language o machine code)
+es el conjunto de instrucciones en formato binario (secuencias de ceros y unos)
+que la unidad central de procesamiento (CPU) de una computadora puede ejecutar
+directamente. Es el nivel más bajo de lenguaje de programación, específico para
+cada arquitectura de procesador. Todas las formas de software deben ser
+traducidas o interpretadas a este lenguaje para poder ser ejecutadas por el
+hardware. :::
