@@ -13,17 +13,18 @@ exports:
 abstract: |
   La introducción a la cátedra con los terminos y condicones de la misma.
 ---
+
 # Roles de Variables en Programación
 
 ¡Hola a todos! Hoy vamos a sumergirnos en un concepto fundamental en
 programación que nos ayudará a entender mejor cómo las variables no solo
-almacenan valores, sino que cumplen **roles específicos** dentro de
-nuestros programas. A menudo, cuando empezamos a programar, pensamos
-en las variables simplemente como "cajas" para guardar datos. Sin embargo,
- si profundizamos un poco más, veremos que muchas de ellas tienen un propósito
- particular, casi como si tuvieran una "función" o un "papel" en el algoritmo.
+almacenan valores, sino que cumplen **roles específicos** dentro de nuestros
+programas. A menudo, cuando empezamos a programar, pensamos en las variables
+simplemente como "cajas" para guardar datos. Sin embargo, si profundizamos un
+poco más, veremos que muchas de ellas tienen un propósito particular, casi como
+si tuvieran una "función" o un "papel" en el algoritmo.
 
-* * *
+---
 
 ## El "Rol" de una Variable
 
@@ -31,21 +32,21 @@ En programación, el **rol de una variable** se refiere a la función o propósi
 específico que una variable desempeña dentro de un algoritmo. No es solo lo que
 la variable _contiene_, sino para _qué_ la usamos. Identificar el rol de una
 variable nos permite diseñar algoritmos más claros, eficientes y fáciles de
-depurar. Es como asignar una tarea a cada miembro de un equipo;
-cada uno tiene su función y sabe qué hacer.
+depurar. Es como asignar una tarea a cada miembro de un equipo; cada uno tiene
+su función y sabe qué hacer.
 
 Vamos a explorar algunos de los roles más comunes que encontramos en la
 programación, usando ejemplos en **C**.
 
-* * *
+---
 
 ### Acumulador
 
-Un **acumulador** es una variable que se utiliza para
-**sumar o acumular valores** a lo largo de un proceso. Generalmente,
-se inicializa en cero antes de que comience el proceso de acumulación.
+Un **acumulador** es una variable que se utiliza para **sumar o acumular
+valores** a lo largo de un proceso. Generalmente, se inicializa en cero antes de
+que comience el proceso de acumulación.
 
-* * *
+---
 
 ### Ejemplo de Acumulador en C
 
@@ -70,19 +71,19 @@ int main() {
 ```
 
 En este ejemplo, la variable `suma` tiene el rol de **acumulador**. En cada
-iteración del bucle `for`, se le suma el valor actual de `i`, acumulando
-así la suma total.
+iteración del bucle `for`, se le suma el valor actual de `i`, acumulando así la
+suma total.
 
-* * *
+---
 
 ### Contador
 
 Un **contador** es una variable que se utiliza para **contar la ocurrencia de un
-evento** o para **llevar un registro del número de iteraciones** en un bucle.
-Se incrementa o decrementa en un valor fijo (usualmente 1) cada vez que el evento
+evento** o para **llevar un registro del número de iteraciones** en un bucle. Se
+incrementa o decrementa en un valor fijo (usualmente 1) cada vez que el evento
 ocurre.
 
-* * *
+---
 
 ### Ejemplo de Contador en C
 
@@ -114,7 +115,7 @@ int main() {
 En este caso, `contadorPares` tiene el rol de **contador**. Cada vez que
 encontramos un número par, incrementamos su valor en 1.
 
-* * *
+---
 
 ### Bandera (o Flag)
 
@@ -123,7 +124,7 @@ booleano, como 0 o 1) que se utiliza para **señalizar una condición o estado**
 Su valor cambia para indicar que un evento ha ocurrido o que una determinada
 situación es verdadera o falsa.
 
-* * *
+---
 
 ### Ejemplo de Bandera en C
 
@@ -160,14 +161,15 @@ La variable `encontrado` es una **bandera**. Se inicializa en `false` y se
 cambia a `true` si el `numeroBuscado` es hallado en el array. Luego, podemos
 usar el estado de esta bandera para tomar una decisión.
 
-* * *
+---
 
 ## Otros Roles de Variables
 
 Además de los acumuladores, contadores y banderas, las variables pueden adoptar
-una variedad de roles, algunos más específicos o que surgen en contextos particulares.
+una variedad de roles, algunos más específicos o que surgen en contextos
+particulares.
 
-* * *
+---
 
 ### Variable de Control de Bucle (o Iterador)
 
@@ -191,14 +193,14 @@ int main() {
 En este caso, `i` controla cuántas veces se ejecuta el bucle `for` y en qué
 punto debe detenerse.
 
-* * *
+---
 
 ### Variable Auxiliar o Temporal
 
 Una **variable auxiliar o temporal** se usa para almacenar un valor de forma
-transitoria, generalmente para facilitar una operación que requiere conservar
-un dato mientras se manipulan otros. El caso más común es el intercambio de
-valores entre dos variables sin perder ninguno.
+transitoria, generalmente para facilitar una operación que requiere conservar un
+dato mientras se manipulan otros. El caso más común es el intercambio de valores
+entre dos variables sin perder ninguno.
 
 ```c
 #include <stdio.h>
@@ -222,13 +224,14 @@ int main() {
 Aquí, `temp` es crucial para no perder el valor original de `a` cuando se lo
 asignamos a `b`.
 
-* * *
+---
 
 ### Variable de Estado
 
 Similar a una bandera, pero una **variable de estado** puede tener más de dos
 valores, representando diferentes fases, modos o condiciones dentro de un
-programa o sistema. Piensa en un semáforo que puede estar en rojo, amarillo o verde.
+programa o sistema. Piensa en un semáforo que puede estar en rojo, amarillo o
+verde.
 
 ```c
 #include <stdio.h>
@@ -258,7 +261,7 @@ int main() {
 La variable `estadoActual` cambia para indicar la fase en la que se encuentra el
 proceso.
 
-* * *
+---
 
 ### Variable de Entrada
 
@@ -282,13 +285,13 @@ int main() {
 
 En este ejemplo, `edad` toma el valor que el usuario introduce.
 
-* * *
+---
 
 ### Variable de Salida
 
 Las **variables de salida** se utilizan para almacenar los resultados finales de
- un cálculo o proceso, los cuales serán mostrados al usuario o guardados en
- algún medio (como un archivo).
+un cálculo o proceso, los cuales serán mostrados al usuario o guardados en algún
+medio (como un archivo).
 
 ```c
 #include <stdio.h>
@@ -307,13 +310,13 @@ int main() {
 
 Aquí, `area` guarda el resultado del cálculo y luego se imprime.
 
-* * *
+---
 
 ### Variable de Referencia (o Puntero)
 
 Aunque en C los punteros son un concepto más avanzado, un puntero es una
-variable que almacena la **dirección de memoria** de otra variable. Su rol
-es "apuntar" a datos, permitiendo un acceso y manipulación indirecta de la memoria.
+variable que almacena la **dirección de memoria** de otra variable. Su rol es
+"apuntar" a datos, permitiendo un acceso y manipulación indirecta de la memoria.
 
 ```c
 #include <stdio.h>
@@ -340,7 +343,7 @@ int main() {
 El rol de `ptrNumero` es el de una **variable de referencia**, permitiendo
 interactuar con `numero` de forma indirecta.
 
-* * *
+---
 
 ## Roles de Variables y Parámetros Útiles en Funciones
 
@@ -348,7 +351,7 @@ Cuando hablamos de funciones, las variables internas y, crucialmente, los
 **parámetros** (que son variables que reciben valores cuando se llama a la
 función) también asumen roles distintivos:
 
-* * *
+---
 
 ### Parámetro de Entrada
 
@@ -356,7 +359,7 @@ Un **parámetro de entrada** es una variable que recibe un valor de la parte que
 llama a la función (el "código invocador"). Su rol es **proporcionar a la
 función los datos necesarios** para que realice su tarea. La función usa este
 valor, pero generalmente no lo modifica de forma que el llamador vea ese cambio
- (a menos que se pase por referencia).
+(a menos que se pase por referencia).
 
 ```c
 #include <stdio.h>
@@ -380,18 +383,19 @@ int main() {
 ```
 
 En la función `sumar`, `num1` y `num2` son **parámetros de entrada**. Reciben
-los valores `5` y `3` respectivamente, y la función los usa para realizar la suma.
+los valores `5` y `3` respectivamente, y la función los usa para realizar la
+suma.
 
-* * *
+---
 
 ### Parámetro de Salida (a través de Punteros)
 
-En C, como los parámetros se pasan "por valor" por defecto (lo que significa
-que la función recibe una copia del valor y los cambios internos no afectan al
+En C, como los parámetros se pasan "por valor" por defecto (lo que significa que
+la función recibe una copia del valor y los cambios internos no afectan al
 original), para que una función pueda **modificar una variable del llamador y
-"devolver" un resultado a través de ella**, necesitamos usar **punteros**.
-Un parámetro que es un puntero y se usa con este fin se convierte en un
-**parámetro de salida**.
+"devolver" un resultado a través de ella**, necesitamos usar **punteros**. Un
+parámetro que es un puntero y se usa con este fin se convierte en un **parámetro
+de salida**.
 
 ```c
 #include <stdio.h>
@@ -428,14 +432,14 @@ escribe directamente en las ubicaciones de memoria de `miCociente` y `miResto`
 en la función `main` a través de sus punteros, permitiendo que `main` acceda a
 los resultados de la división.
 
-* * *
+---
 
 ### Parámetro de Entrada/Salida (a través de Punteros)
 
 Similar al parámetro de salida, un **parámetro de entrada/salida** es un puntero
- que permite a la función **leer un valor inicial del llamador y luego
- modificarlo**, devolviendo el valor modificado al llamador. Su rol es tanto
- recibir datos como devolver datos alterados.
+que permite a la función **leer un valor inicial del llamador y luego
+modificarlo**, devolviendo el valor modificado al llamador. Su rol es tanto
+recibir datos como devolver datos alterados.
 
 ```c
 #include <stdio.h>
@@ -461,11 +465,11 @@ int main() {
 ```
 
 En este caso, `contador` en `incrementarContador` es un **parámetro de
-entrada/salida**. La función lee el valor inicial de `miVariableContador` (`10`),
-lo incrementa a `11`, y ese cambio se refleja directamente en
+entrada/salida**. La función lee el valor inicial de `miVariableContador`
+(`10`), lo incrementa a `11`, y ese cambio se refleja directamente en
 `miVariableContador` en `main`.
 
-* * *
+---
 
 ### Variable Local Temporal (en funciones)
 
@@ -492,10 +496,10 @@ int main() {
 ```
 
 Aquí, `sumaTemporal` es una **variable local temporal** dentro de
-`calcularPromedio`. Su único propósito es almacenar la suma intermedia
-antes de calcular el promedio final.
+`calcularPromedio`. Su único propósito es almacenar la suma intermedia antes de
+calcular el promedio final.
 
-* * *
+---
 
 ### La Importancia de los Roles
 
@@ -503,12 +507,13 @@ Entender estos roles te da una perspectiva más rica sobre cómo funcionan tus
 programas. No se trata solo de saber qué tipo de dato almacena una variable,
 sino **para qué la estás usando**. Reconocer estos patrones te ayudará a:
 
-* **Escribir código más limpio y legible.**
-* **Depurar errores más fácilmente.**
-* **Diseñar algoritmos más eficientes y comprensibles.**
+- **Escribir código más limpio y legible.**
+- **Depurar errores más fácilmente.**
+- **Diseñar algoritmos más eficientes y comprensibles.**
 
 Comprender estos roles, especialmente la distinción entre pasar por valor y
 pasar por referencia (con punteros) para lograr parámetros de salida o
-entrada/salida, es **crucial para diseñar funciones robustas y predecibles
-en C**. Te ayuda a definir claramente la "interfaz" de tu función: qué necesita
-para trabajar y qué tipo de resultados puede ofrecer de vuelta al código que la llama.
+entrada/salida, es **crucial para diseñar funciones robustas y predecibles en
+C**. Te ayuda a definir claramente la "interfaz" de tu función: qué necesita
+para trabajar y qué tipo de resultados puede ofrecer de vuelta al código que la
+llama.
