@@ -14,7 +14,7 @@ abstract: |
   La introducción a la cátedra con los terminos y condicones de la misma.
 ---
 
-# Introducción a la cátedra
+## Introducción a la cátedra
 
 Aquí, veremos los puntos clave de la cátedra, los "terminos y condiciones" e
 incluyendo el equipo docente, las vías de comunicación, la modalidad de cursada,
@@ -39,9 +39,12 @@ a lo largo del cuatrimestre.
 Para mantener una comunicación fluida y ordenada, establecemos los siguientes
 canales. Es importante utilizarlos de manera adecuada.
 
-:class: tip Para consultas generales sobre la materia, usá el foro de
-discusiones del repositorio de GitHub:
+:::{tip} Para consultas generales sobre la materia
+
+Usá el foro de discusiones del repositorio de GitHub:
 [INGCOM-UNRN-P1/discussions](https://github.com/INGCOM-UNRN-P1/discussions)
+
+:::
 
 Para dudas específicas sobre la corrección de un trabajo práctico, realiza un
 comentario directamente en el hilo de la corrección en GitHub. (Consulten el
@@ -70,16 +73,48 @@ Es por esto que...
 Tomaremos asistencia y plantearemos un minimo de 80% de asistencia para
 regularizar la cátedra.
 
-:::{note} Esto no significa que es necesario estar si o si el 80% de las clases,
-pero las excepciones se tratan antes y no despues. :::
+:::{note}
 
-## Trabajos Prácticos (TPs)
+Esto no significa que es necesario estar si o si el 80% de las clases, pero las
+excepciones se tratan antes y no despues.
+
+:::
+
+## La parte práctica
+
+- Las clases prácticas serán presenciales.
+- Los estudiantes deberán resolver las guías de ejercicios fuera del horario de
+  clase.
+- En clase se resolverán dudas sobre los ejercicios de las guías y se podrán
+  realizar ejercicios adicionales.
+
+La incorporación de herramientas será progresiva a lo largo del cuatrimestre y
+se divide en fases.
+
+### Trabajos Prácticos (TPs)
 
 La programación es una disciplina eminentemente práctica. Por lo tanto, los
-Trabajos Practivos son el eje central de la materia.
+Trabajos Practicos son el eje central de la materia.
 
-A diferencia de años anteriores, y para bajar la carga de correccion,
-adoptaremos una estrategia diferente este año.
+Estos seguiran la planificacion teorica del cuatrimestre y las entregas estaran
+publicadas en el calendario y planificacion semanal que estará en el campus
+bimodal.
+
+:::{important} Aclaración sobre el uso de IA's
+
+Son ustedes los que tienen que practicar, por lo que hacer entregas de los TP
+que no fueran resueltos por ustedes, puede provocar que la entrega no sea
+aceptada.
+
+**La cátedra se reserva el derecho a rechazar un entregable si hay sospechas de
+su uso**
+
+:::
+
+Y siguiendo en linea con lo referido a la practica, la cantidad de ejercicios
+disponibles será elevada, pero no todos son de entrega obligatoria, se eligiran
+ejercicios representativos para ir viendo como vienen y que cuestiones es necesario
+reforzar.
 
 ### Fase I
 
@@ -88,28 +123,55 @@ sin repositorio, sin entregas semanales. Y los ejercicios saldran del
 [cuadernillo](cuadernillo.md)
 
 De estos ejercicios haremos un "muestreo", el cual consistira en que carguen
-unos ejercicios resueltos en el campus. Los detalles de esta actividad se los
-daremos mas adelante.
+los ejercicios resueltos a entregar en el campus. Los detalles de esta actividad
+se los daremos mas adelante.
+
+Los ejercicios de esta parte, estan pensados para ser resueltos, principalmente,
+en sus casas fuera del horario de clases.
+
+:::{note}Sobre el uso de Git/Github
+
+El uso de Git será optativo _al principio_.
+
+:::
 
 ### Fase II
 
 Esta comenzará luego del primer parcial y las practicas se desarrollaran sobre
 repositorios git alojados en GitHub.
 
+Los ejercicios de esta parte, tambien tendran una parte opcional, pero recomendada.
+
+### Fase III
+
+La ultima fase, consiste en la utilización de proyectos alojados en git y utilizando
+`Makefiles` (no se preocupen por _que son_ ya que lo veremos en clases).
+
+Así como requerirán la creación de casos de prueba y unidades de compilación.
+
 ### Entregas de los TP
 
-:::{warning} Las fechas de entrega son inamovibles, esto significa que luego de
-la fecha de entrega o "fecha limite" el TP no sera recibido y quedará como
-incompleto :::
+:::{warning}
 
-Para regularizar la materia, es necesario entregar todos los trabajos practicos.
+Las fechas de entrega son inamovibles, esto significa que luego de
+la fecha de entrega o "fecha limite" el TP no sera recibido y quedará como
+incompleto.
+
+:::
+
+Las entregas obligatorias se tendrán en cuenta en la corrección del examen parcial.
 
 ## Parciales
 
 La evaluación formal se realiza a través de exámenes parciales, estos seran, una
-parte teórica en la computadora y una parte de programación en papel.
+parte teórica en la computadora utilizando el campus bimodal y una parte de
+programación en papel.
 
-:::{warning} Las notas de los parciales no se promedia :::
+:::{warning}
+
+Las notas de los parciales no se promedia.
+
+:::
 
 ### Recuperatorio
 
@@ -118,7 +180,11 @@ Al final del cuatrimestre habrá **una** fecha de recuperatorio en donde podran:
 - Recuperar un parcial desaprobado y alcanzar la regularidad.
 - Mejorar la nota de un parcial para intentar alcanzar la promoción.
 
-:::{warning} Para acceder al recuperatorio, es necesario rendir el parcial. :::
+:::{warning} Para acceder al recuperatorio
+
+Es necesario rendir el parcial.
+
+:::
 
 ## Criterios de evaluación del código entregado
 
@@ -158,9 +224,13 @@ Todo el material de la cursada (código de ejemplo, guías) se encuentra
 centralizado en este sitio y tambien en el repositorio de la cursada: :
 [github.com/INGCOM-UNRN-P1/cursada-2025](http://github.com/INGCOM-UNRN-P1/cursada-2025)
 
-:::{note} Se sugiere "observar" (_Watch_) el repositorio y activar la opción
+:::{note} 
+
+Se sugiere "observar" (_Watch_) el repositorio y activar la opción
 _All Activity_. De esta forma, recibirás notificaciones por email cada vez que
-se suba o modifique material, manteniéndote siempre al día. :::
+se suba o modifique material, manteniéndote siempre al día. 
+
+:::
 
 El cronograma y el calendario con todas las fechas importantes están disponibles
 en el campus virtual de la universidad.
@@ -174,5 +244,9 @@ Las IA no necesitan practicar programación, son ustedes los que tienen que
 aprender, ademas, los ejercicios que les planteamos ya han sido resueltos de
 miles de formas diferentes.
 
-:::{warning} La utilizacion de alguna IA para la resolucion de parciales es una
-falta grave y provocara la expulsión directa. :::
+:::{warning} 
+
+La utilizacion de alguna IA para la resolucion de parciales es una
+falta grave y provocara la expulsión directa. 
+
+:::
