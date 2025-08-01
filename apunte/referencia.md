@@ -599,7 +599,10 @@ int sumar(int a, int b) {
 
 ## Glosario
 
-:::{glossary} Lenguaje Ensamblador : El lenguaje ensamblador (assembly language)
+:::{glossary} 
+
+Lenguaje Ensamblador
+: El lenguaje ensamblador (assembly language)
 es un lenguaje de programación de bajo nivel que representa las instrucciones de
 código de máquina de una arquitectura de procesador específica mediante
 mnemónicos. Mantiene una correspondencia casi directa (a menudo uno a uno) con
@@ -608,10 +611,13 @@ las operaciones del hardware. Requiere un programa llamado ensamblador
 procesador. Ofrece control preciso sobre el hardware con una legibilidad
 superior a la del código máquina.
 
-Lenguaje de Máquina : El lenguaje de máquina (machine language o machine code)
+Lenguaje de Máquina
+: El lenguaje de máquina (machine language o machine code)
 es el conjunto de instrucciones en formato binario (secuencias de ceros y unos)
 que la unidad central de procesamiento (CPU) de una computadora puede ejecutar
 directamente. Es el nivel más bajo de lenguaje de programación, específico para
 cada arquitectura de procesador. Todas las formas de software deben ser
 traducidas o interpretadas a este lenguaje para poder ser ejecutadas por el
-hardware. :::
+hardware. 
+
+:::
