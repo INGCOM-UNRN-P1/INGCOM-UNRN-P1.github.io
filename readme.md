@@ -40,4 +40,4 @@ herramienta.
 
 ## Kudos
 
-- [@gonmolina](https://github.com/gonmolina) por la ayuda con MystMD
+- [gonmolina](https://github.com/gonmolina) por la ayuda con MystMD
