@@ -6,15 +6,16 @@ subtitle: La sintaxis y programas básicos.
 
 ## Introducción
 
-Antes de lanzarte al mundo de la programación, hay algo que tiene quedar claro:
-programar no es aprender un lenguaje, es aprender a pensar. El lenguaje es la
-herramienta, pero el arte está en construir instrucciones lógicas para resolver
-problemas.
+Antes de lanzarnos al mundo de la programación en C, hay algo que tiene quedar
+claro: programar no es aprender un lenguaje, es aprender a pensar. El lenguaje
+es la herramienta, pero el arte está en construir instrucciones lógicas para
+resolver problemas.
 
 Programar es darle instrucciones exactas a una computadora para que haga algo
 por vos. Pero hay una diferencia clave: la computadora **no entiende
 ambigüedades**. No sabe lo que "más o menos" significa. Cada paso tiene que
-estar perfectamente definido.
+estar perfectamente definido. Y C, tiene algunas ambiguedades que pueden traer
+resultados inesperados.
 
 Al programar si te olvidás un detalle, deja de funcionar. Por eso hay que
 aprender a **pensar como una máquina**, pero también a **estructurar como un
@@ -27,16 +28,25 @@ En C, no hay atajos y eso es bueno. Te obliga a pensar de forma clara y lógica.
 ### Instalá lo justo y necesario
 
 - **Compilador C:** `gcc` o `clang`
-- **Editor de texto:** `vim`, `nano`, `gedit`, VSCode... o lo que te haga feliz.
+- **Editor de texto:** `vim`, `nano`, `gedit`, CodeBlocks, VSCode... o lo que te haga feliz.
 - **Terminal:** vas a vivir acá. Aprendé a amar el prompt.
 
 En Debian/Ubuntu,
 
 ```bash
-sudo apt install build-essential     # en
+sudo apt install build-essential
 ```
 
 Para Windows, podes seguir la guia [../guias/compilador.md]
+
+:::{warning} ¡No se atrasen con esto!
+
+Si tienen problemas y dificultades para esta parte, resuelvanló lo antes posible ya
+que se trabaran con las herramientas fundamentales.
+
+Consulten en las clases prácticas o en el espacio de [Discussions](https://github.com/orgs/INGCOM-UNRN-P1/discussions).
+
+:::
 
 ### Primer programa: el "Hola Mundo" al C
 
@@ -58,7 +68,7 @@ Hola, mundo!
 
 ```
 
-:::{attention}
+:::{warning}
 
 No te dejes estar Si no ves el mensaje que esta dentro de la instrucción
 `printf`, hay algún problema que es necesario solucionar. No te trabes acá que
@@ -91,7 +101,8 @@ bloquea lo que viene a continuación.
 #include <stdio.h>
 
 int main() {
-    int a, b;
+    int a
+    int b;
     printf("Ingresá dos números: ");
     scanf("%d %d", &a, &b);
     printf("La suma es: %d\n", a + b);
@@ -142,7 +153,9 @@ sin inicializar contenga valores viejos, distintos de cero, o cualquier cosa
 inesperada. Por eso, **siempre inicializá tus variables** antes de usarlas. Esto
 evita errores difíciles de detectar y hace tu código más seguro y predecible.
 
-### Reglas del juego
+Y es por acá que entran en juego, las cuestiones de estilo como la [](estilo#0x0003h)
+
+### ¿Como funcionan?
 
 - Las variables deben declararse antes de usarse.
 - No podés cambiar el tipo una vez declarado.
@@ -346,8 +359,8 @@ while (i < 5) {
 
 :::{note} `while`
 
-El bloque dentro de `while` se ejecuta mientras la condición
-(`i < 5`) sea verdadera. Si nunca lo es, el bloque no se ejecuta.
+El bloque dentro de `while` se ejecuta mientras la condición (`i < 5`) sea
+verdadera. Si nunca lo es, el bloque no se ejecuta.
 
 :::
 
@@ -409,7 +422,7 @@ Este tipo de bucle es ideal cuando sabés cuántas veces querés repetir.
 
 :::{admonition} Las partes del `for`
 
- `for (inicio; condición; paso) { bloque }`
+`for (inicio; condición; paso) { bloque }`
 
 - **inicio:** una sola vez al comenzar.
 - **condición:** se evalúa antes de cada iteración.
@@ -431,10 +444,10 @@ while (i < 5) {                 // condición
 ### Ejercicio 5
 
 :::{exercise}
-:label: lazo_for
+:label: lazo_for 
 :enumerator: for
 
-Usá un `for` para mostrar los múltiplos de 3 entre 0 y 30. 
+Usá un `for` para mostrar los múltiplos de 3 entre 0 y 30.
 
 :::
 
@@ -487,11 +500,11 @@ flowchart TD
 ### Ejercicio 6
 
 :::{exercise}
-:label: lazo_repeat
+:label: lazo_repeat 
 :enumerator: for
 
 Usá un lazo `do..while` para controlar el acceso a un edificio, pidiendole al
-usuario que ingrese un número usado como clave. 
+usuario que ingrese un número usado como clave.
 
 :::
 
@@ -561,17 +574,17 @@ for (int i = 1; i <= 5; i++) {
 }
 ```
 
-:::{tip} 
+:::{tip}
 
-Usá `break` cuando ya no tenga sentido seguir iterando, y `continue`
-cuando quieras saltear un caso particular. 
+Usá `break` cuando ya no tenga sentido seguir iterando, y `continue` cuando
+quieras saltear un caso particular.
 
 :::
 
 :::{admonition} Observación
 
-La cátedra establece que el uso de `break` y `continue` no esta permitido 
-por dos motivos:
+La cátedra establece que el uso de `break` y `continue` no esta permitido por
+dos motivos:
 
 1. **Reducen la legibilidad del código**: cuando hay muchas salidas posibles
    dentro de un bucle, se vuelve más difícil entender cuándo y por qué termina.
@@ -587,8 +600,8 @@ se explican a continuación. :::
 
 ### Ejercicio 7
 
-:::{exercise}
-:label: lazo_break
+:::{exercise} 
+:label: lazo_break 
 :enumerator: break
 
 Modificá el siguiente código para que no utilice la instrucción `break`.
@@ -630,8 +643,8 @@ int main() {
 
 ### Ejercicio 8
 
-:::{exercise}
-:label: lazo_continue
+:::{exercise} 
+:label: lazo_continue 
 :enumerator: continue
 
 Modificá el siguiente código para que no utilice la instrucción `continue`.
@@ -716,12 +729,12 @@ int main() {
 
 ### Ejercicio 8
 
-:::{exercise}
-:label: lazo_continue
+:::{exercise} 
+:label: lazo_continue 
 :enumerator: continue
 
 Reescribí el ingreso de clave usando una bandera booleana en lugar de `break` o
-`do...while`. 
+`do...while`.
 
 :::
 
