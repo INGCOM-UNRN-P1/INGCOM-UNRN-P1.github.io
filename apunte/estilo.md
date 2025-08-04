@@ -867,7 +867,7 @@ dinámicos:
 ptr = malloc(sizeof(*ptr));  // Asigna la cantidad correcta de memoria para el tipo de ptr
 ```
 
-(0x0026h)=
+(0x0027h)=
 ### Regla `0x0027h`: Verificar siempre los límites de los arreglos antes de acceder a sus elementos
 
 Evita accesos fuera de los límites del arreglo, esto es una de las fuentes más
