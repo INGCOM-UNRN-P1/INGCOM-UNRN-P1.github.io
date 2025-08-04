@@ -21,12 +21,10 @@ project:
         - file: apunte/gradual.md
         - file: apunte/funciones.md
         - file: apunte/referencia.md
-
+        - file: apunte/estilo.md
 #        - file: apunte/arreglos.md
 #        - file: apunte/cadenas.md
 #        - file: apunte/punteros.md
-
-        - file: apunte/estilo.md
     - title: Bibliografia
       children:
         - file: bibliografia/suplementaria.md
