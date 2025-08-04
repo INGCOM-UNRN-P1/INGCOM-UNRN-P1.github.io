@@ -39,10 +39,10 @@ project:
         - file: extras/roles.md
     - title: Guias
       children:
-        - file: guias/bash.md
         - file: guias/compilacion.md
         - file: guias/compilador.md
         - file: guias/vscode.md
+#        - file: guias/bash.md
     - title: Practicas
       children:
         - file: practicas/TP0-2024.md
