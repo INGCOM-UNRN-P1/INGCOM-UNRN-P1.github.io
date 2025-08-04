@@ -1,4 +1,10 @@
-## La función printf
+---
+title: La función printf
+short_title: printf
+subtitle: Para que podemos mostrar variables.
+---
+
+## Introducción
 
 La función `printf` (que deriva su nombre de “print formatted”) imprime un
 mensaje por pantalla utilizando una “cadena de formato” que incluye las
