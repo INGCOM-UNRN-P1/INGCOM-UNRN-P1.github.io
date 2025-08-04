@@ -586,8 +586,8 @@ Ojalá el programador me lo hubiera dicho en la comparación.
 
 Esto porque cualquier valor numérico distinto de cero se considera **verdadero** en un
 contexto lógico, mientras que cero se considera **falso**. Esto se lo llama
-"truthyness" y depender de ello no ayuda a la legibilidad del código y por lo
-tanto, no esta permitido.
+"truthyness", o "veracidad" y depender de ello no ayuda a la legibilidad del código
+y por lo tanto, no esta permitido.
 
 Por ejemplo, si una variable numérica se usa como condición, siempre se debe ser
 explícito:
