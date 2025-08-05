@@ -7,14 +7,10 @@ authors:
   - name: Miguel Mariguín
   - name: Daniel Teira
   - name: Mauro Fermín
-    affiliations:
-      - Universidad Nacional de Rio Negro
 exports:
   - format: pdf
     template: springer
     article_type: Report
-abstract: |
-  La introducción a la cátedra con los terminos y condicones de la misma.
 ---
 
 ## Introducción a la cátedra
