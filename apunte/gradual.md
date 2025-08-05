@@ -23,7 +23,155 @@ humano inteligente**.
 
 En C, no hay atajos y eso es bueno. Te obliga a pensar de forma clara y lógica.
 
-## 1. Las herramientas del aprendiz
+## ¿Por qué aprender C?
+
+El lenguaje C fue creado en 1972 por **Dennis Ritchie** y **Brian Kernighan** en
+los Bell Labs. A pesar de tener más de 50 años de existencia, se sigue
+utilizando ampliamente debido a sus características fundamentales:
+
+- **Simplicidad**: Tiene una sintaxis reducida que facilita entender cómo se
+  relacionan las instrucciones con el hardware.
+
+- **Eficiencia**: El código compilado en C es muy rápido, cercano al rendimiento
+  del lenguaje ensamblador.
+
+- **Portabilidad**: Permite escribir programas que pueden ejecutarse en
+  distintos sistemas operativos con mínimas modificaciones.
+
+- **Historia y Origen:** Nació de la necesidad de tener un lenguaje eficiente y
+  portable para desarrollar el sistema operativo UNIX.
+
+- **Evolución y Estandarización:** Lejos de ser un lenguaje inamovible, C ha
+  estado en constante revisión y mejora. Ha sido estandarizado primero por el
+  {abbr}`ANSI (Instituto Nacional Estadounidense de Estándares)` y luego por la
+  {abbr}`ISO (Organización Internacional de Normalización)` e
+  {abbr}`IEC (Comisión Electrotécnica Internacional)`. De forma de mantener no
+  solo la vigencia el lenguaje sinó su compatibilidad entre implementaciones,
+  más adelante veremos algo al respecto a este tema.
+
+  - [ANSI X3.159-1989](https://nvlpubs.nist.gov/nistpubs/Legacy/FIPS/fipspub160.pdf)
+  - [ISO/IEC 9899:1990](https://www.iso.org/standard/17782.html)
+  - [ISO/IEC 9899:1999](https://www.iso.org/standard/29237.html)
+  - [ISO/IEC 9899:2011](https://www.iso.org/standard/57853.html)
+  - [ISO/IEC 9899:2018](https://www.iso.org/standard/74528.html)
+  - [ISO/IEC 9899:2024](https://www.iso.org/standard/82075.html)
+
+- **Influencia:** C ha servido como base e inspiración para muchos de los
+  lenguajes más utilizados hoy en día, incluyendo C++, C#, Java, JavaScript,
+  Objective-C y PHP. Aprender C te da una base sólida para entender cómo
+  funcionan muchos otros lenguajes, aprovecharemos esto en Programación 2 el
+  cuatrimestre siguiente.
+
+- **Popularidad**: Figura entre los lenguajes más usados según el
+  [índice TIOBE](https://www.tiobe.com/tiobe-index/c/), que mide el "interes" en
+  los diferentes lenguajes de programación, al momento de escribir esto, se
+  encuentra en el puesto número 3.
+
+## Características Principales de C
+
+### Nivel de Abstracción
+
+Aunque C es considerado un lenguaje de **nivel medio**, en el momento en el que
+fue creado, era de "alto nivel", esto teniendo en cuenta la comparación con
+otros lenguajes y en particular, el {term}`Lenguaje Ensamblador`.
+
+Hoy en día y con el desarrollo de nuevos lenguajes, y teniendo en cuenta que
+pasaron _solo_ 50 años de que fué creado, se lo sitúa en un nivel superior a los
+de bajo nivel, pero inferior a los que actualmente son considerados de alto
+nivel como Python o Java.
+
+Esto le da un balance único:
+
+- Permite un control muy cercano al hardware del sistema (gestión de memoria,
+  registros, etc.).
+- Ofrece construcciones de programación estructurada que facilitan el desarrollo
+  de algoritmos complejos.
+
+Esta característica está ligada a que C es un lenguaje **compilado**. El código
+fuente se traduce directamente a código máquina antes de ejecutarse, a
+diferencia de los lenguajes **interpretados** (como Python) que son traducidos
+línea por línea en tiempo de ejecución.
+
+### Atributos Clave
+
+- **Compilado** un programa es convertido a código de máquina de forma completa
+  antes de ser ejecutado por otro programa, llamado compilador.
+- **Imperativo:** Un programa consiste en una secuencia de instrucciones que
+  modifican el estado (las variables) del programa.
+- **Estructurado:** El código se organiza en bloques lógicos y funciones, lo que
+  promueve la claridad y la reutilización.
+
+### Fortalezas y debilidades del lenguaje
+
+Ademas de las razones para aprender y utilizar el lenguaje que estan mas arriba,
+hay un conjunto adicional de fortalezas importantes para tratar:
+
+#### Acceso a conceptos de bajo nivel
+
+Para ser utilizado como lenguaje de programacion para sistemas, C provee acceso
+a conceptos directamente relacionados con el hardware que lo ejecutará.
+Conceptos como el tamaño en memoria, punteros, segmentos y las instrucciones son
+en definitiva muy similares a las que la computadora utiliza, de forma que los
+programas sean lo mas rápidos posibles.
+
+#### C es un lenguaje pequeño
+
+El lenguaje provee un conjunto de instrucciones reducido, tengan en cuenta que
+el documento que define el lenguaje original, el K&R Segunda Edición cubre el
+lenguaje completo en 49 páginas. Todo lo demas provisto por el lenguaje es
+cubierto con la libreria estándar integrada implementada con funciones.
+
+#### C es un lenguaje permisivo
+
+El lenguaje asume que sabes lo que estas haciendo, por lo que permite hacer una
+mayor cantidad de cosas, para bien y para mal
+
+### Debilidades
+
+El lenguaje C, a pesar de su gran popularidad y potencia, presenta ciertas
+debilidades inherentes que deben ser comprendidas para un desarrollo eficiente y
+seguro. Es crucial conocer estas limitaciones desde su origen para establecer
+estrategias que las prevengan.
+
+Estas surgen de la misma fuente que muchas de sus fortalezas: la cercanía del
+lenguaje C a la máquina. A continuación, algunas de sus debilidades más notorias
+
+#### Los programas en C pueden ser propensos a errores
+
+La flexibilidad de C lo convierte en un lenguaje propenso a errores. Los errores
+de programación que serían detectados en muchos otros lenguajes no pueden ser
+detectados por un compilador de C. En este aspecto, C es muy parecido al
+lenguaje ensamblador, donde la mayoría de los errores no se detectan hasta que
+el programa se ejecuta. Para empeorar las cosas, C contiene una serie de trampas
+para los desprevenidos. En clases siguientes, veremos cómo un punto y coma extra
+puede crear un lazo infinito o un símbolo faltante puede causar que un programa
+falle.
+
+#### Los programas en C pueden ser difíciles de entender
+
+Aunque C es un lenguaje pequeño según la mayoría de las medidas, tiene una serie
+de características que no se encuentran en muchos lenguajes de programación (y
+que, en consecuencia, a menudo se malinterpretan). Estas características se
+pueden combinar de muchas maneras, muchas de las cuales, aunque obvias para el
+autor original de un programa, pueden ser difíciles de entender. Otro problema
+es la naturaleza concisa de los programas en C. C fue diseñado en un momento en
+que la comunicación interactiva con las computadoras era tediosa en el mejor de
+los casos. Como resultado, C fue creado a propósito para ser conciso y minimizar
+el tiempo requerido para ingresar y editar programas. La flexibilidad de C
+también puede ser un factor negativo; los programadores que son demasiado
+inteligentes para su propio bien pueden hacer que los programas sean casi
+imposibles de entender.
+
+#### Los programas en C pueden ser difíciles de modificar
+
+Los programas grandes escritos en C pueden ser difíciles de cambiar si no han
+sido diseñados pensando en el mantenimiento. Los lenguajes de programación
+modernos suelen proporcionar características como clases y paquetes que soportan
+la división de un programa grande en piezas más manejables. C,
+desafortunadamente, carece de tales características.
+
+
+## Las herramientas del aprendiz
 
 ### Instalá lo justo y necesario
 
@@ -37,7 +185,7 @@ En Debian/Ubuntu,
 sudo apt install build-essential
 ```
 
-Para Windows, podes seguir la guia [../guias/compilador.md]
+Para Windows, podes seguir la guia sobre la instalación del [compilador](../guias/compilador)
 
 :::{warning} ¡No se atrasen con esto!
 
@@ -50,23 +198,64 @@ Consulten en las clases prácticas o en el espacio de [Discussions](https://gith
 
 ### Primer programa: el "Hola Mundo" al C
 
-```c
-#include <stdio.h>
+```{code} c
+:label: holamundo
+:caption: El indispensable Hola Mundo!
+:linenos:
+:filename: hola.c
+#include <stdio.h>              // directiva al preprocesador
 
-int main() {
-    printf("Hola, mundo!\n");
-    return 0;
-}
+int main()                      // punto de entrada del programa
+{                               // inicio de un bloque de código
+    printf("Hola mundo C.\n");  // llamada a la instruccion de salida
+    return 0;                   // finalización del programa
+}                               // fin del bloque de código
 ```
 
-Compilá:
+#### Compilación y Ejecución
 
-```sh
-gcc hola.c -o hola
-./hola
-Hola, mundo!
+Para ejecutar un programa en C, primero hay que compilarlo. Esto se hace desde
+la terminal con un compilador como `gcc`. Y aunque vamos a ver y usar un entorno
+gráfico, la consola es el mínimo común denominador.
 
+```{code} sh
+:label: salidamundo
+:caption: La salida por la terminal.
+
+# Compila el archivo hola.c y crea un ejecutable llamado a.out
+# (en Linux/macOS) o a.exe (en Windows)
+$> gcc hola.c
+
+# Ejecuta el programa
+$> ./a.out
+Hola mundo C.
+$>
 ```
+
+Si prestamos atención a la instrucción `printf`, vemos que estan faltando dos
+caracteres que estan en el programa pero no se ven en la salida. Esto es una
+secuencia de control, es la forma de ingresar caracteres que no son visibles, y
+el `\n` es el "enter" o salto de linea.
+
+#### Pieza por pieza
+
+1. `#include <stdio.h>`: Es una **directiva del preprocesador**. Le indica al
+   compilador que incluya la librería estándar de entrada/salida (`stdio.h`),
+   que contiene la definición de la función `printf`.
+2. `int main()`: Es el **punto de entrada** del programa. Todo programa en C
+   comienza su ejecución aquí. La palabra `int` indica que la función devolverá
+   un número entero.
+3. `{ ... }`: Las llaves definen un **bloque de código**. Todo lo que está
+   dentro de las llaves pertenece a la función `main`.
+4. `printf("Hola mundo C.\n");`: Es una **instrucción** que llama a la función
+   `printf` para imprimir el texto en la consola. `\n` es un carácter especial
+   que representa un salto de línea.
+5. `return 0;`: Es la instrucción que **finaliza la función `main`** y devuelve
+   un valor al sistema operativo. Por convención, `0` significa que el programa
+   terminó sin errores.
+6. El código del ejemplo, hace uso de comentarios de linea para ayudarlos a
+   ubicar la pieza especifica que se describe en esta lista.
+
 
 :::{warning}
 
@@ -76,7 +265,7 @@ bloquea lo que viene a continuación.
 
 :::
 
-## 2. El Algoritmo: pensar antes de escribir
+## El Algoritmo: pensar antes de escribir
 
 ### Mentalidad de programador
 
@@ -100,7 +289,8 @@ bloquea lo que viene a continuación.
 ```c
 #include <stdio.h>
 
-int main() {
+int main()
+{
     int a
     int b;
     printf("Ingresá dos números: ");
@@ -110,7 +300,79 @@ int main() {
 }
 ```
 
-## 3. Variables: tus cajas
+## Sobre las reglas de estilo
+
+El uso de reglas de estilo en la programación en C, aunque a veces se percibe
+como una restricción, es fundamental para garantizar la consistencia y
+legibilidad del código. Al adherirse a un conjunto de normas, como las
+convenciones de nomenclatura, la indentación uniforme y la estructuración de
+comentarios, se facilita enormemente la colaboración entre desarrolladores y
+el mantenimiento del software a largo plazo. Incluso las reglas que pueden
+parecer controvertidas o arbitrarias, como la posición de las llaves o el uso
+de espacios en lugar de tabulaciones, tienen un propósito pedagógico. Obligan
+a los programadores a ser más conscientes de su estilo de escritura, promoviendo
+un aprendizaje más profundo sobre las mejores prácticas y la importancia de la
+uniformidad en el desarrollo de software. Esto eleva la calidad del código no
+solo en su funcionalidad, sino también en su estética y claridad.
+
+Por otro lado, esto es parte del uso profesional del lenguaje, tanto que existen
+multiples estandares de estilo
+
+### C obfuscado
+
+Incluso los fans mas acerrimos del lenguaje estan de acuerdo que el lenguaje
+puede volverse dificil de leer con facilidad.
+
+Esta "capacidad" del lenguaje se acentua en la competencia anual de código C
+obfuscado [IOCC](https://www.ioccc.org/), en la que se buscan las formas más
+rebuscadas posibles para crear programas que compilan y funciones pero de la
+forma mas enrevesada posible.
+
+El ganador en la categoria "El mejor de una linea" del 2019,
+[Dave Burton, Contar palabras](https://www.ioccc.org/2019/burton/index.html)
+
+```c
+e,n,j,o,y;main(){for(++o;n=-~getchar();e+=11==n,y++)o=n>0xe^012>n&&'`'^n^65?!n:!o?++j:o;printf("%8d%8d%8d\n",e^n,j+=!o&&y,y);}
+```
+
+Como veran, el lenguaje se presta para crear bloques bastante duros.
+
+## Sintaxis Básica
+
+La **sintaxis** es el conjunto de reglas que definen cómo debe escribirse el
+código para ser considerado válido.
+
+Mientras que la **gramática** determina si el código tiene sentido lógico y
+estructural. Es posible que algo sea sintácticamente válido pero gramaticalmente
+incorrecto.
+
+### Identificadores y Palabras Reservadas
+
+**Identificadores:** Son los nombres que damos a variables y funciones. Deben
+empezar con una letra o un guion bajo (`_`) y pueden contener letras, números y
+guiones bajos. C distingue entre mayúsculas y minúsculas (`suma` es diferente de
+`Suma`).
+
+- Comienzan con letra o guion bajo: `azAZ_`
+- Pueden incluir números después: `0-9`
+- Pueden utilizar guiones bajos: `_`
+- No pueden ser palabras reservadas.
+
+**Palabras Reservadas:** Son palabras con un significado especial en C y no
+pueden ser usadas como identificadores (ej: `int`, `if`, `else`, `while`,
+`return`).
+
+#### Ejemplos
+
+- Correctos: `sumaTotal`, `valor_maximo`
+- Incorrectos: `2variable`, `var-uno`, `int`
+
+Es importante tener en cuenta que hay una forma especifica para cada tipo de
+identificador, esto lo iremos viendo a lo largo del curso y esta resumido en las
+cuestiones de estilo.
+
+
+## Variables: tus cajas
 
 ### ¿Qué son?
 
@@ -180,7 +442,8 @@ continuación vamos a ver como pedir esto por teclado.
 
 #include <stdio.h>
 
-int main() {
+int main()
+{
     int edad = 30;
     float altura = 1.75;
     char inicial = 'M';
@@ -194,7 +457,65 @@ int main() {
 ```
 ````
 
-## 4. Entrada y salida: hablar con el usuario
+### Un poco mas de detalle
+
+En C, cada expresión tiene un "valor" y, fundamentalmente, se clasifica
+en una de dos categorías: **L-value** o **R-value**. Esta distinción es
+crucial para entender cómo el compilador maneja los datos, las 
+asignaciones de memoria y los diferentes roles de los identificadores en
+un programa.
+
+#### L-Values
+
+Un L-value (del inglés _locator_ value o _left_ value) representa
+a una variable en la memoria, el identificador en sí. (la etiqueta de 
+la caja).
+
+Este es una ubicacion que podemos modificar, y donde se guardan los
+resultados de las expresiones derechas (R-Values).
+
+Por ejemplo, en la declaración `int x = 10;`, la variable `x` es un L-value. `x` se refiere a una ubicación de memoria específica donde se almacena el valor `10`. Podemos modificar su valor, como en `x = 20;`,
+
+#### R-Values
+
+Un R-value (del inglés _read_ value, '_right_' value) es una expresión que
+representa un valor temporal o literal que no tiene una ubicación 
+especifica en la memoria.
+
+Como su nombre indica, un R-value solo puede ser leído y, por lo tanto, solo puede aparecer en el lado derecho de un operador de asignación. No se puede asignar un nuevo valor a un R-value porque no hay un lugar garantizado en la memoria para almacenarlo.
+
+Ejemplos comunes de R-values son los literales numéricos (como `10`,
+`3.14`), el resultado de una operación aritmética (`a + b`), o el valor
+de retorno de una función (`mi_funcion()`). Intentar asignar un valor a
+un R-value, como en `100 = x; o (a + b) = 5;`, resultará en un error de
+compilación, ya que ni `100` ni el resultado de `a + b` son L-values con
+una dirección de memoria asignable.
+
+## Entrada y salida: hablar con el usuario
+
+### `printf()` - Mostrar resultados
+
+Sirve para mostrar texto y valores como mensajes, pueden consultar el [apunte más
+detallado del tema](../extras/printf).
+
+```c
+printf("Tenés %d años\n", edad);
+```
+
+El par de simbolos `\n`, se usan para indicar el 'salto de linea', para que no quede
+todo junto en una sola. Especificamente, cada vez que vemos una `\`, se indica que
+el siguiente caracter tiene un significado diferente del que vemos, esto se llama
+[secuencias de escape](../extras/printf#escape)
+
+(formatos)=
+### Especificadores más comunes
+
+| Tipo     | Especificador       |
+| -------- | ------------------- |
+| `int`    | `%d`                |
+| `float`  | `%f`                |
+| `char`   | `%c`                |
+| `string` | `%s` (con `char[])` |
 
 ### `scanf()` - Leer datos desde el teclado
 
@@ -208,32 +529,17 @@ printf("Ingresá tu edad: ");
 scanf("%d", &edad);
 ```
 
-### `printf()` - Mostrar resultados
-
-Sirve para mostrar texto y valores como mensajes:
-
-```c
-printf("Tenés %d años\n", edad);
-```
-
-### Especificadores más comunes
-
-| Tipo     | Especificador       |
-| -------- | ------------------- |
-| `int`    | `%d`                |
-| `float`  | `%f`                |
-| `char`   | `%c`                |
-| `string` | `%s` (con `char[])` |
+Se usan los mismos codigos de formato que [`printf`](#formatos)
 
 ### Ejercicio 2
 
 ```{exercise}
-:label: entrada
-:enumerator: entrada
+:label: entrada-1
+:enumerator: entrada-1
 Pedí al usuario la inicial de su nombre (un solo carácter), edad y nota promedio, y mostralos formateados.
 ```
 
-````{solution} entrada
+````{solution} entrada-1
 :class: dropdown
 
 ```{code-block} c
@@ -241,7 +547,8 @@ Pedí al usuario la inicial de su nombre (un solo carácter), edad y nota promed
 
 #include <stdio.h>
 
-int main() {
+int main()
+{
     char inicial;
     int edad;
     float nota;
@@ -262,21 +569,35 @@ int main() {
 ```
 ````
 
-## 5. Condicionales: decisiones
+## Condicionales, tomando decisiones
 
 Las estructuras condicionales permiten que el programa tome decisiones.
 
 ### `if`, `else if`, `else`
 
 ```c
-if (condicion) {
+if (condicion)
+{
     // bloque si se cumple
-} else if (otra_condicion) {
+} else if (otra_condicion) 
+{
     // otro camino
-} else {
+} else 
+{
     // camino por defecto
 }
 ```
+
+En donde las condiciones, deben ser el resultado de una expresion lógica.
+
+:::{note} "Veracidad"
+
+Para C, los valores lógicos no forman parte del lenguaje original y el mismo
+considera cualquier valor entero en `0` como falso y cualquier otro como verdadero.
+Esto se lo llama [veracidad](estilo#0x0010h) y su uso suma confusión por lo que su
+uso no esta permitido.
+
+:::
 
 ### Operadores lógicos comunes
 
@@ -294,54 +615,108 @@ if (condicion) {
 int edad;
 scanf("%d", &edad);
 
-if (edad >= 18) {
+if (edad >= 18)
+{
     printf("Mayor de edad\n");
-} else {
+} else 
+{
     printf("Menor de edad\n");
 }
 ```
 
+:::{attention} 🪐 Cuestión de estilo
+Todas las estructuras de control que contienen un bloque, deben llevar
+_si o sí_ llaves y según la regla [0x0005h](estilo#0x0005h)
+:::
+
 ### Ejercicio 3
 
 ```{exercise}
-:label: entrada
-:enumerator: entrada
+:label: entrada-2
+:enumerator: entrada-2
 Pedí una nota y mostra su resultado en palabras:
 - Promociona, con la nota mayor o igual a 6.
 - Aprueba, con la nota mayor o igual a 4.
 - Desaprueba: menor a 4
 ```
 
-````{solution} entrada
+````{solution} entrada-2
 :class: dropdown
 
 ```{code-block} c
 :linenos:
 #include <stdio.h>
 
-int main() {
+int main() 
+{
     int nota;
     printf("Ingresá tu nota: ");
     scanf("%d", &nota);
 
-    if (nota >= 6) {
+    if (nota >= 6) 
+    {
         printf("Promociona\n");
-    } else if (nota >= 4) {
+    } else if (nota >= 4) 
+    {
         printf("Aprueba\n");
-    } else {
+    } else 
+    {
         printf("Desaprueba\n");
     }
 }
 ```
 ````
 
-## 6. Bucles: repetir hasta dominar el universo
+### Decisiones múltiples `switch`
 
-Un **bucle** (o _loop_) es una estructura que permite repetir una o más
+Útil para comparar una variable con múltiples valores constantes. Tengan en
+cuenta que esta estructura solo compara igualdad, aunque se pueden agrupar.
+
+```C
+switch (expresion) 
+{
+    case valor1:
+        // sentencias
+        break;
+    case valor2:
+        // sentencias
+        break;
+    default:
+        // sentencias si no coincide ningún caso
+}
+```
+
+Es importante destacar que la instrucción `break` es opcional, y puede ser
+utilizada para agrupar "casos".
+
+```c
+switch (x) 
+{
+    case 1:
+    case 2:
+    case 3:
+        printf("Entre 1 y 3\n");
+        break;
+    default:
+        printf("Otro valor\n");
+}
+```
+
+:::{note}¿Que se puede comparar?
+
+Como esta estructa funciona por igualdad, solo se puede utilizar con valores
+numéricos enteros.
+
+:::
+
+
+## Lazos: repetir hasta dominar el universo
+
+Un **lazo**, o lazo, o _loop_ es una estructura que permite repetir una o más
 instrucciones mientras se cumpla una condición. Esta es la forma en la que le
 decís a la máquina: _"hacelo muchas veces sin que yo tenga que copiar y pegar"_.
 
-Hay tres formas principales de bucles en C:
+Hay tres formas principales de lazos en C:
 
 - `while` — mientras la condición sea verdadera.
 - `for` — cuando sabés de antemano cuántas veces repetir.
@@ -349,20 +724,17 @@ Hay tres formas principales de bucles en C:
 
 ### `while` — Repetición basada en condición
 
+Las instrucciones del bloque contenido en el `while` se ejecutaran mientras
+la condición (`i < 5`) sea verdadera. Si nunca lo es, el bloque no se ejecuta.
+
 ```c
 int i = 0;
-while (i < 5) {
+while (i < 5) 
+{
     printf("i vale %d\n", i);
     i = i + 1; // o i++
 }
 ```
-
-:::{note} `while`
-
-El bloque dentro de `while` se ejecuta mientras la condición (`i < 5`) sea
-verdadera. Si nunca lo es, el bloque no se ejecuta.
-
-:::
 
 #### Flujo
 
@@ -399,9 +771,11 @@ Escribí un programa que imprima los números del 10 al 1 usando `while`.
 :linenos:
 #include <stdio.h>
 
-int main() {
+int main() 
+{
     int i = 10;
-    while (i >= 1) {
+    while (i >= 1) 
+    {
         printf("%d\n", i);
         i--;
     }
@@ -410,15 +784,18 @@ int main() {
 ```
 ````
 
-### `for` — Repetición controlada por contador
+### `for` — Lazos controlados por un contador
+
+Este tipo de lazo es ideal cuando sabés cuántas veces querés repetir. Aunque
+hace lo mismo que el `while`, este es mas estructurado con secciones especificas
+para cada acción del lazo.
 
 ```c
-for (int i = 0; i < 5; i++) {
+for (int i = 0; i < 5; i++) 
+{
     printf("i vale %d\n", i);
 }
 ```
-
-Este tipo de bucle es ideal cuando sabés cuántas veces querés repetir.
 
 :::{admonition} Las partes del `for`
 
@@ -452,15 +829,17 @@ Usá un `for` para mostrar los múltiplos de 3 entre 0 y 30.
 :::
 
 ````{solution} lazo_for
-:label: solucion-lazo_while
+:label: solucion-lazo_for
 :class: dropdown
 ```{code-block} c
 :linenos:
 #include <stdio.h>
 
 int main() {
-    for (int i = 0; i <= 30; i++) {
-        if (i % 3 == 0) {
+    for (int i = 0; i <= 30; i++)
+    {
+        if (i % 3 == 0)
+        {
             printf("%d es múltiplo de 3\n", i);
         }
     }
@@ -471,6 +850,15 @@ int main() {
 
 ### `do...while` — Ejecuta primero, pregunta después
 
+> Do, do while, do while if...
+> - Rammstein, du...while
+
+
+```{image} lazos.jpg
+:alt: Ejemplo Grafico de lazos
+:align: center
+```
+
 ```c
 int clave;
 do {
@@ -479,11 +867,18 @@ do {
 } while (clave != 123);
 ```
 
-Este tipo de bucle garantiza **al menos una ejecución**. Ideal para menús o
+Este tipo de lazo garantiza **al menos una ejecución**. Ideal para menús o
 ingreso de datos que deben ejecutarse al menos una vez.
 
-:::{warning} Tené cuidado con los bucles infinitos. Si la condición **nunca** se
-vuelve falsa, el programa quedará atrapado en un ciclo eterno. :::
+:::{warning} Tené cuidado con los lazos infinitos. 
+
+Si la condición **nunca** se
+vuelve falsa, el programa quedará atrapado en un ciclo eterno. 
+
+:::
+
+
+
 
 #### Flujo
 
@@ -535,26 +930,23 @@ int main() {
 ```
 ````
 
-```{image} lazos.jpg
-:alt: Ejemplo Grafico de lazos
-:align: center
-```
+
 
 ### `break` y `continue` — Atajos dentro del ciclo
 
 En C, `break` y `continue` son dos instrucciones de control que permiten
-modificar el flujo normal de un bucle. Aunque pueden resultar útiles en ciertos
+modificar el flujo normal de un lazo. Aunque pueden resultar útiles en ciertos
 contextos, su uso abusivo o descontrolado puede reducir la claridad del código.
 
 #### `break`
 
-Sirve para **salir completamente del bucle**, sin importar si la condición sigue
+Sirve para **salir completamente del lazo**, sin importar si la condición sigue
 siendo verdadera.
 
 ```c
 for (int i = 1; i <= 10; i++) {
     if (i == 5) {
-        break; // termina el bucle cuando i vale 5
+        break; // termina el lazo cuando i vale 5
     }
     printf("i = %d", i);
 }
@@ -587,7 +979,7 @@ La cátedra establece que el uso de `break` y `continue` no esta permitido por
 dos motivos:
 
 1. **Reducen la legibilidad del código**: cuando hay muchas salidas posibles
-   dentro de un bucle, se vuelve más difícil entender cuándo y por qué termina.
+   dentro de un lazo, se vuelve más difícil entender cuándo y por qué termina.
 2. **Evitan el desarrollo del pensamiento algorítmico**: recurrir a estos atajos
    puede impedir que el estudiante busque una solución más clara, estructurada y
    general al problema.
@@ -596,7 +988,9 @@ Por eso, en las primeras etapas del aprendizaje, los evitaremos para fortalecer
 la comprensión de la lógica de control.
 
 En lugar de usar estos atajos, les pediremos que utilicen lazos con bandera, que
-se explican a continuación. :::
+se explican a continuación.
+
+:::
 
 ### Ejercicio 7
 
@@ -610,11 +1004,14 @@ Modificá el siguiente código para que no utilice la instrucción `break`.
 :linenos:
 #include <stdio.h>
 
-int main() {
+int main()
+{
     int i;
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < 10; i++) 
+    {
         printf("valor actual: %d\n", i);
-        if (i == 4) {
+        if (i == 4) 
+        {
             break;
         }
     }
@@ -631,9 +1028,11 @@ int main() {
 :linenos:
 #include <stdio.h>
 
-int main() {
+int main() 
+{
     int i;
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < 5; i++) 
+    {
         printf("valor actual: %d\n", i);
     }
     return 0;
@@ -653,9 +1052,12 @@ Modificá el siguiente código para que no utilice la instrucción `continue`.
 :linenos:
 #include <stdio.h>
 
-int main() {
-    for (int i = 0; i <= 10; i++) {
-        if (i % 2 == 0) {
+int main() 
+{
+    for (int i = 0; i <= 10; i++) 
+    {
+        if (i % 2 == 0) 
+        {
             continue;
         }
         printf("i = %d\n", i);
@@ -682,14 +1084,14 @@ int main() {
 ```
 ````
 
-### Bucles con bandera (`flag`)
+### Lazos con bandera (`flag`)
 
-En algunos casos, no podemos reescribir el lazo para que no utilice break,
+En algunos casos, no podemos reescribir el lazo para que no utilice `break`,
 simplemente por que no hay una expresion que lo permita, o porque simplemente es
 necesario salir del lazo antes, por lo que es necesario aplicar una estrategia
 clásica en programación estructurada.
 
-El uso de una **variable bandera** para controlar la repetición de un bucle. En
+El uso de una **variable bandera** para controlar la repetición de un lazo. En
 lugar de usar `break`, se define una variable booleana que indica si se debe
 continuar o no.
 
@@ -727,10 +1129,10 @@ int main() {
 - Favorece el razonamiento algorítmico en vez de usar interrupciones abruptas
   como `break`.
 
-### Ejercicio 8
+### Ejercicio 9
 
 :::{exercise} 
-:label: lazo_continue 
+:label: lazo_flag_break 
 :enumerator: continue
 
 Reescribí el ingreso de clave usando una bandera booleana en lugar de `break` o
@@ -738,28 +1140,33 @@ Reescribí el ingreso de clave usando una bandera booleana en lugar de `break` o
 
 :::
 
-````{solution} lazo_continue
-:label: solucion-lazo_continue
+````{solution} lazo_flag_break
+:label: solucion-lazo_flag_break
 :class: dropdown
 ```{code-block} c
 :linenos:
 #include <stdio.h>
 #include <stdbool.h> // Necesitamos esta librería para usar 'bool'
 
-int main() {
+int main() 
+{
     int clave;
     int clave_correcta = 1234; // Definimos la clave correcta
     bool acceso_concedido = false; // Nuestra bandera booleana
 
-    // Usamos un bucle while y controlamos la salida con la bandera
-    while (!acceso_concedido) {
+    // Usamos un lazo while y controlamos la salida con la bandera
+    while (!acceso_concedido) 
+    {
         printf("Ingresá la clave: ");
         scanf("%d", &clave);
 
-        if (clave == clave_correcta) {
+        if (clave == clave_correcta) 
+        {
             printf("Acceso concedido. ¡Bienvenido!\n");
-            acceso_concedido = true; // Cambiamos la bandera para salir del bucle
-        } else {
+            acceso_concedido = true; // Cambiamos la bandera para salir del lazo
+        }
+        else
+        {
             printf("Clave incorrecta. Intentá de nuevo.\n");
         }
     }
@@ -769,7 +1176,7 @@ int main() {
 ```
 ````
 
-## 7. Ejercicios
+## Ejercicios
 
 1. Pedí dos números y mostrá el mayor.
 2. Mostrá los números del 1 al 100.
@@ -778,7 +1185,7 @@ int main() {
 5. Pedí una nota (0 a 10) e indicá si aprobó.
 6. Hacé un programa que pida contraseña hasta que sea la correcta.
 
-## 8. Pensar antes de escribir (otra vez)
+## Pensar antes de escribir (otra vez)
 
 Cuando estés atascado:
 
@@ -792,16 +1199,18 @@ Cuando estés atascado:
 
 ![alt text](zach-galifianakis-math.gif)
 
-## 9. No sigas más allá (todavía)
+## No sigas más allá (todavía)
 
-No te adelantes a funciones, punteros, structs ni arrays. Primero entendé lo
-esencial:
+No te adelantes a las partes siguientes del apunte, a los referidos a funciones,
+punteros, structs ni arrays. 
+
+Primero entendé lo esencial:
 
 - El código se ejecuta de arriba a abajo.
 - Las variables viven en la memoria.
 - Los algoritmos son secuencias lógicas.
 
-## 10. Código afilado
+## Afilando el código
 
 Programar bien es:
 
@@ -812,3 +1221,39 @@ Programar bien es:
 - Leer programas ajenos y {del}`robar`tomar buenas ideas.
 
 > _"Escribí código que el profe sin mate pueda entender a las 3 AM."_
+
+
+## Bibliografía y Recursos Adicionales
+
+- Kernighan, B. W., & Ritchie, D. M. (1988). _The C Programming Language (2nd
+  ed.)_. Prentice Hall. (El libro de referencia por los creadores del lenguaje,
+  también conocido como "K&R").
+
+- King, K. N. (2008). _C Programming: A Modern Approach (2nd ed.)_. W. W. Norton
+  & Company. (Una excelente alternativa moderna, muy detallada y con buenos
+  ejemplos).
+
+## Glosario
+
+:::{glossary} 
+
+Lenguaje Ensamblador
+: El lenguaje ensamblador (assembly language)
+es un lenguaje de programación de bajo nivel que representa las instrucciones de
+código de máquina de una arquitectura de procesador específica mediante
+mnemónicos. Mantiene una correspondencia casi directa (a menudo uno a uno) con
+las operaciones del hardware. Requiere un programa llamado ensamblador
+(assembler) para traducir los mnemónicos al código de máquina ejecutable por el
+procesador. Ofrece control preciso sobre el hardware con una legibilidad
+superior a la del código máquina.
+
+Lenguaje de Máquina
+: El lenguaje de máquina (machine language o machine code)
+es el conjunto de instrucciones en formato binario (secuencias de ceros y unos)
+que la unidad central de procesamiento (CPU) de una computadora puede ejecutar
+directamente. Es el nivel más bajo de lenguaje de programación, específico para
+cada arquitectura de procesador. Todas las formas de software deben ser
+traducidas o interpretadas a este lenguaje para poder ser ejecutadas por el
+hardware. 
+
+:::
