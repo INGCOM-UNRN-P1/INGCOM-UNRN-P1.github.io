@@ -1,13 +1,18 @@
-## Repositorio de enunciados I
+---
+title: Repositorio de enunciados
+short_title: Cuadernillo 1
+subtitle: Los primeros ejercicios
+---
 
-El gran repositorio de enunciados de programación, y aunque esté pensado
-para la cátedra Programación 1 en la que utilizamos C, pero son
-aplicables a (casi) cualquier lenguaje.
+## Acerca de
+
+El (__primer__) gran repositorio de enunciados de programación, 
+y aunque esté pensado para la cátedra Programación 1 en la que 
+utilizamos C, pero son aplicables a (casi) cualquier lenguaje.
 
 ### Consideraciones generales
 
-A seguir siempre y cuando no esté indicada
-otra cosa:
+A seguir siempre y cuando no esté indicada otra cosa:
 
 1.  Resuelvan todos los ejercicios de manera iterativa, a no ser que
     esté indicado puntualmente.
@@ -92,7 +97,7 @@ Hola mundo, Martin!
 
 ```
 
-### 1.1.A - Tipografías ASCII art \[*plus ultra*\]
+### 1.1.B - Tipografías ASCII art \[*plus ultra*\]
 
 Si lo quieren complicar, pueden aplicar un poco de [ASCII
 art](https://en.wikipedia.org/wiki/ASCII_art).
