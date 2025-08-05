@@ -335,7 +335,7 @@ El ganador en la categoria "El mejor de una linea" del 2019,
 e,n,j,o,y;main(){for(++o;n=-~getchar();e+=11==n,y++)o=n>0xe^012>n&&'`'^n^65?!n:!o?++j:o;printf("%8d%8d%8d\n",e^n,j+=!o&&y,y);}
 ```
 
-Como veran, el lenguaje se presta para crear bloques bastante duros.
+Como veran, el lenguaje se presta para crear ladrillos bastante duros.
 
 ## Sintaxis Básica
 
@@ -1178,12 +1178,12 @@ int main()
 
 ## Ejercicios
 
-1. Pedí dos números y mostrá el mayor.
-2. Mostrá los números del 1 al 100.
-3. Sumá los números pares del 1 al 100.
-4. Pedí un número y decí si es primo.
-5. Pedí una nota (0 a 10) e indicá si aprobó.
-6. Hacé un programa que pida contraseña hasta que sea la correcta.
+10. Pedí dos números y mostrá el mayor.
+11. Mostrá los números del 1 al 100.
+12. Sumá los números pares del 1 al 100.
+13. Pedí un número y decí si es primo.
+14. Pedí una nota (0 a 10) e indicá si aprobó.
+15. Hacé un programa que pida contraseña hasta que sea la correcta.
 
 ## Pensar antes de escribir (otra vez)
 
