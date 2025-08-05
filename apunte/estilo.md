@@ -1,7 +1,7 @@
 ---
 title: Cuestiones de estilo
 short_title: 0x0000h - Estilo
-subtitle: Para que podemos usar variables.
+subtitle: Manteniendo el orden y la prolijidad.
 authors:
   - name: Martín René Vilugrón
     affiliations:
