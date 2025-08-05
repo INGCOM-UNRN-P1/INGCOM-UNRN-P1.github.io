@@ -4,9 +4,9 @@ short_title: 1 - Introduccion
 subtitle: Los terminos, condiciones y temas del cuatrimestre.
 authors:
   - name: Martín René Vilugrón
-  - name: Miguel Mariguín (<mmariguin@unrn.edu.ar>)
-  - name: Daniel Teira (<deteira@unrn.edu.ar>)
-  - name: Mauro Fermín (<mafermin@unrn.edu.ar>)
+  - name: Miguel Mariguín
+  - name: Daniel Teira
+  - name: Mauro Fermín
     affiliations:
       - Universidad Nacional de Rio Negro
 exports:

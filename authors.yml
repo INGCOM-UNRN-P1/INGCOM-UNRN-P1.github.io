@@ -1,0 +1,33 @@
+version: 1
+project:
+  contributors:
+    - id: p_mrtin
+      name: Martín René Vilugrón
+      github: martinvilu
+      affiliations:
+        - id: org_unrn
+    - id: p_migue
+      name: Miguel Mariguin
+      email: mmariguin@unrn.edu.ar
+      github: person_b
+      affiliations:
+        - id: org_unrn
+    - id: p_dani
+      name: Daniel Teira
+      email: deteira@unrn.edu.ar
+      github: person_b
+      affiliations:
+        - id: org_unrn
+    - id: p_mauro
+      name: Miguel Mariguin
+      email: mafermin@unrn.edu.ar
+      github: person_b
+      affiliations:
+        - id: org_unrn
+  affiliations:
+    - id: org_unrn
+      name: Universidad Nacional de Rio Negro
+    - id: org_cnea
+      name: Comisión Nacional de Energía Atómica
+    - id: org_invap
+      name: INVAP S.A.
