@@ -649,11 +649,40 @@ Entre 100 y 200, los numeros capicua son:
 
 ### 1.4.13 - Números amigos
 
-Solicitar dos números enteros positivos y determinar si son números 
-amigos. Dos números son amigos si la suma de los divisores propios 
-de cada uno es igual al otro número.
+Solicitar dos números enteros positivos y determinar si son **números amigos**. Dos números son amigos si la suma de los divisores propios de cada uno es igual al otro número.
 
-Por ejemplo, $220$ y $284$ son amigos.
+Para entender matemáticamente los números amigos, primero definamos el concepto de **divisores propios**.
+
+**Divisores Propios:**
+
+Los divisores propios de un número entero positivo $n$ son todos los divisores positivos de $n$ **excepto el propio $n$**. Por ejemplo, los divisores de $6$ son $1, 2, 3, 6$. Los divisores propios de $6$ son $1, 2, 3$.
+
+Podemos definir una función $\sigma^*(n)$ (o a veces $s(n)$) que representa la suma de los divisores propios de un número $n$. Si $d$ es un divisor de $n$ y $d < n$, entonces la suma de los divisores propios se expresa como:
+
+$$
+\sigma^*(n) = \sum_{d|n, \ d < n} d
+$$
+
+**Condición para Números Amigos:**
+Dos números enteros positivos $a$ y $b$ son considerados números amigos si cumplen las siguientes dos condiciones simultáneamente:
+
+$$
+\sigma^*(a) = b \\
+\sigma^*(b) = a
+$$
+
+En otras palabras, la suma de los divisores propios de $a$ es igual a $b$, y la suma de los divisores propios de $b$ es igual a $a$.
+
+**Ejemplo:**
+Consideremos los números $220$ y $284$.
+
+* **Divisores propios de $220$:** $1, 2, 4, 5, 10, 11, 20, 22, 44, 55, 110$
+    $\sigma^*(220) = 1 + 2 + 4 + 5 + 10 + 11 + 20 + 22 + 44 + 55 + 110 = 284$
+
+* **Divisores propios de $284$:** $1, 2, 4, 71, 142$
+    $\sigma^*(284) = 1 + 2 + 4 + 71 + 142 = 220$
+
+Dado que $\sigma^*(220) = 284$ y $\sigma^*(284) = 220$, los números $220$ y $284$ son números amigos.
 
 ### 1.4.14 - Invertir un número entero
 
