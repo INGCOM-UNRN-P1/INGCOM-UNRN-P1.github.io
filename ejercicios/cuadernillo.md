@@ -37,14 +37,16 @@ otra cosa:
 
 En un archivo llamado
 
-1-1_vilugron.c
-```c
+```{code}c
+:label: c_template
+:filename: 1-1_apellido.c
+:caption: Para tener todo ordenado
 /*
 Ejercicio 1.1 – Hola Mundo
-Porque hay que empezar por algún lado, escribir un programa que imprima 
-"Hola, mundo!" en la pantalla.
-Este ejercicio nos permitirá verificar el que el entorno de programación
-funciona.
+Porque hay que empezar por algún lado, escribir un programa que 
+imprima "Hola, mundo!" en la pantalla.
+Este ejercicio nos permitirá verificar el que el entorno de 
+programación funciona.
 -----------------
 Nombre y Apellido
 Usuario Github
