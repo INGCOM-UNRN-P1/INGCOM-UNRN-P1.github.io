@@ -30,7 +30,7 @@ project:
     - title: Ejercicios
       children:
         - file: ejercicios/cuadernillo.md
-        - file: ejercicios/adicionales.md
+#        - file: ejercicios/adicionales.md
     - title: Extras
       children:
         - file: extras/cadenas.md
