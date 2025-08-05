@@ -20,7 +20,6 @@ project:
         - file: apunte/catedra.md
         - file: apunte/gradual.md
         - file: apunte/funciones.md
-        - file: apunte/referencia.md
         - file: apunte/estilo.md
 #        - file: apunte/arreglos.md
 #        - file: apunte/cadenas.md
@@ -30,7 +29,8 @@ project:
         - file: bibliografia/suplementaria.md
     - title: Ejercicios
       children:
-        - file: ejercicios/README.md
+        - file: ejercicios/cuadernillo.md
+        - file: ejercicios/adicionales.md
     - title: Extras
       children:
         - file: extras/cadenas.md
@@ -43,17 +43,6 @@ project:
         - file: guias/compilador.md
         - file: guias/vscode.md
 #        - file: guias/bash.md
-    - title: Practicas
-      children:
-        - file: practicas/TP0-2024.md
-        - file: practicas/TP1-2024.md
-        - file: practicas/TP2-2024.md
-        - file: practicas/TP3-2024.md
-        - file: practicas/TP4-2024.md
-        - file: practicas/TP5-2024.md
-        - file: practicas/TP6-2024.md
-        - file: practicas/TP7-2024.md
-        - file: practicas/TP8-2024.md
     - title: Refactorizaciones
       children:
         - file: refactorizaciones/unico-retorno.md
