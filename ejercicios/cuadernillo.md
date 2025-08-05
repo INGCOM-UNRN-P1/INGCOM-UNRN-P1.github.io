@@ -591,7 +591,7 @@ El **Mínimo Común Múltiplo** de dos números enteros positivos $n$ y $m$ es
 un valor $c$ entero y positivo tal que al dividir $c/n$ y $c/m$, el resto 
 es $0$, y además no existe otro número menor que $c$ que cumpla esta condición.
 
-### 26 - Capicúas
+### 1.4.11 - Capicúas
 
 Verificar si un número es capicúa de manera aritmética.
 
@@ -646,58 +646,29 @@ Entre 100 y 200, los numeros capicua son:
 
 ```
 
-### 1.4.13 - La conjetura de Collatz
 
-Esta conjetura, establece que todos si el número es par, se divide por
-dos y si es impar, se multiplica por 3 y se suma 1, y aplicando
-sucesivamente estas reglas, eventualmente obtendremos 1.
+### 1.4.13 - Números amigos
 
-**Si $n$ es par**:
-$$
-f(n) = n/2
-$$
-**Si $n$ es impar**
+Solicitar dos números enteros positivos y determinar si son números 
+amigos. Dos números son amigos si la suma de los divisores propios 
+de cada uno es igual al otro número.
 
-$$
-f(n) = 3n+1
-$$
+Por ejemplo, $220$ y $284$ son amigos.
 
-Aplicado sucesivamente hasta llegar a $1$.
+### 1.4.14 - Invertir un número entero
 
-> La conjetura de Collatz, conocida también como conjetura 3n+1 fue
-> enunciada por el matemático Lothar Collatz en 1937, y a la fecha no se
-> ha resuelto, a pesar de poder aplicar sus reglas para números muy
-> grandes (2^68^), la demostración formal de que el resultado aplica
-> para cualquier número no ha sido encontrada.
+Pedir un número entero positivo y mostrarlo con sus dígitos en orden inverso, sin usar arreglos ni cadenas de caracteres.  
 
-1.  <[Wikipedia](https://es.wikipedia.org/wiki/Conjetura_de_Collatz)>
+```{code}
+:filename: entrada
+12345
+```
 
-### 1.4.14 - Números perfectos
 
-Verificar si un número es perfecto.
-
-Se dice que un número es perfecto cuando es igual a la suma de sus
-divisores propios menos si mismo. Por ejemplo, el $15$ no es un número
-perfecto, pero el $28$ sí lo es.
-
-Más información en <[Wikipedia](https://es.wikipedia.org/wiki/Número_perfecto)>
-
-#### 30 - n-números perfectos \[*plus ultra*\]
-
-Encontrar los primeros n-números perfectos.
-
-### 1.4.15 - Números abundantes
-
-Indicar si el número ingresado es abundante, esto es, si la suma de sus
-divisores (menos sí mismo) da un valor mayor que el número original. Por
-ejemplo $12 => (6+3+2+1) = 13$
-
-Más información en [Wikipedia](https://es.wikipedia.org/wiki/Número_abundante) y
-la [Enciclopedia de secuencias numericas](https://oeis.org/A005101)
-
-#### 32 - n-números abundantes \[*plus ultra*\]
-
-Encontrar n-números abundantes.
+```{code}
+:filename: salida
+54321
+```
 
 ## 1.5 - Secuencias
 
@@ -942,7 +913,7 @@ Siendo el octavo termino $13$, la suma de sus dígitos es $4$; $1+3$
 4
 ```
 
-## 1.6- Condicionales
+## 1.6 - Condicionales
 
 ### 1.6.1 - Par o Impar
 Dado un número entero, determinar si es par o impar.
