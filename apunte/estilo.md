@@ -2,10 +2,6 @@
 title: Cuestiones de estilo
 short_title: 0x0000h - Estilo
 subtitle: Manteniendo el orden y la prolijidad.
-authors:
-  - name: Martín René Vilugrón
-    affiliations:
-      - Universidad Nacional de Rio Negro
 exports:
   - format: pdf
     template: volcanica

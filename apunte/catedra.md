@@ -2,11 +2,6 @@
 title: Introducción a Programación 1
 short_title: 1 - Introduccion
 subtitle: Los terminos, condiciones y temas del cuatrimestre.
-authors:
-  - name: Martín René Vilugrón
-  - name: Miguel Mariguín
-  - name: Daniel Teira
-  - name: Mauro Fermín
 exports:
   - format: pdf
     template: springer
