@@ -10,8 +10,6 @@ exports:
   - format: pdf
     template: volcanica
     article_type: Report
-abstract: |
-  La introducción a la cátedra con los terminos y condicones de la misma.
 ---
 
 ## Introducción
