@@ -120,3 +120,36 @@ Se imprime como:
   de tipo float, esto permite especificar el número de decimales a sacar. En un
   dato de tipo entero o en cadenas de caracteres, especifica el ancho o longitud
   máxima.
+
+
+(escape)=
+## Secuencias de escape
+
+Una secuencia de escape es una forma de cambiar como el compilador tratará el
+siguiente caracter. El código siempre empieza con una barra invertida (\). Este
+simbolo indica que hay un tratamiento especial para lo que viene a continuación.
+
+Esto tiene dos propósitos:
+
+- Dar un significado especial a un carácter normal: Por ejemplo, la letra n por
+  sí sola es solo una n. Pero si le antepones la barra (`\n`), le estás dando el
+  poder especial de crear una nueva línea en el texto. Has "escapado" de su
+  significado literal para convertirlo en un comando.
+
+- Quitar el significado especial a un carácter de control: En C, las comillas
+  dobles (`"`) se usan para delimitar una cadena de texto. Pero, ¿y si queres
+  imprimir unas comillas dobles literalmente? Si directamente usas `"`, el
+  compilador va a entender que cadena de texto ha terminado. Para evitarlo, usas
+  la secuencia de escape `\"`. La barra invertida le quita el poder de
+  "delimitar la cadena" y lo convierte en un simple carácter de comillas para
+  imprimir.
+
+- `\n` Nueva Línea (Line Feed), Mueve el cursor al inicio de la siguiente línea.
+- `\t` Tabulación Horizontal, Inserta un espacio de tabulación horizontal.
+- `\0` Carácter Nulo (NULL), Carácter con valor cero, utilizado como terminador
+  en las cadenas de caracteres de C.
+- `\\` Barra Invertida, Representa un carácter de barra invertida (`\`).
+- `\"` Comillas Dobles, Representa un carácter de comillas dobles (`"`) dentro
+  de un literal de cadena.
+- `\'` Comilla Simple, Representa un carácter de comilla simple (`'`) dentro de
+  un literal de carácter.
