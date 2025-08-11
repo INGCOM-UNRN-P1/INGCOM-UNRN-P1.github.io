@@ -216,7 +216,9 @@ algoritmos asociados para la resolución eficiente de problemas.
 
 Todo el material de la cursada (código de ejemplo, guías) se encuentra
 centralizado en este sitio y tambien en el repositorio de la cursada: :
-[github.com/INGCOM-UNRN-P1/cursada-2025](http://github.com/INGCOM-UNRN-P1/cursada-2025)
+[INGCOM-UNRN-P1/cursada-2025](http://github.com/INGCOM-UNRN-P1/cursada-2025), 
+aquí tambien esta habilitado el wiki, por si quieren hacer algún aporte a la cátedra, 
+de forma rápida [wiki](https://github.com/INGCOM-UNRN-P1/cursada-2025/wiki).
 
 :::{note} 
 
