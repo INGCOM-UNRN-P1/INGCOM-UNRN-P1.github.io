@@ -154,3 +154,52 @@ flowchart LR
   D --> I[HTML]
   D <--> J[JATS]
 ```
+
+
+
+
+```{code}
+:filename: entrada
+
+
+```
+
+
+```{code}
+:filename: salida
+
+
+```
+
+
+```{code}
+:label: salida
+:caption: El indispensable Hola Mundo!
+:linenos:
+:filename: hola.c
+  
+  
+                                         
+```
+
+\[*plus ultra*\]
+
+
+
+```{code}
+:caption: El indispensable Hola Mundo!
+:linenos:
+:filename: salida
+
+Hola mundo, Martin!
+
+```
+
+:::{glossary}
+MyST
+: An amazing markup language that supports glossaries
+:::
+
+
+{term}`MyST` produces MyST
+{term}`MyST Markdown <MyST>` produces MyST Markdown
