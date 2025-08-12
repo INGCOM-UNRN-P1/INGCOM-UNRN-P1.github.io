@@ -182,6 +182,198 @@ int funcion_dos()
 }
 ```
 
+## Alcances (Scopes)
+
+En C, el alcance (o scope en inglés) de una variable determina en qué partes de tu programa puedes acceder y modificar esa variable. Es como definir el "territorio" donde una variable existe y es reconocida. Entender los alcances es fundamental para escribir código organizado, legible y libre de errores.
+
+En particular, porque las funciones deben recibir y devolver valores de forma
+explicita.
+
+### Variables Globales
+
+Las variables globales se declaran fuera de cualquier función. Su principal característica es que son accesibles desde cualquier función en todo el programa. Una vez declarada, cualquier parte de tu código puede leerla y modificarla.
+
+```c
+#include <stdio.h>
+
+int variableGlobal = 10; // Declarada fuera de todas las funciones
+
+void miFuncion()
+{
+    printf("Desde miFuncion: %d\n", variableGlobal); // Acceso permitido
+    variableGlobal = 20; // Modificación permitida
+}
+
+int main()
+{
+    printf("Desde main (antes): %d\n", variableGlobal);
+    miFuncion();
+    printf("Desde main (después): %d\n", variableGlobal);
+    return 0;
+}
+```
+Salida:
+```
+Desde main (antes): 10
+Desde miFuncion: 10
+Desde main (después): 20
+```
+
+Aunque las variables globales pueden parecer una forma fácil de compartir datos entre funciones, su uso rompe con la expectativa de que una funcion recibe su contexto de los argumentos y devuelve valor en el retorno.
+
+Cualquier función puede modificar una variable global. Esto crea dependencias ocultas entre partes del código que no deberían estar relacionadas. Si cambias el valor de una variable global en una función, podrías romper inesperadamente otra función que también la usa. Es difícil rastrear quién y cuándo la modificó.
+
+Tambien, cuando una variable global tiene un valor incorrecto, tienes que buscar en todo el código para encontrar la causa del problema. En un programa grande, esto es una pesadilla. Con variables locales, el error está contenido dentro de una única función.
+
+Las funciones que dependen de variables globales no son autónomas. No puedes simplemente copiar y pegar una función en otro proyecto, porque necesitarías llevarte también todas las variables globales de las que depende. El código modular y reutilizable se basa en funciones que reciben entradas (argumentos) y producen salidas (valor de retorno), sin depender del estado externo.
+
+Por estas razones, esta la regla [`0x000Bh`](./estilo.md#regla-0x000bh-sin-usar-variables-globales-no-están-permitidas)
+
+
+### Argumentos de Función (Parámetros)
+
+Estas son las variables que se declaran en la definición de una función. Su alcance está limitado exclusivamente a esa función. Actúan como variables locales que se inicializan con los valores que se les pasan cuando se llama a la función.
+
+Aunque su comportamiento es identico a una variable declarada dentro de la función,
+la inicialización se hace con los valores con la que la función es llamada.
+
+```c
+#include <stdio.h>
+
+void suma(int a, int b)  // 'a' y 'b' son argumentos
+{
+    int suma = a + b; // 'a' y 'b' solo existen dentro de calcularSuma
+    printf("La suma es: %d\n", suma);
+}
+
+int main() {
+    suma(5, 3);
+    // printf("%d", a); // ERROR: 'a' no está declarada en este alcance
+    return 0;
+}
+```
+
+En este caso, `a` y `b` solo son visibles y utilizables dentro de la función `suma`.
+
+### Variables locales
+
+Las variables locales se declaran dentro de una función, pero fuera de cualquier bloque de código (como un `if` o un `for`). Su alcance se limita a la función en la que fueron declaradas. Se "destruyen" de la memoria cuando la función termina su ejecución, vamos a ver un detalle adicional sobre este tema mas adelante.
+
+```c
+#include <stdio.h>
+
+void miFuncion() {
+    int variableLocal = 5; // 'variableLocal' solo existe aquí
+    printf("Variable local: %d\n", variableLocal);
+}
+
+int main() {
+    miFuncion();
+    // printf("%d", variableLocal); // ERROR: 'variableLocal' no existe en main
+    return 0;
+}
+```
+
+La `variableLocal` solo es accesible desde `miFuncion`.
+
+### Variable de bloque
+
+Son variables declaradas dentro de un bloque de código específico, que se delimita por llaves `{}`. Su alcance es aún más restringido: solo existen desde el punto de su declaración hasta el final de ese bloque. Son comunes en bucles `for`, sentencias `if`, `while`, etc.
+
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 10;
+
+    if (x == 10) 
+    {
+        int variableBloque = 25; // Solo existe dentro de este if
+        printf("Dentro del bloque if: %d\n", variableBloque);
+    }
+
+    // printf("%d", variableBloque); // ERROR: La variable no existe aquí
+
+    for (int i = 0; i < 3; i++) // 'i' es una variable de bloque
+    { 
+        printf("Iteración: %d\n", i);
+    }
+    // printf("%d", i); // ERROR: 'i' ya no existe
+
+    return 0;
+}
+```
+
+La `variableBloque` solo es accesible dentro de las llaves del `if`, y la variable `i` solo existe dentro del bucle `for`.
+
+Tengan en cuenta que pueden crear bloques sueltos, sin que esten asociados a una estructura de control.
+
+### Delimitación de variables
+
+Los alcances nos llevan a que la información no viaja 'magicamente' entre funciones, es necesario pasar y recibir los valores explicitamente. (ya vimos por que es una mala idea usar variables globales)
+
+El principal efecto de los alcances, tiene que ver con que un mismo nombre en dos alcances del mismo nivel, que serían paralelos, pueden tener los mismos identificadores y tener (tipos y) valores completamente diferentes.
+
+```c
+// Global, scope de nivel cero.
+int main() 
+{
+    // La función, establecen un scope local de nivel 1
+    int variable_local = 20;
+    printf("La variable local vale %d\n", variable_local);
+    return 0;
+}
+
+void procedimiento()
+{
+    // Este es otro scope local de nivel 1.
+    printf("La variable_local no existe acá %d\n", variable_local);
+    //ERROR, no esta definida la 'variable_local'
+}
+```
+
+Es otra cosa cuando el mismo identificador se usa en alcances anidados, como veremos a continuación.
+
+### Ocultamiento de variables (Shadowing)
+
+El _shadowing_ ocurre cuando declaras una variable en un alcance interno (por ejemplo, local a una función o en un bloque) con el mismo nombre que una variable en un alcance externo (por ejemplo, una variable global).
+
+Cuando esto sucede, la variable del alcance más interno "oculta" o le hace "sombra" (shadow) a la del alcance más externo. Dentro de ese bloque interno, cualquier referencia a ese nombre de variable se resolverá a la variable más cercana (la interna), haciendo que la externa sea _temporalmente_ inaccesible por su nombre.
+
+Existen ejemplos mas elaborados, utilizando una combinación de variables globales, locales y de bloque, pero este es uno que puede darse con gran facilidad porque en definitiva, es por redefinir `i` dentro del lazo.
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    int i = 10; // Variable local en main.
+
+    printf("En main, 'valor' es: %d\n", i); // Imprime 50
+
+    for (int i = 5; i > 0; i--) // i del bloque, 'tapa' la local
+    {
+        printf("Dentro del for, 'i' es: %d\n", i); // Imprime la cuenta desde 15
+    }
+
+    printf("Fuera del for, 'i' es de nuevo: %d\n", i); // Imprime 10
+
+    return 0;
+}
+```
+
+Y la salida, queda como:
+
+```
+En main, 'valor' es: 10
+Dentro del for, 'i' es: 5
+Dentro del for, 'i' es: 4
+Dentro del for, 'i' es: 3
+Dentro del for, 'i' es: 2
+Dentro del for, 'i' es: 1
+Fuera del for, 'i' es de nuevo: 10
+```
+
 ## Divide y vencerás
 
 Los grandes programadores no resuelven problemas gigantescos de un solo golpe. En lugar de eso, **dividen el problema en piezas pequeñas**, comprensibles y más fáciles de encarar.
