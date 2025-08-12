@@ -374,6 +374,75 @@ Dentro del for, 'i' es: 1
 Fuera del for, 'i' es de nuevo: 10
 ```
 
+## Valores `static` en funciones
+
+Cuando se declara una variable local dentro de una función, esta se destruye cuando
+la funcion termina por lo que su valor no se conserva entre llamadas.
+
+C con el calificador `static` en la declaracion de una variable local a función, nos permite evitar que esta no se destruya y conserve su valor entre las distintas llamadas, el comportamiento es similar a una variable global, pero delimitada a la función.
+
+Una variable con este calificador, se inicializa una única vez en la primera llamda llamada a la función, para evitar destruir el valor entre llamadas a la función.
+
+Pero lo mas importante, conserva su valor entre sucesivas llamadas a la función y preserva su alcance.
+
+
+```c
+#include <stdio.h>
+
+void contadorNormal() 
+{
+    int contador = 0;
+    contador++;
+    printf("Contador Normal: %d\n", contador);
+}
+
+void contadorStatic() 
+{
+    static int contador = 0; // 'static' hace la diferencia
+    contador++;
+    printf("Contador Static: %d\n", contador);
+}
+
+int main()
+{
+    printf("Llamando a las funciones 3 veces:\n");
+    
+    contadorNormal();
+    contadorStatic();
+    printf("---\n");
+
+    contadorNormal();
+    contadorStatic();
+    printf("---\n");
+
+    contadorNormal();
+    contadorStatic();
+
+    return 0;
+}
+```
+
+De este ejemplo, contador normal, es un procedimiento simple que declara e inicializa una variable en `0`, este es el comportamiento tradicional de una funcion en C. Mientras que la segunda, hace uso del calificador `static`.
+
+```
+Llamando a las funciones 3 veces:
+Contador Normal: 1
+Contador Static: 1
+---
+Contador Normal: 1
+Contador Static: 2
+---
+Contador Normal: 1
+Contador Static: 3
+```
+
+Aquí, el `contadorNormal` se reinicia a `0` en cada llamada, por lo que su salida es siempre `1`. Pero el `contadorStatic` se inicializa a `0` solo la primera vez. En las llamadas siguientes, retiene su valor anterior (`1`, luego `2`), por lo que sigue incrementándose.
+
+:::{warning} Limiten su uso
+El gran problema de este calificador, es que oculta el estado de la función que de otra forma debiera de ser un argumento explicito, lo que en definitiva, hace que la funcion no sea predecible, y dependerá de algo interno que solo es accesible por la funcion misma.
+:::
+
+
 ## Divide y vencerás
 
 Los grandes programadores no resuelven problemas gigantescos de un solo golpe. En lugar de eso, **dividen el problema en piezas pequeñas**, comprensibles y más fáciles de encarar.
