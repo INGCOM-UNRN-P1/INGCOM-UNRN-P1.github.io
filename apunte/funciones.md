@@ -306,7 +306,7 @@ modular y reutilizable se basa en funciones que reciben entradas (argumentos) y
 producen salidas (valor de retorno), sin depender del estado externo.
 
 Por estas razones, existe la regla
-[`0x000Bh`](./estilo.md#regla-0x000bh-sin-usar-variables-globales-no-están-permitidas)
+[`0x000Bh`](./estilo.md#0x000Bh)
 
 ### Argumentos de Función (Parámetros)
 
