@@ -306,7 +306,7 @@ modular y reutilizable se basa en funciones que reciben entradas (argumentos) y
 producen salidas (valor de retorno), sin depender del estado externo.
 
 Por estas razones, existe la regla
-[`0x000Bh`](./estilo.md#regla-0x000bh-sin-usar-variables-globales-no-están-permitidas)
+[`0x000Bh`](./estilo.md#0x000Bh)
 
 ### Argumentos de Función (Parámetros)
 
@@ -1187,7 +1187,8 @@ errores antes de que ocurran y construir soluciones más elegantes.
 
 :::{glossary}
 
-efecto secundario : En la programación, un efecto secundario es cualquier cambio
+efecto secundario
+: En la programación, un efecto secundario es cualquier cambio
 de estado que ocurre fuera del ámbito de una función. En otras palabras, una
 función tiene efectos secundarios cuando modifica algo más allá de simplemente
 devolver un valor. En C, esto a menudo se refiere a la modificación de variables
