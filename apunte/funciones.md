@@ -1153,8 +1153,8 @@ int dividir(int dividendo, int divisor)
 }
 ```
 
-Y otra opcion, completamente valida es la de indicar explicitamente que una
-frase refiere a una de estas caracteristicas:
+Y otra opción, completamente válida es la de indicar explícitamente que una
+frase refiere a una de estas características:
 
 ```c
 /**
@@ -1165,17 +1165,16 @@ frase refiere a una de estas caracteristicas:
  *      #PRE debe ser distinto a 0, no esta definida la división para este valor.
  * @returns el resultado de dividir dividendo por divisor, o el codigo de error
  *            DIV_CERO
- *      #POST Se retornara un código de error en caso de que la 
+ *      #POST Se retornara un código de error en caso de que la
  *           precondicion no se cumpla.
  * Invariante: los argumentos no son modificados.
  */
 int dividir(int dividendo, int divisor);
 ```
 
-
-Incorporar este tipo de razonamiento te prepara para escribir programas más
-robustos, detectar errores antes de que ocurran y construir soluciones más
-elegantes.
+Sea cual fuere la forma en la que incorporen esta información, sumar este tipo
+de razonamiento te prepara para escribir programas más robustos, detectar
+errores antes de que ocurran y construir soluciones más elegantes.
 
 ::::{note} en una frase
 
@@ -1188,8 +1187,7 @@ elegantes.
 
 :::{glossary}
 
-efecto secundario
-: En la programación, un efecto secundario es cualquier cambio
+efecto secundario : En la programación, un efecto secundario es cualquier cambio
 de estado que ocurre fuera del ámbito de una función. En otras palabras, una
 función tiene efectos secundarios cuando modifica algo más allá de simplemente
 devolver un valor. En C, esto a menudo se refiere a la modificación de variables
