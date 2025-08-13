@@ -10,13 +10,13 @@ exports:
 
 ## Introducción a la cátedra
 
-Aquí, veremos los puntos clave de la cátedra, los "terminos y condiciones" e
+Aquí, veremos los puntos clave de la cátedra, los "términos y condiciones" e
 incluyendo el equipo docente, las vías de comunicación, la modalidad de cursada,
 y los criterios de evaluación.
 
 ## ¿Quiénes somos?
 
-La cátedra está conformada por un fantastico equipo de profesionales que guiarán
+La cátedra está conformada por un fantástico equipo de profesionales que guiarán
 a lo largo del cuatrimestre.
 
 - Teoría:
@@ -36,7 +36,7 @@ canales. Es importante utilizarlos de manera adecuada.
 :::{tip} Para consultas generales sobre la materia
 
 Usá el foro de discusiones del repositorio de GitHub:
-[INGCOM-UNRN-P1/discussions](https://github.com/INGCOM-UNRN-P1/discussions)
+[INGCOM-UNRN-P1/discussions](https://github.com/orgs/INGCOM-UNRN-P1/discussions/)
 
 :::
 
@@ -48,7 +48,7 @@ _¿Por qué estos canales y no el email?_ Usar los foros de GitHub permite que
 tanto el equipo como sus compañeros puedan ver y aportar a sus dudas. Es muy
 probable que la pregunta de uno sirva para resolver la de otro, la idea es crear
 un ambiente de aprendizaje colaborativo. Mientras dejamos al email reservado
-para cuestiones mas personales.
+para cuestiones más personales.
 
 ## Términos y Condiciones de la Cursada
 
@@ -58,19 +58,19 @@ para cuestiones mas personales.
 
 La materia se cursa de manera sincrónica. Esto significa que esperamos tu
 participación activa en clase y aunque vamos a grabar las clases teóricas y
-tenemos este material, lo ideal es seguir las clases semanalmante.
+tenemos este material, lo ideal es seguir las clases semanalmente.
 
 Es por esto que...
 
 ### Asistencia
 
-Tomaremos asistencia y plantearemos un minimo de 80% de asistencia para
+Tomaremos asistencia y plantearemos un mínimo de 80% de asistencia para
 regularizar la cátedra.
 
 :::{note}
 
 Esto no significa que es necesario estar si o si el 80% de las clases, pero las
-excepciones se tratan antes y no despues.
+excepciones se tratan antes y no después.
 
 :::
 
@@ -88,11 +88,10 @@ se divide en fases.
 ### Trabajos Prácticos (TPs)
 
 La programación es una disciplina eminentemente práctica. Por lo tanto, los
-Trabajos Practicos son el eje central de la materia.
+Trabajos Prácticos son el eje central de la materia.
 
-Estos seguiran la planificacion teorica del cuatrimestre y las entregas estaran
-publicadas en el calendario y planificacion semanal que estará en el campus
-bimodal.
+Estos seguirán la planificación teórica del cuatrimestre y las entregas estarán
+publicadas en el calendario y esta estará en el campus bimodal.
 
 :::{important} Aclaración sobre el uso de IA's
 
@@ -105,22 +104,22 @@ su uso**
 
 :::
 
-Y siguiendo en linea con lo referido a la practica, la cantidad de ejercicios
-disponibles será elevada, pero no todos son de entrega obligatoria, se eligiran
+Y siguiendo en línea con lo referido a la práctica, la cantidad de ejercicios
+disponibles será elevada, pero no todos son de entrega obligatoria, se elegirán
 ejercicios representativos para ir viendo como vienen y que cuestiones es necesario
 reforzar.
 
 ### Fase I
 
-Los ejercicios hasta el primer parcial, los desarrollaran de manera "suelta",
-sin repositorio, sin entregas semanales. Y los ejercicios saldran del
+Los ejercicios hasta el primer parcial, los desarrollarán de manera "suelta",
+sin repositorio, sin entregas semanales. Y los ejercicios saldrán del
 [cuadernillo](cuadernillo.md)
 
-De estos ejercicios haremos un "muestreo", el cual consistira en que carguen
+De estos ejercicios haremos un "muestreo", el cual consistirá en que carguen
 los ejercicios resueltos a entregar en el campus. Los detalles de esta actividad
-se los daremos mas adelante.
+se los daremos más adelante.
 
-Los ejercicios de esta parte, estan pensados para ser resueltos, principalmente,
+Los ejercicios de esta parte, están pensados para ser resueltos, principalmente,
 en sus casas fuera del horario de clases.
 
 :::{note}Sobre el uso de Git/Github
@@ -131,15 +130,15 @@ El uso de Git será optativo _al principio_.
 
 ### Fase II
 
-Esta comenzará luego del primer parcial y las practicas se desarrollaran sobre
+Esta comenzará luego del primer parcial y las prácticas se desarrollarán sobre
 repositorios git alojados en GitHub.
 
-Los ejercicios de esta parte, tambien tendran una parte opcional, pero recomendada.
+Los ejercicios de esta parte, también tendrán una parte opcional, pero recomendada.
 
 ### Fase III
 
-La ultima fase, consiste en la utilización de proyectos alojados en git y utilizando
-`Makefiles` (no se preocupen por _que son_ ya que lo veremos en clases).
+La última fase consiste en la utilización de proyectos alojados en git y utilizando
+`Makefiles` (no se preocupen por _que son_, ya que lo veremos en clases).
 
 Así como requerirán la creación de casos de prueba y unidades de compilación.
 
@@ -148,7 +147,7 @@ Así como requerirán la creación de casos de prueba y unidades de compilación
 :::{warning}
 
 Las fechas de entrega son inamovibles, esto significa que luego de
-la fecha de entrega o "fecha limite" el TP no sera recibido y quedará como
+la fecha de entrega o "fecha límite" el TP no será recibido y quedará como
 incompleto.
 
 :::
@@ -157,7 +156,7 @@ Las entregas obligatorias se tendrán en cuenta en la corrección del examen par
 
 ## Parciales
 
-La evaluación formal se realiza a través de exámenes parciales, estos seran, una
+La evaluación formal se realiza a través de exámenes parciales, estos serán, una
 parte teórica en la computadora utilizando el campus bimodal y una parte de
 programación en papel.
 
@@ -169,7 +168,7 @@ Las notas de los parciales no se promedia.
 
 ### Recuperatorio
 
-Al final del cuatrimestre habrá **una** fecha de recuperatorio en donde podran:
+Al final del cuatrimestre habrá **una** fecha de recuperatorio en donde podrán:
 
 - Recuperar un parcial desaprobado y alcanzar la regularidad.
 - Mejorar la nota de un parcial para intentar alcanzar la promoción.
@@ -190,19 +189,21 @@ Es necesario rendir el parcial.
 ### Regularizar
 
 1. Asistir a no menos del 80% de las clases
-2. Entregar todos los trabajos practicos
+2. Entregar todos los trabajos prácticos
 3. Tener una nota superior al 60% en los parciales
 
 ### Promoción
 
-Los criterios de Regularización, más: 4. Tener una nota superior al 80% en los
-parciales. 5. Todos los trabajos practicos revisados.
+Los criterios de Regularización, más: 
+
+4. Tener una nota superior al 80% en los parciales. 
+5. Todos los TP revisados.
 
 ## Contenidos de la Materia
 
 El curso se divide en tres grandes módulos, cada uno evaluado con un parcial.
 
-Se utilizará el lenguaje de programacion C.
+Se utilizará el lenguaje de programación C.
 
 Programación: Fundamentos de la programación, lógica, y estructuras de control
 
@@ -215,9 +216,9 @@ algoritmos asociados para la resolución eficiente de problemas.
 ## Material de Estudio
 
 Todo el material de la cursada (código de ejemplo, guías) se encuentra
-centralizado en este sitio y tambien en el repositorio de la cursada: :
+centralizado en este sitio y también en el repositorio de la cursada: :
 [INGCOM-UNRN-P1/cursada-2025](http://github.com/INGCOM-UNRN-P1/cursada-2025), 
-aquí tambien esta habilitado el wiki, por si quieren hacer algún aporte a la cátedra, 
+aquí se ha habilitado el wiki, por si quieren hacer algún aporte a la cátedra, 
 de forma rápida [wiki](https://github.com/INGCOM-UNRN-P1/cursada-2025/wiki).
 
 :::{note} 
@@ -233,16 +234,16 @@ en el campus virtual de la universidad.
 
 ## Cuestiones adicionales
 
-Tengan en cuenta que hacer que una IA les resuelva las practicas, no los ayudará
+Tengan en cuenta que hacer que una IA les resuelva las prácticas, no los ayudará
 a fijar los conocimientos.
 
 Las IA no necesitan practicar programación, son ustedes los que tienen que
-aprender, ademas, los ejercicios que les planteamos ya han sido resueltos de
+aprender, además, los ejercicios que les planteamos ya han sido resueltos de
 miles de formas diferentes.
 
 :::{warning} 
 
-La utilizacion de alguna IA para la resolucion de parciales es una
-falta grave y provocara la expulsión directa. 
+La utilización de alguna IA para la resolución de parciales es una
+falta grave y provocará la expulsión directa. 
 
 :::
