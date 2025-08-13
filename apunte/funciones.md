@@ -1135,11 +1135,16 @@ del programa sea coherente.
 
 Incluilas como parte del comentario de documentación de la función:
 
+Una forma es incluirlas como parte de la prosa de la documentación.
+
 ```c
 /**
  * Calcula el cociente entre dos números.
- * Precondición: divisor != 0.
- * Poscondición: retorna el resultado de dividir dividendo por divisor.
+ *
+ * @param dividento es el numero que sera dividido.
+ * @param divisor con el que se dividirá dividendo y debe ser distinto a 0.
+ * @returns el resultado de dividir dividendo por divisor, o el codigo de error
+ *            DIV_CERO
  * Invariante: los argumentos no son modificados.
  */
 int dividir(int dividendo, int divisor)
@@ -1147,6 +1152,26 @@ int dividir(int dividendo, int divisor)
     return dividendo / divisor;
 }
 ```
+
+Y otra opcion, completamente valida es la de indicar explicitamente que una
+frase refiere a una de estas caracteristicas:
+
+```c
+/**
+ * Calcula el cociente entre dos números.
+ *
+ * @param dividento es el numero que sera dividido.
+ * @param divisor con el que se dividirá dividendo.
+ *      #PRE debe ser distinto a 0, no esta definida la división para este valor.
+ * @returns el resultado de dividir dividendo por divisor, o el codigo de error
+ *            DIV_CERO
+ *      #POST Se retornara un código de error en caso de que la 
+ *           precondicion no se cumpla.
+ * Invariante: los argumentos no son modificados.
+ */
+int dividir(int dividendo, int divisor);
+```
+
 
 Incorporar este tipo de razonamiento te prepara para escribir programas más
 robustos, detectar errores antes de que ocurran y construir soluciones más
@@ -1163,7 +1188,8 @@ elegantes.
 
 :::{glossary}
 
-efecto secundario : En la programación, un efecto secundario es cualquier cambio
+efecto secundario
+: En la programación, un efecto secundario es cualquier cambio
 de estado que ocurre fuera del ámbito de una función. En otras palabras, una
 función tiene efectos secundarios cuando modifica algo más allá de simplemente
 devolver un valor. En C, esto a menudo se refiere a la modificación de variables
