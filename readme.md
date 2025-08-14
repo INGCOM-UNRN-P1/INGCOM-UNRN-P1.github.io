@@ -1,3 +1,20 @@
+---
+title: Bienvenida
+authors:
+  - name: Martín René Vilugrón
+    affiliation: UNRN
+exports:
+  - format: pdf
+    title: Programación 1
+    template: plain_latex_book
+    output: _build/exports/apunte.pdf
+    articles:
+      - file: apunte/catedra.md
+      - file: apunte/gradual.md
+      - file: apunte/funciones.md
+      - file: apunte/estilo.md
+      - file: ejercicios/cuadernillo.md
+---
 # Bienvenidos a Programación 1
 
 Esta materia se encuentra en el primer año de la carrera de Ingeniería en
