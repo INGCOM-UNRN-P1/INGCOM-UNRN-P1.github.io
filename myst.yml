@@ -20,8 +20,8 @@ project:
         - file: apunte/catedra.md
         - file: apunte/gradual.md
         - file: apunte/funciones.md
+        - file: apunte/secuencias.md
         - file: apunte/estilo.md
-#        - file: apunte/arreglos.md
 #        - file: apunte/cadenas.md
 #        - file: apunte/punteros.md
     - title: Bibliografia
