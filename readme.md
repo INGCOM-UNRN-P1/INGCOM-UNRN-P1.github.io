@@ -1,19 +1,36 @@
+---
+title: Bienvenida
+authors:
+  - name: Martín René Vilugrón
+    affiliation: UNRN
+exports:
+  - format: pdf
+    title: Programación 1
+    template: plain_latex_book
+    output: _build/exports/apunte.pdf
+    articles:
+      - file: apunte/catedra.md
+      - file: apunte/gradual.md
+      - file: apunte/funciones.md
+      - file: apunte/estilo.md
+      - file: ejercicios/cuadernillo.md
+---
 # Bienvenidos a Programación 1
 
 Esta materia se encuentra en el primer año de la carrera de Ingeniería en
-Computación de la [Universidad Nacional de Rio Negro](https://www.unrn.edu.ar).
+Computación de la [Universidad Nacional de Río Negro](https://www.unrn.edu.ar).
 
-Este sitio recopila todo el material común de la cátedra, incluyendo practicas,
+Este sitio recopila todo el material común de la cátedra, incluyendo prácticas,
 bibliografía y memes.
 
 ## Contenido
 
-Primero, esta el [apunte](apunte/catedra.md), pensado mas o menos para ir
+Primero, está el [apunte](apunte/catedra.md), pensado más o menos para ir
 siguiendo el dictado de las clases
 
-Despues, hay articulos sueltos sobre temas importantes, como por ejemplo,
+Después, hay artículos sueltos sobre temas importantes, como por ejemplo,
 [cadenas seguras](./extras/cadenas.md),
-[El estado de un programa](./extras/estado.md), la guia de
+[El estado de un programa](./extras/estado.md), la guía de
 [`printf`](./extras/printf.md), sobre los
 [roles de las variables](extras/roles.md) y como
 [implementar un lazo `do..while` con `while` y `break`](./extras/simular.md).
@@ -23,7 +40,7 @@ Despues, hay articulos sueltos sobre temas importantes, como por ejemplo,
 Este sitio usa MyST Markdown, estamos en fase de configuración, pero el
 repositorio tiene bastante material.
 
-Se aceptan pull requests con secciones de material y apuntes, vean la guía
+Se aceptan Pull Requests con secciones de material y apuntes, vean la guía
 oficial de la herramienta para los elementos adicionales de sintaxis disponibles
 que aunque no es estrictamente necesario puede sumar un montón.
 [MystMD Quickstart](https://mystmd.org/guide/quickstart-myst-markdown)

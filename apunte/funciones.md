@@ -9,9 +9,18 @@ subtitle: Dividiendo problemas en partes más chicas.
 Ya vimos cómo darle instrucciones en C a la computadora, pero ahora, vamos a
 crear nuestras propias para hacer de nuestros programas, no solo más útiles sino
 también, con menos código duplicado.
+Ya vimos cómo darle instrucciones en C a la computadora, pero ahora, vamos a
+crear nuestras propias para hacer de nuestros programas, no solo más útiles sino
+también, con menos código duplicado.
 
 ### Definición intuitiva
 
+Pensá en las funciones como una oficina: recibe información (documentos o
+tareas), las procesa con sus empleados y recursos, y luego te devuelve un
+resultado o un informe (un valor nuevo). En la programación, y particularmente
+en C, estas «oficinas» son bloques de código reutilizables diseñados para
+realizar una tarea específica. Son como pequeños departamentos dentro de una
+empresa que nos permiten organizar y simplificar la creación de software.
 Pensá en las funciones como una oficina: recibe información (documentos o
 tareas), las procesa con sus empleados y recursos, y luego te devuelve un
 resultado o un informe (un valor nuevo). En la programación, y particularmente
@@ -24,12 +33,24 @@ empresa que nos permiten organizar y simplificar la creación de software.
 Las funciones son un pilar fundamental de la programación estructurada en C.
 Permiten dividir un programa grande y complejo en partes más pequeñas y
 manejables, lo que trae varios beneficios:
+Las funciones son un pilar fundamental de la programación estructurada en C.
+Permiten dividir un programa grande y complejo en partes más pequeñas y
+manejables, lo que trae varios beneficios:
 
 - **Modularidad**: Cada función se encarga de una tarea concreta, haciendo que
   el diseño, desarrollo y corrección de errores del programa sea mucho más
   sencillo. Si algo no funciona, es más fácil saber en qué «departamento» de la
   oficina buscar el problema.
+- **Modularidad**: Cada función se encarga de una tarea concreta, haciendo que
+  el diseño, desarrollo y corrección de errores del programa sea mucho más
+  sencillo. Si algo no funciona, es más fácil saber en qué «departamento» de la
+  oficina buscar el problema.
 
+- **Reusabilidad de código**: Una vez que creas una función para una tarea,
+  podés «encargarle» esa tarea cuantas veces necesites, en distintas partes de
+  tu programa o incluso en otros proyectos, sin tener que escribir el mismo
+  código una y otra vez. Esto te ahorra tiempo y reduce la posibilidad de
+  errores.
 - **Reusabilidad de código**: Una vez que creas una función para una tarea,
   podés «encargarle» esa tarea cuantas veces necesites, en distintas partes de
   tu programa o incluso en otros proyectos, sin tener que escribir el mismo
@@ -41,7 +62,14 @@ manejables, lo que trae varios beneficios:
   información espera como entrada y qué tipo de información te devolverá como
   salida. Esto simplifica el código principal de tu programa, que solo
   interactúa con la «oficina» sin preocuparse por sus procesos internos.
+  cómo opera por dentro. Solo necesitás entender qué hace, qué tipo de
+  información espera como entrada y qué tipo de información te devolverá como
+  salida. Esto simplifica el código principal de tu programa, que solo
+  interactúa con la «oficina» sin preocuparse por sus procesos internos.
 
+- **Mantenibilidad**: Si necesitás cambiar o mejorar cómo se realiza una tarea,
+  solo tenés que modificar el interior de la función correspondiente. Sin
+  afectar el resto de tu programa.
 - **Mantenibilidad**: Si necesitás cambiar o mejorar cómo se realiza una tarea,
   solo tenés que modificar el interior de la función correspondiente. Sin
   afectar el resto de tu programa.
@@ -54,13 +82,28 @@ _parámetros_, ejecuta un conjunto de instrucciones y produce un único valor de
 salida. Su propósito principal es actuar como un procesador de datos: recibe el
 contexto necesario, lo transforma mediante operaciones definidas y devuelve un
 resultado.
+En C, una **función** es un bloque de código reutilizable diseñado para realizar
+una tarea específica. Recibe uno o más valores de entrada, llamados
+_parámetros_, ejecuta un conjunto de instrucciones y produce un único valor de
+salida. Su propósito principal es actuar como un procesador de datos: recibe el
+contexto necesario, lo transforma mediante operaciones definidas y devuelve un
+resultado.
 
 De forma análoga a las funciones matemáticas, podemos pensar en ella como una
 relación $ f(x) = y $, donde cada conjunto de valores de entrada genera
 exactamente un resultado. En C, una función solo puede devolver un valor
 directamente. (existen técnicas para sortear esta limitación, que se estudiarán
 más adelante)
+De forma análoga a las funciones matemáticas, podemos pensar en ella como una
+relación $ f(x) = y $, donde cada conjunto de valores de entrada genera
+exactamente un resultado. En C, una función solo puede devolver un valor
+directamente. (existen técnicas para sortear esta limitación, que se estudiarán
+más adelante)
 
+Otra observación importante es que en esta definición asumimos la presencia de
+al menos un argumento, ya que, sin parámetros, la función no cuenta con
+información externa para variar su comportamiento, salvo que utilice valores
+internos predefinidos ingresos directos del usuario o variables globales.
 Otra observación importante es que en esta definición asumimos la presencia de
 al menos un argumento, ya que, sin parámetros, la función no cuenta con
 información externa para variar su comportamiento, salvo que utilice valores
@@ -72,7 +115,17 @@ resultado y no producen un {term}`efecto secundario`, es decir, no modifica
 variables externas ni interactúa con elementos fuera de su propio ámbito (como
 archivos o la pantalla). Esto, en términos matemáticos, es hacer que se comporte
 exactamente como lo haría una función $ f(x) $ tradicional.
+Esta observación nos lleva a la definición de **función pura**. Estas son
+aquellas que, dados los mismos parámetros de entrada, siempre devuelven el mismo
+resultado y no producen un {term}`efecto secundario`, es decir, no modifica
+variables externas ni interactúa con elementos fuera de su propio ámbito (como
+archivos o la pantalla). Esto, en términos matemáticos, es hacer que se comporte
+exactamente como lo haría una función $ f(x) $ tradicional.
 
+Aunque su uso no aplica a todos los casos, este concepto, simplifica el
+comportamiento de un programa, al delimitar la interacción de nuestro código con
+el estado del programa. Y de regalo, es mucho más fácil asegurarnos de que el
+programa hace lo que debe, esto es algo que veremos más adelante.
 Aunque su uso no aplica a todos los casos, este concepto, simplifica el
 comportamiento de un programa, al delimitar la interacción de nuestro código con
 el estado del programa. Y de regalo, es mucho más fácil asegurarnos de que el
@@ -102,9 +155,13 @@ solo tenemos que dejar vacía la lista de parámetros.
 
 Asimismo, una función en C, puede no retornar valores y esto se hace con la
 palabra reservada `void` (vacío en inglés).
+Asimismo, una función en C, puede no retornar valores y esto se hace con la
+palabra reservada `void` (vacío en inglés).
 
 ### Ejemplos
 
+En este ejemplo comentado, podemos ver un ejemplo de función que recibe un par
+de números y devuelve uno.
 En este ejemplo comentado, podemos ver un ejemplo de función que recibe un par
 de números y devuelve uno.
 
@@ -126,6 +183,8 @@ printf("Resultado: %d\n", resultado);
 
 Y también, un ejemplo de funciones que no reciben argumentos y simultáneamente,
 no devuelve valores.
+Y también, un ejemplo de funciones que no reciben argumentos y simultáneamente,
+no devuelve valores.
 
 ```c
 // sin retorno de valor, identificador saludar y sin argumentos.
@@ -139,7 +198,12 @@ void saludar()
 
 Esta función, que no tuvo un retorno al programa, dio lugar a un
 {term}`efecto secundario`; el enviar caracteres por la consola.
+Esta función, que no tuvo un retorno al programa, dio lugar a un
+{term}`efecto secundario`; el enviar caracteres por la consola.
 
+Cuando una función no tiene retorno, se dice que es un «Procedimiento», esta
+distinción es para separar conceptualmente del código que da resultados
+explícitos al programa.
 Cuando una función no tiene retorno, se dice que es un «Procedimiento», esta
 distinción es para separar conceptualmente del código que da resultados
 explícitos al programa.
@@ -154,13 +218,27 @@ en el código. Su propósito es permitir que el compilador verifique la coherenc
 de las llamadas a la función, garantizando que el número y el tipo de argumentos
 coincidan con su definición. Un prototipo no contiene el cuerpo de la función,
 sino únicamente su firma, y suele colocarse al inicio del archivo fuente.
+Son una declaración anticipada que informa al compilador sobre el nombre, tipo
+de retorno y lista de parámetros de una función **antes** de que sea utilizada
+en el código. Su propósito es permitir que el compilador verifique la coherencia
+de las llamadas a la función, garantizando que el número y el tipo de argumentos
+coincidan con su definición. Un prototipo no contiene el cuerpo de la función,
+sino únicamente su firma, y suele colocarse al inicio del archivo fuente.
 
 El funcionamiento del compilador es limitado a pasar una sola vez por el archivo
 del programa lo que hace que si se llega a una llamada a función que no fue
 declarada, no se podrá continuar con la compilación porque este no tiene la
 información necesaria para garantizar que los argumentos y retornos sean los
 indicados.
+El funcionamiento del compilador es limitado a pasar una sola vez por el archivo
+del programa lo que hace que si se llega a una llamada a función que no fue
+declarada, no se podrá continuar con la compilación porque este no tiene la
+información necesaria para garantizar que los argumentos y retornos sean los
+indicados.
 
+Pueden ver esto, si cambian la definición de las funciones debajo del `main`.
+Como el compilador ve una llamada a función, antes de su declaración, la
+compilación fallará.
 Pueden ver esto, si cambian la definición de las funciones debajo del `main`.
 Como el compilador ve una llamada a función, antes de su declaración, la
 compilación fallará.
@@ -178,6 +256,8 @@ double areaCirculo(double radio)
 }
 ```
 
+Para que este código funcione, se necesita saber cuál es la forma que tiene la
+función, si el código no está en ese lugar, no importa (en ese momento)
 Para que este código funcione, se necesita saber cuál es la forma que tiene la
 función, si el código no está en ese lugar, no importa (en ese momento)
 
@@ -199,6 +279,8 @@ double areaCirculo(double radio)
 
 Los prototipos de función se utilizan cuando una función usa a otra, y no
 podemos arreglarnos reordenando funciones.
+Los prototipos de función se utilizan cuando una función usa a otra, y no
+podemos arreglarnos reordenando funciones.
 
 ```c
 int funcion_uno()
@@ -216,6 +298,8 @@ int funcion_dos()
 }
 ```
 
+No importa en qué orden dejemos las funciones de este ejemplo, el código no
+compilará.
 No importa en qué orden dejemos las funciones de este ejemplo, el código no
 compilará.
 
@@ -246,12 +330,21 @@ En C, el alcance (o scope en inglés) de una variable determina en qué partes d
 tu programa puedes acceder y modificar esa variable. Es como definir el
 "territorio" donde una variable existe y es reconocida. Entender los alcances es
 fundamental para escribir código organizado, legible y libre de errores.
+En C, el alcance (o scope en inglés) de una variable determina en qué partes de
+tu programa puedes acceder y modificar esa variable. Es como definir el
+"territorio" donde una variable existe y es reconocida. Entender los alcances es
+fundamental para escribir código organizado, legible y libre de errores.
 
 En particular, porque las funciones deben recibir y devolver valores de forma
+explícita.
 explícita.
 
 ### Variables Globales
 
+Las variables globales se declaran fuera de cualquier función. Su principal
+característica es que son accesibles desde cualquier función en todo el
+programa. Una vez declarada, cualquier parte de tu código puede leerla y
+modificarla.
 Las variables globales se declaran fuera de cualquier función. Su principal
 característica es que son accesibles desde cualquier función en todo el
 programa. Una vez declarada, cualquier parte de tu código puede leerla y
@@ -277,7 +370,9 @@ int main()
 }
 ```
 
+
 Salida:
+
 
 ```
 Desde main (antes): 10
@@ -288,12 +383,23 @@ Desde main (después): 20
 Aunque las variables globales pueden parecer una forma fácil de compartir datos
 entre funciones, su uso rompe con la expectativa de que una función recibe su
 contexto de los argumentos y devuelve valor en el retorno.
+Aunque las variables globales pueden parecer una forma fácil de compartir datos
+entre funciones, su uso rompe con la expectativa de que una función recibe su
+contexto de los argumentos y devuelve valor en el retorno.
 
 Cualquier función puede modificar una variable global. Esto crea dependencias
 ocultas entre partes del código que no deberían estar relacionadas. Si cambias
 el valor de una variable global en una función, podrías romper inesperadamente
 otra función que también la usa. Es difícil rastrear quién y cuándo la modificó.
+Cualquier función puede modificar una variable global. Esto crea dependencias
+ocultas entre partes del código que no deberían estar relacionadas. Si cambias
+el valor de una variable global en una función, podrías romper inesperadamente
+otra función que también la usa. Es difícil rastrear quién y cuándo la modificó.
 
+También, cuando una variable global tiene un valor incorrecto, tienes que buscar
+en todo el código para encontrar la causa del problema. En un programa grande,
+esto es una pesadilla. Con variables locales, el error está contenido dentro de
+una única función.
 También, cuando una variable global tiene un valor incorrecto, tienes que buscar
 en todo el código para encontrar la causa del problema. En un programa grande,
 esto es una pesadilla. Con variables locales, el error está contenido dentro de
@@ -304,7 +410,14 @@ simplemente copiar y pegar una función en otro proyecto, porque necesitarías
 llevarte también todas las variables globales de las que depende. El código
 modular y reutilizable se basa en funciones que reciben entradas (argumentos) y
 producen salidas (valor de retorno), sin depender del estado externo.
+Las funciones que dependen de variables globales no son autónomas. No puedes
+simplemente copiar y pegar una función en otro proyecto, porque necesitarías
+llevarte también todas las variables globales de las que depende. El código
+modular y reutilizable se basa en funciones que reciben entradas (argumentos) y
+producen salidas (valor de retorno), sin depender del estado externo.
 
+Por estas razones, existe la regla
+[`0x000Bh`](./estilo.md#0x000Bh)
 Por estas razones, existe la regla
 [`0x000Bh`](./estilo.md#0x000Bh)
 
@@ -314,7 +427,14 @@ Estas son las variables que se declaran en la definición de una función. Su
 alcance está limitado exclusivamente a esa función. Actúan como variables
 locales que se inicializan con los valores que se les pasan cuando se llama a la
 función.
+Estas son las variables que se declaran en la definición de una función. Su
+alcance está limitado exclusivamente a esa función. Actúan como variables
+locales que se inicializan con los valores que se les pasan cuando se llama a la
+función.
 
+Aunque su comportamiento es idéntico a una variable declarada dentro de la
+función, la inicialización se hace con los valores con la que la función es
+llamada.
 Aunque su comportamiento es idéntico a una variable declarada dentro de la
 función, la inicialización se hace con los valores con la que la función es
 llamada.
@@ -337,9 +457,15 @@ int main() {
 
 En este caso, `a` y `b` solo son visibles y utilizables dentro de la función
 `suma`.
+En este caso, `a` y `b` solo son visibles y utilizables dentro de la función
+`suma`.
 
 ### Variables locales
 
+Las variables locales se declaran dentro de una función, pero fuera de cualquier
+bloque de código (como un `if` o un `for`). Su alcance se limita a la función en
+la que fueron declaradas. Se "destruyen" de la memoria cuando la función termina
+su ejecución, vamos a ver un detalle adicional sobre este tema más adelante.
 Las variables locales se declaran dentro de una función, pero fuera de cualquier
 bloque de código (como un `if` o un `for`). Su alcance se limita a la función en
 la que fueron declaradas. Se "destruyen" de la memoria cuando la función termina
@@ -368,6 +494,10 @@ Son variables declaradas dentro de un bloque de código específico, que se
 delimita por llaves `{}`. Su alcance es aún más restringido: solo existen desde
 el punto de su declaración hasta el final de ese bloque. Son comunes en bucles
 `for`, sentencias `if`, `while`, etc.
+Son variables declaradas dentro de un bloque de código específico, que se
+delimita por llaves `{}`. Su alcance es aún más restringido: solo existen desde
+el punto de su declaración hasta el final de ese bloque. Son comunes en bucles
+`for`, sentencias `if`, `while`, etc.
 
 ```c
 #include <stdio.h>
@@ -375,6 +505,7 @@ el punto de su declaración hasta el final de ese bloque. Son comunes en bucles
 int main() {
     int x = 10;
 
+    if (x == 10)
     if (x == 10)
     {
         int variableBloque = 25; // Solo existe dentro de este if
@@ -384,6 +515,7 @@ int main() {
     // printf("%d", variableBloque); // ERROR: La variable no existe aquí
 
     for (int i = 0; i < 3; i++) // 'i' es una variable de bloque
+    {
     {
         printf("Iteración: %d\n", i);
     }
@@ -395,7 +527,11 @@ int main() {
 
 La `variableBloque` solo es accesible dentro de las llaves del `if`, y la
 variable `i` solo existe dentro del bucle `for`.
+La `variableBloque` solo es accesible dentro de las llaves del `if`, y la
+variable `i` solo existe dentro del bucle `for`.
 
+Tengan en cuenta que pueden crear bloques sueltos, sin que estén asociados a una
+estructura de control.
 Tengan en cuenta que pueden crear bloques sueltos, sin que estén asociados a una
 estructura de control.
 
@@ -404,13 +540,20 @@ estructura de control.
 Los alcances nos llevan a que la información no viaja 'mágicamente' entre
 funciones, es necesario pasar y recibir los valores explícitamente. (ya vimos
 porque es una mala idea usar variables globales)
+Los alcances nos llevan a que la información no viaja 'mágicamente' entre
+funciones, es necesario pasar y recibir los valores explícitamente. (ya vimos
+porque es una mala idea usar variables globales)
 
+El principal efecto de los alcances, tiene que ver con que un mismo nombre en
+dos alcances del mismo nivel, que serían paralelos, pueden tener los mismos
+identificadores y tener (tipos y) valores completamente diferentes.
 El principal efecto de los alcances, tiene que ver con que un mismo nombre en
 dos alcances del mismo nivel, que serían paralelos, pueden tener los mismos
 identificadores y tener (tipos y) valores completamente diferentes.
 
 ```c
 // Global, scope de nivel cero.
+int main()
 int main()
 {
     // La función, establecen un scope local de nivel 1
@@ -429,9 +572,14 @@ void procedimiento()
 
 Es otra cosa cuando el mismo identificador se usa en alcances anidados, como
 veremos a continuación.
+Es otra cosa cuando el mismo identificador se usa en alcances anidados, como
+veremos a continuación.
 
 ### Ocultamiento de variables (Shadowing)
 
+El _shadowing_ ocurre cuando declaras una variable en un alcance interno (por
+ejemplo, local a una función o en un bloque) con el mismo nombre que una
+variable en un alcance externo (por ejemplo, una variable global).
 El _shadowing_ ocurre cuando declaras una variable en un alcance interno (por
 ejemplo, local a una función o en un bloque) con el mismo nombre que una
 variable en un alcance externo (por ejemplo, una variable global).
@@ -441,7 +589,15 @@ Cuando esto sucede, la variable del alcance más interno "oculta" o le hace
 cualquier referencia a ese nombre de variable se resolverá a la variable más
 cercana (la interna), haciendo que la externa sea _temporalmente_ inaccesible
 por su nombre.
+Cuando esto sucede, la variable del alcance más interno "oculta" o le hace
+"sombra" (shadow) a la del alcance más externo. Dentro de ese bloque interno,
+cualquier referencia a ese nombre de variable se resolverá a la variable más
+cercana (la interna), haciendo que la externa sea _temporalmente_ inaccesible
+por su nombre.
 
+Existen ejemplos más elaborados, utilizando una combinación de variables
+globales, locales y de bloque, pero este es uno que puede darse con gran
+facilidad porque en definitiva, es por redefinir `i` dentro del lazo.
 Existen ejemplos más elaborados, utilizando una combinación de variables
 globales, locales y de bloque, pero este es uno que puede darse con gran
 facilidad porque en definitiva, es por redefinir `i` dentro del lazo.
@@ -482,7 +638,13 @@ Fuera del for, 'i' es de nuevo: 10
 
 Cuando se declara una variable local dentro de una función, esta se destruye
 cuando la función termina por lo que su valor no se conserva entre llamadas.
+Cuando se declara una variable local dentro de una función, esta se destruye
+cuando la función termina por lo que su valor no se conserva entre llamadas.
 
+C con el calificador `static` en la declaración de una variable local a función,
+nos permite evitar que esta no se destruya y conserve su valor entre las
+distintas llamadas, el comportamiento es similar a una variable global, pero
+delimitada a la función.
 C con el calificador `static` en la declaración de una variable local a función,
 nos permite evitar que esta no se destruya y conserve su valor entre las
 distintas llamadas, el comportamiento es similar a una variable global, pero
@@ -490,7 +652,11 @@ delimitada a la función.
 
 Una variable con este calificador, se inicializa una única vez en la primera
 llamada a la función, para evitar destruir el valor entre llamadas a la función.
+Una variable con este calificador, se inicializa una única vez en la primera
+llamada a la función, para evitar destruir el valor entre llamadas a la función.
 
+Pero lo más importante, conserva su valor entre sucesivas llamadas a la función
+y preserva su alcance.
 Pero lo más importante, conserva su valor entre sucesivas llamadas a la función
 y preserva su alcance.
 
@@ -498,12 +664,14 @@ y preserva su alcance.
 #include <stdio.h>
 
 void contadorNormal()
+void contadorNormal()
 {
     int contador = 0;
     contador++;
     printf("Contador Normal: %d\n", contador);
 }
 
+void contadorStatic()
 void contadorStatic()
 {
     static int contador = 0; // 'static' hace la diferencia
@@ -514,6 +682,7 @@ void contadorStatic()
 int main()
 {
     printf("Llamando a las funciones 3 veces:\n");
+
 
     contadorNormal();
     contadorStatic();
@@ -530,6 +699,9 @@ int main()
 }
 ```
 
+De este ejemplo, contador normal, es un procedimiento simple que declara e
+inicializa una variable en `0`, este es el comportamiento tradicional de una
+función en C. Mientras que la segunda, hace uso del calificador `static`.
 De este ejemplo, contador normal, es un procedimiento simple que declara e
 inicializa una variable en `0`, este es el comportamiento tradicional de una
 función en C. Mientras que la segunda, hace uso del calificador `static`.
@@ -550,8 +722,18 @@ Aquí, el `contadorNormal` se reinicia a `0` en cada llamada, por lo que su
 salida es siempre `1`. Pero el `contadorStatic` se inicializa a `0` solo la
 primera vez. En las llamadas siguientes, retiene su valor anterior (`1`, luego
 `2`), por lo que sigue incrementándose.
+Aquí, el `contadorNormal` se reinicia a `0` en cada llamada, por lo que su
+salida es siempre `1`. Pero el `contadorStatic` se inicializa a `0` solo la
+primera vez. En las llamadas siguientes, retiene su valor anterior (`1`, luego
+`2`), por lo que sigue incrementándose.
 
 :::{warning} Limiten su uso
+
+El gran problema de este calificador, es que oculta el estado de la función que
+de otra forma debiera de ser un argumento explícito, lo que en definitiva, hace
+que la función no sea predecible, y dependerá de algo interno que solo es
+accesible por la función misma.
+
 
 El gran problema de este calificador, es que oculta el estado de la función que
 de otra forma debiera de ser un argumento explícito, lo que en definitiva, hace
@@ -565,6 +747,9 @@ accesible por la función misma.
 Los grandes programadores no resuelven problemas gigantescos de un solo golpe.
 En lugar de eso, **dividen el problema en piezas pequeñas**, comprensibles y más
 fáciles de encarar.
+Los grandes programadores no resuelven problemas gigantescos de un solo golpe.
+En lugar de eso, **dividen el problema en piezas pequeñas**, comprensibles y más
+fáciles de encarar.
 
 Este proceso se llama **descomposición funcional**. Cada parte se convierte en
 una función.
@@ -572,12 +757,19 @@ una función.
 Una función es un pequeño módulo con una misión específica. Cuando todas las
 piezas están listas, se ensamblan en el `main()` para contar la historia
 completa del programa.
+Una función es un pequeño módulo con una misión específica. Cuando todas las
+piezas están listas, se ensamblan en el `main()` para contar la historia
+completa del programa.
 
+> Pensá en tu programa como una obra de teatro. `main()` es el director que da
+> las órdenes, y cada función es un actor especializado.
 > Pensá en tu programa como una obra de teatro. `main()` es el director que da
 > las órdenes, y cada función es un actor especializado.
 
 ## Pensar como un programador: el método top-down
 
+El método top-down (de arriba hacia abajo) es una forma de resolver problemas
+desde lo general hacia lo específico. Así se programa con claridad y orden.
 El método top-down (de arriba hacia abajo) es una forma de resolver problemas
 desde lo general hacia lo específico. Así se programa con claridad y orden.
 
@@ -593,7 +785,19 @@ desde lo general hacia lo específico. Así se programa con claridad y orden.
    simples (leer, calcular, etc.).
 5. **Integrá todo en el `main()` de forma que quede como una receta paso a
    paso.**
+1. **Analizá el problema global.** ¿Qué debe hacer el programa, en líneas
+   generales?
+2. **Dividilo en subtareas lógicas.** Por ejemplo: leer datos, procesar
+   información, mostrar resultados.
+3. **Asigná una función a cada subtarea.** Cada una debería tener nombre,
+   parámetros y un valor de retorno claro.
+4. **Codificá las funciones de abajo hacia arriba.** Primero las funciones más
+   simples (leer, calcular, etc.).
+5. **Integrá todo en el `main()` de forma que quede como una receta paso a
+   paso.**
 
+Este enfoque permite **testear partes** antes de armar el todo, y hace que tu
+programa sea mucho más fácil de entender.
 Este enfoque permite **testear partes** antes de armar el todo, y hace que tu
 programa sea mucho más fácil de entender.
 
@@ -660,9 +864,13 @@ int calcular_area(int base, int altura)
 2. Escribí una función que reciba dos números y devuelva el mayor.
 3. Programa una conversión de Celsius a Fahrenheit. Separá en: leer, convertir,
    mostrar.
+3. Programa una conversión de Celsius a Fahrenheit. Separá en: leer, convertir,
+   mostrar.
 4. Escribí un programa que determine si un número es par o impar.
 5. Escribí un programa que lea tres notas, calcule el promedio y lo muestre.
 6. Hacé una función que devuelva el cuadrado de un número.
+7. Componé funciones que, encadenadas, lean dos valores, sumen, resten y
+   muestren resultados.
 7. Componé funciones que, encadenadas, lean dos valores, sumen, resten y
    muestren resultados.
 
@@ -682,6 +890,9 @@ Una de las habilidades clave en la programación es **reconocer patrones
 repetidos** y simplificarlos. Así como en álgebra factorizamos términos comunes
 para escribir expresiones más simples y elegantes, en programación podemos
 **factorizar comportamiento común en una única función**.
+repetidos** y simplificarlos. Así como en álgebra factorizamos términos comunes
+para escribir expresiones más simples y elegantes, en programación podemos
+**factorizar comportamiento común en una única función**.
 
 ### El paralelismo con la matemática
 
@@ -694,6 +905,8 @@ ab + ac = a(b + c)
 
 En la factorización de términos, extraemos el término común `a` para simplificar
 la expresión.
+En la factorización de términos, extraemos el término común `a` para simplificar
+la expresión.
 
 ¿Y esto, cómo se aplica a la programación?
 
@@ -703,6 +916,8 @@ ambas funciones originales o incluso reemplazarlas completamente.
 
 :::{note} ¿Solo para código idéntico?
 
+Si podemos identificar qué es lo que cambia, y reemplazarlo por un argumento,
+estamos factorizando de una forma aún mejor.
 Si podemos identificar qué es lo que cambia, y reemplazarlo por un argumento,
 estamos factorizando de una forma aún mejor.
 
@@ -860,6 +1075,8 @@ void menu_configuracion()
 
 En la sección anterior, se menciona algo sobre 'responsabilidades', este es uno
 de los principios más importantes al escribir funciones y aplicar la
+En la sección anterior, se menciona algo sobre 'responsabilidades', este es uno
+de los principios más importantes al escribir funciones y aplicar la
 descomposición funcional.
 
 Consiste en que **cada función debe tener una única responsabilidad** y es
@@ -936,9 +1153,14 @@ int main()
 La función tiene una **tarea clara, definida y limitada**. Y aunque podemos
 extender el concepto a la ‘toma de datos’ y a ‘mostrar el resultado’, con
 quedarnos en lo que hace el trabajo estamos más que bien.
+La función tiene una **tarea clara, definida y limitada**. Y aunque podemos
+extender el concepto a la ‘toma de datos’ y a ‘mostrar el resultado’, con
+quedarnos en lo que hace el trabajo estamos más que bien.
 
 ::::{tip}
 
+Una buena función se puede describir en una frase corta. Si necesitás una
+oración compuesta, probablemente estás metiendo dos responsabilidades en una.
 Una buena función se puede describir en una frase corta. Si necesitás una
 oración compuesta, probablemente estás metiendo dos responsabilidades en una.
 
@@ -949,9 +1171,15 @@ oración compuesta, probablemente estás metiendo dos responsabilidades en una.
 La documentación es una herramienta clave en la programación. Ayuda a que otras
 personas (y vos mismo, en el futuro) puedan entender rápidamente qué hace cada
 parte del programa sin tener que leer todo el código.
+La documentación es una herramienta clave en la programación. Ayuda a que otras
+personas (y vos mismo, en el futuro) puedan entender rápidamente qué hace cada
+parte del programa sin tener que leer todo el código.
 
 ### Comentarios
 
+Los comentarios son texto libre que podemos agregar a nuestros programas sin que
+este sea procesado por el compilador. Lo podemos pensar como anotaciones y
+observaciones del código que escribamos.
 Los comentarios son texto libre que podemos agregar a nuestros programas sin que
 este sea procesado por el compilador. Lo podemos pensar como anotaciones y
 observaciones del código que escribamos.
@@ -961,7 +1189,14 @@ llamados documentación, los cuales deben tener una forma específica. Y aunque
 esto no es estrictamente necesario para el funcionamiento del programa, los
 ayudará a entender mejor el problema que están resolviendo al ponerlo en sus
 propias palabras.
+Durante la cursada, les vamos a exigir que completen comentarios específicos
+llamados documentación, los cuales deben tener una forma específica. Y aunque
+esto no es estrictamente necesario para el funcionamiento del programa, los
+ayudará a entender mejor el problema que están resolviendo al ponerlo en sus
+propias palabras.
 
+Este es un comentario de una sola línea, que pueden usar para reforzar alguna
+explicación de algo que vean flojo (pero puntual)
 Este es un comentario de una sola línea, que pueden usar para reforzar alguna
 explicación de algo que vean flojo (pero puntual)
 
@@ -969,6 +1204,8 @@ explicación de algo que vean flojo (pero puntual)
 // este es un comentario de una única linea, todo lo que esta a la derecha es ignorado
 ```
 
+Y este es un comentario de bloque, que se usa para documentar funciones, pero
+también lo pueden usar para desactivar una parte del programa:
 Y este es un comentario de bloque, que se usa para documentar funciones, pero
 también lo pueden usar para desactivar una parte del programa:
 
@@ -981,6 +1218,8 @@ ignorado, y este, a diferencia del otro, puede abarcar múltiples lineas.
 
 ### ¿Por qué documentar funciones?
 
+Una buena razón para documentar, y hacerlo antes de empezar a programar, es para
+poner en nuestras propias palabras que es lo que el código que estamos
 Una buena razón para documentar, y hacerlo antes de empezar a programar, es para
 poner en nuestras propias palabras que es lo que el código que estamos
 implementando tiene que hacer, además de:
@@ -1002,6 +1241,10 @@ función, e incluye:
 
 ### Ejemplo:
 
+Los comentarios de documentación que les pediremos que completen, tienen esta
+forma, la misma no es casual. Está pensada para una herramienta que toma estos
+comentarios y construye un manual del código que, si nos da el tiempo, la
+veremos, [Doxygen](https://doxygen.nl/).
 Los comentarios de documentación que les pediremos que completen, tienen esta
 forma, la misma no es casual. Está pensada para una herramienta que toma estos
 comentarios y construye un manual del código que, si nos da el tiempo, la
@@ -1031,7 +1274,19 @@ propiedades deben mantenerse constantes durante su funcionamiento. En conjunto,
 estos conceptos fortalecen la robustez, legibilidad y mantenibilidad del código,
 al definir claramente las responsabilidades y limitaciones de cada parte del
 sistema.
+parte de la noción de **contrato** entre una función y su entorno. Estos
+elementos permiten especificar, de manera formal y verificable, qué se espera
+antes de ejecutar una operación, qué se garantiza después de ejecutarla y qué
+propiedades deben mantenerse constantes durante su funcionamiento. En conjunto,
+estos conceptos fortalecen la robustez, legibilidad y mantenibilidad del código,
+al definir claramente las responsabilidades y limitaciones de cada parte del
+sistema.
 
+Al escribir funciones, no solo importa el código que contienen, sino también las
+expectativas que tienen sobre sus entradas y los compromisos que deben cumplir
+al salir. Para pensar correctamente en términos de responsabilidad y
+confiabilidad, veremos tres conceptos clave: precondiciones, poscondiciones e
+invariantes.
 Al escribir funciones, no solo importa el código que contienen, sino también las
 expectativas que tienen sobre sus entradas y los compromisos que deben cumplir
 al salir. Para pensar correctamente en términos de responsabilidad y
@@ -1040,6 +1295,8 @@ invariantes.
 
 Este tema es mucho más grande que lo que veremos aquí, que le daremos un
 tratamiento intuitivo y coloquial. Pero estos, están basados en lógica de primer
+Orden y los tres conceptos están conectados lógicamente, de forma que lo pre,
+vaya hacia lo post, manteniendo lo que no cambia.
 Orden y los tres conceptos están conectados lógicamente, de forma que lo pre,
 vaya hacia lo post, manteniendo lo que no cambia.
 
@@ -1051,7 +1308,15 @@ funcionamiento. Define las condiciones mínimas y necesarias que los parámetros
 el estado del sistema deben cumplir para que el algoritmo pueda ejecutarse sin
 errores y producir un resultado válido. Si una precondición no se cumple, el
 comportamiento de la función es indefinido o incorrecto.
+Una _precondición_ es una afirmación lógica que debe cumplirse **antes** de la
+ejecución de una función, método o bloque de código para garantizar su correcto
+funcionamiento. Define las condiciones mínimas y necesarias que los parámetros y
+el estado del sistema deben cumplir para que el algoritmo pueda ejecutarse sin
+errores y producir un resultado válido. Si una precondición no se cumple, el
+comportamiento de la función es indefinido o incorrecto.
 
+Las precondiciones forman parte del contrato que el _llamador_ debe respetar al
+invocar la función.
 Las precondiciones forman parte del contrato que el _llamador_ debe respetar al
 invocar la función.
 
@@ -1061,10 +1326,16 @@ invocar la función.
   que no es posible dividir por cero
 - En `calcular_raiz_cuadrada(float x)`, una posible precondición es `x >= 0`, ya
   que la raiz cuadrada de un número negativo da como resultado un valor
+- En una función `dividir(int a, int b)`, la precondición es que `b != 0`, ya
+  que no es posible dividir por cero
+- En `calcular_raiz_cuadrada(float x)`, una posible precondición es `x >= 0`, ya
+  que la raiz cuadrada de un número negativo da como resultado un valor
   imaginario, que no es posible representar con los valores convencionales de C.
 
 ::::{note} Precondiciones
 
+Si la precondición no se cumple, el resultado puede ser inválido, o el programa
+puede fallar (por ejemplo, dividir por cero).
 Si la precondición no se cumple, el resultado puede ser inválido, o el programa
 puede fallar (por ejemplo, dividir por cero).
 
@@ -1079,6 +1350,8 @@ datos de salida y, en algunos casos, del sistema en general.
 
 La poscondición representa la garantía que ofrece la función a su llamador una
 vez que ha completado su tarea.
+La poscondición representa la garantía que ofrece la función a su llamador una
+vez que ha completado su tarea.
 
 **Ejemplos**
 
@@ -1091,6 +1364,8 @@ vez que ha completado su tarea.
 
 Las poscondiciones son una promesa. Si las precondiciones se cumplen, la función
 debe cumplir lo prometido.
+Las poscondiciones son una promesa. Si las precondiciones se cumplen, la función
+debe cumplir lo prometido.
 
 ::::
 
@@ -1099,11 +1374,20 @@ debe cumplir lo prometido.
 Un _invariante_ es una condición lógica que permanece **verdadera en todo
 momento** durante la ejecución de un programa o, más específicamente, a lo largo
 de todas las iteraciones de un ciclo o entre cada llamada a funciones.
+Un _invariante_ es una condición lógica que permanece **verdadera en todo
+momento** durante la ejecución de un programa o, más específicamente, a lo largo
+de todas las iteraciones de un ciclo o entre cada llamada a funciones.
 
 En el contexto de funciones simples y lo que aplicaremos inicialmente, esto
 suele referirse a propiedades que no cambian durante la ejecución de un conjunto
 de operaciones o dentro de estructuras de control (como un bucle).
+En el contexto de funciones simples y lo que aplicaremos inicialmente, esto
+suele referirse a propiedades que no cambian durante la ejecución de un conjunto
+de operaciones o dentro de estructuras de control (como un bucle).
 
+Este concepto aplica también a programas más complejos, donde hay funciones que
+manipulan un estado que debe ser mantenido entre varias funciones, algo que
+veremos más adelante, cuando tratemos Estructuras de Datos.
 Este concepto aplica también a programas más complejos, donde hay funciones que
 manipulan un estado que debe ser mantenido entre varias funciones, algo que
 veremos más adelante, cuando tratemos Estructuras de Datos.
@@ -1112,6 +1396,8 @@ veremos más adelante, cuando tratemos Estructuras de Datos.
 
 - En un ciclo que cuenta del 1 al 10, la invariante podría ser que
   `i >= 1 && i <= 10`.
+- En una función que calcula el máximo de dos números, la invariante puede ser
+  que ninguna de las variables de entrada se modifica dentro de la función.
 - En una función que calcula el máximo de dos números, la invariante puede ser
   que ninguna de las variables de entrada se modifica dentro de la función.
 
@@ -1130,6 +1416,8 @@ del programa sea coherente.
 - Son la base para escribir funciones seguras y predecibles.
 - Mejoran la **legibilidad y el contrato** entre quien implementa y quien usa
   una función.
+- Mejoran la **legibilidad y el contrato** entre quien implementa y quien usa
+  una función.
 
 ### Cómo documentarlas
 
@@ -1137,9 +1425,16 @@ Incluilas como parte del comentario de documentación de la función:
 
 Una forma es incluirlas como parte de la prosa de la documentación.
 
+Una forma es incluirlas como parte de la prosa de la documentación.
+
 ```c
 /**
  * Calcula el cociente entre dos números.
+ *
+ * @param dividento es el numero que sera dividido.
+ * @param divisor con el que se dividirá dividendo y debe ser distinto a 0.
+ * @returns el resultado de dividir dividendo por divisor, o el codigo de error
+ *            DIV_CERO
  *
  * @param dividento es el numero que sera dividido.
  * @param divisor con el que se dividirá dividendo y debe ser distinto a 0.
@@ -1188,6 +1483,11 @@ errores antes de que ocurran y construir soluciones más elegantes.
 :::{glossary}
 
 efecto secundario
+: En la programación, un efecto secundario es cualquier cambio
+de estado que ocurre fuera del ámbito de una función. En otras palabras, una
+función tiene efectos secundarios cuando modifica algo más allá de simplemente
+devolver un valor. En C, esto a menudo se refiere a la modificación de variables
+globales o datos a los que se accede a través de punteros.
 : En la programación, un efecto secundario es cualquier cambio
 de estado que ocurre fuera del ámbito de una función. En otras palabras, una
 función tiene efectos secundarios cuando modifica algo más allá de simplemente
