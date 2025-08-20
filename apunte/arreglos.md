@@ -6,70 +6,66 @@ subtitle: Conjuntos de datos.
 
 ## Arreglos en C
 
-### ¿Qué es un arreglo?
+### Definición de Arreglo
 
 Un arreglo es una colección secuencial de elementos del mismo tipo, almacenados
-en ubicaciones de memoria contiguas. Es una estructura muy útil para almacenar
-datos homogéneos y acceder a ellos mediante índices.
+en ubicaciones de memoria contiguas. Es una estructura de datos fundamental para
+almacenar y manipular conjuntos de datos homogéneos mediante el uso de índices.
 
 ```c
-int arreglo[8]; // 8 enteros consecutivos
+int arreglo[8]; // Declara un arreglo de 8 enteros consecutivos.
 ```
 
-Los arreglos tienen una característica adicional que exploraremos luego,
-referida a la memoria y la forma en la que C los ve.
+Los arreglos en C poseen características particulares relacionadas con la
+gestión de memoria y la forma en que el lenguaje los interpreta, aspectos que se
+explorarán en detalle más adelante.
 
-### Operador `sizeof`
+### El Operador `sizeof`
 
-Antes de continuar, es necesario que veamos una nueva palabra reservada del
-lenguaje, el operador `sizeof`.
+Para comprender mejor el manejo de memoria de los arreglos, es necesario
+introducir el operador `sizeof`.
 
-Este operador unario se evalúa en tiempo de compilación y nos indica el tamaño
-en bytes de un tipo de dato o variable, el valor devuelto es de tipo `size_t`,
-un tipo de entero sin signo.
+Este es un operador unario que se evalúa en tiempo de compilación. Su función es
+determinar el tamaño en bytes de un tipo de dato o de una variable. El valor que
+retorna es de tipo `size_t`, un tipo de entero sin signo.
 
-Una de las cuestiones criticadas de C, pero que en definitiva simplifica que el
-código pueda funcionar sin cambios entre diferentes arquitecturas de
-computadora, es el hecho de que sus tipos numéricos enteros cambian de tamaño
-entre plataformas. Este operador existe para que podamos trabajar junto a
-`limits.h` para no excedernos de los límites de los números.
+Una característica del lenguaje C es que los tamaños de sus tipos de datos
+numéricos pueden variar entre diferentes arquitecturas de hardware. El operador
+`sizeof` permite escribir código portable que no dependa de un tamaño de tipo de
+dato fijo, facilitando la adaptación del software a distintas plataformas.
 
-Por nombrar un ejemplo, e históricamente, un programa compilado para un
-procesador más limitado, verá que sus `int` son de 16-bits (2-bytes), mientras
-que en una máquina de escritorio tradicional, serán de 32-bits (4-bytes).
+Por ejemplo, históricamente, un `int` en sistemas de 16-bits ocupa 2 bytes,
+mientras que en sistemas de 32-bits o 64-bits, comúnmente ocupa 4 bytes.
 
-El uso de este operador no se limita a los tipos por defecto, más adelante, es
-una pieza clave de la gestión de memoria dinámica por lo que utilizaremos este
-operador en un tema posterior luego.
-
-Se puede utilizar de dos formas, para averiguar el tamaño de un tipo de dato y
-para averiguar el tamaño de una variable.
+El uso de `sizeof` es crucial en la gestión de memoria dinámica, un tema que se
+abordará posteriormente. Se puede aplicar tanto a tipos de datos como a
+variables:
 
 ```c
 sizeof(tipo_de_dato);
-size_t tamanio_int = sizeof(int); // 4
+size_t tamanio_int = sizeof(int); // Generalmente 4 en sistemas modernos.
 
 int variable;
-sizeof(variable); // 4
+sizeof(variable); // También 4, si la variable es de tipo int.
 ```
 
-A efectos prácticos, utilizar variables o el tipo directamente es lo mismo, ya
-que este operador es resuelto por el compilador.
+En la práctica, el resultado es el mismo si se utiliza una variable o su tipo,
+ya que el operador es evaluado por el compilador.
 
 ```c
 #include <stdio.h>
 
 int main() {
-    printf("Tamaño de char: %zu bytes\n", sizeof(char));
-    printf("Tamaño de int: %zu bytes\n", sizeof(int));
-    printf("Tamaño de float: %zu bytes\n", sizeof(float));
-    printf("Tamaño de double: %zu bytes\n", sizeof(double));
-    printf("Tamaño de long long: %zu bytes\n", sizeof(long long));
+    printf("Tamaño de char: %zu bytes", sizeof(char));
+    printf("Tamaño de int: %zu bytes", sizeof(int));
+    printf("Tamaño de float: %zu bytes", sizeof(float));
+    printf("Tamaño de double: %zu bytes", sizeof(double));
+    printf("Tamaño de long long: %zu bytes", sizeof(long long));
     return 0;
 }
 ```
 
-Esto daría como salida, en una computadora de escritorio actual:
+La salida de este código en una computadora de escritorio actual sería:
 
 ```
 Tamaño de char: 1 bytes
@@ -81,95 +77,105 @@ Tamaño de long long: 8 bytes
 
 :::{note}
 
-El especificador de formato de `pritnf` para `size_t` es `%zu`. Usar `%d` o
-`%lu` podría generar advertencias del compilador.
+Para imprimir un valor de tipo `size_t` con `printf`, se utiliza el
+especificador de formato `%zu`. El uso de `%d` o `%lu` puede provocar
+advertencias del compilador debido a posibles inconsistencias de tipo.
 
 :::
 
-### Declaración e inicialización de arreglos
+### Declaración e Inicialización
 
-Ahora, volviendo al tema principal de este apunte.
+La declaración de un arreglo sigue la sintaxis `tipo identificador[cantidad];`,
+donde `cantidad` debe ser una expresión constante entera.
 
-La declaración de un arreglo sigue la forma `tipo identificador[cantidad];` para
-crear un conjunto de `tipo` por `cantidad` lugares con el `identificador` de
-nombre. Siendo cantidad un número constante.
+La inicialización define los valores iniciales del arreglo. Existen varias
+formas:
 
-Y luego, con la inicialización definimos los valores que contendrá al comienzo
-del programa. Puede hacerse de forma completa, parcial o implícita:
-
-- Completa, se indica el tamaño y el contenido de todas las posiciones.
-- Parcial, se indica un tamaño y el contenido para los primeros elementos,
-  rellenando el resto con ceros.
-- Sin inicialización, el contenido indeterminado.
+- **Completa**: Se especifica el tamaño y el valor para cada una de las
+  posiciones.
+- **Parcial**: Se especifica un tamaño y se proveen valores para los primeros
+  elementos. Los elementos restantes se inicializan automáticamente a cero.
+- **Implícita**: No se especifica el tamaño; el compilador lo infiere a partir
+  del número de elementos en la lista de inicialización.
+- **Sin inicialización**: El contenido del arreglo es indeterminado (contiene
+  "basura").
 
 ```c
 int completa[5] = {1, 2, 3, 4, 5};   // [1, 2, 3, 4, 5]
 int parcial[5] = {1, 2};             // [1, 2, 0, 0, 0]
-int implicita[] = {1, 2, 3};         // [1, 2, 3]
+int implicita[] = {1, 2, 3};         // [1, 2, 3] (tamaño 3)
 ```
 
-Tengan en cuenta que no es posible crear un arreglo implícito sin inicializar.
+Es importante notar que no es posible declarar un arreglo de tamaño implícito
+sin inicializarlo.
 
-### Arreglos de largo dinámicos (ALV/VLA)
+### Arreglos de Longitud Variable (VLA)
 
-Un arreglo de largo dinámico, es aquel que en lugar de ser declarado con un
-número constante, lo es a partir de una variable.
-
-Esto no está permitido y las razones específicas las veremos cuando veamos
-memoria dinámica
+Un Arreglo de Longitud Variable (VLA, por sus siglas en inglés) es aquel cuyo
+tamaño se determina en tiempo de ejecución mediante una variable, en lugar de
+una constante.
 
 ```c
 int cantidad = 0;
-printf("de que tamaño es el arreglo?\n");
+printf("Ingrese el tamaño del arreglo:
+");
 scanf("%d", &cantidad);
-int arreglo[cantidad];
-printf("el tamaño es de %zu\n", sizeof(arreglo));
-// Que debiera de ser sizeof(int) * cantidad
+
+int arreglo[cantidad]; // Declaración de un VLA
+
+printf("El tamaño del arreglo en bytes es: %zu
+", sizeof(arreglo));
+// El resultado será sizeof(int) * cantidad
 ```
 
-Es importante destacar que un arreglo creado de esta forma no es posible de ser
-inicializado, obtendremos el siguiente mensaje:
+Esta característica tiene limitaciones importantes. Por ejemplo, un VLA no puede
+ser inicializado en su declaración. Intentarlo producirá un error de
+compilación:
 
 ```
-error: variable-sized object may not be initialized except with an empty initializer
+error: variable-sized object may not be initialized
 ```
 
-### Tamaños y memoria
+Las implicaciones y el uso correcto de la memoria dinámica, que es la
+alternativa recomendada a los VLA, se abordarán en un capítulo posterior.
+
+### Tamaños y Memoria
+
+El operador `sizeof` puede ser utilizado para obtener el tamaño de un arreglo
+completo o de uno de sus elementos.
 
 ```c
-sizeof(completa[0]); // Tamaño de un elemento; sizeof(int)
-sizeof(completa);    // Tamaño total; sizeof(int) * 5
-sizeof(implicita);   // sizeof(int) * 3
+int completa[5] = {1, 2, 3, 4, 5};
+int implicita[] = {1, 2, 3};
+
+sizeof(completa[0]); // Tamaño de un elemento: sizeof(int)
+sizeof(completa);    // Tamaño total del arreglo: sizeof(int) * 5
+sizeof(implicita);   // Tamaño total del arreglo: sizeof(int) * 3
 ```
 
-Estos tamaños dependen del tipo de datos (por ejemplo, `int` ocupa típicamente 4
-bytes).
-
-Podemos aprovechar para obtener el tamaño de un arreglo implicito utilizando
-`sizeof`
+Es posible utilizar el operador `sizeof` para determinar la cantidad de
+elementos en un arreglo inicializado implícitamente:
 
 ```c
 int numeros[] = {10, 20, 30, 40, 50, 60};
 size_t cantidad = sizeof(numeros) / sizeof(numeros[0]);
-printf("Cantidad de elementos en el array: %zu\n", cantidad);
+printf("Cantidad de elementos en el arreglo: %zu
+", cantidad);
 ```
 
-Que dará como resultado `6`.
+Este código imprimirá `6`.
 
-### Accediendo y modificando
+### Acceso y Modificación de Elementos
 
-Una vez que un arreglo es declarado e inicializado, sus elementos individuales
-pueden ser accedidos y modificados. Cada elemento de un arreglo se comporta como
-una variable del tipo de dato del arreglo.
+Los elementos de un arreglo pueden ser accedidos y modificados individualmente,
+comportándose como variables del tipo base del arreglo.
 
 #### Acceso
 
-Para obtener o leer el valor de un elemento específico, se utiliza el operador
-de subíndice `[]`. Dentro de los corchetes se coloca el índice del elemento
-deseado. Recuerda que los índices en C siempre comienzan en cero.
-
-Acceder a un elemento del arreglo, como `miArreglo[i]`, es una operación que
-resulta en un r-value, es decir, el valor contenido en esa posición.
+Para leer el valor de un elemento, se utiliza el operador de subíndice `[]` con
+el índice del elemento deseado. Es importante recordar que los índices en C
+comienzan en cero. Una expresión de acceso como `miArreglo[i]` es un "r-value",
+ya que representa un valor que puede ser leído.
 
 ```c
 int calificaciones[5] = {10, 8, 9, 7, 10};
@@ -180,129 +186,129 @@ int primera = calificaciones[0];
 // Obtener el valor del cuarto elemento (índice 3)
 int cuarta = calificaciones[3];
 
-printf("La primera calificación es: %d\n", primera);
-printf("La cuarta calificación es: %d\n", cuarta);
-printf("directamente: %d\n", calificaciones[1]);
+printf("La primera calificación es: %d
+", primera);
+printf("La cuarta calificación es: %d
+", cuarta);
+printf("Acceso directo al segundo elemento: %d
+", calificaciones[1]);
 ```
 
-Y la salida
+Salida:
 
 ```
 La primera calificación es: 10
 La cuarta calificación es: 7
-directamente: 8
+Acceso directo al segundo elemento: 8
 ```
 
 #### Modificación
 
-Para modificar o escribir un nuevo valor en un elemento, se usa también el
-operador de subíndice `[]`, pero esta vez la expresión se coloca en el lado
-izquierdo de una asignación (`=`).
-
-En este contexto, la expresión `miArreglo[i]` se comporta como un l-value, ya
-que representa una ubicación de memoria específica y modificable.
+Para escribir un nuevo valor en un elemento, la expresión de subíndice
+`miArreglo[i]` se coloca en el lado izquierdo de una operación de asignación. En
+este contexto, la expresión es un "l-value", ya que representa una ubicación de
+memoria modificable.
 
 ```c
-
 int edades[4] = {20, 25, 22, 28};
 
 // 1. Mostrar el valor original del tercer elemento (índice 2)
-printf("La edad original en el índice 2 es: %d\n", edades[2]);
+printf("La edad original en el índice 2 es: %d
+", edades[2]);
 
-// 2. Modificar el valor en el índice 2.
-// 'edades[2]' aquí es un l-value.
+// 2. Modificar el valor en el índice 2. 'edades[2]' es un l-value.
 edades[2] = 23;
 
-// 3. Mostrar el valor modificado para confirmar el cambio.
-// 'edades[2]' aquí se evalúa como un r-value.
-printf("La nueva edad en el índice 2 es: %d\n", edades[2]);
-
-return 0;
-
-}
+// 3. Mostrar el valor modificado. 'edades[2]' se evalúa como un r-value.
+printf("La nueva edad en el índice 2 es: %d
+", edades[2]);
 ```
 
-Y su salida
+Salida:
+
 ```
 La edad original en el índice 2 es: 22
 La nueva edad en el índice 2 es: 23
 ```
 
-#### Modificación del arreglo en sí
+#### Modificación del Arreglo en sí
 
-Sin embargo, asignar al nombre de un arreglo, no es posible y esta es una 
-**constante** que se fija en tiempo de compilación. Por lo tanto, el nombre
-de un arreglo es un **l-value no modificable**.
+El identificador de un arreglo es una constante que representa la dirección de
+inicio del bloque de memoria asignado. Por esta razón, el nombre de un arreglo
+es un **l-value no modificable**.
 
-Esto significa que, aunque representa una ubicación de memoria (es un l-value),
-no puedes asignarle una nueva dirección. Intentar hacerlo resultará en un error
-de compilación.
+Esto significa que no se le puede asignar una nueva dirección de memoria.
+Intentar hacerlo resultará en un error de compilación.
 
-Un ejemplo de asignación inválida:
-
-El siguiente código intenta asignar una nueva dirección de memoria al arreglo
-`arr1`, lo cual es ilegal.
-
-```{code} c
+```c
 int arr1[5] = {1, 2, 3, 4, 5};
 int arr2[5] = {10, 20, 30, 40, 50};
 
+// La siguiente línea es ilegal y causará un error de compilación.
 arr1 = arr2; // Error: expression is not assignable.
 ```
 
-El nombre 'arr1' es un l-value no modificable por lo que no puede cambiar a otro
-arreglo, esto es algo que el compilador impedirá pasar.
+El compilador impide esta operación porque `arr1` no puede ser reasignado para
+apuntar a otra ubicación de memoria.
 
-### Recorriendo la secuencia
+### Recorrido de Arreglos
 
-Los lazos definidos son ideales para recorrer arreglos.
+Los bucles, especialmente el bucle `for`, son la estructura de control ideal
+para iterar sobre los elementos de un arreglo.
 
 ```c
 int numeros[] = {10, 20, 30, 40, 50, 60};
 size_t cantidad = sizeof(numeros) / sizeof(numeros[0]);
 
 for (size_t i = 0; i < cantidad; i++) {
-    printf("Elemento %zu: %d\n", i, numeros[i]);
+    printf("Elemento %zu: %d
+", i, numeros[i]);
 }
 ```
 
-Tengan muy presente que C no verificará los limites del arreglo en un lazo y,
-como veremos en clases, pueden obtener resultados interesantes.
+Es crucial tener presente que C no realiza una verificación de los límites del
+arreglo durante la iteración. Acceder a un índice fuera de los límites del
+arreglo (`i >= cantidad`) conduce a un comportamiento indefinido, un tipo de
+error que puede ser difícil de depurar.
 
-## Arreglos y funciones, como que falta algo
+## Uso de Arreglos en Funciones
 
-Varias de las cuestiones de esta parte del apunte, tienen que ver con un concepto
-que veremos más adelante, aquí, solo dejaré los efectos que tiene cuando lo
-utilizamos en funciones, las razones por la que todo esto sucede, las veremos mas
-adelante.
+El comportamiento de los arreglos cuando se utilizan con funciones está
+relacionado con la gestión de memoria y los punteros, conceptos que se tratarán
+en profundidad más adelante. En esta sección, se describirán los efectos
+prácticos de pasar arreglos a funciones.
 
-Los arreglos viajan de una forma diferente a los valores que hemos visto hasta
-ahora, lo que se copia, es la dirección de memoria al inicio del "bloque" de
-valores.
+A diferencia de los tipos de datos primitivos, cuando un arreglo se pasa a una
+función, lo que se transfiere no es una copia de todos sus elementos, sino la
+dirección de memoria de su primer elemento.
 
-### Arreglos como argumentos de funciones
+### Arreglos como Argumentos de Funciones
 
-Al trabajar con arreglos en funciones, es muy importante tener en cuenta que el
-tamaño del mismo, no va con el argumento.
+Al pasar un arreglo a una función, su tamaño no se transfiere implícitamente.
+Dentro de la función, el operador `sizeof` aplicado al argumento del arreglo no
+devolverá el tamaño total del arreglo original.
 
 ```c
 void imprimirArreglo(int arreglo[], size_t size) {
-    // Cuidado: sizeof(arreglo) no da el tamaño total real
+    // sizeof(arreglo) aquí no es el tamaño total del arreglo.
+    // Devolverá el tamaño de un puntero.
 }
 ```
 
-De momento, implica que cuando debamos pasar un arreglo como argumento, lo debemos
-de hacer con un valor de tipo `int` o `size_t` para no excedernos de sus límites.
+Por lo tanto, es una práctica estándar pasar el tamaño del arreglo como un
+argumento adicional para evitar accesos fuera de los límites.
 
-Cuando pasamos un arreglo como argumento en una función, los cambios que sean hechos
-en el contenido del mismo, se verán reflejados en el argumento _fuera_ de la función.
+Cualquier modificación realizada a los elementos del arreglo dentro de la
+función afectará al arreglo original en el código que realizó la llamada. Esto
+se debe a que la función opera directamente sobre la memoria del arreglo
+original, lo que se conoce como "paso por referencia". Esto constituye un efecto
+secundario.
 
-Esto significa que si nuestra función modifica el arreglo, está provocando un
-efecto secundario en el argumento, ¡pero solo si lo modificamos!.
-
-La búsqueda del máximo, es un ejemplo de función pura sobre arreglos.
+Una función que busca el valor máximo en un arreglo es un ejemplo de una función
+pura si no modifica el arreglo.
 
 ```c
+// Función pura: no modifica el estado del arreglo.
 int maximo(int valores[], int cantidad) {
     int max = valores[0];
     for (int i = 1; i < cantidad; i++) {
@@ -314,10 +320,12 @@ int maximo(int valores[], int cantidad) {
 }
 ```
 
-Mientras que el ordenamiento no lo es, observen que, incluso, se transforma
-en un procedimiento.
+En contraste, una función que ordena un arreglo modifica su contenido y, por lo
+tanto, no es una función pura. Generalmente, estas operaciones se implementan
+como procedimientos (funciones `void`).
 
 ```c
+// Procedimiento con efecto secundario: modifica el arreglo.
 void ordenar(int v[], int cantidad) {
     for (int i = 0; i < cantidad - 1; i++) {
         for (int j = 0; j < cantidad - i - 1; j++) {
@@ -331,22 +339,17 @@ void ordenar(int v[], int cantidad) {
 }
 ```
 
-### Arreglos como valores de retorno
+### Arreglos como Valores de Retorno
 
-Es también importante, que una función no puede retornar un arreglo que fuere
-creado dentro de sí. Una de las razones es que no podemos retornar el tamaño del
-mismo junto al arreglo en sí.
+Es importante destacar que una función no puede retornar un arreglo local (un
+arreglo creado en su propio ámbito). Las razones técnicas se relacionan con el
+ciclo de vida de las variables locales y la gestión de la pila de llamadas,
+temas que se abordarán posteriormente.
 
-La otra razón amerita una clase completa y tiene que ver con lo mismo que pasa
-cuando van como argumentos.
+:::{warning} Creación y Retorno de Arreglos
 
-:::{warning} Creación de arreglos
-
-Es muy importante que tengan presente que no es posible retornar arreglos
-creados en funciones.
-
-Y como siempre van a ser argumentos, créenlos exclusivamente en el `main` y
-luego pásenlos a partir de ahí.
+No es posible retornar arreglos creados localmente en una función. La práctica
+recomendada es declarar los arreglos en la función llamante (por ejemplo,
+`main`) y pasarlos a otras funciones para su procesamiento.
 
 :::
-

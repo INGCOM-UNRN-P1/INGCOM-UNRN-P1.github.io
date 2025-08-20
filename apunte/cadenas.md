@@ -1,100 +1,111 @@
-# Guía definitiva para aprender a programar en C desde cero (con foco en cadenas)
-
-> *"Si podés domar punteros y cadenas en C, podés domar dragones en cualquier lenguaje."*
-
+---
+title: "Guía sobre Cadenas de Caracteres en C"
 ---
 
 ## Introducción
 
-Bienvenido, aspirante a programador. Hoy vas a entrar al templo del Lenguaje C, con el objetivo claro de dominar uno de los aspectos más traicioneros pero fundamentales: **las cadenas de caracteres**. C no te va a cuidar. No hay cuerdas de seguridad, no hay "strings" como en Python. Acá sos vos, el puntero, y el abismo de la memoria.
+Este documento proporciona una guía detallada sobre el manejo de cadenas de caracteres en el lenguaje de programación C. A diferencia de otros lenguajes de alto nivel, C no posee un tipo de dato `string` nativo. En su lugar, las cadenas se gestionan como arreglos de caracteres terminados por un carácter nulo. Comprender este enfoque es fundamental para el desarrollo de software robusto y eficiente en C.
 
-Esta guía no se trata de más de lo mismo. Acá vas a aprender desde el nivel más bajo, sin atajos. Al final, vas a entender cómo funcionan las cadenas *de verdad*.
+Esta guía aborda los conceptos desde el nivel fundamental hasta técnicas avanzadas, incluyendo la declaración, manipulación, paso a funciones y gestión dinámica de memoria.
 
 ---
 
-## Nivel 1: El alfabeto binario
+## 1. Fundamentos de las Cadenas en C
 
-Antes de trabajar con cadenas, entendamos qué es una cadena:
+Una cadena en C se define por las siguientes características:
 
-- En C, una cadena es un **array de **``.
-- Cada `char` ocupa un byte (8 bits).
-- El final de la cadena está marcado por un byte especial: `\0`, el **carácter nulo**.
+- Es un **arreglo de caracteres** (tipo `char`).
+- Cada `char` ocupa, por estándar, al menos un byte (8 bits).
+- El final de la cadena se señaliza con un carácter especial: el **carácter nulo** (`\0`).
 
-Ejemplo:
+**Ejemplo:**
 
 ```c
 char saludo[] = "Hola";
 ```
 
-Esto crea un array con los siguientes bytes:
+Esta declaración crea un arreglo en memoria con la siguiente secuencia de bytes, representando cada carácter y el terminador nulo:
 
 ```
 'H' 'o' 'l' 'a' '\0'
 ```
 
-### Recordá:
-
-- Las comillas dobles (`"`) crean automáticamente el `\0` al final.
-- El tipo `char *` apunta al primer `char` de una cadena.
+**Puntos clave:**
+- Las comillas dobles (`"`) en una inicialización de cadena agregan automáticamente el carácter nulo `\0` al final.
+- Un puntero a carácter (`char *`) se utiliza comúnmente para apuntar al primer elemento de una cadena.
 
 ---
 
-## Nivel 2: Declarar y usar cadenas
+## 2. Declaración y Uso de Cadenas
 
-### Declarar una cadena literal:
+### Cadenas Literales (Constantes)
 
 ```c
 char *nombre = "Ada";
 ```
 
-Esto apunta a una cadena constante. **No la modifiques**.
+Esta sintaxis declara un puntero que apunta a una cadena literal almacenada en una sección de memoria de solo lectura. **No se debe intentar modificar el contenido de una cadena literal**, ya que puede provocar un fallo de segmentación (comportamiento indefinido).
 
-### Declarar una cadena modificable:
+### Arreglos de Caracteres (Modificables)
 
 ```c
 char nombre[] = "Ada";
-nombre[0] = 'E';  // Válido
+nombre[0] = 'E';  // Operación válida. La cadena ahora es "Eda".
 ```
 
-### Lectura de cadenas:
+En este caso, se crea un arreglo en la pila (stack) y se inicializa con el contenido "Ada". Este arreglo es modificable.
+
+### Lectura de Cadenas desde la Entrada Estándar
+
+La función `scanf` puede ser utilizada para leer texto, pero presenta riesgos de seguridad.
 
 ```c
 char buffer[100];
-scanf("%s", buffer); // Se detiene en espacio
+scanf("%s", buffer); // Se detiene al encontrar un espacio en blanco.
 ```
+**Advertencia:** `scanf` con el formato `%s` no verifica los límites del `buffer`, lo que puede causar un desbordamiento de memoria (buffer overflow) si la entrada es más larga que el espacio reservado.
 
-### Recomendación neckbeard:
+### Práctica Recomendada para la Lectura Segura
 
-Usá `fgets` para evitar desbordes:
+Se recomienda utilizar `fgets`, que permite especificar el tamaño máximo a leer, previniendo desbordamientos.
 
 ```c
+char buffer[100];
 fgets(buffer, sizeof(buffer), stdin);
 ```
+`fgets` lee una línea completa, incluyendo el carácter de nueva línea si cabe en el buffer, y siempre asegura que el resultado sea una cadena terminada en nulo.
 
 ---
 
-## Nivel 3: Funciones para cadenas
+## 3. Funciones Estándar de la Biblioteca `<string.h>`
 
-Estas funciones viven en `<string.h>`:
+La biblioteca `<string.h>` provee un conjunto de funciones para la manipulación de cadenas.
 
-- `strlen(s)` - Devuelve la longitud SIN contar `\0`.
-- `strcpy(dest, src)` - Copia `src` en `dest`. (PELIGRO si no hay suficiente espacio)
-- `strncpy(dest, src, n)` - Copia hasta `n` caracteres.
-- `strcmp(s1, s2)` - Compara cadenas (0 si son iguales).
-- `strcat(dest, src)` - Concatena `src` al final de `dest`.
+- `strlen(s)`: Devuelve la longitud de la cadena `s` sin contar el carácter nulo `\0`.
+- `strcpy(dest, src)`: Copia la cadena `src` en `dest`. Es insegura si `dest` no tiene suficiente espacio.
+- `strncpy(dest, src, n)`: Copia hasta `n` caracteres de `src` a `dest`. No garantiza la terminación nula si la longitud de `src` es `n` o mayor.
+- `strcmp(s1, s2)`: Compara lexicográficamente `s1` y `s2`. Devuelve `0` si son iguales, un valor negativo si `s1 < s2`, y un valor positivo si `s1 > s2`.
+- `strcat(dest, src)`: Concatena la cadena `src` al final de `dest`. También es insegura si `dest` no tiene espacio suficiente para el contenido adicional.
 
-### Ejemplo de uso seguro:
+### Ejemplo de Copia Segura
+
+Para copiar una cadena de forma segura, se debe usar `strncpy` y asegurar manualmente la terminación nula.
 
 ```c
 char destino[100];
-strncpy(destino, "Hola", sizeof(destino) - 1);
-destino[sizeof(destino) - 1] = '\0'; // Siempre cerrar con nulo
+const char *origen = "Texto de ejemplo";
+
+strncpy(destino, origen, sizeof(destino) - 1);
+destino[sizeof(destino) - 1] = '\0'; // Asegurar siempre la terminación nula.
 ```
 
 ---
 
-## Nivel 4: Recorrer una cadena manualmente
+## 4. Recorrido Manual de Cadenas
 
+Es posible iterar sobre los caracteres de una cadena utilizando punteros o índices.
+
+**Usando punteros:**
 ```c
 char *s = "Ejemplo";
 while (*s != '\0') {
@@ -103,8 +114,7 @@ while (*s != '\0') {
 }
 ```
 
-O usando índices:
-
+**Usando índices:**
 ```c
 char s[] = "Ejemplo";
 for (int i = 0; s[i] != '\0'; i++) {
@@ -112,22 +122,25 @@ for (int i = 0; s[i] != '\0'; i++) {
 }
 ```
 
-### Pregunta clave:
+### Cálculo de la Longitud y Reserva de Memoria
 
-¿Cuánto mide la cadena?
+Al reservar memoria dinámicamente para una cadena, es crucial solicitar un byte adicional para el carácter nulo.
 
 ```c
-strlen(s); // pero nunca te olvides del +1 si reservás memoria
+// Para una copia de 's', se necesita strlen(s) + 1 bytes.
+char *nueva_cadena = malloc(strlen(s) + 1);
 ```
 
 ---
 
-## Nivel 5: Efectos secundarios y pasaje a funciones
+## 5. Paso de Cadenas a Funciones y Efectos Secundarios
 
-### Las cadenas se pasan como punteros:
+### Paso por Referencia
+
+En C, los arreglos (y por ende, las cadenas) se pasan a las funciones como punteros a su primer elemento. Esto se conoce como "paso por referencia".
 
 ```c
-void gritar(char *s) {
+void convertirAMayusculas(char *s) {
     while (*s) {
         *s = toupper(*s);
         s++;
@@ -135,64 +148,70 @@ void gritar(char *s) {
 }
 ```
 
-Esta función **modifica la cadena original**.
+Una llamada a `convertirAMayusculas` **modificará la cadena original** en el ámbito de la función llamante. Esto es un **efecto secundario**.
 
-### Si no querés modificar:
+### Uso de `const` para Prevenir Modificaciones
+
+Si una función no debe modificar una cadena, es una buena práctica declarar el parámetro como `const`. Esto indica la intención del programador y permite al compilador detectar intentos de modificación accidentales.
 
 ```c
-void mostrar(const char *s) {
+void imprimirCadena(const char *s) {
     printf("%s\n", s);
+    // s[0] = 'A'; // Esto generaría un error de compilación.
 }
 ```
 
-Siempre que no modifiques, **usá **``. Ayuda al compilador y a tu yo del futuro.
-
 ---
 
-## Nivel 6: Alocación dinámica de cadenas
+## 6. Gestión Dinámica de Memoria para Cadenas
+
+Para cadenas cuyo tamaño no se conoce en tiempo de compilación, se utiliza la asignación dinámica de memoria con `malloc`.
 
 ```c
-char *copia = malloc(strlen(original) + 1);
+char *original = "Texto original";
+char *copia = malloc(strlen(original) + 1); // +1 para el '\0'
+
 if (copia != NULL) {
     strcpy(copia, original);
 }
 ```
 
-Y al final:
+Toda memoria reservada con `malloc` debe ser liberada con `free` cuando ya no se necesite.
 
 ```c
 free(copia);
 ```
 
-### Consejos de sabio:
+### Prácticas Recomendadas
 
-- Siempre pedí un byte extra para el `\0`.
-- Nunca trabajes con `malloc` sin chequear el `NULL`.
-- Nunca pierdas el puntero original retornado por `malloc`.
-
----
-
-## Nivel 7: Errores comunes que te van a romper la cabeza
-
-- **Olvidarse del **`` al armar una cadena "a mano".
-- **Desbordar arrays** con `strcpy`, `scanf`, `strcat`.
-- **Modificar cadenas literales** (`char *s = "hola"; s[0] = 'H'; // SEGFAULT`)
-- **No liberar memoria** de `malloc`.
+- Siempre solicitar `strlen(cadena) + 1` bytes para alojar el carácter nulo.
+- Siempre verificar que el puntero devuelto por `malloc` no sea `NULL` antes de usarlo.
+- Conservar el puntero original devuelto por `malloc` para poder liberarlo correctamente con `free`.
 
 ---
 
-## Nivel final: Cadenas como tipo de dato
+## 7. Errores Comunes en la Manipulación de Cadenas
 
-En C no hay tipos "string" nativos, pero podés definir abstracciones:
+- **Omitir el terminador nulo (`\0`)** al construir una cadena manualmente.
+- **Desbordamiento de arreglos (Buffer Overflow)** por uso de funciones inseguras como `strcpy`, `strcat` o `scanf` sin control de límites.
+- **Intentar modificar una cadena literal**, lo que resulta en comportamiento indefinido.
+- **Fugas de memoria (Memory Leaks)** por no liberar la memoria asignada con `malloc`.
+
+---
+
+## 8. Abstracción de Cadenas con Estructuras
+
+Aunque C no tiene un tipo `string` nativo, es posible crear una abstracción utilizando una estructura para encapsular los datos de la cadena y su longitud.
 
 ```c
 typedef struct {
     char *data;
     size_t len;
+    size_t capacity;
 } String;
 ```
 
-Podés implementar tus propias funciones:
+A partir de esta definición, se pueden implementar un conjunto de funciones para operar sobre el nuevo tipo `String`, creando una API más segura y de más alto nivel.
 
 ```c
 String string_crear(const char *texto);
@@ -202,29 +221,30 @@ void string_concatenar(String *a, const String *b);
 
 ---
 
-## Epílogo
+## Conclusión
 
-Dominar las cadenas en C es como aprender a usar una katana afilada. Si sos descuidado, te cortás. Pero si la dominás, nada se te va a resistir.
-
-> *"Primero aprendés a no hacer segmentation fault. Después, aprendés a evitarlo. Al final, aprendés a debuguearlo sin miedo."*
-
-Felicitaciones. Si llegaste hasta acá, sos uno menos en la Matrix. Segí practicando.
+El manejo de cadenas en C requiere una comprensión sólida de los punteros, la gestión de memoria y la necesidad del carácter nulo terminador. Aunque el enfoque de bajo nivel de C presenta desafíos, también ofrece un control preciso sobre la memoria y el rendimiento. Dominar estas técnicas es una habilidad esencial para cualquier programador de C.
 
 ---
 
-### Bonus Hack
+### Herramientas de Compilación y Depuración
 
-Compilá con:
+Para detectar errores en tiempo de compilación y ejecución, se recomienda utilizar las siguientes herramientas.
+
+**Flags de compilación recomendados:**
 
 ```bash
 gcc -Wall -Wextra -pedantic -g tu_codigo.c -o tu_programa
 ```
+- `-Wall`, `-Wextra`, `-pedantic`: Activan advertencias adicionales que ayudan a identificar código problemático.
+- `-g`: Incluye información de depuración en el ejecutable.
 
-Y usá `valgrind`:
+**Uso de Valgrind para detección de errores de memoria:**
 
 ```bash
 valgrind ./tu_programa
 ```
 
-No es opcional. Es sobrevivir o morir con dignidad.
+Valgrind es una herramienta indispensable para detectar fugas de memoria, accesos inválidos y otros errores relacionados con la gestión de memoria.
 
+```
