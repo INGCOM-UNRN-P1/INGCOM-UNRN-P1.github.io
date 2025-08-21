@@ -1250,3 +1250,6 @@ const int diasDeLaSemana = 7;
 (0x002Fh)=
 ### Regla `0x002Fh`: Todas las cadenas en funciones deben ser seguras
 
+(0x0030h)=
+### Regla `0x0030h`: Los argumentos y variables van en `snake_case` minuscula
+
