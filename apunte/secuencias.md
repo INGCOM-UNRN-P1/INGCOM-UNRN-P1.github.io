@@ -528,6 +528,19 @@ Y se encarga de recorrer la cadena hasta encontrarse un carácter nulo (`\0`)
 
 [Más información sobre `strlen`](https://en.cppreference.com/w/c/string/byte/strlen)
 
+:::{note} Largo vs. capacidad
+
+Es muy importante tener en cuenta que las cadenas tienen dos "tamaños" diferentes.
+
+Tenemos, por un lado, el largo, que es la cantidad de caracteres hasta el terminador.
+
+Y, por otro, tenemos el tamaño en memoria del arreglo de caracteres que guarda la cadena, que debiera de ser, por lo menos, uno más que el largo de la cadena. A esta
+dimensión, la llamaremos "capacidad". 
+
+Esta es la base para las cadenas seguras.
+
+:::
+
 ### Lectura Segura de Cadenas
 
 El uso de `scanf("%s", buffer)` es una de las fuentes de errores de seguridad
