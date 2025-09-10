@@ -20,6 +20,7 @@ project:
         - file: apunte/catedra.md
         - file: apunte/gradual.md
         - file: apunte/funciones.md
+        - file: apunte/compilacion.md        
         - file: apunte/estilo.md
 #        - file: apunte/arreglos.md
 #        - file: apunte/cadenas.md
@@ -34,6 +35,7 @@ project:
     - title: Extras
       children:
         - file: extras/cadenas.md
+        - file: extras/makefiles.md
         - file: extras/estado.md
         - file: extras/printf.md
         - file: extras/roles.md
