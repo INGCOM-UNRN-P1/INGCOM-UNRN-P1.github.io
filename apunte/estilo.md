@@ -5,6 +5,7 @@ subtitle: Manteniendo el orden y la prolijidad.
 exports:
   - format: pdf
     template: plain_latex
+    template: plain_latex
     article_type: Report
 ---
 
@@ -101,7 +102,11 @@ Probá y fijate si ayuda a la legibilidad. _Probablemente sí_.
 El ejemplo primordial de esto es ni mas ni menos que `i` y `j` como contadores.
 Y situaciones en las que lo que estamos programando, se representa de esta
 forma, como algo matemático.
+Y situaciones en las que lo que estamos programando, se representa de esta
+forma, como algo matemático.
 
+De todas formas, si aplican las condiciones anteriores quizas tengamos alguna
+otra.
 De todas formas, si aplican las condiciones anteriores quizas tengamos alguna
 otra.
 
@@ -122,6 +127,8 @@ Es importante que una variable utilizada como R-Value tenga un valor conocido
 antes de tomar lo que tenga.
 
 Incluso si nuestro programa corre en un sistema operativo moderno, en el que se
+recibe la memoria en `0`, la reutilizacion de esta, puede hacer que valores
+asumidos en este valor no lo esten.
 recibe la memoria en `0`, la reutilizacion de esta, puede hacer que valores
 asumidos en este valor no lo esten.
 
@@ -194,7 +201,16 @@ Incluso para bloques de una sola línea.
   ```c
   if (x > 0) x++;
   ```
+  ```c
+  if (x > 0) x++;
+  ```
 - Correcto:
+  ```c
+  if (x > 0)
+  {
+      x++;
+  }
+  ```
   ```c
   if (x > 0)
   {
@@ -271,9 +287,11 @@ int main()
         if (i == 8)
         {
             // "Apagamos" la bandera para salir del bucle en
+            // "Apagamos" la bandera para salir del bucle en
             // el inicio del siguiente lazo
             seguir_ejecutando = false;
         }
+        else if (i != 4) // Y en lugar de 'continue', simplemente
         else if (i != 4) // Y en lugar de 'continue', simplemente
                          //  no ejecutamos la acción
         {
@@ -461,6 +479,7 @@ int procesar_archivo_con_un_retorno(const char *nombre_archivo)
 
 Las funciones deben estar separadas de la entrada y salida (I/O) para que sean
 útiles en otros contextos y se puedan probar.
+útiles en otros contextos y se puedan probar.
 
 Si el propósito de la función no es realizar I/O, estos llamados deben evitarse,
 delegando la entrada y salida a otras funciones.
@@ -471,12 +490,27 @@ delegando la entrada y salida a otras funciones.
 El código no solo tiene funcionar, sino que también debe ser entendible para
 otros programadores y para tú "yo" del futuro. Una documentación razonable
 transforma una simple función en un componente reutilizable y fiable.
+El código no solo tiene funcionar, sino que también debe ser entendible para
+otros programadores y para tú "yo" del futuro. Una documentación razonable
+transforma una simple función en un componente reutilizable y fiable.
 
 Al describir claramente qué hace la función, qué datos necesita (parámetros) y
 qué resultado produce (valor de retorno), se crea un "contrato" que define su
 comportamiento. Esto ahorra tiempo y reduce errores, ya que no es necesario leer
 y descifrar la lógica interna cada vez que se quiere utilizar la función.
+Al describir claramente qué hace la función, qué datos necesita (parámetros) y
+qué resultado produce (valor de retorno), se crea un "contrato" que define su
+comportamiento. Esto ahorra tiempo y reduce errores, ya que no es necesario leer
+y descifrar la lógica interna cada vez que se quiere utilizar la función.
 
+El formato de documentación especificado, que utiliza etiquetas como `@param`,
+`@pre`, `@returns` y `@post`, no es una elección arbitraria. Sigue un estándar
+similar al de herramientas como Doxygen, que pueden procesar estos comentarios
+para generar manuales de referencia automáticamente. La idea de usar esta
+estructura, es estructurar y pensar de manera explícita sobre las precondiciones
+y las poscondiciones. Este nivel de detalle es crucial para construir software
+robusto y mantenible, donde cada pieza del código tiene un propósito y unas
+expectativas bien definidas.
 El formato de documentación especificado, que utiliza etiquetas como `@param`,
 `@pre`, `@returns` y `@post`, no es una elección arbitraria. Sigue un estándar
 similar al de herramientas como Doxygen, que pueden procesar estos comentarios
@@ -499,6 +533,7 @@ Opcionalmente, se puede pensar en las invariantes con la etiqueta `@invariant`.
 ```
 
 Ejemplo concreto
+
 
 ```c
 /**
@@ -582,6 +617,10 @@ Esto porque cualquier valor numérico distinto de cero se considera **verdadero*
 en un contexto lógico, mientras que cero se considera **falso**. Esto se lo
 llama "truthyness", o "veracidad" y depender de ello no ayuda a la legibilidad
 del código y por lo tanto, no esta permitido.
+Esto porque cualquier valor numérico distinto de cero se considera **verdadero**
+en un contexto lógico, mientras que cero se considera **falso**. Esto se lo
+llama "truthyness", o "veracidad" y depender de ello no ayuda a la legibilidad
+del código y por lo tanto, no esta permitido.
 
 Por ejemplo, si una variable numérica se usa como condición, siempre se debe ser
 explícito:
@@ -591,6 +630,8 @@ explícito:
 + if (x != 0) {
 ```
 
+Al evaluar una condicion, esta debe ser únicamente el resultado de una
+comparación.
 Al evaluar una condicion, esta debe ser únicamente el resultado de una
 comparación.
 
@@ -612,7 +653,10 @@ while ( trabajando == false );
 ### Regla `0x0011h`: Mantengan el alcance de las variables al mínimo
 
 Históricamente, C requería que todas las variables sean declaradas al inicio de
+Históricamente, C requería que todas las variables sean declaradas al inicio de
 la función, para saber cuanto tiene que cambiar el stack en una llamada a dicha
+función. Hoy día, no es necesario limitarnos y podemos crear variables de
+alcance específico.
 función. Hoy día, no es necesario limitarnos y podemos crear variables de
 alcance específico.
 
@@ -622,6 +666,7 @@ for (int i = 0; i < MAXIMO; i++)
 
 Declarar `i` en este lugar, hace que la variable solo sea conocida por el lazo.
 
+No siempre es posible, pero en la mayoría de los casos, _sí_.
 No siempre es posible, pero en la mayoría de los casos, _sí_.
 
 (0x0012h)=
@@ -726,7 +771,10 @@ ptr = NULL;  // Evitar punteros colgantes
 ```
 
 #### Simetría al liberar
+#### Simetría al liberar
 
+Y cuando llega el momento de liberar, es importante hacerlo al mismo nivel, esto
+implica:
 Y cuando llega el momento de liberar, es importante hacerlo al mismo nivel, esto
 implica:
 
@@ -735,7 +783,14 @@ función que se encargue de liberarla, en el mismo nivel de abstracción. Esto
 porque si lo que hemos construido dinámicamente, es suficientemente complejo
 para ameritar una función, es seguro que la liberación tendrá una complejidad
 similar. En un par de funciones como `crear_recurso` y `liberar_recurso`.
+Por un lado, si hemos pedido memoria en una función, es necesario crear otra
+función que se encargue de liberarla, en el mismo nivel de abstracción. Esto
+porque si lo que hemos construido dinámicamente, es suficientemente complejo
+para ameritar una función, es seguro que la liberación tendrá una complejidad
+similar. En un par de funciones como `crear_recurso` y `liberar_recurso`.
 
+Esto es difícil que suceda con arreglos, pero cuando se trata de `struc`turas es
+posible.
 Esto es difícil que suceda con arreglos, pero cuando se trata de `struc`turas es
 posible.
 
@@ -777,6 +832,7 @@ fclose(archivo);
 ```
 
 Esta regla también incluye el uso de `errno`.
+Esta regla también incluye el uso de `errno`.
 
 (0x001Eh)=
 ### Regla `0x001Eh`: Uso explícito de typedef para estructuras complejas
@@ -793,6 +849,8 @@ typedef struct {
 
 Los identificadores de tipos creados con `typedef` van con el sufijo `_t` para
 poder distinguirlos rápidamente.
+Los identificadores de tipos creados con `typedef` van con el sufijo `_t` para
+poder distinguirlos rápidamente.
 
 (0x001Fh)=
 ### Regla `0x001Fh`: Minimizar el uso de múltiples niveles de punteros
@@ -801,6 +859,7 @@ Esto complica la lectura y el manejo, especialmente cuando se trata de
 asignación o liberación de memoria.
 
 (0x0020h)=
+### Regla `0x020Fh`: Documentar la propiedad de los recursos al usar punteros
 ### Regla `0x020Fh`: Documentar la propiedad de los recursos al usar punteros
 
 Cuando una función recibe o devuelve un puntero a memoria dinámica, es
@@ -816,6 +875,61 @@ Recuerden que no es posible que el programa diferencie la memoria dinámica de l
 automática.
 
 (0x0021h)=
+### Regla `0x0021h`: Los argumentos de funciones deben ser `const` siempre que sea posible
+
+Usar `const` en los parámetros de una función, especialmente con punteros (y,
+por lo tanto, con arreglos y cadenas), es una práctica fundamental para escribir
+código seguro y predecible. Actúa como un **contrato** que la función establece
+con quien la llama: "Te prometo que no hay efectos secundarios en este argumento
+que me estás pasando".
+
+El compilador se encarga de hacer cumplir esta promesa. Si dentro de la función
+se intenta modificar un dato a través de un puntero `const`, la compilación
+fallará. Esto previene **efectos secundarios** no deseados y hace que el
+comportamiento de la función sea mucho más fácil de razonar.
+
+**Ejemplo Correcto (Función que solo lee):**
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+// Correcto: La función solo necesita leer la cadena, no modificarla.
+// 'const' protege la cadena original de modificaciones accidentales.
+void imprimir_saludo(const char *nombre)
+{
+    // Si intentáramos hacer esto, el compilador daría un error:
+    // nombre[0] = 'J';
+    printf("Hola, %s!\n", nombre);
+}
+
+int main(void)
+{
+    char mi_nombre[] = "Martin";
+    imprimir_saludo(mi_nombre); // Sabemos que 'mi_nombre' no será alterado.
+    return 0;
+}
+```
+
+**Ejemplo Válido de una función que depende del efecto secundario:**
+
+En este caso, el propósito de la función es modificar el dato, por lo que **no
+se usa `const`**. El nombre de la función debe reflejar esta intención.
+
+```c
+#include <ctype.h> // Para toupper
+
+// Correcto: El propósito de la función es modificar la cadena,
+// por lo que el parámetro NO puede ser 'const'.
+void convertir_a_mayusculas(char *cadena)
+{
+    for (int i = 0; cadena[i] != '\0'; i++)
+    {
+        cadena[i] = toupper(cadena[i]);
+    }
+}
+```
+
 ### Regla `0x0021h`: Los argumentos de funciones deben ser `const` siempre que sea posible
 
 Usar `const` en los parámetros de una función, especialmente con punteros (y,
@@ -890,6 +1004,8 @@ if (ptr == NULL) {
 
 Cuando una funcion devuelve punteros, y estos pueden ser `NULL`, documentar en
 que casos nos podemos encontrar con uno.
+Cuando una funcion devuelve punteros, y estos pueden ser `NULL`, documentar en
+que casos nos podemos encontrar con uno.
 
 (0x0024h)=
 ### Regla `0x0024h`: Usar punteros con cast explícito al convertir tipos, evitando conversiones implícitas
@@ -903,6 +1019,7 @@ int *ptr = (int *) mem;  // Cast explícito
 
 (0x0026h)=
 ### Regla `0x0025h`: Usar `sizeof` siempre en las asignaciones de memoria dinámica
+### Regla `0x0025h`: Usar `sizeof` siempre en las asignaciones de memoria dinámica
 
 Facilita la modificación y reduce errores al manejar estructuras y tipos
 dinámicos:
@@ -910,6 +1027,9 @@ dinámicos:
 ```c
 ptr = malloc(sizeof(*ptr));  // Asigna la cantidad correcta de memoria para el tipo de ptr
 ```
+
+Ya que calculado manualmente puede ser fácilmente tener el tamaño equivocado y acarrear
+problemas difíciles de detectar.
 
 Ya que calculado manualmente puede ser fácilmente tener el tamaño equivocado y acarrear
 problemas difíciles de detectar.
@@ -928,6 +1048,8 @@ if (indice >= 0 && indice < tamaño_arreglo) {
 
 En funciones, esto implica también, que es necesario pasar como argumento el
 tamaño del arreglo.
+En funciones, esto implica también, que es necesario pasar como argumento el
+tamaño del arreglo.
 
 :::{note} Strings
 
@@ -937,6 +1059,7 @@ posiciones de la misma.
 :::
 
 (0x0028h)=
+### Regla `0x0028h`: Usar `enum` en lugar de números mágicos para estados y valores constantes
 ### Regla `0x0028h`: Usar `enum` en lugar de números mágicos para estados y valores constantes
 
 Mejora la legibilidad y reduce errores al manejar múltiples constantes:
@@ -948,8 +1071,11 @@ Estado estado = ACTIVO;
 
 Esta regla es similar a [](#0x0012h), pero esta es más completa, ya que limita
 los valores a los que están definidos en la enumeración.
+Esta regla es similar a [](#0x0012h), pero esta es más completa, ya que limita
+los valores a los que están definidos en la enumeración.
 
 (0x0029h)=
+### Regla `0x0029h`: Documentar explícitamente el comportamiento de las funciones al manejar punteros nulos
 ### Regla `0x0029h`: Documentar explícitamente el comportamiento de las funciones al manejar punteros nulos
 
 Cuando una función acepta o devuelve un puntero nulo, el comportamiento debe
@@ -968,6 +1094,7 @@ documentar la situación en la estructura que tenga la función.
 
 (0x002Ah)=
 ### Regla `0x002Ah`: Liberar memoria en el orden inverso a su asignación
+### Regla `0x002Ah`: Liberar memoria en el orden inverso a su asignación
 
 Esto es especialmente importante en programas complejos donde varias porciones
 de memoria son asignadas en secuencia, como con matrices.
@@ -978,6 +1105,7 @@ free(ptr1);
 ```
 
 (0x002Bh)=
+### Regla `0x002Bh`: Nunca con más de 79 caracteres por línea
 ### Regla `0x002Bh`: Nunca con más de 79 caracteres por línea
 
 Nunca escribas líneas de más de 79 caracteres.
@@ -1011,6 +1139,8 @@ mejor manera de dividir las líneas largas y sus lectores se lo agradecerán.
 
 En C, muchas instrucciones admiten estar en dos líneas, y otras necesitan del
 carácter de continuación `\` para seguir en la línea siguiente.
+En C, muchas instrucciones admiten estar en dos líneas, y otras necesitan del
+carácter de continuación `\` para seguir en la línea siguiente.
 
 Haga lo que hacen los demás, escriba para las 80 columnas y todos saldremos
 ganando.
@@ -1018,6 +1148,7 @@ ganando.
 - [Emacs Wiki: Regla de las ochenta columnas](http://www.emacswiki.org/emacs/EightyColumnRule)
 - [Programmers' Stack Exchange: ¿Sigue siendo relevante el límite de 80 caracteres?](http://programmers.stackexchange.com/questions/604/is-the-80-character-limit-still-relevant-in-times-of-widescreen-monitors)
 
+````
 ````
 
 
@@ -1039,6 +1170,7 @@ ifeq ($(CC),gcc)
     CFLAGS += -Wjump-misses-init -Wlogical-op
 endif
 ````
+````
 
 Compilar con las optimizaciones activadas también puede ayudar a detectar
 errores:
@@ -1048,6 +1180,7 @@ CFLAGS += -O2
 ```
 
 (0x002Ch)=
+### Regla `0x002Ch`: Utiliza guardas de inclusión
 ### Regla `0x002Ch`: Utiliza guardas de inclusión
 
 En todos los headers (`.h`) creados, para evitar la doble inclusión
@@ -1065,6 +1198,8 @@ archivo header «dos veces» sin que se interrumpa la compilación.
 #endif // ifndef INCLUDED_ALPHABET_H
 ```
 
+El macro utilizado debe ser similar al del ejemplo, terminar con `_H` y
+utilizar un nombre relacionado con el archivo que lo contiene.
 El macro utilizado debe ser similar al del ejemplo, terminar con `_H` y
 utilizar un nombre relacionado con el archivo que lo contiene.
 
@@ -1090,6 +1225,8 @@ fácil.
 
 #### Comentarios al incluir un header no estandar
 
+Los comentarios en los headers `#include`s de bibliotecas no estándar para
+indicar qué símbolos usas de ellas.
 Los comentarios en los headers `#include`s de bibliotecas no estándar para
 indicar qué símbolos usas de ellas.
 
