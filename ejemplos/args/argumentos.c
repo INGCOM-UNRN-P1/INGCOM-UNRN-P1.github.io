@@ -4,14 +4,9 @@
 #include <errno.h>
 #include <ctype.h>
 
-struct Fraccion{
-int numerador;
-int denominador;
-};
-
-void implacable(char *cadena, int capacidad)
+void implacable(char *cadena, size_t capacidad)
 {
-    int i = 0;
+    size_t i = 0;
     while (i < capacidad){
         if (isalnum(*(cadena + i)))
         {
