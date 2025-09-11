@@ -1,6 +1,6 @@
 ---
-title: `Makefiles`
-short_title: `make`
+title: Makefiles
+short_title: make
 subtitle: Estructurando a proyectos
 ---
 

@@ -5,7 +5,6 @@ subtitle: Manteniendo el orden y la prolijidad.
 exports:
   - format: pdf
     template: plain_latex
-    template: plain_latex
     article_type: Report
 ---
 
@@ -36,8 +35,8 @@ doblar las reglas y llegar a un estilo propio.
 ## Se aceptan sugerencias y conversiones del tema
 
 Estamos abiertos a conversar todas las reglas, solo tienen que abrir un hilo en
-Discussions (o un Ticket en el Issue Tracker) asi como nuevas reglas,
-clasificaciones, explicacioes y potenciales excepciones.
+Discussions (o un Ticket en el Issue Tracker) así como nuevas reglas,
+clasificaciones, explicaciones y potenciales excepciones.
 
 ## Principios Clave
 
