@@ -259,9 +259,9 @@ el `\n` es el «enter» o salto de linea.
 6. El código del ejemplo, hace uso de comentarios de linea para ayudarlos a
    ubicar la pieza especifica que se describe en esta lista.
 
-:::{warning}
+:::{warning} No te dejes estar
 
-No te dejes estar Si no ves el mensaje que esta dentro de la instrucción
+Si no ves el mensaje que esta dentro de la instrucción
 `printf`, hay algún problema que es necesario solucionar. No te trabes acá que
 bloquea lo que viene a continuación.
 
@@ -961,7 +961,7 @@ for (int i = 1; i <= 5; i++) {
 }
 ```
 
-:::{tip}
+:::{tip} ¿Cuando usarlos?
 
 Usá `break` cuando ya no tenga sentido seguir iterando, y `continue` cuando
 quieras saltear un caso particular.
@@ -1225,7 +1225,8 @@ Programar bien es:
 
 :::{glossary}
 
-Lenguaje Ensamblador : El lenguaje ensamblador (assembly language) es un
+Lenguaje Ensamblador 
+: El lenguaje ensamblador (assembly language) es un
 lenguaje de programación de bajo nivel que representa las instrucciones de
 código de máquina de una arquitectura de procesador específica mediante
 mnemónicos. Mantiene una correspondencia casi directa (a menudo uno a uno) con
@@ -1234,7 +1235,8 @@ las operaciones del hardware. Requiere un programa llamado ensamblador
 procesador. Ofrece control preciso sobre el hardware con una legibilidad
 superior a la del código máquina.
 
-Lenguaje de Máquina : El lenguaje de máquina (machine language o machine code)
+Lenguaje de Máquina
+: El lenguaje de máquina (machine language o machine code)
 es el conjunto de instrucciones en formato binario (secuencias de ceros y unos)
 que la unidad central de procesamiento (CPU) de una computadora puede ejecutar
 directamente. Es el nivel más bajo de lenguaje de programación, específico para
