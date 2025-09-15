@@ -1,6 +1,6 @@
 ---
 title: "Ordenamiento"
-short_title: "7 - Algoritmos I"
+short_title: "8 - Algoritmos I"
 subtitle: "Ordenando y comparando métodos"
 ---
 

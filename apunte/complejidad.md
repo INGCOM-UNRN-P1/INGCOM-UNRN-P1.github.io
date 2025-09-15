@@ -1,17 +1,7 @@
 ---
 title: "Complejidad"
-short_title: "8 - Algoritmos II"
+short_title: "9 - Algoritmos II"
 subtitle: "Ordenando y comparando métodos"
----
-
----
-
-title: "Análisis de Algoritmos: Un Estudio Profundo de la Complejidad"
-description: "Un apunte detallado que explora los principios del análisis de
-algoritmos, desde la notación asintótica y el cálculo práctico de la complejidad
-hasta conceptos avanzados como el análisis amortizado y una introducción a P vs.
-NP."
-
 ---
 
 # Análisis de Complejidad de Algoritmos: El Estudio de la Eficiencia
