@@ -17,16 +17,16 @@ project:
     - file: readme.md
     - title: Apunte
       children:
-        - file: apunte/catedra.md
-        - file: apunte/gradual.md
-        - file: apunte/funciones.md
-        - file: apunte/secuencias.md
-        - file: apunte/compilacion.md
-        - file: apunte/matrices.md
-        - file: apunte/archivos.md
-        - file: apunte/estilo.md
-#        - file: apunte/ordenamiento.md
-#        - file: apunte/complejidad.md
+        - file: apunte/1_catedra.md
+        - file: apunte/2_gradual.md
+        - file: apunte/3_funciones.md
+        - file: apunte/4_secuencias.md
+        - file: apunte/5_compilacion.md
+        - file: apunte/6_matrices.md
+        - file: apunte/7_archivos.md
+        - file: apunte/0_estilo.md
+#        - file: apunte/8_ordenamiento.md
+#        - file: apunte/9_complejidad.md
 
 #        - file: apunte/memoria.md
 #        - file: apunte/estructuras.md 

@@ -26,7 +26,7 @@ A seguir siempre y cuando no esté indicada otra cosa:
     ejercicio primero. Y luego completen con sus datos.
 5.  Lo que 'resuelve' el enunciado, debe de estar en una función.
     Incluso si no hay una indicada explicitamente.
-6. El código debe seguir la [guía de estilo](../apunte/estilo.md).
+6. El código debe seguir la [guía de estilo](../apunte/0_estilo.md).
 7. Los ejercicios marcados como \[*plus ultra*\] son variaciones
     del ejercicio, con otras formas para ir «más allá» de la consigna
     original.
@@ -203,7 +203,7 @@ Donde:
 
 ## 1.3 - Conversiones
 
-```{note} [](../apunte/estilo#0x0001h)
+```{note} [](../apunte/0_estilo#0x0001h)
 
 No olviden utilizar identificadores descriptivos.
 

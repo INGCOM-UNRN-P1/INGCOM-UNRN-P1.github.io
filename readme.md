@@ -9,10 +9,10 @@ exports:
     template: plain_latex_book
     output: _build/exports/apunte.pdf
     articles:
-      - file: apunte/catedra.md
-      - file: apunte/gradual.md
-      - file: apunte/funciones.md
-      - file: apunte/estilo.md
+      - file: apunte/1_catedra.md
+      - file: apunte/2_gradual.md
+      - file: apunte/3_funciones.md
+      - file: apunte/0_estilo.md
       - file: ejercicios/cuadernillo.md
 ---
 # Bienvenidos a Programación 1
@@ -25,7 +25,7 @@ bibliografía y memes.
 
 ## Contenido
 
-Primero, está el [apunte](apunte/catedra.md), pensado más o menos para ir
+Primero, está el [apunte](apunte/1_catedra.md), pensado más o menos para ir
 siguiendo el dictado de las clases
 
 Después, hay artículos sueltos sobre temas importantes, como por ejemplo,

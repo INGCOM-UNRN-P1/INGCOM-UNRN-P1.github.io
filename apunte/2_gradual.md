@@ -417,7 +417,7 @@ inesperada. Por eso, **siempre inicializá tus variables** antes de usarlas. Est
 evita errores difíciles de detectar y hace tu código más seguro y predecible.
 
 Y es por acá que entran en juego, las cuestiones de estilo como la
-[](estilo#0x0003h)
+[](0_estilo#0x0003h)
 
 ### ¿Cómo funcionan?
 

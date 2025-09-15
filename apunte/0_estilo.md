@@ -2,10 +2,6 @@
 title: Cuestiones de estilo
 short_title: 0x0000h - Estilo
 subtitle: Manteniendo el orden y la prolijidad.
-exports:
-  - format: pdf
-    template: plain_latex
-    article_type: Report
 ---
 
 ## Introducción

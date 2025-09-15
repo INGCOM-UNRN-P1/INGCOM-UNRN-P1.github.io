@@ -2,10 +2,6 @@
 title: Introducción a Programación 1
 short_title: 1 - Introduccion
 subtitle: Los terminos, condiciones y temas del cuatrimestre.
-exports:
-  - format: pdf
-    template: springer
-    article_type: Report
 ---
 
 ## Introducción a la cátedra
