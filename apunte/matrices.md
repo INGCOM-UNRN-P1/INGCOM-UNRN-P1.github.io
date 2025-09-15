@@ -296,13 +296,13 @@ for (size_t j = 0; j < COLUMNAS; j++) {
 # Operaciones Matemáticas con Matrices
 
 En el ámbito de la programación en $C$ y otras áreas de la computación, el
-manejo de matrices es fundamental. A continuación, te presento los algoritmos y
+manejo de matrices es fundamental. $A$ continuación, te presento los algoritmos y
 las expresiones matemáticas para las operaciones básicas entre matrices.
 
 ## Suma de Matrices
 
 La suma de dos matrices, $A$ y $B$, de las mismas dimensiones (m x n), da como
-resultado una matriz $C$ de la misma dimensión. Cada elemento de C es la suma
+resultado una matriz $C$ de la misma dimensión. Cada elemento de $C$ es la suma
 de los elementos correspondientes en $A$ y $B$.
 
 ### Expresión Matemática
@@ -343,7 +343,7 @@ $$
 El algoritmo recorre ambas matrices y suma los elementos en la misma posición.
 
 ```{code} pseudocode
-:caption: Algoritmo para la suma de dos matrices A y B.
+:caption: Algoritmo para la suma de dos matrices $A$ y $B$.
 :linenos:
 
 FUNCIÓN sumar_matrices(A, B, m, n)
