@@ -745,11 +745,6 @@ while (i < 5)
 #### Flujo
 
 ```{mermaid}
----
-config:
-  theme: neutral
-  layout: dagre
----
 flowchart TD
     subgraph while
       Inicio --> EvaluarCondicion{"¿Se cumple la condición?"}
@@ -761,7 +756,9 @@ flowchart TD
 
 ### Ejercicio 4
 
-:::{exercise} :label: lazo_while :enumerator: while
+:::{exercise}
+:label: lazo_while 
+:enumerator: while
 
 Escribí un programa que imprima los números del 10 al 1 usando `while`.
 
@@ -824,7 +821,9 @@ while (i < 5) {                 // condición
 
 ### Ejercicio 5
 
-:::{exercise} :label: lazo_for :enumerator: for
+:::{exercise}
+:label: lazo_for 
+:enumerator: for
 
 Usá un `for` para mostrar los múltiplos de 3 entre 0 y 30.
 
@@ -893,7 +892,9 @@ flowchart TD
 
 ### Ejercicio 6
 
-:::{exercise} :label: lazo_repeat :enumerator: for
+:::{exercise}
+:label: lazo_repeat 
+:enumerator: for
 
 Usá un lazo `do..while` para controlar el acceso a un edificio, pidiéndole al
 usuario que ingrese un número usado como clave.
@@ -989,7 +990,9 @@ se explican a continuación.
 
 ### Ejercicio 7
 
-:::{exercise} :label: lazo_break :enumerator: break
+:::{exercise}
+:label: lazo_break
+:enumerator: break
 
 Modificá el siguiente código para que no utilice la instrucción `break`.
 
@@ -1035,7 +1038,9 @@ int main()
 
 ### Ejercicio 8
 
-:::{exercise} :label: lazo_continue :enumerator: continue
+:::{exercise}
+:label: lazo_continue 
+:enumerator: continue
 
 Modificá el siguiente código para que no utilice la instrucción `continue`.
 
@@ -1122,7 +1127,9 @@ int main() {
 
 ### Ejercicio 9
 
-:::{exercise} :label: lazo_flag_break :enumerator: continue
+:::{exercise}
+:label: lazo_flag_break
+:enumerator: continue
 
 Reescribí el ingreso de clave usando una bandera booleana en lugar de `break` o
 `do...while`.
