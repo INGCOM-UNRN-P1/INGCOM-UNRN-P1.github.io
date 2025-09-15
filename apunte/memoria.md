@@ -196,3 +196,168 @@ int main() {
     return 0;
 }
 ```
+
+
+
+## title: El Stack de Llamadas en C y el Comportamiento No Definido description: Un análisis sobre cómo el Call Stack en C gestiona la ejecución de funciones, la memoria local y cómo el comportamiento no definido puede corromperlo.
+
+El **Stack de Llamadas** (o *Call Stack*) es una región de la memoria fundamental para la ejecución de un programa en C. Funciona como una estructura de datos LIFO (Last-In, First-Out) que el compilador utiliza para gestionar las llamadas a funciones. Su propósito es llevar un registro de la función activa, sus variables locales, y saber a dónde debe regresar el control una vez que la función finalice.
+
+Cada vez que se invoca una función, se reserva un bloque de memoria en la cima del stack. Cuando la función retorna, ese bloque se libera. Este mecanismo, aunque eficiente, es susceptible a errores graves en C debido a su manejo manual de la memoria y la falta de protecciones en tiempo de ejecución.
+
+## El Registro de Activación (Stack Frame)
+
+El bloque de memoria asignado para cada llamada a función se denomina **Registro de Activación** o **Stack Frame**. Contiene toda la información contextual que la función necesita para operar.
+
+Un Stack Frame en C típicamente almacena:
+
+Dirección de Retorno (Return Address)
+: La dirección de memoria de la instrucción que sigue a la llamada de la función. Cuando la función actual termina, el programa utiliza esta dirección para reanudar su ejecución. Es el eslabón clave en la cadena de llamadas.
+
+Puntero de Marco Guardado (Saved Frame Pointer)
+: Generalmente es el puntero base (`%ebp` o `%rbp` en x86/x64) del *frame* anterior. Se guarda para poder restaurar el stack al estado previo cuando la función actual retorne.
+
+Parámetros de la Función
+: Los argumentos pasados a la función. Se copian al *frame* de la nueva función.
+
+Variables Locales
+: El espacio para todas las variables declaradas dentro de la función. Estas variables tienen almacenamiento "automático", lo que significa que existen solo mientras el *frame* de su función está en el stack. Al desapilarse el *frame*, se destruyen.
+
+### Ejemplo de Flujo de Llamadas en C
+
+Analicemos un programa simple para visualizar el proceso.
+
+```c
+#include <stdio.h>
+
+int calcular_producto(int valor) {
+// Punto de entrada de la segunda función
+int resultado = valor * 2; // Variable local 'resultado'
+return resultado;
+}
+
+int calcular_suma(int a, int b) {
+// Punto de entrada de la primera función
+int suma = a + b; // Variable local 'suma'
+int producto = calcular_producto(suma); // Llamada a otra función
+return producto;
+}
+
+int main(void) {
+// Punto de entrada del programa principal
+int x = 10; // Variable local
+int y = 20; // Variable local
+int final = calcular_suma(x, y);
+printf("Resultado: %d\\n", final);
+return 0;
+}
+```
+
+El Call Stack evoluciona de la siguiente manera:
+
+```{mermaid}
+sequenceDiagram
+participant Main as "main()"
+participant Stack as "Call Stack"
+
+```
+Main->>Stack: Inicia la ejecución.
+activate Stack
+Note over Stack: Stack: [Frame de main]
+Note right of Stack: Frame contiene:<br/>- variables 'x', 'y', 'final'
+
+Main->>Stack: Llama a calcular_suma(10, 20)
+activate Stack
+Note over Stack: Stack: [main, calcular_suma]
+Note right of Stack: Frame contiene:<br/>- Dirección de retorno en main<br/>- Parámetros: a=10, b=20<br/>- Variables: 'suma', 'producto'
+
+Main->>Stack: calcular_suma llama a calcular_producto(30)
+activate Stack
+Note over Stack: Stack: [main, calcular_suma, calcular_producto]
+Note right of Stack: Frame contiene:<br/>- Dirección de retorno en calcular_suma<br/>- Parámetro: valor=30<br/>- Variable: 'resultado'
+
+Stack-->>Stack: calcular_producto retorna 60
+deactivate Stack
+Note over Stack: Stack: [main, calcular_suma]<br/>Frame de 'calcular_producto' es destruido.
+
+Stack-->>Main: calcular_suma retorna 60
+deactivate Stack
+Note over Stack: Stack: [main]<br/>Frame de 'calcular_suma' es destruido.
+
+Main->>Stack: main retorna 0. El programa finaliza.
+deactivate Stack
+Note over Stack: Stack: [Vacío]
+```
+
+```
+
+## Comportamiento No Definido y Corrupción del Stack
+
+En C, no hay mecanismos automáticos que prevengan escribir fuera de los límites de una variable. Este poder conlleva riesgos que pueden corromper el Call Stack, llevando a **Comportamiento No Definido** (*Undefined Behavior* o UB).
+
+### 1\. Desbordamiento de Búfer (Buffer Overflow)
+
+Ocurre cuando se escribe más allá de los límites de un arreglo (búfer) declarado en el stack. Como los datos del *frame* (variables locales, puntero de marco guardado y dirección de retorno) son contiguos en memoria, un desbordamiento puede sobrescribirlos.
+
+```c
+#include <string.h>
+
+void funcion_vulnerable() {
+char buffer[8];
+// ¡PELIGRO\! strcpy no verifica los límites.
+// Se escriben 25 bytes en un espacio de 8.
+strcpy(buffer, "Esto es una cadena larga");
+// Los bytes sobrantes sobrescriben datos adyacentes en el stack.
+}
+
+int main(void) {
+funcion_vulnerable();
+// El programa probablemente crashee aquí, al intentar
+// "retornar" a una dirección de memoria corrupta.
+return 0;
+}
+```
+
+La consecuencia más peligrosa es la sobrescritura de la **dirección de retorno**. Un atacante podría inyectar código malicioso en la memoria y luego usar un buffer overflow para cambiar la dirección de retorno y que apunte a su código, ejecutándolo con los permisos del programa. Esto se conoce como un ataque de *stack smashing*.
+
+### 2\. Retornar un Puntero a una Variable Local
+
+Cuando una función retorna, su Stack Frame se considera inválido. Cualquier puntero a una variable local de esa función se convierte en un **puntero colgante** (*dangling pointer*).
+
+```c
+#include <stdio.h>
+
+int* funcion_incorrecta() {
+int variable_local = 123;
+return \&variable_local; // ¡ERROR\! La memoria de 'variable_local' será liberada.
+}
+
+void otra_funcion() {
+int z = 456; // Esta llamada puede reutilizar el espacio de 'variable_local'.
+printf("z = %d\\n", z);
+}
+
+int main(void) {
+int* ptr_colgante = funcion_incorrecta();
+// En este punto, *ptr_colgante apunta a memoria inválida.
+
+```
+otra_funcion(); // Esta llamada probablemente sobrescriba la memoria.
+
+// Intentar leer de ptr_colgante es Comportamiento No Definido.
+// Puede imprimir 123, 456, basura, o causar un crash.
+printf("Valor del puntero colgante: %d\n", *ptr_colgante); 
+
+return 0;
+```
+
+}
+```
+
+-----
+
+:::{admonition} Cuidado con el Stack
+:class: danger
+
+El Call Stack en C es extremadamente rápido, pero frágil. A diferencia de lenguajes de más alto nivel, C confía en que el programador respetará los límites de la memoria. Errores como los desbordamientos de búfer no solo causan fallos, sino que son una de las fuentes más comunes de vulnerabilidades de seguridad en el software.
+:::

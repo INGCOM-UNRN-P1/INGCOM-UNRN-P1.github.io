@@ -250,7 +250,7 @@ procedimiento mergeSort(arreglo A, izq, der)
 ### Concepto
 
 También de **"Divide y Vencerás"**. Selecciona un elemento como **pivote** y
-particiona los demás elementos en dos sub-arreglos según si son menores o
+particiona los demás elementos en dos sub-arreglos segZún si son menores o
 mayores que el pivote. Luego, ordena los sub-arreglos de forma recursiva.
 
 ### Pseudocódigo
