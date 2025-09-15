@@ -274,7 +274,7 @@ printf("El tamaño del arreglo en bytes es: %zu\n", sizeof(arreglo));
 Estos tienen limitaciones importantes. Por ejemplo, un ALV no puede ser
 inicializado en su declaración. Intentarlo producirá un error de compilación:
 
-```
+```text
 error: variable-sized object may not be initialized
 ```
 
@@ -282,7 +282,7 @@ Las implicaciones y el uso correcto de la memoria dinámica, que es la
 alternativa recomendada a los ALV, se abordarán en un capítulo posterior.
 
 De todas formas y como se imaginarán, hay una regla de estilo
-[`0x000Eh`](./estilo.md#regla-0x000eh-los-arreglos-estáticos-solo-pueden-ser-creados-de-un-tamaño-fijo-al-compilar)
+[`0x000Eh`](./estilo.md#0x000Eh)
 
 ### El Mecanismo de Paso a Funciones
 
@@ -498,7 +498,7 @@ int main() {
 
 Y la salida sería:
 
-```{code}
+```{code} text
 :linenos:
 :emphasize-lines: 3
 Cadena original: "ejemplo de cadena desordenada"
