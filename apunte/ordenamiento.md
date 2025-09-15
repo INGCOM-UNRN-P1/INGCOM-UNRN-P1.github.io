@@ -1,9 +1,10 @@
-title: Métodos de Ordenamiento en C - Análisis de Algoritmos description: Una
-explicación técnica detallada sobre los algoritmos de ordenamiento, con un
-enfoque en la implementación y análisis del método de burbuja (Bubble Sort) en
-C, y una revisión de otros algoritmos notables.
+---
+title: "Ordenamiento"
+short_title: "7 - Algoritmos I"
+subtitle: "Ordenando y comparando métodos"
+---
 
-# Métodos de Ordenamiento de Arreglos en C
+# Métodos de Ordenamiento
 
 Un **algoritmo de ordenamiento** es un procedimiento computacional que toma un
 conjunto de datos de entrada (como un arreglo) y produce una permutación de esos
@@ -21,7 +22,10 @@ Al analizar un algoritmo, no solo nos interesa que funcione, sino cuán
 eficientemente lo hace. La complejidad algorítmica es el estudio formal de los
 recursos que un algoritmo consume.
 
-## Complejidad Temporal (Tiempo)
+Lo interesante de esta técnica de análisis, es la separación concreta con el
+hardware que lleva a cabo la tarea y el algoritmo en sí.
+
+## Complejidad Temporal
 
 La **complejidad temporal** es una medida de cuánto tiempo tarda un algoritmo en
 ejecutarse en función del tamaño de su entrada, denotado comúnmente como
@@ -250,7 +254,7 @@ procedimiento mergeSort(arreglo A, izq, der)
 ### Concepto
 
 También de **"Divide y Vencerás"**. Selecciona un elemento como **pivote** y
-particiona los demás elementos en dos sub-arreglos segZún si son menores o
+particiona los demás elementos en dos sub-arreglos según si son menores o
 mayores que el pivote. Luego, ordena los sub-arreglos de forma recursiva.
 
 ### Pseudocódigo
