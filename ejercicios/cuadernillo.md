@@ -42,7 +42,7 @@ A seguir siempre y cuando no esté indicada otra cosa:
 
 En un archivo llamado
 
-```{code}c
+```{code} textc
 :label: c_template
 :filename: 1-1_apellido.c
 :caption: Para tener todo ordenado
@@ -70,7 +70,7 @@ Este ejercicio nos permitirá verificar el que el entorno de programación
 funciona.
 
 
-```{code}
+```{code} text
 :caption: El indispensable Hola Mundo!
 :filename: salida
 
@@ -82,14 +82,14 @@ Hola mundo!
 
 Escribir un programa que salude por nombre.
 
-```{code}
+```{code} text
 :filename: entrada
 
 Martin
 
 ```
 
-```{code}
+```{code} text
 :caption: El indispensable Hola Mundo!
 :filename: salida
 
@@ -104,7 +104,7 @@ art](https://en.wikipedia.org/wiki/ASCII_art).
 
 Salida
 
-```{code}
+```{code} text
 :caption: El indispensable Hola Mundo!
 :filename: salida
   _   _           _                                             _           _ 
@@ -227,29 +227,27 @@ utiliza la fórmula $K=C+273.15$.
 Escribe un programa que solicite al usuario un valor en grados Kelvin y
 lo convierta a grados Celsius.
 
-La conversión de Kelvin ($K$) a grados Celsius ($C$) se realiza con la fórmula 
-$C=K−273.15$.
+La conversión de Kelvin ($K$) a grados Celsius ($C$) se realiza con la fórmula: $$C = K - 273.15$$
 
 #### 1.3.1.3 - Convertir grados Celsius a grados Fahrenheit
 
 Escribe un programa que pida un valor en grados Celsius y lo transforme a
 grados Fahrenheit.  
 
-La fórmula para convertir de grados Celsius ($C$) a Fahrenheit ($F$) es 
-$F=(C×59​)+32$. 
+La fórmula para convertir de grados Celsius ($C$) a Fahrenheit ($F$) es: $$F = (C \\times \\frac{9}{5}) + 32$$
 
 #### 1.3.1.4 - Convertir grados Fahrenheit a Celsius
 
 Escribe un programa que reciba un valor en grados Fahrenheit y lo convierta a grados Celsius.  
 
-Para transformar grados Fahrenheit ($F$) a Celsius ($C$), la fórmula es $C=(F−32)×95​$.
+Para transformar grados Fahrenheit ($F$) a Celsius ($C$), la fórmula es: $$C = (F - 32) \\times \\frac{5}{9}$$
 
 #### 1.3.1.5 - Conversiones \[*plus ultra*\]
 
-Considerando la consignas de conversion, modifica tu implementación para que la
+Considerando la consignas de conversión, modifica tu implementación para que la
 misma se realice utilizando exclusivamente aritmética de números enteros.
 
-Los resultados tambien deben ser un número entero.
+Los resultados también deben ser un número entero.
 
 Agrega un comentario en el código que explique las implicaciones de esta restricción
 en la precisión del resultado.
@@ -261,7 +259,7 @@ segundos.
 
 En donde un grado son 60 minutos y un minuto son 60 segundos.
 
-```{code}
+```{code} text
 :filename: entrada
 
 1
@@ -271,7 +269,7 @@ En donde un grado son 60 minutos y un minuto son 60 segundos.
 ```
 
 
-```{code}
+```{code} text
 :filename: salida
 
 1 grado, 2 minutos y 3 segundos son 3723 segundos
@@ -282,7 +280,7 @@ En donde un grado son 60 minutos y un minuto son 60 segundos.
 
 Una vuelta son 360 grados.
 
-```{code}
+```{code} text
 :filename: entrada
 
 1
@@ -293,7 +291,7 @@ Una vuelta son 360 grados.
 ```
 
 
-```{code}
+```{code} text
 :filename: salida
 
 1 vuelta, 2 grados, 3 minutos y 4 segundos son 372378203040 segundos
@@ -308,7 +306,7 @@ Implementar una suma entre números enteros $n+m$; en la que no se puede
 sumar directamente $n$ con $m$.
 
 
-```{code}
+```{code} text
 :filename: entrada
 
 10
@@ -317,7 +315,7 @@ sumar directamente $n$ con $m$.
 ```
 
 
-```{code}
+```{code} text
 :filename: salida
 
 10 + 6 = 16
@@ -335,7 +333,7 @@ $$
 
 Mientras que para un número negativo, sería:
 
-```{code}
+```{code} text
 :filename: entrada
 
 10
@@ -343,7 +341,7 @@ Mientras que para un número negativo, sería:
 
 ```
 
-```{code}
+```{code} text
 :filename: salida
 
 10 + -6 = 4
@@ -363,7 +361,7 @@ Recuerden tener en cuenta las cuatro combinaciones posibles de signos.
 Implementar la división entera de dos números enteros solo utilizando
 restas.
 
-```{code}
+```{code} text
 :filename: entrada
 
 10
@@ -371,7 +369,7 @@ restas.
 
 ```
 
-```{code}
+```{code} text
 :filename: salida
 
 10 / 2 = 5
@@ -393,7 +391,7 @@ Implementar el resto de la división entera de dos números enteros solo
 utilizando restas.
 
 
-```{code}
+```{code} text
 :filename: entrada
 
 13
@@ -401,7 +399,7 @@ utilizando restas.
 
 ```
 
-```{code}
+```{code} text
 :filename: salida
 
 13 % 2 = 1
@@ -464,7 +462,7 @@ Cociente = 6 y Resto = 1.
 Determinar si un número es divisible por otro.
 
 
-```{code}
+```{code} text
 :filename: entrada
 
 10
@@ -473,7 +471,7 @@ Determinar si un número es divisible por otro.
 ```
 
 
-```{code}
+```{code} text
 :filename: salida
 
 10 es divisible por 2
@@ -488,14 +486,14 @@ $$
 n^2
 $$
 
-```{code}
+```{code} text
 :filename: entrada
 
 10
 
 ```
 
-```{code}
+```{code} text
 :filename: salida
 
 10 ^ 2 = 100
@@ -515,14 +513,14 @@ Por ejemplo:
 
 $5! = 1×2×3×4×5 = 120$
 
-```{code}
+```{code} text
 :filename: entrada
 
 5
 
 ```
 
-```{code}
+```{code} text
 :filename: salida
 
 5! = 120
@@ -535,7 +533,7 @@ Calcular la suma de los dígitos de un número entero de manera
 aritmética.
 
 
-```{code}
+```{code} text
 :filename: entrada
 
 1234
@@ -543,7 +541,7 @@ aritmética.
 ```
 
 
-```{code}
+```{code} text
 :filename: salida
 
 10
@@ -557,14 +555,14 @@ El cálculo esperado es: $4+3+2+1 = 10$.
 Crear un programa que calcule e imprima la suma de los dígitos de un
 número factorial.
 
-```{code}
+```{code} text
 :filename: entrada
 
 5
 
 ```
 
-```{code}
+```{code} text
 :filename: salida
 
 5! = 120 -> 3
@@ -597,14 +595,14 @@ Verificar si un número es capicúa de manera aritmética.
 
 **Ejemplo capicua**
 
-```{code}
+```{code} text
 :filename: entrada
 
 1001
 
 ```
 
-```{code}
+```{code} text
 :filename: salida
 
 1001 es capicua
@@ -613,14 +611,14 @@ Verificar si un número es capicúa de manera aritmética.
 
 **Ejemplo no capicua**
 
-```{code}
+```{code} text
 :filename: entrada
 
 1234
 
 ```
 
-```{code}
+```{code} text
 :filename: salida
 
 1234 no es capicua
@@ -631,14 +629,14 @@ Verificar si un número es capicúa de manera aritmética.
 
 Imprimir todos los números capicúa en un rango $(n,m)$ dado.
 
-```{code}
+```{code} text
 :filename: entrada
 
 100
 200
 ```
 
-```{code}
+```{code} text
 :filename: salida
 
 Entre 100 y 200, los numeros capicua son:
@@ -688,13 +686,13 @@ Dado que $\sigma^*(220) = 284$ y $\sigma^*(284) = 220$, los números $220$ y $28
 
 Pedir un número entero positivo y mostrarlo con sus dígitos en orden inverso, sin usar arreglos ni cadenas de caracteres.  
 
-```{code}
+```{code} text
 :filename: entrada
 12345
 ```
 
 
-```{code}
+```{code} text
 :filename: salida
 54321
 ```
@@ -710,7 +708,7 @@ intermedios, ejercicios que si lo requieren están en la categoría
 Imprimir una cuenta regresiva de diez, pueden usar `sleep(1)` de
 `stdlib.h` para que la cuenta no sea instantánea.
 
-```{code}
+```{code} text
 :filename: salida
 
 10
@@ -727,7 +725,7 @@ Lanzamiento!
 Lo mismo que el ejercicio anterior, pero con conteo 
 seleccionable por el usuario
 
-```{code}
+```{code} text
 :filename: entrada
 
 3
@@ -735,7 +733,7 @@ seleccionable por el usuario
 ```
 
 
-```{code}
+```{code} text
 :filename: salida
 
 3
@@ -749,7 +747,7 @@ Lanzamiento!
 
 Imprimir la secuencia de números pares entre $n$ y $m$.
 
-```{code}
+```{code} text
 :filename: entrada
 
 10
@@ -758,7 +756,7 @@ Imprimir la secuencia de números pares entre $n$ y $m$.
 ```
 
 
-```{code}
+```{code} text
 :filename: salida
 
 10
@@ -771,7 +769,7 @@ Imprimir la secuencia de números pares entre $n$ y $m$.
 
 Mostrar los números entre $n$ y $m$ de forma ascendente siendo $n ≥ i < m$
 
-```{code}
+```{code} text
 :filename: entrada
 
 2
@@ -780,7 +778,7 @@ Mostrar los números entre $n$ y $m$ de forma ascendente siendo $n ≥ i < m$
 ```
 
 
-```{code}
+```{code} text
 :filename: salida
 
 El intervalo [2; 5) es:
@@ -798,13 +796,13 @@ $$
 \sum\limits_{i = n}^{m}i
 $$
 
-```{code}
+```{code} text
 :filename: entrada
 3
 5
 ```
 
-```{code}
+```{code} text
 :filename: salida
 La suma entre 3 y 5 es 12
 ```
@@ -818,13 +816,13 @@ $$
 $$
 
 
-```{code}
+```{code} text
 :filename: entrada
 3
 5
 ```
 
-```{code}
+```{code} text
 :filename: salida
 Los cuadrados ascendentes entre 3 y 5 es = 50
 ```
@@ -833,14 +831,14 @@ Los cuadrados ascendentes entre 3 y 5 es = 50
 
 Imprimir los números entre $n$ y $m$ de forma descendente. ($n ≥ i < m$)
 
-```{code}
+```{code} text
 :filename: entrada
 10
 7
 ```
 
 
-```{code}
+```{code} text
 :filename: salida
 10
 9
@@ -852,12 +850,12 @@ Imprimir los números entre $n$ y $m$ de forma descendente. ($n ≥ i < m$)
 Imprimir la secuencia de números impares del 1 hasta n.
 
 
-```{code}
+```{code} text
 :filename: entrada
 10
 ```
 
-```{code}
+```{code} text
 :filename: salida
 1
 3
@@ -875,13 +873,13 @@ $$
 \sum_{k=1}^{n} k
 $$
 
-```{code}
+```{code} text
 :filename: entrada
 10
 ```
 
 
-```{code}
+```{code} text
 :filename: salida
 La suma de los primeros 10 numeros es 55
 ```
@@ -908,12 +906,12 @@ $$
 $$
 
 
-```{code}
+```{code} text
 :filename: entrada
 8
 ```
 
-```{code}
+```{code} text
 :filename: salida
 El termino 8 es 13
 ```
@@ -932,12 +930,12 @@ Fibonacci.
 
 Siendo el octavo termino $13$, la suma de sus dígitos es $4$; $1+3$
 
-```{code}
+```{code} text
 :filename: entrada
 8
 ```
 
-```{code}
+```{code} text
 :filename: salida
 4
 ```
