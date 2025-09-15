@@ -1087,7 +1087,7 @@ ganando.
 
 
 (0x002Ch)=
-### Regla `0x002C`: Desarrolla y compila siempre con todas las advertencias (y más) activadas.
+### Regla `0x002Ch`: Desarrolla y compila siempre con todas las advertencias (y más) activadas.
 
 No hay excusas. Desarrolla y compila siempre con las advertencias activadas.
 Resulta, sin embargo, que `-Wall` y `-Wextra` en realidad no activan «todas» las
@@ -1112,8 +1112,8 @@ errores:
 CFLAGS += -O2
 ```
 
-(0x002Ch)=
-### Regla `0x002Ch`: Utiliza guardas de inclusión
+(0x002Dh)=
+### Regla `0x002Dh`: Utiliza guardas de inclusión
 
 En todos los headers (`.h`) creados, para evitar la doble inclusión
 
@@ -1224,8 +1224,8 @@ Es más difícil para los usuarios escribir múltiples `#include`s al igual que 
 más difícil para los usuarios escribir tipos. Traer dificultad a esto es
 perderse el bosque por los árboles.
 
-(0x002Dh)=
-### Regla `0x002Dh`: Las variables que refieran al tamaño o posición de un arreglo deben ser `size_t`
+(0x002Eh)=
+### Regla `0x002Eh`: Las variables que refieran al tamaño o posición de un arreglo deben ser `size_t`
 
 El tipo `size_t` es el tipo de dato entero sin signo que devuelve el operador
 `sizeof`. Está diseñado específicamente para representar el tamaño de cualquier
@@ -1278,8 +1278,8 @@ void procesar_elementos(const int arreglo[], int tamano)
 }
 ```
 
-(0x002Eh)=
-### Regla `0x002Eh`: Las variables declaradas como `const` van en `MAYUSCULAS`
+(0x002Fh)=
+### Regla `0x002Fh`: Las variables declaradas como `const` van en `MAYUSCULAS`
 
 Esta es una convención de estilo muy extendida que mejora drásticamente la
 legibilidad. Cuando un identificador está en mayúsculas (`SNAKE_CASE`), actúa
@@ -1312,9 +1312,9 @@ const int diasDeLaSemana = 7;
 ```
 
 
-(0x002Fh)=
-### Regla `0x002Fh`: Todas las cadenas en funciones deben ser seguras
-
 (0x0030h)=
-### Regla `0x0030h`: Los argumentos y variables van en `snake_case` minuscula
+### Regla `0x0030h`: Todas las cadenas en funciones deben ser seguras
+
+(0x0031h)=
+### Regla `0x0031h`: Los argumentos y variables van en `snake_case` minúscula
 
