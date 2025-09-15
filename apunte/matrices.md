@@ -295,19 +295,20 @@ for (size_t j = 0; j < COLUMNAS; j++) {
 
 # Operaciones Matemáticas con Matrices
 
-En el ámbito de la programación en $C$ y otras áreas de la computación, el manejo
-de matrices es fundamental. A continuación, te presento los algoritmos y las
-expresiones matemáticas para las operaciones básicas entre matrices.
+En el ámbito de la programación en $C$ y otras áreas de la computación, el
+manejo de matrices es fundamental. A continuación, te presento los algoritmos y
+las expresiones matemáticas para las operaciones básicas entre matrices.
 
 ## Suma de Matrices
 
-La suma de dos matrices, $Ａ$ y $Ｂ$, de las mismas dimensiones (m x n), da como
-resultado una matriz $Ｃ$ de la misma dimensión. Cada elemento de Ｃ es la suma de
-los elementos correspondientes en $Ａ$ y $Ｂ$.
+La suma de dos matrices, $A$ y $B$, de las mismas dimensiones (m x n), da como
+resultado una matriz $C$ de la misma dimensión. Cada elemento de C es la suma
+de los elementos correspondientes en $A$ y $B$.
 
 ### Expresión Matemática
 
-Para dos matrices $Ａ$ y $Ｂ$ de tamaño $𝑚×𝑛$, la matriz resultante $Ｃ$ se define como:
+Para dos matrices $A$ y $B$ de tamaño $𝑚×𝑛$, la matriz resultante $C$ se
+define como:
 
 ```{math}
 :label: eq-suma-matrices
@@ -363,13 +364,14 @@ FIN FUNCIÓN
 
 ## Resta de Matrices
 
-De manera análoga a la suma, la resta de dos matrices $Ａ$ y $Ｂ$ de idénticas
-dimensiones resulta en una matriz $Ｃ$ donde cada elemento es la diferencia de los
-elementos correspondientes.
+De manera análoga a la suma, la resta de dos matrices $A$ y $B$ de idénticas
+dimensiones resulta en una matriz $C$ donde cada elemento es la diferencia de
+los elementos correspondientes.
 
 ### Expresión Matemática
 
-Para dos matrices $Ａ$ y $Ｂ$ de tamaño $𝑚×𝑛$, la matriz resultante $Ｃ$ se define como:
+Para dos matrices $A$ y $B$ de tamaño $𝑚×𝑛$, la matriz resultante $C$ se
+define como:
 
 ```{math}
 :label: eq-resta-matrices
@@ -402,15 +404,15 @@ FIN FUNCIÓN
 
 ## Multiplicación de Matrices
 
-La multiplicación de una matriz $Ａ$ de dimensión $𝑚×𝑝$ por una matriz $Ｂ$ de
-dimensión $𝑝×𝑛$ produce una matriz $Ｃ$ de dimensión $𝑚×𝑛$. Es crucial que el número
-de columnas de $Ａ$ sea igual al número de filas de $Ｂ$.
+La multiplicación de una matriz $A$ de dimensión $𝑚×𝑝$ por una matriz $B$ de
+dimensión $𝑝×𝑛$ produce una matriz $C$ de dimensión $𝑚×𝑛$. Es crucial que el
+número de columnas de $A$ sea igual al número de filas de $B$.
 
 ### Expresión Matemática
 
-El elemento $(𝑖,𝑗)$ de la matriz resultante $Ｃ$ se calcula como la suma de los
-productos de los elementos de la fila 𝑖 de $Ａ$ por los elementos de la columna 𝑗
-de $Ｂ$.
+El elemento $(𝑖,𝑗)$ de la matriz resultante $C$ se calcula como la suma de los
+productos de los elementos de la fila 𝑖 de $A$ por los elementos de la columna
+𝑗 de $B$.
 
 $$
 C_{i,j} = \sum_{k=1}^{p} A_{i,k} \cdot B_{k,j}
@@ -418,7 +420,7 @@ $$ (eq-mult-matrices)
 
 ### Expansión Matemática
 
-Cada elemento $C_{i,j}$ de la matriz resultante se calcula realizando el producto escalar del vector fila $𝑖$ de la matriz $Ａ$ con el vector columna 𝑗 de la matriz $Ｂ$.
+Cada elemento $C_{i,j}$ de la matriz resultante se calcula realizando el producto escalar del vector fila $𝑖$ de la matriz $A$ con el vector columna 𝑗 de la matriz $B$.
 
 Dadas las matrices:
 
@@ -650,4 +652,4 @@ definición
   Existen diferentes **niveles de caché** (L1, L2, L3), que se diferencian por su tamaño, velocidad y proximidad a los núcleos de la CPU. La caché L1 es la más pequeña y rápida, mientras que la L3 es la más grande y lenta de las tres.
 
   ¿Pero por que no todo es memoria caché? La relación costo capacidad. Las memorias mas cercanas al procesador y las mas rápidas, son las mas caras, tengan en cuenta que una computadora moderna tiene algunos kilobytes de memoria L1 y unos pocos megabytes en L3.
-$$
+
