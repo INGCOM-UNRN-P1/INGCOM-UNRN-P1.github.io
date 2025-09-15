@@ -21,13 +21,14 @@ project:
         - file: apunte/gradual.md
         - file: apunte/funciones.md
         - file: apunte/secuencias.md
-        - file: apunte/compilacion.md        
-        - file: apunte/estilo.md
-        - file: apunte/complejidad.md
-        - file: apunte/ordenamiento.md
+        - file: apunte/compilacion.md
         - file: apunte/matrices.md
-        - file: apunte/memoria.md
         - file: apunte/archivos.md
+        - file: apunte/estilo.md
+        - file: apunte/ordenamiento.md
+        - file: apunte/complejidad.md
+
+        - file: apunte/memoria.md
         - file: apunte/estructuras.md 
         - file: apunte/tad.md
         - file: apunte/memoria.md
