@@ -99,15 +99,11 @@ descuento = calcular_descuento(precio);
 
 Probá y fijate si ayuda a la legibilidad. _Probablemente sí_.
 
-El ejemplo primordial de esto es ni mas ni menos que `i` y `j` como contadores.
-Y situaciones en las que lo que estamos programando, se representa de esta
-forma, como algo matemático.
+El ejemplo primordial de esto es ni más ni menos que `i` y `j` como contadores.
 Y situaciones en las que lo que estamos programando, se representa de esta
 forma, como algo matemático.
 
-De todas formas, si aplican las condiciones anteriores quizas tengamos alguna
-otra.
-De todas formas, si aplican las condiciones anteriores quizas tengamos alguna
+De todas formas, si aplican las condiciones anteriores quizás tengamos alguna
 otra.
 
 (0x0002h)=
@@ -127,10 +123,8 @@ Es importante que una variable utilizada como R-Value tenga un valor conocido
 antes de tomar lo que tenga.
 
 Incluso si nuestro programa corre en un sistema operativo moderno, en el que se
-recibe la memoria en `0`, la reutilizacion de esta, puede hacer que valores
-asumidos en este valor no lo esten.
-recibe la memoria en `0`, la reutilizacion de esta, puede hacer que valores
-asumidos en este valor no lo esten.
+recibe la memoria en `0`, la reutilización de esta, puede hacer que valores
+asumidos en este valor no lo estén.
 
 - Incorrecto:
 
@@ -177,7 +171,7 @@ struct Datos datos = {0};
 ### Regla `0x0005h`: Todas las estructuras de control van con llaves
 
 Aunque las llaves son técnicamente opcionales, para mantener la prolijidad y
-consistencia, deben ir siempre. Ademas, nos evitamos que al modificar el
+consistencia, deben ir siempre. Además, nos evitamos que al modificar el
 programa luego nos encontremos con que el programa hace algo inesperado.
 
 ```c
@@ -240,7 +234,7 @@ if (condicion)
 (0x0006h)=
 ### Regla `0x0006h`: Los lazos sin `break` y `continue` en su lugar, lazos con bandera
 
-El uso de break y continue dentro de los lazos puede generar un flujo de control
+El uso de `break` y `continue` dentro de los lazos puede generar un flujo de control
 inesperado, lo que dificulta el seguimiento del programa. Es preferible utilizar
 una bandera (variable de control) para salir de los lazos de forma explícita y
 ordenada, lo que hace el código más predecible y fácil de mantener.
@@ -306,11 +300,11 @@ int main()
 (0x0007h)=
 ### Regla `0x0007h`: Prefieran usar while en lugar de `for`
 
-El lazo while es más flexible y adecuado cuando no se conoce de antemano el
-número de iteraciones. Además, el while es generalmente más fácil de leer cuando
+El lazo `while` es más flexible y adecuado cuando no se conoce de antemano el
+número de iteraciones. Además, el `while` es generalmente más fácil de leer cuando
 la condición de parada no está claramente relacionada con un contador. Si se
 utiliza un lazo para repetir indefinidamente o hasta que una condición
-específica sea verdadera, while es preferible a for.
+específica sea verdadera, `while` es preferible a `for`.
 
 - Incorrecto:
 
@@ -479,7 +473,6 @@ int procesar_archivo_con_un_retorno(const char *nombre_archivo)
 
 Las funciones deben estar separadas de la entrada y salida (I/O) para que sean
 útiles en otros contextos y se puedan probar.
-útiles en otros contextos y se puedan probar.
 
 Si el propósito de la función no es realizar I/O, estos llamados deben evitarse,
 delegando la entrada y salida a otras funciones.
@@ -490,27 +483,12 @@ delegando la entrada y salida a otras funciones.
 El código no solo tiene funcionar, sino que también debe ser entendible para
 otros programadores y para tú "yo" del futuro. Una documentación razonable
 transforma una simple función en un componente reutilizable y fiable.
-El código no solo tiene funcionar, sino que también debe ser entendible para
-otros programadores y para tú "yo" del futuro. Una documentación razonable
-transforma una simple función en un componente reutilizable y fiable.
 
 Al describir claramente qué hace la función, qué datos necesita (parámetros) y
 qué resultado produce (valor de retorno), se crea un "contrato" que define su
 comportamiento. Esto ahorra tiempo y reduce errores, ya que no es necesario leer
 y descifrar la lógica interna cada vez que se quiere utilizar la función.
-Al describir claramente qué hace la función, qué datos necesita (parámetros) y
-qué resultado produce (valor de retorno), se crea un "contrato" que define su
-comportamiento. Esto ahorra tiempo y reduce errores, ya que no es necesario leer
-y descifrar la lógica interna cada vez que se quiere utilizar la función.
 
-El formato de documentación especificado, que utiliza etiquetas como `@param`,
-`@pre`, `@returns` y `@post`, no es una elección arbitraria. Sigue un estándar
-similar al de herramientas como Doxygen, que pueden procesar estos comentarios
-para generar manuales de referencia automáticamente. La idea de usar esta
-estructura, es estructurar y pensar de manera explícita sobre las precondiciones
-y las poscondiciones. Este nivel de detalle es crucial para construir software
-robusto y mantenible, donde cada pieza del código tiene un propósito y unas
-expectativas bien definidas.
 El formato de documentación especificado, que utiliza etiquetas como `@param`,
 `@pre`, `@returns` y `@post`, no es una elección arbitraria. Sigue un estándar
 similar al de herramientas como Doxygen, que pueden procesar estos comentarios
@@ -588,7 +566,7 @@ Aunque probablemente, si es _tan_ complejo, sea mejor dividirlo en varios `if`.
 (0x000Eh)=
 ### Regla `0x000Eh`: Los arreglos estáticos solo pueden ser creados de un tamaño fijo al compilar
 
-Los arreglos ALV no estan permitidos por los problemas que pueden ocasionar, por
+Los arreglos ALV no están permitidos por los problemas que pueden ocasionar, por
 lo que deben ser definidos con un tamaño fijo que se determina en tiempo de
 compilación.
 
@@ -602,7 +580,7 @@ compilación.
 ### Regla `0x000Fh`: Un caso por función de prueba
 
 Pueden lograr esto creando una función que reciba los argumentos y el resultado
-esperado para comparar, o hacer una funcion para cada caso.
+esperado para comparar, o hacer una función para cada caso.
 
 (0x0010h)=
 ### Regla `0x0010h`: Evitar las condiciones ambiguas que pueden depender del tipo de dato
@@ -613,14 +591,11 @@ cuentas, caracteres, booleanos o punteros? Lo primero que hago cuando veo que se
 comprueba la veracidad de una variable en C es buscar su tipo en la declaración.
 Ojalá el programador me lo hubiera dicho en la comparación.
 
+
 Esto porque cualquier valor numérico distinto de cero se considera **verdadero**
 en un contexto lógico, mientras que cero se considera **falso**. Esto se lo
 llama "truthyness", o "veracidad" y depender de ello no ayuda a la legibilidad
-del código y por lo tanto, no esta permitido.
-Esto porque cualquier valor numérico distinto de cero se considera **verdadero**
-en un contexto lógico, mientras que cero se considera **falso**. Esto se lo
-llama "truthyness", o "veracidad" y depender de ello no ayuda a la legibilidad
-del código y por lo tanto, no esta permitido.
+del código y, por lo tanto, no está permitido.
 
 Por ejemplo, si una variable numérica se usa como condición, siempre se debe ser
 explícito:
@@ -630,9 +605,7 @@ explícito:
 + if (x != 0) {
 ```
 
-Al evaluar una condicion, esta debe ser únicamente el resultado de una
-comparación.
-Al evaluar una condicion, esta debe ser únicamente el resultado de una
+Al evaluar una condición, esta debe ser únicamente el resultado de una
 comparación.
 
 ```c
@@ -653,10 +626,7 @@ while ( trabajando == false );
 ### Regla `0x0011h`: Mantengan el alcance de las variables al mínimo
 
 Históricamente, C requería que todas las variables sean declaradas al inicio de
-Históricamente, C requería que todas las variables sean declaradas al inicio de
 la función, para saber cuanto tiene que cambiar el stack en una llamada a dicha
-función. Hoy día, no es necesario limitarnos y podemos crear variables de
-alcance específico.
 función. Hoy día, no es necesario limitarnos y podemos crear variables de
 alcance específico.
 
@@ -667,13 +637,12 @@ for (int i = 0; i < MAXIMO; i++)
 Declarar `i` en este lugar, hace que la variable solo sea conocida por el lazo.
 
 No siempre es posible, pero en la mayoría de los casos, _sí_.
-No siempre es posible, pero en la mayoría de los casos, _sí_.
 
 (0x0012h)=
 ### Regla `0x0012h`: Los retornos numéricos específicos deben ser una constante de preprocesador
 
 El usar nombres descriptivos para los valores facilita la comprensión del
-propósito del retorno al darle un nombre explicito.
+propósito del retorno al darle un nombre explícito.
 
 ```diff
 -return -1;
@@ -771,26 +740,14 @@ ptr = NULL;  // Evitar punteros colgantes
 ```
 
 #### Simetría al liberar
-#### Simetría al liberar
 
 Y cuando llega el momento de liberar, es importante hacerlo al mismo nivel, esto
-implica:
-Y cuando llega el momento de liberar, es importante hacerlo al mismo nivel, esto
-implica:
-
-Por un lado, si hemos pedido memoria en una función, es necesario crear otra
-función que se encargue de liberarla, en el mismo nivel de abstracción. Esto
-porque si lo que hemos construido dinámicamente, es suficientemente complejo
-para ameritar una función, es seguro que la liberación tendrá una complejidad
-similar. En un par de funciones como `crear_recurso` y `liberar_recurso`.
-Por un lado, si hemos pedido memoria en una función, es necesario crear otra
-función que se encargue de liberarla, en el mismo nivel de abstracción. Esto
+implica, por un lado, si hemos pedido memoria en una función, es necesario crear 
+otra función que se encargue de liberarla, en el mismo nivel de abstracción. Esto
 porque si lo que hemos construido dinámicamente, es suficientemente complejo
 para ameritar una función, es seguro que la liberación tendrá una complejidad
 similar. En un par de funciones como `crear_recurso` y `liberar_recurso`.
 
-Esto es difícil que suceda con arreglos, pero cuando se trata de `struc`turas es
-posible.
 Esto es difícil que suceda con arreglos, pero cuando se trata de `struc`turas es
 posible.
 
@@ -809,7 +766,7 @@ posibilidad de errores sutiles.
 (0x001Ch)=
 ### Regla `0x001Ch`: Prefieran fgets a gets y scanf para leer archivos o cadenas
 
-fgets es más seguro que `gets` y `scanf` porque evita desbordamientos de buffer.
+`fgets` es más seguro que `gets` y `scanf` porque evita desbordamientos de buffer.
 
 ```c
 fgets(buffer, sizeof(buffer), archivo);
@@ -832,7 +789,6 @@ fclose(archivo);
 ```
 
 Esta regla también incluye el uso de `errno`.
-Esta regla también incluye el uso de `errno`.
 
 (0x001Eh)=
 ### Regla `0x001Eh`: Uso explícito de typedef para estructuras complejas
@@ -849,8 +805,6 @@ typedef struct {
 
 Los identificadores de tipos creados con `typedef` van con el sufijo `_t` para
 poder distinguirlos rápidamente.
-Los identificadores de tipos creados con `typedef` van con el sufijo `_t` para
-poder distinguirlos rápidamente.
 
 (0x001Fh)=
 ### Regla `0x001Fh`: Minimizar el uso de múltiples niveles de punteros
@@ -859,7 +813,6 @@ Esto complica la lectura y el manejo, especialmente cuando se trata de
 asignación o liberación de memoria.
 
 (0x0020h)=
-### Regla `0x020Fh`: Documentar la propiedad de los recursos al usar punteros
 ### Regla `0x020Fh`: Documentar la propiedad de los recursos al usar punteros
 
 Cuando una función recibe o devuelve un puntero a memoria dinámica, es
@@ -1002,9 +955,7 @@ if (ptr == NULL) {
 (0x0023h)=
 ### Regla `0x0023h`: Documentar explícitamente el uso de punteros nulos.
 
-Cuando una funcion devuelve punteros, y estos pueden ser `NULL`, documentar en
-que casos nos podemos encontrar con uno.
-Cuando una funcion devuelve punteros, y estos pueden ser `NULL`, documentar en
+Cuando una función devuelve punteros, y estos pueden ser `NULL`, documentar en
 que casos nos podemos encontrar con uno.
 
 (0x0024h)=
@@ -1019,7 +970,6 @@ int *ptr = (int *) mem;  // Cast explícito
 
 (0x0026h)=
 ### Regla `0x0025h`: Usar `sizeof` siempre en las asignaciones de memoria dinámica
-### Regla `0x0025h`: Usar `sizeof` siempre en las asignaciones de memoria dinámica
 
 Facilita la modificación y reduce errores al manejar estructuras y tipos
 dinámicos:
@@ -1027,9 +977,6 @@ dinámicos:
 ```c
 ptr = malloc(sizeof(*ptr));  // Asigna la cantidad correcta de memoria para el tipo de ptr
 ```
-
-Ya que calculado manualmente puede ser fácilmente tener el tamaño equivocado y acarrear
-problemas difíciles de detectar.
 
 Ya que calculado manualmente puede ser fácilmente tener el tamaño equivocado y acarrear
 problemas difíciles de detectar.
@@ -1048,8 +995,6 @@ if (indice >= 0 && indice < tamaño_arreglo) {
 
 En funciones, esto implica también, que es necesario pasar como argumento el
 tamaño del arreglo.
-En funciones, esto implica también, que es necesario pasar como argumento el
-tamaño del arreglo.
 
 :::{note} Strings
 
@@ -1059,7 +1004,6 @@ posiciones de la misma.
 :::
 
 (0x0028h)=
-### Regla `0x0028h`: Usar `enum` en lugar de números mágicos para estados y valores constantes
 ### Regla `0x0028h`: Usar `enum` en lugar de números mágicos para estados y valores constantes
 
 Mejora la legibilidad y reduce errores al manejar múltiples constantes:
@@ -1071,11 +1015,8 @@ Estado estado = ACTIVO;
 
 Esta regla es similar a [](#0x0012h), pero esta es más completa, ya que limita
 los valores a los que están definidos en la enumeración.
-Esta regla es similar a [](#0x0012h), pero esta es más completa, ya que limita
-los valores a los que están definidos en la enumeración.
 
 (0x0029h)=
-### Regla `0x0029h`: Documentar explícitamente el comportamiento de las funciones al manejar punteros nulos
 ### Regla `0x0029h`: Documentar explícitamente el comportamiento de las funciones al manejar punteros nulos
 
 Cuando una función acepta o devuelve un puntero nulo, el comportamiento debe
@@ -1094,7 +1035,6 @@ documentar la situación en la estructura que tenga la función.
 
 (0x002Ah)=
 ### Regla `0x002Ah`: Liberar memoria en el orden inverso a su asignación
-### Regla `0x002Ah`: Liberar memoria en el orden inverso a su asignación
 
 Esto es especialmente importante en programas complejos donde varias porciones
 de memoria son asignadas en secuencia, como con matrices.
@@ -1105,7 +1045,6 @@ free(ptr1);
 ```
 
 (0x002Bh)=
-### Regla `0x002Bh`: Nunca con más de 79 caracteres por línea
 ### Regla `0x002Bh`: Nunca con más de 79 caracteres por línea
 
 Nunca escribas líneas de más de 79 caracteres.
@@ -1139,17 +1078,12 @@ mejor manera de dividir las líneas largas y sus lectores se lo agradecerán.
 
 En C, muchas instrucciones admiten estar en dos líneas, y otras necesitan del
 carácter de continuación `\` para seguir en la línea siguiente.
-En C, muchas instrucciones admiten estar en dos líneas, y otras necesitan del
-carácter de continuación `\` para seguir en la línea siguiente.
 
 Haga lo que hacen los demás, escriba para las 80 columnas y todos saldremos
 ganando.
 
 - [Emacs Wiki: Regla de las ochenta columnas](http://www.emacswiki.org/emacs/EightyColumnRule)
 - [Programmers' Stack Exchange: ¿Sigue siendo relevante el límite de 80 caracteres?](http://programmers.stackexchange.com/questions/604/is-the-80-character-limit-still-relevant-in-times-of-widescreen-monitors)
-
-````
-````
 
 
 (0x002Ch)=
@@ -1169,8 +1103,7 @@ CFLAGS += -Wall -Wextra -Wpedantic \
 ifeq ($(CC),gcc)
     CFLAGS += -Wjump-misses-init -Wlogical-op
 endif
-````
-````
+```
 
 Compilar con las optimizaciones activadas también puede ayudar a detectar
 errores:
@@ -1180,7 +1113,6 @@ CFLAGS += -O2
 ```
 
 (0x002Ch)=
-### Regla `0x002Ch`: Utiliza guardas de inclusión
 ### Regla `0x002Ch`: Utiliza guardas de inclusión
 
 En todos los headers (`.h`) creados, para evitar la doble inclusión
@@ -1198,8 +1130,6 @@ archivo header «dos veces» sin que se interrumpa la compilación.
 #endif // ifndef INCLUDED_ALPHABET_H
 ```
 
-El macro utilizado debe ser similar al del ejemplo, terminar con `_H` y
-utilizar un nombre relacionado con el archivo que lo contiene.
 El macro utilizado debe ser similar al del ejemplo, terminar con `_H` y
 utilizar un nombre relacionado con el archivo que lo contiene.
 
@@ -1225,8 +1155,6 @@ fácil.
 
 #### Comentarios al incluir un header no estandar
 
-Los comentarios en los headers `#include`s de bibliotecas no estándar para
-indicar qué símbolos usas de ellas.
 Los comentarios en los headers `#include`s de bibliotecas no estándar para
 indicar qué símbolos usas de ellas.
 
@@ -1273,7 +1201,7 @@ cabeceras cambian sus inclusiones, tu código no se romperá.
 
 Además, combinado con la regla de comentario `#include` anterior, esto ahorra a
 tus lectores y compañeros desarrolladores tener que seguir un rastro de
-inclusiones sólo para encontrar la definición de un símbolo que estás usando. Tu
+inclusiones solo para encontrar la definición de un símbolo que estás usando. Tu
 código debería decirles de dónde viene.
 
 #### Evitar las cabeceras unificadas
