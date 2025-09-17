@@ -23,17 +23,18 @@ project:
         - file: apunte/4_secuencias.md
         - file: apunte/5_compilacion.md
         - file: apunte/6_matrices.md
-        - file: apunte/7_archivos.md
+        - file: apunte/7_punteros.md
+        - file: apunte/8_archivos.md
         - file: apunte/0_estilo.md
-#        - file: apunte/8_ordenamiento.md
-#        - file: apunte/9_complejidad.md
+#        - file: apunte/9_ordenamiento.md
+#        - file: apunte/10_complejidad.md
 
 #        - file: apunte/memoria.md
 #        - file: apunte/estructuras.md 
 #        - file: apunte/tad.md
 #        - file: apunte/memoria.md
 #        - file: apunte/cadenas.md
-#        - file: apunte/punteros.md
+
     - title: Bibliografia
       children:
         - file: bibliografia/suplementaria.md
