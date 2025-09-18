@@ -49,7 +49,7 @@ distinguir entre arreglos locales (dentro de una función) y los globales o
 estáticos:
 
 - **Arreglos locales no inicializados**: Contienen valores indeterminados
-  ("basura").
+  ("basura"), lo cual viola la regla de estilo {ref}`0x0003h`.
 - **Arreglos globales o estáticos no inicializados**: Sus elementos se
   inicializan a cero por defecto.
 
@@ -74,53 +74,53 @@ en la que C crea las variables en la memoria, con un único tipo, los "tipos
 estáticos". El valor que retorna es de tipo {term}`size_t`, un tipo de entero
 sin signo.
 
-```{code} c
+````{code-block}c
 :linenos:
 int numeros[10];
 
 // sizeof(int) -> Devuelve el tamaño de un entero (4 bytes)
 // sizeof(numeros[0]) -> Devuelve el tamaño de los elementos del arreglo (4 bytes)
 // sizeof(numeros) -> Devuelve el tamaño total del arreglo (40 bytes)
-```
+````
 
 Esto nos permite calcular la cantidad de elementos de un arreglo de una forma
 simple, esto es de suma importancia en C, ya que los arreglos no guardan su
 tamaño.
 
-```{code} c
+````{code-block}c
 :linenos:
 // Funciona incluso si cambiamos 'numeros' a 'long numeros[]'.
 size_t cantidad = sizeof(numeros) / sizeof(numeros[0]);
 // La cuenta es, el tamaño total del arreglo / el tamaño de un elemento.
 // Qué aplicado al arreglo anterior, nos debiera dar 10.
-```
+````
 
 Teniendo en cuenta que los tamaños de los tipos básicos como `int` o `long`,
 pueden cambiar de tamaño entre compiladores.
 
-```{code} c
+````{code-block}c
 :linenos:
 #include <stdio.h>
 
 int main() {
-    printf("Tamaño de char: %zu bytes", sizeof(char));
-    printf("Tamaño de int: %zu bytes", sizeof(int));
-    printf("Tamaño de float: %zu bytes", sizeof(float));
-    printf("Tamaño de double: %zu bytes", sizeof(double));
-    printf("Tamaño de long long: %zu bytes", sizeof(long long));
+    printf("Tamaño de char: %zu bytes\n", sizeof(char));
+    printf("Tamaño de int: %zu bytes\n", sizeof(int));
+    printf("Tamaño de float: %zu bytes\n", sizeof(float));
+    printf("Tamaño de double: %zu bytes\n", sizeof(double));
+    printf("Tamaño de long long: %zu bytes\n", sizeof(long long));
     return 0;
 }
-```
+````
 
 La salida de este código en una computadora de escritorio actual sería:
 
-```
+````
 Tamaño de char: 1 bytes
 Tamaño de int: 4 bytes
 Tamaño de float: 4 bytes
 Tamaño de double: 8 bytes
 Tamaño de long long: 8 bytes
-```
+````
 
 Una característica del lenguaje C es que los tamaños de sus tipos de datos
 numéricos pueden variar entre diferentes arquitecturas de hardware. El operador
@@ -133,13 +133,13 @@ mientras que en sistemas de 32-bits o 64-bits, comúnmente ocupa 4 bytes.
 El uso de `sizeof` es crucial en la gestión de memoria dinámica, un tema que se
 abordará más adelante.
 
-:::{note}
+::::{note}
 
 Para imprimir un valor de tipo {term}`size_t` con `printf`, se utiliza el
 especificador de formato `%zu`. El uso de `%d` o `%lu` puede provocar
 advertencias del compilador debido a posibles inconsistencias de tipo.
 
-:::
+::::
 
 ### Acceso, Modificación y la Identidad del Arreglo
 
@@ -156,7 +156,7 @@ ya que representa un valor que puede ser leído.
 Por ejemplo `int valor = mi_arreglo[3];`. Aquí, `mi_arreglo[3]` nos permite
 acceder al valor de la cuarta posición.
 
-```{code} c
+````{code-block}c
 :linenos:
 int calificaciones[5] = {10, 8, 9, 7, 10};
 
@@ -169,15 +169,15 @@ int cuarta = calificaciones[3];
 printf("La primera calificación es: %d\n", primera);
 printf("La cuarta calificación es: %d\n", cuarta);
 printf("Acceso directo al segundo elemento: %d\n", calificaciones[1]);
-```
+````
 
 Salida:
 
-```
+````
 La primera calificación es: 10
 La cuarta calificación es: 7
 Acceso directo al segundo elemento: 8
-```
+````
 
 #### Modificación (escritura)
 
@@ -189,7 +189,7 @@ de memoria modificable.
 Por ejemplo, `mi_arreglo[3] = 100;`. Acá, `mi_arreglo[3]` nos permite modificar
 el cuarto valor de la secuencia.
 
-```{code} c
+````{code-block}c
 :linenos:
 int edades[4] = {20, 25, 22, 28};
 // 1. Mostrar el valor original del tercer elemento (índice 2)
@@ -198,14 +198,14 @@ printf("La edad original en el índice 2 es: %d\n", edades[2]);
 edades[2] = 23;
 // 3. Mostrar el valor modificado. 'edades[2]' se evalúa como un r-value.
 printf("La nueva edad en el índice 2 es: %d\n", edades[2]);
-```
+````
 
 Salida:
 
-```
+````
 La edad original en el índice 2 es: 22
 La nueva edad en el índice 2 es: 23
-```
+````
 
 #### Identidad
 
@@ -220,20 +220,21 @@ El identificador de un arreglo es una constante que representa la dirección de
 inicio del bloque de memoria asignado. Por esta razón, el nombre de un arreglo
 es un **l-value no modificable**.
 
-```{code} c
+````{code-block}c
 :linenos:
 int arr1[5] = {1, 2, 3, 4, 5};
 int arr2[5] = {10, 20, 30, 40, 50};
 
 // La siguiente línea es ilegal y causará un error de compilación.
 arr1 = arr2; // Error: expression is not assignable.
-```
+````
 
 ### Recorrido de Arreglos y Comportamiento Indefinido
 
 La estructura de control ideal para iterar sobre un arreglo es el lazo `for`.
+El uso de `size_t` para el índice del lazo es la forma correcta de hacerlo, tal como lo indica la regla de estilo {ref}`0x002Eh`.
 
-```{code} c
+````{code-block}c
 :linenos:
 int numeros[] = {10, 20, 30, 40, 50};
 size_t cantidad = sizeof(numeros) / sizeof(numeros[0]);
@@ -241,17 +242,17 @@ size_t cantidad = sizeof(numeros) / sizeof(numeros[0]);
 for (size_t i = 0; i < cantidad; i++) {
     printf("Elemento %zu: %d\n", i, numeros[i]);
 }
-```
+````
 
-:::{warning} Cuestiones de límites
+::::{warning} Cuestiones de límites
 
 C no verifica los límites del arreglo. Acceder a un índice fuera del rango
 (`numeros[5]` o `numeros[-1]`) resulta en **comportamiento indefinido**. Esto no
 siempre causa un error inmediato. Podría corromper datos de otras variables,
 causar fallos de seguridad o funcionar aparentemente bien hasta que un cambio
-trivial en otra parte del código revele el error latente.
+trivial en otra parte del código revele el error latente. Es responsabilidad del programador garantizar que esto no ocurra, como lo exige la regla {ref}`0x0027h`.
 
-:::
+::::
 
 ### Arreglos de Longitud Variable (ALV/VLA)
 
@@ -259,7 +260,7 @@ Desde el estándar C99, C permite declarar arreglos cuyo tamaño se determina en
 tiempo de ejecución. Estos se conocen como {abbr}`ALV (Array Largo Variable)` o
 {abbr}`VLA (Variable Length Array)` (en Inglés).
 
-```{code} c
+````{code-block}c
 :linenos:
 int cantidad = 0;
 printf("Ingrese el tamaño del arreglo:\n");
@@ -269,20 +270,19 @@ int arreglo[cantidad]; // Declaración de un VLA
 
 printf("El tamaño del arreglo en bytes es: %zu\n", sizeof(arreglo));
 // El resultado será sizeof(int) * cantidad
-```
+````
 
 Estos tienen limitaciones importantes. Por ejemplo, un ALV no puede ser
 inicializado en su declaración. Intentarlo producirá un error de compilación:
 
-```text
+````text
 error: variable-sized object may not be initialized
-```
+````
 
 Las implicaciones y el uso correcto de la memoria dinámica, que es la
 alternativa recomendada a los ALV, se abordarán en un capítulo posterior.
 
-De todas formas y como se imaginarán, hay una regla de estilo
-[`0x000Eh`](./estilo.md#0x000Eh)
+De todas formas y como se imaginarán, hay una regla de estilo {ref}`0x000Eh`.
 
 ### El Mecanismo de Paso a Funciones
 
@@ -301,10 +301,10 @@ por fuera del _retorno_ explícito de la función.
 
 Esta situación se puede dar cuando utilizamos al arreglo como una variable más.
 
-```{code} c
-:linenos:
+````{code-block}c
 :caption: Contraejemplo con efectos secundarios destructivos
 :emphasize-lines: 4
+:linenos:
 int maximo(int *arreglo, size_t size) {
     for (size_t i = 1; i < size; i++) {
         if (arreglo[i] > arreglo[0]) {
@@ -313,7 +313,7 @@ int maximo(int *arreglo, size_t size) {
     }
     return arreglo[0];
 }
-```
+````
 
 El problema principal del código es el efecto secundario **destructivo**. La
 función no solo calcula el valor máximo, sino que también modifica de manera
@@ -323,7 +323,7 @@ Este tipo de comportamiento puede llevar a errores sutiles y difíciles de
 depurar, especialmente en programas grandes donde el arreglo original podría ser
 necesario para operaciones posteriores. Por ejemplo, si el valor original en la
 posición `0` fuera crucial para otro cálculo, esa información se perdería
-permanentemente.
+permanentemente. Para evitar modificaciones no deseadas, es una buena práctica usar el calificador `const` en los parámetros de arreglo que no deben ser alterados, adhiriendo a la regla de estilo {ref}`0x0021h`.
 
 Resolver este problema solo requiere que agreguemos una variable para reemplazar
 `arreglo[0]`, pero es un buen contraejemplo de un uso negativo de los efectos
@@ -342,7 +342,7 @@ Dentro de la función, `sizeof(arreglo)` no funciona como se espera. La función
 solo conoce la dirección en memoria del arreglo, no el tamaño total de la
 secuencia original.
 
-```c
+````c
 /**
  * Esta funcion, ¡no cumple con su objetivo!
  * para cualquier arreglo que le pasemos;
@@ -351,7 +351,7 @@ secuencia original.
 size_t tamanio_arreglo(int arreglo[]) {
     printf("Tamaño del arreglo: %zu\n", sizeof(arreglo));
     // El arreglo es siempre de tamaño 8 (la dirección)
-    printf("Tamaño de un valor: %zu\n", sizeof(arreglo[0]);
+    printf("Tamaño de un valor: %zu\n", sizeof(arreglo[0]));
     // El valor apuntado va a ser siempre `int` con 4 bytes.
     return sizeof(arreglo) / sizeof(arreglo[0]);
 }
@@ -365,16 +365,16 @@ int main() {
     printf("Tamaño de arreglo2: %zu\n", dos); // obtenemos 2
     return 0;
 }
-```
+````
 
 Esta situación se explica porque, teniendo en cuenta que `sizeof` se resuelve en
-tiempo de compilación, el operador no puede saber con arreglo que vamos a llamar
+tiempo de compilación, el operador no puede saber con qué arreglo vamos a llamar
 a la función.
 
 Por lo tanto, para que una función pueda trabajar sobre cualquier arreglo, se
-debe pasar el tamaño de forma explícita, como un argumento separado.
+debe pasar el tamaño de forma explícita, como un argumento separado. La firma correcta de la función debe incluir el tamaño del arreglo como parámetro. El uso de `size_t` para el tamaño ({ref}`0x002Eh`) y el hecho de pasar el tamaño explícitamente ({ref}`0x0027h`) son cruciales para la seguridad y portabilidad.
 
-```{code} c
+````{code-block}c
 :linenos:
 /**
  * Imprime los elementos de un arreglo de enteros en la salida estándar.
@@ -386,16 +386,16 @@ debe pasar el tamaño de forma explícita, como un argumento separado.
  * - Los elementos del arreglo `arreglo` se han impreso.
  * - El `arreglo` no será modificado.
   */
-void imprimir_arreglo(int arreglo[], size_t size);
-```
+void imprimir_arreglo(const int arreglo[], size_t size);
+````
 
-:::{note} Uso de {term}`size_t`
+::::{note} Uso de {term}`size_t`
 
 Aunque no es estrictamente necesario que sea de tipo {term}`size_t`, su uso se
 recomienda porque este tipo se asocia al tamaño o las 'dimensiones' de las
 cosas.
 
-:::
+::::
 
 ### Retorno de Secuencias desde Funciones
 
@@ -417,9 +417,9 @@ El comportamiento general de una cadena, es el mismo que el de un arreglo.
 
 Por ejemplo, la siguiente cadena:
 
-```c
+````c
 char cadena[7] = "Hola";
-```
+````
 
 En la memoria se vería como:
 
@@ -434,10 +434,10 @@ basura.
 También, si aplicamos el cálculo de tamaño usando `sizeof` que vimos antes,
 vamos a obtener el tamaño en bytes de la cadena.
 
-```{code} c
+````{code-block}
 :linenos:
 size_t espacio_reservado = sizeof(mi_cadena) / sizeof(mi_cadena[0]);
-```
+````
 
 Que casualmente, coincide con el largo del arreglo, esto es porque `char`
 _suele_ ocupar 1-byte por la estrategia de codificación empleada, el código
@@ -454,16 +454,16 @@ Al declarar una cadena usando la sintaxis de arreglo, estás creando una copia
 local y mutable del texto basada en el {term}`literal de cadena`; el texto entre
 comillas dobles (`"`), sumando un carácter más para el terminador `\0`.
 
-```c
+````c
 char mi_cadena[] = "Texto inicial";
-```
+````
 
 Es sumamente importante destacar que los literales, que no están asignados a una
 variable arreglo (`char []`), **no pueden ser modificados**. Esto significa que
 nuestros programas no funcionaran si pasamos como argumento un literal a una
 función que modifica dicha cadena.
 
-```{code} c
+````{code-block}c
 :caption: Modificando cadenas
 :linenos:
 void ordena_caracteres(char cadena[]) {
@@ -494,17 +494,17 @@ int main() {
 
     return 0;
 }
-```
+````
 
 Y la salida sería:
 
-```{code} text
+````{code-block}text
 :linenos:
 :emphasize-lines: 3
 Cadena original: "ejemplo de cadena desordenada"
 Cadena ordenada: "   aaaacdddddeeeeeejlmnnooprs"
 Segmentation fault (core dumped)
-```
+````
 
 Ese `Segmentation fault (core dumped)` es intentar modificar algo que no debía
 ser modificado, por lo que es importante que utilicen una variable de cadena en
@@ -520,15 +520,15 @@ Para obtener el largo de una cadena, podemos usar `strlen`, definido en
 
 Esta función está definida de la siguiente forma:
 
-```{code} c
+````{code-block}c
 size_t strlen( const char* str );
-```
+````
 
 Y se encarga de recorrer la cadena hasta encontrarse un carácter nulo (`\0`)
 
 [Más información sobre `strlen`](https://en.cppreference.com/w/c/string/byte/strlen)
 
-:::{note} Largo vs. capacidad
+::::{note} Largo vs. capacidad
 
 Es muy importante tener en cuenta que las cadenas tienen dos "tamaños" diferentes.
 
@@ -539,14 +539,14 @@ dimensión, la llamaremos "capacidad".
 
 Esta es la base para las cadenas seguras.
 
-:::
+::::
 
 ### Lectura Segura de Cadenas
 
 El uso de `scanf("%s", buffer)` es una de las fuentes de errores de seguridad
-más comunes en C. La alternativa segura es `fgets`.
+más comunes en C. La alternativa segura es `fgets`, como lo recomienda la regla de estilo {ref}`0x001Ch`.
 
-```{code} c
+````{code-block}c
 :linenos:
 char buffer[100];
 fgets(buffer, sizeof(buffer), stdin);
@@ -556,7 +556,7 @@ size_t len = strlen(buffer);
 if (len > 0 && buffer[len - 1] == '\n') {
     buffer[len - 1] = '\0';
 }
-```
+````
 
 ### Biblioteca Estándar `<string.h>`: Un Vistazo rápido
 
@@ -577,7 +577,7 @@ y otras funciones disponibles.
 
 ## Glosario
 
-:::{glossary}
+::::{glossary}
 
 `size_t`
 
@@ -595,14 +595,14 @@ arreglo. Para mas información, ver:
 Literal de cadena
 
 : Es el texto que se escribe directamente en el código, encerrado entre comillas
-dobles, como `"Texto inicial"`. Piensa en él como una plantilla de texto
+dobles, como "Texto inicial". Piensa en él como una plantilla de texto
 original y constante que el programa crea al compilarse. Este literal se
 almacena en una parte de la memoria del programa que se considera fija y no debe
 alterarse. Cuando creas un arreglo como `char mi_cadena[] = "Texto inicial";`,
 lo que realmente sucede es que el contenido de este literal se **copia** al
-arreglo, permitiendo su modificación. 
+arreglo, permitiendo su modificación.
 
-:::
+::::
 
 
 ## Ejercicios
