@@ -653,3 +653,76 @@ definición
 
   ¿Pero por que no todo es memoria caché? La relación costo capacidad. Las memorias mas cercanas al procesador y las mas rápidas, son las mas caras, tengan en cuenta que una computadora moderna tiene algunos kilobytes de memoria L1 y unos pocos megabytes en L3.
 
+
+
+## Ejercicios
+
+```{exercise}
+:label: imprimir_matriz
+:enumerator: matrices-1
+
+Escribí un programa que inicialice una matriz de enteros de 3x3 con valores predefinidos. Luego, recorrela utilizando bucles anidados para imprimir sus elementos en la consola, manteniendo el formato de filas y columnas.
+```
+
+````{solution} imprimir_matriz
+:class: dropdown
+
+```{code-block} c
+#include <stdio.h>
+
+#define FILAS 3
+#define COLUMNAS 3
+
+int main() {
+  int mi_matriz[FILAS][COLUMNAS] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+
+  printf("Contenido de la matriz:\n");
+  for (int i = 0; i < FILAS; i++) {
+    for (int j = 0; j < COLUMNAS; j++) {
+      printf("%d\t", mi_matriz[i][j]);
+    }
+    printf("\n"); // Salto de línea al final de cada fila
+  }
+
+  return 0;
+}
+```
+````
+
+
+```{exercise}
+:label: sumar_diagonal
+:enumerator: funciones-1
+
+Implementá una función `int sumar_diagonal_principal(int matriz[][3], int dimension)` que reciba una matriz cuadrada y su dimensión. La función debe devolver la suma de los elementos de su diagonal principal (donde el índice de fila es igual al de columna).
+```
+
+````{solution} sumar_diagonal
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+
+#define DIM 3
+
+// La función recibe la matriz y su dimensión
+int sumar_diagonal_principal(int matriz[][DIM], int dimension) {
+  int suma = 0;
+  for (int i = 0; i < dimension; i++) {
+    suma = suma + matriz[i][i];
+    // Accedemos solo a los elementos donde fila == columna
+  }
+  return suma;
+}
+
+int main() {
+  int matriz_cuadrada[DIM][DIM] = {{10, 2, 3}, {4, 20, 6}, {7, 8, 30}};
+
+  int suma = sumar_diagonal_principal(matriz_cuadrada, DIM);
+  printf("La suma de la diagonal principal es: %d\n", suma);
+
+  return 0;
+}
+```
+````
