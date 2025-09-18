@@ -32,9 +32,10 @@ un casillero específico para no olvidarte dónde guardaste algo importante.
 ## Declaración de punteros
 
 Para declarar un puntero, debés especificar el tipo de dato al que va a apuntar,
-seguido de un asterisco (`*`) y el nombre de la variable.
+seguido de un asterisco (`*`) y el nombre de la variable. La regla de estilo {ref}`0x0018h` indica que el asterisco debe ir junto al nombre de la variable.
 
-```c
+```{code-block}c
+:linenos:
 int *ptr_entero;
 double *ptr_double;
 char *ptr_char;
@@ -50,7 +51,8 @@ Para que un puntero sea útil, generalmente lo hacés apuntar a una variable
 existente. Esto se logra utilizando el operador de dirección `&` (ampersand), el
 cual obtiene la dirección de memoria de dicha variable.
 
-```c
+```{code-block}c
+:linenos:
 int numero = 42;
 int *ptr_numero = &numero; // ptr_numero ahora almacena la dirección de 'numero'
 ```
@@ -59,12 +61,15 @@ int *ptr_numero = &numero; // ptr_numero ahora almacena la dirección de 'numero
 
 Si al momento de declarar un puntero no tenés una dirección de memoria válida
 para asignarle, es **fundamental** inicializarlo a un estado seguro y conocido.
-Para esto se utiliza la macro `NULL`
+Para esto se utiliza la macro `NULL`, tal como lo exigen las reglas de estilo {ref}`0x0003h` y {ref}`0x0022h`.
 
 `NULL` es una constante de preprocesador, que se encuentra definida en el
 encabezado `<stddef.h>` y representa la dirección a «ningún lado».
 
-```c
+```{code-block}c
+:linenos:
+#include <stddef.h> // Necesario para NULL
+
 int *puntero_seguro = NULL;
 ```
 
@@ -93,25 +98,26 @@ una variable válida o con `NULL`.
 ## Operadores de Punteros
 
 - **Operador `&` («dirección de»)**: Toma un L-value (por ejemplo, una variable)
-  y devuelve su dirección de memoria. El resultado de esta operación es un
-  R-value, ya que la dirección en sí es un valor que se puede asignar a un
-  puntero. No podés hacer `&numero = …`, porque la dirección de una variable es
-  un valor, no una locación a la que se pueda asignar algo.
+y devuelve su dirección de memoria. El resultado de esta operación es un
+R-value, ya que la dirección en sí es un valor que se puede asignar a un
+puntero. No podés hacer `&numero = …`, porque la dirección de una variable es
+un valor, no una locación a la que se pueda asignar algo.
 
 - **Operador `*` («indirección» o «desreferencia»)**: Este operador es especial
-  porque puede producir tanto un L-value como un R-value, dependiendo del
-  contexto.
+porque puede producir tanto un L-value como un R-value, dependiendo del
+contexto.
   - **Como L-value (destino)**: Cuando usás `*puntero` a la **izquierda** de una
-    asignación, estás haciendo referencia a la **locación** de memoria a la que
-    apunta el puntero. Estás diciendo: "en la dirección que guarda `puntero`,
-    almacená este nuevo valor".
+asignación, estás haciendo referencia a la **locación** de memoria a la que
+apunta el puntero. Estás diciendo: "en la dirección que guarda `puntero`,
+almacená este nuevo valor".
   - **Como R-value (origen)**: Cuando usás `*puntero` a la **derecha** de una
-    asignación o en cualquier otro lugar donde se espera un valor (como en un
-    `printf`), estás accediendo al **valor** contenido en esa locación de
-    memoria. Estás diciendo: "dame el valor que está guardado en la dirección a
-    la que apunta `puntero`".
+asignación o en cualquier otro lugar donde se espera un valor (como en un
+`printf`), estás accediendo al **valor** contenido en esa locación de
+memoria. Estás diciendo: "dame el valor que está guardado en la dirección a
+la que apunta `puntero`".
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -159,7 +165,8 @@ hacer `ptr + 1`, la dirección de memoria no se incrementa en 1, sino en
 Podés incrementar un puntero para que apunte al siguiente elemento de un arreglo
 o decrementarlo para que apunte al anterior.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -184,7 +191,8 @@ int main() {
 Podés sumar o restar un valor entero a un puntero para desplazarte varias
 posiciones dentro de un arreglo.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -206,7 +214,8 @@ Podés restar dos punteros que apunten a elementos del mismo arreglo. El
 resultado no es una dirección de memoria, sino la cantidad de elementos que hay
 entre ellos.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 #include <stddef.h> // Necesario para ptrdiff_t
 
@@ -233,7 +242,7 @@ Esto, teniendo en cuenta que `size_t`, es un número sin signo, que no podría
 representar los valores negativos producto de ir "hacia atras" de la posición
 inicial.
 
-:::
+::: 
 
 ## Punteros en funciones y efectos secundarios
 
@@ -248,7 +257,8 @@ recibe una copia del puntero), el puntero dentro de la función apunta a la
 variable original. Esto nos permite modificar la variable original desde dentro
 de la función, un mecanismo conocido como **paso por referencia simulado**.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 // La función recibe dos punteros a enteros
@@ -290,7 +300,7 @@ programa podrían haber cambiado después de llamarla.
 El calificador `const` es una de las herramientas más importantes en C para
 escribir código seguro, predecible y fácil de entender. Actúa como un "contrato"
 que le dice al compilador y a otros programadores qué se supone que no debe
-cambiar. Cuando lo usás con punteros, te permite "bloquear" o bien el dato
+cambiar. Cuando lo usás con punteros, como lo exige la regla {ref}`0x0021h`, te permite "bloquear" o bien el dato
 apuntado, el puntero en sí, o ambos.
 
 `const` nos permite poner reglas sobre qué se puede modificar, _potencialmente_,
@@ -305,7 +315,8 @@ cambiar su contenido a través de este puntero.
 - **Sintaxis:** `const T *puntero`.
 - **Regla:** El **valor** apuntado es constante. El **puntero** es variable.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 void imprimir(const char *mensaje) {
@@ -341,7 +352,8 @@ lo que podés cambiar su contenido libremente.
 - **Sintaxis:** `T * const puntero`.
 - **Regla:** El puntero es constante. El valor apuntado es variable.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -373,7 +385,8 @@ ni el contenido del lugar al que apunta.
 - **Sintaxis:** `const T * const puntero`.
 - **Regla:** Tanto el puntero como el valor apuntado son constantes.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -404,7 +417,8 @@ Si un puntero (`int *p`) es una nota con la dirección de un cofre que contiene
 un tesoro (un `int`), un puntero doble (`int **pp`) es una nota con la dirección
 de **otra nota**, que a su vez tiene la dirección del cofre del tesoro.
 
-```c
+```{code-block}c
+:linenos:
 int valor = 100;
 int *p = &valor;    // p apunta a 'valor'
 int **pp = &p;      // pp apunta a 'p'
@@ -412,7 +426,8 @@ int **pp = &p;      // pp apunta a 'p'
 
 Podemos acceder a `valor`, desreferenciando dos veces el puntero `pp`;
 
-```c
+```{code-block}c
+:linenos:
 printf("%d\n", **pp);
 ```
 
@@ -433,7 +448,8 @@ cambiar a dónde apunta el puntero original.
 Para poder modificar el puntero original desde dentro de una función, necesitás
 pasar la dirección de ese puntero, es decir, un puntero doble.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 // Función para intercambiar el valor de dos punteros.
@@ -537,17 +553,18 @@ que no cambia.
 Aplicando estos conceptos, una documentación exhaustiva para la función
 `intercambiar` se vería así, siguiendo el estilo creado por la cátedra.
 
-```c
+```{code-block}
+:linenos:
 /**
  * Intercambia los valores de dos variables enteras a través de sus punteros.
- * @param[in, out] primero es el puntero al primer valor. Su contenido será leído y luego
+ * @param[in, out] primero Puntero al primer valor. Su contenido será leído y luego
  * sobrescrito con el del segundo.
- * @param[in, out] b es el segundo puntero. Su contenido será leído y luego
+ * @param[in, out] segundo Puntero al segundo valor. Su contenido será leído y luego
  * sobrescrito con el contenido del primero.
  * @pre Ambos punteros no deben ser NULL y apuntar a direcciones de memoria válidas y modificables.
- * @post El valor almacenado en la dirección apuntada por 'a' será el valor original
- * que se encontraba en la dirección de 'b' y viceversa. No se introduciran otros valores por fuera
- *     de los que esten referenciados.
+ * @post El valor almacenado en la dirección apuntada por 'primero' será el valor original
+ * que se encontraba en la dirección de 'segundo' y viceversa. No se introducirán otros valores por fuera
+ * de los que estén referenciados.
  */
 void intercambiar(int *primero, int *segundo) {
     int temporal = *primero;
@@ -574,7 +591,8 @@ trabaja con el arreglo completo. En su lugar, lo convierte automáticamente en u
 
 Por lo tanto, las siguientes dos líneas de código son funcionalmente idénticas:
 
-```c
+```{code-block}c
+:linenos:
 int numeros[5] = {10, 20, 30, 40, 50};
 
 // La "degradación" ocurre aquí: 'numeros' se convierte en la dirección de numeros[0]
@@ -599,7 +617,8 @@ del arreglo.
 Por eso, estas tres declaraciones de función son absolutamente equivalentes para
 el compilador:
 
-```c
+```{code-block}c
+:linenos:
 void procesar_datos(int arr[10]); // El 10 es ignorado por el compilador
 void procesar_datos(int arr[]);   // Notación más común para indicar que se espera un arreglo
 void procesar_datos(int *arr);    // La forma más honesta: la función recibe un puntero
@@ -610,7 +629,8 @@ arreglo y el tamaño que obtendremos es únicamente el de la dirección de memor
 
 $$\text{sizeof(arreglo\_decaido)} = \text{sizeof(puntero)}$$
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 // La función recibe un puntero, sin importar cómo se declare el parámetro.
@@ -625,11 +645,12 @@ void imprimir_tamano(int arr[]) {
 alcance de la declaración del arreglo.
 
 Por lo que hacer `sizeof(arreglo)` va a devolver el tamaño total en bytes del
-arreglo, de forma que sea (número de elementos \* tamaño del tipo del arreglo).
+arreglo, de forma que sea (número de elementos * tamaño del tipo del arreglo).
 
 $$\text{sizeof(arreglo)} = elementos \times \text{sizeof(T)}$$
 
-```c
+```{code-block}c
+:linenos:
 
 int main() {
     int mi_arreglo[10] = {0};
@@ -668,11 +689,13 @@ imprimirlos. La estrategia consiste en tener un puntero que avanza y un puntero
 1.  Declará un puntero `ptr` que apunte al inicio del arreglo.
 2.  Declará otro puntero `fin` que apunte a la dirección de memoria
     **inmediatamente posterior** al último elemento. Esto substituye el 'conteo'
-    de posiciónes.
+de posiciónes.
 3.  El lazo `while` se ejecuta mientras `ptr` sea menor que `fin`.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
+#include <stddef.h> // Para size_t
 
 void imprimir_arreglo(const int *arr, size_t tamano) {
     const int *ptr = arr;
@@ -697,7 +720,7 @@ int main() {
 
 Para buscar un valor, recorremos el arreglo y nos detenemos si encontramos una
 coincidencia. La función devolverá un puntero al elemento encontrado o `NULL` si
-no se encuentra.
+no se encuentra. La comprobación explícita contra `NULL` sigue la regla {ref}`0x0010h`.
 
 **Método:**
 
@@ -707,10 +730,12 @@ no se encuentra.
 3.  Después del lazo, si `ptr != fin`, significa que el lazo se detuvo porque
     encontramos el elemento. Si son iguales, es porque recorrimos todo sin
     éxito.
+4.  Si el bucle termina sin encontrar el valor, devolver `NULL`.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
-#include <stddef.h> // Para NULL
+#include <stddef.h> // Para NULL y size_t
 
 // Devuelve un puntero al primer elemento que coincida con 'valor', o NULL si no se encuentra.
 int* buscar_valor(int *arr, size_t tamano, int valor) {
@@ -758,8 +783,10 @@ apunta el puntero.
 2.  Dentro del lazo, en lugar de leer, realizamos una asignación:
     `*ptr = nuevo_valor`.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
+#include <stddef.h> // Para size_t
 
 // Duplica el valor de cada elemento en el arreglo.
 void duplicar_valores(int *arr, size_t tamano) {
@@ -775,13 +802,12 @@ void duplicar_valores(int *arr, size_t tamano) {
 int main() {
     int numeros[] = {1, 2, 3, 4, 5};
 
-    printf("Arreglo original: ");
-    // (Código para imprimirlo, como el de la primera sección)
+    printf("Arreglo original: 1 2 3 4 5\n");
+    // (Código para imprimirlo, podemos usar el de la primera sección)
 
     duplicar_valores(numeros, 5);
 
-    printf("Arreglo modificado: ");
-    // (Código para imprimirlo de nuevo)
+    printf("Arreglo modificado: %d %d %d %d %d\n", numeros[0], numeros[1], numeros[2], numeros[3], numeros[4]);
     // Salida esperada: 2 4 6 8 10
 
     return 0;
@@ -803,8 +829,10 @@ paso.
 
 3.  Dentro del lazo, copiá el valor y luego incrementá **ambos** punteros.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
+#include <stddef.h> // Para size_t
 
 void copiar_arreglo(int *destino, const int *fuente, size_t tamano) {
     const int *ptr_fuente = fuente;
@@ -831,8 +859,7 @@ int main() {
 
     copiar_arreglo(arreglo_b, arreglo_a, 3);
 
-    printf("Contenido del arreglo copiado: ");
-    // (Código para imprimir arreglo_b)
+    printf("Contenido del arreglo copiado: %d %d %d\n", arreglo_b[0], arreglo_b[1], arreglo_b[2]);
     // Salida esperada: 100 200 300
 
     return 0;
@@ -842,7 +869,7 @@ int main() {
 :::{warning} Advertencia sobre los límites de los arreglos
 
 Este último ejemplo, debiera de recibir un tamaño para cada arreglo y verificar
-que los tamaños de ambos sean 'compatibles' entre sí.
+que los tamaños de ambos sean 'compatibles' entre sí. La regla de estilo {ref}`0x0027h` es crucial aquí.
 
 La mayor ventaja y el mayor peligro de la aritmética de punteros es su libertad.
 El lenguaje C no te impedirá incrementar un puntero más allá del final de un
@@ -850,7 +877,7 @@ arreglo. Es **tu responsabilidad** como programador asegurarte de que tus lazos
 y operaciones se mantengan siempre dentro de los límites válidos del arreglo
 para evitar corrupción de memoria y comportamientos indefinidos.
 
-:::
+::: 
 
 ### 5. Versión alternativa
 
@@ -860,7 +887,8 @@ encontramos, no vamos a escapar de 'contar' posiciones.
 En ese caso, lo que podemos hacer, es ir sumando al puntero del arreglo la
 `i`-esima posición, en lugar de ir incrementando el puntero mismo.
 
-```c
+```{code-block}c
+:linenos:
 for (size_t i = 0; i < 5; i++) {
     printf("%d ", *(p + i));
 }
@@ -869,10 +897,11 @@ for (size_t i = 0; i < 5; i++) {
 De esta forma, podemos obtener un código que es más similar al uso tradicional
 de arreglos
 
-```c
-void imprimir_arreglo(const int *arr, size_t tamano) {
+```{code-block}c
+:linenos:
+void imprimir_arreglo(const int *ptr, size_t tamano) {
     printf("Contenido del arreglo: ");
-    for (size_t i = 0; i < 5; i++) {
+    for (size_t i = 0; i < tamano; i++) {
         printf("%zu:%d ", i, *(ptr + i));
     }
     printf("\n");
@@ -906,7 +935,7 @@ Implementá un procedimiento `void intercambiar(int *a, int *b)` que reciba dos 
 ````{solution} intercambiar_valores
 :class: dropdown
 
-```{code-block} c
+```{code-block}c
 :linenos:
 #include <stdio.h>
 
@@ -942,7 +971,7 @@ Escribí una función `int encontrar_maximo(const int *arreglo, size_t n)` que r
 ````{solution} encontrar_maximo
 :class: dropdown
 
-```{code-block} c
+```{code-block}c
 :linenos:
 #include <stddef.h>
 #include <stdio.h>
@@ -986,7 +1015,7 @@ Implementá un procedimiento `void copiar_cadena(char *destino, const char *orig
 ````{solution} copiar_cadena
 :class: dropdown
 
-```{code-block} c
+```{code-block}c
 :linenos:
 #include <stdio.h>
 
@@ -1024,7 +1053,7 @@ Creá una función `int sumar_arreglo(const int *inicio, const int *fin)` que re
 ````{solution} sumar_arreglo_punteros
 :class: dropdown
 
-```{code-block} c
+```{code-block}c
 :linenos:
 #include <stddef.h>
 #include <stdio.h>
@@ -1062,7 +1091,7 @@ Implementá un procedimiento `void invertir_arreglo(int *arreglo, size_t n)` que
 ````{solution} invertir_arreglo_inplace
 :class: dropdown
 
-```{code-block} c
+```{code-block}c
 :linenos:
 #include <stddef.h>
 #include <stdio.h>

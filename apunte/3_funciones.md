@@ -766,16 +766,17 @@ void solicitar_datos()
     printf("Por favor ingrese sus datos.\n");
 }
 
-void mostrar_saludo(char[] mensaje)
+void mostrar_saludo(const char *mensaje)
 {
-    printf("Bienvenido al sistema.\n");
+    printf("%s\n", mensaje);
     solicitar_datos();
 }
 
 int main()
 {
-    mostrar_saludo("Bienvenido al sistema.\n");
-    mostrar_saludo("Gracias por usar el sistema.\n")
+    mostrar_saludo("Bienvenido al sistema.");
+    mostrar_saludo("Gracias por usar el sistema.");
+    return 0;
 }
 ```
 
@@ -1342,4 +1343,5 @@ int main()
     return 0;
 }
 ```
+```````
 ````

@@ -6,22 +6,25 @@ subtitle: La sintaxis y programas básicos.
 
 ## Introducción
 
-Antes de lanzarnos al mundo de la programación en C, hay algo que tiene que
-quedar claro: programar no es aprender un lenguaje, es aprender a pensar. El
-lenguaje es la herramienta, pero el arte está en construir instrucciones lógicas
-para resolver problemas.
+Antes de iniciar el estudio de la programación en C, es fundamental comprender
+que programar no consiste únicamente en aprender un lenguaje, sino en desarrollar
+una forma de pensar. El lenguaje es la herramienta, pero el verdadero arte
+reside en la construcción de instrucciones lógicas para resolver problemas.
 
-Programar es darle instrucciones exactas a una computadora para que haga algo
-por vos. Pero hay una diferencia clave: la computadora **no entiende
-ambigüedades**. No sabe lo que «más o menos» significa. Cada paso tiene que
-estar perfectamente definido. Y C, tiene algunas ambigüedades que pueden traer
-resultados inesperados.
+Programar es el acto de proporcionar instrucciones precisas a una computadora
+para que realice una tarea específica. Una diferencia clave con la comunicación
+humana es que la computadora **no interpreta ambigüedades**. No comprende
+conceptos como «más o menos». Cada paso debe estar perfectamente definido. En
+este sentido, C presenta ciertas ambigüedades que pueden conducir a resultados
+inesperados.
 
-Al programar, si te olvidas un detalle, deja de funcionar. Por eso hay que
-aprender a **pensar como una máquina**, pero también a **estructurar como un
-humano inteligente**.
+Durante la programación, la omisión de un solo detalle puede provocar que el
+programa no funcione. Por ello, es necesario aprender a **pensar como una
+máquina**, pero también a **estructurar el pensamiento como un ser humano
+inteligente**.
 
-En C, no hay atajos y eso es bueno. Te obliga a pensar de forma clara y lógica.
+En C, no existen atajos, lo cual es una ventaja, ya que te obliga a pensar
+de forma clara y lógica.
 
 ## ¿Por qué aprender C?
 
@@ -58,9 +61,9 @@ utilizando ampliamente debido a sus características fundamentales:
 
 - **Influencia:** C ha servido como base e inspiración para muchos de los
   lenguajes más utilizados hoy en día, incluyendo C++, C#, Java, JavaScript,
-  Objective-C y PHP. Aprender C te da una base sólida para entender cómo
-  funcionan muchos otros lenguajes, aprovecharemos esto en Programación 2 el
-  cuatrimestre siguiente.
+  Objective-C y PHP. Aprender C proporciona una base sólida para entender cómo
+  funcionan muchos otros lenguajes, lo cual se aprovechará en la asignatura
+  Programación II el cuatrimestre siguiente.
 
 - **Popularidad**: Figura entre los lenguajes más usados según el
   [índice TIOBE](https://www.tiobe.com/tiobe-index/c/), que mide el «interes» en
@@ -123,8 +126,8 @@ cubierto con la librería estándar integrada implementada con funciones.
 
 #### C es un lenguaje permisivo
 
-El lenguaje asume que sabes lo que estás haciendo, por lo que permite hacer una
-mayor cantidad de cosas, para bien y para mal;
+El lenguaje asume que el programador sabe lo que está haciendo, por lo que
+permite hacer una mayor cantidad de cosas, para bien y para mal.
 
 ### Debilidades
 
@@ -144,7 +147,7 @@ detectados por un compilador de C. En este aspecto, C es muy parecido al
 lenguaje ensamblador, donde la mayoría de los errores no se detectan hasta que
 el programa se ejecuta. Para empeorar las cosas, C contiene una serie de trampas
 para los desprevenidos. En las clases siguientes, veremos cómo un punto y coma
-extra puede crear un lazo infinito o un símbolo faltante. Puede causar que un
+extra puede crear un lazo infinito o un símbolo faltante puede causar que un
 programa falle.
 
 #### Los programas en C pueden ser difíciles de entender
@@ -172,13 +175,13 @@ desafortunadamente, carece de tales características.
 
 ## Las herramientas del aprendiz
 
-### Instalá lo justo y necesario
+### Instale lo justo y necesario
 
 - **Compilador C:** `gcc` o `clang`
-- **Editor de texto:** `vim`, `nano`, `gedit`, CodeBlocks, VSCode... o lo que te
-  haga feliz.
-- **Terminal:** vas a pasar un largo rato acá y es importante aprender a usar el
-  prompt.
+- **Editor de texto:** `vim`, `nano`, `gedit`, CodeBlocks, VSCode... o el de tu
+  preferencia.
+- **Terminal:** se pasará una parte importante del tiempo acá y es importante
+  aprender a usar el prompt.
 
 En Debian/Ubuntu,
 
@@ -187,21 +190,21 @@ sudo apt install build-essential
 ```
 
 Para Windows, podés seguir la guía sobre la instalación del
-[compilador](../guias/compilador)
+[compilador](../guias/compilador).
 
-:::{warning} ¡No se atrasen con esto!
+:::{warning} ¡Importante!
 
-Si tienen problemas y dificultades para esta parte, resuelvanló lo antes posible
-ya que se trabaran con las herramientas fundamentales.
+Si surgen problemas o dificultades en esta etapa, es crucial resolverlos lo
+antes posible para no frenar el aprendizaje por  las herramientas.
 
-Consulten en las clases prácticas o en el espacio de
+Se recomienda consultar en las clases prácticas o en el espacio de
 [Discussions](https://github.com/orgs/INGCOM-UNRN-P1/discussions).
 
 :::
 
 ### Primer programa: el «Hola Mundo» al C
 
-```{code} c
+```{code-block} c
 :label: holamundo
 :caption: El indispensable Hola Mundo!
 :linenos:
@@ -218,10 +221,10 @@ int main()                      // punto de entrada del programa
 #### Compilación y Ejecución
 
 Para ejecutar un programa en C, primero hay que compilarlo. Esto se hace desde
-la terminal con un compilador como `gcc`. Y aunque vamos a ver y usar un entorno
+la terminal con un compilador como `gcc`. Y aunque se verá y usará un entorno
 gráfico, la consola es el mínimo común denominador.
 
-```{code} sh
+```{code-block} sh
 :label: salidamundo
 :caption: La salida por la terminal.
 
@@ -235,10 +238,10 @@ Hola mundo C.
 $>
 ```
 
-Si prestamos atención a la instrucción `printf`, vemos que están faltando dos
-caracteres que estan en el programa, pero no se ven en la salida. Esto es una
-secuencia de control, es la forma de ingresar caracteres que no son visibles, y
-el `\n` es el «enter» o salto de linea.
+Si se presta atención a la instrucción `printf`, se puede observar que faltan
+dos caracteres que están en el programa, pero no se ven en la salida. Esto es
+una secuencia de control, es la forma de ingresar caracteres que no son
+visibles, y el `\n` es el «enter» o salto de linea.
 
 #### Pieza por pieza
 
@@ -256,14 +259,14 @@ el `\n` es el «enter» o salto de linea.
 5. `return 0;`: Es la instrucción que **finaliza la función `main`** y devuelve
    un valor al sistema operativo. Por convención, `0` significa que el programa
    terminó sin errores.
-6. El código del ejemplo, hace uso de comentarios de linea para ayudarlos a
-   ubicar la pieza especifica que se describe en esta lista.
+6. El código del ejemplo, hace uso de comentarios de línea para ayudar a
+   ubicar la pieza específica que se describe en esta lista.
 
-:::{warning} No te dejes estar
+:::{warning} Atención
 
-Si no ves el mensaje que esta dentro de la instrucción
-`printf`, hay algún problema que es necesario solucionar. No te trabes acá que
-bloquea lo que viene a continuación.
+Si no se visualiza el mensaje que está dentro de la instrucción `printf`, hay
+algún problema que es necesario solucionar. No se debe detener en este punto, ya
+que es un bloqueante para los temas siguientes.
 
 :::
 
@@ -271,15 +274,18 @@ bloquea lo que viene a continuación.
 
 ### Mentalidad de programador
 
-1. **Leé el problema. Entendelo. Dibujalo.**
-2. **Dividilo en pasos simples**, cosa que una máquina sin intuición pueda
+1. **Leé el problema. Comprendelo. Dibújalo.**
+2. **Divílo en pasos simples**, para que una máquina sin intuición los pueda
    seguir.
-3. **Usá papel y lápiz**. No escribas código antes de saber qué querés que haga.
+3. **Usá papel y lápiz**. No escribas código antes de tener claro el objetivo.
 4. **Convertí esos pasos en instrucciones en C.**
 
-> _Pensar es más importante que escribir._
+:::{figure} think.jpg
+:alt: Roll Safe thinking
+:align: center
 
-![Roll Safe thinking](think.jpg)
+_Pensar es más importante que escribir._
+:::
 
 ### Ejemplo simple, pero clave: sumar dos números
 
@@ -293,7 +299,7 @@ bloquea lo que viene a continuación.
 
 int main()
 {
-    int a
+    int a;
     int b;
     printf("Ingresá dos números: ");
     scanf("%d %d", &a, &b);
@@ -315,10 +321,11 @@ espacios en lugar de tabulaciones, tienen un propósito pedagógico. Obligan a l
 programadores a ser más conscientes de su estilo de escritura, promoviendo un
 aprendizaje más profundo sobre las mejores prácticas y la importancia de la
 uniformidad en el desarrollo de software. Esto eleva la calidad del código no
-solo en su funcionalidad, sino también en su estética y claridad.
+solo en su funcionalidad, sino también en su estética y claridad. Para más
+detalles, consulte la regla {ref}`0x0000h`.
 
 Por otro lado, esto es parte del uso profesional del lenguaje, tanto que existen
-múltiples estándares de estilo
+múltiples estándares de estilo.
 
 ### C obfuscado
 
@@ -337,7 +344,8 @@ El ganador en la categoría «El mejor de una línea» del 2019,
 e,n,j,o,y;main(){for(++o;n=-~getchar();e+=11==n,y++)o=n>0xe^012>n&&'`'^n^65?!n:!o?++j:o;printf("%8d%8d%8d\n",e^n,j+=!o&&y,y);}
 ```
 
-Como verán, el lenguaje se presta para crear ladrillos bastante duros.
+Como se puede observar, el lenguaje se presta para crear código 
+muy difícil de leer.
 
 ## Sintaxis Básica
 
@@ -345,15 +353,15 @@ La **sintaxis** es el conjunto de reglas que definen cómo debe escribirse el
 código para ser considerado válido.
 
 Mientras que la **gramática** determina si el código tiene sentido lógico y
-estructural. Es posible que algo sea sintácticamente válido pero ramaticalmente
+estructural. Es posible que algo sea sintácticamente válido pero gramaticalmente
 incorrecto.
 
 ### Identificadores y Palabras Reservadas
 
-**Identificadores:** Son los nombres que damos a variables y funciones. Deben
-empezar con una letra o un guion bajo (`_`) y pueden contener letras, números y
-guiones bajos. C distingue entre mayúsculas y minúsculas (`suma` es diferente de
-`Suma`).
+**Identificadores:** Son los nombres que damos a variables y funciones.
+Deben empezar con una letra o un guion bajo (`_`) y pueden contener letras,
+números y guiones bajos. C distingue entre mayúsculas y minúsculas (`suma` es
+diferente de `Suma`).
 
 - Comienzan con letra o guion bajo: `azAZ_`
 - Pueden incluir números después: `0-9`
@@ -371,14 +379,15 @@ pueden ser usadas como identificadores (ej: `int`, `if`, `else`, `while`,
 
 Es importante tener en cuenta que hay una forma específica para cada tipo de
 identificador, esto lo iremos viendo a lo largo del curso y está resumido en las
-cuestiones de estilo.
+cuestiones de estilo (ver {ref}`0x0001h`).
 
-## Variables: tus cajas
+## Variables: las cajas
 
 ### ¿Qué son?
 
 Una variable es un nombre simbólico para un espacio en memoria que guarda un
-valor. Pensalo como una caja con una etiqueta y un contenido que podés cambiar.
+valor. Pensalo como una caja con una etiqueta y un contenido que se puede
+cambiar.
 
 ### Tipos básicos en C
 
@@ -403,40 +412,38 @@ numero = 17;
 
 ### ¿Es necesario inicializar las variables?
 
-Pero si siempre tiene cero…
+Si se declara una variable, pero no se le asigna un valor inicial, su contenido
+es **indeterminado**: puede contener cualquier cosa, lo que se conoce como
+«basura». En sistemas operativos modernos, muchas veces la memoria se entrega
+inicializada en cero para evitar que se filtren datos de otros programas, pero
+**no se puede confiar en esta inicialización por defecto**.
 
-Si declarás una variable, pero no le das un valor inicial, su contenido es
-**indeterminado**: puede tener cualquier cosa, lo que se conoce como «basura».
-En sistemas operativos modernos, muchas veces la memoria se entrega inicializada
-en cero para evitar que se filtren datos de otros programas, pero **no podés
-confiar en esto**.
+A medida que el programa se ejecuta y reutiliza memoria, es posible que una
+variable sin inicializar contenga valores viejos, distintos de cero, o cualquier
+cosa inesperada. Por eso, **siempre inicializá las variables** antes de
+usarlas. Esto evita errores difíciles de detectar y hace el código más seguro y
+predecible.
 
-A medida que tu programa corre y reutiliza memoria, es posible que una variable
-sin inicializar, contenga valores viejos, distintos de cero, o cualquier cosa
-inesperada. Por eso, **siempre inicializá tus variables** antes de usarlas. Esto
-evita errores difíciles de detectar y hace tu código más seguro y predecible.
-
-Y es por acá que entran en juego, las cuestiones de estilo como la
-[](0_estilo#0x0003h)
+Es en este punto donde entran en juego las reglas de estilo, como la {ref}`0x0003h`.
 
 ### ¿Cómo funcionan?
 
 - Las variables deben declararse antes de usarse.
-- No podés cambiar el tipo una vez declarado.
+- No se puede cambiar el tipo una vez declarado.
 - C es fuertemente tipado: `int` no es `float` ni `char`.
 
 ### Ejercicio 1
 
-```{exercise}
+:::{exercise}
 :label: Mostrando valores
 :enumerator: Valores
 
 Escribí un programa que guarde tu edad, tu altura en metros y tu inicial, y los
 muestre por pantalla. Dejá esta información directamente en las variables, a
 continuación vamos a ver como pedir esto por teclado.
-```
+:::
 
-````{solution} Mostrando valores
+:::{solution} Mostrando valores
 :class: dropdown
 
 ```{code-block} c
@@ -457,7 +464,7 @@ int main()
     return 0;
 }
 ```
-````
+:::
 
 ### Un poco más de detalle
 
@@ -469,13 +476,13 @@ diferentes roles de los identificadores en un programa.
 #### L-Values
 
 Un L-value (del inglés _locator_ value o _left_ value) representa a una variable
-en la memoria, el identificador en sí. (la etiqueta de la caja).
+en la memoria, el identificador en sí (la etiqueta de la caja).
 
-Esta es una ubicación que podemos modificar, y donde se guardan los resultados
+Esta es una ubicación que se puede modificar, y donde se guardan los resultados
 de las expresiones derechas (R-Values). Por ejemplo, en la declaración
 `int x = 10;`, la variable `x` es un L-value. `x` se refiere a una ubicación de
-memoria específica donde se almacena el valor `10`. Podemos modificar su valor,
-como en `x = 20;`,
+memoria específica donde se almacena el valor `10`. Se puede modificar su valor,
+como en `x = 20;`.
 
 #### R-Values
 
@@ -499,17 +506,17 @@ asignable.
 
 ### `printf()` - Mostrar resultados
 
-Sirve para mostrar texto y valores como mensajes, pueden consultar el
+Sirve para mostrar texto y valores como mensajes; puede consultar el
 [apunte más detallado del tema](../extras/printf).
 
 ```c
-printf("Tenés %d años\n", edad);
+printf("Tiene %d años\n", edad);
 ```
 
-El par de símbolos `\n`, se usan para indicar el 'salto de línea', para que no
-quede todo junto en una sola. Específicamente, cada vez que vemos una `\`, se
-indica que el siguiente carácter tiene un significado diferente del que vemos,
-esto se llama [secuencias de escape](../extras/printf#escape)
+El par de símbolos `\n` se usan para indicar el 'salto de línea', para que no
+quede todo junto en una sola. Específicamente, cada vez que se ve una `\`, se
+indica que el siguiente carácter tiene un significado diferente del que se ve;
+esto se llama [secuencias de escape](../extras/printf#escape).
 
 (formatos)=
 
@@ -524,27 +531,27 @@ esto se llama [secuencias de escape](../extras/printf#escape)
 
 ### `scanf()` - Leer datos desde el teclado
 
-La función `scanf()` sirve para que el programa reciba datos del usuario.
-Necesitás indicar el tipo de dato y pasar a que variable le asignaras el valor
-obtenido. (más adelante vamos a ver para que está el `&` y que significa)
+La función `scanf()` sirve para que el programa reciba datos del usuario. Es
+necesario indicar el tipo de dato y pasar a qué variable se le asignará el valor
+obtenido (más adelante se analizará el uso y significado del operador `&`).
 
 ```c
 int edad;
-printf("Ingresá tu edad: ");
+printf("Ingrese su edad: ");
 scanf("%d", &edad);
 ```
 
-Se usan los mismos códigos de formato que [`printf`](#formatos)
+Se usan los mismos códigos de formato que [`printf`](#formatos).
 
 ### Ejercicio 2
 
-```{exercise}
+:::{exercise}
 :label: entrada-1
 :enumerator: entrada-1
 Pedí al usuario la inicial de su nombre (un solo carácter), edad y nota promedio, y mostralos formateados.
-```
+:::
 
-````{solution} entrada-1
+:::{solution} entrada-1
 :class: dropdown
 
 ```{code-block} c
@@ -572,7 +579,7 @@ int main()
     return 0;
 }
 ```
-````
+:::
 
 ## Condicionales, tomando decisiones
 
@@ -599,8 +606,8 @@ En donde las condiciones, deben ser el resultado de una expresión lógica.
 
 Para C, los valores lógicos no forman parte del lenguaje original y el mismo
 considera cualquier valor entero en `0` como falso y cualquier otro como
-verdadero. Esto se lo llama [veracidad](estilo#0x0010h) y su uso suma confusión,
-por lo que su uso no está permitido.
+verdadero. Esto se conoce como "veracidad" ({ref}`0x0010h`) y su uso no
+está permitido, ya que puede generar confusión.
 
 :::
 
@@ -631,23 +638,23 @@ if (edad >= 18)
 
 :::{attention} 🪐 Cuestión de estilo
 
-Todas las estructuras de control que contienen un bloque, deben llevar _si o sí_
-llaves y según la regla [0x0005h](estilo#0x0005h)
+Todas las estructuras de control que contienen un bloque, deben llevar _sí o sí_
+llaves, según la regla {ref}`0x0005h`.
 
 :::
 
 ### Ejercicio 3
 
-```{exercise}
+:::{exercise}
 :label: entrada-2
 :enumerator: entrada-2
 Pedí una nota y mostra su resultado en palabras:
 - Promociona, con la nota mayor o igual a 6.
 - Aprueba, con la nota mayor o igual a 4.
 - Desaprueba: menor a 4
-```
+:::
 
-````{solution} entrada-2
+:::{solution} entrada-2
 :class: dropdown
 
 ```{code-block} c
@@ -657,7 +664,7 @@ Pedí una nota y mostra su resultado en palabras:
 int main()
 {
     int nota;
-    printf("Ingresá tu nota: ");
+    printf("Ingrese su nota: ");
     scanf("%d", &nota);
 
     if (nota >= 6)
@@ -672,11 +679,11 @@ int main()
     }
 }
 ```
-````
+:::
 
 ### Decisiones múltiples `switch`
 
-Útil para comparar una variable con múltiples valores constantes. Tengan en
+Útil para comparar una variable con múltiples valores constantes. Tenga en
 cuenta que esta estructura solo compara igualdad, aunque se pueden agrupar.
 
 ```C
@@ -711,16 +718,17 @@ switch (x)
 
 :::{note}¿Qué se puede comparar?
 
-Como está estructurado funciona por igualdad, solo se puede utilizar con valores
-numéricos enteros.
+Como está estructurado, funciona por igualdad, por lo que solo se puede utilizar
+con valores numéricos enteros.
 
 :::
 
-## Lazos: repetir hasta dominar el universo
+## Lazos repetir hasta dominar el universo
 
-Un **lazo**, o lazo, o _loop_ es una estructura que permite repetir una o más
-instrucciones mientras se cumpla una condición. Esta es la forma en la que le
-decís a la máquina: _«hacelo muchas veces sin que yo tenga que copiar y pegar»_.
+Un **lazo**, o bucle, o _loop_ es una estructura que permite repetir una o más
+instrucciones mientras se cumpla una condición. Esta es la forma en la que se le
+indica a la máquina: «hacé esto muchas veces sin que yo tenga que copiar y
+pegar»_.
 
 Hay tres formas principales de lazos en C:
 
@@ -764,7 +772,7 @@ Escribí un programa que imprima los números del 10 al 1 usando `while`.
 
 :::
 
-````{solution} lazo_while
+:::{solution} lazo_while
 :label: solucion-lazo_while
 :class: dropdown
 
@@ -783,13 +791,13 @@ int main()
     return 0;
 }
 ```
-````
+:::
 
 ### `for` — Lazos controlados por un contador
 
-Este tipo de lazo es ideal cuando sabés cuántas veces querés repetir. Aunque
-hace lo mismo que el `while`, este es más estructurado con secciones específicas
-para cada acción del lazo.
+Este tipo de lazo es ideal cuando se sabe cuántas veces se quiere repetir.
+Aunque hace lo mismo que el `while`, este es más estructurado con secciones
+específicas para cada acción del lazo.
 
 ```c
 for (int i = 0; i < 5; i++)
@@ -805,7 +813,7 @@ for (int i = 0; i < 5; i++)
 - **inicio:** una sola vez al comenzar.
 - **condición:** se evalúa antes de cada iteración.
 - **paso:** se ejecuta al final de cada vuelta.
-- **bloque:** las instrucciones ejecutas mientras la condición sea verdadera.
+- **bloque:** las instrucciones ejecutadas mientras la condición sea verdadera.
 
 :::
 
@@ -822,14 +830,14 @@ while (i < 5) {                 // condición
 ### Ejercicio 5
 
 :::{exercise}
-:label: lazo_for 
+:label: lazo_for
 :enumerator: for
 
 Usá un `for` para mostrar los múltiplos de 3 entre 0 y 30.
 
 :::
 
-````{solution} lazo_for
+:::{solution} lazo_for
 :label: solucion-lazo_for
 :class: dropdown
 ```{code-block} c
@@ -847,7 +855,7 @@ int main() {
     return 0;
 }
 ```
-````
+:::
 
 ### `do...while` — Ejecuta primero, pregunta después
 
@@ -893,7 +901,7 @@ flowchart TD
 ### Ejercicio 6
 
 :::{exercise}
-:label: lazo_repeat 
+:label: lazo_repeat
 :enumerator: for
 
 Usá un lazo `do..while` para controlar el acceso a un edificio, pidiéndole al
@@ -901,7 +909,7 @@ usuario que ingrese un número usado como clave.
 
 :::
 
-````{solution} lazo_repeat
+:::{solution} lazo_repeat
 :label: solucion-lazo_repeat
 :class: dropdown
 ```{code-block} c
@@ -926,7 +934,7 @@ int main() {
     return 0;
 }
 ```
-````
+:::
 
 ### `break` y `continue` — Atajos dentro del ciclo
 
@@ -962,9 +970,9 @@ for (int i = 1; i <= 5; i++) {
 }
 ```
 
-:::{tip} ¿Cuando usarlos?
+:::{tip} ¿Cuándo usarlos?
 
-Usá `break` cuando ya no tenga sentido seguir iterando, y `continue` cuando
+Use `break` cuando ya no tenga sentido seguir iterando, y `continue` cuando
 quieras saltear un caso particular.
 
 :::
@@ -981,10 +989,10 @@ dos motivos:
    general al problema.
 
 Por eso, en las primeras etapas del aprendizaje, los evitaremos para fortalecer
-la comprensión de la lógica de control.
+la comprensión de la lógica de control (ver {ref}`0x0008h`).
 
-En lugar de usar estos atajos, les pediremos que utilicen lazos con bandera. Que
-se explican a continuación.
+En lugar de usar estos atajos, se pedirá el uso de lazos con bandera, que se
+explican a continuación.
 
 :::
 
@@ -1017,7 +1025,7 @@ int main()
 
 :::
 
-````{solution} lazo_break
+:::{solution} lazo_break
 :label: solucion-lazo_break
 :class: dropdown
 ```{code-block} c
@@ -1034,15 +1042,15 @@ int main()
     return 0;
 }
 ```
-````
+:::
 
 ### Ejercicio 8
 
 :::{exercise}
-:label: lazo_continue 
+:label: lazo_continue
 :enumerator: continue
 
-Modificá el siguiente código para que no utilice la instrucción `continue`.
+Modifique el siguiente código para que no utilice la instrucción `continue`.
 
 ```{code-block} c
 :linenos:
@@ -1064,7 +1072,7 @@ int main()
 
 :::
 
-````{solution} lazo_continue
+:::{solution} lazo_continue
 :label: solucion-lazo_continue
 :class: dropdown
 ```{code-block} c
@@ -1078,21 +1086,21 @@ int main() {
     return 0;
 }
 ```
-````
+:::
 
 ### Lazos con bandera (`flag`)
 
-En algunos casos, no podemos reescribir el lazo para que no utilice `break`,
-simplemente porque no hay una expresión que lo permita, o porque implemente es
-necesario salir del lazo antes, por lo que es necesario aplicar una estrategia
-clásica en programación estructurada.
+En algunos casos, no es posible reescribir el lazo para que no utilice `break`,
+simplemente porque no hay una expresión que lo permita, o porque es necesario
+salir del lazo antes, por lo que es necesario aplicar una estrategia clásica en
+programación estructurada.
 
 El uso de una **variable bandera** para controlar la repetición de un lazo. En
 lugar de usar `break`, se define una variable booleana que indica si se debe
 continuar o no.
 
-Desde el estándar C99, podés usar el tipo `bool` del encabezado `stdbool.h`, lo
-cuál mejora la legibilidad.
+Desde el estándar C99, se puede usar el tipo `bool` del encabezado `stdbool.h`,
+lo cual mejora la legibilidad.
 
 #### Ejemplo:
 
@@ -1136,13 +1144,13 @@ Reescribí el ingreso de clave usando una bandera booleana en lugar de `break` o
 
 :::
 
-````{solution} lazo_flag_break
+:::{solution} lazo_flag_break
 :label: solucion-lazo_flag_break
 :class: dropdown
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-#include <stdbool.h> // Necesitamos esta librería para usar 'bool'
+#include <stdbool.h> // Se necesita esta librería para usar 'bool'
 
 int main()
 {
@@ -1170,34 +1178,38 @@ int main()
     return 0;
 }
 ```
-````
+:::
 
 ## Ejercicios
 
-10. Pedí dos números y mostrá el mayor.
-11. Mostrá los números del 1 al 100.
-12. Sumá los números pares del 1 al 100.
-13. Pedí un número y decí si es primo.
-14. Pedí una nota (0 a 10) e indicá si aprobó.
-15. Hacé un programa que pida contraseña hasta que sea la correcta.
+10. Pida dos números y muestre el mayor.
+11. Muestre los números del 1 al 100.
+12. Sume los números pares del 1 al 100.
+13. Pida un número e indique si es primo.
+14. Pida una nota (0 a 10) e indique si aprobó.
+15. Haga un programa que pida la contraseña hasta que sea la correcta.
 
 ## Pensar antes de escribir (otra vez)
 
 Cuando estés atascado:
 
-- Escribí el algoritmo en tus propias palabras, sí, en español.
-- Dibujá un diagrama de flujo, no tiene que ser perfecto, solo para cambiar el
-  punto de vista.
+- Escribí el algoritmo en sus propias palabras.
+- Dibujá un diagrama de flujo; no tiene que ser perfecto, solo sirve para
+  cambiar el punto de vista.
 - Usá una prueba de escritorio (dry-run).
-- Y si todo lo demás falla, meté `printf` por todos.
+- Y si todo lo demás falla, inserte instrucciones `printf` para depurar.
 
-> _El compilador te va a decir qué no entiende. Escuchalo. Corregilo. Probalo._
+> _El compilador le dirá qué no entiende. Escúchelo, corrija e intentá 
+> nuevamente._
 
-![alt text](zach-galifianakis-math.gif)
+:::{figure} zach-galifianakis-math.gif
+:alt: Zach Galifianakis doing math
+:align: center
+:::
 
-## No sigas más allá (todavía)
+## No siga más allá (todavía)
 
-No te adelantes a las partes siguientes del apunte, a los referidos a funciones,
+No se adelante a las partes siguientes del apunte, a los referidos a funciones,
 punteros, `structs` ni `arrays` (aún).
 
 Primero entendé lo esencial:
@@ -1212,11 +1224,11 @@ Programar bien es:
 
 - Pensar simple.
 - Probar seguido.
-- No repetir código, esto casi siempre es mala señal.
-- Comentar lo que no sea obvio.
-- Leer programas ajenos y {del}`robar`tomar buenas ideas.
+- No repetir código ({ref}`0x0004h`), ya que casi siempre es una mala señal.
+- Comentar lo que no sea obvio ({ref}`0x0007h`).
+- Leer programas ajenos y tomar buenas ideas.
 
-> _"Escribí código que el profe sin mate pueda entender a las 3 AM."_
+> _"Escriba código que un colega pueda entender a las 3 AM."_
 
 ## Bibliografía y Recursos Adicionales
 
@@ -1232,7 +1244,7 @@ Programar bien es:
 
 :::{glossary}
 
-Lenguaje Ensamblador 
+Lenguaje Ensamblador
 : El lenguaje ensamblador (assembly language) es un
 lenguaje de programación de bajo nivel que representa las instrucciones de
 código de máquina de una arquitectura de procesador específica mediante

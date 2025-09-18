@@ -6,9 +6,9 @@ subtitle: Haciendonos entender por la computadora.
 
 ## Proceso de compilación en C
 
-Cuando ejecutás en tu terminal el comando :
+Cuando ejecutás en tu terminal el comando:
 
-```sh
+```{code-block} sh
 $> gcc -o mi_programa programa.c
 ```
 
@@ -113,9 +113,9 @@ código del archivo fuente final que se pasará al compilador. Son extremadament
 - **Depuración**: Incluir código de depuración (por ejemplo, impresiones en
   consola) solo cuando se define una macro específica como `DEBUG`.
 - **Guardas de cabecera**: Evitar la doble inclusión de archivos de cabecera, un
-  problema común en proyectos grandes, utilizando una estructura como:
+  problema común en proyectos grandes, utilizando una estructura como la que exige la regla {ref}`0x002Dh`:
 
-  ```c
+  ```{code-block} c
   #ifndef MI_CABECERA_H
   #define MI_CABECERA_H
 
@@ -139,7 +139,7 @@ detenga justo después del preprocesado. Esto se logra con la opción `-E`. El
 resultado es el código fuente "expandido", que normalmente se redirige a un
 archivo con extensión `.i`.
 
-```sh
+```{code-block} sh
 $> gcc -E programa.c > programa.i
 ```
 
@@ -202,7 +202,7 @@ Esta es una de las tareas más importantes del compilador. Transforma el código
 para que sea más eficiente o más pequeño en tamaño, sin cambiar su
 comportamiento. Las optimizaciones pueden incluir la eliminación de código
 muerto, el desenrollado de bucles (loop unrolling) o la inserción de funciones
-en línea (inlining). :::
+en línea (inlining).
 
 #### Generación de Código
 
@@ -215,61 +215,62 @@ entender.
 :class: tip, dropdown
 
 Podés instruir a `gcc` para que se detenga después de la fase de compilación con
-la opción `-S`. Esto generará un archivo de texto con la extensión `.s` que contiene\
+la opción `-S`. Esto generará un archivo de texto con la extensión `.s` que contiene
 el código ensamblador correspondiente.
 
 Si partimos de un archivo `programa.c` simple:
 
-```c
+```{code-block} c
 // programa.c
 int suma(int a, int b) {
-return a + b;
+    return a + b;
 }
 
 int main() {
-int resultado = suma(5, 3);
-return 0;
+    int resultado = suma(5, 3);
+    return 0;
 }
-````
+```
 
 Al ejecutar el comando:
 
-```bash
+```{code-block} bash
 gcc -S programa.c
 ```
 
 Se creará un archivo `programa.s`. Su contenido será similar a este (puede
 variar según el compilador y la arquitectura):
 
-```assembler
+```{code-block} assembler
 ; programa.s (ejemplo para x86-64)
 suma:
-push    rbp
-mov     rbp, rsp
-mov     DWORD PTR [rbp-4], edi  ; Mueve el primer parámetro (a) a la pila
-mov     DWORD PTR [rbp-8], esi  ; Mueve el segundo parámetro (b) a la pila
-mov     edx, DWORD PTR [rbp-4]
-mov     eax, DWORD PTR [rbp-8]
-add     eax, edx                ; Suma los dos valores
-pop     rbp
-ret                             ; Retorna el resultado (en el registro eax)
+    push    rbp
+    mov     rbp, rsp
+    mov     DWORD PTR [rbp-4], edi  ; Mueve el primer parámetro (a) a la pila
+    mov     DWORD PTR [rbp-8], esi  ; Mueve el segundo parámetro (b) a la pila
+    mov     edx, DWORD PTR [rbp-4]
+    mov     eax, DWORD PTR [rbp-8]
+    add     eax, edx                ; Suma los dos valores
+    pop     rbp
+    ret                             ; Retorna el resultado (en el registro eax)
 
 main:
-push    rbp
-mov     rbp, rsp
-sub     rsp, 16
-mov     esi, 3                  ; Prepara el segundo argumento para suma()
-mov     edi, 5                  ; Prepara el primer argumento para suma()
-call    suma                    ; Llama a la función suma
-mov     DWORD PTR [rbp-4], eax  ; Guarda el resultado
-mov     eax, 0                  ; Valor de retorno para main
-leave
-ret
+    push    rbp
+    mov     rbp, rsp
+    sub     rsp, 16
+    mov     esi, 3                  ; Prepara el segundo argumento para suma()
+    mov     edi, 5                  ; Prepara el primer argumento para suma()
+    call    suma                    ; Llama a la función suma
+    mov     DWORD PTR [rbp-4], eax  ; Guarda el resultado
+    mov     eax, 0                  ; Valor de retorno para main
+    leave
+    ret
 ```
 
 Analizar este archivo es una excelente manera de entender cómo tus
 construcciones de C se traducen a operaciones de bajo nivel y cómo el compilador
 aplica optimizaciones.
+````
 
 ### Fase 3: Ensamblado (Assembly)
 
@@ -333,7 +334,7 @@ La opción `-c` de `gcc` es una de las más importantes en el desarrollo de
 software, ya que detiene el proceso de compilación justo después de la fase de
 ensamblado, generando únicamente el archivo objeto.
 
-```sh
+```{code-block} sh
 $> gcc -c programa.c
 ```
 
@@ -346,7 +347,7 @@ En proyectos que constan de múltiples archivos fuente (`modulo1.c`, `modulo2.c`
 compila cada archivo `.c` por separado para generar su correspondiente archivo
 `.o`:
 
-```sh
+```{code-block} sh
 $> gcc -c modulo1.c   # Genera modulo1.o
 $> gcc -c modulo2.c   # Genera modulo2.o
 $> gcc -c main.c      # Genera main.o
@@ -432,7 +433,7 @@ que se detenga antes con las opciones `-E`, `-S` o `-c`.
 Si ya tenés un archivo objeto compilado, podés invocar explícitamente la fase de
 enlazado de la siguiente manera:
 
-```sh
+```{code-block} sh
 # Asumiendo que ya existe programa.o
 $> gcc -o mi_programa programa.o
 ```
@@ -444,7 +445,7 @@ estándar de C por defecto) y genere el ejecutable `mi_programa`.
 Por supuesto, el comando original que inicia todo el proceso desde el principio
 también realiza este paso al final:
 
-```sh
+```{code-block} sh
 # El comando completo que ejecuta las cuatro fases en secuencia
 $> gcc -o mi_programa programa.c
 ```
@@ -452,7 +453,7 @@ $> gcc -o mi_programa programa.c
 ## Opciones del Compilador Recomendadas
 
 Usar `gcc` sin opciones es desaprovechar su potencial para ayudarte a escribir
-mejor código. Las siguientes opciones son altamente recomendadas en un entorno
+mejor código. Las siguientes opciones, exigidas por la regla {ref}`0x002Ch`, son altamente recomendadas en un entorno
 académico y profesional:
 
 - `-Wall`: Activa un conjunto de advertencias (_warnings_) comunes y muy útiles.
@@ -482,7 +483,7 @@ académico y profesional:
 
 Un comando de compilación robusto para desarrollo se vería así:
 
-```shell
+```{code-block} shell
 $> gcc -Wall -Wextra -Werror -std=c23 -g -o mi_programa programa.c
 ```
 
@@ -537,9 +538,9 @@ globales.
 
 Es el contenido más común. Se declara la firma de la función (tipo de retorno,
 nombre y parámetros) para que el compilador conozca su existencia antes de que
-sea utilizada.
+sea utilizada. Una buena documentación, como la que pide la regla {ref}`0x000Ah`, es fundamental.
 
-```{code} c
+```{code-block} c
 :caption: Documentación de prototipos con estilo Doxygen
 /**
  * @brief Calcula la suma de dos números enteros.
@@ -559,7 +560,7 @@ int suma(int n, int m);
 Se utilizan para definir constantes simbólicas o pequeñas porciones de código
 que se expanden durante el preprocesamiento.
 
-```{code} c
+```{code-block} c
 :caption: Definición de constantes y macros
 
 // Constante matemática documentada.
@@ -569,11 +570,11 @@ que se expanden durante el preprocesamiento.
 #### Definiciones de Tipos y Estructuras
 
 Es el lugar ideal para declarar `struct`, `enum` y `typedef`, ya que estos tipos
-de datos a menudo necesitan ser compartidos entre varios archivos.
+de datos a menudo necesitan ser compartidos entre varios archivos. El uso del sufijo `_t` para los tipos definidos con `typedef` sigue la regla {ref}`0x001Eh`.
 
 _(Estos conceptos serán tratados más adelante en la cátedra.)_
 
-```{code} c
+```{code-block} c
 :caption: Declaración de un nuevo tipo de dato
 
 // Define una estructura para representar un punto en 2D.
@@ -598,9 +599,9 @@ typedef enum {
 
 Si necesitás compartir una variable global entre varios archivos, la declarás en
 el `.h` usando la palabra clave `extern` y la definís (le das un valor inicial)
-en _un único_ archivo `.c`.
+en _un único_ archivo `.c`. Esta práctica está desaconsejada por la regla {ref}`0x000Bh`.
 
-```{code} c
+```{code-block} c
 :caption: Declaración de una variable global externa
 :emphasize-lines: 3
 
@@ -613,7 +614,7 @@ extern int errno;
 
 Para evitar errores de "redefinición" que ocurren cuando un mismo archivo de
 cabecera es incluido más de una vez en la misma unidad de compilación (archivo
-`.c`), se utilizan las "guardas de inclusión".
+`.c`), se utilizan las "guardas de inclusión", una técnica exigida por la regla de estilo {ref}`0x002Dh`.
 
 El problema surge en escenarios como este: `main.c` incluye a `a.h` y `b.h`,
 pero a su vez `a.h` también incluye a `b.h`. Sin una guarda, el contenido de
@@ -623,7 +624,7 @@ La técnica estándar utiliza directivas del preprocesador para verificar si un
 símbolo único ya fue definido. Si no lo fue, define el símbolo e incluye el
 contenido del archivo.
 
-```{code} c
+```{code-block} c
 :caption: Estructura de una guarda de inclusión
 :label: inclusion-guard
 
@@ -676,35 +677,34 @@ objetivo, qué ingredientes hay que preparar antes.
 En este ejemplo, para crear el programa ejecutable `programa`, es necesario
 `main.c` y `funciones.c`.
 
-```makefile
-programa: main.o funciones.o
-	# Regla de ENLACE (Linking):
-	# Esta regla se ejecuta solo si main.o o funciones.o son más nuevos que "programa".
-	# Toma los archivos objeto (.o) ya compilados y los enlaza para crear el ejecutable final.
-	gcc -o programa main.o funciones.o
+```{code-block} makefile
+# Variables para el compilador, flags y archivos
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -std=c23 -g
+TARGET = programa
+OBJS = main.o funciones.o
 
+# Regla por defecto: construye el programa principal
+all: $(TARGET)
+
+# Regla de ENLACE (Linking): Crea el ejecutable a partir de los objetos.
+# Se ejecuta solo si alguno de los .o es más nuevo que el ejecutable.
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
+
+# Reglas de COMPILACIÓN: Convierten cada .c en un .o
 main.o: main.c funciones.h
-	# Regla de COMPILACIÓN para main.o:
-	# Esta regla se ejecuta solo si main.c o funciones.h son más nuevos que main.o.
-	# El flag "-c" le indica a gcc que compile el fuente a un archivo objeto (.o) sin enlazarlo.
-	gcc -c main.c -o main.o
+	$(CC) $(CFLAGS) -c main.c -o main.o
 
 funciones.o: funciones.c funciones.h
-	# Regla de COMPILACIÓN para funciones.o:
-	# Esta regla se ejecuta solo si funciones.c o funciones.h son más nuevos que funciones.o.
-	# Compila funciones.c a su correspondiente archivo objeto.
-	gcc -c funciones.c -o funciones.o
+	$(CC) $(CFLAGS) -c funciones.c -o funciones.o
 
-# Regla "phony" para limpieza.
-# Este es un objetivo especial que no se corresponden a un archivo real.
-.PHONY: clean
+# Objetivo "phony" para limpieza (no corresponde a un archivo real)
+.PHONY: clean all
 
 clean:
-	# Regla de LIMPIEZA:
-	# Elimina los archivos generados durante la compilación (los objeto y el ejecutable final).
-	# Es una buena práctica para mantener el directorio de trabajo limpio.
-	# El comando `rm -f` fuerza la eliminación sin pedir confirmación y no da error si los archivos no existen.
-	rm -f programa main.o funciones.o
+	# Elimina los archivos generados para empezar de cero.
+	rm -f $(TARGET) $(OBJS)
 ```
 
 :::{attention} Indentación
@@ -734,7 +734,7 @@ de las funciones que resuelven el ejercicio en sí.
 Cuando hacen `make test` allí, `make` ejecutará el objetivo `test` en todos los
 subproyectos.
 
-```text
+```{code-block} text
 ├── Makefile
 ├── libcadenas
 │   ├── cadenas.c
@@ -766,4 +766,3 @@ Las primeras prácticas no contarán con el lugar para "librerías", pero la mec
 es casi la misma, esencialmente, estas no tienen un `main.c`, solo `pruebas.c`.
 Estos directorios estarán para alojar funciones comunes como las necesarias para
  `cadenas_seguras` o `arreglos`.
-
