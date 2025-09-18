@@ -603,3 +603,218 @@ lo que realmente sucede es que el contenido de este literal se **copia** al
 arreglo, permitiendo su modificación. 
 
 :::
+
+
+## Ejercicios
+
+```{exercise}
+:label: sumar_arreglo
+:enumerator: arreglos-1
+
+Dado un arreglo de enteros, escribí un programa que calcule y muestre la suma de todos sus elementos. Utilizá el operador sizeof para determinar la cantidad de elementos de forma dinámica.
+
+```
+
+````{solution} sumar_arreglo
+
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <stddef.h>
+
+int main()
+{
+    int numeros[] = {10, 20, 30, 40, 50, -10};
+    int suma = 0;
+    size_t cantidad = sizeof(numeros) / sizeof(numeros[0]);
+    for (size_t i = 0; i < cantidad; i++) {
+        suma += numeros[i];
+    }
+
+    printf("El arreglo tiene %zu elementos.\n", cantidad);
+    printf("La suma de los elementos es: %d\n", suma);
+
+    return 0;
+}
+```
+````
+
+```{exercise}
+:label: promedio_arreglo
+:enumerator: funciones-1
+Implementá una función promedio_arreglo que reciba un arreglo de enteros y su tamaño. La función debe devolver el promedio de sus elementos como un float.
+
+```
+
+````{solution} promedio_arreglo
+:class: dropdown
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <stddef.h>
+float promedio_arreglo(int arreglo[], size_t cantidad)
+{
+    int suma = 0;
+    for (size_t i = 0; i < cantidad; i++) {
+        suma = suma + arreglo[i];
+    }
+
+    // Hacemos un cast a float para asegurar una división con decimales
+    return (float)suma / cantidad;
+}
+
+int main()
+{
+    int notas[] = {8, 7, 10, 9, 6};
+    size_t cantidad_notas = sizeof(notas) / sizeof(notas[0]);
+    float prom = promedio_arreglo(notas, cantidad_notas);
+    printf("El promedio de las notas es: %.2f\n", prom);
+    return 0;
+}
+```
+
+````
+
+```{exercise}
+:label: invertir_arreglo
+:enumerator: funciones-2
+
+Implementá un procedimiento invertir_arreglo que reciba un arreglo de enteros y su tamaño, y modifique el arreglo invirtiendo el orden de sus elementos. La función no debe devolver nada (void).
+
+```
+
+````{solution} invertir_arreglo
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <stddef.h>
+void invertir_arreglo(int arreglo[], size_t cantidad)
+{
+    // Si no hay elementos o hay uno solo, no hay nada que hacer
+    if (cantidad < 2) {
+        return;
+    }
+
+    // Iteramos hasta la mitad del arreglo
+    for (size_t i = 0; i < cantidad / 2; i++) {
+        // Intercambiamos el elemento i con su correspondiente desde el final
+        int temporal = arreglo[i];
+        arreglo[i] = arreglo[cantidad - 1 - i];
+        arreglo[cantidad - 1 - i] = temporal;
+    }
+
+}
+
+void imprimir_arreglo(int arreglo[], size_t cantidad)
+{
+    printf("[ ");
+    for (size_t i = 0; i < cantidad; i++) {
+        printf("%d ", arreglo[i]);
+    }
+    printf("]\n");
+}
+int main()
+{
+    int mi_arreglo[] = {1, 2, 3, 4, 5};
+    size_t n = sizeof(mi_arreglo) / sizeof(mi_arreglo[0]);
+
+    printf("Arreglo original: ");
+    imprimir_arreglo(mi_arreglo, n);
+    invertir_arreglo(mi_arreglo, n);
+    printf("Arreglo invertido: ");
+    imprimir_arreglo(mi_arreglo, n);
+
+    return 0;
+}
+
+```
+
+````
+
+```{exercise}
+:label: contar_vocales
+:enumerator: funciones-3
+
+Implementá una función contar_vocales que reciba una cadena de caracteres y devuelva la cantidad de vocales (mayúsculas y minúsculas) que contiene.
+
+```
+
+
+````{solution} contar_vocales
+
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int contar_vocales(char cadena[])
+{
+    int contador = 0;
+    size_t largo = strlen(cadena);
+
+    for (size_t i = 0; i < largo; i++) {
+        // Convertimos el caracter a minúscula para simplificar la comparación
+        char caracter = tolower(cadena[i]);
+        if (caracter == 'a' || caracter == 'e' || caracter == 'i' || caracter == 'o' || caracter == 'u') {
+            contador++;
+        }
+    }
+    return contador;
+}
+
+int main()
+{
+    char texto[] = "Este Es un Ejemplo de Cadena";
+    int vocales = contar_vocales(texto);
+    printf("La cadena: "%s"\n", texto);
+    printf("Tiene %d vocales.\n", vocales);
+    return 0;
+}
+
+
+````
+
+```{exercise}
+:label: leer_cadena
+:enumerator: cadenas-1
+
+Escribí un programa que pida al usuario su nombre. Leelo de forma segura usando fgets en un buffer de tamaño 50. Luego, eliminá el carácter de nueva línea (\n) que fgets suele agregar al final y mostrá un saludo.
+
+```
+
+````{solution} leer_cadena
+
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char nombre[50];
+    printf("Por favor, ingresa tu nombre: ");
+    // Leemos de forma segura desde la entrada estándar (stdin)
+    fgets(nombre, sizeof(nombre), stdin);
+
+    // Buscamos el salto de línea al final de la cadena
+    size_t largo = strlen(nombre);
+    if (largo > 0 && nombre[largo - 1] == '\n') {
+        // Si lo encontramos, lo reemplazamos por el terminador nulo
+        nombre[largo - 1] = '\0';
+    }
+    printf("¡Hola, %s! Bienvenido.\n", nombre);
+    return 0;
+}
+
+```
+
+````

@@ -1,6 +1,6 @@
 ---
 title: Archivos
-short_title: "7 - Archivos"
+short_title: "8 - Archivos"
 description:
   Una guía exhaustiva sobre cómo abrir, leer, escribir, posicionar y gestionar
   errores de forma robusta al trabajar con archivos de texto en el lenguaje de
