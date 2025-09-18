@@ -386,7 +386,7 @@ debe pasar el tamaño de forma explícita, como un argumento separado. La firma 
  * - Los elementos del arreglo `arreglo` se han impreso.
  * - El `arreglo` no será modificado.
   */
-void imprimir_arreglo(const int arreglo[], size_t size);
+void imprimir_arreglo(int arreglo[], size_t size);
 ````
 
 ::::{note} Uso de {term}`size_t`
@@ -521,7 +521,7 @@ Para obtener el largo de una cadena, podemos usar `strlen`, definido en
 Esta función está definida de la siguiente forma:
 
 ````{code-block}c
-size_t strlen( const char* str );
+size_t strlen( char str );
 ````
 
 Y se encarga de recorrer la cadena hasta encontrarse un carácter nulo (`\0`)
