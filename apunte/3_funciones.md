@@ -1221,10 +1221,8 @@ int doble(int n)
 
 int main()
 {
-    printf("Doble de 5: %d
-", doble(5));
-    printf("Doble de 12: %d
-", doble(12));
+    printf("Doble de 5: %d\n", doble(5));
+    printf("Doble de 12: %d\n", doble(12));
     return 0;
 }
 ```
@@ -1255,8 +1253,7 @@ int mayor(int a, int b)
 int main()
 {
     int x = 10, y = 7;
-    printf("El mayor es: %d
-", mayor(x, y));
+    printf("El mayor es: %d\n", mayor(x, y));
     return 0;
 }
 ```
@@ -1279,11 +1276,9 @@ Definí una función que indique si un número es par o impar. Mostrá el result
 void par_impar(int n)
 {
     if (n % 2 == 0)
-        printf("%d es par
-", n);
+        printf("%d es par\n", n);
     else
-        printf("%d es impar
-", n);
+        printf("%d es impar\n", n);
 }
 
 int main()
@@ -1316,8 +1311,7 @@ float promedio(int a, int b, int c)
 
 int main()
 {
-    printf("Promedio: %.2f
-", promedio(7, 8, 10));
+    printf("Promedio: %.2f\n", promedio(7, 8, 10));
     return 0;
 }
 ```
@@ -1344,8 +1338,7 @@ int area_rectangulo(int base, int altura)
 
 int main()
 {
-    printf("Área: %d
-", area_rectangulo(5, 4));
+    printf("Área: %d\n", area_rectangulo(5, 4));
     return 0;
 }
 ```
