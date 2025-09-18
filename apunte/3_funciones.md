@@ -766,7 +766,7 @@ void solicitar_datos()
     printf("Por favor ingrese sus datos.\n");
 }
 
-void mostrar_saludo(const char *mensaje)
+void mostrar_saludo(char mensaje[])
 {
     printf("%s\n", mensaje);
     solicitar_datos();
