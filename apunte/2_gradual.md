@@ -600,7 +600,7 @@ En donde las condiciones, deben ser el resultado de una expresión lógica.
 Para C, los valores lógicos no forman parte del lenguaje original y el mismo
 considera cualquier valor entero en `0` como falso y cualquier otro como
 verdadero. Esto se lo llama [veracidad](estilo#0x0010h) y su uso suma confusión,
-por lo que su uso no esta permitido.
+por lo que su uso no está permitido.
 
 :::
 
@@ -1185,11 +1185,11 @@ int main()
 
 Cuando estés atascado:
 
-- Escribí el algoritmo en tus propias palabras, si, en español.
+- Escribí el algoritmo en tus propias palabras, sí, en español.
 - Dibujá un diagrama de flujo, no tiene que ser perfecto, solo para cambiar el
   punto de vista.
 - Usá una prueba de escritorio (dry-run).
-- Y si todo lo demas falla, meté `printf` por todos.
+- Y si todo lo demás falla, meté `printf` por todos.
 
 > _El compilador te va a decir qué no entiende. Escuchalo. Corregilo. Probalo._
 
