@@ -648,8 +648,8 @@ blah::
 
 ### Eco de comandos/Silencio
 
-Añade una _@_ antes de un comando para evitar que se imprima. También puedes
-ejecutar `make` con _-s_ para añadir una _@_ antes de cada línea
+Añade una _`@`_ antes de un comando para evitar que se imprima. También puedes
+ejecutar `make` con _`-s`_ para añadir una _`@`_ antes de cada línea
 
 ```makefile
 all:
