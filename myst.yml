@@ -42,6 +42,18 @@ project:
       children:
         - file: ejercicios/cuadernillo.md
 #        - file: ejercicios/adicionales.md
+    - title: Prácticas
+      file: practicas/readme.md
+      children:
+        - file: practicas/2024/TP0-2024.md
+        - file: practicas/2024/TP1-2024.md
+        - file: practicas/2024/TP2-2024.md
+        - file: practicas/2024/TP3-2024.md
+        - file: practicas/2024/TP4-2024.md
+        - file: practicas/2024/TP5-2024.md
+        - file: practicas/2024/TP6-2024.md
+        - file: practicas/2024/TP7-2024.md
+        - file: practicas/2024/TP8-2024.md
     - title: Extras
       children:
         - file: extras/cadenas.md
