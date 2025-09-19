@@ -39,9 +39,19 @@ project:
       children:
         - file: bibliografia/suplementaria.md
     - title: Ejercicios
+      file: ejercicios/readme.md
       children:
         - file: ejercicios/cuadernillo.md
-#        - file: ejercicios/adicionales.md
+        - file: ejercicios/1_basicos_y_secuencias.md
+        - file: ejercicios/2_matematicos.md
+        - file: ejercicios/3_arreglos.md
+        - file: ejercicios/4_cadenas.md
+        - file: ejercicios/5_punteros.md
+        - file: ejercicios/6_memoria_dinamica.md
+        - file: ejercicios/7_matrices.md
+        - file: ejercicios/8_archivos.md
+        - file: ejercicios/9_structs.md
+        - file: ejercicios/10_recursion.md
     - title: Prácticas
       file: practicas/readme.md
       children:

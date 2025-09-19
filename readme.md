@@ -13,7 +13,6 @@ exports:
       - file: apunte/2_gradual.md
       - file: apunte/3_funciones.md
       - file: apunte/0_estilo.md
-      - file: ejercicios/cuadernillo.md
 ---
 
 # Bienvenidos a Programación 1
