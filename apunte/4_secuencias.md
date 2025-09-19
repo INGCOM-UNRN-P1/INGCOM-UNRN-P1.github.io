@@ -434,7 +434,7 @@ basura.
 También, si aplicamos el cálculo de tamaño usando `sizeof` que vimos antes,
 vamos a obtener el tamaño en bytes de la cadena.
 
-````{code-block}
+````{code-block}c
 :linenos:
 size_t espacio_reservado = sizeof(mi_cadena) / sizeof(mi_cadena[0]);
 ````
@@ -619,7 +619,7 @@ Dado un arreglo de enteros, escribí un programa que calcule y muestre la suma d
 
 :class: dropdown
 
-```{code-block} c
+```{code-block}c
 :linenos:
 #include <stdio.h>
 #include <stddef.h>
@@ -650,7 +650,7 @@ Implementá una función promedio_arreglo que reciba un arreglo de enteros y su 
 
 ````{solution} promedio_arreglo
 :class: dropdown
-```{code-block} c
+```{code-block}c
 :linenos:
 #include <stdio.h>
 #include <stddef.h>
@@ -688,7 +688,7 @@ Implementá un procedimiento invertir_arreglo que reciba un arreglo de enteros y
 ````{solution} invertir_arreglo
 :class: dropdown
 
-```{code-block} c
+```{code-block}c
 :linenos:
 #include <stdio.h>
 #include <stddef.h>
@@ -748,7 +748,7 @@ Implementá una función contar_vocales que reciba una cadena de caracteres y de
 
 :class: dropdown
 
-```{code-block} c
+```{code-block}c
 :linenos:
 #include <stdio.h>
 #include <string.h>
@@ -793,7 +793,7 @@ Escribí un programa que pida al usuario su nombre. Leelo de forma segura usando
 
 :class: dropdown
 
-```{code-block} c
+```{code-block}c
 :linenos:
 #include <stdio.h>
 #include <string.h>
