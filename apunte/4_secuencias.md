@@ -32,6 +32,11 @@ suficientemente grande para albergar todos sus elementos.
 
 `int mi_arreglo[4];`
 
+:::{iframe} https://ingcom-unrn.github.io/herramientas/p1/viz_arreglos?name=arreglo&type=int&data=%3F%2C%3F%2C%3F%2C%3F&mode=render&view_mode=compact
+:height: 400px
+Un arreglo sin inicializar
+:::
+
 Esta declaración reserva espacio para 4 enteros. Si un `int` ocupa 4 bytes, la
 disposición en memoria sería:
 
@@ -423,9 +428,9 @@ char cadena[7] = "Hola";
 
 En la memoria se vería como:
 
-| Posición  | `0`   | `1`   | `2`   | `3`   | `4`    | `5` | `6` |
-| --------- | ----- | ----- | ----- | ----- | ------ | --- | --- |
-| **Valor** | `'H'` | `'o'` | `'l'` | `'a'` | `'\0'` | `?` | `?` |
+:::{iframe} https://ingcom-unrn.github.io/herramientas/p1/viz_arreglos?name=cadena&type=char&data='h'%2C'o'%2C'l%2C'a'%2C'\0'%2C%3F%2C%3F&highlight=5%2C6&mode=render&view_mode=compact
+:height: 400px
+:::
 
 En donde los `?` _quizás_ sean cero (`\0`), pero como no está inicializado, no
 podemos estar seguros del valor que tendrá, a todos los efectos prácticos, es
@@ -611,7 +616,8 @@ arreglo, permitiendo su modificación.
 :label: sumar_arreglo
 :enumerator: arreglos-1
 
-Dado un arreglo de enteros, escribí un programa que calcule y muestre la suma de todos sus elementos. Utilizá el operador sizeof para determinar la cantidad de elementos de forma dinámica.
+Dado un arreglo de enteros, escribí un programa que calcule y muestre la suma de todos sus elementos.
+Utilizá el operador `sizeof` para determinar la cantidad de elementos de forma dinámica.
 
 ```
 
@@ -644,7 +650,8 @@ int main()
 ```{exercise}
 :label: promedio_arreglo
 :enumerator: funciones-1
-Implementá una función promedio_arreglo que reciba un arreglo de enteros y su tamaño. La función debe devolver el promedio de sus elementos como un float.
+Implementá una función `promedio_arreglo` que reciba un arreglo de enteros y su tamaño.
+La función debe devolver el promedio de sus elementos como un `float`.
 
 ```
 
@@ -681,7 +688,8 @@ int main()
 :label: invertir_arreglo
 :enumerator: funciones-2
 
-Implementá un procedimiento invertir_arreglo que reciba un arreglo de enteros y su tamaño, y modifique el arreglo invirtiendo el orden de sus elementos. La función no debe devolver nada (void).
+Implementá un procedimiento `invertir_arreglo` que reciba un arreglo de enteros y su tamaño,
+y modifique el arreglo invirtiendo el orden de sus elementos. La función no debe devolver nada (`void`).
 
 ```
 
@@ -739,7 +747,8 @@ int main()
 :label: contar_vocales
 :enumerator: funciones-3
 
-Implementá una función contar_vocales que reciba una cadena de caracteres y devuelva la cantidad de vocales (mayúsculas y minúsculas) que contiene.
+Implementá una función `contar_vocales` que reciba una cadena de caracteres y devuelva 
+la cantidad de vocales (mayúsculas y minúsculas) que contiene.
 
 ```
 
@@ -785,7 +794,8 @@ int main()
 :label: leer_cadena
 :enumerator: cadenas-1
 
-Escribí un programa que pida al usuario su nombre. Leelo de forma segura usando fgets en un buffer de tamaño 50. Luego, eliminá el carácter de nueva línea (\n) que fgets suele agregar al final y mostrá un saludo.
+Escribí un programa que pida al usuario su nombre. Leelo de forma segura usando `fgets` en un buffer de tamaño 50.
+Luego, eliminá el carácter de nueva línea (`\n`) que `fgets` suele agregar al final y mostrá un saludo.
 
 ```
 
