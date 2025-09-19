@@ -82,8 +82,7 @@ int matriz[2][3] = {
 
 En C, es posible omitir la primera dimensión (filas) durante la inicialización, pero **todas las dimensiones subsecuentes deben ser especificadas explícitamente**. Esto se debe a que el compilador necesita conocer el tamaño de cada "sub-arreglo" para calcular las posiciones de memoria.
 
-```{code-block}
-C
+```{code-block}c
 :linenos:
 // Válido: el compilador infiere 2 filas basándose en el inicializador.
 int matriz[][3] = {
@@ -637,7 +636,7 @@ Escribí un programa que inicialice una matriz de enteros de 3x3 con valores pre
 ````{solution} imprimir_matriz
 :class: dropdown
 
-```{code-block} c
+```{code-block}c
 #include <stdio.h>
 
 #define FILAS 3
@@ -670,7 +669,7 @@ Implementá una función `int sumar_diagonal_principal(int matriz[][3], int dime
 ````{solution} sumar_diagonal
 :class: dropdown
 
-```{code-block} c
+```{code-block}c
 :linenos:
 #include <stdio.h>
 

@@ -162,20 +162,23 @@ Este proceso se puede descomponer en varias sub-fases:
 
 ```{mermaid}
 flowchart TD
-A[Código C Preprocesado] --> B{Análisis Léxico};
-B --> C{Análisis Sintáctico};
-C --> D{Análisis Semántico};
-D --> E{Generación de Código Intermedio};
-E --> F{Optimización};
-F --> G[Código Ensamblador (.s)];
+ subgraph subGraph0["Frontend del Compilador"]
+        B{"Análisis Léxico"}
+        C{"Análisis Sintáctico"}
+        D{"Análisis Semántico"}
+  end
+ subgraph subGraph1["Backend del Compilador"]
+        E{"Generación de Código Intermedio"}
+        F{"Optimización"}
+        G["Código Ensamblador"]
+  end
+    A["Código C Preprocesado"] --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
 
-subgraph "Frontend del Compilador"
-    B; C; D;
-end
-
-subgraph "Backend del Compilador"
-    E; F; G;
-end
 
 ```
 

@@ -553,7 +553,7 @@ que no cambia.
 Aplicando estos conceptos, una documentación exhaustiva para la función
 `intercambiar` se vería así, siguiendo el estilo creado por la cátedra.
 
-```{code-block}
+```{code-block}c
 :linenos:
 /**
  * Intercambia los valores de dos variables enteras a través de sus punteros.

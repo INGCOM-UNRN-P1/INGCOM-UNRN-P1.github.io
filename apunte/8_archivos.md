@@ -281,7 +281,7 @@ int fputs(const char *cadena, FILE *stream);
 
 ### `fprintf`
 
-La opción más versátil. Escribe datos con formato, análogamente a `printf()`. 
+La opción más versátil. Escribe datos con formato, análogamente a `printf()`.
 Devuelve el número de caracteres escritos, o un valor negativo si ocurre un
 error.
 
@@ -325,7 +325,7 @@ int main(void) {
 
     // 2. Escribir un encabezado usando fputs()
     // fputs() escribe una cadena de caracteres en el archivo.
-    const char *encabezado = "--- Documento de Factura ---\n\n";
+    const char *encabezado = "---" Documento de Factura ---\\n\\n";
     if (fputs(encabezado, salida) == EOF) {
         perror("Error escribiendo el encabezado con fputs()")
         fclose(salida);
@@ -604,7 +604,7 @@ if (strncmp(buffer, "Item:", 5) == 0) {
   los primeros `5` caracteres del `buffer` con la cadena `"Item:"`. Si son
   iguales, la función devuelve `0`, y procedemos a analizar la línea. Esto nos
   permite ignorar líneas en blanco o comentarios de forma eficiente.
-- **`sscanf(buffer, "...", ...)`**: Esta es la función clave para el _parsing_. 
+- **`sscanf(buffer, "...", ...)`**: Esta es la función clave para el _parsing_.
 A diferencia de `fscanf()`, que lee desde un archivo, `sscanf()` lee desde una
 cadena de caracteres que ya está en memoria (el `buffer`).
   - **La cadena de formato**: Es la plantilla que `sscanf()` usa para
@@ -907,6 +907,7 @@ perror("Error al leer el archivo de configuración");
 // Error al leer el archivo de configuración: No such file or directory
 ```
 
+
 ### `strerror(int errnum)`: El traductor flexible
 
 `strerror` te da más control. Toma un número de error (casi siempre le pasarás
@@ -927,6 +928,574 @@ fprintf(stderr, "[FATAL] Imposible acceder al recurso. Razón: %s\n", strerror(e
 // Salida en stderr:
 // [FATAL] Imposible acceder al recurso. Razón: Permission denied
 ```
+
+## Ejercicios Propuestos
+
+```{exercise}
+:label: ejercicio_archivos_1
+:enumerator: 1
+
+**Escribir un diario personal**
+
+Creá una función que reciba el nombre de un archivo y una cadena de texto. La función debe abrir el archivo en modo "append" (añadir) y escribir la cadena de texto seguida de un salto de línea. Asegurate de manejar todos los posibles errores de apertura, escritura y cierre.
+```
+
+````{solution} ejercicio_archivos_1
+:class: dropdown
+
+```{code-block}c
+:linenos:
+#include <stdio.h>
+#include <stdlib.h>
+
+#define EXITO 0
+#define ERROR -1
+
+/**
+ * Agrega una entrada de texto a un archivo de diario.
+ *
+ * @param nombre_archivo La ruta del archivo de diario.
+ *      #PRE: No puede ser NULL.
+ * @param entrada El texto a agregar en el diario.
+ *      #PRE: No puede ser NULL.
+ *
+ * @returns EXITO si la entrada se escribió correctamente, ERROR en caso contrario.
+ *
+ * @post El archivo especificado por nombre_archivo contendrá la nueva entrada
+ *       al final del mismo, seguida de un salto de línea.
+ */
+int agregar_entrada_diario(const char *nombre_archivo, const char *entrada)
+{
+    int resultado_operacion = EXITO;
+    FILE *p_archivo = NULL;
+
+    // 1. Abrir el archivo en modo "append" (añadir)
+    p_archivo = fopen(nombre_archivo, "a");
+    if (p_archivo == NULL)
+    {
+        perror("Error al abrir el diario");
+        resultado_operacion = ERROR;
+    }
+
+    // 2. Escribir la entrada y un salto de línea si la apertura fue exitosa
+    if (resultado_operacion == EXITO)
+    {
+        if (fputs(entrada, p_archivo) == EOF)
+        {
+            perror("Error al escribir la entrada en el diario");
+            resultado_operacion = ERROR;
+        }
+    }
+
+    if (resultado_operacion == EXITO)
+    {
+        if (fputc('\n', p_archivo) == EOF)
+        {
+            perror("Error al escribir el salto de línea");
+            resultado_operacion = ERROR;
+        }
+    }
+
+    // 3. Cerrar el archivo, incluso si la escritura falló
+    if (p_archivo != NULL)
+    {
+        if (fclose(p_archivo) != 0)
+        {
+            perror("Error al cerrar el diario");
+            // Si ya había un error, se mantiene. Si no, se establece ahora.
+            if (resultado_operacion == EXITO)
+            {
+                resultado_operacion = ERROR;
+            }
+        }
+    }
+
+    return resultado_operacion;
+}
+
+int main(void)
+{
+    const char *MI_DIARIO = "diario.txt";
+    int resultado = 0;
+
+    printf("Escribiendo primera entrada...\n");
+    resultado = agregar_entrada_diario(MI_DIARIO, "Hoy fue un día soleado.");
+    if (resultado == ERROR)
+    {
+        fprintf(stderr, "No se pudo escribir la primera entrada.\n");
+        return EXIT_FAILURE;
+    }
+
+    printf("Escribiendo segunda entrada...\n");
+    resultado = agregar_entrada_diario(MI_DIARIO, "Aprendí a manejar archivos en C.");
+    if (resultado == ERROR)
+    {
+        fprintf(stderr, "No se pudo escribir la segunda entrada.\n");
+        return EXIT_FAILURE;
+    }
+
+    printf("Entradas agregadas al diario '%s' con éxito.\n", MI_DIARIO);
+
+    return EXIT_SUCCESS;
+}
+
+```
+````
+
+```{exercise}
+:label: ejercicio_archivos_2
+:enumerator: 2
+
+**Contador de líneas**
+
+Escribí una función que reciba el nombre de un archivo, lo lea y devuelva la cantidad de líneas que contiene. Una línea se define como una secuencia de caracteres terminada por un `\n`. La función debe devolver un número negativo en caso de error.
+```
+
+````{solution} ejercicio_archivos_2
+:class: dropdown
+
+```{code-block}c
+:linenos:
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_LONGITUD_LINEA 1024
+#define ERROR_APERTURA -1
+#define ERROR_LECTURA -2
+
+/**
+ * Cuenta el número de líneas en un archivo de texto.
+ *
+ * @param nombre_archivo La ruta del archivo a leer.
+ *      #PRE: No puede ser NULL.
+ *
+ * @returns El número de líneas contadas si la operación es exitosa.
+ *          Retorna ERROR_APERTURA si el archivo no puede abrirse.
+ *          Retorna ERROR_LECTURA si ocurre un error durante la lectura.
+ *
+ * @post El archivo no es modificado.
+ */
+int contar_lineas(const char *nombre_archivo)
+{
+    int cantidad_lineas = 0;
+    FILE *p_archivo = NULL;
+    char buffer[MAX_LONGITUD_LINEA];
+
+    p_archivo = fopen(nombre_archivo, "r");
+    if (p_archivo == NULL)
+    {
+        perror("Error al abrir el archivo para contar líneas");
+        return ERROR_APERTURA;
+    }
+
+    while (fgets(buffer, sizeof(buffer), p_archivo) != NULL)
+    {
+        cantidad_lineas++;
+    }
+
+    // Después del bucle, verificar si salimos por error o por fin de archivo
+    if (ferror(p_archivo))
+    {
+        perror("Error de lectura mientras se contaban las líneas");
+        cantidad_lineas = ERROR_LECTURA; // Sobrescribimos el conteo con un código de error
+    }
+
+    if (fclose(p_archivo) != 0)
+    {
+        perror("Error al cerrar el archivo después de contar");
+        if (cantidad_lineas >= 0) // No sobrescribir un error de lectura previo
+        {
+            cantidad_lineas = ERROR_APERTURA; // Reutilizamos código de error
+        }
+    }
+
+    return cantidad_lineas;
+}
+
+int main(void)
+{
+    const char *NOMBRE_ARCHIVO = "diario.txt";
+    // Crear un archivo de prueba primero
+    FILE *p_archivo_prueba = fopen(NOMBRE_ARCHIVO, "w");
+    if (p_archivo_prueba != NULL)
+    {
+        fputs("Primera línea.\n", p_archivo_prueba);
+        fputs("Segunda línea.\n", p_archivo_prueba);
+        fputs("Tercera línea.\n", p_archivo_prueba);
+        fclose(p_archivo_prueba);
+    }
+
+    printf("Contando líneas en el archivo '%s'...\n", NOMBRE_ARCHIVO);
+    int lineas = contar_lineas(NOMBRE_ARCHIVO);
+
+    if (lineas >= 0)
+    {
+        printf("El archivo contiene %d líneas.\n", lineas);
+    }
+    else
+    {
+        fprintf(stderr, "Ocurrió un error al procesar el archivo (código: %d).\n", lineas);
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
+}
+```
+````
+
+```{exercise}
+:label: ejercicio_archivos_3
+:enumerator: 3
+
+**Copiar un archivo de texto**
+
+Implementá una función que copie el contenido de un archivo de origen a un archivo de destino. La función debe leer el archivo de origen línea por línea y escribir cada línea en el archivo de destino. Debe manejar errores para ambos archivos (apertura, lectura, escritura y cierre).
+```
+
+````{solution} ejercicio_archivos_3
+:class: dropdown
+
+```{code-block}c
+:linenos:
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+#define EXITO 0
+#define ERROR -1
+#define MAX_BUFFER 4096
+
+/**
+ * Copia el contenido de un archivo de texto a otro.
+ *
+ * @param ruta_origen La ruta del archivo a leer.
+ *      #PRE: No puede ser NULL.
+ * @param ruta_destino La ruta del archivo donde se escribirá el contenido.
+ *      #PRE: No puede ser NULL.
+ *
+ * @returns EXITO si la copia fue completamente exitosa, ERROR si ocurrió algún fallo.
+ *
+ * @post Si la operación es exitosa, el archivo en ruta_destino tendrá el mismo
+ *       contenido que el de ruta_origen.
+ */
+int copiar_archivo(const char *ruta_origen, const char *ruta_destino)
+{
+    int estado_operacion = EXITO;
+    FILE *p_origen = NULL;
+    FILE *p_destino = NULL;
+    char buffer[MAX_BUFFER];
+    bool continuar_bucle = true;
+
+    p_origen = fopen(ruta_origen, "r");
+    if (p_origen == NULL)
+    {
+        perror("Error al abrir el archivo de origen");
+        estado_operacion = ERROR;
+    }
+
+    if (estado_operacion == EXITO)
+    {
+        p_destino = fopen(ruta_destino, "w");
+        if (p_destino == NULL)
+        {
+            perror("Error al abrir el archivo de destino");
+            estado_operacion = ERROR;
+        }
+    }
+
+    while (estado_operacion == EXITO && continuar_bucle)
+    {
+        if (fgets(buffer, sizeof(buffer), p_origen) != NULL)
+        {
+            if (fputs(buffer, p_destino) == EOF)
+            {
+                perror("Error al escribir en el archivo de destino");
+                estado_operacion = ERROR;
+            }
+        }
+        else
+        {
+            continuar_bucle = false; // Se terminó de leer o hubo un error
+        }
+    }
+
+    // Verificar si el bucle terminó por un error de lectura
+    if (p_origen != NULL && ferror(p_origen))
+    {
+        perror("Error de lectura en el archivo de origen");
+        estado_operacion = ERROR;
+    }
+
+    // Cerrar ambos archivos, verificando errores en cada cierre
+    if (p_origen != NULL && fclose(p_origen) != 0)
+    {
+        perror("Error al cerrar el archivo de origen");
+        estado_operacion = ERROR;
+    }
+    if (p_destino != NULL && fclose(p_destino) != 0)
+    {
+        perror("Error al cerrar el archivo de destino");
+        estado_operacion = ERROR;
+    }
+
+    return estado_operacion;
+}
+
+int main(void)
+{
+    const char *ARCHIVO_ORIGEN = "original.txt";
+    const char *ARCHIVO_COPIA = "copia.txt";
+
+    // Crear archivo original de prueba
+    FILE *p_temp = fopen(ARCHIVO_ORIGEN, "w");
+    if (p_temp != NULL)
+    {
+        fprintf(p_temp, "Línea 1 del original.\n");
+        fprintf(p_temp, "Línea 2 con algunos caracteres especiales: áéíóú.\n");
+        fprintf(p_temp, "Fin del archivo original.\n");
+        fclose(p_temp);
+    }
+
+    printf("Copiando '%s' a '%s'...\n", ARCHIVO_ORIGEN, ARCHIVO_COPIA);
+    if (copiar_archivo(ARCHIVO_ORIGEN, ARCHIVO_COPIA) == EXITO)
+    {
+        printf("Archivo copiado con éxito.\n");
+    }
+    else
+    {
+        fprintf(stderr, "La copia del archivo falló.\n");
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
+}
+```
+````
+
+```{exercise}
+:label: ejercicio_archivos_4
+:enumerator: 4
+
+**Registrar eventos en un log**
+
+Crea una función `registrar_evento` que reciba un mensaje y lo añada a un archivo llamado `eventos.log`. La función debe asegurarse de que cada mensaje nuevo se agregue al final del archivo, sin borrar el contenido anterior. Por simplicidad, no es necesario agregar una marca de tiempo.
+```
+
+````{solution} ejercicio_archivos_4
+:class: dropdown
+
+```{code-block}c
+:linenos:
+#include <stdio.h>
+#include <stdlib.h>
+
+#define EXITO 0
+#define ERROR -1
+#define ARCHIVO_LOG "eventos.log"
+
+/**
+ * Registra un mensaje de evento en un archivo de log.
+ *
+ * @param mensaje El mensaje a registrar.
+ *      #PRE: No puede ser NULL.
+ *
+ * @returns EXITO si el evento se registró correctamente, ERROR en caso contrario.
+ *
+ * @post El archivo de log contendrá el nuevo mensaje al final.
+ */
+int registrar_evento(const char *mensaje)
+{
+    int resultado = EXITO;
+    FILE *p_log = fopen(ARCHIVO_LOG, "a");
+
+    if (p_log == NULL)
+    {
+        perror("Error al abrir el archivo de log");
+        resultado = ERROR;
+    }
+    else
+    {
+        // Escribir el mensaje y un salto de línea
+        if (fprintf(p_log, "%s\n", mensaje) < 0)
+        {
+            perror("Error al escribir en el archivo de log");
+            resultado = ERROR;
+        }
+
+        // Cerrar el archivo
+        if (fclose(p_log) != 0)
+        {
+            perror("Error al cerrar el archivo de log");
+            resultado = ERROR;
+        }
+    }
+
+    return resultado;
+}
+
+int main(void)
+{
+    printf("Registrando eventos...\n");
+
+    if (registrar_evento("[INFO] El sistema ha iniciado.") != EXITO)
+    {
+        fprintf(stderr, "Fallo al registrar el primer evento.\n");
+        return EXIT_FAILURE;
+    }
+
+    if (registrar_evento("[WARN] El disco está casi lleno.") != EXITO)
+    {
+        fprintf(stderr, "Fallo al registrar el segundo evento.\n");
+        return EXIT_FAILURE;
+    }
+
+    if (registrar_evento("[FATAL] No se pudo conectar a la base de datos.") != EXITO)
+    {
+        fprintf(stderr, "Fallo al registrar el tercer evento.\n");
+        return EXIT_FAILURE;
+    }
+
+    printf("Eventos registrados en '%s'.\n", ARCHIVO_LOG);
+
+    return EXIT_SUCCESS;
+}
+```
+````
+
+```{exercise}
+:label: ejercicio_archivos_5
+:enumerator: 5
+
+**Procesar un archivo CSV de ventas**
+
+Escribí una función que lea un archivo `ventas.csv` con el formato `producto,precio,cantidad`. Por cada línea, debe calcular el total (precio * cantidad) y mostrarlo en pantalla. La función debe ignorar líneas mal formadas o vacías.
+
+**Ejemplo de `ventas.csv`:**
+```csv
+Teclado Mecanico,150.50,2
+Mouse Gamer,75.00,5
+Monitor 24 pulgadas,300.25,1
+# Esto es un comentario, debe ser ignorado
+Webcam,no_es_un_precio,3
+```
+```
+
+````{solution} ejercicio_archivos_5
+:class: dropdown
+
+```{code-block}c
+:linenos:
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define EXITO 0
+#define ERROR -1
+#define MAX_LINEA 256
+#define MAX_PRODUCTO 100
+
+/**
+ * Procesa un archivo CSV de ventas, calculando e imprimiendo el total por línea.
+ *
+ * @param nombre_archivo La ruta del archivo CSV a procesar.
+ *      #PRE: No puede ser NULL.
+ *
+ * @returns EXITO si el archivo se procesó (incluso si algunas líneas fallaron),
+ *          ERROR si no se pudo abrir el archivo o hubo un error de lectura irrecuperable.
+ *
+ * @post Se imprimirán en la salida estándar los totales de las líneas bien formadas.
+ */
+int procesar_ventas(const char *nombre_archivo)
+{
+    int estado_general = EXITO;
+    FILE *p_archivo = fopen(nombre_archivo, "r");
+    char buffer[MAX_LINEA];
+    size_t numero_linea = 0;
+
+    if (p_archivo == NULL)
+    {
+        perror("No se pudo abrir el archivo de ventas");
+        return ERROR;
+    }
+
+    while (fgets(buffer, sizeof(buffer), p_archivo) != NULL)
+    {
+        numero_linea++;
+
+        // Ignorar líneas vacías o que son comentarios
+        if (buffer[0] == '\n' || buffer[0] == '#')
+        {
+            continue; // Esta es una excepción permitida a la regla 0x0006h
+        }
+
+        char nombre_producto[MAX_PRODUCTO];
+        double precio = 0.0;
+        int cantidad = 0;
+
+        // Usar sscanf para parsear la línea. Formato: string-hasta-coma,double,int
+        int campos_leidos = sscanf(buffer, "%99[^,],%lf,%d", nombre_producto, &precio, &cantidad);
+
+        if (campos_leidos == 3)
+        {
+            double total_linea = precio * (double)cantidad;
+            printf("Línea %zu: Producto '%s', Total: %.2f\n", numero_linea, nombre_producto, total_linea);
+        }
+        else
+        {
+            fprintf(stderr, "[Advertencia] Línea %zu mal formada: %s", numero_linea, buffer);
+        }
+    }
+
+    if (ferror(p_archivo))
+    {
+        perror("Ocurrió un error de lectura");
+        estado_general = ERROR;
+    }
+
+    if (fclose(p_archivo) != 0)
+    {
+        perror("Error al cerrar el archivo de ventas");
+        estado_general = ERROR;
+    }
+
+    return estado_general;
+}
+
+int main(void)
+{
+    const char *ARCHIVO_VENTAS = "ventas.csv";
+
+    // Crear archivo de ventas de prueba
+    FILE *p_temp = fopen(ARCHIVO_VENTAS, "w");
+    if (p_temp != NULL)
+    {
+        fprintf(p_temp, "Teclado Mecanico,150.50,2\n");
+        fprintf(p_temp, "Mouse Gamer,75.00,5\n");
+        fprintf(p_temp, "\n"); // Línea vacía
+        fprintf(p_temp, "Monitor 24 pulgadas,300.25,1\n");
+        fprintf(p_temp, "# Esto es un comentario, debe ser ignorado\n");
+        fprintf(p_temp, "Webcam,no_es_un_precio,3\n"); // Línea mal formada
+        fclose(p_temp);
+    }
+
+    printf("Procesando archivo '%s'...\n", ARCHIVO_VENTAS);
+    if (procesar_ventas(ARCHIVO_VENTAS) == ERROR)
+    {
+        fprintf(stderr, "No se pudo completar el procesamiento del archivo.\n");
+        return EXIT_FAILURE;
+    }
+
+    printf("\nProcesamiento finalizado.\n");
+    return EXIT_SUCCESS;
+}
+
+```
+
+:::{note} Excepción a la regla `0x0006h`
+En la solución del ejercicio 5, se utiliza `continue` para saltar líneas vacías o comentarios. Si bien la regla de estilo general es evitar `break` y `continue`, este es un caso de uso común y aceptado donde su aplicación simplifica la lógica y mejora la legibilidad, al evitar un nivel de anidamiento (`if`) para el resto del código del bucle. Es una excepción pragmática a la regla.
+:::
+
+````
 
 ## Glosario
 
