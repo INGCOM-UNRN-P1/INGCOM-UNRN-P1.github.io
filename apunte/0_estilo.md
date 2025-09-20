@@ -1277,42 +1277,179 @@ Su uso ofrece ventajas de portabilidad (puede contener el índice más grande po
   ```
 
 (0x002Fh)=
-### Regla `0x002Fh`: Las variables declaradas como `const` van en `MAYUSCULAS`
+### Regla `0x002Fh`: Las constantes (`const` o `#define`) deben nombrarse en `MAYUSCULAS_SNAKE_CASE`
 
-Esta es una convención de estilo muy extendida que mejora drásticamente la
-legibilidad. Cuando un identificador está en mayúsculas (`SNAKE_CASE`), actúa
-como una señal visual inmediata para el programador, indicando que se trata de
-un valor constante que no debe ser modificado durante la ejecución del programa.
-Esto ayuda a diferenciar las constantes de las variables (que por convención
-usan `snake_case` en minúsculas).
+Esta convención de estilo mejora drásticamente la legibilidad. Un identificador en mayúsculas actúa como una señal visual inmediata, indicando que se trata de un valor fijo que no debe ser modificado. Esto ayuda a diferenciar las constantes de las variables.
 
-**Ejemplo Correcto:**
+- **Incorrecto:**
+  ```c
+  const int diasDeLaSemana = 7;
+  #define pi 3.14159f
+  ```
+- **Correcto:**
+  ```c
+  const int DIAS_DE_LA_SEMANA = 7;
+  #define PI 3.14159f
 
+  float calcular_circunferencia(float radio)
+  {
+      return 2 * PI * radio;
+  }
+  ```
+
+(0x0030h)=
+### Regla `0x0030h`: Todas las operaciones con cadenas deben ser seguras
+
+Utilizá funciones que controlen los límites del búfer (ej. `strncpy`, `snprintf`, `strncat`) para prevenir desbordamientos, una de las vulnerabilidades de seguridad más comunes en C.
+
+- **Incorrecto (inseguro):**
+  ```c
+  void concatenar_saludo(char *destino, const char *nombre) {
+      strcpy(destino, "Hola, "); // strcpy no verifica límites
+      strcat(destino, nombre); // strcat no verifica límites
+  }
+  ```
+- **Correcto (seguro):**
+  ```c
+  void concatenar_saludo_seguro(char *destino, size_t tam_destino, const char *nombre) {
+      snprintf(destino, tam_destino, "Hola, %s", nombre);
+  }
+  ```
+
+Y si estamos implementando funciones que trabajen con cadenas, las mismas deben
+incluir un `size_t` para el tamaño en memoria de la cadena.
+
+(0x0031h)=
+### Regla `0x0031h`: Los argumentos de función y las variables locales deben usar `snake_case` en minúsculas
+
+- **Incorrecto:**
+  ```c
+  int miVariable;
+  void miFuncion(int UnArgumento) { /* ... */ }
+  ```
+- **Correcto:**
+  ```c
+  int mi_variable;
+  void mi_funcion(int un_argumento) { /* ... */ }
+  ```
+
+(0x0032h)=
+### Regla `0x0032h`: Escribí comentarios que expliquen el "porqué", no el "qué"
+
+Los comentarios deben aportar valor y aclarar la intención detrás del código, no parafrasear lo que el código ya expresa de forma evidente. Un buen comentario explica la razón de una decisión de diseño, la lógica de un algoritmo complejo o el contexto que justifica una pieza de código particular.
+
+El código en sí mismo debe ser lo suficientemente claro para explicar *qué* hace. Si necesitás un comentario para describir una simple operación, es probable que el código deba ser refactorizado para ser más legible.
+
+- **Incorrecto (Comentario obvio y redundante):**
 ```c
-// El uso de mayúsculas deja claro que son valores fijos.
-const int DIAS_DE_LA_SEMANA = 7;
-const float PI = 3.14159f;
+// Incrementa i en 1
+i++;
+```
 
-float calcular_circunferencia(float radio)
-{
-    return 2 * PI * radio;
+- **Correcto (Comentario que explica la intención):**
+```c
+// Se utiliza un índice inverso para procesar los elementos desde el final,
+// ya que el último elemento tiene un significado especial en el protocolo.
+for (size_t i = tamano - 1; i < tamano; i--) {
+    // ...
 }
 ```
 
-**Contraejemplo (Mala Práctica):**
+(0x0033h)=
+### Regla `0x0033h`: Toda instrucción `switch` debe incluir un caso `default`
 
+Para garantizar un comportamiento predecible y robusto, toda instrucción `switch` debe finalizar con un bloque `default`. Esto asegura que el programa maneje explícitamente cualquier valor inesperado que no coincida con los casos definidos, previniendo errores sutiles.
+Si un `case` intencionalmente no contiene una instrucción `break` para "caer" (`fall-through`) al siguiente caso, esta intención debe ser documentada explícitamente con un comentario para evitar confusiones.
+
+- **Incorrecto (sin `default` y `fall-through` ambiguo):**
 ```c
-// Contraejemplo: Sintácticamente válido, pero rompe la convención de estilo.
-// 'pi' y 'diasDeLaSemana' parecen variables normales, lo que puede llevar a
-// confusiones o a intentos accidentales de modificarlas en otra parte del código.
-const float pi = 3.14159f;
-const int diasDeLaSemana = 7;
+switch (opcion) {
+    case OPCION_A:
+        hacer_algo();
+        break;
+    case OPCION_B:
+        hacer_otra_cosa(); // ¿Es intencional la caída?
+    case OPCION_C:
+        hacer_algo_mas();
+        break;
+}
 ```
 
+- **Correcto:**
+```c
+switch (opcion) {
+    case OPCION_A:
+        // ... código para A ...
+        break;
 
-(0x0030h)=
-### Regla `0x0030h`: Todas las cadenas en funciones deben ser seguras
+    case OPCION_B:
+        // ... código para B ...
+        // INTENCIONAL: Se cae al caso C
+    case OPCION_C:
+        // ... código para B y C ...
+        break;
 
-(0x0031h)=
-### Regla `0x0031h`: Los argumentos y variables van en `snake_case` minúscula
+    default:
+        // Manejar casos no esperados para evitar comportamiento indefinido.
+        fprintf(stderr, "Error: Opción no válida.\n");
+        break;
+}
+```
 
+(0x0034h)=
+### Regla `0x0034h`: Organizá la estructura de tus archivos `.c` de forma estándar
+
+Una estructura de archivo consistente mejora la navegabilidad y la predictibilidad del código. Organizá tus archivos `.c` siguiendo este orden estándar:
+
+1.  **Inclusiones de bibliotecas estándar del sistema:** (ej. `<stdio.h>`, `<stdlib.h>`)
+2.  **Inclusiones de bibliotecas de terceros:** (si aplica).
+3.  **Inclusiones de tus propios módulos locales:** (ej. `"mi_modulo.h"`).
+4.  **Definiciones de constantes y macros:** (`#define`).
+5.  **Definiciones de tipos:** (`typedef`, `struct`, `enum`).
+6.  **Prototipos de funciones privadas del módulo:** (funciones estáticas).
+7.  **Implementación de la función `main`:** (si es el archivo principal).
+8.  **Implementación de funciones públicas.**
+9.  **Implementación de funciones privadas (estáticas).**
+
+- **Ejemplo de estructura:**
+```c
+// 1. Inclusiones estándar
+#include <stdio.h>
+#include <stdbool.h>
+
+// 3. Inclusiones locales
+#include "utilidades.h"
+
+// 4. Macros
+#define VERSION "1.0"
+
+// 5. Tipos
+typedef struct {
+    int id;
+} mi_tipo_t;
+
+// 6. Prototipos de funciones privadas
+static bool es_valido(int valor);
+
+// 7. Función main (si aplica)
+int main(int argc, char *argv[]) {
+    // ...
+    return 0;
+}
+
+// 8. Funciones públicas
+int funcion_publica(int parametro) {
+    if (!es_valido(parametro)) {
+        return -1;
+    }
+    // ...
+    return 0;
+}
+
+// 9. Funciones privadas
+static bool es_valido(int valor) {
+    return valor > 0;
+}
+```
+
+```
