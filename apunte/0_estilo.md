@@ -1021,343 +1021,260 @@ void convertir_a_mayusculas(char *cadena)
 
 
 (0x0022h)=
-### Regla `0x0022h`: Los punteros nulos deben ser inicializados como `NULL`, no `0`
+### Regla `0x0022h`: Los punteros nulos deben ser inicializados y comparados con `NULL`, no con `0`
 
-Usa `NULL` para inicializar y verificar punteros, no `0`, para mayor claridad y
-coherencia semántica.
+Utilizá la macro `NULL` para una mayor claridad y coherencia semántica al trabajar con punteros.
+
+- **Incorrecto:**
+  ```c
+  int *ptr = 0;
+  if (ptr == 0)
+  {
+    /* ... */
+  }
+  ```
+- **Correcto:**
+  ```c
+  #include <stddef.h> // Para NULL
+  int *ptr = NULL;
+  if (ptr == NULL)
+  {
+    // ...
+  }
+  ```
+
+(0x0023h)=
+### Regla `0x0023h`: Documentá explícitamente los casos en que una función puede retornar `NULL`
+
+Si una función que devuelve un puntero puede retornar `NULL` (por ejemplo, en caso de error), esta posibilidad debe estar claramente documentada.
 
 ```c
-int *ptr = NULL;
-if (ptr == NULL) {
+/**
+ * Busca un usuario por ID.
+ * @param id El ID del usuario a buscar.
+ * @returns Un puntero al usuario si se encuentra, o NULL si no existe
+ *          o si ocurre un error de memoria.
+ */
+usuario_t *buscar_usuario(int id);
+```
+
+(0x0024h)=
+### Regla `0x0024h`: Utilizá `cast` explícito al convertir tipos de punteros
+
+Las conversiones de tipos de punteros deben ser siempre explícitas para evitar errores y mejorar la claridad.
+
+```c
+void *mem = malloc(sizeof(int));
+if (mem != NULL) {
+    int *ptr = (int *)mem;  // Cast explícito
     // ...
 }
 ```
 
-(0x0023h)=
-### Regla `0x0023h`: Documentar explícitamente el uso de punteros nulos.
-
-Cuando una función devuelve punteros, y estos pueden ser `NULL`, documentar en
-que casos nos podemos encontrar con uno.
-
-(0x0024h)=
-### Regla `0x0024h`: Usar punteros con cast explícito al convertir tipos, evitando conversiones implícitas
-
-Las conversiones de tipos deben ser claras y explícitas para evitar errores:
-
-```c
-void *mem = malloc(sizeof(int));
-int *ptr = (int *) mem;  // Cast explícito
-```
-
 (0x0026h)=
-### Regla `0x0025h`: Usar `sizeof` siempre en las asignaciones de memoria dinámica
+### Regla `0x0025h`: Usá siempre `sizeof` en las asignaciones de memoria dinámica
 
-Facilita la modificación y reduce errores al manejar estructuras y tipos
-dinámicos:
+El uso de `sizeof` en lugar de tamaños codificados manualmente (`hardcoded`) reduce errores y facilita el mantenimiento. Es preferible usar `sizeof(*puntero)` en lugar de `sizeof(tipo)`.
 
-```c
-ptr = malloc(sizeof(*ptr));  // Asigna la cantidad correcta de memoria para el tipo de ptr
-```
-
-Ya que calculado manualmente puede ser fácilmente tener el tamaño equivocado y acarrear
-problemas difíciles de detectar.
+- **Incorrecto:**
+  ```c
+  // Peligroso: si el tipo de 'ptr' cambia, este código fallará.
+  int *ptr = malloc(4); 
+  ```
+- **Correcto:**
+  ```c
+  // Asigna la cantidad correcta de memoria para el tipo al que apunta ptr.
+  int *ptr = malloc(sizeof(*ptr));
+  ```
 
 (0x0027h)=
-### Regla `0x0027h`: Verificar siempre los límites de los arreglos antes de acceder a sus elementos
+### Regla `0x0027h`: Verificá siempre los límites de los arreglos antes de acceder a sus elementos
 
-Evita accesos fuera de los límites del arreglo, esto es una de las fuentes más
-comunes de errores en C:
+El acceso fuera de los límites de un arreglo (`out-of-bounds`) es una de las fuentes más comunes de errores y vulnerabilidades en C. Siempre debés validar los índices.
 
-```c
-if (indice >= 0 && indice < tamaño_arreglo) {
-    arreglo[indice] = valor;
-}
-```
+- **Incorrecto (acceso fuera de límites):**
+  ```c
+  int arreglo[10];
+  arreglo[10] = 5; // Error: el último índice válido es 9.
+  ```
+- **Correcto:**
+  ```c
+  int arreglo[10];
+  int indice = 9;
+  if (indice >= 0 && indice < 10) {
+      arreglo[indice] = 5;
+  }
+  ```
 
-En funciones, esto implica también, que es necesario pasar como argumento el
-tamaño del arreglo.
+En funciones, esto implica que el tamaño del arreglo debe ser pasado como argumento.
 
-:::{note} Strings
+:::{note} Cadenas de caracteres
 
-Esto incluye a las cadenas, y es obligatorio cuando la función modifica
-posiciones de la misma.
+Esta regla es especialmente crítica para las cadenas de caracteres, y su cumplimiento es obligatorio cuando una función modifica el contenido de una.
 
 :::
 
 (0x0028h)=
-### Regla `0x0028h`: Usar `enum` en lugar de números mágicos para estados y valores constantes
+### Regla `0x0028h`: Utilizá `enum` en lugar de "números mágicos" para estados y valores constantes
 
-Mejora la legibilidad y reduce errores al manejar múltiples constantes:
+El uso de enumeraciones (`enum`) mejora la legibilidad y previene errores al manejar conjuntos de constantes relacionadas.
 
-```c
-enum Estado { INACTIVO, ACTIVO, PAUSADO };
-Estado estado = ACTIVO;
-```
+- **Incorrecto (números mágicos):**
+  ```c
+  // ¿Qué significan 0, 1 y 2?
+  void procesar_estado(int estado) {
+      if (estado == 0) { /* ... */ }
+  }
+  ```
+- **Correcto:**
+  ```c
+  typedef enum {
+      ESTADO_INACTIVO,
+      ESTADO_ACTIVO,
+      ESTADO_PAUSADO
+  } estado_t;
 
-Esta regla es similar a [](#0x0012h), pero esta es más completa, ya que limita
-los valores a los que están definidos en la enumeración.
+  void procesar_estado(estado_t estado) {
+      if (estado == ESTADO_ACTIVO) { /* ... */ }
+  }
+  ```
 
 (0x0029h)=
-### Regla `0x0029h`: Documentar explícitamente el comportamiento de las funciones al manejar punteros nulos
+### Regla `0x0029h`: Documentá explícitamente el comportamiento de las funciones al manejar punteros nulos como argumentos
 
-Cuando una función acepta o devuelve un puntero nulo, el comportamiento debe
-estar claramente documentado:
+Cuando una función acepta un puntero que puede ser `NULL`, su comportamiento ante este caso debe estar claramente documentado.
 
 ```c
 /**
- * @param ptr Puntero que puede ser NULL.
- * @returns NULL si ocurre un error.
- * @returns ERROR_POR_NULO no se pudió seguir.
+ * Calcula la longitud de una cadena.
+ * @param ptr Puntero a la cadena. Si es NULL, el comportamiento es indefinido
+ *            y la función no debe ser llamada con un puntero nulo.
+ * @pre ptr no debe ser NULL.
+ * @returns La longitud de la cadena.
  */
+size_t calcular_longitud(const char *ptr);
 ```
 
-Esto no implica un cambio en la estructura de la función, es una cuestión de
-documentar la situación en la estructura que tenga la función.
-
 (0x002Ah)=
-### Regla `0x002Ah`: Liberar memoria en el orden inverso a su asignación
+### Regla `0x002Ah`: Liberá la memoria en el orden inverso a su asignación
 
-Esto es especialmente importante en programas complejos donde varias porciones
-de memoria son asignadas en secuencia, como con matrices.
+Este principio es especialmente importante en estructuras de datos complejas (como matrices 2D o listas enlazadas) para evitar dejar memoria huérfana.
 
 ```c
-free(ptr2);
-free(ptr1);
+// Ejemplo para una matriz 2D
+for (size_t i = 0; i < filas; i++) {
+    free(matriz[i]); // Libera cada fila
+}
+free(matriz); // Libera el arreglo de punteros
 ```
 
 (0x002Bh)=
-### Regla `0x002Bh`: Nunca con más de 79 caracteres por línea
+### Regla `0x002Bh`: Las líneas de código no deben exceder los 79 caracteres
 
-Nunca escribas líneas de más de 79 caracteres.
+Nunca debés escribir líneas que excedan los 79 caracteres. El límite de 80 columnas es un estándar de facto que facilita la lectura y la visualización de código en paralelo.
 
-80 caracteres por línea es un estándar de facto para la visualización de código.
-Los lectores de tu código que confían en ese estándar, y tienen su terminal o
-editor dimensionado a 80 caracteres de ancho, pueden caber más en la pantalla
-colocando ventanas una al lado de la otra.
+Si superás este límite, dificultás la lectura para otros. La línea se cortará de forma impredecible o requerirá desplazamiento horizontal, ambos escenarios perjudiciales para la comprensión. Las líneas largas, además, fatigan la vista.
 
-Debes ceñirte a un máximo de 79 caracteres para que siempre haya un espacio en
-la última columna. Esto hace más evidente que la línea no continúa en la
-siguiente. También proporciona un margen derecho.
+Considerá los 79 caracteres como un límite estricto. Determiná cuál es la forma óptima de dividir las líneas extensas; tus lectores lo agradecerán. En C, muchas instrucciones pueden dividirse en varias líneas de forma natural.
 
-Si superas los 80 caracteres, estás haciendo que tu código sea
-significativamente más difícil de leer para las personas que intentan confiar en
-el estándar de 80 columnas. O bien la línea se enrolla, lo que dificulta la
-lectura, o bien los lectores tienen que desplazar la ventana hacia la derecha
-para leer los últimos caracteres. Cualquiera de estos dos resultados hace que el
-código sea más difícil de leer que si hubieras resuelto un salto de línea tú
-mismo.
+- **Incorrecto:**
+  ```c
+  printf("Este es un mensaje de registro extremadamente largo que definitivamente excede el límite de 79 caracteres y hace que el código sea mucho más difícil de leer para otros desarrolladores.\n");
+  ```
+- **Correcto:**
+  ```c
+  printf("Este es un mensaje de registro extremadamente largo que se divide "
+         "en múltiples líneas para cumplir con el estándar de 80 columnas.\n");
+  ```
 
-Es más difícil leer líneas largas porque tus ojos tienen que desplazarse más
-lejos para llegar al principio de la siguiente línea, y cuanto más lejos tengan
-que ir, más probable es que tengas que reajustarte visualmente. Los estilos de
-ancho 100 y 120 son más fáciles de escribir, pero más difíciles de leer.
-
-Puede ser muy tentador dejar que una línea aquí o allá supere los 79 caracteres,
-pero sus lectores pagarán el precio cada vez que tengan que leer una línea así.
-Trate los 79 caracteres como un límite estricto, sin peros. Averigüe cuál es la
-mejor manera de dividir las líneas largas y sus lectores se lo agradecerán.
-
-En C, muchas instrucciones admiten estar en dos líneas, y otras necesitan del
-carácter de continuación `\` para seguir en la línea siguiente.
-
-Haga lo que hacen los demás, escriba para las 80 columnas y todos saldremos
-ganando.
+Adoptá la práctica estándar: escribí para 80 columnas, y el beneficio será para todos.
 
 - [Emacs Wiki: Regla de las ochenta columnas](http://www.emacswiki.org/emacs/EightyColumnRule)
 - [Programmers' Stack Exchange: ¿Sigue siendo relevante el límite de 80 caracteres?](http://programmers.stackexchange.com/questions/604/is-the-80-character-limit-still-relevant-in-times-of-widescreen-monitors)
 
-
 (0x002Ch)=
-### Regla `0x002Ch`: Desarrolla y compila siempre con todas las advertencias (y más) activadas.
+### Regla `0x002Ch`: Desarrollá y compilá siempre con todas las advertencias del compilador activadas
 
-No hay excusas. Desarrolla y compila siempre con las advertencias activadas.
-Resulta, sin embargo, que `-Wall` y `-Wextra` en realidad no activan «todas» las
-advertencias. Hay algunas otras que pueden ser realmente útiles:
+No hay excusas. Desarrollá y compilá siempre con el máximo nivel de advertencias posible. Las opciones `-Wall` y `-Wextra` no activan *todas* las advertencias útiles. Considerá el siguiente conjunto para `gcc` o `clang`:
 
 ```make
 CFLAGS += -Wall -Wextra -Wpedantic \
           -Wformat=2 -Wno-unused-parameter -Wshadow \
           -Wwrite-strings -Wstrict-prototypes -Wold-style-definition \
           -Wredundant-decls -Wnested-externs -Wmissing-include-dirs
-
-# Warnings de GCC que Clang no proporciona:
-ifeq ($(CC),gcc)
-    CFLAGS += -Wjump-misses-init -Wlogical-op
-endif
 ```
 
-Compilar con las optimizaciones activadas también puede ayudar a detectar
-errores:
-
-```make
-CFLAGS += -O2
-```
+Compilar con optimizaciones (`-O2` o superior) también puede ayudar al compilador a detectar errores adicionales mediante análisis estático.
 
 (0x002Dh)=
-### Regla `0x002Dh`: Utiliza guardas de inclusión
+### Regla `0x002Dh`: Utilizá guardas de inclusión en todos los archivos de cabecera
 
-En todos los headers (`.h`) creados, para evitar la doble inclusión
+Todos los archivos de cabecera (`.h`) deben estar protegidos por guardas de inclusión para prevenir problemas de doble definición si son incluidos múltiples veces.
 
 [Include guards](https://en.wikipedia.org/wiki/Include_guard) permite incluir un
 archivo header «dos veces» sin que se interrumpa la compilación.
 
 ```c
-// Ejemplo de guarda
-#ifndef INCLUDED_ALPHABET_H
-#define INCLUDED_ALPHABET_H
+// Ejemplo de guarda de inclusión
+#ifndef MI_MODULO_H
+#define MI_MODULO_H
 
-...
+// Contenido del header...
 
-#endif // ifndef INCLUDED_ALPHABET_H
+#endif // MI_MODULO_H
 ```
 
-El macro utilizado debe ser similar al del ejemplo, terminar con `_H` y
-utilizar un nombre relacionado con el archivo que lo contiene.
+El nombre de la macro debe ser único, típicamente basado en el nombre del archivo. Aunque existen otras técnicas, las guardas de inclusión son el método más extendido y compatible. Hacen la vida de los usuarios de tu biblioteca más fácil.
 
-[Rob Pike argumenta en contra de las protecciones de inclusión](http://www.lysator.liu.se/c/pikestyle.html),
-diciendo que nunca se deben incluir archivos en archivos de inclusión. Dice que
-las protecciones de inclusión «resultan en miles de líneas de código
-innecesarias que pasan por el analizador léxico».
+#### Comentarios en inclusiones no estándar
 
-De hecho,
-[GCC detectará los include guards](http://gcc.gnu.org/onlinedocs/cppinternals/Guard-Macros.html),
-y no leerá tales ficheros una segunda vez. No sé si otros compiladores realizan
-esta optimización.
-
-No creo que sea una buena idea requerir a tus usuarios que incluyan las
-dependencias de tus ficheros de cabecera. Las dependencias de tus archivos de
-cabecera no deberían considerarse realmente «públicas». Aplicaría la regla «no
-dependas de lo que incluyen tus ficheros de cabecera», pero se desmorona en
-cuanto los ficheros de cabecera utilizan cosas que no necesitas, como `FILE` o
-`bool`. Los usuarios no deberían preocuparse por eso si no lo necesitan.
-
-Así que, escribe siempre «include guards», y haz la vida de tus usuarios más
-fácil.
-
-#### Comentarios al incluir un header no estandar
-
-Los comentarios en los headers `#include`s de bibliotecas no estándar para
-indicar qué símbolos usas de ellas.
-
-Los espacios de nombres son uno de los grandes avances del desarrollo de
-software. Por desgracia, C se lo perdió (los ámbitos no son espacios de
-nombres). Pero, como los espacios de nombres son tan fantásticos, deberíamos
-intentar simularlos con comentarios.
+Añadí comentarios a las directivas `#include` de bibliotecas no estándar para indicar qué símbolos estás utilizando de ellas.
 
 ```c
 #include <test.h> // Test, tests_run
 #include "trie.h" // Trie, Trie_*
 ```
 
-Esto ofrece algunas ventajas:
+Esto ofrece varias ventajas:
+- Los lectores no necesitan usar `grep` o consultar documentación externa para saber de dónde proviene un símbolo.
+- Facilita la identificación de inclusiones innecesarias.
+- Fomenta la reflexión sobre la contaminación del espacio de nombres.
 
-- los lectores no se ven obligados a consultar la documentación o utilizar
-  `grep` para averiguar dónde está definido un símbolo (o, si no sigue la regla
-  siguiente, de dónde procede): su código simplemente se lo dice
-- los desarrolladores tienen la esperanza de poder determinar qué `#include`s se
-  pueden eliminar y cuáles no
-- los desarrolladores se ven forzados a considerar la contaminación del espacio
-  de nombres (que de otro modo se ignora en la mayoría del código C), y les
-  anima a proporcionar sólo cabeceras pequeñas y bien definidas
+#### Incluí la definición de cada símbolo que utilices
 
-El inconveniente es que los comentarios `#include` no se comprueban ni se hacen
-cumplir. He estado intentando escribir un comprobador para esto durante bastante
-tiempo, pero por ahora, no hay nada que impida que los comentarios sean
-erróneos - ya sea mencionando símbolos que ya no se usan, o no mencionando
-símbolos que sí se usan. En tu proyecto, intenta cortar estos problemas de raíz,
-para evitar que se extiendan. Siempre debes poder confiar en tu código. Este
-mantenimiento es molesto, seguro, pero creo que los comentarios `#include`
-merecen la pena en conjunto.
+No dependas de las inclusiones transitivas. Si tu código utiliza un símbolo, incluí explícitamente el archivo de cabecera donde se define. Esto hace tu código más robusto ante cambios en las bibliotecas que usás y más claro para los lectores.
 
-Encontrar de dónde vienen las cosas es siempre uno de mis principales retos
-cuando aprendo una base de código. Podría ser mucho más fácil. Nunca he visto
-ningún proyecto que escriba comentarios `#include` así, pero me encantaría que
-se convirtiera en algo habitual.
+#### Evitá las cabeceras unificadas ("umbrella headers")
 
-#### `#include` la definición de todo lo que utilices.
-
-No dependas de lo que incluyan tus cabeceras. Si tu código usa un símbolo,
-incluye el fichero de cabecera donde ese símbolo está definido. Entonces, si tus
-cabeceras cambian sus inclusiones, tu código no se romperá.
-
-Además, combinado con la regla de comentario `#include` anterior, esto ahorra a
-tus lectores y compañeros desarrolladores tener que seguir un rastro de
-inclusiones solo para encontrar la definición de un símbolo que estás usando. Tu
-código debería decirles de dónde viene.
-
-#### Evitar las cabeceras unificadas
-
-Las cabeceras unificadas son generalmente malas, porque liberan al desarrollador
-de la biblioteca de la responsabilidad de proporcionar módulos sueltos
-claramente separados por su propósito y abstracción. Incluso si el desarrollador
-(piensa que) hace esto de todos modos, una cabecera unificada aumenta el tiempo
-de compilación, y acopla el programa del usuario a toda la biblioteca,
-independientemente de si la necesita. Hay muchas otras desventajas, mencionadas
-en los puntos anteriores.
-
-Hubo una buena exposición sobre las cabeceras unificadas en
-[Programmers' Stack Exchange](http://programmers.stackexchange.com/questions/185773/library-design-provide-a-common-header-file-or-multiple-headers).
-Una respuesta menciona que es razonable que algo como GTK+ sólo proporcione un
-único archivo de cabecera. Estoy de acuerdo, pero creo que eso se debe al mal
-diseño de GTK+, y no es intrínseco a un conjunto de herramientas gráficas.
-
-Es más difícil para los usuarios escribir múltiples `#include`s al igual que es
-más difícil para los usuarios escribir tipos. Traer dificultad a esto es
-perderse el bosque por los árboles.
+Las cabeceras que incluyen una biblioteca completa (`#include <biblioteca.h>`) son, por lo general, una mala práctica. Incrementan los tiempos de compilación y acoplan fuertemente tu código a toda la biblioteca, aunque solo necesites una pequeña parte. Es preferible incluir únicamente las cabeceras específicas que contienen los símbolos que necesitás.
 
 (0x002Eh)=
-### Regla `0x002Eh`: Las variables que refieran al tamaño o posición de un arreglo deben ser `size_t`
+### Regla `0x002Eh`: Las variables que representan tamaños o índices de arreglos deben ser de tipo `size_t`
 
-El tipo `size_t` es el tipo de dato entero sin signo que devuelve el operador
-`sizeof`. Está diseñado específicamente para representar el tamaño de cualquier
-objeto en memoria, lo que lo convierte en la opción semánticamente correcta y
-más segura para los índices y tamaños de los arreglos.
+El tipo `size_t` es un entero sin signo devuelto por el operador `sizeof`. Está diseñado para representar el tamaño de cualquier objeto en memoria, lo que lo convierte en la opción semánticamente correcta y más segura para índices y tamaños de arreglos.
 
-Usar `size_t` tiene varias ventajas:
+Su uso ofrece ventajas de portabilidad (puede contener el índice más grande posible en cualquier plataforma), claridad (comunica que el valor no puede ser negativo) y seguridad (evita errores de comparación entre tipos con y sin signo).
 
-- **Portabilidad**: Garantiza que la variable pueda contener el índice más
-  grande posible para un arreglo en cualquier plataforma, algo que un `int` no
-  siempre puede asegurar.
-- **Claridad**: Comunica explícitamente que la variable representa un tamaño o
-  un índice, que por naturaleza no pueden ser negativos.
-- **Seguridad**: Evita advertencias y errores sutiles del compilador al comparar
-  variables con signo (como `int`) con valores sin signo (como el resultado de
-  `sizeof`).
+- **Incorrecto:**
+  ```c
+  // Usar 'int' puede causar advertencias de comparación con/sin signo
+  // y podría no ser suficientemente grande en algunas plataformas.
+  void procesar(const int datos[], int tamano) { /* ... */ }
+  ```
+- **Correcto:**
+  ```c
+  #include <stddef.h> // Necesario para size_t
 
-**Ejemplo Correcto:**
-
-```c
-#include <stdio.h>
-#include <stddef.h> // Necesario para size_t
-
-// La función recibe el tamaño como 'size_t' y usa 'size_t' para el índice.
-void imprimir_arreglo(const int arreglo[], size_t tamano)
-{
-    printf("Contenido del arreglo: ");
-    for (size_t i = 0; i < tamano; i++)
-    {
-        printf("%d ", arreglo[i]);
-    }
-    printf("\n");
-}
-```
-
-**Contraejemplo (Uso de `int`):**
-
-```c
-// Contraejemplo: Usar 'int' es menos robusto y puede generar advertencias.
-void procesar_elementos(const int arreglo[], int tamano)
-{
-    // Si 'tamano' fuera muy grande en un sistema de 64 bits, un 'int'
-    // podría no ser suficiente para almacenarlo, llevando a un desbordamiento.
-    // Además, usar 'int' para 'i' puede causar advertencias de "signed/unsigned
-    // mismatch" si se compara con el resultado de sizeof().
-    for (int i = 0; i < tamano; i++)
-    {
-        // ...
-    }
-}
-```
+  // La función recibe el tamaño como 'size_t' y usa 'size_t' para el índice.
+  void imprimir_arreglo(const int arreglo[], size_t tamano)
+  {
+      for (size_t i = 0; i < tamano; i++)
+      {
+          printf("%d ", arreglo[i]);
+      }
+      printf("\n");
+  }
+  ```
 
 (0x002Fh)=
 ### Regla `0x002Fh`: Las variables declaradas como `const` van en `MAYUSCULAS`
