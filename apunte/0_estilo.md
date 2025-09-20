@@ -1,57 +1,38 @@
 ---
 title: Cuestiones de estilo
 short_title: 0x0000h - Estilo
-subtitle: Manteniendo el orden y la prolijidad.
+subtitle: Pautas para la organización y prolijidad del código.
 ---
 
 ## Introducción
 
-Este documento reúne un conjunto de reglas de estilo diseñadas para hacer que el
-código en C sea más claro, fácil de leer y menos propenso a errores. Programar
-en C puede ser bastante flexible, pero también es fácil caer en malas prácticas
-que pueden llevar a errores difíciles de detectar. Por eso, tener un conjunto de
-reglas claras ayuda a mantener el código ordenado y seguro.
+Este documento establece un conjunto de reglas de estilo, diseñadas para que su código en C sea más claro, legible y menos propenso a errores. La programación en C ofrece una gran flexibilidad, pero ello también facilita la adopción de malas prácticas que pueden conducir a errores de difícil detección. Por este motivo, la adhesión a un conjunto de reglas claras es fundamental para mantener el código ordenado y seguro.
 
-La idea detrás de estas reglas es que un buen código no solo funcione, sino que
-también sea comprensible para cualquier persona que tenga que leerlo, ya sea el
-mismo programador en el futuro o alguien más que se sume al proyecto. Un código
-limpio y bien organizado facilita mucho el trabajo en equipo, ahorra tiempo en
-correcciones y evita dolores de cabeza cuando llega el momento de depurarlo o
-actualizarlo.
+La idea detrás de estas reglas es que un código de calidad no solo debe ser funcional, sino también comprensible para cualquier profesional que deba leerlo, ya sea vos mismo en el futuro o un colega que se incorpore al proyecto. Un código limpio y bien organizado facilita la colaboración, ahorra tiempo en la fase de corrección y previene complicaciones durante la depuración o actualización del software.
 
-Estas reglas cubren todo, desde cómo nombrar variables y funciones hasta cómo
-estructurar los condicionales y lazos. Seguirlas no solo ayuda a mantener la
-coherencia en el proyecto, sino que también hace que el código sea más robusto y
-fácil de mantener a largo plazo.
+Estas reglas abarcan desde la nomenclatura de variables y funciones hasta la estructuración de condicionales y lazos. Su observancia no solo contribuye a la coherencia del proyecto, sino que también resulta en un código más robusto y mantenible a largo plazo.
 
-Comenzar con reglas rígidas en un lenguaje flexible, nos da un respaldo
-adicional y cuando nuestro entendimiento del lenguaje mejore, podemos comenzar a
-doblar las reglas y llegar a un estilo propio.
+Al comenzar, la aplicación de reglas estrictas en un lenguaje flexible como C te proporciona un marco sólido. A medida que tu comprensión del lenguaje se profundice, podés adaptar estas reglas para desarrollar un estilo propio.
 
-## Se aceptan sugerencias y conversiones del tema
+## Apertura a Sugerencias y Debate
 
-Estamos abiertos a conversar todas las reglas, solo tienen que abrir un hilo en
-Discussions (o un Ticket en el Issue Tracker) así como nuevas reglas,
-clasificaciones, explicaciones y potenciales excepciones.
+Estamos abiertos a debatir todas las reglas. Para ello, solo tenés que abrir un hilo en Discussions o un ticket en el Issue Tracker. Aceptamos propuestas de nuevas reglas, clasificaciones, explicaciones y potenciales excepciones.
 
 ## Principios Clave
 
-- **Claridad:** El código debe ser fácil de entender.
+- **Claridad:** El código debe ser fácil de leer.
 - **Mantenibilidad:** Debe ser sencillo de modificar y extender.
-- **Consistencia:** El uso de un estilo uniforme mejora la colaboración.
-- **Eficiencia:** Se debe optimizar el rendimiento sin sacrificar legibilidad.
+- **Consistencia:** El uso de un estilo uniforme optimiza la colaboración.
+- **Eficiencia:** Se debe optimizar el rendimiento sin sacrificar la legibilidad.
 
-## Las reglas
+## Las Reglas
 
 (En algún momento dejaremos)
 
 (0x0000h)=
-### Regla `0x0000h`: La claridad y prolijidad son muy importantes
+### Regla `0x0000h`: La claridad y prolijidad son de máxima importancia
 
-El código debe ser claro y fácil de entender para cualquiera que lo lea, no solo
-para quien lo escribe. Un código limpio y prolijo evita errores, facilita el
-mantenimiento y mejora la colaboración en equipo. La claridad es preferible a
-trucos de programación o técnicas avanzadas que solo complican el entendimiento.
+El código debe ser claro y fácil de entender para cualquier lector, no solo para su autor. Un código limpio y prolijo previene errores, facilita el mantenimiento y mejora la colaboración en equipo. La claridad es siempre preferible a técnicas de programación ofuscadas que solo complican la comprensión.
 
 ```diff
 - for (int i = 0, j = 10; i < j; i++, j--) { printf("%d", i+j); }
@@ -65,12 +46,9 @@ trucos de programación o técnicas avanzadas que solo complican el entendimient
 (0x0001h)=
 ### Regla `0x0001h`: Los identificadores deben ser descriptivos
 
-Los nombres de variables, funciones y demás identificadores deben reflejar
-claramente su propósito. Esto ayuda a que el código sea autodescriptivo, sin
-necesidad de comentarios adicionales. Usar nombres significativos facilita la
-lectura y comprensión.
+Los nombres de variables, funciones y demás identificadores deben reflejar con precisión su propósito. Esto contribuye a que el código sea autodescriptivo, minimizando la necesidad de comentarios adicionales. El uso de nombres significativos facilita la lectura y la comprensión.
 
-- Malos identificadores
+- Identificadores inadecuados:
 
 ```c
 int a, b;
@@ -78,7 +56,7 @@ a = obtener_precio();
 b = calcular_descuento(a);
 ```
 
-- Buenos identificadores
+- Identificadores adecuados:
 
 ```c
 int precio, descuento;
@@ -86,20 +64,17 @@ precio = obtener_precio();
 descuento = calcular_descuento(precio);
 ```
 
-#### Pero, no tengas miedo de los nombres cortos de variables
+#### Sin embargo, no debés temer el uso de nombres de variables cortos
 
-1. Si el ámbito de la variable es reducido, (entra en la pantalla)
-2. La variable se usa en muchos lugares
-3. Tiene un identificador de una o dos letras obvias para representarla.
+Bajo ciertas condiciones, los nombres cortos son aceptables y hasta preferibles:
 
-Probá y fijate si ayuda a la legibilidad. _Probablemente sí_.
+1.  Si el ámbito de la variable es reducido (visible en una sola pantalla).
+2.  Si la variable se utiliza con alta frecuencia en ese ámbito.
+3.  Si existe un identificador de una o dos letras cuyo significado es obvio en el contexto (matemático, contadores, etc.).
 
-El ejemplo primordial de esto es ni más ni menos que `i` y `j` como contadores.
-Y situaciones en las que lo que estamos programando, se representa de esta
-forma, como algo matemático.
+Probá y observá si el nombre corto contribuye a la legibilidad. Es probable que así sea.
 
-De todas formas, si aplican las condiciones anteriores quizás tengamos alguna
-otra.
+El ejemplo canónico es el uso de `i` y `j` como variables de control en lazos. Otras situaciones se presentan al implementar algoritmos matemáticos donde la notación es estándar.
 
 (0x0002h)=
 ### Regla `0x0002h`: Una declaración de variable por línea
@@ -112,14 +87,11 @@ otra.
 ```
 
 (0x0003h)=
-### Regla `0x0003h`: Siempre inicializar la variable a un valor conocido
+### Regla `0x0003h`: Siempre debés inicializar las variables a un valor conocido
 
-Es importante que una variable utilizada como R-Value tenga un valor conocido
-antes de tomar lo que tenga.
+Es imperativo que una variable utilizada como R-Value contenga un valor conocido antes de su uso.
 
-Incluso si nuestro programa corre en un sistema operativo moderno, en el que se
-recibe la memoria en `0`, la reutilización de esta, puede hacer que valores
-asumidos en este valor no lo estén.
+Aunque un sistema operativo moderno pueda inicializar la memoria en `0`, la reutilización de la misma puede introducir valores residuales. No debés confiar en una inicialización implícita.
 
 - Incorrecto:
 
@@ -135,12 +107,11 @@ int contador = 0;
 
 :::{note} Opciones de compilación
 
-Nos va a avisar que estamos utilizando una variable sin inicializar, pero solo
-si tenemos activas las verificaciones y mensajes adicionales.
+El compilador le advertirá sobre el uso de variables sin inicializar, pero solo si activás las verificaciones y mensajes adicionales correspondientes.
 
 :::
 
-#### Incluyendo evitar inicializaciones implícitas en estructuras.
+#### Esto incluye evitar inicializaciones implícitas en estructuras.
 
 - Incorrecto:
 
@@ -155,29 +126,36 @@ struct Datos datos = {0};
 ```
 
 (0x0004h)=
-### Regla `0x0004h`: Un espacio antes y después de cada operador
+### Regla `0x0004h`: Un espacio antes y después de cada operador binario
 
 ```diff
 -uno=dos+tres;
 +uno = dos + tres;
 ```
 
-(0x0005h)=
-### Regla `0x0005h`: Todas las estructuras de control van con llaves
+- **Incorrecto:**
+  ```c
+  resultado=valor1*valor2+offset;
+  ```
+- **Correcto:**
+  ```c
+  resultado = valor1 * valor2 + offset;
+  ```
 
-Aunque las llaves son técnicamente opcionales, para mantener la prolijidad y
-consistencia, deben ir siempre. Además, nos evitamos que al modificar el
-programa luego nos encontremos con que el programa hace algo inesperado.
+(0x0005h)=
+### Regla `0x0005h`: Todas las estructuras de control deben utilizar llaves
+
+Aunque las llaves son técnicamente opcionales para bloques de una sola línea, su uso es obligatorio para mantener la prolijidad y la consistencia. Además, se evita que futuras modificaciones al programa introduzcan comportamientos inesperados.
 
 ```c
 if (condicion) {
-    //camino true
+    // Camino verdadero
 } else {
-    //camino false
+    // Camino falso
 }
 ```
 
-Incluso para bloques de una sola línea.
+Esto aplica incluso para bloques de una sola línea.
 
 ```diff
 - if (condicion) accion;
@@ -190,9 +168,6 @@ Incluso para bloques de una sola línea.
   ```c
   if (x > 0) x++;
   ```
-  ```c
-  if (x > 0) x++;
-  ```
 - Correcto:
   ```c
   if (x > 0)
@@ -200,14 +175,8 @@ Incluso para bloques de una sola línea.
       x++;
   }
   ```
-  ```c
-  if (x > 0)
-  {
-      x++;
-  }
-  ```
 
-Y las mismas, van en una línea propia:
+Las llaves, a su vez, deben colocarse en una línea propia.
 
 - Incorrecto:
 
@@ -227,13 +196,11 @@ if (condicion)
 ```
 
 (0x0006h)=
-### Regla `0x0006h`: Los lazos sin `break` y `continue` en su lugar, lazos con bandera
+### Regla `0x0006h`: No utilizar `break` ni `continue`; en su lugar, empleá lazos con bandera
 
-El uso de `break` y `continue` dentro de los lazos puede generar un flujo de control
-inesperado, lo que dificulta el seguimiento del programa. Es preferible utilizar
-una bandera (variable de control) para salir de los lazos de forma explícita y
-ordenada, lo que hace el código más predecible y fácil de mantener.
+El uso de `break` y `continue` puede generar un flujo de control difícil de seguir. Es preferible utilizar una variable de control (bandera) para gestionar la terminación de los lazos de forma explícita y ordenada. Esto produce un código más predecible y mantenible.
 
+- **Incorrecto (Uso de `break` y `continue`):**
 ```c
 #include <stdio.h>
 
@@ -258,8 +225,7 @@ int main()
 }
 ```
 
-Uso de bandera
-
+- **Correcto (Uso de bandera):**
 ```c
 #include <stdio.h>
 #include <stdbool.h>
@@ -276,11 +242,9 @@ int main()
         if (i == 8)
         {
             // "Apagamos" la bandera para salir del bucle en
-            // "Apagamos" la bandera para salir del bucle en
             // el inicio del siguiente lazo
             seguir_ejecutando = false;
         }
-        else if (i != 4) // Y en lugar de 'continue', simplemente
         else if (i != 4) // Y en lugar de 'continue', simplemente
                          //  no ejecutamos la acción
         {
@@ -293,15 +257,11 @@ int main()
 ```
 
 (0x0007h)=
-### Regla `0x0007h`: Prefieran usar while en lugar de `for`
+### Regla `0x0007h`: Preferí el uso de `while` en lugar de `for`
 
-El lazo `while` es más flexible y adecuado cuando no se conoce de antemano el
-número de iteraciones. Además, el `while` es generalmente más fácil de leer cuando
-la condición de parada no está claramente relacionada con un contador. Si se
-utiliza un lazo para repetir indefinidamente o hasta que una condición
-específica sea verdadera, `while` es preferible a `for`.
+El lazo `while` ofrece mayor flexibilidad y es más adecuado cuando el número de iteraciones no se conoce de antemano. Generalmente, `while` resulta más legible si la condición de parada no es un simple contador. Para lazos de repetición indefinida o condicional, `while` es la estructura preferible.
 
-- Incorrecto:
+- **Incorrecto (abuso de `for`):**
 
 ```c
 #include <stdio.h>
@@ -315,7 +275,7 @@ int main()
 
     // Se fuerza la lectura del dato dentro de la declaración y el paso del 'for'.
     // Esto es confuso y rompe la claridad del código.
-    for (printf("Ingrese un número (0 termina): "), scanf("%d", &numero);
+    for (printf("Ingrese un número (0 termina): "), scanf("%d", &numero); 
          numero != 0;
          printf("Ingrese un número (0 para terminar): "), scanf("%d", &numero))
     {
@@ -328,7 +288,7 @@ int main()
 }
 ```
 
-- Correcto:
+- **Correcto (uso de `while`):**
 
 ```c
 #include <stdio.h>
@@ -359,13 +319,11 @@ int main()
 ```
 
 (0x0008h)=
-### Regla `0x0008h`: Una sola instrucción `return` por función
+### Regla `0x0008h`: Cada función debe tener una única instrucción `return`
 
-Limitar una función a un único punto de retorno mejora la legibilidad y facilita
-el seguimiento del flujo de control. Además, ayuda a evitar errores relacionados
-con la liberación de recursos o la ejecución de código después de múltiples
-retornos.
+Limitar una función a un único punto de salida mejora la legibilidad y facilita el seguimiento del flujo de control. Adicionalmente, ayuda a prevenir errores relacionados con la liberación de recursos o la ejecución de código de limpieza.
 
+- **Incorrecto (múltiples `return`):**
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -407,6 +365,7 @@ int procesar_archivo_con_multiples_retornos(const char *nombre_archivo)
 }
 ```
 
+- **Correcto (un solo `return`):**
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -464,36 +423,45 @@ int procesar_archivo_con_un_retorno(const char *nombre_archivo)
 ```
 
 (0x0009h)=
-### Regla `0x0009h`: Las funciones no van con `printf` o `scanf`, a no ser que ese sea su propósito
+### Regla `0x0009h`: Las funciones no deben contener `printf` o `scanf`, a menos que ese sea su propósito explícito
 
-Las funciones deben estar separadas de la entrada y salida (I/O) para que sean
-útiles en otros contextos y se puedan probar.
+Las funciones deben desacoplarse de las operaciones de entrada y salida (I/O) para maximizar su reutilización y facilitar las pruebas unitarias. Si el propósito de una función no es realizar I/O, dichas llamadas deben ser delegadas a otras funciones especializadas.
 
-Si el propósito de la función no es realizar I/O, estos llamados deben evitarse,
-delegando la entrada y salida a otras funciones.
+- **Incorrecto:**
+  ```c
+  // La función mezcla la lógica de cálculo con la presentación (salida).
+  // Esto la hace menos reutilizable y más difícil de probar.
+  void calcular_e_imprimir_iva(float monto) {
+      float iva = monto * 0.21;
+      printf("El IVA es: %.2f\n", iva);
+  }
+  ```
+- **Correcto:**
+  ```c
+  // La función tiene una única responsabilidad: calcular.
+  float calcular_iva(float monto) {
+      return monto * 0.21;
+  }
+
+  // Quien la llama decide qué hacer con el resultado (imprimirlo, guardarlo, etc.).
+  int main() {
+      float precio = 100.0;
+      float iva = calcular_iva(precio);
+      printf("El IVA de %.2f es: %.2f\n", precio, iva);
+      return 0;
+  }
+  ```
 
 (0x000Ah)=
-### Regla `0x000Ah`: Todas las funciones con documentación completa y estructurada
+### Regla `0x000Ah`: Todas las funciones deben incluir documentación completa y estructurada
 
-El código no solo tiene funcionar, sino que también debe ser entendible para
-otros programadores y para tú "yo" del futuro. Una documentación razonable
-transforma una simple función en un componente reutilizable y fiable.
+El código no solo debe funcionar, sino que debe ser comprensible para otros programadores y para tu "yo" del futuro. Una documentación adecuada transforma una simple función en un componente reutilizable y fiable.
 
-Al describir claramente qué hace la función, qué datos necesita (parámetros) y
-qué resultado produce (valor de retorno), se crea un "contrato" que define su
-comportamiento. Esto ahorra tiempo y reduce errores, ya que no es necesario leer
-y descifrar la lógica interna cada vez que se quiere utilizar la función.
+Al describir qué hace la función, qué datos necesita (`@param`) y qué resultado produce (`@returns`), se establece un "contrato" que define su comportamiento. Esto ahorra tiempo y reduce errores, ya que no es necesario descifrar la lógica interna cada vez que se utiliza la función.
 
-El formato de documentación especificado, que utiliza etiquetas como `@param`,
-`@pre`, `@returns` y `@post`, no es una elección arbitraria. Sigue un estándar
-similar al de herramientas como Doxygen, que pueden procesar estos comentarios
-para generar manuales de referencia automáticamente. La idea de usar esta
-estructura, es estructurar y pensar de manera explícita sobre las precondiciones
-y las poscondiciones. Este nivel de detalle es crucial para construir software
-robusto y mantenible, donde cada pieza del código tiene un propósito y unas
-expectativas bien definidas.
+El formato de documentación especificado, que utiliza etiquetas como `@param`, `@pre`, `@returns` y `@post`, sigue un estándar similar al de herramientas como Doxygen, capaces de generar manuales de referencia automáticamente. El objetivo es que estructures y pienses de manera explícita sobre las precondiciones y poscondiciones, un nivel de detalle crucial para construir software robusto.
 
-Opcionalmente, se puede pensar en las invariantes con la etiqueta `@invariant`.
+Opcionalmente, podés especificar las invariantes con la etiqueta `@invariant`.
 
 ```c
 /**
@@ -531,86 +499,169 @@ int suma_lenta(int sumando, int sumador);
 ```
 
 (0x000Bh)=
-### Regla `0x000Bh`: Sin usar variables globales, no están permitidas
+### Regla `0x000Bh`: No se permite el uso de variables globales
 
-Las variables globales pueden ser modificadas desde cualquier parte del
-programa, lo que puede causar efectos secundarios inesperados y dificultar el
-rastreo de errores.
+Las variables globales pueden ser modificadas desde cualquier parte del programa, lo que causa efectos secundarios impredecibles y dificulta el rastreo de errores. Su uso está prohibido.
+
+- **Incorrecto:**
+  ```c
+  int contador_global = 0; // Variable global
+
+  void incrementar_contador() {
+      contador_global++; // Efecto secundario oculto y peligroso
+  }
+
+  void imprimir_valor() {
+      // El comportamiento de esta función depende de un estado externo
+      // y no documentado en sus parámetros.
+      printf("Valor: %d\n", contador_global);
+  }
+  ```
+- **Correcto:**
+  ```c
+  // La función recibe el estado que necesita como parámetro.
+  int incrementar(int contador) {
+      return contador + 1;
+  }
+
+  void imprimir_valor(int valor) {
+      printf("Valor: %d\n", valor);
+  }
+
+  int main() {
+      int contador_local = 0;
+      contador_local = incrementar(contador_local);
+      imprimir_valor(contador_local);
+      return 0;
+  }
+  ```
 
 (0x000Ch)=
-### Regla `0x000Ch`: Siempre que sea posible, una responsabilidad por función
+### Regla `0x000Ch`: Cada función debe tener una única responsabilidad (Principio de Responsabilidad Única)
 
-Cada función debe encargarse de una sola tarea o responsabilidad. Esto mejora la
-legibilidad y facilita la reutilización y el mantenimiento del código. Las
-funciones pequeñas y especializadas son más fáciles de probar y depurar.
+Cada función debe encargarse de una sola tarea. Esto mejora la legibilidad, la reutilización y el mantenimiento del código. Las funciones pequeñas y especializadas son más fáciles de probar y depurar.
+
+- **Incorrecto:**
+  ```c
+  // Esta función tiene dos responsabilidades: encontrar el máximo y calcular la suma.
+  int procesar_arreglo(const int arr[], size_t n, int *maximo) {
+      int suma = 0;
+      *maximo = arr[0];
+      for (size_t i = 0; i < n; i++) {
+          suma = suma + arr[i];
+          if (arr[i] > *maximo) {
+              *maximo = arr[i];
+          }
+      }
+      return suma;
+  }
+  ```
+- **Correcto:**
+  ```c
+  // Cada función tiene una única y clara responsabilidad.
+  int calcular_suma(const int arr[], size_t n) {
+      int suma = 0;
+      for (size_t i = 0; i < n; i++) {
+          suma += arr[i];
+      }
+      return suma;
+  }
+
+  int encontrar_maximo(const int arr[], size_t n) {
+      int maximo = arr[0];
+      for (size_t i = 1; i < n; i++) {
+          if (arr[i] > maximo) {
+              maximo = arr[i];
+          }
+      }
+      return maximo;
+  }
+  ```
 
 (0x000Dh)=
-### Regla `0x000Dh`: Las condiciones complejas deben ser simplificadas y comentadas
+### Regla `0x000Dh`: Las condiciones complejas deben ser simplificadas o comentadas
 
-Si una condición contiene múltiples operadores lógicos, divídela en partes más
-pequeñas o agrega comentarios explicativos.
+Si una condición contiene múltiples operadores lógicos, considerá dividirla en partes más pequeñas o agregar comentarios que expliquen su lógica.
 
+- **Incorrecto (difícil de leer):**
 ```c
-if (condicion1 && (condicion2 || !condicion3)) {
-    // Explicar qué hace cada condición
+if ((usuario_activo && tiene_permisos) || (es_admin && !modo_mantenimiento)) {
+    // ...
 }
 ```
 
-Aunque probablemente, si es _tan_ complejo, sea mejor dividirlo en varios `if`.
+- **Correcto (simplificado con variables booleanas):**
+```c
+// Explicar qué valida la condición completa
+bool puede_acceder = usuario_activo && tiene_permisos;
+bool es_admin_con_acceso = es_admin && !modo_mantenimiento;
+
+if (puede_acceder || es_admin_con_acceso) {
+    // ...
+}
+```
+
+Sin embargo, si la expresión es excesivamente compleja, la mejor opción es refactorizarla en varias estructuras `if` anidadas o funciones auxiliares.
 
 (0x000Eh)=
-### Regla `0x000Eh`: Los arreglos estáticos solo pueden ser creados de un tamaño fijo al compilar
+### Regla `0x000Eh`: Los arreglos estáticos deben ser creados con un tamaño fijo en tiempo de compilación
 
-Los arreglos ALV no están permitidos por los problemas que pueden ocasionar, por
-lo que deben ser definidos con un tamaño fijo que se determina en tiempo de
-compilación.
+Los Arreglos de Longitud Variable (ALV) no están permitidos debido a los problemas de gestión de memoria que pueden ocasionar en la pila. Deben ser definidos con un tamaño constante.
 
 ```diff
 - int n = 10;
-- int numeros[n]; // ALV
-+ int numeros[10];
+- int numeros[n]; // ALV no permitido
++ #define TAMANO_NUMEROS 10
++ int numeros[TAMANO_NUMEROS];
 ```
 
 (0x000Fh)=
-### Regla `0x000Fh`: Un caso por función de prueba
+### Regla `0x000Fh`: Una aserción por cada función de prueba
 
-Pueden lograr esto creando una función que reciba los argumentos y el resultado
-esperado para comparar, o hacer una función para cada caso.
+Podés lograr esto creando una función de prueba parametrizada que reciba los argumentos y el resultado esperado, o bien dedicando una función de prueba para cada caso específico.
+
+- **Incorrecto (múltiples aserciones no relacionadas):**
+  ```c
+  void prueba_calculadora() {
+      ASSERT_IGUAL(sumar(2, 2), 4); // Prueba de suma
+      ASSERT_IGUAL(restar(5, 3), 2); // Prueba de resta en la misma función
+  }
+  ```
+- **Correcto (una aserción por prueba):**
+  ```c
+  void prueba_suma_positivos() {
+      ASSERT_IGUAL(sumar(2, 2), 4);
+  }
+
+  void prueba_resta_basica() {
+      ASSERT_IGUAL(restar(5, 3), 2);
+  }
+  ```
 
 (0x0010h)=
-### Regla `0x0010h`: Evitar las condiciones ambiguas que pueden depender del tipo de dato
+### Regla `0x0010h`: Evitá las condiciones ambiguas basadas en la "veracidad" (truthiness) del tipo de dato
 
-Las comparaciones explícitas indican al lector con qué está trabajando, porque
-no siempre es obvio en C, y _siempre_ es importante. ¿Estamos trabajando con
-cuentas, caracteres, booleanos o punteros? Lo primero que hago cuando veo que se
-comprueba la veracidad de una variable en C es buscar su tipo en la declaración.
-Ojalá el programador me lo hubiera dicho en la comparación.
+Las comparaciones deben ser siempre explícitas. En C, cualquier valor numérico distinto de cero se considera **verdadero**, y el cero se considera **falso**. Depender de esta "veracidad" implícita (`truthiness`) atenta contra la legibilidad del código y, por lo tanto, no está permitido.
 
+Una comparación explícita le indica al lector con qué tipo de dato está operando: contadores, caracteres, booleanos o punteros. Al observar una comprobación de veracidad, el primer paso es buscar la declaración de la variable para entender su tipo; una comparación explícita elimina esta ambigüedad.
 
-Esto porque cualquier valor numérico distinto de cero se considera **verdadero**
-en un contexto lógico, mientras que cero se considera **falso**. Esto se lo
-llama "truthyness", o "veracidad" y depender de ello no ayuda a la legibilidad
-del código y, por lo tanto, no está permitido.
-
-Por ejemplo, si una variable numérica se usa como condición, siempre se debe ser
-explícito:
+Por ejemplo, si una variable numérica se usa como condición, siempre debés ser explícito:
 
 ```diff
 - if (x) {
 + if (x != 0) {
 ```
 
-Al evaluar una condición, esta debe ser únicamente el resultado de una
-comparación.
+Al evaluar una condición, esta debe ser únicamente el resultado de una operación de comparación.
 
 ```c
-// Malo - ¿qué comprueban realmente estas expresiones?
+// Incorrecto - ¿Qué comprueban realmente estas expresiones?
 if ( encendido );
 return !caracter;
 something( primero( xs ) );
 while ( !trabajando );
 
-// Bueno - informativo y elimina la ambigüedad
+// Correcto - Informativo y elimina la ambigüedad
 if ( encendido > 0 );
 return caracter == NULL;
 something( primero( xs ) != '\0' );
@@ -618,91 +669,171 @@ while ( trabajando == false );
 ```
 
 (0x0011h)=
-### Regla `0x0011h`: Mantengan el alcance de las variables al mínimo
+### Regla `0x0011h`: Mantené el alcance de las variables al mínimo posible
 
-Históricamente, C requería que todas las variables sean declaradas al inicio de
-la función, para saber cuanto tiene que cambiar el stack en una llamada a dicha
-función. Hoy día, no es necesario limitarnos y podemos crear variables de
-alcance específico.
+Históricamente, C requería que todas las variables fueran declaradas al inicio de una función. Actualmente, esa limitación no existe, y podés y debés crear variables con el alcance más restringido posible.
 
-```c
-for (int i = 0; i < MAXIMO; i++)
-```
+- **Incorrecto (alcance demasiado amplio):**
+  ```c
+  void procesar() {
+      int i; // Declarada al inicio de la función
+      // ... mucho código ...
+      for (i = 0; i < 10; i++) {
+          // ...
+      }
+  }
+  ```
+- **Correcto (alcance mínimo):**
+  ```c
+  void procesar() {
+      // ... mucho código ...
+      for (int i = 0; i < 10; i++) { // 'i' solo existe dentro del lazo
+          // ...
+      }
+  }
+  ```
 
-Declarar `i` en este lugar, hace que la variable solo sea conocida por el lazo.
-
-No siempre es posible, pero en la mayoría de los casos, _sí_.
+Al declarar `i` dentro de la cabecera del `for`, su alcance se limita exclusivamente a dicho lazo. Aplicá este principio siempre que sea posible.
 
 (0x0012h)=
-### Regla `0x0012h`: Los retornos numéricos específicos deben ser una constante de preprocesador
+### Regla `0x0012h`: Los valores de retorno numéricos deben definirse como constantes de preprocesador
 
-El usar nombres descriptivos para los valores facilita la comprensión del
-propósito del retorno al darle un nombre explícito.
+El uso de nombres descriptivos para los valores de retorno facilita la comprensión de su propósito.
 
 ```diff
 -return -1;
-+return NO_FUNCIONO;
++return ERROR_APERTURA_ARCHIVO;
 ```
 
 ```c
-#define NO_FUNCIONO -1
+#define ERROR_APERTURA_ARCHIVO -1
 ```
 
 (0x0013h)=
-### Regla `0x0013h`: Cada bloque lleva cuatro espacios más que el que lo contiene
+### Regla `0x0013h`: Cada bloque debe tener una indentación de cuatro espacios respecto a su contenedor
 
-Esto permite elegir un ancho de sangría a medida de la situación, en las
-instrucciones que no son bloques y sin romper la alineación general.
+Esto permite una alineación consistente y mejora la legibilidad de la estructura del código.
 
-```c
-//nivel 0
-{
-    //nivel 1
-    {
-        //nivel 2
-        {
-            //nivel 3
-        }
-    }
-}
-```
+- **Incorrecto (indentación inconsistente):**
+  ```c
+  void funcion() {
+  int x = 10;
+    if (x > 5) {
+          printf("Mayor");
+      }
+  }
+  ```
+- **Correcto (indentación de 4 espacios):**
+  ```c
+  void funcion() {
+      int x = 10;
+      if (x > 5) {
+          printf("Mayor");
+      }
+  }
+  ```
 
 (0x0014h)=
-### Regla `0x0014h`: Sin instrucción `goto`
+### Regla `0x0014h`: No utilizar la instrucción `goto`
 
-El uso de `goto` rompe el flujo natural del programa y dificulta la lectura y
-depuración del código, ya que salta entre diferentes partes del programa de
-manera impredecible. En lugar de usar esta instrucción, emplea estructuras de
-control como `if-else`, `for`, `while` y `switch`, que permiten un flujo claro y
-estructurado.
+El uso de `goto` rompe el flujo de control estructurado, dificultando la lectura y depuración del código. En su lugar, empleá las estructuras de control estándar (`if-else`, `for`, `while`, `switch`).
+
+- **Incorrecto:**
+  ```c
+  void procesar_datos(int *datos, size_t n) {
+      for (size_t i = 0; i < n; i++) {
+          if (datos[i] < 0) {
+              goto error;
+          }
+          // ...
+      }
+  error:
+      printf("Error: dato negativo encontrado.\n");
+  }
+  ```
+- **Correcto:**
+  ```c
+  bool procesar_datos(int *datos, size_t n) {
+      bool exito = true;
+      for (size_t i = 0; i < n && exito; i++) {
+          if (datos[i] < 0) {
+              exito = false;
+          }
+      }
+      if (!exito) {
+          printf("Error: dato negativo encontrado.\n");
+      }
+      return exito;
+  }
+  ```
 
 (0x0015h)=
-### Regla `0x0015h`: Sin operador condicional (ternario) `?:;`
+### Regla `0x0015h`: No utilizar el operador condicional (ternario) `?:`
 
-El operador condicional (ternario) es compacto, pero puede hacer que el código
-sea difícil de leer, especialmente si se usa de manera excesiva o anidada.
+Aunque compacto, el operador ternario puede reducir la legibilidad del código, especialmente en expresiones anidadas o complejas.
+
+- **Incorrecto:**
+  ```c
+  int resultado = (a > b) ? a : b;
+  ```
+- **Correcto:**
+  ```c
+  int resultado;
+  if (a > b) {
+      resultado = a;
+  } else {
+      resultado = b;
+  }
+  ```
 
 (0x0016h)=
-### Regla `0x0016h`: Los ejercicios deben ser resueltos con una función
+### Regla `0x0016h`: Los ejercicios deben ser resueltos mediante funciones
 
-Esto fomenta la modularización del código, facilita la prueba de unidades, y
-promueve la reutilización del código. Dividir la lógica en funciones permite que
-el código sea más organizado y comprensible.
+Esta práctica fomenta la modularización, facilita las pruebas unitarias y promueve la reutilización del código. Dividir la lógica en funciones resulta en un código más organizado y comprensible.
+
+- **Incorrecto (toda la lógica en `main`):**
+  ```c
+  int main() {
+      int base = 10;
+      int altura = 5;
+      int area = base * altura;
+      printf("El área es: %d\n", area);
+      return 0;
+  }
+  ```
+- **Correcto (lógica encapsulada en una función):**
+  ```c
+  int calcular_area(int base, int altura) {
+      return base * altura;
+  }
+
+  int main() {
+      int area = calcular_area(10, 5);
+      printf("El área es: %d\n", area);
+      return 0;
+  }
+  ```
 
 (0x0017h)=
-### Regla `0x0017h`: Los nombres de las funciones y procedimientos van en minúsculas y `snake_case`
+### Regla `0x0017h`: Los nombres de funciones y procedimientos deben usar `snake_case` en minúsculas
 
-El uso de snake_case (nombres en minúsculas con guiones bajos entre palabras)
-para los nombres de funciones y procedimientos es una convención de estilo que
-mejora la consistencia y legibilidad del código. De esta forma y siguiendo las
-otras reglas de este estilo, podemos saber inmediatamente que es una funcion,
-una variable, una constante y las demás piezas del programa.
+El uso de `snake_case` (palabras en minúsculas separadas por guiones bajos) para nombrar funciones y procedimientos es una convención que mejora la consistencia y legibilidad, permitiendo distinguir rápidamente entre los diferentes tipos de identificadores.
+
+- **Incorrecto:**
+  ```c
+  void MiFuncionDeCalculo(int v); // PascalCase
+  void otraFuncion(); // camelCase
+  ```
+- **Correcto:**
+  ```c
+  void mi_funcion_de_calculo(int valor);
+  void otra_funcion();
+  ```
 
 (0x0018h)=
-### Regla `0x0018h`: Los punteros deben ser declarados con el asterisco pegado al identificador
+### Regla `0x0018h`: El asterisco de los punteros debe declararse junto al identificador
 
-Para facilitar la identificación visual de la variable como un puntero y mejora
-la claridad.
+Esta convención facilita la identificación visual de una variable como puntero y mejora la claridad.
 
 ```diff
 -int* ptr;
@@ -710,223 +841,178 @@ la claridad.
 ```
 
 (0x0019h)=
-### Regla `0x0019h`: Siempre verificar la asignación exitosa de memoria dinámica
+### Regla `0x0019h`: Siempre verificá la asignación exitosa de memoria dinámica
 
-Cualquier asignación dinámica de memoria con `malloc`, `calloc` o `realloc` debe
-ser seguida por una comprobación de éxito:
+Toda asignación con `malloc`, `calloc` o `realloc` debe ser seguida por una comprobación para asegurar que la memoria fue asignada correctamente.
 
 ```c
 ptr = malloc(tamaño);
-if (!ptr)
+if (ptr == NULL)
 {
     // Manejo de error
 }
 ```
 
 (0x001Ah)=
-### Regla `0x001Ah`: Liberar siempre la memoria dinámica
+### Regla `0x001Ah`: Liberá siempre la memoria dinámica y prevení punteros colgantes
 
-Cada vez que se usa `malloc`/`calloc`/`realloc`, debe asegurarse que la memoria
-sea liberada correctamente usando free.
+Por cada asignación de memoria dinámica, debe existir una correspondiente liberación con `free`. Después de liberar, asigná `NULL` al puntero para evitar punteros colgantes (`dangling pointers`).
 
 ```c
 free(ptr);
-ptr = NULL;  // Evitar punteros colgantes
+ptr = NULL;
 ```
 
-#### Simetría al liberar
+#### Simetría en la liberación de recursos
 
-Y cuando llega el momento de liberar, es importante hacerlo al mismo nivel, esto
-implica, por un lado, si hemos pedido memoria en una función, es necesario crear 
-otra función que se encargue de liberarla, en el mismo nivel de abstracción. Esto
-porque si lo que hemos construido dinámicamente, es suficientemente complejo
-para ameritar una función, es seguro que la liberación tendrá una complejidad
-similar. En un par de funciones como `crear_recurso` y `liberar_recurso`.
+La liberación de memoria debe realizarse al mismo nivel de abstracción que su asignación. Si creaste una función `crear_recurso` para encapsular una asignación compleja, debés crear una función simétrica `liberar_recurso` para su liberación.
 
-Esto es difícil que suceda con arreglos, pero cuando se trata de `struc`turas es
-posible.
+- **Ejemplo de simetría:**
+  ```c
+  recurso_t *crear_recurso() {
+      recurso_t *r = malloc(sizeof(recurso_t));
+      // ... inicialización ...
+      return r;
+  }
+
+  void liberar_recurso(recurso_t *r) {
+      // ... liberación de miembros internos ...
+      free(r);
+  }
+  ```
 
 (0x001Bh)=
-### Regla `0x001Bh`: No mezclar operaciones de asignación y comparación en una sola línea
+### Regla `0x001Bh`: No mezcles operaciones de asignación y comparación en una sola línea
 
-Mantener las asignaciones y comparaciones en líneas separadas reduce la
-posibilidad de errores sutiles.
+Mantener las asignaciones y comparaciones en líneas separadas previene errores sutiles y mejora la claridad.
 
 ```diff
 - if ((ptr = malloc(tamaño)) == NULL) {
 + ptr = malloc(tamaño);
-+ if (!ptr) {
++ if (ptr == NULL) {
 ```
 
 (0x001Ch)=
-### Regla `0x001Ch`: Prefieran fgets a gets y scanf para leer archivos o cadenas
+### Regla `0x001Ch`: Preferí `fgets` sobre `gets` y `scanf` para leer cadenas
 
-`fgets` es más seguro que `gets` y `scanf` porque evita desbordamientos de buffer.
+`fgets` es más seguro, ya que previene desbordamientos de búfer al permitir especificar el tamaño máximo de lectura.
 
-```c
-fgets(buffer, sizeof(buffer), archivo);
-```
+- **Incorrecto (inseguro):**
+  ```c
+  char buffer[50];
+  scanf("%s", buffer); // Peligro de desbordamiento si la entrada > 49 chars
+  ```
+- **Correcto (seguro):**
+  ```c
+  char buffer[50];
+  fgets(buffer, sizeof(buffer), stdin);
+  ```
 
 (0x001Dh)=
-### Regla `0x001Dh`: Manejar correctamente la apertura y cierre de archivos
+### Regla `0x001Dh`: Manejá correctamente la apertura y cierre de archivos
 
-Siempre verificar si el archivo se abre correctamente y cerrarlo después de su
-uso:
+Siempre verificá que la apertura de un archivo con `fopen` haya sido exitosa y asegurate de cerrarlo con `fclose` después de su uso. Considerá el uso de `errno` para un manejo de errores más detallado.
 
 ```c
 
 FILE *archivo = fopen("archivo.txt", "r");
-if (!archivo)
+if (archivo == NULL)
 {
-    // Manejo de error
+    // Manejo de error, ej: perror("Error al abrir archivo");
 }
+// ...
 fclose(archivo);
 ```
 
-Esta regla también incluye el uso de `errno`.
-
 (0x001Eh)=
-### Regla `0x001Eh`: Uso explícito de typedef para estructuras complejas
+### Regla `0x001Eh`: Utilizá `typedef` para definir tipos de estructuras
 
-Facilita el manejo y mejora la legibilidad del código al declarar tipos
-complejos:
+El uso de `typedef` para crear alias de tipos de estructuras facilita su manejo y mejora la legibilidad. Por convención, los nuevos tipos definidos con `typedef` deben llevar el sufijo `_t`.
 
-```c
-typedef struct {
-    int campo1;
-    char *campo2;
-} mi_estructura_t;
-```
+- **Incorrecto:**
+  ```c
+  struct mi_estructura var; // Requiere 'struct' en cada declaración
+  ```
+- **Correcto:**
+  ```c
+  typedef struct {
+      int campo1;
+      char *campo2;
+  } mi_estructura_t;
 
-Los identificadores de tipos creados con `typedef` van con el sufijo `_t` para
-poder distinguirlos rápidamente.
+  mi_estructura_t var; // Más limpio y claro
+  ```
 
 (0x001Fh)=
-### Regla `0x001Fh`: Minimizar el uso de múltiples niveles de punteros
+### Regla `0x001Fh`: Minimizá el uso de múltiples niveles de indirección (punteros a punteros)
 
-Esto complica la lectura y el manejo, especialmente cuando se trata de
-asignación o liberación de memoria.
+Los punteros a punteros (`**`) o niveles superiores de indirección complican la lectura, el razonamiento y el manejo de la memoria. Evitalos siempre que sea posible.
+
+- **Incorrecto (innecesariamente complejo):**
+  ```c
+  void obtener_datos(int **ptr_datos, size_t *tamano) { /* ... */ }
+  ```
+- **Correcto (más simple, usando el valor de retorno):**
+  ```c
+  int *obtener_datos(size_t *tamano_out) { /* ... */ }
+  ```
 
 (0x0020h)=
-### Regla `0x020Fh`: Documentar la propiedad de los recursos al usar punteros
+### Regla `0x020Fh`: Documentá la propiedad de los recursos al utilizar punteros
 
-Cuando una función recibe o devuelve un puntero a memoria dinámica, es
-importante documentar quién es responsable de liberar la memoria:
+Cuando una función recibe o devuelve un puntero a memoria dinámica, su documentación debe especificar claramente quién es el responsable de liberar dicha memoria (el "dueño" del puntero).
 
 ```c
 /**
- * @param ptr Puntero que será liberado por el llamador.
+ * Crea un nuevo recurso.
+ * @returns Un puntero al nuevo recurso. El llamador es responsable
+ *          de liberar esta memoria con liberar_recurso().
  */
+recurso_t *crear_recurso();
+
+/**
+ * Libera un recurso.
+ * @param ptr Puntero al recurso a liberar. La memoria es liberada
+ *            y el puntero no debe ser usado nuevamente.
+ */
+void liberar_recurso(recurso_t *ptr);
 ```
 
-Recuerden que no es posible que el programa diferencie la memoria dinámica de la
-automática.
+Recordá que en tiempo de ejecución no es posible diferenciar entre memoria dinámica y automática.
 
 (0x0021h)=
-### Regla `0x0021h`: Los argumentos de funciones deben ser `const` siempre que sea posible
+### Regla `0x0021h`: Los argumentos de tipo puntero deben ser `const` siempre que la función no los modifique
 
-Usar `const` en los parámetros de una función, especialmente con punteros (y,
-por lo tanto, con arreglos y cadenas), es una práctica fundamental para escribir
-código seguro y predecible. Actúa como un **contrato** que la función establece
-con quien la llama: "Te prometo que no hay efectos secundarios en este argumento
-que me estás pasando".
+Usar `const` en los parámetros de una función, especialmente con punteros, establece un **contrato** con quien la llama: "Te garantizo que no modificaré el dato al que apunta este argumento".
 
-El compilador se encarga de hacer cumplir esta promesa. Si dentro de la función
-se intenta modificar un dato a través de un puntero `const`, la compilación
-fallará. Esto previene **efectos secundarios** no deseados y hace que el
-comportamiento de la función sea mucho más fácil de razonar.
+El compilador se encarga de hacer cumplir esta promesa. Si intentás modificar un dato a través de un puntero `const`, la compilación fallará. Esto previene **efectos secundarios** no deseados y hace que el comportamiento de la función sea más predecible.
 
-**Ejemplo Correcto (Función que solo lee):**
+**Ejemplo Correcto (Función de solo lectura):**
 
 ```c
 #include <stdio.h>
-#include <string.h>
 
 // Correcto: La función solo necesita leer la cadena, no modificarla.
-// 'const' protege la cadena original de modificaciones accidentales.
 void imprimir_saludo(const char *nombre)
 {
-    // Si intentáramos hacer esto, el compilador daría un error:
+    // Si intentaras hacer esto, el compilador emitiría un error:
     // nombre[0] = 'J';
     printf("Hola, %s!\n", nombre);
 }
-
-int main(void)
-{
-    char mi_nombre[] = "Martin";
-    imprimir_saludo(mi_nombre); // Sabemos que 'mi_nombre' no será alterado.
-    return 0;
-}
 ```
 
-**Ejemplo Válido de una función que depende del efecto secundario:**
+**Ejemplo Válido (Función que modifica):**
 
-En este caso, el propósito de la función es modificar el dato, por lo que **no
-se usa `const`**. El nombre de la función debe reflejar esta intención.
+En este caso, el propósito de la función es modificar el dato, por lo que **no se usa `const`**. El nombre de la función debe reflejar esta intención.
 
 ```c
-#include <ctype.h> // Para toupper
+#include <ctype.h>
 
-// Correcto: El propósito de la función es modificar la cadena,
-// por lo que el parámetro NO puede ser 'const'.
+// Correcto: El propósito es modificar la cadena, por lo que el parámetro
+// NO debe ser 'const'.
 void convertir_a_mayusculas(char *cadena)
 {
-    for (int i = 0; cadena[i] != '\0'; i++)
-    {
-        cadena[i] = toupper(cadena[i]);
-    }
-}
-```
-
-### Regla `0x0021h`: Los argumentos de funciones deben ser `const` siempre que sea posible
-
-Usar `const` en los parámetros de una función, especialmente con punteros (y,
-por lo tanto, con arreglos y cadenas), es una práctica fundamental para escribir
-código seguro y predecible. Actúa como un **contrato** que la función establece
-con quien la llama: "Te prometo que no hay efectos secundarios en este argumento
-que me estás pasando".
-
-El compilador se encarga de hacer cumplir esta promesa. Si dentro de la función
-se intenta modificar un dato a través de un puntero `const`, la compilación
-fallará. Esto previene **efectos secundarios** no deseados y hace que el
-comportamiento de la función sea mucho más fácil de razonar.
-
-**Ejemplo Correcto (Función que solo lee):**
-
-```c
-#include <stdio.h>
-#include <string.h>
-
-// Correcto: La función solo necesita leer la cadena, no modificarla.
-// 'const' protege la cadena original de modificaciones accidentales.
-void imprimir_saludo(const char *nombre)
-{
-    // Si intentáramos hacer esto, el compilador daría un error:
-    // nombre[0] = 'J';
-    printf("Hola, %s!\n", nombre);
-}
-
-int main(void)
-{
-    char mi_nombre[] = "Martin";
-    imprimir_saludo(mi_nombre); // Sabemos que 'mi_nombre' no será alterado.
-    return 0;
-}
-```
-
-**Ejemplo Válido de una función que depende del efecto secundario:**
-
-En este caso, el propósito de la función es modificar el dato, por lo que **no
-se usa `const`**. El nombre de la función debe reflejar esta intención.
-
-```c
-#include <ctype.h> // Para toupper
-
-// Correcto: El propósito de la función es modificar la cadena,
-// por lo que el parámetro NO puede ser 'const'.
-void convertir_a_mayusculas(char *cadena)
-{
-    for (int i = 0; cadena[i] != '\0'; i++)
+    for (size_t i = 0; cadena[i] != '\0'; i++)
     {
         cadena[i] = toupper(cadena[i]);
     }
