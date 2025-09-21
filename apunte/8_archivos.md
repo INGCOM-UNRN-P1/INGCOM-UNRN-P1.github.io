@@ -325,7 +325,7 @@ int main(void) {
 
     // 2. Escribir un encabezado usando fputs()
     // fputs() escribe una cadena de caracteres en el archivo.
-    const char *encabezado = "---" Documento de Factura ---\\n\\n";
+    const char *encabezado = "--- Documento de Factura ---\n\n";
     if (fputs(encabezado, salida) == EOF) {
         perror("Error escribiendo el encabezado con fputs()")
         fclose(salida);
@@ -1377,7 +1377,6 @@ Mouse Gamer,75.00,5
 Monitor 24 pulgadas,300.25,1
 # Esto es un comentario, debe ser ignorado
 Webcam,no_es_un_precio,3
-```
 ```
 
 ````{solution} ejercicio_archivos_5
