@@ -71,6 +71,7 @@ project:
         - file: extras/estado.md
         - file: extras/printf.md
         - file: extras/roles.md
+        - file: extras/bits.md
     - title: Guias
       children:
         - file: guias/compilacion.md
