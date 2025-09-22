@@ -32,7 +32,8 @@ un casillero específico para no olvidarte dónde guardaste algo importante.
 ## Declaración de punteros
 
 Para declarar un puntero, debés especificar el tipo de dato al que va a apuntar,
-seguido de un asterisco (`*`) y el nombre de la variable. La regla de estilo {ref}`0x0018h` indica que el asterisco debe ir junto al nombre de la variable.
+seguido de un asterisco (`*`) y el nombre de la variable. La regla de estilo
+{ref}`0x0018h` indica que el asterisco debe ir junto al nombre de la variable.
 
 ```{code-block}c
 :linenos:
@@ -61,7 +62,18 @@ int *ptr_numero = &numero; // ptr_numero ahora almacena la dirección de 'numero
 
 Si al momento de declarar un puntero no tenés una dirección de memoria válida
 para asignarle, es **fundamental** inicializarlo a un estado seguro y conocido.
-Para esto se utiliza la macro `NULL`, tal como lo exigen las reglas de estilo {ref}`0x0003h` y {ref}`0x0022h`.
+Para esto se utiliza la macro `NULL`.
+
+:::{tip} Estilo: Inicialización Segura
+
+La regla {ref}`0x0003h` (siempre inicializar variables) es especialmente crítica
+para los punteros. Un puntero no inicializado es un "puntero salvaje" que apunta
+a una dirección de memoria aleatoria. Adicionalmente, la regla {ref}`0x0022h`
+indica que se debe usar `NULL` en lugar de `0` para esta inicialización, ya que
+`NULL` expresa semánticamente la intención de que el puntero no apunta a ningún
+objeto válido.
+
+:::
 
 `NULL` es una constante de preprocesador, que se encuentra definida en el
 encabezado `<stddef.h>` y representa la dirección a «ningún lado».
@@ -98,23 +110,23 @@ una variable válida o con `NULL`.
 ## Operadores de Punteros
 
 - **Operador `&` («dirección de»)**: Toma un L-value (por ejemplo, una variable)
-y devuelve su dirección de memoria. El resultado de esta operación es un
-R-value, ya que la dirección en sí es un valor que se puede asignar a un
-puntero. No podés hacer `&numero = …`, porque la dirección de una variable es
-un valor, no una locación a la que se pueda asignar algo.
+  y devuelve su dirección de memoria. El resultado de esta operación es un
+  R-value, ya que la dirección en sí es un valor que se puede asignar a un
+  puntero. No podés hacer `&numero = …`, porque la dirección de una variable es
+  un valor, no una locación a la que se pueda asignar algo.
 
 - **Operador `*` («indirección» o «desreferencia»)**: Este operador es especial
-porque puede producir tanto un L-value como un R-value, dependiendo del
-contexto.
+  porque puede producir tanto un L-value como un R-value, dependiendo del
+  contexto.
   - **Como L-value (destino)**: Cuando usás `*puntero` a la **izquierda** de una
-asignación, estás haciendo referencia a la **locación** de memoria a la que
-apunta el puntero. Estás diciendo: "en la dirección que guarda `puntero`,
-almacená este nuevo valor".
+    asignación, estás haciendo referencia a la **locación** de memoria a la que
+    apunta el puntero. Estás diciendo: "en la dirección que guarda `puntero`,
+    almacená este nuevo valor".
   - **Como R-value (origen)**: Cuando usás `*puntero` a la **derecha** de una
-asignación o en cualquier otro lugar donde se espera un valor (como en un
-`printf`), estás accediendo al **valor** contenido en esa locación de
-memoria. Estás diciendo: "dame el valor que está guardado en la dirección a
-la que apunta `puntero`".
+    asignación o en cualquier otro lugar donde se espera un valor (como en un
+    `printf`), estás accediendo al **valor** contenido en esa locación de
+    memoria. Estás diciendo: "dame el valor que está guardado en la dirección a
+    la que apunta `puntero`".
 
 ```{code-block}c
 :linenos:
@@ -239,10 +251,10 @@ entero con signo definido en la cabecera `<stddef.h>`. Para imprimirlo
 correctamente con `printf`, se utiliza el especificador de formato `%td`.
 
 Esto, teniendo en cuenta que `size_t`, es un número sin signo, que no podría
-representar los valores negativos producto de ir "hacia atras" de la posición
+representar los valores negativos producto de ir "hacia atrás" de la posición
 inicial.
 
-::: 
+:::
 
 ## Punteros en funciones y efectos secundarios
 
@@ -300,8 +312,8 @@ programa podrían haber cambiado después de llamarla.
 El calificador `const` es una de las herramientas más importantes en C para
 escribir código seguro, predecible y fácil de entender. Actúa como un "contrato"
 que le dice al compilador y a otros programadores qué se supone que no debe
-cambiar. Cuando lo usás con punteros, como lo exige la regla {ref}`0x0021h`, te permite "bloquear" o bien el dato
-apuntado, el puntero en sí, o ambos.
+cambiar. Cuando lo usás con punteros, como lo exige la regla {ref}`0x0021h`, te
+permite "bloquear" o bien el dato apuntado, el puntero en sí, o ambos.
 
 `const` nos permite poner reglas sobre qué se puede modificar, _potencialmente_,
 limitando los efectos secundarios productos de pasar el puntero a la función.
@@ -645,7 +657,7 @@ void imprimir_tamano(int arr[]) {
 alcance de la declaración del arreglo.
 
 Por lo que hacer `sizeof(arreglo)` va a devolver el tamaño total en bytes del
-arreglo, de forma que sea (número de elementos * tamaño del tipo del arreglo).
+arreglo, de forma que sea (número de elementos \* tamaño del tipo del arreglo).
 
 $$\text{sizeof(arreglo)} = elementos \times \text{sizeof(T)}$$
 
@@ -689,7 +701,7 @@ imprimirlos. La estrategia consiste en tener un puntero que avanza y un puntero
 1.  Declará un puntero `ptr` que apunte al inicio del arreglo.
 2.  Declará otro puntero `fin` que apunte a la dirección de memoria
     **inmediatamente posterior** al último elemento. Esto substituye el 'conteo'
-de posiciónes.
+    de posiciónes.
 3.  El lazo `while` se ejecuta mientras `ptr` sea menor que `fin`.
 
 ```{code-block}c
@@ -720,7 +732,8 @@ int main() {
 
 Para buscar un valor, recorremos el arreglo y nos detenemos si encontramos una
 coincidencia. La función devolverá un puntero al elemento encontrado o `NULL` si
-no se encuentra. La comprobación explícita contra `NULL` sigue la regla {ref}`0x0010h`.
+no se encuentra. La comprobación explícita contra `NULL` sigue la regla
+{ref}`0x0010h`.
 
 **Método:**
 
@@ -869,7 +882,8 @@ int main() {
 :::{warning} Advertencia sobre los límites de los arreglos
 
 Este último ejemplo, debiera de recibir un tamaño para cada arreglo y verificar
-que los tamaños de ambos sean 'compatibles' entre sí. La regla de estilo {ref}`0x0027h` es crucial aquí.
+que los tamaños de ambos sean 'compatibles' entre sí. La regla de estilo
+{ref}`0x0027h` es crucial aquí.
 
 La mayor ventaja y el mayor peligro de la aritmética de punteros es su libertad.
 El lenguaje C no te impedirá incrementar un puntero más allá del final de un
@@ -877,7 +891,7 @@ arreglo. Es **tu responsabilidad** como programador asegurarte de que tus lazos
 y operaciones se mantengan siempre dentro de los límites válidos del arreglo
 para evitar corrupción de memoria y comportamientos indefinidos.
 
-::: 
+:::
 
 ### 5. Versión alternativa
 
@@ -1088,7 +1102,7 @@ int main() {
 Implementá un procedimiento `void invertir_arreglo(int *arreglo, size_t n)` que invierta el orden de los elementos de un arreglo "in-place" (sin usar un arreglo auxiliar). Utilizá dos punteros: uno que apunte al inicio del arreglo y otro que apunte al final. Intercambiá los valores a los que apuntan y mové los punteros hacia el centro hasta que se crucen.
 ```
 
-````{solution} invertir_arreglo_inplace
+`````{solution} invertir_arreglo_inplace
 :class: dropdown
 
 ```{code-block}c
@@ -1137,4 +1151,7 @@ int main() {
   return 0;
 }
 ```
-````
+````turn 0;
+}
+```
+`````
