@@ -61,7 +61,11 @@ int *ptr_numero = &numero; // ptr_numero ahora almacena la dirección de 'numero
 
 Si al momento de declarar un puntero no tenés una dirección de memoria válida
 para asignarle, es **fundamental** inicializarlo a un estado seguro y conocido.
-Para esto se utiliza la macro `NULL`, tal como lo exigen las reglas de estilo {ref}`0x0003h` y {ref}`0x0022h`.
+Para esto se utiliza la macro `NULL`.
+
+:::{tip} Estilo: Inicialización Segura
+La regla {ref}`0x0003h` (siempre inicializar variables) es especialmente crítica para los punteros. Un puntero no inicializado es un "puntero salvaje" que apunta a una dirección de memoria aleatoria. Adicionalmente, la regla {ref}`0x0022h` indica que se debe usar `NULL` en lugar de `0` para esta inicialización, ya que `NULL` expresa semánticamente la intención de que el puntero no apunta a ningún objeto válido.
+:::
 
 `NULL` es una constante de preprocesador, que se encuentra definida en el
 encabezado `<stddef.h>` y representa la dirección a «ningún lado».
@@ -1135,6 +1139,9 @@ int main() {
   imprimir_arreglo(mi_arreglo, cantidad);
 
   return 0;
+}
+```
+````turn 0;
 }
 ```
 ````
