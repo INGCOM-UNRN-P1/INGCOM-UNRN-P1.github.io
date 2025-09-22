@@ -21,64 +21,50 @@ $$ n! = n \times (n-1) \times (n-2) \times \dots \times 1 $$
 
 La definición recursiva es:
 
-$$
-factorial(n) =
+$$ 
+factorial(n) = 
 \begin{cases}
-1 & \text{si } n = 0 \
+1 & \text{si } n = 0 \\
 n \times factorial(n-1) & \text{si } n > 0
 \end{cases}
-$$
-
-```{mermaid}
-:caption: "Diagrama de llamadas recursivas para factorial(4)"
-graph TD
-    A(factorial(4)) --> B(4 * factorial(3));
-    B --> C(3 * factorial(2));
-    C --> D(2 * factorial(1));
-    D --> E(1 * factorial(0));
-    E -- Caso Base, retorna 1 --> D;
-    D -- retorna 1 --> C;
-    C -- retorna 2 --> B;
-    B -- retorna 6 --> A;
-    A -- retorna 24 --> F(Resultado: 24);
-```
+$$ 
 
 ### 1.2: Suma
 
 Definir la suma de $a+b$ de forma recursiva. La idea es decrementar uno de los
 operandos hasta llegar a un caso base.
 
-$$
-suma(a, b) =
+$$ 
+suma(a, b) = 
 \begin{cases}
-a & \text{si } b = 0 \
+a & \text{si } b = 0 \\
 suma(a+1, b-1) & \text{si } b > 0
 \end{cases}
-$$
+$$ 
 
 ### 1.3: Producto
 
 Definir el producto $a \times b$ usando sumas y recursividad.
 
-$$
-producto(a, b) =
+$$ 
+producto(a, b) = 
 \begin{cases}
-0 & \text{si } b = 0 \
+0 & \text{si } b = 0 \\
 a + producto(a, b-1) & \text{si } b > 0
 \end{cases}
-$$
+$$ 
 
 ### 1.4: Potencia
 
 Definir la potencia $base^{exp}$ usando productos y recursividad.
 
-$$
-potencia(base, exp) =
+$$ 
+potencia(base, exp) = 
 \begin{cases}
-1 & \text{si } exp = 0 \
+1 & \text{si } exp = 0 \\
 base \times potencia(base, exp-1) & \text{si } exp > 0
 \end{cases}
-$$
+$$ 
 
 ## 2: Series Recursivas
 
@@ -87,14 +73,14 @@ $$
 Implementar una función que calcule el n-ésimo término de la serie de Fibonacci,
 definida por la relación de recurrencia:
 
-$$
-fib(n) =
+$$ 
+fib(n) = 
 \begin{cases}
-0 & \text{si } n = 0 \
-1 & \text{si } n = 1 \
+0 & \text{si } n = 0 \\
+1 & \text{si } n = 1 \\
 fib(n-1) + fib(n-2) & \text{si } n > 1
 \end{cases}
-$$
+$$ 
 
 ## 3: Arreglos Recursivos
 
@@ -133,11 +119,4 @@ Un palíndromo se lee igual en ambos sentidos.
 
 **Ejemplo:** `neuquen`
 
-- `es_palindromo("neuquen")` -> `n == n` y `es_palindromo("euque")`
-- `es_palindromo("euque")` -> `e == e` y `es_palindromo("uqu")`
-- `es_palindromo("uqu")` -> `u == u` y `es_palindromo("q")`
-- `es_palindromo("q")` -> Caso base, es `true`.
-
-```
-
-```
+- `es_palindromo(
