@@ -25,6 +25,7 @@ project:
         - file: apunte/6_matrices.md
         - file: apunte/7_punteros.md
         - file: apunte/8_archivos.md
+        - file: apunte/9_argumentos.md
         - file: apunte/0_estilo.md
 #        - file: apunte/9_ordenamiento.md
 #        - file: apunte/10_complejidad.md
