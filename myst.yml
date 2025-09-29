@@ -73,7 +73,9 @@ project:
         - file: extras/printf.md
         - file: extras/roles.md
         - file: extras/bits.md
-    - title: Guias
+        - file: extras/binarios.md
+        - file: extras/bitmaps.md
+    - title: Ayuda
       children:
         - file: guias/compilacion.md
         - file: guias/compilador.md
@@ -88,3 +90,4 @@ project:
     
 bibliography:
   - bibliografia.bib
+

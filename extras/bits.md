@@ -1,7 +1,9 @@
 ---
-title: "Guía Detallada de Manipulación de Bits en C"
+title: "Manipulación de bits"
 short_title: "Bits"
 subtitle: "Controlando los unos y ceros"
+numbering:
+  code: true
 ---
 
 ## Introducción: El Poder a Nivel de Bit
@@ -246,13 +248,11 @@ bool es_potencia_de_dos(int n) {
 
 :::{glossary}
 
-Máscara de Bits (Bitmask)
-: Un valor numérico utilizado para seleccionar,
+Máscara de Bits (Bitmask) : Un valor numérico utilizado para seleccionar,
 modificar o consultar bits específicos de otro valor mediante operaciones a
 nivel de bits como AND, OR y XOR.
 
-Endianness
-: Se refiere al orden en que se almacenan en memoria los bytes que
+Endianness : Se refiere al orden en que se almacenan en memoria los bytes que
 componen un tipo de dato multibyte. Es una consideración crucial para la
 portabilidad de datos binarios.
 
