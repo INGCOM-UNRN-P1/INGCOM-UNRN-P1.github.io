@@ -1218,14 +1218,26 @@ Primero entendé lo esencial:
 - Las variables viven en la memoria.
 - Los algoritmos son secuencias lógicas.
 
+Ya vamos a ver...
+
+- [](3_funciones.md) — Definición de funciones, parámetros, retorno, alcances y descomposición funcional para estructurar programas más grandes.
+- [](4_secuencias.md) — Arreglos y cadenas: memoria contigua, acceso seguro, paso a funciones y utilidades para manipular colecciones de datos.
+- [](5_compilacion.md) — Proceso de compilación con GCC, fases del compilador, archivos de cabecera y organización de proyectos con `Makefiles`.
+- [](7_punteros.md) — Punteros, direcciones de memoria, aritmética de punteros y su relación con arreglos y funciones.
+- [](8_archivos.md) — Entrada/salida con archivos de texto: apertura, lectura, escritura, posicionamiento y manejo robusto de errores.
+
+¡Y algunas cosas más!
+
+- [](0_estilo.md) — Que es una mezcla de restricciones pedagógicas y de experiencia acumulada para ayudarlos a desarrollar lo mejor posible.
+
 ## Afilando el código
 
 Programar bien es:
 
 - Pensar simple.
 - Probar seguido.
-- No repetir código ({ref}`0x0004h`), ya que casi siempre es una mala señal.
-- Comentar lo que no sea obvio ({ref}`0x0007h`).
+- No repetir código, ya que casi siempre es una mala señal.
+- Comentar lo que no sea obvio.
 - Leer programas ajenos y tomar buenas ideas.
 
 > _"Escriba código que un colega pueda entender a las 3 AM."_
