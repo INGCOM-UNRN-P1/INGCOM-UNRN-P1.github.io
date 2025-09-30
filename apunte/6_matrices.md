@@ -15,8 +15,18 @@ arreglos cuyos elementos son, a su vez, otros arreglos.
 
 Las matrices son fundamentales en numerosas aplicaciones: desde operaciones
 matemáticas básicas hasta algoritmos complejos de procesamiento de imágenes,
-simulaciones físicas y análisis de datos. Su comprensión es esencial para el
-desarrollo de software eficiente y estructurado.
+simulaciones físicas, análisis de datos, representación de grafos, implementación
+de juegos como el tres en raya o ajedrez, y sistemas de coordenadas 
+bidimensionales. Su comprensión es esencial para el desarrollo de software 
+eficiente y estructurado.
+
+:::{important} Relación con el álgebra lineal
+Las matrices en programación están íntimamente relacionadas con el concepto 
+matemático de matriz del álgebra lineal. Esto permite aplicar directamente
+teoremas y algoritmos matemáticos en implementaciones de software, especialmente
+en campos como gráficos por computadora, machine learning, y simulaciones 
+científicas.
+:::
 
 :::{tip} Extensión a múltiples dimensiones
 
