@@ -13,9 +13,30 @@ de programación C, esta abstracción se materializa mediante la implementación
 **arreglos bidimensionales** (2D), los cuales pueden ser conceptualizados como
 arreglos cuyos elementos son, a su vez, otros arreglos.
 
-Técnicamente, no están limitadas a dos dimensiones, pero las aplicaciones
-prácticas son menos claras. Pero todos los conceptos que están aquí presentes,
-aplican.
+Las matrices son fundamentales en numerosas aplicaciones: desde operaciones
+matemáticas básicas hasta algoritmos complejos de procesamiento de imágenes,
+simulaciones físicas, análisis de datos, representación de grafos, implementación
+de juegos como el tres en raya o ajedrez, y sistemas de coordenadas 
+bidimensionales. Su comprensión es esencial para el desarrollo de software 
+eficiente y estructurado.
+
+:::{important} Relación con el álgebra lineal
+Las matrices en programación están íntimamente relacionadas con el concepto 
+matemático de matriz del álgebra lineal. Esto permite aplicar directamente
+teoremas y algoritmos matemáticos en implementaciones de software, especialmente
+en campos como gráficos por computadora, machine learning, y simulaciones 
+científicas.
+:::
+
+:::{tip} Extensión a múltiples dimensiones
+
+Técnicamente, no están limitadas a dos dimensiones. Podés tener arreglos
+tridimensionales (`int cubo[3][4][5]`) o de mayor dimensionalidad. Sin embargo,
+las aplicaciones prácticas se vuelven menos claras y la complejidad de manejo
+aumenta considerablemente. Todos los conceptos presentados aquí se extienden
+naturalmente a estas dimensiones superiores.
+
+:::
 
 ## Declaración
 
@@ -56,7 +77,7 @@ elementos de la primera fila se almacenan de forma consecutiva, seguidos por los
 elementos de la segunda fila, y así sucesivamente.
 
 Para la matriz `mi_matriz[3][4]`, la memoria contendría los 12 enteros en
-secuencia, como un arreglo: `[f0c0, f0c1, f0c2, f0c3, f1c0, f1c1, ...]`. 
+secuencia, como un arreglo: `[f0c0, f0c1, f0c2, f0c3, f1c0, f1c1, ...]`.
 
 :::
 
@@ -80,7 +101,10 @@ int matriz[2][3] = {
 
 ### Inicialización con declaración implícita
 
-En C, es posible omitir la primera dimensión (filas) durante la inicialización, pero **todas las dimensiones subsecuentes deben ser especificadas explícitamente**. Esto se debe a que el compilador necesita conocer el tamaño de cada "sub-arreglo" para calcular las posiciones de memoria.
+En C, es posible omitir la primera dimensión (filas) durante la inicialización,
+pero **todas las dimensiones subsecuentes deben ser especificadas
+explícitamente**. Esto se debe a que el compilador necesita conocer el tamaño de
+cada "sub-arreglo" para calcular las posiciones de memoria.
 
 ```{code-block}c
 :linenos:
@@ -91,14 +115,17 @@ int matriz[][3] = {
 };
 ```
 
-La forma `int matriz[][]` es **inválida** y no compilará, ya que el compilador no tendría forma de saber dónde termina una fila y empieza la siguiente.
+La forma `int matriz[][]` es **inválida** y no compilará, ya que el compilador
+no tendría forma de saber dónde termina una fila y empieza la siguiente.
 
 ### Inicialización manual
 
-Constituye un método más flexible y programático. El uso de macros en mayúsculas para las dimensiones ({ref}`0x002Fh`) y de `size_t` para los índices ({ref}`0x002Eh`) son buenas prácticas que mejoran la legibilidad y portabilidad.
+Constituye un método más flexible y programático. El uso de macros en mayúsculas
+para las dimensiones ({ref}`0x002Fh`) y de `size_t` para los índices
+({ref}`0x002Eh`) son buenas prácticas que mejoran la legibilidad y portabilidad.
 
 ```{code-block}c
-:caption: Asignación de valores mediante bucles anidados
+:caption: Asignación de valores mediante lazo anidados
 
 #define FILAS 3
 #define COLUMNAS 4
@@ -139,18 +166,27 @@ corrupción de datos, violando la regla de estilo {ref}`0x0027h`.
 
 :::
 
-## Recorriendo una matriz
+## Patrones de Recorrido de Matrices
 
-El procesamiento sistemático de todos los elementos de una matriz se hace
-comúnmente a través de bucles `for` anidados. Por convención, el bucle externo
-itera sobre el índice de las filas, mientras que el bucle interno itera sobre el
-de las columnas.
+El procesamiento sistemático de todos los elementos de una matriz requiere el
+uso de **lazos anidados**. La comprensión de los diferentes patrones de acceso
+es crucial tanto para la corrección del algoritmo como para el rendimiento del
+programa.
+
+### Recorrido por Filas (Row-Major)
+
+El patrón más común y eficiente es el recorrido por filas, donde se accede a
+todos los elementos de una fila antes de pasar a la siguiente. Este patrón
+aprovecha la {term}`localidad espacial <memoria caché>` y optimiza el uso de la
+memoria caché ({ref}`0x0000h`).
 
 ```{code-block}c
-:caption: Impresión de una matriz en formato tabular
+:caption: Recorrido fila por fila - patrón recomendado
 :linenos:
 
+// Lazo externo: filas (i)
 for (size_t i = 0; i < FILAS; i++) {
+    // Lazo interno: columnas (j)
     for (size_t j = 0; j < COLUMNAS; j++) {
         printf("%d ", matriz[i][j]);
     }
@@ -158,11 +194,68 @@ for (size_t i = 0; i < FILAS; i++) {
 }
 ```
 
+### Recorrido por Columnas (Column-Major)
+
+En ocasiones específicas, puede ser necesario procesar los elementos columna por
+columna. Este patrón es menos eficiente en términos de caché, pero puede ser
+requerido por la lógica del algoritmo.
+
+```{code-block}c
+:caption: Recorrido columna por columna
+
+// Lazo externo: columnas (j)
+for (size_t j = 0; j < COLUMNAS; j++) {
+    // Lazo interno: filas (i)
+    for (size_t i = 0; i < FILAS; i++) {
+        printf("%d ", matriz[i][j]);
+    }
+    printf("\n"); // Nueva línea al final de cada columna
+}
+```
+
+### Recorrido Diagonal
+
+Para matrices cuadradas, es común necesitar acceder a las diagonales.
+
+```{code-block}c
+:caption: Acceso a diagonal principal y secundaria
+
+#define DIM 4
+int matriz_cuadrada[DIM][DIM];
+
+// Diagonal principal (i == j)
+printf("Diagonal principal: ");
+for (size_t i = 0; i < DIM; i++) {
+    printf("%d ", matriz_cuadrada[i][i]);
+}
+printf("\n");
+
+// Diagonal secundaria (i + j == DIM - 1)
+printf("Diagonal secundaria: ");
+for (size_t i = 0; i < DIM; i++) {
+    printf("%d ", matriz_cuadrada[i][DIM - 1 - i]);
+}
+printf("\n");
+```
+
+:::{important} Eficiencia y localidad de memoria
+
+El orden de recorrido por filas es generalmente más eficiente debido a cómo C
+almacena las matrices en memoria. Cada acceso secuencial por fila mantiene los
+datos en la {term}`memoria caché`, mientras que el acceso por columnas puede
+generar más fallos de caché y, en consecuencia, un rendimiento inferior.
+
+Para matrices grandes, esta diferencia puede ser significativa. Siempre que sea
+posible, diseñá tus algoritmos para seguir el patrón row-major.
+
+:::
+
 ## Pasando matrices a funciones (Método Clásico)
 
 Al pasar una matriz como argumento a una función, el estándar de C requiere que
 se especifiquen explícitamente **todas las dimensiones, a excepción de la
-primera**. Esto es necesario para que el compilador pueda calcular el desplazamiento en memoria de cada elemento.
+primera**. Esto es necesario para que el compilador pueda calcular el
+desplazamiento en memoria de cada elemento.
 
 ```{code-block}c
 :linenos:
@@ -237,7 +330,7 @@ int cubo[2][3][4];
 // Acceso a un elemento
 cubo[1][0][2] = 99;
 
-// Recorrido con tres bucles anidados
+// Recorrido con tres lazos anidados
 for (size_t i = 0; i < 2; i++) {       // Capas
     for (size_t j = 0; j < 3; j++) {   // Filas
         for (size_t k = 0; k < 4; k++) { // Columnas
@@ -257,7 +350,7 @@ la CPU y la memoria principal (RAM).
 
 ### Recorrido Óptimo (Cache-Friendly)
 
-La iteración por filas en el bucle externo y por columnas en el interno produce
+La iteración por filas en el lazo externo y por columnas en el interno produce
 un patrón de acceso secuencial a la memoria. Esto maximiza la probabilidad de
 aciertos de caché (cache hits), ya que al solicitar un elemento, un bloque
 contiguo de memoria que incluye los elementos subsiguientes de la misma fila es
@@ -275,7 +368,7 @@ for (size_t i = 0; i < FILAS; i++) {
 
 ### Recorrido Ineficiente (Cache-Unfriendly)
 
-La inversión de los bucles de iteración genera un patrón de acceso no contiguo a
+La inversión de los lazos de iteración genera un patrón de acceso no contiguo a
 la memoria. Cada acceso salta a una dirección de memoria distante, lo que reduce
 la eficacia de la caché y provoca constantes fallos de caché (cache misses).
 Cada fallo obliga a la CPU a esperar la recuperación de datos desde la lenta
@@ -294,8 +387,8 @@ for (size_t j = 0; j < COLUMNAS; j++) {
 # Operaciones Matemáticas con Matrices
 
 En el ámbito de la programación en $C$ y otras áreas de la computación, el
-manejo de matrices es fundamental. $A$ continuación, te presento los algoritmos y
-las expresiones matemáticas para las operaciones básicas entre matrices.
+manejo de matrices es fundamental. $A$ continuación, te presento los algoritmos
+y las expresiones matemáticas para las operaciones básicas entre matrices.
 
 ## Suma de Matrices
 
@@ -305,8 +398,8 @@ de los elementos correspondientes en $A$ y $B$.
 
 ### Expresión Matemática
 
-Para dos matrices $A$ y $B$ de tamaño $𝑚×𝑛$, la matriz resultante $C$ se
-define como:
+Para dos matrices $A$ y $B$ de tamaño $𝑚×𝑛$, la matriz resultante $C$ se define
+como:
 
 ```{math}
 :label: eq-suma-matrices
@@ -319,22 +412,22 @@ donde $𝑖$ representa la fila y $𝑗$ la columna.
 
 Visualmente, la suma de dos matrices de 2x2 se vería así:
 
-$$ 
+$$
 \begin{pmatrix}
- A_{1,1} & A_{1,2} \\ 
+ A_{1,1} & A_{1,2} \\
 A_{2,1} & A_{2,2}
 \end{pmatrix}
-+ 
++
 \begin{pmatrix}
- B_{1,1} & B_{1,2} \\ 
+ B_{1,1} & B_{1,2} \\
 B_{2,1} & B_{2,2}
 \end{pmatrix}
-= 
+=
 \begin{pmatrix}
- A_{1,1} + B_{1,1} & A_{1,2} + B_{1,2} \\ 
+ A_{1,1} + B_{1,1} & A_{1,2} + B_{1,2} \\
 A_{2,1} + B_{2,1} & A_{2,2} + B_{2,2}
 \end{pmatrix}
-$$ 
+$$
 
 ### Algoritmo en Pseudocódigo
 
@@ -368,8 +461,8 @@ los elementos correspondientes.
 
 ### Expresión Matemática
 
-Para dos matrices $A$ y $B$ de tamaño $𝑚×𝑛$, la matriz resultante $C$ se
-define como:
+Para dos matrices $A$ y $B$ de tamaño $𝑚×𝑛$, la matriz resultante $C$ se define
+como:
 
 ```{math}
 :label: eq-resta-matrices
@@ -409,35 +502,49 @@ número de columnas de $A$ sea igual al número de filas de $B$.
 ### Expresión Matemática
 
 El elemento $(𝑖,𝑗)$ de la matriz resultante $C$ se calcula como la suma de los
-productos de los elementos de la fila 𝑖 de $A$ por los elementos de la columna
-𝑗 de $B$.
+productos de los elementos de la fila 𝑖 de $A$ por los elementos de la columna 𝑗
+de $B$.
 
-$$ C_{i,j} = \sum_{k=1}^{p} A_{i,k} \cdot B_{k,j} $$ (eq-mult-matrices)
+$$ C*{i,j} = \sum*{k=1}^{p} A*{i,k} \cdot B*{k,j} $$ (eq-mult-matrices)
 
 ### Expansión Matemática
 
-Cada elemento $C_{i,j}$ de la matriz resultante se calcula realizando el producto escalar del vector fila $𝑖$ de la matriz $A$ con el vector columna 𝑗 de la matriz $B$.
+Cada elemento $C_{i,j}$ de la matriz resultante se calcula realizando el
+producto escalar del vector fila $𝑖$ de la matriz $A$ con el vector columna 𝑗 de
+la matriz $B$.
 
 Dadas las matrices:
 
-$$ A = \begin{pmatrix} A*{1,1} & \cdots & A*{1,p} \\ \vdots & \ddots & \vdots \\ \color{blue}A*{i,1} & \color{blue}\cdots & \color{blue}A*{i,p} \\ \vdots & \ddots & \vdots \\ A*{m,1} & \cdots & A*{m,p} \end{pmatrix} \quad B = \begin{pmatrix} B*{1,1} & \cdots & \color{red}B*{1,j} & \cdots & B*{1,n} \\ \vdots & \ddots & \color{red}\vdots & \ddots & \vdots \\ B*{p,1} & \cdots & \color{red}B*{p,j} & \cdots & B*{p,n} \end{pmatrix} $$ 
+$$ A = \begin{pmatrix} A*{1,1} & \cdots & A*{1,p} \\ \vdots & \ddots & \vdots \\
+\color{blue}A*{i,1} & \color{blue}\cdots & \color{blue}A*{i,p} \\ \vdots &
+\ddots & \vdots \\ A*{m,1} & \cdots & A*{m,p} \end{pmatrix} \quad B =
+\begin{pmatrix} B*{1,1} & \cdots & \color{red}B*{1,j} & \cdots & B*{1,n} \\
+\vdots & \ddots & \color{red}\vdots & \ddots & \vdots \\ B*{p,1} & \cdots &
+\color{red}B*{p,j} & \cdots & B*{p,n} \end{pmatrix} $$
 
 El elemento $C_{i,j}$ se calcula como:
 
-$$ C*{i,j} = (\color{blue}A*{i,1} \cdot \color{red}B*{1,j}) + (\color{blue}A*{i,2}
+$$
+C*{i,j} = (\color{blue}A*{i,1} \cdot \color{red}B*{1,j}) + (\color{blue}A*{i,2}
 \cdot \color{red}B*{2,j}) + \cdots + (\color{blue}A*{i,p} \cdot
-\color{red}B*{p,j}) = \sum*{k=1}^{p} A*{i,k} \cdot B*{k,j} $$ 
+\color{red}B*{p,j}) = \sum*{k=1}^{p} A*{i,k} \cdot B*{k,j}
+$$
 
-Por ejemplo, para calcular el elemento $C_{1,1}$ de una multiplicación de matrices de 2x2:
+Por ejemplo, para calcular el elemento $C_{1,1}$ de una multiplicación de
+matrices de 2x2:
 
-$$ \begin{pmatrix} \color{blue}A*{1,1} & \color{blue}A*{1,2} \\ A*{2,1} & A*{2,2} \end{pmatrix} \times \begin{pmatrix} \color{red}B*{1,1} & B*{1,2} \\ \color{red}B*{2,1} & B*{2,2} \end{pmatrix} = \begin{pmatrix} C*{1,1} & C*{1,2}
-\\ C*{2,1} & C*{2,2} \end{pmatrix} $$ 
+$$
+\begin{pmatrix} \color{blue}A*{1,1} & \color{blue}A*{1,2} \\ A*{2,1} & A*{2,2} \end{pmatrix} \times \begin{pmatrix} \color{red}B*{1,1} & B*{1,2} \\ \color{red}B*{2,1} & B*{2,2} \end{pmatrix} = \begin{pmatrix} C*{1,1} & C*{1,2}
+\\ C*{2,1} & C*{2,2} \end{pmatrix}
+$$
 
-Donde $C_{1,1} = (\color{blue}A_{1,1} \cdot \color{red}B_{1,1}) + (\color{blue}A_{1,2} \cdot \color{red}B_{2,1})$. 
+Donde
+$C_{1,1} = (\color{blue}A_{1,1} \cdot \color{red}B_{1,1}) + (\color{blue}A_{1,2} \cdot \color{red}B_{2,1})$.
 
 ### Algoritmo en Pseudocódigo
 
-Este algoritmo requiere tres bucles anidados para calcular el producto escalar de cada fila de $A$ con cada columna de $B$.
+Este algoritmo requiere tres lazos anidados para calcular el producto escalar de
+cada fila de $A$ con cada columna de $B$.
 
 ```{code-block}pseudocode
 :caption: Algoritmo para la multiplicación de una matriz A (m x p) por una matriz B (p x n).
@@ -461,28 +568,39 @@ FUNCIÓN multiplicar_matrices(A, B, m, p, n)
   RETORNAR C
 FIN FUNCIÓN
 ```
+
 ## Cálculo de Determinantes
 
-El determinante es un valor escalar que se puede calcular para toda **matriz cuadrada**. Este valor encapsula propiedades importantes de la matriz, como la invertibilidad. Se denota como $det(A)$ o $|A|$. 
+El determinante es un valor escalar que se puede calcular para toda **matriz
+cuadrada**. Este valor encapsula propiedades importantes de la matriz, como la
+invertibilidad. Se denota como $det(A)$ o $|A|$.
 
 ### Definición Matemática
 
 Para una matriz de 2x2, el cálculo es directo:
 
-$$ \det(A) = \begin{vmatrix} a & b \\ c & d \end{vmatrix} = ad - bc $$ 
+$$ \det(A) = \begin{vmatrix} a & b \\ c & d \end{vmatrix} = ad - bc $$
 
-Para matrices de mayor tamaño $(n x n)$, un método común es la **expansión por cofactores**. El determinante se calcula expandiendo a lo largo de una fila o columna. Usando la primera fila, la fórmula es:
+Para matrices de mayor tamaño $(n x n)$, un método común es la **expansión por
+cofactores**. El determinante se calcula expandiendo a lo largo de una fila o
+columna. Usando la primera fila, la fórmula es:
 
-$$ \det(A) = \sum*{j=1}^{n} (-1)^{1+j} \cdot A*{1,j} \cdot \det(M\_{1,j}) $$(eq-determinante)
+$$ \det(A) = \sum*{j=1}^{n} (-1)^{1+j} \cdot A*{1,j} \cdot \det(M\_{1,j})
+$$(eq-determinante)
 
 Donde:
+
 - $A_{1,j}$ es el elemento en la primera fila y la columna $j$.
-- $M_{1,j}$ es la **matriz menor**, que es la submatriz que resulta de eliminar la fila 1 y la columna $j$ de $A$.
-- El término $(-1)^{1+j} \cdot \det(M_{1,j})$ se conoce como el **cofactor** del elemento $A_{1,j}$.
+- $M_{1,j}$ es la **matriz menor**, que es la submatriz que resulta de eliminar
+  la fila 1 y la columna $j$ de $A$.
+- El término $(-1)^{1+j} \cdot \det(M_{1,j})$ se conoce como el **cofactor** del
+  elemento $A_{1,j}$.
 
 ### Algoritmo Recursivo (Basado en Cofactores)
 
-Este método matemático se traduce de forma natural en un algoritmo recursivo. La idea es reducir el problema de un determinante $n x n$ al cálculo de varios determinantes $(n-1) x (n-1)$, hasta llegar al caso base de una matriz 2x2.
+Este método matemático se traduce de forma natural en un algoritmo recursivo. La
+idea es reducir el problema de un determinante $n x n$ al cálculo de varios
+determinantes $(n-1) x (n-1)$, hasta llegar al caso base de una matriz 2x2.
 
 ```{warning} Costo Computacional
 :class: dropdown
@@ -534,33 +652,39 @@ FIN FUNCIÓN
 
 ## Inversión de Matrices
 
-La inversa de una matriz cuadrada $A$, denotada como $A^{-1}$, es aquella matriz que al multiplicarla por $A$ da como resultado la matriz identidad $I$.
+La inversa de una matriz cuadrada $A$, denotada como $A^{-1}$, es aquella matriz
+que al multiplicarla por $A$ da como resultado la matriz identidad $I$.
 
-
-$$ A \cdot A^{-1} = A^{-1} \cdot A = I $$ 
+$$ A \cdot A^{-1} = A^{-1} \cdot A = I $$
 
 ### Condiciones para la Inversión
 
 Una matriz es invertible si y solo si cumple dos condiciones:
+
 1.  Es una **matriz cuadrada**.
-2.  Su **determinante es distinto de cero**. $A$ las matrices con determinante cero se las llama **singulares** y no tienen inversa.
+2.  Su **determinante es distinto de cero**. $A$ las matrices con determinante
+    cero se las llama **singulares** y no tienen inversa.
 
 ### Método de la Matriz Adjunta
 
-Un método para encontrar la inversa se basa en el determinante y la **matriz adjunta**. La fórmula es:
+Un método para encontrar la inversa se basa en el determinante y la **matriz
+adjunta**. La fórmula es:
 
 $$ A^{-1} = \frac{1}{\det(A)} \cdot \text{adj}(A) $$(eq-inversa)
 
-Donde $adj(A)$ es la matriz adjunta de $A$, que se define como la **transpuesta de la matriz de cofactores** de $A$.
+Donde $adj(A)$ es la matriz adjunta de $A$, que se define como la **transpuesta
+de la matriz de cofactores** de $A$.
 
 ### Algoritmo (Basado en la Adjunta)
 
 El algoritmo consiste en seguir los pasos de la fórmula matemática.
 
 1.  **Calcular el determinante:** Si es cero, la matriz no es invertible.
-2.  **Calcular la matriz de cofactores:** Para cada elemento $A_{i,j}$, su cofactor es $(-1)^{i+j} \det(M_{i,j})$.
+2.  **Calcular la matriz de cofactores:** Para cada elemento $A_{i,j}$, su
+    cofactor es $(-1)^{i+j} \det(M_{i,j})$.
 3.  **Calcular la matriz adjunta:** Transponer la matriz de cofactores.
-4.  **Obtener la inversa:** Multiplicar la matriz adjunta por el escalar $1 / \det(A)$.
+4.  **Obtener la inversa:** Multiplicar la matriz adjunta por el escalar
+    $1 / \det(A)$.
 
 ```{code-block}pseudocode
 :caption: Algoritmo para la inversión de una matriz A.
@@ -609,20 +733,244 @@ FUNCIÓN invertir_matriz(A, n)
 FIN FUNCIÓN
 ```
 
+## Validación y Manejo de Errores
+
+En aplicaciones robustas, es fundamental implementar validaciones para prevenir
+accesos fuera de límites y operaciones inválidas. Esto es especialmente crítico
+en C, donde no existe verificación automática de límites ({ref}`0x0027h`).
+
+### Validación de Índices
+
+```{code-block}c
+:caption: Función para validar acceso seguro a matriz
+:linenos:
+
+#include <stdbool.h>
+
+bool indice_valido(int fila, int columna,
+                   size_t max_filas, size_t max_columnas) {
+    return (fila >= 0 && fila < max_filas &&
+            columna >= 0 && columna < max_columnas);
+}
+
+int acceso_seguro_matriz(int matriz[][MAX_COLUMNAS],
+                        int fila, int columna,
+                        int filas, int columnas) {
+    if (!indice_valido(fila, columna, filas, columnas)) {
+        fprintf(stderr, "Error: Índices fuera de límites (%d, %d)\n",
+                fila, columna);
+        return -1; // Valor de error
+    }
+
+    return matriz[fila][columna];
+}
+```
+
+### Validación de Operaciones
+
+Para operaciones matemáticas entre matrices, debemos verificar la compatibilidad
+de dimensiones antes de proceder.
+
+```{code-block}c
+:caption: Validación para operaciones con matrices
+:linenos:
+
+typedef enum {
+    MATRIZ_OK,
+    MATRIZ_ERROR_DIMENSIONES,
+    MATRIZ_ERROR_MEMORIA,
+    MATRIZ_ERROR_SINGULAR
+} resultado_matriz_t;
+
+resultado_matriz_t validar_suma(int filas_a, int columnas_a,
+                               int filas_b, int columnas_b) {
+    if (filas_a != filas_b || columnas_a != columnas_b) {
+        return MATRIZ_ERROR_DIMENSIONES;
+    }
+    return MATRIZ_OK;
+}
+
+resultado_matriz_t validar_multiplicacion(int filas_a, int columnas_a,
+                                        int filas_b, int columnas_b) {
+    if (columnas_a != filas_b) {
+        return MATRIZ_ERROR_DIMENSIONES;
+    }
+    return MATRIZ_OK;
+}
+```
+
+:::{warning} Responsabilidad del programador
+
+En C, la validación de límites es responsabilidad del programador. El lenguaje 
+no proporciona verificaciones automáticas, por lo que debés implementar estas 
+validaciones de forma explícita. El no hacerlo puede resultar en comportamiento 
+indefinido, violando la regla de estilo {ref}`0x0000h` sobre claridad y prolijidad 
+del código. 
+
+:::
+
+## Mejores Prácticas y Optimizaciones
+
+### Uso de Macros para Dimensiones
+
+Utilizá siempre macros para definir las dimensiones de tus matrices, siguiendo
+la regla de estilo {ref}`0x002Fh`. Esto facilita el mantenimiento y la
+modificación del código.
+
+```{code-block}c
+:caption: Definición de dimensiones con macros
+
+#define MAX_FILAS 100
+#define MAX_COLUMNAS 100
+
+int matriz[MAX_FILAS][MAX_COLUMNAS];
+```
+
+### Optimización de Acceso a Memoria
+
+Para matrices grandes, considerá el orden de acceso para optimizar el uso de la
+caché. El patrón row-major es generalmente más eficiente:
+
+```{code-block}c
+:caption: Optimización para el acceso a memoria
+:linenos:
+
+// Preferible - acceso secuencial por filas
+for (size_t i = 0; i < FILAS; i++) {
+    for (size_t j = 0; j < COLUMNAS; j++) {
+        procesar_elemento(matriz[i][j]);
+    }
+}
+
+// Menos eficiente - acceso por columnas
+// Usar solo cuando sea necesario por la lógica del algoritmo
+for (size_t j = 0; j < COLUMNAS; j++) {
+    for (size_t i = 0; i < FILAS; i++) {
+        procesar_elemento(matriz[i][j]);
+    }
+}
+```
+
+### Funciones Auxiliares
+
+Creá funciones auxiliares para operaciones comunes, siguiendo la regla de
+claridad {ref}`0x0000h`:
+
+```{code-block}c
+:caption: Funciones auxiliares para matrices
+:linenos:
+
+void imprimir_matriz(int matriz[][MAX_COLS], size_t filas, size_t columnas) {
+    for (size_t i = 0; i < filas; i++) {
+        for (size_t j = 0; j < columnas; j++) {
+            printf("%4d ", matriz[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void inicializar_con_ceros(int matriz[][MAX_COLS], size_t filas, size_t columnas) {
+    for (size_t i = 0; i < filas; i++) {
+        for (size_t j = 0; j < columnas; j++) {
+            matriz[i][j] = 0;
+        }
+    }
+}
+
+bool son_matrices_iguales(int a[][MAX_COLS], int b[][MAX_COLS],
+                         int filas, int columnas) {
+    for (size_t i = 0; i < filas; i++) {
+        for (size_t j = 0; j < columnas; j++) {
+            if (a[i][j] != b[i][j]) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+```
 
 ## Glosario
 
 :::{glossary}
-memoria caché
-: Una **memoria caché** (del francés *cacher*, "esconder") es un componente de hardware o software que almacena datos para que las futuras solicitudes de esos datos puedan ser atendidas más rápidamente. Se trata de una memoria auxiliar, de alta velocidad y menor capacidad, situada entre la unidad central de procesamiento (CPU) y la memoria de acceso aleatorio (RAM).
 
-  El objetivo principal de una caché es **acelerar el acceso a los datos** que se utilizan con mayor frecuencia. Cuando la CPU necesita leer o escribir datos, primero busca en la caché. Si los datos se encuentran allí (lo que se conoce como un **acierto de caché** o *cache hit*), se accede a ellos de forma casi inmediata, evitando el acceso mucho más lento a la memoria principal. Si los datos no están en la caché (**fallo de caché** o *cache miss*), se deben recuperar de la RAM y, por lo general, se copian en la caché para futuros accesos.
+memoria caché 
+: Una **memoria caché** (del francés _cacher_,
+"esconder") es un componente de hardware o software que almacena datos para que
+las futuras solicitudes de esos datos puedan ser atendidas más rápidamente. Se
+trata de una memoria auxiliar, de alta velocidad y menor capacidad, situada
+entre la unidad central de procesamiento (CPU) y la memoria de acceso aleatorio
+(RAM).
 
-  Existen diferentes **niveles de caché** (L1, L2, L3), que se diferencian por su tamaño, velocidad y proximidad a los núcleos de la CPU. La caché L1 es la más pequeña y rápida, mientras que la L3 es la más grande y lenta de las tres.
+El objetivo principal de una caché es **acelerar el acceso a los datos** que se
+utilizan con mayor frecuencia. Cuando la CPU necesita leer o escribir datos,
+primero busca en la caché. Si los datos se encuentran allí (lo que se conoce
+como un **acierto de caché** o _cache hit_), se accede a ellos de forma casi
+inmediata, evitando el acceso mucho más lento a la memoria principal. Si los
+datos no están en la caché (**fallo de caché** o _cache miss_), se deben
+recuperar de la RAM y, por lo general, se copian en la caché para futuros
+accesos.
 
-  ¿Pero por que no todo es memoria caché? La relación costo capacidad. Las memorias mas cercanas al procesador y las mas rápidas, son las mas caras, tengan en cuenta que una computadora moderna tiene algunos kilobytes de memoria L1 y unos pocos megabytes en L3.
+Existen diferentes **niveles de caché** (L1, L2, L3), que se diferencian por su
+tamaño, velocidad y proximidad a los núcleos de la CPU. La caché L1 es la más
+pequeña y rápida, mientras que la L3 es la más grande y lenta de las tres.
+
+¿Pero por que no todo es memoria caché? La relación costo capacidad. Las
+memorias mas cercanas al procesador y las mas rápidas, son las mas caras, tengan
+en cuenta que una computadora moderna tiene algunos kilobytes de memoria L1 y
+unos pocos megabytes en L3.
+
+localidad espacial 
+: Un principio fundamental en el diseño de sistemas de
+memoria que establece que si un programa accede a una ubicación de memoria, es
+muy probable que también acceda a ubicaciones cercanas en un futuro próximo.
+Este principio es especialmente relevante para las matrices almacenadas en
+**row-major order**, donde los elementos de una fila son adyacentes en memoria.
+Al acceder secuencialmente por filas, se aprovecha esta localidad y se optimiza
+el uso de la caché.
+
+localidad temporal 
+: Principio que indica que si un programa accede a una
+ubicación de memoria, es probable que vuelva a acceder a la misma ubicación en
+un futuro cercano. En el contexto de matrices, esto se aprovecha cuando se
+realizan múltiples operaciones sobre los mismos elementos o cuando se recorren
+matrices varias veces con diferentes propósitos.
+
+row-major order 
+: Método de almacenamiento de matrices en memoria donde los
+elementos se disponen fila por fila de forma consecutiva. En una matriz de 3×4,
+los elementos se almacenan como: [matriz[0][0], matriz[0][1], matriz[0][2],
+matriz[0][3], matriz[1][0], ...]. Este es el orden usado por C, C++, Python
+(NumPy) y Java, entre otros.
+
+column-major order 
+: Método alternativo de almacenamiento donde los elementos se
+almacenan columna por columna. Usado por lenguajes como Fortran y MATLAB. En una
+matriz de 3×4, el orden sería: [matriz[0][0], matriz[1][0], matriz[2][0],
+matriz[0][1], ...]. Es importante conocer este concepto al interoperar con
+código de otros lenguajes.
+
+matriz singular 
+: Una matriz cuadrada cuyo determinante es igual a cero. Las
+matrices singulares no tienen inversa y representan transformaciones que
+"colapsan" el espacio, reduciendo su dimensionalidad. En términos geométricos,
+una matriz singular proyecta vectores de dimensión n en un subespacio de menor
+dimensión.
+
+determinante 
+: Un valor escalar que se puede calcular para cualquier matriz
+cuadrada. Proporciona información importante sobre las propiedades de la matriz:
+si es cero, la matriz es singular; si es positivo o negativo, indica
+orientación; y su magnitud representa el factor de escalamiento del volumen en
+transformaciones lineales.
+
+matriz identidad 
+: Una matriz cuadrada especial donde todos los elementos de la
+diagonal principal son 1 y todos los demás elementos son 0. Actúa como el
+elemento neutro en la multiplicación de matrices: A × I = I × A = A. Es
+fundamental en operaciones como la inversión de matrices. 
+
 :::
-
 
 ## Ejercicios
 
@@ -630,7 +978,9 @@ memoria caché
 :label: imprimir_matriz
 :enumerator: matrices-1
 
-Escribí un programa que inicialice una matriz de enteros de 3x3 con valores predefinidos. Luego, recorrela utilizando bucles anidados para imprimir sus elementos en la consola, manteniendo el formato de filas y columnas.
+Escribí un programa que inicialice una matriz de enteros de 3x3 con valores 
+predefinidos. Luego, recorrela utilizando lazos anidados para imprimir sus 
+elementos en la consola, manteniendo el formato de filas y columnas.
 ```
 
 ````{solution} imprimir_matriz
@@ -657,7 +1007,6 @@ int main() {
 }
 ```
 ````
-
 
 ```{exercise}
 :label: sumar_diagonal

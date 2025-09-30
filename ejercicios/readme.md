@@ -1,6 +1,6 @@
 ---
 title: Repositorio de enunciados
-short_title: ejercicios
+short_title: Ejercicios
 ---
 
 ## ¿Y las practicas?
@@ -113,3 +113,10 @@ un concepto específico de la programación en C.
   pensamiento recursivo y la implementación de algoritmos sin el uso de lazos
   explícitos.
 
+- [**11. Búsqueda y ordenamiento**](./11_ordenamiento_y_busqueda.md)
+- [**12. Operaciones con bits**](./12_operaciones_de_bits.md)
+- [**13. Estructuras de datos**](./13_estructuras_de_datos.md)
+- [**14. Compilación y `makefiles`**](./14_compilacion_y_makefiles.md)
+- [**15. Archivos binarios**](./15_archivos_binarios.md)
+- [**16. Punteros avanzados**](./16_punteros_avanzados.md)
+- [**17. Análisis de código**](./17_analisis_de_codigo.md)
