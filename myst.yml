@@ -51,13 +51,13 @@ project:
         - file: ejercicios/10_recursion.md
     - title: Extras
       children:
-        - file: extras/unico-retorno.md
-        - file: extras/simular.md
-        - file: extras/cadenas.md
-        - file: extras/makefiles.md
-        - file: extras/estado.md
-        - file: extras/printf.md
-        - file: extras/roles.md
+        - file: extras/ref-unico-retorno.md
+        - file: extras/ref-simular.md
+        - file: extras/guide-makefiles.md
+        - file: extras/guide-printf.md
+        - file: extras/notes-cadenas.md
+        - file: extras/notes-roles.md
+        - file: extras/notes-estado.md
         - file: extras/bits.md
         - file: extras/binarios.md
         - file: extras/bitmaps.md

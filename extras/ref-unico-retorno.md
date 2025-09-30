@@ -1,4 +1,7 @@
-### Único Retorno
+---
+title: Único Retorno
+short_title: Refactorizacion - Único retorno
+---
 
 Para cumplir con el lineamiento de estilo de tener un solo punto de salida ***`return`*** en nuestras funciones, muchas veces vamos a tener que refactorizar nuestro código, de una forma distinta, dependiendo el caso. Lo que sigue es un resumen de los casos más frecuentes, y opciones de refactorización.
 
