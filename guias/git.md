@@ -1,4 +1,7 @@
-# 🚀 Guía de Git para principiantes: Control de versiones esencial
+---
+title: Git base
+subtitle: Guía para principiantes: Control de versiones esencial.
+---
 
 (intro-git)=
 ## ¿Por qué usar Git?
