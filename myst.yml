@@ -25,13 +25,14 @@ project:
         - file: apunte/7_punteros.md
         - file: apunte/8_archivos.md
         - file: apunte/9_argumentos.md
+        - file: apunte/10_enums.md 
         - file: apunte/A_stdlib.md
         - file: apunte/0_estilo.md
-#        - file: apunte/9_ordenamiento.md
-#        - file: apunte/10_complejidad.md
+#        - file: apunte/_ordenamiento.md
+#        - file: apunte/_complejidad.md
 
 
-#        - file: apunte/estructuras.md 
+
 #        - file: apunte/tad.md
 #        - file: apunte/memoria.md
 #        - file: apunte/cadenas.md
@@ -49,6 +50,15 @@ project:
         - file: ejercicios/8_archivos.md
         - file: ejercicios/9_structs.md
         - file: ejercicios/10_recursion.md
+        - file: ejercicios/11_ordenamiento_y_busqueda.md
+        - file: ejercicios/12_operaciones_de_bits.md
+        - file: ejercicios/13_estructuras_de_datos.md
+        - file: ejercicios/14_compilacion_y_makefiles.md
+        - file: ejercicios/15_archivos_binarios.md
+        - file: ejercicios/16_punteros_avanzados.md
+        - file: ejercicios/17_analisis_de_codigo.md
+#        - file: 
+#        - file: 
     - title: Extras
       children:
         - file: extras/ref-unico-retorno.md
