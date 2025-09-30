@@ -1,6 +1,6 @@
 ---
 title: Makefiles
-short_title: make
+short_title: Guía makefiles
 subtitle: Estructurando a proyectos
 ---
 

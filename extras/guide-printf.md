@@ -1,6 +1,6 @@
 ---
 title: La función printf
-short_title: printf
+short_title: Guía printf
 subtitle: Para que podemos mostrar variables.
 ---
 

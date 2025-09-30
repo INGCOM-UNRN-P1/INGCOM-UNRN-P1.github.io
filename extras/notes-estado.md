@@ -1,22 +1,8 @@
 ---
 title: Estado de un programa
-short_title: Estado
+short_title: Notas - estado
 subtitle: El fin ultimo de las variables.
-authors:
-  - name: Martín René Vilugrón
-    affiliations:
-      - Universidad Nacional de Rio Negro
-exports:
-  - format: pdf
-    template: springer
-    article_type: Report
-abstract: |
-  Ademas de los roles individuales, podemos pensar en que es lo que hace la 
-  informacion del programa en su conjunto.
 ---
-
-Claro. A continuación, se detalla el concepto de **estado de un programa** en el
-contexto de la programación en C.
 
 El **estado de un programa** (del inglés, _program state_) en un instante de
 tiempo $t$ es la colección completa y precisa de toda la información mutable que
@@ -27,8 +13,6 @@ continuara desde ese punto exacto sin ninguna diferencia observable.
 Comprender el estado es fundamental para el debugging, la concurrencia y el
 análisis del comportamiento del programa. Se compone de varios elementos
 distribuidos en la memoria y en los registros del procesador.
-
----
 
 ### Componentes Principales del Estado
 

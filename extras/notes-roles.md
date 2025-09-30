@@ -1,17 +1,7 @@
 ---
 title: Roles de variables
-short_title: Roles
+short_title: Notas - Roles
 subtitle: Para que podemos usar variables.
-authors:
-  - name: Martín René Vilugrón
-    affiliations:
-      - Universidad Nacional de Rio Negro
-exports:
-  - format: pdf
-    template: springer
-    article_type: Report
-abstract: |
-  La introducción a la cátedra con los terminos y condicones de la misma.
 ---
 
 # Roles de Variables en Programación

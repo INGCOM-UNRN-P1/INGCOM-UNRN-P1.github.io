@@ -1,11 +1,15 @@
-# El Dilema de las Cadenas en C: De la Simplicidad a la Inseguridad
+---
+title: Cadenas seguras
+short_title: Notas - cadenas
+subtitle: El Dilema de las Cadenas en C, De la Simplicidad a la Inseguridad
+---
 
 Las cadenas de caracteres en el lenguaje C son una de sus características más
 fundamentales y, a la vez, una de sus mayores fuentes de vulnerabilidades de
 seguridad. Entender su diseño histórico es clave para comprender por qué son
 inseguras y por qué surgieron las "cadenas seguras".
 
-## Cadenas Tradicionales en C: El Legado del NUL
+## Cadenas Tradicionales en C: El Legado del `NUL`
 
 ### Historia y Diseño
 
@@ -164,11 +168,11 @@ bibliotecas de alta calidad.
 
 | Característica         | Cadenas NUL-Terminadas                              | Anexo K de C11 (`_s`)                                 | Bibliotecas (SDS) / C++ `std::string`            |
 | ---------------------- | --------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------ |
-| **Seguridad**          | 🚨 **Muy Baja** (propensa a overflows)              | ✅ **Mejorada** (requiere disciplina del programador) | ✅ **Alta** (seguridad por diseño)               |
+| **Seguridad**          | **Muy Baja** (propensa a overflows)              |  **Mejorada** (requiere disciplina del programador) |  **Alta** (seguridad por diseño)               |
 | **Obtener Longitud**   | O(n) - Lento                                        | O(n) - Lento                                          | O(1) - Instantáneo                               |
 | **Gestión de Memoria** | Manual y propensa a errores                         | Manual (el programador provee el buffer)              | Automática y gestionada por la biblioteca/objeto |
 | **Facilidad de Uso**   | Simple para tareas básicas, compleja para seguridad | Verbosa y propensa a errores de uso                   | Muy alta, interfaz de alto nivel                 |
-| **Datos Binarios**     | ❌ **No** (el `\0` actúa como terminador)           | ❌ **No**                                             | ✅ **Sí** (la longitud determina el final)       |
+| **Datos Binarios**     |  **No** (el `\0` actúa como terminador)           |  **No**                                             |  **Sí** (la longitud determina el final)       |
 
 ### Conclusión
 
