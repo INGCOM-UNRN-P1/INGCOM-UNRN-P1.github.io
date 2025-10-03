@@ -17,6 +17,7 @@ project:
     - title: Apunte
       children:
         - file: apunte/1_catedra.md
+        - file: apunte/1_base.md
         - file: apunte/2_gradual.md
         - file: apunte/3_funciones.md
         - file: apunte/4_secuencias.md
