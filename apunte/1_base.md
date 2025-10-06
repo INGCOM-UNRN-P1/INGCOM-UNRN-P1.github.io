@@ -8,13 +8,17 @@ subtitle: Conceptos básicos antes de programar en C
 
 Antes de escribir tu primera línea de código en C, es fundamental comprender
 algunos conceptos básicos sobre cómo funcionan las computadoras y cómo
-comunicarnos con ellas de manera efectiva. Este apunte te proporcionará las
-bases necesarias para comenzar a programar con confianza.
+comunicarnos con ellas de manera efectiva. En este apunte, usaremos **Python**
+para ilustrar estos conceptos de forma clara y sencilla, aprovechando que vimos
+las bases en el curso de ingreso y aprovechando que el lenguaje es excelente
+para aprender a pensar como un programador.
 
 :::{important}
+
 Este material es **prerequisito** para el apunte de introducción a C. Asegurate
 de comprender estos conceptos antes de avanzar, ya que forman la base de todo lo
 que veremos posteriormente.
+
 :::
 
 ## ¿Qué es una computadora?
@@ -35,9 +39,11 @@ de los seres humanos, una computadora:
   degradación en su rendimiento.
 
 :::{note}
+
 Esta característica de precisión absoluta es tanto una fortaleza como una
 debilidad. La computadora hará **exactamente** lo que le pidamos, incluso si
 está mal. De ahí la importancia de escribir algoritmos correctos.
+
 :::
 
 ### Componentes básicos
@@ -108,7 +114,7 @@ El **software** son los programas e instrucciones que controlan el hardware:
   software diseñado para realizar tareas específicas para el usuario.
 
 - **Código fuente**: Las instrucciones que los programadores escriben en
-  lenguajes de programación como C. Este código debe ser traducido (compilado o
+  lenguajes de programación como Python o C. Este código debe ser traducido (compilado o
   interpretado) para que la computadora pueda ejecutarlo.
 
 ```{mermaid}
@@ -358,9 +364,10 @@ flowchart TD
 
 ### Ejemplo matemático: Algoritmo para determinar si un número es par
 
+
 ```
 ┌─────────────────────────────────────────┐
-│ Algoritmo: Verificar si N es par       │
+│ Algoritmo: Verificar si N es par        │
 ├─────────────────────────────────────────┤
 │ Entrada: un número entero N             │
 │ Salida: mensaje indicando si es par     │
@@ -380,6 +387,27 @@ flowchart TD
 └─────────────────────────────────────────┘
 ```
 
+Este es el algoritmo traducido a código Python.
+
+```python
+# 1. Pedir al usuario un número N
+# Usamos int() para convertir el texto ingresado a un número entero
+n = int(input("Ingrese un número: "))
+
+# 2. Calcular el resto de dividir N / 2
+# El operador '%' (módulo) nos da el resto de una división
+resto = n % 2
+
+# 3. Si el resto es igual a 0, el número es par
+if resto == 0:
+    # 3a. Mostrar "N es par"
+    print(f"El número {n} es par.")
+# 4. Si no, el número es impar
+else:
+    # 4a. Mostrar "N es impar"
+    print(f"El número {n} es impar.")
+```
+
 ```{mermaid}
 flowchart TD
     Start([Inicio]) --> Input[Pedir número N]
@@ -395,11 +423,11 @@ flowchart TD
     style Check fill:#FFE4B5
 ```
 
-:::{exercise} Escribir algoritmos
+:::{exercise} Escribir algoritmos en Python
 :label: ex-algoritmos-1
 :nonumber:
 
-Escribí algoritmos detallados (paso a paso) para:
+Escribí algoritmos en Python para:
 
 1. Encontrar el mayor de tres números
 2. Verificar si un año es bisiesto (divisible por 4, pero no por 100, excepto
@@ -412,65 +440,55 @@ Escribí algoritmos detallados (paso a paso) para:
 
 **1. Encontrar el mayor de tres números:**
 
-```
-Algoritmo: Mayor de tres números
-Entrada: tres números A, B, C
-Salida: el número mayor
+```python
+# Leemos tres números
+a = float(input("Ingrese el primer número: "))
+b = float(input("Ingrese el segundo número: "))
+c = float(input("Ingrese el tercer número: "))
 
-1. Inicio
-2. Leer A
-3. Leer B
-4. Leer C
-5. Asumir inicialmente que mayor = A
-6. Si B > mayor:
-   a. mayor = B
-7. Si C > mayor:
-   a. mayor = C
-8. Mostrar "El mayor es:", mayor
-9. Fin
+# Opción 1: Usando condicionales
+mayor = a
+if b > mayor:
+    mayor = b
+if c > mayor:
+    mayor = c
+
+print(f"El mayor número es: {mayor}")
+
+# Opción 2: Usando la función incorporada max()
+# mayor = max(a, b, c)
+# print(f"El mayor número es: {mayor}")
 ```
 
 **2. Verificar año bisiesto:**
 
-```
-Algoritmo: Año bisiesto
-Entrada: un año (número entero)
-Salida: "Es bisiesto" o "No es bisiesto"
+```python
+año = int(input("Ingrese un año: "))
 
-1. Inicio
-2. Leer año
-3. Si (año % 400 == 0):
-   a. Mostrar "Es bisiesto"
-   b. Ir al paso 8
-4. Si (año % 100 == 0):
-   a. Mostrar "No es bisiesto"
-   b. Ir al paso 8
-5. Si (año % 4 == 0):
-   a. Mostrar "Es bisiesto"
-6. Si no:
-   a. Mostrar "No es bisiesto"
-7. Fin
+# Un año es bisiesto si es divisible por 4,
+# excepto los que son divisibles por 100,
+# a menos que también sean divisibles por 400.
+if (año % 400 == 0) or (año % 4 == 0 and año % 100 != 0):
+    print(f"{año} es un año bisiesto.")
+else:
+    print(f"{año} no es un año bisiesto.")
 ```
 
 **3. Calcular factorial:**
 
-```
-Algoritmo: Factorial
-Entrada: un número entero positivo N
-Salida: N! (factorial de N)
+```python
+n = int(input("Ingrese un número entero positivo: "))
 
-1. Inicio
-2. Leer N
-3. Si N < 0:
-   a. Mostrar "Error: número negativo"
-   b. Ir al paso 11
-4. factorial = 1
-5. contador = N
-6. Mientras contador > 1:
-   a. factorial = factorial × contador
-   b. contador = contador - 1
-7. Mostrar "El factorial de", N, "es:", factorial
-8. Fin
+if n < 0:
+    print("Error: el factorial no está definido para números negativos.")
+elif n == 0:
+    print("El factorial de 0 es 1.")
+else:
+    factorial = 1
+    # Usamos un bucle para multiplicar desde 1 hasta n
+    for i in range(1, n + 1):
+        factorial = factorial * i
+    print(f"El factorial de {n} es: {factorial}")
 ```
 :::
 
@@ -504,34 +522,46 @@ flowchart TD
 ::::{grid} 1 1 2 2
 
 :::{grid-item-card} ✅ Orden correcto
-1. Poner agua en la olla
-2. Poner la olla en el fuego
-3. Esperar que hierva
-4. Agregar fideos
-5. Cocinar 10 minutos
-6. Escurrir
+```python
+# 1. Poner agua en la olla
+olla = ["agua"]
+# 2. Poner la olla en el fuego
+fuego_encendido = True
+# 3. Esperar que hierva
+agua_hirviendo = True
+# 4. Agregar fideos
+olla.append("fideos")
+# 5. Cocinar 10 minutos
+# 6. Escurrir
+fideos_cocidos = True
+```
 :::
 
 :::{grid-item-card} ❌ Orden incorrecto
-1. Poner la olla vacía en el fuego
-2. Agregar fideos (a la olla vacía)
-3. Poner agua
-4. Esperar que hierva
-5. ...
-
-**¡Desastre!**
+```python
+# 1. Poner la olla vacía en el fuego
+olla = []
+fuego_encendido = True
+# 2. Agregar fideos (a la olla vacía)
+olla.append("fideos")
+# 3. Poner agua
+olla.append("agua")
+# ... ¡Desastre!
+```
 :::
 ::::
 
 :::{warning}
+
 En programación, cambiar el orden de las instrucciones puede cambiar
 completamente el resultado o hacer que el programa falle.
+
 :::
 
 ### 2. Decisiones (Condicionales)
 
 A veces necesitamos que el programa tome diferentes caminos dependiendo de una
-condición. Esto se representa con estructuras **Si...Entonces...Sino**.
+condición. Esto se representa con estructuras `if...elif...else`.
 
 ```{mermaid}
 flowchart TD
@@ -548,23 +578,28 @@ flowchart TD
 
 **Ejemplo simple:**
 
-```
-Si hace frío:
-    Ponerme un abrigo
-Si no:
-    Usar solo remera
+```python
+hace_frio = temperatura < 5
+
+if hace_frio:
+    print("Ponerme un abrigo")
+else:
+    print("Usar solo remera")
 ```
 
 **Ejemplo con condiciones anidadas:**
 
-```
-Si tengo hambre:
-    Si hay comida en casa:
-        Cocinar
-    Si no:
-        Pedir delivery
-Si no:
-    Continuar con mis actividades
+```python
+tengo_hambre = True
+hay_comida_en_casa = False
+
+if tengo_hambre:
+    if hay_comida_en_casa:
+        print("Cocinar")
+    else:
+        print("Pedir delivery")
+else:
+    print("Continuar con mis actividades")
 ```
 
 ```{mermaid}
@@ -586,14 +621,17 @@ flowchart TD
 
 ### 3. Repetición (Lazos o Bucles)
 
-Cuando necesitamos hacer algo varias veces, usamos estructuras de repetición.
-Hay dos tipos principales:
+Cuando necesitamos hacer algo varias veces, usamos estructuras de repetición. Hay dos tipos principales:
 
-#### Repetición con contador fijo
+#### Repetición con contador fijo (`for`)
 
-```
-Repetir 10 veces:
-    Hacer una flexión de brazos
+Se usa cuando sabemos cuántas veces queremos repetir una acción.
+
+```python
+# Repetir 10 veces
+# range(10) genera números del 0 al 9
+for i in range(10):
+    print(f"Haciendo flexión de brazos número {i + 1}")
 ```
 
 ```{mermaid}
@@ -610,11 +648,18 @@ flowchart TD
     style Check fill:#FFE4B5
 ```
 
-#### Repetición con condición
+#### Repetición con condición (`while`)
 
-```
-Mientras haya platos sucios:
-    Lavar un plato
+Se usa cuando la repetición depende de que una condición sea verdadera.
+
+```python
+platos_sucios = 3
+
+while platos_sucios > 0:
+    print(f"Lavando un plato... Quedan {platos_sucios - 1}")
+    platos_sucios = platos_sucios - 1 # ¡Crucial no olvidar esto!
+
+print("¡Todos los platos están limpios!")
 ```
 
 ```{mermaid}
@@ -645,11 +690,11 @@ Identificá qué estructura de control usarías en cada caso:
 :::{solution} ex-estructuras
 :class: dropdown
 
-1. **Decisión simple (if)**: Una condición que verifica la nota
-2. **Repetición con contador**: Bucle que va de 1 a 100
-3. **Repetición con condición Y contador**: Bucle while con contador de intentos
-4. **Decisión simple**: Verifica el monto y aplica descuento si corresponde
-5. **Repetición con contador**: Bucle que genera 20 números pares
+1. **Decisión simple (`if`)**: Una condición que verifica la nota.
+2. **Repetición con contador (`for`)**: Un bucle que va de 1 a 100.
+3. **Repetición con condición Y contador (`while`)**: Un bucle `while` con un contador de intentos.
+4. **Decisión simple (`if`)**: Verifica el monto y aplica descuento si corresponde.
+5. **Repetición con contador (`for`)**: Un bucle que genera 20 números pares.
 :::
 
 ## Representación de datos
@@ -660,7 +705,7 @@ usar cada uno.
 
 ### Tipos de información fundamentales
 
-#### 1. Números enteros
+#### 1. Números enteros (`int`)
 
 Números sin parte decimal, pueden ser positivos, negativos o cero.
 
@@ -674,14 +719,14 @@ Números sin parte decimal, pueden ser positivos, negativos o cero.
 - Cantidades exactas
 
 **Operaciones:**
-- Suma, resta, multiplicación, división
-- División entera: `17 / 5 = 3` (descarta decimales)
-- Módulo (resto): `17 % 5 = 2`
+- Suma, resta, multiplicación
+- División entera: `17 // 5` da como resultado `3`
+- Módulo (resto): `17 % 5` da como resultado `2`
 
 ::::{grid} 1 1 2 2
 
-:::{grid-item-card} Ejemplos válidos
-```
+:::{grid-item-card} Ejemplos en Python
+```python
 contador = 10
 edad = 25
 año = 2024
@@ -690,16 +735,17 @@ temperatura = -5
 :::
 
 :::{grid-item-card} ❌ NO son enteros
-```
-altura = 1.75  (tiene decimales)
-precio = 99.99 (tiene decimales)
+```python
+# Estos son de tipo float (decimal)
+altura = 1.75
+precio = 99.99
 ```
 :::
 ::::
 
-#### 2. Números decimales (reales o de punto flotante)
+#### 2. Números decimales (`float`)
 
-Números que pueden tener parte decimal.
+Números que pueden tener parte decimal (reales o de punto flotante).
 
 **Ejemplos:**
 - `3.14`, `-0.5`, `2.718`, `1.0`
@@ -712,23 +758,20 @@ Números que pueden tener parte decimal.
 
 **Operaciones:**
 - Todas las operaciones aritméticas normales
-- División siempre da resultado decimal: `17.0 / 5.0 = 3.4`
+- División siempre da resultado decimal: `17.0 / 5.0` da `3.4`
 
 :::{warning}
 Los números decimales en computadora tienen **precisión limitada**. No son
-exactos para todos los valores. Por ejemplo, 0.1 + 0.2 puede no dar exactamente
-0.3 debido a la representación binaria interna.
+exactos para todos los valores. Por ejemplo, `0.1 + 0.2` puede no dar exactamente
+`0.3` debido a la representación binaria interna.
 :::
 
-#### 3. Caracteres y texto
+#### 3. Cadenas de texto (`str`)
 
-**Carácter individual:**
-- Un solo símbolo: letra, número, signo de puntuación
-- Se escribe entre comillas simples: `'A'`, `'z'`, `'3'`, `'@'`, `' '` (espacio)
+Secuencia de caracteres (letras, números, símbolos).
 
-**Cadena de texto (string):**
-- Secuencia de caracteres
-- Se escribe entre comillas dobles: `"Hola mundo"`, `"Programación en C"`
+**Ejemplos:**
+- Se escriben entre comillas simples o dobles: `'Hola'`, `"Mundo"`, `'@'`, `"123"`
 
 **Usos comunes:**
 - Nombres, apellidos, direcciones
@@ -737,8 +780,8 @@ exactos para todos los valores. Por ejemplo, 0.1 + 0.2 puede no dar exactamente
 
 ::::{grid} 1 1 2 2
 
-:::{grid-item-card} Caracteres individuales
-```
+:::{grid-item-card} Caracteres individuales (son `str` de longitud 1)
+```python
 inicial = 'M'
 signo = '+'
 digito = '7'
@@ -747,48 +790,48 @@ espacio = ' '
 :::
 
 :::{grid-item-card} Cadenas de texto
-```
+```python
 nombre = "María"
 mensaje = "Bienvenido"
-dirección = "Calle 123"
+direccion = "Calle 123"
 frase = "Hola mundo"
 ```
 :::
 ::::
 
 :::{note}
-Observá la diferencia entre `'7'` (carácter) y `7` (número). El primero es un
-símbolo que representa el dígito, el segundo es el valor numérico.
+Observá la diferencia entre `'7'` (texto) y `7` (número). El primero es un
+símbolo, el segundo es un valor numérico con el que se pueden hacer cálculos.
 :::
 
-#### 4. Valores lógicos (booleanos)
+#### 4. Valores lógicos (`bool`)
 
-Solo pueden tener dos valores: **verdadero** o **falso**.
+Solo pueden tener dos valores: `True` (verdadero) o `False` (falso).
 
 **Usos comunes:**
 - Banderas (flags): indicar estados
 - Resultados de comparaciones
 - Condiciones en estructuras de control
 
-**Ejemplos:**
-```
-está_lloviendo = verdadero
-tiene_permiso = falso
-es_mayor_de_edad = verdadero
-archivo_existe = falso
+**Ejemplos en Python:**
+```python
+est_lloviendo = True
+tiene_permiso = False
+es_mayor_de_edad = True
+archivo_existe = False
 ```
 
 ```{mermaid}
 graph TD
     subgraph "Valores Booleanos"
-        V[Verdadero/True]
-        F[Falso/False]
+        V[True]
+        F[False]
     end
     
     C1[5 > 3] --> V
     C2[10 == 10] --> V
     C3[2 > 7] --> F
-    C4[nombre == Juan] -.-> V
+    C4[nombre == "Juan"] -.-> V
     C4 -.-> F
     
     style V fill:#90EE90
@@ -803,7 +846,7 @@ información. Podemos pensar en ella como una caja etiquetada.
 ```
 ┌─────────────────────┐
 │  edad               │  ← nombre de la variable (etiqueta)
-│  tipo: entero       │  ← tipo de dato que contiene
+│  tipo: int          │  ← tipo de dato que contiene
 │                     │
 │     25              │  ← valor actual guardado
 └─────────────────────┘
@@ -819,7 +862,7 @@ información. Podemos pensar en ella como una caja etiquetada.
    - Distingue mayúsculas: `edad` ≠ `Edad` ≠ `EDAD`
 
 2. **Tipo**: Define qué clase de datos puede almacenar
-   - Una vez definido, no cambia
+   - En Python, el tipo es dinámico (se infiere del valor)
    - Determina qué operaciones se pueden hacer
 
 3. **Valor**: El dato actual guardado
@@ -830,7 +873,7 @@ información. Podemos pensar en ella como una caja etiquetada.
 graph TD
     subgraph "Variable: edad"
         N[Nombre: edad]
-        T[Tipo: entero]
+        T[Tipo: int]
         V[Valor: 25]
     end
     
@@ -842,32 +885,22 @@ graph TD
     style OPS fill:#ccffcc
 ```
 
-**Ejemplos de variables:**
+**Ejemplos de variables en Python:**
 
-```
-┌─────────────────────┐
-│ Variable: edad      │
-│ Tipo: entero        │
-│ Valor actual: 20    │
-└─────────────────────┘
+```python
+# Python infiere el tipo de dato automáticamente
 
-┌─────────────────────┐
-│ Variable: altura    │
-│ Tipo: decimal       │
-│ Valor actual: 1.75  │
-└─────────────────────┘
+# Variable de tipo entero (int)
+edad = 20
 
-┌─────────────────────┐
-│ Variable: nombre    │
-│ Tipo: texto         │
-│ Valor actual: "Ana" │
-└─────────────────────┘
+# Variable de tipo decimal (float)
+altura = 1.75
 
-┌──────────────────────┐
-│ Variable: aprobado   │
-│ Tipo: booleano       │
-│ Valor actual: verdad │
-└──────────────────────┘
+# Variable de tipo texto (str)
+nombre = "Ana"
+
+# Variable de tipo booleano (bool)
+aprobado = True
 ```
 
 ### El ciclo de vida de una variable
@@ -877,23 +910,17 @@ sequenceDiagram
     participant P as Programa
     participant M as Memoria
     
-    P->>M: 1. Declarar variable (reservar espacio)
-    Note over M: Se reserva espacio en memoria
+    P->>M: 1. Declarar e inicializar (edad = 20)
+    Note over M: Se reserva espacio y se guarda 20
     
-    P->>M: 2. Inicializar (asignar valor inicial)
-    Note over M: edad = 0
+    P->>M: 2. Usar/Modificar (edad = 21)
+    Note over M: El valor en memoria cambia a 21
     
-    P->>M: 3. Usar/Modificar
-    Note over M: edad = 25
-    
-    P->>M: 4. Leer valor
-    M->>P: Devolver 25
-    
-    P->>M: 5. Modificar de nuevo
-    Note over M: edad = 26
+    P->>M: 3. Leer valor (print(edad))
+    M->>P: Devolver 21
     
     Note over P,M: Al finalizar el programa...
-    P->>M: 6. Liberar memoria
+    P->>M: 4. Liberar memoria
     Note over M: Espacio disponible nuevamente
 ```
 
@@ -901,7 +928,7 @@ sequenceDiagram
 :label: ex-tipos-vars
 :nonumber:
 
-Para cada uno de los siguientes datos, indicá qué tipo de variable usarías:
+Para cada uno de los siguientes datos, indicá qué tipo de variable (`int`, `float`, `str`, `bool`) usarías en Python:
 
 1. Cantidad de estudiantes en una clase
 2. Precio de un producto (ej: $19.99)
@@ -916,14 +943,14 @@ Para cada uno de los siguientes datos, indicá qué tipo de variable usarías:
 :::{solution} ex-tipos-vars
 :class: dropdown
 
-1. **Entero** - las personas se cuentan en números enteros
-2. **Decimal** - tiene centavos
-3. **Texto (string)** - secuencia de caracteres
-4. **Booleano** - solo puede ser verdadero o falso
-5. **Decimal** - puede tener valores como -3.5, 20.8, etc.
-6. **Texto (string)** - nombre del día
-7. **Entero** - aunque tiene dígitos, es un número entero sin decimales
-8. **Decimal** - tiene parte fraccionaria
+1. **`int`** - las personas se cuentan en números enteros
+2. **`float`** - tiene centavos
+3. **`str`** - secuencia de caracteres
+4. **`bool`** - solo puede ser `True` o `False`
+5. **`float`** - puede tener valores como -3.5, 20.8, etc.
+6. **`str`** - nombre del día
+7. **`int`** o **`str`** - si no se van a hacer cálculos, `str` es más seguro para no perder ceros a la izquierda. Si es solo numérico, `int`.
+8. **`float`** - tiene parte fraccionaria
 :::
 
 ## Operaciones básicas
@@ -940,15 +967,15 @@ Operaciones matemáticas básicas sobre números:
 | Suma           | `+`     | `5 + 3`     | `8`       |
 | Resta          | `-`     | `10 - 4`    | `6`       |
 | Multiplicación | `*`     | `7 * 2`     | `14`      |
-| División       | `/`     | `15 / 3`    | `5`       |
-| División entera| `/`     | `17 / 5`    | `3`       |
+| División       | `/`     | `15 / 3`    | `5.0`     |
+| División entera| `//`    | `17 // 5`   | `3`       |
 | Módulo (resto) | `%`     | `17 % 5`    | `2`       |
 | Potencia       | `**`    | `2 ** 3`    | `8`       |
 
 :::{important}
 El **módulo** (`%`) da el resto de la división. Es muy útil para:
 - Determinar si un número es par: `n % 2 == 0`
-- Obtener el último dígito: `1234 % 10 = 4`
+- Obtener el último dígito: `1234 % 10` da `4`
 - Ciclos que se repiten cada N elementos
 :::
 
@@ -958,24 +985,26 @@ Al igual que en matemática, las operaciones tienen un orden de evaluación:
 
 1. Paréntesis `()`
 2. Potencias `**`
-3. Multiplicación, División, Módulo `*`, `/`, `%`
+3. Multiplicación, División, Módulo `*`, `/`, `//`, `%`
 4. Suma, Resta `+`, `-`
 
-```
-Ejemplo: 2 + 3 * 4
-         2 + 12        (primero multiplicación)
-         14            (luego suma)
+```python
+# Ejemplo: 2 + 3 * 4
+#          2 + 12        (primero multiplicación)
+#          14            (luego suma)
+print(2 + 3 * 4)  # Salida: 14
 
-Ejemplo: (2 + 3) * 4
-         5 * 4         (primero paréntesis)
-         20            (luego multiplicación)
+# Ejemplo: (2 + 3) * 4
+#          5 * 4         (primero paréntesis)
+#          20            (luego multiplicación)
+print((2 + 3) * 4) # Salida: 20
 ```
 
 :::{exercise} Operaciones aritméticas
 :label: ex-aritmeticas
 :nonumber:
 
-Calculá el resultado de las siguientes expresiones:
+Calculá el resultado de las siguientes expresiones en Python:
 
 1. `15 + 3 * 2`
 2. `(15 + 3) * 2`
@@ -992,8 +1021,8 @@ Calculá el resultado de las siguientes expresiones:
 
 1. `15 + 3 * 2 = 15 + 6 = 21`
 2. `(15 + 3) * 2 = 18 * 2 = 36`
-3. `20 / 4 - 2 = 5 - 2 = 3`
-4. `20 / (4 - 2) = 20 / 2 = 10`
+3. `20 / 4 - 2 = 5.0 - 2 = 3.0`
+4. `20 / (4 - 2) = 20 / 2 = 10.0`
 5. `17 % 3 = 2` (resto de 17 ÷ 3)
 6. `100 % 10 = 0` (100 es divisible por 10)
 7. `2 * 3 + 4 * 5 = 6 + 20 = 26`
@@ -1002,35 +1031,35 @@ Calculá el resultado de las siguientes expresiones:
 
 ### Operaciones de comparación
 
-Comparan dos valores y devuelven **verdadero** o **falso**:
+Comparan dos valores y devuelven `True` o `False`:
 
-| Operación       | Símbolo | Ejemplo   | Resultado    |
-| --------------- | ------- | --------- | ------------ |
-| Igual a         | `==`    | `5 == 5`  | `verdadero`  |
-| Diferente de    | `!=`    | `3 != 7`  | `verdadero`  |
-| Mayor que       | `>`     | `8 > 3`   | `verdadero`  |
-| Menor que       | `<`     | `2 < 9`   | `verdadero`  |
-| Mayor o igual   | `>=`    | `5 >= 5`  | `verdadero`  |
-| Menor o igual   | `<=`    | `4 <= 6`  | `verdadero`  |
+| Operación       | Símbolo | Ejemplo   | Resultado |
+| --------------- | ------- | --------- | --------- |
+| Igual a         | `==`    | `5 == 5`  | `True`    |
+| Diferente de    | `!=`    | `3 != 7`  | `True`    |
+| Mayor que       | `>`     | `8 > 3`   | `True`    |
+| Menor que       | `<`     | `2 < 9`   | `True`    |
+| Mayor o igual   | `>=`    | `5 >= 5`  | `True`    |
+| Menor o igual   | `<=`    | `4 <= 6`  | `True`    |
 
 :::{warning}
 Notá que para comparar igualdad se usa `==` (doble igual), no `=` (que es
 asignación).
 
-- `x = 5` → asigna el valor 5 a x
-- `x == 5` → compara si x es igual a 5
+- `x = 5` → **asigna** el valor 5 a x
+- `x == 5` → **compara** si x es igual a 5
 :::
 
 **Ejemplos:**
 
-```
+```python
 edad = 20
 
-edad > 18     → verdadero  (20 es mayor que 18)
-edad == 20    → verdadero  (20 es igual a 20)
-edad < 15     → falso      (20 no es menor que 15)
-edad >= 20    → verdadero  (20 es mayor o igual a 20)
-edad != 25    → verdadero  (20 es diferente de 25)
+print(edad > 18)     # True  (20 es mayor que 18)
+print(edad == 20)    # True  (20 es igual a 20)
+print(edad < 15)     # False (20 no es menor que 15)
+print(edad >= 20)    # True  (20 es mayor o igual a 20)
+print(edad != 25)    # True  (20 es diferente de 25)
 ```
 
 ### Operaciones lógicas
@@ -1039,77 +1068,78 @@ Combinan condiciones booleanas:
 
 | Operación        | Símbolo | Significado                             |
 | ---------------- | ------- | --------------------------------------- |
-| AND (Y lógico)   | `&&` o Y | Verdadero si AMBAS condiciones lo son  |
-| OR (O lógico)    | `\|\|` o O | Verdadero si AL MENOS UNA lo es      |
-| NOT (NO lógico)  | `!` o NO | Invierte el valor                      |
+| AND (Y lógico)   | `and`   | `True` si AMBAS condiciones lo son      |
+| OR (O lógico)    | `or`    | `True` si AL MENOS UNA lo es            |
+| NOT (NO lógico)  | `not`   | Invierte el valor (`True` a `False` y viceversa) |
 
 **Tablas de verdad:**
 
 ::::{grid} 1 1 3 3
 
-:::{grid-item-card} AND (Y)
-| A     | B     | A Y B |
-| ----- | ----- | ----- |
-| V     | V     | V     |
-| V     | F     | F     |
-| F     | V     | F     |
-| F     | F     | F     |
+:::{grid-item-card} `and` (Y)
+| A     | B     | A `and` B |
+| ----- | ----- | --------- |
+| True  | True  | True      |
+| True  | False | False     |
+| False | True  | False     |
+| False | False | False     |
 :::
 
-:::{grid-item-card} OR (O)
-| A     | B     | A O B |
-| ----- | ----- | ----- |
-| V     | V     | V     |
-| V     | F     | V     |
-| F     | V     | V     |
-| F     | F     | F     |
+:::{grid-item-card} `or` (O)
+| A     | B     | A `or` B |
+| ----- | ----- | -------- |
+| True  | True  | True     |
+| True  | False | True     |
+| False | True  | True     |
+| False | False | False    |
 :::
 
-:::{grid-item-card} NOT (NO)
-| A     | NO A  |
-| ----- | ----- |
-| V     | F     |
-| F     | V     |
+:::{grid-item-card} `not` (NO)
+| A     | `not` A |
+| ----- | ------- |
+| True  | False   |
+| False | True    |
 :::
 ::::
 
 **Ejemplos prácticos:**
 
-```
+```python
 edad = 20
-tiene_dni = verdadero
+tiene_dni = True
 
-(edad >= 18) Y (tiene_dni == verdadero)
-→ verdadero Y verdadero
-→ verdadero
-(puede votar)
+# ¿Puede votar?
+if (edad >= 18) and (tiene_dni == True):
+    print("Puede votar")
 
-es_fin_de_semana = falso
-es_feriado = verdadero
+es_fin_de_semana = False
+es_feriado = True
 
-(es_fin_de_semana) O (es_feriado)
-→ falso O verdadero
-→ verdadero
-(no hay clases)
+# ¿Hay clases?
+if not (es_fin_de_semana or es_feriado):
+    print("Hay clases")
+else:
+    print("No hay clases")
 
-está_lloviendo = verdadero
+esta_lloviendo = True
 
-NO (está_lloviendo)
-→ NO verdadero
-→ falso
-(no llevar paraguas)
+# ¿Llevo paraguas?
+if not esta_lloviendo:
+    print("No es necesario llevar paraguas")
+else:
+    print("Mejor llevar paraguas")
 ```
 
 ```{mermaid}
 graph TD
     subgraph "Ejemplo: ¿Puedo votar?"
-        E[edad >= 18] --> Y{Y}
+        E[edad >= 18] --> Y{and}
         D[tiene_dni] --> Y
         Y --> R[Resultado]
     end
     
     subgraph "Ejemplo: ¿Hay clases?"
-        F[es_fin_de_semana] --> O{O}
+        F[es_fin_de_semana] --> O{or}
         H[es_feriado] --> O
         O --> R2[Resultado]
     end
@@ -1122,33 +1152,34 @@ graph TD
 :label: ex-logicas
 :nonumber:
 
-Evaluá las siguientes expresiones (V = verdadero, F = falso):
+Evaluá las siguientes expresiones en Python:
 
-1. `(5 > 3) Y (10 < 20)`
-2. `(7 == 7) O (4 > 8)`
-3. `NO (3 < 2)`
-4. `(10 / 2 == 5) Y (10 % 3 == 1)`
-5. `(20 > 15) Y (8 < 5)`
-6. `(5 != 3) O (10 == 11)`
-7. `NO ((5 > 3) Y (2 > 4))`
+1. `(5 > 3) and (10 < 20)`
+2. `(7 == 7) or (4 > 8)`
+3. `not (3 < 2)`
+4. `(10 / 2 == 5) and (10 % 3 == 1)`
+5. `(20 > 15) and (8 < 5)`
+6. `(5 != 3) or (10 == 11)`
+7. `not ((5 > 3) and (2 > 4))`
 :::
 
 :::{solution} ex-logicas
 :class: dropdown
 
-1. `(5 > 3) Y (10 < 20)` = `V Y V` = **V**
-2. `(7 == 7) O (4 > 8)` = `V O F` = **V**
-3. `NO (3 < 2)` = `NO F` = **V**
-4. `(10 / 2 == 5) Y (10 % 3 == 1)` = `(5 == 5) Y (1 == 1)` = `V Y V` = **V**
-5. `(20 > 15) Y (8 < 5)` = `V Y F` = **F**
-6. `(5 != 3) O (10 == 11)` = `V O F` = **V**
-7. `NO ((5 > 3) Y (2 > 4))` = `NO (V Y F)` = `NO F` = **V**
+1. `(5 > 3) and (10 < 20)` -> `True and True` -> **`True`**
+2. `(7 == 7) or (4 > 8)` -> `True or False` -> **`True`**
+3. `not (3 < 2)` -> `not False` -> **`True`**
+4. `(10 / 2 == 5) and (10 % 3 == 1)` -> `(5.0 == 5) and (1 == 1)` -> `True and True` -> **`True`**
+5. `(20 > 15) and (8 < 5)` -> `True and False` -> **`False`**
+6. `(5 != 3) or (10 == 11)` -> `True or False` -> **`True`**
+7. `not ((5 > 3) and (2 > 4))` -> `not (True and False)` -> `not False` -> **`True`**
 :::
 
 ## Diagramas de flujo
 
 Los **diagramas de flujo** son representaciones gráficas de algoritmos que nos
-ayudan a visualizar la lógica del programa de manera clara y estructurada.
+ayudan a visualizar la lógica del programa de manera clara y estructurada. Siguen
+siendo una herramienta universal, independientemente del lenguaje de programación.
 
 ### Símbolos estándar
 
@@ -1169,325 +1200,113 @@ graph TD
     style E fill:#F0E68C
 ```
 
-**Descripción de cada símbolo:**
+(La descripción de los símbolos y los diagramas de ejemplo siguen siendo válidos, ya que representan la lógica del algoritmo, no el código).
 
-::::{grid} 1 1 2 2
-:gutter: 3
-
-:::{grid-item-card} Terminal (Óvalo)
-Indica el inicio o fin del algoritmo.
-
-**Ejemplo:**
-- Inicio
-- Fin
-:::
-
-:::{grid-item-card} Proceso (Rectángulo)
-Representa una acción o instrucción a ejecutar.
-
-**Ejemplo:**
-- `suma = a + b`
-- `contador = contador + 1`
-- `área = base * altura`
-:::
-
-:::{grid-item-card} Decisión (Rombo)
-Representa una pregunta cuya respuesta es sí o no.
-
-**Ejemplo:**
-- `¿edad >= 18?`
-- `¿número == 0?`
-- `¿llueve?`
-:::
-
-:::{grid-item-card} Entrada/Salida (Paralelogramo)
-Representa lectura de datos o mostrar resultados.
-
-**Ejemplo:**
-- `Leer nombre`
-- `Mostrar resultado`
-- `Pedir edad`
-:::
-::::
-
-### Ejemplos detallados
-
-#### Ejemplo 1: Determinar si un número es positivo, negativo o cero
-
-```{mermaid}
-flowchart TD
-    Start([Inicio]) --> Input[/Leer número N/]
-    Input --> Check1{N > 0?}
-    Check1 -->|Sí| Pos[/Mostrar: N es positivo/]
-    Check1 -->|No| Check2{N < 0?}
-    Check2 -->|Sí| Neg[/Mostrar: N es negativo/]
-    Check2 -->|No| Zero[/Mostrar: N es cero/]
-    Pos --> End([Fin])
-    Neg --> End
-    Zero --> End
-    
-    style Start fill:#90EE90
-    style End fill:#FFB6C1
-    style Check1 fill:#FFE4B5
-    style Check2 fill:#FFE4B5
-    style Input fill:#DDA0DD
-    style Pos fill:#DDA0DD
-    style Neg fill:#DDA0DD
-    style Zero fill:#DDA0DD
-```
-
-#### Ejemplo 2: Calcular el promedio de tres números
-
-```{mermaid}
-flowchart TD
-    Start([Inicio]) --> In1[/Leer A/]
-    In1 --> In2[/Leer B/]
-    In2 --> In3[/Leer C/]
-    In3 --> Sum[suma = A + B + C]
-    Sum --> Avg[promedio = suma / 3]
-    Avg --> Out[/Mostrar promedio/]
-    Out --> End([Fin])
-    
-    style Start fill:#90EE90
-    style End fill:#FFB6C1
-    style In1 fill:#DDA0DD
-    style In2 fill:#DDA0DD
-    style In3 fill:#DDA0DD
-    style Out fill:#DDA0DD
-```
-
-#### Ejemplo 3: Sumar números del 1 al N
-
-```{mermaid}
-flowchart TD
-    Start([Inicio]) --> InN[/Leer N/]
-    InN --> Init1[suma = 0]
-    Init1 --> Init2[contador = 1]
-    Init2 --> Check{contador <= N?}
-    Check -->|Sí| Add[suma = suma + contador]
-    Add --> Inc[contador = contador + 1]
-    Inc --> Check
-    Check -->|No| Out[/Mostrar suma/]
-    Out --> End([Fin])
-    
-    style Start fill:#90EE90
-    style End fill:#FFB6C1
-    style Check fill:#FFE4B5
-    style InN fill:#DDA0DD
-    style Out fill:#DDA0DD
-```
-
-#### Ejemplo 4: Verificar si un número es primo
-
-```{mermaid}
-flowchart TD
-    Start([Inicio]) --> Input[/Leer N/]
-    Input --> Check1{N <= 1?}
-    Check1 -->|Sí| NoPrime[/N no es primo/]
-    Check1 -->|No| Init[divisor = 2<br/>es_primo = verdadero]
-    Init --> Loop{divisor < N Y<br/>es_primo?}
-    Loop -->|No| CheckPrime{es_primo?}
-    Loop -->|Sí| CheckDiv{N % divisor == 0?}
-    CheckDiv -->|Sí| SetFalse[es_primo = falso]
-    CheckDiv -->|No| NextDiv[divisor = divisor + 1]
-    SetFalse --> Loop
-    NextDiv --> Loop
-    CheckPrime -->|Sí| IsPrime[/N es primo/]
-    CheckPrime -->|No| NoPrime
-    IsPrime --> End([Fin])
-    NoPrime --> End
-    
-    style Start fill:#90EE90
-    style End fill:#FFB6C1
-    style Check1 fill:#FFE4B5
-    style Loop fill:#FFE4B5
-    style CheckDiv fill:#FFE4B5
-    style CheckPrime fill:#FFE4B5
-```
-
-:::{exercise} Diagramas de flujo
-:label: ex-diagramas
-:nonumber:
-
-Dibujá diagramas de flujo para:
-
-1. Determinar cuál de dos números es mayor
-2. Calcular el área de un triángulo (área = base × altura / 2)
-3. Determinar si un año es bisiesto
-4. Encontrar el factorial de un número
-5. Contar cuántos números pares hay entre 1 y N
-:::
-
-## Pseudocódigo
+## De Algoritmos a Código con Python
 
 El **pseudocódigo** es una forma de escribir algoritmos usando lenguaje natural
-estructurado, pero más formal que el lenguaje cotidiano. Es un punto medio entre
-el lenguaje humano y el código de programación real.
-
-### Convenciones del pseudocódigo
-
-**Palabras clave:**
-- `Algoritmo`: nombre del algoritmo
-- `Variables`: declaración de variables
-- `Inicio` / `Fin`: delimitadores del algoritmo
-- `Leer` / `Escribir`: entrada/salida
-- `Si...Entonces...Sino...FinSi`: condicionales
-- `Mientras...Hacer...FinMientras`: bucle con condición
-- `Para...Hasta...Hacer...FinPara`: bucle con contador
-- `←`: símbolo de asignación
-
-**Estructura básica:**
-
-```
-Algoritmo NombreDelAlgoritmo
-Variables:
-    variable1: tipo
-    variable2: tipo
-
-Inicio
-    [instrucciones]
-Fin
-```
+estructurado. Es un paso intermedio útil. Ahora, veremos cómo traducir esos
+algoritmos directamente a **código Python**, que es un lenguaje de programación real
+y ejecutable.
 
 ### Ejemplo completo 1: Calculadora simple
 
-```
-┌─────────────────────────────────────────────────────┐
-│ Algoritmo: Calculadora Simple                       │
-├─────────────────────────────────────────────────────┤
-│ Descripción: Realiza operaciones básicas entre     │
-│              dos números                            │
-├─────────────────────────────────────────────────────┤
-Variables:
-    numero1: decimal
-    numero2: decimal
-    operacion: caracter
-    resultado: decimal
+```python
+# Algoritmo: Calculadora Simple
+# Descripción: Realiza operaciones básicas entre dos números
 
-Inicio
-    Escribir "=== CALCULADORA SIMPLE ==="
-    
-    Escribir "Ingrese el primer número:"
-    Leer numero1
-    
-    Escribir "Ingrese el segundo número:"
-    Leer numero2
-    
-    Escribir "Ingrese la operación (+, -, *, /):"
-    Leer operacion
-    
-    Si operacion == '+' Entonces
-        resultado ← numero1 + numero2
-        Escribir "Resultado:", numero1, "+", numero2, "=", resultado
-    Sino Si operacion == '-' Entonces
-        resultado ← numero1 - numero2
-        Escribir "Resultado:", numero1, "-", numero2, "=", resultado
-    Sino Si operacion == '*' Entonces
-        resultado ← numero1 * numero2
-        Escribir "Resultado:", numero1, "×", numero2, "=", resultado
-    Sino Si operacion == '/' Entonces
-        Si numero2 != 0 Entonces
-            resultado ← numero1 / numero2
-            Escribir "Resultado:", numero1, "÷", numero2, "=", resultado
-        Sino
-            Escribir "Error: No se puede dividir por cero"
-        FinSi
-    Sino
-        Escribir "Error: Operación no válida"
-    FinSi
-Fin
-└─────────────────────────────────────────────────────┘
+print("=== CALCULADORA SIMPLE ===")
+
+# Leer los números y convertirlos a float (decimal)
+numero1 = float(input("Ingrese el primer número: "))
+numero2 = float(input("Ingrese el segundo número: "))
+
+# Leer la operación
+operacion = input("Ingrese la operación (+, -, *, /): ")
+
+# Realizar el cálculo basado en la operación
+if operacion == '+':
+    resultado = numero1 + numero2
+    print(f"Resultado: {numero1} + {numero2} = {resultado}")
+elif operacion == '-':
+    resultado = numero1 - numero2
+    print(f"Resultado: {numero1} - {numero2} = {resultado}")
+elif operacion == '*':
+    resultado = numero1 * numero2
+    print(f"Resultado: {numero1} × {numero2} = {resultado}")
+elif operacion == '/':
+    # Verificar la división por cero
+    if numero2 != 0:
+        resultado = numero1 / numero2
+        print(f"Resultado: {numero1} ÷ {numero2} = {resultado}")
+    else:
+        print("Error: No se puede dividir por cero")
+else:
+    print("Error: Operación no válida")
+
 ```
 
 ### Ejemplo completo 2: Tabla de multiplicar
 
-```
-┌─────────────────────────────────────────────────────┐
-│ Algoritmo: Tabla de Multiplicar                     │
-├─────────────────────────────────────────────────────┤
-│ Descripción: Muestra la tabla de multiplicar de    │
-│              un número del 1 al 10                  │
-├─────────────────────────────────────────────────────┤
-Variables:
-    numero: entero
-    contador: entero
-    resultado: entero
+```python
+# Algoritmo: Tabla de Multiplicar
+# Descripción: Muestra la tabla de multiplicar de un número del 1 al 10
 
-Inicio
-    Escribir "=== TABLA DE MULTIPLICAR ==="
-    Escribir "Ingrese un número del 1 al 10:"
-    Leer numero
-    
-    Si numero < 1 O numero > 10 Entonces
-        Escribir "Error: El número debe estar entre 1 y 10"
-    Sino
-        Escribir "Tabla del", numero, ":"
-        Escribir "─────────────────"
-        
-        contador ← 1
-        Mientras contador <= 10 Hacer
-            resultado ← numero * contador
-            Escribir numero, "×", contador, "=", resultado
-            contador ← contador + 1
-        FinMientras
-    FinSi
-Fin
-└─────────────────────────────────────────────────────┘
-```
+print("=== TABLA DE MULTIPLICAR ===")
+numero = int(input("Ingrese un número: "))
 
-#### Ejemplo completo 3: Adivinar número
+print(f"Tabla del {numero}:")
+print("─────────────────")
+
+# Usamos un bucle 'for' que cuenta desde 1 hasta 10
+for contador in range(1, 11):
+    resultado = numero * contador
+    # f-string para formatear la salida de manera prolija
+    print(f"{numero} × {contador} = {resultado}")
 
 ```
-┌─────────────────────────────────────────────────────┐
-│ Algoritmo: Adivinar Número                          │
-├─────────────────────────────────────────────────────┤
-│ Descripción: El usuario intenta adivinar un número │
-│              secreto (máximo 5 intentos)            │
-├─────────────────────────────────────────────────────┤
-Variables:
-    numero_secreto: entero
-    intento: entero
-    contador_intentos: entero
-    adivinado: booleano
 
-Inicio
-    numero_secreto ← 42  // En un programa real sería aleatorio
-    contador_intentos ← 0
-    adivinado ← falso
+### Ejemplo completo 3: Adivinar número
+
+```python
+# Algoritmo: Adivinar Número
+# Descripción: El usuario intenta adivinar un número secreto
+
+import random # Importamos la librería para generar números aleatorios
+
+numero_secreto = random.randint(1, 100) # Número aleatorio entre 1 y 100
+intentos_maximos = 5
+intentos_realizados = 0
+adivinado = False
+
+print("=== ADIVINA EL NÚMERO ===")
+print(f"Tenés {intentos_maximos} intentos para adivinar un número entre 1 y 100")
+
+while intentos_realizados < intentos_maximos and not adivinado:
+    intentos_realizados += 1
+    print(f"\nIntento {intentos_realizados} de {intentos_maximos}:")
     
-    Escribir "=== ADIVINA EL NÚMERO ==="
-    Escribir "Tenés 5 intentos para adivinar un número entre 1 y 100"
+    intento = int(input("Ingresá tu número: "))
     
-    Mientras contador_intentos < 5 Y NO adivinado Hacer
-        contador_intentos ← contador_intentos + 1
-        Escribir ""
-        Escribir "Intento", contador_intentos, "de 5:"
-        Leer intento
-        
-        Si intento == numero_secreto Entonces
-            adivinado ← verdadero
-            Escribir "¡¡¡FELICITACIONES!!! ¡Adivinaste el número!"
-            Escribir "Lo lograste en", contador_intentos, "intentos"
-        Sino Si intento < numero_secreto Entonces
-            Escribir "El número es MAYOR"
-        Sino
-            Escribir "El número es MENOR"
-        FinSi
-    FinMientras
-    
-    Si NO adivinado Entonces
-        Escribir ""
-        Escribir "Game Over. El número era:", numero_secreto
-    FinSi
-Fin
-└─────────────────────────────────────────────────────┘
+    if intento == numero_secreto:
+        adivinado = True
+        print("¡¡¡FELICITACIONES!!! ¡Adivinaste el número!")
+        print(f"Lo lograste en {intentos_realizados} intentos")
+    elif intento < numero_secreto:
+        print("El número secreto es MAYOR")
+    else:
+        print("El número secreto es MENOR")
+
+if not adivinado:
+    print("\nGame Over. Te quedaste sin intentos.")
+    print(f"El número secreto era: {numero_secreto}")
 ```
 
-:::{exercise} Pseudocódigo
-:label: ex-pseudo-2
+:::{exercise} Python
+:label: ex-python-2
 :nonumber:
 
-Escribí en pseudocódigo algoritmos para:
+Escribí en Python algoritmos para:
 
 1. Convertir temperatura de Celsius a Fahrenheit (F = C × 9/5 + 32)
 2. Determinar si tres números pueden formar un triángulo (la suma de dos lados
@@ -1498,68 +1317,72 @@ Escribí en pseudocódigo algoritmos para:
    que de derecha a izquierda)
 :::
 
-:::{solution} ex-pseudo-2
+:::{solution} ex-python-2
 :class: dropdown
 
 **1. Conversión de temperatura:**
 
-```
-Algoritmo ConversionTemperatura
-Variables:
-    celsius: decimal
-    fahrenheit: decimal
+```python
+def celsius_a_fahrenheit(celsius):
+    """Convierte temperatura de Celsius a Fahrenheit."""
+    return celsius * 9/5 + 32
 
-Inicio
-    Escribir "Ingrese temperatura en Celsius:"
-    Leer celsius
-    
-    fahrenheit ← celsius * 9 / 5 + 32
-    
-    Escribir celsius, "°C =", fahrenheit, "°F"
-Fin
+# --- Programa principal ---
+c = float(input("Ingrese temperatura en Celsius: "))
+f = celsius_a_fahrenheit(c)
+print(f"{c}°C = {f}°F")
 ```
 
 **2. Verificar triángulo:**
 
-```
-Algoritmo VerificarTriangulo
-Variables:
-    lado1, lado2, lado3: decimal
-    es_triangulo: booleano
+```python
+def es_triangulo(lado1, lado2, lado3):
+    """Verifica si tres lados pueden formar un triángulo."""
+    return (lado1 + lado2 > lado3) and \
+           (lado1 + lado3 > lado2) and \
+           (lado2 + lado3 > lado1)
 
-Inicio
-    Escribir "Ingrese los tres lados:"
-    Leer lado1, lado2, lado3
-    
-    Si (lado1 + lado2 > lado3) Y 
-       (lado1 + lado3 > lado2) Y 
-       (lado2 + lado3 > lado1) Entonces
-        Escribir "Los números pueden formar un triángulo"
-    Sino
-        Escribir "Los números NO pueden formar un triángulo"
-    FinSi
-Fin
+# --- Programa principal ---
+l1 = float(input("Lado 1: "))
+l2 = float(input("Lado 2: "))
+l3 = float(input("Lado 3: "))
+
+if es_triangulo(l1, l2, l3):
+    print("Los lados pueden formar un triángulo.")
+else:
+    print("Los lados NO pueden formar un triángulo.")
 ```
 
 **3. MCD (Algoritmo de Euclides):**
 
-```
-Algoritmo CalcularMCD
-Variables:
-    a, b, temp: entero
+```python
+def mcd(a, b):
+    """Calcula el Máximo Común Divisor usando el algoritmo de Euclides."""
+    while b != 0:
+        a, b = b, a % b
+    return a
 
-Inicio
-    Escribir "Ingrese dos números:"
-    Leer a, b
-    
-    Mientras b != 0 Hacer
-        temp ← b
-        b ← a % b
-        a ← temp
-    FinMientras
-    
-    Escribir "El MCD es:", a
-Fin
+# --- Programa principal ---
+num1 = int(input("Número 1: "))
+num2 = int(input("Número 2: "))
+print(f"El MCD es: {mcd(num1, num2)}")
+```
+
+**4. Palíndromo:**
+```python
+def es_palindromo(palabra):
+    """Verifica si una palabra es un palíndromo."""
+    # Preparamos la palabra: minúsculas y sin espacios
+    palabra = palabra.lower().replace(" ", "")
+    # Comparamos la palabra con su inversa
+    return palabra == palabra[::-1]
+
+# --- Programa principal ---
+texto = input("Ingrese una palabra o frase: ")
+if es_palindromo(texto):
+    print(f'"{texto}" es un palíndromo.')
+else:
+    print(f'"{texto}" no es un palíndromo.')
 ```
 :::
 
@@ -1569,69 +1392,56 @@ Fin
 :label: ex-integrador-1
 :nonumber:
 
-Analizá el siguiente algoritmo y respondé:
+Analizá el siguiente código Python y respondé:
 
-```
-Algoritmo Misterioso
-Variables:
-    n, suma, i: entero
-
-Inicio
-    Leer n
-    suma ← 0
-    i ← 1
-    Mientras i <= n Hacer
-        Si i % 2 == 0 Entonces
-            suma ← suma + i
-        FinSi
-        i ← i + 1
-    FinMientras
-    Escribir suma
-Fin
+```python
+n = int(input("Ingrese un número: "))
+suma = 0
+i = 1
+while i <= n:
+    if i % 2 == 0:
+        suma = suma + i
+    i = i + 1
+print(suma)
 ```
 
 1. ¿Qué hace este algoritmo?
-2. Si n = 10, ¿cuál es el resultado?
-3. Dibujá el diagrama de flujo correspondiente
-4. Modificalo para que sume los números impares en lugar de los pares
+2. Si `n` es 10, ¿cuál es el resultado?
+3. Dibujá el diagrama de flujo correspondiente.
+4. Modificalo para que sume los números impares en lugar de los pares.
 :::
 
-:::{exercise} Diseño de algoritmo completo
-:label: ex-integrador-2
-:nonumber:
-
-Diseñá un algoritmo completo (pseudocódigo Y diagrama de flujo) que:
-
-1. Pida al usuario N números
-2. Calcule y muestre:
-   - El promedio de todos los números
-   - El número mayor ingresado
-   - El número menor ingresado
-   - Cuántos números son positivos
-   - Cuántos números son negativos
+:::{solution} ex-integrador-1
+:class: dropdown
+1.  **¿Qué hace?** Suma todos los números pares desde 1 hasta `n` inclusive.
+2.  **Resultado para n=10:** Suma 2 + 4 + 6 + 8 + 10 = **30**.
+3.  **Diagrama de flujo:**
+    ```mermaid
+    flowchart TD
+        Start([Inicio]) --> Input[/Leer n/]
+        Input --> Init[suma = 0<br/>i = 1]
+        Init --> Loop{i <= n?}
+        Loop -->|No| Output[/Escribir suma/]
+        Output --> End([Fin])
+        Loop -->|Sí| Check{i % 2 == 0?}
+        Check -->|Sí| Add[suma = suma + i]
+        Check -->|No| Inc[i = i + 1]
+        Add --> Inc
+        Inc --> Loop
+    ```
+4.  **Modificación para impares:** Cambiar `if i % 2 == 0:` por `if i % 2 != 0:`.
+    ```python
+    n = int(input("Ingrese un número: "))
+    suma = 0
+    i = 1
+    while i <= n:
+        if i % 2 != 0: # <-- Cambio aquí
+            suma = suma + i
+        i = i + 1
+    print(suma)
+    ```
 :::
 
-:::{exercise} Problema del cambio
-:label: ex-integrador-3
-:nonumber:
-
-Una máquina expendedora debe devolver cambio usando la menor cantidad posible de
-billetes y monedas. Las denominaciones disponibles son: $100, $50, $20, $10,
-$5, $2, $1.
-
-Escribí un algoritmo que:
-1. Reciba el monto a devolver
-2. Calcule cuántos billetes/monedas de cada denominación usar
-3. Muestre el desglose completo
-
-Ejemplo: Para $287 debería mostrar:
-- 2 billetes de $100
-- 1 billete de $50
-- 1 billete de $20
-- 1 billete de $10
-- 1 billete de $5
-- 1 moneda de $2
-:::
 
 ## Errores comunes y cómo evitarlos
 
@@ -1643,27 +1453,25 @@ flujo lógico.
 ::::{grid} 1 1 2 2
 
 :::{grid-item-card} ❌ Incorrecto
+```python
+# Usa las variables antes de leerlas
+resultado = a + b
+a = int(input("a: "))
+b = int(input("b: "))
+print(resultado)
 ```
-Algoritmo Incorrecto
-    resultado ← a + b
-    Leer a
-    Leer b
-    Escribir resultado
-Fin
-```
-**Problema:** Usa variables antes de leerlas.
+**Problema:** `a` y `b` no tienen valor cuando se intenta calcular `resultado`.
 :::
 
 :::{grid-item-card} ✅ Correcto
+```python
+# Lee primero, calcula después
+a = int(input("a: "))
+b = int(input("b: "))
+resultado = a + b
+print(resultado)
 ```
-Algoritmo Correcto
-    Leer a
-    Leer b
-    resultado ← a + b
-    Escribir resultado
-Fin
-```
-**Solución:** Lee primero, calcula después.
+**Solución:** Asegurarse de que las variables tengan un valor antes de usarlas.
 :::
 ::::
 
@@ -1672,23 +1480,23 @@ Fin
 ::::{grid} 1 1 2 2
 
 :::{grid-item-card} ❌ Incorrecto
+```python
+# Más complejo de lo necesario
+if edad > 18 or edad == 18:
+    print("Mayor de edad")
 ```
-Si edad > 18 O edad == 18 Entonces
-    Escribir "Mayor de edad"
-FinSi
-```
-**Problema:** Más complejo de lo necesario.
+**Problema:** Funciona, pero es redundante.
 :::
 
 :::{grid-item-card} ✅ Correcto
+```python
+# Simplificar condiciones
+if edad >= 18:
+    print("Mayor de edad")
+else:
+    print("Menor de edad")
 ```
-Si edad >= 18 Entonces
-    Escribir "Mayor de edad"
-Sino
-    Escribir "Menor de edad"
-FinSi
-```
-**Solución:** Simplificar condiciones.
+**Solución:** Usar los operadores de comparación adecuados para simplificar la lógica.
 :::
 ::::
 
@@ -1699,38 +1507,23 @@ Un ciclo infinito ocurre cuando la condición de salida nunca se cumple.
 ::::{grid} 1 1 2 2
 
 :::{grid-item-card} ❌ Incorrecto
-```
-contador ← 1
-Mientras contador <= 10:
-    Escribir contador
+```python
+contador = 1
+while contador <= 10:
+    print(contador)
     # ¡Olvidamos incrementar contador!
 ```
 Este ciclo nunca termina porque `contador` siempre vale 1.
-
-✅ **Correcto:**
-```
-contador ← 1
-Mientras contador <= 10:
-    Escribir contador
-    contador ← contador + 1
-```
 :::
 
-:::{grid-item-card} ❌ Incorrecto
+:::{grid-item-card} ✅ Correcto
+```python
+contador = 1
+while contador <= 10:
+    print(contador)
+    contador = contador + 1 # o contador += 1
 ```
-Mientras verdadero:
-    Escribir "Hola"
-```
-Este ciclo nunca termina porque la condición siempre es verdadera.
-
-✅ **Correcto:**
-```
-contador ← 1
-Mientras contador <= 10 Hacer
-    Escribir contador
-    contador ← contador + 1
-FinMientras
-```
+**Solución:** Asegurarse de que la variable de control del bucle se modifique para que eventualmente la condición sea falsa.
 :::
 ::::
 
@@ -1739,28 +1532,21 @@ FinMientras
 ::::{grid} 1 1 2 2
 
 :::{grid-item-card} ❌ Incorrecto
+```python
+# ¿Cuánto vale 'suma' al principio?
+# Esto dará un error en Python.
+suma = suma + 5
 ```
-suma ← suma + 5  # ¿Cuánto vale suma al principio?
-```
-
-✅ **Correcto:**
-```
-suma ← 0
-suma ← suma + 5  # Ahora suma vale 5
-```
+**Problema:** No se puede modificar una variable que no ha sido creada (inicializada) primero.
 :::
 
-:::{grid-item-card} ❌ Incorrecto
+:::{grid-item-card} ✅ Correcto
+```python
+suma = 0 # Inicializamos la variable
+suma = suma + 5
+print(suma) # Ahora suma vale 5
 ```
-nombre_usuario ← nombre_usuario + "Smith"
-```
-¿Pero cuánto valía `nombre_usuario` antes?
-
-✅ **Correcto:**
-```
-nombre_usuario ← "Juan"
-nombre_usuario ← nombre_usuario + "Smith"  # Ahora es "JuanSmith"
-```
+**Solución:** Siempre asignar un valor inicial a las variables antes de usarlas en cálculos.
 :::
 ::::
 
@@ -1776,23 +1562,21 @@ Aprender a programar es como aprender a tocar un instrumento o un deporte:
 :::{tip} Consejo para principiantes
 
 No intentes memorizar todo. Enfocate en **entender la lógica**. Con la práctica,
-las sintaxis y detalles se vuelven naturales.
+la sintaxis y los detalles se vuelven naturales.
 
 :::
 
-## Preparándose para C
+## Próximos Pasos: El Lenguaje C
 
-Ahora que comprendés estos conceptos fundamentales, estás listo para comenzar
-con el lenguaje C. En el próximo apunte veremos:
+Ahora que comprendés estos conceptos fundamentales usando Python, estás mucho mejor preparado para abordar el lenguaje C. En el próximo apunte veremos:
 
-- Cómo escribir estos algoritmos en el lenguaje C
-- La sintaxis específica del lenguaje
-- Cómo compilar y ejecutar programas
-- Variables y tipos de datos en C
-- Estructuras de control (if, while, for)
+- Cómo escribir estos mismos algoritmos en el lenguaje C
+- La sintaxis más estricta y detallada de C
+- El proceso de compilación y ejecución de programas
+- Variables y tipos de datos estáticos en C
+- Estructuras de control (`if`, `while`, `for`) en C
 
-Recordá que todo lo que vimos aquí se aplica directamente a C. La diferencia
-principal es que en C necesitamos seguir reglas de sintaxis más estrictas.
+Recordá que toda la lógica que vimos aquí se aplica directamente a C. La principal diferencia será la sintaxis y la necesidad de gestionar la memoria de forma más explícita.
 
 ## Glosario básico
 
@@ -1806,20 +1590,19 @@ Variable
 
 Tipo de dato
 : Categoría que determina qué clase de información puede almacenar una variable
-(entero, decimal, texto, etc.).
+(`int`, `float`, `str`, `bool`, etc.).
 
 Operador
-: Símbolo que indica una operación a realizar (+, -, *, /, ==, >, <, etc.).
+: Símbolo que indica una operación a realizar (`+`, `-`, `*`, `/`, `==`, `>`, `and`, etc.).
 
 Condición
-: Expresión que se evalúa como verdadera o falsa, usada para tomar decisiones.
+: Expresión que se evalúa como `True` o `False`, usada para tomar decisiones.
 
 Ciclo o Bucle
-: Estructura que repite un conjunto de instrucciones mientras se cumpla una
-condición.
+: Estructura que repite un conjunto de instrucciones (`for`, `while`).
 
 Pseudocódigo
-: Forma de escribir algoritmos usando lenguaje natural estructurado.
+: Forma de escribir algoritmos usando lenguaje natural estructurado, como paso previo a escribir código real.
 
 Diagrama de flujo
 : Representación gráfica de un algoritmo usando símbolos estandarizados.
@@ -1828,13 +1611,14 @@ Diagrama de flujo
 
 ## Recursos adicionales
 
-- Practicá escribiendo algoritmos cotidianos en pseudocódigo
-- Dibujá diagramas de flujo para problemas simples
-- Intentá "ejecutar" tus algoritmos mentalmente o en papel
+- Practicá resolviendo problemas simples en Python.
+- Dibujá diagramas de flujo antes de empezar a codificar.
+- Intentá "ejecutar" tus algoritmos mentalmente o en papel para seguir la lógica.
 - Discutí tus soluciones con compañeros - hay muchas formas de resolver un
-  problema
+  problema.
 
-:::{figure} xkcd-algorithms.png
+:::{figure}
+xkcd-algorithms.png
 :alt: XKCD Algorithms
 :align: center
 
