@@ -1,0 +1,126 @@
+/*
+ * This file adds custom CSS to improve the footer layout. It is not required
+ * for use of landing-pages
+ */
+ 
+/*
+  Rojo UNRN:  #eb2141 
+  Negro UNRN: #182031
+  Gris UNRN:  #eeeeee
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&display=swap');
+
+@font-face {
+  font-family: 'Fabrikat';
+  src: 
+    local("./css/Fabrikat-Regular.otf"),
+    url("https://github.com/martinvilu/recursos/raw/refs/heads/master/tipografias/fabrikat/Fabrikat-Regular.otf");
+}
+@font-face {
+  font-family: 'FabrikatLight';
+  src: 
+    local("./css/Fabrikat-Light.otf"),
+    url("https://github.com/martinvilu/recursos/raw/refs/heads/master/tipografias/fabrikat/Fabrikat-Light.otf");
+}
+@font-face {
+  font-family: 'FabrikatM';
+  src: 
+    local("./css/Fabrikat-Medium.otf"),
+    url("https://github.com/martinvilu/recursos/raw/refs/heads/master/tipografias/fabrikat/Fabrikat-Medium.otf");
+}
+@font-face {
+  font-family: 'FabrikatBold';
+  src: 
+    local("./css/Fabrikat-Bold.otf"),
+    url("https://github.com/martinvilu/recursos/raw/refs/heads/master/tipografias/fabrikat/Fabrikat-Bold.otf");
+}
+
+@font-face {
+  font-family: 'FabrikatBlack';
+  src: 
+    local("./css/Fabrikat-Black.otf"),
+    url("https://github.com/martinvilu/recursos/raw/refs/heads/master/tipografias/fabrikat/Fabrikat-Black.otf");
+}
+
+
+html,
+body {
+  height: 100%;
+  font-family: 'Chivo', sans-serif;
+  color:#1D2234;
+}
+/*
+body {
+  display: flex;
+  flex-direction: column;
+}
+*/
+h1,h2,h3,h4,h5,h6,h7 {
+  font-family: 'FabrikatBlack', sans-serif;;
+}
+
+.article.content {
+  /* Override 100vh from myst-theme:styles/typography.css so content div
+   * doesn't push the footer offscreen.
+   */
+  min-height: 0vh;
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: auto;
+}
+
+.footer {
+  /* Make footer "sticky" to page bottom (also the above flex rules), per
+   * the flexbox strategy described here:
+   *   https://css-tricks.com/couple-takes-sticky-footer/#aa-there-is-flexbox
+   * and here:
+   *    https://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
+   * This solution does not require hardcoding a fixed footer height in the
+   * style rules.
+   */
+  flex-shrink: 0;
+  background: #1b2437;
+  color: white;
+  padding-left: 2rem;
+  padding-right: 2rem;
+
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
+
+  /* Outer content grid */
+  & .outer-grid {
+    /* spacer, project description, spacer, link columns, spacer */
+    grid-template-columns: 3fr 3fr 4fr;
+    align-items: center;
+    margin-bottom: 0rem;
+
+    & li {
+      list-style: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    & .outer-grid {
+      grid-template-columns: 1fr;
+      justify-items: start;
+    }
+  }
+
+  /* Heading colours */
+  & a,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: white;
+  }
+
+  & h1 {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+}
+

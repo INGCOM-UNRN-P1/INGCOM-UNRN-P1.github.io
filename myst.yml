@@ -5,7 +5,10 @@ site:
   template: book-theme
   favicon: favicon.ico
   options:
-    logo: images/P1.png
+    logo: ./images/unrn-p1_big.svg
+    style: ./css/footer.css
+  parts:
+    footer: footer.md
 project:
   github: https://github.com/INGCOM-UNRN-P1/INGCOM-UNRN-P1.github.io
   title: Programación 1
