@@ -21,9 +21,9 @@ estados o categorías.
 
 ### `enum` vs `const` vs `#define`
 
-Si este concepto les parece similar a las constantes `const` y a los literales
-de preprocesador `#define` están en lo cierto y todas las consideraciones de uso
-aplican para cualquiera de los tres conceptos. 
+Si este concepto te parece similar a las constantes `const` y a los literales
+de preprocesador `#define` estás en lo cierto y todas las consideraciones de uso
+aplican para cualquiera de los tres conceptos.
 
 Aunque es posible definir constantes enteras con `#define` o una serie de
 variables `const`, el uso de `enum` es la práctica superior y más segura para
@@ -154,7 +154,7 @@ operacion_matematica_t operacion = OPERACION_SUMA;
 // enum operacion_matematica operacion = OPERACION_SUMA;
 ```
 
-:::{tip} Cuestiones de estilo
+:::{tip} Estilo
 
 Usá el sufijo `_t` para tipos definidos con `typedef`, siguiendo las
 convenciones del estándar POSIX. Esto hace evidente que se trata de un tipo de
@@ -749,10 +749,11 @@ Este apunte es un laboratorio práctico. No solo explica la teoría, sino que
 proporciona ejemplos completos y los comandos para que puedas compilar, ejecutar
 e inspeccionar el comportamiento de la memoria en tu propio sistema.
 
-> **Advertencia:** Muchos detalles de bajo nivel, como el `padding` y el orden
-> de los bits, son **dependientes de la implementación**. Los ejemplos asumen
-> una arquitectura común (x86_64, little-endian), pero siempre debés verificar
-> en tu plataforma.
+:::{warning}
+
+Muchos detalles de bajo nivel, como el `padding` y el orden de los bits, son **dependientes de la implementación**. Los ejemplos asumen una arquitectura común (x86_64, little-endian), pero siempre debés verificar en tu plataforma.
+
+:::
 
 # 1. Estructuras (`struct`): Agrupando Datos
 
@@ -828,7 +829,7 @@ size_t offsetof(type, member);
 ```
 
 - `type`: Es el nombre del tipo de la estructura (ej. `struct MiEstructura`).
-- `member`: Es el nombre del miembro de la estructura del cual quieres saber el
+- `member`: Es el nombre del miembro de la estructura del cual querés saber el
   desplazamiento.
 
 La macro devuelve un valor de tipo `size_t`, que es un tipo entero sin signo
