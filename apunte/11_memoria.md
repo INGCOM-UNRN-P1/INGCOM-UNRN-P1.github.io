@@ -5,13 +5,11 @@ subtitle: Stack, Heap y el manejo manual de memoria
 ---
 
 (memoria-introduccion)=
-
 ## Introducción: El Mapa de Memoria de un Programa
 
 Todas las variables y el código de un programa residen en la memoria. Cuando un programa se ejecuta, el sistema operativo le asigna un espacio de direcciones virtuales que se organiza en secciones específicas, cada una con un propósito diferente. Esta organización permite al sistema gestionar eficientemente los recursos y aislar las distintas necesidades de almacenamiento.
 
 (memoria-virtual)=
-
 ### Memoria Virtual: La Abstracción Fundamental
 
 Es crucial comprender que la memoria que ves desde tu programa no es la memoria física (RAM) directamente. El sistema operativo, en colaboración con el procesador, implementa un sistema de **memoria virtual** que proporciona a cada proceso su propio espacio de direcciones aislado.
@@ -34,23 +32,20 @@ La memoria virtual es una capa de abstracción que mapea direcciones virtuales (
 
 La memoria se divide en bloques de tamaño fijo llamados **páginas** (típicamente 4 KB en sistemas x86/x86_64). El sistema operativo gestiona la memoria en unidades de páginas, no bytes individuales. Cuando tu programa solicita memoria, el sistema operativo asigna páginas completas, aunque solo uses una porción de ellas.
 
-```
+```asciiart
 Dirección Virtual → MMU (Memory Management Unit) → Dirección Física
     0x00400000           [Tabla de Páginas]           0x1A3F2000
 ```
 
 :::{note} Implicaciones Prácticas
-
 Aunque esta abstracción es transparente para el programador en la mayoría de los casos, tiene implicaciones importantes:
 
 - Las asignaciones de memoria se redondean a múltiplos del tamaño de página.
 - Acceder a memoria de forma secuencial es más eficiente que aleatoriamente (mejor uso del caché y predicción del sistema).
 - Los primeros accesos a memoria recién asignada pueden ser más lentos (_page faults_) mientras el sistema operativo mapea las páginas físicas.
-
   :::
 
 (memoria-segmentacion)=
-
 ### Segmentación de la Memoria
 
 Un programa en ejecución divide su espacio de memoria en las siguientes áreas:
@@ -75,13 +70,11 @@ Organización típica de la memoria de un proceso en sistemas Unix/Linux.
 ```
 
 (memoria-stack)=
-
 ## La Pila (Stack)
 
 La pila es una estructura de datos fundamental en la ejecución de programas. Su nombre proviene de la analogía con una pila de platos: el último elemento añadido es el primero en ser retirado.
 
 (memoria-stack-funcionamiento)=
-
 ### Funcionamiento
 
 La pila opera bajo el principio **LIFO** (_Last-In, First-Out_): el último elemento que entra es el primero en salir, similar a una pila de platos donde solo podés tomar el plato superior. Cada vez que llamás a una función, el sistema reserva un nuevo marco de pila (_stack frame_) que contiene las variables locales, los parámetros y la dirección de retorno. Cuando la función termina, ese marco se libera automáticamente.
@@ -117,7 +110,6 @@ int main()
 ```
 
 (memoria-stack-frames)=
-
 ### Anatomía de un Stack Frame
 
 Cada llamada a función crea un **stack frame** (marco de pila) que contiene toda la información necesaria para ejecutar esa función y retornar correctamente. Comprender la estructura de un stack frame es fundamental para entender cómo funcionan las llamadas a funciones y por qué ciertos errores ocurren.
@@ -179,7 +171,6 @@ funcion:
 ```
 
 :::{important} Implicaciones de la Estructura del Stack
-
 Esta estructura explica varios fenómenos importantes:
 
 1. **Por qué las variables locales no persisten:** Al retornar, el SP se mueve hacia arriba, y el espacio de las variables locales queda disponible para el próximo frame. Los datos no se borran, pero pueden ser sobrescritos.
@@ -189,11 +180,9 @@ Esta estructura explica varios fenómenos importantes:
 3. **Buffer overflow vulnerabilities:** Si escribís más allá de los límites de un array local, podés sobrescribir la dirección de retorno, lo que puede ser explotado maliciosamente.
 
 4. **Velocidad del stack:** Reservar y liberar espacio es trivial (solo mover un puntero), lo que hace el stack extremadamente eficiente.
-
 :::
 
 (memoria-stack-contenido)=
-
 ### Contenido del Stack
 
 La pila almacena:
@@ -220,9 +209,7 @@ La pila almacena:
 - Riesgo de _stack overflow_ si se realizan llamadas recursivas profundas o se declaran arreglos muy grandes.
 
 :::{important} Alcance de las Variables
-
 Tené presente que las variables declaradas en la pila dejan de existir al finalizar la función. Intentar retornar la dirección de una variable local es un error grave que produce comportamiento indefinido. Esta cuestión está relacionada con la {ref}`0x0011h`, que enfatiza mantener el alcance de las variables al mínimo posible. 
-
 :::
 
 **Ejemplo del error común:**
@@ -249,13 +236,11 @@ int *funcion_correcta()
 ```
 
 (memoria-heap)=
-
 ## El Montón (Heap)
 
 El heap es una región de memoria diseñada para la asignación dinámica. A diferencia de la pila, el heap permite solicitar memoria en tiempo de ejecución y mantenerla disponible hasta que explícitamente decidás liberarla.
 
 (memoria-heap-concepto)=
-
 ### Concepto
 
 El heap puede visualizarse como una gran "reserva" de memoria disponible para el programa. Cuando necesitás un bloque de memoria de tamaño variable o que persista más allá del alcance de una función, recurrís al heap mediante funciones especializadas de asignación de memoria.
@@ -280,7 +265,6 @@ Usá el stack cuando:
 - Querés la máxima eficiencia de acceso a memoria.
 
 (memoria-heap-ventajas-desventajas)=
-
 ### Ventajas y Desventajas
 
 **Ventajas:**
@@ -297,13 +281,10 @@ Usá el stack cuando:
 - Posibilidad de errores sutiles difíciles de detectar: accesos después de liberar memoria, dobles liberaciones, pérdida de referencias.
 
 :::{warning} Responsabilidad del Programador
-
 Con el heap, la gestión de memoria es completamente tu responsabilidad. Cada llamada a `malloc` o `calloc` debe tener su correspondiente `free`. Esta disciplina está codificada en la {ref}`0x001Ah`, que exige liberar siempre la memoria dinámica y prevenir punteros colgantes. 
-
 :::
 
 (memoria-comparacion-stack-heap)=
-
 ### Comparación Stack vs Heap
 
 La siguiente tabla resume las diferencias clave entre el stack y el heap para ayudarte a decidir cuál usar en cada situación:
@@ -320,13 +301,11 @@ La siguiente tabla resume las diferencias clave entre el stack y el heap para ay
 | **Fragmentación** | No ocurre | Puede ocurrir | 
 | **Riesgo de errores** | Bajo (overflow) | Alto (leaks, punteros colgantes) | 
 | **Uso típico** | Variables locales pequeñas | Estructuras grandes o dinámicas | 
-
 :::
 
 **Regla práctica:** Usá el stack siempre que puedas (por velocidad y simplicidad), y recurrí al heap solo cuando sea necesario (por flexibilidad).
 
 (memoria-heap-allocator)=
-
 ### El Allocator: Gestión Interna del Heap
 
 Cuando llamás a `malloc` o `calloc`, no estás interactuando directamente con el sistema operativo en cada llamada. En cambio, estas funciones son parte de un subsistema llamado **allocator** (asignador de memoria) que gestiona el heap de tu proceso.
@@ -354,9 +333,7 @@ El header típicamente contiene:
 - **Punteros a bloques adyacentes** (en implementaciones de lista enlazada)
 
 :::{note} Overhead de Memoria
-
 Cada asignación tiene un costo en memoria adicional (overhead) para almacenar los metadatos. Típicamente entre 8 y 16 bytes por bloque. Por eso, muchas asignaciones pequeñas desperdician más memoria que pocas asignaciones grandes.
-
 :::
 
 **Estrategias de asignación:**
@@ -385,7 +362,7 @@ Cada asignación tiene un costo en memoria adicional (overhead) para almacenar l
 
 El allocator solicita memoria al sistema operativo en grandes cantidades (típicamente mediante `sbrk()` o `mmap()` en Unix/Linux) y luego la subdivide según las necesidades del programa. Esto reduce enormemente el número de llamadas al sistema, que son costosas.
 
-```
+```asciiart
 Programa → malloc() → Allocator → [ocasionalmente] → SO → RAM física
                          ↑
                       [mantiene pool
@@ -396,7 +373,7 @@ Programa → malloc() → Allocator → [ocasionalmente] → SO → RAM física
 
 Cuando liberás un bloque con `free()`, el allocator intenta fusionarlo con bloques libres adyacentes para crear bloques más grandes. Esto ayuda a combatir la fragmentación externa.
 
-```
+```asciiart
 Antes:  [USADO][LIBRE-A][USADO][LIBRE-B][LIBRE-C][USADO]
 
 Después de coalescing:
@@ -404,14 +381,12 @@ Después de coalescing:
 ```
 
 :::{tip} Implicaciones para el Programador
-
 Aunque no implementés tu propio allocator, comprender su funcionamiento explica varios fenómenos:
 
 1. **Por qué muchas asignaciones pequeñas son ineficientes:** Cada una tiene overhead de metadatos y sobrecarga de búsqueda.
 2. **Por qué el patrón de asignación importa:** Asignar y liberar en patrones impredecibles causa fragmentación.
 3. **Por qué `free()` es rápido:** Solo marca el bloque como libre y potencialmente fusiona; no devuelve memoria al SO inmediatamente.
 4. **Por qué el heap puede crecer pero no decrecer fácilmente:** El allocator solo puede devolver memoria al SO si los bloques al final del heap están libres. 
-
 :::
 
 (memoria-punteros)=
@@ -419,175 +394,20 @@ Aunque no implementés tu propio allocator, comprender su funcionamiento explica
 
 Los punteros son el mecanismo fundamental que permite trabajar con memoria dinámica en C. Un puntero no almacena un valor directo, sino la **dirección de memoria** donde se encuentra ese valor.
 
-(memoria-punteros-definicion)=
-### Definición
+:::{note} Prerequisito: Conceptos Básicos de Punteros
+Este capítulo asume que ya conocés los fundamentos de punteros que se presentaron en el {doc}`7_punteros`. Si necesitás repasar los siguientes temas, consultá ese capítulo:
 
-Un puntero es una variable cuyo contenido es una dirección de memoria. Esto permite la indirección: acceder a un valor a través de su ubicación en memoria en lugar de usar el valor directamente.
+- Declaración de punteros y sintaxis básica
+- Operadores `&` (dirección) y `*` (desreferencia)
+- Inicialización de punteros y el uso de `NULL`
+- Aritmética de punteros (suma, resta, comparación)
+- Relación entre punteros y arreglos
+- Iteración con punteros
 
-```c
-int valor = 42;
-int *puntero = &valor;  // puntero almacena la dirección de valor
-```
-
-En este ejemplo, `puntero` contiene la dirección en memoria donde se encuentra almacenado el entero `42`.
-
-(memoria-punteros-operadores)=
-
-### Operadores Esenciales
-
-**`&` (Operador de dirección)** : Obtiene la dirección de memoria de una variable. Si `x` es una variable, `&x` devuelve un puntero a `x`.
-
-**`*` (Operador de desreferenciación)** : Accede al valor almacenado en la dirección a la que apunta un puntero. Si `p` es un puntero, `*p` devuelve el valor en la dirección almacenada en `p`.
-
-```c
-int valor = 100;
-int *ptr = &valor;    // ptr apunta a valor
-printf("%d\n", *ptr); // Imprime: 100
-*ptr = 200;           // Modifica valor a través del puntero
-printf("%d\n", valor);// Imprime: 200
-```
-
-(memoria-punteros-null)=
-
-### El Puntero NULL
-
-`NULL` es una macro definida en `<stddef.h>` que representa un puntero que no apunta a ninguna dirección válida. Se utiliza para indicar que un puntero está "vacío" o no ha sido inicializado con una dirección útil.
-
-Según la {ref}`0x0022h`, los punteros nulos deben ser inicializados y comparados con `NULL`, no con `0`, para mayor claridad semántica.
-
-```c
-#include <stddef.h>
-
-int *ptr = NULL;  // Inicialización correcta
-if (ptr == NULL)  // Comparación correcta
-{
-    printf("El puntero no apunta a ninguna dirección válida.\n");
-}
-```
-
-:::{tip} Buena Práctica: Inicialización
-
-Según la {ref}`0x0003h`, siempre debés inicializar las variables a un valor conocido. Para punteros, esto significa inicializarlos a `NULL` cuando no tenés una dirección válida para asignarles inmediatamente. 
-
+En este capítulo nos enfocamos en aspectos avanzados de punteros específicos para la gestión de memoria dinámica.
 :::
-
-(memoria-punteros-aritmetica)=
-
-### Aritmética de Punteros
-
-Los punteros en C no son simples números: entienden el tamaño del tipo al que apuntan. Esto permite la **aritmética de punteros**, una característica poderosa pero que requiere cuidado.
-
-**Operaciones permitidas:**
-
-1. **Sumar/Restar un entero a un puntero:**
-
-   ```c
-   int arreglo[5] = {10, 20, 30, 40, 50};
-   int *ptr = arreglo;     // Apunta al primer elemento
-   ptr = ptr + 2;          // Ahora apunta al tercer elemento (arreglo[2])
-   ```
-
-   Cuando sumás `n` a un puntero, la dirección aumenta en `n * sizeof(tipo)` bytes.
-
-2. **Restar dos punteros del mismo tipo:**
-
-   ```c
-   int *inicio = &arreglo[0];
-   int *fin = &arreglo[4];
-   ptrdiff_t distancia = fin - inicio;  // Resultado: 4 (elementos entre ellos)
-   ```
-
-   El resultado es el número de elementos entre los punteros, no bytes.
-
-3. **Comparar punteros:**
-   ```c
-   if (ptr1 < ptr2) { /* ptr1 está antes que ptr2 en memoria */ }
-   ```
-
-**Relación entre arreglos y punteros:**
-
-En C, los arreglos y punteros están íntimamente relacionados. El nombre de un arreglo es esencialmente un puntero constante al primer elemento.
-
-```c
-int arreglo[5] = {1, 2, 3, 4, 5};
-
-// Estas dos expresiones son equivalentes:
-arreglo[2]
-*(arreglo + 2)
-
-// Y estas también:
-&arreglo[2]
-(arreglo + 2)
-```
-
-**Ejemplo completo:**
-
-```c
-#include <stdio.h>
-
-int main()
-{
-    int valores[] = {100, 200, 300, 400, 500};
-    int *ptr = valores;  // ptr apunta al primer elemento
-
-    printf("Valor en ptr: %d\n", *ptr);           // 100
-    printf("Valor en ptr+1: %d\n", *(ptr + 1));   // 200
-    printf("Valor en ptr+2: %d\n", *(ptr + 2));   // 300
-
-    // Avanzar el puntero
-    ptr = ptr + 2;
-    printf("Nuevo valor en ptr: %d\n", *ptr);     // 300
-
-    // Retroceder el puntero
-    ptr = ptr - 1;
-    printf("Valor después de retroceder: %d\n", *ptr);  // 200
-
-    // Diferencia entre punteros
-    int *inicio = valores;
-    int *fin = valores + 4;
-    printf("Elementos entre inicio y fin: %ld\n", fin - inicio);  // 4
-
-    return 0;
-}
-```
-
-:::{warning} Cuidado con la Aritmética de Punteros
-
-La aritmética de punteros debe realizarse solo dentro de los límites de un
-arreglo o bloque de memoria asignado. Acceder más allá de los límites causa
-**comportamiento indefinido**.
-
-```c
-int arreglo[5];
-int *ptr = arreglo;
-ptr = ptr + 10;  // PELIGRO: Fuera de los límites
-*ptr = 42;       // COMPORTAMIENTO INDEFINIDO
-```
-
-El compilador no verifica los límites en tiempo de ejecución. Es tu
-responsabilidad asegurar que los accesos sean válidos.
-
-:::
-
-**Uso común: Iteración con punteros**
-
-```c
-void imprimir_arreglo(int *arr, size_t tamano)
-{
-    int *fin = arr + tamano;  // Puntero al "elemento después del último"
-
-    for (int *ptr = arr; ptr < fin; ptr = ptr + 1)
-    {
-        printf("%d ", *ptr);
-    }
-    printf("\n");
-}
-```
-
-Este patrón es eficiente porque la comparación de punteros y el incremento son operaciones muy rápidas a nivel de hardware.
 
 (memoria-punteros-void)=
-
 ### El Puntero `void *`: Puntero Genérico
 
 Un `void *` es un puntero especial que puede apuntar a cualquier tipo de dato. No tiene asociado un tipo específico, por lo que:
@@ -626,19 +446,15 @@ int_ptr = int_ptr + 1;  // Avanza sizeof(int) bytes
 ```
 
 :::{note} `void *` en Funciones Genéricas
-
 El puntero `void *` es fundamental para escribir funciones genéricas que trabajan con cualquier tipo de dato. Por ejemplo, `qsort()` de la biblioteca estándar usa `void *` para ordenar arreglos de cualquier tipo. 
-
 :::
 
 (memoria-casteos-avanzados)=
-
 ### Casteos Avanzados de Punteros
 
 Los casteos de punteros en C son una herramienta poderosa pero peligrosa. Comprender los casteos avanzados, especialmente los punteros a arrays, es esencial para trabajar con memoria dinámica multidimensional y estructuras de datos complejas.
 
 (memoria-casteo-basico)=
-
 #### Casteos Básicos entre Tipos de Punteros
 
 El casteo más simple convierte un puntero de un tipo a otro:
@@ -653,7 +469,6 @@ printf("%c\n", char_ptr[0]);  // Imprime 'D' (little-endian)
 ```
 
 :::{warning} Aliasing y Strict Aliasing Rule
-
 Acceder al mismo objeto de memoria a través de punteros de tipos incompatibles viola la **strict aliasing rule** y causa comportamiento indefinido (excepto con `char *` o `unsigned char *`).
 
 ```c
@@ -663,11 +478,9 @@ float f = *fp;  // UB: reinterpreta int como float
 ```
 
 El compilador asume que punteros de tipos diferentes no se superponen, lo que permite optimizaciones agresivas que pueden romper código que viola esta regla. 
-
 :::
 
 (memoria-puntero-a-puntero)=
-
 #### Punteros a Punteros y Arrays Dinámicos 2D
 
 Un patrón común es usar punteros a punteros para crear arrays bidimensionales dinámicos:
@@ -694,7 +507,7 @@ free(matriz);
 
 **Visualización en memoria:**
 
-```
+```asciiart
 matriz → ┌───────┐
          │ ptr 0 │ → [int][int][int][int]  (fila 0)
          ├───────┤
@@ -707,7 +520,6 @@ matriz → ┌───────┐
 **Desventaja:** Las filas no están contiguas en memoria, lo que reduce la localidad del caché.
 
 (memoria-puntero-a-array)=
-
 #### Puntero a Array: `(*)[N]`
 
 Un **puntero a array** es fundamentalmente diferente de un puntero a puntero. Apunta a un array completo como una unidad, no a un elemento individual.
@@ -763,7 +575,6 @@ int (*ptr)[4] = matriz;
 ```
 
 (memoria-array-2d-contiguo)=
-
 #### Arrays 2D Contiguos con Punteros a Array
 
 La verdadera potencia de `(*)[N]` aparece al trabajar con memoria dinámica contígua:
@@ -841,16 +652,13 @@ Comparación entre puntero a puntero (int **) con filas dispersas y puntero a ar
 ```
 
 :::{important} Ventajas de Arrays Contiguos
-
 1. **Un solo malloc/free:** Más eficiente, menos overhead.
 2. **Localidad de caché:** Elementos contiguos aprovechan mejor el caché.
 3. **Rendimiento:** Puede ser 2-5 veces más rápido para operaciones intensivas.
 4. **Simplicidad:** No hay riesgo de filas mal inicializadas. 
-
 :::
 
 (memoria-casteo-puntero-array)=
-
 #### Casteo a Puntero a Array
 
 A veces necesitás reinterpretar memoria asignada como array multidimensional:
@@ -881,7 +689,6 @@ memoria_plana[i * 4 + j]
 ```
 
 (memoria-ejemplo-completo-casteo)=
-
 #### Ejemplo Completo: Múltiples Representaciones
 
 ```c
@@ -951,7 +758,6 @@ int main()
 ```
 
 (memoria-typedef-arrays)=
-
 #### Typedef para Simplificar
 
 Los punteros a arrays pueden ser difíciles de leer. Los typedef ayudan:
@@ -990,7 +796,6 @@ matriz[0].datos[0] = 10;
 ```
 
 (memoria-limitaciones-puntero-array)=
-
 #### Limitaciones y Consideraciones
 
 **1. Compatibilidad con C99/C11:**
@@ -1038,7 +843,6 @@ int elemento = arr[i * cols + j];  // Cálculo explícito
 ```
 
 :::{tip} Cuándo Usar Cada Enfoque
-
 **Puntero a puntero (`int **`):**
 
 - Cuando las filas tienen diferentes tamaños
@@ -1056,11 +860,9 @@ int elemento = arr[i * cols + j];  // Cálculo explícito
 - Cuando necesitás máxima portabilidad
 - Cuando el tamaño es completamente dinámico
 - Cuando querés control total del layout de memoria
-
 :::
 
 (memoria-funciones)=
-
 ## Funciones de Gestión de Memoria (`<stdlib.h>`)
 
 Las funciones de gestión de memoria dinámica están declaradas en el archivo de
@@ -1068,7 +870,6 @@ cabecera `<stdlib.h>`. Estas funciones permiten solicitar y liberar bloques de
 memoria del heap durante la ejecución del programa.
 
 (memoria-malloc)=
-
 ### `malloc` (Memory Allocation)
 
 #### Sintaxis
@@ -1132,7 +933,6 @@ int main()
 ```
 
 :::{tip} ¿Por qué verificar si `malloc` retorna `NULL`? 
-
 La asignación de memoria puede fallar por varias razones: memoria insuficiente en el sistema, límites de proceso, fragmentación extrema del heap. Si no verificás el retorno de `malloc` e intentás usar un puntero `NULL`, el programa experimentará una violación de segmento (_segmentation fault_) inmediata, o peor aún, comportamiento indefinido.
 
 Verificar el retorno de `malloc` permite que tu programa:
@@ -1140,17 +940,13 @@ Verificar el retorno de `malloc` permite que tu programa:
 - Maneje el error de forma elegante (por ejemplo, mostrando un mensaje al usuario).
 - Libere otros recursos antes de terminar.
 - Intente estrategias alternativas (reducir el tamaño solicitado, usar un archivo temporal, etc.). 
-
 :::
 
 :::{note} Cast Explícito
-
 En C, no es necesario hacer cast del puntero `void *` retornado por `malloc` a otro tipo de puntero, ya que la conversión es implícita. Sin embargo, algunos programadores prefieren el cast explícito por claridad o para compatibilidad con C++. La {ref}`0x0024h` recomienda usar cast explícito al convertir tipos de punteros por claridad. 
-
 :::
 
 (memoria-calloc)=
-
 ### `calloc` (Contiguous Allocation)
 
 #### Sintaxis
@@ -1214,7 +1010,6 @@ int main()
 ```
 
 (memoria-free)=
-
 ### `free` (Liberación)
 
 #### Sintaxis
@@ -1242,19 +1037,15 @@ ptr = NULL;  // Previene el uso accidental del puntero colgante
 ```
 
 :::{important} Simetría en la Gestión de Recursos
-
 La {ref}`0x001Ah` también enfatiza la simetría: si creaste una función `crear_recurso()` para encapsular la asignación, debés crear una función `liberar_recurso()` correspondiente para su liberación. Esto mantiene el nivel de abstracción consistente y facilita el mantenimiento.
-
 :::
 
 (memoria-errores)=
-
 ## Errores Comunes y Peligros
 
 La gestión manual de memoria es una fuente frecuente de errores en C. Comprender estos errores y cómo prevenirlos es fundamental para escribir código robusto.
 
 (memoria-memory-leak)=
-
 ### Memory Leak (Fuga de Memoria)
 
 Una fuga de memoria ocurre cuando se pierde la referencia a un bloque de memoria reservado sin haberlo liberado con `free`. La memoria queda inutilizable para el programa hasta que este termina.
@@ -1297,7 +1088,6 @@ void funcion_sin_fuga()
 ```
 
 (memoria-dangling-pointer)=
-
 ### Dangling Pointer (Puntero Colgante)
 
 Un puntero colgante es un puntero que apunta a una dirección de memoria que ya ha sido liberada con `free`. Intentar acceder a través de él produce comportamiento indefinido.
@@ -1343,7 +1133,6 @@ int main()
 ```
 
 (memoria-double-free)=
-
 ### Double Free (Doble Liberación)
 
 Intentar liberar el mismo bloque de memoria dos veces causa comportamiento indefinido y puede corromper la gestión de memoria del heap.
@@ -1383,7 +1172,6 @@ int main()
 ```
 
 (memoria-acceso-invalido)=
-
 ### Acceso Fuera de Límites
 
 Leer o escribir fuera de los límites del bloque de memoria reservado corrompe datos adyacentes y causa comportamiento impredecible.
@@ -1444,7 +1232,6 @@ int main()
 ```
 
 (memoria-uso-despues-free)=
-
 ### Uso de Memoria Después de `free`
 
 Acceder a memoria después de liberarla es un error similar al puntero colgante.
@@ -1474,19 +1261,15 @@ int main()
 Asegurate de no usar el puntero después de liberarlo, y asigná `NULL` para detectar errores fácilmente.
 
 :::{tip} Herramientas de Detección
-
 Herramientas como **Valgrind** pueden detectar automáticamente fugas de memoria, accesos inválidos y otros errores relacionados con la gestión de memoria. Su uso es altamente recomendable durante el desarrollo. 
-
 :::
 
 (memoria-seguridad-conceptual)=
-
 ## Seguridad de Memoria: Una Perspectiva Profunda
 
 La seguridad de memoria (memory safety) es uno de los desafíos más importantes en programación de sistemas. Comprender por qué los errores de memoria son tan peligrosos requiere entender qué significa "comportamiento indefinido" y cómo puede ser explotado.
 
 (memoria-comportamiento-indefinido)=
-
 ### Comportamiento Indefinido (Undefined Behavior)
 
 Cuando el estándar de C dice que una operación tiene "comportamiento indefinido" (UB), significa que **absolutamente cualquier cosa puede pasar**. El compilador no está obligado a hacer nada razonable.
@@ -1550,7 +1333,6 @@ El comportamiento indefinido no solo causa crashes. Puede:
    ```
 
 (memoria-vulnerabilidades)=
-
 ### Vulnerabilidades Comunes
 
 Los errores de memoria no son solo bugs: son vulnerabilidades de seguridad. Comprender los ataques comunes te ayuda a escribir código más defensivo.
@@ -1636,7 +1418,6 @@ int *b = malloc(100);
 ```
 
 (memoria-estrategias-defensivas)=
-
 ### Estrategias Defensivas
 
 **1. Principio de mínimo privilegio:** No uses más memoria de la que necesitás, y no la mantengas asignada más tiempo del necesario.
@@ -1693,21 +1474,17 @@ dest[sizeof(dest) - 1] = '\0';
 ```
 
 :::{important} La Seguridad No Es Opcional
-
 En el desarrollo profesional, los errores de memoria no son solo bugs molestos: son **vulnerabilidades de seguridad** que pueden ser explotadas. Cada uno de los errores discutidos (buffer overflow, UAF, double free) ha sido la base de ataques reales en sistemas de producción.
 
 Escribir código memory-safe no es solo seguir buenas prácticas: es una responsabilidad ética. Tu código podría procesar datos sensibles, ejecutarse en infraestructura crítica, o estar expuesto a atacantes motivados. La seguridad debe ser parte del diseño desde el principio, no un añadido posterior.
-
 :::
 
 (memoria-buenas-practicas)=
-
 ## Resumen de Buenas Prácticas
 
 La gestión segura de memoria dinámica requiere disciplina y adherencia a un conjunto de prácticas probadas. Este resumen consolida las reglas fundamentales.
 
 (memoria-bp-inicializar)=
-
 ### Inicializar Punteros
 
 Siempre inicializá los punteros a `NULL` al declararlos si no tenés una dirección válida para asignarles inmediatamente. Esto está codificado en la {ref}`0x0003h` y la {ref}`0x0022h`.
@@ -1717,7 +1494,6 @@ int *ptr = NULL;
 ```
 
 (memoria-bp-verificar)=
-
 ### Verificar Asignaciones
 
 Siempre comprobá si el valor devuelto por `malloc` o `calloc` es `NULL` antes de usar el puntero. La {ref}`0x0019h` lo exige explícitamente.
@@ -1733,7 +1509,6 @@ if (ptr == NULL)
 ```
 
 (memoria-bp-liberar)=
-
 ### Liberar Memoria
 
 Por cada asignación exitosa con `malloc` o `calloc`, debe haber una llamada correspondiente a `free`. La {ref}`0x001Ah` establece esta simetría como obligatoria.
@@ -1743,7 +1518,6 @@ free(ptr);
 ```
 
 (memoria-bp-anular)=
-
 ### Anular Punteros Después de Liberar
 
 Después de llamar a `free(puntero)`, asigná `puntero = NULL` para evitar punteros colgantes. La {ref}`0x001Ah` lo exige.
@@ -1754,7 +1528,6 @@ ptr = NULL;
 ```
 
 (memoria-bp-simetria)=
-
 ### Mantener Simetría
 
 Intentá que la función que reserva la memoria sea también responsable de liberarla, o que haya una correspondencia clara, como `crear_estructura()` y `destruir_estructura()`. Esta práctica está documentada en la {ref}`0x001Ah`.
@@ -1782,7 +1555,6 @@ void destruir_recurso(recurso_t *r)
 ```
 
 (memoria-bp-documentar)=
-
 ### Documentar Propiedad
 
 La {ref}`0x020Fh` exige que documentes claramente quién es el responsable de liberar la memoria cuando una función recibe o devuelve un puntero a memoria dinámica.
@@ -1799,7 +1571,6 @@ nodo_t *crear_nodo(int valor);
 ```
 
 (memoria-bp-const)=
-
 ### Usar `const` Apropiadamente
 
 Según la {ref}`0x0021h`, los argumentos de tipo puntero deben ser `const` siempre que la función no los modifique. Esto establece un contrato claro y permite al compilador detectar modificaciones no intencionales.
@@ -1816,7 +1587,6 @@ void imprimir_arreglo(const int *arreglo, size_t tamano)
 ```
 
 (memoria-bp-sizeof)=
-
 ### Usar `sizeof` Correctamente
 
 La {ref}`0x0026h` establece que debés usar siempre `sizeof` en las asignaciones de memoria dinámica, y preferir `sizeof(*puntero)` sobre `sizeof(tipo)`.
@@ -1830,7 +1600,6 @@ int *ptr = malloc(n * sizeof(int));  // Si el tipo de ptr cambia, esto falla
 ```
 
 (memoria-bp-tamanos)=
-
 ### Usar `size_t` para Tamaños e Índices
 
 La {ref}`0x002Eh` exige que las variables que representan tamaños o índices de arreglos sean de tipo `size_t`.
@@ -1846,7 +1615,6 @@ for (size_t i = 0; i < tamano; i++)
 ```
 
 (memoria-bp-limites)=
-
 ### Verificar Límites
 
 La {ref}`0x0027h` exige verificar siempre los límites de los arreglos antes de acceder a sus elementos.
@@ -2072,7 +1840,6 @@ int main()
 ````
 
 :::{note} Análisis del Ejemplo
-
 Este ejemplo integra múltiples buenas prácticas:
 
 - Inicialización de punteros a `NULL` ({ref}`0x0003h`)
@@ -2084,11 +1851,9 @@ Este ejemplo integra múltiples buenas prácticas:
 - Uso de `const` para parámetros no modificados ({ref}`0x0021h`)
 - Uso de `size_t` para tamaños e índices ({ref}`0x002Eh`)
 - Verificación de límites antes de acceder a elementos ({ref}`0x0027h`) 
-
 :::
 
 (memoria-ejercicios)=
-
 ## Ejercicios
 
 ```{exercise} Asignación Básica
@@ -3128,11 +2893,9 @@ int (*matriz)[4] = (int (*)[4])crear_matriz_generica(5, 4);
 ````
 
 (memoria-conceptos-avanzados)=
-
 ## Conceptos Avanzados
 
 (memoria-jerarquia-cache)=
-
 ### Jerarquía de Memoria y Caché
 
 Para comprender completamente por qué el stack es más rápido que el heap,
@@ -3226,7 +2989,6 @@ void procesar_heap()
 En un benchmark real, la versión stack podría ser 2-5 veces más rápida, especialmente para arreglos pequeños que caben completamente en caché.
 
 :::{note} Optimización 
-
 Práctica Comprender el caché te permite optimizar código:
 
 ```c
@@ -3242,11 +3004,9 @@ for (int i = 0; i < rows; i++)
 ```
 
 La segunda versión puede ser 10-50 veces más rápida para matrices grandes, simplemente porque usa mejor el caché. 
-
 :::
 
 (memoria-fragmentacion)=
-
 ### Fragmentación de Memoria
 
 La fragmentación es un fenómeno que ocurre cuando el heap contiene bloques libres pequeños dispersos que no pueden satisfacer solicitudes de memoria más grandes, incluso si la suma total de memoria libre sería suficiente.
@@ -3257,7 +3017,7 @@ Imaginá que tenés un estante con espacios libres dispersos de diferentes tama�
 
 **Ejemplo conceptual:**
 
-```
+```asciiart
 Memoria inicial: [LIBRE________________]
 Después de 3 asignaciones: [A][B][C][LIBRE______]
 Después de liberar B: [A][LIBRE][C][LIBRE______]
@@ -3274,7 +3034,6 @@ Ahora hay dos bloques libres, pero si necesitás un bloque del tamaño de A+B, n
 - Considerá usar memory pools para objetos de tamaño fijo (tema avanzado).
 
 (memoria-alineacion)=
-
 ### Alineación de Memoria
 
 La alineación de memoria es un concepto fundamental que afecta tanto el rendimiento como la corrección de los programas. Comprender por qué existe y cómo funciona te permite escribir código más eficiente.
@@ -3391,7 +3150,6 @@ struct grande *s = malloc(sizeof(*s));
 ```
 
 :::{note} Packed Structures
-
 Podés forzar al compilador a no insertar padding usando atributos específicos del compilador:
 
 ```c
@@ -3404,11 +3162,9 @@ struct __attribute__((packed)) sin_padding {
 ```
 
 Esto es útil para formatos de archivos binarios o protocolos de red, pero reduce el rendimiento. Usalo solo cuando la compatibilidad binaria es más importante que la velocidad.
-
 :::
 
 (memoria-valgrind)=
-
 ### Herramientas de Depuración: Valgrind
 
 Valgrind es una herramienta fundamental para detectar errores de memoria en programas C y C++. Funciona ejecutando tu programa en un entorno virtualizado donde puede monitorear cada acceso a memoria y operación de asignación/liberación.
@@ -3459,13 +3215,10 @@ Cuando Valgrind detecta un error, muestra:
 Esto indica que se intentó escribir 4 bytes fuera de un bloque de 40 bytes asignado, en la línea 15 del archivo `programa.c`.
 
 :::{important} Desarrollo Profesional
-
 En un entorno profesional, es inaceptable entregar código con errores de memoria. El uso de herramientas como Valgrind durante el desarrollo no es opcional, es una práctica estándar de la industria. Acostumbrate a ejecutar Valgrind regularmente durante el desarrollo, no solo cuando sospechás que hay un problema. 
-
 :::
 
 (memoria-modelo-costos)=
-
 ### Modelo de Costos: Cuantificando el Rendimiento
 
 Comprender el costo relativo de las operaciones de memoria te permite tomar decisiones informadas sobre diseño y optimización. Este modelo proporciona una intuición sobre el rendimiento relativo.
@@ -3601,9 +3354,7 @@ while (actual != NULL)
 5. **Considerá el cache line size:** Operá en bloques de ~64 bytes cuando sea posible.
 
 :::{important} Profiling sobre Intuición
-
 Aunque este modelo proporciona intuición valiosa, siempre **medí** antes de optimizar. Usa herramientas de profiling como `perf`, `gprof`, o `Valgrind --tool=cachegrind` para identificar cuellos de botella reales. La optimización prematura basada en intuición puede hacer el código más complejo sin beneficios reales. 
-
 :::
 
 (memoria-conclusiones)=
@@ -3616,7 +3367,6 @@ Las buenas prácticas presentadas en este apunte no son sugerencias opcionales: 
 A medida que adquirás experiencia, estas prácticas se vuelven segunda naturaleza. Inicialmente pueden parecer restrictivas, pero con el tiempo reconocerás que son liberadoras: te permiten escribir código complejo con confianza, sabiendo que has evitado las trampas más comunes.
 
 (memoria-referencias)=
-
 ## Referencias y Lecturas Adicionales
 
 Para profundizar en la gestión de memoria, consultá:
