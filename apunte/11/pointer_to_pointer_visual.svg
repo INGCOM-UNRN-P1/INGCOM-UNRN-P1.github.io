@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 250">
+  <defs>
+    <style>
+      .ptr-box { fill: #fff3e0; stroke: #f57c00; stroke-width: 2; }
+      .data-box { fill: #e1f5fe; stroke: #0277bd; stroke-width: 1.5; }
+      .text { font-family: 'Courier New', monospace; font-size: 11px; fill: #333; text-anchor: middle; }
+      .label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #666; font-style: italic; }
+      .arrow { stroke: #f57c00; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#f57c00" />
+    </marker>
+  </defs>
+  
+  <!-- matriz pointer -->
+  <text x="20" y="30" class="text" text-anchor="start" font-weight="bold">matriz →</text>
+  
+  <!-- Pointer array boxes -->
+  <rect x="90" y="15" width="60" height="30" class="ptr-box"/>
+  <line x1="120" y1="15" x2="120" y2="45" stroke="#f57c00" stroke-width="1"/>
+  <line x1="90" y1="30" x2="150" y2="30" stroke="#f57c00" stroke-width="1"/>
+  <text x="105" y="33" class="text" font-size="10px">ptr</text>
+  <text x="135" y="33" class="text" font-size="10px">0</text>
+  
+  <rect x="150" y="15" width="60" height="30" class="ptr-box"/>
+  <line x1="180" y1="15" x2="180" y2="45" stroke="#f57c00" stroke-width="1"/>
+  <line x1="150" y1="30" x2="210" y2="30" stroke="#f57c00" stroke-width="1"/>
+  <text x="165" y="33" class="text" font-size="10px">ptr</text>
+  <text x="195" y="33" class="text" font-size="10px">1</text>
+  
+  <rect x="210" y="15" width="60" height="30" class="ptr-box"/>
+  <line x1="240" y1="15" x2="240" y2="45" stroke="#f57c00" stroke-width="1"/>
+  <line x1="210" y1="30" x2="270" y2="30" stroke="#f57c00" stroke-width="1"/>
+  <text x="225" y="33" class="text" font-size="10px">ptr</text>
+  <text x="255" y="33" class="text" font-size="10px">2</text>
+  
+  <!-- Arrows to data rows -->
+  <line x1="120" y1="45" x2="120" y2="80" class="arrow"/>
+  <line x1="180" y1="45" x2="300" y2="100" class="arrow"/>
+  <line x1="240" y1="45" x2="420" y2="140" class="arrow"/>
+  
+  <!-- Data row 0 -->
+  <rect x="70" y="80" width="30" height="25" class="data-box"/>
+  <text x="85" y="96" class="text" font-size="10px">int</text>
+  <rect x="100" y="80" width="30" height="25" class="data-box"/>
+  <text x="115" y="96" class="text" font-size="10px">int</text>
+  <rect x="130" y="80" width="30" height="25" class="data-box"/>
+  <text x="145" y="96" class="text" font-size="10px">int</text>
+  <rect x="160" y="80" width="30" height="25" class="data-box"/>
+  <text x="175" y="96" class="text" font-size="10px">int</text>
+  <text x="120" y="120" class="label">(fila 0)</text>
+  
+  <!-- Data row 1 -->
+  <rect x="250" y="100" width="30" height="25" class="data-box"/>
+  <text x="265" y="116" class="text" font-size="10px">int</text>
+  <rect x="280" y="100" width="30" height="25" class="data-box"/>
+  <text x="295" y="116" class="text" font-size="10px">int</text>
+  <rect x="310" y="100" width="30" height="25" class="data-box"/>
+  <text x="325" y="116" class="text" font-size="10px">int</text>
+  <rect x="340" y="100" width="30" height="25" class="data-box"/>
+  <text x="355" y="116" class="text" font-size="10px">int</text>
+  <text x="300" y="145" class="label">(fila 1)</text>
+  
+  <!-- Data row 2 -->
+  <rect x="370" y="140" width="30" height="25" class="data-box"/>
+  <text x="385" y="156" class="text" font-size="10px">int</text>
+  <rect x="400" y="140" width="30" height="25" class="data-box"/>
+  <text x="415" y="156" class="text" font-size="10px">int</text>
+  <rect x="430" y="140" width="30" height="25" class="data-box"/>
+  <text x="445" y="156" class="text" font-size="10px">int</text>
+  <rect x="460" y="140" width="30" height="25" class="data-box"/>
+  <text x="475" y="156" class="text" font-size="10px">int</text>
+  <text x="420" y="185" class="label">(fila 2)</text>
+  
+  <!-- Note box -->
+  <rect x="20" y="210" width="510" height="30" fill="#ffebee" stroke="#c62828" stroke-width="1" rx="3"/>
+  <text x="275" y="230" class="label" fill="#c62828" text-anchor="middle">Las filas no están contiguas en memoria → Mala localidad de caché</text>
+</svg>

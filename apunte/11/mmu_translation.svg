@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 120">
+  <defs>
+    <style>
+      .box { fill: #e3f2fd; stroke: #1976d2; stroke-width: 2; rx: 5; }
+      .box-center { fill: #fff3e0; stroke: #f57c00; stroke-width: 2; rx: 5; }
+      .text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; fill: #333; text-anchor: middle; font-weight: bold; }
+      .addr { font-family: 'Courier New', monospace; font-size: 12px; fill: #666; text-anchor: middle; }
+      .arrow { stroke: #1976d2; stroke-width: 2.5; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#1976d2" />
+    </marker>
+  </defs>
+  
+  <!-- Virtual Address -->
+  <rect x="20" y="30" width="150" height="60" class="box"/>
+  <text x="95" y="55" class="text">Dirección Virtual</text>
+  <text x="95" y="75" class="addr">0x00400000</text>
+  
+  <!-- Arrow 1 -->
+  <line x1="170" y1="60" x2="230" y2="60" class="arrow"/>
+  
+  <!-- MMU with Page Table -->
+  <rect x="230" y="20" width="220" height="80" class="box-center"/>
+  <text x="340" y="45" class="text">MMU</text>
+  <text x="340" y="62" class="text" font-size="11px">(Memory Management Unit)</text>
+  <text x="340" y="85" class="text" font-size="11px">[Tabla de Páginas]</text>
+  
+  <!-- Arrow 2 -->
+  <line x1="450" y1="60" x2="510" y2="60" class="arrow"/>
+  
+  <!-- Physical Address -->
+  <rect x="510" y="30" width="170" height="60" class="box"/>
+  <text x="595" y="55" class="text">Dirección Física</text>
+  <text x="595" y="75" class="addr">0x1A3F2000</text>
+</svg>

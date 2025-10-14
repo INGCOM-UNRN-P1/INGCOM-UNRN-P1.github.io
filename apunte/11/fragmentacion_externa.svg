@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 220">
+  <defs>
+    <style>
+      .block-free { fill: #c8e6c9; stroke: #388e3c; stroke-width: 2; }
+      .block-used { fill: #ffcdd2; stroke: #c62828; stroke-width: 2; }
+      .text { font-family: 'Courier New', monospace; font-size: 11px; fill: #000; text-anchor: middle; font-weight: bold; }
+      .label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #333; text-anchor: start; font-weight: bold; }
+      .note { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; fill: #666; text-anchor: start; }
+    </style>
+  </defs>
+  
+  <!-- Estado 1: Memoria inicial -->
+  <text x="20" y="25" class="label">Memoria inicial:</text>
+  <rect x="180" y="10" width="450" height="35" class="block-free"/>
+  <text x="405" y="32" class="text">LIBRE</text>
+  
+  <!-- Estado 2: Después de 3 asignaciones -->
+  <text x="20" y="80" class="label">Después de 3 asignaciones:</text>
+  <rect x="180" y="60" width="80" height="35" class="block-used"/>
+  <text x="220" y="82" class="text">A</text>
+  
+  <rect x="260" y="60" width="80" height="35" class="block-used"/>
+  <text x="300" y="82" class="text">B</text>
+  
+  <rect x="340" y="60" width="80" height="35" class="block-used"/>
+  <text x="380" y="82" class="text">C</text>
+  
+  <rect x="420" y="60" width="210" height="35" class="block-free"/>
+  <text x="525" y="82" class="text">LIBRE</text>
+  
+  <!-- Estado 3: Después de liberar B -->
+  <text x="20" y="140" class="label">Después de liberar B:</text>
+  <rect x="180" y="120" width="80" height="35" class="block-used"/>
+  <text x="220" y="142" class="text">A</text>
+  
+  <rect x="260" y="120" width="80" height="35" class="block-free"/>
+  <text x="300" y="142" class="text">LIBRE</text>
+  
+  <rect x="340" y="120" width="80" height="35" class="block-used"/>
+  <text x="380" y="142" class="text">C</text>
+  
+  <rect x="420" y="120" width="210" height="35" class="block-free"/>
+  <text x="525" y="142" class="text">LIBRE</text>
+  
+  <!-- Explanation box -->
+  <rect x="20" y="180" width="610" height="30" fill="#fff3e0" stroke="#f57c00" stroke-width="1" rx="3"/>
+  <text x="325" y="200" class="note" text-anchor="middle">
+    Ahora hay dos bloques libres, pero si necesitás un bloque del tamaño de A+B, no podés usar el espacio entre A y C
+  </text>
+</svg>

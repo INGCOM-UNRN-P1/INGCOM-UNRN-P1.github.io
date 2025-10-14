@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 180">
+  <defs>
+    <style>
+      .box { fill: #e3f2fd; stroke: #1976d2; stroke-width: 2; rx: 5; }
+      .box-allocator { fill: #fff3e0; stroke: #f57c00; stroke-width: 2.5; rx: 5; }
+      .text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; fill: #333; text-anchor: middle; font-weight: bold; }
+      .small-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; fill: #666; text-anchor: middle; font-style: italic; }
+      .arrow { stroke: #1976d2; stroke-width: 2.5; fill: none; marker-end: url(#arrowhead); }
+      .arrow-back { stroke: #d32f2f; stroke-width: 2; fill: none; marker-end: url(#arrowhead-red); stroke-dasharray: 3,3; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#1976d2" />
+    </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#d32f2f" />
+    </marker>
+  </defs>
+  
+  <!-- Programa -->
+  <rect x="20" y="60" width="100" height="50" class="box"/>
+  <text x="70" y="90" class="text">Programa</text>
+  
+  <!-- Arrow to malloc -->
+  <line x1="120" y1="85" x2="180" y2="85" class="arrow"/>
+  <text x="150" y="78" class="small-text">malloc()</text>
+  
+  <!-- malloc/calloc/free -->
+  <rect x="180" y="60" width="100" height="50" class="box"/>
+  <text x="230" y="82" class="text" font-size="11px">malloc()</text>
+  <text x="230" y="96" class="text" font-size="11px">calloc() / free()</text>
+  
+  <!-- Arrow to Allocator -->
+  <line x1="280" y1="85" x2="340" y2="85" class="arrow"/>
+  
+  <!-- Allocator (central) -->
+  <rect x="340" y="40" width="120" height="90" class="box-allocator"/>
+  <text x="400" y="70" class="text">Allocator</text>
+  <text x="400" y="120" class="small-text">[mantiene pool</text>
+  <text x="400" y="132" class="small-text">de memoria]</text>
+  
+  <!-- Arrow back to allocator (ocasionalmente) -->
+  <path d="M 460 60 Q 520 20, 560 60" class="arrow-back"/>
+  <text x="520" y="15" class="small-text" fill="#d32f2f">[ocasionalmente]</text>
+  
+  <!-- Arrow to SO -->
+  <line x1="460" y1="85" x2="520" y2="85" class="arrow"/>
+  
+  <!-- Sistema Operativo -->
+  <rect x="520" y="60" width="80" height="50" class="box"/>
+  <text x="560" y="90" class="text">SO</text>
+  
+  <!-- Arrow to RAM -->
+  <line x1="600" y1="85" x2="650" y2="85" class="arrow"/>
+  
+  <!-- RAM física -->
+  <rect x="650" y="60" width="80" height="50" class="box"/>
+  <text x="690" y="82" class="text">RAM</text>
+  <text x="690" y="96" class="text">física</text>
+</svg>

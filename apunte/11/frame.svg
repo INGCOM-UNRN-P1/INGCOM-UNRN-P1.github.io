@@ -1,0 +1,60 @@
+<svg width="600" height="500" viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg"
+    font-family="Helvetica, Arial, sans-serif">
+    <style>
+        .label {
+        font-size: 16px;
+        font-weight: bold;
+        fill: #2e3440;
+        }
+        .annotation {
+        font-size: 14px;
+        fill: #4c566a;
+        }
+        .address {
+        font-size: 14px;
+        font-weight: bold;
+        fill: #3b4252;
+        }
+    </style>
+
+    <text x="10" y="25" class="address">Dirección Alta</text>
+    <text x="10" y="485" class="address">Dirección Baja</text>
+
+    <rect x="150" y="10" width="300" height="480" fill="none" stroke="#2e3440" stroke-width="4" />
+
+    <g>
+        <rect x="150" y="10" width="300" height="80" fill="#88c0d0" />
+        <text x="300" y="50" class="label" text-anchor="middle">Parámetros</text>
+        <text x="460" y="50" class="annotation">← Argumentos pasados</text>
+    </g>
+
+    <g>
+        <rect x="150" y="90" width="300" height="60" fill="#ebcb8b" />
+        <text x="300" y="120" class="label" text-anchor="middle">Dirección de Retorno</text>
+        <text x="460" y="120" class="annotation">← Dónde continuar</text>
+    </g>
+
+    <g>
+        <rect x="150" y="150" width="300" height="60" fill="#d08770" />
+        <rect x="220" y="165" width="160" height="30" fill="#eceff4" stroke="#2e3440"
+            stroke-width="2.5" rx="3" />
+        <text x="300" y="185" class="label" text-anchor="middle">Base Pointer (BP)</text>
+        <text x="460" y="180" class="annotation">← Frame pointer anterior</text>
+    </g>
+
+    <g>
+        <rect x="150" y="210" width="300" height="280" fill="#bf616a" />
+        <rect x="210" y="325" width="180" height="50" fill="#eceff4" stroke="#2e3440"
+            stroke-width="2.5" rx="3" />
+        <text x="300" y="345" class="label" text-anchor="middle">Variables Locales</text>
+        <text x="300" y="365" class="label" text-anchor="middle">&amp; Temporales</text>
+        <text x="460" y="350" class="annotation">← Espacio de trabajo</text>
+    </g>
+
+    <line x1="150" y1="90" x2="450" y2="90" stroke="#2e3440" stroke-width="2.5" />
+    <line x1="150" y1="150" x2="450" y2="150" stroke="#2e3440" stroke-width="2.5" />
+    <line x1="150" y1="210" x2="450" y2="210" stroke="#2e3440" stroke-width="2.5" />
+
+    <text x="460" y="485" class="annotation">← Stack Pointer (SP)</text>
+
+</svg>

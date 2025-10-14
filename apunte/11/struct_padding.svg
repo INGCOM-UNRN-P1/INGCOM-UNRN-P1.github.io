@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 380">
+  <defs>
+    <style>
+      .cell { stroke: #616161; stroke-width: 1.5; }
+      .data { fill: #64b5f6; }
+      .padding { fill: #ffb74d; }
+      .text { font-family: 'Courier New', monospace; font-size: 11px; fill: #000; text-anchor: middle; }
+      .label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #333; }
+      .title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; fill: #333; font-weight: bold; }
+      .subtitle { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; fill: #666; font-style: italic; }
+    </style>
+  </defs>
+  
+  <!-- Title -->
+  <text x="325" y="25" text-anchor="middle" class="title">Padding en Estructuras</text>
+  
+  <!-- Incorrect (without padding) -->
+  <text x="50" y="60" class="label" font-weight="bold">Sin padding (incorrecto):</text>
+  
+  <text x="50" y="80" class="subtitle">struct { char a; int b; char c; }</text>
+  
+  <!-- Byte boxes -->
+  <rect x="50" y="95" width="35" height="35" class="cell data"/>
+  <text x="67" y="117" class="text">a</text>
+  
+  <rect x="85" y="95" width="35" height="35" class="cell data"/>
+  <text x="102" y="110" class="text" font-size="9px">b[0]</text>
+  
+  <rect x="120" y="95" width="35" height="35" class="cell data"/>
+  <text x="137" y="110" class="text" font-size="9px">b[1]</text>
+  
+  <rect x="155" y="95" width="35" height="35" class="cell data"/>
+  <text x="172" y="110" class="text" font-size="9px">b[2]</text>
+  
+  <rect x="190" y="95" width="35" height="35" class="cell data"/>
+  <text x="207" y="110" class="text" font-size="9px">b[3]</text>
+  
+  <rect x="225" y="95" width="35" height="35" class="cell data"/>
+  <text x="242" y="117" class="text">c</text>
+  
+  <!-- Address labels -->
+  <text x="67" y="145" class="subtitle">0</text>
+  <text x="102" y="145" class="subtitle">1</text>
+  <text x="137" y="145" class="subtitle">2</text>
+  <text x="172" y="145" class="subtitle">3</text>
+  <text x="207" y="145" class="subtitle">4</text>
+  <text x="242" y="145" class="subtitle">5</text>
+  
+  <!-- Problem indicator -->
+  <text x="330" y="113" class="label" fill="#c62828">✗ 'b' desalineado</text>
+  <text x="330" y="128" class="subtitle" fill="#c62828">(empieza en dir. 1, no múltiplo de 4)</text>
+  
+  <!-- Correct (with padding) -->
+  <text x="50" y="195" class="label" font-weight="bold">Con padding (correcto):</text>
+  
+  <text x="50" y="215" class="subtitle">struct { char a; int b; char c; } con alineación</text>
+  
+  <!-- Byte boxes with padding -->
+  <rect x="50" y="230" width="35" height="35" class="cell data"/>
+  <text x="67" y="252" class="text">a</text>
+  
+  <rect x="85" y="230" width="35" height="35" class="cell padding"/>
+  <text x="102" y="247" class="text" font-size="9px">··</text>
+  
+  <rect x="120" y="230" width="35" height="35" class="cell padding"/>
+  <text x="137" y="247" class="text" font-size="9px">··</text>
+  
+  <rect x="155" y="230" width="35" height="35" class="cell padding"/>
+  <text x="172" y="247" class="text" font-size="9px">··</text>
+  
+  <rect x="190" y="230" width="35" height="35" class="cell data"/>
+  <text x="207" y="245" class="text" font-size="9px">b[0]</text>
+  
+  <rect x="225" y="230" width="35" height="35" class="cell data"/>
+  <text x="242" y="245" class="text" font-size="9px">b[1]</text>
+  
+  <rect x="260" y="230" width="35" height="35" class="cell data"/>
+  <text x="277" y="245" class="text" font-size="9px">b[2]</text>
+  
+  <rect x="295" y="230" width="35" height="35" class="cell data"/>
+  <text x="312" y="245" class="text" font-size="9px">b[3]</text>
+  
+  <rect x="330" y="230" width="35" height="35" class="cell data"/>
+  <text x="347" y="252" class="text">c</text>
+  
+  <rect x="365" y="230" width="35" height="35" class="cell padding"/>
+  <text x="382" y="247" class="text" font-size="9px">··</text>
+  
+  <rect x="400" y="230" width="35" height="35" class="cell padding"/>
+  <text x="417" y="247" class="text" font-size="9px">··</text>
+  
+  <rect x="435" y="230" width="35" height="35" class="cell padding"/>
+  <text x="452" y="247" class="text" font-size="9px">··</text>
+  
+  <!-- Address labels -->
+  <text x="67" y="280" class="subtitle">0</text>
+  <text x="102" y="280" class="subtitle">1</text>
+  <text x="137" y="280" class="subtitle">2</text>
+  <text x="172" y="280" class="subtitle">3</text>
+  <text x="207" y="280" class="subtitle">4</text>
+  <text x="242" y="280" class="subtitle">5</text>
+  <text x="277" y="280" class="subtitle">6</text>
+  <text x="312" y="280" class="subtitle">7</text>
+  <text x="347" y="280" class="subtitle">8</text>
+  <text x="382" y="280" class="subtitle">9</text>
+  <text x="417" y="280" class="subtitle">10</text>
+  <text x="452" y="280" class="subtitle">11</text>
+  
+  <!-- Annotations -->
+  <text x="102" y="305" class="subtitle">↑ padding</text>
+  <text x="207" y="305" class="subtitle" fill="#2e7d32">↑ 'b' alineado (dir. 4)</text>
+  <text x="417" y="305" class="subtitle">↑ padding final</text>
+  
+  <!-- Summary box -->
+  <rect x="50" y="320" width="550" height="50" fill="#fff3e0" stroke="#f57c00" stroke-width="1" rx="3"/>
+  <text x="325" y="340" text-anchor="middle" class="label">sizeof(struct) = 12 bytes (no 6)</text>
+  <text x="325" y="357" text-anchor="middle" class="subtitle">3 bytes de padding antes de 'b' + 3 bytes de padding al final</text>
+</svg>

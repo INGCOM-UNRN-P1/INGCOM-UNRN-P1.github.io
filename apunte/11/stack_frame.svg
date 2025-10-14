@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 350">
+  <defs>
+    <style>
+      .frame-box { fill: #e3f2fd; stroke: #1976d2; stroke-width: 2; }
+      .frame-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; fill: #333; }
+      .frame-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #666; font-style: italic; }
+      .frame-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; fill: #999; }
+      .arrow { stroke: #f57c00; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+      .pointer { font-family: 'Courier New', monospace; font-size: 11px; fill: #f57c00; font-weight: bold; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#f57c00" />
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="200" y="20" text-anchor="middle" class="frame-text" font-weight="bold">Stack Frame (Marco de Pila)</text>
+  
+  <!-- Dirección Alta label -->
+  <text x="200" y="45" text-anchor="middle" class="frame-title">Dirección Alta</text>
+  
+  <!-- Parámetros -->
+  <rect x="80" y="55" width="240" height="45" class="frame-box"/>
+  <text x="200" y="75" text-anchor="middle" class="frame-text">Parámetros</text>
+  <text x="200" y="92" text-anchor="middle" class="frame-label">Argumentos pasados a la función</text>
+  
+  <!-- Dirección de retorno -->
+  <rect x="80" y="100" width="240" height="45" class="frame-box"/>
+  <text x="200" y="120" text-anchor="middle" class="frame-text">Dirección de retorno</text>
+  <text x="200" y="137" text-anchor="middle" class="frame-label">Dónde continuar después de return</text>
+  
+  <!-- Base Pointer (BP) -->
+  <rect x="80" y="145" width="240" height="45" class="frame-box" fill="#fff3e0"/>
+  <text x="200" y="165" text-anchor="middle" class="frame-text" font-weight="bold">Base Pointer (BP)</text>
+  <text x="200" y="182" text-anchor="middle" class="frame-label">Frame pointer anterior (guardado)</text>
+  
+  <!-- Arrow to BP -->
+  <line x1="330" y1="167" x2="320" y2="167" class="arrow"/>
+  <text x="335" y="172" class="pointer">BP</text>
+  
+  <!-- Variables locales -->
+  <rect x="80" y="190" width="240" height="45" class="frame-box"/>
+  <text x="200" y="210" text-anchor="middle" class="frame-text">Variables locales</text>
+  <text x="200" y="227" text-anchor="middle" class="frame-label">Espacio para variables locales</text>
+  
+  <!-- Temporales -->
+  <rect x="80" y="235" width="240" height="45" class="frame-box"/>
+  <text x="200" y="255" text-anchor="middle" class="frame-text">Temporales</text>
+  <text x="200" y="272" text-anchor="middle" class="frame-label">Valores temporales de expresiones</text>
+  
+  <!-- Stack Pointer indicator -->
+  <line x1="80" y1="280" x2="320" y2="280" stroke="#1976d2" stroke-width="3"/>
+  <line x1="330" y1="280" x2="320" y2="280" class="arrow"/>
+  <text x="335" y="285" class="pointer">SP</text>
+  
+  <!-- Dirección Baja label -->
+  <text x="200" y="305" text-anchor="middle" class="frame-title">Dirección Baja</text>
+  
+  <!-- Legend -->
+  <text x="80" y="330" class="frame-label">BP = Base Pointer / Frame Pointer</text>
+  <text x="80" y="345" class="frame-label">SP = Stack Pointer (cima del stack)</text>
+</svg>

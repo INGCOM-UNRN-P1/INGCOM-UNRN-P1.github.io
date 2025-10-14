@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <defs>
+    <style>
+      .box { fill: #e3f2fd; stroke: #1976d2; stroke-width: 2; }
+      .box-ptr { fill: #fff3e0; stroke: #f57c00; stroke-width: 2; }
+      .box-data { fill: #c8e6c9; stroke: #388e3c; stroke-width: 1.5; }
+      .text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #333; text-anchor: middle; }
+      .mono { font-family: 'Courier New', monospace; font-size: 11px; fill: #333; }
+      .title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; fill: #333; font-weight: bold; }
+      .label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; fill: #666; font-style: italic; }
+      .arrow { stroke: #f57c00; stroke-width: 2; fill: none; marker-end: url(#arrowhead3); }
+    </style>
+    <marker id="arrowhead3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#f57c00" />
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="300" y="25" text-anchor="middle" class="title">Puntero a Puntero vs Puntero a Array</text>
+  
+  <!-- Pointer to Pointer section -->
+  <text x="50" y="60" class="text" text-anchor="start" font-weight="bold">int **matriz (NO contiguo):</text>
+  
+  <!-- Matrix pointer -->
+  <rect x="50" y="75" width="80" height="30" class="box-ptr"/>
+  <text x="90" y="94" class="text">matriz</text>
+  
+  <!-- Arrows to pointers -->
+  <line x1="130" y1="90" x2="180" y2="90" class="arrow"/>
+  
+  <!-- Pointer array -->
+  <rect x="180" y="75" width="50" height="30" class="box-ptr"/>
+  <text x="205" y="94" class="mono">ptr</text>
+  
+  <rect x="240" y="75" width="50" height="30" class="box-ptr"/>
+  <text x="265" y="94" class="mono">ptr</text>
+  
+  <rect x="300" y="75" width="50" height="30" class="box-ptr"/>
+  <text x="325" y="94" class="mono">ptr</text>
+  
+  <!-- Arrows to data -->
+  <line x1="205" y1="105" x2="205" y2="135" class="arrow"/>
+  <line x1="265" y1="105" x2="265" y2="135" class="arrow"/>
+  <line x1="325" y1="105" x2="325" y2="135" class="arrow"/>
+  
+  <!-- Data blocks (scattered) -->
+  <g>
+    <rect x="165" y="135" width="20" height="20" class="box-data"/>
+    <rect x="185" y="135" width="20" height="20" class="box-data"/>
+    <rect x="205" y="135" width="20" height="20" class="box-data"/>
+    <rect x="225" y="135" width="20" height="20" class="box-data"/>
+    <text x="195" y="172" class="label">fila 0</text>
+  </g>
+  
+  <g>
+    <rect x="405" y="145" width="20" height="20" class="box-data"/>
+    <rect x="425" y="145" width="20" height="20" class="box-data"/>
+    <rect x="445" y="145" width="20" height="20" class="box-data"/>
+    <rect x="465" y="145" width="20" height="20" class="box-data"/>
+    <text x="435" y="182" class="label">fila 1</text>
+  </g>
+  
+  <g>
+    <rect x="260" y="165" width="20" height="20" class="box-data"/>
+    <rect x="280" y="165" width="20" height="20" class="box-data"/>
+    <rect x="300" y="165" width="20" height="20" class="box-data"/>
+    <rect x="320" y="165" width="20" height="20" class="box-data"/>
+    <text x="290" y="202" class="label">fila 2</text>
+  </g>
+  
+  <!-- Annotation -->
+  <rect x="380" y="75" width="180" height="60" fill="#ffebee" stroke="#c62828" stroke-width="1" rx="3"/>
+  <text x="470" y="95" text-anchor="middle" class="label" fill="#c62828">Filas dispersas</text>
+  <text x="470" y="110" text-anchor="middle" class="label" fill="#c62828">Mala localidad de caché</text>
+  <text x="470" y="125" text-anchor="middle" class="label" fill="#c62828">Múltiples malloc/free</text>
+  
+  <!-- Pointer to Array section -->
+  <text x="50" y="245" class="text" text-anchor="start" font-weight="bold">int (*matriz)[4] (contiguo):</text>
+  
+  <!-- Matrix pointer -->
+  <rect x="50" y="260" width="80" height="30" class="box-ptr"/>
+  <text x="90" y="279" class="text">matriz</text>
+  
+  <!-- Arrow to contiguous data -->
+  <line x1="130" y1="275" x2="180" y2="275" class="arrow"/>
+  
+  <!-- Contiguous data block -->
+  <g>
+    <!-- Row 0 -->
+    <rect x="180" y="260" width="25" height="30" class="box-data"/>
+    <rect x="205" y="260" width="25" height="30" class="box-data"/>
+    <rect x="230" y="260" width="25" height="30" class="box-data"/>
+    <rect x="255" y="260" width="25" height="30" class="box-data"/>
+    
+    <!-- Row 1 -->
+    <rect x="280" y="260" width="25" height="30" class="box-data"/>
+    <rect x="305" y="260" width="25" height="30" class="box-data"/>
+    <rect x="330" y="260" width="25" height="30" class="box-data"/>
+    <rect x="355" y="260" width="25" height="30" class="box-data"/>
+    
+    <!-- Row 2 -->
+    <rect x="380" y="260" width="25" height="30" class="box-data"/>
+    <rect x="405" y="260" width="25" height="30" class="box-data"/>
+    <rect x="430" y="260" width="25" height="30" class="box-data"/>
+    <rect x="455" y="260" width="25" height="30" class="box-data"/>
+  </g>
+  
+  <!-- Row labels -->
+  <text x="217" y="305" class="label">↑ fila 0</text>
+  <text x="317" y="305" class="label">↑ fila 1</text>
+  <text x="417" y="305" class="label">↑ fila 2</text>
+  
+  <!-- Annotation -->
+  <rect x="50" y="320" width="500" height="60" fill="#e8f5e9" stroke="#388e3c" stroke-width="1" rx="3"/>
+  <text x="300" y="340" text-anchor="middle" class="label" fill="#2e7d32">✓ Todos los datos contiguos en memoria</text>
+  <text x="300" y="355" text-anchor="middle" class="label" fill="#2e7d32">✓ Excelente localidad de caché</text>
+  <text x="300" y="370" text-anchor="middle" class="label" fill="#2e7d32">✓ Un solo malloc/free</text>
+</svg>

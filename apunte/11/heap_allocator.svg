@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 280">
+  <defs>
+    <style>
+      .block { stroke: #424242; stroke-width: 2; }
+      .header { fill: #ffb74d; }
+      .data { fill: #81c784; }
+      .footer { fill: #ffb74d; }
+      .text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #333; text-anchor: middle; }
+      .label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; fill: #666; font-style: italic; }
+      .title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; fill: #333; font-weight: bold; }
+      .arrow { stroke: #d32f2f; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead2); }
+    </style>
+    <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#d32f2f" />
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="250" y="25" text-anchor="middle" class="title">Estructura de un Bloque de Memoria en el Heap</text>
+  
+  <!-- Block structure -->
+  <!-- Header -->
+  <rect x="120" y="60" width="260" height="40" class="block header"/>
+  <text x="250" y="80" class="text" font-weight="bold">Header (metadata)</text>
+  <text x="250" y="95" class="label">Tamaño, flags, punteros</text>
+  
+  <!-- Data section -->
+  <rect x="120" y="100" width="260" height="80" class="block data"/>
+  <text x="250" y="135" class="text" font-weight="bold">Datos del usuario</text>
+  <text x="250" y="155" class="label">Lo que malloc() retorna</text>
+  
+  <!-- Arrow pointing to data start -->
+  <line x1="390" y1="105" x2="380" y2="105" class="arrow"/>
+  <text x="395" y="110" class="text" fill="#d32f2f" font-size="11px">← ptr</text>
+  
+  <!-- Footer (optional) -->
+  <rect x="120" y="180" width="260" height="40" class="block footer"/>
+  <text x="250" y="200" class="text" font-weight="bold">Footer (opcional)</text>
+  <text x="250" y="215" class="label">Información para fusión de bloques</text>
+  
+  <!-- Annotations -->
+  <text x="50" y="85" class="label" text-anchor="start">Overhead:</text>
+  <text x="50" y="100" class="label" text-anchor="start">8-16 bytes</text>
+  
+  <!-- Info box -->
+  <rect x="20" y="240" width="460" height="35" fill="#fff3e0" stroke="#ff9800" stroke-width="1" rx="3"/>
+  <text x="250" y="255" class="label" text-anchor="middle">El header contiene: tamaño del bloque, flag de ocupado/libre,</text>
+  <text x="250" y="268" class="label" text-anchor="middle">y punteros a bloques adyacentes (en implementaciones de lista enlazada)</text>
+</svg>

@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 320">
+  <defs>
+    <style>
+      .cell { fill: #e0e0e0; stroke: #616161; stroke-width: 1; }
+      .cell-used { fill: #64b5f6; stroke: #1976d2; stroke-width: 1.5; }
+      .cell-char { fill: #81c784; stroke: #388e3c; stroke-width: 1.5; }
+      .cell-int { fill: #ffb74d; stroke: #f57c00; stroke-width: 1.5; }
+      .addr-text { font-family: 'Courier New', monospace; font-size: 10px; fill: #666; text-anchor: middle; }
+      .label-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #333; }
+      .title-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; fill: #333; font-weight: bold; }
+      .subtitle { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #666; font-style: italic; }
+    </style>
+  </defs>
+  
+  <!-- Title -->
+  <text x="350" y="25" text-anchor="middle" class="title-text">Alineación de Memoria</text>
+  
+  <!-- Well-aligned example -->
+  <text x="50" y="55" class="label-text" font-weight="bold">Memoria bien alineada:</text>
+  
+  <!-- Address labels -->
+  <text x="70" y="75" class="addr-text">0</text>
+  <text x="105" y="75" class="addr-text">1</text>
+  <text x="140" y="75" class="addr-text">2</text>
+  <text x="175" y="75" class="addr-text">3</text>
+  <text x="210" y="75" class="addr-text">4</text>
+  <text x="245" y="75" class="addr-text">5</text>
+  <text x="280" y="75" class="addr-text">6</text>
+  <text x="315" y="75" class="addr-text">7</text>
+  <text x="350" y="75" class="addr-text">8</text>
+  <text x="385" y="75" class="addr-text">9</text>
+  <text x="420" y="75" class="addr-text">10</text>
+  <text x="455" y="75" class="addr-text">11</text>
+  <text x="490" y="75" class="addr-text">12</text>
+  <text x="525" y="75" class="addr-text">13</text>
+  <text x="560" y="75" class="addr-text">14</text>
+  <text x="595" y="75" class="addr-text">15</text>
+  
+  <!-- Memory cells - well aligned -->
+  <rect x="52" y="85" width="35" height="35" class="cell-char"/>
+  <text x="70" y="107" class="addr-text" fill="#000" font-size="11px">ch</text>
+  
+  <rect x="87" y="85" width="35" height="35" class="cell"/>
+  <rect x="122" y="85" width="35" height="35" class="cell"/>
+  <rect x="157" y="85" width="35" height="35" class="cell"/>
+  
+  <rect x="192" y="85" width="140" height="35" class="cell-int"/>
+  <text x="262" y="107" class="addr-text" fill="#000" font-size="11px">int (OK ✓)</text>
+  
+  <rect x="332" y="85" width="35" height="35" class="cell"/>
+  <rect x="367" y="85" width="35" height="35" class="cell"/>
+  <rect x="402" y="85" width="35" height="35" class="cell"/>
+  
+  <rect x="437" y="85" width="140" height="35" class="cell-int"/>
+  <text x="507" y="107" class="addr-text" fill="#000" font-size="11px">int (OK ✓)</text>
+  
+  <rect x="577" y="85" width="35" height="35" class="cell"/>
+  
+  <!-- Annotation -->
+  <text x="70" y="140" class="subtitle">int empieza en dirección 4 (múltiplo de 4) ✓</text>
+  <text x="385" y="140" class="subtitle">int empieza en dirección 12 (múltiplo de 4) ✓</text>
+  
+  <!-- Misaligned example -->
+  <text x="50" y="180" class="label-text" font-weight="bold">Memoria mal alineada:</text>
+  
+  <!-- Address labels -->
+  <text x="70" y="200" class="addr-text">0</text>
+  <text x="105" y="200" class="addr-text">1</text>
+  <text x="140" y="200" class="addr-text">2</text>
+  <text x="175" y="200" class="addr-text">3</text>
+  <text x="210" y="200" class="addr-text">4</text>
+  <text x="245" y="200" class="addr-text">5</text>
+  <text x="280" y="200" class="addr-text">6</text>
+  <text x="315" y="200" class="addr-text">7</text>
+  <text x="350" y="200" class="addr-text">8</text>
+  <text x="385" y="200" class="addr-text">9</text>
+  <text x="420" y="200" class="addr-text">10</text>
+  <text x="455" y="200" class="addr-text">11</text>
+  <text x="490" y="200" class="addr-text">12</text>
+  <text x="525" y="200" class="addr-text">13</text>
+  <text x="560" y="200" class="addr-text">14</text>
+  <text x="595" y="200" class="addr-text">15</text>
+  
+  <!-- Memory cells - misaligned -->
+  <rect x="52" y="210" width="35" height="35" class="cell-char"/>
+  <text x="70" y="232" class="addr-text" fill="#000" font-size="11px">ch</text>
+  
+  <rect x="87" y="210" width="35" height="35" class="cell"/>
+  
+  <!-- Misaligned int 1 -->
+  <rect x="122" y="210" width="140" height="35" class="cell-int" fill="#ef5350" stroke="#c62828"/>
+  <text x="192" y="232" class="addr-text" fill="#fff" font-size="11px">int (MAL ✗)</text>
+  
+  <rect x="262" y="210" width="35" height="35" class="cell"/>
+  <rect x="297" y="210" width="35" height="35" class="cell"/>
+  
+  <!-- Misaligned int 2 -->
+  <rect x="332" y="210" width="140" height="35" class="cell-int" fill="#ef5350" stroke="#c62828"/>
+  <text x="402" y="232" class="addr-text" fill="#fff" font-size="11px">int (MAL ✗)</text>
+  
+  <rect x="472" y="210" width="35" height="35" class="cell"/>
+  <rect x="507" y="210" width="35" height="35" class="cell"/>
+  <rect x="542" y="210" width="35" height="35" class="cell"/>
+  <rect x="577" y="210" width="35" height="35" class="cell"/>
+  
+  <!-- Annotation -->
+  <text x="70" y="265" class="subtitle" fill="#c62828">int empieza en dirección 2 (NO múltiplo de 4) ✗</text>
+  <text x="385" y="265" class="subtitle" fill="#c62828">int empieza en dirección 6 (NO múltiplo de 4) ✗</text>
+  
+  <!-- Legend -->
+  <rect x="50" y="285" width="600" height="25" fill="#fff3e0" stroke="#ff9800" stroke-width="1" rx="3"/>
+  <text x="350" y="301" text-anchor="middle" class="subtitle">
+    Penalización: CPU debe hacer 2 lecturas + manipulación de bits → 2-3x más lento
+  </text>
+</svg>
