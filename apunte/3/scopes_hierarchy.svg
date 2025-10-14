@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 500">
+  <defs>
+    <style>
+      .scope-global { fill: #e8f5e9; stroke: #4caf50; stroke-width: 3; }
+      .scope-function { fill: #e3f2fd; stroke: #2196f3; stroke-width: 2.5; }
+      .scope-block { fill: #fff3e0; stroke: #ff9800; stroke-width: 2; }
+      .text-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; fill: #333; font-weight: bold; text-anchor: middle; }
+      .text-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; fill: #555; text-anchor: middle; }
+      .text-code { font-family: 'Courier New', monospace; font-size: 12px; fill: #333; }
+      .text-comment { font-family: 'Courier New', monospace; font-size: 11px; fill: #666; font-style: italic; }
+      .arrow { stroke: #666; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .level-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #888; font-weight: bold; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#666"/>
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="350" y="25" class="text-title">Jerarquía de Alcances (Scopes) en C</text>
+  
+  <!-- Global Scope -->
+  <rect x="50" y="50" width="600" height="420" class="scope-global" rx="8"/>
+  <text x="350" y="75" class="text-label" font-weight="bold" fill="#2e7d32">SCOPE GLOBAL (Nivel 0)</text>
+  <text x="80" y="100" class="text-code" fill="#2e7d32">int variableGlobal = 100;</text>
+  <text x="380" y="100" class="text-comment">// Accesible desde cualquier función</text>
+  
+  <!-- Function Scope 1 (main) -->
+  <rect x="80" y="120" width="260" height="320" class="scope-function" rx="6"/>
+  <text x="210" y="143" class="text-label" font-weight="bold" fill="#1565c0">int main() {</text>
+  <text x="110" y="168" class="text-code" fill="#1565c0">int localMain = 50;</text>
+  <text x="110" y="188" class="text-comment">// Solo en main</text>
+  
+  <!-- Block Scope 1 (if en main) -->
+  <rect x="100" y="205" width="220" height="120" class="scope-block" rx="4"/>
+  <text x="210" y="225" class="text-label" font-weight="bold" fill="#e65100">if (condicion) {</text>
+  <text x="130" y="250" class="text-code" fill="#e65100">int bloqueIf = 25;</text>
+  <text x="130" y="270" class="text-comment">// Solo en este if</text>
+  <text x="130" y="290" class="text-comment">// Puede acceder a:</text>
+  <text x="130" y="305" class="text-comment">// - bloqueIf, localMain, variableGlobal</text>
+  <text x="210" y="320" class="text-label" font-weight="bold" fill="#e65100">}</text>
+  
+  <!-- Block Scope 2 (for en main) -->
+  <rect x="100" y="335" width="220" height="90" class="scope-block" rx="4"/>
+  <text x="210" y="355" class="text-label" font-weight="bold" fill="#e65100">for (int i = 0; ...) {</text>
+  <text x="130" y="380" class="text-code" fill="#e65100">int bloqueFor = 10;</text>
+  <text x="130" y="400" class="text-comment">// i y bloqueFor solo aquí</text>
+  <text x="210" y="420" class="text-label" font-weight="bold" fill="#e65100">}</text>
+  
+  <text x="210" y="445" class="text-label" font-weight="bold" fill="#1565c0">}</text>
+  
+  <!-- Function Scope 2 (otraFuncion) -->
+  <rect x="360" y="120" width="260" height="180" class="scope-function" rx="6"/>
+  <text x="490" y="143" class="text-label" font-weight="bold" fill="#1565c0">void otraFuncion() {</text>
+  <text x="390" y="168" class="text-code" fill="#1565c0">int localOtra = 30;</text>
+  <text x="390" y="188" class="text-comment">// Solo en otraFuncion</text>
+  <text x="390" y="208" class="text-comment">// NO puede acceder a:</text>
+  <text x="390" y="223" class="text-comment">// - localMain, bloqueIf, bloqueFor</text>
+  <text x="390" y="243" class="text-comment">// SÍ puede acceder a:</text>
+  <text x="390" y="258" class="text-comment">// - variableGlobal</text>
+  <text x="490" y="285" class="text-label" font-weight="bold" fill="#1565c0">}</text>
+  
+  <!-- Level indicators -->
+  <text x="25" y="85" class="level-label">N0</text>
+  <text x="25" y="150" class="level-label">N1</text>
+  <text x="25" y="265" class="level-label">N2</text>
+  
+  <!-- Arrows showing access -->
+  <path d="M 210 205 L 210 185" class="arrow"/>
+  <text x="230" y="200" class="text-comment" font-size="10px">↑ accede</text>
+  
+  <path d="M 210 335 L 210 185" class="arrow"/>
+  <text x="250" y="260" class="text-comment" font-size="10px">↑ accede</text>
+</svg>

@@ -105,8 +105,7 @@ palabra reservada `void` (vacío en inglés).
 
 ### Ejemplos
 
-En este ejemplo comentado, podemos ver un ejemplo de función que recibe un par
-de números y devuelve uno.
+En este ejemplo comentado, podemos ver un ejemplo de función que recibe un par de números y devuelve uno.
 
 ```c
 // retorno de tipo int, identificador sumar y dos int como argumentos
@@ -124,8 +123,14 @@ int resultado = sumar(5, 3);
 printf("Resultado: %d\n", resultado);
 ```
 
-Y también, un ejemplo de funciones que no reciben argumentos y simultáneamente,
-no devuelve valores.
+```{figure} ./3/function_call_flow.svg
+:name: fig-function-call-flow
+:width: 100%
+
+Flujo de llamada y retorno de una función: (1) main() llama a sumar() pasando argumentos, (2) sumar() recibe copias de los valores y ejecuta, (3) sumar() retorna el resultado y main() continúa con ese valor. Los parámetros son copias, por lo que cambios internos no afectan las variables originales.
+```
+
+Y también, un ejemplo de funciones que no reciben argumentos y simultáneamente, no devuelve valores.
 
 ```c
 // sin retorno de valor, identificador saludar y sin argumentos.
@@ -146,12 +151,14 @@ explícitos al programa.
 
 ### Prototipos de función
 
-Son una declaración anticipada que informa al compilador sobre el nombre, tipo
-de retorno y lista de parámetros de una función **antes** de que sea utilizada
-en el código. Su propósito es permitir que el compilador verifique la coherencia
-de las llamadas a la función, garantizando que el número y el tipo de argumentos
-coincidan con su definición. Un prototipo no contiene el cuerpo de la función,
-sino únicamente su firma, y suele colocarse al inicio del archivo fuente.
+Son una declaración anticipada que informa al compilador sobre el nombre, tipo de retorno y lista de parámetros de una función **antes** de que sea utilizada en el código. Su propósito es permitir que el compilador verifique la coherencia de las llamadas a la función, garantizando que el número y el tipo de argumentos coincidan con su definición. Un prototipo no contiene el cuerpo de la función, sino únicamente su firma, y suele colocarse al inicio del archivo fuente.
+
+```{figure} ./3/function_prototype_flow.svg
+:name: fig-function-prototype-flow
+:width: 100%
+
+Comparación entre código sin prototipo (que genera error de compilación) y código con prototipo (que compila exitosamente). El compilador lee el código de arriba hacia abajo en una sola pasada, por lo que los prototipos son esenciales para informarle sobre funciones que se definirán más adelante.
+```
 
 El funcionamiento del compilador es limitado a pasar una sola vez por el archivo
 del programa lo que hace que si se llega a una llamada a función que no fue
@@ -240,13 +247,16 @@ int funcion_dos()
 
 ## Alcances (Scopes)
 
-En C, el alcance (o scope en inglés) de una variable determina en qué partes de
-tu programa puedes acceder y modificar esa variable. Es como definir el
-"territorio" donde una variable existe y es reconocida. Entender los alcances es
-fundamental para escribir código organizado, legible y libre de errores.
+En C, el alcance (o scope en inglés) de una variable determina en qué partes de tu programa puedes acceder y modificar esa variable. Es como definir el "territorio" donde una variable existe y es reconocida. Entender los alcances es fundamental para escribir código organizado, legible y libre de errores.
 
-En particular, porque las funciones deben recibir y devolver valores de forma
-explícita.
+```{figure} ./3/scopes_hierarchy.svg
+:name: fig-scopes-hierarchy
+:width: 100%
+
+Jerarquía de alcances en C mostrando el scope global (nivel 0), scopes de función (nivel 1) y scopes de bloque (nivel 2). Las variables pueden acceder a scopes superiores, pero no a scopes paralelos o inferiores.
+```
+
+En particular, porque las funciones deben recibir y devolver valores de forma explícita.
 
 ### Variables Globales
 
@@ -431,19 +441,18 @@ veremos a continuación.
 
 ### Ocultamiento de variables (Shadowing)
 
-El _shadowing_ ocurre cuando declaras una variable en un alcance interno (por
-ejemplo, local a una función o en un bloque) con el mismo nombre que una
-variable en un alcance externo (por ejemplo, una variable global).
+El _shadowing_ ocurre cuando declaras una variable en un alcance interno (por ejemplo, local a una función o en un bloque) con el mismo nombre que una variable en un alcance externo (por ejemplo, una variable global).
 
-Cuando esto sucede, la variable del alcance más interno "oculta" o le hace
-"sombra" (shadow) a la del alcance más externo. Dentro de ese bloque interno,
-cualquier referencia a ese nombre de variable se resolverá a la variable más
-cercana (la interna), haciendo que la externa sea _temporalmente_ inaccesible
-por su nombre.
+Cuando esto sucede, la variable del alcance más interno "oculta" o le hace "sombra" (shadow) a la del alcance más externo. Dentro de ese bloque interno, cualquier referencia a ese nombre de variable se resolverá a la variable más cercana (la interna), haciendo que la externa sea _temporalmente_ inaccesible por su nombre.
 
-Existen ejemplos más elaborados, utilizando una combinación de variables
-globales, locales y de bloque, pero este es uno que puede darse con gran
-facilidad porque en definitiva, es por redefinir `i` dentro del lazo.
+```{figure} ./3/shadowing.svg
+:name: fig-shadowing
+:width: 100%
+
+Visualización del ocultamiento de variables (shadowing): la variable 'i' del scope externo (valor 10) es temporalmente ocultada por la 'i' del for loop (valores 5,4,3,2,1). Al salir del for, la 'i' externa vuelve a ser visible con su valor original.
+```
+
+Existen ejemplos más elaborados, utilizando una combinación de variables globales, locales y de bloque, pero este es uno que puede darse con gran facilidad porque en definitiva, es por redefinir `i` dentro del lazo.
 
 ```c
 #include <stdio.h>

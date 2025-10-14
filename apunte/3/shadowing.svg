@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 400">
+  <defs>
+    <style>
+      .scope-outer { fill: #fff9c4; stroke: #f57f17; stroke-width: 3; opacity: 0.9; }
+      .scope-inner { fill: #b3e5fc; stroke: #0277bd; stroke-width: 2.5; }
+      .var-hidden { fill: #ffcdd2; stroke: #c62828; stroke-width: 2; stroke-dasharray: 5,5; opacity: 0.6; }
+      .var-visible { fill: #c8e6c9; stroke: #2e7d32; stroke-width: 2; }
+      .text-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; fill: #333; font-weight: bold; text-anchor: middle; }
+      .text-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; fill: #555; }
+      .text-code { font-family: 'Courier New', monospace; font-size: 12px; fill: #333; }
+      .text-comment { font-family: 'Courier New', monospace; font-size: 10px; fill: #666; font-style: italic; }
+      .text-status { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; font-weight: bold; }
+      .shadow-icon { font-size: 20px; }
+    </style>
+  </defs>
+  
+  <!-- Title -->
+  <text x="325" y="25" class="text-title">Ocultamiento de Variables (Shadowing)</text>
+  
+  <!-- Outer Scope (main function) -->
+  <rect x="50" y="50" width="550" height="320" class="scope-outer" rx="8"/>
+  <text x="70" y="75" class="text-code" font-weight="bold" fill="#f57f17">int main() {</text>
+  
+  <!-- Variable i externa -->
+  <rect x="80" y="90" width="150" height="50" class="var-visible"/>
+  <text x="155" y="110" class="text-code" font-weight="bold" fill="#2e7d32">int i = 10;</text>
+  <text x="90" y="130" class="text-comment">Variable del scope externo</text>
+  
+  <!-- Status box 1 -->
+  <rect x="250" y="90" width="150" height="50" fill="#e8f5e9" stroke="#4caf50" stroke-width="1.5" rx="4"/>
+  <text x="325" y="110" class="text-status" fill="#2e7d32">✓ i = 10</text>
+  <text x="260" y="130" class="text-comment">Visible y accesible</text>
+  
+  <!-- Code between -->
+  <text x="80" y="165" class="text-code">printf("Antes del for: %d\n", i);</text>
+  <text x="350" y="165" class="text-comment">// Imprime 10</text>
+  
+  <!-- Inner Scope (for loop) -->
+  <rect x="80" y="180" width="500" height="140" class="scope-inner" rx="6"/>
+  <text x="100" y="205" class="text-code" font-weight="bold" fill="#0277bd">for (int i = 5; i > 0; i--) {</text>
+  
+  <!-- Variable i interna (shadows outer) -->
+  <rect x="110" y="220" width="180" height="50" class="var-visible"/>
+  <text x="200" y="240" class="text-code" font-weight="bold" fill="#0277bd">int i = 5, 4, 3, 2, 1</text>
+  <text x="120" y="260" class="text-comment">Nueva variable 'i' (interna)</text>
+  
+  <!-- Variable i externa (hidden) -->
+  <rect x="320" y="220" width="180" height="50" class="var-hidden"/>
+  <text x="410" y="240" class="text-code" fill="#999" text-decoration="line-through">int i = 10</text>
+  <text x="330" y="260" class="text-comment" fill="#c62828">Oculta temporalmente 🌑</text>
+  
+  <!-- Code inside for -->
+  <text x="110" y="290" class="text-code">printf("Dentro: %d\n", i);</text>
+  <text x="330" y="290" class="text-comment">// Usa la 'i' del for (5,4,3,2,1)</text>
+  
+  <text x="100" y="315" class="text-code" font-weight="bold" fill="#0277bd">}</text>
+  
+  <!-- After for -->
+  <text x="80" y="345" class="text-code">printf("Después del for: %d\n", i);</text>
+  <text x="380" y="345" class="text-comment">// Imprime 10 (vuelve la externa)</text>
+  
+  <!-- Status box 2 -->
+  <rect x="430" y="90" width="150" height="50" fill="#fff3e0" stroke="#f57f17" stroke-width="1.5" rx="4"/>
+  <text x="505" y="110" class="text-status" fill="#f57f17">⚠ Shadowing</text>
+  <text x="440" y="130" class="text-comment">Dos 'i' diferentes</text>
+  
+  <text x="70" y="365" class="text-code" font-weight="bold" fill="#f57f17">}</text>
+  
+  <!-- Legend -->
+  <text x="325" y="390" class="text-label" text-anchor="middle" font-size="11px">
+    <tspan fill="#2e7d32">■</tspan> Visible y accesible  
+    <tspan dx="20" fill="#c62828">⬚</tspan> Oculta (shadowed)
+  </text>
+</svg>
