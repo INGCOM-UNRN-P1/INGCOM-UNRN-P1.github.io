@@ -1115,9 +1115,9 @@ Esta regla es especialmente crítica para las cadenas de caracteres, y su cumpli
 :::
 
 (0x0028h)=
-### Regla `0x0028h`: Utilizá `enum` en lugar de "números mágicos" para estados y valores constantes
+### Regla `0x0028h`: Utilizá `enum` en lugar de "números mágicos" para conjuntos de estados y valores constantes
 
-El uso de enumeraciones (`enum`) mejora la legibilidad y previene errores al manejar conjuntos de constantes relacionadas.
+El uso de enumeraciones (`enum`) mejora la legibilidad y previene errores al manejar conjuntos de constantes _relacionadas_.
 
 - **Incorrecto (números mágicos):**
   ```c
@@ -1452,4 +1452,76 @@ static bool es_valido(int valor) {
 }
 ```
 
+
+(0x0035h)=
+### Regla `0x0035h`: Si una función trabaja con `void*`, no se espera modificar el contenido apuntado
+
+Cuando una función recibe un parámetro de tipo `void*`, este debe ser tratado como una referencia genérica inmutable a menos que se indique explícitamente lo contrario. Si la función necesita modificar el contenido apuntado, el parámetro debe ser documentado claramente o, preferentemente, debe usarse un tipo de puntero específico que indique su propósito.
+
+El uso de `void*` generalmente implica polimorfismo o compatibilidad con diferentes tipos de datos, como en funciones de comparación o callbacks. La modificación del contenido a través de un puntero genérico aumenta el riesgo de errores de tipo y comportamiento indefinido.
+
+- **Incorrecto (modificación implícita a través de `void*`):**
+```c
+void procesar_datos(void *datos, size_t tamano) {
+    int *ptr = (int *)datos;
+    *ptr = 42; // Modifica sin que sea claro desde la firma
+}
 ```
+
+- **Correcto (lectura solamente):**
+```c
+void imprimir_bytes(const void *datos, size_t tamano) {
+    const unsigned char *ptr = (const unsigned char *)datos;
+    for (size_t i = 0; i < tamano; i++) {
+        printf("%02x ", ptr[i]);
+    }
+}
+```
+
+- **Correcto (modificación explícita con tipo específico):**
+```c
+void inicializar_buffer(int *buffer, size_t cantidad, int valor_inicial) {
+    for (size_t i = 0; i < cantidad; i++) {
+        buffer[i] = valor_inicial;
+    }
+}
+```
+
+(0x0036h)=
+### Regla `0x0036h`: Luego de liberar memoria, asignar NULL al puntero
+
+Después de liberar memoria con `free()`, el puntero debe ser inmediatamente asignado a `NULL`. Esto previene el uso accidental de un puntero colgante (*dangling pointer*), que apunta a una región de memoria que ya no es válida. Intentar acceder a memoria liberada resulta en comportamiento indefinido y puede causar errores difíciles de rastrear.
+
+Asignar `NULL` al puntero después de liberarlo proporciona una forma segura de detectar intentos de uso posterior: cualquier desreferencia de un puntero `NULL` generará un error inmediato y predecible, en lugar de un comportamiento impredecible.
+
+- **Incorrecto (puntero colgante):**
+```c
+int *datos = malloc(100 * sizeof(int));
+// ... usar datos ...
+free(datos);
+// datos ahora es un puntero colgante
+```
+
+- **Correcto:**
+```c
+int *datos = malloc(100 * sizeof(int));
+// ... usar datos ...
+free(datos);
+datos = NULL; // Previene uso accidental posterior
+```
+
+- **Ejemplo de protección adicional:**
+```c
+void liberar_recurso(int **puntero) {
+    if (puntero != NULL && *puntero != NULL) {
+        free(*puntero);
+        *puntero = NULL; // Asegura que el puntero original se anule
+    }
+}
+
+// Uso:
+int *datos = malloc(100 * sizeof(int));
+liberar_recurso(&datos);
+// Ahora datos es NULL
+```
+
