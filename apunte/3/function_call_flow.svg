@@ -1,6 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 450">
-  <defs>
-    <style>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 700 450"
+   version="1.1"
+   id="svg29"
+   sodipodi:docname="function_call_flow.svg"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview29"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.2788531"
+     inkscape:cx="251.78811"
+     inkscape:cy="247.48738"
+     inkscape:window-width="1872"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg29" />
+  <defs
+     id="defs2">
+    <style
+       id="style1">
       .box-main { fill: #e8eaf6; stroke: #3f51b5; stroke-width: 2.5; }
       .box-func { fill: #fff3e0; stroke: #ff9800; stroke-width: 2.5; }
       .box-return { fill: #e8f5e9; stroke: #4caf50; stroke-width: 2; }
@@ -12,79 +42,310 @@
       .arrow-return { stroke: #2e7d32; stroke-width: 3; fill: none; marker-end: url(#arrowhead-return); stroke-dasharray: 5,5; }
       .step-number { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; fill: white; font-weight: bold; text-anchor: middle; }
     </style>
-    <marker id="arrowhead-call" markerWidth="12" markerHeight="12" refX="10" refY="3" orient="auto">
-      <polygon points="0 0, 12 3, 0 6" fill="#ff6f00"/>
+    <marker
+       id="arrowhead-call"
+       markerWidth="12"
+       markerHeight="12"
+       refX="10"
+       refY="3"
+       orient="auto">
+      <polygon
+         points="0 0, 12 3, 0 6"
+         fill="#ff6f00"
+         id="polygon1" />
     </marker>
-    <marker id="arrowhead-return" markerWidth="12" markerHeight="12" refX="10" refY="3" orient="auto">
-      <polygon points="0 0, 12 3, 0 6" fill="#2e7d32"/>
+    <marker
+       id="arrowhead-return"
+       markerWidth="12"
+       markerHeight="12"
+       refX="10"
+       refY="3"
+       orient="auto">
+      <polygon
+         points="0 0, 12 3, 0 6"
+         fill="#2e7d32"
+         id="polygon2" />
     </marker>
   </defs>
-  
   <!-- Title -->
-  <text x="350" y="25" class="text-title">Flujo de Llamada y Retorno de Función</text>
-  
+  <text
+     x="350"
+     y="25"
+     class="text-title"
+     id="text2">Flujo de Llamada y Retorno de Función</text>
   <!-- Step 1: main starts -->
-  <circle cx="100" cy="70" r="18" fill="#1976d2"/>
-  <text x="100" y="76" class="step-number">1</text>
-  <rect x="140" y="50" width="250" height="80" class="box-main" rx="6"/>
-  <text x="265" y="72" class="text-label" font-weight="bold" fill="#3f51b5">main()</text>
-  <text x="160" y="95" class="text-code">int a = 5;</text>
-  <text x="160" y="110" class="text-code">int b = 3;</text>
-  <text x="160" y="125" class="text-code" fill="#ff6f00" font-weight="bold">int resultado = sumar(a, b);</text>
-  
+  <circle
+     cx="100"
+     cy="70"
+     r="18"
+     fill="#1976d2"
+     id="circle2" />
+  <text
+     x="100"
+     y="76"
+     class="step-number"
+     id="text3">1</text>
+  <rect
+     x="140"
+     y="50"
+     width="250"
+     height="80"
+     class="box-main"
+     rx="6"
+     id="rect3" />
+  <text
+     x="265"
+     y="66"
+     class="text-label"
+     font-weight="bold"
+     fill="#3f51b5"
+     id="text4">main()</text>
+  <text
+     x="160"
+     y="89"
+     class="text-code"
+     id="text5">int a = 5;</text>
+  <text
+     x="160"
+     y="104"
+     class="text-code"
+     id="text6">int b = 3;</text>
+  <text
+     x="160"
+     y="119"
+     class="text-code"
+     fill="#ff6f00"
+     font-weight="bold"
+     id="text7">int resultado = sumar(a, b);</text>
   <!-- Arrow: call function -->
-  <path d="M 265 135 L 265 175" class="arrow-call"/>
-  <text x="285" y="160" class="text-comment" fill="#ff6f00" font-weight="bold">LLAMA →</text>
-  
+  <path
+     d="M 265 135 L 265 175"
+     class="arrow-call"
+     id="path7" />
+  <text
+     x="285"
+     y="160"
+     class="text-comment"
+     fill="#ff6f00"
+     font-weight="bold"
+     id="text8"
+     style="fill:#000000">LLAMA →</text>
   <!-- Step 2: function executes -->
-  <circle cx="100" cy="215" r="18" fill="#ff9800"/>
-  <text x="100" y="221" class="step-number">2</text>
-  <rect x="140" y="180" width="250" height="110" class="box-func" rx="6"/>
-  <text x="265" y="202" class="text-label" font-weight="bold" fill="#ff9800">int sumar(int a, int b)</text>
-  <text x="160" y="225" class="text-code" fill="#666">// Parámetros recibidos:</text>
-  <text x="160" y="240" class="text-code">// a = 5 (copia)</text>
-  <text x="160" y="255" class="text-code">// b = 3 (copia)</text>
-  <text x="160" y="275" class="text-code" fill="#2e7d32" font-weight="bold">return a + b;</text>
-  <text x="290" y="275" class="text-comment" fill="#2e7d32">// = 8</text>
-  
+  <circle
+     cx="100"
+     cy="215"
+     r="18"
+     fill="#ff9800"
+     id="circle8" />
+  <text
+     x="100"
+     y="221"
+     class="step-number"
+     id="text9">2</text>
+  <rect
+     x="140"
+     y="180"
+     width="250"
+     height="110"
+     class="box-func"
+     rx="6"
+     id="rect9" />
+  <text
+     x="265"
+     y="202"
+     class="text-label"
+     font-weight="bold"
+     fill="#ff9800"
+     id="text10">int sumar(int a, int b)</text>
+  <text
+     x="160"
+     y="225"
+     class="text-code"
+     fill="#666"
+     id="text11">// Parámetros recibidos:</text>
+  <text
+     x="160"
+     y="240"
+     class="text-code"
+     id="text12">// a = 5 (copia)</text>
+  <text
+     x="160"
+     y="255"
+     class="text-code"
+     id="text13">// b = 3 (copia)</text>
+  <text
+     x="160"
+     y="275"
+     class="text-code"
+     fill="#2e7d32"
+     font-weight="bold"
+     id="text14">return a + b;</text>
+  <text
+     x="290"
+     y="275"
+     class="text-comment"
+     fill="#2e7d32"
+     id="text15">// = 8</text>
   <!-- Arrow: return value -->
-  <path d="M 265 295 L 265 335" class="arrow-return"/>
-  <text x="290" y="320" class="text-comment" fill="#2e7d32" font-weight="bold">← RETORNA 8</text>
-  
+  <path
+     d="M 265 295 L 265 335"
+     class="arrow-return"
+     id="path15" />
+  <text
+     x="290"
+     y="320"
+     class="text-comment"
+     fill="#2e7d32"
+     font-weight="bold"
+     id="text16"
+     style="fill:#000000"><tspan
+   style="font-weight:normal;fill:#000000"
+   id="tspan29">←</tspan> RETORNA 8</text>
   <!-- Step 3: main receives result -->
-  <circle cx="100" cy="375" r="18" fill="#4caf50"/>
-  <text x="100" y="381" class="step-number">3</text>
-  <rect x="140" y="340" width="250" height="80" class="box-return" rx="6"/>
-  <text x="265" y="362" class="text-label" font-weight="bold" fill="#2e7d32">main() continúa</text>
-  <text x="160" y="385" class="text-code" fill="#2e7d32">resultado = 8;</text>
-  <text x="160" y="405" class="text-code">printf("Suma: %d", resultado);</text>
-  
+  <circle
+     cx="100"
+     cy="375"
+     r="18"
+     fill="#4caf50"
+     id="circle16" />
+  <text
+     x="100"
+     y="381"
+     class="step-number"
+     id="text17">3</text>
+  <rect
+     x="140"
+     y="340"
+     width="250"
+     height="80"
+     class="box-return"
+     rx="6"
+     id="rect17" />
+  <text
+     x="265"
+     y="362"
+     class="text-label"
+     font-weight="bold"
+     fill="#2e7d32"
+     id="text18">main() continúa</text>
+  <text
+     x="160"
+     y="385"
+     class="text-code"
+     fill="#2e7d32"
+     id="text19">resultado = 8;</text>
+  <text
+     x="160"
+     y="405"
+     class="text-code"
+     id="text20">printf(&quot;Suma: %d&quot;, resultado);</text>
   <!-- Right side: Data flow visualization -->
-  <text x="550" y="60" class="text-label" font-weight="bold">Flujo de Datos</text>
-  
+  <text
+     x="550"
+     y="60"
+     class="text-label"
+     font-weight="bold"
+     id="text21">Flujo de Datos</text>
   <!-- Input data -->
-  <rect x="450" y="80" width="200" height="60" fill="#fff3e0" stroke="#ff9800" stroke-width="2" rx="4"/>
-  <text x="550" y="100" class="text-label" fill="#ff6f00">Entrada a sumar()</text>
-  <text x="470" y="120" class="text-code">a = 5</text>
-  <text x="470" y="135" class="text-code">b = 3</text>
-  
-  <path d="M 550 145 L 550 165" stroke="#ff9800" stroke-width="2" fill="none" marker-end="url(#arrowhead-call)"/>
-  
+  <rect
+     x="450"
+     y="80"
+     width="200"
+     height="60"
+     fill="#fff3e0"
+     stroke="#ff9800"
+     stroke-width="2"
+     rx="4"
+     id="rect21" />
+  <text
+     x="550"
+     y="100"
+     class="text-label"
+     fill="#ff6f00"
+     id="text22">Entrada a sumar()</text>
+  <text
+     x="470"
+     y="120"
+     class="text-code"
+     id="text23">a = 5</text>
+  <text
+     x="470"
+     y="135"
+     class="text-code"
+     id="text24">b = 3</text>
+  <path
+     d="M 550 145 L 550 165"
+     stroke="#ff9800"
+     stroke-width="2"
+     fill="none"
+     marker-end="url(#arrowhead-call)"
+     id="path24" />
   <!-- Processing -->
-  <rect x="450" y="170" width="200" height="50" fill="#ffe0b2" stroke="#ff9800" stroke-width="2" rx="4"/>
-  <text x="550" y="190" class="text-label" fill="#ff9800">Procesamiento</text>
-  <text x="470" y="210" class="text-code">suma = 5 + 3 = 8</text>
-  
-  <path d="M 550 225 L 550 245" stroke="#4caf50" stroke-width="2" fill="none" marker-end="url(#arrowhead-return)"/>
-  
+  <rect
+     x="450"
+     y="170"
+     width="200"
+     height="50"
+     fill="#ffe0b2"
+     stroke="#ff9800"
+     stroke-width="2"
+     rx="4"
+     id="rect24" />
+  <text
+     x="550"
+     y="190"
+     class="text-label"
+     fill="#ff9800"
+     id="text25">Procesamiento</text>
+  <text
+     x="470"
+     y="210"
+     class="text-code"
+     id="text26">suma = 5 + 3 = 8</text>
+  <path
+     d="M 550 225 L 550 245"
+     stroke="#4caf50"
+     stroke-width="2"
+     fill="none"
+     marker-end="url(#arrowhead-return)"
+     id="path26" />
   <!-- Output data -->
-  <rect x="450" y="250" width="200" height="50" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="4"/>
-  <text x="550" y="270" class="text-label" fill="#2e7d32">Retorno a main()</text>
-  <text x="470" y="290" class="text-code">return 8</text>
-  
+  <rect
+     x="450"
+     y="250"
+     width="200"
+     height="50"
+     fill="#e8f5e9"
+     stroke="#4caf50"
+     stroke-width="2"
+     rx="4"
+     id="rect26" />
+  <text
+     x="550"
+     y="270"
+     class="text-label"
+     fill="#2e7d32"
+     id="text27">Retorno a main()</text>
+  <text
+     x="470"
+     y="290"
+     class="text-code"
+     id="text28">return 8</text>
   <!-- Bottom note -->
-  <rect x="50" y="435" width="600" height="12" fill="none"/>
-  <text x="350" y="445" class="text-comment" text-anchor="middle" font-size="11px">
+  <rect
+     x="50"
+     y="435"
+     width="600"
+     height="12"
+     fill="none"
+     id="rect28" />
+  <text
+     x="350"
+     y="445"
+     class="text-comment"
+     text-anchor="middle"
+     font-size="11px"
+     id="text29">
     La función crea copias de los argumentos. Los cambios internos no afectan las variables originales.
   </text>
 </svg>

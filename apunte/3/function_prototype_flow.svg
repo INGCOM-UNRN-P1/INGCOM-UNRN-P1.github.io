@@ -1,6 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
-  <defs>
-    <style>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 800 500"
+   version="1.1"
+   id="svg32"
+   sodipodi:docname="function_prototype_flow.svg"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview32"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.1189965"
+     inkscape:cx="400.35871"
+     inkscape:cy="254.24566"
+     inkscape:window-width="1872"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg32" />
+  <defs
+     id="defs3">
+    <style
+       id="style1">
       .box-error { fill: #ffebee; stroke: #c62828; stroke-width: 2.5; }
       .box-success { fill: #e8f5e9; stroke: #2e7d32; stroke-width: 2.5; }
       .box-process { fill: #e3f2fd; stroke: #1976d2; stroke-width: 2; }
@@ -12,94 +42,326 @@
       .arrow-error { stroke: #c62828; stroke-width: 2; fill: none; marker-end: url(#arrowhead-error); }
       .arrow-success { stroke: #2e7d32; stroke-width: 2; fill: none; marker-end: url(#arrowhead-success); }
     </style>
-    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#666"/>
+    <marker
+       id="arrowhead"
+       markerWidth="10"
+       markerHeight="10"
+       refX="9"
+       refY="3"
+       orient="auto">
+      <polygon
+         points="0 0, 10 3, 0 6"
+         fill="#666"
+         id="polygon1" />
     </marker>
-    <marker id="arrowhead-error" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#c62828"/>
+    <marker
+       id="arrowhead-error"
+       markerWidth="10"
+       markerHeight="10"
+       refX="9"
+       refY="3"
+       orient="auto">
+      <polygon
+         points="0 0, 10 3, 0 6"
+         fill="#c62828"
+         id="polygon2" />
     </marker>
-    <marker id="arrowhead-success" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#2e7d32"/>
+    <marker
+       id="arrowhead-success"
+       markerWidth="10"
+       markerHeight="10"
+       refX="9"
+       refY="3"
+       orient="auto">
+      <polygon
+         points="0 0, 10 3, 0 6"
+         fill="#2e7d32"
+         id="polygon3" />
     </marker>
   </defs>
-  
   <!-- Title -->
-  <text x="400" y="25" class="text-title">¿Por qué necesitamos Prototipos de Función?</text>
-  
+  <text
+     x="400"
+     y="25"
+     class="text-title"
+     id="text3">¿Por qué necesitamos Prototipos de Función?</text>
   <!-- LEFT SIDE: WITHOUT PROTOTYPE (ERROR) -->
-  <text x="200" y="55" class="text-title" font-size="14px" fill="#c62828">❌ SIN Prototipo</text>
-  
+  <text
+     x="200"
+     y="55"
+     class="text-title"
+     font-size="14px"
+     fill="#c62828"
+     id="text4">❌ SIN Prototipo</text>
   <!-- Compiler reading -->
-  <rect x="50" y="70" width="300" height="90" class="box-process" rx="6"/>
-  <text x="200" y="90" class="text-label" font-weight="bold">Compilador lee de arriba a abajo</text>
-  <text x="70" y="115" class="text-code">int main() {</text>
-  <text x="80" y="135" class="text-code" fill="#c62828">int resultado = sumar(5, 3);</text>
-  <text x="340" y="135" class="text-comment" fill="#c62828">← ❓ ¿Qué es sumar?</text>
-  <text x="70" y="150" class="text-code">}</text>
-  
+  <rect
+     x="50"
+     y="70"
+     width="300"
+     height="90"
+     class="box-process"
+     rx="6"
+     id="rect4" />
+  <text
+     x="200"
+     y="90"
+     class="text-label"
+     font-weight="bold"
+     id="text5">Compilador lee de arriba a abajo</text>
+  <text
+     x="70"
+     y="115"
+     class="text-code"
+     id="text6">int main() {</text>
+  <text
+     x="80"
+     y="135"
+     class="text-code"
+     fill="#c62828"
+     id="text7">int resultado = sumar(5, 3);</text>
+  <text
+     x="163.9494"
+     y="152.87315"
+     class="text-comment"
+     fill="#c62828"
+     id="text8"
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'Courier New', monospace;-inkscape-font-specification:'Courier New, monospace, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000"><tspan
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'Courier New', monospace;-inkscape-font-specification:'Courier New, monospace, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000"
+       id="tspan32">← ❓ ¿Qué es sumar?</tspan></text>
+  <text
+     x="70"
+     y="150"
+     class="text-code"
+     id="text9">}</text>
   <!-- Arrow down -->
-  <path d="M 200 165 L 200 185" class="arrow-error"/>
-  
+  <path
+     d="M 200 165 L 200 185"
+     class="arrow-error"
+     id="path9" />
   <!-- Error message -->
-  <rect x="50" y="190" width="300" height="70" class="box-error" rx="6"/>
-  <text x="200" y="210" class="text-label" font-weight="bold" fill="#c62828">⚠ ERROR DE COMPILACIÓN</text>
-  <text x="70" y="230" class="text-code" fill="#c62828">error: implicit declaration</text>
-  <text x="70" y="245" class="text-code" fill="#c62828">of function 'sumar'</text>
-  
+  <rect
+     x="50"
+     y="190"
+     width="300"
+     height="70"
+     class="box-error"
+     rx="6"
+     id="rect9" />
+  <text
+     x="200"
+     y="210"
+     class="text-label"
+     font-weight="bold"
+     fill="#c62828"
+     id="text10">⚠ ERROR DE COMPILACIÓN</text>
+  <text
+     x="70"
+     y="230"
+     class="text-code"
+     fill="#c62828"
+     id="text11">error: implicit declaration</text>
+  <text
+     x="70"
+     y="245"
+     class="text-code"
+     fill="#c62828"
+     id="text12">of function 'sumar'</text>
   <!-- Arrow down -->
-  <path d="M 200 265 L 200 285" class="arrow-error"/>
-  
+  <path
+     d="M 200 265 L 200 285"
+     class="arrow-error"
+     id="path12" />
   <!-- Function definition (too late) -->
-  <rect x="50" y="290" width="300" height="70" class="box-process" rx="6"/>
-  <text x="200" y="310" class="text-label" font-weight="bold">Definición (muy tarde)</text>
-  <text x="70" y="330" class="text-code">int sumar(int a, int b) {</text>
-  <text x="80" y="345" class="text-code">return a + b;</text>
-  <text x="70" y="355" class="text-code">}</text>
-  
-  
+  <rect
+     x="50.048988"
+     y="290.04898"
+     width="299.90204"
+     height="77.051292"
+     class="box-process"
+     rx="5.9980407"
+     id="rect12" />
+  <text
+     x="200"
+     y="310"
+     class="text-label"
+     font-weight="bold"
+     id="text13">Definición (muy tarde)</text>
+  <text
+     x="70"
+     y="330"
+     class="text-code"
+     id="text14">int sumar(int a, int b) {</text>
+  <text
+     x="80"
+     y="345"
+     class="text-code"
+     id="text15">return a + b;</text>
+  <text
+     x="70"
+     y="355"
+     class="text-code"
+     id="text16">}</text>
   <!-- RIGHT SIDE: WITH PROTOTYPE (SUCCESS) -->
-  <text x="600" y="55" class="text-title" font-size="14px" fill="#2e7d32">✓ CON Prototipo</text>
-  
+  <text
+     x="600"
+     y="55"
+     class="text-title"
+     font-size="14px"
+     fill="#2e7d32"
+     id="text17">✓ CON Prototipo</text>
   <!-- Prototype declaration -->
-  <rect x="450" y="70" width="300" height="50" class="box-success" rx="6"/>
-  <text x="600" y="90" class="text-label" font-weight="bold" fill="#2e7d32">Prototipo (adelanto)</text>
-  <text x="470" y="110" class="text-code" fill="#2e7d32">int sumar(int a, int b);</text>
-  
+  <rect
+     x="450"
+     y="70"
+     width="300"
+     height="50"
+     class="box-success"
+     rx="6"
+     id="rect17" />
+  <text
+     x="600"
+     y="90"
+     class="text-label"
+     font-weight="bold"
+     fill="#2e7d32"
+     id="text18">Prototipo (adelanto)</text>
+  <text
+     x="470"
+     y="110"
+     class="text-code"
+     fill="#2e7d32"
+     id="text19">int sumar(int a, int b);</text>
   <!-- Arrow down -->
-  <path d="M 600 125 L 600 145" class="arrow-success"/>
-  
+  <path
+     d="M 600 125 L 600 145"
+     class="arrow-success"
+     id="path19" />
   <!-- Compiler reading with knowledge -->
-  <rect x="450" y="150" width="300" height="90" class="box-success" rx="6"/>
-  <text x="600" y="170" class="text-label" font-weight="bold" fill="#2e7d32">Compilador ya conoce sumar()</text>
-  <text x="470" y="195" class="text-code">int main() {</text>
-  <text x="480" y="215" class="text-code" fill="#2e7d32">int resultado = sumar(5, 3);</text>
-  <text x="740" y="215" class="text-comment" fill="#2e7d32">← ✓ OK</text>
-  <text x="470" y="230" class="text-code">}</text>
-  
+  <rect
+     x="450"
+     y="150"
+     width="300"
+     height="90"
+     class="box-success"
+     rx="6"
+     id="rect19" />
+  <text
+     x="600"
+     y="170"
+     class="text-label"
+     font-weight="bold"
+     fill="#2e7d32"
+     id="text20">Compilador ya conoce sumar()</text>
+  <text
+     x="470"
+     y="195"
+     class="text-code"
+     id="text21">int main() {</text>
+  <text
+     x="480"
+     y="215"
+     class="text-code"
+     fill="#2e7d32"
+     id="text22">int resultado = sumar(5, 3);</text>
+  <text
+     x="684.57397"
+     y="216.62073"
+     class="text-comment"
+     fill="#2e7d32"
+     id="text23"
+     style="fill:#000000;stroke-width:1.49174;-inkscape-font-specification:'Courier New, monospace, Italic';font-family:'Courier New', monospace;font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal;font-size:16px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">← ✓ OK</text>
+  <text
+     x="470"
+     y="230"
+     class="text-code"
+     id="text24">}</text>
   <!-- Arrow down -->
-  <path d="M 600 245 L 600 265" class="arrow-success"/>
-  
+  <path
+     d="M 600 245 L 600 265"
+     class="arrow-success"
+     id="path24" />
   <!-- Success message -->
-  <rect x="450" y="270" width="300" height="50" class="box-success" rx="6"/>
-  <text x="600" y="290" class="text-label" font-weight="bold" fill="#2e7d32">✓ COMPILACIÓN EXITOSA</text>
-  <text x="470" y="310" class="text-comment">El compilador sabe qué esperar</text>
-  
+  <rect
+     x="450"
+     y="270"
+     width="300"
+     height="50"
+     class="box-success"
+     rx="6"
+     id="rect24" />
+  <text
+     x="600"
+     y="290"
+     class="text-label"
+     font-weight="bold"
+     fill="#2e7d32"
+     id="text25">✓ COMPILACIÓN EXITOSA</text>
+  <text
+     x="470"
+     y="310"
+     class="text-comment"
+     id="text26">El compilador sabe qué esperar</text>
   <!-- Arrow down -->
-  <path d="M 600 325 L 600 345" class="arrow-success"/>
-  
+  <path
+     d="M 600 325 L 600 345"
+     class="arrow-success"
+     id="path26" />
   <!-- Function definition -->
-  <rect x="450" y="350" width="300" height="70" class="box-process" rx="6"/>
-  <text x="600" y="370" class="text-label" font-weight="bold">Definición (implementación)</text>
-  <text x="470" y="390" class="text-code">int sumar(int a, int b) {</text>
-  <text x="480" y="405" class="text-code">return a + b;</text>
-  <text x="470" y="415" class="text-code">}</text>
-  
+  <rect
+     x="450.03696"
+     y="350.03696"
+     width="299.92609"
+     height="75.288033"
+     class="box-process"
+     rx="5.9985218"
+     id="rect26" />
+  <text
+     x="600"
+     y="370"
+     class="text-label"
+     font-weight="bold"
+     id="text27">Definición (implementación)</text>
+  <text
+     x="470"
+     y="390"
+     class="text-code"
+     id="text28">int sumar(int a, int b) {</text>
+  <text
+     x="486"
+     y="403"
+     class="text-code"
+     id="text29">return a + b;</text>
+  <text
+     x="470"
+     y="415"
+     class="text-code"
+     id="text30">}</text>
   <!-- Bottom explanation -->
-  <rect x="50" y="440" width="700" height="50" fill="#fff3e0" stroke="#f57f17" stroke-width="2" rx="6"/>
-  <text x="400" y="460" class="text-label" text-anchor="middle">
-    <tspan font-weight="bold">Resumen:</tspan> El compilador lee el código de arriba hacia abajo en una sola pasada.
+  <rect
+     x="50"
+     y="440"
+     width="700"
+     height="50"
+     fill="#fff3e0"
+     stroke="#f57f17"
+     stroke-width="2"
+     rx="6"
+     id="rect30" />
+  <text
+     x="400"
+     y="460"
+     class="text-label"
+     text-anchor="middle"
+     id="text31"><tspan
+   font-weight="bold"
+   id="tspan30">Resumen:</tspan> El compilador lee el código de arriba hacia abajo en una sola pasada.
   </text>
-  <text x="400" y="478" class="text-label" text-anchor="middle">
+  <text
+     x="400"
+     y="478"
+     class="text-label"
+     text-anchor="middle"
+     id="text32">
     Los prototipos informan al compilador sobre funciones que se definirán más adelante.
   </text>
 </svg>
