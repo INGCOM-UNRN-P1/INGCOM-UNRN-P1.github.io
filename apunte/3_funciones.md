@@ -136,14 +136,12 @@ void saludar()
 ```
 
 :::{note} Procedimiento
-
 Esta función, que no tuvo un retorno al programa, dio lugar a un
 {term}`efecto secundario`; el enviar caracteres por la consola.
 
 Cuando una función no tiene retorno, se dice que es un «Procedimiento», esta
 distinción es para separar conceptualmente del código que da resultados
 explícitos al programa.
-
 :::
 
 ### Prototipos de función
@@ -340,10 +338,11 @@ En este caso, `a` y `b` solo son visibles y utilizables dentro de la función
 
 ### Variables locales
 
-Las variables locales se declaran dentro de una función, pero fuera de cualquier
-bloque de código (como un `if` o un `for`). Su alcance se limita a la función en
-la que fueron declaradas. Se "destruyen" de la memoria cuando la función termina
-su ejecución, vamos a ver un detalle adicional sobre este tema más adelante.
+Las variables locales se declaran dentro de una función, pero fuera de cualquier bloque de código (como un `if` o un `for`). Su alcance se limita a la función en la que fueron declaradas. Se "destruyen" de la memoria cuando la función termina su ejecución.
+
+:::{tip} Gestión Automática de Memoria
+Las variables locales se almacenan en el **stack** (pila), una región de memoria gestionada automáticamente por el sistema. Cuando una función se llama, se crea un marco de pila (stack frame) con todas sus variables locales; cuando termina, ese marco se libera automáticamente. Para entender en profundidad cómo funciona este mecanismo y cómo se organiza la memoria de un programa, consultá el {doc}`11_memoria`, donde se explica detalladamente el stack, heap y la gestión de memoria dinámica.
+:::
 
 ```c
 #include <stdio.h>
@@ -552,12 +551,10 @@ primera vez. En las llamadas siguientes, retiene su valor anterior (`1`, luego
 `2`), por lo que sigue incrementándose.
 
 :::{warning} Limiten su uso
-
 El gran problema de este calificador, es que oculta el estado de la función que
 de otra forma debiera de ser un argumento explícito, lo que en definitiva, hace
 que la función no sea predecible, y dependerá de algo interno que solo es
 accesible por la función misma.
-
 :::
 
 ## Divide y vencerás
@@ -644,7 +641,6 @@ int calcular_area(int base, int altura)
 > Fijate que `main()` se lee como una receta; eso es lo que buscamos.
 
 ::::{tip} Tips mentales para construir algoritmos desde cero
-
 - **Pensá en pasos.** No escribas código directamente. Primero, papel y lápiz.
 - **Usá nombres descriptivos.** `leer_entero()` es mejor que `func1()`, `base`
   en lugar de `a`.
@@ -653,7 +649,6 @@ int calcular_area(int base, int altura)
 - **Probá cada función por separado.** Imprimí resultados intermedios.
 
 ::::
-
 ## Ejercicios propuestos
 
 1. Escribí una función que reciba un número y devuelva el doble.
@@ -702,10 +697,8 @@ Si tenemos dos funciones que repiten el mismo bloque de código, ese bloque pued
 ambas funciones originales o incluso reemplazarlas completamente.
 
 :::{note} ¿Solo para código idéntico?
-
 Si podemos identificar qué es lo que cambia, y reemplazarlo por un argumento,
 estamos factorizando de una forma aún mejor.
-
 :::
 
 ### Ejemplo de duplicaciones
@@ -851,10 +844,8 @@ void menu_configuracion()
 4. Reemplazá las repeticiones por una llamada a la nueva función.
 
 :::{tip}
-
 > La programación, como la matemática, es arte de **reconocer patrones** y
 > **simplificarlos inteligentemente**.
-
 :::
 
 ## Responsabilidades de las funciones
@@ -939,12 +930,10 @@ extender el concepto a la ‘toma de datos’ y a ‘mostrar el resultado’, co
 quedarnos en lo que hace el trabajo estamos más que bien.
 
 ::::{tip}
-
 Una buena función se puede describir en una frase corta. Si necesitás una
 oración compuesta, probablemente estás metiendo dos responsabilidades en una.
 
 ::::
-
 ## Documentación de funciones
 
 La documentación es una herramienta clave en la programación. Ayuda a que otras
@@ -1065,12 +1054,10 @@ invocar la función.
   imaginario, que no es posible representar con los valores convencionales de C.
 
 ::::{note} Precondiciones
-
 Si la precondición no se cumple, el resultado puede ser inválido, o el programa
 puede fallar (por ejemplo, dividir por cero).
 
 ::::
-
 ### Poscondiciones
 
 Una _poscondición_ es una afirmación lógica que debe cumplirse **después** de
@@ -1089,12 +1076,10 @@ vez que ha completado su tarea.
   retornado sea un número válido leído del usuario.
 
 ::::{note} Poscondiciones
-
 Las poscondiciones son una promesa. Si las precondiciones se cumplen, la función
 debe cumplir lo prometido.
 
 ::::
-
 ### Invariantes
 
 Un _invariante_ es una condición lógica que permanece **verdadera en todo
@@ -1117,13 +1102,11 @@ veremos más adelante, cuando tratemos Estructuras de Datos.
   que ninguna de las variables de entrada se modifica dentro de la función.
 
 ::::{note} Invariantes
-
 Las invariantes te ayudan a razonar sobre la corrección interna del algoritmo.
 Aunque son menos visibles, son fundamentales para asegurar que el comportamiento
 del programa sea coherente.
 
 ::::
-
 ### ¿Por qué son importantes?
 
 - Te obligan a **pensar antes de programar**.
@@ -1178,26 +1161,20 @@ de razonamiento te prepara para escribir programas más robustos, detectar
 errores antes de que ocurran y construir soluciones más elegantes.
 
 ::::{note} en una frase
-
 > "Las precondiciones te hacen responsable; las poscondiciones te hacen
 > confiable; las invariantes te hacen coherente."
 
 ::::
-
 ## Glosario
 
 :::{glossary}
-
 efecto secundario
 : En la programación, un efecto secundario es cualquier cambio
 de estado que ocurre fuera del ámbito de una función. En otras palabras, una
 función tiene efectos secundarios cuando modifica algo más allá de simplemente
 devolver un valor. En C, esto a menudo se refiere a la modificación de variables
 globales o datos a los que se accede a través de punteros.
-
 :::
-
-
 
 ## Ejercicios sobre funciones
 

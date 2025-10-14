@@ -19,7 +19,7 @@ project:
     - file: readme.md
     - title: Apunte
       children:
-        - file: apunte/1_catedra.md
+        - file: apunte/0_catedra.md
         - file: apunte/1_base.md
         - file: apunte/2_gradual.md
         - file: apunte/3_funciones.md
@@ -29,17 +29,16 @@ project:
         - file: apunte/7_punteros.md
         - file: apunte/8_archivos.md
         - file: apunte/9_argumentos.md
-        - file: apunte/10_enums.md 
+        - file: apunte/10_enums.md
+        - file: apunte/11_memoria.md
         - file: apunte/A_stdlib.md
         - file: apunte/0_estilo.md
-#        - file: apunte/_ordenamiento.md
-#        - file: apunte/_complejidad.md
+    #        - file: apunte/_ordenamiento.md
+    #        - file: apunte/_complejidad.md
 
-
-
-#        - file: apunte/tad.md
-#        - file: apunte/memoria.md
-#        - file: apunte/cadenas.md
+    #        - file: apunte/tad.md
+    #        - file: apunte/memoria.md
+    #        - file: apunte/cadenas.md
     - title: Ejercicios
       file: ejercicios/readme.md
       children:
@@ -61,8 +60,8 @@ project:
         - file: ejercicios/15_archivos_binarios.md
         - file: ejercicios/16_punteros_avanzados.md
         - file: ejercicios/17_analisis_de_codigo.md
-#        - file: 
-#        - file: 
+    #        - file:
+    #        - file:
     - title: Extras
       children:
         - file: extras/ref-unico-retorno.md
@@ -88,7 +87,6 @@ project:
         - file: bibliografia/suplementaria.md
     - file: programa.md
     - file: finales.md
-    
+
 bibliography:
   - bibliografia.bib
-

@@ -6,25 +6,17 @@ subtitle: La sintaxis y programas básicos.
 
 ## Introducción
 
-Antes de iniciar el estudio de la programación en C, es fundamental comprender
-que programar no consiste únicamente en aprender un lenguaje, sino en desarrollar
-una forma de pensar. El lenguaje es la herramienta, pero el verdadero arte
-reside en la construcción de instrucciones lógicas para resolver problemas.
+Antes de iniciar el estudio de la programación en C, es fundamental comprender que programar no consiste únicamente en aprender un lenguaje, sino en desarrollar una forma de pensar. El lenguaje es la herramienta, pero el verdadero arte reside en la construcción de instrucciones lógicas para resolver problemas.
 
-Programar es el acto de proporcionar instrucciones precisas a una computadora
-para que realice una tarea específica. Una diferencia clave con la comunicación
-humana es que la computadora **no interpreta ambigüedades**. No comprende
-conceptos como «más o menos». Cada paso debe estar perfectamente definido. En
-este sentido, C presenta ciertas ambigüedades que pueden conducir a resultados
-inesperados.
+:::{note} Prerequisito: Fundamentos de Algoritmos
+Este capítulo asume que ya comprendés los conceptos fundamentales de algoritmos, variables, tipos de datos, estructuras de control (if, while, for) y funciones que se presentaron en el {doc}`1_base`. Si necesitás repasar estos conceptos o no los viste con Python, consultá ese capítulo primero para entender la lógica antes de enfocarte en la sintaxis de C.
+:::
 
-Durante la programación, la omisión de un solo detalle puede provocar que el
-programa no funcione. Por ello, es necesario aprender a **pensar como una
-máquina**, pero también a **estructurar el pensamiento como un ser humano
-inteligente**.
+Programar es el acto de proporcionar instrucciones precisas a una computadora para que realice una tarea específica. Una diferencia clave con la comunicación humana es que la computadora **no interpreta ambigüedades**. No comprende conceptos como «más o menos». Cada paso debe estar perfectamente definido. En este sentido, C presenta ciertas ambigüedades que pueden conducir a resultados inesperados.
 
-En C, no existen atajos, lo cual es una ventaja, ya que te obliga a pensar
-de forma clara y lógica.
+Durante la programación, la omisión de un solo detalle puede provocar que el programa no funcione. Por ello, es necesario aprender a **pensar como una máquina**, pero también a **estructurar el pensamiento como un ser humano inteligente**.
+
+En C, no existen atajos, lo cual es una ventaja, ya que te obliga a pensar de forma clara y lógica.
 
 ## ¿Por qué aprender C?
 
@@ -193,13 +185,11 @@ Para Windows, podés seguir la guía sobre la instalación del
 [compilador](../guias/compilador).
 
 :::{warning} ¡Importante!
-
 Si surgen problemas o dificultades en esta etapa, es crucial resolverlos lo
 antes posible para no frenar el aprendizaje por  las herramientas.
 
 Se recomienda consultar en las clases prácticas o en el espacio de
 [Discussions](https://github.com/orgs/INGCOM-UNRN-P1/discussions).
-
 :::
 
 ### Primer programa: el «Hola Mundo» al C
@@ -263,11 +253,9 @@ visibles, y el `\n` es el «enter» o salto de linea.
    ubicar la pieza específica que se describe en esta lista.
 
 :::{warning} Atención
-
 Si no se visualiza el mensaje que está dentro de la instrucción `printf`, hay
 algún problema que es necesario solucionar. No se debe detener en este punto, ya
 que es un bloqueante para los temas siguientes.
-
 :::
 
 ## El Algoritmo: pensar antes de escribir
@@ -280,7 +268,7 @@ que es un bloqueante para los temas siguientes.
 3. **Usá papel y lápiz**. No escribas código antes de tener claro el objetivo.
 4. **Convertí esos pasos en instrucciones en C.**
 
-:::{figure} think.jpg
+:::{figure} ./2/think.jpg
 :alt: Roll Safe thinking
 :align: center
 
@@ -519,7 +507,6 @@ indica que el siguiente carácter tiene un significado diferente del que se ve;
 esto se llama [secuencias de escape](../extras/printf#escape).
 
 (formatos)=
-
 ### Especificadores más comunes
 
 | Tipo     | Especificador       |
@@ -603,12 +590,10 @@ if (condicion)
 En donde las condiciones, deben ser el resultado de una expresión lógica.
 
 :::{note} «Veracidad»
-
 Para C, los valores lógicos no forman parte del lenguaje original y el mismo
 considera cualquier valor entero en `0` como falso y cualquier otro como
 verdadero. Esto se conoce como "veracidad" ({ref}`0x0010h`) y su uso no
 está permitido, ya que puede generar confusión.
-
 :::
 
 ### Operadores lógicos comunes
@@ -637,10 +622,8 @@ if (edad >= 18)
 ```
 
 :::{attention} 🪐 Cuestión de estilo
-
 Todas las estructuras de control que contienen un bloque, deben llevar _sí o sí_
 llaves, según la regla {ref}`0x0005h`.
-
 :::
 
 ### Ejercicio 3
@@ -717,10 +700,8 @@ switch (x)
 ```
 
 :::{note}¿Qué se puede comparar?
-
 Como está estructurado, funciona por igualdad, por lo que solo se puede utilizar
 con valores numéricos enteros.
-
 :::
 
 ## Lazos repetir hasta dominar el universo
@@ -769,7 +750,6 @@ flowchart TD
 :enumerator: while
 
 Escribí un programa que imprima los números del 10 al 1 usando `while`.
-
 :::
 
 :::{solution} lazo_while
@@ -807,14 +787,12 @@ for (int i = 0; i < 5; i++)
 ```
 
 :::{admonition} Las partes del `for`
-
 `for (inicio; condición; paso) { bloque }`
 
 - **inicio:** una sola vez al comenzar.
 - **condición:** se evalúa antes de cada iteración.
 - **paso:** se ejecuta al final de cada vuelta.
 - **bloque:** las instrucciones ejecutadas mientras la condición sea verdadera.
-
 :::
 
 **Y su equivalente con `while`:**
@@ -834,7 +812,6 @@ while (i < 5) {                 // condición
 :enumerator: for
 
 Usá un `for` para mostrar los múltiplos de 3 entre 0 y 30.
-
 :::
 
 :::{solution} lazo_for
@@ -863,7 +840,7 @@ int main() {
 >
 > - Rammstein, du...while
 
-```{image} lazos.jpg
+```{image} ./2/lazos.jpg
 :alt: Ejemplo Grafico de lazos
 :align: center
 ```
@@ -880,10 +857,8 @@ Este tipo de lazo garantiza **al menos una ejecución**. Ideal para menús o
 ingreso de datos que deben ejecutarse al menos una vez.
 
 :::{warning} Tené cuidado con los lazos infinitos.
-
 Si la condición **nunca** se vuelve falsa, el programa quedará atrapado en un
 ciclo eterno.
-
 :::
 
 #### Flujo
@@ -906,7 +881,6 @@ flowchart TD
 
 Usá un lazo `do..while` para controlar el acceso a un edificio, pidiéndole al
 usuario que ingrese un número usado como clave.
-
 :::
 
 :::{solution} lazo_repeat
@@ -971,14 +945,11 @@ for (int i = 1; i <= 5; i++) {
 ```
 
 :::{tip} ¿Cuándo usarlos?
-
 Use `break` cuando ya no tenga sentido seguir iterando, y `continue` cuando
 quieras saltear un caso particular.
-
 :::
 
 :::{admonition} Observación
-
 La cátedra establece que el uso de `break` y `continue` no está permitido por
 dos motivos:
 
@@ -993,7 +964,6 @@ la comprensión de la lógica de control (ver {ref}`0x0008h`).
 
 En lugar de usar estos atajos, se pedirá el uso de lazos con bandera, que se
 explican a continuación.
-
 :::
 
 ### Ejercicio 7
@@ -1022,7 +992,6 @@ int main()
     return 0;
 }
 ```
-
 :::
 
 :::{solution} lazo_break
@@ -1069,7 +1038,6 @@ int main()
     return 0;
 }
 ```
-
 :::
 
 :::{solution} lazo_continue
@@ -1141,7 +1109,6 @@ int main() {
 
 Reescribí el ingreso de clave usando una bandera booleana en lugar de `break` o
 `do...while`.
-
 :::
 
 :::{solution} lazo_flag_break
@@ -1202,7 +1169,7 @@ Cuando estés atascado:
 > _El compilador le dirá qué no entiende. Escúchelo, corrija e intentá 
 > nuevamente._
 
-:::{figure} zach-galifianakis-math.gif
+:::{figure} ./2/zach-galifianakis-math.gif
 :alt: Zach Galifianakis doing math
 :align: center
 :::
@@ -1255,7 +1222,6 @@ Programar bien es:
 ## Glosario
 
 :::{glossary}
-
 Lenguaje Ensamblador
 : El lenguaje ensamblador (assembly language) es un
 lenguaje de programación de bajo nivel que representa las instrucciones de
@@ -1274,5 +1240,4 @@ directamente. Es el nivel más bajo de lenguaje de programación, específico pa
 cada arquitectura de procesador. Todas las formas de software deben ser
 traducidas o interpretadas a este lenguaje para poder ser ejecutadas por el
 hardware.
-
 :::

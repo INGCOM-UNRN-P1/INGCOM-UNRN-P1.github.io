@@ -12,22 +12,15 @@ Cuando ejecutás en tu terminal el comando:
 $> gcc -o mi_programa programa.c
 ```
 
-No solo estás invocando un programa, sino que desencadenás un sofisticado
-proceso de transformación. A simple vista, es una única instrucción que
-convierte tu código fuente, escrito en un lenguaje comprensible para vos, en un
-archivo ejecutable que la máquina puede interpretar directamente.
+No solo estás invocando un programa, sino que desencadenás un sofisticado proceso de transformación. A simple vista, es una única instrucción que convierte tu código fuente, escrito en un lenguaje comprensible para vos, en un archivo ejecutable que la máquina puede interpretar directamente.
 
-Sin embargo, detrás de esa aparente simplicidad, el compilador `gcc` (GNU
-Compiler Collection) actúa como un director de orquesta, coordinando una
-secuencia de herramientas especializadas que trabajan en conjunto. Cada una de
-estas herramientas se encarga de una fase específica, traduciendo
-progresivamente el código hasta su forma final.
+:::{note} Prerequisitos
+Este capítulo asume que ya escribiste y ejecutaste programas básicos en C como los presentados en el {doc}`2_gradual`. También es útil tener familiaridad con el concepto de funciones ({doc}`3_funciones`) ya que se mencionan prototipos y definiciones en el contexto de compilación de múltiples archivos.
+:::
 
-Comprender esta transformación del código, desde `programa.c` hasta
-`mi_programa`, es una habilidad fundamental para cualquier desarrollador de C.
-Te proporciona las bases para diagnosticar errores de compilación complejos,
-optimizar el rendimiento de tus aplicaciones y gestionar eficientemente
-proyectos que se componen de múltiples archivos fuente.
+Sin embargo, detrás de esa aparente simplicidad, el compilador `gcc` (GNU Compiler Collection) actúa como un director de orquesta, coordinando una secuencia de herramientas especializadas que trabajan en conjunto. Cada una de estas herramientas se encarga de una fase específica, traduciendo progresivamente el código hasta su forma final.
+
+Comprender esta transformación del código, desde `programa.c` hasta `mi_programa`, es una habilidad fundamental para cualquier desarrollador de C. Te proporciona las bases para diagnosticar errores de compilación complejos, optimizar el rendimiento de tus aplicaciones y gestionar eficientemente proyectos que se componen de múltiples archivos fuente.
 
 ### Diagrama del Proceso
 
@@ -93,11 +86,9 @@ constantes o pequeñas funciones "inline".
   como `#define SUMA(a, b) ((a) + (b))`.
 
 :::{warning} Cuidado con las Macros
-
 Las macros realizan una sustitución de texto literal, lo que puede llevar a
 errores inesperados si no se usan paréntesis adecuadamente para proteger el
 orden de las operaciones.
-
 :::
 
 ##### Compilación Condicional **Directivas:** `#if`, `#ifdef`,
@@ -178,7 +169,6 @@ flowchart TD
     D --> E
     E --> F
     F --> G
-
 
 ```
 
@@ -344,7 +334,6 @@ $> gcc -c programa.c
 Este comando creará el archivo `programa.o` en el mismo directorio.
 
 :::{tip} La Importancia de la Compilación Separada
-
 En proyectos que constan de múltiples archivos fuente (`modulo1.c`, `modulo2.c`,
 `main.c`), no se compila todo el proyecto de una sola vez. En su lugar, se
 compila cada archivo `.c` por separado para generar su correspondiente archivo
@@ -362,7 +351,6 @@ paso final consiste en enlazar todos los `.o` (el nuevo y los antiguos) para
 crear el ejecutable. Este principio de **compilación separada** es la base de
 los sistemas de construcción como `make` y ahorra una cantidad inmensa de tiempo
 en proyectos grandes.
-
 :::
 
 ### Fase 4: Enlazado (Linking)
@@ -651,13 +639,11 @@ int suma(int n, int m);
 ```
 
 :::{important} Cuestión de estilo
-
 Aunque un archivo contenga únicamente prototipos de funciones (cuya
 redeclaración no es un error), es una **buena práctica universal** y un
 **requisito de la cátedra** es que **todos** los archivos de cabecera que
 ustedes creen incluyan guardas de inclusión. Esto asegura consistencia,
 prolijidad y previene errores futuros si el contenido del archivo cambia.
-
 :::
 
 ## Makefiles
@@ -711,10 +697,8 @@ clean:
 ```
 
 :::{attention} Indentación
-
 Los _Makefiles_ deben ser indentados con tabulaciones, ya que si usamos espacios,
 fallará.
-
 :::
 
 ### Estructura básica de un TP con proyecto

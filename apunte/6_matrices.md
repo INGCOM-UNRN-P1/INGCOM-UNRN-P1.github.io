@@ -6,36 +6,24 @@ subtitle: "The matrix has you..."
 
 ## Matrices (Arreglos Bidimensionales)
 
-En el ámbito de la programación, una **matriz** se define como una estructura de
-datos que facilita el almacenamiento de un conjunto homogéneo de elementos,
-organizados en una disposición bidimensional de filas y columnas. En el lenguaje
-de programación C, esta abstracción se materializa mediante la implementación de
-**arreglos bidimensionales** (2D), los cuales pueden ser conceptualizados como
-arreglos cuyos elementos son, a su vez, otros arreglos.
+En el ámbito de la programación, una **matriz** se define como una estructura de datos que facilita el almacenamiento de un conjunto homogéneo de elementos, organizados en una disposición bidimensional de filas y columnas. En el lenguaje de programación C, esta abstracción se materializa mediante la implementación de **arreglos bidimensionales** (2D), los cuales pueden ser conceptualizados como arreglos cuyos elementos son, a su vez, otros arreglos.
 
-Las matrices son fundamentales en numerosas aplicaciones: desde operaciones
-matemáticas básicas hasta algoritmos complejos de procesamiento de imágenes,
-simulaciones físicas, análisis de datos, representación de grafos, implementación
-de juegos como el tres en raya o ajedrez, y sistemas de coordenadas 
-bidimensionales. Su comprensión es esencial para el desarrollo de software 
-eficiente y estructurado.
+:::{note} Prerequisitos
+Este capítulo asume que ya dominás los conceptos de arreglos unidimensionales presentados en el {doc}`4_secuencias`. Si necesitás repasar cómo funcionan los arreglos básicos, su declaración, inicialización y recorrido, consultá ese capítulo primero. Además, para comprender cómo se accede a elementos de matrices mediante aritmética de punteros, es útil haber visto el {doc}`7_punteros`.
+:::
+
+Las matrices son fundamentales en numerosas aplicaciones: desde operaciones matemáticas básicas hasta algoritmos complejos de procesamiento de imágenes, simulaciones físicas, análisis de datos, representación de grafos, implementación de juegos como el tres en raya o ajedrez, y sistemas de coordenadas bidimensionales. Su comprensión es esencial para el desarrollo de software eficiente y estructurado.
 
 :::{important} Relación con el álgebra lineal
-Las matrices en programación están íntimamente relacionadas con el concepto 
-matemático de matriz del álgebra lineal. Esto permite aplicar directamente
-teoremas y algoritmos matemáticos en implementaciones de software, especialmente
-en campos como gráficos por computadora, machine learning, y simulaciones 
-científicas.
+Las matrices en programación están íntimamente relacionadas con el concepto matemático de matriz del álgebra lineal. Esto permite aplicar directamente teoremas y algoritmos matemáticos en implementaciones de software, especialmente en campos como gráficos por computadora, machine learning, y simulaciones científicas.
 :::
 
 :::{tip} Extensión a múltiples dimensiones
-
 Técnicamente, no están limitadas a dos dimensiones. Podés tener arreglos
 tridimensionales (`int cubo[3][4][5]`) o de mayor dimensionalidad. Sin embargo,
 las aplicaciones prácticas se vuelven menos claras y la complejidad de manejo
 aumenta considerablemente. Todos los conceptos presentados aquí se extienden
 naturalmente a estas dimensiones superiores.
-
 :::
 
 ## Declaración
@@ -51,7 +39,6 @@ tipo_dato nombre_matriz[CANTIDAD_FILAS][CANTIDAD_COLUMNAS];
 ```
 
 :::{warning} Uso de ALV/VLA
-
 Es muy importante destacar que las matrices **deben** ser de dimensiones
 constantes en tiempo de compilación, ya sea con el número literal, o un macro de
 preprocesador, como lo exige la regla de estilo {ref}`0x000Eh`.
@@ -59,7 +46,6 @@ preprocesador, como lo exige la regla de estilo {ref}`0x000Eh`.
 Los problemas de utilizar ALV/VLA son mayores aquí que con los arreglos. Cuando
 veamos memoria dinámica, vamos a liberarnos de estas restricciones y ver por qué
 usar esta técnica es riesgoso.
-
 :::
 
 Ejemplo
@@ -69,7 +55,6 @@ int miMatriz[3][4]; // Matriz de 3 filas y 4 columnas
 ```
 
 :::{note} Almacenamiento en memoria
-
 A nivel de memoria, el lenguaje C asigna un bloque único y contiguo para el
 almacenamiento de la matriz. La disposición de los elementos sigue el criterio
 de **orden de fila principal (row-major order)**, lo que implica que los
@@ -78,7 +63,6 @@ elementos de la segunda fila, y así sucesivamente.
 
 Para la matriz `mi_matriz[3][4]`, la memoria contendría los 12 enteros en
 secuencia, como un arreglo: `[f0c0, f0c1, f0c2, f0c3, f1c0, f1c1, ...]`.
-
 :::
 
 ## Inicialización
@@ -158,12 +142,10 @@ int valor = matriz[2][3]; // Toma el valor del elemento en la fila 2, columna 3.
 ```
 
 :::{danger} Comportamiento no definido
-
 Es imperativo señalar que el acceso a un índice que excede los límites definidos
 para la matriz invoca un **comportamiento indefinido** según el estándar de C,
 lo cual puede manifestarse en fallos de ejecución (`segmentation fault`) o
 corrupción de datos, violando la regla de estilo {ref}`0x0027h`.
-
 :::
 
 ## Patrones de Recorrido de Matrices
@@ -239,7 +221,6 @@ printf("\n");
 ```
 
 :::{important} Eficiencia y localidad de memoria
-
 El orden de recorrido por filas es generalmente más eficiente debido a cómo C
 almacena las matrices en memoria. Cada acceso secuencial por fila mantiene los
 datos en la {term}`memoria caché`, mientras que el acceso por columnas puede
@@ -247,7 +228,6 @@ generar más fallos de caché y, en consecuencia, un rendimiento inferior.
 
 Para matrices grandes, esta diferencia puede ser significativa. Siempre que sea
 posible, diseñá tus algoritmos para seguir el patrón row-major.
-
 :::
 
 ## Pasando matrices a funciones (Método Clásico)
@@ -297,11 +277,9 @@ La utilización de ALV's facilita la creación de funciones genéricas capaces d
 operar sobre matrices de dimensiones arbitrarias.
 
 :::{important} Orden de los Parámetros
-
 Resulta crucial observar que, en la firma de la función, los parámetros que
 definen las dimensiones de la matriz deben estar antes que el parámetro de la
 matriz misma.
-
 :::
 
 ```{code-block}c
@@ -800,13 +778,11 @@ resultado_matriz_t validar_multiplicacion(int filas_a, int columnas_a,
 ```
 
 :::{warning} Responsabilidad del programador
-
 En C, la validación de límites es responsabilidad del programador. El lenguaje 
 no proporciona verificaciones automáticas, por lo que debés implementar estas 
 validaciones de forma explícita. El no hacerlo puede resultar en comportamiento 
 indefinido, violando la regla de estilo {ref}`0x0000h` sobre claridad y prolijidad 
 del código. 
-
 :::
 
 ## Mejores Prácticas y Optimizaciones
@@ -893,7 +869,6 @@ bool son_matrices_iguales(int a[][MAX_COLS], int b[][MAX_COLS],
 ## Glosario
 
 :::{glossary}
-
 memoria caché 
 : Una **memoria caché** (del francés _cacher_,
 "esconder") es un componente de hardware o software que almacena datos para que
@@ -969,7 +944,6 @@ matriz identidad
 diagonal principal son 1 y todos los demás elementos son 0. Actúa como el
 elemento neutro en la multiplicación de matrices: A × I = I × A = A. Es
 fundamental en operaciones como la inversión de matrices. 
-
 :::
 
 ## Ejercicios

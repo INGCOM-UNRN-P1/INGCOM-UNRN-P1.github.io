@@ -5,18 +5,15 @@ short_title: 9 - Argumentos y librería
 
 ## Los parámetros `main(int argc, char *argv[])`
 
-Cuando ejecutás un programa en C desde la terminal, tenés la posibilidad de
-pasarle información directamente en la línea de comandos. Esta información,
-conocida como "argumentos", es recibida por la función `main` a través de dos
-parámetros especiales: `argc` y `argv`.
+Cuando ejecutás un programa en C desde la terminal, tenés la posibilidad de pasarle información directamente en la línea de comandos. Esta información, conocida como "argumentos", es recibida por la función `main` a través de dos parámetros especiales: `argc` y `argv`.
 
-Entender cómo manipular estos parámetros es fundamental para crear
-herramientas de línea de comandos flexibles y potentes. Y aunque es opcional,
-entender como funciona la terminal termina siendo importante para lograr que
-nuestros programas se integren a la perfección.
+:::{note} Prerequisitos
+Este capítulo asume conocimiento de arreglos ({doc}`4_secuencias`) y punteros ({doc}`7_punteros`), ya que `argv` es un arreglo de punteros a cadenas (char *argv[]). Si estos conceptos no están claros, repasalos antes de continuar.
+:::
 
-La signatura estándar de la función `main` que acepta argumentos es la
-siguiente:
+Entender cómo manipular estos parámetros es fundamental para crear herramientas de línea de comandos flexibles y potentes. Y aunque es opcional, entender como funciona la terminal termina siendo importante para lograr que nuestros programas se integren a la perfección.
+
+La signatura estándar de la función `main` que acepta argumentos es la siguiente:
 
 ```c
 int main(int argc, char *argv[]) {
@@ -25,8 +22,7 @@ int main(int argc, char *argv[]) {
 }
 ```
 
-Estos dos parámetros contienen toda la información que se pasa al programa en el
-momento de su ejecución.
+Estos dos parámetros contienen toda la información que se pasa al programa en el momento de su ejecución.
 
 ```list-table
 :header-rows: 1
@@ -48,7 +44,6 @@ momento de su ejecución.
     - `argv[argc - 1]` es el último argumento.
     - `argv[argc]` es un puntero nulo (`NULL`), garantizado por el estándar de C.
 ```
-
 
 ## Ejemplo Básico: Imprimir Todos los Argumentos
 
@@ -111,11 +106,9 @@ Argumento 3: 42
 ```
 
 :::{note} Sobre los espacios
-
 Observá que "mundo con espacios" se trata como un solo argumento (`argv[2]`)
 porque está entre comillas. Sin las comillas, hubieran sido dos argumentos
 separados.
-
 :::
 
 ## Procesamiento de opciones
@@ -150,11 +143,9 @@ int main(int argc, char *argv[]) {
 ```
 
 :::{tip} Bibliotecas para el Análisis de Argumentos
-
 Para aplicaciones complejas con muchas opciones, analizar `argv` manualmente
 puede volverse tedioso y propenso a errores. Considerá usar bibliotecas estándar
 como `getopt` (en sistemas POSIX) que simplifican enormemente este proceso.
-
 :::
 
 ## Conversión de Argumentos a Números
@@ -206,14 +197,12 @@ gcc sumador.c -o sumador
 ```
 
 :::{warning} Manejo de Errores en la Conversión
-
 La función `atoi` ("ASCII to integer") es simple, pero tiene una limitación
 importante: si la cadena no puede ser convertida (ej. "hola"), retorna `0` sin
 indicar el error.
 
 Para un código más robusto, es preferible usar `strtol` ("string to long"), que
 ofrece un mecanismo para detectar si la conversión fue exitosa.
-
 :::
 
 ## Funciones de la librería estándar
@@ -230,12 +219,10 @@ Convierte una cadena de caracteres a un entero (`int`). Su nombre viene de
   partir de un argumento.
 
 :::{warning} Limitaciones de `atoi` `atoi`
-
 Estas funciones no tienenn un mecanismo para informar errores. Si la cadena no
 contiene un número válido (ej. "hola"), simplemente devuelve `0`. Esto es
 problemático porque "0" también es un número válido, y no podés distinguir un
 error de una entrada legítima de cero.
-
 :::
 
 ```c
@@ -273,11 +260,9 @@ de errores robusto. Su nombre viene de "string to long".
   devuelve `0` y `errno` se establece a un valor de error.
 
 :::{tip} ¿Por qué usar `strtol`?
-
 Al verificar el valor de `*endptr` después de llamar a `strtol`, podés saber
 exactamente si la conversión fue exitosa y cuántos caracteres de la cadena se
 utilizaron. Esto te permite detectar entradas inválidas como `"42abc"`.
-
 :::
 
 ```c
@@ -335,12 +320,10 @@ Ejecuta un comando del sistema operativo.
   se ejecutó correctamente.
 
 :::{warning} Riesgos de Seguridad
-
 Usar `system` Usar `system` con entradas que provienen del usuario es
 extremadamente peligroso, ya que puede permitir la inyección de comandos
 maliciosos. Usala con precaución y solo con comandos fijos o después de una
 validación muy rigurosa de la entrada.
-
 :::
 
 ```c
@@ -368,7 +351,6 @@ int main() {
     return EXIT_SUCCESS;
 }
 ```
-
 
 ### Números Pseudoaleatorios - `srand` y `rand`
 
@@ -404,7 +386,6 @@ int main() {
 ```
 
 :::{note} La Naturaleza de ` rand()`: Pseudoaleatorio, no Aleatorio
-
 Es crucial entender que funciones como ` rand()` no generan números
 verdaderamente aleatorios, sino **pseudoaleatorios**. Esto significa que los
 números se calculan mediante un algoritmo determinista. Si iniciás el generador
@@ -415,7 +396,6 @@ constantemente, como la hora del sistema obtenida con ` time(NULL)`.
 
 Entender esto es importante, sinó, preguntenlé a
 [Sony con la PS3](https://media.ccc.de/v/27c3-4087-en-console_hacking_2010)
-
 :::
 
 ### Interacción con el Entorno - `getenv`
@@ -433,11 +413,9 @@ Con `getenv`, podemos obtener el valor de una variable de entorno.
   variable. Si la variable no existe, devuelve `NULL`.
 
 :::{warning} Cuidado
-
 La cadena devuelta por `getenv` es propiedad del sistema y no debe ser
 modificada por tu programa. Si necesitás alterarla, primero debés copiarla a un
 nuevo bloque de memoria.
-
 :::
 
 ```c
@@ -477,14 +455,11 @@ científicas, de ingeniería, gráficas o cualquier tarea que requiera más que
 aritmética básica.
 
 :::{note}Sobre los tipos de las funciones:
-
 La mayoría de las funciones en `<math.h>` operan con el tipo de dato `double`.
 Existen versiones para `float` y `long double` que se identifican con los
 sufijos `f` y `l` respectivamente (ej. `sinf()`, `sinl()`). Por simplicidad,
 aquí nos enfocaremos en las versiones `double`.
-
 :::
-
 
 #### Valor absoluto - `abs`, `labs`, `llabs`
 
@@ -627,7 +602,6 @@ int main() {
 }
 ```
 
-
 ### Funciones de redondeo y manipulación
 
 #### `ceil`, `floor`, `round`
@@ -671,7 +645,6 @@ int main() {
 ```
 
 :::{important} ¡Necesitás enlazar la biblioteca matemática!
-
 A diferencia de `stdlib.h` o `stdio.h`, la biblioteca matemática a menudo no se
 vincula (enlaza) por defecto durante la compilación. Si obtenés errores como
 "undefined reference to `sin`", necesitás indicarle explícitamente al compilador
@@ -685,7 +658,6 @@ gcc mi_programa.c -o mi_programa -lm
 
 El `-l` le dice al enlazador que use una biblioteca, y la `m` es el nombre de la
 biblioteca matemática.
-
 :::
 
 ### Funciones sobre cadenas
@@ -704,7 +676,6 @@ Copian una cadena en otra.
   caracteres de `src` a `dest`.
 
 :::{danger} ¡Peligro con `strcpy`!
-
 La función `strcpy` no verifica si el búfer de destino (`dest`) tiene suficiente
 espacio para albergar la cadena de origen (`src`). Si `src` es más larga que
 `dest`, se producirá un **desbordamiento de búfer**, sobrescribiendo memoria
@@ -713,7 +684,6 @@ adyacente. **Evitá `strcpy` en favor de `strncpy` o alternativas más seguras.*
 `strncpy` es más segura, pero tené cuidado: si la longitud de `src` es `n` o
 más, el resultado en `dest` **no estará terminado en nulo**. Siempre debés
 asegurarte de agregar el `\0` manualmente.
-
 :::
 
 ##### `strcat` y `strncat`
@@ -726,10 +696,8 @@ Concatenan (unen) una cadena al final de otra.
   caracteres de `src` al final de `dest` y siempre añade un carácter nulo.
 
 :::{warning} Cuestiones de seguridad
-
 Al igual que `strcpy`, `strcat` es insegura y propensa a desbordamientos de
 búfer. `strncat` es la alternativa recomendada.
-
 :::
 
 ```c
@@ -818,7 +786,6 @@ int main() {
     return EXIT_SUCCESS;
 }
 ```
-
 
 #### Búsqueda
 

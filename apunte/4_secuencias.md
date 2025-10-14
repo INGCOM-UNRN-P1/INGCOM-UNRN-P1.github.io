@@ -139,13 +139,11 @@ El uso de `sizeof` es crucial en la gestión de memoria dinámica, un tema que s
 abordará más adelante.
 
 ::::{note}
-
 Para imprimir un valor de tipo {term}`size_t` con `printf`, se utiliza el
 especificador de formato `%zu`. El uso de `%d` o `%lu` puede provocar
 advertencias del compilador debido a posibles inconsistencias de tipo.
 
 ::::
-
 ### Acceso, Modificación y la Identidad del Arreglo
 
 Se accede a los elementos mediante el operador de subíndice `[]`, donde el
@@ -250,7 +248,6 @@ for (size_t i = 0; i < cantidad; i++) {
 ````
 
 ::::{warning} Cuestiones de límites
-
 C no verifica los límites del arreglo. Acceder a un índice fuera del rango
 (`numeros[5]` o `numeros[-1]`) resulta en **comportamiento indefinido**. Esto no
 siempre causa un error inmediato. Podría corromper datos de otras variables,
@@ -258,7 +255,6 @@ causar fallos de seguridad o funcionar aparentemente bien hasta que un cambio
 trivial en otra parte del código revele el error latente. Es responsabilidad del programador garantizar que esto no ocurra, como lo exige la regla {ref}`0x0027h`.
 
 ::::
-
 ### Arreglos de Longitud Variable (ALV/VLA)
 
 Desde el estándar C99, C permite declarar arreglos cuyo tamaño se determina en
@@ -291,10 +287,11 @@ De todas formas y como se imaginarán, hay una regla de estilo {ref}`0x000Eh`.
 
 ### El Mecanismo de Paso a Funciones
 
-Cuando un arreglo se pasa a una función, **no se crea una copia** del mismo. En
-su lugar, la función recibe la **dirección de memoria** del primer elemento. Es
-como darle a alguien la dirección de tu casa en lugar de una foto de ella;
-pueden entrar y redecorar.
+Cuando un arreglo se pasa a una función, **no se crea una copia** del mismo. En su lugar, la función recibe la **dirección de memoria** del primer elemento. Es como darle a alguien la dirección de tu casa en lugar de una foto de ella; pueden entrar y redecorar.
+
+:::{note} Relación con Punteros
+Este comportamiento está íntimamente relacionado con el concepto de punteros. Para una comprensión más profunda de cómo funcionan las direcciones de memoria y la relación entre arreglos y punteros, consultá el {doc}`7_punteros`.
+:::
 
 Esto explica dos situaciones clave:
 
@@ -395,13 +392,11 @@ void imprimir_arreglo(int arreglo[], size_t size);
 ````
 
 ::::{note} Uso de {term}`size_t`
-
 Aunque no es estrictamente necesario que sea de tipo {term}`size_t`, su uso se
 recomienda porque este tipo se asocia al tamaño o las 'dimensiones' de las
 cosas.
 
 ::::
-
 ### Retorno de Secuencias desde Funciones
 
 Una función **no puede retornar un arreglo local**. Cuando una función se
@@ -534,7 +529,6 @@ Y se encarga de recorrer la cadena hasta encontrarse un carácter nulo (`\0`)
 [Más información sobre `strlen`](https://en.cppreference.com/w/c/string/byte/strlen)
 
 ::::{note} Largo vs. capacidad
-
 Es muy importante tener en cuenta que las cadenas tienen dos "tamaños" diferentes.
 
 Tenemos, por un lado, el largo, que es la cantidad de caracteres hasta el terminador.
@@ -545,7 +539,6 @@ dimensión, la llamaremos "capacidad".
 Esta es la base para las cadenas seguras.
 
 ::::
-
 ### Lectura Segura de Cadenas
 
 El uso de `scanf("%s", buffer)` es una de las fuentes de errores de seguridad
@@ -583,7 +576,6 @@ y otras funciones disponibles.
 ## Glosario
 
 ::::{glossary}
-
 `size_t`
 
 : Según el estándar ISO C de 1999 (C99), **size_t** es un tipo de dato entero
@@ -608,7 +600,6 @@ lo que realmente sucede es que el contenido de este literal se **copia** al
 arreglo, permitiendo su modificación.
 
 ::::
-
 
 ## Ejercicios
 
@@ -752,7 +743,6 @@ la cantidad de vocales (mayúsculas y minúsculas) que contiene.
 
 ```
 
-
 ````{solution} contar_vocales
 
 :class: dropdown
@@ -786,7 +776,6 @@ int main()
     printf("Tiene %d vocales.\n", vocales);
     return 0;
 }
-
 
 ````
 

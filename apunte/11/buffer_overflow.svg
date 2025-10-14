@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <defs>
+    <style>
+      .stack-box { fill: #e3f2fd; stroke: #1976d2; stroke-width: 2; }
+      .stack-box-overflow { fill: #ffcdd2; stroke: #c62828; stroke-width: 2.5; }
+      .stack-box-corrupted { fill: #ffebee; stroke: #d32f2f; stroke-width: 3; }
+      .text { font-family: 'Courier New', monospace; font-size: 13px; fill: #333; text-anchor: middle; }
+      .label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #666; font-style: italic; }
+      .title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; fill: #333; font-weight: bold; text-anchor: middle; }
+      .arrow { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; fill: #666; }
+      .warning { font-size: 16px; }
+    </style>
+  </defs>
+  
+  <!-- Stack ANTES -->
+  <text x="130" y="20" class="title">Stack antes:</text>
+  
+  <!-- Top border -->
+  <line x1="40" y1="35" x2="220" y2="35" stroke="#1976d2" stroke-width="2"/>
+  
+  <!-- buffer[10] -->
+  <rect x="40" y="35" width="180" height="50" class="stack-box"/>
+  <text x="130" y="65" class="text">buffer[10]</text>
+  
+  <!-- Arrow and label -->
+  <text x="240" y="65" class="arrow">← Destino de escritura</text>
+  
+  <!-- Separator -->
+  <line x1="40" y1="85" x2="220" y2="85" stroke="#1976d2" stroke-width="1.5"/>
+  
+  <!-- ... (otros datos) -->
+  <rect x="40" y="85" width="180" height="40" class="stack-box"/>
+  <text x="130" y="110" class="text">...</text>
+  
+  <!-- Separator -->
+  <line x1="40" y1="125" x2="220" y2="125" stroke="#1976d2" stroke-width="1.5"/>
+  
+  <!-- Dirección retorno -->
+  <rect x="40" y="125" width="180" height="50" class="stack-box"/>
+  <text x="130" y="155" class="text">Dirección ret</text>
+  
+  <!-- Arrow and label -->
+  <text x="240" y="155" class="arrow">← Lo que queremos proteger</text>
+  
+  <!-- Bottom border -->
+  <line x1="40" y1="175" x2="220" y2="175" stroke="#1976d2" stroke-width="2"/>
+  
+  
+  <!-- Stack DESPUÉS -->
+  <text x="440" y="220" class="title">Stack después de overflow:</text>
+  
+  <!-- Top border -->
+  <line x1="350" y1="235" x2="530" y2="235" stroke="#c62828" stroke-width="2"/>
+  
+  <!-- buffer lleno -->
+  <rect x="350" y="235" width="180" height="50" class="stack-box-overflow"/>
+  <text x="440" y="265" class="text" font-weight="bold">AAAAAAAAAA</text>
+  
+  <!-- Arrow and label -->
+  <text x="550" y="265" class="arrow">← buffer lleno</text>
+  
+  <!-- Separator -->
+  <line x1="350" y1="285" x2="530" y2="285" stroke="#c62828" stroke-width="1.5"/>
+  
+  <!-- Overflow area -->
+  <rect x="350" y="285" width="180" height="40" class="stack-box-overflow"/>
+  <text x="440" y="310" class="text" font-weight="bold">AAAAAAAAAA</text>
+  
+  <!-- Arrow and label -->
+  <text x="550" y="310" class="arrow">← overflow sobrescribió...</text>
+  
+  <!-- Separator -->
+  <line x1="350" y1="325" x2="530" y2="325" stroke="#c62828" stroke-width="1.5"/>
+  
+  <!-- Corrupted return address -->
+  <rect x="350" y="325" width="180" height="50" class="stack-box-corrupted"/>
+  <text x="410" y="355" class="text" font-weight="bold">AAAA</text>
+  <text x="465" y="355" class="warning">⚠️</text>
+  
+  <!-- Arrow and label -->
+  <text x="550" y="355" class="arrow" fill="#c62828">← ...la dirección de retorno!</text>
+  
+  <!-- Bottom border -->
+  <line x1="350" y1="375" x2="530" y2="375" stroke="#c62828" stroke-width="2"/>
+</svg>

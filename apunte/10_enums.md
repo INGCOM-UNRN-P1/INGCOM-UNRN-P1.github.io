@@ -1,28 +1,23 @@
 ---
-title: "Enumeraciones (enum)"
-short_title: "11 - enum/struct/union"
-subtitle: "Tipos de datos compuestos"
+title: 'Enumeraciones (enum)'
+short_title: '10 - enum/struct/union'
+subtitle: 'Tipos de datos compuestos'
 ---
 
 ## `Enum`eraciones en C
 
-Las **enumeraciones** (`enum`) constituyen un mecanismo fundamental en el
-lenguaje C para la definición de tipos de datos que representan un **conjunto
-finito y discreto** de valores con nombres simbólicos. A diferencia de usar
-valores literales o constantes dispersas en el código, las enumeraciones
-proporcionan una abstracción semántica que mejora considerablemente la
-legibilidad, mantenibilidad y robustez del programa.
+Las **enumeraciones** (`enum`) constituyen un mecanismo fundamental en el lenguaje C para la definición de tipos de datos que representan un **conjunto finito y discreto** de valores con nombres simbólicos. A diferencia de usar valores literales o constantes dispersas en el código, las enumeraciones proporcionan una abstracción semántica que mejora considerablemente la legibilidad, mantenibilidad y robustez del programa.
 
-Desde una perspectiva técnica, las enumeraciones son esencialmente **constantes
-enteras nombradas** que el compilador traduce en tiempo de compilación. Sin
-embargo, permiten modelar de forma explícita conjuntos limitados de valores,
-estados o categorías.
+:::{note} Construcción sobre Fundamentos
+Este capítulo asume familiaridad con los tipos de datos básicos de C presentados en el {doc}`2_gradual`, particularmente los tipos enteros y el concepto de constantes. Las enumeraciones son esencialmente una forma elegante de trabajar con conjuntos de constantes enteras relacionadas.
+:::
 
+Desde una perspectiva técnica, las enumeraciones son esencialmente **constantes enteras nombradas** que el compilador traduce en tiempo de compilación. Sin embargo, permiten modelar de forma explícita conjuntos limitados de valores, estados o categorías.
 
 ### `enum` vs `const` vs `#define`
 
-Si este concepto te parece similar a las constantes `const` y a los literales
-de preprocesador `#define` estás en lo cierto y todas las consideraciones de uso
+Si este concepto te parece similar a las constantes `const` y a los literales de
+preprocesador `#define` estás en lo cierto y todas las consideraciones de uso
 aplican para cualquiera de los tres conceptos.
 
 Aunque es posible definir constantes enteras con `#define` o una serie de
@@ -155,11 +150,9 @@ operacion_matematica_t operacion = OPERACION_SUMA;
 ```
 
 :::{tip} Estilo
-
 Usá el sufijo `_t` para tipos definidos con `typedef`, siguiendo las
 convenciones del estándar POSIX. Esto hace evidente que se trata de un tipo de
 dato y no de una variable ({ref}`0x0001h`).
-
 :::
 
 ### Enumeraciones como Parámetros de Función
@@ -750,9 +743,9 @@ proporciona ejemplos completos y los comandos para que puedas compilar, ejecutar
 e inspeccionar el comportamiento de la memoria en tu propio sistema.
 
 :::{warning}
-
-Muchos detalles de bajo nivel, como el `padding` y el orden de los bits, son **dependientes de la implementación**. Los ejemplos asumen una arquitectura común (x86_64, little-endian), pero siempre debés verificar en tu plataforma.
-
+Muchos detalles de bajo nivel, como el `padding` y el orden de los bits, son
+**dependientes de la implementación**. Los ejemplos asumen una arquitectura
+común (x86_64, little-endian), pero siempre debés verificar en tu plataforma.
 :::
 
 # 1. Estructuras (`struct`): Agrupando Datos
@@ -1216,7 +1209,6 @@ int main() {
 ## Glosario
 
 :::{glossary}
-
 enumeración : Un tipo de dato en C que define un conjunto de constantes enteras
 nombradas. Permite asociar nombres simbólicos significativos a valores
 numéricos, mejorando la legibilidad del código y reduciendo errores relacionados
@@ -1248,5 +1240,4 @@ serialización : El proceso de convertir datos en memoria a un formato que puede
 almacenarse en un archivo o transmitirse por la red. Las enumeraciones requieren
 cuidado especial durante la serialización para mantener compatibilidad cuando
 cambian las definiciones.
-
 :::

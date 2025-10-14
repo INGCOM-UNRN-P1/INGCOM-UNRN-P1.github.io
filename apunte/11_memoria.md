@@ -32,9 +32,11 @@ La memoria virtual es una capa de abstracción que mapea direcciones virtuales (
 
 La memoria se divide en bloques de tamaño fijo llamados **páginas** (típicamente 4 KB en sistemas x86/x86_64). El sistema operativo gestiona la memoria en unidades de páginas, no bytes individuales. Cuando tu programa solicita memoria, el sistema operativo asigna páginas completas, aunque solo uses una porción de ellas.
 
-```asciiart
-Dirección Virtual → MMU (Memory Management Unit) → Dirección Física
-    0x00400000           [Tabla de Páginas]           0x1A3F2000
+```{figure} ./11/mmu_translation.svg
+:name: fig-mmu-translation
+:width: 90%
+
+Proceso de traducción de direcciones virtuales a físicas mediante la MMU (Memory Management Unit) y la tabla de páginas.
 ```
 
 :::{note} Implicaciones Prácticas
@@ -362,22 +364,22 @@ Cada asignación tiene un costo en memoria adicional (overhead) para almacenar l
 
 El allocator solicita memoria al sistema operativo en grandes cantidades (típicamente mediante `sbrk()` o `mmap()` en Unix/Linux) y luego la subdivide según las necesidades del programa. Esto reduce enormemente el número de llamadas al sistema, que son costosas.
 
-```asciiart
-Programa → malloc() → Allocator → [ocasionalmente] → SO → RAM física
-                         ↑
-                      [mantiene pool
-                       de memoria]
+```{figure} ./11/allocator_flow.svg
+:name: fig-allocator-flow
+:width: 100%
+
+Flujo de interacción entre el programa, las funciones de memoria (malloc/calloc/free), el allocator interno que mantiene un pool de memoria, y ocasionalmente el sistema operativo que proporciona acceso a la RAM física.
 ```
 
 **Coalescing (Fusión de bloques):**
 
 Cuando liberás un bloque con `free()`, el allocator intenta fusionarlo con bloques libres adyacentes para crear bloques más grandes. Esto ayuda a combatir la fragmentación externa.
 
-```asciiart
-Antes:  [USADO][LIBRE-A][USADO][LIBRE-B][LIBRE-C][USADO]
+```{figure} ./11/coalescing.svg
+:name: fig-coalescing
+:width: 100%
 
-Después de coalescing:
-        [USADO][LIBRE-A][USADO][LIBRE-BC (fusionado)][USADO]
+Proceso de coalescing (fusión) donde bloques libres adyacentes (LIBRE-B y LIBRE-C) se combinan en un único bloque más grande (LIBRE-BC fusionado).
 ```
 
 :::{tip} Implicaciones para el Programador
@@ -507,14 +509,11 @@ free(matriz);
 
 **Visualización en memoria:**
 
-```asciiart
-matriz → ┌───────┐
-         │ ptr 0 │ → [int][int][int][int]  (fila 0)
-         ├───────┤
-         │ ptr 1 │ → [int][int][int][int]  (fila 1)
-         ├───────┤
-         │ ptr 2 │ → [int][int][int][int]  (fila 2)
-         └───────┘
+```{figure} ./11/pointer_to_pointer_visual.svg
+:name: fig-ptr-to-ptr-visual
+:width: 90%
+
+Estructura de int **matriz mostrando un array de punteros donde cada puntero apunta a una fila diferente. Las filas están dispersas en memoria (no contiguas), lo que resulta en mala localidad de caché.
 ```
 
 **Desventaja:** Las filas no están contiguas en memoria, lo que reduce la localidad del caché.
@@ -1355,24 +1354,11 @@ void vulnerable()
 
 En el stack, un atacante puede sobrescribir la dirección de retorno para ejecutar código arbitrario:
 
-```
-Stack antes:
-┌────────────────┐
-│ buffer[10]     │ ← Destino de escritura
-├────────────────┤
-│ ...            │
-├────────────────┤
-│ Dirección ret  │ ← Lo que queremos proteger
-└────────────────┘
+```{figure} ./11/buffer_overflow.svg
+:name: fig-buffer-overflow
+:width: 100%
 
-Stack después de overflow:
-┌────────────────┐
-│ AAAAAAAAAA     │ ← buffer lleno
-├────────────────┤
-│ AAAAAAAAAA     │ ← overflow sobrescribió...
-├────────────────┤
-│ AAAA (⚠️)     │ ← ...la dirección de retorno!
-└────────────────┘
+Visualización de buffer overflow en el stack: antes del overflow el buffer tiene su espacio asignado y la dirección de retorno está protegida; después del overflow, datos excesivos (representados como 'A') sobrescriben el buffer, los datos intermedios, y finalmente corrompen la dirección de retorno, permitiendo potencialmente la ejecución de código malicioso.
 ```
 
 **Use-After-Free (UAF):**
@@ -3017,10 +3003,11 @@ Imaginá que tenés un estante con espacios libres dispersos de diferentes tama�
 
 **Ejemplo conceptual:**
 
-```asciiart
-Memoria inicial: [LIBRE________________]
-Después de 3 asignaciones: [A][B][C][LIBRE______]
-Después de liberar B: [A][LIBRE][C][LIBRE______]
+```{figure} ./11/fragmentacion_externa.svg
+:name: fig-fragmentacion-externa
+:width: 100%
+
+Proceso de fragmentación externa: se asignan tres bloques (A, B, C), luego se libera B dejando un hueco. Ahora hay dos bloques libres separados, pero ninguno puede satisfacer una solicitud del tamaño de A+B.
 ```
 
 Ahora hay dos bloques libres, pero si necesitás un bloque del tamaño de A+B, no podés usar el espacio libre entre A y C.

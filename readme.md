@@ -3,16 +3,6 @@ title: Bienvenida a Programación 1
 authors:
   - name: Martín René Vilugrón
     affiliation: UNRN
-exports:
-  - format: pdf
-    title: Programación 1
-    template: plain_latex_book
-    output: _build/exports/apunte.pdf
-    articles:
-      - file: apunte/1_catedra.md
-      - file: apunte/2_gradual.md
-      - file: apunte/3_funciones.md
-      - file: apunte/0_estilo.md
 ---
 
 # Bienvenidos a Programación 1
@@ -40,7 +30,7 @@ Este repositorio está organizado para acompañarlos de manera gradual en su apr
 
 ### El Apunte de Cátedra
 
-El [material principal de la materia](apunte/1_catedra.md) está diseñado para seguir el ritmo de las clases. Comienza con una introducción gradual al lenguaje C y avanza progresivamente hacia conceptos más complejos.
+El [material principal de la materia](apunte/0_catedra.md) está diseñado para seguir el ritmo de las clases. Comienza con una introducción gradual al lenguaje C y avanza progresivamente hacia conceptos más complejos.
 
 ### Guías de Trabajos Prácticos
 
@@ -93,6 +83,12 @@ $> uvx --from mystmd myst start
 ```
 
 Este comando se encargará de instalar todo lo necesario para previsualizar los cambios en tiempo real.
+
+### Documentos como Código
+
+Este sitio abraza la filosofía de "documentos como código". Todo el contenido, incluyendo el texto y los diagramas, se escribe en texto plano. Usamos [MyST Markdown](https://mystmd.org/) para el contenido, y los diagramas se generan directamente desde el código fuente usando herramientas como [Mermaid](https://mermaid.js.org/) y [Svgbob](https://svgbob.com/).
+
+Esto significa que los diagramas de flujo, esquemas y otras visualizaciones son tan fáciles de editar y versionar como el resto del apunte. ¡Animate a proponer mejoras visuales también!
 
 ### Agradecimientos
 

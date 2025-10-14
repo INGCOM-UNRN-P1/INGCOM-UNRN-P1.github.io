@@ -18,24 +18,16 @@ gestión de errores detallada y profesional.
 
 ## El `FILE`, la conexión con el archivo
 
-Toda operación sobre archivos en C se realiza a través de un puntero a una
-estructura especial y opaca llamada `FILE`. Esta estructura, definida en la
-biblioteca estándar `<stdio.h>`, actúa como un intermediario que contiene toda
-la información de estado necesaria para gestionar el flujo de datos ( _stream_ )
-hacia y desde el archivo.
+Toda operación sobre archivos en C se realiza a través de un puntero a una estructura especial y opaca llamada `FILE`. Esta estructura, definida en la biblioteca estándar `<stdio.h>`, actúa como un intermediario que contiene toda la información de estado necesaria para gestionar el flujo de datos ( _stream_ ) hacia y desde el archivo.
 
-Dentro de esta estructura, el sistema operativo y la biblioteca estándar de C
-manejan los detalles como:
+Dentro de esta estructura, el sistema operativo y la biblioteca estándar de C manejan los detalles como:
 
 - El **descriptor de archivo** a bajo nivel y en el sistema operativo.
-- La ubicación del **búfer de E/S** en memoria para optimizar lecturas y
-  escrituras.
+- La ubicación del **búfer de E/S** en memoria para optimizar lecturas y escrituras.
 - **Indicadores de estado**, como los flags de error y de fin de archivo (EOF).
 - La **posición actual** del cursor dentro del archivo.
 
-Al ser una **estructura opaca**, vos no necesitás conocer ni manipular sus
-miembros internos directamente. En su lugar, interactuás con el archivo a través
-de funciones que reciben un puntero a esta estructura.
+Al ser una **estructura opaca**, vos no necesitás conocer ni manipular sus miembros internos directamente. En su lugar, interactuás con el archivo a través de funciones que reciben un puntero a esta estructura.
 
 Para declarar un puntero a `FILE`, la sintaxis es simple:
 
@@ -43,11 +35,11 @@ Para declarar un puntero a `FILE`, la sintaxis es simple:
 FILE *puntero_archivo;
 ```
 
-Esta tiene un carácter extra, el `*`, esto indica que la variable
-`puntero_archivo` es de tipo "puntero a `FILE`". Los detalles sobre este tipo de
-variables los veremos un poco más adelante.
+:::{note} Punteros: Direcciones de Memoria
+Esta variable tiene un carácter extra, el `*`, que indica que `puntero_archivo` es de tipo "puntero a `FILE`". Un puntero almacena la dirección de memoria donde se encuentra el objeto (en este caso, la estructura FILE). Si necesitás repasar qué son los punteros, cómo se declaran, y cómo funcionan las direcciones de memoria, consultá el {doc}`7_punteros` donde se explica este concepto fundamental en detalle.
+:::
 
-Este, una vez que la función `fopen()` lo inicializa exitosamente, se convierte
+Este puntero, una vez que la función `fopen()` lo inicializa exitosamente, se convierte
 en tu identificador único para interactuar con ese archivo específico hasta que
 lo cierres con `fclose()`.
 
@@ -66,13 +58,11 @@ fundamental que exploraremos en detalle más adelante.
   con él.
 
 :::{seealso} El Rol de los Punteros
-
 El manejo de punteros es un pilar en la programación en C. Próximamente,
 profundizaremos en cómo los punteros nos permiten manipular direcciones de
 memoria directamente, lo cual es la base para entender cómo funcionan los
 arreglos, la gestión de memoria dinámica y, como vimos aquí, la interacción con
 sistemas externos como el sistema de archivos.
-
 :::
 
 Por ahora, es suficiente que entiendas que `puntero_archivo` es tu "manija" o
@@ -95,7 +85,6 @@ devuelve un puntero a dicha estructura. Si por alguna razón la operación falla
 (el archivo no existe, no tenés permisos, etc.), la función te devolverá `NULL`.
 
 :::{important} ¡La verificación con `NULL` es obligatoria!
-
 Nunca asumas que `fopen()` tendrá éxito. Una de las fuentes más comunes de
 errores y caídas inesperadas en programas de C es no verificar si el puntero
 devuelto es `NULL` antes de intentar usarlo, una práctica exigida por la regla de estilo {ref}`0x001Dh`.
@@ -103,7 +92,6 @@ devuelto es `NULL` antes de intentar usarlo, una práctica exigida por la regla 
 Esta función puede fallar de muchas formas y que no dependen de nuestro
 programa, con situaciones como, problemas de permisos, si el archivo existe (o
 no) , o algún fallo en el medio de almacenamiento en sí.
-
 :::
 
 La sintaxis, definida en `<stdio.h>`, es la siguiente:
@@ -219,12 +207,10 @@ traducciones. Para ello, simplemente agregá una `b` al final del modo (ej.
 `"rb"`, `"wb+"`, `"ab"`).
 
 :::{warning} Corrupción de Datos
-
 Abrir un archivo no textual en modo texto puede corromper irreversiblemente los
 datos, ya que secuencias de bytes que casualmente coincidan con caracteres
 especiales (como el de fin de línea) serán alteradas. Usá siempre el modo
 binario para archivos no textuales.
-
 ::: 
 
 Trabajar con archivos binarios es importante, pero complejo y requiere de un par
@@ -399,13 +385,11 @@ int main(void) {
 ```
 
 :::{important} Búferes y `fflush()`
-
 La E/S de archivos en C está _bufferizada_ por defecto para mejorar el
 rendimiento. Los datos no se escriben al disco inmediatamente, sino que se
 acumulan en un búfer. `fclose()` vacía (hace _flush_) este búfer
 automáticamente. Si necesitás forzar la escritura sin cerrar el archivo, podés
 usar `fflush(FILE *stream)`.
-
 ::: 
 
 ## Leyendo
@@ -451,12 +435,10 @@ char *fgets(char *cadena, int numero, FILE *stream);
 ```
 
 :::{warning} `numero` y `str`
-
 El argumento `numero` debe ser igual o menor a la capacidad de la `cadena`, ya que de otra forma
 la función provocará comportamiento no definido al escribir fuera del espacio de
 memoria de la `cadena`.
 :::
-
 
 ### `fscanf`
 
@@ -677,7 +659,6 @@ return EXIT_SUCCESS;
 No siempre querés leer un archivo secuencialmente. Las funciones de
 posicionamiento te permiten moverte a cualquier punto del archivo.
 
-
 ### `ftell`
 
 La función `ftell` se utiliza para obtener la posición actual del indicador de posición del fichero (el "cursor") dentro de un flujo. Devuelve esta posición como un número de bytes desde el inicio del archivo.
@@ -718,7 +699,6 @@ int fseek(FILE *stream, long int offset, int origin);
 ### `rewind`
 
 La función `rewind` es un caso especial y simplificado de `fseek`. Su única función es mover el indicador de posición del fichero de vuelta al inicio del archivo. Además, limpia cualquier indicador de error que pudiera tener el flujo.
-
 
 ```{code-block}c
 /**
@@ -799,12 +779,10 @@ crítica que:
 Devuelve `0` si tiene éxito y `EOF` si ocurre un error.
 
 :::{important} Cerrar lo abierto
-
 Siempre tenés que cerrar el archivo que abriste. No hacerlo puede resultar en
 pérdida de datos, corrupción de archivos y agotamiento de recursos del sistema.
 Es una de las causas más comunes de errores sutiles en programas que manejan
 archivos y una violación de la regla de estilo {ref}`0x001Dh`.
-
 ::: 
 
 Aunque parezca una simple formalidad, la llamada a `fclose()` también puede
@@ -906,7 +884,6 @@ perror("Error al leer el archivo de configuración");
 // Salida en stderr:
 // Error al leer el archivo de configuración: No such file or directory
 ```
-
 
 ### `strerror(int errnum)`: El traductor flexible
 

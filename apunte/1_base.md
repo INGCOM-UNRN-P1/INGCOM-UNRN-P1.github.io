@@ -1618,7 +1618,7 @@ Diagrama de flujo
   problema.
 
 :::{figure}
-xkcd-algorithms.png
+./1/xkcd-algorithms.png
 :alt: XKCD Algorithms
 :align: center
 
