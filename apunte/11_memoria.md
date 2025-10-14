@@ -1044,6 +1044,10 @@ La {ref}`0x001Ah` también enfatiza la simetría: si creaste una función `crear
 
 La gestión manual de memoria es una fuente frecuente de errores en C. Comprender estos errores y cómo prevenirlos es fundamental para escribir código robusto.
 
+:::{note} Errores Básicos de Punteros
+Los errores discutidos en esta sección son específicos de la gestión de memoria dinámica. Para errores básicos con punteros (como punteros salvajes, desreferencia de `NULL`, y problemas de inicialización), consultá primero el {doc}`7_punteros`, que cubre los conceptos fundamentales necesarios para trabajar con punteros de forma segura.
+:::
+
 (memoria-memory-leak)=
 ### Memory Leak (Fuga de Memoria)
 
