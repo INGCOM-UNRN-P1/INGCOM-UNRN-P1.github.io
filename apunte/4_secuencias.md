@@ -32,18 +32,16 @@ suficientemente grande para albergar todos sus elementos.
 
 `int mi_arreglo[4];`
 
-:::{iframe} https://ingcom-unrn.github.io/herramientas/p1/viz_arreglos?name=arreglo&type=int&data=%3F%2C%3F%2C%3F%2C%3F&mode=render&view_mode=compact
-:height: 400px
-Un arreglo sin inicializar
-:::
+Esta declaración reserva espacio para 4 enteros. Si un `int` ocupa 4 bytes, la disposición en memoria es contigua:
 
-Esta declaración reserva espacio para 4 enteros. Si un `int` ocupa 4 bytes, la
-disposición en memoria sería:
+```{figure} ./4/array_memory_layout.svg
+:name: fig-array-memory-layout
+:width: 100%
 
-`[ elem 0 (4 bytes) ][ elem 1 (4 bytes) ][ elem 2 (4 bytes) ][ elem 3 (4 bytes) ]`
+Disposición en memoria de un arreglo de enteros. Los elementos se almacenan de forma contigua, lo que permite calcular la dirección de cualquier elemento mediante aritmética: dirección_base + (índice × tamaño_elemento). Esta organización es fundamental para el acceso eficiente en tiempo constante O(1).
+```
 
-Esta contigüidad es lo que permite el acceso indexado (`mi_arreglo[2]`) de forma
-casi instantánea.
+Esta contigüidad es lo que permite el acceso indexado (`mi_arreglo[2]`) de forma casi instantánea.
 
 ### Declaración e Inicialización
 
@@ -59,6 +57,13 @@ estáticos:
   inicializan a cero por defecto.
 
 Formas de inicialización explícita:
+
+```{figure} ./4/array_initialization.svg
+:name: fig-array-initialization
+:width: 100%
+
+Tres formas de inicializar arreglos en C: completa (todos los valores especificados), parcial (valores restantes a cero), y con inicializadores designados C99 (índices específicos). Los elementos no inicializados explícitamente en arreglos locales contienen basura (regla {ref}`0x0003h`).
+```
 
 - **Completa**: `int arr[5] = {10, 20, 30, 40, 50};`
 - **Parcial**: `int arr[5] = {10, 20};` (los elementos restantes, `arr[2]` a
@@ -289,6 +294,13 @@ De todas formas y como se imaginarán, hay una regla de estilo {ref}`0x000Eh`.
 
 Cuando un arreglo se pasa a una función, **no se crea una copia** del mismo. En su lugar, la función recibe la **dirección de memoria** del primer elemento. Es como darle a alguien la dirección de tu casa en lugar de una foto de ella; pueden entrar y redecorar.
 
+```{figure} ./4/array_pass_by_reference.svg
+:name: fig-array-pass-by-reference
+:width: 100%
+
+Paso de arreglos a funciones por referencia: a diferencia de las variables simples (que se copian), los arreglos se pasan mediante su dirección de memoria. Tanto el arreglo original como el parámetro de la función apuntan a la misma ubicación, permitiendo modificaciones directas del contenido original.
+```
+
 :::{note} Relación con Punteros
 Este comportamiento está íntimamente relacionado con el concepto de punteros. Para una comprensión más profunda de cómo funcionan las direcciones de memoria y la relación entre arreglos y punteros, consultá el {doc}`7_punteros`.
 :::
@@ -421,11 +433,12 @@ Por ejemplo, la siguiente cadena:
 char cadena[7] = "Hola";
 ````
 
-En la memoria se vería como:
+```{figure} ./4/string_null_terminator.svg
+:name: fig-string-null-terminator
+:width: 100%
 
-:::{iframe} https://ingcom-unrn.github.io/herramientas/p1/viz_arreglos?name=cadena&type=char&data='h'%2C'o'%2C'l%2C'a'%2C'\0'%2C%3F%2C%3F&highlight=5%2C6&mode=render&view_mode=compact
-:height: 400px
-:::
+Representación en memoria de una cadena con terminador nulo. La cadena "Hola" ocupa 5 bytes (4 caracteres + '\0'), pero el arreglo tiene capacidad para 7. Los bytes no inicializados contienen basura. El terminador '\0' marca el fin lógico de la cadena y es esencial para las funciones de string.h.
+```
 
 En donde los `?` _quizás_ sean cero (`\0`), pero como no está inicializado, no
 podemos estar seguros del valor que tendrá, a todos los efectos prácticos, es
@@ -531,10 +544,16 @@ Y se encarga de recorrer la cadena hasta encontrarse un carácter nulo (`\0`)
 ::::{note} Largo vs. capacidad
 Es muy importante tener en cuenta que las cadenas tienen dos "tamaños" diferentes.
 
+```{figure} ./4/string_length_vs_capacity.svg
+:name: fig-string-length-vs-capacity
+:width: 100%
+
+Diferencia entre largo y capacidad: el largo (strlen) cuenta los caracteres hasta '\0' (sin incluirlo), mientras que la capacidad (sizeof) es el tamaño total del arreglo en memoria. La capacidad debe ser siempre mayor al largo para incluir el terminador nulo. Esta distinción es fundamental para operaciones seguras con cadenas.
+```
+
 Tenemos, por un lado, el largo, que es la cantidad de caracteres hasta el terminador.
 
-Y, por otro, tenemos el tamaño en memoria del arreglo de caracteres que guarda la cadena, que debiera de ser, por lo menos, uno más que el largo de la cadena. A esta
-dimensión, la llamaremos "capacidad". 
+Y, por otro, tenemos el tamaño en memoria del arreglo de caracteres que guarda la cadena, que debiera de ser, por lo menos, uno más que el largo de la cadena. A esta dimensión, la llamaremos "capacidad". 
 
 Esta es la base para las cadenas seguras.
 

@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <style>
+      .box-main { fill: #e8eaf6; stroke: #3f51b5; stroke-width: 2.5; }
+      .box-func { fill: #fff3e0; stroke: #ff9800; stroke-width: 2.5; }
+      .memory-array { fill: #c8e6c9; stroke: #2e7d32; stroke-width: 2; }
+      .text-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; fill: #333; font-weight: bold; text-anchor: middle; }
+      .text-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #555; text-anchor: middle; }
+      .text-code { font-family: 'Courier New', monospace; font-size: 11px; fill: #333; }
+      .text-comment { font-family: 'Courier New', monospace; font-size: 10px; fill: #666; font-style: italic; }
+      .arrow-pointer { stroke: #ff6f00; stroke-width: 3; fill: none; marker-end: url(#arrowhead-pointer); }
+      .arrow-flow { stroke: #666; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .value { font-family: 'Courier New', monospace; font-size: 12px; fill: #333; text-anchor: middle; font-weight: bold; }
+      .index { font-family: 'Courier New', monospace; font-size: 10px; fill: #f57f17; text-anchor: middle; }
+      .address { font-family: 'Courier New', monospace; font-size: 9px; fill: #666; text-anchor: middle; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#666"/>
+    </marker>
+    <marker id="arrowhead-pointer" markerWidth="12" markerHeight="12" refX="10" refY="3" orient="auto">
+      <polygon points="0 0, 12 3, 0 6" fill="#ff6f00"/>
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="400" y="25" class="text-title">Paso de Arreglos a Funciones (Por Referencia)</text>
+  
+  <!-- Main function -->
+  <rect x="50" y="50" width="300" height="120" class="box-main" rx="6"/>
+  <text x="200" y="72" class="text-label" font-weight="bold" fill="#3f51b5">int main()</text>
+  <text x="70" y="95" class="text-code">int numeros[] = {10, 20, 30};</text>
+  <text x="70" y="115" class="text-code" fill="#ff6f00" font-weight="bold">modificar(numeros, 3);</text>
+  <text x="70" y="135" class="text-comment">// Pasa la dirección del arreglo</text>
+  <text x="70" y="155" class="text-code">// numeros[0] ahora es 100</text>
+  
+  <!-- Arrow: function call -->
+  <path d="M 200 175 L 200 215" class="arrow-flow"/>
+  <text x="220" y="200" class="text-comment" font-weight="bold">llama ↓</text>
+  
+  <!-- Function -->
+  <rect x="50" y="220" width="300" height="100" class="box-func" rx="6"/>
+  <text x="200" y="242" class="text-label" font-weight="bold" fill="#ff9800">void modificar(int arr[], int n)</text>
+  <text x="70" y="265" class="text-comment">// arr es un puntero al arreglo</text>
+  <text x="70" y="285" class="text-code">arr[0] = 100;</text>
+  <text x="70" y="305" class="text-comment">// Modifica el arreglo original</text>
+  
+  <!-- Memory representation (shared) -->
+  <text x="600" y="72" class="text-label" font-weight="bold">Memoria (única copia)</text>
+  
+  <rect x="420" y="90" width="360" height="180" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="6"/>
+  <text x="600" y="115" class="text-label" fill="#2e7d32">Arreglo 'numeros' en memoria</text>
+  
+  <!-- Array cells -->
+  <rect x="480" y="130" width="70" height="60" class="memory-array" rx="3"/>
+  <text x="515" y="148" class="index">[0]</text>
+  <text x="515" y="170" class="value">10 → 100</text>
+  <text x="515" y="185" class="address">0x1000</text>
+  
+  <rect x="560" y="130" width="70" height="60" class="memory-array" rx="3"/>
+  <text x="595" y="148" class="index">[1]</text>
+  <text x="595" y="170" class="value">20</text>
+  <text x="595" y="185" class="address">0x1004</text>
+  
+  <rect x="640" y="130" width="70" height="60" class="memory-array" rx="3"/>
+  <text x="675" y="148" class="index">[2]</text>
+  <text x="675" y="170" class="value">30</text>
+  <text x="675" y="185" class="address">0x1008</text>
+  
+  <!-- Pointers from both functions -->
+  <path d="M 220 95 Q 350 95 480 160" class="arrow-pointer"/>
+  <text x="320" y="85" class="text-comment" fill="#ff6f00">numeros → 0x1000</text>
+  
+  <path d="M 220 265 Q 350 220 480 160" class="arrow-pointer"/>
+  <text x="320" y="240" class="text-comment" fill="#ff6f00">arr → 0x1000</text>
+  
+  <text x="600" y="220" class="text-label" fill="#2e7d32" font-weight="bold">Ambos apuntan</text>
+  <text x="600" y="235" class="text-label" fill="#2e7d32" font-weight="bold">al mismo lugar</text>
+  <text x="600" y="255" class="text-comment">No hay copia del arreglo</text>
+  
+  <!-- Bottom explanation -->
+  <rect x="50" y="350" width="700" height="85" fill="#fff3e0" stroke="#f57f17" stroke-width="2" rx="6"/>
+  <text x="400" y="375" class="text-label" font-weight="bold" fill="#f57f17" text-anchor="middle">
+    ⚠ Diferencia con Paso por Valor de Variables Simples
+  </text>
+  <text x="70" y="395" class="text-comment" text-anchor="start">
+    • Variables simples (int, float): Se crea una <tspan font-weight="bold">copia</tspan> del valor
+  </text>
+  <text x="70" y="410" class="text-comment" text-anchor="start">
+    • Arreglos: Se pasa la <tspan font-weight="bold">dirección de memoria</tspan> (sin copia)
+  </text>
+  <text x="70" y="425" class="text-comment" text-anchor="start">
+    • Resultado: Funciones pueden modificar el arreglo original directamente
+  </text>
+</svg>

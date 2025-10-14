@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 350">
+  <defs>
+    <style>
+      .memory-cell { fill: #e3f2fd; stroke: #1976d2; stroke-width: 2; }
+      .memory-address { font-family: 'Courier New', monospace; font-size: 11px; fill: #666; text-anchor: middle; }
+      .memory-value { font-family: 'Courier New', monospace; font-size: 13px; fill: #1565c0; text-anchor: middle; font-weight: bold; }
+      .memory-index { font-family: 'Courier New', monospace; font-size: 12px; fill: #f57f17; text-anchor: middle; font-weight: bold; }
+      .text-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; fill: #333; font-weight: bold; text-anchor: middle; }
+      .text-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #555; text-anchor: middle; }
+      .text-code { font-family: 'Courier New', monospace; font-size: 13px; fill: #333; }
+      .text-comment { font-family: 'Courier New', monospace; font-size: 11px; fill: #666; font-style: italic; }
+      .bracket { stroke: #2e7d32; stroke-width: 3; fill: none; }
+      .arrow { stroke: #f57f17; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .highlight-box { fill: #fff3e0; stroke: #ff9800; stroke-width: 2; stroke-dasharray: 5,5; opacity: 0.3; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#f57f17"/>
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="400" y="25" class="text-title">Disposición de Arreglo en Memoria</text>
+  
+  <!-- Code declaration -->
+  <rect x="50" y="45" width="250" height="40" fill="#f5f5f5" stroke="#999" stroke-width="1" rx="4"/>
+  <text x="175" y="70" class="text-code" text-anchor="middle">int mi_arreglo[4];</text>
+  
+  <!-- Memory layout explanation -->
+  <text x="650" y="65" class="text-label">Tamaño de int: 4 bytes</text>
+  <text x="650" y="82" class="text-label">Total: 4 × 4 = 16 bytes</text>
+  
+  <!-- Memory cells -->
+  <!-- Element 0 -->
+  <rect x="80" y="120" width="140" height="80" class="memory-cell" rx="4"/>
+  <text x="150" y="145" class="memory-index">[0]</text>
+  <text x="150" y="170" class="memory-value">?</text>
+  <text x="150" y="190" class="text-label" font-size="10px">4 bytes</text>
+  
+  <!-- Element 1 -->
+  <rect x="230" y="120" width="140" height="80" class="memory-cell" rx="4"/>
+  <text x="300" y="145" class="memory-index">[1]</text>
+  <text x="300" y="170" class="memory-value">?</text>
+  <text x="300" y="190" class="text-label" font-size="10px">4 bytes</text>
+  
+  <!-- Element 2 -->
+  <rect x="380" y="120" width="140" height="80" class="memory-cell" rx="4"/>
+  <text x="450" y="145" class="memory-index">[2]</text>
+  <text x="450" y="170" class="memory-value">?</text>
+  <text x="450" y="190" class="text-label" font-size="10px">4 bytes</text>
+  
+  <!-- Element 3 -->
+  <rect x="530" y="120" width="140" height="80" class="memory-cell" rx="4"/>
+  <text x="600" y="145" class="memory-index">[3]</text>
+  <text x="600" y="170" class="memory-value">?</text>
+  <text x="600" y="190" class="text-label" font-size="10px">4 bytes</text>
+  
+  <!-- Memory addresses -->
+  <text x="150" y="215" class="memory-address">0x1000</text>
+  <text x="300" y="215" class="memory-address">0x1004</text>
+  <text x="450" y="215" class="memory-address">0x1008</text>
+  <text x="600" y="215" class="memory-address">0x100C</text>
+  
+  <!-- Continuity bracket -->
+  <path d="M 75 230 L 75 245 L 675 245 L 675 230" class="bracket"/>
+  <text x="375" y="265" class="text-label" fill="#2e7d32" font-weight="bold">Bloque continuo de memoria</text>
+  
+  <!-- Access example -->
+  <text x="400" y="295" class="text-title" font-size="14px">Acceso Indexado</text>
+  
+  <rect x="80" y="310" width="300" height="30" fill="#fff9c4" stroke="#f57f17" stroke-width="1.5" rx="4"/>
+  <text x="95" y="330" class="text-code">mi_arreglo[2]</text>
+  
+  <!-- Arrow pointing to element 2 -->
+  <path d="M 230 325 L 380 180" class="arrow"/>
+  
+  <rect x="420" y="310" width="300" height="30" fill="#e8f5e9" stroke="#4caf50" stroke-width="1.5" rx="4"/>
+  <text x="435" y="330" class="text-comment">= valor en dirección (0x1000 + 2*4)</text>
+</svg>

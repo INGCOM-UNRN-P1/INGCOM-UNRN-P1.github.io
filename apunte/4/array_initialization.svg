@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 678.36304 665.17682"
+   version="1.1"
+   id="svg50"
+   sodipodi:docname="array_initialization.svg"
+   width="678.36304"
+   height="665.17682"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview50"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.0119484"
+     inkscape:cx="278.17625"
+     inkscape:cy="354.26709"
+     inkscape:window-width="1872"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg50" />
+  <defs
+     id="defs1">
+    <style
+       id="style1">
+      .cell-init { fill: #c8e6c9; stroke: #2e7d32; stroke-width: 2; }
+      .cell-zero { fill: #e3f2fd; stroke: #1976d2; stroke-width: 2; }
+      .cell-uninit { fill: #ffebee; stroke: #c62828; stroke-width: 2; stroke-dasharray: 4,4; }
+      .text-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; fill: #333; font-weight: bold; text-anchor: middle; }
+      .text-subtitle { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; fill: #555; font-weight: bold; text-anchor: middle; }
+      .text-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; fill: #555; text-anchor: middle; }
+      .text-code { font-family: 'Courier New', monospace; font-size: 11px; fill: #333; }
+      .value { font-family: 'Courier New', monospace; font-size: 13px; fill: #333; text-anchor: middle; font-weight: bold; }
+      .index { font-family: 'Courier New', monospace; font-size: 10px; fill: #f57f17; text-anchor: middle; }
+    </style>
+  </defs>
+  <rect
+     style="fill:none;fill-opacity:1;stroke:none;stroke-width:5.35987;stroke-dasharray:none;stroke-opacity:1"
+     id="rect76"
+     width="678.36304"
+     height="665.17682"
+     x="0"
+     y="0"
+     rx="4.1794114" />
+  <!-- Title -->
+  <!-- Example 1: Complete initialization -->
+  <!-- Cells for example 1 -->
+  <!-- Example 2: Partial initialization -->
+  <!-- Cells for example 2 -->
+  <!-- Example 3: Designated initializers -->
+  <!-- Cells for example 3 -->
+  <!-- Legend -->
+  <g
+     id="legend"
+     transform="translate(490.20514,186.83341)">
+    <rect
+       x="50"
+       y="100"
+       width="100"
+       height="25"
+       class="cell-init"
+       rx="3"
+       id="rect41" />
+    <text
+       x="100"
+       y="118"
+       class="text-label"
+       id="text42">Inicializado</text>
+    <rect
+       x="50"
+       y="135"
+       width="100"
+       height="25"
+       class="cell-zero"
+       rx="3"
+       id="rect42" />
+    <text
+       x="100"
+       y="153"
+       class="text-label"
+       id="text43">Auto-cero</text>
+    <rect
+       x="50"
+       y="170"
+       width="100"
+       height="25"
+       class="cell-uninit"
+       rx="3"
+       id="rect43"
+       style="stroke-dasharray:none" />
+    <text
+       x="100"
+       y="188"
+       class="text-label"
+       id="text44">Sin inicializar</text>
+  </g>
+  <!-- Warning note -->
+  <text
+     x="597.61945"
+     y="168.73163"
+     class="text-label"
+     text-anchor="start"
+     id="text49"
+     style="fill:#000000;fill-opacity:1" />
+  <g
+     id="g76"
+     transform="translate(-126.42711,18.837223)">
+    <text
+       x="450"
+       y="25"
+       class="text-title"
+       id="text1">Formas de Inicialización de Arreglos</text>
+    <g
+       id="g75">
+      <text
+         x="164.23965"
+         y="55"
+         class="text-subtitle"
+         id="text2"
+         style="text-align:start;text-anchor:start">1. Inicialización Completa</text>
+      <g
+         id="g68"
+         transform="translate(15.811083)">
+        <rect
+           x="149.93008"
+           y="64.930084"
+           width="448.5094"
+           height="25.011099"
+           fill="#f5f5f5"
+           stroke="#999999"
+           stroke-width="0.946375"
+           rx="2.242547"
+           id="rect2" />
+        <text
+           x="160"
+           y="82"
+           class="text-code"
+           id="text3">int arr[5] = {10, 20, 30, 40, 50};</text>
+      </g>
+      <g
+         id="complete"
+         transform="translate(19.995867)">
+        <rect
+           x="200"
+           y="100"
+           width="60"
+           height="50"
+           class="cell-init"
+           rx="3"
+           id="rect3" />
+        <text
+           x="230"
+           y="118"
+           class="index"
+           id="text4">[0]</text>
+        <text
+           x="230"
+           y="138"
+           class="value"
+           id="text5">10</text>
+        <rect
+           x="270"
+           y="100"
+           width="60"
+           height="50"
+           class="cell-init"
+           rx="3"
+           id="rect5" />
+        <text
+           x="300"
+           y="118"
+           class="index"
+           id="text6">[1]</text>
+        <text
+           x="300"
+           y="138"
+           class="value"
+           id="text7">20</text>
+        <rect
+           x="340"
+           y="100"
+           width="60"
+           height="50"
+           class="cell-init"
+           rx="3"
+           id="rect7" />
+        <text
+           x="370"
+           y="118"
+           class="index"
+           id="text8">[2]</text>
+        <text
+           x="370"
+           y="138"
+           class="value"
+           id="text9">30</text>
+        <rect
+           x="410"
+           y="100"
+           width="60"
+           height="50"
+           class="cell-init"
+           rx="3"
+           id="rect9" />
+        <text
+           x="440"
+           y="118"
+           class="index"
+           id="text10">[3]</text>
+        <text
+           x="440"
+           y="138"
+           class="value"
+           id="text11">40</text>
+        <rect
+           x="480"
+           y="100"
+           width="60"
+           height="50"
+           class="cell-init"
+           rx="3"
+           id="rect11" />
+        <text
+           x="510"
+           y="118"
+           class="index"
+           id="text12">[4]</text>
+        <text
+           x="510"
+           y="138"
+           class="value"
+           id="text13">50</text>
+      </g>
+      <text
+         x="390.09525"
+         y="170"
+         class="text-label"
+         id="text14">Todos los elementos inicializados explícitamente</text>
+    </g>
+    <g
+       id="g74"
+       transform="translate(0,2.6295573)">
+      <text
+         x="164.94424"
+         y="200"
+         class="text-subtitle"
+         id="text15"
+         style="text-align:start;text-anchor:start">2. Inicialización Parcial</text>
+      <g
+         id="g69"
+         transform="translate(13.378451)">
+        <rect
+           x="152.36272"
+           y="209.99446"
+           width="448.5094"
+           height="25.011099"
+           fill="#f5f5f5"
+           stroke="#999999"
+           stroke-width="0.946375"
+           rx="2.242547"
+           id="rect15" />
+        <text
+           x="160"
+           y="227"
+           class="text-code"
+           id="text16">int arr[5] = {10, 20};</text>
+        <text
+           x="420"
+           y="227"
+           class="text-code"
+           fill="#2196f3"
+           id="text17">// resto a cero</text>
+      </g>
+      <g
+         id="partial"
+         transform="translate(19.995867)">
+        <rect
+           x="200"
+           y="245"
+           width="60"
+           height="50"
+           class="cell-init"
+           rx="3"
+           id="rect17" />
+        <text
+           x="230"
+           y="263"
+           class="index"
+           id="text18">[0]</text>
+        <text
+           x="230"
+           y="283"
+           class="value"
+           id="text19">10</text>
+        <rect
+           x="270"
+           y="245"
+           width="60"
+           height="50"
+           class="cell-init"
+           rx="3"
+           id="rect19" />
+        <text
+           x="300"
+           y="263"
+           class="index"
+           id="text20">[1]</text>
+        <text
+           x="300"
+           y="283"
+           class="value"
+           id="text21">20</text>
+        <rect
+           x="340"
+           y="245"
+           width="60"
+           height="50"
+           class="cell-zero"
+           rx="3"
+           id="rect21" />
+        <text
+           x="370"
+           y="263"
+           class="index"
+           id="text22">[2]</text>
+        <text
+           x="370"
+           y="283"
+           class="value"
+           id="text23">0</text>
+        <rect
+           x="410"
+           y="245"
+           width="60"
+           height="50"
+           class="cell-zero"
+           rx="3"
+           id="rect23" />
+        <text
+           x="440"
+           y="263"
+           class="index"
+           id="text24">[3]</text>
+        <text
+           x="440"
+           y="283"
+           class="value"
+           id="text25">0</text>
+        <rect
+           x="480"
+           y="245"
+           width="60"
+           height="50"
+           class="cell-zero"
+           rx="3"
+           id="rect25" />
+        <text
+           x="510"
+           y="263"
+           class="index"
+           id="text26">[4]</text>
+        <text
+           x="510"
+           y="283"
+           class="value"
+           id="text27">0</text>
+      </g>
+      <text
+         x="389.82401"
+         y="315"
+         class="text-label"
+         id="text28">Elementos restantes inicializados automáticamente a 0</text>
+    </g>
+    <g
+       id="g73"
+       transform="translate(0,3.2073568)">
+      <text
+         x="164.77921"
+         y="345"
+         class="text-subtitle"
+         id="text29"
+         style="text-align:start;text-anchor:start">3. Inicializadores Designados (C99)</text>
+      <g
+         id="g70"
+         transform="translate(15.811083)">
+        <rect
+           x="149.93008"
+           y="355.05881"
+           width="448.5094"
+           height="25.011099"
+           fill="#f5f5f5"
+           stroke="#999999"
+           stroke-width="0.946375"
+           rx="2.242547"
+           id="rect29" />
+        <text
+           x="160"
+           y="372"
+           class="text-code"
+           id="text30">int arr[5] = {[0] = 10, [4] = 50};</text>
+      </g>
+      <g
+         id="designated"
+         transform="translate(19.995867)">
+        <rect
+           x="200"
+           y="390"
+           width="60"
+           height="50"
+           class="cell-init"
+           rx="3"
+           id="rect30" />
+        <text
+           x="230"
+           y="408"
+           class="index"
+           id="text31">[0]</text>
+        <text
+           x="230"
+           y="428"
+           class="value"
+           id="text32">10</text>
+        <rect
+           x="270"
+           y="390"
+           width="60"
+           height="50"
+           class="cell-zero"
+           rx="3"
+           id="rect32" />
+        <text
+           x="300"
+           y="408"
+           class="index"
+           id="text33">[1]</text>
+        <text
+           x="300"
+           y="428"
+           class="value"
+           id="text34">0</text>
+        <rect
+           x="340"
+           y="390"
+           width="60"
+           height="50"
+           class="cell-zero"
+           rx="3"
+           id="rect34" />
+        <text
+           x="370"
+           y="408"
+           class="index"
+           id="text35">[2]</text>
+        <text
+           x="370"
+           y="428"
+           class="value"
+           id="text36">0</text>
+        <rect
+           x="410"
+           y="390"
+           width="60"
+           height="50"
+           class="cell-zero"
+           rx="3"
+           id="rect36" />
+        <text
+           x="440"
+           y="408"
+           class="index"
+           id="text37">[3]</text>
+        <text
+           x="440"
+           y="428"
+           class="value"
+           id="text38">0</text>
+        <rect
+           x="480"
+           y="390"
+           width="60"
+           height="50"
+           class="cell-init"
+           rx="3"
+           id="rect38" />
+        <text
+           x="510"
+           y="408"
+           class="index"
+           id="text39">[4]</text>
+        <text
+           x="510"
+           y="428"
+           class="value"
+           id="text40">50</text>
+      </g>
+      <text
+         x="450"
+         y="460"
+         class="text-label"
+         id="text41">Solo índices específicos; el resto a 0</text>
+    </g>
+    <g
+       id="g72">
+      <text
+         x="165.02676"
+         y="490.34161"
+         class="text-subtitle"
+         id="text51"
+         style="text-align:start;text-anchor:start">4. Sin Inicializar⚠</text>
+      <g
+         id="g71"
+         transform="translate(15.811083)">
+        <rect
+           x="149.93008"
+           y="500.40042"
+           width="448.5094"
+           height="25.011099"
+           fill="#f5f5f5"
+           stroke="#999999"
+           stroke-width="0.946375"
+           rx="2.242547"
+           id="rect51" />
+        <text
+           x="160"
+           y="517.34161"
+           class="text-code"
+           id="text52">int arr[5];</text>
+      </g>
+      <g
+         id="g67"
+         transform="translate(19.995867)">
+        <rect
+           x="200"
+           y="535.34161"
+           width="60"
+           height="50"
+           class="cell-init"
+           rx="3"
+           id="rect52"
+           style="fill:#ffebee;fill-opacity:1;stroke:#c62828;stroke-opacity:1" />
+        <text
+           x="230"
+           y="553.34161"
+           class="index"
+           id="text53">[0]</text>
+        <text
+           x="230"
+           y="573.34161"
+           class="value"
+           id="text54">?</text>
+        <rect
+           x="270"
+           y="535.34161"
+           width="60"
+           height="50"
+           class="cell-zero"
+           rx="3"
+           id="rect54"
+           style="fill:#ffebee;fill-opacity:1;stroke:#c62828;stroke-opacity:1" />
+        <text
+           x="300"
+           y="553.34161"
+           class="index"
+           id="text55">[1]</text>
+        <text
+           x="300"
+           y="573.34161"
+           class="value"
+           id="text56">?</text>
+        <rect
+           x="340"
+           y="535.34161"
+           width="60"
+           height="50"
+           class="cell-zero"
+           rx="3"
+           id="rect56"
+           style="fill:#ffebee;fill-opacity:1;stroke:#c62828;stroke-opacity:1" />
+        <text
+           x="370"
+           y="553.34161"
+           class="index"
+           id="text57">[2]</text>
+        <text
+           x="370"
+           y="573.34161"
+           class="value"
+           id="text58">?</text>
+        <rect
+           x="410"
+           y="535.34161"
+           width="60"
+           height="50"
+           class="cell-zero"
+           rx="3"
+           id="rect58"
+           style="fill:#ffebee;fill-opacity:1;stroke:#c62828;stroke-opacity:1" />
+        <text
+           x="440"
+           y="553.34161"
+           class="index"
+           id="text59">[3]</text>
+        <text
+           x="440"
+           y="573.34161"
+           class="value"
+           id="text60">?</text>
+        <rect
+           x="480"
+           y="535.34161"
+           width="60"
+           height="50"
+           class="cell-init"
+           rx="3"
+           id="rect60"
+           style="fill:#ffebee;fill-opacity:1;stroke:#c62828;stroke-opacity:1" />
+        <text
+           x="510"
+           y="553.34161"
+           class="index"
+           id="text61">[4]</text>
+        <text
+           x="510"
+           y="573.34161"
+           class="value"
+           id="text62">?</text>
+      </g>
+      <text
+         x="389.92068"
+         y="601.57587"
+         class="text-label"
+         id="text63"><tspan
+           sodipodi:role="line"
+           id="tspan63"
+           x="389.92068"
+           y="601.57587">Contienen basura (valores indeterminados)</tspan><tspan
+           sodipodi:role="line"
+           id="tspan64"
+           x="389.92068"
+           y="615.32587"><tspan
+   style="font-weight:bold"
+   id="tspan65">Ver Regla</tspan>{0x0003h}</tspan></text>
+    </g>
+  </g>
+</svg>
