@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 500">
+  <defs>
+    <style>
+      .file-box { fill: #f9f; stroke: #333; stroke-width: 2; }
+      .exec-box { fill: #ccf; stroke: #333; stroke-width: 2; }
+      .process-box { fill: #fff; stroke: #333; stroke-width: 2; rx: 10; }
+      .text { font-family: Arial, sans-serif; font-size: 14px; text-anchor: middle; }
+      .arrow { stroke: #333; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#333" />
+    </marker>
+  </defs>
+  
+  <!-- Archivo fuente -->
+  <rect class="file-box" x="250" y="10" width="100" height="40" />
+  <text class="text" x="300" y="35">programa.c</text>
+  
+  <!-- Arrow -->
+  <path class="arrow" d="M 300 50 L 300 80" />
+  
+  <!-- Preprocesador -->
+  <rect class="process-box" x="220" y="80" width="160" height="50" />
+  <text class="text" x="300" y="110">1. Preprocesador</text>
+  
+  <!-- Arrow -->
+  <path class="arrow" d="M 300 130 L 300 160" />
+  
+  <!-- Archivo preprocesado -->
+  <rect class="file-box" x="250" y="160" width="100" height="40" />
+  <text class="text" x="300" y="185">programa.i</text>
+  
+  <!-- Arrow -->
+  <path class="arrow" d="M 300 200 L 300 230" />
+  
+  <!-- Compilador -->
+  <rect class="process-box" x="220" y="230" width="160" height="50" />
+  <text class="text" x="300" y="260">2. Compilador</text>
+  
+  <!-- Arrow -->
+  <path class="arrow" d="M 300 280 L 300 310" />
+  
+  <!-- Archivo ensamblador -->
+  <rect class="file-box" x="250" y="310" width="100" height="40" />
+  <text class="text" x="300" y="335">programa.s</text>
+  
+  <!-- Arrow -->
+  <path class="arrow" d="M 300 350 L 300 380" />
+  
+  <!-- Ensamblador -->
+  <rect class="process-box" x="220" y="380" width="160" height="50" />
+  <text class="text" x="300" y="410">3. Ensamblador</text>
+  
+  <!-- Arrow -->
+  <path class="arrow" d="M 300 430 L 300 460" />
+  
+  <!-- Archivo objeto -->
+  <rect class="file-box" x="250" y="460" width="100" height="40" />
+  <text class="text" x="300" y="485">programa.o</text>
+  
+  <!-- Arrow to linker column -->
+  <path class="arrow" d="M 350 480 L 420 480 L 420 350" />
+  
+  <!-- Enlazador -->
+  <rect class="process-box" x="370" y="300" width="160" height="50" />
+  <text class="text" x="450" y="330">4. Enlazador</text>
+  
+  <!-- Arrow -->
+  <path class="arrow" d="M 450 300 L 450 270" />
+  
+  <!-- Ejecutable -->
+  <rect class="exec-box" x="400" y="220" width="100" height="50" />
+  <text class="text" x="450" y="250">mi_programa</text>
+  <text class="text" style="font-size: 11px;" x="450" y="265">(ejecutable)</text>
+  
+  <!-- Bibliotecas -->
+  <rect class="file-box" x="50" y="300" width="100" height="40" />
+  <text class="text" x="100" y="325">Bibliotecas</text>
+  <path class="arrow" d="M 150 320 L 370 325" />
+</svg>

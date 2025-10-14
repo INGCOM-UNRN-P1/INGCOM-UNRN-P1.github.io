@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 450">
+  <defs>
+    <style>
+      .section-box { fill: #e8f4f8; stroke: #0066aa; stroke-width: 2; rx: 5; }
+      .process-box { fill: #fff; stroke: #333; stroke-width: 2; rx: 10; }
+      .final-box { fill: #d4edda; stroke: #28a745; stroke-width: 2; }
+      .text { font-family: Arial, sans-serif; font-size: 14px; text-anchor: middle; }
+      .section-title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; text-anchor: middle; }
+      .arrow { stroke: #333; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#333" />
+    </marker>
+  </defs>
+  
+  <!-- Entrada inicial -->
+  <rect class="final-box" x="260" y="10" width="180" height="40" />
+  <text class="text" x="350" y="35">Código C Preprocesado</text>
+  
+  <!-- Arrow -->
+  <path class="arrow" d="M 350 50 L 350 80" />
+  
+  <!-- Frontend Section -->
+  <rect class="section-box" x="50" y="80" width="600" height="180" />
+  <text class="section-title" x="350" y="105">Frontend del Compilador</text>
+  
+  <!-- Análisis Léxico -->
+  <rect class="process-box" x="100" y="120" width="150" height="50" />
+  <text class="text" x="175" y="150">Análisis Léxico</text>
+  
+  <!-- Arrow -->
+  <path class="arrow" d="M 250 145 L 290 145" />
+  
+  <!-- Análisis Sintáctico -->
+  <rect class="process-box" x="290" y="120" width="150" height="50" />
+  <text class="text" x="365" y="150">Análisis Sintáctico</text>
+  
+  <!-- Arrow -->
+  <path class="arrow" d="M 440 145 L 480 145" />
+  
+  <!-- Análisis Semántico -->
+  <rect class="process-box" x="480" y="120" width="150" height="50" />
+  <text class="text" x="555" y="150">Análisis Semántico</text>
+  
+  <!-- Arrow down from frontend -->
+  <path class="arrow" d="M 350 170 L 350 200 L 350 270" />
+  
+  <!-- Backend Section -->
+  <rect class="section-box" x="50" y="270" width="600" height="160" />
+  <text class="section-title" x="350" y="295">Backend del Compilador</text>
+  
+  <!-- Generación Código Intermedio -->
+  <rect class="process-box" x="80" y="310" width="180" height="50" />
+  <text class="text" x="170" y="330">Generación de Código</text>
+  <text class="text" x="170" y="348">Intermedio</text>
+  
+  <!-- Arrow -->
+  <path class="arrow" d="M 260 335 L 310 335" />
+  
+  <!-- Optimización -->
+  <rect class="process-box" x="310" y="310" width="140" height="50" />
+  <text class="text" x="380" y="340">Optimización</text>
+  
+  <!-- Arrow -->
+  <path class="arrow" d="M 450 335 L 500 335" />
+  
+  <!-- Código Ensamblador (salida final) -->
+  <rect class="final-box" x="500" y="310" width="130" height="50" />
+  <text class="text" x="565" y="335">Código</text>
+  <text class="text" x="565" y="353">Ensamblador</text>
+</svg>

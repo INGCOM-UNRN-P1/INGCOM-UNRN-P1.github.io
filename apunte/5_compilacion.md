@@ -27,22 +27,11 @@ Comprender esta transformación del código, desde `programa.c` hasta `mi_progra
 El flujo de transformación desde tu código fuente hasta un programa ejecutable
 se puede visualizar de la siguiente manera:
 
-```{mermaid}
-graph TD
-    A[programa.c] --> B{1. Preprocesador};
-    B --> C[programa.i];
-    C --> D{2. Compilador};
-    D --> E[programa.s];
-    E --> F{3. Ensamblador};
-    F --> G[programa.o];
-    G --> H{4. Enlazador};
-    H --> I[mi_programa];
+```{figure} ./5/proceso_compilacion.svg
+:name: fig-proceso-compilacion
+:width: 60%
 
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style C fill:#f9f,stroke:#333,stroke-width:2px
-    style E fill:#f9f,stroke:#333,stroke-width:2px
-    style G fill:#f9f,stroke:#333,stroke-width:2px
-    style I fill:#ccf,stroke:#333,stroke-width:2px
+Proceso completo de compilación desde el código fuente hasta el ejecutable, mostrando las cuatro fases principales y los archivos intermedios generados.
 ```
 
 ### Fase 1: Preprocesado (Preprocessing)
@@ -151,25 +140,11 @@ RISC-V).
 El compilador no solo traduce, sino que también analiza y optimiza el código.
 Este proceso se puede descomponer en varias sub-fases:
 
-```{mermaid}
-flowchart TD
- subgraph subGraph0["Frontend del Compilador"]
-        B{"Análisis Léxico"}
-        C{"Análisis Sintáctico"}
-        D{"Análisis Semántico"}
-  end
- subgraph subGraph1["Backend del Compilador"]
-        E{"Generación de Código Intermedio"}
-        F{"Optimización"}
-        G["Código Ensamblador"]
-  end
-    A["Código C Preprocesado"] --> B
-    B --> C
-    C --> D
-    D --> E
-    E --> F
-    F --> G
+```{figure} ./5/fases_compilador.svg
+:name: fig-fases-compilador
+:width: 90%
 
+Fases del compilador divididas en Frontend (análisis léxico, sintáctico y semántico) y Backend (generación de código intermedio, optimización y código ensamblador).
 ```
 
 #### Análisis Léxico y Sintáctico
