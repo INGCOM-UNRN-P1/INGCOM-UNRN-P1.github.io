@@ -1102,7 +1102,7 @@ int main() {
 Implementá un procedimiento `void invertir_arreglo(int *arreglo, size_t n)` que invierta el orden de los elementos de un arreglo "in-place" (sin usar un arreglo auxiliar). Utilizá dos punteros: uno que apunte al inicio del arreglo y otro que apunte al final. Intercambiá los valores a los que apuntan y mové los punteros hacia el centro hasta que se crucen.
 ```
 
-`````{solution} invertir_arreglo_inplace
+````{solution} invertir_arreglo_inplace
 :class: dropdown
 
 ```{code-block}c
@@ -1151,7 +1151,20 @@ int main() {
   return 0;
 }
 ```
-````turn 0;
-}
-```
-`````
+````
+
+## Próximos Pasos: Memoria Dinámica
+
+Los punteros que estudiaste en este capítulo son fundamentales, pero hasta ahora solo trabajaste con memoria que el compilador gestiona automáticamente (variables locales y globales). El verdadero poder de los punteros se revela cuando aprendés a gestionar memoria **dinámicamente** durante la ejecución del programa.
+
+En el {doc}`11_memoria`, vas a aprender sobre:
+
+- **El heap (montón):** Una región de memoria que podés solicitar y liberar bajo demanda.
+- **Funciones de asignación dinámica:** Como `malloc` y `calloc`, que te permiten crear estructuras de datos de tamaño variable.
+- **Gestión manual de memoria:** Cómo y cuándo liberar la memoria que asignaste con `free`.
+- **Punteros avanzados:** Incluyendo `void *`, casteos complejos, y punteros a arrays `(*)[N]`.
+- **Errores de memoria:** Memory leaks, dangling pointers, y cómo evitarlos.
+
+Estos conceptos amplían dramáticamente lo que podés hacer en C, permitiéndote crear programas que adaptan su uso de memoria a las necesidades del momento. Sin embargo, con este poder viene una gran responsabilidad: la gestión manual de memoria requiere disciplina y atención a los detalles.
+
+Cuando te sientas cómodo con los conceptos de este capítulo, estás listo para dar el próximo paso hacia la memoria dinámica.
