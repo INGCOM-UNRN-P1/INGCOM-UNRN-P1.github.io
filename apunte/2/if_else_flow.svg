@@ -1,146 +1,364 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 550">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 700 550"
+   version="1.1"
+   id="svg25"
+   sodipodi:docname="if_else_flow.svg"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview25"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.1771429"
+     inkscape:cx="317.71845"
+     inkscape:cy="213.65291"
+     inkscape:window-width="1872"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg25" />
   <!-- Título -->
-  <text x="350" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">
+  <text
+     x="350"
+     y="30"
+     font-family="Arial, sans-serif"
+     font-size="20"
+     font-weight="bold"
+     text-anchor="middle"
+     id="text1">
     Flujo de Control: if / else if / else
   </text>
-  
   <!-- Inicio -->
-  <g id="inicio">
-    <ellipse cx="350" cy="80" rx="60" ry="30" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2"/>
-    <text x="350" y="88" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold">
-      Inicio
-    </text>
-  </g>
-  
+  <ellipse
+     cx="350"
+     cy="80"
+     rx="60"
+     ry="30"
+     fill="#c8e6c9"
+     stroke="#2e7d32"
+     stroke-width="2"
+     id="ellipse1" />
+  <text
+     x="350"
+     y="84.57666"
+     font-family="Arial, sans-serif"
+     font-size="13px"
+     text-anchor="middle"
+     font-weight="bold"
+     id="text2">Inicio</text>
   <!-- Flecha -->
-  <path d="M 350 110 L 350 150" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-  
+  <path
+     d="M 350 110 L 350 150"
+     stroke="#333"
+     stroke-width="2"
+     marker-end="url(#arrow)"
+     id="path2" />
   <!-- Primera condición (if) -->
-  <g id="condicion1">
-    <polygon points="350,150 470,200 350,250 230,200" fill="#BBDEFB" stroke="#1976D2" stroke-width="3"/>
-    <text x="350" y="195" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" font-weight="bold">
+  <g
+     id="condicion1">
+    <polygon
+       points="350,150 470,200 350,250 230,200"
+       fill="#BBDEFB"
+       stroke="#1976D2"
+       stroke-width="3"
+       id="polygon2" />
+    <text
+       x="350"
+       y="195"
+       font-family="Arial, sans-serif"
+       font-size="12"
+       text-anchor="middle"
+       font-weight="bold"
+       id="text3">
       if
     </text>
-    <text x="350" y="212" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" font-weight="bold">
+    <text
+       x="350"
+       y="212"
+       font-family="Arial, sans-serif"
+       font-size="12"
+       text-anchor="middle"
+       font-weight="bold"
+       id="text4">
       (condición 1)
     </text>
   </g>
-  
   <!-- Bloque if verdadero -->
-  <path d="M 230 200 L 130 200" stroke="#2E7D32" stroke-width="3" marker-end="url(#arrow-green)"/>
-  <text x="170" y="192" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2E7D32">
+  <path
+     d="M 230 200 L 130 200"
+     stroke="#2E7D32"
+     stroke-width="3"
+     marker-end="url(#arrow-green)"
+     id="path4" />
+  <text
+     x="170"
+     y="192"
+     font-family="Arial, sans-serif"
+     font-size="12"
+     font-weight="bold"
+     fill="#2E7D32"
+     id="text5">
     Verdadero
   </text>
-  
-  <g id="bloque-if">
-    <rect x="30" y="170" width="100" height="60" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2" rx="5"/>
-    <text x="80" y="195" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="bold">
+  <g
+     id="bloque-if">
+    <rect
+       x="30"
+       y="170"
+       width="100"
+       height="60"
+       fill="#C8E6C9"
+       stroke="#2E7D32"
+       stroke-width="2"
+       rx="5"
+       id="rect5" />
+    <text
+       x="80"
+       y="195"
+       font-family="Arial, sans-serif"
+       font-size="11"
+       text-anchor="middle"
+       font-weight="bold"
+       id="text6">
       Bloque if
     </text>
-    <text x="80" y="212" font-family="monospace" font-size="9" text-anchor="middle">
+    <text
+       x="80"
+       y="212"
+       font-family="monospace"
+       font-size="9"
+       text-anchor="middle"
+       id="text7">
       ejecutar A
     </text>
   </g>
-  
   <!-- Flecha a fin desde bloque if -->
-  <path d="M 80 230 L 80 470 L 350 470" stroke="#2E7D32" stroke-width="2" marker-end="url(#arrow-green)"/>
-  
+  <path
+     d="M 80 230 L 80 470 L 350 470"
+     stroke="#2E7D32"
+     stroke-width="2"
+     marker-end="url(#arrow-green)"
+     id="path7"
+     style="fill:none" />
   <!-- Segunda condición (else if) -->
-  <path d="M 350 250 L 350 290" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-  <text x="370" y="275" font-family="Arial, sans-serif" font-size="11" fill="#C62828">
+  <path
+     d="M 350 250 L 350 290"
+     stroke="#333"
+     stroke-width="2"
+     marker-end="url(#arrow)"
+     id="path8" />
+  <text
+     x="370"
+     y="275"
+     font-family="Arial, sans-serif"
+     font-size="11"
+     fill="#C62828"
+     id="text8"
+     style="-inkscape-font-specification:'Arial, sans-serif, Bold';font-family:Arial, sans-serif;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;font-size:11px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">
     Falso
   </text>
-  
-  <g id="condicion2">
-    <polygon points="350,290 470,340 350,390 230,340" fill="#BBDEFB" stroke="#1976D2" stroke-width="3"/>
-    <text x="350" y="335" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" font-weight="bold">
+  <g
+     id="condicion2">
+    <polygon
+       points="350,290 470,340 350,390 230,340"
+       fill="#BBDEFB"
+       stroke="#1976D2"
+       stroke-width="3"
+       id="polygon8" />
+    <text
+       x="350"
+       y="335"
+       font-family="Arial, sans-serif"
+       font-size="12"
+       text-anchor="middle"
+       font-weight="bold"
+       id="text9">
       else if
     </text>
-    <text x="350" y="352" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" font-weight="bold">
+    <text
+       x="350"
+       y="352"
+       font-family="Arial, sans-serif"
+       font-size="12"
+       text-anchor="middle"
+       font-weight="bold"
+       id="text10">
       (condición 2)
     </text>
   </g>
-  
   <!-- Bloque else if verdadero -->
-  <path d="M 470 340 L 570 340" stroke="#2E7D32" stroke-width="3" marker-end="url(#arrow-green)"/>
-  <text x="510" y="332" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2E7D32">
+  <path
+     d="M 470 340 L 570 340"
+     stroke="#2E7D32"
+     stroke-width="3"
+     marker-end="url(#arrow-green)"
+     id="path10" />
+  <text
+     x="510"
+     y="332"
+     font-family="Arial, sans-serif"
+     font-size="12"
+     font-weight="bold"
+     fill="#2E7D32"
+     id="text11">
     Verdadero
   </text>
-  
-  <g id="bloque-else-if">
-    <rect x="570" y="310" width="100" height="60" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2" rx="5"/>
-    <text x="620" y="335" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="bold">
+  <g
+     id="bloque-else-if">
+    <rect
+       x="570"
+       y="310"
+       width="100"
+       height="60"
+       fill="#C8E6C9"
+       stroke="#2E7D32"
+       stroke-width="2"
+       rx="5"
+       id="rect11" />
+    <text
+       x="620"
+       y="335"
+       font-family="Arial, sans-serif"
+       font-size="11"
+       text-anchor="middle"
+       font-weight="bold"
+       id="text12">
       Bloque else if
     </text>
-    <text x="620" y="352" font-family="monospace" font-size="9" text-anchor="middle">
+    <text
+       x="620"
+       y="352"
+       font-family="monospace"
+       font-size="9"
+       text-anchor="middle"
+       id="text13">
       ejecutar B
     </text>
   </g>
-  
   <!-- Flecha a fin desde bloque else if -->
-  <path d="M 620 370 L 620 470 L 350 470" stroke="#2E7D32" stroke-width="2" marker-end="url(#arrow-green)"/>
-  
+  <path
+     d="M 620 370 L 620 470 L 350 470"
+     stroke="#2E7D32"
+     stroke-width="2"
+     marker-end="url(#arrow-green)"
+     id="path13"
+     style="fill:none" />
   <!-- Bloque else (por defecto) -->
-  <path d="M 350 390 L 350 410" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-  <text x="370" y="405" font-family="Arial, sans-serif" font-size="11" fill="#C62828">
+  <path
+     d="M 350 390 L 350 410"
+     stroke="#333"
+     stroke-width="2"
+     marker-end="url(#arrow)"
+     id="path14" />
+  <text
+     x="370"
+     y="405"
+     font-family="Arial, sans-serif"
+     font-size="11"
+     fill="#C62828"
+     id="text14"
+     style="-inkscape-font-specification:'Arial, sans-serif, Bold';font-family:Arial, sans-serif;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;font-size:11px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">
     Falso
   </text>
-  
-  <g id="bloque-else">
-    <rect x="300" y="410" width="100" height="45" fill="#FFECB3" stroke="#F57C00" stroke-width="2" rx="5"/>
-    <text x="350" y="430" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="bold">
+  <g
+     id="bloque-else">
+    <rect
+       x="300"
+       y="410"
+       width="100"
+       height="45"
+       fill="#FFECB3"
+       stroke="#F57C00"
+       stroke-width="2"
+       rx="5"
+       id="rect14" />
+    <text
+       x="350"
+       y="430"
+       font-family="Arial, sans-serif"
+       font-size="11"
+       text-anchor="middle"
+       font-weight="bold"
+       id="text15">
       else (default)
     </text>
-    <text x="350" y="444" font-family="monospace" font-size="9" text-anchor="middle">
+    <text
+       x="350"
+       y="444"
+       font-family="monospace"
+       font-size="9"
+       text-anchor="middle"
+       id="text16">
       ejecutar C
     </text>
   </g>
-  
   <!-- Flecha a fin desde else -->
-  <path d="M 350 455 L 350 470" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-  
+  <path
+     d="M 350 455 L 350 470"
+     stroke="#333"
+     stroke-width="2"
+     marker-end="url(#arrow)"
+     id="path16" />
   <!-- Fin -->
-  <g id="fin">
-    <ellipse cx="350" cy="500" rx="60" ry="30" fill="#FFCDD2" stroke="#C62828" stroke-width="2"/>
-    <text x="350" y="508" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold">
-      Fin
-    </text>
+  <g
+     id="fin">
+    <ellipse
+       cx="350"
+       cy="506"
+       rx="60"
+       ry="30"
+       fill="#ffcdd2"
+       stroke="#c62828"
+       stroke-width="2"
+       id="ellipse16" />
+    <text
+       x="350"
+       y="510.65283"
+       font-family="Arial, sans-serif"
+       font-size="13px"
+       text-anchor="middle"
+       font-weight="bold"
+       id="text17">Fin</text>
   </g>
-  
   <!-- Ejemplo de código -->
-  <g id="ejemplo">
-    <rect x="30" y="30" width="200" height="110" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2" rx="5"/>
-    <text x="130" y="50" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">
-      Ejemplo:
-    </text>
-    <text x="40" y="68" font-family="monospace" font-size="10">
-      if (edad &lt; 18) {
-    </text>
-    <text x="50" y="82" font-family="monospace" font-size="10">
-      printf("Menor");
-    </text>
-    <text x="40" y="96" font-family="monospace" font-size="10">
-      } else if (edad &lt; 65) {
-    </text>
-    <text x="50" y="110" font-family="monospace" font-size="10">
-      printf("Adulto");
-    </text>
-    <text x="40" y="124" font-family="monospace" font-size="10">
-      } else {
-    </text>
-    <text x="50" y="134" font-family="monospace" font-size="10">
-      printf("Senior");
-    </text>
-  </g>
-  
+  <g
+     id="ejemplo" />
   <!-- Definición de marcadores -->
-  <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+  <defs
+     id="defs25">
+    <marker
+       id="arrow"
+       markerWidth="10"
+       markerHeight="10"
+       refX="9"
+       refY="3"
+       orient="auto">
+      <polygon
+         points="0 0, 10 3, 0 6"
+         fill="#333"
+         id="polygon24" />
     </marker>
-    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#2E7D32"/>
+    <marker
+       id="arrow-green"
+       markerWidth="10"
+       markerHeight="10"
+       refX="9"
+       refY="3"
+       orient="auto">
+      <polygon
+         points="0 0, 10 3, 0 6"
+         fill="#2E7D32"
+         id="polygon25" />
     </marker>
   </defs>
 </svg>

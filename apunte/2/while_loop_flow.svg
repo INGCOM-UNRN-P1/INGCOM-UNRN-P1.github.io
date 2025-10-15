@@ -1,106 +1,258 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 600">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 450 550"
+   version="1.1"
+   id="svg19"
+   sodipodi:docname="while_loop_flow.svg"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   width="450"
+   height="550"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview19"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="248.19448"
+     inkscape:cy="315.72318"
+     inkscape:window-width="1872"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="fin" />
   <!-- Título -->
-  <text x="250" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">
-    Flujo del Lazo while
-  </text>
-  
   <!-- Inicio -->
-  <g id="inicio">
-    <ellipse cx="250" cy="80" rx="60" ry="30" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2"/>
-    <text x="250" y="88" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold">
-      Inicio
-    </text>
-  </g>
-  
+  <g
+     id="inicio" />
   <!-- Flecha 1 -->
-  <path d="M 250 110 L 250 160" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-  
   <!-- Condición -->
-  <g id="condicion">
-    <polygon points="250,160 350,210 250,260 150,210" fill="#BBDEFB" stroke="#1976D2" stroke-width="3"/>
-    <text x="250" y="205" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold">
-      ¿Se cumple la
-    </text>
-    <text x="250" y="222" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold">
-      condición?
-    </text>
-  </g>
-  
   <!-- Flecha NO (a fin) -->
-  <path d="M 350 210 L 420 210 L 420 490 L 250 490" stroke="#C62828" stroke-width="3" marker-end="url(#arrow-red)"/>
-  <text x="390" y="205" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#C62828">
-    NO
-  </text>
-  <text x="425" y="350" font-family="Arial, sans-serif" font-size="12" fill="#C62828">
-    (Sale del lazo)
-  </text>
-  
   <!-- Flecha SÍ (a bloque) -->
-  <path d="M 250 260 L 250 320" stroke="#2E7D32" stroke-width="3" marker-end="url(#arrow-green)"/>
-  <text x="270" y="295" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#2E7D32">
-    SÍ
-  </text>
-  
   <!-- Bloque de código -->
-  <g id="bloque">
-    <rect x="150" y="320" width="200" height="80" fill="#FFF3E0" stroke="#F57C00" stroke-width="2" rx="8"/>
-    <text x="250" y="345" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">
-      Ejecutar bloque
-    </text>
-    <text x="250" y="365" font-family="Arial, sans-serif" font-size="11" text-anchor="middle">
-      de código
-    </text>
-    <rect x="165" y="375" width="170" height="18" fill="white" stroke="#666" stroke-width="1" rx="3"/>
-    <text x="175" y="388" font-family="monospace" font-size="10">
-      printf("i=%d", i);
-    </text>
-  </g>
-  
   <!-- Flecha de retorno -->
-  <path d="M 150 360 L 80 360 L 80 210 L 150 210" stroke="#1976D2" stroke-width="3" marker-end="url(#arrow-blue)"/>
-  <text x="40" y="285" font-family="Arial, sans-serif" font-size="11" fill="#1976D2">
-    Volver a
-  </text>
-  <text x="40" y="298" font-family="Arial, sans-serif" font-size="11" fill="#1976D2">
-    evaluar
-  </text>
-  
   <!-- Fin -->
-  <g id="fin">
-    <ellipse cx="250" cy="490" rx="60" ry="30" fill="#FFCDD2" stroke="#C62828" stroke-width="2"/>
-    <text x="250" y="498" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold">
-      Fin
-    </text>
+  <text
+     x="224.63379"
+     y="36.658203"
+     font-family="Arial, sans-serif"
+     font-size="20px"
+     font-weight="bold"
+     text-anchor="middle"
+     id="text1">Flujo del Lazo while</text>
+  <ellipse
+     cx="225"
+     cy="86.658203"
+     rx="60"
+     ry="30"
+     fill="#c8e6c9"
+     stroke="#2e7d32"
+     stroke-width="2"
+     id="ellipse1" />
+  <text
+     x="224.65547"
+     y="94.073212"
+     font-family="Arial, sans-serif"
+     font-size="21.0623px"
+     text-anchor="middle"
+     font-weight="bold"
+     id="text2"
+     style="stroke-width:1.62018">Inicio</text>
+  <path
+     d="m 225,116.6582 v 50"
+     stroke="#333333"
+     stroke-width="2"
+     marker-end="url(#arrow)"
+     id="path2" />
+  <g
+     id="condicion"
+     transform="translate(-25,6.6582031)">
+    <polygon
+       points="250,260 150,210 250,160 350,210 "
+       fill="#bbdefb"
+       stroke="#1976d2"
+       stroke-width="3"
+       id="polygon2" />
+    <text
+       x="249.97647"
+       y="204.10957"
+       font-family="Arial, sans-serif"
+       font-size="16.0113px"
+       text-anchor="middle"
+       font-weight="bold"
+       id="text3"
+       style="stroke-width:1.23164">¿Se cumple la</text>
+    <text
+       x="249.97647"
+       y="225.04745"
+       font-family="Arial, sans-serif"
+       font-size="16.0113px"
+       text-anchor="middle"
+       font-weight="bold"
+       id="text4"
+       style="stroke-width:1.23164">condición?</text>
   </g>
-  
+  <path
+     d="m 325,216.6582 h 70 v 280 H 225"
+     stroke="#c62828"
+     stroke-width="3"
+     marker-end="url(#arrow-red)"
+     id="path4"
+     style="fill:none" />
+  <text
+     x="365"
+     y="211.6582"
+     font-family="Arial, sans-serif"
+     font-size="13px"
+     font-weight="bold"
+     fill="#c62828"
+     id="text5">NO</text>
+  <path
+     d="m 225,266.6582 v 60"
+     stroke="#2e7d32"
+     stroke-width="3"
+     marker-end="url(#arrow-green)"
+     id="path6" />
+  <text
+     x="245"
+     y="301.6582"
+     font-family="Arial, sans-serif"
+     font-size="13px"
+     font-weight="bold"
+     fill="#2e7d32"
+     id="text7">SÍ</text>
+  <g
+     id="bloque"
+     transform="translate(-25,6.6582031)">
+    <rect
+       x="150"
+       y="320"
+       width="200"
+       height="80"
+       fill="#fff3e0"
+       stroke="#f57c00"
+       stroke-width="2"
+       rx="8"
+       id="rect7" />
+    <text
+       x="249.95178"
+       y="350.68372"
+       font-family="Arial, sans-serif"
+       font-size="15.7058px"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text8"
+       style="stroke-width:1.20814">Ejecutar bloque</text>
+    <g
+       id="g19">
+      <rect
+         x="165"
+         y="367"
+         width="170"
+         height="18"
+         fill="#ffffff"
+         stroke="#666666"
+         stroke-width="1"
+         rx="3"
+         id="rect9" />
+      <text
+         x="175"
+         y="380"
+         font-family="monospace"
+         font-size="10px"
+         id="text10">printf(&quot;i=%d&quot;, i);</text>
+    </g>
+  </g>
+  <path
+     d="M 125,366.6582 H 55 v -150 h 70"
+     stroke="#1976d2"
+     stroke-width="3"
+     marker-end="url(#arrow-blue)"
+     id="path10"
+     style="fill:none" />
+  <g
+     id="fin"
+     transform="translate(-25,6.6582031)">
+    <ellipse
+       cx="250"
+       cy="490"
+       rx="60"
+       ry="30"
+       fill="#ffcdd2"
+       stroke="#c62828"
+       stroke-width="2"
+       id="ellipse12" />
+    <text
+       x="249.93115"
+       y="497.76367"
+       font-family="Arial, sans-serif"
+       font-size="21.6916px"
+       text-anchor="middle"
+       font-weight="bold"
+       id="text13"
+       style="stroke-width:1.66858">Fin</text>
+  </g>
   <!-- Ejemplo de código -->
-  <g id="ejemplo-codigo">
-    <rect x="50" y="530" width="400" height="60" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2" rx="5"/>
-    <text x="250" y="550" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">
-      Ejemplo de código:
-    </text>
-    <text x="60" y="568" font-family="monospace" font-size="11">
-      int i = 0;
-    </text>
-    <text x="60" y="582" font-family="monospace" font-size="11">
-      while (i &lt; 5) { printf("%d", i); i++; }
-    </text>
-  </g>
-  
+  <g
+     id="ejemplo-codigo" />
   <!-- Definición de marcadores -->
-  <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+  <defs
+     id="defs19">
+    <marker
+       id="arrow"
+       markerWidth="10"
+       markerHeight="10"
+       refX="9"
+       refY="3"
+       orient="auto">
+      <polygon
+         points="10,3 0,6 0,0 "
+         fill="#333333"
+         id="polygon16" />
     </marker>
-    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#2E7D32"/>
+    <marker
+       id="arrow-green"
+       markerWidth="10"
+       markerHeight="10"
+       refX="9"
+       refY="3"
+       orient="auto">
+      <polygon
+         points="10,3 0,6 0,0 "
+         fill="#2e7d32"
+         id="polygon17" />
     </marker>
-    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#C62828"/>
+    <marker
+       id="arrow-red"
+       markerWidth="10"
+       markerHeight="10"
+       refX="9"
+       refY="3"
+       orient="auto">
+      <polygon
+         points="10,3 0,6 0,0 "
+         fill="#c62828"
+         id="polygon18" />
     </marker>
-    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#1976D2"/>
+    <marker
+       id="arrow-blue"
+       markerWidth="10"
+       markerHeight="10"
+       refX="9"
+       refY="3"
+       orient="auto">
+      <polygon
+         points="10,3 0,6 0,0 "
+         fill="#1976d2"
+         id="polygon19" />
     </marker>
   </defs>
 </svg>
