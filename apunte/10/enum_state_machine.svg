@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <!-- Título -->
+  <text x="450" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">
+    Enumeraciones en Máquinas de Estado
+  </text>
+  
+  <!-- Código de la enum -->
+  <g id="codigo-enum">
+    <rect x="50" y="60" width="380" height="140" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2" rx="8"/>
+    
+    <text x="240" y="85" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">
+      Definición con enum
+    </text>
+    
+    <rect x="70" y="95" width="340" height="95" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+    <text x="80" y="112" font-family="monospace" font-size="11">
+      typedef enum {
+    </text>
+    <text x="90" y="128" font-family="monospace" font-size="11">
+        IDLE,
+    </text>
+    <text x="90" y="144" font-family="monospace" font-size="11">
+        CONECTANDO,
+    </text>
+    <text x="90" y="160" font-family="monospace" font-size="11">
+        CONECTADO,
+    </text>
+    <text x="90" y="176" font-family="monospace" font-size="11">
+        ERROR
+    </text>
+    <text x="80" y="186" font-family="monospace" font-size="11">
+      } estado_t;
+    </text>
+  </g>
+  
+  <!-- Diagrama de estados -->
+  <g id="diagrama-estados">
+    <rect x="470" y="60" width="380" height="510" fill="#E3F2FD" stroke="#1976D2" stroke-width="2" rx="8"/>
+    
+    <text x="660" y="85" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">
+      Diagrama de Transiciones
+    </text>
+    
+    <!-- Estado IDLE -->
+    <g id="estado-idle">
+      <circle cx="660" cy="130" r="40" fill="#90CAF9" stroke="#1976D2" stroke-width="3"/>
+      <text x="660" y="135" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold">
+        IDLE
+      </text>
+    </g>
+    
+    <!-- Estado CONECTANDO -->
+    <g id="estado-conectando">
+      <circle cx="530" cy="240" r="50" fill="#81C784" stroke="#2E7D32" stroke-width="3"/>
+      <text x="530" y="243" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" font-weight="bold">
+        CONEC-
+      </text>
+      <text x="530" y="257" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" font-weight="bold">
+        TANDO
+      </text>
+    </g>
+    
+    <!-- Estado CONECTADO -->
+    <g id="estado-conectado">
+      <circle cx="790" cy="240" r="50" fill="#A5D6A7" stroke="#2E7D32" stroke-width="3"/>
+      <text x="790" y="243" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" font-weight="bold">
+        CONEC-
+      </text>
+      <text x="790" y="257" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" font-weight="bold">
+        TADO
+      </text>
+    </g>
+    
+    <!-- Estado ERROR -->
+    <g id="estado-error">
+      <circle cx="660" cy="380" r="40" fill="#FFCDD2" stroke="#C62828" stroke-width="3"/>
+      <text x="660" y="385" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold">
+        ERROR
+      </text>
+    </g>
+    
+    <!-- Transiciones -->
+    <!-- IDLE -> CONECTANDO -->
+    <path d="M 640 155 L 555 210" stroke="#1976D2" stroke-width="2" fill="none" marker-end="url(#arrow-blue)"/>
+    <text x="585" y="175" font-family="Arial, sans-serif" font-size="10" fill="#1976D2">iniciar</text>
+    
+    <!-- CONECTANDO -> CONECTADO -->
+    <path d="M 580 240 L 730 240" stroke="#2E7D32" stroke-width="2" fill="none" marker-end="url(#arrow-green)"/>
+    <text x="655" y="230" font-family="Arial, sans-serif" font-size="10" fill="#2E7D32">éxito</text>
+    
+    <!-- CONECTANDO -> ERROR -->
+    <path d="M 510 285 L 640 350" stroke="#C62828" stroke-width="2" fill="none" marker-end="url(#arrow-red)"/>
+    <text x="560" y="325" font-family="Arial, sans-serif" font-size="10" fill="#C62828">fallo</text>
+    
+    <!-- CONECTADO -> ERROR -->
+    <path d="M 810 285 L 680 350" stroke="#C62828" stroke-width="2" fill="none" marker-end="url(#arrow-red)"/>
+    <text x="755" y="325" font-family="Arial, sans-serif" font-size="10" fill="#C62828">desconexión</text>
+    
+    <!-- CONECTADO -> IDLE -->
+    <path d="M 790 190 Q 850 130 700 120" stroke="#1976D2" stroke-width="2" fill="none" stroke-dasharray="4,2" marker-end="url(#arrow-blue)"/>
+    <text x="780" y="150" font-family="Arial, sans-serif" font-size="9" fill="#1976D2">cerrar</text>
+    
+    <!-- ERROR -> IDLE -->
+    <path d="M 620 380 L 680 160" stroke="#F57C00" stroke-width="2" fill="none" stroke-dasharray="4,2" marker-end="url(#arrow-orange)"/>
+    <text x="635" y="270" font-family="Arial, sans-serif" font-size="10" fill="#F57C00">reset</text>
+    
+    <!-- Leyenda -->
+    <g transform="translate(490, 440)">
+      <rect x="0" y="0" width="320" height="110" fill="white" stroke="#666" stroke-width="1" rx="5"/>
+      <text x="160" y="20" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">
+        Leyenda de Transiciones
+      </text>
+      
+      <line x1="10" y1="35" x2="50" y2="35" stroke="#1976D2" stroke-width="2" marker-end="url(#arrow-blue)"/>
+      <text x="60" y="40" font-family="Arial, sans-serif" font-size="10">Normal</text>
+      
+      <line x1="10" y1="55" x2="50" y2="55" stroke="#2E7D32" stroke-width="2" marker-end="url(#arrow-green)"/>
+      <text x="60" y="60" font-family="Arial, sans-serif" font-size="10">Éxito</text>
+      
+      <line x1="10" y1="75" x2="50" y2="75" stroke="#C62828" stroke-width="2" marker-end="url(#arrow-red)"/>
+      <text x="60" y="80" font-family="Arial, sans-serif" font-size="10">Error</text>
+      
+      <line x1="10" y1="95" x2="50" y2="95" stroke="#F57C00" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrow-orange)"/>
+      <text x="60" y="100" font-family="Arial, sans-serif" font-size="10">Recuperación</text>
+    </g>
+  </g>
+  
+  <!-- Código de transición -->
+  <g id="codigo-transicion">
+    <rect x="50" y="220" width="380" height="350" fill="#FFF3E0" stroke="#F57C00" stroke-width="2" rx="8"/>
+    
+    <text x="240" y="245" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">
+      Validación de Transiciones
+    </text>
+    
+    <rect x="70" y="255" width="340" height="300" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+    <text x="80" y="272" font-family="monospace" font-size="10">
+      bool transicion_valida(
+    </text>
+    <text x="90" y="286" font-family="monospace" font-size="10">
+      estado_t desde,
+    </text>
+    <text x="90" y="300" font-family="monospace" font-size="10">
+      estado_t hacia
+    </text>
+    <text x="80" y="314" font-family="monospace" font-size="10">
+      ) {
+    </text>
+    <text x="90" y="328" font-family="monospace" font-size="10">
+      switch (desde) {
+    </text>
+    <text x="100" y="342" font-family="monospace" font-size="10">
+      case IDLE:
+    </text>
+    <text x="110" y="356" font-family="monospace" font-size="10">
+        return (hacia == CONECTANDO);
+    </text>
+    <text x="100" y="370" font-family="monospace" font-size="10">
+      case CONECTANDO:
+    </text>
+    <text x="110" y="384" font-family="monospace" font-size="10">
+        return (hacia == CONECTADO ||
+    </text>
+    <text x="120" y="398" font-family="monospace" font-size="10">
+                hacia == ERROR);
+    </text>
+    <text x="100" y="412" font-family="monospace" font-size="10">
+      case CONECTADO:
+    </text>
+    <text x="110" y="426" font-family="monospace" font-size="10">
+        return (hacia == IDLE ||
+    </text>
+    <text x="120" y="440" font-family="monospace" font-size="10">
+                hacia == ERROR);
+    </text>
+    <text x="100" y="454" font-family="monospace" font-size="10">
+      case ERROR:
+    </text>
+    <text x="110" y="468" font-family="monospace" font-size="10">
+        return (hacia == IDLE);
+    </text>
+    <text x="100" y="482" font-family="monospace" font-size="10">
+      default:
+    </text>
+    <text x="110" y="496" font-family="monospace" font-size="10">
+        return false;
+    </text>
+    <text x="90" y="510" font-family="monospace" font-size="10">
+      }
+    </text>
+    <text x="80" y="524" font-family="monospace" font-size="10">
+      }
+    </text>
+    
+    <text x="80" y="545" font-family="Arial, sans-serif" font-size="10" fill="#F57C00">
+      ✓ Valida transiciones antes de cambiar
+    </text>
+  </g>
+  
+  <!-- Definición de marcadores -->
+  <defs>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#1976D2"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#2E7D32"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#C62828"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#F57C00"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <!-- Título -->
+  <text x="450" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">
+    Enumeraciones: Constantes Enteras con Nombres Simbólicos
+  </text>
+  
+  <!-- Sin enum (código malo) -->
+  <g id="sin-enum">
+    <rect x="50" y="60" width="380" height="190" fill="#FFEBEE" stroke="#C62828" stroke-width="2" rx="8"/>
+    
+    <text x="240" y="90" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#C62828">
+      ✗ Sin enum (Números Mágicos)
+    </text>
+    
+    <rect x="70" y="105" width="340" height="130" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+    <text x="80" y="125" font-family="monospace" font-size="11">
+      #define DESCONECTADO 0
+    </text>
+    <text x="80" y="141" font-family="monospace" font-size="11">
+      #define CONECTANDO   1
+    </text>
+    <text x="80" y="157" font-family="monospace" font-size="11">
+      #define CONECTADO    2
+    </text>
+    <text x="80" y="173" font-family="monospace" font-size="11">
+    </text>
+    <text x="80" y="189" font-family="monospace" font-size="11">
+      int estado = 1;  // ¿Qué significa 1?
+    </text>
+    <text x="80" y="205" font-family="monospace" font-size="11">
+      if (estado == 2) { ... }
+    </text>
+    <text x="80" y="221" font-family="monospace" font-size="11" fill="#C62828">
+      // Confuso, propenso a errores
+    </text>
+  </g>
+  
+  <!-- Con enum (código bueno) -->
+  <g id="con-enum">
+    <rect x="470" y="60" width="380" height="190" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2" rx="8"/>
+    
+    <text x="660" y="90" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#2E7D32">
+      ✓ Con enum (Claro y Seguro)
+    </text>
+    
+    <rect x="490" y="105" width="340" height="130" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+    <text x="500" y="125" font-family="monospace" font-size="11">
+      typedef enum {
+    </text>
+    <text x="510" y="141" font-family="monospace" font-size="11">
+        DESCONECTADO,    // 0
+    </text>
+    <text x="510" y="157" font-family="monospace" font-size="11">
+        CONECTANDO,      // 1
+    </text>
+    <text x="510" y="173" font-family="monospace" font-size="11">
+        CONECTADO        // 2
+    </text>
+    <text x="500" y="189" font-family="monospace" font-size="11">
+      } estado_conexion_t;
+    </text>
+    <text x="500" y="205" font-family="monospace" font-size="11">
+    </text>
+    <text x="500" y="221" font-family="monospace" font-size="11">
+      estado_conexion_t estado = CONECTANDO;
+    </text>
+  </g>
+  
+  <!-- Mapeo de valores -->
+  <g id="mapeo">
+    <rect x="50" y="270" width="800" height="210" fill="#E3F2FD" stroke="#1976D2" stroke-width="2" rx="8"/>
+    
+    <text x="450" y="300" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">
+      Cómo el Compilador Traduce la Enumeración
+    </text>
+    
+    <!-- Nombres simbólicos -->
+    <g transform="translate(80, 320)">
+      <text x="0" y="0" font-family="Arial, sans-serif" font-size="13" font-weight="bold">
+        Nombres Simbólicos:
+      </text>
+      
+      <rect x="0" y="10" width="200" height="35" fill="#90CAF9" stroke="#1976D2" stroke-width="2" rx="5"/>
+      <text x="100" y="32" font-family="monospace" font-size="12" text-anchor="middle" font-weight="bold">
+        DESCONECTADO
+      </text>
+      
+      <rect x="0" y="55" width="200" height="35" fill="#90CAF9" stroke="#1976D2" stroke-width="2" rx="5"/>
+      <text x="100" y="77" font-family="monospace" font-size="12" text-anchor="middle" font-weight="bold">
+        CONECTANDO
+      </text>
+      
+      <rect x="0" y="100" width="200" height="35" fill="#90CAF9" stroke="#1976D2" stroke-width="2" rx="5"/>
+      <text x="100" y="122" font-family="monospace" font-size="12" text-anchor="middle" font-weight="bold">
+        CONECTADO
+      </text>
+    </g>
+    
+    <!-- Flechas -->
+    <path d="M 280 337 L 340 337" stroke="#1976D2" stroke-width="3" marker-end="url(#arrow-blue)"/>
+    <path d="M 280 382 L 340 382" stroke="#1976D2" stroke-width="3" marker-end="url(#arrow-blue)"/>
+    <path d="M 280 427 L 340 427" stroke="#1976D2" stroke-width="3" marker-end="url(#arrow-blue)"/>
+    
+    <text x="310" y="325" font-family="Arial, sans-serif" font-size="10">traduce a</text>
+    <text x="310" y="370" font-family="Arial, sans-serif" font-size="10">traduce a</text>
+    <text x="310" y="415" font-family="Arial, sans-serif" font-size="10">traduce a</text>
+    
+    <!-- Valores enteros -->
+    <g transform="translate(350, 320)">
+      <text x="0" y="0" font-family="Arial, sans-serif" font-size="13" font-weight="bold">
+        Valores Enteros:
+      </text>
+      
+      <rect x="0" y="10" width="80" height="35" fill="#A5D6A7" stroke="#2E7D32" stroke-width="2" rx="5"/>
+      <text x="40" y="32" font-family="monospace" font-size="16" text-anchor="middle" font-weight="bold">
+        0
+      </text>
+      
+      <rect x="0" y="55" width="80" height="35" fill="#A5D6A7" stroke="#2E7D32" stroke-width="2" rx="5"/>
+      <text x="40" y="77" font-family="monospace" font-size="16" text-anchor="middle" font-weight="bold">
+        1
+      </text>
+      
+      <rect x="0" y="100" width="80" height="35" fill="#A5D6A7" stroke="#2E7D32" stroke-width="2" rx="5"/>
+      <text x="40" y="122" font-family="monospace" font-size="16" text-anchor="middle" font-weight="bold">
+        2
+      </text>
+    </g>
+    
+    <!-- Ventajas -->
+    <g transform="translate(480, 320)">
+      <text x="0" y="0" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#2E7D32">
+        ✓ Ventajas:
+      </text>
+      
+      <text x="10" y="22" font-family="Arial, sans-serif" font-size="11">
+        • Nombres descriptivos
+      </text>
+      <text x="10" y="40" font-family="Arial, sans-serif" font-size="11">
+        • Auto-numeración
+      </text>
+      <text x="10" y="58" font-family="Arial, sans-serif" font-size="11">
+        • Type safety
+      </text>
+      <text x="10" y="76" font-family="Arial, sans-serif" font-size="11">
+        • Debugger-friendly
+      </text>
+      <text x="10" y="94" font-family="Arial, sans-serif" font-size="11">
+        • Fácil de mantener
+      </text>
+      <text x="10" y="112" font-family="Arial, sans-serif" font-size="11">
+        • Menos errores
+      </text>
+      <text x="10" y="130" font-family="Arial, sans-serif" font-size="11">
+        • Documentación implícita
+      </text>
+    </g>
+  </g>
+  
+  <!-- Definición de marcadores -->
+  <defs>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#1976D2"/>
+    </marker>
+  </defs>
+</svg>

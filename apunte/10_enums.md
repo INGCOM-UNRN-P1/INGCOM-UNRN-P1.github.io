@@ -20,6 +20,13 @@ Si este concepto te parece similar a las constantes `const` y a los literales de
 preprocesador `#define` estás en lo cierto y todas las consideraciones de uso
 aplican para cualquiera de los tres conceptos.
 
+:::{figure} 10/enum_concept.svg
+:name: fig-enum-concept
+:alt: Concepto de enumeraciones vs números mágicos
+
+Las enumeraciones proporcionan nombres simbólicos a valores enteros, transformando números mágicos en código legible y mantenible.
+:::
+
 Aunque es posible definir constantes enteras con `#define` o una serie de
 variables `const`, el uso de `enum` es la práctica superior y más segura para
 agrupar _constantes relacionadas_. A diferencia de las macros de preprocesador
@@ -394,6 +401,13 @@ void guardar_configuracion(FILE *archivo, version_formato_t version) {
 #### 1. Usar Enumeraciones para Máquinas de Estado
 
 Las enumeraciones son ideales para implementar máquinas de estado finitas:
+
+:::{figure} 10/enum_state_machine.svg
+:name: fig-enum-state-machine
+:alt: Máquina de estado con enumeraciones
+
+Ejemplo de una máquina de estados de conexión implementada con enumeraciones, mostrando estados y transiciones válidas.
+:::
 
 ```{code-block}c
 :caption: Máquina de estado con enumeraciones
@@ -914,6 +928,13 @@ común (x86_64, little-endian), pero siempre debés verificar en tu plataforma.
 Una `struct` es una colección de variables (miembros) de diferentes tipos,
 agrupadas bajo un solo nombre.
 
+:::{figure} 10/struct_memory_layout.svg
+:name: fig-struct-memory-layout
+:alt: Organización de estructuras en memoria
+
+Las estructuras agrupan datos relacionados en memoria. El compilador puede añadir padding entre campos para optimizar el acceso.
+:::
+
 ### Declaración y `typedef`
 
 La práctica estándar, como indica la regla {ref}`0x001Eh`, es usar `typedef`
@@ -1265,6 +1286,13 @@ Para más detalles sobre el estilo de comentarios y documentación, consultá la
 Una `union` permite que varios miembros compartan la **misma ubicación de
 memoria**. Su tamaño es el de su miembro más grande. Solo un miembro puede estar
 "activo" a la vez.
+
+:::{figure} 10/union_vs_struct.svg
+:name: fig-union-vs-struct
+:alt: Diferencias entre struct y union
+
+Comparación visual entre estructuras (todos los miembros en memoria separada) y uniones (todos comparten el mismo espacio de memoria).
+:::
 
 ### El Patrón de Unión Etiquetada (Tagged Union)
 
