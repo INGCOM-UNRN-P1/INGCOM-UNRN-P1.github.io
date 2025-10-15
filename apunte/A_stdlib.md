@@ -450,6 +450,7 @@ El header `<math.h>` proporciona funciones matemáticas comunes. La mayoría ope
 gcc programa.c -o programa -lm
 ```
 
+(math-trig)=
 ### Funciones Trigonométricas
 
 ```c
@@ -487,6 +488,7 @@ int main(void)
 }
 ```
 
+(math-pow-sqrt)=
 ### Funciones Exponenciales y Logarítmicas
 
 ```c
@@ -518,6 +520,7 @@ int main(void)
 }
 ```
 
+(math-rounding)=
 ### Funciones de Redondeo
 
 ```c
@@ -547,6 +550,7 @@ int main(void)
 }
 ```
 
+(math-abs)=
 ### Valor Absoluto y Resto
 
 ```c
@@ -1130,6 +1134,7 @@ Estas cuatro funciones constituyen el núcleo de la gestión de memoria dinámic
 
 ```{code-block} c
 :linenos:
+:caption: "Uso básico de malloc y free"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -1158,6 +1163,7 @@ Siempre verificá que `malloc()` no retorne `NULL`. Toda memoria asignada debe s
 
 ### Conversión de Cadenas
 
+(stdlib-strtol)=
 #### `atoi`, `atol` y `strtol`, `strtod`
 
 ```c
@@ -1170,29 +1176,41 @@ double strtod(const char *nptr, char **endptr);
 
 Las funciones de conversión de cadenas son esenciales para el procesamiento de entrada de usuario y datos textuales. `atoi()` (ASCII to Integer) es la función más simple, convirtiendo cadenas a enteros, pero carece de mecanismos robustos de detección de errores, lo que la hace inadecuada para aplicaciones críticas. `strtol()` (String to Long) es mucho más sofisticada, permitiendo especificar la base numérica (2-36), detectar errores de conversión y obtener un puntero al primer carácter no convertido. `strtod()` (String to Double) proporciona capacidades similares para números de punto flotante. Estas funciones "str" son fundamentales en parsers, interfaces de línea de comandos y cualquier aplicación que necesite conversión robusta entre representaciones textuales y numéricas de datos.
 
-```{code-block} c
-:linenos:
-#include <stdlib.h>
-#include <stdio.h>
+:::{warning} Limitaciones de `atoi`
+La función `atoi` no tiene un mecanismo para informar errores. Si la cadena no contiene un número válido (ej. "hola"), simplemente devuelve `0`. Esto es problemático porque "0" también es un número válido, y no podés distinguir un error de una entrada legítima de cero.
+:::
 
-int main(void)
-{
-    const char *str = "  123abc";
-    char *endptr = NULL;
-    
-    long num = strtol(str, &endptr, 10);
-    
-    if (endptr != str) {
-        printf("Número: %ld\n", num);
-        printf("Resto: '%s'\n", endptr);
+```{code-block} c
+:caption: "Uso robusto de `strtol` para validación."
+:linenos:
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "Uso: %s <numero>\n", argv[0]);
+        return EXIT_FAILURE;
     }
-    
-    return 0;
+
+    char *endptr;
+    long numero = strtol(argv[1], &endptr, 10);
+
+    // Verificamos si hubo un error de conversión
+    // 1. ¿endptr apunta al inicio? -> No se encontró ningún número
+    // 2. ¿*endptr no es el final de la cadena? -> Había caracteres extra
+    if (endptr == argv[1] || *endptr != '\0') {
+        fprintf(stderr, "Error: '%s' no es un número entero válido.\n", argv[1]);
+        return EXIT_FAILURE;
+    }
+
+    printf("El doble del número es: %ld\n", numero * 2);
+    return EXIT_SUCCESS;
 }
 ```
 
 ### Números Aleatorios
 
+(stdlib-rand)=
 #### `rand` y `srand`
 
 ```c
@@ -1202,26 +1220,35 @@ void srand(unsigned int seed);
 
 `rand()` genera números pseudoaleatorios entre 0 y `RAND_MAX`. `srand()` inicializa el generador.
 
-El sistema de generación de números aleatorios de C está basado en algoritmos deterministas que producen secuencias pseudoaleatorias reproducibles. `rand()` utiliza un generador de congruencia lineal que produce números en el rango [0, RAND_MAX], donde RAND_MAX es al menos 32767. `srand(seed)` inicializa el estado interno del generador con una semilla, permitiendo control sobre la reproducibilidad: la misma semilla siempre produce la misma secuencia. Es crucial llamar a `srand()` una sola vez al inicio del programa, típicamente con `time(NULL)` para obtener secuencias diferentes en cada ejecución. Aunque `rand()` es adecuado para juegos y simulaciones básicas, no debe usarse para aplicaciones criptográficas debido a su predictibilidad y distribución no uniforme en ciertos rangos.
+El sistema de generación de números aleatorios de C está basado en algoritmos deterministas que producen secuencias pseudoaleatorias reproducibles. `rand()` utiliza un generador de congruencia lineal que produce números en el rango [0, RAND_MAX], donde RAND_MAX es al menos 32767. `srand(seed)` inicializa el estado interno del generador con una semilla, permitiendo control sobre la reproducibilidad: la misma semilla siempre produce la misma secuencia. Es crucial llamar a `srand()` una sola vez al inicio del programa, típicamente con `time(NULL)` para obtener secuencias diferentes en cada ejecución.
 
 ```{code-block} c
 :linenos:
+:caption: "Generando 5 números aleatorios entre 1 y 100."
 #include <stdlib.h>
 #include <stdio.h>
-#include <time.h>
+#include <time.h> // Necesario para time()
 
 int main(void)
 {
+    // Usamos la hora actual como semilla. Esto solo se hace UNA VEZ por programa.
     srand((unsigned)time(NULL));
     
+    printf("5 números aleatorios entre 1 y 100:\n");
     for (int i = 0; i < 5; i++) {
-        printf("%d ", rand() % 100);
+        // rand() % 100 -> número entre 0 y 99
+        // + 1          -> número entre 1 y 100
+        int numero_aleatorio = (rand() % 100) + 1;
+        printf("%d\n", numero_aleatorio);
     }
-    printf("\n");
     
     return 0;
 }
 ```
+
+:::{note} La Naturaleza de `rand()`: Pseudoaleatorio, no Aleatorio
+Es crucial entender que funciones como `rand()` no generan números verdaderamente aleatorios, sino **pseudoaleatorios**. Esto significa que los números se calculan mediante un algoritmo determinista. Si iniciás el generador con la misma **semilla** (_seed_) usando `srand()`, la secuencia de números que obtendrás con llamadas sucesivas a `rand()` será siempre idéntica. Por eso, para simular aleatoriedad en cada ejecución, se usa una semilla que cambie constantemente, como la hora del sistema obtenida con `time(NULL)`.
+:::
 
 ### Búsqueda y Ordenamiento
 
@@ -1236,10 +1263,59 @@ void *bsearch(const void *key, const void *base, size_t nmemb,
 
 `qsort()` ordena un arreglo. `bsearch()` busca en un arreglo ordenado.
 
-Estas funciones implementan algoritmos fundamentales de ciencias de la computación con interfaces genéricas y eficientes. `qsort()` utiliza una variante del algoritmo quicksort para ordenar arreglos de cualquier tipo de datos, requiriendo una función de comparación definida por el usuario que determina el orden. Su complejidad promedio es O(n log n), siendo uno de los algoritmos de ordenamiento más eficientes para uso general. `bsearch()` implementa búsqueda binaria en arreglos previamente ordenados (típicamente por `qsort()`), con complejidad O(log n), muchísimo más rápida que búsqueda lineal para datos grandes. Ambas funciones usan punteros genéricos (`void*`) y funciones de comparación, permitiendo trabajar con cualquier tipo de datos. Son pilares fundamentales para aplicaciones que manejan grandes volúmenes de datos, bases de datos en memoria, y algoritmos que requieren acceso eficiente a información ordenada.
+Estas funciones implementan algoritmos fundamentales de ciencias de la computación con interfaces genéricas y eficientes. `qsort()` utiliza una variante del algoritmo quicksort para ordenar arreglos de cualquier tipo de datos, requiriendo una función de comparación definida por el usuario que determina el orden. Su complejidad promedio es $O(n log n)$, siendo uno de los algoritmos de ordenamiento más eficientes para uso general. `bsearch()` implementa búsqueda binaria en arreglos previamente ordenados (típicamente por `qsort()`), con complejidad $O(log n)$, muchísimo más rápida que búsqueda lineal para datos grandes. Ambas funciones usan punteros genéricos (`void*`) y funciones de comparación, permitiendo trabajar con cualquier tipo de datos. Son pilares fundamentales para aplicaciones que manejan grandes volúmenes de datos, bases de datos en memoria, y algoritmos que requieren acceso eficiente a información ordenada.
+
+### Aritmética de Enteros
+
+(stdlib-abs)=
+#### `abs`, `labs`, `llabs`
+
+Calculan el valor absoluto de un número entero.
+
+- **Prototipos:**
+  - `int abs(int j);`
+  - `long int labs(long int j);`
+  - `long long int llabs(long long int j);`
+- **Descripción:** Devuelven el valor absoluto del número `j`. Es importante usar la versión correcta según el tipo de dato para evitar desbordamientos.
+
+(stdlib-div)=
+#### `div`, `ldiv`, `lldiv`
+
+Realizan la división entera, devolviendo el cociente y el resto en una única operación.
+
+- **Prototipos:**
+  - `div_t div(int numer, int denom);`
+  - `ldiv_t ldiv(long int numer, long int denom);`
+  - `lldiv_t lldiv(long long int numer, long long int denom);`
+- **Descripción:** Devuelven una estructura (`div_t`, `ldiv_t` o `lldiv_t`) que contiene los miembros `quot` (cociente) y `rem` (resto).
+
+```{code-block} c
+:caption: "Uso de funciones de valor absoluto y división."
+:linenos:
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int numero = -150;
+    printf("El valor absoluto de %d es %d.\n", numero, abs(numero));
+
+    int dividendo = 17;
+    int divisor = 5;
+
+    // Usamos la función div para obtener cociente y resto.
+    div_t resultado = div(dividendo, divisor);
+
+    printf("\nAl dividir %d entre %d:\n", dividendo, divisor);
+    printf("  - Cociente: %d\n", resultado.quot); // Equivalente a 17 / 5
+    printf("  - Resto: %d\n", resultado.rem);   // Equivalente a 17 % 5
+
+    return EXIT_SUCCESS;
+}
+```
 
 ### Control del Programa
 
+(stdlib-exit)=
 #### `exit`, `abort` y `atexit`
 
 ```c
@@ -1252,6 +1328,86 @@ int atexit(void (*func)(void));
 
 Estas funciones controlan el ciclo de vida del programa de maneras fundamentalmente diferentes. `exit()` realiza una terminación ordenada, ejecutando todas las funciones registradas con `atexit()`, vaciando buffers de salida, cerrando archivos abiertos, y devolviendo un código de estado al sistema operativo (típicamente 0 para éxito, no-cero para error). `abort()` causa terminación inmediata y anormal, generalmente produciendo un core dump para debugging y sin ejecutar limpieza. Se usa cuando el programa detecta un estado irrecuperable. `atexit()` permite registrar hasta 32 funciones que se ejecutarán automáticamente en terminación normal, en orden LIFO (último registrado, primero ejecutado). Es esencial para limpieza de recursos, cierre de conexiones, y otras tareas de finalización que garanticen que el programa termine limpiamente.
 
+### Interacción con el Entorno
+
+(stdlib-getenv)=
+#### `getenv`
+
+Obtiene el valor de una variable de entorno.
+
+- **Prototipo:** `char* getenv(const char *name);`
+- **Descripción:** Busca en la lista de variables de entorno del proceso actual una cadena que coincida con `name`.
+- **Retorno:** Devuelve un puntero a la cadena que contiene el valor de la variable. Si la variable no existe, devuelve `NULL`. La cadena devuelta no debe ser modificada.
+
+```{code-block} c
+:caption: "Leyendo las variables de entorno `USER` y `PATH`."
+:linenos:
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    // Intentamos obtener la variable de entorno 'USER' (común en Linux/macOS)
+    // o 'USERNAME' (común en Windows).
+    char *usuario = getenv("USER");
+    if (usuario == NULL) {
+        usuario = getenv("USERNAME");
+    }
+
+    if (usuario != NULL) {
+        printf("Hola, %s!\n", usuario);
+    } else {
+        printf("No se pudo determinar el nombre de usuario.\n");
+    }
+
+    char *path = getenv("PATH");
+    if (path != NULL) {
+        printf("\nLa variable PATH del sistema es:\n%s\n", path);
+    }
+
+    return EXIT_SUCCESS;
+}
+```
+
+(stdlib-system)=
+#### `system`
+
+Ejecuta un comando del sistema operativo.
+
+- **Prototipo:** `int system(const char *command);`
+- **Descripción:** Pasa la cadena `command` al intérprete de comandos del sistema para que la ejecute. Su uso con entradas de usuario es peligroso debido al riesgo de inyección de comandos.
+- **Retorno:** Depende del sistema, pero generalmente devuelve 0 si el comando se ejecutó correctamente.
+
+:::{warning} Riesgos de Seguridad con `system`
+Usar `system` con entradas que provienen del usuario es extremadamente peligroso, ya que puede permitir la inyección de comandos maliciosos. Usala con precaución y solo con comandos fijos o después de una validación muy rigurosa de la entrada.
+:::
+
+```{code-block} c
+:caption: "Uso de `exit` y `system`."
+:linenos:
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    printf("Listando archivos del directorio actual:\n");
+    // En sistemas POSIX (Linux, macOS) se usa "ls", en Windows es "dir".
+    #ifdef _WIN32
+        system("dir");
+    #else
+        system("ls -l");
+    #endif
+
+    int divisor = 0;
+    if (divisor == 0) {
+        fprintf(stderr, "Error crítico: intento de división por cero. Saliendo...\n");
+        exit(EXIT_FAILURE); // Termina el programa inmediatamente
+    }
+
+    // Este código nunca se ejecuta
+    printf("Esto no se imprimirá.\n");
+    return EXIT_SUCCESS;
+}
+```
+
 ---
 
 ## `<string.h>` - Manipulación de Cadenas y Memoria
@@ -1260,6 +1416,7 @@ El header `<string.h>` proporciona funciones para manipular cadenas (arreglos de
 
 ### Longitud y Copia
 
+(string-strlen)=
 #### `strlen`, `strcpy` y `strncpy`
 
 ```c
@@ -1279,6 +1436,7 @@ Estas tres funciones son fundamentales en el manejo de cadenas C, pero requieren
 
 ### Comparación y Búsqueda
 
+(string-strcmp)=
 #### `strcmp`, `strstr` y `strchr`
 
 ```c
@@ -1396,6 +1554,65 @@ Para información exhaustiva:
 - **El estándar ISO C**: Especificación oficial
 - **cppreference.com**: Referencia en línea detallada
 - **man pages**: En Unix/Linux, `man 3 función`
+:::
+
+---
+
+## Glosario de Términos
+
+:::{glossary}
+
+Análisis Léxico (Lexical Analysis)
+: Fase inicial de un compilador que convierte una secuencia de caracteres (código fuente) en una secuencia de "tokens" o componentes con significado propio (palabras clave, identificadores, etc.). Es sinónimo de **tokenización**.
+
+Benchmarking
+: Proceso de ejecutar pruebas estandarizadas para medir y comparar el rendimiento (velocidad, uso de memoria) de un programa o una función.
+
+Buffer
+: Zona de memoria temporal usada para almacenar datos mientras se transfieren de un lugar a otro, optimizando operaciones de entrada/salida.
+
+Buffer Overflow (Desbordamiento de Búfer)
+: Error de seguridad que ocurre cuando se escriben datos más allá de los límites de un buffer, sobrescribiendo memoria adyacente y pudiendo causar fallos o vulnerabilidades.
+
+Comparación Lexicográfica
+: Comparación de dos cadenas de texto basada en el orden alfabético de sus caracteres, similar al orden de las palabras en un diccionario.
+
+Core Dump
+: Archivo que guarda el estado de la memoria de un programa en el momento en que terminó de forma anormal. Se usa para depurar errores complejos post-mortem.
+
+Epoch (Época)
+: Un instante de tiempo que sirve como punto de referencia. En sistemas Unix/POSIX, el epoch es el 1 de enero de 1970 a las 00:00:00 UTC. `time_t` suele medir los segundos transcurridos desde ese momento.
+
+Invariante
+: Condición o propiedad que debe mantenerse siempre verdadera en un punto específico de la ejecución de un programa. Las aserciones (`assert`) son una forma de verificar invariantes durante el desarrollo.
+
+Locale (Configuración Regional)
+: Conjunto de parámetros que definen el idioma, país y otras convenciones culturales (formato de fecha, moneda, separador decimal, codificación de caracteres) para adaptar el comportamiento de un programa.
+
+Macro
+: Fragmento de código identificado por un nombre, que es sustituido por su contenido por el preprocesador antes de la compilación. Se definen con la directiva `#define`.
+
+Padding (Relleno)
+: Bytes extra que el compilador inserta entre los miembros de una estructura para alinear cada miembro en una dirección de memoria que sea múltiplo de su tamaño. Esto optimiza la velocidad de acceso a la memoria.
+
+Parsing (Análisis Sintáctico)
+: Proceso de analizar una secuencia de tokens para determinar su estructura gramatical. El objetivo es construir una representación interna (como un árbol sintáctico) que el programa pueda entender y procesar.
+
+Precondición
+: Condición que debe ser verdadera antes de que se llame a una función para que esta pueda operar correctamente. `assert` se usa comúnmente para verificar precondiciones.
+
+Profiling (Perfilado)
+: Análisis del comportamiento de un programa en tiempo de ejecución para medir su uso de recursos, como el tiempo de CPU o la memoria utilizada por cada función. Ayuda a identificar cuellos de botella de rendimiento.
+
+Serialización
+: Proceso de convertir una estructura de datos en un formato (generalmente una secuencia de bytes) que puede ser almacenado en disco o transmitido por red, para su posterior reconstrucción.
+
+Timestamping (Sellado de Tiempo)
+: Acción de registrar la fecha y hora en que ocurre un evento.
+
+Tokenización
+: Proceso de dividir una secuencia de texto en "tokens" o unidades léxicas (palabras, números, símbolos). Es el primer paso del análisis léxico.
+
 :::
 
 ---
