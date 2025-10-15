@@ -632,7 +632,6 @@ Utilizá el operador `sizeof` para determinar la cantidad de elementos de forma 
 ```
 
 ````{solution} sumar_arreglo
-
 :class: dropdown
 
 ```{code-block}c
@@ -660,6 +659,7 @@ int main()
 ```{exercise}
 :label: promedio_arreglo
 :enumerator: funciones-1
+
 Implementá una función `promedio_arreglo` que reciba un arreglo de enteros y su tamaño.
 La función debe devolver el promedio de sus elementos como un `float`.
 
@@ -667,6 +667,7 @@ La función debe devolver el promedio de sus elementos como un `float`.
 
 ````{solution} promedio_arreglo
 :class: dropdown
+
 ```{code-block}c
 :linenos:
 #include <stdio.h>
@@ -763,7 +764,6 @@ la cantidad de vocales (mayúsculas y minúsculas) que contiene.
 ```
 
 ````{solution} contar_vocales
-
 :class: dropdown
 
 ```{code-block}c
@@ -808,7 +808,6 @@ Luego, eliminá el carácter de nueva línea (`\n`) que `fgets` suele agregar al
 ```
 
 ````{solution} leer_cadena
-
 :class: dropdown
 
 ```{code-block}c
