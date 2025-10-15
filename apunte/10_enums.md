@@ -629,6 +629,167 @@ tipo_archivo_t obtener_tipo_archivo(const char *ruta) {
 }
 ```
 
+---
+
+## Documentación de Enumeraciones
+
+La documentación adecuada de enumeraciones es esencial para comunicar el propósito de cada valor, las relaciones entre valores y las restricciones de uso. Al igual que con las estructuras, existen dos enfoques principales para documentar enumeraciones.
+
+### Enfoque 1: Bloque de Documentación Único
+
+Este enfoque utiliza un único bloque de comentario antes de la definición de la enumeración para describir su propósito y todos sus valores. Es ideal para enumeraciones simples donde los valores son autoexplicativos.
+
+```c
+/**
+ * Representa los niveles de severidad de un mensaje de log.
+ * 
+ * Los niveles están ordenados de menor a mayor severidad.
+ * Usá DEBUG para mensajes detallados durante el desarrollo,
+ * INFO para eventos normales, WARNING para situaciones anómalas
+ * pero recuperables, ERROR para fallos que impiden operaciones
+ * específicas, y CRITICAL para fallos que comprometen el sistema.
+ * 
+ * Valores:
+ *   - NIVEL_DEBUG: Información de depuración detallada
+ *   - NIVEL_INFO: Mensajes informativos de operación normal
+ *   - NIVEL_WARNING: Advertencias que no impiden la operación
+ *   - NIVEL_ERROR: Errores que impiden operaciones específicas
+ *   - NIVEL_CRITICAL: Fallos críticos del sistema
+ */
+typedef enum {
+    NIVEL_DEBUG,
+    NIVEL_INFO,
+    NIVEL_WARNING,
+    NIVEL_ERROR,
+    NIVEL_CRITICAL
+} nivel_log_t;
+```
+
+**Ventajas:**
+- Proporciona contexto general sobre el uso de la enumeración.
+- Mantiene la definición visualmente limpia.
+- Facilita explicar relaciones de orden o jerarquía entre valores.
+
+**Desventajas:**
+- La separación entre documentación y valores puede dificultar actualizaciones.
+- Puede volverse verbosa si cada valor requiere explicación extensa.
+
+### Enfoque 2: Documentación Distribuida
+
+Este enfoque combina un bloque de comentario general con comentarios individuales para cada valor. Es preferible cuando cada valor requiere explicación específica o tiene restricciones particulares.
+
+```c
+/**
+ * Representa los estados posibles de un proceso de compilación.
+ * 
+ * El proceso debe seguir el flujo: INICIAL -> ANALIZANDO -> COMPILANDO
+ * -> ENLAZANDO -> COMPLETADO. En caso de error en cualquier etapa,
+ * transiciona a ERROR_* correspondiente.
+ */
+typedef enum {
+    COMPILACION_INICIAL,         // Estado inicial antes de comenzar
+    COMPILACION_ANALIZANDO,      // Análisis léxico y sintáctico en progreso
+    COMPILACION_COMPILANDO,      // Generación de código objeto
+    COMPILACION_ENLAZANDO,       // Enlazado de módulos y bibliotecas
+    COMPILACION_COMPLETADO,      // Proceso finalizado exitosamente
+    COMPILACION_ERROR_SINTAXIS,  // Error de sintaxis detectado
+    COMPILACION_ERROR_SEMANTICO, // Error semántico detectado
+    COMPILACION_ERROR_ENLAZADO,  // Error durante el enlazado
+    COMPILACION_ERROR_IO         // Error de entrada/salida
+} estado_compilacion_t;
+```
+
+**Ventajas:**
+- Cada valor tiene su documentación adyacente, facilitando mantenimiento.
+- Permite especificar detalles únicos de cada valor.
+- Ideal para enumeraciones con valores heterogéneos.
+
+**Desventajas:**
+- Puede hacer la definición más extensa visualmente.
+- Requiere disciplina para mantener comentarios en todos los valores.
+
+### Ejemplo Completo: Enumeración con Valores Explícitos
+
+Para enumeraciones con valores explícitos o que representan códigos de protocolo, la documentación debe ser exhaustiva:
+
+```c
+/**
+ * Códigos de estado HTTP más comunes.
+ * 
+ * Esta enumeración define los códigos de estado definidos en RFC 7231
+ * y RFC 7235. Los valores están organizados por categoría:
+ *   - 2xx: Respuestas exitosas
+ *   - 4xx: Errores del cliente
+ *   - 5xx: Errores del servidor
+ * 
+ * Los valores numéricos son los códigos HTTP estándar y NO deben
+ * modificarse para mantener compatibilidad con el protocolo.
+ */
+typedef enum {
+    HTTP_OK = 200,                      // Solicitud exitosa
+    HTTP_CREATED = 201,                 // Recurso creado exitosamente
+    HTTP_NO_CONTENT = 204,              // Exitosa, sin contenido en respuesta
+    
+    HTTP_BAD_REQUEST = 400,             // Sintaxis de solicitud inválida
+    HTTP_UNAUTHORIZED = 401,            // Autenticación requerida o fallida
+    HTTP_FORBIDDEN = 403,               // Servidor rechaza la solicitud
+    HTTP_NOT_FOUND = 404,               // Recurso no encontrado
+    HTTP_METHOD_NOT_ALLOWED = 405,      // Método HTTP no permitido
+    
+    HTTP_INTERNAL_SERVER_ERROR = 500,   // Error interno del servidor
+    HTTP_NOT_IMPLEMENTED = 501,         // Funcionalidad no implementada
+    HTTP_SERVICE_UNAVAILABLE = 503      // Servicio temporalmente no disponible
+} codigo_http_t;
+```
+
+### Documentación de Enumeraciones con Flags
+
+Para enumeraciones que representan flags combinables, la documentación debe explicar cómo combinarlos:
+
+```c
+/**
+ * Flags para control de permisos de archivo.
+ * 
+ * Estos flags pueden combinarse usando el operador OR (|) para
+ * especificar múltiples permisos simultáneamente.
+ * 
+ * Ejemplo de uso:
+ *   permisos_t permisos = PERMISO_LECTURA | PERMISO_ESCRITURA;
+ * 
+ * Para verificar permisos, usá el operador AND (&):
+ *   if (permisos & PERMISO_LECTURA) { ... }
+ * 
+ * IMPORTANTE: Los valores son potencias de 2 para permitir
+ * operaciones bitwise. NO modifiques estos valores.
+ */
+typedef enum {
+    PERMISO_NINGUNO = 0,        // Sin permisos (0b0000)
+    PERMISO_LECTURA = 1,        // Permite lectura (0b0001)
+    PERMISO_ESCRITURA = 2,      // Permite escritura (0b0010)
+    PERMISO_EJECUCION = 4,      // Permite ejecución (0b0100)
+    PERMISO_ELIMINACION = 8,    // Permite eliminación (0b1000)
+    PERMISO_TODOS = 15          // Todos los permisos (0b1111)
+} permisos_archivo_t;
+```
+
+### Recomendaciones Generales para Enumeraciones
+
+1. **Significado de los valores:** Explicá claramente qué representa cada valor y cuándo debe usarse.
+
+2. **Orden y secuencia:** Si el orden de los valores es significativo (ej. severidad, estados), documentá esta relación.
+
+3. **Valores explícitos:** Si asignás valores explícitos, documentá por qué (compatibilidad con protocolo, serialización, etc.).
+
+4. **Valores centinela:** Si incluís valores como `_MAX`, `_INVALID` o `_UNKNOWN`, explicá su propósito.
+
+5. **Restricciones:** Documentá cualquier restricción en el uso, transiciones válidas entre estados, o combinaciones permitidas.
+
+6. **Compatibilidad:** Si la enumeración se serializa o se usa en interfaces externas, advertí sobre la necesidad de mantener estabilidad de valores.
+
+Para más detalles sobre el estilo de comentarios, consultá la {ref}`regla 0x0032h <0x0032h>` sobre cómo escribir comentarios que expliquen el "porqué" y no el "qué".
+
+---
+
 ## Ejercicios
 
 ```{exercise}
@@ -983,6 +1144,122 @@ Al agrupar `a` y `c`, el compilador solo necesita 2 bytes de padding para alinea
 
 ---
 
+## Documentación de Estructuras
+
+La documentación clara y detallada de las estructuras es fundamental para mantener código comprensible y mantenible. Una buena documentación explica no solo qué es cada campo, sino también su propósito, restricciones y relaciones con otros miembros. Existen dos enfoques principales para documentar estructuras, cada uno con sus ventajas según el contexto.
+
+### Enfoque 1: Bloque de Documentación Único
+
+Este enfoque utiliza un único bloque de comentario antes de la definición de la estructura para describir su propósito general y documentar todos sus miembros. Es ideal para estructuras simples o cuando los miembros requieren explicaciones breves.
+
+```c
+/**
+ * Representa un punto en el espacio tridimensional.
+ * 
+ * Esta estructura almacena las coordenadas cartesianas (x, y, z)
+ * de un punto en el espacio 3D. Todas las coordenadas se expresan
+ * en unidades del sistema internacional (metros).
+ * 
+ * Miembros:
+ *   - x: Coordenada en el eje X (horizontal)
+ *   - y: Coordenada en el eje Y (profundidad)
+ *   - z: Coordenada en el eje Z (altura)
+ */
+typedef struct {
+    double x;
+    double y;
+    double z;
+} punto_3d_t;
+```
+
+**Ventajas:**
+- Proporciona una visión general cohesiva de la estructura.
+- Facilita la explicación de relaciones entre miembros.
+- Mantiene la definición de la estructura visualmente limpia.
+
+**Desventajas:**
+- Puede volverse difícil de mantener si la estructura crece.
+- La separación entre documentación y código puede dificultar actualizaciones.
+
+### Enfoque 2: Documentación Distribuida
+
+Este enfoque combina un bloque de comentario que describe el propósito general de la estructura con comentarios de línea individuales para cada miembro. Es preferible para estructuras complejas con muchos campos o cuando cada miembro requiere explicación detallada.
+
+```c
+/**
+ * Representa la configuración de una conexión de red.
+ * 
+ * Esta estructura almacena todos los parámetros necesarios para
+ * establecer y mantener una conexión de red TCP/IP. Los valores
+ * deben ser inicializados antes de llamar a conectar_red().
+ */
+typedef struct {
+    char direccion_ip[16];      // Dirección IP en formato "xxx.xxx.xxx.xxx"
+    unsigned short puerto;      // Puerto de destino (1-65535)
+    int timeout_ms;             // Tiempo de espera en milisegundos para la conexión
+    bool usar_tls;              // true si se requiere conexión segura (TLS/SSL)
+    unsigned int reintentos;    // Número máximo de intentos de reconexión
+    void *contexto_usuario;     // Puntero opaco para datos del usuario (puede ser NULL)
+} configuracion_red_t;
+```
+
+**Ventajas:**
+- Cada campo tiene su documentación adyacente, facilitando actualizaciones.
+- La estructura es autodocumentada al leerla linealmente.
+- Ideal para estructuras con campos que requieren explicaciones específicas.
+
+**Desventajas:**
+- Puede hacer la definición visualmente más extensa.
+- Las relaciones entre campos pueden ser menos evidentes.
+
+### Ejemplo Completo: Estructura Compleja
+
+Para estructuras complejas que involucran múltiples conceptos, el enfoque distribuido suele ser más efectivo:
+
+```c
+/**
+ * Representa el estado completo de una transacción bancaria.
+ * 
+ * Esta estructura almacena toda la información necesaria para
+ * procesar, validar y auditar una transacción financiera.
+ * Todos los montos están expresados en la menor unidad de la
+ * moneda (centavos para ARS, USD, etc.).
+ * 
+ * Invariantes:
+ *   - monto debe ser > 0
+ *   - numero_cuenta_origen y numero_cuenta_destino deben ser distintos
+ *   - timestamp debe ser válido (verificar con validar_timestamp())
+ */
+typedef struct {
+    char id_transaccion[37];        // UUID único de la transacción (formato RFC 4122)
+    long long monto;                // Monto en la menor unidad de la moneda
+    char numero_cuenta_origen[21];  // Número de cuenta origen (máx. 20 dígitos + '\0')
+    char numero_cuenta_destino[21]; // Número de cuenta destino (máx. 20 dígitos + '\0')
+    time_t timestamp;               // Momento exacto de la transacción (UNIX epoch)
+    enum tipo_transaccion tipo;     // Tipo: TRANSFERENCIA, DEPOSITO, RETIRO, etc.
+    char descripcion[256];          // Descripción proporcionada por el usuario
+    bool procesada;                 // true si la transacción ya fue procesada
+    int codigo_resultado;           // 0 = éxito, != 0 = código de error específico
+    char firma_digital[65];         // Hash SHA-256 de la transacción (64 caracteres hex + '\0')
+} transaccion_bancaria_t;
+```
+
+### Recomendaciones Generales
+
+1. **Consistencia:** Elegí un enfoque y mantenélo en todo el proyecto. Si usás el enfoque distribuido, todos los miembros deben tener comentarios.
+
+2. **Información Útil:** Documentá restricciones, rangos válidos, unidades de medida y valores especiales (como NULL para punteros opcionales).
+
+3. **Invariantes:** Si la estructura tiene invariantes o precondiciones, documentalas claramente en el bloque general.
+
+4. **Actualizaciones:** Cuando modifiques la estructura, actualizá la documentación inmediatamente. La documentación desactualizada es peor que la falta de documentación.
+
+5. **Relaciones:** Si los campos tienen dependencias entre sí, explicá estas relaciones claramente.
+
+Para más detalles sobre el estilo de comentarios y documentación, consultá la {ref}`regla 0x0032h <0x0032h>` sobre cómo escribir comentarios que expliquen el "porqué" y no el "qué".
+
+---
+
 # 2. Uniones (`union`): Un Espacio para Múltiples Propósitos
 
 Una `union` permite que varios miembros compartan la **misma ubicación de
@@ -1037,6 +1314,207 @@ int main() {
 ```
 
 Este patrón es la base para implementar tipos de datos polimórficos en C.
+
+---
+
+## Documentación de Uniones
+
+Las uniones (`union`) requieren documentación particularmente cuidadosa debido a que múltiples miembros comparten la misma ubicación de memoria. Es fundamental documentar cuándo y cómo debe accederse a cada miembro para evitar comportamiento indefinido.
+
+### Enfoque 1: Bloque de Documentación Único
+
+Para uniones simples, un único bloque de comentario puede ser suficiente si se explica claramente el propósito y las restricciones de uso.
+
+```c
+/**
+ * Permite interpretar un valor de 32 bits de múltiples formas.
+ * 
+ * Esta unión facilita la conversión entre representaciones enteras
+ * y de punto flotante de 32 bits sin necesidad de casting explícito.
+ * 
+ * ADVERTENCIA: Solo el último miembro asignado contiene un valor
+ * válido. Leer un miembro distinto al último escrito resulta en
+ * comportamiento indefinido según el estándar C.
+ * 
+ * Miembros:
+ *   - como_int: Interpreta los 32 bits como entero con signo
+ *   - como_uint: Interpreta los 32 bits como entero sin signo
+ *   - como_float: Interpreta los 32 bits como número de punto flotante
+ *   - como_bytes: Acceso a los 4 bytes individuales
+ */
+typedef union {
+    int32_t como_int;
+    uint32_t como_uint;
+    float como_float;
+    uint8_t como_bytes[4];
+} valor_32bits_t;
+```
+
+**Ventajas:**
+- Proporciona una visión completa del propósito de la unión.
+- Facilita explicar las restricciones de uso compartido de memoria.
+- Mantiene la definición visualmente limpia.
+
+**Desventajas:**
+- Puede ser difícil de mantener si la unión crece.
+- La separación entre documentación y miembros puede causar desincronización.
+
+### Enfoque 2: Documentación Distribuida
+
+Para uniones más complejas o uniones etiquetadas, el enfoque distribuido es preferible, especialmente cuando cada miembro tiene propósitos o restricciones específicas.
+
+```c
+/**
+ * Representa los datos específicos de diferentes tipos de mensajes de red.
+ * 
+ * Esta unión debe usarse ÚNICAMENTE dentro de una estructura que incluya
+ * un campo tipo (enum tipo_mensaje_t) para identificar qué miembro es válido.
+ * 
+ * IMPORTANTE: El tamaño de esta unión es el del miembro más grande
+ * (mensaje_archivo). Considerá las implicaciones de memoria al usarla
+ * en arreglos o estructuras embebidas.
+ */
+typedef union {
+    struct {                        // Válido cuando tipo == MSG_TEXTO
+        char contenido[256];        // Mensaje de texto (máx. 255 chars + '\0')
+        size_t longitud;            // Longitud real del mensaje
+    } mensaje_texto;
+    
+    struct {                        // Válido cuando tipo == MSG_NUMERO
+        int64_t valor;              // Valor numérico a transmitir
+        bool es_firmado;            // true si el valor es con signo
+    } mensaje_numero;
+    
+    struct {                        // Válido cuando tipo == MSG_ARCHIVO
+        char nombre[128];           // Nombre del archivo
+        size_t tamano;              // Tamaño en bytes
+        uint32_t checksum;          // Checksum CRC32 para verificación
+        void *datos;                // Puntero a los datos del archivo
+    } mensaje_archivo;
+} datos_mensaje_t;
+```
+
+**Ventajas:**
+- Cada miembro tiene su documentación adyacente.
+- Facilita documentar estructuras anidadas dentro de la unión.
+- Ideal para uniones etiquetadas con miembros complejos.
+
+**Desventajas:**
+- La definición puede volverse visualmente extensa.
+- Requiere disciplina para documentar todos los miembros consistentemente.
+
+### Ejemplo Completo: Unión Etiquetada con Documentación Exhaustiva
+
+Para uniones etiquetadas (el patrón más común y seguro), la documentación debe cubrir tanto la unión como la estructura contenedora:
+
+```c
+/**
+ * Tipo de dato polimórfico que puede contener diferentes tipos de valores.
+ * 
+ * Este tipo implementa el patrón de unión etiquetada (tagged union),
+ * permitiendo almacenar y operar con diferentes tipos de datos de forma
+ * segura. El campo 'tipo' SIEMPRE indica qué miembro de la unión 'datos'
+ * contiene información válida.
+ * 
+ * Uso correcto:
+ *   valor_t v = {.tipo = TIPO_ENTERO, .datos.entero = 42};
+ *   if (v.tipo == TIPO_ENTERO) {
+ *       printf("%d\n", v.datos.entero);  // ¡Seguro!
+ *   }
+ * 
+ * Uso INCORRECTO:
+ *   valor_t v = {.tipo = TIPO_ENTERO, .datos.entero = 42};
+ *   printf("%f\n", v.datos.flotante);  // ¡Comportamiento indefinido!
+ * 
+ * INVARIANTE: El campo 'tipo' debe ser siempre consistente con el
+ * miembro de 'datos' que contiene información válida.
+ */
+typedef struct {
+    /**
+     * Identifica qué tipo de dato está almacenado actualmente.
+     * Este campo DEBE actualizarse cada vez que se modifica 'datos'.
+     */
+    enum {
+        TIPO_VACIO,      // Ningún valor almacenado (estado inicial)
+        TIPO_ENTERO,     // datos.entero es válido
+        TIPO_FLOTANTE,   // datos.flotante es válido
+        TIPO_CADENA,     // datos.cadena es válido (debe liberarse si se asignó dinámicamente)
+        TIPO_PUNTERO     // datos.puntero es válido
+    } tipo;
+    
+    /**
+     * Almacenamiento para el valor actual.
+     * Solo el miembro correspondiente a 'tipo' contiene datos válidos.
+     */
+    union {
+        int64_t entero;         // Entero de 64 bits con signo
+        double flotante;        // Número de punto flotante de precisión doble
+        char *cadena;           // Puntero a cadena (responsabilidad del usuario liberar)
+        void *puntero;          // Puntero genérico para tipos personalizados
+    } datos;
+} valor_t;
+
+/**
+ * Crea un valor de tipo entero.
+ * 
+ * @param entero Valor entero a almacenar
+ * @return Nuevo valor_t inicializado con el entero proporcionado
+ */
+valor_t crear_valor_entero(int64_t entero) {
+    return (valor_t){
+        .tipo = TIPO_ENTERO,
+        .datos.entero = entero
+    };
+}
+```
+
+### Documentación de Uniones para Manipulación de Bits
+
+Para uniones usadas en programación de bajo nivel, la documentación debe ser especialmente detallada:
+
+```c
+/**
+ * Permite manipular y acceder a un valor de 64 bits en diferentes granularidades.
+ * 
+ * Esta unión es útil para operaciones de bajo nivel que requieren acceso
+ * tanto al valor completo como a sus partes individuales (mitades, bytes, bits).
+ * 
+ * NOTA DE PORTABILIDAD: El orden de los bytes (endianness) afecta cómo se
+ * interpretan los campos byte[]. En sistemas little-endian, byte[0] es el
+ * byte menos significativo. En big-endian, es el más significativo.
+ * 
+ * Uso típico: Conversión de protocolos de red, serialización, depuración.
+ */
+typedef union {
+    uint64_t completo;          // Acceso al valor completo de 64 bits
+    
+    struct {                    // Acceso a mitades de 32 bits
+        uint32_t bajo;          // 32 bits inferiores
+        uint32_t alto;          // 32 bits superiores
+    } mitades;
+    
+    uint16_t palabras[4];       // Acceso como 4 palabras de 16 bits
+    uint8_t bytes[8];           // Acceso individual a los 8 bytes
+} registro_64bits_t;
+```
+
+### Recomendaciones Generales para Uniones
+
+1. **Advertencias de seguridad:** Siempre documentá que solo un miembro es válido a la vez y que leer el miembro incorrecto causa comportamiento indefinido.
+
+2. **Uniones etiquetadas:** Si la unión se usa con una etiqueta (enum), documentá claramente la relación entre el valor de la etiqueta y el miembro válido.
+
+3. **Tamaño en memoria:** Mencioná el tamaño de la unión (determinado por su miembro más grande) si esto tiene implicaciones para el uso.
+
+4. **Consideraciones de portabilidad:** Si la unión depende de representaciones específicas (endianness, tamaño de tipos), documentá estas dependencias.
+
+5. **Gestión de memoria:** Si algún miembro contiene punteros que deben liberarse, documentá claramente la responsabilidad de gestión de memoria.
+
+6. **Casos de uso:** Explicá para qué situaciones está diseñada la unión y cuándo debería (o no) usarse.
+
+Para más detalles sobre el estilo de comentarios, consultá la {ref}`regla 0x0032h <0x0032h>` sobre cómo escribir comentarios que expliquen el "porqué" y no el "qué".
+
+---
 
 ```{exercise}
 :label: ejer-tagged-union-2
