@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 901 616.82245"
+   version="1.1"
+   id="svg24"
+   sodipodi:docname="paso_matrices_funciones.svg"
+   width="901"
+   height="616.82245"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs24" />
+  <sodipodi:namedview
+     id="namedview24"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.0786593"
+     inkscape:cx="403.27842"
+     inkscape:cy="427.84596"
+     inkscape:window-width="1872"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg24" />
+  <rect
+     style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:#ff9800;stroke-width:1.05806;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none"
+     id="rect24"
+     width="899.94196"
+     height="615.7644"
+     x="0.52903003"
+     y="0.52903003"
+     rx="3.999742" />
+  <!-- Título -->
+  <text
+     x="450.47095"
+     y="30.52903"
+     font-family="Arial, sans-serif"
+     font-size="18px"
+     font-weight="bold"
+     text-anchor="middle"
+     id="text1">Paso de Matrices a Funciones en C</text>
+  <!-- Método 1: Clásico -->
+  <rect
+     x="50.513027"
+     y="60.571102"
+     width="799.91583"
+     height="238.92657"
+     fill="#e8f5e9"
+     stroke="#2e7d32"
+     stroke-width="2.08415"
+     rx="7.9991584"
+     id="rect1" />
+  <text
+     x="450.47095"
+     y="90.52903"
+     font-family="Arial, sans-serif"
+     font-size="16px"
+     font-weight="bold"
+     text-anchor="middle"
+     fill="#2e7d32"
+     id="text2">Método Clásico (Dimensión de columnas fija)</text>
+  <text
+     x="70.470955"
+     y="120.52903"
+     font-family="Arial, sans-serif"
+     font-size="13px"
+     font-weight="bold"
+     id="text3">Declaración:</text>
+  <rect
+     x="70.470955"
+     y="130.52904"
+     width="760"
+     height="50"
+     fill="#ffffff"
+     stroke="#666666"
+     stroke-width="1"
+     rx="3"
+     id="rect3" />
+  <text
+     x="85.470955"
+     y="155.52904"
+     font-family="monospace"
+     font-size="12px"
+     id="text4">#define COLUMNAS 4</text>
+  <text
+     x="85.470955"
+     y="170.52904"
+     font-family="monospace"
+     font-size="12px"
+     id="text5">int matriz[3][COLUMNAS]; // 3 filas, 4 columnas</text>
+  <text
+     x="70.470955"
+     y="205.52904"
+     font-family="Arial, sans-serif"
+     font-size="13px"
+     font-weight="bold"
+     id="text6">Función:</text>
+  <rect
+     x="70.470955"
+     y="215.52904"
+     width="760"
+     height="50"
+     fill="#ffffff"
+     stroke="#666666"
+     stroke-width="1"
+     rx="3"
+     id="rect6" />
+  <text
+     x="85.470955"
+     y="235.52904"
+     font-family="monospace"
+     font-size="12px"
+     id="text7">void procesar(int mat[][COLUMNAS], size_t filas, size_t columnas) {</text>
+  <text
+     x="100.47095"
+     y="250.52904"
+     font-family="monospace"
+     font-size="12px"
+     id="text8">// mat[i][j] = mat + (i * COLUMNAS + j) * sizeof(int)</text>
+  <text
+     x="85.470955"
+     y="260.52902"
+     font-family="monospace"
+     font-size="12px"
+     id="text9">}</text>
+  <g
+     transform="translate(80.470955,284.52903)"
+     id="g12">
+    <text
+       x="0"
+       y="0"
+       font-family="Arial, sans-serif"
+       font-size="12px"
+       fill="#2e7d32"
+       id="text10">✓ Simple y directo</text>
+    <text
+       x="200"
+       y="0"
+       font-family="Arial, sans-serif"
+       font-size="12px"
+       fill="#c62828"
+       id="text11">✗ COLUMNAS debe ser constante en tiempo de compilación</text>
+    <text
+       x="600"
+       y="0"
+       font-family="Arial, sans-serif"
+       font-size="12px"
+       fill="#c62828"
+       id="text12">✗ Poco flexible</text>
+  </g>
+  <!-- Método 2: VLA -->
+  <rect
+     x="50.482189"
+     y="324.54025"
+     width="799.97754"
+     height="224.97752"
+     fill="#e3f2fd"
+     stroke="#1976d2"
+     stroke-width="2.02247"
+     rx="7.9997754"
+     id="rect12" />
+  <text
+     x="450.47095"
+     y="354.52902"
+     font-family="Arial, sans-serif"
+     font-size="16px"
+     font-weight="bold"
+     text-anchor="middle"
+     fill="#1976d2"
+     id="text13">Método con VLA (Arrays de Longitud Variable) - ¡NO RECOMENDADO!</text>
+  <text
+     x="70.470955"
+     y="384.52902"
+     font-family="Arial, sans-serif"
+     font-size="13px"
+     font-weight="bold"
+     id="text14">Declaración:</text>
+  <rect
+     x="70.470955"
+     y="394.52902"
+     width="760"
+     height="40"
+     fill="#ffffff"
+     stroke="#666666"
+     stroke-width="1"
+     rx="3"
+     id="rect14" />
+  <text
+     x="85.470955"
+     y="414.52902"
+     font-family="monospace"
+     font-size="12px"
+     id="text15">int filas = 3, columnas = 4;</text>
+  <text
+     x="85.470955"
+     y="429.52902"
+     font-family="monospace"
+     font-size="12px"
+     id="text16">int matriz[filas][columnas]; // VLA - dimensiones en tiempo de ejecución</text>
+  <text
+     x="70.470955"
+     y="459.52902"
+     font-family="Arial, sans-serif"
+     font-size="13px"
+     font-weight="bold"
+     id="text17">Función (IMPORTANTE: dimensiones ANTES del parámetro matriz):</text>
+  <rect
+     x="70.470955"
+     y="469.52902"
+     width="760"
+     height="50"
+     fill="#ffffff"
+     stroke="#666666"
+     stroke-width="1"
+     rx="3"
+     id="rect17" />
+  <text
+     x="85.470955"
+     y="489.52902"
+     font-family="monospace"
+     font-size="12px"
+     id="text18">void procesar(size_t filas, size_t cols, int matriz[filas][cols]) {</text>
+  <text
+     x="100.47095"
+     y="504.52902"
+     font-family="monospace"
+     font-size="12px"
+     id="text19">// El compilador conoce 'filas' y 'cols' al procesar matriz[filas][cols]</text>
+  <text
+     x="85.470955"
+     y="514.52905"
+     font-family="monospace"
+     font-size="12px"
+     id="text20">}</text>
+  <g
+     transform="translate(80.470955,538.52903)"
+     id="g23">
+    <text
+       x="0"
+       y="0"
+       font-family="Arial, sans-serif"
+       font-size="12px"
+       fill="#2e7d32"
+       id="text21">✓ Más flexible</text>
+    <text
+       x="150"
+       y="0"
+       font-family="Arial, sans-serif"
+       font-size="12px"
+       fill="#c62828"
+       id="text22">✗ Usa stack (riesgo de desbordamiento)</text>
+    <text
+       x="450"
+       y="0"
+       font-family="Arial, sans-serif"
+       font-size="12px"
+       fill="#c62828"
+       id="text23">✗ NO portátil (C99+)</text>
+  </g>
+  <!-- Fórmula de cálculo -->
+  <rect
+     x="50.470955"
+     y="569.40411"
+     width="800"
+     height="15"
+     fill="#fff9c4"
+     stroke="#f9a825"
+     stroke-width="1"
+     rx="3"
+     id="rect23" />
+  <text
+     x="450.47095"
+     y="581.40411"
+     font-family="Arial, sans-serif"
+     font-size="11px"
+     text-anchor="middle"
+     font-style="italic"
+     id="text24">Fórmula de acceso: dirección_base + (i × COLUMNAS + j) × sizeof(tipo_elemento)</text>
+</svg>
