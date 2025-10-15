@@ -25,9 +25,13 @@ extensiones.
 - **Debugging avanzado**: Depurador visual para múltiples lenguajes
 - **Liveshare**: Colaboración en tiempo real con otros desarrolladores
 
-:::{note} VS Code fue lanzado en 2015 y rápidamente se volvió el editor más
+:::{note} Origenes
+
+VS Code fue lanzado en 2015 y rápidamente se volvió el editor más
 popular entre desarrolladores según encuestas de Stack Overflow. Su combinación
 de simplicidad y potencia lo hace ideal tanto para principiantes como expertos.
+
+
 :::
 
 ## Instalación en diferentes sistemas
@@ -671,7 +675,8 @@ git push -u origin main
 
 ## Ejercicios prácticos
 
-:::{exercise} :label: ejercicio-setup-vscode
+:::{exercise}
+:label: ejercicio-setup-vscode
 
 **Ejercicio 1: Setup completo de VS Code**
 
@@ -684,9 +689,12 @@ git push -u origin main
    - Prettier
    - GitLens
    - Live Server
-4. Verificá que podés abrir VS Code desde terminal con `code .` :::
+4. Verificá que podés abrir VS Code desde terminal con `code .` 
 
-:::{solution} :for: ejercicio-setup-vscode
+:::
+
+:::{solution}
+:for: ejercicio-setup-vscode
 
 ```bash
 # 1. Instalación en Ubuntu/Debian
@@ -726,7 +734,8 @@ code .
 
 :::
 
-:::{exercise} :label: ejercicio-proyecto-web
+:::{exercise}
+:label: ejercicio-proyecto-web
 
 **Ejercicio 2: Primer proyecto web con VS Code**
 
@@ -734,9 +743,12 @@ code .
 2. Usá Live Server para preview en tiempo real
 3. Configurá Prettier para formateo automático
 4. Inicializá Git y hacé commits de tu progreso
-5. Agregá un snippet personalizado para estructura HTML :::
+5. Agregá un snippet personalizado para estructura HTML 
 
-:::{solution} :for: ejercicio-proyecto-web
+:::
+
+:::{solution}
+:for: ejercicio-proyecto-web
 
 ```bash
 # 1. Crear estructura del proyecto
@@ -1055,10 +1067,14 @@ con vos. Empezás con funcionalidades básicas y gradualmente incorporás
 extensiones y configuraciones que se adaptan a tu estilo de trabajo y
 necesidades específicas.
 
-:::{tip} Aprendizaje progresivo No trates de aprender todas las funcionalidades
+:::{tip} Aprendizaje progresivo 
+
+No trates de aprender todas las funcionalidades
 de una vez. Empezá con lo básico (editar, guardar, terminal) y gradualmente
 incorporá nuevas herramientas. Cada developer tiene su setup personalizado que
-evolucionó con el tiempo. :::
+evolucionó con el tiempo. 
+
+:::
 
 La belleza de VS Code está en su balance perfecto entre simplicidad para
 principiantes y potencia para expertos. Con la configuración básica que viste en
@@ -1075,11 +1091,9 @@ $ code --version
 f1b07bd25dfad64b0167beb15359ae573aecd2cc
 x64
 
-$ echo "¡Listo para programar como un profesional!"
-¡Listo para programar como un profesional!
+$ echo "¡Listo para programar!"
+¡Listo para programar!
 ```
 
 ---
 
-_"Un buen editor no es solo una herramienta, es una extensión de tu
-pensamiento."_

@@ -32,7 +32,9 @@ de versiones.
 - Conceptos de staging area y working directory
 
 Si necesitás repasar estos conceptos, consultá primero la
-[Guía de Git para principiantes](./git.md). :::
+[Guía de Git para principiantes](./git.md). 
+
+:::
 
 (conceptos-avanzados)=
 ## Conceptos avanzados fundamentales
@@ -275,11 +277,15 @@ git rebase --abort                         # cancelar rebase y volver al estado 
 git rebase --skip                          # saltar el commit actual
 ```
 
-:::{warning} Regla de oro del rebase **Nunca hagas rebase de commits que ya
+:::{warning} Regla de oro del rebase 
+
+**Nunca hagas rebase de commits que ya
 fueron pusheados y compartidos con otros**. El rebase reescribe la historia, y
 si otros ya tienen esos commits, crearás problemas de sincronización.
 
-Rebase solo commits locales o en ramas que solo vos usás. :::
+Rebase solo commits locales o en ramas que solo vos usás. 
+
+:::
 
 (resolucion-conflictos)=
 ## Resolución avanzada de conflictos
@@ -453,7 +459,8 @@ git reset --hard HEAD@{1}        # volver al estado anterior
 (ejercicios-avanzados)=
 ## Ejercicios prácticos avanzados
 
-:::{exercise} :label: ejercicio-rebase-interactivo
+:::{exercise}
+:label: ejercicio-rebase-interactivo
 
 **Ejercicio 1: Rebase interactivo para limpiar historial**
 
@@ -466,9 +473,12 @@ mergear.
 2. Combinar commits relacionados
 3. Corregir mensajes de commit
 4. Eliminar commits innecesarios
-5. Crear un historial limpio y profesional :::
+5. Crear un historial limpio y profesional 
 
-:::{solution} :for: ejercicio-rebase-interactivo
+:::
+
+:::{solution}
+:for: ejercicio-rebase-interactivo
 
 ```bash
 # 1. Crear escenario con historial desordenado
@@ -544,7 +554,8 @@ echo -e "\n🎯 El historial ahora está listo para merge a main"
 
 :::
 
-:::{exercise} :label: ejercicio-recuperacion-commits
+:::{exercise}
+:label: ejercicio-recuperacion-commits
 
 **Ejercicio 2: Recuperación de commits perdidos**
 
@@ -555,9 +566,12 @@ eliminadas, y archivos borrados.
 
 1. Recuperar commits después de reset --hard destructivo
 2. Recuperar rama eliminada accidentalmente
-3. Recuperar archivo específico de commit anterior :::
+3. Recuperar archivo específico de commit anterior 
 
-:::{solution} :for: ejercicio-recuperacion-commits
+:::
+
+:::{solution} 
+:for: ejercicio-recuperacion-commits
 
 ```bash
 # 1. Configurar proyecto para simulacros
@@ -700,10 +714,14 @@ Dominar Git avanzado te convierte en un desarrollador más eficiente y confiable
 Las técnicas que aprendiste en esta guía son las mismas que usan equipos de
 desarrollo en empresas como Google, Facebook, y GitHub.
 
-:::{tip} Práctica continua Git avanzado se domina con la práctica. Aplicá estas
+:::{tip} Práctica continua
+
+El uso avanzado de Git se domina con la práctica. Aplicá estas
 técnicas en proyectos reales, experimentá con diferentes workflows, y no tengas
 miedo de "romper" cosas en repositorios de prueba. Git tiene herramientas de
-recuperación para casi cualquier situación. :::
+recuperación para casi cualquier situación. 
+
+:::
 
 El control de versiones avanzado no es solo sobre comandos técnicos - es sobre
 metodologías que permiten a equipos grandes trabajar eficientemente, mantener

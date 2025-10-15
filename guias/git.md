@@ -886,7 +886,8 @@ git config --global core.autocrlf input
 (ejercicios-git-basico)=
 ## Ejercicios prácticos
 
-:::{exercise} :label: ejercicio-primer-repo
+:::{exercise}
+:label: ejercicio-primer-repo
 
 **Ejercicio 1: Tu primer repositorio**
 
@@ -902,7 +903,8 @@ de practicar el {ref}`flujo-diario` completo.
 6. Modificá el `index.html` agregando más contenido
 7. Hacé un segundo commit con los cambios :::
 
-:::{solution} :for: ejercicio-primer-repo
+:::{solution}
+:for: ejercicio-primer-repo
 
 ```bash
 # 1. Crear directorio
@@ -949,7 +951,8 @@ git log --oneline
 
 :::
 
-:::{exercise} :label: ejercicio-manejo-cambios
+:::{exercise}
+:label: ejercicio-manejo-cambios
 
 **Ejercicio 2: Manejo de cambios**
 
@@ -959,9 +962,12 @@ git log --oneline
 4. Usá `git diff` para ver las diferencias
 5. Sacá el CSS del staging area
 6. Volvé a agregarlo junto con el HTML modificado
-7. Hacé commit de ambos cambios juntos :::
+7. Hacé commit de ambos cambios juntos 
 
-:::{solution} :for: ejercicio-manejo-cambios
+:::
+
+:::{solution}
+:for: ejercicio-manejo-cambios
 
 ```bash
 # 1. Crear archivo CSS
@@ -1146,10 +1152,14 @@ GitHub es mucho más que un simple hosting de Git:
 - **GitHub Actions**: CI/CD y automatización
 - **GitHub Pages**: Hosting gratuito para sitios web estáticos
 
-:::{note} GitHub ofrece repositorios públicos gratuitos ilimitados y
+:::{note} GitHub
+
+Ofrece repositorios públicos gratuitos ilimitados y
 repositorios privados gratuitos para cuentas personales con algunas
 limitaciones. Para equipos y empresas hay planes de pago con funcionalidades
-adicionales. :::
+adicionales. 
+
+:::
 
 ### Crear cuenta y primer repositorio en GitHub
 
@@ -1614,7 +1624,8 @@ gh api repos/:owner/:repo --method PATCH --field "has_pages=true"
 
 ### Ejercicios prácticos con GitHub y CLI
 
-:::{exercise} :label: ejercicio-github-setup
+:::{exercise}
+:label: ejercicio-github-setup
 
 **Ejercicio 1: Setup completo de GitHub**
 
@@ -1623,9 +1634,12 @@ gh api repos/:owner/:repo --method PATCH --field "has_pages=true"
 3. Autenticáte con `gh auth login`
 4. Creá un repositorio público llamado `mi-portfolio` usando GitHub CLI
 5. Agregá un README.md con información sobre vos
-6. Subí el proyecto y verificá que se vea correctamente en GitHub web :::
+6. Subí el proyecto y verificá que se vea correctamente en GitHub web 
 
-:::{solution} :for: ejercicio-github-setup
+:::
+
+:::{solution}
+:for: ejercicio-github-setup
 
 ```bash
 # 1. Crear cuenta en github.com (manual)
@@ -1675,7 +1689,8 @@ gh repo view --web
 
 :::
 
-:::{exercise} :label: ejercicio-github-workflow
+:::{exercise}
+:label: ejercicio-github-workflow
 
 **Ejercicio 2: Workflow completo con issues y CLI**
 
@@ -1685,9 +1700,12 @@ gh repo view --web
    - "Agregar información de contacto"
 2. Trabajá en uno de los issues, hacé los cambios necesarios
 3. Cerrá el issue automáticamente con el commit message
-4. Verificá que el issue se cerró correctamente :::
+4. Verificá que el issue se cerró correctamente
 
-:::{solution} :for: ejercicio-github-workflow
+:::
+
+:::{solution}
+:for: ejercicio-github-workflow
 
 ```bash
 # Asegurate de estar en el repositorio mi-portfolio
@@ -1795,7 +1813,8 @@ características especiales:
 - **Gists con nombre específico**: Pueden embeberse fácilmente
 - **Gists con múltiples archivos**: Funcionan como mini-proyectos
 
-:::{exercise} :label: ejercicio-repositorio-perfil
+:::{exercise}
+:label: ejercicio-repositorio-perfil
 
 **Ejercicio 3: Crear tu repositorio de perfil profesional**
 
@@ -1823,9 +1842,12 @@ carta de presentación profesional. Integrará todo lo aprendido sobre
 
 **Resultado esperado:** Un perfil de GitHub profesional que muestre tus
 habilidades, proyectos e intereses, y que puedas usar como referencia en
-aplicaciones laborales. :::
+aplicaciones laborales. 
 
-:::{solution} :for: ejercicio-repositorio-perfil
+:::
+
+:::{solution}
+:for: ejercicio-repositorio-perfil
 
 ```bash
 # 1. Verificar configuración de GitHub CLI
@@ -2156,14 +2178,17 @@ git push origin main
 | `.github`            | **Templates y configuración** | Aplicable a todos tus repos         |
 | `.github.io`         | **Alias de GitHub Pages**     | Alternativa a `username.github.io`  |
 
-:::{tip} Estrategia de presencia online completa Para una presencia profesional
-sólida en GitHub:
+:::{tip} Estrategia de presencia online completa 
+
+Para una presencia profesional sólida en GitHub:
 
 1. **Repositorio de perfil**: Tu carta de presentación (README llamativo)
 2. **GitHub Pages**: Tu portfolio/CV online (sitio web profesional)
 3. **Repositorios de proyectos**: Demostrar habilidades técnicas
 4. **Contribuciones open source**: Mostrar colaboración y compromiso
-5. **Actividad consistente**: Commits regulares demuestran dedicación :::
+5. **Actividad consistente**: Commits regulares demuestran dedicación 
+
+:::
 
 ### Buenas prácticas con GitHub
 
@@ -2259,10 +2284,14 @@ son suficientes para el 90% del uso diario. Dominando el
 herramientas de {ref}`github-intro`, tenés toda la base para ser productivo
 profesionalmente.
 
-:::{tip} Práctica constante La mejor forma de aprender Git es usándolo en
+:::{tip} Práctica constante
+
+La mejor forma de aprender Git es usándolo en
 proyectos reales. Empezá practicando con los {ref}`ejercicios-git-basico` de
 esta guía, luego con proyectos pequeños y personales para ganar confianza antes
-de usar Git en proyectos importantes. :::
+de usar Git en proyectos importantes. 
+
+:::
 
 Recordá que Git es una herramienta poderosa que te va a acompañar durante toda
 tu carrera como programador. Entender bien los {ref}`conceptos-fundamentales` y
