@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <!-- Título -->
+  <text x="450" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">
+    Paso por Valor vs Paso por Referencia (Simulado)
+  </text>
+  
+  <!-- Paso por Valor -->
+  <g id="paso-valor">
+    <rect x="50" y="60" width="380" height="250" fill="#FFEBEE" stroke="#C62828" stroke-width="2" rx="8"/>
+    
+    <text x="240" y="90" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#C62828">
+      ✗ Paso por Valor (No funciona)
+    </text>
+    
+    <!-- Código -->
+    <rect x="70" y="105" width="340" height="80" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+    <text x="85" y="125" font-family="monospace" font-size="12">
+      void intentar_cambiar(int x) {
+    </text>
+    <text x="100" y="143" font-family="monospace" font-size="12">
+      x = 100;  // Modifica LA COPIA
+    </text>
+    <text x="85" y="161" font-family="monospace" font-size="12">
+      }
+    </text>
+    <text x="85" y="175" font-family="monospace" font-size="12">
+      intentar_cambiar(a);  // a no cambia
+    </text>
+    
+    <!-- Estado antes -->
+    <g transform="translate(70, 200)">
+      <text x="0" y="0" font-family="Arial, sans-serif" font-size="12" font-weight="bold">
+        Antes de llamar:
+      </text>
+      
+      <rect x="0" y="10" width="60" height="40" fill="#90CAF9" stroke="#1976D2" stroke-width="2"/>
+      <text x="30" y="25" font-family="Arial, sans-serif" font-size="11" text-anchor="middle">main()</text>
+      <text x="30" y="40" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="bold">a = 10</text>
+    </g>
+    
+    <!-- Estado después -->
+    <g transform="translate(70, 260)">
+      <text x="0" y="0" font-family="Arial, sans-serif" font-size="12" font-weight="bold">
+        Después de llamar:
+      </text>
+      
+      <rect x="0" y="10" width="60" height="40" fill="#90CAF9" stroke="#1976D2" stroke-width="2"/>
+      <text x="30" y="25" font-family="Arial, sans-serif" font-size="11" text-anchor="middle">main()</text>
+      <text x="30" y="40" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="bold">a = 10</text>
+      
+      <text x="100" y="30" font-family="Arial, sans-serif" font-size="12" fill="#C62828" font-weight="bold">
+        ← NO cambió
+      </text>
+    </g>
+  </g>
+  
+  <!-- Paso por Referencia Simulado -->
+  <g id="paso-referencia">
+    <rect x="470" y="60" width="380" height="250" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2" rx="8"/>
+    
+    <text x="660" y="90" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#2E7D32">
+      ✓ Paso por Referencia (Funciona)
+    </text>
+    
+    <!-- Código -->
+    <rect x="490" y="105" width="340" height="80" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+    <text x="505" y="125" font-family="monospace" font-size="12">
+      void cambiar(int *px) {
+    </text>
+    <text x="520" y="143" font-family="monospace" font-size="12">
+      *px = 100;  // Modifica ORIGINAL
+    </text>
+    <text x="505" y="161" font-family="monospace" font-size="12">
+      }
+    </text>
+    <text x="505" y="175" font-family="monospace" font-size="12">
+      cambiar(&amp;a);  // a SÍ cambia
+    </text>
+    
+    <!-- Estado antes -->
+    <g transform="translate(490, 200)">
+      <text x="0" y="0" font-family="Arial, sans-serif" font-size="12" font-weight="bold">
+        Antes de llamar:
+      </text>
+      
+      <rect x="0" y="10" width="60" height="40" fill="#90CAF9" stroke="#1976D2" stroke-width="2"/>
+      <text x="30" y="25" font-family="Arial, sans-serif" font-size="11" text-anchor="middle">main()</text>
+      <text x="30" y="40" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="bold">a = 10</text>
+    </g>
+    
+    <!-- Estado después -->
+    <g transform="translate(490, 260)">
+      <text x="0" y="0" font-family="Arial, sans-serif" font-size="12" font-weight="bold">
+        Después de llamar:
+      </text>
+      
+      <rect x="0" y="10" width="60" height="40" fill="#A5D6A7" stroke="#2E7D32" stroke-width="2"/>
+      <text x="30" y="25" font-family="Arial, sans-serif" font-size="11" text-anchor="middle">main()</text>
+      <text x="30" y="40" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="bold">a = 100</text>
+      
+      <text x="100" y="30" font-family="Arial, sans-serif" font-size="12" fill="#2E7D32" font-weight="bold">
+        ← SÍ cambió
+      </text>
+    </g>
+  </g>
+  
+  <!-- Ejemplo completo con intercambio -->
+  <g id="ejemplo-intercambio">
+    <rect x="50" y="330" width="800" height="250" fill="#E1F5FE" stroke="#0277BD" stroke-width="2" rx="8"/>
+    
+    <text x="450" y="360" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">
+      Ejemplo: Función intercambiar(int *a, int *b)
+    </text>
+    
+    <!-- Código de la función -->
+    <rect x="70" y="375" width="380" height="95" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+    <text x="85" y="395" font-family="monospace" font-size="12">
+      void intercambiar(int *a, int *b) {
+    </text>
+    <text x="100" y="413" font-family="monospace" font-size="12">
+      int temp = *a;
+    </text>
+    <text x="100" y="431" font-family="monospace" font-size="12">
+      *a = *b;
+    </text>
+    <text x="100" y="449" font-family="monospace" font-size="12">
+      *b = temp;
+    </text>
+    <text x="85" y="465" font-family="monospace" font-size="12">
+      }
+    </text>
+    
+    <!-- Flujo de ejecución -->
+    <g transform="translate(470, 375)">
+      <!-- Estado inicial -->
+      <text x="0" y="0" font-family="Arial, sans-serif" font-size="13" font-weight="bold">
+        1. Estado Inicial:
+      </text>
+      <rect x="0" y="10" width="160" height="30" fill="#FFCCBC" stroke="#D84315" stroke-width="1" rx="3"/>
+      <text x="80" y="30" font-family="monospace" font-size="12" text-anchor="middle">
+        x = 10    y = 20
+      </text>
+      
+      <!-- Llamada -->
+      <text x="0" y="60" font-family="Arial, sans-serif" font-size="13" font-weight="bold">
+        2. Llamada:
+      </text>
+      <rect x="0" y="70" width="160" height="30" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+      <text x="80" y="90" font-family="monospace" font-size="12" text-anchor="middle">
+        intercambiar(&amp;x, &amp;y);
+      </text>
+      
+      <!-- Dentro de la función -->
+      <text x="0" y="120" font-family="Arial, sans-serif" font-size="13" font-weight="bold">
+        3. Dentro función:
+      </text>
+      <rect x="0" y="130" width="160" height="50" fill="#FFF9C4" stroke="#F9A825" stroke-width="1" rx="3"/>
+      <text x="80" y="148" font-family="monospace" font-size="11" text-anchor="middle">
+        a → dirección de x
+      </text>
+      <text x="80" y="165" font-family="monospace" font-size="11" text-anchor="middle">
+        b → dirección de y
+      </text>
+      <text x="80" y="177" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#666">
+        *a = 20, *b = 10
+      </text>
+      
+      <!-- Estado final -->
+      <text x="200" y="60" font-family="Arial, sans-serif" font-size="13" font-weight="bold">
+        4. Estado Final:
+      </text>
+      <rect x="200" y="70" width="160" height="30" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2" rx="3"/>
+      <text x="280" y="90" font-family="monospace" font-size="12" text-anchor="middle" font-weight="bold">
+        x = 20    y = 10
+      </text>
+      
+      <text x="280" y="110" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#2E7D32" font-weight="bold">
+        ✓ Valores intercambiados
+      </text>
+    </g>
+  </g>
+  
+  <!-- Nota importante -->
+  <rect x="50" y="590" width="800" height="5" fill="#0277BD"/>
+</svg>

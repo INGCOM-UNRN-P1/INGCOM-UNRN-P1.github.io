@@ -29,6 +29,13 @@ de casillero" donde se encuentra otro dato. Siguiendo la analogía, un puntero n
 es el casillero en sí, sino una nota adhesiva donde tenés apuntado el número de
 un casillero específico para no olvidarte dónde guardaste algo importante.
 
+```{figure} 7/concepto_puntero.svg
+:label: fig-concepto-puntero
+:align: center
+
+Representación conceptual de un puntero apuntando a una variable en memoria.
+```
+
 ## Declaración de punteros
 
 Para declarar un puntero, debés especificar el tipo de dato al que va a apuntar,
@@ -90,6 +97,13 @@ Es una práctica habitual en C que las funciones que devuelven punteros retornen
 comprobar si un puntero es `NULL` antes de intentar desreferenciarlo (usar el
 operador `*` sobre él).
 
+```{figure} 7/punteros_null.svg
+:label: fig-punteros-null
+:align: center
+
+Representación de un puntero nulo y la verificación antes de desreferenciar.
+```
+
 :::{danger} Peligro: Punteros No Inicializados (Punteros Salvajes)
 
 Un puntero que ha sido declarado, pero no inicializado se conoce como "puntero
@@ -127,6 +141,13 @@ una variable válida o con `NULL`.
     `printf`), estás accediendo al **valor** contenido en esa locación de
     memoria. Estás diciendo: "dame el valor que está guardado en la dirección a
     la que apunta `puntero`".
+
+```{figure} 7/operadores_punteros.svg
+:label: fig-operadores-punteros
+:align: center
+
+Funcionamiento de los operadores `&` (dirección de) y `*` (desreferencia).
+```
 
 ```{code-block}c
 :linenos:
@@ -171,6 +192,13 @@ del tipo de dato al que apunta el puntero.
 Si tenés un puntero `ptr` a un tipo de dato `T` que ocupa `sizeof(T)` bytes, al
 hacer `ptr + 1`, la dirección de memoria no se incrementa en 1, sino en
 `sizeof(T)`. Esto permite "saltar" de un elemento a otro en un arreglo.
+
+```{figure} 7/aritmetica_punteros.svg
+:label: fig-aritmetica-punteros
+:align: center
+
+Aritmética de punteros: cómo el compilador ajusta los incrementos según el tipo de dato.
+```
 
 ### Incremento (`++`) y decremento (`--`)
 
@@ -269,6 +297,13 @@ recibe una copia del puntero), el puntero dentro de la función apunta a la
 variable original. Esto nos permite modificar la variable original desde dentro
 de la función, un mecanismo conocido como **paso por referencia simulado**.
 
+```{figure} 7/paso_por_referencia.svg
+:label: fig-paso-por-referencia
+:align: center
+
+Diferencia entre el paso por valor y el paso por referencia simulado con punteros.
+```
+
 ```{code-block}c
 :linenos:
 #include <stdio.h>
@@ -317,6 +352,13 @@ permite "bloquear" o bien el dato apuntado, el puntero en sí, o ambos.
 
 `const` nos permite poner reglas sobre qué se puede modificar, _potencialmente_,
 limitando los efectos secundarios productos de pasar el puntero a la función.
+
+```{figure} 7/const_punteros.svg
+:label: fig-const-punteros
+:align: center
+
+Diferentes combinaciones del calificador `const` con punteros.
+```
 
 ### 1. Puntero a un Dato Constante (No podés cambiar el VALOR)
 
