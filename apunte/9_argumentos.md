@@ -8,7 +8,9 @@ short_title: 9 - Argumentos y librería
 Cuando ejecutás un programa en C desde la terminal, tenés la posibilidad de pasarle información directamente en la línea de comandos. Esta información, conocida como "argumentos", es recibida por la función `main` a través de dos parámetros especiales: `argc` y `argv`.
 
 :::{note} Prerequisitos
+
 Este capítulo asume conocimiento de arreglos ({doc}`4_secuencias`) y punteros ({doc}`7_punteros`), ya que `argv` es un arreglo de punteros a cadenas (`char *argv[]`). Si estos conceptos no están claros, repasalos antes de continuar.
+
 :::
 
 Entender cómo manipular estos parámetros es fundamental para crear herramientas de línea de comandos flexibles y potentes. Y aunque es opcional, entender como funciona la terminal termina siendo importante para lograr que nuestros programas se integren a la perfección.
@@ -50,7 +52,7 @@ Estos dos parámetros contienen toda la información que se pasa al programa en 
 El programa más simple para entender su funcionamiento es uno que recorre los
 valores en `argv` e imprime cada uno de sus elementos.
 
-``````{code-block}
+```{code-block} c
 :caption: "Programa que itera e imprime sus argumentos."
 :label: "c-print-args"
 
@@ -74,14 +76,14 @@ int main(int argc, char *argv[]) {
 
     return EXIT_SUCCESS;
 }
-``````
+```
 
 ### Compilación y ejecución
 
 Si guardás el código anterior como `main_args.c` y lo compilás, podés ver la
 salida al ejecutarlo con distintos argumentos.
 
-``````bash
+```bash
 # Compilamos el programa
 gcc main_args.c -o mi_programa
 
@@ -90,11 +92,11 @@ gcc main_args.c -o mi_programa
 
 # Ejecutamos con varios argumentos
 ./mi_programa hola "mundo con espacios" 42
-``````
+```
 
 **Salida de la segunda ejecución:**
 
-``````
+```
 $> ./mi_programa hola "mundo con espacios" 42
 El programa se ejecutó con el nombre: ./mi_programa
 Número total de argumentos: 4
@@ -103,12 +105,14 @@ Los argumentos proporcionados son:
   Argumento 1: hola
   Argumento 2: mundo con espacios
   Argumento 3: 42
-``````
+```
 
 :::{note} Sobre los espacios
+
 Observá que "mundo con espacios" se trata como un solo argumento (`argv[2]`)
 porque está entre comillas. Sin las comillas, hubieran sido dos argumentos
 separados.
+
 :::
 
 ## Procesamiento de opciones
@@ -120,7 +124,7 @@ guion (`-`) o dos (`--`), como `-h` o `--help`.
 Para detectarlas, necesitás comparar las cadenas de `argv` con los valores que
 esperás. La función `strcmp` (ver {ref}`string-strcmp`) de la biblioteca `string.h` es ideal para esto.
 
-``````{code-block}
+```{code-block}c
 :caption: "Detección de una opción `-h` para mostrar ayuda."
 :label: "c-options-help"
 
@@ -141,12 +145,14 @@ int main(int argc, char *argv[]) {
 
     return EXIT_SUCCESS;
 }
-``````
+```
 
 :::{tip} Bibliotecas para el Análisis de Argumentos
+
 Para aplicaciones complejas con muchas opciones, analizar `argv` manualmente
 puede volverse tedioso y propenso a errores. Considerá usar bibliotecas estándar
 como `getopt` (en sistemas POSIX) que simplifican enormemente este proceso.
+
 :::
 
 ## Conversión de Argumentos a Números
@@ -159,7 +165,7 @@ operaciones matemáticas con ellos, debés convertirlos a un tipo numérico (com
 La biblioteca estándar de C (`stdlib.h`) provee funciones para esta tarea, como
 `atoi` y, de forma más robusta, {ref}`strtol <stdlib-strtol>`.
 
-``````{code-block}
+```{code-block}c
 :caption: "Programa que suma los números pasados como argumentos."
 :label: "c-sum-numbers"
 
@@ -184,23 +190,25 @@ int main(int argc, char *argv[]) {
 
     return EXIT_SUCCESS;
 }
-``````
+```
 
 ### Compilación y Ejecución del Sumador
 
-``````bash
+```bash
 # Compilamos
 gcc sumador.c -o sumador
 
 # Ejecutamos con números
 ./sumador 10 20 5
 # Salida: La suma total es: 35
-``````
+```
 
 :::{warning} Manejo de Errores en la Conversión
+
 La función `atoi` es simple, pero tiene una limitación importante: si la cadena no puede ser convertida (ej. "hola"), retorna `0` sin indicar el error.
 
 Para un código más robusto, es preferible usar `strtol` (ver {ref}`stdlib-strtol`), que ofrece un mecanismo para detectar si la conversión fue exitosa.
+
 :::
 
 ## Funciones Útiles de la Biblioteca Estándar
@@ -208,7 +216,9 @@ Para un código más robusto, es preferible usar `strtol` (ver {ref}`stdlib-strt
 Para construir programas de línea de comandos robustos, es indispensable conocer algunas de las herramientas que provee la biblioteca estándar de C. A continuación, se mencionan algunas de las funciones más relevantes en este contexto.
 
 :::{important} Referencia Completa
+
 Este es solo un resumen. Para una descripción detallada de todas las funciones, sus parámetros, valores de retorno y ejemplos de uso, consultá el apunte de referencia: {doc}`A_stdlib`.
+
 :::
 
 ### Funciones Clave
