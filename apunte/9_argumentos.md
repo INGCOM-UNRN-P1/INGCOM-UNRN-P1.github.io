@@ -1,6 +1,6 @@
 ---
 title: Argumentos de la Línea de Comandos en C
-short_title: 9 - Argumentos y librería
+short_title: 9 - Interacción con la terminal
 ---
 
 ## Los parámetros `main(int argc, char *argv[])`
@@ -26,10 +26,9 @@ int main(int argc, char *argv[]) {
 
 Estos dos parámetros contienen toda la información que se pasa al programa en el momento de su ejecución.
 
-```list-table
+```{list-table} Descripción de los parámetros
 :header-rows: 1
 :label: tabla-argc-argv
-:caption: Descripción de los parámetros de `main`
 
 * - Parámetro
   - Tipo
@@ -45,6 +44,7 @@ Estos dos parámetros contienen toda la información que se pasa al programa en 
     - ...
     - `argv[argc - 1]` es el último argumento.
     - `argv[argc]` es un puntero nulo (`NULL`), garantizado por el estándar de C.
+
 ```
 
 ## Ejemplo Básico: Imprimir Todos los Argumentos
@@ -245,3 +245,418 @@ Este es solo un resumen. Para una descripción detallada de todas las funciones,
   - Si tus argumentos son números, probablemente necesites esta biblioteca para operaciones como {ref}`pow <math-pow-sqrt>`, {ref}`sqrt <math-pow-sqrt>`, {ref}`log <math-pow-sqrt>`, o funciones trigonométricas (ver {ref}`math-trig`). No olvides compilar con la bandera `-lm`.
 
 Dominar el uso de `argc` y `argv` junto con estas funciones te permitirá crear aplicaciones de consola complejas y útiles, una habilidad fundamental en el mundo del desarrollo de software.
+
+---
+
+## Interacción con el Shell
+
+:::{note} Temas opcionales
+
+Los temas de aquí en adelante en esta página del apunte, no forman parte de lo que vemos en clases o que entre en los temas de la materia.
+
+Sin embargo, hacen al desarrollo de buenas aplicaciones _de consola_.
+
+:::
+
+Cuando ejecutás un programa desde la línea de comandos, tu programa no existe en aislamiento sino que forma parte de un ecosistema más amplio: el shell o intérprete de comandos (como `bash`, `zsh`, o `sh`). El shell proporciona mecanismos poderosos para conectar programas entre sí y controlar el flujo de datos, lo que convierte a los programas C en herramientas componibles dentro de un sistema más grande.
+
+### Códigos de Salida
+
+Cada programa retorna un **código de salida** (o _exit status_) al shell cuando termina su ejecución. Por convención en Unix y Linux:
+
+- `0` indica éxito (`EXIT_SUCCESS`)
+- Cualquier valor distinto de cero indica un error (`EXIT_FAILURE` generalmente es `1`)
+
+Este código es fundamental para que el shell y otros programas sepan si tu programa funcionó correctamente.
+
+```c
+#include <stdlib.h>
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        fprintf(stderr, "Error: falta un argumento\n");
+        return EXIT_FAILURE; // Retornamos 1 al shell
+    }
+    
+    printf("Procesando: %s\n", argv[1]);
+    return EXIT_SUCCESS; // Retornamos 0 al shell
+}
+```
+
+Desde el shell, podés inspeccionar el código de salida del último programa ejecutado:
+
+```bash
+./mi_programa argumento
+echo $?  # Imprime el código de salida (0 si éxito)
+```
+
+### Variables de Entorno
+
+El shell mantiene un conjunto de **variables de entorno** que los programas pueden leer. Estas variables configuran el comportamiento del sistema y almacenan información útil como rutas de búsqueda, configuraciones del usuario, etc.
+
+La función {ref}`getenv <stdlib-getenv>` permite leer estas variables:
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+    char *home = getenv("HOME");
+    char *usuario = getenv("USER");
+    
+    if (home != NULL) {
+        printf("Directorio home: %s\n", home);
+    }
+    
+    if (usuario != NULL) {
+        printf("Usuario actual: %s\n", usuario);
+    }
+    
+    return EXIT_SUCCESS;
+}
+```
+
+Variables comunes incluyen `PATH` (rutas de búsqueda de ejecutables), `HOME` (directorio del usuario), `USER` (nombre del usuario), y `LANG` (configuración de idioma).
+
+## Redirecciones
+
+Una característica fundamental del shell es su capacidad de **redirigir** la entrada y salida de los programas. Esto permite cambiar de dónde un programa lee datos y hacia dónde escribe sus resultados, sin modificar el código del programa.
+
+### Salida Estándar y Error Estándar
+
+Todo programa en Unix/Linux tiene tres flujos de datos estándar abiertos automáticamente:
+
+- **Entrada estándar** (`stdin`, descriptor 0): De dónde el programa lee datos
+- **Salida estándar** (`stdout`, descriptor 1): Donde el programa escribe su salida normal
+- **Error estándar** (`stderr`, descriptor 2): Donde el programa escribe mensajes de error
+
+En C, estos flujos están disponibles como:
+
+```c
+#include <stdio.h>
+
+// stdin  - entrada estándar (teclado por defecto)
+// stdout - salida estándar (pantalla por defecto)
+// stderr - error estándar (pantalla por defecto)
+
+int main(void) {
+    fprintf(stdout, "Esto es salida normal\n");
+    fprintf(stderr, "Esto es un mensaje de error\n");
+    
+    // printf escribe a stdout por defecto
+    printf("Salida normal\n");
+    
+    return EXIT_SUCCESS;
+}
+```
+
+:::{important} Separación de Salida y Error
+
+Es una buena práctica escribir la salida normal del programa a `stdout` usando `printf`, y los mensajes de error o advertencia a `stderr` usando `fprintf(stderr, ...)`. Esto permite que el shell y el usuario manejen cada tipo de información de forma independiente.
+
+:::
+
+### Redirección de Salida
+
+El shell puede redirigir hacia dónde va la salida de un programa usando el operador `>`:
+
+```bash
+# Redirige stdout a un archivo (sobrescribe)
+./mi_programa > salida.txt
+
+# Redirige stdout a un archivo (agrega al final)
+./mi_programa >> salida.txt
+
+# Redirige stderr a un archivo
+./mi_programa 2> errores.txt
+
+# Redirige ambos stdout y stderr al mismo archivo
+./mi_programa > todo.txt 2>&1
+```
+
+Desde el punto de vista del programa en C, no necesitás hacer nada especial: simplemente usá `printf` (para stdout) y `fprintf(stderr, ...)` (para stderr) normalmente. El shell se encarga de la redirección.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+    // Esto puede ir a pantalla o a un archivo según el shell lo redirija
+    printf("Línea 1 de salida\n");
+    printf("Línea 2 de salida\n");
+    
+    // Los errores se mantienen separados
+    fprintf(stderr, "Advertencia: algo ocurrió\n");
+    
+    return EXIT_SUCCESS;
+}
+```
+
+```bash
+# Ejecuta y guarda solo la salida normal en archivo.txt
+./mi_programa > archivo.txt
+# Los errores aún aparecen en pantalla
+
+# Para capturar solo los errores
+./mi_programa 2> errores.txt
+```
+
+### Redirección de Entrada
+
+De forma similar, el shell puede cambiar de dónde un programa lee su entrada usando el operador `<`:
+
+```bash
+# Lee stdin desde un archivo en lugar del teclado
+./mi_programa < datos.txt
+```
+
+Cualquier lectura que tu programa haga desde `stdin` (usando `scanf`, `fgets`, `getchar`, etc.) leerá del archivo especificado:
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+    char linea[256];
+    
+    // Lee líneas de stdin (puede ser teclado o archivo redirigido)
+    while (fgets(linea, sizeof(linea), stdin) != NULL) {
+        printf("Leí: %s", linea);
+    }
+    
+    return EXIT_SUCCESS;
+}
+```
+
+```bash
+# Si ejecutás directamente, lee del teclado
+./mi_programa
+
+# Con redirección, lee del archivo
+./mi_programa < datos.txt
+```
+
+## Canalizaciones (Pipes)
+
+Las **canalizaciones** o _pipes_ son uno de los conceptos más poderosos del shell Unix. Permiten conectar la salida de un programa directamente con la entrada de otro, creando cadenas de procesamiento de datos.
+
+El operador `|` (pipe) conecta `stdout` del primer programa con `stdin` del segundo:
+
+```bash
+# La salida de programa1 se convierte en la entrada de programa2
+programa1 | programa2
+
+# Ejemplo real: cuenta las líneas de salida de ls
+ls -l | wc -l
+```
+
+### Filosofía Unix: Hacer Una Cosa Bien
+
+Las canalizaciones promueven la **filosofía Unix**: escribir programas pequeños que hagan una cosa muy bien, y combinarlos para tareas complejas. Tu programa C puede ser un eslabón en esta cadena.
+
+#### Ejemplo: Filtro de Números Pares
+
+```c
+// filtro_pares.c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+    int numero;
+    
+    // Lee números de stdin, uno por línea
+    while (scanf("%d", &numero) == 1) {
+        // Solo imprime los pares
+        if (numero % 2 == 0) {
+            printf("%d\n", numero);
+        }
+    }
+    
+    return EXIT_SUCCESS;
+}
+```
+
+Este programa se convierte en un filtro reutilizable:
+
+```bash
+# Genera números del 1 al 10 y filtra solo los pares
+seq 1 10 | ./filtro_pares
+# Salida: 2, 4, 6, 8, 10
+
+# Combina con otros programas
+seq 1 100 | ./filtro_pares | wc -l  # Cuenta cuántos pares hay
+```
+
+### Canalizaciones Complejas
+
+Podés encadenar múltiples programas:
+
+```bash
+# Genera números, filtra pares, suma los primeros 5
+seq 1 100 | ./filtro_pares | head -5 | ./sumador
+```
+
+Cada programa en la cadena:
+1. Lee de `stdin`
+2. Procesa los datos
+3. Escribe a `stdout`
+4. El shell conecta todo automáticamente
+
+### Consideraciones de Diseño
+
+Para que tu programa funcione bien en canalizaciones:
+
+1. **Lee de `stdin` si no hay archivo especificado**: Permite que el programa reciba datos por pipe o por archivo
+2. **Escribe resultados a `stdout`**: La salida normal va a `stdout`
+3. **Mensajes de error a `stderr`**: No contamines `stdout` con errores
+4. **Maneja EOF correctamente**: Detectá cuando la entrada termina (`fgets` retorna `NULL`, `scanf` retorna `EOF`)
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+    FILE *entrada = stdin;  // Por defecto, stdin
+    
+    // Si hay un argumento, abre ese archivo
+    if (argc > 1) {
+        entrada = fopen(argv[1], "r");
+        if (entrada == NULL) {
+            fprintf(stderr, "Error: no se pudo abrir %s\n", argv[1]);
+            return EXIT_FAILURE;
+        }
+    }
+    
+    char linea[256];
+    // Lee líneas (de stdin o del archivo)
+    while (fgets(linea, sizeof(linea), entrada) != NULL) {
+        // Procesa y escribe a stdout
+        printf("Procesado: %s", linea);
+    }
+    
+    if (entrada != stdin) {
+        fclose(entrada);
+    }
+    
+    return EXIT_SUCCESS;
+}
+```
+
+Este diseño permite flexibilidad total:
+
+```bash
+# Lee del archivo directamente
+./mi_programa datos.txt
+
+# Lee de stdin (teclado)
+./mi_programa
+
+# Lee de stdin vía redirección
+./mi_programa < datos.txt
+
+# Lee de stdin vía canalización
+cat datos.txt | ./mi_programa
+```
+
+:::{tip} Programas Componibles
+
+Un programa bien diseñado para la línea de comandos es como una pieza de LEGO: pequeño, con una función clara, y que se puede combinar con otros programas para construir sistemas complejos. Esta composibilidad es la esencia del diseño Unix.
+
+:::
+
+### Ejemplo Completo: Conversor de Temperatura
+
+Veamos un ejemplo que integra todos estos conceptos:
+
+```c
+// temp_converter.c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void mostrar_ayuda(const char *programa) {
+    fprintf(stderr, "Uso: %s [-c|-f] [archivo]\n", programa);
+    fprintf(stderr, "  -c : Convierte de Fahrenheit a Celsius\n");
+    fprintf(stderr, "  -f : Convierte de Celsius a Fahrenheit\n");
+    fprintf(stderr, "Si no se especifica archivo, lee de stdin\n");
+}
+
+int main(int argc, char *argv[]) {
+    FILE *entrada = stdin;
+    char modo = 'c';  // Por defecto: F->C
+    
+    // Procesa opciones
+    int archivo_idx = 1;
+    if (argc > 1 && argv[1][0] == '-') {
+        if (strcmp(argv[1], "-c") == 0) {
+            modo = 'c';
+            archivo_idx = 2;
+        } else if (strcmp(argv[1], "-f") == 0) {
+            modo = 'f';
+            archivo_idx = 2;
+        } else if (strcmp(argv[1], "-h") == 0) {
+            mostrar_ayuda(argv[0]);
+            return EXIT_SUCCESS;
+        } else {
+            fprintf(stderr, "Error: opción desconocida %s\n", argv[1]);
+            mostrar_ayuda(argv[0]);
+            return EXIT_FAILURE;
+        }
+    }
+    
+    // Abre archivo si se especificó
+    if (argc > archivo_idx) {
+        entrada = fopen(argv[archivo_idx], "r");
+        if (entrada == NULL) {
+            fprintf(stderr, "Error: no se pudo abrir %s\n", argv[archivo_idx]);
+            return EXIT_FAILURE;
+        }
+    }
+    
+    // Procesa entrada línea por línea
+    double temp;
+    while (fscanf(entrada, "%lf", &temp) == 1) {
+        double resultado;
+        if (modo == 'c') {
+            // Fahrenheit a Celsius
+            resultado = (temp - 32.0) * 5.0 / 9.0;
+            printf("%.2f°F = %.2f°C\n", temp, resultado);
+        } else {
+            // Celsius a Fahrenheit
+            resultado = temp * 9.0 / 5.0 + 32.0;
+            printf("%.2f°C = %.2f°F\n", temp, resultado);
+        }
+    }
+    
+    if (entrada != stdin) {
+        fclose(entrada);
+    }
+    
+    return EXIT_SUCCESS;
+}
+```
+
+Este programa puede usarse de múltiples formas:
+
+```bash
+# Uso interactivo
+./temp_converter -c
+32
+212
+
+# Desde archivo
+echo -e "32\n98.6\n212" > temps.txt
+./temp_converter -c temps.txt
+
+# Con redirección
+./temp_converter -c < temps.txt
+
+# Con canalización
+echo "100" | ./temp_converter -f
+
+# Encadenado con otros comandos
+seq 0 10 100 | ./temp_converter -f | grep "°C"
+```
+
+La separación entre `stdout` (resultados) y `stderr` (mensajes de error y ayuda) permite que el programa funcione correctamente en canalizaciones sin contaminar los datos con mensajes no deseados.
