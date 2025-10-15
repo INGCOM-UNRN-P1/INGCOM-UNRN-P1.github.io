@@ -957,7 +957,7 @@ Los punteros a punteros (`**`) o niveles superiores de indirección complican la
   int *obtener_datos(size_t *tamano_out) { /* ... */ }
   ```
 
-(0x0020h)=
+(0x020Fh)=
 ### Regla `0x020Fh`: Documentá la propiedad de los recursos al utilizar punteros
 
 Cuando una función recibe o devuelve un puntero a memoria dinámica, su documentación debe especificar claramente quién es el responsable de liberar dicha memoria (el "dueño" del puntero).
