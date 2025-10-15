@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
+  </defs>
+  
+  <!-- Título -->
+  <text x="300" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#333">Capas de Software</text>
+  
+  <!-- Aplicaciones -->
+  <rect x="100" y="70" width="400" height="80" rx="10" fill="#ffcc99" stroke="#ff9900" stroke-width="2"/>
+  <text x="300" y="100" font-size="18" font-weight="bold" text-anchor="middle">Aplicaciones</text>
+  <text x="300" y="125" font-size="12" text-anchor="middle">Word, Chrome, Navegadores, Juegos...</text>
+  <text x="120" y="140" font-size="10" fill="#666">• Interactúa con el usuario</text>
+  
+  <!-- Sistema Operativo -->
+  <rect x="100" y="180" width="400" height="90" rx="10" fill="#99ccff" stroke="#0066cc" stroke-width="2"/>
+  <text x="300" y="210" font-size="18" font-weight="bold" text-anchor="middle">Sistema Operativo</text>
+  <text x="300" y="235" font-size="12" text-anchor="middle">Windows, Linux, macOS</text>
+  <text x="120" y="250" font-size="10" fill="#666">• Gestiona recursos</text>
+  <text x="120" y="263" font-size="10" fill="#666">• Proporciona servicios</text>
+  
+  <!-- Hardware -->
+  <rect x="100" y="300" width="400" height="100" rx="10" fill="#99ff99" stroke="#00cc00" stroke-width="2"/>
+  <text x="300" y="330" font-size="18" font-weight="bold" text-anchor="middle">Hardware</text>
+  <text x="300" y="355" font-size="12" text-anchor="middle">CPU, RAM, Disco, Dispositivos</text>
+  <text x="120" y="373" font-size="10" fill="#666">• Componentes físicos</text>
+  <text x="120" y="386" font-size="10" fill="#666">• Ejecuta instrucciones</text>
+  
+  <!-- Flechas -->
+  <line x1="300" y1="150" x2="300" y2="175" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="320" y="165" font-size="11" fill="#666">usa servicios</text>
+  
+  <line x1="300" y1="270" x2="300" y2="295" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="320" y="285" font-size="11" fill="#666">controla</text>
+  
+  <!-- Leyenda -->
+  <text x="50" y="430" font-size="11" fill="#666">Usuario interactúa con aplicaciones, que usan el SO, que controla el hardware</text>
+</svg>

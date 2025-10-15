@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 450">
+  <defs>
+    <marker id="arrow4" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
+  </defs>
+  
+  <!-- Título -->
+  <text x="350" y="30" font-size="22" font-weight="bold" text-anchor="middle" fill="#333">Ciclo de Vida de una Variable</text>
+  
+  <!-- Paso 1: Declaración e Inicialización -->
+  <g>
+    <rect x="50" y="70" width="140" height="70" rx="8" fill="#e6f3ff" stroke="#0066cc" stroke-width="2"/>
+    <text x="120" y="95" font-size="14" font-weight="bold" text-anchor="middle">1. Declaración</text>
+    <text x="120" y="115" font-size="12" text-anchor="middle" font-family="monospace">edad = 20</text>
+    <text x="120" y="132" font-size="10" text-anchor="middle" fill="#666">Crear variable</text>
+    
+    <rect x="560" y="70" width="100" height="70" rx="8" fill="#ffffcc" stroke="#999" stroke-width="2"/>
+    <text x="610" y="90" font-size="11" font-weight="bold" text-anchor="middle" fill="#666">Memoria</text>
+    <rect x="575" y="100" width="70" height="30" rx="3" fill="#fff" stroke="#666" stroke-width="1"/>
+    <text x="610" y="120" font-size="11" text-anchor="middle" font-family="monospace">20</text>
+  </g>
+  
+  <line x1="120" y1="140" x2="120" y2="180" stroke="#333" stroke-width="2" marker-end="url(#arrow4)"/>
+  
+  <!-- Paso 2: Modificación -->
+  <g>
+    <rect x="50" y="180" width="140" height="70" rx="8" fill="#ffe6f0" stroke="#cc0066" stroke-width="2"/>
+    <text x="120" y="205" font-size="14" font-weight="bold" text-anchor="middle">2. Modificar</text>
+    <text x="120" y="225" font-size="12" text-anchor="middle" font-family="monospace">edad = 21</text>
+    <text x="120" y="242" font-size="10" text-anchor="middle" fill="#666">Cambiar valor</text>
+    
+    <rect x="560" y="180" width="100" height="70" rx="8" fill="#ffffcc" stroke="#999" stroke-width="2"/>
+    <text x="610" y="200" font-size="11" font-weight="bold" text-anchor="middle" fill="#666">Memoria</text>
+    <rect x="575" y="210" width="70" height="30" rx="3" fill="#fff" stroke="#666" stroke-width="1"/>
+    <text x="610" y="230" font-size="11" text-anchor="middle" font-family="monospace">21</text>
+  </g>
+  
+  <line x1="120" y1="250" x2="120" y2="290" stroke="#333" stroke-width="2" marker-end="url(#arrow4)"/>
+  
+  <!-- Paso 3: Usar/Leer -->
+  <g>
+    <rect x="50" y="290" width="140" height="70" rx="8" fill="#e6ffe6" stroke="#009900" stroke-width="2"/>
+    <text x="120" y="315" font-size="14" font-weight="bold" text-anchor="middle">3. Usar</text>
+    <text x="120" y="335" font-size="12" text-anchor="middle" font-family="monospace">print(edad)</text>
+    <text x="120" y="352" font-size="10" text-anchor="middle" fill="#666">Leer valor</text>
+    
+    <rect x="560" y="290" width="100" height="70" rx="8" fill="#ffffcc" stroke="#999" stroke-width="2"/>
+    <text x="610" y="310" font-size="11" font-weight="bold" text-anchor="middle" fill="#666">Memoria</text>
+    <rect x="575" y="320" width="70" height="30" rx="3" fill="#fff" stroke="#666" stroke-width="1"/>
+    <text x="610" y="340" font-size="11" text-anchor="middle" font-family="monospace">21</text>
+    
+    <line x1="560" y1="340" x2="200" y2="340" stroke="#009900" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow4)"/>
+    <text x="380" y="335" font-size="10" fill="#009900">devuelve 21</text>
+  </g>
+  
+  <line x1="120" y1="360" x2="120" y2="395" stroke="#333" stroke-width="2" marker-end="url(#arrow4)"/>
+  
+  <!-- Paso 4: Liberar -->
+  <g>
+    <rect x="50" y="395" width="140" height="45" rx="8" fill="#ffcccc" stroke="#cc0000" stroke-width="2"/>
+    <text x="120" y="415" font-size="14" font-weight="bold" text-anchor="middle">4. Liberar</text>
+    <text x="120" y="432" font-size="10" text-anchor="middle" fill="#666">Fin del programa</text>
+    
+    <rect x="560" y="395" width="100" height="45" rx="8" fill="#ffffcc" stroke="#999" stroke-width="2"/>
+    <text x="610" y="410" font-size="11" font-weight="bold" text-anchor="middle" fill="#666">Memoria</text>
+    <rect x="575" y="420" width="70" height="15" rx="3" fill="#f0f0f0" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="610" y="431" font-size="9" text-anchor="middle" fill="#999">vacía</text>
+  </g>
+  
+  <!-- Línea de tiempo -->
+  <g>
+    <text x="300" y="70" font-size="13" font-weight="bold" fill="#666">Programa</text>
+    <line x1="250" y1="80" x2="250" y2="440" stroke="#999" stroke-width="2" stroke-dasharray="5,5"/>
+    
+    <circle cx="250" cy="105" r="5" fill="#0066cc"/>
+    <text x="265" y="110" font-size="10" fill="#666">tiempo</text>
+    
+    <circle cx="250" cy="215" r="5" fill="#cc0066"/>
+    
+    <circle cx="250" cy="325" r="5" fill="#009900"/>
+    
+    <circle cx="250" cy="418" r="5" fill="#cc0000"/>
+  </g>
+  
+  <!-- Flecha memoria -->
+  <text x="400" y="70" font-size="13" font-weight="bold" fill="#666">Estado de Memoria →</text>
+</svg>

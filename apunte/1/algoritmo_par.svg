@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <defs>
+    <marker id="arrow6" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
+  </defs>
+  
+  <!-- Título -->
+  <text x="250" y="25" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Algoritmo: Verificar si N es par</text>
+  
+  <!-- Inicio -->
+  <ellipse cx="250" cy="65" rx="60" ry="30" fill="#90EE90" stroke="#333" stroke-width="2"/>
+  <text x="250" y="72" font-size="14" text-anchor="middle">Inicio</text>
+  
+  <line x1="250" y1="95" x2="250" y2="125" stroke="#333" stroke-width="2" marker-end="url(#arrow6)"/>
+  
+  <!-- Pedir número -->
+  <path d="M 170 125 L 330 125 L 350 155 L 330 185 L 170 185 L 190 155 Z" fill="#DDA0DD" stroke="#333" stroke-width="2"/>
+  <text x="250" y="160" font-size="13" text-anchor="middle">Pedir número N</text>
+  
+  <line x1="250" y1="185" x2="250" y2="220" stroke="#333" stroke-width="2" marker-end="url(#arrow6)"/>
+  
+  <!-- Calcular resto -->
+  <rect x="170" y="220" width="160" height="50" rx="5" fill="#87CEEB" stroke="#333" stroke-width="2"/>
+  <text x="250" y="242" font-size="12" text-anchor="middle">Calcular:</text>
+  <text x="250" y="258" font-size="13" font-family="monospace" text-anchor="middle">R = N % 2</text>
+  
+  <line x1="250" y1="270" x2="250" y2="305" stroke="#333" stroke-width="2" marker-end="url(#arrow6)"/>
+  
+  <!-- Decisión -->
+  <path d="M 250 305 L 330 355 L 250 405 L 170 355 Z" fill="#FFE4B5" stroke="#333" stroke-width="2"/>
+  <text x="250" y="360" font-size="13" text-anchor="middle">R == 0?</text>
+  
+  <!-- Rama Sí - Par -->
+  <line x1="330" y1="355" x2="390" y2="355" stroke="#333" stroke-width="2" marker-end="url(#arrow6)"/>
+  <text x="355" y="350" font-size="12" fill="#009900">Sí</text>
+  
+  <rect x="390" y="330" width="100" height="50" rx="5" fill="#ccffcc" stroke="#009900" stroke-width="2"/>
+  <text x="440" y="350" font-size="11" text-anchor="middle">Mostrar:</text>
+  <text x="440" y="368" font-size="12" text-anchor="middle">"N es par"</text>
+  
+  <!-- Rama No - Impar -->
+  <line x1="170" y1="355" x2="110" y2="355" stroke="#333" stroke-width="2" marker-end="url(#arrow6)"/>
+  <text x="145" y="350" font-size="12" fill="#cc0000">No</text>
+  
+  <rect x="10" y="330" width="100" height="50" rx="5" fill="#ffcccc" stroke="#cc0000" stroke-width="2"/>
+  <text x="60" y="350" font-size="11" text-anchor="middle">Mostrar:</text>
+  <text x="60" y="368" font-size="12" text-anchor="middle">"N es impar"</text>
+  
+  <!-- Convergencia -->
+  <line x1="440" y1="380" x2="440" y2="440" stroke="#333" stroke-width="2"/>
+  <line x1="60" y1="380" x2="60" y2="440" stroke="#333" stroke-width="2"/>
+  <line x1="60" y1="440" x2="440" y2="440" stroke="#333" stroke-width="2"/>
+  <line x1="250" y1="440" x2="250" y2="465" stroke="#333" stroke-width="2" marker-end="url(#arrow6)"/>
+  
+  <!-- Fin -->
+  <ellipse cx="250" cy="480" rx="50" ry="25" fill="#FFB6C1" stroke="#333" stroke-width="2"/>
+  <text x="250" y="487" font-size="14" text-anchor="middle">Fin</text>
+</svg>

@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <!-- Título -->
+  <text x="400" y="30" font-size="22" font-weight="bold" text-anchor="middle" fill="#333">Tipos de Datos Fundamentales</text>
+  
+  <!-- Enteros -->
+  <g>
+    <rect x="50" y="70" width="170" height="150" rx="10" fill="#ffe6e6" stroke="#cc0000" stroke-width="2"/>
+    <text x="135" y="100" font-size="18" font-weight="bold" text-anchor="middle" fill="#cc0000">int (Entero)</text>
+    <line x1="70" y1="110" x2="200" y2="110" stroke="#cc0000" stroke-width="1"/>
+    
+    <text x="135" y="135" font-size="14" text-anchor="middle" font-family="monospace">42</text>
+    <text x="135" y="155" font-size="14" text-anchor="middle" font-family="monospace">-17</text>
+    <text x="135" y="175" font-size="14" text-anchor="middle" font-family="monospace">0</text>
+    
+    <text x="135" y="200" font-size="11" text-anchor="middle" fill="#666">Sin decimales</text>
+    <text x="135" y="215" font-size="10" text-anchor="middle" fill="#666">Para contar, índices</text>
+  </g>
+  
+  <!-- Flotantes -->
+  <g>
+    <rect x="250" y="70" width="170" height="150" rx="10" fill="#e6f2ff" stroke="#0066cc" stroke-width="2"/>
+    <text x="335" y="100" font-size="18" font-weight="bold" text-anchor="middle" fill="#0066cc">float (Decimal)</text>
+    <line x1="270" y1="110" x2="400" y2="110" stroke="#0066cc" stroke-width="1"/>
+    
+    <text x="335" y="135" font-size="14" text-anchor="middle" font-family="monospace">3.14</text>
+    <text x="335" y="155" font-size="14" text-anchor="middle" font-family="monospace">-0.5</text>
+    <text x="335" y="175" font-size="14" text-anchor="middle" font-family="monospace">2.718</text>
+    
+    <text x="335" y="200" font-size="11" text-anchor="middle" fill="#666">Con decimales</text>
+    <text x="335" y="215" font-size="10" text-anchor="middle" fill="#666">Mediciones, cálculos</text>
+  </g>
+  
+  <!-- Cadenas -->
+  <g>
+    <rect x="450" y="70" width="170" height="150" rx="10" fill="#e6ffe6" stroke="#009900" stroke-width="2"/>
+    <text x="535" y="100" font-size="18" font-weight="bold" text-anchor="middle" fill="#009900">str (Texto)</text>
+    <line x1="470" y1="110" x2="600" y2="110" stroke="#009900" stroke-width="1"/>
+    
+    <text x="535" y="135" font-size="14" text-anchor="middle" font-family="monospace">"Hola"</text>
+    <text x="535" y="155" font-size="14" text-anchor="middle" font-family="monospace">"María"</text>
+    <text x="535" y="175" font-size="14" text-anchor="middle" font-family="monospace">"A"</text>
+    
+    <text x="535" y="200" font-size="11" text-anchor="middle" fill="#666">Caracteres</text>
+    <text x="535" y="215" font-size="10" text-anchor="middle" fill="#666">Nombres, mensajes</text>
+  </g>
+  
+  <!-- Booleanos -->
+  <g>
+    <rect x="650" y="70" width="120" height="150" rx="10" fill="#fff0e6" stroke="#cc6600" stroke-width="2"/>
+    <text x="710" y="100" font-size="18" font-weight="bold" text-anchor="middle" fill="#cc6600">bool</text>
+    <line x1="670" y1="110" x2="750" y2="110" stroke="#cc6600" stroke-width="1"/>
+    
+    <text x="710" y="140" font-size="16" text-anchor="middle" font-family="monospace" fill="#009900">True</text>
+    <text x="710" y="170" font-size="16" text-anchor="middle" font-family="monospace" fill="#cc0000">False</text>
+    
+    <text x="710" y="200" font-size="11" text-anchor="middle" fill="#666">Lógico</text>
+    <text x="710" y="215" font-size="10" text-anchor="middle" fill="#666">V/F, Sí/No</text>
+  </g>
+  
+  <!-- Variable conceptual -->
+  <g>
+    <text x="400" y="270" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Concepto de Variable</text>
+    
+    <rect x="200" y="290" width="400" height="120" rx="10" fill="#f5f5f5" stroke="#666" stroke-width="2" stroke-dasharray="5,5"/>
+    
+    <text x="220" y="315" font-size="14" font-weight="bold" fill="#333">nombre_variable</text>
+    <text x="560" y="315" font-size="12" fill="#666">← Identificador</text>
+    
+    <line x1="220" y1="325" x2="580" y2="325" stroke="#999" stroke-width="1"/>
+    
+    <text x="220" y="350" font-size="13" fill="#666">Tipo:</text>
+    <text x="270" y="350" font-size="13" font-family="monospace" fill="#0066cc">int</text>
+    
+    <text x="220" y="375" font-size="13" fill="#666">Valor:</text>
+    <text x="270" y="375" font-size="14" font-family="monospace" font-weight="bold">42</text>
+    
+    <rect x="450" y="340" width="120" height="50" rx="5" fill="#ffeecc" stroke="#cc9900" stroke-width="1"/>
+    <text x="510" y="360" font-size="11" text-anchor="middle" fill="#666">Memoria RAM</text>
+    <text x="510" y="375" font-size="10" text-anchor="middle" fill="#666">dirección: 0x1A2B</text>
+  </g>
+  
+  <!-- Nota -->
+  <text x="400" y="435" font-size="11" text-anchor="middle" fill="#666">Cada variable tiene un nombre, un tipo y un valor almacenado en memoria</text>
+</svg>

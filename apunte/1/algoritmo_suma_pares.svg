@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 650">
+  <defs>
+    <marker id="arrow8" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
+  </defs>
+  
+  <!-- Título -->
+  <text x="300" y="25" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Algoritmo: Suma de números pares</text>
+  
+  <!-- Inicio -->
+  <ellipse cx="300" cy="65" rx="60" ry="30" fill="#90EE90" stroke="#333" stroke-width="2"/>
+  <text x="300" y="72" font-size="14" text-anchor="middle">Inicio</text>
+  
+  <line x1="300" y1="95" x2="300" y2="125" stroke="#333" stroke-width="2" marker-end="url(#arrow8)"/>
+  
+  <!-- Leer n -->
+  <path d="M 230 125 L 370 125 L 390 155 L 370 185 L 230 185 L 250 155 Z" fill="#DDA0DD" stroke="#333" stroke-width="2"/>
+  <text x="300" y="160" font-size="13" text-anchor="middle">Leer n</text>
+  
+  <line x1="300" y1="185" x2="300" y2="220" stroke="#333" stroke-width="2" marker-end="url(#arrow8)"/>
+  
+  <!-- Inicializar -->
+  <rect x="230" y="220" width="140" height="50" rx="5" fill="#87CEEB" stroke="#333" stroke-width="2"/>
+  <text x="300" y="242" font-size="13" text-anchor="middle">suma = 0</text>
+  <text x="300" y="258" font-size="13" text-anchor="middle">i = 1</text>
+  
+  <line x1="300" y1="270" x2="300" y2="305" stroke="#333" stroke-width="2" marker-end="url(#arrow8)"/>
+  
+  <!-- Decisión: i <= n? -->
+  <path d="M 300 305 L 370 345 L 300 385 L 230 345 Z" fill="#FFE4B5" stroke="#333" stroke-width="2"/>
+  <text x="300" y="350" font-size="13" text-anchor="middle">i ≤ n?</text>
+  
+  <!-- No -> Escribir suma -->
+  <line x1="370" y1="345" x2="440" y2="345" stroke="#333" stroke-width="2" marker-end="url(#arrow8)"/>
+  <text x="400" y="340" font-size="12" fill="#cc0000">No</text>
+  
+  <path d="M 440 320 L 540 320 L 560 370 L 540 420 L 440 420 L 460 370 Z" fill="#DDA0DD" stroke="#333" stroke-width="2"/>
+  <text x="490" y="375" font-size="13" text-anchor="middle">Escribir suma</text>
+  
+  <line x1="490" y1="420" x2="490" y2="460" stroke="#333" stroke-width="2" marker-end="url(#arrow8)"/>
+  
+  <!-- Fin -->
+  <ellipse cx="490" cy="485" rx="50" ry="25" fill="#FFB6C1" stroke="#333" stroke-width="2"/>
+  <text x="490" y="492" font-size="14" text-anchor="middle">Fin</text>
+  
+  <!-- Sí -> Verificar si es par -->
+  <line x1="300" y1="385" x2="300" y2="425" stroke="#333" stroke-width="2" marker-end="url(#arrow8)"/>
+  <text x="315" y="405" font-size="12" fill="#009900">Sí</text>
+  
+  <path d="M 300 425 L 370 465 L 300 505 L 230 465 Z" fill="#FFE4B5" stroke="#333" stroke-width="2"/>
+  <text x="300" y="470" font-size="12" text-anchor="middle">i % 2 == 0?</text>
+  
+  <!-- Sí es par -> Sumar -->
+  <line x1="230" y1="465" x2="150" y2="465" stroke="#333" stroke-width="2" marker-end="url(#arrow8)"/>
+  <text x="195" y="460" font-size="11" fill="#009900">Sí</text>
+  
+  <rect x="70" y="440" width="80" height="50" rx="5" fill="#87CEEB" stroke="#333" stroke-width="2"/>
+  <text x="110" y="462" font-size="12" text-anchor="middle">suma =</text>
+  <text x="110" y="478" font-size="12" text-anchor="middle">suma + i</text>
+  
+  <line x1="110" y1="490" x2="110" y2="570" stroke="#333" stroke-width="2"/>
+  
+  <!-- No es par -> Incrementar -->
+  <line x1="300" y1="505" x2="300" y2="545" stroke="#333" stroke-width="2" marker-end="url(#arrow8)"/>
+  <text x="315" y="525" font-size="11" fill="#cc0000">No</text>
+  
+  <rect x="230" y="545" width="140" height="50" rx="5" fill="#87CEEB" stroke="#333" stroke-width="2"/>
+  <text x="300" y="577" font-size="13" text-anchor="middle">i = i + 1</text>
+  
+  <!-- Convergencia incremento -->
+  <line x1="110" y1="570" x2="230" y2="570" stroke="#333" stroke-width="2" marker-end="url(#arrow8)"/>
+  
+  <!-- Vuelta al lazo -->
+  <line x1="300" y1="595" x2="300" y2="615" stroke="#333" stroke-width="2"/>
+  <line x1="300" y1="615" x2="60" y2="615" stroke="#333" stroke-width="2"/>
+  <line x1="60" y1="615" x2="60" y2="345" stroke="#333" stroke-width="2"/>
+  <line x1="60" y1="345" x2="230" y2="345" stroke="#333" stroke-width="2" marker-end="url(#arrow8)"/>
+</svg>

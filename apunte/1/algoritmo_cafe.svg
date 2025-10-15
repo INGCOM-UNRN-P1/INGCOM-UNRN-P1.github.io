@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 700">
+  <defs>
+    <marker id="arrow5" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
+  </defs>
+  
+  <!-- Título -->
+  <text x="300" y="25" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Algoritmo: Hacer Café</text>
+  
+  <!-- Inicio -->
+  <ellipse cx="300" cy="70" rx="60" ry="30" fill="#90EE90" stroke="#333" stroke-width="2"/>
+  <text x="300" y="77" font-size="14" text-anchor="middle">Inicio</text>
+  
+  <line x1="300" y1="100" x2="300" y2="130" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
+  
+  <!-- ¿Hay agua? -->
+  <path d="M 300 130 L 370 170 L 300 210 L 230 170 Z" fill="#FFE4B5" stroke="#333" stroke-width="2"/>
+  <text x="300" y="175" font-size="12" text-anchor="middle">¿Hay agua?</text>
+  
+  <!-- No agua -> Llenar -->
+  <line x1="230" y1="170" x2="150" y2="170" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
+  <text x="190" y="165" font-size="11" fill="#cc0000">No</text>
+  <rect x="70" y="150" width="80" height="40" rx="5" fill="#87CEEB" stroke="#333" stroke-width="2"/>
+  <text x="110" y="175" font-size="11" text-anchor="middle">Llenar con</text>
+  <text x="110" y="187" font-size="11" text-anchor="middle">500ml</text>
+  
+  <!-- Convergencia agua -->
+  <line x1="110" y1="190" x2="110" y2="250" stroke="#333" stroke-width="2"/>
+  <line x1="110" y1="250" x2="230" y2="250" stroke="#333" stroke-width="2"/>
+  
+  <!-- Sí agua -> siguiente -->
+  <line x1="300" y1="210" x2="300" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
+  <text x="310" y="230" font-size="11" fill="#009900">Sí</text>
+  
+  <!-- ¿Hay filtro? -->
+  <path d="M 300 250 L 370 290 L 300 330 L 230 290 Z" fill="#FFE4B5" stroke="#333" stroke-width="2"/>
+  <text x="300" y="295" font-size="12" text-anchor="middle">¿Hay filtro?</text>
+  
+  <!-- No filtro -> Colocar -->
+  <line x1="370" y1="290" x2="450" y2="290" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
+  <text x="405" y="285" font-size="11" fill="#cc0000">No</text>
+  <rect x="450" y="270" width="80" height="40" rx="5" fill="#87CEEB" stroke="#333" stroke-width="2"/>
+  <text x="490" y="295" font-size="11" text-anchor="middle">Colocar filtro</text>
+  
+  <!-- Convergencia filtro -->
+  <line x1="490" y1="310" x2="490" y2="370" stroke="#333" stroke-width="2"/>
+  <line x1="490" y1="370" x2="370" y2="370" stroke="#333" stroke-width="2"/>
+  
+  <!-- Sí filtro -> siguiente -->
+  <line x1="300" y1="330" x2="300" y2="370" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
+  <text x="310" y="350" font-size="11" fill="#009900">Sí</text>
+  
+  <!-- Agregar café -->
+  <rect x="230" y="370" width="140" height="40" rx="5" fill="#87CEEB" stroke="#333" stroke-width="2"/>
+  <text x="300" y="395" font-size="11" text-anchor="middle">Agregar 20g de café</text>
+  
+  <line x1="300" y1="410" x2="300" y2="440" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
+  
+  <!-- Encender cafetera -->
+  <rect x="230" y="440" width="140" height="40" rx="5" fill="#87CEEB" stroke="#333" stroke-width="2"/>
+  <text x="300" y="465" font-size="11" text-anchor="middle">Encender cafetera</text>
+  
+  <line x1="300" y1="480" x2="300" y2="510" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
+  
+  <!-- Esperar -->
+  <rect x="230" y="510" width="140" height="40" rx="5" fill="#87CEEB" stroke="#333" stroke-width="2"/>
+  <text x="300" y="535" font-size="11" text-anchor="middle">Esperar 5 minutos</text>
+  
+  <line x1="300" y1="550" x2="300" y2="580" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
+  
+  <!-- ¿Terminó? -->
+  <path d="M 300 580 L 370 620 L 300 660 L 230 620 Z" fill="#FFE4B5" stroke="#333" stroke-width="2"/>
+  <text x="300" y="625" font-size="12" text-anchor="middle">¿Terminó?</text>
+  
+  <!-- No -> Esperar más -->
+  <line x1="230" y1="620" x2="150" y2="620" stroke="#333" stroke-width="2"/>
+  <line x1="150" y1="620" x2="150" y2="530" stroke="#333" stroke-width="2"/>
+  <line x1="150" y1="530" x2="230" y2="530" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
+  <text x="170" y="615" font-size="11" fill="#cc0000">No</text>
+  
+  <!-- Sí -> Servir -->
+  <line x1="370" y1="620" x2="430" y2="620" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
+  <text x="395" y="615" font-size="11" fill="#009900">Sí</text>
+  
+  <rect x="430" y="600" width="80" height="40" rx="5" fill="#87CEEB" stroke="#333" stroke-width="2"/>
+  <text x="470" y="625" font-size="11" text-anchor="middle">Servir en taza</text>
+  
+  <line x1="470" y1="640" x2="470" y2="670" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
+  
+  <!-- Fin -->
+  <ellipse cx="470" cy="685" rx="50" ry="25" fill="#FFB6C1" stroke="#333" stroke-width="2"/>
+  <text x="470" y="692" font-size="14" text-anchor="middle">Fin</text>
+</svg>

@@ -73,26 +73,13 @@ El **hardware** son los componentes físicos de la computadora:
 - **Dispositivos de salida**: Permiten obtener información (pantalla, impresora,
   altavoces, etc.).
 
-```{mermaid}
-graph TB
-    subgraph "Computadora"
-        CPU[CPU/Procesador]
-        RAM[Memoria RAM]
-        DISK[Almacenamiento]
-        
-        INPUT[Dispositivos de Entrada]
-        OUTPUT[Dispositivos de Salida]
-        
-        INPUT -->|Datos| CPU
-        CPU <-->|Lectura/Escritura Rápida| RAM
-        CPU <-->|Lectura/Escritura Lenta| DISK
-        CPU -->|Resultados| OUTPUT
-    end
-    
-    style CPU fill:#ff9999
-    style RAM fill:#99ccff
-    style DISK fill:#99ff99
-```
+:::{figure} 1/componentes_computadora.svg
+:alt: Componentes de una computadora
+:align: center
+:width: 90%
+
+Arquitectura básica de una computadora: el CPU coordina el flujo de datos entre la memoria RAM (rápida y volátil), el almacenamiento permanente (lento pero persistente), y los dispositivos de entrada/salida.
+:::
 
 :::{admonition} ¿Por qué necesitamos RAM y disco?
 :class: tip
@@ -117,21 +104,13 @@ El **software** son los programas e instrucciones que controlan el hardware:
   lenguajes de programación como Python o C. Este código debe ser traducido (compilado o
   interpretado) para que la computadora pueda ejecutarlo.
 
-```{mermaid}
-graph TB
-    subgraph "Capas de Software"
-        APP[Aplicaciones<br/>Word, Chrome, etc.]
-        OS[Sistema Operativo<br/>Windows, Linux, macOS]
-        HW[Hardware<br/>CPU, RAM, Disco]
-        
-        APP -->|usa servicios de| OS
-        OS -->|controla| HW
-    end
-    
-    style APP fill:#ffcc99
-    style OS fill:#99ccff
-    style HW fill:#99ff99
-```
+:::{figure} 1/capas_software.svg
+:alt: Capas de software
+:align: center
+:width: 70%
+
+Las aplicaciones utilizan los servicios del sistema operativo, que a su vez controla y gestiona el hardware.
+:::
 
 ## ¿Qué es programar?
 
@@ -241,15 +220,13 @@ Un **algoritmo** es una secuencia finita, ordenada y no ambigua de pasos bien
 definidos que resuelve un problema o realiza una tarea específica. Los
 algoritmos son la base fundamental de la programación.
 
-```{mermaid}
-graph LR
-    A[Problema] --> B[Algoritmo]
-    B --> C[Solución]
-    
-    style A fill:#ffcccc
-    style B fill:#ccccff
-    style C fill:#ccffcc
-```
+:::{figure} 1/algoritmo_problema_solucion.svg
+:alt: Del problema a la solución
+:align: center
+:width: 80%
+
+El algoritmo es el puente que transforma un problema en su solución.
+:::
 
 :::{important}
 Un algoritmo es **independiente** del lenguaje de programación. El mismo
@@ -339,28 +316,13 @@ Veamos un ejemplo cotidiano expresado como algoritmo formal:
 └─────────────────────────────────────────┘
 ```
 
-```{mermaid}
-flowchart TD
-    Start([Inicio]) --> CheckWater{¿Hay agua?}
-    CheckWater -->|No| AddWater[Llenar con 500ml]
-    CheckWater -->|Sí| CheckFilter{¿Hay filtro?}
-    AddWater --> CheckFilter
-    CheckFilter -->|No| AddFilter[Colocar filtro nuevo]
-    CheckFilter -->|Sí| AddCoffee[Agregar 20g de café]
-    AddFilter --> AddCoffee
-    AddCoffee --> TurnOn[Encender cafetera]
-    TurnOn --> Wait[Esperar 5 minutos]
-    Wait --> CheckReady{¿Terminó?}
-    CheckReady -->|No| Wait
-    CheckReady -->|Sí| Serve[Servir en taza]
-    Serve --> End([Fin])
-    
-    style Start fill:#90EE90
-    style End fill:#FFB6C1
-    style CheckWater fill:#FFE4B5
-    style CheckFilter fill:#FFE4B5
-    style CheckReady fill:#FFE4B5
-```
+:::{figure} 1/algoritmo_cafe.svg
+:alt: Diagrama de flujo para hacer café
+:align: center
+:width: 70%
+
+Diagrama de flujo completo del algoritmo para hacer café, mostrando decisiones y procesos secuenciales.
+:::
 
 ### Ejemplo matemático: Algoritmo para determinar si un número es par
 
@@ -408,20 +370,13 @@ else:
     print(f"El número {n} es impar.")
 ```
 
-```{mermaid}
-flowchart TD
-    Start([Inicio]) --> Input[Pedir número N]
-    Input --> Calc[Calcular R = N % 2]
-    Calc --> Check{R == 0?}
-    Check -->|Sí| Even[Mostrar: N es par]
-    Check -->|No| Odd[Mostrar: N es impar]
-    Even --> End([Fin])
-    Odd --> End
-    
-    style Start fill:#90EE90
-    style End fill:#FFB6C1
-    style Check fill:#FFE4B5
-```
+:::{figure} 1/algoritmo_par.svg
+:alt: Diagrama de flujo para verificar si un número es par
+:align: center
+:width: 60%
+
+Algoritmo que determina si un número es par o impar usando el operador módulo.
+:::
 
 :::{exercise} Escribir algoritmos en Python
 :label: ex-algoritmos-1
@@ -498,24 +453,18 @@ El pensamiento lógico es la capacidad de razonar de manera coherente y
 estructurada. En programación, esto se traduce en tres estructuras fundamentales
 que aparecen en todos los algoritmos.
 
+:::{figure} 1/estructuras_control.svg
+:alt: Tres estructuras fundamentales de control
+:align: center
+:width: 100%
+
+Las tres estructuras fundamentales del pensamiento algorítmico: secuencia (pasos ordenados), decisión (alternativas) y repetición (lazos).
+:::
+
 ### 1. Secuencia
 
 Las instrucciones se ejecutan **una después de otra**, en el orden exacto en que
 están escritas. El orden importa.
-
-```{mermaid}
-flowchart TD
-    A[Paso 1: Levantarse] --> B[Paso 2: Ir al baño]
-    B --> C[Paso 3: Lavarse la cara]
-    C --> D[Paso 4: Vestirse]
-    D --> E[Paso 5: Desayunar]
-    
-    style A fill:#e1f5ff
-    style B fill:#e1f5ff
-    style C fill:#e1f5ff
-    style D fill:#e1f5ff
-    style E fill:#e1f5ff
-```
 
 **Ejemplo de la importancia del orden:**
 
@@ -563,19 +512,6 @@ completamente el resultado o hacer que el programa falle.
 A veces necesitamos que el programa tome diferentes caminos dependiendo de una
 condición. Esto se representa con estructuras `if...elif...else`.
 
-```{mermaid}
-flowchart TD
-    Start([Inicio]) --> Cond{Condición}
-    Cond -->|Verdadero| ActionTrue[Acción si es verdadero]
-    Cond -->|Falso| ActionFalse[Acción si es falso]
-    ActionTrue --> End([Fin])
-    ActionFalse --> End
-    
-    style Start fill:#90EE90
-    style End fill:#FFB6C1
-    style Cond fill:#FFE4B5
-```
-
 **Ejemplo simple:**
 
 ```python
@@ -602,23 +538,6 @@ else:
     print("Continuar con mis actividades")
 ```
 
-```{mermaid}
-flowchart TD
-    Start([Inicio]) --> Hungry{¿Tengo hambre?}
-    Hungry -->|Sí| Food{¿Hay comida?}
-    Hungry -->|No| Continue[Continuar actividades]
-    Food -->|Sí| Cook[Cocinar]
-    Food -->|No| Order[Pedir delivery]
-    Cook --> End([Fin])
-    Order --> End
-    Continue --> End
-    
-    style Start fill:#90EE90
-    style End fill:#FFB6C1
-    style Hungry fill:#FFE4B5
-    style Food fill:#FFE4B5
-```
-
 ### 3. Repetición (Lazos o Bucles)
 
 Cuando necesitamos hacer algo varias veces, usamos estructuras de repetición. Hay dos tipos principales:
@@ -634,20 +553,6 @@ for i in range(10):
     print(f"Haciendo flexión de brazos número {i + 1}")
 ```
 
-```{mermaid}
-flowchart TD
-    Start([Inicio]) --> Init[contador = 1]
-    Init --> Check{contador <= 10?}
-    Check -->|Sí| Action[Hacer flexión]
-    Action --> Inc[contador = contador + 1]
-    Inc --> Check
-    Check -->|No| End([Fin])
-    
-    style Start fill:#90EE90
-    style End fill:#FFB6C1
-    style Check fill:#FFE4B5
-```
-
 #### Repetición con condición (`while`)
 
 Se usa cuando la repetición depende de que una condición sea verdadera.
@@ -660,18 +565,6 @@ while platos_sucios > 0:
     platos_sucios = platos_sucios - 1 # ¡Crucial no olvidar esto!
 
 print("¡Todos los platos están limpios!")
-```
-
-```{mermaid}
-flowchart TD
-    Start([Inicio]) --> Check[¿Hay platos<br/>sucios?]
-    Check -->|Sí| Action[Lavar un plato]
-    Action --> Check
-    Check -->|No| End([Fin])
-
-    style Start fill:#90EE90
-    style End fill:#FFB6C1
-    style Check fill:#FFE4B5
 ```
 
 :::{exercise} Estructuras de control
@@ -702,6 +595,14 @@ Identificá qué estructura de control usarías en cada caso:
 Las computadoras trabajan con información, y esa información puede ser de
 diferentes tipos. Es fundamental entender qué tipos de datos existen y cuándo
 usar cada uno.
+
+:::{figure} 1/tipos_datos.svg
+:alt: Tipos de datos fundamentales
+:align: center
+:width: 95%
+
+Los cuatro tipos de datos fundamentales: enteros, decimales, texto y booleanos. Cada variable tiene un nombre, un tipo y un valor almacenado en memoria.
+:::
 
 ### Tipos de información fundamentales
 
@@ -821,23 +722,6 @@ es_mayor_de_edad = True
 archivo_existe = False
 ```
 
-```{mermaid}
-graph TD
-    subgraph "Valores Booleanos"
-        V[True]
-        F[False]
-    end
-    
-    C1[5 > 3] --> V
-    C2[10 == 10] --> V
-    C3[2 > 7] --> F
-    C4[nombre == "Juan"] -.-> V
-    C4 -.-> F
-    
-    style V fill:#90EE90
-    style F fill:#FFB6C1
-```
-
 ### Variables: Las cajas de memoria
 
 Una **variable** es un espacio en la memoria de la computadora donde guardamos
@@ -869,22 +753,6 @@ información. Podemos pensar en ella como una caja etiquetada.
    - Puede cambiar durante la ejecución del programa
    - Debe ser compatible con el tipo
 
-```{mermaid}
-graph TD
-    subgraph "Variable: edad"
-        N[Nombre: edad]
-        T[Tipo: int]
-        V[Valor: 25]
-    end
-    
-    N -.-> |identifica| LOC[Ubicación en Memoria]
-    T -.-> |determina| OPS[Operaciones permitidas]
-    V -.-> |almacenado en| LOC
-    
-    style LOC fill:#ffcccc
-    style OPS fill:#ccffcc
-```
-
 **Ejemplos de variables en Python:**
 
 ```python
@@ -905,24 +773,13 @@ aprobado = True
 
 ### El ciclo de vida de una variable
 
-```{mermaid}
-sequenceDiagram
-    participant P as Programa
-    participant M as Memoria
-    
-    P->>M: 1. Declarar e inicializar (edad = 20)
-    Note over M: Se reserva espacio y se guarda 20
-    
-    P->>M: 2. Usar/Modificar (edad = 21)
-    Note over M: El valor en memoria cambia a 21
-    
-    P->>M: 3. Leer valor (print(edad))
-    M->>P: Devolver 21
-    
-    Note over P,M: Al finalizar el programa...
-    P->>M: 4. Liberar memoria
-    Note over M: Espacio disponible nuevamente
-```
+:::{figure} 1/ciclo_vida_variable.svg
+:alt: Ciclo de vida de una variable
+:align: center
+:width: 85%
+
+Una variable atraviesa diferentes estados: se declara e inicializa, se modifica, se lee/usa y finalmente se libera cuando termina el programa.
+:::
 
 :::{exercise} Identificar tipos de variables
 :label: ex-tipos-vars
@@ -957,6 +814,14 @@ Para cada uno de los siguientes datos, indicá qué tipo de variable (`int`, `fl
 
 Las operaciones son acciones que podemos realizar sobre los datos. Existen
 diferentes tipos según el tipo de dato.
+
+:::{figure} 1/operaciones_aritmeticas.svg
+:alt: Operaciones aritméticas
+:align: center
+:width: 85%
+
+Operaciones aritméticas básicas y especiales, con precedencia de evaluación.
+:::
 
 ### Operaciones aritméticas
 
@@ -1066,41 +931,19 @@ print(edad != 25)    # True  (20 es diferente de 25)
 
 Combinan condiciones booleanas:
 
+:::{figure} 1/operaciones_logicas.svg
+:alt: Operaciones lógicas
+:align: center
+:width: 95%
+
+Las tres operaciones lógicas fundamentales (AND, OR, NOT) con sus tablas de verdad y ejemplos prácticos.
+:::
+
 | Operación        | Símbolo | Significado                             |
 | ---------------- | ------- | --------------------------------------- |
 | AND (Y lógico)   | `and`   | `True` si AMBAS condiciones lo son      |
 | OR (O lógico)    | `or`    | `True` si AL MENOS UNA lo es            |
 | NOT (NO lógico)  | `not`   | Invierte el valor (`True` a `False` y viceversa) |
-
-**Tablas de verdad:**
-
-::::{grid} 1 1 3 3
-
-:::{grid-item-card} `and` (Y)
-| A     | B     | A `and` B |
-| ----- | ----- | --------- |
-| True  | True  | True      |
-| True  | False | False     |
-| False | True  | False     |
-| False | False | False     |
-:::
-
-:::{grid-item-card} `or` (O)
-| A     | B     | A `or` B |
-| ----- | ----- | -------- |
-| True  | True  | True     |
-| True  | False | True     |
-| False | True  | True     |
-| False | False | False    |
-:::
-
-:::{grid-item-card} `not` (NO)
-| A     | `not` A |
-| ----- | ------- |
-| True  | False   |
-| False | True    |
-:::
-::::
 
 **Ejemplos prácticos:**
 
@@ -1128,24 +971,6 @@ if not esta_lloviendo:
     print("No es necesario llevar paraguas")
 else:
     print("Mejor llevar paraguas")
-```
-
-```{mermaid}
-graph TD
-    subgraph "Ejemplo: ¿Puedo votar?"
-        E[edad >= 18] --> Y{and}
-        D[tiene_dni] --> Y
-        Y --> R[Resultado]
-    end
-    
-    subgraph "Ejemplo: ¿Hay clases?"
-        F[es_fin_de_semana] --> O{or}
-        H[es_feriado] --> O
-        O --> R2[Resultado]
-    end
-    
-    style Y fill:#ffe4b5
-    style O fill:#ffe4b5
 ```
 
 :::{exercise} Operaciones lógicas
@@ -1183,22 +1008,13 @@ siendo una herramienta universal, independientemente del lenguaje de programaci�
 
 ### Símbolos estándar
 
-```{mermaid}
-graph TD
-    subgraph "Símbolos de Diagramas de Flujo"
-        A([Inicio/Fin<br/>Terminal])
-        B[Proceso<br/>Acción o instrucción]
-        C{Decisión<br/>Pregunta Si/No}
-        D[/Entrada o Salida<br/>Input/Output/]
-        E[Proceso predefinido<br/>Función/Subrutina]
-    end
-    
-    style A fill:#90EE90
-    style B fill:#87CEEB
-    style C fill:#FFE4B5
-    style D fill:#DDA0DD
-    style E fill:#F0E68C
-```
+:::{figure} 1/simbolos_diagramas_flujo.svg
+:alt: Símbolos estándar de diagramas de flujo
+:align: center
+:width: 85%
+
+Símbolos universales utilizados en diagramas de flujo para representar diferentes elementos de un algoritmo.
+:::
 
 (La descripción de los símbolos y los diagramas de ejemplo siguen siendo válidos, ya que representan la lógica del algoritmo, no el código).
 
@@ -1416,19 +1232,13 @@ print(suma)
 1.  **¿Qué hace?** Suma todos los números pares desde 1 hasta `n` inclusive.
 2.  **Resultado para n=10:** Suma 2 + 4 + 6 + 8 + 10 = **30**.
 3.  **Diagrama de flujo:**
-    ```mermaid
-    flowchart TD
-        Start([Inicio]) --> Input[/Leer n/]
-        Input --> Init[suma = 0<br/>i = 1]
-        Init --> Loop{i <= n?}
-        Loop -->|No| Output[/Escribir suma/]
-        Output --> End([Fin])
-        Loop -->|Sí| Check{i % 2 == 0?}
-        Check -->|Sí| Add[suma = suma + i]
-        Check -->|No| Inc[i = i + 1]
-        Add --> Inc
-        Inc --> Loop
-    ```
+    :::{figure} 1/algoritmo_suma_pares.svg
+    :alt: Diagrama de flujo para sumar números pares
+    :align: center
+    :width: 70%
+    
+    Algoritmo que suma todos los números pares desde 1 hasta n.
+    :::
 4.  **Modificación para impares:** Cambiar `if i % 2 == 0:` por `if i % 2 != 0:`.
     ```python
     n = int(input("Ingrese un número: "))

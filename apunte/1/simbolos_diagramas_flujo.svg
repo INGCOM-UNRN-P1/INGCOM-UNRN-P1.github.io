@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 400">
+  <!-- Título -->
+  <text x="350" y="30" font-size="22" font-weight="bold" text-anchor="middle" fill="#333">Símbolos de Diagramas de Flujo</text>
+  
+  <!-- Terminal (Inicio/Fin) -->
+  <g>
+    <ellipse cx="120" cy="100" rx="80" ry="35" fill="#90EE90" stroke="#333" stroke-width="2"/>
+    <text x="120" y="100" font-size="13" font-weight="bold" text-anchor="middle">Inicio/Fin</text>
+    <text x="120" y="116" font-size="11" text-anchor="middle">(Terminal)</text>
+    
+    <text x="120" y="155" font-size="11" text-anchor="middle" fill="#666">Marca el comienzo</text>
+    <text x="120" y="170" font-size="11" text-anchor="middle" fill="#666">o final del algoritmo</text>
+  </g>
+  
+  <!-- Proceso -->
+  <g>
+    <rect x="250" y="65" width="140" height="70" rx="5" fill="#87CEEB" stroke="#333" stroke-width="2"/>
+    <text x="320" y="95" font-size="13" font-weight="bold" text-anchor="middle">Proceso</text>
+    <text x="320" y="111" font-size="11" text-anchor="middle">Acción o</text>
+    <text x="320" y="126" font-size="11" text-anchor="middle">instrucción</text>
+    
+    <text x="320" y="155" font-size="11" text-anchor="middle" fill="#666">Operación o cálculo</text>
+    <text x="320" y="170" font-size="11" text-anchor="middle" fill="#666">que modifica datos</text>
+  </g>
+  
+  <!-- Decisión -->
+  <g>
+    <path d="M 510 65 L 590 100 L 510 135 L 430 100 Z" fill="#FFE4B5" stroke="#333" stroke-width="2"/>
+    <text x="510" y="98" font-size="13" font-weight="bold" text-anchor="middle">Decisión</text>
+    <text x="510" y="113" font-size="11" text-anchor="middle">Si/No</text>
+    
+    <text x="510" y="155" font-size="11" text-anchor="middle" fill="#666">Pregunta que dirige</text>
+    <text x="510" y="170" font-size="11" text-anchor="middle" fill="#666">el flujo del programa</text>
+  </g>
+  
+  <!-- Entrada/Salida -->
+  <g>
+    <path d="M 60 240 L 180 240 L 200 310 L 80 310 Z" fill="#DDA0DD" stroke="#333" stroke-width="2"/>
+    <text x="130" y="268" font-size="13" font-weight="bold" text-anchor="middle">Entrada/Salida</text>
+    <text x="130" y="284" font-size="11" text-anchor="middle">Input/Output</text>
+    
+    <text x="130" y="335" font-size="11" text-anchor="middle" fill="#666">Lectura de datos</text>
+    <text x="130" y="350" font-size="11" text-anchor="middle" fill="#666">o mostrar resultados</text>
+  </g>
+  
+  <!-- Subrutina -->
+  <g>
+    <rect x="260" y="240" width="120" height="70" rx="5" fill="#F0E68C" stroke="#333" stroke-width="2"/>
+    <rect x="250" y="235" width="120" height="70" rx="5" fill="none" stroke="#333" stroke-width="2"/>
+    <text x="310" y="265" font-size="13" font-weight="bold" text-anchor="middle">Subrutina</text>
+    <text x="310" y="281" font-size="11" text-anchor="middle">Proceso</text>
+    <text x="310" y="296" font-size="11" text-anchor="middle">predefinido</text>
+    
+    <text x="310" y="335" font-size="11" text-anchor="middle" fill="#666">Llama a función</text>
+    <text x="310" y="350" font-size="11" text-anchor="middle" fill="#666">o subprograma</text>
+  </g>
+  
+  <!-- Conector -->
+  <g>
+    <circle cx="480" cy="275" r="35" fill="#ffffff" stroke="#333" stroke-width="2"/>
+    <text x="480" y="272" font-size="13" font-weight="bold" text-anchor="middle">Conector</text>
+    <text x="480" y="287" font-size="20" text-anchor="middle">●</text>
+    
+    <text x="480" y="335" font-size="11" text-anchor="middle" fill="#666">Conecta partes del</text>
+    <text x="480" y="350" font-size="11" text-anchor="middle" fill="#666">diagrama en páginas</text>
+  </g>
+  
+  <!-- Flecha -->
+  <g>
+    <defs>
+      <marker id="arrow7" markerWidth="12" markerHeight="10" refX="11" refY="5" orient="auto">
+        <polygon points="0 0, 12 5, 0 10" fill="#333" />
+      </marker>
+    </defs>
+    <line x1="580" y1="275" x2="650" y2="275" stroke="#333" stroke-width="3" marker-end="url(#arrow7)"/>
+    <text x="615" y="265" font-size="13" font-weight="bold" text-anchor="middle">Flujo</text>
+    
+    <text x="615" y="305" font-size="11" text-anchor="middle" fill="#666">Dirección del</text>
+    <text x="615" y="320" font-size="11" text-anchor="middle" fill="#666">proceso</text>
+  </g>
+  
+  <!-- Nota general -->
+  <rect x="50" y="370" width="600" height="20" rx="5" fill="#f0f0f0" stroke="none"/>
+  <text x="350" y="383" font-size="11" text-anchor="middle" fill="#666">Estos símbolos son estándar y universales en la representación de algoritmos</text>
+</svg>

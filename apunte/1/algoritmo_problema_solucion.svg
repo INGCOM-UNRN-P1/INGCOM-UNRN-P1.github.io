@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 250">
+  <defs>
+    <marker id="arrow2" markerWidth="12" markerHeight="10" refX="11" refY="5" orient="auto">
+      <polygon points="0 0, 12 5, 0 10" fill="#333" />
+    </marker>
+  </defs>
+  
+  <!-- Título -->
+  <text x="350" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#333">Del Problema a la Solución</text>
+  
+  <!-- Problema -->
+  <rect x="50" y="80" width="150" height="120" rx="15" fill="#ffcccc" stroke="#cc0000" stroke-width="3"/>
+  <text x="125" y="115" font-size="18" font-weight="bold" text-anchor="middle">Problema</text>
+  <text x="125" y="140" font-size="11" text-anchor="middle">¿Qué necesitamos</text>
+  <text x="125" y="156" font-size="11" text-anchor="middle">resolver?</text>
+  <text x="70" y="178" font-size="10" fill="#666">• Objetivo claro</text>
+  <text x="70" y="192" font-size="10" fill="#666">• Requisitos</text>
+  
+  <!-- Algoritmo -->
+  <rect x="275" y="80" width="150" height="120" rx="15" fill="#ccccff" stroke="#0000cc" stroke-width="3"/>
+  <text x="350" y="115" font-size="18" font-weight="bold" text-anchor="middle">Algoritmo</text>
+  <text x="350" y="140" font-size="11" text-anchor="middle">¿Cómo lo</text>
+  <text x="350" y="156" font-size="11" text-anchor="middle">resolvemos?</text>
+  <text x="295" y="178" font-size="10" fill="#666">• Pasos ordenados</text>
+  <text x="295" y="192" font-size="10" fill="#666">• Lógica clara</text>
+  
+  <!-- Solución -->
+  <rect x="500" y="80" width="150" height="120" rx="15" fill="#ccffcc" stroke="#00cc00" stroke-width="3"/>
+  <text x="575" y="115" font-size="18" font-weight="bold" text-anchor="middle">Solución</text>
+  <text x="575" y="140" font-size="11" text-anchor="middle">Resultado</text>
+  <text x="575" y="156" font-size="11" text-anchor="middle">esperado</text>
+  <text x="520" y="178" font-size="10" fill="#666">• Funciona</text>
+  <text x="520" y="192" font-size="10" fill="#666">• Es correcto</text>
+  
+  <!-- Flechas -->
+  <line x1="200" y1="140" x2="270" y2="140" stroke="#333" stroke-width="3" marker-end="url(#arrow2)"/>
+  <text x="235" y="130" font-size="12" font-weight="bold" text-anchor="middle">Diseño</text>
+  
+  <line x1="425" y1="140" x2="495" y2="140" stroke="#333" stroke-width="3" marker-end="url(#arrow2)"/>
+  <text x="460" y="130" font-size="12" font-weight="bold" text-anchor="middle">Ejecución</text>
+  
+  <!-- Nota -->
+  <text x="350" y="230" font-size="11" text-anchor="middle" fill="#666">Un buen algoritmo transforma cualquier problema en una solución efectiva</text>
+</svg>

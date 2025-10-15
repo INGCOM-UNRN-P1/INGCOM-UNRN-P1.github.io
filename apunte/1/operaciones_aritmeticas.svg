@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 500">
+  <!-- Título -->
+  <text x="350" y="30" font-size="22" font-weight="bold" text-anchor="middle" fill="#333">Operaciones Aritméticas</text>
+  
+  <!-- Operaciones básicas -->
+  <g>
+    <text x="80" y="70" font-size="16" font-weight="bold" fill="#0066cc">Operaciones Básicas</text>
+    
+    <!-- Suma -->
+    <rect x="50" y="85" width="140" height="50" rx="5" fill="#e6f3ff" stroke="#0066cc" stroke-width="2"/>
+    <text x="70" y="108" font-size="14" font-family="monospace">5 + 3</text>
+    <text x="140" y="108" font-size="14" fill="#009900">= 8</text>
+    <text x="70" y="125" font-size="11" fill="#666">Suma</text>
+    
+    <!-- Resta -->
+    <rect x="50" y="145" width="140" height="50" rx="5" fill="#e6f3ff" stroke="#0066cc" stroke-width="2"/>
+    <text x="70" y="168" font-size="14" font-family="monospace">10 - 4</text>
+    <text x="140" y="168" font-size="14" fill="#009900">= 6</text>
+    <text x="70" y="185" font-size="11" fill="#666">Resta</text>
+    
+    <!-- Multiplicación -->
+    <rect x="50" y="205" width="140" height="50" rx="5" fill="#e6f3ff" stroke="#0066cc" stroke-width="2"/>
+    <text x="70" y="228" font-size="14" font-family="monospace">7 * 2</text>
+    <text x="140" y="228" font-size="14" fill="#009900">= 14</text>
+    <text x="70" y="245" font-size="11" fill="#666">Multiplicación</text>
+    
+    <!-- División -->
+    <rect x="50" y="265" width="140" height="50" rx="5" fill="#e6f3ff" stroke="#0066cc" stroke-width="2"/>
+    <text x="70" y="288" font-size="14" font-family="monospace">15 / 3</text>
+    <text x="140" y="288" font-size="14" fill="#009900">= 5.0</text>
+    <text x="70" y="305" font-size="11" fill="#666">División (decimal)</text>
+  </g>
+  
+  <!-- Operaciones especiales -->
+  <g>
+    <text x="330" y="70" font-size="16" font-weight="bold" fill="#cc6600">Operaciones Especiales</text>
+    
+    <!-- División entera -->
+    <rect x="250" y="85" width="160" height="50" rx="5" fill="#ffe6cc" stroke="#cc6600" stroke-width="2"/>
+    <text x="270" y="108" font-size="14" font-family="monospace">17 // 5</text>
+    <text x="350" y="108" font-size="14" fill="#009900">= 3</text>
+    <text x="270" y="125" font-size="11" fill="#666">División entera</text>
+    
+    <!-- Módulo -->
+    <rect x="250" y="145" width="160" height="50" rx="5" fill="#ffe6cc" stroke="#cc6600" stroke-width="2"/>
+    <text x="270" y="168" font-size="14" font-family="monospace">17 % 5</text>
+    <text x="350" y="168" font-size="14" fill="#009900">= 2</text>
+    <text x="270" y="185" font-size="11" fill="#666">Módulo (resto)</text>
+    
+    <!-- Potencia -->
+    <rect x="250" y="205" width="160" height="50" rx="5" fill="#ffe6cc" stroke="#cc6600" stroke-width="2"/>
+    <text x="270" y="228" font-size="14" font-family="monospace">2 ** 3</text>
+    <text x="350" y="228" font-size="14" fill="#009900">= 8</text>
+    <text x="270" y="245" font-size="11" fill="#666">Potencia (2³)</text>
+    
+    <!-- Ejemplo módulo -->
+    <rect x="250" y="265" width="160" height="50" rx="5" fill="#fff5e6" stroke="#cc9900" stroke-width="1"/>
+    <text x="270" y="285" font-size="11" fill="#666">17 dividido 5:</text>
+    <text x="270" y="300" font-size="11" font-family="monospace">cociente: 3</text>
+    <text x="270" y="310" font-size="11" font-family="monospace">resto: 2</text>
+  </g>
+  
+  <!-- Precedencia -->
+  <g>
+    <text x="530" y="70" font-size="16" font-weight="bold" fill="#cc0066">Precedencia</text>
+    
+    <rect x="450" y="85" width="200" height="230" rx="5" fill="#ffe6f0" stroke="#cc0066" stroke-width="2"/>
+    
+    <text x="550" y="108" font-size="14" font-weight="bold" text-anchor="middle">Orden de evaluación:</text>
+    
+    <!-- Lista ordenada -->
+    <text x="470" y="135" font-size="13" font-weight="bold" fill="#cc0066">1.</text>
+    <text x="490" y="135" font-size="13">Paréntesis ( )</text>
+    
+    <text x="470" y="160" font-size="13" font-weight="bold" fill="#cc0066">2.</text>
+    <text x="490" y="160" font-size="13">Potencia **</text>
+    
+    <text x="470" y="185" font-size="13" font-weight="bold" fill="#cc0066">3.</text>
+    <text x="490" y="185" font-size="13">*, /, //, %</text>
+    
+    <text x="470" y="210" font-size="13" font-weight="bold" fill="#cc0066">4.</text>
+    <text x="490" y="210" font-size="13">+, -</text>
+    
+    <!-- Ejemplo -->
+    <line x1="470" y1="225" x2="630" y2="225" stroke="#cc0066" stroke-width="1"/>
+    <text x="550" y="245" font-size="12" font-weight="bold" text-anchor="middle">Ejemplo:</text>
+    <text x="550" y="265" font-size="12" text-anchor="middle" font-family="monospace">2 + 3 * 4</text>
+    <text x="550" y="282" font-size="11" text-anchor="middle" fill="#666">= 2 + 12</text>
+    <text x="550" y="297" font-size="11" text-anchor="middle" fill="#009900">= 14</text>
+  </g>
+  
+  <!-- Ejemplo visual de precedencia -->
+  <g>
+    <text x="100" y="360" font-size="14" font-weight="bold" fill="#333">Sin paréntesis:</text>
+    <rect x="50" y="370" width="180" height="60" rx="5" fill="#f0f0f0" stroke="#666" stroke-width="2"/>
+    <text x="140" y="393" font-size="13" text-anchor="middle" font-family="monospace">2 + 3 * 4</text>
+    <text x="140" y="410" font-size="12" text-anchor="middle" fill="#666">multiplicación primero</text>
+    <text x="140" y="423" font-size="14" text-anchor="middle" fill="#009900" font-weight="bold">= 14</text>
+    
+    <text x="340" y="360" font-size="14" font-weight="bold" fill="#333">Con paréntesis:</text>
+    <rect x="270" y="370" width="180" height="60" rx="5" fill="#f0f0f0" stroke="#666" stroke-width="2"/>
+    <text x="360" y="393" font-size="13" text-anchor="middle" font-family="monospace">(2 + 3) * 4</text>
+    <text x="360" y="410" font-size="12" text-anchor="middle" fill="#666">suma primero</text>
+    <text x="360" y="423" font-size="14" text-anchor="middle" fill="#009900" font-weight="bold">= 20</text>
+  </g>
+  
+  <!-- Nota -->
+  <text x="350" y="470" font-size="12" text-anchor="middle" fill="#666">Usá paréntesis para clarificar el orden de las operaciones</text>
+</svg>
