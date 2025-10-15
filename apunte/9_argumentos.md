@@ -47,6 +47,13 @@ Estos dos parámetros contienen toda la información que se pasa al programa en 
 
 ```
 
+```{figure} 9/argc_argv_estructura.svg
+:label: fig-argc-argv-estructura
+:align: center
+
+Estructura en memoria de `argc` y `argv[]`. El arreglo `argv` contiene punteros a cadenas de caracteres (strings), cada una representando un argumento pasado al programa.
+```
+
 ## Ejemplo Básico: Imprimir Todos los Argumentos
 
 El programa más simple para entender su funcionamiento es uno que recorre los
@@ -319,6 +326,13 @@ int main(void) {
 
 Variables comunes incluyen `PATH` (rutas de búsqueda de ejecutables), `HOME` (directorio del usuario), `USER` (nombre del usuario), y `LANG` (configuración de idioma).
 
+```{figure} 9/codigos_salida.svg
+:label: fig-codigos-salida
+:align: center
+
+Códigos de salida en programas C. El shell usa estos códigos para determinar si la ejecución fue exitosa (`0`) o falló (distinto de `0`).
+```
+
 ## Redirecciones
 
 Una característica fundamental del shell es su capacidad de **redirigir** la entrada y salida de los programas. Esto permite cambiar de dónde un programa lee datos y hacia dónde escribe sus resultados, sin modificar el código del programa.
@@ -330,6 +344,13 @@ Todo programa en Unix/Linux tiene tres flujos de datos estándar abiertos autom�
 - **Entrada estándar** (`stdin`, descriptor 0): De dónde el programa lee datos
 - **Salida estándar** (`stdout`, descriptor 1): Donde el programa escribe su salida normal
 - **Error estándar** (`stderr`, descriptor 2): Donde el programa escribe mensajes de error
+
+```{figure} 9/flujos_estandar.svg
+:label: fig-flujos-estandar
+:align: center
+
+Los tres flujos de datos estándar en un programa C: `stdin`, `stdout` y `stderr`. Por defecto, `stdin` lee del teclado mientras que `stdout` y `stderr` escriben a la pantalla.
+```
 
 En C, estos flujos están disponibles como:
 
@@ -373,6 +394,13 @@ El shell puede redirigir hacia dónde va la salida de un programa usando el oper
 
 # Redirige ambos stdout y stderr al mismo archivo
 ./mi_programa > todo.txt 2>&1
+```
+
+```{figure} 9/redirecciones.svg
+:label: fig-redirecciones
+:align: center
+
+Distintas formas de redirección en el shell. El programa no necesita modificarse, el shell conecta automáticamente los flujos a archivos.
 ```
 
 Desde el punto de vista del programa en C, no necesitás hacer nada especial: simplemente usá `printf` (para stdout) y `fprintf(stderr, ...)` (para stderr) normalmente. El shell se encarga de la redirección.
@@ -451,6 +479,13 @@ programa1 | programa2
 ls -l | wc -l
 ```
 
+```{figure} 9/pipes_canalizaciones.svg
+:label: fig-pipes-canalizaciones
+:align: center
+
+Canalizaciones (pipes) en Unix. La salida estándar de un programa se conecta con la entrada estándar del siguiente, permitiendo construir cadenas de procesamiento.
+```
+
 ### Filosofía Unix: Hacer Una Cosa Bien
 
 Las canalizaciones promueven la **filosofía Unix**: escribir programas pequeños que hagan una cosa muy bien, y combinarlos para tareas complejas. Tu programa C puede ser un eslabón en esta cadena.
@@ -486,6 +521,13 @@ seq 1 10 | ./filtro_pares
 
 # Combina con otros programas
 seq 1 100 | ./filtro_pares | wc -l  # Cuenta cuántos pares hay
+```
+
+```{figure} 9/ejemplo_filtro.svg
+:label: fig-ejemplo-filtro
+:align: center
+
+Flujo de datos en una canalización que genera números, filtra solo los pares y toma los primeros 5 resultados.
 ```
 
 ### Canalizaciones Complejas
