@@ -558,12 +558,44 @@ double fabs(double x);    // Valor absoluto
 double fmod(double x, double y);  // Resto de x/y
 ```
 
+`fabs()` calcula el valor absoluto de un número de punto flotante. `fmod()` calcula el resto de la división de punto flotante `x/y`.
+
+```{code-block} c
+:caption: "Uso de fabs y fmod."
+:linenos:
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    printf("fabs(-5.5) = %.1f\n", fabs(-5.5));
+    printf("fmod(10.5, 3.0) = %.1f\n", fmod(10.5, 3.0)); // 10.5 = 3 * 3.0 + 1.5
+    return 0;
+}
+```
+
 ### Funciones Hiperbólicas
 
 ```c
 double sinh(double x);    // Seno hiperbólico
 double cosh(double x);    // Coseno hiperbólico
 double tanh(double x);    // Tangente hiperbólica
+```
+
+Calculan las funciones trigonométricas hiperbólicas, que son análogas a las trigonométricas ordinarias pero definidas usando la hipérbola en lugar del círculo. Son fundamentales en cálculo, física e ingeniería.
+
+```{code-block} c
+:caption: "Cálculo de funciones hiperbólicas."
+:linenos:
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    double x = 1.0;
+    printf("sinh(%.1f) = %f\n", x, sinh(x));
+    printf("cosh(%.1f) = %f\n", x, cosh(x));
+    printf("tanh(%.1f) = %f\n", x, tanh(x));
+    return 0;
+}
 ```
 
 ### Constantes Útiles
@@ -735,11 +767,13 @@ Desplazamiento de 'd': 8 bytes
 
 ## `<stdint.h>` - Tipos Enteros de Ancho Fijo (C99)
 
-El header `<stdint.h>`, introducido en C99, define tipos enteros con anchos específicos garantizados, esenciales para código portable y para interactuar con hardware o protocolos.
+El header `<stdint.h>`, introducido en C99, resuelve un problema fundamental de la portabilidad en C: el tamaño de los tipos enteros como `int` o `long` no está garantizado entre diferentes arquitecturas. En un sistema, un `int` puede tener 32 bits, y en otro, 64. Esto puede romper el código que depende de un tamaño específico, especialmente en áreas como la programación de sistemas, protocolos de red, formatos de archivo o criptografía.
+
+`<stdint.h>` soluciona esto proveyendo un conjunto de tipos de datos enteros cuyo tamaño en bits es explícito y garantizado.
 
 ### Tipos de Ancho Exacto
 
-Estos tipos tienen exactamente el número de bits especificado (si están disponibles en la plataforma):
+Estos son los tipos más comunes y útiles del header. Tienen exactamente el número de bits especificado. Su uso es obligatorio si el sistema los soporta y tu código depende de un tamaño exacto.
 
 ```c
 int8_t, int16_t, int32_t, int64_t       // Enteros con signo
@@ -773,23 +807,27 @@ int main(void)
 
 ### Tipos de Ancho Mínimo
 
-Garantizan al menos el número de bits especificado:
+Garantizan *al menos* el número de bits especificado. Son más portables que los de ancho exacto, ya que se garantiza su existencia en todas las plataformas conformes.
 
 ```c
 int_least8_t, int_least16_t, int_least32_t, int_least64_t
 uint_least8_t, uint_least16_t, uint_least32_t, uint_least64_t
 ```
+**Uso:** Utilizalos cuando necesites un rango mínimo, pero no te importe si el tipo es más grande, y la portabilidad a sistemas exóticos es una prioridad.
 
 ### Tipos Más Rápidos
 
-Tipos enteros "más rápidos" de al menos el ancho especificado:
+Son los tipos enteros que tienen *al menos* el ancho especificado y son los más rápidos de procesar en la arquitectura de destino.
 
 ```c
 int_fast8_t, int_fast16_t, int_fast32_t, int_fast64_t
 uint_fast8_t, uint_fast16_t, uint_fast32_t, uint_fast64_t
 ```
+**Uso:** Ideales para contadores de bucles o cálculos donde el rendimiento es crítico y solo se necesita un rango mínimo.
 
 ### Tipos de Máximo Ancho
+
+Representan los tipos enteros más grandes que la implementación puede manejar.
 
 ```c
 intmax_t    // Tipo entero con signo de mayor ancho
@@ -798,16 +836,17 @@ uintmax_t   // Tipo entero sin signo de mayor ancho
 
 ### Tipos para Punteros
 
+Tipos enteros garantizados para poder almacenar un puntero a `void` sin pérdida de información.
+
 ```c
 intptr_t    // Entero con signo capaz de contener un puntero
 uintptr_t   // Entero sin signo capaz de contener un puntero
 ```
+**Uso:** Útiles para aritmética de punteros de bajo nivel o para conversiones (casts) entre punteros y enteros.
 
-Útil para almacenar punteros temporalmente como enteros o para aritmética de bajo nivel.
+### Macros de Límites y Constantes
 
-### Macros de Límites
-
-Para cada tipo, hay macros que definen sus límites:
+Para cada tipo, hay macros que definen sus límites (`INT8_MIN`, `INT8_MAX`, `UINT8_MAX`, etc.) y macros para definir literales de estos tipos (`INT8_C(123)`, `UINT64_C(0x123...)`).
 
 ```c
 INT8_MIN, INT8_MAX, UINT8_MAX
@@ -817,17 +856,43 @@ INT64_MIN, INT64_MAX, UINT64_MAX
 INTMAX_MIN, INTMAX_MAX, UINTMAX_MAX
 ```
 
-**Ejemplo de uso:**
+### Ejemplo Práctico: Cabecera de un Paquete de Red
+
+Imaginá que estás definiendo la estructura para un paquete de red. El protocolo exige tamaños de campo exactos para que cualquier sistema pueda leerlo.
 
 ```{code-block} c
 :linenos:
+:caption: "Uso de stdint.h para portabilidad en un protocolo."
 #include <stdio.h>
 #include <stdint.h>
+#include <inttypes.h> // Para macros de formato como PRId64
+
+// Definimos una cabecera de paquete con tamaños fijos
+typedef struct {
+    uint16_t source_port;      // Puerto de origen (16 bits)
+    uint16_t dest_port;        // Puerto de destino (16 bits)
+    uint32_t sequence_number;  // Número de secuencia (32 bits)
+    uint8_t  flags;            // Banderas (8 bits)
+    uint8_t  protocol_version; // Versión (8 bits)
+    int64_t  timestamp_ns;     // Marca de tiempo en nanosegundos (64 bits)
+} PacketHeader;
 
 int main(void)
 {
-    printf("Rango de int32_t: %d a %d\n", INT32_MIN, INT32_MAX);
-    printf("Máximo de uint64_t: %llu\n", UINT64_MAX);
+    PacketHeader header = {
+        .source_port = 49152,
+        .dest_port = 80,
+        .sequence_number = 1234567890,
+        .flags = 0x10, // SYN flag
+        .protocol_version = 4,
+        .timestamp_ns = 1665789000123456789LL
+    };
+
+    // El tamaño es predecible en cualquier arquitectura
+    printf("El tamaño de la cabecera del paquete es: %zu bytes\n", sizeof(PacketHeader));
+
+    // Usamos macros de <inttypes.h> para imprimir de forma portable
+    printf("Timestamp: %" PRId64 " ns\n", header.timestamp_ns);
     
     return 0;
 }
@@ -843,19 +908,17 @@ Para código que requiere portabilidad o interactúa con hardware/protocolos, pr
 
 ## `<stdio.h>` - Entrada/Salida Estándar
 
-El header `<stdio.h>` es uno de los más importantes y utilizados. Proporciona funciones para E/S de archivos y consola, manejo de flujos (_streams_), y formateo de datos.
+El header `<stdio.h>` (de "standard input/output") es uno de los más importantes y utilizados de C. Proporciona un conjunto de herramientas cohesivo y potente para interactuar con el exterior del programa, ya sea la consola, archivos en disco u otros dispositivos.
 
-### Tipo `FILE` y Flujos Estándar
+### El Concepto de Flujo (Stream)
 
-```c
-typedef /* implementation-defined */ FILE;
-```
+La idea central de `<stdio.h>` es el **flujo** (representado por el tipo opaco `FILE`), una abstracción que unifica la manera en que se manejan las operaciones de entrada y salida. Un flujo es una secuencia de bytes que fluyen desde una fuente (como el teclado o un archivo) hacia el programa, o desde el programa hacia un destino (como la pantalla o un archivo). Gracias a esta abstracción, las mismas funciones (`fgetc`, `fprintf`, etc.) pueden usarse para leer de la consola o de un archivo, cambiando únicamente el flujo de origen.
 
-El tipo opaco `FILE` representa un flujo (stream). Tres flujos están predefinidos:
+Por defecto, tres flujos estándar están disponibles en todo programa:
 
-- `stdin`: Entrada estándar (típicamente el teclado)
-- `stdout`: Salida estándar (típicamente la pantalla)
-- `stderr`: Salida de error estándar (típicamente la pantalla, sin buffer)
+- `stdin`: Flujo de entrada estándar, usualmente conectado al teclado.
+- `stdout`: Flujo de salida estándar, usualmente conectado a la pantalla. Esta salida está, por lo general, "bufferizada por línea", lo que significa que los datos se envían realmente cuando se imprime un salto de línea (`\n`) o cuando el buffer se llena.
+- `stderr`: Flujo de salida de error estándar, también conectado a la pantalla. A diferencia de `stdout`, `stderr` no suele estar bufferizado, para asegurar que los mensajes de error se muestren de inmediato.
 
 ### Operaciones con Archivos
 
@@ -865,17 +928,17 @@ El tipo opaco `FILE` representa un flujo (stream). Tres flujos están predefinid
 FILE *fopen(const char *filename, const char *mode);
 ```
 
-Abre un archivo y retorna un puntero a `FILE`, o `NULL` si falla.
+Abre un archivo y retorna un puntero a `FILE`, o `NULL` si falla. El `mode` especifica cómo se interactuará con el archivo.
 
 **Modos comunes:**
-- `"r"`: Lectura (archivo debe existir)
-- `"w"`: Escritura (crea archivo nuevo o trunca existente)
-- `"a"`: Append (escritura al final, crea si no existe)
-- `"r+"`: Lectura/escritura (archivo debe existir)
-- `"w+"`: Lectura/escritura (crea o trunca)
-- `"a+"`: Lectura/append
+- `"r"`: Lectura (el archivo debe existir).
+- `"w"`: Escritura (crea un archivo nuevo o lo trunca si ya existe).
+- `"a"`: Añadir (escribe al final del archivo; lo crea si no existe).
+- `"r+"`: Lectura y escritura (el archivo debe existir).
+- `"w+"`: Lectura y escritura (crea o trunca).
+- `"a+"`: Lectura y añadir.
 
-**Agregar `b` para modo binario:** `"rb"`, `"wb"`, etc.
+Se puede añadir una `b` al modo (ej. `"rb"`, `"wb"`) para operaciones en **modo binario**, que evita cualquier tipo de procesamiento o conversión de los bytes (como la conversión de finales de línea `\n` a `\r\n` en Windows).
 
 ```{code-block} c
 :linenos:
@@ -902,17 +965,11 @@ int main(void)
 int fclose(FILE *stream);
 ```
 
-Cierra el archivo asociado al flujo. Retorna 0 si tiene éxito, `EOF` si hay error.
-
-```c
-if (fclose(archivo) != 0) {
-    perror("Error al cerrar el archivo");
-}
-```
+Cierra el archivo asociado al flujo, asegurando que todos los datos en el buffer se escriban al disco. Retorna 0 si tiene éxito, `EOF` si hay error.
 
 :::{important} Regla {ref}`0x001Dh`
 
-Siempre cierra los archivos abiertos. No cerrar un archivo puede resultar en pérdida de datos o fugas de descriptores de archivo.
+Siempre cierra los archivos que abras. No hacerlo puede resultar en pérdida de datos o en agotar los descriptores de archivo disponibles para el programa.
 :::
 
 #### `fflush` - Vaciar Buffer
@@ -921,76 +978,83 @@ Siempre cierra los archivos abiertos. No cerrar un archivo puede resultar en pé
 int fflush(FILE *stream);
 ```
 
-Fuerza la escritura de datos bufferizados al archivo. Retorna 0 si tiene éxito, `EOF` si hay error.
+Fuerza la escritura de datos del buffer de salida al archivo sin tener que cerrarlo. Es útil cuando se necesita garantizar que los datos se guarden en un punto crítico. Retorna 0 si tiene éxito, `EOF` si hay error.
+
+
+:::{seealso} Ejercicios Prácticos
+Para aplicar estos conceptos, consultá la guía de {doc}`../../ejercicios/8_archivos`.
+:::
+
+### Funciones de Salida con Formato
+
+#### `printf`, `fprintf`, `snprintf`
 
 ```c
-fprintf(archivo, "Datos importantes\n");
-fflush(archivo);  // Asegurar que se escriban inmediatamente
+int printf(const char *format, ...);
+int fprintf(FILE *stream, const char *format, ...);
+int snprintf(char *s, size_t n, const char *format, ...);
 ```
 
+La familia de funciones `printf` escribe datos formateados a un flujo (`stdout` por defecto para `printf`) o a una cadena de caracteres (`snprintf`). Retornan el número de caracteres escritos.
+
+:::{seealso} Guía Completa de `printf`
+La cadena de formato es un mini-lenguaje en sí mismo. Para una referencia detallada de todos los especificadores, anchos, precisiones y opciones, consultá el apunte dedicado: {doc}`../../extras/guide-printf`.
+:::
+
+```{code-block} c
+:linenos:
+:caption: "Uso de snprintf para construcción segura de cadenas"
+#include <stdio.h>
+
+int main(void)
+{
+    char buffer[50];
+    int edad = 25;
+    const char* nombre = "Ana";
+    
+    int escritos = snprintf(buffer, sizeof(buffer), 
+                            "%s tiene %d años", nombre, edad);
+    
+    if (escritos >= 0 && (size_t)escritos < sizeof(buffer)) {
+        printf("Cadena construida: %s\n", buffer);
+    }
+    
+    return 0;
+}
+```
 ### Funciones de Entrada con Formato
 
-#### `scanf` y `fscanf` - Lectura Formateada
+#### `scanf` y `fscanf`
 
 ```c
 int scanf(const char *format, ...);
 int fscanf(FILE *stream, const char *format, ...);
 ```
 
-Leen datos formateados desde `stdin` o desde un flujo. Retornan el número de conversiones exitosas, o `EOF` al final del archivo o error.
+Leen datos formateados desde `stdin` o un flujo, interpretando el texto según la cadena de formato. Retornan el número de conversiones exitosas, o `EOF` si se alcanza el fin del archivo o hay un error.
 
-**Especificadores comunes:**
-- `%d`: `int`
-- `%ld`: `long int`
-- `%f`: `float`
-- `%lf`: `double`
-- `%c`: `char`
-- `%s`: cadena (hasta espacio en blanco)
-
-```{code-block} c
-:linenos:
-#include <stdio.h>
-
-int main(void)
-{
-    int edad = 0;
-    char nombre[50];
-    
-    printf("Ingrese su nombre: ");
-    if (scanf("%49s", nombre) != 1) {
-        fprintf(stderr, "Error al leer nombre\n");
-        return 1;
-    }
-    
-    printf("Ingrese su edad: ");
-    if (scanf("%d", &edad) != 1) {
-        fprintf(stderr, "Error al leer edad\n");
-        return 1;
-    }
-    
-    printf("Hola %s, tienes %d años.\n", nombre, edad);
-    
-    return 0;
-}
-```
-
-:::{danger} Peligro: `scanf` con cadenas
-
-`scanf("%s", cadena)` es inseguro porque no verifica límites. Siempre especificá un ancho máximo: `scanf("%49s", cadena)` para un buffer de 50 caracteres.
+:::{danger} Peligro con `scanf`
+`scanf("%s", ...)` es extremadamente inseguro porque no tiene forma de limitar cuántos caracteres lee, llevando fácilmente a desbordamientos de buffer. Siempre especificá un ancho máximo: `scanf("%49s", ...)` para un buffer de 50 caracteres.
 :::
 
-#### `getchar`, `fgetc` y `fgets` - Leer Caracteres y Líneas
+### Entrada y Salida de Caracteres y Líneas
+
+#### `getchar`, `fgetc`, `fgets`
 
 ```c
-int getchar(void);
-int fgetc(FILE *stream);
-char *fgets(char *s, int n, FILE *stream);
+int getchar(void); // Lee de stdin
+int fgetc(FILE *stream); // Lee de un flujo
+char *fgets(char *s, int n, FILE *stream); // Lee una línea completa
 ```
 
-`getchar()` y `fgetc()` leen un carácter. `fgets()` lee hasta `n-1` caracteres o hasta nueva línea.
+Estas funciones son más seguras y a menudo más simples para leer datos textuales que `scanf`.
+
+- `getchar()` y `fgetc()` leen un solo carácter y lo devuelven como un `int` (o `EOF` en caso de error/fin de archivo).
+- `fgets()` es la forma recomendada para leer líneas completas de texto. Lee hasta `n-1` caracteres, hasta encontrar un `\n`, o hasta el fin de archivo. Siempre almacena un terminador nulo `\0` y, a diferencia de `gets` (que nunca debe usarse), es segura contra desbordamientos.
 
 ```{code-block} c
 :linenos:
+:caption: "Lectura segura de una línea con fgets"
 #include <stdio.h>
 #include <string.h>
 
@@ -1000,87 +1064,17 @@ int main(void)
     
     printf("Ingrese una línea: ");
     if (fgets(linea, sizeof(linea), stdin) != NULL) {
-        // Eliminar el '\n' si está presente
-        size_t len = strlen(linea);
-        if (len > 0 && linea[len-1] == '\n') {
-            linea[len-1] = '\0';
-        }
+        // fgets incluye el '\n' si hay espacio, lo eliminamos.
+        linea[strcspn(linea, "\n")] = '\0';
         
-        printf("Leíste: %s\n", linea);
+        printf("Leíste: \"%s\"\n", linea);
     }
     
     return 0;
 }
 ```
 
-### Funciones de Salida con Formato
 
-#### `printf` y `fprintf` - Escritura Formateada
-
-```c
-int printf(const char *format, ...);
-int fprintf(FILE *stream, const char *format, ...);
-```
-
-Escriben datos formateados a `stdout` o a un flujo. Retornan el número de caracteres escritos.
-
-**Especificadores comunes:**
-- `%d`, `%i`: `int`
-- `%u`: `unsigned int`
-- `%ld`: `long int`
-- `%lld`: `long long int`
-- `%f`: `float`/`double`
-- `%e`: notación científica
-- `%c`: `char`
-- `%s`: cadena
-- `%p`: puntero
-- `%x`: hexadecimal
-
-#### `snprintf` - Escritura Segura a Cadena (C99)
-
-```c
-int snprintf(char *s, size_t n, const char *format, ...);
-```
-
-Escribe como máximo `n-1` caracteres y siempre añade terminación nula. Es la forma recomendada de construir cadenas.
-
-```{code-block} c
-:linenos:
-#include <stdio.h>
-
-int main(void)
-{
-    char buffer[50];
-    int edad = 25;
-    
-    int escritos = snprintf(buffer, sizeof(buffer), 
-                            "Tengo %d años", edad);
-    
-    if (escritos >= 0 && (size_t)escritos < sizeof(buffer)) {
-        printf("Resultado: %s\n", buffer);
-    }
-    
-    return 0;
-}
-```
-
-:::{tip} Regla {ref}`0x003Eh`
-
-Preferí `snprintf()` sobre `sprintf()` para evitar buffer overflow.
-:::
-
-### Entrada/Salida Binaria
-
-#### `fread` y `fwrite` - E/S Binaria
-
-```c
-size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
-size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream);
-```
-
-Leen/escriben `nmemb` elementos de tamaño `size` bytes cada uno.
-
-Las funciones de E/S binaria son fundamentales para el manejo de datos no textuales y estructuras complejas. `fread()` lee exactamente `nmemb * size` bytes desde un flujo hacia un buffer, retornando el número de elementos completamente leídos (no bytes). Es crucial verificar el valor de retorno, ya que un valor menor a `nmemb` indica EOF o error. `fwrite()` escribe datos binarios de manera simétrica, siendo esencial para persistencia de estructuras, arrays numéricos, y cualquier datos que no sea texto plano. Ambas funciones tratan los datos como secuencias de bytes, ignorando interpretación de caracteres o encoding, lo que las hace perfectas para serialización de datos, copia de archivos binarios, y comunicación entre procesos que requiere preservar la representación exacta de los datos en memoria.
 
 ### Posicionamiento en Archivos
 
@@ -1092,11 +1086,46 @@ long ftell(FILE *stream);
 void rewind(FILE *stream);
 ```
 
-`fseek()` cambia la posición del cursor (`SEEK_SET`, `SEEK_CUR`, `SEEK_END`). `ftell()` retorna la posición actual. `rewind()` vuelve al inicio.
+Permiten el acceso aleatorio a los contenidos de un archivo. `fseek()` mueve el cursor de lectura/escritura, `ftell()` informa la posición actual y `rewind()` lo regresa al inicio.
 
-Las funciones de posicionamiento permiten acceso aleatorio a archivos, transformando los flujos secuenciales en estructuras de datos navegables. `fseek()` es la función principal, moviendo el cursor de posición usando tres modos: `SEEK_SET` (desde el inicio), `SEEK_CUR` (desde la posición actual), y `SEEK_END` (desde el final). Acepta desplazamientos negativos y positivos, permitiendo navegación bidireccional. `ftell()` retorna la posición actual como un entero largo, esencial para guardar posiciones para posterior restauración o calcular tamaños de archivo. `rewind()` es equivalente a `fseek(stream, 0L, SEEK_SET)` pero también limpia indicadores de error. Estas funciones son fundamentales para editores de archivos, bases de datos simples, y cualquier aplicación que necesite acceso no secuencial a datos persistentes.
+```{code-block} c
+:caption: "Uso de fseek, ftell y rewind para acceso aleatorio."
+:linenos:
+#include <stdio.h>
 
-### Manejo de Errores
+int main() {
+    FILE *archivo = fopen("ejemplo.txt", "w+");
+    if (archivo == NULL) {
+        perror("Error al crear archivo");
+        return 1;
+    }
+
+    fputs("Hola Mundo", archivo);
+
+    // Obtener el tamaño del archivo usando fseek y ftell
+    fseek(archivo, 0, SEEK_END);
+    long tamano = ftell(archivo);
+    printf("El archivo tiene %ld bytes.\n", tamano);
+
+    // Volver al inicio del archivo
+    rewind(archivo);
+
+    // Leer el primer carácter
+    char c = fgetc(archivo);
+    printf("Primer carácter: %c\n", c);
+
+    // Moverse 5 bytes desde el inicio y leer
+    fseek(archivo, 5, SEEK_SET);
+    char buffer[10];
+    fgets(buffer, sizeof(buffer), archivo);
+    printf("Desde la posición 5: %s\n", buffer);
+
+    fclose(archivo);
+    return 0;
+}
+```
+
+### Manejo de Errores en Flujos
 
 #### `feof`, `ferror` y `perror`
 
@@ -1109,6 +1138,39 @@ void perror(const char *s);
 `feof()` verifica fin de archivo. `ferror()` verifica errores. `perror()` imprime un mensaje de error descriptivo.
 
 Estas funciones son cruciales para el manejo robusto de errores en operaciones de E/S. `feof()` determina si se ha alcanzado el final del archivo, diferenciando entre una lectura fallida y el final legítimo de los datos. Es esencial en bucles de lectura para terminar apropiadamente sin generar errores espurios. `ferror()` detecta si ha ocurrido un error de E/S en el flujo, como problemas de hardware, permisos insuficientes, o espacio en disco agotado. Ambas funciones mantienen estado interno hasta que se llame a `clearerr()`. `perror()` es invaluable para debugging, imprimiendo un mensaje descriptivo del último error basado en `errno`, precedido por el texto proporcionado. Juntas, estas funciones permiten distinguir entre diferentes condiciones de terminación y proporcionar retroalimentación significativa al usuario sobre problemas de E/O.
+```{code-block} c
+:caption: "Manejo de fin de archivo y errores de lectura."
+:linenos:
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    FILE *archivo = fopen("datos.txt", "r");
+    if (archivo == NULL) {
+        perror("Error al abrir datos.txt");
+        return 1;
+    }
+
+    // Leemos el archivo carácter por carácter
+    while (1) {
+        int c = fgetc(archivo);
+
+        if (feof(archivo)) { // Verificamos si llegamos al final
+            printf("\nFin del archivo alcanzado.\n");
+            break;
+        }
+        if (ferror(archivo)) { // Verificamos si hubo un error de lectura
+            fprintf(stderr, "Error de lectura en el archivo.\n");
+            break;
+        }
+
+        putchar(c); // Imprimimos el carácter leído
+    }
+
+    fclose(archivo);
+    return 0;
+}
+```
 
 ---
 
@@ -1429,10 +1491,33 @@ char *strncpy(char *dest, const char *src, size_t n);
 
 Estas tres funciones son fundamentales en el manejo de cadenas C, pero requieren uso cuidadoso. `strlen()` recorre la cadena hasta encontrar el carácter nulo '\0', devolviendo el número de caracteres (excluyendo el terminador). Su complejidad O(n) significa que llamarla repetidamente en bucles es ineficiente. `strcpy()` es notoriamente peligrosa porque copia ciegamente desde origen a destino sin verificar límites, siendo una fuente común de vulnerabilidades de buffer overflow. `strncpy()` es más segura al limitar la copia a `n` caracteres, pero tiene la peculiaridad de no garantizar terminación nula si la cadena origen tiene exactamente `n` o más caracteres. Para uso seguro, siempre debe asegurarse manualmente la terminación nula después de usar `strncpy()`.
 
-:::{danger} Regla {ref}`0x003Eh`
 
-`strcpy()` es peligrosa. Preferí `snprintf()` o funciones seguras.
-:::
+```{code-block} c
+:caption: "Uso seguro de `strncpy` y `strncat`."
+:linenos:
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int main() {
+    char destino[20]; // Un búfer con espacio para 19 chars + '\0'
+    char origen[] = "¡Hola Mundo!";
+
+    // Copia segura con strncpy
+    strncpy(destino, origen, sizeof(destino) - 1);
+    destino[sizeof(destino) - 1] = '\0'; // Aseguramos la terminación nula
+
+    printf("Después de strncpy: %s\n", destino);
+
+    // Concatenación segura con strncat
+    // Dejamos espacio para 3 caracteres más y el nulo.
+    strncat(destino, " Adiós.", 3); // Solo añadimos " Ad"
+
+    printf("Después de strncat: %s\n", destino);
+
+    return EXIT_SUCCESS;
+}
+```
 
 ### Comparación y Búsqueda
 
@@ -1449,6 +1534,40 @@ char *strchr(const char *s, int c);
 
 Estas funciones implementan algoritmos esenciales de búsqueda y comparación de cadenas. `strcmp()` realiza comparación lexicográfica byte por byte, retornando un valor negativo si la primera cadena es "menor", cero si son iguales, o positivo si la primera es "mayor". Es fundamental para ordenamiento y búsquedas que requieren orden alfabético. `strstr()` implementa búsqueda de subcadenas usando algoritmos eficientes, devolviendo un puntero a la primera ocurrencia de la subcadena buscada o NULL si no se encuentra. Es esencial en procesamiento de texto, parsing y filtrado de contenido. `strchr()` busca la primera ocurrencia de un carácter específico, siendo más eficiente que `strstr()` cuando se busca un solo carácter. Estas funciones son pilares de algoritmos de procesamiento de texto y forman la base de sistemas de búsqueda más complejos.
 
+```{code-block} c
+:caption: "Buscando caracteres y subcadenas."
+:linenos:
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int main() {
+    char frase[] = "El zorro marrón rápido salta sobre el perro perezoso.";
+    char *subcadena;
+    char letra = 'p';
+
+    // Buscamos la subcadena "rápido"
+    subcadena = strstr(frase, "rápido");
+    if (subcadena != NULL) {
+        printf("Subcadena encontrada: %s\n", subcadena);
+    }
+
+    // Buscamos la primera 'p'
+    char* primera_p = strchr(frase, letra);
+    if(primera_p != NULL){
+        printf("La primera '%c' está en la posición: %ld\n", letra, primera_p - frase);
+    }
+
+    // Buscamos la última 'p'
+    char* ultima_p = strrchr(frase, letra);
+    if(ultima_p != NULL){
+        printf("La última '%c' está en la posición: %ld\n", letra, ultima_p - frase);
+    }
+
+    return EXIT_SUCCESS;
+}
+```
+
 ### Manipulación de Memoria
 
 #### `memcpy`, `memmove`, `memset` y `memcmp`
@@ -1463,6 +1582,42 @@ int memcmp(const void *s1, const void *s2, size_t n);
 `memcpy()` copia bytes (sin solapamiento). `memmove()` copia con solapamiento. `memset()` llena con un valor. `memcmp()` compara bytes.
 
 Las funciones de manipulación de memoria operan a nivel de bytes individuales, siendo más fundamentales que las funciones de cadenas. `memcpy()` es la función de copia más eficiente, transfiriendo `n` bytes desde origen a destino, pero requiere que las regiones de memoria no se solapen. `memmove()` es similar pero maneja correctamente el solapamiento de memoria, copiando a través de un buffer temporal si es necesario, lo que la hace más segura pero potencialmente más lenta. `memset()` es extremadamente útil para inicialización, llenando un bloque de memoria con un valor específico (típicamente 0 para limpiar estructuras). `memcmp()` compara bloques de memoria byte por byte, siendo más rápida que `strcmp()` cuando se conoce la longitud exacta. Estas funciones son fundamentales para manipulación de estructuras, inicialización de arreglos y operaciones de bajo nivel donde se requiere control preciso sobre la memoria.
+
+```{code-block} c
+:caption: "Uso de funciones de manipulación de memoria."
+:linenos:
+#include <stdio.h>
+#include <string.h>
+
+struct Punto { int x; int y; };
+
+int main() {
+    struct Punto p1 = {10, 20};
+    struct Punto p2;
+
+    // Usar memset para inicializar una estructura a cero
+    memset(&p2, 0, sizeof(struct Punto));
+    printf("p2 inicializada con memset: x=%d, y=%d\n", p2.x, p2.y);
+
+    // Usar memcpy para copiar una estructura
+    memcpy(&p2, &p1, sizeof(struct Punto));
+    printf("p2 después de memcpy: x=%d, y=%d\n", p2.x, p2.y);
+
+    // Usar memcmp para comparar dos bloques de memoria
+    if (memcmp(&p1, &p2, sizeof(struct Punto)) == 0) {
+        printf("p1 y p2 son idénticas.\n");
+    }
+
+    // Ejemplo de memmove con solapamiento
+    char buffer[] = "123456789";
+    printf("\nBuffer original: %s\n", buffer);
+    // Mover "12345" tres posiciones a la derecha
+    memmove(buffer + 3, buffer, 5);
+    printf("Buffer después de memmove: %s\n", buffer);
+
+    return 0;
+}
+```
 
 ---
 
@@ -1615,6 +1770,4 @@ Tokenización
 
 :::
 
----
 
-**Fin del Apunte sobre la Biblioteca Estándar de C**
