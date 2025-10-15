@@ -214,6 +214,13 @@ Para ejecutar un programa en C, primero hay que compilarlo. Esto se hace desde
 la terminal con un compilador como `gcc`. Y aunque se verá y usará un entorno
 gráfico, la consola es el mínimo común denominador.
 
+:::{figure} 2/compilation_process.svg
+:name: fig-compilation-process
+:alt: Proceso de compilación en C
+
+El proceso de compilación transforma el código fuente en un ejecutable que la máquina puede ejecutar directamente. A diferencia de Python, C requiere este paso previo antes de la ejecución.
+:::
+
 ```{code-block} sh
 :label: salidamundo
 :caption: La salida por la terminal.
@@ -377,11 +384,25 @@ Una variable es un nombre simbólico para un espacio en memoria que guarda un
 valor. Pensalo como una caja con una etiqueta y un contenido que se puede
 cambiar.
 
+:::{figure} 2/variable_memory_concept.svg
+:name: fig-variable-memory
+:alt: Variables y memoria
+
+Las variables son abstracciones sobre ubicaciones de memoria. Cada una tiene un nombre, un tipo, y ocupa un espacio específico en la RAM.
+:::
+
 ### Tipos básicos en C
 
 - `int`: números enteros (sin decimales)
 - `float`: números reales con coma
 - `char`: un carácter
+
+:::{figure} 2/data_types_overview.svg
+:name: fig-data-types
+:alt: Tipos de datos en C
+
+Vista general de los tipos de datos primitivos en C, sus tamaños en memoria, rangos de valores y especificadores de formato.
+:::
 
 ### Declaración y asignación
 
@@ -572,6 +593,13 @@ int main()
 
 Las estructuras condicionales permiten que el programa tome decisiones.
 
+:::{figure} 2/if_else_flow.svg
+:name: fig-if-else-flow
+:alt: Flujo de control con if/else
+
+Diagrama de flujo mostrando cómo funcionan las estructuras condicionales: el programa evalúa condiciones secuencialmente y ejecuta el bloque correspondiente.
+:::
+
 ### `if`, `else if`, `else`
 
 ```c
@@ -733,15 +761,12 @@ while (i < 5)
 
 #### Flujo
 
-```{mermaid}
-flowchart TD
-    subgraph while
-      Inicio --> EvaluarCondicion{"¿Se cumple la condición?"}
-      EvaluarCondicion -- "Verdadero" --> EjecutarBloque[Ejecutar bloque de código]
-      EjecutarBloque --> EvaluarCondicion
-      EvaluarCondicion -- "Falso" --> Fin
-    end
-```
+:::{figure} 2/while_loop_flow.svg
+:name: fig-while-flow
+:alt: Flujo del lazo while
+
+Diagrama de flujo del lazo while: evalúa la condición, ejecuta el bloque si es verdadera, y repite hasta que la condición sea falsa.
+:::
 
 ### Ejercicio 4
 

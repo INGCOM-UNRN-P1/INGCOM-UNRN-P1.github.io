@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 600">
+  <!-- Título -->
+  <text x="250" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">
+    Flujo del Lazo while
+  </text>
+  
+  <!-- Inicio -->
+  <g id="inicio">
+    <ellipse cx="250" cy="80" rx="60" ry="30" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2"/>
+    <text x="250" y="88" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold">
+      Inicio
+    </text>
+  </g>
+  
+  <!-- Flecha 1 -->
+  <path d="M 250 110 L 250 160" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Condición -->
+  <g id="condicion">
+    <polygon points="250,160 350,210 250,260 150,210" fill="#BBDEFB" stroke="#1976D2" stroke-width="3"/>
+    <text x="250" y="205" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold">
+      ¿Se cumple la
+    </text>
+    <text x="250" y="222" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold">
+      condición?
+    </text>
+  </g>
+  
+  <!-- Flecha NO (a fin) -->
+  <path d="M 350 210 L 420 210 L 420 490 L 250 490" stroke="#C62828" stroke-width="3" marker-end="url(#arrow-red)"/>
+  <text x="390" y="205" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#C62828">
+    NO
+  </text>
+  <text x="425" y="350" font-family="Arial, sans-serif" font-size="12" fill="#C62828">
+    (Sale del lazo)
+  </text>
+  
+  <!-- Flecha SÍ (a bloque) -->
+  <path d="M 250 260 L 250 320" stroke="#2E7D32" stroke-width="3" marker-end="url(#arrow-green)"/>
+  <text x="270" y="295" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#2E7D32">
+    SÍ
+  </text>
+  
+  <!-- Bloque de código -->
+  <g id="bloque">
+    <rect x="150" y="320" width="200" height="80" fill="#FFF3E0" stroke="#F57C00" stroke-width="2" rx="8"/>
+    <text x="250" y="345" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">
+      Ejecutar bloque
+    </text>
+    <text x="250" y="365" font-family="Arial, sans-serif" font-size="11" text-anchor="middle">
+      de código
+    </text>
+    <rect x="165" y="375" width="170" height="18" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+    <text x="175" y="388" font-family="monospace" font-size="10">
+      printf("i=%d", i);
+    </text>
+  </g>
+  
+  <!-- Flecha de retorno -->
+  <path d="M 150 360 L 80 360 L 80 210 L 150 210" stroke="#1976D2" stroke-width="3" marker-end="url(#arrow-blue)"/>
+  <text x="40" y="285" font-family="Arial, sans-serif" font-size="11" fill="#1976D2">
+    Volver a
+  </text>
+  <text x="40" y="298" font-family="Arial, sans-serif" font-size="11" fill="#1976D2">
+    evaluar
+  </text>
+  
+  <!-- Fin -->
+  <g id="fin">
+    <ellipse cx="250" cy="490" rx="60" ry="30" fill="#FFCDD2" stroke="#C62828" stroke-width="2"/>
+    <text x="250" y="498" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold">
+      Fin
+    </text>
+  </g>
+  
+  <!-- Ejemplo de código -->
+  <g id="ejemplo-codigo">
+    <rect x="50" y="530" width="400" height="60" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2" rx="5"/>
+    <text x="250" y="550" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">
+      Ejemplo de código:
+    </text>
+    <text x="60" y="568" font-family="monospace" font-size="11">
+      int i = 0;
+    </text>
+    <text x="60" y="582" font-family="monospace" font-size="11">
+      while (i &lt; 5) { printf("%d", i); i++; }
+    </text>
+  </g>
+  
+  <!-- Definición de marcadores -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#2E7D32"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#C62828"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#1976D2"/>
+    </marker>
+  </defs>
+</svg>

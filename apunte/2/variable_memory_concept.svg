@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <!-- Título -->
+  <text x="400" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">
+    Variables y Memoria: Conceptos Fundamentales
+  </text>
+  
+  <!-- Analogía de la caja -->
+  <g id="analogia">
+    <rect x="50" y="60" width="700" height="150" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2" rx="8"/>
+    <text x="400" y="85" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">
+      Analogía: Variable como una Caja
+    </text>
+    
+    <!-- Caja -->
+    <g transform="translate(100, 100)">
+      <rect x="0" y="0" width="120" height="90" fill="#FFE082" stroke="#F57C00" stroke-width="3" rx="5"/>
+      <text x="60" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">
+        edad
+      </text>
+      <text x="60" y="60" font-family="monospace" font-size="32" text-anchor="middle" font-weight="bold">
+        25
+      </text>
+      
+      <!-- Etiquetas -->
+      <text x="60" y="-10" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">
+        Nombre (identificador)
+      </text>
+      <text x="-15" y="50" font-family="Arial, sans-serif" font-size="11" text-anchor="end" fill="#666">
+        Valor →
+      </text>
+    </g>
+    
+    <!-- Descripción -->
+    <g transform="translate(270, 110)">
+      <text x="0" y="0" font-family="Arial, sans-serif" font-size="13" font-weight="bold">
+        Una variable es como una caja:
+      </text>
+      <text x="10" y="20" font-family="Arial, sans-serif" font-size="11">
+        • Tiene un nombre (etiqueta en la caja)
+      </text>
+      <text x="10" y="37" font-family="Arial, sans-serif" font-size="11">
+        • Guarda un valor (contenido de la caja)
+      </text>
+      <text x="10" y="54" font-family="Arial, sans-serif" font-size="11">
+        • Ocupa espacio en memoria (tamaño de la caja)
+      </text>
+      <text x="10" y="71" font-family="Arial, sans-serif" font-size="11">
+        • El valor puede cambiar (podés reemplazar el contenido)
+      </text>
+    </g>
+  </g>
+  
+  <!-- Memoria -->
+  <g id="memoria">
+    <rect x="50" y="230" width="700" height="240" fill="#E3F2FD" stroke="#1976D2" stroke-width="2" rx="8"/>
+    <text x="400" y="255" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">
+      Representación en Memoria
+    </text>
+    
+    <!-- Código -->
+    <g transform="translate(80, 270)">
+      <rect x="0" y="0" width="200" height="170" fill="white" stroke="#666" stroke-width="1" rx="5"/>
+      <text x="100" y="20" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">
+        Código C
+      </text>
+      
+      <text x="10" y="45" font-family="monospace" font-size="11">
+        int edad = 25;
+      </text>
+      <text x="10" y="65" font-family="monospace" font-size="11">
+        float altura = 1.75f;
+      </text>
+      <text x="10" y="85" font-family="monospace" font-size="11">
+        char inicial = 'J';
+      </text>
+      
+      <line x1="10" y1="100" x2="180" y2="100" stroke="#DDD" stroke-width="1"/>
+      
+      <text x="10" y="120" font-family="Arial, sans-serif" font-size="10" fill="#666">
+        Cada variable:
+      </text>
+      <text x="15" y="135" font-family="Arial, sans-serif" font-size="9" fill="#666">
+        • Tiene un nombre
+      </text>
+      <text x="15" y="148" font-family="Arial, sans-serif" font-size="9" fill="#666">
+        • Tiene un tipo
+      </text>
+      <text x="15" y="161" font-family="Arial, sans-serif" font-size="9" fill="#666">
+        • Ocupa memoria
+      </text>
+    </g>
+    
+    <!-- Flechas -->
+    <path d="M 280 330 L 340 330" stroke="#1976D2" stroke-width="2" marker-end="url(#arrow-blue)"/>
+    
+    <!-- Memoria visual -->
+    <g transform="translate(350, 270)">
+      <text x="150" y="20" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">
+        Memoria RAM
+      </text>
+      
+      <!-- edad (int - 4 bytes) -->
+      <g transform="translate(0, 30)">
+        <text x="0" y="12" font-family="monospace" font-size="10" fill="#666">0x1000</text>
+        <rect x="70" y="0" width="100" height="35" fill="#81C784" stroke="#2E7D32" stroke-width="2" rx="3"/>
+        <text x="120" y="22" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="bold">
+          edad = 25
+        </text>
+        <text x="180" y="22" font-family="Arial, sans-serif" font-size="9" fill="#666">
+          (int, 4 bytes)
+        </text>
+      </g>
+      
+      <!-- altura (float - 4 bytes) -->
+      <g transform="translate(0, 75)">
+        <text x="0" y="12" font-family="monospace" font-size="10" fill="#666">0x1004</text>
+        <rect x="70" y="0" width="100" height="35" fill="#64B5F6" stroke="#1976D2" stroke-width="2" rx="3"/>
+        <text x="120" y="22" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="bold">
+          altura = 1.75
+        </text>
+        <text x="180" y="22" font-family="Arial, sans-serif" font-size="9" fill="#666">
+          (float, 4 bytes)
+        </text>
+      </g>
+      
+      <!-- inicial (char - 1 byte) -->
+      <g transform="translate(0, 120)">
+        <text x="0" y="12" font-family="monospace" font-size="10" fill="#666">0x1008</text>
+        <rect x="70" y="0" width="100" height="35" fill="#FFE082" stroke="#F57C00" stroke-width="2" rx="3"/>
+        <text x="120" y="22" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="bold">
+          inicial = 'J'
+        </text>
+        <text x="180" y="22" font-family="Arial, sans-serif" font-size="9" fill="#666">
+          (char, 1 byte)
+        </text>
+      </g>
+      
+      <!-- Nota -->
+      <g transform="translate(0, 165)">
+        <text x="120" y="0" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#666" font-style="italic">
+          Direcciones de memoria consecutivas
+        </text>
+      </g>
+    </g>
+  </g>
+  
+  <!-- Definición de marcadores -->
+  <defs>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#1976D2"/>
+    </marker>
+  </defs>
+</svg>
