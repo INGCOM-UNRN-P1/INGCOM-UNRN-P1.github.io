@@ -1,44 +1,220 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 250">
-  <defs>
-    <marker id="arrow2" markerWidth="12" markerHeight="10" refX="11" refY="5" orient="auto">
-      <polygon points="0 0, 12 5, 0 10" fill="#333" />
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 700 250"
+   version="1.1"
+   id="svg19"
+   sodipodi:docname="algoritmo_problema_solucion.svg"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview19"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.7425131"
+     inkscape:cx="351.21686"
+     inkscape:cy="148.34895"
+     inkscape:window-width="1872"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg19" />
+  <defs
+     id="defs1">
+    <marker
+       id="arrow2"
+       markerWidth="12"
+       markerHeight="10"
+       refX="11"
+       refY="5"
+       orient="auto">
+      <polygon
+         points="0 0, 12 5, 0 10"
+         fill="#333"
+         id="polygon1" />
     </marker>
   </defs>
-  
   <!-- Título -->
-  <text x="350" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#333">Del Problema a la Solución</text>
-  
+  <text
+     x="350"
+     y="30"
+     font-size="20"
+     font-weight="bold"
+     text-anchor="middle"
+     fill="#333"
+     id="text1">Del Problema a la Solución</text>
   <!-- Problema -->
-  <rect x="50" y="80" width="150" height="120" rx="15" fill="#ffcccc" stroke="#cc0000" stroke-width="3"/>
-  <text x="125" y="115" font-size="18" font-weight="bold" text-anchor="middle">Problema</text>
-  <text x="125" y="140" font-size="11" text-anchor="middle">¿Qué necesitamos</text>
-  <text x="125" y="156" font-size="11" text-anchor="middle">resolver?</text>
-  <text x="70" y="178" font-size="10" fill="#666">• Objetivo claro</text>
-  <text x="70" y="192" font-size="10" fill="#666">• Requisitos</text>
-  
+  <rect
+     x="50"
+     y="80"
+     width="150"
+     height="120"
+     rx="15"
+     fill="#ffcccc"
+     stroke="#cc0000"
+     stroke-width="3"
+     id="rect1" />
+  <text
+     x="125"
+     y="115"
+     font-size="18"
+     font-weight="bold"
+     text-anchor="middle"
+     id="text2">Problema</text>
+  <text
+     x="125"
+     y="136"
+     font-size="11px"
+     text-anchor="middle"
+     id="text3">¿Qué necesitamos</text>
+  <text
+     x="125"
+     y="152"
+     font-size="11px"
+     text-anchor="middle"
+     id="text4">resolver?</text>
+  <text
+     x="69.882339"
+     y="175.49397"
+     font-size="11.5281px"
+     fill="#666"
+     id="text5"
+     style="fill:#000000;stroke-width:1.15281">• Objetivo claro</text>
+  <text
+     x="69.882339"
+     y="191.63327"
+     font-size="11.5281px"
+     fill="#666"
+     id="text6"
+     style="fill:#000000;stroke-width:1.15281">• Requisitos</text>
   <!-- Algoritmo -->
-  <rect x="275" y="80" width="150" height="120" rx="15" fill="#ccccff" stroke="#0000cc" stroke-width="3"/>
-  <text x="350" y="115" font-size="18" font-weight="bold" text-anchor="middle">Algoritmo</text>
-  <text x="350" y="140" font-size="11" text-anchor="middle">¿Cómo lo</text>
-  <text x="350" y="156" font-size="11" text-anchor="middle">resolvemos?</text>
-  <text x="295" y="178" font-size="10" fill="#666">• Pasos ordenados</text>
-  <text x="295" y="192" font-size="10" fill="#666">• Lógica clara</text>
-  
+  <rect
+     x="275"
+     y="80"
+     width="150"
+     height="120"
+     rx="15"
+     fill="#ccccff"
+     stroke="#0000cc"
+     stroke-width="3"
+     id="rect6" />
+  <text
+     x="350"
+     y="115"
+     font-size="18"
+     font-weight="bold"
+     text-anchor="middle"
+     id="text7">Algoritmo</text>
+  <text
+     x="350"
+     y="136"
+     font-size="11px"
+     text-anchor="middle"
+     id="text8">¿Cómo lo</text>
+  <text
+     x="350"
+     y="152"
+     font-size="11px"
+     text-anchor="middle"
+     id="text9">resolvemos?</text>
+  <text
+     x="294.83075"
+     y="175.49397"
+     font-size="11.5281px"
+     fill="#666"
+     id="text10"
+     style="fill:#000000;stroke-width:1.15281">• Pasos ordenados</text>
+  <text
+     x="294.83075"
+     y="191.63327"
+     font-size="11.5281px"
+     fill="#666"
+     id="text11"
+     style="fill:#000000;stroke-width:1.15281">• Lógica clara</text>
   <!-- Solución -->
-  <rect x="500" y="80" width="150" height="120" rx="15" fill="#ccffcc" stroke="#00cc00" stroke-width="3"/>
-  <text x="575" y="115" font-size="18" font-weight="bold" text-anchor="middle">Solución</text>
-  <text x="575" y="140" font-size="11" text-anchor="middle">Resultado</text>
-  <text x="575" y="156" font-size="11" text-anchor="middle">esperado</text>
-  <text x="520" y="178" font-size="10" fill="#666">• Funciona</text>
-  <text x="520" y="192" font-size="10" fill="#666">• Es correcto</text>
-  
+  <rect
+     x="500"
+     y="80"
+     width="150"
+     height="120"
+     rx="15"
+     fill="#ccffcc"
+     stroke="#00cc00"
+     stroke-width="3"
+     id="rect11" />
+  <text
+     x="575"
+     y="115"
+     font-size="18"
+     font-weight="bold"
+     text-anchor="middle"
+     id="text12">Solución</text>
+  <text
+     x="575"
+     y="136"
+     font-size="11px"
+     text-anchor="middle"
+     id="text13">Resultado</text>
+  <text
+     x="575"
+     y="152"
+     font-size="11px"
+     text-anchor="middle"
+     id="text14">esperado</text>
+  <text
+     x="519.2052"
+     y="175.49397"
+     font-size="11.5281px"
+     fill="#666"
+     id="text15"
+     style="fill:#000000;stroke-width:1.15281">• Funciona</text>
+  <text
+     x="519.2052"
+     y="191.63327"
+     font-size="11.5281px"
+     fill="#666"
+     id="text16"
+     style="fill:#000000;stroke-width:1.15281">• Es correcto</text>
   <!-- Flechas -->
-  <line x1="200" y1="140" x2="270" y2="140" stroke="#333" stroke-width="3" marker-end="url(#arrow2)"/>
-  <text x="235" y="130" font-size="12" font-weight="bold" text-anchor="middle">Diseño</text>
-  
-  <line x1="425" y1="140" x2="495" y2="140" stroke="#333" stroke-width="3" marker-end="url(#arrow2)"/>
-  <text x="460" y="130" font-size="12" font-weight="bold" text-anchor="middle">Ejecución</text>
-  
+  <line
+     x1="200"
+     y1="140"
+     x2="270"
+     y2="140"
+     stroke="#333"
+     stroke-width="3"
+     marker-end="url(#arrow2)"
+     id="line16" />
+  <text
+     x="235"
+     y="118"
+     font-size="12px"
+     font-weight="bold"
+     text-anchor="middle"
+     id="text17">Diseño</text>
+  <line
+     x1="425"
+     y1="140"
+     x2="495"
+     y2="140"
+     stroke="#333"
+     stroke-width="3"
+     marker-end="url(#arrow2)"
+     id="line17" />
+  <text
+     x="460"
+     y="118"
+     font-size="12px"
+     font-weight="bold"
+     text-anchor="middle"
+     id="text18">Ejecución</text>
   <!-- Nota -->
-  <text x="350" y="230" font-size="11" text-anchor="middle" fill="#666">Un buen algoritmo transforma cualquier problema en una solución efectiva</text>
 </svg>

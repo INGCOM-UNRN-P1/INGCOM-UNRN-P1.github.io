@@ -1,40 +1,196 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450">
-  <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 600 450"
+   version="1.1"
+   id="svg15"
+   sodipodi:docname="capas_software.svg"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview15"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.3183613"
+     inkscape:cx="187.3538"
+     inkscape:cy="171.80419"
+     inkscape:window-width="1872"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg15" />
+  <defs
+     id="defs1">
+    <marker
+       id="arrow"
+       markerWidth="10"
+       markerHeight="7"
+       refX="9"
+       refY="3.5"
+       orient="auto">
+      <polygon
+         points="0 0, 10 3.5, 0 7"
+         fill="#333"
+         id="polygon1" />
     </marker>
   </defs>
-  
   <!-- Título -->
-  <text x="300" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#333">Capas de Software</text>
-  
+  <text
+     x="300"
+     y="30"
+     font-size="20"
+     font-weight="bold"
+     text-anchor="middle"
+     fill="#333"
+     id="text1"
+     style="fill:#000000">Capas de Software</text>
   <!-- Aplicaciones -->
-  <rect x="100" y="70" width="400" height="80" rx="10" fill="#ffcc99" stroke="#ff9900" stroke-width="2"/>
-  <text x="300" y="100" font-size="18" font-weight="bold" text-anchor="middle">Aplicaciones</text>
-  <text x="300" y="125" font-size="12" text-anchor="middle">Word, Chrome, Navegadores, Juegos...</text>
-  <text x="120" y="140" font-size="10" fill="#666">• Interactúa con el usuario</text>
-  
+  <rect
+     x="100"
+     y="70"
+     width="400"
+     height="80"
+     rx="10"
+     fill="#ffcc99"
+     stroke="#ff9900"
+     stroke-width="2"
+     id="rect1" />
+  <text
+     x="300"
+     y="100"
+     font-size="18"
+     font-weight="bold"
+     text-anchor="middle"
+     id="text2">Aplicaciones</text>
+  <text
+     x="300"
+     y="125"
+     font-size="12"
+     text-anchor="middle"
+     id="text3">Word, Chrome, Navegadores, Juegos...</text>
+  <text
+     x="120"
+     y="140"
+     font-size="10"
+     fill="#666"
+     id="text4"
+     style="fill:#000000">• Interactúa con el usuario</text>
   <!-- Sistema Operativo -->
-  <rect x="100" y="180" width="400" height="90" rx="10" fill="#99ccff" stroke="#0066cc" stroke-width="2"/>
-  <text x="300" y="210" font-size="18" font-weight="bold" text-anchor="middle">Sistema Operativo</text>
-  <text x="300" y="235" font-size="12" text-anchor="middle">Windows, Linux, macOS</text>
-  <text x="120" y="250" font-size="10" fill="#666">• Gestiona recursos</text>
-  <text x="120" y="263" font-size="10" fill="#666">• Proporciona servicios</text>
-  
+  <rect
+     x="100"
+     y="180"
+     width="400"
+     height="90"
+     rx="10"
+     fill="#99ccff"
+     stroke="#0066cc"
+     stroke-width="2"
+     id="rect4" />
+  <text
+     x="300"
+     y="210"
+     font-size="18"
+     font-weight="bold"
+     text-anchor="middle"
+     id="text5">Sistema Operativo</text>
+  <text
+     x="300"
+     y="235"
+     font-size="12"
+     text-anchor="middle"
+     id="text6">Windows, Linux, macOS</text>
+  <text
+     x="120"
+     y="250"
+     font-size="10"
+     fill="#666"
+     id="text7"
+     style="fill:#000000">• Gestiona recursos</text>
+  <text
+     x="120"
+     y="263"
+     font-size="10"
+     fill="#666"
+     id="text8"
+     style="fill:#000000">• Proporciona servicios</text>
   <!-- Hardware -->
-  <rect x="100" y="300" width="400" height="100" rx="10" fill="#99ff99" stroke="#00cc00" stroke-width="2"/>
-  <text x="300" y="330" font-size="18" font-weight="bold" text-anchor="middle">Hardware</text>
-  <text x="300" y="355" font-size="12" text-anchor="middle">CPU, RAM, Disco, Dispositivos</text>
-  <text x="120" y="373" font-size="10" fill="#666">• Componentes físicos</text>
-  <text x="120" y="386" font-size="10" fill="#666">• Ejecuta instrucciones</text>
-  
+  <rect
+     x="100"
+     y="300"
+     width="400"
+     height="100"
+     rx="10"
+     fill="#99ff99"
+     stroke="#00cc00"
+     stroke-width="2"
+     id="rect8" />
+  <text
+     x="300"
+     y="330"
+     font-size="18"
+     font-weight="bold"
+     text-anchor="middle"
+     id="text9">Hardware</text>
+  <text
+     x="300"
+     y="355"
+     font-size="12"
+     text-anchor="middle"
+     id="text10">CPU, RAM, Disco, Dispositivos</text>
+  <text
+     x="120"
+     y="373"
+     font-size="10"
+     fill="#666"
+     id="text11"
+     style="fill:#000000">• Componentes físicos</text>
+  <text
+     x="120"
+     y="386"
+     font-size="10"
+     fill="#666"
+     id="text12"
+     style="fill:#000000">• Ejecuta instrucciones</text>
   <!-- Flechas -->
-  <line x1="300" y1="150" x2="300" y2="175" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-  <text x="320" y="165" font-size="11" fill="#666">usa servicios</text>
-  
-  <line x1="300" y1="270" x2="300" y2="295" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-  <text x="320" y="285" font-size="11" fill="#666">controla</text>
-  
+  <line
+     x1="300"
+     y1="150"
+     x2="300"
+     y2="175"
+     stroke="#333"
+     stroke-width="2"
+     marker-end="url(#arrow)"
+     id="line12" />
+  <text
+     x="320"
+     y="165"
+     font-size="11"
+     fill="#666"
+     id="text13"
+     style="fill:#000000">usa servicios</text>
+  <line
+     x1="300"
+     y1="270"
+     x2="300"
+     y2="295"
+     stroke="#333"
+     stroke-width="2"
+     marker-end="url(#arrow)"
+     id="line13" />
+  <text
+     x="320"
+     y="285"
+     font-size="11"
+     fill="#666"
+     id="text14"
+     style="fill:#000000">controla</text>
   <!-- Leyenda -->
-  <text x="50" y="430" font-size="11" fill="#666">Usuario interactúa con aplicaciones, que usan el SO, que controla el hardware</text>
 </svg>

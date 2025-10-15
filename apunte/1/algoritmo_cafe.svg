@@ -1,94 +1,422 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 700">
-  <defs>
-    <marker id="arrow5" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 652.77472 766.24316"
+   version="1.1"
+   id="svg22"
+   sodipodi:docname="algoritmo_cafe.svg"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   width="652.77472"
+   height="766.24316"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview22"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.84751799"
+     inkscape:cx="545.71113"
+     inkscape:cy="380.5229"
+     inkscape:window-width="1872"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg22" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <marker
+       id="arrow5"
+       markerWidth="10"
+       markerHeight="7"
+       refX="9"
+       refY="3.5"
+       orient="auto"
+       viewBox="0 0 10 7"
+       preserveAspectRatio="xMidYMid">
+      <polygon
+         points="10,3.5 0,7 0,0 "
+         fill="#333333"
+         id="polygon1" />
     </marker>
   </defs>
-  
   <!-- Título -->
-  <text x="300" y="25" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Algoritmo: Hacer Café</text>
-  
   <!-- Inicio -->
-  <ellipse cx="300" cy="70" rx="60" ry="30" fill="#90EE90" stroke="#333" stroke-width="2"/>
-  <text x="300" y="77" font-size="14" text-anchor="middle">Inicio</text>
-  
-  <line x1="300" y1="100" x2="300" y2="130" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
-  
   <!-- ¿Hay agua? -->
-  <path d="M 300 130 L 370 170 L 300 210 L 230 170 Z" fill="#FFE4B5" stroke="#333" stroke-width="2"/>
-  <text x="300" y="175" font-size="12" text-anchor="middle">¿Hay agua?</text>
-  
   <!-- No agua -> Llenar -->
-  <line x1="230" y1="170" x2="150" y2="170" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
-  <text x="190" y="165" font-size="11" fill="#cc0000">No</text>
-  <rect x="70" y="150" width="80" height="40" rx="5" fill="#87CEEB" stroke="#333" stroke-width="2"/>
-  <text x="110" y="175" font-size="11" text-anchor="middle">Llenar con</text>
-  <text x="110" y="187" font-size="11" text-anchor="middle">500ml</text>
-  
   <!-- Convergencia agua -->
-  <line x1="110" y1="190" x2="110" y2="250" stroke="#333" stroke-width="2"/>
-  <line x1="110" y1="250" x2="230" y2="250" stroke="#333" stroke-width="2"/>
-  
   <!-- Sí agua -> siguiente -->
-  <line x1="300" y1="210" x2="300" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
-  <text x="310" y="230" font-size="11" fill="#009900">Sí</text>
-  
   <!-- ¿Hay filtro? -->
-  <path d="M 300 250 L 370 290 L 300 330 L 230 290 Z" fill="#FFE4B5" stroke="#333" stroke-width="2"/>
-  <text x="300" y="295" font-size="12" text-anchor="middle">¿Hay filtro?</text>
-  
   <!-- No filtro -> Colocar -->
-  <line x1="370" y1="290" x2="450" y2="290" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
-  <text x="405" y="285" font-size="11" fill="#cc0000">No</text>
-  <rect x="450" y="270" width="80" height="40" rx="5" fill="#87CEEB" stroke="#333" stroke-width="2"/>
-  <text x="490" y="295" font-size="11" text-anchor="middle">Colocar filtro</text>
-  
   <!-- Convergencia filtro -->
-  <line x1="490" y1="310" x2="490" y2="370" stroke="#333" stroke-width="2"/>
-  <line x1="490" y1="370" x2="370" y2="370" stroke="#333" stroke-width="2"/>
-  
   <!-- Sí filtro -> siguiente -->
-  <line x1="300" y1="330" x2="300" y2="370" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
-  <text x="310" y="350" font-size="11" fill="#009900">Sí</text>
-  
   <!-- Agregar café -->
-  <rect x="230" y="370" width="140" height="40" rx="5" fill="#87CEEB" stroke="#333" stroke-width="2"/>
-  <text x="300" y="395" font-size="11" text-anchor="middle">Agregar 20g de café</text>
-  
-  <line x1="300" y1="410" x2="300" y2="440" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
-  
   <!-- Encender cafetera -->
-  <rect x="230" y="440" width="140" height="40" rx="5" fill="#87CEEB" stroke="#333" stroke-width="2"/>
-  <text x="300" y="465" font-size="11" text-anchor="middle">Encender cafetera</text>
-  
-  <line x1="300" y1="480" x2="300" y2="510" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
-  
   <!-- Esperar -->
-  <rect x="230" y="510" width="140" height="40" rx="5" fill="#87CEEB" stroke="#333" stroke-width="2"/>
-  <text x="300" y="535" font-size="11" text-anchor="middle">Esperar 5 minutos</text>
-  
-  <line x1="300" y1="550" x2="300" y2="580" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
-  
   <!-- ¿Terminó? -->
-  <path d="M 300 580 L 370 620 L 300 660 L 230 620 Z" fill="#FFE4B5" stroke="#333" stroke-width="2"/>
-  <text x="300" y="625" font-size="12" text-anchor="middle">¿Terminó?</text>
-  
   <!-- No -> Esperar más -->
-  <line x1="230" y1="620" x2="150" y2="620" stroke="#333" stroke-width="2"/>
-  <line x1="150" y1="620" x2="150" y2="530" stroke="#333" stroke-width="2"/>
-  <line x1="150" y1="530" x2="230" y2="530" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
-  <text x="170" y="615" font-size="11" fill="#cc0000">No</text>
-  
   <!-- Sí -> Servir -->
-  <line x1="370" y1="620" x2="430" y2="620" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
-  <text x="395" y="615" font-size="11" fill="#009900">Sí</text>
-  
-  <rect x="430" y="600" width="80" height="40" rx="5" fill="#87CEEB" stroke="#333" stroke-width="2"/>
-  <text x="470" y="625" font-size="11" text-anchor="middle">Servir en taza</text>
-  
-  <line x1="470" y1="640" x2="470" y2="670" stroke="#333" stroke-width="2" marker-end="url(#arrow5)"/>
-  
   <!-- Fin -->
-  <ellipse cx="470" cy="685" rx="50" ry="25" fill="#FFB6C1" stroke="#333" stroke-width="2"/>
-  <text x="470" y="692" font-size="14" text-anchor="middle">Fin</text>
+  <text
+     x="313.24362"
+     y="41.592449"
+     font-size="18px"
+     font-weight="bold"
+     text-anchor="middle"
+     fill="#333333"
+     id="text1">Algoritmo: Hacer Café</text>
+  <ellipse
+     cx="313.24362"
+     cy="86.592445"
+     rx="60"
+     ry="30"
+     fill="#90ee90"
+     stroke="#333333"
+     stroke-width="2"
+     id="ellipse1" />
+  <text
+     x="312.80362"
+     y="92.592445"
+     font-size="14"
+     text-anchor="middle"
+     id="text2"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Monospace;-inkscape-font-specification:'Monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Inicio</text>
+  <line
+     x1="313.24362"
+     y1="116.59245"
+     x2="313.24362"
+     y2="146.59245"
+     stroke="#333333"
+     stroke-width="2"
+     marker-end="url(#arrow5)"
+     id="line2" />
+  <path
+     d="m 313.24361,146.65305 75.73991,39.9394 -75.73991,39.9394 -75.73991,-39.9394 z"
+     fill="#ffe4b5"
+     stroke="#333333"
+     stroke-width="2"
+     id="path2" />
+  <text
+     x="313.24362"
+     y="191.59245"
+     font-size="12"
+     text-anchor="middle"
+     id="text3"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Monospace;-inkscape-font-specification:'Monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">¿Hay agua?</text>
+  <line
+     x1="243.24361"
+     y1="186.59245"
+     x2="163.24361"
+     y2="186.59245"
+     stroke="#333333"
+     stroke-width="2"
+     marker-end="url(#arrow5)"
+     id="line3" />
+  <text
+     x="203.24361"
+     y="181.59245"
+     font-size="11"
+     fill="#cc0000"
+     id="text4"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Monospace;-inkscape-font-specification:'Monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">No</text>
+  <rect
+     x="39.480862"
+     y="161.93463"
+     width="122.68869"
+     height="49.315624"
+     rx="7.6680431"
+     fill="#87ceeb"
+     stroke="#333333"
+     stroke-width="2.23162"
+     id="rect4" />
+  <text
+     x="100.8252"
+     y="186.59244"
+     font-size="11"
+     text-anchor="middle"
+     id="text5"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Monospace;-inkscape-font-specification:'Monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Llenar con</text>
+  <text
+     x="100.8252"
+     y="203.5984"
+     font-size="11"
+     text-anchor="middle"
+     id="text6"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Monospace;-inkscape-font-specification:'Monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">500ml</text>
+  <line
+     x1="313.24362"
+     y1="226.59245"
+     x2="313.24362"
+     y2="266.59244"
+     stroke="#333333"
+     stroke-width="2"
+     marker-end="url(#arrow5)"
+     id="line8" />
+  <text
+     x="323.24362"
+     y="246.59245"
+     font-size="11"
+     fill="#009900"
+     id="text8"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Monospace;-inkscape-font-specification:'Monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Sí</text>
+  <path
+     d="m 313.24361,266.71133 81.48211,39.88112 -81.48211,39.88112 -81.48211,-39.88112 z"
+     fill="#ffe4b5"
+     stroke="#333333"
+     stroke-width="2"
+     id="path8" />
+  <text
+     x="313.24362"
+     y="311.59244"
+     font-size="12"
+     text-anchor="middle"
+     id="text9"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Monospace;-inkscape-font-specification:'Monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">¿Hay filtro?</text>
+  <line
+     x1="397.00043"
+     y1="306.59244"
+     x2="463.57916"
+     y2="306.59244"
+     stroke="#333333"
+     stroke-width="1.82454"
+     marker-end="url(#arrow5)"
+     id="line9"
+     style="stroke-width:2;stroke-dasharray:none" />
+  <text
+     x="418.24362"
+     y="301.59244"
+     font-size="11"
+     fill="#cc0000"
+     id="text10"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Monospace;-inkscape-font-specification:'Monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">No</text>
+  <rect
+     x="463.24362"
+     y="286.96829"
+     width="154.33769"
+     height="39.248299"
+     rx="9.6461058"
+     fill="#87ceeb"
+     stroke="#333333"
+     stroke-width="2"
+     id="rect10" />
+  <text
+     x="540.41248"
+     y="311.59244"
+     font-size="11"
+     text-anchor="middle"
+     id="text11"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Monospace;-inkscape-font-specification:'Monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Colocar filtro</text>
+  <line
+     x1="313.24362"
+     y1="346.59244"
+     x2="313.24362"
+     y2="386.59244"
+     stroke="#333333"
+     stroke-width="2"
+     marker-end="url(#arrow5)"
+     id="line13" />
+  <text
+     x="334.7478"
+     y="352.14661"
+     font-size="11"
+     fill="#009900"
+     id="text13"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Monospace;-inkscape-font-specification:'Monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Sí</text>
+  <rect
+     x="207.59454"
+     y="386.8194"
+     width="211.29814"
+     height="39.899124"
+     rx="7.5463619"
+     fill="#87ceeb"
+     stroke="#333333"
+     stroke-width="2"
+     id="rect13" />
+  <text
+     x="313.24362"
+     y="411.59244"
+     font-size="11"
+     text-anchor="middle"
+     id="text14"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Monospace;-inkscape-font-specification:'Monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Agregar 20g de café</text>
+  <line
+     x1="313.24362"
+     y1="426.59244"
+     x2="313.24362"
+     y2="456.59244"
+     stroke="#333333"
+     stroke-width="2"
+     marker-end="url(#arrow5)"
+     id="line14" />
+  <rect
+     x="207.59454"
+     y="456.64288"
+     width="211.29814"
+     height="39.899124"
+     rx="7.5463619"
+     fill="#87ceeb"
+     stroke="#333333"
+     stroke-width="2"
+     id="rect14" />
+  <text
+     x="313.24362"
+     y="481.59244"
+     font-size="11"
+     text-anchor="middle"
+     id="text15"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Monospace;-inkscape-font-specification:'Monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Encender cafetera</text>
+  <line
+     x1="313.24362"
+     y1="496.59244"
+     x2="313.24362"
+     y2="526.59247"
+     stroke="#333333"
+     stroke-width="2"
+     marker-end="url(#arrow5)"
+     id="line15" />
+  <rect
+     x="207.59454"
+     y="526.46637"
+     width="211.29814"
+     height="39.899124"
+     rx="7.5463619"
+     fill="#87ceeb"
+     stroke="#333333"
+     stroke-width="2"
+     id="rect15" />
+  <text
+     x="313.24362"
+     y="551.59247"
+     font-size="11"
+     text-anchor="middle"
+     id="text16"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Monospace;-inkscape-font-specification:'Monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Esperar 5 minutos</text>
+  <line
+     x1="313.24362"
+     y1="566.59247"
+     x2="313.24362"
+     y2="596.59247"
+     stroke="#333333"
+     stroke-width="2"
+     marker-end="url(#arrow5)"
+     id="line16"
+     style="marker-end:url(#arrow5)" />
+  <path
+     d="m 313.24361,596.59245 70,40 -70,40 -70,-40 z"
+     fill="#ffe4b5"
+     stroke="#333333"
+     stroke-width="2"
+     id="path16" />
+  <text
+     x="313.24362"
+     y="641.59247"
+     font-size="12"
+     text-anchor="middle"
+     id="text17"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Monospace;-inkscape-font-specification:'Monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">¿Terminó?</text>
+  <text
+     x="183.24361"
+     y="631.59247"
+     font-size="11"
+     fill="#cc0000"
+     id="text19"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Monospace;-inkscape-font-specification:'Monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">No</text>
+  <line
+     x1="383.24362"
+     y1="636.59247"
+     x2="443.24362"
+     y2="636.59247"
+     stroke="#333333"
+     stroke-width="2"
+     marker-end="url(#arrow5)"
+     id="line20" />
+  <text
+     x="408.24362"
+     y="631.59247"
+     font-size="11"
+     fill="#009900"
+     id="text20"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Monospace;-inkscape-font-specification:'Monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Sí</text>
+  <rect
+     x="402.76566"
+     y="616.99652"
+     width="160.95595"
+     height="39.191936"
+     rx="10.059747"
+     fill="#87ceeb"
+     stroke="#333333"
+     stroke-width="2"
+     id="rect20" />
+  <text
+     x="483.24362"
+     y="641.59247"
+     font-size="11"
+     text-anchor="middle"
+     id="text21"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Monospace;-inkscape-font-specification:'Monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Servir en taza</text>
+  <line
+     x1="483.24362"
+     y1="656.59247"
+     x2="483.24362"
+     y2="686.59247"
+     stroke="#333333"
+     stroke-width="2"
+     marker-end="url(#arrow5)"
+     id="line21" />
+  <ellipse
+     cx="483.24362"
+     cy="719.94763"
+     rx="50"
+     ry="25"
+     fill="#ffb6c1"
+     stroke="#333333"
+     stroke-width="2"
+     id="ellipse21" />
+  <text
+     x="483.24362"
+     y="726.94763"
+     font-size="14"
+     text-anchor="middle"
+     id="text22"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Monospace;-inkscape-font-specification:'Monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Fin</text>
+  <path
+     style="fill:none;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle)"
+     d="M 243.24361,636.59245 H 144.23288 V 546.41591 H 196.7483"
+     id="path29"
+     sodipodi:nodetypes="cccc" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle)"
+     d="m 100.8252,211.25026 v 26.64732 h 203.86402"
+     id="path31"
+     sodipodi:nodetypes="ccc" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle)"
+     d="m 540.41245,326.2166 v 35.45015 H 321.83992"
+     id="path1"
+     sodipodi:nodetypes="ccc" />
 </svg>
