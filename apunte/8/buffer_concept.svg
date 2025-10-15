@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550">
+  <!-- Título -->
+  <text x="450" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">
+    Concepto de Búfer (Buffer) en Operaciones de Archivos
+  </text>
+  
+  <!-- Sin Búfer (Ineficiente) -->
+  <g id="sin-buffer">
+    <rect x="50" y="60" width="380" height="220" fill="#FFEBEE" stroke="#C62828" stroke-width="2" rx="8"/>
+    
+    <text x="240" y="90" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#C62828">
+      ✗ Sin Búfer (Ineficiente)
+    </text>
+    
+    <!-- Programa -->
+    <rect x="70" y="110" width="120" height="60" fill="#90CAF9" stroke="#1976D2" stroke-width="2" rx="5"/>
+    <text x="130" y="135" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" font-weight="bold">
+      Programa
+    </text>
+    <text x="130" y="152" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">
+      Escribe 'A'
+    </text>
+    
+    <!-- Múltiples flechas al disco -->
+    <path d="M 190 130 L 270 130" stroke="#C62828" stroke-width="2" marker-end="url(#arrow-red)"/>
+    <text x="230" y="125" font-family="Arial, sans-serif" font-size="9" fill="#C62828">1 byte</text>
+    
+    <path d="M 190 140 L 270 140" stroke="#C62828" stroke-width="2" marker-end="url(#arrow-red)"/>
+    <text x="230" y="135" font-family="Arial, sans-serif" font-size="9" fill="#C62828">1 byte</text>
+    
+    <path d="M 190 150 L 270 150" stroke="#C62828" stroke-width="2" marker-end="url(#arrow-red)"/>
+    <text x="230" y="145" font-family="Arial, sans-serif" font-size="9" fill="#C62828">1 byte</text>
+    
+    <!-- Disco -->
+    <rect x="280" y="110" width="120" height="60" fill="#BDBDBD" stroke="#424242" stroke-width="2" rx="5"/>
+    <text x="340" y="135" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" font-weight="bold">
+      Disco
+    </text>
+    <text x="340" y="152" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">
+      archivo.txt
+    </text>
+    
+    <!-- Problemas -->
+    <rect x="70" y="190" width="330" height="75" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+    <text x="80" y="210" font-family="Arial, sans-serif" font-size="12" fill="#C62828" font-weight="bold">
+      Problemas:
+    </text>
+    <text x="80" y="228" font-family="Arial, sans-serif" font-size="11">
+      • Cada carácter = 1 acceso al disco
+    </text>
+    <text x="80" y="244" font-family="Arial, sans-serif" font-size="11">
+      • Operaciones de disco son LENTAS (~ms)
+    </text>
+    <text x="80" y="260" font-family="Arial, sans-serif" font-size="11">
+      • Desperdiciade recursos del sistema
+    </text>
+  </g>
+  
+  <!-- Con Búfer (Eficiente) -->
+  <g id="con-buffer">
+    <rect x="470" y="60" width="380" height="220" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2" rx="8"/>
+    
+    <text x="660" y="90" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#2E7D32">
+      ✓ Con Búfer (Eficiente)
+    </text>
+    
+    <!-- Programa -->
+    <rect x="490" y="110" width="100" height="60" fill="#90CAF9" stroke="#1976D2" stroke-width="2" rx="5"/>
+    <text x="540" y="133" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="bold">
+      Programa
+    </text>
+    <text x="540" y="148" font-family="Arial, sans-serif" font-size="9" text-anchor="middle">
+      Escribe varios
+    </text>
+    <text x="540" y="161" font-family="Arial, sans-serif" font-size="9" text-anchor="middle">
+      caracteres
+    </text>
+    
+    <!-- Flecha al búfer -->
+    <path d="M 590 140 L 630 140" stroke="#1976D2" stroke-width="2" marker-end="url(#arrow-blue)"/>
+    <text x="610" y="135" font-family="Arial, sans-serif" font-size="9" fill="#1976D2">rápido</text>
+    
+    <!-- Búfer en RAM -->
+    <rect x="640" y="110" width="100" height="60" fill="#FFE082" stroke="#F57C00" stroke-width="2" rx="5"/>
+    <text x="690" y="128" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="bold">
+      Búfer
+    </text>
+    <text x="690" y="142" font-family="Arial, sans-serif" font-size="9" text-anchor="middle">
+      (en RAM)
+    </text>
+    <text x="690" y="156" font-family="monospace" font-size="9" text-anchor="middle">
+      [ABCD...]
+    </text>
+    
+    <!-- Flecha al disco (una sola) -->
+    <path d="M 690 170 L 690 200 L 750 200 L 750 170" stroke="#2E7D32" stroke-width="3" marker-end="url(#arrow-green)"/>
+    <text x="720" y="195" font-family="Arial, sans-serif" font-size="10" fill="#2E7D32" font-weight="bold">
+      1 escritura grande
+    </text>
+    
+    <!-- Disco -->
+    <rect x="690" y="110" width="100" height="60" transform="translate(0, 100)" fill="#BDBDBD" stroke="#424242" stroke-width="2" rx="5"/>
+    <text x="740" y="223" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" font-weight="bold">
+      Disco
+    </text>
+    <text x="740" y="238" font-family="Arial, sans-serif" font-size="9" text-anchor="middle">
+      archivo.txt
+    </text>
+    
+    <!-- Ventajas -->
+    <rect x="490" y="190" width="330" height="75" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+    <text x="500" y="210" font-family="Arial, sans-serif" font-size="12" fill="#2E7D32" font-weight="bold">
+      Ventajas:
+    </text>
+    <text x="500" y="228" font-family="Arial, sans-serif" font-size="11">
+      • Muchos caracteres = 1 acceso al disco
+    </text>
+    <text x="500" y="244" font-family="Arial, sans-serif" font-size="11">
+      • Operaciones en RAM son RÁPIDAS (~ns)
+    </text>
+    <text x="500" y="260" font-family="Arial, sans-serif" font-size="11">
+      • Uso eficiente de recursos
+    </text>
+  </g>
+  
+  <!-- Analogía -->
+  <g id="analogia">
+    <rect x="50" y="300" width="800" height="230" fill="#E1F5FE" stroke="#0277BD" stroke-width="2" rx="8"/>
+    
+    <text x="450" y="330" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">
+      📨 Analogía: Enviar una Carta al Correo
+    </text>
+    
+    <!-- Sin búfer - muchas cartas -->
+    <g transform="translate(70, 350)">
+      <rect x="0" y="0" width="350" height="80" fill="#FFCDD2" stroke="#C62828" stroke-width="2" rx="5"/>
+      <text x="175" y="20" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">
+        Sin Búfer = Enviar letra por letra
+      </text>
+      <text x="10" y="40" font-family="Arial, sans-serif" font-size="11">
+        🚶 Llevar cada letra individualmente al correo
+      </text>
+      <text x="10" y="58" font-family="Arial, sans-serif" font-size="11">
+        • Viaje por cada 'H', 'O', 'L', 'A'
+      </text>
+      <text x="10" y="74" font-family="Arial, sans-serif" font-size="11">
+        • Ineficiente y lento
+      </text>
+    </g>
+    
+    <!-- Con búfer - una carta completa -->
+    <g transform="translate(470, 350)">
+      <rect x="0" y="0" width="350" height="80" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2" rx="5"/>
+      <text x="175" y="20" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">
+        Con Búfer = Escribir carta completa
+      </text>
+      <text x="10" y="40" font-family="Arial, sans-serif" font-size="11">
+        📝 Escribir toda la carta en papel (búfer/RAM)
+      </text>
+      <text x="10" y="58" font-family="Arial, sans-serif" font-size="11">
+        • Cuando termines, llevar al correo en 1 viaje
+      </text>
+      <text x="10" y="74" font-family="Arial, sans-serif" font-size="11">
+        • Eficiente y rápido
+      </text>
+    </g>
+    
+    <!-- Cuándo se vacía el búfer -->
+    <rect x="70" y="445" width="750" height="70" fill="#FFF9C4" stroke="#F9A825" stroke-width="2" rx="5"/>
+    <text x="445" y="465" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">
+      ⚡ El búfer se vacía (flush) automáticamente cuando:
+    </text>
+    <text x="80" y="485" font-family="Arial, sans-serif" font-size="11">
+      • Se llena completamente
+    </text>
+    <text x="280" y="485" font-family="Arial, sans-serif" font-size="11">
+      • Se cierra el archivo (fclose)
+    </text>
+    <text x="520" y="485" font-family="Arial, sans-serif" font-size="11">
+      • Se llama explícitamente fflush()
+    </text>
+    <text x="80" y="503" font-family="Arial, sans-serif" font-size="11">
+      • Se encuentra un salto de línea (\n) en archivos de texto
+    </text>
+  </g>
+  
+  <!-- Definición de marcadores -->
+  <defs>
+    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#C62828"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#2E7D32"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#1976D2"/>
+    </marker>
+  </defs>
+</svg>

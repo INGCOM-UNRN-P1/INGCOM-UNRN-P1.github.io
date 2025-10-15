@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 650">
+  <!-- Título -->
+  <text x="400" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">
+    Flujo de Operaciones con Archivos en C
+  </text>
+  
+  <!-- Paso 1: Abrir -->
+  <g id="paso-1">
+    <rect x="250" y="60" width="300" height="80" fill="#E3F2FD" stroke="#1976D2" stroke-width="3" rx="8"/>
+    <text x="400" y="85" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">
+      1️⃣ Abrir el Archivo
+    </text>
+    <rect x="270" y="95" width="260" height="35" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+    <text x="280" y="115" font-family="monospace" font-size="12">
+      FILE *archivo = fopen(
+    </text>
+    <text x="290" y="127" font-family="monospace" font-size="11">
+      "datos.txt", "r");
+    </text>
+  </g>
+  
+  <!-- Flecha -->
+  <path d="M 400 140 L 400 165" stroke="#333" stroke-width="3" marker-end="url(#arrow)"/>
+  
+  <!-- Paso 2: Verificar NULL -->
+  <g id="paso-2">
+    <rect x="250" y="165" width="300" height="80" fill="#FFF3E0" stroke="#F57C00" stroke-width="3" rx="8"/>
+    <text x="400" y="190" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">
+      2️⃣ Verificar si fopen() tuvo éxito
+    </text>
+    <rect x="270" y="200" width="260" height="35" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+    <text x="280" y="217" font-family="monospace" font-size="12">
+      if (archivo == NULL) {
+    </text>
+    <text x="290" y="232" font-family="monospace" font-size="11">
+      perror("Error"); return 1;
+    </text>
+  </g>
+  
+  <!-- Flecha con bifurcación -->
+  <path d="M 400 245 L 400 270" stroke="#333" stroke-width="3" marker-end="url(#arrow)"/>
+  
+  <!-- Decisión -->
+  <g id="decision">
+    <polygon points="400,270 500,310 400,350 300,310" fill="#E1BEE7" stroke="#7B1FA2" stroke-width="3"/>
+    <text x="400" y="310" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">
+      ¿archivo
+    </text>
+    <text x="400" y="325" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">
+      == NULL?
+    </text>
+  </g>
+  
+  <!-- Rama SÍ - Error -->
+  <path d="M 300 310 L 120 310 L 120 560" stroke="#C62828" stroke-width="3" marker-end="url(#arrow-red)"/>
+  <text x="200" y="305" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#C62828">
+    SÍ
+  </text>
+  
+  <rect x="50" y="560" width="140" height="50" fill="#FFCDD2" stroke="#C62828" stroke-width="2" rx="5"/>
+  <text x="120" y="582" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">
+    ❌ Error
+  </text>
+  <text x="120" y="600" font-family="Arial, sans-serif" font-size="11" text-anchor="middle">
+    Terminar programa
+  </text>
+  
+  <!-- Rama NO - Continuar -->
+  <path d="M 400 350 L 400 380" stroke="#2E7D32" stroke-width="3" marker-end="url(#arrow-green)"/>
+  <text x="420" y="370" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#2E7D32">
+    NO
+  </text>
+  
+  <!-- Paso 3: Operaciones -->
+  <g id="paso-3">
+    <rect x="250" y="380" width="300" height="100" fill="#E8F5E9" stroke="#2E7D32" stroke-width="3" rx="8"/>
+    <text x="400" y="405" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">
+      3️⃣ Realizar Operaciones
+    </text>
+    <rect x="270" y="415" width="260" height="55" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+    <text x="280" y="432" font-family="monospace" font-size="11">
+      // Leer:
+    </text>
+    <text x="280" y="446" font-family="monospace" font-size="11">
+      fgets(buffer, size, archivo);
+    </text>
+    <text x="280" y="460" font-family="monospace" font-size="11">
+      // Escribir:
+    </text>
+    <text x="280" y="470" font-family="monospace" font-size="11">
+      fprintf(archivo, "...", ...);
+    </text>
+  </g>
+  
+  <!-- Flecha -->
+  <path d="M 400 480 L 400 505" stroke="#333" stroke-width="3" marker-end="url(#arrow)"/>
+  
+  <!-- Paso 4: Verificar errores -->
+  <g id="paso-4">
+    <rect x="250" y="505" width="300" height="70" fill="#FFF9C4" stroke="#F9A825" stroke-width="3" rx="8"/>
+    <text x="400" y="527" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">
+      4️⃣ Verificar Errores (opcional pero recomendado)
+    </text>
+    <rect x="270" y="537" width="260" height="30" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+    <text x="280" y="552" font-family="monospace" font-size="11">
+      if (ferror(archivo)) { ... }
+    </text>
+    <text x="280" y="563" font-family="monospace" font-size="11">
+      if (feof(archivo)) { ... }
+    </text>
+  </g>
+  
+  <!-- Flecha -->
+  <path d="M 400 575 L 400 595" stroke="#333" stroke-width="3" marker-end="url(#arrow)"/>
+  
+  <!-- Paso 5: Cerrar -->
+  <g id="paso-5">
+    <rect x="450" y="595" width="300" height="50" fill="#BBDEFB" stroke="#1976D2" stroke-width="3" rx="8"/>
+    <text x="600" y="617" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">
+      5️⃣ Cerrar el Archivo (OBLIGATORIO)
+    </text>
+    <rect x="470" y="627" width="260" height="20" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+    <text x="480" y="641" font-family="monospace" font-size="12">
+      fclose(archivo);
+    </text>
+  </g>
+  
+  <!-- Nota importante -->
+  <rect x="250" y="595" width="180" height="50" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2" rx="5"/>
+  <text x="340" y="615" font-family="Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">
+    ✓ Libera recursos
+  </text>
+  <text x="340" y="630" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">
+    Asegura que los datos
+  </text>
+  <text x="340" y="642" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">
+    se escriban al disco
+  </text>
+  
+  <!-- Notas adicionales -->
+  <g id="notas">
+    <rect x="50" y="60" width="180" height="110" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2" rx="5"/>
+    <text x="140" y="80" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">
+      ⚠️ Puntos Críticos
+    </text>
+    <text x="60" y="98" font-family="Arial, sans-serif" font-size="10">
+      • Siempre verifica NULL
+    </text>
+    <text x="60" y="113" font-family="Arial, sans-serif" font-size="10">
+      • Siempre cierra archivos
+    </text>
+    <text x="60" y="128" font-family="Arial, sans-serif" font-size="10">
+      • Verifica errores con
+    </text>
+    <text x="65" y="143" font-family="Arial, sans-serif" font-size="10">
+      ferror() después de
+    </text>
+    <text x="65" y="158" font-family="Arial, sans-serif" font-size="10">
+      operaciones críticas
+    </text>
+  </g>
+  
+  <g id="buenas-practicas">
+    <rect x="570" y="60" width="180" height="100" fill="#E0F7FA" stroke="#0277BD" stroke-width="2" rx="5"/>
+    <text x="660" y="80" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">
+      💡 Buenas Prácticas
+    </text>
+    <text x="580" y="98" font-family="Arial, sans-serif" font-size="10">
+      • Usa perror() para
+    </text>
+    <text x="585" y="111" font-family="Arial, sans-serif" font-size="10">
+      mensajes de error
+    </text>
+    <text x="580" y="126" font-family="Arial, sans-serif" font-size="10">
+      • Maneja EOF y errores
+    </text>
+    <text x="585" y="139" font-family="Arial, sans-serif" font-size="10">
+      de forma distinta
+    </text>
+    <text x="580" y="154" font-family="Arial, sans-serif" font-size="10">
+      • Cierra en todas las
+    </text>
+    <text x="585" y="167" font-family="Arial, sans-serif" font-size="10">
+      rutas de ejecución
+    </text>
+  </g>
+  
+  <!-- Definición de marcadores -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#2E7D32"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#C62828"/>
+    </marker>
+  </defs>
+</svg>

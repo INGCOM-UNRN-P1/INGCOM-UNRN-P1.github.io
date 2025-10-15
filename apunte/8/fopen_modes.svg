@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700">
+  <!-- Título -->
+  <text x="500" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">
+    Modos de Apertura de Archivos con fopen()
+  </text>
+  
+  <!-- Modo "r" - Lectura -->
+  <g id="modo-r">
+    <rect x="50" y="60" width="450" height="90" fill="#E3F2FD" stroke="#1976D2" stroke-width="2" rx="5"/>
+    <text x="70" y="85" font-family="monospace" font-size="16" font-weight="bold" fill="#1976D2">
+      "r" - Lectura
+    </text>
+    <text x="70" y="105" font-family="Arial, sans-serif" font-size="12">
+      ✓ Lee desde el inicio
+    </text>
+    <text x="70" y="125" font-family="Arial, sans-serif" font-size="12">
+      ✗ Si no existe: fopen() retorna NULL
+    </text>
+    <text x="70" y="140" font-family="Arial, sans-serif" font-size="11" fill="#666" font-style="italic">
+      Uso: Leer configuraciones, procesar datos
+    </text>
+  </g>
+  
+  <!-- Modo "w" - Escritura -->
+  <g id="modo-w">
+    <rect x="530" y="60" width="450" height="90" fill="#FFEBEE" stroke="#C62828" stroke-width="2" rx="5"/>
+    <text x="550" y="85" font-family="monospace" font-size="16" font-weight="bold" fill="#C62828">
+      "w" - Escritura
+    </text>
+    <text x="550" y="105" font-family="Arial, sans-serif" font-size="12">
+      ✓ Escribe desde el inicio
+    </text>
+    <text x="550" y="125" font-family="Arial, sans-serif" font-size="12">
+      ⚠️ Si existe: BORRA TODO el contenido (trunca)
+    </text>
+    <text x="550" y="140" font-family="Arial, sans-serif" font-size="11" fill="#666" font-style="italic">
+      Uso: Crear nuevos archivos, sobrescribir
+    </text>
+  </g>
+  
+  <!-- Modo "a" - Añadir -->
+  <g id="modo-a">
+    <rect x="50" y="170" width="450" height="90" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2" rx="5"/>
+    <text x="70" y="195" font-family="monospace" font-size="16" font-weight="bold" fill="#2E7D32">
+      "a" - Añadir (Append)
+    </text>
+    <text x="70" y="215" font-family="Arial, sans-serif" font-size="12">
+      ✓ Escribe al final (preserva contenido)
+    </text>
+    <text x="70" y="235" font-family="Arial, sans-serif" font-size="12">
+      ✓ Si no existe: crea el archivo
+    </text>
+    <text x="70" y="250" font-family="Arial, sans-serif" font-size="11" fill="#666" font-style="italic">
+      Uso: Añadir a logs, agregar registros
+    </text>
+  </g>
+  
+  <!-- Modo "r+" - Lectura/Escritura -->
+  <g id="modo-r-plus">
+    <rect x="530" y="170" width="450" height="90" fill="#FFF3E0" stroke="#F57C00" stroke-width="2" rx="5"/>
+    <text x="550" y="195" font-family="monospace" font-size="16" font-weight="bold" fill="#F57C00">
+      "r+" - Lectura y Escritura
+    </text>
+    <text x="550" y="215" font-family="Arial, sans-serif" font-size="12">
+      ✓ Lee y escribe desde el inicio
+    </text>
+    <text x="550" y="235" font-family="Arial, sans-serif" font-size="12">
+      ✗ Si no existe: fopen() retorna NULL
+    </text>
+    <text x="550" y="250" font-family="Arial, sans-serif" font-size="11" fill="#666" font-style="italic">
+      Uso: Modificar registros específicos
+    </text>
+  </g>
+  
+  <!-- Modo "w+" - Escritura/Lectura -->
+  <g id="modo-w-plus">
+    <rect x="50" y="280" width="450" height="90" fill="#FCE4EC" stroke="#AD1457" stroke-width="2" rx="5"/>
+    <text x="70" y="305" font-family="monospace" font-size="16" font-weight="bold" fill="#AD1457">
+      "w+" - Escritura y Lectura
+    </text>
+    <text x="70" y="325" font-family="Arial, sans-serif" font-size="12">
+      ✓ Lee y escribe desde el inicio
+    </text>
+    <text x="70" y="345" font-family="Arial, sans-serif" font-size="12">
+      ⚠️ Si existe: BORRA TODO el contenido
+    </text>
+    <text x="70" y="360" font-family="Arial, sans-serif" font-size="11" fill="#666" font-style="italic">
+      Uso: Archivos temporales
+    </text>
+  </g>
+  
+  <!-- Modo "a+" - Añadir/Lectura -->
+  <g id="modo-a-plus">
+    <rect x="530" y="280" width="450" height="90" fill="#F1F8E9" stroke="#689F38" stroke-width="2" rx="5"/>
+    <text x="550" y="305" font-family="monospace" font-size="16" font-weight="bold" fill="#689F38">
+      "a+" - Añadir y Lectura
+    </text>
+    <text x="550" y="325" font-family="Arial, sans-serif" font-size="12">
+      ✓ Escribe al final, lee desde donde quieras
+    </text>
+    <text x="550" y="345" font-family="Arial, sans-serif" font-size="12">
+      ✓ Preserva contenido existente
+    </text>
+    <text x="550" y="360" font-family="Arial, sans-serif" font-size="11" fill="#666" font-style="italic">
+      Uso: Leer log y añadir nuevas entradas
+    </text>
+  </g>
+  
+  <!-- Diagrama de flujo de decisión -->
+  <g id="decision-tree">
+    <rect x="50" y="390" width="930" height="290" fill="#F5F5F5" stroke="#666" stroke-width="2" rx="8"/>
+    
+    <text x="500" y="420" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">
+      Diagrama de Decisión: ¿Qué modo usar?
+    </text>
+    
+    <!-- Pregunta 1 -->
+    <rect x="370" y="440" width="260" height="45" fill="#BBDEFB" stroke="#1976D2" stroke-width="2" rx="5"/>
+    <text x="500" y="465" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">
+      ¿Solo necesitás leer?
+    </text>
+    
+    <!-- Sí - r -->
+    <path d="M 500 485 L 500 510" stroke="#2E7D32" stroke-width="2" marker-end="url(#arrow-green)"/>
+    <text x="520" y="500" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2E7D32">SÍ</text>
+    
+    <rect x="410" y="510" width="180" height="35" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2" rx="5"/>
+    <text x="500" y="533" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">
+      Usá "r"
+    </text>
+    
+    <!-- No - continuar -->
+    <path d="M 630 463 L 700 463" stroke="#333" stroke-width="2" marker-end="url(#arrow-gray)"/>
+    <text x="650" y="455" font-family="Arial, sans-serif" font-size="12" font-weight="bold">NO</text>
+    
+    <!-- Pregunta 2 -->
+    <rect x="710" y="440" width="240" height="45" fill="#BBDEFB" stroke="#1976D2" stroke-width="2" rx="5"/>
+    <text x="830" y="458" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">
+      ¿Necesitás preservar
+    </text>
+    <text x="830" y="475" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">
+      el contenido existente?
+    </text>
+    
+    <!-- Sí - a -->
+    <path d="M 830 485 L 830 520" stroke="#2E7D32" stroke-width="2" marker-end="url(#arrow-green)"/>
+    <text x="850" y="505" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2E7D32">SÍ</text>
+    
+    <rect x="740" y="520" width="180" height="35" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2" rx="5"/>
+    <text x="830" y="543" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">
+      Usá "a" o "a+"
+    </text>
+    
+    <!-- No - w -->
+    <path d="M 710 463 L 240 463 L 240 520" stroke="#C62828" stroke-width="2" marker-end="url(#arrow-red)"/>
+    <text x="470" y="455" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#C62828">NO</text>
+    
+    <rect x="150" y="520" width="180" height="35" fill="#FFCDD2" stroke="#C62828" stroke-width="2" rx="5"/>
+    <text x="240" y="543" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">
+      Usá "w" o "w+"
+    </text>
+    
+    <!-- Pregunta 3 - Actualizar -->
+    <rect x="350" y="575" width="300" height="35" fill="#E1BEE7" stroke="#7B1FA2" stroke-width="2" rx="5"/>
+    <text x="500" y="598" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">
+      ¿Necesitás leer Y escribir? → Agrega "+"
+    </text>
+    
+    <!-- Modo binario -->
+    <rect x="50" y="630" width="930" height="35" fill="#FFF9C4" stroke="#F9A825" stroke-width="2" rx="5"/>
+    <text x="500" y="653" font-family="Arial, sans-serif" font-size="13" text-anchor="middle">
+      💡 Para archivos binarios (imágenes, audio, etc.), agrega 'b' al modo: "rb", "wb", "ab", etc.
+    </text>
+  </g>
+  
+  <!-- Definición de marcadores -->
+  <defs>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#2E7D32"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#C62828"/>
+    </marker>
+    <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+    </marker>
+  </defs>
+</svg>
