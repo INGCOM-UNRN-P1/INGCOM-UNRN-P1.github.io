@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <defs>
+    <style>
+      .matrix-a { fill: #e3f2fd; stroke: #1976d2; stroke-width: 2; }
+      .matrix-b { fill: #fff3e0; stroke: #f57c00; stroke-width: 2; }
+      .matrix-result { fill: #c8e6c9; stroke: #388e3c; stroke-width: 2; }
+      .matrix-error { fill: #ffcdd2; stroke: #c62828; stroke-width: 2; }
+      .text-label { font-family: 'Courier New', monospace; font-size: 12px; fill: #212121; font-weight: bold; }
+      .text-small { font-family: 'Courier New', monospace; font-size: 10px; fill: #424242; }
+      .title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #1565c0; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 12px; fill: #424242; }
+      .check { fill: none; stroke: #388e3c; stroke-width: 3; }
+      .cross { fill: none; stroke: #c62828; stroke-width: 3; }
+    </style>
+  </defs>
+  
+  <!-- Título -->
+  <text x="450" y="25" text-anchor="middle" class="title">Validación de Dimensiones en Operaciones con Matrices</text>
+  
+  <!-- CASO 1: Suma/Resta - Válido -->
+  <g transform="translate(50, 60)">
+    <text x="0" y="0" class="title" fill="#388e3c">✓ Suma/Resta - VÁLIDA</text>
+    <text x="0" y="18" class="subtitle">Dimensiones idénticas requeridas: m×n + m×n → m×n</text>
+    
+    <!-- Matriz A -->
+    <g transform="translate(0, 35)">
+      <text x="30" y="-8" text-anchor="middle" class="text-small">A [3×2]</text>
+      <rect x="0" y="0" width="30" height="25" class="matrix-a"/>
+      <rect x="30" y="0" width="30" height="25" class="matrix-a"/>
+      <rect x="0" y="25" width="30" height="25" class="matrix-a"/>
+      <rect x="30" y="25" width="30" height="25" class="matrix-a"/>
+      <rect x="0" y="50" width="30" height="25" class="matrix-a"/>
+      <rect x="30" y="50" width="30" height="25" class="matrix-a"/>
+    </g>
+    
+    <text x="75" y="80" class="text-label">+</text>
+    
+    <!-- Matriz B -->
+    <g transform="translate(95, 35)">
+      <text x="30" y="-8" text-anchor="middle" class="text-small">B [3×2]</text>
+      <rect x="0" y="0" width="30" height="25" class="matrix-b"/>
+      <rect x="30" y="0" width="30" height="25" class="matrix-b"/>
+      <rect x="0" y="25" width="30" height="25" class="matrix-b"/>
+      <rect x="30" y="25" width="30" height="25" class="matrix-b"/>
+      <rect x="0" y="50" width="30" height="25" class="matrix-b"/>
+      <rect x="30" y="50" width="30" height="25" class="matrix-b"/>
+    </g>
+    
+    <text x="170" y="80" class="text-label">=</text>
+    
+    <!-- Matriz Resultado -->
+    <g transform="translate(190, 35)">
+      <text x="30" y="-8" text-anchor="middle" class="text-small">C [3×2]</text>
+      <rect x="0" y="0" width="30" height="25" class="matrix-result"/>
+      <rect x="30" y="0" width="30" height="25" class="matrix-result"/>
+      <rect x="0" y="25" width="30" height="25" class="matrix-result"/>
+      <rect x="30" y="25" width="30" height="25" class="matrix-result"/>
+      <rect x="0" y="50" width="30" height="25" class="matrix-result"/>
+      <rect x="30" y="50" width="30" height="25" class="matrix-result"/>
+    </g>
+    
+    <!-- Check -->
+    <g transform="translate(260, 60)">
+      <path d="M 0 10 L 8 18 L 20 0" class="check"/>
+      <text x="25" y="15" class="text-small" fill="#388e3c" font-weight="bold">filas_A == filas_B</text>
+      <text x="25" y="30" class="text-small" fill="#388e3c" font-weight="bold">cols_A == cols_B</text>
+    </g>
+  </g>
+  
+  <!-- CASO 2: Suma/Resta - Inválido -->
+  <g transform="translate(50, 190)">
+    <text x="0" y="0" class="title" fill="#c62828">✗ Suma/Resta - INVÁLIDA</text>
+    <text x="0" y="18" class="subtitle">Dimensiones incompatibles: 3×2 + 2×3</text>
+    
+    <!-- Matriz A -->
+    <g transform="translate(0, 35)">
+      <text x="30" y="-8" text-anchor="middle" class="text-small">A [3×2]</text>
+      <rect x="0" y="0" width="30" height="25" class="matrix-a"/>
+      <rect x="30" y="0" width="30" height="25" class="matrix-a"/>
+      <rect x="0" y="25" width="30" height="25" class="matrix-a"/>
+      <rect x="30" y="25" width="30" height="25" class="matrix-a"/>
+      <rect x="0" y="50" width="30" height="25" class="matrix-a"/>
+      <rect x="30" y="50" width="30" height="25" class="matrix-a"/>
+    </g>
+    
+    <text x="75" y="80" class="text-label">+</text>
+    
+    <!-- Matriz B -->
+    <g transform="translate(95, 35)">
+      <text x="45" y="-8" text-anchor="middle" class="text-small">B [2×3]</text>
+      <rect x="0" y="0" width="30" height="25" class="matrix-error"/>
+      <rect x="30" y="0" width="30" height="25" class="matrix-error"/>
+      <rect x="60" y="0" width="30" height="25" class="matrix-error"/>
+      <rect x="0" y="25" width="30" height="25" class="matrix-error"/>
+      <rect x="30" y="25" width="30" height="25" class="matrix-error"/>
+      <rect x="60" y="25" width="30" height="25" class="matrix-error"/>
+    </g>
+    
+    <text x="210" y="80" class="text-label" fill="#c62828">✗</text>
+    
+    <!-- Cross -->
+    <g transform="translate(250, 60)">
+      <path d="M 0 0 L 15 15 M 15 0 L 0 15" class="cross"/>
+      <text x="25" y="10" class="text-small" fill="#c62828" font-weight="bold">3 ≠ 2 || 2 ≠ 3</text>
+      <text x="25" y="25" class="text-small" fill="#c62828">ERROR_DIMENSIONES</text>
+    </g>
+  </g>
+  
+  <!-- CASO 3: Multiplicación - Válida -->
+  <g transform="translate(50, 320)">
+    <text x="0" y="0" class="title" fill="#388e3c">✓ Multiplicación - VÁLIDA</text>
+    <text x="0" y="18" class="subtitle">Columnas de A == Filas de B: (m×p) × (p×n) → (m×n)</text>
+    
+    <!-- Matriz A -->
+    <g transform="translate(0, 35)">
+      <text x="30" y="-8" text-anchor="middle" class="text-small">A [2×3]</text>
+      <rect x="0" y="0" width="30" height="25" class="matrix-a"/>
+      <rect x="30" y="0" width="30" height="25" class="matrix-a"/>
+      <rect x="60" y="0" width="30" height="25" class="matrix-a"/>
+      <rect x="0" y="25" width="30" height="25" class="matrix-a"/>
+      <rect x="30" y="25" width="30" height="25" class="matrix-a"/>
+      <rect x="60" y="25" width="30" height="25" class="matrix-a"/>
+    </g>
+    
+    <text x="105" y="60" class="text-label">×</text>
+    
+    <!-- Matriz B -->
+    <g transform="translate(125, 35)">
+      <text x="30" y="-8" text-anchor="middle" class="text-small">B [3×2]</text>
+      <rect x="0" y="0" width="30" height="25" class="matrix-b"/>
+      <rect x="30" y="0" width="30" height="25" class="matrix-b"/>
+      <rect x="0" y="25" width="30" height="25" class="matrix-b"/>
+      <rect x="30" y="25" width="30" height="25" class="matrix-b"/>
+      <rect x="0" y="50" width="30" height="25" class="matrix-b"/>
+      <rect x="30" y="50" width="30" height="25" class="matrix-b"/>
+    </g>
+    
+    <text x="200" y="60" class="text-label">=</text>
+    
+    <!-- Matriz Resultado -->
+    <g transform="translate(220, 35)">
+      <text x="30" y="-8" text-anchor="middle" class="text-small">C [2×2]</text>
+      <rect x="0" y="0" width="30" height="25" class="matrix-result"/>
+      <rect x="30" y="0" width="30" height="25" class="matrix-result"/>
+      <rect x="0" y="25" width="30" height="25" class="matrix-result"/>
+      <rect x="30" y="25" width="30" height="25" class="matrix-result"/>
+    </g>
+    
+    <!-- Check -->
+    <g transform="translate(295, 45)">
+      <path d="M 0 10 L 8 18 L 20 0" class="check"/>
+      <text x="25" y="15" class="text-small" fill="#388e3c" font-weight="bold">cols_A == filas_B</text>
+      <text x="25" y="30" class="text-small" fill="#388e3c">(3 == 3)</text>
+    </g>
+  </g>
+  
+  <!-- CASO 4: Multiplicación - Inválida -->
+  <g transform="translate(50, 450)">
+    <text x="0" y="0" class="title" fill="#c62828">✗ Multiplicación - INVÁLIDA</text>
+    <text x="0" y="18" class="subtitle">Columnas de A ≠ Filas de B: (2×3) × (2×2)</text>
+    
+    <!-- Matriz A -->
+    <g transform="translate(0, 35)">
+      <text x="30" y="-8" text-anchor="middle" class="text-small">A [2×3]</text>
+      <rect x="0" y="0" width="30" height="25" class="matrix-a"/>
+      <rect x="30" y="0" width="30" height="25" class="matrix-a"/>
+      <rect x="60" y="0" width="30" height="25" class="matrix-a"/>
+      <rect x="0" y="25" width="30" height="25" class="matrix-a"/>
+      <rect x="30" y="25" width="30" height="25" class="matrix-a"/>
+      <rect x="60" y="25" width="30" height="25" class="matrix-a"/>
+    </g>
+    
+    <text x="105" y="60" class="text-label">×</text>
+    
+    <!-- Matriz B -->
+    <g transform="translate(125, 35)">
+      <text x="30" y="-8" text-anchor="middle" class="text-small">B [2×2]</text>
+      <rect x="0" y="0" width="30" height="25" class="matrix-error"/>
+      <rect x="30" y="0" width="30" height="25" class="matrix-error"/>
+      <rect x="0" y="25" width="30" height="25" class="matrix-error"/>
+      <rect x="30" y="25" width="30" height="25" class="matrix-error"/>
+    </g>
+    
+    <text x="200" y="60" class="text-label" fill="#c62828">✗</text>
+    
+    <!-- Cross -->
+    <g transform="translate(240, 45)">
+      <path d="M 0 0 L 15 15 M 15 0 L 0 15" class="cross"/>
+      <text x="25" y="10" class="text-small" fill="#c62828" font-weight="bold">3 ≠ 2</text>
+      <text x="25" y="25" class="text-small" fill="#c62828">ERROR_DIMENSIONES</text>
+    </g>
+  </g>
+  
+  <!-- Código de validación -->
+  <g transform="translate(500, 60)">
+    <rect x="0" y="0" width="370" height="520" fill="#f5f5f5" stroke="#9e9e9e" stroke-width="2" rx="5"/>
+    
+    <text x="185" y="25" text-anchor="middle" class="title">Código de Validación</text>
+    
+    <g transform="translate(15, 45)">
+      <text x="0" y="0" class="text-small" fill="#424242">// Enum para códigos de error</text>
+      <text x="0" y="15" class="text-small">typedef enum {</text>
+      <text x="15" y="30" class="text-small">MATRIZ_OK,</text>
+      <text x="15" y="45" class="text-small">MATRIZ_ERROR_DIMENSIONES,</text>
+      <text x="15" y="60" class="text-small">MATRIZ_ERROR_MEMORIA,</text>
+      <text x="15" y="75" class="text-small">MATRIZ_ERROR_SINGULAR</text>
+      <text x="0" y="90" class="text-small">} resultado_matriz_t;</text>
+      
+      <text x="0" y="120" class="text-small" fill="#424242">// Validación para suma/resta</text>
+      <text x="0" y="135" class="text-small">resultado_matriz_t</text>
+      <text x="0" y="150" class="text-small">validar_suma(size_t filas_a,</text>
+      <text x="13" y="165" class="text-small">size_t cols_a,</text>
+      <text x="13" y="180" class="text-small">size_t filas_b,</text>
+      <text x="13" y="195" class="text-small">size_t cols_b) {</text>
+      <text x="15" y="210" class="text-small">if (filas_a != filas_b ||</text>
+      <text x="19" y="225" class="text-small">cols_a != cols_b) {</text>
+      <text x="30" y="240" class="text-small" fill="#c62828">return MATRIZ_ERROR_DIMENSIONES;</text>
+      <text x="15" y="255" class="text-small">}</text>
+      <text x="15" y="270" class="text-small" fill="#388e3c">return MATRIZ_OK;</text>
+      <text x="0" y="285" class="text-small">}</text>
+      
+      <text x="0" y="315" class="text-small" fill="#424242">// Validación para multiplicación</text>
+      <text x="0" y="330" class="text-small">resultado_matriz_t</text>
+      <text x="0" y="345" class="text-small">validar_multiplicacion(</text>
+      <text x="13" y="360" class="text-small">size_t filas_a,</text>
+      <text x="13" y="375" class="text-small">size_t cols_a,</text>
+      <text x="13" y="390" class="text-small">size_t filas_b,</text>
+      <text x="13" y="405" class="text-small">size_t cols_b) {</text>
+      <text x="15" y="420" class="text-small">if (cols_a != filas_b) {</text>
+      <text x="30" y="435" class="text-small" fill="#c62828">return MATRIZ_ERROR_DIMENSIONES;</text>
+      <text x="15" y="450" class="text-small">}</text>
+      <text x="15" y="465" class="text-small" fill="#388e3c">return MATRIZ_OK;</text>
+      <text x="0" y="480" class="text-small">}</text>
+    </g>
+  </g>
+</svg>

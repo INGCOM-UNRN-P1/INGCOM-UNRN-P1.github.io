@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <defs>
+    <style>
+      .memory-block { fill: #e0e0e0; stroke: #616161; stroke-width: 1; }
+      .cache-line { fill: #81c784; stroke: #388e3c; stroke-width: 2; }
+      .cache-miss { fill: #ef5350; stroke: #c62828; stroke-width: 2; }
+      .text-label { font-family: 'Courier New', monospace; font-size: 12px; fill: #212121; }
+      .text-small { font-family: 'Courier New', monospace; font-size: 10px; fill: #424242; }
+      .text-tiny { font-family: 'Courier New', monospace; font-size: 9px; fill: #616161; }
+      .title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #1565c0; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 12px; fill: #424242; }
+    </style>
+  </defs>
+  
+  <!-- Título -->
+  <text x="450" y="25" text-anchor="middle" class="title">Localidad de Caché en Acceso a Matrices</text>
+  
+  <!-- Sección Row-Major (eficiente) -->
+  <g transform="translate(50, 60)">
+    <text x="200" y="0" text-anchor="middle" class="title" fill="#388e3c">Acceso por Filas (Row-Major) - Eficiente</text>
+    
+    <!-- Matriz conceptual -->
+    <g transform="translate(0, 20)">
+      <text x="0" y="0" class="subtitle">Matriz en código:</text>
+      <rect x="0" y="10" width="30" height="30" fill="#81c784" stroke="#388e3c" stroke-width="2"/>
+      <text x="15" y="30" text-anchor="middle" class="text-label">0</text>
+      <rect x="30" y="10" width="30" height="30" fill="#81c784" stroke="#388e3c" stroke-width="2"/>
+      <text x="45" y="30" text-anchor="middle" class="text-label">1</text>
+      <rect x="60" y="10" width="30" height="30" fill="#81c784" stroke="#388e3c" stroke-width="2"/>
+      <text x="75" y="30" text-anchor="middle" class="text-label">2</text>
+      <rect x="90" y="10" width="30" height="30" fill="#81c784" stroke="#388e3c" stroke-width="2"/>
+      <text x="105" y="30" text-anchor="middle" class="text-label">3</text>
+      
+      <rect x="0" y="40" width="30" height="30" class="memory-block"/>
+      <text x="15" y="60" text-anchor="middle" class="text-label">4</text>
+      <rect x="30" y="40" width="30" height="30" class="memory-block"/>
+      <text x="45" y="60" text-anchor="middle" class="text-label">5</text>
+      <rect x="60" y="40" width="30" height="30" class="memory-block"/>
+      <text x="75" y="60" text-anchor="middle" class="text-label">6</text>
+      <rect x="90" y="40" width="30" height="30" class="memory-block"/>
+      <text x="105" y="60" text-anchor="middle" class="text-label">7</text>
+      
+      <text x="0" y="85" class="text-small" fill="#388e3c">← Primera fila procesada</text>
+    </g>
+    
+    <!-- Memoria RAM -->
+    <g transform="translate(0, 130)">
+      <text x="0" y="0" class="subtitle">En memoria RAM:</text>
+      <rect x="0" y="10" width="25" height="25" class="memory-block"/>
+      <text x="12" y="27" text-anchor="middle" class="text-tiny">0</text>
+      <rect x="25" y="10" width="25" height="25" class="memory-block"/>
+      <text x="37" y="27" text-anchor="middle" class="text-tiny">1</text>
+      <rect x="50" y="10" width="25" height="25" class="memory-block"/>
+      <text x="62" y="27" text-anchor="middle" class="text-tiny">2</text>
+      <rect x="75" y="10" width="25" height="25" class="memory-block"/>
+      <text x="87" y="27" text-anchor="middle" class="text-tiny">3</text>
+      <rect x="100" y="10" width="25" height="25" class="memory-block"/>
+      <text x="112" y="27" text-anchor="middle" class="text-tiny">4</text>
+      <rect x="125" y="10" width="25" height="25" class="memory-block"/>
+      <text x="137" y="27" text-anchor="middle" class="text-tiny">5</text>
+      <rect x="150" y="10" width="25" height="25" class="memory-block"/>
+      <text x="162" y="27" text-anchor="middle" class="text-tiny">6</text>
+      <rect x="175" y="10" width="25" height="25" class="memory-block"/>
+      <text x="187" y="27" text-anchor="middle" class="text-tiny">7</text>
+      <rect x="200" y="10" width="25" height="25" class="memory-block"/>
+      <text x="212" y="27" text-anchor="middle" class="text-tiny">8</text>
+      <text x="230" y="27" class="text-tiny">...</text>
+      
+      <text x="0" y="50" class="text-small">Dirección:</text>
+      <text x="0" y="62" class="text-tiny">0x1000</text>
+      <text x="25" y="62" class="text-tiny">0x1004</text>
+      <text x="50" y="62" class="text-tiny">0x1008</text>
+      <text x="75" y="62" class="text-tiny">0x100C</text>
+      <text x="100" y="62" class="text-tiny">0x1010</text>
+    </g>
+    
+    <!-- Caché -->
+    <g transform="translate(0, 210)">
+      <text x="0" y="0" class="subtitle">Línea de caché cargada:</text>
+      <rect x="0" y="10" width="200" height="35" class="cache-line"/>
+      <text x="100" y="32" text-anchor="middle" class="text-label" fill="#1b5e20">0, 1, 2, 3 (4 elementos contiguos)</text>
+      
+      <text x="0" y="60" class="text-small" fill="#388e3c" font-weight="bold">✓ Cache Hit: Próximos 3 accesos ya están en caché</text>
+      <text x="0" y="76" class="text-small" fill="#388e3c">✓ Acceso secuencial = Máximo rendimiento</text>
+    </g>
+  </g>
+  
+  <!-- Sección Column-Major (ineficiente) -->
+  <g transform="translate(470, 60)">
+    <text x="200" y="0" text-anchor="middle" class="title" fill="#c62828">Acceso por Columnas - Ineficiente</text>
+    
+    <!-- Matriz conceptual -->
+    <g transform="translate(0, 20)">
+      <text x="0" y="0" class="subtitle">Matriz en código:</text>
+      <rect x="0" y="10" width="30" height="30" fill="#ef5350" stroke="#c62828" stroke-width="2"/>
+      <text x="15" y="30" text-anchor="middle" class="text-label">0</text>
+      <rect x="30" y="10" width="30" height="30" class="memory-block"/>
+      <text x="45" y="30" text-anchor="middle" class="text-label">1</text>
+      <rect x="60" y="10" width="30" height="30" class="memory-block"/>
+      <text x="75" y="30" text-anchor="middle" class="text-label">2</text>
+      <rect x="90" y="10" width="30" height="30" class="memory-block"/>
+      <text x="105" y="30" text-anchor="middle" class="text-label">3</text>
+      
+      <rect x="0" y="40" width="30" height="30" fill="#ef5350" stroke="#c62828" stroke-width="2"/>
+      <text x="15" y="60" text-anchor="middle" class="text-label">4</text>
+      <rect x="30" y="40" width="30" height="30" class="memory-block"/>
+      <text x="45" y="60" text-anchor="middle" class="text-label">5</text>
+      <rect x="60" y="40" width="30" height="30" class="memory-block"/>
+      <text x="75" y="60" text-anchor="middle" class="text-label">6</text>
+      <rect x="90" y="40" width="30" height="30" class="memory-block"/>
+      <text x="105" y="60" text-anchor="middle" class="text-label">7</text>
+      
+      <text x="0" y="85" class="text-small" fill="#c62828">← Primera columna procesada</text>
+    </g>
+    
+    <!-- Memoria RAM -->
+    <g transform="translate(0, 130)">
+      <text x="0" y="0" class="subtitle">En memoria RAM:</text>
+      
+      <!-- Bloque 1 -->
+      <rect x="0" y="10" width="25" height="25" class="cache-miss"/>
+      <text x="12" y="27" text-anchor="middle" class="text-tiny" fill="#fff">0</text>
+      <rect x="25" y="10" width="25" height="25" class="memory-block"/>
+      <text x="37" y="27" text-anchor="middle" class="text-tiny">1</text>
+      <rect x="50" y="10" width="25" height="25" class="memory-block"/>
+      <text x="62" y="27" text-anchor="middle" class="text-tiny">2</text>
+      <rect x="75" y="10" width="25" height="25" class="memory-block"/>
+      <text x="87" y="27" text-anchor="middle" class="text-tiny">3</text>
+      
+      <!-- Bloque 2 -->
+      <rect x="100" y="10" width="25" height="25" class="cache-miss"/>
+      <text x="112" y="27" text-anchor="middle" class="text-tiny" fill="#fff">4</text>
+      <rect x="125" y="10" width="25" height="25" class="memory-block"/>
+      <text x="137" y="27" text-anchor="middle" class="text-tiny">5</text>
+      <rect x="150" y="10" width="25" height="25" class="memory-block"/>
+      <text x="162" y="27" text-anchor="middle" class="text-tiny">6</text>
+      <rect x="175" y="10" width="25" height="25" class="memory-block"/>
+      <text x="187" y="27" text-anchor="middle" class="text-tiny">7</text>
+      
+      <text x="230" y="27" class="text-tiny">...</text>
+      
+      <text x="0" y="50" class="text-small">↑ Salto de 4 elementos (16 bytes)</text>
+    </g>
+    
+    <!-- Caché -->
+    <g transform="translate(0, 210)">
+      <text x="0" y="0" class="subtitle">Múltiples cargas de caché:</text>
+      <rect x="0" y="10" width="120" height="25" class="cache-line"/>
+      <text x="60" y="27" text-anchor="middle" class="text-small">0, 1, 2, 3</text>
+      <text x="130" y="27" class="text-tiny">← 1ra carga</text>
+      
+      <rect x="0" y="40" width="120" height="25" class="cache-line"/>
+      <text x="60" y="57" text-anchor="middle" class="text-small">4, 5, 6, 7</text>
+      <text x="130" y="57" class="text-tiny">← 2da carga</text>
+      
+      <text x="0" y="80" class="text-small" fill="#c62828" font-weight="bold">✗ Cache Miss: Cada acceso requiere nueva carga</text>
+      <text x="0" y="96" class="text-small" fill="#c62828">✗ Elementos contiguos en caché se desperdician</text>
+    </g>
+  </g>
+  
+  <!-- Comparación de rendimiento -->
+  <g transform="translate(50, 400)">
+    <rect x="0" y="0" width="800" height="80" fill="#f5f5f5" stroke="#9e9e9e" stroke-width="2" rx="5"/>
+    
+    <text x="400" y="25" text-anchor="middle" class="title">Impacto en el Rendimiento</text>
+    
+    <g transform="translate(50, 35)">
+      <rect x="0" y="0" width="300" height="25" class="cache-line"/>
+      <text x="10" y="17" class="text-small" fill="#1b5e20" font-weight="bold">Row-Major: ~4 ciclos por acceso</text>
+      <text x="150" y="17" text-anchor="middle" class="text-label">(1 miss + 3 hits)</text>
+    </g>
+    
+    <g transform="translate(400, 35)">
+      <rect x="0" y="0" width="350" height="25" class="cache-miss"/>
+      <text x="10" y="17" class="text-small" fill="#ffffff" font-weight="bold">Column-Major: ~100 ciclos por acceso</text>
+      <text x="175" y="17" text-anchor="middle" class="text-label" fill="#ffffff">(todos misses)</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <style>
+      .grid-cell { fill: #ffffff; stroke: #424242; stroke-width: 1.5; }
+      .cell-a { fill: #e3f2fd; stroke: #1976d2; stroke-width: 2; }
+      .cell-b { fill: #fff3e0; stroke: #f57c00; stroke-width: 2; }
+      .cell-result { fill: #c8e6c9; stroke: #388e3c; stroke-width: 2; }
+      .text-label { font-family: 'Courier New', monospace; font-size: 14px; fill: #212121; font-weight: bold; }
+      .text-small { font-family: 'Courier New', monospace; font-size: 11px; fill: #424242; }
+      .title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #1565c0; }
+      .operator { font-family: Arial, sans-serif; font-size: 20px; fill: #212121; font-weight: bold; }
+    </style>
+  </defs>
+  
+  <!-- Título -->
+  <text x="400" y="25" text-anchor="middle" class="title">Operaciones Básicas con Matrices</text>
+  
+  <!-- SUMA -->
+  <g transform="translate(100, 50)">
+    <text x="0" y="0" class="title" fill="#1976d2">Suma de Matrices: C[i][j] = A[i][j] + B[i][j]</text>
+    
+    <!-- Matriz A -->
+    <g transform="translate(0, 20)">
+      <text x="40" y="-5" text-anchor="middle" class="text-small">A</text>
+      <rect x="0" y="0" width="40" height="30" class="cell-a"/>
+      <text x="20" y="20" text-anchor="middle" class="text-label">1</text>
+      <rect x="40" y="0" width="40" height="30" class="cell-a"/>
+      <text x="60" y="20" text-anchor="middle" class="text-label">2</text>
+      
+      <rect x="0" y="30" width="40" height="30" class="cell-a"/>
+      <text x="20" y="50" text-anchor="middle" class="text-label">3</text>
+      <rect x="40" y="30" width="40" height="30" class="cell-a"/>
+      <text x="60" y="50" text-anchor="middle" class="text-label">4</text>
+    </g>
+    
+    <!-- Operador -->
+    <text x="100" y="50" class="operator">+</text>
+    
+    <!-- Matriz B -->
+    <g transform="translate(130, 20)">
+      <text x="40" y="-5" text-anchor="middle" class="text-small">B</text>
+      <rect x="0" y="0" width="40" height="30" class="cell-b"/>
+      <text x="20" y="20" text-anchor="middle" class="text-label">5</text>
+      <rect x="40" y="0" width="40" height="30" class="cell-b"/>
+      <text x="60" y="20" text-anchor="middle" class="text-label">6</text>
+      
+      <rect x="0" y="30" width="40" height="30" class="cell-b"/>
+      <text x="20" y="50" text-anchor="middle" class="text-label">7</text>
+      <rect x="40" y="30" width="40" height="30" class="cell-b"/>
+      <text x="60" y="50" text-anchor="middle" class="text-label">8</text>
+    </g>
+    
+    <!-- Operador = -->
+    <text x="230" y="50" class="operator">=</text>
+    
+    <!-- Matriz C (resultado) -->
+    <g transform="translate(260, 20)">
+      <text x="40" y="-5" text-anchor="middle" class="text-small">C</text>
+      <rect x="0" y="0" width="40" height="30" class="cell-result"/>
+      <text x="20" y="20" text-anchor="middle" class="text-label">6</text>
+      <rect x="40" y="0" width="40" height="30" class="cell-result"/>
+      <text x="60" y="20" text-anchor="middle" class="text-label">8</text>
+      
+      <rect x="0" y="30" width="40" height="30" class="cell-result"/>
+      <text x="20" y="50" text-anchor="middle" class="text-label">10</text>
+      <rect x="40" y="30" width="40" height="30" class="cell-result"/>
+      <text x="60" y="50" text-anchor="middle" class="text-label">12</text>
+    </g>
+    
+    <!-- Código -->
+    <g transform="translate(360, 20)">
+      <text x="0" y="15" class="text-small">for (i = 0; i &lt; m; i++)</text>
+      <text x="5" y="30" class="text-small">for (j = 0; j &lt; n; j++)</text>
+      <text x="10" y="45" class="text-small">C[i][j] = A[i][j] + B[i][j];</text>
+    </g>
+  </g>
+  
+  <!-- RESTA -->
+  <g transform="translate(100, 180)">
+    <text x="0" y="0" class="title" fill="#1976d2">Resta de Matrices: C[i][j] = A[i][j] - B[i][j]</text>
+    
+    <!-- Matriz A -->
+    <g transform="translate(0, 20)">
+      <text x="40" y="-5" text-anchor="middle" class="text-small">A</text>
+      <rect x="0" y="0" width="40" height="30" class="cell-a"/>
+      <text x="20" y="20" text-anchor="middle" class="text-label">9</text>
+      <rect x="40" y="0" width="40" height="30" class="cell-a"/>
+      <text x="60" y="20" text-anchor="middle" class="text-label">8</text>
+      
+      <rect x="0" y="30" width="40" height="30" class="cell-a"/>
+      <text x="20" y="50" text-anchor="middle" class="text-label">7</text>
+      <rect x="40" y="30" width="40" height="30" class="cell-a"/>
+      <text x="60" y="50" text-anchor="middle" class="text-label">6</text>
+    </g>
+    
+    <!-- Operador -->
+    <text x="100" y="50" class="operator">−</text>
+    
+    <!-- Matriz B -->
+    <g transform="translate(130, 20)">
+      <text x="40" y="-5" text-anchor="middle" class="text-small">B</text>
+      <rect x="0" y="0" width="40" height="30" class="cell-b"/>
+      <text x="20" y="20" text-anchor="middle" class="text-label">1</text>
+      <rect x="40" y="0" width="40" height="30" class="cell-b"/>
+      <text x="60" y="20" text-anchor="middle" class="text-label">2</text>
+      
+      <rect x="0" y="30" width="40" height="30" class="cell-b"/>
+      <text x="20" y="50" text-anchor="middle" class="text-label">3</text>
+      <rect x="40" y="30" width="40" height="30" class="cell-b"/>
+      <text x="60" y="50" text-anchor="middle" class="text-label">4</text>
+    </g>
+    
+    <!-- Operador = -->
+    <text x="230" y="50" class="operator">=</text>
+    
+    <!-- Matriz C (resultado) -->
+    <g transform="translate(260, 20)">
+      <text x="40" y="-5" text-anchor="middle" class="text-small">C</text>
+      <rect x="0" y="0" width="40" height="30" class="cell-result"/>
+      <text x="20" y="20" text-anchor="middle" class="text-label">8</text>
+      <rect x="40" y="0" width="40" height="30" class="cell-result"/>
+      <text x="60" y="20" text-anchor="middle" class="text-label">6</text>
+      
+      <rect x="0" y="30" width="40" height="30" class="cell-result"/>
+      <text x="20" y="50" text-anchor="middle" class="text-label">4</text>
+      <rect x="40" y="30" width="40" height="30" class="cell-result"/>
+      <text x="60" y="50" text-anchor="middle" class="text-label">2</text>
+    </g>
+    
+    <!-- Código -->
+    <g transform="translate(360, 20)">
+      <text x="0" y="15" class="text-small">for (i = 0; i &lt; m; i++)</text>
+      <text x="5" y="30" class="text-small">for (j = 0; j &lt; n; j++)</text>
+      <text x="10" y="45" class="text-small">C[i][j] = A[i][j] - B[i][j];</text>
+    </g>
+  </g>
+  
+  <!-- TRANSPOSICIÓN -->
+  <g transform="translate(100, 310)">
+    <text x="0" y="0" class="title" fill="#1976d2">Transposición: C[j][i] = A[i][j]</text>
+    
+    <!-- Matriz A -->
+    <g transform="translate(0, 20)">
+      <text x="60" y="-5" text-anchor="middle" class="text-small">A (2×3)</text>
+      <rect x="0" y="0" width="40" height="30" class="cell-a"/>
+      <text x="20" y="20" text-anchor="middle" class="text-label">1</text>
+      <rect x="40" y="0" width="40" height="30" class="cell-a"/>
+      <text x="60" y="20" text-anchor="middle" class="text-label">2</text>
+      <rect x="80" y="0" width="40" height="30" class="cell-a"/>
+      <text x="100" y="20" text-anchor="middle" class="text-label">3</text>
+      
+      <rect x="0" y="30" width="40" height="30" class="cell-a"/>
+      <text x="20" y="50" text-anchor="middle" class="text-label">4</text>
+      <rect x="40" y="30" width="40" height="30" class="cell-a"/>
+      <text x="60" y="50" text-anchor="middle" class="text-label">5</text>
+      <rect x="80" y="30" width="40" height="30" class="cell-a"/>
+      <text x="100" y="50" text-anchor="middle" class="text-label">6</text>
+    </g>
+    
+    <!-- Flecha -->
+    <text x="150" y="50" class="operator">→</text>
+    
+    <!-- Matriz transpuesta -->
+    <g transform="translate(190, 20)">
+      <text x="40" y="-5" text-anchor="middle" class="text-small">Aᵀ (3×2)</text>
+      <rect x="0" y="0" width="40" height="30" class="cell-result"/>
+      <text x="20" y="20" text-anchor="middle" class="text-label">1</text>
+      <rect x="40" y="0" width="40" height="30" class="cell-result"/>
+      <text x="60" y="20" text-anchor="middle" class="text-label">4</text>
+      
+      <rect x="0" y="30" width="40" height="30" class="cell-result"/>
+      <text x="20" y="50" text-anchor="middle" class="text-label">2</text>
+      <rect x="40" y="30" width="40" height="30" class="cell-result"/>
+      <text x="60" y="50" text-anchor="middle" class="text-label">5</text>
+      
+      <rect x="0" y="60" width="40" height="30" class="cell-result"/>
+      <text x="20" y="80" text-anchor="middle" class="text-label">3</text>
+      <rect x="40" y="60" width="40" height="30" class="cell-result"/>
+      <text x="60" y="80" text-anchor="middle" class="text-label">6</text>
+    </g>
+    
+    <!-- Código -->
+    <g transform="translate(310, 20)">
+      <text x="0" y="15" class="text-small">for (i = 0; i &lt; filas; i++)</text>
+      <text x="5" y="30" class="text-small">for (j = 0; j &lt; cols; j++)</text>
+      <text x="10" y="45" class="text-small">C[j][i] = A[i][j];</text>
+      <text x="0" y="70" class="text-small" fill="#d84315">// Intercambia filas ↔ columnas</text>
+    </g>
+  </g>
+  
+  <!-- Nota -->
+  <g transform="translate(100, 460)">
+    <text x="0" y="0" class="text-small" fill="#424242">Nota: Todas estas operaciones requieren validar dimensiones compatibles antes de ejecutar.</text>
+  </g>
+</svg>

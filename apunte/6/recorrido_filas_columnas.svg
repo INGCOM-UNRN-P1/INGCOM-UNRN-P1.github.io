@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <style>
+      .grid-cell { fill: #ffffff; stroke: #424242; stroke-width: 2; }
+      .cell-visited { fill: #81c784; stroke: #2e7d32; stroke-width: 2; }
+      .cell-current { fill: #ffeb3b; stroke: #f57f17; stroke-width: 3; }
+      .text-label { font-family: 'Courier New', monospace; font-size: 14px; fill: #212121; }
+      .text-small { font-family: 'Courier New', monospace; font-size: 11px; fill: #424242; }
+      .arrow { fill: none; stroke: #d32f2f; stroke-width: 2.5; marker-end: url(#arrowhead-red); }
+      .arrow-blue { fill: none; stroke: #1976d2; stroke-width: 2.5; marker-end: url(#arrowhead-blue); }
+      .title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #1565c0; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 13px; fill: #424242; }
+    </style>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#d32f2f" />
+    </marker>
+    <marker id="arrowhead-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#1976d2" />
+    </marker>
+  </defs>
+  
+  <!-- Título -->
+  <text x="400" y="25" text-anchor="middle" class="title">Patrones de Recorrido de Matrices</text>
+  
+  <!-- Recorrido por filas (Row-Major) -->
+  <text x="150" y="60" text-anchor="middle" class="title" fill="#d32f2f">Por Filas (Row-Major)</text>
+  <text x="150" y="78" text-anchor="middle" class="subtitle">✓ Cache-Friendly</text>
+  
+  <!-- Matriz izquierda -->
+  <g transform="translate(50, 90)">
+    <!-- Fila 0 -->
+    <rect x="0" y="0" width="50" height="50" class="cell-visited"/>
+    <text x="25" y="30" text-anchor="middle" class="text-label">1</text>
+    
+    <rect x="50" y="0" width="50" height="50" class="cell-visited"/>
+    <text x="75" y="30" text-anchor="middle" class="text-label">2</text>
+    
+    <rect x="100" y="0" width="50" height="50" class="cell-visited"/>
+    <text x="125" y="30" text-anchor="middle" class="text-label">3</text>
+    
+    <rect x="150" y="0" width="50" height="50" class="cell-visited"/>
+    <text x="175" y="30" text-anchor="middle" class="text-label">4</text>
+    
+    <!-- Fila 1 -->
+    <rect x="0" y="50" width="50" height="50" class="cell-visited"/>
+    <text x="25" y="80" text-anchor="middle" class="text-label">5</text>
+    
+    <rect x="50" y="50" width="50" height="50" class="cell-visited"/>
+    <text x="75" y="80" text-anchor="middle" class="text-label">6</text>
+    
+    <rect x="100" y="50" width="50" height="50" class="cell-current"/>
+    <text x="125" y="80" text-anchor="middle" class="text-label" font-weight="bold">7</text>
+    
+    <rect x="150" y="50" width="50" height="50" class="grid-cell"/>
+    <text x="175" y="80" text-anchor="middle" class="text-label">8</text>
+    
+    <!-- Fila 2 -->
+    <rect x="0" y="100" width="50" height="50" class="grid-cell"/>
+    <text x="25" y="130" text-anchor="middle" class="text-label">9</text>
+    
+    <rect x="50" y="100" width="50" height="50" class="grid-cell"/>
+    <text x="75" y="130" text-anchor="middle" class="text-label">10</text>
+    
+    <rect x="100" y="100" width="50" height="50" class="grid-cell"/>
+    <text x="125" y="130" text-anchor="middle" class="text-label">11</text>
+    
+    <rect x="150" y="100" width="50" height="50" class="grid-cell"/>
+    <text x="175" y="130" text-anchor="middle" class="text-label">12</text>
+    
+    <!-- Flechas indicando orden -->
+    <path d="M 30 25 L 65 25" class="arrow"/>
+    <path d="M 80 25 L 115 25" class="arrow"/>
+    <path d="M 130 25 L 165 25" class="arrow"/>
+    <path d="M 190 40 L 10 65" class="arrow" style="stroke-dasharray: 3,3"/>
+    <path d="M 30 75 L 65 75" class="arrow"/>
+    <path d="M 80 75 L 115 75" class="arrow"/>
+  </g>
+  
+  <!-- Código para row-major -->
+  <g transform="translate(50, 260)">
+    <text x="0" y="0" class="text-small" fill="#d32f2f" font-weight="bold">for (i = 0; i &lt; FILAS; i++) {</text>
+    <text x="20" y="18" class="text-small" fill="#d32f2f" font-weight="bold">for (j = 0; j &lt; COLS; j++) {</text>
+    <text x="40" y="36" class="text-small">proceso(matriz[i][j]);</text>
+    <text x="20" y="54" class="text-small">}</text>
+    <text x="0" y="72" class="text-small">}</text>
+  </g>
+  
+  <!-- Recorrido por columnas (Column-Major) -->
+  <text x="550" y="60" text-anchor="middle" class="title" fill="#1976d2">Por Columnas (Column-Major)</text>
+  <text x="550" y="78" text-anchor="middle" class="subtitle">⚠ Menos eficiente</text>
+  
+  <!-- Matriz derecha -->
+  <g transform="translate(450, 90)">
+    <!-- Fila 0 -->
+    <rect x="0" y="0" width="50" height="50" class="cell-visited"/>
+    <text x="25" y="30" text-anchor="middle" class="text-label">1</text>
+    
+    <rect x="50" y="0" width="50" height="50" class="cell-visited"/>
+    <text x="75" y="30" text-anchor="middle" class="text-label">2</text>
+    
+    <rect x="100" y="0" width="50" height="50" class="cell-current"/>
+    <text x="125" y="30" text-anchor="middle" class="text-label" font-weight="bold">3</text>
+    
+    <rect x="150" y="0" width="50" height="50" class="grid-cell"/>
+    <text x="175" y="30" text-anchor="middle" class="text-label">4</text>
+    
+    <!-- Fila 1 -->
+    <rect x="0" y="50" width="50" height="50" class="cell-visited"/>
+    <text x="25" y="80" text-anchor="middle" class="text-label">5</text>
+    
+    <rect x="50" y="50" width="50" height="50" class="cell-visited"/>
+    <text x="75" y="80" text-anchor="middle" class="text-label">6</text>
+    
+    <rect x="100" y="50" width="50" height="50" class="grid-cell"/>
+    <text x="125" y="80" text-anchor="middle" class="text-label">7</text>
+    
+    <rect x="150" y="50" width="50" height="50" class="grid-cell"/>
+    <text x="175" y="80" text-anchor="middle" class="text-label">8</text>
+    
+    <!-- Fila 2 -->
+    <rect x="0" y="100" width="50" height="50" class="cell-visited"/>
+    <text x="25" y="130" text-anchor="middle" class="text-label">9</text>
+    
+    <rect x="50" y="100" width="50" height="50" class="cell-visited"/>
+    <text x="75" y="130" text-anchor="middle" class="text-label">10</text>
+    
+    <rect x="100" y="100" width="50" height="50" class="grid-cell"/>
+    <text x="125" y="130" text-anchor="middle" class="text-label">11</text>
+    
+    <rect x="150" y="100" width="50" height="50" class="grid-cell"/>
+    <text x="175" y="130" text-anchor="middle" class="text-label">12</text>
+    
+    <!-- Flechas indicando orden -->
+    <path d="M 25 40 L 25 60" class="arrow-blue"/>
+    <path d="M 25 90 L 25 110" class="arrow-blue"/>
+    <path d="M 40 135 L 65 10" class="arrow-blue" style="stroke-dasharray: 3,3"/>
+    <path d="M 75 40 L 75 60" class="arrow-blue"/>
+    <path d="M 75 90 L 75 110" class="arrow-blue"/>
+    <path d="M 90 135 L 115 10" class="arrow-blue" style="stroke-dasharray: 3,3"/>
+    <path d="M 125 40 L 125 60" class="arrow-blue"/>
+  </g>
+  
+  <!-- Código para column-major -->
+  <g transform="translate(450, 260)">
+    <text x="0" y="0" class="text-small" fill="#1976d2" font-weight="bold">for (j = 0; j &lt; COLS; j++) {</text>
+    <text x="20" y="18" class="text-small" fill="#1976d2" font-weight="bold">for (i = 0; i &lt; FILAS; i++) {</text>
+    <text x="40" y="36" class="text-small">proceso(matriz[i][j]);</text>
+    <text x="20" y="54" class="text-small">}</text>
+    <text x="0" y="72" class="text-small">}</text>
+  </g>
+  
+  <!-- Leyenda -->
+  <g transform="translate(250, 360)">
+    <rect x="0" y="0" width="30" height="20" class="cell-visited"/>
+    <text x="40" y="15" class="text-small">Visitado</text>
+    
+    <rect x="120" y="0" width="30" height="20" class="cell-current"/>
+    <text x="160" y="15" class="text-small">Actual</text>
+    
+    <rect x="240" y="0" width="30" height="20" class="grid-cell"/>
+    <text x="280" y="15" class="text-small">Pendiente</text>
+  </g>
+  
+  <!-- Nota sobre caché -->
+  <g transform="translate(100, 400)">
+    <text x="0" y="0" class="text-small" fill="#388e3c" font-weight="bold">✓ Row-Major: Acceso secuencial → Mayor tasa de aciertos de caché</text>
+    <text x="0" y="20" class="text-small" fill="#d32f2f">⚠ Column-Major: Saltos en memoria → Mayor cantidad de fallos de caché</text>
+  </g>
+</svg>

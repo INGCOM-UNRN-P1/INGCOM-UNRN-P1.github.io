@@ -14,17 +14,16 @@ Este capítulo asume que ya dominás los conceptos de arreglos unidimensionales 
 
 Las matrices son fundamentales en numerosas aplicaciones: desde operaciones matemáticas básicas hasta algoritmos complejos de procesamiento de imágenes, simulaciones físicas, análisis de datos, representación de grafos, implementación de juegos como el tres en raya o ajedrez, y sistemas de coordenadas bidimensionales. Su comprensión es esencial para el desarrollo de software eficiente y estructurado.
 
-:::{important} Relación con el álgebra lineal
+### Relación con el álgebra lineal
 Las matrices en programación están íntimamente relacionadas con el concepto matemático de matriz del álgebra lineal. Esto permite aplicar directamente teoremas y algoritmos matemáticos en implementaciones de software, especialmente en campos como gráficos por computadora, machine learning, y simulaciones científicas.
-:::
 
-:::{tip} Extensión a múltiples dimensiones
+
+###  Extensión a múltiples dimensiones
 Técnicamente, no están limitadas a dos dimensiones. Podés tener arreglos
 tridimensionales (`int cubo[3][4][5]`) o de mayor dimensionalidad. Sin embargo,
 las aplicaciones prácticas se vuelven menos claras y la complejidad de manejo
 aumenta considerablemente. Todos los conceptos presentados aquí se extienden
 naturalmente a estas dimensiones superiores.
-:::
 
 ## Declaración
 
@@ -39,6 +38,7 @@ tipo_dato nombre_matriz[CANTIDAD_FILAS][CANTIDAD_COLUMNAS];
 ```
 
 :::{warning} Uso de ALV/VLA
+
 Es muy importante destacar que las matrices **deben** ser de dimensiones
 constantes en tiempo de compilación, ya sea con el número literal, o un macro de
 preprocesador, como lo exige la regla de estilo {ref}`0x000Eh`.
@@ -46,6 +46,7 @@ preprocesador, como lo exige la regla de estilo {ref}`0x000Eh`.
 Los problemas de utilizar ALV/VLA son mayores aquí que con los arreglos. Cuando
 veamos memoria dinámica, vamos a liberarnos de estas restricciones y ver por qué
 usar esta técnica es riesgoso.
+
 :::
 
 Ejemplo
@@ -55,6 +56,7 @@ int miMatriz[3][4]; // Matriz de 3 filas y 4 columnas
 ```
 
 :::{note} Almacenamiento en memoria
+
 A nivel de memoria, el lenguaje C asigna un bloque único y contiguo para el
 almacenamiento de la matriz. La disposición de los elementos sigue el criterio
 de **orden de fila principal (row-major order)**, lo que implica que los
@@ -63,12 +65,31 @@ elementos de la segunda fila, y así sucesivamente.
 
 Para la matriz `mi_matriz[3][4]`, la memoria contendría los 12 enteros en
 secuencia, como un arreglo: `[f0c0, f0c1, f0c2, f0c3, f1c0, f1c1, ...]`.
+
+:::
+
+:::{figure} 6/matriz_2d_memoria.svg
+:label: fig-matriz-memoria
+:width: 100%
+
+Representación de una matriz bidimensional en memoria. Los elementos se
+almacenan de forma contigua siguiendo el orden row-major, donde cada fila se
+almacena completa antes de pasar a la siguiente.
 :::
 
 ## Inicialización
 
 Podemos inicializar nuestras matrices, esencialmente, de dos formas diferentes,
 con un inicializador como con los arreglos, o con código.
+
+:::{figure} 6/inicializacion_matriz.svg
+:label: fig-inicializacion-matriz
+:width: 100%
+
+Tres métodos de inicialización de matrices: con inicializador completo, con
+declaración implícita de la primera dimensión, y programáticamente mediante
+lazos.
+:::
 
 ### Inicialización completa
 
@@ -195,6 +216,16 @@ for (size_t j = 0; j < COLUMNAS; j++) {
 }
 ```
 
+:::{figure} 6/recorrido_filas_columnas.svg
+:label: fig-recorrido-matrices
+:width: 100%
+
+Comparación entre el recorrido por filas (row-major) y por columnas
+(column-major). El recorrido por filas accede a elementos contiguos en memoria,
+aprovechando la caché. El recorrido por columnas genera saltos en memoria,
+causando más fallos de caché.
+:::
+
 ### Recorrido Diagonal
 
 Para matrices cuadradas, es común necesitar acceder a las diagonales.
@@ -219,6 +250,15 @@ for (size_t i = 0; i < DIM; i++) {
 }
 printf("\n");
 ```
+
+:::{figure} 6/diagonales_matriz.svg
+:label: fig-diagonales
+:width: 100%
+
+Las diagonales principal y secundaria en una matriz cuadrada. La diagonal
+principal cumple la condición `i == j`, mientras que la secundaria cumple
+`i + j == DIM - 1`.
+:::
 
 :::{important} Eficiencia y localidad de memoria
 El orden de recorrido por filas es generalmente más eficiente debido a cómo C
@@ -300,6 +340,15 @@ El lenguaje C no impone un límite de dos dimensiones para los arreglos; es
 posible declarar arreglos multidimensionales. Un arreglo tridimensional, por
 ejemplo, puede conceptualizarse como un cubo de datos.
 
+:::{figure} 6/matriz_3d.svg
+:label: fig-matriz-3d
+:width: 100%
+
+Arreglo tridimensional representado como capas de matrices bidimensionales. Cada
+capa contiene una matriz completa, y el acceso requiere tres índices: capa,
+fila y columna.
+:::
+
 ```{code-block}c
 :caption: Declaración y recorrido de un arreglo 3D
 // Arreglo tridimensional: 2 capas, 3 filas, y 4 columnas.
@@ -325,6 +374,15 @@ impacto significativo sobre el rendimiento computacional. Este fenómeno se
 atribuye a la arquitectura de memoria jerárquica de los procesadores modernos,
 los cuales utilizan una memoria caché de alta velocidad como intermediaria entre
 la CPU y la memoria principal (RAM).
+
+:::{figure} 6/cache_localidad.svg
+:label: fig-cache-localidad
+:width: 100%
+
+Impacto del orden de acceso en el rendimiento. El acceso row-major aprovecha la
+localidad espacial, cargando elementos contiguos en la caché. El acceso
+column-major genera saltos que causan múltiples fallos de caché.
+:::
 
 ### Recorrido Óptimo (Cache-Friendly)
 
@@ -367,6 +425,14 @@ for (size_t j = 0; j < COLUMNAS; j++) {
 En el ámbito de la programación en $C$ y otras áreas de la computación, el
 manejo de matrices es fundamental. $A$ continuación, te presento los algoritmos
 y las expresiones matemáticas para las operaciones básicas entre matrices.
+
+:::{figure} 6/operaciones_basicas.svg
+:label: fig-operaciones-basicas
+:width: 100%
+
+Operaciones básicas con matrices: suma, resta y transposición. Cada operación
+requiere validar que las dimensiones sean compatibles antes de proceder.
+:::
 
 ## Suma de Matrices
 
@@ -476,6 +542,15 @@ FIN FUNCIÓN
 La multiplicación de una matriz $A$ de dimensión $𝑚×𝑝$ por una matriz $B$ de
 dimensión $𝑝×𝑛$ produce una matriz $C$ de dimensión $𝑚×𝑛$. Es crucial que el
 número de columnas de $A$ sea igual al número de filas de $B$.
+
+:::{figure} 6/multiplicacion_matrices.svg
+:label: fig-multiplicacion-matrices
+:width: 100%
+
+Proceso de multiplicación de matrices. Cada elemento C[i][j] se calcula como el
+producto escalar de la fila i de A con la columna j de B, sumando los productos
+elemento por elemento.
+:::
 
 ### Expresión Matemática
 
@@ -716,6 +791,15 @@ FIN FUNCIÓN
 En aplicaciones robustas, es fundamental implementar validaciones para prevenir
 accesos fuera de límites y operaciones inválidas. Esto es especialmente crítico
 en C, donde no existe verificación automática de límites ({ref}`0x0027h`).
+
+:::{figure} 6/validacion_dimensiones.svg
+:label: fig-validacion-dimensiones
+:width: 100%
+
+Validación de dimensiones para operaciones con matrices. La suma y resta
+requieren dimensiones idénticas, mientras que la multiplicación requiere que las
+columnas de A sean igual a las filas de B.
+:::
 
 ### Validación de Índices
 

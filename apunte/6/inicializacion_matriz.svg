@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450">
+  <defs>
+    <style>
+      .grid-cell { fill: #ffffff; stroke: #424242; stroke-width: 2; }
+      .cell-init { fill: #bbdefb; stroke: #1976d2; stroke-width: 2; }
+      .text-label { font-family: 'Courier New', monospace; font-size: 13px; fill: #212121; }
+      .text-code { font-family: 'Courier New', monospace; font-size: 11px; fill: #212121; }
+      .text-comment { font-family: 'Courier New', monospace; font-size: 10px; fill: #388e3c; }
+      .title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #1565c0; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 13px; fill: #424242; }
+    </style>
+  </defs>
+  
+  <!-- Título -->
+  <text x="450" y="25" text-anchor="middle" class="title">Métodos de Inicialización de Matrices</text>
+  
+  <!-- Método 1: Inicialización completa -->
+  <g transform="translate(50, 50)">
+    <text x="0" y="0" class="title" fill="#1976d2">1. Inicialización Completa</text>
+    
+    <!-- Código -->
+    <g transform="translate(0, 20)">
+      <text x="0" y="0" class="text-code">int matriz[2][3] = {</text>
+      <text x="20" y="15" class="text-code">{1, 2, 3},</text>
+      <text x="110" y="15" class="text-comment">// Fila 0</text>
+      <text x="20" y="30" class="text-code">{4, 5, 6}</text>
+      <text x="110" y="30" class="text-comment">// Fila 1</text>
+      <text x="0" y="45" class="text-code">};</text>
+    </g>
+    
+    <!-- Matriz resultante -->
+    <g transform="translate(0, 90)">
+      <text x="60" y="-5" text-anchor="middle" class="subtitle">Resultado:</text>
+      <rect x="0" y="0" width="40" height="35" class="cell-init"/>
+      <text x="20" y="23" text-anchor="middle" class="text-label">1</text>
+      <rect x="40" y="0" width="40" height="35" class="cell-init"/>
+      <text x="60" y="23" text-anchor="middle" class="text-label">2</text>
+      <rect x="80" y="0" width="40" height="35" class="cell-init"/>
+      <text x="100" y="23" text-anchor="middle" class="text-label">3</text>
+      
+      <rect x="0" y="35" width="40" height="35" class="cell-init"/>
+      <text x="20" y="58" text-anchor="middle" class="text-label">4</text>
+      <rect x="40" y="35" width="40" height="35" class="cell-init"/>
+      <text x="60" y="58" text-anchor="middle" class="text-label">5</text>
+      <rect x="80" y="35" width="40" height="35" class="cell-init"/>
+      <text x="100" y="58" text-anchor="middle" class="text-label">6</text>
+    </g>
+  </g>
+  
+  <!-- Método 2: Con declaración implícita -->
+  <g transform="translate(350, 50)">
+    <text x="0" y="0" class="title" fill="#f57c00">2. Declaración Implícita</text>
+    
+    <!-- Código -->
+    <g transform="translate(0, 20)">
+      <text x="0" y="0" class="text-code">int matriz[][3] = {</text>
+      <text x="20" y="15" class="text-code">{1, 2, 3},</text>
+      <text x="20" y="30" class="text-code">{4, 5, 6}</text>
+      <text x="0" y="45" class="text-code">};</text>
+      <text x="0" y="65" class="text-comment">// Omite primera dimensión</text>
+      <text x="0" y="80" class="text-comment">// El compilador infiere 2 filas</text>
+    </g>
+    
+    <!-- Matriz resultante -->
+    <g transform="translate(0, 110)">
+      <text x="60" y="-5" text-anchor="middle" class="subtitle">Resultado:</text>
+      <rect x="0" y="0" width="40" height="35" class="cell-init"/>
+      <text x="20" y="23" text-anchor="middle" class="text-label">1</text>
+      <rect x="40" y="0" width="40" height="35" class="cell-init"/>
+      <text x="60" y="23" text-anchor="middle" class="text-label">2</text>
+      <rect x="80" y="0" width="40" height="35" class="cell-init"/>
+      <text x="100" y="23" text-anchor="middle" class="text-label">3</text>
+      
+      <rect x="0" y="35" width="40" height="35" class="cell-init"/>
+      <text x="20" y="58" text-anchor="middle" class="text-label">4</text>
+      <rect x="40" y="35" width="40" height="35" class="cell-init"/>
+      <text x="60" y="58" text-anchor="middle" class="text-label">5</text>
+      <rect x="80" y="35" width="40" height="35" class="cell-init"/>
+      <text x="100" y="58" text-anchor="middle" class="text-label">6</text>
+    </g>
+  </g>
+  
+  <!-- Método 3: Inicialización con lazos -->
+  <g transform="translate(50, 260)">
+    <text x="0" y="0" class="title" fill="#388e3c">3. Inicialización Manual con Lazos</text>
+    
+    <!-- Código -->
+    <g transform="translate(0, 20)">
+      <text x="0" y="0" class="text-code">#define FILAS 3</text>
+      <text x="0" y="15" class="text-code">#define COLUMNAS 4</text>
+      <text x="0" y="35" class="text-code">int matriz[FILAS][COLUMNAS];</text>
+      <text x="0" y="55" class="text-code">for (size_t i = 0; i &lt; FILAS; i++) {</text>
+      <text x="20" y="70" class="text-code">for (size_t j = 0; j &lt; COLUMNAS; j++) {</text>
+      <text x="40" y="85" class="text-code">matriz[i][j] = i * 10 + j;</text>
+      <text x="20" y="100" class="text-code">}</text>
+      <text x="0" y="115" class="text-code">}</text>
+    </g>
+    
+    <!-- Matriz resultante -->
+    <g transform="translate(350, 20)">
+      <text x="80" y="-5" text-anchor="middle" class="subtitle">Resultado:</text>
+      <rect x="0" y="0" width="40" height="30" class="cell-init"/>
+      <text x="20" y="20" text-anchor="middle" class="text-label">0</text>
+      <rect x="40" y="0" width="40" height="30" class="cell-init"/>
+      <text x="60" y="20" text-anchor="middle" class="text-label">1</text>
+      <rect x="80" y="0" width="40" height="30" class="cell-init"/>
+      <text x="100" y="20" text-anchor="middle" class="text-label">2</text>
+      <rect x="120" y="0" width="40" height="30" class="cell-init"/>
+      <text x="140" y="20" text-anchor="middle" class="text-label">3</text>
+      
+      <rect x="0" y="30" width="40" height="30" class="cell-init"/>
+      <text x="20" y="50" text-anchor="middle" class="text-label">10</text>
+      <rect x="40" y="30" width="40" height="30" class="cell-init"/>
+      <text x="60" y="50" text-anchor="middle" class="text-label">11</text>
+      <rect x="80" y="30" width="40" height="30" class="cell-init"/>
+      <text x="100" y="50" text-anchor="middle" class="text-label">12</text>
+      <rect x="120" y="30" width="40" height="30" class="cell-init"/>
+      <text x="140" y="50" text-anchor="middle" class="text-label">13</text>
+      
+      <rect x="0" y="60" width="40" height="30" class="cell-init"/>
+      <text x="20" y="80" text-anchor="middle" class="text-label">20</text>
+      <rect x="40" y="60" width="40" height="30" class="cell-init"/>
+      <text x="60" y="80" text-anchor="middle" class="text-label">21</text>
+      <rect x="80" y="60" width="40" height="30" class="cell-init"/>
+      <text x="100" y="80" text-anchor="middle" class="text-label">22</text>
+      <rect x="120" y="60" width="40" height="30" class="cell-init"/>
+      <text x="140" y="80" text-anchor="middle" class="text-label">23</text>
+      
+      <text x="80" y="110" text-anchor="middle" class="text-comment">i * 10 + j</text>
+    </g>
+  </g>
+</svg>

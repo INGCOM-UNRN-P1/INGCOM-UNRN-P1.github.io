@@ -1,707 +1,114 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   viewBox="0 0 795.22943 551.72528"
-   version="1.1"
-   id="svg44"
-   sodipodi:docname="diagonales_matriz.svg"
-   width="795.22943"
-   height="551.72528"
-   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs44" />
-  <sodipodi:namedview
-     id="namedview44"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="1.3183613"
-     inkscape:cx="350.05578"
-     inkscape:cy="198.3523"
-     inkscape:window-width="1872"
-     inkscape:window-height="1043"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg44" />
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 400">
+  <defs>
+    <style>
+      .grid-cell { fill: #ffffff; stroke: #424242; stroke-width: 2; }
+      .cell-principal { fill: #e3f2fd; stroke: #1976d2; stroke-width: 3; }
+      .cell-secundaria { fill: #fff3e0; stroke: #f57c00; stroke-width: 3; }
+      .text-label { font-family: 'Courier New', monospace; font-size: 16px; fill: #212121; font-weight: bold; }
+      .text-index { font-family: 'Courier New', monospace; font-size: 11px; fill: #616161; }
+      .title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #1565c0; }
+      .formula { font-family: 'Courier New', monospace; font-size: 13px; fill: #212121; }
+    </style>
+  </defs>
+  
   <!-- Título -->
-  <text
-     x="384.0867"
-     y="46.558701"
-     font-family="Arial, sans-serif"
-     font-size="18px"
-     font-weight="bold"
-     text-anchor="middle"
-     id="text1">Diagonales en Matriz Cuadrada 4×4</text>
-  <!-- Diagonal Principal -->
-  <text
-     x="184.08672"
-     y="90.558701"
-     font-family="Arial, sans-serif"
-     font-size="16px"
-     font-weight="bold"
-     text-anchor="middle"
-     id="text2">Diagonal Principal (i == j)</text>
-  <g
-     transform="translate(34.08671,110.5587)"
-     id="g18">
+  <text x="350" y="25" text-anchor="middle" class="title">Diagonales en Matrices Cuadradas</text>
+  
+  <!-- Matriz 4x4 -->
+  <g transform="translate(200, 60)">
+    <!-- Índices de columnas -->
+    <text x="30" y="-10" text-anchor="middle" class="text-index">j=0</text>
+    <text x="90" y="-10" text-anchor="middle" class="text-index">j=1</text>
+    <text x="150" y="-10" text-anchor="middle" class="text-index">j=2</text>
+    <text x="210" y="-10" text-anchor="middle" class="text-index">j=3</text>
+    
+    <!-- Índices de filas -->
+    <text x="-20" y="35" text-anchor="middle" class="text-index">i=0</text>
+    <text x="-20" y="95" text-anchor="middle" class="text-index">i=1</text>
+    <text x="-20" y="155" text-anchor="middle" class="text-index">i=2</text>
+    <text x="-20" y="215" text-anchor="middle" class="text-index">i=3</text>
+    
     <!-- Fila 0 -->
-    <rect
-       x="0"
-       y="0"
-       width="60"
-       height="60"
-       fill="#ff6b6b"
-       stroke="#c92a2a"
-       stroke-width="3"
-       id="rect2" />
-    <text
-       x="30"
-       y="35"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       fill="#ffffff"
-       font-weight="bold"
-       id="text3">[0][0]</text>
-    <rect
-       x="70"
-       y="0"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect3" />
-    <text
-       x="100"
-       y="35"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text4">[0][1]</text>
-    <rect
-       x="140"
-       y="0"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect4" />
-    <text
-       x="170"
-       y="35"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text5">[0][2]</text>
-    <rect
-       x="210"
-       y="0"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect5" />
-    <text
-       x="240"
-       y="35"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text6">[0][3]</text>
+    <rect x="0" y="0" width="60" height="60" class="cell-principal"/>
+    <text x="30" y="38" text-anchor="middle" class="text-label" fill="#1976d2">1</text>
+    
+    <rect x="60" y="0" width="60" height="60" class="grid-cell"/>
+    <text x="90" y="38" text-anchor="middle" class="text-label">2</text>
+    
+    <rect x="120" y="0" width="60" height="60" class="grid-cell"/>
+    <text x="150" y="38" text-anchor="middle" class="text-label">3</text>
+    
+    <rect x="180" y="0" width="60" height="60" class="cell-secundaria"/>
+    <text x="210" y="38" text-anchor="middle" class="text-label" fill="#f57c00">4</text>
+    
     <!-- Fila 1 -->
-    <rect
-       x="0"
-       y="70"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect6" />
-    <text
-       x="30"
-       y="105"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text7">[1][0]</text>
-    <rect
-       x="70"
-       y="70"
-       width="60"
-       height="60"
-       fill="#ff6b6b"
-       stroke="#c92a2a"
-       stroke-width="3"
-       id="rect7" />
-    <text
-       x="100"
-       y="105"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       fill="#ffffff"
-       font-weight="bold"
-       id="text8">[1][1]</text>
-    <rect
-       x="140"
-       y="70"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect8" />
-    <text
-       x="170"
-       y="105"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text9">[1][2]</text>
-    <rect
-       x="210"
-       y="70"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect9" />
-    <text
-       x="240"
-       y="105"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text10">[1][3]</text>
+    <rect x="0" y="60" width="60" height="60" class="grid-cell"/>
+    <text x="30" y="98" text-anchor="middle" class="text-label">5</text>
+    
+    <rect x="60" y="60" width="60" height="60" class="cell-principal"/>
+    <text x="90" y="98" text-anchor="middle" class="text-label" fill="#1976d2">6</text>
+    
+    <rect x="120" y="60" width="60" height="60" class="cell-secundaria"/>
+    <text x="150" y="98" text-anchor="middle" class="text-label" fill="#f57c00">7</text>
+    
+    <rect x="180" y="60" width="60" height="60" class="grid-cell"/>
+    <text x="210" y="98" text-anchor="middle" class="text-label">8</text>
+    
     <!-- Fila 2 -->
-    <rect
-       x="0"
-       y="140"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect10" />
-    <text
-       x="30"
-       y="175"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text11">[2][0]</text>
-    <rect
-       x="70"
-       y="140"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect11" />
-    <text
-       x="100"
-       y="175"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text12">[2][1]</text>
-    <rect
-       x="140"
-       y="140"
-       width="60"
-       height="60"
-       fill="#ff6b6b"
-       stroke="#c92a2a"
-       stroke-width="3"
-       id="rect12" />
-    <text
-       x="170"
-       y="175"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       fill="#ffffff"
-       font-weight="bold"
-       id="text13">[2][2]</text>
-    <rect
-       x="210"
-       y="140"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect13" />
-    <text
-       x="240"
-       y="175"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text14">[2][3]</text>
+    <rect x="0" y="120" width="60" height="60" class="grid-cell"/>
+    <text x="30" y="158" text-anchor="middle" class="text-label">9</text>
+    
+    <rect x="60" y="120" width="60" height="60" class="cell-secundaria"/>
+    <text x="90" y="158" text-anchor="middle" class="text-label" fill="#f57c00">10</text>
+    
+    <rect x="120" y="120" width="60" height="60" class="cell-principal"/>
+    <text x="150" y="158" text-anchor="middle" class="text-label" fill="#1976d2">11</text>
+    
+    <rect x="180" y="120" width="60" height="60" class="grid-cell"/>
+    <text x="210" y="158" text-anchor="middle" class="text-label">12</text>
+    
     <!-- Fila 3 -->
-    <rect
-       x="0"
-       y="210"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect14" />
-    <text
-       x="30"
-       y="245"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text15">[3][0]</text>
-    <rect
-       x="70"
-       y="210"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect15" />
-    <text
-       x="100"
-       y="245"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text16">[3][1]</text>
-    <rect
-       x="140"
-       y="210"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect16" />
-    <text
-       x="170"
-       y="245"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text17">[3][2]</text>
-    <rect
-       x="210"
-       y="210"
-       width="60"
-       height="60"
-       fill="#ff6b6b"
-       stroke="#c92a2a"
-       stroke-width="3"
-       id="rect17" />
-    <text
-       x="240"
-       y="245"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       fill="#ffffff"
-       font-weight="bold"
-       id="text18">[3][3]</text>
+    <rect x="0" y="180" width="60" height="60" class="cell-secundaria"/>
+    <text x="30" y="218" text-anchor="middle" class="text-label" fill="#f57c00">13</text>
+    
+    <rect x="60" y="180" width="60" height="60" class="grid-cell"/>
+    <text x="90" y="218" text-anchor="middle" class="text-label">14</text>
+    
+    <rect x="120" y="180" width="60" height="60" class="grid-cell"/>
+    <text x="150" y="218" text-anchor="middle" class="text-label">15</text>
+    
+    <rect x="180" y="180" width="60" height="60" class="cell-principal"/>
+    <text x="210" y="218" text-anchor="middle" class="text-label" fill="#1976d2">16</text>
+    
     <!-- Línea diagonal principal -->
-    <line
-       x1="5"
-       y1="5"
-       x2="265"
-       y2="265"
-       stroke="#c92a2a"
-       stroke-width="4"
-       stroke-dasharray="8, 4"
-       id="line18" />
-  </g>
-  <rect
-     x="34.038143"
-     y="403.10846"
-     width="271.27347"
-     height="90.097137"
-     fill="#ffe8e8"
-     stroke="#c92a2a"
-     stroke-width="1.90286"
-     rx="4.521225"
-     id="rect18" />
-  <text
-     x="44.086712"
-     y="428.15704"
-     font-family="monospace"
-     font-size="12px"
-     id="text19">for (size_t i = 0; i &lt; DIM; i++) {</text>
-  <text
-     x="59.086712"
-     y="448.15704"
-     font-family="monospace"
-     font-size="12px"
-     id="text20">printf(&quot;%d &quot;, matriz[i][i]);</text>
-  <text
-     x="44.086712"
-     y="468.15704"
-     font-family="monospace"
-     font-size="12px"
-     id="text21">}</text>
-  <text
-     x="53.606724"
-     y="469.02435"
-     font-family="Arial, sans-serif"
-     font-size="12.9601px"
-     fill="#666666"
-     id="text22"
-     style="stroke-width:1.17819">// Condición: i == j</text>
-  <!-- Diagonal Secundaria -->
-  <text
-     x="584.08673"
-     y="90.558701"
-     font-family="Arial, sans-serif"
-     font-size="16px"
-     font-weight="bold"
-     text-anchor="middle"
-     id="text23">Diagonal Secundaria (i + j == DIM - 1)</text>
-  <g
-     transform="translate(434.08671,110.5587)"
-     id="g39">
-    <!-- Fila 0 -->
-    <rect
-       x="0"
-       y="0"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect23" />
-    <text
-       x="30"
-       y="35"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text24">[0][0]</text>
-    <rect
-       x="70"
-       y="0"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect24" />
-    <text
-       x="100"
-       y="35"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text25">[0][1]</text>
-    <rect
-       x="140"
-       y="0"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect25" />
-    <text
-       x="170"
-       y="35"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text26">[0][2]</text>
-    <rect
-       x="210"
-       y="0"
-       width="60"
-       height="60"
-       fill="#4ecdc4"
-       stroke="#0e7c7b"
-       stroke-width="3"
-       id="rect26" />
-    <text
-       x="240"
-       y="35"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       fill="#ffffff"
-       font-weight="bold"
-       id="text27">[0][3]</text>
-    <!-- Fila 1 -->
-    <rect
-       x="0"
-       y="70"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect27" />
-    <text
-       x="30"
-       y="105"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text28">[1][0]</text>
-    <rect
-       x="70"
-       y="70"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect28" />
-    <text
-       x="100"
-       y="105"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text29">[1][1]</text>
-    <rect
-       x="140"
-       y="70"
-       width="60"
-       height="60"
-       fill="#4ecdc4"
-       stroke="#0e7c7b"
-       stroke-width="3"
-       id="rect29" />
-    <text
-       x="170"
-       y="105"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       fill="#ffffff"
-       font-weight="bold"
-       id="text30">[1][2]</text>
-    <rect
-       x="210"
-       y="70"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect30" />
-    <text
-       x="240"
-       y="105"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text31">[1][3]</text>
-    <!-- Fila 2 -->
-    <rect
-       x="0"
-       y="140"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect31" />
-    <text
-       x="30"
-       y="175"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text32">[2][0]</text>
-    <rect
-       x="70"
-       y="140"
-       width="60"
-       height="60"
-       fill="#4ecdc4"
-       stroke="#0e7c7b"
-       stroke-width="3"
-       id="rect32" />
-    <text
-       x="100"
-       y="175"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       fill="#ffffff"
-       font-weight="bold"
-       id="text33">[2][1]</text>
-    <rect
-       x="140"
-       y="140"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect33" />
-    <text
-       x="170"
-       y="175"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text34">[2][2]</text>
-    <rect
-       x="210"
-       y="140"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect34" />
-    <text
-       x="240"
-       y="175"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text35">[2][3]</text>
-    <!-- Fila 3 -->
-    <rect
-       x="0"
-       y="210"
-       width="60"
-       height="60"
-       fill="#4ecdc4"
-       stroke="#0e7c7b"
-       stroke-width="3"
-       id="rect35" />
-    <text
-       x="30"
-       y="245"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       fill="#ffffff"
-       font-weight="bold"
-       id="text36">[3][0]</text>
-    <rect
-       x="70"
-       y="210"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect36" />
-    <text
-       x="100"
-       y="245"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text37">[3][1]</text>
-    <rect
-       x="140"
-       y="210"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect37" />
-    <text
-       x="170"
-       y="245"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text38">[3][2]</text>
-    <rect
-       x="210"
-       y="210"
-       width="60"
-       height="60"
-       fill="#e3f2fd"
-       stroke="#333333"
-       stroke-width="1"
-       id="rect38" />
-    <text
-       x="240"
-       y="245"
-       font-family="monospace"
-       font-size="14px"
-       text-anchor="middle"
-       id="text39">[3][3]</text>
+    <line x1="5" y1="5" x2="235" y2="235" stroke="#1976d2" stroke-width="3" stroke-dasharray="5,5" opacity="0.5"/>
+    
     <!-- Línea diagonal secundaria -->
-    <line
-       x1="265"
-       y1="5"
-       x2="5"
-       y2="265"
-       stroke="#0e7c7b"
-       stroke-width="4"
-       stroke-dasharray="8, 4"
-       id="line39" />
+    <line x1="235" y1="5" x2="5" y2="235" stroke="#f57c00" stroke-width="3" stroke-dasharray="5,5" opacity="0.5"/>
   </g>
-  <rect
-     x="434.0867"
-     y="403.15704"
-     width="269.80017"
-     height="90"
-     fill="#e0f7fa"
-     stroke="#0e7c7b"
-     stroke-width="1.89666"
-     rx="4.4966698"
-     id="rect39" />
-  <text
-     x="444.0867"
-     y="428.15704"
-     font-family="monospace"
-     font-size="12px"
-     id="text40">for (size_t i = 0; i &lt; DIM; i++) {</text>
-  <text
-     x="457.0867"
-     y="448.15704"
-     font-family="monospace"
-     font-size="12px"
-     id="text41">printf(&quot;%d &quot;, matriz[i][DIM-1-i]);</text>
-  <text
-     x="444.0867"
-     y="468.15704"
-     font-family="monospace"
-     font-size="12px"
-     id="text42">}</text>
-  <text
-     x="453.60672"
-     y="468.23883"
-     font-family="Arial, sans-serif"
-     font-size="11.8811px"
-     fill="#666666"
-     id="text43"
-     style="stroke-width:1.0801">// Condición: i + j == DIM - 1</text>
-  <!-- Nota explicativa -->
-  <text
-     x="384.0867"
-     y="530.63043"
-     font-family="Arial, sans-serif"
-     font-size="13px"
-     text-anchor="middle"
-     font-style="italic"
-     fill="#666666"
-     id="text44">Las diagonales son comunes en matrices cuadradas para algoritmos matemáticos y de juego</text>
+  
+  <!-- Leyenda y fórmulas -->
+  <g transform="translate(50, 310)">
+    <rect x="0" y="0" width="30" height="25" class="cell-principal"/>
+    <text x="40" y="18" class="formula" fill="#1976d2" font-weight="bold">Diagonal Principal:</text>
+    <text x="220" y="18" class="formula">i == j</text>
+    <text x="300" y="18" class="formula" fill="#616161">→ matriz[i][i]</text>
+    
+    <rect x="0" y="35" width="30" height="25" class="cell-secundaria"/>
+    <text x="40" y="53" class="formula" fill="#f57c00" font-weight="bold">Diagonal Secundaria:</text>
+    <text x="220" y="53" class="formula">i + j == DIM - 1</text>
+    <text x="380" y="53" class="formula" fill="#616161">→ matriz[i][DIM-1-i]</text>
+  </g>
+  
+  <!-- Código ejemplo -->
+  <g transform="translate(480, 80)">
+    <text x="0" y="0" class="formula" fill="#1976d2" font-weight="bold">// Diagonal principal</text>
+    <text x="0" y="20" class="formula">for (i = 0; i &lt; DIM; i++)</text>
+    <text x="10" y="40" class="formula">suma += matriz[i][i];</text>
+    
+    <text x="0" y="80" class="formula" fill="#f57c00" font-weight="bold">// Diagonal secundaria</text>
+    <text x="0" y="100" class="formula">for (i = 0; i &lt; DIM; i++)</text>
+    <text x="10" y="120" class="formula">suma += matriz[i][DIM-1-i];</text>
+  </g>
 </svg>

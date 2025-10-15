@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <style>
+      .grid-cell { fill: #e3f2fd; stroke: #1976d2; stroke-width: 2; }
+      .grid-cell-layer1 { fill: #fff3e0; stroke: #f57c00; stroke-width: 2; }
+      .text-label { font-family: 'Courier New', monospace; font-size: 11px; fill: #212121; font-weight: bold; }
+      .text-small { font-family: 'Courier New', monospace; font-size: 10px; fill: #424242; }
+      .text-code { font-family: 'Courier New', monospace; font-size: 11px; fill: #212121; }
+      .title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #1565c0; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 12px; fill: #424242; }
+    </style>
+  </defs>
+  
+  <!-- Título -->
+  <text x="400" y="25" text-anchor="middle" class="title">Arreglos Tridimensionales (Cubo de Datos)</text>
+  <text x="400" y="45" text-anchor="middle" class="subtitle">int cubo[2][3][4] - 2 capas × 3 filas × 4 columnas</text>
+  
+  <!-- Capa 0 -->
+  <g transform="translate(100, 80)">
+    <text x="80" y="-10" text-anchor="middle" class="subtitle" fill="#1976d2">Capa 0 (cubo[0][][])</text>
+    
+    <!-- Índices de columna -->
+    <text x="25" y="-25" text-anchor="middle" class="text-small">j=0</text>
+    <text x="65" y="-25" text-anchor="middle" class="text-small">j=1</text>
+    <text x="105" y="-25" text-anchor="middle" class="text-small">j=2</text>
+    <text x="145" y="-25" text-anchor="middle" class="text-small">j=3</text>
+    
+    <!-- Índices de fila -->
+    <text x="-25" y="20" text-anchor="middle" class="text-small">i=0</text>
+    <text x="-25" y="60" text-anchor="middle" class="text-small">i=1</text>
+    <text x="-25" y="100" text-anchor="middle" class="text-small">i=2</text>
+    
+    <!-- Fila 0 -->
+    <rect x="0" y="0" width="40" height="40" class="grid-cell"/>
+    <text x="20" y="25" text-anchor="middle" class="text-label">0</text>
+    <rect x="40" y="0" width="40" height="40" class="grid-cell"/>
+    <text x="60" y="25" text-anchor="middle" class="text-label">1</text>
+    <rect x="80" y="0" width="40" height="40" class="grid-cell"/>
+    <text x="100" y="25" text-anchor="middle" class="text-label">2</text>
+    <rect x="120" y="0" width="40" height="40" class="grid-cell"/>
+    <text x="140" y="25" text-anchor="middle" class="text-label">3</text>
+    
+    <!-- Fila 1 -->
+    <rect x="0" y="40" width="40" height="40" class="grid-cell"/>
+    <text x="20" y="65" text-anchor="middle" class="text-label">4</text>
+    <rect x="40" y="40" width="40" height="40" class="grid-cell"/>
+    <text x="60" y="65" text-anchor="middle" class="text-label">5</text>
+    <rect x="80" y="40" width="40" height="40" class="grid-cell"/>
+    <text x="100" y="65" text-anchor="middle" class="text-label">6</text>
+    <rect x="120" y="40" width="40" height="40" class="grid-cell"/>
+    <text x="140" y="65" text-anchor="middle" class="text-label">7</text>
+    
+    <!-- Fila 2 -->
+    <rect x="0" y="80" width="40" height="40" class="grid-cell"/>
+    <text x="20" y="105" text-anchor="middle" class="text-label">8</text>
+    <rect x="40" y="80" width="40" height="40" class="grid-cell"/>
+    <text x="60" y="105" text-anchor="middle" class="text-label">9</text>
+    <rect x="80" y="80" width="40" height="40" class="grid-cell"/>
+    <text x="100" y="105" text-anchor="middle" class="text-label">10</text>
+    <rect x="120" y="80" width="40" height="40" class="grid-cell"/>
+    <text x="140" y="105" text-anchor="middle" class="text-label">11</text>
+  </g>
+  
+  <!-- Capa 1 -->
+  <g transform="translate(100, 270)">
+    <text x="80" y="-10" text-anchor="middle" class="subtitle" fill="#f57c00">Capa 1 (cubo[1][][])</text>
+    
+    <!-- Fila 0 -->
+    <rect x="0" y="0" width="40" height="40" class="grid-cell-layer1"/>
+    <text x="20" y="25" text-anchor="middle" class="text-label">12</text>
+    <rect x="40" y="0" width="40" height="40" class="grid-cell-layer1"/>
+    <text x="60" y="25" text-anchor="middle" class="text-label">13</text>
+    <rect x="80" y="0" width="40" height="40" class="grid-cell-layer1"/>
+    <text x="100" y="25" text-anchor="middle" class="text-label">14</text>
+    <rect x="120" y="0" width="40" height="40" class="grid-cell-layer1"/>
+    <text x="140" y="25" text-anchor="middle" class="text-label">15</text>
+    
+    <!-- Fila 1 -->
+    <rect x="0" y="40" width="40" height="40" class="grid-cell-layer1"/>
+    <text x="20" y="65" text-anchor="middle" class="text-label">16</text>
+    <rect x="40" y="40" width="40" height="40" class="grid-cell-layer1"/>
+    <text x="60" y="65" text-anchor="middle" class="text-label">17</text>
+    <rect x="80" y="40" width="40" height="40" class="grid-cell-layer1"/>
+    <text x="100" y="65" text-anchor="middle" class="text-label">18</text>
+    <rect x="120" y="40" width="40" height="40" class="grid-cell-layer1"/>
+    <text x="140" y="65" text-anchor="middle" class="text-label">19</text>
+    
+    <!-- Fila 2 -->
+    <rect x="0" y="80" width="40" height="40" class="grid-cell-layer1"/>
+    <text x="20" y="105" text-anchor="middle" class="text-label">20</text>
+    <rect x="40" y="80" width="40" height="40" class="grid-cell-layer1"/>
+    <text x="60" y="105" text-anchor="middle" class="text-label">21</text>
+    <rect x="80" y="80" width="40" height="40" class="grid-cell-layer1"/>
+    <text x="100" y="105" text-anchor="middle" class="text-label">22</text>
+    <rect x="120" y="80" width="40" height="40" class="grid-cell-layer1"/>
+    <text x="140" y="105" text-anchor="middle" class="text-label">23</text>
+  </g>
+  
+  <!-- Código y explicación -->
+  <g transform="translate(380, 80)">
+    <text x="0" y="0" class="title" fill="#1565c0">Declaración y Acceso</text>
+    
+    <g transform="translate(0, 25)">
+      <text x="0" y="0" class="text-code">// Declaración</text>
+      <text x="0" y="18" class="text-code">int cubo[2][3][4];</text>
+      
+      <text x="0" y="48" class="text-code">// Inicialización</text>
+      <text x="0" y="66" class="text-code">for (i = 0; i &lt; 2; i++) {</text>
+      <text x="15" y="84" class="text-code">for (j = 0; j &lt; 3; j++) {</text>
+      <text x="30" y="102" class="text-code">for (k = 0; k &lt; 4; k++) {</text>
+      <text x="45" y="120" class="text-code">cubo[i][j][k] = valor;</text>
+      <text x="30" y="138" class="text-code">}</text>
+      <text x="15" y="156" class="text-code">}</text>
+      <text x="0" y="174" class="text-code">}</text>
+      
+      <text x="0" y="204" class="text-code">// Acceso a elemento</text>
+      <text x="0" y="222" class="text-code">int x = cubo[1][2][3];</text>
+      <text x="0" y="240" class="text-small" fill="#f57c00">// Capa 1, fila 2, col 3</text>
+      <text x="0" y="255" class="text-small" fill="#f57c00">// = 23</text>
+    </g>
+  </g>
+  
+  <!-- Orden en memoria -->
+  <g transform="translate(50, 440)">
+    <text x="0" y="0" class="subtitle">Orden en memoria (contiguo):</text>
+    <text x="0" y="18" class="text-small">[0, 1, 2, 3, 4, 5, ..., 11] (capa 0) → [12, 13, 14, ..., 23] (capa 1)</text>
+    <text x="0" y="36" class="text-small" fill="#388e3c">Offset = (i × 3 × 4 + j × 4 + k) × sizeof(int)</text>
+  </g>
+  
+  <!-- Visualización 3D conceptual -->
+  <g transform="translate(550, 290)">
+    <text x="60" y="-10" text-anchor="middle" class="subtitle">Vista conceptual 3D:</text>
+    
+    <!-- Cubo isométrico simple -->
+    <polygon points="20,40 80,10 140,40 80,70" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" opacity="0.8"/>
+    <polygon points="20,40 20,100 80,130 80,70" fill="#bbdefb" stroke="#1976d2" stroke-width="2" opacity="0.8"/>
+    <polygon points="80,70 80,130 140,100 140,40" fill="#90caf9" stroke="#1976d2" stroke-width="2" opacity="0.8"/>
+    
+    <text x="80" y="50" text-anchor="middle" class="text-small">Capas</text>
+    <text x="30" y="75" text-anchor="middle" class="text-small" transform="rotate(-60 30 75)">Filas</text>
+    <text x="110" y="75" text-anchor="middle" class="text-small" transform="rotate(60 110 75)">Cols</text>
+  </g>
+</svg>
