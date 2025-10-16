@@ -198,22 +198,23 @@ La técnica funciona así:
 1.  En el archivo de cabecera (`.h`), se declara un `struct` y se le da un alias con `typedef`, pero **no se define su contenido**.
     ```c
     // mi_tad.h
-    struct MiTAD; // Declaración incompleta
-    typedef struct MiTAD MiTAD;
+    struct mi_tad; // Declaración incompleta
+    typedef struct mi_tad mi_tad_t;
     ```
-    Para el compilador, `MiTAD` es ahora un tipo de dato conocido, pero de tamaño desconocido. Debido a esto, no se pueden crear variables de tipo `MiTAD` directamente en la pila, pero sí se pueden crear **punteros** a él (`MiTAD*`), ya que el tamaño de un puntero es siempre conocido.
+    Para el compilador, `mi_tad_t` es ahora un tipo de dato conocido, pero de tamaño desconocido. Debido a esto, no se pueden crear variables de tipo `mi_tad_t` directamente en la pila, pero sí se pueden crear **punteros** a él (`mi_tad_t*`), ya que el tamaño de un puntero es siempre conocido.
 
 2.  En el archivo de código fuente (`.c`), se proporciona la definición completa del `struct`.
     ```c
     // mi_tad.c
     #include "mi_tad.h"
-    struct MiTAD {
+    
+    struct mi_tad
+    {
         int dato1;
         char* dato2;
-        // ... otros miembros
     };
     ```
-    Solo el código dentro de `mi_tad.c` conoce la estructura interna de `MiTAD` y puede acceder a sus miembros (`dato1`, `dato2`). El cliente, que solo incluye `mi_tad.h`, no puede hacerlo, logrando así un encapsulamiento efectivo.
+    Solo el código dentro de `mi_tad.c` conoce la estructura interna de `mi_tad_t` y puede acceder a sus miembros (`dato1`, `dato2`). El cliente, que solo incluye `mi_tad.h`, no puede hacerlo, logrando así un encapsulamiento efectivo.
 
 ### Ejemplo Práctico: El TAD Pila (Stack) en C
 
@@ -228,34 +229,76 @@ Este archivo define el tipo `Stack` como un puntero opaco y declara las operacio
 #ifndef STACK_H
 #define STACK_H
 
-// Declaración del tipo incompleto. El cliente solo sabe que existe un "Stack",
-// pero no cómo está implementado.
-struct Stack;
-typedef struct Stack Stack;
+#include <stdbool.h>
 
-// --- Operaciones del TAD Pila ---
+/**
+ * Declaración del tipo incompleto. El cliente solo sabe que existe un "stack_t",
+ * pero no cómo está implementado.
+ */
+struct stack;
+typedef struct stack stack_t;
 
-// Crea y devuelve una nueva pila vacía.
-Stack* stack_create();
+/**
+ * Crea y devuelve una nueva pila vacía.
+ * 
+ * Retorna: Puntero a la nueva pila, o NULL en caso de error de memoria.
+ */
+stack_t* stack_create(void);
 
-// Destruye una pila y libera su memoria.
-void stack_destroy(Stack* s);
+/**
+ * Destruye una pila y libera su memoria.
+ * 
+ * Parámetros:
+ *   s - Puntero a la pila a destruir.
+ */
+void stack_destroy(stack_t* s);
 
-// Añade un elemento al tope de la pila.
-void stack_push(Stack* s, int value);
+/**
+ * Añade un elemento al tope de la pila.
+ * 
+ * Parámetros:
+ *   s - Puntero a la pila.
+ *   value - Valor a añadir al tope.
+ * 
+ * Retorna: 0 si la operación fue exitosa, -1 si la pila está llena.
+ */
+int stack_push(stack_t* s, int value);
 
-// Elimina y devuelve el elemento del tope.
-// Precondición: la pila no debe estar vacía.
-int stack_pop(Stack* s);
+/**
+ * Elimina y devuelve el elemento del tope.
+ * 
+ * Parámetros:
+ *   s - Puntero a la pila.
+ * 
+ * Precondición: la pila no debe estar vacía.
+ * 
+ * Retorna: El valor extraído del tope.
+ */
+int stack_pop(stack_t* s);
 
-// Devuelve el elemento del tope sin eliminarlo.
-// Precondición: la pila no debe estar vacía.
-int stack_peek(Stack* s);
+/**
+ * Devuelve el elemento del tope sin eliminarlo.
+ * 
+ * Parámetros:
+ *   s - Puntero a la pila.
+ * 
+ * Precondición: la pila no debe estar vacía.
+ * 
+ * Retorna: El valor del elemento en el tope.
+ */
+int stack_peek(stack_t* s);
 
-// Verifica si la pila está vacía.
-int stack_is_empty(Stack* s);
+/**
+ * Verifica si la pila está vacía.
+ * 
+ * Parámetros:
+ *   s - Puntero a la pila.
+ * 
+ * Retorna: true si la pila está vacía, false en caso contrario.
+ */
+bool stack_is_empty(stack_t* s);
 
-#endif // STACK_H
+#endif
 ```
 
 #### 2. La Implementación Privada (`stack.c`)
@@ -263,69 +306,153 @@ Aquí se define la estructura de datos (un arreglo dinámico) y se implementa la
 
 ```c
 // stack.c
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "stack.h" // Incluimos la interfaz
+#include "stack.h"
 
 #define INITIAL_CAPACITY 10
+#define EXITO 0
+#define ERROR_MEMORIA -1
 
-// Definición completa y privada del struct.
-// Solo es visible dentro de este archivo.
-struct Stack {
-    int* items;      // Puntero a un arreglo dinámico de enteros
-    int top;         // Índice del elemento en el tope
-    int capacity;    // Tamaño actual del arreglo
+/**
+ * Definición completa y privada del struct.
+ * Solo es visible dentro de este archivo.
+ */
+struct stack
+{
+    int* items;
+    int top;
+    int capacity;
 };
 
-Stack* stack_create() {
-    Stack* s = (Stack*) malloc(sizeof(Stack));
-    if (!s) return NULL;
-    s->items = (int*) malloc(sizeof(int) * INITIAL_CAPACITY);
-    if (!s->items) {
-        free(s);
+/**
+ * Crea y devuelve una nueva pila vacía.
+ * Devuelve NULL en caso de error de asignación de memoria.
+ */
+stack_t* stack_create()
+{
+    stack_t* s = NULL;
+    int* items_temp = NULL;
+    
+    s = (stack_t*) malloc(sizeof(stack_t));
+    
+    if (s == NULL)
+    {
         return NULL;
     }
-    s->top = -1; // La pila está vacía
+    
+    items_temp = (int*) malloc(sizeof(int) * INITIAL_CAPACITY);
+    
+    if (items_temp == NULL)
+    {
+        free(s);
+        s = NULL;
+        return NULL;
+    }
+    
+    s->items = items_temp;
+    s->top = -1;
     s->capacity = INITIAL_CAPACITY;
+    
     return s;
 }
 
-void stack_destroy(Stack* s) {
-    if (s) {
+/**
+ * Destruye una pila y libera su memoria.
+ */
+void stack_destroy(stack_t* s)
+{
+    if (s != NULL)
+    {
         free(s->items);
         free(s);
     }
 }
 
-void stack_push(Stack* s, int value) {
-    // Nota: una implementación real debería redimensionar el arreglo si está lleno.
-    if (s->top < s->capacity - 1) {
-        s->top++;
+/**
+ * Añade un elemento al tope de la pila.
+ * Devuelve EXITO si la operación fue exitosa, ERROR_MEMORIA si la pila está llena.
+ */
+int stack_push(stack_t* s, int value)
+{
+    int resultado = ERROR_MEMORIA;
+    
+    if (s->top < s->capacity - 1)
+    {
+        s->top = s->top + 1;
         s->items[s->top] = value;
+        resultado = EXITO;
     }
+    
+    return resultado;
 }
 
-int stack_pop(Stack* s) {
-    if (!stack_is_empty(s)) {
-        int value = s->items[s->top];
-        s->top--;
-        return value;
+/**
+ * Elimina y devuelve el elemento del tope.
+ * Precondición: la pila no debe estar vacía.
+ * Devuelve el valor extraído, o termina el programa si la pila está vacía.
+ */
+int stack_pop(stack_t* s)
+{
+    int value = 0;
+    bool pila_vacia = false;
+    
+    pila_vacia = stack_is_empty(s);
+    
+    if (pila_vacia == false)
+    {
+        value = s->items[s->top];
+        s->top = s->top - 1;
     }
-    // Manejo de error (la pila está vacía)
-    fprintf(stderr, "Error: pop en una pila vacía.\\n");
-    exit(EXIT_FAILURE);
+    else
+    {
+        fprintf(stderr, "Error: pop en una pila vacía.\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    return value;
 }
 
-int stack_peek(Stack* s) {
-    if (!stack_is_empty(s)) {
-        return s->items[s->top];
+/**
+ * Devuelve el elemento del tope sin eliminarlo.
+ * Precondición: la pila no debe estar vacía.
+ * Devuelve el valor del tope, o termina el programa si la pila está vacía.
+ */
+int stack_peek(stack_t* s)
+{
+    int value = 0;
+    bool pila_vacia = false;
+    
+    pila_vacia = stack_is_empty(s);
+    
+    if (pila_vacia == false)
+    {
+        value = s->items[s->top];
     }
-    fprintf(stderr, "Error: peek en una pila vacía.\\n");
-    exit(EXIT_FAILURE);
+    else
+    {
+        fprintf(stderr, "Error: peek en una pila vacía.\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    return value;
 }
 
-int stack_is_empty(Stack* s) {
-    return s->top == -1;
+/**
+ * Verifica si la pila está vacía.
+ * Devuelve true si está vacía, false en caso contrario.
+ */
+bool stack_is_empty(stack_t* s)
+{
+    bool esta_vacia = false;
+    
+    if (s->top == -1)
+    {
+        esta_vacia = true;
+    }
+    
+    return esta_vacia;
 }
 ```
 
@@ -335,26 +462,37 @@ El cliente utiliza la pila a través de su interfaz pública sin conocer ningún
 ```c
 // main.c
 #include <stdio.h>
-#include "stack.h" // Solo se necesita incluir el .h
+#include "stack.h"
 
-int main() {
-    // El cliente interactúa solo a través de la interfaz
-    Stack* mi_pila = stack_create();
-
-    // El cliente NO PUEDE hacer esto, resultaría en un error de compilación:
-    // mi_pila->top = 5; // ERROR: tipo 'Stack' {aka 'struct Stack'} incompleto
-
-    stack_push(mi_pila, 10);
-    stack_push(mi_pila, 20);
-
-    printf("El tope de la pila es: %d\\n", stack_peek(mi_pila)); // Salida: 20
-
-    int valor = stack_pop(mi_pila);
-    printf("Valor extraído: %d\\n", valor); // Salida: 20
-    printf("El nuevo tope es: %d\\n", stack_peek(mi_pila)); // Salida: 10
-
+int main(void)
+{
+    stack_t* mi_pila = NULL;
+    int valor = 0;
+    int tope = 0;
+    int resultado_push = 0;
+    
+    mi_pila = stack_create();
+    
+    /**
+     * El cliente NO PUEDE hacer esto, resultaría en un error de compilación:
+     * mi_pila->top = 5;
+     * ERROR: tipo 'stack_t' {aka 'struct stack'} incompleto
+     */
+    
+    resultado_push = stack_push(mi_pila, 10);
+    resultado_push = stack_push(mi_pila, 20);
+    
+    tope = stack_peek(mi_pila);
+    printf("El tope de la pila es: %d\n", tope);
+    
+    valor = stack_pop(mi_pila);
+    printf("Valor extraído: %d\n", valor);
+    
+    tope = stack_peek(mi_pila);
+    printf("El nuevo tope es: %d\n", tope);
+    
     stack_destroy(mi_pila);
-
+    
     return 0;
 }
 ```
