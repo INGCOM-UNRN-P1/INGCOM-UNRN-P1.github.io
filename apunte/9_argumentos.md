@@ -9,7 +9,7 @@ Cuando ejecutás un programa en C desde la terminal, tenés la posibilidad de pa
 
 :::{note} Prerequisitos
 
-Este capítulo asume conocimiento de arreglos ({doc}`4_secuencias`) y punteros ({doc}`7_punteros`), ya que `argv` es un arreglo de punteros a cadenas (`char *argv[]`). Si estos conceptos no están claros, repasalos antes de continuar.
+Este capítulo asume conocimiento de arreglos ([](4_secuencias`) y punteros ([](7_punteros)), ya que `argv` es un arreglo de punteros a cadenas (`char *argv[]`). Si estos conceptos no están claros, repasalos antes de continuar.
 
 :::
 
@@ -224,7 +224,7 @@ Para construir programas de línea de comandos robustos, es indispensable conoce
 
 :::{important} Referencia Completa
 
-Este es solo un resumen. Para una descripción detallada de todas las funciones, sus parámetros, valores de retorno y ejemplos de uso, consultá el apunte de referencia: {doc}`A_stdlib`.
+Este es solo un resumen. Para una descripción detallada de todas las funciones, sus parámetros, valores de retorno y ejemplos de uso, consultá el apunte de referencia: [](A_stdlib).
 
 :::
 

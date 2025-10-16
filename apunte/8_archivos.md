@@ -50,7 +50,7 @@ FILE *puntero_archivo;
 ```
 
 :::{note} Punteros: Direcciones de Memoria
-Esta variable tiene un carácter extra, el `*`, que indica que `puntero_archivo` es de tipo "puntero a `FILE`". Un puntero almacena la dirección de memoria donde se encuentra el objeto (en este caso, la estructura FILE). Si necesitás repasar qué son los punteros, cómo se declaran, y cómo funcionan las direcciones de memoria, consultá el {doc}`7_punteros` donde se explica este concepto fundamental en detalle.
+Esta variable tiene un carácter extra, el `*`, que indica que `puntero_archivo` es de tipo "puntero a `FILE`". Un puntero almacena la dirección de memoria donde se encuentra el objeto (en este caso, la estructura FILE). Si necesitás repasar qué son los punteros, cómo se declaran, y cómo funcionan las direcciones de memoria, consultá el [](7_punteros) donde se explica este concepto fundamental en detalle.
 :::
 
 Este puntero, una vez que la función `fopen()` lo inicializa exitosamente, se convierte

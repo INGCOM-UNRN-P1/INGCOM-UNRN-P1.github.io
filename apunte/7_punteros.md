@@ -1199,7 +1199,7 @@ int main() {
 
 Los punteros que estudiaste en este capítulo son fundamentales, pero hasta ahora solo trabajaste con memoria que el compilador gestiona automáticamente (variables locales y globales). El verdadero poder de los punteros se revela cuando aprendés a gestionar memoria **dinámicamente** durante la ejecución del programa.
 
-En el {doc}`11_memoria`, vas a aprender sobre:
+En el [](11_memoria), vas a aprender sobre:
 
 - **El heap (montón):** Una región de memoria que podés solicitar y liberar bajo demanda.
 - **Funciones de asignación dinámica:** Como `malloc` y `calloc`, que te permiten crear estructuras de datos de tamaño variable.

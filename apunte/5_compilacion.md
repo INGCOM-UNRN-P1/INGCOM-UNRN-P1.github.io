@@ -15,7 +15,7 @@ $> gcc -o mi_programa programa.c
 No solo estás invocando un programa, sino que desencadenás un sofisticado proceso de transformación. A simple vista, es una única instrucción que convierte tu código fuente, escrito en un lenguaje comprensible para vos, en un archivo ejecutable que la máquina puede interpretar directamente.
 
 :::{note} Prerequisitos
-Este capítulo asume que ya escribiste y ejecutaste programas básicos en C como los presentados en el {doc}`2_gradual`. También es útil tener familiaridad con el concepto de funciones ({doc}`3_funciones`) ya que se mencionan prototipos y definiciones en el contexto de compilación de múltiples archivos.
+Este capítulo asume que ya escribiste y ejecutaste programas básicos en C como los presentados en el [](2_gradual). También es útil tener familiaridad con el concepto de funciones ([](3_funciones)) ya que se mencionan prototipos y definiciones en el contexto de compilación de múltiples archivos.
 :::
 
 Sin embargo, detrás de esa aparente simplicidad, el compilador `gcc` (GNU Compiler Collection) actúa como un director de orquesta, coordinando una secuencia de herramientas especializadas que trabajan en conjunto. Cada una de estas herramientas se encarga de una fase específica, traduciendo progresivamente el código hasta su forma final.

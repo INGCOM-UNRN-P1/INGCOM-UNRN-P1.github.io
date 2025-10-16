@@ -302,7 +302,7 @@ Paso de arreglos a funciones por referencia: a diferencia de las variables simpl
 ```
 
 :::{note} Relación con Punteros
-Este comportamiento está íntimamente relacionado con el concepto de punteros. Para una comprensión más profunda de cómo funcionan las direcciones de memoria y la relación entre arreglos y punteros, consultá el {doc}`7_punteros`.
+Este comportamiento está íntimamente relacionado con el concepto de punteros. Para una comprensión más profunda de cómo funcionan las direcciones de memoria y la relación entre arreglos y punteros, consultá el [](7_punteros).
 :::
 
 Esto explica dos situaciones clave:

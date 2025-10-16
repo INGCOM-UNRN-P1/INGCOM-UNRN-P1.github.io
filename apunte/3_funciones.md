@@ -351,7 +351,7 @@ En este caso, `a` y `b` solo son visibles y utilizables dentro de la función
 Las variables locales se declaran dentro de una función, pero fuera de cualquier bloque de código (como un `if` o un `for`). Su alcance se limita a la función en la que fueron declaradas. Se "destruyen" de la memoria cuando la función termina su ejecución.
 
 :::{tip} Gestión Automática de Memoria
-Las variables locales se almacenan en el **stack** (pila), una región de memoria gestionada automáticamente por el sistema. Cuando una función se llama, se crea un marco de pila (stack frame) con todas sus variables locales; cuando termina, ese marco se libera automáticamente. Para entender en profundidad cómo funciona este mecanismo y cómo se organiza la memoria de un programa, consultá el {doc}`11_memoria`, donde se explica detalladamente el stack, heap y la gestión de memoria dinámica.
+Las variables locales se almacenan en el **stack** (pila), una región de memoria gestionada automáticamente por el sistema. Cuando una función se llama, se crea un marco de pila (stack frame) con todas sus variables locales; cuando termina, ese marco se libera automáticamente. Para entender en profundidad cómo funciona este mecanismo y cómo se organiza la memoria de un programa, consultá el [](11_memoria), donde se explica detalladamente el stack, heap y la gestión de memoria dinámica.
 :::
 
 ```c

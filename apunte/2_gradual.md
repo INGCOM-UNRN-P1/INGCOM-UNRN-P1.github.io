@@ -9,7 +9,7 @@ subtitle: La sintaxis y programas básicos.
 Antes de iniciar el estudio de la programación en C, es fundamental comprender que programar no consiste únicamente en aprender un lenguaje, sino en desarrollar una forma de pensar. El lenguaje es la herramienta, pero el verdadero arte reside en la construcción de instrucciones lógicas para resolver problemas.
 
 :::{note} Prerequisito: Fundamentos de Algoritmos
-Este capítulo asume que ya comprendés los conceptos fundamentales de algoritmos, variables, tipos de datos, estructuras de control (if, while, for) y funciones que se presentaron en el {doc}`1_base`. Si necesitás repasar estos conceptos o no los viste con Python, consultá ese capítulo primero para entender la lógica antes de enfocarte en la sintaxis de C.
+Este capítulo asume que ya comprendés los conceptos fundamentales de algoritmos, variables, tipos de datos, estructuras de control (if, while, for) y funciones que se presentaron en el [](1_base). Si necesitás repasar estos conceptos o no los viste con Python, consultá ese capítulo primero para entender la lógica antes de enfocarte en la sintaxis de C.
 :::
 
 Programar es el acto de proporcionar instrucciones precisas a una computadora para que realice una tarea específica. Una diferencia clave con la comunicación humana es que la computadora **no interpreta ambigüedades**. No comprende conceptos como «más o menos». Cada paso debe estar perfectamente definido. En este sentido, C presenta ciertas ambigüedades que pueden conducir a resultados inesperados.

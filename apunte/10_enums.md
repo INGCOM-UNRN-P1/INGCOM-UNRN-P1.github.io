@@ -9,7 +9,7 @@ subtitle: 'Tipos de datos compuestos'
 Las **enumeraciones** (`enum`) constituyen un mecanismo fundamental en el lenguaje C para la definición de tipos de datos que representan un **conjunto finito y discreto** de valores con nombres simbólicos. A diferencia de usar valores literales o constantes dispersas en el código, las enumeraciones proporcionan una abstracción semántica que mejora considerablemente la legibilidad, mantenibilidad y robustez del programa.
 
 :::{note} Construcción sobre Fundamentos
-Este capítulo asume familiaridad con los tipos de datos básicos de C presentados en el {doc}`2_gradual`, particularmente los tipos enteros y el concepto de constantes. Las enumeraciones son esencialmente una forma elegante de trabajar con conjuntos de constantes enteras relacionadas.
+Este capítulo asume familiaridad con los tipos de datos básicos de C presentados en el [](2_gradual), particularmente los tipos enteros y el concepto de constantes. Las enumeraciones son esencialmente una forma elegante de trabajar con conjuntos de constantes enteras relacionadas.
 :::
 
 Desde una perspectiva técnica, las enumeraciones son esencialmente **constantes enteras nombradas** que el compilador traduce en tiempo de compilación. Sin embargo, permiten modelar de forma explícita conjuntos limitados de valores, estados o categorías.

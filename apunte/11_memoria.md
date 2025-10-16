@@ -397,7 +397,7 @@ Aunque no implementés tu propio allocator, comprender su funcionamiento explica
 Los punteros son el mecanismo fundamental que permite trabajar con memoria dinámica en C. Un puntero no almacena un valor directo, sino la **dirección de memoria** donde se encuentra ese valor.
 
 :::{note} Prerequisito: Conceptos Básicos de Punteros
-Este capítulo asume que ya conocés los fundamentos de punteros que se presentaron en el {doc}`7_punteros`. Si necesitás repasar los siguientes temas, consultá ese capítulo:
+Este capítulo asume que ya conocés los fundamentos de punteros que se presentaron en el [](7_punteros). Si necesitás repasar los siguientes temas, consultá ese capítulo:
 
 - Declaración de punteros y sintaxis básica
 - Operadores `&` (dirección) y `*` (desreferencia)
@@ -1045,7 +1045,7 @@ La {ref}`0x001Ah` también enfatiza la simetría: si creaste una función `crear
 La gestión manual de memoria es una fuente frecuente de errores en C. Comprender estos errores y cómo prevenirlos es fundamental para escribir código robusto.
 
 :::{note} Errores Básicos de Punteros
-Los errores discutidos en esta sección son específicos de la gestión de memoria dinámica. Para errores básicos con punteros (como punteros salvajes, desreferencia de `NULL`, y problemas de inicialización), consultá primero el {doc}`7_punteros`, que cubre los conceptos fundamentales necesarios para trabajar con punteros de forma segura.
+Los errores discutidos en esta sección son específicos de la gestión de memoria dinámica. Para errores básicos con punteros (como punteros salvajes, desreferencia de `NULL`, y problemas de inicialización), consultá primero el [](7_punteros), que cubre los conceptos fundamentales necesarios para trabajar con punteros de forma segura.
 :::
 
 (memoria-memory-leak)=
