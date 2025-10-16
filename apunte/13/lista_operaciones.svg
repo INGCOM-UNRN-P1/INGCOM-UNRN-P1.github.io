@@ -1,0 +1,214 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700">
+  <defs>
+    <style>
+      .title { font: bold 20px sans-serif; fill: #2c3e50; }
+      .subtitle { font: bold 14px sans-serif; fill: #34495e; }
+      .text { font: 13px sans-serif; fill: #2c3e50; }
+      .small { font: 11px monospace; fill: #555; }
+      .node-box { fill: #3498db; stroke: #2980b9; stroke-width: 2; }
+      .new-node { fill: #27ae60; stroke: #229954; stroke-width: 2; }
+      .removed-node { fill: #ecf0f1; stroke: #bdc3c7; stroke-width: 2; stroke-dasharray: 5,5; }
+      .ptr-box { fill: #e67e22; stroke: #d35400; stroke-width: 2; }
+      .arrow { stroke: #2c3e50; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .new-arrow { stroke: #27ae60; stroke-width: 2; fill: none; marker-end: url(#arrowhead-new); }
+      .old-arrow { stroke: #e74c3c; stroke-width: 2; stroke-dasharray: 5,5; fill: none; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#2c3e50" />
+    </marker>
+    <marker id="arrowhead-new" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#27ae60" />
+    </marker>
+  </defs>
+  
+  <!-- Título -->
+  <text x="450" y="25" text-anchor="middle" class="title">Operaciones en Listas Enlazadas</text>
+  
+  <!-- ===== INSERCIÓN AL INICIO ===== -->
+  <g id="insercion-inicio">
+    <text x="250" y="60" text-anchor="middle" class="subtitle">Inserción al Inicio</text>
+    
+    <!-- Nuevo nodo -->
+    <rect x="50" y="75" width="60" height="60" class="new-node" rx="3"/>
+    <text x="80" y="100" text-anchor="middle" class="small" fill="white">dato</text>
+    <text x="80" y="115" text-anchor="middle" class="text" fill="white" font-weight="bold">X</text>
+    <rect x="50" y="120" width="60" height="15" class="ptr-box" rx="2"/>
+    <text x="80" y="131" text-anchor="middle" class="small" fill="white">sig</text>
+    
+    <!-- Flecha nueva -->
+    <path d="M 110 127 L 160 105" class="new-arrow"/>
+    
+    <!-- Nodo existente -->
+    <rect x="170" y="75" width="60" height="60" class="node-box" rx="3"/>
+    <text x="200" y="100" text-anchor="middle" class="small" fill="white">dato</text>
+    <text x="200" y="115" text-anchor="middle" class="text" fill="white" font-weight="bold">A</text>
+    <rect x="170" y="120" width="60" height="15" class="ptr-box" rx="2"/>
+    
+    <!-- Más nodos -->
+    <path d="M 230 127 L 270 127" class="arrow"/>
+    <rect x="280" y="75" width="60" height="60" class="node-box" rx="3"/>
+    <text x="310" y="105" text-anchor="middle" class="text" fill="white" font-weight="bold">B</text>
+    <rect x="280" y="120" width="60" height="15" class="ptr-box" rx="2"/>
+    
+    <!-- Puntero inicio -->
+    <rect x="50" y="145" width="60" height="25" class="ptr-box" rx="3"/>
+    <text x="80" y="162" text-anchor="middle" class="small" fill="white">inicio</text>
+    <path d="M 80 145 L 80 140" class="new-arrow"/>
+    
+    <text x="50" y="190" class="text">1. Crear nuevo nodo</text>
+    <text x="50" y="205" class="text">2. nuevo→sig = inicio</text>
+    <text x="50" y="220" class="text">3. inicio = nuevo</text>
+  </g>
+  
+  <!-- ===== INSERCIÓN AL FINAL ===== -->
+  <g id="insercion-final">
+    <text x="700" y="60" text-anchor="middle" class="subtitle">Inserción al Final</text>
+    
+    <!-- Nodos existentes -->
+    <rect x="530" y="75" width="60" height="60" class="node-box" rx="3"/>
+    <text x="560" y="105" text-anchor="middle" class="text" fill="white" font-weight="bold">A</text>
+    <rect x="530" y="120" width="60" height="15" class="ptr-box" rx="2"/>
+    
+    <path d="M 590 127 L 630 127" class="arrow"/>
+    
+    <rect x="640" y="75" width="60" height="60" class="node-box" rx="3"/>
+    <text x="670" y="105" text-anchor="middle" class="text" fill="white" font-weight="bold">B</text>
+    <rect x="640" y="120" width="60" height="15" class="ptr-box" rx="2"/>
+    
+    <!-- Flecha al nuevo nodo -->
+    <path d="M 700 127 L 740 127" class="new-arrow"/>
+    
+    <!-- Nuevo nodo -->
+    <rect x="750" y="75" width="60" height="60" class="new-node" rx="3"/>
+    <text x="780" y="100" text-anchor="middle" class="small" fill="white">dato</text>
+    <text x="780" y="115" text-anchor="middle" class="text" fill="white" font-weight="bold">X</text>
+    <rect x="750" y="120" width="60" height="15" class="ptr-box" rx="2"/>
+    <text x="780" y="131" text-anchor="middle" class="small" fill="white">NULL</text>
+    
+    <text x="530" y="190" class="text">1. Recorrer hasta el último</text>
+    <text x="530" y="205" class="text">2. Crear nuevo nodo</text>
+    <text x="530" y="220" class="text">3. ultimo→sig = nuevo</text>
+  </g>
+  
+  <!-- ===== INSERCIÓN EN POSICIÓN ===== -->
+  <g id="insercion-posicion">
+    <text x="250" y="280" text-anchor="middle" class="subtitle">Inserción en Posición Intermedia</text>
+    
+    <!-- Nodo anterior -->
+    <rect x="50" y="295" width="60" height="60" class="node-box" rx="3"/>
+    <text x="80" y="325" text-anchor="middle" class="text" fill="white" font-weight="bold">A</text>
+    <rect x="50" y="340" width="60" height="15" class="ptr-box" rx="2"/>
+    
+    <!-- Flecha antigua (discontinua) -->
+    <path d="M 110 347 L 160 347" class="old-arrow"/>
+    <path d="M 110 347 Q 135 280, 160 310" class="new-arrow"/>
+    
+    <!-- Nuevo nodo -->
+    <rect x="170" y="280" width="60" height="60" class="new-node" rx="3"/>
+    <text x="200" y="305" text-anchor="middle" class="small" fill="white">dato</text>
+    <text x="200" y="320" text-anchor="middle" class="text" fill="white" font-weight="bold">X</text>
+    <rect x="170" y="325" width="60" height="15" class="ptr-box" rx="2"/>
+    
+    <!-- Flecha del nuevo al siguiente -->
+    <path d="M 230 332 Q 255 360, 280 347" class="new-arrow"/>
+    
+    <!-- Nodo siguiente -->
+    <rect x="290" y="295" width="60" height="60" class="node-box" rx="3"/>
+    <text x="320" y="325" text-anchor="middle" class="text" fill="white" font-weight="bold">B</text>
+    <rect x="290" y="340" width="60" height="15" class="ptr-box" rx="2"/>
+    
+    <text x="50" y="390" class="text">1. Recorrer hasta posición-1</text>
+    <text x="50" y="405" class="text">2. nuevo→sig = actual→sig</text>
+    <text x="50" y="420" class="text">3. actual→sig = nuevo</text>
+  </g>
+  
+  <!-- ===== ELIMINACIÓN ===== -->
+  <g id="eliminacion">
+    <text x="700" y="280" text-anchor="middle" class="subtitle">Eliminación de Nodo</text>
+    
+    <!-- Nodo anterior -->
+    <rect x="530" y="295" width="60" height="60" class="node-box" rx="3"/>
+    <text x="560" y="325" text-anchor="middle" class="text" fill="white" font-weight="bold">A</text>
+    <rect x="530" y="340" width="60" height="15" class="ptr-box" rx="2"/>
+    
+    <!-- Flecha antigua (al nodo eliminado) -->
+    <path d="M 590 347 L 630 347" class="old-arrow"/>
+    <!-- Flecha nueva (saltando el nodo) -->
+    <path d="M 590 347 Q 670 380, 740 347" class="new-arrow"/>
+    
+    <!-- Nodo eliminado -->
+    <rect x="640" y="295" width="60" height="60" class="removed-node" rx="3"/>
+    <text x="670" y="320" text-anchor="middle" class="text" fill="#95a5a6">X</text>
+    <text x="670" y="335" text-anchor="middle" class="small" fill="#95a5a6">(free)</text>
+    
+    <!-- Nodo siguiente -->
+    <rect x="750" y="295" width="60" height="60" class="node-box" rx="3"/>
+    <text x="780" y="325" text-anchor="middle" class="text" fill="white" font-weight="bold">B</text>
+    <rect x="750" y="340" width="60" height="15" class="ptr-box" rx="2"/>
+    
+    <text x="530" y="390" class="text">1. Localizar nodo anterior</text>
+    <text x="530" y="405" class="text">2. anterior→sig = nodo→sig</text>
+    <text x="530" y="420" class="text">3. free(nodo)</text>
+  </g>
+  
+  <!-- ===== BÚSQUEDA ===== -->
+  <g id="busqueda">
+    <text x="250" y="480" text-anchor="middle" class="subtitle">Búsqueda Secuencial</text>
+    
+    <!-- Puntero actual -->
+    <text x="80" y="510" class="text" fill="#e74c3c" font-weight="bold">actual →</text>
+    
+    <!-- Nodos -->
+    <rect x="50" y="520" width="50" height="50" class="node-box" rx="3"/>
+    <text x="75" y="550" text-anchor="middle" class="text" fill="white" font-weight="bold">7</text>
+    <path d="M 100 545 L 130 545" class="arrow"/>
+    
+    <rect x="140" y="520" width="50" height="50" class="node-box" rx="3"/>
+    <text x="165" y="550" text-anchor="middle" class="text" fill="white" font-weight="bold">3</text>
+    <path d="M 190 545 L 220 545" class="arrow"/>
+    
+    <rect x="230" y="520" width="50" height="50" class="node-box" rx="3" stroke="#e74c3c" stroke-width="3"/>
+    <text x="255" y="550" text-anchor="middle" class="text" fill="white" font-weight="bold">X</text>
+    <text x="255" y="595" text-anchor="middle" class="text" fill="#e74c3c" font-weight="bold">¡Encontrado!</text>
+    <path d="M 280 545 L 310 545" class="arrow"/>
+    
+    <rect x="320" y="520" width="50" height="50" class="node-box" rx="3"/>
+    <text x="345" y="550" text-anchor="middle" class="text" fill="white" font-weight="bold">5</text>
+    
+    <text x="50" y="630" class="text">1. actual = inicio</text>
+    <text x="50" y="645" class="text">2. Mientras actual ≠ NULL:</text>
+    <text x="70" y="660" class="text">   Si actual→dato == buscado:</text>
+    <text x="90" y="675" class="text">      retornar actual</text>
+    <text x="70" y="690" class="text">   actual = actual→sig</text>
+  </g>
+  
+  <!-- ===== RECORRIDO ===== -->
+  <g id="recorrido">
+    <text x="700" y="480" text-anchor="middle" class="subtitle">Recorrido (Traversal)</text>
+    
+    <!-- Nodos con indicadores de orden -->
+    <rect x="530" y="520" width="50" height="50" class="node-box" rx="3"/>
+    <text x="555" y="545" text-anchor="middle" class="text" fill="white" font-weight="bold">A</text>
+    <text x="555" y="510" text-anchor="middle" class="text" fill="#e74c3c" font-weight="bold">①</text>
+    <path d="M 580 545 L 610 545" class="arrow"/>
+    
+    <rect x="620" y="520" width="50" height="50" class="node-box" rx="3"/>
+    <text x="645" y="545" text-anchor="middle" class="text" fill="white" font-weight="bold">B</text>
+    <text x="645" y="510" text-anchor="middle" class="text" fill="#e74c3c" font-weight="bold">②</text>
+    <path d="M 670 545 L 700 545" class="arrow"/>
+    
+    <rect x="710" y="520" width="50" height="50" class="node-box" rx="3"/>
+    <text x="735" y="545" text-anchor="middle" class="text" fill="white" font-weight="bold">C</text>
+    <text x="735" y="510" text-anchor="middle" class="text" fill="#e74c3c" font-weight="bold">③</text>
+    <path d="M 760 545 L 790 545" class="arrow"/>
+    
+    <rect x="800" y="535" width="50" height="20" fill="#95a5a6" rx="3"/>
+    <text x="825" y="549" text-anchor="middle" class="small" fill="white">NULL</text>
+    
+    <text x="530" y="610" class="text">Nodo* actual = inicio;</text>
+    <text x="530" y="625" class="text">while (actual != NULL) {</text>
+    <text x="550" y="640" class="text">   procesar(actual→dato);</text>
+    <text x="550" y="655" class="text">   actual = actual→sig;</text>
+    <text x="530" y="670" class="text">}</text>
+  </g>
+</svg>

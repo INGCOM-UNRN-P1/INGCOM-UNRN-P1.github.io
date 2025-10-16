@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 350">
+  <defs>
+    <style>
+      .title { font: bold 20px sans-serif; fill: #2c3e50; }
+      .text { font: 14px sans-serif; fill: #2c3e50; }
+      .small { font: 12px monospace; fill: #555; }
+      .node-box { fill: #3498db; stroke: #2980b9; stroke-width: 2; }
+      .ptr-box-next { fill: #e67e22; stroke: #d35400; stroke-width: 2; }
+      .ptr-box-prev { fill: #9b59b6; stroke: #8e44ad; stroke-width: 2; }
+      .null-box { fill: #95a5a6; stroke: #7f8c8d; stroke-width: 2; }
+      .arrow-forward { stroke: #e67e22; stroke-width: 2; fill: none; marker-end: url(#arrowhead-forward); }
+      .arrow-back { stroke: #9b59b6; stroke-width: 2; fill: none; marker-end: url(#arrowhead-back); }
+      .label { font: 12px sans-serif; fill: #555; }
+    </style>
+    <marker id="arrowhead-forward" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#e67e22" />
+    </marker>
+    <marker id="arrowhead-back" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#9b59b6" />
+    </marker>
+  </defs>
+  
+  <!-- Título -->
+  <text x="450" y="30" text-anchor="middle" class="title">Lista Doblemente Enlazada</text>
+  
+  <!-- NULL izquierdo -->
+  <rect x="40" y="145" width="60" height="30" class="null-box" rx="3"/>
+  <text x="70" y="165" text-anchor="middle" class="text" fill="white" font-weight="bold">NULL</text>
+  
+  <!-- Flecha NULL -> Nodo 1 (anterior) -->
+  <path d="M 100 160 Q 130 120, 160 120" class="arrow-back"/>
+  
+  <!-- Nodo 1 -->
+  <g id="nodo1">
+    <rect x="150" y="100" width="100" height="100" class="node-box" rx="5"/>
+    <!-- Anterior -->
+    <rect x="150" y="100" width="100" height="25" class="ptr-box-prev" rx="2"/>
+    <text x="200" y="117" text-anchor="middle" class="small" fill="white">anterior</text>
+    <!-- Dato -->
+    <text x="200" y="145" text-anchor="middle" class="text" fill="white">dato</text>
+    <text x="200" y="165" text-anchor="middle" class="small" fill="white">42</text>
+    <line x1="150" y1="175" x2="250" y2="175" stroke="white" stroke-width="1"/>
+    <!-- Siguiente -->
+    <rect x="150" y="175" width="100" height="25" class="ptr-box-next" rx="2"/>
+    <text x="200" y="192" text-anchor="middle" class="small" fill="white">siguiente</text>
+  </g>
+  
+  <!-- Flechas Nodo 1 <-> Nodo 2 -->
+  <path d="M 250 187 L 310 187" class="arrow-forward"/>
+  <path d="M 310 113 L 250 113" class="arrow-back"/>
+  
+  <!-- Nodo 2 -->
+  <g id="nodo2">
+    <rect x="320" y="100" width="100" height="100" class="node-box" rx="5"/>
+    <!-- Anterior -->
+    <rect x="320" y="100" width="100" height="25" class="ptr-box-prev" rx="2"/>
+    <text x="370" y="117" text-anchor="middle" class="small" fill="white">anterior</text>
+    <!-- Dato -->
+    <text x="370" y="145" text-anchor="middle" class="text" fill="white">dato</text>
+    <text x="370" y="165" text-anchor="middle" class="small" fill="white">17</text>
+    <line x1="320" y1="175" x2="420" y2="175" stroke="white" stroke-width="1"/>
+    <!-- Siguiente -->
+    <rect x="320" y="175" width="100" height="25" class="ptr-box-next" rx="2"/>
+    <text x="370" y="192" text-anchor="middle" class="small" fill="white">siguiente</text>
+  </g>
+  
+  <!-- Flechas Nodo 2 <-> Nodo 3 -->
+  <path d="M 420 187 L 480 187" class="arrow-forward"/>
+  <path d="M 480 113 L 420 113" class="arrow-back"/>
+  
+  <!-- Nodo 3 -->
+  <g id="nodo3">
+    <rect x="490" y="100" width="100" height="100" class="node-box" rx="5"/>
+    <!-- Anterior -->
+    <rect x="490" y="100" width="100" height="25" class="ptr-box-prev" rx="2"/>
+    <text x="540" y="117" text-anchor="middle" class="small" fill="white">anterior</text>
+    <!-- Dato -->
+    <text x="540" y="145" text-anchor="middle" class="text" fill="white">dato</text>
+    <text x="540" y="165" text-anchor="middle" class="small" fill="white">8</text>
+    <line x1="490" y1="175" x2="590" y2="175" stroke="white" stroke-width="1"/>
+    <!-- Siguiente -->
+    <rect x="490" y="175" width="100" height="25" class="ptr-box-next" rx="2"/>
+    <text x="540" y="192" text-anchor="middle" class="small" fill="white">siguiente</text>
+  </g>
+  
+  <!-- Flecha Nodo 3 -> NULL -->
+  <path d="M 590 187 L 650 165" class="arrow-forward"/>
+  
+  <!-- NULL derecho -->
+  <rect x="660" y="145" width="60" height="30" class="null-box" rx="3"/>
+  <text x="690" y="165" text-anchor="middle" class="text" fill="white" font-weight="bold">NULL</text>
+  
+  <!-- Etiquetas inferiores -->
+  <text x="200" y="230" text-anchor="middle" class="label">Primer nodo</text>
+  <text x="370" y="230" text-anchor="middle" class="label">Nodo intermedio</text>
+  <text x="540" y="230" text-anchor="middle" class="label">Último nodo</text>
+  
+  <!-- Descripción -->
+  <text x="50" y="270" class="text">Cada nodo contiene:</text>
+  <text x="50" y="290" class="small">• Un puntero al nodo anterior</text>
+  <text x="50" y="305" class="small">• Un dato (o varios campos)</text>
+  <text x="50" y="320" class="small">• Un puntero al siguiente nodo</text>
+  
+  <text x="450" y="270" class="text">Ventajas:</text>
+  <text x="450" y="290" class="small">• Recorrido bidireccional</text>
+  <text x="450" y="305" class="small">• Eliminación eficiente desde cualquier nodo</text>
+  <text x="450" y="320" class="small">• Inserciones antes/después más flexibles</text>
+</svg>

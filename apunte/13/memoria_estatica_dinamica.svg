@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <style>
+      .title { font: bold 20px sans-serif; fill: #2c3e50; }
+      .subtitle { font: bold 16px sans-serif; fill: #34495e; }
+      .text { font: 14px sans-serif; fill: #2c3e50; }
+      .small { font: 12px sans-serif; fill: #555; }
+      .code { font: 12px monospace; fill: #2c3e50; }
+      .static-box { fill: #3498db; stroke: #2980b9; stroke-width: 2; }
+      .dynamic-box { fill: #27ae60; stroke: #229954; stroke-width: 2; }
+      .header { fill: #34495e; stroke: #2c3e50; stroke-width: 2; }
+      .vs-text { font: bold 24px sans-serif; fill: #e74c3c; }
+    </style>
+  </defs>
+  
+  <!-- Título -->
+  <text x="400" y="30" text-anchor="middle" class="title">Asignación de Memoria: Estática vs. Dinámica</text>
+  
+  <!-- Sección Estática -->
+  <g id="estatica">
+    <rect x="50" y="60" width="300" height="40" class="header" rx="5"/>
+    <text x="200" y="85" text-anchor="middle" class="subtitle" fill="white">Memoria Estática</text>
+    
+    <!-- Contenido -->
+    <rect x="50" y="100" width="300" height="180" class="static-box" rx="5"/>
+    
+    <text x="70" y="130" class="text" fill="white" font-weight="bold">Características:</text>
+    <text x="80" y="150" class="small" fill="white">• Tamaño fijo en tiempo de compilación</text>
+    <text x="80" y="167" class="small" fill="white">• Almacenada en el stack</text>
+    <text x="80" y="184" class="small" fill="white">• Liberación automática</text>
+    <text x="80" y="201" class="small" fill="white">• Acceso más rápido</text>
+    <text x="80" y="218" class="small" fill="white">• Limitada por tamaño del stack</text>
+    
+    <text x="70" y="245" class="text" fill="white" font-weight="bold">Ejemplo:</text>
+    <text x="80" y="263" class="code" fill="white">int arr[100];</text>
+    <text x="80" y="277" class="code" fill="white">char nombre[50];</text>
+    
+    <!-- Diagrama de stack -->
+    <rect x="50" y="300" width="300" height="150" fill="#ecf0f1" stroke="#34495e" stroke-width="2" rx="5"/>
+    <text x="200" y="325" text-anchor="middle" class="subtitle">Stack</text>
+    
+    <rect x="70" y="340" width="260" height="30" class="static-box" rx="3"/>
+    <text x="90" y="360" class="code" fill="white">arr[100]</text>
+    <text x="250" y="360" class="small" fill="white">400 bytes</text>
+    
+    <rect x="70" y="375" width="260" height="30" class="static-box" rx="3"/>
+    <text x="90" y="395" class="code" fill="white">nombre[50]</text>
+    <text x="250" y="395" class="small" fill="white">50 bytes</text>
+    
+    <rect x="70" y="410" width="260" height="30" fill="#bdc3c7" stroke="#95a5a6" stroke-width="1" rx="3"/>
+    <text x="200" y="430" text-anchor="middle" class="small" fill="#555">Límite del stack</text>
+  </g>
+  
+  <!-- VS Central -->
+  <text x="400" y="250" text-anchor="middle" class="vs-text">VS</text>
+  
+  <!-- Sección Dinámica -->
+  <g id="dinamica">
+    <rect x="450" y="60" width="300" height="40" class="header" rx="5"/>
+    <text x="600" y="85" text-anchor="middle" class="subtitle" fill="white">Memoria Dinámica</text>
+    
+    <!-- Contenido -->
+    <rect x="450" y="100" width="300" height="180" class="dynamic-box" rx="5"/>
+    
+    <text x="470" y="130" class="text" fill="white" font-weight="bold">Características:</text>
+    <text x="480" y="150" class="small" fill="white">• Tamaño flexible en tiempo de ejecución</text>
+    <text x="480" y="167" class="small" fill="white">• Almacenada en el heap</text>
+    <text x="480" y="184" class="small" fill="white">• Liberación manual (free)</text>
+    <text x="480" y="201" class="small" fill="white">• Acceso mediante punteros</text>
+    <text x="480" y="218" class="small" fill="white">• Mayor espacio disponible</text>
+    
+    <text x="470" y="245" class="text" fill="white" font-weight="bold">Ejemplo:</text>
+    <text x="480" y="263" class="code" fill="white">int* arr = malloc(n * sizeof(int));</text>
+    <text x="480" y="277" class="code" fill="white">char* nombre = malloc(tam);</text>
+    
+    <!-- Diagrama de heap -->
+    <rect x="450" y="300" width="300" height="150" fill="#ecf0f1" stroke="#34495e" stroke-width="2" rx="5"/>
+    <text x="600" y="325" text-anchor="middle" class="subtitle">Heap</text>
+    
+    <rect x="470" y="340" width="260" height="30" class="dynamic-box" rx="3"/>
+    <text x="490" y="360" class="code" fill="white">arr (tamaño n)</text>
+    <text x="660" y="360" class="small" fill="white">variable</text>
+    
+    <rect x="470" y="375" width="260" height="30" class="dynamic-box" rx="3"/>
+    <text x="490" y="395" class="code" fill="white">nombre (tamaño tam)</text>
+    <text x="660" y="395" class="small" fill="white">variable</text>
+    
+    <rect x="470" y="410" width="260" height="30" fill="#d5f4e6" stroke="#27ae60" stroke-width="1" rx="3"/>
+    <text x="600" y="430" text-anchor="middle" class="small" fill="#555">Espacio libre (crece)</text>
+  </g>
+  
+  <!-- Cuadro de comparación -->
+  <rect x="100" y="465" width="600" height="25" fill="#ecf0f1" stroke="#34495e" stroke-width="1" rx="3"/>
+  <text x="110" y="482" class="small" font-weight="bold">Criterio de selección:</text>
+  <text x="250" y="482" class="small">Estática → Tamaño conocido | Dinámica → Tamaño variable o grande</text>
+</svg>

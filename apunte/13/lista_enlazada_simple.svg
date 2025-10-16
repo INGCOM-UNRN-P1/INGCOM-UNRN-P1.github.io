@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300">
+  <defs>
+    <style>
+      .title { font: bold 20px sans-serif; fill: #2c3e50; }
+      .text { font: 14px sans-serif; fill: #2c3e50; }
+      .small { font: 12px monospace; fill: #555; }
+      .node-box { fill: #3498db; stroke: #2980b9; stroke-width: 2; }
+      .ptr-box { fill: #e67e22; stroke: #d35400; stroke-width: 2; }
+      .null-box { fill: #95a5a6; stroke: #7f8c8d; stroke-width: 2; }
+      .arrow { stroke: #2c3e50; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .label { font: 12px sans-serif; fill: #555; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#2c3e50" />
+    </marker>
+  </defs>
+  
+  <!-- Título -->
+  <text x="450" y="30" text-anchor="middle" class="title">Lista Enlazada Simple</text>
+  
+  <!-- Puntero inicio -->
+  <rect x="50" y="100" width="100" height="80" class="ptr-box" rx="5"/>
+  <text x="100" y="130" text-anchor="middle" class="text" fill="white" font-weight="bold">inicio</text>
+  <text x="100" y="160" text-anchor="middle" class="small" fill="white">Nodo*</text>
+  
+  <!-- Flecha desde inicio -->
+  <path d="M 150 140 L 190 140" class="arrow"/>
+  
+  <!-- Nodo 1 -->
+  <g id="nodo1">
+    <rect x="200" y="100" width="80" height="80" class="node-box" rx="5"/>
+    <text x="240" y="125" text-anchor="middle" class="text" fill="white">dato</text>
+    <text x="240" y="145" text-anchor="middle" class="small" fill="white">42</text>
+    <line x1="200" y1="155" x2="280" y2="155" stroke="white" stroke-width="1"/>
+    <rect x="200" y="155" width="80" height="25" class="ptr-box" rx="2"/>
+    <text x="240" y="172" text-anchor="middle" class="small" fill="white">siguiente</text>
+  </g>
+  
+  <!-- Flecha nodo 1 -> nodo 2 -->
+  <path d="M 280 167 L 340 167" class="arrow"/>
+  
+  <!-- Nodo 2 -->
+  <g id="nodo2">
+    <rect x="350" y="100" width="80" height="80" class="node-box" rx="5"/>
+    <text x="390" y="125" text-anchor="middle" class="text" fill="white">dato</text>
+    <text x="390" y="145" text-anchor="middle" class="small" fill="white">17</text>
+    <line x1="350" y1="155" x2="430" y2="155" stroke="white" stroke-width="1"/>
+    <rect x="350" y="155" width="80" height="25" class="ptr-box" rx="2"/>
+    <text x="390" y="172" text-anchor="middle" class="small" fill="white">siguiente</text>
+  </g>
+  
+  <!-- Flecha nodo 2 -> nodo 3 -->
+  <path d="M 430 167 L 490 167" class="arrow"/>
+  
+  <!-- Nodo 3 -->
+  <g id="nodo3">
+    <rect x="500" y="100" width="80" height="80" class="node-box" rx="5"/>
+    <text x="540" y="125" text-anchor="middle" class="text" fill="white">dato</text>
+    <text x="540" y="145" text-anchor="middle" class="small" fill="white">8</text>
+    <line x1="500" y1="155" x2="580" y2="155" stroke="white" stroke-width="1"/>
+    <rect x="500" y="155" width="80" height="25" class="ptr-box" rx="2"/>
+    <text x="540" y="172" text-anchor="middle" class="small" fill="white">siguiente</text>
+  </g>
+  
+  <!-- Flecha nodo 3 -> NULL -->
+  <path d="M 580 167 L 640 167" class="arrow"/>
+  
+  <!-- NULL -->
+  <rect x="650" y="137" width="80" height="40" class="null-box" rx="5"/>
+  <text x="690" y="163" text-anchor="middle" class="text" fill="white" font-weight="bold">NULL</text>
+  
+  <!-- Etiquetas inferiores -->
+  <text x="240" y="210" text-anchor="middle" class="label">Primer nodo</text>
+  <text x="390" y="210" text-anchor="middle" class="label">Segundo nodo</text>
+  <text x="540" y="210" text-anchor="middle" class="label">Último nodo</text>
+  
+  <!-- Descripción -->
+  <text x="50" y="250" class="text">Cada nodo contiene:</text>
+  <text x="50" y="270" class="small">• Un dato (o varios campos de datos)</text>
+  <text x="50" y="285" class="small">• Un puntero al siguiente nodo</text>
+  
+  <text x="450" y="250" class="text">Características:</text>
+  <text x="450" y="270" class="small">• Recorrido unidireccional</text>
+  <text x="450" y="285" class="small">• Último nodo apunta a NULL</text>
+</svg>
