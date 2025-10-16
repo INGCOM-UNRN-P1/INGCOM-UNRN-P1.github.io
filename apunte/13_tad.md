@@ -619,464 +619,6 @@ Observá cómo la estructura del código refleja claramente la lógica: primero 
 
 Una **lista circular** es una variante donde el último nodo apunta de nuevo al primero, formando un ciclo. Puede ser simple o doblemente enlazada. Son útiles en aplicaciones que requieren procesamiento cíclico, como buffers circulares o sistemas round-robin.
 
-## Pilas (Stacks)
-
-Una **pila** es una estructura de datos lineal que sigue el principio **LIFO** (*Last In, First Out*): el último elemento en entrar es el primero en salir. Es análogo a una pila de platos donde solo podés agregar o quitar platos desde la parte superior.
-
-```{figure} 13/pila_stack.svg
-:label: fig-pila
-:align: center
-
-Estructura de pila con operaciones push (apilar) y pop (desapilar). El acceso es únicamente por el tope.
-```
-
-### Operaciones Fundamentales
-
-- **push(elemento):** Agrega un elemento al tope de la pila.
-- **pop():** Extrae y retorna el elemento del tope.
-- **peek() o top():** Retorna el elemento del tope sin extraerlo.
-- **es_vacia():** Verifica si la pila está vacía.
-
-### Implementación con Lista Enlazada
-
-```c
-typedef struct nodo_pila
-{
-    int dato;
-    struct nodo_pila *siguiente;
-} nodo_pila_t;
-
-typedef struct pila
-{
-    nodo_pila_t *tope;
-    size_t tamanio;
-} pila_t;
-```
-
-#### Creación de una Pila
-
-```c
-pila_t *crear_pila(void)
-{
-    pila_t *pila = NULL;
-    
-    pila = malloc(sizeof(pila_t));
-    
-    if (pila == NULL)
-    {
-        return NULL;
-    }
-    
-    pila->tope = NULL;
-    pila->tamanio = 0;
-    
-    return pila;
-}
-```
-
-#### Apilar (Push)
-
-```c
-bool push(pila_t *pila, int dato)
-{
-    nodo_pila_t *nuevo = NULL;
-    
-    if (pila == NULL)
-    {
-        return false;
-    }
-    
-    nuevo = malloc(sizeof(nodo_pila_t));
-    
-    if (nuevo == NULL)
-    {
-        return false;
-    }
-    
-    nuevo->dato = dato;
-    nuevo->siguiente = pila->tope;
-    pila->tope = nuevo;
-    pila->tamanio++;
-    
-    return true;
-}
-```
-
-:::{note}
-La operación `push` es idéntica a insertar al inicio en una lista enlazada. Esto es porque el tope de la pila es el primer elemento de la lista.
-:::
-
-#### Desapilar (Pop)
-
-```c
-bool pop(pila_t *pila, int *dato)
-{
-    nodo_pila_t *nodo_a_eliminar = NULL;
-    
-    if (pila == NULL || pila->tope == NULL)
-    {
-        return false;
-    }
-    
-    nodo_a_eliminar = pila->tope;
-    *dato = nodo_a_eliminar->dato;
-    
-    pila->tope = pila->tope->siguiente;
-    free(nodo_a_eliminar);
-    nodo_a_eliminar = NULL;
-    pila->tamanio--;
-    
-    return true;
-}
-```
-
-:::{important}
-La función `pop` retorna el dato mediante un parámetro de salida (puntero) y usa el valor de retorno para indicar éxito o fracaso. Esta es una práctica común en C para manejar errores.
-:::
-
-#### Ver el Tope (Peek)
-
-```c
-bool peek(const pila_t *pila, int *dato)
-{
-    if (pila == NULL || pila->tope == NULL)
-    {
-        return false;
-    }
-    
-    *dato = pila->tope->dato;
-    
-    return true;
-}
-```
-
-#### Verificar si está Vacía
-
-```c
-bool es_vacia_pila(const pila_t *pila)
-{
-    return pila == NULL || pila->tope == NULL;
-}
-```
-
-#### Destruir la Pila
-
-```c
-void destruir_pila(pila_t *pila)
-{
-    nodo_pila_t *siguiente = NULL;
-    
-    if (pila == NULL)
-    {
-        return;
-    }
-    
-    while (pila->tope != NULL)
-    {
-        siguiente = pila->tope->siguiente;
-        free(pila->tope);
-        pila->tope = siguiente;
-    }
-    
-    free(pila);
-    pila = NULL;
-}
-```
-
-:::{note} Patrón de Liberación
-El mismo patrón de liberación que usamos en las listas se aplica aquí: guardamos el siguiente antes de liberar el actual. Este patrón es universal en estructuras enlazadas. Para profundizar en este y otros patrones de gestión de memoria, consultá {ref}`memoria-buenas-practicas`.
-:::
-
-### Aplicaciones de las Pilas
-
-Las pilas son fundamentales en múltiples áreas de la programación:
-
-1. **Evaluación de expresiones:** Conversión de notación infija a postfija y su evaluación.
-2. **Función de llamadas:** El stack de llamadas del programa es una pila. Para entender cómo el sistema operativo usa el stack para gestionar llamadas a funciones, consultá {ref}`memoria-stack-funcionamiento`.
-3. **Backtracking:** Algoritmos que exploran opciones y retroceden (laberintos, sudoku).
-4. **Deshacer/Rehacer:** Editores de texto y aplicaciones gráficas.
-5. **Navegación:** Historial de navegación en navegadores web.
-6. **Parsing:** Análisis sintáctico de lenguajes de programación.
-
-### Ejemplo: Verificación de Paréntesis Balanceados
-
-```c
-bool parentesis_balanceados(const char *expresion)
-{
-    pila_t *pila = NULL;
-    bool balanceado = true;
-    int tope = 0;
-    
-    pila = crear_pila();
-    
-    if (pila == NULL)
-    {
-        return false;
-    }
-    
-    for (size_t i = 0; expresion[i] != '\0'; i++)
-    {
-        char c = expresion[i];
-        bool coincide = false;
-        
-        if (c == '(' || c == '[' || c == '{')
-        {
-            if (!push(pila, c))
-            {
-                balanceado = false;
-                break;
-            }
-        }
-        else if (c == ')' || c == ']' || c == '}')
-        {
-            if (es_vacia_pila(pila))
-            {
-                balanceado = false;
-                break;
-            }
-            
-            pop(pila, &tope);
-            
-            coincide = (c == ')' && tope == '(') ||
-                      (c == ']' && tope == '[') ||
-                      (c == '}' && tope == '{');
-            
-            if (!coincide)
-            {
-                balanceado = false;
-                break;
-            }
-        }
-    }
-    
-    if (balanceado && !es_vacia_pila(pila))
-    {
-        balanceado = false;
-    }
-    
-    destruir_pila(pila);
-    
-    return balanceado;
-}
-```
-
-## Colas (Queues)
-
-Una **cola** es una estructura de datos lineal que sigue el principio **FIFO** (*First In, First Out*): el primer elemento en entrar es el primero en salir. Es análogo a una fila de personas esperando, donde el primero en llegar es el primero en ser atendido.
-
-```{figure} 13/cola_queue.svg
-:label: fig-cola
-:align: center
-
-Estructura de cola con operaciones encolar (inserción al final) y desencolar (extracción del frente).
-```
-
-### Operaciones Fundamentales
-
-- **encolar(elemento):** Agrega un elemento al final de la cola.
-- **desencolar():** Extrae y retorna el elemento del frente.
-- **frente():** Retorna el elemento del frente sin extraerlo.
-- **es_vacia():** Verifica si la cola está vacía.
-
-### Implementación con Lista Enlazada
-
-```c
-typedef struct nodo_cola
-{
-    int dato;
-    struct nodo_cola *siguiente;
-} nodo_cola_t;
-
-typedef struct cola
-{
-    nodo_cola_t *frente;
-    nodo_cola_t *final;
-    size_t tamanio;
-} cola_t;
-```
-
-:::{note}
-Mantener punteros tanto al frente como al final permite que tanto `encolar` como `desencolar` sean operaciones $O(1)$.
-:::
-
-#### Creación de una Cola
-
-```c
-cola_t *crear_cola(void)
-{
-    cola_t *cola = NULL;
-    
-    cola = malloc(sizeof(cola_t));
-    
-    if (cola == NULL)
-    {
-        return NULL;
-    }
-    
-    cola->frente = NULL;
-    cola->final = NULL;
-    cola->tamanio = 0;
-    
-    return cola;
-}
-```
-
-#### Encolar (Enqueue)
-
-```c
-bool encolar(cola_t *cola, int dato)
-{
-    nodo_cola_t *nuevo = NULL;
-    
-    if (cola == NULL)
-    {
-        return false;
-    }
-    
-    nuevo = malloc(sizeof(nodo_cola_t));
-    
-    if (nuevo == NULL)
-    {
-        return false;
-    }
-    
-    nuevo->dato = dato;
-    nuevo->siguiente = NULL;
-    
-    if (cola->final == NULL)
-    {
-        cola->frente = nuevo;
-        cola->final = nuevo;
-    }
-    else
-    {
-        cola->final->siguiente = nuevo;
-        cola->final = nuevo;
-    }
-    
-    cola->tamanio++;
-    
-    return true;
-}
-```
-
-#### Desencolar (Dequeue)
-
-```c
-bool desencolar(cola_t *cola, int *dato)
-{
-    nodo_cola_t *nodo_a_eliminar = NULL;
-    
-    if (cola == NULL || cola->frente == NULL)
-    {
-        return false;
-    }
-    
-    nodo_a_eliminar = cola->frente;
-    *dato = nodo_a_eliminar->dato;
-    
-    cola->frente = cola->frente->siguiente;
-    
-    if (cola->frente == NULL)
-    {
-        cola->final = NULL;
-    }
-    
-    free(nodo_a_eliminar);
-    nodo_a_eliminar = NULL;
-    cola->tamanio--;
-    
-    return true;
-}
-```
-
-:::{important}
-Es crucial actualizar `cola->final` a `NULL` cuando la cola queda vacía para mantener la consistencia de la estructura.
-:::
-
-#### Ver el Frente
-
-```c
-bool ver_frente(const cola_t *cola, int *dato)
-{
-    if (cola == NULL || cola->frente == NULL)
-    {
-        return false;
-    }
-    
-    *dato = cola->frente->dato;
-    return true;
-}
-```
-
-#### Verificar si está Vacía
-
-```c
-bool es_vacia_cola(const cola_t *cola)
-{
-    return cola == NULL || cola->frente == NULL;
-}
-```
-
-#### Destruir la Cola
-
-```c
-void destruir_cola(cola_t *cola)
-{
-    nodo_cola_t *siguiente = NULL;
-    
-    if (cola == NULL)
-    {
-        return;
-    }
-    
-    while (cola->frente != NULL)
-    {
-        siguiente = cola->frente->siguiente;
-        free(cola->frente);
-        cola->frente = siguiente;
-    }
-    
-    free(cola);
-    cola = NULL;
-}
-```
-
-### Aplicaciones de las Colas
-
-Las colas son fundamentales en sistemas que requieren procesamiento en orden de llegada:
-
-1. **Sistemas operativos:** Gestión de procesos (scheduling), colas de impresión.
-2. **Redes:** Buffers de paquetes, enrutamiento de mensajes.
-3. **Simulaciones:** Modelado de sistemas de espera (bancos, supermercados).
-4. **Búsqueda en anchura (BFS):** Algoritmo de grafos para exploración nivel por nivel.
-5. **Asincronía:** Colas de tareas en programación concurrente.
-
-### Cola Circular
-
-Una **cola circular** es una optimización que utiliza un arreglo donde el índice del final "envuelve" al inicio cuando alcanza el límite del arreglo. Esto permite reutilizar el espacio liberado por elementos desencolados.
-
-```c
-#define CAPACIDAD_MAXIMA 100
-
-typedef struct cola_circular
-{
-    int elementos[CAPACIDAD_MAXIMA];
-    int frente;
-    int final;
-    int tamanio;
-} cola_circular_t;
-```
-
-#### Ventajas
-
-- Uso eficiente de memoria: no requiere desplazar elementos.
-- Operaciones $O(1)$ tanto para encolar como desencolar.
-
-#### Desventajas
-
-- Capacidad fija (a menos que se implemente redimensionamiento).
-- Mayor complejidad en la lógica de envolvimiento.
 
 ## Arreglos: Implementación Alternativa de Secuencia
 
@@ -1304,8 +846,7 @@ Documentá exhaustivamente la interfaz pública de tu TAD, especificando el comp
 Un **invariante** es una propiedad que siempre debe ser verdadera en una estructura de datos bien formada. Por ejemplo:
 
 - En una lista: si `inicio == NULL`, entonces `tamanio == 0`.
-- En una cola: si `frente == NULL`, entonces `final == NULL`.
-- En una pila: `tamanio` coincide con el número de nodos accesibles desde `tope`.
+- En una secuencia con arreglo: `tamanio <= capacidad`.
 
 Mantener estos invariantes es responsabilidad de las funciones de manipulación del TAD.
 
@@ -1337,19 +878,23 @@ Para técnicas avanzadas de validación y depuración de errores relacionados co
 
 La eficiencia de las operaciones es un criterio fundamental al elegir una estructura de datos:
 
-| Operación | Lista Simple | Lista Doble | Pila | Cola |
-|-----------|--------------|-------------|------|------|
-| Insertar al inicio | $O(1)$ | $O(1)$ | $O(1)$ | - |
-| Insertar al final | $O(n)$ o $O(1)$* | $O(1)$ | - | $O(1)$ |
-| Eliminar al inicio | $O(1)$ | $O(1)$ | $O(1)$ | $O(1)$ |
-| Eliminar al final | $O(n)$ | $O(1)$ | - | - |
-| Buscar elemento | $O(n)$ | $O(n)$ | $O(n)$ | $O(n)$ |
-| Acceso por índice | $O(n)$ | $O(n)$ | - | - |
+| Operación | Lista Simple | Lista Doble |
+|-----------|--------------|-------------|
+| Insertar al inicio | $O(1)$ | $O(1)$ |
+| Insertar al final | $O(n)$ o $O(1)$* | $O(1)$ |
+| Eliminar al inicio | $O(1)$ | $O(1)$ |
+| Eliminar al final | $O(n)$ | $O(1)$ |
+| Buscar elemento | $O(n)$ | $O(n)$ |
+| Acceso por índice | $O(n)$ | $O(n)$ |
 
 \* $O(1)$ si se mantiene un puntero al final.
 
 :::{important}
 La notación Big-O describe el comportamiento asintótico en el peor caso. En casos promedio o con estructuras auxiliares, las complejidades pueden variar.
+:::
+
+:::{note}
+Para ver la complejidad de pilas y colas, consultá el apunte sobre {ref}`14_estructuras.md`.
 :::
 
 ## Comparación: Arreglos vs. Listas Enlazadas como Secuencias
@@ -1380,125 +925,7 @@ El concepto clave aquí es que **ambas estructuras implementan el mismo TAD Secu
 
 ## Ejercicios
 
-### Ejercicio 1: Invertir una Pila
-
-Escribí una función que invierta el contenido de una pila usando únicamente otra pila auxiliar.
-
-````{exercise} invertir-pila
-:label: ejercicio-invertir-pila
-
-Implementá la función:
-```c
-void invertir_pila(pila_t *pila);
-```
-
-La función debe invertir el orden de los elementos de la pila. Por ejemplo, si la pila contiene (de tope a fondo): 1, 2, 3, 4, después de invertir debe contener: 4, 3, 2, 1.
-
-Restricción: Podés usar solo una pila auxiliar adicional.
-````
-
-````{solution} ejercicio-invertir-pila
-:label: solucion-invertir-pila
-:class: dropdown
-
-```c
-void invertir_pila(pila_t *pila)
-{
-    pila_t *auxiliar = NULL;
-    int dato = 0;
-    
-    if (pila == NULL || es_vacia_pila(pila))
-    {
-        return;
-    }
-    
-    auxiliar = crear_pila();
-    
-    if (auxiliar == NULL)
-    {
-        return;
-    }
-    
-    while (!es_vacia_pila(pila))
-    {
-        pop(pila, &dato);
-        push(auxiliar, dato);
-    }
-    
-    while (!es_vacia_pila(auxiliar))
-    {
-        pop(auxiliar, &dato);
-        push(pila, dato);
-    }
-    
-    destruir_pila(auxiliar);
-}
-```
-
-```{note} Observación
-Esta solución realiza dos pasadas, por lo que los elementos terminan en el mismo orden. 
-Para invertir correctamente, necesitarías dos pilas auxiliares o usar recursión.
-```
-
-**Solución correcta con dos pilas:**
-```c
-void invertir_pila(pila_t *pila)
-{
-    pila_t *aux1 = NULL;
-    pila_t *aux2 = NULL;
-    int dato = 0;
-    
-    if (pila == NULL || es_vacia_pila(pila))
-    {
-        return;
-    }
-    
-    aux1 = crear_pila();
-    aux2 = crear_pila();
-    
-    while (!es_vacia_pila(pila))
-    {
-        pop(pila, &dato);
-        push(aux1, dato);
-    }
-    
-    while (!es_vacia_pila(aux1))
-    {
-        pop(aux1, &dato);
-        push(aux2, dato);
-    }
-    
-    while (!es_vacia_pila(aux2))
-    {
-        pop(aux2, &dato);
-        push(pila, dato);
-    }
-    
-    destruir_pila(aux1);
-    destruir_pila(aux2);
-}
-```
-````
-
-### Ejercicio 2: Palíndromo con Pila y Cola
-
-````{exercise}
-:label: ejercicio-palindromo
-
-Escribí una función que determine si una cadena de caracteres es un palíndromo utilizando una pila y una cola.
-
-```c
-bool es_palindromo(const char *cadena);
-```
-
-Un palíndromo es una palabra que se lee igual de izquierda a derecha que de derecha a izquierda (por ejemplo: "radar", "anilina").
-
-:::{note}
-Insertá cada carácter en una pila y en una cola simultáneamente, luego compará los elementos al extraerlos.
-:::
-````
-
-### Ejercicio 3: Fusionar Listas Ordenadas
+### Ejercicio 1: Fusionar Listas Ordenadas
 
 ````{exercise}
 :label: ejercicio-fusionar-listas
@@ -1515,28 +942,7 @@ Por ejemplo:
 - Resultado: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 ````
 
-### Ejercicio 4: Cola con Dos Pilas
-
-````{exercise}
-:label: ejercicio-cola-con-pilas
-
-Implementá una cola utilizando únicamente dos pilas. Las operaciones `encolar` y `desencolar` deben mantener el comportamiento FIFO.
-
-```c
-typedef struct cola_con_pilas
-{
-    pila_t *pila_entrada;
-    pila_t *pila_salida;
-} cola_con_pilas_t;
-
-bool encolar_pilas(cola_con_pilas_t *cola, int dato);
-bool desencolar_pilas(cola_con_pilas_t *cola, int *dato);
-```
-
-Sugerencia: Usá una pila para las inserciones y otra para las extracciones, transfiriendo elementos entre ellas cuando sea necesario.
-````
-
-### Ejercicio 5: Detectar Ciclo en una Lista
+### Ejercicio 2: Detectar Ciclo en una Lista
 
 ````{exercise}
 :label: ejercicio-detectar-ciclo
@@ -1549,6 +955,10 @@ bool tiene_ciclo(const lista_t *lista);
 
 Sugerencia: Investigá el algoritmo de "la liebre y la tortuga" (Floyd's cycle detection).
 ````
+
+:::{note}
+Para ejercicios sobre pilas y colas, consultá el apunte {ref}`14_estructuras.md`.
+:::
 
 ## Referencias y Lecturas Complementarias
 
@@ -1578,15 +988,17 @@ Los Tipos de Datos Abstractos son una herramienta fundamental para construir sof
   - Arreglos dinámicos: excelentes para acceso aleatorio y localidad de caché.
   - Listas enlazadas: ideales para inserciones/eliminaciones dinámicas.
 - La diferencia entre **memoria estática y dinámica**, y cuándo usar cada una (para detalles completos, consultá {ref}`memoria-introduccion`).
-- **Listas enlazadas** simples y dobles, con todas sus operaciones fundamentales.
-- **Pilas (LIFO)** y sus aplicaciones en programación.
-- **Colas (FIFO)** y su uso en sistemas que procesan en orden de llegada.
+- **Listas enlazadas** simples, dobles y circulares, con todas sus operaciones fundamentales.
 - **Consideraciones de implementación:** manejo de errores, invariantes y seguridad.
 - **Análisis de complejidad temporal** de las operaciones en diferentes implementaciones.
 
 :::{important} Lección Clave: Múltiples Implementaciones
 
 El concepto más importante de este apunte es que **un mismo TAD puede tener múltiples implementaciones**, cada una con diferentes características de rendimiento. La elección de la implementación correcta depende del contexto de uso, y el poder de la abstracción permite cambiar entre implementaciones sin reescribir el código cliente.
+:::
+
+:::{note}
+Para ver otros TADs como pilas y colas, que también demuestran el poder de la abstracción con diferentes implementaciones, consultá el apunte {ref}`14_estructuras.md`.
 :::
 
 Dominar estas estructuras de datos es esencial para avanzar hacia estructuras más complejas como árboles, grafos y tablas hash, que se construyen sobre estos fundamentos. La correcta gestión de memoria dinámica, tema central en este apunte, es la base para implementar cualquier estructura de datos compleja de manera segura y eficiente.
