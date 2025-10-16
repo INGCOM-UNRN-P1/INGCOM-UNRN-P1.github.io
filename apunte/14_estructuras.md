@@ -1,7 +1,7 @@
 ---
-title: Pilas y Colas
-short_title: 14 - Pilas y Colas
-subtitle: Estructuras de datos lineales con restricciones de acceso
+title: Pilas, Colas y Más Allá
+short_title: 14 - Estructuras
+subtitle: Estructuras lineales especializadas y panorama general
 ---
 
 ## Introducción
@@ -654,15 +654,349 @@ Esta implementación mantiene $O(1)$ amortizado en todas las operaciones y crece
 
 Una **cola circular** es una optimización que utiliza un arreglo donde el índice del final "envuelve" al inicio cuando alcanza el límite del arreglo. Esto permite reutilizar el espacio liberado por elementos desencolados.
 
-#### Ventajas
+#### Ventajas de las Colas Circulares
 
 - Uso eficiente de memoria: no requiere desplazar elementos.
 - Operaciones $O(1)$ tanto para encolar como desencolar.
+- Implementación simple y predecible.
 
-#### Desventajas
+#### Desventajas de las Colas Circulares
 
 - Capacidad fija (a menos que se implemente redimensionamiento).
 - Mayor complejidad en la lógica de envolvimiento.
+- Desperdicio de memoria si la capacidad es muy grande.
+
+## Más Allá de las Estructuras Lineales
+
+Las pilas y colas son estructuras **lineales** donde los elementos tienen un predecesor y un sucesor claro (excepto el primero y el último). Sin embargo, muchos problemas del mundo real requieren estructuras más complejas para representar relaciones entre datos.
+
+### Diccionarios (Tablas Hash)
+
+Un **diccionario** o **mapa** es un TAD que asocia **claves únicas** con **valores**. A diferencia de las secuencias donde accedés por posición, en un diccionario accedés por una clave específica.
+
+**Operaciones fundamentales:**
+- `insertar(clave, valor)`: Asocia un valor con una clave
+- `buscar(clave)`: Retorna el valor asociado a la clave
+- `eliminar(clave)`: Elimina la asociación clave-valor
+- `contiene(clave)`: Verifica si existe una clave
+
+**Implementación típica:** Tabla hash con función de hash y manejo de colisiones.
+
+**Complejidad:** $O(1)$ promedio para todas las operaciones.
+
+**Aplicaciones prácticas:**
+- Caché de datos
+- Índices de bases de datos
+- Contadores (frecuencia de palabras)
+- Diccionarios de lenguaje natural
+- Mapeo de identificadores
+
+:::{note}
+Los diccionarios rompen con la restricción de acceso secuencial, permitiendo acceso directo por clave. Son una de las estructuras más utilizadas en programación moderna.
+:::
+
+### Árboles
+
+Un **árbol** es una estructura **jerárquica** donde cada elemento (nodo) puede tener múltiples hijos, pero solo un padre (excepto la raíz). A diferencia de las estructuras lineales, los árboles modelan relaciones de **contención** o **jerarquía**.
+
+**Conceptos clave:**
+- **Raíz:** Nodo superior sin padre
+- **Hoja:** Nodo sin hijos
+- **Altura:** Distancia máxima desde la raíz a una hoja
+- **Subárbol:** Árbol formado por un nodo y todos sus descendientes
+
+**Tipos importantes:**
+- **Árbol Binario:** Cada nodo tiene como máximo 2 hijos
+- **Árbol Binario de Búsqueda (BST):** Árbol binario con propiedad de orden
+- **Árbol AVL/Rojinegro:** BST auto-balanceado
+- **Heap:** Árbol binario completo con propiedad de orden especial
+- **Árbol B:** Árbol multiway usado en bases de datos
+
+**Aplicaciones prácticas:**
+- Sistemas de archivos (jerarquía de directorios)
+- DOM (Document Object Model) en navegadores web
+- Expresiones aritméticas (árbol sintáctico)
+- Bases de datos (índices B-tree)
+- Compresión de datos (árboles de Huffman)
+- Inteligencia artificial (árboles de decisión)
+
+**Complejidad en BST balanceado:**
+- Búsqueda: $O(\log n)$
+- Inserción: $O(\log n)$
+- Eliminación: $O(\log n)$
+
+:::{important}
+Los árboles son fundamentales porque muchas relaciones del mundo real son naturalmente jerárquicas. Además, ofrecen búsquedas mucho más rápidas que las estructuras lineales.
+:::
+
+### Grafos
+
+Un **grafo** es la estructura más general: un conjunto de **vértices** (nodos) conectados por **aristas** (enlaces). A diferencia de los árboles, los grafos pueden tener ciclos y múltiples caminos entre nodos.
+
+**Tipos de grafos:**
+- **Dirigido vs No dirigido:** Las aristas tienen dirección o no
+- **Ponderado vs No ponderado:** Las aristas tienen pesos/costos o no
+- **Conexo vs Disconexo:** Todos los nodos alcanzables o no
+- **Cíclico vs Acíclico:** Contiene ciclos o no (DAG)
+
+**Representaciones comunes:**
+- **Matriz de adyacencia:** Arreglo 2D indicando conexiones
+- **Lista de adyacencia:** Para cada vértice, lista de vecinos
+
+**Operaciones típicas:**
+- Búsqueda en anchura (BFS)
+- Búsqueda en profundidad (DFS)
+- Camino más corto (Dijkstra, Bellman-Ford)
+- Árbol de expansión mínima (Kruskal, Prim)
+- Ordenamiento topológico
+
+**Aplicaciones prácticas:**
+- Redes sociales (conexiones entre personas)
+- Mapas y navegación GPS (ciudades y rutas)
+- Redes de computadoras (topología de red)
+- Dependencias de paquetes en software
+- Análisis de circuitos eléctricos
+- Planificación de tareas con dependencias
+- Compiladores (grafos de flujo de control)
+
+**Complejidad típica:**
+- BFS/DFS: $O(V + E)$ donde V=vértices, E=aristas
+- Dijkstra: $O((V + E) \log V)$ con heap
+- Bellman-Ford: $O(VE)$
+
+:::{note} Generalidad de los Grafos
+
+Los grafos son la estructura más general: los árboles son grafos sin ciclos, las listas son árboles degenerados (un solo camino), y las pilas/colas son listas con restricciones. Comprender grafos te da las herramientas para modelar prácticamente cualquier relación entre datos.
+:::
+
+### Conjuntos (Sets)
+
+Un **conjunto** es una colección de elementos únicos, sin orden específico y sin duplicados. Es la implementación computacional del concepto matemático de conjunto.
+
+**Operaciones fundamentales:**
+- `agregar(elemento)`: Añade un elemento si no existe
+- `contiene(elemento)`: Verifica si un elemento pertenece al conjunto
+- `eliminar(elemento)`: Remueve un elemento
+- `union(otro_conjunto)`: Retorna la unión de dos conjuntos
+- `interseccion(otro_conjunto)`: Retorna la intersección
+- `diferencia(otro_conjunto)`: Retorna la diferencia
+
+**Implementaciones comunes:**
+- Tabla hash: $O(1)$ promedio para operaciones básicas
+- Árbol balanceado: $O(\log n)$ pero mantiene orden
+- Bitmap (para conjuntos pequeños): $O(1)$ con memoria compacta
+
+**Aplicaciones prácticas:**
+- Verificación de unicidad (emails registrados)
+- Operaciones matemáticas sobre grupos
+- Filtrado de duplicados
+- Análisis de pertenencia
+- Algoritmos de grafos (conjunto de visitados)
+
+:::{tip}
+Los conjuntos son útiles cuando el orden no importa pero la unicidad sí. En C, podés implementarlos con tablas hash o árboles BST según tus necesidades de orden.
+:::
+
+### Colas de Prioridad (Priority Queues)
+
+Una **cola de prioridad** es una estructura donde cada elemento tiene una prioridad asociada, y los elementos se extraen según su prioridad, no según el orden de llegada.
+
+**Operaciones fundamentales:**
+- `insertar(elemento, prioridad)`: Agrega con prioridad
+- `extraer_min()` o `extraer_max()`: Extrae el de mayor/menor prioridad
+- `peek()`: Ve el siguiente sin extraer
+- `cambiar_prioridad(elemento, nueva_prioridad)`: Actualiza prioridad
+
+**Implementación típica:** Heap binario (min-heap o max-heap)
+
+**Complejidad con heap:**
+- Inserción: $O(\log n)$
+- Extracción: $O(\log n)$
+- Peek: $O(1)$
+
+**Aplicaciones prácticas:**
+- Algoritmo de Dijkstra (caminos más cortos)
+- Scheduling de procesos con prioridades
+- Simulación de eventos discretos
+- Algoritmo A* en videojuegos
+- Compresión de datos (Huffman coding)
+- Manejo de interrupciones en sistemas operativos
+
+:::{important}
+A diferencia de una cola normal (FIFO), la cola de prioridad extrae basándose en la **prioridad**, no en el orden temporal. Es fundamental para algoritmos que requieren procesar primero los elementos "más importantes".
+:::
+
+### Listas Doblemente Enlazadas con Cabeza/Cola (Deques)
+
+Un **deque** (*double-ended queue*, cola de doble extremo) permite inserción y eliminación eficiente en ambos extremos. Es una generalización tanto de pilas como de colas.
+
+**Operaciones fundamentales:**
+- `insertar_al_inicio(elemento)`: $O(1)$
+- `insertar_al_final(elemento)`: $O(1)$
+- `eliminar_del_inicio()`: $O(1)$
+- `eliminar_del_final()`: $O(1)$
+
+**Implementaciones:**
+- Lista doblemente enlazada: Operaciones $O(1)$ reales
+- Arreglo circular: Operaciones $O(1)$ con mejor caché
+
+**Aplicaciones prácticas:**
+- Ventanas deslizantes en algoritmos
+- Caché LRU (Least Recently Used)
+- Algoritmos de búsqueda bidireccional
+- Palíndromos y operaciones simétricas
+- Deshacer/Rehacer con límite de memoria
+
+:::{note}
+Un deque puede comportarse como pila (usando un extremo) o como cola (usando ambos extremos para FIFO), lo que lo hace muy versátil.
+:::
+
+### Multiconjuntos (Multisets o Bags)
+
+Un **multiconjunto** es como un conjunto pero permite elementos duplicados, manteniendo el conteo de cada uno.
+
+**Operaciones fundamentales:**
+- `agregar(elemento)`: Incrementa el conteo
+- `eliminar(elemento)`: Decrementa el conteo
+- `conteo(elemento)`: Retorna cuántas veces aparece
+- `contiene(elemento)`: Verifica presencia
+
+**Implementación típica:** Diccionario donde la clave es el elemento y el valor es el conteo.
+
+**Aplicaciones prácticas:**
+- Análisis de frecuencias (palabras en texto)
+- Estadísticas y conteo
+- Histogramas
+- Algoritmos de anagramas
+- Inventarios con cantidades
+
+### Tries (Árboles de Prefijos)
+
+Un **trie** es un árbol especializado para almacenar cadenas de caracteres, donde cada nodo representa un carácter y los caminos representan palabras.
+
+**Características:**
+- Búsqueda de palabras: $O(m)$ donde m es la longitud de la palabra
+- Búsqueda de prefijos muy eficiente
+- Todas las palabras con un prefijo común comparten nodos
+
+**Aplicaciones prácticas:**
+- Autocompletado en motores de búsqueda
+- Correctores ortográficos
+- Diccionarios de idiomas
+- Enrutamiento IP (prefix matching)
+- T9 en teléfonos móviles
+
+:::{tip}
+Los tries son excelentes cuando necesitás buscar por prefijos o trabajar con grandes conjuntos de cadenas con prefijos comunes. El espacio puede optimizarse con compressed tries (Patricia trees).
+:::
+
+### Árboles de Segmentos (Segment Trees)
+
+Un **árbol de segmentos** permite consultas y actualizaciones eficientes sobre rangos en un arreglo.
+
+**Operaciones típicas:**
+- Consulta de rango (suma, mínimo, máximo): $O(\log n)$
+- Actualización puntual: $O(\log n)$
+- Actualización de rango (lazy propagation): $O(\log n)$
+
+**Aplicaciones prácticas:**
+- Consultas de rangos en bases de datos
+- Procesamiento de señales
+- Problemas de geometría computacional
+- Competencias de programación
+
+### Union-Find (Disjoint Set)
+
+**Union-Find** (o Disjoint Set Union, DSU) es una estructura para manejar conjuntos disjuntos con operaciones de unión y búsqueda.
+
+**Operaciones fundamentales:**
+- `find(elemento)`: Encuentra el representante del conjunto
+- `union(conjunto1, conjunto2)`: Une dos conjuntos
+
+**Complejidad con optimizaciones:** Casi $O(1)$ amortizado (función inversa de Ackermann)
+
+**Aplicaciones prácticas:**
+- Algoritmo de Kruskal (árbol de expansión mínima)
+- Detección de componentes conexos en grafos
+- Análisis de redes sociales (comunidades)
+- Percolación y análisis de conectividad
+- Algoritmos de unificación en compiladores
+
+:::{important}
+Union-Find es sorprendentemente simple de implementar pero extremadamente poderoso. Con path compression y union by rank, tiene complejidad casi constante.
+:::
+
+### Filtros de Bloom
+
+Un **filtro de Bloom** es una estructura probabilística que indica si un elemento **definitivamente no está** o **probablemente está** en un conjunto.
+
+**Características:**
+- Muy eficiente en espacio
+- Permite falsos positivos, pero no falsos negativos
+- Consulta: $O(k)$ donde k es el número de funciones hash
+
+**Aplicaciones prácticas:**
+- Caché de bases de datos (evitar consultas inútiles)
+- Detección de URLs maliciosas en navegadores
+- Sistemas de archivos distribuidos
+- Detección de spam
+- Bases de datos NoSQL (evitar lecturas de disco)
+
+:::{note}
+Los filtros de Bloom sacrifican precisión por eficiencia de espacio. Son perfectos cuando un pequeño porcentaje de falsos positivos es aceptable.
+:::
+
+### Skip Lists
+
+Una **skip list** es una estructura probabilística que funciona como un BST balanceado pero con implementación más simple.
+
+**Características:**
+- Búsqueda, inserción, eliminación: $O(\log n)$ esperado
+- Implementación más simple que árboles AVL o rojinegros
+- Múltiples niveles de "autopistas" para saltar nodos
+
+**Aplicaciones prácticas:**
+- Implementación de conjuntos y mapas ordenados
+- Redis (servidor de caché) usa skip lists
+- Alternativa a árboles balanceados cuando la simplicidad importa
+
+:::{tip}
+Las skip lists son una excelente alternativa a los árboles balanceados cuando preferís simplicidad de implementación sobre garantías determinísticas.
+:::
+
+### Eligiendo la Estructura Correcta
+
+La elección de la estructura de datos adecuada depende de:
+
+1. **Patrón de acceso:** ¿Secuencial, aleatorio, por clave, por relación?
+2. **Operaciones frecuentes:** ¿Inserción, búsqueda, eliminación?
+3. **Restricciones de orden:** ¿LIFO, FIFO, ordenado, sin restricción?
+4. **Relaciones entre datos:** ¿Lineal, jerárquica, red compleja?
+5. **Requerimientos de rendimiento:** ¿Tiempo, espacio, predicibilidad?
+
+| Necesidad | Estructura Recomendada |
+|-----------|------------------------|
+| Acceso secuencial simple | Lista enlazada |
+| Acceso por índice frecuente | Arreglo dinámico |
+| Último en entrar, primero en salir | Pila |
+| Primero en entrar, primero en salir | Cola |
+| Acceso por ambos extremos | Deque |
+| Búsqueda rápida por clave | Diccionario (Hash) |
+| Búsqueda en rango ordenado | Árbol BST |
+| Búsqueda por prefijo de cadenas | Trie |
+| Consultas de rango en arreglo | Árbol de Segmentos |
+| Elementos únicos sin orden | Conjunto (Set) |
+| Elementos con conteo/frecuencia | Multiconjunto (Bag) |
+| Procesar por prioridad | Cola de Prioridad (Heap) |
+| Conjuntos disjuntos dinámicos | Union-Find |
+| Verificación probabilística rápida | Filtro de Bloom |
+| Relaciones jerárquicas | Árbol general |
+| Relaciones complejas/redes | Grafo |
+
+:::{tip} Principio de Diseño
+
+Empezá con la estructura más simple que cumpla tus requisitos. Podés optimizar después si el análisis de rendimiento lo justifica. La abstracción te permite cambiar la implementación sin reescribir todo el código.
+:::
 
 ## Complejidad Temporal
 
@@ -826,12 +1160,28 @@ Para profundizar en pilas y colas:
 - Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2009). *Introduction to Algorithms* (3rd ed.). MIT Press. Capítulo 10: Elementary Data Structures.
 - Weiss, M. A. (2014). *Data Structures and Algorithm Analysis in C* (2nd ed.). Pearson. Capítulo 3: Lists, Stacks, and Queues.
 
+Para estructuras más avanzadas:
+
+- **Tablas Hash:** Cormen et al., Capítulo 11: Hash Tables.
+- **Árboles:** Cormen et al., Capítulos 12-13: Binary Search Trees y Red-Black Trees.
+- **Grafos:** Cormen et al., Capítulos 22-25: Graph Algorithms.
+- Sedgewick, R., & Wayne, K. (2011). *Algorithms* (4th ed.). Addison-Wesley. Excelente cobertura de todas las estructuras con aplicaciones prácticas.
+
 Para aspectos de implementación y gestión de memoria:
 
 - {ref}`memoria-introduccion` para entender el modelo de memoria completo.
 - {ref}`memoria-buenas-practicas` para patrones seguros de manejo de memoria dinámica.
 
+Recursos en línea:
+
+- VisualAlgo (https://visualgo.net): Visualización interactiva de estructuras de datos y algoritmos.
+- GeeksforGeeks: Tutoriales detallados con implementaciones en múltiples lenguajes.
+
 ## Resumen
+
+Este apunte ha cubierto estructuras de datos fundamentales y su lugar en el ecosistema más amplio de estructuras de datos:
+
+### Pilas y Colas
 
 Las pilas y colas son TADs que restringen el acceso a elementos siguiendo políticas específicas:
 
@@ -840,16 +1190,99 @@ Las pilas y colas son TADs que restringen el acceso a elementos siguiendo polít
   - Backtracking
   - Gestión de llamadas a funciones
   - Deshacer/Rehacer
-
+  
 - **Colas (FIFO):** El primero en entrar es el primero en salir. Ideales para:
   - Procesamiento en orden de llegada
   - Buffers y sistemas de mensajería
   - Scheduling de procesos
   - Algoritmos de búsqueda en anchura
 
+### Implementaciones Múltiples
+
 :::{important} Implementación como Abstracción
 
-Tanto pilas como colas pueden implementarse usando listas enlazadas o arreglos, demostrando que son abstracciones independientes de la implementación subyacente. La elección de implementación depende de las necesidades específicas del sistema.
+Tanto pilas como colas pueden implementarse usando:
+- **Listas enlazadas:** Flexibles, sin límite de tamaño
+- **Arreglos (fijos o dinámicos):** Mejor localidad de caché, predecibles
+
+La elección de implementación depende de las necesidades específicas del sistema: límites de tamaño conocidos, patrones de acceso, y requisitos de rendimiento.
 :::
 
-Estas estructuras son fundamentales para construir sistemas más complejos y aparecen constantemente en algoritmos y aplicaciones del mundo real.
+### Panorama de Estructuras de Datos
+
+Hemos visto cómo las estructuras de datos se organizan en una jerarquía de generalidad y propósito:
+
+1. **Estructuras Lineales con Restricciones:**
+   - Pilas: Solo acceso por un extremo (LIFO)
+   - Colas: Acceso por extremos opuestos (FIFO)
+   - Deques: Acceso por ambos extremos
+
+2. **Estructuras Lineales Generales:**
+   - Secuencias: Acceso flexible (listas, arreglos)
+   
+3. **Estructuras de Búsqueda:**
+   - Diccionarios: Acceso por clave ($O(1)$ promedio)
+   - Árboles BST: Acceso ordenado ($O(\log n)$)
+   - Tries: Búsqueda por prefijos
+   - Skip Lists: BST probabilístico
+
+4. **Estructuras de Colecciones:**
+   - Conjuntos: Elementos únicos
+   - Multiconjuntos: Elementos con frecuencia
+   - Colas de Prioridad: Elementos ordenados por prioridad
+
+5. **Estructuras Jerárquicas:**
+   - Árboles: Relaciones padre-hijo
+   - Árboles de Segmentos: Consultas de rangos
+
+6. **Estructuras de Propósito General:**
+   - Grafos: Relaciones arbitrarias entre elementos
+
+7. **Estructuras Especializadas:**
+   - Union-Find: Conjuntos disjuntos dinámicos
+   - Filtros de Bloom: Verificación probabilística
+
+:::{tip} Camino de Aprendizaje
+
+Esta progresión no es arbitraria. Cada tipo de estructura se construye conceptualmente sobre las anteriores:
+- Pilas/colas/deques son especializaciones de secuencias
+- Árboles son grafos sin ciclos
+- Muchas estructuras avanzadas son combinaciones ingeniosas de las básicas
+- Comprender las estructuras simples facilita entender las complejas
+:::
+
+### Lecciones Clave
+
+1. **Abstracción:** Las mismas operaciones (push, pop) pueden tener múltiples implementaciones.
+2. **Trade-offs:** No hay estructura "mejor", solo la más apropiada para cada contexto.
+3. **Jerarquía:** Las estructuras más simples son bloques de construcción para las complejas.
+4. **Aplicabilidad:** Cada estructura modela un patrón específico de relaciones entre datos.
+5. **Especialización:** Muchas estructuras avanzadas son optimizaciones para casos de uso específicos.
+
+### Estructuras Introducidas
+
+Este apunte ha presentado un panorama completo de estructuras de datos:
+
+**Implementadas en detalle:**
+- Pilas (lista enlazada y arreglo)
+- Colas (lista enlazada y arreglo circular)
+
+**Introducidas conceptualmente:**
+- Diccionarios/Tablas Hash
+- Árboles (binarios, BST, AVL, Heap, B-tree)
+- Grafos (dirigidos, ponderados, representaciones)
+- Conjuntos y Multiconjuntos
+- Colas de Prioridad
+- Deques (colas de doble extremo)
+- Tries (árboles de prefijos)
+- Árboles de Segmentos
+- Union-Find (conjuntos disjuntos)
+- Filtros de Bloom
+- Skip Lists
+
+:::{note} Estructuras Probabilísticas
+
+Algunas estructuras modernas (Filtros de Bloom, Skip Lists) usan aleatorización para lograr simplicidad o eficiencia de espacio. Representan un enfoque diferente: sacrificar garantías determinísticas por beneficios prácticos.
+:::
+
+Estas estructuras son fundamentales para construir sistemas más complejos y aparecen constantemente en algoritmos y aplicaciones del mundo real. El siguiente paso es estudiar cada familia de estructuras más avanzadas en profundidad, comprendiendo sus implementaciones detalladas, análisis de complejidad, y casos de uso específicos.
