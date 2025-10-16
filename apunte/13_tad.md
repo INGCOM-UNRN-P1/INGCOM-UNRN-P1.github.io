@@ -77,8 +77,9 @@ La memoria dinámica se asigna en el **heap** (montículo) durante la ejecución
 ```c
 void procesar_datos(int cantidad)
 {
-    // Asignar memoria dinámica según cantidad
-    int* numeros = malloc(cantidad * sizeof(int));
+    int *numeros = NULL;
+    
+    numeros = malloc(cantidad * sizeof(int));
     
     if (numeros == NULL)
     {
@@ -90,7 +91,7 @@ void procesar_datos(int cantidad)
     
     // IMPORTANTE: Liberar la memoria cuando ya no se necesita
     free(numeros);
-    numeros = NULL;  // Buena práctica: evitar punteros colgantes
+    numeros = NULL;
 }
 ```
 
@@ -105,9 +106,9 @@ No liberar la memoria dinámica asignada produce **fugas de memoria** (*memory l
 
 Para una discusión más profunda sobre las implicaciones de rendimiento de estas decisiones, consultá {ref}`memoria-modelo-costos`.
 
-:::{tip} Aplicación de {ref}`(0x0003h)`
+:::{tip} Aplicación de {ref}`(0x0003h)` y {ref}`(0x0036h)`
 
-Siempre debés inicializar los punteros, preferentemente a `NULL`, y verificar que `malloc` no retorne `NULL` antes de usar la memoria asignada. Para buenas prácticas adicionales sobre gestión de memoria, consultá {ref}`memoria-buenas-practicas`.
+Siempre debés inicializar los punteros, preferentemente a `NULL` (regla {ref}`(0x0003h)`), y verificar que `malloc` no retorne `NULL` antes de usar la memoria asignada. Además, después de liberar memoria con `free`, asignále `NULL` al puntero (regla {ref}`(0x0036h)`) para evitar punteros colgantes. Para buenas prácticas adicionales sobre gestión de memoria, consultá {ref}`memoria-buenas-practicas`.
 :::
 
 ## Listas Enlazadas
@@ -140,29 +141,36 @@ Estructura de una lista enlazada simple. Cada nodo contiene datos y un puntero a
 #### Estructura de un Nodo
 
 ```c
-typedef struct Nodo
+typedef struct nodo
 {
-    int dato;              // Campo de datos (puede ser cualquier tipo)
-    struct Nodo* siguiente; // Puntero al siguiente nodo
-} Nodo;
+    int dato;
+    struct nodo *siguiente;
+} nodo_t;
 
-typedef struct Lista
+typedef struct lista
 {
-    Nodo* inicio;          // Puntero al primer nodo
-    size_t tamanio;        // Cantidad de elementos (opcional, pero útil)
-} Lista;
+    nodo_t *inicio;
+    size_t tamanio;
+} lista_t;
 ```
 
 :::{note}
-Observá el uso de `struct Nodo*` dentro de la definición de `Nodo`. Esto es válido porque el compilador solo necesita saber que `siguiente` es un puntero, cuyo tamaño es conocido independientemente del tipo completo de `Nodo`.
+Observá el uso de `struct nodo *` dentro de la definición de `nodo`. Esto es válido porque el compilador solo necesita saber que `siguiente` es un puntero, cuyo tamaño es conocido independientemente del tipo completo de `nodo`.
+:::
+
+:::{tip} Aplicación de {ref}`(0x0004h)`
+
+Notá el uso de espacios alrededor del operador `*` en las declaraciones de punteros. Según la regla {ref}`(0x0004h)`, debe haber un espacio antes y después de cada operador, lo que incluye el asterisco en declaraciones de punteros. Además, usamos el sufijo `_t` para todos los tipos definidos mediante `typedef`, siguiendo las convenciones de C estándar.
 :::
 
 #### Creación de una Lista Vacía
 
 ```c
-Lista* crear_lista(void)
+lista_t *crear_lista(void)
 {
-    Lista* lista = malloc(sizeof(Lista));
+    lista_t *lista = NULL;
+    
+    lista = malloc(sizeof(lista_t));
     
     if (lista == NULL)
     {
@@ -176,9 +184,9 @@ Lista* crear_lista(void)
 }
 ```
 
-:::{tip} Aplicación de {ref}`(0x0001h)`
+:::{tip} Aplicación de {ref}`(0x0001h)` y {ref}`(0x0003h)`
 
-El nombre `crear_lista` es descriptivo y refleja claramente la operación que realiza. Evitar nombres genéricos como `crear` o `nueva`.
+El nombre `crear_lista` es descriptivo y refleja claramente la operación que realiza (regla {ref}`(0x0001h)`). Evitar nombres genéricos como `crear` o `nueva`. Además, inicializamos el puntero `lista` a `NULL` antes de asignarle memoria (regla {ref}`(0x0003h)`).
 :::
 
 :::{note} Verificación de Asignación
@@ -191,26 +199,25 @@ Siempre verificamos que `malloc` no retorne `NULL` antes de usar la memoria asig
 La inserción al inicio es una operación $O(1)$ porque no requiere recorrer la lista.
 
 ```c
-bool insertar_al_inicio(Lista* lista, int dato)
+bool insertar_al_inicio(lista_t *lista, int dato)
 {
+    nodo_t *nuevo = NULL;
+    
     if (lista == NULL)
     {
         return false;
     }
     
-    // Crear el nuevo nodo
-    Nodo* nuevo = malloc(sizeof(Nodo));
+    nuevo = malloc(sizeof(nodo_t));
     
     if (nuevo == NULL)
     {
         return false;
     }
     
-    // Configurar el nuevo nodo
     nuevo->dato = dato;
     nuevo->siguiente = lista->inicio;
     
-    // Actualizar el inicio de la lista
     lista->inicio = nuevo;
     lista->tamanio++;
     
@@ -223,15 +230,17 @@ bool insertar_al_inicio(Lista* lista, int dato)
 La inserción al final requiere recorrer toda la lista para encontrar el último nodo ($O(n)$).
 
 ```c
-bool insertar_al_final(Lista* lista, int dato)
+bool insertar_al_final(lista_t *lista, int dato)
 {
+    nodo_t *nuevo = NULL;
+    nodo_t *actual = NULL;
+    
     if (lista == NULL)
     {
         return false;
     }
     
-    // Crear el nuevo nodo
-    Nodo* nuevo = malloc(sizeof(Nodo));
+    nuevo = malloc(sizeof(nodo_t));
     
     if (nuevo == NULL)
     {
@@ -241,15 +250,13 @@ bool insertar_al_final(Lista* lista, int dato)
     nuevo->dato = dato;
     nuevo->siguiente = NULL;
     
-    // Si la lista está vacía, el nuevo nodo es el inicio
     if (lista->inicio == NULL)
     {
         lista->inicio = nuevo;
     }
     else
     {
-        // Recorrer hasta el último nodo
-        Nodo* actual = lista->inicio;
+        actual = lista->inicio;
         
         while (actual->siguiente != NULL)
         {
@@ -260,25 +267,28 @@ bool insertar_al_final(Lista* lista, int dato)
     }
     
     lista->tamanio++;
+    
     return true;
 }
 ```
 
 :::{important}
-Una optimización común es mantener un puntero adicional `fin` en la estructura `Lista` que apunte al último nodo, reduciendo la inserción al final a $O(1)$.
+Una optimización común es mantener un puntero adicional `fin` en la estructura `lista_t` que apunte al último nodo, reduciendo la inserción al final a $O(1)$.
 :::
 
 #### Búsqueda
 
 ```c
-Nodo* buscar(const Lista* lista, int dato)
+nodo_t *buscar(const lista_t *lista, int dato)
 {
+    nodo_t *actual = NULL;
+    
     if (lista == NULL)
     {
         return NULL;
     }
     
-    Nodo* actual = lista->inicio;
+    actual = lista->inicio;
     
     while (actual != NULL)
     {
@@ -290,13 +300,13 @@ Nodo* buscar(const Lista* lista, int dato)
         actual = actual->siguiente;
     }
     
-    return NULL;  // No encontrado
+    return NULL;
 }
 ```
 
-:::{tip} Aplicación de {ref}`(0x0000h)`
+:::{tip} Aplicación de {ref}`(0x0000h)` y {ref}`(0x0035h)`
 
-El uso de `const Lista*` indica que la función no modifica la lista, mejorando la claridad del código.
+El uso de `const lista_t *` indica que la función no modifica la lista, mejorando la claridad del código (regla {ref}`(0x0000h)`). Además, seguimos la convención de espaciado de la regla {ref}`(0x0004h)` con el operador `*`.
 :::
 
 #### Eliminación
@@ -304,30 +314,30 @@ El uso de `const Lista*` indica que la función no modifica la lista, mejorando 
 La eliminación de un nodo requiere mantener una referencia al nodo anterior para poder actualizar su puntero `siguiente`.
 
 ```c
-bool eliminar(Lista* lista, int dato)
+bool eliminar(lista_t *lista, int dato)
 {
+    nodo_t *actual = NULL;
+    nodo_t *anterior = NULL;
+    
     if (lista == NULL || lista->inicio == NULL)
     {
         return false;
     }
     
-    Nodo* actual = lista->inicio;
-    Nodo* anterior = NULL;
+    actual = lista->inicio;
+    anterior = NULL;
     
-    // Buscar el nodo a eliminar
     while (actual != NULL && actual->dato != dato)
     {
         anterior = actual;
         actual = actual->siguiente;
     }
     
-    // Si no se encontró el nodo
     if (actual == NULL)
     {
         return false;
     }
     
-    // Si el nodo a eliminar es el primero
     if (anterior == NULL)
     {
         lista->inicio = actual->siguiente;
@@ -338,23 +348,31 @@ bool eliminar(Lista* lista, int dato)
     }
     
     free(actual);
+    actual = NULL;
     lista->tamanio--;
     
     return true;
 }
 ```
 
+:::{tip} Aplicación de {ref}`(0x0036h)`
+
+Observá que después de `free(actual)`, asignamos `NULL` al puntero para prevenir su uso accidental. Aunque en este caso el puntero está a punto de salir de ámbito, es una buena práctica que previene errores.
+:::
+
 #### Recorrido
 
 ```c
-void imprimir_lista(const Lista* lista)
+void imprimir_lista(const lista_t *lista)
 {
+    nodo_t *actual = NULL;
+    
     if (lista == NULL)
     {
         return;
     }
     
-    Nodo* actual = lista->inicio;
+    actual = lista->inicio;
     
     printf("Lista: ");
     
@@ -373,23 +391,27 @@ void imprimir_lista(const Lista* lista)
 Es fundamental liberar toda la memoria asignada para evitar fugas.
 
 ```c
-void destruir_lista(Lista* lista)
+void destruir_lista(lista_t *lista)
 {
+    nodo_t *actual = NULL;
+    nodo_t *siguiente = NULL;
+    
     if (lista == NULL)
     {
         return;
     }
     
-    Nodo* actual = lista->inicio;
+    actual = lista->inicio;
     
     while (actual != NULL)
     {
-        Nodo* siguiente = actual->siguiente;
+        siguiente = actual->siguiente;
         free(actual);
         actual = siguiente;
     }
     
     free(lista);
+    lista = NULL;
 }
 ```
 
@@ -423,19 +445,19 @@ Lista doblemente enlazada con punteros tanto al siguiente como al anterior nodo.
 #### Estructura
 
 ```c
-typedef struct NodoDoble
+typedef struct nodo_doble
 {
     int dato;
-    struct NodoDoble* anterior;
-    struct NodoDoble* siguiente;
-} NodoDoble;
+    struct nodo_doble *anterior;
+    struct nodo_doble *siguiente;
+} nodo_doble_t;
 
-typedef struct ListaDoble
+typedef struct lista_doble
 {
-    NodoDoble* inicio;
-    NodoDoble* fin;      // Puntero al último nodo para inserción $O(1)$
+    nodo_doble_t *inicio;
+    nodo_doble_t *fin;
     size_t tamanio;
-} ListaDoble;
+} lista_doble_t;
 ```
 
 #### Ventajas sobre la Lista Simple
@@ -452,14 +474,16 @@ typedef struct ListaDoble
 #### Inserción al Inicio
 
 ```c
-bool insertar_al_inicio_doble(ListaDoble* lista, int dato)
+bool insertar_al_inicio_doble(lista_doble_t *lista, int dato)
 {
+    nodo_doble_t *nuevo = NULL;
+    
     if (lista == NULL)
     {
         return false;
     }
     
-    NodoDoble* nuevo = malloc(sizeof(NodoDoble));
+    nuevo = malloc(sizeof(nodo_doble_t));
     
     if (nuevo == NULL)
     {
@@ -470,14 +494,12 @@ bool insertar_al_inicio_doble(ListaDoble* lista, int dato)
     nuevo->anterior = NULL;
     nuevo->siguiente = lista->inicio;
     
-    // Si la lista no está vacía, actualizar el anterior del primer nodo
     if (lista->inicio != NULL)
     {
         lista->inicio->anterior = nuevo;
     }
     else
     {
-        // Si la lista estaba vacía, fin también apunta al nuevo nodo
         lista->fin = nuevo;
     }
     
@@ -493,7 +515,7 @@ bool insertar_al_inicio_doble(ListaDoble* lista, int dato)
 La ventaja principal es que si tenemos un puntero al nodo a eliminar, podemos hacerlo sin buscar el nodo anterior.
 
 ```c
-bool eliminar_nodo_doble(ListaDoble* lista, NodoDoble* nodo)
+bool eliminar_nodo_doble(lista_doble_t *lista, nodo_doble_t *nodo)
 {
     if (lista == NULL || nodo == NULL)
     {
@@ -559,25 +581,27 @@ Estructura de pila con operaciones push (apilar) y pop (desapilar). El acceso es
 ### Implementación con Lista Enlazada
 
 ```c
-typedef struct NodoPila
+typedef struct nodo_pila
 {
     int dato;
-    struct NodoPila* siguiente;
-} NodoPila;
+    struct nodo_pila *siguiente;
+} nodo_pila_t;
 
-typedef struct Pila
+typedef struct pila
 {
-    NodoPila* tope;
+    nodo_pila_t *tope;
     size_t tamanio;
-} Pila;
+} pila_t;
 ```
 
 #### Creación de una Pila
 
 ```c
-Pila* crear_pila(void)
+pila_t *crear_pila(void)
 {
-    Pila* pila = malloc(sizeof(Pila));
+    pila_t *pila = NULL;
+    
+    pila = malloc(sizeof(pila_t));
     
     if (pila == NULL)
     {
@@ -594,14 +618,16 @@ Pila* crear_pila(void)
 #### Apilar (Push)
 
 ```c
-bool push(Pila* pila, int dato)
+bool push(pila_t *pila, int dato)
 {
+    nodo_pila_t *nuevo = NULL;
+    
     if (pila == NULL)
     {
         return false;
     }
     
-    NodoPila* nuevo = malloc(sizeof(NodoPila));
+    nuevo = malloc(sizeof(nodo_pila_t));
     
     if (nuevo == NULL)
     {
@@ -624,18 +650,21 @@ La operación `push` es idéntica a insertar al inicio en una lista enlazada. Es
 #### Desapilar (Pop)
 
 ```c
-bool pop(Pila* pila, int* dato)
+bool pop(pila_t *pila, int *dato)
 {
+    nodo_pila_t *nodo_a_eliminar = NULL;
+    
     if (pila == NULL || pila->tope == NULL)
     {
         return false;
     }
     
-    NodoPila* nodo_a_eliminar = pila->tope;
+    nodo_a_eliminar = pila->tope;
     *dato = nodo_a_eliminar->dato;
     
     pila->tope = pila->tope->siguiente;
     free(nodo_a_eliminar);
+    nodo_a_eliminar = NULL;
     pila->tamanio--;
     
     return true;
@@ -649,7 +678,7 @@ La función `pop` retorna el dato mediante un parámetro de salida (puntero) y u
 #### Ver el Tope (Peek)
 
 ```c
-bool peek(const Pila* pila, int* dato)
+bool peek(const pila_t *pila, int *dato)
 {
     if (pila == NULL || pila->tope == NULL)
     {
@@ -657,6 +686,7 @@ bool peek(const Pila* pila, int* dato)
     }
     
     *dato = pila->tope->dato;
+    
     return true;
 }
 ```
@@ -664,7 +694,7 @@ bool peek(const Pila* pila, int* dato)
 #### Verificar si está Vacía
 
 ```c
-bool es_vacia_pila(const Pila* pila)
+bool es_vacia_pila(const pila_t *pila)
 {
     return pila == NULL || pila->tope == NULL;
 }
@@ -673,8 +703,10 @@ bool es_vacia_pila(const Pila* pila)
 #### Destruir la Pila
 
 ```c
-void destruir_pila(Pila* pila)
+void destruir_pila(pila_t *pila)
 {
+    nodo_pila_t *siguiente = NULL;
+    
     if (pila == NULL)
     {
         return;
@@ -682,12 +714,13 @@ void destruir_pila(Pila* pila)
     
     while (pila->tope != NULL)
     {
-        NodoPila* siguiente = pila->tope->siguiente;
+        siguiente = pila->tope->siguiente;
         free(pila->tope);
         pila->tope = siguiente;
     }
     
     free(pila);
+    pila = NULL;
 }
 ```
 
@@ -709,20 +742,23 @@ Las pilas son fundamentales en múltiples áreas de la programación:
 ### Ejemplo: Verificación de Paréntesis Balanceados
 
 ```c
-bool parentesis_balanceados(const char* expresion)
+bool parentesis_balanceados(const char *expresion)
 {
-    Pila* pila = crear_pila();
+    pila_t *pila = NULL;
+    bool balanceado = true;
+    int tope = 0;
+    
+    pila = crear_pila();
     
     if (pila == NULL)
     {
         return false;
     }
     
-    bool balanceado = true;
-    
     for (size_t i = 0; expresion[i] != '\0'; i++)
     {
         char c = expresion[i];
+        bool coincide = false;
         
         if (c == '(' || c == '[' || c == '{')
         {
@@ -740,13 +776,11 @@ bool parentesis_balanceados(const char* expresion)
                 break;
             }
             
-            int tope;
             pop(pila, &tope);
             
-            // Verificar que coincidan los tipos de paréntesis
-            bool coincide = (c == ')' && tope == '(') ||
-                           (c == ']' && tope == '[') ||
-                           (c == '}' && tope == '{');
+            coincide = (c == ')' && tope == '(') ||
+                      (c == ']' && tope == '[') ||
+                      (c == '}' && tope == '{');
             
             if (!coincide)
             {
@@ -756,13 +790,13 @@ bool parentesis_balanceados(const char* expresion)
         }
     }
     
-    // La expresión es balanceada si la pila está vacía al final
     if (balanceado && !es_vacia_pila(pila))
     {
         balanceado = false;
     }
     
     destruir_pila(pila);
+    
     return balanceado;
 }
 ```
@@ -788,18 +822,18 @@ Estructura de cola con operaciones encolar (inserción al final) y desencolar (e
 ### Implementación con Lista Enlazada
 
 ```c
-typedef struct NodoCola
+typedef struct nodo_cola
 {
     int dato;
-    struct NodoCola* siguiente;
-} NodoCola;
+    struct nodo_cola *siguiente;
+} nodo_cola_t;
 
-typedef struct Cola
+typedef struct cola
 {
-    NodoCola* frente;      // Puntero al primer elemento (salida)
-    NodoCola* final;       // Puntero al último elemento (entrada)
+    nodo_cola_t *frente;
+    nodo_cola_t *final;
     size_t tamanio;
-} Cola;
+} cola_t;
 ```
 
 :::{note}
@@ -809,9 +843,11 @@ Mantener punteros tanto al frente como al final permite que tanto `encolar` como
 #### Creación de una Cola
 
 ```c
-Cola* crear_cola(void)
+cola_t *crear_cola(void)
 {
-    Cola* cola = malloc(sizeof(Cola));
+    cola_t *cola = NULL;
+    
+    cola = malloc(sizeof(cola_t));
     
     if (cola == NULL)
     {
@@ -829,14 +865,16 @@ Cola* crear_cola(void)
 #### Encolar (Enqueue)
 
 ```c
-bool encolar(Cola* cola, int dato)
+bool encolar(cola_t *cola, int dato)
 {
+    nodo_cola_t *nuevo = NULL;
+    
     if (cola == NULL)
     {
         return false;
     }
     
-    NodoCola* nuevo = malloc(sizeof(NodoCola));
+    nuevo = malloc(sizeof(nodo_cola_t));
     
     if (nuevo == NULL)
     {
@@ -846,7 +884,6 @@ bool encolar(Cola* cola, int dato)
     nuevo->dato = dato;
     nuevo->siguiente = NULL;
     
-    // Si la cola está vacía, el nuevo nodo es tanto frente como final
     if (cola->final == NULL)
     {
         cola->frente = nuevo;
@@ -854,12 +891,12 @@ bool encolar(Cola* cola, int dato)
     }
     else
     {
-        // Agregar al final
         cola->final->siguiente = nuevo;
         cola->final = nuevo;
     }
     
     cola->tamanio++;
+    
     return true;
 }
 ```
@@ -867,25 +904,27 @@ bool encolar(Cola* cola, int dato)
 #### Desencolar (Dequeue)
 
 ```c
-bool desencolar(Cola* cola, int* dato)
+bool desencolar(cola_t *cola, int *dato)
 {
+    nodo_cola_t *nodo_a_eliminar = NULL;
+    
     if (cola == NULL || cola->frente == NULL)
     {
         return false;
     }
     
-    NodoCola* nodo_a_eliminar = cola->frente;
+    nodo_a_eliminar = cola->frente;
     *dato = nodo_a_eliminar->dato;
     
     cola->frente = cola->frente->siguiente;
     
-    // Si la cola quedó vacía, actualizar final también
     if (cola->frente == NULL)
     {
         cola->final = NULL;
     }
     
     free(nodo_a_eliminar);
+    nodo_a_eliminar = NULL;
     cola->tamanio--;
     
     return true;
@@ -899,7 +938,7 @@ Es crucial actualizar `cola->final` a `NULL` cuando la cola queda vacía para ma
 #### Ver el Frente
 
 ```c
-bool ver_frente(const Cola* cola, int* dato)
+bool ver_frente(const cola_t *cola, int *dato)
 {
     if (cola == NULL || cola->frente == NULL)
     {
@@ -914,7 +953,7 @@ bool ver_frente(const Cola* cola, int* dato)
 #### Verificar si está Vacía
 
 ```c
-bool es_vacia_cola(const Cola* cola)
+bool es_vacia_cola(const cola_t *cola)
 {
     return cola == NULL || cola->frente == NULL;
 }
@@ -923,8 +962,10 @@ bool es_vacia_cola(const Cola* cola)
 #### Destruir la Cola
 
 ```c
-void destruir_cola(Cola* cola)
+void destruir_cola(cola_t *cola)
 {
+    nodo_cola_t *siguiente = NULL;
+    
     if (cola == NULL)
     {
         return;
@@ -932,12 +973,13 @@ void destruir_cola(Cola* cola)
     
     while (cola->frente != NULL)
     {
-        NodoCola* siguiente = cola->frente->siguiente;
+        siguiente = cola->frente->siguiente;
         free(cola->frente);
         cola->frente = siguiente;
     }
     
     free(cola);
+    cola = NULL;
 }
 ```
 
@@ -958,13 +1000,13 @@ Una **cola circular** es una optimización que utiliza un arreglo donde el índi
 ```c
 #define CAPACIDAD_MAXIMA 100
 
-typedef struct ColaCircular
+typedef struct cola_circular
 {
     int elementos[CAPACIDAD_MAXIMA];
     int frente;
     int final;
     int tamanio;
-} ColaCircular;
+} cola_circular_t;
 ```
 
 #### Ventajas
@@ -1005,16 +1047,14 @@ Mantener estos invariantes es responsabilidad de las funciones de manipulación 
 ### Seguridad y Robustez
 
 ```c
-// Siempre validar parámetros de entrada
-bool operacion_segura(Estructura* est, int dato)
+bool operacion_segura(estructura_t *est, int dato)
 {
-    if (est == NULL)  // Validación defensiva
+    if (est == NULL)
     {
         fprintf(stderr, "Error: estructura NULL en operacion_segura\n");
         return false;
     }
     
-    // Realizar operación...
     return true;
 }
 ```
@@ -1026,34 +1066,6 @@ La programación defensiva es especialmente importante en TADs porque el usuario
 :::{note} Validación y Depuración
 
 Para técnicas avanzadas de validación y depuración de errores relacionados con memoria en estructuras dinámicas, consultá {ref}`memoria-valgrind`. Herramientas como Valgrind son invaluables para detectar fugas de memoria y accesos inválidos en TADs complejos.
-:::
-
-### Genericidad mediante Punteros Void
-
-Para crear TADs genéricos que funcionen con cualquier tipo de dato, podés usar `void*`:
-
-```c
-typedef struct NodoGenerico
-{
-    void* dato;                    // Puntero genérico
-    struct NodoGenerico* siguiente;
-} NodoGenerico;
-
-typedef void (*FuncionLiberar)(void*);  // Función para liberar el dato
-
-typedef struct ListaGenerica
-{
-    NodoGenerico* inicio;
-    FuncionLiberar liberar_dato;
-    size_t tamanio;
-} ListaGenerica;
-```
-
-Esto permite almacenar cualquier tipo de dato, pero requiere que el usuario proporcione funciones para copiar, comparar y liberar los datos. Cuando trabajés con punteros void, debés tener especial cuidado con la gestión de memoria para evitar fugas y accesos incorrectos.
-
-:::{important} Gestión de Memoria con Tipos Genéricos
-
-Al usar `void*` para genericidad, la responsabilidad de la correcta liberación de memoria se vuelve más compleja. El TAD debe proporcionar mecanismos claros para que el usuario especifique cómo liberar los datos almacenados. Para estrategias de manejo de memoria en estructuras genéricas, consultá {ref}`memoria-buenas-practicas`.
 :::
 
 ## Complejidad Temporal
@@ -1102,7 +1114,7 @@ Escribí una función que invierta el contenido de una pila usando únicamente o
 
 Implementá la función:
 ```c
-void invertir_pila(Pila* pila);
+void invertir_pila(pila_t *pila);
 ```
 
 La función debe invertir el orden de los elementos de la pila. Por ejemplo, si la pila contiene (de tope a fondo): 1, 2, 3, 4, después de invertir debe contener: 4, 3, 2, 1.
@@ -1115,33 +1127,31 @@ Restricción: Podés usar solo una pila auxiliar adicional.
 :class: dropdown
 
 ```c
-void invertir_pila(Pila* pila)
+void invertir_pila(pila_t *pila)
 {
+    pila_t *auxiliar = NULL;
+    int dato = 0;
+    
     if (pila == NULL || es_vacia_pila(pila))
     {
         return;
     }
     
-    Pila* auxiliar = crear_pila();
+    auxiliar = crear_pila();
     
     if (auxiliar == NULL)
     {
         return;
     }
     
-    // Pasar todos los elementos a la pila auxiliar
     while (!es_vacia_pila(pila))
     {
-        int dato;
         pop(pila, &dato);
         push(auxiliar, dato);
     }
     
-    // La pila auxiliar ahora tiene los elementos en orden inverso
-    // Copiar de vuelta a la pila original
     while (!es_vacia_pila(auxiliar))
     {
-        int dato;
         pop(auxiliar, &dato);
         push(pila, dato);
     }
@@ -1157,36 +1167,34 @@ Para invertir correctamente, necesitarías dos pilas auxiliares o usar recursió
 
 **Solución correcta con dos pilas:**
 ```c
-void invertir_pila(Pila* pila)
+void invertir_pila(pila_t *pila)
 {
+    pila_t *aux1 = NULL;
+    pila_t *aux2 = NULL;
+    int dato = 0;
+    
     if (pila == NULL || es_vacia_pila(pila))
     {
         return;
     }
     
-    Pila* aux1 = crear_pila();
-    Pila* aux2 = crear_pila();
+    aux1 = crear_pila();
+    aux2 = crear_pila();
     
-    // Primera pasada: pila -> aux1
     while (!es_vacia_pila(pila))
     {
-        int dato;
         pop(pila, &dato);
         push(aux1, dato);
     }
     
-    // Segunda pasada: aux1 -> aux2
     while (!es_vacia_pila(aux1))
     {
-        int dato;
         pop(aux1, &dato);
         push(aux2, dato);
     }
     
-    // Tercera pasada: aux2 -> pila (ahora invertida)
     while (!es_vacia_pila(aux2))
     {
-        int dato;
         pop(aux2, &dato);
         push(pila, dato);
     }
@@ -1205,7 +1213,7 @@ void invertir_pila(Pila* pila)
 Escribí una función que determine si una cadena de caracteres es un palíndromo utilizando una pila y una cola.
 
 ```c
-bool es_palindromo(const char* cadena);
+bool es_palindromo(const char *cadena);
 ```
 
 Un palíndromo es una palabra que se lee igual de izquierda a derecha que de derecha a izquierda (por ejemplo: "radar", "anilina").
@@ -1223,7 +1231,7 @@ Insertá cada carácter en una pila y en una cola simultáneamente, luego compar
 Dadas dos listas enlazadas ordenadas ascendentemente, escribí una función que las fusione en una nueva lista también ordenada.
 
 ```c
-Lista* fusionar_listas(const Lista* lista1, const Lista* lista2);
+lista_t *fusionar_listas(const lista_t *lista1, const lista_t *lista2);
 ```
 
 Por ejemplo:
@@ -1240,14 +1248,14 @@ Por ejemplo:
 Implementá una cola utilizando únicamente dos pilas. Las operaciones `encolar` y `desencolar` deben mantener el comportamiento FIFO.
 
 ```c
-typedef struct ColaConPilas
+typedef struct cola_con_pilas
 {
-    Pila* pila_entrada;
-    Pila* pila_salida;
-} ColaConPilas;
+    pila_t *pila_entrada;
+    pila_t *pila_salida;
+} cola_con_pilas_t;
 
-bool encolar_pilas(ColaConPilas* cola, int dato);
-bool desencolar_pilas(ColaConPilas* cola, int* dato);
+bool encolar_pilas(cola_con_pilas_t *cola, int dato);
+bool desencolar_pilas(cola_con_pilas_t *cola, int *dato);
 ```
 
 Sugerencia: Usá una pila para las inserciones y otra para las extracciones, transfiriendo elementos entre ellas cuando sea necesario.
@@ -1261,7 +1269,7 @@ Sugerencia: Usá una pila para las inserciones y otra para las extracciones, tra
 Escribí una función que detecte si una lista enlazada contiene un ciclo (es decir, si siguiendo los punteros `siguiente` eventualmente volvés a un nodo ya visitado).
 
 ```c
-bool tiene_ciclo(const Lista* lista);
+bool tiene_ciclo(const lista_t *lista);
 ```
 
 Sugerencia: Investigá el algoritmo de "la liebre y la tortuga" (Floyd's cycle detection).
