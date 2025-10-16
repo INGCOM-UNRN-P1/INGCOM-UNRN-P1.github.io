@@ -947,7 +947,7 @@ echo "Backup completado: backup_$DATE.tar.gz"
 
 ### 🧩 22. Ejercicios prácticos avanzados
 
-:::{exercise}
+:::{exercise} ejercicio-estructura-proyecto
 :label: ejercicio-estructura-proyecto
 
 **Ejercicio 1: Estructura de proyecto automatizada**
@@ -959,7 +959,7 @@ Creá un script que genere automáticamente una estructura completa de proyecto 
 - El script debe validar que no existe ya un directorio con ese nombre
 :::
 
-:::{solution}
+:::{solution} ejercicio-estructura-proyecto
 :for: ejercicio-estructura-proyecto
 
 ```bash
@@ -1011,7 +1011,7 @@ tree "$proyecto" 2>/dev/null || ls -la "$proyecto"
 ```
 :::
 
-:::{exercise}
+:::{exercise} ejercicio-analizador-logs
 :label: ejercicio-analizador-logs
 
 **Ejercicio 2: Analizador de logs web**
@@ -1023,7 +1023,7 @@ Desarrollá un script que analice un archivo de log de servidor web (formato Apa
 - Estadísticas por hora del día
 :::
 
-:::{solution}
+:::{solution} ejercicio-analizador-logs
 :for: ejercicio-analizador-logs
 
 ```bash
@@ -1056,7 +1056,7 @@ awk '{print substr($4, 13, 2)}' "$LOG_FILE" | sort -n | uniq -c
 ```
 :::
 
-:::{exercise}
+:::{exercise} ejercicio-monitor-recursos
 :label: ejercicio-monitor-recursos
 
 **Ejercicio 3: Monitor de recursos del sistema**
@@ -1068,7 +1068,7 @@ Creá un script de monitoreo que:
 - Ejecute acciones correctivas automáticas (opcional)
 :::
 
-:::{solution}
+:::{solution} ejercicio-monitor-recursos
 :for: ejercicio-monitor-recursos
 
 ```bash

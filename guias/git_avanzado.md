@@ -459,7 +459,7 @@ git reset --hard HEAD@{1}        # volver al estado anterior
 (ejercicios-avanzados)=
 ## Ejercicios prácticos avanzados
 
-:::{exercise}
+:::{exercise} ejercicio-rebase-interactivo
 :label: ejercicio-rebase-interactivo
 
 **Ejercicio 1: Rebase interactivo para limpiar historial**
@@ -477,7 +477,7 @@ mergear.
 
 :::
 
-:::{solution}
+:::{solution} ejercicio-rebase-interactivo
 :for: ejercicio-rebase-interactivo
 
 ```bash

@@ -34,7 +34,7 @@ Suma:   128 + 64+ 0 + 0 + 8 + 0 + 0 + 0 = 200
 El bit del resultado es `1` solo si ambos bits correspondientes en los operandos
 son `1`. Su uso principal es para **verificar** o **apagar** bits.
 
-:::{exercise}
+:::{exercise} espar
 :label: espar
 ¿Es un número par?
 
@@ -43,7 +43,7 @@ función que use el operador `&` para determinar si un número es par.
 
 :::
 
-:::{solution}
+:::{solution} espar
 :for: espar
 :class: dropdown
 
@@ -64,14 +64,14 @@ bool es_par(int numero) {
 El bit del resultado es `1` si al menos uno de los bits correspondientes es `1`.
 Su uso principal es para **encender** bits.
 
-:::{exercise}
+:::{exercise} activar
 :label: activar
 
 Encender un Flag Dado un `unsigned char` que representa un
 conjunto de 8 flags, escribí una función que encienda el 4to bit (bit en la
 posición 3) sin modificar los demás. :::
 
-:::{solution}
+:::{solution} activar
 :for: activar
 :class: dropdown
 
@@ -90,14 +90,14 @@ void activar_flag_4(unsigned char *estado) {
 El bit del resultado es `1` solo si los bits correspondientes son
 **diferentes**. Su uso principal es para **alternar (toggle)** bits.
 
-:::{exercise}
+:::{exercise} intercambio
 :label: intercambio
 
 Intercambio con XOR Escribí una función que intercambie los
 valores de dos variables enteras **sin usar una variable temporal**, utilizando
 únicamente el operador XOR. :::
 
-:::{solution}
+:::{solution} intercambio
 :for: intercambio
 :class: dropdown
 
@@ -118,7 +118,7 @@ void swap_xor(int *a, int *b) {
 El operador NOT (complemento a uno) invierte todos los bits de su operando. `0`
 se convierte en `1` y `1` en `0`.
 
-:::{exercise}
+:::{exercise} mask
 :label: mask
 
 Crear una Máscara para Apagar Escribí una expresión que cree una
@@ -127,7 +127,7 @@ demás.
 
 ::: 
 
-:::{solution}
+:::{solution} mask
 :for: mask
 :class: dropdown
 
@@ -158,14 +158,14 @@ unsigned char mascara_apagado = ~(1 << 1);
   00010100 (20) >> 2  -->  00000101 (5)
   ```
 
-:::{exercise}
+:::{exercise} multiplicacion
 :label: multiplicacion
 
 Multiplicación y División Rápida Escribí dos macros,
 `MULT_POR_8(x)` y `DIV_POR_4(x)`, que usen operadores de desplazamiento para
 realizar las operaciones. :::
 
-:::{solution}
+:::{solution} multiplicacion
 :for: multiplicacion
 :class: dropdown
 
@@ -180,13 +180,13 @@ realizar las operaciones. :::
 
 ### 1. Obtener el N-ésimo Bit
 
-:::{exercise}
+:::{exercise} get_bit
 :label: get_bit
 
 Escribí una función `int get_bit(int numero, int n)` que devuelva
 el valor (0 o 1) del bit en la posición `n`. :::
 
-:::{solution}
+:::{solution} get_bit
 :for: get_bit
 :class: dropdown
 
@@ -201,12 +201,12 @@ int get_bit(int numero, int n) {
 
 ### 2. Establecer el N-ésimo Bit
 
-:::{exercise}
+:::{exercise} set_bit
 :label: set_bit
 Escribí una función `void set_bit(int *numero, int n)` que
 encienda el bit en la posición `n`. :::
 
-:::{solution}
+:::{solution} set_bit
 :for: set_bit
 :class: dropdown
 
@@ -221,13 +221,13 @@ void set_bit(int *numero, int n) {
 
 ### 3. Limpiar el N-ésimo Bit
 
-:::{exercise}
+:::{exercise} clear_bit
 :label: clear_bit
 
 Escribí una función `void clear_bit(int *numero, int n)` que
 apague el bit en la posición `n`. :::
 
-:::{solution}
+:::{solution} clear_bit
 :for: clear_bit
 :class: dropdown
 
@@ -242,7 +242,7 @@ void clear_bit(int *numero, int n) {
 
 ### 4. Contar Bits Encendidos (Hamming Weight)
 
-:::{exercise}
+:::{exercise} kernighan
 :label: kernighan
 
 Implementar una función que cuente el número de bits que están en
@@ -251,7 +251,7 @@ Kernighan.
 
 :::
 
-:::{solution}
+:::{solution} kernighan
 :for: kernighan
 :class: dropdown
 
@@ -275,13 +275,13 @@ int contar_bits_encendidos(int n) {
 
 ### 5. Verificar si es Potencia de Dos
 
-:::{exercise}
+:::{exercise} potencia
 :label: potencia
 
 Escribí una función que determine si un número entero positivo es
 una potencia de dos (2, 4, 8, 16...). :::
 
-:::{solution}
+:::{solution} potencia
 :for: potencia
 :class: dropdown
 

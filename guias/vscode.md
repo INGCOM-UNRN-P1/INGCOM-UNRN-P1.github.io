@@ -675,7 +675,7 @@ git push -u origin main
 
 ## Ejercicios prácticos
 
-:::{exercise}
+:::{exercise} ejercicio-setup-vscode
 :label: ejercicio-setup-vscode
 
 **Ejercicio 1: Setup completo de VS Code**
@@ -693,8 +693,7 @@ git push -u origin main
 
 :::
 
-:::{solution}
-:for: ejercicio-setup-vscode
+:::{solution} ejercicio-setup-vscode
 
 ```bash
 # 1. Instalación en Ubuntu/Debian
@@ -734,7 +733,7 @@ code .
 
 :::
 
-:::{exercise}
+:::{exercise} ejercicio-proyecto-web
 :label: ejercicio-proyecto-web
 
 **Ejercicio 2: Primer proyecto web con VS Code**
@@ -747,8 +746,7 @@ code .
 
 :::
 
-:::{solution}
-:for: ejercicio-proyecto-web
+:::{solution} ejercicio-proyecto-web
 
 ```bash
 # 1. Crear estructura del proyecto

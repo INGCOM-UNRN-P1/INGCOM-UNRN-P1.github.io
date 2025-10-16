@@ -886,7 +886,7 @@ git config --global core.autocrlf input
 (ejercicios-git-basico)=
 ## Ejercicios prácticos
 
-:::{exercise}
+:::{exercise} ejercicio-primer-repo
 :label: ejercicio-primer-repo
 
 **Ejercicio 1: Tu primer repositorio**
@@ -903,7 +903,7 @@ de practicar el {ref}`flujo-diario` completo.
 6. Modificá el `index.html` agregando más contenido
 7. Hacé un segundo commit con los cambios :::
 
-:::{solution}
+:::{solution} ejercicio-primer-repo
 :for: ejercicio-primer-repo
 
 ```bash
@@ -951,7 +951,7 @@ git log --oneline
 
 :::
 
-:::{exercise}
+:::{exercise} ejercicio-manejo-cambios
 :label: ejercicio-manejo-cambios
 
 **Ejercicio 2: Manejo de cambios**
@@ -1624,7 +1624,7 @@ gh api repos/:owner/:repo --method PATCH --field "has_pages=true"
 
 ### Ejercicios prácticos con GitHub y CLI
 
-:::{exercise}
+:::{exercise} ejercicio-github-setup
 :label: ejercicio-github-setup
 
 **Ejercicio 1: Setup completo de GitHub**
@@ -1638,7 +1638,7 @@ gh api repos/:owner/:repo --method PATCH --field "has_pages=true"
 
 :::
 
-:::{solution}
+:::{solution} ejercicio-github-setup
 :for: ejercicio-github-setup
 
 ```bash
@@ -1689,7 +1689,7 @@ gh repo view --web
 
 :::
 
-:::{exercise}
+:::{exercise} ejercicio-github-workflow
 :label: ejercicio-github-workflow
 
 **Ejercicio 2: Workflow completo con issues y CLI**
@@ -1704,7 +1704,7 @@ gh repo view --web
 
 :::
 
-:::{solution}
+:::{solution} ejercicio-github-workflow
 :for: ejercicio-github-workflow
 
 ```bash
@@ -1813,7 +1813,7 @@ características especiales:
 - **Gists con nombre específico**: Pueden embeberse fácilmente
 - **Gists con múltiples archivos**: Funcionan como mini-proyectos
 
-:::{exercise}
+:::{exercise} ejercicio-repositorio-perfil
 :label: ejercicio-repositorio-perfil
 
 **Ejercicio 3: Crear tu repositorio de perfil profesional**
@@ -1846,7 +1846,7 @@ aplicaciones laborales.
 
 :::
 
-:::{solution}
+:::{solution} ejercicio-repositorio-perfil
 :for: ejercicio-repositorio-perfil
 
 ```bash
