@@ -1715,34 +1715,41 @@ int main() {
 ## Glosario
 
 :::{glossary}
-enumeración : Un tipo de dato en C que define un conjunto de constantes enteras
+enumeración 
+: Un tipo de dato en C que define un conjunto de constantes enteras
 nombradas. Permite asociar nombres simbólicos significativos a valores
 numéricos, mejorando la legibilidad del código y reduciendo errores relacionados
 con el uso de "números mágicos".
 
-constante enumerada : Cada uno de los identificadores definidos dentro de una
+constante enumerada 
+: Cada uno de los identificadores definidos dentro de una
 enumeración. Por defecto, reciben valores enteros consecutivos comenzando desde
 0, pero pueden tener valores explícitos asignados por el programador.
 
-tipo opaco : Un tipo de dato cuya implementación interna está oculta al código
+tipo opaco 
+: Un tipo de dato cuya implementación interna está oculta al código
 cliente. Las enumeraciones pueden usarse para crear tipos opacos que encapsulan
 conjuntos de valores válidos sin exponer su representación numérica subyacente.
 
-máquina de estados finita : Un modelo computacional que consiste en un número
+máquina de estados finita 
+: Un modelo computacional que consiste en un número
 finito de estados, transiciones entre esos estados, y acciones. Las
 enumeraciones son ideales para representar los estados posibles en este tipo de
 sistemas.
 
-flag de bits : Una técnica donde se usan valores que son potencias de 2 para
+flag de bits 
+: Una técnica donde se usan valores que son potencias de 2 para
 representar opciones que pueden combinarse usando operadores bitwise. Cada bit
 en la representación binaria representa una opción específica que puede estar
 activada o desactivada.
 
-valor centinela : Un valor especial que marca el final o límite de un conjunto
+valor centinela 
+: Un valor especial que marca el final o límite de un conjunto
 de valores válidos. En enumeraciones, se usa frecuentemente un elemento
 adicional (como `ENUM_MAX`) para facilitar la validación de rangos y iteración.
 
-serialización : El proceso de convertir datos en memoria a un formato que puede
+serialización 
+: El proceso de convertir datos en memoria a un formato que puede
 almacenarse en un archivo o transmitirse por la red. Las enumeraciones requieren
 cuidado especial durante la serialización para mantener compatibilidad cuando
 cambian las definiciones.
