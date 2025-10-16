@@ -182,9 +182,9 @@ No liberar la memoria dinámica asignada produce **fugas de memoria** (*memory l
 
 Para una discusión más profunda sobre las implicaciones de rendimiento de estas decisiones, consultá {ref}`memoria-modelo-costos`.
 
-:::{tip} Aplicación de {ref}`(0x0003h)` y {ref}`(0x0036h)`
+:::{tip} Aplicación de {ref}`0x0003h` y {ref}`0x0036h`
 
-Siempre debés inicializar los punteros, preferentemente a `NULL` (regla {ref}`(0x0003h)`), y verificar que `malloc` no retorne `NULL` antes de usar la memoria asignada. Además, después de liberar memoria con `free`, asignále `NULL` al puntero (regla {ref}`(0x0036h)`) para evitar punteros colgantes. Para buenas prácticas adicionales sobre gestión de memoria, consultá {ref}`memoria-buenas-practicas`.
+Siempre debés inicializar los punteros, preferentemente a `NULL` (regla {ref}`0x0003h`), y verificar que `malloc` no retorne `NULL` antes de usar la memoria asignada. Además, después de liberar memoria con `free`, asignále `NULL` al puntero (regla {ref}`0x0036h`) para evitar punteros colgantes. Para buenas prácticas adicionales sobre gestión de memoria, consultá {ref}`memoria-buenas-practicas`.
 :::
 
 ## El TAD Secuencia
@@ -213,12 +213,9 @@ Lo poderoso de un TAD es que esta misma interfaz puede implementarse de diferent
 1. **Implementación con arreglo:** Los elementos se almacenan en posiciones contiguas de memoria.
 2. **Implementación con lista enlazada:** Los elementos se almacenan en nodos dispersos, conectados mediante punteros.
 
-```{figure} 13/secuencia_implementaciones.svg
-:label: fig-secuencia-implementaciones
-:align: center
-
-Dos implementaciones diferentes del mismo TAD Secuencia: con arreglo y con lista enlazada.
-```
+:::{note}
+La misma interfaz de secuencia puede implementarse con arreglos (memoria contigua) o con listas enlazadas (nodos dispersos), cada una con diferentes características de rendimiento.
+:::
 
 :::{important} Poder de la Abstracción
 
@@ -293,9 +290,9 @@ typedef struct lista
 Observá el uso de `struct nodo *` dentro de la definición de `nodo`. Esto es válido porque el compilador solo necesita saber que `siguiente` es un puntero, cuyo tamaño es conocido independientemente del tipo completo de `nodo`.
 :::
 
-:::{tip} Aplicación de {ref}`(0x0004h)`
+:::{tip} Aplicación de {ref}`0x0004h`
 
-Notá el uso de espacios alrededor del operador `*` en las declaraciones de punteros. Según la regla {ref}`(0x0004h)`, debe haber un espacio antes y después de cada operador, lo que incluye el asterisco en declaraciones de punteros. Además, usamos el sufijo `_t` para todos los tipos definidos mediante `typedef`, siguiendo las convenciones de C estándar.
+Notá el uso de espacios alrededor del operador `*` en las declaraciones de punteros. Según la regla {ref}`0x0004h`, debe haber un espacio antes y después de cada operador, lo que incluye el asterisco en declaraciones de punteros. Además, usamos el sufijo `_t` para todos los tipos definidos mediante `typedef`, siguiendo las convenciones de C estándar.
 :::
 
 #### Creación de una Lista Vacía
@@ -319,9 +316,9 @@ lista_t *crear_lista(void)
 }
 ```
 
-:::{tip} Aplicación de {ref}`(0x0001h)` y {ref}`(0x0003h)`
+:::{tip} Aplicación de {ref}`0x0001h` y {ref}`0x0003h`
 
-El nombre `crear_lista` es descriptivo y refleja claramente la operación que realiza (regla {ref}`(0x0001h)`). Evitar nombres genéricos como `crear` o `nueva`. Además, inicializamos el puntero `lista` a `NULL` antes de asignarle memoria (regla {ref}`(0x0003h)`).
+El nombre `crear_lista` es descriptivo y refleja claramente la operación que realiza (regla {ref}`0x0001h`). Evitar nombres genéricos como `crear` o `nueva`. Además, inicializamos el puntero `lista` a `NULL` antes de asignarle memoria (regla {ref}`0x0003h`).
 :::
 
 :::{note} Verificación de Asignación
@@ -439,9 +436,9 @@ nodo_t *buscar(const lista_t *lista, int dato)
 }
 ```
 
-:::{tip} Aplicación de {ref}`(0x0000h)` y {ref}`(0x0035h)`
+:::{tip} Aplicación de {ref}`0x0000h` y {ref}`0x0035h`
 
-El uso de `const lista_t *` indica que la función no modifica la lista, mejorando la claridad del código (regla {ref}`(0x0000h)`). Además, seguimos la convención de espaciado de la regla {ref}`(0x0004h)` con el operador `*`.
+El uso de `const lista_t *` indica que la función no modifica la lista, mejorando la claridad del código (regla {ref}`0x0000h`). Además, seguimos la convención de espaciado de la regla {ref}`0x0004h` con el operador `*`.
 :::
 
 #### Eliminación
@@ -490,7 +487,7 @@ bool eliminar(lista_t *lista, int dato)
 }
 ```
 
-:::{tip} Aplicación de {ref}`(0x0036h)`
+:::{tip} Aplicación de {ref}`0x0036h`
 
 Observá que después de `free(actual)`, asignamos `NULL` al puntero para prevenir su uso accidental. Aunque en este caso el puntero está a punto de salir de ámbito, es una buena práctica que previene errores.
 :::
@@ -686,7 +683,7 @@ bool eliminar_nodo_doble(lista_doble_t *lista, nodo_doble_t *nodo)
 }
 ```
 
-:::{tip} Aplicación de {ref}`(0x0000h)`
+:::{tip} Aplicación de {ref}`0x0000h`
 
 Observá cómo la estructura del código refleja claramente la lógica: primero se actualizan los punteros de los nodos adyacentes, luego se libera el nodo. Esta organización facilita la comprensión.
 :::
@@ -912,7 +909,7 @@ En C no existen excepciones nativas, por lo que el manejo de errores debe realiz
 - Retornar punteros: `NULL` indica error.
 - Usar parámetros de salida para retornar datos cuando el valor de retorno se usa para el estado.
 
-:::{tip} Aplicación de {ref}`(0x0035h)` y {ref}`(0x0036h)`
+:::{tip} Aplicación de {ref}`0x0035h` y {ref}`0x0036h`
 
 Documentá exhaustivamente la interfaz pública de tu TAD, especificando el comportamiento ante casos de error, condiciones previas y posteriores de cada función.
 :::
@@ -970,7 +967,7 @@ La notación Big-O describe el comportamiento asintótico en el peor caso. En ca
 :::
 
 :::{note}
-Para ver la complejidad de pilas y colas, consultá el apunte sobre {ref}`14_estructuras.md`.
+Para ver la complejidad de pilas y colas, consultá el apunte sobre [](14_estructuras.md).
 :::
 
 ## Comparación: Arreglos vs. Listas Enlazadas como Secuencias
@@ -1033,7 +1030,7 @@ Sugerencia: Investigá el algoritmo de "la liebre y la tortuga" (Floyd's cycle d
 ````
 
 :::{note}
-Para ejercicios sobre pilas y colas, consultá el apunte {ref}`14_estructuras.md`.
+Para ejercicios sobre pilas y colas, consultá el apunte [](14_estructuras.md).
 :::
 
 ## Referencias y Lecturas Complementarias
@@ -1074,7 +1071,7 @@ El concepto más importante de este apunte es que **un mismo TAD puede tener mú
 :::
 
 :::{note}
-Para ver otros TADs como pilas y colas, que también demuestran el poder de la abstracción con diferentes implementaciones, consultá el apunte {ref}`14_estructuras.md`.
+Para ver otros TADs como pilas y colas, que también demuestran el poder de la abstracción con diferentes implementaciones, consultá el apunte [](14_estructuras.md).
 :::
 
 Dominar estas estructuras de datos es esencial para avanzar hacia estructuras más complejas como árboles, grafos y tablas hash, que se construyen sobre estos fundamentos. La correcta gestión de memoria dinámica, tema central en este apunte, es la base para implementar cualquier estructura de datos compleja de manera segura y eficiente.
