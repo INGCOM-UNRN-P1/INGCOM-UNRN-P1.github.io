@@ -35,7 +35,7 @@ La abstracción no es solo ocultar información, sino proporcionar una interfaz 
 
 ## Asignación de Memoria: Estática vs. Dinámica
 
-Antes de implementar estructuras de datos dinámicas, es crucial comprender la diferencia entre memoria estática y dinámica, ya que las estructuras que estudiaremos requieren asignación dinámica.
+Antes de implementar estructuras de datos dinámicas, es crucial comprender la diferencia entre memoria estática y dinámica. Esta sección presenta un resumen de los conceptos fundamentales; para un tratamiento exhaustivo, consultá el apunte sobre {ref}`memoria-introduccion`.
 
 ```{figure} 13/memoria_estatica_dinamica.svg
 :label: fig-memoria-estatica-dinamica
@@ -46,7 +46,7 @@ Comparación entre asignación de memoria estática (en el stack) y dinámica (e
 
 ### Memoria Estática
 
-La memoria estática se asigna en el **stack** (pila de llamadas) durante la compilación o al momento de declarar una variable. Sus características son:
+La memoria estática se asigna en el **stack** (pila de llamadas) durante la compilación o al momento de declarar una variable. Para profundizar en el funcionamiento del stack, consultá {ref}`memoria-stack`. Sus características son:
 
 - **Tamaño fijo:** Debe conocerse en tiempo de compilación.
 - **Duración:** Existe mientras el ámbito de la variable esté activo.
@@ -66,7 +66,7 @@ void funcion(void)
 
 ### Memoria Dinámica
 
-La memoria dinámica se asigna en el **heap** (montículo) durante la ejecución del programa mediante funciones como `malloc`, `calloc` o `realloc`. Sus características son:
+La memoria dinámica se asigna en el **heap** (montículo) durante la ejecución del programa mediante funciones como `malloc`, `calloc` o `realloc`. Para detalles sobre el funcionamiento del heap y técnicas avanzadas, consultá {ref}`memoria-heap`. Sus características son:
 
 - **Tamaño flexible:** Puede determinarse en tiempo de ejecución.
 - **Duración:** Persiste hasta que se libere explícitamente con `free`.
@@ -95,7 +95,7 @@ void procesar_datos(int cantidad)
 ```
 
 :::{warning}
-No liberar la memoria dinámica asignada produce **fugas de memoria** (*memory leaks*), donde la memoria se pierde hasta que el programa termine. Esto puede agotar los recursos del sistema.
+No liberar la memoria dinámica asignada produce **fugas de memoria** (*memory leaks*), donde la memoria se pierde hasta que el programa termine. Esto puede agotar los recursos del sistema. Para más información sobre errores comunes y cómo detectarlos, consultá {ref}`memoria-errores`.
 :::
 
 ### ¿Cuándo usar cada tipo?
@@ -103,9 +103,11 @@ No liberar la memoria dinámica asignada produce **fugas de memoria** (*memory l
 - **Memoria estática:** Cuando el tamaño es conocido, pequeño y constante.
 - **Memoria dinámica:** Cuando el tamaño depende de la entrada del usuario, es grande, o varía durante la ejecución.
 
+Para una discusión más profunda sobre las implicaciones de rendimiento de estas decisiones, consultá {ref}`memoria-modelo-costos`.
+
 :::{tip} Aplicación de {ref}`(0x0003h)`
 
-Siempre debés inicializar los punteros, preferentemente a `NULL`, y verificar que `malloc` no retorne `NULL` antes de usar la memoria asignada.
+Siempre debés inicializar los punteros, preferentemente a `NULL`, y verificar que `malloc` no retorne `NULL` antes de usar la memoria asignada. Para buenas prácticas adicionales sobre gestión de memoria, consultá {ref}`memoria-buenas-practicas`.
 :::
 
 ## Listas Enlazadas
@@ -177,6 +179,11 @@ Lista* crear_lista(void)
 :::{tip} Aplicación de {ref}`(0x0001h)`
 
 El nombre `crear_lista` es descriptivo y refleja claramente la operación que realiza. Evitar nombres genéricos como `crear` o `nueva`.
+:::
+
+:::{note} Verificación de Asignación
+
+Siempre verificamos que `malloc` no retorne `NULL` antes de usar la memoria asignada. Este patrón es esencial para escribir código robusto. Para más detalles sobre manejo de errores en asignación dinámica, consultá {ref}`memoria-malloc`.
 :::
 
 #### Inserción al Inicio
@@ -387,7 +394,12 @@ void destruir_lista(Lista* lista)
 ```
 
 :::{warning}
-Nunca accedas a un nodo después de haberlo liberado con `free`. Por eso guardamos `siguiente` antes de liberar `actual`.
+Nunca accedas a un nodo después de haberlo liberado con `free`. Por eso guardamos `siguiente` antes de liberar `actual`. Este es un error común que puede causar comportamiento indefinido. Para más información sobre este y otros errores relacionados con memoria, consultá {ref}`memoria-errores`.
+:::
+
+:::{important} Gestión de Memoria en TADs
+
+La destrucción apropiada de estructuras de datos es crítica para evitar fugas de memoria. Observá el patrón: primero liberamos todos los nodos recursivamente, y finalmente liberamos la estructura contenedora. Para más detalles sobre patrones de liberación y técnicas avanzadas, consultá {ref}`memoria-buenas-practicas`.
 :::
 
 ```{figure} 13/lista_operaciones.svg
@@ -679,12 +691,16 @@ void destruir_pila(Pila* pila)
 }
 ```
 
+:::{note} Patrón de Liberación
+El mismo patrón de liberación que usamos en las listas se aplica aquí: guardamos el siguiente antes de liberar el actual. Este patrón es universal en estructuras enlazadas. Para profundizar en este y otros patrones de gestión de memoria, consultá {ref}`memoria-buenas-practicas`.
+:::
+
 ### Aplicaciones de las Pilas
 
 Las pilas son fundamentales en múltiples áreas de la programación:
 
 1. **Evaluación de expresiones:** Conversión de notación infija a postfija y su evaluación.
-2. **Función de llamadas:** El stack de llamadas del programa es una pila.
+2. **Función de llamadas:** El stack de llamadas del programa es una pila. Para entender cómo el sistema operativo usa el stack para gestionar llamadas a funciones, consultá {ref}`memoria-stack-funcionamiento`.
 3. **Backtracking:** Algoritmos que exploran opciones y retroceden (laberintos, sudoku).
 4. **Deshacer/Rehacer:** Editores de texto y aplicaciones gráficas.
 5. **Navegación:** Historial de navegación en navegadores web.
@@ -1007,6 +1023,11 @@ bool operacion_segura(Estructura* est, int dato)
 La programación defensiva es especialmente importante en TADs porque el usuario no puede ver la implementación interna. Cada función pública debe validar sus precondiciones.
 :::
 
+:::{note} Validación y Depuración
+
+Para técnicas avanzadas de validación y depuración de errores relacionados con memoria en estructuras dinámicas, consultá {ref}`memoria-valgrind`. Herramientas como Valgrind son invaluables para detectar fugas de memoria y accesos inválidos en TADs complejos.
+:::
+
 ### Genericidad mediante Punteros Void
 
 Para crear TADs genéricos que funcionen con cualquier tipo de dato, podés usar `void*`:
@@ -1028,7 +1049,12 @@ typedef struct ListaGenerica
 } ListaGenerica;
 ```
 
-Esto permite almacenar cualquier tipo de dato, pero requiere que el usuario proporcione funciones para copiar, comparar y liberar los datos.
+Esto permite almacenar cualquier tipo de dato, pero requiere que el usuario proporcione funciones para copiar, comparar y liberar los datos. Cuando trabajés con punteros void, debés tener especial cuidado con la gestión de memoria para evitar fugas y accesos incorrectos.
+
+:::{important} Gestión de Memoria con Tipos Genéricos
+
+Al usar `void*` para genericidad, la responsabilidad de la correcta liberación de memoria se vuelve más compleja. El TAD debe proporcionar mecanismos claros para que el usuario especifique cómo liberar los datos almacenados. Para estrategias de manejo de memoria en estructuras genéricas, consultá {ref}`memoria-buenas-practicas`.
+:::
 
 ## Complejidad Temporal
 
@@ -1059,6 +1085,11 @@ La notación Big-O describe el comportamiento asintótico en el peor caso. En ca
 | Inserción al final | $O(1)$ (si hay espacio) | $O(1)$ o $O(n)$ |
 | Uso de memoria | Contiguo, eficiente en caché | Disperso, overhead por punteros |
 | Fragmentación | No sufre | Puede fragmentar el heap |
+
+:::{note} Consideraciones de Rendimiento
+
+La elección entre arreglos y listas enlazadas tiene profundas implicaciones de rendimiento más allá de la complejidad algorítmica. Los arreglos tienen mejor localidad de memoria, lo que resulta en mejor uso del caché del procesador. Las listas enlazadas, al tener nodos dispersos en memoria, sufren más penalizaciones por accesos a memoria. Para un análisis detallado del impacto del caché y la localidad de memoria, consultá {ref}`memoria-modelo-costos`.
+:::
 
 ## Ejercicios
 
@@ -1244,8 +1275,14 @@ Para profundizar en el estudio de los TADs y estructuras de datos, se recomienda
 - Weiss, M. A. (2014). *Data Structures and Algorithm Analysis in C* (2nd ed.). Pearson.
 - Sedgewick, R., & Wayne, K. (2011). *Algorithms* (4th ed.). Addison-Wesley.
 
+Para aspectos específicos de gestión de memoria y su impacto en la implementación de TADs, consultá:
+
+- {ref}`memoria-introduccion` para entender el modelo de memoria completo.
+- {ref}`memoria-buenas-practicas` para patrones seguros de manejo de memoria dinámica.
+- {ref}`memoria-valgrind` para técnicas de depuración de estructuras dinámicas.
+
 :::{tip}
-La implementación de TADs es una habilidad fundamental que requiere práctica. Te recomendamos implementar cada estructura desde cero al menos una vez, probando exhaustivamente cada operación con casos de prueba variados.
+La implementación de TADs es una habilidad fundamental que requiere práctica. Te recomendamos implementar cada estructura desde cero al menos una vez, probando exhaustivamente cada operación con casos de prueba variados. Usá herramientas como Valgrind durante el desarrollo para detectar fugas de memoria tempranamente.
 :::
 
 ## Resumen
@@ -1253,11 +1290,11 @@ La implementación de TADs es una habilidad fundamental que requiere práctica. 
 Los Tipos de Datos Abstractos son una herramienta fundamental para construir software modular y mantenible. En este apunte hemos cubierto:
 
 - El concepto de TAD y la separación entre interfaz e implementación.
-- La diferencia entre memoria estática y dinámica, y cuándo usar cada una.
+- La diferencia entre memoria estática y dinámica, y cuándo usar cada una (para detalles completos, consultá {ref}`memoria-introduccion`).
 - Listas enlazadas simples y dobles, con todas sus operaciones fundamentales.
 - Pilas (LIFO) y sus aplicaciones en programación.
 - Colas (FIFO) y su uso en sistemas que procesan en orden de llegada.
 - Consideraciones de implementación: manejo de errores, invariantes y seguridad.
 - Análisis de complejidad temporal de las operaciones.
 
-Dominar estas estructuras de datos es esencial para avanzar hacia estructuras más complejas como árboles, grafos y tablas hash, que se construyen sobre estos fundamentos.
+Dominar estas estructuras de datos es esencial para avanzar hacia estructuras más complejas como árboles, grafos y tablas hash, que se construyen sobre estos fundamentos. La correcta gestión de memoria dinámica, tema central en este apunte, es la base para implementar cualquier estructura de datos compleja de manera segura y eficiente.
