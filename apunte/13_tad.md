@@ -111,21 +111,80 @@ Para una discusión más profunda sobre las implicaciones de rendimiento de esta
 Siempre debés inicializar los punteros, preferentemente a `NULL` (regla {ref}`(0x0003h)`), y verificar que `malloc` no retorne `NULL` antes de usar la memoria asignada. Además, después de liberar memoria con `free`, asignále `NULL` al puntero (regla {ref}`(0x0036h)`) para evitar punteros colgantes. Para buenas prácticas adicionales sobre gestión de memoria, consultá {ref}`memoria-buenas-practicas`.
 :::
 
-## Listas Enlazadas
+## El TAD Secuencia
 
-Una **lista enlazada** es una estructura de datos lineal donde cada elemento (nodo) contiene un dato y una referencia (puntero) al siguiente elemento. A diferencia de los arreglos, los nodos de una lista enlazada no necesitan estar almacenados en posiciones contiguas de memoria, lo que permite inserciones y eliminaciones eficientes.
+Una **secuencia** es una colección ordenada de elementos donde cada elemento tiene una posición definida. Es uno de los TADs más fundamentales en programación, ya que representa la idea abstracta de "una serie de cosas en orden".
 
-### Ventajas y Desventajas
+### Interfaz del TAD Secuencia
 
-**Ventajas:**
-- Tamaño dinámico: crece y decrece según las necesidades.
-- Inserción y eliminación eficientes ($O(1)$ si tenemos la referencia al nodo).
-- No requiere reorganización al insertar o eliminar elementos.
+El TAD Secuencia define las siguientes operaciones esenciales:
 
-**Desventajas:**
-- Acceso secuencial: no hay acceso directo por índice ($O(n)$).
-- Mayor uso de memoria por los punteros adicionales.
-- Menos eficiente en caché debido a la no contigüidad en memoria.
+- **crear():** Crea una secuencia vacía.
+- **insertar_al_inicio(secuencia, elemento):** Agrega un elemento al principio.
+- **insertar_al_final(secuencia, elemento):** Agrega un elemento al final.
+- **insertar_en_posicion(secuencia, posicion, elemento):** Inserta un elemento en una posición específica.
+- **eliminar(secuencia, elemento):** Elimina la primera ocurrencia de un elemento.
+- **buscar(secuencia, elemento):** Busca un elemento y retorna su posición o indicador de no encontrado.
+- **obtener(secuencia, posicion):** Retorna el elemento en una posición dada.
+- **tamanio(secuencia):** Retorna la cantidad de elementos.
+- **es_vacia(secuencia):** Verifica si la secuencia está vacía.
+- **destruir(secuencia):** Libera todos los recursos asociados.
+
+### Múltiples Implementaciones
+
+Lo poderoso de un TAD es que esta misma interfaz puede implementarse de diferentes maneras, cada una con sus ventajas y desventajas. Las dos implementaciones más comunes de una secuencia son:
+
+1. **Implementación con arreglo:** Los elementos se almacenan en posiciones contiguas de memoria.
+2. **Implementación con lista enlazada:** Los elementos se almacenan en nodos dispersos, conectados mediante punteros.
+
+```{figure} 13/secuencia_implementaciones.svg
+:label: fig-secuencia-implementaciones
+:align: center
+
+Dos implementaciones diferentes del mismo TAD Secuencia: con arreglo y con lista enlazada.
+```
+
+:::{important} Poder de la Abstracción
+
+El código que usa una secuencia no necesita saber si está implementada con arreglos o listas enlazadas. Esto permite cambiar la implementación sin modificar el código cliente, eligiendo la mejor opción según las necesidades de rendimiento.
+:::
+
+### Comparación de Implementaciones
+
+| Aspecto | Arreglo | Lista Enlazada |
+|---------|---------|----------------|
+| **Acceso aleatorio** | $O(1)$ directo por índice | $O(n)$ requiere recorrido |
+| **Insertar al inicio** | $O(n)$ desplazamiento | $O(1)$ ajustar punteros |
+| **Insertar al final** | $O(1)$ si hay espacio* | $O(1)$ o $O(n)$** |
+| **Búsqueda** | $O(n)$ recorrido | $O(n)$ recorrido |
+| **Memoria** | Contigua, eficiente caché | Dispersa, overhead de punteros |
+| **Tamaño** | Fijo o costoso redimensionar | Dinámico, crece según necesidad |
+
+\* Si el arreglo está lleno, requiere $O(n)$ para redimensionar.  
+\*\* $O(1)$ si se mantiene puntero al final, $O(n)$ si no.
+
+## Listas Enlazadas: Implementación de Secuencia
+
+Una **lista enlazada** es una implementación del TAD Secuencia donde los elementos se almacenan en nodos individuales conectados mediante punteros. A diferencia de los arreglos, los nodos no necesitan estar en posiciones contiguas de memoria, lo que permite inserciones y eliminaciones eficientes al inicio.
+
+Esta es una de las estructuras de datos dinámicas más fundamentales y sirve como base para implementar otros TADs como pilas y colas.
+
+### Ventajas de las Listas Enlazadas
+
+- **Tamaño dinámico:** Crece y decrece según las necesidades sin redimensionamiento.
+- **Inserción y eliminación eficientes:** $O(1)$ si tenemos la referencia al nodo.
+- **No requiere reorganización:** Al insertar o eliminar elementos intermedios.
+
+### Desventajas de las Listas Enlazadas
+
+- **Acceso secuencial:** No hay acceso directo por índice ($O(n)$).
+- **Mayor uso de memoria:** Cada nodo requiere espacio adicional para punteros.
+- **Menos eficiente en caché:** La no contigüidad en memoria reduce el rendimiento.
+
+:::{note} Implementando la Interfaz de Secuencia
+
+Las operaciones de la lista enlazada implementan directamente las operaciones del TAD Secuencia. Por ejemplo, `insertar_al_inicio` de la lista corresponde a la operación abstracta de la secuencia.
+:::
 
 ### Lista Enlazada Simple
 
@@ -1019,6 +1078,212 @@ typedef struct cola_circular
 - Capacidad fija (a menos que se implemente redimensionamiento).
 - Mayor complejidad en la lógica de envolvimiento.
 
+## Arreglos: Implementación Alternativa de Secuencia
+
+Para demostrar el poder de la abstracción del TAD, presentamos ahora una implementación alternativa del TAD Secuencia utilizando arreglos en lugar de listas enlazadas. Esta implementación ofrece diferentes características de rendimiento, pero mantiene la misma interfaz conceptual.
+
+### Secuencia con Arreglo Dinámico
+
+Un arreglo dinámico combina las ventajas del acceso aleatorio de los arreglos con la flexibilidad de tamaño de las estructuras dinámicas.
+
+```c
+typedef struct secuencia_arreglo
+{
+    int *elementos;
+    size_t tamanio;
+    size_t capacidad;
+} secuencia_arreglo_t;
+```
+
+:::{note} Campos de la Estructura
+
+- `elementos`: Puntero al arreglo dinámico que almacena los datos.
+- `tamanio`: Cantidad actual de elementos en la secuencia.
+- `capacidad`: Espacio total asignado (puede ser mayor que `tamanio`).
+:::
+
+#### Creación de una Secuencia con Arreglo
+
+```c
+#define CAPACIDAD_INICIAL 10
+
+secuencia_arreglo_t *crear_secuencia_arreglo(void)
+{
+    secuencia_arreglo_t *sec = NULL;
+    
+    sec = malloc(sizeof(secuencia_arreglo_t));
+    
+    if (sec == NULL)
+    {
+        return NULL;
+    }
+    
+    sec->elementos = malloc(CAPACIDAD_INICIAL * sizeof(int));
+    
+    if (sec->elementos == NULL)
+    {
+        free(sec);
+        return NULL;
+    }
+    
+    sec->tamanio = 0;
+    sec->capacidad = CAPACIDAD_INICIAL;
+    
+    return sec;
+}
+```
+
+#### Redimensionamiento Automático
+
+Cuando la capacidad se agota, el arreglo debe redimensionarse. Una estrategia común es duplicar la capacidad:
+
+```c
+bool redimensionar(secuencia_arreglo_t *sec)
+{
+    size_t nueva_capacidad = 0;
+    int *nuevo_arreglo = NULL;
+    
+    if (sec == NULL)
+    {
+        return false;
+    }
+    
+    nueva_capacidad = sec->capacidad * 2;
+    nuevo_arreglo = realloc(sec->elementos, nueva_capacidad * sizeof(int));
+    
+    if (nuevo_arreglo == NULL)
+    {
+        return false;
+    }
+    
+    sec->elementos = nuevo_arreglo;
+    sec->capacidad = nueva_capacidad;
+    
+    return true;
+}
+```
+
+#### Insertar al Final
+
+```c
+bool insertar_al_final_arreglo(secuencia_arreglo_t *sec, int dato)
+{
+    if (sec == NULL)
+    {
+        return false;
+    }
+    
+    if (sec->tamanio >= sec->capacidad)
+    {
+        if (!redimensionar(sec))
+        {
+            return false;
+        }
+    }
+    
+    sec->elementos[sec->tamanio] = dato;
+    sec->tamanio++;
+    
+    return true;
+}
+```
+
+#### Acceso por Índice
+
+Esta es la operación donde los arreglos brillan: acceso $O(1)$.
+
+```c
+bool obtener_elemento(const secuencia_arreglo_t *sec, size_t indice, int *dato)
+{
+    if (sec == NULL || dato == NULL || indice >= sec->tamanio)
+    {
+        return false;
+    }
+    
+    *dato = sec->elementos[indice];
+    
+    return true;
+}
+```
+
+#### Insertar en Posición Específica
+
+Requiere desplazar elementos, resultando en $O(n)$.
+
+```c
+bool insertar_en_posicion_arreglo(secuencia_arreglo_t *sec, size_t pos, int dato)
+{
+    size_t i = 0;
+    
+    if (sec == NULL || pos > sec->tamanio)
+    {
+        return false;
+    }
+    
+    if (sec->tamanio >= sec->capacidad)
+    {
+        if (!redimensionar(sec))
+        {
+            return false;
+        }
+    }
+    
+    for (i = sec->tamanio; i > pos; i--)
+    {
+        sec->elementos[i] = sec->elementos[i - 1];
+    }
+    
+    sec->elementos[pos] = dato;
+    sec->tamanio++;
+    
+    return true;
+}
+```
+
+#### Destruir la Secuencia
+
+```c
+void destruir_secuencia_arreglo(secuencia_arreglo_t *sec)
+{
+    if (sec == NULL)
+    {
+        return;
+    }
+    
+    free(sec->elementos);
+    sec->elementos = NULL;
+    free(sec);
+}
+```
+
+### Comparación: Arreglo vs Lista Enlazada como Secuencia
+
+Ahora que hemos visto ambas implementaciones del TAD Secuencia, podemos compararlas directamente:
+
+| Operación | Secuencia con Arreglo | Secuencia con Lista |
+|-----------|----------------------|---------------------|
+| `obtener(posicion)` | $O(1)$ | $O(n)$ |
+| `insertar_al_inicio(dato)` | $O(n)$ | $O(1)$ |
+| `insertar_al_final(dato)` | $O(1)$ amortizado* | $O(1)$ o $O(n)$** |
+| `insertar_en_posicion(pos, dato)` | $O(n)$ | $O(n)$ |
+| `buscar(dato)` | $O(n)$ | $O(n)$ |
+| `eliminar(dato)` | $O(n)$ | $O(n)$ |
+
+\* $O(1)$ en promedio, pero ocasionalmente $O(n)$ cuando se redimensiona.  
+\*\* $O(1)$ si se mantiene puntero al final, $O(n)$ si no.
+
+:::{important} Eligiendo la Implementación Correcta
+
+- **Usá arreglos** cuando necesitás acceso aleatorio frecuente o querés aprovechar la localidad de caché.
+- **Usá listas enlazadas** cuando las inserciones/eliminaciones al inicio sean frecuentes o el tamaño varíe mucho.
+- **Ambas son válidas** implementaciones del mismo TAD Secuencia, demostrando el poder de la abstracción.
+:::
+
+:::{tip} El Patrón Strategy
+
+Esta separación entre interfaz e implementación es un ejemplo del patrón de diseño **Strategy**. El código cliente puede trabajar con "secuencias" sin importar la implementación subyacente, permitiendo optimizar según el caso de uso.
+:::
+
 ## Consideraciones de Implementación
 
 ### Manejo de Errores
@@ -1087,20 +1352,30 @@ La eficiencia de las operaciones es un criterio fundamental al elegir una estruc
 La notación Big-O describe el comportamiento asintótico en el peor caso. En casos promedio o con estructuras auxiliares, las complejidades pueden variar.
 :::
 
-## Comparación: Arreglos vs. Listas Enlazadas
+## Comparación: Arreglos vs. Listas Enlazadas como Secuencias
 
-| Característica | Arreglos | Listas Enlazadas |
-|----------------|----------|------------------|
-| Tamaño | Fijo (estático) o costoso de redimensionar | Dinámico |
+Ya hemos visto en detalle cómo tanto los arreglos dinámicos como las listas enlazadas pueden implementar el TAD Secuencia. Esta tabla resume las diferencias clave entre ambas implementaciones:
+
+| Característica | Arreglos Dinámicos | Listas Enlazadas |
+|----------------|-------------------|------------------|
+| Tamaño | Redimensionable (costo amortizado) | Dinámico sin redimensionamiento |
 | Acceso por índice | $O(1)$ | $O(n)$ |
 | Inserción al inicio | $O(n)$ (desplazamiento) | $O(1)$ |
-| Inserción al final | $O(1)$ (si hay espacio) | $O(1)$ o $O(n)$ |
+| Inserción al final | $O(1)$ amortizado | $O(1)$ o $O(n)$ |
 | Uso de memoria | Contiguo, eficiente en caché | Disperso, overhead por punteros |
 | Fragmentación | No sufre | Puede fragmentar el heap |
+| Mejor caso de uso | Acceso aleatorio frecuente | Inserciones/eliminaciones frecuentes |
 
 :::{note} Consideraciones de Rendimiento
 
 La elección entre arreglos y listas enlazadas tiene profundas implicaciones de rendimiento más allá de la complejidad algorítmica. Los arreglos tienen mejor localidad de memoria, lo que resulta en mejor uso del caché del procesador. Las listas enlazadas, al tener nodos dispersos en memoria, sufren más penalizaciones por accesos a memoria. Para un análisis detallado del impacto del caché y la localidad de memoria, consultá {ref}`memoria-modelo-costos`.
+
+Para ver implementaciones concretas de ambas aproximaciones, consultá las secciones anteriores sobre "Listas Enlazadas: Implementación de Secuencia" y "Arreglos: Implementación Alternativa de Secuencia".
+:::
+
+:::{important} El Poder de la Abstracción
+
+El concepto clave aquí es que **ambas estructuras implementan el mismo TAD Secuencia**. El código que utiliza una secuencia puede ser escrito de forma genérica, permitiendo cambiar entre implementaciones según las necesidades de rendimiento específicas sin reescribir la lógica de negocio.
 :::
 
 ## Ejercicios
@@ -1297,12 +1572,21 @@ La implementación de TADs es una habilidad fundamental que requiere práctica. 
 
 Los Tipos de Datos Abstractos son una herramienta fundamental para construir software modular y mantenible. En este apunte hemos cubierto:
 
-- El concepto de TAD y la separación entre interfaz e implementación.
-- La diferencia entre memoria estática y dinámica, y cuándo usar cada una (para detalles completos, consultá {ref}`memoria-introduccion`).
-- Listas enlazadas simples y dobles, con todas sus operaciones fundamentales.
-- Pilas (LIFO) y sus aplicaciones en programación.
-- Colas (FIFO) y su uso en sistemas que procesan en orden de llegada.
-- Consideraciones de implementación: manejo de errores, invariantes y seguridad.
-- Análisis de complejidad temporal de las operaciones.
+- **El concepto de TAD** y la separación entre interfaz e implementación.
+- **El TAD Secuencia** como abstracción fundamental, demostrando cómo la misma interfaz puede implementarse con diferentes estructuras de datos.
+- **Dos implementaciones de Secuencia:**
+  - Arreglos dinámicos: excelentes para acceso aleatorio y localidad de caché.
+  - Listas enlazadas: ideales para inserciones/eliminaciones dinámicas.
+- La diferencia entre **memoria estática y dinámica**, y cuándo usar cada una (para detalles completos, consultá {ref}`memoria-introduccion`).
+- **Listas enlazadas** simples y dobles, con todas sus operaciones fundamentales.
+- **Pilas (LIFO)** y sus aplicaciones en programación.
+- **Colas (FIFO)** y su uso en sistemas que procesan en orden de llegada.
+- **Consideraciones de implementación:** manejo de errores, invariantes y seguridad.
+- **Análisis de complejidad temporal** de las operaciones en diferentes implementaciones.
+
+:::{important} Lección Clave: Múltiples Implementaciones
+
+El concepto más importante de este apunte es que **un mismo TAD puede tener múltiples implementaciones**, cada una con diferentes características de rendimiento. La elección de la implementación correcta depende del contexto de uso, y el poder de la abstracción permite cambiar entre implementaciones sin reescribir el código cliente.
+:::
 
 Dominar estas estructuras de datos es esencial para avanzar hacia estructuras más complejas como árboles, grafos y tablas hash, que se construyen sobre estos fundamentos. La correcta gestión de memoria dinámica, tema central en este apunte, es la base para implementar cualquier estructura de datos compleja de manera segura y eficiente.
