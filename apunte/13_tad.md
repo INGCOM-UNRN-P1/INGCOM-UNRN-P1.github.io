@@ -33,6 +33,82 @@ El principio de **encapsulamiento** implica que los datos internos de un TAD no 
 La abstracción no es solo ocultar información, sino proporcionar una interfaz clara y coherente que permita utilizar la estructura de datos de manera intuitiva y segura.
 :::
 
+#### Conexión con la Programación Orientada a Objetos
+
+Los conceptos de TAD, encapsulamiento y abstracción que estamos estudiando en C son los **mismos principios fundamentales** de la **Programación Orientada a Objetos (POO)**. De hecho, los TADs son el precursor histórico de las clases en lenguajes orientados a objetos.
+
+**Comparación TAD en C vs Clase en POO:**
+
+| Concepto POO | Equivalente en TAD (C) | Propósito |
+|--------------|------------------------|-----------|
+| **Clase** | Tipo definido (struct + funciones) | Plantilla para crear objetos/instancias |
+| **Objeto** | Instancia del TAD (puntero a struct) | Dato concreto en memoria |
+| **Atributos privados** | Campos de struct (ocultos en .c) | Estado interno encapsulado |
+| **Métodos públicos** | Funciones en .h | Interfaz pública |
+| **Constructor** | Función `crear_*()` | Inicialización |
+| **Destructor** | Función `destruir_*()` | Liberación de recursos |
+| **Encapsulamiento** | Punteros opacos + separación .h/.c | Ocultamiento de implementación |
+
+**Ejemplo conceptual:**
+
+En **Java/C++/Python**, escribirías:
+```python
+class Lista:
+    def __init__(self):           # Constructor
+        self._inicio = None       # Atributo privado
+        self._tamanio = 0
+    
+    def insertar(self, dato):     # Método público
+        # implementación...
+        pass
+    
+    def __del__(self):            # Destructor
+        # liberación...
+        pass
+```
+
+En **C con TAD**, el equivalente es:
+```c
+// lista.h - Interfaz pública (como la declaración de clase)
+typedef struct lista lista_t;  // Declaración opaca
+
+lista_t *crear_lista(void);           // Constructor
+bool insertar_al_inicio(lista_t *lista, int dato);  // Método
+void destruir_lista(lista_t *lista);  // Destructor
+
+// lista.c - Implementación privada (como el cuerpo de la clase)
+struct lista {                         // Atributos privados
+    nodo_t *inicio;
+    size_t tamanio;
+};
+```
+
+:::{note} Pilares de la POO en TADs
+
+Los **4 pilares de la POO** ya están presentes en los TADs bien diseñados:
+
+1. **Encapsulamiento:** Ocultamos los detalles de implementación (struct en .c, solo puntero opaco en .h)
+2. **Abstracción:** Exponemos solo las operaciones necesarias (funciones en .h)
+3. **Modularidad:** Separación clara entre interfaz (.h) e implementación (.c)
+4. **Polimorfismo:** En C se logra mediante punteros a función (aunque no lo usamos en esta introducción)
+
+La **herencia** es el único pilar que C no soporta directamente, aunque puede simularse con composición.
+:::
+
+#### Por qué es importante esta conexión
+
+Comprender TADs en C te prepara para entender POO en cualquier lenguaje porque:
+
+1. **Los conceptos son idénticos:** Solo cambia la sintaxis, no los principios
+2. **Pensás en términos de interfaz vs implementación:** Habilidad esencial en diseño de software
+3. **Apreciás el valor del encapsulamiento:** Independientemente del lenguaje
+4. **Entendés el costo real:** En C ves explícitamente la gestión de memoria que los lenguajes OO ocultan
+
+:::{tip} De C a POO
+
+Cuando luego aprendas lenguajes orientados a objetos (Java, C++, Python), reconocerás que las clases son esencialmente TADs con sintaxis más conveniente y características adicionales como herencia y polimorfismo. El conocimiento de TADs te da una ventaja: entendés qué hace el lenguaje "por debajo" cuando creás objetos.
+:::
+
 ## Asignación de Memoria: Estática vs. Dinámica
 
 Antes de implementar estructuras de datos dinámicas, es crucial comprender la diferencia entre memoria estática y dinámica. Esta sección presenta un resumen de los conceptos fundamentales; para un tratamiento exhaustivo, consultá el apunte sobre {ref}`memoria-introduccion`.
