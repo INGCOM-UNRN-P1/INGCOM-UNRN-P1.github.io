@@ -216,238 +216,369 @@ La técnica funciona así:
     ```
     Solo el código dentro de `mi_tad.c` conoce la estructura interna de `mi_tad_t` y puede acceder a sus miembros (`dato1`, `dato2`). El cliente, que solo incluye `mi_tad.h`, no puede hacerlo, logrando así un encapsulamiento efectivo.
 
-### Ejemplo Práctico: El TAD Pila (Stack) en C
+### Ejemplo Práctico: El TAD Secuencia (Sequence) en C
 
-Vamos a ilustrar el concepto completo con la implementación del TAD Pila.
+Vamos a ilustrar el concepto completo con la implementación del TAD Secuencia. Este ejemplo es particularmente instructivo porque demuestra cómo un mismo comportamiento puede implementarse de distintas maneras.
 
-#### 1. La Interfaz Pública (`stack.h`)
-Este archivo define el tipo `Stack` como un puntero opaco y declara las operaciones que se pueden realizar sobre él.
+Una **secuencia** es una colección ordenada de elementos que permite acceso posicional: insertar, eliminar y consultar elementos en cualquier posición.
+
+#### 1. La Interfaz Pública (`sequence.h`)
+Este archivo define el tipo `sequence_t` como un puntero opaco y declara las operaciones fundamentales sobre él.
 
 ```c
-// stack.h
+// sequence.h
 
-#ifndef STACK_H
-#define STACK_H
+#ifndef SEQUENCE_H
+#define SEQUENCE_H
 
 #include <stdbool.h>
+#include <stddef.h>
 
 /**
- * Declaración del tipo incompleto. El cliente solo sabe que existe un "stack_t",
- * pero no cómo está implementado.
+ * Declaración del tipo incompleto. El cliente solo sabe que existe una "sequence_t",
+ * pero no cómo está implementada internamente.
  */
-struct stack;
-typedef struct stack stack_t;
+struct sequence;
+typedef struct sequence sequence_t;
 
 /**
- * Crea y devuelve una nueva pila vacía.
+ * Crea y devuelve una nueva secuencia vacía.
  * 
- * Retorna: Puntero a la nueva pila, o NULL en caso de error de memoria.
+ * Retorna: Puntero a la nueva secuencia, o NULL en caso de error de memoria.
  */
-stack_t* stack_create(void);
+sequence_t* sequence_create(void);
 
 /**
- * Destruye una pila y libera su memoria.
+ * Destruye una secuencia y libera su memoria.
  * 
  * Parámetros:
- *   s - Puntero a la pila a destruir.
+ *   seq - Puntero a la secuencia a destruir.
  */
-void stack_destroy(stack_t* s);
+void sequence_destroy(sequence_t* seq);
 
 /**
- * Añade un elemento al tope de la pila.
+ * Inserta un elemento en la posición especificada de la secuencia.
+ * Los elementos desde la posición hasta el final se desplazan una posición hacia la derecha.
  * 
  * Parámetros:
- *   s - Puntero a la pila.
- *   value - Valor a añadir al tope.
+ *   seq - Puntero a la secuencia.
+ *   pos - Posición donde insertar (0 <= pos <= tamaño actual).
+ *   value - Valor a insertar.
  * 
- * Retorna: 0 si la operación fue exitosa, -1 si la pila está llena.
+ * Retorna: 0 si la operación fue exitosa, -1 en caso de error (posición inválida o falta de memoria).
  */
-int stack_push(stack_t* s, int value);
+int sequence_insert(sequence_t* seq, size_t pos, int value);
 
 /**
- * Elimina y devuelve el elemento del tope.
+ * Elimina el elemento en la posición especificada.
+ * Los elementos posteriores se desplazan una posición hacia la izquierda.
  * 
  * Parámetros:
- *   s - Puntero a la pila.
+ *   seq - Puntero a la secuencia.
+ *   pos - Posición del elemento a eliminar.
  * 
- * Precondición: la pila no debe estar vacía.
+ * Precondición: la posición debe ser válida (0 <= pos < tamaño).
  * 
- * Retorna: El valor extraído del tope.
+ * Retorna: El valor del elemento eliminado, o termina el programa si la posición es inválida.
  */
-int stack_pop(stack_t* s);
+int sequence_remove(sequence_t* seq, size_t pos);
 
 /**
- * Devuelve el elemento del tope sin eliminarlo.
+ * Obtiene el valor del elemento en la posición especificada sin eliminarlo.
  * 
  * Parámetros:
- *   s - Puntero a la pila.
+ *   seq - Puntero a la secuencia.
+ *   pos - Posición del elemento a consultar.
  * 
- * Precondición: la pila no debe estar vacía.
+ * Precondición: la posición debe ser válida (0 <= pos < tamaño).
  * 
- * Retorna: El valor del elemento en el tope.
+ * Retorna: El valor del elemento en la posición, o termina el programa si la posición es inválida.
  */
-int stack_peek(stack_t* s);
+int sequence_get(sequence_t* seq, size_t pos);
 
 /**
- * Verifica si la pila está vacía.
+ * Modifica el valor del elemento en la posición especificada.
  * 
  * Parámetros:
- *   s - Puntero a la pila.
+ *   seq - Puntero a la secuencia.
+ *   pos - Posición del elemento a modificar.
+ *   value - Nuevo valor para el elemento.
  * 
- * Retorna: true si la pila está vacía, false en caso contrario.
+ * Precondición: la posición debe ser válida (0 <= pos < tamaño).
+ * 
+ * Retorna: 0 si la operación fue exitosa, -1 si la posición es inválida.
  */
-bool stack_is_empty(stack_t* s);
+int sequence_set(sequence_t* seq, size_t pos, int value);
+
+/**
+ * Devuelve la cantidad de elementos en la secuencia.
+ * 
+ * Parámetros:
+ *   seq - Puntero a la secuencia.
+ * 
+ * Retorna: Número de elementos en la secuencia.
+ */
+size_t sequence_size(sequence_t* seq);
+
+/**
+ * Verifica si la secuencia está vacía.
+ * 
+ * Parámetros:
+ *   seq - Puntero a la secuencia.
+ * 
+ * Retorna: true si la secuencia está vacía, false en caso contrario.
+ */
+bool sequence_is_empty(sequence_t* seq);
 
 #endif
 ```
 
-#### 2. La Implementación Privada (`stack.c`)
-Aquí se define la estructura de datos (un arreglo dinámico) y se implementa la lógica de las funciones.
+#### 2. La Implementación Privada con Lista Enlazada (`sequence.c`)
+
+Esta implementación utiliza una **lista enlazada simple** como estructura de datos interna. La elección de esta estructura demuestra el principio clave de un TAD: la interfaz pública permanece invariable, pero la implementación interna puede ser completamente diferente.
 
 ```c
-// stack.c
+// sequence.c
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "stack.h"
+#include "sequence.h"
 
-#define INITIAL_CAPACITY 10
 #define EXITO 0
 #define ERROR_MEMORIA -1
+#define ERROR_POSICION_INVALIDA -1
 
 /**
- * Definición completa y privada del struct.
+ * Nodo de la lista enlazada.
+ * Esta estructura es completamente privada.
+ */
+struct node
+{
+    int data;
+    struct node* next;
+};
+
+typedef struct node node_t;
+
+/**
+ * Definición completa y privada de la secuencia.
+ * Implementada como una lista enlazada simple.
  * Solo es visible dentro de este archivo.
  */
-struct stack
+struct sequence
 {
-    int* items;
-    int top;
-    int capacity;
+    node_t* head;
+    size_t size;
 };
 
 /**
- * Crea y devuelve una nueva pila vacía.
+ * Crea y devuelve una nueva secuencia vacía.
  * Devuelve NULL en caso de error de asignación de memoria.
  */
-stack_t* stack_create()
+sequence_t* sequence_create(void)
 {
-    stack_t* s = NULL;
-    int* items_temp = NULL;
+    sequence_t* seq = NULL;
     
-    s = (stack_t*) malloc(sizeof(stack_t));
+    seq = (sequence_t*) malloc(sizeof(sequence_t));
     
-    if (s == NULL)
+    if (seq == NULL)
     {
         return NULL;
     }
     
-    items_temp = (int*) malloc(sizeof(int) * INITIAL_CAPACITY);
+    seq->head = NULL;
+    seq->size = 0;
     
-    if (items_temp == NULL)
-    {
-        free(s);
-        s = NULL;
-        return NULL;
-    }
-    
-    s->items = items_temp;
-    s->top = -1;
-    s->capacity = INITIAL_CAPACITY;
-    
-    return s;
+    return seq;
 }
 
 /**
- * Destruye una pila y libera su memoria.
+ * Destruye una secuencia y libera toda su memoria.
  */
-void stack_destroy(stack_t* s)
+void sequence_destroy(sequence_t* seq)
 {
-    if (s != NULL)
+    node_t* current = NULL;
+    node_t* next = NULL;
+    
+    if (seq != NULL)
     {
-        free(s->items);
-        free(s);
+        current = seq->head;
+        
+        while (current != NULL)
+        {
+            next = current->next;
+            free(current);
+            current = next;
+        }
+        
+        free(seq);
     }
 }
 
 /**
- * Añade un elemento al tope de la pila.
- * Devuelve EXITO si la operación fue exitosa, ERROR_MEMORIA si la pila está llena.
+ * Inserta un elemento en la posición especificada.
+ * Devuelve EXITO si la operación fue exitosa, ERROR_MEMORIA o ERROR_POSICION_INVALIDA en caso de error.
  */
-int stack_push(stack_t* s, int value)
+int sequence_insert(sequence_t* seq, size_t pos, int value)
 {
-    int resultado = ERROR_MEMORIA;
+    node_t* new_node = NULL;
+    node_t* current = NULL;
+    size_t i = 0;
     
-    if (s->top < s->capacity - 1)
+    if (pos > seq->size)
     {
-        s->top = s->top + 1;
-        s->items[s->top] = value;
-        resultado = EXITO;
+        return ERROR_POSICION_INVALIDA;
     }
     
-    return resultado;
-}
-
-/**
- * Elimina y devuelve el elemento del tope.
- * Precondición: la pila no debe estar vacía.
- * Devuelve el valor extraído, o termina el programa si la pila está vacía.
- */
-int stack_pop(stack_t* s)
-{
-    int value = 0;
-    bool pila_vacia = false;
+    new_node = (node_t*) malloc(sizeof(node_t));
     
-    pila_vacia = stack_is_empty(s);
-    
-    if (pila_vacia == false)
+    if (new_node == NULL)
     {
-        value = s->items[s->top];
-        s->top = s->top - 1;
+        return ERROR_MEMORIA;
+    }
+    
+    new_node->data = value;
+    new_node->next = NULL;
+    
+    if (pos == 0)
+    {
+        new_node->next = seq->head;
+        seq->head = new_node;
     }
     else
     {
-        fprintf(stderr, "Error: pop en una pila vacía.\n");
+        current = seq->head;
+        
+        for (i = 0; i < pos - 1; i = i + 1)
+        {
+            current = current->next;
+        }
+        
+        new_node->next = current->next;
+        current->next = new_node;
+    }
+    
+    seq->size = seq->size + 1;
+    
+    return EXITO;
+}
+
+/**
+ * Elimina el elemento en la posición especificada.
+ * Precondición: la posición debe ser válida.
+ * Devuelve el valor extraído, o termina el programa si la posición es inválida.
+ */
+int sequence_remove(sequence_t* seq, size_t pos)
+{
+    node_t* to_remove = NULL;
+    node_t* current = NULL;
+    size_t i = 0;
+    int value = 0;
+    
+    if (pos >= seq->size)
+    {
+        fprintf(stderr, "Error: posición inválida en sequence_remove.\n");
         exit(EXIT_FAILURE);
     }
+    
+    if (pos == 0)
+    {
+        to_remove = seq->head;
+        seq->head = seq->head->next;
+    }
+    else
+    {
+        current = seq->head;
+        
+        for (i = 0; i < pos - 1; i = i + 1)
+        {
+            current = current->next;
+        }
+        
+        to_remove = current->next;
+        current->next = to_remove->next;
+    }
+    
+    value = to_remove->data;
+    free(to_remove);
+    seq->size = seq->size - 1;
     
     return value;
 }
 
 /**
- * Devuelve el elemento del tope sin eliminarlo.
- * Precondición: la pila no debe estar vacía.
- * Devuelve el valor del tope, o termina el programa si la pila está vacía.
+ * Obtiene el valor del elemento en la posición especificada.
+ * Precondición: la posición debe ser válida.
+ * Devuelve el valor del elemento, o termina el programa si la posición es inválida.
  */
-int stack_peek(stack_t* s)
+int sequence_get(sequence_t* seq, size_t pos)
 {
+    node_t* current = NULL;
+    size_t i = 0;
     int value = 0;
-    bool pila_vacia = false;
     
-    pila_vacia = stack_is_empty(s);
-    
-    if (pila_vacia == false)
+    if (pos >= seq->size)
     {
-        value = s->items[s->top];
-    }
-    else
-    {
-        fprintf(stderr, "Error: peek en una pila vacía.\n");
+        fprintf(stderr, "Error: posición inválida en sequence_get.\n");
         exit(EXIT_FAILURE);
     }
+    
+    current = seq->head;
+    
+    for (i = 0; i < pos; i = i + 1)
+    {
+        current = current->next;
+    }
+    
+    value = current->data;
     
     return value;
 }
 
 /**
- * Verifica si la pila está vacía.
+ * Modifica el valor del elemento en la posición especificada.
+ * Devuelve EXITO si la operación fue exitosa, ERROR_POSICION_INVALIDA si la posición es inválida.
+ */
+int sequence_set(sequence_t* seq, size_t pos, int value)
+{
+    node_t* current = NULL;
+    size_t i = 0;
+    
+    if (pos >= seq->size)
+    {
+        return ERROR_POSICION_INVALIDA;
+    }
+    
+    current = seq->head;
+    
+    for (i = 0; i < pos; i = i + 1)
+    {
+        current = current->next;
+    }
+    
+    current->data = value;
+    
+    return EXITO;
+}
+
+/**
+ * Devuelve la cantidad de elementos en la secuencia.
+ */
+size_t sequence_size(sequence_t* seq)
+{
+    return seq->size;
+}
+
+/**
+ * Verifica si la secuencia está vacía.
  * Devuelve true si está vacía, false en caso contrario.
  */
-bool stack_is_empty(stack_t* s)
+bool sequence_is_empty(sequence_t* seq)
 {
     bool esta_vacia = false;
     
-    if (s->top == -1)
+    if (seq->size == 0)
     {
         esta_vacia = true;
     }
@@ -457,45 +588,103 @@ bool stack_is_empty(stack_t* s)
 ```
 
 #### 3. El Código Cliente (`main.c`)
-El cliente utiliza la pila a través de su interfaz pública sin conocer ningún detalle de la implementación.
+
+El cliente utiliza la secuencia a través de su interfaz pública sin tener conocimiento alguno de la lista enlazada interna.
 
 ```c
 // main.c
 #include <stdio.h>
-#include "stack.h"
+#include "sequence.h"
 
 int main(void)
 {
-    stack_t* mi_pila = NULL;
+    sequence_t* mi_secuencia = NULL;
     int valor = 0;
-    int tope = 0;
-    int resultado_push = 0;
+    size_t tam = 0;
+    int resultado = 0;
     
-    mi_pila = stack_create();
+    mi_secuencia = sequence_create();
     
     /**
      * El cliente NO PUEDE hacer esto, resultaría en un error de compilación:
-     * mi_pila->top = 5;
-     * ERROR: tipo 'stack_t' {aka 'struct stack'} incompleto
+     * mi_secuencia->head = NULL;
+     * ERROR: tipo 'sequence_t' {aka 'struct sequence'} incompleto
      */
     
-    resultado_push = stack_push(mi_pila, 10);
-    resultado_push = stack_push(mi_pila, 20);
+    resultado = sequence_insert(mi_secuencia, 0, 10);
+    resultado = sequence_insert(mi_secuencia, 1, 20);
+    resultado = sequence_insert(mi_secuencia, 1, 15);
     
-    tope = stack_peek(mi_pila);
-    printf("El tope de la pila es: %d\n", tope);
+    tam = sequence_size(mi_secuencia);
+    printf("Tamaño de la secuencia: %zu\n", tam);
     
-    valor = stack_pop(mi_pila);
-    printf("Valor extraído: %d\n", valor);
+    valor = sequence_get(mi_secuencia, 0);
+    printf("Elemento en posición 0: %d\n", valor);
     
-    tope = stack_peek(mi_pila);
-    printf("El nuevo tope es: %d\n", tope);
+    valor = sequence_get(mi_secuencia, 1);
+    printf("Elemento en posición 1: %d\n", valor);
     
-    stack_destroy(mi_pila);
+    valor = sequence_get(mi_secuencia, 2);
+    printf("Elemento en posición 2: %d\n", valor);
+    
+    valor = sequence_remove(mi_secuencia, 1);
+    printf("Elemento eliminado en posición 1: %d\n", valor);
+    
+    tam = sequence_size(mi_secuencia);
+    printf("Nuevo tamaño: %zu\n", tam);
+    
+    sequence_destroy(mi_secuencia);
     
     return 0;
 }
 ```
+
+### La Abstracción en Acción: Distintas Implementaciones, Mismo Comportamiento
+
+El ejemplo anterior demuestra uno de los principios más poderosos de los TAD: **la separación total entre interfaz e implementación**. La secuencia se implementó usando una lista enlazada simple, pero la interfaz pública (`sequence.h`) no revela este detalle en absoluto.
+
+Esto significa que podríamos reimplementar completamente el archivo `sequence.c` usando una estructura de datos diferente —como un arreglo dinámico, una lista doblemente enlazada o incluso un árbol B— y **el código cliente no requeriría ninguna modificación**. Mientras la nueva implementación respete el contrato definido por la interfaz (las firmas de las funciones y su comportamiento documentado), el cambio es completamente transparente.
+
+#### Otras Estrategias de Implementación de Secuencias
+
+La elección de la estructura de datos interna tiene implicaciones directas en el rendimiento de las operaciones. A continuación se presentan algunas alternativas comunes:
+
+**1. Arreglo Dinámico (Dynamic Array)**
+   - **Ventajas**: Acceso aleatorio en tiempo constante O(1) para `sequence_get()` y `sequence_set()`. Buena localidad de caché.
+   - **Desventajas**: Inserción y eliminación en posiciones arbitrarias requiere desplazar elementos O(n). Puede requerir redimensionamiento (costoso, aunque amortizado O(1) si se dobla la capacidad).
+   - **Uso ideal**: Cuando predominan las operaciones de acceso posicional y las inserciones/eliminaciones son raras o al final de la secuencia.
+
+**2. Lista Enlazada Simple (Singly Linked List)** *(implementación mostrada)*
+   - **Ventajas**: Inserción y eliminación en el frente de la secuencia en tiempo constante O(1). No requiere redimensionamiento.
+   - **Desventajas**: Acceso aleatorio requiere recorrido lineal O(n). Mayor uso de memoria por los punteros.
+   - **Uso ideal**: Cuando predominan las inserciones al inicio o se recorre la secuencia secuencialmente.
+
+**3. Lista Doblemente Enlazada (Doubly Linked List)**
+   - **Ventajas**: Permite recorrido bidireccional. Inserción y eliminación eficientes en ambos extremos O(1). Eliminación de un nodo dado (si se tiene el puntero) en O(1).
+   - **Desventajas**: Mayor uso de memoria que la lista simple. Acceso aleatorio sigue siendo O(n).
+   - **Uso ideal**: Cuando se requiere recorrido en ambas direcciones o eliminación eficiente de elementos conocidos.
+
+**4. Arreglo con Hueco (Gap Buffer)**
+   - **Ventajas**: Optimizado para operaciones concentradas en una "región de edición". Común en editores de texto.
+   - **Desventajas**: Rendimiento degradado si las operaciones saltan entre posiciones distantes.
+   - **Uso ideal**: Aplicaciones donde las modificaciones se concentran en una región local que se mueve gradualmente (ej. cursor de editor).
+
+**5. Lista con Índice Auxiliar (Skip List o árbol de índices)**
+   - **Ventajas**: Combina las ventajas de listas (inserción eficiente) con acceso aleatorio más rápido (O(log n) en lugar de O(n)).
+   - **Desventajas**: Mayor complejidad de implementación y uso de memoria.
+   - **Uso ideal**: Cuando se necesita un balance entre acceso aleatorio e inserciones/eliminaciones frecuentes.
+
+:::{important} El Poder de la Abstracción
+
+El TAD Secuencia define **qué** operaciones están disponibles (insertar, eliminar, obtener), pero no **cómo** se realizan internamente. Esta separación permite:
+
+- **Flexibilidad**: Cambiar la implementación sin modificar el código cliente.
+- **Optimización contextual**: Elegir la estructura de datos óptima según el patrón de uso de la aplicación.
+- **Evolución del software**: Mejorar el rendimiento o la funcionalidad interna sin romper código existente.
+
+La elección de la implementación debe basarse en el **perfil de uso** de la secuencia en el contexto específico de la aplicación.
+
+:::
 
 Este enfoque disciplinado permite que C, a pesar de ser un lenguaje procedural, se beneficie de los mismos principios de diseño de software robusto que los TAD promueven en otros paradigmas.
 
