@@ -835,3 +835,56 @@ int main()
 ```
 
 ````
+
+## Conceptos Clave
+
+Este apunte introduce las **secuencias** (arreglos) como la primera estructura de datos para manejar colecciones homogéneas, y las **cadenas** como caso especial para texto.
+
+:::{important} Ideas Centrales
+
+**Arreglos como Secuencias Contiguas**
+- Almacenan múltiples valores del mismo tipo en posiciones consecutivas de memoria
+- Acceso directo por índice en tiempo constante $O(1)$
+- Tamaño fijo determinado en compilación (arreglos estáticos)
+- Índices comienzan en 0: el primer elemento es `arr[0]`
+
+**Paso de Arreglos a Funciones**
+- Los arreglos **no se copian**: se pasa la dirección del primer elemento
+- Modificaciones dentro de funciones afectan al arreglo original
+- Diferencia fundamental con el paso por valor de tipos simples
+- Necesidad de pasar el tamaño explícitamente
+
+**Cadenas de Caracteres**
+- Arreglos de `char` terminados en centinela `'\0'` (null terminator)
+- Funciones de `<string.h>`: `strlen`, `strcpy`, `strcmp`, `strcat`
+- Literales de cadena tienen terminador automático
+- Cuidado con desbordamientos: el null terminator cuenta
+
+**Algoritmos Fundamentales**
+- **Búsqueda lineal**: $O(n)$, recorrer secuencialmente
+- **Búsqueda binaria**: $O(\log n)$, requiere arreglo ordenado
+- **Ordenamiento**: Bubble Sort $O(n^2)$, base para entender complejidad
+- **Transformaciones**: map, filter, reduce expresados con lazos
+
+**Relación con Punteros**
+- Un arreglo es esencialmente un puntero al primer elemento
+- Aritmética de punteros: `arr[i]` equivale a `*(arr + i)`
+- Esta equivalencia es fundamental para entender C profundamente
+:::
+
+## Conexión con el Siguiente Tema
+
+Los arreglos que estudiamos tienen una limitación crítica: **tamaño fijo determinado en compilación**. Si declaramos `int arr[100]`, consumimos memoria para 100 enteros incluso si solo usamos 10. Si necesitamos 101, el programa no compila. Esta rigidez es problemática para software real que debe adaptarse a cantidades variables de datos.
+
+Además, cuando pasamos arreglos a funciones, vimos que en realidad estamos pasando **la dirección del primer elemento**. ¿Qué significa "dirección"? ¿Cómo manipulamos estas direcciones directamente?
+
+El próximo tema introduce conceptos que profundizan en cómo se organiza y manipula la memoria:
+
+- Los **punteros** ([](7_punteros)) como variables que almacenan direcciones
+- Las **matrices** ([](6_matrices)) como arreglos multidimensionales
+- La **gestión de memoria** ([](11_memoria)) para estructuras dinámicas
+
+Los punteros son el concepto más poderoso y peligroso de C. Dominando punteros y arreglos simultáneamente, se comprende la esencia del lenguaje: **control directo sobre la memoria** con la sintaxis mínima necesaria.
+
+**Pregunta puente**: Cuando escribimos `int arr[5]`, ¿dónde exactamente en la memoria se almacenan estos 5 enteros? ¿Cómo accede la CPU a `arr[3]`? La respuesta requiere entender direcciones de memoria, lo que nos lleva naturalmente a los punteros.
+

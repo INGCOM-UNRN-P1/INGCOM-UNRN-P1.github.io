@@ -1329,5 +1329,56 @@ int main()
     return 0;
 }
 ```
-```````
 ````
+
+## Conceptos Clave
+
+Este apunte introduce la **descomposición funcional** como metodología fundamental para estructurar programas complejos. Los conceptos esenciales que deben quedar claros son:
+
+:::{important} Ideas Centrales
+
+**Funciones como Unidades de Abstracción**
+- Una función encapsula una tarea específica con entradas y salidas bien definidas
+- Permiten reutilización, modularidad y mantenibilidad del código
+- Representan el primer nivel de abstracción para gestionar complejidad
+
+**Alcances (Scopes)**
+- Determinan dónde existe y es accesible una variable
+- Jerarquía: global → función → bloque
+- El shadowing ocurre cuando se redefine un identificador en un scope anidado
+- Las variables locales se gestionan automáticamente en el stack
+
+**Diseño Top-Down**
+- Dividir problemas complejos en subtareas más simples
+- Cada función debe tener una única responsabilidad
+- `main()` actúa como el director que coordina las funciones especializadas
+
+**Contratos de Funciones**
+- **Precondiciones**: qué debe ser cierto antes de ejecutar
+- **Postcondiciones**: qué garantiza la función al terminar
+- **Invariantes**: propiedades que se mantienen constantes
+- Estos conceptos fundamentan el razonamiento sobre corrección de código
+
+**Buenas Prácticas**
+- Evitar variables globales (ruptura de encapsulación)
+- Nombres descriptivos que comunican propósito
+- Separar cálculo de entrada/salida
+- Documentar expectativas y comportamiento
+- Factorizar código repetido
+:::
+
+## Conexión con el Siguiente Tema
+
+Las funciones que construimos hasta ahora operan sobre datos individuales (enteros, flotantes, caracteres). Pero la realidad es que los programas útiles necesitan procesar **colecciones de datos**: listas de estudiantes, tablas de productos, series temporales, imágenes, etc.
+
+El próximo apunte, **[](4_secuencias)**, introduce las **secuencias** (arreglos en C) como la primera estructura de datos que permite agrupar múltiples valores relacionados bajo un solo identificador. Allí veremos:
+
+- Cómo declarar y usar arreglos para almacenar colecciones homogéneas
+- Paso de arreglos a funciones (¡diferente del paso por valor!)
+- Algoritmos fundamentales: búsqueda, ordenamiento, transformaciones
+- La relación profunda entre arreglos y punteros que es única de C
+
+Las funciones que dominamos aquí serán las herramientas para **operar sobre secuencias**: una función que suma elementos, otra que busca el máximo, otra que ordena. La descomposición funcional se vuelve aún más poderosa cuando las funciones procesan colecciones completas de datos de forma eficiente y expresiva.
+
+**Pregunta puente**: ¿Cómo escribiríamos una función `calcular_promedio()` para 100 estudiantes sin usar arreglos? ¿Y para 1000? La respuesta natural nos lleva directamente al concepto de secuencia.
+

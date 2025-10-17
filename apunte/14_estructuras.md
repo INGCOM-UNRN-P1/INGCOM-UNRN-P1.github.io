@@ -1315,3 +1315,65 @@ Algunas estructuras modernas (Filtros de Bloom, Skip Lists) usan aleatorización
 :::
 
 Estas estructuras son fundamentales para construir sistemas más complejos y aparecen constantemente en algoritmos y aplicaciones del mundo real. El siguiente paso es estudiar cada familia de estructuras más avanzadas en profundidad, comprendiendo sus implementaciones detalladas, análisis de complejidad, y casos de uso específicos.
+
+## Conceptos Clave
+
+Este apunte presenta **estructuras de datos especializadas** (pilas, colas) y proporciona un panorama del ecosistema completo de estructuras de datos, desde las más restrictivas hasta las más generales.
+
+:::{important} Ideas Centrales
+
+**Estructuras Lineales con Restricciones**
+- **Pila (Stack)**: LIFO (Last In, First Out), operaciones en $O(1)$
+  - Aplicaciones: evaluación de expresiones, backtracking, gestión de llamadas
+  - Implementación: arreglo o lista enlazada
+- **Cola (Queue)**: FIFO (First In, First Out), operaciones en $O(1)$
+  - Aplicaciones: scheduling, buffers, BFS en grafos
+  - Implementación: lista enlazada o arreglo circular
+- **Deque**: doble-ended queue, inserción/extracción en ambos extremos
+
+**Implementaciones Múltiples**
+- Una misma estructura abstracta puede implementarse de distintas formas
+- **Arreglos**: mejor localidad de caché, capacidad fija
+- **Listas enlazadas**: tamaño dinámico, overhead por punteros
+- La elección depende de patrones de uso y restricciones del sistema
+
+**Jerarquía de Estructuras**
+1. **Lineales con restricciones**: pilas, colas (acceso limitado)
+2. **Lineales generales**: listas, arreglos (acceso arbitrario)
+3. **Búsqueda**: hash tables ($O(1)$ promedio), BST ($O(\log n)$)
+4. **Jerárquicas**: árboles binarios, AVL, B-trees
+5. **Grafos**: representan relaciones arbitrarias entre elementos
+6. **Especializadas**: Union-Find, Bloom Filters, estructuras probabilísticas
+
+**Criterios de Elección**
+- **Complejidad temporal**: ¿qué operaciones son críticas?
+- **Complejidad espacial**: ¿cuánta memoria tenemos disponible?
+- **Patrón de acceso**: ¿secuencial, aleatorio, mayormente lecturas?
+- **Garantías requeridas**: ¿necesitamos peor caso o promedio es suficiente?
+:::
+
+## Conexión con Temas Avanzados
+
+Este apunte cierra el estudio de estructuras de datos fundamentales. Los conceptos aquí presentados son los bloques de construcción para temas más avanzados:
+
+**Algoritmos sobre Grafos** requieren entender cómo representar y recorrer estructuras no lineales:
+- Representación: matriz de adyacencia vs lista de adyacencia
+- Recorridos: BFS usa colas, DFS usa pilas (o recursión)
+- Caminos mínimos: algoritmo de Dijkstra usa colas de prioridad (heaps)
+
+**Estructuras Persistentes** mantienen versiones históricas sin copiar todo:
+- Listas enlazadas permiten compartir estructuras (structural sharing)
+- Árboles balanceados con path copying para versiones inmutables
+
+**Estructuras Concurrentes** para programación multithreaded:
+- Lock-free stacks y queues usando operaciones atómicas
+- Wait-free data structures que garantizan progreso
+
+**Estructuras Externas** para datos que no caben en memoria:
+- B-trees optimizados para acceso a disco (minimizar seeks)
+- LSM-trees para writes intensivos en bases de datos modernas
+
+El dominio de estructuras de datos no termina aquí. Cada área de ciencias de la computación desarrolla estructuras especializadas para sus problemas específicos. Lo fundamental es entender los principios: trade-offs entre tiempo y espacio, invariantes que mantienen corrección, y cómo el patrón de acceso determina la estructura óptima.
+
+**Reflexión final**: Una estructura de datos es una forma de organizar información que hace ciertas operaciones eficientes. El arte está en elegir la organización que favorece las operaciones que tu aplicación necesita con mayor frecuencia.
+

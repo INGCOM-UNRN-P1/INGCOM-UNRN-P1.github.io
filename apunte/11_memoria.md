@@ -3368,3 +3368,57 @@ Para profundizar en la gestión de memoria, consultá:
 - [Valgrind Documentation](https://valgrind.org/docs/manual/manual.html)
 
 Para las reglas de estilo, consultá el documento {ref}`0x0000h` donde se detallan todas las convenciones utilizadas en este curso.
+
+## Conceptos Clave
+
+Este apunte explora la **gestión de memoria dinámica**, el mecanismo que permite a los programas solicitar y liberar memoria durante la ejecución, habilitando estructuras de datos flexibles y adaptables.
+
+:::{important} Ideas Centrales
+
+**Modelo de Memoria de un Proceso**
+- **Stack (pila)**: memoria automática, variables locales, frames de función, LIFO
+- **Heap (montículo)**: memoria dinámica, gestionada manualmente con `malloc`/`free`
+- **Segmento de datos**: variables globales e estáticas
+- **Segmento de código**: instrucciones del programa (read-only)
+
+**Funciones de Gestión de Memoria**
+- `malloc(size)`: solicita `size` bytes, retorna puntero o `NULL` si falla
+- `calloc(n, size)`: solicita `n * size` bytes inicializados a cero
+- `realloc(ptr, new_size)`: redimensiona bloque previamente asignado
+- `free(ptr)`: libera memoria, **obligatorio** para evitar memory leaks
+
+**Patrones de Uso Correctos**
+- Siempre verificar si `malloc` retornó `NULL`
+- Cada `malloc` debe tener exactamente un `free` correspondiente
+- Liberar en orden inverso de asignación para estructuras anidadas
+- Poner punteros en `NULL` después de `free` para evitar dangling pointers
+
+**Errores Comunes y Graves**
+- **Memory leak**: no liberar memoria asignada
+- **Double free**: liberar la misma memoria dos veces (undefined behavior)
+- **Use after free**: usar memoria ya liberada (dangling pointer)
+- **Buffer overflow**: escribir más allá de los límites asignados
+- **Fragmentación**: heap fragmentado reduce eficiencia de asignaciones
+
+**Herramientas de Depuración**
+- **Valgrind**: detecta leaks, invalid reads/writes, double frees
+- **AddressSanitizer**: instrumentación de compilador para detección de errores
+- **Análisis estático**: herramientas que detectan problemas sin ejecutar
+:::
+
+## Conexión con el Siguiente Tema
+
+Con memoria dinámica dominada, tenemos las herramientas para implementar cualquier estructura de datos. Pero antes de construir estructuras complejas, necesitamos entender **cómo medir su eficiencia**: ¿cuánto tiempo toma buscar un elemento? ¿Cómo crece el tiempo de ejecución al duplicar el tamaño de entrada?
+
+El apunte **[](12_complejidad)** introduce el **análisis asintótico** de algoritmos:
+
+- Notación Big-O, Omega, Theta para caracterizar crecimiento
+- Análisis de lazos, recursión, y algoritmos complejos
+- Jerarquía de complejidades: $O(1), O(\log n), O(n), O(n \log n), O(n^2), \ldots$
+- Trade-offs entre tiempo y espacio
+
+El análisis de complejidad es fundamental para tomar decisiones informadas: ¿vale la pena usar una lista enlazada (memoria dinámica, $O(n)$ búsqueda) o un arreglo redimensionable (overhead de copia, $O(1)$ acceso)? Sin complejidad, solo podemos intuir; con ella, podemos **demostrar matemáticamente** qué solución es mejor.
+
+Después, el apunte **[](13_tad)** muestra cómo **encapsular** estructuras con memoria dinámica en Tipos Abstractos de Datos, ocultando detalles de implementación y exponiendo interfaces limpias.
+
+**Pregunta puente**: Una búsqueda lineal en lista enlazada toma $O(n)$ tiempo. ¿Podemos hacer mejor? ¿Cómo cuantificamos "mejor"? La respuesta requiere análisis formal de complejidad algorítmica.

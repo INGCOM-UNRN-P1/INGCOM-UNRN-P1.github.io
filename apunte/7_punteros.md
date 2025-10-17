@@ -1210,3 +1210,56 @@ En el [](11_memoria), vas a aprender sobre:
 Estos conceptos amplían dramáticamente lo que podés hacer en C, permitiéndote crear programas que adaptan su uso de memoria a las necesidades del momento. Sin embargo, con este poder viene una gran responsabilidad: la gestión manual de memoria requiere disciplina y atención a los detalles.
 
 Cuando te sientas cómodo con los conceptos de este capítulo, estás listo para dar el próximo paso hacia la memoria dinámica.
+
+## Conceptos Clave
+
+Este apunte desmitifica los **punteros**, el concepto más distintivo y poderoso de C, revelando su naturaleza como simples variables que almacenan direcciones de memoria.
+
+:::{important} Ideas Centrales
+
+**Punteros como Direcciones**
+- Un puntero es una variable que almacena la dirección de memoria de otra variable
+- Declaración: `int *p` declara un puntero a entero
+- Operador `&`: obtiene la dirección de una variable
+- Operador `*`: desreferencia un puntero para acceder/modificar el valor apuntado
+
+**Relación Punteros-Arreglos**
+- Un arreglo decae a un puntero al primer elemento en la mayoría de contextos
+- `arr[i]` es equivalente a `*(arr + i)` (notación puntero)
+- Aritmética de punteros: sumar $n$ a un puntero avanza $n \times \text{sizeof(tipo)}$ bytes
+- Esta equivalencia explica por qué los arreglos se pasan por dirección
+
+**Punteros y Funciones**
+- Paso por referencia simulado: pasar `&variable` permite que la función la modifique
+- Los arreglos siempre se pasan como punteros (por eso las modificaciones persisten)
+- Punteros permiten que funciones "retornen" múltiples valores via parámetros
+
+**Punteros a Punteros**
+- `int **pp`: puntero a puntero a entero
+- Útil para matrices dinámicas y estructuras complejas
+- Cada nivel de indirección agrega una desreferencia
+
+**Seguridad y Errores Comunes**
+- **Punteros no inicializados**: contienen "basura", desreferenciarlos es undefined behavior
+- **Punteros nulos**: `NULL` representa dirección inválida, siempre verificar antes de usar
+- **Dangling pointers**: punteros que apuntan a memoria ya liberada o fuera de scope
+- **Desbordamiento**: acceder más allá de los límites de un arreglo via punteros
+:::
+
+## Conexión con el Siguiente Tema
+
+Los punteros que estudiamos operan sobre memoria **estática** (conocida en compilación) o **automática** (stack, gestionada por el sistema). Pero la verdadera potencia de los punteros emerge cuando los combinamos con **memoria dinámica**: la capacidad de solicitar y liberar memoria durante la ejecución según las necesidades del programa.
+
+El apunte **[](11_memoria)** introduce la gestión explícita de memoria mediante:
+
+- **`malloc()`**: solicitar memoria del heap
+- **`free()`**: liberar memoria para evitar memory leaks
+- **Stack vs Heap**: diferencias conceptuales y de performance
+- **Estructuras dinámicas**: listas enlazadas, árboles, grafos
+
+La memoria dinámica permite construir estructuras que crecen y encogen según necesidad: una lista que se expande al agregar elementos, un grafo que se construye progresivamente. Sin embargo, introduce responsabilidad total sobre el ciclo de vida de la memoria: **cada `malloc()` debe tener su `free()` correspondiente**.
+
+Los punteros son las herramientas; la memoria dinámica es el material sobre el que trabajan. Juntos, permiten implementar cualquier estructura de datos imaginable, desde simples listas hasta bases de datos completas.
+
+**Pregunta puente**: Si declaramos `int arr[1000000]` en una función, el programa probablemente falle con stack overflow. ¿Por qué? ¿Cómo solicitamos memoria para estructuras arbitrariamente grandes? La respuesta está en la memoria dinámica y el heap.
+

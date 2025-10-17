@@ -1266,3 +1266,52 @@ cada arquitectura de procesador. Todas las formas de software deben ser
 traducidas o interpretadas a este lenguaje para poder ser ejecutadas por el
 hardware.
 :::
+
+## Conceptos Clave
+
+Este apunte establece los fundamentos sintácticos y conceptuales de C, proporcionando las herramientas básicas para escribir programas simples pero completos.
+
+:::{important} Ideas Centrales
+
+**Tipos de Datos Fundamentales**
+- C distingue entre enteros (`int`, `char`), flotantes (`float`, `double`) y sin valor (`void`)
+- Cada tipo tiene un tamaño específico y rango de valores representables
+- La elección del tipo correcto impacta en precisión y uso de memoria
+
+**Estructuras de Control**
+- **Secuencial**: ejecución línea por línea (asignación, llamadas a función)
+- **Condicional**: `if/else`, `switch` para bifurcaciones de flujo
+- **Iterativa**: `for`, `while`, `do-while` para repeticiones controladas
+- Estas tres categorías son completas: cualquier algoritmo puede expresarse con ellas
+
+**Operadores y Expresiones**
+- Aritméticos, relacionales, lógicos, bitwise
+- Precedencia y asociatividad determinan el orden de evaluación
+- Las expresiones combinan valores y operadores para producir nuevos valores
+
+**Entrada/Salida Básica**
+- `printf()`: salida formateada a consola
+- `scanf()`: entrada desde usuario
+- Especificadores de formato comunican tipos de datos
+
+**Compilación**
+- Transformación de código fuente (`.c`) a ejecutable
+- Proceso multi-etapa: preprocesado → compilación → enlazado
+- Errores de compilación vs errores en runtime
+:::
+
+## Conexión con el Siguiente Tema
+
+Hasta ahora escribimos programas lineales con datos individuales y control de flujo básico. Pero rápidamente surge la necesidad de **organizar código más complejo**: ¿cómo evitar repetir el mismo bloque de código 10 veces? ¿Cómo dividir un problema grande en partes manejables? ¿Cómo hacer que una solución sea reutilizable?
+
+El próximo apunte, **[](3_funciones)**, introduce la **descomposición funcional** como mecanismo fundamental para estructurar programas. Las funciones permiten:
+
+- Encapsular tareas específicas con interfaces claras
+- Reutilizar código sin duplicación
+- Razonar sobre corrección mediante contratos (Pre/Post/Invariantes)
+- Gestionar complejidad dividiendo problemas grandes
+
+Con las estructuras de control que ya dominamos, las funciones se convierten en las "piezas de Lego" que ensamblamos para construir sistemas más sofisticados. El concepto de **alcance** (scope) que introduciremos es fundamental para entender cómo las funciones mantienen independencia y evitan interferencias no deseadas.
+
+**Pregunta puente**: Si queremos calcular el área de 5 rectángulos diferentes, ¿tiene sentido escribir 5 veces el código `base * altura`? La respuesta natural nos lleva al concepto de función.
+
