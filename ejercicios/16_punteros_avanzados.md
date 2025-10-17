@@ -12,10 +12,10 @@ Estos ejercicios exploran dos conceptos más avanzados relacionados con los punt
 Un puntero doble es un puntero que almacena la dirección de otro puntero. Su uso principal es permitir que una función modifique el puntero original del código que la llamó (simular paso por referencia para punteros).
 
 ```{mermaid}
-graph TD
-    A(main: char *p) -- &p --> B(funcion: char **pp);
-    B -- *pp --> A;
-    A -- "apunta a" --> C[Heap: "Hola"];
+flowchart TD
+    A["main: char *p"] -- "&p" --> B["funcion: char **pp"]
+    B -- "*pp" --> A
+    A -- "apunta a" --> C["Heap: Hola"]
     B -- "**pp accede a" --> C
 ```
 

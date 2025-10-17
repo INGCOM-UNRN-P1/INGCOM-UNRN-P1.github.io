@@ -92,16 +92,20 @@ función devuelve un arreglo de punteros, donde cada puntero apunta a una palabr
 alojada dinámicamente.
 
 ```{mermaid}
-graph TD
+flowchart TD
     subgraph Heap
-        H(Hola) --- M(Mundo)
+        H["Hola"]
+        M["Mundo"]
     end
-    subgraph Arreglo de Punteros
-        P1(ptr[0]) --> H;
-        P2(ptr[1]) --> M;
-        P3(ptr[2]) --> NUL(NULL);
+    subgraph "Arreglo de Punteros"
+        P1["ptr[0]"]
+        P2["ptr[1]"]
+        P3["ptr[2]"]
     end
-    Main(char** resultado) --> P1;
+    Main["char** resultado"] --> P1
+    P1 --> H
+    P2 --> M
+    P3 --> NUL["NULL"]
 ```
 
 **Algoritmo:**

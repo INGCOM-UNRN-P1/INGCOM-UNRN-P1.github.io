@@ -45,19 +45,19 @@ Matriz (2x3):
 :class: dropdown
 
 ````{mermaid}
-graph TD
-    A[Inicio] --> B{fila = 0};
-    B --> C{fila < num_filas?};
-    C -- Sí --> D{Imprimir '['};
-    D --> E{col = 0};
-    E --> F{col < num_cols?};
-    F -- Sí --> G[Imprimir mat[fila][col]];
-    G --> H{col = col + 1};
-    H --> F;
-    F -- No --> I{Imprimir ']' y Salto de Línea};
-    I --> J{fila = fila + 1};
-    J --> C;
-    C -- No --> K[Fin];
+flowchart TD
+    A["Inicio"] --> B["fila = 0"]
+    B --> C{"fila < num_filas?"}
+    C -- Sí --> D["Imprimir '['"]
+    D --> E["col = 0"]
+    E --> F{"col < num_cols?"}
+    F -- Sí --> G["Imprimir mat[fila][col]"]
+    G --> H["col = col + 1"]
+    H --> F
+    F -- No --> I["Imprimir ']' y Salto de Línea"]
+    I --> J["fila = fila + 1"]
+    J --> C
+    C -- No --> K["Fin"]
 ````
 :::
 
@@ -203,17 +203,17 @@ Matriz C (2x2): [[58, 64], [139, 154]]
 :class: dropdown
 
 ````{mermaid}
-graph TD
-    A[Inicio] --> B{i = 0..m-1};
-    B --> C{j = 0..p-1};
-    C --> D[suma = 0];
-    D --> E{k = 0..n-1};
-    E --> F[suma += A[i][k] * B[k][j]];
-    F --> E;
-    E -- Fin del lazo k --> G[C[i][j] = suma];
-    G --> C;
-    C -- Fin del lazo j --> B;
-    B -- Fin del lazo i --> H[Fin];
+flowchart TD
+    A["Inicio"] --> B["i = 0..m-1"]
+    B --> C["j = 0..p-1"]
+    C --> D["suma = 0"]
+    D --> E["k = 0..n-1"]
+    E --> F["suma += A[i][k] * B[k][j]"]
+    F --> E
+    E -- "Fin del lazo k" --> G["C[i][j] = suma"]
+    G --> C
+    C -- "Fin del lazo j" --> B
+    B -- "Fin del lazo i" --> H["Fin"]
 ````
 :::
 
@@ -424,21 +424,21 @@ La matriz es simétrica.
 El diagrama muestra los pares de elementos que deben ser iguales. Solo es necesario verificar una mitad del triángulo (excluyendo la diagonal).
 
 ````{mermaid}
-graph TD
+flowchart TD
     subgraph Matriz
-        A11("a11")
-        A12("a12")
-        A13("a13")
-        A21("a21")
-        A22("a22")
-        A23("a23")
-        A31("a31")
-        A32("a32")
-        A33("a33")
+        A11["a11"]
+        A12["a12"]
+        A13["a13"]
+        A21["a21"]
+        A22["a22"]
+        A23["a23"]
+        A31["a31"]
+        A32["a32"]
+        A33["a33"]
     end
-    A12 <--> A21
-    A13 <--> A31
-    A23 <--> A32
+    A12 <-.-> A21
+    A13 <-.-> A31
+    A23 <-.-> A32
 ````
 :::
 
