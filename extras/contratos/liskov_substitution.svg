@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="700" height="500" viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .box { fill: #fff; stroke: #666; stroke-width: 2; rx: 8; }
+      .supertype { fill: #e3f2fd; stroke: #1976d2; stroke-width: 3; }
+      .subtype { fill: #f3e5f5; stroke: #6a1b9a; stroke-width: 3; }
+      .contract { fill: #fff9c4; stroke: #f57f17; }
+      .arrow { fill: none; stroke: #666; stroke-width: 2; marker-end: url(#arrowhead); }
+      .weaken { stroke: #2e7d32; stroke-dasharray: 5,3; }
+      .strengthen { stroke: #c62828; stroke-dasharray: 5,3; }
+      .label { font-family: Arial, sans-serif; font-size: 13px; fill: #333; text-anchor: middle; }
+      .title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #1976d2; text-anchor: middle; }
+      .formula { font-family: "Times New Roman", serif; font-size: 12px; font-style: italic; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#666"/>
+    </marker>
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#2e7d32"/>
+    </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#c62828"/>
+    </marker>
+  </defs>
+  
+  <text x="350" y="25" class="title">Principio de Sustitución de Liskov (LSP)</text>
+  <text x="350" y="45" class="label" font-size="12" fill="#666">Los subtipos deben ser sustituibles por sus supertipos</text>
+  
+  <!-- Supertype -->
+  <g id="supertype">
+    <rect x="100" y="80" width="200" height="150" class="box supertype"/>
+    <text x="200" y="105" class="label" font-weight="bold" font-size="15" fill="#1976d2">Supertipo (T)</text>
+    
+    <rect x="120" y="125" width="160" height="90" class="contract"/>
+    <text x="200" y="145" class="label" font-size="11" font-weight="bold">Contrato</text>
+    
+    <text x="130" y="165" class="formula" text-anchor="start">Pre_T: x > 0</text>
+    <text x="130" y="183" class="formula" text-anchor="start">Post_T: result > 0</text>
+    <text x="130" y="201" class="formula" text-anchor="start">Inv_T: estado válido</text>
+  </g>
+  
+  <!-- Arrow inheritance -->
+  <path d="M 300,155 L 395,155" class="arrow"/>
+  <text x="347" y="145" class="label" font-size="11" fill="#999">hereda</text>
+  
+  <!-- Subtype -->
+  <g id="subtype">
+    <rect x="400" y="80" width="200" height="150" class="box subtype"/>
+    <text x="500" y="105" class="label" font-weight="bold" font-size="15" fill="#6a1b9a">Subtipo (S)</text>
+    
+    <rect x="420" y="125" width="160" height="90" class="contract"/>
+    <text x="500" y="145" class="label" font-size="11" font-weight="bold">Contrato</text>
+    
+    <text x="430" y="165" class="formula" text-anchor="start">Pre_S: x >= 0</text>
+    <text x="430" y="183" class="formula" text-anchor="start">Post_S: result >= 0 ∧ ...</text>
+    <text x="430" y="201" class="formula" text-anchor="start">Inv_S: Inv_T ∧ ...</text>
+  </g>
+  
+  <!-- Weakening/Strengthening arrows -->
+  <path d="M 200,235 L 200,270" class="arrow weaken" marker-end="url(#arrowhead-green)"/>
+  <text x="230" y="255" class="label" font-size="11" fill="#2e7d32">debilitar</text>
+  
+  <path d="M 500,235 L 500,270" class="arrow strengthen" marker-end="url(#arrowhead-red)"/>
+  <text x="530" y="255" class="label" font-size="11" fill="#c62828">fortalecer</text>
+  
+  <!-- Rules box -->
+  <rect x="50" y="280" width="600" height="140" fill="#f5f5f5" stroke="#999" stroke-width="1.5" rx="5"/>
+  <text x="350" y="305" class="label" font-weight="bold" font-size="15">Reglas del LSP para Contratos</text>
+  
+  <text x="70" y="335" class="formula" text-anchor="start" font-size="13">1. Pre_T(m) → Pre_S(m)</text>
+  <text x="90" y="352" class="label" font-size="11" text-anchor="start" fill="#2e7d32">Precondición más débil: S acepta más casos que T</text>
+  
+  <text x="70" y="375" class="formula" text-anchor="start" font-size="13">2. Post_S(m) → Post_T(m)</text>
+  <text x="90" y="392" class="label" font-size="11" text-anchor="start" fill="#c62828">Postcondición más fuerte: S garantiza más que T</text>
+  
+  <text x="70" y="415" class="formula" text-anchor="start" font-size="13">3. Inv_T → Inv_S</text>
+  <text x="90" y="432" class="label" font-size="11" text-anchor="start" fill="#c62828">Invariante más fuerte: S añade restricciones</text>
+  
+  <!-- Example box -->
+  <rect x="50" y="440" width="600" height="50" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5" rx="5"/>
+  <text x="350" y="460" class="label" font-weight="bold" font-size="13" fill="#1976d2">Interpretación</text>
+  <text x="350" y="478" class="label" font-size="11">
+    Un objeto de tipo S puede usarse donde se espera un objeto de tipo T sin violar corrección
+  </text>
+</svg>

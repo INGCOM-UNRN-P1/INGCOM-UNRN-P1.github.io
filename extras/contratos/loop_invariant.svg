@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="700" height="500" viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .iteration { fill: #e8f5e9; stroke: #2e7d32; stroke-width: 2; rx: 5; }
+      .invariant { fill: #fff9c4; stroke: #f57f17; stroke-width: 2; rx: 5; }
+      .condition { fill: #ffccbc; stroke: #d84315; stroke-width: 1.5; rx: 3; }
+      .arrow { fill: none; stroke: #666; stroke-width: 2; marker-end: url(#arrowhead); }
+      .label { font-family: Arial, sans-serif; font-size: 13px; fill: #333; text-anchor: middle; }
+      .title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #1976d2; text-anchor: middle; }
+      .code { font-family: "Courier New", monospace; font-size: 11px; fill: #333; }
+      .formula { font-family: "Times New Roman", serif; font-size: 12px; font-style: italic; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#666"/>
+    </marker>
+  </defs>
+  
+  <text x="350" y="25" class="title">Invariante de Lazo: Preservación a través de Iteraciones</text>
+  
+  <!-- Initial state -->
+  <g id="init">
+    <rect x="50" y="60" width="120" height="80" class="invariant"/>
+    <text x="110" y="85" class="label" font-weight="bold">Inicialización</text>
+    <text x="110" y="105" class="formula">Inv es verdadero</text>
+    <text x="110" y="125" class="code">i = 0; suma = 0;</text>
+  </g>
+  
+  <!-- Arrow to first iteration -->
+  <path d="M 170,100 L 215,100" class="arrow"/>
+  
+  <!-- Iteration 1 -->
+  <g id="iter1">
+    <rect x="220" y="60" width="100" height="120" class="iteration"/>
+    <text x="270" y="80" class="label" font-weight="bold">Iteración 1</text>
+    
+    <rect x="230" y="90" width="80" height="25" class="condition"/>
+    <text x="270" y="107" class="code" font-size="10">B: i < n</text>
+    
+    <text x="270" y="130" class="formula">Inv ∧ B</text>
+    
+    <text x="270" y="150" class="code" font-size="10">suma += arr[i];</text>
+    <text x="270" y="165" class="code" font-size="10">i++;</text>
+  </g>
+  
+  <!-- Check invariant -->
+  <ellipse cx="270" cy="200" rx="40" ry="20" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="270" y="205" class="label" font-size="11">Inv?</text>
+  
+  <path d="M 270,180 L 270,220" class="arrow"/>
+  <text x="285" y="210" class="label" font-size="10" fill="#2e7d32">✓</text>
+  
+  <!-- Arrow to iteration 2 -->
+  <path d="M 320,100 L 365,100" class="arrow"/>
+  
+  <!-- Iteration 2 -->
+  <g id="iter2">
+    <rect x="370" y="60" width="100" height="120" class="iteration"/>
+    <text x="420" y="80" class="label" font-weight="bold">Iteración 2</text>
+    
+    <rect x="380" y="90" width="80" height="25" class="condition"/>
+    <text x="420" y="107" class="code" font-size="10">B: i < n</text>
+    
+    <text x="420" y="130" class="formula">Inv ∧ B</text>
+    
+    <text x="420" y="150" class="code" font-size="10">suma += arr[i];</text>
+    <text x="420" y="165" class="code" font-size="10">i++;</text>
+  </g>
+  
+  <!-- Check invariant 2 -->
+  <ellipse cx="420" cy="200" rx="40" ry="20" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="420" y="205" class="label" font-size="11">Inv?</text>
+  
+  <path d="M 420,180 L 420,220" class="arrow"/>
+  <text x="435" y="210" class="label" font-size="10" fill="#2e7d32">✓</text>
+  
+  <!-- Dots -->
+  <text x="500" y="110" class="label" font-size="20">...</text>
+  
+  <!-- Final state -->
+  <g id="final">
+    <rect x="530" y="60" width="120" height="80" class="invariant"/>
+    <text x="590" y="85" class="label" font-weight="bold">Terminación</text>
+    <text x="590" y="105" class="formula">Inv ∧ ¬B</text>
+    <text x="590" y="125" class="code">i >= n</text>
+  </g>
+  
+  <!-- Invariant formula box -->
+  <rect x="100" y="260" width="500" height="100" fill="#f5f5f5" stroke="#999" stroke-width="1.5" rx="5"/>
+  <text x="350" y="285" class="label" font-weight="bold" font-size="14">Ejemplo: Suma de Arreglo</text>
+  
+  <text x="350" y="310" class="formula">Invariante: suma = Σⱼ₌₀ⁱ⁻¹ arr[j] ∧ 0 ≤ i ≤ n</text>
+  
+  <text x="120" y="335" class="label" font-size="11" text-anchor="start">• Inicialización: suma = 0, i = 0 → Σ vacía = 0 ✓</text>
+  <text x="120" y="352" class="label" font-size="11" text-anchor="start">• Preservación: suma' = suma + arr[i], i' = i + 1 → Inv[i'/i, suma'/suma] ✓</text>
+  
+  <!-- Proof steps -->
+  <rect x="50" y="380" width="600" height="100" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5" rx="5"/>
+  <text x="350" y="405" class="label" font-weight="bold" font-size="14" fill="#1976d2">Demostración de Preservación</text>
+  
+  <text x="70" y="430" class="label" font-size="11" text-anchor="start">1. Antes del lazo: suma = Σⱼ₌₀ⁱ⁻¹ arr[j]</text>
+  <text x="70" y="445" class="label" font-size="11" text-anchor="start">2. Ejecutamos: suma := suma + arr[i]</text>
+  <text x="70" y="460" class="label" font-size="11" text-anchor="start">3. Después: suma = Σⱼ₌₀ⁱ⁻¹ arr[j] + arr[i] = Σⱼ₌₀ⁱ arr[j] = Σⱼ₌₀⁽ⁱ⁺¹⁾⁻¹ arr[j] ✓</text>
+</svg>
