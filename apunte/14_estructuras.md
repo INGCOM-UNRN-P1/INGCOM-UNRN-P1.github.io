@@ -18,7 +18,7 @@ Tanto pilas como colas pueden implementarse usando las estructuras que ya conoce
 
 Una **pila** es una estructura de datos lineal que sigue el principio **LIFO** (*Last In, First Out*): el último elemento en entrar es el primero en salir. Es análogo a una pila de platos donde solo podés agregar o quitar platos desde la parte superior.
 
-```{figure} 13/pila_stack.svg
+```{figure} 14/pila_stack.svg
 :label: fig-pila
 :align: center
 
@@ -33,6 +33,13 @@ Estructura de pila con operaciones push (apilar) y pop (desapilar). El acceso es
 - **es_vacia():** Verifica si la pila está vacía.
 
 ### Implementación con Lista Enlazada
+
+```{figure} 14/pila_lista_enlazada.svg
+:label: fig-pila-lista
+:align: center
+
+Representación en memoria de una pila implementada con lista enlazada. El tope apunta al primer nodo de la lista.
+```
 
 ```c
 typedef struct nodo_pila
@@ -359,7 +366,7 @@ bool parentesis_balanceados(const char *expresion)
 
 Una **cola** es una estructura de datos lineal que sigue el principio **FIFO** (*First In, First Out*): el primer elemento en entrar es el primero en salir. Es análogo a una fila de personas esperando, donde el primero en llegar es el primero en ser atendido.
 
-```{figure} 13/cola_queue.svg
+```{figure} 14/cola_queue.svg
 :label: fig-cola
 :align: center
 
@@ -374,6 +381,13 @@ Estructura de cola con operaciones encolar (inserción al final) y desencolar (e
 - **es_vacia():** Verifica si la cola está vacía.
 
 ### Implementación con Lista Enlazada
+
+```{figure} 14/cola_lista_enlazada.svg
+:label: fig-cola-lista
+:align: center
+
+Representación en memoria de una cola implementada con lista enlazada. Se mantienen punteros al frente y al final para operaciones O(1).
+```
 
 ```c
 typedef struct nodo_cola
@@ -550,6 +564,13 @@ Las colas son fundamentales en sistemas que requieren procesamiento en orden de 
 ### Implementación Alternativa: Cola con Arreglo Circular
 
 La implementación con arreglo circular es muy eficiente para colas, evitando el desperdicio de espacio que ocurriría con un arreglo simple.
+
+```{figure} 14/cola_circular.svg
+:label: fig-cola-circular
+:align: center
+
+Arreglo circular mostrando cómo los índices se "envuelven" usando el operador módulo. Los elementos ocupan posiciones no contiguas del arreglo.
+```
 
 ```c
 #define CAPACIDAD_MAXIMA 100
@@ -1211,6 +1232,14 @@ La elección de implementación depende de las necesidades específicas del sist
 ### Panorama de Estructuras de Datos
 
 Hemos visto cómo las estructuras de datos se organizan en una jerarquía de generalidad y propósito:
+
+```{figure} 14/jerarquia_estructuras.svg
+:label: fig-jerarquia
+:align: center
+:width: 100%
+
+Jerarquía y organización de estructuras de datos desde las más restrictivas (pilas/colas) hasta las más generales (grafos).
+```
 
 1. **Estructuras Lineales con Restricciones:**
    - Pilas: Solo acceso por un extremo (LIFO)

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="700" height="600" viewBox="0 0 700 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .category-box { fill: #e3f2fd; stroke: #1976d2; stroke-width: 2; rx: 5; }
+      .structure { fill: #fff; stroke: #666; stroke-width: 1.5; rx: 3; }
+      .structure-highlight { fill: #ffeb3b; stroke: #f57f17; stroke-width: 2; rx: 3; }
+      .connection { fill: none; stroke: #999; stroke-width: 1; stroke-dasharray: 3,3; }
+      .title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #1976d2; }
+      .category-title { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #0d47a1; }
+      .label { font-family: Arial, sans-serif; font-size: 11px; fill: #333; }
+      .complexity { font-family: monospace; font-size: 10px; fill: #666; }
+    </style>
+  </defs>
+  
+  <!-- Main title -->
+  <text x="350" y="25" text-anchor="middle" class="title">Jerarquía de Estructuras de Datos</text>
+  
+  <!-- Level 1: Restrictive Linear -->
+  <g id="restrictive">
+    <rect x="50" y="50" width="600" height="80" class="category-box"/>
+    <text x="350" y="70" text-anchor="middle" class="category-title">Estructuras Lineales con Restricciones</text>
+    
+    <rect x="80" y="80" width="120" height="40" class="structure-highlight"/>
+    <text x="140" y="100" text-anchor="middle" class="label">Pila (LIFO)</text>
+    <text x="140" y="115" text-anchor="middle" class="complexity">push/pop: O(1)</text>
+    
+    <rect x="240" y="80" width="120" height="40" class="structure-highlight"/>
+    <text x="300" y="100" text-anchor="middle" class="label">Cola (FIFO)</text>
+    <text x="300" y="115" text-anchor="middle" class="complexity">enq/deq: O(1)</text>
+    
+    <rect x="400" y="80" width="120" height="40" class="structure"/>
+    <text x="460" y="100" text-anchor="middle" class="label">Deque</text>
+    <text x="460" y="115" text-anchor="middle" class="complexity">ambos extremos: O(1)</text>
+  </g>
+  
+  <!-- Level 2: General Linear -->
+  <g id="general-linear">
+    <rect x="50" y="150" width="280" height="70" class="category-box"/>
+    <text x="190" y="170" text-anchor="middle" class="category-title">Estructuras Lineales Generales</text>
+    
+    <rect x="80" y="180" width="100" height="30" class="structure"/>
+    <text x="130" y="200" text-anchor="middle" class="label">Lista Enlazada</text>
+    
+    <rect x="210" y="180" width="100" height="30" class="structure"/>
+    <text x="260" y="200" text-anchor="middle" class="label">Arreglo Dinámico</text>
+  </g>
+  
+  <!-- Level 3: Search Structures -->
+  <g id="search">
+    <rect x="360" y="150" width="290" height="120" class="category-box"/>
+    <text x="505" y="170" text-anchor="middle" class="category-title">Estructuras de Búsqueda</text>
+    
+    <rect x="380" y="180" width="120" height="30" class="structure"/>
+    <text x="440" y="200" text-anchor="middle" class="label">Tabla Hash</text>
+    <text x="440" y="210" text-anchor="middle" class="complexity" font-size="9">búsqueda: O(1) prom</text>
+    
+    <rect x="510" y="180" width="120" height="30" class="structure"/>
+    <text x="570" y="200" text-anchor="middle" class="label">Árbol BST</text>
+    <text x="570" y="210" text-anchor="middle" class="complexity" font-size="9">búsqueda: O(log n)</text>
+    
+    <rect x="380" y="225" width="90" height="30" class="structure"/>
+    <text x="425" y="245" text-anchor="middle" class="label" font-size="10">Trie</text>
+    
+    <rect x="485" y="225" width="90" height="30" class="structure"/>
+    <text x="530" y="245" text-anchor="middle" class="label" font-size="10">Skip List</text>
+  </g>
+  
+  <!-- Level 4: Collections -->
+  <g id="collections">
+    <rect x="50" y="290" width="290" height="90" class="category-box"/>
+    <text x="195" y="310" text-anchor="middle" class="category-title">Estructuras de Colecciones</text>
+    
+    <rect x="70" y="320" width="80" height="30" class="structure"/>
+    <text x="110" y="340" text-anchor="middle" class="label" font-size="10">Conjunto</text>
+    
+    <rect x="165" y="320" width="80" height="30" class="structure"/>
+    <text x="205" y="340" text-anchor="middle" class="label" font-size="10">Multiconjunto</text>
+    
+    <rect x="260" y="320" width="70" height="30" class="structure"/>
+    <text x="295" y="340" text-anchor="middle" class="label" font-size="10">Heap</text>
+    
+    <rect x="120" y="355" width="110" height="20" class="structure"/>
+    <text x="175" y="368" text-anchor="middle" class="label" font-size="9">Cola de Prioridad</text>
+  </g>
+  
+  <!-- Level 5: Hierarchical -->
+  <g id="hierarchical">
+    <rect x="360" y="290" width="290" height="90" class="category-box"/>
+    <text x="505" y="310" text-anchor="middle" class="category-title">Estructuras Jerárquicas</text>
+    
+    <rect x="380" y="320" width="100" height="30" class="structure"/>
+    <text x="430" y="340" text-anchor="middle" class="label" font-size="10">Árbol Binario</text>
+    
+    <rect x="495" y="320" width="70" height="30" class="structure"/>
+    <text x="530" y="340" text-anchor="middle" class="label" font-size="10">AVL</text>
+    
+    <rect x="575" y="320" width="60" height="30" class="structure"/>
+    <text x="605" y="340" text-anchor="middle" class="label" font-size="10">B-Tree</text>
+    
+    <rect x="420" y="355" width="130" height="20" class="structure"/>
+    <text x="485" y="368" text-anchor="middle" class="label" font-size="9">Árbol de Segmentos</text>
+  </g>
+  
+  <!-- Level 6: Graphs -->
+  <g id="graphs">
+    <rect x="50" y="400" width="290" height="70" class="category-box"/>
+    <text x="195" y="420" text-anchor="middle" class="category-title">Estructuras de Propósito General</text>
+    
+    <rect x="80" y="435" width="110" height="25" class="structure"/>
+    <text x="135" y="452" text-anchor="middle" class="label" font-size="10">Grafo Dirigido</text>
+    
+    <rect x="210" y="435" width="110" height="25" class="structure"/>
+    <text x="265" y="452" text-anchor="middle" class="label" font-size="10">Grafo Ponderado</text>
+  </g>
+  
+  <!-- Level 7: Specialized -->
+  <g id="specialized">
+    <rect x="360" y="400" width="290" height="70" class="category-box"/>
+    <text x="505" y="420" text-anchor="middle" class="category-title">Estructuras Especializadas</text>
+    
+    <rect x="380" y="435" width="90" height="25" class="structure"/>
+    <text x="425" y="452" text-anchor="middle" class="label" font-size="10">Union-Find</text>
+    
+    <rect x="485" y="435" width="90" height="25" class="structure"/>
+    <text x="530" y="452" text-anchor="middle" class="label" font-size="10">Bloom Filter</text>
+  </g>
+  
+  <!-- Connections showing hierarchy -->
+  <path d="M 140,130 L 140,180" class="connection"/>
+  <path d="M 300,130 L 260,180" class="connection"/>
+  <path d="M 300,130 L 440,180" class="connection"/>
+  <path d="M 190,220 L 195,320" class="connection"/>
+  <path d="M 440,210 L 430,320" class="connection"/>
+  <path d="M 570,210 L 530,320" class="connection"/>
+  
+  <!-- Legend -->
+  <g id="legend">
+    <text x="50" y="510" class="category-title">Criterios de Organización:</text>
+    
+    <text x="60" y="530" class="label">• Nivel de restricción: de más restrictivo (pila/cola) a más general (grafo)</text>
+    <text x="60" y="545" class="label">• Tipo de acceso: secuencial, directo, asociativo, jerárquico</text>
+    <text x="60" y="560" class="label">• Complejidad temporal: las estructuras más especializadas optimizan operaciones específicas</text>
+    <text x="60" y="575" class="label">• Aplicabilidad: cada estructura modela relaciones específicas entre datos</text>
+  </g>
+  
+  <!-- Note box -->
+  <rect x="50" y="490" width="600" height="100" fill="none" stroke="#1976d2" stroke-width="1" stroke-dasharray="5,3" rx="5"/>
+</svg>
