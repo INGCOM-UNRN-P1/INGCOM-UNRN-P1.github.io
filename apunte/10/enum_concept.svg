@@ -1,167 +1,514 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 900 500"
+   version="1.1"
+   id="svg38"
+   sodipodi:docname="enum_concept.svg"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview38"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.91555556"
+     inkscape:cx="450"
+     inkscape:cy="249.57524"
+     inkscape:window-width="1872"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg38" />
   <!-- Título -->
-  <text x="450" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">
+  <text
+     x="450"
+     y="30"
+     font-family="Arial, sans-serif"
+     font-size="20"
+     font-weight="bold"
+     text-anchor="middle"
+     id="text1">
     Enumeraciones: Constantes Enteras con Nombres Simbólicos
   </text>
-  
   <!-- Sin enum (código malo) -->
-  <g id="sin-enum">
-    <rect x="50" y="60" width="380" height="190" fill="#FFEBEE" stroke="#C62828" stroke-width="2" rx="8"/>
-    
-    <text x="240" y="90" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#C62828">
-      ✗ Sin enum (Números Mágicos)
-    </text>
-    
-    <rect x="70" y="105" width="340" height="130" fill="white" stroke="#666" stroke-width="1" rx="3"/>
-    <text x="80" y="125" font-family="monospace" font-size="11">
+  <g
+     id="sin-enum">
+    <rect
+       x="50"
+       y="60"
+       width="380"
+       height="190"
+       fill="#FFEBEE"
+       stroke="#C62828"
+       stroke-width="2"
+       rx="8"
+       id="rect1" />
+    <text
+       x="240"
+       y="90"
+       font-family="Arial, sans-serif"
+       font-size="16px"
+       font-weight="bold"
+       text-anchor="middle"
+       fill="#c62828"
+       id="text2">✗ Sin enum - números desconectados</text>
+    <rect
+       x="70"
+       y="105"
+       width="340"
+       height="130"
+       fill="white"
+       stroke="#666"
+       stroke-width="1"
+       rx="3"
+       id="rect2" />
+    <text
+       x="80"
+       y="125"
+       font-family="monospace"
+       font-size="11"
+       id="text3">
       #define DESCONECTADO 0
     </text>
-    <text x="80" y="141" font-family="monospace" font-size="11">
+    <text
+       x="80"
+       y="141"
+       font-family="monospace"
+       font-size="11"
+       id="text4">
       #define CONECTANDO   1
     </text>
-    <text x="80" y="157" font-family="monospace" font-size="11">
+    <text
+       x="80"
+       y="157"
+       font-family="monospace"
+       font-size="11"
+       id="text5">
       #define CONECTADO    2
     </text>
-    <text x="80" y="173" font-family="monospace" font-size="11">
-    </text>
-    <text x="80" y="189" font-family="monospace" font-size="11">
+    <text
+       x="80"
+       y="173"
+       font-family="monospace"
+       font-size="11"
+       id="text6" />
+    <text
+       x="80"
+       y="189"
+       font-family="monospace"
+       font-size="11"
+       id="text7">
       int estado = 1;  // ¿Qué significa 1?
     </text>
-    <text x="80" y="205" font-family="monospace" font-size="11">
+    <text
+       x="80"
+       y="205"
+       font-family="monospace"
+       font-size="11"
+       id="text8">
       if (estado == 2) { ... }
     </text>
-    <text x="80" y="221" font-family="monospace" font-size="11" fill="#C62828">
+    <text
+       x="80"
+       y="221"
+       font-family="monospace"
+       font-size="11"
+       fill="#C62828"
+       id="text9">
       // Confuso, propenso a errores
     </text>
   </g>
-  
   <!-- Con enum (código bueno) -->
-  <g id="con-enum">
-    <rect x="470" y="60" width="380" height="190" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2" rx="8"/>
-    
-    <text x="660" y="90" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#2E7D32">
+  <g
+     id="con-enum">
+    <rect
+       x="470"
+       y="60"
+       width="380"
+       height="190"
+       fill="#E8F5E9"
+       stroke="#2E7D32"
+       stroke-width="2"
+       rx="8"
+       id="rect9" />
+    <text
+       x="660"
+       y="90"
+       font-family="Arial, sans-serif"
+       font-size="16"
+       font-weight="bold"
+       text-anchor="middle"
+       fill="#2E7D32"
+       id="text10">
       ✓ Con enum (Claro y Seguro)
     </text>
-    
-    <rect x="490" y="105" width="340" height="130" fill="white" stroke="#666" stroke-width="1" rx="3"/>
-    <text x="500" y="125" font-family="monospace" font-size="11">
+    <rect
+       x="490"
+       y="105"
+       width="340"
+       height="130"
+       fill="white"
+       stroke="#666"
+       stroke-width="1"
+       rx="3"
+       id="rect10" />
+    <text
+       x="500"
+       y="125"
+       font-family="monospace"
+       font-size="11"
+       id="text11">
       typedef enum {
     </text>
-    <text x="510" y="141" font-family="monospace" font-size="11">
+    <text
+       x="510"
+       y="141"
+       font-family="monospace"
+       font-size="11"
+       id="text12">
         DESCONECTADO,    // 0
     </text>
-    <text x="510" y="157" font-family="monospace" font-size="11">
+    <text
+       x="510"
+       y="157"
+       font-family="monospace"
+       font-size="11"
+       id="text13">
         CONECTANDO,      // 1
     </text>
-    <text x="510" y="173" font-family="monospace" font-size="11">
+    <text
+       x="510"
+       y="173"
+       font-family="monospace"
+       font-size="11"
+       id="text14">
         CONECTADO        // 2
     </text>
-    <text x="500" y="189" font-family="monospace" font-size="11">
+    <text
+       x="500"
+       y="189"
+       font-family="monospace"
+       font-size="11"
+       id="text15">
       } estado_conexion_t;
     </text>
-    <text x="500" y="205" font-family="monospace" font-size="11">
-    </text>
-    <text x="500" y="221" font-family="monospace" font-size="11">
+    <text
+       x="500"
+       y="205"
+       font-family="monospace"
+       font-size="11"
+       id="text16" />
+    <text
+       x="500"
+       y="221"
+       font-family="monospace"
+       font-size="11"
+       id="text17">
       estado_conexion_t estado = CONECTANDO;
     </text>
   </g>
-  
   <!-- Mapeo de valores -->
-  <g id="mapeo">
-    <rect x="50" y="270" width="800" height="210" fill="#E3F2FD" stroke="#1976D2" stroke-width="2" rx="8"/>
-    
-    <text x="450" y="300" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">
+  <g
+     id="mapeo">
+    <rect
+       x="50"
+       y="270"
+       width="800"
+       height="210"
+       fill="#E3F2FD"
+       stroke="#1976D2"
+       stroke-width="2"
+       rx="8"
+       id="rect17" />
+    <text
+       x="450"
+       y="300"
+       font-family="Arial, sans-serif"
+       font-size="16"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text18">
       Cómo el Compilador Traduce la Enumeración
     </text>
-    
     <!-- Nombres simbólicos -->
-    <g transform="translate(80, 320)">
-      <text x="0" y="0" font-family="Arial, sans-serif" font-size="13" font-weight="bold">
+    <g
+       transform="translate(80, 320)"
+       id="g22">
+      <text
+         x="0"
+         y="0"
+         font-family="Arial, sans-serif"
+         font-size="13"
+         font-weight="bold"
+         id="text19">
         Nombres Simbólicos:
       </text>
-      
-      <rect x="0" y="10" width="200" height="35" fill="#90CAF9" stroke="#1976D2" stroke-width="2" rx="5"/>
-      <text x="100" y="32" font-family="monospace" font-size="12" text-anchor="middle" font-weight="bold">
+      <rect
+         x="0"
+         y="10"
+         width="200"
+         height="35"
+         fill="#90CAF9"
+         stroke="#1976D2"
+         stroke-width="2"
+         rx="5"
+         id="rect19" />
+      <text
+         x="100"
+         y="32"
+         font-family="monospace"
+         font-size="12"
+         text-anchor="middle"
+         font-weight="bold"
+         id="text20">
         DESCONECTADO
       </text>
-      
-      <rect x="0" y="55" width="200" height="35" fill="#90CAF9" stroke="#1976D2" stroke-width="2" rx="5"/>
-      <text x="100" y="77" font-family="monospace" font-size="12" text-anchor="middle" font-weight="bold">
+      <rect
+         x="0"
+         y="55"
+         width="200"
+         height="35"
+         fill="#90CAF9"
+         stroke="#1976D2"
+         stroke-width="2"
+         rx="5"
+         id="rect20" />
+      <text
+         x="100"
+         y="77"
+         font-family="monospace"
+         font-size="12"
+         text-anchor="middle"
+         font-weight="bold"
+         id="text21">
         CONECTANDO
       </text>
-      
-      <rect x="0" y="100" width="200" height="35" fill="#90CAF9" stroke="#1976D2" stroke-width="2" rx="5"/>
-      <text x="100" y="122" font-family="monospace" font-size="12" text-anchor="middle" font-weight="bold">
+      <rect
+         x="0"
+         y="100"
+         width="200"
+         height="35"
+         fill="#90CAF9"
+         stroke="#1976D2"
+         stroke-width="2"
+         rx="5"
+         id="rect21" />
+      <text
+         x="100"
+         y="122"
+         font-family="monospace"
+         font-size="12"
+         text-anchor="middle"
+         font-weight="bold"
+         id="text22">
         CONECTADO
       </text>
     </g>
-    
     <!-- Flechas -->
-    <path d="M 280 337 L 340 337" stroke="#1976D2" stroke-width="3" marker-end="url(#arrow-blue)"/>
-    <path d="M 280 382 L 340 382" stroke="#1976D2" stroke-width="3" marker-end="url(#arrow-blue)"/>
-    <path d="M 280 427 L 340 427" stroke="#1976D2" stroke-width="3" marker-end="url(#arrow-blue)"/>
-    
-    <text x="310" y="325" font-family="Arial, sans-serif" font-size="10">traduce a</text>
-    <text x="310" y="370" font-family="Arial, sans-serif" font-size="10">traduce a</text>
-    <text x="310" y="415" font-family="Arial, sans-serif" font-size="10">traduce a</text>
-    
+    <path
+       d="M 280 337 L 340 337"
+       stroke="#1976D2"
+       stroke-width="3"
+       marker-end="url(#arrow-blue)"
+       id="path22" />
+    <path
+       d="M 280 382 L 340 382"
+       stroke="#1976D2"
+       stroke-width="3"
+       marker-end="url(#arrow-blue)"
+       id="path23" />
+    <path
+       d="M 280 427 L 340 427"
+       stroke="#1976D2"
+       stroke-width="3"
+       marker-end="url(#arrow-blue)"
+       id="path24" />
+    <text
+       x="310"
+       y="325"
+       font-family="Arial, sans-serif"
+       font-size="10"
+       id="text24">traduce a</text>
+    <text
+       x="310"
+       y="370"
+       font-family="Arial, sans-serif"
+       font-size="10"
+       id="text25">traduce a</text>
+    <text
+       x="310"
+       y="415"
+       font-family="Arial, sans-serif"
+       font-size="10"
+       id="text26">traduce a</text>
     <!-- Valores enteros -->
-    <g transform="translate(350, 320)">
-      <text x="0" y="0" font-family="Arial, sans-serif" font-size="13" font-weight="bold">
+    <g
+       transform="translate(350, 320)"
+       id="g30">
+      <text
+         x="0"
+         y="0"
+         font-family="Arial, sans-serif"
+         font-size="13"
+         font-weight="bold"
+         id="text27">
         Valores Enteros:
       </text>
-      
-      <rect x="0" y="10" width="80" height="35" fill="#A5D6A7" stroke="#2E7D32" stroke-width="2" rx="5"/>
-      <text x="40" y="32" font-family="monospace" font-size="16" text-anchor="middle" font-weight="bold">
+      <rect
+         x="0"
+         y="10"
+         width="80"
+         height="35"
+         fill="#A5D6A7"
+         stroke="#2E7D32"
+         stroke-width="2"
+         rx="5"
+         id="rect27" />
+      <text
+         x="40"
+         y="32"
+         font-family="monospace"
+         font-size="16"
+         text-anchor="middle"
+         font-weight="bold"
+         id="text28">
         0
       </text>
-      
-      <rect x="0" y="55" width="80" height="35" fill="#A5D6A7" stroke="#2E7D32" stroke-width="2" rx="5"/>
-      <text x="40" y="77" font-family="monospace" font-size="16" text-anchor="middle" font-weight="bold">
+      <rect
+         x="0"
+         y="55"
+         width="80"
+         height="35"
+         fill="#A5D6A7"
+         stroke="#2E7D32"
+         stroke-width="2"
+         rx="5"
+         id="rect28" />
+      <text
+         x="40"
+         y="77"
+         font-family="monospace"
+         font-size="16"
+         text-anchor="middle"
+         font-weight="bold"
+         id="text29">
         1
       </text>
-      
-      <rect x="0" y="100" width="80" height="35" fill="#A5D6A7" stroke="#2E7D32" stroke-width="2" rx="5"/>
-      <text x="40" y="122" font-family="monospace" font-size="16" text-anchor="middle" font-weight="bold">
+      <rect
+         x="0"
+         y="100"
+         width="80"
+         height="35"
+         fill="#A5D6A7"
+         stroke="#2E7D32"
+         stroke-width="2"
+         rx="5"
+         id="rect29" />
+      <text
+         x="40"
+         y="122"
+         font-family="monospace"
+         font-size="16"
+         text-anchor="middle"
+         font-weight="bold"
+         id="text30">
         2
       </text>
     </g>
-    
     <!-- Ventajas -->
-    <g transform="translate(480, 320)">
-      <text x="0" y="0" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#2E7D32">
+    <g
+       transform="translate(480, 320)"
+       id="g38">
+      <text
+         x="0"
+         y="0"
+         font-family="Arial, sans-serif"
+         font-size="13"
+         font-weight="bold"
+         fill="#2E7D32"
+         id="text31">
         ✓ Ventajas:
       </text>
-      
-      <text x="10" y="22" font-family="Arial, sans-serif" font-size="11">
+      <text
+         x="10"
+         y="22"
+         font-family="Arial, sans-serif"
+         font-size="11"
+         id="text32">
         • Nombres descriptivos
       </text>
-      <text x="10" y="40" font-family="Arial, sans-serif" font-size="11">
+      <text
+         x="10"
+         y="40"
+         font-family="Arial, sans-serif"
+         font-size="11"
+         id="text33">
         • Auto-numeración
       </text>
-      <text x="10" y="58" font-family="Arial, sans-serif" font-size="11">
+      <text
+         x="10"
+         y="58"
+         font-family="Arial, sans-serif"
+         font-size="11"
+         id="text34">
         • Type safety
       </text>
-      <text x="10" y="76" font-family="Arial, sans-serif" font-size="11">
+      <text
+         x="10"
+         y="76"
+         font-family="Arial, sans-serif"
+         font-size="11"
+         id="text35">
         • Debugger-friendly
       </text>
-      <text x="10" y="94" font-family="Arial, sans-serif" font-size="11">
+      <text
+         x="10"
+         y="94"
+         font-family="Arial, sans-serif"
+         font-size="11"
+         id="text36">
         • Fácil de mantener
       </text>
-      <text x="10" y="112" font-family="Arial, sans-serif" font-size="11">
+      <text
+         x="10"
+         y="112"
+         font-family="Arial, sans-serif"
+         font-size="11"
+         id="text37">
         • Menos errores
       </text>
-      <text x="10" y="130" font-family="Arial, sans-serif" font-size="11">
+      <text
+         x="10"
+         y="130"
+         font-family="Arial, sans-serif"
+         font-size="11"
+         id="text38">
         • Documentación implícita
       </text>
     </g>
   </g>
-  
   <!-- Definición de marcadores -->
-  <defs>
-    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#1976D2"/>
+  <defs
+     id="defs38">
+    <marker
+       id="arrow-blue"
+       markerWidth="10"
+       markerHeight="10"
+       refX="9"
+       refY="3"
+       orient="auto">
+      <polygon
+         points="0 0, 10 3, 0 6"
+         fill="#1976D2"
+         id="polygon38" />
     </marker>
   </defs>
 </svg>
