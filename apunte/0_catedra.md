@@ -56,7 +56,7 @@ La materia se cursa de manera sincrónica. Esto significa que esperamos tu
 participación activa en clase y aunque vamos a grabar las clases teóricas y
 tenemos este material, lo ideal es seguir las clases semanalmente.
 
-Es por esto que...
+Es por esto que…
 
 ### Asistencia
 
@@ -107,11 +107,11 @@ reforzar.
 
 ### Fase I
 
-Los ejercicios hasta el primer parcial, los desarrollarán de manera "suelta",
+Los ejercicios hasta el primer parcial, los desarrollarán de manera «suelta»,
 sin repositorio, sin entregas semanales. Y los ejercicios saldrán del
 [cuadernillo](cuadernillo.md)
 
-De estos ejercicios haremos un "muestreo", el cual consistirá en que carguen
+De estos ejercicios haremos un «muestreo», el cual consistirá en que carguen
 los ejercicios resueltos a entregar en el campus. Los detalles de esta actividad
 se los daremos más adelante.
 
@@ -127,14 +127,14 @@ El uso de Git será optativo _al principio_.
 ### Fase II
 
 Esta comenzará luego del primer parcial y las prácticas se desarrollarán sobre
-repositorios git alojados en GitHub.
+repositorios Git alojados en GitHub.
 
 Los ejercicios de esta parte, también tendrán una parte opcional, pero recomendada.
 
 ### Fase III
 
-La última fase consiste en la utilización de proyectos alojados en git y utilizando
-`Makefiles` (no se preocupen por _que son_, ya que lo veremos en clases).
+La última fase consiste en la utilización de proyectos alojados en Git y utilizando
+`Makefiles` (no se preocupen _porque son_, ya que lo veremos en clases).
 
 Así como requerirán la creación de casos de prueba y unidades de compilación.
 
@@ -143,7 +143,7 @@ Así como requerirán la creación de casos de prueba y unidades de compilación
 :::{warning}
 
 Las fechas de entrega son inamovibles, esto significa que luego de
-la fecha de entrega o "fecha límite" el TP no será recibido y quedará como
+la fecha de entrega o «fecha límite» el TP no será recibido y quedará como
 incompleto.
 
 :::
@@ -212,16 +212,16 @@ algoritmos asociados para la resolución eficiente de problemas.
 ## Material de Estudio
 
 Todo el material de la cursada (código de ejemplo, guías) se encuentra
-centralizado en este sitio y también en el repositorio de la cursada: :
+centralizado en este sitio y también en el repositorio de la cursada:
 [INGCOM-UNRN-P1/cursada-2025](http://github.com/INGCOM-UNRN-P1/cursada-2025), 
 aquí se ha habilitado el wiki, por si quieren hacer algún aporte a la cátedra, 
 de forma rápida [wiki](https://github.com/INGCOM-UNRN-P1/cursada-2025/wiki).
 
 :::{note} 
 
-Se sugiere "observar" (_Watch_) el repositorio y activar la opción
+Se sugiere «observar» (_Watch_) el repositorio y activar la opción
 _All Activity_. De esta forma, recibirás notificaciones por email cada vez que
-se suba o modifique material, manteniéndote siempre al día. 
+se suba o modifique material, manteniéndote siempre al día.
 
 :::
 
@@ -240,6 +240,6 @@ miles de formas diferentes.
 :::{warning} 
 
 La utilización de alguna IA para la resolución de parciales es una
-falta grave y provocará la expulsión directa. 
+falta grave y provocará la expulsión directa.
 
 :::
