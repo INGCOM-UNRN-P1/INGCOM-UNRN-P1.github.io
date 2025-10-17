@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="600" height="350" viewBox="0 0 600 350" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .box { fill: #fff; stroke: #333; stroke-width: 2; }
+      .best { fill: #c8e6c9; }
+      .avg { fill: #fff9c4; }
+      .worst { fill: #ffcdd2; }
+      .label { font-family: Arial, sans-serif; font-size: 14px; fill: #333; text-anchor: middle; }
+      .title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #1976d2; text-anchor: middle; }
+      .arrow { fill: none; stroke: #666; stroke-width: 2; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#666"/>
+    </marker>
+  </defs>
+  
+  <text x="300" y="30" class="title">Casos de Análisis de Complejidad</text>
+  
+  <!-- Best Case -->
+  <g id="best-case">
+    <rect x="50" y="70" width="150" height="200" class="box best"/>
+    <text x="125" y="95" class="label" font-weight="bold">Mejor Caso</text>
+    
+    <circle cx="125" cy="130" r="15" fill="#4caf50" stroke="#2e7d32" stroke-width="2"/>
+    <circle cx="95" cy="160" r="12" fill="#fff" stroke="#666" stroke-width="1"/>
+    <circle cx="155" cy="160" r="12" fill="#fff" stroke="#666" stroke-width="1"/>
+    <circle cx="125" cy="190" r="12" fill="#fff" stroke="#666" stroke-width="1"/>
+    <circle cx="125" cy="220" r="12" fill="#fff" stroke="#666" stroke-width="1"/>
+    
+    <text x="125" y="255" class="label" font-size="12">Entrada ideal</text>
+  </g>
+  
+  <!-- Average Case -->
+  <g id="avg-case">
+    <rect x="225" y="70" width="150" height="200" class="box avg"/>
+    <text x="300" y="95" class="label" font-weight="bold">Caso Promedio</text>
+    
+    <circle cx="270" cy="130" r="12" fill="#ffeb3b" stroke="#f57f17" stroke-width="2"/>
+    <circle cx="330" cy="130" r="12" fill="#ffeb3b" stroke="#f57f17" stroke-width="2"/>
+    <circle cx="270" cy="160" r="12" fill="#ffeb3b" stroke="#f57f17" stroke-width="2"/>
+    <circle cx="330" cy="190" r="12" fill="#ffeb3b" stroke="#f57f17" stroke-width="2"/>
+    <circle cx="300" cy="220" r="12" fill="#ffeb3b" stroke="#f57f17" stroke-width="2"/>
+    
+    <text x="300" y="255" class="label" font-size="12">Entrada típica</text>
+  </g>
+  
+  <!-- Worst Case -->
+  <g id="worst-case">
+    <rect x="400" y="70" width="150" height="200" class="box worst"/>
+    <text x="475" y="95" class="label" font-weight="bold">Peor Caso</text>
+    
+    <circle cx="475" cy="130" r="12" fill="#f44336" stroke="#c62828" stroke-width="2"/>
+    <circle cx="475" cy="160" r="12" fill="#f44336" stroke="#c62828" stroke-width="2"/>
+    <circle cx="475" cy="190" r="12" fill="#f44336" stroke="#c62828" stroke-width="2"/>
+    <circle cx="475" cy="220" r="12" fill="#f44336" stroke="#c62828" stroke-width="2"/>
+    <circle cx="475" cy="250" r="12" fill="#f44336" stroke="#c62828" stroke-width="2"/>
+    
+    <text x="475" y="285" class="label" font-size="12">Entrada adversa</text>
+  </g>
+  
+  <!-- Descriptions -->
+  <text x="125" y="310" class="label" font-size="11">T_best(n) = min</text>
+  <text x="300" y="310" class="label" font-size="11">T_avg(n) = E[T]</text>
+  <text x="475" y="310" class="label" font-size="11">T_worst(n) = max</text>
+  
+  <text x="300" y="340" class="label" font-size="12" fill="#666">El análisis del peor caso proporciona garantías sólidas</text>
+</svg>

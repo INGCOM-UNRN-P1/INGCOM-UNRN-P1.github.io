@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .box { fill: #fff; stroke: #666; stroke-width: 1.5; rx: 5; }
+      .constant { fill: #e8f5e9; }
+      .logarithmic { fill: #f3e5f5; }
+      .linear { fill: #e3f2fd; }
+      .loglinear { fill: #fff9c4; }
+      .quadratic { fill: #ffe0b2; }
+      .cubic { fill: #ffccbc; }
+      .exponential { fill: #ffcdd2; }
+      .factorial { fill: #f8bbd0; }
+      .label { font-family: Arial, sans-serif; font-size: 13px; fill: #333; text-anchor: middle; }
+      .title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #1976d2; text-anchor: middle; }
+      .complexity { font-family: monospace; font-size: 14px; font-weight: bold; }
+      .example { font-family: Arial, sans-serif; font-size: 11px; fill: #666; }
+      .arrow { fill: none; stroke: #999; stroke-width: 2; stroke-dasharray: 5,5; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#999"/>
+    </marker>
+  </defs>
+  
+  <text x="400" y="30" class="title">Jerarquía de Complejidades Algorítmicas</text>
+  <text x="400" y="50" class="label" fill="#666">De más eficiente a menos eficiente →</text>
+  
+  <!-- O(1) - Constant -->
+  <g id="constant">
+    <rect x="30" y="80" width="140" height="80" class="box constant"/>
+    <text x="100" y="105" class="complexity" fill="#2e7d32">O(1)</text>
+    <text x="100" y="125" class="label" font-weight="bold">Constante</text>
+    <text x="100" y="145" class="example">Acceso a arreglo</text>
+  </g>
+  
+  <!-- O(log n) - Logarithmic -->
+  <g id="logarithmic">
+    <rect x="190" y="80" width="140" height="80" class="box logarithmic"/>
+    <text x="260" y="105" class="complexity" fill="#6a1b9a">O(log n)</text>
+    <text x="260" y="125" class="label" font-weight="bold">Logarítmica</text>
+    <text x="260" y="145" class="example">Búsqueda binaria</text>
+  </g>
+  
+  <!-- O(n) - Linear -->
+  <g id="linear">
+    <rect x="350" y="80" width="140" height="80" class="box linear"/>
+    <text x="420" y="105" class="complexity" fill="#1565c0">O(n)</text>
+    <text x="420" y="125" class="label" font-weight="bold">Lineal</text>
+    <text x="420" y="145" class="example">Recorrer arreglo</text>
+  </g>
+  
+  <!-- O(n log n) - Log-linear -->
+  <g id="loglinear">
+    <rect x="510" y="80" width="140" height="80" class="box loglinear"/>
+    <text x="580" y="105" class="complexity" fill="#f57f17">O(n log n)</text>
+    <text x="580" y="125" class="label" font-weight="bold">Log-Lineal</text>
+    <text x="580" y="145" class="example">Merge Sort</text>
+  </g>
+  
+  <!-- O(n²) - Quadratic -->
+  <g id="quadratic">
+    <rect x="110" y="190" width="140" height="80" class="box quadratic"/>
+    <text x="180" y="215" class="complexity" fill="#ef6c00">O(n²)</text>
+    <text x="180" y="235" class="label" font-weight="bold">Cuadrática</text>
+    <text x="180" y="255" class="example">Bubble Sort</text>
+  </g>
+  
+  <!-- O(n³) - Cubic -->
+  <g id="cubic">
+    <rect x="270" y="190" width="140" height="80" class="box cubic"/>
+    <text x="340" y="215" class="complexity" fill="#d84315">O(n³)</text>
+    <text x="340" y="235" class="label" font-weight="bold">Cúbica</text>
+    <text x="340" y="255" class="example">Mult. matrices</text>
+  </g>
+  
+  <!-- O(2^n) - Exponential -->
+  <g id="exponential">
+    <rect x="430" y="190" width="140" height="80" class="box exponential"/>
+    <text x="500" y="215" class="complexity" fill="#c62828">O(2ⁿ)</text>
+    <text x="500" y="235" class="label" font-weight="bold">Exponencial</text>
+    <text x="500" y="255" class="example">Fibonacci ingenuo</text>
+  </g>
+  
+  <!-- O(n!) - Factorial -->
+  <g id="factorial">
+    <rect x="590" y="190" width="140" height="80" class="box factorial"/>
+    <text x="660" y="215" class="complexity" fill="#880e4f">O(n!)</text>
+    <text x="660" y="235" class="label" font-weight="bold">Factorial</text>
+    <text x="660" y="255" class="example">Permutaciones</text>
+  </g>
+  
+  <!-- Arrows showing progression -->
+  <path d="M 170,120 L 185,120" class="arrow"/>
+  <path d="M 330,120 L 345,120" class="arrow"/>
+  <path d="M 490,120 L 505,120" class="arrow"/>
+  <path d="M 580,160 L 580,185" class="arrow"/>
+  <path d="M 250,230 L 265,230" class="arrow"/>
+  <path d="M 410,230 L 425,230" class="arrow"/>
+  <path d="M 570,230 L 585,230" class="arrow"/>
+  
+  <!-- Viability indicators -->
+  <rect x="50" y="310" width="700" height="150" fill="#f5f5f5" stroke="#999" stroke-width="1" rx="5"/>
+  <text x="400" y="335" class="label" font-weight="bold" font-size="15">Viabilidad Práctica (tamaño máximo de entrada)</text>
+  
+  <g id="viability">
+    <circle cx="100" cy="365" r="8" fill="#4caf50"/>
+    <text x="120" y="370" class="label" text-anchor="start">O(1), O(log n): Cualquier tamaño</text>
+    
+    <circle cx="100" cy="390" r="8" fill="#8bc34a"/>
+    <text x="120" y="395" class="label" text-anchor="start">O(n), O(n log n): n ≤ 10⁹</text>
+    
+    <circle cx="100" cy="415" r="8" fill="#ffeb3b"/>
+    <text x="120" y="420" class="label" text-anchor="start">O(n²): n ≤ 10⁶</text>
+    
+    <circle cx="450" cy="365" r="8" fill="#ff9800"/>
+    <text x="470" y="370" class="label" text-anchor="start">O(n³): n ≤ 1000</text>
+    
+    <circle cx="450" cy="390" r="8" fill="#ff5722"/>
+    <text x="470" y="395" class="label" text-anchor="start">O(2ⁿ): n ≤ 25</text>
+    
+    <circle cx="450" cy="415" r="8" fill="#f44336"/>
+    <text x="470" y="420" class="label" text-anchor="start">O(n!): n ≤ 12</text>
+  </g>
+  
+  <text x="400" y="485" class="label" fill="#999" font-size="11">Mejores complejidades permiten procesar más datos en menos tiempo</text>
+</svg>

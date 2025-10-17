@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .axis { stroke: #333; stroke-width: 2; }
+      .grid { stroke: #e0e0e0; stroke-width: 0.5; }
+      .curve { fill: none; stroke-width: 2.5; }
+      .c1 { stroke: #4caf50; }
+      .c-logn { stroke: #9c27b0; }
+      .c-n { stroke: #2196f3; }
+      .c-nlogn { stroke: #ff9800; }
+      .c-n2 { stroke: #f44336; }
+      .c-n3 { stroke: #e91e63; }
+      .c-2n { stroke: #c62828; }
+      .label { font-family: Arial, sans-serif; font-size: 13px; fill: #333; }
+      .title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #1976d2; }
+    </style>
+  </defs>
+  
+  <text x="400" y="25" class="title" text-anchor="middle">Comparación de Tasas de Crecimiento</text>
+  <text x="400" y="45" class="label" text-anchor="middle" fill="#666">Operaciones vs Tamaño de Entrada (escala logarítmica en Y)</text>
+  
+  <!-- Axes -->
+  <line x1="60" y1="540" x2="750" y2="540" class="axis"/>
+  <line x1="60" y1="540" x2="60" y2="70" class="axis"/>
+  
+  <!-- Arrow heads -->
+  <polygon points="750,540 745,535 745,545" fill="#333"/>
+  <polygon points="60,70 55,75 65,75" fill="#333"/>
+  
+  <!-- Axis labels -->
+  <text x="770" y="545" class="label">n</text>
+  <text x="30" y="75" class="label">ops</text>
+  
+  <!-- X-axis ticks and labels -->
+  <line x1="130" y1="540" x2="130" y2="545" class="axis"/>
+  <text x="130" y="560" class="label" text-anchor="middle">10</text>
+  
+  <line x1="270" y1="540" x2="270" y2="545" class="axis"/>
+  <text x="270" y="560" class="label" text-anchor="middle">20</text>
+  
+  <line x1="410" y1="540" x2="410" y2="545" class="axis"/>
+  <text x="410" y="560" class="label" text-anchor="middle">40</text>
+  
+  <line x1="550" y1="540" x2="550" y2="545" class="axis"/>
+  <text x="550" y="560" class="label" text-anchor="middle">80</text>
+  
+  <line x1="690" y1="540" x2="690" y2="545" class="axis"/>
+  <text x="690" y="560" class="label" text-anchor="middle">100</text>
+  
+  <!-- Y-axis ticks and labels (log scale) -->
+  <line x1="55" y1="540" x2="60" y2="540" class="axis"/>
+  <text x="45" y="545" class="label" text-anchor="end">1</text>
+  
+  <line x1="55" y1="480" x2="60" y2="480" class="axis"/>
+  <text x="45" y="485" class="label" text-anchor="end">10</text>
+  
+  <line x1="55" y1="420" x2="60" y2="420" class="axis"/>
+  <text x="45" y="425" class="label" text-anchor="end">10²</text>
+  
+  <line x1="55" y1="360" x2="60" y2="360" class="axis"/>
+  <text x="45" y="365" class="label" text-anchor="end">10³</text>
+  
+  <line x1="55" y1="300" x2="60" y2="300" class="axis"/>
+  <text x="45" y="305" class="label" text-anchor="end">10⁴</text>
+  
+  <line x1="55" y1="240" x2="60" y2="240" class="axis"/>
+  <text x="45" y="245" class="label" text-anchor="end">10⁵</text>
+  
+  <line x1="55" y1="180" x2="60" y2="180" class="axis"/>
+  <text x="45" y="185" class="label" text-anchor="end">10⁶</text>
+  
+  <line x1="55" y1="120" x2="60" y2="120" class="axis"/>
+  <text x="45" y="125" class="label" text-anchor="end">10⁷</text>
+  
+  <!-- Grid -->
+  <line x1="60" y1="480" x2="750" y2="480" class="grid"/>
+  <line x1="60" y1="420" x2="750" y2="420" class="grid"/>
+  <line x1="60" y1="360" x2="750" y2="360" class="grid"/>
+  <line x1="60" y1="300" x2="750" y2="300" class="grid"/>
+  <line x1="60" y1="240" x2="750" y2="240" class="grid"/>
+  <line x1="60" y1="180" x2="750" y2="180" class="grid"/>
+  <line x1="60" y1="120" x2="750" y2="120" class="grid"/>
+  
+  <!-- O(1) - flat line -->
+  <path d="M 60,540 L 690,540" class="curve c1"/>
+  <text x="700" y="545" class="label" fill="#4caf50" font-weight="bold">O(1)</text>
+  
+  <!-- O(log n) - very gentle curve -->
+  <path d="M 60,540 L 130,505 L 270,480 L 410,465 L 550,455 L 690,450" class="curve c-logn"/>
+  <text x="700" y="455" class="label" fill="#9c27b0" font-weight="bold">O(log n)</text>
+  
+  <!-- O(n) - linear -->
+  <path d="M 60,540 L 130,498 L 270,426 L 410,354 L 550,282 L 690,228" class="curve c-n"/>
+  <text x="700" y="233" class="label" fill="#2196f3" font-weight="bold">O(n)</text>
+  
+  <!-- O(n log n) -->
+  <path d="M 60,540 L 130,490 L 270,408 L 410,330 L 550,258 L 690,198" class="curve c-nlogn"/>
+  <text x="700" y="203" class="label" fill="#ff9800" font-weight="bold">O(n log n)</text>
+  
+  <!-- O(n²) -->
+  <path d="M 60,540 L 130,480 L 270,360 L 410,240 L 550,150 L 690,108" class="curve c-n2"/>
+  <text x="700" y="113" class="label" fill="#f44336" font-weight="bold">O(n²)</text>
+  
+  <!-- O(n³) -->
+  <path d="M 60,540 L 130,460 L 270,300 L 410,180 L 550,120 L 690,90" class="curve c-n3"/>
+  <text x="700" y="95" class="label" fill="#e91e63" font-weight="bold">O(n³)</text>
+  
+  <!-- O(2^n) - exponential (only goes to n=20 or so) -->
+  <path d="M 60,540 L 130,420 L 200,240 L 270,90" class="curve c-2n"/>
+  <text x="280" y="95" class="label" fill="#c62828" font-weight="bold">O(2ⁿ)</text>
+  <text x="280" y="110" class="label" fill="#c62828" font-size="10">(crece demasiado rápido)</text>
+</svg>

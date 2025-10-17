@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="700" height="450" viewBox="0 0 700 450" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .axis { stroke: #333; stroke-width: 2; }
+      .grid { stroke: #ddd; stroke-width: 0.5; }
+      .curve { fill: none; stroke-width: 2.5; }
+      .fn { stroke: #f44336; }
+      .gn { stroke: #2196f3; }
+      .cgn { stroke: #4caf50; }
+      .label { font-family: Arial, sans-serif; font-size: 14px; fill: #333; }
+      .title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #1976d2; }
+      .formula { font-family: "Times New Roman", serif; font-size: 16px; font-style: italic; }
+    </style>
+  </defs>
+  
+  <text x="350" y="25" class="title" text-anchor="middle">Definición de Big-O: f(n) ∈ O(g(n))</text>
+  
+  <!-- Axes -->
+  <line x1="60" y1="380" x2="660" y2="380" class="axis"/>
+  <line x1="60" y1="380" x2="60" y2="50" class="axis"/>
+  
+  <!-- Arrow heads -->
+  <polygon points="660,380 655,375 655,385" fill="#333"/>
+  <polygon points="60,50 55,55 65,55" fill="#333"/>
+  
+  <!-- Axis labels -->
+  <text x="680" y="385" class="label">n</text>
+  <text x="45" y="40" class="label">T(n)</text>
+  
+  <!-- Grid lines -->
+  <line x1="60" y1="320" x2="660" y2="320" class="grid"/>
+  <line x1="60" y1="260" x2="660" y2="260" class="grid"/>
+  <line x1="60" y1="200" x2="660" y2="200" class="grid"/>
+  <line x1="60" y1="140" x2="660" y2="140" class="grid"/>
+  
+  <line x1="200" y1="380" x2="200" y2="50" class="grid"/>
+  <line x1="340" y1="380" x2="340" y2="50" class="grid"/>
+  <line x1="480" y1="380" x2="480" y2="50" class="grid"/>
+  <line x1="620" y1="380" x2="620" y2="50" class="grid"/>
+  
+  <!-- n0 marker -->
+  <line x1="200" y1="380" x2="200" y2="395" class="axis"/>
+  <text x="200" y="410" class="label" text-anchor="middle">n₀</text>
+  
+  <!-- f(n) curve -->
+  <path d="M 60,370 Q 150,350 200,310 T 340,240 T 480,200 T 620,180" class="curve fn"/>
+  <text x="630" y="175" class="label" fill="#f44336">f(n)</text>
+  
+  <!-- g(n) curve -->
+  <path d="M 60,375 L 200,290 L 340,220 L 480,170 L 620,140" class="curve gn" stroke-dasharray="5,5"/>
+  <text x="630" y="135" class="label" fill="#2196f3">g(n)</text>
+  
+  <!-- c·g(n) curve -->
+  <path d="M 60,360 L 200,250 L 340,165 L 480,110 L 620,75" class="curve cgn"/>
+  <text x="630" y="70" class="label" fill="#4caf50">c·g(n)</text>
+  
+  <!-- Shaded region -->
+  <path d="M 200,250 L 200,380 L 660,380 L 660,75 Z" fill="#4caf50" opacity="0.1"/>
+  
+  <!-- Key points -->
+  <circle cx="200" cy="310" r="4" fill="#f44336"/>
+  <circle cx="200" cy="250" r="4" fill="#4caf50"/>
+  
+  <!-- Annotations -->
+  <text x="120" y="330" class="label" font-size="12">Región antes de n₀</text>
+  <text x="120" y="345" class="label" font-size="12" fill="#999">(no importa)</text>
+  
+  <text x="420" y="120" class="label" fill="#4caf50" font-weight="bold">f(n) ≤ c·g(n)</text>
+  <text x="420" y="140" class="label" font-size="12">para todo n ≥ n₀</text>
+  
+  <!-- Formula box -->
+  <rect x="80" y="60" width="280" height="80" fill="#f5f5f5" stroke="#999" stroke-width="1" rx="5"/>
+  <text x="220" y="85" class="formula" text-anchor="middle">∃c > 0, ∃n₀ > 0 :</text>
+  <text x="220" y="110" class="formula" text-anchor="middle">0 ≤ f(n) ≤ c·g(n)</text>
+  <text x="220" y="130" class="formula" text-anchor="middle">∀n ≥ n₀</text>
+</svg>

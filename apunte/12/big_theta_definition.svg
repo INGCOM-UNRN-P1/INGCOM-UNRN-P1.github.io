@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="700" height="450" viewBox="0 0 700 450" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .axis { stroke: #333; stroke-width: 2; }
+      .grid { stroke: #ddd; stroke-width: 0.5; }
+      .curve { fill: none; stroke-width: 2.5; }
+      .fn { stroke: #9c27b0; }
+      .gn1 { stroke: #2196f3; }
+      .gn2 { stroke: #f44336; }
+      .label { font-family: Arial, sans-serif; font-size: 14px; fill: #333; }
+      .title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #1976d2; }
+      .formula { font-family: "Times New Roman", serif; font-size: 16px; font-style: italic; }
+    </style>
+  </defs>
+  
+  <text x="350" y="25" class="title" text-anchor="middle">Definición de Big-Theta: f(n) ∈ Θ(g(n))</text>
+  
+  <!-- Axes -->
+  <line x1="60" y1="380" x2="660" y2="380" class="axis"/>
+  <line x1="60" y1="380" x2="60" y2="50" class="axis"/>
+  
+  <!-- Arrow heads -->
+  <polygon points="660,380 655,375 655,385" fill="#333"/>
+  <polygon points="60,50 55,55 65,55" fill="#333"/>
+  
+  <!-- Axis labels -->
+  <text x="680" y="385" class="label">n</text>
+  <text x="45" y="40" class="label">T(n)</text>
+  
+  <!-- Grid lines -->
+  <line x1="60" y1="320" x2="660" y2="320" class="grid"/>
+  <line x1="60" y1="260" x2="660" y2="260" class="grid"/>
+  <line x1="60" y1="200" x2="660" y2="200" class="grid"/>
+  <line x1="60" y1="140" x2="660" y2="140" class="grid"/>
+  
+  <line x1="200" y1="380" x2="200" y2="50" class="grid"/>
+  <line x1="340" y1="380" x2="340" y2="50" class="grid"/>
+  <line x1="480" y1="380" x2="480" y2="50" class="grid"/>
+  <line x1="620" y1="380" x2="620" y2="50" class="grid"/>
+  
+  <!-- n0 marker -->
+  <line x1="200" y1="380" x2="200" y2="395" class="axis"/>
+  <text x="200" y="410" class="label" text-anchor="middle">n₀</text>
+  
+  <!-- c2·g(n) curve (upper bound) -->
+  <path d="M 60,350 L 200,230 L 340,150 L 480,100 L 620,70" class="curve gn2"/>
+  <text x="630" y="65" class="label" fill="#f44336">c₂·g(n)</text>
+  
+  <!-- f(n) curve -->
+  <path d="M 60,360 Q 150,340 200,290 T 340,200 T 480,145 T 620,110" class="curve fn"/>
+  <text x="630" y="105" class="label" fill="#9c27b0" font-weight="bold">f(n)</text>
+  
+  <!-- c1·g(n) curve (lower bound) -->
+  <path d="M 60,365 L 200,280 L 340,220 L 480,180 L 620,150" class="curve gn1"/>
+  <text x="630" y="145" class="label" fill="#2196f3">c₁·g(n)</text>
+  
+  <!-- Shaded region between bounds -->
+  <path d="M 200,230 L 340,150 L 480,100 L 620,70 L 620,150 L 480,180 L 340,220 L 200,280 Z" fill="#9c27b0" opacity="0.15"/>
+  
+  <!-- Key points -->
+  <circle cx="200" cy="290" r="4" fill="#9c27b0"/>
+  <circle cx="200" cy="230" r="4" fill="#f44336"/>
+  <circle cx="200" cy="280" r="4" fill="#2196f3"/>
+  
+  <!-- Annotations -->
+  <text x="120" y="320" class="label" font-size="12">Región antes de n₀</text>
+  <text x="120" y="335" class="label" font-size="12" fill="#999">(no importa)</text>
+  
+  <text x="380" y="100" class="label" fill="#9c27b0" font-weight="bold">c₁·g(n) ≤ f(n) ≤ c₂·g(n)</text>
+  <text x="440" y="120" class="label" font-size="12">para todo n ≥ n₀</text>
+  
+  <!-- Formula box -->
+  <rect x="60" y="60" width="320" height="95" fill="#f5f5f5" stroke="#999" stroke-width="1" rx="5"/>
+  <text x="220" y="85" class="formula" text-anchor="middle">∃c₁, c₂ > 0, ∃n₀ > 0 :</text>
+  <text x="220" y="110" class="formula" text-anchor="middle">0 ≤ c₁·g(n) ≤ f(n) ≤ c₂·g(n)</text>
+  <text x="220" y="135" class="formula" text-anchor="middle">∀n ≥ n₀</text>
+</svg>
