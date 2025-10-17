@@ -955,29 +955,29 @@ bool son_matrices_iguales(int a[][MAX_COLS], int b[][MAX_COLS],
 :::{glossary}
 memoria caché 
 : Una **memoria caché** (del francés _cacher_,
-"esconder") es un componente de hardware o software que almacena datos para que
-las futuras solicitudes de esos datos puedan ser atendidas más rápidamente. Se
-trata de una memoria auxiliar, de alta velocidad y menor capacidad, situada
-entre la unidad central de procesamiento (CPU) y la memoria de acceso aleatorio
-(RAM).
-
-El objetivo principal de una caché es **acelerar el acceso a los datos** que se
-utilizan con mayor frecuencia. Cuando la CPU necesita leer o escribir datos,
-primero busca en la caché. Si los datos se encuentran allí (lo que se conoce
-como un **acierto de caché** o _cache hit_), se accede a ellos de forma casi
-inmediata, evitando el acceso mucho más lento a la memoria principal. Si los
-datos no están en la caché (**fallo de caché** o _cache miss_), se deben
-recuperar de la RAM y, por lo general, se copian en la caché para futuros
-accesos.
-
-Existen diferentes **niveles de caché** (L1, L2, L3), que se diferencian por su
-tamaño, velocidad y proximidad a los núcleos de la CPU. La caché L1 es la más
-pequeña y rápida, mientras que la L3 es la más grande y lenta de las tres.
-
-¿Pero por que no todo es memoria caché? La relación costo capacidad. Las
-memorias mas cercanas al procesador y las mas rápidas, son las mas caras, tengan
-en cuenta que una computadora moderna tiene algunos kilobytes de memoria L1 y
-unos pocos megabytes en L3.
+  "esconder") es un componente de hardware o software que almacena datos para que
+  las futuras solicitudes de esos datos puedan ser atendidas más rápidamente. Se
+  trata de una memoria auxiliar, de alta velocidad y menor capacidad, situada
+  entre la unidad central de procesamiento (CPU) y la memoria de acceso aleatorio
+  (RAM).
+  
+  El objetivo principal de una caché es **acelerar el acceso a los datos** que se
+  utilizan con mayor frecuencia. Cuando la CPU necesita leer o escribir datos,
+  primero busca en la caché. Si los datos se encuentran allí (lo que se conoce
+  como un **acierto de caché** o _cache hit_), se accede a ellos de forma casi
+  inmediata, evitando el acceso mucho más lento a la memoria principal. Si los
+  datos no están en la caché (**fallo de caché** o _cache miss_), se deben
+  recuperar de la RAM y, por lo general, se copian en la caché para futuros
+  accesos.
+  
+  Existen diferentes **niveles de caché** (L1, L2, L3), que se diferencian por su
+  tamaño, velocidad y proximidad a los núcleos de la CPU. La caché L1 es la más
+  pequeña y rápida, mientras que la L3 es la más grande y lenta de las tres.
+  
+  ¿Pero por que no todo es memoria caché? La relación costo capacidad. Las
+  memorias mas cercanas al procesador y las mas rápidas, son las mas caras, tengan
+  en cuenta que una computadora moderna tiene algunos kilobytes de memoria L1 y
+  unos pocos megabytes en L3.
 
 localidad espacial 
 : Un principio fundamental en el diseño de sistemas de

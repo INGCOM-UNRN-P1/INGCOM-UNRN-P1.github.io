@@ -9,7 +9,7 @@ Cuando ejecutás un programa en C desde la terminal, tenés la posibilidad de pa
 
 :::{note} Prerequisitos
 
-Este capítulo asume conocimiento de arreglos ([](4_secuencias`) y punteros ([](7_punteros)), ya que `argv` es un arreglo de punteros a cadenas (`char *argv[]`). Si estos conceptos no están claros, repasalos antes de continuar.
+Este capítulo asume conocimiento de arreglos ([](4_secuencias.md)) y punteros ([](7_punteros.md)), ya que `argv` es un arreglo de punteros a cadenas (`char *argv[]`). Si estos conceptos no están claros, repasalos antes de continuar.
 
 :::
 

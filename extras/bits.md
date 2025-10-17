@@ -44,7 +44,6 @@ función que use el operador `&` para determinar si un número es par.
 :::
 
 :::{solution} espar
-:for: espar
 :class: dropdown
 
 ```{code-block}c
@@ -72,7 +71,6 @@ conjunto de 8 flags, escribí una función que encienda el 4to bit (bit en la
 posición 3) sin modificar los demás. :::
 
 :::{solution} activar
-:for: activar
 :class: dropdown
 
 ```{code-block} c
@@ -98,7 +96,6 @@ valores de dos variables enteras **sin usar una variable temporal**, utilizando
 únicamente el operador XOR. :::
 
 :::{solution} intercambio
-:for: intercambio
 :class: dropdown
 
 ```{code-block} c
@@ -127,8 +124,13 @@ demás.
 
 ::: 
 
+Crear una Máscara para Apagar Escribí una expresión que cree una
+máscara para apagar el 2do bit (posición 1) de un `char`, sin afectar a los
+demás. 
+
+::: 
+
 :::{solution} mask
-:for: mask
 :class: dropdown
 
 ```{code-block} c
@@ -166,7 +168,6 @@ Multiplicación y División Rápida Escribí dos macros,
 realizar las operaciones. :::
 
 :::{solution} multiplicacion
-:for: multiplicacion
 :class: dropdown
 
 ```{code-block} c
@@ -187,7 +188,6 @@ Escribí una función `int get_bit(int numero, int n)` que devuelva
 el valor (0 o 1) del bit en la posición `n`. :::
 
 :::{solution} get_bit
-:for: get_bit
 :class: dropdown
 
 ```{code-block} c
@@ -207,7 +207,6 @@ Escribí una función `void set_bit(int *numero, int n)` que
 encienda el bit en la posición `n`. :::
 
 :::{solution} set_bit
-:for: set_bit
 :class: dropdown
 
 ```{code-block} c
@@ -228,7 +227,6 @@ Escribí una función `void clear_bit(int *numero, int n)` que
 apague el bit en la posición `n`. :::
 
 :::{solution} clear_bit
-:for: clear_bit
 :class: dropdown
 
 ```{code-block} c
@@ -252,7 +250,6 @@ Kernighan.
 :::
 
 :::{solution} kernighan
-:for: kernighan
 :class: dropdown
 
  **Algoritmo de Brian Kernighan**: La operación
@@ -282,7 +279,6 @@ Escribí una función que determine si un número entero positivo es
 una potencia de dos (2, 4, 8, 16...). :::
 
 :::{solution} potencia
-:for: potencia
 :class: dropdown
 
 **Propiedad**: Un número que es potencia de dos

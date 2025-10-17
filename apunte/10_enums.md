@@ -1748,9 +1748,4 @@ valor centinela
 de valores válidos. En enumeraciones, se usa frecuentemente un elemento
 adicional (como `ENUM_MAX`) para facilitar la validación de rangos y iteración.
 
-serialización 
-: El proceso de convertir datos en memoria a un formato que puede
-almacenarse en un archivo o transmitirse por la red. Las enumeraciones requieren
-cuidado especial durante la serialización para mantener compatibilidad cuando
-cambian las definiciones.
 :::

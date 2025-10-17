@@ -47,7 +47,7 @@ A seguir siempre y cuando no esté indicada otra cosa:
 En un archivo llamado
 
 ```{code} textc
-:label: c_template
+:label: plantilla_c
 :filename: 1-1_apellido.c
 :caption: Para tener todo ordenado
 /*

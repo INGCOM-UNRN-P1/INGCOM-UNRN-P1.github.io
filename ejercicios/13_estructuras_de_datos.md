@@ -22,12 +22,6 @@ typedef struct nodo {
 } nodo_t;
 ```
 
-```{mermaid}
-:caption: "Representación de una lista enlazada simple"
-graph LR
-    A(cabeza) --> B[dato: 10 | sig] --> C[dato: 20 | sig] --> D[dato: 30 | sig] --> E((NULL))
-```
-
 ### 1.1: Crear y Destruir
 
 - **`nodo_t* crear_nodo(int dato)`**: Reserva memoria para un nuevo nodo, le

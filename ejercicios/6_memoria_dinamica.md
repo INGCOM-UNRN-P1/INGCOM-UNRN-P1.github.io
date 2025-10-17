@@ -11,14 +11,7 @@ tamaño puede no ser conocido al momento de compilar. Estos ejercicios se centra
 en el uso correcto de `malloc`, `calloc`, `realloc` y `free` para gestionar el
 ciclo de vida de arreglos, cadenas y matrices.
 
-```{mermaid}
-:caption: "Ciclo de vida de la memoria dinámica"
-graph TD
-    A(Programa) -- malloc(size) --> B(Heap: Bloque de memoria reservado);
-    B -- Puntero devuelto --> A;
-    A -- usa la memoria --> A;
-    A -- free(puntero) --> C(Heap: Bloque liberado);
-```
+
 
 ## 1: Arreglos Dinámicos
 
@@ -99,7 +92,6 @@ función devuelve un arreglo de punteros, donde cada puntero apunta a una palabr
 alojada dinámicamente.
 
 ```{mermaid}
-:caption: "Estructura de un arreglo de cadenas dinámicas (char**)"
 graph TD
     subgraph Heap
         H(Hola) --- M(Mundo)

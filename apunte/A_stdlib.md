@@ -82,7 +82,7 @@ Abort trap: 6
 gcc -DNDEBUG programa.c -o programa
 ```
 
-:::{important} Regla {ref}`0x0038h`
+:::{important} Uso Apropiado de Aserciones
 
 Las aserciones deben usarse para verificar invariantes y precondiciones durante el desarrollo, NO para validar entrada del usuario o condiciones de runtime en producción.
 :::
@@ -898,7 +898,7 @@ int main(void)
 }
 ```
 
-:::{important} Regla {ref}`0x003Ch`
+:::{important} Tipos de Tamaño Fijo
 
 Para código que requiere portabilidad o interactúa con hardware/protocolos, preferí los tipos de `<stdint.h>` sobre `int`, `long`, etc.
 :::
@@ -982,7 +982,7 @@ Fuerza la escritura de datos del buffer de salida al archivo sin tener que cerra
 
 
 :::{seealso} Ejercicios Prácticos
-Para aplicar estos conceptos, consultá la guía de {doc}`../../ejercicios/8_archivos`.
+Para aplicar estos conceptos, consultá la guía de [ejercicios de archivos](../../ejercicios/8_archivos.md).
 :::
 
 ### Funciones de Salida con Formato
@@ -998,7 +998,7 @@ int snprintf(char *s, size_t n, const char *format, ...);
 La familia de funciones `printf` escribe datos formateados a un flujo (`stdout` por defecto para `printf`) o a una cadena de caracteres (`snprintf`). Retornan el número de caracteres escritos.
 
 :::{seealso} Guía Completa de `printf`
-La cadena de formato es un mini-lenguaje en sí mismo. Para una referencia detallada de todos los especificadores, anchos, precisiones y opciones, consultá el apunte dedicado: {doc}`../../extras/guide-printf`.
+La cadena de formato es un mini-lenguaje en sí mismo. Para una referencia detallada de todos los especificadores, anchos, precisiones y opciones, consultá el apunte dedicado: [guía de printf](../../extras/guide-printf.md).
 :::
 
 ```{code-block} c
@@ -1696,12 +1696,12 @@ Otros headers importantes incluyen:
 
 La biblioteca estándar de C es esencial para escribir código portable y robusto. Recomendaciones clave:
 
-1. **Siempre verificá valores de retorno** (regla {ref}`0x0037h`)
-2. **Usá tipos de `<stdint.h>` cuando el tamaño sea crítico** (regla {ref}`0x003Ch`)
-3. **Preferí funciones seguras** como `snprintf()`, `fgets()` (regla {ref}`0x003Eh`)
-4. **Inicializá variables y estructuras completamente** (regla {ref}`0x003Dh`)
-5. **Gestioná recursos cuidadosamente** (reglas {ref}`0x001Ah`, {ref}`0x0039h`)
-6. **Documentá suposiciones** con aserciones (regla {ref}`0x0038h`)
+1. **Siempre verificá valores de retorno** de funciones que pueden fallar
+2. **Usá tipos de `<stdint.h>` cuando el tamaño sea crítico** para portabilidad
+3. **Preferí funciones seguras** como `snprintf()`, `fgets()` sobre `sprintf()` y `gets()`
+4. **Inicializá variables y estructuras completamente** para evitar valores indefinidos
+5. **Gestioná recursos cuidadosamente** (archivos, memoria) siguiendo el patrón de inicializar, usar y liberar (regla {ref}`0x001Ah`)
+6. **Documentá suposiciones** con aserciones durante desarrollo
 
 :::{note} Referencias Adicionales
 

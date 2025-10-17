@@ -31,7 +31,7 @@ archivos:
 **Tarea**: Usando la terminal, compilá y enlazá los archivos del ejercicio
 anterior sin usar un Makefile.
 
-::::{hint} Pasos de Compilación
+:::{hint} Pasos de Compilación
 
 1.  **Compilar los archivos objeto (`.o`)**: Se usa la opción `-c` de `gcc` para
     compilar cada archivo fuente por separado.
@@ -40,7 +40,9 @@ anterior sin usar un Makefile.
     gcc -c calculadora.c -o calculadora.o
     ```
 2.  **Enlazar los objetos**: Se combinan los archivos objeto para crear el
-    ejecutable final. `bash gcc main.o calculadora.o -o mi_calculadora ` :::
+    ejecutable final. `bash gcc main.o calculadora.o -o mi_calculadora ` 
+
+:::
 
 ## 2: Automatización con Makefile
 
@@ -54,7 +56,7 @@ Makefile debe tener los siguientes objetivos (`targets`):
 - **`clean`**: Un objetivo "phony" que elimina todos los archivos generados por
   la compilación (`.o` y el ejecutable).
 
-::::{tip} Estructura del Makefile
+:::{tip} Estructura del Makefile
 
 ```makefile
 # Variable para el compilador
@@ -93,7 +95,7 @@ clean:
 **Tarea**: Modificá tu proyecto para incluir mensajes de depuración que solo se
 impriman cuando se compile en "modo debug".
 
-::::{hint} Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
 
 1.  **En el código**: Encerrá tus `printf` de depuración dentro de bloques de
     preprocesador:

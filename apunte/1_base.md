@@ -138,7 +138,6 @@ Imagina que querés hacer un pastel y le das las instrucciones a alguien que
 **nunca cocinó** y que seguirá **literalmente** cada palabra que digás:
 
 ::::{grid} 1 1 2 2
-:gutter: 3
 
 :::{grid-item-card} ❌ Instrucciones vagas (no funcionan)
 "Poné un poco de harina, algo de azúcar, mezclá los ingredientes y horneá hasta
@@ -238,7 +237,6 @@ algoritmo puede implementarse en C, Python, Java o cualquier otro lenguaje.
 Un algoritmo efectivo debe cumplir con las siguientes características:
 
 ::::{grid} 1 1 2 2
-:gutter: 2
 
 :::{grid-item-card} 1. Finito
 Debe terminar en algún momento, después de un número finito de pasos.
@@ -1427,8 +1425,7 @@ Diagrama de flujo
 - Discutí tus soluciones con compañeros - hay muchas formas de resolver un
   problema.
 
-:::{figure}
-./1/xkcd-algorithms.png
+:::{figure} ./1/xkcd-algorithms.png
 :alt: XKCD Algorithms
 :align: center
 

@@ -478,7 +478,6 @@ mergear.
 :::
 
 :::{solution} ejercicio-rebase-interactivo
-:for: ejercicio-rebase-interactivo
 
 ```bash
 # 1. Crear escenario con historial desordenado
@@ -570,8 +569,7 @@ eliminadas, y archivos borrados.
 
 :::
 
-:::{solution} 
-:for: ejercicio-recuperacion-commits
+:::{solution} ejercicio-recuperacion-commits
 
 ```bash
 # 1. Configurar proyecto para simulacros

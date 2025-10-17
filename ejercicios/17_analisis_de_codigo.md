@@ -9,7 +9,7 @@ A diferencia de otros ejercicios, el objetivo aquí no es escribir código, sino
 **analizarlo**. La capacidad de leer, entender y razonar sobre un código
 existente es una habilidad tan importante como la de escribirlo. Estos
 ejercicios están diseñados para aplicar los conceptos teóricos de los apuntes
-sobre **Roles de Variables** y **Estado de un Programa**.
+sobre [](../extras/notes-roles.md) y [](../extras/notes-estado.md).
 
 :::{note} Habilidades a desarrollar
 - **Comprensión de código**: Leer y entender código escrito por otros
@@ -22,10 +22,11 @@ sobre **Roles de Variables** y **Estado de un Programa**.
 
 ### 1.1: Análisis de una Función
 
-#### Descripción
+:::{exercise} rol_promedio
+:label: rol_promedio
 
 Dado el siguiente código, identificá el "rol" principal de cada una de las
-variables listadas, basándote en las definiciones del apunte `extras/roles.md`.
+variables listadas.
 
 ```c
 #include <stdbool.h>
@@ -60,7 +61,9 @@ double promedio_positivos(const int arreglo[], size_t n, bool *exito) {
 4.  `i`
 5.  El valor de retorno de la función.
 
-:::{solution} Roles 
+:::
+
+:::{solution} rol_promedio 
 :class: dropdown
 
 1.  **`suma`**: **Acumulador**. Su propósito es acumular la suma de los valores
@@ -79,7 +82,8 @@ double promedio_positivos(const int arreglo[], size_t n, bool *exito) {
 
 ### 1.2: Análisis de Función de Búsqueda
 
-#### Descripción
+:::{exercise} rol_busqueda
+:label: rol_busqueda
 
 Analizá el siguiente código que busca el elemento máximo en un arreglo:
 
@@ -110,8 +114,10 @@ int encontrar_maximo(const int arr[], size_t tam, bool *encontrado) {
 2. `hay_elementos`
 3. `encontrado` (valor apuntado)
 4. `indice`
+:::
 
-:::{solution} Roles Búsqueda
+
+:::{solution} rol_busqueda
 :class: dropdown
 
 1. **`maximo`**: **Variable de Mejor Candidato/Guardián**. Mantiene el valor máximo encontrado hasta el momento.
@@ -123,7 +129,8 @@ int encontrar_maximo(const int arr[], size_t tam, bool *encontrado) {
 
 ### 1.3: Análisis de Función con Múltiples Roles
 
-#### Descripción
+:::{exercise} roles_multiples
+:label: roles_multiples
 
 Examiná esta función más compleja que procesa datos de ventas:
 
@@ -176,8 +183,9 @@ reporte_ventas_t procesar_ventas(const double ventas[], int dias) {
 4. `primera_venta`
 5. `venta_maxima`
 6. `dia`
+:::
 
-:::{solution} Roles Múltiples
+:::{solution} roles_multiples
 :class: dropdown
 
 1. **`resultado`**: **Variable de Salida Estructurada**. Encapsula múltiples valores de retorno en una estructura.
@@ -193,7 +201,8 @@ reporte_ventas_t procesar_ventas(const double ventas[], int dias) {
 
 ### 2.1: Fotografía de la Memoria
 
-#### Descripción
+:::{exercise} estado_1
+:label: estado_1
 
 Dado el siguiente programa, describí el estado completo de la memoria (Pila y
 Montículo) en el momento exacto en que la ejecución llega a la línea marcada
@@ -247,7 +256,9 @@ variables en cada marco de la pila y el estado del montículo.
 - **Segmento de Datos (Solo Lectura)**:
   - ?
 
-:::{solution} Estado del Programa 
+:::
+
+:::{solution} estado_1 
 :class: dropdown
 
 - **Pila (Stack)**:
@@ -276,7 +287,9 @@ variables en cada marco de la pila y el estado del montículo.
 
 ### 2.2: Análisis de Memoria con Estructuras
 
-#### Descripción
+:::{exercise} estado_struct
+:label: estado_struct
+
 
 Analizá el estado de memoria del siguiente programa en el punto marcado:
 
@@ -317,7 +330,9 @@ int main() {
 
 **Tarea**: Describí el estado de memoria en el punto de análisis:
 
-:::{solution} Estado con Estructuras
+:::
+
+:::{solution} estado_struct
 :class: dropdown
 
 - **Pila (Stack)**:
@@ -345,7 +360,8 @@ int main() {
 
 ### 2.3: Trazado de Ejecución con Arrays Dinámicos
 
-#### Descripción
+:::{exercise} traza_ejecucion
+:label: traza_ejecucion
 
 Seguí la ejecución del siguiente código y describí el estado en cada punto marcado:
 
@@ -386,7 +402,9 @@ int main() {
 2. Estado del montículo
 3. Valores de las variables relevantes
 
-:::{solution} Trazado de Ejecución
+:::
+
+:::{solution} traza_ejecucion
 :class: dropdown
 
 **PUNTO A** (después del malloc en `duplicar_array`):
@@ -425,7 +443,8 @@ int main() {
 
 ### 3.1: Identificación de Errores de Lógica
 
-#### Descripción
+:::{exercise} debugging_1
+:label: debugging_1
 
 El siguiente código intenta encontrar el segundo elemento más grande en un arreglo, pero contiene errores. Identificá los problemas sin ejecutar el código:
 
@@ -455,7 +474,9 @@ int segundo_maximo(int arr[], int tam) {
 2. ¿En qué casos fallaría?
 3. ¿Cómo lo corregirías?
 
-:::{solution} Análisis de Bugs
+:::
+
+:::{solution} debugging_1
 :class: dropdown
 
 **Problemas identificados:**
@@ -507,7 +528,8 @@ int segundo_maximo_corregido(int arr[], int tam) {
 
 ### 3.2: Análisis de Memory Leaks
 
-#### Descripción
+:::{exercise} fugas_1
+:label: fugas_1
 
 Identificá los problemas de manejo de memoria en el siguiente código:
 
@@ -557,7 +579,9 @@ int main() {
 
 **Tarea**: Identificá todos los memory leaks y problemas de manejo de memoria.
 
-:::{solution} Memory Leaks
+:::
+
+:::{solution} fugas_1
 :class: dropdown
 
 **Problemas identificados:**
@@ -617,7 +641,8 @@ int main() {
 
 ### 4.1: Análisis de Complejidad Temporal
 
-#### Descripción
+:::{exercise} eficiencia_1
+:label: eficiencia_1
 
 Analizá la complejidad temporal del siguiente algoritmo de búsqueda:
 
@@ -660,37 +685,40 @@ bool buscar_par_suma_optimizado(int arr[], int tam, int objetivo) {
 2. ¿Cuáles son las variables de control y qué roles cumplen?
 3. ¿En qué escenarios cada algoritmo sería más apropiado?
 
-:::{solution} Análisis de Complejidad
+:::
+
+:::{solution} eficiencia_1
 :class: dropdown
 
 **Análisis de `buscar_par_suma`:**
-- **Complejidad temporal**: O(n²) - hay dos bucles anidados que recorren el array
+- **Complejidad temporal**: $O(n^2)$ - hay dos bucles anidados que recorren el array
 - **Variables de control**: 
   - `i`: Iterador externo (rol: control de bucle principal)
   - `j`: Iterador interno (rol: control de bucle secundario, siempre j > i)
-- **Complejidad espacial**: O(1) - solo usa variables locales
+- **Complejidad espacial**: $O(1)$ - solo usa variables locales
 
 **Análisis de `buscar_par_suma_optimizado`:**
-- **Complejidad temporal**: O(n) - cada elemento se visita máximo una vez
+- **Complejidad temporal**: $O(n)$ - cada elemento se visita máximo una vez
 - **Variables de control**:
   - `izq`: Puntero izquierdo (rol: guardián del límite inferior)
   - `der`: Puntero derecho (rol: guardián del límite superior)
   - `suma_actual`: Variable temporal (rol: almacén de cálculo intermedio)
-- **Complejidad espacial**: O(1)
+- **Complejidad espacial**: $O(1)$
 
 **Escenarios apropiados:**
 - **Primer algoritmo**: Cuando el array NO está ordenado y no podemos/queremos ordenarlo
 - **Segundo algoritmo**: Cuando el array YA está ordenado o el costo de ordenarlo es amortizable
 
 **Trade-offs:**
-- Si necesitamos ordenar: O(n log n) + O(n) vs O(n²)
-- Si ya está ordenado: O(n) vs O(n²) - clara ventaja para el optimizado
+- Si necesitamos ordenar: $O(n log n) + O(n)$ vs $O(n^2)$
+- Si ya está ordenado: $O(n)$ vs $O(n^2)$ - clara ventaja para el optimizado
 
 :::
 
 ### 4.2: Análisis de Uso de Memoria
 
-#### Descripción
+:::{exercise} eficiencia_2
+:label: eficiencia_2
 
 Compará el uso de memoria de estas dos implementaciones que calculan factoriales:
 
@@ -752,26 +780,28 @@ long factorial_memoizado(int n) {
 3. Variables y sus roles
 4. Trade-offs entre tiempo y espacio
 
-:::{solution} Análisis de Memoria
+:::
+
+:::{solution} eficiencia_2
 :class: dropdown
 
 **Versión Recursiva:**
-- **Pila**: O(n) - cada llamada recursiva agrega un marco a la pila
-- **Heap**: O(1) - no usa memoria dinámica
+- **Pila**: $O(n)$ - cada llamada recursiva agrega un marco a la pila
+- **Heap**: $O(1)$ - no usa memoria dinámica
 - **Variables**: Solo el parámetro `n` en cada marco (rol: parámetro de entrada)
 - **Riesgo**: Stack overflow para valores grandes de n
 
 **Versión Iterativa:**
-- **Pila**: O(1) - un solo marco de función
-- **Heap**: O(1) - no usa memoria dinámica  
+- **Pila**: $O(1)$ - un solo marco de función
+- **Heap**: $O(1)$ - no usa memoria dinámica  
 - **Variables**:
   - `resultado`: Acumulador para el producto
   - `i`: Variable de control de bucle
 - **Ventajas**: Uso mínimo de memoria, sin riesgo de stack overflow
 
 **Versión Memoizada:**
-- **Pila**: O(n) - similar a recursiva en la primera llamada, O(1) en llamadas subsecuentes
-- **Heap**: O(n) - array para almacenar resultados calculados
+- **Pila**: $O(n)$ - similar a recursiva en la primera llamada, $O(1)$ en llamadas subsecuentes
+- **Heap**: $O(n)$ - array para almacenar resultados calculados
 - **Variables**:
   - `cache`: Array estático global (rol: almacén de resultados)
   - `cache_size`: Contador de tamaño actual (rol: guardián de límites)
@@ -781,10 +811,10 @@ long factorial_memoizado(int n) {
 
 | Aspecto | Recursiva | Iterativa | Memoizada |
 |---------|-----------|-----------|-----------|
-| Tiempo (primera llamada) | O(n) | O(n) | O(n) |
-| Tiempo (llamadas repetidas) | O(n) | O(n) | O(1) |
-| Espacio en pila | O(n) | O(1) | O(n)→O(1) |
-| Espacio en heap | O(1) | O(1) | O(n) |
+| Tiempo (primera llamada) | $O(n)$ | $O(n)$ | $O(n)$ |
+| Tiempo (llamadas repetidas) | $O(n)$ | $O(n)$ | $O(1)$ |
+| Espacio en pila | $O(n)$ | $O(1)$ | $O(n)$→$O(1)$ |
+| Espacio en heap | $O(1)$ | $O(1)$ | $O(n)$ |
 | Legibilidad | Alta | Media | Baja |
 | Riesgo de overflow | Alto | Bajo | Medio |
 
@@ -794,7 +824,8 @@ long factorial_memoizado(int n) {
 
 ### 5.1: Análisis Integral de Sistema
 
-#### Descripción
+:::{exercise} analisis_1
+:label: analisis_1
 
 Analizá el siguiente sistema completo que gestiona una lista de estudiantes:
 
@@ -883,7 +914,9 @@ void liberar_sistema(sistema_estudiantes_t* sistema) {
 3. **Identificación de patrones**: ¿Qué patrones de diseño reconocés?
 4. **Análisis de robustez**: ¿Qué validaciones faltan? ¿Qué podría fallar?
 
-:::{solution} Análisis Integral
+:::
+
+:::{solution} analisis_1
 :class: dropdown
 
 **1. Identificación de Roles por Función:**

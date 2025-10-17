@@ -960,7 +960,6 @@ Creá un script que genere automáticamente una estructura completa de proyecto 
 :::
 
 :::{solution} ejercicio-estructura-proyecto
-:for: ejercicio-estructura-proyecto
 
 ```bash
 #!/bin/bash
@@ -1024,7 +1023,6 @@ Desarrollá un script que analice un archivo de log de servidor web (formato Apa
 :::
 
 :::{solution} ejercicio-analizador-logs
-:for: ejercicio-analizador-logs
 
 ```bash
 #!/bin/bash
@@ -1069,7 +1067,6 @@ Creá un script de monitoreo que:
 :::
 
 :::{solution} ejercicio-monitor-recursos
-:for: ejercicio-monitor-recursos
 
 ```bash
 #!/bin/bash

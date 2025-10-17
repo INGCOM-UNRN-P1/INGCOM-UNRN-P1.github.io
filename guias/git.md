@@ -904,7 +904,6 @@ de practicar el {ref}`flujo-diario` completo.
 7. Hacé un segundo commit con los cambios :::
 
 :::{solution} ejercicio-primer-repo
-:for: ejercicio-primer-repo
 
 ```bash
 # 1. Crear directorio
@@ -966,8 +965,7 @@ git log --oneline
 
 :::
 
-:::{solution}
-:for: ejercicio-manejo-cambios
+:::{solution} ejercicio-manejo-cambios
 
 ```bash
 # 1. Crear archivo CSS
@@ -1639,7 +1637,6 @@ gh api repos/:owner/:repo --method PATCH --field "has_pages=true"
 :::
 
 :::{solution} ejercicio-github-setup
-:for: ejercicio-github-setup
 
 ```bash
 # 1. Crear cuenta en github.com (manual)
@@ -1705,7 +1702,6 @@ gh repo view --web
 :::
 
 :::{solution} ejercicio-github-workflow
-:for: ejercicio-github-workflow
 
 ```bash
 # Asegurate de estar en el repositorio mi-portfolio
@@ -1847,7 +1843,6 @@ aplicaciones laborales.
 :::
 
 :::{solution} ejercicio-repositorio-perfil
-:for: ejercicio-repositorio-perfil
 
 ```bash
 # 1. Verificar configuración de GitHub CLI
