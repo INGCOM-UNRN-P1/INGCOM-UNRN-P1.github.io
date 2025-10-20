@@ -21,10 +21,10 @@ typedef struct {
 
 Implementar funciones para suma, resta, multiplicación y división.
 
-- Suma: $$frac{a}{b} + frac{c}{d} = frac{ad + bc}{bd}$
-- Resta: $$frac{a}{b} - frac{c}{d} = frac{ad - bc}{bd}$
-- Multiplicación: $$frac{a}{b} \times frac{c}{d} = frac{ac}{bd}$
-- División: $$frac{a}{b} \div frac{c}{d} = frac{ad}{bc}$
+- Suma: $$\frac{a}{b} + \frac{c}{d} = \frac{ad + bc}{bd}$$
+- Resta: $$\frac{a}{b} - \frac{c}{d} = \frac{ad - bc}{bd}$$
+- Multiplicación: $$\frac{a}{b} \times \frac{c}{d} = \frac{ac}{bd}$$
+- División: $$\frac{a}{b} \div \frac{c}{d} = \frac{ad}{bc}$$
 
 ### 1.2: Simplificación
 
@@ -50,7 +50,7 @@ Desarrollar una estructura `tiempo_t` y sus funciones.
 
 ```c
 typedef struct {
-    int horas;
+    int horas;d
     int minutos;
     int segundos;
 } tiempo_t;
