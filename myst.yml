@@ -22,6 +22,7 @@ project:
         - file: catedra/1_catedra.md
         - file: catedra/2_pacto.md
         - file: catedra/3_programa.md
+        - file: catedra/4_finales.md
     - title: Apunte
       children:
         - file: apunte/0_catedra.md
