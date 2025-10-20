@@ -13,7 +13,7 @@ también, con menos código duplicado.
 ### Definición intuitiva
 
 Pensá en las funciones como una oficina: recibe información (documentos o
-tareas), las procesa con sus empleados y recursos, y luego te devuelve un
+tareas), las procesa con sus empleados y recursos, y luego devuelve un
 resultado o un informe (un valor nuevo). En la programación, y particularmente
 en C, estas «oficinas» son bloques de código reutilizables diseñados para
 realizar una tarea específica. Son como pequeños departamentos dentro de una
@@ -33,12 +33,12 @@ manejables, lo que trae varios beneficios:
 - **Reusabilidad de código**: Una vez que creas una función para una tarea,
   podés «encargarle» esa tarea cuantas veces necesites, en distintas partes de
   tu programa o incluso en otros proyectos, sin tener que escribir el mismo
-  código una y otra vez. Esto te ahorra tiempo y reduce la posibilidad de
+  código una y otra vez. Esto ahorra tiempo y reduce la posibilidad de
   errores.
 
 - **Abstracción**: Podés usar una función sin necesidad de saber exactamente
   cómo opera por dentro. Solo necesitás entender qué hace, qué tipo de
-  información espera como entrada y qué tipo de información te devolverá como
+  información espera como entrada y qué tipo de información devolverá como
   salida. Esto simplifica el código principal de tu programa, que solo
   interactúa con la «oficina» sin preocuparse por sus procesos internos.
 
@@ -1118,7 +1118,7 @@ del programa sea coherente.
 ::::
 ### ¿Por qué son importantes?
 
-- Te obligan a **pensar antes de programar**.
+- Obligan a **pensar antes de programar**.
 - Facilitan el diseño y la depuración.
 - Son la base para escribir funciones seguras y predecibles.
 - Mejoran la **legibilidad y el contrato** entre quien implementa y quien usa

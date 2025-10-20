@@ -16,7 +16,7 @@ Programar es el acto de proporcionar instrucciones precisas a una computadora pa
 
 Durante la programación, la omisión de un solo detalle puede provocar que el programa no funcione. Por ello, es necesario aprender a **pensar como una máquina**, pero también a **estructurar el pensamiento como un ser humano inteligente**.
 
-En C, no existen atajos, lo cual es una ventaja, ya que te obliga a pensar de forma clara y lógica.
+En C, no existen atajos, lo cual es una ventaja, ya que obliga a pensar de forma clara y lógica.
 
 ## ¿Por qué aprender C?
 

@@ -16,7 +16,7 @@ Desde una perspectiva técnica, las enumeraciones son esencialmente **constantes
 
 ### `enum` vs `const` vs `#define`
 
-Si este concepto te parece similar a las constantes `const` y a los literales de
+Si este concepto resulta similar a las constantes `const` y a los literales de
 preprocesador `#define` estás en lo cierto y todas las consideraciones de uso
 aplican para cualquiera de los tres conceptos.
 
