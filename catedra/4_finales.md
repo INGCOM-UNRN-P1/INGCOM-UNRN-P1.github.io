@@ -1,5 +1,6 @@
 ---
 title: Finales
+short_title: 4 - Sobre los finales
 subtitle: Mecánica y ejemplos.
 ---
 
