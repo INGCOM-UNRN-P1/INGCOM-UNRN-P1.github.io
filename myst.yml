@@ -17,6 +17,11 @@ project:
   id: a1cc80a8-3217-49d3-9022-1f4d25f6518e
   toc:
     - file: readme.md
+    - title: Cátedra
+      children:
+        - file: catedra/1_catedra.md
+        - file: catedra/2_pacto.md
+        - file: catedra/3_programa.md
     - title: Apunte
       children:
         - file: apunte/0_catedra.md
@@ -71,6 +76,7 @@ project:
         - file: extras/notes-cadenas.md
         - file: extras/notes-roles.md
         - file: extras/notes-estado.md
+        - file: extras/contratos.md
         - file: extras/bits.md
         - file: extras/binarios.md
         - file: extras/bitmaps.md
