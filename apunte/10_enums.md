@@ -1324,6 +1324,489 @@ Para más detalles sobre el estilo de comentarios y documentación, consultá la
 
 ---
 
+### Consideraciones de Uso y Diseño \[new\]
+
+El diseño de estructuras va más allá de simplemente agrupar datos relacionados. Las decisiones sobre cómo organizar los miembros impactan directamente en la claridad del código, el rendimiento, la mantenibilidad y la corrección del programa. Esta sección explora principios y patrones de diseño fundamentales para crear estructuras efectivas.
+
+:::{warning} ¿Entra en el parcial?
+
+Este tema salió de una pregunta de discussions y aunque es importante ver por que y los efectos que tiene
+_no entra_ en el parcial.
+
+Lo que sí entra, es el hecho de utilizar, _la sintaxis intuitiva_ {ref}`AoS`, en lugar de {ref}`SoA`.
+
+:::
+
+#### Arreglo de Estructuras vs Estructura de Arreglos
+
+Una de las decisiones más importantes al diseñar estructuras es elegir entre **arreglo de estructuras (AoS)** o **estructura de arreglos (SoA)**. Ambos enfoques tienen trade-offs significativos en términos de claridad, rendimiento y facilidad de uso.
+
+```{figure} 10/aos_vs_soa.svg
+:name: fig-aos-vs-soa
+:align: center
+:width: 100%
+
+Comparación visual entre AoS y SoA mostrando cómo se organizan los datos en memoria y el impacto en el uso de caché.
+```
+(AoS)=
+##### Arreglo de Estructuras (Array of Structures - AoS)
+
+En este enfoque, cada elemento del arreglo es una estructura completa que contiene todos los atributos de una entidad.
+
+```c
+typedef struct {
+    double x;
+    double y;
+    double z;
+    double masa;
+    double velocidad_x;
+    double velocidad_y;
+    double velocidad_z;
+} particula_t;
+
+// Arreglo de 1000 partículas
+particula_t particulas[1000];
+```
+
+**Ventajas:**
+- **Claridad conceptual:** Cada elemento del arreglo representa una entidad completa e independiente.
+- **Facilidad de uso:** Acceder a todos los atributos de una partícula es intuitivo: `particulas[i].x`, `particulas[i].y`, etc.
+- **Gestión de memoria simple:** Una sola asignación para todo el arreglo.
+- **Localidad espacial por entidad:** Todos los datos de una entidad están contiguos en memoria.
+- **Ideal para operaciones por entidad:** Si procesás cada entidad individualmente con todos sus atributos.
+
+**Desventajas:**
+- **Caché poco eficiente en operaciones vectoriales:** Si solo necesitás un atributo (ej: solo las posiciones `x`), el procesador carga en caché datos innecesarios (masa, velocidades, etc.).
+- **Penalización en SIMD:** Las instrucciones vectoriales modernas (SSE, AVX) prefieren datos contiguos del mismo tipo.
+
+**Ejemplo de Uso:**
+
+```c
+void actualizar_posiciones_aos(particula_t particulas[], size_t n, double dt)
+{
+    for (size_t i = 0; i < n; i++)
+    {
+        // Acceso intuitivo, todos los datos de una partícula juntos
+        particulas[i].x += particulas[i].velocidad_x * dt;
+        particulas[i].y += particulas[i].velocidad_y * dt;
+        particulas[i].z += particulas[i].velocidad_z * dt;
+    }
+}
+```
+(SoA)=
+##### Estructura de Arreglos (Structure of Arrays - SoA)
+
+En este enfoque, cada atributo se almacena en su propio arreglo, y la estructura contiene estos arreglos.
+
+```c
+typedef struct {
+    double *x;
+    double *y;
+    double *z;
+    double *masa;
+    double *velocidad_x;
+    double *velocidad_y;
+    double *velocidad_z;
+    size_t cantidad;
+    size_t capacidad;
+} sistema_particulas_t;
+```
+
+**Ventajas:**
+- **Eficiencia de caché:** Al procesar un solo atributo (ej: todas las posiciones `x`), accedés a memoria contigua sin datos irrelevantes.
+- **Optimización SIMD:** Procesadores modernos pueden aplicar la misma operación a múltiples elementos simultáneamente.
+- **Menos desperdicio de ancho de banda:** Solo cargás los datos que realmente necesitás.
+
+**Desventajas:**
+- **Complejidad de gestión:** Múltiples asignaciones de memoria, más propenso a errores.
+- **Sintaxis menos intuitiva:** `sistema.x[i]` vs `particulas[i].x`.
+- **Consistencia manual:** Debés garantizar que todos los arreglos tengan el mismo tamaño.
+- **Mayor overhead en operaciones por entidad:** Si necesitás todos los atributos de una entidad, accedés a múltiples arreglos.
+
+**Ejemplo de Uso:**
+
+```c
+void actualizar_posiciones_soa(sistema_particulas_t *sistema, double dt)
+{
+    // Acceso optimizado para procesamiento vectorial
+    for (size_t i = 0; i < sistema->cantidad; i++)
+    {
+        sistema->x[i] += sistema->velocidad_x[i] * dt;
+        sistema->y[i] += sistema->velocidad_y[i] * dt;
+        sistema->z[i] += sistema->velocidad_z[i] * dt;
+    }
+}
+```
+
+Este código es más fácil de vectorizar automáticamente por el compilador, ya que cada lazo procesa un arreglo contiguo de un solo tipo.
+
+##### Implementación Completa: Gestión de Memoria en SoA
+
+```c
+sistema_particulas_t *crear_sistema(size_t capacidad_inicial)
+{
+    sistema_particulas_t *sistema = NULL;
+    
+    sistema = malloc(sizeof(sistema_particulas_t));
+    
+    if (sistema == NULL)
+    {
+        return NULL;
+    }
+    
+    // Asignación de cada arreglo individual
+    sistema->x = malloc(capacidad_inicial * sizeof(double));
+    sistema->y = malloc(capacidad_inicial * sizeof(double));
+    sistema->z = malloc(capacidad_inicial * sizeof(double));
+    sistema->masa = malloc(capacidad_inicial * sizeof(double));
+    sistema->velocidad_x = malloc(capacidad_inicial * sizeof(double));
+    sistema->velocidad_y = malloc(capacidad_inicial * sizeof(double));
+    sistema->velocidad_z = malloc(capacidad_inicial * sizeof(double));
+    
+    // Verificación exhaustiva
+    if (sistema->x == NULL || sistema->y == NULL || sistema->z == NULL ||
+        sistema->masa == NULL || sistema->velocidad_x == NULL ||
+        sistema->velocidad_y == NULL || sistema->velocidad_z == NULL)
+    {
+        // Liberar todo lo asignado antes del error
+        free(sistema->x);
+        free(sistema->y);
+        free(sistema->z);
+        free(sistema->masa);
+        free(sistema->velocidad_x);
+        free(sistema->velocidad_y);
+        free(sistema->velocidad_z);
+        free(sistema);
+        return NULL;
+    }
+    
+    sistema->cantidad = 0;
+    sistema->capacidad = capacidad_inicial;
+    
+    return sistema;
+}
+
+void destruir_sistema(sistema_particulas_t *sistema)
+{
+    if (sistema == NULL)
+    {
+        return;
+    }
+    
+    // Liberar cada arreglo
+    free(sistema->x);
+    free(sistema->y);
+    free(sistema->z);
+    free(sistema->masa);
+    free(sistema->velocidad_x);
+    free(sistema->velocidad_y);
+    free(sistema->velocidad_z);
+    
+    // Finalmente la estructura principal
+    free(sistema);
+}
+```
+
+:::{important} Gestión de Errores en SoA
+
+Notá cómo la función `crear_sistema` debe verificar **todas** las asignaciones y, en caso de error, liberar **todas** las asignaciones previas antes de retornar. Esto añade complejidad pero es esencial para evitar fugas de memoria.
+:::
+
+##### ¿Cuándo Usar Cada Enfoque?
+
+**Usá Arreglo de Estructuras (AoS) cuando:**
+- La claridad y simplicidad del código es prioritaria
+- Procesás entidades completas de forma individual
+- Las estructuras no son extremadamente grandes
+- No hay cuellos de botella de rendimiento identificados
+- El código es más legible y mantenible para tu equipo
+
+**Usá Estructura de Arreglos (SoA) cuando:**
+- El rendimiento es crítico y hay análisis de perfilado que lo justifica
+- Procesás frecuentemente un solo atributo de muchas entidades
+- Trabajás con procesamiento masivo de datos (física, gráficos, simulaciones)
+- Querés aprovechar instrucciones SIMD del procesador
+- El dominio del problema es naturalmente "columnar"
+
+:::{tip} Principio de Diseño
+
+Empezá con AoS (arreglo de estructuras) por defecto. Es más simple, más claro y menos propenso a errores. Solo considerá SoA (estructura de arreglos) si el perfilado muestra que el acceso a memoria es un cuello de botella y el patrón de acceso lo justifica.
+
+La optimización prematura es la raíz de todo mal. Priorizá código claro y correcto primero, optimizá después si es necesario.
+:::
+
+##### Ejemplo Comparativo: Búsqueda de Máximo
+
+**AoS:**
+```c
+// Encontrar la partícula con mayor masa
+particula_t *encontrar_mas_masiva_aos(particula_t particulas[], size_t n)
+{
+    if (n == 0)
+    {
+        return NULL;
+    }
+    
+    particula_t *mas_masiva = &particulas[0];
+    
+    for (size_t i = 1; i < n; i++)
+    {
+        if (particulas[i].masa > mas_masiva->masa)
+        {
+            mas_masiva = &particulas[i];
+        }
+    }
+    
+    return mas_masiva;
+}
+```
+
+**SoA:**
+```c
+// Encontrar el índice de la partícula con mayor masa
+size_t encontrar_mas_masiva_soa(const sistema_particulas_t *sistema)
+{
+    if (sistema->cantidad == 0)
+    {
+        return SIZE_MAX; // Indicador de error
+    }
+    
+    size_t indice_max = 0;
+    double masa_max = sistema->masa[0];
+    
+    // Acceso contiguo a memoria, ideal para vectorización
+    for (size_t i = 1; i < sistema->cantidad; i++)
+    {
+        if (sistema->masa[i] > masa_max)
+        {
+            masa_max = sistema->masa[i];
+            indice_max = i;
+        }
+    }
+    
+    return indice_max;
+}
+```
+
+En el caso de SoA, el lazo accede únicamente al arreglo `masa`, lo cual es óptimo para el caché. Sin embargo, notá que la función retorna un índice, no un puntero, lo que puede ser menos conveniente para el usuario.
+
+#### Encapsulación de Invariantes
+
+Las estructuras deben diseñarse de modo que sea imposible o difícil crear instancias inválidas. Esto se logra mediante:
+
+1. **Constructores:** Funciones que inicializan correctamente la estructura.
+2. **Validadores:** Funciones que verifican invariantes.
+3. **Punteros opacos:** Ocultar la implementación interna.
+
+```c
+/**
+ * Representa un rectángulo con lados paralelos a los ejes.
+ * 
+ * Invariantes:
+ *   - ancho debe ser > 0
+ *   - alto debe ser > 0
+ */
+typedef struct {
+    double x;        // Coordenada X de la esquina inferior izquierda
+    double y;        // Coordenada Y de la esquina inferior izquierda
+    double ancho;    // Ancho del rectángulo (debe ser > 0)
+    double alto;     // Alto del rectángulo (debe ser > 0)
+} rectangulo_t;
+
+// Constructor que garantiza invariantes
+rectangulo_t crear_rectangulo(double x, double y, double ancho, double alto)
+{
+    rectangulo_t rect = {0};
+    
+    // Validación de precondiciones
+    if (ancho <= 0.0 || alto <= 0.0)
+    {
+        fprintf(stderr, "Error: dimensiones de rectángulo deben ser positivas\n");
+        rect.ancho = 1.0;  // Valores seguros por defecto
+        rect.alto = 1.0;
+    }
+    else
+    {
+        rect.x = x;
+        rect.y = y;
+        rect.ancho = ancho;
+        rect.alto = alto;
+    }
+    
+    return rect;
+}
+
+bool es_rectangulo_valido(const rectangulo_t *rect)
+{
+    return rect != NULL && rect->ancho > 0.0 && rect->alto > 0.0;
+}
+```
+
+:::{note} Defensa contra Uso Incorrecto
+
+Al proporcionar un constructor, reducís la probabilidad de que los usuarios creen rectángulos con dimensiones inválidas. Sin embargo, C no puede forzar el uso del constructor, por lo que la documentación clara es esencial.
+:::
+
+#### Minimización de Padding
+
+Ordenar los miembros de mayor a menor tamaño reduce el padding y el tamaño total de la estructura:
+
+```{figure} 10/padding_optimization.svg
+:name: fig-padding-optimization
+:align: center
+:width: 90%
+
+Optimización de estructuras ordenando miembros por tamaño. El diseño subóptimo desperdicia 50% del espacio, mientras que el optimizado solo 25%.
+```
+
+```c
+// Diseño subóptimo (12 bytes en x86-64)
+typedef struct {
+    char a;       // 1 byte
+    int b;        // 4 bytes (3 bytes de padding antes)
+    char c;       // 1 byte (3 bytes de padding después para alinear la estructura)
+} desperdiciada_t;
+
+// Diseño optimizado (8 bytes en x86-64)
+typedef struct {
+    int b;        // 4 bytes
+    char a;       // 1 byte
+    char c;       // 1 byte (2 bytes de padding después)
+} optimizada_t;
+```
+
+:::{tip} Regla de Oro: Mayor a Menor
+
+Ordená los miembros de la estructura de mayor a menor tamaño. Los tipos más grandes primero (`double`, `long`), luego intermedios (`int`, `float`), y finalmente los más pequeños (`char`, `bool`). Esto minimiza el padding automático insertado por el compilador.
+:::
+
+#### Uso de Estructuras Anidadas
+
+Las estructuras anidadas permiten organizar conceptos complejos de forma jerárquica:
+
+```c
+typedef struct {
+    double x;
+    double y;
+} punto_2d_t;
+
+typedef struct {
+    punto_2d_t posicion;
+    punto_2d_t velocidad;
+    double masa;
+    double radio;
+} cuerpo_2d_t;
+
+// Uso
+cuerpo_2d_t planeta = {
+    .posicion = {.x = 0.0, .y = 0.0},
+    .velocidad = {.x = 10.0, .y = 5.0},
+    .masa = 5.97e24,
+    .radio = 6.371e6
+};
+
+// Acceso
+double distancia_al_origen = sqrt(planeta.posicion.x * planeta.posicion.x +
+                                  planeta.posicion.y * planeta.posicion.y);
+```
+
+**Ventajas:**
+- Reutilización de tipos comunes (`punto_2d_t` usado para posición y velocidad)
+- Organización lógica clara
+- Facilita la creación de funciones genéricas (ej: `calcular_distancia` que opera sobre `punto_2d_t`)
+
+#### Punteros a Funciones como Miembros
+
+Para comportamiento polimórfico en estructuras:
+
+```c
+typedef struct figura figura_t;
+
+typedef double (*calcular_area_fn)(const figura_t *);
+typedef void (*dibujar_fn)(const figura_t *);
+
+struct figura {
+    calcular_area_fn calcular_area;
+    dibujar_fn dibujar;
+    void *datos;  // Puntero opaco a datos específicos de cada tipo de figura
+};
+
+// Implementación para círculo
+double calcular_area_circulo(const figura_t *f)
+{
+    double *radio = (double *)f->datos;
+    return 3.14159 * (*radio) * (*radio);
+}
+
+void dibujar_circulo(const figura_t *f)
+{
+    printf("Dibujando un círculo...\n");
+}
+
+// Creación de una figura específica
+figura_t crear_figura_circulo(double radio)
+{
+    double *radio_heap = malloc(sizeof(double));
+    *radio_heap = radio;
+    
+    figura_t fig = {
+        .calcular_area = calcular_area_circulo,
+        .dibujar = dibujar_circulo,
+        .datos = radio_heap
+    };
+    
+    return fig;
+}
+```
+
+Este patrón permite un estilo de programación orientada a objetos rudimentario en C, donde diferentes "tipos" de figuras comparten la misma interfaz pero tienen comportamientos distintos.
+
+:::{warning} Gestión de Memoria con Punteros Opacos
+
+Cuando usás `void *datos` para almacenar información específica del tipo, debés documentar claramente quién es responsable de liberar esa memoria y proporcionar funciones destructoras adecuadas.
+:::
+
+#### Estructuras Auto-descriptivas
+
+Incluir metadatos en la estructura facilita la depuración y la serialización:
+
+```c
+typedef enum {
+    TIPO_ENTERO,
+    TIPO_FLOTANTE,
+    TIPO_CADENA
+} tipo_dato_t;
+
+typedef struct {
+    tipo_dato_t tipo;
+    union {
+        int entero;
+        double flotante;
+        char *cadena;
+    } valor;
+} dato_generico_t;
+
+void imprimir_dato(const dato_generico_t *dato)
+{
+    switch (dato->tipo)
+    {
+        case TIPO_ENTERO:
+            printf("Entero: %d\n", dato->valor.entero);
+            break;
+        case TIPO_FLOTANTE:
+            printf("Flotante: %.2f\n", dato->valor.flotante);
+            break;
+        case TIPO_CADENA:
+            printf("Cadena: %s\n", dato->valor.cadena);
+            break;
+    }
+}
+```
+
+Este patrón (estructura con un `enum` que indica el tipo y un `union` que contiene los datos) se llama **tagged union** y es fundamental para representar datos heterogéneos de forma segura.
+
+---
+
 ## Uniones (`union`): Un Espacio para Múltiples Propósitos
 
 Una `union` permite que varios miembros compartan la **misma ubicación de

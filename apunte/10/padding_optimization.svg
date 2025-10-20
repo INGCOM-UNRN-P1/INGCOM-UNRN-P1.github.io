@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 558.38081 834.50501"
+   version="1.1"
+   id="svg40"
+   sodipodi:docname="padding_optimization.svg"
+   width="558.3808"
+   height="834.505"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview40"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showguides="true"
+     inkscape:zoom="0.8323657"
+     inkscape:cx="290.73759"
+     inkscape:cy="413.88058"
+     inkscape:window-width="1872"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg40">
+    <sodipodi:guide
+       position="34.038692,760.71305"
+       orientation="1,0"
+       id="guide61"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1">
+    <rect
+       x="18.020926"
+       y="280.52573"
+       width="250.32858"
+       height="165.00826"
+       id="rect59" />
+    <pattern
+       inkscape:collect="always"
+       xlink:href="#Strips1_1"
+       preserveAspectRatio="xMidYMid"
+       id="pattern56"
+       patternTransform="matrix(1.4142136,1.4142136,-1.4142136,1.4142136,88.349518,115.53398)"
+       x="0"
+       y="0" />
+    <pattern
+       inkscape:collect="always"
+       xlink:href="#Strips1_1"
+       preserveAspectRatio="xMidYMid"
+       id="pattern55"
+       patternTransform="matrix(1.4142136,1.4142136,-1.4142136,1.4142136,5.0386921,90.165585)"
+       x="0"
+       y="0" />
+    <pattern
+       inkscape:collect="always"
+       xlink:href="#Strips1_1"
+       preserveAspectRatio="xMidYMid"
+       id="pattern53"
+       patternTransform="matrix(1.4142136,1.4142136,-1.4142136,1.4142136,-344.96131,458.54647)"
+       x="0"
+       y="0" />
+    <pattern
+       inkscape:collect="always"
+       patternUnits="userSpaceOnUse"
+       width="2"
+       height="10"
+       patternTransform="translate(0,0) scale(2,2)"
+       preserveAspectRatio="xMidYMid"
+       id="Strips1_1"
+       style="fill:#686868"
+       inkscape:stockid="Stripes 01 (1:1)"
+       inkscape:isstock="true"
+       inkscape:label="Stripes 01 (1:1)">
+      <rect
+   style="stroke:none"
+   x="0"
+   y="-0.5"
+   width="1"
+   height="11"
+   id="rect134" />
+
+    </pattern>
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <style
+       id="style1">
+      .title { font: bold 16px monospace; fill: #2c3e50; }
+      .subtitle { font: bold 13px monospace; fill: #34495e; }
+      .label { font: 11px monospace; fill: #2c3e50; }
+      .small { font: 10px monospace; fill: #7f8c8d; }
+      .code { font: 10px monospace; fill: #2c3e50; }
+      .bad { fill: #e74c3c; stroke: #c0392b; stroke-width: 2; }
+      .good { fill: #2ecc71; stroke: #27ae60; stroke-width: 2; }
+      .padding { fill: #95a5a6; stroke: #7f8c8d; stroke-width: 1; opacity: 0.5; }
+      .member { fill: #3498db; stroke: #2980b9; stroke-width: 2; }
+      .text-bad { fill: #e74c3c; }
+      .text-good { fill: #27ae60; }
+    </style>
+    <rect
+       x="18.020926"
+       y="280.52573"
+       width="250.32858"
+       height="165.00826"
+       id="rect68" />
+  </defs>
+  <!-- Title -->
+  <text
+     x="276.59851"
+     y="47.589134"
+     text-anchor="middle"
+     class="title"
+     id="text1"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;line-height:normal;font-family:monospace"><tspan
+       style="font-size:21.3333px"
+       id="tspan60">Optimización de Padding en Estructuras</tspan></text>
+  <!-- Bad Layout Section -->
+  <text
+     x="279.14374"
+     y="111.93341"
+     text-anchor="middle"
+     class="subtitle"
+     id="text2"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13px;line-height:normal;font-family:monospace;stroke-width:2.06123"><tspan
+       style="font-size:18.6667px"
+       id="tspan59">Diseño Subóptimo</tspan></text>
+  <!-- Bad Structure Definition -->
+  <!-- Bad Memory Layout -->
+  <!-- Bad Layout Stats -->
+  <g
+     id="g72"
+     transform="translate(-216.46233,-352.94606)">
+    <text
+       x="496.69272"
+       y="720.38641"
+       text-anchor="middle"
+       class="subtitle text-bad"
+       id="text18"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13px;line-height:normal;font-family:monospace;stroke-width:1.38236"><tspan
+         style="font-size:18.6667px"
+         id="tspan64">sizeof = 12 bytes</tspan></text>
+    <text
+       x="496.69272"
+       y="750.97388"
+       text-anchor="middle"
+       class="small text-bad"
+       id="text19"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:normal;font-family:monospace;stroke-width:1.38236"><tspan
+         style="font-size:16px"
+         id="tspan65">Desperdicio: 6 bytes (50%)</tspan></text>
+    <text
+       x="496.69272"
+       y="770.07782"
+       text-anchor="middle"
+       class="small"
+       id="text20"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:normal;font-family:monospace;stroke-width:1.38236"><tspan
+         style="font-size:16px"
+         id="tspan66">Útil: 6 bytes (50%)</tspan></text>
+  </g>
+  <!-- Good Layout Section -->
+  <text
+     x="279.14374"
+     y="473.35571"
+     text-anchor="middle"
+     class="subtitle"
+     id="text21"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13px;line-height:normal;font-family:monospace"><tspan
+       style="font-size:18.6667px"
+       id="tspan68">Diseño Optimizado</tspan></text>
+  <!-- Good Structure Definition -->
+  <!-- Good Memory Layout -->
+  <!-- Good Layout Stats -->
+  <g
+     id="g73"
+     transform="translate(64.441177,20.221962)">
+    <text
+       x="215.78922"
+       y="720.38641"
+       text-anchor="middle"
+       class="subtitle text-good"
+       id="text35"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13px;line-height:normal;font-family:monospace"><tspan
+         style="font-size:18.6667px"
+         id="tspan69">sizeof = 8 bytes</tspan></text>
+    <text
+       x="215.78922"
+       y="750.97388"
+       text-anchor="middle"
+       class="small text-good"
+       id="text36"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:normal;font-family:monospace"><tspan
+         style="font-size:16px"
+         id="tspan70">Desperdicio: 2 bytes (25%)</tspan></text>
+    <text
+       x="215.78922"
+       y="770.07782"
+       text-anchor="middle"
+       class="small"
+       id="text37"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:normal;font-family:monospace"><tspan
+         style="font-size:16px"
+         id="tspan71">Útil: 6 bytes (75%)</tspan></text>
+  </g>
+  <!-- Comparison Arrow -->
+  <g
+     id="g67"
+     transform="matrix(1.3274853,0,0,1.3274853,-267.75637,-26.760626)">
+    <path
+       d="m 544.93566,353.24663 v 40"
+       fill="none"
+       stroke="#e74c3c"
+       stroke-width="3"
+       marker-end="url(#arrow-opt)"
+       id="path37"
+       sodipodi:nodetypes="cc"
+       style="fill:#000000;fill-opacity:0;stroke:#27ae60;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4.4;stroke-opacity:1;marker-end:url(#Triangle);paint-order:normal" />
+    <text
+       x="543.33569"
+       y="341.52353"
+       text-anchor="middle"
+       class="small text-good"
+       font-weight="bold"
+       id="text38"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:normal;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1"><tspan
+         style="font-size:21.3333px"
+         id="tspan67">-33%</tspan></text>
+  </g>
+  <marker
+     id="arrow-opt"
+     markerWidth="10"
+     markerHeight="10"
+     refX="9"
+     refY="3"
+     orient="auto"
+     transform="translate(89.349847,146.5685)">
+    <polygon
+       points="10,3 0,6 0,0 "
+       fill="#27ae60"
+       id="polygon38" />
+  </marker>
+  <!-- Principle -->
+  <text
+     xml:space="preserve"
+     id="text59"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:normal;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect59);opacity:0.488;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4.4;stroke-opacity:1;paint-order:normal"
+     transform="translate(16.017207,-144.31659)"><tspan
+       x="18.021484"
+       y="295.08339"
+       id="tspan1">typedef struct {
+</tspan><tspan
+       x="18.021484"
+       y="315.08339"
+       id="tspan2">    char a; // 1 byte
+</tspan><tspan
+       x="18.021484"
+       y="335.08339"
+       id="tspan3">    int b; // 4 bytes
+</tspan><tspan
+       x="18.021484"
+       y="355.08339"
+       id="tspan4">    char c; // 1 byte
+</tspan><tspan
+       x="18.021484"
+       y="375.08339"
+       id="tspan5">} desperdiciada_t;</tspan></text>
+  <g
+     id="g75"
+     transform="translate(4.4017092)">
+    <g
+       id="g48"
+       transform="translate(5.0386921,90.165585)">
+      <rect
+         x="30"
+         y="170"
+         width="40"
+         height="40"
+         class="member"
+         id="rect7" />
+      <text
+         x="50.160004"
+         y="194.28801"
+         text-anchor="middle"
+         class="label"
+         fill="white"
+         id="text8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11px;line-height:normal;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1"
+           id="tspan40">a</tspan></text>
+    </g>
+    <text
+       x="55.038689"
+       y="315.16559"
+       text-anchor="middle"
+       class="small"
+       id="text9"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:normal;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none">1 byte</text>
+    <rect
+       x="75.038689"
+       y="260.16562"
+       width="120"
+       height="40"
+       class="padding"
+       id="rect9"
+       style="fill:url(#pattern55);fill-opacity:1" />
+    <text
+       x="135.0387"
+       y="284.28561"
+       text-anchor="middle"
+       class="small"
+       id="text10"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:normal;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none"><tspan
+         style="font-size:16px"
+         id="tspan41">padding</tspan></text>
+    <text
+       x="135.0387"
+       y="315.16559"
+       text-anchor="middle"
+       class="small"
+       id="text11"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:normal;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1">3 bytes</text>
+    <g
+       id="g46"
+       transform="translate(5.0386921,90.165585)">
+      <rect
+         x="190"
+         y="170"
+         width="160"
+         height="40"
+         class="member"
+         id="rect11" />
+      <text
+         x="269.79999"
+         y="196"
+         text-anchor="middle"
+         class="label"
+         fill="white"
+         id="text12"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11px;line-height:normal;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none"><tspan
+           style="font-size:16px"
+           id="tspan42">b</tspan></text>
+    </g>
+    <text
+       x="275.03873"
+       y="315.16559"
+       text-anchor="middle"
+       class="small"
+       id="text13"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:normal;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none">4 bytes</text>
+    <g
+       id="g56"
+       transform="translate(236.68917,-95.368413)">
+      <rect
+         x="118.34952"
+         y="355.534"
+         width="40"
+         height="40"
+         class="member"
+         id="rect13" />
+      <text
+         x="138.34952"
+         y="380.534"
+         text-anchor="middle"
+         class="label"
+         fill="white"
+         id="text14"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11px;line-height:normal;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none"><tspan
+           style="font-size:16px"
+           id="tspan54">c</tspan></text>
+    </g>
+    <text
+       x="374.8537"
+       y="315.16559"
+       text-anchor="middle"
+       class="small"
+       id="text15"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:normal;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none">1 byte</text>
+    <g
+       id="g57"
+       transform="translate(236.68917,-95.368413)">
+      <rect
+         x="158.34952"
+         y="355.534"
+         width="120"
+         height="40"
+         class="padding"
+         id="rect15"
+         style="fill:url(#pattern56);fill-opacity:1" />
+      <text
+         x="218.34952"
+         y="380.534"
+         text-anchor="middle"
+         class="small"
+         id="text16"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:normal;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none"><tspan
+           style="font-size:16px"
+           id="tspan53">padding</tspan></text>
+    </g>
+    <text
+       x="455.1937"
+       y="315.16559"
+       text-anchor="middle"
+       class="small"
+       id="text17"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:normal;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none">3 bytes</text>
+    <path
+       style="opacity:0.488;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4.4;stroke-opacity:1;paint-order:normal"
+       d="M 195.03869,300.16559 V 330.4884"
+       id="path61" />
+    <path
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.63817;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4.4;stroke-dasharray:1.63817, 1.63817;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       d="M 355.03869,301.16559 V 329.4884"
+       id="path62" />
+    <path
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.63817;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4.4;stroke-dasharray:1.63817, 1.63817;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       d="M 195.03869,301.16559 V 329.4884"
+       id="path64" />
+  </g>
+  <text
+     xml:space="preserve"
+     id="text68"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:normal;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect68);opacity:0.488;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4.4;stroke-opacity:1;paint-order:normal"
+     transform="translate(16.017207,223.52321)"><tspan
+       x="18.021484"
+       y="295.08339"
+       id="tspan6">typedef struct {
+</tspan><tspan
+       x="18.021484"
+       y="315.08339"
+       id="tspan7">    int b; // 4 bytes
+</tspan><tspan
+       x="18.021484"
+       y="335.08339"
+       id="tspan8">    char a; // 1 byte
+</tspan><tspan
+       x="18.021484"
+       y="355.08339"
+       id="tspan9">    char c; // 1 byte
+</tspan><tspan
+       x="18.021484"
+       y="375.08339"
+       id="tspan10">} optimizada_t;</tspan></text>
+  <g
+     id="g74"
+     transform="translate(84.401737)">
+    <g
+       id="g49"
+       transform="translate(-344.96131,458.54647)">
+      <rect
+         x="380"
+         y="170"
+         width="160"
+         height="40"
+         class="member"
+         id="rect26" />
+      <text
+         x="459.79999"
+         y="196"
+         text-anchor="middle"
+         class="label"
+         fill="white"
+         id="text27"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11px;line-height:normal;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1"><tspan
+           style="font-size:16px"
+           id="tspan43">b</tspan></text>
+    </g>
+    <text
+       x="115.03859"
+       y="683.54651"
+       text-anchor="middle"
+       class="small"
+       id="text28"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:normal;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1">4 bytes</text>
+    <g
+       id="g50"
+       transform="translate(-344.96131,458.54647)">
+      <rect
+         x="540"
+         y="170"
+         width="40"
+         height="40"
+         class="member"
+         id="rect28" />
+      <text
+         x="560"
+         y="195"
+         text-anchor="middle"
+         class="label"
+         fill="white"
+         id="text29"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11px;line-height:normal;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1"><tspan
+           style="font-size:16px"
+           id="tspan44">a</tspan></text>
+    </g>
+    <text
+       x="215.03865"
+       y="683.54651"
+       text-anchor="middle"
+       class="small"
+       id="text30"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:normal;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1">1 byte</text>
+    <g
+       id="g51"
+       transform="translate(-344.96131,458.54647)">
+      <rect
+         x="580"
+         y="170"
+         width="40"
+         height="40"
+         class="member"
+         id="rect30" />
+      <text
+         x="600"
+         y="195"
+         text-anchor="middle"
+         class="label"
+         fill="white"
+         id="text31"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11px;line-height:normal;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1"><tspan
+           style="font-size:16px"
+           id="tspan46">c</tspan></text>
+    </g>
+    <text
+       x="255.03865"
+       y="683.54651"
+       text-anchor="middle"
+       class="small"
+       id="text32"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:normal;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1">1 byte</text>
+    <rect
+       x="275.03864"
+       y="628.54651"
+       width="80"
+       height="40"
+       class="padding"
+       id="rect32"
+       style="mix-blend-mode:lighten;fill:url(#pattern53);fill-opacity:1" />
+    <text
+       x="315.03864"
+       y="653.54651"
+       text-anchor="middle"
+       class="small"
+       id="text33"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:normal;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1"><tspan
+         style="font-size:16px"
+         id="tspan45">padding</tspan></text>
+    <text
+       x="315.03864"
+       y="683.54651"
+       text-anchor="middle"
+       class="small"
+       id="text34"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:normal;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1">2 bytes</text>
+    <path
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.63817;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4.4;stroke-dasharray:1.63817, 1.63817;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       d="m 195.2196,669.54647 v 28.32281"
+       id="path73" />
+  </g>
+</svg>
