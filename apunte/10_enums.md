@@ -649,7 +649,7 @@ typedef enum {
 // sizeof(enum_grande_t) será 4 bytes (int)
 ```
 
-## Interoperabilidad con Interfaces de Programación (API) del Sistema
+### Interoperabilidad con Interfaces de Programación (API) del Sistema
 
 Muchas APIs del sistema operativo usan enumeraciones. Es importante entender sus
 valores:
@@ -688,11 +688,11 @@ tipo_archivo_t obtener_tipo_archivo(const char *ruta) {
 
 ---
 
-## Documentación de Enumeraciones
+### Documentación de Enumeraciones
 
 La documentación adecuada de enumeraciones es esencial para comunicar el propósito de cada valor, las relaciones entre valores y las restricciones de uso. Al igual que con las estructuras, existen dos enfoques principales para documentar enumeraciones.
 
-### Enfoque 1: Bloque de Documentación Único
+#### Enfoque 1: Bloque de Documentación Único
 
 Este enfoque utiliza un único bloque de comentario antes de la definición de la enumeración para describir su propósito y todos sus valores. Es ideal para enumeraciones simples donde los valores son autoexplicativos.
 
@@ -799,7 +799,7 @@ typedef enum {
 } codigo_http_t;
 ```
 
-### Documentación de Enumeraciones con Flags
+#### Documentación de Enumeraciones con Flags
 
 Para enumeraciones que representan flags combinables, la documentación debe explicar cómo combinarlos:
 
@@ -847,7 +847,7 @@ Para más detalles sobre el estilo de comentarios, consultá la {ref}`regla 0x00
 
 ---
 
-## Ejercicios
+### Ejercicios
 
 ```{exercise}
 :label: enum_basico
@@ -943,7 +943,7 @@ int main() {
 ```
 ````
 
-# Introducción: Los Ladrillos de la Memoria
+# Los Ladrillos de la memoria
 
 En C, las **estructuras (`struct`)**, **uniones (`union`)** y **campos de bits
 (bit-fields)** son las herramientas fundamentales que nos permiten ir más allá
@@ -966,7 +966,7 @@ Muchos detalles de bajo nivel, como el `padding` y el orden de los bits, son
 común (x86_64, little-endian), pero siempre debés verificar en tu plataforma.
 :::
 
-# 1. Estructuras (`struct`): Agrupando Datos
+## Estructuras (`struct`): Agrupando Datos
 
 Una `struct` es una colección de variables (miembros) de diferentes tipos,
 agrupadas bajo un solo nombre.
@@ -1055,7 +1055,7 @@ capaz de representar el tamaño de cualquier objeto en memoria.
 
 ---
 
-## Ejemplo Práctico
+### Ejemplo Práctico
 
 Imagina que tienes la siguiente estructura:
 
@@ -1106,7 +1106,7 @@ Desplazamiento de 'salario': 8 bytes
 
 ---
 
-## Casos de Uso Comunes
+### Casos de Uso Comunes
 
 1.  **Cálculos de Punteros**: Es fundamental en la "aritmética de punteros"
     avanzada. Por ejemplo, si tienes un puntero a un miembro de una estructura y
@@ -1208,11 +1208,11 @@ Al agrupar `a` y `c`, el compilador solo necesita 2 bytes de padding para alinea
 
 ---
 
-## Documentación de Estructuras
+### Documentación de Estructuras
 
 La documentación clara y detallada de las estructuras es fundamental para mantener código comprensible y mantenible. Una buena documentación explica no solo qué es cada campo, sino también su propósito, restricciones y relaciones con otros miembros. Existen dos enfoques principales para documentar estructuras, cada uno con sus ventajas según el contexto.
 
-### Enfoque 1: Bloque de Documentación Único
+#### Enfoque 1: Bloque de Documentación Único
 
 Este enfoque utiliza un único bloque de comentario antes de la definición de la estructura para describir su propósito general y documentar todos sus miembros. Es ideal para estructuras simples o cuando los miembros requieren explicaciones breves.
 
@@ -1245,7 +1245,7 @@ typedef struct {
 - Puede volverse difícil de mantener si la estructura crece.
 - La separación entre documentación y código puede dificultar actualizaciones.
 
-### Enfoque 2: Documentación Distribuida
+#### Enfoque 2: Documentación Distribuida
 
 Este enfoque combina un bloque de comentario que describe el propósito general de la estructura con comentarios de línea individuales para cada miembro. Es preferible para estructuras complejas con muchos campos o cuando cada miembro requiere explicación detallada.
 
@@ -1324,7 +1324,7 @@ Para más detalles sobre el estilo de comentarios y documentación, consultá la
 
 ---
 
-# 2. Uniones (`union`): Un Espacio para Múltiples Propósitos
+## Uniones (`union`): Un Espacio para Múltiples Propósitos
 
 Una `union` permite que varios miembros compartan la **misma ubicación de
 memoria**. Su tamaño es el de su miembro más grande. Solo un miembro puede estar
@@ -1337,7 +1337,7 @@ memoria**. Su tamaño es el de su miembro más grande. Solo un miembro puede est
 Comparación visual entre estructuras (todos los miembros en memoria separada) y uniones (todos comparten el mismo espacio de memoria).
 :::
 
-### El Patrón de Unión Etiquetada (Tagged Union)
+#### El Patrón de Unión Etiquetada (Tagged Union)
 
 Por sí mismas, las `union` tienen usos muy limitados ya que no es posible saber
 como tenemos que interpretar la información contenida, para esto, se utiliza una
@@ -1388,11 +1388,11 @@ Este patrón es la base para implementar tipos de datos polimórficos en C.
 
 ---
 
-## Documentación de Uniones
+### Documentación de Uniones
 
 Las uniones (`union`) requieren documentación particularmente cuidadosa debido a que múltiples miembros comparten la misma ubicación de memoria. Es fundamental documentar cuándo y cómo debe accederse a cada miembro para evitar comportamiento indefinido.
 
-### Enfoque 1: Bloque de Documentación Único
+#### Enfoque 1: Bloque de Documentación Único
 
 Para uniones simples, un único bloque de comentario puede ser suficiente si se explica claramente el propósito y las restricciones de uso.
 
@@ -1430,7 +1430,7 @@ typedef union {
 - Puede ser difícil de mantener si la unión crece.
 - La separación entre documentación y miembros puede causar desincronización.
 
-### Enfoque 2: Documentación Distribuida
+#### Enfoque 2: Documentación Distribuida
 
 Para uniones más complejas o uniones etiquetadas, el enfoque distribuido es preferible, especialmente cuando cada miembro tiene propósitos o restricciones específicas.
 
@@ -1473,6 +1473,36 @@ typedef union {
 **Desventajas:**
 - La definición puede volverse visualmente extensa.
 - Requiere disciplina para documentar todos los miembros consistentemente.
+
+#### Documentación de Uniones para Manipulación de Bits
+
+Para uniones usadas en programación de bajo nivel, la documentación debe ser especialmente detallada:
+
+```c
+/**
+ * Permite manipular y acceder a un valor de 64 bits en diferentes granularidades.
+ * 
+ * Esta unión es útil para operaciones de bajo nivel que requieren acceso
+ * tanto al valor completo como a sus partes individuales (mitades, bytes, bits).
+ * 
+ * NOTA DE PORTABILIDAD: El orden de los bytes (endianness) afecta cómo se
+ * interpretan los campos byte[]. En sistemas little-endian, byte[0] es el
+ * byte menos significativo. En big-endian, es el más significativo.
+ * 
+ * Uso típico: Conversión de protocolos de red, serialización, depuración.
+ */
+typedef union {
+    uint64_t completo;          // Acceso al valor completo de 64 bits
+    
+    struct {                    // Acceso a mitades de 32 bits
+        uint32_t bajo;          // 32 bits inferiores
+        uint32_t alto;          // 32 bits superiores
+    } mitades;
+    
+    uint16_t palabras[4];       // Acceso como 4 palabras de 16 bits
+    uint8_t bytes[8];           // Acceso individual a los 8 bytes
+} registro_64bits_t;
+```
 
 ### Ejemplo Completo: Unión Etiquetada con Documentación Exhaustiva
 
@@ -1539,36 +1569,6 @@ valor_t crear_valor_entero(int64_t entero) {
 }
 ```
 
-### Documentación de Uniones para Manipulación de Bits
-
-Para uniones usadas en programación de bajo nivel, la documentación debe ser especialmente detallada:
-
-```c
-/**
- * Permite manipular y acceder a un valor de 64 bits en diferentes granularidades.
- * 
- * Esta unión es útil para operaciones de bajo nivel que requieren acceso
- * tanto al valor completo como a sus partes individuales (mitades, bytes, bits).
- * 
- * NOTA DE PORTABILIDAD: El orden de los bytes (endianness) afecta cómo se
- * interpretan los campos byte[]. En sistemas little-endian, byte[0] es el
- * byte menos significativo. En big-endian, es el más significativo.
- * 
- * Uso típico: Conversión de protocolos de red, serialización, depuración.
- */
-typedef union {
-    uint64_t completo;          // Acceso al valor completo de 64 bits
-    
-    struct {                    // Acceso a mitades de 32 bits
-        uint32_t bajo;          // 32 bits inferiores
-        uint32_t alto;          // 32 bits superiores
-    } mitades;
-    
-    uint16_t palabras[4];       // Acceso como 4 palabras de 16 bits
-    uint8_t bytes[8];           // Acceso individual a los 8 bytes
-} registro_64bits_t;
-```
-
 ### Recomendaciones Generales para Uniones
 
 1. **Advertencias de seguridad:** Siempre documentá que solo un miembro es válido a la vez y que leer el miembro incorrecto causa comportamiento indefinido.
@@ -1585,7 +1585,7 @@ typedef union {
 
 Para más detalles sobre el estilo de comentarios, consultá la {ref}`regla 0x0032h <0x0032h>` sobre cómo escribir comentarios que expliquen el "porqué" y no el "qué".
 
----
+### Ejercicio
 
 ```{exercise}
 :label: ejer-tagged-union-2
@@ -1652,7 +1652,7 @@ int main() {
 
 ---
 
-# 3. Campos de Bits (Bit-fields): Ahorro Extremo de Memoria
+## Campos de Bits (Bit-fields): Ahorro Extremo de Memoria
 
 Los bit-fields permiten definir miembros de una `struct` con un ancho en bits
 exacto, ideal para empaquetar flags o valores pequeños.
