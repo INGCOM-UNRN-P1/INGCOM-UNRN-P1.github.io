@@ -18,13 +18,13 @@ la cátedra.
     - Me comprometo a mantener una participación activa y a cumplir con un
       **mínimo de 80% de asistencia** a las clases para regularizar la materia.
 
-2.  **Trabajos Prácticos (TPs):**
+2.  **Trabajos Prácticos:**
 
-    - Entiendo que los TPs son el eje central de la materia y que debo resolver
+    - Entiendo que los Trabajos Prácticos son el eje central de la materia y que debo resolver
       las guías de ejercicios principalmente fuera del horario de clase.
-    - Soy consciente de que las **fechas de entrega de los TPs son
-      inamovibles**. Un TP entregado fuera de término se considerará
-      "incompleto".
+    - Soy consciente de que las **fechas de entrega de los Trabajos Prácticos son
+      inamovibles**. Un Trabajo Práctico entregado fuera de término se considerará
+      «incompleto».
     - Entregaré todos los trabajos prácticos obligatorios para poder
       regularizar.
 
@@ -46,13 +46,13 @@ la cátedra.
 - **Para Regularizar:**
 
   1.  Asistir al 80% de las clases.
-  2.  Entregar todos los TPs obligatorios.
+  2.  Entregar todos los Trabajos Prácticos obligatorios.
   3.  Obtener una nota superior al 60% en ambos parciales.
 
 - **Para Promocionar:**
   1.  Cumplir todos los requisitos de regularización.
   2.  Obtener una nota superior al 80% en ambos parciales.
-  3.  Tener todos los TPs revisados y aprobados.
+  3.  Tener todos los Trabajos Prácticos revisados y aprobados.
 
 ---
 
