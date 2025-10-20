@@ -888,3 +888,54 @@ Los punteros son el concepto más poderoso y peligroso de C. Dominando punteros 
 
 **Pregunta puente**: Cuando escribimos `int arr[5]`, ¿dónde exactamente en la memoria se almacenan estos 5 enteros? ¿Cómo accede la CPU a `arr[3]`? La respuesta requiere entender direcciones de memoria, lo que nos lleva naturalmente a los punteros.
 
+## Referencias y Lecturas Complementarias
+
+### Textos Fundamentales
+
+- {cite:t}`kernighan_c_2014`. Capítulo 5: Pointers and Arrays. La relación fundamental entre punteros y arreglos.
+
+- {cite:t}`king_c_2008`. Capítulo 8: Arrays y Capítulo 13: Strings. Funciones de biblioteca y manipulación de cadenas.
+
+- {cite:t}`weiss_data_2014`. Capítulo 3: Lists, Stacks, and Queues. Algoritmos sobre secuencias.
+
+### Algoritmos sobre Arreglos
+
+- {cite:t}`cormen_introduction_2009`. Capítulo 2: Getting Started (Insertion Sort), Capítulo 6: Heapsort, Capítulo 9: Medians and Order Statistics.
+
+- {cite:t}`sedgewick_algorithms_2011`. Capítulo 2: Sorting. Visualizaciones excelentes de algoritmos de ordenamiento.
+
+### Cadenas y Procesamiento de Texto
+
+- **POSIX String Handling** - https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/string.h.html
+  - Especificación estándar de funciones de cadenas.
+
+- {cite:t}`seacord_secure_2013`. Capítulo 2: Strings. Vulnerabilidades comunes con cadenas.
+
+### Recursos en Línea
+
+- **C String Handling** - https://en.cppreference.com/w/c/string
+  - Referencia completa de `<string.h>` con ejemplos.
+
+- **Sorting Algorithms Visualizations** - https://visualgo.net/en/sorting
+  - Visualizaciones interactivas de algoritmos de ordenamiento.
+
+- **Big-O Cheat Sheet** - https://www.bigocheatsheet.com/
+  - Complejidades de operaciones comunes sobre arreglos.
+
+### Herramientas
+
+- **Valgrind** - https://valgrind.org/
+  - Detección de accesos fuera de límites en arreglos.
+
+- **AddressSanitizer** - https://github.com/google/sanitizers
+  - Instrumentación de compilador para detectar errores de memoria.
+  - Uso: `gcc -fsanitize=address programa.c`
+
+### Ejercicios y Práctica
+
+- **LeetCode - Array Problems** - https://leetcode.com/tag/array/
+  - Cientos de problemas clasificados por dificultad.
+
+- **HackerRank - Data Structures** - https://www.hackerrank.com/domains/data-structures
+  - Arrays y strings con tests automáticos.
+

@@ -1432,6 +1432,41 @@ Diagrama de flujo
 Fuente: [xkcd.com](https://xkcd.com/1667/)
 :::
 
+## Referencias y Lecturas Complementarias
+
+### Fundamentos de Algoritmos
+
+- {cite:t}`cormen_introduction_2009`. Capítulos 3-4: Growth of Functions y Divide-and-Conquer.
+  
+- {cite:t}`sedgewick_algorithms_2011`. Capítulo 1: Fundamentals. Introducción accesible con visualizaciones.
+  - Disponible en: https://algs4.cs.princeton.edu/
+
+### Pensamiento Computacional
+
+- {cite:t}`wing_computational_2006`. El artículo que popularizó el término "pensamiento computacional".
+
+- {cite:t}`aho_foundations_1995`. Conceptos fundamentales: algoritmos, estructuras de datos, lógica.
+
+### Resolución de Problemas
+
+- {cite:t}`polya_how_2014`. Clásico sobre heurísticas de resolución de problemas (1945).
+
+- {cite:t}`bentley_programming_1999`. Columnas sobre diseño de algoritmos y resolución de problemas.
+
+### Recursos en Línea
+
+- **Khan Academy - Algorithms** - https://www.khanacademy.org/computing/computer-science/algorithms
+  - Curso interactivo sobre algoritmos básicos.
+  - Visualizaciones y ejercicios progresivos.
+
+- **Visualgo** - https://visualgo.net/
+  - Visualización de algoritmos y estructuras de datos.
+  - Muy útil para entender ejecución paso a paso.
+
+- **CS Unplugged** - https://csunplugged.org/
+  - Actividades para aprender conceptos sin computadora.
+  - Ideal para desarrollar intuición algorítmica.
+
 ---
 
 En el próximo apunte, [](2_gradual.md), comenzaremos a traducir estos conceptos

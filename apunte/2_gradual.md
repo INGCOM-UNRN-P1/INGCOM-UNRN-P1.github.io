@@ -1315,3 +1315,47 @@ Con las estructuras de control que ya dominamos, las funciones se convierten en 
 
 **Pregunta puente**: Si queremos calcular el área de 5 rectángulos diferentes, ¿tiene sentido escribir 5 veces el código `base * altura`? La respuesta natural nos lleva al concepto de función.
 
+## Referencias y Lecturas Complementarias
+
+### Textos Fundamentales
+
+- {cite:t}`kernighan_c_2014`. Capítulo 1: A Tutorial Introduction. El texto definitivo por los creadores del lenguaje (conocido como "K&R").
+
+- {cite:t}`king_c_2008`. Capítulos 2-7: Tipos, expresiones, control de flujo, entrada/salida.
+
+- {cite:t}`gustedt_modern_2019`. Nivel 0: Encuentro. Introducción contemporánea a C con estándares modernos.
+
+### Recursos en Línea
+
+- **C Reference** - https://en.cppreference.com/w/c
+  - Documentación completa de la biblioteca estándar
+  - Ejemplos de uso y explicaciones detalladas
+
+- **Learn C** - https://www.learn-c.org/
+  - Tutoriales interactivos que permiten practicar en el navegador
+  - Cubre desde básicos hasta temas intermedios
+
+- **CS50 (Harvard)** - https://cs50.harvard.edu/x/
+  - Curso introductorio de ciencias de la computación que usa C
+  - Videos, ejercicios y recursos de alta calidad
+
+### Compiladores y Estándares
+
+- **GCC Documentation** - https://gcc.gnu.org/onlinedocs/
+  - Manual completo del compilador GCC
+  - Extensiones, optimizaciones y flags de compilación
+
+- **C Standard (ISO/IEC 9899:2018)** - "C18"
+  - El estándar oficial del lenguaje (acceso pagado)
+  - Draft gratuito disponible en: http://www.open-std.org/jtc1/sc22/wg14/
+
+### Herramientas de Desarrollo
+
+- **Valgrind** - https://valgrind.org/
+  - Detección de errores de memoria y perfilado
+  - Tutorial: https://valgrind.org/docs/manual/quick-start.html
+
+- **GDB (GNU Debugger)** - https://www.gnu.org/software/gdb/
+  - Depurador estándar para C
+  - Tutorial: https://www.gdbtutorial.com/
+

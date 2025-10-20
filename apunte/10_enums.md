@@ -1792,3 +1792,59 @@ de valores válidos. En enumeraciones, se usa frecuentemente un elemento
 adicional (como `ENUM_MAX`) para facilitar la validación de rangos y iteración.
 
 :::
+
+## Referencias y Lecturas Complementarias
+
+### Textos Fundamentales
+
+- {cite:t}`kernighan_c_2014`. Sección 2.3: Constants y Apéndice A8.4: Enumeration Constants.
+
+- {cite:t}`king_c_2008`. Capítulo 16: Structures, Unions, and Enumerations.
+
+- {cite:t}`gustedt_modern_2019`. Level 1, Takeaway 1.6.2: Enumerations.
+
+### Estructuras y Uniones
+
+- {cite:t}`harbison_c_2002`. Capítulo 5: Types. Referencia exhaustiva de enums, structs y unions.
+
+- {cite:t}`van_der_linden_expert_1994`. Capítulo 5: Thinking of Linking y Capítulo 6: Poetry in Motion.
+
+### Patrones de Diseño con Enums
+
+- {cite:t}`hanson_c_1996`. Técnicas para crear interfaces limpias usando enumeraciones.
+
+- {cite:t}`lakos_large_1996`. Capítulo 2: Ground Rules. Enumeraciones para legibilidad.
+
+### Bit-fields y Optimización
+
+- {cite:t}`warren_hackers_2012`. Capítulo 2: Basics. Manipulación de bits y flags.
+
+- **Fog, A.** *Optimizing Software in C++*. Technical University of Denmark.
+  - Disponible en: https://www.agner.org/optimize/
+  - Sección sobre layout de memoria y bit-fields.
+
+### Estándares y Especificaciones
+
+- **ISO/IEC 9899:2018 - C18 Standard**
+  - Section 6.7.2.2: Enumeration specifiers. Definición formal.
+  - Draft gratuito: http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2310.pdf
+
+- **MISRA C:2012**. *Guidelines for the Use of the C Language in Critical Systems*.
+  - Reglas específicas para enumeraciones en sistemas críticos.
+  - Rule 10.3: Value of enumeration constant shall be used only in appropriate context.
+
+### Recursos en Línea
+
+- **C Enumerations** - https://en.cppreference.com/w/c/language/enum
+  - Referencia técnica completa con ejemplos.
+
+- **Enum Best Practices** - https://stackoverflow.com/questions/tagged/enums+c
+  - Discusiones de la comunidad sobre patrones y anti-patrones.
+
+### Herramientas
+
+- **Doxygen** - https://www.doxygen.nl/manual/commands.html#cmddef
+  - Documentación de enumeraciones con `@enum`.
+
+- **Cppcheck** - http://cppcheck.net/
+  - Análisis estático que detecta uso incorrecto de enums.

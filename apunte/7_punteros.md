@@ -1263,3 +1263,63 @@ Los punteros son las herramientas; la memoria dinámica es el material sobre el 
 
 **Pregunta puente**: Si declaramos `int arr[1000000]` en una función, el programa probablemente falle con stack overflow. ¿Por qué? ¿Cómo solicitamos memoria para estructuras arbitrariamente grandes? La respuesta está en la memoria dinámica y el heap.
 
+## Referencias y Lecturas Complementarias
+
+### Textos Fundamentales
+
+- {cite:t}`kernighan_c_2014`. Capítulo 5: Pointers and Arrays. El tratamiento definitivo de punteros.
+
+- {cite:t}`king_c_2008`. Capítulo 11: Pointers y Capítulo 12: Pointers and Arrays.
+
+- {cite:t}`reek_pointers_1997`. Libro entero dedicado a punteros en C.
+
+### Punteros y Arquitectura
+
+- {cite:t}`bryant_computer_2015`. Capítulo 3: Machine-Level Representation y Capítulo 9: Virtual Memory.
+
+- {cite:t}`patterson_computer_2017`. Capítulo 2: Instructions. Instrucciones de carga/almacenamiento que usan direcciones.
+
+### Gestión de Memoria y Errores
+
+- {cite:t}`seacord_secure_2013`. Capítulo 4: Dynamic Memory Management y Capítulo 5: Integer Security.
+
+- {cite:t}`van_der_linden_expert_1994`. Capítulo 4: The Shocking Truth: C Arrays and Pointers Are NOT the Same!
+
+### Recursos en Línea
+
+- **C Pointer Tutorial** - https://www.cprogramming.com/tutorial/c/lesson6.html
+  - Tutorial progresivo desde básicos hasta avanzados.
+
+- **Pointer Basics** - http://cslibrary.stanford.edu/106/
+  - Nick Parlante (Stanford). Documento excelente sobre punteros.
+
+- **C Pointers and Arrays** - https://en.cppreference.com/w/c/language/pointer
+  - Referencia técnica completa de la sintaxis de punteros.
+
+### Visualización y Debugging
+
+- **Python Tutor (C Support)** - https://pythontutor.com/c.html
+  - Visualiza paso a paso la ejecución y el estado de los punteros.
+
+- **GDB Tutorial** - https://www.gdbtutorial.com/
+  - Depuración de programas con punteros.
+
+- **Valgrind Manual** - https://valgrind.org/docs/manual/mc-manual.html
+  - Memcheck: detección de uso incorrecto de punteros.
+
+### Artículos Clásicos
+
+- {cite:t}`ritchie_development_1993`. Historia de cómo surgieron los punteros en C.
+
+- **Hoare, C. A. R. (2009)**. "Null References: The Billion Dollar Mistake". Keynote, QCon London.
+  - Reflexión sobre punteros nulos y sus consecuencias.
+  - Video: https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/
+
+### Ejercicios y Práctica
+
+- **C Puzzles** - http://www.gowrikumar.com/c/
+  - Desafíos específicamente sobre punteros y aritmética.
+
+- **LeetCode - Pointer Problems** - https://leetcode.com/tag/two-pointers/
+  - Problemas que requieren manipulación hábil de punteros.
+

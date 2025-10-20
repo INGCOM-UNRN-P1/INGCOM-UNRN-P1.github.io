@@ -728,3 +728,33 @@ Las primeras prácticas no contarán con el lugar para "librerías", pero la mec
 es casi la misma, esencialmente, estas no tienen un `main.c`, solo `pruebas.c`.
 Estos directorios estarán para alojar funciones comunes como las necesarias para
  `cadenas_seguras` o `arreglos`.
+
+## Referencias y Lecturas Complementarias
+
+### Proceso de Compilación
+
+- {cite:t}`kernighan_c_2014`. Apéndice A12: Preprocessing y Capítulo 4: Functions and Program Structure.
+
+- {cite:t}`levine_linkers_1999`. Libro completo sobre enlazado y carga.
+
+### GCC y Herramientas
+
+- **GCC Documentation** - https://gcc.gnu.org/onlinedocs/
+  - Manual oficial completo del compilador GCC.
+  - Flags, optimizaciones, warnings.
+
+- **Make Manual** - https://www.gnu.org/software/make/manual/
+  - Guía completa de GNU Make.
+  - Patrones, variables automáticas, funciones.
+
+- {cite:t}`mecklenburg_managing_2004`. Guía práctica de Makefiles complejos.
+
+### Recursos en Línea
+
+- **An Introduction to GCC** - https://www.linuxtopia.org/online_books/an_introduction_to_gcc/
+  - Libro online gratuito sobre GCC.
+  - Brian Gough, GNU Press.
+
+- **Makefile Tutorial** - https://makefiletutorial.com/
+  - Tutorial interactivo progresivo.
+  - Ejemplos ejecutables en el navegador.

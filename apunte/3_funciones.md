@@ -1382,3 +1382,47 @@ Las funciones que dominamos aquí serán las herramientas para **operar sobre se
 
 **Pregunta puente**: ¿Cómo escribiríamos una función `calcular_promedio()` para 100 estudiantes sin usar arreglos? ¿Y para 1000? La respuesta natural nos lleva directamente al concepto de secuencia.
 
+## Referencias y Lecturas Complementarias
+
+### Textos Fundamentales
+
+- {cite:t}`kernighan_c_2014`. Capítulo 4: Functions and Program Structure. Descomposición funcional y organización.
+
+- {cite:t}`king_c_2008`. Capítulo 9: Functions. Cobertura exhaustiva de funciones, prototipos y alcances.
+
+- {cite:t}`mcconnell_code_2004`. Capítulo 7: High-Quality Routines. Principios de diseño de funciones de calidad.
+
+### Diseño por Contratos
+
+- {cite:t}`meyer_object_1997`. Capítulos 11-12: Design by Contract. El texto definitivo sobre contratos.
+
+- {cite:t}`hoare_axiomatic_1969`. El artículo seminal que introduce la lógica de Hoare.
+
+### Mejores Prácticas y Estilo
+
+- {cite:t}`martin_clean_2008`. Capítulo 3: Functions. Principios de funciones limpias y bien diseñadas.
+
+- **Linux Kernel Coding Style** - https://www.kernel.org/doc/html/latest/process/coding-style.html
+  - Guía de estilo del kernel de Linux (escrito en C).
+  - Sección 6: Functions. Convenciones profesionales.
+
+### Recursos en Línea
+
+- **C FAQ** - http://c-faq.com/
+  - Preguntas frecuentes sobre funciones, alcances y gestión de memoria.
+  - Secciones 4 y 11 son particularmente relevantes.
+
+- **Stack Overflow - C Tag** - https://stackoverflow.com/questions/tagged/c
+  - Comunidad activa para resolver dudas específicas.
+  - Buscar: "function scope C", "function pointers C", etc.
+
+### Herramientas de Documentación
+
+- **Doxygen** - https://www.doxygen.nl/
+  - Generación automática de documentación desde comentarios.
+  - Soporte para formato que usamos en el curso.
+
+- **Understand** - https://www.scitools.com/
+  - Análisis estático de código y visualización de dependencias.
+  - Útil para proyectos grandes con muchas funciones.
+
