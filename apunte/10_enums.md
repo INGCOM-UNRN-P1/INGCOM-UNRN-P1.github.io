@@ -76,6 +76,76 @@ enum estado_conexion {
 enum estado_conexion estado_actual = DESCONECTADO;
 ```
 
+### Alcance y Namespaces
+
+:::{warning} **No entra en el parcial**
+
+Este tema de namespaces, es un tema importante relacionado al uso 
+de `enum`s pero no entra en el parcial.
+
+:::
+
+#### Concepto de Namespace
+
+En el contexto de la programación, un **namespace** (espacio de nombres) es una región del código donde un conjunto de identificadores es visible y accesible sin ambigüedad. Es un mecanismo fundamental para organizar y separar lógicamente los nombres, evitando colisiones entre identificadores que de otro modo compartirían el mismo nombre.
+
+Formalmente, un namespace define un **contexto de resolución de nombres**: cuando el compilador encuentra un identificador, debe determinar a qué entidad se refiere consultando el namespace activo. En C, este concepto está implícito en el sistema de alcances (_scope_), pero no existe un mecanismo explícito de namespaces como en lenguajes posteriores (C++, Java, Rust).
+
+En C, las constantes de enumeración se ubican en el **namespace global** de identificadores ordinarios, compartiendo este espacio con nombres de variables, funciones y otros símbolos. Esto significa que una constante `APAGADO` de un `enum` entra en conflicto con cualquier otra variable, función o constante de enumeración que se llame `APAGADO` en el mismo ámbito de compilación.
+
+La **contaminación del namespace** se refiere al problema de introducir demasiados identificadores en un mismo ámbito, incrementando la probabilidad de conflictos por nombres duplicados o similares. Este problema es particularmente relevante en enumeraciones porque cada constante introduce un identificador independiente en el namespace, a diferencia de los miembros de una `struct` que están contenidos dentro del namespace de la estructura.
+
+#### Problema de Contaminación del Namespace
+
+Un aspecto importante a considerar es que los identificadores de las constantes de enumeración se encuentran en el **namespace global** (en C89/C90) o en el namespace del ámbito donde se declara la enumeración (en estándares más recientes).
+
+```{code-block}c
+:caption: Conflictos potenciales de nombres
+:linenos:
+
+enum estado_motor {
+    APAGADO,
+    ENCENDIDO,
+    ERROR
+};
+
+enum estado_luz {
+    APAGADO,    // Error: redefinición de APAGADO
+    PRENDIDO,
+    PARPADEANDO
+};
+```
+
+#### Solución con Prefijos
+
+Una práctica recomendada es usar **prefijos consistentes** para evitar colisiones:
+
+```{code-block}c
+:caption: Uso de prefijos para evitar conflictos
+:linenos:
+
+enum motor_estado {
+    MOTOR_APAGADO,
+    MOTOR_ENCENDIDO,
+    MOTOR_ERROR
+};
+
+enum luz_estado {
+    LUZ_APAGADA,
+    LUZ_PRENDIDA, 
+    LUZ_PARPADEANDO
+};
+```
+
+:::{tip} Convenciones de nomenclatura
+
+Seguí una convención consistente en tu proyecto:
+- **Prefijo del dominio** + **ESTADO/ACCIÓN** en mayúsculas
+- Ejemplo: `HTTP_OK`, `HTTP_NOT_FOUND`, `FILE_CREATED`, `FILE_ERROR`
+- Esto mejora la legibilidad y previene conflictos de nombres
+
+:::
+
 ### Asignación de Valores
 
 #### Asignación Automática
