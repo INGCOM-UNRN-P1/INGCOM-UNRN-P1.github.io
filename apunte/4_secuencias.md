@@ -30,7 +30,9 @@ Un **arreglo** es una colección de tamaño fijo de elementos homogéneos. Al
 declararlo, el compilador reserva un bloque de memoria continuo y
 suficientemente grande para albergar todos sus elementos.
 
-`int mi_arreglo[4];`
+```{code-block}c
+int mi_arreglo[4];
+```
 
 Esta declaración reserva espacio para 4 enteros. Si un `int` ocupa 4 bytes, la disposición en memoria es contigua:
 
@@ -224,9 +226,7 @@ no se puede reasignar para que se refiera a otra secuencia. La operación
 `arr1 = arr2;` es ilegal. Para copiar los valores, se debe recorrer y copiar
 cada elemento, uno por uno.
 
-El identificador de un arreglo es una constante que representa la dirección de
-inicio del bloque de memoria asignado. Por esta razón, el nombre de un arreglo
-es un **l-value no modificable**.
+El identificador de un arreglo es una constante que representa la dirección de inicio del bloque de memoria asignado. Por esta razón, el nombre de un arreglo es un **l-value no modificable**.
 
 ````{code-block}c
 :linenos:
@@ -260,6 +260,7 @@ causar fallos de seguridad o funcionar aparentemente bien hasta que un cambio
 trivial en otra parte del código revele el error latente. Es responsabilidad del programador garantizar que esto no ocurra, como lo exige la regla {ref}`0x0027h`.
 
 ::::
+
 ### Arreglos de Longitud Variable (ALV/VLA)
 
 Desde el estándar C99, C permite declarar arreglos cuyo tamaño se determina en
@@ -281,12 +282,11 @@ printf("El tamaño del arreglo en bytes es: %zu\n", sizeof(arreglo));
 Estos tienen limitaciones importantes. Por ejemplo, un ALV no puede ser
 inicializado en su declaración. Intentarlo producirá un error de compilación:
 
-````text
+```text
 error: variable-sized object may not be initialized
-````
+```
 
-Las implicaciones y el uso correcto de la memoria dinámica, que es la
-alternativa recomendada a los ALV, se abordarán en un capítulo posterior.
+Las implicaciones y el uso correcto de la memoria dinámica, que es la alternativa recomendada a los ALV, se abordarán en [](11_memoria).
 
 De todas formas y como se imaginarán, hay una regla de estilo {ref}`0x000Eh`.
 
@@ -304,6 +304,94 @@ Paso de arreglos a funciones por referencia: a diferencia de las variables simpl
 :::{note} Relación con Punteros
 Este comportamiento está íntimamente relacionado con el concepto de punteros. Para una comprensión más profunda de cómo funcionan las direcciones de memoria y la relación entre arreglos y punteros, consultá el [](7_punteros).
 :::
+
+### Funciones Puras y con Efectos Secundarios
+
+Cuando se trabaja con funciones que operan sobre arreglos, es fundamental distinguir entre **funciones puras** y **funciones con efectos secundarios**. Esta diferenciación permite mejorar la legibilidad del código, facilitar la depuración y promover una programación más confiable.
+
+#### ¿Qué es una función pura?
+
+Una **función pura** es aquella que:
+
+1. **No modifica** ningún estado externo (ni variables globales, ni parámetros de entrada).
+2. **Siempre retorna el mismo resultado** ante los mismos argumentos.
+
+En otras palabras, su ejecución es predecible y no depende del contexto externo.
+
+**Ejemplo de función pura:**
+
+```c
+int maximo(int valores[], int cantidad) 
+{
+    int max = valores[0];
+    for (int i = 1; i < cantidad; i++) 
+    {
+        if (valores[i] > max) 
+        {
+            max = valores[i];
+        }
+    }
+    return max;
+}
+```
+
+Esta función sólo **lee** el contenido del arreglo y **devuelve** un resultado. No altera el contenido original.
+
+#### ¿Qué es una función con efectos secundarios?
+
+Una **función con efectos secundarios** es aquella que **modifica** el estado del programa más allá de sus variables locales: puede cambiar variables externas, parámetros pasados por referencia, escribir en pantalla, leer entrada, etc.
+
+**Ejemplo:**
+
+```c
+void ordenar(int v[], int cantidad) 
+{
+    for (int i = 0; i < cantidad - 1; i++) 
+    {
+        for (int j = 0; j < cantidad - i - 1; j++) 
+        {
+            if (v[j] > v[j + 1]) 
+            {
+                int temp = v[j];
+                v[j] = v[j + 1];
+                v[j + 1] = temp;
+            }
+        }
+    }
+}
+```
+
+Esta función cambia el contenido del arreglo original: su ejecución **no es inocua**.
+
+#### ¿Por qué distinguirlas?
+
+- **Legibilidad**: un lector puede asumir que una función pura no altera nada, lo que simplifica su comprensión.
+- **Reutilización**: las funciones puras son más fáciles de testear y componer.
+- **Depuración**: los errores son más fáciles de rastrear si las funciones tienen efectos bien delimitados.
+
+#### Buenas prácticas
+
+- Usá funciones puras para cálculo, conteo o análisis.
+- Reservá funciones con efectos para inicialización, transformación explícita o interacción con el entorno.
+- Documentá claramente qué efectos tiene cada función.
+- Cuando una función modifica su entrada, elegí un nombre que lo indique: `normalizar`, `ordenar`, `ajustar`, etc.
+
+#### Estrategia mixta
+
+En algunos casos, puede ser útil definir **una función pura** que calcule un resultado y **otra función con efectos** que lo aplique.
+
+Por ejemplo:
+
+```c
+int encontrar_maximo(int v[], int cantidad);
+void imprimir_maximo(int v[], int cantidad) 
+{
+    int m = encontrar_maximo(v, cantidad);
+    printf("El máximo es %d\n", m);
+}
+```
+
+Esta separación permite testear `encontrar_maximo` independientemente de la función que interactúa con el usuario.
 
 Esto explica dos situaciones clave:
 
@@ -339,16 +427,12 @@ necesario para operaciones posteriores. Por ejemplo, si el valor original en la
 posición `0` fuera crucial para otro cálculo, esa información se perdería
 permanentemente. Para evitar modificaciones no deseadas, es una buena práctica usar el calificador `const` en los parámetros de arreglo que no deben ser alterados, adhiriendo a la regla de estilo {ref}`0x0021h`.
 
-Resolver este problema solo requiere que agreguemos una variable para reemplazar
-`arreglo[0]`, pero es un buen contraejemplo de un uso negativo de los efectos
-secundarios de los arreglos.
+Resolver este problema solo requiere agregar una variable para reemplazar `arreglo[0]`, pero es un buen contraejemplo de un uso negativo de los efectos secundarios de los arreglos.
 
 Si la función (o procedimiento) modifica el arreglo, esto debe estar claramente
 expresado en la documentación.
 
-Y aunque parezca algo negativo, la utilización de efectos secundarios en
-arreglos es sumamente importante, y se utiliza en código que, por ejemplo,
-ordene los valores que contiene.
+Aunque parezca algo negativo, la utilización de efectos secundarios en arreglos es sumamente importante y se utiliza en código que, por ejemplo, ordene los valores que contiene.
 
 #### Pérdida de `sizeof`
 
@@ -393,7 +477,7 @@ debe pasar el tamaño de forma explícita, como un argumento separado. La firma 
 /**
  * Imprime los elementos de un arreglo de enteros en la salida estándar.
  *
- * @param arreglo de numeros a mostrar.
+ * @param arreglo de números a mostrar.
  * @param size    la cantidad de valores en el arreglo.
  *
  * @post
@@ -404,11 +488,13 @@ void imprimir_arreglo(int arreglo[], size_t size);
 ````
 
 ::::{note} Uso de {term}`size_t`
+
 Aunque no es estrictamente necesario que sea de tipo {term}`size_t`, su uso se
 recomienda porque este tipo se asocia al tamaño o las 'dimensiones' de las
 cosas.
 
 ::::
+
 ### Retorno de Secuencias desde Funciones
 
 Una función **no puede retornar un arreglo local**. Cuando una función se
@@ -425,7 +511,7 @@ interés está seguido por un **carácter nulo (`\0`)**. Este terminador es
 crucial, ya que las funciones de biblioteca como `strlen` o `printf` con `%s`
 dependen de él para saber dónde termina el texto.
 
-El comportamiento general de una cadena, es el mismo que el de un arreglo.
+El comportamiento general de una cadena es el mismo que el de un arreglo.
 
 Por ejemplo, la siguiente cadena:
 
@@ -452,9 +538,7 @@ vamos a obtener el tamaño en bytes de la cadena.
 size_t espacio_reservado = sizeof(mi_cadena) / sizeof(mi_cadena[0]);
 ````
 
-Que casualmente, coincide con el largo del arreglo, esto es porque `char`
-_suele_ ocupar 1-byte por la estrategia de codificación empleada, el código
-{abbr}`ASCII (American Standard Code for Information Interchange)`
+Esto coincide con el largo del arreglo, ya que `char` _suele_ ocupar 1 byte por la estrategia de codificación empleada: el código {abbr}`ASCII (American Standard Code for Information Interchange)`.
 
 [Más información sobre ASCII](https://es.wikipedia.org/wiki/ASCII)
 
@@ -502,7 +586,7 @@ int main() {
 
     printf("Cadena ordenada: \"%s\"\n", mi_cadena);
 
-    //ademas, ¿en donde modificamos la cadena?
+    // Además, ¿en dónde modificamos la cadena?
     ordena_caracteres("ejemplo de cadena desordenada");
 
     return 0;
@@ -519,12 +603,9 @@ Cadena ordenada: "   aaaacdddddeeeeeejlmnnooprs"
 Segmentation fault (core dumped)
 ````
 
-Ese `Segmentation fault (core dumped)` es intentar modificar algo que no debía
-ser modificado, por lo que es importante que utilicen una variable de cadena en
-el medio para evitar este tipo de errores.
+Ese `Segmentation fault (core dumped)` resulta de intentar modificar algo que no debía ser modificado, por lo que es importante utilizar una variable de cadena intermedia para evitar este tipo de errores.
 
-Más adelante veremos detalles adicionales sobre los literales de cadena y que
-situaciones nos podemos encontrar si no los utilizamos con cuidado.
+Más adelante veremos detalles adicionales sobre los literales de cadena y qué situaciones nos podemos encontrar si no los utilizamos con cuidado.
 
 ### Largo de cadenas
 
@@ -553,7 +634,7 @@ Diferencia entre largo y capacidad: el largo (strlen) cuenta los caracteres hast
 
 Tenemos, por un lado, el largo, que es la cantidad de caracteres hasta el terminador.
 
-Y, por otro, tenemos el tamaño en memoria del arreglo de caracteres que guarda la cadena, que debiera de ser, por lo menos, uno más que el largo de la cadena. A esta dimensión, la llamaremos "capacidad". 
+Por otro, tenemos el tamaño en memoria del arreglo de caracteres que guarda la cadena, que debiera ser, por lo menos, uno más que el largo de la cadena. A esta dimensión la llamaremos "capacidad". 
 
 Esta es la base para las cadenas seguras.
 
@@ -575,7 +656,7 @@ if (len > 0 && buffer[len - 1] == '\n') {
 }
 ````
 
-### Biblioteca Estándar `<string.h>`: Un Vistazo rápido
+### Biblioteca Estándar `<string.h>`: Un Vistazo Rápido
 
 Las funciones de biblioteca para manipular cadenas más importantes:
 
@@ -778,7 +859,7 @@ int contar_vocales(char cadena[])
     size_t largo = strlen(cadena);
 
     for (size_t i = 0; i < largo; i++) {
-        // Convertimos el caracter a minúscula para simplificar la comparación
+        // Convertimos el carácter a minúscula para simplificar la comparación
         char caracter = tolower(cadena[i]);
         if (caracter == 'a' || caracter == 'e' || caracter == 'i' || caracter == 'o' || caracter == 'u') {
             contador++;
