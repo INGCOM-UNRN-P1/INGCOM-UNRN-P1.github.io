@@ -27,6 +27,49 @@ Binario:  1   1   0   0   1   0   0   0
 Suma:   128 + 64+ 0 + 0 + 8 + 0 + 0 + 0 = 200
 ```
 
+(memoria-endianness)=
+### Endianness
+
+El **endianness** define el orden en que se almacenan en memoria los bytes que componen un tipo de dato multi-byte (como `int` o `double`). Es un detalle de la arquitectura del procesador que puede ser crucial en programación de sistemas, redes o al trabajar con formatos de archivo binarios.
+
+- **Little-endian**: El byte **menos** significativo se almacena en la dirección de memoria más baja. Es la arquitectura dominante hoy en día (Intel x86, AMD64, Apple Silicon).
+- **Big-endian**: El byte **más** significativo se almacena en la dirección de memoria más baja. Era común en arquitecturas más antiguas (Motorola 68k, SPARC) y se sigue usando como el orden estándar en redes (Network Byte Order).
+
+**Ejemplo con el valor `0x1A2B3C4D` (un `int` de 32 bits):**
+
+| Dirección | Little-endian | Big-endian |
+| :--- | :---: | :---: |
+| `0x100` | `4D` | `1A` |
+| `0x101` | `3C` | `2B` |
+| `0x102` | `2B` | `3C` |
+| `0x103` | `1A` | `4D` |
+
+**¿Por qué es importante?**
+
+Si escribís un `int` a un archivo en una máquina little-endian y lo leés en una big-endian, el valor será incorrecto.
+
+**Cómo detectar el endianness en C:**
+
+```c
+#include <stdio.h> 
+#include <stdint.h> 
+
+int main(void) {
+    uint32_t i = 1;
+    char *c = (char*)&i;
+
+    if (*c) {
+        printf("Little-endian\n");
+    } else {
+        printf("Big-endian\n");
+    }
+
+    return 0;
+}
+```
+
+Este código funciona porque si es little-endian, el byte `01` se almacena en la primera dirección, y `*c` será `1`. Si es big-endian, el primer byte será `00`, y `*c` será `0`.
+
 ## Los Operadores a Nivel de Bits
 
 ### 1. AND a nivel de bits (`&`)
