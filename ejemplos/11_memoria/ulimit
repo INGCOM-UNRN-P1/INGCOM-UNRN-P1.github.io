@@ -1,0 +1,5 @@
+
+Comando para limitar la memoria a 100 MB
+Solo funciona en Linux y macOS
+
+ulimit -v 102400
