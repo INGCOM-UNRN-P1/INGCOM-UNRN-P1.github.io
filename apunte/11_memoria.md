@@ -58,7 +58,49 @@ Un programa en ejecución divide su espacio de memoria en las siguientes áreas:
 
 **`.data` (Datos inicializados)** : Almacena variables globales y estáticas que han sido explícitamente inicializadas en el código fuente.
 
-**`.bss` (Block Started by Symbol)** : Contiene variables globales y estáticas no inicializadas. El sistema operativo las inicializa en cero al cargar el programa.
+**`.bss` (Block Started by Symbol)** : Contiene variables globales y estáticas (`static`). Que deben ser inicializadas, pero el sistema operativo
+les dará un valore en cero al cargar el programa.
+
+
+#### La palabra clave `extern`
+
+La palabra clave `extern` se utiliza para declarar una variable global que está definida en otro archivo fuente. No crea una variable, sino que le dice al compilador: "Esta variable existe en otro lugar, confía en mí. El enlazador (linker) se encargará de encontrarla".
+
+**Ejemplo:**
+
+**`archivo1.c`**
+```c
+#include <stdio.h>
+
+// Definición de la variable global
+int contador_global = 42;
+
+void imprimir_contador(); // Prototipo de la función en archivo2.c
+
+int main() {
+    imprimir_contador();
+    return 0;
+}
+```
+
+**`archivo2.c`**
+```c
+#include <stdio.h>
+
+// Declaración de la variable externa
+extern int contador_global;
+
+void imprimir_contador() {
+    printf("El contador global es: %d\n", contador_global);
+}
+```
+
+Al compilar y enlazar ambos archivos (`gcc archivo1.c archivo2.c -o programa`), el enlazador resolverá la referencia a `contador_global` en `archivo2.c` con la definición en `archivo1.c`.
+
+Si las variables globales tenian problemas, las variables globales compartidas
+entre varios archivos son aún mas problemáticas, ver {ref}`0x000Bh`.
+
+
 
 **Heap (Montón)** : Zona de memoria destinada a la asignación dinámica. Crece desde direcciones bajas hacia direcciones altas. Su gestión es responsabilidad del programador.
 
@@ -1006,6 +1048,76 @@ int main()
 
     return 0;
 }
+```
+
+(memoria-realloc)=
+### `realloc` (Re-allocation)
+
+#### Sintaxis
+
+```c
+void *realloc(void *ptr, size_t new_size);
+```
+
+#### Propósito
+
+Cambia el tamaño de un bloque de memoria previamente asignado.
+
+- `ptr`: Puntero al bloque de memoria original. Si es `NULL`, `realloc` se comporta como `malloc(new_size)`.
+- `new_size`: Nuevo tamaño en bytes.
+
+#### Comportamiento
+
+1.  **Si `new_size` es mayor que el tamaño original:**
+    -   Intenta expandir el bloque actual si hay espacio contiguo.
+    -   Si no es posible, busca un nuevo bloque de memoria lo suficientemente grande, copia el contenido del bloque antiguo al nuevo, y libera el bloque antiguo.
+    -   La memoria adicional no se inicializa.
+
+2.  **Si `new_size` es menor que el tamaño original:**
+    -   El bloque se trunca. Los datos al final se pierden.
+
+3.  **Si `new_size` es 0:**
+    -   El comportamiento es dependiente de la implementación. Puede liberar la memoria (equivalente a `free(ptr)`) o retornar `NULL`.
+
+#### Valor de Retorno
+
+- Un puntero al bloque de memoria redimensionado (que puede ser la misma dirección o una nueva).
+- `NULL` si la operación falla. En este caso, el bloque de memoria original **no se libera** y sigue siendo válido.
+
+#### Uso Seguro
+
+El error más común con `realloc` es perder la referencia al bloque original si la función falla. La {ref}`0x0025h` exige usar un puntero temporal para manejar `realloc` de forma segura.
+
+**Incorrecto:**
+
+```c
+// ¡PELIGRO! Si realloc falla, se pierde el puntero original
+ptr = realloc(ptr, nuevo_tamano);
+if (ptr == NULL) {
+    // Fuga de memoria: el bloque original se perdió
+}
+```
+
+**Correcto:**
+
+```c
+#include <stdlib.h>
+
+int *numeros = malloc(5 * sizeof(*numeros));
+// ...
+
+size_t nuevo_tamano = 10;
+int *temp = realloc(numeros, nuevo_tamano * sizeof(*temp));
+
+if (temp == NULL) {
+    // realloc falló, pero 'numeros' sigue siendo válido
+    fprintf(stderr, "Error: No se pudo redimensionar la memoria.\n");
+    free(numeros); // Liberar el bloque original
+    return 1;
+}
+
+// Éxito: ahora 'numeros' puede apuntar al nuevo bloque
+numeros = temp;
 ```
 
 (memoria-free)=
