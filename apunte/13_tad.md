@@ -14,7 +14,7 @@ Esta abstracción permite que el usuario de la estructura se concentre en resolv
 :label: fig-tad-concepto
 :align: center
 
-Separación entre interfaz y implementación en un TAD. La barrera de abstracción protege los detalles internos.
+Separación entre interfaz e implementación en un TAD. La barrera de abstracción protege los detalles internos.
 ```
 
 ### Características de un TAD
@@ -54,7 +54,7 @@ Los conceptos de TAD, encapsulamiento y abstracción que estamos estudiando en C
 En **Java/C++/Python**, escribirías:
 ```python
 class Lista:
-    def __init__(self):           # Constructor
+    def __init__(self):
         self._inicio = None       # Atributo privado
         self._tamanio = 0
     
@@ -62,7 +62,7 @@ class Lista:
         # implementación...
         pass
     
-    def __del__(self):            # Destructor
+    def __del__(self):
         # liberación...
         pass
 ```
@@ -77,7 +77,7 @@ bool insertar_al_inicio(lista_t *lista, int dato);  // Método
 void destruir_lista(lista_t *lista);  // Destructor
 
 // lista.c - Implementación privada (como el cuerpo de la clase)
-struct lista {                         // Atributos privados
+struct lista {
     nodo_t *inicio;
     size_t tamanio;
 };
@@ -108,6 +108,35 @@ Comprender TADs en C te prepara para entender POO en cualquier lenguaje porque:
 
 Cuando luego aprendas lenguajes orientados a objetos (Java, C++, Python), reconocerás que las clases son esencialmente TADs con sintaxis más conveniente y características adicionales como herencia y polimorfismo. El conocimiento de TADs te da una ventaja: entendés qué hace el lenguaje "por debajo" cuando creás objetos.
 :::
+
+## TAD vs. Estructura de Datos
+
+- **TAD**: Es un concepto lógico, una **especificación** de comportamiento (el "qué").
+- **Estructura de Datos**: Es una implementación concreta, una **organización** de datos en memoria (el "cómo").
+
+---
+
+# Ejemplos Clásicos de Tipos de Datos Abstractos
+
+- **Lista (List)**: Colección ordenada y posicionada de elementos.
+- **Pila (Stack)**: Colección LIFO (Last-In, First-Out).
+- **Cola (Queue)**: Colección FIFO (First-In, First-Out).
+- **Cola de Prioridad (Priority Queue)**: Los elementos se extraen según su prioridad.
+- **Mapa (Map / Diccionario)**: Colección de pares clave-valor únicos.
+
+---
+
+# Metodología para el Diseño de un TAD Propio
+
+Crear un TAD es un ejercicio de diseño centrado en la abstracción. Seguir un proceso metodológico asegura que el resultado sea robusto, claro y útil.
+
+1. **Conceptualización**: Identificar la entidad a modelar, sus datos y sus reglas.
+2. **Definición de la Interfaz Pública**: Listar las operaciones, definir sus firmas (parámetros, retorno) y documentar su comportamiento (precondiciones, poscondiciones).
+3. **Especificación Formal (Opcional)**: Definir axiomas que describan cómo interactúan las operaciones.
+4. **Elección de la Estructura de Datos**: Evaluar candidatos (arreglos, listas, árboles) y analizar su complejidad para cada operación de la interfaz.
+5. **Implementación**: Escribir el código, encapsulando la estructura de datos interna y exponiendo solo la interfaz pública.
+
+---
 
 ## Asignación de Memoria: Estática vs. Dinámica
 
@@ -233,8 +262,8 @@ El código que usa una secuencia no necesita saber si está implementada con arr
 | **Memoria** | Contigua, eficiente caché | Dispersa, overhead de punteros |
 | **Tamaño** | Fijo o costoso redimensionar | Dinámico, crece según necesidad |
 
-\* Si el arreglo está lleno, requiere $O(n)$ para redimensionar.  
-\*\* $O(1)$ si se mantiene puntero al final, $O(n)$ si no.
+* Si el arreglo está lleno, requiere $O(n)$ para redimensionar.  
+** $O(1)$ si se mantiene puntero al final, $O(n)$ si no.
 
 ## Listas Enlazadas: Implementación de Secuencia
 
@@ -884,8 +913,8 @@ Ahora que hemos visto ambas implementaciones del TAD Secuencia, podemos comparar
 | `buscar(dato)` | $O(n)$ | $O(n)$ |
 | `eliminar(dato)` | $O(n)$ | $O(n)$ |
 
-\* $O(1)$ en promedio, pero ocasionalmente $O(n)$ cuando se redimensiona.  
-\*\* $O(1)$ si se mantiene puntero al final, $O(n)$ si no.
+* $O(1)$ en promedio, pero ocasionalmente $O(n)$ cuando se redimensiona.  
+** $O(1)$ si se mantiene puntero al final, $O(n)$ si no.
 
 :::{important} Eligiendo la Implementación Correcta
 
@@ -960,7 +989,7 @@ La eficiencia de las operaciones es un criterio fundamental al elegir una estruc
 | Buscar elemento | $O(n)$ | $O(n)$ |
 | Acceso por índice | $O(n)$ | $O(n)$ |
 
-\* $O(1)$ si se mantiene un puntero al final.
+* $O(1)$ si se mantiene un puntero al final.
 
 :::{important}
 La notación Big-O describe el comportamiento asintótico en el peor caso. En casos promedio o con estructuras auxiliares, las complejidades pueden variar.
@@ -1074,4 +1103,4 @@ El concepto más importante de este apunte es que **un mismo TAD puede tener mú
 Para ver otros TADs como pilas y colas, que también demuestran el poder de la abstracción con diferentes implementaciones, consultá el apunte [](14_estructuras.md).
 :::
 
-Dominar estas estructuras de datos es esencial para avanzar hacia estructuras más complejas como árboles, grafos y tablas hash, que se construyen sobre estos fundamentos. La correcta gestión de memoria dinámica, tema central en este apunte, es la base para implementar cualquier estructura de datos compleja de manera segura y eficiente.
+Dominar estas estructuras de datos es esencial para avanzar hacia estructuras más complejas como árboles, grafos y tablas de hash, que se construyen sobre estos fundamentos. La correcta gestión de memoria dinámica, tema central en este apunte, es la base para implementar cualquier estructura de datos compleja de manera segura y eficiente.
