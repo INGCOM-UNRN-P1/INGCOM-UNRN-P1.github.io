@@ -1,6 +1,6 @@
 ---
 title: Guía completa de Visual Studio Code
-short_title: VSCode
+short_title: Guía VSCode
 subtitle: Instalación y primeros pasos.
 ---
 
