@@ -25,7 +25,6 @@ project:
         - file: catedra/4_finales.md
     - title: Apunte
       children:
-        - file: apunte/0_catedra.md
         - file: apunte/1_base.md
         - file: apunte/2_gradual.md
         - file: apunte/3_funciones.md
@@ -37,14 +36,10 @@ project:
         - file: apunte/9_argumentos.md
         - file: apunte/10_enums.md
         - file: apunte/11_memoria.md
+        - file: apunte/12_punteros_2.md
         - file: apunte/A_stdlib.md
+        - file: apunte/B_ordenamiento.md
         - file: apunte/0_estilo.md
-    #        - file: apunte/_ordenamiento.md
-    #        - file: apunte/_complejidad.md
-
-    #        - file: apunte/tad.md
-    #        - file: apunte/memoria.md
-    #        - file: apunte/cadenas.md
     - title: Ejercicios
       file: ejercicios/readme.md
       children:
@@ -66,12 +61,12 @@ project:
         - file: ejercicios/15_archivos_binarios.md
         - file: ejercicios/16_punteros_avanzados.md
         - file: ejercicios/17_analisis_de_codigo.md
-    #        - file:
-    #        - file:
     - title: Extras
       children:
         - file: extras/ref-unico-retorno.md
         - file: extras/ref-simular.md
+        - file: extras/testing.md
+        - file: extras/diseno_api.md
         - file: extras/guide-makefiles.md
         - file: extras/guide-printf.md
         - file: extras/notes-cadenas.md
@@ -83,17 +78,16 @@ project:
         - file: extras/bitmaps.md
     - title: Ayuda
       children:
-        - file: guias/compilacion.md
-        - file: guias/compilador.md
+        - file: guias/gcc.md
         - file: guias/vscode.md
         - file: guias/git.md
         - file: guias/git_avanzado.md
         - file: guias/bash.md
+        - file: guias/markdown.md
     - title: Bibliografia
       children:
         - file: bibliografia/suplementaria.md
-    - file: programa.md
-    - file: finales.md
 
 bibliography:
   - bibliografia.bib
+
