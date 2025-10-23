@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 450" width="700" height="450">
+  <defs>
+    <style>
+      .title { font: bold 18px sans-serif; fill: #2c3e50; }
+      .label { font: 14px sans-serif; fill: #34495e; }
+      .code { font: 12px monospace; fill: #2c3e50; }
+      .cell { fill: #ecf0f1; stroke: #95a5a6; stroke-width: 2; }
+      .ptr-array { fill: #3498db; stroke: #2980b9; stroke-width: 2; }
+      .row-array { fill: #e8f5e9; stroke: #66bb6a; stroke-width: 2; }
+      .pointer { stroke: #e74c3c; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .heap-label { font: italic 12px sans-serif; fill: #7f8c8d; }
+      .index { font: 11px monospace; fill: #7f8c8d; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#e74c3c"/>
+    </marker>
+  </defs>
+  
+  <!-- Título -->
+  <text x="350" y="25" class="title" text-anchor="middle">Matriz Dentada (Array de Punteros)</text>
+  <text x="350" y="45" class="heap-label" text-anchor="middle">int **matriz (3 filas × 4 columnas)</text>
+  
+  <!-- Variable matriz -->
+  <rect x="50" y="80" width="100" height="35" fill="#fff" stroke="#2c3e50" stroke-width="2"/>
+  <text x="100" y="103" class="code" text-anchor="middle">matriz</text>
+  <path d="M 150 97 L 195 120" class="pointer"/>
+  
+  <!-- Array de punteros (columna vertical) -->
+  <g id="ptr-array">
+    <text x="320" y="75" class="label" text-anchor="middle">Array de punteros</text>
+    <text x="320" y="92" class="heap-label" text-anchor="middle">(en el heap)</text>
+    
+    <!-- Fila 0 -->
+    <rect x="200" y="110" width="80" height="35" class="ptr-array"/>
+    <text x="240" y="132" class="code" text-anchor="middle" fill="white">matriz[0]</text>
+    <text x="175" y="132" class="index" text-anchor="end">0:</text>
+    <path d="M 280 127 L 345 127" class="pointer"/>
+    
+    <!-- Fila 1 -->
+    <rect x="200" y="155" width="80" height="35" class="ptr-array"/>
+    <text x="240" y="177" class="code" text-anchor="middle" fill="white">matriz[1]</text>
+    <text x="175" y="177" class="index" text-anchor="end">1:</text>
+    <path d="M 280 172 L 345 172" class="pointer"/>
+    
+    <!-- Fila 2 -->
+    <rect x="200" y="200" width="80" height="35" class="ptr-array"/>
+    <text x="240" y="222" class="code" text-anchor="middle" fill="white">matriz[2]</text>
+    <text x="175" y="222" class="index" text-anchor="end">2:</text>
+    <path d="M 280 217 L 345 217" class="pointer"/>
+  </g>
+  
+  <!-- Arrays de filas (dispersos en el heap) -->
+  <g id="rows">
+    <text x="520" y="75" class="label" text-anchor="middle">Filas (arrays de int)</text>
+    <text x="520" y="92" class="heap-label" text-anchor="middle">(dispersas en el heap)</text>
+    
+    <!-- Fila 0 -->
+    <g id="row0">
+      <rect x="350" y="110" width="50" height="35" class="row-array"/>
+      <text x="375" y="132" class="code" text-anchor="middle">0</text>
+      <rect x="405" y="110" width="50" height="35" class="row-array"/>
+      <text x="430" y="132" class="code" text-anchor="middle">1</text>
+      <rect x="460" y="110" width="50" height="35" class="row-array"/>
+      <text x="485" y="132" class="code" text-anchor="middle">2</text>
+      <rect x="515" y="110" width="50" height="35" class="row-array"/>
+      <text x="540" y="132" class="code" text-anchor="middle">3</text>
+      <text x="580" y="132" class="index">[0][j]</text>
+    </g>
+    
+    <!-- Fila 1 -->
+    <g id="row1">
+      <rect x="350" y="155" width="50" height="35" class="row-array"/>
+      <text x="375" y="177" class="code" text-anchor="middle">4</text>
+      <rect x="405" y="155" width="50" height="35" class="row-array"/>
+      <text x="430" y="177" class="code" text-anchor="middle">5</text>
+      <rect x="460" y="155" width="50" height="35" class="row-array"/>
+      <text x="485" y="177" class="code" text-anchor="middle">6</text>
+      <rect x="515" y="155" width="50" height="35" class="row-array"/>
+      <text x="540" y="177" class="code" text-anchor="middle">7</text>
+      <text x="580" y="177" class="index">[1][j]</text>
+    </g>
+    
+    <!-- Fila 2 -->
+    <g id="row2">
+      <rect x="350" y="200" width="50" height="35" class="row-array"/>
+      <text x="375" y="222" class="code" text-anchor="middle">8</text>
+      <rect x="405" y="200" width="50" height="35" class="row-array"/>
+      <text x="430" y="222" class="code" text-anchor="middle">9</text>
+      <rect x="460" y="200" width="50" height="35" class="row-array"/>
+      <text x="485" y="222" class="code" text-anchor="middle">10</text>
+      <rect x="515" y="200" width="50" height="35" class="row-array"/>
+      <text x="540" y="222" class="code" text-anchor="middle">11</text>
+      <text x="580" y="222" class="index">[2][j]</text>
+    </g>
+  </g>
+  
+  <!-- Ejemplo de acceso -->
+  <g transform="translate(50, 270)">
+    <rect x="0" y="0" width="600" height="80" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1" rx="5"/>
+    <text x="10" y="25" class="label" fill="#495057">Acceso: matriz[1][2]</text>
+    
+    <text x="20" y="50" class="code" fill="#6c757d">1. matriz[1] → puntero a la fila 1</text>
+    <text x="20" y="68" class="code" fill="#6c757d">2. (matriz[1])[2] → elemento en columna 2 = 6</text>
+  </g>
+  
+  <!-- Ventajas/Desventajas -->
+  <g transform="translate(50, 370)">
+    <rect x="0" y="0" width="280" height="60" fill="#d4edda" stroke="#c3e6cb" stroke-width="1" rx="5"/>
+    <text x="10" y="20" class="label" fill="#155724">✓ Ventajas:</text>
+    <text x="20" y="38" class="code" fill="#155724" font-size="11">• Sintaxis natural matriz[i][j]</text>
+    <text x="20" y="52" class="code" fill="#155724" font-size="11">• Filas pueden tener tamaños diferentes</text>
+    
+    <rect x="300" y="0" width="300" height="60" fill="#f8d7da" stroke="#f5c6cb" stroke-width="1" rx="5"/>
+    <text x="310" y="20" class="label" fill="#721c24">✗ Desventajas:</text>
+    <text x="320" y="38" class="code" fill="#721c24" font-size="11">• N+1 llamadas a malloc (fragmentación)</text>
+    <text x="320" y="52" class="code" fill="#721c24" font-size="11">• Filas no contiguas (cache unfriendly)</text>
+  </g>
+</svg>

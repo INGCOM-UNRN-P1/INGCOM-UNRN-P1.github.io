@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 800 637"
+   width="800"
+   height="637"
+   version="1.1"
+   id="svg43"
+   sodipodi:docname="realloc_movimiento.svg"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview43"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.72831998"
+     inkscape:cx="399.54966"
+     inkscape:cy="365.9106"
+     inkscape:window-width="1872"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg43" />
+  <defs
+     id="defs2">
+    <style
+       id="style1">
+      .title { font: bold 18px sans-serif; fill: #2c3e50; }
+      .label { font: 14px sans-serif; fill: #34495e; }
+      .code { font: 12px monospace; fill: #2c3e50; }
+      .block { fill: #3498db; stroke: #2980b9; stroke-width: 2; }
+      .block-new { fill: #27ae60; stroke: #229954; stroke-width: 2; }
+      .block-free { fill: #ecf0f1; stroke: #95a5a6; stroke-width: 2; }
+      .block-occupied { fill: #e74c3c; stroke: #c0392b; stroke-width: 2; }
+      .pointer { stroke: #34495e; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .pointer-new { stroke: #27ae60; stroke-width: 2; fill: none; marker-end: url(#arrowhead-green); }
+      .heap-label { font: italic 12px sans-serif; fill: #7f8c8d; }
+      .step { font: bold 16px sans-serif; fill: #2980b9; }
+      .warning { font: 12px sans-serif; fill: #e67e22; }
+    </style>
+    <marker
+       id="arrowhead"
+       markerWidth="10"
+       markerHeight="10"
+       refX="9"
+       refY="3"
+       orient="auto">
+      <polygon
+         points="0,0 10,3 0,6 "
+         fill="#34495e"
+         id="polygon1" />
+    </marker>
+    <marker
+       id="arrowhead-green"
+       markerWidth="10"
+       markerHeight="10"
+       refX="9"
+       refY="3"
+       orient="auto">
+      <polygon
+         points="0,0 10,3 0,6 "
+         fill="#27ae60"
+         id="polygon2" />
+    </marker>
+  </defs>
+  <!-- Título principal -->
+  <text
+     x="400"
+     y="25"
+     class="title"
+     text-anchor="middle"
+     id="text2"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18px;line-height:normal;font-family:sans-serif">Proceso de realloc con Movimiento de Bloque</text>
+  <!-- PASO 1: Estado inicial -->
+  <g
+     id="step1">
+    <text
+       x="50"
+       y="65"
+       class="step"
+       id="text3"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;line-height:normal;font-family:sans-serif">1. Estado Inicial</text>
+    <text
+       x="50"
+       y="85"
+       class="code"
+       id="text4"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:monospace">int *arr = malloc(3 * sizeof(int));</text>
+    <!-- Variable puntero -->
+    <rect
+       x="50"
+       y="105"
+       width="80"
+       height="35"
+       fill="#ffffff"
+       stroke="#2c3e50"
+       stroke-width="2"
+       id="rect4" />
+    <text
+       x="90"
+       y="127"
+       class="code"
+       text-anchor="middle"
+       id="text5"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:monospace">arr</text>
+    <text
+       x="90"
+       y="158"
+       class="heap-label"
+       text-anchor="middle"
+       id="text6"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:sans-serif">0x1000</text>
+    <!-- Heap -->
+    <text
+       x="450"
+       y="95"
+       class="heap-label"
+       text-anchor="middle"
+       id="text7"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:sans-serif">HEAP (memoria dinámica)</text>
+    <rect
+       x="200"
+       y="105"
+       width="150"
+       height="35"
+       class="block"
+       id="rect7" />
+    <text
+       x="275"
+       y="127"
+       class="code"
+       text-anchor="middle"
+       fill="white"
+       id="text8"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:monospace">[10][20][30]</text>
+    <text
+       x="275"
+       y="158"
+       class="heap-label"
+       text-anchor="middle"
+       id="text9"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:sans-serif">@ 0x1000 (3 ints)</text>
+    <!-- Bloque ocupado después -->
+    <rect
+       x="370"
+       y="105"
+       width="150"
+       height="35"
+       class="block-occupied"
+       id="rect9" />
+    <text
+       x="445"
+       y="127"
+       class="code"
+       text-anchor="middle"
+       fill="white"
+       id="text10"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:monospace">Ocupado</text>
+    <text
+       x="445"
+       y="158"
+       class="heap-label"
+       text-anchor="middle"
+       id="text11"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:sans-serif">@ 0x100C</text>
+    <!-- Espacio libre más adelante -->
+    <rect
+       x="540"
+       y="105"
+       width="200"
+       height="35"
+       class="block-free"
+       id="rect11" />
+    <text
+       x="640"
+       y="127"
+       class="code"
+       text-anchor="middle"
+       id="text12"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:monospace">Libre</text>
+    <text
+       x="640"
+       y="158"
+       class="heap-label"
+       text-anchor="middle"
+       id="text13"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:sans-serif">@ 0x1018</text>
+    <path
+       d="m 130,122 h 65"
+       class="pointer"
+       id="path13" />
+  </g>
+  <!-- PASO 2: Solicitud de realloc -->
+  <g
+     id="step2"
+     transform="translate(0,186)">
+    <text
+       x="50"
+       y="0"
+       class="step"
+       id="text14"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;line-height:normal;font-family:sans-serif">2. Solicitud de Expansión</text>
+    <text
+       x="50"
+       y="20"
+       class="code"
+       id="text15"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:monospace">arr = realloc(arr, 6 * sizeof(int));</text>
+    <!-- Variable puntero (todavía apunta al original) -->
+    <rect
+       x="50"
+       y="40"
+       width="80"
+       height="35"
+       fill="#ffffff"
+       stroke="#2c3e50"
+       stroke-width="2"
+       id="rect15" />
+    <text
+       x="90"
+       y="62"
+       class="code"
+       text-anchor="middle"
+       id="text16"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:monospace">arr</text>
+    <text
+       x="90"
+       y="93"
+       class="heap-label"
+       text-anchor="middle"
+       id="text17"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:sans-serif">0x1000</text>
+    <!-- Heap: Bloque original (no se puede expandir) -->
+    <rect
+       x="200"
+       y="40"
+       width="150"
+       height="35"
+       class="block"
+       id="rect17" />
+    <text
+       x="275"
+       y="62"
+       class="code"
+       text-anchor="middle"
+       fill="white"
+       id="text18"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:monospace">[10][20][30]</text>
+    <text
+       x="275"
+       y="93"
+       class="heap-label"
+       text-anchor="middle"
+       id="text19"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:sans-serif">@ 0x1000</text>
+    <!-- Problema: bloque ocupado impide expansión -->
+    <rect
+       x="370"
+       y="40"
+       width="150"
+       height="35"
+       class="block-occupied"
+       id="rect19" />
+    <text
+       x="445"
+       y="62"
+       class="code"
+       text-anchor="middle"
+       fill="white"
+       id="text20"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:monospace">OCUPADO</text>
+    <text
+       x="445"
+       y="93"
+       class="heap-label"
+       text-anchor="middle"
+       id="text21"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:sans-serif">No se puede expandir aquí</text>
+    <!-- Espacio libre donde se moverá -->
+    <rect
+       x="540"
+       y="40"
+       width="200"
+       height="35"
+       class="block-free"
+       id="rect21" />
+    <text
+       x="640"
+       y="62"
+       class="code"
+       text-anchor="middle"
+       id="text22"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:monospace">Libre (suficiente)</text>
+    <path
+       d="m 130,57 h 65"
+       class="pointer"
+       stroke-dasharray="5, 5"
+       id="path22" />
+    <!-- Advertencia -->
+    <text
+       x="200"
+       y="115"
+       class="warning"
+       id="text23"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:sans-serif">⚠ No hay espacio contiguo para expandir en 0x1000</text>
+  </g>
+  <!-- PASO 3: Asignar nuevo bloque -->
+  <g
+     id="step3"
+     transform="translate(0,331)">
+    <text
+       x="50"
+       y="0"
+       class="step"
+       id="text24"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;line-height:normal;font-family:sans-serif">3. Asignación de Nuevo Bloque</text>
+    <text
+       x="50"
+       y="20"
+       class="heap-label"
+       id="text25"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:sans-serif">realloc encuentra espacio en otra ubicación</text>
+    <!-- Variable puntero (aún apunta al original temporalmente) -->
+    <rect
+       x="50"
+       y="40"
+       width="80"
+       height="35"
+       fill="#ffffff"
+       stroke="#2c3e50"
+       stroke-width="2"
+       id="rect25" />
+    <text
+       x="90"
+       y="62"
+       class="code"
+       text-anchor="middle"
+       id="text26"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:monospace">arr</text>
+    <text
+       x="90"
+       y="93"
+       class="heap-label"
+       text-anchor="middle"
+       id="text27"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:sans-serif">0x1000</text>
+    <!-- Bloque original (será copiado y liberado) -->
+    <rect
+       x="200"
+       y="40"
+       width="150"
+       height="35"
+       class="block"
+       opacity="0.5"
+       id="rect27" />
+    <text
+       x="275"
+       y="62"
+       class="code"
+       text-anchor="middle"
+       fill="white"
+       id="text28"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:monospace">[10][20][30]</text>
+    <text
+       x="275"
+       y="93"
+       class="heap-label"
+       text-anchor="middle"
+       id="text29"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:sans-serif">@ 0x1000 (será liberado)</text>
+    <rect
+       x="370"
+       y="40"
+       width="150"
+       height="35"
+       class="block-occupied"
+       id="rect29" />
+    <text
+       x="445"
+       y="62"
+       class="code"
+       text-anchor="middle"
+       fill="white"
+       id="text30"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:monospace">Ocupado</text>
+    <!-- Nuevo bloque más grande -->
+    <rect
+       x="540"
+       y="40"
+       width="200"
+       height="35"
+       class="block-new"
+       id="rect30" />
+    <text
+       x="640"
+       y="62"
+       class="code"
+       text-anchor="middle"
+       fill="white"
+       id="text31"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:monospace">[10][20][30][ ][ ][ ]</text>
+    <text
+       x="640"
+       y="93"
+       class="heap-label"
+       text-anchor="middle"
+       id="text32"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:sans-serif">@ 0x1018 (6 ints) - NUEVO</text>
+    <path
+       d="m 130,57 h 65"
+       class="pointer"
+       stroke-dasharray="5, 5"
+       opacity="0.5"
+       id="path32" />
+    <!-- Indicar copia de datos -->
+    <path
+       d="m 280,75 q 120,25 355,0"
+       stroke="#27ae60"
+       stroke-width="2"
+       fill="none"
+       stroke-dasharray="5, 5"
+       marker-end="url(#arrowhead-green)"
+       id="path33" />
+    <text
+       x="420"
+       y="110"
+       class="heap-label"
+       fill="#27ae60"
+       id="text33"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:sans-serif">Copia de datos</text>
+  </g>
+  <!-- PASO 4: Actualización del puntero -->
+  <g
+     id="step4"
+     transform="translate(0,471)">
+    <text
+       x="50"
+       y="0"
+       class="step"
+       id="text34"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;line-height:normal;font-family:sans-serif">4. Actualización y Liberación</text>
+    <text
+       x="50"
+       y="20"
+       class="heap-label"
+       id="text35"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:sans-serif">realloc actualiza el puntero y libera el bloque original</text>
+    <!-- Variable puntero (ahora apunta al nuevo bloque) -->
+    <rect
+       x="50"
+       y="40"
+       width="80"
+       height="35"
+       fill="#ffffff"
+       stroke="#2c3e50"
+       stroke-width="2"
+       id="rect35" />
+    <text
+       x="90"
+       y="62"
+       class="code"
+       text-anchor="middle"
+       id="text36"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:monospace">arr</text>
+    <text
+       x="90"
+       y="93"
+       class="heap-label"
+       text-anchor="middle"
+       fill="#27ae60"
+       id="text37"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:sans-serif">0x1018 ✓</text>
+    <!-- Bloque original liberado -->
+    <rect
+       x="200"
+       y="40"
+       width="150"
+       height="35"
+       class="block-free"
+       id="rect37" />
+    <text
+       x="275"
+       y="62"
+       class="code"
+       text-anchor="middle"
+       id="text38"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:monospace">Liberado</text>
+    <text
+       x="275"
+       y="93"
+       class="heap-label"
+       text-anchor="middle"
+       id="text39"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:sans-serif">@ 0x1000</text>
+    <rect
+       x="370"
+       y="40"
+       width="150"
+       height="35"
+       class="block-occupied"
+       id="rect39" />
+    <text
+       x="445"
+       y="62"
+       class="code"
+       text-anchor="middle"
+       fill="white"
+       id="text40"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:monospace">Ocupado</text>
+    <!-- Nuevo bloque (ahora el principal) -->
+    <rect
+       x="540"
+       y="40"
+       width="200"
+       height="35"
+       class="block-new"
+       id="rect40" />
+    <text
+       x="640"
+       y="62"
+       class="code"
+       text-anchor="middle"
+       fill="white"
+       id="text41"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:monospace">[10][20][30][ ][ ][ ]</text>
+    <text
+       x="640"
+       y="93"
+       class="heap-label"
+       text-anchor="middle"
+       id="text42"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:sans-serif">@ 0x1018 (6 ints)</text>
+    <path
+       d="M 130,57 H 535"
+       class="pointer-new"
+       id="path42" />
+  </g>
+  <!-- Nota importante -->
+  <g
+     transform="translate(50,584)"
+     id="g43">
+    <rect
+       x="0"
+       y="0"
+       width="700"
+       height="25"
+       fill="#fff3cd"
+       stroke="#ffc107"
+       stroke-width="2"
+       rx="3"
+       id="rect42" />
+    <text
+       x="10"
+       y="17"
+       class="warning"
+       id="text43"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:normal;font-family:sans-serif">⚠ Importante: Todos los punteros al bloque original quedan inválidos. Solo usar el valor retornado por realloc.</text>
+  </g>
+</svg>

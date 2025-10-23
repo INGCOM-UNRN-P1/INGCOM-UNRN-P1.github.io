@@ -1,122 +1,76 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="500" height="350" viewBox="0 0 500 350" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <style>
-      .title { font: bold 20px sans-serif; fill: #2c3e50; }
-      .subtitle { font: bold 16px sans-serif; fill: #34495e; }
-      .text { font: 14px sans-serif; fill: #2c3e50; }
-      .small { font: 12px monospace; fill: #555; }
-      .element { fill: #3498db; stroke: #2980b9; stroke-width: 2; }
-      .first-element { fill: #e74c3c; stroke: #c0392b; stroke-width: 2; }
-      .last-element { fill: #27ae60; stroke: #229954; stroke-width: 2; }
-      .container { fill: none; stroke: #34495e; stroke-width: 3; }
-      .arrow-in { stroke: #27ae60; stroke-width: 3; fill: none; marker-end: url(#arrowhead-in); }
-      .arrow-out { stroke: #e74c3c; stroke-width: 3; fill: none; marker-end: url(#arrowhead-out); }
-      .label-in { font: 14px sans-serif; fill: #27ae60; font-weight: bold; }
-      .label-out { font: 14px sans-serif; fill: #e74c3c; font-weight: bold; }
-      .operation { font: 13px monospace; fill: #2c3e50; }
+      .queue-box { fill: #e8f5e9; stroke: #2e7d32; stroke-width: 2; }
+      .queue-element { fill: #fff; stroke: #333; stroke-width: 2; }
+      .front-element { fill: #ffeb3b; stroke: #f57f17; stroke-width: 2; }
+      .rear-element { fill: #ff9800; stroke: #e65100; stroke-width: 2; }
+      .arrow { fill: none; stroke: #d32f2f; stroke-width: 2; marker-end: url(#arrowhead); }
+      .label { font-family: Arial, sans-serif; font-size: 14px; fill: #333; }
+      .title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #2e7d32; }
+      .operation { font-family: Arial, sans-serif; font-size: 12px; fill: #d32f2f; }
     </style>
-    <marker id="arrowhead-in" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#27ae60" />
-    </marker>
-    <marker id="arrowhead-out" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#e74c3c" />
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#d32f2f"/>
     </marker>
   </defs>
   
-  <!-- Título -->
-  <text x="450" y="30" text-anchor="middle" class="title">Cola (Queue) - Estructura FIFO</text>
-  <text x="450" y="50" text-anchor="middle" class="small">(First In, First Out - Primero en Entrar, Primero en Salir)</text>
+  <!-- Title -->
+  <text x="250" y="30" text-anchor="middle" class="title">Cola (Queue) - Principio FIFO</text>
   
-  <!-- Cola Principal (Estado Actual) -->
-  <g id="cola-principal">
-    <text x="450" y="90" text-anchor="middle" class="subtitle">Estado Actual</text>
-    
-    <!-- Contenedor horizontal -->
-    <rect x="100" y="110" width="700" height="100" class="container" rx="5"/>
-    
-    <!-- Indicadores -->
-    <text x="50" y="140" class="label-out">← frente</text>
-    <text x="820" y="140" class="label-in">final →</text>
-    <text x="50" y="165" class="label-out">(salida)</text>
-    <text x="820" y="165" class="label-in">(entrada)</text>
-    
-    <!-- Primer elemento (frente) -->
-    <rect x="120" y="130" width="90" height="60" class="first-element" rx="3"/>
-    <text x="165" y="165" text-anchor="middle" class="text" fill="white" font-weight="bold">10</text>
-    
-    <!-- Elementos intermedios -->
-    <rect x="230" y="130" width="90" height="60" class="element" rx="3"/>
-    <text x="275" y="165" text-anchor="middle" class="text" fill="white" font-weight="bold">25</text>
-    
-    <rect x="340" y="130" width="90" height="60" class="element" rx="3"/>
-    <text x="385" y="165" text-anchor="middle" class="text" fill="white" font-weight="bold">42</text>
-    
-    <rect x="450" y="130" width="90" height="60" class="element" rx="3"/>
-    <text x="495" y="165" text-anchor="middle" class="text" fill="white" font-weight="bold">17</text>
-    
-    <!-- Último elemento (final) -->
-    <rect x="560" y="130" width="90" height="60" class="last-element" rx="3"/>
-    <text x="605" y="165" text-anchor="middle" class="text" fill="white" font-weight="bold">99</text>
-    
-    <!-- Espacio vacío -->
-    <text x="720" y="165" text-anchor="middle" class="small" fill="#95a5a6">(vacío)</text>
-  </g>
+  <!-- Queue container -->
+  <rect x="80" y="80" width="340" height="60" class="queue-box" fill="none"/>
   
-  <!-- Operación ENCOLAR (enqueue) -->
-  <g id="enqueue-operation">
-    <text x="200" y="270" text-anchor="middle" class="subtitle">encolar(33)</text>
-    
-    <!-- Contenedor -->
-    <rect x="50" y="290" width="300" height="80" class="container" rx="5"/>
-    
-    <!-- Elementos existentes (simplificados) -->
-    <rect x="60" y="305" width="50" height="50" class="element" rx="3"/>
-    <text x="85" y="335" text-anchor="middle" class="small" fill="white">...</text>
-    
-    <rect x="120" y="305" width="50" height="50" class="element" rx="3"/>
-    <text x="145" y="335" text-anchor="middle" class="text" fill="white" font-weight="bold">17</text>
-    
-    <rect x="180" y="305" width="50" height="50" class="element" rx="3"/>
-    <text x="205" y="335" text-anchor="middle" class="text" fill="white" font-weight="bold">99</text>
-    
-    <!-- Nuevo elemento -->
-    <rect x="240" y="305" width="50" height="50" class="last-element" rx="3"/>
-    <text x="265" y="335" text-anchor="middle" class="text" fill="white" font-weight="bold">33</text>
-    
-    <!-- Flecha de entrada -->
-    <path d="M 340 330 L 300 330" class="arrow-in"/>
-    <text x="345" y="325" class="label-in">entrada</text>
-    <text x="360" y="342" class="label-in">↓</text>
-  </g>
+  <!-- Front label -->
+  <text x="95" y="70" text-anchor="start" class="label" font-weight="bold">FRENTE</text>
+  <text x="95" y="165" text-anchor="start" class="label" font-size="12">(dequeue)</text>
   
-  <!-- Operación DESENCOLAR (dequeue) -->
-  <g id="dequeue-operation">
-    <text x="600" y="270" text-anchor="middle" class="subtitle">desencolar() → 10</text>
-    
-    <!-- Contenedor -->
-    <rect x="450" y="290" width="300" height="80" class="container" rx="5"/>
-    
-    <!-- Elemento extraído (transparente) -->
-    <rect x="460" y="305" width="50" height="50" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" stroke-dasharray="5,5" rx="3"/>
-    <text x="485" y="335" text-anchor="middle" class="small" fill="#95a5a6">10</text>
-    
-    <!-- Nuevos elementos (después de desencolar) -->
-    <rect x="520" y="305" width="50" height="50" class="first-element" rx="3"/>
-    <text x="545" y="335" text-anchor="middle" class="text" fill="white" font-weight="bold">25</text>
-    
-    <rect x="580" y="305" width="50" height="50" class="element" rx="3"/>
-    <text x="605" y="335" text-anchor="middle" class="text" fill="white" font-weight="bold">42</text>
-    
-    <rect x="640" y="305" width="50" height="50" class="element" rx="3"/>
-    <text x="665" y="335" text-anchor="middle" class="small" fill="white">...</text>
-    
-    <!-- Flecha de salida -->
-    <path d="M 440 330 L 400 330" class="arrow-out"/>
-    <text x="360" y="325" class="label-out">← salida</text>
-    <text x="370" y="342" class="label-out">retornado</text>
-  </g>
+  <!-- Rear label -->
+  <text x="375" y="70" text-anchor="end" class="label" font-weight="bold">FINAL</text>
+  <text x="405" y="165" text-anchor="end" class="label" font-size="12">(enqueue)</text>
   
-  <!-- Operaciones principales -->
-  <text x="100" y="410" class="operation">encolar(elemento): Agrega un elemento al final de la cola</text>
-  <text x="100" y="430" class="operation">desencolar(): Extrae y retorna el elemento del frente de la cola</text>
+  <!-- Queue elements -->
+  <!-- Front element (highlighted) -->
+  <rect x="85" y="90" width="60" height="40" class="front-element"/>
+  <text x="115" y="115" text-anchor="middle" class="label">15</text>
+  
+  <rect x="155" y="90" width="60" height="40" class="queue-element"/>
+  <text x="185" y="115" text-anchor="middle" class="label">27</text>
+  
+  <rect x="225" y="90" width="60" height="40" class="queue-element"/>
+  <text x="255" y="115" text-anchor="middle" class="label">41</text>
+  
+  <!-- Rear element (highlighted) -->
+  <rect x="295" y="90" width="60" height="40" class="rear-element"/>
+  <text x="325" y="115" text-anchor="middle" class="label">56</text>
+  
+  <!-- Empty slots -->
+  <rect x="365" y="90" width="50" height="40" fill="#f5f5f5" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+  
+  <!-- Dequeue operation -->
+  <path d="M 55,110 L 75,110" class="arrow"/>
+  <text x="25" y="95" text-anchor="middle" class="operation">dequeue()</text>
+  <rect x="15" y="105" width="30" height="20" fill="#c8e6c9" stroke="#388e3c" stroke-width="1"/>
+  <text x="30" y="120" text-anchor="middle" class="label" font-size="12">15</text>
+  
+  <!-- Enqueue operation -->
+  <path d="M 445,110 L 425,110" class="arrow"/>
+  <text x="470" y="95" text-anchor="middle" class="operation">enqueue(73)</text>
+  <rect x="455" y="105" width="30" height="20" fill="#ffccbc" stroke="#d84315" stroke-width="1"/>
+  <text x="470" y="120" text-anchor="middle" class="label" font-size="12">73</text>
+  
+  <!-- Flow arrow -->
+  <path d="M 115,150 Q 250,190 325,150" fill="none" stroke="#666" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead2)"/>
+  <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+    <polygon points="0 0, 10 3, 0 6" fill="#666"/>
+  </marker>
+  <text x="250" y="200" text-anchor="middle" class="label" font-size="12" fill="#666">Flujo de datos →</text>
+  
+  <!-- Legend -->
+  <text x="250" y="250" text-anchor="middle" class="title" font-size="14">Operaciones Principales</text>
+  
+  <text x="100" y="280" text-anchor="start" class="label">• enqueue(): agregar al final</text>
+  <text x="100" y="305" text-anchor="start" class="label">• dequeue(): extraer del frente</text>
+  <text x="100" y="330" text-anchor="start" class="label">• front/peek(): ver frente sin extraer</text>
 </svg>

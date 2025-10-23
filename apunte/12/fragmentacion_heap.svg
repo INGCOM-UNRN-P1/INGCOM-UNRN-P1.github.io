@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <defs>
+    <style>
+      .title { font: bold 16px sans-serif; fill: #2c3e50; }
+      .label { font: 14px sans-serif; fill: #34495e; }
+      .sublabel { font: 12px sans-serif; fill: #7f8c8d; }
+      .block-free { fill: #d4edda; stroke: #28a745; stroke-width: 2; }
+      .block-occupied { fill: #f8d7da; stroke: #dc3545; stroke-width: 2; }
+      .block-problem { fill: #fff3cd; stroke: #ffc107; stroke-width: 2; }
+      .arrow { stroke: #6c757d; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#6c757d"/>
+    </marker>
+  </defs>
+  
+  <!-- Título -->
+  <text x="400" y="25" class="title" text-anchor="middle">Fragmentación del Heap</text>
+  
+  <!-- Estado Inicial -->
+  <g id="inicial">
+    <text x="150" y="65" class="label" text-anchor="middle">Estado Inicial</text>
+    
+    <rect x="50" y="80" width="100" height="60" class="block-occupied"/>
+    <text x="100" y="105" class="label" text-anchor="middle">Bloque A</text>
+    <text x="100" y="125" class="sublabel" text-anchor="middle">100 KB</text>
+    
+    <rect x="50" y="150" width="100" height="60" class="block-occupied"/>
+    <text x="100" y="175" class="label" text-anchor="middle">Bloque B</text>
+    <text x="100" y="195" class="sublabel" text-anchor="middle">50 KB</text>
+    
+    <rect x="50" y="220" width="100" height="60" class="block-occupied"/>
+    <text x="100" y="245" class="label" text-anchor="middle">Bloque C</text>
+    <text x="100" y="265" class="sublabel" text-anchor="middle">100 KB</text>
+  </g>
+  
+  <!-- Flechas de transición -->
+  <path d="M 160 110 L 230 110" class="arrow"/>
+  <path d="M 160 180 L 230 180" class="arrow"/>
+  <path d="M 160 250 L 230 250" class="arrow"/>
+  
+  <!-- Después de free -->
+  <g id="despues-free" transform="translate(180, 0)">
+    <text x="150" y="65" class="label" text-anchor="middle">Después de free(A), free(B)</text>
+    
+    <rect x="50" y="80" width="100" height="60" class="block-free"/>
+    <text x="100" y="105" class="label" text-anchor="middle">Libre</text>
+    <text x="100" y="125" class="sublabel" text-anchor="middle">100 KB</text>
+    
+    <rect x="50" y="150" width="100" height="60" class="block-free"/>
+    <text x="100" y="175" class="label" text-anchor="middle">Libre</text>
+    <text x="100" y="195" class="sublabel" text-anchor="middle">50 KB</text>
+    
+    <rect x="50" y="220" width="100" height="60" class="block-occupied"/>
+    <text x="100" y="245" class="label" text-anchor="middle">Bloque C</text>
+    <text x="100" y="265" class="sublabel" text-anchor="middle">100 KB</text>
+  </g>
+  
+  <!-- Flechas al problema -->
+  <path d="M 340 110 L 410 170" class="arrow"/>
+  <path d="M 340 180 L 410 170" class="arrow"/>
+  
+  <!-- Problema -->
+  <g id="problema" transform="translate(360, 0)">
+    <text x="150" y="65" class="label" text-anchor="middle">Problema</text>
+    
+    <rect x="50" y="140" width="200" height="80" class="block-problem"/>
+    <text x="150" y="165" class="label" text-anchor="middle" fill="#856404">¿Asignar 120 KB?</text>
+    <text x="150" y="190" class="label" text-anchor="middle" fill="#dc3545">❌ No hay bloque</text>
+    <text x="150" y="210" class="label" text-anchor="middle" fill="#dc3545">contiguo</text>
+  </g>
+  
+  <!-- Explicación -->
+  <g transform="translate(50, 310)">
+    <rect x="0" y="0" width="700" height="70" fill="#e7f3ff" stroke="#004085" stroke-width="2" rx="5"/>
+    <text x="10" y="25" class="label" fill="#004085">Explicación del Problema:</text>
+    <text x="20" y="45" class="sublabel" fill="#004085">• Total de memoria libre: 100 KB + 50 KB = 150 KB</text>
+    <text x="20" y="62" class="sublabel" fill="#004085">• No se puede asignar un bloque contiguo de 120 KB porque los bloques libres están separados por el Bloque C</text>
+  </g>
+</svg>

@@ -1072,7 +1072,7 @@ if (mem != NULL) {
 ```
 
 (0x0026h)=
-### Regla `0x0025h`: Usá siempre `sizeof` en las asignaciones de memoria dinámica
+### Regla `0x0026h`: Usá siempre `sizeof` en las asignaciones de memoria dinámica
 
 El uso de `sizeof` en lugar de tamaños codificados manualmente (`hardcoded`) reduce errores y facilita el mantenimiento. Es preferible usar `sizeof(*puntero)` en lugar de `sizeof(tipo)`.
 

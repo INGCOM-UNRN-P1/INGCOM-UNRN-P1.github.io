@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="700" height="450" viewBox="0 0 700 450" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .node { fill: #fff; stroke: #333; stroke-width: 2; }
+      .node-data { fill: #e1bee7; }
+      .node-ptr { fill: #ffccbc; }
+      .null-ptr { fill: #e0e0e0; }
+      .arrow-front { fill: none; stroke: #6a1b9a; stroke-width: 2; marker-end: url(#arrowhead-front); }
+      .arrow-back { fill: none; stroke: #8e24aa; stroke-width: 2; marker-end: url(#arrowhead-back); }
+      .arrow { fill: none; stroke: #333; stroke-width: 2; marker-end: url(#arrowhead-normal); }
+      .label { font-family: Arial, sans-serif; font-size: 12px; fill: #333; }
+      .title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #6a1b9a; }
+      .code { font-family: monospace; font-size: 11px; fill: #666; }
+      .operation { font-family: Arial, sans-serif; font-size: 10px; font-weight: bold; }
+    </style>
+    <marker id="arrowhead-front" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#6a1b9a"/>
+    </marker>
+    <marker id="arrowhead-back" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#8e24aa"/>
+    </marker>
+    <marker id="arrowhead-normal" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="350" y="25" text-anchor="middle" class="title">Deque (Double-Ended Queue) - Cola de Doble Extremo</text>
+  
+  <!-- Front operations -->
+  <rect x="30" y="80" width="120" height="60" fill="#f3e5f5" stroke="#6a1b9a" stroke-width="2" rx="5"/>
+  <text x="90" y="100" text-anchor="middle" class="operation" fill="#6a1b9a">FRENTE</text>
+  <text x="90" y="115" text-anchor="middle" class="label" font-size="10">push_front()</text>
+  <text x="90" y="130" text-anchor="middle" class="label" font-size="10">pop_front()</text>
+  
+  <!-- Arrow from front operations -->
+  <path d="M 150,110 L 200,110" class="arrow-front"/>
+  
+  <!-- Deque structure pointer -->
+  <rect x="210" y="70" width="120" height="80" class="node"/>
+  <text x="270" y="85" text-anchor="middle" class="label" font-weight="bold">deque_t</text>
+  <line x1="210" y1="95" x2="330" y2="95" stroke="#333" stroke-width="1"/>
+  
+  <text x="225" y="110" class="label" font-size="10">frente:</text>
+  <rect x="265" y="100" width="55" height="15" class="node-ptr"/>
+  
+  <text x="225" y="128" class="label" font-size="10">final:</text>
+  <rect x="265" y="118" width="55" height="15" class="node-ptr"/>
+  
+  <text x="225" y="146" class="label" font-size="10">tamanio:</text>
+  <text x="295" y="146" text-anchor="middle" class="label">4</text>
+  
+  <!-- Arrow to first node -->
+  <path d="M 330,107 L 370,200" class="arrow"/>
+  
+  <!-- Arrow to last node -->
+  <path d="M 330,125 L 370,272" class="arrow"/>
+  
+  <!-- Node 1 (front) -->
+  <g id="node1">
+    <rect x="380" y="170" width="100" height="65" class="node"/>
+    <text x="430" y="185" text-anchor="middle" class="label" font-weight="bold">Nodo</text>
+    <line x1="380" y1="195" x2="480" y2="195" stroke="#333" stroke-width="1"/>
+    
+    <text x="395" y="210" class="label" font-size="10">dato:</text>
+    <rect x="430" y="200" width="40" height="15" class="node-data"/>
+    <text x="450" y="211" text-anchor="middle" class="label">15</text>
+    
+    <text x="395" y="227" class="label" font-size="10">sig:</text>
+    <rect x="430" y="220" width="40" height="15" class="node-ptr"/>
+  </g>
+  
+  <!-- Arrow between nodes -->
+  <path d="M 470,227 L 530,227" class="arrow"/>
+  
+  <!-- Node 2 -->
+  <g id="node2">
+    <rect x="540" y="170" width="100" height="65" class="node"/>
+    <text x="590" y="185" text-anchor="middle" class="label" font-weight="bold">Nodo</text>
+    <line x1="540" y1="195" x2="640" y2="195" stroke="#333" stroke-width="1"/>
+    
+    <text x="555" y="210" class="label" font-size="10">dato:</text>
+    <rect x="590" y="200" width="40" height="15" class="node-data"/>
+    <text x="610" y="211" text-anchor="middle" class="label">27</text>
+    
+    <text x="555" y="227" class="label" font-size="10">sig:</text>
+    <rect x="590" y="220" width="40" height="15" class="node-ptr"/>
+  </g>
+  
+  <!-- Arrow to node 3 -->
+  <path d="M 590,235 L 590,260 L 430,260 L 430,285" class="arrow"/>
+  
+  <!-- Node 3 -->
+  <g id="node3">
+    <rect x="380" y="295" width="100" height="65" class="node"/>
+    <text x="430" y="310" text-anchor="middle" class="label" font-weight="bold">Nodo</text>
+    <line x1="380" y1="320" x2="480" y2="320" stroke="#333" stroke-width="1"/>
+    
+    <text x="395" y="335" class="label" font-size="10">dato:</text>
+    <rect x="430" y="325" width="40" height="15" class="node-data"/>
+    <text x="450" y="336" text-anchor="middle" class="label">41</text>
+    
+    <text x="395" y="352" class="label" font-size="10">sig:</text>
+    <rect x="430" y="345" width="40" height="15" class="node-ptr"/>
+  </g>
+  
+  <!-- Arrow to node 4 -->
+  <path d="M 470,352 L 530,352" class="arrow"/>
+  
+  <!-- Node 4 (back) -->
+  <g id="node4">
+    <rect x="540" y="295" width="100" height="65" class="node"/>
+    <text x="590" y="310" text-anchor="middle" class="label" font-weight="bold">Nodo</text>
+    <line x1="540" y1="320" x2="640" y2="320" stroke="#333" stroke-width="1"/>
+    
+    <text x="555" y="335" class="label" font-size="10">dato:</text>
+    <rect x="590" y="325" width="40" height="15" class="node-data"/>
+    <text x="610" y="336" text-anchor="middle" class="label">56</text>
+    
+    <text x="555" y="352" class="label" font-size="10">sig:</text>
+    <rect x="590" y="345" width="40" height="15" class="null-ptr"/>
+    <text x="610" y="356" text-anchor="middle" class="label" font-size="10">NULL</text>
+  </g>
+  
+  <!-- Back operations -->
+  <rect x="30" y="297" width="120" height="60" fill="#f3e5f5" stroke="#8e24aa" stroke-width="2" rx="5"/>
+  <text x="90" y="317" text-anchor="middle" class="operation" fill="#8e24aa">FINAL</text>
+  <text x="90" y="332" text-anchor="middle" class="label" font-size="10">push_back()</text>
+  <text x="90" y="347" text-anchor="middle" class="label" font-size="10">pop_back()</text>
+  
+  <!-- Arrow to back operations -->
+  <path d="M 200,327 L 370,327" class="arrow-back"/>
+  
+  <!-- Labels -->
+  <text x="340" y="200" text-anchor="end" class="label" fill="#6a1b9a" font-weight="bold">FRENTE →</text>
+  <text x="340" y="330" text-anchor="end" class="label" fill="#8e24aa" font-weight="bold">FINAL →</text>
+  
+  <!-- Code example -->
+  <rect x="30" y="380" width="640" height="60" fill="#f5f5f5" stroke="#999" stroke-width="1" rx="3"/>
+  <text x="40" y="400" class="code">// Flexibilidad: Operaciones en AMBOS extremos</text>
+  <text x="40" y="415" class="code">push_front(99);  // Agregar al frente    |  pop_front();   // Extraer del frente</text>
+  <text x="40" y="430" class="code">push_back(73);   // Agregar al final     |  pop_back();    // Extraer del final</text>
+  
+  <!-- Note -->
+  <text x="350" y="445" text-anchor="middle" class="label" fill="#6a1b9a" font-size="11px" font-weight="bold">Generaliza tanto pilas (un extremo) como colas (ambos extremos con restricción FIFO)</text>
+</svg>

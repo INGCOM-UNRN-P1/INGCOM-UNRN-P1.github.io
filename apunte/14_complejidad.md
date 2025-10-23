@@ -1,126 +1,88 @@
 ---
 title: Análisis de Complejidad Algorítmica
-short_title: 12 - Complejidad
+short_title: 14 - Complejidad
 subtitle: Fundamentos matemáticos del análisis asintótico
 ---
 
-## Introducción
+(complejidad-introduccion)=
+## Introducción: El Estudio de la Eficiencia
 
-El **análisis de complejidad algorítmica** es una herramienta fundamental en ciencias de la computación que permite evaluar y comparar la eficiencia de algoritmos de manera rigurosa y matemática. A diferencia de medir tiempos de ejecución concretos (que dependen del hardware, compilador, y otros factores variables), el análisis asintótico caracteriza el comportamiento de un algoritmo en función del tamaño de su entrada, proporcionando garantías independientes de la implementación específica.
+El **análisis de algoritmos** es una disciplina fundamental en la ciencia de la
+computación que se enfoca en cuantificar los recursos que un algoritmo consume.
+Su propósito es predecir, de manera formal y rigurosa, cómo se comportará un
+algoritmo en términos de tiempo de ejecución y uso de memoria a medida que el
+tamaño de la entrada de datos crece.
 
-:::{important} Objetivos del Análisis
-El análisis de complejidad busca responder tres preguntas fundamentales:
+El objetivo principal no es obtener tiempos exactos en segundos —una métrica
+volátil que depende del hardware, el compilador y el sistema operativo— sino
+establecer una base teórica para:
 
-1. **¿Cómo crece el tiempo de ejecución cuando aumenta el tamaño de entrada?**
-2. **¿Cuánta memoria requiere el algoritmo para diferentes tamaños de entrada?**
-3. **¿Es posible mejorar la eficiencia del algoritmo?**
-:::
+1.  **Comparar algoritmos**: Determinar objetivamente cuál de dos algoritmos es
+    más eficiente para resolver un mismo problema.
+2.  **Predecir la escalabilidad**: Entender si un algoritmo seguirá siendo
+    viable cuando el volumen de datos aumente de miles a millones o miles de
+    millones de registros.
+3.  **Optimizar el código**: Identificar los cuellos de botella y las partes
+    críticas de un programa que más impactan en su rendimiento.
 
-Este enfoque matemático permite tomar decisiones informadas sobre qué algoritmo usar en cada situación, predecir si un algoritmo será viable para grandes volúmenes de datos, y establecer límites teóricos sobre lo que es computacionalmente posible.
+Para lograr esto, la herramienta central es el **análisis asintótico**.
 
-## Fundamentos Matemáticos
+## Análisis Asintótico: Enfocándose en lo que Importa
 
-### El Modelo RAM (Random Access Machine)
+El análisis asintótico es una metodología matemática que describe el
+comportamiento de una función en su límite, es decir, cuando el tamaño de la
+entrada ($n$) se vuelve arbitrariamente grande (tiende al infinito). Este
+enfoque nos permite abstraernos de los detalles de la implementación y del
+hardware, y concentrarnos en la **tasa de crecimiento** intrínseca del
+algoritmo.
 
-Para analizar algoritmos de forma rigurosa, necesitamos un modelo abstracto de computación. El modelo **RAM** asume:
+Al analizar una función de costo como $T(n) = 3n^2 + 100n + 500$, observamos que
+para valores grandes de $n$, el término $3n^2$ domina a los demás. El análisis
+asintótico nos permite simplificar esta expresión a su orden de crecimiento, que
+es $n^2$, ignorando constantes multiplicativas ($3$) y términos de menor orden
+($100n + 500$).
 
-1. **Operaciones básicas** (suma, resta, comparación, asignación, acceso a memoria) toman **tiempo constante** $O(1)$.
-2. La memoria es ilimitada y el acceso a cualquier posición toma tiempo constante.
-3. Las operaciones se ejecutan secuencialmente (no hay paralelismo).
+## Las Notaciones Asintóticas: O, Ω, y Θ
 
-:::{note} Simplificación vs Realidad
-Aunque este modelo simplifica la arquitectura real de las computadoras (que tienen jerarquías de caché, pipelines, etc.), proporciona predicciones precisas del comportamiento asintótico para la mayoría de algoritmos prácticos.
-:::
+Para formalizar este análisis, utilizamos un conjunto de notaciones que
+describen los límites del crecimiento de la función de costo de un algoritmo.
 
-### Función de Complejidad
+### 1. Notación Big O (O) - Cota Superior (Peor Caso)
 
-Para un algoritmo $A$ y una entrada de tamaño $n$, definimos:
+La notación **Big O** es la más utilizada en la práctica, ya que describe una
+**cota superior asintótica**. Nos ofrece una garantía sobre el rendimiento del
+algoritmo: nunca será peor que esta cota.
 
-- $T(n)$: **Tiempo de ejecución** (número de operaciones básicas) en función de $n$
-- $S(n)$: **Espacio utilizado** (cantidad de memoria) en función de $n$
+- **Definición Intuïtiva**: Una función $f(n)$ es $O(g(n))$ si su tasa de
+  crecimiento es **igual o más lenta** que la de $g(n)$ para entradas
+  suficientemente grandes.
+- **Definición Formal**: $f(n) = O(g(n))$ si existen constantes positivas $c$ y
+  $n_0$ tales que $0 \le f(n) \le c \cdot g(n)$ para todo $n \ge n_0$.
+- **Uso Práctico**: Representa el **peor caso** de ejecución de un algoritmo.
 
-Estas funciones pueden analizarse en tres casos:
+### 2. Notación Omega (Ω) - Cota Inferior (Mejor Caso)
 
-1. **Peor caso**: $T_{\text{worst}}(n) = \max\{T(I) : |I| = n\}$
-2. **Mejor caso**: $T_{\text{best}}(n) = \min\{T(I) : |I| = n\}$
-3. **Caso promedio**: $T_{\text{avg}}(n) = \mathbb{E}[T(I) : |I| = n]$
+La notación **Omega** describe una **cota inferior asintótica**. Nos garantiza
+que el rendimiento del algoritmo nunca será mejor que esta cota.
 
-```{figure} 12/casos_complejidad.svg
-:label: fig-casos
-:align: center
+- **Definición Intuïtiva**: Una función $f(n)$ es $\Omega(g(n))$ si su tasa de
+  crecimiento es **igual o más rápida** que la de $g(n)$.
+- **Definición Formal**: $f(n) = \Omega(g(n))$ si existen constantes positivas
+  $c$ y $n_0$ tales que $0 \le c \cdot g(n) \le f(n)$ para todo $n \ge n_0$.
+- **Uso Práctico**: Representa el **mejor caso** de ejecución.
 
-Visualización de los tres casos de análisis para un algoritmo, mostrando cómo diferentes entradas del mismo tamaño pueden resultar en tiempos distintos.
-```
+### 3. Notación Theta (Θ) - Cota Ajustada (Caso Exacto)
 
-:::{important} Foco en el Peor Caso
-En la práctica, el análisis del **peor caso** es el más utilizado porque:
-- Proporciona **garantías** sobre el rendimiento máximo
-- Es más fácil de calcular que el caso promedio
-- Evita sorpresas desagradables en producción
-:::
+La notación **Theta** proporciona la descripción más precisa del comportamiento
+de un algoritmo, acotándolo tanto por arriba como por abajo.
 
-## Notación Asintótica
-
-La notación asintótica describe el comportamiento de funciones para valores grandes de $n$, ignorando constantes multiplicativas y términos de orden inferior.
-
-### Notación Big-O (Cota Superior)
-
-**Definición formal**: $f(n) \in O(g(n))$ si y solo si existen constantes positivas $c$ y $n_0$ tales que:
-
-$$
-0 \leq f(n) \leq c \cdot g(n) \quad \forall n \geq n_0
-$$
-
-**Interpretación**: $f$ no crece más rápido que $g$ (salvo por una constante multiplicativa).
-
-```{figure} 12/big_o_definition.svg
-:label: fig-big-o
-:align: center
-
-Representación gráfica de la definición de Big-O. La función $f(n)$ queda acotada superiormente por $c \cdot g(n)$ para $n \geq n_0$.
-```
-
-**Ejemplos**:
-- $3n + 5 \in O(n)$ porque $3n + 5 \leq 4n$ para $n \geq 5$ (tomando $c=4, n_0=5$)
-- $n^2 + 100n \in O(n^2)$ porque $n^2 + 100n \leq 101n^2$ para $n \geq 100$
-- $\log(n) \in O(n)$ porque el logaritmo crece más lento que lineal
-
-### Notación Big-Omega (Cota Inferior)
-
-**Definición formal**: $f(n) \in \Omega(g(n))$ si y solo si existen constantes positivas $c$ y $n_0$ tales que:
-
-$$
-0 \leq c \cdot g(n) \leq f(n) \quad \forall n \geq n_0
-$$
-
-**Interpretación**: $f$ crece al menos tan rápido como $g$.
-
-**Ejemplos**:
-- $5n^2 \in \Omega(n^2)$ y también $\Omega(n)$ y $\Omega(\log n)$
-- Si un algoritmo es $\Omega(n \log n)$, entonces requiere al menos ese tiempo en el peor caso
-
-### Notación Big-Theta (Cota Ajustada)
-
-**Definición formal**: $f(n) \in \Theta(g(n))$ si y solo si $f(n) \in O(g(n))$ y $f(n) \in \Omega(g(n))$.
-
-Equivalentemente, existen constantes $c_1, c_2, n_0 > 0$ tales que:
-
-$$
-0 \leq c_1 \cdot g(n) \leq f(n) \leq c_2 \cdot g(n) \quad \forall n \geq n_0
-$$
-
-**Interpretación**: $f$ y $g$ crecen al mismo ritmo (salvo constantes).
-
-```{figure} 12/big_theta_definition.svg
-:label: fig-big-theta
-:align: center
-
-Representación gráfica de Big-Theta. La función $f(n)$ queda acotada superior e inferiormente por múltiplos de $g(n)$.
-```
-
-**Ejemplos**:
-- $3n^2 + 5n + 2 \in \Theta(n^2)$
-- $\frac{n \log n}{2} \in \Theta(n \log n)$
+- **Definición Intuïtiva**: Una función $f(n)$ es $\Theta(g(n))$ si su tasa de
+  crecimiento es **exactamente la misma** que la de $g(n)$.
+- **Relación**: $f(n) = \Theta(g(n))$ si y solo si $f(n) = O(g(n))$ y
+  $f(n) = \Omega(g(n))$.
+- **Uso Práctico**: Describe el comportamiento del algoritmo de forma ajustada,
+  a menudo representando el **caso promedio** o un escenario donde el mejor y el
+  peor caso coinciden.
 
 ### Notaciones Menos Comunes
 
@@ -156,7 +118,7 @@ Las notaciones asintóticas tienen propiedades útiles:
 
 ## Jerarquía de Complejidades
 
-```{figure} 12/complexity_hierarchy.svg
+```{figure} 14/complexity_hierarchy.svg
 :label: fig-hierarchy
 :align: center
 :width: 100%
@@ -359,7 +321,7 @@ void generar_permutaciones(int arr[], int inicio, int fin) {
 }
 ```
 
-```{figure} 12/growth_comparison.svg
+```{figure} 14/growth_comparison.svg
 :label: fig-growth
 :align: center
 :width: 100%
@@ -478,7 +440,7 @@ $$
 T(n) \in \Theta(f(n))
 $$
 
-```{figure} 12/master_theorem.svg
+```{figure} 14/master_theorem.svg
 :label: fig-master
 :align: center
 
@@ -600,7 +562,7 @@ int fibonacci_memo(int n, int memo[]) {
 - **Complejidad temporal**: $O(n)$ (cada valor se calcula una vez)
 - **Complejidad espacial**: $O(n)$ (arreglo de memoización + pila)
 
-```{figure} 12/time_space_tradeoff.svg
+```{figure} 14/time_space_tradeoff.svg
 :label: fig-tradeoff
 :align: center
 
@@ -637,57 +599,191 @@ Un algoritmo es **asintóticamente óptimo** si su complejidad coincide con el l
 - **Búsqueda en arreglo no ordenado**: $\Theta(n)$ (deben revisarse todos los elementos)
 - **Multiplicación de matrices**: $O(n^{2.376})$ (algoritmo de Coppersmith-Winograd), límite inferior $\Omega(n^2)$
 
-## Clases de Complejidad
+## Más Allá: Una Introducción a la Teoría de la Complejidad (P vs. NP)
 
-Las **clases de complejidad** agrupan problemas según los recursos necesarios para resolverlos.
+Mientras que el análisis de algoritmos se enfoca en determinar la eficiencia de
+una solución específica, la **teoría de la complejidad** aborda una pregunta más
+fundamental: ¿cuál es la dificultad _inherente_ de un problema? No se pregunta
+"¿cuán rápido es mi algoritmo para ordenar?", sino "¿cuán rápido _puede ser_
+cualquier algoritmo que ordene?".
 
-```{figure} 12/complexity_classes.svg
-:label: fig-classes
-:align: center
-:width: 100%
+Esta disciplina clasifica los problemas computacionales en **clases de
+complejidad** basadas en los recursos (tiempo y memoria) que se requieren para
+resolverlos en el peor de los casos, independientemente del algoritmo específico
+utilizado.
 
-Diagrama de las principales clases de complejidad y sus relaciones.
+## Problemas de Decisión y el Modelo de Cómputo
+
+Para formalizar el estudio, la teoría se centra en los **problemas de
+decisión**: aquellos que pueden ser respondidos con un simple "sí" o "no".
+Aunque parece limitante, muchos problemas más complejos (como los de
+optimización) pueden reformularse como una serie de problemas de decisión.
+
+- **Ejemplo de Optimización**: "¿Cuál es la ruta más corta que visita todas
+  estas ciudades?"
+- **Ejemplo de Decisión**: "Dadas estas ciudades, ¿existe una ruta que las
+  visite a todas y cuya longitud total sea menor que $K$ kilómetros?"
+
+El modelo formal de cómputo utilizado para definir estas clases es la **Máquina
+de Turing**, un autómata teórico que puede simular la lógica de cualquier
+algoritmo computacional.
+
+## La Clase P (Tiempo Polinomial)
+
+La clase **P** contiene todos los problemas de decisión que pueden ser
+**resueltos** por una Máquina de Turing determinista en **tiempo polinomial**.
+
+- **Tiempo Polinomial**: Significa que el tiempo de ejecución del peor caso está
+  acotado por una función polinómica del tamaño de la entrada $n$, es decir,
+  $O(n^k)$ para alguna constante $k$.
+- **Significado Intuïtivo**: La clase P representa el conjunto de problemas que
+  consideramos "eficientemente resolubles" o "**tratables**". A medida que la
+  entrada crece, el tiempo de ejecución aumenta a una tasa manejable.
+
+**Ejemplos de problemas en P**:
+
+- Ordenamiento de una lista.
+- Búsqueda de un elemento en un arreglo.
+- Determinar si un número es primo.
+- Encontrar el camino más corto en un grafo (Algoritmo de Dijkstra).
+
+## La Clase NP (Tiempo Polinomial No Determinista)
+
+Aquí es donde surge una de las mayores confusiones en la informática. **NP**
+_no_ significa "No Polinomial". Significa **Tiempo Polinomial No Determinista**.
+
+Existen dos definiciones equivalentes y muy importantes:
+
+1.  **Definición Formal**: La clase NP es el conjunto de problemas de decisión
+    que pueden ser resueltos por una **Máquina de Turing no determinista** en
+    tiempo polinomial. (Una máquina no determinista puede explorar múltiples
+    caminos de cómputo simultáneamente).
+2.  **Definición Práctica (y más útil)**: La clase NP es el conjunto de
+    problemas de decisión para los cuales, si se nos proporciona una posible
+    solución (un "certificado" o "testigo"), podemos **verificar** si es
+    correcta en tiempo polinomial.
+
+- **Significado Intuïtivo**: NP es la clase de problemas cuyas soluciones son
+  "fáciles de verificar", aunque encontrarlas pueda ser muy difícil.
+
+**Ejemplo Clásico: El Problema de Satisfacibilidad Booleana (SAT)**
+
+- **Problema**: Dada una fórmula lógica booleana, ¿existe una asignación de
+  valores de verdad (verdadero/falso) a sus variables que haga que toda la
+  fórmula sea verdadera?
+- **Encontrar la solución**: Puede ser extremadamente difícil. Con $n$
+  variables, hay $2^n$ posibles asignaciones que probar (fuerza bruta).
+- **Verificar una solución**: Si alguien te da una asignación concreta (ej:
+  $x_1$=V, $x_2$=F, ...), es trivialmente fácil y rápido (tiempo polinomial)
+  sustituir esos valores en la fórmula y comprobar si el resultado es verdadero.
+
+Por lo tanto, SAT está en NP.
+
+## La Pregunta del Millón de Dólares: ¿P = NP?
+
+Claramente, si un problema puede ser resuelto rápidamente (está en P), entonces
+su solución también puede ser verificada rápidamente. Esto significa que **la
+clase P está contenida dentro de la clase NP**.
+
+La pregunta fundamental, uno de los siete Problemas del Milenio del Instituto
+Clay de Matemáticas, es: **¿Son estas dos clases realmente la misma? ¿Es P igual
+a NP?**
+
+- **Traducción**: "Si una solución a un problema puede ser verificada
+  eficientemente, ¿puede esa solución también ser encontrada eficientemente?"
+
+Nadie ha sido capaz de probarlo en ninguna de las dos direcciones. Sin embargo,
+el consenso abrumador entre los científicos de la computación es que **P ≠ NP**.
+
+### Implicaciones de la Respuesta
+
+- **Si P = NP**: Sería una revolución. Problemas que hoy consideramos
+  intratables (en logística, criptografía, investigación de proteínas, IA)
+  tendrían soluciones eficientes. La creatividad podría ser automatizada, ya que
+  verificar la "belleza" de una prueba matemática o una composición musical es a
+  menudo más fácil que crearla.
+- **Si P ≠ NP**: Confirma que existen problemas fundamentalmente "duros" que no
+  pueden ser resueltos eficientemente. Para estos problemas, debemos confiar en
+  algoritmos de aproximación, heurísticas o soluciones para casos específicos,
+  sabiendo que una solución general y rápida no es posible.
+
+## Reducciones y la Noción de "El Problema más Difícil"
+
+Para clasificar la dificultad relativa de los problemas dentro de NP, se utiliza
+el concepto de **reducción en tiempo polinomial**. Un problema A se "reduce" a
+un problema B si podemos transformar cualquier instancia de A en una instancia
+de B de tal manera que la solución para B nos da la solución para A, y esta
+transformación toma tiempo polinomial.
+
+- **Significado**: Si A se reduce a B, entonces A "no es más difícil que" B.
+
+### NP-Hard y NP-Completo
+
+- **NP-Hard (NP-Duro)**: Un problema es NP-Hard si **todo problema en NP** se
+  puede reducir a él en tiempo polinomial. Estos son los problemas que son "al
+  menos tan difíciles como" cualquier problema en NP.
+- **NP-Completo (NPC)**: Un problema es NP-Completo si cumple dos condiciones:
+  1.  Está en NP (sus soluciones son verificables en tiempo polinomial).
+  2.  Es NP-Hard.
+
+Los problemas NP-Completos son, en esencia, los **problemas más difíciles de la
+clase NP**.
+
+El **Teorema de Cook-Levin (1971)** fue el hito que demostró que el problema
+**SAT** es NP-Completo. Desde entonces, se ha demostrado que miles de otros
+problemas importantes también lo son, mediante reducciones a partir de SAT u
+otros problemas NPC conocidos.
+
+**Ejemplos de Problemas NP-Completos**:
+
+- Problema del Viajante (versión de decisión).
+- Coloreado de Grafos.
+- El juego Sudoku (generalizado a un tablero de $n^2 \times n^2$).
+
+La importancia de los problemas NPC es inmensa: si se encontrara un algoritmo de
+tiempo polinomial para _un solo_ problema NP-Completo, automáticamente
+tendríamos un algoritmo eficiente para _todos_ los problemas en NP, lo que
+probaría que **P = NP**.
+
+### Visualización de las Clases de Complejidad
+
+Asumiendo que P ≠ NP, la relación entre estas clases se puede visualizar de la
+siguiente manera:
+
+```{mermaid}
+graph TD
+    subgraph NP
+        subgraph P
+            A[Ordenamiento]
+            B[Búsqueda Binaria]
+        end
+        subgraph "NP-Completo (NPC)"
+            C[SAT]
+            D[Viajante]
+            E[Sudoku]
+        end
+        F[Factorización de Enteros]
+    end
+    subgraph "NP-Hard"
+        G[Problema de Parada]
+    end
+
+    P --> F
+    F --> C
+    NPC --> G
+
+    style P fill:#cde4ff,stroke:#333
+    style NPC fill:#ffcdd2,stroke:#333
+    style NP fill:#fff9c4,stroke:#666,stroke-dasharray: 5 5
+    style NPHard fill:#e1bee7,stroke:#666,stroke-dasharray: 5 5
 ```
 
-### Clase P
+Este diagrama ilustra que P y NPC son subconjuntos de NP. Los problemas NP-Hard
+pueden estar dentro o fuera de NP. El problema de la **Factorización de
+Enteros**, en el que se basa gran parte de la criptografía moderna, es un
+ejemplo fascinante: está en NP, pero no se sabe si es NP-Completo o si está en
+P.
 
-**Definición**: Problemas decidibles en tiempo polinomial por una máquina determinista.
-
-$$
-\mathbf{P} = \bigcup_{k=1}^{\infty} \mathbf{TIME}(n^k)
-$$
-
-**Ejemplos**:
-- Ordenamiento
-- Búsqueda
-- Árboles de expansión mínima
-- Camino más corto
-
-### Clase NP
-
-**Definición**: Problemas cuya solución puede **verificarse** en tiempo polinomial.
-
-**Ejemplos**:
-- SAT (satisfacibilidad booleana)
-- Coloración de grafos
-- Problema del viajante
-- Subset Sum
-
-### Problemas NP-Completos
-
-Un problema es **NP-Completo** si:
-1. Está en NP
-2. Todo problema en NP se reduce a él en tiempo polinomial
-
-**Teorema de Cook-Levin**: SAT es NP-Completo.
-
-**Implicación**: Si algún problema NP-Completo tiene solución en P, entonces $\mathbf{P} = \mathbf{NP}$ (uno de los problemas del milenio no resueltos).
-
-### Problemas NP-Hard
-
-Un problema es **NP-Hard** si todo problema NP se reduce a él, pero no necesariamente está en NP.
-
-**Ejemplo**: El problema de la parada (Halting Problem) es indecidible, por tanto NP-Hard pero no en NP.
 
 ## Ejemplos Detallados de Análisis
 

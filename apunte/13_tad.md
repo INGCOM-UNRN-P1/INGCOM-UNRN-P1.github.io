@@ -1,7 +1,7 @@
 ---
-title: Tipos de Datos Abstractos
-short_title: 13 - TAD
-subtitle: Estructuras de datos dinámicas y su implementación en C
+title: Tipos de Datos Abstractos, Pilas y Colas
+short_title: 13 - TAD, Pilas y Colas
+subtitle: Estructuras de datos dinámicas y especializadas
 ---
 
 ## Introducción
@@ -996,7 +996,7 @@ La notación Big-O describe el comportamiento asintótico en el peor caso. En ca
 :::
 
 :::{note}
-Para ver la complejidad de pilas y colas, consultá el apunte sobre [](14_estructuras.md).
+Para ver la complejidad de pilas y colas, consultá el apunte sobre [Estructuras de Datos Avanzadas](14_estructuras.md).
 :::
 
 ## Comparación: Arreglos vs. Listas Enlazadas como Secuencias
@@ -1058,9 +1058,840 @@ bool tiene_ciclo(const lista_t *lista);
 Sugerencia: Investigá el algoritmo de "la liebre y la tortuga" (Floyd's cycle detection).
 ````
 
+## Pilas (Stacks)
+
+Una **pila** es una estructura de datos lineal que sigue el principio **LIFO** (*Last In, First Out*): el último elemento en entrar es el primero en salir. Es análogo a una pila de platos donde solo podés agregar o quitar platos desde la parte superior.
+
+```{figure} 13/pila_stack.svg
+:label: fig-pila
+:align: center
+
+Estructura de pila con operaciones push (apilar) y pop (desapilar). El acceso es únicamente por el tope.
+```
+
+### Operaciones Fundamentales
+
+- **push(elemento):** Agrega un elemento al tope de la pila.
+- **pop():** Extrae y retorna el elemento del tope.
+- **peek() o top():** Retorna el elemento del tope sin extraerlo.
+- **es_vacia():** Verifica si la pila está vacía.
+
+### Implementación con Lista Enlazada
+
+```{figure} 13/pila_lista_enlazada.svg
+:label: fig-pila-lista
+:align: center
+
+Representación en memoria de una pila implementada con lista enlazada. El tope apunta al primer nodo de la lista.
+```
+
+#### Estructura de Datos
+
+```
+Nodo:
+    dato: entero
+    siguiente: puntero a Nodo
+
+Pila:
+    tope: puntero a Nodo
+    tamanio: entero
+```
+
+#### Creación de una Pila
+
+```
+función crear_pila() → Pila:
+    pila ← nueva Pila
+    
+    si pila = NULO entonces
+        retornar NULO
+    fin si
+    
+    pila.tope ← NULO
+    pila.tamanio ← 0
+    
+    retornar pila
+fin función
+```
+
+#### Apilar (Push)
+
+```
+función push(pila: Pila, dato: entero) → booleano:
+    si pila = NULO entonces
+        retornar falso
+    fin si
+    
+    nuevo ← nuevo Nodo
+    
+    si nuevo = NULO entonces
+        retornar falso
+    fin si
+    
+    nuevo.dato ← dato
+    nuevo.siguiente ← pila.tope
+    pila.tope ← nuevo
+    pila.tamanio ← pila.tamanio + 1
+    
+    retornar verdadero
+fin función
+```
+
 :::{note}
-Para ejercicios sobre pilas y colas, consultá el apunte [](14_estructuras.md).
+La operación `push` es idéntica a insertar al inicio en una lista enlazada. Esto es porque el tope de la pila es el primer elemento de la lista.
 :::
+
+#### Desapilar (Pop)
+
+```
+función pop(pila: Pila, dato: referencia a entero) → booleano:
+    si pila = NULO o pila.tope = NULO entonces
+        retornar falso
+    fin si
+    
+    nodo_a_eliminar ← pila.tope
+    dato ← nodo_a_eliminar.dato
+    pila.tope ← nodo_a_eliminar.siguiente
+    
+    liberar(nodo_a_eliminar)
+    pila.tamanio ← pila.tamanio - 1
+    
+    retornar verdadero
+fin función
+```
+
+#### Ver Tope (Peek)
+
+```
+función peek(pila: Pila, dato: referencia a entero) → booleano:
+    si pila = NULO o pila.tope = NULO entonces
+        retornar falso
+    fin si
+    
+    dato ← pila.tope.dato
+    retornar verdadero
+fin función
+```
+
+#### Verificar si está Vacía
+
+```
+función es_vacia(pila: Pila) → booleano:
+    retornar pila = NULO o pila.tope = NULO
+fin función
+```
+
+#### Destruir Pila
+
+```
+función destruir_pila(pila: Pila):
+    si pila = NULO entonces
+        retornar
+    fin si
+    
+    mientras pila.tope ≠ NULO hacer
+        nodo_actual ← pila.tope
+        pila.tope ← nodo_actual.siguiente
+        liberar(nodo_actual)
+    fin mientras
+    
+    liberar(pila)
+fin función
+```
+
+:::{important}
+Es fundamental liberar toda la memoria utilizada, recorriendo la lista y liberando cada nodo antes de liberar la estructura de la pila.
+:::
+
+### Análisis de Complejidad (Lista Enlazada)
+
+| Operación | Complejidad Temporal | Complejidad Espacial |
+|-----------|---------------------|---------------------|
+| push | $O(1)$ | $O(1)$ |
+| pop | $O(1)$ | $O(1)$ |
+| peek | $O(1)$ | $O(1)$ |
+| es_vacia | $O(1)$ | $O(1)$ |
+
+### Implementación con Arreglo Dinámico
+
+Una alternativa es implementar la pila usando un arreglo, donde el tope es el último elemento ocupado.
+
+```{figure} 13/pila_arreglo.svg
+:label: fig-pila-arreglo
+:align: center
+
+Pila implementada con arreglo. El índice `tope` indica la posición del último elemento.
+```
+
+#### Estructura de Datos
+
+```
+Pila:
+    elementos: arreglo de enteros
+    tope: entero (índice del último elemento)
+    capacidad: entero (tamaño total del arreglo)
+```
+
+#### Creación con Capacidad Inicial
+
+```
+función crear_pila_arreglo(capacidad_inicial: entero) → Pila:
+    si capacidad_inicial ≤ 0 entonces
+        retornar NULO
+    fin si
+    
+    pila ← nueva Pila
+    si pila = NULO entonces
+        retornar NULO
+    fin si
+    
+    pila.elementos ← nuevo arreglo de tamaño capacidad_inicial
+    si pila.elementos = NULO entonces
+        liberar(pila)
+        retornar NULO
+    fin si
+    
+    pila.tope ← -1
+    pila.capacidad ← capacidad_inicial
+    
+    retornar pila
+fin función
+```
+
+#### Apilar con Redimensionamiento
+
+```
+función push_arreglo(pila: Pila, dato: entero) → booleano:
+    si pila = NULO entonces
+        retornar falso
+    fin si
+    
+    si pila.tope + 1 ≥ pila.capacidad entonces
+        si no redimensionar(pila) entonces
+            retornar falso
+        fin si
+    fin si
+    
+    pila.tope ← pila.tope + 1
+    pila.elementos[pila.tope] ← dato
+    
+    retornar verdadero
+fin función
+
+función redimensionar(pila: Pila) → booleano:
+    nueva_capacidad ← pila.capacidad * 2
+    nuevo_arreglo ← nuevo arreglo de tamaño nueva_capacidad
+    
+    si nuevo_arreglo = NULO entonces
+        retornar falso
+    fin si
+    
+    para i desde 0 hasta pila.tope hacer
+        nuevo_arreglo[i] ← pila.elementos[i]
+    fin para
+    
+    liberar(pila.elementos)
+    pila.elementos ← nuevo_arreglo
+    pila.capacidad ← nueva_capacidad
+    
+    retornar verdadero
+fin función
+```
+
+:::{tip}
+El factor de redimensionamiento (comúnmente 2) es importante. Duplicar la capacidad garantiza que el costo amortizado de `push` sea $O(1)$, aunque un `push` individual pueda ser $O(n)$ cuando requiere redimensionar.
+:::
+
+#### Desapilar (Arreglo)
+
+```
+función pop_arreglo(pila: Pila, dato: referencia a entero) → booleano:
+    si pila = NULO o pila.tope < 0 entonces
+        retornar falso
+    fin si
+    
+    dato ← pila.elementos[pila.tope]
+    pila.tope ← pila.tope - 1
+    
+    retornar verdadero
+fin función
+```
+
+### Análisis de Complejidad (Arreglo)
+
+| Operación | Complejidad Temporal | Complejidad Espacial |
+|-----------|---------------------|---------------------|
+| push | $O(1)$ amortizado | $O(1)$ |
+| pop | $O(1)$ | $O(1)$ |
+| peek | $O(1)$ | $O(1)$ |
+| es_vacia | $O(1)$ | $O(1)$ |
+
+:::{note}
+Aunque `push` puede ser $O(n)$ cuando requiere redimensionar, el análisis amortizado muestra que en promedio sigue siendo $O(1)$.
+:::
+
+### Aplicaciones de Pilas
+
+Las pilas aparecen naturalmente en numerosos contextos de programación:
+
+1. **Gestión de llamadas a funciones:** La pila de ejecución (*call stack*) mantiene los registros de activación.
+2. **Evaluación de expresiones:** Conversión de notación infija a postfija, evaluación de expresiones postfijas.
+3. **Backtracking:** Algoritmos de búsqueda en profundidad, resolución de laberintos.
+4. **Deshacer/Rehacer:** Editores de texto mantienen pilas de operaciones.
+5. **Parsing:** Análisis sintáctico de lenguajes de programación (verificación de paréntesis balanceados).
+
+#### Ejemplo: Verificación de Paréntesis Balanceados
+
+```
+función parentesis_balanceados(expresion: cadena) → booleano:
+    pila ← crear_pila()
+    
+    para cada caracter en expresion hacer
+        si caracter = '(' entonces
+            push(pila, caracter)
+        sino si caracter = ')' entonces
+            si es_vacia(pila) entonces
+                destruir_pila(pila)
+                retornar falso
+            fin si
+            pop(pila, temporal)
+        fin si
+    fin para
+    
+    resultado ← es_vacia(pila)
+    destruir_pila(pila)
+    retornar resultado
+fin función
+```
+
+## Colas (Queues)
+
+Una **cola** es una estructura de datos lineal que sigue el principio **FIFO** (*First In, First Out*): el primer elemento en entrar es el primero en salir. Es análogo a una fila de personas donde quien llega primero es atendido primero.
+
+```{figure} 13/cola_queue.svg
+:label: fig-cola
+:align: center
+
+Estructura de cola con operaciones enqueue (encolar) y dequeue (desencolar). Los elementos entran por el final y salen por el frente.
+```
+
+### Operaciones Fundamentales
+
+- **enqueue(elemento):** Agrega un elemento al final de la cola.
+- **dequeue():** Extrae y retorna el elemento del frente.
+- **peek() o front():** Retorna el elemento del frente sin extraerlo.
+- **es_vacia():** Verifica si la cola está vacía.
+
+### Implementación con Lista Enlazada
+
+```{figure} 13/cola_lista_enlazada.svg
+:label: fig-cola-lista
+:align: center
+
+Representación en memoria de una cola implementada con lista enlazada. Se mantienen punteros al frente y al final.
+```
+
+#### Estructura de Datos
+
+```
+Nodo:
+    dato: entero
+    siguiente: puntero a Nodo
+
+Cola:
+    frente: puntero a Nodo
+    final: puntero a Nodo
+    tamanio: entero
+```
+
+:::{note}
+A diferencia de la pila que solo necesita un puntero, la cola necesita dos: uno al frente (para dequeue) y otro al final (para enqueue). Esto permite operaciones $O(1)$ en ambos extremos.
+:::
+
+#### Creación de una Cola
+
+```
+función crear_cola() → Cola:
+    cola ← nueva Cola
+    
+    si cola = NULO entonces
+        retornar NULO
+    fin si
+    
+    cola.frente ← NULO
+    cola.final ← NULO
+    cola.tamanio ← 0
+    
+    retornar cola
+fin función
+```
+
+#### Encolar (Enqueue)
+
+```
+función enqueue(cola: Cola, dato: entero) → booleano:
+    si cola = NULO entonces
+        retornar falso
+    fin si
+    
+    nuevo ← nuevo Nodo
+    si nuevo = NULO entonces
+        retornar falso
+    fin si
+    
+    nuevo.dato ← dato
+    nuevo.siguiente ← NULO
+    
+    si cola.final = NULO entonces
+        // Cola vacía
+        cola.frente ← nuevo
+        cola.final ← nuevo
+    sino
+        cola.final.siguiente ← nuevo
+        cola.final ← nuevo
+    fin si
+    
+    cola.tamanio ← cola.tamanio + 1
+    retornar verdadero
+fin función
+```
+
+:::{important}
+Hay que manejar el caso especial cuando la cola está vacía. En ese caso, tanto `frente` como `final` deben apuntar al nuevo nodo.
+:::
+
+#### Desencolar (Dequeue)
+
+```
+función dequeue(cola: Cola, dato: referencia a entero) → booleano:
+    si cola = NULO o cola.frente = NULO entonces
+        retornar falso
+    fin si
+    
+    nodo_a_eliminar ← cola.frente
+    dato ← nodo_a_eliminar.dato
+    cola.frente ← nodo_a_eliminar.siguiente
+    
+    si cola.frente = NULO entonces
+        // Cola quedó vacía
+        cola.final ← NULO
+    fin si
+    
+    liberar(nodo_a_eliminar)
+    cola.tamanio ← cola.tamanio - 1
+    
+    retornar verdadero
+fin función
+```
+
+:::{important}
+Cuando desencolamos el último elemento, la cola queda vacía. En ese caso, además de actualizar `frente`, debemos poner `final` en NULO.
+:::
+
+#### Ver Frente (Peek)
+
+```
+función peek_cola(cola: Cola, dato: referencia a entero) → booleano:
+    si cola = NULO o cola.frente = NULO entonces
+        retornar falso
+    fin si
+    
+    dato ← cola.frente.dato
+    retornar verdadero
+fin función
+```
+
+#### Destruir Cola
+
+```
+función destruir_cola(cola: Cola):
+    si cola = NULO entonces
+        retornar
+    fin si
+    
+    mientras cola.frente ≠ NULO hacer
+        nodo_actual ← cola.frente
+        cola.frente ← nodo_actual.siguiente
+        liberar(nodo_actual)
+    fin mientras
+    
+    liberar(cola)
+fin función
+```
+
+### Análisis de Complejidad (Lista Enlazada)
+
+| Operación | Complejidad Temporal | Complejidad Espacial |
+|-----------|---------------------|---------------------|
+| enqueue | $O(1)$ | $O(1)$ |
+| dequeue | $O(1)$ | $O(1)$ |
+| peek | $O(1)$ | $O(1)$ |
+| es_vacia | $O(1)$ | $O(1)$ |
+
+### Implementación con Arreglo Circular
+
+Una implementación eficiente de cola con arreglo usa la técnica de **arreglo circular**, donde los índices "dan la vuelta" al final del arreglo.
+
+```{figure} 13/cola_circular.svg
+:label: fig-cola-circular
+:align: center
+
+Cola implementada como arreglo circular. Los índices se calculan módulo la capacidad.
+```
+
+#### Estructura de Datos
+
+```
+Cola:
+    elementos: arreglo de enteros
+    frente: entero (índice del primer elemento)
+    final: entero (índice después del último elemento)
+    tamanio: entero (cantidad de elementos)
+    capacidad: entero (tamaño del arreglo)
+```
+
+:::{note}
+En un arreglo circular, el índice `final` apunta a la posición **después** del último elemento. Esto simplifica la lógica de detección de cola vacía/llena.
+:::
+
+#### Creación de Cola Circular
+
+```
+función crear_cola_circular(capacidad_inicial: entero) → Cola:
+    si capacidad_inicial ≤ 0 entonces
+        retornar NULO
+    fin si
+    
+    cola ← nueva Cola
+    si cola = NULO entonces
+        retornar NULO
+    fin si
+    
+    cola.elementos ← nuevo arreglo de tamaño capacidad_inicial
+    si cola.elementos = NULO entonces
+        liberar(cola)
+        retornar NULO
+    fin si
+    
+    cola.frente ← 0
+    cola.final ← 0
+    cola.tamanio ← 0
+    cola.capacidad ← capacidad_inicial
+    
+    retornar cola
+fin función
+```
+
+#### Encolar en Arreglo Circular
+
+```
+función enqueue_circular(cola: Cola, dato: entero) → booleano:
+    si cola = NULO entonces
+        retornar falso
+    fin si
+    
+    si cola.tamanio = cola.capacidad entonces
+        si no redimensionar_cola(cola) entonces
+            retornar falso
+        fin si
+    fin si
+    
+    cola.elementos[cola.final] ← dato
+    cola.final ← (cola.final + 1) módulo cola.capacidad
+    cola.tamanio ← cola.tamanio + 1
+    
+    retornar verdadero
+fin función
+```
+
+:::{tip}
+El operador módulo permite que el índice "dé la vuelta". Por ejemplo, si `capacidad = 5` y `final = 4`, entonces `(4 + 1) mod 5 = 0`, volviendo al inicio del arreglo.
+:::
+
+#### Desencolar en Arreglo Circular
+
+```
+función dequeue_circular(cola: Cola, dato: referencia a entero) → booleano:
+    si cola = NULO o cola.tamanio = 0 entonces
+        retornar falso
+    fin si
+    
+    dato ← cola.elementos[cola.frente]
+    cola.frente ← (cola.frente + 1) módulo cola.capacidad
+    cola.tamanio ← cola.tamanio - 1
+    
+    retornar verdadero
+fin función
+```
+
+#### Redimensionar Cola Circular
+
+```
+función redimensionar_cola(cola: Cola) → booleano:
+    nueva_capacidad ← cola.capacidad * 2
+    nuevo_arreglo ← nuevo arreglo de tamaño nueva_capacidad
+    
+    si nuevo_arreglo = NULO entonces
+        retornar falso
+    fin si
+    
+    // Copiar elementos manteniendo el orden
+    para i desde 0 hasta cola.tamanio - 1 hacer
+        indice ← (cola.frente + i) módulo cola.capacidad
+        nuevo_arreglo[i] ← cola.elementos[indice]
+    fin para
+    
+    liberar(cola.elementos)
+    cola.elementos ← nuevo_arreglo
+    cola.frente ← 0
+    cola.final ← cola.tamanio
+    cola.capacidad ← nueva_capacidad
+    
+    retornar verdadero
+fin función
+```
+
+:::{important}
+Al redimensionar, es crucial copiar los elementos en el orden correcto, respetando que el frente puede no estar en la posición 0 del arreglo original.
+:::
+
+### Análisis de Complejidad (Arreglo Circular)
+
+| Operación | Complejidad Temporal | Complejidad Espacial |
+|-----------|---------------------|---------------------|
+| enqueue | $O(1)$ amortizado | $O(1)$ |
+| dequeue | $O(1)$ | $O(1)$ |
+| peek | $O(1)$ | $O(1)$ |
+| es_vacia | $O(1)$ | $O(1)$ |
+
+### Aplicaciones de Colas
+
+Las colas modelan situaciones donde el orden de llegada importa:
+
+1. **Sistemas operativos:** Scheduling de procesos, colas de impresión.
+2. **Redes:** Buffers de transmisión, enrutamiento de paquetes.
+3. **Algoritmos de grafos:** Búsqueda en anchura (BFS).
+4. **Simulaciones:** Modelado de filas de espera, teoría de colas.
+5. **Procesamiento asíncrono:** Cola de tareas, sistemas de mensajería.
+
+## Comparación: Pilas vs Colas
+
+| Aspecto | Pila (LIFO) | Cola (FIFO) |
+|---------|------------|------------|
+| **Política** | Last In, First Out | First In, First Out |
+| **Analogía** | Pila de platos | Fila de personas |
+| **Operaciones** | push, pop, peek | enqueue, dequeue, peek |
+| **Complejidad** | $O(1)$ todas | $O(1)$ todas |
+| **Aplicación típica** | Backtracking, parsing | Scheduling, BFS |
+| **Implementación simple** | Lista (un puntero) | Lista (dos punteros) |
+| **Implementación arreglo** | Índice tope | Arreglo circular |
+
+:::{important}
+Ambas estructuras son especializaciones del TAD Secuencia con restricciones de acceso. La restricción no es una limitación, sino una garantía que simplifica el razonamiento sobre el código.
+:::
+
+## Deques (Double-Ended Queues)
+
+Un **deque** (pronunciado "deck") es una generalización que permite insertar y extraer elementos en ambos extremos.
+
+```{figure} 13/deque.svg
+:label: fig-deque
+:align: center
+
+Deque con operaciones en ambos extremos. Es una generalización de pilas y colas.
+```
+
+### Operaciones
+
+- **push_front(elemento):** Agrega al frente.
+- **push_back(elemento):** Agrega al final.
+- **pop_front():** Extrae del frente.
+- **pop_back():** Extrae del final.
+
+:::{note}
+Un deque puede simular tanto una pila (usando solo un extremo) como una cola (usando ambos extremos de forma restringida). Es más general pero potencialmente más difícil de razonar sobre su uso.
+:::
+
+### Aplicaciones de Deques
+
+- **Algoritmos de ventana deslizante:** Mantener mínimos/máximos en una ventana.
+- **Navegación con historial:** Forward/backward en navegadores.
+- **Work stealing:** Algoritmos paralelos donde los threads roban tareas de ambos extremos.
+
+## Comparación de Implementaciones
+
+### Lista Enlazada vs Arreglo
+
+| Criterio | Lista Enlazada | Arreglo (Circular) |
+|----------|---------------|-------------------|
+| **Memoria** | Overhead por punteros | Compacta, localidad de caché |
+| **Tamaño** | Dinámico sin límite | Requiere redimensionamiento |
+| **Operaciones** | Siempre $O(1)$ | $O(1)$ amortizado |
+| **Complejidad código** | Media | Alta (aritmética modular) |
+| **Uso típico** | Tamaño impredecible | Tamaño acotado |
+
+:::{tip}
+Para aplicaciones donde el rendimiento es crítico y el tamaño máximo es conocido, la implementación con arreglo circular es preferible por su mejor localidad de caché. Para tamaños muy variables o cuando la simplicidad del código importa más que el rendimiento, la lista enlazada es más apropiada.
+:::
+
+## Panorama de Estructuras de Datos
+
+Las pilas y colas son solo el comienzo. Existe un ecosistema rico de estructuras de datos, cada una optimizada para diferentes patrones de acceso.
+
+### Clasificación por Restricciones de Acceso
+
+1. **Acceso Completamente Restringido:**
+   - Pilas: solo el tope es accesible
+   - Colas: solo frente y final
+   
+2. **Acceso Parcialmente Restringido:**
+   - Deques: ambos extremos
+   - Colas de Prioridad: elemento de máxima prioridad
+
+3. **Acceso Indexado:**
+   - Arreglos: acceso por índice en $O(1)$
+   - Listas: acceso secuencial en $O(n)$
+
+4. **Acceso por Clave:**
+   - Tablas Hash: búsqueda en $O(1)$ promedio
+   - Árboles Binarios de Búsqueda: búsqueda en $O(\log n)$
+
+### Estructuras Avanzadas
+
+**Árboles:**
+- **Heap (Montículo):** Cola de prioridad eficiente, $O(\log n)$ insert/extract-min
+- **BST (Binary Search Tree):** Búsqueda, inserción, eliminación en $O(\log n)$ promedio
+- **AVL/Red-Black:** BST balanceados, garantizan $O(\log n)$ peor caso
+- **B-trees:** Árboles de búsqueda para almacenamiento en disco
+- **Tries:** Árboles de prefijos para strings
+
+**Grafos:**
+- **Matriz de Adyacencia:** Representación densa, $O(1)$ para verificar arista
+- **Lista de Adyacencia:** Representación dispersa, eficiente en espacio
+
+**Tablas Hash:**
+- **Chaining:** Manejo de colisiones con listas
+- **Open Addressing:** Probing para resolver colisiones
+- **Rendimiento:** $O(1)$ promedio para insert/search/delete
+
+**Estructuras Especializadas:**
+- **Union-Find:** Conjuntos disjuntos dinámicos
+- **Filtros de Bloom:** Verificación probabilística de pertenencia
+- **Skip Lists:** Estructura probabilística alternativa a BST
+
+:::{note}
+Cada estructura de datos representa un compromiso (*trade-off*) entre tiempo de operaciones, espacio usado y complejidad de implementación. No existe la "mejor" estructura, solo la más apropiada para cada contexto.
+:::
+
+## Ejercicios de Pilas y Colas
+
+### Ejercicio 1: Inversión de una Cadena con Pila
+
+````{exercise}
+:label: ejercicio-invertir-cadena
+
+Implementá una función que use una pila para invertir una cadena de caracteres.
+
+```
+función invertir_cadena(cadena: cadena) → cadena:
+    // Tu implementación aquí
+```
+
+Por ejemplo:
+- Entrada: "hola"
+- Salida: "aloh"
+````
+
+### Ejercicio 2: Validar Expresiones con Múltiples Delimitadores
+
+````{exercise}
+:label: ejercicio-validar-delimitadores
+
+Extendé el ejemplo de paréntesis balanceados para soportar múltiples tipos de delimitadores: `()`, `[]`, `{}`. La función debe verificar que:
+1. Cada apertura tenga su cierre correspondiente
+2. Los cierres ocurran en el orden correcto
+
+```
+función delimitadores_balanceados(expresion: cadena) → booleano:
+    // Tu implementación aquí
+```
+
+Por ejemplo:
+- `"{[()]}"` → válido
+- `"{[(])}"` → inválido (cierre en orden incorrecto)
+- `"{[("` → inválido (sin cerrar)
+````
+
+### Ejercicio 3: Simulador de Impresora
+
+````{exercise}
+:label: ejercicio-simulador-impresora
+
+Implementá un simulador de cola de impresión que:
+1. Reciba trabajos con un identificador y cantidad de páginas
+2. Procese trabajos en orden FIFO
+3. Reporte el tiempo total de procesamiento (asumí 1 segundo por página)
+
+```
+Trabajo:
+    id: entero
+    paginas: entero
+
+función simular_impresora(trabajos: arreglo de Trabajo) → entero:
+    // Retorna tiempo total de procesamiento
+```
+````
+
+### Ejercicio 4: Implementar Cola con Dos Pilas
+
+````{exercise}
+:label: ejercicio-cola-dos-pilas
+
+Implementá una cola usando dos pilas. La idea es:
+- Una pila para `enqueue` (entrada)
+- Una pila para `dequeue` (salida)
+- Cuando la pila de salida está vacía, transferir todos los elementos de entrada a salida
+
+```
+Cola_con_Pilas:
+    pila_entrada: Pila
+    pila_salida: Pila
+
+función enqueue_con_pilas(cola: Cola_con_Pilas, dato: entero) → booleano:
+    // Tu implementación
+
+función dequeue_con_pilas(cola: Cola_con_Pilas, dato: referencia a entero) → booleano:
+    // Tu implementación
+```
+
+Analizá la complejidad amortizada de las operaciones.
+````
+
+### Ejercicio 5: Evaluación de Expresiones Postfijas
+
+````{exercise}
+:label: ejercicio-evaluar-postfija
+
+Implementá un evaluador de expresiones en notación postfija (Reverse Polish Notation) usando una pila.
+
+En notación postfija, los operadores vienen después de los operandos:
+- Infija: `(3 + 4) * 5`
+- Postfija: `3 4 + 5 *`
+
+Algoritmo:
+1. Recorrer la expresión
+2. Si es número, apilar
+3. Si es operador, desapilar dos operandos, aplicar operación, apilar resultado
+
+```
+función evaluar_postfija(expresion: cadena) → entero:
+    // Tu implementación
+```
+
+Por ejemplo:
+- `"3 4 + 5 *"` → 35
+- `"15 7 1 1 + - / 3 * 2 1 1 + + -"` → 5
+````
 
 ## Referencias y Lecturas Complementarias
 
@@ -1091,16 +1922,23 @@ Los Tipos de Datos Abstractos son una herramienta fundamental para construir sof
   - Listas enlazadas: ideales para inserciones/eliminaciones dinámicas.
 - La diferencia entre **memoria estática y dinámica**, y cuándo usar cada una (para detalles completos, consultá {ref}`memoria-introduccion`).
 - **Listas enlazadas** simples, dobles y circulares, con todas sus operaciones fundamentales.
+- **Pilas (LIFO)** y **Colas (FIFO)** como TADs especializados:
+  - Múltiples implementaciones (lista enlazada, arreglo, arreglo circular)
+  - Aplicaciones prácticas en sistemas y algoritmos
+  - Análisis de complejidad temporal y espacial
 - **Consideraciones de implementación:** manejo de errores, invariantes y seguridad.
 - **Análisis de complejidad temporal** de las operaciones en diferentes implementaciones.
+- **Panorama general** de estructuras de datos avanzadas y su clasificación.
 
 :::{important} Lección Clave: Múltiples Implementaciones
 
 El concepto más importante de este apunte es que **un mismo TAD puede tener múltiples implementaciones**, cada una con diferentes características de rendimiento. La elección de la implementación correcta depende del contexto de uso, y el poder de la abstracción permite cambiar entre implementaciones sin reescribir el código cliente.
+
+Las pilas y colas demuestran este principio perfectamente: ambas pueden implementarse con listas enlazadas o arreglos, y la elección depende de los requisitos específicos de rendimiento y uso de memoria.
 :::
 
-:::{note}
-Para ver otros TADs como pilas y colas, que también demuestran el poder de la abstracción con diferentes implementaciones, consultá el apunte [](14_estructuras.md).
+:::{tip}
+Dominar estas estructuras de datos es esencial para avanzar hacia estructuras más complejas como árboles, grafos y tablas de hash, que se construyen sobre estos fundamentos. La correcta gestión de memoria dinámica, tema central en este apunte, es la base para implementar cualquier estructura de datos compleja de manera segura y eficiente.
 :::
 
 Dominar estas estructuras de datos es esencial para avanzar hacia estructuras más complejas como árboles, grafos y tablas de hash, que se construyen sobre estos fundamentos. La correcta gestión de memoria dinámica, tema central en este apunte, es la base para implementar cualquier estructura de datos compleja de manera segura y eficiente.

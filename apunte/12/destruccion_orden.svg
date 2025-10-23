@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 800 500"
+   width="800"
+   height="500"
+   version="1.1"
+   id="svg34"
+   sodipodi:docname="destruccion_orden.svg"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview34"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.03"
+     inkscape:cx="518.4466"
+     inkscape:cy="372.3301"
+     inkscape:window-width="1872"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg34" />
+  <defs
+     id="defs1">
+    <style
+       id="style1">
+      .title { font: bold 18px sans-serif; fill: #2c3e50; }
+      .label { font: 14px sans-serif; fill: #34495e; }
+      .code { font: 12px monospace; fill: #2c3e50; }
+      .error { fill: #e74c3c; stroke: #c0392b; }
+      .success { fill: #27ae60; stroke: #229954; }
+      .memory-block { fill: #ecf0f1; stroke: #95a5a6; stroke-width: 2; }
+      .struct-block { fill: #3498db; stroke: #2980b9; stroke-width: 2; }
+      .pointer { stroke: #34495e; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .cross { stroke: #e74c3c; stroke-width: 3; }
+      .step { font: bold 14px sans-serif; fill: #2980b9; }
+    </style>
+    <marker
+       id="arrowhead"
+       markerWidth="10"
+       markerHeight="10"
+       refX="9"
+       refY="3"
+       orient="auto">
+      <polygon
+         points="0 0, 10 3, 0 6"
+         fill="#34495e"
+         id="polygon1" />
+    </marker>
+  </defs>
+  <!-- Título -->
+  <text
+     x="400"
+     y="25"
+     class="title"
+     text-anchor="middle"
+     id="text1">Orden de Liberación de Memoria</text>
+  <!-- LADO IZQUIERDO: CORRECTO -->
+  <g
+     id="correcto">
+    <text
+       x="200"
+       y="55"
+       class="title"
+       text-anchor="middle"
+       fill="#27ae60"
+       id="text2">✓ Orden Correcto</text>
+    <!-- Estado inicial -->
+    <text
+       x="10"
+       y="85"
+       class="step"
+       id="text3">1. Estado Inicial</text>
+    <rect
+       x="50"
+       y="95"
+       width="120"
+       height="60"
+       class="struct-block"
+       id="rect3" />
+    <text
+       x="110"
+       y="120"
+       class="label"
+       text-anchor="middle"
+       fill="white"
+       id="text4">persona_t</text>
+    <text
+       x="110"
+       y="140"
+       class="code"
+       text-anchor="middle"
+       fill="white"
+       id="text5">nombre: ptr</text>
+    <rect
+       x="230"
+       y="95"
+       width="100"
+       height="60"
+       class="memory-block"
+       id="rect5" />
+    <text
+       x="280"
+       y="120"
+       class="label"
+       text-anchor="middle"
+       id="text6">&quot;Juan&quot;</text>
+    <text
+       x="280"
+       y="140"
+       class="code"
+       text-anchor="middle"
+       id="text7">heap</text>
+    <path
+       d="M 170 125 L 225 125"
+       class="pointer"
+       id="path7" />
+    <!-- Paso 1: free(nombre) -->
+    <text
+       x="10"
+       y="185"
+       class="step"
+       id="text8">2. free(persona-&gt;nombre)</text>
+    <rect
+       x="50"
+       y="195"
+       width="120"
+       height="60"
+       class="struct-block"
+       id="rect8" />
+    <text
+       x="110"
+       y="220"
+       class="label"
+       text-anchor="middle"
+       fill="white"
+       id="text9">persona_t</text>
+    <text
+       x="110"
+       y="240"
+       class="code"
+       text-anchor="middle"
+       fill="white"
+       id="text10">nombre: ptr</text>
+    <rect
+       x="230"
+       y="195"
+       width="100"
+       height="60"
+       class="error"
+       opacity="0.3"
+       id="rect10" />
+    <text
+       x="280"
+       y="220"
+       class="label"
+       text-anchor="middle"
+       opacity="0.5"
+       id="text11">LIBERADO</text>
+    <line
+       x1="240"
+       y1="205"
+       x2="320"
+       y2="245"
+       class="cross"
+       id="line11" />
+    <line
+       x1="320"
+       y1="205"
+       x2="240"
+       y2="245"
+       class="cross"
+       id="line12" />
+    <path
+       d="M 170 225 L 225 225"
+       class="pointer"
+       stroke-dasharray="5,5"
+       opacity="0.5"
+       id="path12" />
+    <!-- Paso 2: free(persona) -->
+    <text
+       x="10"
+       y="285"
+       class="step"
+       id="text12">3. free(persona)</text>
+    <rect
+       x="50"
+       y="295"
+       width="120"
+       height="60"
+       class="error"
+       opacity="0.3"
+       id="rect12" />
+    <text
+       x="110"
+       y="320"
+       class="label"
+       text-anchor="middle"
+       opacity="0.5"
+       id="text13">LIBERADO</text>
+    <line
+       x1="60"
+       y1="305"
+       x2="160"
+       y2="345"
+       class="cross"
+       id="line13" />
+    <line
+       x1="160"
+       y1="305"
+       x2="60"
+       y2="345"
+       class="cross"
+       id="line14" />
+    <rect
+       x="230"
+       y="295"
+       width="100"
+       height="60"
+       class="error"
+       opacity="0.3"
+       id="rect14" />
+    <text
+       x="280"
+       y="320"
+       class="label"
+       text-anchor="middle"
+       opacity="0.5"
+       id="text14">LIBERADO</text>
+    <line
+       x1="240"
+       y1="305"
+       x2="320"
+       y2="345"
+       class="cross"
+       id="line15" />
+    <line
+       x1="320"
+       y1="305"
+       x2="240"
+       y2="345"
+       class="cross"
+       id="line16" />
+    <!-- Resultado -->
+    <rect
+       x="50"
+       y="380"
+       width="280"
+       height="50"
+       class="success"
+       opacity="0.2"
+       id="rect16" />
+    <text
+       x="190"
+       y="410"
+       class="label"
+       text-anchor="middle"
+       fill="#27ae60"
+       id="text16">✓ Sin memory leaks</text>
+  </g>
+  <!-- LADO DERECHO: INCORRECTO -->
+  <g
+     id="incorrecto"
+     transform="translate(400, 0)">
+    <text
+       x="200"
+       y="55"
+       class="title"
+       text-anchor="middle"
+       fill="#e74c3c"
+       id="text17">✗ Orden Incorrecto</text>
+    <!-- Estado inicial -->
+    <text
+       x="10"
+       y="85"
+       class="step"
+       id="text18">1. Estado Inicial</text>
+    <rect
+       x="50"
+       y="95"
+       width="120"
+       height="60"
+       class="struct-block"
+       id="rect18" />
+    <text
+       x="110"
+       y="120"
+       class="label"
+       text-anchor="middle"
+       fill="white"
+       id="text19">persona_t</text>
+    <text
+       x="110"
+       y="140"
+       class="code"
+       text-anchor="middle"
+       fill="white"
+       id="text20">nombre: ptr</text>
+    <rect
+       x="230"
+       y="95"
+       width="100"
+       height="60"
+       class="memory-block"
+       id="rect20" />
+    <text
+       x="280"
+       y="120"
+       class="label"
+       text-anchor="middle"
+       id="text21">&quot;Juan&quot;</text>
+    <text
+       x="280"
+       y="140"
+       class="code"
+       text-anchor="middle"
+       id="text22">heap</text>
+    <path
+       d="M 170 125 L 225 125"
+       class="pointer"
+       id="path22" />
+    <!-- Paso 1: free(persona) - ERROR -->
+    <text
+       x="10"
+       y="185"
+       class="step"
+       fill="#e74c3c"
+       id="text23">2. free(persona) ❌</text>
+    <rect
+       x="50"
+       y="195"
+       width="120"
+       height="60"
+       class="error"
+       opacity="0.3"
+       id="rect23" />
+    <text
+       x="110"
+       y="220"
+       class="label"
+       text-anchor="middle"
+       opacity="0.5"
+       id="text24">LIBERADO</text>
+    <line
+       x1="60"
+       y1="205"
+       x2="160"
+       y2="245"
+       class="cross"
+       id="line24" />
+    <line
+       x1="160"
+       y1="205"
+       x2="60"
+       y2="245"
+       class="cross"
+       id="line25" />
+    <rect
+       x="230"
+       y="195"
+       width="100"
+       height="60"
+       class="memory-block"
+       id="rect25" />
+    <text
+       x="280"
+       y="220"
+       class="label"
+       text-anchor="middle"
+       id="text25">&quot;Juan&quot;</text>
+    <text
+       x="280"
+       y="240"
+       class="code"
+       text-anchor="middle"
+       fill="#e74c3c"
+       id="text26">LEAK!</text>
+    <!-- Advertencia -->
+    <rect
+       x="50"
+       y="270"
+       width="280"
+       height="40"
+       fill="#fff3cd"
+       stroke="#ffc107"
+       stroke-width="2"
+       id="rect26" />
+    <text
+       x="190"
+       y="295"
+       class="label"
+       text-anchor="middle"
+       fill="#856404"
+       id="text27">⚠ Puntero a 'nombre' perdido</text>
+    <!-- Intento de free(nombre) - UNDEFINED BEHAVIOR -->
+    <text
+       x="10"
+       y="335"
+       class="step"
+       fill="#e74c3c"
+       id="text28">3. free(persona-&gt;nombre)</text>
+    <text
+       x="190"
+       y="360"
+       class="code"
+       text-anchor="middle"
+       fill="#e74c3c"
+       id="text29">UNDEFINED BEHAVIOR</text>
+    <text
+       x="190"
+       y="380"
+       class="label"
+       text-anchor="middle"
+       fill="#c0392b"
+       font-size="11"
+       id="text30">persona ya fue liberada</text>
+    <!-- Resultado -->
+    <rect
+       x="50"
+       y="410"
+       width="280"
+       height="50"
+       class="error"
+       opacity="0.2"
+       id="rect30" />
+    <text
+       x="190"
+       y="440"
+       class="label"
+       text-anchor="middle"
+       fill="#e74c3c"
+       id="text31">✗ Memory leak + UB</text>
+  </g>
+  <!-- Leyenda -->
+  <g
+     transform="translate(250,468)"
+     id="g34">
+    <rect
+       x="0"
+       y="0"
+       width="15"
+       height="15"
+       class="struct-block"
+       id="rect31" />
+    <text
+       x="20"
+       y="12"
+       class="label"
+       font-size="11"
+       id="text32"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14px;line-height:normal;font-family:sans-serif">Estructura</text>
+    <rect
+       x="90"
+       y="0"
+       width="15"
+       height="15"
+       class="memory-block"
+       id="rect32" />
+    <text
+       x="110"
+       y="12"
+       class="label"
+       font-size="11"
+       id="text33"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14px;line-height:normal;font-family:sans-serif">Memoria heap</text>
+    <rect
+       x="210"
+       y="0"
+       width="15"
+       height="15"
+       class="error"
+       opacity="0.3"
+       id="rect33" />
+    <text
+       x="232"
+       y="12"
+       class="label"
+       font-size="11"
+       id="text34"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14px;line-height:normal;font-family:sans-serif">Liberado</text>
+  </g>
+</svg>
