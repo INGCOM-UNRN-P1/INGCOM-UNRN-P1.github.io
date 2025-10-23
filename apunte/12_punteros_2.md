@@ -308,17 +308,6 @@ void funcion() {
 }
 ```
 
-#### Cómo Identificar Memoria del Heap
-
-Si no recordás si un puntero apunta a memoria dinámica, seguí este árbol de decisión:
-
-```{figure} ./12/decision_free.svg
-:name: fig-decision-free
-:width: 80%
-
-Árbol de decisión para determinar si un puntero puede ser liberado con free().
-```
-
 (punteros2-funciones-memoria)=
 ## Funciones Adicionales de Gestión de Memoria
 
