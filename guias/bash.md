@@ -1,4 +1,8 @@
-# 🐚 Guía para aprender a usar la consola UNIX (Bash) desde cero
+---
+title: Bash para principiantes
+short_title: Bash
+subtitle: Guía para aprender a usar la consola UNIX (Bash) desde cero
+---
 
 ## ¿Por qué aprender Bash?
 
@@ -683,10 +687,10 @@ function backup() {
 
 function extract() {
     case "$1" in
-        *.tar.gz) tar -xzf "$1" ;;
-        *.zip) unzip "$1" ;;
-        *.rar) unrar e "$1" ;;
-        *) echo "Formato no soportado" ;;
+        *.tar.gz) tar -xzf "$1" ;; 
+        *.zip) unzip "$1" ;; 
+        *.rar) unrar e "$1" ;; 
+        *) echo "Formato no soportado" ;; 
     esac
 }
 ```
@@ -710,9 +714,9 @@ $                          # fin de línea
 
 # Ejemplos con grep
 grep '^[A-Z]' archivo.txt          # líneas que empiezan con mayúscula
-grep '[0-9]\{3\}' archivo.txt      # exactamente 3 dígitos
+grep '[0-9]\\{3\}' archivo.txt      # exactamente 3 dígitos
 grep -E '[0-9]{2,4}' archivo.txt   # entre 2 y 4 dígitos
-grep '\b[A-Za-z]+@[A-Za-z]+\.[A-Za-z]+\b' emails.txt  # emails básicos
+grep '\\b[A-Za-z]+@[A-Za-z]+\\.[A-Za-z]+\\b' emails.txt  # emails básicos
 ```
 
 #### 17.2 Aplicaciones prácticas
@@ -722,13 +726,13 @@ grep '\b[A-Za-z]+@[A-Za-z]+\.[A-Za-z]+\b' emails.txt  # emails básicos
 echo "2023-12-25" | grep -E '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'
 
 # Extraer números de teléfono
-grep -E '\([0-9]{3}\) [0-9]{3}-[0-9]{4}' contactos.txt
+grep -E '\\([0-9]{3}\\) [0-9]{3}-[0-9]{4}' contactos.txt
 
 # Buscar direcciones IP
-grep -E '([0-9]{1,3}\.){3}[0-9]{1,3}' logs.txt
+grep -E '([0-9]{1,3}\\.){3}[0-9]{1,3}' logs.txt
 
 # Encontrar URLs
-grep -E 'https?://[A-Za-z0-9.-]+\.[A-Za-z]{2,}' texto.html
+grep -E 'https?://[A-Za-z0-9.-]+\\.[A-Za-z]{2,}' texto.html
 ```
 
 ### 🔐 18. Seguridad básica
@@ -1231,7 +1235,7 @@ check_dependencies() {
 }
 
 # Configuración por defecto con override
-CONFIG_FILE="${CONFIG_FILE:-$HOME/.mi_script.conf}"
+CONFIG_FILE="${CONFIG_FILE:-"$HOME/.mi_script.conf"}"
 VERBOSE="${VERBOSE:-false}"
 DRY_RUN="${DRY_RUN:-false}"
 ```
@@ -1311,11 +1315,11 @@ $ fortune | cowsay
  --------------------------------
         \   ^__^
          \  (oo)\_______
-            (__)\       )\/\
-                ||----w |
+            (__)\       )\/\n                ||----w |
                 ||     ||
 ```
 
 ---
 
-*"Unix is not just an operating system, it's a way of thinking."* - Brian Kernighan
+"Unix is not just an operating system, it's a way of thinking." - Brian Kernighan
+
