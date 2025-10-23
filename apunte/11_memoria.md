@@ -2791,7 +2791,7 @@ void imprimir_matriz_contigua(int (*matriz)[], size_t filas, size_t columnas);
 
 // Transponer la matriz in-place (solo para matrices cuadradas)
 void transponer_cuadrada(int (*matriz)[], size_t n);
-````
+```
 
 Requisitos:
 
@@ -2810,7 +2810,7 @@ Escribí un programa principal que:
 
 ````
 
-```{solution} ej-memoria-puntero-array
+````{solution} ej-memoria-puntero-array
 :class: dropdown
 
 ```c
@@ -2954,6 +2954,8 @@ int main()
 
     return 0;
 }
+```
+
 ````
 
 **Explicación de puntos clave:**
@@ -2992,7 +2994,7 @@ void *crear_matriz_generica(size_t filas, size_t cols)
 int (*matriz)[4] = (int (*)[4])crear_matriz_generica(5, 4);
 ```
 
-````
+
 
 (memoria-conceptos-avanzados)=
 ## Conceptos Avanzados
@@ -3012,7 +3014,7 @@ tamaños.
 :width: 70%
 
 Jerarquía de memoria desde los registros CPU (más rápidos) hasta los discos duros (más lentos), mostrando la relación inversa entre velocidad y capacidad.
-````
+```
 
 **Principio de localidad:**
 
