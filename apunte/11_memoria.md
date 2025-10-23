@@ -1086,7 +1086,7 @@ Cambia el tamaño de un bloque de memoria previamente asignado.
 
 #### Uso Seguro
 
-El error más común con `realloc` es perder la referencia al bloque original si la función falla. La {ref}`0x0025h` exige usar un puntero temporal para manejar `realloc` de forma segura.
+El error más común con `realloc` es perder la referencia al bloque original si la función falla por lo que es necesario un puntero temporal para manejar `realloc` de forma segura.
 
 **Incorrecto:**
 
@@ -3522,7 +3522,7 @@ Este apunte explora la **gestión de memoria dinámica**, el mecanismo que permi
 
 Con memoria dinámica dominada, tenemos las herramientas para implementar cualquier estructura de datos. Pero antes de construir estructuras complejas, necesitamos entender **cómo medir su eficiencia**: ¿cuánto tiempo toma buscar un elemento? ¿Cómo crece el tiempo de ejecución al duplicar el tamaño de entrada?
 
-El apunte **[](12_complejidad)** introduce el **análisis asintótico** de algoritmos:
+El apunte {ref}`complejidad-introduccion` introduce el **análisis asintótico** de algoritmos:
 
 - Notación Big-O, Omega, Theta para caracterizar crecimiento
 - Análisis de lazos, recursión, y algoritmos complejos
