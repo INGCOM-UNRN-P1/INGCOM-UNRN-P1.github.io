@@ -30,7 +30,7 @@ la cátedra.
 
 3.  **Uso de Inteligencia Artificial (IA):**
 
-    - Reconozco que el objetivo de los TPs es mi propia práctica y aprendizaje.
+    - Reconozco que el objetivo de los Trabajos Prácticos es mi propia práctica y aprendizaje.
 
 4.  **Evaluaciones (Parciales):**
     - Estoy al tanto de que los parciales constan de una parte teórica y una
