@@ -956,6 +956,751 @@ VS Code permite trabajar con múltiples carpetas en un solo workspace:
 2. Guardar workspace: `File` → `Save Workspace As`
 3. El archivo `.code-workspace` guarda la configuración
 
+## Configuración avanzada para C/C++
+
+Esta sección cubre la configuración profesional de VS Code para desarrollo en C, incluyendo Language Server Protocol (LSP), compilación integrada y debugging visual.
+
+### Instalación de extensiones necesarias
+
+Para trabajar con C en VS Code, necesitás instalar estas extensiones fundamentales:
+
+1. **C/C++ (Microsoft)** - `ms-vscode.cpptools`
+   - IntelliSense, debugging y navegación de código
+   - Language server oficial de Microsoft
+
+2. **clangd** - `llvm-vs-code-extensions.vscode-clangd` (alternativa recomendada)
+   - Language server más rápido y preciso que el de Microsoft
+   - Mejor autocompletado y diagnósticos
+
+3. **Makefile Tools** - `ms-vscode.makefile-tools`
+   - Soporte para proyectos con Makefiles
+   - Compilación integrada
+
+4. **CodeLLDB** - `vadimcn.vscode-lldb` (opcional, para debugging avanzado)
+   - Debugger alternativo con mejor visualización
+
+```bash
+# Instalar desde terminal
+code --install-extension ms-vscode.cpptools
+code --install-extension llvm-vs-code-extensions.vscode-clangd
+code --install-extension ms-vscode.makefile-tools
+```
+
+### Configuración del Language Server: clangd
+
+El Language Server Protocol (LSP) es un estándar que permite a los editores obtener información semántica del código: autocompletado, diagnósticos, navegación, refactoring, etc. Para C, `clangd` es la opción más robusta.
+
+#### Instalación de clangd
+
+```bash
+# Ubuntu/Debian
+sudo apt install clangd
+
+# Fedora/RHEL
+sudo dnf install clang-tools-extra
+
+# macOS
+brew install llvm
+
+# Verificar instalación
+clangd --version
+```
+
+#### Configuración de clangd en VS Code
+
+Creá o editá el archivo `.vscode/settings.json` en tu proyecto:
+
+```json
+{
+    // Configuración de clangd
+    "clangd.path": "/usr/bin/clangd",
+    "clangd.arguments": [
+        "--background-index",
+        "--clang-tidy",
+        "--completion-style=detailed",
+        "--header-insertion=iwyu",
+        "--pch-storage=memory"
+    ],
+    
+    // Desactivar IntelliSense de C/C++ extension para evitar conflictos
+    "C_Cpp.intelliSenseEngine": "disabled",
+    
+    // Configuración de formato (clang-format)
+    "editor.formatOnSave": true,
+    "C_Cpp.clang_format_style": "{ BasedOnStyle: LLVM, IndentWidth: 4, UseTab: Never }",
+    
+    // Ayudas visuales
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": true
+}
+```
+
+**Explicación de argumentos de clangd:**
+
+- `--background-index`: Indexa el código en segundo plano para navegación rápida
+- `--clang-tidy`: Activa análisis estático de código (detecta bugs comunes)
+- `--completion-style=detailed`: Autocompletado detallado con documentación
+- `--header-insertion=iwyu`: Incluye headers automáticamente ("Include What You Use")
+- `--pch-storage=memory`: Usa RAM para headers precompilados (más rápido)
+
+#### Archivo compile_commands.json
+
+Para que clangd entienda tu proyecto, necesita saber cómo compilarlo. Esto se especifica en `compile_commands.json`.
+
+**Método 1: Generar con Make + Bear**
+
+```bash
+# Instalar bear (Build EAR - genera compile_commands.json)
+sudo apt install bear  # Ubuntu/Debian
+sudo dnf install bear  # Fedora
+
+# Generar compile_commands.json
+bear -- make
+
+# Esto crea compile_commands.json en el directorio actual
+```
+
+**Método 2: Generar manualmente para proyecto simple**
+
+Si tenés un proyecto simple con pocos archivos, podés crear `compile_commands.json` manualmente:
+
+```json
+[
+  {
+    "directory": "/home/usuario/mi-proyecto",
+    "command": "gcc -Wall -Wextra -std=c11 -g -o programa main.c lista.c utils.c",
+    "file": "main.c"
+  },
+  {
+    "directory": "/home/usuario/mi-proyecto",
+    "command": "gcc -Wall -Wextra -std=c11 -g -o programa main.c lista.c utils.c",
+    "file": "lista.c"
+  },
+  {
+    "directory": "/home/usuario/mi-proyecto",
+    "command": "gcc -Wall -Wextra -std=c11 -g -o programa main.c lista.c utils.c",
+    "file": "utils.c"
+  }
+]
+```
+
+**Método 3: Con CMake**
+
+```bash
+# CMake genera compile_commands.json automáticamente
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .
+
+# Crear symlink en la raíz del proyecto si CMake está en build/
+ln -s build/compile_commands.json compile_commands.json
+```
+
+:::{tip} Verificación de clangd
+
+Para verificar que clangd está funcionando correctamente:
+
+1. Abrí un archivo `.c` en VS Code
+2. Esperá unos segundos a que clangd indexe
+3. Deberías ver:
+   - **Autocompletado inteligente** al tipear
+   - **Errores subrayados** en tiempo real
+   - **Tooltips con documentación** al pasar el mouse
+   - **"Go to Definition"** (F12) funcionando
+
+Si no funciona, revisá el output: `View` → `Output` → seleccionar "clangd" en el dropdown.
+:::
+
+### Configuración de compilación integrada
+
+VS Code permite compilar tu proyecto sin salir del editor. Hay dos métodos principales:
+
+#### Método 1: Tasks con tasks.json (proyecto simple)
+
+Creá `.vscode/tasks.json`:
+
+```json
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compilar programa",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "-Wall",
+                "-Wextra",
+                "-Wconversion",
+                "-std=c11",
+                "-g",
+                "-o",
+                "${workspaceFolder}/programa",
+                "${workspaceFolder}/main.c",
+                "${workspaceFolder}/lista.c",
+                "${workspaceFolder}/utils.c"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "Compilar con sanitizers",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "-Wall",
+                "-Wextra",
+                "-Wconversion",
+                "-std=c11",
+                "-g",
+                "-fsanitize=address",
+                "-fsanitize=undefined",
+                "-o",
+                "${workspaceFolder}/programa-sanitized",
+                "${workspaceFolder}/main.c",
+                "${workspaceFolder}/lista.c",
+                "${workspaceFolder}/utils.c"
+            ],
+            "group": "build",
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "Ejecutar programa",
+            "type": "shell",
+            "command": "${workspaceFolder}/programa",
+            "dependsOn": ["Compilar programa"],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Limpiar",
+            "type": "shell",
+            "command": "rm",
+            "args": [
+                "-f",
+                "${workspaceFolder}/programa",
+                "${workspaceFolder}/programa-sanitized"
+            ],
+            "group": "build"
+        }
+    ]
+}
+```
+
+**Uso de tasks:**
+
+```bash
+# Compilar (task por defecto)
+Ctrl+Shift+B
+
+# Ejecutar task específica
+Ctrl+Shift+P → "Tasks: Run Task" → elegir task
+
+# Atajo: configurar keybinding personalizado
+# File → Preferences → Keyboard Shortcuts → buscar "workbench.action.tasks.runTask"
+```
+
+**Explicación de opciones importantes:**
+
+- `"isDefault": true`: Marca la task como predeterminada para `Ctrl+Shift+B`
+- `"problemMatcher": "$gcc"`: Parsea la salida de GCC para mostrar errores en el panel "Problems"
+- `"dependsOn"`: Ejecuta otra task antes de esta (útil para "compilar y ejecutar")
+- `"presentation"`: Controla cómo se muestra la terminal de la task
+
+#### Método 2: Makefile Tools (proyecto con Makefile)
+
+Si tu proyecto usa Makefile, la extensión Makefile Tools provee integración visual.
+
+**Configuración en `.vscode/settings.json`:**
+
+```json
+{
+    "makefile.extensionOutputFolder": ".vscode",
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "${workspaceFolder}",
+            "binaryPath": "${workspaceFolder}/programa",
+            "binaryArgs": []
+        }
+    ],
+    "makefile.configurations": [
+        {
+            "name": "Debug",
+            "makeArgs": ["DEBUG=1"]
+        },
+        {
+            "name": "Release",
+            "makeArgs": []
+        }
+    ]
+}
+```
+
+**Uso:**
+
+- La extensión agrega una barra lateral con targets de Make
+- Botón "Build" en la barra de estado para compilar
+- Selección de configuración (Debug/Release)
+- Navegación visual de targets
+
+:::{important} Variables útiles en tasks y launch configs
+
+VS Code provee variables que podés usar en configuraciones:
+
+- `${workspaceFolder}`: Ruta absoluta del workspace
+- `${file}`: Archivo actualmente abierto
+- `${fileBasename}`: Nombre del archivo sin ruta
+- `${fileBasenameNoExtension}`: Nombre sin extensión
+- `${fileDirname}`: Directorio del archivo actual
+- `${cwd}`: Directorio de trabajo actual
+- `${env:VARIABLE}`: Variable de entorno
+
+Ejemplo: `"${workspaceFolder}/build/${fileBasenameNoExtension}"`
+:::
+
+### Configuración de debugging integrado
+
+El debugging visual es una de las características más poderosas de VS Code. Permite ejecutar código paso a paso, inspeccionar variables, establecer breakpoints condicionales, y más.
+
+#### Configuración básica de launch.json
+
+Creá `.vscode/launch.json`:
+
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug programa",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/programa",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Habilitar pretty-printing para gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Establecer flavor de desensamblado a Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Compilar programa",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "logging": {
+                "engineLogging": false
+            }
+        },
+        {
+            "name": "Debug con argumentos",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/programa",
+            "args": ["archivo.txt", "--verbose"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "preLaunchTask": "Compilar programa"
+        },
+        {
+            "name": "Debug test específico",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/tests/test_lista",
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "MIMode": "gdb",
+            "preLaunchTask": "Compilar tests"
+        },
+        {
+            "name": "Attach a proceso corriendo",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "${workspaceFolder}/programa",
+            "processId": "${command:pickProcess}",
+            "MIMode": "gdb"
+        }
+    ]
+}
+```
+
+**Explicación de campos importantes:**
+
+- `"type": "cppdbg"`: Usa el debugger de C/C++ de Microsoft (basado en GDB/LLDB)
+- `"request": "launch"`: Inicia el programa (vs. "attach" a proceso existente)
+- `"program"`: Ruta al ejecutable a debuggear
+- `"args"`: Argumentos de línea de comandos
+- `"stopAtEntry": true`: Para en la primera línea de `main()`
+- `"preLaunchTask"`: Task a ejecutar antes de debuggear (típicamente, compilar)
+- `"MIMode"`: Debugger backend ("gdb" en Linux, "lldb" en macOS)
+- `"externalConsole": false`: Usa terminal integrada de VS Code
+
+#### Uso del debugger
+
+**Iniciar debugging:**
+
+```bash
+# Iniciar debug de la configuración por defecto
+F5
+
+# Seleccionar configuración y debuggear
+Ctrl+Shift+D → seleccionar config → F5
+
+# Ejecutar sin debuggear
+Ctrl+F5
+```
+
+**Controles de debugging:**
+
+```bash
+F5          # Continuar ejecución
+F10         # Step Over (ejecutar línea, no entrar en funciones)
+F11         # Step Into (entrar en función)
+Shift+F11   # Step Out (salir de función actual)
+Shift+F5    # Detener debugging
+Ctrl+Shift+F5  # Reiniciar debugging
+```
+
+**Breakpoints:**
+
+- **Click izquierdo** en el margen izquierdo del editor (aparece punto rojo)
+- **Breakpoint condicional**: Click derecho → "Add Conditional Breakpoint"
+  - Ejemplo: `i == 50` (para solo cuando `i` es 50)
+  - Ejemplo: `strcmp(nombre, "test") == 0`
+- **Logpoint**: Imprime mensaje sin detener ejecución
+  - Click derecho → "Add Logpoint"
+  - Ejemplo: `"Valor de i: {i}, ptr: {ptr}"`
+
+**Paneles de debugging:**
+
+1. **Variables**: Inspección de variables locales y globales
+   - Expandir estructuras y punteros
+   - Click derecho → "Add to Watch" para monitorear
+
+2. **Watch**: Expresiones personalizadas a monitorear
+   - Agregar expresiones como `lista->tamanio`, `*ptr`, etc.
+   - Se evalúan en cada paso
+
+3. **Call Stack**: Pila de llamadas actual
+   - Click en frame para ver variables en ese contexto
+   - Útil para entender cómo llegaste a un punto
+
+4. **Breakpoints**: Lista de todos los breakpoints
+   - Habilitar/deshabilitar sin eliminar
+   - Ver condiciones
+
+5. **Debug Console**: Ejecutar expresiones arbitrarias
+   - Evaluar variables: `p variable`
+   - Llamar funciones: `call mi_funcion(42)`
+   - Usar comandos GDB directamente: `-exec info registers`
+
+#### Debugging avanzado: Pretty Printers
+
+GDB puede ser configurado para mostrar estructuras complejas de forma legible mediante *pretty printers*.
+
+**Ejemplo: Pretty printer para lista enlazada**
+
+Creá `.gdbinit` en el directorio de tu proyecto:
+
+```python
+# .gdbinit - Pretty printers personalizados
+
+python
+import gdb
+
+class ListaPrinter:
+    """Pretty printer para lista_t"""
+    def __init__(self, val):
+        self.val = val
+
+    def to_string(self):
+        largo = self.val['largo']
+        return f"lista_t con {largo} elementos"
+
+    def children(self):
+        """Itera sobre los nodos de la lista"""
+        nodo = self.val['primero']
+        count = 0
+        while nodo != 0:
+            yield (f'[{count}]', nodo['dato'])
+            nodo = nodo['siguiente']
+            count += 1
+
+def lookup_type(val):
+    """Registra pretty printers"""
+    if str(val.type) == 'lista_t *':
+        return ListaPrinter(val.dereference())
+    return None
+
+gdb.pretty_printers.append(lookup_type)
+
+end
+```
+
+Ahora al inspeccionar una `lista_t` en el debugger, verás los elementos expandidos automáticamente.
+
+:::{note} Permisos de .gdbinit
+
+Por seguridad, GDB puede requerir que permitas cargar `.gdbinit` locales:
+
+```bash
+# Agregar a ~/.gdbinit
+add-auto-load-safe-path /home/usuario/mi-proyecto/.gdbinit
+
+# O permitir todos (menos seguro)
+set auto-load safe-path /
+```
+:::
+
+#### Debugging con Valgrind integrado
+
+Podés ejecutar Valgrind desde VS Code y parsear su salida:
+
+**Task en `tasks.json`:**
+
+```json
+{
+    "label": "Valgrind memcheck",
+    "type": "shell",
+    "command": "valgrind",
+    "args": [
+        "--leak-check=full",
+        "--show-leak-kinds=all",
+        "--track-origins=yes",
+        "--verbose",
+        "--log-file=valgrind-out.txt",
+        "${workspaceFolder}/programa"
+    ],
+    "dependsOn": ["Compilar programa"],
+    "group": "test",
+    "presentation": {
+        "reveal": "always"
+    }
+}
+```
+
+**Launch config para debugging con Valgrind:**
+
+```json
+{
+    "name": "Debug con Valgrind",
+    "type": "cppdbg",
+    "request": "launch",
+    "program": "/usr/bin/valgrind",
+    "args": [
+        "--leak-check=full",
+        "--track-origins=yes",
+        "${workspaceFolder}/programa"
+    ],
+    "stopAtEntry": false,
+    "cwd": "${workspaceFolder}",
+    "environment": [],
+    "externalConsole": false,
+    "MIMode": "gdb"
+}
+```
+
+### Configuración completa de ejemplo
+
+Aquí hay una estructura completa de `.vscode/` para un proyecto típico en C:
+
+```bash
+mi-proyecto/
+├── .vscode/
+│   ├── c_cpp_properties.json  # Configuración de IntelliSense
+│   ├── launch.json            # Configuraciones de debugging
+│   ├── settings.json          # Settings específicos del proyecto
+│   └── tasks.json             # Tasks de compilación
+├── src/
+│   ├── main.c
+│   ├── lista.c
+│   └── lista.h
+├── tests/
+│   └── test_lista.c
+├── Makefile
+├── compile_commands.json
+└── .gdbinit
+```
+
+**`.vscode/c_cpp_properties.json`** (solo si no usás clangd):
+
+```json
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-gcc-x64"
+        }
+    ],
+    "version": 4
+}
+```
+
+### Atajos de teclado útiles para C
+
+Agregá estos keybindings personalizados en `File` → `Preferences` → `Keyboard Shortcuts` (JSON):
+
+```json
+[
+    {
+        "key": "ctrl+shift+b",
+        "command": "workbench.action.tasks.build"
+    },
+    {
+        "key": "ctrl+shift+t",
+        "command": "workbench.action.tasks.test"
+    },
+    {
+        "key": "f5",
+        "command": "workbench.action.debug.start",
+        "when": "debuggersAvailable && debugState == 'inactive'"
+    },
+    {
+        "key": "ctrl+k ctrl+i",
+        "command": "editor.action.showHover",
+        "when": "editorTextFocus"
+    }
+]
+```
+
+:::{tip} Workflow recomendado
+
+Un workflow eficiente para desarrollo en C con VS Code:
+
+1. **Escribir código** con autocompletado de clangd
+2. **Compilar** con `Ctrl+Shift+B`
+3. **Ver errores** en panel "Problems" (`Ctrl+Shift+M`)
+4. **Navegar a error** con `F8` (siguiente error)
+5. **Ejecutar** con task o `Ctrl+F5` (sin debug)
+6. **Debuggear** con `F5` si hay problema
+7. **Verificar memoria** con task de Valgrind
+8. **Commit** cuando todo funciona
+
+Este ciclo iterativo, completamente dentro de VS Code, es mucho más rápido que cambiar entre editor, terminal, y debugger separados.
+:::
+
+### Problemas específicos de C/C++
+
+#### clangd no funciona o da errores
+
+```bash
+# Verificar que clangd está instalado
+which clangd
+clangd --version
+
+# Ver output de clangd en VS Code
+# View → Output → seleccionar "clangd" en dropdown
+
+# Verificar que compile_commands.json existe
+ls -la compile_commands.json
+
+# Regenerar compile_commands.json
+bear -- make clean && bear -- make
+```
+
+**Error común**: "clangd: compile commands not found"
+
+Solución: Asegurate de que `compile_commands.json` esté en la raíz del workspace.
+
+#### GDB no inicia o crashea
+
+```bash
+# Verificar instalación de GDB
+gdb --version
+
+# Probar debuggear manualmente
+gdb ./programa
+(gdb) run
+(gdb) quit
+
+# Si falla, puede ser problema de permisos ptrace
+# En Linux, permitir ptrace para debugging
+echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+```
+
+#### Breakpoints no funcionan o se "saltan"
+
+**Causas comunes:**
+
+1. **Compilado sin `-g`**: Asegurate de que tu task/Makefile incluye `-g`
+   ```bash
+   gcc -g -Wall -Wextra -o programa main.c
+   ```
+
+2. **Optimización activada**: `-O2` o `-O3` pueden eliminar código
+   ```bash
+   # Para debug, usar -O0 (sin optimización)
+   gcc -g -O0 -o programa main.c
+   ```
+
+3. **Código inline**: Funciones muy pequeñas pueden ser inlined
+   - Solución: Usar `-fno-inline` durante debug
+
+#### IntelliSense no muestra sugerencias
+
+```bash
+# Si usas clangd y C/C++ extension simultáneamente:
+# Desactivar IntelliSense de C/C++ extension
+# En settings.json:
+{
+    "C_Cpp.intelliSenseEngine": "disabled"
+}
+
+# Recargar window
+Ctrl+Shift+P → "Developer: Reload Window"
+```
+
+#### Errores de "undefined reference" al compilar
+
+Esto indica problema de linkeo, no del editor. Verificá:
+
+```bash
+# Asegurate de linkear todas las bibliotecas necesarias
+# En tasks.json, args debe incluir todos los .c
+"args": [
+    "-o", "programa",
+    "main.c",
+    "lista.c",      // ← No olvidar implementaciones
+    "utils.c",
+    "-lm"           // ← Bibliotecas del sistema si son necesarias
+]
+```
+
+#### Variables no se muestran en debugger
+
+```bash
+# Compilar sin optimizaciones
+gcc -g -O0 -o programa main.c
+
+# Algunas variables pueden ser optimizadas incluso con -O0
+# Usar 'volatile' para forzar que se mantengan:
+volatile int debug_var = 42;
+```
+
 ## Resolución de problemas comunes
 
 ### VS Code no abre desde terminal

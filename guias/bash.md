@@ -1,6 +1,6 @@
 ---
 title: Bash para principiantes
-short_title: Bash
+short_title: Guía Bash
 subtitle: Guía para aprender a usar la consola UNIX (Bash) desde cero
 ---
 
