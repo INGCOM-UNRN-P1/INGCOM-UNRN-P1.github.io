@@ -1,0 +1,485 @@
+/**
+ * SVG Diagrams Stylesheet
+ * Universidad Nacional de Río Negro - Ingeniería en Computación
+ * 
+ * Paleta de colores basada en identidad institucional UNRN
+ * Colores primarios: #eb2141 (rojo institucional), #192437 (azul oscuro)
+ * 
+ * Para usar este CSS en un SVG, incluir:
+ * <?xml-stylesheet href="../resources/svg.css" type="text/css"?>
+ */
+
+/* ============================================
+   TIPOGRAFÍAS
+   ============================================ */
+
+@font-face {
+  font-family: 'Fabrikat';
+  src: url('./Fabrikat_Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Fabrikat';
+  src: url('./Fabrikat_Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Fabrikat';
+  src: url('./Fabrikat_Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('./LatoWeb-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('./LatoWeb-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Share Tech Mono';
+  src: url('./ShareTechMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* ============================================
+   PALETA DE COLORES INSTITUCIONAL UNRN
+   ============================================ */
+
+:root {
+  /* Colores primarios UNRN */
+  --unrn-red: #eb2141;
+  --unrn-dark-blue: #192437;
+  
+  /* Variaciones de rojo */
+  --red-darker: #c71935;
+  --red-dark: #d91d3a;
+  --red-light: #ef4d68;
+  --red-lighter: #f5798d;
+  --red-lightest: #fce8ec;
+  
+  /* Variaciones de azul oscuro */
+  --blue-darker: #0d1219;
+  --blue-dark: #141b2a;
+  --blue-light: #2d3a50;
+  --blue-lighter: #4a5a75;
+  --blue-lightest: #e8ebf0;
+  
+  /* Grises neutros */
+  --gray-50: #fafafa;
+  --gray-100: #f5f5f5;
+  --gray-200: #e5e5e5;
+  --gray-300: #d4d4d4;
+  --gray-400: #a3a3a3;
+  --gray-500: #737373;
+  --gray-600: #525252;
+  --gray-700: #404040;
+  --gray-800: #262626;
+  --gray-900: #171717;
+  
+  /* Colores para estructuras de datos */
+  /* Pilas - Rojos/Naranjas cálidos */
+  --stack-primary: #eb2141;
+  --stack-secondary: #ff6b6b;
+  --stack-data: #ffe0e0;
+  --stack-pointer: #ffc9c9;
+  
+  /* Colas - Verdes fríos */
+  --queue-primary: #2e7d32;
+  --queue-secondary: #4caf50;
+  --queue-data: #c8e6c9;
+  --queue-pointer: #a5d6a7;
+  
+  /* Deques - Morados */
+  --deque-primary: #6a1b9a;
+  --deque-secondary: #8e24aa;
+  --deque-data: #e1bee7;
+  --deque-pointer: #ce93d8;
+  
+  /* Listas - Azules intermedios */
+  --list-primary: #1565c0;
+  --list-secondary: #1976d2;
+  --list-data: #bbdefb;
+  --list-pointer: #90caf9;
+  
+  /* Árboles - Verdes naturales */
+  --tree-primary: #558b2f;
+  --tree-secondary: #689f38;
+  --tree-data: #dcedc8;
+  --tree-pointer: #c5e1a5;
+  
+  /* Grafos - Naranjas */
+  --graph-primary: #e65100;
+  --graph-secondary: #f57c00;
+  --graph-data: #ffe0b2;
+  --graph-pointer: #ffcc80;
+  
+  /* Hash/Mapas - Índigos */
+  --hash-primary: #283593;
+  --hash-secondary: #3949ab;
+  --hash-data: #c5cae9;
+  --hash-pointer: #9fa8da;
+}
+
+/* ============================================
+   ESTILOS BASE
+   ============================================ */
+
+/* Títulos principales */
+.title {
+  font-family: 'Fabrikat', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  fill: var(--unrn-dark-blue);
+  text-anchor: middle;
+}
+
+.subtitle {
+  font-family: 'Fabrikat', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  fill: var(--blue-light);
+  text-anchor: middle;
+}
+
+/* Etiquetas y texto general */
+.label {
+  font-family: 'Lato', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  fill: var(--gray-700);
+}
+
+.label-bold {
+  font-family: 'Lato', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  fill: var(--unrn-dark-blue);
+}
+
+.label-small {
+  font-family: 'Lato', Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  fill: var(--gray-600);
+}
+
+/* Índices y numeración */
+.index {
+  font-family: 'Lato', Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  fill: var(--gray-500);
+}
+
+/* Código y elementos técnicos */
+.code {
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  fill: var(--gray-700);
+}
+
+.code-comment {
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+  font-size: 10px;
+  font-weight: 400;
+  fill: var(--gray-500);
+  font-style: italic;
+}
+
+.code-keyword {
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  fill: var(--unrn-red);
+}
+
+/* ============================================
+   NODOS Y ESTRUCTURAS BASE
+   ============================================ */
+
+/* Nodos generales */
+.node {
+  fill: #ffffff;
+  stroke: var(--gray-700);
+  stroke-width: 2;
+}
+
+.node-header {
+  fill: var(--gray-100);
+  stroke: var(--gray-700);
+  stroke-width: 1;
+}
+
+.node-data {
+  fill: var(--blue-lightest);
+  stroke: var(--gray-400);
+  stroke-width: 1.5;
+}
+
+.node-pointer {
+  fill: #ffccbc;
+  stroke: var(--gray-400);
+  stroke-width: 1.5;
+}
+
+.node-null {
+  fill: var(--gray-200);
+  stroke: var(--gray-500);
+  stroke-width: 1.5;
+  stroke-dasharray: 3,3;
+}
+
+.node-highlight {
+  fill: #fff3e0;
+  stroke: var(--unrn-red);
+  stroke-width: 2.5;
+}
+
+/* ============================================
+   ESTILOS POR TIPO DE ESTRUCTURA
+   ============================================ */
+
+/* PILAS (Stacks) */
+.stack-node { fill: #ffffff; stroke: var(--stack-primary); stroke-width: 2; }
+.stack-data { fill: var(--stack-data); stroke: var(--gray-400); stroke-width: 1.5; }
+.stack-pointer { fill: var(--stack-pointer); stroke: var(--gray-400); stroke-width: 1.5; }
+.stack-arrow { fill: none; stroke: var(--stack-primary); stroke-width: 2; }
+.stack-label { fill: var(--stack-primary); font-weight: 700; }
+
+/* COLAS (Queues) */
+.queue-node { fill: #ffffff; stroke: var(--queue-primary); stroke-width: 2; }
+.queue-data { fill: var(--queue-data); stroke: var(--gray-400); stroke-width: 1.5; }
+.queue-pointer { fill: var(--queue-pointer); stroke: var(--gray-400); stroke-width: 1.5; }
+.queue-arrow { fill: none; stroke: var(--queue-primary); stroke-width: 2; }
+.queue-label { fill: var(--queue-primary); font-weight: 700; }
+
+/* DEQUES */
+.deque-node { fill: #ffffff; stroke: var(--deque-primary); stroke-width: 2; }
+.deque-data { fill: var(--deque-data); stroke: var(--gray-400); stroke-width: 1.5; }
+.deque-pointer { fill: var(--deque-pointer); stroke: var(--gray-400); stroke-width: 1.5; }
+.deque-arrow { fill: none; stroke: var(--deque-primary); stroke-width: 2; }
+.deque-arrow-secondary { fill: none; stroke: var(--deque-secondary); stroke-width: 2; }
+.deque-label { fill: var(--deque-primary); font-weight: 700; }
+
+/* LISTAS (Lists) */
+.list-node { fill: #ffffff; stroke: var(--list-primary); stroke-width: 2; }
+.list-data { fill: var(--list-data); stroke: var(--gray-400); stroke-width: 1.5; }
+.list-pointer { fill: var(--list-pointer); stroke: var(--gray-400); stroke-width: 1.5; }
+.list-arrow { fill: none; stroke: var(--list-primary); stroke-width: 2; }
+.list-label { fill: var(--list-primary); font-weight: 700; }
+
+/* ÁRBOLES (Trees) */
+.tree-node { fill: #ffffff; stroke: var(--tree-primary); stroke-width: 2; }
+.tree-data { fill: var(--tree-data); stroke: var(--gray-400); stroke-width: 1.5; }
+.tree-pointer { fill: var(--tree-pointer); stroke: var(--gray-400); stroke-width: 1.5; }
+.tree-arrow { fill: none; stroke: var(--tree-primary); stroke-width: 2; }
+.tree-label { fill: var(--tree-primary); font-weight: 700; }
+
+/* GRAFOS (Graphs) */
+.graph-node { fill: #ffffff; stroke: var(--graph-primary); stroke-width: 2; }
+.graph-data { fill: var(--graph-data); stroke: var(--gray-400); stroke-width: 1.5; }
+.graph-edge { fill: none; stroke: var(--graph-primary); stroke-width: 2; }
+.graph-label { fill: var(--graph-primary); font-weight: 700; }
+
+/* HASH/MAPAS */
+.hash-node { fill: #ffffff; stroke: var(--hash-primary); stroke-width: 2; }
+.hash-data { fill: var(--hash-data); stroke: var(--gray-400); stroke-width: 1.5; }
+.hash-pointer { fill: var(--hash-pointer); stroke: var(--gray-400); stroke-width: 1.5; }
+.hash-arrow { fill: none; stroke: var(--hash-primary); stroke-width: 2; }
+.hash-label { fill: var(--hash-primary); font-weight: 700; }
+
+/* ============================================
+   FLECHAS Y CONECTORES
+   ============================================ */
+
+.arrow {
+  fill: none;
+  stroke: var(--gray-700);
+  stroke-width: 2;
+  marker-end: url(#arrowhead);
+}
+
+.arrow-primary {
+  fill: none;
+  stroke: var(--unrn-red);
+  stroke-width: 2;
+  marker-end: url(#arrowhead-primary);
+}
+
+.arrow-secondary {
+  fill: none;
+  stroke: var(--unrn-dark-blue);
+  stroke-width: 2;
+  marker-end: url(#arrowhead-secondary);
+}
+
+.arrow-dashed {
+  fill: none;
+  stroke: var(--gray-500);
+  stroke-width: 2;
+  stroke-dasharray: 5,5;
+  marker-end: url(#arrowhead-dashed);
+}
+
+.arrow-bidirectional {
+  fill: none;
+  stroke: var(--gray-700);
+  stroke-width: 2;
+  marker-start: url(#arrowhead);
+  marker-end: url(#arrowhead);
+}
+
+/* ============================================
+   CONTENEDORES Y BACKGROUNDS
+   ============================================ */
+
+.background {
+  fill: #ffffff;
+}
+
+.code-block {
+  fill: var(--gray-100);
+  stroke: var(--gray-300);
+  stroke-width: 1;
+  rx: 3;
+}
+
+.highlight-box {
+  fill: var(--red-lightest);
+  stroke: var(--unrn-red);
+  stroke-width: 1;
+  rx: 3;
+}
+
+.info-box {
+  fill: var(--blue-lightest);
+  stroke: var(--blue-light);
+  stroke-width: 1;
+  rx: 3;
+}
+
+.memory-cell {
+  fill: #ffffff;
+  stroke: var(--gray-600);
+  stroke-width: 1.5;
+}
+
+.memory-cell-filled {
+  fill: var(--blue-lightest);
+  stroke: var(--gray-600);
+  stroke-width: 1.5;
+}
+
+.memory-cell-empty {
+  fill: var(--gray-50);
+  stroke: var(--gray-400);
+  stroke-width: 1.5;
+  stroke-dasharray: 3,3;
+}
+
+/* ============================================
+   ELEMENTOS ESPECIALES
+   ============================================ */
+
+/* Líneas divisorias */
+.divider {
+  stroke: var(--gray-300);
+  stroke-width: 1;
+}
+
+.divider-bold {
+  stroke: var(--gray-600);
+  stroke-width: 2;
+}
+
+/* Indicadores y badges */
+.badge {
+  fill: var(--unrn-red);
+  stroke: none;
+}
+
+.badge-text {
+  font-family: 'Lato', Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  fill: #ffffff;
+  text-anchor: middle;
+}
+
+/* Estados y validación */
+.valid {
+  stroke: #2e7d32;
+  stroke-width: 2.5;
+}
+
+.invalid {
+  stroke: var(--unrn-red);
+  stroke-width: 2.5;
+}
+
+.warning {
+  stroke: #f57c00;
+  stroke-width: 2.5;
+}
+
+/* ============================================
+   ANIMACIÓN Y TRANSICIONES (opcional)
+   ============================================ */
+
+.animated {
+  transition: all 0.3s ease;
+}
+
+.hover-highlight:hover {
+  fill: var(--red-lightest);
+  stroke: var(--unrn-red);
+  stroke-width: 2.5;
+}
+
+/* ============================================
+   ACCESIBILIDAD
+   ============================================ */
+
+.screen-reader-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ============================================
+   UTILIDADES
+   ============================================ */
+
+.text-center { text-anchor: middle; }
+.text-start { text-anchor: start; }
+.text-end { text-anchor: end; }
+
+.hidden { display: none; }
+.visible { display: block; }
+
+/* Opacidad */
+.opacity-100 { opacity: 1; }
+.opacity-75 { opacity: 0.75; }
+.opacity-50 { opacity: 0.5; }
+.opacity-25 { opacity: 0.25; }

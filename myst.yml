@@ -6,7 +6,7 @@ site:
   favicon: favicon.ico
   options:
     logo: ./images/unrn-p1_big.svg
-    style: ./css/footer.css
+    style: ./resources/footer.css
   parts:
     footer: footer.md
 project:
