@@ -77,10 +77,19 @@ project:
             - file: ejercicios/diseno_api.md
     - title: Extras
       children:
-        - file: extras/ref-unico-retorno.md
-        - file: extras/ref-simular.md
+        - title: Refactorización
+          children:
+            - file: extras/ref-unico-retorno.md
+            - file: extras/ref-simular.md
+            - file: extras/ref-magic-numbers.md
+            - file: extras/ref-extract-function.md
+            - file: extras/ref-simplify-conditionals.md
+            - file: extras/ref-variables.md
+            - file: extras/ref-naming.md
+            - file: extras/ref-dry.md
         - file: extras/testing.md
         - file: extras/diseno_api.md
+        - file: extras/causas.md
         - file: extras/guide-makefiles.md
         - file: extras/guide-printf.md
         - file: extras/notes-cadenas.md
