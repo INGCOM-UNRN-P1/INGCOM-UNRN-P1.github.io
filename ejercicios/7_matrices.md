@@ -687,3 +687,319 @@ Escribir una función que llene una matriz `N x N` con los valores del Triángul
 ### 7.10: Matriz Antisimétrica
 
 Verificar si una matriz cuadrada es antisimétrica. Una matriz `A` es antisimétrica si su transpuesta es igual a su negativa, es decir, $A^T = -A$. Esto implica que $a_{ij} = -a_{ji}$ y que todos los elementos de la diagonal principal deben ser cero.
+
+## 8: Operaciones Avanzadas con Matrices
+
+### 8.1: Norma de Matriz
+
+Implementar funciones que calculen diferentes normas de una matriz.
+
+```c
+double norma_frobenius(double** matriz, int filas, int cols);
+double norma_maxima(double** matriz, int filas, int cols);
+double norma_uno(double** matriz, int filas, int cols);
+```
+
+**Norma de Frobenius:** $||A||_F = \sqrt{\sum_{i,j} a_{ij}^2}$
+
+**Norma máxima:** $||A||_{\infty} = \max_i \sum_j |a_{ij}|$ (máxima suma de fila)
+
+**Norma uno:** $||A||_1 = \max_j \sum_i |a_{ij}|$ (máxima suma de columna)
+
+### 8.2: Traza de Matriz
+
+Calcular la traza de una matriz cuadrada (suma de elementos de la diagonal principal).
+
+```c
+double traza(double** matriz, int n);
+```
+
+$$\text{tr}(A) = \sum_{i=1}^n a_{ii}$$
+
+### 8.3: Rango de Matriz
+
+Implementar un algoritmo para calcular el rango de una matriz usando eliminación gaussiana.
+
+```c
+int calcular_rango(double** matriz, int filas, int cols);
+```
+
+**Estrategia:** Reducir la matriz a forma escalonada y contar filas no nulas.
+
+### 8.4: Matriz de Cofactores
+
+Calcular la matriz de cofactores para una matriz cuadrada.
+
+```c
+double** matriz_cofactores(double** matriz, int n);
+```
+
+El cofactor $C_{ij}$ se calcula como: $C_{ij} = (-1)^{i+j} M_{ij}$ donde $M_{ij}$ es el menor de la matriz (determinante de la submatriz obtenida eliminando fila $i$ y columna $j$).
+
+### 8.5: Matriz Inversa
+
+Implementar el cálculo de la inversa de una matriz usando el método de Gauss-Jordan.
+
+```c
+double** matriz_inversa(double** matriz, int n, bool* invertible);
+```
+
+**Algoritmo:**
+1. Crear matriz aumentada $[A | I]$
+2. Aplicar eliminación Gauss-Jordan
+3. Si se obtiene $[I | A^{-1}]$, retornar $A^{-1}$
+4. Si no es posible, la matriz no es invertible
+
+### 8.6: Potencia de Matriz
+
+Calcular $A^n$ para una matriz cuadrada $A$ y un exponente entero $n$.
+
+```c
+double** potencia_matriz(double** matriz, int tam, int exponente);
+```
+
+**Optimización:** Usar exponenciación rápida para $O(\log n)$ multiplicaciones.
+
+### 8.7: Descomposición LU
+
+Implementar la descomposición LU de una matriz: $A = LU$ donde $L$ es triangular inferior y $U$ es triangular superior.
+
+```c
+bool descomposicion_lu(double** A, int n, double** L, double** U);
+```
+
+**Aplicación:** Resolver sistemas de ecuaciones lineales eficientemente.
+
+### 8.8: Valores Propios (Power Method)
+
+Implementar el método de la potencia para calcular el valor propio dominante de una matriz.
+
+```c
+double valor_propio_dominante(double** matriz, int n, double tolerancia);
+```
+
+**Algoritmo:**
+1. Comenzar con vector aleatorio $v$
+2. Iterar: $v_{k+1} = \frac{Av_k}{||Av_k||}$
+3. El valor propio es $\lambda = v^T A v$
+
+### 8.9: Matriz de Rotación
+
+Implementar funciones para crear y aplicar matrices de rotación 2D y 3D.
+
+```c
+double** matriz_rotacion_2d(double angulo);
+double** matriz_rotacion_3d_x(double angulo);
+double** matriz_rotacion_3d_y(double angulo);
+double** matriz_rotacion_3d_z(double angulo);
+```
+
+**Matriz de rotación 2D:**
+
+$$
+R(\theta) = \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}
+$$
+
+### 8.10: Matriz de Proyección
+
+Crear matriz de proyección ortogonal sobre un vector.
+
+```c
+double** matriz_proyeccion(double* vector, int n);
+```
+
+**Fórmula:** $P = \frac{vv^T}{v^Tv}$
+
+## 9: Algoritmos de Procesamiento de Imágenes
+
+Considerar una matriz como una imagen en escala de grises donde cada elemento representa la intensidad de un píxel.
+
+### 9.1: Umbralización (Thresholding)
+
+Convertir una imagen en escala de grises a binaria (solo 0 y 255) usando un umbral.
+
+```c
+void umbralizar(int** imagen, int filas, int cols, int umbral);
+```
+
+**Algoritmo:** Si `pixel >= umbral`, asignar 255, sino asignar 0.
+
+### 9.2: Histograma de Imagen
+
+Calcular el histograma de una imagen (frecuencia de cada nivel de intensidad).
+
+```c
+void calcular_histograma(int** imagen, int filas, int cols, int* histograma);
+```
+
+El histograma tiene 256 posiciones (0-255) que cuentan la frecuencia de cada intensidad.
+
+### 9.3: Ecualización de Histograma
+
+Mejorar el contraste de una imagen mediante ecualización de histograma.
+
+```c
+void ecualizar_histograma(int** imagen, int filas, int cols);
+```
+
+**Algoritmo:**
+1. Calcular histograma
+2. Calcular función de distribución acumulativa (CDF)
+3. Normalizar CDF y aplicar transformación a cada píxel
+
+### 9.4: Filtro Gaussiano
+
+Implementar un filtro gaussiano para suavizado de imagen.
+
+```c
+void filtro_gaussiano(double** imagen, int filas, int cols, double sigma);
+```
+
+**Kernel gaussiano 3x3:**
+$$K = \frac{1}{16}\begin{pmatrix} 1 & 2 & 1 \\ 2 & 4 & 2 \\ 1 & 2 & 1 \end{pmatrix}$$
+
+### 9.5: Detección de Bordes (Laplaciano)
+
+Aplicar el operador Laplaciano para detectar bordes.
+
+```c
+void detectar_bordes_laplaciano(int** imagen, int filas, int cols, int** resultado);
+```
+
+**Kernel Laplaciano:**
+$$K = \begin{pmatrix} 0 & 1 & 0 \\ 1 & -4 & 1 \\ 0 & 1 & 0 \end{pmatrix}$$
+
+## 10: Matrices Especiales
+
+### 10.1: Matriz de Vandermonde
+
+Generar una matriz de Vandermonde a partir de un vector.
+
+```c
+double** matriz_vandermonde(double* x, int n, int m);
+```
+
+**Definición:** $V_{ij} = x_i^{j-1}$
+
+**Ejemplo con $x = [1, 2, 3]$ y $m = 4$:**
+$$V = \begin{pmatrix} 1 & 1 & 1 & 1 \\ 1 & 2 & 4 & 8 \\ 1 & 3 & 9 & 27 \end{pmatrix}$$
+
+### 10.2: Matriz de Hilbert
+
+Generar una matriz de Hilbert de orden $n$.
+
+```c
+double** matriz_hilbert(int n);
+```
+
+**Definición:** $H_{ij} = \frac{1}{i+j-1}$
+
+**Nota:** Las matrices de Hilbert son notoriamente mal condicionadas para inversión.
+
+### 10.3: Matriz de Toeplitz
+
+Verificar si una matriz es de Toeplitz (cada diagonal descendente de izquierda a derecha tiene valores constantes).
+
+```c
+bool es_toeplitz(int** matriz, int filas, int cols);
+```
+
+**Propiedad:** $a_{i,j} = a_{i+1,j+1}$
+
+### 10.4: Matriz Circulante
+
+Generar una matriz circulante a partir de su primera fila.
+
+```c
+int** matriz_circulante(int* primera_fila, int n);
+```
+
+**Ejemplo con primera fila $[1, 2, 3, 4]$:**
+$$C = \begin{pmatrix} 1 & 2 & 3 & 4 \\ 4 & 1 & 2 & 3 \\ 3 & 4 & 1 & 2 \\ 2 & 3 & 4 & 1 \end{pmatrix}$$
+
+### 10.5: Matriz de Hankel
+
+Generar una matriz de Hankel (opuesta a Toeplitz: diagonales de arriba-derecha a abajo-izquierda son constantes).
+
+```c
+double** matriz_hankel(double* c, double* r, int n);
+```
+
+## 11: Resolución de Sistemas de Ecuaciones
+
+### 11.1: Sustitución Hacia Adelante
+
+Resolver un sistema triangular inferior $Lx = b$.
+
+```c
+double* sustitucion_adelante(double** L, double* b, int n);
+```
+
+**Algoritmo:** Resolver de arriba hacia abajo.
+
+### 11.2: Sustitución Hacia Atrás
+
+Resolver un sistema triangular superior $Ux = b$.
+
+```c
+double* sustitucion_atras(double** U, double* b, int n);
+```
+
+**Algoritmo:** Resolver de abajo hacia arriba.
+
+### 11.3: Eliminación Gaussiana Completa
+
+Implementar eliminación gaussiana con pivoteo completo para resolver $Ax = b$.
+
+```c
+double* resolver_sistema(double** A, double* b, int n);
+```
+
+### 11.4: Método de Jacobi
+
+Resolver $Ax = b$ iterativamente usando el método de Jacobi.
+
+```c
+double* metodo_jacobi(double** A, double* b, int n, double tolerancia, int max_iter);
+```
+
+**Fórmula de iteración:**
+$$x_i^{(k+1)} = \frac{1}{a_{ii}}\left(b_i - \sum_{j \neq i} a_{ij}x_j^{(k)}\right)$$
+
+### 11.5: Método de Gauss-Seidel
+
+Similar a Jacobi pero usa valores actualizados inmediatamente.
+
+```c
+double* metodo_gauss_seidel(double** A, double* b, int n, double tolerancia, int max_iter);
+```
+
+**Converge más rápido que Jacobi** para matrices con diagonal dominante.
+
+## 12: Operaciones Matriciales con Bloques
+
+### 12.1: Multiplicación por Bloques
+
+Implementar multiplicación de matrices usando el algoritmo por bloques (más eficiente para matrices grandes por mejor uso de caché).
+
+```c
+double** multiplicar_bloques(double** A, double** B, int n, int tam_bloque);
+```
+
+### 12.2: Transpuesta por Bloques
+
+Implementar transpuesta usando bloques para mejor localidad de caché.
+
+```c
+void transponer_bloques(double** matriz, int n, int tam_bloque);
+```
+
+### 12.3: Strassen para Matrices Grandes
+
+Implementar el algoritmo de Strassen para multiplicación rápida de matrices grandes.
+
+```c
+double** strassen(double** A, double** B, int n);
+```
+
+**Complejidad:** $O(n^{2.807})$ vs $O(n^3)$ del método tradicional.

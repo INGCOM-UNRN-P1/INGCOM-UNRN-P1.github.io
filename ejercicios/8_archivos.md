@@ -171,3 +171,246 @@ Investigar el formato de archivo BMP y escribir un programa que genere un archiv
 ### 5.10: Diff Simple de Archivos
 
 Implementar una versión simplificada de `diff`. El programa debe comparar dos archivos de texto línea por línea y mostrar las líneas que son diferentes, indicando de qué archivo provienen.
+
+## 6: Archivos Avanzados
+
+### 6.1: Árbol de Directorios
+
+Implementar un programa que recorra un directorio y sus subdirectorios recursivamente, mostrando la estructura en forma de árbol.
+
+**Usar:** `opendir()`, `readdir()`, `closedir()` de `<dirent.h>`.
+
+**Ejemplo de salida:**
+```
+.
+├── main.c
+├── utils.c
+└── include/
+    ├── utils.h
+    └── tipos.h
+```
+
+### 6.2: Buscar Archivo por Nombre
+
+Implementar una función que busque un archivo por nombre en un directorio y sus subdirectorios.
+
+```c
+char* buscar_archivo(const char* directorio, const char* nombre_archivo);
+```
+
+Retorna la ruta completa del primer archivo encontrado o `NULL`.
+
+### 6.3: Información de Archivo (stat)
+
+Implementar un programa que muestre información detallada de un archivo usando `stat()`.
+
+```c
+void mostrar_info_archivo(const char* ruta);
+```
+
+**Información a mostrar:**
+- Tamaño en bytes
+- Permisos
+- Fecha de última modificación
+- Tipo (regular, directorio, enlace simbólico)
+- Usuario propietario (si está disponible)
+
+### 6.4: Monitor de Cambios en Archivo
+
+Crear un programa que monitoree un archivo y detecte cuando cambia su contenido o tamaño.
+
+**Estrategia:** Guardar el timestamp de última modificación y el tamaño, y verificar periódicamente si cambiaron.
+
+### 6.5: Copia con Barra de Progreso
+
+Mejorar el ejercicio de copiar archivo para mostrar una barra de progreso durante la copia.
+
+**Ejemplo:**
+```
+Copiando archivo.bin... [=====>      ] 45% (450 KB / 1000 KB)
+```
+
+### 6.6: Serialización de Estructuras Complejas
+
+Implementar funciones para guardar y cargar estructuras que contienen punteros.
+
+```c
+typedef struct {
+    char* nombre;
+    int* calificaciones;
+    int num_calificaciones;
+} estudiante_t;
+
+bool guardar_estudiante(const estudiante_t* est, const char* archivo);
+estudiante_t* cargar_estudiante(const char* archivo);
+```
+
+**Desafío:** Manejar correctamente la memoria dinámica.
+
+### 6.7: Índice de Búsqueda
+
+Crear un índice invertido de palabras para búsqueda rápida en archivos de texto.
+
+```c
+typedef struct {
+    char* palabra;
+    int* lineas;  // Números de línea donde aparece
+    int num_ocurrencias;
+} entrada_indice_t;
+
+entrada_indice_t* crear_indice(const char* archivo, int* num_entradas);
+```
+
+### 6.8: Compresión RLE
+
+Implementar compresión Run-Length Encoding para archivos de texto.
+
+**Algoritmo:** Reemplazar secuencias repetidas por `<carácter><cantidad>`.
+
+**Ejemplo:** `"AAABBBCCCC"` → `"A3B3C4"`
+
+```c
+bool comprimir_rle(const char* entrada, const char* salida);
+bool descomprimir_rle(const char* entrada, const char* salida);
+```
+
+### 6.9: Parser JSON Simple
+
+Implementar un parser muy básico para archivos JSON que solo maneje objetos con pares clave-valor de strings.
+
+```c
+typedef struct {
+    char clave[64];
+    char valor[256];
+} par_json_t;
+
+par_json_t* parsear_json_simple(const char* archivo, int* num_pares);
+```
+
+**Ejemplo de JSON soportado:**
+```json
+{
+    "nombre": "Juan",
+    "edad": "25"
+}
+```
+
+### 6.10: Merge Sort Externo
+
+Implementar merge sort para archivos grandes que no caben en memoria.
+
+**Estrategia:**
+1. Dividir el archivo en chunks que caben en memoria
+2. Ordenar cada chunk y guardarlo en un archivo temporal
+3. Fusionar los archivos temporales ordenados
+
+```c
+void merge_sort_externo(const char* entrada, const char* salida, size_t memoria_disponible);
+```
+
+### 6.11: Base de Datos Simple
+
+Crear una base de datos simple basada en archivos que permita:
+- Insertar registros
+- Buscar por índice
+- Actualizar registros
+- Eliminar registros (marcar como borrado)
+
+```c
+typedef struct {
+    int id;
+    char nombre[64];
+    int edad;
+    bool activo;
+} registro_t;
+
+bool db_insertar(const char* archivo, const registro_t* reg);
+registro_t* db_buscar(const char* archivo, int id);
+bool db_actualizar(const char* archivo, const registro_t* reg);
+bool db_eliminar(const char* archivo, int id);
+```
+
+### 6.12: Transacciones con Archivo de Log
+
+Implementar un sistema simple de transacciones que registre operaciones en un log antes de ejecutarlas.
+
+```c
+typedef enum {
+    OP_INSERTAR,
+    OP_ACTUALIZAR,
+    OP_ELIMINAR
+} tipo_operacion_t;
+
+typedef struct {
+    tipo_operacion_t tipo;
+    int id;
+    registro_t datos;
+} transaccion_t;
+
+bool log_escribir(const char* log_file, const transaccion_t* trans);
+bool log_recuperar(const char* log_file, const char* db_file);
+```
+
+### 6.13: Caché de Archivos
+
+Implementar un caché en memoria para acelerar lecturas frecuentes de archivos pequeños.
+
+```c
+typedef struct {
+    char ruta[256];
+    char* contenido;
+    size_t tamanio;
+    time_t timestamp;
+} entrada_cache_t;
+
+typedef struct {
+    entrada_cache_t* entradas;
+    int capacidad;
+    int usado;
+} cache_archivos_t;
+
+cache_archivos_t* cache_crear(int capacidad);
+const char* cache_leer(cache_archivos_t* cache, const char* ruta);
+void cache_invalidar(cache_archivos_t* cache, const char* ruta);
+```
+
+### 6.14: Rotación de Logs
+
+Implementar rotación automática de archivos de log basada en tamaño o cantidad.
+
+```c
+typedef struct {
+    char prefijo[128];
+    size_t tamanio_maximo;
+    int max_archivos;
+    FILE* actual;
+} log_rotativo_t;
+
+log_rotativo_t* log_crear(const char* prefijo, size_t max_tam, int max_archivos);
+void log_escribir(log_rotativo_t* log, const char* mensaje);
+void log_rotar(log_rotativo_t* log);
+```
+
+**Ejemplo de archivos generados:**
+- `app.log` (actual)
+- `app.log.1` (anterior)
+- `app.log.2` (más antiguo)
+
+### 6.15: Archivo Memory-Mapped
+
+Explorar el uso de `mmap` para mapear archivos en memoria (en sistemas POSIX).
+
+```c
+void* mapear_archivo(const char* ruta, size_t* tamanio);
+bool desmapear_archivo(void* mapeado, size_t tamanio);
+```
+
+**Ventaja:** Acceso muy rápido a archivos grandes sin usar `fread`/`fwrite`.
+
+**Ejemplo de uso:**
+```c
+size_t tam;
+char* contenido = mapear_archivo("grande.bin", &tam);
+// Acceder directamente: contenido[1000]
+desmapear_archivo(contenido, tam);
+```
