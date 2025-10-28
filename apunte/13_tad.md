@@ -216,6 +216,204 @@ Para una discusión más profunda sobre las implicaciones de rendimiento de esta
 Siempre debés inicializar los punteros, preferentemente a `NULL` (regla {ref}`0x0003h`), y verificar que `malloc` no retorne `NULL` antes de usar la memoria asignada. Además, después de liberar memoria con `free`, asignále `NULL` al puntero (regla {ref}`0x0036h`) para evitar punteros colgantes. Para buenas prácticas adicionales sobre gestión de memoria, consultá {ref}`memoria-buenas-practicas`.
 :::
 
+## Tipificación de Acciones
+
+Cuando diseñamos un TAD, las operaciones que lo componen no son arbitrarias. Cada función cumple un **rol específico** en la manipulación de la estructura de datos. Clasificar estas operaciones según su propósito permite crear interfaces coherentes y predecibles, facilitando tanto la implementación como el uso del TAD.
+
+A continuación se presentan las **siete categorías fundamentales** de operaciones que típicamente conforman un TAD bien diseñado:
+
+### 1. Constructor
+
+**Propósito:** "Prepara el terreno".
+
+**Función:** Se encarga de la asignación de memoria e inicialización de la estructura. El constructor establece el estado inicial válido del TAD, reservando los recursos necesarios y configurando los invariantes básicos.
+
+**Ejemplos:**
+```c
+int** crear_matriz(int filas, int col);
+int* crear_arreglo(int largo);
+pila_t* crear_pila(void);
+lista_t* crear_lista(void);
+```
+
+:::{note}
+En C, los constructores siempre devuelven un puntero a la estructura recién creada, o `NULL` si la creación falla (por ejemplo, por falta de memoria). El llamador es responsable de verificar el resultado antes de usar la estructura.
+:::
+
+### 2. Selector
+
+**Propósito:** "Recupera información".
+
+**Función:** Obtiene un dato específico que está guardado dentro de la estructura. Los selectores permiten **acceder** al contenido almacenado sin modificarlo. Son operaciones de solo lectura sobre los datos del usuario.
+
+**Ejemplos:**
+```c
+int valor = arreglo[i];
+int item = obtener(arreglo_t, indice);
+int dato = ver_tope(pila);
+int primero = frente(cola);
+```
+
+:::{important}
+Los selectores **no modifican** el estado de la estructura. Deben ser operaciones seguras que puedan invocarse múltiples veces sin efectos secundarios. En términos de programación funcional, son funciones puras respecto al estado del TAD.
+:::
+
+### 3. Consultor
+
+**Propósito:** "Recupera meta-información".
+
+**Función:** Informa sobre alguna **propiedad intrínseca** de la estructura, no sobre los datos almacenados por el usuario, sino sobre el estado y características de la estructura misma. Los consultores responden preguntas sobre la configuración, capacidad o estado actual del TAD.
+
+**Ejemplos:**
+```c
+size_t tamanio = sizeof(arreglo);
+bool vacia = esta_vacia(pila);
+bool encontrado = contiene(lista, valor);
+int elementos = largo(lista);
+size_t capacidad_actual = capacidad(arreglo_dinamico);
+```
+
+**Diferencia con Selectores:**
+- **Selector:** Devuelve un dato del usuario almacenado → `ver_tope(pila)` devuelve el elemento en el tope.
+- **Consultor:** Devuelve información sobre la estructura → `esta_vacia(pila)` informa si hay elementos o no.
+
+### 4. Iterador
+
+**Propósito:** "Recorre la información".
+
+**Función:** Provee una entidad que permite **procesar los elementos** de la estructura uno por uno, de manera secuencial, sin exponer la representación interna. Los iteradores son fundamentales para abstraer el recorrido de estructuras complejas.
+
+**Ejemplos:**
+```c
+iterador_t* iter = crear_iterador(lista);
+while (tiene_siguiente(iter)) {
+    int actual = siguiente(iter);
+    // procesar actual
+}
+destruir_iterador(iter);
+
+// Alternativamente, con callbacks:
+void procesar(int dato, void* contexto);
+recorrer(lista, procesar, contexto);
+```
+
+:::{tip}
+Los iteradores son especialmente útiles cuando la estructura de datos tiene múltiples formas de recorrido (por ejemplo, un árbol puede recorrerse en preorden, inorden o postorden). Cada estrategia puede implementarse como un iterador diferente sin cambiar la estructura subyacente.
+:::
+
+### 5. Mutador
+
+**Propósito:** "Modifica la información".
+
+**Función:** Cambia el **estado o los datos** contenidos en la estructura. Los mutadores son las operaciones de escritura que alteran el contenido gestionado por el TAD. Deben mantener los invariantes de la estructura.
+
+**Ejemplos:**
+```c
+arreglo[i] = valor;
+bool exito = insertar(lista, val, pos);
+bool exito = apilar(pila, dato);
+bool exito = encolar(cola, dato);
+bool eliminado = remover(conjunto, elemento);
+void modificar(matriz, fila, col, nuevo_valor);
+```
+
+:::{important}
+Los mutadores deben garantizar que la estructura permanece en un estado **válido** después de la operación. Por ejemplo, si una pila tiene un invariante de que `tope < capacidad`, la operación `apilar` debe verificar esta condición antes de agregar un elemento, y devolver `false` o redimensionar la estructura si es necesario.
+:::
+
+### 6. Conversor
+
+**Propósito:** "Crea una estructura similar".
+
+**Función:** Genera una **nueva estructura** o representación a partir del contenido de la estructura actual. Los conversores transforman el TAD en otro formato, típicamente para interoperabilidad o presentación.
+
+**Ejemplos:**
+```c
+char* cadena = a_cadena(arreglo, largo);
+int* subconjunto = rebanar(arreglo, desde, hasta);
+lista_t* sublista = copiar_sublista(lista, inicio, fin);
+arreglo_t* arr = lista_a_arreglo(lista);
+char* representacion = serializar(estructura);
+```
+
+:::{note}
+Los conversores típicamente **asignan memoria nueva** para el resultado. El llamador es responsable de liberar estos recursos cuando ya no los necesite. Esto debe documentarse claramente en la especificación de la función.
+:::
+
+**Diferencia con Selectores:**
+- **Selector:** Devuelve una *referencia* a datos existentes → `obtener(arreglo, 5)` devuelve el elemento en posición 5.
+- **Conversor:** Crea una *nueva estructura* con datos derivados → `rebanar(arreglo, 2, 5)` crea un nuevo arreglo con copia de elementos 2-5.
+
+### 7. Destructor
+
+**Propósito:** "Libera los recursos".
+
+**Función:** Se encarga de **liberar la memoria** asignada y otros recursos externos (archivos, conexiones, etc.) para evitar fugas (*memory leaks*). El destructor es la operación final en el ciclo de vida de una instancia del TAD.
+
+**Ejemplos:**
+```c
+void liberar_arreglo(int* arreglo);
+void destruir_matriz(int filas, int** matriz);
+void destruir_pila(pila_t* pila);
+void destruir_lista(lista_t* lista, void (*destruir_dato)(void*));
+```
+
+:::{warning} Responsabilidad del Destructor
+El destructor debe liberar **recursivamente** toda la memoria asociada con la estructura. Si el TAD almacena punteros a otras estructuras dinámicas, el destructor debe liberarlas también, o bien aceptar una función de destrucción personalizada como parámetro para delegar esa responsabilidad al usuario.
+:::
+
+**Patrones comunes:**
+```c
+// Destructor simple (datos copiados)
+void destruir_pila_int(pila_t* pila) {
+    if (!pila) return;
+    free(pila->elementos);
+    free(pila);
+}
+
+// Destructor con callback (datos por referencia)
+void destruir_lista(lista_t* lista, void (*destruir_dato)(void*)) {
+    nodo_t* actual = lista->inicio;
+    while (actual) {
+        nodo_t* siguiente = actual->siguiente;
+        if (destruir_dato)
+            destruir_dato(actual->dato);
+        free(actual);
+        actual = siguiente;
+    }
+    free(lista);
+}
+```
+
+### Resumen de Tipificación
+
+La siguiente tabla resume las siete categorías de operaciones:
+
+| Tipo | Propósito | Modifica Estado | Retorna | Ejemplo |
+|------|-----------|-----------------|---------|---------|
+| **Constructor** | Prepara el terreno | — | Puntero nuevo | `crear_pila()` |
+| **Selector** | Recupera información | ✗ | Dato almacenado | `ver_tope(pila)` |
+| **Consultor** | Recupera meta-información | ✗ | Propiedad de la estructura | `esta_vacia(pila)` |
+| **Iterador** | Recorre la información | ✗* | Elemento siguiente | `siguiente(iter)` |
+| **Mutador** | Modifica la información | ✓ | Estado de éxito | `apilar(pila, dato)` |
+| **Conversor** | Crea estructura similar | ✗ | Nueva estructura | `pila_a_arreglo(pila)` |
+| **Destructor** | Libera recursos | — | `void` | `destruir_pila(pila)` |
+
+*\* El iterador puede mantener estado interno de posición, pero no modifica la estructura recorrida.*
+
+:::{tip} Aplicación Práctica
+Cuando diseñes un nuevo TAD, usá esta tipificación como lista de verificación:
+1. ¿Tengo un constructor que inicializa correctamente?
+2. ¿Qué datos necesito seleccionar?
+3. ¿Qué propiedades debo consultar?
+4. ¿Cómo se recorrerá la estructura?
+5. ¿Qué modificaciones son válidas?
+6. ¿A qué otros formatos debo convertir?
+7. ¿Liberé todos los recursos en el destructor?
+
+Esta clasificación no solo organiza tu código, sino que comunica claramente la **intención** de cada función a quienes usen tu TAD.
+:::
+
 ## El TAD Secuencia
 
 Una **secuencia** es una colección ordenada de elementos donde cada elemento tiene una posición definida. Es uno de los TADs más fundamentales en programación, ya que representa la idea abstracta de "una serie de cosas en orden".
