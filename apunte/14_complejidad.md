@@ -27,6 +27,10 @@ establecer una base teórica para:
 
 Para lograr esto, la herramienta central es el **análisis asintótico**.
 
+:::{tip} Aplicación a Estructuras de Datos
+El análisis de complejidad es esencial para comparar diferentes implementaciones de Tipos de Datos Abstractos. Por ejemplo, ¿cuándo conviene usar una lista enlazada vs. un arreglo? ¿Una pila con arreglo o con nodos? Estas decisiones se fundamentan en análisis de complejidad. Para ver aplicaciones concretas de estos conceptos a estructuras de datos fundamentales, consultá el apunte sobre {ref}`TAD, Pilas y Colas <apunte/13_tad.md>`.
+:::
+
 ## Análisis Asintótico: Enfocándose en lo que Importa
 
 El análisis asintótico es una metodología matemática que describe el
@@ -142,6 +146,10 @@ int obtener_primero(int arr[], int n) {
 }
 ```
 
+:::{note} Estructuras de Datos con Acceso $O(1)$
+Los arreglos proporcionan acceso por índice en tiempo constante, una de sus ventajas principales. En contraste, las listas enlazadas requieren $O(n)$ para acceder a un elemento arbitrario. Esta diferencia fundamental se analiza en detalle en el apunte sobre {ref}`TAD, Pilas y Colas <apunte/13_tad.md>`.
+:::
+
 #### Logarítmica: $O(\log n)$
 
 **Características**:
@@ -199,6 +207,10 @@ int sumar_elementos(int arr[], int n) {
     return suma;
 }
 ```
+
+:::{note} Búsqueda en Estructuras de Datos
+La búsqueda lineal $O(n)$ es necesaria en estructuras sin orden, como listas enlazadas o arreglos no ordenados. Esta es una operación fundamental en muchos TADs. Para comparar las complejidades de búsqueda en diferentes estructuras (pilas, colas, listas), consultá {ref}`TAD, Pilas y Colas <apunte/13_tad.md>`.
+:::
 
 #### Log-Lineal: $O(n \log n)$
 
@@ -507,6 +519,10 @@ $$
 $$
 
 **Costo amortizado**: $\frac{2n}{n} = O(1)$ por operación.
+
+:::{tip} Análisis Amortizado en Pilas y Colas
+Este mismo análisis se aplica a las pilas implementadas con arreglos dinámicos. Para ver ejemplos concretos de cómo el análisis amortizado justifica la eficiencia de las operaciones `push` en pilas con arreglos, consultá la sección sobre pilas en el apunte de {ref}`TAD, Pilas y Colas <apunte/13_tad.md>`.
+:::
 
 #### Método del Potencial
 

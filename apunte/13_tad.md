@@ -463,6 +463,10 @@ El código que usa una secuencia no necesita saber si está implementada con arr
 * Si el arreglo está lleno, requiere $O(n)$ para redimensionar.  
 ** $O(1)$ si se mantiene puntero al final, $O(n)$ si no.
 
+:::{tip} Complejidad Asintótica
+Las notaciones $O(1)$, $O(n)$, etc., describen el **comportamiento asintótico** del tiempo de ejecución. Para entender en profundidad qué significa la notación Big-O, cómo analizar algoritmos formalmente, y las diferentes notaciones asintóticas (Omega, Theta), consultá {ref}`complejidad-introduccion`.
+:::
+
 ## Listas Enlazadas: Implementación de Secuencia
 
 Una **lista enlazada** es una implementación del TAD Secuencia donde los elementos se almacenan en nodos individuales conectados mediante punteros. A diferencia de los arreglos, los nodos no necesitan estar en posiciones contiguas de memoria, lo que permite inserciones y eliminaciones eficientes al inicio.
@@ -1114,6 +1118,10 @@ Ahora que hemos visto ambas implementaciones del TAD Secuencia, podemos comparar
 * $O(1)$ en promedio, pero ocasionalmente $O(n)$ cuando se redimensiona.  
 ** $O(1)$ si se mantiene puntero al final, $O(n)$ si no.
 
+:::{note} Análisis de Complejidad
+Esta tabla muestra las complejidades temporales en notación Big-O, que describe el **peor caso** del algoritmo. El apunte {ref}`complejidad-introduccion` explica en detalle cómo se derivan estas complejidades, qué significa cada notación, y cómo realizar análisis formal de algoritmos.
+:::
+
 :::{important} Eligiendo la Implementación Correcta
 
 - **Usá arreglos** cuando necesitás acceso aleatorio frecuente o querés aprovechar la localidad de caché.
@@ -1190,11 +1198,7 @@ La eficiencia de las operaciones es un criterio fundamental al elegir una estruc
 * $O(1)$ si se mantiene un puntero al final.
 
 :::{important}
-La notación Big-O describe el comportamiento asintótico en el peor caso. En casos promedio o con estructuras auxiliares, las complejidades pueden variar.
-:::
-
-:::{note}
-Para ver la complejidad de pilas y colas, consultá el apunte sobre [Estructuras de Datos Avanzadas](14_estructuras.md).
+La notación Big-O describe el comportamiento asintótico en el peor caso. En casos promedio o con estructuras auxiliares, las complejidades pueden variar. Para un análisis formal y riguroso del análisis asintótico, incluyendo las notaciones Omega ($\Omega$) y Theta ($\Theta$), consultá {ref}`complejidad-introduccion`.
 :::
 
 ## Comparación: Arreglos vs. Listas Enlazadas como Secuencias
@@ -1497,7 +1501,7 @@ fin función
 ```
 
 :::{tip}
-El factor de redimensionamiento (comúnmente 2) es importante. Duplicar la capacidad garantiza que el costo amortizado de `push` sea $O(1)$, aunque un `push` individual pueda ser $O(n)$ cuando requiere redimensionar.
+El factor de redimensionamiento (comúnmente 2) es importante. Duplicar la capacidad garantiza que el costo amortizado de `push` sea $O(1)$, aunque un `push` individual pueda ser $O(n)$ cuando requiere redimensionar. Para entender cómo se calcula formalmente el análisis amortizado usando el método del banquero o el método del potencial, consultá la sección sobre análisis amortizado en {ref}`complejidad-introduccion`.
 :::
 
 #### Desapilar (Arreglo)
@@ -1525,7 +1529,7 @@ fin función
 | es_vacia | $O(1)$ | $O(1)$ |
 
 :::{note}
-Aunque `push` puede ser $O(n)$ cuando requiere redimensionar, el análisis amortizado muestra que en promedio sigue siendo $O(1)$.
+Aunque `push` puede ser $O(n)$ cuando requiere redimensionar, el análisis amortizado muestra que en promedio sigue siendo $O(1)$. Este tipo de análisis es crucial para estructuras de datos dinámicas y se estudia en profundidad en {ref}`complejidad-introduccion`.
 :::
 
 ### Aplicaciones de Pilas
@@ -1978,7 +1982,7 @@ Las pilas y colas son solo el comienzo. Existe un ecosistema rico de estructuras
 - **Skip Lists:** Estructura probabilística alternativa a BST
 
 :::{note}
-Cada estructura de datos representa un compromiso (*trade-off*) entre tiempo de operaciones, espacio usado y complejidad de implementación. No existe la "mejor" estructura, solo la más apropiada para cada contexto.
+Cada estructura de datos representa un compromiso (*trade-off*) entre tiempo de operaciones, espacio usado y complejidad de implementación. No existe la "mejor" estructura, solo la más apropiada para cada contexto. Para comprender cómo comparar formalmente estructuras de datos usando análisis de complejidad, consultá {ref}`complejidad-introduccion`.
 :::
 
 ## Ejercicios de Pilas y Colas
@@ -2125,7 +2129,7 @@ Los Tipos de Datos Abstractos son una herramienta fundamental para construir sof
   - Aplicaciones prácticas en sistemas y algoritmos
   - Análisis de complejidad temporal y espacial
 - **Consideraciones de implementación:** manejo de errores, invariantes y seguridad.
-- **Análisis de complejidad temporal** de las operaciones en diferentes implementaciones.
+- **Análisis de complejidad temporal** de las operaciones en diferentes implementaciones (para el fundamento teórico completo, consultá {ref}`complejidad-introduccion`).
 - **Panorama general** de estructuras de datos avanzadas y su clasificación.
 
 :::{important} Lección Clave: Múltiples Implementaciones
