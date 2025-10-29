@@ -1,6 +1,6 @@
 ---
 title: "Técnicas de Simulación de Estructuras de Control"
-short_title: "Refactorización - Estructuras de Control"
+short_title: "Estructuras de control"
 subtitle: "Alternativas y patrones para simular comportamientos de bucles"
 ---
 

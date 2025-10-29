@@ -1,6 +1,6 @@
 ---
 title: "Refactorización de Variables y Alcance"
-short_title: "Refactorización - Variables"
+short_title: "Optimización de variables"
 subtitle: "Optimización del alcance, inicialización y gestión de variables"
 ---
 

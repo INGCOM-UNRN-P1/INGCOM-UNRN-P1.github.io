@@ -1,6 +1,6 @@
 ---
 title: "Mejora de Nombres y Comunicación de Intenciones"
-short_title: "Refactorización - Naming"
+short_title: "Cambios de nombres"
 subtitle: "Técnicas para elegir nombres que revelen intenciones y mejoren la comprensión"
 ---
 

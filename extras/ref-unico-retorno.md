@@ -1,6 +1,6 @@
 ---
 title: Único Retorno
-short_title: Refactorización - Único retorno
+short_title: Único retorno
 ---
 
 ## Motivación

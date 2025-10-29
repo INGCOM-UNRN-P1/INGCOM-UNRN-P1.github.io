@@ -1,6 +1,6 @@
 ---
 title: "Extracción de Funciones"
-short_title: "Refactorización - Extract Function"
+short_title: "Extraer Función"
 subtitle: "Descomponer código complejo en funciones cohesivas y reutilizables"
 ---
 

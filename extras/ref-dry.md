@@ -1,6 +1,6 @@
 ---
 title: "Refactorización de Código Duplicado"
-short_title: "Refactorización - DRY"
+short_title: "Don't Repeat Yourself [DRY]"
 subtitle: "Eliminación de duplicación mediante extracción y abstracción"
 ---
 

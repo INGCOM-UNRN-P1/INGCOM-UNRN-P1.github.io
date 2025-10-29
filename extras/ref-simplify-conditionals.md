@@ -1,6 +1,6 @@
 ---
 title: "Simplificación de Condicionales"
-short_title: "Refactorización - Condicionales"
+short_title: "Simplificación de condicionales"
 subtitle: "Técnicas para clarificar y simplificar lógica condicional compleja"
 ---
 
