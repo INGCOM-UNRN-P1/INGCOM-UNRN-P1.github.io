@@ -653,29 +653,29 @@ Una organización clara te ayudará a mantener el trabajo ordenado a lo largo de
 
 ```
 p1/
-├── guias/
-│   ├── guia01/
-│   │   ├── ejercicio01.c
-│   │   ├── ejercicio02.c
-│   │   └── ejercicio03.c
-│   ├── guia02/
-│   │   ├── ejercicio01.c
-│   │   └── ejercicio02.c
-│   └── guia03/
-│       └── ejercicio01.c
-├── tps/
-│   ├── tp1/
-│   │   ├── main.c
-│   │   ├── funciones.c
-│   │   ├── funciones.h
-│   │   └── README.md
-│   └── tp2/
-│       └── main.c
-├── parciales/
-│   ├── parcial1/
-│   └── parcial2/
-└── apuntes/
-    └── notas.md
++-- guias/
+|   +-- guia01/
+|   |   +-- ejercicio01.c
+|   |   +-- ejercicio02.c
+|   |   +-- ejercicio03.c
+|   +-- guia02/
+|   |   +-- ejercicio01.c
+|   |   +-- ejercicio02.c
+|   +-- guia03/
+|       +-- ejercicio01.c
++-- tps/
+|   +-- tp1/
+|   |   +-- main.c
+|   |   +-- funciones.c
+|   |   +-- funciones.h
+|   |   +-- README.md
+|   +-- tp2/
+|       +-- main.c
++-- parciales/
+|   +-- parcial1/
+|   +-- parcial2/
++-- apuntes/
+    +-- notas.md
 ```
 
 :::{note}
@@ -731,12 +731,12 @@ gcc ejercicio01.c -Wall -Wextra -o bin_ejercicio01
 #### Opción 2: Carpeta de Binarios
 ```
 guia01/
-├── src/
-│   ├── ejercicio01.c
-│   └── ejercicio02.c
-└── bin/
-    ├── ejercicio01
-    └── ejercicio02
++-- src/
+|   +-- ejercicio01.c
+|   +-- ejercicio02.c
++-- bin/
+    +-- ejercicio01
+    +-- ejercicio02
 ```
 
 Compilación con carpetas separadas:

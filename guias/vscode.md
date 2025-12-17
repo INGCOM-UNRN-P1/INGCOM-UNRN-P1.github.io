@@ -164,19 +164,19 @@ Al abrir VS Code por primera vez:
 ### Layout principal
 
 ```
-┌─────────────────────────────────────────────────────┐
-│  Menu Bar                                           │
-├─────────┬───────────────────────────┬───────────────┤
-│Activity │                           │               │
-│Bar      │     Editor Area           │  Side Panel   │
-│         │                           │  (opcional)   │
-│         │                           │               │
-├─────────┴───────────────────────────┴───────────────┤
-│                Panel Area                           │
-│             (Terminal, Output, etc.)                │
-├─────────────────────────────────────────────────────┤
-│               Status Bar                            │
-└─────────────────────────────────────────────────────┘
++-----------------------------------------------------+
+|  Menu Bar                                           |
++---------┬---------------------------┬---------------+
+|Activity |                           |               |
+|Bar      |     Editor Area           |  Side Panel   |
+|         |                           |  (opcional)   |
+|         |                           |               |
++---------┴---------------------------┴---------------+
+|                Panel Area                           |
+|             (Terminal, Output, etc.)                |
++-----------------------------------------------------+
+|               Status Bar                            |
++-----------------------------------------------------+
 ```
 
 ### Activity Bar (barra lateral izquierda)
@@ -597,13 +597,13 @@ VS Code incluye un depurador visual potente para múltiples lenguajes.
 
 ```
 mi-proyecto-web/
-├── index.html
-├── css/
-│   └── styles.css
-├── js/
-│   └── script.js
-└── images/
-    └── logo.png
++-- index.html
++-- css/
+|   +-- styles.css
++-- js/
+|   +-- script.js
++-- images/
+    +-- logo.png
 ```
 
 #### Workflow con Live Server
@@ -1523,20 +1523,20 @@ Aquí hay una estructura completa de `.vscode/` para un proyecto típico en C:
 
 ```bash
 mi-proyecto/
-├── .vscode/
-│   ├── c_cpp_properties.json  # Configuración de IntelliSense
-│   ├── launch.json            # Configuraciones de debugging
-│   ├── settings.json          # Settings específicos del proyecto
-│   └── tasks.json             # Tasks de compilación
-├── src/
-│   ├── main.c
-│   ├── lista.c
-│   └── lista.h
-├── tests/
-│   └── test_lista.c
-├── Makefile
-├── compile_commands.json
-└── .gdbinit
++-- .vscode/
+|   +-- c_cpp_properties.json  # Configuración de IntelliSense
+|   +-- launch.json            # Configuraciones de debugging
+|   +-- settings.json          # Settings específicos del proyecto
+|   +-- tasks.json             # Tasks de compilación
++-- src/
+|   +-- main.c
+|   +-- lista.c
+|   +-- lista.h
++-- tests/
+|   +-- test_lista.c
++-- Makefile
++-- compile_commands.json
++-- .gdbinit
 ```
 
 **`.vscode/c_cpp_properties.json`** (solo si no usás clangd):

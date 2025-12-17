@@ -37,8 +37,8 @@ desarrollo y uso de un sistema basado en UNIX, como Linux.
 
 La consola Bash permite una interacción directa con el sistema operativo
 mediante una interfaz de línea de comandos. Este uso interactivo es ideal
-explorar y diagnosticar el sistema, asi como verificar rápidamente el
-comportamiento de los diferentes pasos que pueden componenr un script de
+explorar y diagnosticar el sistema, así como verificar rápidamente el
+comportamiento de los diferentes pasos que pueden componer un script de
 automatización.
 
 ### ¿Qué es el uso interactivo?
@@ -915,12 +915,12 @@ crontab -e
 
 # Formato: minuto hora día mes día_semana comando
 # * * * * * comando
-# │ │ │ │ │
-# │ │ │ │ └─── día de la semana (0-7, 0 y 7 = domingo)
-# │ │ │ └───── mes (1-12)
-# │ │ └─────── día del mes (1-31)
-# │ └───────── hora (0-23)
-# └─────────── minuto (0-59)
+# | | | | |
+# | | | | +--- día de la semana (0-7, 0 y 7 = domingo)
+# | | | +----- mes (1-12)
+# | | +------- día del mes (1-31)
+# | +--------- hora (0-23)
+# +----------- minuto (0-59)
 
 # Ejemplos
 0 2 * * *    /home/user/backup.sh          # diario a las 2 AM
@@ -949,7 +949,7 @@ find "$BACKUP_DIR" -name "backup_*.tar.gz" -mtime +7 -delete
 echo "Backup completado: backup_$DATE.tar.gz"
 ```
 
-### 🧩 22. Ejercicios prácticos avanzados
+### 22. Ejercicios prácticos avanzados
 
 :::{exercise} ejercicio-estructura-proyecto
 :label: ejercicio-estructura-proyecto
@@ -1196,7 +1196,7 @@ command -V comando         # información detallada del comando
 - "Bash Cookbook" por Carl Albing y JP Vossen
 - "Classic Shell Scripting" por Arnold Robbins
 
-### 💡 25. Consejos finales para el dominio de Bash
+### 25. Consejos finales para el dominio de Bash
 
 :::{tip} Práctica progresiva
 La maestría en Bash se adquiere gradualmente. Comenzá con comandos simples y progresivamente incorporá técnicas más avanzadas. Cada script que escribas es una oportunidad de aprendizaje.
@@ -1250,7 +1250,7 @@ Bash no existe en el vacío. Su verdadero poder emerge cuando se integra con:
 - **Contenedores**: Docker entrypoints, Kubernetes jobs
 - **Infraestructura**: Terraform, Ansible, provisioning scripts
 
-### 🧩 26. Ejercicios finales de integración
+### 26. Ejercicios finales de integración
 
 :::{exercise}
 :label: ejercicio-devops-pipeline
@@ -1276,9 +1276,7 @@ Desarrollá un conjunto de herramientas que incluya:
 4. Generador de reportes de sistema automatizado
 :::
 
-## 🏁 Epílogo
-
-## 🏁 Epílogo
+## [FINAL] Epílogo
 
 Ahora tenés un conocimiento sólido de Bash que va desde los conceptos básicos hasta técnicas avanzadas de scripting y administración de sistemas. Como diría el viejo Ken Thompson:
 

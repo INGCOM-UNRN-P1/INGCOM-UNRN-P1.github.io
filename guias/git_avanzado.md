@@ -521,7 +521,7 @@ git log --oneline
 # Simularemos la limpieza:
 
 echo -e "\n🔧 Simulando rebase interactivo para limpiar historial..."
-echo "📝 Plan: combinar commits relacionados y corregir mensajes"
+echo " Plan: combinar commits relacionados y corregir mensajes"
 
 # Simular la limpieza con reset y nuevos commits
 git reset --soft HEAD~4  # soft reset para mantener cambios
@@ -542,12 +542,12 @@ git commit -m "feat(user): add UserService for user operations
 echo -e "\n=== Historial después del rebase (limpio) ==="
 git log --oneline
 
-echo -e "\n✅ Rebase interactivo completado!"
-echo "📋 Limpieza realizada:"
-echo "- ❌ Eliminados commits temporales y typos"
-echo "- 🔀 Combinados commits relacionados en commits lógicos"
-echo "- ✏️  Corregidos mensajes siguiendo convención"
-echo "- 📝 Agregadas descripciones detalladas"
+echo -e "\n Rebase interactivo completado!"
+echo " Limpieza realizada:"
+echo "- Eliminados commits temporales y typos"
+echo "- Combinados commits relacionados en commits lógicos"
+echo "-  Corregidos mensajes siguiendo convención"
+echo "- Agregadas descripciones detalladas"
 echo -e "\nEl historial ahora está listo para merge a main"
 ```
 
@@ -599,7 +599,7 @@ git commit -m "feat: add multiply function"
 git checkout main
 
 # 2. ESCENARIO 1: Recuperar después de reset --hard destructivo
-echo -e "\n🚨 ESCENARIO 1: Reset destructivo accidental"
+echo -e "\nESCENARIO 1: Reset destructivo accidental"
 echo "Estado actual:"
 git log --oneline
 
@@ -612,17 +612,17 @@ git log --oneline
 echo -e "\n🔍 Buscando commits perdidos con reflog..."
 git reflog | head -5
 
-echo -e "\n💡 Recuperando commits perdidos..."
+echo -e "\nRecuperando commits perdidos..."
 # Encontrar SHA del estado anterior al reset
 previous_head=$(git reflog | grep "HEAD@{1}" | cut -d' ' -f1)
 echo "SHA encontrado: $previous_head"
 
 git reset --hard $previous_head
-echo -e "\n✅ Commits recuperados exitosamente:"
+echo -e "\nCommits recuperados exitosamente:"
 git log --oneline
 
 # 3. ESCENARIO 2: Recuperar rama eliminada
-echo -e "\n🚨 ESCENARIO 2: Rama eliminada accidentalmente"
+echo -e "\nESCENARIO 2: Rama eliminada accidentalmente"
 git checkout feature/advanced-math
 echo "Rama feature/advanced-math activa:"
 git log --oneline -2
@@ -637,17 +637,17 @@ git branch
 echo -e "\n🔍 Buscando última referencia de la rama eliminada..."
 git reflog | grep "advanced-math" | head -1
 
-echo -e "\n💡 Recuperando rama eliminada..."
+echo -e "\nRecuperando rama eliminada..."
 deleted_branch_sha=$(git reflog | grep "checkout.*advanced-math" | head -1 | cut -d' ' -f1)
 echo "SHA de la rama eliminada: $deleted_branch_sha"
 
 git checkout -b feature/advanced-math-recuperada $deleted_branch_sha
-echo -e "\n✅ Rama recuperada exitosamente:"
+echo -e "\nRama recuperada exitosamente:"
 git log --oneline -3
 
 # 4. ESCENARIO 3: Recuperar archivo específico
 git checkout main
-echo -e "\n🚨 ESCENARIO 3: Archivo modificado accidentalmente"
+echo -e "\nESCENARIO 3: Archivo modificado accidentalmente"
 
 echo "Estado actual de math.js:"
 cat math.js
@@ -660,22 +660,22 @@ git commit -m "accidental: file corruption"
 echo "Archivo después de modificación:"
 cat math.js
 
-echo -e "\n💡 Recuperando versión anterior del archivo..."
+echo -e "\nRecuperando versión anterior del archivo..."
 git log --oneline -- math.js | head -3
 
 # Recuperar archivo de commit específico
 git checkout HEAD~1 -- math.js
-echo -e "\n✅ Archivo recuperado:"
+echo -e "\nArchivo recuperado:"
 cat math.js
 
 git add math.js
 git commit -m "fix: restore math.js from previous commit"
 
-echo -e "\n📊 RESUMEN DE RECUPERACIONES:"
-echo "✅ Commits recuperados después de reset --hard"
-echo "✅ Rama eliminada recuperada con reflog"
-echo "✅ Archivo restaurado desde commit anterior"
-echo -e "\n💡 TÉCNICAS CLAVE:"
+echo -e "\nRESUMEN DE RECUPERACIONES:"
+echo "Commits recuperados después de reset --hard"
+echo "Rama eliminada recuperada con reflog"
+echo "Archivo restaurado desde commit anterior"
+echo -e "\nTÉCNICAS CLAVE:"
 echo "- git reflog: historial de movimientos de HEAD"
 echo "- git checkout <commit> -- <file>: recuperar archivo específico"
 echo "- git reset --hard <SHA>: restaurar estado completo"

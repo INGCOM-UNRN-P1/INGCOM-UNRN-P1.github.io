@@ -283,41 +283,39 @@ veces 6.
 
 Veamos un ejemplo cotidiano expresado como algoritmo formal:
 
-```
-┌─────────────────────────────────────────┐
-│ Algoritmo: Hacer café                   │
-├─────────────────────────────────────────┤
-│ Entrada: ninguna                        │
-│ Salida: una taza de café listo          │
-├─────────────────────────────────────────┤
-│ Pasos:                                  │
-│                                         │
-│ 1. Inicio                               │
-│ 2. Verificar que haya agua en el        │
-│    depósito de la cafetera              │
-│ 3. Si NO hay agua:                      │
-│    a. Llenar el depósito con 500ml      │
-│       de agua                           │
-│ 4. Verificar que haya un filtro limpio  │
-│ 5. Si NO hay filtro:                    │
-│    a. Colocar un filtro nuevo           │
-│ 6. Agregar exactamente 2 cucharadas     │
-│    (20g) de café molido en el filtro    │
-│ 7. Colocar el filtro en la cafetera     │
-│ 8. Encender la cafetera                 │
-│ 9. Esperar 5 minutos                    │
-│ 10. Verificar que la cafetera haya      │
-│     terminado (luz apagada)             │
-│ 11. Tomar una taza limpia               │
-│ 12. Servir el café en la taza           │
-│ 13. Fin                                 │
-└─────────────────────────────────────────┘
+```text
+=========================================
+ Algoritmo: Hacer café
+=========================================
+ Entrada: ninguna
+ Salida: una taza de café listo
+-----------------------------------------
+ Pasos:
+
+ 1. Inicio
+ 2. Verificar que haya agua en el
+    depósito de la cafetera
+ 3. Si NO hay agua:
+    a. Llenar el depósito con 500ml
+       de agua
+ 4. Verificar que haya un filtro limpio
+ 5. Si NO hay filtro:
+    a. Colocar un filtro nuevo
+ 6. Agregar exactamente 2 cucharadas
+    (20g) de café molido en el filtro
+ 7. Colocar el filtro en la cafetera
+ 8. Encender la cafetera
+ 9. Esperar 5 minutos
+ 10. Verificar que la cafetera haya
+     terminado (luz apagada)
+ 11. Tomar una taza limpia
+ 12. Servir el café en la taza
+ 13. Fin
+=========================================
 ```
 
 :::{figure} 1/algoritmo_cafe.svg
 :alt: Diagrama de flujo para hacer café
-:align: center
-:width: 70%
 
 Diagrama de flujo completo del algoritmo para hacer café, mostrando decisiones y procesos secuenciales.
 :::
@@ -325,26 +323,26 @@ Diagrama de flujo completo del algoritmo para hacer café, mostrando decisiones 
 ### Ejemplo matemático: Algoritmo para determinar si un número es par
 
 
-```
-┌─────────────────────────────────────────┐
-│ Algoritmo: Verificar si N es par        │
-├─────────────────────────────────────────┤
-│ Entrada: un número entero N             │
-│ Salida: mensaje indicando si es par     │
-│         o impar                         │
-├─────────────────────────────────────────┤
-│ Pasos:                                  │
-│                                         │
-│ 1. Inicio                               │
-│ 2. Pedir al usuario un número N         │
-│ 3. Calcular el resto de dividir N / 2   │
-│    (llamemos a este resto R)            │
-│ 4. Si R es igual a 0:                   │
-│    a. Mostrar "N es par"                │
-│ 5. Si no (R no es 0):                   │
-│    a. Mostrar "N es impar"              │
-│ 6. Fin                                  │
-└─────────────────────────────────────────┘
+```text
+=========================================
+ Algoritmo: Verificar si N es par
+=========================================
+ Entrada: un número entero N
+ Salida: mensaje indicando si es par
+         o impar
+-----------------------------------------
+ Pasos:
+
+ 1. Inicio
+ 2. Pedir al usuario un número N
+ 3. Calcular el resto de dividir N / 2
+    (llamemos a este resto R)
+ 4. Si R es igual a 0:
+    a. Mostrar "N es par"
+ 5. Si no (R no es 0):
+    a. Mostrar "N es impar"
+ 6. Fin
+=========================================
 ```
 
 Este es el algoritmo traducido a código Python.
@@ -725,13 +723,13 @@ archivo_existe = False
 Una **variable** es un espacio en la memoria de la computadora donde guardamos
 información. Podemos pensar en ella como una caja etiquetada.
 
-```
-┌─────────────────────┐
-│  edad               │  ← nombre de la variable (etiqueta)
-│  tipo: int          │  ← tipo de dato que contiene
-│                     │
-│     25              │  ← valor actual guardado
-└─────────────────────┘
+```text
++---------------------+
+|  edad               |  <- nombre de la variable (etiqueta)
+|  tipo: int          |  <- tipo de dato que contiene
+|                     |
+|     25              |  <- valor actual guardado
++---------------------+
 ```
 
 **Características fundamentales:**
@@ -1070,7 +1068,7 @@ print("=== TABLA DE MULTIPLICAR ===")
 numero = int(input("Ingrese un número: "))
 
 print(f"Tabla del {numero}:")
-print("─────────────────")
+print("-----------------")
 
 # Usamos un bucle 'for' que cuenta desde 1 hasta 10
 for contador in range(1, 11):

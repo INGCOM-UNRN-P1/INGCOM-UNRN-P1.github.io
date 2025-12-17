@@ -1745,7 +1745,7 @@ Locale (Configuración Regional)
 : Conjunto de parámetros que definen el idioma, país y otras convenciones culturales (formato de fecha, moneda, separador decimal, codificación de caracteres) para adaptar el comportamiento de un programa.
 
 Macro
-: Fragmento de código identificado por un nombre, que es sustituido por su contenido por el preprocesador antes de la compilación. Se definen con la directiva `#define`.
+: Fragmento de código identificado por un nombre, que es sustituido por su contenido por el preprocesador antes de la compilación. Se definen con la directiva `\#define`.
 
 Padding (Relleno)
 : Bytes extra que el compilador inserta entre los miembros de una estructura para alinear cada miembro en una dirección de memoria que sea múltiplo de su tamaño. Esto optimiza la velocidad de acceso a la memoria.

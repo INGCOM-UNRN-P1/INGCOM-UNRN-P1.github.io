@@ -1067,15 +1067,15 @@ asdasd
 
 ```
 mi-proyecto/
-├── .git/                 # Git (automático, no tocar)
-├── .gitignore           # Qué ignorar
-├── README.md            # Documentación del proyecto
-├── src/                 # Código fuente
-│   ├── main.py
-│   └── utils.py
-├── docs/                # Documentación
-├── tests/               # Pruebas
-└── requirements.txt     # Dependencias
++-- .git/                 # Git (automático, no tocar)
++-- .gitignore           # Qué ignorar
++-- README.md            # Documentación del proyecto
++-- src/                 # Código fuente
+|   +-- main.py
+|   +-- utils.py
++-- docs/                # Documentación
++-- tests/               # Pruebas
++-- requirements.txt     # Dependencias
 ```
 
 ## Recursos para seguir aprendiendo
@@ -1928,7 +1928,7 @@ cat > README.md << EOF
 [![Email](https://img.shields.io/badge/-Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:$(gh api user --jq '.email // "tu-email@ejemplo.com"'))
 [![Portfolio](https://img.shields.io/badge/-Portfolio-000000?style=for-the-badge&logo=github&logoColor=white)](https://$USERNAME.github.io)
 
-## 💡 Quote que me inspira
+## Cita que me inspira
 
 > *"El control de versiones no es solo sobre código, es sobre la evolución de las ideas."*
 
@@ -1940,7 +1940,7 @@ cat > README.md << EOF
 
 <div align="center">
 
-**¡Gracias por visitar mi perfil! 🚀**
+**¡Gracias por visitar mi perfil!**
 
 *Siempre abierto a nuevas oportunidades y colaboraciones*
 
@@ -1984,11 +1984,11 @@ Thumbs.db
 EOF
 
 # 6. Flujo completo Git: add, commit, push
-echo "📝 Agregando archivos al staging area..."
+echo "Agregando archivos al staging area..."
 git add .
 
 echo " Haciendo commit del perfil profesional..."
-git commit -m "🚀 Add professional profile README
+git commit -m "Add professional profile README
 
  Features added:
 - Personal introduction with typing animation
@@ -1998,7 +1998,7 @@ git commit -m "🚀 Add professional profile README
 - Automated activity updates with GitHub Actions
 - Professional styling with emojis and alignment
 
-🔧 Technical implementation:
+ Technical implementation:
 - Markdown with HTML for enhanced formatting
 - External services integration (shields.io, vercel apps)
 - GitHub Actions workflow for dynamic content
@@ -2007,14 +2007,14 @@ git commit -m "🚀 Add professional profile README
 
 Purpose: Professional online presence for networking and job applications"
 
-echo "🚀 Subiendo al repositorio remoto..."
+echo "Subiendo al repositorio remoto..."
 git push origin main
 
 # 7. Verificar resultado
 echo ""
-echo "✅ ¡Repositorio de perfil creado exitosamente!"
+echo " ¡Repositorio de perfil creado exitosamente!"
 echo ""
-echo "🔍 Verificaciones:"
+echo " Verificaciones:"
 echo "1. Repositorio en GitHub: https://github.com/$USERNAME/$USERNAME"
 echo "2. Tu perfil actualizado: https://github.com/$USERNAME"
 echo "3. Verificar con GitHub CLI:"
@@ -2023,9 +2023,9 @@ gh repo view "$USERNAME"
 
 echo ""
 echo " Tu README ahora aparece en tu perfil de GitHub como una carta de presentación profesional."
-echo "💡 Tip: Actualizá regularmente este README con nuevos proyectos y habilidades."
+echo "[TIP] Tip: Actualizá regularmente este README con nuevos proyectos y habilidades."
 echo ""
-echo "🔗 Próximos pasos opcionales:"
+echo " Próximos pasos opcionales:"
 echo "- Crear repositorio $USERNAME.github.io para tu sitio web personal"
 echo "- Agregar más repositorios públicos para mostrar tu trabajo"
 echo "- Contribuir a proyectos open source para mejorar tus estadísticas"
@@ -2118,19 +2118,19 @@ assignees: ''
 ##  Descripción del bug
 Una descripción clara y concisa del problema.
 
-## 🔄 Pasos para reproducir
+## Pasos para reproducir
 1. Ir a '...'
 2. Hacer click en '....'
 3. Scroll down a '....'
 4. Ver error
 
-## ✅ Comportamiento esperado
+## Comportamiento esperado
 Descripción clara de lo que esperabas que pasara.
 
-## 📸 Screenshots
+## Capturas de pantalla (screenshots)
 Si es aplicable, agregá screenshots para ayudar a explicar el problema.
 
-## 🖥️ Información del entorno
+## Información del entorno
 - OS: [ej. macOS, Windows, Linux]
 - Browser: [ej. Chrome, Safari]
 - Versión: [ej. 22]
@@ -2139,28 +2139,28 @@ EOF
 # Template para feature requests
 cat > .github/ISSUE_TEMPLATE/feature_request.md << EOF
 ---
-name: 💡 Feature Request
+name: Feature Request
 about: Sugerir una nueva funcionalidad
 title: '[FEATURE] '
 labels: enhancement
 assignees: ''
 ---
 
-## 💡 ¿Tu feature request está relacionado a un problema?
+## ¿Tu feature request está relacionado a un problema?
 Una descripción clara y concisa del problema. Ej. Siempre me frustra cuando [...]
 
 ## Describe la solución que te gustaría
 Descripción clara y concisa de lo que querés que pase.
 
-## 🤔 Describe alternativas que consideraste
+## Describe alternativas que consideraste
 Descripción clara y concisa de soluciones o features alternativas.
 
-## 📝 Contexto adicional
+## Contexto adicional
 Agregá cualquier otro contexto o screenshots sobre el feature request.
 EOF
 
 git add .
-git commit -m "📝 Add issue templates for better project management"
+git commit -m "Add issue templates for better project management"
 git push origin main
 ```
 

@@ -35,7 +35,7 @@
     <text x="270" y="80" class="label" font-weight="bold">Iteración 1</text>
     
     <rect x="230" y="90" width="80" height="25" class="condition"/>
-    <text x="270" y="107" class="code" font-size="10">B: i < n</text>
+    <text x="270" y="107" class="code" font-size="10"><![CDATA[B: i < n]]></text>
     
     <text x="270" y="130" class="formula">Inv ∧ B</text>
     
@@ -59,7 +59,7 @@
     <text x="420" y="80" class="label" font-weight="bold">Iteración 2</text>
     
     <rect x="380" y="90" width="80" height="25" class="condition"/>
-    <text x="420" y="107" class="code" font-size="10">B: i < n</text>
+    <text x="420" y="107" class="code" font-size="10"><![CDATA[B: i < n]]></text>
     
     <text x="420" y="130" class="formula">Inv ∧ B</text>
     

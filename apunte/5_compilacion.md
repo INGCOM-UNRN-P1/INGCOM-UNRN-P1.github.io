@@ -697,24 +697,24 @@ Cuando hacen `make test` allí, `make` ejecutará el objetivo `test` en todos lo
 subproyectos.
 
 ```{code-block} text
-├── Makefile
-├── libcadenas
-│   ├── cadenas.c
-│   ├── cadenas.h
-│   ├── Makefile
-│   └── prueba.c
-├── ejercicio1
-│   ├── ejercicio.c
-│   ├── ejercicio.h
-│   ├── main.c
-│   ├── Makefile
-│   └── prueba.c
-└── ejercicio2
-    ├── ejercicio.c
-    ├── ejercicio.h
-    ├── main.c
-    ├── Makefile
-    └── prueba.c
++-- Makefile
++-- libcadenas
+|   +-- cadenas.c
+|   +-- cadenas.h
+|   +-- Makefile
+|   +-- prueba.c
++-- ejercicio1
+|   +-- ejercicio.c
+|   +-- ejercicio.h
+|   +-- main.c
+|   +-- Makefile
+|   +-- prueba.c
++-- ejercicio2
+    +-- ejercicio.c
+    +-- ejercicio.h
+    +-- main.c
+    +-- Makefile
+    +-- prueba.c
 ```
 
 Pero, para trabajar específicamente en uno de los ejercicios, y en particular,

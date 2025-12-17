@@ -663,14 +663,14 @@ clang -std=c11 \
 ```bash
 # Estructura del proyecto:
 # proyecto/
-# ├── src/
-# │   ├── main.c
-# │   ├── lista.c
-# │   └── utils.c
-# ├── include/
-# │   ├── lista.h
-# │   └── utils.h
-# └── Makefile
+# +-- src/
+# |   +-- main.c
+# |   +-- lista.c
+# |   +-- utils.c
+# +-- include/
+# |   +-- lista.h
+# |   +-- utils.h
+# +-- Makefile
 
 # Makefile usando Clang:
 cat > Makefile << 'EOF'
