@@ -1,6 +1,6 @@
 ---
 title: "Eliminación de Números Mágicos"
-short_title: "Refactorización - Magic Numbers"
+short_title: "Números mágicos"
 subtitle: "Convertir literales en constantes con nombre significativo"
 ---
 

@@ -548,7 +548,7 @@ echo "- ❌ Eliminados commits temporales y typos"
 echo "- 🔀 Combinados commits relacionados en commits lógicos"
 echo "- ✏️  Corregidos mensajes siguiendo convención"
 echo "- 📝 Agregadas descripciones detalladas"
-echo -e "\n🎯 El historial ahora está listo para merge a main"
+echo -e "\nEl historial ahora está listo para merge a main"
 ```
 
 :::
@@ -603,7 +603,7 @@ echo -e "\n🚨 ESCENARIO 1: Reset destructivo accidental"
 echo "Estado actual:"
 git log --oneline
 
-echo -e "\n💥 Simulando reset destructivo que 'pierde' commits..."
+echo -e "\n Simulando reset destructivo que 'pierde' commits..."
 git reset --hard HEAD~1  # "perdemos" 1 commit
 
 echo "Estado después del reset:"
@@ -628,7 +628,7 @@ echo "Rama feature/advanced-math activa:"
 git log --oneline -2
 
 git checkout main
-echo -e "\n💥 Eliminando rama accidentalmente..."
+echo -e "\n Eliminando rama accidentalmente..."
 git branch -D feature/advanced-math
 
 echo "Ramas disponibles después de eliminación:"
@@ -652,7 +652,7 @@ echo -e "\n🚨 ESCENARIO 3: Archivo modificado accidentalmente"
 echo "Estado actual de math.js:"
 cat math.js
 
-echo -e "\n💥 Simulando modificación accidental destructiva..."
+echo -e "\n Simulando modificación accidental destructiva..."
 echo "// Archivo dañado accidentalmente" > math.js
 git add math.js
 git commit -m "accidental: file corruption"

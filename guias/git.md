@@ -1871,7 +1871,7 @@ cat > README.md << EOF
 
 - 🔭 **Actualmente trabajando en:** Proyectos de aprendizaje con Git y GitHub
 - 🌱 **Aprendiendo:** Control de versiones, desarrollo web, y mejores prácticas de código
-- 💬 **Preguntame sobre:** Git, GitHub, primeros pasos en programación
+-  **Preguntame sobre:** Git, GitHub, primeros pasos en programación
 - 📫 **Contacto:** [Mi email](mailto:$(gh api user --jq '.email // "tu-email@ejemplo.com"'))
 - ⚡ **Dato curioso:** Este README fue creado completamente desde la terminal usando Git y GitHub CLI
 
@@ -1907,7 +1907,7 @@ cat > README.md << EOF
 <!--START_SECTION:activity-->
 <!--END_SECTION:activity-->
 
-## 🎯 Proyectos destacados
+## Proyectos destacados
 
 ### 🔧 Repositorios principales
 
@@ -1921,7 +1921,7 @@ cat > README.md << EOF
 - **Blog técnico** - Compartiendo lo que aprendo
 - **Proyectos de práctica** - Ejercicios de programación y Git
 
-## 🌐 Encuéntrame en
+##  Encuéntrame en
 
 [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/tu-perfil)
 [![Twitter](https://img.shields.io/badge/-Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/tu-usuario)
@@ -1987,10 +1987,10 @@ EOF
 echo "📝 Agregando archivos al staging area..."
 git add .
 
-echo "💾 Haciendo commit del perfil profesional..."
+echo " Haciendo commit del perfil profesional..."
 git commit -m "🚀 Add professional profile README
 
-✨ Features added:
+ Features added:
 - Personal introduction with typing animation
 - Technology badges and skills section
 - GitHub statistics and achievement trophies
@@ -2005,7 +2005,7 @@ git commit -m "🚀 Add professional profile README
 - Responsive design with proper image sizing
 - SEO-friendly structure with semantic headers
 
-🎯 Purpose: Professional online presence for networking and job applications"
+Purpose: Professional online presence for networking and job applications"
 
 echo "🚀 Subiendo al repositorio remoto..."
 git push origin main
@@ -2022,7 +2022,7 @@ echo "3. Verificar con GitHub CLI:"
 gh repo view "$USERNAME"
 
 echo ""
-echo "🎨 Tu README ahora aparece en tu perfil de GitHub como una carta de presentación profesional."
+echo " Tu README ahora aparece en tu perfil de GitHub como una carta de presentación profesional."
 echo "💡 Tip: Actualizá regularmente este README con nuevos proyectos y habilidades."
 echo ""
 echo "🔗 Próximos pasos opcionales:"
@@ -2091,10 +2091,10 @@ cat > index.html << EOF
 EOF
 
 git add .
-git commit -m "🌐 Add personal website homepage"
+git commit -m " Add personal website homepage"
 git push origin main
 
-echo "🌐 Tu sitio web estará disponible en: https://$USERNAME.github.io"
+echo " Tu sitio web estará disponible en: https://$USERNAME.github.io"
 ```
 
 #### Repositorio de configuración (.github)
@@ -2108,14 +2108,14 @@ cd ".github"
 mkdir -p .github/ISSUE_TEMPLATE
 cat > .github/ISSUE_TEMPLATE/bug_report.md << EOF
 ---
-name: 🐛 Bug Report
+name:  Bug Report
 about: Reportar un error o problema
 title: '[BUG] '
 labels: bug
 assignees: ''
 ---
 
-## 🐛 Descripción del bug
+##  Descripción del bug
 Una descripción clara y concisa del problema.
 
 ## 🔄 Pasos para reproducir
@@ -2149,7 +2149,7 @@ assignees: ''
 ## 💡 ¿Tu feature request está relacionado a un problema?
 Una descripción clara y concisa del problema. Ej. Siempre me frustra cuando [...]
 
-## 🎯 Describe la solución que te gustaría
+## Describe la solución que te gustaría
 Descripción clara y concisa de lo que querés que pase.
 
 ## 🤔 Describe alternativas que consideraste

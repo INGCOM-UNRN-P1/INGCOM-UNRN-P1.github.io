@@ -6,12 +6,24 @@ subtitle: "Eliminación de duplicación mediante extracción y abstracción"
 
 ## Introducción
 
-La duplicación de código es uno de los problemas más comunes y perjudiciales en el desarrollo de software. Cada fragmento de código duplicado representa una oportunidad para inconsistencias, bugs y dificultad en el mantenimiento. El principio **DRY (Don't Repeat Yourself)** establece que "cada pieza de conocimiento debe tener una representación única, inequívoca y autoritativa dentro del sistema".
+La duplicación de código es uno de los problemas más comunes y perjudiciales en
+el desarrollo de software. Cada fragmento de código duplicado representa una
+oportunidad para inconsistencias, bugs y dificultad en el mantenimiento. El
+principio **DRY (Don't Repeat Yourself)** establece que "cada pieza de
+conocimiento debe tener una representación única, inequívoca y autoritativa
+dentro del sistema".
 
-Este apunte presenta técnicas sistemáticas para identificar y eliminar duplicación, mejorando la mantenibilidad, consistencia y calidad general del código.
+Este apunte presenta técnicas sistemáticas para identificar y eliminar
+duplicación, mejorando la mantenibilidad, consistencia y calidad general del
+código.
 
 :::{important} Principio DRY
-La duplicación de código multiplica el esfuerzo de mantenimiento y aumenta la probabilidad de inconsistencias. Cada vez que modificás código duplicado, debés recordar modificar todas sus copias. Como establece {ref}`0x0000h`, la claridad y mantenibilidad son fundamentales.
+
+La duplicación de código multiplica el esfuerzo de mantenimiento y aumenta la
+probabilidad de inconsistencias. Cada vez que modificás código duplicado, debés
+recordar modificar todas sus copias. Como establece {ref}`0x0000h`, la claridad
+y mantenibilidad son fundamentales.
+
 :::
 
 ## Tipos de Duplicación
@@ -146,7 +158,7 @@ void registrar_compra(usuario_t* usuario, producto_t* producto) {
         fprintf(stderr, "Error: usuario inactivo\n");
         return;
     }
-    
+
     // Lógica de compra...
 }
 
@@ -160,7 +172,7 @@ void registrar_venta(usuario_t* usuario, producto_t* producto) {
         fprintf(stderr, "Error: usuario inactivo\n");
         return;
     }
-    
+
     // Lógica de venta...
 }
 ```
@@ -173,12 +185,12 @@ bool validar_usuario(const usuario_t* usuario) {
         fprintf(stderr, "Error: usuario NULL\n");
         return false;
     }
-    
+
     if (!usuario->activo) {
         fprintf(stderr, "Error: usuario inactivo\n");
         return false;
     }
-    
+
     return true;
 }
 
@@ -237,7 +249,7 @@ tarifa_t obtener_tarifa(categoria_cliente_t categoria) {
         [CATEGORIA_ADULTO] = {15.0, 0.10},
         [CATEGORIA_SENIOR] = {12.0, 0.30}
     };
-    
+
     return tarifas[categoria];
 }
 
@@ -282,13 +294,13 @@ const char* obtener_nombre_mes(int mes) {
         "Mayo", "Junio", "Julio", "Agosto",
         "Septiembre", "Octubre", "Noviembre", "Diciembre"
     };
-    
+
     const int NUM_MESES = sizeof(NOMBRES_MESES) / sizeof(NOMBRES_MESES[0]);
-    
+
     if (mes < 1 || mes >= NUM_MESES) {
         return NOMBRES_MESES[0];
     }
-    
+
     return NOMBRES_MESES[mes];
 }
 ```
@@ -303,20 +315,20 @@ Extraer la estructura común, parametrizar las partes variables.
 void procesar_archivo_texto(const char* ruta) {
     FILE* f = fopen(ruta, "r");
     if (!f) return;
-    
+
     char linea[256];
     while (fgets(linea, sizeof(linea), f)) {
         // Procesar como texto
         printf("Texto: %s", linea);
     }
-    
+
     fclose(f);
 }
 
 void procesar_archivo_csv(const char* ruta) {
     FILE* f = fopen(ruta, "r");
     if (!f) return;
-    
+
     char linea[256];
     while (fgets(linea, sizeof(linea), f)) {
         // Procesar como CSV
@@ -326,7 +338,7 @@ void procesar_archivo_csv(const char* ruta) {
             token = strtok(NULL, ",");
         }
     }
-    
+
     fclose(f);
 }
 ```
@@ -336,19 +348,19 @@ void procesar_archivo_csv(const char* ruta) {
 ```c
 typedef void (*procesador_linea_fn)(char* linea);
 
-void procesar_archivo_generico(const char* ruta, 
+void procesar_archivo_generico(const char* ruta,
                                 procesador_linea_fn procesar_linea) {
     FILE* f = fopen(ruta, "r");
     if (!f) {
         fprintf(stderr, "Error abriendo: %s\n", ruta);
         return;
     }
-    
+
     char linea[256];
     while (fgets(linea, sizeof(linea), f)) {
         procesar_linea(linea);
     }
-    
+
     fclose(f);
 }
 
@@ -463,26 +475,26 @@ typedef struct {
     bool requiere_arroba;
 } criterios_validacion_t;
 
-bool validar_cadena_con_criterios(const char* cadena, 
+bool validar_cadena_con_criterios(const char* cadena,
                                    const criterios_validacion_t* criterios) {
     if (cadena == NULL) {
         return false;
     }
-    
+
     size_t longitud = strlen(cadena);
-    
+
     if (longitud < criterios->longitud_minima) {
         return false;
     }
-    
+
     if (criterios->longitud_maxima > 0 && longitud > criterios->longitud_maxima) {
         return false;
     }
-    
+
     if (criterios->requiere_arroba && !strchr(cadena, '@')) {
         return false;
     }
-    
+
     return true;
 }
 
@@ -613,16 +625,16 @@ typedef struct {
 void* crear_entidad_generica(size_t tamano, const char* nombre) {
     entidad_base_t* entidad = malloc(tamano);
     if (!entidad) return NULL;
-    
+
     entidad->id = generar_id();
     entidad->nombre = strdup(nombre);
-    
+
     return entidad;
 }
 
 void destruir_entidad_generica(void* ptr) {
     if (!ptr) return;
-    
+
     entidad_base_t* entidad = (entidad_base_t*)ptr;
     free(entidad->nombre);
     free(entidad);
@@ -646,8 +658,8 @@ void procesar_usuarios(usuario_t* usuarios, int n) {
     printf("=== Procesando Usuarios ===\n");
     for (int i = 0; i < n; i++) {
         if (usuarios[i].activo) {
-            printf("ID: %d, Nombre: %s\n", 
-                   usuarios[i].id, 
+            printf("ID: %d, Nombre: %s\n",
+                   usuarios[i].id,
                    usuarios[i].nombre);
         }
     }
@@ -658,8 +670,8 @@ void procesar_productos(producto_t* productos, int n) {
     printf("=== Procesando Productos ===\n");
     for (int i = 0; i < n; i++) {
         if (productos[i].disponible) {
-            printf("ID: %d, Nombre: %s\n", 
-                   productos[i].id, 
+            printf("ID: %d, Nombre: %s\n",
+                   productos[i].id,
                    productos[i].nombre);
         }
     }
@@ -680,17 +692,17 @@ void procesar_elementos(const void* elementos,
                          filtro_fn filtro,
                          mostrar_fn mostrar) {
     printf("=== Procesando %s ===\n", tipo);
-    
+
     const unsigned char* ptr = (const unsigned char*)elementos;
-    
+
     for (int i = 0; i < cantidad; i++) {
         const void* elemento = ptr + (i * tamano_elemento);
-        
+
         if (filtro(elemento)) {
             mostrar(elemento);
         }
     }
-    
+
     printf("Total procesados: %d\n", cantidad);
 }
 
@@ -747,7 +759,8 @@ int contar_productos_en_stock() {
 }
 ```
 
-Aunque la estructura es similar, representan conceptos diferentes que pueden evolucionar independientemente.
+Aunque la estructura es similar, representan conceptos diferentes que pueden
+evolucionar independientemente.
 
 ### 2. Duplicación que Aumenta Complejidad
 
@@ -831,6 +844,7 @@ Técnicas para eliminar duplicación:
 5. **Configuración:** Valores duplicados a constantes/config
 
 **Principios clave:**
+
 - DRY: Don't Repeat Yourself
 - Regla de tres: esperar ver 3 veces antes de abstraer
 - No sobre-abstraer: balance entre DRY y claridad
@@ -838,9 +852,11 @@ Técnicas para eliminar duplicación:
 - Duplicación accidental vs estructural
 
 **Beneficios:**
+
 - Mantenimiento más fácil
 - Menos bugs por inconsistencias
 - Cambios centralizados
 - Código más conciso
 
-La eliminación de duplicación debe balancearse con la claridad. No toda similitud requiere abstracción inmediata.
+La eliminación de duplicación debe balancearse con la claridad. No toda
+similitud requiere abstracción inmediata.

@@ -323,7 +323,7 @@ grep "palabra" archivo.txt    # Busca texto en archivo
 grep -r "funcion" src/        # Busca recursivamente
 ```
 
-## 🧮 7. Variables y comandos útiles
+##  7. Variables y comandos útiles
 
 ```bash
 mi_var="Hola mundo"
@@ -602,7 +602,7 @@ echo $SHELL                 # shell actual
 echo $PWD                   # directorio actual
 ```
 
-### 🌐 15. Redirección y tuberías avanzadas
+###  15. Redirección y tuberías avanzadas
 
 #### 15.1 Redirección de entrada/salida
 
@@ -1122,7 +1122,7 @@ log_metrics
 ```
 :::
 
-### 🎯 23. Ejercicios para practicar
+### 23. Ejercicios para practicar
 
 :::{note}
 Los siguientes ejercicios están organizados por nivel de dificultad. Recomendamos resolverlos en orden para construir progresivamente las habilidades necesarias.
@@ -1164,7 +1164,7 @@ Los siguientes ejercicios están organizados por nivel de dificultad. Recomendam
 
 12. **Generador de reportes**: Creá un script que genere reportes HTML de uso del sistema basándose en logs históricos.
 
-### 📚 24. Recursos para seguir
+###  24. Recursos para seguir
 
 #### 24.1 Documentación oficial
 
