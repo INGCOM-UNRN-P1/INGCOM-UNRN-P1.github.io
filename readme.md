@@ -2,7 +2,15 @@
 title: Bienvenida a Programación 1
 authors:
   - name: Martín René Vilugrón
-    affiliation: UNRN
+    linkedin: https://www.linkedin.com/in/martinvilu/
+    github: martinvilu
+    youtube: https://www.youtube.com/@programacion-i-ingcom
+    email: mrvilugron@unrn.edu.ar
+    affiliation: Universidad Nacional de Rio Negro - Sede Andina
+affiliations:
+  - name: Universidad Nacional de Rio Negro
+    ror: 048zgak80
+
 ---
 
 # Bienvenidos a Programación 1

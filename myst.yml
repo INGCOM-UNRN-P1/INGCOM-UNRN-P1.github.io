@@ -3,24 +3,24 @@ version: 1
 site:
   title: Programación 1 - UNRN Andina
   template: book-theme
-  favicon: favicon.ico
   options:
     logo: ./images/unrn-p1_big.svg
     style: ./resources/footer.css
+    favicon: favicon.ico
   parts:
     footer: footer.md
-authors:
-  - name: Martín René Vilugrón
-    email: mrvilugron@unrn.edu.ar
-    affiliation: Universidad Nacional de Rio Negro - Sede Andina
-    github: https://github.com/martinvilu/
-    linkedin: https://www.linkedin.com/in/martinvilu/
-    youtube: https://www.youtube.com/@programacion-i-ingcom
 project:
   github: https://github.com/INGCOM-UNRN-P1/INGCOM-UNRN-P1.github.io
   title: Programación 1
   description: Sitio de la cátedra B6003 de Ingeniería en Computación
-  # authors: [ Martín René Vilugrón ]
+  authors:
+    - name: Martín René Vilugrón
+      email: mrvilugron@unrn.edu.ar
+      affiliation: Universidad Nacional de Rio Negro - Sede Andina
+      github: martinvilu
+      linkedin: https://www.linkedin.com/in/martinvilu/
+      youtube: https://www.youtube.com/@programacion-i-ingcom
+
   id: a1cc80a8-3217-49d3-9022-1f4d25f6518e
   settings:
     - code_style: minted
