@@ -6,1372 +6,832 @@ subtitle: Conceptos básicos antes de programar en C
 
 ## Introducción
 
-Antes de escribir tu primera línea de código en C, es fundamental comprender
-algunos conceptos básicos sobre cómo funcionan las computadoras y cómo
-comunicarnos con ellas de manera efectiva. En este apunte, usaremos **Python**
-para ilustrar estos conceptos de forma clara y sencilla, aprovechando que vimos
-las bases en el curso de ingreso y aprovechando que el lenguaje es excelente
-para aprender a pensar como un programador.
+Antes de escribir tu primera línea de código en C, es fundamental comprender algunos conceptos básicos sobre cómo funcionan las computadoras y cómo comunicarnos con ellas de manera efectiva. En este apunte, sentaremos las bases algorítmicas de forma independiente de cualquier lenguaje, utilizando un pseudocódigo estructurado similar a C en español. Esto te permitirá concentrarte en el pensamiento lógico antes de abordar la sintaxis formal de C.
 
 :::{important}
-
-Este material es **prerequisito** para el apunte de introducción a C. Asegurate
-de comprender estos conceptos antes de avanzar, ya que forman la base de todo lo
-que veremos posteriormente.
-
+Este material es **prerrequisito** para el apunte de introducción a C. Asegurate de comprender estos conceptos antes de avanzar, ya que forman la base de todo lo que veremos posteriormente.
 :::
+
+---
 
 ## ¿Qué es una computadora?
 
-Una computadora es una máquina electrónica diseñada para procesar información de
-manera automática, siguiendo instrucciones precisas y explícitas. A diferencia
-de los seres humanos, una computadora:
+Una computadora es una máquina electrónica diseñada para procesar información de manera automática, siguiendo instrucciones precisas y explícitas. A diferencia de los seres humanos, una computadora:
 
-- **No entiende ambigüedades**: necesita instrucciones exactas y sin
-  interpretación posible.
-- **No tiene intuición**: hace exactamente lo que le decimos, ni más ni menos,
-  sin asumir nada.
-- **Es extremadamente rápida**: puede ejecutar millones (o incluso miles de
-  millones) de instrucciones por segundo.
-- **Es absolutamente precisa**: no comete errores de cálculo, aunque sí puede
-  ejecutar instrucciones incorrectas que nosotros le proporcionemos.
-- **No se cansa**: puede repetir la misma operación millones de veces sin
-  degradación en su rendimiento.
+- **No entiende ambigüedades**: necesita instrucciones exactas y sin interpretación posible.
+- **No tiene intuición**: hace exactamente lo que le decimos, ni más ni menos, sin asumir nada.
+- **Es extremadamente rápida**: puede ejecutar millones (o incluso miles de millones) de instrucciones por segundo.
+- **Es determinista y sigue instrucciones de forma estricta**: ejecuta exactamente las instrucciones que le proporcionamos, pero su aritmética física está limitada por el almacenamiento finito de datos. No comete "descuidos" humanos, pero la representación matemática en hardware (por ejemplo, de números reales mediante el estándar IEEE 754) tiene imprecisiones de redondeo y límites de rango (desbordamiento o subdesbordamiento).
+- **No se cansa**: puede repetir la misma operación millones de veces sin degradación en su rendimiento.
 
 :::{note}
-
-Esta característica de precisión absoluta es tanto una fortaleza como una
-debilidad. La computadora hará **exactamente** lo que le pidamos, incluso si
-está mal. De ahí la importancia de escribir algoritmos correctos.
-
+La computadora hará **exactamente** lo que le pidamos, incluso si está mal. De ahí la importancia de diseñar y escribir algoritmos correctos.
 :::
 
 ### Componentes básicos
 
-Para entender cómo programar, es útil conocer los componentes principales de una
-computadora y cómo interactúan entre sí.
+Para entender cómo programar, es útil conocer los componentes físicos de una computadora y cómo interactúan entre sí.
 
 #### Hardware
 
 El **hardware** son los componentes físicos de la computadora:
 
-- **Procesador (CPU)**: El "cerebro" que ejecuta las instrucciones. Realiza
-  operaciones aritméticas, lógicas y de control. Su velocidad se mide en GHz
-  (gigahertz).
-  
-- **Memoria RAM**: Memoria de acceso rápido donde se guardan temporalmente los
-  datos y programas mientras se ejecutan. Es **volátil**: se borra cuando se
-  apaga la computadora.
-  
-- **Almacenamiento permanente**: Disco duro (HDD) o unidad de estado sólido
-  (SSD) donde se guardan archivos, programas y el sistema operativo de forma
-  permanente.
-  
-- **Dispositivos de entrada**: Permiten introducir información (teclado, mouse,
-  micrófono, cámara, sensores, etc.).
-  
-- **Dispositivos de salida**: Permiten obtener información (pantalla, impresora,
-  altavoces, etc.).
+- **Procesador (CPU)**: El "cerebro" que ejecuta las instrucciones. Realiza operaciones aritméticas, lógicas y de control. Su velocidad se mide en GHz (gigahertz).
+- **Memoria RAM**: Memoria de acceso rápido donde se guardan temporalmente los datos y programas mientras se ejecutan. Es **volátil**: se borra por completo cuando se apaga o reinicia el equipo.
+- **Almacenamiento permanente**: Disco duro (HDD) o unidad de estado sólido (SSD) donde se guardan archivos, programas y el sistema operativo de forma persistente.
+- **Dispositivos de entrada**: Permiten introducir información (teclado, mouse, sensores, etc.).
+- **Dispositivos de salida**: Permiten obtener información (pantalla, parlantes, impresoras, etc.).
 
-:::{figure} 1/componentes_computadora.svg
+```{figure} 1/componentes_computadora.svg
 :alt: Componentes de una computadora
 :align: center
 :width: 90%
 
 Arquitectura básica de una computadora: el CPU coordina el flujo de datos entre la memoria RAM (rápida y volátil), el almacenamiento permanente (lento pero persistente), y los dispositivos de entrada/salida.
-:::
+```
 
-:::{admonition} ¿Por qué necesitamos RAM y disco?
+:::{admonition} ¿Por qué necesitamos RAM y almacenamiento permanente?
 :class: tip
-
-La RAM es muy rápida pero volátil y costosa. El disco es más lento pero
-persistente y económico. Esta combinación nos da lo mejor de ambos mundos:
-velocidad para ejecutar programas y persistencia para guardar datos.
+La RAM es extremadamente rápida pero volátil y costosa. El disco es mucho más lento pero persistente y económico. Esta combinación nos da lo mejor de ambos mundos: velocidad para ejecutar programas en memoria activa y persistencia para guardar nuestros archivos a largo plazo.
 :::
 
 #### Software
 
-El **software** son los programas e instrucciones que controlan el hardware:
+El **software** son los programas e instrucciones de control:
 
-- **Sistema operativo**: Windows, Linux, macOS - el programa fundamental que
-  controla el hardware y proporciona servicios básicos a otros programas. Actúa
-  como intermediario entre el hardware y las aplicaciones.
+- **Sistema operativo**: El programa fundamental que controla directamente el hardware y proporciona servicios básicos a las aplicaciones. Actúa como intermediario directo.
+- **Programas o aplicaciones**: Software diseñado para realizar tareas específicas para el usuario (editores de texto, navegadores, compiladores).
+- **Código fuente**: Las instrucciones estructuradas que los programadores escriben en lenguajes de programación. Este código debe ser traducido a código de máquina (código binario de instrucciones de CPU) para que el procesador pueda ejecutarlo.
 
-- **Programas o aplicaciones**: Word, navegadores web, juegos, etc. Son
-  software diseñado para realizar tareas específicas para el usuario.
-
-- **Código fuente**: Las instrucciones que los programadores escriben en
-  lenguajes de programación como Python o C. Este código debe ser traducido (compilado o
-  interpretado) para que la computadora pueda ejecutarlo.
-
-:::{figure} 1/capas_software.svg
+```{figure} 1/capas_software.svg
 :alt: Capas de software
 :align: center
 :width: 70%
 
 Las aplicaciones utilizan los servicios del sistema operativo, que a su vez controla y gestiona el hardware.
-:::
+```
+
+---
 
 ## ¿Qué es programar?
 
-Programar es el arte y la ciencia de dar instrucciones precisas y detalladas a
-una computadora para que realice una tarea específica. Es un proceso creativo
-que requiere pensamiento lógico, atención al detalle y práctica constante.
-
-:::{epigraph}
-"Programar es pensar, no escribir código."
-
--- Anónimo
-:::
+Programar es el proceso de estructurar instrucciones detalladas para que una computadora realice una tarea específica.
 
 Cuando programamos, debemos considerar:
 
-1. **¿Qué problema queremos resolver?** - Entender claramente el objetivo
-2. **¿Qué datos necesitamos?** - Identificar entradas y salidas
-3. **¿Qué pasos seguir?** - Diseñar el algoritmo
-4. **¿Cómo traducirlo a código?** - Escribir en un lenguaje de programación
-5. **¿Funciona correctamente?** - Probar y depurar
+1. **¿Qué problema queremos resolver?** - Entender el objetivo.
+2. **¿Qué datos necesitamos?** - Identificar las entradas de información y las salidas resultantes.
+3. **¿Qué pasos seguir?** - Diseñar el algoritmo.
+4. **¿Cómo traducirlo a código?** - Escribir en un lenguaje de programación.
+5. **¿Funciona correctamente?** - Probar y depurar.
 
 ### Analogía: La receta de cocina
 
-Imagina que querés hacer un pastel y le das las instrucciones a alguien que
-**nunca cocinó** y que seguirá **literalmente** cada palabra que digás:
+Imaginá que querés hacer un bizcochuelo y le das las instrucciones a alguien que **nunca cocinó** y que seguirá **literalmente** cada palabra:
 
 ::::{grid} 1 1 2 2
 
 :::{grid-item-card} ❌ Instrucciones vagas (no funcionan)
-"Poné un poco de harina, algo de azúcar, mezclá los ingredientes y horneá hasta
-que esté listo."
+"Poné un poco de harina, algo de azúcar, mezclá los ingredientes y horneá hasta que esté listo."
 
 **Problemas:**
 - ¿Cuánto es "un poco"?
-- ¿Qué otros ingredientes?
-- ¿En qué orden?
+- ¿Qué otros ingredientes lleva?
+- ¿En qué orden se mezclan?
 - ¿A qué temperatura?
-- ¿Cuándo está "listo"?
+- ¿Cómo saber cuándo está "listo"?
 :::
 
 :::{grid-item-card} ✅ Instrucciones precisas (como un programa)
-1. Precalentar el horno a 180°C
-2. En un bowl, colocar exactamente 200g de harina
-3. Agregar exactamente 150g de azúcar
-4. Agregar 3 huevos
-5. Batir con batidora durante 2 minutos a velocidad media
-6. Verter la mezcla en un molde de 20cm de diámetro
-7. Hornear durante exactamente 30 minutos
-8. Retirar del horno usando guantes
+1. Precalentar el horno a 180°C.
+2. En un recipiente, colocar 200 gramos de harina.
+3. Agregar 150 gramos de azúcar.
+4. Agregar 3 huevos.
+5. Batir la mezcla durante 2 minutos a velocidad media.
+6. Verter la mezcla en un molde de 20cm de diámetro previamente enmantecado.
+7. Hornear durante 30 minutos.
+8. Retirar del horno usando guantes protectores.
 
 **Características:**
-- Cantidades exactas
-- Orden específico
-- Tiempos definidos
-- Sin ambigüedades
+- Cantidades exactas e inequívocas.
+- Orden cronológico específico.
+- Tiempos definidos.
 :::
 ::::
 
-La computadora necesita el **segundo tipo de instrucciones**: específicas,
-ordenadas, sin ambigüedades y completamente detalladas.
+La computadora necesita instrucciones de este segundo tipo: específicas, ordenadas, sin ambigüedades y detalladas al extremo.
 
 ### Ejercicio inicial
 
-:::{exercise} Instrucciones precisas
+```exercise
 :label: ex-instrucciones-precisas
-:nonumber:
+Escribí instrucciones detalladas y secuenciales (como para alguien que nunca lo hizo) para:
 
-Escribí instrucciones detalladas (como para alguien que nunca lo hizo) para:
+1. Hacer un sándwich de jamón y queso.
+2. Atarse los cordones de las zapatillas.
+3. Calcular el promedio de tres números.
+```
 
-1. Hacer un sándwich de jamón y queso
-2. Atarse los cordones de las zapatillas
-3. Calcular el promedio de tres números
-
-Intentá ser lo más específico posible, sin asumir que la otra persona sabe algo.
-:::
-
-:::{solution} ex-instrucciones-precisas
-:class: dropdown
-
+```solution
+:for: ex-instrucciones-precisas
 **Hacer un sándwich de jamón y queso:**
-
-1. Tomar 2 rebanadas de pan del paquete
-2. Colocar ambas rebanadas sobre una tabla o plato
-3. Tomar una rebanada de jamón del paquete
-4. Colocar el jamón sobre una de las rebanadas de pan
-5. Tomar una rebanada de queso del paquete
-6. Colocar el queso sobre el jamón
-7. Tomar la segunda rebanada de pan
-8. Colocarla sobre el queso, con el lado que estaba hacia arriba ahora hacia abajo
-9. Presionar suavemente las rebanadas juntas
-10. Servir en un plato
+1. Retirar 2 rebanadas de pan del paquete.
+2. Colocar ambas rebanadas horizontalmente sobre un plato limpio.
+3. Retirar una rebanada de jamón del paquete correspondiente.
+4. Colocar la rebanada de jamón cubriendo la primera rebanada de pan.
+5. Retirar una rebanada de queso del paquete.
+6. Colocar la rebanada de queso sobre el jamón.
+7. Tomar la segunda rebanada de pan.
+8. Colocarla sobre el queso, tapando el sándwich.
+9. Presionar suavemente hacia abajo para asentar el sándwich.
 
 **Calcular el promedio de tres números:**
+1. Obtener el primer número (llamémoslo A).
+2. Obtener el segundo número (llamémoslo B).
+3. Obtener el tercer número (llamémoslo C).
+4. Sumar los tres valores: suma = A + B + C.
+5. Dividir el resultado de la suma por 3: promedio = suma / 3.
+6. Mostrar el valor del promedio obtenido.
+```
 
-1. Obtener el primer número (llamémoslo A)
-2. Obtener el segundo número (llamémoslo B)
-3. Obtener el tercer número (llamémoslo C)
-4. Sumar los tres números: suma = A + B + C
-5. Dividir la suma entre 3: promedio = suma / 3
-6. Mostrar el resultado (promedio)
-:::
+---
 
 ## ¿Qué es un algoritmo?
 
-Un **algoritmo** es una secuencia finita, ordenada y no ambigua de pasos bien
-definidos que resuelve un problema o realiza una tarea específica. Los
-algoritmos son la base fundamental de la programación.
+Un **algoritmo** es una secuencia finita, ordenada y no ambigua de pasos bien definidos que resuelve un problema o realiza una tarea específica. Los algoritmos son la base fundamental de la programación y el diseño de sistemas.
 
-:::{figure} 1/algoritmo_problema_solucion.svg
+```{figure} 1/algoritmo_problema_solucion.svg
 :alt: Del problema a la solución
 :align: center
 :width: 80%
 
-El algoritmo es el puente que transforma un problema en su solución.
-:::
+El algoritmo es el puente conceptual que transforma un problema de entrada en su solución.
+```
 
 :::{important}
-Un algoritmo es **independiente** del lenguaje de programación. El mismo
-algoritmo puede implementarse en C, Python, Java o cualquier otro lenguaje.
+Un algoritmo es **independiente** del lenguaje de programación. El mismo algoritmo lógico puede implementarse en C, Python, Java o incluso traducirse a un circuito físico de hardware.
 :::
 
 ### Características de un buen algoritmo
 
-Un algoritmo efectivo debe cumplir con las siguientes características:
+Un algoritmo efectivo debe cumplir con los siguientes vectores de diseño:
 
 ::::{grid} 1 1 2 2
 
 :::{grid-item-card} 1. Finito
-Debe terminar en algún momento, después de un número finito de pasos.
-
-**Ejemplo:** Un algoritmo que busca un nombre en una lista debe terminar después
-de revisar todos los elementos, no puede buscar infinitamente.
+Debe finalizar en algún momento, después de un número determinado de pasos ejecutados.
 :::
 
 :::{grid-item-card} 2. Bien definido
-Cada paso debe ser claro, preciso y sin ambigüedades.
-
-**Ejemplo:** En lugar de "agregar algunos huevos", debe decir "agregar 3 huevos".
+Cada paso debe ser unívoco, claro y libre de toda ambigüedad en su interpretación.
 :::
 
 :::{grid-item-card} 3. Con entrada (opcional)
-Puede recibir cero o más datos iniciales.
-
-**Ejemplo:** Un algoritmo para sumar dos números recibe dos números como entrada.
+Puede recibir cero o más datos iniciales del entorno para procesar.
 :::
 
 :::{grid-item-card} 4. Con salida
-Debe producir al menos un resultado.
-
-**Ejemplo:** El resultado de sumar dos números, o un mensaje indicando si un
-número es par.
+Debe retornar o producir al menos un resultado o cambio de estado visible.
 :::
 
 :::{grid-item-card} 5. Efectivo
-Cada paso debe ser realizable en un tiempo finito usando recursos finitos.
-
-**Ejemplo:** "multiplicar dos números" es efectivo; "encontrar el número más
-grande que existe" no lo es.
+Cada paso debe ser realizable y computable en un tiempo finito utilizando recursos de memoria finitos.
 :::
 
 :::{grid-item-card} 6. Determinista
-Dado el mismo conjunto de entradas, debe producir siempre el mismo resultado.
-
-**Ejemplo:** El algoritmo para sumar 2 + 3 debe dar siempre 5, no a veces 5 y a
-veces 6.
+Dado el mismo conjunto de datos de entrada, debe producir siempre exactamente el mismo resultado de salida.
 :::
 ::::
 
-### Ejemplo detallado: Algoritmo para hacer café
+---
 
-Veamos un ejemplo cotidiano expresado como algoritmo formal:
+## Representación de Algoritmos y Diagramas de Flujo
+
+Los **diagramas de flujo** son representaciones gráficas estandarizadas de algoritmos. Permiten visualizar la lógica de control, bifurcaciones e iteraciones antes de escribir código.
+
+### Símbolos estándar de diagramas de flujo
+
+```{figure} 1/simbolos_diagramas_flujo.svg
+:alt: Símbolos estándar de diagramas de flujo
+:align: center
+:width: 85%
+
+Símbolos universales utilizados en diagramas de flujo para representar diferentes procesos de un algoritmo.
+```
+
+- **Óvalo / Elipse:** Representa el inicio o el fin del algoritmo.
+- **Rectángulo:** Representa un proceso o instrucción de cómputo (cálculos, asignación de variables).
+- **Rombo:** Representa una decisión o bifurcación condicional. Posee una pregunta adentro y al menos dos caminos de salida (generalmente Sí y No).
+- **Paralelogramo:** Representa operaciones de entrada y salida de datos (leer entrada del usuario o mostrar un mensaje por pantalla).
+- **Flechas de flujo:** Indican la dirección lógica de ejecución del algoritmo.
+
+---
+
+## Ejemplos de Algoritmos en Pseudocódigo y Diagramas de Flujo
+
+### Ejemplo 1: Algoritmo para hacer café
+
+Homogeneizando la estructura cotidiana mediante ramificaciones secuenciales condicionales:
 
 ```text
-=========================================
+=================================================
  Algoritmo: Hacer café
-=========================================
+=================================================
  Entrada: ninguna
- Salida: una taza de café listo
------------------------------------------
+ Salida: taza de café servida
+-------------------------------------------------
  Pasos:
-
  1. Inicio
- 2. Verificar que haya agua en el
-    depósito de la cafetera
- 3. Si NO hay agua:
-    a. Llenar el depósito con 500ml
-       de agua
- 4. Verificar que haya un filtro limpio
- 5. Si NO hay filtro:
-    a. Colocar un filtro nuevo
- 6. Agregar exactamente 2 cucharadas
-    (20g) de café molido en el filtro
- 7. Colocar el filtro en la cafetera
- 8. Encender la cafetera
- 9. Esperar 5 minutos
- 10. Verificar que la cafetera haya
-     terminado (luz apagada)
- 11. Tomar una taza limpia
- 12. Servir el café en la taza
- 13. Fin
-=========================================
+ 2. Verificar depósito de agua
+ 3. Si (depósito de agua está vacío) entonces:
+        a. Llenar depósito con agua
+    Sino:
+        b. No hacer nada
+ 4. Verificar portafiltro
+ 5. Si (filtro está sucio o ausente) entonces:
+        a. Limpiar portafiltro y colocar filtro nuevo
+    Sino:
+        b. No hacer nada
+ 6. Agregar 2 cucharadas de café molido al filtro
+ 7. Encender cafetera
+ 8. Esperar a que finalice el filtrado de agua
+ 9. Servir café en una taza limpia
+ 10. Fin
+=================================================
 ```
 
-:::{figure} 1/algoritmo_cafe.svg
-:alt: Diagrama de flujo para hacer café
+```mermaid
+flowchart TD
+    Start([Inicio]) --> CheckWater{¿Depósito vacío?}
+    CheckWater -- Sí --> FillWater[Llenar depósito con agua] --> CheckFilter
+    CheckWater -- No --> CheckFilter{¿Filtro sucio o ausente?}
+    CheckFilter -- Sí --> PlaceFilter[Limpiar y colocar filtro nuevo] --> AddCoffee
+    CheckFilter -- No --> AddCoffee[Agregar café molido al filtro]
+    AddCoffee --> TurnOn[Encender cafetera]
+    TurnOn --> Wait[Esperar filtrado]
+    Wait --> Serve[Servir en taza]
+    Serve --> End([Fin])
+```
 
-Diagrama de flujo completo del algoritmo para hacer café, mostrando decisiones y procesos secuenciales.
-:::
+### Ejemplo 2: Verificar si N es par
 
-### Ejemplo matemático: Algoritmo para determinar si un número es par
-
+Este algoritmo calcula si un número entero es par utilizando el operador módulo `%` (resto de la división entera):
 
 ```text
-=========================================
+=================================================
  Algoritmo: Verificar si N es par
-=========================================
- Entrada: un número entero N
- Salida: mensaje indicando si es par
-         o impar
------------------------------------------
+=================================================
+ Entrada: número entero N
+ Salida: mensaje por pantalla "par" o "impar"
+-------------------------------------------------
  Pasos:
-
  1. Inicio
- 2. Pedir al usuario un número N
- 3. Calcular el resto de dividir N / 2
-    (llamemos a este resto R)
- 4. Si R es igual a 0:
-    a. Mostrar "N es par"
- 5. Si no (R no es 0):
-    a. Mostrar "N es impar"
- 6. Fin
-=========================================
+ 2. Leer N
+ 3. entero resto = N % 2
+ 4. Si (resto == 0) entonces:
+        a. Escribir "El número es par"
+    Sino:
+        b. Escribir "El número es impar"
+ 5. Fin
+=================================================
 ```
 
-Este es el algoritmo traducido a código Python.
-
-```python
-# 1. Pedir al usuario un número N
-# Usamos int() para convertir el texto ingresado a un número entero
-n = int(input("Ingrese un número: "))
-
-# 2. Calcular el resto de dividir N / 2
-# El operador '%' (módulo) nos da el resto de una división
-resto = n % 2
-
-# 3. Si el resto es igual a 0, el número es par
-if resto == 0:
-    # 3a. Mostrar "N es par"
-    print(f"El número {n} es par.")
-# 4. Si no, el número es impar
-else:
-    # 4a. Mostrar "N es impar"
-    print(f"El número {n} es impar.")
+```mermaid
+flowchart TD
+    Start([Inicio]) --> ReadN[/Leer N/]
+    ReadN --> CalcResto[resto = N % 2]
+    CalcResto --> CondPar{¿resto == 0?}
+    CondPar -- Sí --> PrintPar[/Escribir 'El número es par'/]
+    CondPar -- No --> PrintImpar[/Escribir 'El número es impar'/]
+    PrintPar --> End([Fin])
+    PrintImpar --> End
 ```
 
-:::{figure} 1/algoritmo_par.svg
-:alt: Diagrama de flujo para verificar si un número es par
-:align: center
-:width: 60%
+---
 
-Algoritmo que determina si un número es par o impar usando el operador módulo.
-:::
+## Representación de datos y memoria
 
-:::{exercise} Escribir algoritmos en Python
-:label: ex-algoritmos-1
-:nonumber:
+Las computadoras operan sobre datos almacenados en memoria física. Para procesar esta información, es necesario asignarle un tipo de dato que defina su rango y operaciones válidas.
 
-Escribí algoritmos en Python para:
+### Tipos de información fundamentales
 
-1. Encontrar el mayor de tres números
-2. Verificar si un año es bisiesto (divisible por 4, pero no por 100, excepto
-   si es divisible por 400)
-3. Calcular el factorial de un número (n! = n × (n-1) × (n-2) × ... × 1)
-:::
-
-:::{solution} ex-algoritmos-1
-:class: dropdown
-
-**1. Encontrar el mayor de tres números:**
-
-```python
-# Leemos tres números
-a = float(input("Ingrese el primer número: "))
-b = float(input("Ingrese el segundo número: "))
-c = float(input("Ingrese el tercer número: "))
-
-# Opción 1: Usando condicionales
-mayor = a
-if b > mayor:
-    mayor = b
-if c > mayor:
-    mayor = c
-
-print(f"El mayor número es: {mayor}")
-
-# Opción 2: Usando la función incorporada max()
-# mayor = max(a, b, c)
-# print(f"El mayor número es: {mayor}")
-```
-
-**2. Verificar año bisiesto:**
-
-```python
-año = int(input("Ingrese un año: "))
-
-# Un año es bisiesto si es divisible por 4,
-# excepto los que son divisibles por 100,
-# a menos que también sean divisibles por 400.
-if (año % 400 == 0) or (año % 4 == 0 and año % 100 != 0):
-    print(f"{año} es un año bisiesto.")
-else:
-    print(f"{año} no es un año bisiesto.")
-```
-
-**3. Calcular factorial:**
-
-```python
-n = int(input("Ingrese un número entero positivo: "))
-
-if n < 0:
-    print("Error: el factorial no está definido para números negativos.")
-elif n == 0:
-    print("El factorial de 0 es 1.")
-else:
-    factorial = 1
-    # Usamos un bucle para multiplicar desde 1 hasta n
-    for i in range(1, n + 1):
-        factorial = factorial * i
-    print(f"El factorial de {n} es: {factorial}")
-```
-:::
-
-## Pensamiento lógico
-
-El pensamiento lógico es la capacidad de razonar de manera coherente y
-estructurada. En programación, esto se traduce en tres estructuras fundamentales
-que aparecen en todos los algoritmos.
-
-:::{figure} 1/estructuras_control.svg
-:alt: Tres estructuras fundamentales de control
-:align: center
-:width: 100%
-
-Las tres estructuras fundamentales del pensamiento algorítmico: secuencia (pasos ordenados), decisión (alternativas) y repetición (lazos).
-:::
-
-### 1. Secuencia
-
-Las instrucciones se ejecutan **una después de otra**, en el orden exacto en que
-están escritas. El orden importa.
-
-**Ejemplo de la importancia del orden:**
-
-::::{grid} 1 1 2 2
-
-:::{grid-item-card} ✅ Orden correcto
-```python
-# 1. Poner agua en la olla
-olla = ["agua"]
-# 2. Poner la olla en el fuego
-fuego_encendido = True
-# 3. Esperar que hierva
-agua_hirviendo = True
-# 4. Agregar fideos
-olla.append("fideos")
-# 5. Cocinar 10 minutos
-# 6. Escurrir
-fideos_cocidos = True
-```
-:::
-
-:::{grid-item-card} ❌ Orden incorrecto
-```python
-# 1. Poner la olla vacía en el fuego
-olla = []
-fuego_encendido = True
-# 2. Agregar fideos (a la olla vacía)
-olla.append("fideos")
-# 3. Poner agua
-olla.append("agua")
-# ... ¡Desastre!
-```
-:::
-::::
-
-:::{warning}
-
-En programación, cambiar el orden de las instrucciones puede cambiar
-completamente el resultado o hacer que el programa falle.
-
-:::
-
-### 2. Decisiones (Condicionales)
-
-A veces necesitamos que el programa tome diferentes caminos dependiendo de una
-condición. Esto se representa con estructuras `if...elif...else`.
-
-**Ejemplo simple:**
-
-```python
-hace_frio = temperatura < 5
-
-if hace_frio:
-    print("Ponerme un abrigo")
-else:
-    print("Usar solo remera")
-```
-
-**Ejemplo con condiciones anidadas:**
-
-```python
-tengo_hambre = True
-hay_comida_en_casa = False
-
-if tengo_hambre:
-    if hay_comida_en_casa:
-        print("Cocinar")
-    else:
-        print("Pedir delivery")
-else:
-    print("Continuar con mis actividades")
-```
-
-### 3. Repetición (Lazos o Bucles)
-
-Cuando necesitamos hacer algo varias veces, usamos estructuras de repetición. Hay dos tipos principales:
-
-#### Repetición con contador fijo (`for`)
-
-Se usa cuando sabemos cuántas veces queremos repetir una acción.
-
-```python
-# Repetir 10 veces
-# range(10) genera números del 0 al 9
-for i in range(10):
-    print(f"Haciendo flexión de brazos número {i + 1}")
-```
-
-#### Repetición con condición (`while`)
-
-Se usa cuando la repetición depende de que una condición sea verdadera.
-
-```python
-platos_sucios = 3
-
-while platos_sucios > 0:
-    print(f"Lavando un plato... Quedan {platos_sucios - 1}")
-    platos_sucios = platos_sucios - 1 # ¡Crucial no olvidar esto!
-
-print("¡Todos los platos están limpios!")
-```
-
-:::{exercise} Estructuras de control
-:label: ex-estructuras
-:nonumber:
-
-Identificá qué estructura de control usarías en cada caso:
-
-1. Verificar si un estudiante aprobó (nota ≥ 4)
-2. Sumar todos los números del 1 al 100
-3. Preguntar contraseña hasta que sea correcta (máximo 3 intentos)
-4. Calcular el precio final con descuento si la compra supera $1000
-5. Mostrar los primeros 20 números pares
-:::
-
-:::{solution} ex-estructuras
-:class: dropdown
-
-1. **Decisión simple (`if`)**: Una condición que verifica la nota.
-2. **Repetición con contador (`for`)**: Un bucle que va de 1 a 100.
-3. **Repetición con condición Y contador (`while`)**: Un bucle `while` con un contador de intentos.
-4. **Decisión simple (`if`)**: Verifica el monto y aplica descuento si corresponde.
-5. **Repetición con contador (`for`)**: Un bucle que genera 20 números pares.
-:::
-
-## Representación de datos
-
-Las computadoras trabajan con información, y esa información puede ser de
-diferentes tipos. Es fundamental entender qué tipos de datos existen y cuándo
-usar cada uno.
-
-:::{figure} 1/tipos_datos.svg
+```{figure} 1/tipos_datos.svg
 :alt: Tipos de datos fundamentales
 :align: center
 :width: 95%
 
-Los cuatro tipos de datos fundamentales: enteros, decimales, texto y booleanos. Cada variable tiene un nombre, un tipo y un valor almacenado en memoria.
-:::
-
-### Tipos de información fundamentales
-
-#### 1. Números enteros (`int`)
-
-Números sin parte decimal, pueden ser positivos, negativos o cero.
-
-**Ejemplos:**
-- `5`, `-3`, `0`, `1000`, `-999`
-
-**Usos comunes:**
-- Contar elementos (cantidad de estudiantes, productos, etc.)
-- Índices y posiciones en listas
-- Edades, años
-- Cantidades exactas
-
-**Operaciones:**
-- Suma, resta, multiplicación
-- División entera: `17 // 5` da como resultado `3`
-- Módulo (resto): `17 % 5` da como resultado `2`
-
-::::{grid} 1 1 2 2
-
-:::{grid-item-card} Ejemplos en Python
-```python
-contador = 10
-edad = 25
-año = 2024
-temperatura = -5
-```
-:::
-
-:::{grid-item-card} ❌ NO son enteros
-```python
-# Estos son de tipo float (decimal)
-altura = 1.75
-precio = 99.99
-```
-:::
-::::
-
-#### 2. Números decimales (`float`)
-
-Números que pueden tener parte decimal (reales o de punto flotante).
-
-**Ejemplos:**
-- `3.14`, `-0.5`, `2.718`, `1.0`
-
-**Usos comunes:**
-- Mediciones (altura, peso, distancia)
-- Cálculos con precisión (física, ingeniería)
-- Precios con centavos
-- Porcentajes
-
-**Operaciones:**
-- Todas las operaciones aritméticas normales
-- División siempre da resultado decimal: `17.0 / 5.0` da `3.4`
-
-:::{warning}
-Los números decimales en computadora tienen **precisión limitada**. No son
-exactos para todos los valores. Por ejemplo, `0.1 + 0.2` puede no dar exactamente
-`0.3` debido a la representación binaria interna.
-:::
-
-#### 3. Cadenas de texto (`str`)
-
-Secuencia de caracteres (letras, números, símbolos).
-
-**Ejemplos:**
-- Se escriben entre comillas simples o dobles: `'Hola'`, `"Mundo"`, `'@'`, `"123"`
-
-**Usos comunes:**
-- Nombres, apellidos, direcciones
-- Mensajes al usuario
-- Datos textuales en general
-
-::::{grid} 1 1 2 2
-
-:::{grid-item-card} Caracteres individuales (son `str` de longitud 1)
-```python
-inicial = 'M'
-signo = '+'
-digito = '7'
-espacio = ' '
-```
-:::
-
-:::{grid-item-card} Cadenas de texto
-```python
-nombre = "María"
-mensaje = "Bienvenido"
-direccion = "Calle 123"
-frase = "Hola mundo"
-```
-:::
-::::
-
-:::{note}
-Observá la diferencia entre `'7'` (texto) y `7` (número). El primero es un
-símbolo, el segundo es un valor numérico con el que se pueden hacer cálculos.
-:::
-
-#### 4. Valores lógicos (`bool`)
-
-Solo pueden tener dos valores: `True` (verdadero) o `False` (falso).
-
-**Usos comunes:**
-- Banderas (flags): indicar estados
-- Resultados de comparaciones
-- Condiciones en estructuras de control
-
-**Ejemplos en Python:**
-```python
-est_lloviendo = True
-tiene_permiso = False
-es_mayor_de_edad = True
-archivo_existe = False
+Los cuatro tipos de datos fundamentales: enteros, reales, cadenas de caracteres y valores lógicos.
 ```
 
-### Variables: Las cajas de memoria
+1.  **Enteros (`entero` / `int`):** Números sin parte fraccionaria (ej. `5`, `-20`, `0`). Se utilizan para conteos, índices de lazos y posiciones.
+2.  **Reales / Decimales (`real` / `float`):** Números con coma fraccionaria (ej. `3.1415`, `-0.75`). Tienen precisión finita debido a la representación estándar binaria IEEE 754 de hardware.
+3.  **Caracteres / Cadenas (`cadena` / `char` / `str`):** Texto delimitado por comillas (ej. `"Hola Mundo"`, `'A'`). Representan símbolos legibles.
+4.  **Lógicos / Booleanos (`logico` / `bool`):** Solo admiten dos estados lógicos: `verdadero` (`true`) o `falso` (`false`).
 
-Una **variable** es un espacio en la memoria de la computadora donde guardamos
-información. Podemos pensar en ella como una caja etiquetada.
+---
+
+### Variables: Direcciones físicas de memoria
+
+Una **variable** es un espacio reservado en la memoria física RAM de la computadora para almacenar un dato que puede cambiar durante la ejecución del programa.
+
+Visualmente, una variable vincula una etiqueta lógica con una dirección física en el hardware:
 
 ```text
-+---------------------+
-|  edad               |  <- nombre de la variable (etiqueta)
-|  tipo: int          |  <- tipo de dato que contiene
-|                     |
-|     25              |  <- valor actual guardado
-+---------------------+
++------------------------------------------+
+| Dirección Física (ej. 0x7ffd8)            | <- Celda en la memoria RAM
++------------------------------------------+
+|  nombre: edad                            | <- Identificador de la variable
+|  tipo: entero                            | <- Tipo de dato asignado
+|  valor: 25                               | <- Dato de almacenamiento actual
++------------------------------------------+
 ```
 
-**Características fundamentales:**
+Cada variable posee:
+1.  **Dirección física de memoria:** La dirección hexadecimal real en el hardware RAM donde se ubica el dato.
+2.  **Nombre (identificador):** La etiqueta lógica que usa el programador en el código (ej. `edad`, `temperatura`).
+3.  **Tipo de dato:** Define el tamaño en bytes reservado y cómo el hardware interpretará los bits guardados.
+4.  **Valor:** El contenido binario actual de la celda de memoria.
 
-1. **Nombre (identificador)**: Una palabra que usamos para referirnos a la
-   variable
-   - Debe ser descriptivo: `edad` es mejor que `x`
-   - No puede empezar con número
-   - No puede tener espacios ni símbolos especiales (excepto `_`)
-   - Distingue mayúsculas: `edad` ≠ `Edad` ≠ `EDAD`
+---
 
-2. **Tipo**: Define qué clase de datos puede almacenar
-   - En Python, el tipo es dinámico (se infiere del valor)
-   - Determina qué operaciones se pueden hacer
+### El ciclo de vida de una variable en memoria
 
-3. **Valor**: El dato actual guardado
-   - Puede cambiar durante la ejecución del programa
-   - Debe ser compatible con el tipo
-
-**Ejemplos de variables en Python:**
-
-```python
-# Python infiere el tipo de dato automáticamente
-
-# Variable de tipo entero (int)
-edad = 20
-
-# Variable de tipo decimal (float)
-altura = 1.75
-
-# Variable de tipo texto (str)
-nombre = "Ana"
-
-# Variable de tipo booleano (bool)
-aprobado = True
-```
-
-### El ciclo de vida de una variable
-
-:::{figure} 1/ciclo_vida_variable.svg
+```{figure} 1/ciclo_vida_variable.svg
 :alt: Ciclo de vida de una variable
 :align: center
 :width: 85%
 
-Una variable atraviesa diferentes estados: se declara e inicializa, se modifica, se lee/usa y finalmente se libera cuando termina el programa.
+Una variable se declara e inicializa en memoria, es leída o modificada durante la ejecución, y finalmente se libera de la memoria física.
+```
+
+:::{important}
+En lenguajes de alto nivel como Python, la memoria ocupada por las variables se libera de forma automática mediante un recolector de basura (*garbage collector*). Sin embargo, en C la gestión de la memoria es explícita: la memoria de las variables locales (en la pila o *stack*) se libera automáticamente al salir de su ámbito de visibilidad, mientras que la memoria dinámica asignada manualmente (en el *heap*) debe ser liberada explícitamente por el programador. Si olvidás liberarla, se genera una fuga de memoria (*memory leak*).
 :::
 
-:::{exercise} Identificar tipos de variables
+```exercise
 :label: ex-tipos-vars
-:nonumber:
+Para cada uno de los siguientes datos, indicá qué tipo de variable (`entero`, `real`, `cadena`, `logico`) usarías en pseudocódigo:
 
-Para cada uno de los siguientes datos, indicá qué tipo de variable (`int`, `float`, `str`, `bool`) usarías en Python:
+1. Cantidad de estudiantes en una clase.
+2. Precio de un producto con centavos.
+3. Nombre completo de una persona.
+4. Si un archivo existe o no.
+5. Calificación académica con decimales.
+```
 
-1. Cantidad de estudiantes en una clase
-2. Precio de un producto (ej: $19.99)
-3. Nombre completo de una persona
-4. Si un archivo existe o no
-5. Temperatura en grados Celsius (puede ser negativa y con decimales)
-6. Día de la semana (ej: "Lunes")
-7. Número de identificación (DNI)
-8. Calificación con decimales (ej: 7.5)
-:::
+```solution
+:for: ex-tipos-vars
+1. **`entero`**: Se cuentan individuos discretos.
+2. **`real`**: Requiere representar centavos fraccionarios.
+3. **`cadena`**: Secuencia de caracteres alfabéticos.
+4. **`logico`**: Estado binario (verdadero/falso).
+5. **`real`**: Contiene parte fraccionaria (ej: 8.5).
+```
 
-:::{solution} ex-tipos-vars
-:class: dropdown
+---
 
-1. **`int`** - las personas se cuentan en números enteros
-2. **`float`** - tiene centavos
-3. **`str`** - secuencia de caracteres
-4. **`bool`** - solo puede ser `True` o `False`
-5. **`float`** - puede tener valores como -3.5, 20.8, etc.
-6. **`str`** - nombre del día
-7. **`int`** o **`str`** - si no se van a hacer cálculos, `str` es más seguro para no perder ceros a la izquierda. Si es solo numérico, `int`.
-8. **`float`** - tiene parte fraccionaria
-:::
+## Estructuras lógicas y operaciones básicas
 
-## Operaciones básicas
+### Operaciones aritméticas
 
-Las operaciones son acciones que podemos realizar sobre los datos. Existen
-diferentes tipos según el tipo de dato.
+A nivel de hardware, se ejecutan operaciones aritméticas sobre celdas numéricas:
 
-:::{figure} 1/operaciones_aritmeticas.svg
+```{figure} 1/operaciones_aritmeticas.svg
 :alt: Operaciones aritméticas
 :align: center
 :width: 85%
 
 Operaciones aritméticas básicas y especiales, con precedencia de evaluación.
-:::
-
-### Operaciones aritméticas
-
-Operaciones matemáticas básicas sobre números:
-
-| Operación      | Símbolo | Ejemplo     | Resultado |
-| -------------- | ------- | ----------- | --------- |
-| Suma           | `+`     | `5 + 3`     | `8`       |
-| Resta          | `-`     | `10 - 4`    | `6`       |
-| Multiplicación | `*`     | `7 * 2`     | `14`      |
-| División       | `/`     | `15 / 3`    | `5.0`     |
-| División entera| `//`    | `17 // 5`   | `3`       |
-| Módulo (resto) | `%`     | `17 % 5`    | `2`       |
-| Potencia       | `**`    | `2 ** 3`    | `8`       |
-
-:::{important}
-El **módulo** (`%`) da el resto de la división. Es muy útil para:
-- Determinar si un número es par: `n % 2 == 0`
-- Obtener el último dígito: `1234 % 10` da `4`
-- Ciclos que se repiten cada N elementos
-:::
-
-**Orden de operaciones (precedencia):**
-
-Al igual que en matemática, las operaciones tienen un orden de evaluación:
-
-1. Paréntesis `()`
-2. Potencias `**`
-3. Multiplicación, División, Módulo `*`, `/`, `//`, `%`
-4. Suma, Resta `+`, `-`
-
-```python
-# Ejemplo: 2 + 3 * 4
-#          2 + 12        (primero multiplicación)
-#          14            (luego suma)
-print(2 + 3 * 4)  # Salida: 14
-
-# Ejemplo: (2 + 3) * 4
-#          5 * 4         (primero paréntesis)
-#          20            (luego multiplicación)
-print((2 + 3) * 4) # Salida: 20
 ```
 
-:::{exercise} Operaciones aritméticas
-:label: ex-aritmeticas
-:nonumber:
+-   **Módulo `%`:** Retorna el resto de la división entera. Es útil para evaluar paridad (`N % 2 == 0`) o extraer dígitos.
+-   **Precedencia estándar:** 1. Paréntesis `()`, 2. Potencias, 3. Multiplicación/División/Módulo, 4. Suma/Resta.
 
-Calculá el resultado de las siguientes expresiones en Python:
+### Operaciones lógicas y tablas de verdad
 
-1. `15 + 3 * 2`
-2. `(15 + 3) * 2`
-3. `20 / 4 - 2`
-4. `20 / (4 - 2)`
-5. `17 % 3`
-6. `100 % 10`
-7. `2 * 3 + 4 * 5`
-8. `(2 * 3 + 4) * 5`
-:::
+Las operaciones lógicas combinan valores booleanos para evaluar condiciones complejas:
 
-:::{solution} ex-aritmeticas
-:class: dropdown
-
-1. `15 + 3 * 2 = 15 + 6 = 21`
-2. `(15 + 3) * 2 = 18 * 2 = 36`
-3. `20 / 4 - 2 = 5.0 - 2 = 3.0`
-4. `20 / (4 - 2) = 20 / 2 = 10.0`
-5. `17 % 3 = 2` (resto de 17 ÷ 3)
-6. `100 % 10 = 0` (100 es divisible por 10)
-7. `2 * 3 + 4 * 5 = 6 + 20 = 26`
-8. `(2 * 3 + 4) * 5 = (6 + 4) * 5 = 10 * 5 = 50`
-:::
-
-### Operaciones de comparación
-
-Comparan dos valores y devuelven `True` o `False`:
-
-| Operación       | Símbolo | Ejemplo   | Resultado |
-| --------------- | ------- | --------- | --------- |
-| Igual a         | `==`    | `5 == 5`  | `True`    |
-| Diferente de    | `!=`    | `3 != 7`  | `True`    |
-| Mayor que       | `>`     | `8 > 3`   | `True`    |
-| Menor que       | `<`     | `2 < 9`   | `True`    |
-| Mayor o igual   | `>=`    | `5 >= 5`  | `True`    |
-| Menor o igual   | `<=`    | `4 <= 6`  | `True`    |
-
-:::{warning}
-Notá que para comparar igualdad se usa `==` (doble igual), no `=` (que es
-asignación).
-
-- `x = 5` → **asigna** el valor 5 a x
-- `x == 5` → **compara** si x es igual a 5
-:::
-
-**Ejemplos:**
-
-```python
-edad = 20
-
-print(edad > 18)     # True  (20 es mayor que 18)
-print(edad == 20)    # True  (20 es igual a 20)
-print(edad < 15)     # False (20 no es menor que 15)
-print(edad >= 20)    # True  (20 es mayor o igual a 20)
-print(edad != 25)    # True  (20 es diferente de 25)
-```
-
-### Operaciones lógicas
-
-Combinan condiciones booleanas:
-
-:::{figure} 1/operaciones_logicas.svg
+```{figure} 1/operaciones_logicas.svg
 :alt: Operaciones lógicas
 :align: center
 :width: 95%
 
-Las tres operaciones lógicas fundamentales (AND, OR, NOT) con sus tablas de verdad y ejemplos prácticos.
-:::
-
-| Operación        | Símbolo | Significado                             |
-| ---------------- | ------- | --------------------------------------- |
-| AND (Y lógico)   | `and`   | `True` si AMBAS condiciones lo son      |
-| OR (O lógico)    | `or`    | `True` si AL MENOS UNA lo es            |
-| NOT (NO lógico)  | `not`   | Invierte el valor (`True` a `False` y viceversa) |
-
-**Ejemplos prácticos:**
-
-```python
-edad = 20
-tiene_dni = True
-
-# ¿Puede votar?
-if (edad >= 18) and (tiene_dni == True):
-    print("Puede votar")
-
-es_fin_de_semana = False
-es_feriado = True
-
-# ¿Hay clases?
-if not (es_fin_de_semana or es_feriado):
-    print("Hay clases")
-else:
-    print("No hay clases")
-
-esta_lloviendo = True
-
-# ¿Llevo paraguas?
-if not esta_lloviendo:
-    print("No es necesario llevar paraguas")
-else:
-    print("Mejor llevar paraguas")
+Las tres operaciones lógicas fundamentales (Y, O, NO) con sus tablas de verdad.
 ```
 
-:::{exercise} Operaciones lógicas
-:label: ex-logicas
-:nonumber:
+-   **AND (`y`):** Da verdadero únicamente si ambos operandos son verdaderos.
+-   **OR (`o`):** Da verdadero si al menos uno de los operandos es verdadero.
+-   **NOT (`no`):** Invierte el estado lógico.
 
-Evaluá las siguientes expresiones en Python:
+---
 
-1. `(5 > 3) and (10 < 20)`
-2. `(7 == 7) or (4 > 8)`
-3. `not (3 < 2)`
-4. `(10 / 2 == 5) and (10 % 3 == 1)`
-5. `(20 > 15) and (8 < 5)`
-6. `(5 != 3) or (10 == 11)`
-7. `not ((5 > 3) and (2 > 4))`
-:::
+## Las Tres Estructuras Fundamentales del Pensamiento Lógico
 
-:::{solution} ex-logicas
-:class: dropdown
+Todo algoritmo de control estructurado puede resolverse utilizando únicamente tres estructuras lógicas:
 
-1. `(5 > 3) and (10 < 20)` -> `True and True` -> **`True`**
-2. `(7 == 7) or (4 > 8)` -> `True or False` -> **`True`**
-3. `not (3 < 2)` -> `not False` -> **`True`**
-4. `(10 / 2 == 5) and (10 % 3 == 1)` -> `(5.0 == 5) and (1 == 1)` -> `True and True` -> **`True`**
-5. `(20 > 15) and (8 < 5)` -> `True and False` -> **`False`**
-6. `(5 != 3) or (10 == 11)` -> `True or False` -> **`True`**
-7. `not ((5 > 3) and (2 > 4))` -> `not (True and False)` -> `not False` -> **`True`**
-:::
-
-## Diagramas de flujo
-
-Los **diagramas de flujo** son representaciones gráficas de algoritmos que nos
-ayudan a visualizar la lógica del programa de manera clara y estructurada. Siguen
-siendo una herramienta universal, independientemente del lenguaje de programación.
-
-### Símbolos estándar
-
-:::{figure} 1/simbolos_diagramas_flujo.svg
-:alt: Símbolos estándar de diagramas de flujo
+```{figure} 1/estructuras_control.svg
+:alt: Tres estructuras fundamentales de control
 :align: center
-:width: 85%
+:width: 100%
 
-Símbolos universales utilizados en diagramas de flujo para representar diferentes elementos de un algoritmo.
-:::
-
-(La descripción de los símbolos y los diagramas de ejemplo siguen siendo válidos, ya que representan la lógica del algoritmo, no el código).
-
-## De Algoritmos a Código con Python
-
-El **pseudocódigo** es una forma de escribir algoritmos usando lenguaje natural
-estructurado. Es un paso intermedio útil. Ahora, veremos cómo traducir esos
-algoritmos directamente a **código Python**, que es un lenguaje de programación real
-y ejecutable.
-
-### Ejemplo completo 1: Calculadora simple
-
-```python
-# Algoritmo: Calculadora Simple
-# Descripción: Realiza operaciones básicas entre dos números
-
-print("=== CALCULADORA SIMPLE ===")
-
-# Leer los números y convertirlos a float (decimal)
-numero1 = float(input("Ingrese el primer número: "))
-numero2 = float(input("Ingrese el segundo número: "))
-
-# Leer la operación
-operacion = input("Ingrese la operación (+, -, *, /): ")
-
-# Realizar el cálculo basado en la operación
-if operacion == '+':
-    resultado = numero1 + numero2
-    print(f"Resultado: {numero1} + {numero2} = {resultado}")
-elif operacion == '-':
-    resultado = numero1 - numero2
-    print(f"Resultado: {numero1} - {numero2} = {resultado}")
-elif operacion == '*':
-    resultado = numero1 * numero2
-    print(f"Resultado: {numero1} × {numero2} = {resultado}")
-elif operacion == '/':
-    # Verificar la división por cero
-    if numero2 != 0:
-        resultado = numero1 / numero2
-        print(f"Resultado: {numero1} ÷ {numero2} = {resultado}")
-    else:
-        print("Error: No se puede dividir por cero")
-else:
-    print("Error: Operación no válida")
-
+Las tres estructuras fundamentales del pensamiento algorítmico: secuencia, decisión y repetición.
 ```
 
-### Ejemplo completo 2: Tabla de multiplicar
+### 1. Secuencia
+Ejecución lineal de instrucciones en orden cronológico estricto de arriba hacia abajo. El cambio del orden de los factores altera el resultado lógico o provoca fallas en tiempo de ejecución.
 
-```python
-# Algoritmo: Tabla de Multiplicar
-# Descripción: Muestra la tabla de multiplicar de un número del 1 al 10
+### 2. Decisiones (Condicionales)
+Bifurcación del flujo lógico en base al resultado de una condición booleana (`Si... Sino`).
 
-print("=== TABLA DE MULTIPLICAR ===")
-numero = int(input("Ingrese un número: "))
+### 3. Repetición (Lazos)
+Estructuras de iteración de código. Se clasifican didácticamente en:
+-   **Lazo controlado por contador (`Para` / `for`):** Utilizado cuando el límite de iteraciones es conocido de antemano.
+-   **Lazo controlado por condición (`Mientras` / `while`):** Utilizado cuando la parada del lazo depende de una expresión lógica evaluada dinámicamente.
 
-print(f"Tabla del {numero}:")
-print("-----------------")
+---
 
-# Usamos un bucle 'for' que cuenta desde 1 hasta 10
-for contador in range(1, 11):
-    resultado = numero * contador
-    # f-string para formatear la salida de manera prolija
-    print(f"{numero} × {contador} = {resultado}")
+## Ejemplos de Programas Traducidos a Pseudocódigo Estricto (Estilo C)
 
+A continuación se presentan los ejemplos lógicos resueltos en pseudocódigo estricto con sintaxis cercana a C en español, eliminando dependencias de lenguajes interpretados dinámicos.
+
+### Ejemplo 1: Calculadora simple
+
+```text
+// Algoritmo: Calculadora Simple
+// Entrada: dos números reales y un carácter de operación
+// Salida: el resultado de la operación matemática por pantalla
+
+real numero1;
+real numero2;
+real resultado;
+caracter operacion;
+
+Escribir("=== CALCULADORA SIMPLE ===");
+Escribir("Ingrese el primer número: ");
+Leer(numero1);
+Escribir("Ingrese el segundo número: ");
+Leer(numero2);
+Escribir("Ingrese la operación (+, -, *, /): ");
+Leer(operacion);
+
+Si (operacion == '+')
+{
+    resultado = numero1 + numero2;
+    Escribir("Resultado: ", resultado);
+}
+Sino Si (operacion == '-')
+{
+    resultado = numero1 - numero2;
+    Escribir("Resultado: ", resultado);
+}
+Sino Si (operacion == '*')
+{
+    resultado = numero1 * numero2;
+    Escribir("Resultado: ", resultado);
+}
+Sino Si (operacion == '/')
+{
+    Si (numero2 != 0.0)
+    {
+        resultado = numero1 / numero2;
+        Escribir("Resultado: ", resultado);
+    }
+    Sino
+    {
+        Escribir("Error: No se puede dividir por cero.");
+    }
+}
+Sino
+{
+    Escribir("Error: Operación no válida.");
+}
 ```
 
-### Ejemplo completo 3: Adivinar número
-
-```python
-# Algoritmo: Adivinar Número
-# Descripción: El usuario intenta adivinar un número secreto
-
-import random # Importamos la librería para generar números aleatorios
-
-numero_secreto = random.randint(1, 100) # Número aleatorio entre 1 y 100
-intentos_maximos = 5
-intentos_realizados = 0
-adivinado = False
-
-print("=== ADIVINA EL NÚMERO ===")
-print(f"Tenés {intentos_maximos} intentos para adivinar un número entre 1 y 100")
-
-while intentos_realizados < intentos_maximos and not adivinado:
-    intentos_realizados += 1
-    print(f"\nIntento {intentos_realizados} de {intentos_maximos}:")
-    
-    intento = int(input("Ingresá tu número: "))
-    
-    if intento == numero_secreto:
-        adivinado = True
-        print("¡¡¡FELICITACIONES!!! ¡Adivinaste el número!")
-        print(f"Lo lograste en {intentos_realizados} intentos")
-    elif intento < numero_secreto:
-        print("El número secreto es MAYOR")
-    else:
-        print("El número secreto es MENOR")
-
-if not adivinado:
-    print("\nGame Over. Te quedaste sin intentos.")
-    print(f"El número secreto era: {numero_secreto}")
+```mermaid
+flowchart TD
+    Start([Inicio]) --> ReadNums[/Leer numero1, numero2/]
+    ReadNums --> ReadOp[/Leer operacion/]
+    ReadOp --> CondSum{¿operacion == '+'?}
+    CondSum -- Sí --> CalcSum[resultado = numero1 + numero2] --> Print[/Escribir resultado/]
+    CondSum -- No --> CondRes{¿operacion == '-'?}
+    CondRes -- Sí --> CalcRes[resultado = numero1 - numero2] --> Print
+    CondRes -- No --> CondMul{¿operacion == '*'?}
+    CondMul -- Sí --> CalcMul[resultado = numero1 * numero2] --> Print
+    CondMul -- No --> CondDiv{¿operacion == '/'?}
+    CondDiv -- Sí --> CondZero{¿numero2 != 0?}
+    CondZero -- Sí --> CalcDiv[resultado = numero1 / numero2] --> Print
+    CondZero -- No --> ErrorZero[/Escribir error división por cero/] --> End([Fin])
+    CondDiv -- No --> ErrorOp[/Escribir error operación inválida/] --> End
+    Print --> End
 ```
 
-:::{exercise} Python
+### Ejemplo 2: Tabla de multiplicar
+
+```text
+// Algoritmo: Tabla de Multiplicar
+// Entrada: un número entero
+// Salida: la tabla de multiplicar de N del 1 al 10
+
+entero numero;
+entero contador;
+entero resultado;
+
+Escribir("=== TABLA DE MULTIPLICAR ===");
+Escribir("Ingrese un número: ");
+Leer(numero);
+
+Escribir("Tabla del ", numero, ":");
+Escribir("-----------------");
+
+// Lazo controlado por contador (Para) de 1 a 10
+Para (contador = 1; contador <= 10; contador = contador + 1)
+{
+    resultado = numero * contador;
+    Escribir(numero, " x ", contador, " = ", resultado);
+}
+```
+
+```mermaid
+flowchart TD
+    Start([Inicio]) --> ReadNum[/Leer numero/]
+    ReadNum --> Init[contador = 1]
+    Init --> LoopCond{¿contador <= 10?}
+    LoopCond -- Sí --> Calc[resultado = numero * contador]
+    Calc --> Print[/Escribir numero x contador = resultado/]
+    Print --> Inc[contador = contador + 1] --> LoopCond
+    LoopCond -- No --> End([Fin])
+```
+
+### Ejemplo 3: Adivinar número
+
+```text
+// Algoritmo: Adivinar Número
+// Entrada: intento numérico del usuario
+// Salida: mensajes guía (mayor/menor) e indicación de éxito o derrota
+
+entero numero_secreto = 42; // Simulado para propósitos de prueba
+entero intentos_maximos = 5;
+entero intentos_realizados = 0;
+entero intento;
+logico adivinado = false;
+
+Escribir("=== ADIVINA EL NÚMERO ===");
+Escribir("Tenés 5 intentos para adivinar un número entre 1 y 100");
+
+Mientras (intentos_realizados < intentos_maximos y adivinado == false)
+{
+    intentos_realizados = intentos_realizados + 1;
+    Escribir("Intento ", intentos_realizados, " de ", intentos_maximos, ":");
+    Leer(intento);
+
+    Si (intento == numero_secreto)
+    {
+        adivinado = true;
+        Escribir("¡Adivinaste el número!");
+    }
+    Sino Si (intento < numero_secreto)
+    {
+        Escribir("El número secreto es MAYOR");
+    }
+    Sino
+    {
+        Escribir("El número secreto es MENOR");
+    }
+}
+
+Si (adivinado == false)
+{
+    Escribir("Game Over. El número secreto era: ", numero_secreto);
+}
+```
+
+```mermaid
+flowchart TD
+    Start([Inicio]) --> CondLoop{¿intentos < max e adivinado == false?}
+    CondLoop -- Sí --> Inc[intentos = intentos + 1]
+    Inc --> Read[/Leer intento/]
+    Read --> CondEq{¿intento == secreto?}
+    CondEq -- Sí --> SetTrue[adivinado = true] --> CondLoop
+    CondEq -- No --> CondLt{¿intento < secreto?}
+    CondLt -- Sí --> PrintMayor[/Escribir 'MAYOR'/] --> CondLoop
+    CondLt -- No --> PrintMenor[/Escribir 'MENOR'/] --> CondLoop
+    CondLoop -- No --> CondWon{¿adivinado == false?}
+    CondWon -- Sí --> PrintLose[/Escribir 'Game Over'/] --> End([Fin])
+    CondWon -- No --> End
+```
+
+---
+
+## Ejercicios de Aplicación Algorítmica
+
+```exercise
 :label: ex-python-2
-:nonumber:
+Escribí en pseudocódigo estructurado (estilo C en español) algoritmos para resolver las siguientes cuestiones, sin declarar subprogramas (`def`) ni importar librerías complejas:
 
-Escribí en Python algoritmos para:
+1. Convertir una temperatura dada de grados Celsius a Fahrenheit.
+2. Determinar si tres medidas de lados reales pueden formar un triángulo (la suma de dos lados cualesquiera debe ser siempre estrictamente mayor que el tercer lado).
+3. Calcular el Máximo Común Divisor (MCD) de dos números enteros utilizando el algoritmo de Euclides.
+4. Determinar si una cadena de caracteres es un palíndromo (se lee igual de izquierda a derecha que de derecha a izquierda), comparando sus extremos mediante un lazo.
+```
 
-1. Convertir temperatura de Celsius a Fahrenheit (F = C × 9/5 + 32)
-2. Determinar si tres números pueden formar un triángulo (la suma de dos lados
-   debe ser mayor que el tercero)
-3. Calcular el Máximo Común Divisor (MCD) de dos números usando el algoritmo de
-   Euclides
-4. Determinar si una palabra es palíndromo (se lee igual de izquierda a derecha
-   que de derecha a izquierda)
-:::
-
-:::{solution} ex-python-2
-:class: dropdown
-
+```solution
+:for: ex-python-2
 **1. Conversión de temperatura:**
+```text
+real celsius;
+real fahrenheit;
 
-```python
-def celsius_a_fahrenheit(celsius):
-    """Convierte temperatura de Celsius a Fahrenheit."""
-    return celsius * 9/5 + 32
+Escribir("Ingrese temperatura en Celsius: ");
+Leer(celsius);
 
-# --- Programa principal ---
-c = float(input("Ingrese temperatura en Celsius: "))
-f = celsius_a_fahrenheit(c)
-print(f"{c}°C = {f}°F")
+fahrenheit = celsius * 9.0 / 5.0 + 32.0;
+Escribir("Equivalente en Fahrenheit: ", fahrenheit);
 ```
 
 **2. Verificar triángulo:**
+```text
+real lado1;
+real lado2;
+real lado3;
 
-```python
-def es_triangulo(lado1, lado2, lado3):
-    """Verifica si tres lados pueden formar un triángulo."""
-    return (lado1 + lado2 > lado3) and \
-           (lado1 + lado3 > lado2) and \
-           (lado2 + lado3 > lado1)
+Escribir("Ingrese lado 1: ");
+Leer(lado1);
+Escribir("Ingrese lado 2: ");
+Leer(lado2);
+Escribir("Ingrese lado 3: ");
+Leer(lado3);
 
-# --- Programa principal ---
-l1 = float(input("Lado 1: "))
-l2 = float(input("Lado 2: "))
-l3 = float(input("Lado 3: "))
-
-if es_triangulo(l1, l2, l3):
-    print("Los lados pueden formar un triángulo.")
-else:
-    print("Los lados NO pueden formar un triángulo.")
+Si (lado1 + lado2 > lado3 y lado1 + lado3 > lado2 y lado2 + lado3 > lado1)
+{
+    Escribir("Los lados pueden formar un triángulo.");
+}
+Sino
+{
+    Escribir("Los lados NO pueden formar un triángulo.");
+}
 ```
 
 **3. MCD (Algoritmo de Euclides):**
+```text
+entero a;
+entero b;
+entero temporal;
 
-```python
-def mcd(a, b):
-    """Calcula el Máximo Común Divisor usando el algoritmo de Euclides."""
-    while b != 0:
-        a, b = b, a % b
-    return a
+Escribir("Ingrese el primer número: ");
+Leer(a);
+Escribir("Ingrese el segundo número: ");
+Leer(b);
 
-# --- Programa principal ---
-num1 = int(input("Número 1: "))
-num2 = int(input("Número 2: "))
-print(f"El MCD es: {mcd(num1, num2)}")
+Mientras (b != 0)
+{
+    temporal = b;
+    b = a % b;
+    a = temporal;
+}
+
+Escribir("El MCD es: ", a);
 ```
 
-**4. Palíndromo:**
-```python
-def es_palindromo(palabra):
-    """Verifica si una palabra es un palíndromo."""
-    # Preparamos la palabra: minúsculas y sin espacios
-    palabra = palabra.lower().replace(" ", "")
-    # Comparamos la palabra con su inversa
-    return palabra == palabra[::-1]
+**4. Palíndromo (lazo de comparación de extremos):**
+```text
+cadena palabra;
+entero longitud;
+entero inicio = 0;
+entero fin;
+logico coincide = true;
 
-# --- Programa principal ---
-texto = input("Ingrese una palabra o frase: ")
-if es_palindromo(texto):
-    print(f'"{texto}" es un palíndromo.')
-else:
-    print(f'"{texto}" no es un palíndromo.')
+Escribir("Ingrese la palabra: ");
+Leer(palabra);
+Escribir("Ingrese la longitud de la palabra: ");
+Leer(longitud);
+
+fin = longitud - 1;
+
+Mientras (inicio < fin y coincide == true)
+{
+    Si (palabra[inicio] != palabra[fin])
+    {
+        coincide = false;
+    }
+    inicio = inicio + 1;
+    fin = fin - 1;
+}
+
+Si (coincide == true)
+{
+    Escribir("La palabra es un palíndromo.");
+}
+Sino
+{
+    Escribir("La palabra NO es un palíndromo.");
+}
 ```
-:::
+```
+
+---
 
 ## Ejercicios integradores
 
-:::{exercise} Análisis de algoritmo
+```exercise
 :label: ex-integrador-1
-:nonumber:
+Analizá el siguiente pseudocódigo estructurado y respondé las consignas:
 
-Analizá el siguiente código Python y respondé:
+```text
+entero n;
+entero suma = 0;
+entero i = 1;
 
-```python
-n = int(input("Ingrese un número: "))
-suma = 0
-i = 1
-while i <= n:
-    if i % 2 == 0:
-        suma = suma + i
-    i = i + 1
-print(suma)
+Escribir("Ingrese un número: ");
+Leer(n);
+
+Mientras (i <= n)
+{
+    Si (i % 2 == 0)
+    {
+        suma = suma + i;
+    }
+    i = i + 1;
+}
+Escribir("Resultado: ", suma);
 ```
 
 1. ¿Qué hace este algoritmo?
-2. Si `n` es 10, ¿cuál es el resultado?
-3. Dibujá el diagrama de flujo correspondiente.
-4. Modificalo para que sume los números impares en lugar de los pares.
+2. Si `n` ingresado es 10, ¿cuál es la salida final?
+3. Modificalo para que realice la suma exclusiva de números impares.
+```
+
+```solution
+:for: ex-integrador-1
+1. **¿Qué hace?** Suma todos los números pares en el rango de 1 a `n` inclusive.
+2. **Resultado para n=10:** 2 + 4 + 6 + 8 + 10 = **30**.
+3. **Modificación para impares:** Modificar la condición del módulo en la decisión (`i % 2 != 0`):
+```text
+entero n;
+entero suma = 0;
+entero i = 1;
+
+Escribir("Ingrese un número: ");
+Leer(n);
+
+Mientras (i <= n)
+{
+    Si (i % 2 != 0) // Cambio de paridad
+    {
+        suma = suma + i;
+    }
+    i = i + 1;
+}
+Escribir("Resultado: ", suma);
+```
 :::
 
-:::{solution} ex-integrador-1
-:class: dropdown
-1.  **¿Qué hace?** Suma todos los números pares desde 1 hasta `n` inclusive.
-2.  **Resultado para n=10:** Suma 2 + 4 + 6 + 8 + 10 = **30**.
-3.  **Diagrama de flujo:**
-    :::{figure} 1/algoritmo_suma_pares.svg
-    :alt: Diagrama de flujo para sumar números pares
-    :align: center
-    :width: 70%
-    
-    Algoritmo que suma todos los números pares desde 1 hasta n.
-    :::
-4.  **Modificación para impares:** Cambiar `if i % 2 == 0:` por `if i % 2 != 0:`.
-    ```python
-    n = int(input("Ingrese un número: "))
-    suma = 0
-    i = 1
-    while i <= n:
-        if i % 2 != 0: # <-- Cambio aquí
-            suma = suma + i
-        i = i + 1
-    print(suma)
+---
+
+## Errores Comunes y Estrategias de Prevención
+
+### 1. Secuencia incorrecta de asignaciones
+Las variables deben poseer datos válidos antes de ser leídas o manipuladas en expresiones.
+
+-   **Incorrecto (Lectura ciega tardía):**
+    ```text
+    entero a;
+    entero b;
+    entero resultado = a + b; // a y b no tienen datos definidos en memoria RAM
+    Leer(a);
+    Leer(b);
     ```
-:::
+-   **Correcto (Orden lineal lógico):**
+    ```text
+    entero a;
+    entero b;
+    Leer(a);
+    Leer(b);
+    entero resultado = a + b;
+    ```
 
+### 2. Lazos infinitos
+Ocurren cuando la condición de permanencia de un lazo `Mientras` nunca resulta en `falsa`. Es obligatorio asegurar que el bloque interno altere la variable de control.
 
-## Errores comunes y cómo evitarlos
+-   **Incorrecto (Falta de paso de iteración):**
+    ```text
+    entero contador = 1;
+    Mientras (contador <= 10)
+    {
+        Escribir(contador);
+        // contador se mantiene en 1 eternamente
+    }
+    ```
+-   **Correcto (Paso de iteración explícito):**
+    ```text
+    entero contador = 1;
+    Mientras (contador <= 10)
+    {
+        Escribir(contador);
+        contador = contador + 1;
+    }
+    ```
 
-### 1. Secuencia incorrecta de instrucciones
-
-El orden de las instrucciones es crucial. Un error común es no considerar el
-flujo lógico.
-
-::::{grid} 1 1 2 2
-
-:::{grid-item-card} ❌ Incorrecto
-```python
-# Usa las variables antes de leerlas
-resultado = a + b
-a = int(input("a: "))
-b = int(input("b: "))
-print(resultado)
-```
-**Problema:** `a` y `b` no tienen valor cuando se intenta calcular `resultado`.
-:::
-
-:::{grid-item-card} ✅ Correcto
-```python
-# Lee primero, calcula después
-a = int(input("a: "))
-b = int(input("b: "))
-resultado = a + b
-print(resultado)
-```
-**Solución:** Asegurarse de que las variables tengan un valor antes de usarlas.
-:::
-::::
-
-### 2. Condiciones mal formuladas
-
-::::{grid} 1 1 2 2
-
-:::{grid-item-card} ❌ Incorrecto
-```python
-# Más complejo de lo necesario
-if edad > 18 or edad == 18:
-    print("Mayor de edad")
-```
-**Problema:** Funciona, pero es redundante.
-:::
-
-:::{grid-item-card} ✅ Correcto
-```python
-# Simplificar condiciones
-if edad >= 18:
-    print("Mayor de edad")
-else:
-    print("Menor de edad")
-```
-**Solución:** Usar los operadores de comparación adecuados para simplificar la lógica.
-:::
-::::
-
-### 3. Ciclos infinitos
-
-Un ciclo infinito ocurre cuando la condición de salida nunca se cumple.
-
-::::{grid} 1 1 2 2
-
-:::{grid-item-card} ❌ Incorrecto
-```python
-contador = 1
-while contador <= 10:
-    print(contador)
-    # ¡Olvidamos incrementar contador!
-```
-Este ciclo nunca termina porque `contador` siempre vale 1.
-:::
-
-:::{grid-item-card} ✅ Correcto
-```python
-contador = 1
-while contador <= 10:
-    print(contador)
-    contador = contador + 1 # o contador += 1
-```
-**Solución:** Asegurarse de que la variable de control del bucle se modifique para que eventualmente la condición sea falsa.
-:::
-::::
-
-### 4. Usar variables sin inicializarlas
-
-::::{grid} 1 1 2 2
-
-:::{grid-item-card} ❌ Incorrecto
-```python
-# ¿Cuánto vale 'suma' al principio?
-# Esto dará un error en Python.
-suma = suma + 5
-```
-**Problema:** No se puede modificar una variable que no ha sido creada (inicializada) primero.
-:::
-
-:::{grid-item-card} ✅ Correcto
-```python
-suma = 0 # Inicializamos la variable
-suma = suma + 5
-print(suma) # Ahora suma vale 5
-```
-**Solución:** Siempre asignar un valor inicial a las variables antes de usarlas en cálculos.
-:::
-::::
-
-## La importancia de la práctica
-
-Aprender a programar es como aprender a tocar un instrumento o un deporte:
-
-- **La teoría es importante**, pero no suficiente
-- **Necesitás practicar** para desarrollar la habilidad
-- **Vas a cometer errores** - y está perfecto, es parte del aprendizaje
-- **La constancia** es más importante que la intensidad
-
-:::{tip} Consejo para principiantes
-
-No intentes memorizar todo. Enfocate en **entender la lógica**. Con la práctica,
-la sintaxis y los detalles se vuelven naturales.
-
-:::
-
+---
 ## Próximos Pasos: El Lenguaje C
 
 Ahora que comprendés estos conceptos fundamentales usando Python, estás mucho mejor preparado para abordar el lenguaje C. En el próximo apunte veremos:
@@ -1384,36 +844,29 @@ Ahora que comprendés estos conceptos fundamentales usando Python, estás mucho 
 
 Recordá que toda la lógica que vimos aquí se aplica directamente a C. La principal diferencia será la sintaxis y la necesidad de gestionar la memoria de forma más explícita.
 
-## Glosario básico
+## Glosario
 
-:::{glossary}
-
+::{glossary}
 Algoritmo
-: Secuencia finita de pasos precisos que resuelve un problema.
+: Secuencia finita, ordenada y unívoca de pasos lógicos diseñados para resolver un problema.
 
 Variable
-: Espacio en memoria con un nombre, donde se almacena un valor que puede cambiar.
+: Espacio con nombre asignado en la memoria física RAM asociado a una dirección de memoria, cuyo valor puede modificarse.
 
 Tipo de dato
-: Categoría que determina qué clase de información puede almacenar una variable
-(`int`, `float`, `str`, `bool`, etc.).
+: Definición del conjunto de valores y operaciones válidos asignados a una variable.
 
-Operador
-: Símbolo que indica una operación a realizar (`+`, `-`, `*`, `/`, `==`, `>`, `and`, etc.).
-
-Condición
-: Expresión que se evalúa como `True` o `False`, usada para tomar decisiones.
-
-Ciclo o Bucle
-: Estructura que repite un conjunto de instrucciones (`for`, `while`).
+Lazo
+: Estructura de control diseñada para repetir la ejecución de un bloque de instrucciones (`Para`, `Mientras`).
 
 Pseudocódigo
-: Forma de escribir algoritmos usando lenguaje natural estructurado, como paso previo a escribir código real.
+: Notación estructurada en lenguaje natural que representa un algoritmo de forma cercana a un lenguaje de programación.
 
 Diagrama de flujo
-: Representación gráfica de un algoritmo usando símbolos estandarizados.
-
+: Modelado gráfico y estandarizado del flujo lógico de un algoritmo.
 :::
+
+---
 
 ## Recursos adicionales
 
