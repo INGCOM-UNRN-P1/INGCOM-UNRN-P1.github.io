@@ -199,20 +199,7 @@ Estructura detallada de un stack frame mostrando la organización de parámetros
 5. **Limpieza (caller):**
    - Se limpia el espacio usado para argumentos (según la convención)
 
-**Ejemplo en código assembly (x86-64 simplificado):**
-
-```asm
-funcion:
-    push rbp              ; Guardar frame pointer anterior
-    mov rbp, rsp          ; Establecer nuevo frame pointer
-    sub rsp, 16           ; Reservar espacio para variables locales
-
-    ; ... cuerpo de la función ...
-
-    mov rsp, rbp          ; Restaurar stack pointer
-    pop rbp               ; Restaurar frame pointer anterior
-    ret                   ; Retornar
-```
+*(El funcionamiento detallado en código ensamblador y a nivel de registros se explica en la sección de {ref}`memoria-avanzada-asm` al final de este capítulo).*
 
 :::{important} Implicaciones de la Estructura del Stack
 Esta estructura explica varios fenómenos importantes:
@@ -349,89 +336,7 @@ La siguiente tabla resume las diferencias clave entre el stack y el heap para ay
 
 **Regla práctica:** Usá el stack siempre que puedas (por velocidad y simplicidad), y recurrí al heap solo cuando sea necesario (por flexibilidad).
 
-(memoria-heap-allocator)=
-### El Allocator: Gestión Interna del Heap
 
-Cuando llamás a `malloc` o `calloc`, no estás interactuando directamente con el sistema operativo en cada llamada. En cambio, estas funciones son parte de un subsistema llamado **allocator** (asignador de memoria) que gestiona el heap de tu proceso.
-
-**¿Cómo funciona el allocator?**
-
-El allocator mantiene su propia estructura de datos para rastrear qué bloques del heap están libres y cuáles están ocupados. Existen varias estrategias de implementación, pero todas deben resolver dos problemas fundamentales:
-
-1. **Al asignar:** ¿Qué bloque libre usar cuando hay varios disponibles?
-2. **Al liberar:** ¿Cómo marcar el bloque como libre y potencialmente fusionarlo con bloques adyacentes?
-
-**Estructura típica de un bloque de memoria:**
-
-```{figure} ./11/heap_allocator.svg
-:name: fig-heap-allocator
-:width: 80%
-
-Estructura de un bloque de memoria en el heap, mostrando el header con metadata, el área de datos del usuario, y el footer opcional.
-```
-
-El header típicamente contiene:
-
-- **Tamaño del bloque** (en bytes)
-- **Flag de ocupado/libre** (típicamente en el bit menos significativo del tamaño)
-- **Punteros a bloques adyacentes** (en implementaciones de lista enlazada)
-
-:::{note} Overhead de Memoria
-Cada asignación tiene un costo en memoria adicional (overhead) para almacenar los metadatos. Típicamente entre 8 y 16 bytes por bloque. Por eso, muchas asignaciones pequeñas desperdician más memoria que pocas asignaciones grandes.
-:::
-
-**Estrategias de asignación:**
-
-1. **First Fit (Primer ajuste):**
-   - Busca desde el inicio del heap hasta encontrar el primer bloque libre suficientemente grande.
-   - **Ventaja:** Rápido (termina apenas encuentra un bloque).
-   - **Desventaja:** Tiende a fragmentar la parte inicial del heap.
-
-2. **Best Fit (Mejor ajuste):**
-   - Busca en todo el heap el bloque libre más pequeño que satisfaga la solicitud.
-   - **Ventaja:** Minimiza el desperdicio de memoria.
-   - **Desventaja:** Lento (debe recorrer toda la lista) y crea muchos bloques diminutos inutilizables.
-
-3. **Next Fit (Siguiente ajuste):**
-   - Como First Fit, pero continúa desde donde terminó la última búsqueda.
-   - **Ventaja:** Distribuye mejor las asignaciones por todo el heap.
-   - **Desventaja:** Aún puede fragmentar.
-
-4. **Segregated Free Lists (Listas libres segregadas):**
-   - Mantiene listas separadas para bloques de diferentes tamaños.
-   - **Ventaja:** Muy eficiente para patrones de asignación predecibles.
-   - **Desventaja:** Más complejo de implementar y mantener.
-
-**Interacción con el sistema operativo:**
-
-El allocator solicita memoria al sistema operativo en grandes cantidades (típicamente mediante `sbrk()` o `mmap()` en Unix/Linux) y luego la subdivide según las necesidades del programa. Esto reduce enormemente el número de llamadas al sistema, que son costosas.
-
-```{figure} ./11/allocator_flow.svg
-:name: fig-allocator-flow
-:width: 100%
-
-Flujo de interacción entre el programa, las funciones de memoria (malloc/calloc/free), el allocator interno que mantiene un pool de memoria, y ocasionalmente el sistema operativo que proporciona acceso a la RAM física.
-```
-
-**Coalescing (Fusión de bloques):**
-
-Cuando liberás un bloque con `free()`, el allocator intenta fusionarlo con bloques libres adyacentes para crear bloques más grandes. Esto ayuda a combatir la fragmentación externa.
-
-```{figure} ./11/coalescing.svg
-:name: fig-coalescing
-:width: 100%
-
-Proceso de coalescing (fusión) donde bloques libres adyacentes (LIBRE-B y LIBRE-C) se combinan en un único bloque más grande (LIBRE-BC fusionado).
-```
-
-:::{tip} Implicaciones para el Programador
-Aunque no implementés tu propio allocator, comprender su funcionamiento explica varios fenómenos:
-
-1. **Por qué muchas asignaciones pequeñas son ineficientes:** Cada una tiene overhead de metadatos y sobrecarga de búsqueda.
-2. **Por qué el patrón de asignación importa:** Asignar y liberar en patrones impredecibles causa fragmentación.
-3. **Por qué `free()` es rápido:** Solo marca el bloque como libre y potencialmente fusiona; no devuelve memoria al SO inmediatamente.
-4. **Por qué el heap puede crecer pero no decrecer fácilmente:** El allocator solo puede devolver memoria al SO si los bloques al final del heap están libres. 
-:::
 
 (memoria-punteros)=
 ## Herramienta Clave: Punteros
@@ -513,15 +418,32 @@ printf("%c\n", char_ptr[0]);  // Imprime 'D' (little-endian)
 ```
 
 :::{warning} Aliasing y Strict Aliasing Rule
-Acceder al mismo objeto de memoria a través de punteros de tipos incompatibles viola la **strict aliasing rule** y causa comportamiento indefinido (excepto con `char *` o `unsigned char *`).
+Acceder al mismo objeto de memoria a través de punteros de tipos incompatibles viola la **strict aliasing rule** del estándar C y causa comportamiento indefinido (con la única excepción de `char *` y `unsigned char *`).
 
+El compilador asume bajo esta regla que punteros de tipos incompatibles nunca apuntan a la misma dirección física de memoria. Esto le permite realizar optimizaciones agresivas. Si rompés esta regla, el optimizador puede generar código máquina que se comporta de forma totalmente inesperada.
+
+**Ejemplo real de fallo por optimización:**
+
+Considerá la siguiente función:
 ```c
-int x = 42;
-float *fp = (float *)&x;  // PELIGROSO
-float f = *fp;  // UB: reinterpreta int como float
+float foo(float *f, int *i) {
+    *f = 1.0f;
+    *i = 2;
+    return *f;
+}
 ```
 
-El compilador asume que punteros de tipos diferentes no se superponen, lo que permite optimizaciones agresivas que pueden romper código que viola esta regla. 
+Bajo la regla de *strict aliasing*, el compilador asume que la escritura `*i = 2` no puede modificar el contenido de `*f`, ya que apuntan a tipos de datos incompatibles. Por lo tanto, al optimizar con `-O2` o `-O3`, el compilador eliminará la lectura redundante de la memoria al final y reescribirá la función para que retorne directamente la constante `1.0f`:
+
+```c
+float foo(float *f, int *i) {
+    *f = 1.0f;
+    *i = 2;
+    return 1.0f; // Optimizado: asume que *f no cambió
+}
+```
+
+Si intentás hacer *type punning* y pasás la misma variable como argumento (`foo((float*)&x, &x)`), el valor en memoria terminará valiendo `2` (o su representación entera), pero la función retornará `1.0f`. El código se ha roto silenciosamente a nivel binario debido al supuesto optimizador.
 :::
 
 (memoria-puntero-a-puntero)=
@@ -616,36 +538,29 @@ int (*ptr)[4] = matriz;
 ```
 
 (memoria-array-2d-contiguo)=
-#### Arrays 2D Contiguos con Punteros a Array
+#### Arrays 2D Contiguos con Puntero Plano
 
-La verdadera potencia de `(*)[N]` aparece al trabajar con memoria dinámica contígua:
-
-**Problema:** Querés un array 2D dinámico donde todos los elementos estén contiguos (mejor para el caché).
-
-**Solución:**
+La forma más portable, robusta y eficiente de representar una matriz dinámica contigua en memoria es mediante un **puntero plano (`int *`)** en el heap, realizando la indexación bidimensional manualmente a través de la fórmula matemática `i * columnas + j`:
 
 ```c
 #include <stdio.h>
 #include <stdlib.h>
 
-// Crear matriz 2D contígua: filas × columnas
-int (*crear_matriz_contigua(size_t filas, size_t columnas))[columnas]
+// Crear matriz 2D contigua: filas × columnas
+int *crear_matriz_contigua(size_t filas, size_t columnas)
 {
-    // Asignar toda la memoria de una vez
-    int (*matriz)[columnas] = malloc(filas * sizeof(*matriz));
+    // Asignar toda la memoria en un solo bloque lineal
+    int *matriz = malloc(filas * columnas * sizeof(*matriz));
 
     if (matriz == NULL)
     {
         return NULL;
     }
 
-    // Inicializar
-    for (size_t i = 0; i < filas; i++)
+    // Inicializar a cero
+    for (size_t i = 0; i < filas * columnas; i++)
     {
-        for (size_t j = 0; j < columnas; j++)
-        {
-            matriz[i][j] = 0;
-        }
+        matriz[i] = 0;
     }
 
     return matriz;
@@ -656,25 +571,24 @@ int main()
     size_t filas = 3;
     size_t columnas = 4;
 
-    // Nota: necesitamos VLA (Variable Length Array) o C11
-    int (*matriz)[columnas] = crear_matriz_contigua(filas, columnas);
+    int *matriz = crear_matriz_contigua(filas, columnas);
 
     if (matriz == NULL)
     {
         return 1;
     }
 
-    // Llenar la matriz
+    // Llenar la matriz con cálculo manual de índice lineal (i * columnas + j)
     for (size_t i = 0; i < filas; i++)
     {
         for (size_t j = 0; j < columnas; j++)
         {
-            matriz[i][j] = (int)(i * columnas + j);
+            matriz[i * columnas + j] = (int)(i * columnas + j);
         }
     }
 
-    // Acceso natural: matriz[i][j]
-    printf("matriz[1][2] = %d\n", matriz[1][2]);
+    // Acceso manual: matriz[i * columnas + j]
+    printf("matriz[1][2] = %d\n", matriz[1 * columnas + 2]);
 
     // Liberar: una sola llamada
     free(matriz);
@@ -1077,7 +991,7 @@ Cambia el tamaño de un bloque de memoria previamente asignado.
     -   El bloque se trunca. Los datos al final se pierden.
 
 3.  **Si `new_size` es 0:**
-    -   El comportamiento es dependiente de la implementación. Puede liberar la memoria (equivalente a `free(ptr)`) o retornar `NULL`.
+    -   **¡Evitar!** En estándares modernos (C17/C23), llamar a `realloc(ptr, 0)` está formalmente declarado como comportamiento indefinido u obsoleto. No debe usarse bajo ninguna circunstancia como sustituto de `free()`. Para liberar memoria, utilizá siempre la función `free()`.
 
 #### Valor de Retorno
 
@@ -1149,6 +1063,90 @@ ptr = NULL;  // Previene el uso accidental del puntero colgante
 
 :::{important} Simetría en la Gestión de Recursos
 La {ref}`0x001Ah` también enfatiza la simetría: si creaste una función `crear_recurso()` para encapsular la asignación, debés crear una función `liberar_recurso()` correspondiente para su liberación. Esto mantiene el nivel de abstracción consistente y facilita el mantenimiento.
+:::
+
+(memoria-heap-allocator)=
+### El Allocator: Gestión Interna del Heap
+
+Cuando llamás a `malloc` o `calloc`, no estás interactuando directamente con el sistema operativo en cada llamada. En cambio, estas funciones son parte de un subsistema llamado **allocator** (asignador de memoria) que gestiona el heap de tu proceso.
+
+**¿Cómo funciona el allocator?**
+
+El allocator mantiene su propia estructura de datos para rastrear qué bloques del heap están libres y cuáles están ocupados. Existen varias estrategias de implementación, pero todas deben resolver dos problemas fundamentales:
+
+1. **Al asignar:** ¿Qué bloque libre usar cuando hay varios disponibles?
+2. **Al liberar:** ¿Cómo marcar el bloque como libre y potencialmente fusionarlo con bloques adyacentes?
+
+**Estructura típica de un bloque de memoria:**
+
+```{figure} ./11/heap_allocator.svg
+:name: fig-heap-allocator
+:width: 80%
+
+Estructura de un bloque de memoria en el heap, mostrando el header con metadata, el área de datos del usuario, y el footer opcional.
+```
+
+El header típicamente contiene:
+
+- **Tamaño del bloque** (en bytes)
+- **Flag de ocupado/libre** (típicamente en el bit menos significativo del tamaño)
+- **Punteros a bloques adyacentes** (en implementaciones de lista enlazada)
+
+:::{note} Overhead de Memoria
+Cada asignación tiene un costo en memoria adicional (overhead) para almacenar los metadatos. Típicamente entre 8 y 16 bytes por bloque. Por eso, muchas asignaciones pequeñas desperdician más memoria que pocas asignaciones grandes.
+:::
+
+**Estrategias de asignación:**
+
+1. **First Fit (Primer ajuste):**
+   - Busca desde el inicio del heap hasta encontrar el primer bloque libre suficientemente grande.
+   - **Ventaja:** Rápido (termina apenas encuentra un bloque).
+   - **Desventaja:** Tiende a fragmentar la parte inicial del heap.
+
+2. **Best Fit (Mejor ajuste):**
+   - Busca en todo el heap el bloque libre más pequeño que satisfaga la solicitud.
+   - **Ventaja:** Minimiza el desperdicio de memoria.
+   - **Desventaja:** Lento (debe recorrer toda la lista) y crea muchos bloques diminutos inutilizables.
+
+3. **Next Fit (Siguiente ajuste):**
+   - Como First Fit, pero continúa desde donde terminó la última búsqueda.
+   - **Ventaja:** Distribuye mejor las asignaciones por todo el heap.
+   - **Desventaja:** Aún puede fragmentar.
+
+4. **Segregated Free Lists (Listas libres segregadas):**
+   - Mantiene listas separadas para bloques de diferentes tamaños.
+   - **Ventaja:** Muy eficiente para patrones de asignación predecibles.
+   - **Desventaja:** Más complejo de implementar y mantener.
+
+**Interacción con el sistema operativo:**
+
+El allocator solicita memoria al sistema operativo en grandes cantidades (típicamente mediante `sbrk()` o `mmap()` en Unix/Linux) y luego la subdivide según las necesidades del programa. Esto reduce enormemente el número de llamadas al sistema, que son costosas.
+
+```{figure} ./11/allocator_flow.svg
+:name: fig-allocator-flow
+:width: 100%
+
+Flujo de interacción entre el programa, las funciones de memoria (malloc/calloc/free), el allocator interno que mantiene un pool de memoria, y ocasionalmente el sistema operativo que proporciona acceso a la RAM física.
+```
+
+**Coalescing (Fusión de bloques):**
+
+Cuando liberás un bloque con `free()`, el allocator intenta fusionarlo con bloques libres adyacentes para crear bloques más grandes. Esto ayuda a combatir la fragmentación externa.
+
+```{figure} ./11/coalescing.svg
+:name: fig-coalescing
+:width: 100%
+
+Proceso de coalescing (fusión) donde bloques libres adyacentes (LIBRE-B y LIBRE-C) se combinan en un único bloque más grande (LIBRE-BC fusionado).
+```
+
+:::{tip} Implicaciones para el Programador
+Aunque no implementés tu propio allocator, comprender su funcionamiento explica varios fenómenos:
+
+1. **Por qué muchas asignaciones pequeñas son ineficientes:** Cada una tiene overhead de metadatos y sobrecarga de búsqueda.
+2. **Por qué el patrón de asignación importa:** Asignar y liberar en patrones impredecibles causa fragmentación.
+3. **Por qué `free()` es rápido:** Solo marca el bloque como libre y potencialmente fusiona; no devuelve memoria al SO inmediatamente.
+4. **Por qué el heap puede crecer pero no decrecer fácilmente:** El allocator solo puede devolver memoria al SO si los bloques al final del heap están libres. 
 :::
 
 (memoria-errores)=
@@ -2073,26 +2071,14 @@ char *duplicar_cadena(const char *original)
         return NULL;
     }
 
-    // Calcular longitud de la cadena
-    size_t longitud = 0;
-    while (original[longitud] != '\0')
-    {
-        longitud = longitud + 1;
-    }
-
-    // Reservar memoria (longitud + 1 para el '\0')
-    char *copia = malloc((longitud + 1) * sizeof(*copia));
+    size_t longitud = strlen(original);
+    char *copia = malloc(longitud + 1);
     if (copia == NULL)
     {
         return NULL;
     }
 
-    // Copiar caracter por caracter
-    for (size_t i = 0; i <= longitud; i++)
-    {
-        copia[i] = original[i];
-    }
-
+    strcpy(copia, original);
     return copia;
 }
 
@@ -2108,12 +2094,7 @@ int main()
     }
 
     // Remover el salto de línea si existe
-    size_t longitud = 0;
-    while (original[longitud] != '\0' && original[longitud] != '\n')
-    {
-        longitud = longitud + 1;
-    }
-    original[longitud] = '\0';
+    original[strcspn(original, "\n")] = '\0';
 
     char *copia = duplicar_cadena(original);
     if (copia == NULL)
@@ -2485,26 +2466,6 @@ typedef struct
     int edad;
 } persona_t;
 
-/**
- * Calcula la longitud de una cadena.
- * @param cadena Cadena a medir (no debe ser NULL).
- * @returns La longitud de la cadena (sin contar el '\0').
- */
-size_t longitud_cadena(const char *cadena)
-{
-    size_t longitud = 0;
-    while (cadena[longitud] != '\0')
-    {
-        longitud = longitud + 1;
-    }
-    return longitud;
-}
-
-/**
- * Duplica una cadena en memoria dinámica.
- * @param cadena Cadena a duplicar (no debe ser NULL).
- * @returns Un puntero a la copia, o NULL si hay un error.
- */
 char *duplicar_cadena(const char *cadena)
 {
     if (cadena == NULL)
@@ -2512,19 +2473,15 @@ char *duplicar_cadena(const char *cadena)
         return NULL;
     }
 
-    size_t longitud = longitud_cadena(cadena);
-    char *copia = malloc((longitud + 1) * sizeof(*copia));
+    size_t longitud = strlen(cadena);
+    char *copia = malloc(longitud + 1);
 
     if (copia == NULL)
     {
         return NULL;
     }
 
-    for (size_t i = 0; i <= longitud; i++)
-    {
-        copia[i] = cadena[i];
-    }
-
+    strcpy(copia, cadena);
     return copia;
 }
 
@@ -2777,27 +2734,28 @@ int main()
 ````{exercise} Matriz Contígua con Puntero a Array
 :label: ej-memoria-puntero-array
 
-Implementá funciones para crear y manipular una matriz dinámica contígua usando punteros a array:
+Implementá funciones para crear y manipular una matriz dinámica contigua usando un puntero plano (`int *`):
 
 ```c
 // Crear matriz de N filas y M columnas (contígua en memoria)
-int (*crear_matriz_contigua(size_t filas, size_t columnas))[columnas];
+int *crear_matriz_contigua(size_t filas, size_t columnas);
 
-// Llenar la matriz con un patrón: matriz[i][j] = i * columnas + j
-void llenar_matriz(int (*matriz)[], size_t filas, size_t columnas);
+// Llenar la matriz con un patrón: matriz[i * columnas + j] = i * columnas + j
+void llenar_matriz(int *matriz, size_t filas, size_t columnas);
 
 // Imprimir la matriz
-void imprimir_matriz_contigua(int (*matriz)[], size_t filas, size_t columnas);
+void imprimir_matriz_contigua(const int *matriz, size_t filas, size_t columnas);
 
 // Transponer la matriz in-place (solo para matrices cuadradas)
-void transponer_cuadrada(int (*matriz)[], size_t n);
+void transponer_cuadrada(int *matriz, size_t n);
 ```
 
 Requisitos:
 
-- Toda la memoria debe asignarse en un solo bloque contiguo.
+- Toda la memoria debe asignarse en un solo bloque contiguo en el heap.
 - Debe liberarse con una sola llamada a `free`.
-- La función `transponer_cuadrada` debe intercambiar `matriz[i][j]` con `matriz[j][i]`.
+- El acceso a los elementos en la fila `i` y columna `j` debe realizarse mediante cálculo manual de índices: `i * columnas + j`.
+- La función `transponer_cuadrada` debe intercambiar el elemento en `(i, j)` con el de `(j, i)`.
 
 Escribí un programa principal que:
 
@@ -2818,16 +2776,15 @@ Escribí un programa principal que:
 #include <stdlib.h>
 
 /**
- * Crea una matriz dinámica contígua usando puntero a array.
+ * Crea una matriz dinámica contigua usando un puntero plano.
  * @param filas Número de filas.
  * @param columnas Número de columnas.
- * @returns Un puntero a array que apunta a la matriz, o NULL si hay error.
- * @note Requiere C99+ para VLA en tipo de retorno.
+ * @returns Un puntero plano que apunta a la matriz, o NULL si hay error.
  */
-int (*crear_matriz_contigua(size_t filas, size_t columnas))[columnas]
+int *crear_matriz_contigua(size_t filas, size_t columnas)
 {
-    // Asignar memoria contígua para todos los elementos
-    int (*matriz)[columnas] = malloc(filas * sizeof(*matriz));
+    // Asignar memoria contígua para todos los elementos (filas * columnas)
+    int *matriz = malloc(filas * columnas * sizeof(*matriz));
 
     if (matriz == NULL)
     {
@@ -2835,25 +2792,21 @@ int (*crear_matriz_contigua(size_t filas, size_t columnas))[columnas]
     }
 
     // Inicializar a cero
-    for (size_t i = 0; i < filas; i++)
+    for (size_t i = 0; i < filas * columnas; i++)
     {
-        for (size_t j = 0; j < columnas; j++)
-        {
-            matriz[i][j] = 0;
-        }
+        matriz[i] = 0;
     }
 
     return matriz;
 }
 
 /**
- * Llena la matriz con el patrón: matriz[i][j] = i * columnas + j
+ * Llena la matriz con el patrón: matriz[i * columnas + j] = i * columnas + j
  * @param matriz Puntero a la matriz (no debe ser NULL).
  * @param filas Número de filas.
  * @param columnas Número de columnas.
  */
-void llenar_matriz(int (*matriz)[/* columnas debe coincidir */],
-                   size_t filas, size_t columnas)
+void llenar_matriz(int *matriz, size_t filas, size_t columnas)
 {
     if (matriz == NULL)
     {
@@ -2864,7 +2817,7 @@ void llenar_matriz(int (*matriz)[/* columnas debe coincidir */],
     {
         for (size_t j = 0; j < columnas; j++)
         {
-            matriz[i][j] = (int)(i * columnas + j);
+            matriz[i * columnas + j] = (int)(i * columnas + j);
         }
     }
 }
@@ -2875,7 +2828,7 @@ void llenar_matriz(int (*matriz)[/* columnas debe coincidir */],
  * @param filas Número de filas.
  * @param columnas Número de columnas.
  */
-void imprimir_matriz_contigua(int (*matriz)[], size_t filas, size_t columnas)
+void imprimir_matriz_contigua(const int *matriz, size_t filas, size_t columnas)
 {
     if (matriz == NULL)
     {
@@ -2886,8 +2839,7 @@ void imprimir_matriz_contigua(int (*matriz)[], size_t filas, size_t columnas)
     {
         for (size_t j = 0; j < columnas; j++)
         {
-            // Acceso usando puntero a array
-            printf("%4d ", (*matriz)[i * columnas + j]);
+            printf("%4d ", matriz[i * columnas + j]);
         }
         printf("\n");
     }
@@ -2898,21 +2850,21 @@ void imprimir_matriz_contigua(int (*matriz)[], size_t filas, size_t columnas)
  * @param matriz Puntero a la matriz cuadrada (no debe ser NULL).
  * @param n Tamaño de la matriz (n×n).
  */
-void transponer_cuadrada(int (*matriz)[/* n */], size_t n)
+void transponer_cuadrada(int *matriz, size_t n)
 {
     if (matriz == NULL)
     {
         return;
     }
 
-    // Intercambiar matriz[i][j] con matriz[j][i]
+    // Intercambiar matriz[i * n + j] con matriz[j * n + i]
     for (size_t i = 0; i < n; i++)
     {
         for (size_t j = i + 1; j < n; j++)
         {
-            int temp = matriz[i][j];
-            matriz[i][j] = matriz[j][i];
-            matriz[j][i] = temp;
+            int temp = matriz[i * n + j];
+            matriz[i * n + j] = matriz[j * n + i];
+            matriz[j * n + i] = temp;
         }
     }
 }
@@ -2922,7 +2874,7 @@ int main()
     size_t n = 4;  // Matriz 4×4
 
     // Crear matriz contígua
-    int (*matriz)[n] = crear_matriz_contigua(n, n);
+    int *matriz = crear_matriz_contigua(n, n);
 
     if (matriz == NULL)
     {
@@ -2931,22 +2883,22 @@ int main()
     }
 
     // Llenar con patrón
-    llenar_matriz((int (*)[])(matriz), n, n);
+    llenar_matriz(matriz, n, n);
 
     printf("Matriz original %zu×%zu:\n", n, n);
-    imprimir_matriz_contigua((int (*)[])(matriz), n, n);
+    imprimir_matriz_contigua(matriz, n, n);
 
     // Transponer
-    transponer_cuadrada((int (*)[])(matriz), n);
+    transponer_cuadrada(matriz, n);
 
     printf("\nMatriz transpuesta:\n");
-    imprimir_matriz_contigua((int (*)[])(matriz), n, n);
+    imprimir_matriz_contigua(matriz, n, n);
 
     // Verificar la transposición
     printf("\nVerificación:\n");
-    printf("Elemento [0][1] (era 1, ahora debe ser 4): %d\n", matriz[0][1]);
-    printf("Elemento [1][0] (era 4, ahora debe ser 1): %d\n", matriz[1][0]);
-    printf("Elemento [2][3] (era 11, ahora debe ser 14): %d\n", matriz[2][3]);
+    printf("Elemento [0][1] (era 1, ahora debe ser 4): %d\n", matriz[0 * n + 1]);
+    printf("Elemento [1][0] (era 4, ahora debe ser 1): %d\n", matriz[1 * n + 0]);
+    printf("Elemento [2][3] (era 11, ahora debe ser 14): %d\n", matriz[2 * n + 3]);
 
     // Liberar: una sola llamada
     free(matriz);
@@ -2955,44 +2907,15 @@ int main()
     return 0;
 }
 ```
-
 ````
 
 **Explicación de puntos clave:**
 
-1. **Un solo malloc/free:** Toda la memoria se asigna contígua, mejorando la localidad del caché.
+1. **Un solo malloc/free:** Toda la memoria se asigna contigua, mejorando la localidad de la caché del procesador.
 
-2. **Sintaxis de puntero a array:** `int (*matriz)[columnas]` permite acceder con `matriz[i][j]` naturalmente.
+2. **Indexación manual:** Al trabajar con punteros planos, el compilador no calcula automáticamente los offsets bidimensionales. El programador debe calcular la dirección física de la posición `(i, j)` sumando a la base el producto de la fila por el ancho de columnas, más el offset de la columna: `matriz[i * columnas + j]`.
 
-3. **VLA en tipo de retorno:** Necesitás C99+ para que `columnas` sea parte del tipo de retorno.
-
-4. **Transposición in-place:** Solo intercambia elementos por encima de la diagonal, evitando intercambios dobles.
-
-5. **Casteos:** Para funciones que toman `int (*matriz)[]` (tamaño desconocido), necesitás castear desde `int (*matriz)[n]`.
-
-**Alternativa sin VLA (más portable):**
-
-Si tu compilador no soporta VLAs en tipos de retorno, podés usar un typedef con tamaño fijo o trabajar con `void *`:
-
-```c
-// Opción 1: Tamaño fijo con typedef
-#define MAX_COLS 10
-typedef int fila_t[MAX_COLS];
-
-fila_t *crear_matriz_fija(size_t filas)
-{
-    return malloc(filas * sizeof(fila_t));
-}
-
-// Opción 2: void * y casteo manual
-void *crear_matriz_generica(size_t filas, size_t cols)
-{
-    return malloc(filas * cols * sizeof(int));
-}
-
-// Uso:
-int (*matriz)[4] = (int (*)[4])crear_matriz_generica(5, 4);
-```
+3. **Transposición in-place:** Solo intercambia elementos por encima de la diagonal principal, evitando desarmar la transposición con intercambios dobles.
 
 
 
@@ -3323,51 +3246,7 @@ Esto indica que se intentó escribir 4 bytes fuera de un bloque de 40 bytes asig
 En un entorno profesional, es inaceptable entregar código con errores de memoria. El uso de herramientas como Valgrind durante el desarrollo no es opcional, es una práctica estándar de la industria. Acostumbrate a ejecutar Valgrind regularmente durante el desarrollo, no solo cuando sospechás que hay un problema. 
 :::
 
-(memoria-modelo-costos)=
-### Modelo de Costos: Cuantificando el Rendimiento
 
-Comprender el costo relativo de las operaciones de memoria te permite tomar decisiones informadas sobre diseño y optimización. Este modelo proporciona una intuición sobre el rendimiento relativo.
-
-**Costos relativos (ciclos de CPU aproximados):**
-
-Si un acceso a registro tomara 1 segundo, acceder a RAM tomaría entre 2 y 5 minutos, y leer del disco duro tomaría 4 meses. Esta escala ayuda a visualizar la enorme diferencia de velocidades. 
-
-| Operación                    | Ciclos aprox.  | Equivalente temporal |
-| :--------------------------- | :------------- | :------------------- |
-| Acceso a registro            | 1              | 1 segundo            |
-| Acceso a L1 cache            | 4              | 4 segundos           |
-| Acceso a L2 cache            | 12             | 12 segundos          |
-| Acceso a L3 cache            | 40             | 40 segundos          |
-| Acceso a RAM                 | 100-300        | 2-5 minutos          |
-| malloc pequeño (heap hit)    | 50-100         | 1-2 minutos          |
-| malloc grande (new pages)    | 1,000-10,000   | 15 minutos - 3 horas |
-| free (simple)                | 20-50          | 20-50 segundos       |
-| Fallo de página (page fault) | 10,000-100,000 | 3 horas - 1 día      |
-| Acceso a SSD                 | 100,000        | 1 día                |
-| Acceso a disco HDD           | 10,000,000     | 4 meses              |
-
-**Implicaciones prácticas:**
-
-**1. Las asignaciones no son gratuitas:**
-
-```c
-// Ineficiente: muchas asignaciones pequeñas
-for (int i = 0; i < 1000; i++)
-{
-    char *str = malloc(10);  // 1000 llamadas a malloc
-    // ... usar str ...
-    free(str);               // 1000 llamadas a free
-}
-
-// Mejor: una asignación grande
-char *buffer = malloc(10000);
-for (int i = 0; i < 1000; i++)
-{
-    char *str = buffer + (i * 10);  // Solo aritmética de punteros
-    // ... usar str ...
-}
-free(buffer);  // Una sola llamada a free
-```
 
 La segunda versión puede ser 10-100 veces más rápida.
 
@@ -3519,6 +3398,78 @@ Este apunte explora la **gestión de memoria dinámica**, el mecanismo que permi
 - **AddressSanitizer**: instrumentación de compilador para detección de errores
 - **Análisis estático**: herramientas que detectan problemas sin ejecutar
 :::
+
+(memoria-avanzada-asm)=
+## Conceptos Avanzados y Rendimiento de Bajo Nivel
+
+En esta sección se presentan detalles técnicos complementarios sobre la ejecución y la jerarquía de hardware, orientados a comprender el rendimiento real de los programas.
+
+### Funcionamiento de la Pila en Ensamblador (x86-64)
+
+A nivel de arquitectura de hardware, la pila se gestiona a través de registros del procesador. En la arquitectura x86-64:
+- El registro `rsp` (*Stack Pointer*) apunta al tope actual de la pila.
+- El registro `rbp` (*Base Pointer* o *Frame Pointer*) apunta al inicio del marco de pila de la función en ejecución.
+
+A continuación se muestra cómo se ve un prólogo y epílogo típico de una función en código ensamblador simplificado:
+
+```asm
+funcion:
+    push rbp              ; Guardar frame pointer anterior
+    mov rbp, rsp          ; Establecer nuevo frame pointer
+    sub rsp, 16           ; Reservar espacio para variables locales
+
+    ; ... cuerpo de la función ...
+
+    mov rsp, rbp          ; Restaurar stack pointer
+    pop rbp               ; Restaurar frame pointer anterior
+    ret                   ; Retornar
+```
+
+(memoria-modelo-costos)=
+### Modelo de Costos: Cuantificando el Rendimiento
+
+Comprender el costo relativo de las operaciones de memoria permite tomar decisiones informadas sobre diseño y optimización. Este modelo proporciona una intuición sobre el rendimiento relativo.
+
+**Costos relativos (ciclos de CPU aproximados):**
+
+Si un acceso a registro tomara 1 segundo, acceder a RAM tomaría entre 2 y 5 minutos, y leer del disco duro tomaría 4 meses. Esta escala ayuda a visualizar la enorme diferencia de velocidades. 
+
+| Operación                    | Ciclos aprox.  | Equivalente temporal |
+| :--------------------------- | :------------- | :------------------- |
+| Acceso a registro            | 1              | 1 segundo            |
+| Acceso a L1 cache            | 4              | 4 segundos           |
+| Acceso a L2 cache            | 12             | 12 segundos          |
+| Acceso a L3 cache            | 40             | 40 segundos          |
+| Acceso a RAM                 | 100-300        | 2-5 minutos          |
+| malloc pequeño (heap hit)    | 50-100         | 1-2 minutos          |
+| malloc grande (new pages)    | 1,000-10,000   | 15 minutos - 3 horas |
+| free (simple)                | 20-50          | 20-50 segundos       |
+| Fallo de página (page fault) | 10,000-100,000 | 3 horas - 1 día      |
+| Acceso a SSD                 | 100,000        | 1 día                |
+| Acceso a disco HDD           | 10,000,000     | 4 meses              |
+
+**Implicaciones prácticas:**
+
+**1. Las asignaciones no son gratuitas:**
+
+```c
+// Ineficiente: muchas asignaciones pequeñas
+for (int i = 0; i < 1000; i++)
+{
+    char *str = malloc(10);  // 1000 llamadas a malloc
+    // ... usar str ...
+    free(str);               // 1000 llamadas a free
+}
+
+// Mejor: una asignación grande
+char *buffer = malloc(10000);
+for (int i = 0; i < 1000; i++)
+{
+    char *str = buffer + (i * 10);  // Solo aritmética de punteros
+    // ... usar str ...
+}
+free(buffer);  // Una sola llamada a free
+```
 
 ## Conexión con el Siguiente Tema
 
