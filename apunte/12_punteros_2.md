@@ -247,23 +247,25 @@ Poner punteros en `NULL` después de `free` tiene dos ventajas:
 2. Podés verificar si el puntero es válido antes de usarlo
 :::
 
-#### Ejemplo de Función Defensiva
+:::{tip} Concepto Avanzado: Liberación Defensiva con Doble Puntero
+Para evitar repetir manualmente la asignación a `NULL` tras cada llamada a `free`, se puede encapsular la liberación en una función auxiliar que reciba la dirección de la variable puntero (un doble puntero). Esto permite modificar el puntero original de la función invocadora.
 
 ```c
 void datos_liberar(int **ptr) {
-    if (ptr == NULL || *ptr == NULL) {
-        return;  // Nada que hacer
+    if (ptr == NULL) {
+        return;  // Evita desreferenciar si se pasa un puntero inválido
     }
     
-    free(*ptr);
-    *ptr = NULL;  // El llamador ve el puntero actualizado
+    free(*ptr);   // free(NULL) es seguro por estándar y no hace nada
+    *ptr = NULL;  // Modifica el puntero original del llamador
 }
 
 // Uso:
 int *datos = malloc(sizeof(int) * 10);
-datos_liberar(&datos);  // Pasa la dirección del puntero
+datos_liberar(&datos);  // Pasa la dirección de la variable puntero
 // Ahora datos == NULL
 ```
+:::
 
 (punteros2-free-invalido)=
 ### Liberar Memoria No Dinámica
@@ -508,10 +510,10 @@ void procesar(int n) {
 
 #### 2. No Hay Mecanismo de Error
 
-A diferencia de `malloc`, que retorna `NULL` si falla, un VLA que excede el stack simplemente **crashea el programa**:
+A diferencia de `malloc`, que retorna `NULL` si falla, un VLA cuya dimensión excede la capacidad del stack en tiempo de ejecución simplemente **provoca un desbordamiento del stack (stack overflow) y crashea el programa** de manera irrecuperable:
 
 ```c
-int *heap_arr = malloc(1000000 * sizeof(int));
+int *heap_arr = malloc(n * sizeof(int));
 if (heap_arr == NULL) {
     // Podemos manejar el error
     fprintf(stderr, "Memoria insuficiente\n");
@@ -520,7 +522,9 @@ if (heap_arr == NULL) {
 
 // vs
 
-int stack_arr[1000000];  // VLA: ¡CRASH sin posibilidad de recuperación!
+void procesar_con_vla(int n) {
+    int stack_arr[n];  // VLA: Si n es muy grande, el programa abortará sin que podamos interceptar el fallo.
+}
 ```
 
 #### 3. Problemas de Portabilidad
@@ -576,14 +580,14 @@ int **matriz;
 int filas = 3, columnas = 4;
 
 // Paso 1: Array de punteros a filas
-matriz = (int **)malloc(filas * sizeof(int *));
+matriz = malloc(filas * sizeof(int *));
 if (matriz == NULL) {
     return NULL;
 }
 
 // Paso 2: Cada fila
 for (int i = 0; i < filas; i++) {
-    matriz[i] = (int *)malloc(columnas * sizeof(int));
+    matriz[i] = malloc(columnas * sizeof(int));
     if (matriz[i] == NULL) {
         // Error: liberar lo ya asignado
         for (int j = 0; j < i; j++) {
@@ -654,7 +658,7 @@ Matriz almacenada como bloque contiguo: todas las filas consecutivas en memoria.
 int *matriz;
 int filas = 3, columnas = 4;
 
-matriz = (int *)malloc(filas * columnas * sizeof(int));
+matriz = malloc(filas * columnas * sizeof(int));
 if (matriz == NULL) {
     return NULL;
 }
@@ -730,11 +734,13 @@ Este enfoque combina lo mejor de ambos mundos: **memoria contigua** del Enfoque 
 #### Asignación con Puntero a Array
 
 ```c
-int filas = 3, columnas = 4;
+#define COLUMNAS 4
 
-// Puntero a un array de 'columnas' enteros
-int (*matriz)[columnas] = (int (*)[columnas])malloc(
-    sizeof(int) * columnas * filas
+int filas = 3;
+
+// Puntero a un array de 'COLUMNAS' enteros (tamaño constante)
+int (*matriz)[COLUMNAS] = malloc(
+    sizeof(int) * COLUMNAS * filas
 );
 
 if (matriz == NULL) {
@@ -783,18 +789,18 @@ int **matriz1;           // Puntero a puntero a int
 int *matriz2;            // Puntero a int
 
 // Enfoque 3: Puntero a array
-int (*matriz3)[columnas];  // Puntero a array de columnas ints
+int (*matriz3)[COLUMNAS];  // Puntero a array de COLUMNAS ints
 ```
 
-#### Limitación: Tamaño de Columnas en Compile-Time (C99+)
+#### El Enfoque 3 y la Prohibición de VLAs
 
-:::{warning} Restricción en C89
-En C89, el tamaño del array (`columnas`) **debe ser una constante conocida en compilación**. Esto limita la flexibilidad.
+:::{important} Naturaleza Técnica y Restricción del Curso
+Cuando se declara `int (*matriz)[columnas]` con `columnas` como una variable evaluada en tiempo de ejecución, se está definiendo un **puntero a un tipo modificado de forma variable** (técnicamente, un puntero a un tipo VLA). 
 
-En C99+, y con VLA support, `columnas` puede ser una variable de tiempo de ejecución. runtime, pero recordá que los VLAs están prohibidos en este curso ({ref}`punteros2-vla`), no así la utilización de los punteros y casteos a este tipo.
+La utilización de los punteros y casteos a VLA's está permitida al no traer el problema referido a la reserva de memoria sin límites efectivos, crasheando el programa sin un mensaje de error razonable.
 :::
 
-Para C89, usarías:
+Para C89 se utilizaría:
 
 ```c
 #define COLUMNAS 4
