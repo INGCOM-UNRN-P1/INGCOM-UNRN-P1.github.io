@@ -12,28 +12,32 @@ fundamental entender los **punteros**. Los punteros son la herramienta que nos
 permite pasar de trabajar solo con los _valores_ de las variables a trabajar con
 sus _ubicaciones_ en la memoria.
 
-### ¿Qué es una Dirección de Memoria?
+### ¿Qué es una Dirección de Memoria y un Puntero?
 
-Cada vez que declarás una variable, el sistema operativo le asigna un espacio en
-la memoria RAM de la computadora. Podés imaginar la memoria como una gigantesca
-fila de casilleros numerados. Cada casillero puede guardar un dato (el valor de
-tu variable), y el número del casillero es su **dirección de memoria** única.
+Cada vez que declarás una variable, el sistema operativo le asigna un bloque de espacio en la memoria RAM. La memoria se organiza como una secuencia de celdas contiguas de 1 byte, donde cada celda posee una dirección de memoria física única representada comúnmente en formato hexadecimal (por ejemplo, `0x7ffee390a1bc`).
 
-### Entonces, ¿qué es un Puntero?
+Un **puntero** es simplemente otra variable cuyo contenido es, precisamente, una de estas direcciones de memoria.
 
-Un **puntero** es, simplemente, una variable especial cuyo único propósito es
-guardar la dirección de memoria de otra variable.
+Para visualizarlo, consideremos la siguiente organización en memoria de un entero `numero` (de 4 bytes) almacenado en la dirección `0x7ffd` y un puntero `ptr` almacenado en la dirección `0x8000` que apunta a él:
 
-En lugar de contener un dato como un número o un carácter, contiene el "número
-de casillero" donde se encuentra otro dato. Siguiendo la analogía, un puntero no
-es el casillero en sí, sino una nota adhesiva donde tenés apuntado el número de
-un casillero específico para no olvidarte dónde guardaste algo importante.
+:::{table} Representación de variables en celdas de memoria contiguas
+:label: tbl-representacion-memoria
+
+| Dirección de Memoria | Nombre Variable | Tipo | Contenido (Valor) |
+| :--- | :--- | :--- | :--- |
+| `0x7ffd` | `numero` | `int` | `42` |
+| `0x7ffe` | *(contiguo)* | - | *(parte de numero)* |
+| `0x7fff` | *(contiguo)* | - | *(parte de numero)* |
+| `0x8000` | `ptr` | `int*` | `0x7ffd` |
+:::
+
+Como se observa en la tabla, el valor almacenado en `ptr` (`0x7ffd`) coincide exactamente con la dirección donde inicia la variable `numero`. Al desreferenciar `ptr` (usando `*ptr`), accedemos al valor `42`.
 
 ```{figure} 7/concepto_puntero.svg
 :label: fig-concepto-puntero
 :align: center
 
-Representación conceptual de un puntero apuntando a una variable en memoria.
+Representación conceptual de un puntero apuntando a una variable en memoria mediante su dirección física hexadecimal.
 ```
 
 ## Declaración de punteros
@@ -123,24 +127,13 @@ una variable válida o con `NULL`.
 
 ## Operadores de Punteros
 
-- **Operador `&` («dirección de»)**: Toma un L-value (por ejemplo, una variable)
-  y devuelve su dirección de memoria. El resultado de esta operación es un
-  R-value, ya que la dirección en sí es un valor que se puede asignar a un
-  puntero. No podés hacer `&numero = …`, porque la dirección de una variable es
-  un valor, no una locación a la que se pueda asignar algo.
+El trabajo con punteros se basa principalmente en dos operadores fundamentales:
 
-- **Operador `*` («indirección» o «desreferencia»)**: Este operador es especial
-  porque puede producir tanto un L-value como un R-value, dependiendo del
-  contexto.
-  - **Como L-value (destino)**: Cuando usás `*puntero` a la **izquierda** de una
-    asignación, estás haciendo referencia a la **locación** de memoria a la que
-    apunta el puntero. Estás diciendo: "en la dirección que guarda `puntero`,
-    almacená este nuevo valor".
-  - **Como R-value (origen)**: Cuando usás `*puntero` a la **derecha** de una
-    asignación o en cualquier otro lugar donde se espera un valor (como en un
-    `printf`), estás accediendo al **valor** contenido en esa locación de
-    memoria. Estás diciendo: "dame el valor que está guardado en la dirección a
-    la que apunta `puntero`".
+- **Operador de Dirección `&` (Ampersand / "dirección de")**: Obtiene la dirección de memoria de una variable. Por ejemplo, `&numero` evalúa a la dirección física donde está guardada la variable `numero`. Esta dirección de memoria es un valor de solo lectura; no podés asignarle un valor a la dirección directamente (`&numero = 100` es inválido).
+
+- **Operador de Indirección o Desreferencia `*` (Asterisco / "valor apuntado por")**: Permite acceder al contenido de la celda de memoria cuya dirección está guardada en el puntero. Este operador funciona tanto para leer como para escribir el valor apuntado, según dónde se lo ubique:
+  - **Escritura (Modificación)**: Si usás `*ptr` a la izquierda de una asignación (por ejemplo, `*ptr = 150`), le estás indicando a la computadora que guarde el valor `150` en la dirección de memoria apuntada por `ptr`.
+  - **Lectura (Acceso)**: Si usás `*ptr` en una expresión o a la derecha de una asignación (por ejemplo, `valor = *ptr` o dentro de un `printf`), estás pidiendo el valor contenido dentro del casillero al que apunta `ptr`.
 
 ```{figure} 7/operadores_punteros.svg
 :label: fig-operadores-punteros
@@ -155,14 +148,14 @@ Funcionamiento de los operadores `&` (dirección de) y `*` (desreferencia).
 
 int main() {
     int numero = 99;
-    int *puntero = &numero; // '&numero' produce un R-value (la dirección)
+    int *puntero = &numero; // '&numero' obtiene la dirección de memoria de la variable
 
-    // Uso de *puntero como R-value (leemos el valor)
-    // La expresión *puntero aquí se evalúa al valor contenido en 'numero'.
+    // Leemos el valor apuntado (lectura)
+    // La expresión *puntero accede al valor contenido en 'numero'
     printf("El valor de 'numero' es: %d\n", *puntero); // Imprime 99
 
-    // Uso de *puntero como L-value (escribimos en la locación)
-    // La expresión *puntero aquí se refiere a la locación de 'numero'.
+    // Modificamos el valor apuntado (escritura)
+    // La expresión *puntero modifica el contenido en 'numero'
     *puntero = 150;
     printf("El nuevo valor de 'numero' es: %d\n", numero); // Imprime 150
 
@@ -176,8 +169,7 @@ indirecta.
 
 ### Punteros y arreglos
 
-El nombre de un arreglo es, en esencia, un puntero constante a su primer
-elemento. Esto significa que `arreglo` es equivalente a `&arreglo[0]`.
+El nombre de un arreglo no es un puntero, sino el identificador de un bloque de memoria contiguo. Sin embargo, al evaluarse en la mayoría de las expresiones de C, este decae (se degrada) automáticamente a un puntero al primer elemento del arreglo. Esto significa que, en esos contextos, usar el nombre del arreglo es equivalente a &arreglo[0].
 
 Esta relación nos permite usar punteros para acceder y manipular los elementos
 de un arreglo, lo cual nos lleva directamente a la aritmética de punteros.
@@ -461,98 +453,6 @@ int main() {
 como un puntero a una tabla de configuración o a una constante almacenada en
 memoria de solo lectura.
 
-## Punteros Dobles: La Indirección a un Nuevo Nivel
-
-Un puntero doble es, literalmente, un **puntero que apunta a otro puntero**.
-Introduce un nivel adicional de indirección, lo que significa que necesitás
-seguir dos direcciones para llegar al dato final.
-
-Si un puntero (`int *p`) es una nota con la dirección de un cofre que contiene
-un tesoro (un `int`), un puntero doble (`int **pp`) es una nota con la dirección
-de **otra nota**, que a su vez tiene la dirección del cofre del tesoro.
-
-```{code-block}c
-:linenos:
-int valor = 100;
-int *p = &valor;    // p apunta a 'valor'
-int **pp = &p;      // pp apunta a 'p'
-```
-
-Podemos acceder a `valor`, desreferenciando dos veces el puntero `pp`;
-
-```{code-block}c
-:linenos:
-printf("%d\n", **pp);
-```
-
-Esta capacidad de manipular un puntero a través de otro puntero es
-extremadamente poderosa y se usa principalmente en dos escenarios cruciales.
-
-Uno de ellos lo veremos aquí, el segundo, lo haremos cuando veamos memoria
-dinámica.
-
-### Simular "Pasaje por Referencia" para Punteros
-
-Recordá que C siempre pasa los argumentos a las funciones **por valor**. Esto
-significa que la función recibe una **copia** del argumento. Si pasás un puntero
-`int *p`, la función recibe una copia de la dirección que `p` contiene. Podés
-usar esa copia para modificar el dato original (`*p = 99`), pero no podés
-cambiar a dónde apunta el puntero original.
-
-Para poder modificar el puntero original desde dentro de una función, necesitás
-pasar la dirección de ese puntero, es decir, un puntero doble.
-
-```{code-block}c
-:linenos:
-#include <stdio.h>
-
-// Función para intercambiar el valor de dos punteros.
-// Se utilizan punteros dobles (**), ya que necesitamos modificar
-// las direcciones de memoria a las que apuntan los punteros originales.
-void intercambiar_punteros(int **puntero1, int **puntero2) {
-    int *temp = *puntero1;
-    *puntero1 = *puntero2;
-    *puntero2 = temp;
-}
-
-int main() {
-    int a = 10;
-    int b = 20;
-    int *ptr_a = &a;
-    int *ptr_b = &b;
-
-    printf("Antes del intercambio:\n");
-    printf("ptr_a apunta a %d (direccion: %p)\n", *ptr_a, ptr_a);
-    printf("ptr_b apunta a %d (direccion: %p)\n", *ptr_b, ptr_b);
-
-    // Llamamos a la función pasando las direcciones de los punteros
-    intercambiar_punteros(&ptr_a, &ptr_b);
-
-    printf("\nDespues del intercambio:\n");
-    printf("ptr_a apunta a %d (direccion: %p)\n", *ptr_a, ptr_a);
-    printf("ptr_b apunta a %d (direccion: %p)\n", *ptr_b, ptr_b);
-
-    return 0;
-}
-```
-
-Al desreferenciar `puntero1` y `puntero2`, accedemos directamente a los punteros
-originales (`ptr_a` y `ptr_b` en `main`) y podemos modificar las direcciones de
-memoria que almacenan.
-
-:::{note} Compilación del último ejemplo
-
-En dicho ejemplo, se han eliminado unas conversiones (casts), que aunque la
-funcionalidad del ejemplo no se ve afectada, provocará una advertencia de
-compilación:
-
-`"warning: format '%p' expects argument of type 'void *', but argument 3 has type 'int *'".`
-
-Esta hace referencia a lo que se espera con el calificador `"%p"`, y trataremos
-cuando veamos memoria dinámica.
-
-:::
-
 ## Documentando funciones con punteros
 
 Cuando una función utiliza punteros como parámetros, especialmente para
@@ -727,6 +627,91 @@ que todo quede más bonito.)
 
 :::
 
+
+## Punteros Dobles: La Indirección a un Nuevo Nivel
+
+Un puntero doble es, literalmente, un **puntero que apunta a otro puntero**.
+Introduce un nivel adicional de indirección, lo que significa que necesitás
+seguir dos direcciones para llegar al dato final.
+
+Si un puntero (`int *p`) es una nota con la dirección de un cofre que contiene
+un tesoro (un `int`), un puntero doble (`int **pp`) es una nota con la dirección
+de **otra nota**, que a su vez tiene la dirección del cofre del tesoro.
+
+```{code-block}c
+:linenos:
+int valor = 100;
+int *p = &valor;    // p apunta a 'valor'
+int **pp = &p;      // pp apunta a 'p'
+```
+
+Podemos acceder a `valor`, desreferenciando dos veces el puntero `pp`;
+
+```{code-block}c
+:linenos:
+printf("%d\n", **pp);
+```
+
+Esta capacidad de manipular un puntero a través de otro puntero es
+extremadamente poderosa y se usa principalmente en dos escenarios cruciales.
+
+Uno de ellos lo veremos aquí, el segundo, lo haremos cuando veamos memoria
+dinámica.
+
+### Simular "Pasaje por Referencia" para Punteros
+
+Recordá que C siempre pasa los argumentos a las funciones **por valor**. Esto
+significa que la función recibe una **copia** del argumento. Si pasás un puntero
+`int *p`, la función recibe una copia de la dirección que `p` contiene. Podés
+usar esa copia para modificar el dato original (`*p = 99`), pero no podés
+cambiar a dónde apunta el puntero original.
+
+Para poder modificar el puntero original desde dentro de una función, necesitás
+pasar la dirección de ese puntero, es decir, un puntero doble.
+
+```{code-block}c
+:linenos:
+#include <stdio.h>
+
+// Función para intercambiar el valor de dos punteros.
+// Se utilizan punteros dobles (**), ya que necesitamos modificar
+// las direcciones de memoria a las que apuntan los punteros originales.
+void intercambiar_punteros(int **puntero1, int **puntero2) {
+    int *temp = *puntero1;
+    *puntero1 = *puntero2;
+    *puntero2 = temp;
+}
+
+int main() {
+    int a = 10;
+    int b = 20;
+    int *ptr_a = &a;
+    int *ptr_b = &b;
+
+    printf("Antes del intercambio:\n");
+    printf("ptr_a apunta a %d (direccion: %p)\n", *ptr_a, (void*)ptr_a);
+    printf("ptr_b apunta a %d (direccion: %p)\n", *ptr_b, (void*)ptr_b);
+
+    // Llamamos a la función pasando las direcciones de los punteros
+    intercambiar_punteros(&ptr_a, &ptr_b);
+
+    printf("\nDespues del intercambio:\n");
+    printf("ptr_a apunta a %d (direccion: %p)\n", *ptr_a, (void*)ptr_a);
+    printf("ptr_b apunta a %d (direccion: %p)\n", *ptr_b, (void*)ptr_b);
+
+    return 0;
+}
+```
+
+Al desreferenciar `puntero1` y `puntero2`, accedemos directamente a los punteros
+originales (`ptr_a` y `ptr_b` en `main`) y podemos modificar las direcciones de
+memoria que almacenan.
+
+:::{note} Conversión explícita a `void*` en printf
+En este ejemplo, se realiza una conversión explícita `(void*)` al imprimir los punteros con `%p` para evitar la advertencia de compilación `"warning: format '%p' expects argument of type 'void *'"`. Esta es la forma estándar recomendada en C para imprimir direcciones de memoria de manera segura y limpia.
+:::
+
+
 ## Manipulando arreglos con aritmética de punteros
 
 La relación entre arreglos y punteros en C es tan estrecha que se pueden usar de
@@ -785,7 +770,7 @@ no se encuentra. La comprobación explícita contra `NULL` sigue la regla
 3.  Después del lazo, si `ptr != fin`, significa que el lazo se detuvo porque
     encontramos el elemento. Si son iguales, es porque recorrimos todo sin
     éxito.
-4.  Si el bucle termina sin encontrar el valor, devolver `NULL`.
+4.  Si el lazo termina sin encontrar el valor, devolver `NULL`.
 
 ```{code-block}c
 :linenos:
@@ -798,7 +783,7 @@ int* buscar_valor(int *arr, size_t tamano, int valor) {
     int *fin = arr + tamano;
     int *resultado = NULL; // Inicializamos con NULL
 
-    // El bucle continúa mientras no hayamos llegado al final
+    // El lazo continúa mientras no hayamos llegado al final
     // Y no hayamos encontrado el valor.
     while (ptr < fin && resultado == NULL) {
         if (*ptr == valor) {
@@ -894,7 +879,7 @@ void copiar_arreglo(int *destino, const int *fuente, size_t tamano) {
     int *ptr_destino = destino;
     const int *fin_fuente = fuente + tamano;
 
-    // Bucle principal de copia
+    // Lazo principal de copia
     while (ptr_fuente < fin_fuente) {
         *ptr_destino = *ptr_fuente;
         ptr_fuente++;
@@ -1000,20 +985,6 @@ void intercambiar(int *a, int *b) {
   *a = *b;           // Asignamos al lugar de 'a' el valor al que apunta 'b'
   *b = temporal;     // Asignamos al lugar de 'b' el valor guardado
 }
-
-int main() {
-  int x = 10;
-  int y = 20;
-
-  printf("Valores originales: x = %d, y = %d\n", x, y);
-
-  // Pasamos las direcciones de memoria de x e y
-  intercambiar(&x, &y);
-
-  printf("Valores intercambiados: x = %d, y = %d\n", x, y);
-
-  return 0;
-}
 ```
 ````
 
@@ -1048,16 +1019,6 @@ int encontrar_maximo(const int *arreglo, size_t n) {
   }
   return maximo;
 }
-
-int main() {
-  int numeros[] = {5, 2, 99, 45, 12, 50};
-  size_t cantidad = sizeof(numeros) / sizeof(numeros[0]);
-
-  int max = encontrar_maximo(numeros, cantidad);
-  printf("El elemento máximo del arreglo es: %d\n", max);
-
-  return 0;
-}
 ```
 ````
 
@@ -1084,18 +1045,6 @@ void copiar_cadena(char *destino, const char *origen) {
   }
   *destino = '\0'; // Aseguramos que la cadena destino termine con el nulo
 }
-
-int main() {
-  const char *fuente = "Hola Punteros!";
-  char buffer[50];
-
-  copiar_cadena(buffer, fuente);
-
-  printf("Cadena original: %s\n", fuente);
-  printf("Cadena copiada: %s\n", buffer);
-
-  return 0;
-}
 ```
 ````
 
@@ -1121,18 +1070,6 @@ int sumar_arreglo(const int *inicio, const int *fin) {
     suma += *p; // Sumamos el valor al que apunta 'p'
   }
   return suma;
-}
-
-int main() {
-  int arreglo[] = {10, 20, 30, 40};
-  size_t n = sizeof(arreglo) / sizeof(arreglo[0]);
-
-  // El puntero 'fin' apunta a una posición después del último elemento
-  int suma_total = sumar_arreglo(arreglo, arreglo + n);
-
-  printf("La suma de los elementos es: %d\n", suma_total);
-
-  return 0;
 }
 ```
 ````
@@ -1169,28 +1106,6 @@ void invertir_arreglo(int *arreglo, size_t n) {
     inicio++;
     fin--;
   }
-}
-
-void imprimir_arreglo(int *arr, size_t n) {
-  for (size_t i = 0; i < n; i++) {
-    printf("%d ", arr[i]);
-  }
-  printf("\n");
-}
-
-int main() {
-  int mi_arreglo[] = {1, 2, 3, 4, 5, 6};
-  size_t cantidad = sizeof(mi_arreglo) / sizeof(mi_arreglo[0]);
-
-  printf("Original: ");
-  imprimir_arreglo(mi_arreglo, cantidad);
-
-  invertir_arreglo(mi_arreglo, cantidad);
-
-  printf("Invertido: ");
-  imprimir_arreglo(mi_arreglo, cantidad);
-
-  return 0;
 }
 ```
 ````
