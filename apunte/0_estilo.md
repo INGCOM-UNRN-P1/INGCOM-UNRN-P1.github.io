@@ -35,7 +35,8 @@ Para facilitar la referencia cruzada y el análisis estático de las pautas de e
 2.  **Estructuras de Control y Lazos (`0x10XX`):** Bloques condicionales, estructuras de iteración y flujos de ejecución de sentencias.
 3.  **Funciones y Modularización (`0x20XX`):** Diseño de interfaces de funciones, documentación de contratos, alcance y responsabilidades.
 4.  **Punteros y Gestión de Memoria (`0x30XX`):** Uso de indirecciones, alocación en el heap, gestión de punteros nulos y liberación segura de recursos.
-5.  **Compilación y Buenas Prácticas de Ingeniería (`0x40XX`):** Configuración de alertas, guardas de cabeceras, archivos de cabeceras locales, robustez y estructuras de código estándar.
+5.  **Gestión de Archivos y Errores (`0x40XX`):** Apertura/cierre de flujos de archivos, validación de E/S, gestión de errno y diagnóstico del sistema.
+6.  **Compilación y Buenas Prácticas de Ingeniería (`0x50XX`):** Configuración de alertas, guardas de cabeceras, robustez y estructuras de código estándar.
 
 ---
 
@@ -1090,10 +1091,124 @@ void imprimir_bytes(const void *datos, size_t tamano) {
 
 ---
 
-## 5. Compilación y Buenas Prácticas de Ingeniería (`0x40XX`)
+## 5. Gestión de Archivos y Errores (`0x40XX`)
 
 (0x4001h)=
-### Regla `0x4001h`: Los arreglos estáticos deben ser creados con un tamaño fijo en tiempo de compilación
+### Regla `0x4001h`: Manejá correctamente la apertura y cierre de archivos
+
+Siempre validá que el puntero devuelto por `fopen` no sea `NULL` antes de operar sobre él, y cerrá el recurso mediante `fclose`.
+
+```c
+FILE *archivo = fopen("datos.txt", "r");
+if (archivo == NULL)
+{
+    perror("Error al abrir archivo");
+    return ERROR_ARCHIVO;
+}
+// ...
+fclose(archivo);
+```
+
+(0x4002h)=
+### Regla `0x4002h`: Validá los retornos de las operaciones de lectura y escritura de archivos
+
+Funciones como `fread`, `fwrite`, `fgetc`, `fgets`, `fprintf` y `fscanf` devuelven valores de control. Es obligatorio verificar dichos retornos para asegurar transferencias completas e identificar fallos o el fin de archivo (EOF).
+
+- **Incorrecto (escritura ciega):**
+  ```c
+  FILE *archivo = fopen("salida.bin", "wb");
+  int datos[3] = {10, 20, 30};
+  fwrite(datos, sizeof(int), 3, archivo); // Si falla el disco, no nos enteramos
+  fclose(archivo);
+  ```
+- **Correcto (validando elementos escritos):**
+  ```c
+  FILE *archivo = fopen("salida.bin", "wb");
+  if (archivo != NULL)
+  {
+      int datos[3] = {10, 20, 30};
+      size_t escritos = fwrite(datos, sizeof(int), 3, archivo);
+      if (escritos < 3)
+      {
+          fprintf(stderr, "Error: Escritura incompleta en disco.\n");
+      }
+      fclose(archivo);
+  }
+  ```
+
+(0x4003h)=
+### Regla `0x4003h`: Utilizá `errno`, `perror` y `strerror` para reportar fallos del sistema operativo de manera precisa
+
+Cualquier fallo en llamadas de sistema de archivos (como fallos en `fopen`, `fread` o `fwrite`) establece un código de error global en la variable `errno` de `<errno.h>`. Debés usar `perror` o `strerror` de `<string.h>` para imprimir o formatear mensajes legibles de diagnóstico.
+
+```c
+#include <stdio.h>
+#include <errno.h>
+#include <string.h>
+
+FILE *archivo = fopen("config.cfg", "r");
+if (archivo == NULL)
+{
+    // perror imprime automáticamente el mensaje asociado al errno actual
+    perror("Fallo al cargar config.cfg");
+    
+    // O podés usar strerror para obtener la cadena correspondiente
+    fprintf(stderr, "Detalle técnico: %s (código %d)\n", strerror(errno), errno);
+}
+```
+
+(0x4004h)=
+### Regla `0x4004h`: Asegurá la simetría de recursos al abrir y cerrar archivos en el mismo nivel de abstracción
+
+La función que abre un archivo debe ser la misma responsable de cerrarlo, o bien se debe delegar formalmente su propiedad a una estructura/módulo administrador simétrico. Esto evita descriptores de archivo huérfanos que agoten el límite del sistema operativo.
+
+- **Incorrecto (el llamador abre, pero el archivo queda abierto si no recuerda cerrarlo):**
+  ```c
+  void leer_datos(FILE *f) {
+      // Procesa...
+  }
+  ```
+- **Correcto (encapsulación clara y simetría):**
+  ```c
+  void procesar_archivo(const char *ruta) {
+      FILE *f = fopen(ruta, "r");
+      if (f != NULL) {
+          leer_datos(f);
+          fclose(f);
+      }
+  }
+  ```
+
+(0x4005h)=
+### Regla `0x4005h`: Evitá el uso de offsets y posiciones fijas codificadas a mano en archivos binarios sin validar sus dimensiones
+
+Cuando leés o escribís en una posición específica de un archivo binario mediante `fseek`, debés validar que la posición de destino sea válida y no exceda las dimensiones físicas del archivo. Calculá el tamaño del archivo usando `fseek` y `ftell` antes de realizar saltos aleatorios.
+
+```c
+FILE *archivo = fopen("datos.bin", "rb");
+if (archivo != NULL)
+{
+    // Obtener tamaño del archivo
+    fseek(archivo, 0, SEEK_END);
+    long tamano = ftell(archivo);
+    rewind(archivo);
+
+    long offset = 100 * sizeof(registro_t);
+    if (offset < tamano)
+    {
+        fseek(archivo, offset, SEEK_SET);
+        // Operación de lectura segura
+    }
+    fclose(archivo);
+}
+```
+
+---
+
+## 6. Compilación y Buenas Prácticas de Ingeniería (`0x50XX`)
+
+(0x5001h)=
+### Regla `0x5001h`: Los arreglos estáticos deben ser creados con un tamaño fijo en tiempo de compilación
 
 Los Arreglos de Longitud Variable (ALV / VLA) están prohibidos debido a los riesgos de desbordamiento incontrolado de la pila. Deben definirse con una constante en tiempo de compilación.
 
@@ -1104,8 +1219,8 @@ Los Arreglos de Longitud Variable (ALV / VLA) están prohibidos debido a los rie
 + int numeros[TAMANO_NUMEROS];
 ```
 
-(0x4002h)=
-### Regla `0x4002h`: Desarrollá y compilá siempre con todas las advertencias del compilador activadas
+(0x5002h)=
+### Regla `0x5002h`: Desarrollá y compilá siempre con todas las advertencias del compilador activadas
 
 Debés activar las advertencias de compilación para la detección temprana de errores lógicos. Usá al menos las siguientes banderas con `gcc` o `clang`:
 
@@ -1116,8 +1231,8 @@ CFLAGS += -Wall -Wextra -Wpedantic \
           -Wredundant-decls -Wnested-externs -Wmissing-include-dirs
 ```
 
-(0x4003h)=
-### Regla `0x4003h`: Utilizá guardas de inclusión en todos los archivos de cabecera
+(0x5003h)=
+### Regla `0x5003h`: Utilizá guardas de inclusión en todos los archivos de cabecera
 
 Todos los archivos de cabecera (`.h`) deben incluir guardas de preprocesador para evitar problemas de redefinición múltiple.
 
@@ -1132,8 +1247,8 @@ Todos los archivos de cabecera (`.h`) deben incluir guardas de preprocesador par
 
 Añadí comentarios en las directivas `#include` de cabeceras de terceros o del proyecto para documentar la provisión de símbolos, y evitá cabeceras unificadas que importen todo un módulo innecesariamente.
 
-(0x4004h)=
-### Regla `0x4004h`: Todas las operaciones con cadenas deben ser seguras
+(0x5004h)=
+### Regla `0x5004h`: Todas las operaciones con cadenas deben ser seguras
 
 Utilizá funciones que controlen los límites de tamaño máximo del buffer de destino (`strncpy`, `snprintf`, `strncat`) para prevenir desbordamientos.
 
@@ -1151,8 +1266,8 @@ Utilizá funciones que controlen los límites de tamaño máximo del buffer de d
   }
   ```
 
-(0x4005h)=
-### Regla `0x4005h`: Organizá la estructura de tus archivos `.c` de forma estándar
+(0x5005h)=
+### Regla `0x5005h`: Organizá la estructura de tus archivos `.c` de forma estándar
 
 Mantené la estructura de archivo ordenada en secciones progresivas para mejorar su predictibilidad:
 
@@ -1166,8 +1281,8 @@ Mantené la estructura de archivo ordenada en secciones progresivas para mejorar
 8.  Implementación de funciones públicas.
 9.  Implementación de funciones privadas (`static`).
 
-(0x4006h)=
-### Regla `0x4006h`: Preferí `fgets` sobre `gets` y `scanf` para leer cadenas
+(0x5006h)=
+### Regla `0x5006h`: Preferí `fgets` sobre `gets` y `scanf` para leer cadenas
 
 `fgets` previene el desbordamiento de búfer de entrada de forma automática mediante la validación de tamaño del buffer de entrada.
 
@@ -1182,18 +1297,3 @@ Mantené la estructura de archivo ordenada en secciones progresivas para mejorar
   fgets(buffer, sizeof(buffer), stdin);
   ```
 
-(0x4007h)=
-### Regla `0x4007h`: Manejá correctamente la apertura y cierre de archivos
-
-Siempre validá que el puntero devuelto por `fopen` no sea `NULL` antes de operar sobre él, y cerrá el recurso mediante `fclose`.
-
-```c
-FILE *archivo = fopen("datos.txt", "r");
-if (archivo == NULL)
-{
-    perror("Error al abrir archivo");
-    return ERROR_ARCHIVO;
-}
-// ...
-fclose(archivo);
-```
