@@ -407,7 +407,7 @@ Esta situación se puede dar cuando utilizamos al arreglo como una variable más
 :caption: Contraejemplo con efectos secundarios destructivos
 :emphasize-lines: 4
 :linenos:
-int maximo(int *arreglo, size_t size) {
+int maximo(int arreglo[], size_t size) {
     for (size_t i = 1; i < size; i++) {
         if (arreglo[i] > arreglo[0]) {
             arreglo[0] = arreglo[i];
@@ -615,7 +615,7 @@ Para obtener el largo de una cadena, podemos usar `strlen`, definido en
 Esta función está definida de la siguiente forma:
 
 ````{code-block}c
-size_t strlen( char str );
+size_t strlen(const char str[]);
 ````
 
 Y se encarga de recorrer la cadena hasta encontrarse un carácter nulo (`\0`)
@@ -872,7 +872,7 @@ int main()
 {
     char texto[] = "Este Es un Ejemplo de Cadena";
     int vocales = contar_vocales(texto);
-    printf("La cadena: "%s"\n", texto);
+    printf("La cadena: <"%s>"\n", texto);
     printf("Tiene %d vocales.\n", vocales);
     return 0;
 }
@@ -941,11 +941,8 @@ Este apunte introduce las **secuencias** (arreglos) como la primera estructura d
 - Literales de cadena tienen terminador automático
 - Cuidado con desbordamientos: el null terminator cuenta
 
-**Algoritmos Fundamentales**
-- **Búsqueda lineal**: $O(n)$, recorrer secuencialmente
-- **Búsqueda binaria**: $O(\log n)$, requiere arreglo ordenado
-- **Ordenamiento**: Bubble Sort $O(n^2)$, base para entender complejidad
-- **Transformaciones**: map, filter, reduce expresados con lazos
+**Transformaciones sobre Secuencias**
+- **Operaciones**: map, filter y reduce expresadas mediante lazos
 
 **Relación con Punteros**
 - Un arreglo es esencialmente un puntero al primer elemento
