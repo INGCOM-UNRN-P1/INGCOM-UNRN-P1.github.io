@@ -50,7 +50,7 @@ FILE *puntero_archivo;
 ```
 
 :::{note} Punteros: Direcciones de Memoria
-Esta variable tiene un carácter extra, el `*`, que indica que `puntero_archivo` es de tipo "puntero a `FILE`". Un puntero almacena la dirección de memoria donde se encuentra el objeto (en este caso, la estructura FILE). Si necesitás repasar qué son los punteros, cómo se declaran, y cómo funcionan las direcciones de memoria, consultá el [](7_punteros) donde se explica este concepto fundamental en detalle.
+Esta variable utiliza el asterisco (`*`) como declarador para indicar que `puntero_archivo` es un tipo de dato derivado: un "puntero a `FILE`". Un puntero almacena la dirección de memoria de un objeto (en este caso, la estructura `FILE`). Si necesitás repasar qué son los punteros, cómo se declaran y cómo funcionan las direcciones de memoria, consultá el [](7_punteros) donde se explica este concepto en detalle.
 :::
 
 Este puntero, una vez que la función `fopen()` lo inicializa exitosamente, se convierte
@@ -60,13 +60,9 @@ lo cierres con `fclose()`.
 ### Una Analogía con Arreglos y Punteros
 
 La idea de usar un puntero para manejar una entidad compleja les debe resultar
-familiar, ya que hemos trabajado con arreglos. En sí, el concepto es bastante
-similar y se relaciona directamente con el manejo de punteros, un tema
-fundamental que exploraremos en detalle más adelante.
+familiar, ya que hemos trabajado con arreglos. El concepto es similar y se relaciona directamente con el manejo de punteros:
 
-- En un **arreglo**, el nombre del arreglo actúa como un puntero a la dirección
-  de memoria de su primer elemento. No contiene todos los datos, sino que te da
-  el punto de acceso para empezar a recorrerlos.
+- En un **arreglo**, el nombre del arreglo es el identificador de un bloque de memoria contiguo, pero decae automáticamente a un puntero a su primer elemento (es decir, evalúa su dirección) en la mayoría de las expresiones. Esto te proporciona el punto de acceso para recorrer la secuencia contigua.
 - De manera análoga, un puntero `FILE *` no es el archivo en sí. Es un puntero a
   una estructura en memoria que "sabe" todo sobre el archivo y cómo comunicarse
   con él.
@@ -82,9 +78,7 @@ sistemas externos como el sistema de archivos.
 Por ahora, es suficiente que entiendas que `puntero_archivo` es tu "manija" o
 "handle" para leer, escribir y manipular el archivo que abriste.
 
-Otro detalle importante, los argumentos de tipo cadena, se expresan utilizando
-esta notación, por lo que donde vean algo como `char *modo`, interprétenlo que
-es equivalente a `char mode[]`
+Otro detalle importante: los argumentos de tipo cadena suelen declararse con la notación `char *modo` (puntero a carácter). Aunque a nivel de acceso podamos indexarlos de forma similar a un arreglo, **no hay equivalencia de identidad**: una declaración como `char *modo = "r"` crea un puntero a un literal de cadena almacenado en una región de memoria de solo lectura, mientras que `char modo[] = "r"` define un arreglo mutable en la pila que se inicializa con una copia de dicho texto. Debemos ser conscientes de esto al manipular cadenas para evitar accesos inválidos o intentos de escritura sobre literales.
 
 ## Apertura de Archivos: `fopen()`
 
@@ -101,7 +95,7 @@ devuelve un puntero a dicha estructura. Si por alguna razón la operación falla
 :::{important} ¡La verificación con `NULL` es obligatoria!
 Nunca asumas que `fopen()` tendrá éxito. Una de las fuentes más comunes de
 errores y caídas inesperadas en programas de C es no verificar si el puntero
-devuelto es `NULL` antes de intentar usarlo, una práctica exigida por la regla de estilo {ref}`0x001Dh`.
+devuelto es `NULL` antes de intentar usarlo, una práctica exigida por la regla de estilo {ref}`0_estilo.md:0x4001h`.
 
 Esta función puede fallar de muchas formas y que no dependen de nuestro
 programa, con situaciones como, problemas de permisos, si el archivo existe (o
@@ -334,7 +328,7 @@ int main(void) {
     // fputs() escribe una cadena de caracteres en el archivo.
     const char *encabezado = "--- Documento de Factura ---\n\n";
     if (fputs(encabezado, salida) == EOF) {
-        perror("Error escribiendo el encabezado con fputs()")
+        perror("Error escribiendo el encabezado con fputs()");
         fclose(salida);
         return EXIT_FAILURE;
     }
@@ -346,7 +340,7 @@ int main(void) {
     double precio_1 = 1200000.75;
     int chars_escritos_1 = fprintf(salida, "Item: %s\nCantidad: %d\nPrecio: %.2f ARS\n\n", item_1, cantidad_1, precio_1);
     if (chars_escritos_1 < 0) {
-        perror("Error al formatear y escribir el item 1 con fprintf()")
+        perror("Error al formatear y escribir el item 1 con fprintf()");
         fclose(salida);
         return EXIT_FAILURE;
     }
@@ -356,13 +350,13 @@ int main(void) {
     int i;
     for (i = 0; i < 30; i++) {
         if (fputc('-', salida) == EOF) {
-            perror("Error escribiendo separador con fputc()")
+            perror("Error escribiendo separador con fputc()");
             fclose(salida);
             return EXIT_FAILURE;
         }
     }
     if (fputc('\n', salida) == EOF) {
-        perror("Error escribiendo nueva linea con fputc()")
+        perror("Error escribiendo nueva linea con fputc()");
         fclose(salida);
         return EXIT_FAILURE;
     }
@@ -373,22 +367,22 @@ int main(void) {
     double precio_2 = 180000.00;
 
     if (fputs("Detalle del Item 2:\n", salida) == EOF) {
-        perror("Error escribiendo detalle del item 2 con fputs()")
+        perror("Error escribiendo detalle del item 2 con fputs()");
         fclose(salida);
         return EXIT_FAILURE;
     }
     if (fprintf(salida, "  Nombre: %s\n", item_2) < 0) {
-        perror("Error escribiendo nombre del item 2 con fprintf()")
+        perror("Error escribiendo nombre del item 2 con fprintf()");
         fclose(salida);
         return EXIT_FAILURE;
     }
     if (fprintf(salida, "  Unidades: %d\n", cantidad_2) < 0) {
-        perror("Error escribiendo unidades del item 2 con fprintf()")
+        perror("Error escribiendo unidades del item 2 con fprintf()");
         fclose(salida);
         return EXIT_FAILURE;
     }
     if (fprintf(salida, "  Valor Unitario: %.2f ARS\n", precio_2) < 0) {
-        perror("Error escribiendo valor unitario del item 2 con fprintf()")
+        perror("Error escribiendo valor unitario del item 2 con fprintf()");
         fclose(salida);
         return EXIT_FAILURE;
     }
@@ -433,7 +427,7 @@ int fgetc(FILE *stream);
 
 ### `fgets`
 
-La función `fgets` se utiliza para leer una línea o una cadena de caracteres desde un flujo de archivo. Es más segura que la antigua función `gets` porque permite especificar un tamaño máximo para el búfer, evitando desbordamientos, una práctica recomendada por la regla {ref}`0x001Ch`.
+La función `fgets` se utiliza para leer una línea o una cadena de caracteres desde un flujo de archivo. Es más segura que la antigua función `gets` porque permite especificar un tamaño máximo para el búfer, evitando desbordamientos, una práctica recomendada por la regla {ref}`0_estilo.md:0x5006h`.
 
 ```{code-block}c
 /**
@@ -554,7 +548,7 @@ if (!entrada) {
 - **`return EXIT_FAILURE;`**: Termina el programa indicando al sistema operativo
   que ocurrió un error.
 
-#### 3. Bucle principal de lectura
+#### 3. Lazo principal de lectura
 
 ```{code-block}c
 char buffer[MAX_LINEA];
@@ -579,7 +573,7 @@ while (fgets(buffer, sizeof(buffer), entrada) != NULL) {
       agregará un `\0` al final.
     - `entrada`: El flujo de archivo del cual leer.
   - La función `fgets()` devuelve `NULL` cuando llega al final del archivo o si
-    ocurre un error de lectura. Mientras no devuelva `NULL`, el bucle `while`
+    ocurre un error de lectura. Mientras no devuelva `NULL`, el lazo `while`
     continúa ejecutándose, procesando una línea en cada iteración.
 
 #### 4. Procesamiento y análisis de cada línea (Parsing)
@@ -644,7 +638,7 @@ if (ferror(entrada)) {
 
 ```
 
-- Cuando el bucle `while (fgets(...) != NULL)` termina, hay dos posibles
+- Cuando el lazo `while (fgets(...) != NULL)` termina, hay dos posibles
   razones: se alcanzó el final del archivo (lo normal) o ocurrió un error de E/S
   (raro, pero posible). Es crucial distinguir entre ambos casos.
 - **`ferror(entrada)`**: Esta función devuelve un valor verdadero si el
@@ -653,7 +647,7 @@ if (ferror(entrada)) {
   lectura.
 - **`feof(entrada)`**: Devuelve un valor verdadero si el indicador de fin de
   archivo (_End-Of-File_) del _stream_ está activado. Esta es la condición de
-  salida normal y esperada del bucle.
+  salida normal y esperada del lazo.
 
 #### 6. Limpieza y cierre
 
@@ -803,7 +797,7 @@ Devuelve `0` si tiene éxito y `EOF` si ocurre un error.
 Siempre tenés que cerrar el archivo que abriste. No hacerlo puede resultar en
 pérdida de datos, corrupción de archivos y agotamiento de recursos del sistema.
 Es una de las causas más comunes de errores sutiles en programas que manejan
-archivos y una violación de la regla de estilo {ref}`0x001Dh`.
+archivos y una violación de la regla de estilo {ref}`0_estilo.md:0x4001h`.
 ::: 
 
 Aunque parezca una simple formalidad, la llamada a `fclose()` también puede
@@ -964,51 +958,38 @@ Creá una función que reciba el nombre de un archivo y una cadena de texto. La 
  */
 int agregar_entrada_diario(const char *nombre_archivo, const char *entrada)
 {
-    int resultado_operacion = EXITO;
-    FILE *p_archivo = NULL;
-
     // 1. Abrir el archivo en modo "append" (añadir)
-    p_archivo = fopen(nombre_archivo, "a");
+    FILE *p_archivo = fopen(nombre_archivo, "a");
     if (p_archivo == NULL)
     {
         perror("Error al abrir el diario");
-        resultado_operacion = ERROR;
+        return ERROR;
     }
 
-    // 2. Escribir la entrada y un salto de línea si la apertura fue exitosa
-    if (resultado_operacion == EXITO)
+    // 2. Escribir la entrada
+    if (fputs(entrada, p_archivo) == EOF)
     {
-        if (fputs(entrada, p_archivo) == EOF)
-        {
-            perror("Error al escribir la entrada en el diario");
-            resultado_operacion = ERROR;
-        }
+        perror("Error al escribir la entrada en el diario");
+        fclose(p_archivo);
+        return ERROR;
     }
 
-    if (resultado_operacion == EXITO)
+    // 3. Escribir el salto de línea
+    if (fputc('\n', p_archivo) == EOF)
     {
-        if (fputc('\n', p_archivo) == EOF)
-        {
-            perror("Error al escribir el salto de línea");
-            resultado_operacion = ERROR;
-        }
+        perror("Error al escribir el salto de línea");
+        fclose(p_archivo);
+        return ERROR;
     }
 
-    // 3. Cerrar el archivo, incluso si la escritura falló
-    if (p_archivo != NULL)
+    // 4. Cerrar el archivo
+    if (fclose(p_archivo) != 0)
     {
-        if (fclose(p_archivo) != 0)
-        {
-            perror("Error al cerrar el diario");
-            // Si ya había un error, se mantiene. Si no, se establece ahora.
-            if (resultado_operacion == EXITO)
-            {
-                resultado_operacion = ERROR;
-            }
-        }
+        perror("Error al cerrar el diario");
+        return ERROR;
     }
 
-    return resultado_operacion;
+    return EXITO;
 }
 
 int main(void)
@@ -1091,7 +1072,7 @@ int contar_lineas(const char *nombre_archivo)
         cantidad_lineas++;
     }
 
-    // Después del bucle, verificar si salimos por error o por fin de archivo
+    // Después del lazo, verificar si salimos por error o por fin de archivo
     if (ferror(p_archivo))
     {
         perror("Error de lectura mientras se contaban las líneas");
@@ -1182,7 +1163,7 @@ int copiar_archivo(const char *ruta_origen, const char *ruta_destino)
     FILE *p_origen = NULL;
     FILE *p_destino = NULL;
     char buffer[MAX_BUFFER];
-    bool continuar_bucle = true;
+    bool continuar_lazo = true;
 
     p_origen = fopen(ruta_origen, "r");
     if (p_origen == NULL)
@@ -1201,7 +1182,7 @@ int copiar_archivo(const char *ruta_origen, const char *ruta_destino)
         }
     }
 
-    while (estado_operacion == EXITO && continuar_bucle)
+    while (estado_operacion == EXITO && continuar_lazo)
     {
         if (fgets(buffer, sizeof(buffer), p_origen) != NULL)
         {
@@ -1213,11 +1194,11 @@ int copiar_archivo(const char *ruta_origen, const char *ruta_destino)
         }
         else
         {
-            continuar_bucle = false; // Se terminó de leer o hubo un error
+            continuar_lazo = false; // Se terminó de leer o hubo un error
         }
     }
 
-    // Verificar si el bucle terminó por un error de lectura
+    // Verificar si el lazo terminó por un error de lectura
     if (p_origen != NULL && ferror(p_origen))
     {
         perror("Error de lectura en el archivo de origen");
@@ -1422,7 +1403,7 @@ int procesar_ventas(const char *nombre_archivo)
         // Ignorar líneas vacías o que son comentarios
         if (buffer[0] == '\n' || buffer[0] == '#')
         {
-            continue; // Esta es una excepción permitida a la regla 0x0006h
+            continue; // Esta es una excepción permitida a la regla {ref}`0_estilo.md:0x1002h`
         }
 
         char nombre_producto[MAX_PRODUCTO];
@@ -1488,8 +1469,8 @@ int main(void)
 
 ```
 
-:::{note} Excepción a la regla `0x0006h`
-En la solución del ejercicio 5, se utiliza `continue` para saltar líneas vacías o comentarios. Si bien la regla de estilo general es evitar `break` y `continue`, este es un caso de uso común y aceptado donde su aplicación simplifica la lógica y mejora la legibilidad, al evitar un nivel de anidamiento (`if`) para el resto del código del bucle. Es una excepción pragmática a la regla.
+:::{note} Excepción a la regla {ref}`0_estilo.md:0x1002h`
+En la solución del ejercicio 5, se utiliza `continue` para saltar líneas vacías o comentarios. Si bien la regla de estilo general es evitar `break` y `continue`, este es un caso de uso común y aceptado donde su aplicación simplifica la lógica y mejora la legibilidad, al evitar un nivel de anidamiento (`if`) para el resto del código del lazo. Es una excepción pragmática a la regla.
 :::
 
 ````
