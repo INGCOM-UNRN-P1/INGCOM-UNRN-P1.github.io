@@ -78,11 +78,10 @@ enum estado_conexion estado_actual = DESCONECTADO;
 
 ### Alcance y Namespaces
 
-:::{warning} **No entra en el parcial**
+:::{note} Espacios de Nombres (*name spaces*) en el Estándar C
+Es fundamental no confundir el concepto de *name space* de C con los *namespaces* de lenguajes como C++ o C#. En el estándar C, existen categorías específicas de espacios de nombres para los identificadores dentro de un mismo ámbito: etiquetas de sentencias, etiquetas de tipos (*tags* de `struct`, `union` o `enum`), miembros de cada estructura o unión individual, e identificadores ordinarios (variables, funciones, *typedefs* y constantes de enumeración). 
 
-Este tema de namespaces, es un tema importante relacionado al uso 
-de `enum`s pero no entra en el parcial.
-
+Las constantes de una enumeración residen en el espacio de nombres de los **identificadores ordinarios**. Por lo tanto, no se encuentran encapsuladas bajo el nombre de la enumeración, lo que obliga a diseñar nombres descriptivos para evitar colisiones con variables u otras constantes ordinarias en el mismo ámbito.
 :::
 
 #### Concepto de Namespace
@@ -334,7 +333,7 @@ typedef enum {
     PERMISO_LECTURA = 1,        // 0001
     PERMISO_ESCRITURA = 2,      // 0010
     PERMISO_EJECUCION = 4,      // 0100
-} bit_flag_t
+} bit_flag_t;
 ```
 
 ### Problemas Comunes
@@ -1804,7 +1803,7 @@ struct figura {
 // Implementación para círculo
 double calcular_area_circulo(const figura_t *f)
 {
-    double *radio = (double *)f->datos;
+    double *radio = f->datos;
     return 3.14159 * (*radio) * (*radio);
 }
 
@@ -1817,6 +1816,16 @@ void dibujar_circulo(const figura_t *f)
 figura_t crear_figura_circulo(double radio)
 {
     double *radio_heap = malloc(sizeof(double));
+    if (radio_heap == NULL)
+    {
+        perror("Error al asignar memoria para la figura círculo");
+        figura_t fig_nula = {
+            .calcular_area = NULL,
+            .dibujar = NULL,
+            .datos = NULL
+        };
+        return fig_nula;
+    }
     *radio_heap = radio;
     
     figura_t fig = {
@@ -2222,7 +2231,23 @@ typedef struct {
 
 El compilador empaquetará estos 8 bits en un solo byte (si es posible).
 
-### Laboratorio 2: Inspección de Bit-fields
+### Acceso y Type Punning Seguro
+
+Cuando se trabaja con estructuras de campos de bits o representaciones de bajo nivel, suele ser necesario interpretar una estructura empaquetada como una secuencia cruda de bytes (por ejemplo, para transmitirla por red) o viceversa.
+
+Un error común para lograr esto es castear la dirección de la estructura directamente:
+```c
+packed_byte_t data;
+uint8_t byte_crudo = *(uint8_t*)&data; // ¡ERROR! Violación de strict aliasing
+```
+
+Esta técnica, llamada *type punning* mediante casteo de punteros, está prohibida en C moderno. El compilador asume que dos punteros de tipos incompatibles no apuntan al mismo objeto en memoria (regla de ***strict aliasing***). Optimizar el código bajo este supuesto permite mejoras de rendimiento significativas, pero si violamos la regla, el compilador puede reorganizar los accesos y producir un comportamiento indefinido.
+
+Existen dos formas válidas y seguras de realizar *type punning* en C:
+1. **El uso de uniones (`union`)**: En C estándar, escribir en un miembro de una unión y leer de otro diferente es un comportamiento bien definido y el método preferido para reinterpretación de datos.
+2. **Uso de `memcpy`**: Copiar los bytes mediante `memcpy` es seguro y los optimizadores modernos suelen eliminar la llamada física a la función, generando código máquina óptimo.
+
+### Laboratorio 2: Inspección de Bit-fields con Uniones
 
 **`bitfield_inspect.c`**
 
@@ -2236,15 +2261,20 @@ typedef struct {
     uint8_t c : 3;
 } packed_byte_t;
 
-int main() {
-    packed_byte_t data;
-    data.a = 3; // 11b
-    data.b = 5; // 101b
-    data.c = 7; // 111b
+typedef union {
+    packed_byte_t campos;
+    uint8_t valor_raw;
+} packed_byte_u;
 
-    // Imprimimos la estructura como un solo byte
+int main() {
+    packed_byte_u data;
+    data.campos.a = 3; // 11b
+    data.campos.b = 5; // 101b
+    data.campos.c = 7; // 111b
+
+    // Imprimimos la estructura de forma segura respetando el strict aliasing
     printf("sizeof(packed_byte_t) = %zu\n", sizeof(packed_byte_t));
-    printf("Byte resultante: 0x%02X\n", *(uint8_t*)&data);
+    printf("Byte resultante: 0x%02X\n", data.valor_raw);
     return 0;
 }
 ```
@@ -2287,14 +2317,20 @@ typedef struct {
     uint8_t checksum : 3;
 } estado_paquete_t;
 
+typedef union {
+    estado_paquete_t campos;
+    uint8_t byte_completo;
+} paquete_decoder_t;
+
 void imprimir_estado_paquete(uint8_t byte_estado) {
-    estado_paquete_t estado = *(estado_paquete_t*)&byte_estado;
+    paquete_decoder_t decoder;
+    decoder.byte_completo = byte_estado;
 
     printf("--- Estado del Paquete (0x%02X) ---\n", byte_estado);
-    printf("  ACK: %s\n", estado.es_ack ? "Sí" : "No");
-    printf("  FIN: %s\n", estado.es_fin ? "Sí" : "No");
-    printf("  Tipo: %u\n", estado.tipo_paquete);
-    printf("  Checksum: %u\n", estado.checksum);
+    printf("  ACK: %s\n", decoder.campos.es_ack ? "Sí" : "No");
+    printf("  FIN: %s\n", decoder.campos.es_fin ? "Sí" : "No");
+    printf("  Tipo: %u\n", decoder.campos.tipo_paquete);
+    printf("  Checksum: %u\n", decoder.campos.checksum);
     printf("----------------------------------\n");
 }
 
