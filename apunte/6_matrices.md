@@ -301,6 +301,10 @@ valor que es esencialmente externo a la misma y aunque funciona perfectamente
 sin él, en el momento en que veamos memoria dinámica, el código no funcionará
 sin mayores cambios.
 
+:::{important} Límite de control vs. Direccionamiento en memoria
+Es crucial notar que en la firma `void imprimir_matriz(int mat[][COLUMNAS], size_t filas, size_t columnas)`, el parámetro `columnas` sirve únicamente como límite de control para el lazo interno de impresión (`j < columnas`). El compilador de C utiliza exclusivamente el valor constante `COLUMNAS` del tipo de dato (`int mat[][COLUMNAS]`) para realizar el cálculo de desplazamiento de memoria al evaluar `mat[i][j]`. Pasar `columnas` no altera en absoluto cómo el compilador direcciona físicamente los elementos en la memoria contigua.
+:::
+
 ### Cálculo de Desplazamiento de Memoria
 
 Dicha información es indispensable para que el compilador pueda calcular
@@ -436,13 +440,11 @@ requiere validar que las dimensiones sean compatibles antes de proceder.
 
 ## Suma de Matrices
 
-La suma de dos matrices, $A$ y $B$, de las mismas dimensiones (m x n), da como
-resultado una matriz $C$ de la misma dimensión. Cada elemento de $C$ es la suma
-de los elementos correspondientes en $A$ y $B$.
+La suma de dos matrices, A y B, de las mismas dimensiones ($m \times n$), guarda el resultado en una matriz C de la misma dimensión. Cada elemento de C es la suma de los elementos correspondientes en A y B.
 
 ### Expresión Matemática
 
-Para dos matrices $A$ y $B$ de tamaño $𝑚×𝑛$, la matriz resultante $C$ se define
+Para dos matrices A y B de tamaño $m \times n$, la matriz resultante C se define
 como:
 
 ```{math}
@@ -450,7 +452,7 @@ como:
 C_{i,j} = A_{i,j} + B_{i,j}
 ```
 
-donde $𝑖$ representa la fila y $𝑗$ la columna.
+donde $i$ representa la fila y $j$ la columna.
 
 ### Expansión Matemática
 
@@ -478,34 +480,32 @@ $$
 El algoritmo recorre ambas matrices y suma los elementos en la misma posición.
 
 ```{code-block}pseudocode
-:caption: Algoritmo para la suma de dos matrices $A$ y $B$.
+:caption: Algoritmo para la suma de dos matrices A y B.
 :linenos:
 
-FUNCIÓN sumar_matrices(A, B, m, n)
-  // A y B son matrices de dimensión m x n
-  CREAR matriz C de tamaño m x n
+PROCEDIMIENTO sumar_matrices(A, B, C, m, n)
+  // A y B son matrices de dimensión m x n de entrada
+  // C es la de dimensión m x n de salida (por referencia)
 
   PARA i DESDE 0 HASTA m - 1
     PARA j DESDE 0 HASTA n - 1
       C[i][j] = A[i][j] + B[i][j]
     FIN PARA
   FIN PARA
-
-  RETORNAR C
-FIN FUNCIÓN
+FIN PROCEDIMIENTO
 ```
 
 ---
 
 ## Resta de Matrices
 
-De manera análoga a la suma, la resta de dos matrices $A$ y $B$ de idénticas
-dimensiones resulta en una matriz $C$ donde cada elemento es la diferencia de
+De manera análoga a la suma, la resta de dos matrices A y B de idénticas
+dimensiones guarda el resultado en una matriz C donde cada elemento es la diferencia de
 los elementos correspondientes.
 
 ### Expresión Matemática
 
-Para dos matrices $A$ y $B$ de tamaño $𝑚×𝑛$, la matriz resultante $C$ se define
+Para dos matrices A y B de tamaño $m \times n$, la matriz resultante C se define
 como:
 
 ```{math}
@@ -518,30 +518,28 @@ C_{i,j} = A_{i,j} - B_{i,j}
 El procedimiento es idéntico al de la suma, pero se realiza una resta.
 
 ```{code-block}pseudocode
-:caption: Algoritmo para la resta de dos matrices $A$ y $B$.
+:caption: Algoritmo para la resta de dos matrices A y B.
 :linenos:
 
-FUNCIÓN restar_matrices(A, B, m, n)
-  // A y B son matrices de dimensión m x n
-  CREAR matriz C de tamaño m x n
+PROCEDIMIENTO restar_matrices(A, B, C, m, n)
+  // A y B son matrices de dimensión m x n de entrada
+  // C es la de dimensión m x n de salida (por referencia)
 
   PARA i DESDE 0 HASTA m - 1
     PARA j DESDE 0 HASTA n - 1
       C[i][j] = A[i][j] - B[i][j]
     FIN PARA
   FIN PARA
-
-  RETORNAR C
-FIN FUNCIÓN
+FIN PROCEDIMIENTO
 ```
 
 ---
 
 ## Multiplicación de Matrices
 
-La multiplicación de una matriz $A$ de dimensión $𝑚×𝑝$ por una matriz $B$ de
-dimensión $𝑝×𝑛$ produce una matriz $C$ de dimensión $𝑚×𝑛$. Es crucial que el
-número de columnas de $A$ sea igual al número de filas de $B$.
+La multiplicación de una matriz A de dimensión $m \times p$ por una matriz B de
+dimensión $p \times n$ guarda el resultado en una matriz C de dimensión $m \times n$. Es crucial que el
+número de columnas de A sea igual al número de filas de B.
 
 :::{figure} 6/multiplicacion_matrices.svg
 :label: fig-multiplicacion-matrices
@@ -554,41 +552,44 @@ elemento por elemento.
 
 ### Expresión Matemática
 
-El elemento $(𝑖,𝑗)$ de la matriz resultante $C$ se calcula como la suma de los
-productos de los elementos de la fila 𝑖 de $A$ por los elementos de la columna 𝑗
-de $B$.
+El elemento $(i,j)$ de la matriz resultante C se calcula como la suma de los
+productos de los elementos de la fila $i$ de A por los elementos de la columna $j$
+de B.
 
-$$ C*{i,j} = \sum*{k=1}^{p} A*{i,k} \cdot B*{k,j} $$ (eq-mult-matrices)
+```{math}
+:label: eq-mult-matrices
+C_{i,j} = \sum_{k=1}^{p} A_{i,k} \cdot B_{k,j}
+```
 
 ### Expansión Matemática
 
 Cada elemento $C_{i,j}$ de la matriz resultante se calcula realizando el
-producto escalar del vector fila $𝑖$ de la matriz $A$ con el vector columna 𝑗 de
-la matriz $B$.
+producto escalar del vector fila $i$ de la matriz A con el vector columna $j$ de
+la matriz B.
 
 Dadas las matrices:
 
-$$ A = \begin{pmatrix} A*{1,1} & \cdots & A*{1,p} \\ \vdots & \ddots & \vdots \\
-\color{blue}A*{i,1} & \color{blue}\cdots & \color{blue}A*{i,p} \\ \vdots &
-\ddots & \vdots \\ A*{m,1} & \cdots & A*{m,p} \end{pmatrix} \quad B =
-\begin{pmatrix} B*{1,1} & \cdots & \color{red}B*{1,j} & \cdots & B*{1,n} \\
-\vdots & \ddots & \color{red}\vdots & \ddots & \vdots \\ B*{p,1} & \cdots &
-\color{red}B*{p,j} & \cdots & B*{p,n} \end{pmatrix} $$
+$$ A = \begin{pmatrix} A_{1,1} & \cdots & A_{1,p} \\ \vdots & \ddots & \vdots \\
+\color{blue}A_{i,1} & \color{blue}\cdots & \color{blue}A_{i,p} \\ \vdots &
+\ddots & \vdots \\ A_{m,1} & \cdots & A_{m,p} \end{pmatrix} \quad B =
+\begin{pmatrix} B_{1,1} & \cdots & \color{red}B_{1,j} & \cdots & B_{1,n} \\
+\vdots & \ddots & \color{red}\vdots & \ddots & \vdots \\ B_{p,1} & \cdots &
+\color{red}B_{p,j} & \cdots & B_{p,n} \end{pmatrix} $$
 
 El elemento $C_{i,j}$ se calcula como:
 
 $$
-C*{i,j} = (\color{blue}A*{i,1} \cdot \color{red}B*{1,j}) + (\color{blue}A*{i,2}
-\cdot \color{red}B*{2,j}) + \cdots + (\color{blue}A*{i,p} \cdot
-\color{red}B*{p,j}) = \sum*{k=1}^{p} A*{i,k} \cdot B*{k,j}
+C_{i,j} = (\color{blue}A_{i,1} \cdot \color{red}B_{1,j}) + (\color{blue}A_{i,2}
+\cdot \color{red}B_{2,j}) + \cdots + (\color{blue}A_{i,p} \cdot
+\color{red}B_{p,j}) = \sum_{k=1}^{p} A_{i,k} \cdot B_{k,j}
 $$
 
 Por ejemplo, para calcular el elemento $C_{1,1}$ de una multiplicación de
 matrices de 2x2:
 
 $$
-\begin{pmatrix} \color{blue}A*{1,1} & \color{blue}A*{1,2} \\ A*{2,1} & A*{2,2} \end{pmatrix} \times \begin{pmatrix} \color{red}B*{1,1} & B*{1,2} \\ \color{red}B*{2,1} & B*{2,2} \end{pmatrix} = \begin{pmatrix} C*{1,1} & C*{1,2}
-\\ C*{2,1} & C*{2,2} \end{pmatrix}
+\begin{pmatrix} \color{blue}A_{1,1} & \color{blue}A_{1,2} \\ A_{2,1} & A_{2,2} \end{pmatrix} \times \begin{pmatrix} \color{red}B_{1,1} & B_{1,2} \\ \color{red}B_{2,1} & B_{2,2} \end{pmatrix} = \begin{pmatrix} C_{1,1} & C_{1,2}
+\\ C_{2,1} & C_{2,2} \end{pmatrix}
 $$
 
 Donde
@@ -597,16 +598,16 @@ $C_{1,1} = (\color{blue}A_{1,1} \cdot \color{red}B_{1,1}) + (\color{blue}A_{1,2}
 ### Algoritmo en Pseudocódigo
 
 Este algoritmo requiere tres lazos anidados para calcular el producto escalar de
-cada fila de $A$ con cada columna de $B$.
+cada fila de A con cada columna de B.
 
 ```{code-block}pseudocode
 :caption: Algoritmo para la multiplicación de una matriz A (m x p) por una matriz B (p x n).
 :linenos:
 
-FUNCIÓN multiplicar_matrices(A, B, m, p, n)
-  // A es una matriz de m x p
-  // B es una matriz de p x n
-  CREAR matriz C de tamaño m x n
+PROCEDIMIENTO multiplicar_matrices(A, B, C, m, p, n)
+  // A es una matriz de m x p de entrada
+  // B es una matriz de p x n de entrada
+  // C es la de dimensión m x n de salida (por referencia)
 
   PARA i DESDE 0 HASTA m - 1
     PARA j DESDE 0 HASTA n - 1
@@ -617,173 +618,7 @@ FUNCIÓN multiplicar_matrices(A, B, m, p, n)
       C[i][j] = suma
     FIN PARA
   FIN PARA
-
-  RETORNAR C
-FIN FUNCIÓN
-```
-
-## Cálculo de Determinantes
-
-El determinante es un valor escalar que se puede calcular para toda **matriz
-cuadrada**. Este valor encapsula propiedades importantes de la matriz, como la
-invertibilidad. Se denota como $det(A)$ o $|A|$.
-
-### Definición Matemática
-
-Para una matriz de 2x2, el cálculo es directo:
-
-$$ \det(A) = \begin{vmatrix} a & b \\ c & d \end{vmatrix} = ad - bc $$
-
-Para matrices de mayor tamaño $(n x n)$, un método común es la **expansión por
-cofactores**. El determinante se calcula expandiendo a lo largo de una fila o
-columna. Usando la primera fila, la fórmula es:
-
-$$ \det(A) = \sum*{j=1}^{n} (-1)^{1+j} \cdot A*{1,j} \cdot \det(M\_{1,j})
-$$(eq-determinante)
-
-Donde:
-
-- $A_{1,j}$ es el elemento en la primera fila y la columna $j$.
-- $M_{1,j}$ es la **matriz menor**, que es la submatriz que resulta de eliminar
-  la fila 1 y la columna $j$ de $A$.
-- El término $(-1)^{1+j} \cdot \det(M_{1,j})$ se conoce como el **cofactor** del
-  elemento $A_{1,j}$.
-
-### Algoritmo Recursivo (Basado en Cofactores)
-
-Este método matemático se traduce de forma natural en un algoritmo recursivo. La
-idea es reducir el problema de un determinante $n x n$ al cálculo de varios
-determinantes $(n-1) x (n-1)$, hasta llegar al caso base de una matriz 2x2.
-
-```{warning} Costo Computacional
-:class: dropdown
-Este algoritmo es conceptualmente claro, pero computacionalmente ineficiente para matrices grandes, con una complejidad de $O(n!)$. Para aplicaciones de alto rendimiento, se utilizan otros métodos como la descomposición LU.
-```
-
-```{code-block}pseudocode
-:caption: Algoritmo recursivo para el cálculo del determinante.
-:linenos:
-
-FUNCIÓN calcular_determinante(A, n)
-  // A es una matriz cuadrada de dimensión n x n
-
-  SI n == 1 ENTONCES
-    RETORNAR A[0][0]
-  FIN SI
-
-  SI n == 2 ENTONCES
-    RETORNAR (A[0][0] * A[1][1]) - (A[0][1] * A[1][0])
-  FIN SI
-
-  determinante_total = 0
-  PARA j_actual DESDE 0 HASTA n - 1
-    // 1. Crear la submatriz (menor) M
-    CREAR submatriz M de tamaño (n-1) x (n-1)
-    PARA i DESDE 1 HASTA n - 1
-      col_sub = 0
-      PARA j DESDE 0 HASTA n - 1
-        SI j != j_actual ENTONCES
-          M[i-1][col_sub] = A[i][j]
-          col_sub = col_sub + 1
-        FIN SI
-      FIN PARA
-    FIN PARA
-
-    // 2. Calcular el signo del cofactor
-    signo = (-1)^j_actual // o potencia( -1, j_actual)
-
-    // 3. Suma recursiva
-    sub_determinante = calcular_determinante(M, n-1)
-    determinante_total = determinante_total + (signo * A[0][j_actual] * sub_determinante)
-  FIN PARA
-
-  RETORNAR determinante_total
-FIN FUNCIÓN
-```
-
----
-
-## Inversión de Matrices
-
-La inversa de una matriz cuadrada $A$, denotada como $A^{-1}$, es aquella matriz
-que al multiplicarla por $A$ da como resultado la matriz identidad $I$.
-
-$$ A \cdot A^{-1} = A^{-1} \cdot A = I $$
-
-### Condiciones para la Inversión
-
-Una matriz es invertible si y solo si cumple dos condiciones:
-
-1.  Es una **matriz cuadrada**.
-2.  Su **determinante es distinto de cero**. $A$ las matrices con determinante
-    cero se las llama **singulares** y no tienen inversa.
-
-### Método de la Matriz Adjunta
-
-Un método para encontrar la inversa se basa en el determinante y la **matriz
-adjunta**. La fórmula es:
-
-$$ A^{-1} = \frac{1}{\det(A)} \cdot \text{adj}(A) $$(eq-inversa)
-
-Donde $adj(A)$ es la matriz adjunta de $A$, que se define como la **transpuesta
-de la matriz de cofactores** de $A$.
-
-### Algoritmo (Basado en la Adjunta)
-
-El algoritmo consiste en seguir los pasos de la fórmula matemática.
-
-1.  **Calcular el determinante:** Si es cero, la matriz no es invertible.
-2.  **Calcular la matriz de cofactores:** Para cada elemento $A_{i,j}$, su
-    cofactor es $(-1)^{i+j} \det(M_{i,j})$.
-3.  **Calcular la matriz adjunta:** Transponer la matriz de cofactores.
-4.  **Obtener la inversa:** Multiplicar la matriz adjunta por el escalar
-    $1 / \det(A)$.
-
-```{code-block}pseudocode
-:caption: Algoritmo para la inversión de una matriz A.
-:linenos:
-
-FUNCIÓN invertir_matriz(A, n)
-  // 1. Calcular determinante
-  determinante = calcular_determinante(A, n)
-  SI determinante == 0 ENTONCES
-    RETORNAR ERROR "La matriz es singular y no se puede invertir."
-  FIN SI
-
-  // 2. Calcular la matriz de cofactores
-  CREAR matriz_cofactores de tamaño n x n
-  PARA i DESDE 0 HASTA n - 1
-    PARA j DESDE 0 HASTA n - 1
-      // a. Crear la submatriz menor M(i,j)
-      CREAR submatriz M de (n-1) x (n-1) omitiendo fila i y columna j de A
-
-      // b. Calcular el signo y el determinante del menor
-      signo = (-1)^(i+j)
-      det_menor = calcular_determinante(M, n-1)
-
-      matriz_cofactores[i][j] = signo * det_menor
-    FIN PARA
-  FIN PARA
-
-  // 3. Calcular la matriz adjunta (transpuesta de la de cofactores)
-  CREAR matriz_adjunta de tamaño n x n
-  PARA i DESDE 0 HASTA n - 1
-    PARA j DESDE 0 HASTA n - 1
-      matriz_adjunta[j][i] = matriz_cofactores[i][j]
-    FIN PARA
-  FIN PARA
-
-  // 4. Calcular la inversa dividiendo la adjunta por el determinante
-  CREAR matriz_inversa de tamaño n x n
-  factor_inversion = 1.0 / determinante
-  PARA i DESDE 0 HASTA n - 1
-    PARA j DESDE 0 HASTA n - 1
-      matriz_inversa[i][j] = matriz_adjunta[i][j] * factor_inversion
-    FIN PARA
-  FIN PARA
-
-  RETORNAR matriz_inversa
-FIN FUNCIÓN
+FIN PROCEDIMIENTO
 ```
 
 ## Validación y Manejo de Errores
@@ -808,18 +643,20 @@ columnas de A sean igual a las filas de B.
 :linenos:
 
 #include <stdbool.h>
+#include <stdio.h>
 
-bool indice_valido(int fila, int columna,
+#define MAX_COLUMNAS 100
+
+bool indice_valido(size_t fila, size_t columna,
                    size_t max_filas, size_t max_columnas) {
-    return (fila >= 0 && fila < max_filas &&
-            columna >= 0 && columna < max_columnas);
+    return (fila < max_filas && columna < max_columnas);
 }
 
 int acceso_seguro_matriz(int matriz[][MAX_COLUMNAS],
-                        int fila, int columna,
-                        int filas, int columnas) {
+                        size_t fila, size_t columna,
+                        size_t filas, size_t columnas) {
     if (!indice_valido(fila, columna, filas, columnas)) {
-        fprintf(stderr, "Error: Índices fuera de límites (%d, %d)\n",
+        fprintf(stderr, "Error: Índices fuera de límites (%zu, %zu)\n",
                 fila, columna);
         return -1; // Valor de error
     }
@@ -844,16 +681,16 @@ typedef enum {
     MATRIZ_ERROR_SINGULAR
 } resultado_matriz_t;
 
-resultado_matriz_t validar_suma(int filas_a, int columnas_a,
-                               int filas_b, int columnas_b) {
+resultado_matriz_t validar_suma(size_t filas_a, size_t columnas_a,
+                               size_t filas_b, size_t columnas_b) {
     if (filas_a != filas_b || columnas_a != columnas_b) {
         return MATRIZ_ERROR_DIMENSIONES;
     }
     return MATRIZ_OK;
 }
 
-resultado_matriz_t validar_multiplicacion(int filas_a, int columnas_a,
-                                        int filas_b, int columnas_b) {
+resultado_matriz_t validar_multiplicacion(size_t filas_a, size_t columnas_a,
+                                        size_t filas_b, size_t columnas_b) {
     if (columnas_a != filas_b) {
         return MATRIZ_ERROR_DIMENSIONES;
     }
@@ -1083,9 +920,9 @@ Implementá una función `int sumar_diagonal_principal(int matriz[][3], int dime
 #define DIM 3
 
 // La función recibe la matriz y su dimensión
-int sumar_diagonal_principal(int matriz[][DIM], int dimension) {
+int sumar_diagonal_principal(int matriz[][DIM], size_t dimension) {
   int suma = 0;
-  for (int i = 0; i < dimension; i++) {
+  for (size_t i = 0; i < dimension; i++) {
     suma = suma + matriz[i][i];
     // Accedemos solo a los elementos donde fila == columna
   }
@@ -1102,3 +939,175 @@ int main() {
 }
 ```
 ````
+
+## Apéndice Avanzado: Operaciones Matriciales de Álgebra Lineal
+
+### Cálculo de Determinantes
+
+El determinante es un valor escalar que se puede calcular para toda **matriz
+cuadrada**. Este valor encapsula propiedades importantes de la matriz, como la
+invertibilidad. Se denota como det(A) o |A|.
+
+#### Definición Matemática
+
+Para una matriz de 2x2, el cálculo es directo:
+
+$$ \det(A) = \begin{vmatrix} a & b \\ c & d \end{vmatrix} = ad - bc $$
+
+Para matrices de mayor tamaño $(n \times n)$, un método común es la **expansión por
+cofactores**. El determinante se calcula expandiendo a lo largo de una fila o
+columna. Usando la primera fila, la fórmula es:
+
+```{math}
+:label: eq-determinante
+\det(A) = \sum_{j=1}^{n} (-1)^{1+j} \cdot A_{1,j} \cdot \det(M_{1,j})
+```
+
+Donde:
+
+- $A_{1,j}$ es el elemento en la primera fila y la columna $j$.
+- $M_{1,j}$ es la **matriz menor**, que es la submatriz que resulta de eliminar
+  la fila 1 y la columna $j$ de A.
+- El término $(-1)^{1+j} \cdot \det(M_{1,j})$ se conoce como el **cofactor** del
+  elemento $A_{1,j}$.
+
+#### Algoritmo Recursivo (Basado en Cofactores)
+
+Este método matemático se traduce de forma natural en un algoritmo recursivo. La
+idea es reducir el problema de un determinante $n \times n$ al cálculo de varios
+determinantes $(n-1) \times (n-1)$, hasta llegar al caso base de una matriz 2x2.
+
+```{warning} Costo Computacional
+:class: dropdown
+Este algoritmo es conceptualmente claro, pero computacionalmente ineficiente para matrices grandes, con una complejidad de $O(n!)$. Para aplicaciones de alto rendimiento, se utilizan otros métodos como la descomposición LU.
+```
+
+```{code-block}pseudocode
+:caption: Algoritmo recursivo para el cálculo del determinante.
+:linenos:
+
+FUNCIÓN calcular_determinante(A, n)
+  // A es una matriz cuadrada de dimensión n x n
+
+  SI n == 1 ENTONCES
+    RETORNAR A[0][0]
+  FIN SI
+
+  SI n == 2 ENTONCES
+    RETORNAR (A[0][0] * A[1][1]) - (A[0][1] * A[1][0])
+  FIN SI
+
+  determinante_total = 0
+  PARA j_actual DESDE 0 HASTA n - 1
+    // 1. Crear la submatriz (menor) M
+    CREAR submatriz M de tamaño (n-1) x (n-1)
+    PARA i DESDE 1 HASTA n - 1
+      col_sub = 0
+      PARA j DESDE 0 HASTA n - 1
+        SI j != j_actual ENTONCES
+          M[i-1][col_sub] = A[i][j]
+          col_sub = col_sub + 1
+        FIN SI
+      FIN PARA
+    FIN PARA
+
+    // 2. Calcular el signo del cofactor
+    signo = (-1)^j_actual // o potencia( -1, j_actual)
+
+    // 3. Suma recursiva
+    sub_determinante = calcular_determinante(M, n-1)
+    determinante_total = determinante_total + (signo * A[0][j_actual] * sub_determinante)
+  FIN PARA
+
+  RETORNAR determinante_total
+FIN FUNCIÓN
+```
+
+---
+
+### Inversión de Matrices
+
+La inversa de una matriz cuadrada A, denotada como $A^{-1}$, es aquella matriz
+que al multiplicarla por A da como resultado la matriz identidad I.
+
+$$ A \cdot A^{-1} = A^{-1} \cdot A = I $$
+
+#### Condiciones para la Inversión
+
+Una matriz es invertible si y solo si cumple dos condiciones:
+
+1.  Es una **matriz cuadrada**.
+2.  Su **determinante es distinto de cero**. A las matrices con determinante
+    cero se las llama **singulares** y no tienen inversa.
+
+#### Método de la Matriz Adjunta
+
+Un método para encontrar la inversa se basa en el determinante y la **matriz
+adjunta**. La fórmula es:
+
+```{math}
+:label: eq-inversa
+A^{-1} = \frac{1}{\det(A)} \cdot \text{adj}(A)
+```
+
+Donde $adj(A)$ es la matriz adjunta de A, que se define como la **transpuesta
+de la matriz de cofactores** de A.
+
+#### Algoritmo (Basado en la Adjunta)
+
+El algoritmo consiste en seguir los pasos de la fórmula matemática.
+
+1.  **Calcular el determinante:** Si es cero, la matriz no es invertible.
+2.  **Calcular la matriz de cofactores:** Para cada elemento $A_{i,j}$, su
+    cofactor es $(-1)^{i+j} \det(M_{i,j})$.
+3.  **Calcular la matriz adjunta:** Transponer la matriz de cofactores.
+4.  **Obtener la inversa:** Multiplicar la matriz adjunta por el escalar
+    $1 / \det(A)$.
+
+```{code-block}pseudocode
+:caption: Algoritmo para la inversión de una matriz A.
+:linenos:
+
+FUNCIÓN invertir_matriz(A, n)
+  // 1. Calcular determinante
+  determinante = calcular_determinante(A, n)
+  SI determinante == 0 ENTONCES
+    RETORNAR ERROR "La matriz es singular y no se puede invertir."
+  FIN SI
+
+  // 2. Calcular la matriz de cofactores
+  CREAR matriz_cofactores de tamaño n x n
+  PARA i DESDE 0 HASTA n - 1
+    PARA j DESDE 0 HASTA n - 1
+      // a. Crear la submatriz menor M(i,j)
+      CREAR submatriz M de (n-1) x (n-1) omitiendo fila i y columna j de A
+
+      // b. Calcular el signo y el determinante del menor
+      signo = (-1)^(i+j)
+      det_menor = calcular_determinante(M, n-1)
+
+      matriz_cofactores[i][j] = signo * det_menor
+    FIN PARA
+  FIN PARA
+
+  // 3. Calcular la matriz adjunta (transpuesta de la de cofactores)
+  CREAR matriz_adjunta de tamaño n x n
+  PARA i DESDE 0 HASTA n - 1
+    PARA j DESDE 0 HASTA n - 1
+      matriz_adjunta[j][i] = matriz_cofactores[i][j]
+    FIN PARA
+  FIN PARA
+
+  // 4. Calcular la inversa dividiendo la adjunta por el determinante
+  CREAR matriz_inversa de tamaño n x n
+  factor_inversion = 1.0 / determinante
+  PARA i DESDE 0 HASTA n - 1
+    PARA j DESDE 0 HASTA n - 1
+      matriz_inversa[i][j] = matriz_adjunta[i][j] * factor_inversion
+    FIN PARA
+  FIN PARA
+
+  RETORNAR matriz_inversa
+FIN FUNCIÓN
+```
+
