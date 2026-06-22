@@ -74,10 +74,10 @@ constantes o pequeñas funciones "inline".
 - **Macros con parámetros**: Podés crear macros que se asemejan a funciones,
   como `#define SUMA(a, b) ((a) + (b))`.
 
-:::{warning} Cuidado con las Macros
-Las macros realizan una sustitución de texto literal, lo que puede llevar a
-errores inesperados si no se usan paréntesis adecuadamente para proteger el
-orden de las operaciones.
+:::{warning} Efectos Colaterales en Macros
+Las macros realizan una sustitución de texto literal. Esto genera dos peligros principales:
+1. **Orden de operaciones**: Si no se usan paréntesis para proteger los argumentos y la expresión completa, el orden de evaluación puede verse alterado.
+2. **Evaluación múltiple (efectos colaterales)**: Si un parámetro se evalúa más de una vez dentro de la macro, pasar expresiones con efectos secundarios (como `x++`) provocará un comportamiento incorrecto. Por ejemplo, con una macro `MAX(a, b)` definida como `((a) > (b) ? (a) : (b))`, la llamada `MAX(x++, y)` incrementará `x` dos veces si `x > y`.
 :::
 
 ##### Compilación Condicional **Directivas:** `#if`, `#ifdef`,
@@ -169,7 +169,7 @@ declaraciones.
 Esta es una de las tareas más importantes del compilador. Transforma el código
 para que sea más eficiente o más pequeño en tamaño, sin cambiar su
 comportamiento. Las optimizaciones pueden incluir la eliminación de código
-muerto, el desenrollado de bucles (loop unrolling) o la inserción de funciones
+muerto, el desenrollado de lazos (loop unrolling) o la inserción de funciones
 en línea (inlining).
 
 #### Generación de Código
@@ -200,13 +200,13 @@ int main() {
 }
 ```
 
-Al ejecutar el comando:
+Al ejecutar el comando especificando la sintaxis Intel (para coincidir con el ejemplo):
 
 ```{code-block} bash
-gcc -S programa.c
+gcc -S -masm=intel programa.c
 ```
 
-Se creará un archivo `programa.s`. Su contenido será similar a este (puede
+Se creará un archivo `programa.s`. Su contenido en sintaxis Intel será similar a este (puede
 variar según el compilador y la arquitectura):
 
 ```{code-block} assembler
@@ -239,6 +239,166 @@ Analizar este archivo es una excelente manera de entender cómo tus
 construcciones de C se traducen a operaciones de bajo nivel y cómo el compilador
 aplica optimizaciones.
 ````
+
+## Archivos de Cabecera (`.h`) en C
+
+Un archivo de cabecera (o `header`) en C actúa como un contrato o una interfaz
+pública para un módulo de código. Su función principal es declarar los elementos
+(como funciones y _tipos de datos_) que estarán disponibles para otros archivos
+fuente que lo incluyan, sin exponer los detalles de su implementación.
+
+### Propósitos Fundamentales
+
+Los archivos de cabecera son cruciales para un desarrollo de software
+estructurado y modular en C. Sus principales beneficios son:
+
+- Organización del código
+
+Agrupan declaraciones relacionadas, facilitando la navegación y comprensión de
+la arquitectura de un proyecto. Por ejemplo, todas las funciones para manejar
+una estructura de datos específica se declaran en un mismo `header`.
+
+- Reutilización
+
+Permiten que un mismo conjunto de funciones y tipos de datos sea utilizado en
+múltiples partes de un programa (o en diferentes programas) simplemente
+incluyendo el archivo `.h` correspondiente. Esto evita la duplicación de código.
+
+- Separación de interfaz e implementación
+
+Este es uno de los principios más importantes. El archivo `.h` define _qué_ hace
+un módulo (la interfaz), mientras que el archivo `.c` correspondiente define
+_cómo_ lo hace (la implementación). Esto permite modificar la implementación sin
+que los archivos que utilizan el módulo necesiten ser cambiados, siempre y
+cuando la interfaz (el `.h`) permanezca constante.
+
+### ¿Qué suelen contener?
+
+Un archivo de cabecera puede contener varias clases de declaraciones, pero nunca
+debería contener definiciones de funciones o inicializaciones de variables
+globales.
+
+#### Prototipos de Funciones
+
+Es el contenido más común. Se declara la firma de la función (tipo de retorno,
+nombre y parámetros) para que el compilador conozca su existencia antes de que
+sea utilizada. Una buena documentación, como la que pide la regla {ref}`0x000Ah`, es fundamental.
+
+```{code-block} c
+:caption: Documentación de prototipos con estilo Doxygen
+/**
+ * @brief Calcula la suma de dos números enteros.
+ *
+ * Esta función recibe dos enteros como entrada y devuelve
+ * el resultado de su adición.
+ *
+ * @param n El primer sumando.
+ * @param m El segundo sumando.
+ * @return La suma de n y m.
+ */
+int suma(int n, int m);
+```
+
+#### Definiciones de Macros
+
+Se utilizan para definir constantes simbólicas o pequeñas porciones de código
+que se expanden durante el preprocesamiento.
+
+```{code-block} c
+:caption: Definición de constantes y macros
+
+// Constante matemática documentada.
+#define PI 3.1415926535
+```
+
+#### Definiciones de Tipos y Estructuras
+
+Es el lugar ideal para declarar `struct`, `enum` y `typedef`, ya que estos tipos
+de datos a menudo necesitan ser compartidos entre varios archivos. El uso del sufijo `_t` para los tipos definidos con `typedef` sigue la regla {ref}`0x001Eh`.
+
+_(Estos conceptos serán tratados más adelante en la cátedra.)_
+
+```{code-block} c
+:caption: Declaración de un nuevo tipo de dato
+
+// Define una estructura para representar un punto en 2D.
+typedef struct {
+    float x;
+    float y;
+} punto2D_t;
+
+// Enum para representar los días de la semana.
+typedef enum {
+    LUNES,
+    MARTES,
+    MIERCOLES,
+    JUEVES,
+    VIERNES,
+    SABADO,
+    DOMINGO
+} DiaDeLaSemana;
+```
+
+#### Declaraciones de Variables Globales
+
+Si necesitás compartir una variable global entre varios archivos, la declarás en
+el `.h` usando la palabra clave `extern` y la definís (le das un valor inicial)
+en _un único_ archivo `.c`. Esta práctica está desaconsejada por la regla {ref}`0x000Bh`.
+
+```{code-block} c
+:caption: Declaración de una variable global externa
+:emphasize-lines: 3
+
+// Declara que la variable 'errno' existe en alguna parte del programa.
+// La definición real se encuentra en la biblioteca estándar.
+extern int errno;
+```
+
+### Guardas de Inclusión
+
+Para evitar errores de "redefinición" que ocurren cuando un mismo archivo de
+cabecera es incluido más de una vez en la misma unidad de compilación (archivo
+`.c`), se utilizan las "guardas de inclusión", una técnica exigida por la regla de estilo {ref}`0x002Dh`.
+
+El problema surge en escenarios como este: `main.c` incluye a `a.h` y `b.h`,
+pero a su vez `a.h` también incluye a `b.h`. Sin una guarda, el contenido de
+`b.h` se insertaría dos veces en `main.c`, causando un error.
+
+La técnica estándar utiliza directivas del preprocesador para verificar si un
+símbolo único ya fue definido. Si no lo fue, define el símbolo e incluye el
+contenido del archivo.
+
+```{code-block} c
+:caption: Estructura de una guarda de inclusión
+:label: inclusion-guard
+
+// 1. Verifica si MATH_OPERATIONS_H NO ha sido definido.
+#ifndef MATH_OPERATIONS_H
+// 2. Si no fue definido, se define ahora.
+#define MATH_OPERATIONS_H
+
+// ----------------------------------------------------
+// Aquí va todo el contenido del archivo de cabecera:
+// prototipos documentados, macros, typedefs, etc.
+
+#define PI 3.14159
+
+int suma(int n, int m);
+
+// ----------------------------------------------------
+
+// 3. Fin del bloque condicional.
+#endif // MATH_OPERATIONS_H
+```
+
+:::{important} Cuestión de estilo
+Aunque un archivo contenga únicamente prototipos de funciones (cuya
+redeclaración no es un error), es una **buena práctica universal** y un
+**requisito de la cátedra** es que **todos** los archivos de cabecera que
+ustedes creen incluyan guardas de inclusión. Esto asegura consistencia,
+prolijidad y previene errores futuros si el contenido del archivo cambia.
+:::
+
 
 ### Fase 3: Ensamblado (Assembly)
 
@@ -281,7 +441,7 @@ Linux) que contiene varias piezas de información cruciales para la siguiente y
 - **Sección de Texto (`.text`)**: Contiene las instrucciones de máquina
   compiladas de tu código.
 - **Sección de Datos (`.data` y `.bss`)**: Almacena las variables globales y
-  estáticas. `.data` para las inicializadas y `.bss` para las no inicializadas.
+  estáticas. La sección `.data` guarda las variables inicializadas explícitamente y consume espacio en el archivo en disco. Por el contrario, la sección `.bss` se reserva para las variables no inicializadas (o inicializadas a cero) y **no ocupa espacio real en el archivo objeto ELF en disco**, sino que solo registra el tamaño requerido para que el cargador reserve la memoria correspondiente al momento de la ejecución.
 - **Tabla de Símbolos**: Un índice de todas las funciones y variables globales
   que el archivo define y que pueden ser utilizadas por otros archivos objeto
   (símbolos "exportados"), así como una lista de los símbolos que utiliza, pero
@@ -439,9 +599,9 @@ académico y profesional:
 - `-O2`: Activa un alto nivel de optimización de código. No se recomienda usarlo
   mientras desarrollas o depuras, ya que el proceso de mejorar la velocidad del
   código puede reorganizar el código y hacer la depuración confusa, pero sí es
-  recomendabel para la versión final de tu programa. Mientras trabajamos en
+  recomendable para la versión final de tu programa. Mientras trabajamos en
   desarrollar nuestros programas, es mejor usar `-O0`, que la desactiva.
-- `-fanalizer`: Activa un analizador estático más avanzado integrado en `gcc`.
+- `-fanalyzer`: Activa un analizador estático más avanzado integrado en `gcc`.
   Puede detectar problemas más complejos que las advertencias normales, como
   posibles fugas de memoria, dobles liberaciones de memoria (double free) o el
   uso de punteros nulos. Es una herramienta muy potente para mejorar la robustez
@@ -453,7 +613,7 @@ Un comando de compilación robusto para desarrollo se vería así:
 $> gcc -Wall -Wextra -Werror -std=c23 -g -o mi_programa programa.c
 ```
 
-Aunque es un montón, a continuación, vamos a ver como hacer que esto sea más
+Aunque es un montón, a continuación, vamos a ver cómo hacer que esto sea más
 simple y no dependa de que nos acordemos este conjunto de opciones _cada vez_
 que sea necesario compilar un programa.
 
@@ -462,178 +622,16 @@ que sea necesario compilar un programa.
 [Manual en línea de GCC](https://gcc.gnu.org/onlinedocs/). La fuente definitiva
 sobre todas las opciones y el funcionamiento del compilador.
 
-## Archivos de Cabecera (`.h`) en C
-
-Un archivo de cabecera (o `header`) en C actúa como un contrato o una interfaz
-pública para un módulo de código. Su función principal es declarar los elementos
-(como funciones y _tipos de datos_) que estarán disponibles para otros archivos
-fuente que lo incluyan, sin exponer los detalles de su implementación.
-
-### Propósitos Fundamentales
-
-Los archivos de cabecera son cruciales para un desarrollo de software
-estructurado y modular en C. Sus principales beneficios son:
-
-- Organización del código
-
-Agrupan declaraciones relacionadas, facilitando la navegación y comprensión de
-la arquitectura de un proyecto. Por ejemplo, todas las funciones para manejar
-una estructura de datos específica se declaran en un mismo `header`.
-
-- Reutilización
-
-Permiten que un mismo conjunto de funciones y tipos de datos sea utilizado en
-múltiples partes de un programa (o en diferentes programas) simplemente
-incluyendo el archivo `.h` correspondiente. Esto evita la duplicación de código.
-
-- Separación de interfaz e implementación
-
-Este es uno de los principios más importantes. El archivo `.h` define _qué_ hace
-un módulo (la interfaz), mientras que el archivo `.c` correspondiente define
-_cómo_ lo hace (la implementación). Esto permite modificar la implementación sin
-que los archivos que utilizan el módulo necesiten ser cambiados, siempre y
-cuando la interfaz (el `.h`) permanezca constante.
-
-### ¿Que suelen contener?
-
-Un archivo de cabecera puede contener varias clases de declaraciones, pero nunca
-debería contener definiciones de funciones o inicializaciones de variables
-globales.
-
-#### Prototipos de Funciones
-
-Es el contenido más común. Se declara la firma de la función (tipo de retorno,
-nombre y parámetros) para que el compilador conozca su existencia antes de que
-sea utilizada. Una buena documentación, como la que pide la regla {ref}`0x000Ah`, es fundamental.
-
-```{code-block} c
-:caption: Documentación de prototipos con estilo Doxygen
-/**
- * @brief Calcula la suma de dos números enteros.
- *
- * Esta función recibe dos enteros como entrada y devuelve
- * el resultado de su adición.
- *
- * @param n El primer sumando.
- * @param m El segundo sumando.
- * @return La suma de n y m.
- */
-int suma(int n, int m);
-```
-
-#### Definiciones de Macros
-
-Se utilizan para definir constantes simbólicas o pequeñas porciones de código
-que se expanden durante el preprocesamiento.
-
-```{code-block} c
-:caption: Definición de constantes y macros
-
-// Constante matemática documentada.
-#define PI 3.1415926535
-```
-
-#### Definiciones de Tipos y Estructuras
-
-Es el lugar ideal para declarar `struct`, `enum` y `typedef`, ya que estos tipos
-de datos a menudo necesitan ser compartidos entre varios archivos. El uso del sufijo `_t` para los tipos definidos con `typedef` sigue la regla {ref}`0x001Eh`.
-
-_(Estos conceptos serán tratados más adelante en la cátedra.)_
-
-```{code-block} c
-:caption: Declaración de un nuevo tipo de dato
-
-// Define una estructura para representar un punto en 2D.
-typedef struct {
-    float x;
-    float y;
-} punto2D_t;
-
-// Enum para representar los días de la semana.
-typedef enum {
-    LUNES,
-    MARTES,
-    MIERCOLES,
-    JUEVES,
-    VIERNES,
-    SABADO,
-    DOMINGO
-} DiaDeLaSemana;
-```
-
-#### Declaraciones de Variables Globales
-
-Si necesitás compartir una variable global entre varios archivos, la declarás en
-el `.h` usando la palabra clave `extern` y la definís (le das un valor inicial)
-en _un único_ archivo `.c`. Esta práctica está desaconsejada por la regla {ref}`0x000Bh`.
-
-```{code-block} c
-:caption: Declaración de una variable global externa
-:emphasize-lines: 3
-
-// Declara que la variable 'errno' existe en alguna parte del programa.
-// La definición real se encuentra en la biblioteca estándar.
-extern int errno;
-```
-
-### Guardas de Inclusión
-
-Para evitar errores de "redefinición" que ocurren cuando un mismo archivo de
-cabecera es incluido más de una vez en la misma unidad de compilación (archivo
-`.c`), se utilizan las "guardas de inclusión", una técnica exigida por la regla de estilo {ref}`0x002Dh`.
-
-El problema surge en escenarios como este: `main.c` incluye a `a.h` y `b.h`,
-pero a su vez `a.h` también incluye a `b.h`. Sin una guarda, el contenido de
-`b.h` se insertaría dos veces en `main.c`, causando un error.
-
-La técnica estándar utiliza directivas del preprocesador para verificar si un
-símbolo único ya fue definido. Si no lo fue, define el símbolo e incluye el
-contenido del archivo.
-
-```{code-block} c
-:caption: Estructura de una guarda de inclusión
-:label: inclusion-guard
-
-// 1. Verifica si MATH_OPERATIONS_H NO ha sido definido.
-#ifndef MATH_OPERATIONS_H
-// 2. Si no fue definido, se define ahora.
-#define MATH_OPERATIONS_H
-
-// ----------------------------------------------------
-// Aquí va todo el contenido del archivo de cabecera:
-// prototipos documentados, macros, typedefs, etc.
-
-#define PI 3.14159
-
-int suma(int n, int m);
-
-// ----------------------------------------------------
-
-// 3. Fin del bloque condicional.
-#endif // MATH_OPERATIONS_H
-```
-
-:::{important} Cuestión de estilo
-Aunque un archivo contenga únicamente prototipos de funciones (cuya
-redeclaración no es un error), es una **buena práctica universal** y un
-**requisito de la cátedra** es que **todos** los archivos de cabecera que
-ustedes creen incluyan guardas de inclusión. Esto asegura consistencia,
-prolijidad y previene errores futuros si el contenido del archivo cambia.
-:::
 
 ## Makefiles
 
-Hay una guia mucho más detallada para quienes quieran entender como funcionan
+Hay una guia mucho más detallada para quienes quieran entender cómo funcionan
 los [makefiles](../extras/makefiles).
 
 ### ¿Qué es un Makefile?
 
 `make` es una utilidad que automatiza el proceso de compilación de un programa a
-partir de su código fuente. Funciona leyendo un archivo especial llamado
-`Makefile` que contiene un conjunto de reglas. Su principal ventaja es la
-**compilación incremental**: `make` determina qué archivos han sido modificados
-desde la última compilación y recompila únicamente lo necesario, ahorrando una
-cantidad significativa de tiempo en proyectos grandes.
+partir de su código fuente. Funciona modelando el proyecto como un **grafo de dependencias** (un grafo dirigido donde los nodos representan archivos y las aristas representan relaciones de dependencia) y leyendo un archivo especial llamado `Makefile` que define estas reglas. Su principal ventaja es la **compilación incremental**: a partir del grafo, `make` determina qué archivos han sido modificados desde la última compilación y recompila únicamente lo necesario, ahorrando una cantidad significativa de tiempo en proyectos grandes.
 
 La herramienta se utiliza indicando que necesitamos para lograr un determinado
 objetivo, qué ingredientes hay que preparar antes.
@@ -685,7 +683,7 @@ desarrollar las prácticas de una forma más profesional.
 - `make`: compila todo
 - `make clean`: limpia todos los archivos generados
 - `make test`: compila y ejecuta pruebas en `prueba.c`
-- `make run`: compila y ejecuta el programa en `mainc`
+- `make run`: compila y ejecuta el programa en `main.c`
 
 La tarea del Makefile de la raíz del proyecto, es conectar a todos los de los
 diferentes ejercicios.
@@ -721,13 +719,13 @@ Pero, para trabajar específicamente en uno de los ejercicios, y en particular,
 para no ver la salida de todos los otros ejercicios, la opción más simple es
 ubicar nuestra consola en el ejercicio que estamos desarrollando.
 
-Como verán, ¡hay un Makefile por directorio!. Esto es para que podamos compilar
+Como verán, ¡hay un Makefile por directorio! Esto es para que podamos compilar
 por separado los ejercicios, que estarían en subdirectorios
 
 Las primeras prácticas no contarán con el lugar para "librerías", pero la mecánica
 es casi la misma, esencialmente, estas no tienen un `main.c`, solo `pruebas.c`.
 Estos directorios estarán para alojar funciones comunes como las necesarias para
- `cadenas_seguras` o `arreglos`.
+`cadenas_seguras` o `arreglos`
 
 ## Referencias y Lecturas Complementarias
 
