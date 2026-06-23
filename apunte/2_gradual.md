@@ -264,6 +264,40 @@ bool activo = true;
 
 Si declarás una variable sin inicializarla, su contenido inicial en memoria física es indeterminado ("basura"). **Siempre inicializá tus variables** a un valor conocido antes de utilizarlas (ver regla de estilo {ref}`0x0003h`).
 
+### L-Values y R-Values (Asignación y Expresiones)
+
+Para comprender cómo el compilador evalúa y almacena los datos durante una asignación, tenés que conocer las dos categorías de expresiones en C: **L-values** y **R-values**.
+
+#### L-Values (locator values / left values)
+Representan una ubicación física y persistente de memoria (la dirección de una variable en la memoria RAM).
+- Pensalo como una "caja etiquetada" en la cual podés almacenar un resultado.
+- Puede aparecer tanto a la izquierda como a la derecha de un operador de asignación (`=`).
+- Ejemplo: en `int x = 10;`, `x` es un L-value ya que referencia a una celda física de memoria asignada por el sistema.
+
+#### R-Values (read values / right values)
+Representan un valor temporal o literal de solo lectura. No poseen una ubicación de memoria direccionable de forma de almacenamiento persistente.
+- Solo pueden aparecer en el lado derecho de un operador de asignación.
+- Ejemplos comunes de R-values:
+  - Literales numéricos o caracteres (`10`, `3.14f`, `'A'`).
+  - Resultados de operaciones matemáticas o lógicas (`a + b`, `x * 5`).
+  - Valores retornados por llamadas a funciones (`obtener_limite()`).
+
+#### Restricciones del compilador
+Intentar realizar asignaciones sobre un R-value producirá un error inmediato en tiempo de compilación.
+
+```c
+int x = 10;
+int y = 20;
+
+x = 50;          // VÁLIDO: 'x' es un L-value (ubicación modificable).
+y = x + 5;       // VÁLIDO: 'y' es un L-value, 'x + 5' evalúa a un R-value.
+
+// Asignaciones inválidas que causan ERROR DE COMPILACIÓN:
+// 100 = x;      // ERROR: el literal '100' es un R-value, no podés asignarle nada.
+// (x + y) = 15; // ERROR: la expresión 'x + y' es un R-value temporal sin dirección física.
+```
+
+
 ### Ejercicio 1
 
 :::{exercise}
@@ -646,20 +680,49 @@ int main() {
     return 0;
 }
 ```
-```
+:::
 
 ---
 
 ## Control de Flujo Seguro de Lazos
 
+### Atajos en Lazos: `break` y `continue`
+
+C provee dos instrucciones de control para alterar el flujo normal de iteración de los lazos:
+
+#### `break` (Interrupción)
+Finaliza la ejecución del lazo de forma inmediata, saltando a la primera instrucción que se encuentre fuera del bloque del ciclo.
+
+```c
+for (int i = 1; i <= 10; i++) {
+    if (i == 5) {
+        break; // Sale inmediatamente del lazo cuando i vale 5
+    }
+    printf("i = %d\n", i);
+}
+```
+
+#### `continue` (Salto de iteración)
+Omite el resto del bloque de instrucciones del ciclo actual y avanza directamente a evaluar la condición para la siguiente iteración.
+
+```c
+for (int i = 1; i <= 5; i++) {
+    if (i == 3) {
+        continue; // Salta al final del bloque e inicia la iteración de i = 4
+    }
+    printf("i = %d\n", i);
+}
+```
+
 ### Prohibición de `break` y `continue`
 
-Las instrucciones `break` (fuera de un bloque `switch`) y `continue` interrumpen abruptamente la ejecución normal de los lazos de control. **En esta cátedra, el uso de `break` y `continue` para alterar lazos de repetición está prohibido** (ver regla {ref}`0x1002h`).
+**En esta cátedra, el uso de las instrucciones `break` (fuera de un bloque `switch`) y `continue` para modificar el flujo de repetición de los lazos esta prohibidas** (ver regla de estilo {ref}`0x1002h`). 
 
-1.  **Afectan la legibilidad:** Crear múltiples puntos de salida ocultos en un bloque de código hace que el flujo del lazo sea difícil de seguir y depurar.
-2.  **Omiten el diseño lógico estructurado:** El uso de atajos condicionales desincentiva que el estudiante aprenda a estructurar condiciones de parada correctas en la firma del lazo.
+Esta restricción responde a dos vectores fundamentales del diseño de software:
+1.  **Legibilidad y Mantenibilidad:** Crear múltiples puntos de salida invisibles en el cuerpo de un lazo de control oscurece la trazabilidad de la lógica. El código se vuelve difícil de seguir, depurar y verificar matemáticamente.
+2.  **Desarrollo del Pensamiento Algorítmico:** Evitar estos atajos obliga al estudiante a diseñar formalmente condiciones de corte coherentes y estructuradas en la cabecera de la iteración.
 
-Para detener un lazo de forma controlada cuando se cumpla una condición anticipada, se debe recurrir al uso de **variables bandera** (`bool`).
+Para detener un lazo de forma controlada cuando se cumpla una condición anticipada, debés recurrir a la estructuración de lazos con **banderas de control** (`bool`).
 
 ### Ejercicio 7 (Refactorización de `break`)
 
