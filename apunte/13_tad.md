@@ -27,62 +27,13 @@ Un TAD se caracteriza por tres componentes esenciales:
 
 ### Encapsulamiento y Abstracción
 
-El principio de **encapsulamiento** implica que los datos internos de un TAD no deben ser accesibles directamente desde el exterior. En C, esto se logra mediante el uso de punteros opacos y la separación entre archivos de cabecera (`.h`) que exponen la interfaz, y archivos de implementación (`.c`) que contienen los detalles internos.
+El principio de **encapsulamiento** es el pilar que sostiene a la abstracción: garantiza que los datos internos de un TAD no puedan ser manipulados de manera directa desde el código cliente. En C, este ocultamiento físico se implementa a través de la técnica de **punteros opacos**, declarando tipos incompletos en la cabecera e implementando sus detalles estructurales en el archivo fuente `.c`.
 
-:::{important}
-La abstracción no es solo ocultar información, sino proporcionar una interfaz clara y coherente que permita utilizar la estructura de datos de manera intuitiva y segura.
+Para un análisis detallado sobre cómo funciona esta técnica a nivel del compilador, sus restricciones sintácticas y un ejemplo completo de implementación opaca, consultá el capítulo previo sobre {ref}`apunte/12A_opacos.md`.
+
+:::{important} Interfaz Clara e Invariantes
+La abstracción no se reduce a ocultar información; su objetivo es proveer una interfaz limpia y coherente que proteja las invariantes internas del TAD y permita su uso de manera intuitiva y segura.
 :::
-
-#### Encapsulamiento mediante Punteros Opacos en C
-
-Para garantizar el ocultamiento de la representación interna, C permite declarar tipos incompletos en el archivo de cabecera (`.h`) y definir su estructura en el archivo de implementación (`.c`). Esto se conoce como **puntero opaco**.
-
-**Ejemplo de interfaz pública (`lista.h`):**
-```c
-#ifndef LISTA_H
-#define LISTA_H
-
-#include <stdbool.h>
-#include <stddef.h>
-
-// Declaración incompleta (puntero opaco)
-typedef struct lista lista_t;
-
-// Operaciones públicas
-lista_t *lista_crear(void);
-bool lista_insertar(lista_t *lista, int dato);
-void lista_destruir(lista_t *lista);
-
-#endif // LISTA_H
-```
-
-**Ejemplo de implementación interna (`lista.c`):**
-```c
-#include "lista.h"
-#include <stdlib.h>
-
-// Definición completa de la estructura
-struct lista {
-    int *elementos;
-    size_t cantidad;
-    size_t capacidad;
-};
-
-lista_t *lista_crear(void)
-{
-    lista_t *l = malloc(sizeof(*l));
-    if (l == NULL)
-    {
-        return NULL;
-    }
-    l->elementos = NULL;
-    l->cantidad = 0;
-    l->capacidad = 0;
-    return l;
-}
-```
-
-Con este esquema, cualquier archivo que incluya `lista.h` no podrá acceder a los campos `elementos`, `cantidad` o `capacidad` de manera directa (por ejemplo, haciendo `lista->cantidad`), ya que el compilador desconoce el tamaño y los campos de `struct lista`. Esto previene el acoplamiento y asegura que toda interacción se realice exclusivamente a través de las funciones de la interfaz.
 
 ## TAD vs. Estructura de Datos
 

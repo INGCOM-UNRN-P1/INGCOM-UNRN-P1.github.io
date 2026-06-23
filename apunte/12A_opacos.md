@@ -1,6 +1,6 @@
 ---
 title: Punteros Opacos y Encapsulamiento en C
-short_title: 15A - Punteros Opacos
+short_title: 12A - Punteros Opacos
 subtitle: Técnicas de ocultamiento de información y diseño modular
 ---
 
@@ -11,7 +11,7 @@ Los **punteros opacos** (opaque pointers) son una técnica fundamental en C para
 El concepto de puntero opaco es esencial para construir **APIs robustas** y **bibliotecas mantenibles**, donde los detalles de implementación pueden cambiar sin romper el código cliente que las utiliza.
 
 :::{important} Conexión con TADs
-Los punteros opacos son la técnica central para implementar Tipos de Datos Abstractos (TADs) en C. Todo lo aprendido sobre TADs en {ref}`apunte/13_tad.md` se basa en esta técnica de encapsulamiento.
+Los punteros opacos son la técnica de programación central sobre la cual se construyen los Tipos de Datos Abstractos (TADs) en C, concepto que se aborda en detalle en el capítulo siguiente ({ref}`apunte/13_tad.md`).
 :::
 
 ---
