@@ -57,7 +57,7 @@ añadís una `b` al modo de apertura en `fopen()`.
 
 ```{list-table} Modos de Apertura Binaria
 :header-rows: 1
-:label: table-binary-modes
+:label: table-binary-modes_2
 
 * - Modo
   - Descripción y Caso de Uso
@@ -135,7 +135,7 @@ Guardar una estructura o un array de ellas es el caso de uso por excelencia.
 
 ```{code-block} c
 :caption: Escribiendo un array de structs con fwrite
-:label: fwrite-example
+:label: fwrite-example_2
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -190,7 +190,7 @@ escribir.
 
 ```{code-block} c
 :caption: Lectura secuencial y robusta con fread
-:label: fread-example
+:label: fread-example_2
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -247,7 +247,7 @@ inicio del registro `N+1`.
 
 ```{code-block} c
 :caption: Acceso aleatorio para modificar un registro
-:label: fseek-binary-update
+:label: fseek-binary-update_2
 
 // ... (incluir headers y struct Producto como antes) ...
 
