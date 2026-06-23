@@ -1,11 +1,10 @@
 ---
-title: Archivos
-short_title: "8 - Archivos"
-description: >
-  Una guía exhaustiva sobre cómo abrir, leer, escribir, posicionar y gestionar
-  errores de forma robusta al trabajar con archivos de texto en el lenguaje de
-  programación C.
+title: 'Archivos de Texto'
+short_title: '10 - Archivos de Texto'
+description: 'Apertura, lectura, escritura y control de errores al trabajar con archivos de texto.'
 ---
+
+(archivos-texto-capitulo)=
 
 # Trabajando con archivos (de texto) en C
 
@@ -16,7 +15,7 @@ amplía el manejo de archivos de texto, cubriendo no solo las operaciones básic
 sino también el posicionamiento dentro del archivo y, de manera crucial, una
 gestión de errores detallada y profesional.
 
-```{figure} 8/file_operations_flow.svg
+```{figure} 10/file_operations_flow.svg
 :name: fig-file-operations-flow
 :alt: Flujo completo de operaciones con archivos
 :align: center
@@ -28,7 +27,7 @@ Diagrama de flujo que muestra la secuencia completa de operaciones al trabajar c
 
 Toda operación sobre archivos en C se realiza a través de un puntero a una estructura especial y opaca llamada `FILE`. Esta estructura, definida en la biblioteca estándar `<stdio.h>`, actúa como un intermediario que contiene toda la información de estado necesaria para gestionar el flujo de datos ( _stream_ ) hacia y desde el archivo.
 
-```{figure} 8/file_pointer_concept.svg
+```{figure} 10/file_pointer_concept.svg
 :name: fig-file-pointer-concept
 :alt: Concepto del puntero FILE* como intermediario
 :align: center
@@ -125,7 +124,7 @@ Elegir el modo correcto es fundamental, ya que determina el comportamiento del
 puntero del archivo y lo que sucede con el contenido que ya estaba en el
 archivo.
 
-```{figure} 8/fopen_modes.svg
+```{figure} 10/fopen_modes.svg
 :name: fig-fopen-modes
 :alt: Modos de apertura de archivos con fopen()
 :align: center
@@ -1616,7 +1615,7 @@ Búfer
 
     Usar un búfer es como escribir la carta completa en una hoja de papel (el búfer en la memoria). Una vez que terminaste la carta (el búfer se llenó o cerraste el archivo), la llevás al correo en un solo viaje. Este método es mucho más rápido y organizado.
 
-    ```{figure} 8/buffer_concept.svg
+    ```{figure} 10/buffer_concept.svg
     :name: fig-buffer-concept
     :alt: Concepto de búfer en operaciones de archivos
     :align: center

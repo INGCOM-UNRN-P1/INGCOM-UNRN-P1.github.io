@@ -1,6 +1,6 @@
 ---
 title: "Secuencias: Arreglos y Cadenas"
-short_title: "4 - Secuencias"
+short_title: "7 - Secuencias"
 subtitle: "Colecciones de datos homogéneos y texto."
 ---
 
@@ -36,7 +36,7 @@ int mi_arreglo[4];
 
 Esta declaración reserva espacio para 4 enteros. Si un `int` ocupa 4 bytes, la disposición en memoria es contigua:
 
-```{figure} 4/array_memory_layout.svg
+```{figure} 7/array_memory_layout.svg
 :name: fig-array-memory-layout
 :width: 100%
 
@@ -60,7 +60,7 @@ estáticos:
 
 Formas de inicialización explícita:
 
-```{figure} 4/array_initialization.svg
+```{figure} 7/array_initialization.svg
 :name: fig-array-initialization
 :width: 100%
 
@@ -296,7 +296,7 @@ En el lenguaje C, los arreglos poseen un comportamiento particular al ser transm
 
 Bajo esta regla, una expresión de tipo "arreglo de `T`" (por ejemplo, `int mi_arreglo[]`) que se pasa como argumento decae de manera implícita a un puntero al primer elemento del arreglo (tipo `T*`, en este caso `int*`). Por consiguiente, la función recibe únicamente una copia de la dirección de memoria de inicio del arreglo original. Cualquier acceso o modificación que realice la función a través del operador de indexación (`[]`) se traduce en una operación de desreferenciación directa sobre el espacio de memoria original.
 
-```{figure} 4/array_pass_by_reference.svg
+```{figure} 7/array_pass_by_reference.svg
 :name: fig-array-pass-by-reference
 :width: 100%
 
@@ -518,7 +518,7 @@ Por ejemplo, la siguiente cadena:
 char cadena[7] = "Hola";
 ````
 
-```{figure} 4/string_null_terminator.svg
+```{figure} 7/string_null_terminator.svg
 :name: fig-string-null-terminator
 :width: 100%
 
@@ -622,7 +622,7 @@ Y se encarga de recorrer la cadena hasta encontrarse un carácter nulo (`\0`)
 ::::{note} Largo vs. capacidad
 Es muy importante tener en cuenta que las cadenas tienen dos "tamaños" diferentes.
 
-```{figure} 4/string_length_vs_capacity.svg
+```{figure} 7/string_length_vs_capacity.svg
 :name: fig-string-length-vs-capacity
 :width: 100%
 

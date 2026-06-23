@@ -1,6 +1,6 @@
 ---
 title: Punteros Opacos y Encapsulamiento en C
-short_title: 12A - Punteros Opacos
+short_title: "17 - Opacos"
 subtitle: Técnicas de ocultamiento de información y diseño modular
 ---
 
@@ -11,7 +11,7 @@ Los **punteros opacos** (opaque pointers) son una técnica fundamental en C para
 El concepto de puntero opaco es esencial para construir **APIs robustas** y **bibliotecas mantenibles**, donde los detalles de implementación pueden cambiar sin romper el código cliente que las utiliza.
 
 :::{important} Conexión con TADs
-Los punteros opacos son la técnica de programación central sobre la cual se construyen los Tipos de Datos Abstractos (TADs) en C, concepto que se aborda en detalle en el capítulo siguiente ({ref}`apunte/13_tad.md`).
+Los punteros opacos son la técnica de programación central sobre la cual se construyen los Tipos de Datos Abstractos (TADs) en C, concepto que se aborda en detalle en el capítulo siguiente ({doc}`18_tad`).
 :::
 
 ---
@@ -233,7 +233,7 @@ Para entender por qué es posible trabajar con tipos incompletos en C, debemos a
    - El enlazador se encarga de resolver las direcciones de las llamadas a funciones en `main.o`, redirigiéndolas a las implementaciones reales presentes en `punto.o`.
    - Así, el ocultamiento es físico: en tiempo de compilación, el cliente no posee la estructura detallada; en tiempo de ejecución, el enlazador conecta las llamadas y las funciones operan sobre el espacio de memoria real asignado dinámicamente en el heap.
 
-```{figure} 12/opacidad_memoria.svg
+```{figure} 17/opacidad_memoria.svg
 :label: fig-opacidad-memoria
 :align: center
 :width: 85%
@@ -838,8 +838,8 @@ struct tipo {
 ```
 
 **Conexiones:**
-- Fundamental para implementar TADs (ver {ref}`apunte/13_tad.md`).
-- Requiere memoria dinámica (ver {ref}`memoria-introduccion`).
+- Fundamental para implementar TADs (ver {doc}`18_tad`).
+- Requiere memoria dinámica (ver {ref}`memoria-dinamica-capitulo`).
 - Usado extensivamente en bibliotecas del sistema y APIs públicas.
 :::
 

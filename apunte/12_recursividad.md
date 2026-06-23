@@ -1,6 +1,6 @@
 ---
 title: Recursividad y Divide y Vencerás en C
-short_title: 15 - Recursividad
+short_title: "12 - Recursividad"
 description: Una introducción a la recursividad, su definición matemática, construcción de algoritmos recursivos y el paradigma de divide y conquista con ejemplos prácticos.
 ---
 
@@ -94,7 +94,7 @@ Para un análisis detallado sobre el manejo de memoria en el stack y su relació
 
 A continuación se muestra de forma gráfica el estado del *Call Stack* durante el cálculo recursivo de `factorial(3)` hasta alcanzar el caso base, y cómo se desapilan los marcos de pila para resolver la multiplicación:
 
-```{figure} 15/pila_llamadas.svg
+```{figure} 12/pila_llamadas.svg
 :label: fig-pila-llamadas
 :align: center
 :width: 85%
@@ -184,7 +184,7 @@ El paradigma de "Divide y Conquista" (Divide and Conquer) es una potente estrate
 
 Este flujo de trabajo de divide y vencerás se puede visualizar de manera gráfica en el algoritmo de ordenamiento Merge Sort:
 
-```{figure} 15/divide_conquista_merge.svg
+```{figure} 12/divide_conquista_merge.svg
 :label: fig-divide-conquista
 :align: center
 :width: 85%
@@ -295,7 +295,7 @@ Merge Sort representa una aplicación más compleja del paradigma de divide y ve
 
 Este flujo no lineal de llamadas se puede visualizar detalladamente en la siguiente traza de ejecución:
 
-```{figure} 15/traza_merge_sort.svg
+```{figure} 12/traza_merge_sort.svg
 :label: fig-traza-merge-sort
 :align: center
 :width: 85%

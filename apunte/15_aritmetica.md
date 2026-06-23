@@ -1,13 +1,15 @@
 ---
-title: "Memoria Dinámica Avanzada"
-short_title: "12 - Punteros II"
-subtitle: "Estructuras dinámicas y patrones avanzados"
+title: 'Aritmética de Punteros Avanzada y Matrices Dinámicas'
+short_title: '15 - Aritmética de Punteros'
+description: 'Indirecciones múltiples, punteros a arrays, aritmética pura y matrices en memoria dinámica.'
 ---
+
+(aritmetica-avanzada-capitulo)=
 
 (punteros2-introduccion)=
 ## Introducción
 
-Este apunte explora conceptos avanzados de memoria dinámica en C, construyendo sobre las bases presentadas en {ref}`Memoria <memoria-introduccion>` y {ref}`Punteros <punteros-capitulo>`. Aquí profundizamos en el manejo de {ref}`Estructuras <enums-capitulo>` que contienen punteros, problemas comunes de gestión de memoria, y técnicas para trabajar con matrices dinámicas.
+Este apunte explora conceptos avanzados de memoria dinámica en C, construyendo sobre las bases presentadas en {ref}`Modelo de Memoria <memoria-introduccion>` y {ref}`Punteros <punteros-capitulo>`. Aquí profundizamos en el manejo de {ref}`Estructuras <estructuras-capitulo>` que contienen punteros, problemas comunes de gestión de memoria, y técnicas para trabajar con matrices dinámicas.
 
 (punteros2-estructuras)=
 ## Punteros a Estructuras
@@ -121,7 +123,7 @@ void persona_destruir(persona_t *persona) {
 
 Si liberás `persona` primero, **perdés el puntero** a `persona->nombre`. Una vez que `free(persona)` se ejecuta, acceder a `persona->nombre` es **comportamiento indefinido** (ver {ref}`memoria-dangling-pointer`). Esto resulta en un **memory leak** porque la memoria de `nombre` queda asignada pero inaccesible.
 
-```{figure} 12/destruccion_orden.svg
+```{figure} 15/destruccion_orden.svg
 :label: fig-destruccion-orden
 :align: center
 :width: 85%
@@ -172,7 +174,7 @@ La **fragmentación externa** ocurre cuando la memoria libre se divide en bloque
 
 #### Escenario Ilustrativo
 
-```{figure} 12/fragmentacion_heap.svg
+```{figure} 15/fragmentacion_heap.svg
 :label: fig-fragmentacion-heap
 :align: center
 :width: 90%
@@ -315,7 +317,7 @@ void funcion() {
 (punteros2-funciones-memoria)=
 ## Funciones Adicionales de Gestión de Memoria
 
-Más allá de `malloc` y `free`, C proporciona funciones adicionales para manipular memoria dinámica. Estas se detallan completamente en {ref}`memoria-funciones`.
+Más allá de `malloc` y `free`, C proporciona funciones adicionales para manipular memoria dinámica. Estas se detallan completamente en {ref}`memoria-dinamica-capitulo`.
 
 (punteros2-calloc)=
 ### `calloc`: Asignación con Inicialización
@@ -409,7 +411,7 @@ Si no hay espacio contiguo para expandir el bloque en su ubicación actual, `rea
 3. Libera el bloque original
 4. Retorna la dirección del nuevo bloque
 
-```{figure} 12/realloc_movimiento.svg
+```{figure} 15/realloc_movimiento.svg
 :label: fig-realloc-movimiento
 :align: center
 :width: 90%
@@ -575,7 +577,7 @@ En este esquema:
 
 Desreferenciar `pp` una vez (`*pp`) evalúa al puntero `p` (obteniendo la dirección de `valor`). Desreferenciar `pp` dos veces (`**pp`) accede directamente al contenido de `valor` (`42`).
 
-```{figure} 12/doble_indireccion.svg
+```{figure} 15/doble_indireccion.svg
 :label: fig-doble-indireccion
 :align: center
 :width: 85%
@@ -737,7 +739,7 @@ Como se explica en {ref}`memoria-heap`, la memoria dinámica nos permite crear e
 
 Este enfoque crea un **arreglo de punteros**, donde cada puntero apunta a una fila (otro arreglo). Se llama "dentada" (_jagged array_) porque cada fila puede tener largo diferente (aunque típicamente usamos filas del mismo tamaño).
 
-```{figure} 12/matriz_dentada.svg
+```{figure} 15/matriz_dentada.svg
 :label: fig-matriz-dentada
 :align: center
 :width: 85%
@@ -817,7 +819,7 @@ free(matriz);
 
 Este enfoque asigna toda la matriz como **un único bloque contiguo** en memoria. Es más eficiente pero requiere calcular índices manualmente.
 
-```{figure} 12/matriz_bloque.svg
+```{figure} 15/matriz_bloque.svg
 :label: fig-matriz-bloque
 :align: center
 :width: 85%
@@ -854,7 +856,7 @@ matriz[i * columnas + j] = 42;
 - Para llegar a la fila `i`, saltamos `i * columnas` elementos
 - Luego avanzamos `j` columnas dentro de esa fila
 
-```{figure} 12/matriz_mapeo.svg
+```{figure} 15/matriz_mapeo.svg
 :label: fig-matriz-mapeo
 :align: center
 :width: 90%

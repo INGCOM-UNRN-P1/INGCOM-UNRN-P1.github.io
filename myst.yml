@@ -41,18 +41,22 @@ project:
         - file: apunte/1_base.md
         - file: apunte/2_gradual.md
         - file: apunte/3_funciones.md
-        - file: apunte/4_secuencias.md
-        - file: apunte/5_compilacion.md
-        - file: apunte/6_matrices.md
-        - file: apunte/7_punteros.md
-        - file: apunte/8_archivos.md
-        - file: apunte/10_enums.md
-        - file: apunte/11_memoria.md
-        - file: apunte/12_punteros_2.md
-        - file: apunte/12A_opacos.md
-        - file: apunte/13_tad.md
-        - file: apunte/14_complejidad.md
-        - file: apunte/15_recursividad.md
+        - file: apunte/4_alias_tipos.md
+        - file: apunte/5_punteros.md
+        - file: apunte/6_estructuras.md
+        - file: apunte/7_secuencias.md
+        - file: apunte/8_matrices.md
+        - file: apunte/9_compilacion.md
+        - file: apunte/10_archivos_texto.md
+        - file: apunte/11_archivos_binarios.md
+        - file: apunte/12_recursividad.md
+        - file: apunte/13_modelo_memoria.md
+        - file: apunte/14_memoria_dinamica.md
+        - file: apunte/15_aritmetica.md
+        - file: apunte/16_punteros_funciones.md
+        - file: apunte/17_opacos.md
+        - file: apunte/18_tad.md
+        - file: apunte/19_complejidad.md
     - title: Reglas de estilo
       children:
         - file: reglas/indice.md

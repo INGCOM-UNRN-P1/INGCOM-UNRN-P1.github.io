@@ -1,6 +1,6 @@
 ---
 title: Análisis de Complejidad Algorítmica
-short_title: 14 - Complejidad
+short_title: "19 - Complejidad"
 subtitle: Fundamentos matemáticos del análisis asintótico
 ---
 
@@ -28,7 +28,7 @@ establecer una base teórica para:
 Para lograr esto, la herramienta central es el **análisis asintótico**.
 
 :::{tip} Aplicación a Estructuras de Datos
-El análisis de complejidad es esencial para comparar diferentes implementaciones de Tipos de Datos Abstractos. Por ejemplo, ¿cuándo conviene usar una lista enlazada vs. un arreglo? ¿Una pila con arreglo o con nodos? Estas decisiones se fundamentan en análisis de complejidad. Para ver aplicaciones concretas de estos conceptos a estructuras de datos fundamentales, consultá el apunte sobre {ref}`TAD, Pilas y Colas <apunte/13_tad.md>`.
+El análisis de complejidad es esencial para comparar diferentes implementaciones de Tipos de Datos Abstractos. Por ejemplo, ¿cuándo conviene usar una lista enlazada vs. un arreglo? ¿Una pila con arreglo o con nodos? Estas decisiones se fundamentan en análisis de complejidad. Para ver aplicaciones concretas de estos conceptos a estructuras de datos fundamentales, consultá el apunte sobre {ref}`TAD, Pilas y Colas <18_tad>`.
 :::
 
 ## Análisis Asintótico: Enfocándose en lo que Importa
@@ -64,7 +64,7 @@ algoritmo: nunca será peor que esta cota.
   $n_0$ tales que $0 \le f(n) \le c \cdot g(n)$ para todo $n \ge n_0$.
 - **Uso Práctico**: Representa el **peor caso** de ejecución de un algoritmo.
 
-```{figure} 14/big_o_definition.svg
+```{figure} 19/big_o_definition.svg
 :label: fig-big-o-definition
 :align: center
 :width: 85%
@@ -100,7 +100,7 @@ de un algoritmo, acotándolo tanto por arriba como por abajo.
   a menudo representando el **caso promedio** o un escenario donde el mejor y el
   peor caso coinciden.
 
-```{figure} 14/big_theta_definition.svg
+```{figure} 19/big_theta_definition.svg
 :label: fig-big-theta-definition
 :align: center
 :width: 85%
@@ -142,7 +142,7 @@ Las notaciones asintóticas tienen propiedades útiles:
 
 ## Jerarquía de Complejidades
 
-```{figure} 14/complexity_hierarchy.svg
+```{figure} 19/complexity_hierarchy.svg
 :label: fig-hierarchy
 :align: center
 :width: 100%
@@ -167,7 +167,7 @@ int obtener_primero(int arr[], int n) {
 ```
 
 :::{note} Estructuras de Datos con Acceso $O(1)$
-Los arreglos proporcionan acceso por índice en tiempo constante, una de sus ventajas principales. En contraste, las listas enlazadas requieren $O(n)$ para acceder a un elemento arbitrario. Esta diferencia fundamental se analiza en detalle en el apunte sobre {ref}`TAD, Pilas y Colas <apunte/13_tad.md>`.
+Los arreglos proporcionan acceso por índice en tiempo constante, una de sus ventajas principales. En contraste, las listas enlazadas requieren $O(n)$ para acceder a un elemento arbitrario. Esta diferencia fundamental se analiza en detalle en el apunte sobre {ref}`TAD, Pilas y Colas <18_tad>`.
 :::
 
 #### Logarítmica: $O(\log n)$
@@ -240,7 +240,7 @@ int sumar_elementos(int arr[], int n) {
 ```
 
 :::{note} Búsqueda en Estructuras de Datos
-La búsqueda lineal $O(n)$ es necesaria en estructuras sin orden, como listas enlazadas o arreglos no ordenados. Esta es una operación fundamental en muchos TADs. Para comparar las complejidades de búsqueda en diferentes estructuras (pilas, colas, listas), consultá {ref}`TAD, Pilas y Colas <apunte/13_tad.md>`.
+La búsqueda lineal $O(n)$ es necesaria en estructuras sin orden, como listas enlazadas o arreglos no ordenados. Esta es una operación fundamental en muchos TADs. Para comparar las complejidades de búsqueda en diferentes estructuras (pilas, colas, listas), consultá {ref}`TAD, Pilas y Colas <18_tad>`.
 :::
 
 #### Log-Lineal: $O(n \log n)$
@@ -368,7 +368,7 @@ void generar_permutaciones(int arr[], int inicio, int fin) {
 }
 ```
 
-```{figure} 14/growth_comparison.svg
+```{figure} 19/growth_comparison.svg
 :label: fig-growth
 :align: center
 :width: 100%
@@ -485,7 +485,7 @@ Antes de enunciar el Teorema Maestro, es fundamental visualizar cómo se distrib
 - El costo etiquetado en cada nodo es el trabajo no recursivo realizado en esa llamada específica.
 - La suma del trabajo de todos los nodos en todos los niveles del árbol determina el costo total del algoritmo.
 
-```{figure} 14/master_theorem.svg
+```{figure} 19/master_theorem.svg
 :label: fig-master
 :align: center
 
@@ -604,7 +604,7 @@ $$
 **Costo amortizado**: Al dividir el costo total por la cantidad de operaciones, obtenemos $\frac{3n}{n} = O(1)$ por cada inserción individual.
 
 :::{tip} Análisis Amortizado en Pilas y Colas
-Este mismo análisis se aplica a las pilas implementadas con arreglos dinámicos. Para ver ejemplos concretos de cómo el análisis amortizado justifica la eficiencia de las operaciones `push` en pilas con arreglos, consultá la sección sobre pilas en el apunte de {ref}`TAD, Pilas y Colas <apunte/13_tad.md>`.
+Este mismo análisis se aplica a las pilas implementadas con arreglos dinámicos. Para ver ejemplos concretos de cómo el análisis amortizado justifica la eficiencia de las operaciones `push` en pilas con arreglos, consultá la sección sobre pilas en el apunte de {ref}`TAD, Pilas y Colas <18_tad>`.
 :::
 
 #### Método del Potencial
@@ -699,7 +699,7 @@ int fibonacci_memo(int n, int memo[]) {
 - **Complejidad temporal**: $O(n)$ (cada valor se calcula una vez)
 - **Complejidad espacial**: $O(n)$ (arreglo de memoización + pila)
 
-```{figure} 14/time_space_tradeoff.svg
+```{figure} 19/time_space_tradeoff.svg
 :label: fig-tradeoff
 :align: center
 

@@ -1,6 +1,6 @@
 ---
 title: Tipos de Datos Abstractos, Pilas y Colas
-short_title: 13 - TAD, Pilas y Colas
+short_title: "18 - TADs"
 subtitle: Estructuras de datos dinámicas y especializadas
 ---
 
@@ -11,7 +11,7 @@ Un **Tipo de Dato Abstracto** (TAD, del inglés *Abstract Data Type*, ADT) es un
 
 Esta abstracción permite que el usuario de la estructura se concentre en resolver problemas de alto nivel sin preocuparse por los detalles internos de cómo se almacenan o manipulan los datos. Al mismo tiempo, el implementador tiene la libertad de optimizar o modificar la representación interna sin afectar al código que utiliza el TAD, siempre que mantenga la misma interfaz pública.
 
-```{figure} 13/tad_concepto.svg
+```{figure} 18/tad_concepto.svg
 :label: fig-tad-concepto
 :align: center
 
@@ -30,7 +30,7 @@ Un TAD se caracteriza por tres componentes esenciales:
 
 El principio de **encapsulamiento** es el pilar que sostiene a la abstracción: garantiza que los datos internos de un TAD no puedan ser manipulados de manera directa desde el código cliente. En C, este ocultamiento físico se implementa a través de la técnica de **punteros opacos**, declarando tipos incompletos en la cabecera e implementando sus detalles estructurales en el archivo fuente `.c`.
 
-Para un análisis detallado sobre cómo funciona esta técnica a nivel del compilador, sus restricciones sintácticas y un ejemplo completo de implementación opaca, consultá el capítulo previo sobre {ref}`apunte/12A_opacos.md`.
+Para un análisis detallado sobre cómo funciona esta técnica a nivel del compilador, sus restricciones sintácticas y un ejemplo completo de implementación opaca, consultá el capítulo previo sobre {doc}`17_opacos`.
 
 :::{important} Interfaz Clara e Invariantes
 La abstracción no se reduce a ocultar información; su objetivo es proveer una interfaz limpia y coherente que proteja las invariantes internas del TAD y permita su uso de manera intuitiva y segura.
@@ -353,7 +353,7 @@ Las operaciones de la lista enlazada implementan directamente las operaciones de
 
 En una lista enlazada simple, cada nodo apunta únicamente al siguiente nodo de la secuencia. El último nodo apunta a `NULL`, indicando el final de la lista.
 
-```{figure} 13/lista_enlazada_simple.svg
+```{figure} 18/lista_enlazada_simple.svg
 :label: fig-lista-simple
 :align: center
 
@@ -646,7 +646,7 @@ Nunca accedas a un nodo después de haberlo liberado con `free`. Por eso guardam
 La destrucción apropiada de estructuras de datos es crítica para evitar fugas de memoria. Observá el patrón: primero liberamos todos los nodos recursivamente, y finalmente liberamos la estructura contenedora. Para más detalles sobre patrones de liberación y técnicas avanzadas, consultá {ref}`memoria-buenas-practicas`.
 :::
 
-```{figure} 13/lista_operaciones.svg
+```{figure} 18/lista_operaciones.svg
 :label: fig-lista-operaciones
 :align: center
 
@@ -657,7 +657,7 @@ Operaciones fundamentales en listas enlazadas: inserción, eliminación, búsque
 
 Una lista doblemente enlazada extiende la lista simple agregando un puntero adicional en cada nodo que apunta al nodo anterior. Esto permite el recorrido bidireccional de la lista.
 
-```{figure} 13/lista_enlazada_doble.svg
+```{figure} 18/lista_enlazada_doble.svg
 :label: fig-lista-doble
 :align: center
 
@@ -1313,7 +1313,7 @@ Sugerencia: Investigá el algoritmo de "la liebre y la tortuga" (Floyd's cycle d
 
 Una **pila** es una estructura de datos lineal que sigue el principio **LIFO** (*Last In, First Out*): el último elemento en entrar es el primero en salir. Es análogo a una pila de platos donde solo podés agregar o quitar platos desde la parte superior.
 
-```{figure} 13/pila_stack.svg
+```{figure} 18/pila_stack.svg
 :label: fig-pila
 :align: center
 
@@ -1329,7 +1329,7 @@ Estructura de pila con operaciones push (apilar) y pop (desapilar). El acceso es
 
 ### Implementación con Lista Enlazada
 
-```{figure} 13/pila_lista_enlazada.svg
+```{figure} 18/pila_lista_enlazada.svg
 :label: fig-pila-lista
 :align: center
 
@@ -1488,7 +1488,7 @@ Es fundamental liberar toda la memoria utilizada, recorriendo la lista y liberan
 
 Una alternativa es implementar la pila usando un arreglo, donde el tope es el último elemento ocupado.
 
-```{figure} 13/pila_arreglo.svg
+```{figure} 18/pila_arreglo.svg
 :label: fig-pila-arreglo
 :align: center
 
@@ -1671,7 +1671,7 @@ bool parentesis_balanceados(const char *expresion)
 
 Una **cola** es una estructura de datos lineal que sigue el principio **FIFO** (*First In, First Out*): el primer elemento en entrar es el primero en salir. Es análogo a una fila de personas donde quien llega primero es atendido primero.
 
-```{figure} 13/cola_lista_enlazada.svg
+```{figure} 18/cola_lista_enlazada.svg
 :label: fig-cola-lista
 :align: center
 
@@ -1844,7 +1844,7 @@ void cola_destruir(cola_t *cola, destruir_dato_fn destruir_dato)
 
 Una implementación eficiente de cola con arreglo usa la técnica de **arreglo circular**, donde los índices "dan la vuelta" al final del arreglo.
 
-```{figure} 13/cola_circular.svg
+```{figure} 18/cola_circular.svg
 :label: fig-cola-circular
 :align: center
 
@@ -2017,7 +2017,7 @@ Ambas estructuras son especializaciones del TAD Secuencia con restricciones de a
 
 Un **deque** (pronunciado "deck") es una generalización que permite insertar y extraer elementos en ambos extremos.
 
-```{figure} 13/deque.svg
+```{figure} 18/deque.svg
 :label: fig-deque
 :align: center
 
@@ -2226,7 +2226,7 @@ Para profundizar en el estudio de los TADs y estructuras de datos, se recomienda
 
 Para aspectos específicos de gestión de memoria y su impacto en la implementación de TADs, consultá:
 
-- {ref}`memoria-introduccion` para entender el modelo de memoria completo.
+- {ref}`memoria-dinamica-capitulo` para entender el modelo de memoria completo.
 - {ref}`memoria-buenas-practicas` para patrones seguros de manejo de memoria dinámica.
 - {ref}`memoria-valgrind` para técnicas de depuración de estructuras dinámicas.
 
@@ -2243,7 +2243,7 @@ Los Tipos de Datos Abstractos son una herramienta fundamental para construir sof
 - **Dos implementaciones de Secuencia:**
   - Arreglos dinámicos: excelentes para acceso aleatorio y localidad de caché.
   - Listas enlazadas: ideales para inserciones/eliminaciones dinámicas.
-- La diferencia entre **memoria estática y dinámica**, y cuándo usar cada una (para detalles completos, consultá {ref}`memoria-introduccion`).
+- La diferencia entre **memoria estática y dinámica**, y cuándo usar cada una (para detalles completos, consultá {ref}`memoria-dinamica-capitulo`).
 - **Listas enlazadas** simples, dobles y circulares, con todas sus operaciones fundamentales.
 - **Pilas (LIFO)** y **Colas (FIFO)** como TADs especializados:
   - Múltiples implementaciones (lista enlazada, arreglo, arreglo circular)

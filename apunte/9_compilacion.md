@@ -1,6 +1,6 @@
 ---
 title: Compilación
-short_title: 5 - Compilación
+short_title: "9 - Compilación"
 subtitle: Haciendonos entender por la computadora.
 ---
 
@@ -27,7 +27,7 @@ Comprender esta transformación del código, desde `programa.c` hasta `mi_progra
 El flujo de transformación desde tu código fuente hasta un programa ejecutable
 se puede visualizar de la siguiente manera:
 
-```{figure} ./5/proceso_compilacion.svg
+```{figure} 9/proceso_compilacion.svg
 :name: fig-proceso-compilacion
 :width: 60%
 
@@ -140,7 +140,7 @@ RISC-V).
 El compilador no solo traduce, sino que también analiza y optimiza el código.
 Este proceso se puede descomponer en varias sub-fases:
 
-```{figure} ./5/fases_compilador.svg
+```{figure} 9/fases_compilador.svg
 :name: fig-fases-compilador
 :width: 90%
 
