@@ -4,6 +4,7 @@ short_title: 13 - TAD, Pilas y Colas
 subtitle: Estructuras de datos dinámicas y especializadas
 ---
 
+(tad-capitulo)=
 ## Introducción
 
 Un **Tipo de Dato Abstracto** (TAD, del inglés *Abstract Data Type*, ADT) es un modelo matemático que define un conjunto de datos junto con las operaciones que pueden realizarse sobre ellos, ocultando los detalles de su implementación. El concepto de TAD es fundamental en la ciencia de la computación porque establece una separación clara entre **qué** hace una estructura de datos (su interfaz) y **cómo** lo hace (su implementación).
@@ -150,8 +151,8 @@ while (tiene_siguiente(iter)) {
 }
 destruir_iterador(iter);
 
-// Alternativamente, con callbacks:
-void procesar(int dato, void* contexto);
+// Alternativamente, con callbacks (soporte genérico):
+void procesar(void *dato, void *contexto);
 recorrer(lista, procesar, contexto);
 ```
 
@@ -1137,8 +1138,15 @@ int main(void)
     lista_generica_t *mi_lista = crear_lista_generica();
     
     persona_t *juan = malloc(sizeof(persona_t));
-    juan->nombre = strdup("Juan");
-    juan->edad = 20;
+    if (juan != NULL)
+    {
+        juan->nombre = malloc(strlen("Juan") + 1);
+        if (juan->nombre != NULL)
+        {
+            strcpy(juan->nombre, "Juan");
+        }
+        juan->edad = 20;
+    }
     
     /* Insertamos pasándolo como void* */
     insertar_al_inicio_generico(mi_lista, juan);
@@ -1152,11 +1160,76 @@ int main(void)
 }
 ```
 
-:::{tip} Callbacks de Comparación
-Para búsquedas u ordenamiento genérico, podés definir un callback que actúe de manera similar a `strcmp` o `qsort`:
-`typedef int (*comparar_fn)(const void *a, const void *b);`
-Esta función debe retornar un valor menor, igual o mayor a cero según la relación de orden entre ambos elementos.
-:::
+### Callbacks de Comparación
+
+En colecciones genéricas (`void*`), el tipo de dato subyacente es desconocido por la estructura. Por lo tanto, operaciones que dependen del valor de los elementos (como la búsqueda de un elemento específico, el ordenamiento o la inserción ordenada) no pueden realizarse con los operadores tradicionales (`==`, `<`, `>`). 
+
+Para resolver esto, delegamos la lógica de comparación al cliente a través de un **callback de comparación** (`comparar_fn`).
+
+#### Definición del Tipo
+El callback sigue la firma estándar de funciones de comparación (como `strcmp` o la de `qsort` en `<stdlib.h>`):
+
+```c
+typedef int (*comparar_fn)(const void *a, const void *b);
+```
+
+Esta función debe recibir dos punteros genéricos constantes y retornar:
+* Un valor **menor a cero** si el primer elemento es menor que el segundo.
+* **Cero** si ambos elementos son equivalentes.
+* Un valor **mayor a cero** si el primer elemento es mayor que el segundo.
+
+#### Ejemplo Práctico: Búsqueda Genérica
+A continuación se presenta cómo el módulo de la lista genérica implementa la búsqueda secuencial, y cómo el código cliente la consume.
+
+##### En la biblioteca (`lista_generica.c`):
+```c
+void *lista_buscar_generica(const lista_generica_t *lista, const void *clave, comparar_fn comparar) {
+    if (lista == NULL || comparar == NULL) {
+        return NULL;
+    }
+    
+    nodo_generico_t *actual = lista->inicio;
+    // Recorremos la lista con un lazo buscando coincidencia
+    while (actual != NULL) {
+        if (comparar(actual->dato, clave) == 0) {
+            return actual->dato; // Retorna el dato coincidente hallado
+        }
+        actual = actual->siguiente;
+    }
+    
+    return NULL; // No encontrado
+}
+```
+
+##### En el programa cliente (`main.c`):
+```c
+// Callback de comparación personalizado para el tipo persona_t
+int comparar_personas_por_nombre(const void *a, const void *b) {
+    const persona_t *p1 = (const persona_t *)a;
+    const char *nombre_buscado = (const char *)b;
+    return strcmp(p1->nombre, nombre_buscado);
+}
+
+int main(void) {
+    // ... supongamos que la lista ya está creada y poblada con personas ...
+    
+    const char *buscar_nombre = "Juan";
+    persona_t *encontrado = (persona_t *)lista_buscar_generica(
+        mi_lista, 
+        buscar_nombre, 
+        comparar_personas_por_nombre
+    );
+    
+    if (encontrado != NULL) {
+        printf("Persona hallada: %s, edad: %d\n", encontrado->nombre, encontrado->edad);
+    } else {
+        printf("Persona '%s' no encontrada.\n", buscar_nombre);
+    }
+    
+    // ... destruir lista ...
+    return 0;
+}
+```
 
 ## Complejidad Temporal
 
@@ -1267,7 +1340,7 @@ Representación en memoria de una pila implementada con lista enlazada. El tope 
 
 ```c
 typedef struct nodo {
-    int dato;
+    void *dato;
     struct nodo *siguiente;
 } nodo_t;
 
@@ -1296,7 +1369,7 @@ pila_t *pila_crear(void)
 #### Apilar (Push)
 
 ```c
-bool pila_push(pila_t *pila, int dato)
+bool pila_push(pila_t *pila, void *dato)
 {
     if (pila == NULL)
     {
@@ -1325,7 +1398,7 @@ La operación `pila_push` es equivalente a realizar una inserción al inicio en 
 #### Desapilar (Pop)
 
 ```c
-bool pila_pop(pila_t *pila, int *dato)
+bool pila_pop(pila_t *pila, void **dato)
 {
     if (pila == NULL || pila->tope == NULL)
     {
@@ -1349,7 +1422,7 @@ bool pila_pop(pila_t *pila, int *dato)
 #### Ver Tope (Peek)
 
 ```c
-bool pila_peek(const pila_t *pila, int *dato)
+bool pila_peek(const pila_t *pila, void **dato)
 {
     if (pila == NULL || pila->tope == NULL)
     {
@@ -1376,7 +1449,7 @@ bool pila_es_vacia(const pila_t *pila)
 #### Destruir Pila
 
 ```c
-void pila_destruir(pila_t *pila)
+void pila_destruir(pila_t *pila, destruir_dato_fn destruir_dato)
 {
     if (pila == NULL)
     {
@@ -1387,6 +1460,10 @@ void pila_destruir(pila_t *pila)
     {
         nodo_t *nodo_actual = pila->tope;
         pila->tope = nodo_actual->siguiente;
+        if (destruir_dato != NULL && nodo_actual->dato != NULL)
+        {
+            destruir_dato(nodo_actual->dato);
+        }
         free(nodo_actual);
     }
     
@@ -1422,7 +1499,7 @@ Pila implementada con arreglo. El índice `tope` indica la posición del último
 
 ```c
 struct pila {
-    int *elementos;
+    void **elementos;
     size_t tope;       // Próximo índice libre / Cantidad de elementos
     size_t capacidad;  // Capacidad total del arreglo
 };
@@ -1464,7 +1541,7 @@ pila_t *pila_crear_arreglo(size_t capacidad_inicial)
 static bool pila_redimensionar(pila_t *pila)
 {
     size_t nueva_capacidad = pila->capacidad * 2;
-    int *nuevo_arreglo = realloc(pila->elementos, nueva_capacidad * sizeof(*nuevo_arreglo));
+    void **nuevo_arreglo = realloc(pila->elementos, nueva_capacidad * sizeof(*nuevo_arreglo));
     if (nuevo_arreglo == NULL)
     {
         return false;
@@ -1476,7 +1553,7 @@ static bool pila_redimensionar(pila_t *pila)
     return true;
 }
 
-bool pila_push_arreglo(pila_t *pila, int dato)
+bool pila_push_arreglo(pila_t *pila, void *dato)
 {
     if (pila == NULL)
     {
@@ -1505,7 +1582,7 @@ El factor de redimensionamiento (comúnmente 2) es importante. Duplicar la capac
 #### Desapilar (Arreglo)
 
 ```c
-bool pila_pop_arreglo(pila_t *pila, int *dato)
+bool pila_pop_arreglo(pila_t *pila, void **dato)
 {
     if (pila == NULL || pila->tope == 0)
     {
@@ -1594,22 +1671,6 @@ bool parentesis_balanceados(const char *expresion)
 
 Una **cola** es una estructura de datos lineal que sigue el principio **FIFO** (*First In, First Out*): el primer elemento en entrar es el primero en salir. Es análogo a una fila de personas donde quien llega primero es atendido primero.
 
-```{figure} 13/cola_queue.svg
-:label: fig-cola
-:align: center
-
-Estructura de cola con operaciones enqueue (encolar) y dequeue (desencolar). Los elementos entran por el final y salen por el frente.
-```
-
-### Operaciones Fundamentales
-
-- **enqueue(elemento):** Agrega un elemento al final de la cola.
-- **dequeue():** Extrae y retorna el elemento del frente.
-- **peek() o front():** Retorna el elemento del frente sin extraerlo.
-- **es_vacia():** Verifica si la cola está vacía.
-
-### Implementación con Lista Enlazada
-
 ```{figure} 13/cola_lista_enlazada.svg
 :label: fig-cola-lista
 :align: center
@@ -1621,7 +1682,7 @@ Representación en memoria de una cola implementada con lista enlazada. Se manti
 
 ```c
 typedef struct nodo {
-    int dato;
+    void *dato;
     struct nodo *siguiente;
 } nodo_t;
 
@@ -1632,7 +1693,7 @@ struct cola {
 };
 ```
 
-:::{note}
+::::{note}
 A diferencia de la pila que solo requiere de un puntero al tope, la cola utiliza dos punteros: uno al frente (para `cola_dequeue`) y otro al final (para `cola_enqueue`). Esto garantiza que ambas operaciones se ejecuten en tiempo constante $O(1)$.
 :::
 
@@ -1658,7 +1719,7 @@ cola_t *cola_crear(void)
 #### Encolar (Enqueue)
 
 ```c
-bool cola_enqueue(cola_t *cola, int dato)
+bool cola_enqueue(cola_t *cola, void *dato)
 {
     if (cola == NULL)
     {
@@ -1697,7 +1758,7 @@ Es indispensable considerar el caso particular de la cola vacía. En tal situaci
 #### Desencolar (Dequeue)
 
 ```c
-bool cola_dequeue(cola_t *cola, int *dato)
+bool cola_dequeue(cola_t *cola, void **dato)
 {
     if (cola == NULL || cola->frente == NULL)
     {
@@ -1730,7 +1791,7 @@ Al extraer el último elemento de la cola, esta queda vacía. En ese escenario, 
 #### Ver Frente (Peek)
 
 ```c
-bool cola_peek(const cola_t *cola, int *dato)
+bool cola_peek(const cola_t *cola, void **dato)
 {
     if (cola == NULL || cola->frente == NULL)
     {
@@ -1748,7 +1809,7 @@ bool cola_peek(const cola_t *cola, int *dato)
 #### Destruir Cola
 
 ```c
-void cola_destruir(cola_t *cola)
+void cola_destruir(cola_t *cola, destruir_dato_fn destruir_dato)
 {
     if (cola == NULL)
     {
@@ -1759,6 +1820,10 @@ void cola_destruir(cola_t *cola)
     {
         nodo_t *nodo_actual = cola->frente;
         cola->frente = nodo_actual->siguiente;
+        if (destruir_dato != NULL && nodo_actual->dato != NULL)
+        {
+            destruir_dato(nodo_actual->dato);
+        }
         free(nodo_actual);
     }
     
@@ -1790,7 +1855,7 @@ Cola implementada como arreglo circular. Los índices se calculan módulo la cap
 
 ```c
 struct cola {
-    int *elementos;
+    void **elementos;
     size_t frente;
     size_t final;
     size_t tamanio;
@@ -1840,7 +1905,7 @@ cola_t *cola_crear_circular(size_t capacidad_inicial)
 static bool cola_redimensionar_circular(cola_t *cola)
 {
     size_t nueva_capacidad = cola->capacidad * 2;
-    int *nuevo_arreglo = malloc(nueva_capacidad * sizeof(*nuevo_arreglo));
+    void **nuevo_arreglo = malloc(nueva_capacidad * sizeof(*nuevo_arreglo));
     if (nuevo_arreglo == NULL)
     {
         return false;
@@ -1861,7 +1926,7 @@ static bool cola_redimensionar_circular(cola_t *cola)
     return true;
 }
 
-bool cola_enqueue_circular(cola_t *cola, int dato)
+bool cola_enqueue_circular(cola_t *cola, void *dato)
 {
     if (cola == NULL)
     {
@@ -1891,7 +1956,7 @@ El operador módulo `%` permite que el índice "dé la vuelta". Por ejemplo, si 
 #### Desencolar en Arreglo Circular
 
 ```c
-bool cola_dequeue_circular(cola_t *cola, int *dato)
+bool cola_dequeue_circular(cola_t *cola, void **dato)
 {
     if (cola == NULL || cola->tamanio == 0)
     {

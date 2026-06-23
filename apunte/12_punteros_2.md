@@ -7,7 +7,7 @@ subtitle: "Estructuras dinámicas y patrones avanzados"
 (punteros2-introduccion)=
 ## Introducción
 
-Este apunte explora conceptos avanzados de memoria dinámica en C, construyendo sobre las bases presentadas en [Memoria](11_memoria) y [Punteros](7_punteros). Aquí profundizamos en el manejo de [Estructuras](10_enums) que contienen punteros, problemas comunes de gestión de memoria, y técnicas para trabajar con matrices dinámicas.
+Este apunte explora conceptos avanzados de memoria dinámica en C, construyendo sobre las bases presentadas en {ref}`Memoria <memoria-introduccion>` y {ref}`Punteros <punteros-capitulo>`. Aquí profundizamos en el manejo de {ref}`Estructuras <enums-capitulo>` que contienen punteros, problemas comunes de gestión de memoria, y técnicas para trabajar con matrices dinámicas.
 
 (punteros2-estructuras)=
 ## Punteros a Estructuras
@@ -73,7 +73,7 @@ nuevo->edad = edad;
 (punteros2-operador-flecha)=
 ### Operador Flecha (`->`)
 
-El operador `->` es un **atajo sintáctico** para acceder a miembros de una estructura a través de un puntero. Como se explica en [Punteros](7_punteros), este operador combina la desreferencia y el acceso a miembro en una sola operación.
+El operador `->` es un **atajo sintáctico** para acceder a miembros de una estructura a través de un puntero. Como se explica en {ref}`Punteros <punteros-capitulo>`, este operador combina la desreferencia y el acceso a miembro en una sola operación.
 
 **Equivalencia:**
 ```c
@@ -121,8 +121,9 @@ void persona_destruir(persona_t *persona) {
 
 Si liberás `persona` primero, **perdés el puntero** a `persona->nombre`. Una vez que `free(persona)` se ejecuta, acceder a `persona->nombre` es **comportamiento indefinido** (ver {ref}`memoria-dangling-pointer`). Esto resulta en un **memory leak** porque la memoria de `nombre` queda asignada pero inaccesible.
 
-```{figure} ./12/destruccion_orden.svg
-:name: fig-destruccion-orden
+```{figure} 12/destruccion_orden.svg
+:label: fig-destruccion-orden
+:align: center
 :width: 85%
 
 Orden correcto vs incorrecto de liberación de memoria en estructuras anidadas.
@@ -171,8 +172,9 @@ La **fragmentación externa** ocurre cuando la memoria libre se divide en bloque
 
 #### Escenario Ilustrativo
 
-```{figure} ./12/fragmentacion_heap.svg
-:name: fig-fragmentacion-heap
+```{figure} 12/fragmentacion_heap.svg
+:label: fig-fragmentacion-heap
+:align: center
 :width: 90%
 
 Proceso de fragmentación del heap: bloques libres no contiguos impiden asignaciones grandes.
@@ -407,8 +409,9 @@ Si no hay espacio contiguo para expandir el bloque en su ubicación actual, `rea
 3. Libera el bloque original
 4. Retorna la dirección del nuevo bloque
 
-```{figure} ./12/realloc_movimiento.svg
-:name: fig-realloc-movimiento
+```{figure} 12/realloc_movimiento.svg
+:label: fig-realloc-movimiento
+:align: center
 :width: 90%
 
 Proceso de realloc cuando debe mover el bloque a una nueva ubicación.
@@ -572,6 +575,14 @@ En este esquema:
 
 Desreferenciar `pp` una vez (`*pp`) evalúa al puntero `p` (obteniendo la dirección de `valor`). Desreferenciar `pp` dos veces (`**pp`) accede directamente al contenido de `valor` (`42`).
 
+```{figure} 12/doble_indireccion.svg
+:label: fig-doble-indireccion
+:align: center
+:width: 85%
+
+Representación en stack y heap de la doble indirección con `pp`, `p` y `valor`.
+```
+
 ### Paso de Punteros por Referencia
 
 En el lenguaje C, todos los argumentos de una función se transmiten **estrictamente por valor** (copia). Esto significa que la función trabaja con copias locales de los parámetros recibidos. 
@@ -616,8 +627,8 @@ Para modificar el puntero original de la función invocadora, se debe enviar su 
 
 // Forma correcta utilizando doble indirección
 void inicializar_correcto(int **ptr) {
-    if (ptr == NULL) {
-        return; // Cláusula de guarda para evitar desreferenciar un puntero nulo
+    if (ptr == NULL || *ptr != NULL) {
+        return; // Cláusula de guarda para evitar desreferenciar un puntero nulo o reasignar memoria
     }
     
     *ptr = malloc(sizeof(int)); // Desreferencia para modificar el puntero original
@@ -664,28 +675,38 @@ typedef struct {
     int id;
 } recurso_t;
 
+typedef enum {
+    RECURSO_EXITO = 0,
+    RECURSO_ERR_PARAMETROS,
+    RECURSO_ERR_MEMORIA,
+    RECURSO_ERR_PRECONDICION
+} recurso_status_t;
+
 // Constructor que inicializa el puntero del llamador
-int recurso_crear(recurso_t **recurso_out, const char *nombre, int id) {
+recurso_status_t recurso_crear(recurso_t **recurso_out, const char *nombre, int id) {
     if (recurso_out == NULL || nombre == NULL) {
-        return -1; // Código de error
+        return RECURSO_ERR_PARAMETROS;
+    }
+    if (*recurso_out != NULL) {
+        return RECURSO_ERR_PRECONDICION; // Evita fugas de memoria si ya tiene memoria asignada
     }
     
     recurso_t *nuevo = malloc(sizeof(recurso_t));
     if (nuevo == NULL) {
-        return -1;
+        return RECURSO_ERR_MEMORIA;
     }
     
     nuevo->nombre = malloc(strlen(nombre) + 1);
     if (nuevo->nombre == NULL) {
         free(nuevo);
-        return -1;
+        return RECURSO_ERR_MEMORIA;
     }
     
     strcpy(nuevo->nombre, nombre);
     nuevo->id = id;
     
     *recurso_out = nuevo; // Retornamos el recurso creado por referencia
-    return 0; // Éxito
+    return RECURSO_EXITO;
 }
 
 // Destructor defensivo que libera memoria y pone el puntero en NULL
@@ -701,7 +722,7 @@ void recurso_destruir(recurso_t **recurso_out) {
 ```
 
 :::{tip} Estilo
-Declarar los asteriscos junto al identificador de la variable (por ejemplo, `recurso_t **recurso_out`) y verificar siempre los retornos de asignación de memoria dinámica para cumplir con las directivas {ref}`0x0006h` y de robustez del apunte.
+Declarar los asteriscos junto al identificador de la variable (por ejemplo, `recurso_t **recurso_out`) y verificar siempre los retornos de asignación de memoria dinámica para cumplir con la regla {ref}`0x0006h` y las directivas de robustez del apunte.
 :::
 
 (punteros2-matrices)=
@@ -716,8 +737,9 @@ Como se explica en {ref}`memoria-heap`, la memoria dinámica nos permite crear e
 
 Este enfoque crea un **arreglo de punteros**, donde cada puntero apunta a una fila (otro arreglo). Se llama "dentada" (_jagged array_) porque cada fila puede tener largo diferente (aunque típicamente usamos filas del mismo tamaño).
 
-```{figure} ./12/matriz_dentada.svg
-:name: fig-matriz-dentada
+```{figure} 12/matriz_dentada.svg
+:label: fig-matriz-dentada
+:align: center
 :width: 85%
 
 Representación de una matriz dentada: array de punteros a arrays.
@@ -795,8 +817,9 @@ free(matriz);
 
 Este enfoque asigna toda la matriz como **un único bloque contiguo** en memoria. Es más eficiente pero requiere calcular índices manualmente.
 
-```{figure} ./12/matriz_bloque.svg
-:name: fig-matriz-bloque
+```{figure} 12/matriz_bloque.svg
+:label: fig-matriz-bloque
+:align: center
 :width: 85%
 
 Matriz almacenada como bloque contiguo: todas las filas consecutivas en memoria.
@@ -831,8 +854,9 @@ matriz[i * columnas + j] = 42;
 - Para llegar a la fila `i`, saltamos `i * columnas` elementos
 - Luego avanzamos `j` columnas dentro de esa fila
 
-```{figure} ./12/matriz_mapeo.svg
-:name: fig-matriz-mapeo
+```{figure} 12/matriz_mapeo.svg
+:label: fig-matriz-mapeo
+:align: center
 :width: 90%
 
 Mapeo entre la representación lógica 2D y la memoria lineal contigua.
@@ -879,7 +903,7 @@ int val = matriz_get(matriz, i, j, columnas);
 (punteros2-matriz-cast)=
 ### Enfoque 3: Bloque Único con Cast Avanzado
 
-Este enfoque combina lo mejor de ambos mundos: **memoria contigua** del Enfoque 2 con la **sintaxis natural** del Enfoque 1, mediante un cast especial del puntero.
+Este enfoque combina lo mejor de ambos mundos: **memoria contigua** del Enfoque 2 con la **sintaxis natural** del Enfoque 1, mediante un cast especial del puntero constante. Es fundamental aclarar que, para evitar la definición de tipos modificados dinámicamente en tiempo de ejecución (que constituyen una forma de VLA prohibida), las dimensiones de las columnas deben ser constantes conocidas en tiempo de compilación.
 
 #### Asignación con Puntero a Array
 
@@ -916,10 +940,27 @@ matriz[i][j] = 42;
 int valor = matriz[i][j];
 ```
 
-**¿Cómo funciona?**
-- El compilador sabe que `matriz` apunta a arrays de `columnas` elementos
-- `matriz[i]` avanza `i * columnas * sizeof(int)` bytes
-- `matriz[i][j]` accede al elemento `j` dentro de ese array
+#### Aritmética de Punteros en el Direccionamiento Bidimensional
+
+Para comprender cómo el compilador desreferencia la sintaxis `matriz[i][j]` en el Enfoque 3, debemos analizarla desde la aritmética de punteros. 
+
+Si declaramos `int (*matriz)[COLUMNAS]`, el tipo de `matriz` es "puntero a un array de `COLUMNAS` enteros". Por lo tanto, el tamaño del elemento al que apunta es $\text{sizeof}(int) \times \text{COLUMNAS}$ bytes.
+
+El acceso `matriz[i][j]` es equivalente a `*(*(matriz + i) + j)`. El compilador realiza el cálculo de la dirección física de la siguiente manera:
+
+1. **Desplazamiento de Fila (`matriz + i`):**
+   Al sumar `i` al puntero `matriz`, el compilador avanza `i` elementos del tipo apuntado. La dirección resultante es:
+   $$\text{Dir}(matriz[i]) = \text{Dir}(matriz) + i \times \text{COLUMNAS} \times \text{sizeof}(int)$$
+
+2. **Desplazamiento de Columna (`*(matriz + i) + j`):**
+   La expresión `*(matriz + i)` evalúa al array de la fila `i`. Por la regla de decaimiento (*array decay*), este decae a un puntero al primer entero de dicha fila (tipo `int *`). Al sumar `j`, avanzamos `j` enteros:
+   $$\text{Dir}(matriz[i][j]) = \text{Dir}(matriz[i]) + j \times \text{sizeof}(int)$$
+
+3. **Dirección Final Combinada:**
+   Sustituyendo la primera ecuación en la segunda, la dirección de memoria exacta del elemento es:
+   $$\text{Dir}(matriz[i][j]) = \text{Dir}(matriz) + (i \times \text{COLUMNAS} + j) \times \text{sizeof}(int)$$
+
+Este cálculo de desplazamiento en bytes coincide exactamente con la simulación manual del Enfoque 2, con la ventaja de que el compilador realiza la multiplicación y escala los índices de forma transparente y eficiente.
 
 #### Liberación
 
@@ -944,13 +985,13 @@ int (*matriz3)[COLUMNAS];  // Puntero a array de COLUMNAS ints
 
 #### El Enfoque 3 y la Prohibición de VLAs
 
-:::{important} Naturaleza Técnica y Restricción del Curso
-Cuando se declara `int (*matriz)[columnas]` con `columnas` como una variable evaluada en tiempo de ejecución, se está definiendo un **puntero a un tipo modificado de forma variable** (técnicamente, un puntero a un tipo VLA). 
+:::{important} Prohibición Absoluta de VLAs
+Cuando se declara `int (*matriz)[columnas]` con `columnas` como una variable evaluada en tiempo de ejecución, se define un **puntero a un tipo modificado de forma variable** (puntero a VLA). Aunque esta asignación se realice en el heap, la sintaxis involucra un tipo VLA en runtime.
 
-La utilización de los punteros y casteos a VLA's está permitida al no traer el problema referido a la reserva de memoria sin límites efectivos, crasheando el programa sin un mensaje de error razonable.
+En esta cátedra, **los VLAs están estrictamente prohibidos en todas sus formas**, incluyendo punteros a arrays de tamaño variable en tiempo de ejecución. Por lo tanto, el Enfoque 3 solo es admisible si las dimensiones son constantes conocidas en tiempo de compilación (como `#define COLUMNAS 4`).
 :::
 
-Para C89 se utilizaría:
+Para C89 y para cumplir las directivas de la materia se utiliza:
 
 ```c
 #define COLUMNAS 4
@@ -1019,7 +1060,7 @@ int (*matriz)[COLUMNAS] = malloc(sizeof(int) * COLUMNAS * filas);
 
 ## Conceptos Clave
 
-Este apunte explora patrones avanzados de memoria dinámica en C, construyendo sobre los fundamentos de {ref}`memoria-introduccion` y [Punteros](7_punteros).
+Este apunte explora patrones avanzados de memoria dinámica en C, construyendo sobre los fundamentos de {ref}`memoria-introduccion` y {ref}`Punteros <punteros-capitulo>`.
 
 :::{important} Ideas Centrales
 
@@ -1056,7 +1097,7 @@ Este apunte explora patrones avanzados de memoria dinámica en C, construyendo s
 
 Dominando la gestión avanzada de memoria dinámica, tenés las herramientas para implementar estructuras de datos complejas: listas enlazadas, árboles, grafos, hash tables. Pero construir estas estructuras correctamente requiere algo más que conocimiento técnico de punteros.
 
-El apunte [TAD, Pilas y Colas](13_tad) introduce el concepto de **Tipos Abstractos de Datos** (TADs):
+El apunte {ref}`TAD, Pilas y Colas <tad-capitulo>` introduce el concepto de **Tipos Abstractos de Datos** (TADs):
 
 - **Encapsulación:** Ocultar detalles de implementación
 - **Interfaces limpias:** Separar "qué hace" de "cómo lo hace"

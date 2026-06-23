@@ -10,16 +10,14 @@ Ya vimos cómo darle instrucciones en C a la computadora, pero ahora vamos a cre
 
 ### Definición intuitiva
 
-Pensá en las funciones como una oficina: recibe información (documentos o tareas), las procesa con sus empleados y recursos, y luego devuelve un resultado o un informe (un valor nuevo). En la programación, y particularmente en C, estas «oficinas» son bloques de código reutilizables diseñados para realizar una tarea específica. Son como pequeños departamentos dentro de una empresa que nos permiten organizar y simplificar la creación de software.
+En la programación estructurada en C, las **funciones** constituyen los bloques modulares fundamentales de construcción de software. Un programa se descompone jerárquicamente en módulos independientes que cooperan para resolver un problema complejo. Cada función representa un flujo de control aislado que recibe parámetros de entrada, ejecuta una secuencia de instrucciones en su propio ámbito y opcionalmente retorna un resultado al flujo invocador.
 
-#### ¿Por qué son tan útiles estas «oficinas» en C?
+#### Beneficios Didácticos y Técnicos de la Descomposición Funcional
 
-Las funciones son un pilar fundamental de la programación estructurada en C. Permiten dividir un programa grande y complejo en partes más pequeñas y manejables, lo que trae varios beneficios:
-
-- **Modularidad**: Cada función se encarga de una tarea concreta, haciendo que el diseño, desarrollo y corrección de errores del programa sea mucho más sencillo. Si algo no funciona, es más fácil saber en qué «departamento» de la oficina buscar el problema.
-- **Reusabilidad de código**: Una vez que creás una función para una tarea, podés «encargarle» esa tarea cuantas veces necesités, en distintas partes de tu programa o incluso en otros proyectos, sin tener que escribir el mismo código una y otra vez. Esto ahorra tiempo y reduce la posibilidad de errores.
-- **Abstracción**: Podés usar una función sin necesidad de saber exactamente cómo opera por dentro. Solo necesitás entender qué hace, qué tipo de información espera como entrada y qué tipo de información devolverá como salida. Esto simplifica el código principal de tu programa, que solo interactúa con la «oficina» sin preocuparse por sus procesos internos.
-- **Mantenibilidad**: Si necesitás cambiar o mejorar cómo se realiza una tarea, solo tenés que modificar el interior de la función correspondiente, sin afectar el resto de tu programa.
+- **Modularidad y Control de Flujo**: Dividir un programa grande en partes pequeñas y autónomas facilita el razonamiento lógico, el testeo y la depuración del código.
+- **Reusabilidad**: Permite invocar la misma lógica repetidas veces desde distintos puntos del programa sin duplicar código en memoria.
+- **Abstracción**: Permite al programador concentrarse en la interfaz de la función (qué datos requiere y qué retorna) sin necesidad de mantener en la memoria de trabajo los detalles de su implementación interna.
+- **Registros de Activación (Stack Frames)**: Al invocar una función, el procesador suspende temporalmente el flujo actual y reserva dinámicamente una porción de memoria en la pila de ejecución física del programa (denominada *registro de activación* o *stack frame*). Este espacio aloja los parámetros, las variables locales y la dirección de retorno de la instrucción del invocador. Al finalizar la ejecución de la función y ejecutarse la sentencia `return`, su registro de activación se libera (destruyendo todas sus variables locales) y el flujo de control se reanuda inmediatamente en la instrucción posterior a la llamada.
 
 ### Una definición más formal
 
@@ -75,7 +73,7 @@ int resultado = sumar(5, 3);
 printf("Resultado: %d\n", resultado);
 ```
 
-```{figure} ./3/function_call_flow.svg
+```{figure} 3/function_call_flow.svg
 :name: fig-function-call-flow
 :width: 100%
 
@@ -100,7 +98,7 @@ Cuando una función no tiene retorno, se dice que es un «Procedimiento», esta 
 
 Son una declaración anticipada que informa al compilador sobre el nombre, tipo de retorno y lista de parámetros de una función **antes** de que sea utilizada en el código. Su propósito es permitir que el compilador verifique la coherencia de las llamadas a la función, garantizando que el número y el tipo de argumentos coincidan con su definición. Un prototipo no contiene el cuerpo de la función, sino únicamente su firma, y suele colocarse al inicio del archivo fuente.
 
-```{figure} ./3/function_prototype_flow.svg
+```{figure} 3/function_prototype_flow.svg
 :name: fig-function-prototype-flow
 :width: 100%
 
@@ -160,12 +158,24 @@ int funcion_dos() {
 
 ---
 
-## Alcances (Scopes)
+## Alcance (Scope) y Tiempo de Vida (Lifetime) de Variables
 
-En C, el alcance (o scope en inglés) de una variable determina en qué partes de tu programa podés acceder y modificar esa variable. Es como definir el "territorio" donde una variable existe y es reconocida.
+Para programar de forma modular en C, tenés que dominar cómo se relacionan el **alcance (ámbito o scope)** de una variable —en qué regiones del código es visible y accesible su identificador— y su **tiempo de vida (lifetime)** —duración y ubicación física de su almacenamiento en memoria—.
 
-```{figure} ./3/scopes_hierarchy.svg
-:name: fig-scopes-hierarchy
+La tabla {numref}`tbl-ambitos-y-tiempos` resume de forma estructurada las diferencias conceptuales entre las variables locales, globales y locales estáticas:
+
+:::{table} Comparación de ámbitos, tiempos de vida y almacenamiento
+:label: tbl-ambitos-y-tiempos
+
+| Tipo de Variable | Ámbito (Scope) | Tiempo de Vida (Lifetime) | Región de Memoria | Directiva de la Cátedra |
+| :--- | :--- | :--- | :--- | :--- |
+| **Local (Automática)** | De bloque o función | Duración del bloque/función | Stack (Pila) | {ref}`0x2007h` (Reducir el alcance) |
+| **Global** | Todo el archivo / programa | Toda la ejecución del programa | Segmento de datos | {ref}`0x2004h` (Prohibición absoluta) |
+| **Local Estática (`static`)** | Local al bloque/función | Toda la ejecución del programa | Segmento de datos | Usar con moderación |
+:::
+
+```{figure} 3/scopes_hierarchy.svg
+:label: fig-scopes-hierarchy
 :width: 100%
 
 Jerarquía de alcances en C mostrando el scope global, de función y de bloque.
@@ -216,9 +226,9 @@ int main() {
 }
 ```
 
-### Variables locales
+### Variables Locales (Automáticas)
 
-Las variables locales se declaran dentro de una función, pero fuera de cualquier bloque de código interno (como un `if` o un `for`). Su alcance se limita a la función en la que fueron declaradas. Se liberan de la memoria cuando la función termina su ejecución.
+Las variables locales se declaran dentro de una función, pero fuera de cualquier bloque de código interno (como un `if` o un `for`). Su alcance se limita a la función en la que fueron declaradas. Se liberan de la memoria automáticamente cuando la función termina su ejecución.
 
 :::{tip} Gestión Automática de Memoria
 Las variables locales se almacenan en el **stack** (pila), una región de memoria gestionada automáticamente por el sistema. Cuando una función se llama, se crea un marco de pila (stack frame) con todas sus variables locales; cuando termina, ese marco se libera automáticamente. Para entender en profundidad cómo funciona este mecanismo, consultá el [](11_memoria).
@@ -241,7 +251,7 @@ int main() {
 
 La `variableLocal` solo es accesible desde `miFuncion`.
 
-### Variable de bloque
+### Variables de Bloque
 
 Son variables declaradas dentro de un bloque de código específico, que se delimita por llaves `{}`. Su alcance es aún más restringido: solo existen desde el punto de su declaración hasta el final de ese bloque. Son comunes en lazos y condicionales.
 
@@ -269,13 +279,59 @@ int main() {
 
 La `variableBloque` solo es accesible dentro de las llaves del `if`, y la variable `i` solo existe dentro del lazo `for`.
 
+### El Modificador de Almacenamiento `static`
+
+Cuando aplicás el modificador `static` a una variable local, alterás su tiempo de vida sin modificar su ámbito de visibilidad. La variable persistirá en el segmento de datos durante toda la ejecución del programa, inicializándose una única vez al comenzar. Sin embargo, su visibilidad permanece restringida únicamente al bloque de la función donde fue declarada.
+
+Analizá el comportamiento con este ejemplo comparativo:
+
+```c
+#include <stdio.h>
+
+void contador_normal() {
+    int contador = 0; // Local automática: se inicializa y destruye en cada llamada
+    contador++;
+    printf("Contador Normal: %d\n", contador);
+}
+
+void contador_static() {
+    static int contador = 0; // Local estática: se inicializa una sola vez y persiste
+    contador++;
+    printf("Contador Static: %d\n", contador);
+}
+
+int main(void) {
+    contador_normal();
+    contador_static();
+    printf("---\n");
+    contador_normal();
+    contador_static();
+    return 0;
+}
+```
+
+Salida del programa:
+```
+Contador Normal: 1
+Contador Static: 1
+---
+Contador Normal: 1
+Contador Static: 2
+```
+
+En este fragmento, `contador_normal` se reinicia a `0` en cada invocación porque su espacio en el stack se libera al retornar. En contraste, `contador_static` retiene su valor anterior entre ejecuciones porque reside de forma permanente en el segmento de datos.
+
+:::{warning} Efecto Secundario y Pureza
+El uso de `static` conserva el estado de la variable local entre ejecuciones de la función. Esto rompe la noción de función pura y puede dificultar las pruebas unitarias al hacer que el resultado de una llamada dependa de las ejecuciones anteriores. Utilizalo solo cuando el diseño técnico lo requiera expresamente.
+:::
+
 ### Ocultamiento de variables (Shadowing)
 
 El *shadowing* ocurre cuando declarás una variable en un alcance interno (por ejemplo, en un lazo o un bloque) con el mismo nombre que una variable en un alcance externo. La variable del alcance más interno "oculta" a la del alcance más externo dentro de su bloque.
 
 Cuando esto sucede, la variable del alcance más interno "oculta" o le hace "sombra" (shadow) a la del alcance más externo. Dentro de ese bloque interno, cualquier referencia a ese nombre de variable se resolverá a la variable más cercana (la interna), haciendo que la externa sea _temporalmente_ inaccesible por su nombre.
 
-```{figure} ./3/shadowing.svg
+```{figure} 3/shadowing.svg
 :name: fig-shadowing
 :width: 100%
 
@@ -302,7 +358,7 @@ int main() {
 Y la salida, queda como:
 
 ```
-En main, 'valor' es: 10
+En main, 'i' es: 10
 Dentro del for, 'i' es: 5
 Dentro del for, 'i' es: 4
 Dentro del for, 'i' es: 3
@@ -611,11 +667,10 @@ obtenido.
 #define DIV_CERO -99999
 
 /**
- * Calcula el cociente entero entre dos números.
+ * Calcula el cociente entero entre dos números de forma segura.
  *
  * @param dividendo El número que será dividido (numerador).
  * @param divisor El número por el cual se dividirá (denominador).
- *      #PRE 'divisor' debe ser distinto a 0.
  * @return El resultado de dividir dividendo por divisor, o el código de error
  *         DIV_CERO si el divisor es 0.
  *      #POST Si el divisor es 0 se retorna DIV_CERO. De lo contrario, se 
@@ -762,76 +817,7 @@ int main() {
 ```
 :::
 
----
 
-## Ámbito de Variables y el Modificador `static`
-
-Para programar de forma modular en C, tenés que dominar cómo se relacionan el **ámbito (scope)** de una variable —dónde es visible y accesible su identificador— y su **tiempo de vida (lifetime)** —duración de su almacenamiento en memoria—.
-
-La tabla {numref}`tbl-ambitos-y-tiempos` resume de forma estructurada las diferencias conceptuales entre las variables locales, globales y locales estáticas:
-
-:::{table} Comparación de ámbitos, tiempos de vida y almacenamiento
-:label: tbl-ambitos-y-tiempos
-
-| Tipo de Variable | Ámbito (Scope) | Tiempo de Vida (Lifetime) | Región de Memoria | Directiva de la Cátedra |
-| :--- | :--- | :--- | :--- | :--- |
-| **Local (Automática)** | De bloque o función | Duración del bloque/función | Stack (Pila) | {ref}`0x2007h` (Reducir el alcance) |
-| **Global** | Todo el archivo / programa | Toda la ejecución del programa | Segmento de datos | {ref}`0x2004h` (Prohibición absoluta) |
-| **Local Estática (`static`)** | Local al bloque/función | Toda la ejecución del programa | Segmento de datos | Usar con moderación |
-:::
-
-### Variables Locales vs. Globales
-
-1. **Variables locales:** Se declaran dentro de un bloque o función. Su existencia es efímera, naciendo y muriendo con la ejecución de su bloque contenedor en el Stack. Esto garantiza el aislamiento y evita colisiones de nombres.
-2. **Variables globales:** Se declaran fuera de todas las funciones. Aunque permiten compartir datos fácilmente, introducen acoplamiento oculto y efectos secundarios impredecibles. De acuerdo con la regla {ref}`0x2004h`, **no debés usarlas**.
-
-### El Modificador de Almacenamiento `static`
-
-Cuando aplicás el modificador `static` a una variable local, alterás su tiempo de vida sin modificar su ámbito. La variable persistirá en el segmento de datos durante toda la ejecución del programa, inicializándose una única vez al comenzar. Sin embargo, su visibilidad permanece restringida únicamente al bloque de la función donde fue declarada.
-
-Analizá el comportamiento con este ejemplo comparativo:
-
-```c
-#include <stdio.h>
-
-void contador_normal() {
-    int contador = 0; // Local automática: se inicializa y destruye en cada llamada
-    contador++;
-    printf("Contador Normal: %d\n", contador);
-}
-
-void contador_static() {
-    static int contador = 0; // Local estática: se inicializa una sola vez y persiste
-    contador++;
-    printf("Contador Static: %d\n", contador);
-}
-
-int main(void) {
-    contador_normal();
-    contador_static();
-    printf("---\n");
-    contador_normal();
-    contador_static();
-    return 0;
-}
-```
-
-Salida del programa:
-```
-Contador Normal: 1
-Contador Static: 1
----
-Contador Normal: 1
-Contador Static: 2
-```
-
-En este fragmento, `contador_normal` se reinicia a `0` en cada invocación porque su espacio en el stack se libera al retornar. En contraste, `contador_static` retiene su valor anterior entre ejecuciones porque reside de forma permanente en el segmento de datos.
-
-:::{warning} Efecto Secundario y Pureza
-El uso de `static` conserva el estado interno de la función entre ejecuciones. Esto rompe la noción de función pura y puede dificultar las pruebas unitarias al hacer que el resultado de una llamada dependa de las ejecuciones anteriores. Utilizalo solo cuando el diseño técnico lo justifique plenamente.
-:::
-
----
 
 ## Glosario
 

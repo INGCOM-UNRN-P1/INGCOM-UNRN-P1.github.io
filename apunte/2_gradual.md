@@ -266,21 +266,25 @@ Si declarás una variable sin inicializarla, su contenido inicial en memoria fí
 
 ### L-Values y R-Values (Asignación y Expresiones)
 
-Para comprender cómo el compilador evalúa y almacena los datos durante una asignación, tenés que conocer las dos categorías de expresiones en C: **L-values** y **R-values**.
+Para comprender cómo el compilador evalúa y almacena los datos durante una asignación, tenés que conocer las dos categorías de expresiones en C: **L-values** y **R-values**, según lo define formalmente el estándar del lenguaje.
 
-#### L-Values (locator values / left values)
-Representan una ubicación física y persistente de memoria (la dirección de una variable en la memoria RAM).
-- Pensalo como una "caja etiquetada" en la cual podés almacenar un resultado.
+#### L-Values (locator values / object locators)
+Un **L-value** es una expresión que identifica o localiza un objeto persistente en memoria (es decir, una celda física de memoria direccionable).
+- Pensalo como una ubicación o "contenedor" que posee una dirección física en memoria lógica.
 - Puede aparecer tanto a la izquierda como a la derecha de un operador de asignación (`=`).
-- Ejemplo: en `int x = 10;`, `x` es un L-value ya que referencia a una celda física de memoria asignada por el sistema.
+- Son obligatorios para ciertos operadores fundamentales:
+  - El operador de dirección (`&`), ya que solo se puede obtener la dirección en memoria de un objeto con ubicación física.
+  - Los operadores de incremento (`++`) y decremento (`--`), porque requieren leer y reescribir sobre una posición de memoria persistente.
+- Ejemplo: en `int x = 10;`, la expresión `x` es un L-value ya que referencia a una celda física de memoria asignada por el sistema.
 
-#### R-Values (read values / right values)
-Representan un valor temporal o literal de solo lectura. No poseen una ubicación de memoria direccionable de forma de almacenamiento persistente.
+#### R-Values (value of an expression)
+Un **R-value** representa simplemente el valor de una expresión. No posee una ubicación de memoria direccionable de almacenamiento persistente; es un valor transitorio.
 - Solo pueden aparecer en el lado derecho de un operador de asignación.
+- No es posible aplicarles el operador de dirección `&` ni los operadores `++`/`--`.
 - Ejemplos comunes de R-values:
   - Literales numéricos o caracteres (`10`, `3.14f`, `'A'`).
-  - Resultados de operaciones matemáticas o lógicas (`a + b`, `x * 5`).
-  - Valores retornados por llamadas a funciones (`obtener_limite()`).
+  - Resultados de expresiones matemáticas o lógicas (`a + b`, `x * 5`).
+  - Valores de retorno temporales de funciones.
 
 #### Restricciones del compilador
 Intentar realizar asignaciones sobre un R-value producirá un error inmediato en tiempo de compilación.
@@ -295,6 +299,8 @@ y = x + 5;       // VÁLIDO: 'y' es un L-value, 'x + 5' evalúa a un R-value.
 // Asignaciones inválidas que causan ERROR DE COMPILACIÓN:
 // 100 = x;      // ERROR: el literal '100' es un R-value, no podés asignarle nada.
 // (x + y) = 15; // ERROR: la expresión 'x + y' es un R-value temporal sin dirección física.
+// &x = &y;      // ERROR: la expresión de la izquierda no es un L-value asignable.
+// &(x + 5);     // ERROR: el operador de dirección (&) requiere un L-value.
 ```
 
 
@@ -751,13 +757,23 @@ int main() {
 :::{solution} lazo_break
 :label: solucion-lazo_break
 :class: dropdown
+:for: lazo_break
+Se reestructura el lazo reemplazando el `for` e implementando un lazo `while` controlado por una bandera lógica booleana (`bool`) del encabezado `<stdbool.h>` que se establece en `false` al alcanzar la condición de parada:
+
 ```{code-block} c
 :linenos:
 #include <stdio.h>
+#include <stdbool.h>
 
 int main() {
-    for (int i = 0; i < 5; i++) {
+    int i = 0;
+    bool continuar = true;
+    while (i < 10 && continuar) {
         printf("valor actual: %d\n", i);
+        if (i == 4) {
+            continuar = false;
+        }
+        i++;
     }
     return 0;
 }
@@ -793,15 +809,17 @@ int main()
 :label: solucion-lazo_continue
 :class: dropdown
 :for: lazo_continue
-Se reestructura modificando el incremento del contador del lazo `for` para evaluar de forma directa y secuencial únicamente los números impares:
+Se reestructura el lazo eliminando la instrucción `continue` y encerrando el cuerpo restante del lazo dentro de una condición positiva que filtra los elementos que se desean procesar (en este caso, los impares):
 
 ```{code-block} c
 :linenos:
 #include <stdio.h>
 
-int main(){
-    for (int i = 1; i <= 10; i = i + 2) {
-        printf("i = %d\n", i);
+int main() {
+    for (int i = 0; i <= 10; i++) {
+        if (i % 2 != 0) {
+            printf("i = %d\n", i);
+        }
     }
     return 0;
 }
@@ -903,8 +921,9 @@ int main() {
     printf("Ingresá tu edad: ");
     scanf("%d", &edad);
 
-    // Purgado del buffer: lee y descarta caracteres hasta el salto de línea
-    char c = ' ';
+    // Purgado del buffer: lee y descarta caracteres hasta el salto de línea.
+    // Usamos 'int' y no 'char' porque getchar() retorna un entero para representar EOF (-1).
+    int c = 0;
     while ((c = getchar()) != '\n' && c != EOF) {
         // Lazo vacío: solo consume el buffer residual
     }
@@ -917,7 +936,7 @@ int main() {
 }
 ```
 
-La condición `(c = getchar()) != '\n' && c != EOF` realiza tres acciones: lee un carácter de `stdin`, lo asigna a `c`, y continúa la iteración del lazo mientras no sea un salto de línea ni el fin del archivo (`EOF`).
+La condición `(c = getchar()) != '\n' && c != EOF` realiza tres acciones: lee un carácter de `stdin`, lo asigna a `c`, y continúa la iteración del lazo mientras no sea un salto de línea ni el fin del archivo (`EOF`). Se declara `c` como `int` porque la macro `EOF` representa habitualmente el valor entero `-1`. En plataformas donde el tipo `char` es `unsigned` (sin signo) por defecto, una variable `char` no podría almacenar un valor negativo, provocando un lazo infinito al comparar contra `EOF`.
 
 
 ## Ejercicios de Práctica
@@ -926,8 +945,8 @@ La condición `(c = getchar()) != '\n' && c != EOF` realiza tres acciones: lee u
 2. Diseñá un programa que imprima en pantalla los números enteros del 1 al 100 utilizando un lazo `for`.
 3. Desarrollá un algoritmo que sume los números pares comprendidos en el rango del 1 al 100 inclusive.
 4. Escribí un programa que solicite un número entero positivo e indique si es un número primo (divisible únicamente por 1 y por sí mismo).
-6. Escribí un programa que pida una calificación (0 a 10) e indique si el estudiante aprobó (calificación mayor o igual a 4).
-7. Escribí un programa que solicite repetidamente una contraseña de caracteres al usuario hasta que coincida con un valor establecido de acceso seguro.
+5. Escribí un programa que pida una calificación (0 a 10) e indique si el estudiante aprobó (calificación mayor o igual a 4).
+6. Escribí un programa que solicite repetidamente una contraseña de caracteres al usuario hasta que coincida con un valor establecido de acceso seguro.
 
 ---
 

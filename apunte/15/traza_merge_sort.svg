@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="750" height="480" viewBox="0 0 750 480" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .bg { fill: #f8f9fa; }
+      .title { font-family: 'Fabrikat', Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #192437; text-anchor: middle; }
+      .subtitle { font-family: 'Lato', Arial, sans-serif; font-size: 12px; fill: #555555; text-anchor: middle; }
+      .node-box { fill: #ffffff; stroke: #192437; stroke-width: 2; rx: 4px; }
+      .node-base { fill: #eef2f7; stroke: #192437; stroke-width: 2; rx: 4px; }
+      .node-merge { fill: #fff3f3; stroke: #eb2141; stroke-width: 2; rx: 4px; }
+      .text-title { font-family: 'Fabrikat', Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #192437; text-anchor: middle; }
+      .text-data { font-family: 'Share Tech Mono', monospace; font-size: 14px; fill: #192437; text-anchor: middle; }
+      .text-desc { font-family: 'Lato', Arial, sans-serif; font-size: 11px; fill: #555555; text-anchor: middle; }
+      .arrow-down { stroke: #192437; stroke-width: 1.5; stroke-dasharray: 4 2; fill: none; }
+      .arrow-up { stroke: #eb2141; stroke-width: 2; fill: none; }
+      .step-badge { fill: #eb2141; }
+      .step-text { font-family: 'Lato', Arial, sans-serif; font-size: 11px; font-weight: bold; fill: #ffffff; text-anchor: middle; }
+    </style>
+    <marker id="arrowhead-dark" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#192437"/>
+    </marker>
+    <marker id="arrowhead-red" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#eb2141"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <!-- Encabezado -->
+  <text x="375" y="25" class="title">Traza de Ejecución No Lineal: Merge Sort con [5, 2, 7, 3]</text>
+  <text x="375" y="43" class="subtitle">Descomposición en árbol y combinación recursiva. El orden de ejecución sigue la estrategia de profundidad (DFS).</text>
+
+  <!-- Nivel 0: Arreglo Original -->
+  <g transform="translate(315, 60)">
+    <rect width="120" height="50" class="node-box"/>
+    <text x="60" y="20" class="text-title">mergeSort(arr, 0, 3)</text>
+    <text x="60" y="40" class="text-data">[5, 2, 7, 3]</text>
+  </g>
+
+  <!-- Conexiones Nivel 0 -> Nivel 1 -->
+  <path d="M 320 110 L 210 155" class="arrow-down" marker-end="url(#arrowhead-dark)"/>
+  <path d="M 430 110 L 540 155" class="arrow-down" marker-end="url(#arrowhead-dark)"/>
+
+  <!-- Nivel 1 Izquierdo -->
+  <g transform="translate(130, 160)">
+    <rect width="120" height="50" class="node-box"/>
+    <text x="60" y="20" class="text-title">mergeSort(arr, 0, 1)</text>
+    <text x="60" y="40" class="text-data">[5, 2]</text>
+  </g>
+
+  <!-- Nivel 1 Derecho -->
+  <g transform="translate(500, 160)">
+    <rect width="120" height="50" class="node-box"/>
+    <text x="60" y="20" class="text-title">mergeSort(arr, 2, 3)</text>
+    <text x="60" y="40" class="text-data">[7, 3]</text>
+  </g>
+
+  <!-- Conexiones Nivel 1 -> Nivel 2 (Casos Base) -->
+  <!-- Izquierda -->
+  <path d="M 150 210 L 100 255" class="arrow-down" marker-end="url(#arrowhead-dark)"/>
+  <path d="M 230 210 L 280 255" class="arrow-down" marker-end="url(#arrowhead-dark)"/>
+  <!-- Derecha -->
+  <path d="M 520 210 L 470 255" class="arrow-down" marker-end="url(#arrowhead-dark)"/>
+  <path d="M 600 210 L 650 255" class="arrow-down" marker-end="url(#arrowhead-dark)"/>
+
+  <!-- Nivel 2 (Casos Base, n=1) -->
+  <!-- Izquierda-Izquierda -->
+  <g transform="translate(40, 260)">
+    <rect width="100" height="50" class="node-base"/>
+    <text x="50" y="20" class="text-title">mergeSort(0, 0)</text>
+    <text x="50" y="40" class="text-data">[5]</text>
+    <text x="50" y="-8" class="text-desc">Caso Base</text>
+  </g>
+  <!-- Izquierda-Derecha -->
+  <g transform="translate(240, 260)">
+    <rect width="100" height="50" class="node-base"/>
+    <text x="50" y="20" class="text-title">mergeSort(1, 1)</text>
+    <text x="50" y="40" class="text-data">[2]</text>
+    <text x="50" y="-8" class="text-desc">Caso Base</text>
+  </g>
+  <!-- Derecha-Izquierda -->
+  <g transform="translate(410, 260)">
+    <rect width="100" height="50" class="node-base"/>
+    <text x="50" y="20" class="text-title">mergeSort(2, 2)</text>
+    <text x="50" y="40" class="text-data">[7]</text>
+    <text x="50" y="-8" class="text-desc">Caso Base</text>
+  </g>
+  <!-- Derecha-Derecha -->
+  <g transform="translate(610, 260)">
+    <rect width="100" height="50" class="node-base"/>
+    <text x="50" y="20" class="text-title">mergeSort(3, 3)</text>
+    <text x="50" y="40" class="text-data">[3]</text>
+    <text x="50" y="-8" class="text-desc">Caso Base</text>
+  </g>
+
+  <!-- Fusiones (Combinar) de retorno -->
+  <!-- Fusión Izquierda -->
+  <path d="M 90 310 C 90 370, 290 370, 290 310" class="arrow-up" marker-end="url(#arrowhead-red)"/>
+  <g transform="translate(130, 360)">
+    <rect width="120" height="50" class="node-merge"/>
+    <text x="60" y="20" class="text-title" fill="#eb2141">merge(0, 0, 1)</text>
+    <text x="60" y="40" class="text-data" fill="#eb2141">[2, 5]</text>
+  </g>
+
+  <!-- Fusión Derecha -->
+  <path d="M 460 310 C 460 370, 660 370, 660 310" class="arrow-up" marker-end="url(#arrowhead-red)"/>
+  <g transform="translate(500, 360)">
+    <rect width="120" height="50" class="node-merge"/>
+    <text x="60" y="20" class="text-title" fill="#eb2141">merge(2, 2, 3)</text>
+    <text x="60" y="40" class="text-data" fill="#eb2141">[3, 7]</text>
+  </g>
+
+  <!-- Retorno al Nivel 1 Izquierdo modificado -->
+  <path d="M 190 360 L 190 215" class="arrow-up" marker-end="url(#arrowhead-red)"/>
+  <!-- Retorno al Nivel 1 Derecho modificado -->
+  <path d="M 560 360 L 560 215" class="arrow-up" marker-end="url(#arrowhead-red)"/>
+
+  <!-- Fusión Final -->
+  <path d="M 190 160 C 190 115, 560 115, 560 160" class="arrow-up" marker-end="url(#arrowhead-red)"/>
+  <g transform="translate(315, 120)">
+    <rect width="120" height="40" class="node-merge" style="fill: #ffebeb;"/>
+    <text x="60" y="16" class="text-title" fill="#eb2141">merge(0, 1, 3)</text>
+    <text x="60" y="32" class="text-data" fill="#eb2141">[2, 3, 5, 7]</text>
+  </g>
+  <path d="M 375 120 L 375 112" class="arrow-up" marker-end="url(#arrowhead-red)"/>
+
+  <!-- Números de Paso (DFS) -->
+  <circle cx="280" cy="85" r="10" class="step-badge"/>
+  <text x="280" y="89" class="step-text">1</text>
+
+  <circle cx="100" cy="185" r="10" class="step-badge"/>
+  <text x="100" y="189" class="step-text">2</text>
+
+  <circle cx="260" cy="235" r="10" class="step-badge"/>
+  <text x="260" y="239" class="step-text">3</text>
+
+  <circle cx="190" cy="335" r="10" class="step-badge"/>
+  <text x="190" y="339" class="step-text">4</text>
+
+  <circle cx="470" cy="185" r="10" class="step-badge"/>
+  <text x="470" y="189" class="step-text">5</text>
+
+  <circle cx="630" cy="235" r="10" class="step-badge"/>
+  <text x="630" y="239" class="step-text">6</text>
+
+  <circle cx="560" cy="335" r="10" class="step-badge"/>
+  <text x="560" y="339" class="step-text">7</text>
+
+  <circle cx="375" cy="175" r="10" class="step-badge"/>
+  <text x="375" y="179" class="step-text">8</text>
+</svg>

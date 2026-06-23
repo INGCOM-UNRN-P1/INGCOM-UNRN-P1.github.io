@@ -16,23 +16,25 @@ amplía el manejo de archivos de texto, cubriendo no solo las operaciones básic
 sino también el posicionamiento dentro del archivo y, de manera crucial, una
 gestión de errores detallada y profesional.
 
-:::{figure} 8/file_operations_flow.svg
+```{figure} 8/file_operations_flow.svg
 :name: fig-file-operations-flow
 :alt: Flujo completo de operaciones con archivos
+:align: center
 
 Diagrama de flujo que muestra la secuencia completa de operaciones al trabajar con archivos: abrir, verificar NULL, realizar operaciones, verificar errores y cerrar.
-:::
+```
 
 ## El `FILE`, la conexión con el archivo
 
 Toda operación sobre archivos en C se realiza a través de un puntero a una estructura especial y opaca llamada `FILE`. Esta estructura, definida en la biblioteca estándar `<stdio.h>`, actúa como un intermediario que contiene toda la información de estado necesaria para gestionar el flujo de datos ( _stream_ ) hacia y desde el archivo.
 
-:::{figure} 8/file_pointer_concept.svg
+```{figure} 8/file_pointer_concept.svg
 :name: fig-file-pointer-concept
 :alt: Concepto del puntero FILE* como intermediario
+:align: center
 
 El puntero `FILE*` actúa como "manija" o "handle" que conecta tu programa con el archivo físico en disco. La estructura FILE contiene toda la información necesaria para gestionar las operaciones.
-:::
+```
 
 Dentro de esta estructura, el sistema operativo y la biblioteca estándar de C manejan los detalles como:
 
@@ -95,7 +97,7 @@ devuelve un puntero a dicha estructura. Si por alguna razón la operación falla
 :::{important} ¡La verificación con `NULL` es obligatoria!
 Nunca asumas que `fopen()` tendrá éxito. Una de las fuentes más comunes de
 errores y caídas inesperadas en programas de C es no verificar si el puntero
-devuelto es `NULL` antes de intentar usarlo, una práctica exigida por la regla de estilo {ref}`0_estilo.md:0x4001h`.
+devuelto es `NULL` antes de intentar usarlo, una práctica exigida por la regla de estilo {ref}`0x4001h`.
 
 Esta función puede fallar de muchas formas y que no dependen de nuestro
 programa, con situaciones como, problemas de permisos, si el archivo existe (o
@@ -123,12 +125,13 @@ Elegir el modo correcto es fundamental, ya que determina el comportamiento del
 puntero del archivo y lo que sucede con el contenido que ya estaba en el
 archivo.
 
-:::{figure} 8/fopen_modes.svg
+```{figure} 8/fopen_modes.svg
 :name: fig-fopen-modes
 :alt: Modos de apertura de archivos con fopen()
+:align: center
 
 Guía visual de los diferentes modos de apertura y un diagrama de decisión para elegir el modo correcto según tus necesidades.
-:::
+```
 
 ```{list-table}
 :header-rows: 1
@@ -427,7 +430,7 @@ int fgetc(FILE *stream);
 
 ### `fgets`
 
-La función `fgets` se utiliza para leer una línea o una cadena de caracteres desde un flujo de archivo. Es más segura que la antigua función `gets` porque permite especificar un tamaño máximo para el búfer, evitando desbordamientos, una práctica recomendada por la regla {ref}`0_estilo.md:0x5006h`.
+La función `fgets` se utiliza para leer una línea o una cadena de caracteres desde un flujo de archivo. Es más segura que la antigua función `gets` porque permite especificar un tamaño máximo para el búfer, evitando desbordamientos, una práctica recomendada por la regla {ref}`0x5006h`.
 
 ```{code-block}c
 /**
@@ -685,7 +688,7 @@ Devuelve `0` si tiene éxito y `EOF` si ocurre un error.
 Siempre tenés que cerrar el archivo que abriste. No hacerlo puede resultar en
 pérdida de datos, corrupción de archivos y agotamiento de recursos del sistema.
 Es una de las causas más comunes de errores sutiles en programas que manejan
-archivos y una violación de la regla de estilo {ref}`0_estilo.md:0x4001h`.
+archivos y una violación de la regla de estilo {ref}`0x4001h`.
 ::: 
 
 Aunque parezca una simple formalidad, la llamada a `fclose()` también puede
@@ -809,6 +812,117 @@ fprintf(stderr, "[FATAL] Imposible acceder al recurso. Razón: %s\n", strerror(e
 // [FATAL] Imposible acceder al recurso. Razón: Permission denied
 ```
 
+## Posicionamiento en Archivos: Acceso Aleatorio
+
+No siempre querés leer un archivo secuencialmente. Las funciones de posicionamiento te permiten moverte a cualquier punto del archivo.
+
+### `ftell`
+
+La función `ftell` se utiliza para obtener la posición actual del indicador de posición del fichero (el "cursor") dentro de un flujo. Devuelve esta posición como un número de bytes desde el inicio del archivo.
+
+```{code-block}c
+/**
+ * @brief Obtiene la posición actual del indicador de posición del fichero.
+ *
+ * @param[in] stream Puntero al objeto `FILE` que identifica el flujo.
+ *
+ * @return Si es exitoso, devuelve el valor actual del indicador de posición.
+ * @return En caso de error, devuelve -1L y la variable global `errno` se establece a un valor positivo.
+ */
+long int ftell(FILE *stream);
+```
+
+### `fseek`
+
+La función `fseek` es la herramienta principal para mover el indicador de posición del fichero a una ubicación específica dentro del flujo. Permite un control preciso, moviendo el cursor un número determinado de bytes (`offset`) desde un punto de origen (`origin`).
+
+```{code-block}c
+/**
+ * @brief Establece el indicador de posición del fichero a una nueva posición.
+ *
+ * @param stream Puntero al objeto `FILE` que identifica el flujo.
+ * @param offset Desplazamiento en bytes relativo al parámetro `origin`.
+ * @param origin Posición desde donde se calcula el desplazamiento. Los valores pueden ser:
+ * - `SEEK_SET`: Inicio del archivo.
+ * - `SEEK_CUR`: Posición actual.
+ * - `SEEK_END`: Final del archivo.
+ *
+ * @return Devuelve 0 si la operación es exitosa.
+ *         Devuelve un valor distinto de cero en caso de error.
+ */
+int fseek(FILE *stream, long int offset, int origin);
+```
+
+### `rewind`
+
+La función `rewind` es un caso especial y simplificado de `fseek`. Su única función es mover el indicador de posición del fichero de vuelta al inicio del archivo. Además, limpia cualquier indicador de error que pudiera tener el flujo.
+
+```{code-block}c
+/**
+ * Reposiciona el indicador de posición del fichero al inicio del flujo.
+ *
+ * Esta función es funcionalmente equivalente a fseek(stream, 0L, SEEK_SET),
+ * pero además borra el indicador de error del flujo.
+ *
+ * @param stream Puntero al objeto `FILE` que identifica el flujo.
+ */
+void rewind(FILE *stream);
+```
+
+### Ejemplo de uso
+
+```{code-block}c
+:caption: Uso de fseek() y ftell() para leer el último carácter
+:label: fseek-example
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+    FILE *archivo = fopen("factura.txt", "r");
+    if (!archivo) {
+        perror("No se pudo abrir el archivo");
+        return EXIT_FAILURE;
+    }
+
+    // Moverse al final del archivo
+    if (fseek(archivo, 0, SEEK_END) != 0) {
+        perror("Error en fseek a SEEK_END");
+        fclose(archivo);
+        return EXIT_FAILURE;
+    }
+
+    // Obtener la posición actual, que es el tamaño del archivo
+    long tamano = ftell(archivo);
+    if (tamano == -1L) {
+        perror("Error en ftell");
+        fclose(archivo);
+        return EXIT_FAILURE;
+    }
+    printf("El archivo tiene %ld bytes.\n", tamano);
+
+    // Moverse a la posición ANTERIOR al último byte para leerlo.
+    // Si el archivo termina con \n, esto leerá el carácter previo.
+    if (tamano > 1 && fseek(archivo, -2L, SEEK_END) != 0) {
+        perror("Error en fseek para leer el último carácter");
+        fclose(archivo);
+        return EXIT_FAILURE;
+    }
+
+    int ultimo_caracter = fgetc(archivo);
+    if (ultimo_caracter != EOF) {
+        printf("El último carácter imprimible del archivo es: \x27%c\x27\n", (char)ultimo_caracter);
+    }
+
+    // Volver al principio
+    rewind(archivo);
+    printf("Después de \x27rewind\x27, la posición es: %ld\n", ftell(archivo));
+
+    fclose(archivo);
+    return EXIT_SUCCESS;
+}
+```
+
 ## Ejercicios Propuestos
 
 ```{exercise}
@@ -820,7 +934,8 @@ fprintf(stderr, "[FATAL] Imposible acceder al recurso. Razón: %s\n", strerror(e
 Creá una función que reciba el nombre de un archivo y una cadena de texto. La función debe abrir el archivo en modo "append" (añadir) y escribir la cadena de texto seguida de un salto de línea. Asegurate de manejar todos los posibles errores de apertura, escritura y cierre.
 ```
 
-````{solution} ejercicio_archivos_1
+````{solution}
+:for: ejercicio_archivos_1
 :class: dropdown
 
 ```{code-block}c
@@ -918,7 +1033,8 @@ int main(void)
 Escribí una función que reciba el nombre de un archivo, lo lea y devuelva la cantidad de líneas que contiene. Una línea se define como una secuencia de caracteres terminada por un `\n`. La función debe devolver un número negativo en caso de error.
 ```
 
-````{solution} ejercicio_archivos_2
+````{solution}
+:for: ejercicio_archivos_2
 :class: dropdown
 
 ```{code-block}c
@@ -1019,7 +1135,8 @@ int main(void)
 Implementá una función que copie el contenido de un archivo de origen a un archivo de destino. La función debe leer el archivo de origen línea por línea y escribir cada línea en el archivo de destino. Debe manejar errores para ambos archivos (apertura, lectura, escritura y cierre).
 ```
 
-````{solution} ejercicio_archivos_3
+````{solution}
+:for: ejercicio_archivos_3
 :class: dropdown
 
 ```{code-block}c
@@ -1148,7 +1265,8 @@ int main(void)
 Crea una función `registrar_evento` que reciba un mensaje y lo añada a un archivo llamado `eventos.log`. La función debe asegurarse de que cada mensaje nuevo se agregue al final del archivo, sin borrar el contenido anterior. Por simplicidad, no es necesario agregar una marca de tiempo.
 ```
 
-````{solution} ejercicio_archivos_4
+````{solution}
+:for: ejercicio_archivos_4
 :class: dropdown
 
 ```{code-block}c
@@ -1246,7 +1364,8 @@ Monitor 24 pulgadas,300.25,1
 Webcam,no_es_un_precio,3
 ```
 
-````{solution} ejercicio_archivos_5
+````{solution}
+:for: ejercicio_archivos_5
 :class: dropdown
 
 ```{code-block}c
@@ -1288,27 +1407,25 @@ int procesar_ventas(const char *nombre_archivo)
     {
         numero_linea++;
 
-        // Ignorar líneas vacías o que son comentarios
-        if (buffer[0] == '\n' || buffer[0] == '#')
+        // Ignorar líneas vacías o comentarios usando lógica positiva conforme a la regla 0x1002h
+        if (buffer[0] != '\n' && buffer[0] != '#')
         {
-            continue; // Esta es una excepción permitida a la regla {ref}`0_estilo.md:0x1002h`
-        }
+            char nombre_producto[MAX_PRODUCTO];
+            double precio = 0.0;
+            int cantidad = 0;
 
-        char nombre_producto[MAX_PRODUCTO];
-        double precio = 0.0;
-        int cantidad = 0;
+            // Usar sscanf para parsear la línea. Formato: string-hasta-coma,double,int
+            int campos_leidos = sscanf(buffer, "%99[^,],%lf,%d", nombre_producto, &precio, &cantidad);
 
-        // Usar sscanf para parsear la línea. Formato: string-hasta-coma,double,int
-        int campos_leidos = sscanf(buffer, "%99[^,],%lf,%d", nombre_producto, &precio, &cantidad);
-
-        if (campos_leidos == 3)
-        {
-            double total_linea = precio * (double)cantidad;
-            printf("Línea %zu: Producto '%s', Total: %.2f\n", numero_linea, nombre_producto, total_linea);
-        }
-        else
-        {
-            fprintf(stderr, "[Advertencia] Línea %zu mal formada: %s", numero_linea, buffer);
+            if (campos_leidos == 3)
+            {
+                double total_linea = precio * (double)cantidad;
+                printf("Línea %zu: Producto \x27%s\x27, Total: %.2f\n", numero_linea, nombre_producto, total_linea);
+            }
+            else
+            {
+                fprintf(stderr, "[Advertencia] Línea %zu mal formada: %s", numero_linea, buffer);
+            }
         }
     }
 
@@ -1344,7 +1461,7 @@ int main(void)
         fclose(p_temp);
     }
 
-    printf("Procesando archivo '%s'...\n", ARCHIVO_VENTAS);
+    printf("Procesando archivo \x27%s\x27...\n", ARCHIVO_VENTAS);
     if (procesar_ventas(ARCHIVO_VENTAS) == ERROR)
     {
         fprintf(stderr, "No se pudo completar el procesamiento del archivo.\n");
@@ -1354,125 +1471,135 @@ int main(void)
     printf("\nProcesamiento finalizado.\n");
     return EXIT_SUCCESS;
 }
-
 ```
-
-:::{note} Excepción a la regla {ref}`0_estilo.md:0x1002h`
-En la solución del ejercicio 5, se utiliza `continue` para saltar líneas vacías o comentarios. Si bien la regla de estilo general es evitar `break` y `continue`, este es un caso de uso común y aceptado donde su aplicación simplifica la lógica y mejora la legibilidad, al evitar un nivel de anidamiento (`if`) para el resto del código del lazo. Es una excepción pragmática a la regla.
-:::
-
 ````
 
-## Posicionamiento en Archivos: Acceso Aleatorio
+```{exercise}
+:label: ejercicio_archivos_6
+:enumerator: 6
 
-No siempre querés leer un archivo secuencialmente. Las funciones de posicionamiento te permiten moverte a cualquier punto del archivo.
+**Inversión de archivo**
 
-### `ftell`
-
-La función `ftell` se utiliza para obtener la posición actual del indicador de posición del fichero (el "cursor") dentro de un flujo. Devuelve esta posición como un número de bytes desde el inicio del archivo.
-
-```{code-block}c
-/**
- * @brief Obtiene la posición actual del indicador de posición del fichero.
- *
- * @param[in] stream Puntero al objeto `FILE` que identifica el flujo.
- *
- * @return Si es exitoso, devuelve el valor actual del indicador de posición.
- * @return En caso de error, devuelve -1L y la variable global `errno` se establece a un valor positivo.
- */
-long int ftell(FILE *stream);
+Implementá una función `int invertir_archivo(const char *origen, const char *destino)` que reciba el nombre de un archivo de texto existente (`origen`) y genere un nuevo archivo (`destino`) que contenga exactamente el mismo texto pero invertido carácter por carácter (es decir, el último carácter del original será el primero del nuevo, y así sucesivamente). La función debe usar `fseek` y `ftell` para determinar el tamaño del archivo y leer los caracteres desde el final hacia el principio. Debe retornar `0` en caso de éxito y un valor negativo ante fallas de apertura, posicionamiento o escritura.
 ```
 
-### `fseek`
-
-La función `fseek` es la herramienta principal para mover el indicador de posición del fichero a una ubicación específica dentro del flujo. Permite un control preciso, moviendo el cursor un número determinado de bytes (`offset`) desde un punto de origen (`origin`).
-
-```{code-block}c
-/**
- * @brief Establece el indicador de posición del fichero a una nueva posición.
- *
- * @param stream Puntero al objeto `FILE` que identifica el flujo.
- * @param offset Desplazamiento en bytes relativo al parámetro `origin`.
- * @param origin Posición desde donde se calcula el desplazamiento. Los valores pueden ser:
- * - `SEEK_SET`: Inicio del archivo.
- * - `SEEK_CUR`: Posición actual.
- * - `SEEK_END`: Final del archivo.
- *
- * @return Devuelve 0 si la operación es exitosa.
- *         Devuelve un valor distinto de cero en caso de error.
- */
-int fseek(FILE *stream, long int offset, int origin);
-```
-
-### `rewind`
-
-La función `rewind` es un caso especial y simplificado de `fseek`. Su única función es mover el indicador de posición del fichero de vuelta al inicio del archivo. Además, limpia cualquier indicador de error que pudiera tener el flujo.
+````{solution}
+:for: ejercicio_archivos_6
+:class: dropdown
 
 ```{code-block}c
-/**
- * Reposiciona el indicador de posición del fichero al inicio del flujo.
- *
- * Esta función es funcionalmente equivalente a fseek(stream, 0L, SEEK_SET),
- * pero además borra el indicador de error del flujo.
- *
- * @param stream Puntero al objeto `FILE` que identifica el flujo.
- */
-void rewind(FILE *stream);
-```
-
-### Ejemplo de uso
-
-```{code-block}c
-:caption: Uso de fseek() y ftell() para leer el último carácter
-:label: fseek-example
-
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(void) {
-    FILE *archivo = fopen("factura.txt", "r");
-    if (!archivo) {
-        perror("No se pudo abrir el archivo");
-        return EXIT_FAILURE;
+#define EXITO 0
+#define ERROR_APERTURA -1
+#define ERROR_POSICIONAMIENTO -2
+#define ERROR_ESCRITURA -3
+
+int invertir_archivo(const char *origen, const char *destino)
+{
+    FILE *p_origen = fopen(origen, "r");
+    if (p_origen == NULL)
+    {
+        perror("Error al abrir el archivo de origen");
+        return ERROR_APERTURA;
     }
 
-    // Moverse al final del archivo
-    if (fseek(archivo, 0, SEEK_END) != 0) {
-        perror("Error en fseek a SEEK_END");
-        fclose(archivo);
-        return EXIT_FAILURE;
+    FILE *p_destino = fopen(destino, "w");
+    if (p_destino == NULL)
+    {
+        perror("Error al abrir el archivo de destino");
+        fclose(p_origen);
+        return ERROR_APERTURA;
     }
 
-    // Obtener la posición actual, que es el tamaño del archivo
-    long tamano = ftell(archivo);
-    if (tamano == -1L) {
-        perror("Error en ftell");
-        fclose(archivo);
-        return EXIT_FAILURE;
-    }
-    printf("El archivo tiene %ld bytes.\n", tamano);
-
-    // Moverse a la posición ANTERIOR al último byte para leerlo.
-    // Si el archivo termina con \n, esto leerá el carácter previo.
-    if (tamano > 1 && fseek(archivo, -2L, SEEK_END) != 0) {
-        perror("Error en fseek para leer el último carácter");
-        fclose(archivo);
-        return EXIT_FAILURE;
+    // Determinar el tamaño del archivo de origen usando fseek y ftell
+    if (fseek(p_origen, 0L, SEEK_END) != 0)
+    {
+        perror("Error al posicionarse al final del archivo");
+        fclose(p_origen);
+        fclose(p_destino);
+        return ERROR_POSICIONAMIENTO;
     }
 
-    int ultimo_caracter = fgetc(archivo);
-    if (ultimo_caracter != EOF) {
-        printf("El último carácter imprimible del archivo es: '%c'\n", (char)ultimo_caracter);
+    long tamanio = ftell(p_origen);
+    if (tamanio == -1L)
+    {
+        perror("Error al obtener la posición actual (tamaño)");
+        fclose(p_origen);
+        fclose(p_destino);
+        return ERROR_POSICIONAMIENTO;
     }
 
-    // Volver al principio
-    rewind(archivo);
-    printf("Después de 'rewind', la posición es: %ld\n", ftell(archivo));
+    // Leer carácter por carácter desde el final hacia el inicio
+    for (long i = tamanio - 1; i >= 0; i--)
+    {
+        if (fseek(p_origen, i, SEEK_SET) != 0)
+        {
+            perror("Error de posicionamiento en el lazo");
+            fclose(p_origen);
+            fclose(p_destino);
+            return ERROR_POSICIONAMIENTO;
+        }
 
-    fclose(archivo);
-    return EXIT_SUCCESS;
+        int c = fgetc(p_origen);
+        if (c == EOF)
+        {
+            perror("Error al leer carácter");
+            fclose(p_origen);
+            fclose(p_destino);
+            return ERROR_POSICIONAMIENTO;
+        }
+
+        if (fputc(c, p_destino) == EOF)
+        {
+            perror("Error al escribir carácter en destino");
+            fclose(p_origen);
+            fclose(p_destino);
+            return ERROR_ESCRITURA;
+        }
+    }
+
+    fclose(p_origen);
+    if (fclose(p_destino) != 0)
+    {
+        perror("Error al cerrar el archivo de destino");
+        return ERROR_ESCRITURA;
+    }
+
+    return EXITO;
+}
+
+int main(void)
+{
+    const char *ORIGEN = "entrada.txt";
+    const char *DESTINO = "salida_invertida.txt";
+
+    // Crear un archivo de prueba
+    FILE *f = fopen(ORIGEN, "w");
+    if (f != NULL)
+    {
+        fputs("Ingenieria en Computacion UNRN", f);
+        fclose(f);
+    }
+
+    printf("Invirtiendo archivo \x27%s\x27 en \x27%s\x27...\n", ORIGEN, DESTINO);
+    if (invertir_archivo(ORIGEN, DESTINO) == EXITO)
+    {
+        printf("Archivo invertido exitosamente.\n");
+    }
+    else
+    {
+        printf("Ocurrió un error al invertir el archivo.\n");
+    }
+
+    return 0;
 }
 ```
+````
+
+
 
 ## Glosario
 
@@ -1489,10 +1616,11 @@ Búfer
 
     Usar un búfer es como escribir la carta completa en una hoja de papel (el búfer en la memoria). Una vez que terminaste la carta (el búfer se llenó o cerraste el archivo), la llevás al correo en un solo viaje. Este método es mucho más rápido y organizado.
 
-    :::{figure} 8/buffer_concept.svg
+    ```{figure} 8/buffer_concept.svg
     :name: fig-buffer-concept
     :alt: Concepto de búfer en operaciones de archivos
+    :align: center
 
     Comparación entre operaciones sin búfer (ineficientes) y con búfer (eficientes), mostrando cómo el búfer optimiza las operaciones de E/S.
-    :::
+    ```
 :::

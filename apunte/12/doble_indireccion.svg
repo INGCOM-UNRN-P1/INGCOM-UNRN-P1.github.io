@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet href="../resources/svg.css" type="text/css"?>
+<svg width="600" height="350" viewBox="0 0 600 350" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Marcadores de flechas del CSS compartido -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#192437"/>
+    </marker>
+    <marker id="arrowhead-primary" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#eb2141"/>
+    </marker>
+  </defs>
+
+  <!-- Título principal -->
+  <text x="300" y="30" class="title">Esquema Físico de Doble Indirección</text>
+  <text x="300" y="50" class="subtitle">Paso por referencia: inicializar_correcto(&amp;mi_puntero)</text>
+
+  <!-- Contenedor del Stack -->
+  <rect x="40" y="80" width="240" height="230" class="info-box" />
+  <text x="160" y="105" class="label-bold" text-anchor="middle">PILA (STACK)</text>
+
+  <!-- Variable ptr (dentro del frame de inicializar_correcto) -->
+  <rect x="60" y="120" width="200" height="50" class="node" />
+  <text x="70" y="140" class="code-keyword">int **ptr</text>
+  <text x="70" y="155" class="label-small">Dirección de mi_puntero (&amp;mi_puntero)</text>
+  <!-- Caja de puntero -->
+  <rect x="210" y="130" width="40" height="30" class="node-pointer" />
+  <circle cx="230" cy="145" r="4" fill="#192437" />
+
+  <!-- Variable mi_puntero (dentro del frame de main) -->
+  <rect x="60" y="220" width="200" height="50" class="node" />
+  <text x="70" y="240" class="code-keyword">int *mi_puntero</text>
+  <text x="70" y="255" class="label-small">Dirección de memoria en Heap</text>
+  <!-- Caja de puntero -->
+  <rect x="210" y="230" width="40" height="30" class="node-pointer" />
+  <circle cx="230" cy="245" r="4" fill="#192437" />
+
+  <!-- Contenedor del Heap -->
+  <rect x="360" y="80" width="200" height="230" class="highlight-box" />
+  <text x="460" y="105" class="label-bold" text-anchor="middle" fill="#eb2141">MONTÓN (HEAP)</text>
+
+  <!-- Bloque asignado en Heap -->
+  <rect x="380" y="210" width="160" height="70" class="node-highlight" />
+  <text x="390" y="235" class="code">Bloque malloc(sizeof(int))</text>
+  <text x="390" y="255" class="code-keyword">int valor = 42</text>
+
+  <!-- Flechas de conexión -->
+  <!-- De ptr a mi_puntero (indirección 1) -->
+  <path d="M 230,160 L 230,215" class="arrow" marker-end="url(#arrowhead)" />
+  <text x="240" y="195" class="label-small">1a Indirección (*ptr)</text>
+
+  <!-- De mi_puntero a Heap (indirección 2) -->
+  <path d="M 250,245 L 365,245" class="arrow-primary" marker-end="url(#arrowhead-primary)" />
+  <text x="270" y="235" class="label-small" fill="#eb2141">2a Indirección (**ptr)</text>
+
+</svg>

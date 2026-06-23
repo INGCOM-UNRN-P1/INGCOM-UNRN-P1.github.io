@@ -235,10 +235,14 @@ main:
     ret
 ```
 
-Analizar este archivo es una excelente manera de entender cómo tus
-construcciones de C se traducen a operaciones de bajo nivel y cómo el compilador
-aplica optimizaciones.
-````
+Analizar este archivo es una excelente manera de entender cómo tus construcciones de C se traducen a operaciones de bajo nivel y cómo el compilador aplica las convenciones de llamadas de la arquitectura.
+
+En el ejemplo x86-64 anterior bajo Linux, se observa la aplicación de la convención de llamadas estándar **System V AMD64 ABI**:
+1. **Paso de parámetros por registros:** A diferencia de las arquitecturas antiguas de 32 bits que transferían los parámetros mediante la pila, aquí los primeros argumentos de tipo entero se transmiten a través de registros de la CPU: `edi` alberga el primer parámetro (`a`) y `esi` alberga el segundo (`b`).
+2. **Reserva y gestión del Marco de Pila (Stack Frame):**
+   - En la función `suma`, la secuencia `push rbp` y `mov rbp, rsp` resguarda el puntero base del invocador y establece la base del marco actual (`rbp`), sirviendo como referencia para direccionar variables locales y parámetros respaldados (`[rbp-4]` y `[rbp-8]`).
+   - En `main`, la instrucción `sub rsp, 16` desplaza el puntero de pila (`rsp`) reservando 16 bytes de espacio local, manteniendo a su vez la alineación de pila requerida por la ABI antes de realizar una llamada a función.
+3. **Retorno de resultados:** Por convención, el valor de retorno de la función se deposita en el registro acumulador `eax`, de donde `main` lo recupera tras ejecutarse la instrucción `ret` (retorno).
 
 ## Archivos de Cabecera (`.h`) en C
 
@@ -274,9 +278,9 @@ cuando la interfaz (el `.h`) permanezca constante.
 
 ### ¿Qué suelen contener?
 
-Un archivo de cabecera puede contener varias clases de declaraciones, pero nunca
-debería contener definiciones de funciones o inicializaciones de variables
-globales.
+Un archivo de cabecera puede contener varias clases de declaraciones, pero nunca debería contener definiciones de funciones (cuerpos de código) o definiciones/inicializaciones de variables globales.
+
+Esto se debe a la **Regla de Definición Única** (*One Definition Rule* o *ODR*). Si definís una función o una variable global en un archivo `.h`, y luego incluís ese encabezado en múltiples archivos fuente `.c` (que compilan por separado para generar distintos archivos de objeto `.o`), la misma función o variable se definirá físicamente en múltiples unidades de traducción. Al final del proceso, el enlazador (*linker*) fallará con un error del tipo `multiple definition of...` o `symbol redefined`, ya que el sistema es incapaz de decidir a cuál de todas las definiciones idénticas enlazar el programa. En su lugar, el archivo `.h` solo debe declarar la existencia de los elementos (por ejemplo, mediante prototipos de funciones o variables con el calificador `extern`), y el archivo `.c` correspondiente debe definirlos una única vez.
 
 #### Prototipos de Funciones
 
@@ -590,27 +594,15 @@ académico y profesional:
 - `-Werror`: Convierte todas las advertencias en errores fatales. Esto te obliga
   a solucionar cada problema que el compilador señala, fomentando un código más
   limpio y seguro. Es una práctica estándar en entornos de desarrollo serios.
-- `-std=c23`: Especifica la versión del estándar de C que querés usar. Esto
-  asegura que tu código sea portable y no dependa de extensiones específicas de
-  un compilador, pero también se puede usar para ver si el código compilaría en
-  versiones más antiguas del estándar.
-- `-g`: Incluye información de depuración en el ejecutable. Es **esencial** para
-  poder usar un depurador como `gdb` y analizar tu programa paso a paso.
-- `-O2`: Activa un alto nivel de optimización de código. No se recomienda usarlo
-  mientras desarrollas o depuras, ya que el proceso de mejorar la velocidad del
-  código puede reorganizar el código y hacer la depuración confusa, pero sí es
-  recomendable para la versión final de tu programa. Mientras trabajamos en
-  desarrollar nuestros programas, es mejor usar `-O0`, que la desactiva.
-- `-fanalyzer`: Activa un analizador estático más avanzado integrado en `gcc`.
-  Puede detectar problemas más complejos que las advertencias normales, como
-  posibles fugas de memoria, dobles liberaciones de memoria (double free) o el
-  uso de punteros nulos. Es una herramienta muy potente para mejorar la robustez
-  del código.
+- `-std=c23`: Especifica la versión del estándar de C que querés usar. Esto asegura que tu código sea portable y no dependa de extensiones específicas de un compilador. Nota: El flag `-std=c23` exige compiladores modernos (GCC 13+). Si tu compilador es más antiguo y no lo soporta, podés usar `-std=c2x` o, en su defecto, `-std=c11` como fallback.
+- `-g`: Incluye información de depuración en el ejecutable. Es **esencial** para poder usar un depurador como `gdb` y analizar tu programa paso a paso.
+- `-O2`: Activa un alto nivel de optimización de código. No se recomienda usarlo mientras desarrollás o depurás, ya que el proceso de mejorar la velocidad del código puede reorganizar las instrucciones y hacer la depuración confusa, pero sí es recomendable para la versión final de tu programa. Mientras trabajamos en desarrollar nuestros programas, es obligatorio usar `-O0`, que desactiva toda optimización.
+- `-fanalyzer`: Activa un analizador estático más avanzado integrado en `gcc`. Puede detectar problemas más complejos que las advertencias normales, como posibles fugas de memoria, dobles liberaciones de memoria (double free) o el uso de punteros nulos. Es una herramienta muy potente para mejorar la robustez del código.
 
 Un comando de compilación robusto para desarrollo se vería así:
 
 ```{code-block} shell
-$> gcc -Wall -Wextra -Werror -std=c23 -g -o mi_programa programa.c
+$> gcc -Wall -Wextra -Werror -std=c23 -O0 -g -o mi_programa programa.c
 ```
 
 Aunque es un montón, a continuación, vamos a ver cómo hacer que esto sea más
@@ -636,13 +628,13 @@ partir de su código fuente. Funciona modelando el proyecto como un **grafo de d
 La herramienta se utiliza indicando que necesitamos para lograr un determinado
 objetivo, qué ingredientes hay que preparar antes.
 
-En este ejemplo, para crear el programa ejecutable `programa`, es necesario
+En este ejemplo, para crear el programa ejecutable `programa`, son necesarios
 `main.c` y `funciones.c`.
 
 ```{code-block} makefile
 # Variables para el compilador, flags y archivos
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -std=c23 -g
+CFLAGS = -Wall -Wextra -Werror -std=c23 -O0 -g
 TARGET = programa
 OBJS = main.o funciones.o
 
@@ -691,7 +683,7 @@ diferentes ejercicios.
 Y la estructura de un ejercicio individual está pensada para separar el `main`
 de las funciones que resuelven el ejercicio en sí.
 
-Cuando hacen `make test` allí, `make` ejecutará el objetivo `test` en todos los
+Cuando ejecutás `make test` allí, `make` ejecutará el objetivo `test` en todos los
 subproyectos.
 
 ```{code-block} text
@@ -719,7 +711,7 @@ Pero, para trabajar específicamente en uno de los ejercicios, y en particular,
 para no ver la salida de todos los otros ejercicios, la opción más simple es
 ubicar nuestra consola en el ejercicio que estamos desarrollando.
 
-Como verán, ¡hay un Makefile por directorio! Esto es para que podamos compilar
+Como verás, ¡hay un Makefile por directorio! Esto es para que puedas compilar
 por separado los ejercicios, que estarían en subdirectorios
 
 Las primeras prácticas no contarán con el lugar para "librerías", pero la mecánica

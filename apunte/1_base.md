@@ -838,21 +838,51 @@ Las variables en memoria física tienen un almacenamiento binario de tamaño fin
 #### Desbordamiento (Overflow y Underflow)
 Ocurre cuando una operación aritmética produce un valor que excede el límite almacenable por el tipo de dato.
 
-- **Overflow (sobreflujo):** El valor supera el límite máximo representable. En enteros con signo, suele provocar un salto al valor mínimo.
-- **Underflow (subflujo):** El valor es menor al límite mínimo. En reales, ocurre cuando el valor es tan pequeño y cercano a cero que el hardware no puede diferenciarlo de este.
+- **Overflow (sobreflujo):** El valor supera el límite máximo representable. Para enteros con signo, esto constituye un **Comportamiento Indefinido** (*Undefined Behavior* o *UB*) según el estándar C. Esto significa que el estándar no garantiza qué va a suceder: el compilador es libre de optimizar el código asumiendo que el desbordamiento nunca ocurrirá, lo que puede provocar fallas lógicas o de seguridad críticas. El comportamiento modular cíclico de desbordamiento (aritmética módulo $2^w$, donde $w$ es la cantidad de bits del tipo de dato) está estrictamente garantizado por el estándar únicamente para los tipos enteros sin signo (`unsigned`). En sistemas reales, dependiendo de la arquitectura de la CPU y de la optimización del compilador, un sobreflujo con signo suele manifestarse como un salto cíclico al valor mínimo o comportamientos erráticos.
+- **Underflow (subflujo):** El valor es menor al límite mínimo representable. En números reales de punto flotante, ocurre cuando el valor absoluto es tan pequeño y cercano a cero que el hardware es incapaz de representarlo con una mantisa válida, diferenciándose únicamente de cero por subdesbordamiento.
 
-Ejemplo en C (desbordamiento de un entero corto con signo):
+Ejemplo de desbordamiento de enteros sin signo en C (comportamiento modular cíclico garantizado):
 ```c
-short numero = 32767;
-numero = numero + 1; // Produce -32768 (desbordamiento)
+unsigned short numero = 65535; // Valor máximo para 16 bits sin signo
+numero = numero + 1;           // Garantizado por estándar: produce 0
 ```
 
-#### Imprecisión de reales
-Las computadoras almacenan números reales mediante el estándar IEEE 754. Al representar infinitos números con bits finitos, valores como $0.1$ o $0.2$ carecen de representación binaria exacta y se redondean.
+Ejemplo de desbordamiento de enteros con signo en C (comportamiento indefinido):
+```c
+short numero = 32767;          // Valor máximo para 16 bits con signo
+numero = numero + 1;           // ¡Comportamiento Indefinido! No asumas que dará -32768.
+```
 
-Esto acumula imprecisión y hace inviables las comparaciones de igualdad directa.
+#### Imprecisión de reales y estándar IEEE 754
+Las computadoras almacenan números reales mediante el estándar IEEE 754. Al representar infinitos números reales con un número finito de bits, la gran mayoría de los números fraccionarios no pueden representarse de forma exacta, lo que obliga al hardware a realizar un redondeo o truncamiento.
 
-Ejemplo en C:
+##### Demostración de la periodicidad binaria de $0.1$
+
+Para comprender el origen de esta imprecisión, considerá la conversión del número decimal $0.1_{10}$ a base binaria. El método consiste en multiplicar de manera sucesiva la parte fraccionaria por $2$ y tomar la parte entera resultante como el siguiente bit a la derecha del punto binario:
+
+1. $0.1 \times 2 = 0.2 \rightarrow \text{bit } 0$ (resto $0.2$)
+2. $0.2 \times 2 = 0.4 \rightarrow \text{bit } 0$ (resto $0.4$)
+3. $0.4 \times 2 = 0.8 \rightarrow \text{bit } 0$ (resto $0.8$)
+4. $0.8 \times 2 = 1.6 \rightarrow \text{bit } 1$ (resto $0.6$)
+5. $0.6 \times 2 = 1.2 \rightarrow \text{bit } 1$ (resto $0.2$)
+6. $0.2 \times 2 = 0.4 \rightarrow \text{bit } 0$ (se repite la secuencia de restos)
+7. $0.4 \times 2 = 0.8 \rightarrow \text{bit } 0$
+8. $0.8 \times 2 = 1.6 \rightarrow \text{bit } 1$
+9. $0.6 \times 2 = 1.2 \rightarrow \text{bit } 1$
+
+A partir del paso 6 la parte fraccionaria vuelve a ser $0.2$, lo que genera un ciclo periódico infinito. Por lo tanto, la representación binaria exacta de $0.1$ es:
+
+$$0.1_{10} = 0.00011001100110011\dots_2 = 0.0\overline{0011}_2$$
+
+##### El límite físico del hardware
+
+Dado que la memoria de una computadora es finita, es imposible almacenar infinitos dígitos. En el estándar IEEE 754 de precisión simple (`float`), se reservan únicamente 23 bits para la mantisa. En consecuencia, la secuencia binaria infinita de $0.1$ se corta y se redondea en el bit 23, guardándose en la celda de memoria el valor aproximado:
+
+$$0.100000001490116119384765625$$
+
+Este error de redondeo se acumula al realizar operaciones aritméticas. Por este motivo, una comparación de igualdad directa entre números reales resulta en un comportamiento incorrecto.
+
+Ejemplo de error en C:
 ```c
 float a = 0.1f;
 float b = 0.2f;
@@ -861,18 +891,26 @@ if (a + b == 0.3f) {
 }
 ```
 
-Para comparar reales, debés verificar si la diferencia absoluta es menor que una tolerancia de error prefijada (épsilon):
+#### Solución: Margen de tolerancia (Épsilon)
+Para comparar dos números reales de forma segura, se debe verificar si la diferencia absoluta entre ellos es menor que un valor de tolerancia sumamente pequeño (denominado *épsilon* o $\epsilon$).
+
+Ejemplo de comparación robusta en C:
 ```c
-float dif = (a + b) - 0.3f;
-if (dif < 0.00001f && dif > -0.00001f) {
-    // Comparación correcta
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+
+#define EPSILON 0.00001f
+
+bool son_casi_iguales(float a, float b) {
+    return fabsf(a - b) < EPSILON;
 }
 ```
 
 ---
 ## Próximos Pasos: El Lenguaje C
 
-Ahora que comprendés estos conceptos fundamentales usando Python, estás mucho mejor preparado para abordar el lenguaje C. En el próximo apunte veremos:
+Ahora que comprendés estos conceptos fundamentales mediante pseudocódigo estructurado, estás mucho mejor preparado para abordar el lenguaje C. En el próximo apunte veremos:
 
 - Cómo escribir estos mismos algoritmos en el lenguaje C
 - La sintaxis más estricta y detallada de C
@@ -908,18 +946,18 @@ Diagrama de flujo
 
 ## Recursos adicionales
 
-- Practicá resolviendo problemas simples en Python.
+- Practicá resolviendo problemas simples mediante pseudocódigo estructurado orientado a C.
 - Dibujá diagramas de flujo antes de empezar a codificar.
 - Intentá "ejecutar" tus algoritmos mentalmente o en papel para seguir la lógica.
-- Discutí tus soluciones con compañeros - hay muchas formas de resolver un
-  problema.
+- Discutí tus soluciones con compañeros - hay muchas formas de resolver un problema.
 
-:::{figure} ./1/xkcd-algorithms.png
+```{figure} 1/xkcd-algorithms.png
+:label: fig-xkcd-algorithms
 :alt: XKCD Algorithms
 :align: center
 
 Fuente: [xkcd.com](https://xkcd.com/1667/)
-:::
+```
 
 ## Referencias y Lecturas Complementarias
 

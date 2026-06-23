@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet href="../resources/svg.css" type="text/css"?>
+<svg width="650" height="300" viewBox="0 0 650 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="var(--unrn-red)"/>
+    </marker>
+    <marker id="arrowhead-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="var(--unrn-dark-blue)"/>
+    </marker>
+  </defs>
+
+  <text x="325" y="25" class="title">Visualización de la Opacidad en Memoria</text>
+  <text x="325" y="45" class="subtitle">Ocultamiento físico de la estructura de datos interna</text>
+
+  <!-- Stack del Cliente (Ámbito main.c) -->
+  <rect x="30" y="80" width="160" height="180" class="info-box" />
+  <text x="110" y="105" class="label-bold" text-anchor="middle">Stack de main.c</text>
+  <line x1="30" y1="115" x2="190" y2="115" class="divider" />
+  
+  <rect x="50" y="150" width="120" height="50" class="node" />
+  <text x="55" y="168" class="label-small">usuario_t *u</text>
+  <text x="110" y="188" class="code" text-anchor="middle">0x1000</text>
+  
+  <!-- Muro de Opacidad / Barrera de Compilación -->
+  <line x1="230" y1="70" x2="230" y2="280" class="divider-bold" stroke-dasharray="5,5" />
+  <text x="235" y="170" class="label-bold" fill="var(--unrn-red)" transform="rotate(-90 235 170)" text-anchor="middle">Barrera de Opacidad (Tipo Incompleto)</text>
+
+  <!-- Heap (Ámbito del Módulo usuario.c) -->
+  <rect x="270" y="80" width="350" height="180" class="code-block" />
+  <text x="445" y="105" class="label-bold" text-anchor="middle">Heap (usuario.c)</text>
+  <line x1="270" y1="115" x2="620" y2="115" class="divider" />
+
+  <!-- Struct usuario en Heap (Address 0x1000) -->
+  <rect x="290" y="130" width="130" height="90" class="node-highlight" />
+  <text x="355" y="125" class="label-small" text-anchor="middle">Dirección: 0x1000 (struct usuario)</text>
+  <rect x="300" y="140" width="110" height="30" class="node-data" />
+  <text x="305" y="158" class="label-small">char *nombre</text>
+  <text x="390" y="160" class="code">0x2000</text>
+  
+  <rect x="300" y="180" width="110" height="30" class="node-data" />
+  <text x="305" y="198" class="label-small">int edad</text>
+  <text x="385" y="200" class="code">21</text>
+
+  <!-- Datos del String en Heap (Address 0x2000) -->
+  <rect x="490" y="140" width="110" height="40" class="node" />
+  <text x="545" y="135" class="label-small" text-anchor="middle">Dirección: 0x2000</text>
+  <text x="545" y="165" class="code" text-anchor="middle">"Martín\0"</text>
+
+  <!-- Flechas de Punteros -->
+  <!-- De u en Stack al Struct en Heap -->
+  <path d="M 170,175 Q 220,175 280,175" fill="none" stroke="var(--unrn-red)" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="210" y="165" class="label-small" fill="var(--unrn-red)" text-anchor="middle">apunta a</text>
+
+  <!-- De nombre en Struct al String -->
+  <path d="M 410,155 Q 450,155 480,155" fill="none" stroke="var(--unrn-dark-blue)" stroke-width="2" marker-end="url(#arrowhead-blue)" />
+
+</svg>

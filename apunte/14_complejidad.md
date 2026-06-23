@@ -57,21 +57,33 @@ La notación **Big O** es la más utilizada en la práctica, ya que describe una
 **cota superior asintótica**. Nos ofrece una garantía sobre el rendimiento del
 algoritmo: nunca será peor que esta cota.
 
-- **Definición Intuitiva**: Una función $f(n)$ es $O(g(n))$ si su tasa de
+- **Definición Intuitiva**: Una función $f(n)$ pertenece a $O(g(n))$ si su tasa de
   crecimiento es **igual o más lenta** que la de $g(n)$ para entradas
   suficientemente grandes.
-- **Definición Formal**: $f(n) = O(g(n))$ si existen constantes positivas $c$ y
+- **Definición Formal**: $f(n) \in O(g(n))$ si existen constantes positivas $c$ y
   $n_0$ tales que $0 \le f(n) \le c \cdot g(n)$ para todo $n \ge n_0$.
 - **Uso Práctico**: Representa el **peor caso** de ejecución de un algoritmo.
+
+```{figure} 14/big_o_definition.svg
+:label: fig-big-o-definition
+:align: center
+:width: 85%
+
+Representación gráfica de la cota superior asintótica $f(n) \in O(g(n))$. A partir de $n_0$, la función $c \cdot g(n)$ es siempre mayor o igual a $f(n)$.
+```
+
+:::{note} Pertenencia vs. Igualdad
+Aunque tradicionalmente en computación se escribe $f(n) = O(g(n))$ como un abuso de lenguaje, la notación matemáticamente rigurosa desde la teoría de conjuntos establece que $O(g(n))$ es un conjunto de funciones. Por lo tanto, se utiliza la relación de pertenencia: $f(n) \in O(g(n))$. En este apunte priorizamos la notación de conjuntos por su rigor conceptual.
+:::
 
 ### 2. Notación Omega (Ω) - Cota Inferior (Mejor Caso)
 
 La notación **Omega** describe una **cota inferior asintótica**. Nos garantiza
 que el rendimiento del algoritmo nunca será mejor que esta cota.
 
-- **Definición Intuitiva**: Una función $f(n)$ es $\Omega(g(n))$ si su tasa de
+- **Definición Intuitiva**: Una función $f(n)$ pertenece a $\Omega(g(n))$ si su tasa de
   crecimiento es **igual o más rápida** que la de $g(n)$.
-- **Definición Formal**: $f(n) = \Omega(g(n))$ si existen constantes positivas
+- **Definición Formal**: $f(n) \in \Omega(g(n))$ si existen constantes positivas
   $c$ y $n_0$ tales que $0 \le c \cdot g(n) \le f(n)$ para todo $n \ge n_0$.
 - **Uso Práctico**: Representa el **mejor caso** de ejecución.
 
@@ -80,13 +92,21 @@ que el rendimiento del algoritmo nunca será mejor que esta cota.
 La notación **Theta** proporciona la descripción más precisa del comportamiento
 de un algoritmo, acotándolo tanto por arriba como por abajo.
 
-- **Definición Intuitiva**: Una función $f(n)$ es $\Theta(g(n))$ si su tasa de
+- **Definición Intuitiva**: Una función $f(n)$ pertenece a $\Theta(g(n))$ si su tasa de
   crecimiento es **exactamente la misma** que la de $g(n)$.
-- **Relación**: $f(n) = \Theta(g(n))$ si y solo si $f(n) = O(g(n))$ y
-  $f(n) = \Omega(g(n))$.
+- **Relación**: $f(n) \in \Theta(g(n))$ si y solo si $f(n) \in O(g(n))$ y
+  $f(n) \in \Omega(g(n))$.
 - **Uso Práctico**: Describe el comportamiento del algoritmo de forma ajustada,
   a menudo representando el **caso promedio** o un escenario donde el mejor y el
   peor caso coinciden.
+
+```{figure} 14/big_theta_definition.svg
+:label: fig-big-theta-definition
+:align: center
+:width: 85%
+
+Representación gráfica de la cota ajustada asintótica $f(n) \in \Theta(g(n))$. La función $f(n)$ queda atrapada entre las cotas $c_1 \cdot g(n)$ y $c_2 \cdot g(n)$ para todo $n \ge n_0$.
+```
 
 ### Notaciones Menos Comunes
 
@@ -191,7 +211,7 @@ int busqueda_binaria(int arr[], int n, int clave) {
 
 **Análisis**:
 :::{important}
-La búsqueda binaria asume como precondición fundamental que el arreglo de entrada se encuentra estrictamente ordenado (regla {ref}`0x0035h`). Si esta precondición no se cumple, el algoritmo no es correcto y su comportamiento es impredecible.
+La búsqueda binaria asume como precondición fundamental que el arreglo de entrada se encuentra estrictamente ordenado (regla {ref}`0x2003h`). Si esta precondición no se cumple, el algoritmo no es correcto y su comportamiento es impredecible.
 :::
 
 En cada iteración del lazo, el espacio de búsqueda se reduce a la mitad. Si inicialmente hay $n$ elementos, después de $k$ lazos quedan $\frac{n}{2^k}$. El algoritmo termina cuando $\frac{n}{2^k} = 1$, es decir, $k = \log_2 n$.
@@ -429,7 +449,34 @@ for (int i = 1; i < n; i *= 2) {
 
 #### Método de Sustitución
 
-**Ejemplo**: $T(n) = T(n-1) + O(1)$ con $T(1) = O(1)$
+El **método de sustitución** (o método de inducción matemática) se utiliza para resolver recurrencias mediante dos etapas:
+1. **Expandir (desarrollar) la relación de recurrencia** para adivinar el patrón de la solución.
+2. **Probar la solución por inducción matemática** para verificar su exactitud formal.
+
+**Ejemplo de desarrollo paso a paso:**
+Consideremos la recurrencia $T(n) = T(n-1) + c$, donde $c$ es el costo constante de la operación básica ($O(1)$), con el caso base $T(1) = d$ (donde $d$ es otra constante).
+
+1. **Expansión por sustitución sucesiva:**
+   Comenzamos sustituyendo recursivamente la fórmula:
+   * Paso 1: $T(n) = T(n-1) + c$
+   * Paso 2: Sustituimos $T(n-1)$ usando la misma definición: $T(n-1) = T(n-2) + c$.
+     $$T(n) = (T(n-2) + c) + c = T(n-2) + 2c$$
+   * Paso 3: Sustituimos $T(n-2) = T(n-3) + c$:
+     $$T(n) = (T(n-3) + c) + 2c = T(n-3) + 3c$$
+
+2. **Generalización del patrón:**
+   Podemos generalizar la expresión para el paso $k$:
+   $$T(n) = T(n-k) + k \cdot c$$
+
+3. **Aplicación del caso base:**
+   Deseamos alcanzar el caso base $T(1)$. Para ello, definimos $n - k = 1$, lo que implica $k = n - 1$.
+   Sustituyendo $k$ en nuestra ecuación generalizada:
+   $$T(n) = T(1) + (n-1) \cdot c$$
+   $$T(n) = d + c \cdot n - c$$
+   $$T(n) = c \cdot n + (d - c)$$
+
+Dado que $c$ y $d$ son constantes, la función de costo se reduce a una ecuación lineal:
+$$T(n) \in \Theta(n)$$
 
 #### Método del Árbol de Recursión
 
@@ -509,7 +556,7 @@ La **condición de regularidad** garantiza que la tasa de trabajo no recursivo d
    - $a=3, b=2, f(n)=n$
    - $\log_b a = \log_2 3 \approx 1.585$
    - $f(n) = n \in O(n^{1.585-\epsilon})$ → **Caso 1**
-   - **Solución**: $T(n) \in \Theta(n^{\log_2 3}) \approx \Theta(n^{1.585})$1:            n/2   n/2          → costo: n
+   - **Solución**: $T(n) \in \Theta(n^{\log_2 3}) \approx \Theta(n^{1.585})$
 
 
 ### Análisis Amortizado
@@ -562,13 +609,45 @@ Este mismo análisis se aplica a las pilas implementadas con arreglos dinámicos
 
 #### Método del Potencial
 
-Define una función potencial $\Phi$ que representa "energía almacenada" en la estructura:
+El **método del potencial** analiza la complejidad amortizada definiendo una función potencial $\Phi$ sobre los estados de la estructura de datos. Esta función asocia un número real no negativo $\Phi(D_i)$ a la estructura tras la operación $i$.
 
-$$
-\text{Costo amortizado} = \text{Costo real} + \Delta\Phi
-$$
+El **costo amortizado** $\hat{c}_i$ de la $i$-ésima operación se define como:
+$$\hat{c}_i = c_i + \Phi(D_i) - \Phi(D_{i-1})$$
+donde $c_i$ es el costo real de la operación y $\Delta\Phi_i = \Phi(D_i) - \Phi(D_{i-1})$ es el cambio en el potencial.
 
-Para arreglo dinámico: $\Phi = 2 \times \text{tamaño} - \text{capacidad}$
+##### Análisis del Arreglo Dinámico
+Para un arreglo dinámico, definimos la función potencial después de la operación $i$ como:
+$$\Phi_i = 2 \cdot t_i - c_i$$
+donde $t_i$ es el tamaño actual (número de elementos) y $c_i$ es la capacidad actual. 
+
+*Precondición de validez*: Como la capacidad es a lo sumo el doble del tamaño y al menos igual, tenemos que $\Phi_i \ge 0$. Inicialmente, con un arreglo vacío, $t_0 = 0$ y $c_0 = 0$, por lo que $\Phi_0 = 0$.
+
+Analicemos los dos escenarios posibles para la $i$-ésima inserción:
+
+###### Escenario 1: Inserción sin Redimensionamiento
+El arreglo tiene espacio libre ($t_{i-1} < c_{i-1}$).
+1. El **costo real** es constante: $c_i = 1$ (copiar el elemento en el arreglo).
+2. El tamaño aumenta en uno ($t_i = t_{i-1} + 1$), y la capacidad permanece constante ($c_i = c_{i-1}$).
+3. El cambio en el potencial es:
+   $$\Delta\Phi_i = \Phi_i - \Phi_{i-1} = (2 \cdot t_i - c_i) - (2 \cdot t_{i-1} - c_{i-1})$$
+   $$\Delta\Phi_i = (2(t_{i-1} + 1) - c_{i-1}) - (2 \cdot t_{i-1} - c_{i-1}) = 2$$
+4. El **costo amortizado** calculado es:
+   $$\hat{c}_i = c_i + \Delta\Phi_i = 1 + 2 = 3$$
+
+###### Escenario 2: Inserción con Redimensionamiento
+El arreglo está lleno ($t_{i-1} = c_{i-1}$). Para insertar, se debe duplicar la capacidad: $c_i = 2 \cdot c_{i-1}$.
+1. El **costo real** de esta inserción implica alocar nueva memoria y copiar todos los elementos existentes más el nuevo: $c_i = t_{i-1} + 1$.
+2. El tamaño aumenta en uno ($t_i = t_{i-1} + 1$), y la capacidad se duplica ($c_i = 2 \cdot t_{i-1}$).
+3. Calculamos la variación del potencial $\Delta\Phi_i$:
+   $$\Phi_{i-1} = 2 \cdot t_{i-1} - c_{i-1} = 2 \cdot t_{i-1} - t_{i-1} = t_{i-1}$$
+   $$\Phi_i = 2 \cdot t_i - c_i = 2(t_{i-1} + 1) - 2 \cdot t_{i-1} = 2$$
+   $$\Delta\Phi_i = \Phi_i - \Phi_{i-1} = 2 - t_{i-1}$$
+4. El **costo amortizado** calculado es:
+   $$\hat{c}_i = c_i + \Delta\Phi_i = (t_{i-1} + 1) + (2 - t_{i-1}) = 3$$
+
+##### Conclusión
+En ambos escenarios (con o sin redimensionamiento), el costo amortizado de una inserción en el arreglo dinámico es exactamente $3$, lo que demuestra formalmente que la operación de inserción tiene una complejidad de amortización constante:
+$$\hat{c}_i \in \Theta(1)$$
 
 ## Complejidad Espacial
 
@@ -588,7 +667,9 @@ Cada llamada recursiva ocupa espacio en la pila. La profundidad máxima de recur
 **Ejemplo**: Fibonacci recursivo
 ```c
 int fibonacci(int n) {
-    if (n <= 1) return n;
+    if (n <= 1) {
+        return n;
+    }
     return fibonacci(n - 1) + fibonacci(n - 2);
 }
 ```
@@ -603,8 +684,12 @@ A menudo es posible reducir tiempo usando más espacio (memoización) o vicevers
 **Ejemplo**: Fibonacci con memoización
 ```c
 int fibonacci_memo(int n, int memo[]) {
-    if (n <= 1) return n;
-    if (memo[n] != -1) return memo[n];
+    if (n <= 1) {
+        return n;
+    }
+    if (memo[n] != -1) {
+        return memo[n];
+    }
     
     memo[n] = fibonacci_memo(n - 1, memo) + fibonacci_memo(n - 2, memo);
     return memo[n];
@@ -808,8 +893,8 @@ void hanoi(int n, char origen, char destino, char auxiliar) {
 **Análisis mediante recurrencia**:
 $$
 \begin{align}
-T(n) &= 2T(n-1) + O(1) \\
-T(1) &= O(1)
+T(n) &= 2T(n-1) + 1 \\
+T(1) &= 1
 \end{align}
 $$
 
@@ -833,12 +918,11 @@ $$
 
 ## Ejercicios
 
-````{exercise}
-:label: ejer-comp-1
+```{exercise}
+:label: ejer-comp-1a
 
-Determiná la complejidad temporal de los siguientes fragmentos de código:
+Determiná la complejidad temporal del siguiente fragmento de código:
 
-a)
 ```c
 for (int i = 0; i < n; i++) {
     for (int j = 0; j < i; j++) {
@@ -846,8 +930,22 @@ for (int i = 0; i < n; i++) {
     }
 }
 ```
+```
 
-b)
+````{solution} ejer-comp-1a
+:class: dropdown
+
+$O(n^2)$
+- Lazo externo: $n$ iteraciones
+- Lazo interno: $i$ iteraciones (depende de $i$)
+- Total: $\sum_{i=0}^{n-1} i = \frac{n(n-1)}{2} \in O(n^2)$
+````
+
+```{exercise}
+:label: ejer-comp-1b
+
+Determiná la complejidad temporal del siguiente fragmento de código:
+
 ```c
 for (int i = 1; i < n; i *= 3) {
     for (int j = 0; j < n; j++) {
@@ -855,11 +953,27 @@ for (int i = 1; i < n; i *= 3) {
     }
 }
 ```
+```
 
-c)
+````{solution} ejer-comp-1b
+:class: dropdown
+
+$O(n \log n)$
+- Lazo externo: $\log_3 n$ iteraciones (crece multiplicativamente)
+- Lazo interno: $n$ iteraciones
+- Total: $n \times \log_3 n \in O(n \log n)$
+````
+
+```{exercise}
+:label: ejer-comp-1c
+
+Determiná la complejidad temporal de la siguiente función recursiva, asegurando que respete las directivas de estilo en sus condicionales:
+
 ```c
 void misterio(int n) {
-    if (n <= 1) return;
+    if (n <= 1) {
+        return;
+    }
     for (int i = 0; i < n; i++) {
         printf("%d ", i);
     }
@@ -867,22 +981,12 @@ void misterio(int n) {
     misterio(n / 3);
 }
 ```
-````
+```
 
-````{solution} ejer-comp-1
+````{solution} ejer-comp-1c
 :class: dropdown
 
-a) $O(n^2)$
-- Lazo externo: $n$ iteraciones
-- Lazo interno: $i$ iteraciones (depende de $i$)
-- Total: $\sum_{i=0}^{n-1} i = \frac{n(n-1)}{2} \in O(n^2)$
-
-b) $O(n \log n)$
-- Lazo externo: $\log_3 n$ iteraciones (crece multiplicativamente)
-- Lazo interno: $n$ iteraciones
-- Total: $n \times \log_3 n \in O(n \log n)$
-
-c) $O(n)$
+$O(n)$
 - Recurrencia: $T(n) = 2T(n/3) + O(n)$
 - Por Teorema Maestro: $a=2, b=3, f(n)=n$
 - $\log_b a = \log_3 2 \approx 0.631 < 1$
@@ -972,23 +1076,23 @@ void dos_maximos(int arr[], int n, int *max1, int *max2) {
 
 ### Textos Fundamentales
 
-- Cormen, T. H., Leiserson, C. E., Rivert, R. L., & Stein, C. (2009). *Introduction to Algorithms* (3rd ed.). MIT Press. Capítulos 3-4: Growth of Functions y Divide-and-Conquer.
+- **{cite:t}`cormen_introduction_2009`**. Capítulos 3 y 4: Growth of Functions y Divide-and-Conquer.
   
-- Sedgewick, R., & Flajolet, P. (2013). *An Introduction to the Analysis of Algorithms* (2nd ed.). Addison-Wesley.
+- **{cite:t}`sedgewick_algorithms_2011`**. Tratamiento exhaustivo del análisis de algoritmos y estructuras básicas.
 
-- Knuth, D. E. (1997). *The Art of Computer Programming, Volume 1: Fundamental Algorithms* (3rd ed.). Addison-Wesley. Sección 1.2: Mathematical Preliminaries.
+- **{cite:t}`knuth1974`**. Análisis matemático de algoritmos de control de flujo y su estructuración.
 
-### Recursos Avanzados
+### Recursos Complementarios
 
-- Graham, R. L., Knuth, D. E., & Patashnik, O. (1994). *Concrete Mathematics* (2nd ed.). Addison-Wesley. Excelente para técnicas de resolución de recurrencias.
+- **{cite:t}`bentley_programming_1999`**. *Programming Pearls*. Excelente para el diseño y optimización práctica de algoritmos en el mundo real.
 
-- Arora, S., & Barak, B. (2009). *Computational Complexity: A Modern Approach*. Cambridge University Press. Para teoría de complejidad avanzada.
+- **{cite:t}`bryant_computer_2015`**. Capítulo 6: La jerarquía de memoria y su impacto directo en la complejidad real del hardware.
 
 ### Recursos en Línea
 
-- MIT OpenCourseWare: 6.006 Introduction to Algorithms
-- Khan Academy: Algoritmos y Análisis Asintótico
-- Big-O Cheat Sheet: https://www.bigocheatsheet.com/
+- **MIT OpenCourseWare**: 6.006 Introduction to Algorithms
+- **Khan Academy**: Algoritmos y Análisis Asintótico
+- **Big-O Cheat Sheet**: https://www.bigocheatsheet.com/
 
 ## Resumen
 
@@ -1030,3 +1134,4 @@ Para elegir un algoritmo:
    - Para problemas NP-completos, considera aproximaciones o heurísticas
 
 El análisis de complejidad no reemplaza la medición empírica, pero proporciona garantías teóricas esenciales para el diseño de software robusto y escalable.
+

@@ -169,8 +169,12 @@ Estructura detallada de un stack frame mostrando la organización de parámetros
 
 **Registros clave involucrados:**
 
-- **Stack Pointer (SP):** Apunta siempre a la cima del stack. Se mueve con cada `push` y `pop`.
-- **Base Pointer (BP o Frame Pointer):** Apunta a la base del frame actual. Permite acceder a parámetros y variables locales con offsets fijos.
+- **Stack Pointer (SP):** Apunta siempre a la cima del stack. Se mueve con cada `push` and `pop`. En x86-64, se mapea al registro `rsp`.
+- **Base Pointer (BP o Frame Pointer):** Apunta a la base del frame actual. Permite acceder a parámetros y variables locales con offsets fijos. En x86-64, se mapea al registro `rbp`.
+
+:::{note} Optimización del Frame Pointer (`-fomit-frame-pointer`)
+Es importante destacar que el uso del Base Pointer (`rbp`) no es estrictamente obligatorio para el funcionamiento de la pila. En compilaciones optimizadas modernas (por ejemplo, al compilar con `-O2` o con la opción `-fomit-frame-pointer` de GCC, que es el estándar de la industria), el compilador gestiona las variables locales y argumentos calculando offsets dinámicos referenciados únicamente sobre el Stack Pointer (`rsp`). Esto libera el registro `rbp` para ser utilizado como un registro de propósito general adicional, lo cual incrementa el rendimiento del procesador al reducir los accesos a memoria.
+:::
 
 **Secuencia de una llamada a función:**
 
@@ -325,7 +329,8 @@ La siguiente tabla resume las diferencias clave entre el stack y el heap para ay
 
 | Característica | Stack | Heap | 
 | :---------------------------------- | :------------------------- | :------------------------------- | 
-| **Gestión** | Automática | Manual | | **Velocidad** | Muy rápida | Más lenta | 
+| **Gestión** | Automática | Manual |
+| **Velocidad** | Muy rápida (ciclos de CPU) | Más lenta (acceso a RAM indirecto) |
 | **Tamaño** | Limitado (1-8 MB típico) | Grande (limitado por RAM) |
 | **Tamaño en tiempo de compilación** | Debe ser conocido | Puede ser dinámico | 
 | **Persistencia** | Solo dentro de la función | Hasta que se libere |
@@ -336,6 +341,160 @@ La siguiente tabla resume las diferencias clave entre el stack y el heap para ay
 
 **Regla práctica:** Usá el stack siempre que puedas (por velocidad y simplicidad), y recurrí al heap solo cuando sea necesario (por flexibilidad).
 
+(memoria-jerarquia-cache)=
+### Jerarquía de Memoria y Caché
+
+Para comprender completamente por qué el stack es más rápido que el heap, necesitás entender la **jerarquía de memoria** del hardware moderno. La memoria no es un espacio uniforme: hay múltiples niveles con diferentes velocidades y tamaños.
+
+**La jerarquía típica (de más rápido a más lento):**
+
+```{figure} ./11/cache_hierarchy.svg
+:label: fig-cache-hierarchy
+:width: 70%
+
+Jerarquía de memoria desde los registros CPU (más rápidos) hasta los discos duros (más lentos), mostrando la relación inversa entre velocidad y capacidad.
+```
+
+**Principio de localidad:**
+
+El hardware moderno optimiza para dos tipos de localidad:
+
+1. **Localidad temporal:** Si accedés a un dato ahora, es probable que lo accedas de nuevo pronto.
+2. **Localidad espacial:** Si accedés a un dato, es probable que accedas a datos cercanos en memoria pronto.
+
+**Cómo funcionan los cachés:**
+
+Cuando el CPU necesita leer memoria, primero busca en el caché L1. Si no está (cache miss), busca en L2, luego L3, y finalmente en RAM. Cuando encuentra el dato, también trae a caché los bytes circundantes (una "línea de caché", típicamente 64 bytes).
+
+```
+Acceso a memoria:
+CPU → L1? (hit) → Usar dato (rápido)
+    ↓ (miss)
+    L2? (hit) → Copiar a L1 → Usar dato
+    ↓ (miss)
+    L3? (hit) → Copiar a L2 y L1 → Usar dato
+    ↓ (miss)
+    RAM → Copiar a cachés → Usar dato (lento)
+```
+
+**Por qué el stack es más rápido:**
+
+1. **Alta localidad temporal:** Las variables locales se usan frecuentemente en un corto período (dentro de la función). Probablemente permanecen en caché.
+
+2. **Alta localidad espacial:** Las variables locales están físicamente juntas en memoria. Acceder a una trae las otras al caché automáticamente.
+
+3. **Patrón predecible:** El stack crece y decrece de forma predecible, lo que permite al hardware pre-cargar datos.
+
+4. **Acceso secuencial:** Generalmente accedés a variables locales en orden, lo que maximiza el uso de las líneas de caché.
+
+**Por qué el heap es más lento:**
+
+1. **Menor localidad:** Las asignaciones de memoria pueden estar dispersas por todo el heap, causando más cache misses.
+
+2. **Indirección:** Acceder a memoria del heap requiere desreferenciar punteros, agregando un nivel de indirección.
+
+3. **Fragmentación:** Los bloques fragmentados están físicamente separados, reduciendo la localidad espacial.
+
+4. **Overhead del allocator:** Cada `malloc`/`free` involucra algoritmos de búsqueda y mantenimiento de estructuras de datos.
+
+**Ejemplo cuantitativo:**
+
+```c
+// Versión stack (rápida):
+void procesar_stack()
+{
+    int datos[1000];  // Asignación instantánea
+
+    // Todos los elementos probablemente en caché:
+    for (int i = 0; i < 1000; i++)
+    {
+        datos[i] = i * 2;  // Acceso secuencial, alta localidad
+    }
+}
+
+// Versión heap (más lenta):
+void procesar_heap()
+{
+    int *datos = malloc(1000 * sizeof(int));  // Llamada a función
+
+    if (datos == NULL) return;
+
+    // Posiblemente más cache misses:
+    for (int i = 0; i < 1000; i++)
+    {
+        datos[i] = i * 2;  // Menos predecible para el hardware
+    }
+
+    free(datos);  // Otra llamada a función
+}
+```
+
+En un benchmark real, la versión stack podría ser 2-5 veces más rápida, especialmente para arreglos pequeños que caben completamente en caché.
+
+:::{note} Optimización Práctica
+Comprender el caché te permite optimizar código:
+
+```c
+// Malo: Recorrer matriz por columnas (pobre localidad)
+for (int j = 0; j < cols; j++)
+    for (int i = 0; i < rows; i++)
+        matriz[i][j] = 0;  // Saltos grandes en memoria
+
+// Bueno: Recorrer por filas (buena localidad)
+for (int i = 0; i < rows; i++)
+    for (int j = 0; j < cols; j++)
+        matriz[i][j] = 0;  // Acceso secuencial
+```
+
+La segunda versión puede ser 10-50 veces más rápida para matrices grandes, simplemente porque usa mejor el caché. 
+:::
+
+(memoria-modelo-costos)=
+### Modelo de Costos: Cuantificando el Rendimiento
+
+Comprender el costo relativo de las operaciones de memoria permite tomar decisiones informadas sobre diseño y optimización. Este modelo proporciona una intuición sobre el rendimiento relativo.
+
+**Costos relativos (ciclos de CPU aproximados):**
+
+Si un acceso a registro tomara 1 segundo, acceder a RAM tomaría entre 2 y 5 minutos, y leer del disco duro tomaría 4 meses. Esta escala ayuda a visualizar la enorme diferencia de velocidades. 
+
+| Operación                    | Ciclos aprox.  | Equivalente temporal |
+| :--------------------------- | :------------- | :------------------- |
+| Acceso a registro            | 1              | 1 segundo            |
+| Acceso a L1 cache            | 4              | 4 segundos           |
+| Acceso a L2 cache            | 12             | 12 segundos          |
+| Acceso a L3 cache            | 40             | 40 segundos          |
+| Acceso a RAM                 | 100-300        | 2-5 minutos          |
+| malloc pequeño (heap hit)    | 50-100         | 1-2 minutos          |
+| malloc grande (new pages)    | 1,000-10,000   | 15 minutos - 3 horas |
+| free (simple)                | 20-50          | 20-50 segundos       |
+| Fallo de página (page fault) | 10,000-100,000 | 3 horas - 1 día      |
+| Acceso a SSD                 | 100,000        | 1 día                |
+| Acceso a disco HDD           | 10,000,000     | 4 meses              |
+
+**Implicaciones prácticas:**
+
+**1. Las asignaciones no son gratuitas:**
+
+```c
+// Ineficiente: muchas asignaciones pequeñas
+for (int i = 0; i < 1000; i++)
+{
+    char *str = malloc(10);  // 1000 llamadas a malloc
+    // ... usar str ...
+    free(str);               // 1000 llamadas a free
+}
+
+// Mejor: una asignación grande
+char *buffer = malloc(10000);
+for (int i = 0; i < 1000; i++)
+{
+    char *str = buffer + (i * 10);  // Solo aritmética de punteros
+    // ... usar str ...
+}
+free(buffer);  // Una sola llamada a free
+```
+
 
 
 (memoria-punteros)=
@@ -344,7 +503,7 @@ La siguiente tabla resume las diferencias clave entre el stack y el heap para ay
 Los punteros son el mecanismo fundamental que permite trabajar con memoria dinámica en C. Un puntero no almacena un valor directo, sino la **dirección de memoria** donde se encuentra ese valor.
 
 :::{note} Prerequisito: Conceptos Básicos de Punteros
-Este capítulo asume que ya conocés los fundamentos de punteros que se presentaron en el [](7_punteros). Si necesitás repasar los siguientes temas, consultá ese capítulo:
+Este capítulo asume que ya conocés los fundamentos de punteros que se presentaron en el {ref}`punteros-capitulo`. Si necesitás repasar los siguientes temas, consultá ese capítulo:
 
 - Declaración de punteros y sintaxis básica
 - Operadores `&` (dirección) y `*` (desreferencia)
@@ -1970,7 +2129,8 @@ Escribí un programa que:
 Asegurate de verificar todas las asignaciones de memoria y manejar los errores apropiadamente.
 ```
 
-````{solution} ej-memoria-basico
+````{solution}
+:for: ej-memoria-basico
 :class: dropdown
 
 ```c
@@ -2050,16 +2210,22 @@ Luego, escribí un programa principal que use esta función para duplicar una ca
 
 ````
 
-```{solution} ej-memoria-cadena
+:::{warning} Precondición de Seguridad en Copias de Cadenas
+Al trabajar con cadenas de caracteres en C, funciones como `strlen` y `strcpy` asumen de forma estricta que los búferes de entrada están correctamente finalizados con el carácter nulo (`\0`). Si se recibe una secuencia de bytes que carece de este terminador (por ejemplo, debido a una lectura parcial o desborde anterior), la función continuará leyendo o escribiendo en memoria de forma indefinida, provocando violaciones de acceso o corrupción silenciosa del heap. Siempre garantizá la correcta inicialización y terminación en nulo del búfer origen antes de cualquier copia.
+:::
+
+````{solution}
+:for: ej-memoria-cadena
 :class: dropdown
 
 ```c
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /**
  * Duplica una cadena en memoria dinámica.
- * @param original Cadena a duplicar (no debe ser NULL).
+ * @param original Cadena a duplicar (no debe ser NULL y debe estar terminada en \0).
  * @returns Un puntero a la nueva cadena. El llamador es responsable
  *          de liberar esta memoria con free().
  *          Retorna NULL si original es NULL o no hay memoria disponible.
@@ -2134,7 +2300,8 @@ Escribí un programa principal que use estas funciones para crear un arreglo, in
 
 ````
 
-```{solution} ej-memoria-busqueda
+```{solution}
+:for: ej-memoria-busqueda
 :class: dropdown
 
 ```c
@@ -2299,7 +2466,8 @@ Asegurate de:
 
 ````
 
-```{solution} ej-memoria-matriz
+```{solution}
+:for: ej-memoria-matriz
 :class: dropdown
 
 ```c
@@ -2452,12 +2620,14 @@ Recordá seguir el principio de simetría ({ref}`0x001Ah`) y verificar todas las
 
 ````
 
-```{solution} ej-memoria-estructura
+````{solution}
+:for: ej-memoria-estructura
 :class: dropdown
 
 ```c
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct
 {
@@ -2466,6 +2636,9 @@ typedef struct
     int edad;
 } persona_t;
 
+/**
+ * Duplica una cadena en memoria dinámica verificando la precondición de terminación en nulo.
+ */
 char *duplicar_cadena(const char *cadena)
 {
     if (cadena == NULL)
@@ -2627,7 +2800,8 @@ int main()
 
 ````
 
-```{solution} ej-memoria-errores
+```{solution}
+:for: ej-memoria-errores
 :class: dropdown
 
 **Errores identificados:**
@@ -2768,7 +2942,8 @@ Escribí un programa principal que:
 
 ````
 
-````{solution} ej-memoria-puntero-array
+````{solution}
+:for: ej-memoria-puntero-array
 :class: dropdown
 
 ```c
@@ -2897,107 +3072,7 @@ int main()
     // Verificar la transposición
     printf("\nVerificación:\n");
     printf("Elemento [0][1] (era 1, ahora debe ser 4): %d\n", matriz[0 * n + 1]);
-    printf("Elemento [1][0] (era 4, ahora debe ser 1): %d\n", matriz[1 * n + 0]);
-    printf("Elemento [2][3] (era 11, ahora debe ser 14): %d\n", matriz[2 * n + 3]);
-
-    // Liberar: una sola llamada
-    free(matriz);
-    matriz = NULL;
-
-    return 0;
-}
-```
-````
-
-**Explicación de puntos clave:**
-
-1. **Un solo malloc/free:** Toda la memoria se asigna contigua, mejorando la localidad de la caché del procesador.
-
-2. **Indexación manual:** Al trabajar con punteros planos, el compilador no calcula automáticamente los offsets bidimensionales. El programador debe calcular la dirección física de la posición `(i, j)` sumando a la base el producto de la fila por el ancho de columnas, más el offset de la columna: `matriz[i * columnas + j]`.
-
-3. **Transposición in-place:** Solo intercambia elementos por encima de la diagonal principal, evitando desarmar la transposición con intercambios dobles.
-
-
-
-(memoria-conceptos-avanzados)=
-## Conceptos Avanzados
-
-(memoria-jerarquia-cache)=
-### Jerarquía de Memoria y Caché
-
-Para comprender completamente por qué el stack es más rápido que el heap,
-necesitás entender la **jerarquía de memoria** del hardware moderno. La memoria
-no es un espacio uniforme: hay múltiples niveles con diferentes velocidades y
-tamaños.
-
-**La jerarquía típica (de más rápido a más lento):**
-
-```{figure} ./11/cache_hierarchy.svg
-:name: fig-cache-hierarchy
-:width: 70%
-
-Jerarquía de memoria desde los registros CPU (más rápidos) hasta los discos duros (más lentos), mostrando la relación inversa entre velocidad y capacidad.
-```
-
-**Principio de localidad:**
-
-El hardware moderno optimiza para dos tipos de localidad:
-
-1. **Localidad temporal:** Si accedés a un dato ahora, es probable que lo accedas de nuevo pronto.
-2. **Localidad espacial:** Si accedés a un dato, es probable que accedas a datos cercanos en memoria pronto.
-
-**Cómo funcionan los cachés:**
-
-Cuando el CPU necesita leer memoria, primero busca en el caché L1. Si no está (cache miss), busca en L2, luego L3, y finalmente en RAM. Cuando encuentra el dato, también trae a caché los bytes circundantes (una "línea de caché", típicamente 64 bytes).
-
-```
-Acceso a memoria:
-CPU → L1? (hit) → Usar dato (rápido)
-    ↓ (miss)
-    L2? (hit) → Copiar a L1 → Usar dato
-    ↓ (miss)
-    L3? (hit) → Copiar a L2 y L1 → Usar dato
-    ↓ (miss)
-    RAM → Copiar a cachés → Usar dato (lento)
-```
-
-**Por qué el stack es más rápido:**
-
-1. **Alta localidad temporal:** Las variables locales se usan frecuentemente en un corto período (dentro de la función). Probablemente permanecen en caché.
-
-2. **Alta localidad espacial:** Las variables locales están físicamente juntas en memoria. Acceder a una trae las otras al caché automáticamente.
-
-3. **Patrón predecible:** El stack crece y decrece de forma predecible, lo que permite al hardware pre-cargar datos.
-
-4. **Acceso secuencial:** Generalmente accedés a variables locales en orden, lo que maximiza el uso de las líneas de caché.
-
-**Por qué el heap es más lento:**
-
-1. **Menor localidad:** Las asignaciones de memoria pueden estar dispersas por todo el heap, causando más cache misses.
-
-2. **Indirección:** Acceder a memoria del heap requiere desreferenciar punteros, agregando un nivel de indirección.
-
-3. **Fragmentación:** Los bloques fragmentados están físicamente separados, reduciendo la localidad espacial.
-
-4. **Overhead del allocator:** Cada `malloc`/`free` involucra algoritmos de búsqueda y mantenimiento de estructuras de datos.
-
-**Ejemplo cuantitativo:**
-
-```c
-// Versión stack (rápida):
-void procesar_stack()
-{
-    int datos[1000];  // Asignación instantánea
-
-    // Todos los elementos probablemente en caché:
-    for (int i = 0; i < 1000; i++)
-    {
-        datos[i] = i * 2;  // Acceso secuencial, alta localidad
-    }
-}
-
-// Versión heap (más lenta):
-void procesar_heap()
+    printf("Elemento [1][0] (era 4, ahora debe ser 1): %d\n", mocesar_heap()
 {
     int *datos = malloc(1000 * sizeof(int));  // Llamada a función
 
@@ -3425,51 +3500,7 @@ funcion:
     ret                   ; Retornar
 ```
 
-(memoria-modelo-costos)=
-### Modelo de Costos: Cuantificando el Rendimiento
 
-Comprender el costo relativo de las operaciones de memoria permite tomar decisiones informadas sobre diseño y optimización. Este modelo proporciona una intuición sobre el rendimiento relativo.
-
-**Costos relativos (ciclos de CPU aproximados):**
-
-Si un acceso a registro tomara 1 segundo, acceder a RAM tomaría entre 2 y 5 minutos, y leer del disco duro tomaría 4 meses. Esta escala ayuda a visualizar la enorme diferencia de velocidades. 
-
-| Operación                    | Ciclos aprox.  | Equivalente temporal |
-| :--------------------------- | :------------- | :------------------- |
-| Acceso a registro            | 1              | 1 segundo            |
-| Acceso a L1 cache            | 4              | 4 segundos           |
-| Acceso a L2 cache            | 12             | 12 segundos          |
-| Acceso a L3 cache            | 40             | 40 segundos          |
-| Acceso a RAM                 | 100-300        | 2-5 minutos          |
-| malloc pequeño (heap hit)    | 50-100         | 1-2 minutos          |
-| malloc grande (new pages)    | 1,000-10,000   | 15 minutos - 3 horas |
-| free (simple)                | 20-50          | 20-50 segundos       |
-| Fallo de página (page fault) | 10,000-100,000 | 3 horas - 1 día      |
-| Acceso a SSD                 | 100,000        | 1 día                |
-| Acceso a disco HDD           | 10,000,000     | 4 meses              |
-
-**Implicaciones prácticas:**
-
-**1. Las asignaciones no son gratuitas:**
-
-```c
-// Ineficiente: muchas asignaciones pequeñas
-for (int i = 0; i < 1000; i++)
-{
-    char *str = malloc(10);  // 1000 llamadas a malloc
-    // ... usar str ...
-    free(str);               // 1000 llamadas a free
-}
-
-// Mejor: una asignación grande
-char *buffer = malloc(10000);
-for (int i = 0; i < 1000; i++)
-{
-    char *str = buffer + (i * 10);  // Solo aritmética de punteros
-    // ... usar str ...
-}
-free(buffer);  // Una sola llamada a free
-```
 
 ## Conexión con el Siguiente Tema
 
@@ -3484,6 +3515,6 @@ El apunte {ref}`complejidad-introduccion` introduce el **análisis asintótico**
 
 El análisis de complejidad es fundamental para tomar decisiones informadas: ¿vale la pena usar una lista enlazada (memoria dinámica, $O(n)$ búsqueda) o un arreglo redimensionable (overhead de copia, $O(1)$ acceso)? Sin complejidad, solo podemos intuir; con ella, podemos **demostrar matemáticamente** qué solución es mejor.
 
-Después, el apunte **[](13_tad)** muestra cómo **encapsular** estructuras con memoria dinámica en Tipos Abstractos de Datos, ocultando detalles de implementación y exponiendo interfaces limpias.
+Después, el apunte **{ref}`tad-capitulo`** muestra cómo **encapsular** estructuras con memoria dinámica en Tipos Abstractos de Datos, ocultando detalles de implementación y exponiendo interfaces limpias.
 
 **Pregunta puente**: Una búsqueda lineal en lista enlazada toma $O(n)$ tiempo. ¿Podemos hacer mejor? ¿Cómo cuantificamos "mejor"? La respuesta requiere análisis formal de complejidad algorítmica.

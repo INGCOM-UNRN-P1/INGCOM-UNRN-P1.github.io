@@ -39,14 +39,9 @@ tipo_dato nombre_matriz[CANTIDAD_FILAS][CANTIDAD_COLUMNAS];
 
 :::{warning} Uso de ALV/VLA
 
-Es muy importante destacar que las matrices **deben** ser de dimensiones
-constantes en tiempo de compilación, ya sea con el número literal, o un macro de
-preprocesador, como lo exige la regla de estilo {ref}`0x000Eh`.
+Es muy importante destacar que los Arreglos de Longitud Variable (ALV/VLA) están estrictamente prohibidos para la declaración de matrices en la pila (stack) debido al grave riesgo de desborde de pila (stack overflow) ante dimensiones no controladas, cumpliendo con la regla de estilo {ref}`0x000Eh`.
 
-Los problemas de utilizar ALV/VLA son mayores aquí que con los arreglos. Cuando
-veamos memoria dinámica, vamos a liberarnos de estas restricciones y ver por qué
-usar esta técnica es riesgoso.
-
+Sin embargo, el estándar C99 admite y habilita el uso de la sintaxis ALV en las firmas de funciones para permitir el pasaje de matrices con dimensiones dinámicas (donde las dimensiones se pasan como parámetros previos), facilitando el cálculo de desplazamientos de memoria en tiempo de ejecución de manera genérica y segura.
 :::
 
 Ejemplo
@@ -169,48 +164,48 @@ lo cual puede manifestarse en fallos de ejecución (`segmentation fault`) o
 corrupción de datos, violando la regla de estilo {ref}`0x0027h`.
 :::
 
-## Patrones de Recorrido de Matrices
+## Patrones de Recorrido y Localidad de Memoria (Caché)
 
-El procesamiento sistemático de todos los elementos de una matriz requiere el
-uso de **lazos anidados**. La comprensión de los diferentes patrones de acceso
-es crucial tanto para la corrección del algoritmo como para el rendimiento del
-programa.
+El procesamiento sistemático de todos los elementos de una matriz requiere el uso de **lazos anidados**. La comprensión de la relación entre el almacenamiento en memoria y el hardware de la CPU es crucial tanto para la corrección del algoritmo como para el rendimiento del programa.
 
-### Recorrido por Filas (Row-Major)
+A nivel físico, la memoria RAM es unidimensional. Para almacenar una matriz bidimensional, C utiliza el esquema **Row-Major Order** (ordenación por filas), disponiendo los elementos de la fila 0 de forma consecutiva, seguidos inmediatamente por los de la fila 1, y así sucesivamente.
 
-El patrón más común y eficiente es el recorrido por filas, donde se accede a
-todos los elementos de una fila antes de pasar a la siguiente. Este patrón
-aprovecha la {term}`localidad espacial <memoria caché>` y optimiza el uso de la
-memoria caché ({ref}`0x0000h`).
+Cuando el programa solicita un elemento de la matriz, la CPU no lee una única variable directamente desde la RAM. En su lugar, el hardware lee un bloque contiguo completo de datos (línea de caché) y lo transfiere a la **memoria caché** del procesador. Este mecanismo responde al principio de **localidad espacial**: si accedés a un dato, es altamente probable que necesités los datos adyacentes a la brevedad.
+
+### Recorrido por Filas (Row-Major): Alto Rendimiento
+
+El patrón más común y eficiente es el recorrido por filas, donde se accede a todos los elementos de una fila antes de pasar a la siguiente. 
+
+Si recorrés la matriz fila por fila (lazo externo en filas `i`, lazo interno en columnas `j`), el orden de acceso del programa coincide exactamente con la disposición lineal en el hardware. Los elementos contiguos ya se encontrarán precargados en la caché, generando un **acierto de caché (cache hit)** y agilizando notablemente el procesamiento, respetando la regla de estilo {ref}`0x0000h`.
 
 ```{code-block}c
-:caption: Recorrido fila por fila - patrón recomendado
+:caption: Recorrido fila por fila (Cache-Friendly) - patrón recomendado
 :linenos:
 
 // Lazo externo: filas (i)
 for (size_t i = 0; i < FILAS; i++) {
     // Lazo interno: columnas (j)
     for (size_t j = 0; j < COLUMNAS; j++) {
-        printf("%d ", matriz[i][j]);
+        printf("%d ", matriz[i][j]); // Acceso lineal contiguo
     }
     printf("\n"); // Salto de línea al final de cada fila
 }
 ```
 
-### Recorrido por Columnas (Column-Major)
+### Recorrido por Columnas (Column-Major): Bajo Rendimiento
 
-En ocasiones específicas, puede ser necesario procesar los elementos columna por
-columna. Este patrón es menos eficiente en términos de caché, pero puede ser
-requerido por la lógica del algoritmo.
+Si recorrés la matriz columna por columna (lazo externo en columnas `j`, lazo interno en filas `i`), forzás al procesador a realizar "saltos" en memoria física. Cada incremento de `i` requiere avanzar una distancia de `COLUMNAS * sizeof(tipo)` bytes. 
+
+Esto invalida la caché constantemente, produciendo un **fallo de caché (cache miss)** en cada paso, obligando a la CPU a suspender momentáneamente la ejecución para esperar lecturas de la lenta memoria principal (RAM).
 
 ```{code-block}c
-:caption: Recorrido columna por columna
+:caption: Recorrido columna por columna (Cache-Unfriendly)
 
 // Lazo externo: columnas (j)
 for (size_t j = 0; j < COLUMNAS; j++) {
     // Lazo interno: filas (i)
     for (size_t i = 0; i < FILAS; i++) {
-        printf("%d ", matriz[i][j]);
+        printf("%d ", matriz[i][j]); // Salto de fila en cada paso
     }
     printf("\n"); // Nueva línea al final de cada columna
 }
@@ -220,10 +215,18 @@ for (size_t j = 0; j < COLUMNAS; j++) {
 :label: fig-recorrido-matrices
 :width: 100%
 
-Comparación entre el recorrido por filas (row-major) y por columnas
-(column-major). El recorrido por filas accede a elementos contiguos en memoria,
-aprovechando la caché. El recorrido por columnas genera saltos en memoria,
-causando más fallos de caché.
+Comparación entre el recorrido por filas (row-major) y por columnas (column-major). El recorrido por filas accede a elementos contiguos en memoria, aprovechando la caché. El recorrido por columnas genera saltos en memoria, causando más fallos de caché.
+:::
+
+:::{figure} 6/cache_localidad.svg
+:label: fig-cache-localidad
+:width: 100%
+
+Impacto del orden de acceso en el rendimiento. El acceso secuencial (Row-Major) aprovecha la localidad espacial en caché, mientras que el acceso no secuencial genera múltiples fallos de caché debido a los saltos en memoria física.
+:::
+
+:::{important} Impacto en la Práctica
+En matrices de gran tamaño (por ejemplo, procesamiento de imágenes o simulaciones), el recorrido ineficiente puede degradar el rendimiento por un factor de hasta 10 veces o más. Siempre estructurá los lazos anidados de forma que el lazo más interno avance en la dimensión contigua en memoria (las columnas, en el caso de C).
 :::
 
 ### Recorrido Diagonal
@@ -255,19 +258,7 @@ printf("\n");
 :label: fig-diagonales
 :width: 100%
 
-Las diagonales principal y secundaria en una matriz cuadrada. La diagonal
-principal cumple la condición `i == j`, mientras que la secundaria cumple
-`i + j == DIM - 1`.
-:::
-
-:::{important} Eficiencia y localidad de memoria
-El orden de recorrido por filas es generalmente más eficiente debido a cómo C
-almacena las matrices en memoria. Cada acceso secuencial por fila mantiene los
-datos en la {term}`memoria caché`, mientras que el acceso por columnas puede
-generar más fallos de caché y, en consecuencia, un rendimiento inferior.
-
-Para matrices grandes, esta diferencia puede ser significativa. Siempre que sea
-posible, diseñá tus algoritmos para seguir el patrón row-major.
+Las diagonales principal y secundaria en una matriz cuadrada. La diagonal principal cumple la condición `i == j`, mientras que la secundaria cumple `i + j == DIM - 1`.
 :::
 
 ## Pasando matrices a funciones (Método Clásico)
@@ -317,13 +308,12 @@ elemento `matriz[i][j]`, utilizando una fórmula análoga a:
 
 ### Pasando matrices a funciones (Método ALV)
 
-La utilización de ALV's facilita la creación de funciones genéricas capaces de
-operar sobre matrices de dimensiones arbitrarias.
+Aunque el uso de ALV en el stack está estrictamente prohibido por seguridad (riesgo de desborde de pila), la sintaxis de parámetros ALV en firmas de funciones (introducida en el estándar C99) es una herramienta sumamente útil y segura para crear funciones genéricas capaces de operar sobre matrices de dimensiones arbitrarias sin recurrir a macros estáticas.
+
+Al declarar la matriz en los parámetros de la función utilizando variables previamente declaradas como dimensiones, el compilador puede generar código para calcular el desplazamiento de memoria de manera dinámica y precisa.
 
 :::{important} Orden de los Parámetros
-Resulta crucial observar que, en la firma de la función, los parámetros que
-definen las dimensiones de la matriz deben estar antes que el parámetro de la
-matriz misma.
+Resulta crucial observar que, en la firma de la función, los parámetros que definen las dimensiones de la matriz deben estar antes que el parámetro de la matriz misma. Esto se debe a que el compilador debe conocer el tamaño de `filas` y `cols` antes de interpretar la declaración de `matriz[filas][cols]`.
 :::
 
 ```{code-block}c
@@ -371,61 +361,11 @@ for (size_t i = 0; i < 2; i++) {       // Capas
 }
 ```
 
-## Row-Major Order y Recorrido Eficiente en Lazos (Localidad de Caché)
 
-Para comprender por qué la forma en que anidamos los lazos altera el rendimiento del programa, tenés que examinar la relación entre el **Row-Major Order** (el orden físico de almacenamiento en memoria) y el funcionamiento de la **memoria caché** del procesador.
-
-A nivel físico, la memoria RAM es unidimensional. Para almacenar una matriz bidimensional, C utiliza el esquema **Row-Major Order** (ordenación por filas), disponiendo los elementos de la fila 0 de forma consecutiva, seguidos inmediatamente por los de la fila 1, y así sucesivamente.
-
-:::{figure} 6/cache_localidad.svg
-:label: fig-cache-localidad
-:width: 100%
-
-Impacto del orden de acceso en el rendimiento. El acceso secuencial (Row-Major) aprovecha la localidad espacial en caché, mientras que el acceso no secuencial genera múltiples fallos de caché debido a los saltos en memoria física.
-:::
-
-### Maximización de la Caché por Localidad Espacial
-
-La CPU nunca lee una única variable directamente desde la RAM. Cuando se solicita un elemento de la matriz, el hardware lee un bloque contiguo completo de datos y lo transfiere a la memoria caché. Este mecanismo responde al principio de **localidad espacial**: si accedés a un dato, es altamente probable que necesités los datos contiguos a la brevedad.
-
-- **Recorrido eficiente (Row-Major):** Si recorrés la matriz fila por fila (lazo externo en filas `i`, lazo interno en columnas `j`), el orden de acceso del programa coincide exactamente con la disposición lineal en el hardware. Los elementos contiguos ya se encontrarán precargados en la caché (ocurre un *cache hit* o acierto de caché), agilizando el procesamiento.
-- **Recorrido ineficiente (Column-Major):** Si recorrés la matriz columna por columna (lazo externo en columnas `j`, lazo interno en filas `i`), forzás al procesador a realizar "saltos" en memoria física. Cada incremento de `i` requiere avanzar una distancia de `COLUMNAS * sizeof(tipo)` bytes. Esto invalida la caché constantemente (*cache miss* o fallo de caché), obligando a la CPU a detener su ejecución para esperar lecturas repetidas de la lenta memoria principal.
-
-#### Ejemplo de Recorrido Óptimo (Cache-Friendly)
-
-El lazo interno recorre los elementos adyacentes de la misma fila:
-
-```c
-// ALTO RENDIMIENTO: El lazo interno sigue el orden lineal de almacenamiento
-for (size_t i = 0; i < FILAS; i++) {
-    for (size_t j = 0; j < COLUMNAS; j++) {
-        suma += matriz[i][j]; // Acceso lineal contiguo
-    }
-}
-```
-
-#### Ejemplo de Recorrido Ineficiente (Cache-Unfriendly)
-
-El lazo interno salta de fila en fila a través de la misma columna:
-
-```c
-// BAJO RENDIMIENTO: Genera saltos constantes e invalida la caché
-for (size_t j = 0; j < COLUMNAS; j++) {
-    for (size_t i = 0; i < FILAS; i++) {
-        suma += matriz[i][j]; // Salto de fila en cada paso
-    }
-}
-```
-
-:::{important} Impacto en la Práctica
-En matrices de gran tamaño (por ejemplo, procesamiento de imágenes o simulaciones), el recorrido ineficiente puede degradar el rendimiento por un factor de hasta 10 veces o más. Siempre estructurá los lazos anidados de forma que el lazo más interno avance en la dimensión contigua en memoria.
-:::
 
 # Operaciones Matemáticas con Matrices
 
-En el ámbito de la programación en $C$ y otras áreas de la computación, el
-manejo de matrices es fundamental. $A$ continuación, te presento los algoritmos
-y las expresiones matemáticas para las operaciones básicas entre matrices.
+En el ámbito de la programación en C y otras áreas de la computación, el manejo de matrices es fundamental. A continuación, se presentan los algoritmos y las expresiones matemáticas para las operaciones básicas entre matrices.
 
 :::{figure} 6/operaciones_basicas.svg
 :label: fig-operaciones-basicas
@@ -597,26 +537,41 @@ $C_{1,1} = (\color{blue}A_{1,1} \cdot \color{red}B_{1,1}) + (\color{blue}A_{1,2}
 Este algoritmo requiere tres lazos anidados para calcular el producto escalar de
 cada fila de A con cada columna de B.
 
+### Algoritmo en Pseudocódigo Optimizado (Cache-Friendly)
+
+Para realizar la multiplicación minimizando los fallos de caché, es conveniente reordenar los lazos del algoritmo clásico ($i, j, k$) al orden optimizado ($i, k, j$). De esta forma, el lazo más interno recorre consecutivamente las columnas de las matrices en memoria principal, garantizando localidad espacial.
+
 ```{code-block}pseudocode
-:caption: Algoritmo para la multiplicación de una matriz A (m x p) por una matriz B (p x n).
+:caption: Algoritmo optimizado para la multiplicación de una matriz A (m x p) por una matriz B (p x n) en orden i-k-j.
 :linenos:
 
 PROCEDIMIENTO multiplicar_matrices(A, B, C, m, p, n)
   // A es una matriz de m x p de entrada
   // B es una matriz de p x n de entrada
-  // C es la de dimensión m x n de salida (por referencia)
-
+  // C es la de dimensión m x n de salida (por referencia). Se asume inicializada en 0.
+  
+  // Inicializar la matriz de resultados C en cero
   PARA i DESDE 0 HASTA m - 1
     PARA j DESDE 0 HASTA n - 1
-      suma = 0
-      PARA k DESDE 0 HASTA p - 1
-        suma = suma + (A[i][k] * B[k][j])
+      C[i][j] = 0
+    FIN PARA
+  FIN PARA
+
+  // Multiplicación en orden i, k, j para optimizar el acceso a caché
+  PARA i DESDE 0 HASTA m - 1
+    PARA k DESDE 0 HASTA p - 1
+      factor = A[i][k]
+      PARA j DESDE 0 HASTA n - 1
+        C[i][j] = C[i][j] + (factor * B[k][j])
       FIN PARA
-      C[i][j] = suma
     FIN PARA
   FIN PARA
 FIN PROCEDIMIENTO
 ```
+
+:::{tip} ¿Por qué el orden $i, k, j$?
+En la implementación clásica ($i, j, k$), el lazo más interno recorre `k`, accediendo a `B[k][j]`. Como `k` varía y `j` es constante, saltamos filas de la matriz `B` en memoria física, provocando constantes fallos de caché (*cache misses*). En cambio, al usar el orden ($i, k, j$), el lazo más interno recorre `j` (las columnas). Tanto `C[i][j]` como `B[k][j]` se acceden de forma contigua en memoria, maximizando el rendimiento del hardware y aprovechando la línea de caché.
+:::
 
 ## Validación y Manejo de Errores
 
@@ -649,9 +604,8 @@ bool indice_valido(size_t fila, size_t columna,
     return (fila < max_filas && columna < max_columnas);
 }
 
-int acceso_seguro_matriz(int matriz[][MAX_COLUMNAS],
-                        size_t fila, size_t columna,
-                        size_t filas, size_t columnas) {
+int acceso_seguro_matriz(size_t filas, size_t columnas, int matriz[filas][columnas],
+                        size_t fila, size_t columna) {
     if (!indice_valido(fila, columna, filas, columnas)) {
         fprintf(stderr, "Error: Índices fuera de límites (%zu, %zu)\n",
                 fila, columna);
@@ -720,41 +674,15 @@ modificación del código.
 int matriz[MAX_FILAS][MAX_COLUMNAS];
 ```
 
-### Optimización de Acceso a Memoria
-
-Para matrices grandes, considerá el orden de acceso para optimizar el uso de la
-caché. El patrón row-major es generalmente más eficiente:
-
-```{code-block}c
-:caption: Optimización para el acceso a memoria
-:linenos:
-
-// Preferible - acceso secuencial por filas
-for (size_t i = 0; i < FILAS; i++) {
-    for (size_t j = 0; j < COLUMNAS; j++) {
-        procesar_elemento(matriz[i][j]);
-    }
-}
-
-// Menos eficiente - acceso por columnas
-// Usar solo cuando sea necesario por la lógica del algoritmo
-for (size_t j = 0; j < COLUMNAS; j++) {
-    for (size_t i = 0; i < FILAS; i++) {
-        procesar_elemento(matriz[i][j]);
-    }
-}
-```
-
 ### Funciones Auxiliares
 
-Creá funciones auxiliares para operaciones comunes, siguiendo la regla de
-claridad {ref}`0x0000h`:
+Creá funciones auxiliares para operaciones comunes, siguiendo la regla de claridad {ref}`0x0000h`:
 
 ```{code-block}c
 :caption: Funciones auxiliares para matrices
 :linenos:
 
-void imprimir_matriz(int matriz[][MAX_COLS], size_t filas, size_t columnas) {
+void imprimir_matriz(int matriz[][MAX_COLUMNAS], size_t filas, size_t columnas) {
     for (size_t i = 0; i < filas; i++) {
         for (size_t j = 0; j < columnas; j++) {
             printf("%4d ", matriz[i][j]);
@@ -763,7 +691,7 @@ void imprimir_matriz(int matriz[][MAX_COLS], size_t filas, size_t columnas) {
     }
 }
 
-void inicializar_con_ceros(int matriz[][MAX_COLS], size_t filas, size_t columnas) {
+void inicializar_con_ceros(int matriz[][MAX_COLUMNAS], size_t filas, size_t columnas) {
     for (size_t i = 0; i < filas; i++) {
         for (size_t j = 0; j < columnas; j++) {
             matriz[i][j] = 0;
@@ -771,8 +699,8 @@ void inicializar_con_ceros(int matriz[][MAX_COLS], size_t filas, size_t columnas
     }
 }
 
-bool son_matrices_iguales(int a[][MAX_COLS], int b[][MAX_COLS],
-                         int filas, int columnas) {
+bool son_matrices_iguales(int a[][MAX_COLUMNAS], int b[][MAX_COLUMNAS],
+                         size_t filas, size_t columnas) {
     for (size_t i = 0; i < filas; i++) {
         for (size_t j = 0; j < columnas; j++) {
             if (a[i][j] != b[i][j]) {

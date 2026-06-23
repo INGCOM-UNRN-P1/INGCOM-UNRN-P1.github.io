@@ -36,7 +36,7 @@ int mi_arreglo[4];
 
 Esta declaración reserva espacio para 4 enteros. Si un `int` ocupa 4 bytes, la disposición en memoria es contigua:
 
-```{figure} ./4/array_memory_layout.svg
+```{figure} 4/array_memory_layout.svg
 :name: fig-array-memory-layout
 :width: 100%
 
@@ -60,7 +60,7 @@ estáticos:
 
 Formas de inicialización explícita:
 
-```{figure} ./4/array_initialization.svg
+```{figure} 4/array_initialization.svg
 :name: fig-array-initialization
 :width: 100%
 
@@ -290,11 +290,13 @@ Las implicaciones y el uso correcto de la memoria dinámica, que es la alternati
 
 De todas formas y como se imaginarán, hay una regla de estilo {ref}`0x000Eh`.
 
-### El Mecanismo de Paso a Funciones
+### El Mecanismo de Paso a Funciones: Decaimiento de Arreglos (Array Decay)
 
-Cuando un arreglo se pasa a una función, **no se crea una copia** del mismo. En su lugar, la función recibe la **dirección de memoria** del primer elemento. Es como darle a alguien la dirección de tu casa en lugar de una foto de ella; pueden entrar y redecorar.
+En el lenguaje C, los arreglos poseen un comportamiento particular al ser transmitidos como argumentos: **no se pasan por valor (no se copia el arreglo completo)**. En su lugar, el compilador aplica una regla denominada **decaimiento de arreglo a puntero** (*array decay*). 
 
-```{figure} ./4/array_pass_by_reference.svg
+Bajo esta regla, una expresión de tipo "arreglo de `T`" (por ejemplo, `int mi_arreglo[]`) que se pasa como argumento decae de manera implícita a un puntero al primer elemento del arreglo (tipo `T*`, en este caso `int*`). Por consiguiente, la función recibe únicamente una copia de la dirección de memoria de inicio del arreglo original. Cualquier acceso o modificación que realice la función a través del operador de indexación (`[]`) se traduce en una operación de desreferenciación directa sobre el espacio de memoria original.
+
+```{figure} 4/array_pass_by_reference.svg
 :name: fig-array-pass-by-reference
 :width: 100%
 
@@ -320,7 +322,8 @@ En otras palabras, su ejecución es predecible y no depende del contexto externo
 
 **Ejemplo de función pura:**
 
-```c
+```{code-block} c
+:linenos:
 int maximo(int valores[], int cantidad) 
 {
     int max = valores[0];
@@ -343,7 +346,8 @@ Una **función con efectos secundarios** es aquella que **modifica** el estado d
 
 **Ejemplo:**
 
-```c
+```{code-block} c
+:linenos:
 void ordenar(int v[], int cantidad) 
 {
     for (int i = 0; i < cantidad - 1; i++) 
@@ -446,7 +450,7 @@ secuencia original.
  * para cualquier arreglo que le pasemos;
  * ¡vamos a obtener el mismo valor!
  */
-size_t tamanio_arreglo(int arreglo[]) {
+size_t obtener_tamanio(int arreglo[]) {
     printf("Tamaño del arreglo: %zu\n", sizeof(arreglo));
     // El arreglo es siempre de tamaño 8 (la dirección)
     printf("Tamaño de un valor: %zu\n", sizeof(arreglo[0]));
@@ -457,8 +461,8 @@ size_t tamanio_arreglo(int arreglo[]) {
 int main() {
     int arreglo1[] = {10, 20, 30, 40, 50};
     int arreglo2[20];
-    size_t uno = tamanio_arreglo(arreglo1);
-    size_t dos = tamanio_arreglo(arreglo2);
+    size_t uno = obtener_tamanio(arreglo1);
+    size_t dos = obtener_tamanio(arreglo2);
     printf("Tamaño de arreglo1: %zu\n", uno); // obtenemos 2
     printf("Tamaño de arreglo2: %zu\n", dos); // obtenemos 2
     return 0;
@@ -497,12 +501,7 @@ cosas.
 
 ### Retorno de Secuencias desde Funciones
 
-Una función **no puede retornar un arreglo local**. Cuando una función se
-ejecuta, obtiene un espacio de memoria temporal (un _stack frame_). Al retornar,
-ese espacio se considera libre y puede ser sobrescrito en cualquier momento.
-Devolver la dirección de una variable local es como devolver la llave de una
-habitación de hotel después de haber hecho el check-out: la llave puede seguir
-existiendo, pero la habitación ya no te pertenece.
+Una función **no puede retornar un arreglo local**. Las variables de un arreglo local se alojan en el registro de activación (*stack frame*) de la función en la pila. Al ejecutarse la instrucción de retorno, el registro de activación de la función se desapila y destruye de forma física en memoria lógica, quedando ese espacio disponible para ser sobrescrito por cualquier llamada subsiguiente en el programa. Intentar acceder a la dirección de memoria de un objeto local que ya ha sido liberado del stack constituye una desreferenciación de puntero colgante y provoca comportamiento indefinido o fallas de segmentación.
 
 ## Cadenas: Secuencias de Caracteres
 
@@ -519,7 +518,7 @@ Por ejemplo, la siguiente cadena:
 char cadena[7] = "Hola";
 ````
 
-```{figure} ./4/string_null_terminator.svg
+```{figure} 4/string_null_terminator.svg
 :name: fig-string-null-terminator
 :width: 100%
 
@@ -538,9 +537,7 @@ vamos a obtener el tamaño en bytes de la cadena.
 size_t espacio_reservado = sizeof(mi_cadena) / sizeof(mi_cadena[0]);
 ````
 
-Esto coincide con el largo del arreglo, ya que `char` _suele_ ocupar 1 byte por la estrategia de codificación empleada: el código {abbr}`ASCII (American Standard Code for Information Interchange)`.
-
-[Más información sobre ASCII](https://es.wikipedia.org/wiki/ASCII)
+Esto coincide con el largo del arreglo, ya que en el estándar del lenguaje C, el operador `sizeof(char)` es siempre igual a `1` por definición. El byte en C es, precisamente, el tamaño de almacenamiento físico de un `char`. Esto es independiente de la estrategia de codificación de caracteres empleada por la plataforma (como ASCII o UTF-8), garantizando la portabilidad de este cálculo.
 
 Por lo tanto, el `espacio_reservado` tendría `7`, y no el largo de la cadena que
 es `4`.
@@ -625,7 +622,7 @@ Y se encarga de recorrer la cadena hasta encontrarse un carácter nulo (`\0`)
 ::::{note} Largo vs. capacidad
 Es muy importante tener en cuenta que las cadenas tienen dos "tamaños" diferentes.
 
-```{figure} ./4/string_length_vs_capacity.svg
+```{figure} 4/string_length_vs_capacity.svg
 :name: fig-string-length-vs-capacity
 :width: 100%
 
@@ -853,14 +850,12 @@ la cantidad de vocales (mayúsculas y minúsculas) que contiene.
 #include <string.h>
 #include <ctype.h>
 
-int contar_vocales(char cadena[])
+int contar_vocales(const char cadena[])
 {
     int contador = 0;
-    size_t largo = strlen(cadena);
-
-    for (size_t i = 0; i < largo; i++) {
+    for (size_t i = 0; cadena[i] != '\0'; i++) {
         // Convertimos el carácter a minúscula para simplificar la comparación
-        char caracter = tolower(cadena[i]);
+        char caracter = tolower((unsigned char)cadena[i]);
         if (caracter == 'a' || caracter == 'e' || caracter == 'i' || caracter == 'o' || caracter == 'u') {
             contador++;
         }
@@ -872,7 +867,7 @@ int main()
 {
     char texto[] = "Este Es un Ejemplo de Cadena";
     int vocales = contar_vocales(texto);
-    printf("La cadena: <"%s>"\n", texto);
+    printf("La cadena: <\"%s\">\n", texto);
     printf("Tiene %d vocales.\n", vocales);
     return 0;
 }

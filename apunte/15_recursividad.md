@@ -61,7 +61,7 @@ int main() {
 
 // Definición de la función recursiva
 long int factorial(int n) {
-    // Validación de precondición (robustez ante valores inválidos, regla {ref}`0x0035h`)
+    // Validación de precondición (robustez ante valores inválidos, regla {ref}`0x2001h`)
     if (n < 0) {
         return -1;
     }
@@ -77,10 +77,17 @@ long int factorial(int n) {
 #### Análisis del Código
 
 1.  **Caso Base:** La línea `if (n == 0)` comprueba la condición de parada. Si `n` es 0, la función retorna `1` y la cadena de llamadas recursivas comienza a resolverse.
-2.  **Paso Recursivo:** En la sección `else`, la función retorna el resultado de `n` multiplicado por el valor devuelto por la llamada a `factorial(n - 1)`. Esta llamada es con un problema más pequeño (`n-1`), lo que garantiza que eventualmente se alcanzará el caso base (`n=0`).
+2.  **Paso Recursivo:** En la última sentencia, la función retorna el resultado de `n` multiplicado por el valor devuelto por la llamada a `factorial(n - 1)`. Esta llamada opera sobre un subproblema de menor tamaño (`n-1`), garantizando la convergencia hacia el caso base.
 
-::: {important} Pila de llamadas (Call Stack)
-Cada vez que una función es llamada (incluyendo las llamadas recursivas), se crea un nuevo marco de pila (*stack frame*) en la memoria para almacenar sus variables locales y el punto de retorno. En la recursividad, estas llamadas se apilan hasta que se alcanza el caso base. Luego, los resultados se "desapilan" y se calculan en orden inverso al de las llamadas.
+::: {important} Pila de llamadas (Call Stack) y Anatomía del Stack Frame
+Cada vez que un programa invoca una función, se reserva un espacio de memoria física en la pila del sistema (*call stack*) denominado **marco de pila** o *stack frame*. En una arquitectura moderna típica (como x86_64 bajo la convención de llamadas System V AMD64 ABI), un marco de pila contiene los siguientes elementos esenciales:
+
+1. **Dirección de Retorno:** La dirección de la instrucción en la función llamadora a la que debe retornar el control del flujo del procesador una vez que finalice la ejecución de la función actual.
+2. **Parámetros de Entrada:** Los argumentos provistos a la función. Si bien la convención System V ABI los transfiere inicialmente en registros (como `rdi`, `rsi`, `rdx`), el compilador suele respaldarlos en la pila si su dirección es requerida o si se realizan llamadas sucesivas.
+3. **Puntero de Marco Anterior (Saved Frame Pointer):** La dirección de base (`rbp`) del marco de la función que la invocó. Esto permite restaurar el contexto de registros del llamador al concluir la función actual.
+4. **Variables Locales:** Espacio reservado para almacenar los datos definidos internamente en la función durante su ciclo de vida.
+
+En la recursividad, cada llamada consecutiva apila un nuevo marco. Estos marcos se acumulan hasta alcanzar el caso base, punto en el cual se inicia la fase de resolución y retorno ("desapilado") en orden inverso al de la llamada (LIFO: *Last In, First Out*).
 
 Para un análisis detallado sobre el manejo de memoria en el stack y su relación con el ciclo de vida de variables locales, podés consultar {ref}`memoria-stack`.
 :::
@@ -95,16 +102,61 @@ A continuación se muestra de forma gráfica el estado del *Call Stack* durante 
 Evolución del Call Stack en la ejecución recursiva de `factorial(3)`. Los marcos se apilan secuencialmente hasta el caso base y se desapilan propagando el resultado.
 ```
 
-## El Peligro de la Recursividad: Stack Overflow
+## El Peligro de la Recursividad: Stack Overflow y la Paradoja del Factorial
 
-Como explicamos en la sección anterior, cada llamada recursiva a una función reserva memoria en la pila de llamadas (*call stack*) mediante un nuevo marco de pila (*stack frame*). El tamaño del *stack* es limitado y está preconfigurado por el sistema operativo o el entorno de ejecución (típicamente unos pocos megabytes).
+El tamaño total disponible para la pila de llamadas (*call stack*) es finito, preconfigurado por el sistema operativo o el entorno de ejecución (típicamente entre 1 y 8 megabytes en sistemas Unix/Linux). Si el consumo de pila excede dicho límite físico, se produce un desbordamiento catastrófico de pila o **stack overflow**, lo cual interrumpe inmediatamente el programa con un fallo de segmentación (*segmentation fault*).
 
-Si un algoritmo recursivo no está correctamente diseñado o controlado, es muy fácil agotar este espacio físico, provocando un **desbordamiento de pila** (o *stack overflow*). Cuando esto ocurre, el programa interrumpe su ejecución de manera abrupta, usualmente con un error de violación de acceso (*segmentation fault*).
+Las causas principales de este fallo son:
+1. **Ausencia o fallo en el Caso Base (Recursión Infinita):** Si la condición de parada no se cumple o los parámetros no convergen al caso base.
+2. **Recursión Demasiado Profunda:** Aún si el algoritmo es lógicamente correcto, si la profundidad de llamadas es excesiva, la pila se agotará.
 
-Existen dos causas principales para este fallo catastrófico:
+### La Paradoja del Factorial: Límites del Tipo de Dato vs. Límites de la Pila
 
-1. **Ausencia o fallo en el Caso Base (Recursión Infinita):** Si la condición de parada nunca se cumple o el subproblema no se acerca al caso base en cada llamada, el programa seguirá apilando marcos indefinidamente.
-2. **Recursión Demasiado Profunda:** Incluso si el algoritmo es lógicamente correcto y tiene un caso base válido, si la cantidad de llamadas recursivas necesarias es extremadamente grande (por ejemplo, millones de llamadas), la pila física se agotará antes de alcanzar la condición de parada.
+:::{note} Contraste Cuantitativo
+El factorial es el ejemplo introductorio por excelencia de la recursividad, pero presenta una severa deficiencia didáctica si se analiza con rigor de ingeniería de software.
+
+En sistemas de 64 bits modernos (con arquitectura LP64), un entero de tipo `long int` de C ocupa 8 bytes, permitiendo almacenar valores en el rango:
+
+$$-2^{63} \leq \text{long int} \leq 2^{63} - 1 \quad (\approx 9.22 \times 10^{18})$$
+
+* El factorial de 20 es $20! \approx 2.43 \times 10^{18}$ (entra dentro de los límites del tipo).
+* El factorial de 21 es $21! \approx 5.10 \times 10^{19}$ (supera la capacidad máxima del tipo `long int` y produce un **desbordamiento aritmético**).
+
+Por lo tanto, la implementación de `factorial(n)` recursiva en C fallará y devolverá valores matemáticamente erróneos para $n \geq 21$. Sin embargo, para provocar un *stack overflow* físico en una pila de 8 MB con marcos de 32 bytes, se requerirían aproximadamente:
+
+$$\frac{8 \times 10^6 \text{ bytes}}{32 \text{ bytes/marco}} \approx 250.000 \text{ llamadas recursivas}$$
+
+Esto significa que **el desbordamiento aritmético ocurre en $n=21$, mucho antes de comprometer la estabilidad física del stack**. El estudiante no ve el límite del stack en este ejemplo clásico, sino el límite físico de almacenamiento del tipo de dato binario.
+:::
+
+## Recursión de Cola (Tail Recursion) y Optimización TCO
+
+Una llamada recursiva se considera **recursiva de cola** (*tail recursive*) si la llamada a sí misma es la última instrucción ejecutada por la función antes de retornar, y su resultado se devuelve directamente sin realizar ninguna operación aritmética o lógica adicional.
+
+Por ejemplo, la función `factorial` tradicional expuesta arriba **no** es recursiva de cola porque, tras el retorno de `factorial(n - 1)`, la función debe realizar la multiplicación por `n`.
+
+Podemos reescribir la función factorial para que sea recursiva de cola utilizando un acumulador:
+
+```c
+long int factorial_tail_rec(int n, long int acumulador) {
+    if (n < 0) {
+        return -1;
+    }
+    if (n == 0) {
+        return acumulador;
+    }
+    // La llamada recursiva es la última operación física.
+    return factorial_tail_rec(n - 1, n * acumulador);
+}
+```
+
+### Optimización por parte del compilador (TCO)
+
+Cuando una llamada es recursiva de cola, los compiladores modernos pueden aplicar una optimización llamada **Tail Call Optimization (TCO)**. En lugar de empujar un nuevo marco de pila al *call stack*, el compilador sobrescribe el marco de pila de la función actual y reutiliza sus registros y variables locales, transformando efectivamente la recursión en un salto incondicional (equivalente a un lazo de control). Esto reduce la complejidad espacial auxiliar del algoritmo de $O(n)$ a $O(1)$.
+
+:::{warning} Falta de Garantías en C
+El estándar ISO/IEC 9899 (C estándar) **no** garantiza ni exige la optimización TCO. Su aplicación depende exclusivamente del compilador y el nivel de optimización configurado (como `-O2` o `-O3` en GCC o Clang). Confiar en TCO para la estabilidad y robustez de un software crítico en C de producción constituye un antipatrón. Si se requiere un consumo constante de memoria, se debe implementar una versión puramente iterativa utilizando lazos.
+:::
 
 :::{warning} Recursión vs. Iteración
 Para tareas lineales simples (como recorrer una lista, buscar un elemento o sumar valores de forma consecutiva), la iteración mediante **lazos de control** (`for` o `while`) es infinitamente más segura y eficiente. Los lazos no consumen marcos de pila adicionales por cada repetición. Por lo tanto, reservá la recursividad para estructuras de datos intrínsecamente jerárquicas o ramificadas (como árboles y grafos) o algoritmos basados en *Divide y Vencerás* con profundidad de pila acotada (usualmente $O(\log n)$).
@@ -117,7 +169,7 @@ A continuación se presenta una tabla comparativa sobre el uso de recursos entre
 
 | Aspecto | Iteración (Lazos) | Recursividad |
 | :--- | :--- | :--- |
-| **Uso de Memoria en el Stack** | $O(1)$ constante. El mismo marco de pila se reutiliza durante todo el lazo. | $O(d)$ donde $d$ es la profundidad máxima de llamadas. |
+| **Uso de Memoria en el Stack** | $O(1)$ constante. El mismo marco de pila se reutiliza durante todo el lazo. | $O(d)$ donde $d$ es la profundidad máxima de llamadas (salvo TCO exitoso). |
 | **Rendimiento** | Más rápido. Evita la sobrecarga de llamadas y retornos de función. | Más lento por la constante asignación y liberación de marcos de pila. |
 | **Límite de Ejecución** | Limitado solo por el tiempo de procesamiento o valores numéricos. | Físicamente limitado por el tamaño máximo del *stack* del sistema. |
 :::
@@ -142,177 +194,236 @@ Paradigma de Divide y Vencerás aplicado a la ordenación del arreglo [12, 11, 1
 
 ### Ejemplo 1: Búsqueda Binaria
 
-La búsqueda binaria es un algoritmo eficiente para encontrar un elemento en un **arreglo ordenado**. Se ajusta perfectamente al modelo de divide y conquista:
+La búsqueda binaria es un algoritmo altamente eficiente para localizar un elemento dentro de un **arreglo ordenado**. Se basa en el paradigma de divide y conquista.
 
-- **Dividir:** Se compara el elemento buscado con el elemento central del arreglo, dividiendo el problema y reduciendo el espacio de búsqueda a la mitad.
-- **Conquistar:** Si el elemento central es el buscado, la búsqueda finaliza. De lo contrario, se realiza una llamada recursiva sobre la mitad izquierda o la mitad derecha, dependiendo de si el elemento buscado es menor o mayor que el central. El caso base ocurre cuando el sub-arreglo se queda sin elementos.
-- **Combinar:** En este caso, la fase de combinación es trivial, ya que la respuesta obtenida en el subproblema resuelto (encontrar o no el elemento) es directamente la solución del problema original.
+Sin embargo, a menudo se enseña implementado mediante recursividad, lo cual es ineficiente desde la perspectiva del uso de memoria en sistemas reales.
 
-#### Implementación en C (Recursiva)
+* **Fase de División:** Se compara el elemento buscado con el valor central del subarreglo. El espacio de búsqueda se reduce a la mitad.
+* **Fase de Conquista:** Si hay coincidencia, se retorna la posición. De lo contrario, se realiza una llamada recursiva sobre el subarreglo izquierdo o derecho. El caso base ocurre cuando el subarreglo está vacío (índices cruzados).
+* **Fase de Combinación:** Es trivial, ya que el resultado encontrado se propaga directamente hacia arriba en la pila.
+
+#### Justificación del Consumo de Pila y Complejidad Espacial
+
+En la versión recursiva, cada paso de división genera un nuevo marco de pila. Como el espacio se reduce a la mitad en cada paso, la profundidad máxima de la pila es de $O(\log n)$. Por ende, consume un espacio auxiliar de $O(\log n)$ marcos de pila en el stack del sistema.
+
+En contraste, la versión iterativa clásica resuelve el mismo problema utilizando un único lazo de control `while` y variables locales reescritas, requiriendo un espacio espacial auxiliar de $O(1)$ (constante) de manera óptima, lo que elimina cualquier riesgo de *stack overflow*.
+
+#### Implementaciones en C
+
+Para cumplir con la regla de uso de variables de tipo `size_t` en índices y tamaños (regla {ref}`0x3010h`), debemos prever y evitar el desbordamiento por decremento bajo cero (ya que `size_t` es un tipo de dato sin signo). Además, declaramos el arreglo de entrada como `const` dado que la función no modifica sus elementos (regla {ref}`0x3007h`).
 
 ```{code} c
-:caption: Implementación recursiva de la Búsqueda Binaria en C
+:caption: Búsqueda Binaria recursiva e iterativa en C
 :label: binary-search-c
 
 #include <stdio.h>
+#include <stddef.h>
 
-// Una función de búsqueda binaria recursiva.
-// Retorna la ubicación de x en arr[l..r] si está presente,
-// de lo contrario retorna -1.
-// Precondición: arr debe estar ordenado de menor a mayor.
-int binarySearch(int arr[], int l, int r, int x) {
-    if (r >= l) {
-        int mid = l + (r - l) / 2;
+// Búsqueda binaria recursiva
+// Retorna 1 si x está presente en arr[l..r] e inyecta la posición en *indice_encontrado.
+// Retorna 0 de lo contrario.
+int buscar_binario_recursivo(const int arr[], size_t l, size_t r, int x, size_t *indice_encontrado) {
+    if (l <= r) {
+        size_t mid = l + (r - l) / 2;
 
-        // Si el elemento está presente en el medio
-        if (arr[mid] == x)
-            return mid;
+        if (arr[mid] == x) {
+            *indice_encontrado = mid;
+            return 1;
+        }
 
-        // Si el elemento es más pequeño que el del medio, entonces
-        // solo puede estar presente en el sub-arreglo izquierdo
-        if (arr[mid] > x)
-            return binarySearch(arr, l, mid - 1, x);
-
-        // De lo contrario, el elemento solo puede estar presente
-        // en el sub-arreglo derecho
-        return binarySearch(arr, mid + 1, r, x);
+        if (arr[mid] > x) {
+            // Guarda para evitar desbordamiento inferior de size_t al restar 1
+            if (mid > 0) {
+                return buscar_binario_recursivo(arr, l, mid - 1, x, indice_encontrado);
+            }
+        } else {
+            return buscar_binario_recursivo(arr, mid + 1, r, x, indice_encontrado);
+        }
     }
+    return 0; // Caso base: no encontrado
+}
 
-    // El elemento no está presente en el arreglo
-    return -1;
+// Búsqueda binaria iterativa (espacio O(1) óptimo)
+int buscar_binario_iterativo(const int arr[], size_t size, int x, size_t *indice_encontrado) {
+    if (size == 0) {
+        return 0;
+    }
+    size_t l = 0;
+    size_t r = size - 1;
+
+    while (l <= r) {
+        size_t mid = l + (r - l) / 2;
+
+        if (arr[mid] == x) {
+            *indice_encontrado = mid;
+            return 1;
+        }
+
+        if (arr[mid] > x) {
+            if (mid == 0) {
+                break; // Evita el desbordamiento inferior de size_t al decrementar
+            }
+            r = mid - 1;
+        } else {
+            l = mid + 1;
+        }
+    }
+    return 0;
 }
 
 int main(void) {
     int arr[] = {2, 3, 4, 10, 40};
-    int n = sizeof(arr) / sizeof(arr[0]);
+    size_t n = sizeof(arr) / sizeof(arr[0]);
     int x = 10;
-    int result = binarySearch(arr, 0, n - 1, x);
-    if (result == -1)
-        printf("El elemento no está presente en el arreglo\n");
-    else
-        printf("Elemento encontrado en el índice %d\n", result);
-    return 0;
-}
+    size_t posicion = 0;
+
+    printf("Probando búsqueda binaria iterativa:\n");
+    if (buscar_binario_iterativo(arr, n, x, &posicion) == 1) {
+        printf("Elemento %d encontrado en el índice %zu\n", x, posicion);
+    } else {
+        printf("Elemento %d no está presente en el arreglo\n", x);
+    }
+
+    printf("\nProbando búsqueda binaria recursiva:\n");
+    if (buscar_### Ejemplo 2: Ordenamiento por Fusión (Merge Sort)
+
+Merge Sort representa una aplicación más compleja del paradigma de divide y vencerás que involucra recursión múltiple (dos llamadas recursivas) y una fase de combinación no trivial (la fusión de arreglos ordenados).
+
+* **Dividir:** Se divide el arreglo de $n$ elementos en dos subarreglos de tamaño $n/2$ cada uno.
+* **Conquistar:** Se ordena cada subarreglo de forma recursiva. El caso base es un arreglo de longitud menor o igual a 1, que ya se encuentra ordenado.
+* **Combinar:** Se fusionan (*merge*) los dos subarreglos ya ordenados para producir el arreglo final ordenado.
+
+Este flujo no lineal de llamadas se puede visualizar detalladamente en la siguiente traza de ejecución:
+
+```{figure} 15/traza_merge_sort.svg
+:label: fig-traza-merge-sort
+:align: center
+:width: 85%
+
+Árbol de llamadas recursivas y secuencia de fusión para Merge Sort con el arreglo inicial [5, 2, 7, 3]. Los números en los círculos indican el orden cronológico de ejecución (DFS).
 ```
 
-### Ejemplo 2: Ordenamiento por Fusión (Merge Sort)
+#### Deficiencia del malloc en recursión profunda y optimización de buffer único
 
-Merge Sort representa una aplicación más compleja de divide y conquista que involucra recursión múltiple (dos llamadas recursivas) y una fase de combinación no trivial (la fusión de arreglos ordenados).
+:::{important} Evitar Reservas Dinámicas Repetitivas
+Una implementación ingenua de Merge Sort reserva memoria dinámica mediante `malloc` dentro de la función `merge` en cada nivel de recursión para crear subarreglos temporales. Esto es una pésima práctica de ingeniería de software. 
 
-- **Dividir:** Se divide el arreglo de `n` elementos en dos sub-arreglos de `n/2` elementos cada uno.
-- **Conquistar:** Se ordena cada sub-arreglo de forma recursiva utilizando Merge Sort. El caso base es un arreglo con un solo elemento, que ya se considera ordenado.
-- **Combinar:** Se fusionan (*merge*) los dos sub-arreglos ya ordenados para producir la solución final: un único arreglo ordenado.
+Realizar `malloc` y `free` repetidamente en un algoritmo recursivo introduce una enorme sobrecarga debido a las llamadas al sistema (*system calls*) para interactuar con el administrador de memoria del sistema operativo, fragmentando además el heap.
 
-#### Implementación en C
+La forma correcta y óptima de resolver esto es preasignar un **único arreglo auxiliar** de tamaño $n$ en la función envolvente (wrapper) y propagarlo mediante punteros a lo largo de las sucesivas llamadas recursivas, eliminando cualquier reserva de memoria intermedia.
+:::
+
+#### Implementación Optimizada en C
+
+A continuación se expone la implementación correcta de Merge Sort. En concordancia con las reglas de estilo de la cátedra, todos los bloques y estructuras de control emplean llaves obligatoriamente (regla {ref}`0x1001h`) y los tamaños e índices se definen utilizando el tipo `size_t` (regla {ref}`0x3010h`).
 
 ```{code} c
-:caption: Implementación del algoritmo Merge Sort en C
+:caption: Implementación optimizada de Merge Sort con búfer temporal único en C
 :label: merge-sort-c
 
 #include <stdio.h>
 #include <stdlib.h>
 
-// Función para combinar dos sub-arreglos de arr[]
-// El primer sub-arreglo es arr[l..m]
-// El segundo sub-arreglo es arr[m+1..r]
-void merge(int arr[], int l, int m, int r) {
-    int i, j, k;
-    int n1 = m - l + 1;
-    int n2 = r - m;
+// Combina dos mitades ordenadas arr[l..m] y arr[m+1..r] utilizando el búfer auxiliar único aux[]
+void fusionar(int arr[], size_t l, size_t m, size_t r, int aux[]) {
+    size_t i = l;
+    size_t j = m + 1;
+    size_t k = l;
 
-    // Crear arreglos temporales
-    int *L = (int*) malloc(n1 * sizeof(int));
-    int *R = (int*) malloc(n2 * sizeof(int));
-
-    // Validar asignación de memoria (regla {ref}`0x0003h`)
-    if (L == NULL || R == NULL) {
-        free(L);
-        free(R);
-        return;
+    // Copiar el rango relevante al arreglo auxiliar
+    for (size_t idx = l; idx <= r; idx++) {
+        aux[idx] = arr[idx];
     }
 
-    // Copiar datos a los arreglos temporales L[] y R[]
-    for (i = 0; i < n1; i++)
-        L[i] = arr[l + i];
-    for (j = 0; j < n2; j++)
-        R[j] = arr[m + 1 + j];
-
-    // Fusionar los arreglos temporales de nuevo en arr[l..r]
-    i = 0; // Índice inicial del primer sub-arreglo
-    j = 0; // Índice inicial del segundo sub-arreglo
-    k = l; // Índice inicial del sub-arreglo fusionado
-    while (i < n1 && j < n2) {
-        if (L[i] <= R[j]) {
-            arr[k] = L[i];
+    // Fusionar de aux[] a arr[]
+    while ((i <= m) && (j <= r)) {
+        if (aux[i] <= aux[j]) {
+            arr[k] = aux[i];
             i++;
         } else {
-            arr[k] = R[j];
+            arr[k] = aux[j];
             j++;
         }
         k++;
     }
 
-    // Copiar los elementos restantes de L[], si hay alguno
-    while (i < n1) {
-        arr[k] = L[i];
+    // Copiar los elementos restantes de la mitad izquierda (si quedan)
+    while (i <= m) {
+        arr[k] = aux[i];
         i++;
         k++;
     }
 
-    // Copiar los elementos restantes de R[], si hay alguno
-    while (j < n2) {
-        arr[k] = R[j];
+    // Copiar los elementos restantes de la mitad derecha (si quedan)
+    while (j <= r) {
+        arr[k] = aux[j];
         j++;
         k++;
     }
-    
-    free(L);
-    free(R);
 }
 
-// l es para el índice izquierdo y r es para el índice derecho del
-// sub-arreglo de arr que será ordenado
-void mergeSort(int arr[], int l, int r) {
+// Función recursiva interna
+void merge_sort_recursivo(int arr[], size_t l, size_t r, int aux[]) {
     if (l < r) {
-        // Encuentra el punto medio para evitar desbordamiento
-        int m = l + (r - l) / 2;
+        size_t m = l + (r - l) / 2;
 
-        // Ordena la primera y la segunda mitad
-        mergeSort(arr, l, m);
-        mergeSort(arr, m + 1, r);
-
-        // Fusiona las mitades ordenadas
-        merge(arr, l, m, r);
+        merge_sort_recursivo(arr, l, m, aux);
+        merge_sort_recursivo(arr, m + 1, r, aux);
+        fusionar(arr, l, m, r, aux);
     }
 }
 
-void printArray(int A[], int size) {
-    for (int i = 0; i < size; i++)
-        printf("%d ", A[i]);
+// Función envolvente que preasigna el búfer auxiliar único
+int ordenar_merge_sort(int arr[], size_t size) {
+    if (size <= 1) {
+        return 0; // Ya ordenado
+    }
+
+    // Reservar un único búfer auxiliar, utilizando sizeof(*aux) según buena práctica
+    int *aux = (int*) malloc(size * sizeof(*aux));
+
+    // Validar asignación de memoria dinámica (regla {ref}`0x3001h`)
+    if (aux == NULL) {
+        return -1;
+    }
+
+    merge_sort_recursivo(arr, 0, size - 1, aux);
+
+    free(aux);
+    return 0;
+}
+
+void imprimir_arreglo(const int arr[], size_t size) {
+    for (size_t i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
     printf("\n");
 }
 
-int main() {
+int main(void) {
     int arr[] = {12, 11, 13, 5, 6, 7};
-    int arr_size = sizeof(arr) / sizeof(arr[0]);
+    size_t arr_size = sizeof(arr) / sizeof(arr[0]);
 
     printf("Arreglo original: \n");
-    printArray(arr, arr_size);
+    imprimir_arreglo(arr, arr_size);
 
-    mergeSort(arr, 0, arr_size - 1);
+    if (ordenar_merge_sort(arr, arr_size) == 0) {
+        printf("\nArreglo ordenado: \n");
+        imprimir_arreglo(arr, arr_size);
+    } else {
+        printf("\nError al ordenar: fallo en asignación de memoria.\n");
+    }
 
-    printf("\nArreglo ordenado: \n");
-    printArray(arr, arr_size);
     return 0;
 }
 ```
 
 :::{warning} Validación de Memoria Dinámica
-En C, toda asignación dinámica mediante `malloc` o `calloc` puede fallar si el sistema no dispone de suficiente memoria. Para asegurar la robustez del programa, es obligatorio verificar que los punteros obtenidos no sean `NULL` antes de utilizarlos (regla {ref}`0x0003h`). No realizar esta validación induce a desreferenciación de punteros nulos y comportamiento indefinido.
+En C, toda asignación dinámica mediante `malloc` o `calloc` puede fallar si el sistema no dispone de suficiente memoria. Para asegurar la robustez del programa, es obligatorio verificar que los punteros obtenidos no sean `NULL` antes de utilizarlos (regla {ref}`0x3001h`). No realizar esta validación induce a desreferenciación de punteros nulos y comportamiento indefinido.
 :::
 
 :::{note} Complejidad
-La relación de recurrencia para Merge Sort es $T(n) = 2T(n/2) + O(n)$. Esto se resuelve a una complejidad temporal de $O(n \log n)$, que es muy eficiente. Para un análisis matemático de cómo se resuelve esta recurrencia, consultá la sección de {ref}`Teorema Maestro <apunte/14_complejidad.md>`.
+La relación de recurrencia para Merge Sort es $T(n) = 2T(n/2) + O(n)$. Esto se resuelve a una complejidad temporal de $O(n \log n)$, que es muy eficiente. Para un análisis matemático de cómo se resuelve esta recurrencia, consultá la sección de {doc}`Teorema Maestro <14_complejidad>`.
 :::
 
 ## Ejercicios Prácticos
@@ -327,7 +438,7 @@ Escribir una función recursiva en C para calcular la potencia de un número ($a
 **Versión Recursiva:**
 ```c
 double potencia_recursiva(double a, int b) {
-    // Guarda de robustez (regla {ref}`0x0035h`)
+    // Guarda de robustez (regla {ref}`0x2001h`)
     if (b < 0) {
         return -1.0; 
     }
@@ -382,7 +493,44 @@ int sumar_hasta_cero_robusta(int n) {
 }
 ```
 :::
+
+```exercise
+:label: ej-recursividad-stackframe
+Considerando la siguiente función recursiva en C:
+```c
+long int calcular_suma_recursiva(int n) {
+    long int variables_locales[4] = {0};
+    if (n <= 0) {
+        return 0;
+    }
+    variables_locales[0] = n;
+    return variables_locales[0] + calcular_suma_recursiva(n - 1);
+}
 ```
+Estimar el tamaño mínimo teórico de su marco de pila (*stack frame*) en una arquitectura típica de 64 bits (x86_64, donde `sizeof(int) == 4` y `sizeof(long int) == 8`), asumiendo que el compilador no realiza optimizaciones de llamada de cola. Estimar la profundidad de recursión teórica y el número máximo de llamadas antes de producir un desbordamiento físico de la pila (*stack overflow*) si el límite de la pila del sistema operativo es de $8 \text{ MB}$.
+```
+
+```solution
+:for: ej-recursividad-stackframe
+Para estimar el tamaño mínimo de un marco de pila en la arquitectura x86_64 bajo el estándar de llamada estándar System V AMD64 ABI, debemos analizar cuantitativamente cada componente del registro del marco:
+
+1. **Dirección de Retorno:** Requiere 8 bytes para almacenar el puntero de instrucción del llamador.
+2. **Puntero de Marco Anterior (Saved Frame Pointer):** Almacena el registro `rbp` previo, consumiendo 8 bytes.
+3. **Variables Locales:** El arreglo `long int variables_locales[4]` ocupa $4 \times 8 \text{ bytes} = 32 \text{ bytes}$.
+4. **Parámetros de Entrada:** El argumento `int n` (4 bytes) inicialmente se transfiere vía registro (`edi`). Sin embargo, al realizarse la llamada recursiva, el compilador debe respaldarlo en la pila para preservar su valor a lo largo de las activaciones sucesivas. Por cuestiones de alineación en arquitectura de 64 bits, este campo consume 8 bytes.
+
+Sumando los componentes:
+$$\text{Tamaño del marco} = 8 \text{ (retorno)} + 8 \text{ (frame pointer anterior)} + 32 \text{ (variables locales)} + 8 \text{ (parámetro alineado)} = 56 \text{ bytes}$$
+
+Bajo la convención x86_64 ABI, la pila debe estar alineada a límites de 16 bytes antes de cualquier llamada a función. Por lo tanto, el compilador redondea el tamaño de este marco a un múltiplo de 16, resultando en un tamaño real de **64 bytes** por marco.
+
+Para calcular el límite teórico de llamadas:
+* El límite del stack del sistema operativo es de $8 \text{ MB} = 8 \times 1024 \times 1024 \text{ bytes} = 8.388.608 \text{ bytes}$.
+* Número máximo de marcos permitidos:
+  $$\text{Profundidad Máxima} = \frac{8.388.608 \text{ bytes}}{64 \text{ bytes/marco}} = 131.072 \text{ llamadas}$$
+
+Este ejercicio ilustra cuantitativamente las restricciones del stack frente al heap y refuerza por qué es imperativo acotar o evitar la recursividad lineal para problemas con grandes volúmenes de datos.
+:::
 
 ## Ventajas y Desventajas
 
@@ -398,3 +546,10 @@ int sumar_hasta_cero_robusta(int n) {
 * - El código puede ser más elegante y fácil de entender, ya que refleja la estructura matemática del problema.
   - La recursividad profunda puede llevar a un desbordamiento de la pila (*stack overflow*) si no se maneja con cuidado.
 ```
+
+## Lecturas Recomendadas
+
+- **{cite:t}`cormen_introduction_2009`**. Capítulo 4: Divide-and-Conquer.
+- **{cite:t}`sedgewick_algorithms_2011`**. Tratamiento de algoritmos recursivos, búsqueda binaria y Merge Sort.
+- **{cite:t}`bryant_computer_2015`**. Capítulo 3: Machine-Level Representation of Programs (sección sobre procedimientos y la pila de llamadas).
+

@@ -1,9 +1,10 @@
 ---
 title: "Punteros"
 short_title: "7 - Punteros I"
-subtitle: "Comenzando con la lengua prohibida de Mordor"
+subtitle: "Control directo de memoria en sistemas integrados"
 ---
 
+(punteros-capitulo)=
 ## Introducción a los Punteros y la Memoria
 
 Para profundizar en cómo funcionan estructuras como los arreglos y para ganar un
@@ -14,11 +15,13 @@ sus _ubicaciones_ en la memoria.
 
 ### ¿Qué es una Dirección de Memoria y un Puntero?
 
-Cada vez que declarás una variable, el sistema operativo le asigna un bloque de espacio en la memoria RAM. La memoria se organiza como una secuencia de celdas contiguas de 1 byte, donde cada celda posee una dirección de memoria física única representada comúnmente en formato hexadecimal (por ejemplo, `0x7ffee390a1bc`).
+Cada vez que declarás una variable, el entorno de ejecución y el sistema operativo le asignan un bloque de espacio en la memoria del programa. En los sistemas operativos modernos con soporte de hardware para paginación (a través de la MMU o *Memory Management Unit*), los programas de usuario no acceden directamente a las direcciones de la memoria RAM física. En su lugar, trabajan dentro de un espacio de **direcciones virtuales (memoria lógica)**. El sistema operativo se encarga de mapear de forma transparente estas direcciones lógicas a direcciones físicas reales de la memoria RAM o incluso a disco (memoria de intercambio o *swap*). Este mecanismo de abstracción proporciona seguridad y aislamiento entre los diferentes procesos que se ejecutan simultáneamente en la máquina.
 
-Un **puntero** es simplemente otra variable cuyo contenido es, precisamente, una de estas direcciones de memoria.
+Desde la perspectiva del programador en C, esta memoria lógica se organiza como una secuencia de celdas contiguas de 1 byte (u octeto), donde cada celda posee una dirección única representada comúnmente en formato hexadecimal (por ejemplo, `0x7ffee390a1bc`).
 
-Para visualizarlo, consideremos la siguiente organización en memoria de un entero `numero` (de 4 bytes) almacenado en la dirección `0x7ffd` y un puntero `ptr` almacenado en la dirección `0x8000` que apunta a él:
+Un **puntero** es simplemente otra variable cuyo contenido es, precisamente, una de estas direcciones de memoria lógica.
+
+Para visualizarlo, consideremos la siguiente organización en memoria de un entero `numero` (de 4 bytes) almacenado en la dirección `0x7ffd` y un puntero `ptr` almacenado en la dirección `0x8004` que apunta a él:
 
 :::{table} Representación de variables en celdas de memoria contiguas
 :label: tbl-representacion-memoria
@@ -28,7 +31,8 @@ Para visualizarlo, consideremos la siguiente organización en memoria de un ente
 | `0x7ffd` | `numero` | `int` | `42` |
 | `0x7ffe` | *(contiguo)* | - | *(parte de numero)* |
 | `0x7fff` | *(contiguo)* | - | *(parte de numero)* |
-| `0x8000` | `ptr` | `int*` | `0x7ffd` |
+| `0x8000` | *(contiguo)* | - | *(parte de numero)* |
+| `0x8004` | `ptr` | `int*` | `0x7ffd` |
 :::
 
 Como se observa en la tabla, el valor almacenado en `ptr` (`0x7ffd`) coincide exactamente con la dirección donde inicia la variable `numero`. Al desreferenciar `ptr` (usando `*ptr`), accedemos al valor `42`.
@@ -270,24 +274,25 @@ El tipo de dato del resultado de la resta de punteros es
 entero con signo definido en la cabecera `<stddef.h>`. Para imprimirlo
 correctamente con `printf`, se utiliza el especificador de formato `%td`.
 
-Esto, teniendo en cuenta que `size_t`, es un número sin signo, que no podría
-representar los valores negativos producto de ir "hacia atrás" de la posición
-inicial.
-
 :::
 
 ## Punteros en funciones y efectos secundarios
 
-Una de las aplicaciones más poderosas de los punteros es su uso en funciones.
-Por defecto, en C, los argumentos a las funciones se pasan **por valor**. Esto
-significa que la función recibe una copia del argumento, y cualquier
-modificación que haga sobre esa copia no afecta a la variable original.
+En el lenguaje C, **todas las funciones pasan sus argumentos estrictamente por valor**. No existe soporte nativo en el lenguaje para el paso por referencia (a diferencia de otros lenguajes como C++). Esto significa que al invocar una función, los parámetros formales reciben una copia de los valores de los argumentos. Cualquier modificación que se realice dentro del cuerpo de la función sobre esos parámetros afecta exclusivamente a sus copias locales en el marco de pila (*stack frame*), dejando intactas las variables originales del invocador.
 
-Al pasar un puntero a una función, lo que estamos pasando es la dirección de
-memoria de una variable. Aunque la dirección en sí se pasa por valor (la función
-recibe una copia del puntero), el puntero dentro de la función apunta a la
-variable original. Esto nos permite modificar la variable original desde dentro
-de la función, un mecanismo conocido como **paso por referencia simulado**.
+El **paso por referencia simulado** es la técnica mediante la cual logramos que una función pueda acceder y modificar variables del entorno que la invoca. Para simular esta referencia, pasamos por valor la *dirección de memoria* (un puntero) de la variable original. Aunque la dirección en sí se copia en la pila de la función, la desreferencia de este puntero permite interactuar directamente con la celda de memoria original.
+
+### Justificación de Diseño: Eficiencia y Rendimiento en Sistemas
+
+Simular el paso por referencia no es únicamente una herramienta para permitir la modificación de variables (efectos secundarios). En el desarrollo de software de sistemas, es un mecanismo indispensable por razones de rendimiento.
+
+Cuando pasamos un dato por valor, todo su contenido debe copiarse en el marco de pila de la función invocada. Si el argumento es un tipo de dato básico (como un `int` de 4 bytes o un `char` de 1 byte), el costo de la copia es insignificante. Sin embargo, en C trabajamos frecuentemente con estructuras de datos complejas (`struct`) que pueden agrupar arreglos y múltiples miembros, ocupando cientos o miles de bytes. Copiar estructuras de gran tamaño de manera repetida consume tiempo de procesamiento de la CPU (operaciones de copia en memoria) y agota rápidamente el espacio limitado del *stack* del programa (pudiendo provocar un desbordamiento de pila o *stack overflow*).
+
+Al pasar un puntero a dicha estructura:
+1. **Consumo de memoria mínimo**: Se copia únicamente la dirección de memoria, cuyo tamaño es fijo y pequeño (4 bytes en arquitecturas de 32 bits, 8 bytes en arquitecturas de 64 bits).
+2. **Tiempo de ejecución constante**: La transmisión de una dirección de memoria es una operación de bajo costo a nivel de registros de la CPU, independiente del tamaño real del objeto apuntado.
+
+Para garantizar que esta optimización no vulnere la seguridad de los datos (es decir, evitar que la función modifique accidentalmente la estructura que solo queríamos leer), debemos calificar el parámetro con `const`. Esto crea un contrato inmutable: el compilador rechazará cualquier intento de escritura sobre la estructura, logrando la máxima eficiencia de rendimiento con la seguridad de la inmutabilidad del paso por valor clásico.
 
 ```{figure} 7/paso_por_referencia.svg
 :label: fig-paso-por-referencia
@@ -508,8 +513,9 @@ Al trabajar con punteros, no solo es importante el tipo de dato, sino también l
 indicarlo:
 
 - **`[in]`**: El puntero se usa solo para **leer** datos. La función no
-  modificará el valor al que apunta. Es una buena práctica que estos parámetros
-  sean `const`.
+  modificará el valor al que apunta. **Es obligatorio calificar estos parámetros
+  con `const`** para que el compilador garantice esta invariante y prevenga
+  efectos secundarios accidentales.
 - **`[out]`**: El puntero se usa para **escribir** un resultado. El valor
   inicial al que apunta no es relevante para la función, pero al finalizar,
   contendrá un dato de salida.
@@ -616,7 +622,7 @@ void procesar_datos(int *arr);    // La forma más honesta: la función recibe u
 Debido a esto, la función pierde la información sobre el tamaño original del
 arreglo y el tamaño que obtendremos es únicamente el de la dirección de memoria.
 
-$$\text{sizeof(arreglo\_decaido)} = \text{sizeof(puntero)}$$
+$$\text{sizeof}(\text{arreglo decaido}) = \text{sizeof}(\text{puntero})$$
 
 ```{code-block}c
 :linenos:
@@ -636,7 +642,7 @@ alcance de la declaración del arreglo.
 Por lo que hacer `sizeof(arreglo)` va a devolver el tamaño total en bytes del
 arreglo, de forma que sea (número de elementos \* tamaño del tipo del arreglo).
 
-$$\text{sizeof(arreglo)} = elementos \times \text{sizeof(T)}$$
+$$\text{sizeof}(\text{arreglo}) = \text{elementos} \times \text{sizeof}(T)$$
 
 ```{code-block}c
 :linenos:
@@ -813,10 +819,10 @@ no se encuentra. La comprobación explícita contra `NULL` sigue la regla
 #include <stddef.h> // Para NULL y size_t
 
 // Devuelve un puntero al primer elemento que coincida con 'valor', o NULL si no se encuentra.
-int* buscar_valor(int *arr, size_t tamano, int valor) {
-    int *ptr = arr;
-    int *fin = arr + tamano;
-    int *resultado = NULL; // Inicializamos con NULL
+const int* buscar_valor(const int *arr, size_t tamano, int valor) {
+    const int *ptr = arr;
+    const int *fin = arr + tamano;
+    const int *resultado = NULL; // Inicializamos con NULL
 
     // El lazo continúa mientras no hayamos llegado al final
     // Y no hayamos encontrado el valor.
@@ -834,7 +840,7 @@ int main() {
     int numeros[] = {10, 20, 30, 40, 50};
     int valor_a_buscar = 30;
 
-    int *encontrado = buscar_valor(numeros, 5, valor_a_buscar);
+    const int *encontrado = buscar_valor(numeros, 5, valor_a_buscar);
 
     if (encontrado != NULL) {
         printf("Valor %d encontrado en la dirección de memoria %p\n", *encontrado, (void*)encontrado);
@@ -1013,9 +1019,13 @@ Implementá un procedimiento `void intercambiar(int *a, int *b)` que reciba dos 
 
 ```{code-block}c
 :linenos:
+#include <assert.h>
+#include <stddef.h>
 #include <stdio.h>
 
 void intercambiar(int *a, int *b) {
+  assert(a != NULL);
+  assert(b != NULL);
   int temporal = *a; // Guardamos el valor al que apunta 'a'
   *a = *b;           // Asignamos al lugar de 'a' el valor al que apunta 'b'
   *b = temporal;     // Asignamos al lugar de 'b' el valor guardado
@@ -1035,10 +1045,12 @@ Escribí una función `int encontrar_maximo(const int *arreglo, size_t n)` que r
 
 ```{code-block}c
 :linenos:
+#include <assert.h>
 #include <stddef.h>
 #include <stdio.h>
 
 int encontrar_maximo(const int *arreglo, size_t n) {
+  assert(arreglo != NULL);
   if (n == 0) {
     return 0; // O un valor de error apropiado
   }
@@ -1069,9 +1081,13 @@ Implementá un procedimiento `void copiar_cadena(char *destino, const char *orig
 
 ```{code-block}c
 :linenos:
+#include <assert.h>
+#include <stddef.h>
 #include <stdio.h>
 
 void copiar_cadena(char *destino, const char *origen) {
+  assert(destino != NULL);
+  assert(origen != NULL);
   // Mientras el valor al que apunta 'origen' no sea el carácter nulo...
   while (*origen != '\0') {
     *destino = *origen; // Copiamos el valor
@@ -1095,10 +1111,13 @@ Creá una función `int sumar_arreglo(const int *inicio, const int *fin)` que re
 
 ```{code-block}c
 :linenos:
+#include <assert.h>
 #include <stddef.h>
 #include <stdio.h>
 
 int sumar_arreglo(const int *inicio, const int *fin) {
+  assert(inicio != NULL);
+  assert(fin != NULL);
   int suma = 0;
   // Iteramos mientras el puntero 'p' no haya llegado al puntero 'fin'
   for (const int *p = inicio; p < fin; p++) {
@@ -1121,10 +1140,12 @@ Implementá un procedimiento `void invertir_arreglo(int *arreglo, size_t n)` que
 
 ```{code-block}c
 :linenos:
+#include <assert.h>
 #include <stddef.h>
 #include <stdio.h>
 
 void invertir_arreglo(int *arreglo, size_t n) {
+  assert(arreglo != NULL);
   if (n < 2) {
     return; // No hay nada que invertir
   }

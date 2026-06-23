@@ -156,6 +156,7 @@ int main(void) {
     // p->x = 10.0;  // ERROR: incomplete type 'struct punto'
     
     destruir_punto(p);
+    p = NULL;
     return 0;
 }
 ```
@@ -231,6 +232,14 @@ Para entender por qué es posible trabajar con tipos incompletos en C, debemos a
    - Es en `punto.o` donde reside la definición concreta de `struct punto` y el cuerpo de las funciones (como `crear_punto` y `punto_desplazar`).
    - El enlazador se encarga de resolver las direcciones de las llamadas a funciones en `main.o`, redirigiéndolas a las implementaciones reales presentes en `punto.o`.
    - Así, el ocultamiento es físico: en tiempo de compilación, el cliente no posee la estructura detallada; en tiempo de ejecución, el enlazador conecta las llamadas y las funciones operan sobre el espacio de memoria real asignado dinámicamente en el heap.
+
+```{figure} 12/opacidad_memoria.svg
+:label: fig-opacidad-memoria
+:align: center
+:width: 85%
+
+Representación física en memoria de un puntero opaco. El cliente (main.c) solo almacena la dirección del puntero, mientras que la estructura interna reside en el heap y solo es visible en el ámbito de la implementación (usuario.c).
+```
 
 :::{note} El Tamaño del Puntero es Constante
 Un puntero en C simplemente almacena una dirección de memoria. Independientemente de si apunta a un tipo básico (`char`, `int`), a una estructura gigante o a un tipo incompleto (puntero opaco), el tamaño requerido para almacenar esa dirección es exactamente el mismo en una arquitectura de hardware específica.
@@ -308,6 +317,34 @@ void destruir_tipo(tipo_t *instancia);
 usuario_t *usr = crear_usuario("Carlos", 35);
 // ... usar usr ...
 destruir_usuario(usr);
+usr = NULL;
+```
+
+#### Destrucción de Colecciones de Punteros Opacos
+
+Cuando gestionás una colección (como un array dinámico o una lista enlazada) de punteros opacos, no podés liberar la colección llamando simplemente a `free` sobre ella. Hacerlo generará una **fuga de memoria masiva**, ya que los elementos individuales apuntados seguirán existiendo en el heap sin ninguna referencia para liberarlos.
+
+Debés implementar un lazo de destrucción que recorra la colección elemento por elemento, invocando el destructor específico de cada tipo opaco, y recién entonces liberar la estructura contenedora.
+
+**Ejemplo práctico de destrucción de un array de usuarios:**
+
+```c
+#define CANT_USUARIOS 5
+
+void liberar_grupo_usuarios(usuario_t **grupo, size_t cantidad) {
+    if (grupo == NULL) {
+        return;
+    }
+    
+    // Recorremos la colección destruyendo cada elemento individual con un lazo
+    for (size_t i = 0; i < cantidad; i++) {
+        destruir_usuario(grupo[i]);
+        grupo[i] = NULL; // Evita punteros colgantes en el array
+    }
+    
+    // Finalmente, liberamos el array contenedor en sí
+    free(grupo);
+}
 ```
 
 ### Patrón Getter/Setter
@@ -444,7 +481,7 @@ usuario_t *crear_usuario(const char *nombre, int edad) {
         free(u);
         return NULL;
     }
-    strcpy(u->nombre, nombre);
+    memcpy(u->nombre, nombre, strlen(nombre) + 1);
     
     u->edad = edad;
     return u;
@@ -518,6 +555,7 @@ int main(void) {
     usuario_imprimir(u);
     
     destruir_usuario(u);
+    u = NULL;
     return 0;
 }
 ```

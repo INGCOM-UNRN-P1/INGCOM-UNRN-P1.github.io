@@ -4,6 +4,7 @@ short_title: '10 - enum/struct/union'
 subtitle: 'Tipos de datos compuestos'
 ---
 
+(enums-capitulo)=
 ## `Enum`eraciones en C
 
 Las **enumeraciones** (`enum`) constituyen un mecanismo fundamental en el lenguaje C para la definición de tipos de datos que representan un **conjunto finito y discreto** de valores con nombres simbólicos. A diferencia de usar valores literales o constantes dispersas en el código, las enumeraciones proporcionan una abstracción semántica que mejora considerablemente la legibilidad, mantenibilidad y robustez del programa.
@@ -20,12 +21,13 @@ Si este concepto resulta similar a las constantes `const` y a los literales de
 preprocesador `#define` estás en lo cierto y todas las consideraciones de uso
 aplican para cualquiera de los tres conceptos.
 
-:::{figure} 10/enum_concept.svg
+```{figure} 10/enum_concept.svg
 :name: fig-enum-concept
 :alt: Concepto de enumeraciones vs números mágicos
+:align: center
 
 Las enumeraciones proporcionan nombres simbólicos a valores enteros, transformando números mágicos en código legible y mantenible.
-:::
+```
 
 Aunque es posible definir constantes enteras con `#define` o una serie de
 variables `const`, el uso de `enum` es la práctica superior y más segura para
@@ -78,10 +80,14 @@ enum estado_conexion estado_actual = DESCONECTADO;
 
 ### Alcance y Namespaces
 
-:::{note} Espacios de Nombres (*name spaces*) en el Estándar C
-Es fundamental no confundir el concepto de *name space* de C con los *namespaces* de lenguajes como C++ o C#. En el estándar C, existen categorías específicas de espacios de nombres para los identificadores dentro de un mismo ámbito: etiquetas de sentencias, etiquetas de tipos (*tags* de `struct`, `union` o `enum`), miembros de cada estructura o unión individual, e identificadores ordinarios (variables, funciones, *typedefs* y constantes de enumeración). 
+:::{note} Espacios de Nombres (*name spaces*) según la norma ISO/IEC 9899
+Es fundamental no confundir la terminología específica de los *name spaces* en el estándar de C con los *namespaces* explícitos de lenguajes como C++ o C#. Conforme al apartado 6.2.3 del estándar ISO/IEC 9899, C clasifica los identificadores de un mismo ámbito en cuatro categorías independientes de espacios de nombres para evitar colisiones cruzadas:
+1. **Etiquetas de sentencias (label names):** Identificadores referenciados por la sentencia `goto`, delimitados por el carácter `:`.
+2. **Etiquetas de tipos (tags):** Los nombres identificadores precedidos por las palabras clave `struct`, `union` o `enum`.
+3. **Miembros de estructuras o uniones (members):** Cada estructura o unión declara su propio espacio de nombres para sus miembros, encapsulándolos detrás del operador de acceso de miembros (como `.` o `->`).
+4. **Identificadores ordinarios (ordinary identifiers):** Comprende a las variables, funciones, alias de tipos declarados con `typedef`, constantes declaradas en `enum` y parámetros de funciones.
 
-Las constantes de una enumeración residen en el espacio de nombres de los **identificadores ordinarios**. Por lo tanto, no se encuentran encapsuladas bajo el nombre de la enumeración, lo que obliga a diseñar nombres descriptivos para evitar colisiones con variables u otras constantes ordinarias en el mismo ámbito.
+Las constantes de una enumeración residen en el espacio de nombres de los **identificadores ordinarios**. En consecuencia, no están encapsuladas jerárquicamente dentro de la etiqueta del tipo `enum` al que pertenecen, lo que obliga a adoptar prefijos o nombres descriptivos singulares para evitar colisiones con variables u otras constantes ordinarias dentro del mismo bloque de alcance.
 :::
 
 #### Concepto de Namespace
@@ -514,12 +520,13 @@ Al usar valores explícitos y funciones de conversión, podés reorganizar el `e
 
 Las enumeraciones son ideales para implementar máquinas de estado finitas:
 
-:::{figure} 10/enum_state_machine.svg
+```{figure} 10/enum_state_machine.svg
 :name: fig-enum-state-machine
 :alt: Máquina de estado con enumeraciones
+:align: center
 
 Ejemplo de una máquina de estados de conexión implementada con enumeraciones, mostrando estados y transiciones válidas.
-:::
+```
 
 ```{code-block}c
 :caption: Máquina de estado con enumeraciones
@@ -927,7 +934,8 @@ Escribí una función que reciba un día y retorne si es día laboral
 o fin de semana. Incluí validación para valores inválidos.
 ```
 
-````{solution} enum_basico
+````{solution}
+:for: enum_basico
 :class: dropdown
 
 ```{code-block}c
@@ -1012,7 +1020,7 @@ int main() {
 ```
 ````
 
-# Los Ladrillos de la memoria
+## Los Ladrillos de la memoria
 
 En C, las **estructuras (`struct`)**, **uniones (`union`)** y **campos de bits
 (bit-fields)** son las herramientas fundamentales que nos permiten ir más allá
@@ -1040,12 +1048,13 @@ común (x86_64, little-endian), pero siempre debés verificar en tu plataforma.
 Una `struct` es una colección de variables (miembros) de diferentes tipos,
 agrupadas bajo un solo nombre.
 
-:::{figure} 10/struct_memory_layout.svg
+```{figure} 10/struct_memory_layout.svg
 :name: fig-struct-memory-layout
 :alt: Organización de estructuras en memoria
+:align: center
 
 Las estructuras agrupan datos relacionados en memoria. El compilador puede añadir padding entre campos para optimizar el acceso.
-:::
+```
 
 ### Declaración y `typedef`
 
@@ -1259,20 +1268,21 @@ offsetof(c) = 8
 Reordená los miembros de `ejemplo_padding_t` para minimizar su tamaño total. Verificá tu resultado con `sizeof`. ¿Cuál es el orden óptimo y por qué?
 ```
 
-````{solution} ejer-layout-1
+````{solution}
+:for: ejer-layout-1
 :class: dropdown
-El orden óptimo es agrupar los miembros más pequeños: `char a; char c; int b;`.
+El orden óptimo es ordenar los miembros de mayor a menor tamaño: `int b; char a; char c;`.
 
 ```c
 typedef struct {
+    int  b;     // 4 bytes
     char a;     // 1 byte
     char c;     // 1 byte
-    // 2 bytes de padding aquí
-    int  b;     // 4 bytes
+    // 2 bytes de padding al final para alinear la estructura completa
 } ejemplo_optimizado_t;
 // sizeof será 8
 ```
-Al agrupar `a` y `c`, el compilador solo necesita 2 bytes de padding para alinear `b`. El tamaño total se reduce a 8 bytes.
+Aunque el orden `char a; char c; int b;` también reduce el tamaño a 8 bytes, la regla generalizable y recomendada para estructuras con múltiples tipos complejos es ordenar los miembros siempre **de mayor a menor tamaño**. Esto minimiza el padding de alineación de forma consistente sin importar la cantidad o el tipo de los datos adicionales, como se detalla en la Regla de Oro.
 ````
 
 ---
@@ -1729,14 +1739,10 @@ Optimización de estructuras ordenando miembros por tamaño. El diseño subópti
 ```
 
 ```c
-// Diseño subóptimo (12 bytes en x86-64)
-typedef struct {
-    char a;       // 1 byte
-    int b;        // 4 bytes (3 bytes de padding antes)
-    char c;       // 1 byte (3 bytes de padding después para alinear la estructura)
-} desperdiciada_t;
+// Diseño subóptimo (12 bytes en x86-64) - Equivalente a ejemplo_padding_t del Laboratorio 1
+// (Ver offsetof y padding detallados en el Laboratorio 1)
 
-// Diseño optimizado (8 bytes en x86-64)
+// Diseño optimizado (8 bytes en x86-64) - Aplicando la regla de ordenamiento mayor a menor
 typedef struct {
     int b;        // 4 bytes
     char a;       // 1 byte
@@ -1892,12 +1898,13 @@ Una `union` permite que varios miembros compartan la **misma ubicación de
 memoria**. Su tamaño es el de su miembro más grande. Solo un miembro puede estar
 "activo" a la vez.
 
-:::{figure} 10/union_vs_struct.svg
+```{figure} 10/union_vs_struct.svg
 :name: fig-union-vs-struct
 :alt: Diferencias entre struct y union
+:align: center
 
 Comparación visual entre estructuras (todos los miembros en memoria separada) y uniones (todos comparten el mismo espacio de memoria).
-:::
+```
 
 #### El Patrón de Unión Etiquetada (Tagged Union)
 
@@ -2161,7 +2168,8 @@ Diseñá una unión etiquetada `evento_t` para un sistema simple. Un evento pued
 Escribí una función `void procesar_evento(const evento_t *evento)` que imprima un mensaje descriptivo según el tipo de evento.
 ```
 
-````{solution} ejer-tagged-union-2
+````{solution}
+:for: ejer-tagged-union-2
 :class: dropdown
 ```c
 #include <stdio.h>
@@ -2304,7 +2312,8 @@ Un protocolo de red envía un byte de estado con la siguiente estructura de bits
 Creá una `struct` con bit-fields para representar este byte. Escribí una función que reciba un `unsigned char` y lo imprima de forma legible usando la estructura.
 ```
 
-````{solution} ejer-bitfield-2
+````{solution}
+:for: ejer-bitfield-2
 :class: dropdown
 ```c
 #include <stdio.h>
@@ -2354,17 +2363,17 @@ Para cumplir con estas restricciones sin intervención del programador, el compi
 
 ### Impacto en el Consumo de Memoria Física
 
-Considerá la siguiente definición de estructura que modela información de un sensor:
+Considerá la estructura `ejemplo_padding_t` presentada y analizada en el Laboratorio 1:
 
 ```c
 typedef struct {
-    char tipo;          // 1 byte
-    int id;             // 4 bytes
-    char estado;        // 1 byte
-} sensor_desoptimizado_t;
+    char a;     // 1 byte
+    int  b;     // 4 bytes
+    char c;     // 1 byte
+} ejemplo_padding_t;
 ```
 
-A primera vista, se podría calcular que el tamaño físico de esta estructura es la suma de sus partes: $1 \text{ byte} + 4 \text{ bytes} + 1 \text{ byte} = 6 \text{ bytes}$. Sin embargo, al evaluar `sizeof(sensor_desoptimizado_t)`, el resultado en una arquitectura de 32 o 64 bits es **12 bytes**.
+A primera vista, se podría calcular que el tamaño físico de esta estructura es la suma de sus partes: $1 \text{ byte} + 4 \text{ bytes} + 1 \text{ byte} = 6 \text{ bytes}$. Sin embargo, al evaluar `sizeof(ejemplo_padding_t)`, el resultado en una arquitectura de 32 o 64 bits es **12 bytes**, como se demostró empíricamente en el Laboratorio 1.
 
 El compilador reorganiza el espacio aplicando las siguientes reglas:
 
