@@ -123,6 +123,9 @@ project:
     - title: Ayuda
       children:
         - file: guias/gcc.md
+        - file: guias/entorno.md
+        - file: guias/llvm-clang.md
+        - file: guias/clang.md
         - file: guias/vscode.md
         - file: guias/git.md
         - file: guias/git_avanzado.md

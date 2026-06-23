@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+  
+  <!-- Fondo -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)"/>
+  
+  <!-- Título -->
+  <text x="400" y="40" font-family="'Outfit', 'Inter', sans-serif" font-size="22" font-weight="bold" fill="#f8fafc" text-anchor="middle">
+    ARQUITECTURA DEL ENTORNO PORTABLE C/PYTHON
+  </text>
+  
+  <!-- Raíz del Entorno -->
+  <rect x="50" y="80" width="700" height="330" rx="12" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="6,6" filter="url(#shadow)"/>
+  <text x="70" y="105" font-family="'Inter', sans-serif" font-size="14" font-weight="bold" fill="#94a3b8">RAÍZ DEL ENTORNO PORTABLE (Directorio de Instalación)</text>
+  
+  <!-- Lanzadores (launch.bat / launch.ps1) -->
+  <rect x="80" y="130" width="180" height="80" rx="8" fill="url(#blueGrad)" filter="url(#shadow)"/>
+  <text x="170" y="165" font-family="'Inter', sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">Lanzadores de Sesión</text>
+  <text x="170" y="185" font-family="'Inter', sans-serif" font-size="12" fill="#e0f2fe" text-anchor="middle">launch.bat / launch.ps1</text>
+  
+  <!-- MSYS2 -->
+  <rect x="290" y="130" width="430" height="120" rx="8" fill="#1e293b" stroke="#334155" stroke-width="2" filter="url(#shadow)"/>
+  <text x="310" y="155" font-family="'Inter', sans-serif" font-size="14" font-weight="bold" fill="#f1f5f9">MSYS2 Portable (msys64/)</text>
+  
+  <!-- Clang64 -->
+  <rect x="310" y="175" width="180" height="60" rx="6" fill="url(#purpleGrad)" filter="url(#shadow)"/>
+  <text x="400" y="200" font-family="'Inter', sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Subsistema CLANG64</text>
+  <text x="400" y="218" font-family="'Inter', sans-serif" font-size="11" fill="#f5f3ff" text-anchor="middle">Clang C/C++, GDB, Python</text>
+
+  <!-- USR -->
+  <rect x="520" y="175" width="180" height="60" rx="6" fill="#475569" filter="url(#shadow)"/>
+  <text x="610" y="200" font-family="'Inter', sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Subsistema USR</text>
+  <text x="610" y="218" font-family="'Inter', sans-serif" font-size="11" fill="#f1f5f9" text-anchor="middle">Bash, pacman, git, coreutils</text>
+
+  <!-- VS Code Portable -->
+  <rect x="80" y="290" width="280" height="90" rx="8" fill="#1e293b" stroke="#334155" stroke-width="2" filter="url(#shadow)"/>
+  <text x="100" y="315" font-family="'Inter', sans-serif" font-size="14" font-weight="bold" fill="#f1f5f9">VS Code Portable (vscode/)</text>
+  <rect x="100" y="330" width="240" height="40" rx="4" fill="url(#blueGrad)"/>
+  <text x="220" y="355" font-family="'Inter', sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Editor + Extensiones en vscode/data/</text>
+  
+  <!-- Scripts Internos (bin/) -->
+  <rect x="390" y="290" width="150" height="90" rx="8" fill="url(#emeraldGrad)" filter="url(#shadow)"/>
+  <text x="465" y="325" font-family="'Inter', sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">Carpeta bin/</text>
+  <text x="465" y="345" font-family="'Inter', sans-serif" font-size="11" fill="#ecfdf5" text-anchor="middle">gh.exe, configure-git.sh,</text>
+  <text x="465" y="360" font-family="'Inter', sans-serif" font-size="11" fill="#ecfdf5" text-anchor="middle">install-lib.sh, doxygen</text>
+
+  <!-- HOME Portable (home/) -->
+  <rect x="560" y="290" width="160" height="90" rx="8" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2" filter="url(#shadow)"/>
+  <text x="640" y="325" font-family="'Inter', sans-serif" font-size="14" font-weight="bold" fill="#0f172a" text-anchor="middle">HOME Aislado</text>
+  <text x="640" y="345" font-family="'Inter', sans-serif" font-size="11" fill="#334155" text-anchor="middle">Configuraciones locales</text>
+  <text x="640" y="360" font-family="'Inter', sans-serif" font-size="11" fill="#334155" text-anchor="middle">de sesión (.bashrc, .ssh/)</text>
+
+  <!-- Conectores -->
+  <!-- Lanzadores -> MSYS2 -->
+  <path d="M 260 170 L 290 170" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+  <!-- Lanzadores -> VS Code -->
+  <path d="M 170 210 L 170 290" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 2 L 10 5 L 0 8 z" fill="#38bdf8" />
+    </marker>
+  </defs>
+</svg>
