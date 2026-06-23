@@ -5,7 +5,7 @@ subtitle: Reglas de estilo para el diseño y documentación de funciones en C
 ---
 
 (0x20XXh)=
-# 3. Funciones y Modularización (`0x20XX`)
+# Funciones y Modularización (`0x20XX`)
 
 (0x2001h)=
 ## Regla `0x2001h`: Las funciones deben usar cláusulas de guarda y retornos anticipados para evitar la anidación profunda
