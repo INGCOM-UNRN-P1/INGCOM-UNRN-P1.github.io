@@ -50,11 +50,10 @@ project:
         - file: apunte/10_enums.md
         - file: apunte/11_memoria.md
         - file: apunte/12_punteros_2.md
+        - file: apunte/12A_opacos.md
         - file: apunte/13_tad.md
         - file: apunte/14_complejidad.md
         - file: apunte/15_recursividad.md
-        - file: apunte/A_stdlib.md
-        - file: apunte/B_ordenamiento.md
     - title: Reglas de estilo
       children:
         - file: reglas/indice.md
@@ -120,6 +119,10 @@ project:
             - file: ejercicios/16_punteros_avanzados.md
             - file: ejercicios/17_analisis_de_codigo.md
             - file: ejercicios/diseno_api.md
+    - title: Referencia
+      children:
+        - file: apunte/A_stdlib.md
+        - file: apunte/B_ordenamiento.md
     - title: Ayuda
       children:
         - file: guias/gcc.md
