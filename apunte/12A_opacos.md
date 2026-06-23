@@ -6,7 +6,7 @@ subtitle: Técnicas de ocultamiento de información y diseño modular
 
 ## Introducción
 
-Los **punteros opacos** (opaque pointers) son una técnica fundamental en C para implementar **encapsulamiento** y **ocultamiento de información** (information hiding). Esta técnica permite ocultar la implementación interna de una estructura de datos, exponiendo solo una interfaz pública al usuario, de manera análoga al encapsulamiento de miembros privados de una clase pública en lenguajes orientados a objetos.
+Los **punteros opacos** (opaque pointers) son una técnica fundamental en C para implementar **encapsulamiento** y **ocultamiento de información** (information hiding). Esta técnica permite ocultar la implementación interna de una estructura, exponiendo solo una interfaz pública al usuario, de manera análoga al encapsulamiento de miembros privados de una clase en lenguajes orientados a objetos.
 
 El concepto de puntero opaco es esencial para construir **APIs robustas** y **bibliotecas mantenibles**, donde los detalles de implementación pueden cambiar sin romper el código cliente que las utiliza.
 
@@ -18,36 +18,34 @@ Los punteros opacos son la técnica de programación central sobre la cual se co
 
 ## Motivación: El Problema del Acceso Directo
 
-Considerá una implementación ingenua de una pila donde la estructura está completamente expuesta:
+Considerá una implementación ingenua de un punto geométrico en dos dimensiones donde la estructura está completamente expuesta:
 
 ```c
-// pila_mala.h - NO USAR: Implementación expuesta
+// punto_malo.h - NO USAR: Implementación expuesta
 typedef struct {
-    int *datos;
-    size_t tope;
-    size_t capacidad;
-} pila_t;
+    double x;
+    double y;
+} punto_t;
 
 // Funciones públicas
-pila_t *crear_pila(size_t capacidad);
-bool apilar(pila_t *pila, int dato);
+punto_t *crear_punto(double x, double y);
+void desplazar_punto(punto_t *p, double dx, double dy);
 ```
 
 ### Problemas de Esta Aproximación
 
 **1. Violación del encapsulamiento:**
 ```c
-pila_t *p = crear_pila(10);
-// El usuario puede acceder directamente a los campos internos
-p->tope = 100;  // ¡Rompe los invariantes!
-p->datos[20] = 5;  // ¡Buffer overflow!
+punto_t *p = crear_punto(3.0, 4.0);
+// El usuario puede acceder y modificar directamente los campos internos
+p->x = -9999.0;  // Modificación directa sin control
 ```
 
 **2. Imposibilidad de cambiar la implementación:**
-Si querés cambiar de arreglo a lista enlazada, **todo el código cliente se rompe** porque depende de los campos específicos de la estructura.
+Si decidís cambiar la representación interna de coordenadas cartesianas ($x, y$) a coordenadas polares ($radio, angulo$) para optimizar operaciones de rotación, **todo el código cliente se rompe** porque depende de los campos `x` e `y` específicos de la estructura.
 
 **3. Falta de control sobre invariantes:**
-No hay forma de garantizar que `tope < capacidad` o que `datos` apunte a memoria válida, porque el usuario puede modificar cualquier campo.
+No podés validar ni interceptar los cambios en los datos. Si la estructura requiriera que el punto se mantenga dentro de ciertos límites (por ejemplo, un plano acotado de una pantalla), no hay forma de evitar que el usuario asigne coordenadas fuera de rango directamente.
 
 :::{danger} Anti-patrón
 Exponer la definición completa de una estructura en el archivo de cabecera es un **anti-patrón** que destruye la abstracción y crea dependencias frágiles.
@@ -68,152 +66,103 @@ Las directivas de diseño de la cátedra establecen que todos los Tipos de Datos
 #### Archivo de Cabecera (`.h`) - Interfaz Pública
 
 ```c
-// pila.h - Interfaz pública
-#ifndef PILA_H
-#define PILA_H
-
-#include <stdbool.h>
-#include <stddef.h>
+// punto.h - Interfaz pública
+#ifndef PUNTO_H
+#define PUNTO_H
 
 // Declaración OPACA: el usuario solo ve que existe una estructura
-typedef struct pila pila_t;
+typedef struct punto punto_t;
 
-// Funciones públicas - la interfaz del TAD
-pila_t *crear_pila(size_t capacidad);
-void destruir_pila(pila_t *pila);
+// Funciones públicas - la interfaz
+punto_t *crear_punto(double x, double y);
+void destruir_punto(punto_t *punto);
 
-bool apilar(pila_t *pila, int dato);
-bool desapilar(pila_t *pila, int *dato);
-bool ver_tope(const pila_t *pila, int *dato);
-bool esta_vacia(const pila_t *pila);
-size_t obtener_tamanio(const pila_t *pila);
+double punto_obtener_x(const punto_t *punto);
+double punto_obtener_y(const punto_t *punto);
+void punto_desplazar(punto_t *punto, double dx, double dy);
 
-#endif  // PILA_H
+#endif  // PUNTO_H
 ```
 
 #### Archivo de Implementación (`.c`) - Detalles Privados
 
 ```c
-// pila.c - Implementación privada
-#include "pila.h"
+// punto.c - Implementación privada
+#include "punto.h"
 #include <stdlib.h>
 
 // Definición COMPLETA de la estructura - solo visible aquí
-struct pila {
-    int *datos;
-    size_t tope;
-    size_t capacidad;
+struct punto {
+    double x;
+    double y;
 };
 
-// Implementación de las funciones
-pila_t *crear_pila(size_t capacidad) {
-    if (capacidad == 0) {
+punto_t *crear_punto(double x, double y) {
+    punto_t *p = malloc(sizeof(*p));
+    if (p == NULL) {
         return NULL;
     }
-    
-    pila_t *pila = malloc(sizeof(*pila));
-    if (pila == NULL) {
-        return NULL;
-    }
-    
-    pila->datos = malloc(capacidad * sizeof(*(pila->datos)));
-    if (pila->datos == NULL) {
-        free(pila);
-        return NULL;
-    }
-    
-    pila->tope = 0;
-    pila->capacidad = capacidad;
-    return pila;
+    p->x = x;
+    p->y = y;
+    return p;
 }
 
-void destruir_pila(pila_t *pila) {
-    if (pila == NULL) {
+void destruir_punto(punto_t *punto) {
+    free(punto);
+}
+
+double punto_obtener_x(const punto_t *punto) {
+    if (punto == NULL) {
+        return 0.0;
+    }
+    return punto->x;
+}
+
+double punto_obtener_y(const punto_t *punto) {
+    if (punto == NULL) {
+        return 0.0;
+    }
+    return punto->y;
+}
+
+void punto_desplazar(punto_t *punto, double dx, double dy) {
+    if (punto == NULL) {
         return;
     }
-    free(pila->datos);
-    free(pila);
-}
-
-bool apilar(pila_t *pila, int dato) {
-    if (pila == NULL || pila->tope >= pila->capacidad) {
-        return false;
-    }
-    
-    pila->datos[pila->tope] = dato;
-    pila->tope++;
-    return true;
-}
-
-bool desapilar(pila_t *pila, int *dato) {
-    if (pila == NULL || pila->tope == 0 || dato == NULL) {
-        return false;
-    }
-    
-    pila->tope--;
-    *dato = pila->datos[pila->tope];
-    return true;
-}
-
-bool ver_tope(const pila_t *pila, int *dato) {
-    if (pila == NULL || pila->tope == 0 || dato == NULL) {
-        return false;
-    }
-    
-    *dato = pila->datos[pila->tope - 1];
-    return true;
-}
-
-bool esta_vacia(const pila_t *pila) {
-    return pila == NULL || pila->tope == 0;
-}
-
-size_t obtener_tamanio(const pila_t *pila) {
-    if (pila == NULL) {
-        return 0;
-    }
-    return pila->tope;
+    punto->x += dx;
+    punto->y += dy;
 }
 ```
 
 #### Código Cliente
 
 ```c
-// main.c - Usuario del TAD
+// main.c - Usuario de la interfaz
 #include <stdio.h>
-#include "pila.h"
+#include "punto.h"
 
 int main(void) {
-    pila_t *p = crear_pila(100);
+    punto_t *p = crear_punto(3.0, 4.0);
     if (p == NULL) {
-        fprintf(stderr, "Error al crear la pila\n");
+        fprintf(stderr, "Error al crear el punto\n");
         return 1;
     }
     
     // El usuario SOLO puede usar la interfaz pública
-    apilar(p, 10);
-    apilar(p, 20);
-    apilar(p, 30);
+    punto_desplazar(p, 1.5, -2.0);
+    printf("Punto: (%.1f, %.1f)\n", punto_obtener_x(p), punto_obtener_y(p));
     
     // Esto NO COMPILA: el usuario no puede acceder a los campos internos
-    // p->tope = 5;  // ERROR: incomplete type 'struct pila'
-    // p->datos[0] = 100;  // ERROR: incomplete type 'struct pila'
+    // p->x = 10.0;  // ERROR: incomplete type 'struct punto'
     
-    int dato;
-    while (!esta_vacia(p)) {
-        if (desapilar(p, &dato)) {
-            printf("Desapilado: %d\n", dato);
-        }
-    }
-    
-    destruir_pila(p);
+    destruir_punto(p);
     return 0;
 }
+```
 
 :::{warning} Gestión de Recursos y Robustez (regla {ref}`0x0003h` y {ref}`0x0036h`)
 Dado que las instancias de tipos opacos se alocan dinámicamente en el heap, es mandatorio que el constructor inicialice todos sus campos a valores seguros o `NULL` (regla {ref}`0x0003h`). Asimismo, al destruir la estructura mediante su función liberadora, debe asignarse `NULL` al puntero en el ámbito del cliente para evitar el uso accidental de punteros colgantes (regla {ref}`0x0036h`).
 :::
-```
 
 ---
 
@@ -223,10 +172,10 @@ Dado que las instancias de tipos opacos se alocan dinámicamente en el heap, es 
 
 Cuando declarás:
 ```c
-typedef struct pila pila_t;
+typedef struct punto punto_t;
 ```
 
-Sin dar la definición completa, creás un **tipo incompleto** (*incomplete type*). El compilador sabe que existe una estructura llamada `pila`, pero no conoce su contenido ni tamaño.
+Sin dar la definición completa, creás un **tipo incompleto** (*incomplete type*). El compilador sabe que existe una estructura llamada `punto`, pero no conoce su contenido ni tamaño.
 
 ### Restricciones del Tipo Incompleto
 
@@ -234,12 +183,12 @@ Con un tipo incompleto, el código cliente **solo puede**:
 
 1. **Declarar punteros** al tipo:
    ```c
-   pila_t *p;  // ✅ Permitido
+   punto_t *p;  // ✅ Permitido
    ```
 
 2. **Pasar punteros** a funciones:
    ```c
-   apilar(p, 10);  // ✅ Permitido
+   punto_desplazar(p, 1.0, 2.0);  // ✅ Permitido
    ```
 
 3. **Usar punteros** en expresiones que no requieran el tamaño:
@@ -253,35 +202,35 @@ El código cliente **NO puede**:
 
 1. **Declarar instancias** por valor:
    ```c
-   pila_t p;  // ❌ ERROR: incomplete type
+   punto_t p;  // ❌ ERROR: incomplete type
    ```
 
 2. **Acceder a miembros**:
    ```c
-   p->tope = 5;  // ❌ ERROR: incomplete type
+   p->x = 5.0;  // ❌ ERROR: incomplete type
    ```
 
 3. **Usar sizeof**:
    ```c
-   sizeof(pila_t);  // ❌ ERROR: incomplete type
+   sizeof(punto_t);  // ❌ ERROR: incomplete type
    ```
 
 4. **Desreferenciar**:
    ```c
-   pila_t copia = *p;  // ❌ ERROR: incomplete type
+   punto_t copia = *p;  // ❌ ERROR: incomplete type
    ```
 
 ### Compilación Separada y el Rol del Enlazador
 
 Para entender por qué es posible trabajar con tipos incompletos en C, debemos analizar el proceso de **compilación separada**:
 
-1. **La Fase de Compilación:** Cada archivo fuente `.c` (ej. `main.c` y `pila.c`) se compila de manera independiente para producir un archivo objeto (ej. `main.o` y `pila.o`).
-   - Cuando el compilador procesa `main.c`, solo lee la cabecera `pila.h`. Al encontrar la declaración de tipo opaco `typedef struct pila pila_t;`, registra `pila_t` como un tipo incompleto.
-   - El compilador no necesita saber cuántos campos tiene `struct pila` ni su tamaño total en memoria para compilar `main.c`. Solo necesita saber el tamaño de las variables declaradas en `main.c`. Dado que en `main.c` solo se declaran **punteros** a `pila_t` (como `pila_t *p`), y el tamaño de cualquier puntero a estructura en C es constante (típicamente 8 bytes en sistemas de 64 bits, sin importar a qué estructura apunte), el compilador puede reservar el espacio adecuado y generar el archivo objeto `main.o` con éxito.
-2. **La Fase de Enlazado (Linking):** El enlazador toma los archivos objeto `main.o` y `pila.o` y los une en el ejecutable final.
-   - Es en `pila.o` donde reside la definición concreta de `struct pila` y el cuerpo de las funciones (como `crear_pila` y `apilar`).
-   - El enlazador se encarga de resolver las direcciones de las llamadas a funciones en `main.o`, redirigiéndolas a las implementaciones reales presentes en `pila.o`.
-   - Así, el ocultamiento es físico: en tiempo de compilación, el cliente no posee la estructura detallada; en tiempo de ejecución, el enlazador conecta las llamadas y las funciones del TAD operan sobre el espacio de memoria real asignado dinámicamente en el heap.
+1. **La Fase de Compilación:** Cada archivo fuente `.c` (ej. `main.c` y `punto.c`) se compila de manera independiente para producir un archivo objeto (ej. `main.o` y `punto.o`).
+   - Cuando el compilador procesa `main.c`, solo lee la cabecera `punto.h`. Al encontrar la declaración de tipo opaco `typedef struct punto punto_t;`, registra `punto_t` como un tipo incompleto.
+   - El compilador no necesita saber cuántos campos tiene `struct punto` ni su tamaño total en memoria para compilar `main.c`. Solo necesita saber el tamaño de las variables declaradas en `main.c`. Dado que en `main.c` solo se declaran **punteros** a `punto_t` (como `punto_t *p`), y el tamaño de cualquier puntero a estructura en C es constante (típicamente 8 bytes en sistemas de 64 bits, sin importar a qué estructura apunte), el compilador puede reservar el espacio adecuado y generar el archivo objeto `main.o` con éxito.
+2. **La Fase de Enlazado (Linking):** El enlazador toma los archivos objeto `main.o` y `punto.o` y los une en el ejecutable final.
+   - Es en `punto.o` donde reside la definición concreta de `struct punto` y el cuerpo de las funciones (como `crear_punto` y `punto_desplazar`).
+   - El enlazador se encarga de resolver las direcciones de las llamadas a funciones en `main.o`, redirigiéndolas a las implementaciones reales presentes en `punto.o`.
+   - Así, el ocultamiento es físico: en tiempo de compilación, el cliente no posee la estructura detallada; en tiempo de ejecución, el enlazador conecta las llamadas y las funciones operan sobre el espacio de memoria real asignado dinámicamente en el heap.
 
 :::{note} El Tamaño del Puntero es Constante
 Un puntero en C simplemente almacena una dirección de memoria. Independientemente de si apunta a un tipo básico (`char`, `int`), a una estructura gigante o a un tipo incompleto (puntero opaco), el tamaño requerido para almacenar esa dirección es exactamente el mismo en una arquitectura de hardware específica.
@@ -297,8 +246,8 @@ La implementación está **completamente oculta**. El código cliente no puede (
 
 ```c
 // Esto NO compila - el compilador protege los detalles internos
-pila_t *p = crear_pila(10);
-p->tope = 100;  // ERROR en tiempo de compilación
+punto_t *p = crear_punto(3.0, 4.0);
+p->x = 100.0;  // ERROR en tiempo de compilación
 ```
 
 ### 2. Flexibilidad de Implementación
@@ -306,28 +255,31 @@ p->tope = 100;  // ERROR en tiempo de compilación
 Podés cambiar completamente la implementación interna sin afectar al código cliente:
 
 ```c
-// pila.c - Versión con lista enlazada (cambio de implementación)
-struct pila {
-    nodo_t *tope;
-    size_t cantidad;
+// punto.c - Versión con coordenadas polares (cambio de implementación)
+struct punto {
+    double radio;
+    double angulo; // en radianes
 };
 ```
 
-El código cliente que usa `pila.h` **no necesita recompilarse** porque la interfaz no cambió.
+Si cambiás la implementación a coordenadas polares, las funciones públicas en `punto.c` realizarán la conversión matemática necesaria para retornar la proyección de `x` e `y` cuando el cliente llame a `punto_obtener_x` o `punto_obtener_y`. El código cliente que usa `punto.h` **no necesita modificarse** porque la interfaz pública sigue intacta.
 
 ### 3. Mantenimiento de Invariantes
 
-Solo las funciones del módulo pueden modificar la estructura, garantizando que los invariantes se cumplan siempre:
+Solo las funciones del módulo pueden modificar la estructura, garantizando que los invariantes se cumplan siempre. Por ejemplo, si tenés un tipo `usuario_t` que representa a un usuario del sistema:
 
 ```c
-bool apilar(pila_t *pila, int dato) {
-    // Garantiza que tope < capacidad SIEMPRE
-    if (pila == NULL || pila->tope >= pila->capacidad) {
+bool usuario_establecer_edad(usuario_t *u, int nueva_edad) {
+    // Garantiza que la edad no sea negativa
+    if (u == NULL || nueva_edad < 0) {
         return false;
     }
-    // ... resto de la implementación
+    u->edad = nueva_edad;
+    return true;
 }
 ```
+
+El código cliente no puede burlar esta validación modificando el campo directamente.
 
 ### 4. Compatibilidad Binaria (ABI)
 
@@ -335,7 +287,7 @@ Si la interfaz pública no cambia, podés actualizar la biblioteca compilada (`.
 
 ### 5. Reducción de Dependencias
 
-Los archivos que incluyen `pila.h` no necesitan incluir las dependencias internas de `pila.c`, reduciendo tiempos de compilación y acoplamiento.
+Los archivos que incluyen `punto.h` no necesitan incluir las dependencias internas de `punto.c` (por ejemplo, `<math.h>` si se usaran funciones trigonométricas), reduciendo tiempos de compilación y acoplamiento.
 
 ---
 
@@ -343,7 +295,7 @@ Los archivos que incluyen `pila.h` no necesitan incluir las dependencias interna
 
 ### Patrón Constructor/Destructor
 
-Toda estructura opaca debe tener funciones para crear y destruir instancias:
+Toda estructura opaca alocada dinámicamente debe proveer funciones para crear y destruir instancias:
 
 ```c
 // Convención de nombres: tipo_accion
@@ -353,45 +305,39 @@ void destruir_tipo(tipo_t *instancia);
 
 **Ejemplo:**
 ```c
-lista_t *lista = crear_lista();
-// ... usar la lista ...
-destruir_lista(lista);
+usuario_t *usr = crear_usuario("Carlos", 35);
+// ... usar usr ...
+destruir_usuario(usr);
 ```
 
 ### Patrón Getter/Setter
 
-Para acceder a propiedades sin exponer los campos:
+Para acceder a propiedades sin exponer los campos de la estructura:
 
 ```c
 // Getter - solo lectura
-size_t pila_obtener_tamanio(const pila_t *pila);
-bool pila_esta_vacia(const pila_t *pila);
+const char *usuario_obtener_nombre(const usuario_t *u);
+int usuario_obtener_edad(const usuario_t *u);
 
-// Setter - modificación controlada (si es necesario)
-bool pila_establecer_capacidad(pila_t *pila, size_t nueva_capacidad);
+// Setter - modificación controlada
+bool usuario_establecer_edad(usuario_t *u, int nueva_edad);
 ```
 
 :::{tip} Uso de `const`
-Usá `const pila_t *pila` en funciones que solo leen, no modifican. Esto documenta la intención y permite al compilador optimizar.
+Usá `const tipo_t *` en funciones que solo leen, no modifican. Esto documenta la intención y permite al compilador optimizar el código.
 :::
 
 ### Patrón de Verificación
 
-Siempre verificá punteros nulos y condiciones de error:
+Siempre verificá punteros nulos y condiciones de error de manera defensiva:
 
 ```c
-bool desapilar(pila_t *pila, int *dato) {
+bool usuario_establecer_edad(usuario_t *u, int nueva_edad) {
     // Verificaciones defensivas
-    if (pila == NULL || dato == NULL) {
+    if (u == NULL || nueva_edad < 0) {
         return false;
     }
-    if (esta_vacia(pila)) {
-        return false;
-    }
-    
-    // Operación segura
-    pila->tope--;
-    *dato = pila->datos[pila->tope];
+    u->edad = nueva_edad;
     return true;
 }
 ```
@@ -402,219 +348,146 @@ bool desapilar(pila_t *pila, int *dato) {
 
 ### vs. Estructuras Expuestas
 
-```{list-table}
-:header-rows: 1
+:::{table} Comparación con Estructuras Expuestas
+:label: tbl-comparacion-expuestas
 
-* - Aspecto
-  - Puntero Opaco
-  - Estructura Expuesta
-* - Encapsulamiento
-  - ✅ Fuerte
-  - ❌ Ninguno
-* - Cambios de implementación
-  - ✅ No rompen código cliente
-  - ❌ Rompen todo
-* - Protección de invariantes
-  - ✅ Garantizada
-  - ❌ Imposible
-* - Performance
-  - ✅ Igual (solo punteros)
-  - ✅ Igual
-* - Debugging
-  - ⚠️ Más difícil
-  - ✅ Más fácil
-* - Overhead
-  - ✅ Ninguno
-  - ✅ Ninguno
-```
+| Aspecto | Puntero Opaco | Estructura Expuesta |
+| :--- | :--- | :--- |
+| **Encapsulamiento** | ✅ Fuerte | ❌ Ninguno |
+| **Cambios de implementación** | ✅ No rompen código cliente | ❌ Rompen todo el código dependiente |
+| **Protección de invariantes** | ✅ Garantizada por la API | ❌ Imposible de controlar |
+| **Rendimiento** | ✅ Similar (indirección de puntero) | ✅ Similar |
+| **Depuración (Debugging)** | ⚠️ Más complejo (campos ocultos) | ✅ Directo y simple |
+| **Alocación en Stack** | ❌ No disponible | ✅ Permitido |
+:::
 
 ### vs. Void Pointers
 
 ```c
 // Opción 1: Puntero opaco (RECOMENDADO)
-typedef struct pila pila_t;
-void apilar(pila_t *pila, int dato);
+typedef struct punto punto_t;
+double punto_obtener_x(const punto_t *p);
 
 // Opción 2: Void pointer (EVITAR)
-void apilar(void *pila, int dato);
+double punto_obtener_x(const void *p);
 ```
 
 **Problemas de void pointers:**
-- Pérdida de type safety (podés pasar cualquier puntero)
-- No hay verificación de tipos en tiempo de compilación
-- Requiere casts explícitos
-- Más propenso a errores
+- Pérdida de type safety (se puede pasar accidentalmente cualquier puntero sin advertencia del compilador).
+- No hay verificación de tipos en tiempo de compilación.
+- Requiere casts explícitos en la implementación.
+- Es más propenso a errores de desarrollo.
 
 :::{danger} Anti-patrón: Void Pointers para Opacos
-Aunque `void *` también oculta la implementación, **no es la forma idiomática** en C. Usá punteros opacos con tipos específicos para mantener type safety.
+Aunque `void *` también oculta la implementación, **no es la forma adecuada** en C. Usá siempre punteros opacos con tipos específicos para mantener la seguridad de tipos.
 :::
 
 ---
 
-## Ejemplo Completo: Lista Enlazada Opaca
+## Ejemplo Completo: Usuario Opaco
 
-### Interfaz Pública (`lista.h`)
+Este ejemplo implementa un módulo para gestionar un usuario, donde los campos internos (un string dinámico y un entero) se mantienen estrictamente encapsulados.
+
+### Interfaz Pública (`usuario.h`)
 
 ```c
-#ifndef LISTA_H
-#define LISTA_H
+#ifndef USUARIO_H
+#define USUARIO_H
 
 #include <stdbool.h>
-#include <stddef.h>
 
 // Tipo opaco
-typedef struct lista lista_t;
+typedef struct usuario usuario_t;
 
 // Constructor/Destructor
-lista_t *crear_lista(void);
-void destruir_lista(lista_t *lista);
+usuario_t *crear_usuario(const char *nombre, int edad);
+void destruir_usuario(usuario_t *u);
 
-// Operaciones básicas
-bool insertar_al_inicio(lista_t *lista, int dato);
-bool insertar_al_final(lista_t *lista, int dato);
-bool eliminar_primero(lista_t *lista, int *dato);
-bool ver_primero(const lista_t *lista, int *dato);
+// Getters y Setters con validación
+const char *usuario_obtener_nombre(const usuario_t *u);
+int usuario_obtener_edad(const usuario_t *u);
+bool usuario_establecer_edad(usuario_t *u, int nueva_edad);
 
-// Consultas
-bool esta_vacia(const lista_t *lista);
-size_t obtener_largo(const lista_t *lista);
+// Operaciones
+void usuario_imprimir(const usuario_t *u);
 
-#endif  // LISTA_H
+#endif  // USUARIO_H
 ```
 
-### Implementación (`lista.c`)
+### Implementación (`usuario.c`)
 
 ```c
-#include "lista.h"
+#include "usuario.h"
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-// Nodo interno - completamente privado
-typedef struct nodo {
-    int dato;
-    struct nodo *siguiente;
-} nodo_t;
-
-// Definición completa de la lista - solo visible aquí
-struct lista {
-    nodo_t *primero;
-    nodo_t *ultimo;
-    size_t largo;
+// Definición completa del usuario - solo visible aquí
+struct usuario {
+    char *nombre;
+    int edad;
 };
 
-// Implementaciones
-lista_t *crear_lista(void) {
-    // Asignación robusta desreferenciando el puntero (regla {ref}`0x0003h`)
-    lista_t *lista = malloc(sizeof(*lista));
-    if (lista == NULL) {
+usuario_t *crear_usuario(const char *nombre, int edad) {
+    if (nombre == NULL || edad < 0) {
         return NULL;
     }
     
-    lista->primero = NULL;
-    lista->ultimo = NULL;
-    lista->largo = 0;
-    return lista;
+    // Alocación robusta desreferenciando el puntero (regla {ref}`0x0003h`)
+    usuario_t *u = malloc(sizeof(*u));
+    if (u == NULL) {
+        return NULL;
+    }
+    
+    u->nombre = malloc(strlen(nombre) + 1);
+    if (u->nombre == NULL) {
+        free(u);
+        return NULL;
+    }
+    strcpy(u->nombre, nombre);
+    
+    u->edad = edad;
+    return u;
 }
 
-void destruir_lista(lista_t *lista) {
-    if (lista == NULL) {
+void destruir_usuario(usuario_t *u) {
+    if (u == NULL) {
         return;
     }
     
-    nodo_t *actual = lista->primero;
-    while (actual != NULL) {
-        nodo_t *siguiente = actual->siguiente;
-        free(actual);
-        actual = siguiente;
-    }
-    free(lista);
+    // Primero liberamos los recursos internos
+    free(u->nombre);
+    // Luego liberamos la estructura contenedora
+    free(u);
 }
 
-bool insertar_al_inicio(lista_t *lista, int dato) {
-    if (lista == NULL) {
+const char *usuario_obtener_nombre(const usuario_t *u) {
+    if (u == NULL) {
+        return NULL;
+    }
+    return u->nombre;
+}
+
+int usuario_obtener_edad(const usuario_t *u) {
+    if (u == NULL) {
+        return -1;
+    }
+    return u->edad;
+}
+
+bool usuario_establecer_edad(usuario_t *u, int nueva_edad) {
+    if (u == NULL || nueva_edad < 0) {
         return false;
     }
-    
-    nodo_t *nuevo = malloc(sizeof(*nuevo));
-    if (nuevo == NULL) {
-        return false;
-    }
-    
-    nuevo->dato = dato;
-    nuevo->siguiente = lista->primero;
-    lista->primero = nuevo;
-    
-    if (lista->ultimo == NULL) {
-        lista->ultimo = nuevo;
-    }
-    
-    lista->largo++;
+    u->edad = nueva_edad;
     return true;
 }
 
-bool insertar_al_final(lista_t *lista, int dato) {
-    if (lista == NULL) {
-        return false;
+void usuario_imprimir(const usuario_t *u) {
+    if (u == NULL) {
+        return;
     }
-    
-    nodo_t *nuevo = malloc(sizeof(*nuevo));
-    if (nuevo == NULL) {
-        return false;
-    }
-    
-    nuevo->dato = dato;
-    nuevo->siguiente = NULL;
-    
-    if (lista->ultimo == NULL) {
-        lista->primero = nuevo;
-        lista->ultimo = nuevo;
-    } else {
-        lista->ultimo->siguiente = nuevo;
-        lista->ultimo = nuevo;
-    }
-    
-    lista->largo++;
-    return true;
-}
-
-bool eliminar_primero(lista_t *lista, int *dato) {
-    if (lista == NULL || lista->primero == NULL) {
-        return false;
-    }
-    
-    nodo_t *primero = lista->primero;
-    if (dato != NULL) {
-        *dato = primero->dato;
-    }
-    
-    lista->primero = primero->siguiente;
-    if (lista->primero == NULL) {
-        lista->ultimo = NULL;
-    }
-    
-    free(primero);
-    lista->largo--;
-    return true;
-}
-
-bool ver_primero(const lista_t *lista, int *dato) {
-    if (lista == NULL || lista->primero == NULL) {
-        return false;
-    }
-    if (dato != NULL) {
-        *dato = lista->primero->dato;
-    }
-    return true;
-}
-
-bool esta_vacia(const lista_t *lista) {
-    return lista == NULL || lista->primero == NULL;
-}
-
-size_t obtener_largo(const lista_t *lista) {
-    if (lista == NULL) {
-        return 0;
-    }
-    return lista->largo;
+    printf("Usuario: %s | Edad: %d\n", u->nombre, u->edad);
 }
 ```
 
@@ -622,26 +495,29 @@ size_t obtener_largo(const lista_t *lista) {
 
 ```c
 #include <stdio.h>
-#include "lista.h"
+#include "usuario.h"
 
 int main(void) {
-    lista_t *lista = crear_lista();
-    if (lista == NULL) {
+    usuario_t *u = crear_usuario("Martín", 21);
+    if (u == NULL) {
         return 1;
     }
     
-    insertar_al_final(lista, 10);
-    insertar_al_final(lista, 20);
-    insertar_al_final(lista, 30);
+    usuario_imprimir(u);
     
-    printf("Largo de la lista: %zu\n", obtener_largo(lista));
-    
-    int valor;
-    while (eliminar_primero(lista, &valor)) {
-        printf("Elemento eliminado: %d\n", valor);
+    // Intento de modificación válida
+    if (usuario_establecer_edad(u, 22)) {
+        printf("Edad actualizada con éxito.\n");
     }
     
-    destruir_lista(lista);
+    // Intento de asignación inválida
+    if (!usuario_establecer_edad(u, -5)) {
+        printf("Error: no se admiten edades negativas.\n");
+    }
+    
+    usuario_imprimir(u);
+    
+    destruir_usuario(u);
     return 0;
 }
 ```
@@ -662,7 +538,7 @@ FILE *fopen(const char *filename, const char *mode);
 int fclose(FILE *stream);
 ```
 
-No sabés cómo está implementado `FILE` internamente, pero podés usarlo.
+No sabés cómo está implementado `FILE` internamente, pero podés usarlo a través de punteros.
 
 ### OpenSSL
 
@@ -693,30 +569,30 @@ Todos estos ejemplos siguen el mismo patrón de puntero opaco.
 
 ```c
 // Patrón: tipo_t para el tipo, crear_tipo/destruir_tipo para funciones
-typedef struct lista lista_t;
+typedef struct usuario usuario_t;
 
-lista_t *crear_lista(void);
-void destruir_lista(lista_t *lista);
-bool lista_insertar(lista_t *lista, void *dato);
+usuario_t *crear_usuario(const char *nombre, int edad);
+void destruir_usuario(usuario_t *u);
 ```
 
 ### 2. Documentación Clara
 
 ```c
 /**
- * Crea una nueva lista vacía.
+ * Crea una nueva instancia de un usuario.
  * 
- * @return Puntero a la lista creada, o NULL si falla la asignación.
+ * @param nombre Cadena de caracteres que representa el nombre (no debe ser NULL).
+ * @param edad Entero no negativo que representa la edad.
+ * @return Puntero al usuario creado, o NULL si falla la asignación de memoria o los parámetros son inválidos.
  */
-lista_t *crear_lista(void);
+usuario_t *crear_usuario(const char *nombre, int edad);
 
 /**
- * Destruye la lista liberando toda la memoria.
- * No libera los datos almacenados (responsabilidad del usuario).
+ * Destruye al usuario liberando toda la memoria asociada.
  * 
- * @param lista Lista a destruir. Puede ser NULL.
+ * @param u Usuario a destruir. Puede ser NULL.
  */
-void destruir_lista(lista_t *lista);
+void destruir_usuario(usuario_t *u);
 ```
 
 ### 3. Manejo de Errores Consistente
@@ -724,15 +600,15 @@ void destruir_lista(lista_t *lista);
 ```c
 // Retornar NULL en creación si falla
 tipo_t *crear_tipo(void) {
-    tipo_t *t = malloc(sizeof(tipo_t));
+    tipo_t *t = malloc(sizeof(*t));
     if (t == NULL) {
-        return NULL;  // Indicación clara de fallo
+        return NULL;  // Indicación clara de fallo al cliente
     }
     // ... inicialización ...
     return t;
 }
 
-// Retornar bool en operaciones
+// Retornar bool en operaciones para reportar éxito o fracaso
 bool tipo_operar(tipo_t *t, int dato) {
     if (t == NULL) {
         return false;  // Fallo: puntero inválido
@@ -746,30 +622,22 @@ bool tipo_operar(tipo_t *t, int dato) {
 
 ```c
 void destruir_tipo(tipo_t *t) {
-    // Tolerante a NULL - similar a free()
+    // Tolerante a NULL - comportamiento similar a free()
     if (t == NULL) {
         return;
     }
     // ... liberación ...
-}
-
-bool esta_vacia(const tipo_t *t) {
-    // Considerar NULL como vacío
-    return t == NULL || t->cantidad == 0;
 }
 ```
 
 ### 5. Uso de `const` para Intenciones
 
 ```c
-// Solo lectura - no modifica
-size_t obtener_tamanio(const pila_t *pila);
+// Solo lectura - no modifica la estructura
+double punto_obtener_x(const punto_t *punto);
 
 // Modifica la estructura
-bool apilar(pila_t *pila, int dato);
-
-// Puntero constante (no se reasigna dentro de la función)
-void procesar(pila_t *const pila);
+void punto_desplazar(punto_t *punto, double dx, double dy);
 ```
 
 ---
@@ -778,18 +646,18 @@ void procesar(pila_t *const pila);
 
 ### 1. Pérdida de Acceso Directo
 
-No podés acceder a los campos para debugging o inspección:
+No podés acceder directamente a los campos para debugging o inspección rápida en herramientas tradicionales:
 
 ```c
 // En GDB:
-(gdb) print pila->tope
+(gdb) print punto->x
 Cannot access memory at address 0x0: incomplete type
 ```
 
-**Solución:** Proveer funciones de inspección para debugging:
+**Solución:** Proveer funciones de inspección para debugging si es necesario:
 ```c
 #ifdef DEBUG
-void pila_debug_print(const pila_t *pila);
+void punto_debug_print(const punto_t *p);
 #endif
 ```
 
@@ -797,30 +665,30 @@ void pila_debug_print(const pila_t *pila);
 
 ```c
 // Esto NO compila con puntero opaco
-pila_t p;  // ERROR: incomplete type
+punto_t p;  // ERROR: incomplete type
 
-// Debes usar el heap
-pila_t *p = crear_pila(10);
+// Debés usar el heap
+punto_t *p = crear_punto(3.0, 4.0);
 ```
 
-**Implicación:** Siempre hay un costo de `malloc/free`.
+**Implicación:** Siempre hay un costo asociado a la alocación dinámica de memoria mediante `malloc` y `free`.
 
 ### 3. Dificultad para Copiar
 
-No podés hacer copia superficial:
+No podés realizar una copia superficial por asignación directa:
 
 ```c
-pila_t copia = *original;  // ERROR: incomplete type
+punto_t copia = *original;  // ERROR: incomplete type
 ```
 
-**Solución:** Proveer función de copia explícita:
+**Solución:** Proveer una función de copia explícita (clonación):
 ```c
-pila_t *clonar_pila(const pila_t *original);
+punto_t *punto_clonar(const punto_t *original);
 ```
 
 ### 4. Compatibilidad con Análisis Estático
 
-Algunas herramientas de análisis estático tienen dificultades con tipos incompletos. Asegurate de que Valgrind y sanitizers funcionen correctamente.
+Algunas herramientas de análisis estático tienen dificultades para verificar el uso de memoria en tipos incompletos fuera de su archivo de implementación. Asegurate de que Valgrind y las opciones de compilación sanitizer rastreen correctamente todo el ciclo de vida de estas estructuras.
 
 ---
 
@@ -829,53 +697,51 @@ Algunas herramientas de análisis estático tienen dificultades con tipos incomp
 ```{exercise}
 :label: ejercicio-opaco-1
 
-Implementá un TAD `cola_t` (cola FIFO) usando punteros opacos con las siguientes operaciones:
+Implementá un TAD `cuenta_t` (Cuenta Bancaria) usando punteros opacos con las siguientes operaciones:
 
-- `crear_cola()`
-- `destruir_cola()`
-- `encolar(cola, dato)`
-- `desencolar(cola, *dato)`
-- `ver_frente(cola, *dato)`
-- `esta_vacia(cola)`
-- `obtener_tamanio(cola)`
+- `crear_cuenta(long nro_cuenta, const char *titular, double saldo_inicial)`
+- `destruir_cuenta(cuenta)`
+- `cuenta_depositar(cuenta, monto)`
+- `cuenta_extraer(cuenta, monto)`
+- `cuenta_obtener_saldo(cuenta)`
+- `cuenta_obtener_titular(cuenta)`
 
-Usá una lista enlazada como implementación interna.
+Garantizá que los saldos y depósitos no sean negativos e implementá una validación para evitar extracciones mayores al saldo disponible.
 ```
 
 ```{exercise}
 :label: ejercicio-opaco-2
 
-Diseñá un TAD `diccionario_t` que mapee strings a enteros, con puntero opaco. Debe soportar:
+Diseñá un TAD `rectangulo_t` con puntero opaco. Debe soportar:
 
-- `crear_diccionario()`
-- `destruir_diccionario()`
-- `insertar(dic, clave, valor)` → retorna `true` si insertó, `false` si la clave ya existía
-- `obtener(dic, clave, *valor)` → retorna `true` si encontró, `false` si no
-- `eliminar(dic, clave)` → retorna `true` si eliminó, `false` si no existía
-- `contiene(dic, clave)` → retorna `true` si la clave existe
+- `crear_rectangulo(double ancho, double alto)`
+- `destruir_rectangulo(rectangulo)`
+- `rectangulo_obtener_area(rectangulo)`
+- `rectangulo_obtener_perimetro(rectangulo)`
+- `rectangulo_redimensionar(rectangulo, nuevo_ancho, nuevo_alto)`
 
-Implementación sugerida: arreglo dinámico de estructuras `{char *clave; int valor}`.
+Asegurá mediante invariantes que el ancho y el alto sean siempre mayores a cero.
 ```
 
-```{exercise}
+````{exercise}
 :label: ejercicio-opaco-3
 
-Convertí la siguiente estructura expuesta a puntero opaco:
+Convertí la siguiente estructura expuesta a un diseño basado en puntero opaco:
 
 ```c
-// matriz.h - ANTES (expuesta)
+// fecha.h - ANTES (expuesta)
 typedef struct {
-    int **datos;
-    size_t filas;
-    size_t columnas;
-} matriz_t;
+    int dia;
+    int mes;
+    int anio;
+} fecha_t;
 
-void crear_matriz(matriz_t *m, size_t filas, size_t cols);
-int obtener(matriz_t *m, size_t i, size_t j);
+void inicializar_fecha(fecha_t *f, int d, int m, int a);
+bool es_bisiesto(const fecha_t *f);
 ```
 
-Rediseñala con puntero opaco y funciones apropiadas.
-```
+Rediseñala con puntero opaco y funciones apropiadas de creación, destrucción y acceso.
+````
 
 ---
 
@@ -887,7 +753,7 @@ Rediseñala con puntero opaco y funciones apropiadas.
 
 - {cite:t}`kernighan_c_2014`. *The C Programming Language*. Capítulo 6: Structures. Sección sobre tipos incompletos.
 
-- {cite:t}`king_c_2008`. *C Programming: A Modern Approach*. Capítulo 19: Program Design. Información hiding y modularidad.
+- {cite:t}`king_c_2008`. *C Programming: A Modern Approach*. Capítulo 19: Program Design. Information hiding y modularidad.
 
 ### Documentación de Estándares
 
@@ -909,15 +775,15 @@ Los punteros opacos son una técnica esencial para construir software modular y 
 :::{important} Conceptos Clave
 
 **¿Qué es un puntero opaco?**
-- Declaración de estructura en `.h` sin definición completa
-- Definición completa solo en `.c`
-- El usuario solo manipula punteros, no la estructura directamente
+- Declaración de estructura en `.h` sin definición completa.
+- Definición completa solo en `.c`.
+- El usuario solo manipula punteros, no la estructura directamente.
 
 **Ventajas:**
-1. **Encapsulamiento fuerte:** Imposible acceder a campos internos
-2. **Flexibilidad:** Cambiar implementación sin romper código cliente
-3. **Invariantes garantizados:** Solo las funciones del módulo modifican la estructura
-4. **Compatibilidad binaria:** Actualizar biblioteca sin recompilar aplicaciones
+1. **Encapsulamiento fuerte:** Imposible acceder a campos internos.
+2. **Flexibilidad:** Cambiar la implementación sin romper el código cliente.
+3. **Invariantes garantizados:** Solo las funciones del módulo modifican la estructura.
+4. **Compatibilidad binaria:** Actualizar la biblioteca sin recompilar las aplicaciones.
 
 **Patrón típico:**
 ```c
@@ -934,22 +800,22 @@ struct tipo {
 ```
 
 **Conexiones:**
-- Fundamental para implementar TADs (ver {ref}`apunte/13_tad.md`)
-- Requiere memoria dinámica (ver {ref}`memoria-introduccion`)
-- Usado extensivamente en bibliotecas del sistema y APIs públicas
+- Fundamental para implementar TADs (ver {ref}`apunte/13_tad.md`).
+- Requiere memoria dinámica (ver {ref}`memoria-introduccion`).
+- Usado extensivamente en bibliotecas del sistema y APIs públicas.
 :::
 
 :::{tip} Cuándo Usar Punteros Opacos
 **Usar cuando:**
-- Diseñás una API pública o biblioteca
-- Querés ocultar detalles de implementación
-- Necesitás cambiar la implementación sin romper compatibilidad
-- Implementás un TAD con invariantes estrictos
+- Diseñás una API pública o biblioteca.
+- Querés ocultar detalles de implementación.
+- Necesitás cambiar la implementación sin romper la compatibilidad.
+- Implementás un TAD con invariantes estrictos.
 
 **No usar cuando:**
-- Estructuras simples sin lógica (ej: `punto2d_t {int x, y;}`)
-- Performance crítica requiere acceso directo en línea
-- Código interno de un módulo (no expuesto externamente)
+- Usás estructuras simples sin lógica ni invariantes (ej: `punto2d_t {double x, y;}`).
+- La performance crítica requiere acceso directo en línea (inlining).
+- Se trata de código puramente interno de un módulo que no se expone externamente.
 :::
 
 Dominar los punteros opacos es esencial para escribir código C profesional, mantenible y robusto. Es la base del diseño modular en C y el equivalente más cercano al encapsulamiento de la programación orientada a objetos.
