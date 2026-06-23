@@ -55,7 +55,15 @@ project:
         - file: apunte/15_recursividad.md
         - file: apunte/A_stdlib.md
         - file: apunte/B_ordenamiento.md
-        - file: apunte/0_estilo.md
+    - title: Reglas de estilo
+      children:
+        - file: reglas/indice.md
+        - file: reglas/0_sintaxis.md
+        - file: reglas/1_control.md
+        - file: reglas/2_funciones.md
+        - file: reglas/3_punteros.md
+        - file: reglas/4_archivos.md
+        - file: reglas/5_buenas_practicas.md
     - title: Ejercicios
       file: ejercicios/readme.md
       children:
