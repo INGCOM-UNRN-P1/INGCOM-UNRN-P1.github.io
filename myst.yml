@@ -64,6 +64,30 @@ project:
         - file: reglas/3_punteros.md
         - file: reglas/4_archivos.md
         - file: reglas/5_buenas_practicas.md
+    - title: Extras
+      children:
+        - title: Refactorización
+          children:
+            - file: extras/ref-unico-retorno.md
+            - file: extras/ref-simular.md
+            - file: extras/ref-magic-numbers.md
+            - file: extras/ref-extract-function.md
+            - file: extras/ref-simplify-conditionals.md
+            - file: extras/ref-variables.md
+            - file: extras/ref-naming.md
+            - file: extras/ref-dry.md
+        - file: extras/testing.md
+        - file: extras/diseno_api.md
+        - file: extras/causas.md
+        - file: extras/guide-makefiles.md
+        - file: extras/guide-printf.md
+        - file: extras/notes-cadenas.md
+        - file: extras/notes-roles.md
+        - file: extras/notes-estado.md
+        - file: extras/contratos.md
+        - file: extras/bits.md
+        - file: extras/binarios.md
+        - file: extras/bitmaps.md
     - title: Ejercicios
       file: ejercicios/readme.md
       children:
@@ -96,30 +120,6 @@ project:
             - file: ejercicios/16_punteros_avanzados.md
             - file: ejercicios/17_analisis_de_codigo.md
             - file: ejercicios/diseno_api.md
-    - title: Extras
-      children:
-        - title: Refactorización
-          children:
-            - file: extras/ref-unico-retorno.md
-            - file: extras/ref-simular.md
-            - file: extras/ref-magic-numbers.md
-            - file: extras/ref-extract-function.md
-            - file: extras/ref-simplify-conditionals.md
-            - file: extras/ref-variables.md
-            - file: extras/ref-naming.md
-            - file: extras/ref-dry.md
-        - file: extras/testing.md
-        - file: extras/diseno_api.md
-        - file: extras/causas.md
-        - file: extras/guide-makefiles.md
-        - file: extras/guide-printf.md
-        - file: extras/notes-cadenas.md
-        - file: extras/notes-roles.md
-        - file: extras/notes-estado.md
-        - file: extras/contratos.md
-        - file: extras/bits.md
-        - file: extras/binarios.md
-        - file: extras/bitmaps.md
     - title: Ayuda
       children:
         - file: guias/gcc.md
