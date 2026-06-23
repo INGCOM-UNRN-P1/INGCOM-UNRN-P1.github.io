@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 320">
+<?xml-stylesheet href="../resources/svg.css" type="text/css"?>
   <defs>
     <style>
       .cell { fill: #e0e0e0; stroke: #616161; stroke-width: 1; }

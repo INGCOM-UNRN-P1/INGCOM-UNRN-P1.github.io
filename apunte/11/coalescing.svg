@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 180">
+<?xml-stylesheet href="../resources/svg.css" type="text/css"?>
   <defs>
     <style>
       .block-used { fill: #ffcdd2; stroke: #c62828; stroke-width: 2; }
