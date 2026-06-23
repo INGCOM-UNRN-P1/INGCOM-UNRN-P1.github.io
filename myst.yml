@@ -68,28 +68,14 @@ project:
         - file: reglas/5_buenas_practicas.md
     - title: Extras
       children:
-        - title: Refactorización
-          children:
-            - file: extras/ref-unico-retorno.md
-            - file: extras/ref-simular.md
-            - file: extras/ref-magic-numbers.md
-            - file: extras/ref-extract-function.md
-            - file: extras/ref-simplify-conditionals.md
-            - file: extras/ref-variables.md
-            - file: extras/ref-naming.md
-            - file: extras/ref-dry.md
         - file: extras/testing.md
         - file: extras/diseno_api.md
         - file: extras/causas.md
-        - file: extras/guide-makefiles.md
-        - file: extras/guide-printf.md
         - file: extras/notes-cadenas.md
         - file: extras/notes-roles.md
         - file: extras/notes-estado.md
         - file: extras/contratos.md
         - file: extras/bits.md
-        - file: extras/binarios.md
-        - file: extras/bitmaps.md
     - title: Ejercicios
       file: ejercicios/readme.md
       children:
@@ -124,8 +110,20 @@ project:
             - file: ejercicios/diseno_api.md
     - title: Referencia
       children:
+        - file: referencia/guide-makefiles.md
+        - file: referencia/guide-printf.md
         - file: referencia/A_stdlib.md
         - file: referencia/B_ordenamiento.md
+        - title: Refactorización
+          children:
+            - file: referencia/refactorizaciones/ref-unico-retorno.md
+            - file: referencia/refactorizaciones/ref-simular.md
+            - file: referencia/refactorizaciones/ref-magic-numbers.md
+            - file: referencia/refactorizaciones/ref-extract-function.md
+            - file: referencia/refactorizaciones/ref-simplify-conditionals.md
+            - file: referencia/refactorizaciones/ref-variables.md
+            - file: referencia/refactorizaciones/ref-naming.md
+            - file: referencia/refactorizaciones/ref-dry.md
     - title: Ayuda
       children:
         - file: guias/gcc.md
