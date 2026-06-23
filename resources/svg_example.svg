@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet href="./svg.css" type="text/css"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Marcadores de flechas -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#eb2141"/>
+    </marker>
+    <marker id="arrowhead-queue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#2e7d32"/>
+    </marker>
+  </defs>
+  
+  <!-- Título principal -->
+  <text x="400" y="30" class="title">Ejemplo de Uso del CSS Compartido</text>
+  <text x="400" y="50" class="subtitle">Paleta de colores institucional UNRN</text>
+  
+  <!-- Sección 1: Pila -->
+  <text x="150" y="90" class="label-bold">PILA (Stack)</text>
+  
+  <!-- Estructura de pila -->
+  <rect x="50" y="100" width="120" height="70" class="stack-node"/>
+  <text x="110" y="120" class="label-bold">pila_t</text>
+  <line x1="50" y1="130" x2="170" y2="130" class="divider"/>
+  <text x="70" y="145" class="label-small">tope:</text>
+  <rect x="115" y="137" width="45" height="15" class="stack-pointer"/>
+  <text x="70" y="163" class="label-small">tamanio:</text>
+  <text x="137" y="163" class="label">3</text>
+  
+  <!-- Flecha -->
+  <path d="M 155,152 L 200,152" class="stack-arrow" marker-end="url(#arrowhead)"/>
+  
+  <!-- Nodos de la pila -->
+  <rect x="210" y="100" width="80" height="50" class="stack-node"/>
+  <text x="250" y="115" class="label-bold">Nodo</text>
+  <line x1="210" y1="125" x2="290" y2="125" class="divider"/>
+  <rect x="220" y="130" width="60" height="15" class="stack-data"/>
+  <text x="250" y="142" class="label">42</text>
+  
+  <rect x="310" y="100" width="80" height="50" class="stack-node"/>
+  <text x="350" y="115" class="label-bold">Nodo</text>
+  <line x1="310" y1="125" x2="390" y2="125" class="divider"/>
+  <rect x="320" y="130" width="60" height="15" class="stack-data"/>
+  <text x="350" y="142" class="label">17</text>
+  
+  <text x="420" y="130" class="stack-label">← TOPE</text>
+  
+  <!-- Sección 2: Cola -->
+  <text x="550" y="90" class="label-bold">COLA (Queue)</text>
+  
+  <!-- Estructura de cola -->
+  <rect x="450" y="100" width="120" height="80" class="queue-node"/>
+  <text x="510" y="120" class="label-bold">cola_t</text>
+  <line x1="450" y1="130" x2="570" y2="130" class="divider"/>
+  <text x="470" y="145" class="label-small">frente:</text>
+  <rect x="520" y="137" width="40" height="15" class="queue-pointer"/>
+  <text x="470" y="163" class="label-small">final:</text>
+  <rect x="520" y="155" width="40" height="15" class="queue-pointer"/>
+  <text x="470" y="177" class="label-small">tamanio:</text>
+  <text x="540" y="177" class="label">2</text>
+  
+  <!-- Flecha -->
+  <path d="M 560,145 L 610,120" class="queue-arrow" marker-end="url(#arrowhead-queue)"/>
+  
+  <!-- Nodos de la cola -->
+  <rect x="620" y="100" width="80" height="50" class="queue-node"/>
+  <text x="660" y="115" class="label-bold">Nodo</text>
+  <line x1="620" y1="125" x2="700" y2="125" class="divider"/>
+  <rect x="630" y="130" width="60" height="15" class="queue-data"/>
+  <text x="660" y="142" class="label">99</text>
+  
+  <text x="720" y="125" class="queue-label">← FRENTE</text>
+  
+  <!-- Sección 3: Código -->
+  <rect x="50" y="220" width="700" height="140" class="code-block"/>
+  <text x="60" y="245" class="label-bold">Ejemplo de código con estilos:</text>
+  
+  <text x="60" y="270" class="code">// Creación de una pila</text>
+  <text x="60" y="290" class="code"><tspan class="code-keyword">pila_t</tspan> *pila = crear_pila();</text>
+  <text x="60" y="310" class="code">apilar(pila, 42);</text>
+  <text x="60" y="330" class="code">apilar(pila, 17);</text>
+  <text x="60" y="350" class="code">destruir_pila(pila);</text>
+  
+  <!-- Sección 4: Paleta de colores -->
+  <text x="50" y="400" class="label-bold">Paleta de colores por estructura:</text>
+  
+  <!-- Pilas -->
+  <rect x="50" y="410" width="60" height="30" class="stack-data"/>
+  <text x="80" y="430" class="label-small">Pilas</text>
+  
+  <!-- Colas -->
+  <rect x="130" y="410" width="60" height="30" class="queue-data"/>
+  <text x="160" y="430" class="label-small">Colas</text>
+  
+  <!-- Deques -->
+  <rect x="210" y="410" width="60" height="30" class="deque-data"/>
+  <text x="240" y="430" class="label-small">Deques</text>
+  
+  <!-- Listas -->
+  <rect x="290" y="410" width="60" height="30" class="list-data"/>
+  <text x="320" y="430" class="label-small">Listas</text>
+  
+  <!-- Árboles -->
+  <rect x="370" y="410" width="60" height="30" class="tree-data"/>
+  <text x="400" y="430" class="label-small">Árboles</text>
+  
+  <!-- Grafos -->
+  <rect x="450" y="410" width="60" height="30" class="graph-data"/>
+  <text x="480" y="430" class="label-small">Grafos</text>
+  
+  <!-- Hash -->
+  <rect x="530" y="410" width="60" height="30" class="hash-data"/>
+  <text x="560" y="430" class="label-small">Hash</text>
+  
+  <!-- Sección 5: Estados -->
+  <text x="50" y="480" class="label-bold">Estados de validación:</text>
+  
+  <rect x="50" y="490" width="80" height="40" class="node valid"/>
+  <text x="90" y="515" class="label">Válido</text>
+  
+  <rect x="150" y="490" width="80" height="40" class="node invalid"/>
+  <text x="190" y="515" class="label">Inválido</text>
+  
+  <rect x="250" y="490" width="80" height="40" class="node warning"/>
+  <text x="290" y="515" class="label">Advertencia</text>
+  
+  <!-- Footer -->
+  <text x="400" y="570" class="label-small" text-anchor="middle">
+    Universidad Nacional de Río Negro - Ingeniería en Computación
+  </text>
+  <text x="400" y="585" class="label-small" text-anchor="middle">
+    CSS compartido para diagramas SVG - Programación 1
+  </text>
+</svg>
