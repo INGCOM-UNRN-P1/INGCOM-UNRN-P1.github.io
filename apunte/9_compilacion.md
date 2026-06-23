@@ -93,7 +93,7 @@ código del archivo fuente final que se pasará al compilador. Son extremadament
 - **Depuración**: Incluir código de depuración (por ejemplo, impresiones en
   consola) solo cuando se define una macro específica como `DEBUG`.
 - **Guardas de cabecera**: Evitar la doble inclusión de archivos de cabecera, un
-  problema común en proyectos grandes, utilizando una estructura como la que exige la regla {ref}`0x002Dh`:
+  problema común en proyectos grandes, utilizando una estructura como la que exige la regla {ref}`0x300Fh`:
 
   ```{code-block} c
   #ifndef MI_CABECERA_H
@@ -318,7 +318,7 @@ que se expanden durante el preprocesamiento.
 #### Definiciones de Tipos y Estructuras
 
 Es el lugar ideal para declarar `struct`, `enum` y `typedef`, ya que estos tipos
-de datos a menudo necesitan ser compartidos entre varios archivos. El uso del sufijo `_t` para los tipos definidos con `typedef` sigue la regla {ref}`0x001Eh`.
+de datos a menudo necesitan ser compartidos entre varios archivos. El uso del sufijo `_t` para los tipos definidos con `typedef` sigue la regla {ref}`0x3004h`.
 
 _(Estos conceptos serán tratados más adelante en la cátedra.)_
 
@@ -347,7 +347,7 @@ typedef enum {
 
 Si necesitás compartir una variable global entre varios archivos, la declarás en
 el `.h` usando la palabra clave `extern` y la definís (le das un valor inicial)
-en _un único_ archivo `.c`. Esta práctica está desaconsejada por la regla {ref}`0x000Bh`.
+en _un único_ archivo `.c`. Esta práctica está desaconsejada por la regla {ref}`0x2004h`.
 
 ```{code-block} c
 :caption: Declaración de una variable global externa
@@ -362,7 +362,7 @@ extern int errno;
 
 Para evitar errores de "redefinición" que ocurren cuando un mismo archivo de
 cabecera es incluido más de una vez en la misma unidad de compilación (archivo
-`.c`), se utilizan las "guardas de inclusión", una técnica exigida por la regla de estilo {ref}`0x002Dh`.
+`.c`), se utilizan las "guardas de inclusión", una técnica exigida por la regla de estilo {ref}`0x300Fh`.
 
 El problema surge en escenarios como este: `main.c` incluye a `a.h` y `b.h`,
 pero a su vez `a.h` también incluye a `b.h`. Sin una guarda, el contenido de
@@ -583,7 +583,7 @@ $> gcc -o mi_programa programa.c
 ## Opciones del Compilador Recomendadas
 
 Usar `gcc` sin opciones es desaprovechar su potencial para ayudarte a escribir
-mejor código. Las siguientes opciones, exigidas por la regla {ref}`0x002Ch`, son altamente recomendadas en un entorno
+mejor código. Las siguientes opciones, exigidas por la regla {ref}`0x300Eh`, son altamente recomendadas en un entorno
 académico y profesional:
 
 - `-Wall`: Activa un conjunto de advertencias (_warnings_) comunes y muy útiles.

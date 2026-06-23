@@ -48,7 +48,7 @@ Representación conceptual de un puntero apuntando a una variable en memoria med
 
 Para declarar un puntero, debés especificar el tipo de dato al que va a apuntar,
 seguido de un asterisco (`*`) y el nombre de la variable. La regla de estilo
-{ref}`0x0018h` indica que el asterisco debe ir junto al nombre de la variable.
+{ref}`0x0006h` indica que el asterisco debe ir junto al nombre de la variable.
 
 ```{code-block}c
 :linenos:
@@ -83,7 +83,7 @@ Para esto se utiliza la macro `NULL`.
 
 La regla {ref}`0x0003h` (siempre inicializar variables) es especialmente crítica
 para los punteros. Un puntero no inicializado es un "puntero salvaje" que apunta
-a una dirección de memoria aleatoria. Adicionalmente, la regla {ref}`0x0022h`
+a una dirección de memoria aleatoria. Adicionalmente, la regla {ref}`0x3008h`
 indica que se debe usar `NULL` en lugar de `0` para esta inicialización, ya que
 `NULL` expresa semánticamente la intención de que el puntero no apunta a ningún
 objeto válido.
@@ -331,7 +331,7 @@ int main() {
 
 La capacidad de una función para modificar variables que no le pertenecen (es
 decir, que no están en su ámbito local) es un nuevo tipo de efecto secundario
-(side effect), que en parte, ya vimos en [](./4_secuencias.md).
+(side effect), que en parte, ya vimos en [Secuencias y Arreglos](./7_secuencias.md).
 
 Si bien los efectos secundarios son extremadamente útiles y necesarios (como en
 nuestra función `intercambiar`), también pueden hacer que el código sea más
@@ -344,7 +344,7 @@ programa podrían haber cambiado después de llamarla.
 El calificador `const` es una de las herramientas más importantes en C para
 escribir código seguro, predecible y fácil de entender. Actúa como un "contrato"
 que le dice al compilador y a otros programadores qué se supone que no debe
-cambiar. Cuando lo usás con punteros, como lo exige la regla {ref}`0x0021h`, te
+cambiar. Cuando lo usás con punteros, como lo exige la regla {ref}`0x3007h`, te
 permite "bloquear" o bien el dato apuntado, el puntero en sí, o ambos.
 
 `const` nos permite poner reglas sobre qué se puede modificar, _potencialmente_,
@@ -801,7 +801,7 @@ int main() {
 Para buscar un valor, recorremos el arreglo y nos detenemos si encontramos una
 coincidencia. La función devolverá un puntero al elemento encontrado o `NULL` si
 no se encuentra. La comprobación explícita contra `NULL` sigue la regla
-{ref}`0x0010h`.
+{ref}`0x2007h`.
 
 **Método:**
 
@@ -951,7 +951,7 @@ int main() {
 
 Este último ejemplo, debiera de recibir un tamaño para cada arreglo y verificar
 que los tamaños de ambos sean 'compatibles' entre sí. La regla de estilo
-{ref}`0x0027h` es crucial aquí.
+{ref}`0x300Ch` es crucial aquí.
 
 La mayor ventaja y el mayor peligro de la aritmética de punteros es su libertad.
 El lenguaje C no te impedirá incrementar un puntero más allá del final de un
@@ -1170,7 +1170,7 @@ void invertir_arreglo(int *arreglo, size_t n) {
 
 Los punteros que estudiaste en este capítulo son fundamentales, pero hasta ahora solo trabajaste con memoria que el compilador gestiona automáticamente (variables locales y globales). El verdadero poder de los punteros se revela cuando aprendés a gestionar memoria **dinámicamente** durante la ejecución del programa.
 
-En el [](11_memoria), vas a aprender sobre:
+En el [Memoria Dinámica](14_memoria_dinamica), vas a aprender sobre:
 
 - **El heap (montón):** Una región de memoria que podés solicitar y liberar bajo demanda.
 - **Funciones de asignación dinámica:** Como `malloc` y `calloc`, que te permiten crear estructuras de datos de tamaño variable.
@@ -1221,7 +1221,7 @@ Este apunte desmitifica los **punteros**, el concepto más distintivo y poderoso
 
 Los punteros que estudiamos operan sobre memoria **estática** (conocida en compilación) o **automática** (stack, gestionada por el sistema). Pero la verdadera potencia de los punteros emerge cuando los combinamos con **memoria dinámica**: la capacidad de solicitar y liberar memoria durante la ejecución según las necesidades del programa.
 
-El apunte **[](11_memoria)** introduce la gestión explícita de memoria mediante:
+El apunte **[Memoria Dinámica](14_memoria_dinamica)** introduce la gestión explícita de memoria mediante:
 
 - **`malloc()`**: solicitar memoria del heap
 - **`free()`**: liberar memoria para evitar memory leaks

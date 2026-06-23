@@ -43,7 +43,7 @@ Las estructuras agrupan datos relacionados en memoria. El compilador puede añad
 
 ### Declaración y `typedef`
 
-La práctica estándar, como indica la regla {ref}`0x001Eh`, es usar `typedef`
+La práctica estándar, como indica la regla {ref}`0x3004h`, es usar `typedef`
 para crear un alias de tipo con el sufijo `_t`.
 
 ```c
@@ -253,8 +253,7 @@ offsetof(c) = 8
 Reordená los miembros de `ejemplo_padding_t` para minimizar su tamaño total. Verificá tu resultado con `sizeof`. ¿Cuál es el orden óptimo y por qué?
 ```
 
-````{solution}
-:for: ejer-layout-1
+````{solution} ejer-layout-1
 :class: dropdown
 El orden óptimo es ordenar los miembros de mayor a menor tamaño: `int b; char a; char c;`.
 
@@ -384,7 +383,7 @@ typedef struct {
 
 5. **Relaciones:** Si los campos tienen dependencias entre sí, explicá estas relaciones claramente.
 
-Para más detalles sobre el estilo de comentarios y documentación, consultá la {ref}`regla 0x0032h <0x0032h>` sobre cómo escribir comentarios que expliquen el "porqué" y no el "qué".
+Para más detalles sobre el estilo de comentarios y documentación, consultá la {ref}`regla 0x0032h  <0x000Ah>` sobre cómo escribir comentarios que expliquen el "porqué" y no el "qué".
 
 ---
 
@@ -1137,7 +1136,7 @@ valor_t crear_valor_entero(int64_t entero) {
 
 6. **Casos de uso:** Explicá para qué situaciones está diseñada la unión y cuándo debería (o no) usarse.
 
-Para más detalles sobre el estilo de comentarios, consultá la {ref}`regla 0x0032h <0x0032h>` sobre cómo escribir comentarios que expliquen el "porqué" y no el "qué".
+Para más detalles sobre el estilo de comentarios, consultá la {ref}`regla 0x0032h  <0x000Ah>` sobre cómo escribir comentarios que expliquen el "porqué" y no el "qué".
 
 ### Ejercicio
 
@@ -1153,8 +1152,7 @@ Diseñá una unión etiquetada `evento_t` para un sistema simple. Un evento pued
 Escribí una función `void procesar_evento(const evento_t *evento)` que imprima un mensaje descriptivo según el tipo de evento.
 ```
 
-````{solution}
-:for: ejer-tagged-union-2
+````{solution} ejer-tagged-union-2
 :class: dropdown
 ```c
 #include <stdio.h>
@@ -1297,8 +1295,7 @@ Un protocolo de red envía un byte de estado con la siguiente estructura de bits
 Creá una `struct` con bit-fields para representar este byte. Escribí una función que reciba un `unsigned char` y lo imprima de forma legible usando la estructura.
 ```
 
-````{solution}
-:for: ejer-bitfield-2
+````{solution} ejer-bitfield-2
 :class: dropdown
 ```c
 #include <stdio.h>

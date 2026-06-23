@@ -5,7 +5,6 @@ description: 'Mapeo de memoria virtual, segmento de código, datos, stack, heap 
 ---
 
 (modelo-memoria-capitulo)=
-(memoria-introduccion)=
 ## Introducción: El Mapa de Memoria de un Programa
 
 Todas las variables y el código de un programa residen en la memoria. Cuando un programa se ejecuta, el sistema operativo le asigna un espacio de direcciones virtuales que se organiza en secciones específicas, cada una con un propósito diferente. Esta organización permite al sistema gestionar eficientemente los recursos y aislar las distintas necesidades de almacenamiento.
@@ -99,7 +98,7 @@ void imprimir_contador() {
 Al compilar y enlazar ambos archivos (`gcc archivo1.c archivo2.c -o programa`), el enlazador resolverá la referencia a `contador_global` en `archivo2.c` con la definición en `archivo1.c`.
 
 Si las variables globales tenian problemas, las variables globales compartidas
-entre varios archivos son aún mas problemáticas, ver {ref}`0x000Bh`.
+entre varios archivos son aún mas problemáticas, ver {ref}`0x2004h`.
 
 
 
@@ -204,7 +203,7 @@ Es importante destacar que el uso del Base Pointer (`rbp`) no es estrictamente o
 5. **Limpieza (caller):**
    - Se limpia el espacio usado para argumentos (según la convención)
 
-*(El funcionamiento detallado en código ensamblador y a nivel de registros se explica en la sección de {ref}`memoria-avanzada-asm` al final de este capítulo).*
+*(El funcionamiento detallado en código ensamblador y a nivel de registros se explica en la sección de la sección de ensamblador al final de este capítulo al final de este capítulo).*
 
 :::{important} Implicaciones de la Estructura del Stack
 Esta estructura explica varios fenómenos importantes:
@@ -245,7 +244,7 @@ La pila almacena:
 - Riesgo de _stack overflow_ si se realizan llamadas recursivas profundas o se declaran arreglos muy grandes.
 
 :::{important} Alcance de las Variables
-Tené presente que las variables declaradas en la pila dejan de existir al finalizar la función. Intentar retornar la dirección de una variable local es un error grave que produce comportamiento indefinido. Esta cuestión está relacionada con la {ref}`0x0011h`, que enfatiza mantener el alcance de las variables al mínimo posible. 
+Tené presente que las variables declaradas en la pila dejan de existir al finalizar la función. Intentar retornar la dirección de una variable local es un error grave que produce comportamiento indefinido. Esta cuestión está relacionada con la {ref}`0x2007h`, que enfatiza mantener el alcance de las variables al mínimo posible. 
 :::
 
 **Ejemplo del error común:**
@@ -317,7 +316,7 @@ Usá el stack cuando:
 - Posibilidad de errores sutiles difíciles de detectar: accesos después de liberar memoria, dobles liberaciones, pérdida de referencias.
 
 :::{warning} Responsabilidad del Programador
-Con el heap, la gestión de memoria es completamente tu responsabilidad. Cada llamada a `malloc` o `calloc` debe tener su correspondiente `free`. Esta disciplina está codificada en la {ref}`0x001Ah`, que exige liberar siempre la memoria dinámica y prevenir punteros colgantes. 
+Con el heap, la gestión de memoria es completamente tu responsabilidad. Cada llamada a `malloc` o `calloc` debe tener su correspondiente `free`. Esta disciplina está codificada en la {ref}`0x3002h`, que exige liberar siempre la memoria dinámica y prevenir punteros colgantes. 
 :::
 
 (memoria-comparacion-stack-heap)=

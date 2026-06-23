@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet href="../resources/svg.css" type="text/css"?>
+<svg width="700" height="340" viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      text { font-family: 'Lato', Arial, sans-serif; font-size: 12px; fill: #192437; text-anchor: middle; }
+      .title { font-size: 15px; font-weight: bold; }
+      .subtitle { font-size: 11px; fill: #555; }
+      .label { font-size: 11px; fill: #192437; }
+      .label-bold { font-size: 11px; font-weight: bold; }
+      .label-sm { font-size: 10px; fill: #192437; }
+      .code { font-family: 'Share Tech Mono', monospace; font-size: 10px; fill: #192437; text-anchor: start; }
+      .addr { font-family: 'Share Tech Mono', monospace; font-size: 9px; fill: #555; text-anchor: middle; }
+      .data-char { fill: #cce5ff; stroke: #004085; stroke-width: 1.5; }
+      .data-int { fill: #d4edda; stroke: #155724; stroke-width: 1.5; }
+      .data-pad { fill: #fff3cd; stroke: #856404; stroke-width: 1.5; }
+      .section-bg { fill: #f8f9fa; stroke: #dee2e6; stroke-width: 1; }
+      .note { font-size: 10px; fill: #6c757d; font-style: italic; }
+      .size-ok { fill: #d4edda; stroke: #28a745; stroke-width: 1.5; rx: 4; }
+      .size-bad { fill: #f8d7da; stroke: #dc3545; stroke-width: 1.5; rx: 4; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="350" y="22" class="title">Struct Padding y Alineación</text>
+  <text x="350" y="38" class="subtitle">El compilador inserta bytes de relleno para mantener la alineación</text>
+
+  <!-- ===== Sin padding (izquierda) — INCORRECTO ===== -->
+  <rect x="20" y="50" width="310" height="270" rx="6" class="section-bg"/>
+  <text x="175" y="68" class="label-bold" style="fill:#dc3545">✗ Sin padding (incorrecto)</text>
+  <text x="175" y="83" class="note">struct { char a; int b; char c; }</text>
+
+  <!-- Celdas de memoria — sin padding -->
+  <!-- Byte 0 -->
+  <rect x="45" y="93" width="44" height="30" class="data-char"/>
+  <text x="67" y="113" class="label-sm">a (char)</text>
+  <!-- Bytes 1-4 (int desalineado) -->
+  <rect x="89" y="93" width="44" height="30" class="data-int"/>
+  <text x="111" y="113" class="label-sm">b[0]</text>
+  <rect x="133" y="93" width="44" height="30" class="data-int"/>
+  <text x="155" y="113" class="label-sm">b[1]</text>
+  <rect x="177" y="93" width="44" height="30" class="data-int"/>
+  <text x="199" y="113" class="label-sm">b[2]</text>
+  <rect x="221" y="93" width="44" height="30" class="data-int"/>
+  <text x="243" y="113" class="label-sm">b[3]</text>
+  <!-- Byte 5 (char c) -->
+  <rect x="265" y="93" width="44" height="30" class="data-char"/>
+  <text x="287" y="113" class="label-sm">c (char)</text>
+
+  <!-- Direcciones -->
+  <text x="67" y="132" class="addr">0x00</text>
+  <text x="111" y="132" class="addr">0x01</text>
+  <text x="155" y="132" class="addr">0x02</text>
+  <text x="199" y="132" class="addr">0x03</text>
+  <text x="243" y="132" class="addr">0x04</text>
+  <text x="287" y="132" class="addr">0x05</text>
+
+  <!-- Advertencia de alineación -->
+  <rect x="35" y="140" width="270" height="28" rx="4" fill="#f8d7da" stroke="#dc3545" stroke-width="1"/>
+  <text x="170" y="155" class="label" style="fill:#721c24">int b en 0x01 — NO múltiplo de 4</text>
+  <text x="170" y="166" class="label" style="fill:#721c24">Penaliza: 2 lecturas de memoria</text>
+
+  <!-- Leyenda -->
+  <rect x="40" y="178" width="15" height="12" class="data-char"/>
+  <text x="100" y="189" class="label-sm" style="text-anchor:start">char (1 byte)</text>
+  <rect x="40" y="196" width="15" height="12" class="data-int"/>
+  <text x="100" y="207" class="label-sm" style="text-anchor:start">int (4 bytes)</text>
+
+  <!-- sizeof -->
+  <rect x="40" y="220" width="250" height="35" rx="4" class="size-bad"/>
+  <text x="165" y="237" class="label-bold" style="fill:#dc3545">sizeof(struct) = 6 bytes teórico</text>
+  <text x="165" y="251" class="label" style="fill:#721c24">Pero int desalineado → comportamiento indefinido</text>
+
+  <!-- código -->
+  <rect x="35" y="265" width="265" height="48" rx="3" fill="#f1f3f5" stroke="#adb5bd" stroke-width="1"/>
+  <text x="40" y="281" class="code">struct { char a; int b; char c; };</text>
+  <text x="40" y="295" class="code">// Hipotético sin padding del compilador</text>
+  <text x="40" y="308" class="code">// → ACCESO DESALINEADO (UB en RISC)</text>
+
+  <!-- ===== Con padding (derecha) — CORRECTO ===== -->
+  <rect x="370" y="50" width="310" height="270" rx="6" class="section-bg"/>
+  <text x="525" y="68" class="label-bold" style="fill:#28a745">✓ Con padding (compilador real)</text>
+  <text x="525" y="83" class="note">struct { char a; /*pad*/ int b; char c; /*pad*/ }</text>
+
+  <!-- Celdas de memoria — con padding -->
+  <!-- Byte 0: char a -->
+  <rect x="390" y="93" width="44" height="30" class="data-char"/>
+  <text x="412" y="113" class="label-sm">a (char)</text>
+  <!-- Bytes 1-3: padding -->
+  <rect x="434" y="93" width="44" height="30" class="data-pad"/>
+  <text x="456" y="113" class="label-sm">pad</text>
+  <rect x="478" y="93" width="44" height="30" class="data-pad"/>
+  <text x="500" y="113" class="label-sm">pad</text>
+  <rect x="522" y="93" width="44" height="30" class="data-pad"/>
+  <text x="544" y="113" class="label-sm">pad</text>
+
+  <!-- Bytes 4-7: int b alineado -->
+  <!-- segunda fila -->
+  <rect x="390" y="93" width="0" height="0"/>
+  <!-- int b empieza en siguiente fila visual -->
+  <rect x="566" y="93" width="44" height="30" class="data-int"/>
+  <text x="588" y="113" class="label-sm">b[0]</text>
+
+  <!-- Fila 2 (bytes 4-8 y char c) — mostrar en siguiente renglón -->
+  <rect x="390" y="128" width="44" height="30" class="data-int"/>
+  <text x="412" y="148" class="label-sm">b[1]</text>
+  <rect x="434" y="128" width="44" height="30" class="data-int"/>
+  <text x="456" y="148" class="label-sm">b[2]</text>
+  <rect x="478" y="128" width="44" height="30" class="data-int"/>
+  <text x="500" y="148" class="label-sm">b[3]</text>
+  <rect x="522" y="128" width="44" height="30" class="data-char"/>
+  <text x="544" y="148" class="label-sm">c (char)</text>
+  <!-- padding final -->
+  <rect x="566" y="128" width="44" height="30" class="data-pad"/>
+  <text x="588" y="148" class="label-sm">pad</text>
+
+  <!-- Notas de padding -->
+  <text x="412" y="171" class="addr">0x00</text>
+  <text x="456" y="171" class="addr">0x01</text>
+  <text x="500" y="171" class="addr">0x02</text>
+  <text x="544" y="171" class="addr">0x03</text>
+  <text x="588" y="171" class="addr">0x04</text>
+  <!-- segunda fila: bytes 4-9 -->
+  <text x="412" y="173" class="addr"/>
+
+  <!-- Brace para int b alineado -->
+  <rect x="385" y="182" width="270" height="24" rx="4" fill="#d4edda" stroke="#28a745" stroke-width="1"/>
+  <text x="520" y="194" class="label" style="fill:#155724">int b en 0x04 — múltiplo de 4 ✓</text>
+  <text x="520" y="204" class="label" style="fill:#155724">1 lectura de memoria (óptimo)</text>
+
+  <!-- Leyenda -->
+  <rect x="393" y="216" width="15" height="12" class="data-char"/>
+  <text x="415" y="227" class="label-sm" style="text-anchor:start">char (1 byte)</text>
+  <rect x="393" y="234" width="15" height="12" class="data-int"/>
+  <text x="415" y="245" class="label-sm" style="text-anchor:start">int (4 bytes)</text>
+  <rect x="490" y="234" width="15" height="12" class="data-pad"/>
+  <text x="512" y="245" class="label-sm" style="text-anchor:start">padding (relleno)</text>
+
+  <!-- sizeof -->
+  <rect x="385" y="254" width="265" height="22" rx="4" class="size-ok"/>
+  <text x="518" y="269" class="label-bold" style="fill:#155724">sizeof(struct) = 12 bytes — alineado</text>
+
+  <!-- código -->
+  <rect x="385" y="283" width="290" height="32" rx="3" fill="#f1f3f5" stroke="#adb5bd" stroke-width="1"/>
+  <text x="390" y="298" class="code">// Compilador inserta padding automáticamente</text>
+  <text x="390" y="311" class="code">// char a[1] + pad[3] + int b[4] + char c[1] + pad[3]</text>
+</svg>

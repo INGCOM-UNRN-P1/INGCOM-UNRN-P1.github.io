@@ -57,7 +57,7 @@ Implementar una función `struct producto_t* crear_producto(const char* nombre, 
 Implementar también `void destruir_producto(struct producto_t** ptr_producto)` que libere toda la memoria y ponga el puntero en `NULL`.
 
 :::{tip} Buena Práctica
-Aquí aplica la regla de {ref}`regla-null-freed-pointers`: siempre poner punteros en `NULL` después de liberar para evitar dangling pointers.
+Aquí aplica la regla de {ref}`0x3002h`: siempre poner punteros en `NULL` después de liberar para evitar dangling pointers.
 :::
 
 ### 2.2: Manejo de Errores en Cadena

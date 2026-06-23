@@ -10,7 +10,7 @@ más propensas a errores. Estos ejercicios están diseñados para construir una
 base sólida en el manejo de cadenas de caracteres (estilo C, terminadas en
 nulo), enfocándose en la implementación de algoritmos comunes desde cero. Es
 crucial que al resolverlos, se apliquen los principios de manejo de "cadenas
-seguras" ({ref}`0x0030h`), pasando siempre la capacidad del búfer para evitar
+seguras" ({ref}`0x5003h`), pasando siempre la capacidad del búfer para evitar
 desbordamientos.
 
 ---

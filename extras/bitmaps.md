@@ -93,7 +93,7 @@ directivas `#pragma pack`.
 :::{tip} Estilo
 
 Acá utilizamos `typedef` para crear alias de nuestras
-estructuras con el sufijo `_t`, siguiendo la regla {ref}`0x001Eh`. También
+estructuras con el sufijo `_t`, siguiendo la regla {ref}`0x3004h`. También
 usamos tipos de ancho fijo como `uint16_t` de `<stdint.h>` para garantizar la
 portabilidad y el tamaño exacto de los campos. 
 

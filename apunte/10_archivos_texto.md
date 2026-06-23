@@ -51,7 +51,7 @@ FILE *puntero_archivo;
 ```
 
 :::{note} Punteros: Direcciones de Memoria
-Esta variable utiliza el asterisco (`*`) como declarador para indicar que `puntero_archivo` es un tipo de dato derivado: un "puntero a `FILE`". Un puntero almacena la dirección de memoria de un objeto (en este caso, la estructura `FILE`). Si necesitás repasar qué son los punteros, cómo se declaran y cómo funcionan las direcciones de memoria, consultá el [](7_punteros) donde se explica este concepto en detalle.
+Esta variable utiliza el asterisco (`*`) como declarador para indicar que `puntero_archivo` es un tipo de dato derivado: un "puntero a `FILE`". Un puntero almacena la dirección de memoria de un objeto (en este caso, la estructura `FILE`). Si necesitás repasar qué son los punteros, cómo se declaran y cómo funcionan las direcciones de memoria, consultá el [](5_punteros) donde se explica este concepto en detalle.
 :::
 
 Este puntero, una vez que la función `fopen()` lo inicializa exitosamente, se convierte
@@ -933,8 +933,7 @@ int main(void) {
 Creá una función que reciba el nombre de un archivo y una cadena de texto. La función debe abrir el archivo en modo "append" (añadir) y escribir la cadena de texto seguida de un salto de línea. Asegurate de manejar todos los posibles errores de apertura, escritura y cierre.
 ```
 
-````{solution}
-:for: ejercicio_archivos_1
+````{solution} ejercicio_archivos_1
 :class: dropdown
 
 ```{code-block}c
@@ -1032,8 +1031,7 @@ int main(void)
 Escribí una función que reciba el nombre de un archivo, lo lea y devuelva la cantidad de líneas que contiene. Una línea se define como una secuencia de caracteres terminada por un `\n`. La función debe devolver un número negativo en caso de error.
 ```
 
-````{solution}
-:for: ejercicio_archivos_2
+````{solution} ejercicio_archivos_2
 :class: dropdown
 
 ```{code-block}c
@@ -1134,8 +1132,7 @@ int main(void)
 Implementá una función que copie el contenido de un archivo de origen a un archivo de destino. La función debe leer el archivo de origen línea por línea y escribir cada línea en el archivo de destino. Debe manejar errores para ambos archivos (apertura, lectura, escritura y cierre).
 ```
 
-````{solution}
-:for: ejercicio_archivos_3
+````{solution} ejercicio_archivos_3
 :class: dropdown
 
 ```{code-block}c
@@ -1264,8 +1261,7 @@ int main(void)
 Crea una función `registrar_evento` que reciba un mensaje y lo añada a un archivo llamado `eventos.log`. La función debe asegurarse de que cada mensaje nuevo se agregue al final del archivo, sin borrar el contenido anterior. Por simplicidad, no es necesario agregar una marca de tiempo.
 ```
 
-````{solution}
-:for: ejercicio_archivos_4
+````{solution} ejercicio_archivos_4
 :class: dropdown
 
 ```{code-block}c
@@ -1363,8 +1359,7 @@ Monitor 24 pulgadas,300.25,1
 Webcam,no_es_un_precio,3
 ```
 
-````{solution}
-:for: ejercicio_archivos_5
+````{solution} ejercicio_archivos_5
 :class: dropdown
 
 ```{code-block}c
@@ -1482,8 +1477,7 @@ int main(void)
 Implementá una función `int invertir_archivo(const char *origen, const char *destino)` que reciba el nombre de un archivo de texto existente (`origen`) y genere un nuevo archivo (`destino`) que contenga exactamente el mismo texto pero invertido carácter por carácter (es decir, el último carácter del original será el primero del nuevo, y así sucesivamente). La función debe usar `fseek` y `ftell` para determinar el tamaño del archivo y leer los caracteres desde el final hacia el principio. Debe retornar `0` en caso de éxito y un valor negativo ante fallas de apertura, posicionamiento o escritura.
 ```
 
-````{solution}
-:for: ejercicio_archivos_6
+````{solution} ejercicio_archivos_6
 :class: dropdown
 
 ```{code-block}c

@@ -240,7 +240,7 @@ arr1 = arr2; // Error: expression is not assignable.
 ### Recorrido de Arreglos y Comportamiento Indefinido
 
 La estructura de control ideal para iterar sobre un arreglo es el lazo `for`.
-El uso de `size_t` para el índice del lazo es la forma correcta de hacerlo, tal como lo indica la regla de estilo {ref}`0x002Eh`.
+El uso de `size_t` para el índice del lazo es la forma correcta de hacerlo, tal como lo indica la regla de estilo {ref}`0x3010h`.
 
 ````{code-block}c
 :linenos:
@@ -257,7 +257,7 @@ C no verifica los límites del arreglo. Acceder a un índice fuera del rango
 (`numeros[5]` o `numeros[-1]`) resulta en **comportamiento indefinido**. Esto no
 siempre causa un error inmediato. Podría corromper datos de otras variables,
 causar fallos de seguridad o funcionar aparentemente bien hasta que un cambio
-trivial en otra parte del código revele el error latente. Es responsabilidad del programador garantizar que esto no ocurra, como lo exige la regla {ref}`0x0027h`.
+trivial en otra parte del código revele el error latente. Es responsabilidad del programador garantizar que esto no ocurra, como lo exige la regla {ref}`0x300Ch`.
 
 ::::
 
@@ -286,9 +286,9 @@ inicializado en su declaración. Intentarlo producirá un error de compilación:
 error: variable-sized object may not be initialized
 ```
 
-Las implicaciones y el uso correcto de la memoria dinámica, que es la alternativa recomendada a los ALV, se abordarán en [](11_memoria).
+Las implicaciones y el uso correcto de la memoria dinámica, que es la alternativa recomendada a los ALV, se abordarán en [Memoria Dinámica](14_memoria_dinamica).
 
-De todas formas y como se imaginarán, hay una regla de estilo {ref}`0x000Eh`.
+De todas formas y como se imaginarán, hay una regla de estilo {ref}`0x5001h`.
 
 ### El Mecanismo de Paso a Funciones: Decaimiento de Arreglos (Array Decay)
 
@@ -304,7 +304,7 @@ Paso de arreglos a funciones por referencia: a diferencia de las variables simpl
 ```
 
 :::{note} Relación con Punteros
-Este comportamiento está íntimamente relacionado con el concepto de punteros. Para una comprensión más profunda de cómo funcionan las direcciones de memoria y la relación entre arreglos y punteros, consultá el [](7_punteros).
+Este comportamiento está íntimamente relacionado con el concepto de punteros. Para una comprensión más profunda de cómo funcionan las direcciones de memoria y la relación entre arreglos y punteros, consultá el [Punteros](5_punteros).
 :::
 
 ### Funciones Puras y con Efectos Secundarios
@@ -429,7 +429,7 @@ Este tipo de comportamiento puede llevar a errores sutiles y difíciles de
 depurar, especialmente en programas grandes donde el arreglo original podría ser
 necesario para operaciones posteriores. Por ejemplo, si el valor original en la
 posición `0` fuera crucial para otro cálculo, esa información se perdería
-permanentemente. Para evitar modificaciones no deseadas, es una buena práctica usar el calificador `const` en los parámetros de arreglo que no deben ser alterados, adhiriendo a la regla de estilo {ref}`0x0021h`.
+permanentemente. Para evitar modificaciones no deseadas, es una buena práctica usar el calificador `const` en los parámetros de arreglo que no deben ser alterados, adhiriendo a la regla de estilo {ref}`0x3007h`.
 
 Resolver este problema solo requiere agregar una variable para reemplazar `arreglo[0]`, pero es un buen contraejemplo de un uso negativo de los efectos secundarios de los arreglos.
 
@@ -474,7 +474,7 @@ tiempo de compilación, el operador no puede saber con qué arreglo vamos a llam
 a la función.
 
 Por lo tanto, para que una función pueda trabajar sobre cualquier arreglo, se
-debe pasar el tamaño de forma explícita, como un argumento separado. La firma correcta de la función debe incluir el tamaño del arreglo como parámetro. El uso de `size_t` para el tamaño ({ref}`0x002Eh`) y el hecho de pasar el tamaño explícitamente ({ref}`0x0027h`) son cruciales para la seguridad y portabilidad.
+debe pasar el tamaño de forma explícita, como un argumento separado. La firma correcta de la función debe incluir el tamaño del arreglo como parámetro. El uso de `size_t` para el tamaño ({ref}`0x3010h`) y el hecho de pasar el tamaño explícitamente ({ref}`0x300Ch`) son cruciales para la seguridad y portabilidad.
 
 ````{code-block}c
 :linenos:
@@ -639,7 +639,7 @@ Esta es la base para las cadenas seguras.
 ### Lectura Segura de Cadenas
 
 El uso de `scanf("%s", buffer)` es una de las fuentes de errores de seguridad
-más comunes en C. La alternativa segura es `fgets`, como lo recomienda la regla de estilo {ref}`0x001Ch`.
+más comunes en C. La alternativa segura es `fgets`, como lo recomienda la regla de estilo {ref}`0x5001h`.
 
 ````{code-block}c
 :linenos:
@@ -953,9 +953,9 @@ Además, cuando pasamos arreglos a funciones, vimos que en realidad estamos pasa
 
 El próximo tema introduce conceptos que profundizan en cómo se organiza y manipula la memoria:
 
-- Los **punteros** ([](7_punteros)) como variables que almacenan direcciones
-- Las **matrices** ([](6_matrices)) como arreglos multidimensionales
-- La **gestión de memoria** ([](11_memoria)) para estructuras dinámicas
+- Los **punteros** ([Punteros](5_punteros)) como variables que almacenan direcciones
+- Las **matrices** ([Matrices](8_matrices)) como arreglos multidimensionales
+- La **gestión de memoria** ([Memoria Dinámica](14_memoria_dinamica)) para estructuras dinámicas
 
 Los punteros son el concepto más poderoso y peligroso de C. Dominando punteros y arreglos simultáneamente, se comprende la esencia del lenguaje: **control directo sobre la memoria** con la sintaxis mínima necesaria.
 

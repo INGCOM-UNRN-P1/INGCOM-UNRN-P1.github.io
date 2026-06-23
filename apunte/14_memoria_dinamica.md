@@ -5,7 +5,6 @@ description: 'Gestión y alocación en el Heap utilizando malloc, calloc, reallo
 ---
 
 (memoria-dinamica-capitulo)=
-(memoria-funciones)=
 ## Funciones de Gestión de Memoria (`<stdlib.h>`)
 
 Las funciones de gestión de memoria dinámica están declaradas en el archivo de
@@ -38,9 +37,9 @@ Por razones de eficiencia. Inicializar la memoria tiene un costo computacional, 
 
 #### Uso Correcto
 
-Según la {ref}`0x0019h`, siempre debés verificar que la asignación de memoria fue exitosa. Además, la {ref}`0x0026h` establece que debés usar `sizeof` para calcular el tamaño necesario en lugar de valores literales, y preferir `sizeof(*puntero)` sobre `sizeof(tipo)` para evitar errores si el tipo cambia.
+Según la {ref}`0x3001h`, siempre debés verificar que la asignación de memoria fue exitosa. Además, la {ref}`0x300Bh` establece que debés usar `sizeof` para calcular el tamaño necesario en lugar de valores literales, y preferir `sizeof(*puntero)` sobre `sizeof(tipo)` para evitar errores si el tipo cambia.
 
-La {ref}`0x001Bh` indica que no debés mezclar operaciones de asignación y comparación en una sola línea.
+La {ref}`0x3003h` indica que no debés mezclar operaciones de asignación y comparación en una sola línea.
 
 ```c
 #include <stdio.h>
@@ -86,7 +85,7 @@ Verificar el retorno de `malloc` permite que tu programa:
 :::
 
 :::{note} Cast Explícito
-En C, no es necesario hacer cast del puntero `void *` retornado por `malloc` a otro tipo de puntero, ya que la conversión es implícita. Sin embargo, algunos programadores prefieren el cast explícito por claridad o para compatibilidad con C++. La {ref}`0x0024h` recomienda usar cast explícito al convertir tipos de punteros por claridad. 
+En C, no es necesario hacer cast del puntero `void *` retornado por `malloc` a otro tipo de puntero, ya que la conversión es implícita. Sin embargo, algunos programadores prefieren el cast explícito por claridad o para compatibilidad con C++. La {ref}`0x300Ah` recomienda usar cast explícito al convertir tipos de punteros por claridad. 
 :::
 
 (memoria-calloc)=
@@ -186,6 +185,7 @@ Cambia el tamaño de un bloque de memoria previamente asignado.
 - Un puntero al bloque de memoria redimensionado (que puede ser la misma dirección o una nueva).
 - `NULL` si la operación falla. En este caso, el bloque de memoria original **no se libera** y sigue siendo válido.
 
+(punteros2-realloc-seguro)=
 #### Uso Seguro
 
 El error más común con `realloc` es perder la referencia al bloque original si la función falla por lo que es necesario un puntero temporal para manejar `realloc` de forma segura.
@@ -237,7 +237,7 @@ Libera un bloque de memoria previamente reservado, devolviéndolo al sistema ope
 
 #### Reglas Fundamentales
 
-Según la {ref}`0x001Ah`, debés:
+Según la {ref}`0x3002h`, debés:
 
 1. Liberar siempre la memoria dinámica que asignaste.
 2. Asignar `NULL` al puntero inmediatamente después de liberarlo para prevenir punteros colgantes.
@@ -250,7 +250,7 @@ ptr = NULL;  // Previene el uso accidental del puntero colgante
 ```
 
 :::{important} Simetría en la Gestión de Recursos
-La {ref}`0x001Ah` también enfatiza la simetría: si creaste una función `crear_recurso()` para encapsular la asignación, debés crear una función `liberar_recurso()` correspondiente para su liberación. Esto mantiene el nivel de abstracción consistente y facilita el mantenimiento.
+La {ref}`0x3002h` también enfatiza la simetría: si creaste una función `crear_recurso()` para encapsular la asignación, debés crear una función `liberar_recurso()` correspondiente para su liberación. Esto mantiene el nivel de abstracción consistente y facilita el mantenimiento.
 :::
 
 (memoria-heap-allocator)=
@@ -343,7 +343,7 @@ Aunque no implementés tu propio allocator, comprender su funcionamiento explica
 La gestión manual de memoria es una fuente frecuente de errores en C. Comprender estos errores y cómo prevenirlos es fundamental para escribir código robusto.
 
 :::{note} Errores Básicos de Punteros
-Los errores discutidos en esta sección son específicos de la gestión de memoria dinámica. Para errores básicos con punteros (como punteros salvajes, desreferencia de `NULL`, y problemas de inicialización), consultá primero el [](7_punteros), que cubre los conceptos fundamentales necesarios para trabajar con punteros de forma segura.
+Los errores discutidos en esta sección son específicos de la gestión de memoria dinámica. Para errores básicos con punteros (como punteros salvajes, desreferencia de `NULL`, y problemas de inicialización), consultá primero el [](5_punteros), que cubre los conceptos fundamentales necesarios para trabajar con punteros de forma segura.
 :::
 
 (memoria-memory-leak)=
@@ -369,7 +369,7 @@ void funcion_con_fuga()
 
 #### Solución
 
-Asegurate de que cada asignación tenga su correspondiente liberación, siguiendo la {ref}`0x001Ah`.
+Asegurate de que cada asignación tenga su correspondiente liberación, siguiendo la {ref}`0x3002h`.
 
 ```c
 void funcion_sin_fuga()
@@ -415,7 +415,7 @@ int main()
 
 #### Solución
 
-Asigná `NULL` al puntero inmediatamente después de llamar a `free`, como exige la {ref}`0x001Ah`.
+Asigná `NULL` al puntero inmediatamente después de llamar a `free`, como exige la {ref}`0x3002h`.
 
 ```c
 int main()
@@ -506,7 +506,7 @@ int main()
 
 #### Solución
 
-La {ref}`0x0027h` exige verificar siempre los límites de los arreglos antes de acceder a sus elementos. La {ref}`0x002Eh` establece que las variables que representan tamaños o índices de arreglos deben ser de tipo `size_t`.
+La {ref}`0x300Ch` exige verificar siempre los límites de los arreglos antes de acceder a sus elementos. La {ref}`0x3010h` establece que las variables que representan tamaños o índices de arreglos deben ser de tipo `size_t`.
 
 ```c
 int main()
@@ -775,7 +775,7 @@ La gestión segura de memoria dinámica requiere disciplina y adherencia a un co
 (memoria-bp-inicializar)=
 ### Inicializar Punteros
 
-Siempre inicializá los punteros a `NULL` al declararlos si no tenés una dirección válida para asignarles inmediatamente. Esto está codificado en la {ref}`0x0003h` y la {ref}`0x0022h`.
+Siempre inicializá los punteros a `NULL` al declararlos si no tenés una dirección válida para asignarles inmediatamente. Esto está codificado en la {ref}`0x0003h` y la {ref}`0x3008h`.
 
 ```c
 int *ptr = NULL;
@@ -784,7 +784,7 @@ int *ptr = NULL;
 (memoria-bp-verificar)=
 ### Verificar Asignaciones
 
-Siempre comprobá si el valor devuelto por `malloc` o `calloc` es `NULL` antes de usar el puntero. La {ref}`0x0019h` lo exige explícitamente.
+Siempre comprobá si el valor devuelto por `malloc` o `calloc` es `NULL` antes de usar el puntero. La {ref}`0x3001h` lo exige explícitamente.
 
 ```c
 ptr = malloc(tamano);
@@ -799,7 +799,7 @@ if (ptr == NULL)
 (memoria-bp-liberar)=
 ### Liberar Memoria
 
-Por cada asignación exitosa con `malloc` o `calloc`, debe haber una llamada correspondiente a `free`. La {ref}`0x001Ah` establece esta simetría como obligatoria.
+Por cada asignación exitosa con `malloc` o `calloc`, debe haber una llamada correspondiente a `free`. La {ref}`0x3002h` establece esta simetría como obligatoria.
 
 ```c
 free(ptr);
@@ -808,7 +808,7 @@ free(ptr);
 (memoria-bp-anular)=
 ### Anular Punteros Después de Liberar
 
-Después de llamar a `free(puntero)`, asigná `puntero = NULL` para evitar punteros colgantes. La {ref}`0x001Ah` lo exige.
+Después de llamar a `free(puntero)`, asigná `puntero = NULL` para evitar punteros colgantes. La {ref}`0x3002h` lo exige.
 
 ```c
 free(ptr);
@@ -818,7 +818,7 @@ ptr = NULL;
 (memoria-bp-simetria)=
 ### Mantener Simetría
 
-Intentá que la función que reserva la memoria sea también responsable de liberarla, o que haya una correspondencia clara, como `crear_estructura()` y `destruir_estructura()`. Esta práctica está documentada en la {ref}`0x001Ah`.
+Intentá que la función que reserva la memoria sea también responsable de liberarla, o que haya una correspondencia clara, como `crear_estructura()` y `destruir_estructura()`. Esta práctica está documentada en la {ref}`0x3002h`.
 
 ```c
 recurso_t *crear_recurso()
@@ -845,7 +845,7 @@ void destruir_recurso(recurso_t *r)
 (memoria-bp-documentar)=
 ### Documentar Propiedad
 
-La {ref}`0x020Fh` exige que documentes claramente quién es el responsable de liberar la memoria cuando una función recibe o devuelve un puntero a memoria dinámica.
+La {ref}`0x3006h` exige que documentes claramente quién es el responsable de liberar la memoria cuando una función recibe o devuelve un puntero a memoria dinámica.
 
 ```c
 /**
@@ -861,7 +861,7 @@ nodo_t *crear_nodo(int valor);
 (memoria-bp-const)=
 ### Usar `const` Apropiadamente
 
-Según la {ref}`0x0021h`, los argumentos de tipo puntero deben ser `const` siempre que la función no los modifique. Esto establece un contrato claro y permite al compilador detectar modificaciones no intencionales.
+Según la {ref}`0x3007h`, los argumentos de tipo puntero deben ser `const` siempre que la función no los modifique. Esto establece un contrato claro y permite al compilador detectar modificaciones no intencionales.
 
 ```c
 void imprimir_arreglo(const int *arreglo, size_t tamano)
@@ -877,7 +877,7 @@ void imprimir_arreglo(const int *arreglo, size_t tamano)
 (memoria-bp-sizeof)=
 ### Usar `sizeof` Correctamente
 
-La {ref}`0x0026h` establece que debés usar siempre `sizeof` en las asignaciones de memoria dinámica, y preferir `sizeof(*puntero)` sobre `sizeof(tipo)`.
+La {ref}`0x300Bh` establece que debés usar siempre `sizeof` en las asignaciones de memoria dinámica, y preferir `sizeof(*puntero)` sobre `sizeof(tipo)`.
 
 ```c
 // Preferido
@@ -890,7 +890,7 @@ int *ptr = malloc(n * sizeof(int));  // Si el tipo de ptr cambia, esto falla
 (memoria-bp-tamanos)=
 ### Usar `size_t` para Tamaños e Índices
 
-La {ref}`0x002Eh` exige que las variables que representan tamaños o índices de arreglos sean de tipo `size_t`.
+La {ref}`0x3010h` exige que las variables que representan tamaños o índices de arreglos sean de tipo `size_t`.
 
 ```c
 size_t tamano = 10;
@@ -905,7 +905,7 @@ for (size_t i = 0; i < tamano; i++)
 (memoria-bp-limites)=
 ### Verificar Límites
 
-La {ref}`0x0027h` exige verificar siempre los límites de los arreglos antes de acceder a sus elementos.
+La {ref}`0x300Ch` exige verificar siempre los límites de los arreglos antes de acceder a sus elementos.
 
 ````c
 void establecer_elemento(int *arreglo, size_t tamano, size_t indice, int valor)
@@ -1131,14 +1131,14 @@ int main()
 Este ejemplo integra múltiples buenas prácticas:
 
 - Inicialización de punteros a `NULL` ({ref}`0x0003h`)
-- Verificación de todas las asignaciones de memoria ({ref}`0x0019h`)
+- Verificación de todas las asignaciones de memoria ({ref}`0x3001h`)
 - Uso de `calloc` para inicialización automática a cero
-- Uso de `sizeof(*puntero)` ({ref}`0x0026h`)
-- Simetría con `crear_arreglo()` y `destruir_arreglo()` ({ref}`0x001Ah`)
+- Uso de `sizeof(*puntero)` ({ref}`0x300Bh`)
+- Simetría con `crear_arreglo()` y `destruir_arreglo()` ({ref}`0x3002h`)
 - Documentación completa de funciones ({ref}`0x000Ah`)
-- Uso de `const` para parámetros no modificados ({ref}`0x0021h`)
-- Uso de `size_t` para tamaños e índices ({ref}`0x002Eh`)
-- Verificación de límites antes de acceder a elementos ({ref}`0x0027h`) 
+- Uso de `const` para parámetros no modificados ({ref}`0x3007h`)
+- Uso de `size_t` para tamaños e índices ({ref}`0x3010h`)
+- Verificación de límites antes de acceder a elementos ({ref}`0x300Ch`) 
 :::
 
 (memoria-ejercicios)=
@@ -1158,8 +1158,7 @@ Escribí un programa que:
 Asegurate de verificar todas las asignaciones de memoria y manejar los errores apropiadamente.
 ```
 
-````{solution}
-:for: ej-memoria-basico
+````{solution} ej-memoria-basico
 :class: dropdown
 
 ```c
@@ -1243,8 +1242,7 @@ Luego, escribí un programa principal que use esta función para duplicar una ca
 Al trabajar con cadenas de caracteres en C, funciones como `strlen` y `strcpy` asumen de forma estricta que los búferes de entrada están correctamente finalizados con el carácter nulo (`\0`). Si se recibe una secuencia de bytes que carece de este terminador (por ejemplo, debido a una lectura parcial o desborde anterior), la función continuará leyendo o escribiendo en memoria de forma indefinida, provocando violaciones de acceso o corrupción silenciosa del heap. Siempre garantizá la correcta inicialización y terminación en nulo del búfer origen antes de cualquier copia.
 :::
 
-````{solution}
-:for: ej-memoria-cadena
+````{solution} ej-memoria-cadena
 :class: dropdown
 
 ```c
@@ -1329,8 +1327,7 @@ Escribí un programa principal que use estas funciones para crear un arreglo, in
 
 ````
 
-```{solution}
-:for: ej-memoria-busqueda
+```{solution} ej-memoria-busqueda
 :class: dropdown
 
 ```c
@@ -1489,14 +1486,13 @@ void imprimir_matriz(int **matriz, size_t filas, size_t columnas);
 
 Asegurate de:
 
-- Liberar la memoria en el orden correcto ({ref}`0x002Ah`).
+- Liberar la memoria en el orden correcto ({ref}`0x3009h`).
 - Verificar todas las asignaciones.
 - Manejar errores apropiadamente.
 
 ````
 
-```{solution}
-:for: ej-memoria-matriz
+```{solution} ej-memoria-matriz
 :class: dropdown
 
 ```c
@@ -1645,12 +1641,11 @@ void imprimir_persona(const persona_t *persona);
 - `destruir_persona`: Debe liberar toda la memoria asociada, incluyendo las cadenas internas.
 - `imprimir_persona`: Debe mostrar los datos de la persona.
 
-Recordá seguir el principio de simetría ({ref}`0x001Ah`) y verificar todas las asignaciones de memoria.
+Recordá seguir el principio de simetría ({ref}`0x3002h`) y verificar todas las asignaciones de memoria.
 
 ````
 
-````{solution}
-:for: ej-memoria-estructura
+````{solution} ej-memoria-estructura
 :class: dropdown
 
 ```c
@@ -1829,8 +1824,7 @@ int main()
 
 ````
 
-```{solution}
-:for: ej-memoria-errores
+```{solution} ej-memoria-errores
 :class: dropdown
 
 **Errores identificados:**
@@ -1971,8 +1965,7 @@ Escribí un programa principal que:
 
 ````
 
-````{solution}
-:for: ej-memoria-puntero-array
+````{solution} ej-memoria-puntero-array
 :class: dropdown
 
 ```c
@@ -2297,6 +2290,7 @@ Esto es útil para formatos de archivos binarios o protocolos de red, pero reduc
 :::
 
 (memoria-valgrind)=
+
 ### Herramientas de Depuración: Valgrind
 
 Valgrind es una herramienta fundamental para detectar errores de memoria en programas C y C++. Funciona ejecutando tu programa en un entorno virtualizado donde puede monitorear cada acceso a memoria y operación de asignación/liberación.

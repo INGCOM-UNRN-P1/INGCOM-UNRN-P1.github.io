@@ -657,7 +657,7 @@ int main(void)
 }
 ```
 
-:::{tip} Regla {ref}`0x0010h`
+:::{tip} Regla {ref}`0x2007h`
 
 Aunque `bool` simplifica el código, evitá comparaciones ambiguas basadas en "veracidad". Sé explícito: `if (puntero != NULL)` en lugar de `if (puntero)`.
 :::
@@ -722,7 +722,7 @@ if (ptr == NULL) {
 }
 ```
 
-:::{important} Regla {ref}`0x0022h`
+:::{important} Regla {ref}`0x3008h`
 
 Siempre usa `NULL` para punteros nulos en lugar de `0`, para claridad semántica.
 :::
@@ -967,7 +967,7 @@ int fclose(FILE *stream);
 
 Cierra el archivo asociado al flujo, asegurando que todos los datos en el buffer se escriban al disco. Retorna 0 si tiene éxito, `EOF` si hay error.
 
-:::{important} Regla {ref}`0x001Dh`
+:::{important} Regla {ref}`0x5004h`
 
 Siempre cierra los archivos que abras. No hacerlo puede resultar en pérdida de datos o en agotar los descriptores de archivo disponibles para el programa.
 :::
@@ -1218,7 +1218,7 @@ int main(void)
 }
 ```
 
-:::{important} Reglas {ref}`0x0019h` y {ref}`0x001Ah`
+:::{important} Reglas {ref}`0x3001h` y {ref}`0x3002h`
 
 Siempre verificá que `malloc()` no retorne `NULL`. Toda memoria asignada debe ser liberada.
 :::
@@ -1700,7 +1700,7 @@ La biblioteca estándar de C es esencial para escribir código portable y robust
 2. **Usá tipos de `<stdint.h>` cuando el tamaño sea crítico** para portabilidad
 3. **Preferí funciones seguras** como `snprintf()`, `fgets()` sobre `sprintf()` y `gets()`
 4. **Inicializá variables y estructuras completamente** para evitar valores indefinidos
-5. **Gestioná recursos cuidadosamente** (archivos, memoria) siguiendo el patrón de inicializar, usar y liberar (regla {ref}`0x001Ah`)
+5. **Gestioná recursos cuidadosamente** (archivos, memoria) siguiendo el patrón de inicializar, usar y liberar (regla {ref}`0x3002h`)
 6. **Documentá suposiciones** con aserciones durante desarrollo
 
 :::{note} Referencias Adicionales

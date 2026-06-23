@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet href="../resources/svg.css" type="text/css"?>
+<svg width="700" height="320" viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      text { font-family: 'Lato', Arial, sans-serif; font-size: 12px; fill: #192437; text-anchor: middle; }
+      .title { font-size: 15px; font-weight: bold; fill: #192437; }
+      .subtitle { font-size: 11px; fill: #555; }
+      .label { font-size: 11px; fill: #192437; }
+      .label-bold { font-size: 11px; font-weight: bold; fill: #192437; }
+      .code { font-family: 'Share Tech Mono', monospace; font-size: 11px; fill: #192437; text-anchor: start; }
+      .addr { font-family: 'Share Tech Mono', monospace; font-size: 10px; fill: #555; text-anchor: start; }
+      .ok { fill: #d4edda; stroke: #28a745; stroke-width: 1.5; }
+      .bad { fill: #f8d7da; stroke: #dc3545; stroke-width: 1.5; }
+      .pad { fill: #fff3cd; stroke: #ffc107; stroke-width: 1.5; }
+      .section-bg { fill: #f8f9fa; stroke: #dee2e6; stroke-width: 1; rx: 6; }
+      .arrow { stroke: #eb2141; stroke-width: 1.8; fill: none; marker-end: url(#arr); }
+      .note { font-size: 10px; fill: #6c757d; font-style: italic; }
+    </style>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#eb2141"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="350" y="22" class="title">Alineación de Memoria</text>
+  <text x="350" y="38" class="subtitle">Acceso alineado vs. desalineado en RAM</text>
+
+  <!-- ===== ALINEADO (izquierda) ===== -->
+  <rect x="20" y="55" width="310" height="240" rx="6" class="section-bg"/>
+  <text x="175" y="74" class="label-bold" style="fill:#28a745">✓ Alineado (eficiente)</text>
+
+  <!-- Palabras de memoria -->
+  <!-- dir 0x00 -->
+  <text x="28" y="97" class="addr">0x00</text>
+  <rect x="70" y="84" width="60" height="20" class="ok"/>
+  <text x="100" y="98" class="label">int (1/2)</text>
+  <rect x="130" y="84" width="60" height="20" class="ok"/>
+  <text x="160" y="98" class="label">int (2/2)</text>
+  <rect x="190" y="84" width="60" height="20" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
+  <text x="220" y="98" class="label" style="fill:#888">—</text>
+  <rect x="250" y="84" width="60" height="20" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
+  <text x="280" y="98" class="label" style="fill:#888">—</text>
+
+  <!-- dir 0x04 -->
+  <text x="28" y="121" class="addr">0x04</text>
+  <rect x="70" y="108" width="60" height="20" class="ok"/>
+  <text x="100" y="122" class="label">int (1/2)</text>
+  <rect x="130" y="108" width="60" height="20" class="ok"/>
+  <text x="160" y="122" class="label">int (2/2)</text>
+  <rect x="190" y="108" width="60" height="20" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
+  <text x="220" y="122" class="label" style="fill:#888">—</text>
+  <rect x="250" y="108" width="60" height="20" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
+  <text x="280" y="122" class="label" style="fill:#888">—</text>
+
+  <text x="175" y="148" class="note">Cada int en múltiplo de 4 → 1 lectura por dato</text>
+
+  <!-- Lectura CPU -->
+  <rect x="40" y="160" width="260" height="55" rx="4" fill="#d4edda" stroke="#28a745" stroke-width="1.5"/>
+  <text x="170" y="177" class="label-bold" style="fill:#28a745">CPU: 1 operación de lectura</text>
+  <text x="170" y="193" class="label" style="fill:#155724">addr = 0x04 → lee 4 bytes directamente</text>
+  <text x="170" y="207" class="label" style="fill:#155724">→ Sin overhead, máxima velocidad</text>
+
+  <text x="175" y="232" class="note">sizeof(int) = 4 → dirección múltiplo de 4</text>
+  <text x="175" y="248" class="note">int a 0x04, 0x08, 0x0C ... (ok)</text>
+  <text x="175" y="270" class="label-bold" style="fill:#28a745; font-size:13px">1x lectura</text>
+
+  <!-- ===== DESALINEADO (derecha) ===== -->
+  <rect x="370" y="55" width="310" height="240" rx="6" class="section-bg"/>
+  <text x="525" y="74" class="label-bold" style="fill:#dc3545">✗ Desalineado (penalización)</text>
+
+  <!-- dir 0x00 -->
+  <text x="378" y="97" class="addr">0x00</text>
+  <rect x="420" y="84" width="45" height="20" class="ok"/>
+  <text x="442" y="98" class="label">char</text>
+  <rect x="465" y="84" width="45" height="20" class="bad"/>
+  <text x="487" y="98" class="label">int ¹</text>
+  <rect x="510" y="84" width="45" height="20" class="bad"/>
+  <text x="532" y="98" class="label">int ²</text>
+  <rect x="555" y="84" width="45" height="20" class="bad"/>
+  <text x="577" y="98" class="label">int ³</text>
+
+  <!-- dir 0x04 -->
+  <text x="378" y="121" class="addr">0x04</text>
+  <rect x="420" y="108" width="45" height="20" class="bad"/>
+  <text x="442" y="122" class="label">int ⁴</text>
+  <rect x="465" y="108" width="45" height="20" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
+  <text x="487" y="122" class="label" style="fill:#888">—</text>
+  <rect x="510" y="108" width="45" height="20" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
+  <text x="532" y="122" class="label" style="fill:#888">—</text>
+  <rect x="555" y="108" width="45" height="20" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
+  <text x="577" y="122" class="label" style="fill:#888">—</text>
+
+  <text x="525" y="148" class="note">int en 0x01 (no múltiplo de 4) → 2 lecturas</text>
+
+  <!-- Lectura CPU desalineado -->
+  <rect x="390" y="160" width="260" height="55" rx="4" fill="#f8d7da" stroke="#dc3545" stroke-width="1.5"/>
+  <text x="520" y="177" class="label-bold" style="fill:#dc3545">CPU: 2 operaciones + bit-manip.</text>
+  <text x="520" y="193" class="label" style="fill:#721c24">Lee word [0x00-0x03] → bytes 1-3</text>
+  <text x="520" y="207" class="label" style="fill:#721c24">Lee word [0x04-0x07] → byte 0 + combina</text>
+
+  <text x="525" y="232" class="note">int en 0x01, 0x05, 0x09 ... (desalineado)</text>
+  <text x="525" y="248" class="note">struct { char a; int b; } sin padding</text>
+  <text x="525" y="270" class="label-bold" style="fill:#dc3545; font-size:13px">2-3x más lento</text>
+</svg>

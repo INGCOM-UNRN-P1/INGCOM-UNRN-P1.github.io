@@ -724,6 +724,7 @@ if (edad >= 18 && edad <= 65) {
 }
 ```
 
+(ref-unico-retorno)=
 ## Combinación con el Patrón de Único Retorno
 
 Cuando se aplica el patrón de único retorno (ver {ref}`ref-unico-retorno`), las técnicas de simplificación de condicionales deben adaptarse para mantener un solo punto de salida.

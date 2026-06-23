@@ -5,11 +5,9 @@ description: 'Indirecciones múltiples, punteros a arrays, aritmética pura y ma
 ---
 
 (aritmetica-avanzada-capitulo)=
-
-(punteros2-introduccion)=
 ## Introducción
 
-Este apunte explora conceptos avanzados de memoria dinámica en C, construyendo sobre las bases presentadas en {ref}`Modelo de Memoria <memoria-introduccion>` y {ref}`Punteros <punteros-capitulo>`. Aquí profundizamos en el manejo de {ref}`Estructuras <estructuras-capitulo>` que contienen punteros, problemas comunes de gestión de memoria, y técnicas para trabajar con matrices dinámicas.
+Este apunte explora conceptos avanzados de memoria dinámica en C, construyendo sobre las bases presentadas en {ref}`Modelo de Memoria <modelo-memoria-capitulo>` y {ref}`Punteros <punteros-capitulo>`. Aquí profundizamos en el manejo de {ref}`Estructuras <estructuras-capitulo>` que contienen punteros, problemas comunes de gestión de memoria, y técnicas para trabajar con matrices dinámicas.
 
 (punteros2-estructuras)=
 ## Punteros a Estructuras
@@ -1062,7 +1060,7 @@ int (*matriz)[COLUMNAS] = malloc(sizeof(int) * COLUMNAS * filas);
 
 ## Conceptos Clave
 
-Este apunte explora patrones avanzados de memoria dinámica en C, construyendo sobre los fundamentos de {ref}`memoria-introduccion` y {ref}`Punteros <punteros-capitulo>`.
+Este apunte explora patrones avanzados de memoria dinámica en C, construyendo sobre los fundamentos de {ref}`Modelo de Memoria <modelo-memoria-capitulo>` y {ref}`Punteros <punteros-capitulo>`.
 
 :::{important} Ideas Centrales
 

@@ -23,7 +23,7 @@ project:
 
   id: a1cc80a8-3217-49d3-9022-1f4d25f6518e
   settings:
-    - code_style: minted
+    code_style: minted
   exports:
     - format: pdf
       template: plain_latex_book

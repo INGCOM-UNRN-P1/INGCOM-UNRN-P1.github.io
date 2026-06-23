@@ -38,7 +38,7 @@ Para facilitar la referencia cruzada y el análisis estático de las pautas de e
 5.  **Gestión de Archivos y Errores (`0x40XX`):** Apertura/cierre de flujos de archivos, validación de E/S, gestión de errno y diagnóstico del sistema.
 6.  **Compilación y Buenas Prácticas de Ingeniería (`0x50XX`):** Configuración de alertas, guardas de cabeceras, robustez y estructuras de código estándar.
 
-## {doc}`0_sintaxis`
+## [](0_sintaxis)
   * [Sintaxis Básica y Nomenclatura (`0x00XX`)](0_sintaxis.md#0x00xxh)
     * [Regla `0x0000h`: La claridad y prolijidad son de máxima importancia](0_sintaxis.md#0x0000h)
     * [Regla `0x0001h`: Los identificadores deben ser descriptivos](0_sintaxis.md#0x0001h)
@@ -52,18 +52,18 @@ Para facilitar la referencia cruzada y el análisis estático de las pautas de e
     * [Regla `0x0009h`: Las líneas de código no deben exceder los 79 caracteres](0_sintaxis.md#0x0009h)
     * [Regla `0x000Ah`: Escribí comentarios que expliquen el "porqué", no el "qué"](0_sintaxis.md#0x000ah)
 
-## {doc}`1_control`
+## [](1_control)
   * [Estructuras de Control y Lazos (`0x10XX`)](1_control.md#0x10xxh)
     * [Regla `0x1001h`: Todas las estructuras de control deben utilizar llaves](1_control.md#0x1001h)
     * [Regla `0x1002h`: Evitá el uso descontrolado de `break` y `continue`; preferí lazos con bandera de control](1_control.md#0x1002h)
-    * [Regla `0x1003h`: Utilizá el lazo `for` para iteraciones con rango o contador definido y `while` para lazos controlados por condiciones lógicas](1_control.md#0x1003h-utiliza-el-lazo-for-para-iteraciones-con-rango-o-contador-definido-y-wh)
-    * [Regla `0x1004h`: Las condiciones complejas deben ser simplificadas o comentadas](1_control.md#0x1004h)
-    * [Regla `0x1005h`: Evitá las condiciones ambiguas basadas en la "veracidad" (truthiness) del tipo de dato](1_control.md#0x1005h-evita-las-condiciones-ambiguas-basadas-en-la-veracidad-truth)
+    * [Regla `0x1003h`: Utilizá el lazo `for` para iteraciones con rango o contador definido y `while` para lazos controlados por condiciones lógicas](1_control.md#0x1003h)
+    * [Regla `0x1004h`: Las condiciones complejas deben ser simplificadas o comentadas](1_control.md)
+    * [Regla `0x1005h`: Evitá las condiciones ambiguas basadas en la "veracidad" (truthiness) del tipo de dato](1_control.md#0x1005h)
     * [Regla `0x1006h`: No utilizar la instrucción `goto`](1_control.md#0x1006h)
     * [Regla `0x1007h`: No utilizar el operador condicional (ternario) `?:`](1_control.md#0x1007h)
-    * [Regla `0x1008h`: Toda instrucción `switch` debe incluir un caso `default`](1_control.md#0x1008h-toda-instruccion-switch)
+    * [Regla `0x1008h`: Toda instrucción `switch` debe incluir un caso `default`](1_control.md#0x1008h)
 
-## {doc}`2_funciones`
+## [](2_funciones)
   * [Funciones y Modularización (`0x20XX`)](2_funciones.md#0x20xxh)
     * [Regla `0x2001h`: Las funciones deben usar cláusulas de guarda y retornos anticipados para evitar la anidación profunda](2_funciones.md#0x2001h)
     * [Regla `0x2002h`: Las funciones no deben contener `printf` o `scanf`, a menos que ese sea su propósito explícito](2_funciones.md#0x2002h)
@@ -76,7 +76,7 @@ Para facilitar la referencia cruzada y el análisis estático de las pautas de e
     * [Regla `0x2009h`: Los ejercicios deben ser resueltos mediante funciones](2_funciones.md#0x2009h)
     * [Regla `0x200Ah`: Los nombres de funciones y procedimientos deben usar `snake_case` en minúsculas](2_funciones.md#0x200ah)
 
-## {doc}`3_punteros`
+## [](3_punteros)
   * [Punteros y Gestión de Memoria (`0x30XX`)](3_punteros.md#0x30xxh)
     * [Regla `0x3001h`: Siempre verificá la asignación exitosa de memoria dinámica](3_punteros.md#0x3001h)
     * [Regla `0x3002h`: Liberá siempre la memoria dinámica y asigná `NULL` al puntero para evitar punteros colgantes](3_punteros.md#0x3002h)
@@ -98,19 +98,19 @@ Para facilitar la referencia cruzada y el análisis estático de las pautas de e
     * [Regla `0x0035h`: Diseñá los Tipos de Datos Abstractos utilizando punteros opacos](3_punteros.md#0x0035h)
     * [Regla `0x0036h`: Asigná `NULL` al puntero tras liberar un recurso opaco en el ámbito del cliente](3_punteros.md#0x0036h)
 
-## {doc}`4_archivos`
+## [](4_archivos)
   * [Gestión de Archivos y Errores (`0x40XX`)](4_archivos.md#0x40xxh)
-    * [Regla `0x4001h`: Manejá correctamente la apertura y cierre de archivos](4_archivos.md#0x4001h-maneja-correctamente-la-apertura-y-cierre-de-arch)
-    * [Regla `0x4002h`: Validá los retornos de las operaciones de lectura y escritura de archivos](4_archivos.md#0x4002h-valida-los-retornos-de-las-operaciones-de-lectura-y-escritura-de-arch)
+    * [Regla `0x4001h`: Manejá correctamente la apertura y cierre de archivos](4_archivos.md#0x4001h)
+    * [Regla `0x4002h`: Validá los retornos de las operaciones de lectura y escritura de archivos](4_archivos.md#0x4002h)
     * [Regla `0x4003h`: Utilizá `errno`, `perror` y `strerror` para reportar fallos del sistema operativo de manera precisa](4_archivos.md#0x4003h)
-    * [Regla `0x4004h`: Asegurá la simetría de recursos al abrir y cerrar archivos en el mismo nivel de abstracción](4_archivos.md#0x4004h-asegura-la-simetria-de-recursos-al-abrir-y-cerrar-arch)
-    * [Regla `0x4005h`: Evitá el uso de offsets y posiciones fijas codificadas a mano en archivos binarios sin validar sus dimensiones](4_archivos.md#0x4005h-evita-el-uso-de-offsets-y-posiciones-fijas-codificadas-a-mano-en-arch)
+    * [Regla `0x4004h`: Asegurá la simetría de recursos al abrir y cerrar archivos en el mismo nivel de abstracción](4_archivos.md#0x4004h)
+    * [Regla `0x4005h`: Evitá el uso de offsets y posiciones fijas codificadas a mano en archivos binarios sin validar sus dimensiones](4_archivos.md#0x4005h)
 
-## {doc}`5_buenas_practicas`
+## [](5_buenas_practicas)
   * [Compilación y Buenas Prácticas de Ingeniería (`0x50XX`)](5_buenas_practicas.md#0x50xxh)
     * [Regla `0x5001h`: Los arreglos estáticos deben ser creados con un tamaño fijo en tiempo de compilación](5_buenas_practicas.md#0x5001h)
     * [Regla `0x5002h`: Desarrollá y compilá siempre con todas las advertencias del compilador activadas](5_buenas_practicas.md#0x5002h)
-    * [Regla `0x5003h`: Utilizá guardas de inclusión en todos los archivos de cabecera](5_buenas_practicas.md#0x5003h-utiliza-guardas-de-inclusion-en-todos-los-arch)
+    * [Regla `0x5003h`: Utilizá guardas de inclusión en todos los archivos de cabecera](5_buenas_practicas.md#0x5003h)
     * [Regla `0x5004h`: Todas las operaciones con cadenas deben ser seguras](5_buenas_practicas.md#0x5004h)
-    * [Regla `0x5005h`: Organizá la estructura de tus archivos `.c` de forma estándar](5_buenas_practicas.md#0x5005h-organiza-la-estructura-de-tus-arch)
+    * [Regla `0x5005h`: Organizá la estructura de tus archivos `.c` de forma estándar](5_buenas_practicas.md#0x5005h)
     * [Regla `0x5006h`: Preferí `fgets` sobre `gets` y `scanf` para leer cadenas](5_buenas_practicas.md#0x5006h)

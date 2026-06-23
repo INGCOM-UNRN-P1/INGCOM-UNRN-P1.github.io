@@ -61,7 +61,7 @@ Bloch [@bloch2006] enfatiza que una buena API debe ser "fácil de usar y difíci
 
 Por ejemplo, si una función modifica sus argumentos, esto debe ser evidente desde su firma y nombre. La biblioteca estándar de C lo hace consistentemente: `strcpy` copia cadenas y modifica el destino (el primer parámetro es siempre el destino), mientras que `strlen` solo lee y no modifica nada. Cuando una interfaz viola las expectativas del usuario, la carga cognitiva aumenta, introduciendo errores y frustraciones evitables.
 
-- **Simetría**: Las operaciones deben tener contrapartes lógicas. Si tenés una función `recurso_crear()`, debés proveer una `recurso_destruir()`. Esta simetría, mencionada en la regla {ref}`0x001Ah`, es una manifestación del patrón **RAII (Resource Acquisition Is Initialization)**, aunque adaptado a C. Ayuda a gestionar el ciclo de vida de los recursos de forma predecible, previniendo fugas de memoria (`memory leaks`).
+- **Simetría**: Las operaciones deben tener contrapartes lógicas. Si tenés una función `recurso_crear()`, debés proveer una `recurso_destruir()`. Esta simetría, mencionada en la regla {ref}`0x3002h`, es una manifestación del patrón **RAII (Resource Acquisition Is Initialization)**, aunque adaptado a C. Ayuda a gestionar el ciclo de vida de los recursos de forma predecible, previniendo fugas de memoria (`memory leaks`).
 
   En lenguajes como C++, RAII es automático mediante constructores y destructores. En C, debe implementarse manualmente mediante pares de funciones simétricas. La biblioteca estándar de C demuestra este patrón consistentemente: `fopen`/`fclose`, `malloc`/`free`, `pthread_create`/`pthread_join`, etc.
 
@@ -157,7 +157,7 @@ El concepto de *ownership* (propiedad) es fundamental en la programación de sis
 
 Un estudio de Lu et al. [@lu2008] sobre bugs en sistemas de código abierto encontró que los errores de manejo de memoria y concurrencia representan más del 60% de los bugs críticos que causan crashes y vulnerabilidades de seguridad. El diseño cuidadoso de APIs con semánticas claras de propiedad puede prevenir una gran proporción de estos errores.
 
-- **Documentar la Propiedad**: Como exige la regla {ref}`0x020Fh`, la documentación de cada función debe indicar claramente quién es el dueño de la memoria. Si una función devuelve un puntero a memoria recién asignada, el comentario debe decir que el llamador es responsable de liberarla. Definí un modelo de propiedad claro:
+- **Documentar la Propiedad**: Como exige la regla {ref}`0x3006h`, la documentación de cada función debe indicar claramente quién es el dueño de la memoria. Si una función devuelve un puntero a memoria recién asignada, el comentario debe decir que el llamador es responsable de liberarla. Definí un modelo de propiedad claro:
     - **Propiedad del Llamador (Caller-owned)**: El llamador aloja y libera la memoria. La función solo opera sobre ella. Es común para búferes que la función debe llenar.
     - **Propiedad de la Librería (Callee-owned)**: La librería gestiona el ciclo de vida. `mi_libreria_crear()` aloja la memoria y `mi_libreria_destruir()` la libera. Este es el modelo preferido para punteros opacos.
     - **Propiedad Transferida**: La función toma posesión del recurso pasado como argumento y es responsable de liberarlo. Esto debe ser extremadamente explícito en la documentación.
@@ -169,7 +169,7 @@ Un estudio de Lu et al. [@lu2008] sobre bugs en sistemas de código abierto enco
 Cuando una función recibe un puntero a una estructura compleja, debe ser claro si la función hace una copia interna del dato o simplemente guarda el puntero. Si guarda el puntero, el llamador debe asegurarse de que la memoria permanezca válida durante toda la vida útil del objeto. Esta distinción entre *shallow copy* (copia superficial) y *deep copy* (copia profunda) es crítica y debe estar documentada explícitamente.
 :::
 
-- **Uso de `const` para Clarificar Intenciones**: Utilizá `const` para indicar que una función no modificará los datos apuntados por un puntero (regla {ref}`0x0021h`). Esto no solo previene efectos secundarios no deseados, sino que permite al compilador realizar optimizaciones y le da confianza al usuario.
+- **Uso de `const` para Clarificar Intenciones**: Utilizá `const` para indicar que una función no modificará los datos apuntados por un puntero (regla {ref}`0x3007h`). Esto no solo previene efectos secundarios no deseados, sino que permite al compilador realizar optimizaciones y le da confianza al usuario.
 
   El uso correcto de `const` es más que una convención de estilo; es una forma de documentación ejecutable que el compilador puede verificar. Como señala Meyers [@meyers2005], `const` debe usarse siempre que sea semánticamente correcto, ya que comunica intención y permite al compilador detectar errores.
 
@@ -184,7 +184,7 @@ Cuando una función recibe un puntero a una estructura compleja, debe ser claro 
 
 Una librería no debe terminar el programa abruptamente (ej. con `exit()`). Debe reportar los errores al llamador para que este decida cómo proceder.
 
-- **Establecer un Mecanismo de Error Consistente**: Sé predecible. Si tus funciones devuelven punteros, `NULL` es el indicador de error universal. Si devuelven enteros, usá un valor específico como `-1` o, mejor aún, un tipo enumerado (`enum`) o constantes definidas con `#define` para los códigos de error (regla {ref}`0x0012h`).
+- **Establecer un Mecanismo de Error Consistente**: Sé predecible. Si tus funciones devuelven punteros, `NULL` es el indicador de error universal. Si devuelven enteros, usá un valor específico como `-1` o, mejor aún, un tipo enumerado (`enum`) o constantes definidas con `#define` para los códigos de error (regla {ref}`0x2005h`).
 
   :::{code-block} c
   typedef enum {
@@ -289,9 +289,9 @@ bool lista_contiene(const lista_t *lista, int dato);
 
 - **Puntero Opaco ({ref}`api-ocultamiento`)**: La estructura `lista_t` es completamente opaca. El usuario no puede acceder directamente a los nodos internos, lo que permite cambiar la implementación sin romper el código cliente.
 
-- **Gestión de Recursos Explícita ({ref}`api-propiedad`)**: Las funciones `lista_crear()` y `lista_destruir()` forman un par simétrico, siguiendo la regla {ref}`0x001Ah`. La documentación especifica claramente que el llamador es responsable de llamar a `lista_destruir()`.
+- **Gestión de Recursos Explícita ({ref}`api-propiedad`)**: Las funciones `lista_crear()` y `lista_destruir()` forman un par simétrico, siguiendo la regla {ref}`0x3002h`. La documentación especifica claramente que el llamador es responsable de llamar a `lista_destruir()`.
 
-- **Uso de `const` ({ref}`0x0021h`)**: `lista_largo()` y `lista_contiene()` reciben `const lista_t *`, indicando que no modificarán la lista. Esto permite al compilador optimizar y comunica la intención al usuario.
+- **Uso de `const` ({ref}`0x3007h`)**: `lista_largo()` y `lista_contiene()` reciben `const lista_t *`, indicando que no modificarán la lista. Esto permite al compilador optimizar y comunica la intención al usuario.
 
 - **Manejo de Errores Consistente ({ref}`api-errores`)**: Las funciones que pueden fallar (como `lista_crear()` y `lista_agregar()`) devuelven un valor que indica éxito o fracaso (`NULL` o `bool`). No hay `printf` ni `exit` en la librería.
 
@@ -431,7 +431,7 @@ int main(void)
 
 **Análisis del Diseño:**
 
-- **Tipo Enumerado para Errores ({ref}`0x0012h`)**: El uso de `mat_error_t` hace que los códigos de error sean legibles y auto-documentados, superior a valores mágicos como `-1`.
+- **Tipo Enumerado para Errores ({ref}`0x2005h`)**: El uso de `mat_error_t` hace que los códigos de error sean legibles y auto-documentados, superior a valores mágicos como `-1`.
 
 - **Parámetros de Salida Explícitos**: El resultado se devuelve a través de un puntero, mientras que el valor de retorno de la función indica el éxito o fracaso. Esto sigue el patrón estándar de muchas APIs de C (similar a `scanf`).
 
@@ -537,7 +537,7 @@ Además de los principios fundamentales, existen patrones de diseño que han dem
 (api-patron-constructor-destructor)= 
 ### Patrón Constructor/Destructor
 
-Este patrón garantiza que cada recurso tenga un ciclo de vida bien definido. Para cada función `X_crear()`, debe existir una `X_destruir()` correspondiente, como exige la regla {ref}`0x001Ah`.
+Este patrón garantiza que cada recurso tenga un ciclo de vida bien definido. Para cada función `X_crear()`, debe existir una `X_destruir()` correspondiente, como exige la regla {ref}`0x3002h`.
 
 :::{code-block} c
 // Constructor: reserva memoria y la inicializa
@@ -648,7 +648,7 @@ int archivo_abrir(const char *nombre, archivo_modo_t modo);
 archivo_abrir("datos.txt", ARCHIVO_ESCRITURA);
 :::
 
-Este antipatrón viola la regla {ref}`0x0012h`, que exige usar constantes simbólicas para valores especiales.
+Este antipatrón viola la regla {ref}`0x2005h`, que exige usar constantes simbólicas para valores especiales.
 
 (api-antipatron-funciones-globales)= 
 ### Antipatrón 2: Estado Global Oculto
@@ -1776,5 +1776,5 @@ Para profundizar en los temas tratados, se recomiendan las siguientes lecturas:
 ---
 
 :::{tip} Estilo
-En este apunte se aplicaron los principios de diseño de APIs descriptos en las reglas {ref}`0x0000h` (claridad y prolijidad), {ref}`0x0001h` (nomenclatura), {ref}`0x000Ah` (documentación), y {ref}`0x001Ah` (gestión de memoria), demostrando su aplicación práctica en el diseño de interfaces profesionales.
+En este apunte se aplicaron los principios de diseño de APIs descriptos en las reglas {ref}`0x0000h` (claridad y prolijidad), {ref}`0x0001h` (nomenclatura), {ref}`0x000Ah` (documentación), y {ref}`0x3002h` (gestión de memoria), demostrando su aplicación práctica en el diseño de interfaces profesionales.
 :::

@@ -423,7 +423,7 @@ En C, toda asignación dinámica mediante `malloc` o `calloc` puede fallar si el
 :::
 
 :::{note} Complejidad
-La relación de recurrencia para Merge Sort es $T(n) = 2T(n/2) + O(n)$. Esto se resuelve a una complejidad temporal de $O(n \log n)$, que es muy eficiente. Para un análisis matemático de cómo se resuelve esta recurrencia, consultá la sección de {doc}`Teorema Maestro <14_complejidad>`.
+La relación de recurrencia para Merge Sort es $T(n) = 2T(n/2) + O(n)$. Esto se resuelve a una complejidad temporal de $O(n \log n)$, que es muy eficiente. Para un análisis matemático de cómo se resuelve esta recurrencia, consultá la sección de [Teorema Maestro](14_complejidad).
 :::
 
 ## Ejercicios Prácticos

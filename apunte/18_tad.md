@@ -30,7 +30,7 @@ Un TAD se caracteriza por tres componentes esenciales:
 
 El principio de **encapsulamiento** es el pilar que sostiene a la abstracción: garantiza que los datos internos de un TAD no puedan ser manipulados de manera directa desde el código cliente. En C, este ocultamiento físico se implementa a través de la técnica de **punteros opacos**, declarando tipos incompletos en la cabecera e implementando sus detalles estructurales en el archivo fuente `.c`.
 
-Para un análisis detallado sobre cómo funciona esta técnica a nivel del compilador, sus restricciones sintácticas y un ejemplo completo de implementación opaca, consultá el capítulo previo sobre {doc}`17_opacos`.
+Para un análisis detallado sobre cómo funciona esta técnica a nivel del compilador, sus restricciones sintácticas y un ejemplo completo de implementación opaca, consultá el capítulo previo sobre [](17_opacos).
 
 :::{important} Interfaz Clara e Invariantes
 La abstracción no se reduce a ocultar información; su objetivo es proveer una interfaz limpia y coherente que proteja las invariantes internas del TAD y permita su uso de manera intuitiva y segura.
@@ -1038,7 +1038,7 @@ La programación defensiva es especialmente importante en TADs porque el usuario
 
 :::{note} Validación y Depuración
 
-Para técnicas avanzadas de validación y depuración de errores relacionados con memoria en estructuras dinámicas, consultá {ref}`memoria-valgrind`. Herramientas como Valgrind son invaluables para detectar fugas de memoria y accesos inválidos en TADs complejos.
+Para técnicas avanzadas de validación y depuración de errores relacionados con memoria en estructuras dinámicas, consultá [Capítulo: Memoria Dinámica — sección Valgrind](14_memoria_dinamica.md). Herramientas como Valgrind son invaluables para detectar fugas de memoria y accesos inválidos en TADs complejos.
 :::
 
 ## Genericidad Elemental y Callbacks
@@ -2228,7 +2228,7 @@ Para aspectos específicos de gestión de memoria y su impacto en la implementac
 
 - {ref}`memoria-dinamica-capitulo` para entender el modelo de memoria completo.
 - {ref}`memoria-buenas-practicas` para patrones seguros de manejo de memoria dinámica.
-- {ref}`memoria-valgrind` para técnicas de depuración de estructuras dinámicas.
+- [Capítulo: Memoria Dinámica — sección Valgrind](14_memoria_dinamica.md) para técnicas de depuración de estructuras dinámicas.
 
 :::{tip}
 La implementación de TADs es una habilidad fundamental que requiere práctica. Te recomendamos implementar cada estructura desde cero al menos una vez, probando exhaustivamente cada operación con casos de prueba variados. Usá herramientas como Valgrind durante el desarrollo para detectar fugas de memoria tempranamente.

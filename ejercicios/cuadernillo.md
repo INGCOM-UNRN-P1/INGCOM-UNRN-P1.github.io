@@ -203,7 +203,7 @@ Donde:
 
 ## 1.3 - Conversiones
 
-```{note} [](../apunte/0_estilo#0x0001h)
+```{note} {ref}`Regla 0x0001h <0x0001h>`
 
 No olviden utilizar identificadores descriptivos.
 

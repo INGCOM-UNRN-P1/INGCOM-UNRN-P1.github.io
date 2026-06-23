@@ -11,7 +11,7 @@ Los **punteros opacos** (opaque pointers) son una técnica fundamental en C para
 El concepto de puntero opaco es esencial para construir **APIs robustas** y **bibliotecas mantenibles**, donde los detalles de implementación pueden cambiar sin romper el código cliente que las utiliza.
 
 :::{important} Conexión con TADs
-Los punteros opacos son la técnica de programación central sobre la cual se construyen los Tipos de Datos Abstractos (TADs) en C, concepto que se aborda en detalle en el capítulo siguiente ({doc}`18_tad`).
+Los punteros opacos son la técnica de programación central sobre la cual se construyen los Tipos de Datos Abstractos (TADs) en C, concepto que se aborda en detalle en el capítulo siguiente ([](18_tad)).
 :::
 
 ---
@@ -838,7 +838,7 @@ struct tipo {
 ```
 
 **Conexiones:**
-- Fundamental para implementar TADs (ver {doc}`18_tad`).
+- Fundamental para implementar TADs (ver [](18_tad)).
 - Requiere memoria dinámica (ver {ref}`memoria-dinamica-capitulo`).
 - Usado extensivamente en bibliotecas del sistema y APIs públicas.
 :::

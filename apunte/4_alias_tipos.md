@@ -5,8 +5,6 @@ subtitle: 'Typedef y enum en C'
 ---
 
 (alias-tipos-capitulo)=
-
-(enums-capitulo)=
 ## `Enum`eraciones en C
 
 Las **enumeraciones** (`enum`) constituyen un mecanismo fundamental en el lenguaje C para la definición de tipos de datos que representan un **conjunto finito y discreto** de valores con nombres simbólicos. A diferencia de usar valores literales o constantes dispersas en el código, las enumeraciones proporcionan una abstracción semántica que mejora considerablemente la legibilidad, mantenibilidad y robustez del programa.
@@ -921,7 +919,7 @@ typedef enum {
 
 6. **Compatibilidad:** Si la enumeración se serializa o se usa en interfaces externas, advertí sobre la necesidad de mantener estabilidad de valores.
 
-Para más detalles sobre el estilo de comentarios, consultá la {ref}`regla 0x0032h <0x0032h>` sobre cómo escribir comentarios que expliquen el "porqué" y no el "qué".
+Para más detalles sobre el estilo de comentarios, consultá la {ref}`regla 0x0032h  <0x000Ah>` sobre cómo escribir comentarios que expliquen el "porqué" y no el "qué".
 
 ---
 
@@ -936,8 +934,7 @@ Escribí una función que reciba un día y retorne si es día laboral
 o fin de semana. Incluí validación para valores inválidos.
 ```
 
-````{solution}
-:for: enum_basico
+````{solution} enum_basico
 :class: dropdown
 
 ```{code-block}c

@@ -438,12 +438,12 @@ if (condicion) {
 }
 ```
 
-Las condiciones evaluadas deben ser expresiones de comparación explícitas (ver regla de estilo {ref}`0x1005h`). Recuerde que en esta cátedra **es obligatorio el uso de llaves** para delimitar el bloque de toda estructura de control (ver regla {ref}`0x1001h`).
+Las condiciones evaluadas deben ser expresiones de comparación explícitas (ver regla de estilo {ref}`0x1005h`). Recuerde que en esta cátedra **es obligatorio el uso de llaves** para delimitar el bloque de toda estructura de control (ver regla {ref}`0x0005h`).
 
 :::{note} «Veracidad»
 Para C, los valores lógicos no forman parte del lenguaje original y el mismo
 considera cualquier valor entero en `0` como falso y cualquier otro como
-verdadero. Esto se conoce como "veracidad" ({ref}`0x0010h`) y su uso no
+verdadero. Esto se conoce como "veracidad" ({ref}`0x1005h`) y su uso no
 está permitido, ya que puede generar confusión.
 :::
 
@@ -757,7 +757,6 @@ int main() {
 :::{solution} lazo_break
 :label: solucion-lazo_break
 :class: dropdown
-:for: lazo_break
 Se reestructura el lazo reemplazando el `for` e implementando un lazo `while` controlado por una bandera lógica booleana (`bool`) del encabezado `<stdbool.h>` que se establece en `false` al alcanzar la condición de parada:
 
 ```{code-block} c
@@ -808,7 +807,6 @@ int main()
 :::{solution} lazo_continue
 :label: solucion-lazo_continue
 :class: dropdown
-:for: lazo_continue
 Se reestructura el lazo eliminando la instrucción `continue` y encerrando el cuerpo restante del lazo dentro de una condición positiva que filtra los elementos que se desean procesar (en este caso, los impares):
 
 ```{code-block} c
@@ -964,10 +962,10 @@ Cuando encuentres dificultades al depurar o diseñar un programa:
 
 En los siguientes capítulos avanzaremos en la construcción de software modular en C:
 - [](3_funciones) — Modularización y diseño de subprogramas mediante funciones con contratos y parámetros.
-- [](4_secuencias) — Arreglos de memoria estáticos y cadenas de caracteres.
-- [](5_compilacion) — Proceso de compilación multi-etapa y Makefile.
-- [](7_punteros) — Punteros y manipulación de memoria.
-- [](8_archivos) — Entrada y salida persistente con archivos.
+- [Secuencias y arreglos](7_secuencias) — Arreglos de memoria estáticos y cadenas de caracteres.
+- [Compilación separada](9_compilacion) — Proceso de compilación multi-etapa y Makefile.
+- [Punteros](5_punteros) — Punteros y manipulación de memoria.
+- [Archivos de texto](10_archivos_texto) — Entrada y salida persistente con archivos.
 
 ---
 

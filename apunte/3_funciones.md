@@ -231,7 +231,7 @@ int main() {
 Las variables locales se declaran dentro de una función, pero fuera de cualquier bloque de código interno (como un `if` o un `for`). Su alcance se limita a la función en la que fueron declaradas. Se liberan de la memoria automáticamente cuando la función termina su ejecución.
 
 :::{tip} Gestión Automática de Memoria
-Las variables locales se almacenan en el **stack** (pila), una región de memoria gestionada automáticamente por el sistema. Cuando una función se llama, se crea un marco de pila (stack frame) con todas sus variables locales; cuando termina, ese marco se libera automáticamente. Para entender en profundidad cómo funciona este mecanismo, consultá el [](11_memoria).
+Las variables locales se almacenan en el **stack** (pila), una región de memoria gestionada automáticamente por el sistema. Cuando una función se llama, se crea un marco de pila (stack frame) con todas sus variables locales; cuando termina, ese marco se libera automáticamente. Para entender en profundidad cómo funciona este mecanismo, consultá el [Memoria Dinámica](14_memoria_dinamica).
 :::
 
 ```c
@@ -688,6 +688,7 @@ int dividir(int dividendo, int divisor) {
 
 ## Ejercicios sobre funciones
 
+(funcion_doble)=
 ```exercise
 :label: funcion_doble
 Escribí una función que reciba un número entero y devuelva su doble. Probala desde `main()` con distintos valores.
@@ -743,6 +744,7 @@ int main() {
 ```
 :::
 
+(funcion_par_impar)=
 ```exercise
 :label: funcion_par_impar
 Definí una función que indique si un número es par o impar. Mostrá el resultado llamando a la función desde `main()`.

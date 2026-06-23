@@ -9,7 +9,7 @@ subtitle: "The matrix has you..."
 En el ámbito de la programación, una **matriz** se define como una estructura de datos que facilita el almacenamiento de un conjunto homogéneo de elementos, organizados en una disposición bidimensional de filas y columnas. En el lenguaje de programación C, esta abstracción se materializa mediante la implementación de **arreglos bidimensionales** (2D), los cuales pueden ser conceptualizados como arreglos cuyos elementos son, a su vez, otros arreglos.
 
 :::{note} Prerequisitos
-Este capítulo asume que ya dominás los conceptos de arreglos unidimensionales presentados en el [](4_secuencias). Si necesitás repasar cómo funcionan los arreglos básicos, su declaración, inicialización y recorrido, consultá ese capítulo primero.
+Este capítulo asume que ya dominás los conceptos de arreglos unidimensionales presentados en el [Secuencias y arreglos](7_secuencias). Si necesitás repasar cómo funcionan los arreglos básicos, su declaración, inicialización y recorrido, consultá ese capítulo primero.
 :::
 
 Las matrices son fundamentales en numerosas aplicaciones: desde operaciones matemáticas básicas hasta algoritmos complejos de procesamiento de imágenes, simulaciones físicas, análisis de datos, representación de grafos, implementación de juegos como el tres en raya o ajedrez, y sistemas de coordenadas bidimensionales. Su comprensión es esencial para el desarrollo de software eficiente y estructurado.
@@ -39,7 +39,7 @@ tipo_dato nombre_matriz[CANTIDAD_FILAS][CANTIDAD_COLUMNAS];
 
 :::{warning} Uso de ALV/VLA
 
-Es muy importante destacar que los Arreglos de Longitud Variable (ALV/VLA) están estrictamente prohibidos para la declaración de matrices en la pila (stack) debido al grave riesgo de desborde de pila (stack overflow) ante dimensiones no controladas, cumpliendo con la regla de estilo {ref}`0x000Eh`.
+Es muy importante destacar que los Arreglos de Longitud Variable (ALV/VLA) están estrictamente prohibidos para la declaración de matrices en la pila (stack) debido al grave riesgo de desborde de pila (stack overflow) ante dimensiones no controladas, cumpliendo con la regla de estilo {ref}`0x5001h`.
 
 Sin embargo, el estándar C99 admite y habilita el uso de la sintaxis ALV en las firmas de funciones para permitir el pasaje de matrices con dimensiones dinámicas (donde las dimensiones se pasan como parámetros previos), facilitando el cálculo de desplazamientos de memoria en tiempo de ejecución de manera genérica y segura.
 :::
@@ -121,8 +121,8 @@ no tendría forma de saber dónde termina una fila y empieza la siguiente.
 ### Inicialización manual
 
 Constituye un método más flexible y programático. El uso de macros en mayúsculas
-para las dimensiones ({ref}`0x002Fh`) y de `size_t` para los índices
-({ref}`0x002Eh`) son buenas prácticas que mejoran la legibilidad y portabilidad.
+para las dimensiones ({ref}`0x3011h`) y de `size_t` para los índices
+({ref}`0x3010h`) son buenas prácticas que mejoran la legibilidad y portabilidad.
 
 ```{code-block}c
 :caption: Asignación de valores mediante lazo anidados
@@ -161,7 +161,7 @@ int valor = matriz[2][3]; // Toma el valor del elemento en la fila 2, columna 3.
 Es imperativo señalar que el acceso a un índice que excede los límites definidos
 para la matriz invoca un **comportamiento indefinido** según el estándar de C,
 lo cual puede manifestarse en fallos de ejecución (`segmentation fault`) o
-corrupción de datos, violando la regla de estilo {ref}`0x0027h`.
+corrupción de datos, violando la regla de estilo {ref}`0x300Ch`.
 :::
 
 ## Patrones de Recorrido y Localidad de Memoria (Caché)
@@ -272,7 +272,7 @@ desplazamiento en memoria de cada elemento.
 :linenos:
 #define COLUMNAS 4
 
-// Es crucial pasar las dimensiones para cumplir con la regla {ref}`0x0027h`.
+// Es crucial pasar las dimensiones para cumplir con la regla {ref}`0x300Ch`.
 void imprimir_matriz(int mat[][COLUMNAS], size_t filas, size_t columnas) {
     for (size_t i = 0; i < filas; i++) {
         for (size_t j = 0; j < columnas; j++) {
@@ -577,7 +577,7 @@ En la implementación clásica ($i, j, k$), el lazo más interno recorre `k`, ac
 
 En aplicaciones robustas, es fundamental implementar validaciones para prevenir
 accesos fuera de límites y operaciones inválidas. Esto es especialmente crítico
-en C, donde no existe verificación automática de límites ({ref}`0x0027h`).
+en C, donde no existe verificación automática de límites ({ref}`0x300Ch`).
 
 :::{figure} 8/validacion_dimensiones.svg
 :label: fig-validacion-dimensiones
@@ -662,7 +662,7 @@ del código.
 ### Uso de Macros para Dimensiones
 
 Utilizá siempre macros para definir las dimensiones de tus matrices, siguiendo
-la regla de estilo {ref}`0x002Fh`. Esto facilita el mantenimiento y la
+la regla de estilo {ref}`0x3011h`. Esto facilita el mantenimiento y la
 modificación del código.
 
 ```{code-block}c
