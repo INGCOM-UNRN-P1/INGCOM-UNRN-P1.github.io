@@ -4,7 +4,8 @@ short_title: Archivos y Errores
 subtitle: Reglas de estilo para el manejo de archivos y diagnóstico de errores en C
 ---
 
-# 5. Gestión de Archivos y Errores (`0x40XX`)
+(0x40XXh)=
+# Gestión de Archivos y Errores (`0x40XX`)
 
 (0x4001h)=
 ## Regla `0x4001h`: Manejá correctamente la apertura y cierre de archivos

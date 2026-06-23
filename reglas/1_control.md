@@ -4,7 +4,8 @@ short_title: Estructuras de Control
 subtitle: Reglas de estilo para condicionales y estructuras de repetición en C
 ---
 
-# 2. Estructuras de Control y Lazos (`0x10XX`)
+(0x10XXh)=
+# Estructuras de Control y Lazos (`0x10XX`)
 
 (0x1001h)=
 ## Regla `0x1001h`: Todas las estructuras de control deben utilizar llaves

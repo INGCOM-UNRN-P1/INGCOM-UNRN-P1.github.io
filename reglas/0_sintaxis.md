@@ -4,7 +4,8 @@ short_title: Sintaxis y Nomenclatura
 subtitle: Reglas de estilo para el formato visual y nombres en C
 ---
 
-# 1. Sintaxis Básica y Nomenclatura (`0x00XX`)
+(0x00XXh)=
+# Sintaxis Básica y Nomenclatura (`0x00XX`)
 
 (0x0000h)=
 ## Regla `0x0000h`: La claridad y prolijidad son de máxima importancia

@@ -4,7 +4,8 @@ short_title: Punteros y Memoria
 subtitle: Reglas de estilo para el uso seguro de punteros y memoria dinámica en C
 ---
 
-# 4. Punteros y Gestión de Memoria (`0x30XX`)
+(0x30XXh)=
+# Punteros y Gestión de Memoria (`0x30XX`)
 
 (0x3001h)=
 ## Regla `0x3001h`: Siempre verificá la asignación exitosa de memoria dinámica

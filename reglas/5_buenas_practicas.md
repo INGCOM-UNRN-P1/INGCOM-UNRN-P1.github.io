@@ -4,7 +4,8 @@ short_title: Buenas Prácticas
 subtitle: Reglas de estilo para la compilación robusta y buenas prácticas de ingeniería en C
 ---
 
-# 6. Compilación y Buenas Prácticas de Ingeniería (`0x50XX`)
+(0x50XXh)=
+# Compilación y Buenas Prácticas de Ingeniería (`0x50XX`)
 
 (0x5001h)=
 ## Regla `0x5001h`: Los arreglos estáticos deben ser creados con un tamaño fijo en tiempo de compilación

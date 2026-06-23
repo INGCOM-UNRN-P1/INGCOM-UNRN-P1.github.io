@@ -4,6 +4,7 @@ short_title: Funciones
 subtitle: Reglas de estilo para el diseño y documentación de funciones en C
 ---
 
+(0x20XXh)=
 # 3. Funciones y Modularización (`0x20XX`)
 
 (0x2001h)=
