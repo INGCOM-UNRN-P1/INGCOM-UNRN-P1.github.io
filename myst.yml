@@ -46,7 +46,6 @@ project:
         - file: apunte/6_matrices.md
         - file: apunte/7_punteros.md
         - file: apunte/8_archivos.md
-        - file: apunte/9_argumentos.md
         - file: apunte/10_enums.md
         - file: apunte/11_memoria.md
         - file: apunte/12_punteros_2.md
@@ -121,8 +120,8 @@ project:
             - file: ejercicios/diseno_api.md
     - title: Referencia
       children:
-        - file: apunte/A_stdlib.md
-        - file: apunte/B_ordenamiento.md
+        - file: referencia/A_stdlib.md
+        - file: referencia/B_ordenamiento.md
     - title: Ayuda
       children:
         - file: guias/gcc.md
