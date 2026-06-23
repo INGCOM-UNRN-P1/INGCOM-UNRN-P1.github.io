@@ -1,7 +1,13 @@
-## 3. Funciones y Modularización (`0x20XX`)
+---
+title: Funciones y Modularización
+short_title: Funciones
+subtitle: Reglas de estilo para el diseño y documentación de funciones en C
+---
+
+# 3. Funciones y Modularización (`0x20XX`)
 
 (0x2001h)=
-### Regla `0x2001h`: Las funciones deben usar cláusulas de guarda y retornos anticipados para evitar la anidación profunda
+## Regla `0x2001h`: Las funciones deben usar cláusulas de guarda y retornos anticipados para evitar la anidación profunda
 
 Se admite el uso de retornos anticipados (`early returns`) al inicio de la función en forma de cláusulas de guarda (`guard clauses`) para validar parámetros o comprobar condiciones de error iniciales inmediatas. Esto previene la anidación profunda de bloques `if` (código en flecha) y mejora la comprensión visual del camino feliz del algoritmo.
 
@@ -83,7 +89,7 @@ int procesar_archivo_con_un_retorno(const char *nombre_archivo)
 ```
 
 (0x2002h)=
-### Regla `0x2002h`: Las funciones no deben contener `printf` o `scanf`, a menos que ese sea su propósito explícito
+## Regla `0x2002h`: Las funciones no deben contener `printf` o `scanf`, a menos que ese sea su propósito explícito
 
 Las funciones deben desacoplarse de las operaciones de entrada y salida (I/O) para maximizar su reutilización y facilitar las pruebas unitarias. Si el propósito de una función no es realizar I/O, dichas llamadas deben ser delegadas a otras funciones especializadas del llamador.
 
@@ -102,7 +108,7 @@ Las funciones deben desacoplarse de las operaciones de entrada y salida (I/O) pa
   ```
 
 (0x2003h)=
-### Regla `0x2003h`: Todas las funciones deben incluir documentación completa y estructurada
+## Regla `0x2003h`: Todas las funciones deben incluir documentación completa y estructurada
 
 Una documentación adecuada define la especificación conceptual y formal del comportamiento de la función mediante etiquetas como `@param`, `@pre`, `@returns`, `@post`, e invariantes mediante `@invariant`.
 
@@ -123,7 +129,7 @@ int suma_lenta(int sumando, int sumador);
 ```
 
 (0x2004h)=
-### Regla `0x2004h`: No se permite el uso de variables globales
+## Regla `0x2004h`: No se permite el uso de variables globales
 
 Las variables globales pueden ser modificadas desde cualquier parte del programa, lo que causa efectos secundarios impredecibles y dificulta el rastreo de errores. **Su uso está estrictamente prohibido**.
 
@@ -142,7 +148,7 @@ Las variables globales pueden ser modificadas desde cualquier parte del programa
   ```
 
 (0x2005h)=
-### Regla `0x2005h`: Cada función debe tener una única responsabilidad (Principio de Responsabilidad Única)
+## Regla `0x2005h`: Cada función debe tener una única responsabilidad (Principio de Responsabilidad Única)
 
 Cada función debe encargarse de una sola tarea. Esto mejora la legibilidad, la reutilización y el mantenimiento del código. Las funciones pequeñas y especializadas son más fáciles de probar y depurar.
 
@@ -184,7 +190,7 @@ Cada función debe encargarse de una sola tarea. Esto mejora la legibilidad, la 
   
 
 (0x2006h)=
-### Regla `0x2006h`: Una aserción por cada función de prueba
+## Regla `0x2006h`: Una aserción por cada función de prueba
 
 Podés lograr esto creando una función de prueba parametrizada que reciba los argumentos y el resultado esperado, o bien dedicando una función de prueba para cada caso específico de aserción.
 
@@ -206,7 +212,7 @@ Podés lograr esto creando una función de prueba parametrizada que reciba los a
   ```
 
 (0x2007h)=
-### Regla `0x2007h`: Mantené el alcance de las variables al mínimo posible
+## Regla `0x2007h`: Mantené el alcance de las variables al mínimo posible
 
 Declarar las variables con el alcance más restringido posible ayuda a reducir errores y mejora la claridad de la vida útil de cada dato.
 
@@ -227,7 +233,7 @@ Declarar las variables con el alcance más restringido posible ayuda a reducir e
   ```
 
 (0x2008h)=
-### Regla `0x2008h`: Los valores de retorno numéricos deben definirse como constantes de preprocesador o `enum`s
+## Regla `0x2008h`: Los valores de retorno numéricos deben definirse como constantes de preprocesador o `enum`s
 
 El uso de nombres descriptivos para los valores de retorno numéricos facilita la comprensión de su significado semántico.
 
@@ -237,7 +243,7 @@ El uso de nombres descriptivos para los valores de retorno numéricos facilita l
 ```
 
 (0x2009h)=
-### Regla `0x2009h`: Los ejercicios deben ser resueltos mediante funciones
+## Regla `0x2009h`: Los ejercicios deben ser resueltos mediante funciones
 
 Esta práctica fomenta la modularización, facilita las pruebas unitarias y promueve la reutilización de código.
 
@@ -264,7 +270,7 @@ Esta práctica fomenta la modularización, facilita las pruebas unitarias y prom
   ```
 
 (0x200Ah)=
-### Regla `0x200Ah`: Los nombres de funciones y procedimientos deben usar `snake_case` en minúsculas
+## Regla `0x200Ah`: Los nombres de funciones y procedimientos deben usar `snake_case` en minúsculas
 
 Mejora la consistencia y legibilidad, distinguiendo funciones de tipos y constantes.
 

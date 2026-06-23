@@ -1,7 +1,13 @@
-## 4. Punteros y Gestión de Memoria (`0x30XX`)
+---
+title: Punteros y Gestión de Memoria
+short_title: Punteros y Memoria
+subtitle: Reglas de estilo para el uso seguro de punteros y memoria dinámica en C
+---
+
+# 4. Punteros y Gestión de Memoria (`0x30XX`)
 
 (0x3001h)=
-### Regla `0x3001h`: Siempre verificá la asignación exitosa de memoria dinámica
+## Regla `0x3001h`: Siempre verificá la asignación exitosa de memoria dinámica
 
 Toda asignación de memoria dinámica realizada con `malloc`, `calloc` o `realloc` debe ser seguida inmediatamente por una comprobación contra `NULL` antes de su uso.
 
@@ -14,7 +20,7 @@ if (ptr == NULL)
 ```
 
 (0x3002h)=
-### Regla `0x3002h`: Liberá siempre la memoria dinámica y asigná `NULL` al puntero para evitar punteros colgantes
+## Regla `0x3002h`: Liberá siempre la memoria dinámica y asigná `NULL` al puntero para evitar punteros colgantes
 
 Por cada asignación de memoria dinámica debe existir una correspondiente liberación con `free()`. Inmediatamente después de liberar la memoria, asigná `NULL` al puntero para prevenir fallos por acceso a punteros colgantes (*dangling pointers*).
 
@@ -38,7 +44,7 @@ void liberar_recurso(recurso_t *r) {
 ```
 
 (0x3003h)=
-### Regla `0x3003h`: No mezcles operaciones de asignación y comparación en una sola línea
+## Regla `0x3003h`: No mezcles operaciones de asignación y comparación en una sola línea
 
 Mantener las asignaciones y comparaciones en líneas separadas previene errores lógicos sutiles y facilita el rastreo de excepciones.
 
@@ -49,7 +55,7 @@ Mantener las asignaciones y comparaciones en líneas separadas previene errores 
 ```
 
 (0x3004h)=
-### Regla `0x3004h`: Utilizá `typedef` para definir tipos de estructuras con el sufijo `_t`
+## Regla `0x3004h`: Utilizá `typedef` para definir tipos de estructuras con el sufijo `_t`
 
 Esto simplifica el manejo sintáctico del código en C. Los alias de tipo creados con `typedef` deben terminar obligatoriamente con el sufijo `_t`.
 
@@ -67,7 +73,7 @@ Esto simplifica el manejo sintáctico del código en C. Los alias de tipo creado
   ```
 
 (0x3005h)=
-### Regla `0x3005h`: Minimizá el uso de múltiples niveles de indirección (punteros a punteros)
+## Regla `0x3005h`: Minimizá el uso de múltiples niveles de indirección (punteros a punteros)
 
 Los punteros a punteros (`**`) o de niveles superiores de indirección complican la lectura y el razonamiento sobre la memoria. Deben evitarse siempre que no sean estrictamente requeridos.
 
@@ -81,7 +87,7 @@ Los punteros a punteros (`**`) o de niveles superiores de indirección complican
   ```
 
 (0x3006h)=
-### Regla `0x3006h`: Documentá la propiedad de los recursos al utilizar punteros
+## Regla `0x3006h`: Documentá la propiedad de los recursos al utilizar punteros
 
 Cuando una función recibe o devuelve un puntero a memoria dinámica, la documentación de la función debe especificar explícitamente cuál es el módulo responsable de liberar dicha memoria (el dueño del recurso).
 
@@ -95,7 +101,7 @@ recurso_t *crear_recurso();
 ```
 
 (0x3007h)=
-### Regla `0x3007h`: Los argumentos de tipo puntero deben ser `const` siempre que la función no los modifique
+## Regla `0x3007h`: Los argumentos de tipo puntero deben ser `const` siempre que la función no los modifique
 
 Usar `const` en los parámetros de tipo puntero establece un contrato de solo lectura, previniendo efectos secundarios no deseados sobre los datos de origen.
 
@@ -108,7 +114,7 @@ void imprimir_saludo(const char *nombre)
 ```
 
 (0x3008h)=
-### Regla `0x3008h`: Los punteros nulos deben ser inicializados y comparados con `NULL`, no con `0`
+## Regla `0x3008h`: Los punteros nulos deben ser inicializados y comparados con `NULL`, no con `0`
 
 La macro `NULL` debe utilizarse para mantener la coherencia semántica en operaciones con punteros.
 
@@ -124,7 +130,7 @@ La macro `NULL` debe utilizarse para mantener la coherencia semántica en operac
   ```
 
 (0x3009h)=
-### Regla `0x3009h`: Documentá explícitamente los casos en que una función puede retornar `NULL`
+## Regla `0x3009h`: Documentá explícitamente los casos en que una función puede retornar `NULL`
 
 Si una función que devuelve un puntero puede fallar y retornar `NULL`, este escenario debe ser explícito en la documentación de retorno de la función.
 
@@ -137,7 +143,7 @@ elemento_t *buscar_elemento(int id);
 ```
 
 (0x300Ah)=
-### Regla `0x300Ah`: Utilizá `cast` explícito al convertir tipos de punteros
+## Regla `0x300Ah`: Utilizá `cast` explícito al convertir tipos de punteros
 
 Las conversiones de tipos de punteros deben ser siempre explícitas en el código fuente para mejorar la claridad de conversión de tipos de datos.
 
@@ -149,7 +155,7 @@ if (mem != NULL) {
 ```
 
 (0x300Bh)=
-### Regla `0x300Bh`: Usá siempre `sizeof` en las asignaciones de memoria dinámica, prefiriendo `sizeof(*ptr)`
+## Regla `0x300Bh`: Usá siempre `sizeof` en las asignaciones de memoria dinámica, prefiriendo `sizeof(*ptr)`
 
 El uso de `sizeof` dinámico en asignación reduce errores ante cambios de tipos en refactorizaciones de variables.
 
@@ -163,7 +169,7 @@ El uso de `sizeof` dinámico en asignación reduce errores ante cambios de tipos
   ```
 
 (0x300Ch)=
-### Regla `0x300Ch`: Verificá siempre los límites de los arreglos antes de acceder a sus elementos
+## Regla `0x300Ch`: Verificá siempre los límites de los arreglos antes de acceder a sus elementos
 
 El acceso fuera de límites de un arreglo (`out-of-bounds`) es un error grave. Los índices deben ser explícitamente validados antes de acceder a un elemento.
 
@@ -176,7 +182,7 @@ if (indice >= 0 && indice < 10) {
 ```
 
 (0x300Dh)=
-### Regla `0x300Dh`: Utilizá `enum` en lugar de "números mágicos" para conjuntos de estados y valores constantes
+## Regla `0x300Dh`: Utilizá `enum` en lugar de "números mágicos" para conjuntos de estados y valores constantes
 
 Las enumeraciones explican la semántica de un conjunto de constantes enteras relacionadas.
 
@@ -199,7 +205,7 @@ Las enumeraciones explican la semántica de un conjunto de constantes enteras re
   ```
 
 (0x300Eh)=
-### Regla `0x300Eh`: Documentá explícitamente el comportamiento de las funciones al manejar punteros nulos como argumentos
+## Regla `0x300Eh`: Documentá explícitamente el comportamiento de las funciones al manejar punteros nulos como argumentos
 
 Si una función acepta que sus argumentos punteros sean `NULL`, se debe indicar el comportamiento esperado. Si no los acepta, se debe documentar como una precondición explícita.
 
@@ -213,7 +219,7 @@ void procesar_datos(const datos_t *datos);
 ```
 
 (0x300Fh)=
-### Regla `0x300Fh`: Liberá la memoria en el orden inverso a su asignación
+## Regla `0x300Fh`: Liberá la memoria en el orden inverso a su asignación
 
 Esto es crítico en estructuras de datos anidadas, como matrices dinámicas 2D o listas enlazadas, para evitar dejar memoria inaccesible en el heap.
 
@@ -226,7 +232,7 @@ matriz = NULL;
 ```
 
 (0x3010h)=
-### Regla `0x3010h`: Las variables que representan tamaños o índices de arreglos deben ser de tipo `size_t`
+## Regla `0x3010h`: Las variables que representan tamaños o índices de arreglos deben ser de tipo `size_t`
 
 `size_t` es un tipo entero sin signo que garantiza portabilidad para contener el tamaño máximo posible de un objeto en memoria.
 
@@ -246,7 +252,7 @@ matriz = NULL;
   ```
 
 (0x3011h)=
-### Regla `0x3011h`: Si una función recibe un puntero genérico para operaciones de solo lectura, la firma de la función debe utilizar `const void*`
+## Regla `0x3011h`: Si una función recibe un puntero genérico para operaciones de solo lectura, la firma de la función debe utilizar `const void*`
 
 Si una función recibe un puntero genérico `void*` y no modifica el contenido de la memoria apuntada, se **debe** declarar obligatoriamente el parámetro como `const void*`. Se prohíbe pasar `void*` sin calificador `const` si la operación es de solo lectura.
 
@@ -267,3 +273,46 @@ void imprimir_bytes(const void *datos, size_t tamano) {
     }
 }
 ```
+
+(0x0035h)=
+## Regla `0x0035h`: Diseñá los Tipos de Datos Abstractos utilizando punteros opacos
+
+Los Tipos de Datos Abstractos (TAD) deben diseñarse ocultando su representación física de datos mediante punteros opacos. La cabecera pública `.h` solo debe exponer la declaración del tipo incompleto y las firmas de sus funciones de interfaz. Toda la estructura interna y los detalles de implementación deben definirse en el archivo `.c` correspondiente.
+
+- **Cabecera Correcta (`usuario.h`):**
+```c
+typedef struct usuario usuario_t;
+
+usuario_t *crear_usuario(const char *nombre, int edad);
+void destruir_usuario(usuario_t *u);
+```
+
+- **Implementación Correcta (`usuario.c`):**
+```c
+struct usuario {
+    char *nombre;
+    int edad;
+};
+```
+
+(0x0036h)=
+## Regla `0x0036h`: Asigná `NULL` al puntero tras liberar un recurso opaco en el ámbito del cliente
+
+Al destruir o liberar una instancia de un tipo opaco mediante su función destructora, es mandatorio asignar `NULL` al puntero correspondiente en el código del cliente para evitar el uso accidental de punteros colgantes o referencias inválidas.
+
+- **Incorrecto:**
+```c
+usuario_t *u = crear_usuario("Carlos", 30);
+// ...
+destruir_usuario(u);
+usuario_imprimir(u); // ¡Puntero colgante y comportamiento indefinido!
+```
+
+- **Correcto:**
+```c
+usuario_t *u = crear_usuario("Carlos", 30);
+// ...
+destruir_usuario(u);
+u = NULL; // Evita uso accidental
+```
+

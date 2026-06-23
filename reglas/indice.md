@@ -95,6 +95,8 @@ Para facilitar la referencia cruzada y el análisis estático de las pautas de e
     * [Regla `0x300Fh`: Liberá la memoria en el orden inverso a su asignación](3_punteros.md#regla-0x300fh-libera-la-memoria-en-el-orden-inverso-a-su-asignacion)
     * [Regla `0x3010h`: Las variables que representan tamaños o índices de arreglos deben ser de tipo `size_t`](3_punteros.md#regla-0x3010h-las-variables-que-representan-tamanos-o-indices-de-arreglos-deben-ser-de-tipo-size-t)
     * [Regla `0x3011h`: Si una función recibe un puntero genérico para operaciones de solo lectura, la firma de la función debe utilizar `const void*`](3_punteros.md#regla-0x3011h-si-una-funcion-recibe-un-puntero-generico-para-operaciones-de-solo-lectura-la-firma-de-la-funcion-debe-utilizar-const-void)
+    * [Regla `0x0035h`: Diseñá los Tipos de Datos Abstractos utilizando punteros opacos](3_punteros.md#regla-0x0035h-disena-los-tipos-de-datos-abstractos-utilizando-punteros-opacos)
+    * [Regla `0x0036h`: Asigná `NULL` al puntero tras liberar un recurso opaco en el ámbito del cliente](3_punteros.md#regla-0x0036h-asigna-null-al-puntero-tras-liberar-un-recurso-opaco-en-el-ambito-del-cliente)
 
 ## {doc}`4_archivos`
   * [5. Gestión de Archivos y Errores (`0x40XX`)](4_archivos.md#5-gestion-de-archivos-y-errores-0x40xx)

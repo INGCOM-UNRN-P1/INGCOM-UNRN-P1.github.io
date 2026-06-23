@@ -1,7 +1,13 @@
-## 1. Sintaxis Básica y Nomenclatura (`0x00XX`)
+---
+title: Sintaxis Básica y Nomenclatura
+short_title: Sintaxis y Nomenclatura
+subtitle: Reglas de estilo para el formato visual y nombres en C
+---
+
+# 1. Sintaxis Básica y Nomenclatura (`0x00XX`)
 
 (0x0000h)=
-### Regla `0x0000h`: La claridad y prolijidad son de máxima importancia
+## Regla `0x0000h`: La claridad y prolijidad son de máxima importancia
 
 El código debe ser claro y fácil de entender para cualquier lector, no solo para su autor. Un código limpio y prolijo previene errores, facilita el mantenimiento y mejora la colaboración en equipo. La claridad es siempre preferible a técnicas de programación ofuscadas que solo complican la comprensión.
 
@@ -18,7 +24,7 @@ El código debe ser claro y fácil de entender para cualquier lector, no solo pa
 ```
 
 (0x0001h)=
-### Regla `0x0001h`: Los identificadores deben ser descriptivos
+## Regla `0x0001h`: Los identificadores deben ser descriptivos
 
 Los nombres de variables, funciones y demás identificadores deben reflejar con precisión su propósito. Esto contribuye a que el código sea autodescriptivo, minimizando la necesidad de comentarios adicionales. El uso de nombres significativos facilita la lectura y la comprensión.
 
@@ -51,7 +57,7 @@ Probá y observá si el nombre corto contribuye a la legibilidad.
 El ejemplo canónico es el uso de `i` y `j` como variables de control en lazos. Otras situaciones se presentan al implementar algoritmos matemáticos donde la notación es estándar.
 
 (0x0002h)=
-### Regla `0x0002h`: Una declaración de variable por línea
+## Regla `0x0002h`: Una declaración de variable por línea
 
 ```diff
 -int a, b, c;
@@ -61,7 +67,7 @@ El ejemplo canónico es el uso de `i` y `j` como variables de control en lazos. 
 ```
 
 (0x0003h)=
-### Regla `0x0003h`: Siempre debés inicializar las variables a un valor conocido
+## Regla `0x0003h`: Siempre debés inicializar las variables a un valor conocido
 
 Es imperativo que una variable utilizada como R-Value contenga un valor conocido antes de su uso.
 
@@ -100,7 +106,7 @@ struct Datos datos = {0};
 ```
 
 (0x0004h)=
-### Regla `0x0004h`: Un espacio antes y después de cada operador binario
+## Regla `0x0004h`: Un espacio antes y después de cada operador binario
 
 ```diff
 -uno=dos+tres;
@@ -117,7 +123,7 @@ struct Datos datos = {0};
   ```
 
 (0x0005h)=
-### Regla `0x0005h`: Cada bloque debe tener una indentación de cuatro espacios respecto a su contenedor y llaves
+## Regla `0x0005h`: Cada bloque debe tener una indentación de cuatro espacios respecto a su contenedor y llaves
 
 Esto permite una alineación consistente y mejora la legibilidad de la estructura del código.
 
@@ -149,7 +155,7 @@ Esto aplica incluso para bloques de una sola línea.
 ```
 
 (0x0006h)=
-### Regla `0x0006h`: El asterisco de los punteros debe declararse junto al identificador
+## Regla `0x0006h`: El asterisco de los punteros debe declararse junto al identificador
 
 Esta convención facilita la identificación visual de una variable como puntero y mejora la claridad.
 
@@ -159,7 +165,7 @@ Esta convención facilita la identificación visual de una variable como puntero
 ```
 
 (0x0007h)=
-### Regla `0x0007h`: Los argumentos de función y las variables locales deben usar `snake_case` en minúsculas
+## Regla `0x0007h`: Los argumentos de función y las variables locales deben usar `snake_case` en minúsculas
 
 - **Incorrecto:**
   ```c
@@ -173,7 +179,7 @@ Esta convención facilita la identificación visual de una variable como puntero
   ```
 
 (0x0008h)=
-### Regla `0x0008h`: Las constantes (`const` o `#define`) deben nombrarse en `MAYUSCULAS_SNAKE_CASE`
+## Regla `0x0008h`: Las constantes (`const` o `#define`) deben nombrarse en `MAYUSCULAS_SNAKE_CASE`
 
 Esta convención de estilo de nomenclatura mejora la legibilidad. Un identificador en mayúsculas actúa como una señal visual inmediata, indicando que se trata de un valor inmutable.
 
@@ -193,7 +199,7 @@ Esta convención de estilo de nomenclatura mejora la legibilidad. Un identificad
   ```
 
 (0x0009h)=
-### Regla `0x0009h`: Las líneas de código no deben exceder los 79 caracteres
+## Regla `0x0009h`: Las líneas de código no deben exceder los 79 caracteres
 
 Nunca debés escribir líneas que excedan los 79 caracteres. El límite de 80 columnas es un estándar de facto que facilita la lectura y la visualización de código en paralelo. Las líneas largas fatigan la vista y requieren desplazamiento horizontal.
 
@@ -208,7 +214,7 @@ Nunca debés escribir líneas que excedan los 79 caracteres. El límite de 80 co
   ```
 
 (0x000Ah)=
-### Regla `0x000Ah`: Escribí comentarios que expliquen el "porqué", no el "qué"
+## Regla `0x000Ah`: Escribí comentarios que expliquen el "porqué", no el "qué"
 
 Los comentarios deben aportar valor y aclarar la intención detrás del código, no parafrasear lo que el código ya expresa de forma evidente. El código en sí mismo debe ser lo suficientemente claro para explicar *qué* hace.
 

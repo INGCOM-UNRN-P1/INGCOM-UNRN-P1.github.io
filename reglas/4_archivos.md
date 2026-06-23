@@ -1,7 +1,13 @@
-## 5. Gestión de Archivos y Errores (`0x40XX`)
+---
+title: Gestión de Archivos y Errores
+short_title: Archivos y Errores
+subtitle: Reglas de estilo para el manejo de archivos y diagnóstico de errores en C
+---
+
+# 5. Gestión de Archivos y Errores (`0x40XX`)
 
 (0x4001h)=
-### Regla `0x4001h`: Manejá correctamente la apertura y cierre de archivos
+## Regla `0x4001h`: Manejá correctamente la apertura y cierre de archivos
 
 Siempre validá que el puntero devuelto por `fopen` no sea `NULL` antes de operar sobre él, y cerrá el recurso mediante `fclose`.
 
@@ -17,7 +23,7 @@ fclose(archivo);
 ```
 
 (0x4002h)=
-### Regla `0x4002h`: Validá los retornos de las operaciones de lectura y escritura de archivos
+## Regla `0x4002h`: Validá los retornos de las operaciones de lectura y escritura de archivos
 
 Funciones como `fread`, `fwrite`, `fgetc`, `fgets`, `fprintf` y `fscanf` devuelven valores de control. Es obligatorio verificar dichos retornos para asegurar transferencias completas e identificar fallos o el fin de archivo (EOF).
 
@@ -44,7 +50,7 @@ Funciones como `fread`, `fwrite`, `fgetc`, `fgets`, `fprintf` y `fscanf` devuelv
   ```
 
 (0x4003h)=
-### Regla `0x4003h`: Utilizá `errno`, `perror` y `strerror` para reportar fallos del sistema operativo de manera precisa
+## Regla `0x4003h`: Utilizá `errno`, `perror` y `strerror` para reportar fallos del sistema operativo de manera precisa
 
 Cualquier fallo en llamadas de sistema de archivos (como fallos en `fopen`, `fread` o `fwrite`) establece un código de error global en la variable `errno` de `<errno.h>`. Debés usar `perror` o `strerror` de `<string.h>` para imprimir o formatear mensajes legibles de diagnóstico.
 
@@ -65,7 +71,7 @@ if (archivo == NULL)
 ```
 
 (0x4004h)=
-### Regla `0x4004h`: Asegurá la simetría de recursos al abrir y cerrar archivos en el mismo nivel de abstracción
+## Regla `0x4004h`: Asegurá la simetría de recursos al abrir y cerrar archivos en el mismo nivel de abstracción
 
 La función que abre un archivo debe ser la misma responsable de cerrarlo, o bien se debe delegar formalmente su propiedad a una estructura/módulo administrador simétrico. Esto evita descriptores de archivo huérfanos que agoten el límite del sistema operativo.
 
@@ -87,7 +93,7 @@ La función que abre un archivo debe ser la misma responsable de cerrarlo, o bie
   ```
 
 (0x4005h)=
-### Regla `0x4005h`: Evitá el uso de offsets y posiciones fijas codificadas a mano en archivos binarios sin validar sus dimensiones
+## Regla `0x4005h`: Evitá el uso de offsets y posiciones fijas codificadas a mano en archivos binarios sin validar sus dimensiones
 
 Cuando leés o escribís en una posición específica de un archivo binario mediante `fseek`, debés validar que la posición de destino sea válida y no exceda las dimensiones físicas del archivo. Calculá el tamaño del archivo usando `fseek` y `ftell` antes de realizar saltos aleatorios.
 

@@ -1,7 +1,13 @@
-## 2. Estructuras de Control y Lazos (`0x10XX`)
+---
+title: Estructuras de Control y Lazos
+short_title: Estructuras de Control
+subtitle: Reglas de estilo para condicionales y estructuras de repetición en C
+---
+
+# 2. Estructuras de Control y Lazos (`0x10XX`)
 
 (0x1001h)=
-### Regla `0x1001h`: Todas las estructuras de control deben utilizar llaves
+## Regla `0x1001h`: Todas las estructuras de control deben utilizar llaves
 
 Aunque las llaves son opcionales para bloques de una sola línea, su uso es obligatorio para mantener la prolijidad y consistencia, y para evitar que futuras modificaciones introduzcan comportamientos inesperados.
 
@@ -28,7 +34,7 @@ Las llaves, a su vez, deben colocarse en una línea propia para mejor visibilida
   ```
 
 (0x1002h)=
-### Regla `0x1002h`: Evitá el uso descontrolado de `break` y `continue`; preferí lazos con bandera de control
+## Regla `0x1002h`: Evitá el uso descontrolado de `break` y `continue`; preferí lazos con bandera de control
 
 La cátedra desaconseja el uso generalizado de `break` y `continue` para controlar lazos complejos. En su lugar, preferí usar variables booleanas (banderas) de control en la condición del lazo.
 
@@ -63,7 +69,7 @@ while (i <= 10 && seguir_ejecutando){
 ```
 
 (0x1003h)=
-### Regla `0x1003h`: Utilizá el lazo `for` para iteraciones con rango o contador definido y `while` para lazos controlados por condiciones lógicas
+## Regla `0x1003h`: Utilizá el lazo `for` para iteraciones con rango o contador definido y `while` para lazos controlados por condiciones lógicas
 
 Utilizá el lazo `for` cuando la cantidad de iteraciones esté predefinida o se controle mediante un contador o rango conocido. Reservá el uso del lazo `while` para iteraciones basadas en condiciones puramente lógicas o eventos indefinidos en tiempo de ejecución.
 
@@ -134,7 +140,7 @@ int main()
 
 
 (0x1004h)=
-### Regla `0x1004h`: Las condiciones complejas deben ser simplificadas o comentadas
+## Regla `0x1004h`: Las condiciones complejas deben ser simplificadas o comentadas
 
 Si una condición contiene múltiples operadores lógicos, considerá dividirla en partes más pequeñas usando variables lógicas auxiliares explicativas o funciones de validación.
 
@@ -156,7 +162,7 @@ if (puede_acceder || es_admin_con_acceso) {
 ```
 
 (0x1005h)=
-### Regla `0x1005h`: Evitá las condiciones ambiguas basadas en la "veracidad" (truthiness) del tipo de dato
+## Regla `0x1005h`: Evitá las condiciones ambiguas basadas en la "veracidad" (truthiness) del tipo de dato
 
 Las comparaciones deben ser siempre explícitas. En C, cualquier valor numérico distinto de cero se considera verdadero, y el cero falso. Depender de esta veracidad implícita atenta contra la legibilidad.
 
@@ -187,7 +193,7 @@ while (trabajando == false);
 ```
 
 (0x1006h)=
-### Regla `0x1006h`: No utilizar la instrucción `goto`
+## Regla `0x1006h`: No utilizar la instrucción `goto`
 
 El uso de `goto` rompe el flujo de control estructurado, dificultando la lectura y depuración del código. En su lugar, empleá las estructuras de control estándar.
 
@@ -220,7 +226,7 @@ bool procesar_datos(int *datos, size_t n) {
 ```
 
 (0x1007h)=
-### Regla `0x1007h`: No utilizar el operador condicional (ternario) `?:`
+## Regla `0x1007h`: No utilizar el operador condicional (ternario) `?:`
 
 Aunque compacto, el operador ternario reduce la legibilidad del código, especialmente en expresiones anidadas o complejas.
 
@@ -239,7 +245,7 @@ Aunque compacto, el operador ternario reduce la legibilidad del código, especia
   ```
 
 (0x1008h)=
-### Regla `0x1008h`: Toda instrucción `switch` debe incluir un caso `default`
+## Regla `0x1008h`: Toda instrucción `switch` debe incluir un caso `default`
 
 Para garantizar un comportamiento predecible y robusto, toda instrucción `switch` debe finalizar con un bloque `default`. Esto asegura que el programa maneje explícitamente cualquier valor inesperado. Si un `case` intencionalmente no contiene una instrucción `break` para "caer" (`fall-through`) al siguiente caso, esta intención debe ser documentada con un comentario.
 
