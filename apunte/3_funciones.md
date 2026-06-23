@@ -311,61 +311,6 @@ Dentro del for, 'i' es: 1
 Fuera del for, 'i' es de nuevo: 10
 ```
 
-## Valores `static` en funciones
-
-Cuando se declara una variable local estándar dentro de una función, esta se destruye cuando la función termina. 
-
-El calificador `static` en la declaración de una variable local nos permite evitar que se destruya, conservando su valor entre las distintas llamadas. Su comportamiento de persistencia es similar al de una variable global, pero su visibilidad queda restringida únicamente al ámbito de la función.
-
-Una variable con este calificador se inicializa una única vez en la primera llamada de la función.
-
-Pero lo más importante, conserva su valor entre sucesivas llamadas a la función
-y preserva su alcance.
-
-```c
-#include <stdio.h>
-
-void contadorNormal() {
-    int contador = 0;
-    contador++;
-    printf("Contador Normal: %d\n", contador);
-}
-
-void contadorStatic() {
-    static int contador = 0; // Se inicializa solo en la primera llamada
-    contador++;
-    printf("Contador Static: %d\n", contador);
-}
-
-int main() {
-    contadorNormal();
-    contadorStatic();
-    printf("---\n");
-    contadorNormal();
-    contadorStatic();
-    return 0;
-}
-```
-
-Salida:
-```
-Contador Normal: 1
-Contador Static: 1
----
-Contador Normal: 1
-Contador Static: 2
-```
-
-Acá, el `contadorNormal` se reinicia a `0` en cada llamada, por lo que su
-salida es siempre `1`. Pero el `contadorStatic` se inicializa a `0` solo la
-primera vez. En las llamadas siguientes, retiene su valor anterior (`1`, luego
-`2`), por lo que sigue incrementándose.
-
-:::{warning} Limitá su uso
-El problema de este calificador es que oculta el estado interno de la función, lo que hace que su comportamiento sea menos predecible y dependa de ejecuciones anteriores, rompiendo la noción de función pura.
-:::
-
----
 
 ## Descomposición Funcional
 
@@ -844,22 +789,43 @@ La tabla {numref}`tbl-ambitos-y-tiempos` resume de forma estructurada las difere
 
 Cuando aplicás el modificador `static` a una variable local, alterás su tiempo de vida sin modificar su ámbito. La variable persistirá en el segmento de datos durante toda la ejecución del programa, inicializándose una única vez al comenzar. Sin embargo, su visibilidad permanece restringida únicamente al bloque de la función donde fue declarada.
 
+Analizá el comportamiento con este ejemplo comparativo:
+
 ```c
 #include <stdio.h>
 
-void registrar_llamada() {
-    // Se inicializa una sola vez. Conserva su valor entre llamadas.
-    static int contador_accesos = 0; 
-    
-    // Variable local automática: se destruye en cada retorno
-    int temporal = 1; 
+void contador_normal() {
+    int contador = 0; // Local automática: se inicializa y destruye en cada llamada
+    contador++;
+    printf("Contador Normal: %d\n", contador);
+}
 
-    contador_accesos++;
-    temporal++;
-    
-    printf("Llamadas: %d, Temporal: %d\n", contador_accesos, temporal);
+void contador_static() {
+    static int contador = 0; // Local estática: se inicializa una sola vez y persiste
+    contador++;
+    printf("Contador Static: %d\n", contador);
+}
+
+int main(void) {
+    contador_normal();
+    contador_static();
+    printf("---\n");
+    contador_normal();
+    contador_static();
+    return 0;
 }
 ```
+
+Salida del programa:
+```
+Contador Normal: 1
+Contador Static: 1
+---
+Contador Normal: 1
+Contador Static: 2
+```
+
+En este fragmento, `contador_normal` se reinicia a `0` en cada invocación porque su espacio en el stack se libera al retornar. En contraste, `contador_static` retiene su valor anterior entre ejecuciones porque reside de forma permanente en el segmento de datos.
 
 :::{warning} Efecto Secundario y Pureza
 El uso de `static` conserva el estado interno de la función entre ejecuciones. Esto rompe la noción de función pura y puede dificultar las pruebas unitarias al hacer que el resultado de una llamada dependa de las ejecuciones anteriores. Utilizalo solo cuando el diseño técnico lo justifique plenamente.
