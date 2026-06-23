@@ -371,58 +371,55 @@ for (size_t i = 0; i < 2; i++) {       // Capas
 }
 ```
 
-## Consideraciones de Rendimiento: Localidad de Caché
+## Row-Major Order y Recorrido Eficiente en Lazos (Localidad de Caché)
 
-El método empleado para iterar sobre los elementos de una matriz posee un
-impacto significativo sobre el rendimiento computacional. Este fenómeno se
-atribuye a la arquitectura de memoria jerárquica de los procesadores modernos,
-los cuales utilizan una memoria caché de alta velocidad como intermediaria entre
-la CPU y la memoria principal (RAM).
+Para comprender por qué la forma en que anidamos los lazos altera el rendimiento del programa, tenés que examinar la relación entre el **Row-Major Order** (el orden físico de almacenamiento en memoria) y el funcionamiento de la **memoria caché** del procesador.
+
+A nivel físico, la memoria RAM es unidimensional. Para almacenar una matriz bidimensional, C utiliza el esquema **Row-Major Order** (ordenación por filas), disponiendo los elementos de la fila 0 de forma consecutiva, seguidos inmediatamente por los de la fila 1, y así sucesivamente.
 
 :::{figure} 6/cache_localidad.svg
 :label: fig-cache-localidad
 :width: 100%
 
-Impacto del orden de acceso en el rendimiento. El acceso row-major aprovecha la
-localidad espacial, cargando elementos contiguos en la caché. El acceso
-column-major genera saltos que causan múltiples fallos de caché.
+Impacto del orden de acceso en el rendimiento. El acceso secuencial (Row-Major) aprovecha la localidad espacial en caché, mientras que el acceso no secuencial genera múltiples fallos de caché debido a los saltos en memoria física.
 :::
 
-### Recorrido Óptimo (Cache-Friendly)
+### Maximización de la Caché por Localidad Espacial
 
-La iteración por filas en el lazo externo y por columnas en el interno produce
-un patrón de acceso secuencial a la memoria. Esto maximiza la probabilidad de
-aciertos de caché (cache hits), ya que al solicitar un elemento, un bloque
-contiguo de memoria que incluye los elementos subsiguientes de la misma fila es
-transferido a la caché.
+La CPU nunca lee una única variable directamente desde la RAM. Cuando se solicita un elemento de la matriz, el hardware lee un bloque contiguo completo de datos y lo transfiere a la memoria caché. Este mecanismo responde al principio de **localidad espacial**: si accedés a un dato, es altamente probable que necesités los datos contiguos a la brevedad.
 
-```{code-block}c
-:linenos:
-// ALTO RENDIMIENTO: Aprovecha la localidad de datos espaciales.
+- **Recorrido eficiente (Row-Major):** Si recorrés la matriz fila por fila (lazo externo en filas `i`, lazo interno en columnas `j`), el orden de acceso del programa coincide exactamente con la disposición lineal en el hardware. Los elementos contiguos ya se encontrarán precargados en la caché (ocurre un *cache hit* o acierto de caché), agilizando el procesamiento.
+- **Recorrido ineficiente (Column-Major):** Si recorrés la matriz columna por columna (lazo externo en columnas `j`, lazo interno en filas `i`), forzás al procesador a realizar "saltos" en memoria física. Cada incremento de `i` requiere avanzar una distancia de `COLUMNAS * sizeof(tipo)` bytes. Esto invalida la caché constantemente (*cache miss* o fallo de caché), obligando a la CPU a detener su ejecución para esperar lecturas repetidas de la lenta memoria principal.
+
+#### Ejemplo de Recorrido Óptimo (Cache-Friendly)
+
+El lazo interno recorre los elementos adyacentes de la misma fila:
+
+```c
+// ALTO RENDIMIENTO: El lazo interno sigue el orden lineal de almacenamiento
 for (size_t i = 0; i < FILAS; i++) {
     for (size_t j = 0; j < COLUMNAS; j++) {
-        suma += matriz[i][j];
+        suma += matriz[i][j]; // Acceso lineal contiguo
     }
 }
 ```
 
-### Recorrido Ineficiente (Cache-Unfriendly)
+#### Ejemplo de Recorrido Ineficiente (Cache-Unfriendly)
 
-La inversión de los lazos de iteración genera un patrón de acceso no contiguo a
-la memoria. Cada acceso salta a una dirección de memoria distante, lo que reduce
-la eficacia de la caché y provoca constantes fallos de caché (cache misses).
-Cada fallo obliga a la CPU a esperar la recuperación de datos desde la lenta
-memoria principal, degradando sustancialmente el rendimiento.
+El lazo interno salta de fila en fila a través de la misma columna:
 
-```{code-block}c
-:linenos:
-// BAJO RENDIMIENTO: Genera fallos de caché frecuentes.
+```c
+// BAJO RENDIMIENTO: Genera saltos constantes e invalida la caché
 for (size_t j = 0; j < COLUMNAS; j++) {
     for (size_t i = 0; i < FILAS; i++) {
-        suma += matriz[i][j];
+        suma += matriz[i][j]; // Salto de fila en cada paso
     }
 }
 ```
+
+:::{important} Impacto en la Práctica
+En matrices de gran tamaño (por ejemplo, procesamiento de imágenes o simulaciones), el recorrido ineficiente puede degradar el rendimiento por un factor de hasta 10 veces o más. Siempre estructurá los lazos anidados de forma que el lazo más interno avance en la dimensión contigua en memoria.
+:::
 
 # Operaciones Matemáticas con Matrices
 

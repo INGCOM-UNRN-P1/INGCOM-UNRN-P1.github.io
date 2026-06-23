@@ -2344,6 +2344,102 @@ int main() {
 ```
 ````
 
+## Alineación de Miembros y Relleno en Estructuras (Padding)
+
+En el desarrollo de software en C estándar, la disposición de los datos en la memoria física no siempre es contigua ni directa. Los procesadores modernos acceden a la memoria física mediante **palabras de máquina** (típicamente de 32 o 64 bits, es decir, 4 u 8 bytes). Para optimizar el rendimiento de las operaciones de lectura y escritura en el bus de datos, el hardware impone restricciones de alineación.
+
+La **alineación natural** establece que una variable de tamaño $T$ bytes debe almacenarse en una dirección de memoria que sea múltiplo de $T$. Si un dato no se encuentra alineado, el procesador requerirá múltiples accesos a memoria para leer un único valor, degradando el rendimiento del sistema o, en ciertas arquitecturas, provocando una excepción de hardware (*bus error*).
+
+Para cumplir con estas restricciones sin intervención del programador, el compilador introduce automáticamente bytes de relleno denominados **padding** entre los miembros de una estructura.
+
+### Impacto en el Consumo de Memoria Física
+
+Considerá la siguiente definición de estructura que modela información de un sensor:
+
+```c
+typedef struct {
+    char tipo;          // 1 byte
+    int id;             // 4 bytes
+    char estado;        // 1 byte
+} sensor_desoptimizado_t;
+```
+
+A primera vista, se podría calcular que el tamaño físico de esta estructura es la suma de sus partes: $1 \text{ byte} + 4 \text{ bytes} + 1 \text{ byte} = 6 \text{ bytes}$. Sin embargo, al evaluar `sizeof(sensor_desoptimizado_t)`, el resultado en una arquitectura de 32 o 64 bits es **12 bytes**.
+
+El compilador reorganiza el espacio aplicando las siguientes reglas:
+
+1. **Alineación de miembros**: Cada miembro debe alinearse a una dirección múltiplo de su propio tamaño. `tipo` se ubica en el desplazamiento (*offset*) 0. `id` requiere un offset múltiplo de 4; por ende, se añaden 3 bytes de relleno (*padding*) en los desplazamientos 1, 2 y 3, ubicando a `id` en el offset 4 (ocupando los bytes 4, 5, 6 y 7). `estado` se coloca en el offset 8.
+2. **Alineación de la estructura completa**: El tamaño total de la estructura debe ser un múltiplo de la alineación de su miembro más restrictivo (el que requiera la mayor alineación). En este caso, el miembro más restrictivo es `id` (4 bytes). La estructura finaliza en el byte 8 (después de ocupar 9 bytes en total). Para redondear al siguiente múltiplo de 4, el compilador inserta 3 bytes de relleno al final de la estructura, totalizando 12 bytes.
+
+:::{table} Disposición de memoria física para `sensor_desoptimizado_t` (12 bytes)
+:label: tbl-padding-desoptimizado
+
+| Offset | Byte 0 | Byte 1 | Byte 2 | Byte 3 |
+| :--- | :---: | :---: | :---: | :---: |
+| **0** | `tipo` (1B) | *Padding* | *Padding* | *Padding* |
+| **4** | `id` (B0) | `id` (B1) | `id` (B2) | `id` (B3) |
+| **8** | `estado` (1B) | *Padding* | *Padding* | *Padding* |
+:::
+
+### Estrategia de Optimización: Reordenamiento por Tamaño
+
+Para mitigar el desperdicio de memoria física (que en el ejemplo anterior asciende al $50\%$), se debe declarar los miembros de la estructura en orden descendente de tamaño (o de restricción de alineación). Esto permite que los tipos de menor tamaño aprovechen los huecos naturales de alineación de los tipos más grandes.
+
+Reescribiendo la estructura anterior:
+
+```c
+typedef struct {
+    int id;             // 4 bytes (offset 0-3)
+    char tipo;          // 1 byte  (offset 4)
+    char estado;        // 1 byte  (offset 5)
+    // 2 bytes de padding al final para completar múltiplo de 4
+} sensor_optimizado_t;
+```
+
+El tamaño físico de `sensor_optimizado_t` es de **8 bytes**. Se logró reducir el consumo de memoria en un $33\%$ simplemente alterando el orden de declaración.
+
+:::{table} Disposición de memoria física para `sensor_optimizado_t` (8 bytes)
+:label: tbl-padding-optimizado
+
+| Offset | Byte 0 | Byte 1 | Byte 2 | Byte 3 |
+| :--- | :---: | :---: | :---: | :---: |
+| **0** | `id` (B0) | `id` (B1) | `id` (B2) | `id` (B3) |
+| **4** | `tipo` (1B) | `estado` (1B) | *Padding* | *Padding* |
+:::
+
+:::{important} Impacto en el Desarrollo a Gran Escala
+Si bien una diferencia de 4 bytes puede parecer insignificante en sistemas modernos, este impacto se magnifica exponencialmente al trabajar con arreglos dinámicos de estructuras o buffers de red que almacenan millones de registros, afectando directamente la tasa de aciertos en la memoria caché del procesador.
+:::
+
+### Inspección de Desplazamientos con `offsetof`
+
+La biblioteca estándar `<stddef.h>` proporciona la macro `offsetof`, que permite obtener el desplazamiento en bytes de un miembro respecto al inicio de la estructura.
+
+```c
+#include <stdio.h>
+#include <stddef.h>
+
+typedef struct {
+    char tipo;
+    int id;
+    char estado;
+} sensor_desoptimizado_t;
+
+int main(void) {
+    printf("Tamaño total: %zu bytes\n", sizeof(sensor_desoptimizado_t));
+    printf("Offset de tipo: %zu\n", offsetof(sensor_desoptimizado_t, tipo));
+    printf("Offset de id: %zu\n", offsetof(sensor_desoptimizado_t, id));
+    printf("Offset de estado: %zu\n", offsetof(sensor_desoptimizado_t, estado));
+    return 0;
+}
+```
+
+:::{tip} Estilo
+Al declarar variables o tipos estructurados, recordá seguir la regla {ref}`0x0001h` que exige identificadores descriptivos, y usá el sufijo `_t` para los alias definidos con `typedef` de acuerdo a la buena práctica del proyecto.
+:::
+
+---
+
 ## Glosario
 
 :::{glossary}

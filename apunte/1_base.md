@@ -831,6 +831,44 @@ Ocurren cuando la condición de permanencia de un lazo `Mientras` nunca resulta 
     }
     ```
 
+### 3. Desbordamiento numérico e imprecisión de reales
+
+Las variables en memoria física tienen un almacenamiento binario de tamaño finito. Esto introduce limitaciones físicas ausentes en la matemática pura.
+
+#### Desbordamiento (Overflow y Underflow)
+Ocurre cuando una operación aritmética produce un valor que excede el límite almacenable por el tipo de dato.
+
+- **Overflow (sobreflujo):** El valor supera el límite máximo representable. En enteros con signo, suele provocar un salto al valor mínimo.
+- **Underflow (subflujo):** El valor es menor al límite mínimo. En reales, ocurre cuando el valor es tan pequeño y cercano a cero que el hardware no puede diferenciarlo de este.
+
+Ejemplo en C (desbordamiento de un entero corto con signo):
+```c
+short numero = 32767;
+numero = numero + 1; // Produce -32768 (desbordamiento)
+```
+
+#### Imprecisión de reales
+Las computadoras almacenan números reales mediante el estándar IEEE 754. Al representar infinitos números con bits finitos, valores como $0.1$ o $0.2$ carecen de representación binaria exacta y se redondean.
+
+Esto acumula imprecisión y hace inviables las comparaciones de igualdad directa.
+
+Ejemplo en C:
+```c
+float a = 0.1f;
+float b = 0.2f;
+if (a + b == 0.3f) {
+    // Esta condición resulta falsa debido a la imprecisión de redondeo
+}
+```
+
+Para comparar reales, debés verificar si la diferencia absoluta es menor que una tolerancia de error prefijada (épsilon):
+```c
+float dif = (a + b) - 0.3f;
+if (dif < 0.00001f && dif > -0.00001f) {
+    // Comparación correcta
+}
+```
+
 ---
 ## Próximos Pasos: El Lenguaje C
 

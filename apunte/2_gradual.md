@@ -816,6 +816,47 @@ int main()
 :::
 
 
+## Problemas del Buffer de Entrada (stdin) y su Purgado
+
+Cuando utilizás `scanf` para leer datos numéricos o caracteres, el flujo de entrada `stdin` puede almacenar residuos no deseados que alteran las lecturas posteriores.
+
+### El origen del problema
+Al ingresar datos desde la consola (por ejemplo, al escribir un número y presionar Enter), `scanf` lee únicamente el valor numérico correspondiente al formato especificado (como `%d`), dejando el carácter de salto de línea (`\n`) residual dentro de `stdin`.
+
+Si a continuación intentás leer un carácter utilizando `%c` o `getchar()`, esa lectura consumirá inmediatamente el `\n` residual en lugar de esperar la nueva entrada del usuario. Esto da la sensación de que el programa "saltea" la instrucción de lectura.
+
+### Purgado de stdin con un lazo
+Para solucionar este comportamiento, debés limpiar o "purgar" el buffer de entrada, consumiendo todos los caracteres residuales hasta llegar al salto de línea inclusive. La manera estándar para lograr esto consiste en implementar un lazo simple de lectura de caracteres.
+
+El siguiente ejemplo demuestra el problema y su solución utilizando `getchar()` dentro de un lazo `while`:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int edad = 0;
+    char inicial = ' ';
+
+    printf("Ingresá tu edad: ");
+    scanf("%d", &edad);
+
+    // Purgado del buffer: lee y descarta caracteres hasta el salto de línea
+    char c = ' ';
+    while ((c = getchar()) != '\n' && c != EOF) {
+        // Lazo vacío: solo consume el buffer residual
+    }
+
+    printf("Ingresá tu inicial: ");
+    scanf("%c", &inicial); // Ahora lee correctamente sin saltarse
+
+    printf("Edad: %d, Inicial: %c\n", edad, inicial);
+    return 0;
+}
+```
+
+La condición `(c = getchar()) != '\n' && c != EOF` realiza tres acciones: lee un carácter de `stdin`, lo asigna a `c`, y continúa la iteración del lazo mientras no sea un salto de línea ni el fin del archivo (`EOF`).
+
+
 ## Ejercicios de Práctica
 
 1. Escribí un programa que solicite dos números reales al usuario y muestre cuál es el mayor.

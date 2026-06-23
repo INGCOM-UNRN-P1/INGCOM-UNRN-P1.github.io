@@ -669,118 +669,6 @@ return EXIT_SUCCESS;
 - **`return EXIT_SUCCESS;`**: Informa al sistema operativo que el programa
   terminó exitosamente.
 
-## Posicionamiento en Archivos: Acceso Aleatorio
-
-No siempre querés leer un archivo secuencialmente. Las funciones de
-posicionamiento te permiten moverte a cualquier punto del archivo.
-
-### `ftell`
-
-La función `ftell` se utiliza para obtener la posición actual del indicador de posición del fichero (el "cursor") dentro de un flujo. Devuelve esta posición como un número de bytes desde el inicio del archivo.
-
-```{code-block}c
-/**
- * @brief Obtiene la posición actual del indicador de posición del fichero.
- *
- * @param[in] stream Puntero al objeto `FILE` que identifica el flujo.
- *
- * @return Si es exitoso, devuelve el valor actual del indicador de posición.
- * @return En caso de error, devuelve -1L y la variable global `errno` se establece a un valor positivo.
- */
-long int ftell(FILE *stream);
-```
-
-### `fseek`
-
-La función `fseek` es la herramienta principal para mover el indicador de posición del fichero a una ubicación específica dentro del flujo. Permite un control preciso, moviendo el cursor un número determinado de bytes (`offset`) desde un punto de origen (`origin`).
-
-```{code-block}c
-/**
- * @brief Establece el indicador de posición del fichero a una nueva posición.
- *
- * @param stream Puntero al objeto `FILE` que identifica el flujo.
- * @param offset Desplazamiento en bytes relativo al parámetro `origin`.
- * @param origin Posición desde donde se calcula el desplazamiento. Los valores pueden ser:
- * - `SEEK_SET`: Inicio del archivo.
- * - `SEEK_CUR`: Posición actual.
- * - `SEEK_END`: Final del archivo.
- *
- * @return Devuelve 0 si la operación es exitosa.
- *         Devuelve un valor distinto de cero en caso de error.
- */
-int fseek(FILE *stream, long int offset, int origin);
-```
-
-### `rewind`
-
-La función `rewind` es un caso especial y simplificado de `fseek`. Su única función es mover el indicador de posición del fichero de vuelta al inicio del archivo. Además, limpia cualquier indicador de error que pudiera tener el flujo.
-
-```{code-block}c
-/**
- * Reposiciona el indicador de posición del fichero al inicio del flujo.
- *
- * Esta función es funcionalmente equivalente a fseek(stream, 0L, SEEK_SET),
- * pero además borra el indicador de error del flujo.
- *
- * @param stream Puntero al objeto `FILE` que identifica el flujo.
- */
-void rewind(FILE *stream);
-```
-
-### Ejemplo de uso
-
-```{code-block}c
-:caption: Uso de fseek() y ftell() para leer el último carácter
-:label: fseek-example
-
-#include <stdio.h>
-#include <stdlib.h>
-
-int main(void) {
-    FILE *archivo = fopen("factura.txt", "r");
-    if (!archivo) {
-        perror("No se pudo abrir el archivo");
-        return EXIT_FAILURE;
-    }
-
-    // Moverse al final del archivo
-    if (fseek(archivo, 0, SEEK_END) != 0) {
-        perror("Error en fseek a SEEK_END");
-        fclose(archivo);
-        return EXIT_FAILURE;
-    }
-
-    // Obtener la posición actual, que es el tamaño del archivo
-    long tamano = ftell(archivo);
-    if (tamano == -1L) {
-        perror("Error en ftell");
-        fclose(archivo);
-        return EXIT_FAILURE;
-    }
-    printf("El archivo tiene %ld bytes.\n", tamano);
-
-    // Moverse a la posición ANTERIOR al último byte para leerlo.
-    // Si el archivo termina con \n, esto leerá el carácter previo.
-    if (tamano > 1 && fseek(archivo, -2L, SEEK_END) != 0) {
-        perror("Error en fseek para leer el último carácter");
-        fclose(archivo);
-        return EXIT_FAILURE;
-    }
-
-    int ultimo_caracter = fgetc(archivo);
-    if (ultimo_caracter != EOF) {
-        printf("El último carácter imprimible del archivo es: '%c'\n", (char)ultimo_caracter);
-    }
-
-    // Volver al principio
-    rewind(archivo);
-    printf("Después de 'rewind', la posición es: %ld\n", ftell(archivo));
-
-    fclose(archivo);
-    return EXIT_SUCCESS;
-}
-```
-
 ## Cierre de Archivos: `fclose()`, el Paso Final
 
 `fclose(FILE *stream)` disocia el archivo del puntero `FILE`. Es una operación
@@ -1474,6 +1362,117 @@ En la solución del ejercicio 5, se utiliza `continue` para saltar líneas vací
 :::
 
 ````
+
+## Posicionamiento en Archivos: Acceso Aleatorio
+
+No siempre querés leer un archivo secuencialmente. Las funciones de posicionamiento te permiten moverte a cualquier punto del archivo.
+
+### `ftell`
+
+La función `ftell` se utiliza para obtener la posición actual del indicador de posición del fichero (el "cursor") dentro de un flujo. Devuelve esta posición como un número de bytes desde el inicio del archivo.
+
+```{code-block}c
+/**
+ * @brief Obtiene la posición actual del indicador de posición del fichero.
+ *
+ * @param[in] stream Puntero al objeto `FILE` que identifica el flujo.
+ *
+ * @return Si es exitoso, devuelve el valor actual del indicador de posición.
+ * @return En caso de error, devuelve -1L y la variable global `errno` se establece a un valor positivo.
+ */
+long int ftell(FILE *stream);
+```
+
+### `fseek`
+
+La función `fseek` es la herramienta principal para mover el indicador de posición del fichero a una ubicación específica dentro del flujo. Permite un control preciso, moviendo el cursor un número determinado de bytes (`offset`) desde un punto de origen (`origin`).
+
+```{code-block}c
+/**
+ * @brief Establece el indicador de posición del fichero a una nueva posición.
+ *
+ * @param stream Puntero al objeto `FILE` que identifica el flujo.
+ * @param offset Desplazamiento en bytes relativo al parámetro `origin`.
+ * @param origin Posición desde donde se calcula el desplazamiento. Los valores pueden ser:
+ * - `SEEK_SET`: Inicio del archivo.
+ * - `SEEK_CUR`: Posición actual.
+ * - `SEEK_END`: Final del archivo.
+ *
+ * @return Devuelve 0 si la operación es exitosa.
+ *         Devuelve un valor distinto de cero en caso de error.
+ */
+int fseek(FILE *stream, long int offset, int origin);
+```
+
+### `rewind`
+
+La función `rewind` es un caso especial y simplificado de `fseek`. Su única función es mover el indicador de posición del fichero de vuelta al inicio del archivo. Además, limpia cualquier indicador de error que pudiera tener el flujo.
+
+```{code-block}c
+/**
+ * Reposiciona el indicador de posición del fichero al inicio del flujo.
+ *
+ * Esta función es funcionalmente equivalente a fseek(stream, 0L, SEEK_SET),
+ * pero además borra el indicador de error del flujo.
+ *
+ * @param stream Puntero al objeto `FILE` que identifica el flujo.
+ */
+void rewind(FILE *stream);
+```
+
+### Ejemplo de uso
+
+```{code-block}c
+:caption: Uso de fseek() y ftell() para leer el último carácter
+:label: fseek-example
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+    FILE *archivo = fopen("factura.txt", "r");
+    if (!archivo) {
+        perror("No se pudo abrir el archivo");
+        return EXIT_FAILURE;
+    }
+
+    // Moverse al final del archivo
+    if (fseek(archivo, 0, SEEK_END) != 0) {
+        perror("Error en fseek a SEEK_END");
+        fclose(archivo);
+        return EXIT_FAILURE;
+    }
+
+    // Obtener la posición actual, que es el tamaño del archivo
+    long tamano = ftell(archivo);
+    if (tamano == -1L) {
+        perror("Error en ftell");
+        fclose(archivo);
+        return EXIT_FAILURE;
+    }
+    printf("El archivo tiene %ld bytes.\n", tamano);
+
+    // Moverse a la posición ANTERIOR al último byte para leerlo.
+    // Si el archivo termina con \n, esto leerá el carácter previo.
+    if (tamano > 1 && fseek(archivo, -2L, SEEK_END) != 0) {
+        perror("Error en fseek para leer el último carácter");
+        fclose(archivo);
+        return EXIT_FAILURE;
+    }
+
+    int ultimo_caracter = fgetc(archivo);
+    if (ultimo_caracter != EOF) {
+        printf("El último carácter imprimible del archivo es: '%c'\n", (char)ultimo_caracter);
+    }
+
+    // Volver al principio
+    rewind(archivo);
+    printf("Después de 'rewind', la posición es: %ld\n", ftell(archivo));
+
+    fclose(archivo);
+    return EXIT_SUCCESS;
+}
+```
 
 ## Glosario
 

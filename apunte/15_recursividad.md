@@ -95,6 +95,33 @@ A continuación se muestra de forma gráfica el estado del *Call Stack* durante 
 Evolución del Call Stack en la ejecución recursiva de `factorial(3)`. Los marcos se apilan secuencialmente hasta el caso base y se desapilan propagando el resultado.
 ```
 
+## El Peligro de la Recursividad: Stack Overflow
+
+Como explicamos en la sección anterior, cada llamada recursiva a una función reserva memoria en la pila de llamadas (*call stack*) mediante un nuevo marco de pila (*stack frame*). El tamaño del *stack* es limitado y está preconfigurado por el sistema operativo o el entorno de ejecución (típicamente unos pocos megabytes).
+
+Si un algoritmo recursivo no está correctamente diseñado o controlado, es muy fácil agotar este espacio físico, provocando un **desbordamiento de pila** (o *stack overflow*). Cuando esto ocurre, el programa interrumpe su ejecución de manera abrupta, usualmente con un error de violación de acceso (*segmentation fault*).
+
+Existen dos causas principales para este fallo catastrófico:
+
+1. **Ausencia o fallo en el Caso Base (Recursión Infinita):** Si la condición de parada nunca se cumple o el subproblema no se acerca al caso base en cada llamada, el programa seguirá apilando marcos indefinidamente.
+2. **Recursión Demasiado Profunda:** Incluso si el algoritmo es lógicamente correcto y tiene un caso base válido, si la cantidad de llamadas recursivas necesarias es extremadamente grande (por ejemplo, millones de llamadas), la pila física se agotará antes de alcanzar la condición de parada.
+
+:::{warning} Recursión vs. Iteración
+Para tareas lineales simples (como recorrer una lista, buscar un elemento o sumar valores de forma consecutiva), la iteración mediante **lazos de control** (`for` o `while`) es infinitamente más segura y eficiente. Los lazos no consumen marcos de pila adicionales por cada repetición. Por lo tanto, reservá la recursividad para estructuras de datos intrínsecamente jerárquicas o ramificadas (como árboles y grafos) o algoritmos basados en *Divide y Vencerás* con profundidad de pila acotada (usualmente $O(\log n)$).
+:::
+
+A continuación se presenta una tabla comparativa sobre el uso de recursos entre ambas aproximaciones:
+
+:::{table} Comparación de recursos: Iteración vs. Recursividad
+:label: tbl-iter-vs-recur
+
+| Aspecto | Iteración (Lazos) | Recursividad |
+| :--- | :--- | :--- |
+| **Uso de Memoria en el Stack** | $O(1)$ constante. El mismo marco de pila se reutiliza durante todo el lazo. | $O(d)$ donde $d$ es la profundidad máxima de llamadas. |
+| **Rendimiento** | Más rápido. Evita la sobrecarga de llamadas y retornos de función. | Más lento por la constante asignación y liberación de marcos de pila. |
+| **Límite de Ejecución** | Limitado solo por el tiempo de procesamiento o valores numéricos. | Físicamente limitado por el tamaño máximo del *stack* del sistema. |
+:::
+
 ## Paradigma de Divide y Vencerás
 
 El paradigma de "Divide y Conquista" (Divide and Conquer) es una potente estrategia para el diseño de algoritmos que consiste en resolver un problema complejo descomponiéndolo en subproblemas más pequeños y manejables. Este paradigma aplica naturalmente la recursividad para su implementación. El proceso se puede resumir en tres fases principales:

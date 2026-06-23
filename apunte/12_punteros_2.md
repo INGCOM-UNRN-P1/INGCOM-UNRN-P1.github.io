@@ -554,6 +554,156 @@ void funcion(int cantidad) {
 - Portabilidad garantizada
 :::
 
+(punteros2-doble-indireccion)=
+## Doble Indirección (Puntero a Puntero)
+
+Una variable puntero es un tipo de dato que almacena una dirección de memoria. Sin embargo, al ser una variable en sí misma, también reside en una dirección de memoria física específica del sistema. La **doble indirección** consiste en utilizar un puntero que almacena la dirección de otra variable puntero, declarándose mediante el operador de doble asterisco (`**`).
+
+```c
+int valor = 42;
+int *p = &valor;    // Puntero simple (indirección simple)
+int **pp = &p;      // Doble puntero (doble indirección)
+```
+
+En este esquema:
+- `valor` almacena el entero `42`.
+- `p` almacena la dirección de memoria de `valor`.
+- `pp` almacena la dirección de memoria de la variable `p`.
+
+Desreferenciar `pp` una vez (`*pp`) evalúa al puntero `p` (obteniendo la dirección de `valor`). Desreferenciar `pp` dos veces (`**pp`) accede directamente al contenido de `valor` (`42`).
+
+### Paso de Punteros por Referencia
+
+En el lenguaje C, todos los argumentos de una función se transmiten **estrictamente por valor** (copia). Esto significa que la función trabaja con copias locales de los parámetros recibidos. 
+
+Si necesitás que una función modifique un tipo de dato básico (como un `int`), debés pasar un puntero a esa variable (`int *`) para simular un paso por referencia. De forma análoga, si una función necesita **modificar una variable puntero** (por ejemplo, para asignarle memoria dinámica o reubicarla), se debe pasar la dirección del puntero, lo que requiere un **doble puntero** (`int **`).
+
+#### El Error Común: Pasar un Puntero Simple
+
+Considerá la siguiente función que intenta asignar memoria para un entero:
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+// Intento incorrecto de asignar memoria
+void inicializar_incorrecto(int *ptr) {
+    ptr = malloc(sizeof(int));  // Modifica la copia local
+    if (ptr != NULL) {
+        *ptr = 10;
+    }
+}
+
+int main(void) {
+    int *mi_puntero = NULL;
+    inicializar_incorrecto(mi_puntero);
+    
+    // ERROR: mi_puntero sigue siendo NULL en main
+    // Además, se generó un memory leak de la memoria asignada en la función.
+    return 0;
+}
+```
+
+Al invocar `inicializar_incorrecto(mi_puntero)`, el valor de `mi_puntero` (que es `NULL`) se copia en el parámetro local `ptr`. Cuando la función ejecuta `malloc`, almacena la dirección de la memoria reservada en la variable local `ptr`. Al retornar la función, `ptr` se destruye en el stack y `mi_puntero` en `main` permanece inalterado, provocando una fuga de memoria física.
+
+#### La Solución: Doble Indirección
+
+Para modificar el puntero original de la función invocadora, se debe enviar su dirección de memoria (`&mi_puntero`). La función receptora utilizará un parámetro de doble indirección para acceder y modificar el puntero original mediante desreferencia:
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+// Forma correcta utilizando doble indirección
+void inicializar_correcto(int **ptr) {
+    if (ptr == NULL) {
+        return; // Cláusula de guarda para evitar desreferenciar un puntero nulo
+    }
+    
+    *ptr = malloc(sizeof(int)); // Desreferencia para modificar el puntero original
+    if (*ptr != NULL) {
+        **ptr = 42; // Modifica el valor entero apuntado
+    }
+}
+
+int main(void) {
+    int *mi_puntero = NULL;
+    
+    // Pasamos la dirección del puntero
+    inicializar_correcto(&mi_puntero);
+    
+    if (mi_puntero != NULL) {
+        printf("Valor asignado: %d\n", *mi_puntero);
+        free(mi_puntero);
+        mi_puntero = NULL;
+    }
+    
+    return 0;
+}
+```
+
+:::{important} Análisis de la Desreferencia en la Doble Indirección
+
+Es fundamental comprender la diferencia entre operar sobre el doble puntero o sobre su desreferencia dentro de la función `inicializar_correcto(int **ptr)`:
+- `ptr`: Es la dirección del puntero del llamador (tipo `int **`).
+- `*ptr`: Es el puntero del llamador en sí (tipo `int *`). Al asignarle memoria (`*ptr = malloc(...)`), se modifica directamente la variable en la función invocadora.
+- `**ptr`: Es el entero en el heap al que apunta el puntero modificado (tipo `int`).
+:::
+
+### Patrón Práctico: Creación y Destrucción Modular
+
+Este enfoque es el estándar en C para construir interfaces limpias de Tipos Abstractos de Datos (TAD), garantizando que las funciones que modifican la estructura interna o el estado de los punteros del cliente lo hagan de forma segura y controlada.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+    char *nombre;
+    int id;
+} recurso_t;
+
+// Constructor que inicializa el puntero del llamador
+int recurso_crear(recurso_t **recurso_out, const char *nombre, int id) {
+    if (recurso_out == NULL || nombre == NULL) {
+        return -1; // Código de error
+    }
+    
+    recurso_t *nuevo = malloc(sizeof(recurso_t));
+    if (nuevo == NULL) {
+        return -1;
+    }
+    
+    nuevo->nombre = malloc(strlen(nombre) + 1);
+    if (nuevo->nombre == NULL) {
+        free(nuevo);
+        return -1;
+    }
+    
+    strcpy(nuevo->nombre, nombre);
+    nuevo->id = id;
+    
+    *recurso_out = nuevo; // Retornamos el recurso creado por referencia
+    return 0; // Éxito
+}
+
+// Destructor defensivo que libera memoria y pone el puntero en NULL
+void recurso_destruir(recurso_t **recurso_out) {
+    if (recurso_out == NULL || *recurso_out == NULL) {
+        return;
+    }
+    
+    free((*recurso_out)->nombre);
+    free(*recurso_out);
+    *recurso_out = NULL; // Evita punteros colgantes en el llamador
+}
+```
+
+:::{tip} Estilo
+Declarar los asteriscos junto al identificador de la variable (por ejemplo, `recurso_t **recurso_out`) y verificar siempre los retornos de asignación de memoria dinámica para cumplir con las directivas {ref}`0x0006h` y de robustez del apunte.
+:::
+
 (punteros2-matrices)=
 ## Matrices Dinámicas
 

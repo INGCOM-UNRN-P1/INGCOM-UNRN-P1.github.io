@@ -1040,6 +1040,124 @@ La programación defensiva es especialmente importante en TADs porque el usuario
 Para técnicas avanzadas de validación y depuración de errores relacionados con memoria en estructuras dinámicas, consultá {ref}`memoria-valgrind`. Herramientas como Valgrind son invaluables para detectar fugas de memoria y accesos inválidos en TADs complejos.
 :::
 
+## Genericidad Elemental y Callbacks
+
+En los ejemplos anteriores, diseñamos estructuras que almacenan un tipo de dato específico (como enteros `int`). Sin embargo, en el desarrollo real de software a menudo necesitás estructuras reutilizables que puedan almacenar *cualquier* tipo de información (números reales, caracteres, structs personalizadas, etc.). Para lograr esto en C estándar sin tener que duplicar el código, se recurre a la **genericidad elemental** utilizando punteros genéricos `void*` y **funciones callback**.
+
+### Genericidad con `void*`
+
+Un puntero a `void` (`void*`) es un puntero especial que puede almacenar la dirección de cualquier objeto, sin importar su tipo. En C, podés convertir cualquier puntero a `void*` y viceversa sin necesidad de un cast explícito.
+
+Al diseñar un TAD genérico, la representación de datos interna no guarda el valor directamente, sino un puntero `void*` que apunta a la dirección de memoria donde se encuentra el dato real.
+
+:::{warning} Pérdida de Seguridad de Tipos
+El compilador no puede verificar a qué tipo de dato apunta un `void*`. Tampoco podés desreferenciar un puntero `void*` directamente (`*ptr`), ni realizar aritmética de punteros con él, ya que su tamaño asociado es desconocido. Es tu responsabilidad como programador recordar el tipo subyacente y realizar la conversión correspondiente cuando extraigas el dato.
+:::
+
+### Funciones Callback
+
+Como el TAD genérico maneja direcciones a ciegas (`void*`), no sabe cómo comparar los elementos, cómo imprimirlos o cómo destruirlos de forma segura. Para solucionar esto, el TAD delega estas tareas al código cliente mediante **punteros a funciones** o **callbacks**.
+
+Una función callback es una función escrita por el programador cliente que se pasa como argumento a las funciones del TAD para que este la ejecute en momentos específicos de su ciclo de vida (por ejemplo, al liberar los datos en el destructor o al buscar un elemento).
+
+#### Estructura de un TAD Genérico
+
+Veamos cómo se define una lista enlazada simple genérica:
+
+```c
+typedef struct nodo_generico
+{
+    void *dato;                    /* Puntero al dato de usuario */
+    struct nodo_generico *siguiente;
+} nodo_generico_t;
+
+typedef struct lista_generica
+{
+    nodo_generico_t *inicio;
+    size_t tamanio;
+} lista_generica_t;
+```
+
+#### Implementación del Destructor Genérico con Callback
+
+Para destruir la lista y liberar la memoria de manera segura, el TAD no puede simplemente invocar `free(nodo->dato)`, porque el dato podría ser una estructura compleja que requiera liberar sus propios campos internos. Por ende, recibimos un callback de destrucción:
+
+```c
+/* Firma de la función callback de destrucción */
+typedef void (*destruir_dato_fn)(void *);
+
+void destruir_lista_generica(lista_generica_t *lista, destruir_dato_fn destruir_dato)
+{
+    if (lista == NULL)
+    {
+        return;
+    }
+    
+    nodo_generico_t *actual = lista->inicio;
+    while (actual != NULL) /* Lazo de liberación */
+    {
+        nodo_generico_t *siguiente = actual->siguiente;
+        
+        if (destruir_dato != NULL && actual->dato != NULL)
+        {
+            destruir_dato(actual->dato);
+        }
+        
+        free(actual);
+        actual = siguiente;
+    }
+    
+    free(lista);
+}
+```
+
+#### Ejemplo de Uso del Cliente
+
+Imaginemos que queremos almacenar una estructura `persona_t` en nuestra lista genérica:
+
+```c
+typedef struct
+{
+    char *nombre;
+    int edad;
+} persona_t;
+
+/* Callback personalizado para destruir una persona */
+void destruir_persona(void *ptr)
+{
+    if (ptr == NULL) return;
+    persona_t *p = (persona_t *)ptr;
+    free(p->nombre); /* Liberamos el recurso interno */
+    free(p);         /* Liberamos el struct */
+}
+
+/* En el programa principal: */
+int main(void)
+{
+    lista_generica_t *mi_lista = crear_lista_generica();
+    
+    persona_t *juan = malloc(sizeof(persona_t));
+    juan->nombre = strdup("Juan");
+    juan->edad = 20;
+    
+    /* Insertamos pasándolo como void* */
+    insertar_al_inicio_generico(mi_lista, juan);
+    
+    /* ... procesamos la lista ... */
+    
+    /* Al finalizar, destruimos la lista delegando la liberación */
+    destruir_lista_generica(mi_lista, destruir_persona);
+    
+    return 0;
+}
+```
+
+:::{tip} Callbacks de Comparación
+Para búsquedas u ordenamiento genérico, podés definir un callback que actúe de manera similar a `strcmp` o `qsort`:
+`typedef int (*comparar_fn)(const void *a, const void *b);`
+Esta función debe retornar un valor menor, igual o mayor a cero según la relación de orden entre ambos elementos.
+:::
+
 ## Complejidad Temporal
 
 La eficiencia de las operaciones es un criterio fundamental al elegir una estructura de datos:

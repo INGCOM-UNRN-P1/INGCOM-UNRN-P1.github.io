@@ -453,6 +453,41 @@ int main() {
 como un puntero a una tabla de configuración o a una constante almacenada en
 memoria de solo lectura.
 
+### Diferencia estricta: `const int *p` vs `int *const p`
+
+Para evitar confusiones al leer declaraciones con el calificador `const`, se puede aplicar una regla de lectura de derecha a izquierda:
+
+* `const int *p` o `int const *p`: `p` es un puntero a un entero constante (`const int`). El valor apuntado no se puede modificar a través del puntero.
+* `int *const p`: `p` es un puntero constante (`const`) a un entero (`int`). El puntero no puede apuntar a otra dirección de memoria una vez inicializado.
+
+La diferencia en las restricciones del compilador se resume a continuación:
+
+:::{table} Comparación de restricciones con `const`
+:label: tbl-comparacion-const-punteros
+
+| Declaración | ¿Se puede reasignar el puntero (`p = &y`)? | ¿Se puede modificar el valor apuntado (`*p = 10`)? |
+| :--- | :---: | :---: |
+| `const int *p` | Sí | No |
+| `int *const p` | No | Sí |
+:::
+
+Analizá el siguiente comportamiento con este fragmento de código:
+
+```c
+int x = 5;
+int y = 10;
+
+// Puntero a constante (el valor apuntado no se puede modificar)
+const int *p_a_const = &x;
+p_a_const = &y;       // VÁLIDO: se cambia la dirección almacenada en el puntero.
+// *p_a_const = 20;   // ERROR DE COMPILACIÓN: el contenido es de solo lectura.
+
+// Puntero constante (la dirección almacenada no se puede modificar)
+int *const p_const = &x;
+*p_const = 20;        // VÁLIDO: se modifica el entero al que apunta.
+// p_const = &y;      // ERROR DE COMPILACIÓN: el puntero es de solo lectura.
+```
+
 ## Documentando funciones con punteros
 
 Cuando una función utiliza punteros como parámetros, especialmente para

@@ -816,6 +816,55 @@ int main() {
 }
 ```
 :::
+
+---
+
+## Ámbito de Variables y el Modificador `static`
+
+Para programar de forma modular en C, tenés que dominar cómo se relacionan el **ámbito (scope)** de una variable —dónde es visible y accesible su identificador— y su **tiempo de vida (lifetime)** —duración de su almacenamiento en memoria—.
+
+La tabla {numref}`tbl-ambitos-y-tiempos` resume de forma estructurada las diferencias conceptuales entre las variables locales, globales y locales estáticas:
+
+:::{table} Comparación de ámbitos, tiempos de vida y almacenamiento
+:label: tbl-ambitos-y-tiempos
+
+| Tipo de Variable | Ámbito (Scope) | Tiempo de Vida (Lifetime) | Región de Memoria | Directiva de la Cátedra |
+| :--- | :--- | :--- | :--- | :--- |
+| **Local (Automática)** | De bloque o función | Duración del bloque/función | Stack (Pila) | {ref}`0x2007h` (Reducir el alcance) |
+| **Global** | Todo el archivo / programa | Toda la ejecución del programa | Segmento de datos | {ref}`0x2004h` (Prohibición absoluta) |
+| **Local Estática (`static`)** | Local al bloque/función | Toda la ejecución del programa | Segmento de datos | Usar con moderación |
+:::
+
+### Variables Locales vs. Globales
+
+1. **Variables locales:** Se declaran dentro de un bloque o función. Su existencia es efímera, naciendo y muriendo con la ejecución de su bloque contenedor en el Stack. Esto garantiza el aislamiento y evita colisiones de nombres.
+2. **Variables globales:** Se declaran fuera de todas las funciones. Aunque permiten compartir datos fácilmente, introducen acoplamiento oculto y efectos secundarios impredecibles. De acuerdo con la regla {ref}`0x2004h`, **no debés usarlas**.
+
+### El Modificador de Almacenamiento `static`
+
+Cuando aplicás el modificador `static` a una variable local, alterás su tiempo de vida sin modificar su ámbito. La variable persistirá en el segmento de datos durante toda la ejecución del programa, inicializándose una única vez al comenzar. Sin embargo, su visibilidad permanece restringida únicamente al bloque de la función donde fue declarada.
+
+```c
+#include <stdio.h>
+
+void registrar_llamada() {
+    // Se inicializa una sola vez. Conserva su valor entre llamadas.
+    static int contador_accesos = 0; 
+    
+    // Variable local automática: se destruye en cada retorno
+    int temporal = 1; 
+
+    contador_accesos++;
+    temporal++;
+    
+    printf("Llamadas: %d, Temporal: %d\n", contador_accesos, temporal);
+}
+```
+
+:::{warning} Efecto Secundario y Pureza
+El uso de `static` conserva el estado interno de la función entre ejecuciones. Esto rompe la noción de función pura y puede dificultar las pruebas unitarias al hacer que el resultado de una llamada dependa de las ejecuciones anteriores. Utilizalo solo cuando el diseño técnico lo justifique plenamente.
+:::
+
 ---
 
 ## Glosario
