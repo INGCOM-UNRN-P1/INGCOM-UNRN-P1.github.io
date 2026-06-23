@@ -6,7 +6,7 @@ subtitle: Técnicas de ocultamiento de información y diseño modular
 
 ## Introducción
 
-Los **punteros opacos** (opaque pointers) son una técnica fundamental en C para implementar **encapsulamiento** y **ocultamiento de información** (information hiding). Esta técnica permite ocultar la implementación interna de una estructura de datos, exponiendo solo una interfaz pública al usuario, similar a como funcionan las clases privadas en lenguajes orientados a objetos.
+Los **punteros opacos** (opaque pointers) son una técnica fundamental en C para implementar **encapsulamiento** y **ocultamiento de información** (information hiding). Esta técnica permite ocultar la implementación interna de una estructura de datos, exponiendo solo una interfaz pública al usuario, de manera análoga al encapsulamiento de miembros privados de una clase pública en lenguajes orientados a objetos.
 
 El concepto de puntero opaco es esencial para construir **APIs robustas** y **bibliotecas mantenibles**, donde los detalles de implementación pueden cambiar sin romper el código cliente que las utiliza.
 
@@ -59,6 +59,10 @@ Exponer la definición completa de una estructura en el archivo de cabecera es u
 
 La técnica de punteros opacos consiste en **declarar la estructura en el archivo de cabecera pero definirla en el archivo de implementación**.
 
+:::{tip} Directivas de Estilo para TADs (regla {ref}`0x0035h`)
+Las directivas de diseño de la cátedra establecen que todos los Tipos de Datos Abstractos deben diseñarse utilizando punteros opacos. La interfaz expuesta en el archivo `.h` debe ser lo más limpia posible, documentando de manera exhaustiva sus precondiciones, poscondiciones y el comportamiento ante casos de error mediante comentarios estructurados (regla {ref}`0x0035h`).
+:::
+
 ### Estructura del Patrón
 
 #### Archivo de Cabecera (`.h`) - Interfaz Pública
@@ -107,12 +111,12 @@ pila_t *crear_pila(size_t capacidad) {
         return NULL;
     }
     
-    pila_t *pila = malloc(sizeof(pila_t));
+    pila_t *pila = malloc(sizeof(*pila));
     if (pila == NULL) {
         return NULL;
     }
     
-    pila->datos = malloc(sizeof(int) * capacidad);
+    pila->datos = malloc(capacidad * sizeof(*(pila->datos)));
     if (pila->datos == NULL) {
         free(pila);
         return NULL;
@@ -205,6 +209,10 @@ int main(void) {
     destruir_pila(p);
     return 0;
 }
+
+:::{warning} Gestión de Recursos y Robustez (regla {ref}`0x0003h` y {ref}`0x0036h`)
+Dado que las instancias de tipos opacos se alocan dinámicamente en el heap, es mandatorio que el constructor inicialice todos sus campos a valores seguros o `NULL` (regla {ref}`0x0003h`). Asimismo, al destruir la estructura mediante su función liberadora, debe asignarse `NULL` al puntero en el ámbito del cliente para evitar el uso accidental de punteros colgantes (regla {ref}`0x0036h`).
+:::
 ```
 
 ---
@@ -263,8 +271,20 @@ El código cliente **NO puede**:
    pila_t copia = *p;  // ❌ ERROR: incomplete type
    ```
 
-:::{note} Tamaño del Puntero
-Aunque el tipo es incompleto, el **puntero** tiene tamaño conocido (típicamente 8 bytes en sistemas de 64 bits), porque todos los punteros tienen el mismo tamaño independientemente del tipo al que apuntan.
+### Compilación Separada y el Rol del Enlazador
+
+Para entender por qué es posible trabajar con tipos incompletos en C, debemos analizar el proceso de **compilación separada**:
+
+1. **La Fase de Compilación:** Cada archivo fuente `.c` (ej. `main.c` y `pila.c`) se compila de manera independiente para producir un archivo objeto (ej. `main.o` y `pila.o`).
+   - Cuando el compilador procesa `main.c`, solo lee la cabecera `pila.h`. Al encontrar la declaración de tipo opaco `typedef struct pila pila_t;`, registra `pila_t` como un tipo incompleto.
+   - El compilador no necesita saber cuántos campos tiene `struct pila` ni su tamaño total en memoria para compilar `main.c`. Solo necesita saber el tamaño de las variables declaradas en `main.c`. Dado que en `main.c` solo se declaran **punteros** a `pila_t` (como `pila_t *p`), y el tamaño de cualquier puntero a estructura en C es constante (típicamente 8 bytes en sistemas de 64 bits, sin importar a qué estructura apunte), el compilador puede reservar el espacio adecuado y generar el archivo objeto `main.o` con éxito.
+2. **La Fase de Enlazado (Linking):** El enlazador toma los archivos objeto `main.o` y `pila.o` y los une en el ejecutable final.
+   - Es en `pila.o` donde reside la definición concreta de `struct pila` y el cuerpo de las funciones (como `crear_pila` y `apilar`).
+   - El enlazador se encarga de resolver las direcciones de las llamadas a funciones en `main.o`, redirigiéndolas a las implementaciones reales presentes en `pila.o`.
+   - Así, el ocultamiento es físico: en tiempo de compilación, el cliente no posee la estructura detallada; en tiempo de ejecución, el enlazador conecta las llamadas y las funciones del TAD operan sobre el espacio de memoria real asignado dinámicamente en el heap.
+
+:::{note} El Tamaño del Puntero es Constante
+Un puntero en C simplemente almacena una dirección de memoria. Independientemente de si apunta a un tipo básico (`char`, `int`), a una estructura gigante o a un tipo incompleto (puntero opaco), el tamaño requerido para almacenar esa dirección es exactamente el mismo en una arquitectura de hardware específica.
 :::
 
 ---
@@ -445,25 +465,19 @@ Aunque `void *` también oculta la implementación, **no es la forma idiomática
 // Tipo opaco
 typedef struct lista lista_t;
 
-// Tipo de función para iterar
-typedef void (*lista_visitar_fn)(void *dato, void *extra);
-
 // Constructor/Destructor
 lista_t *crear_lista(void);
 void destruir_lista(lista_t *lista);
 
 // Operaciones básicas
-bool insertar_al_inicio(lista_t *lista, void *dato);
-bool insertar_al_final(lista_t *lista, void *dato);
-bool eliminar_primero(lista_t *lista, void **dato);
-void *ver_primero(const lista_t *lista);
+bool insertar_al_inicio(lista_t *lista, int dato);
+bool insertar_al_final(lista_t *lista, int dato);
+bool eliminar_primero(lista_t *lista, int *dato);
+bool ver_primero(const lista_t *lista, int *dato);
 
 // Consultas
 bool esta_vacia(const lista_t *lista);
 size_t obtener_largo(const lista_t *lista);
-
-// Iteración
-void iterar(lista_t *lista, lista_visitar_fn funcion, void *extra);
 
 #endif  // LISTA_H
 ```
@@ -476,7 +490,7 @@ void iterar(lista_t *lista, lista_visitar_fn funcion, void *extra);
 
 // Nodo interno - completamente privado
 typedef struct nodo {
-    void *dato;
+    int dato;
     struct nodo *siguiente;
 } nodo_t;
 
@@ -489,7 +503,8 @@ struct lista {
 
 // Implementaciones
 lista_t *crear_lista(void) {
-    lista_t *lista = malloc(sizeof(lista_t));
+    // Asignación robusta desreferenciando el puntero (regla {ref}`0x0003h`)
+    lista_t *lista = malloc(sizeof(*lista));
     if (lista == NULL) {
         return NULL;
     }
@@ -514,12 +529,12 @@ void destruir_lista(lista_t *lista) {
     free(lista);
 }
 
-bool insertar_al_inicio(lista_t *lista, void *dato) {
+bool insertar_al_inicio(lista_t *lista, int dato) {
     if (lista == NULL) {
         return false;
     }
     
-    nodo_t *nuevo = malloc(sizeof(nodo_t));
+    nodo_t *nuevo = malloc(sizeof(*nuevo));
     if (nuevo == NULL) {
         return false;
     }
@@ -536,12 +551,12 @@ bool insertar_al_inicio(lista_t *lista, void *dato) {
     return true;
 }
 
-bool insertar_al_final(lista_t *lista, void *dato) {
+bool insertar_al_final(lista_t *lista, int dato) {
     if (lista == NULL) {
         return false;
     }
     
-    nodo_t *nuevo = malloc(sizeof(nodo_t));
+    nodo_t *nuevo = malloc(sizeof(*nuevo));
     if (nuevo == NULL) {
         return false;
     }
@@ -561,13 +576,15 @@ bool insertar_al_final(lista_t *lista, void *dato) {
     return true;
 }
 
-bool eliminar_primero(lista_t *lista, void **dato) {
-    if (lista == NULL || lista->primero == NULL || dato == NULL) {
+bool eliminar_primero(lista_t *lista, int *dato) {
+    if (lista == NULL || lista->primero == NULL) {
         return false;
     }
     
     nodo_t *primero = lista->primero;
-    *dato = primero->dato;
+    if (dato != NULL) {
+        *dato = primero->dato;
+    }
     
     lista->primero = primero->siguiente;
     if (lista->primero == NULL) {
@@ -579,11 +596,14 @@ bool eliminar_primero(lista_t *lista, void **dato) {
     return true;
 }
 
-void *ver_primero(const lista_t *lista) {
+bool ver_primero(const lista_t *lista, int *dato) {
     if (lista == NULL || lista->primero == NULL) {
-        return NULL;
+        return false;
     }
-    return lista->primero->dato;
+    if (dato != NULL) {
+        *dato = lista->primero->dato;
+    }
+    return true;
 }
 
 bool esta_vacia(const lista_t *lista) {
@@ -596,18 +616,6 @@ size_t obtener_largo(const lista_t *lista) {
     }
     return lista->largo;
 }
-
-void iterar(lista_t *lista, lista_visitar_fn funcion, void *extra) {
-    if (lista == NULL || funcion == NULL) {
-        return;
-    }
-    
-    nodo_t *actual = lista->primero;
-    while (actual != NULL) {
-        funcion(actual->dato, extra);
-        actual = actual->siguiente;
-    }
-}
 ```
 
 ### Uso del Cliente
@@ -616,24 +624,22 @@ void iterar(lista_t *lista, lista_visitar_fn funcion, void *extra) {
 #include <stdio.h>
 #include "lista.h"
 
-void imprimir_entero(void *dato, void *extra) {
-    int *num = (int *)dato;
-    printf("%d ", *num);
-}
-
 int main(void) {
     lista_t *lista = crear_lista();
+    if (lista == NULL) {
+        return 1;
+    }
     
-    int a = 10, b = 20, c = 30;
-    insertar_al_final(lista, &a);
-    insertar_al_final(lista, &b);
-    insertar_al_final(lista, &c);
+    insertar_al_final(lista, 10);
+    insertar_al_final(lista, 20);
+    insertar_al_final(lista, 30);
     
-    printf("Lista: ");
-    iterar(lista, imprimir_entero, NULL);
-    printf("\n");
+    printf("Largo de la lista: %zu\n", obtener_largo(lista));
     
-    printf("Largo: %zu\n", obtener_largo(lista));
+    int valor;
+    while (eliminar_primero(lista, &valor)) {
+        printf("Elemento eliminado: %d\n", valor);
+    }
     
     destruir_lista(lista);
     return 0;
@@ -804,7 +810,7 @@ pila_t *p = crear_pila(10);
 No podés hacer copia superficial:
 
 ```c
-pila_t *copia = *original;  // ERROR: incomplete type
+pila_t copia = *original;  // ERROR: incomplete type
 ```
 
 **Solución:** Proveer función de copia explícita:

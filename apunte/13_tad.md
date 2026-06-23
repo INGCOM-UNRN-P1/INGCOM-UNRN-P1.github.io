@@ -33,81 +33,56 @@ El principio de **encapsulamiento** implica que los datos internos de un TAD no 
 La abstracción no es solo ocultar información, sino proporcionar una interfaz clara y coherente que permita utilizar la estructura de datos de manera intuitiva y segura.
 :::
 
-#### Conexión con la Programación Orientada a Objetos
+#### Encapsulamiento mediante Punteros Opacos en C
 
-Los conceptos de TAD, encapsulamiento y abstracción que estamos estudiando en C son los **mismos principios fundamentales** de la **Programación Orientada a Objetos (POO)**. De hecho, los TADs son el precursor histórico de las clases en lenguajes orientados a objetos.
+Para garantizar el ocultamiento de la representación interna, C permite declarar tipos incompletos en el archivo de cabecera (`.h`) y definir su estructura en el archivo de implementación (`.c`). Esto se conoce como **puntero opaco**.
 
-**Comparación TAD en C vs Clase en POO:**
-
-| Concepto POO | Equivalente en TAD (C) | Propósito |
-|--------------|------------------------|-----------|
-| **Clase** | Tipo definido (struct + funciones) | Plantilla para crear objetos/instancias |
-| **Objeto** | Instancia del TAD (puntero a struct) | Dato concreto en memoria |
-| **Atributos privados** | Campos de struct (ocultos en .c) | Estado interno encapsulado |
-| **Métodos públicos** | Funciones en .h | Interfaz pública |
-| **Constructor** | Función `crear_*()` | Inicialización |
-| **Destructor** | Función `destruir_*()` | Liberación de recursos |
-| **Encapsulamiento** | Punteros opacos + separación .h/.c | Ocultamiento de implementación |
-
-**Ejemplo conceptual:**
-
-En **Java/C++/Python**, escribirías:
-```python
-class Lista:
-    def __init__(self):
-        self._inicio = None       # Atributo privado
-        self._tamanio = 0
-    
-    def insertar(self, dato):     # Método público
-        # implementación...
-        pass
-    
-    def __del__(self):
-        # liberación...
-        pass
-```
-
-En **C con TAD**, el equivalente es:
+**Ejemplo de interfaz pública (`lista.h`):**
 ```c
-// lista.h - Interfaz pública (como la declaración de clase)
-typedef struct lista lista_t;  // Declaración opaca
+#ifndef LISTA_H
+#define LISTA_H
 
-lista_t *crear_lista(void);           // Constructor
-bool insertar_al_inicio(lista_t *lista, int dato);  // Método
-void destruir_lista(lista_t *lista);  // Destructor
+#include <stdbool.h>
+#include <stddef.h>
 
-// lista.c - Implementación privada (como el cuerpo de la clase)
-struct lista {
-    nodo_t *inicio;
-    size_t tamanio;
-};
+// Declaración incompleta (puntero opaco)
+typedef struct lista lista_t;
+
+// Operaciones públicas
+lista_t *lista_crear(void);
+bool lista_insertar(lista_t *lista, int dato);
+void lista_destruir(lista_t *lista);
+
+#endif // LISTA_H
 ```
 
-:::{note} Pilares de la POO en TADs
+**Ejemplo de implementación interna (`lista.c`):**
+```c
+#include "lista.h"
+#include <stdlib.h>
 
-Los **4 pilares de la POO** ya están presentes en los TADs bien diseñados:
+// Definición completa de la estructura
+struct lista {
+    int *elementos;
+    size_t cantidad;
+    size_t capacidad;
+};
 
-1. **Encapsulamiento:** Ocultamos los detalles de implementación (struct en .c, solo puntero opaco en .h)
-2. **Abstracción:** Exponemos solo las operaciones necesarias (funciones en .h)
-3. **Modularidad:** Separación clara entre interfaz (.h) e implementación (.c)
-4. **Polimorfismo:** En C se logra mediante punteros a función (aunque no lo usamos en esta introducción)
+lista_t *lista_crear(void)
+{
+    lista_t *l = malloc(sizeof(*l));
+    if (l == NULL)
+    {
+        return NULL;
+    }
+    l->elementos = NULL;
+    l->cantidad = 0;
+    l->capacidad = 0;
+    return l;
+}
+```
 
-La **herencia** es el único pilar que C no soporta directamente, aunque puede simularse con composición.
-:::
-
-#### Por qué es importante esta conexión
-
-Comprender TADs en C te prepara para entender POO en cualquier lenguaje porque:
-
-1. **Los conceptos son idénticos:** Solo cambia la sintaxis, no los principios
-2. **Pensás en términos de interfaz vs implementación:** Habilidad esencial en diseño de software
-3. **Apreciás el valor del encapsulamiento:** Independientemente del lenguaje
-4. **Entendés el costo real:** En C ves explícitamente la gestión de memoria que los lenguajes OO ocultan
-
-:::{tip} De C a POO
-
-Cuando luego aprendas lenguajes orientados a objetos (Java, C++, Python), reconocerás que las clases son esencialmente TADs con sintaxis más conveniente y características adicionales como herencia y polimorfismo. El conocimiento de TADs te da una ventaja: entendés qué hace el lenguaje "por debajo" cuando creás objetos.
-:::
+Con este esquema, cualquier archivo que incluya `lista.h` no podrá acceder a los campos `elementos`, `cantidad` o `capacidad` de manera directa (por ejemplo, haciendo `lista->cantidad`), ya que el compilador desconoce el tamaño y los campos de `struct lista`. Esto previene el acoplamiento y asegura que toda interacción se realice exclusivamente a través de las funciones de la interfaz.
 
 ## TAD vs. Estructura de Datos
 
@@ -140,80 +115,12 @@ Crear un TAD es un ejercicio de diseño centrado en la abstracción. Seguir un p
 
 ## Asignación de Memoria: Estática vs. Dinámica
 
-Antes de implementar estructuras de datos dinámicas, es crucial comprender la diferencia entre memoria estática y dinámica. Esta sección presenta un resumen de los conceptos fundamentales; para un tratamiento exhaustivo, consultá el apunte sobre {ref}`memoria-introduccion`.
+El diseño e implementación de Tipos de Datos Abstractos en C requiere una gestión rigurosa de la memoria. La elección entre el ciclo de vida automático en el *stack* (memoria estática) o el ciclo de vida dinámico en el *heap* (memoria dinámica) define cómo se almacenan, acceden y destruyen los elementos del TAD.
 
-```{figure} 13/memoria_estatica_dinamica.svg
-:label: fig-memoria-estatica-dinamica
-:align: center
+Para un análisis detallado sobre el funcionamiento del stack, consultá la sección {ref}`memoria-stack` en el apunte correspondiente. Asimismo, los detalles operativos de la asignación dinámica, el uso del heap y la gestión de errores mediante `malloc`, `realloc` y `free` se abordan en profundidad en {ref}`memoria-heap` y {ref}`memoria-errores`.
 
-Comparación entre asignación de memoria estática (en el stack) y dinámica (en el heap).
-```
-
-### Memoria Estática
-
-La memoria estática se asigna en el **stack** (pila de llamadas) durante la compilación o al momento de declarar una variable. Para profundizar en el funcionamiento del stack, consultá {ref}`memoria-stack`. Sus características son:
-
-- **Tamaño fijo:** Debe conocerse en tiempo de compilación.
-- **Duración:** Existe mientras el ámbito de la variable esté activo.
-- **Liberación automática:** Se libera al salir del ámbito.
-- **Rápida:** El acceso es directo y eficiente.
-- **Limitada:** El stack tiene un tamaño máximo (típicamente 1-8 MB).
-
-```c
-void funcion(void)
-{
-    int numeros[100];        // 400 bytes en el stack
-    char nombre[50];         // 50 bytes en el stack
-    
-    // Al finalizar la función, la memoria se libera automáticamente
-}
-```
-
-### Memoria Dinámica
-
-La memoria dinámica se asigna en el **heap** (montículo) durante la ejecución del programa mediante funciones como `malloc`, `calloc` o `realloc`. Para detalles sobre el funcionamiento del heap y técnicas avanzadas, consultá {ref}`memoria-heap`. Sus características son:
-
-- **Tamaño flexible:** Puede determinarse en tiempo de ejecución.
-- **Duración:** Persiste hasta que se libere explícitamente con `free`.
-- **Liberación manual:** El programador es responsable de liberar la memoria.
-- **Mayor capacidad:** El heap es mucho más grande que el stack.
-- **Acceso mediante punteros:** Se requieren punteros para acceder a la memoria asignada.
-
-```c
-void procesar_datos(int cantidad)
-{
-    int *numeros = NULL;
-    
-    numeros = malloc(cantidad * sizeof(int));
-    
-    if (numeros == NULL)
-    {
-        fprintf(stderr, "Error: no se pudo asignar memoria\n");
-        return;
-    }
-    
-    // Usar el arreglo...
-    
-    // IMPORTANTE: Liberar la memoria cuando ya no se necesita
-    free(numeros);
-    numeros = NULL;
-}
-```
-
-:::{warning}
-No liberar la memoria dinámica asignada produce **fugas de memoria** (*memory leaks*), donde la memoria se pierde hasta que el programa termine. Esto puede agotar los recursos del sistema. Para más información sobre errores comunes y cómo detectarlos, consultá {ref}`memoria-errores`.
-:::
-
-### ¿Cuándo usar cada tipo?
-
-- **Memoria estática:** Cuando el tamaño es conocido, pequeño y constante.
-- **Memoria dinámica:** Cuando el tamaño depende de la entrada del usuario, es grande, o varía durante la ejecución.
-
-Para una discusión más profunda sobre las implicaciones de rendimiento de estas decisiones, consultá {ref}`memoria-modelo-costos`.
-
-:::{tip} Aplicación de {ref}`0x0003h` y {ref}`0x0036h`
-
-Siempre debés inicializar los punteros, preferentemente a `NULL` (regla {ref}`0x0003h`), y verificar que `malloc` no retorne `NULL` antes de usar la memoria asignada. Además, después de liberar memoria con `free`, asignále `NULL` al puntero (regla {ref}`0x0036h`) para evitar punteros colgantes. Para buenas prácticas adicionales sobre gestión de memoria, consultá {ref}`memoria-buenas-practicas`.
+:::{important}
+En este apunte se utiliza prioritariamente la asignación dinámica de memoria en el heap para permitir que las estructuras de datos tengan un tamaño variable y flexible en tiempo de ejecución. Recordá aplicar siempre las buenas prácticas de inicialización y liberación de punteros documentadas en {ref}`memoria-buenas-practicas` (reglas {ref}`0x0003h` y {ref}`0x0036h`).
 :::
 
 ## Tipificación de Acciones
@@ -1289,116 +1196,133 @@ Representación en memoria de una pila implementada con lista enlazada. El tope 
 
 #### Estructura de Datos
 
-```
-Nodo:
-    dato: entero
-    siguiente: puntero a Nodo
+```c
+typedef struct nodo {
+    int dato;
+    struct nodo *siguiente;
+} nodo_t;
 
-Pila:
-    tope: puntero a Nodo
-    tamanio: entero
+struct pila {
+    nodo_t *tope;
+    size_t tamanio;
+};
 ```
 
 #### Creación de una Pila
 
-```
-función crear_pila() → Pila:
-    pila ← nueva Pila
-    
-    si pila = NULO entonces
-        retornar NULO
-    fin si
-    
-    pila.tope ← NULO
-    pila.tamanio ← 0
-    
-    retornar pila
-fin función
+```c
+pila_t *pila_crear(void)
+{
+    pila_t *pila = malloc(sizeof(*pila));
+    if (pila == NULL)
+    {
+        return NULL;
+    }
+    pila->tope = NULL;
+    pila->tamanio = 0;
+    return pila;
+}
 ```
 
 #### Apilar (Push)
 
-```
-función push(pila: Pila, dato: entero) → booleano:
-    si pila = NULO entonces
-        retornar falso
-    fin si
+```c
+bool pila_push(pila_t *pila, int dato)
+{
+    if (pila == NULL)
+    {
+        return false;
+    }
     
-    nuevo ← nuevo Nodo
+    nodo_t *nuevo = malloc(sizeof(*nuevo));
+    if (nuevo == NULL)
+    {
+        return false;
+    }
     
-    si nuevo = NULO entonces
-        retornar falso
-    fin si
+    nuevo->dato = dato;
+    nuevo->siguiente = pila->tope;
+    pila->tope = nuevo;
+    pila->tamanio++;
     
-    nuevo.dato ← dato
-    nuevo.siguiente ← pila.tope
-    pila.tope ← nuevo
-    pila.tamanio ← pila.tamanio + 1
-    
-    retornar verdadero
-fin función
+    return true;
+}
 ```
 
 :::{note}
-La operación `push` es idéntica a insertar al inicio en una lista enlazada. Esto es porque el tope de la pila es el primer elemento de la lista.
+La operación `pila_push` es equivalente a realizar una inserción al inicio en una lista enlazada, siendo el tope de la pila el primer elemento de la lista.
 :::
 
 #### Desapilar (Pop)
 
-```
-función pop(pila: Pila, dato: referencia a entero) → booleano:
-    si pila = NULO o pila.tope = NULO entonces
-        retornar falso
-    fin si
+```c
+bool pila_pop(pila_t *pila, int *dato)
+{
+    if (pila == NULL || pila->tope == NULL)
+    {
+        return false;
+    }
     
-    nodo_a_eliminar ← pila.tope
-    dato ← nodo_a_eliminar.dato
-    pila.tope ← nodo_a_eliminar.siguiente
+    nodo_t *nodo_a_eliminar = pila->tope;
+    if (dato != NULL)
+    {
+        *dato = nodo_a_eliminar->dato;
+    }
+    pila->tope = nodo_a_eliminar->siguiente;
     
-    liberar(nodo_a_eliminar)
-    pila.tamanio ← pila.tamanio - 1
+    free(nodo_a_eliminar);
+    pila->tamanio--;
     
-    retornar verdadero
-fin función
+    return true;
+}
 ```
 
 #### Ver Tope (Peek)
 
-```
-función peek(pila: Pila, dato: referencia a entero) → booleano:
-    si pila = NULO o pila.tope = NULO entonces
-        retornar falso
-    fin si
+```c
+bool pila_peek(const pila_t *pila, int *dato)
+{
+    if (pila == NULL || pila->tope == NULL)
+    {
+        return false;
+    }
     
-    dato ← pila.tope.dato
-    retornar verdadero
-fin función
+    if (dato != NULL)
+    {
+        *dato = pila->tope->dato;
+    }
+    return true;
+}
 ```
 
 #### Verificar si está Vacía
 
-```
-función es_vacia(pila: Pila) → booleano:
-    retornar pila = NULO o pila.tope = NULO
-fin función
+```c
+bool pila_es_vacia(const pila_t *pila)
+{
+    return (pila == NULL) || (pila->tope == NULL);
+}
 ```
 
 #### Destruir Pila
 
-```
-función destruir_pila(pila: Pila):
-    si pila = NULO entonces
-        retornar
-    fin si
+```c
+void pila_destruir(pila_t *pila)
+{
+    if (pila == NULL)
+    {
+        return;
+    }
     
-    mientras pila.tope ≠ NULO hacer
-        nodo_actual ← pila.tope
-        pila.tope ← nodo_actual.siguiente
-        liberar(nodo_actual)
-    fin mientras
+    while (pila->tope != NULL)
+    {
+        nodo_t *nodo_actual = pila->tope;
+        pila->tope = nodo_actual->siguiente;
+        free(nodo_actual);
+    }
     
-    liberar(pila)
-fin función
+    free(pila);
+}
 ```
 
 :::{important}
@@ -1427,96 +1351,106 @@ Pila implementada con arreglo. El índice `tope` indica la posición del último
 
 #### Estructura de Datos
 
-```
-Pila:
-    elementos: arreglo de enteros
-    tope: entero (índice del último elemento)
-    capacidad: entero (tamaño total del arreglo)
+```c
+struct pila {
+    int *elementos;
+    size_t tope;       // Próximo índice libre / Cantidad de elementos
+    size_t capacidad;  // Capacidad total del arreglo
+};
 ```
 
 #### Creación con Capacidad Inicial
 
-```
-función crear_pila_arreglo(capacidad_inicial: entero) → Pila:
-    si capacidad_inicial ≤ 0 entonces
-        retornar NULO
-    fin si
+```c
+pila_t *pila_crear_arreglo(size_t capacidad_inicial)
+{
+    if (capacidad_inicial == 0)
+    {
+        return NULL;
+    }
     
-    pila ← nueva Pila
-    si pila = NULO entonces
-        retornar NULO
-    fin si
+    pila_t *pila = malloc(sizeof(*pila));
+    if (pila == NULL)
+    {
+        return NULL;
+    }
     
-    pila.elementos ← nuevo arreglo de tamaño capacidad_inicial
-    si pila.elementos = NULO entonces
-        liberar(pila)
-        retornar NULO
-    fin si
+    pila->elementos = malloc(capacidad_inicial * sizeof(*(pila->elementos)));
+    if (pila->elementos == NULL)
+    {
+        free(pila);
+        return NULL;
+    }
     
-    pila.tope ← -1
-    pila.capacidad ← capacidad_inicial
+    pila->tope = 0;
+    pila->capacidad = capacidad_inicial;
     
-    retornar pila
-fin función
+    return pila;
+}
 ```
 
 #### Apilar con Redimensionamiento
 
-```
-función push_arreglo(pila: Pila, dato: entero) → booleano:
-    si pila = NULO entonces
-        retornar falso
-    fin si
+```c
+static bool pila_redimensionar(pila_t *pila)
+{
+    size_t nueva_capacidad = pila->capacidad * 2;
+    int *nuevo_arreglo = realloc(pila->elementos, nueva_capacidad * sizeof(*nuevo_arreglo));
+    if (nuevo_arreglo == NULL)
+    {
+        return false;
+    }
     
-    si pila.tope + 1 ≥ pila.capacidad entonces
-        si no redimensionar(pila) entonces
-            retornar falso
-        fin si
-    fin si
+    pila->elementos = nuevo_arreglo;
+    pila->capacidad = nueva_capacidad;
     
-    pila.tope ← pila.tope + 1
-    pila.elementos[pila.tope] ← dato
-    
-    retornar verdadero
-fin función
+    return true;
+}
 
-función redimensionar(pila: Pila) → booleano:
-    nueva_capacidad ← pila.capacidad * 2
-    nuevo_arreglo ← nuevo arreglo de tamaño nueva_capacidad
+bool pila_push_arreglo(pila_t *pila, int dato)
+{
+    if (pila == NULL)
+    {
+        return false;
+    }
     
-    si nuevo_arreglo = NULO entonces
-        retornar falso
-    fin si
+    if (pila->tope >= pila->capacidad)
+    {
+        if (!pila_redimensionar(pila))
+        {
+            return false;
+        }
+    }
     
-    para i desde 0 hasta pila.tope hacer
-        nuevo_arreglo[i] ← pila.elementos[i]
-    fin para
+    pila->elementos[pila->tope] = dato;
+    pila->tope++;
     
-    liberar(pila.elementos)
-    pila.elementos ← nuevo_arreglo
-    pila.capacidad ← nueva_capacidad
-    
-    retornar verdadero
-fin función
+    return true;
+}
 ```
 
 :::{tip}
-El factor de redimensionamiento (comúnmente 2) es importante. Duplicar la capacidad garantiza que el costo amortizado de `push` sea $O(1)$, aunque un `push` individual pueda ser $O(n)$ cuando requiere redimensionar. Para entender cómo se calcula formalmente el análisis amortizado usando el método del banquero o el método del potencial, consultá la sección sobre análisis amortizado en {ref}`complejidad-introduccion`.
+El factor de redimensionamiento (comúnmente 2) es importante. Duplicar la capacidad garantiza que el costo amortizado de `pila_push_arreglo` sea $O(1)$, aunque un `push` individual pueda ser $O(n)$ cuando requiere redimensionar. Para entender cómo se calcula formalmente el análisis amortizado usando el método del banquero o el método del potencial, consultá la sección sobre análisis amortizado en {ref}`complejidad-introduccion`.
 :::
 
 #### Desapilar (Arreglo)
 
-```
-función pop_arreglo(pila: Pila, dato: referencia a entero) → booleano:
-    si pila = NULO o pila.tope < 0 entonces
-        retornar falso
-    fin si
+```c
+bool pila_pop_arreglo(pila_t *pila, int *dato)
+{
+    if (pila == NULL || pila->tope == 0)
+    {
+        return false;
+    }
     
-    dato ← pila.elementos[pila.tope]
-    pila.tope ← pila.tope - 1
+    pila->tope--;
+    if (dato != NULL)
+    {
+        *dato = pila->elementos[pila->tope];
+    }
     
-    retornar verdadero
-fin función
+    return true;
+}
 ```
 
 ### Análisis de Complejidad (Arreglo)
@@ -1544,26 +1478,47 @@ Las pilas aparecen naturalmente en numerosos contextos de programación:
 
 #### Ejemplo: Verificación de Paréntesis Balanceados
 
-```
-función parentesis_balanceados(expresion: cadena) → booleano:
-    pila ← crear_pila()
+```c
+bool parentesis_balanceados(const char *expresion)
+{
+    if (expresion == NULL)
+    {
+        return false;
+    }
     
-    para cada caracter en expresion hacer
-        si caracter = '(' entonces
-            push(pila, caracter)
-        sino si caracter = ')' entonces
-            si es_vacia(pila) entonces
-                destruir_pila(pila)
-                retornar falso
-            fin si
-            pop(pila, temporal)
-        fin si
-    fin para
+    pila_t *pila = pila_crear();
+    if (pila == NULL)
+    {
+        return false;
+    }
     
-    resultado ← es_vacia(pila)
-    destruir_pila(pila)
-    retornar resultado
-fin función
+    for (size_t i = 0; expresion[i] != '\0'; i++)
+    {
+        char caracter = expresion[i];
+        if (caracter == '(')
+        {
+            if (!pila_push(pila, caracter))
+            {
+                pila_destruir(pila);
+                return false;
+            }
+        }
+        else if (caracter == ')')
+        {
+            if (pila_es_vacia(pila))
+            {
+                pila_destruir(pila);
+                return false;
+            }
+            int temporal;
+            pila_pop(pila, &temporal);
+        }
+    }
+    
+    bool resultado = pila_es_vacia(pila);
+    pila_destruir(pila);
+    return resultado;
+}
 ```
 
 ## Colas (Queues)
@@ -1595,130 +1550,151 @@ Representación en memoria de una cola implementada con lista enlazada. Se manti
 
 #### Estructura de Datos
 
-```
-Nodo:
-    dato: entero
-    siguiente: puntero a Nodo
+```c
+typedef struct nodo {
+    int dato;
+    struct nodo *siguiente;
+} nodo_t;
 
-Cola:
-    frente: puntero a Nodo
-    final: puntero a Nodo
-    tamanio: entero
+struct cola {
+    nodo_t *frente;
+    nodo_t *final;
+    size_t tamanio;
+};
 ```
 
 :::{note}
-A diferencia de la pila que solo necesita un puntero, la cola necesita dos: uno al frente (para dequeue) y otro al final (para enqueue). Esto permite operaciones $O(1)$ en ambos extremos.
+A diferencia de la pila que solo requiere de un puntero al tope, la cola utiliza dos punteros: uno al frente (para `cola_dequeue`) y otro al final (para `cola_enqueue`). Esto garantiza que ambas operaciones se ejecuten en tiempo constante $O(1)$.
 :::
 
 #### Creación de una Cola
 
-```
-función crear_cola() → Cola:
-    cola ← nueva Cola
+```c
+cola_t *cola_crear(void)
+{
+    cola_t *cola = malloc(sizeof(*cola));
+    if (cola == NULL)
+    {
+        return NULL;
+    }
     
-    si cola = NULO entonces
-        retornar NULO
-    fin si
+    cola->frente = NULL;
+    cola->final = NULL;
+    cola->tamanio = 0;
     
-    cola.frente ← NULO
-    cola.final ← NULO
-    cola.tamanio ← 0
-    
-    retornar cola
-fin función
+    return cola;
+}
 ```
 
 #### Encolar (Enqueue)
 
-```
-función enqueue(cola: Cola, dato: entero) → booleano:
-    si cola = NULO entonces
-        retornar falso
-    fin si
+```c
+bool cola_enqueue(cola_t *cola, int dato)
+{
+    if (cola == NULL)
+    {
+        return false;
+    }
     
-    nuevo ← nuevo Nodo
-    si nuevo = NULO entonces
-        retornar falso
-    fin si
+    nodo_t *nuevo = malloc(sizeof(*nuevo));
+    if (nuevo == NULL)
+    {
+        return false;
+    }
     
-    nuevo.dato ← dato
-    nuevo.siguiente ← NULO
+    nuevo->dato = dato;
+    nuevo->siguiente = NULL;
     
-    si cola.final = NULO entonces
-        // Cola vacía
-        cola.frente ← nuevo
-        cola.final ← nuevo
-    sino
-        cola.final.siguiente ← nuevo
-        cola.final ← nuevo
-    fin si
+    if (cola->final == NULL)
+    {
+        cola->frente = nuevo;
+        cola->final = nuevo;
+    }
+    else
+    {
+        cola->final->siguiente = nuevo;
+        cola->final = nuevo;
+    }
     
-    cola.tamanio ← cola.tamanio + 1
-    retornar verdadero
-fin función
+    cola->tamanio++;
+    return true;
+}
 ```
 
 :::{important}
-Hay que manejar el caso especial cuando la cola está vacía. En ese caso, tanto `frente` como `final` deben apuntar al nuevo nodo.
+Es indispensable considerar el caso particular de la cola vacía. En tal situación, tanto el puntero `frente` como el puntero `final` deben referenciar al nuevo nodo creado.
 :::
 
 #### Desencolar (Dequeue)
 
-```
-función dequeue(cola: Cola, dato: referencia a entero) → booleano:
-    si cola = NULO o cola.frente = NULO entonces
-        retornar falso
-    fin si
+```c
+bool cola_dequeue(cola_t *cola, int *dato)
+{
+    if (cola == NULL || cola->frente == NULL)
+    {
+        return false;
+    }
     
-    nodo_a_eliminar ← cola.frente
-    dato ← nodo_a_eliminar.dato
-    cola.frente ← nodo_a_eliminar.siguiente
+    nodo_t *nodo_a_eliminar = cola->frente;
+    if (dato != NULL)
+    {
+        *dato = nodo_a_eliminar->dato;
+    }
+    cola->frente = nodo_a_eliminar->siguiente;
     
-    si cola.frente = NULO entonces
-        // Cola quedó vacía
-        cola.final ← NULO
-    fin si
+    if (cola->frente == NULL)
+    {
+        cola->final = NULL;
+    }
     
-    liberar(nodo_a_eliminar)
-    cola.tamanio ← cola.tamanio - 1
+    free(nodo_a_eliminar);
+    cola->tamanio--;
     
-    retornar verdadero
-fin función
+    return true;
+}
 ```
 
 :::{important}
-Cuando desencolamos el último elemento, la cola queda vacía. En ese caso, además de actualizar `frente`, debemos poner `final` en NULO.
+Al extraer el último elemento de la cola, esta queda vacía. En ese escenario, además de actualizar el puntero `frente` a `NULL`, es necesario establecer el puntero `final` en `NULL`.
 :::
 
 #### Ver Frente (Peek)
 
-```
-función peek_cola(cola: Cola, dato: referencia a entero) → booleano:
-    si cola = NULO o cola.frente = NULO entonces
-        retornar falso
-    fin si
+```c
+bool cola_peek(const cola_t *cola, int *dato)
+{
+    if (cola == NULL || cola->frente == NULL)
+    {
+        return false;
+    }
     
-    dato ← cola.frente.dato
-    retornar verdadero
-fin función
+    if (dato != NULL)
+    {
+        *dato = cola->frente->dato;
+    }
+    return true;
+}
 ```
 
 #### Destruir Cola
 
-```
-función destruir_cola(cola: Cola):
-    si cola = NULO entonces
-        retornar
-    fin si
+```c
+void cola_destruir(cola_t *cola)
+{
+    if (cola == NULL)
+    {
+        return;
+    }
     
-    mientras cola.frente ≠ NULO hacer
-        nodo_actual ← cola.frente
-        cola.frente ← nodo_actual.siguiente
-        liberar(nodo_actual)
-    fin mientras
+    while (cola->frente != NULL)
+    {
+        nodo_t *nodo_actual = cola->frente;
+        cola->frente = nodo_actual->siguiente;
+        free(nodo_actual);
+    }
     
-    liberar(cola)
-fin función
+    free(cola);
+}
 ```
 
 ### Análisis de Complejidad (Lista Enlazada)
@@ -1743,118 +1719,129 @@ Cola implementada como arreglo circular. Los índices se calculan módulo la cap
 
 #### Estructura de Datos
 
-```
-Cola:
-    elementos: arreglo de enteros
-    frente: entero (índice del primer elemento)
-    final: entero (índice después del último elemento)
-    tamanio: entero (cantidad de elementos)
-    capacidad: entero (tamaño del arreglo)
+```c
+struct cola {
+    int *elementos;
+    size_t frente;
+    size_t final;
+    size_t tamanio;
+    size_t capacidad;
+};
 ```
 
 :::{note}
-En un arreglo circular, el índice `final` apunta a la posición **después** del último elemento. Esto simplifica la lógica de detección de cola vacía/llena.
+En esta implementación con arreglo circular, el índice `final` apunta a la posición **después** del último elemento. Esto simplifica la lógica de detección de cola vacía o llena.
 :::
 
 #### Creación de Cola Circular
 
-```
-función crear_cola_circular(capacidad_inicial: entero) → Cola:
-    si capacidad_inicial ≤ 0 entonces
-        retornar NULO
-    fin si
+```c
+cola_t *cola_crear_circular(size_t capacidad_inicial)
+{
+    if (capacidad_inicial == 0)
+    {
+        return NULL;
+    }
     
-    cola ← nueva Cola
-    si cola = NULO entonces
-        retornar NULO
-    fin si
+    cola_t *cola = malloc(sizeof(*cola));
+    if (cola == NULL)
+    {
+        return NULL;
+    }
     
-    cola.elementos ← nuevo arreglo de tamaño capacidad_inicial
-    si cola.elementos = NULO entonces
-        liberar(cola)
-        retornar NULO
-    fin si
+    cola->elementos = malloc(capacidad_inicial * sizeof(*(cola->elementos)));
+    if (cola->elementos == NULL)
+    {
+        free(cola);
+        return NULL;
+    }
     
-    cola.frente ← 0
-    cola.final ← 0
-    cola.tamanio ← 0
-    cola.capacidad ← capacidad_inicial
+    cola->frente = 0;
+    cola->final = 0;
+    cola->tamanio = 0;
+    cola->capacidad = capacidad_inicial;
     
-    retornar cola
-fin función
+    return cola;
+}
 ```
 
 #### Encolar en Arreglo Circular
 
-```
-función enqueue_circular(cola: Cola, dato: entero) → booleano:
-    si cola = NULO entonces
-        retornar falso
-    fin si
+```c
+static bool cola_redimensionar_circular(cola_t *cola)
+{
+    size_t nueva_capacidad = cola->capacidad * 2;
+    int *nuevo_arreglo = malloc(nueva_capacidad * sizeof(*nuevo_arreglo));
+    if (nuevo_arreglo == NULL)
+    {
+        return false;
+    }
     
-    si cola.tamanio = cola.capacidad entonces
-        si no redimensionar_cola(cola) entonces
-            retornar falso
-        fin si
-    fin si
+    for (size_t i = 0; i < cola->tamanio; i++)
+    {
+        size_t indice = (cola->frente + i) % cola->capacidad;
+        nuevo_arreglo[i] = cola->elementos[indice];
+    }
     
-    cola.elementos[cola.final] ← dato
-    cola.final ← (cola.final + 1) módulo cola.capacidad
-    cola.tamanio ← cola.tamanio + 1
+    free(cola->elementos);
+    cola->elementos = nuevo_arreglo;
+    cola->frente = 0;
+    cola->final = cola->tamanio;
+    cola->capacidad = nueva_capacidad;
     
-    retornar verdadero
-fin función
+    return true;
+}
+
+bool cola_enqueue_circular(cola_t *cola, int dato)
+{
+    if (cola == NULL)
+    {
+        return false;
+    }
+    
+    if (cola->tamanio == cola->capacidad)
+    {
+        if (!cola_redimensionar_circular(cola))
+        {
+            return false;
+        }
+    }
+    
+    cola->elementos[cola->final] = dato;
+    cola->final = (cola->final + 1) % cola->capacidad;
+    cola->tamanio++;
+    
+    return true;
+}
 ```
 
 :::{tip}
-El operador módulo permite que el índice "dé la vuelta". Por ejemplo, si `capacidad = 5` y `final = 4`, entonces `(4 + 1) mod 5 = 0`, volviendo al inicio del arreglo.
+El operador módulo `%` permite que el índice "dé la vuelta". Por ejemplo, si `capacidad = 5` y `final = 4`, entonces `(4 + 1) % 5 = 0`, retornando al inicio del arreglo.
 :::
 
 #### Desencolar en Arreglo Circular
 
-```
-función dequeue_circular(cola: Cola, dato: referencia a entero) → booleano:
-    si cola = NULO o cola.tamanio = 0 entonces
-        retornar falso
-    fin si
+```c
+bool cola_dequeue_circular(cola_t *cola, int *dato)
+{
+    if (cola == NULL || cola->tamanio == 0)
+    {
+        return false;
+    }
     
-    dato ← cola.elementos[cola.frente]
-    cola.frente ← (cola.frente + 1) módulo cola.capacidad
-    cola.tamanio ← cola.tamanio - 1
+    if (dato != NULL)
+    {
+        *dato = cola->elementos[cola->frente];
+    }
+    cola->frente = (cola->frente + 1) % cola->capacidad;
+    cola->tamanio--;
     
-    retornar verdadero
-fin función
-```
-
-#### Redimensionar Cola Circular
-
-```
-función redimensionar_cola(cola: Cola) → booleano:
-    nueva_capacidad ← cola.capacidad * 2
-    nuevo_arreglo ← nuevo arreglo de tamaño nueva_capacidad
-    
-    si nuevo_arreglo = NULO entonces
-        retornar falso
-    fin si
-    
-    // Copiar elementos manteniendo el orden
-    para i desde 0 hasta cola.tamanio - 1 hacer
-        indice ← (cola.frente + i) módulo cola.capacidad
-        nuevo_arreglo[i] ← cola.elementos[indice]
-    fin para
-    
-    liberar(cola.elementos)
-    cola.elementos ← nuevo_arreglo
-    cola.frente ← 0
-    cola.final ← cola.tamanio
-    cola.capacidad ← nueva_capacidad
-    
-    retornar verdadero
-fin función
+    return true;
+}
 ```
 
 :::{important}
-Al redimensionar, es crucial copiar los elementos en el orden correcto, respetando que el frente puede no estar en la posición 0 del arreglo original.
+Al redimensionar, es crucial copiar los elementos en el orden secuencial correcto (frente a final), considerando que el frente puede no estar alineado en la posición 0 del arreglo original.
 :::
 
 ### Análisis de Complejidad (Arreglo Circular)
@@ -2142,5 +2129,3 @@ Las pilas y colas demuestran este principio perfectamente: ambas pueden implemen
 :::{tip}
 Dominar estas estructuras de datos es esencial para avanzar hacia estructuras más complejas como árboles, grafos y tablas de hash, que se construyen sobre estos fundamentos. La correcta gestión de memoria dinámica, tema central en este apunte, es la base para implementar cualquier estructura de datos compleja de manera segura y eficiente.
 :::
-
-Dominar estas estructuras de datos es esencial para avanzar hacia estructuras más complejas como árboles, grafos y tablas de hash, que se construyen sobre estos fundamentos. La correcta gestión de memoria dinámica, tema central en este apunte, es la base para implementar cualquier estructura de datos compleja de manera segura y eficiente.

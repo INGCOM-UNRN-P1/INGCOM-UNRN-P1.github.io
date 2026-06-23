@@ -50,20 +50,27 @@ long int factorial(int n);
 
 int main() {
     int numero = 5;
-    printf("El factorial de %d es %ld\n", numero, factorial(numero));
+    long int resultado = factorial(numero);
+    if (resultado == -1) {
+        printf("Error: no se puede calcular el factorial de un número negativo.\n");
+    } else {
+        printf("El factorial de %d es %ld\n", numero, resultado);
+    }
     return 0;
 }
 
 // Definición de la función recursiva
 long int factorial(int n) {
+    // Validación de precondición (robustez ante valores inválidos, regla {ref}`0x0035h`)
+    if (n < 0) {
+        return -1;
+    }
     // Caso Base: si n es 0, el factorial es 1.
     if (n == 0) {
         return 1;
     } 
     // Paso Recursivo: n * factorial(n-1)
-    else {
-        return n * factorial(n - 1);
-    }
+    return n * factorial(n - 1);
 }
 ```
 
@@ -74,7 +81,19 @@ long int factorial(int n) {
 
 ::: {important} Pila de llamadas (Call Stack)
 Cada vez que una función es llamada (incluyendo las llamadas recursivas), se crea un nuevo marco de pila (*stack frame*) en la memoria para almacenar sus variables locales y el punto de retorno. En la recursividad, estas llamadas se apilan hasta que se alcanza el caso base. Luego, los resultados se "desapilan" y se calculan en orden inverso al de las llamadas.
+
+Para un análisis detallado sobre el manejo de memoria en el stack y su relación con el ciclo de vida de variables locales, podés consultar {ref}`memoria-stack`.
 :::
+
+A continuación se muestra de forma gráfica el estado del *Call Stack* durante el cálculo recursivo de `factorial(3)` hasta alcanzar el caso base, y cómo se desapilan los marcos de pila para resolver la multiplicación:
+
+```{figure} 15/pila_llamadas.svg
+:label: fig-pila-llamadas
+:align: center
+:width: 85%
+
+Evolución del Call Stack en la ejecución recursiva de `factorial(3)`. Los marcos se apilan secuencialmente hasta el caso base y se desapilan propagando el resultado.
+```
 
 ## Paradigma de Divide y Vencerás
 
@@ -84,29 +103,78 @@ El paradigma de "Divide y Conquista" (Divide and Conquer) es una potente estrate
 2.  **Conquistar:** Se resuelven los subproblemas de forma recursiva. Si un subproblema es lo suficientemente pequeño (caso base), se resuelve de manera directa.
 3.  **Combinar:** Se combinan las soluciones de los subproblemas para construir la solución del problema original.
 
-Este flujo de trabajo se puede visualizar de la siguiente manera:
+Este flujo de trabajo de divide y vencerás se puede visualizar de manera gráfica en el algoritmo de ordenamiento Merge Sort:
 
-```{mermaid}
-graph TD
-    A[Problema Original de tamaño N] --> B{1. Dividir};
-    B --> C[Subproblema 1 (N/2)];
-    B --> D[Subproblema 2 (N/2)];
-    C --> E{2. Conquistar (Recursión)};
-    D --> F{2. Conquistar (Recursión)};
-    E --> G[Solución 1];
-    F --> H[Solución 2];
-    G --> I{3. Combinar};
-    H --> I;
-    I --> J[Solución Final];
+```{figure} 15/divide_conquista_merge.svg
+:label: fig-divide-conquista
+:align: center
+:width: 85%
+
+Paradigma de Divide y Vencerás aplicado a la ordenación del arreglo [12, 11, 13, 5] mediante Merge Sort.
 ```
 
-### Ejemplo 1: Ordenamiento por Fusión (Merge Sort)
+### Ejemplo 1: Búsqueda Binaria
 
-Merge Sort es el ejemplo canónico del paradigma de divide y conquista. Su objetivo es ordenar un arreglo de elementos.
+La búsqueda binaria es un algoritmo eficiente para encontrar un elemento en un **arreglo ordenado**. Se ajusta perfectamente al modelo de divide y conquista:
 
-* **Dividir:** Se divide el arreglo de `n` elementos en dos sub-arreglos de `n/2` elementos cada uno.
-* **Conquistar:** Se ordena cada sub-arreglo de forma recursiva utilizando Merge Sort. El caso base es un arreglo con un solo elemento, que ya se considera ordenado.
-* **Combinar:** Se fusionan (*merge*) los dos sub-arreglos ya ordenados para producir la solución final: un único arreglo ordenado.
+- **Dividir:** Se compara el elemento buscado con el elemento central del arreglo, dividiendo el problema y reduciendo el espacio de búsqueda a la mitad.
+- **Conquistar:** Si el elemento central es el buscado, la búsqueda finaliza. De lo contrario, se realiza una llamada recursiva sobre la mitad izquierda o la mitad derecha, dependiendo de si el elemento buscado es menor o mayor que el central. El caso base ocurre cuando el sub-arreglo se queda sin elementos.
+- **Combinar:** En este caso, la fase de combinación es trivial, ya que la respuesta obtenida en el subproblema resuelto (encontrar o no el elemento) es directamente la solución del problema original.
+
+#### Implementación en C (Recursiva)
+
+```{code} c
+:caption: Implementación recursiva de la Búsqueda Binaria en C
+:label: binary-search-c
+
+#include <stdio.h>
+
+// Una función de búsqueda binaria recursiva.
+// Retorna la ubicación de x en arr[l..r] si está presente,
+// de lo contrario retorna -1.
+// Precondición: arr debe estar ordenado de menor a mayor.
+int binarySearch(int arr[], int l, int r, int x) {
+    if (r >= l) {
+        int mid = l + (r - l) / 2;
+
+        // Si el elemento está presente en el medio
+        if (arr[mid] == x)
+            return mid;
+
+        // Si el elemento es más pequeño que el del medio, entonces
+        // solo puede estar presente en el sub-arreglo izquierdo
+        if (arr[mid] > x)
+            return binarySearch(arr, l, mid - 1, x);
+
+        // De lo contrario, el elemento solo puede estar presente
+        // en el sub-arreglo derecho
+        return binarySearch(arr, mid + 1, r, x);
+    }
+
+    // El elemento no está presente en el arreglo
+    return -1;
+}
+
+int main(void) {
+    int arr[] = {2, 3, 4, 10, 40};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int x = 10;
+    int result = binarySearch(arr, 0, n - 1, x);
+    if (result == -1)
+        printf("El elemento no está presente en el arreglo\n");
+    else
+        printf("Elemento encontrado en el índice %d\n", result);
+    return 0;
+}
+```
+
+### Ejemplo 2: Ordenamiento por Fusión (Merge Sort)
+
+Merge Sort representa una aplicación más compleja de divide y conquista que involucra recursión múltiple (dos llamadas recursivas) y una fase de combinación no trivial (la fusión de arreglos ordenados).
+
+- **Dividir:** Se divide el arreglo de `n` elementos en dos sub-arreglos de `n/2` elementos cada uno.
+- **Conquistar:** Se ordena cada sub-arreglo de forma recursiva utilizando Merge Sort. El caso base es un arreglo con un solo elemento, que ya se considera ordenado.
+- **Combinar:** Se fusionan (*merge*) los dos sub-arreglos ya ordenados para producir la solución final: un único arreglo ordenado.
 
 #### Implementación en C
 
@@ -128,6 +196,13 @@ void merge(int arr[], int l, int m, int r) {
     // Crear arreglos temporales
     int *L = (int*) malloc(n1 * sizeof(int));
     int *R = (int*) malloc(n2 * sizeof(int));
+
+    // Validar asignación de memoria (regla {ref}`0x0003h`)
+    if (L == NULL || R == NULL) {
+        free(L);
+        free(R);
+        return;
+    }
 
     // Copiar datos a los arreglos temporales L[] y R[]
     for (i = 0; i < n1; i++)
@@ -205,62 +280,81 @@ int main() {
 }
 ```
 
-:::{note} Complejidad
-La relación de recurrencia para Merge Sort es $T(n) = 2T(n/2) + O(n)$. Esto se resuelve a una complejidad temporal de $O(n \log n)$, que es muy eficiente.
+:::{warning} Validación de Memoria Dinámica
+En C, toda asignación dinámica mediante `malloc` o `calloc` puede fallar si el sistema no dispone de suficiente memoria. Para asegurar la robustez del programa, es obligatorio verificar que los punteros obtenidos no sean `NULL` antes de utilizarlos (regla {ref}`0x0003h`). No realizar esta validación induce a desreferenciación de punteros nulos y comportamiento indefinido.
 :::
 
-### Ejemplo 2: Búsqueda Binaria
+:::{note} Complejidad
+La relación de recurrencia para Merge Sort es $T(n) = 2T(n/2) + O(n)$. Esto se resuelve a una complejidad temporal de $O(n \log n)$, que es muy eficiente. Para un análisis matemático de cómo se resuelve esta recurrencia, consultá la sección de {ref}`Teorema Maestro <apunte/14_complejidad.md>`.
+:::
 
-La búsqueda binaria es un algoritmo eficiente para encontrar un elemento en un **arreglo ordenado**. También se ajusta al modelo de divide y conquista.
+## Ejercicios Prácticos
 
-* **Dividir:** Se compara el elemento buscado con el elemento central del arreglo. Esto divide el problema, reduciendo el espacio de búsqueda a la mitad.
-* **Conquistar:** Si el elemento central es el buscado, la búsqueda termina. Si no, se realiza una llamada recursiva a la mitad izquierda o a la mitad derecha del arreglo, dependiendo de si el elemento buscado es menor o mayor que el central. El caso base ocurre cuando el sub-arreglo no tiene elementos.
-* **Combinar:** En este caso, la fase de combinación es trivial. La solución al subproblema (encontrar o no el elemento) es directamente la solución al problema original.
+```exercise
+:label: ej-recursividad-iteracion
+Escribir una función recursiva en C para calcular la potencia de un número ($a^b$, con $b \geq 0$). Luego, implementar su equivalente versión iterativa utilizando lazos de control (`while` o `for`).
+```
 
-#### Implementación en C (Recursiva)
-
-```{code} c
-:caption: Implementación recursiva de la Búsqueda Binaria en C
-:label: binary-search-c
-
-#include <stdio.h>
-
-// Una función de búsqueda binaria recursiva.
-// Retorna la ubicación de x en arr[l..r] si está presente,
-// de lo contrario retorna -1
-int binarySearch(int arr[], int l, int r, int x) {
-    if (r >= l) {
-        int mid = l + (r - l) / 2;
-
-        // Si el elemento está presente en el medio
-        if (arr[mid] == x)
-            return mid;
-
-        // Si el elemento es más pequeño que el del medio, entonces
-        // solo puede estar presente en el sub-arreglo izquierdo
-        if (arr[mid] > x)
-            return binarySearch(arr, l, mid - 1, x);
-
-        // De lo contrario, el elemento solo puede estar presente
-        // en el sub-arreglo derecho
-        return binarySearch(arr, mid + 1, r, x);
+```solution
+:for: ej-recursividad-iteracion
+**Versión Recursiva:**
+```c
+double potencia_recursiva(double a, int b) {
+    // Guarda de robustez (regla {ref}`0x0035h`)
+    if (b < 0) {
+        return -1.0; 
     }
-
-    // El elemento no está presente en el arreglo
-    return -1;
+    // Caso Base
+    if (b == 0) {
+        return 1.0;
+    }
+    // Paso Recursivo
+    return a * potencia_recursiva(a, b - 1);
 }
+```
 
-int main(void) {
-    int arr[] = {2, 3, 4, 10, 40};
-    int n = sizeof(arr) / sizeof(arr[0]);
-    int x = 10;
-    int result = binarySearch(arr, 0, n - 1, x);
-    if (result == -1)
-        printf("El elemento no está presente en el arreglo\n");
-    else
-        printf("Elemento encontrado en el índice %d\n", result);
-    return 0;
+**Versión Iterativa (con lazo for):**
+```c
+double potencia_iterativa(double a, int b) {
+    if (b < 0) {
+        return -1.0;
+    }
+    double resultado = 1.0;
+    for (int i = 0; i < b; i++) {
+        resultado *= a;
+    }
+    return resultado;
 }
+```
+:::
+
+```exercise
+:label: ej-recursividad-parada
+Analizar la siguiente función recursiva en C y determinar por qué se produce un error de desbordamiento de pila (*stack overflow*) para ciertos valores de entrada enteros. ¿Cuál es el error en la condición de parada (caso base)?
+```c
+int sumar_hasta_cero(int n) {
+    if (n == 0) {
+        return 0;
+    }
+    return n + sumar_hasta_cero(n - 1);
+}
+```
+```
+
+```solution
+:for: ej-recursividad-parada
+El error reside en que la condición de parada `if (n == 0)` solo se alcanza si el argumento inicial `n` es un entero no negativo. Si la función se invoca con un valor negativo (por ejemplo, `sumar_hasta_cero(-1)`), la llamada recursiva realiza `n - 1`, decrementando el valor de forma indefinida hacia $-\infty$ (`-2`, `-3`, `-4`, etc.). Como nunca se cumple la condición `n == 0`, la función continúa apilando marcos de pila en el *Call Stack* de forma infinita hasta agotar el límite físico de memoria del stack, provocando un *stack overflow*.
+
+Para resolver esta vulnerabilidad de parada, la guarda del caso base debe generalizarse para cubrir todos los números menores o iguales a cero:
+```c
+int sumar_hasta_cero_robusta(int n) {
+    if (n <= 0) {
+        return 0;
+    }
+    return n + sumar_hasta_cero_robusta(n - 1);
+}
+```
+:::
 ```
 
 ## Ventajas y Desventajas

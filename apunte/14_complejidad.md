@@ -57,7 +57,7 @@ La notación **Big O** es la más utilizada en la práctica, ya que describe una
 **cota superior asintótica**. Nos ofrece una garantía sobre el rendimiento del
 algoritmo: nunca será peor que esta cota.
 
-- **Definición Intuïtiva**: Una función $f(n)$ es $O(g(n))$ si su tasa de
+- **Definición Intuitiva**: Una función $f(n)$ es $O(g(n))$ si su tasa de
   crecimiento es **igual o más lenta** que la de $g(n)$ para entradas
   suficientemente grandes.
 - **Definición Formal**: $f(n) = O(g(n))$ si existen constantes positivas $c$ y
@@ -69,7 +69,7 @@ algoritmo: nunca será peor que esta cota.
 La notación **Omega** describe una **cota inferior asintótica**. Nos garantiza
 que el rendimiento del algoritmo nunca será mejor que esta cota.
 
-- **Definición Intuïtiva**: Una función $f(n)$ es $\Omega(g(n))$ si su tasa de
+- **Definición Intuitiva**: Una función $f(n)$ es $\Omega(g(n))$ si su tasa de
   crecimiento es **igual o más rápida** que la de $g(n)$.
 - **Definición Formal**: $f(n) = \Omega(g(n))$ si existen constantes positivas
   $c$ y $n_0$ tales que $0 \le c \cdot g(n) \le f(n)$ para todo $n \ge n_0$.
@@ -80,7 +80,7 @@ que el rendimiento del algoritmo nunca será mejor que esta cota.
 La notación **Theta** proporciona la descripción más precisa del comportamiento
 de un algoritmo, acotándolo tanto por arriba como por abajo.
 
-- **Definición Intuïtiva**: Una función $f(n)$ es $\Theta(g(n))$ si su tasa de
+- **Definición Intuitiva**: Una función $f(n)$ es $\Theta(g(n))$ si su tasa de
   crecimiento es **exactamente la misma** que la de $g(n)$.
 - **Relación**: $f(n) = \Theta(g(n))$ si y solo si $f(n) = O(g(n))$ y
   $f(n) = \Omega(g(n))$.
@@ -155,17 +155,23 @@ Los arreglos proporcionan acceso por índice en tiempo constante, una de sus ven
 **Características**:
 - Crece muy lentamente
 - Típica de algoritmos que dividen el problema a la mitad en cada paso
-- Base del logaritmo irrelevante asintóticamente: $\log_2 n \in \Theta(\log_{10} n)$
+- **Base del logaritmo irrelevante asintóticamente**: la base del logaritmo no afecta a la clase de complejidad porque cambiar de base equivale a multiplicar por una constante.
+  Si aplicamos la fórmula de cambio de base:
+  $$
+  \log_a n = \frac{\log_b n}{\log_b a} = \left(\frac{1}{\log_b a}\right) \log_b n
+  $$
+  Dado que $\frac{1}{\log_b a}$ es una constante para bases fijas $a$ y $b$, por definición asintótica se cumple que $\log_a n \in \Theta(\log_b n)$ (por ejemplo, $\log_2 n \in \Theta(\log_{10} n)$).
 
 **Ejemplos**: búsqueda binaria, operaciones en árboles balanceados
 
 **Código ejemplo**:
 ```c
 // Búsqueda binaria: O(log n)
+// Precondición: el arreglo 'arr' debe estar ordenado de menor a mayor.
 int busqueda_binaria(int arr[], int n, int clave) {
     int izq = 0, der = n - 1;
     
-    while (izq <= der) {  // Se reduce a la mitad en cada iteración
+    while (izq <= der) {  // Se reduce a la mitad en cada lazo
         int medio = izq + (der - izq) / 2;
         
         if (arr[medio] == clave) {
@@ -183,7 +189,12 @@ int busqueda_binaria(int arr[], int n, int clave) {
 }
 ```
 
-**Análisis**: En cada iteración, el espacio de búsqueda se reduce a la mitad. Si inicialmente hay $n$ elementos, después de $k$ iteraciones quedan $\frac{n}{2^k}$. El algoritmo termina cuando $\frac{n}{2^k} = 1$, es decir, $k = \log_2 n$.
+**Análisis**:
+:::{important}
+La búsqueda binaria asume como precondición fundamental que el arreglo de entrada se encuentra estrictamente ordenado (regla {ref}`0x0035h`). Si esta precondición no se cumple, el algoritmo no es correcto y su comportamiento es impredecible.
+:::
+
+En cada iteración del lazo, el espacio de búsqueda se reduce a la mitad. Si inicialmente hay $n$ elementos, después de $k$ lazos quedan $\frac{n}{2^k}$. El algoritmo termina cuando $\frac{n}{2^k} = 1$, es decir, $k = \log_2 n$.
 
 #### Lineal: $O(n)$
 
@@ -305,7 +316,11 @@ int fibonacci(int n) {
 }
 ```
 
-**Análisis**: La recurrencia $T(n) = T(n-1) + T(n-2) + O(1)$ tiene solución $T(n) \in \Theta(\phi^n)$ donde $\phi = \frac{1+\sqrt{5}}{2} \approx 1.618$ (razón áurea).
+**Análisis**: La relación de recurrencia para el tiempo de ejecución es $T(n) = T(n-1) + T(n-2) + O(1)$. Para resolver la parte homogénea de esta ecuación de diferencias, $T(n) - T(n-1) - T(n-2) = 0$, proponemos una solución de la forma $T(n) = r^n$. Al sustituir, obtenemos la **ecuación característica**:
+$$
+r^2 - r - 1 = 0
+$$
+cuyas raíces son $r_1 = \frac{1+\sqrt{5}}{2} = \phi \approx 1.618$ (la razón áurea) y $r_2 = \frac{1-\sqrt{5}}{2} \approx -0.618$. La solución general de la recurrencia es una combinación lineal de ambas potencias, dominada asintóticamente por la raíz de mayor magnitud, por lo que $T(n) \in \Theta(\phi^n)$.
 
 #### Factorial: $O(n!)$
 
@@ -416,48 +431,65 @@ for (int i = 1; i < n; i *= 2) {
 
 **Ejemplo**: $T(n) = T(n-1) + O(1)$ con $T(1) = O(1)$
 
-**Solución**:
-$$
-\begin{align}
-T(n) &= T(n-1) + c \\
-     &= T(n-2) + c + c = T(n-2) + 2c \\
-     &= T(n-3) + 3c \\
-     &\vdots \\
-     &= T(1) + (n-1)c \\
-     &= O(1) + O(n) = O(n)
-\end{align}
-$$
+#### Método del Árbol de Recursión
 
-#### Teorema Maestro
-
-Para recurrencias de la forma:
-$$
-T(n) = aT\left(\frac{n}{b}\right) + f(n)
-$$
-
-donde $a \geq 1$, $b > 1$ y $f(n)$ es asintóticamente positiva, el Teorema Maestro proporciona la solución:
-
-**Caso 1**: Si $f(n) \in O(n^{\log_b a - \epsilon})$ para algún $\epsilon > 0$, entonces:
-$$
-T(n) \in \Theta(n^{\log_b a})
-$$
-
-**Caso 2**: Si $f(n) \in \Theta(n^{\log_b a} \log^k n)$ para algún $k \geq 0$, entonces:
-$$
-T(n) \in \Theta(n^{\log_b a} \log^{k+1} n)
-$$
-
-**Caso 3**: Si $f(n) \in \Omega(n^{\log_b a + \epsilon})$ para algún $\epsilon > 0$, y $af(n/b) \leq cf(n)$ para algún $c < 1$ y $n$ suficientemente grande, entonces:
-$$
-T(n) \in \Theta(f(n))
-$$
+Antes de enunciar el Teorema Maestro, es fundamental visualizar cómo se distribuye el trabajo en un algoritmo recursivo de tipo divide y vencerás. El **árbol de recursión** es una herramienta gráfica donde:
+- Cada nodo representa una llamada recursiva.
+- El costo etiquetado en cada nodo es el trabajo no recursivo realizado en esa llamada específica.
+- La suma del trabajo de todos los nodos en todos los niveles del árbol determina el costo total del algoritmo.
 
 ```{figure} 14/master_theorem.svg
 :label: fig-master
 :align: center
 
-Árbol de recursión ilustrando el Teorema Maestro y cómo se distribuye el trabajo en cada nivel.
+Árbol de recursión ilustrando el Teorema Maestro y cómo se distribuye el trabajo en cada nivel del árbol.
 ```
+
+**Ejemplo de análisis con árbol**: Consideremos la recurrencia $T(n) = 2T(n/2) + n$ (con caso base $T(1) = O(1)$):
+
+```
+Nivel 0:                n              → costo: n
+                       / \
+Nivel 1:            n/2   n/2          → costo: n
+                     / \   / \
+Nivel 2:         n/4 n/4 n/4 n/4       → costo: n
+                  ...
+```
+- **Cantidad de subproblemas por nivel**: En el nivel $j$, tenemos $2^j$ subproblemas.
+- **Tamaño de cada subproblema**: En el nivel $j$, cada subproblema tiene tamaño $n/2^j$.
+- **Costo del trabajo no recursivo por nivel**: En cada nivel $j$, la suma del trabajo es $2^j \times (n/2^j) = n$.
+- **Altura del árbol (número de niveles)**: Dado que el tamaño del problema se divide por 2 en cada paso, el proceso finaliza cuando $n/2^j = 1$, es decir, tras $j = \log_2 n$ niveles.
+- **Costo total**: Sumando todos los niveles, el costo total es $n \times \log_2 n$, lo que equivale a $\Theta(n \log n)$.
+
+#### Teorema Maestro
+
+El Teorema Maestro es una receta matemática que sistematiza este análisis para recurrencias de la forma general:
+$$
+T(n) = aT\left(\frac{n}{b}\right) + f(n)
+$$
+donde:
+- $a \geq 1$ es la cantidad de subproblemas recursivos creados.
+- $b > 1$ es el factor por el cual se divide el tamaño del problema original.
+- $f(n)$ es una función asintóticamente positiva que representa el costo de la división y combinación del trabajo en el nivel actual.
+
+Al comparar el trabajo en las hojas del árbol (que es $\Theta(n^{\log_b a})$) con el trabajo no recursivo en la raíz ($f(n)$), el Teorema Maestro determina cuál de los dos domina la complejidad asintótica:
+
+**Caso 1 (Dominan las hojas)**: Si $f(n) \in O(n^{\log_b a - \epsilon})$ para algún $\epsilon > 0$, entonces:
+$$
+T(n) \in \Theta(n^{\log_b a})
+$$
+
+**Caso 2 (Trabajo balanceado)**: Si $f(n) \in \Theta(n^{\log_b a} \log^k n)$ para algún $k \geq 0$, entonces:
+$$
+T(n) \in \Theta(n^{\log_b a} \log^{k+1} n)
+$$
+
+**Caso 3 (Domina la raíz)**: Si $f(n) \in \Omega(n^{\log_b a + \epsilon})$ para algún $\epsilon > 0$, y se cumple la **condición de regularidad** ($a f(n/b) \leq c f(n)$ para alguna constante $c < 1$ y $n$ suficientemente grande), entonces:
+$$
+T(n) \in \Theta(f(n))
+$$
+
+La **condición de regularidad** garantiza que la tasa de trabajo no recursivo decrezca geométricamente a medida que se desciende en el árbol de recursión. Si no se satisface esta condición, no se puede aplicar el Caso 3 del Teorema Maestro.
 
 **Ejemplos de aplicación**:
 
@@ -477,29 +509,8 @@ $$
    - $a=3, b=2, f(n)=n$
    - $\log_b a = \log_2 3 \approx 1.585$
    - $f(n) = n \in O(n^{1.585-\epsilon})$ → **Caso 1**
-   - **Solución**: $T(n) \in \Theta(n^{\log_2 3}) \approx \Theta(n^{1.585})$
+   - **Solución**: $T(n) \in \Theta(n^{\log_2 3}) \approx \Theta(n^{1.585})$1:            n/2   n/2          → costo: n
 
-#### Método del Árbol de Recursión
-
-Visualiza la recursión como un árbol donde:
-- Cada nodo representa una llamada recursiva
-- El costo en cada nodo es el trabajo no recursivo
-- La suma de todos los nodos es el costo total
-
-**Ejemplo**: $T(n) = 2T(n/2) + n$
-
-```
-Nivel 0:                n              → costo: n
-                       / \
-Nivel 1:            n/2   n/2          → costo: n
-                    / \   / \
-Nivel 2:         n/4 n/4 n/4 n/4       → costo: n
-                  ...
-
-Altura del árbol: log n
-Costo por nivel: n
-Costo total: n × log n = O(n log n)
-```
 
 ### Análisis Amortizado
 
@@ -507,18 +518,43 @@ El **análisis amortizado** considera el costo promedio de una secuencia de oper
 
 #### Método del Agregado
 
-**Ejemplo**: Arreglo dinámico (como `std::vector` de C++)
+**Ejemplo**: Arreglo dinámico redimensionable en C.
 
-Operación `push_back`:
-- Caso normal: $O(1)$ (insertar al final)
-- Caso de redimensionamiento: $O(n)$ (copiar todos los elementos)
+Supongamos que implementamos un arreglo dinámico en C mediante una estructura que almacena un puntero, el tamaño actual y la capacidad máxima de almacenamiento. Cuando el arreglo alcanza su capacidad límite, duplicamos su tamaño utilizando `realloc`:
 
-Si el arreglo duplica su tamaño cuando se llena, el costo de $n$ inserciones es:
+```c
+typedef struct {
+    int *datos;
+    size_t tamaño;
+    size_t capacidad;
+} arreglo_dinamico_t;
+
+bool insertar_arreglo(arreglo_dinamico_t *arr, int valor) {
+    if (arr->tamaño >= arr->capacidad) {
+        size_t nueva_capacidad = arr->capacidad * 2;
+        int *nuevo_espacio = realloc(arr->datos, nueva_capacidad * sizeof(int));
+        if (nuevo_espacio == NULL) {
+            return false;
+        }
+        arr->datos = nuevo_espacio;
+        arr->capacidad = nueva_capacidad;
+    }
+    arr->datos[arr->tamaño] = valor;
+    arr->tamaño++;
+    return true;
+}
+```
+
+Analicemos el costo de una secuencia de $n$ inserciones consecutivas en el lazo de carga, comenzando con una capacidad inicial de 1:
+- Si la inserción no requiere redimensionamiento, toma tiempo constante: $1$ operación.
+- Si requiere redimensionamiento, requiere reasignar memoria y copiar los elementos existentes, tomando $i$ operaciones (donde $i$ es el tamaño en ese momento).
+
+Para $n$ inserciones (donde $n$ es una potencia de 2), el costo total acumulado es la suma de los accesos normales y los costos de copia por redimensionamiento:
 $$
-\sum_{i=0}^{\log n} 2^i = 2^{\log n + 1} - 1 < 2n
+\text{Costo Total} = n + \sum_{j=0}^{\log_2 n} 2^j = n + (2^{\log_2 n + 1} - 1) = n + 2n - 1 < 3n
 $$
 
-**Costo amortizado**: $\frac{2n}{n} = O(1)$ por operación.
+**Costo amortizado**: Al dividir el costo total por la cantidad de operaciones, obtenemos $\frac{3n}{n} = O(1)$ por cada inserción individual.
 
 :::{tip} Análisis Amortizado en Pilas y Colas
 Este mismo análisis se aplica a las pilas implementadas con arreglos dinámicos. Para ver ejemplos concretos de cómo el análisis amortizado justifica la eficiencia de las operaciones `push` en pilas con arreglos, consultá la sección sobre pilas en el apunte de {ref}`TAD, Pilas y Colas <apunte/13_tad.md>`.
@@ -597,15 +633,17 @@ Un **límite inferior** establece que ningún algoritmo puede resolver un proble
 
 **Demostración** (árbol de decisión):
 
-1. Un algoritmo de ordenamiento por comparación puede modelarse como un árbol binario de decisión
-2. Cada hoja representa una permutación posible de los $n$ elementos
-3. Hay $n!$ permutaciones posibles, por tanto $n!$ hojas
-4. Un árbol binario de altura $h$ tiene a lo más $2^h$ hojas
-5. Necesitamos $2^h \geq n!$, es decir, $h \geq \log_2(n!)$
+1. Un algoritmo de ordenamiento por comparación puede modelarse como un árbol binario de decisión.
+2. Cada hoja representa una permutación posible de los $n$ elementos de entrada.
+3. Hay $n!$ permutaciones posibles, por tanto, el árbol debe tener al menos $n!$ hojas.
+4. Un árbol binario de altura $h$ tiene como máximo $2^h$ hojas.
+5. Para que el árbol pueda representar todas las salidas válidas, se requiere que $2^h \geq n!$, lo que implica $h \geq \log_2(n!)$.
+6. Demostramos la cota inferior de $\log_2(n!)$ expandiendo la sumatoria y acotándola inferiormente desde su término medio:
+   $$
+   \log_2(n!) = \sum_{i=1}^n \log_2 i \geq \sum_{i=n/2}^n \log_2 i \geq \sum_{i=n/2}^n \log_2(n/2) = \frac{n}{2} \log_2(n/2) = \frac{n}{2} (\log_2 n - 1) \in \Omega(n \log n)
+   $$
 
-Por la aproximación de Stirling: $\log_2(n!) = \Theta(n \log n)$
-
-**Conclusión**: Merge Sort, Heap Sort son **óptimos** para ordenamiento por comparación.
+**Conclusión**: Cualquier algoritmo basado en comparaciones requiere al menos $\Omega(n \log n)$ comparaciones en el peor caso. Algoritmos como Merge Sort y Heap Sort son, por lo tanto, **óptimos**.
 
 ### Algoritmos Óptimos
 
@@ -628,143 +666,37 @@ complejidad** basadas en los recursos (tiempo y memoria) que se requieren para
 resolverlos en el peor de los casos, independientemente del algoritmo específico
 utilizado.
 
-## Problemas de Decisión y el Modelo de Cómputo
+## Conceptos de Complejidad: Intratabilidad y las Clases P y NP
 
-Para formalizar el estudio, la teoría se centra en los **problemas de
-decisión**: aquellos que pueden ser respondidos con un simple "sí" o "no".
-Aunque parece limitante, muchos problemas más complejos (como los de
-optimización) pueden reformularse como una serie de problemas de decisión.
+En el análisis de algoritmos, no solo nos interesa determinar la complejidad asintótica exacta, sino también clasificar los problemas según si son resolubles de forma eficiente en la práctica. Esta distinción introduce la noción de **intratabilidad**.
 
-- **Ejemplo de Optimización**: "¿Cuál es la ruta más corta que visita todas
-  estas ciudades?"
-- **Ejemplo de Decisión**: "Dadas estas ciudades, ¿existe una ruta que las
-  visite a todas y cuya longitud total sea menor que $K$ kilómetros?"
+### Problemas Tratables vs. Intratables
+- **Problemas Tratables**: Son aquellos para los cuales existe un algoritmo que los resuelve en tiempo polinomial en el peor de los casos (es decir, $O(n^k)$ para alguna constante $k$). Cuando la entrada crece, el tiempo requerido aumenta de forma manejable por el hardware.
+  *Ejemplos*: Ordenar una lista, buscar un elemento en un arreglo, encontrar el camino más corto en un grafo.
+- **Problemas Intratables**: Son problemas de gran complejidad computacional para los cuales no se conocen algoritmos polinomiales que garanticen una solución óptima en el peor de los casos. Sus mejores algoritmos conocidos requieren tiempo exponencial (ej. $O(2^n)$) o factorial (ej. $O(n!)$), volviéndolos imposibles de computar para tamaños de entrada moderados.
 
-El modelo formal de cómputo utilizado para definir estas clases es la **Máquina
-de Turing**, un autómata teórico que puede simular la lógica de cualquier
-algoritmo computacional.
+### Las Clases P y NP
+Para formalizar esta clasificación, la teoría de la complejidad define conjuntos de problemas llamados clases de complejidad:
 
-## La Clase P (Tiempo Polinomial)
+- **La Clase P**: Contiene a todos los problemas de decisión (cuya respuesta es "sí" o "no") que pueden ser **resueltos** eficientemente en tiempo polinomial.
+- **La Clase NP (Tiempo Polinomial No Determinista)**: Contiene a los problemas de decisión para los cuales, si bien encontrar una solución puede ser computacionalmente difícil, es posible **verificar** la validez de una solución propuesta (un certificado) en tiempo polinomial.
+  *Ejemplo (Satisfacibilidad Booleana - SAT)*: Evaluar si existe una asignación de variables lógicas que haga verdadera una fórmula booleana. Encontrar la combinación exacta puede requerir probar exponencialmente muchas opciones ($2^n$), pero verificar si una asignación dada satisface la fórmula toma tiempo lineal en el tamaño de la fórmula. Por lo tanto, SAT pertenece a la clase NP.
 
-La clase **P** contiene todos los problemas de decisión que pueden ser
-**resueltos** por una Máquina de Turing determinista en **tiempo polinomial**.
+### La Cuestión $P \neq NP$ y los Problemas NP-Completos
+La relación entre estas clases plantea uno de los interrogantes abiertos más importantes de la ciencia de la computación: **¿Es $P = NP$?**
+Es decir: si la solución a un problema se puede verificar eficientemente, ¿se puede también encontrar de forma eficiente?
 
-- **Tiempo Polinomial**: Significa que el tiempo de ejecución del peor caso está
-  acotado por una función polinómica del tamaño de la entrada $n$, es decir,
-  $O(n^k)$ para alguna constante $k$.
-- **Significado Intuïtivo**: La clase P representa el conjunto de problemas que
-  consideramos "eficientemente resolubles" o "**tratables**". A medida que la
-  entrada crece, el tiempo de ejecución aumenta a una tasa manejable.
+El consenso científico generalizado es que **$P \neq NP$**, lo que significa que verificar soluciones es fundamentalmente más sencillo que crearlas.
 
-**Ejemplos de problemas en P**:
+Dentro de la clase NP, existen problemas denominados **NP-Completos**. Estos problemas representan los elementos más difíciles de NP. Tienen la propiedad de que si se encontrara un algoritmo eficiente (polinomial) para resolver cualquiera de ellos, ese algoritmo podría adaptarse inmediatamente para resolver **todos** los problemas de la clase NP en tiempo polinomial, demostrando que $P = NP$.
 
-- Ordenamiento de una lista.
-- Búsqueda de un elemento en un arreglo.
-- Determinar si un número es primo.
-- Encontrar el camino más corto en un grafo (Algoritmo de Dijkstra).
-
-## La Clase NP (Tiempo Polinomial No Determinista)
-
-Aquí es donde surge una de las mayores confusiones en la informática. **NP**
-_no_ significa "No Polinomial". Significa **Tiempo Polinomial No Determinista**.
-
-Existen dos definiciones equivalentes y muy importantes:
-
-1.  **Definición Formal**: La clase NP es el conjunto de problemas de decisión
-    que pueden ser resueltos por una **Máquina de Turing no determinista** en
-    tiempo polinomial. (Una máquina no determinista puede explorar múltiples
-    caminos de cómputo simultáneamente).
-2.  **Definición Práctica (y más útil)**: La clase NP es el conjunto de
-    problemas de decisión para los cuales, si se nos proporciona una posible
-    solución (un "certificado" o "testigo"), podemos **verificar** si es
-    correcta en tiempo polinomial.
-
-- **Significado Intuïtivo**: NP es la clase de problemas cuyas soluciones son
-  "fáciles de verificar", aunque encontrarlas pueda ser muy difícil.
-
-**Ejemplo Clásico: El Problema de Satisfacibilidad Booleana (SAT)**
-
-- **Problema**: Dada una fórmula lógica booleana, ¿existe una asignación de
-  valores de verdad (verdadero/falso) a sus variables que haga que toda la
-  fórmula sea verdadera?
-- **Encontrar la solución**: Puede ser extremadamente difícil. Con $n$
-  variables, hay $2^n$ posibles asignaciones que probar (fuerza bruta).
-- **Verificar una solución**: Si alguien te da una asignación concreta (ej:
-  $x_1$=V, $x_2$=F, ...), es trivialmente fácil y rápido (tiempo polinomial)
-  sustituir esos valores en la fórmula y comprobar si el resultado es verdadero.
-
-Por lo tanto, SAT está en NP.
-
-## La Pregunta del Millón de Dólares: ¿P = NP?
-
-Claramente, si un problema puede ser resuelto rápidamente (está en P), entonces
-su solución también puede ser verificada rápidamente. Esto significa que **la
-clase P está contenida dentro de la clase NP**.
-
-La pregunta fundamental, uno de los siete Problemas del Milenio del Instituto
-Clay de Matemáticas, es: **¿Son estas dos clases realmente la misma? ¿Es P igual
-a NP?**
-
-- **Traducción**: "Si una solución a un problema puede ser verificada
-  eficientemente, ¿puede esa solución también ser encontrada eficientemente?"
-
-Nadie ha sido capaz de probarlo en ninguna de las dos direcciones. Sin embargo,
-el consenso abrumador entre los científicos de la computación es que **P ≠ NP**.
-
-### Implicaciones de la Respuesta
-
-- **Si P = NP**: Sería una revolución. Problemas que hoy consideramos
-  intratables (en logística, criptografía, investigación de proteínas, IA)
-  tendrían soluciones eficientes. La creatividad podría ser automatizada, ya que
-  verificar la "belleza" de una prueba matemática o una composición musical es a
-  menudo más fácil que crearla.
-- **Si P ≠ NP**: Confirma que existen problemas fundamentalmente "duros" que no
-  pueden ser resueltos eficientemente. Para estos problemas, debemos confiar en
-  algoritmos de aproximación, heurísticas o soluciones para casos específicos,
-  sabiendo que una solución general y rápida no es posible.
-
-## Reducciones y la Noción de "El Problema más Difícil"
-
-Para clasificar la dificultad relativa de los problemas dentro de NP, se utiliza
-el concepto de **reducción en tiempo polinomial**. Un problema A se "reduce" a
-un problema B si podemos transformar cualquier instancia de A en una instancia
-de B de tal manera que la solución para B nos da la solución para A, y esta
-transformación toma tiempo polinomial.
-
-- **Significado**: Si A se reduce a B, entonces A "no es más difícil que" B.
-
-### NP-Hard y NP-Completo
-
-- **NP-Hard (NP-Duro)**: Un problema es NP-Hard si **todo problema en NP** se
-  puede reducir a él en tiempo polinomial. Estos son los problemas que son "al
-  menos tan difíciles como" cualquier problema en NP.
-- **NP-Completo (NPC)**: Un problema es NP-Completo si cumple dos condiciones:
-  1.  Está en NP (sus soluciones son verificables en tiempo polinomial).
-  2.  Es NP-Hard.
-
-Los problemas NP-Completos son, en esencia, los **problemas más difíciles de la
-clase NP**.
-
-El **Teorema de Cook-Levin (1971)** fue el hito que demostró que el problema
-**SAT** es NP-Completo. Desde entonces, se ha demostrado que miles de otros
-problemas importantes también lo son, mediante reducciones a partir de SAT u
-otros problemas NPC conocidos.
-
-**Ejemplos de Problemas NP-Completos**:
-
-- Problema del Viajante (versión de decisión).
-- Coloreado de Grafos.
-- El juego Sudoku (generalizado a un tablero de $n^2 \times n^2$).
-
-La importancia de los problemas NPC es inmensa: si se encontrara un algoritmo de
-tiempo polinomial para _un solo_ problema NP-Completo, automáticamente
-tendríamos un algoritmo eficiente para _todos_ los problemas en NP, lo que
-probaría que **P = NP**.
+*Ejemplos clásicos*:
+- El problema del Viajante (TSP) en su versión de decisión.
+- Coloreado de grafos.
 
 ### Visualización de las Clases de Complejidad
 
-Asumiendo que P ≠ NP, la relación entre estas clases se puede visualizar de la
-siguiente manera:
+Asumiendo que P ≠ NP, la relación entre estas clases se puede visualizar de la siguiente manera:
 
 ```{mermaid}
 graph TD
@@ -776,7 +708,6 @@ graph TD
         subgraph "NP-Completo (NPC)"
             C[SAT]
             D[Viajante]
-            E[Sudoku]
         end
         F[Factorización de Enteros]
     end
@@ -794,11 +725,7 @@ graph TD
     style NPHard fill:#e1bee7,stroke:#666,stroke-dasharray: 5 5
 ```
 
-Este diagrama ilustra que P y NPC son subconjuntos de NP. Los problemas NP-Hard
-pueden estar dentro o fuera de NP. El problema de la **Factorización de
-Enteros**, en el que se basa gran parte de la criptografía moderna, es un
-ejemplo fascinante: está en NP, pero no se sabe si es NP-Completo o si está en
-P.
+Frente a la intratabilidad de los problemas NP-Completos, en el desarrollo práctico de software se emplean algoritmos de aproximación, heurísticas o restricciones del dominio para hallar soluciones aceptables en tiempos razonables, sabiendo que una solución óptima general y rápida no es viable.
 
 
 ## Ejemplos Detallados de Análisis
