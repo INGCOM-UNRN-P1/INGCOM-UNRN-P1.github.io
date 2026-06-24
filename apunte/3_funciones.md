@@ -158,6 +158,80 @@ int funcion_dos() {
 
 ---
 
+## Roles en Funciones
+
+*(Para una introducción teórica y conceptual sobre la asignación de roles semánticos a las variables, consultá la sección {ref}`roles-variables` del capítulo [](2_gradual))*.
+
+Al estructurar modularmente un programa mediante funciones, las variables locales y, de forma sumamente relevante, los **parámetros** (variables locales que se inicializan con los argumentos recibidos al invocar la función) asumen roles bien definidos y acotados:
+
+---
+
+### Parámetro de Entrada
+
+Un **parámetro de entrada** es una variable que recibe un valor de la parte que
+llama a la función (el "código invocador"). Su rol es **proporcionar a la
+función los datos necesarios** para que realice su tarea. La función usa este
+valor, pero generalmente no lo modifica de forma que el llamador vea ese cambio
+(a menos que se pase por referencia).
+
+```c
+#include <stdio.h>
+
+// 'num1' y 'num2' son parámetros de entrada
+int sumar(int num1, int num2) {
+    int resultado = num1 + num2;
+    return resultado;
+}
+
+int main() {
+    int a = 5;
+    int b = 3;
+    int sumaTotal;
+
+    // 'a' y 'b' se pasan como argumentos a los parámetros de entrada 'num1' y 'num2'
+    sumaTotal = sumar(a, b);
+    printf("La suma es: %d\n", sumaTotal);
+    return 0;
+}
+```
+
+En la función `sumar`, `num1` y `num2` son **parámetros de entrada**. Reciben
+los valores `5` y `3` respectivamente, y la función los usa para realizar la
+suma.
+
+### Variable Local Temporal (en funciones)
+
+*(Este rol es una especialización aplicada del **Rol de variable Auxiliar o Temporal** descripto en {ref}`roles-variables` del capítulo [](2_gradual))*.
+
+En el cuerpo de una función, las variables locales adoptan a menudo el rol de almacenamiento temporal. Su tiempo de vida y ámbito quedan limitados exclusivamente al registro de activación de la llamada. Su propósito principal es **servir como espacio de trabajo transitorio para cómputos intermedios** que simplifican el flujo lógico de cálculo antes de generar el resultado final.
+
+```c
+#include <stdio.h>
+
+float calcularPromedio(int a, int b, int c) {
+    // 'sumaTemporal' es una variable local temporal
+    int sumaTemporal = a + b + c;
+    float promedio = (float)sumaTemporal / 3.0; // 'promedio' es una variable de salida local
+    return promedio;
+}
+
+int main() {
+    float resultadoPromedio = calcularPromedio(10, 20, 30);
+    printf("El promedio es: %.2f\n", resultadoPromedio);
+    return 0;
+}
+```
+
+Aquí, `sumaTemporal` es una **variable local temporal** dentro de
+`calcularPromedio`. Su único propósito es almacenar la suma intermedia antes de
+calcular el promedio final.
+
+---
+
+
+
+---
+
 ## Alcance (Scope) y Tiempo de Vida (Lifetime) de Variables
 
 Para programar de forma modular en C, tenés que dominar cómo se relacionan el **alcance (ámbito o scope)** de una variable —en qué regiones del código es visible y accesible su identificador— y su **tiempo de vida (lifetime)** —duración y ubicación física de su almacenamiento en memoria—.
@@ -534,6 +608,15 @@ descomposición funcional.
 Consiste en que **cada función debe tener una única responsabilidad** y es
 fundamental para lograr código claro, mantenible y fácil de testear.
 
+
+### Aplicación práctica: Modularización y desacoplamiento de I/O
+
+A partir de esta unidad temática, **es obligatorio resolver todos los ejercicios prácticos diseñando funciones específicas** en lugar de agrupar toda la lógica procedural dentro del punto de entrada `main()`. La función `main()` debe limitarse a invocar y coordinar tus módulos lógicos.
+
+Asimismo, debés prestar especial atención a la regla de estilo {ref}`0x2002h`, la cual prohíbe taxativamente mezclar la lógica de procesamiento de datos con la visualización o lectura por consola (`printf` o `scanf`) a menos que el objetivo explícito de la función sea puramente de I/O (por ejemplo, funciones de purga o formateo interactivo).
+
+Las funciones de procesamiento lógico deben recibir sus parámetros como entrada, computar los resultados sobre registros locales y retornar los datos calculados. Esto simplifica el testeo automático de la cátedra y desacopla la lógica de negocios del canal físico de entrada/salida de la consola.
+
 ### ¿Qué significa una única responsabilidad?
 
 Una función debe encargarse de hacer **una sola cosa**, y hacerla bien. Si una
@@ -683,9 +766,6 @@ int dividir(int dividendo, int divisor) {
     return dividendo / divisor;
 }
 ```
-
----
-
 
 
 ---
@@ -850,138 +930,7 @@ errores antes de que ocurran y construir soluciones más elegantes.
 
 ::::
 
-## Ejercicios sobre funciones
 
-(funcion_doble)=
-```exercise
-:label: funcion_doble
-Escribí una función que reciba un número entero y devuelva su doble. Probala desde `main()` con distintos valores.
-```
-
-:::{solution} funcion_doble
-:class: dropdown
-
-```{code-block} c
-:linenos:
-#include <stdio.h>
-
-int doble(int n) {
-    return 2 * n;
-}
-
-int main() {
-    printf("Doble de 5: %d\n", doble(5));
-    printf("Doble de 12: %d\n", doble(12));
-    return 0;
-}
-```
-:::
-
-:::exercise}
-:label: funcion_mayor
-:enumerator: funciones-2
-
-Programá una función que reciba dos números enteros y retorne el mayor de ellos.
-```
-
-:::{solution} funcion_mayor
-:class: dropdown
-
-```{code-block} c
-:linenos:
-#include <stdio.h>
-
-int mayor(int a, int b) {
-    if (a > b) {
-        return a;
-    } else {
-        return b;
-    }
-}
-
-int main() {
-    int x = 10;
-    int y = 7;
-    printf("El mayor es: %d\n", mayor(x, y));
-    return 0;
-}
-```
-:::
-
-(funcion_par_impar)=
-```exercise
-:label: funcion_par_impar
-Definí una función que indique si un número es par o impar. Mostrá el resultado llamando a la función desde `main()`.
-```
-
-:::{solution} funcion_par_impar
-:class: dropdown
-
-```{code-block} c
-:linenos:
-#include <stdio.h>
-
-void par_impar(int n) {
-    if (n % 2 == 0) {
-        printf("%d es par\n", n);
-    } else {
-        printf("%d es impar\n", n);
-    }
-}
-
-int main() {
-    par_impar(7);
-    par_impar(12);
-    return 0;
-}
-```
-:::
-
-:::{exercise}
-:label: funcion_promedio
-:enumerator: funciones-4
-Escribí una función que reciba tres notas enteras y devuelva el promedio en punto flotante. Mostrá el resultado en `main()`.
-:::
-
-:::{solution} funcion_promedio
-:class: dropdown
-```{code-block} c
-:linenos:
-#include <stdio.h>
-
-float promedio(int a, int b, int c) {
-    return (a + b + c) / 3.0f;
-}
-
-int main() {
-    printf("Promedio: %.2f\n", promedio(7, 8, 10));
-    return 0;
-}
-```
-:::
-
-:::{exercise}
-:label: funcion_area
-Implementá una función `area_rectangulo` que reciba base y altura, y devuelva el área.
-:::
-
-:::{solution} funcion_area
-:class: dropdown
-
-```{code-block} c
-:linenos:
-#include <stdio.h>
-
-int area_rectangulo(int base, int altura) {
-    return base * altura;
-}
-
-int main() {
-    printf("Área: %d\n", area_rectangulo(5, 4));
-    return 0;
-}
-```
-:::
 
 
 
