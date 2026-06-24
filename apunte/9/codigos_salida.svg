@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 550">
+  <defs>
+    <style>
+      .program { fill: #e3f2fd; stroke: #1976d2; stroke-width: 2; }
+      .shell { fill: #263238; stroke: #424242; stroke-width: 2; }
+      .success { fill: #c8e6c9; stroke: #43a047; stroke-width: 2; }
+      .failure { fill: #ffcdd2; stroke: #e53935; stroke-width: 2; }
+      .stream { stroke-width: 2.5; fill: none; marker-end: url(#arrowhead); }
+      .exit-code { stroke: #9c27b0; }
+      .text { font-family: 'Consolas', 'Monaco', monospace; font-size: 13px; fill: #212121; }
+      .label { font-family: 'Consolas', 'Monaco', monospace; font-size: 12px; font-weight: bold; }
+      .title { font-family: 'Consolas', 'Monaco', monospace; font-size: 16px; fill: #1976d2; font-weight: bold; }
+      .shell-text { font-family: 'Consolas', 'Monaco', monospace; font-size: 12px; fill: #aed581; }
+      .code-text { font-family: 'Consolas', 'Monaco', monospace; font-size: 11px; }
+      .comment { font-size: 11px; fill: #666; font-style: italic; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#9c27b0" />
+    </marker>
+  </defs>
+  
+  <!-- Título -->
+  <text x="400" y="30" text-anchor="middle" class="title">Códigos de Salida (Exit Codes)</text>
+  
+  <!-- Explicación -->
+  <rect x="50" y="50" width="700" height="45" fill="#fff9c4" stroke="#fbc02d" stroke-width="1" rx="5" />
+  <text x="70" y="70" class="text" font-size="12">Cada programa retorna un código al shell cuando termina:</text>
+  <text x="70" y="87" class="text" font-size="12" font-weight="bold">0 = Éxito  |  ≠0 = Error</text>
+  
+  <!-- Caso Éxito -->
+  <text x="50" y="130" class="title" font-size="14">Caso 1: Ejecución Exitosa</text>
+  
+  <rect x="80" y="150" width="280" height="120" fill="#f5f5f5" stroke="#999" stroke-width="1" rx="3" />
+  <text x="95" y="170" class="code-text" fill="#2e7d32">#include &lt;stdlib.h&gt;</text>
+  <text x="95" y="190" class="code-text">int main() {</text>
+  <text x="115" y="210" class="code-text">    printf("Todo OK\n");</text>
+  <text x="115" y="230" class="code-text" font-weight="bold" fill="#2e7d32">    return EXIT_SUCCESS;</text>
+  <text x="95" y="250" class="code-text">}</text>
+  <text x="340" y="255" class="comment">// retorna 0</text>
+  
+  <rect x="80" y="285" width="140" height="50" class="program" rx="5" />
+  <text x="150" y="313" text-anchor="middle" class="text">./programa</text>
+  
+  <path d="M 220 310 L 280 310" class="stream exit-code" />
+  <text x="240" y="305" class="label" fill="#9c27b0" font-size="11">exit 0</text>
+  
+  <rect x="290" y="285" width="110" height="50" class="success" rx="5" />
+  <text x="345" y="305" text-anchor="middle" class="label" fill="#2e7d32">Shell</text>
+  <text x="345" y="323" text-anchor="middle" class="text" font-size="11">$? = 0</text>
+  
+  <!-- Caso Error -->
+  <text x="440" y="130" class="title" font-size="14">Caso 2: Error en Ejecución</text>
+  
+  <rect x="470" y="150" width="280" height="120" fill="#f5f5f5" stroke="#999" stroke-width="1" rx="3" />
+  <text x="485" y="170" class="code-text" fill="#c62828">#include &lt;stdlib.h&gt;</text>
+  <text x="485" y="190" class="code-text">int main(int argc, ...) {</text>
+  <text x="505" y="210" class="code-text">    if (argc &lt; 2)</text>
+  <text x="525" y="230" class="code-text" font-weight="bold" fill="#c62828">        return EXIT_FAILURE;</text>
+  <text x="485" y="250" class="code-text">}</text>
+  <text x="730" y="255" class="comment">// retorna 1</text>
+  
+  <rect x="470" y="285" width="140" height="50" class="program" rx="5" />
+  <text x="540" y="313" text-anchor="middle" class="text">./programa</text>
+  
+  <path d="M 610 310 L 670 310" class="stream exit-code" />
+  <text x="630" y="305" class="label" fill="#9c27b0" font-size="11">exit 1</text>
+  
+  <rect x="680" y="285" width="110" height="50" class="failure" rx="5" />
+  <text x="735" y="305" text-anchor="middle" class="label" fill="#c62828">Shell</text>
+  <text x="735" y="323" text-anchor="middle" class="text" font-size="11">$? = 1</text>
+  
+  <!-- Uso en el shell -->
+  <text x="50" y="375" class="title" font-size="14">Uso en el Shell</text>
+  
+  <rect x="50" y="390" width="340" height="140" class="shell" rx="5" />
+  <text x="70" y="410" class="shell-text">$ ./programa arg1 arg2</text>
+  <text x="70" y="430" class="shell-text">Todo OK</text>
+  <text x="70" y="455" class="shell-text" fill="#ffeb3b">$ echo $?</text>
+  <text x="70" y="475" class="shell-text">0</text>
+  <text x="70" y="500" class="shell-text" fill="#4fc3f7">$ ./programa</text>
+  <text x="70" y="520" class="shell-text">Error: faltan argumentos</text>
+  
+  <rect x="410" y="390" width="340" height="140" class="shell" rx="5" />
+  <text x="430" y="410" class="shell-text" fill="#ffeb3b">$ echo $?</text>
+  <text x="430" y="430" class="shell-text">1</text>
+  <text x="430" y="455" class="shell-text" fill="#4fc3f7">$ ./prog1 &amp;&amp; ./prog2</text>
+  <text x="430" y="475" class="comment" fill="#90a4ae">// prog2 solo si prog1 retorna 0</text>
+  <text x="430" y="500" class="shell-text" fill="#4fc3f7">$ ./prog1 || ./prog2</text>
+  <text x="430" y="520" class="comment" fill="#90a4ae">// prog2 solo si prog1 retorna ≠0</text>
+</svg>

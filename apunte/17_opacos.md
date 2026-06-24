@@ -562,6 +562,38 @@ int main(void) {
 
 ---
 
+
+
+---
+
+(contratos-modulos)=
+## Contratos en Módulos C
+
+El diseño de punteros opacos impone una separación estricta entre interfaz e implementación. Para formalizar esa separación, el **Diseño por Contratos** proporciona el marco conceptual: cada función de la interfaz tiene precondiciones (qué exige del cliente) y poscondiciones (qué garantiza al cliente).
+
+## Introducción
+
+El **Diseño por Contratos** (Design by Contract, DbC) es una metodología formal de desarrollo de software introducida por Bertrand Meyer en el lenguaje Eiffel. Se fundamenta en la metáfora de un contrato legal entre partes: cada componente de software tiene **obligaciones** (precondiciones que debe garantizar el cliente) y **beneficios** (postcondiciones que garantiza el proveedor). Este enfoque transforma el desarrollo de software de una actividad artesanal a una disciplina ingenieril rigurosa.
+
+```{figure} 22/contract_metaphor.svg
+:label: fig-metaphor
+:align: center
+:width: 90%
+
+Metáfora del contrato: cliente y proveedor tienen obligaciones y derechos mutuos, formalizados mediante precondiciones y postcondiciones.
+```
+
+:::{important} Beneficios del Diseño por Contratos
+
+1. **Documentación ejecutable**: Los contratos son especificaciones precisas y verificables
+2. **Detección temprana de errores**: Violaciones se detectan en el punto exacto de falla
+3. **Facilita testing**: Los contratos definen casos de prueba automáticamente
+4. **Mejora mantenibilidad**: El comportamiento esperado está explícito
+5. **Razonamiento formal**: Permite demostraciones matemáticas de corrección
+:::
+
+La formalización mediante Lógica de Primer Orden (LPO) proporciona el rigor matemático necesario para especificar, verificar y razonar sobre la corrección de programas.
+
 ## Punteros Opacos en Bibliotecas Estándar
 
 Muchas bibliotecas conocidas usan punteros opacos:

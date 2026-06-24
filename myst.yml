@@ -57,6 +57,10 @@ project:
         - file: apunte/17_opacos.md
         - file: apunte/18_tad.md
         - file: apunte/19_complejidad.md
+        - file: apunte/20_idiomatico.md
+        - file: apunte/21_testing.md
+        - file: apunte/22_contratos.md
+        - file: apunte/23_diseno_api.md
     - title: Reglas de estilo
       children:
         - file: reglas/indice.md
@@ -66,16 +70,7 @@ project:
         - file: reglas/3_punteros.md
         - file: reglas/4_archivos.md
         - file: reglas/5_buenas_practicas.md
-    - title: Extras
-      children:
-        - file: extras/testing.md
-        - file: extras/diseno_api.md
-        - file: extras/causas.md
-        - file: extras/notes-cadenas.md
-        - file: extras/notes-roles.md
-        - file: extras/notes-estado.md
-        - file: extras/contratos.md
-        - file: extras/bits.md
+
     - title: Ejercicios
       file: ejercicios/readme.md
       children:
@@ -135,6 +130,7 @@ project:
         - file: guias/git_avanzado.md
         - file: guias/bash.md
         - file: guias/markdown.md
+        - file: guias/ia_aprendizaje.md
     - title: Bibliografia
       children:
         - file: bibliografia/suplementaria.md

@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550">
+  <defs>
+    <style>
+      .program { fill: #e3f2fd; stroke: #1976d2; stroke-width: 2; }
+      .pipe { fill: #fff3e0; stroke: #ff6f00; stroke-width: 3; }
+      .stream { stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+      .data-flow { stroke: #2196f3; }
+      .text { font-family: 'Consolas', 'Monaco', monospace; font-size: 13px; fill: #212121; }
+      .label { font-family: 'Consolas', 'Monaco', monospace; font-size: 12px; font-weight: bold; }
+      .title { font-family: 'Consolas', 'Monaco', monospace; font-size: 15px; fill: #1976d2; font-weight: bold; }
+      .shell-bg { fill: #263238; }
+      .shell-text { font-family: 'Consolas', 'Monaco', monospace; font-size: 12px; fill: #aed581; }
+      .data { font-family: 'Consolas', 'Monaco', monospace; font-size: 11px; fill: #1565c0; }
+      .comment { font-size: 11px; fill: #666; font-style: italic; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#2196f3" />
+    </marker>
+  </defs>
+  
+  <!-- Título -->
+  <text x="450" y="25" text-anchor="middle" class="title">Canalizaciones (Pipes) en Unix</text>
+  
+  <!-- Ejemplo 1: Pipe simple -->
+  <text x="50" y="60" class="title" font-size="13">1. Pipe simple: prog1 | prog2</text>
+  <rect x="45" y="70" width="450" height="25" class="shell-bg" rx="3" />
+  <text x="55" y="87" class="shell-text">$ seq 1 10 | ./filtro_pares</text>
+  
+  <rect x="80" y="120" width="100" height="50" class="program" rx="5" />
+  <text x="130" y="140" text-anchor="middle" class="text">seq 1 10</text>
+  <text x="130" y="155" text-anchor="middle" class="comment" font-size="10">(genera nums)</text>
+  
+  <rect x="230" y="130" width="80" height="30" class="pipe" rx="5" />
+  <text x="270" y="150" text-anchor="middle" class="label" fill="#e65100">PIPE</text>
+  
+  <rect x="360" y="120" width="110" height="50" class="program" rx="5" />
+  <text x="415" y="140" text-anchor="middle" class="text">filtro_pares</text>
+  <text x="415" y="155" text-anchor="middle" class="comment" font-size="10">(filtra pares)</text>
+  
+  <path d="M 180 145 L 230 145" class="stream data-flow" />
+  <text x="195" y="140" class="label" fill="#2196f3" font-size="10">stdout</text>
+  
+  <path d="M 310 145 L 360 145" class="stream data-flow" />
+  <text x="325" y="140" class="label" fill="#2196f3" font-size="10">stdin</text>
+  
+  <!-- Datos que fluyen -->
+  <text x="85" y="190" class="data">1</text>
+  <text x="100" y="190" class="data">2</text>
+  <text x="115" y="190" class="data">3</text>
+  <text x="130" y="190" class="data">4</text>
+  <text x="145" y="190" class="data">5...</text>
+  
+  <text x="380" y="190" class="data">2</text>
+  <text x="400" y="190" class="data">4</text>
+  <text x="420" y="190" class="data">6...</text>
+  
+  <!-- Ejemplo 2: Cadena de pipes -->
+  <text x="50" y="240" class="title" font-size="13">2. Cadena de pipes: prog1 | prog2 | prog3</text>
+  <rect x="45" y="250" width="620" height="25" class="shell-bg" rx="3" />
+  <text x="55" y="267" class="shell-text">$ cat datos.txt | grep "ERROR" | wc -l</text>
+  
+  <rect x="60" y="300" width="90" height="50" class="program" rx="5" />
+  <text x="105" y="315" text-anchor="middle" class="text" font-size="12">cat</text>
+  <text x="105" y="330" text-anchor="middle" class="text" font-size="12">datos.txt</text>
+  <text x="105" y="343" text-anchor="middle" class="comment" font-size="9">(lee archivo)</text>
+  
+  <rect x="185" y="310" width="70" height="30" class="pipe" rx="5" />
+  <text x="220" y="330" text-anchor="middle" class="label" fill="#e65100" font-size="11">PIPE</text>
+  
+  <rect x="290" y="300" width="90" height="50" class="program" rx="5" />
+  <text x="335" y="320" text-anchor="middle" class="text" font-size="12">grep</text>
+  <text x="335" y="335" text-anchor="middle" class="text" font-size="12">"ERROR"</text>
+  <text x="335" y="343" text-anchor="middle" class="comment" font-size="9">(filtra)</text>
+  
+  <rect x="415" y="310" width="70" height="30" class="pipe" rx="5" />
+  <text x="450" y="330" text-anchor="middle" class="label" fill="#e65100" font-size="11">PIPE</text>
+  
+  <rect x="520" y="300" width="90" height="50" class="program" rx="5" />
+  <text x="565" y="320" text-anchor="middle" class="text" font-size="12">wc -l</text>
+  <text x="565" y="343" text-anchor="middle" class="comment" font-size="9">(cuenta)</text>
+  
+  <path d="M 150 325 L 185 325" class="stream data-flow" />
+  <path d="M 255 325 L 290 325" class="stream data-flow" />
+  <path d="M 380 325 L 415 325" class="stream data-flow" />
+  <path d="M 485 325 L 520 325" class="stream data-flow" />
+  
+  <!-- Ejemplo 3: Diseño de programa para pipes -->
+  <text x="50" y="395" class="title" font-size="13">3. Diseño ideal para programas componibles</text>
+  
+  <rect x="45" y="410" width="810" height="125" fill="#f5f5f5" stroke="#999" stroke-width="1" rx="5" />
+  
+  <text x="65" y="430" class="text" font-size="12" font-weight="bold">Programa bien diseñado:</text>
+  
+  <text x="85" y="455" class="text" font-size="11">✓ Lee de <tspan fill="#2e7d32" font-weight="bold">stdin</tspan> (o archivo si se especifica)</text>
+  <text x="85" y="475" class="text" font-size="11">✓ Escribe resultados a <tspan fill="#1565c0" font-weight="bold">stdout</tspan></text>
+  <text x="85" y="495" class="text" font-size="11">✓ Escribe errores a <tspan fill="#c62828" font-weight="bold">stderr</tspan></text>
+  <text x="85" y="515" class="text" font-size="11">✓ Procesa línea por línea (cuando sea posible)</text>
+  
+  <text x="480" y="430" class="text" font-size="12" font-weight="bold">Filosofía Unix:</text>
+  <text x="500" y="455" class="text" font-size="11" font-style="italic">"Hacé una cosa y hacela bien"</text>
+  <text x="500" y="475" class="text" font-size="11">Programas pequeños y enfocados</text>
+  <text x="500" y="495" class="text" font-size="11">que se combinan para tareas</text>
+  <text x="500" y="515" class="text" font-size="11">complejas mediante pipes.</text>
+</svg>
