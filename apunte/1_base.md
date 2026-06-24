@@ -6,10 +6,10 @@ subtitle: Conceptos básicos antes de programar en C
 
 ## Introducción
 
-Antes de escribir tu primera línea de código en C, es fundamental comprender algunos conceptos básicos sobre cómo funcionan las computadoras y cómo comunicarnos con ellas de manera efectiva. En este apunte, sentaremos las bases algorítmicas de forma independiente de cualquier lenguaje, utilizando un pseudocódigo estructurado similar a C en español. Esto te permitirá concentrarte en el pensamiento lógico antes de abordar la sintaxis formal de C.
+Antes de escribir tu primera línea de código en C, es fundamental repasar (y comprender) algunos conceptos básicos sobre cómo funcionan las computadoras y cómo comunicarnos con ellas de manera efectiva. En este apunte, sentaremos las bases algorítmicas de forma independiente de cualquier lenguaje, utilizando un pseudocódigo estructurado similar a C en español. Esto te permitirá concentrarte en el pensamiento lógico antes de abordar la sintaxis formal de C.
 
 :::{important}
-Este material es **prerrequisito** para el apunte de introducción a C. Asegurate de comprender estos conceptos antes de avanzar, ya que forman la base de todo lo que veremos posteriormente.
+Este material es **prerrequisito** para el apunte de introducción a C, y es un repaso de los temas vistos en el Curso de Ingreso y en Introducción a la Ingeniería en Computación. Asegurate de comprender estos conceptos antes de avanzar, ya que forman la base de todo lo que veremos posteriormente.
 :::
 
 ---
@@ -50,8 +50,7 @@ El **hardware** son los componentes físicos de la computadora:
 Arquitectura básica de una computadora: el CPU coordina el flujo de datos entre la memoria RAM (rápida y volátil), el almacenamiento permanente (lento pero persistente), y los dispositivos de entrada/salida.
 ```
 
-:::{admonition} ¿Por qué necesitamos RAM y almacenamiento permanente?
-:class: tip
+:::{tip} ¿Por qué necesitamos RAM y almacenamiento permanente?
 La RAM es extremadamente rápida pero volátil y costosa. El disco es mucho más lento pero persistente y económico. Esta combinación nos da lo mejor de ambos mundos: velocidad para ejecutar programas en memoria activa y persistencia para guardar nuestros archivos a largo plazo.
 :::
 
@@ -121,7 +120,7 @@ Imaginá que querés hacer un bizcochuelo y le das las instrucciones a alguien q
 
 La computadora necesita instrucciones de este segundo tipo: específicas, ordenadas, sin ambigüedades y detalladas al extremo.
 
-### Ejercicio inicial
+### Ejercicio 1
 
 ```exercise
 :label: ex-instrucciones-precisas
@@ -622,21 +621,21 @@ flowchart TD
 
 ---
 
-## Ejercicios de Aplicación Algorítmica
+## Ejercicio 2: Aplicación Algorítmica
 
 ```exercise
-:label: ex-python-2
+:label: ex-pseudo-2
 Escribí en pseudocódigo estructurado (estilo C en español) algoritmos para resolver las siguientes cuestiones, sin declarar subprogramas (`def`) ni importar librerías complejas:
 
-1. Convertir una temperatura dada de grados Celsius a Fahrenheit.
-2. Determinar si tres medidas de lados reales pueden formar un triángulo (la suma de dos lados cualesquiera debe ser siempre estrictamente mayor que el tercer lado).
-3. Calcular el Máximo Común Divisor (MCD) de dos números enteros utilizando el algoritmo de Euclides.
-4. Determinar si una cadena de caracteres es un palíndromo (se lee igual de izquierda a derecha que de derecha a izquierda), comparando sus extremos mediante un lazo.
+A. Convertir una temperatura dada de grados Celsius a Fahrenheit.
+B. Determinar si tres medidas de lados reales pueden formar un triángulo (la suma de dos lados cualesquiera debe ser siempre estrictamente mayor que el tercer lado).
+C. Calcular el Máximo Común Divisor (MCD) de dos números enteros utilizando el algoritmo de Euclides.
+D. Determinar si una cadena de caracteres es un palíndromo (se lee igual de izquierda a derecha que de derecha a izquierda), comparando sus extremos mediante un lazo.
 ```
 
-```solution
-:for: ex-python-2
-**1. Conversión de temperatura:**
+:::{solution}
+:for: ex-pseudo-2
+**A. Conversión de temperatura:**
 ```text
 real celsius;
 real fahrenheit;
@@ -648,7 +647,8 @@ fahrenheit = celsius * 9.0 / 5.0 + 32.0;
 Escribir("Equivalente en Fahrenheit: ", fahrenheit);
 ```
 
-**2. Verificar triángulo:**
+
+**B. Verificar triángulo:**
 ```text
 real lado1;
 real lado2;
@@ -671,7 +671,7 @@ Sino
 }
 ```
 
-**3. MCD (Algoritmo de Euclides):**
+**C. MCD (Algoritmo de Euclides):**
 ```text
 entero a;
 entero b;
@@ -692,7 +692,7 @@ Mientras (b != 0)
 Escribir("El MCD es: ", a);
 ```
 
-**4. Palíndromo (lazo de comparación de extremos):**
+**D. Palíndromo (lazo de comparación de extremos):**
 ```text
 cadena palabra;
 entero longitud;
@@ -726,13 +726,13 @@ Sino
     Escribir("La palabra NO es un palíndromo.");
 }
 ```
-```
+:::
 
 ---
 
-## Ejercicios integradores
+## Ejercicio 3 : Integradores
 
-```exercise
+:::{exercise}
 :label: ex-integrador-1
 Analizá el siguiente pseudocódigo estructurado y respondé las consignas:
 
@@ -758,13 +758,14 @@ Escribir("Resultado: ", suma);
 1. ¿Qué hace este algoritmo?
 2. Si `n` ingresado es 10, ¿cuál es la salida final?
 3. Modificalo para que realice la suma exclusiva de números impares.
-```
+:::
 
-```solution
+:::{solution}
 :for: ex-integrador-1
 1. **¿Qué hace?** Suma todos los números pares en el rango de 1 a `n` inclusive.
 2. **Resultado para n=10:** 2 + 4 + 6 + 8 + 10 = **30**.
 3. **Modificación para impares:** Modificar la condición del módulo en la decisión (`i % 2 != 0`):
+
 ```text
 entero n;
 entero suma = 0;
@@ -787,7 +788,7 @@ Escribir("Resultado: ", suma);
 
 ---
 
-## Errores Comunes y Estrategias de Prevención
+## Errores comunes y estrategias para prevenirlos
 
 ### 1. Secuencia incorrecta de asignaciones
 Las variables deben poseer datos válidos antes de ser leídas o manipuladas en expresiones.
@@ -838,7 +839,7 @@ Las variables en memoria física tienen un almacenamiento binario de tamaño fin
 #### Desbordamiento (Overflow y Underflow)
 Ocurre cuando una operación aritmética produce un valor que excede el límite almacenable por el tipo de dato.
 
-- **Overflow (sobreflujo):** El valor supera el límite máximo representable. Para enteros con signo, esto constituye un **Comportamiento Indefinido** (*Undefined Behavior* o *UB*) según el estándar C. Esto significa que el estándar no garantiza qué va a suceder: el compilador es libre de optimizar el código asumiendo que el desbordamiento nunca ocurrirá, lo que puede provocar fallas lógicas o de seguridad críticas. El comportamiento modular cíclico de desbordamiento (aritmética módulo $2^w$, donde $w$ es la cantidad de bits del tipo de dato) está estrictamente garantizado por el estándar únicamente para los tipos enteros sin signo (`unsigned`). En sistemas reales, dependiendo de la arquitectura de la CPU y de la optimización del compilador, un sobreflujo con signo suele manifestarse como un salto cíclico al valor mínimo o comportamientos erráticos.
+- **Overflow (sobreflujo):** El valor supera el límite máximo representable. Para enteros con signo, esto constituye un **Comportamiento Indefinido** (*Undefined Behavior* o *UB*) según el estándar C. Esto significa que el estándar no garantiza qué va a suceder: el compilador es libre de optimizar el código asumiendo que el desbordamiento nunca ocurrirá, lo que puede provocar fallas lógicas o de seguridad críticas. El comportamiento modular cíclico de desbordamiento (aritmética módulo $2^w$, donde $w$ es la cantidad de bits del tipo de dato) está estrictamente garantizado por el estándar únicamente para los tipos enteros sin signo (`unsigned`). En sistemas reales, dependiendo de la arquitectura de la CPU y de la optimización del compilador, un overflow con signo suele manifestarse como un salto cíclico al valor mínimo o **comportamientos erráticos**.
 - **Underflow (subflujo):** El valor es menor al límite mínimo representable. En números reales de punto flotante, ocurre cuando el valor absoluto es tan pequeño y cercano a cero que el hardware es incapaz de representarlo con una mantisa válida, diferenciándose únicamente de cero por subdesbordamiento.
 
 Ejemplo de desbordamiento de enteros sin signo en C (comportamiento modular cíclico garantizado):
