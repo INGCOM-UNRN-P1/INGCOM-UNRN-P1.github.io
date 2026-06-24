@@ -772,7 +772,7 @@ de todas las iteraciones de un ciclo o entre cada llamada a funciones.
 
 En el contexto de funciones simples y lo que aplicaremos inicialmente, esto
 suele referirse a propiedades que no cambian durante la ejecución de un conjunto
-de operaciones o dentro de estructuras de control (como un bucle).
+de operaciones o dentro de estructuras de control (como un lazo).
 
 Este concepto aplica también a programas más complejos, donde hay funciones que
 manipulan un estado que debe ser mantenido entre varias funciones, algo que

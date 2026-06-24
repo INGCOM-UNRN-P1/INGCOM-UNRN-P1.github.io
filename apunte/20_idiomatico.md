@@ -89,7 +89,7 @@ destino[i] = '\0';
 :::{admonition} Relación con las reglas de estilo
 :class: tip
 
-Este patrón idiomático **parece contradecir** las reglas {ref}`0x0000h <0x0000h>` (claridad) y {ref}`0x0016h <0x0016h>` (operaciones múltiples), pero es una **excepción reconocida** en C por ser un modismo tan común que los programadores experimentados lo reconocen instantáneamente.
+Este patrón idiomático **parece contradecir** las reglas {ref}`0x0000h <0x0000h>` (claridad) y {ref}`0x3003h <0x3003h>` (operaciones múltiples), pero es una **excepción reconocida** en C por ser un modismo tan común que los programadores experimentados lo reconocen instantáneamente.
 
 **Sin embargo**, para estudiantes principiantes, es preferible usar la versión más explícita o directamente `strcpy()` de `<string.h>`. El patrón idiomático compacto es aceptable cuando:
 1. Se trabaja en código de bajo nivel
@@ -123,7 +123,7 @@ persona.activo = true;
 
 Este patrón **cumple perfectamente** con:
 - {ref}`0x0003h <0x0003h>`: Inicializar variables a valor conocido
-- {ref}`0x001Ah <0x001Ah>`: Inicialización de estructuras con inicializadores designados (C99)
+- {ref}`0x3004h <0x3004h>`: Inicialización de estructuras con inicializadores designados (C99)
 
 La inicialización con sintaxis designada (`.campo = valor`) es tanto idiomática como obligatoria según nuestras reglas de estilo. Es claramente superior a la asignación campo por campo porque:
 1. Garantiza que todos los campos no especificados se inicialicen en cero
@@ -168,8 +168,8 @@ int procesar_datos(const int *datos, size_t n) {
 :class: tip
 
 El retorno anticipado **es totalmente compatible** con:
-- {ref}`0x0014h <0x0014h>`: Evitar anidamiento profundo
-- {ref}`0x0026h <0x0026h>`: Validación de precondiciones
+- {ref}`0x2001h <0x2001h>`: Evitar anidamiento profundo
+- {ref}`0x3008h <0x3008h>`: Validación de precondiciones
 
 Este patrón es una de las técnicas más importantes para mantener código legible. Al validar las condiciones de error primero y salir temprano, el "camino feliz" (happy path) queda sin anidar, mejorando drásticamente la claridad.
 
@@ -200,7 +200,7 @@ if (a > b) {
 :::{admonition} Relación con las reglas de estilo
 :class: tip
 
-El operador ternario **es recomendado explícitamente** en {ref}`0x0017h <0x0017h>` para expresiones simples.
+El operador ternario **está estrictamente prohibido por la regla** {ref}`0x1007h <0x1007h>` en esta cátedra. Su uso en los laboratorios está penalizado, debiendo preferirse la estructura de control `if-else` tradicional.
 
 **Cuándo usar el operador ternario:**
 - Asignaciones condicionales simples de una sola línea
@@ -287,7 +287,7 @@ void procesar(const dato_t *dato) {
 :::{admonition} Relación con las reglas de estilo
 :class: tip
 
-La validación de punteros **es obligatoria** según {ref}`0x0026h <0x0026h>` (validación de precondiciones) y {ref}`0x0036h <0x0036h>` (manejo de NULL).
+La validación de punteros **es obligatoria** según {ref}`0x3008h <0x3008h>` (validación de precondiciones) y {ref}`0x0036h <0x0036h>` (manejo de NULL).
 
 **Dos enfoques válidos:**
 
@@ -468,7 +468,7 @@ if (ptr == NULL) { ... }  // Aceptable
 
 **Excepción:** En código muy idiomático y denso, la forma breve `if (ptr)` es aceptable si el contexto es claro.
 
-Ver {ref}`0x0026h <0x0026h>` para más sobre validación de punteros.
+Ver {ref}`0x3008h <0x3008h>` para más sobre validación de punteros.
 :::
 
 Nota: Esta es una cuestión de preferencia. Algunos equipos prefieren la forma explícita para mayor claridad.
@@ -495,7 +495,7 @@ void funcion(void) {
 :::{admonition} Relación con las reglas de estilo
 :class: tip
 
-**El uso de `goto` está regulado específicamente** en {ref}`0x002Bh <0x002Bh>`.
+**El uso de `goto` está estrictamente prohibido por la regla** {ref}`0x1006h <0x1006h>` en todas las prácticas de la materia.
 
 **Uso PROHIBIDO de `goto`:**
 - Reemplazar estructuras de control (`for`, `while`)
@@ -544,10 +544,10 @@ error:
 **Alternativa sin `goto` (válida pero más verbosa):**
 Funciones auxiliares o estructuras de control anidadas, pero el código de limpieza se duplica.
 
-Ver {ref}`0x002Bh <0x002Bh>` para el análisis completo.
+Ver {ref}`0x1006h <0x1006h>` para el análisis completo.
 :::
 
-Excepción: `goto` para limpieza de recursos en caso de error es un patrón idiomático en C (ver Regla 0x002Bh).
+Excepción: `goto` para limpieza de recursos en caso de error es un patrón idiomático en C (ver Regla 0x1006h).
 
 ### Contexto cultural del código idiomático
 
@@ -638,15 +638,15 @@ Todos son correctos, pero el nivel de idiomaticidad apropiado depende de tu expe
 | Patrón Idiomático | Regla de Estilo Relacionada | Postura del Curso | Cuándo Usar |
 |-------------------|------------------------------|-------------------|-------------|
 | `while (*d++ = *s++)` | {ref}`0x0000h <0x0000h>` (claridad) | **Preferir claridad** | Código muy idiomático de bajo nivel |
-| Inicializadores designados | {ref}`0x001Ah <0x001Ah>` | **Totalmente alineado** | Siempre |
-| Early return | {ref}`0x0014h <0x0014h>`, {ref}`0x0026h <0x0026h>` | **Totalmente alineado** | Siempre |
-| Operador ternario simple | {ref}`0x0017h <0x0017h>` | **Totalmente alineado** | Asignaciones simples |
-| Ternario anidado | {ref}`0x0017h <0x0017h>` | **Prohibido** | Nunca |
-| `if (ptr)` | {ref}`0x0026h <0x0026h>` | **Preferir explícito** | Código muy idiomático |
-| `if (ptr != NULL)` | {ref}`0x0026h <0x0026h>` | **Recomendado** | Siempre, especialmente al aprender |
-| `goto` para limpieza | {ref}`0x002Bh <0x002Bh>` | **Permitido específicamente** | Manejo de errores con recursos |
-| `goto` para lazos | {ref}`0x002Bh <0x002Bh>` | **Prohibido** | Nunca |
-| Macros vs funciones | {ref}`0x0030h <0x0030h>`, {ref}`0x0031h <0x0031h>` | **Caso por caso** | Constantes: macro; Lógica: función |
+| Inicializadores designados | {ref}`0x3004h <0x3004h>` | **Totalmente alineado** | Siempre |
+| Early return | {ref}`0x2001h <0x2001h>`, {ref}`0x3008h <0x3008h>` | **Totalmente alineado** | Siempre |
+| Operador ternario simple | {ref}`0x1007h <0x1007h>` | **Totalmente alineado** | Asignaciones simples |
+| Ternario anidado | {ref}`0x1007h <0x1007h>` | **Prohibido** | Nunca |
+| `if (ptr)` | {ref}`0x3008h <0x3008h>` | **Preferir explícito** | Código muy idiomático |
+| `if (ptr != NULL)` | {ref}`0x3008h <0x3008h>` | **Recomendado** | Siempre, especialmente al aprender |
+| `goto` para limpieza | {ref}`0x1006h <0x1006h>` | **Permitido específicamente** | Manejo de errores con recursos |
+| `goto` para lazos | {ref}`0x1006h <0x1006h>` | **Prohibido** | Nunca |
+| Macros vs funciones | {ref}`0x2008h <0x2008h>`, {ref}`0x2008h <0x2008h>` | **Caso por caso** | Constantes: macro; Lógica: función |
 | Nombres cortos (`i`, `j`) | {ref}`0x0001h <0x0001h>` | **Permitido con restricciones** | Lazos simples, ámbito reducido |
 | Punteros vs índices | {ref}`0x0000h <0x0000h>` | **Preferir índices** | Índices por defecto; punteros cuando clarifica |
 
