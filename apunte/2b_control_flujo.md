@@ -400,7 +400,7 @@ Podés consultar la resolución del **Ejercicio 9 (ingreso de clave con bandera)
 
 ## Problemas del Buffer de Entrada (stdin) y su Purgado
 
-Cuando utilizás `scanf` para leer datos numéricos o caracteres, el flujo de entrada `stdin` puede almacenar residuos no deseados que alteran las lecturas posteriores.
+Cuando usas `scanf` para leer datos numéricos o caracteres, el flujo de entrada `stdin` puede almacenar residuos no deseados que alteran las lecturas posteriores.
 
 ### El origen del problema
 Al ingresar datos desde la consola (por ejemplo, al escribir un número y presionar Enter), `scanf` lee únicamente el valor numérico correspondiente al formato especificado (como `%d`), dejando el carácter de salto de línea (`\n`) residual dentro de `stdin`.
