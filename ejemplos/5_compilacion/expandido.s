@@ -1,6 +1,6 @@
 Claro, aquí tienes un análisis detallado, línea por línea, del código ensamblador que has proporcionado.
 
-Este código es el resultado de compilar un programa en C con un **alto nivel de optimización** (probablemente `-O2` o `-O3`). El compilador ha transformado bucles simples en código complejo que utiliza instrucciones **SIMD** (Single Instruction, Multiple Data) para procesar múltiples datos a la vez, mejorando drásticamente el rendimiento.
+Este código es el resultado de compilar un programa en C con un **alto nivel de optimización** (probablemente `-O2` o `-O3`). El compilador ha transformado lazos simples en código complejo que utiliza instrucciones **SIMD** (Single Instruction, Multiple Data) para procesar múltiples datos a la vez, mejorando drásticamente el rendimiento.
 
 El programa original en C (`loop.c`) probablemente inicializa un array de 100 enteros (de 0 a 99) y luego suma todos sus elementos para imprimir el resultado.
 
@@ -27,8 +27,8 @@ main:
     subq    $408, %rsp              # Reserva 408 bytes en la pila (stack). 400 para el array (100 enteros * 4 bytes) y 8 para alineación.
     .cfi_def_cfa_offset 416         # Información para el depurador sobre el tamaño del stack frame.
 
-# --- Bucle 1: Inicialización del array (Loop Unrolling + SIMD) ---
-# Este bucle inicializa el array de 100 enteros con los valores 0, 1, 2, ..., 99.
+# --- lazo 1: Inicialización del array (Loop Unrolling + SIMD) ---
+# Este lazo inicializa el array de 100 enteros con los valores 0, 1, 2, ..., 99.
 # Usa registros XMM de 128 bits para escribir 4 enteros a la vez.
 
     movl    $4, %edi                  # Carga el valor 4 en el registro %edi. Se usará para incrementar los valores del array.
@@ -37,10 +37,10 @@ main:
     movq    %rsp, %rdx                # Guarda la dirección de inicio del array (en la pila) en %rdx.
     movq    %rsp, %rax                # Copia la dirección de inicio en %rax, que actuará como puntero.
     pshufd  $0, %xmm1, %xmm1          # Duplica el valor 4 en los 4 "carriles" de %xmm1. Ahora %xmm1 es [4, 4, 4, 4].
-    .p2align 5                      # Alineaciones para optimizar el rendimiento del bucle.
+    .p2align 5                      # Alineaciones para optimizar el rendimiento del lazo.
     .p2align 4
     .p2align 3
-.L2:                                # Etiqueta de inicio del bucle de inicialización.
+.L2:                                # Etiqueta de inicio del lazo de inicialización.
     movaps  %xmm0, (%rax)             # Escribe 4 enteros desde %xmm0 en la memoria apuntada por %rax (en el array).
     leaq    400(%rsp), %rcx           # Calcula la dirección final del array y la guarda en %rcx.
     addq    $16, %rax                 # Avanza el puntero %rax en 16 bytes (para los siguientes 4 enteros).
@@ -48,8 +48,8 @@ main:
     cmpq    %rcx, %rax                # Compara el puntero actual (%rax) con la dirección final (%rcx).
     jne .L2                         # Si no hemos llegado al final, salta de nuevo a .L2.
 
-# --- Bucle 2: Suma de los elementos del array (Loop Unrolling + SIMD) ---
-# Este bucle suma los elementos del array. También usa registros XMM para sumar
+# --- lazo 2: Suma de los elementos del array (Loop Unrolling + SIMD) ---
+# Este lazo suma los elementos del array. También usa registros XMM para sumar
 # múltiples elementos en paralelo.
 
     movq    %rcx, %rax                # Reutiliza registros.
@@ -65,16 +65,16 @@ main:
     .p2align 5                      # Alineaciones.
     .p2align 4
     .p2align 3
-.L3:                                # Etiqueta de inicio del bucle principal de suma.
+.L3:                                # Etiqueta de inicio del lazo principal de suma.
     paddd   (%rdx), %xmm0             # Suma 4 enteros del array directamente al acumulador %xmm0.
     leaq    400(%rsp), %rax           # Calcula la dirección final.
     addq    $32, %rdx                 # Avanza el puntero en 32 bytes (8 enteros).
     paddd   -16(%rdx), %xmm0          # Suma los 4 enteros anteriores también. (Procesa 8 enteros por iteración).
     cmpq    %rax, %rdx                # Compara si hemos llegado al final.
-    jne .L3                         # Si no, repite el bucle.
+    jne .L3                         # Si no, repite el lazo.
 
 # --- Reducción final y llamada a printf ---
-# Al final del bucle, %xmm0 contiene 4 sumas parciales.
+# Al final del lazo, %xmm0 contiene 4 sumas parciales.
 # Por ejemplo: [suma_elems_0,4,8.. | suma_elems_1,5,9.. | suma_elems_2,6,10.. | suma_elems_3,7,11..]
 # Esta sección suma esas 4 sumas parciales para obtener el total final.
 
