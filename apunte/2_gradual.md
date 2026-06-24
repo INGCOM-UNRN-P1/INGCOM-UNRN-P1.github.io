@@ -544,7 +544,7 @@ Imaginemos que queremos calcular la suma de los primeros N números enteros.
 #include <stdio.h>
 
 int main() {
-    int n;
+    int n = -1;
     int suma = 0; // Aquí, 'suma' es nuestro acumulador
     printf("Ingrese un numero entero N: ");
     scanf("%d", &n);
@@ -581,7 +581,8 @@ Supongamos que queremos contar cuántos números pares hay en un rango dado.
 #include <stdio.h>
 
 int main() {
-    int inicio, fin;
+    int inicio = -1;
+    int fin = -1;
     int contadorPares = 0; // Aquí, 'contadorPares' es nuestro contador
 
     printf("Ingrese el inicio del rango: ");
@@ -761,7 +762,7 @@ través del teclado, la lectura de un archivo o datos recibidos de una red.
 #include <stdio.h>
 
 int main() {
-    int edad; // 'edad' es una variable de entrada
+    int edad = -1; // 'edad' es una variable de entrada
 
     printf("Por favor, ingresa tu edad: ");
     scanf("%d", &edad); // Aquí, el valor ingresado se guarda en 'edad'
