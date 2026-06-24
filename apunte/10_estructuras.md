@@ -4,6 +4,7 @@ short_title: '6 - Estructuras'
 subtitle: 'struct, union y campos de bits en C'
 ---
 
+
 (estructuras-capitulo)=
 ## Los Ladrillos de la memoria
 
@@ -33,7 +34,7 @@ común (x86_64, little-endian), pero siempre debés verificar en tu plataforma.
 Una `struct` es una colección de variables (miembros) de diferentes tipos,
 agrupadas bajo un solo nombre.
 
-```{figure} 6/struct_memory_layout.svg
+```{figure} 10/struct_memory_layout.svg
 :name: fig-struct-memory-layout
 :alt: Organización de estructuras en memoria
 :align: center
@@ -404,7 +405,7 @@ Lo que sí entra, es el hecho de utilizar, _la sintaxis intuitiva_ {ref}`AoS`, e
 
 Una de las decisiones más importantes al diseñar estructuras es elegir entre **arreglo de estructuras (AoS)** o **estructura de arreglos (SoA)**. Ambos enfoques tienen trade-offs significativos en términos de claridad, rendimiento y facilidad de uso.
 
-```{figure} 6/aos_vs_soa.svg
+```{figure} 10/aos_vs_soa.svg
 :name: fig-aos-vs-soa
 :align: center
 :width: 100%
@@ -714,7 +715,7 @@ Al proporcionar un constructor, reducís la probabilidad de que los usuarios cre
 
 Ordenar los miembros de mayor a menor tamaño reduce el padding y el tamaño total de la estructura:
 
-```{figure} 6/padding_optimization.svg
+```{figure} 10/padding_optimization.svg
 :name: fig-padding-optimization
 :align: center
 :width: 90%
@@ -882,7 +883,7 @@ Una `union` permite que varios miembros compartan la **misma ubicación de
 memoria**. Su tamaño es el de su miembro más grande. Solo un miembro puede estar
 "activo" a la vez.
 
-```{figure} 6/union_vs_struct.svg
+```{figure} 10/union_vs_struct.svg
 :name: fig-union-vs-struct
 :alt: Diferencias entre struct y union
 :align: center

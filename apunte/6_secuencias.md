@@ -36,7 +36,7 @@ int mi_arreglo[4];
 
 Esta declaración reserva espacio para 4 enteros. Si un `int` ocupa 4 bytes, la disposición en memoria es contigua:
 
-```{figure} 7/array_memory_layout.svg
+```{figure} 6/array_memory_layout.svg
 :name: fig-array-memory-layout
 :width: 100%
 
@@ -60,7 +60,7 @@ estáticos:
 
 Formas de inicialización explícita:
 
-```{figure} 7/array_initialization.svg
+```{figure} 6/array_initialization.svg
 :name: fig-array-initialization
 :width: 100%
 
@@ -85,6 +85,10 @@ tamaño en bytes de un tipo de dato o una variable. Esto es posible por la forma
 en la que C crea las variables en la memoria, con un único tipo, los "tipos
 estáticos". El valor que retorna es de tipo {term}`size_t`, un tipo de entero
 sin signo.
+
+:::{note} El Tipo `size_t`
+El tipo `size_t` es un entero sin signo definido en el estándar C para representar el tamaño de cualquier objeto en memoria (en bytes) y para indexar arreglos de manera segura. Su tamaño físico se adapta automáticamente a la arquitectura de la computadora (generalmente 32 o 64 bits).
+:::
 
 ````{code-block}c
 :linenos:
@@ -290,22 +294,22 @@ Las implicaciones y el uso correcto de la memoria dinámica, que es la alternati
 
 De todas formas y como se imaginarán, hay una regla de estilo {ref}`0x5001h`.
 
-### El Mecanismo de Paso a Funciones: Decaimiento de Arreglos (Array Decay)
+### El Mecanismo de Paso a Funciones: Paso por Referencia Simulado
 
-En el lenguaje C, los arreglos poseen un comportamiento particular al ser transmitidos como argumentos: **no se pasan por valor (no se copia el arreglo completo)**. En su lugar, el compilador aplica una regla denominada **decaimiento de arreglo a puntero** (*array decay*). 
+En el lenguaje C, los arreglos poseen un comportamiento particular al ser transmitidos como argumentos a una función: **no se pasan por valor**. Esto significa que el compilador no realiza una copia de todos los elementos del arreglo en el registro de activación de la función receptora.
 
-Bajo esta regla, una expresión de tipo "arreglo de `T`" (por ejemplo, `int mi_arreglo[]`) que se pasa como argumento decae de manera implícita a un puntero al primer elemento del arreglo (tipo `T*`, en este caso `int*`). Por consiguiente, la función recibe únicamente una copia de la dirección de memoria de inicio del arreglo original. Cualquier acceso o modificación que realice la función a través del operador de indexación (`[]`) se traduce en una operación de desreferenciación directa sobre el espacio de memoria original.
+En su lugar, la función recibe únicamente la **dirección de memoria** donde se inicia el arreglo original. Como consecuencia, cualquier lectura o modificación que la función realice sobre los elementos utilizando el operador de indexación (`[]`) afectará de forma directa e inmediata a los datos originales en la memoria del programa.
 
-```{figure} 7/array_pass_by_reference.svg
+:::{note} El concepto subyacente: Decaimiento de Arreglos
+Este mecanismo por el cual el arreglo se reduce a la dirección de su primer elemento se conoce técnicamente como **decaimiento de arreglo a puntero** (*array decay*). Dado que requiere comprender cómo se organizan las direcciones de memoria físicas y lógicas, este comportamiento tendrá mucho más sentido una vez que se aborde el estudio de los punteros en el capítulo de {ref}`punteros-capitulo` (disponible en [](9_punteros)).
+:::
+
+```{figure} 6/array_pass_by_reference.svg
 :name: fig-array-pass-by-reference
 :width: 100%
 
 Paso de arreglos a funciones por referencia: a diferencia de las variables simples (que se copian), los arreglos se pasan mediante su dirección de memoria. Tanto el arreglo original como el parámetro de la función apuntan a la misma ubicación, permitiendo modificaciones directas del contenido original.
 ```
-
-:::{note} Relación con Punteros
-Este comportamiento está íntimamente relacionado con el concepto de punteros. Para una comprensión más profunda de cómo funcionan las direcciones de memoria y la relación entre arreglos y punteros, consultá el [Punteros](5_punteros).
-:::
 
 ### Funciones Puras y con Efectos Secundarios
 
@@ -518,7 +522,7 @@ Por ejemplo, la siguiente cadena:
 char cadena[7] = "Hola";
 ````
 
-```{figure} 7/string_null_terminator.svg
+```{figure} 6/string_null_terminator.svg
 :name: fig-string-null-terminator
 :width: 100%
 
@@ -622,7 +626,7 @@ Y se encarga de recorrer la cadena hasta encontrarse un carácter nulo (`\0`)
 ::::{note} Largo vs. capacidad
 Es muy importante tener en cuenta que las cadenas tienen dos "tamaños" diferentes.
 
-```{figure} 7/string_length_vs_capacity.svg
+```{figure} 6/string_length_vs_capacity.svg
 :name: fig-string-length-vs-capacity
 :width: 100%
 
@@ -1127,9 +1131,8 @@ Este apunte introduce las **secuencias** (arreglos) como la primera estructura d
 - **Operaciones**: map, filter y reduce expresadas mediante lazos
 
 **Relación con Punteros**
-- Un arreglo es esencialmente un puntero al primer elemento
-- Aritmética de punteros: `arr[i]` equivale a `*(arr + i)`
-- Esta equivalencia es fundamental para entender C profundamente
+- Los arreglos y los punteros están íntimamente vinculados en C.
+- El estudio de las direcciones de memoria y la aritmética de punteros (por ejemplo, comprender que la expresión `arr[i]` equivale técnicamente a una operación de indirección sobre la dirección de memoria) se explican de forma detallada en el capítulo {ref}`punteros-capitulo` en [](9_punteros).
 :::
 
 ## Conexión con el Siguiente Tema
@@ -1140,8 +1143,8 @@ Además, cuando pasamos arreglos a funciones, vimos que en realidad estamos pasa
 
 El próximo tema introduce conceptos que profundizan en cómo se organiza y manipula la memoria:
 
-- Los **punteros** ([Punteros](5_punteros)) como variables que almacenan direcciones
-- Las **matrices** ([Matrices](8_matrices)) como arreglos multidimensionales
+- Los **punteros** ([Punteros](9_punteros)) como variables que almacenan direcciones
+- Las **matrices** ([Matrices](7_matrices)) como arreglos multidimensionales
 - La **gestión de memoria** ([Memoria Dinámica](14_memoria_dinamica)) para estructuras dinámicas
 
 Los punteros son el concepto más poderoso y peligroso de C. Dominando punteros y arreglos simultáneamente, se comprende la esencia del lenguaje: **control directo sobre la memoria** con la sintaxis mínima necesaria.

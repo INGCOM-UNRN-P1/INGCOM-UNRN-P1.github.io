@@ -15,7 +15,7 @@ $> gcc -o mi_programa programa.c
 No solo estás invocando un programa, sino que desencadenás un sofisticado proceso de transformación. A simple vista, es una única instrucción que convierte tu código fuente, escrito en un lenguaje comprensible para vos, en un archivo ejecutable que la máquina puede interpretar directamente.
 
 :::{note} Prerequisitos
-Este capítulo asume que ya escribiste y ejecutaste programas básicos en C como los presentados en el [](2_gradual.md). También es útil tener familiaridad con el concepto de funciones ([](3_funciones.md)) ya que se mencionan prototipos y definiciones en el contexto de compilación de múltiples archivos.
+Este capítulo asume que ya escribiste y ejecutaste programas básicos en C como los presentados en el [](2_gradual.md). También es útil tener familiaridad con el concepto de funciones ([](4_funciones.md)) ya que se mencionan prototipos y definiciones en el contexto de compilación de múltiples archivos.
 :::
 
 Sin embargo, detrás de esa aparente simplicidad, el compilador `gcc` (GNU Compiler Collection) actúa como un director de orquesta, coordinando una secuencia de herramientas especializadas que trabajan en conjunto. Cada una de estas herramientas se encarga de una fase específica, traduciendo progresivamente el código hasta su forma final.
@@ -27,7 +27,7 @@ Comprender esta transformación del código, desde `programa.c` hasta `mi_progra
 El flujo de transformación desde tu código fuente hasta un programa ejecutable
 se puede visualizar de la siguiente manera:
 
-```{figure} 9/proceso_compilacion.svg
+```{figure} 5/proceso_compilacion.svg
 :name: fig-proceso-compilacion
 :width: 60%
 
@@ -140,7 +140,7 @@ RISC-V).
 El compilador no solo traduce, sino que también analiza y optimiza el código.
 Este proceso se puede descomponer en varias sub-fases:
 
-```{figure} 9/fases_compilador.svg
+```{figure} 5/fases_compilador.svg
 :name: fig-fases-compilador
 :width: 90%
 
@@ -736,7 +736,7 @@ Cuando ejecutás un programa en C desde la terminal, tenés la posibilidad de pa
 
 :::{note} Prerequisitos
 
-Este capítulo asume conocimiento de arreglos ({doc}`7_secuencias`) y punteros ({doc}`5_punteros`), ya que `argv` es un arreglo de punteros a cadenas (`char *argv[]`). Si estos conceptos no están claros, repasalos antes de continuar.
+Este capítulo asume conocimiento de arreglos ({doc}`6_secuencias`) y punteros ({doc}`9_punteros`), ya que `argv` es un arreglo de punteros a cadenas (`char *argv[]`). Si estos conceptos no están claros, repasalos antes de continuar.
 
 :::
 
@@ -774,7 +774,7 @@ Estos dos parámetros contienen toda la información que se pasa al programa en 
 
 ```
 
-```{figure} 9/argc_argv_estructura.svg
+```{figure} 5/argc_argv_estructura.svg
 :label: fig-argc-argv-estructura
 :align: center
 
@@ -1053,7 +1053,7 @@ int main(void) {
 
 Variables comunes incluyen `PATH` (rutas de búsqueda de ejecutables), `HOME` (directorio del usuario), `USER` (nombre del usuario), y `LANG` (configuración de idioma).
 
-```{figure} 9/codigos_salida.svg
+```{figure} 5/codigos_salida.svg
 :label: fig-codigos-salida
 :align: center
 
@@ -1072,7 +1072,7 @@ Todo programa en Unix/Linux tiene tres flujos de datos estándar abiertos autom�
 - **Salida estándar** (`stdout`, descriptor 1): Donde el programa escribe su salida normal
 - **Error estándar** (`stderr`, descriptor 2): Donde el programa escribe mensajes de error
 
-```{figure} 9/flujos_estandar.svg
+```{figure} 5/flujos_estandar.svg
 :label: fig-flujos-estandar
 :align: center
 
@@ -1123,7 +1123,7 @@ El shell puede redirigir hacia dónde va la salida de un programa usando el oper
 ./mi_programa > todo.txt 2>&1
 ```
 
-```{figure} 9/redirecciones.svg
+```{figure} 5/redirecciones.svg
 :label: fig-redirecciones
 :align: center
 
@@ -1206,7 +1206,7 @@ programa1 | programa2
 ls -l | wc -l
 ```
 
-```{figure} 9/pipes_canalizaciones.svg
+```{figure} 5/pipes_canalizaciones.svg
 :label: fig-pipes-canalizaciones
 :align: center
 
@@ -1250,7 +1250,7 @@ seq 1 10 | ./filtro_pares
 seq 1 100 | ./filtro_pares | wc -l  # Cuenta cuántos pares hay
 ```
 
-```{figure} 9/ejemplo_filtro.svg
+```{figure} 5/ejemplo_filtro.svg
 :label: fig-ejemplo-filtro
 :align: center
 

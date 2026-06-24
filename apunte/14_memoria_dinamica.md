@@ -343,7 +343,7 @@ Aunque no implementés tu propio allocator, comprender su funcionamiento explica
 La gestión manual de memoria es una fuente frecuente de errores en C. Comprender estos errores y cómo prevenirlos es fundamental para escribir código robusto.
 
 :::{note} Errores Básicos de Punteros
-Los errores discutidos en esta sección son específicos de la gestión de memoria dinámica. Para errores básicos con punteros (como punteros salvajes, desreferencia de `NULL`, y problemas de inicialización), consultá primero el [](5_punteros), que cubre los conceptos fundamentales necesarios para trabajar con punteros de forma segura.
+Los errores discutidos en esta sección son específicos de la gestión de memoria dinámica. Para errores básicos con punteros (como punteros salvajes, desreferencia de `NULL`, y problemas de inicialización), consultá primero el [](9_punteros), que cubre los conceptos fundamentales necesarios para trabajar con punteros de forma segura.
 :::
 
 (memoria-memory-leak)=

@@ -73,7 +73,7 @@ int resultado = sumar(5, 3);
 printf("Resultado: %d\n", resultado);
 ```
 
-```{figure} 3/function_call_flow.svg
+```{figure} 4/function_call_flow.svg
 :name: fig-function-call-flow
 :width: 100%
 
@@ -98,7 +98,7 @@ Cuando una función no tiene retorno, se dice que es un «Procedimiento», esta 
 
 Son una declaración anticipada que informa al compilador sobre el nombre, tipo de retorno y lista de parámetros de una función **antes** de que sea utilizada en el código. Su propósito es permitir que el compilador verifique la coherencia de las llamadas a la función, garantizando que el número y el tipo de argumentos coincidan con su definición. Un prototipo no contiene el cuerpo de la función, sino únicamente su firma, y suele colocarse al inicio del archivo fuente.
 
-```{figure} 3/function_prototype_flow.svg
+```{figure} 4/function_prototype_flow.svg
 :name: fig-function-prototype-flow
 :width: 100%
 
@@ -248,7 +248,7 @@ La tabla {numref}`tbl-ambitos-y-tiempos` resume de forma estructurada las difere
 | **Local Estática (`static`)** | Local al bloque/función | Toda la ejecución del programa | Segmento de datos | Usar con moderación |
 :::
 
-```{figure} 3/scopes_hierarchy.svg
+```{figure} 4/scopes_hierarchy.svg
 :label: fig-scopes-hierarchy
 :width: 100%
 
@@ -405,7 +405,7 @@ El *shadowing* ocurre cuando declarás una variable en un alcance interno (por e
 
 Cuando esto sucede, la variable del alcance más interno "oculta" o le hace "sombra" (shadow) a la del alcance más externo. Dentro de ese bloque interno, cualquier referencia a ese nombre de variable se resolverá a la variable más cercana (la interna), haciendo que la externa sea _temporalmente_ inaccesible por su nombre.
 
-```{figure} 3/shadowing.svg
+```{figure} 4/shadowing.svg
 :name: fig-shadowing
 :width: 100%
 

@@ -37,7 +37,7 @@ Para visualizarlo, consideremos la siguiente organización en memoria de un ente
 
 Como se observa en la tabla, el valor almacenado en `ptr` (`0x7ffd`) coincide exactamente con la dirección donde inicia la variable `numero`. Al desreferenciar `ptr` (usando `*ptr`), accedemos al valor `42`.
 
-```{figure} 5/concepto_puntero.svg
+```{figure} 9/concepto_puntero.svg
 :label: fig-concepto-puntero
 :align: center
 
@@ -105,7 +105,7 @@ Es una práctica habitual en C que las funciones que devuelven punteros retornen
 comprobar si un puntero es `NULL` antes de intentar desreferenciarlo (usar el
 operador `*` sobre él).
 
-```{figure} 5/punteros_null.svg
+```{figure} 9/punteros_null.svg
 :label: fig-punteros-null
 :align: center
 
@@ -171,7 +171,7 @@ El trabajo con punteros se basa principalmente en dos operadores fundamentales:
   - **Escritura (Modificación)**: Si usás `*ptr` a la izquierda de una asignación (por ejemplo, `*ptr = 150`), le estás indicando a la computadora que guarde el valor `150` en la dirección de memoria apuntada por `ptr`.
   - **Lectura (Acceso)**: Si usás `*ptr` en una expresión o a la derecha de una asignación (por ejemplo, `valor = *ptr` o dentro de un `printf`), estás pidiendo el valor contenido dentro del casillero al que apunta `ptr`.
 
-```{figure} 5/operadores_punteros.svg
+```{figure} 9/operadores_punteros.svg
 :label: fig-operadores-punteros
 :align: center
 
@@ -221,7 +221,7 @@ Si tenés un puntero `ptr` a un tipo de dato `T` que ocupa `sizeof(T)` bytes, al
 hacer `ptr + 1`, la dirección de memoria no se incrementa en 1, sino en
 `sizeof(T)`. Esto permite "saltar" de un elemento a otro en un arreglo.
 
-```{figure} 5/aritmetica_punteros.svg
+```{figure} 9/aritmetica_punteros.svg
 :label: fig-aritmetica-punteros
 :align: center
 
@@ -326,7 +326,7 @@ Al pasar un puntero a dicha estructura:
 
 Para garantizar que esta optimización no vulnere la seguridad de los datos (es decir, evitar que la función modifique accidentalmente la estructura que solo queríamos leer), debemos calificar el parámetro con `const`. Esto crea un contrato inmutable: el compilador rechazará cualquier intento de escritura sobre la estructura, logrando la máxima eficiencia de rendimiento con la seguridad de la inmutabilidad del paso por valor clásico.
 
-```{figure} 5/paso_por_referencia.svg
+```{figure} 9/paso_por_referencia.svg
 :label: fig-paso-por-referencia
 :align: center
 
@@ -434,7 +434,7 @@ La variable `contador` de `incrementarContador` tiene el rol de **parámetro de 
 
 La capacidad de una función para modificar variables que no le pertenecen (es
 decir, que no están en su ámbito local) es un nuevo tipo de efecto secundario
-(side effect), que en parte, ya vimos en [Secuencias y Arreglos](./7_secuencias.md).
+(side effect), que en parte, ya vimos en [Secuencias y Arreglos](./6_secuencias.md).
 
 Si bien los efectos secundarios son extremadamente útiles y necesarios (como en
 nuestra función `intercambiar`), también pueden hacer que el código sea más
@@ -453,7 +453,7 @@ permite "bloquear" o bien el dato apuntado, el puntero en sí, o ambos.
 `const` nos permite poner reglas sobre qué se puede modificar, _potencialmente_,
 limitando los efectos secundarios productos de pasar el puntero a la función.
 
-```{figure} 5/const_punteros.svg
+```{figure} 9/const_punteros.svg
 :label: fig-const-punteros
 :align: center
 

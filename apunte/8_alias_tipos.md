@@ -50,7 +50,7 @@ typedef long long int      entero64_t;
 Para mantener la claridad y coherencia en el código desarrollado, la cátedra impone la regla **{ref}`0x3004h`**, la cual establece que **todo alias de tipo creado mediante `typedef` debe finalizar de forma obligatoria con el sufijo `_t`** (por ejemplo, `metros_t`, `velocidad_t`, `nodo_t`). Esto permite distinguir instantáneamente los tipos personalizados de las variables y constantes en cualquier bloque de código.
 
 
-A lo largo de este apunte le iremos dando uso a este concepto de manera gradual, particularmente para simplificar la declaración de estructuras complejas (Capítulo [](6_estructuras)) y la definición de Tipos de Datos Abstractos (Capítulo [](18_tad)).
+A lo largo de este apunte le iremos dando uso a este concepto de manera gradual, particularmente para simplificar la declaración de estructuras complejas (Capítulo [](10_estructuras)) y la definición de Tipos de Datos Abstractos (Capítulo [](18_tad)).
 
 ---
 
@@ -71,7 +71,7 @@ Si este concepto resulta similar a las constantes `const` y a los literales de
 preprocesador `#define` estás en lo cierto y todas las consideraciones de uso
 aplican para cualquiera de los tres conceptos.
 
-```{figure} 4/enum_concept.svg
+```{figure} 8/enum_concept.svg
 :name: fig-enum-concept
 :alt: Concepto de enumeraciones vs números mágicos
 :align: center
@@ -500,7 +500,7 @@ int obtener_dias_mes(mes_t mes) {
 
 Las enumeraciones son ideales para implementar máquinas de estado finitas:
 
-```{figure} 4/enum_state_machine.svg
+```{figure} 8/enum_state_machine.svg
 :name: fig-enum-state-machine
 :alt: Máquina de estado con enumeraciones
 :align: center

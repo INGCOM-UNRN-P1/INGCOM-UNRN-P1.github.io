@@ -41,15 +41,15 @@ project:
         - file: apunte/indice.md
         - file: apunte/1_base.md
         - file: apunte/2_gradual.md
-        - file: apunte/2b_control_flujo.md
-        - file: apunte/3_funciones.md
-        - file: apunte/4_alias_tipos.md
-        - file: apunte/5_punteros.md
-        - file: apunte/6_estructuras.md
-        - file: apunte/7_secuencias.md
-        - file: apunte/8_matrices.md
-        - file: apunte/9_compilacion.md
-        - file: apunte/10_archivos_texto.md
+        - file: apunte/3_control_flujo.md
+        - file: apunte/4_funciones.md
+        - file: apunte/5_compilacion.md
+        - file: apunte/6_secuencias.md
+        - file: apunte/7_matrices.md
+        - file: apunte/8_alias_tipos.md
+        - file: apunte/9_punteros.md
+        - file: apunte/10_estructuras.md
+        - file: apunte/11_archivos_texto.md
         - file: apunte/12_recursividad.md
         - file: apunte/13_modelo_memoria.md
         - file: apunte/14_memoria_dinamica.md
@@ -62,8 +62,6 @@ project:
         - file: apunte/20_idiomatico.md
         - file: apunte/21_testing.md
         - file: apunte/22_contratos.md
-        - file: apunte/23_diseno_api.md
-        - file: apunte/23b_ingenieria_api.md
     - title: Reglas de estilo
       children:
         - file: reglas/indice.md

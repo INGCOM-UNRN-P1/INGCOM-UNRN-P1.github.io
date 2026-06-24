@@ -9,7 +9,7 @@ subtitle: "The matrix has you..."
 En el ámbito de la programación, una **matriz** se define como una estructura de datos que facilita el almacenamiento de un conjunto homogéneo de elementos, organizados en una disposición bidimensional de filas y columnas. En el lenguaje de programación C, esta abstracción se materializa mediante la implementación de **arreglos bidimensionales** (2D), los cuales pueden ser conceptualizados como arreglos cuyos elementos son, a su vez, otros arreglos.
 
 :::{note} Prerequisitos
-Este capítulo asume que ya dominás los conceptos de arreglos unidimensionales presentados en el [Secuencias y arreglos](7_secuencias). Si necesitás repasar cómo funcionan los arreglos básicos, su declaración, inicialización y recorrido, consultá ese capítulo primero.
+Este capítulo asume que ya dominás los conceptos de arreglos unidimensionales presentados en el [Secuencias y arreglos](6_secuencias). Si necesitás repasar cómo funcionan los arreglos básicos, su declaración, inicialización y recorrido, consultá ese capítulo primero.
 :::
 
 Las matrices son fundamentales en numerosas aplicaciones: desde operaciones matemáticas básicas hasta algoritmos complejos de procesamiento de imágenes, simulaciones físicas, análisis de datos, representación de grafos, implementación de juegos como el tres en raya o ajedrez, y sistemas de coordenadas bidimensionales. Su comprensión es esencial para el desarrollo de software eficiente y estructurado.
@@ -63,7 +63,7 @@ secuencia, como un arreglo: `[f0c0, f0c1, f0c2, f0c3, f1c0, f1c1, ...]`.
 
 :::
 
-:::{figure} 8/matriz_2d_memoria.svg
+:::{figure} 7/matriz_2d_memoria.svg
 :label: fig-matriz-memoria
 :width: 100%
 
@@ -77,7 +77,7 @@ almacena completa antes de pasar a la siguiente.
 Podemos inicializar nuestras matrices, esencialmente, de dos formas diferentes,
 con un inicializador como con los arreglos, o con código.
 
-:::{figure} 8/inicializacion_matriz.svg
+:::{figure} 7/inicializacion_matriz.svg
 :label: fig-inicializacion-matriz
 :width: 100%
 
@@ -211,14 +211,14 @@ for (size_t j = 0; j < COLUMNAS; j++) {
 }
 ```
 
-:::{figure} 8/recorrido_filas_columnas.svg
+:::{figure} 7/recorrido_filas_columnas.svg
 :label: fig-recorrido-matrices
 :width: 100%
 
 Comparación entre el recorrido por filas (row-major) y por columnas (column-major). El recorrido por filas accede a elementos contiguos en memoria, aprovechando la caché. El recorrido por columnas genera saltos en memoria, causando más fallos de caché.
 :::
 
-:::{figure} 8/cache_localidad.svg
+:::{figure} 7/cache_localidad.svg
 :label: fig-cache-localidad
 :width: 100%
 
@@ -254,7 +254,7 @@ for (size_t i = 0; i < DIM; i++) {
 printf("\n");
 ```
 
-:::{figure} 8/diagonales_matriz.svg
+:::{figure} 7/diagonales_matriz.svg
 :label: fig-diagonales
 :width: 100%
 
@@ -334,7 +334,7 @@ El lenguaje C no impone un límite de dos dimensiones para los arreglos; es
 posible declarar arreglos multidimensionales. Un arreglo tridimensional, por
 ejemplo, puede conceptualizarse como un cubo de datos.
 
-:::{figure} 8/matriz_3d.svg
+:::{figure} 7/matriz_3d.svg
 :label: fig-matriz-3d
 :width: 100%
 
@@ -367,7 +367,7 @@ for (size_t i = 0; i < 2; i++) {       // Capas
 
 En el ámbito de la programación en C y otras áreas de la computación, el manejo de matrices es fundamental. A continuación, se presentan los algoritmos y las expresiones matemáticas para las operaciones básicas entre matrices.
 
-:::{figure} 8/operaciones_basicas.svg
+:::{figure} 7/operaciones_basicas.svg
 :label: fig-operaciones-basicas
 :width: 100%
 
@@ -478,7 +478,7 @@ La multiplicación de una matriz A de dimensión $m \times p$ por una matriz B d
 dimensión $p \times n$ guarda el resultado en una matriz C de dimensión $m \times n$. Es crucial que el
 número de columnas de A sea igual al número de filas de B.
 
-:::{figure} 8/multiplicacion_matrices.svg
+:::{figure} 7/multiplicacion_matrices.svg
 :label: fig-multiplicacion-matrices
 :width: 100%
 
@@ -579,7 +579,7 @@ En aplicaciones robustas, es fundamental implementar validaciones para prevenir
 accesos fuera de límites y operaciones inválidas. Esto es especialmente crítico
 en C, donde no existe verificación automática de límites ({ref}`0x300Ch`).
 
-:::{figure} 8/validacion_dimensiones.svg
+:::{figure} 7/validacion_dimensiones.svg
 :label: fig-validacion-dimensiones
 :width: 100%
 

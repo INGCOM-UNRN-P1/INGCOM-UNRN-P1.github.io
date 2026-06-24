@@ -455,11 +455,11 @@ Cuando encuentres dificultades al depurar o diseñar un programa:
 ## Próximos Pasos
 
 En los siguientes capítulos avanzaremos en la construcción de software modular en C:
-- [](3_funciones) — Modularización y diseño de subprogramas mediante funciones con contratos y parámetros.
-- [Secuencias y arreglos](7_secuencias) — Arreglos de memoria estáticos y cadenas de caracteres.
-- [Compilación separada](9_compilacion) — Proceso de compilación multi-etapa y Makefile.
-- [Punteros](5_punteros) — Punteros y manipulación de memoria.
-- [Archivos de texto](10_archivos_texto) — Entrada y salida persistente con archivos.
+- [](4_funciones) — Modularización y diseño de subprogramas mediante funciones con contratos y parámetros.
+- [Secuencias y arreglos](6_secuencias) — Arreglos de memoria estáticos y cadenas de caracteres.
+- [Compilación separada](5_compilacion) — Proceso de compilación multi-etapa y Makefile.
+- [Punteros](9_punteros) — Punteros y manipulación de memoria.
+- [Archivos de texto](11_archivos_texto) — Entrada y salida persistente con archivos.
 
 ---
 
