@@ -4,8 +4,58 @@ short_title: '4 - Alias y Enumeraciones'
 subtitle: 'Typedef y enum en C'
 ---
 
+(typedef-alias)=
+## Alias de Tipos con `typedef`
+
+En C, el mecanismo nativo para crear nombres alternativos o **alias** de tipos de datos es la palabra clave `typedef`. A diferencia de lo que ocurre en otros lenguajes, `typedef` no introduce un nuevo tipo de dato físicamente diferente para el compilador; simplemente asocia un identificador secundario a un tipo existente (primitivo, puntero, estructura o enumeración) para simplificar la escritura o mejorar la abstracción conceptual del código.
+
+### Sintaxis Básica
+
+La declaración se asemeja a la de una variable estándar, pero precedida por `typedef`:
+
+```c
+typedef tipo_existente nuevo_nombre_t;
+```
+
+Por ejemplo, si necesitás trabajar con enteros que representen distancias en metros y querés que el código exprese con claridad esa unidad:
+
+```c
+typedef double metros_t;
+
+// Ahora podés usar 'metros_t' como un tipo estándar
+metros_t distancia_casa = 1500.50;
+metros_t altura_edificio = 45.2;
+```
+
+Físicamente, `distancia_casa` es un `double`. El compilador simplemente reemplazará sintácticamente `metros_t` por `double` durante el análisis semántico.
+
+### Abstracción de Plataforma
+
+Uno de los usos más rigurosos de `typedef` es garantizar la portabilidad e independencia del hardware. Tipos de datos como `int` o `long` pueden variar su tamaño en bytes dependiendo de la arquitectura de la CPU (16, 32 o 64 bits). 
+
+Mediante `typedef`, se pueden definir alias que denoten explícitamente el ancho físico del tipo de dato, facilitando la compilación del mismo código en múltiples plataformas:
+
+```c
+// Definiciones basadas en la arquitectura del compilador
+typedef signed char        entero8_t;
+typedef short int          entero16_t;
+typedef int                entero32_t;
+typedef long long int      entero64_t;
+```
+
+*(Nota: En el C estándar moderno, estas definiciones ya se encuentran normalizadas en la cabecera estándar `<stdint.h>` mediante los tipos `int8_t`, `int16_t`, `int32_t` e `int64_t`)*.
+
+### Regla de Estilo de la Cátedra: El sufijo `_t`
+
+Para mantener la claridad y coherencia en el código desarrollado, la cátedra impone la regla **{ref}`0x3004h`**, la cual establece que **todo alias de tipo creado mediante `typedef` debe finalizar de forma obligatoria con el sufijo `_t`** (por ejemplo, `metros_t`, `velocidad_t`, `nodo_t`). Esto permite distinguir instantáneamente los tipos personalizados de las variables y constantes en cualquier bloque de código.
+
+
+A lo largo de este apunte le iremos dando uso a este concepto de manera gradual, particularmente para simplificar la declaración de estructuras complejas (Capítulo [](6_estructuras)) y la definición de Tipos de Datos Abstractos (Capítulo [](18_tad)).
+
+---
+
 (alias-tipos-capitulo)=
-## `Enum`eraciones en C
+## Enumeraciones en C
 
 Las **enumeraciones** (`enum`) constituyen un mecanismo fundamental en el lenguaje C para la definición de tipos de datos que representan un **conjunto finito y discreto** de valores con nombres simbólicos. A diferencia de usar valores literales o constantes dispersas en el código, las enumeraciones proporcionan una abstracción semántica que mejora considerablemente la legibilidad, mantenibilidad y robustez del programa.
 
@@ -92,7 +142,7 @@ Las constantes de una enumeración residen en el espacio de nombres de los **ide
 
 #### Concepto de Namespace
 
-En el contexto de la programación, un **namespace** (espacio de nombres) es una región del código donde un conjunto de identificadores es visible y accesible sin ambigüedad. Es un mecanismo fundamental para organizar y separar lógicamente los nombres, evitando colisiones entre identificadores que de otro modo compartirían el mismo nombre.
+En el contexto de la programación, un **namespace** o espacio de nombres (ver término en el {ref}`glosario-alias`) es una región del código donde un conjunto de identificadores es visible y accesible sin ambigüedad. Es un mecanismo fundamental para organizar y separar lógicamente los nombres, evitando colisiones entre identificadores que de otro modo compartirían el mismo nombre.
 
 Formalmente, un namespace define un **contexto de resolución de nombres**: cuando el compilador encuentra un identificador, debe determinar a qué entidad se refiere consultando el namespace activo. En C, este concepto está implícito en el sistema de alcances (_scope_), pero no existe un mecanismo explícito de namespaces como en lenguajes posteriores (C++, Java, Rust).
 
@@ -444,76 +494,6 @@ int obtener_dias_mes(mes_t mes) {
 }
 ```
 
-#### 3. Problemas de Serialización
-
-Las enumeraciones pueden causar problemas al guardar datos en archivos o
-enviarlos por red:
-
-```{code-block}c
-:caption: Problema: serialización frágil
-
-typedef enum {
-    FORMATO_V1,
-    FORMATO_V2,
-    FORMATO_V3
-} version_formato_t;
-
-// Problemático: si se reordena el enum, los archivos guardados se corrompen
-void guardar_configuracion(FILE *archivo, version_formato_t version) {
-    fwrite(&version, sizeof(version), 1, archivo);  // ¡Peligroso!
-}
-```
-
-**Solución**: Usar valores explícitos y funciones de conversión:
-
-```{code-block}c
-:caption: Solución: serialización robusta
-:linenos:
-
-typedef enum {
-    FORMATO_V1 = 100,    // Valores explícitos garantizan estabilidad
-    FORMATO_V2 = 200,
-    FORMATO_V3 = 300
-} version_formato_t;
-
-// Función para convertir enum a representación de protocolo estable
-uint32_t version_a_protocolo(version_formato_t version) {
-    switch (version) {
-        case FORMATO_V1: return 100;
-        case FORMATO_V2: return 200;
-        case FORMATO_V3: return 300;
-        default: return 0;  // Valor de error
-    }
-}
-
-// Función para convertir desde protocolo a enum
-version_formato_t protocolo_a_version(uint32_t valor) {
-    switch (valor) {
-        case 100: return FORMATO_V1;
-        case 200: return FORMATO_V2;
-        case 300: return FORMATO_V3;
-        default: return FORMATO_V1;  // Valor por defecto seguro
-    }
-}
-
-// Guardar de forma segura
-void guardar_configuracion(FILE *archivo, version_formato_t version) {
-    uint32_t valor_protocolo = version_a_protocolo(version);
-    fwrite(&valor_protocolo, sizeof(uint32_t), 1, archivo);
-}
-
-// Cargar de forma segura
-version_formato_t cargar_configuracion(FILE *archivo) {
-    uint32_t valor_protocolo = 0;
-    fread(&valor_protocolo, sizeof(uint32_t), 1, archivo);
-    return protocolo_a_version(valor_protocolo);
-}
-```
-
-:::{tip} Estabilidad de Protocolo
-Al usar valores explícitos y funciones de conversión, podés reorganizar el `enum` internamente sin romper la compatibilidad con archivos existentes. Las funciones de conversión actúan como una capa de abstracción entre la representación interna y el formato persistido.
-:::
-
 ### Mejores Prácticas
 
 #### 1. Usar Enumeraciones para Máquinas de Estado
@@ -727,8 +707,7 @@ typedef enum {
 
 ### Interoperabilidad con Interfaces de Programación (API) del Sistema
 
-Muchas APIs del sistema operativo usan enumeraciones. Es importante entender sus
-valores:
+Muchas **APIs** o Interfaces de Programación de Aplicaciones (ver término en el {ref}`glosario-alias`) del sistema operativo usan enumeraciones. Es importante entender sus valores:
 
 ```{code-block}c
 :caption: Integración con APIs del sistema
@@ -921,101 +900,15 @@ typedef enum {
 
 Para más detalles sobre el estilo de comentarios, consultá la {ref}`regla 0x0032h  <0x000Ah>` sobre cómo escribir comentarios que expliquen el "porqué" y no el "qué".
 
----
 
-### Ejercicios
+(glosario-alias)=
+## Glosario
 
-```{exercise}
-:label: enum_basico
-:enumerator: enums-1
+:::{glossary}
+Espacio de Nombres (Namespace)
+: Región lógica de un programa diseñada para agrupar identificadores (variables, funciones, tipos) y evitar colisiones de nombres. C no posee namespaces explícitos, sino que organiza sus identificadores en cuatro categorías implícitas de espacios de nombres dentro de cada ámbito.
 
-Definí una enumeración para representar los días de la semana.
-Escribí una función que reciba un día y retorne si es día laboral
-o fin de semana. Incluí validación para valores inválidos.
-```
-
-````{solution} enum_basico
-:class: dropdown
-
-```{code-block}c
-:linenos:
-#include <stdio.h>
-#include <stdbool.h>
-
-typedef enum {
-    LUNES,
-    MARTES,
-    MIERCOLES,
-    JUEVES,
-    VIERNES,
-    SABADO,
-    DOMINGO,
-    DIA_INVALIDO
-} dia_semana_t;
-
-typedef enum {
-    DIA_LABORAL,
-    FIN_DE_SEMANA,
-    ERROR_DIA_INVALIDO
-} tipo_dia_t;
-
-tipo_dia_t clasificar_dia(dia_semana_t dia) {
-    switch (dia) {
-        case LUNES:
-        case MARTES:
-        case MIERCOLES:
-        case JUEVES:
-        case VIERNES:
-            return DIA_LABORAL;
-        case SABADO:
-        case DOMINGO:
-            return FIN_DE_SEMANA;
-        default:
-            return ERROR_DIA_INVALIDO;
-    }
-}
-
-const char *dia_a_string(dia_semana_t dia) {
-    static const char *nombres[] = {
-        "Lunes", "Martes", "Miércoles", "Jueves",
-        "Viernes", "Sábado", "Domingo"
-    };
-
-    if (dia < 0 || dia >= DIA_INVALIDO) {
-        return "Día inválido";
-    }
-
-    return nombres[dia];
-}
-
-int main() {
-    for (int i = LUNES; i <= DOMINGO; i++) {
-        dia_semana_t dia = (dia_semana_t)i;
-        tipo_dia_t tipo = clasificar_dia(dia);
-
-        printf("%s: ", dia_a_string(dia));
-        switch (tipo) {
-            case DIA_LABORAL:
-                printf("Día laboral\n");
-                break;
-            case FIN_DE_SEMANA:
-                printf("Fin de semana\n");
-                break;
-            case ERROR_DIA_INVALIDO:
-                printf("Error: día inválido\n");
-                break;
-        }
-    }
-
-    // Probar con valor inválido
-    dia_semana_t dia_malo = (dia_semana_t)42;
-    tipo_dia_t resultado = clasificar_dia(dia_malo);
-    if (resultado == ERROR_DIA_INVALIDO) {
-        printf("Detección correcta de día inválido: %d\n", dia_malo);
-    }
-
-    return 0;
-}
-```
-````
+API (Interfaz de Programación de Aplicaciones)
+: Conjunto de firmas de funciones, definiciones de tipos y constantes expuestas por una biblioteca o el sistema operativo para permitir que un programa de usuario invoque y consuma sus servicios de forma abstracta.
+:::
 
