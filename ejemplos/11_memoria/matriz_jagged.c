@@ -83,7 +83,7 @@ int main() {
 void llenar_matriz_jagged(int filas, int **matriz, const int *tamanos_columnas) {
     srand(time(NULL)); // Inicializar la semilla para números aleatorios
     for (int i = 0; i < filas; i++) {
-        // El bucle interno itera solo hasta el tamaño de la columna de la fila actual.
+        // El lazo interno itera solo hasta el tamaño de la columna de la fila actual.
         for (int j = 0; j < tamanos_columnas[i]; j++) {
             matriz[i][j] = rand() % 100; // Valor aleatorio entre 0 y 99
         }

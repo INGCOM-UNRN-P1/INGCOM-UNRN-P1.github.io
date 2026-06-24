@@ -6,9 +6,9 @@ void ordena_caracteres(char cadena[]) {
     // Determina la longitud de la cadena.
     size_t n = strlen(cadena);
     
-    // Bucle externo para las pasadas de ordenamiento.
+    // lazo externo para las pasadas de ordenamiento.
     for (size_t i = 0; i < n - 1; i++) {
-        // Bucle interno para comparar y mover el elemento más grande al final.
+        // lazo interno para comparar y mover el elemento más grande al final.
         for (size_t j = 0; j < n - i - 1; j++) {
             // Compara los caracteres adyacentes.
             if (cadena[j] > cadena[j + 1]) {

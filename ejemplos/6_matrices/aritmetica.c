@@ -13,7 +13,7 @@ int main() {
 
     printf("Accediendo a la matriz con aritmética de punteros:\n\n");
 
-    // Recorremos la matriz usando bucles
+    // Recorremos la matriz usando lazos
     for (int i = 0; i < FILAS; i++) {
         for (int j = 0; j < COLUMNAS; j++) {
             // La expresión clave: *(*(matriz + i) + j)

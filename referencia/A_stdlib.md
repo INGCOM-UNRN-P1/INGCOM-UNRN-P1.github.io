@@ -823,7 +823,7 @@ Son los tipos enteros que tienen *al menos* el ancho especificado y son los más
 int_fast8_t, int_fast16_t, int_fast32_t, int_fast64_t
 uint_fast8_t, uint_fast16_t, uint_fast32_t, uint_fast64_t
 ```
-**Uso:** Ideales para contadores de bucles o cálculos donde el rendimiento es crítico y solo se necesita un rango mínimo.
+**Uso:** Ideales para contadores de lazos o cálculos donde el rendimiento es crítico y solo se necesita un rango mínimo.
 
 ### Tipos de Máximo Ancho
 
@@ -1137,7 +1137,7 @@ void perror(const char *s);
 
 `feof()` verifica fin de archivo. `ferror()` verifica errores. `perror()` imprime un mensaje de error descriptivo.
 
-Estas funciones son cruciales para el manejo robusto de errores en operaciones de E/S. `feof()` determina si se ha alcanzado el final del archivo, diferenciando entre una lectura fallida y el final legítimo de los datos. Es esencial en bucles de lectura para terminar apropiadamente sin generar errores espurios. `ferror()` detecta si ha ocurrido un error de E/S en el flujo, como problemas de hardware, permisos insuficientes, o espacio en disco agotado. Ambas funciones mantienen estado interno hasta que se llame a `clearerr()`. `perror()` es invaluable para debugging, imprimiendo un mensaje descriptivo del último error basado en `errno`, precedido por el texto proporcionado. Juntas, estas funciones permiten distinguir entre diferentes condiciones de terminación y proporcionar retroalimentación significativa al usuario sobre problemas de E/O.
+Estas funciones son cruciales para el manejo robusto de errores en operaciones de E/S. `feof()` determina si se ha alcanzado el final del archivo, diferenciando entre una lectura fallida y el final legítimo de los datos. Es esencial en lazos de lectura para terminar apropiadamente sin generar errores espurios. `ferror()` detecta si ha ocurrido un error de E/S en el flujo, como problemas de hardware, permisos insuficientes, o espacio en disco agotado. Ambas funciones mantienen estado interno hasta que se llame a `clearerr()`. `perror()` es invaluable para debugging, imprimiendo un mensaje descriptivo del último error basado en `errno`, precedido por el texto proporcionado. Juntas, estas funciones permiten distinguir entre diferentes condiciones de terminación y proporcionar retroalimentación significativa al usuario sobre problemas de E/O.
 ```{code-block} c
 :caption: "Manejo de fin de archivo y errores de lectura."
 :linenos:
@@ -1489,7 +1489,7 @@ char *strncpy(char *dest, const char *src, size_t n);
 
 `strlen()` retorna la longitud. `strcpy()` copia sin verificar límites. `strncpy()` copia con límite (pero no garantiza terminación nula).
 
-Estas tres funciones son fundamentales en el manejo de cadenas C, pero requieren uso cuidadoso. `strlen()` recorre la cadena hasta encontrar el carácter nulo '\0', devolviendo el número de caracteres (excluyendo el terminador). Su complejidad O(n) significa que llamarla repetidamente en bucles es ineficiente. `strcpy()` es notoriamente peligrosa porque copia ciegamente desde origen a destino sin verificar límites, siendo una fuente común de vulnerabilidades de buffer overflow. `strncpy()` es más segura al limitar la copia a `n` caracteres, pero tiene la peculiaridad de no garantizar terminación nula si la cadena origen tiene exactamente `n` o más caracteres. Para uso seguro, siempre debe asegurarse manualmente la terminación nula después de usar `strncpy()`.
+Estas tres funciones son fundamentales en el manejo de cadenas C, pero requieren uso cuidadoso. `strlen()` recorre la cadena hasta encontrar el carácter nulo '\0', devolviendo el número de caracteres (excluyendo el terminador). Su complejidad O(n) significa que llamarla repetidamente en lazos es ineficiente. `strcpy()` es notoriamente peligrosa porque copia ciegamente desde origen a destino sin verificar límites, siendo una fuente común de vulnerabilidades de buffer overflow. `strncpy()` es más segura al limitar la copia a `n` caracteres, pero tiene la peculiaridad de no garantizar terminación nula si la cadena origen tiene exactamente `n` o más caracteres. Para uso seguro, siempre debe asegurarse manualmente la terminación nula después de usar `strncpy()`.
 
 
 ```{code-block} c

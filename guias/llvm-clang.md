@@ -18,7 +18,7 @@ LLVM utiliza una arquitectura modular de tres fases (Frontend, Optimizador y Bac
 
 1.  **Frontend (Clang):** Procesa tu código fuente (.c/.cpp). Realiza el análisis léxico (descomposición en tokens), el análisis sintáctico (construcción del AST - Árbol de Sintaxis Abstracta) y la validación semántica (chequeo de tipos y reglas del lenguaje). Finalmente, genera la **Representación Intermedia de LLVM (LLVM IR)**.
 2.  **Representación Intermedia (LLVM IR):** Es un lenguaje de ensamblador universal, independiente de la arquitectura de destino. Permite que el optimizador trabaje sobre un estándar unificado.
-3.  **Optimizador (opt):** Aplica transformaciones sobre el LLVM IR para mejorar el rendimiento y reducir el tamaño del ejecutable (ej: eliminación de código muerto, desenrollado de bucles, inlining de funciones). Es totalmente independiente del procesador del host.
+3.  **Optimizador (opt):** Aplica transformaciones sobre el LLVM IR para mejorar el rendimiento y reducir el tamaño del ejecutable (ej: eliminación de código muerto, desenrollado de lazos, inlining de funciones). Es totalmente independiente del procesador del host.
 4.  **Backend (Codegen / llc):** Toma el LLVM IR optimizado y lo traduce al lenguaje ensamblador específico de tu procesador (ej: x86-64).
 5.  **Enlazador (lld):** Une los archivos de código objeto generados con las bibliotecas del sistema (como la UCRT de Windows) para producir el archivo binario ejecutable final (.exe).
 
@@ -53,7 +53,7 @@ El optimizador de LLVM te permite controlar el balance entre el tiempo de compil
 | **`-O0`** | Sin Optimización | Valor por defecto. Mapeo directo del código a ensamblador. Ideal para depurar con GDB. |
 | **`-O1`** | Optimización Básica | Reduce tamaño y tiempo de ejecución sin incrementar drásticamente el tiempo de compilación. |
 | **`-O2`** | Optimización Estándar | Recomendado para producción. Aplica la mayoría de las optimizaciones de velocidad del compilador. |
-| **`-O3`** | Optimización Agresiva | Habilita optimizaciones que incrementan el tamaño del binario (ej. vectorización agresiva y desenrollado de bucles) para maximizar la velocidad. |
+| **`-O3`** | Optimización Agresiva | Habilita optimizaciones que incrementan el tamaño del binario (ej. vectorización agresiva y desenrollado de lazos) para maximizar la velocidad. |
 | **`-Os`** | Optimización de Tamaño | Optimiza la velocidad pero manteniendo a raya el crecimiento físico del ejecutable. |
 
 Ejemplo para compilar en producción con optimización estándar:

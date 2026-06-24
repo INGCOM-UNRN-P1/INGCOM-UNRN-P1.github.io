@@ -369,7 +369,7 @@ adicional de ser reutilizables, replicables y versionables.
 
 Un script puede verse como un programa simple escrito en lenguaje de comandos.
 Es útil cuando se requiere repetir una serie de instrucciones o realizar tareas
-complejas que involucran lógica condicional, bucles y estructuras de control.
+complejas que involucran lógica condicional, lazos y estructuras de control.
 
 ### 4.2 Estructura básica de un script
 
@@ -441,12 +441,12 @@ else
   echo "No existe"
 fi
 
-# Bucle for
+# lazo for
 for archivo in *.txt; do
   echo "$archivo tiene $(wc -l < "$archivo") líneas"
 done
 
-# Bucle while
+# lazo while
 while read linea; do
   echo "Línea: $linea"
 done < archivo.txt

@@ -831,7 +831,7 @@ all:
 ```
 
 La expansión simple (utilizando `:=`) permite añadir a una variable. Las
-definiciones recursivas darán un error de bucle infinito.
+definiciones recursivas darán un error de lazo infinito.
 
 ```makefile
 uno = hola

@@ -78,7 +78,7 @@ Este ejemplo muestra una función `imprimidor` que imprime los caracteres de una
 
 ### [`arreglos/limites.c`](arreglos/limites.c)
 
-Este ejemplo explora el comportamiento de los arreglos cuando se accede a índices fuera de sus límites definidos. El bucle `for` itera más allá del tamaño del arreglo para mostrar la importancia de un manejo cuidadoso de los límites. TODO: REVISAR
+Este ejemplo explora el comportamiento de los arreglos cuando se accede a índices fuera de sus límites definidos. El lazo `for` itera más allá del tamaño del arreglo para mostrar la importancia de un manejo cuidadoso de los límites. TODO: REVISAR
 
 ### [`arreglos/side.c`](arreglos/side.c)
 
@@ -92,7 +92,7 @@ Este ejemplo imprime el tamaño en bytes de varios tipos de datos fundamentales 
 
 ### [`base/for.c`](base/for.c)
 
-Este archivo muestra cuatro ejemplos diferentes de bucles `for`: un bucle básico, un bucle con múltiples variables de control, un bucle `for` sin cuerpo y un bucle infinito con una condición de ruptura.
+Este archivo muestra cuatro ejemplos diferentes de lazos `for`: un lazo básico, un lazo con múltiples variables de control, un lazo `for` sin cuerpo y un lazo infinito con una condición de ruptura.
 
 ### [`base/hola.c`](base/hola.c)
 
@@ -106,7 +106,7 @@ Otro "Hola Mundo", pero este muestra el uso de las macros `EXIT_SUCCESS` y `EXIT
 
 ### [`benchmark.c`](benchmark.c)
 
-Este es un programa de benchmark simple. Realiza un cálculo intensivo en un bucle anidado para medir el rendimiento. Toma un número de la línea de comandos y lo usa en los cálculos.
+Este es un programa de benchmark simple. Realiza un cálculo intensivo en un lazo anidado para medir el rendimiento. Toma un número de la línea de comandos y lo usa en los cálculos.
 
 ## Cadenas
 
@@ -142,7 +142,7 @@ Este ejemplo muestra el uso de `calloc` y `realloc` para manejar memoria dinámi
 
 ### [`dyn/reloco.c`](dyn/reloco.c)
 
-Este ejemplo contiene varias demostraciones sobre el manejo de memoria. Incluye un bucle que explora la escritura en la memoria, una función recursiva para observar el comportamiento de la pila, y un bloque que demuestra el uso de `malloc`, `memcpy` y `memset`. TODO: REVISAR
+Este ejemplo contiene varias demostraciones sobre el manejo de memoria. Incluye un lazo que explora la escritura en la memoria, una función recursiva para observar el comportamiento de la pila, y un bloque que demuestra el uso de `malloc`, `memcpy` y `memset`. TODO: REVISAR
 
 ### [`dyn/void.c`](dyn/void.c)
 
@@ -164,7 +164,7 @@ Este ejemplo muestra cómo usar la función `qsort` de la biblioteca estándar p
 
 ### [`fun_ptr/senales.c`](fun_ptr/senales.c)
 
-Este ejemplo demuestra el manejo de señales en C. La función `signal` se usa para registrar un "manejador" (`handler`) para la señal `SIGUSR1`. El programa entra en un bucle infinito y cuando recibe la señal `SIGUSR1`, se ejecuta el manejador.
+Este ejemplo demuestra el manejo de señales en C. La función `signal` se usa para registrar un "manejador" (`handler`) para la señal `SIGUSR1`. El programa entra en un lazo infinito y cuando recibe la señal `SIGUSR1`, se ejecuta el manejador.
 
 ## Funciones
 
@@ -188,7 +188,7 @@ El `main` correspondiente a `make_mid/funciones.c`. Incluye `funciones.h` y llam
 
 ### [`make_tp/ejercicio.c`](make_tp/ejercicio.c)
 
-Contiene la función `suma_lenta`, que suma dos números usando bucles `while` en lugar del operador `+`. Es parte de un ejemplo de `Makefile` para un trabajo práctico.
+Contiene la función `suma_lenta`, que suma dos números usando lazos `while` en lugar del operador `+`. Es parte de un ejemplo de `Makefile` para un trabajo práctico.
 
 ### [`make_tp/main.c`](make_tp/main.c)
 
@@ -224,7 +224,7 @@ Este ejemplo demuestra cómo calcular el número de filas, columnas y elementos 
 
 ### [`memoria/nuke.c`](memoria/nuke.c)
 
-Este programa demuestra el efecto de la asignación continua de memoria en un bucle. En cada iteración, duplica la cantidad de memoria reservada con `malloc`, mostrando cómo se puede consumir la memoria disponible del sistema.
+Este programa demuestra el efecto de la asignación continua de memoria en un lazo. En cada iteración, duplica la cantidad de memoria reservada con `malloc`, mostrando cómo se puede consumir la memoria disponible del sistema.
 
 ### [`memoria/stack.c`](memoria/stack.c)
 
@@ -252,7 +252,7 @@ Este ejemplo muestra el uso de las directivas de preprocesador `#define` y `#ifn
 
 ### [`preprocesador/loop.c`](preprocesador/loop.c)
 
-Un ejemplo simple de un bucle que suma los elementos de un arreglo. Se usa para demostrar la diferencia en el código ensamblador generado con y sin optimizaciones del compilador.
+Un ejemplo simple de un lazo que suma los elementos de un arreglo. Se usa para demostrar la diferencia en el código ensamblador generado con y sin optimizaciones del compilador.
 
 ### [`preprocesador/optimiza.c`](preprocesador/optimiza.c)
 
@@ -322,7 +322,7 @@ Un ejemplo más complejo de ámbito de variables, que involucra variables global
 
 ### [`scopes/scoping.c`](scopes/scoping.c)
 
-Este ejemplo ilustra el "ocultamiento de nombres" (name hiding). Dentro del bucle `for`, se declara una nueva variable `a` que oculta la `a` del ámbito exterior.
+Este ejemplo ilustra el "ocultamiento de nombres" (name hiding). Dentro del lazo `for`, se declara una nueva variable `a` que oculta la `a` del ámbito exterior.
 
 ## Estructuras
 

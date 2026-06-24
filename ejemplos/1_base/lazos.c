@@ -1,4 +1,4 @@
-// Lazos (bucles) en C
+// Lazos (lazos) en C
 
 #include <stdio.h>
 

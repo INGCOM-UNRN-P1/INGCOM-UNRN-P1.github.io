@@ -1,7 +1,7 @@
 ---
 title: "Técnicas de Simulación de Estructuras de Control"
 short_title: "Estructuras de control"
-subtitle: "Alternativas y patrones para simular comportamientos de bucles"
+subtitle: "Alternativas y patrones para simular comportamientos de lazos"
 ---
 
 ## Introducción
@@ -15,7 +15,7 @@ simulación de `do...while` usando `while` y otras alternativas.
 
 La comprensión de estas técnicas no solo es útil para casos específicos donde
 las estructuras originales no están disponibles, sino que también proporciona
-una comprensión más profunda de cómo funcionan internamente los bucles y las
+una comprensión más profunda de cómo funcionan internamente los lazos y las
 estructuras de control.
 
 :::{important} Filosofía de diseñ o Aunque estas técnicas son valiosas de
@@ -27,9 +27,9 @@ casos muy específicos donde aporta claridad al código ({ref}`0x0000h`).
 
 ## Simulación de `do...while` con `while`
 
-### Método 1: Bucle Infinito con `break`
+### Método 1: lazo Infinito con `break`
 
-La técnica más directa para simular un `do...while` es usar un bucle `while(1)`
+La técnica más directa para simular un `do...while` es usar un lazo `while(1)`
 con una condición de salida explícita:
 
 ```{code-block}c
@@ -38,12 +38,12 @@ con una condición de salida explícita:
 
 // Comportamiento deseado (do...while):
 // do {
-//     // código del bucle
+//     // código del lazo
 // } while (condicion);
 
 // Simulación equivalente:
 while (1) {
-    // código del bucle
+    // código del lazo
 
     if (!condicion) {
         break;
@@ -86,7 +86,7 @@ int main() {
 ### Método 2: Variable de Control Booleana
 
 Una alternativa más explícita es usar una variable booleana para controlar la
-continuación del bucle:
+continuación del lazo:
 
 ```{code-block}c
 :caption: Simulación con variable de control
@@ -104,7 +104,7 @@ int validar_entrada() {
 
         if (numero >= 1 && numero <= 10) {
             printf("Número válido: %d\n", numero);
-            continuar = false;  // Salir del bucle
+            continuar = false;  // Salir del lazo
         } else {
             printf("Número fuera de rango. Intentá nuevamente.\n");
         }
@@ -158,23 +158,23 @@ void procesar_comandos() {
 
 ### Simulación de `for` con `while`
 
-En algunos contextos educativos o de depuración, puede ser útil convertir bucles
+En algunos contextos educativos o de depuración, puede ser útil convertir lazos
 `for` a `while`:
 
 ```{code-block}c
 :caption: Conversión de for a while
 :linenos:
 
-// Bucle for original:
+// lazo for original:
 // for (int i = 0; i < n; i++) {
-//     // código del bucle
+//     // código del lazo
 // }
 
 // Simulación equivalente con while:
 {
     int i = 0;                  // Inicialización
     while (i < n) {            // Condición
-        // código del bucle
+        // código del lazo
         i++;                   // Incremento
     }
 }
@@ -316,12 +316,12 @@ void manejar_estado_game_over(contexto_juego_t *ctx) {
 }
 ```
 
-### Simulación de Bucles Anidados con Funciones
+### Simulación de lazos Anidados con Funciones
 
-Para evitar bucles anidados complejos que violan la regla de claridad:
+Para evitar lazos anidados complejos que violan la regla de claridad:
 
 ```{code-block}c
-:caption: Desensamblado de bucles anidados
+:caption: Desensamblado de lazos anidados
 :linenos:
 
 #include <stdbool.h>
@@ -329,7 +329,7 @@ Para evitar bucles anidados complejos que violan la regla de claridad:
 #define FILAS 3
 #define COLUMNAS 4
 
-// En lugar de bucles anidados complejos:
+// En lugar de lazos anidados complejos:
 void procesar_matriz_compleja_anidado(int matriz[FILAS][COLUMNAS]) {
     for (int i = 0; i < FILAS; i++) {
         for (int j = 0; j < COLUMNAS; j++) {
@@ -502,15 +502,15 @@ Las simulaciones pueden afectar las optimizaciones automáticas del compilador:
 
 #include <stdio.h>
 
-// Versión optimizable (compilador puede desenrollar el bucle)
-void bucle_simple_optimizable(int n) {
+// Versión optimizable (compilador puede desenrollar el lazo)
+void lazo_simple_optimizable(int n) {
     for (int i = 0; i < n; i++) {
         printf("%d ", i);
     }
 }
 
 // Versión menos optimizable (lógica más compleja para el compilador)
-void bucle_simulado_complejo(int n) {
+void lazo_simulado_complejo(int n) {
     int i = 0;
     bool continuar = true;
 
@@ -525,7 +525,7 @@ void bucle_simulado_complejo(int n) {
 }
 
 // Versión equilibrada (clara para humanos, optimizable para compilador)
-void bucle_simulado_optimizable(int n) {
+void lazo_simulado_optimizable(int n) {
     int i = 0;
     while (i < n) {
         printf("%d ", i);
@@ -542,10 +542,10 @@ void bucle_simulado_optimizable(int n) {
 
 #include <time.h>
 
-void benchmark_bucles(int iteraciones) {
+void benchmark_lazos(int iteraciones) {
     clock_t inicio, fin;
 
-    // Benchmark bucle for nativo
+    // Benchmark lazo for nativo
     inicio = clock();
     for (int i = 0; i < iteraciones; i++) {
         // Operación trivial para evitar optimización completa
@@ -567,7 +567,7 @@ void benchmark_bucles(int iteraciones) {
     double tiempo_while = ((double)(fin - inicio)) / CLOCKS_PER_SEC;
 
     printf("Rendimiento para %d iteraciones:\n", iteraciones);
-    printf("  Bucle for:     %.6f segundos\n", tiempo_for);
+    printf("  lazo for:     %.6f segundos\n", tiempo_for);
     printf("  Simulación while: %.6f segundos\n", tiempo_while);
     printf("  Diferencia:    %.2f%%\n",
            ((tiempo_while - tiempo_for) / tiempo_for) * 100);
@@ -999,7 +999,7 @@ void ejecutar_cajero(contexto_cajero_t *ctx) {
             tabla_estados[ctx->estado_actual](ctx);
         }
 
-        // Condición de salida del bucle
+        // Condición de salida del lazo
         if (ctx->estado_actual == ESTADO_FINALIZAR) {
             break;
         }
@@ -1253,7 +1253,7 @@ bool validar_edad(int *edad) {
         }
 
         *edad = (int)edad_temp;
-        entrada_valida = true; // Salir del bucle
+        entrada_valida = true; // Salir del lazo
         printf("Edad válida: %d años\n", *edad);
     }
 
@@ -1419,7 +1419,7 @@ int main() {
     printf("SISTEMA DE REGISTRO DE USUARIO\n");
     printf("Por favor, complete los siguientes datos:\n");
 
-    // Bucle principal usando simulación de do...while
+    // lazo principal usando simulación de do...while
     while (!datos_completos) {
         // Limpiar estructura
         memset(&datos, 0, sizeof(datos));
