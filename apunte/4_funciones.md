@@ -226,9 +226,6 @@ Aquí, `sumaTemporal` es una **variable local temporal** dentro de
 `calcularPromedio`. Su único propósito es almacenar la suma intermedia antes de
 calcular el promedio final.
 
----
-
-
 
 ---
 
