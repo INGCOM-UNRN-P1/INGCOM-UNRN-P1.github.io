@@ -166,15 +166,15 @@ _Más adelante, vamos a ver detalles de la compilación para crear programas má
 Si no ves el mensaje que está dentro de la instrucción `printf`, hay algún problema que es **fundamental** solucionar. No se debe detener en este punto, ya que es un bloqueante para todos los temas siguientes.
 :::
 
-## El Algoritmo: pensar antes de escribir
+## De la Idea al Código en C
 
-//? Revisar si esto no se duplica con el apunte 1_base.md y ver de llevarlo allá o borrarlo
+En el capítulo {doc}`1_base` se estudiaron los fundamentos lógicos y el diseño de algoritmos en pseudocódigo. Ahora daremos el paso crucial: **traducir ese diseño abstracto a un programa real en C**.
 
-### Mentalidad de programador
+### La Mentalidad del Programador
 
-1. **Leé el problema. Comprendelo. Diseñalo.**
-2. **Dividilo en pasos simples e inequívocos** en papel o pseudocódigo.
-3. **Escribí el código en C** basándote únicamente en el algoritmo diseñado.
+1. **Leé el problema, comprendelo y diseñalo.**
+2. **Dividilo en pasos simples e inequívocos** (en papel o pseudocódigo) antes de tipear una sola línea.
+3. **Escribí el código en C** basándote estrictamente en el algoritmo diseñado, no en la improvisación.
 
 :::{figure} ./2/think.jpg
 :alt: Roll Safe thinking
@@ -206,15 +206,11 @@ int main() {
 }
 ```
 
----
-
 ## Sobre las reglas de estilo
 
 El uso de reglas de estilo es fundamental para garantizar la consistencia y legibilidad del código. Al adherirse a normas uniformes (como nomenclatura, indentación y posición de llaves), se facilita la colaboración y el mantenimiento del software. Para más detalles, consultá la regla {ref}`0x0000h`.
 
 Y cuando nos referimos a colaboración, esto incluye al profesor que tiene que leer su código.
-
----
 
 ## Sintaxis y Semántica Básica
 
@@ -229,17 +225,33 @@ La **semántica** determina el significado lógico, la estructura y el comportam
 
 Nuestros identificadores deben respetar las pautas de estilo (ver {ref}`0x0001h`).
 
----
-
 ### Tipos de operadores
 
+Los operadores son símbolos que le indican al compilador realizar manipulaciones matemáticas o lógicas específicas sobre las variables. En C se clasifican según su función y la cantidad de operandos que requieren:
 
-//AMPLIAR
+*   **Aritméticos (Binarios):** Operan sobre dos valores numéricos.
+    *   Suma (`+`), Resta (`-`), Multiplicación (`*`), División (`/`).
+    *   Módulo (`%`): Devuelve el resto de la división entera (ej: `7 % 3` da `1`).
+*   **Unarios:** Requieren un único operando.
+    *   Incremento (`++`) y Decremento (`--`): Suman o restan uno a una variable (ej: `contador++`).
+    *   Negación aritmética (`-`): Cambia el signo de un valor.
+*   **Relacionales o de Comparación:** Comparan dos operandos y devuelven un valor lógico (`true` o `false`).
+    *   Mayor que (`>`), Menor que (`<`), Mayor o igual (`>=`), Menor o igual (`<=`).
+    *   Igualdad (`==`) y Diferencia (`!=`).
+*   **Lógicos (Booleanos):** Permiten combinar o negar condiciones lógicas.
+    *   Conjunción (`&&`): Verdadero si ambos operandos son verdaderos (AND).
+    *   Disyunción (`||`): Verdadero si al menos uno de los operandos es verdadero (OR).
+    *   Negación lógica (`!`): Invierte el valor lógico (NOT).
 
-- Aritméticos: `+ - * / %`
-- Unarios: `++ -- -`
-- Relacionales: `> < >= <= == !=`
-- Lógicos: `! && ||`
+:::{warning} Confusión entre Operadores Lógicos y de bits (Bitwise)
+Es fundamental no confundir los operadores lógicos booleanos (`&&` y `||`) con sus equivalentes a nivel de bits (`&` y `|`).
+*   `&&` y `||` evalúan expresiones lógicas y aplican cortocircuito (si el primer operando de `&&` es falso, el segundo no se evalúa).
+*   `&` y `|` son operadores a nivel de bits que manipulan la representación binaria física de los datos. Usar `&` en un condicional lógico en lugar de `&&` es un error semántico que puede producir comportamientos imprevistos.
+:::
+
+:::{warning} Cuidado con el operador de asignación
+No confundas el operador de asignación simple `=` (que guarda un valor en una variable) con el operador de comparación `==` (que verifica igualdad). Este es uno de los errores semánticos más comunes en C.
+:::
 
 
 ---
@@ -269,6 +281,14 @@ Las variables abstraen ubicaciones físicas de memoria. Cada una tiene una direc
 :alt: Tipos de datos en C
 
 Especificadores de formato de tipos básicos en C.
+:::
+
+:::{important} Tamaños dependientes de la arquitectura
+El estándar de C no define tamaños fijos en bytes para los tipos básicos, sino únicamente rangos mínimos y relaciones de tamaño (ej. un `long` debe ser al menos tan grande como un `int`).
+*   En arquitecturas de escritorio modernas de 32 o 64 bits (x86_64, ARM64), un `int` suele ocupar 4 bytes (32 bits).
+*   En microcontroladores embebidos pequeños de 8 o 16 bits (como en sistemas de automatización), un `int` puede ocupar únicamente 2 bytes (16 bits), reduciendo a la mitad su rango máximo (de $\pm 2.147.483.647$ a $\pm 32.767$).
+
+Para garantizar la portabilidad y evitar desbordamientos accidentales al cambiar de plataforma, el estándar C99 introdujo la cabecera `<stdint.h>`, la cual proporciona tipos con tamaños fijos y explícitos en bits, como `int8_t`, `int16_t`, `int32_t` y sus variantes sin signo (`uint8_t`, `uint32_t`).
 :::
 
 ### Declaración e Inicialización
@@ -446,7 +466,7 @@ medio (como un archivo).
 
 int main() {
     float radio = 5.0;
-    float area; // 'area' es una variable de salida (resultado)
+    float area = 0.0; // 'area' es una variable de salida (resultado)
 
     // Calculamos el área del círculo
     area = 3.14159 * radio * radio;
