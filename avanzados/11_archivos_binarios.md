@@ -218,13 +218,13 @@ int main(void) {
     Producto un_producto; // Buffer en memoria para alojar un producto a la vez
 
     printf("--- Contenido del Inventario ---\n");
-    // El bucle intenta leer un producto (nmemb=1) en cada iteración.
+    // El lazo intenta leer un producto (nmemb=1) en cada iteración.
     // Continúa mientras fread devuelva 1, indicando una lectura exitosa.
     while (fread(&un_producto, sizeof(Producto), 1, archivo_entrada) == 1) {
         imprimir_producto(&un_producto);
     }
 
-    // Al salir del bucle, fread devolvió 0. Debemos averiguar por qué.
+    // Al salir del lazo, fread devolvió 0. Debemos averiguar por qué.
     if (ferror(archivo_entrada)) {
         perror("Ocurrió un error de E/S durante la lectura");
     } else if (feof(archivo_entrada)) {
