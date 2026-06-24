@@ -5,6 +5,10 @@ subtitle: 'Decisiones condicionales, lazos y control seguro en C'
 ---
 
 (control-flujo-capitulo)=
+## Introducción al Control de Flujo
+
+Hasta ahora, los programas que hemos escrito se ejecutan de manera estrictamente secuencial: una instrucción tras otra, de arriba a abajo. Sin embargo, para resolver problemas reales necesitamos que el programa tome decisiones y repita bloques de instrucciones de forma autónoma. El **control de flujo** es el conjunto de mecanismos que nos permite bifurcar el camino de ejecución y gobernar la repetición del código.
+
 ## Decisiones Condicionales
 
 Las decisiones permiten que el flujo de ejecución tome distintos caminos con base en condiciones lógicas booleanas.
@@ -17,6 +21,8 @@ El programa evalúa condiciones lógicas y ejecuta el bloque de instrucciones co
 :::
 
 ### Estructura `if...else if...else`
+
+Las estructuras condicionales bifurcan el camino del programa. Es importante notar que tanto las ramas alternativas `else if` como la rama por defecto `else` son **opcionales**; podés utilizar una instrucción `if` simple para ejecutar un bloque de código únicamente si se cumple la condición, continuando de forma secuencial en caso contrario.
 
 ```c
 if (condicion) {
@@ -41,6 +47,8 @@ está permitido, ya que puede generar confusión.
 - `==` (Igualdad), `!=` (Desigualdad), `>`, `<`, `>=`, `<=`
 - `&&` (Y lógico), `||` (O lógico), `!` (Negación lógica)
 
+En C estándar, los operadores relacionales y lógicos no devuelven un tipo booleano nativo, sino que **devuelven un valor entero (`int`)**: `1` para representar verdadero y `0` para representar falso. Es por esto que expresiones como `5 > 3` se evalúan físicamente como el entero `1`.
+
 ```c
 if (edad >= 18) {
     printf("Mayor de edad\n");
@@ -49,46 +57,10 @@ if (edad >= 18) {
 }
 ```
 
-### Ejercicio 3
-
-:::{exercise}
-:label: entrada-2
-:enumerator: entrada-2
-
-Pedí al usuario que ingrese su nota final (entera) e imprimí su condición:
-- "Promociona" si la nota es mayor o igual a 6.
-- "Aprueba" si la nota es mayor o igual a 4 pero menor a 6.
-- "Desaprueba" si la nota es menor a 4.
-:::
-
-:::{solution} entrada-2
-:class: dropdown
-
-```{code-block} c
-:linenos:
-#include <stdio.h>
-
-int main()
-{
-    int nota = 0;
-    printf("Ingrese la nota: ");
-    scanf("%d", &nota);
-
-    if (nota >= 6) {
-        printf("Promociona\n");
-    } else if (nota >= 4) {
-        printf("Aprueba\n");
-    } else {
-        printf("Desaprueba\n");
-    }
-    return 0;
-}
-```
-:::
 
 ### Bifurcación Múltiple con `switch`
 
-Permite comparar el valor de una variable entera contra múltiples constantes de forma directa:
+La estructura `switch` evalúa una expresión entera y busca una coincidencia con alguna de las constantes definidas en las etiquetas `case`. Al encontrarla, transfiere el control directamente a ese punto. Es una alternativa más limpia y eficiente a múltiples `if-else if` anidados cuando se compara una misma variable contra múltiples constantes de tipo entero o carácter.
 
 ```c
 switch (opcion) {
@@ -103,6 +75,10 @@ switch (opcion) {
         break;
 }
 ```
+
+Al utilizar `switch` debés tener en cuenta dos detalles clave:
+*   **La sentencia `break`:** Es fundamental colocar `break` al final de cada bloque `case`. Si no está, la ejecución continuará ("caerá") hacia las instrucciones del caso siguiente (*fall-through*), lo cual suele ser fuente de errores lógicos grandes.
+*   **La etiqueta `default`:** Se ejecuta si ninguna constante coincide. Aunque técnicamente es opcional en el estándar C, la regla {ref}`0x1008h` de la cátedra **exige que siempre esté presente** como medida de diseño defensivo.
 
 ---
 
@@ -132,34 +108,6 @@ while (i < 5) {
 :alt: Flujo del lazo while
 
 Diagrama de flujo del lazo while: evalúa la condición, ejecuta el bloque si es verdadera, y repite hasta que la condición sea falsa.
-:::
-
-### Ejercicio 4
-
-:::{exercise}
-:label: lazo_while 
-:enumerator: while
-
-Escribí un programa en C que imprima los números del 10 al 1 de forma descendente usando un lazo `while`.
-:::
-
-:::{solution} lazo_while
-:label: solucion-lazo_while
-:class: dropdown
-
-```{code-block} c
-:linenos:
-#include <stdio.h>
-
-int main() {
-    int i = 10;
-    while (i >= 1) {
-        printf("%d\n", i);
-        i = i - 1;
-    }
-    return 0;
-}
-```
 :::
 
 ### `for` — Iteración controlada por contador
@@ -193,29 +141,33 @@ for (int i = 0; i < 5; i++) {
 }
 ```
 
-### Ejercicio 5
+#### Rol de variable: Control de lazo (o Iterador)
 
-:::{exercise}
-:label: lazo_for
-:enumerator: for
-Usá un lazo `for` para mostrar los números múltiplos de 3 comprendidos en el rango de 0 a 30 inclusive.
-:::
+*(Para una introducción teórica sobre el propósito de los roles de variables, consultá la sección {ref}`roles-variables`*.
 
-:::{solution} lazo_for
-:label: solucion-lazo_for
-:class: dropdown
+En el lazo anterior, la variable `i` asume el **rol de control de lazo** (o iterador). Este rol se encarga de gobernar las repeticiones del ciclo, incrementándose o decrementándose en cada vuelta hasta que se cumple la condición de parada.
+
+Esta estructura es directamente análoga a la notación de una sumatoria matemática. Considerá el siguiente ejemplo:
+
+$$\sum_{i=0}^{n-1} x_i$$
+
+En esta expresión matemática, la variable $i$ funciona exactamente como nuestra variable de control:
+*   **Inicialización**: Comienza en un valor de partida (el límite inferior, $i = 0$).
+*   **Condición**: Continúa acumulando elementos mientras no supere el límite superior ($i \le n - 1$, lo que equivale en enteros a $i < n$).
+*   **Paso**: Se incrementa implícitamente de a una unidad tras procesar cada término.
+
+En C, trasladás esta equivalencia matemática directamente a la cabecera del lazo `for`:
+
 ```c
-#include <stdio.h>
-
-int main() {
-    for (int i = 0; i <= 30; i = i + 1) {
-        if (i % 3 == 0) {
-            printf("%d es múltiplo de 3\n", i);
-        }
-    }
-    return 0;
+for (int i = 0; i < n; i++) {
+    // Procesar x[i]
 }
 ```
+
+:::{note}
+
+El rol de control de lazo, no es exclusivo de los lazos `for`, pero es donde es más fuerte.
+
 :::
 
 ### `do...while` — Ejecución obligatoria al menos una vez
@@ -243,42 +195,163 @@ flowchart TD
     Cond -- No --> Fin
 ```
 
-### Ejercicio 6
+---
 
-:::{exercise}
-:label: lazo_repeat
-:enumerator: for
 
-Diseñá un programa con un lazo `do...while` que solicite repetidamente una clave de acceso numérica al usuario hasta que ingrese el valor correcto `1234`.
-:::
+---
 
-:::{solution} lazo_repeat
-:label: solucion-lazo_repeat
-:class: dropdown
-```{code-block} c
-:linenos:
+(rol-bandera)=
+## Rol Bandera (o Flag)
+
+*(Para más información sobre la asignación semántica de roles, consultá {ref}`roles-variables` en [](2_gradual))*.
+
+Una **bandera** (o _flag_) es una variable booleana (o un tipo entero que simula un valor booleano) que se utiliza para **registrar y señalizar un estado o la ocurrencia de un evento**. Su valor cambia para indicar que un hecho específico se ha verificado en el flujo de ejecución.
+
+En la programación estructurada y bajo las pautas de esta cátedra, las banderas tienen dos usos fundamentales:
+
+### 1. Señalización de un estado o evento
+Se utiliza para recordar si una condición fue alcanzada durante un proceso. Por ejemplo, supongamos que queremos verificar si un número determinado existe dentro de una secuencia de elementos. Al encontrarlo, encendemos la bandera (`true`).
+
+Para cumplir con la regla de diseño estructurado (que prohíbe el uso de interrupciones abruptas como `break` en lazos), la bandera se integra directamente como condición de corte en la cabecera del lazo:
+
+```c
 #include <stdio.h>
+#include <stdbool.h> // Necesario para el tipo de dato bool
 
 int main() {
-    int clave = 0;
-    int clave_correcta = 1234;
+    int numeros[] = {10, 25, 4, 30, 8, 15};
+    int tamano = sizeof(numeros) / sizeof(numeros[0]);
+    int numero_buscado = 8;
+    bool encontrado = false; // Bandera inicializada en false
 
-    do {
-        printf("Ingrese la clave: ");
-        scanf("%d", &clave);
-
-        if (clave != clave_correcta) {
-            printf("Clave incorrecta. Reintente.\n");
+    int i = 0;
+    // El lazo continúa si quedan elementos por revisar Y si aún no se encontró el número
+    while (i < tamano && encontrado == false) {
+        if (numeros[i] == numero_buscado) {
+            encontrado = true; // Se enciende la bandera
         }
-    } while (clave != clave_correcta);
+        i++;
+    }
 
-    printf("Acceso concedido.\n");
+    if (encontrado == true) {
+        printf("El número %d fue encontrado en el arreglo.\n", numero_buscado);
+    } else {
+        printf("El número %d NO fue encontrado en el arreglo.\n", numero_buscado);
+    }
+
     return 0;
 }
 ```
-:::
+
+### 2. Control de permanencia en lazos interactivos
+Se utiliza para gobernar la repetición de un lazo cuando no se conoce de antemano la cantidad de iteraciones (por ejemplo, entrada de datos interactiva del usuario). El lazo se ejecuta mientras la bandera se mantenga activa y finaliza cuando un evento apaga la bandera:
+
+```c
+#include <stdio.h>
+#include <stdbool.h>
+
+int main() {
+    bool continuar = true; // Bandera de permanencia
+    int numero = 0;
+
+    while (continuar == true) {
+        printf("Ingresá un número (0 para salir): ");
+        scanf("%d", &numero);
+
+        if (numero == 0) {
+            continuar = false; // Se apaga la bandera para salir en la próxima iteración
+        } else {
+            printf("Ingresaste: %d\n", numero);
+        }
+    }
+
+    return 0;
+}
+```
+
+
+### Rol acumulador
+
+Un **acumulador** es una variable que se utiliza para **sumar o acumular
+valores** a lo largo de un proceso. Generalmente, se inicializa en cero antes de
+que comience el proceso de acumulación.
 
 ---
+
+### Ejemplo de Acumulador en C
+
+Imaginemos que queremos calcular la suma de los primeros N números enteros.
+
+```c
+#include <stdio.h>
+
+int main() {
+    int n = -1;
+    int suma = 0; // Aquí, 'suma' es nuestro acumulador
+    printf("Ingrese un numero entero N: ");
+    scanf("%d", &n);
+
+    for (int i = 1; i <= n; i++) {
+        suma = suma + i; // Se acumulan los valores en cada iteración
+    }
+
+    printf("La suma de los primeros %d numeros es: %d\n", n, suma);
+    return 0;
+}
+```
+
+En este ejemplo, la variable `suma` tiene el rol de **acumulador**. En cada
+iteración del lazo `for`, se le suma el valor actual de `i`, acumulando así la
+suma total.
+
+//? agregar expresion matematica equivalente
+
+---
+
+### Rol contador
+
+Un **contador** es una variable que se utiliza para **contar la ocurrencia de un
+evento** o para **llevar un registro del número de iteraciones** en un lazo. Se
+incrementa o decrementa en un valor fijo (usualmente 1) cada vez que el evento
+ocurre.
+
+
+
+---
+
+### Ejemplo de Contador en C
+
+Supongamos que queremos contar cuántos números pares hay en un rango dado.
+
+```c
+#include <stdio.h>
+
+int main() {
+    int inicio = -1;
+    int fin = -1;
+    int contadorPares = 0; // Aquí, 'contadorPares' es nuestro contador
+
+    printf("Ingrese el inicio del rango: ");
+    scanf("%d", &inicio);
+    printf("Ingrese el fin del rango: ");
+    scanf("%d", &fin);
+
+    for (int i = inicio; i <= fin; i++) {
+        if (i % 2 == 0) {
+            contadorPares++; // Se incrementa el contador si el número es par
+        }
+    }
+
+    printf("En el rango de %d a %d, hay %d numeros pares.\n", inicio, fin, contadorPares);
+    return 0;
+}
+```
+
+En este caso, `contadorPares` tiene el rol de **contador**. Cada vez que
+encontramos un número par, incrementamos su valor en 1.
+
+
+//? agregar expresion matematica equivalente
 
 ## Control de Flujo Seguro de Lazos
 
@@ -314,174 +387,14 @@ for (int i = 1; i <= 5; i++) {
 
 **En esta cátedra, el uso de las instrucciones `break` (fuera de un bloque `switch`) y `continue` para modificar el flujo de repetición de los lazos esta prohibidas** (ver regla de estilo {ref}`0x1002h`). 
 
-Esta restricción responde a dos vectores fundamentales del diseño de software:
+Esta restricción responde a dos cuestiones fundamentales del diseño de software:
 1.  **Legibilidad y Mantenibilidad:** Crear múltiples puntos de salida invisibles en el cuerpo de un lazo de control oscurece la trazabilidad de la lógica. El código se vuelve difícil de seguir, depurar y verificar matemáticamente.
 2.  **Desarrollo del Pensamiento Algorítmico:** Evitar estos atajos obliga al estudiante a diseñar formalmente condiciones de corte coherentes y estructuradas en la cabecera de la iteración.
 
-Para detener un lazo de forma controlada cuando se cumpla una condición anticipada, debés recurrir a la estructuración de lazos con **banderas de control** (`bool`).
+Para detener un lazo de forma controlada cuando se cumpla una condición anticipada, debés recurrir a la estructuración de lazos con **banderas de control** (`bool`). Consultá la sección {ref}`rol-bandera` para ver la explicación teórica y los ejemplos detallados de implementación estructurada.
 
-### Ejercicio 7 (Refactorización de `break`)
-
-:::{exercise}
-:label: lazo_break
-:enumerator: break
-Modificá el siguiente programa para eliminar la instrucción `break` prohibida, estructurando correctamente el lazo:
-
-```{code-block} c
-:linenos:
-#include <stdio.h>
-
-int main() {
-    int i;
-    for (i = 0; i < 10; i++) {
-        printf("valor actual: %d\n", i);
-        if (i == 4) {
-            break;
-        }
-    }
-    return 0;
-}
-```
-:::
-
-:::{solution} lazo_break
-:label: solucion-lazo_break
-:class: dropdown
-Se reestructura el lazo reemplazando el `for` e implementando un lazo `while` controlado por una bandera lógica booleana (`bool`) del encabezado `<stdbool.h>` que se establece en `false` al alcanzar la condición de parada:
-
-```{code-block} c
-:linenos:
-#include <stdio.h>
-#include <stdbool.h>
-
-int main() {
-    int i = 0;
-    bool continuar = true;
-    while (i < 10 && continuar) {
-        printf("valor actual: %d\n", i);
-        if (i == 4) {
-            continuar = false;
-        }
-        i++;
-    }
-    return 0;
-}
-```
-:::
-
-### Ejercicio 8 (Refactorización de `continue`)
-
-:::{exercise}
-:label: lazo_continue
-:enumerator: continue
-Modificá el siguiente código para eliminar la instrucción `continue` prohibida:
-
-```{code-block} c
-:linenos:
-#include <stdio.h>
-
-int main()
-{
-    for (int i = 0; i <= 10; i++) {
-        if (i % 2 == 0) {
-            continue;
-        }
-        printf("i = %d\n", i);
-    }
-    return 0;
-}
-```
-
-:::
-
-:::{solution} lazo_continue
-:label: solucion-lazo_continue
-:class: dropdown
-Se reestructura el lazo eliminando la instrucción `continue` y encerrando el cuerpo restante del lazo dentro de una condición positiva que filtra los elementos que se desean procesar (en este caso, los impares):
-
-```{code-block} c
-:linenos:
-#include <stdio.h>
-
-int main() {
-    for (int i = 0; i <= 10; i++) {
-        if (i % 2 != 0) {
-            printf("i = %d\n", i);
-        }
-    }
-    return 0;
-}
-```
-:::
-
-### Lazos con bandera (`flag`)
-
-Para finalizar un lazo `while` o `do...while` por un evento lógico intermedio, se debe utilizar una variable lógica bandera (definida mediante `<stdbool.h>`). La bandera se inicializa en `true` y se establece en `false` cuando ocurre el evento de parada, controlando el lazo desde su condición formal.
-
-```c
-#include <stdio.h>
-#include <stdbool.h>
-
-int main()
-{
-    bool continuar = true;
-    int numero = 0;
-
-    while (continuar == true)
-    {
-        printf("Ingresá un número (0 para salir): ");
-        scanf("%d", &numero);
-
-        if (numero == 0)
-        {
-            continuar = false; // Se apaga la bandera para salir en la próxima condición
-        }
-        else
-        {
-            printf("Ingresaste: %d\n", numero);
-        }
-    }
-    return 0;
-}
-```
-
-### Ejercicio 9 (Lazo de Clave con Bandera)
-
-:::{exercise}
-:label: lazo_flag_break
-:enumerator: continue
-
-Reescribí el ingreso de clave de acceso del Ejercicio 6 utilizando un lazo controlado por una bandera booleana (`bool`) en lugar de `do...while`.
-:::
-
-:::{solution} lazo_flag_break
-:label: solucion-lazo_flag_break
-:class: dropdown
-```{code-block} c
-:linenos:
-#include <stdio.h>
-#include <stdbool.h>
-
-int main()
-{
-    int clave = 0;
-    int clave_correcta = 1234;
-    bool clave_correcta_ingresada = false;
-
-    while (clave_correcta_ingresada == false) {
-        printf("Ingrese la clave de acceso: ");
-        scanf("%d", &clave);
-
-        if (clave == clave_correcta) {
-            printf("Acceso concedido.\n");
-            clave_correcta_ingresada = true; // Se modifica el estado de la bandera
-        } else {
-            printf("Clave incorrecta. Intente nuevamente.\n");
-        }
-    }
-    return 0;
-}
-```
+:::{tip} Ejercicio Práctico Resuelto
+Podés consultar la resolución del **Ejercicio 9 (ingreso de clave con bandera)** en el documento de [](2c_ejercicios_control).
 :::
 
 
@@ -526,15 +439,6 @@ int main() {
 
 La condición `(c = getchar()) != '\n' && c != EOF` realiza tres acciones: lee un carácter de `stdin`, lo asigna a `c`, y continúa la iteración del lazo mientras no sea un salto de línea ni el fin del archivo (`EOF`). Se declara `c` como `int` porque la macro `EOF` representa habitualmente el valor entero `-1`. En plataformas donde el tipo `char` es `unsigned` (sin signo) por defecto, una variable `char` no podría almacenar un valor negativo, provocando un lazo infinito al comparar contra `EOF`.
 
-
-## Ejercicios de Práctica
-
-1. Escribí un programa que solicite dos números reales al usuario y muestre cuál es el mayor.
-2. Diseñá un programa que imprima en pantalla los números enteros del 1 al 100 utilizando un lazo `for`.
-3. Desarrollá un algoritmo que sume los números pares comprendidos en el rango del 1 al 100 inclusive.
-4. Escribí un programa que solicite un número entero positivo e indique si es un número primo (divisible únicamente por 1 y por sí mismo).
-5. Escribí un programa que pida una calificación (0 a 10) e indique si el estudiante aprobó (calificación mayor o igual a 4).
-6. Escribí un programa que solicite repetidamente una contraseña de caracteres al usuario hasta que coincida con un valor establecido de acceso seguro.
 
 ---
 
