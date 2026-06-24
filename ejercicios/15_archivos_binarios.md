@@ -40,9 +40,9 @@ Escribir una función que lea todos los registros de `inventario.dat` y los mues
 
 :::{hint} Lógica y Consideraciones
 - **Apertura**: Abrir el archivo en modo lectura binaria (`"rb"`).
-- **Lectura**: Usar un bucle `while` que intente leer un registro a la vez con `fread`. El bucle continuará mientras `fread` devuelva 1 (indicando que un registro fue leído exitosamente).
+- **Lectura**: Usar un lazo `while` que intente leer un registro a la vez con `fread`. El lazo continuará mientras `fread` devuelva 1 (indicando que un registro fue leído exitosamente).
 - **Búfer**: Se necesita una única variable de tipo `producto_t` que actúe como búfer para recibir los datos de cada registro leído.
-- **Manejo de EOF**: Al final del bucle, verificar `feof` y `ferror` para asegurarse de que la lectura terminó porque se llegó al final del archivo y no por un error.
+- **Manejo de EOF**: Al final del lazo, verificar `feof` y `ferror` para asegurarse de que la lectura terminó porque se llegó al final del archivo y no por un error.
 :::
 
 ## 3: Acceso Aleatorio

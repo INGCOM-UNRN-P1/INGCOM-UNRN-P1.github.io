@@ -47,7 +47,7 @@ Implementar `int* fusionar(const int *a1, size_t n1, const int *a2, size_t n2)`.
     arreglo.
 3.  Mientras `i < n1` y `j < n2`, comparar `a1[i]` y `a2[j]` y copiar el menor
     al nuevo arreglo, incrementando el contador correspondiente y `k`.
-4.  Al salir del bucle, copiar los elementos restantes del arreglo que no se
+4.  Al salir del lazo, copiar los elementos restantes del arreglo que no se
     haya completado.
 
 ### 1.4: Inserción y Eliminación
@@ -126,9 +126,9 @@ Implementar funciones para reservar y liberar una matriz `m x n` usando un
 arreglo de punteros.
 
 - **Reserva**: Se realiza en dos etapas. Primero se reserva el arreglo de
-  punteros a las filas, y luego, en un bucle, se reserva la memoria para cada
+  punteros a las filas, y luego, en un lazo, se reserva la memoria para cada
   fila individual.
-- **Liberación**: Debe seguir el orden inverso. Primero, en un bucle, se libera
+- **Liberación**: Debe seguir el orden inverso. Primero, en un lazo, se libera
   la memoria de cada fila, y finalmente se libera el arreglo que contenía los
   punteros a las filas.
 

@@ -25,7 +25,7 @@ secuencias numéricas.
 ## 1.1: Cuenta regresiva
 
 ### Descripción
-Este ejercicio consiste en implementar un programa que realice una cuenta regresiva desde un número entero positivo `N` hasta 1, para finalmente imprimir un mensaje de "¡Lanzamiento!". El objetivo es practicar el uso de lazos (bucles) y la gestión de tiempos de ejecución simples.
+Este ejercicio consiste en implementar un programa que realice una cuenta regresiva desde un número entero positivo `N` hasta 1, para finalmente imprimir un mensaje de "¡Lanzamiento!". El objetivo es practicar el uso de lazos (lazos) y la gestión de tiempos de ejecución simples.
 
 Para que la cuenta no sea instantánea y se pueda percibir en tiempo real, se debe introducir una pausa de 1 segundo entre cada número impreso.
 

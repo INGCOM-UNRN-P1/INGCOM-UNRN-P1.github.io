@@ -74,7 +74,7 @@ representación binaria de un número.
 
 :::{hint} Lógica y Consideraciones
 
-- **Algoritmo de Brian Kernighan**: En un bucle, mientras el número no sea cero,
+- **Algoritmo de Brian Kernighan**: En un lazo, mientras el número no sea cero,
   aplicar la operación `n = n & (n - 1)`. Esta operación apaga el bit encendido
   menos significativo en cada iteración. El número de iteraciones es el número
   de bits encendidos.

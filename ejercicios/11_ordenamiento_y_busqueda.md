@@ -25,7 +25,7 @@ búsqueda más simple y no requiere que el arreglo esté ordenado.
 
 - **Proceso**: Iterar a través del arreglo con un índice `i` desde 0 hasta
   `n-1`. En cada paso, comparar `arreglo[i]` con el valor buscado.
-- **Salida**: Si se encuentra el elemento, devolver su índice `i`. Si el bucle
+- **Salida**: Si se encuentra el elemento, devolver su índice `i`. Si el lazo
   termina sin encontrarlo, devolver `-1`.
 - **Complejidad Temporal**: $O(n)$.
 
@@ -67,8 +67,8 @@ necesiten más intercambios.
 
 :::{hint} Lógica y Consideraciones
 
-- **Proceso**: Usar dos bucles anidados. El bucle exterior controla el número de
-  pasadas. El bucle interior recorre los elementos, "burbujeando" el elemento
+- **Proceso**: Usar dos lazos anidados. El lazo exterior controla el número de
+  pasadas. El lazo interior recorre los elementos, "burbujeando" el elemento
   más grande de la sección no ordenada hacia su posición final en cada pasada.
 - **Optimización**: Se puede agregar una bandera para detectar si en una pasada
   completa no se realizó ningún intercambio, en cuyo caso el arreglo ya está
@@ -87,8 +87,8 @@ esta, moviendo así el límite entre ambas partes.
 
 :::{hint} Lógica y Consideraciones
 
-- **Proceso**: El bucle exterior itera desde `i = 0` hasta `n-2`. En cada
-  iteración, el bucle interior (de `j = i+1` a `n-1`) busca el índice del
+- **Proceso**: El lazo exterior itera desde `i = 0` hasta `n-2`. En cada
+  iteración, el lazo interior (de `j = i+1` a `n-1`) busca el índice del
   elemento mínimo en el resto del arreglo. Finalmente, se intercambia el
   elemento en `i` con el mínimo encontrado.
 

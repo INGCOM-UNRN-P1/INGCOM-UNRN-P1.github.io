@@ -73,8 +73,8 @@ double promedio_positivos(const int arreglo[], size_t n, bool *exito) {
 3.  **`exito`**: **Bandera (Flag)**. Se utiliza para señalizar al código que
     llama a la función si la operación fue exitosa (es decir, si se encontró al
     menos un número positivo).
-4.  **`i`**: **Variable de Control de Bucle (Iterador)**. Su único propósito es
-    controlar las iteraciones del bucle `for`.
+4.  **`i`**: **Variable de Control de lazo (Iterador)**. Su único propósito es
+    controlar las iteraciones del lazo `for`.
 5.  **Valor de retorno**: **Variable de Salida**. Contiene el resultado
     principal del cálculo de la función. 
     
@@ -123,7 +123,7 @@ int encontrar_maximo(const int arr[], size_t tam, bool *encontrado) {
 1. **`maximo`**: **Variable de Mejor Candidato/Guardián**. Mantiene el valor máximo encontrado hasta el momento.
 2. **`hay_elementos`**: **Bandera de Inicialización**. Indica si ya se procesó al menos un elemento para inicializar correctamente la comparación.
 3. **`encontrado`**: **Parámetro de Salida/Bandera de Estado**. Comunica al llamador si la operación fue exitosa.
-4. **`indice`**: **Variable de Control de Bucle/Iterador**. Controla el recorrido del arreglo.
+4. **`indice`**: **Variable de Control de lazo/Iterador**. Controla el recorrido del arreglo.
 
 :::
 
@@ -193,7 +193,7 @@ reporte_ventas_t procesar_ventas(const double ventas[], int dias) {
 3. **`dias_activos`**: **Contador**. Cuenta los días que tuvieron ventas positivas.
 4. **`primera_venta`**: **Bandera de Primera Vez**. Controla la inicialización correcta del máximo.
 5. **`venta_maxima`**: **Variable de Mejor Candidato/Guardián**. Mantiene el valor de venta más alto encontrado.
-6. **`dia`**: **Variable de Control de Bucle/Iterador**. Controla la iteración a través de los días.
+6. **`dia`**: **Variable de Control de lazo/Iterador**. Controla la iteración a través de los días.
 
 :::
 
@@ -270,14 +270,14 @@ variables en cada marco de la pila y el estado del montículo.
   - **Marco de `crear_copia`**:
     - `original` (puntero): Contiene una copia de la dirección de
       `saludo_original`, por lo que también apunta a la cadena literal "Hola".
-    - `largo` (entero): Su valor es `4` (calculado por el bucle `while`).
+    - `largo` (entero): Su valor es `4` (calculado por el lazo `while`).
     - `copia` (puntero): Contiene la dirección de memoria del nuevo bloque de 5
       bytes reservado por `malloc` en el montículo.
     - `i` (entero): Aún no ha sido inicializada, por lo que su valor es
       indeterminado (basura).
 - **Montículo (Heap)**:
   - Hay un bloque de **5 bytes** reservado. Su contenido es indeterminado
-    (basura), ya que el bucle `for` que lo llena aún no se ha ejecutado.
+    (basura), ya que el lazo `for` que lo llena aún no se ha ejecutado.
 - **Segmento de Datos (Solo Lectura)**:
   - Contiene la cadena literal `"Hola"` (terminada en nulo), que ocupa 5 bytes.
     La dirección de su primer carácter es a la que apuntan `saludo_original` y
@@ -419,7 +419,7 @@ int main() {
     - `i`: no inicializada (basura)
 - **Heap**: Bloque de 12 bytes (3 * sizeof(int)) con contenido indeterminado
 
-**PUNTO B** (después del bucle for):
+**PUNTO B** (después del lazo for):
 - **Pila**: Igual que punto A, excepto `i` = 3
 - **Heap**: El bloque ahora contiene {10, 20, 30}
 
@@ -691,10 +691,10 @@ bool buscar_par_suma_optimizado(int arr[], int tam, int objetivo) {
 :class: dropdown
 
 **Análisis de `buscar_par_suma`:**
-- **Complejidad temporal**: $O(n^2)$ - hay dos bucles anidados que recorren el array
+- **Complejidad temporal**: $O(n^2)$ - hay dos lazos anidados que recorren el array
 - **Variables de control**: 
-  - `i`: Iterador externo (rol: control de bucle principal)
-  - `j`: Iterador interno (rol: control de bucle secundario, siempre j > i)
+  - `i`: Iterador externo (rol: control de lazo principal)
+  - `j`: Iterador interno (rol: control de lazo secundario, siempre j > i)
 - **Complejidad espacial**: $O(1)$ - solo usa variables locales
 
 **Análisis de `buscar_par_suma_optimizado`:**
@@ -796,7 +796,7 @@ long factorial_memoizado(int n) {
 - **Heap**: $O(1)$ - no usa memoria dinámica  
 - **Variables**:
   - `resultado`: Acumulador para el producto
-  - `i`: Variable de control de bucle
+  - `i`: Variable de control de lazo
 - **Ventajas**: Uso mínimo de memoria, sin riesgo de stack overflow
 
 **Versión Memoizada:**
@@ -934,7 +934,7 @@ void liberar_sistema(sistema_estudiantes_t* sistema) {
 **`buscar_mejor_estudiante`:**
 - `sistema`: Parámetro de entrada (solo lectura)
 - `mejor`: Variable de mejor candidato/guardián
-- `i`: Variable de control de bucle
+- `i`: Variable de control de lazo
 
 **`liberar_sistema`:**
 - `sistema`: Parámetro de entrada (puntero a liberar)
