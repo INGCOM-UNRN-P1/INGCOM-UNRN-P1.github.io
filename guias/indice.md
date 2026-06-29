@@ -17,6 +17,7 @@ El dominio de la interfaz de línea de comandos y el control de versiones es un 
 *   **[Bash para principiantes](bash.md)**: Manual introductorio a la shell UNIX (Bash). Cubre comandos esenciales de navegación, manipulación de archivos, redirecciones (`>`, `<`), tuberías (`|`) y scripts básicos de automatización.
 *   **[Git básico](git.md)**: Guía paso a paso para el control de versiones distribuido. Explica el flujo de trabajo estándar (`add`, `commit`, `push`, `pull`), la gestión de ramas y la resolución de conflictos.
 *   **[Git avanzado](git_avanzado.md)**: Técnicas avanzadas para el saneamiento de repositorios, reescritura de historial (`rebase`, `cherry-pick`, `amend`) y estrategias complejas de ramificación.
+*   **[Uso de GitHub](github.md)**: Flujos de trabajo específicos de la cátedra para la entrega de proyectos usando Pull Requests, autenticación remota mediante claves SSH o PAT, y canales de consulta (Discussions e Issues).
 
 ---
 

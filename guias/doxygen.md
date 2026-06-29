@@ -249,6 +249,14 @@ Este proceso analizará el código fuente y creará la carpeta `docs/` con las s
 
 `docs/html/index.html`
 
+```{figure} images/doxygen_html_output.png
+:alt: Captura de pantalla de la interfaz web generada por Doxygen. Se observa el panel lateral izquierdo con el árbol jerárquico de archivos y miembros, y el panel principal detallando la documentación de la estructura punto_t y la función punto_distancia con su respectivo diagrama de flujo de llamadas de Graphviz.
+:align: center
+:width: 90%
+
+Previsualización de la documentación HTML generada y su estructura de navegación.
+```
+
 ---
 
 ## 6. Automatización y despliegue (GitHub Actions)
