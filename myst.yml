@@ -122,15 +122,20 @@ project:
             - file: referencia/refactorizaciones/ref-dry.md
     - title: Ayuda
       children:
-        - file: guias/gcc.md
-        - file: guias/entorno.md
-        - file: guias/llvm-clang.md
-        - file: guias/clang.md
-        - file: guias/vscode.md
+        - file: guias/indice.md
+        - file: guias/bash.md
         - file: guias/git.md
         - file: guias/git_avanzado.md
-        - file: guias/bash.md
+        - file: guias/github.md
+        - file: guias/entorno.md
+        - file: guias/compilador.md
+        - file: guias/gcc.md
+        - file: guias/clang.md
+        - file: guias/doxygen.md
         - file: guias/markdown.md
+        - file: guias/vscode.md
+        - file: guias/herramientas.md
+        - file: guias/critica_ia.md
         - file: guias/ia_aprendizaje.md
     - title: Bibliografia
       children:
