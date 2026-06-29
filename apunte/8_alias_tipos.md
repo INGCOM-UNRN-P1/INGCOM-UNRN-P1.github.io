@@ -55,6 +55,60 @@ A lo largo de este apunte le iremos dando uso a este concepto de manera gradual,
 ---
 
 (alias-tipos-capitulo)=
+### Ejercicios de Autoevaluación (Alias de Tipos)
+
+:::{exercise}
+:label: ej-typedef-metros-velocidad
+Escribí tres declaraciones `typedef` de acuerdo con la regla de la cátedra {ref}`0x3004h`: `distancia_t` y `tiempo_t` como alias de `double`, y `velocidad_t` como alias de `double`. Luego, escribí una pequeña función que reciba una distancia y un tiempo, y retorne la velocidad correspondiente utilizando dichos alias.
+:::
+
+:::{solution} ej-typedef-metros-velocidad
+:class: dropdown
+```c
+#include <stdio.h>
+
+// Definición de alias con el sufijo _t obligatorio
+typedef double distancia_t;
+typedef double tiempo_t;
+typedef double velocidad_t;
+
+velocidad_t calcular_velocidad(distancia_t d, tiempo_t t) {
+    if (t <= 0.0) {
+        return 0.0;
+    }
+    return d / t;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-typedef-portabilidad
+Implementá la declaración de tres alias de tipo (`u8_t`, `u16_t`, `u32_t`) que representen de forma explícita enteros sin signo de 8, 16 y 32 bits en una arquitectura donde `char` tiene 8 bits, `short` tiene 16 bits e `int` tiene 32 bits.
+:::
+
+:::{solution} ej-typedef-portabilidad
+:class: dropdown
+```c
+typedef unsigned char      u8_t;
+typedef unsigned short     u16_t;
+typedef unsigned int       u32_t;
+```
+Estas declaraciones garantizan la portabilidad porque si el código se porta a un microcontrolador donde `int` ocupa 16 bits, solo es necesario redefinir el alias `u32_t` a `unsigned long` en un único archivo centralizado, sin alterar las declaraciones de variables a lo largo de todo el proyecto.
+:::
+
+:::{exercise}
+:label: ej-typedef-alias-redundante
+Explicá de forma conceptual si la expresión `typedef float real_t;` define un tipo de dato físicamente diferente para el compilador y si es válido realizar asignaciones directas sin conversión de tipo entre variables `float` y `real_t`.
+:::
+
+:::{solution} ej-typedef-alias-redundante
+:class: dropdown
+No define un nuevo tipo de dato físicamente diferente.
+`typedef` introduce únicamente un **sinónimo o alias sintáctico** en la tabla de símbolos del compilador. Físicamente, el compilador trata a las variables `real_t` como variables de tipo `float` estándar. Por lo tanto, realizar la asignación directa entre variables de ambos tipos es totalmente válido y no requiere ningún moldeo de tipo (*cast*), ya que no existe incompatibilidad alguna.
+:::
+
+---
+
 ## Enumeraciones en C
 
 Las **enumeraciones** (`enum`) constituyen un mecanismo fundamental en el lenguaje C para la definición de tipos de datos que representan un **conjunto finito y discreto** de valores con nombres simbólicos. A diferencia de usar valores literales o constantes dispersas en el código, las enumeraciones proporcionan una abstracción semántica que mejora considerablemente la legibilidad, mantenibilidad y robustez del programa.
@@ -201,6 +255,62 @@ Seguí una convención consistente en tu proyecto:
 - Esto mejora la legibilidad y previene conflictos de nombres
 
 :::
+
+### Ejercicios de Autoevaluación (Sintaxis y Namespaces)
+
+:::{exercise}
+:label: ej-enum-namespace-colision
+Explicá por qué el siguiente fragmento de código genera un error en tiempo de compilación y reescribilo aplicando la solución recomendada por buenas prácticas:
+```c
+enum estado_conexion { APAGADO, CONECTANDO, ACTIVO };
+enum estado_alarma { APAGADO, ALERTA, DISPARADO };
+```
+:::
+
+:::{solution} ej-enum-namespace-colision
+:class: dropdown
+El error se debe a que las constantes de enumeración residen en el **namespace de los identificadores ordinarios**. Las etiquetas `APAGADO` de ambas enumeraciones colisionan en el mismo ámbito global, provocando un error de redefinición de símbolo.
+La solución consiste en añadir **prefijos únicos** a los miembros de cada enumeración para evitar colisiones:
+```c
+enum estado_conexion { CON_APAGADO, CON_CONECTANDO, CON_ACTIVO };
+enum estado_alarma { ALA_APAGADA, ALA_ALERTA, ALA_DISPARADA };
+```
+:::
+
+:::{exercise}
+:label: ej-enum-sintaxis-declaracion
+Declará una enumeración para representar los niveles de severidad de un error de sistema (`SEV_BAJA`, `SEV_MEDIA`, `SEV_ALTA`, `SEV_CRITICA`). Luego, mostrá la sintaxis necesaria para declarar una variable de este tipo e inicializarla con la constante de severidad alta.
+:::
+
+:::{solution} ej-enum-sintaxis-declaracion
+:class: dropdown
+```c
+// Declaración de la enumeración
+enum nivel_severidad {
+    SEV_BAJA,
+    SEV_MEDIA,
+    SEV_ALTA,
+    SEV_CRITICA
+};
+
+// Declaración e inicialización de la variable
+enum nivel_severidad severidad_actual = SEV_ALTA;
+```
+:::
+
+:::{exercise}
+:label: ej-enum-const-define
+Mencioná al menos dos ventajas importantes que presenta el uso de enumeraciones (`enum`) en comparación con el uso de macros del preprocesador (`#define`) para establecer conjuntos de constantes relacionadas.
+:::
+
+:::{solution} ej-enum-const-define
+:class: dropdown
+1. **Seguridad y Tipado**: `enum` crea un tipo de dato identificable por el compilador, lo que permite realizar comprobaciones de tipo y advertir si pasamos un valor incoherente, a diferencia de `#define` que realiza un reemplazo de texto literal sin validación semántica.
+2. **Numeración Automática**: El compilador asigna valores de forma secuencial y automática, reduciendo la posibilidad de asignar manualmente valores duplicados en el conjunto.
+3. **Depuración**: Los depuradores (como GDB) retienen los nombres simbólicos de las constantes de una enumeración, facilitando la inspección del estado de variables en memoria, mientras que las macros se pierden en el preprocesamiento mostrando únicamente números mágicos en el depurador.
+:::
+
+---
 
 ### Asignación de Valores
 
@@ -746,6 +856,77 @@ tipo_archivo_t obtener_tipo_archivo(const char *ruta) {
 
 ---
 
+### Ejercicios de Autoevaluación (Asignación y Utilidades)
+
+:::{exercise}
+:label: ej-enum-valores-secuencia
+Dada la enumeración:
+`enum control { PAUSA = 5, REPRODUCIR, PARAR = 10, GRABAR };`
+Deducí formalmente el valor entero asignado por el compilador a cada una de las constantes del conjunto.
+:::
+
+:::{solution} ej-enum-valores-secuencia
+:class: dropdown
+El compilador realiza las siguientes asignaciones:
+- `PAUSA`: Toma el valor explícito `5`.
+- `REPRODUCIR`: Toma el valor siguiente en secuencia, es decir, `6`.
+- `PARAR`: Toma el valor explícito `10`.
+- `GRABAR`: Toma el valor siguiente en secuencia desde el último definido, es decir, `11`.
+:::
+
+:::{exercise}
+:label: ej-enum-switch-defensivo
+Escribí una función en C que tome como parámetro una variable de tipo `estado_transaccion_t` y retorne una cadena de caracteres constante (`const char *`) con el nombre textual del estado. Implementá un diseño defensivo con un caso `default` que maneje valores inválidos.
+:::
+
+:::{solution} ej-enum-switch-defensivo
+:class: dropdown
+```c
+#include <stdio.h>
+
+const char *obtener_nombre_estado(estado_transaccion_t estado) {
+    switch (estado) {
+        case TRANSACCION_PENDIENTE:
+            return "Pendiente";
+        case TRANSACCION_PROCESANDO:
+            return "Procesando";
+        case TRANSACCION_COMPLETADA:
+            return "Completada";
+        case TRANSACCION_FALLIDA:
+            return "Fallida";
+        case TRANSACCION_CANCELADA:
+            return "Cancelada";
+        default:
+            // Switch defensivo obligatorio (Regla 0x1008h)
+            fprintf(stderr, "Error: estado de transacción inválido: %d\n", estado);
+            return "Desconocido";
+    }
+}
+```
+:::
+
+:::{exercise}
+:label: ej-enum-bit-flags
+Declará una enumeración `permisos_red_t` utilizando potencias de 2 (representación en bits) para representar los permisos de `CONECTAR`, `ENVIAR` y `RECIBIR`. Luego, escribí una expresión en C que combine los permisos de `CONECTAR` y `ENVIAR` en una única variable mediante operadores lógicos binarios.
+:::
+
+:::{solution} ej-enum-bit-flags
+:class: dropdown
+```c
+typedef enum {
+    PERM_NINGUNO = 0,
+    PERM_CONECTAR = 1,  // 0b0001
+    PERM_ENVIAR = 2,    // 0b0010
+    PERM_RECIBIR = 4    // 0b0100
+} permisos_red_t;
+
+// Combinación de permisos mediante operador OR a nivel de bits (|)
+permisos_red_t mis_permisos = PERM_CONECTAR | PERM_ENVIAR; // Resulta en 3 (0b0011)
+```
+:::
+
+---
+
 ### Documentación de Enumeraciones
 
 La documentación adecuada de enumeraciones es esencial para comunicar el propósito de cada valor, las relaciones entre valores y las restricciones de uso. Al igual que con las estructuras, existen dos enfoques principales para documentar enumeraciones.
@@ -909,6 +1090,71 @@ Para más detalles sobre el estilo de comentarios, consultá la {ref}`regla 0x00
 
 
 (glosario-alias)=
+### Ejercicios de Autoevaluación (Documentación y APIs)
+
+:::{exercise}
+:label: ej-enum-doc-doxygen
+Escribí la definición y documentación compatible con Doxygen utilizando el enfoque distribuido para una enumeración llamada `estado_disco_t` que contenga los estados `DISCO_IDLE`, `DISCO_LECTURA`, `DISCO_ESCRITURA` y `DISCO_ERROR`.
+:::
+
+:::{solution} ej-enum-doc-doxygen
+:class: dropdown
+```c
+/**
+ * @brief Estados operativos de la unidad de almacenamiento.
+ */
+typedef enum {
+    DISCO_IDLE,       ///< El disco se encuentra inactivo, listo para operaciones
+    DISCO_LECTURA,    ///< El disco se encuentra leyendo sectores
+    DISCO_ESCRITURA,  ///< El disco se encuentra escribiendo sectores
+    DISCO_ERROR       ///< La unidad experimentó un fallo físico de E/S
+} estado_disco_t;
+```
+:::
+
+:::{exercise}
+:label: ej-enum-api-cast
+Explicá detalladamente por qué es un fallo crítico de seguridad no validar los rangos de un entero recibido desde una red o archivo externo antes de realizarle un moldeo de tipo (*cast*) a una enumeración `color_t` en C.
+:::
+
+:::{solution} ej-enum-api-cast
+:class: dropdown
+En el lenguaje C, el compilador no realiza comprobaciones de límites en tiempo de ejecución al asignar o moldear tipos numéricos a enumeraciones.
+Si se realiza un *cast* incondicional de un entero externo (por ejemplo, el valor `99`) a la enumeración `color_t` (que solo tiene mapeados valores válidos del `0` al `2`), el programa aceptará ese valor inválido. Si este valor se utiliza posteriormente como índice de acceso en un arreglo de cadenas de colores o dentro de una estructura `switch` sin `default`, provocará desbordamiento de búfer o comportamientos indefinidos graves en tiempo de ejecución.
+:::
+
+:::{exercise}
+:label: ej-enum-val-max-centinela
+Escribí una función de validación en C llamada `es_nivel_valido` que reciba un entero y retorne un valor booleano (`bool`) indicando si es un miembro válido de la enumeración `nivel_log_t`, utilizando una constante centinela `NIVEL_MAX`.
+:::
+
+:::{solution} ej-enum-val-max-centinela
+:class: dropdown
+Primero definimos la enumeración incorporando el centinela al final:
+```c
+typedef enum {
+    NIVEL_DEBUG,
+    NIVEL_INFO,
+    NIVEL_WARNING,
+    NIVEL_ERROR,
+    NIVEL_CRITICAL,
+    // Centinela que contiene automáticamente el tamaño del conjunto
+    NIVEL_MAX
+} nivel_log_t;
+```
+La función de validación correspondiente es:
+```c
+#include <stdbool.h>
+
+bool es_nivel_valido(int valor) {
+    // Las constantes inician en 0, por lo que validamos el intervalo [0, NIVEL_MAX - 1]
+    return (valor >= NIVEL_DEBUG && valor < NIVEL_MAX);
+}
+```
+:::
+
+---
+
 ## Glosario
 
 :::{glossary}

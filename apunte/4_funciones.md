@@ -19,6 +19,7 @@ En la programación estructurada en C, las **funciones** constituyen los bloques
 - **Abstracción**: Permite al programador concentrarse en la interfaz de la función (qué datos requiere y qué retorna) sin necesidad de mantener en la memoria de trabajo los detalles de su implementación interna.
 - **Registros de Activación (Stack Frames)**: Al invocar una función, el procesador suspende temporalmente el flujo actual y reserva dinámicamente una porción de memoria en la pila de ejecución física del programa (denominada *registro de activación* o *stack frame*). Este espacio aloja los parámetros, las variables locales y la dirección de retorno de la instrucción del invocador. Al finalizar la ejecución de la función y ejecutarse la sentencia `return`, su registro de activación se libera (destruyendo todas sus variables locales) y el flujo de control se reanuda inmediatamente en la instrucción posterior a la llamada.
 
+(sec-funciones-puras)=
 ### Una definición más formal
 
 En C, una **función** es un bloque de código reutilizable diseñado para realizar una tarea específica. Recibe uno o más valores de entrada, llamados *parámetros*, ejecuta un conjunto de instrucciones y produce un único valor de salida. Su propósito principal es actuar como un procesador de datos: recibe el contexto necesario, lo transforma mediante operaciones definidas y devuelve un resultado.
@@ -163,6 +164,78 @@ int funcion_dos() {
 }
 ```
 
+### Ejercicios de Autoevaluación (Definición y Sintaxis)
+
+:::{exercise}
+:label: ej-func-prototipo-err
+El siguiente código causa un error de compilación. Corregilo utilizando una declaración de prototipo adecuada.
+```c
+#include <stdio.h>
+
+int main() {
+    double resultado = calcular_cubo(3.0);
+    printf("El cubo es: %.2f\n", resultado);
+    return 0;
+}
+
+double calcular_cubo(double x) {
+    return x * x * x;
+}
+```
+:::
+
+:::{solution} ej-func-prototipo-err
+:class: dropdown
+Dado que el compilador procesa el archivo de arriba hacia abajo, al llegar a la línea 4 no conoce la firma de la función `calcular_cubo`. Para solucionarlo, debés agregar el prototipo de la función antes del punto de entrada `main`:
+```c
+#include <stdio.h>
+
+// Prototipo de la función
+double calcular_cubo(double x);
+
+int main() {
+    double resultado = calcular_cubo(3.0);
+    printf("El cubo es: %.2f\n", resultado);
+    return 0;
+}
+
+double calcular_cubo(double x) {
+    return x * x * x;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-func-puro-efectosec
+Explicá de forma conceptual si la siguiente función en C es una **función pura** o si genera algún **efecto secundario**, y justificá tu respuesta:
+```c
+int contador = 0;
+int incrementar_y_sumar(int valor) {
+    contador++;
+    return valor + contador;
+}
+```
+:::
+
+:::{solution} ej-func-puro-efectosec
+:class: dropdown
+Esta función **no es pura** y genera un **efecto secundario**.
+- **Efecto secundario**: Modifica la variable `contador` que está fuera de su ámbito local (es una variable global).
+- **No es pura**: Dados los mismos parámetros de entrada, el resultado de retorno variará en llamadas sucesivas porque depende del estado externo mutable de la variable `contador`.
+:::
+
+:::{exercise}
+:label: ej-func-stackframe-flow
+Describí qué ocurre en la pila física de llamadas del sistema (stack frame) desde el momento en que se invoca una función hasta que finaliza con la sentencia `return`.
+:::
+
+:::{solution} ej-func-stackframe-flow
+:class: dropdown
+1. **Llamada (Invocación)**: El sistema operativo o el flujo del programa suspende temporalmente el contexto actual, guarda la dirección de retorno de la siguiente instrucción y reserva espacio en el *stack* para el registro de activación (*stack frame*) de la función. Allí se copian los argumentos inicializando los parámetros y se reservan las variables locales.
+2. **Ejecución**: El procesador ejecuta las instrucciones de la función operando sobre este espacio local aislado.
+3. **Retorno (`return`)**: Al retornar, se evalúa el valor resultante y se coloca en un registro accesible para el invocador. El registro de activación de la función se libera del stack (destruyendo todas sus variables locales) y el control regresa a la instrucción posterior a la llamada.
+:::
+
 ---
 
 ## Roles en Funciones
@@ -235,6 +308,79 @@ Aquí, `sumaTemporal` es una **variable local temporal** dentro de
 `calcularPromedio`. Su único propósito es almacenar la suma intermedia antes de
 calcular el promedio final.
 
+
+### Ejercicios de Autoevaluación (Scope y Roles)
+
+:::{exercise}
+:label: ej-scope-shadowing-val
+Determiná qué valores se imprimen en consola al ejecutar el siguiente código y justificá la salida aplicando el concepto de ocultamiento de variables (*shadowing*):
+```c
+#include <stdio.h>
+
+int main() {
+    int valor = 50;
+    if (valor > 10) {
+        int valor = 100;
+        printf("Bloque interno: %d\n", valor);
+    }
+    printf("Bloque externo: %d\n", valor);
+    return 0;
+}
+```
+:::
+
+:::{solution} ej-scope-shadowing-val
+:class: dropdown
+Se imprimirá:
+```
+Bloque interno: 100
+Bloque externo: 50
+```
+La variable `valor` declarada dentro del bloque `if` (línea 6) tiene un alcance de bloque. Oculta (hace *shadowing*) a la variable `valor` declarada en `main` (línea 4). Dentro del bloque condicional, cualquier referencia a `valor` se resuelve a la variable local de bloque (`100`). Al salir de las llaves del `if`, esa variable se destruye y `valor` vuelve a referenciar a la variable de `main` (`50`).
+:::
+
+:::{exercise}
+:label: ej-scope-static-acum
+Escribí una función en C llamada `acumular_historico` que reciba un entero por parámetro y devuelva la suma acumulada de todos los valores recibidos en llamadas sucesivas durante la vida útil del programa, utilizando el modificador `static`.
+:::
+
+:::{solution} ej-scope-static-acum
+:class: dropdown
+```c
+#include <stdio.h>
+
+int acumular_historico(int valor) {
+    // La variable estática se inicializa una sola vez en el segmento de datos
+    static int acumulador = 0;
+    acumulador += valor;
+    return acumulador;
+}
+
+int main() {
+    printf("%d\n", acumular_historico(5));  // Imprime 5
+    printf("%d\n", acumular_historico(10)); // Imprime 15
+    printf("%d\n", acumular_historico(3));  // Imprime 18
+    return 0;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-scope-lifetime-local
+Explicá por qué el siguiente fragmento de código causa un comportamiento indefinido o un error de segmentación grave en memoria física:
+```c
+int *obtener_puntero_invalido() {
+    int dato_local = 42;
+    return &dato_local; // Retorna la dirección de la variable local
+}
+```
+:::
+
+:::{solution} ej-scope-lifetime-local
+:class: dropdown
+La variable `dato_local` es local automática y reside en el registro de activación (*stack frame*) de la función `obtener_puntero_invalido`.
+Cuando la función ejecuta el `return`, su stack frame se destruye y la dirección física asignada en memoria queda marcada como libre. Retornar la dirección de memoria (`&dato_local`) de un objeto destruido devuelve un **puntero colgante (dangling pointer)**. Intentar desreferenciar este puntero desde el invocador intentará leer o escribir en una zona de memoria inválida o ya reutilizada por otra función, lo cual es un fallo de seguridad e integridad crítico.
+:::
 
 ---
 
@@ -535,6 +681,123 @@ int calcular_area(int base, int altura) {
 - **Probá cada función por separado.** Imprimí resultados intermedios.
 
 ::::
+
+### Ejercicios de Autoevaluación (Descomposición Funcional)
+
+:::{exercise}
+:label: ej-descomp-refactor-io
+Refactorizá la siguiente función que mezcla la lógica de cálculo con la entrada y salida de datos (I/O) en dos funciones independientes que cumplan con la regla de única responsabilidad y desacoplamiento de E/S.
+```c
+#include <stdio.h>
+
+void verificar_edad() {
+    int edad;
+    printf("Ingresá tu edad: ");
+    scanf("%d", &edad);
+    if (edad >= 18) {
+        printf("Es mayor de edad.\n");
+    } else {
+        printf("Es menor de edad.\n");
+    }
+}
+```
+:::
+
+:::{solution} ej-descomp-refactor-io
+:class: dropdown
+Se divide la lectura del cálculo puro, permitiendo que la lógica de validación sea testeable y reutilizable:
+```c
+#include <stdio.h>
+#include <stdbool.h>
+
+// Función pura de procesamiento lógico
+bool es_mayor_de_edad(int edad) {
+    return edad >= 18;
+}
+
+// Función con responsabilidad de E/S
+void procesar_interaccion_edad() {
+    int edad = 0;
+    printf("Ingresá tu edad: ");
+    scanf("%d", &edad);
+
+    if (es_mayor_de_edad(edad) == true) {
+        printf("Es mayor de edad.\n");
+    } else {
+        printf("Es menor de edad.\n");
+    }
+}
+```
+:::
+
+:::{exercise}
+:label: ej-descomp-factorizacion
+Factorizá el código redundante de las siguientes dos funciones para evitar la duplicación lógica:
+```c
+int maximo_de_dos(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+int maximo_de_tres(int a, int b, int c) {
+    int max;
+    if (a > b) {
+        max = a;
+    } else {
+        max = b;
+    }
+    if (c > max) {
+        max = c;
+    }
+    return max;
+}
+```
+:::
+
+:::{solution} ej-descomp-factorizacion
+:class: dropdown
+La función `maximo_de_tres` puede reutilizar directamente la lógica de comparación ya encapsulada en `maximo_de_dos`:
+```c
+int maximo_de_dos(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+int maximo_de_tres(int a, int b, int c) {
+    // Factorización lógica mediante composición de llamadas
+    return maximo_de_dos(maximo_de_dos(a, b), c);
+}
+```
+:::
+
+:::{exercise}
+:label: ej-descomp-responsabilidad
+Analizá las tareas que realiza la siguiente función. Proponé su descomposición funcional estructurando los prototipos de las funciones resultantes de acuerdo con el principio de única responsabilidad.
+```c
+// Lee una nota del usuario, la valida en el rango [0, 10], 
+// la acumula e imprime si el alumno está aprobado o no.
+void procesar_calificacion();
+```
+:::
+
+:::{solution} ej-descomp-responsabilidad
+:class: dropdown
+La función realiza tres tareas distintas: interactuar con el usuario para leer una nota, verificar si la nota está dentro del rango académico válido y decidir si esa nota califica para aprobar.
+Se descompone en los siguientes módulos especializados:
+```c
+#include <stdbool.h>
+
+// 1. Responsabilidad de lectura por consola (I/O)
+float leer_nota(const char *mensaje);
+
+// 2. Responsabilidad de validación lógica de límites (Procesamiento puro)
+bool nota_es_valida(float nota);
+
+// 3. Responsabilidad de decisión de aprobación (Procesamiento puro)
+bool nota_es_aprobada(float nota);
+
+// 4. Función de orquestación o control (I/O y control)
+void procesar_calificacion();
+```
+:::
 
 ---
 
@@ -953,6 +1216,87 @@ errores antes de que ocurran y construir soluciones más elegantes.
 
 
 
+
+### Ejercicios de Autoevaluación (Documentación y Contratos)
+
+:::{exercise}
+:label: ej-contrato-div-segura
+Escribí la documentación compatible con Doxygen de una función que calcula la división de dos números reales pasados por puntero. Declará las precondiciones (`#PRE`) y poscondiciones (`#POST`) formalmente.
+```c
+bool dividir_reales(float a, float b, float *resultado);
+```
+:::
+
+:::{solution} ej-contrato-div-segura
+:class: dropdown
+```c
+/**
+ * @brief Divide dos números reales de forma segura.
+ * 
+ * @param a Dividendo de la operación.
+ * @param b Divisor de la operación.
+ * @param resultado Puntero a la variable donde se almacenará el resultado.
+ * @return true si la división se realizó de forma correcta, false en caso contrario.
+ * 
+ * @note Si la división no puede realizarse por violación de precondiciones, 
+ *       la variable apuntada por resultado no es modificada.
+ * 
+ * #PRE El puntero 'resultado' no debe ser nulo (resultado != NULL).
+ * #PRE El divisor 'b' debe ser distinto a cero (b != 0.0f).
+ * #POST Si se cumplen las precondiciones, se almacena el cociente en *resultado
+ *       y la función retorna true. De lo contrario, retorna false.
+ */
+bool dividir_reales(float a, float b, float *resultado);
+```
+:::
+
+:::{exercise}
+:label: ej-contrato-invariante-ciclo
+Encontrá e indicá formalmente cuál es la invariante de lazo para el siguiente ciclo que realiza una búsqueda secuencial:
+```c
+int i = 0;
+while (i < limite && encontrado == false) {
+    if (arreglo[i] == buscado) {
+        encontrado = true;
+    }
+    i++;
+}
+```
+:::
+
+:::{solution} ej-contrato-invariante-ciclo
+:class: dropdown
+La invariante de lazo es una propiedad que debe mantenerse verdadera antes de iniciar el ciclo y al finalizar cada una de sus iteraciones.
+En este caso, la invariante del ciclo está compuesta por:
+1.  Los límites de la variable de control: `i >= 0 && i <= limite`.
+2.  La propiedad de búsqueda: la variable `encontrado` es `false` si y solo si el elemento `buscado` no existe en ninguna de las posiciones del arreglo desde el índice `0` hasta `i - 1`.
+:::
+
+:::{exercise}
+:label: ej-contrato-assert-pre
+Escribí la instrucción de aserción (`assert`) de C necesaria para comprobar en tiempo de ejecución las precondiciones del contrato de una función matemática que calcula $a^b$, sabiendo que:
+- La base `a` y el exponente `b` son reales.
+- Si la base `a` es igual a cero, el exponente `b` debe ser obligatoriamente mayor a cero (para evitar divisiones por cero e indeterminaciones matemáticas).
+:::
+
+:::{solution} ej-contrato-assert-pre
+:class: dropdown
+La precondición formal es: $\text{Si } a == 0.0 \implies b > 0.0$.
+Aplicando la implicación material:
+$$P \implies Q \equiv \neg P \lor Q \equiv (a \neq 0.0) \lor (b > 0.0)$$
+En C, la instrucción de aserción correspondiente es:
+```c
+#include <assert.h>
+
+void calcular_potencia(float a, float b) {
+    // La aserción valida la precondición traducida
+    assert(a != 0.0f || b > 0.0f);
+    // ...
+}
+```
+:::
+
+---
 
 ## Glosario
 

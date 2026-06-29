@@ -246,6 +246,51 @@ En el ejemplo x86-64 anterior bajo Linux, se observa la aplicación de la conven
    - En `main`, la instrucción `sub rsp, 16` desplaza el puntero de pila (`rsp`) reservando 16 bytes de espacio local, manteniendo a su vez la alineación de pila requerida por la ABI antes de realizar una llamada a función.
 3. **Retorno de resultados:** Por convención, el valor de retorno de la función se deposita en el registro acumulador `eax`, de donde `main` lo recupera tras ejecutarse la instrucción `ret` (retorno).
 
+### Ejercicios de Autoevaluación (Fases de Compilación)
+
+:::{exercise}
+:label: ej-comp-fases-ext
+Relacioná cada una de las cuatro fases de compilación de C con su correspondiente archivo intermedio generado por GCC indicando su extensión habitual y su formato (texto plano o binario).
+:::
+
+:::{solution} ej-comp-fases-ext
+:class: dropdown
+1.  **Preprocesado**: Genera el archivo fuente expandido con extensión `.i` (Texto plano).
+2.  **Compilación**: Traduce el código C a código ensamblador con extensión `.s` (Texto plano específico de la arquitectura).
+3.  **Ensamblado**: Genera el archivo objeto con extensión `.o` (Binario en formato estructurado, como ELF).
+4.  **Enlazado**: Produce el archivo ejecutable binario final (sin extensión en Unix/Linux, `.exe` en Windows).
+:::
+
+:::{exercise}
+:label: ej-comp-macro-hazard
+Explicá detalladamente por qué la macro `#define DUPLICAR(x) x * 2` produce un resultado incorrecto al evaluarse como `DUPLICAR(5 + 3)`. Proponé la definición correcta y segura para esta macro.
+:::
+
+:::{solution} ej-comp-macro-hazard
+:class: dropdown
+El preprocesador realiza una sustitución de texto literal sin evaluar precedencias matemáticas.
+- Al expandir `DUPLICAR(5 + 3)`, el texto resultante es `5 + 3 * 2`.
+- Siguiendo la precedencia de operadores, la multiplicación se evalúa antes que la suma: $5 + (3 \times 2) = 11$. El resultado esperado era $(5 + 3) \times 2 = 16$.
+Para evitar este peligro de orden de operaciones, se deben proteger todos los parámetros y la expresión completa con paréntesis:
+```c
+#define DUPLICAR(x) ((x) * 2)
+```
+:::
+
+:::{exercise}
+:label: ej-comp-flags-warn
+Si compilás un programa utilizando `gcc -Wall -Wextra -Werror main.c` y el compilador detecta una variable local declarada que nunca se lee ni se utiliza en el código, ¿cuál es el resultado de la compilación?
+:::
+
+:::{solution} ej-comp-flags-warn
+:class: dropdown
+La compilación fallará y **no se generará el archivo ejecutable**.
+- `-Wall` y `-Wextra` hacen que el compilador emita una advertencia (*warning*) informando de la variable no utilizada.
+- `-Werror` instruye al compilador a tratar todas las advertencias como errores fatales, lo que aborta inmediatamente el proceso de compilación impidiendo la generación del binario.
+:::
+
+---
+
 ## Archivos de Cabecera (`.h`) en C
 
 Un archivo de cabecera (o `header`) en C actúa como un contrato o una interfaz
@@ -406,7 +451,52 @@ prolijidad y previene errores futuros si el contenido del archivo cambia.
 :::
 
 
-### Fase 3: Ensamblado (Assembly)
+#### Ejercicios de Autoevaluación (Cabeceras y Modularidad)
+
+:::{exercise}
+:label: ej-header-odr-viol
+Explicá por qué colocar la definición de una función (por ejemplo, `int sumar(int a, int b) { return a + b; }`) en un archivo de cabecera `operaciones.h` incluido por `main.c` y `utilidades.c` viola la regla de definición única (ODR) y qué error produce.
+:::
+
+:::{solution} ej-header-odr-viol
+:class: dropdown
+Al incluir `operaciones.h` en `main.c` y `utilidades.c`, el preprocesador copia textualmente el cuerpo de `sumar` en ambas unidades de traducción.
+Al compilar por separado, tanto `main.o` como `utilidades.o` contendrán el código máquina y el símbolo de la función `sumar`. Durante la fase de enlazado, el linker detectará que el símbolo `sumar` está definido físicamente en más de un archivo objeto, abortando el proceso con un error del tipo `multiple definition of 'sumar'`.
+Para solucionarlo, solo se debe colocar el prototipo de la función en `operaciones.h` y su definición en un archivo `operaciones.c`.
+:::
+
+:::{exercise}
+:label: ej-header-inclusion-guards
+Escribí la estructura completa de directivas del preprocesador necesarias para implementar guardas de inclusión en un archivo de cabecera llamado `sensor_temperatura.h` de acuerdo con las pautas de estilo.
+:::
+
+:::{solution} ej-header-inclusion-guards
+:class: dropdown
+```c
+#ifndef SENSOR_TEMPERATURA_H
+#define SENSOR_TEMPERATURA_H
+
+// Declaraciones de prototipos y tipos del módulo del sensor
+float leer_sensor_celsius(int pin);
+
+#endif // SENSOR_TEMPERATURA_H
+```
+:::
+
+:::{exercise}
+:label: ej-header-extern-use
+Explicá la diferencia de roles entre declarar una variable con `extern int contador;` en un archivo `.h` y definirla como `int contador = 0;` en un archivo `.c`.
+:::
+
+:::{solution} ej-header-extern-use
+:class: dropdown
+- **Declaración (`extern int contador;`)**: Le indica al compilador que la variable `contador` existe y está alojada físicamente en otra parte del programa. No reserva memoria ni inicializa ningún valor; es un anuncio de su existencia para permitir que otros archivos compilen sin error.
+- **Definición (`int contador = 0;`)**: Reserva el espacio físico real en la memoria del segmento de datos e inicializa la variable. Solo debe existir una única definición física para evitar colisiones en el linker.
+:::
+
+---
+
+## Fase 3: Ensamblado (Assembly)
 
 Esta fase actúa como el traductor final entre un lenguaje simbólico de bajo
 nivel y el lenguaje nativo de la máquina. El **ensamblador** toma el código en
@@ -726,6 +816,46 @@ Estos directorios estarán para alojar funciones comunes como las necesarias par
 ---
 
 (argumentos-cli)=
+### Ejercicios de Autoevaluación (Automatización con Makefiles)
+
+:::{exercise}
+:label: ej-make-incremental
+Describí el criterio físico que utiliza la herramienta `make` para decidir si es necesario reconstruir un archivo objeto (por ejemplo, `funciones.o`) a partir de su archivo fuente `funciones.c`.
+:::
+
+:::{solution} ej-make-incremental
+:class: dropdown
+`make` examina las **marcas de tiempo de modificación (timestamps)** de los archivos en el disco físico.
+Si la fecha de última modificación del archivo de entrada (`funciones.c` o alguna de sus cabeceras declaradas como dependencias, ej: `funciones.h`) es **más reciente** que la fecha de última modificación del archivo objeto de salida (`funciones.o`), `make` deduce que el código fuente cambió y ejecuta la regla de compilación para reconstruir el objeto. Si el objeto es más nuevo que sus dependencias, `make` omite su compilación.
+:::
+
+:::{exercise}
+:label: ej-make-clean-phony
+Explicá detalladamente para qué sirve la regla `.PHONY: clean` en un Makefile y qué problema se produciría si se omitiera esta declaración y existiera en el directorio un archivo físico llamado `clean`.
+:::
+
+:::{solution} ej-make-clean-phony
+:class: dropdown
+La directiva `.PHONY` le indica a `make` que el objetivo indicado no corresponde a un archivo real que deba ser generado.
+Si se omitiera `.PHONY: clean` y en el mismo directorio existiera un archivo llamado `clean`, al ejecutar `make clean`, la herramienta buscaría dependencias para el objetivo `clean`. Al no tener dependencias y ver que el archivo `clean` ya existe físicamente en el disco, `make` reportaría que el objetivo está actualizado (`make: 'clean' is up to date`) y se negaría a ejecutar el bloque de comandos para limpiar el proyecto.
+:::
+
+:::{exercise}
+:label: ej-make-escritura
+Escribí una regla de Makefile para compilar el archivo objeto `usuario.o` a partir de sus dependencias `usuario.c` y `usuario.h`. Utilizá variables para el compilador (`$(CC)`) y banderas (`$(CFLAGS)`), recordando el requisito de indentación de Makefiles.
+:::
+
+:::{solution} ej-make-escritura
+:class: dropdown
+```makefile
+usuario.o: usuario.c usuario.h
+	$(CC) $(CFLAGS) -c usuario.c -o usuario.o
+```
+*Nota: La línea de comandos de la acción debe estar precedida obligatoriamente por un carácter de tabulación (Tab).*
+:::
+
+---
+
 ## Argumentos de la Línea de Comandos
 
 Una vez que el programa se compila, puede recibir información directamente desde la terminal a través de los argumentos de `main`. Este mecanismo completa el ciclo compilación-ejecución visto en este capítulo.
@@ -1438,6 +1568,53 @@ seq 0 10 100 | ./temp_converter -f | grep "°C"
 ```
 
 La separación entre `stdout` (resultados) y `stderr` (mensajes de error y ayuda) permite que el programa funcione correctamente en canalizaciones sin contaminar los datos con mensajes no deseados.
+
+### Ejercicios de Autoevaluación (Argumentos e Interacción)
+
+:::{exercise}
+:label: ej-cli-argc-argv-val
+Si un programa compilado como `servidor` se invoca en la terminal de la siguiente manera:
+`./servidor iniciar puerto 8080`
+Indicá el valor de `argc` y el contenido detallado del arreglo de punteros `argv[]`.
+:::
+
+:::{solution} ej-cli-argc-argv-val
+:class: dropdown
+El valor de `argc` es `4` (el nombre del ejecutable más tres argumentos reales).
+El contenido de `argv` es el siguiente:
+- `argv[0]`: Apunta a la cadena `"./servidor"`
+- `argv[1]`: Apunta a la cadena `"iniciar"`
+- `argv[2]`: Apunta a la cadena `"puerto"`
+- `argv[3]`: Apunta a la cadena `"8080"`
+- `argv[4]`: Es un puntero nulo (`NULL`) garantizado por el estándar.
+:::
+
+:::{exercise}
+:label: ej-cli-strtol-atoi
+Justificá por qué es una mejor práctica de programación usar la función `strtol` en lugar de `atoi` para convertir argumentos de consola a enteros.
+:::
+
+:::{solution} ej-cli-strtol-atoi
+:class: dropdown
+La función `atoi` carece de mecanismos de reporte de errores: si el usuario ingresa una cadena no numérica como `"abc"` o `"100x"`, `atoi` devuelve `0` sin reportar falla alguna, impidiendo distinguir entre el número `0` real y una conversión fallida. Además, no detecta desbordamientos numéricos.
+Por el contrario, `strtol` provee un puntero de retorno (`endptr`) que indica dónde terminó la conversión (permitiendo validar caracteres extraños) y setea la variable global `errno` en caso de desbordamiento de enteros.
+:::
+
+:::{exercise}
+:label: ej-cli-redireccion-pipe
+Escribí la instrucción de shell (bash) necesaria para ejecutar un programa `./productor` y pasar su salida estándar como entrada de `./consumidor`, asegurando que todos los mensajes de error (`stderr`) que emita `./consumidor` se guarden en un archivo llamado `log_errores.txt`.
+:::
+
+:::{solution} ej-cli-redireccion-pipe
+:class: dropdown
+La instrucción correspondiente en bash es:
+```bash
+./productor | ./consumidor 2> log_errores.txt
+```
+El operador pipe `|` conecta la salida estándar de `./productor` al canal de entrada estándar de `./consumidor`, mientras que `2>` desvía el descriptor 2 (error estándar) del segundo comando hacia el archivo indicado.
+:::
+
+---
 
 ## Referencias y Lecturas Complementarias
 

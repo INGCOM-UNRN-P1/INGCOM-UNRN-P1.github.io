@@ -88,6 +88,32 @@ Los programas grandes escritos en C pueden ser difíciles de mantener si no se d
 
 ---
 
+### Ejercicios de Autoevaluación (Historia y Características)
+
+:::{exercise}
+:label: ej-compilacion-versus
+Explicá de forma breve y rigurosa la diferencia de rendimiento entre un lenguaje compilado (como C) y uno interpretado (como Python) en términos del ciclo de traducción y ejecución del código.
+:::
+
+:::{solution} ej-compilacion-versus
+:class: dropdown
+La diferencia principal radica en el momento de la traducción y en quién ejecuta las instrucciones:
+- **C (compilado)**: El código fuente se traduce por completo y de antemano a código máquina (instrucciones nativas de la CPU) mediante el compilador. La CPU del host ejecuta el binario de forma directa y a máxima velocidad, sin intermediarios en tiempo de ejecución.
+- **Python (interpretado)**: El código fuente se traduce a un código intermedio (*bytecode*) y una máquina virtual de software (el intérprete) lo procesa línea por línea en tiempo de ejecución. Esto introduce un overhead de traducción constante, haciéndolo significativamente más lento pero más flexible.
+:::
+
+:::{exercise}
+:label: ej-tipado-seguridad
+C es considerado un lenguaje "permisivo" que prioriza la velocidad sobre la seguridad de memoria. Da un ejemplo de error común derivado de esta permisividad que el compilador no pueda detectar en tiempo de compilación.
+:::
+
+:::{solution} ej-tipado-seguridad
+:class: dropdown
+Un ejemplo claro es el **desbordamiento de buffer (buffer overflow)** o el acceso fuera de los límites de un arreglo. En C, si declarás un arreglo de tamaño 5 y escribís en la posición 10, el compilador no realiza ninguna verificación automática en tiempo de compilación para impedirlo. El programa intentará escribir en esa dirección física de memoria en tiempo de ejecución, lo que puede sobreescribir otros datos, corromper el estado del programa o provocar un fallo de segmentación (*Segmentation Fault*).
+:::
+
+---
+
 ## La caja de herramientas
 
 ### Preparación del entorno
@@ -166,6 +192,33 @@ _Más adelante, vamos a ver detalles de la compilación para crear programas má
 Si no ves el mensaje que está dentro de la instrucción `printf`, hay algún problema que es **fundamental** solucionar. No se debe detener en este punto, ya que es un bloqueante para todos los temas siguientes.
 :::
 
+### Ejercicios de Autoevaluación (Hola Mundo y Compilación)
+
+:::{exercise}
+:label: ej-holamundo-syntax
+¿Qué ocurre si eliminás la directiva `#include <stdio.h>` en el código del "Hola Mundo" e intentás compilarlo con `gcc -Wall`? ¿Por qué es una mala práctica de ingeniería?
+:::
+
+:::{solution} ej-holamundo-syntax
+:class: dropdown
+El programa compilará pero emitirá una advertencia (*warning*) por **declaración implícita de la función `printf`** (`warning: implicit declaration of function 'printf'`).
+Esto ocurre porque, sin la cabecera `<stdio.h>`, el compilador no conoce la firma de la función (los tipos de sus parámetros y su retorno) al momento de procesar la llamada. Es una mala práctica de ingeniería porque impide que el compilador verifique que estás pasando los tipos correctos a la función, lo cual puede derivar en comportamientos indefinidos en tiempo de ejecución.
+:::
+
+:::{exercise}
+:label: ej-compilation-command
+Explicá el rol de la opción `-o` en el comando `gcc hola.c -o mi_programa` y qué ocurriría si omitieras esta opción al compilar.
+:::
+
+:::{solution} ej-compilation-command
+:class: dropdown
+La opción `-o` (output) le indica al compilador el nombre específico que debe tener el archivo ejecutable binario resultante.
+- Con `-o mi_programa`: el compilador genera un binario ejecutable llamado `mi_programa` (o `mi_programa.exe` en Windows).
+- Si se omite: el compilador genera el ejecutable con el nombre por defecto del sistema: `a.out` en sistemas de tipo Unix/Linux y `a.exe` en Windows.
+:::
+
+---
+
 ## De la Idea al Código en C
 
 En el capítulo {doc}`1_base` se estudiaron los fundamentos lógicos y el diseño de algoritmos en pseudocódigo. Ahora daremos el paso crucial: **traducir ese diseño abstracto a un programa real en C**.
@@ -206,6 +259,66 @@ int main() {
     return 0;
 }
 ```
+
+### Ejercicios de Autoevaluación (Algoritmo a Código)
+
+:::{exercise}
+:label: ej-idea-area-rectangulo
+Diseñá y escribí un programa completo en C que solicite al usuario el ingreso de la base y la altura de un rectángulo (como valores reales `float`) y muestre por pantalla su área.
+:::
+
+:::{solution} ej-idea-area-rectangulo
+:class: dropdown
+El programa completo en C:
+```c
+#include <stdio.h>
+
+int main() {
+    float base = 0.0f;
+    float altura = 0.0f;
+    float area = 0.0f;
+
+    printf("Ingresá la base del rectángulo: ");
+    scanf("%f", &base);
+    printf("Ingresá la altura del rectángulo: ");
+    scanf("%f", &altura);
+
+    area = base * altura;
+
+    printf("El área del rectángulo es: %.2f\n", area);
+    return 0;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-idea-intercambio
+Escribí un programa en C que declare dos variables enteras `x` e `y` inicializadas con valores arbitrarios, e intercambie sus contenidos **sin utilizar ninguna variable auxiliar**, utilizando únicamente operaciones aritméticas de suma y resta.
+:::
+
+:::{solution} ej-idea-intercambio
+:class: dropdown
+Este truco aritmético evita el uso de una variable auxiliar:
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 15;
+    int y = 25;
+
+    printf("Antes del intercambio: x = %d, y = %d\n", x, y);
+
+    x = x + y; // x ahora almacena la suma total (40)
+    y = x - y; // y toma el valor original de x (40 - 25 = 15)
+    x = x - y; // x toma el valor original de y (40 - 15 = 25)
+
+    printf("Después del intercambio: x = %d, y = %d\n", x, y);
+    return 0;
+}
+```
+:::
+
+---
 
 ## Sobre las reglas de estilo
 
@@ -254,6 +367,37 @@ Es fundamental no confundir los operadores lógicos booleanos (`&&` y `||`) con 
 No confundas el operador de asignación simple `=` (que guarda un valor en una variable) con el operador de comparación `==` (que verifica igualdad). Este es uno de los errores semánticos más comunes en C.
 :::
 
+
+---
+
+### Ejercicios de Autoevaluación (Sintaxis y Operadores)
+
+:::{exercise}
+:label: ej-operadores-division
+Si ejecutás el siguiente código en C:
+`printf("%d y %.2f\n", 17 / 3, 17.0 / 3);`
+¿Qué valores se imprimirán? Justificá de manera formal la diferencia semántica entre ambas divisiones.
+:::
+
+:::{solution} ej-operadores-division
+:class: dropdown
+Se imprimirá: `5 y 5.67`
+La diferencia semántica radica en el tipo de los operandos:
+- `17 / 3`: Ambos operandos son literales enteros (`int`). El compilador realiza una **división entera**, descartando la parte decimal y retornando el cociente entero `5`.
+- `17.0 / 3`: El primer operando es un literal real (`double`). El compilador realiza una **promoción implícita** del segundo operando a real y efectúa una **división de punto flotante**, resultando en `5.66666...`, que formateado con `%.2f` se redondea a `5.67`.
+:::
+
+:::{exercise}
+:label: ej-operadores-cortocircuito
+Explicá de qué manera la evaluación de cortocircuito del operador lógico `&&` evita un fallo de división por cero en la siguiente condición:
+`if (denominador != 0 && (numerador / denominador) > 2)`
+:::
+
+:::{solution} ej-operadores-cortocircuito
+:class: dropdown
+La evaluación por cortocircuito de `&&` establece que si el operando izquierdo es falso, el resultado de la conjunción es necesariamente falso, por lo que **el operando derecho no es evaluado**.
+Si `denominador` es igual a `0`, la primera subexpresión `denominador != 0` evalúa a `false`. El compilador aborta la evaluación del `&&` y no ejecuta la expresión del lado derecho `(numerador / denominador) > 2`, evitando así un error fatal de división por cero en tiempo de ejecución.
+:::
 
 ---
 
@@ -371,7 +515,7 @@ Un **L-value** es una expresión que identifica o localiza un objeto persistente
 - Pensalo como una ubicación o "contenedor" que posee una dirección física en memoria lógica.
 - Puede aparecer tanto a la izquierda como a la derecha de un operador de asignación (`=`).
 - Son obligatorios para ciertos operadores fundamentales:
-  - El operador de dirección (`&`), ya que solo se puede obtener la dirección en memoria de un objeto con ubicación física.
+  - El operador de dirección (`&`), ya que solo se puede obtener la dirección en memoria de un objeto con ubicación física. *_tema de más adelante_.
   - Los operadores de incremento (`++`) y decremento (`--`), porque requieren leer y reescribir sobre una posición de memoria persistente.
 - Ejemplo: en `int x = 10;`, la expresión `x` es un L-value ya que referencia a una celda física de memoria asignada por el sistema.
 
@@ -401,6 +545,36 @@ y = x + 5;       // VÁLIDO: 'y' es un L-value, 'x + 5' evalúa a un R-value.
 // &x = &y;      // ERROR: la expresión de la izquierda no es un L-value asignable.
 // &(x + 5);     // ERROR: el operador de dirección (&) requiere un L-value.
 ```
+
+### Ejercicios de Autoevaluación (Variables y Tipos)
+
+:::{exercise}
+:label: ej-lvalue-rvalue-comp
+Dadas las declaraciones `int a = 5; int b = 10;`, indicá cuáles de las siguientes expresiones son L-values y cuáles son R-values. Si alguna de ellas causa un error de compilación como parte de una asignación, justificá por qué:
+1. `a`
+2. `a + b`
+3. `a = b`
+4. `++a`
+:::
+
+:::{solution} ej-lvalue-rvalue-comp
+:class: dropdown
+1. `a`: Es un **L-value**, porque identifica una ubicación de memoria direccionable de almacenamiento persistente.
+2. `a + b`: Es un **R-value**, porque representa el valor numérico temporal resultante de la suma, el cual no tiene una dirección de memoria física propia asignada. Intentar hacer `(a + b) = 15;` arroja un error de compilación.
+3. `a = b`: Es un **L-value** en C, ya que la asignación misma devuelve la ubicación del operando izquierdo tras almacenar el valor.
+4. `++a`: Es un **L-value** en C++ pero un **R-value** en C estándar (C11). En C, el operador de incremento devuelve un valor temporal modificado, por lo que no es posible aplicarle el operador de dirección (`&(++a)` es inválido en C).
+:::
+
+:::{exercise}
+:label: ej-desbordamiento-int
+Si declarás `int maximo = INT_MAX;` (donde `INT_MAX` es la constante del archivo de cabecera `<limits.h>` con el máximo entero con signo representable) y realizás `maximo = maximo + 1;`, ¿qué valor tendrá la variable en un sistema de complemento a dos? ¿Cómo se denomina técnicamente este fenómeno?
+:::
+
+:::{solution} ej-desbordamiento-int
+:class: dropdown
+En un sistema estándar de complemento a dos, el valor pasará a ser el entero mínimo representable (`INT_MIN`, que típicamente es `-2.147.483.648` para 32 bits).
+Este fenómeno se denomina **desbordamiento de enteros con signo (signed integer overflow)**. Desde el punto de vista del estándar de C, el desbordamiento de enteros con signo produce un **comportamiento indefinido (undefined behavior)**, aunque físicamente en la mayoría de las arquitecturas de CPU se comporta mediante un ciclo de desbordamiento circular hacia los números negativos.
+:::
 
 ---
 
@@ -501,7 +675,44 @@ printf("Ingrese su inicial: ");
 scanf(" %c", &inicial); // El espacio antes de %c limpia el buffer de stdin
 ```
 
+### Ejercicios de Autoevaluación (Entrada y Salida)
 
+:::{exercise}
+:label: ej-scanf-espacio-buffer
+Analizá el siguiente bloque de código. Si el usuario ingresa `25` y presiona Enter, y luego ingresa la letra `S` y presiona Enter, explicá detalladamente el comportamiento del buffer de entrada y el valor final de la variable `opcion`.
+```c
+int edad;
+char opcion;
+scanf("%d", &edad);
+scanf("%c", &opcion);
+```
+:::
+
+:::{solution} ej-scanf-espacio-buffer
+:class: dropdown
+1. Al ingresar `25` y presionar Enter, se deposita en el buffer de entrada `stdin` la secuencia de caracteres `2`, `5` y el salto de línea `\n`.
+2. El primer `scanf("%d", &edad)` consume los caracteres numéricos `2` y `5` para asignarle `25` a la variable `edad`. El salto de línea `\n` permanece en el buffer de entrada.
+3. El segundo `scanf("%c", &opcion)` se ejecuta y, dado que `%c` no descarta espacios en blanco automáticamente, lee el primer carácter disponible en el buffer, que es el salto de línea residual `\n`.
+4. La variable `opcion` termina almacenando el valor `'\n'` (salto de línea), y la ejecución prosigue sin permitirle al usuario ingresar la letra `S`.
+:::
+
+:::{exercise}
+:label: ej-printf-format-real
+Escribí una instrucción `printf` en C que tome una variable `float promedio = 8.567f;` y la imprima por pantalla con exactamente dos dígitos decimales, alineada a la derecha en una columna de un ancho físico mínimo de 8 caracteres.
+:::
+
+:::{solution} ej-printf-format-real
+:class: dropdown
+Para especificar tanto el ancho de campo mínimo como la precisión decimal en `printf`, debés usar el especificador `%[ancho].[precision]f`.
+La instrucción correspondiente es:
+```c
+float promedio = 8.567f;
+printf("Valor: %8.2f\n", promedio);
+```
+Esto imprimirá el texto `Valor: ` seguido de cuatro espacios en blanco y los caracteres `8.57` (el redondeo de `8.567`), sumando un ancho total de 8 caracteres.
+:::
+
+---
 
 ## Resumen de Fundamentos
 

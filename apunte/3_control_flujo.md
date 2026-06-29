@@ -83,6 +83,82 @@ Al utilizar `switch` debés tener en cuenta dos detalles clave:
 *   **La sentencia `break`:** Es fundamental colocar `break` al final de cada bloque `case`. Si no está, la ejecución continuará ("caerá") hacia las instrucciones del caso siguiente (*fall-through*), lo cual suele ser fuente de errores lógicos grandes.
 *   **La etiqueta `default`:** Se ejecuta si ninguna constante coincide. Aunque técnicamente es opcional en el estándar C, la regla {ref}`0x1008h` de la cátedra **exige que siempre esté presente** como medida de diseño defensivo.
 
+### Ejercicios de Autoevaluación (Decisiones Condicionales)
+
+:::{exercise}
+:label: ej-cond-bisiesto
+Escribí la expresión condicional necesaria para determinar si un año es bisiesto. Un año es bisiesto si es divisible por 4, excepto aquellos divisibles por 100, pero sí aquellos divisibles por 400.
+:::
+
+:::{solution} ej-cond-bisiesto
+:class: dropdown
+La expresión lógica se traduce en C de la siguiente manera:
+```c
+if ((anio % 4 == 0 && anio % 100 != 0) || anio % 400 == 0) {
+    printf("El año %d es bisiesto.\n", anio);
+} else {
+    printf("El año %d no es bisiesto.\n", anio);
+}
+```
+:::
+
+:::{exercise}
+:label: ej-cond-switch-mes
+Escribí una estructura `switch` que tome una variable entera `mes` (con valores de 1 a 12) y asigne a la variable `dias` la cantidad de días del mes. Considerá febrero con 28 días. No olvides la etiqueta `default` obligatoria.
+:::
+
+:::{solution} ej-cond-switch-mes
+:class: dropdown
+Aprovechando la caída (*fall-through*) controlada omitiendo el `break` en casos con el mismo valor resultante:
+```c
+switch (mes) {
+    case 2:
+        dias = 28;
+        break;
+    case 4:
+    case 6:
+    case 9:
+    case 11:
+        dias = 30;
+        break;
+    case 1:
+    case 3:
+    case 5:
+    case 7:
+    case 8:
+    case 10:
+    case 12:
+        dias = 31;
+        break;
+    default:
+        printf("Error: mes inválido.\n");
+        dias = -1;
+        break;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-cond-veracidad
+Explicá detalladamente qué error semántico ocurre en el siguiente fragmento y por qué la regla {ref}`0x1005h` prohíbe el uso de la veracidad implícita:
+```c
+int estado = 0;
+// ...
+if (estado = 5) {
+    printf("El estado es activo.\n");
+}
+```
+:::
+
+:::{solution} ej-cond-veracidad
+:class: dropdown
+El condicional utiliza el operador de asignación `=` en lugar del operador de comparación `==`.
+1. La expresión `estado = 5` asigna el valor `5` a la variable `estado`.
+2. La expresión condicional evalúa al resultado de la asignación, que es `5`.
+3. Bajo el concepto de "veracidad" en C, dado que `5` es distinto de `0`, el bloque `if` se evalúa siempre como verdadero, ejecutando la rama del `printf` de forma incondicional.
+La regla {ref}`0x1005h` exige comparaciones booleanas explícitas (ej: `if (estado == 5)`) para que el compilador emita una advertencia ante este error de tipeo tan común.
+:::
+
 ---
 
 ## Estructuras de Repetición (Lazos)
@@ -205,6 +281,94 @@ flowchart TD
 
 ---
 
+### Ejercicios de Autoevaluación (Lazos)
+
+:::{exercise}
+:label: ej-lazos-factorial
+Escribí un programa en C que calcule y muestre el factorial de un número entero positivo ingresado por el usuario usando un lazo `while`.
+:::
+
+:::{solution} ej-lazos-factorial
+:class: dropdown
+```c
+#include <stdio.h>
+
+int main() {
+    int numero = 0;
+    long factorial = 1;
+
+    printf("Ingresá un número entero positivo: ");
+    scanf("%d", &numero);
+
+    if (numero < 0) {
+        printf("Error: El número debe ser positivo.\n");
+    } else {
+        int i = 1;
+        while (i <= numero) {
+            factorial = factorial * i;
+            i++;
+        }
+        printf("El factorial de %d es: %ld\n", numero, factorial);
+    }
+    return 0;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-lazos-for-sumatoria
+Escribí un lazo `for` que calcule la suma de todos los números impares comprendidos en un rango cerrado $[A, B]$ provisto por el usuario.
+:::
+
+:::{solution} ej-lazos-for-sumatoria
+:class: dropdown
+```c
+#include <stdio.h>
+
+int main() {
+    int a = 0;
+    int b = 0;
+    int suma = 0;
+
+    printf("Ingresá los límites A y B: ");
+    scanf("%d %d", &a, &b);
+
+    for (int i = a; i <= b; i++) {
+        if (i % 2 != 0) {
+            suma += i;
+        }
+    }
+
+    printf("La suma de impares en el rango es: %d\n", suma);
+    return 0;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-lazos-dowhile-menu
+Escribí un fragmento de código que implemente un menú de usuario interactivo utilizando un lazo `do...while`. El programa debe mostrar 3 opciones de configuración y una opción `4` para salir. Si el usuario ingresa un número fuera del rango $1-4$, el programa debe indicar el error y volver a solicitar la opción.
+:::
+
+:::{solution} ej-lazos-dowhile-menu
+:class: dropdown
+```c
+int opcion = 0;
+do {
+    printf("\n--- CONFIGURACIÓN ---\n");
+    printf("1. Ajustar brillo\n");
+    printf("2. Ajustar contraste\n");
+    printf("3. Cambiar idioma\n");
+    printf("4. Salir\n");
+    printf("Seleccioná una opción (1-4): ");
+    scanf("%d", &opcion);
+
+    if (opcion < 1 || opcion > 4) {
+        printf("Opción inválida. Reintentá.\n");
+    }
+} while (opcion != 4);
+```
+:::
 
 ---
 
@@ -365,6 +529,116 @@ encontramos un número par, incrementamos su valor en 1.
 
 //? agregar expresion matematica equivalente
 
+### Ejercicios de Autoevaluación (Roles de Variables)
+
+:::{exercise}
+:label: ej-roles-primo
+Diseñá un algoritmo en C para determinar si un número entero positivo ingresado por el usuario es primo. Utilizá una variable con **rol bandera** booleana para detener la iteración del lazo tan pronto como encuentres un divisor, respetando las pautas de diseño estructurado.
+:::
+
+:::{solution} ej-roles-primo
+:class: dropdown
+```c
+#include <stdio.h>
+#include <stdbool.h>
+
+int main() {
+    int numero = 0;
+    printf("Ingresá un entero positivo: ");
+    scanf("%d", &numero);
+
+    if (numero <= 1) {
+        printf("No es primo.\n");
+    } else {
+        bool tiene_divisor = false; // Bandera
+        int divisor = 2;
+
+        while (divisor * divisor <= numero && tiene_divisor == false) {
+            if (numero % divisor == 0) {
+                tiene_divisor = true; // Se activa la bandera
+            }
+            divisor++;
+        }
+
+        if (tiene_divisor == false) {
+            printf("El número %d es primo.\n", numero);
+        } else {
+            printf("El número %d no es primo.\n", numero);
+        }
+    }
+    return 0;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-roles-promedio
+Escribí un programa en C que lea valores reales del teclado de forma continua hasta que el usuario ingrese un valor negativo. Al finalizar, debe calcular e imprimir el promedio de los valores ingresados. Identificá los roles de las variables utilizadas.
+:::
+
+:::{solution} ej-roles-promedio
+:class: dropdown
+```c
+#include <stdio.h>
+#include <stdbool.h>
+
+int main() {
+    float valor = 0.0f;     // Entrada
+    float acumulador = 0.0f; // Acumulador
+    int contador = 0;       // Contador
+    bool continuar = true;  // Bandera de control de lazo
+
+    while (continuar == true) {
+        printf("Ingresá un valor (negativo para terminar): ");
+        scanf("%f", &valor);
+
+        if (valor < 0.0f) {
+            continuar = false; // Apaga la bandera
+        } else {
+            acumulador += valor; // Acumula
+            contador++;          // Cuenta
+        }
+    }
+
+    if (contador > 0) {
+        printf("El promedio es: %.2f\n", acumulador / (float)contador);
+    } else {
+        printf("No se ingresaron valores válidos.\n");
+    }
+    return 0;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-roles-digitos
+Escribí un fragmento de código en C que calcule el número de dígitos de un entero positivo usando divisiones enteras sucesivas. Especificá las variables correspondientes al rol de contador y de acumulador si las hubiera.
+:::
+
+:::{solution} ej-roles-digitos
+:class: dropdown
+```c
+int numero = 12345;
+int temporal = numero; // Variable auxiliar
+int digitos = 0;       // Contador
+
+if (temporal == 0) {
+    digitos = 1;
+} else {
+    while (temporal > 0) {
+        digitos++; // Cuenta la cantidad de divisiones
+        temporal = temporal / 10;
+    }
+}
+printf("El número %d tiene %d dígitos.\n", numero, digitos);
+```
+En este algoritmo:
+- `digitos` tiene el **rol de contador** (se incrementa linealmente en 1).
+- `temporal` funciona como una variable de trabajo. No se requiere un acumulador en este algoritmo ya que no estamos sumando valores variables.
+:::
+
+---
+
 ## Control de Flujo Seguro de Lazos
 
 ### Atajos en Lazos: `break` y `continue`
@@ -454,6 +728,101 @@ int main() {
 
 La condición `(c = getchar()) != '\n' && c != EOF` realiza tres acciones: lee un carácter de `stdin`, lo asigna a `c`, y continúa la iteración del lazo mientras no sea un salto de línea ni el fin del archivo (`EOF`). Se declara `c` como `int` porque la macro `EOF` representa habitualmente el valor entero `-1`. En plataformas donde el tipo `char` es `unsigned` (sin signo) por defecto, una variable `char` no podría almacenar un valor negativo, provocando un lazo infinito al comparar contra `EOF`.
 
+
+### Ejercicios de Autoevaluación (Flujo Seguro y Buffer)
+
+:::{exercise}
+:label: ej-seguro-busqueda-bandera
+El siguiente lazo de búsqueda utiliza la instrucción prohibida `break`. Reescribilo para que cumpla con el estándar de programación estructurada utilizando una bandera booleana.
+```c
+int numeros[] = {3, 7, 2, 9, 5};
+int buscado = 9;
+int posicion = -1;
+for (int i = 0; i < 5; i++) {
+    if (numeros[i] == buscado) {
+        posicion = i;
+        break; // PROHIBIDO
+    }
+}
+```
+:::
+
+:::{solution} ej-seguro-busqueda-bandera
+:class: dropdown
+Se reescribe transformándolo en un lazo `while` que integre el estado de la bandera booleana en su condición de corte:
+```c
+int numeros[] = {3, 7, 2, 9, 5};
+int buscado = 9;
+int posicion = -1;
+bool encontrado = false;
+
+int i = 0;
+while (i < 5 && encontrado == false) {
+    if (numeros[i] == buscado) {
+        posicion = i;
+        encontrado = true; // Activa la bandera para cortar el ciclo
+    }
+    i++;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-purgado-lectura-caracter
+Explicá por qué en C se "saltea" la lectura de un carácter al ejecutar `scanf("%c", &char_var)` inmediatamente después de haber ejecutado `scanf("%d", &int_var)`, y cómo lo resuelve el purgado manual con `getchar()`.
+:::
+
+:::{solution} ej-purgado-lectura-caracter
+:class: dropdown
+Al ingresar el número entero y presionar Enter, en el buffer de entrada `stdin` se almacenan los dígitos del número y el salto de línea `\n`.
+- `scanf("%d", ...)` consume únicamente los caracteres numéricos y deja el `\n` en el buffer.
+- `scanf("%c", ...)` busca el siguiente carácter en el buffer y, al no descartar espacios en blanco por defecto, consume inmediatamente el `\n` residual.
+El purgado manual con `while (getchar() != '\n');` lee y descarta todos los caracteres que queden en el buffer hasta el salto de línea inclusive, dejando `stdin` vacío para la siguiente entrada interactiva.
+:::
+
+:::{exercise}
+:label: ej-seguro-menu-completo
+Escribí un programa en C estructurado y seguro que solicite al usuario ingresar su edad. Tras leer la edad, debe purgar el buffer `stdin` y solicitar si desea continuar ('S' o 'N'), validando que el carácter ingresado sea uno de estos dos únicamente.
+:::
+
+:::{solution} ej-seguro-menu-completo
+:class: dropdown
+```c
+#include <stdio.h>
+#include <stdbool.h>
+
+int main() {
+    int edad = 0;
+    char respuesta = ' ';
+    bool respuesta_valida = false;
+
+    printf("Ingresá tu edad: ");
+    scanf("%d", &edad);
+
+    // Purgado del buffer stdin
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+
+    // Bucle de lectura segura con validación
+    while (respuesta_valida == false) {
+        printf("¿Deseás continuar? (S/N): ");
+        scanf("%c", &respuesta);
+
+        // Purgar de nuevo en caso de entradas inválidas
+        while ((c = getchar()) != '\n' && c != EOF);
+
+        if (respuesta == 'S' || respuesta == 's' || respuesta == 'N' || respuesta == 'n') {
+            respuesta_valida = true;
+        } else {
+            printf("Respuesta inválida. Por favor, ingresá S o N.\n");
+        }
+    }
+
+    printf("Edad ingresada: %d. Elección: %c\n", edad, respuesta);
+    return 0;
+}
+```
+:::
 
 ---
 

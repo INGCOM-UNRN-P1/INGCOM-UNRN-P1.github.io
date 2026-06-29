@@ -211,6 +211,66 @@ El nombre de un arreglo no es un puntero, sino el identificador de un bloque de 
 Esta relación nos permite usar punteros para acceder y manipular los elementos
 de un arreglo, lo cual nos lleva directamente a la aritmética de punteros.
 
+### Ejercicios de Autoevaluación (Introducción y Operadores)
+
+:::{exercise}
+:label: ej-ptr-declaracion-deref
+Escribí un fragmento de código en C que declare una variable entera `var` con el valor `77` y un puntero `ptr` a dicha variable. Luego, modificá el valor de `var` asignándole `88` de manera indirecta a través del puntero y verificalo imprimiendo `var`.
+:::
+
+:::{solution} ej-ptr-declaracion-deref
+:class: dropdown
+```c
+#include <stdio.h>
+
+int main() {
+    int var = 77;
+    int *ptr = &var; // ptr almacena la dirección de var
+
+    *ptr = 88; // Desreferencia y asigna un nuevo valor en esa celda
+
+    printf("El valor de var es: %d\n", var); // Imprime 88
+    return 0;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-ptr-nulo-seguro
+Explicá por qué desreferenciar un puntero que almacena la dirección `NULL` (por ejemplo, `int *p = NULL; *p = 10;`) genera un fallo de ejecución en sistemas modernos y escribí un bloque de código defensivo que evite este error.
+:::
+
+:::{solution} ej-ptr-nulo-seguro
+:class: dropdown
+La constante `NULL` representa la dirección de memoria `0x0`. Los sistemas operativos modernos protegen esta página de direcciones virtuales reservándola como de acceso no permitido. Si un proceso intenta desreferenciar un puntero nulo, la MMU de la CPU detecta la infracción y aborta inmediatamente el proceso enviándole una señal de fallo de segmentación (*Segmentation Fault*).
+Para evitarlo, se debe realizar una validación explícita previa:
+```c
+#include <stddef.h>
+#include <stdio.h>
+
+void modificar_seguro(int *p) {
+    if (p != NULL) {
+        *p = 10;
+    } else {
+        fprintf(stderr, "Error: Intento de desreferenciar un puntero NULL.\n");
+    }
+}
+```
+:::
+
+:::{exercise}
+:label: ej-ptr-wild-pointer
+Definí el concepto de "puntero salvaje" (*wild pointer*), cómo se introduce en un programa de C y de qué manera la regla de estilo de la cátedra {ref}`0x0003h` mitiga este riesgo de seguridad.
+:::
+
+:::{solution} ej-ptr-wild-pointer
+:class: dropdown
+Un puntero salvaje es un puntero declarado que no ha sido inicializado a una dirección válida ni a `NULL`. Al ser una variable automática del stack, contendrá un valor residual aleatorio (basura) que se interprete como una dirección de memoria arbitraria. Intentar desreferenciarlo para leer o escribir puede corromper datos de otras variables en el stack o hacer que el programa falle de forma impredecible.
+La regla de la cátedra {ref}`0x0003h` exige la inicialización obligatoria de todas las variables en su punto de declaración (asignando una dirección válida o `NULL`), erradicando la existencia de punteros salvajes.
+:::
+
+---
+
 ## Aritmética de punteros
 
 La aritmética de punteros te permite realizar operaciones matemáticas sobre los
@@ -308,6 +368,66 @@ entero con signo definido en la cabecera `<stddef.h>`. Para imprimirlo
 correctamente con `printf`, se utiliza el especificador de formato `%td`.
 
 :::
+
+### Ejercicios de Autoevaluación (Aritmética de Punteros)
+
+:::{exercise}
+:label: ej-ptr-aritmetica-sizeof
+Dado un puntero a reales de doble precisión `double *ptr` que contiene actualmente la dirección de memoria virtual `0x3000` en una máquina de 64 bits, calculá la dirección hexadecimal resultante tras evaluar la expresión de aritmética de punteros `ptr + 3`.
+:::
+
+:::{solution} ej-ptr-aritmetica-sizeof
+:class: dropdown
+La aritmética de punteros escala los desplazamientos según el tamaño físico del tipo de dato al que apunta:
+$$\text{Dirección Resultante} = \text{Dirección Base} + (\text{Desplazamiento} \times \text{sizeof(tipo)})$$
+Sustituyendo los valores:
+- Dirección Base = `0x3000`
+- Desplazamiento = $3$
+- $\text{sizeof(double)} = 8$ bytes
+$$\text{Desplazamiento en bytes} = 3 \times 8 = 24\text{ bytes}$$
+Convertimos 24 a hexadecimal: $24_{10} = 18_{16}$ (`0x18`). Por lo tanto:
+$$\text{Dirección Resultante} = \text{0x3000} + \text{0x0018} = \text{0x3018}$$
+:::
+
+:::{exercise}
+:label: ej-ptr-aritmetica-resta
+Escribí un programa corto en C que declare un arreglo de enteros `int arr[5]` y calcule la cantidad de elementos de distancia entre la dirección del último elemento `&arr[4]` y la dirección del primer elemento `&arr[0]` restando sus punteros. Mostrá cómo imprimir el resultado de forma portable.
+:::
+
+:::{solution} ej-ptr-aritmetica-resta
+:class: dropdown
+```c
+#include <stdio.h>
+#include <stddef.h> // Necesario para ptrdiff_t
+
+int main() {
+    int arr[5] = {1, 2, 3, 4, 5};
+    int *inicio = &arr[0];
+    int *fin = &arr[4];
+
+    // La resta de punteros devuelve la distancia en elementos de tipo int
+    ptrdiff_t distancia = fin - inicio;
+
+    printf("Distancia entre elementos: %td\n", distancia); // Imprime 4
+    return 0;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-ptr-aritmetica-vla-precedencia
+Explicá de forma detallada la diferencia de comportamiento entre las siguientes dos expresiones de C que combinan el operador de desreferencia y el operador de incremento:
+1. `*ptr++`
+2. `(*ptr)++`
+:::
+
+:::{solution} ej-ptr-aritmetica-vla-precedencia
+:class: dropdown
+1. **`*ptr++`**: Debido a que el operador de post-incremento `++` tiene mayor precedencia que el operador de desreferencia `*`, el incremento se aplica al *puntero* (la dirección). La expresión evalúa al valor almacenado originalmente en la dirección apuntada por `ptr` y, como efecto secundario, desplaza la dirección de `ptr` al siguiente casillero de memoria.
+2. **`(*ptr)++`**: El paréntesis altera el orden de precedencia forzando a que se evalúe primero la desreferencia `*ptr`. Por lo tanto, la expresión accede al *valor* numérico contenido en la variable a la que apunta `ptr` e incrementa ese valor en `1` en la memoria física, dejando la dirección de `ptr` inalterada.
+:::
+
+---
 
 ## Punteros en funciones y efectos secundarios
 
@@ -676,6 +796,69 @@ void intercambiar(int *primero, int *segundo) {
 ```
 
 De esta forma, eliminamos las ambigüedades, y reducimos los potenciales errores.
+
+### Ejercicios de Autoevaluación (Funciones, const y Contratos)
+
+:::{exercise}
+:label: ej-ptr-func-intercambio
+Escribí una función pura en C llamada `procesar_datos` que reciba un número entero `x` por valor, un puntero a entero `entrada_salida` que deba incrementarse con `x`, y un puntero `salida` en el que se escriba el doble de `x`. Documentá esta función siguiendo la directiva de la cátedra con `@param[in]`, `@param[in, out]` y `@param[out]`.
+:::
+
+:::{solution} ej-ptr-func-intercambio
+:class: dropdown
+```c
+/**
+ * @brief Procesa valores numéricos mediante punteros.
+ * @param[in] x Valor entero constante a procesar.
+ * @param[in, out] entrada_salida Puntero a la variable que acumulará el valor de x.
+ * @param[out] salida Puntero donde se escribirá el doble del parámetro x.
+ * @pre entrada_salida y salida no deben ser NULL y deben apuntar a memoria válida.
+ * @post La variable apuntada por entrada_salida se incrementa en x. La variable apuntada por salida almacena x * 2.
+ */
+void procesar_datos(int x, int *entrada_salida, int *salida) {
+    if (entrada_salida != NULL && salida != NULL) {
+        *entrada_salida += x;
+        *salida = x * 2;
+    }
+}
+```
+:::
+
+:::{exercise}
+:label: ej-ptr-const-declaraciones
+Escribí las declaraciones de firmas de función correspondientes para los siguientes tres casos hipotéticos en C, aplicando el calificador `const` donde corresponda para garantizar máxima robustez del código:
+1. Una función `imprimir_mensaje` que reciba una cadena de texto para lectura exclusiva.
+2. Una función `configurar_puerto` que reciba un puntero constante a un entero mutable que representa un registro físico de hardware.
+3. Una función `comparar_tablas` que reciba dos punteros constantes a arreglos constantes de enteros de lectura exclusiva.
+:::
+
+:::{solution} ej-ptr-const-declaraciones
+:class: dropdown
+Las firmas correspondientes son:
+1. `void imprimir_mensaje(const char *mensaje);` (Puntero a datos constantes)
+2. `void configurar_puerto(int * const registro);` (Puntero constante a datos variables)
+3. `void comparar_tablas(const int * const tablaA, const int * const tablaB);` (Puntero constante a datos constantes)
+:::
+
+:::{exercise}
+:label: ej-ptr-const-diferencia
+Analizá el siguiente código en C e indicá en qué línea el compilador arrojará un error de sintaxis y por qué:
+```c
+int x = 10;
+int y = 20;
+const int *ptr = &x;
+ptr = &y;
+*ptr = 30;
+```
+:::
+
+:::{solution} ej-ptr-const-diferencia
+:class: dropdown
+El error de compilación ocurre en la línea `*ptr = 30;`.
+La declaración `const int *ptr` define a `ptr` como un "puntero a entero constante". Esto significa que el compilador bloquea cualquier intento de escribir o modificar el valor apuntado a través de dicho puntero. La reasignación de la dirección del puntero (`ptr = &y;`) es totalmente válida porque el puntero en sí no es constante.
+:::
+
+---
 
 ## La "degradación" de arreglos a punteros
 
@@ -1113,6 +1296,77 @@ En resumen:
 - `*p + i` significa: "Decime qué valor hay acá y sumale `i`".
 
 
+
+### Ejercicios de Autoevaluación (Degradación y Indirección Avanzada)
+
+:::{exercise}
+:label: ej-ptr-decay-sizeof
+Explicá de forma rigurosa por qué al declarar un arreglo `int arr[10];` en `main`, la expresión `sizeof(arr)` devuelve `40` bytes, pero si pasamos ese arreglo a una función `void procesar(int arr[])`, la llamada a `sizeof(arr)` dentro de la función devuelve `8` bytes (en una arquitectura de 64 bits).
+:::
+
+:::{solution} ej-ptr-decay-sizeof
+:class: dropdown
+Esto se debe al fenómeno de **degradación de arreglos** (*array decay*):
+- En el ámbito donde se declara el arreglo (`main`), el compilador conoce el tipo de dato y su tamaño estático completo ($10 \times \text{sizeof(int)} = 40$ bytes).
+- Al pasar el arreglo como parámetro a una función, este decae automáticamente a un puntero al primer elemento (`int*`). Por lo tanto, el parámetro formal `int arr[]` de la función es interpretado por el compilador exactamente como `int *arr`. Al evaluar `sizeof(arr)` dentro de la función, se está calculando el tamaño en bytes del tipo puntero, el cual es de 8 bytes en arquitecturas de 64 bits, perdiendo la dimensión del arreglo.
+:::
+
+:::{exercise}
+:label: ej-ptr-doble-indireccion
+Implementá un fragmento de código en C que declare una variable entera `numero` con el valor `500`, un puntero simple `ptr` que apunte a `numero`, y un puntero doble `ptr_ptr` que apunte a `ptr`. Modificá el valor de `numero` a `999` utilizando una expresión que involucre al puntero doble `ptr_ptr` e imprimí el resultado.
+:::
+
+:::{solution} ej-ptr-doble-indireccion
+:class: dropdown
+```c
+#include <stdio.h>
+
+int main() {
+    int numero = 500;
+    int *ptr = &numero;
+    int **ptr_ptr = &ptr; // Puntero doble apuntando al puntero simple
+
+    **ptr_ptr = 999; // Doble desreferencia para llegar a la celda de 'numero'
+
+    printf("El valor modificado es: %d\n", numero); // Imprime 999
+    return 0;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-ptr-algoritmo-invertir
+Implementá una función llamada `invertir_arreglo` que reciba un arreglo de enteros y su tamaño, y revierta el orden de sus elementos utilizando exclusivamente aritmética de punteros con un puntero `izq` inicializado al primer elemento y otro `der` inicializado al último.
+:::
+
+:::{solution} ej-ptr-algoritmo-invertir
+:class: dropdown
+```c
+#include <stddef.h>
+
+void invertir_arreglo(int *arr, size_t tamano) {
+    if (arr == NULL || tamano <= 1) {
+        return;
+    }
+
+    int *izq = arr;
+    int *der = arr + tamano - 1; // Dirección del último elemento
+
+    while (izq < der) {
+        // Intercambio de valores desreferenciados
+        int temporal = *izq;
+        *izq = *der;
+        *der = temporal;
+
+        // Desplazamiento de los punteros hacia el centro
+        izq++;
+        der--;
+    }
+}
+```
+:::
+
+---
 
 ## Próximos Pasos: Memoria Dinámica
 

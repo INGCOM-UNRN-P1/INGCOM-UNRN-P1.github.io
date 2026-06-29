@@ -154,6 +154,52 @@ Para imprimir un valor de tipo {term}`size_t` con `printf`, se utiliza el
 especificador de formato `%zu`. El uso de `%d` o `%lu` puede provocar
 advertencias del compilador debido a posibles inconsistencias de tipo.
 ::::
+### Ejercicios de Autoevaluación (Inicialización y Memoria)
+
+:::{exercise}
+:label: ej-arr-sizeof-calc
+Escribí la expresión matemática completa en C para determinar la cantidad de elementos de un arreglo declarado como `double temperaturas[50]` utilizando el operador `sizeof`. Explicá por qué es un cálculo portátil e independiente de la arquitectura.
+:::
+
+:::{solution} ej-arr-sizeof-calc
+:class: dropdown
+La expresión correcta es:
+```c
+size_t cantidad = sizeof(temperaturas) / sizeof(temperaturas[0]);
+```
+Este cálculo es portable porque:
+- `sizeof(temperaturas)` devuelve el espacio en bytes reservado para todo el arreglo (ej: $50 \times 8 = 400$ bytes en plataformas de 64 bits).
+- `sizeof(temperaturas[0])` devuelve el tamaño de un único elemento del arreglo, equivalente a `sizeof(double)` (8 bytes).
+El cociente $400 / 8$ es siempre $50$, sin importar cuántos bytes asigne la arquitectura física al tipo `double`.
+:::
+
+:::{exercise}
+:label: ej-arr-init-parcial
+Si declarás localmente un arreglo en C de la siguiente manera:
+`int datos[10] = {1, 2, 3};`
+Explicá detalladamente el estado lógico y físico de cada una de las posiciones del arreglo desde `datos[0]` hasta `datos[9]`.
+:::
+
+:::{solution} ej-arr-init-parcial
+:class: dropdown
+En C, cuando se inicializa de forma parcial un arreglo:
+- Los elementos correspondientes a los inicializadores explícitos toman los valores indicados: `datos[0]` vale `1`, `datos[1]` vale `2`, y `datos[2]` vale `3`.
+- El estándar del lenguaje garantiza que **todos los elementos restantes** que no fueron declarados explícitamente (`datos[3]` a `datos[9]`) se inicializan automáticamente a `0`. No contienen datos "basura", a diferencia de una declaración sin inicializador como `int datos[10];`.
+:::
+
+:::{exercise}
+:label: ej-arr-vla-restriction
+Explicá detalladamente por qué el estándar de C prohíbe inicializar un arreglo de longitud variable (ALV/VLA) en su declaración (ej: `int n = 5; int arr[n] = {0};` causa un error de compilación).
+:::
+
+:::{solution} ej-arr-vla-restriction
+:class: dropdown
+La inicialización estática `{0}` requiere que el compilador conozca el tamaño y el diseño del arreglo en **tiempo de compilación** para generar las instrucciones de asignación de memoria correspondientes en el segmento de datos.
+Dado que el tamaño de un ALV/VLA se determina recién en **tiempo de ejecución** (según el valor de la variable `n`), el compilador no puede generar el bloque de inicialización de antemano. Para inicializar un VLA, debés declararlo y luego rellenar sus celdas de forma procedimental (por ejemplo, mediante un lazo `for`).
+:::
+
+---
+
 ### Acceso, Modificación y la Identidad del Arreglo
 
 Se accede a los elementos mediante el operador de subíndice `[]`, donde el
@@ -312,22 +358,17 @@ Paso de arreglos a funciones por referencia: a diferencia de las variables simpl
 
 ### Funciones Puras y con Efectos Secundarios
 
-Cuando se trabaja con funciones que operan sobre arreglos, es fundamental distinguir entre **funciones puras** y **funciones con efectos secundarios**. Esta diferenciación permite mejorar la legibilidad del código, facilitar la depuración y promover una programación más confiable.
+Al trabajar con secuencias, la distinción entre funciones puras y aquellas con efectos secundarios (ver {ref}`sec-funciones-puras`) adquiere una relevancia crítica debido al mecanismo de pasaje de parámetros en C. Como los arreglos se transmiten mediante su dirección de memoria (paso por referencia simulado), las funciones pueden modificar su contenido directamente en el invocador.
 
-#### ¿Qué es una función pura?
+#### Funciones puras sobre arreglos
 
-Una **función pura** es aquella que:
-
-1. **No modifica** ningún estado externo (ni variables globales, ni parámetros de entrada).
-2. **Siempre retorna el mismo resultado** ante los mismos argumentos.
-
-En otras palabras, su ejecución es predecible y no depende del contexto externo.
+Una función que opera sobre arreglos es pura si se limita a leer sus elementos sin alterar el contenido original. Para indicar explícitamente esta intención y garantizar la portabilidad y seguridad, se debe usar el calificador `const` en el parámetro del arreglo (ver regla de estilo {ref}`0x3007h`).
 
 **Ejemplo de función pura:**
 
 ```{code-block} c
 :linenos:
-int maximo(int valores[], int cantidad) 
+int maximo(const int valores[], int cantidad) 
 {
     int max = valores[0];
     for (int i = 1; i < cantidad; i++) 
@@ -343,11 +384,11 @@ int maximo(int valores[], int cantidad)
 
 Esta función sólo **lee** el contenido del arreglo y **devuelve** un resultado. No altera el contenido original.
 
-#### ¿Qué es una función con efectos secundarios?
+#### Funciones con efectos secundarios en arreglos
 
-Una **función con efectos secundarios** es aquella que **modifica** el estado del programa más allá de sus variables locales: puede cambiar variables externas, parámetros pasados por referencia, escribir en pantalla, leer entrada, etc.
+Una función con efectos secundarios modifica el contenido del arreglo original. En este caso, el parámetro de arreglo no debe llevar el calificador `const`.
 
-**Ejemplo:**
+**Ejemplo de función con efectos secundarios:**
 
 ```{code-block} c
 :linenos:
@@ -368,7 +409,7 @@ void ordenar(int v[], int cantidad)
 }
 ```
 
-Esta función cambia el contenido del arreglo original: su ejecución **no es inocua**.
+Esta función cambia el contenido del arreglo original; su ejecución modifica el estado de la secuencia en el invocador.
 
 #### ¿Por qué distinguirlas?
 
@@ -379,7 +420,7 @@ Esta función cambia el contenido del arreglo original: su ejecución **no es in
 #### Buenas prácticas
 
 - Usá funciones puras para cálculo, conteo o análisis.
-- Reservá funciones con efectos para inicialización, transformación explícita o interacción con el entorno.
+- Reservá funciones con efectos para inicialización, transformación explícita o lazo de interacción con el entorno.
 - Documentá claramente qué efectos tiene cada función.
 - Cuando una función modifica su entrada, elegí un nombre que lo indique: `normalizar`, `ordenar`, `ajustar`, etc.
 
@@ -391,8 +432,8 @@ Por ejemplo:
 
 ```{code-block}c
 :linenos:
-int encontrar_maximo(int v[], int cantidad);
-void imprimir_maximo(int v[], int cantidad) 
+int encontrar_maximo(const int v[], int cantidad);
+void imprimir_maximo(const int v[], int cantidad) 
 {
     int m = encontrar_maximo(v, cantidad);
     printf("El máximo es %d\n", m);
@@ -507,6 +548,65 @@ cosas.
 ### Retorno de Secuencias desde Funciones
 
 Una función **no puede retornar un arreglo local**. Las variables de un arreglo local se alojan en el registro de activación (*stack frame*) de la función en la pila. Al ejecutarse la instrucción de retorno, el registro de activación de la función se desapila y destruye de forma física en memoria lógica, quedando ese espacio disponible para ser sobrescrito por cualquier llamada subsiguiente en el programa. Intentar acceder a la dirección de memoria de un objeto local que ya ha sido liberado del stack constituye una desreferenciación de puntero colgante y provoca comportamiento indefinido o fallas de segmentación.
+
+### Ejercicios de Autoevaluación (Acceso e Iteración)
+
+:::{exercise}
+:label: ej-arr-func-pure
+Implementá una **función pura** en C llamada `buscar_minimo` que reciba un arreglo de enteros y su tamaño, y retorne el menor valor contenido. Respetá la regla de estilo {ref}`0x3007h`.
+:::
+
+:::{solution} ej-arr-func-pure
+:class: dropdown
+Al ser una función pura, se utiliza el calificador `const` para prometer que el arreglo original no será alterado.
+```c
+#include <stddef.h>
+
+int buscar_minimo(const int arreglo[], size_t size) {
+    // #PRE: size > 0
+    int minimo = arreglo[0];
+    for (size_t i = 1; i < size; i++) {
+        if (arreglo[i] < minimo) {
+            minimo = arreglo[i];
+        }
+    }
+    return minimo;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-arr-func-effect
+Implementá una función con **efectos secundarios** llamada `escalar_arreglo` que multiplique todos los elementos de un arreglo de enteros por un factor entero dado. Explicá cómo se simula el paso por referencia de los arreglos.
+:::
+
+:::{solution} ej-arr-func-effect
+:class: dropdown
+Al ser una función con efectos secundarios, modificamos el arreglo original de forma directa en su memoria física:
+```c
+#include <stddef.h>
+
+void escalar_arreglo(int arreglo[], size_t size, int factor) {
+    for (size_t i = 0; i < size; i++) {
+        arreglo[i] = arreglo[i] * factor; // Efecto secundario
+    }
+}
+```
+El paso por referencia se simula porque el compilador no copia los elementos a la función; en su lugar, le pasa la dirección del primer elemento del arreglo. La indexación `arreglo[i]` opera sobre la misma dirección física de la memoria del invocador.
+:::
+
+:::{exercise}
+:label: ej-arr-decay-sizeof
+Si pasás un arreglo a una función (ej: `void f(int arr[])`), explicá por qué realizar `sizeof(arr)` dentro de la función devolverá el tamaño de un puntero (habitualmente 8 bytes en 64 bits) y no el tamaño en bytes del arreglo original.
+:::
+
+:::{solution} ej-arr-decay-sizeof
+:class: dropdown
+Esto ocurre debido al fenómeno de **decaimiento de arreglo a puntero (array decay)**.
+Cuando un arreglo se pasa como parámetro a una función, la firma `int arr[]` es convertida implícitamente por el compilador en un puntero al primer elemento (`int *arr`). Dado que el operador `sizeof` evalúa el tipo de datos de su operando en tiempo de compilación, calcula el tamaño de la variable parámetro `arr` (que es de tipo puntero, ocupando 8 bytes en sistemas de 64 bits), habiéndose perdido la información sobre la capacidad del bloque de memoria del arreglo original.
+:::
+
+---
 
 ## Cadenas: Secuencias de Caracteres
 
@@ -640,6 +740,66 @@ Por otro, tenemos el tamaño en memoria del arreglo de caracteres que guarda la 
 Esta es la base para las cadenas seguras.
 
 ::::
+### Ejercicios de Autoevaluación (Cadenas y Caracteres)
+
+:::{exercise}
+:label: ej-cadena-literal-fault
+Si declarás `char *p = "Hola";` e intentás modificar su primer carácter `p[0] = 'h';`, tu programa provocará un fallo de segmentación. Sin embargo, con `char s[] = "Hola"; s[0] = 'h';` funciona correctamente. Explicá detalladamente por qué.
+:::
+
+:::{solution} ej-cadena-literal-fault
+:class: dropdown
+La diferencia radica en la región de memoria física donde se almacena el contenido:
+- `char *p = "Hola"`: Crea un puntero `p` que apunta directamente a la dirección del literal de cadena `"Hola"`, el cual reside en una sección de la memoria del programa de solo lectura (como la sección `.rodata`). Intentar modificar esa región física viola los permisos de hardware, provocando un fallo de segmentación (*Segmentation Fault*).
+- `char s[] = "Hola"`: Declara un arreglo local en el *stack* y **copia** los caracteres del literal `"Hola"` (incluido el `\0`) a dicho arreglo. Modificar `s[0]` es totalmente válido porque estamos escribiendo sobre memoria local del stack asignada al programa.
+:::
+
+:::{exercise}
+:label: ej-cadena-strlen-null
+Explicá de qué manera funciona la función `strlen` en la biblioteca estándar y qué consecuencias fatales se producen si se le pasa como argumento un arreglo de caracteres que carece del carácter nulo `\0`.
+:::
+
+:::{solution} ej-cadena-strlen-null
+:class: dropdown
+La función `strlen` recorre de forma secuencial la memoria byte a byte desde la dirección base recibida, incrementando un contador de longitud, hasta encontrar el primer carácter que sea igual a `\0`.
+Si el arreglo carece de `\0`, `strlen` continuará leyendo más allá de los límites del arreglo en posiciones de memoria consecutivas (acceso fuera de límites). Esto provocará que retorne un largo erróneo de forma impredecible o que el programa aborte con un error de violación de acceso (*Segmentation Fault*) si intenta leer una página de memoria no asignada.
+:::
+
+:::{exercise}
+:label: ej-cadena-largo-capacidad
+Escribí un programa en C que declare una variable de cadena e imprima en consola de forma clara su **capacidad física** en bytes y su **longitud lógica** actual (sin incluir el carácter nulo), justificando los especificadores de formato utilizados.
+:::
+
+:::{solution} ej-cadena-largo-capacidad
+:class: dropdown
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char mensaje[100] = "Hola Mundo";
+    
+    size_t capacidad = sizeof(mensaje);
+    size_t longitud = strlen(mensaje);
+
+    // Se utiliza %zu para variables de tipo size_t
+    printf("Capacidad física: %zu bytes\n", capacidad);
+    printf("Longitud lógica: %zu caracteres\n", longitud);
+    
+    return 0;
+}
+```
+La salida será:
+```
+Capacidad física: 100 bytes
+Longitud lógica: 10 caracteres
+```
+- `sizeof(mensaje)` retorna la capacidad del arreglo físico (`100` bytes).
+- `strlen(mensaje)` retorna la cantidad de caracteres antes del `\0` (`10`).
+:::
+
+---
+
 ### Lectura Segura de Cadenas
 
 El uso de `scanf("%s", buffer)` es una de las fuentes de errores de seguridad
@@ -892,218 +1052,77 @@ arreglo, permitiendo su modificación.
 
 ::::
 
-## Ejercicios
+### Ejercicios de Autoevaluación (Cadenas Seguras)
 
-```{exercise}
-:label: sumar_arreglo
-:enumerator: arreglos-1
-
-Dado un arreglo de enteros, escribí un programa que calcule y muestre la suma de todos sus elementos.
-Utilizá el operador `sizeof` para determinar la cantidad de elementos de forma dinámica.
-
-```
-
-:::{solution} sumar_arreglo
-:class: dropdown
-
-```{code-block}c
-:linenos:
-#include <stdio.h>
-#include <stddef.h>
-
-int main()
-{
-    int numeros[] = {10, 20, 30, 40, 50, -10};
-    int suma = 0;
-    size_t cantidad = sizeof(numeros) / sizeof(numeros[0]);
-    for (size_t i = 0; i < cantidad; i++) {
-        suma += numeros[i];
-    }
-
-    printf("El arreglo tiene %zu elementos.\n", cantidad);
-    printf("La suma de los elementos es: %d\n", suma);
-
-    return 0;
-}
-```
+:::{exercise}
+:label: ej-seguro-fgets-newline
+Escribí un fragmento de código estructurado que lea una cadena de forma segura usando `fgets` en un buffer de capacidad 80 y elimine limpiamente el carácter de salto de línea `\n` residual al final si estuviera presente.
 :::
 
-```{exercise}
-:label: promedio_arreglo
-:enumerator: funciones-1
-
-Implementá una función `promedio_arreglo` que reciba un arreglo de enteros y su tamaño.
-La función debe devolver el promedio de sus elementos como un `float`.
-
-```
-
-:::{solution} promedio_arreglo
+:::{solution} ej-seguro-fgets-newline
 :class: dropdown
-
-```{code-block}c
-:linenos:
-#include <stdio.h>
-#include <stddef.h>
-float promedio_arreglo(int arreglo[], size_t cantidad)
-{
-    int suma = 0;
-    for (size_t i = 0; i < cantidad; i++) {
-        suma = suma + arreglo[i];
-    }
-
-    // Hacemos un cast a float para asegurar una división con decimales
-    return (float)suma / cantidad;
-}
-
-int main()
-{
-    int notas[] = {8, 7, 10, 9, 6};
-    size_t cantidad_notas = sizeof(notas) / sizeof(notas[0]);
-    float prom = promedio_arreglo(notas, cantidad_notas);
-    printf("El promedio de las notas es: %.2f\n", prom);
-    return 0;
-}
-```
-
-:::
-
-```{exercise}
-:label: invertir_arreglo
-:enumerator: funciones-2
-
-Implementá un procedimiento `invertir_arreglo` que reciba un arreglo de enteros y su tamaño,
-y modifique el arreglo invirtiendo el orden de sus elementos. La función no debe devolver nada (`void`).
-
-```
-
-:::{solution} invertir_arreglo
-:class: dropdown
-
-```{code-block}c
-:linenos:
-#include <stdio.h>
-#include <stddef.h>
-void invertir_arreglo(int arreglo[], size_t cantidad)
-{
-    // Si no hay elementos o hay uno solo, no hay nada que hacer
-    if (cantidad < 2) {
-        return;
-    }
-
-    // Iteramos hasta la mitad del arreglo
-    for (size_t i = 0; i < cantidad / 2; i++) {
-        // Intercambiamos el elemento i con su correspondiente desde el final
-        int temporal = arreglo[i];
-        arreglo[i] = arreglo[cantidad - 1 - i];
-        arreglo[cantidad - 1 - i] = temporal;
-    }
-
-}
-
-void imprimir_arreglo(int arreglo[], size_t cantidad)
-{
-    printf("[ ");
-    for (size_t i = 0; i < cantidad; i++) {
-        printf("%d ", arreglo[i]);
-    }
-    printf("]\n");
-}
-int main()
-{
-    int mi_arreglo[] = {1, 2, 3, 4, 5};
-    size_t n = sizeof(mi_arreglo) / sizeof(mi_arreglo[0]);
-
-    printf("Arreglo original: ");
-    imprimir_arreglo(mi_arreglo, n);
-    invertir_arreglo(mi_arreglo, n);
-    printf("Arreglo invertido: ");
-    imprimir_arreglo(mi_arreglo, n);
-
-    return 0;
-}
-
-```
-
-:::
-
-```{exercise}
-:label: contar_vocales
-:enumerator: funciones-3
-
-Implementá una función `contar_vocales` que reciba una cadena de caracteres y devuelva 
-la cantidad de vocales (mayúsculas y minúsculas) que contiene.
-```
-
-:::{solution} contar_vocales
-:class: dropdown
-
-```{code-block}c
-:linenos:
+```c
 #include <stdio.h>
 #include <string.h>
-#include <ctype.h>
 
-int contar_vocales(const char cadena[])
-{
-    int contador = 0;
-    for (size_t i = 0; cadena[i] != '\0'; i++) {
-        // Convertimos el carácter a minúscula para simplificar la comparación
-        char caracter = tolower((unsigned char)cadena[i]);
-        if (caracter == 'a' || caracter == 'e' || caracter == 'i' || caracter == 'o' || caracter == 'u') {
-            contador++;
+int main() {
+    char buffer[80];
+    printf("Ingresá un texto: ");
+    
+    if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
+        size_t len = strlen(buffer);
+        // Si el último carácter es un salto de línea, lo reemplazamos por el terminador nulo
+        if (len > 0 && buffer[len - 1] == '\n') {
+            buffer[len - 1] = '\0';
         }
+        printf("Leído de forma segura: \"%s\"\n", buffer);
     }
-    return contador;
-}
-
-int main()
-{
-    char texto[] = "Este Es un Ejemplo de Cadena";
-    int vocales = contar_vocales(texto);
-    printf("La cadena: <\"%s\">\n", texto);
-    printf("Tiene %d vocales.\n", vocales);
     return 0;
 }
 ```
 :::
 
-```{exercise}
-:label: leer_cadena
-:enumerator: cadenas-1
+:::{exercise}
+:label: ej-seguro-strcmp-case
+Implementá una función pura llamada `comparar_ignorar_caso` que compare dos cadenas de caracteres de forma segura ignorando diferencias entre mayúsculas y minúsculas (usando la función `tolower` de `<ctype.h>`).
+:::
 
-Escribí un programa que pida al usuario su nombre. Leelo de forma segura usando `fgets` en un buffer de tamaño 50.
-Luego, eliminá el carácter de nueva línea (`\n`) que `fgets` suele agregar al final y mostrá un saludo.
-
-```
-
-:::{solution} leer_cadena
+:::{solution} ej-seguro-strcmp-case
 :class: dropdown
+```c
+#include <ctype.h>
+#include <stddef.h>
 
-```{code-block}c
-:linenos:
-#include <stdio.h>
-#include <string.h>
-
-int main()
-{
-    char nombre[50];
-    printf("Por favor, ingresa tu nombre: ");
-    // Leemos de forma segura desde la entrada estándar (stdin)
-    fgets(nombre, sizeof(nombre), stdin);
-
-    // Buscamos el salto de línea al final de la cadena
-    size_t largo = strlen(nombre);
-    if (largo > 0 && nombre[largo - 1] == '\n') {
-        // Si lo encontramos, lo reemplazamos por el terminador nulo
-        nombre[largo - 1] = '\0';
+int comparar_ignorar_caso(const char s1[], const char s2[]) {
+    size_t i = 0;
+    while (s1[i] != '\0' && s2[i] != '\0') {
+        char c1 = tolower((unsigned char)s1[i]);
+        char c2 = tolower((unsigned char)s2[i]);
+        
+        if (c1 != c2) {
+            return c1 - c2;
+        }
+        i++;
     }
-    printf("¡Hola, %s! Bienvenido.\n", nombre);
-    return 0;
+    return tolower((unsigned char)s1[i]) - tolower((unsigned char)s2[i]);
 }
-
 ```
-
 :::
+
+:::{exercise}
+:label: ej-seguro-buffer-overflow
+Explicá detalladamente por qué el uso de la función `strcpy(dest, src)` es vulnerable e inseguro en C en contraposición con el uso de funciones con límites explícitos.
+:::
+
+:::{solution} ej-seguro-buffer-overflow
+:class: dropdown
+La función `strcpy` copia los bytes de la cadena `src` al buffer `dest` de forma incondicional hasta encontrar el `\0` en `src`. No tiene conocimiento del tamaño físico asignado al buffer `dest`.
+Si la longitud de `src` excede la capacidad de `dest`, `strcpy` continuará escribiendo sobrepasando los límites del arreglo. Esto sobrescribe variables adyacentes en el stack, incluyendo punteros y la dirección de retorno de la función actual. Un atacante puede explotar esto para secuestrar el flujo de control ejecutando código malicioso (vulnerabilidad de *stack buffer overflow*). Para evitarlo, deben emplearse funciones con control de tamaño explícito o comprobar los límites de antemano.
+:::
+
+---
+
+## Glosario
 
 ## Conceptos Clave
 

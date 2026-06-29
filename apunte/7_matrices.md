@@ -72,6 +72,52 @@ almacenan de forma contigua siguiendo el orden row-major, donde cada fila se
 almacena completa antes de pasar a la siguiente.
 :::
 
+### Ejercicios de Autoevaluación (Definición y Declaración)
+
+:::{exercise}
+:label: ej-mat-declaracion-size
+Declará una matriz de números reales de punto flotante de precisión simple (`float`) de 5 filas y 10 columnas. Calculá de forma matemática cuántos bytes ocupará físicamente en la memoria del programa si el tipo `float` ocupa 4 bytes.
+:::
+
+:::{solution} ej-mat-declaracion-size
+:class: dropdown
+La declaración correspondiente es:
+```c
+float temperaturas[5][10];
+```
+El tamaño total en bytes se calcula multiplicando el número de filas por el de columnas por el tamaño en bytes del tipo básico:
+$$\text{Tamaño} = 5 \times 10 \times \text{sizeof(float)} = 50 \times 4\text{ bytes} = 200\text{ bytes}$$
+:::
+
+:::{exercise}
+:label: ej-mat-row-major-layout
+Dada la matriz `int M[2][3] = {{10, 20, 30}, {40, 50, 60}};`, escribí la secuencia lineal exacta de valores en la que se guardarán estos elementos en la memoria física del computador siguiendo el criterio *Row-Major Order*.
+:::
+
+:::{solution} ej-mat-row-major-layout
+:class: dropdown
+El criterio *Row-Major Order* (orden de fila principal) dispone las filas una detrás de otra en la memoria contigua. La secuencia física en RAM será:
+`[10, 20, 30, 40, 50, 60]`
+Físicamente en memoria, el elemento `M[0][2]` (`30`) es inmediatamente adyacente a `M[1][0]` (`40`).
+:::
+
+:::{exercise}
+:label: ej-mat-multidim-cube
+Escribí la declaración de un arreglo tridimensional de enteros llamado `sensores_3d` que represente lecturas físicas organizadas en 3 niveles de profundidad, donde cada nivel tiene una cuadrícula de 4 filas y 5 columnas. Calculá el número total de elementos individuales que se reservan en memoria.
+:::
+
+:::{solution} ej-mat-multidim-cube
+:class: dropdown
+La declaración del arreglo tridimensional es:
+```c
+int sensores_3d[3][4][5];
+```
+El número total de celdas de almacenamiento entero reservadas en memoria se calcula como el producto de todas sus dimensiones:
+$$\text{Elementos} = 3 \times 4 \times 5 = 60\text{ celdas}$$
+:::
+
+---
+
 ## Inicialización
 
 Podemos inicializar nuestras matrices, esencialmente, de dos formas diferentes,
@@ -163,6 +209,62 @@ para la matriz invoca un **comportamiento indefinido** según el estándar de C,
 lo cual puede manifestarse en fallos de ejecución (`segmentation fault`) o
 corrupción de datos, violando la regla de estilo {ref}`0x300Ch`.
 :::
+
+### Ejercicios de Autoevaluación (Inicialización y Acceso)
+
+:::{exercise}
+:label: ej-mat-init-implicita
+Explicá por qué la declaración `int M[3][] = {{1, 2}, {3, 4}, {5, 6}};` no es válida en C y provoca un error de compilación, fundamentando tu respuesta basándote en la forma en que el compilador direcciona la memoria.
+:::
+
+:::{solution} ej-mat-init-implicita
+:class: dropdown
+Es inválida porque la segunda dimensión (columnas) no está especificada.
+En C, para calcular la dirección física del elemento `M[i][j]`, el compilador requiere saber de forma exacta cuántos elementos contiene cada fila ($\text{CANTIDAD\_COLUMNAS}$). Sin esta dimensión, el compilador es incapaz de computar la fórmula de direccionamiento $\text{desplazamiento} = i \times \text{columnas} + j$ en memoria contigua, provocando un error de traducción. La primera dimensión es la única que puede ser implícita.
+:::
+
+:::{exercise}
+:label: ej-mat-init-manual
+Implementá un programa en C que declare una matriz de enteros de 4x4 y la inicialice programáticamente de forma tal que todos los elementos de la diagonal principal tengan el valor `1` y el resto de los elementos tengan el valor `0` (matriz identidad).
+:::
+
+:::{solution} ej-mat-init-manual
+:class: dropdown
+```c
+#include <stdio.h>
+#define N 4
+
+int main() {
+    int identidad[N][N];
+
+    for (size_t i = 0; i < N; i++) {
+        for (size_t j = 0; j < N; j++) {
+            if (i == j) {
+                identidad[i][j] = 1;
+            } else {
+                identidad[i][j] = 0;
+            }
+        }
+    }
+    return 0;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-mat-acceso-indefinido
+Explicá por qué intentar leer o escribir en `matriz[FILAS][COLUMNAS]` de una matriz declarada como `int matriz[FILAS][COLUMNAS]` es un error grave de tipo "fuera de límites" y qué consecuencias físicas provoca en la memoria.
+:::
+
+:::{solution} ej-mat-acceso-indefinido
+:class: dropdown
+Debido al uso de índices de base cero en C, los rangos válidos son:
+- Para filas: de `0` a `FILAS - 1`.
+- Para columnas: de `0` a `COLUMNAS - 1`.
+El índice `matriz[FILAS][COLUMNAS]` apunta a un elemento situado completamente fuera de la memoria reservada para el arreglo (específicamente, es la dirección adyacente a la primera posición de la fila posterior inexistente). Leer o escribir en esta dirección provoca un **comportamiento indefinido**, el cual puede resultar en corrupción de variables adyacentes en el stack o en un fallo de segmentación (*Segmentation Fault*).
+:::
+
+---
 
 ## Patrones de Recorrido y Localidad de Memoria (Caché)
 
@@ -260,6 +362,72 @@ printf("\n");
 
 Las diagonales principal y secundaria en una matriz cuadrada. La diagonal principal cumple la condición `i == j`, mientras que la secundaria cumple `i + j == DIM - 1`.
 :::
+
+### Ejercicios de Autoevaluación (Recorridos y Memoria)
+
+:::{exercise}
+:label: ej-mat-recorrido-diagonal-sec
+Escribí una función pura en C llamada `sumar_diagonal_secundaria` que reciba una matriz cuadrada de dimensión fija de $4 \times 4$ y retorne la suma de los elementos pertenecientes a su diagonal secundaria.
+:::
+
+:::{solution} ej-mat-recorrido-diagonal-sec
+:class: dropdown
+La diagonal secundaria de una matriz cuadrada de orden $N$ cumple que la suma de sus índices de fila $i$ y columna $j$ es igual a $N - 1$. Por lo tanto, $j = N - 1 - i$.
+```c
+#include <stddef.h>
+#define N 4
+
+int sumar_diagonal_secundaria(const int matriz[N][N]) {
+    int suma = 0;
+    for (size_t i = 0; i < N; i++) {
+        // Acceso directo a la diagonal secundaria
+        suma += matriz[i][N - 1 - i];
+    }
+    return suma;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-mat-cache-performance
+Explicá por qué el recorrido de una matriz por columnas (lazo externo en columnas, interno en filas) produce una degradación notable de velocidad en la CPU en comparación con el recorrido secuencial por filas.
+:::
+
+:::{solution} ej-mat-cache-performance
+:class: dropdown
+En C, las matrices se disponen linealmente en memoria por filas.
+- **Recorrido por filas**: Accede a elementos secuenciales que se encuentran de forma adyacente en memoria física. El hardware precarga estos bloques en la rápida memoria caché (localidad espacial), resultando en aciertos de caché (*cache hits*).
+- **Recorrido por columnas**: Provoca saltos en memoria equivalentes al tamaño de una fila entera en cada iteración. Esto invalida constantemente los bloques cargados en caché, forzando a la CPU a buscar los datos en la memoria RAM principal lenta (fallos de caché o *cache misses*), ralentizando el procesamiento.
+:::
+
+:::{exercise}
+:label: ej-mat-recorrido-bordes
+Escribí un fragmento de código en C que recorra una matriz de enteros `M` de dimensiones `FILAS` x `COLUMNAS` e imprima por pantalla únicamente los elementos que pertenecen al borde periférico (fila superior, columna derecha, fila inferior y columna izquierda).
+:::
+
+:::{solution} ej-mat-recorrido-bordes
+:class: dropdown
+```c
+#define FILAS 4
+#define COLUMNAS 5
+int M[FILAS][COLUMNAS];
+
+// Recorrido de los bordes periféricos
+for (size_t i = 0; i < FILAS; i++) {
+    for (size_t j = 0; j < COLUMNAS; j++) {
+        // Si pertenece a la primera o última fila, o a la primera o última columna
+        if (i == 0 || i == FILAS - 1 || j == 0 || j == COLUMNAS - 1) {
+            printf("%d\t", M[i][j]);
+        } else {
+            printf("\t"); // Espacio para el interior vacío
+        }
+    }
+    printf("\n");
+}
+```
+:::
+
+---
 
 ## Pasando matrices a funciones (Método Clásico)
 
@@ -792,79 +960,77 @@ elemento neutro en la multiplicación de matrices: A × I = I × A = A. Es
 fundamental en operaciones como la inversión de matrices. 
 :::
 
-## Ejercicios
+### Ejercicios de Autoevaluación (Funciones y Operaciones)
 
-```{exercise}
-:label: imprimir_matriz
-:enumerator: matrices-1
+:::{exercise}
+:label: ej-mat-func-vla-param
+Implementá una función en C utilizando la sintaxis de parámetros ALV/VLA (estándar C99) que reciba una matriz de enteros de dimensiones dinámicas y verifique si es una **matriz simétrica** (aquella que es igual a su transpuesta, es decir, $M_{i,j} == M_{j,i}$ para toda celda).
+:::
 
-Escribí un programa que inicialice una matriz de enteros de 3x3 con valores 
-predefinidos. Luego, recorrela utilizando lazos anidados para imprimir sus 
-elementos en la consola, manteniendo el formato de filas y columnas.
-```
-
-:::{solution} imprimir_matriz
+:::{solution} ej-mat-func-vla-param
 :class: dropdown
+Para que una matriz sea simétrica, debe ser necesariamente cuadrada (filas == columnas).
+```c
+#include <stdbool.h>
+#include <stddef.h>
 
-```{code-block}c
-:linenos:
-#include <stdio.h>
-
-#define FILAS 3
-#define COLUMNAS 3
-
-int main() {
-  int mi_matriz[FILAS][COLUMNAS] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-
-  printf("Contenido de la matriz:\n");
-  for (size_t i = 0; i < FILAS; i++) {
-    for (size_t j = 0; j < COLUMNAS; j++) {
-      printf("%d\t", mi_matriz[i][j]);
+bool es_matriz_simetrica(size_t n, const int matriz[n][n]) {
+    for (size_t i = 0; i < n; i++) {
+        for (size_t j = i + 1; j < n; j++) {
+            // Solo verificamos el triángulo superior con el inferior
+            if (matriz[i][j] != matriz[j][i]) {
+                return false;
+            }
+        }
     }
-    printf("\n"); // Salto de línea al final de cada fila
-  }
-
-  return 0;
+    return true;
 }
 ```
 :::
 
-```{exercise}
-:label: sumar_diagonal
-:enumerator: funciones-1
+:::{exercise}
+:label: ej-mat-func-desplazamiento
+Dada una matriz `int M[3][4]` cuya dirección de memoria base de inicio (`&M[0][0]`) es `0x1000` en la memoria física y sabiendo que el tipo `int` ocupa exactamente 4 bytes, deducí el cálculo matemático detallado y la dirección física resultante en la que el compilador ubicará al elemento `M[2][1]`.
+:::
 
-Implementá una función `int sumar_diagonal_principal(int matriz[][3], int dimension)` que reciba una matriz cuadrada y su dimensión. La función debe devolver la suma de los elementos de su diagonal principal (donde el índice de fila es igual al de columna).
-```
-
-:::{solution} sumar_diagonal
+:::{solution} ej-mat-func-desplazamiento
 :class: dropdown
+El cálculo de desplazamiento para un elemento `M[i][j]` en una matriz de columnas $C$ es:
+$$\text{Dirección} = \text{Dirección Base} + (i \times C + j) \times \text{sizeof(tipo)}$$
+Sustituyendo los valores del problema:
+- Dirección Base = `0x1000`
+- $i = 2$, $j = 1$
+- $C = 4$ columnas
+- $\text{sizeof(int)} = 4$ bytes
+$$\text{Desplazamiento} = (2 \times 4 + 1) \times 4 = (8 + 1) \times 4 = 9 \times 4 = 36\text{ bytes}$$
+En base hexadecimal, $36$ es igual a `0x24`. Por lo tanto:
+$$\text{Dirección física} = \text{0x1000} + \text{0x0024} = \text{0x1024}$$
+:::
 
-```{code-block}c
-:linenos:
-#include <stdio.h>
+:::{exercise}
+:label: ej-mat-operacion-transpuesta
+Escribí un procedimiento en C utilizando parámetros de tamaño variable que tome una matriz `A` de dimensiones $M \times N$ y guarde su transpuesta en otra matriz `B` de dimensiones $N \times M$.
+:::
 
-#define DIM 3
+:::{solution} ej-mat-operacion-transpuesta
+:class: dropdown
+```c
+#include <stddef.h>
 
-// La función recibe la matriz y su dimensión
-int sumar_diagonal_principal(int matriz[][DIM], size_t dimension) {
-  int suma = 0;
-  for (size_t i = 0; i < dimension; i++) {
-    suma = suma + matriz[i][i];
-    // Accedemos solo a los elementos donde fila == columna
-  }
-  return suma;
-}
-
-int main() {
-  int matriz_cuadrada[DIM][DIM] = {{10, 2, 3}, {4, 20, 6}, {7, 8, 30}};
-
-  int suma = sumar_diagonal_principal(matriz_cuadrada, DIM);
-  printf("La suma de la diagonal principal es: %d\n", suma);
-
-  return 0;
+void transponer_matriz(size_t filas_a, size_t cols_a, 
+                       const int A[filas_a][cols_a], 
+                       int B[cols_a][filas_a]) {
+    for (size_t i = 0; i < filas_a; i++) {
+        for (size_t j = 0; j < cols_a; j++) {
+            // El elemento A[i][j] se copia en B[j][i]
+            B[j][i] = A[i][j];
+        }
+    }
 }
 ```
 :::
+
+---
 
 ## Apéndice Avanzado: Operaciones Matriciales de Álgebra Lineal
 
