@@ -8,14 +8,32 @@ subtitle: Instalación, configuración y uso del compilador Clang
 
 Clang es un compilador de C, C++ y Objective-C de código abierto construido sobre la infraestructura LLVM (Low Level Virtual Machine). Desarrollado originalmente por Apple y ahora mantenido por la comunidad LLVM, se ha convertido en una alternativa moderna y robusta a GCC.
 
+### Arquitectura de LLVM / Clang
+
+LLVM utiliza una arquitectura modular de tres fases (Frontend, Optimizador y Backend) que se diferencia de los compiladores tradicionales monolíticos. A continuación podés observar el flujo de compilación detallado:
+
+```{image} images/arquitectura_llvm.svg
+:alt: Flujo de Compilación en LLVM / Clang
+:align: center
+:width: 100%
+```
+
+#### Descripción de las Fases
+
+1.  **Frontend (Clang):** Procesa tu código fuente (.c/.cpp). Realiza el análisis léxico (descomposición en tokens), el análisis sintáctico (construcción del AST - Árbol de Sintaxis Abstracta) y la validación semántica (chequeo de tipos y reglas del lenguaje). Finalmente, genera la **Representación Intermedia de LLVM (LLVM IR)**.
+2.  **Representación Intermedia (LLVM IR):** Es un lenguaje de ensamblador universal, independiente de la arquitectura de destino. Permite que el optimizador trabaje sobre un estándar unificado.
+3.  **Optimizador (opt):** Aplica transformaciones sobre el LLVM IR para mejorar el rendimiento y reducir el tamaño del ejecutable (ej: eliminación de código muerto, desenrollado de lazos, inlining de funciones). Es totalmente independiente del procesador del host.
+4.  **Backend (Codegen / llc):** Toma el LLVM IR optimizado y lo traduce al lenguaje ensamblador específico de tu procesador (ej: x86-64).
+5.  **Enlazador (lld):** Une los archivos de código objeto generados con las bibliotecas del sistema (como la UCRT de Windows o la glibc de Linux) para producir el archivo binario ejecutable final.
+
 ### ¿Por qué usar Clang?
 
-- **Mensajes de error superiores**: Clang es famoso por sus mensajes de error claros y útiles, con sugerencias específicas de cómo corregir problemas
-- **Velocidad de compilación**: Generalmente más rápido que GCC, especialmente en proyectos grandes
-- **Arquitectura modular**: Diseñado desde cero como una biblioteca reutilizable, facilitando la creación de herramientas
-- **Herramientas integradas**: Incluye clang-format, clang-tidy, clangd (language server), y más
-- **Análisis estático avanzado**: Mejor detección de bugs potenciales durante la compilación
-- **Soporte multiplataforma**: Funciona idénticamente en Linux, macOS y Windows
+- **Mensajes de error superiores**: Clang es famoso por sus mensajes de error claros y útiles, con sugerencias específicas de cómo corregir problemas.
+- **Velocidad de compilación**: Generalmente más rápido que GCC, especialmente en proyectos grandes.
+- **Arquitectura modular**: Diseñado desde cero como una biblioteca reutilizable, facilitando la creación de herramientas auxiliares.
+- **Herramientas integradas**: Incluye clang-format, clang-tidy, clangd (language server) y más.
+- **Análisis estático avanzado**: Mejor detección de bugs potenciales durante la compilación.
+- **Soporte multiplataforma**: Funciona idénticamente en Linux, macOS y Windows.
 
 :::{note}
 **Historia**
@@ -253,6 +271,33 @@ clang -o programa main.o lista.o utils.o
 # Con bibliotecas del sistema
 clang -o programa main.o lista.o utils.o -lm  # linkear libm (matemática)
 ```
+
+### Proyectos complejos (CMake y Ninja)
+
+Cuando tu proyecto crece y se divide en múltiples módulos, no es práctico escribir comandos manuales en la consola. El entorno portable de la cátedra bajo el subsistema CLANG64 de Windows incluye **CMake** y **Ninja** para la automatización del proceso de compilación.
+
+Podés definir un archivo `CMakeLists.txt` básico en la raíz de tu proyecto:
+
+```cmake
+cmake_minimum_required(VERSION 3.20)
+project(MiProyecto C)
+
+set(CMAKE_C_STANDARD 11)
+
+add_executable(programa main.c lista.c utils.c)
+```
+
+Y luego compilar desde tu consola ejecutando:
+
+```bash
+# Configurar el directorio de construcción
+cmake -G Ninja -B build
+
+# Compilar el proyecto
+cmake --build build
+```
+
+Ninja utilizará el compilador Clang en paralelo para realizar compilaciones incrementales ultrarrápidas, compilando únicamente los archivos modificados desde la última compilación.
 
 ### Sanitizers: detectores de bugs en runtime
 

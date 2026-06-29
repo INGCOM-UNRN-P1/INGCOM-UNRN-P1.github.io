@@ -26,11 +26,9 @@ El dominio de la interfaz de línea de comandos y el control de versiones es un 
 Comprender las etapas de traducción de código fuente a lenguaje de máquina es clave para optimizar y depurar programas en C.
 
 *   **[Entorno de desarrollo](entorno.md)**: Configuración inicial del entorno de desarrollo modular en sistemas Windows, Linux y macOS.
-*   **[Compilador y compilación](compilador.md)**: Guía detallada de instalación manual del compilador (GCC/MinGW-w64) y su vinculación con las variables de entorno del sistema.
-*   **[Compilación específica](compilacion.md)**: Ejemplo práctico sobre cómo compilar archivos individuales usando comandos básicos.
-*   **[Compilación y GCC](gcc.md)**: Manual profundo sobre la suite de compilación de GNU. Detalla banderas de compilación (`-Wall`, `-Wextra`, `-Wpedantic`), control de la pila y generación de código de depuración.
-*   **[Clang/LLVM](clang.md)**: Introducción al ecosistema de herramientas de LLVM.
-*   **[LLVM‑Clang](llvm-clang.md)**: Manual sobre la arquitectura modular del compilador LLVM, el análisis del árbol de sintaxis abstracta (AST), representación intermedia (IR) y los niveles de optimización del código (`-O2`, `-O3`).
+*   **[Instalación del compilador](compilador.md)**: Guía detallada de instalación manual de GCC/MinGW-w64 en Windows y su vinculación con las variables de entorno del sistema.
+*   **[Compilador GCC](gcc.md)**: Manual profundo sobre la suite de compilación de GNU. Detalla banderas de compilación (`-Wall`, `-Wextra`, `-Wpedantic`), optimizaciones, modularidad y depuración.
+*   **[Compilador Clang/LLVM](clang.md)**: Guía completa de Clang y LLVM. Explica la arquitectura modular en tres fases, uso básico, optimización, herramientas integradas (`clang-format`, `clang-tidy`, `clangd`), depuración con `lldb` e integración con CMake y Ninja en el entorno CLANG64.
 
 ---
 
