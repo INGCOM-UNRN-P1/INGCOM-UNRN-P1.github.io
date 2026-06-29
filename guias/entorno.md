@@ -1,4 +1,4 @@
-# Manual del Entorno de Desarrollo Portable
+# Manual del Entorno de Desarrollo
 
 Este manual describe el funcionamiento, la arquitectura y las herramientas del entorno de desarrollo portable C/Python diseñado para Windows. El objetivo principal es brindarte un espacio de trabajo aislado y autocontenido que no dependa de variables globales de tu máquina host.
 
@@ -8,10 +8,12 @@ Este manual describe el funcionamiento, la arquitectura y las herramientas del e
 
 El entorno está diseñado bajo el principio de aislamiento absoluto. A continuación se presenta el diagrama de bloques que detalla cómo se organizan y comunican sus componentes:
 
-```{image} images/arquitectura_entorno.svg
-:alt: Arquitectura del Entorno Portable
+```{figure} images/arquitectura_entorno.svg
+:alt: Diagrama de arquitectura del entorno de desarrollo portable. Muestra los flujos de inicialización desde los lanzadores (launch.bat/launch.ps1), la configuración del PATH local apuntando a bin/ y clang64/bin, el aislamiento de datos de VS Code en la carpeta vscode/data, y la persistencia de las claves y configuraciones de usuario dentro del directorio personal home/.
 :align: center
 :width: 100%
+
+Arquitectura del entorno de desarrollo portable y flujo de aislamiento de variables.
 ```
 
 ### Componentes Físicos y Lógicos

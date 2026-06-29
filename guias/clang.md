@@ -12,10 +12,12 @@ Clang es un compilador de C, C++ y Objective-C de código abierto construido sob
 
 LLVM utiliza una arquitectura modular de tres fases (Frontend, Optimizador y Backend) que se diferencia de los compiladores tradicionales monolíticos. A continuación podés observar el flujo de compilación detallado:
 
-```{image} images/arquitectura_llvm.svg
-:alt: Flujo de Compilación en LLVM / Clang
+```{figure} images/arquitectura_llvm.svg
+:alt: Diagrama de la arquitectura de compilación de LLVM. Se detallan las tres fases secuenciales: el Frontend de Clang (que toma el archivo fuente y genera el árbol sintáctico AST y la Representación Intermedia LLVM IR), el Optimizador independiente de la plataforma (que aplica optimizaciones sobre el código IR), y el Backend de Codegen junto con el Enlazador lld (que transforman el IR en código ensamblador y finalmente en el archivo binario ejecutable final para la máquina host).
 :align: center
 :width: 100%
+
+Arquitectura modular de compilación en tres fases de LLVM / Clang.
 ```
 
 #### Descripción de las Fases
