@@ -106,6 +106,7 @@ project:
             - file: ejercicios/diseno_api.md
     - title: Referencia
       children:
+        - file: referencia/indice.md
         - file: referencia/guide-makefiles.md
         - file: referencia/guide-printf.md
         - file: referencia/A_stdlib.md
