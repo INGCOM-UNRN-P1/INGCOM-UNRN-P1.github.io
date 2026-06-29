@@ -33,14 +33,16 @@ Un programador competente en C debería poder reconocer inmediatamente las inten
 #### 1. Patrones de iteración estándar
 
 **Idiomático:**
-```c
+```{code-block}c
+:linenos:
 for (size_t i = 0; i < n; i++) {
     // Procesar elemento i
 }
 ```
 
 **No idiomático:**
-```c
+```{code-block}c
+:linenos:
 size_t i = 0;
 while (i < n) {
     // Procesar elemento i
@@ -51,7 +53,8 @@ while (i < n) {
 #### 2. Manejo de memoria con validación inmediata
 
 **Idiomático:**
-```c
+```{code-block}c
+:linenos:
 int *arr = malloc(n * sizeof(int));
 if (arr == NULL) {
     return ERROR_MEMORIA;
@@ -59,7 +62,8 @@ if (arr == NULL) {
 ```
 
 **No idiomático:**
-```c
+```{code-block}c
+:linenos:
 int *arr;
 arr = malloc(n * sizeof(int));
 // ... otras operaciones ...
@@ -71,13 +75,15 @@ if (arr == NULL) {  // Validación tardía
 #### 3. Uso de punteros para recorrer arreglos (cuando es apropiado)
 
 **Idiomático para copia de cadenas:**
-```c
+```{code-block}c
+:linenos:
 while (*destino++ = *origen++)
     ;
 ```
 
 **Menos idiomático:**
-```c
+```{code-block}c
+:linenos:
 int i = 0;
 while (origen[i] != '\0') {
     destino[i] = origen[i];
@@ -102,7 +108,8 @@ Este patrón idiomático **parece contradecir** las reglas {ref}`0x0000h <0x0000
 #### 4. Inicialización de estructuras
 
 **Idiomático:**
-```c
+```{code-block}c
+:linenos:
 persona_t persona = {
     .nombre = "Juan",
     .edad = 30,
@@ -111,7 +118,8 @@ persona_t persona = {
 ```
 
 **No idiomático:**
-```c
+```{code-block}c
+:linenos:
 persona_t persona;
 persona.nombre = "Juan";
 persona.edad = 30;
@@ -134,7 +142,8 @@ La inicialización con sintaxis designada (`.campo = valor`) es tanto idiomátic
 #### 5. Retorno anticipado (early return)
 
 **Idiomático:**
-```c
+```{code-block}c
+:linenos:
 int procesar_datos(const int *datos, size_t n) {
     if (datos == NULL) {
         return -1;
@@ -149,7 +158,8 @@ int procesar_datos(const int *datos, size_t n) {
 ```
 
 **No idiomático:**
-```c
+```{code-block}c
+:linenos:
 int procesar_datos(const int *datos, size_t n) {
     int resultado = -1;
     if (datos != NULL) {
@@ -183,12 +193,14 @@ Este patrón es una de las técnicas más importantes para mantener código legi
 #### 6. Uso de operador ternario para asignaciones simples
 
 **Idiomático:**
-```c
+```{code-block}c
+:linenos:
 int maximo = (a > b) ? a : b;
 ```
 
 **No idiomático:**
-```c
+```{code-block}c
+:linenos:
 int maximo;
 if (a > b) {
     maximo = a;
@@ -213,12 +225,14 @@ El operador ternario **está estrictamente prohibido por la regla** {ref}`0x1007
 - Cuando se necesita ejecutar múltiples sentencias
 
 **Ejemplo apropiado:**
-```c
+```{code-block}c
+:linenos:
 const char *mensaje = (usuario_conectado) ? "Bienvenido" : "Inicia sesión";
 ```
 
 **Ejemplo inapropiado (anidado):**
-```c
+```{code-block}c
+:linenos:
 // NO hacer esto - viola la claridad
 int resultado = (x > 0) ? ((y > 0) ? 1 : 2) : ((y > 0) ? 3 : 4);
 ```
@@ -227,7 +241,8 @@ int resultado = (x > 0) ? ((y > 0) ? 1 : 2) : ((y > 0) ? 3 : 4);
 #### 7. Convenciones de tipos opacos
 
 **Idiomático:**
-```c
+```{code-block}c
+:linenos:
 typedef struct lista lista_t;  // Declaración adelantada
 
 struct lista {
@@ -240,7 +255,8 @@ void lista_destruir(lista_t *lista);
 ```
 
 **No idiomático:**
-```c
+```{code-block}c
+:linenos:
 struct lista {
     nodo_t *primero;
     size_t cantidad;
@@ -253,13 +269,15 @@ struct lista* crear_lista(void);
 #### 8. Macros para constantes y expresiones simples
 
 **Idiomático:**
-```c
+```{code-block}c
+:linenos:
 #define MAX_BUFFER 1024
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 ```
 
 **No idiomático:**
-```c
+```{code-block}c
+:linenos:
 const int MAX_BUFFER = 1024;  // En C89/90 no es idiomático para constantes globales
 int min(int a, int b) { return a < b ? a : b; }  // Overhead de función para operación trivial
 ```
@@ -267,7 +285,8 @@ int min(int a, int b) { return a < b ? a : b; }  // Overhead de función para op
 #### 9. Validación de punteros antes de uso
 
 **Idiomático:**
-```c
+```{code-block}c
+:linenos:
 void procesar(const dato_t *dato) {
     if (dato == NULL) {
         return;
@@ -277,7 +296,8 @@ void procesar(const dato_t *dato) {
 ```
 
 **No idiomático:**
-```c
+```{code-block}c
+:linenos:
 void procesar(const dato_t *dato) {
     // Asumir que dato nunca es NULL
     printf("%d\n", dato->valor);  // Peligroso
@@ -292,7 +312,8 @@ La validación de punteros **es obligatoria** según {ref}`0x3008h <0x3008h>` (v
 **Dos enfoques válidos:**
 
 **1. Enfoque defensivo (preferido para funciones públicas):**
-```c
+```{code-block}c
+:linenos:
 bool agregar_elemento(lista_t *lista, int valor) {
     if (lista == NULL) {
         return false;  // Validación explícita
@@ -303,7 +324,8 @@ bool agregar_elemento(lista_t *lista, int valor) {
 ```
 
 **2. Enfoque por contrato (aceptable para funciones privadas):**
-```c
+```{code-block}c
+:linenos:
 // PRECONDICIÓN: lista != NULL (documentado)
 static void insertar_nodo(lista_t *lista, nodo_t *nodo) {
     assert(lista != NULL);  // Solo en debug
@@ -320,7 +342,8 @@ Algunos patrones son especialmente característicos de C y reconocidos universal
 
 #### Patrón de constructor/destructor
 
-```c
+```{code-block}c
+:linenos:
 // Crear
 tipo_t* tipo_crear(void) {
     tipo_t *obj = malloc(sizeof(tipo_t));
@@ -343,7 +366,8 @@ void tipo_destruir(tipo_t *obj) {
 
 #### Patrón de handle opaco
 
-```c
+```{code-block}c
+:linenos:
 // En el .h (interfaz pública)
 typedef struct archivo_ctx archivo_ctx_t;
 
@@ -360,7 +384,8 @@ struct archivo_ctx {
 
 #### Patrón de función con parámetro de salida
 
-```c
+```{code-block}c
+:linenos:
 bool operacion_compleja(const dato_t *entrada, resultado_t *salida) {
     if (entrada == NULL || salida == NULL) {
         return false;
@@ -374,7 +399,8 @@ bool operacion_compleja(const dato_t *entrada, resultado_t *salida) {
 
 #### Patrón de callback con contexto
 
-```c
+```{code-block}c
+:linenos:
 typedef void (*callback_t)(void *datos, void *contexto);
 
 void iterar(lista_t *lista, callback_t callback, void *contexto) {
@@ -401,7 +427,8 @@ Es igualmente importante reconocer construcciones que **no son idiomáticas** en
 
 #### Anti-patrón 1: Reimplementar funciones estándar
 
-```c
+```{code-block}c
+:linenos:
 // No idiomático
 int mi_strlen(const char *s) {
     int len = 0;
@@ -415,7 +442,8 @@ size_t longitud = strlen(cadena);
 
 #### Anti-patrón 2: Comparar con `true`/`false` explícitamente
 
-```c
+```{code-block}c
+:linenos:
 // No idiomático
 if (condicion == true) { ... }
 
@@ -425,7 +453,8 @@ if (condicion) { ... }
 
 #### Anti-patrón 3: Comparar punteros con NULL usando `==`
 
-```c
+```{code-block}c
+:linenos:
 // Menos idiomático
 if (ptr != NULL) { ... }
 
@@ -446,7 +475,8 @@ if (ptr) { ... }
 4. **Prevención de errores**: Evita confusión entre `if (ptr)` y `if (*ptr)`
 
 **Comparación:**
-```c
+```{code-block}c
+:linenos:
 // PREFERIDO en este curso (explícito)
 if (ptr != NULL) {
     printf("%d\n", *ptr);
@@ -475,7 +505,8 @@ Nota: Esta es una cuestión de preferencia. Algunos equipos prefieren la forma e
 
 #### Anti-patrón 4: Uso excesivo de `goto`
 
-```c
+```{code-block}c
+:linenos:
 // No idiomático (salvo para limpieza de recursos)
 void funcion(void) {
     int x = 0;
@@ -507,7 +538,8 @@ void funcion(void) {
 
 El único uso idiomático de `goto` en C moderno es para **limpieza de recursos en caso de error**:
 
-```c
+```{code-block}c
+:linenos:
 int procesar_archivo(const char *ruta) {
     FILE *archivo = NULL;
     char *buffer = NULL;
@@ -584,7 +616,8 @@ Es importante entender que **el código idiomático y las reglas de estilo no si
 En el mundo profesional, se asume un nivel de experiencia donde ciertos patrones densos son inmediatamente comprensibles. En un contexto educativo, **priorizamos la claridad explícita**.
 
 **Ejemplo:**
-```c
+```{code-block}c
+:linenos:
 // Idiomático profesional (denso pero correcto)
 while (*d++ = *s++);
 
@@ -610,7 +643,8 @@ Las reglas de estilo estrictas funcionan como **rueditas de bicicleta**:
 
 **Progresión esperada:**
 
-```c
+```{code-block}c
+:linenos:
 // Nivel principiante (muy explícito)
 int suma = 0;
 for (size_t i = 0; i < longitud_arreglo; i++) {
@@ -654,7 +688,8 @@ Todos son correctos, pero el nivel de idiomaticidad apropiado depende de tu expe
 
 **1. Código de sistema vs código de aplicación**
 
-```c
+```{code-block}c
+:linenos:
 // Código de sistema (Linux kernel style - muy idiomático)
 if (unlikely(!ptr))
     goto out_free;
@@ -667,7 +702,8 @@ if (ptr == NULL) {
 
 **2. Optimización vs claridad**
 
-```c
+```{code-block}c
+:linenos:
 // Idiomático optimizado (registro loop)
 register int i;
 for (i = 0; i < n; i++) { /* ... */ }
@@ -680,7 +716,8 @@ Compiladores modernos optimizan mejor que programadores humanos en el 99% de los
 
 **3. Expresividad de dominio vs generalidad**
 
-```c
+```{code-block}c
+:linenos:
 // Idiomático para grafos (nombres de dominio)
 for (v = g->V; v; v = v->next) { /* ... */ }
 

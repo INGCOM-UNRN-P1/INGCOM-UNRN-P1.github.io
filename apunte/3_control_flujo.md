@@ -24,7 +24,8 @@ El programa evalúa condiciones lógicas y ejecuta el bloque de instrucciones co
 
 Las estructuras condicionales bifurcan el camino del programa. Es importante notar que tanto las ramas alternativas `else if` como la rama por defecto `else` son **opcionales**; podés utilizar una instrucción `if` simple para ejecutar un bloque de código únicamente si se cumple la condición, continuando de forma secuencial en caso contrario.
 
-```c
+```{code-block}c
+:linenos:
 if (condicion) {
     // Bloque ejecutado si la condición es verdadera
 } else if (otra_condicion) {
@@ -49,7 +50,8 @@ está permitido, ya que puede generar confusión.
 
 En C estándar, los operadores relacionales y lógicos no devuelven un tipo booleano nativo, sino que **devuelven un valor entero (`int`)**: `1` para representar verdadero y `0` para representar falso. Es por esto que expresiones como `5 > 3` se evalúan físicamente como el entero `1`.
 
-```c
+```{code-block}c
+:linenos:
 if (edad >= 18) {
     printf("Mayor de edad\n");
 } else {
@@ -62,7 +64,8 @@ if (edad >= 18) {
 
 La estructura `switch` evalúa una expresión entera y busca una coincidencia con alguna de las constantes definidas en las etiquetas `case`. Al encontrarla, transfiere el control directamente a ese punto. Es una alternativa más limpia y eficiente a múltiples `if-else if` anidados cuando se compara una misma variable contra múltiples constantes de tipo entero o carácter.
 
-```c
+```{code-block}c
+:linenos:
 switch (opcion) {
     case 1:
         // Código para opción 1
@@ -95,7 +98,8 @@ Hay tres construcciones principales de lazos en C:
 
 El bloque de código interno se ejecuta mientras la condición lógica sea verdadera.
 
-```c
+```{code-block}c
+:linenos:
 int i = 0;
 while (i < 5) {
     printf("i vale %d\n", i);
@@ -114,7 +118,8 @@ Diagrama de flujo del lazo while: evalúa la condición, ejecuta el bloque si es
 
 Es la estructura recomendada para repeticiones de rango conocido. Su sintaxis concentra el control de la iteración:
 
-```c
+```{code-block}c
+:linenos:
 for (inicialización; condición; incremento)
 {
     // Bloque de instrucciones
@@ -135,7 +140,8 @@ Este tipo de lazo es ideal cuando se sabe cuántas veces se quiere repetir.
 Aunque hace lo mismo que el `while`, este es más estructurado con secciones
 específicas para cada acción del lazo.
 
-```c
+```{code-block}c
+:linenos:
 for (int i = 0; i < 5; i++) {
     printf("i vale %d\n", i);
 }
@@ -158,7 +164,8 @@ En esta expresión matemática, la variable $i$ funciona exactamente como nuestr
 
 En C, trasladás esta equivalencia matemática directamente a la cabecera del lazo `for`:
 
-```c
+```{code-block}c
+:linenos:
 for (int i = 0; i < n; i++) {
     // Procesar x[i]
 }
@@ -179,7 +186,8 @@ Garantiza que el bloque se ejecutará al menos una vez antes de verificar la con
 :align: center
 ```
 
-```c
+```{code-block}c
+:linenos:
 int clave = 0;
 do {
     printf("Ingrese la clave de acceso (1234): ");
@@ -214,7 +222,8 @@ Se utiliza para recordar si una condición fue alcanzada durante un proceso. Por
 
 Para cumplir con la regla de diseño estructurado (que prohíbe el uso de interrupciones abruptas como `break` en lazos), la bandera se integra directamente como condición de corte en la cabecera del lazo:
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 #include <stdbool.h> // Necesario para el tipo de dato bool
 
@@ -246,7 +255,8 @@ int main() {
 ### 2. Control de permanencia en lazos interactivos
 Se utiliza para gobernar la repetición de un lazo cuando no se conoce de antemano la cantidad de iteraciones (por ejemplo, entrada de datos interactiva del usuario). El lazo se ejecuta mientras la bandera se mantenga activa y finaliza cuando un evento apaga la bandera:
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -282,7 +292,8 @@ que comience el proceso de acumulación.
 
 Imaginemos que queremos calcular la suma de los primeros N números enteros.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -323,7 +334,8 @@ ocurre.
 
 Supongamos que queremos contar cuántos números pares hay en un rango dado.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -362,7 +374,8 @@ C provee dos instrucciones de control para alterar el flujo normal de iteración
 #### `break` (Interrupción)
 Finaliza la ejecución del lazo de forma inmediata, saltando a la primera instrucción que se encuentre fuera del bloque del ciclo.
 
-```c
+```{code-block}c
+:linenos:
 for (int i = 1; i <= 10; i++) {
     if (i == 5) {
         break; // Sale inmediatamente del lazo cuando i vale 5
@@ -374,7 +387,8 @@ for (int i = 1; i <= 10; i++) {
 #### `continue` (Salto de iteración)
 Omite el resto del bloque de instrucciones del ciclo actual y avanza directamente a evaluar la condición para la siguiente iteración.
 
-```c
+```{code-block}c
+:linenos:
 for (int i = 1; i <= 5; i++) {
     if (i == 3) {
         continue; // Salta al final del bloque e inicia la iteración de i = 4
@@ -412,7 +426,8 @@ Para solucionar este comportamiento, debés limpiar o "purgar" el buffer de entr
 
 El siguiente ejemplo demuestra el problema y su solución utilizando `getchar()` dentro de un lazo `while`:
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 int main() {

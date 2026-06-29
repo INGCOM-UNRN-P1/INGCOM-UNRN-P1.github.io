@@ -744,7 +744,7 @@ Entender cómo manipular estos parámetros es fundamental para crear herramienta
 
 La signatura estándar de la función `main` que acepta argumentos es la siguiente:
 
-```c
+```{code-block}c
 int main(int argc, char *argv[]) {
     // Tu código aquí
     return EXIT_SUCCESS;
@@ -789,6 +789,7 @@ valores en `argv` e imprime cada uno de sus elementos.
 ```{code-block} c
 :caption: "Programa que itera e imprime sus argumentos."
 :label: "c-print-args"
+:linenos:
 
 #include <stdio.h>
 #include <stdlib.h> // Para EXIT_SUCCESS
@@ -1003,7 +1004,8 @@ Cada programa retorna un **código de salida** (o _exit status_) al shell cuando
 
 Este código es fundamental para que el shell y otros programas sepan si tu programa funcionó correctamente.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -1031,7 +1033,8 @@ El shell mantiene un conjunto de **variables de entorno** que los programas pued
 
 La función {ref}`getenv <stdlib-getenv>` permite leer estas variables:
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -1081,7 +1084,8 @@ Los tres flujos de datos estándar en un programa C: `stdin`, `stdout` y `stderr
 
 En C, estos flujos están disponibles como:
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 // stdin  - entrada estándar (teclado por defecto)
@@ -1132,7 +1136,8 @@ Distintas formas de redirección en el shell. El programa no necesita modificars
 
 Desde el punto de vista del programa en C, no necesitás hacer nada especial: simplemente usá `printf` (para stdout) y `fprintf(stderr, ...)` (para stderr) normalmente. El shell se encarga de la redirección.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -1168,7 +1173,8 @@ De forma similar, el shell puede cambiar de dónde un programa lee su entrada us
 
 Cualquier lectura que tu programa haga desde `stdin` (usando `scanf`, `fgets`, `getchar`, etc.) leerá del archivo especificado:
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -1219,7 +1225,8 @@ Las canalizaciones promueven la **filosofía Unix**: escribir programas pequeño
 
 #### Ejemplo: Filtro de Números Pares
 
-```c
+```{code-block}c
+:linenos:
 // filtro_pares.c
 #include <stdio.h>
 #include <stdlib.h>
@@ -1281,7 +1288,8 @@ Para que tu programa funcione bien en canalizaciones:
 3. **Mensajes de error a `stderr`**: No contamines `stdout` con errores
 4. **Maneja EOF correctamente**: Detectá cuando la entrada termina (`fgets` retorna `NULL`, `scanf` retorna `EOF`)
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -1338,7 +1346,8 @@ Un programa bien diseñado para la línea de comandos es como una pieza de LEGO:
 
 Veamos un ejemplo que integra todos estos conceptos:
 
-```c
+```{code-block}c
+:linenos:
 // temp_converter.c
 #include <stdio.h>
 #include <stdlib.h>

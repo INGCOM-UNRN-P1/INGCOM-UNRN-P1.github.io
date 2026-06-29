@@ -5,7 +5,6 @@ description: 'Apertura, lectura, escritura y control de errores al trabajar con 
 ---
 
 (archivos-texto-capitulo)=
-
 # Trabajando con archivos (de texto) en C
 
 El manejo de archivos es una capacidad fundamental en la mayoría de las
@@ -183,6 +182,7 @@ mostrar un mensaje de error legible por humanos, podés usar la función
 ```{code-block}c
 :caption: Verificación de errores al abrir un archivo
 :label: fopen-error-handling
+:linenos:
 
 #include <stdio.h>
 #include <errno.h> // Necesario para perror()
@@ -247,6 +247,7 @@ archivo (_file stream_). Es una herramienta fundamental para la manipulación de
 archivos a bajo nivel en C.
 
 ```{code-block}c
+:linenos:
 /**
  * Escribe un carácter en un flujo de archivo.
  *
@@ -270,6 +271,7 @@ automáticamente. Devuelve un valor no negativo si tiene éxito, o `EOF` en caso
 de error.
 
 ```{code-block}c
+:linenos:
 /**
  * Escribe una cadena de caracteres en un flujo de archivo.
  *
@@ -289,6 +291,7 @@ Devuelve el número de caracteres escritos, o un valor negativo si ocurre un
 error.
 
 ```{code-block}c
+:linenos:
 /**
  * @brief Escribe datos con formato en un flujo de archivo.
  *
@@ -312,6 +315,7 @@ int fprintf(FILE *stream, const char *formato, ...);
 ```{code-block}c
 :caption: Ejemplo de escritura y gestión de errores
 :label: file-writing-example-advanced
+:linenos:
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -416,6 +420,7 @@ usar `fflush(FILE *stream)`.
 La función `fgetc` se utiliza para leer un único carácter desde un flujo de archivo. Es la contraparte directa de `fputc`.
 
 ```{code-block}c
+:linenos:
 /**
  * @brief Lee un carácter desde un flujo de archivo.
  *
@@ -432,6 +437,7 @@ int fgetc(FILE *stream);
 La función `fgets` se utiliza para leer una línea o una cadena de caracteres desde un flujo de archivo. Es más segura que la antigua función `gets` porque permite especificar un tamaño máximo para el búfer, evitando desbordamientos, una práctica recomendada por la regla {ref}`0x5006h`.
 
 ```{code-block}c
+:linenos:
 /**
  * @brief Lee una cadena de caracteres desde un flujo de archivo.
  *
@@ -462,6 +468,7 @@ memoria de la `cadena`.
 La función `fscanf` se utiliza para leer datos con formato desde un flujo de archivo. Funciona de manera análoga a `scanf`, pero operando sobre un archivo en lugar de la entrada estándar.
 
 ```{code-block}c
+:linenos:
 /**
  * @brief Lee datos con formato desde un flujo de archivo.
  *
@@ -489,6 +496,7 @@ A continuación, se descompone el código sección por sección.
 #### 1. Inclusiones y definiciones (`#include` y `#define`)
 
 ```{code-block}c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -522,12 +530,12 @@ A continuación, se descompone el código sección por sección.
 #### 2. Apertura del archivo y manejo de errores
 
 ```{code-block}c
+:linenos:
 FILE *entrada = fopen(NOMBRE_ARCHIVO, "r");
 if (!entrada) {
     perror("No se pudo abrir 'factura.txt' para lectura");
     return EXIT_FAILURE;
 }
-
 ```
 
 - **`FILE *entrada = fopen(NOMBRE_ARCHIVO, "r");`**: Esta línea intenta abrir el
@@ -553,6 +561,7 @@ if (!entrada) {
 #### 3. Lazo principal de lectura
 
 ```{code-block}c
+:linenos:
 char buffer[MAX_LINEA];
 int numero_linea = 0;
 
@@ -560,7 +569,6 @@ while (fgets(buffer, sizeof(buffer), entrada) != NULL) {
     numero_linea++;
     // ... procesamiento de la línea ...
 }
-
 ```
 
 - **`char buffer[MAX_LINEA];`**: Declara el búfer, un array de caracteres donde
@@ -581,6 +589,7 @@ while (fgets(buffer, sizeof(buffer), entrada) != NULL) {
 #### 4. Procesamiento y análisis de cada línea (Parsing)
 
 ```{code-block}c
+:linenos:
 if (strncmp(buffer, "Item:", 5) == 0) {
     char item_nombre[100];
     int cantidad;
@@ -632,12 +641,12 @@ cadena de caracteres que ya está en memoria (el `buffer`).
 #### 5. Verificación post-lazo
 
 ```{code-block}c
+:linenos:
 if (ferror(entrada)) {
     perror("Ocurrió un error de lectura en el archivo");
 } else if (feof(entrada)) {
     printf("\nProcesamiento completado. Se llegó al final del archivo.\n");
 }
-
 ```
 
 - Cuando el lazo `while (fgets(...) != NULL)` termina, hay dos posibles
@@ -654,10 +663,10 @@ if (ferror(entrada)) {
 #### 6. Limpieza y cierre
 
 ```{code-block}c
+:linenos:
 clearerr(entrada);
 fclose(entrada);
 return EXIT_SUCCESS;
-
 ```
 
 - **`clearerr(entrada)`**: Limpia los indicadores de error y de fin de archivo
@@ -701,6 +710,7 @@ correctamente es verificar el resultado del cierre.
 ```{code-block}c
 :caption: Verificación del cierre de un archivo
 :label: fclose-example
+:linenos:
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -820,6 +830,7 @@ No siempre querés leer un archivo secuencialmente. Las funciones de posicionami
 La función `ftell` se utiliza para obtener la posición actual del indicador de posición del fichero (el "cursor") dentro de un flujo. Devuelve esta posición como un número de bytes desde el inicio del archivo.
 
 ```{code-block}c
+:linenos:
 /**
  * @brief Obtiene la posición actual del indicador de posición del fichero.
  *
@@ -836,6 +847,7 @@ long int ftell(FILE *stream);
 La función `fseek` es la herramienta principal para mover el indicador de posición del fichero a una ubicación específica dentro del flujo. Permite un control preciso, moviendo el cursor un número determinado de bytes (`offset`) desde un punto de origen (`origin`).
 
 ```{code-block}c
+:linenos:
 /**
  * @brief Establece el indicador de posición del fichero a una nueva posición.
  *
@@ -857,6 +869,7 @@ int fseek(FILE *stream, long int offset, int origin);
 La función `rewind` es un caso especial y simplificado de `fseek`. Su única función es mover el indicador de posición del fichero de vuelta al inicio del archivo. Además, limpia cualquier indicador de error que pudiera tener el flujo.
 
 ```{code-block}c
+:linenos:
 /**
  * Reposiciona el indicador de posición del fichero al inicio del flujo.
  *
@@ -873,6 +886,7 @@ void rewind(FILE *stream);
 ```{code-block}c
 :caption: Uso de fseek() y ftell() para leer el último carácter
 :label: fseek-example
+:linenos:
 
 #include <stdio.h>
 #include <stdlib.h>

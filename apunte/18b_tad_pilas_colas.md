@@ -34,7 +34,8 @@ Representación en memoria de una pila implementada con lista enlazada. El tope 
 
 #### Estructura de Datos
 
-```c
+```{code-block}c
+:linenos:
 typedef struct nodo {
     void *dato;
     struct nodo *siguiente;
@@ -48,7 +49,8 @@ struct pila {
 
 #### Creación de una Pila
 
-```c
+```{code-block}c
+:linenos:
 pila_t *pila_crear(void)
 {
     pila_t *pila = malloc(sizeof(*pila));
@@ -64,7 +66,8 @@ pila_t *pila_crear(void)
 
 #### Apilar (Push)
 
-```c
+```{code-block}c
+:linenos:
 bool pila_push(pila_t *pila, void *dato)
 {
     if (pila == NULL)
@@ -93,7 +96,8 @@ La operación `pila_push` es equivalente a realizar una inserción al inicio en 
 
 #### Desapilar (Pop)
 
-```c
+```{code-block}c
+:linenos:
 bool pila_pop(pila_t *pila, void **dato)
 {
     if (pila == NULL || pila->tope == NULL)
@@ -117,7 +121,8 @@ bool pila_pop(pila_t *pila, void **dato)
 
 #### Ver Tope (Peek)
 
-```c
+```{code-block}c
+:linenos:
 bool pila_peek(const pila_t *pila, void **dato)
 {
     if (pila == NULL || pila->tope == NULL)
@@ -135,7 +140,8 @@ bool pila_peek(const pila_t *pila, void **dato)
 
 #### Verificar si está Vacía
 
-```c
+```{code-block}c
+:linenos:
 bool pila_es_vacia(const pila_t *pila)
 {
     return (pila == NULL) || (pila->tope == NULL);
@@ -144,7 +150,8 @@ bool pila_es_vacia(const pila_t *pila)
 
 #### Destruir Pila
 
-```c
+```{code-block}c
+:linenos:
 void pila_destruir(pila_t *pila, destruir_dato_fn destruir_dato)
 {
     if (pila == NULL)
@@ -193,7 +200,8 @@ Pila implementada con arreglo. El índice `tope` indica la posición del último
 
 #### Estructura de Datos
 
-```c
+```{code-block}c
+:linenos:
 struct pila {
     void **elementos;
     size_t tope;       // Próximo índice libre / Cantidad de elementos
@@ -203,7 +211,8 @@ struct pila {
 
 #### Creación con Capacidad Inicial
 
-```c
+```{code-block}c
+:linenos:
 pila_t *pila_crear_arreglo(size_t capacidad_inicial)
 {
     if (capacidad_inicial == 0)
@@ -233,7 +242,8 @@ pila_t *pila_crear_arreglo(size_t capacidad_inicial)
 
 #### Apilar con Redimensionamiento
 
-```c
+```{code-block}c
+:linenos:
 static bool pila_redimensionar(pila_t *pila)
 {
     size_t nueva_capacidad = pila->capacidad * 2;
@@ -277,7 +287,8 @@ El factor de redimensionamiento (comúnmente 2) es importante. Duplicar la capac
 
 #### Desapilar (Arreglo)
 
-```c
+```{code-block}c
+:linenos:
 bool pila_pop_arreglo(pila_t *pila, void **dato)
 {
     if (pila == NULL || pila->tope == 0)
@@ -320,7 +331,8 @@ Las pilas aparecen naturalmente en numerosos contextos de programación:
 
 #### Ejemplo: Verificación de Paréntesis Balanceados
 
-```c
+```{code-block}c
+:linenos:
 bool parentesis_balanceados(const char *expresion)
 {
     if (expresion == NULL)
@@ -376,7 +388,8 @@ Representación en memoria de una cola implementada con lista enlazada. Se manti
 
 #### Estructura de Datos
 
-```c
+```{code-block}c
+:linenos:
 typedef struct nodo {
     void *dato;
     struct nodo *siguiente;
@@ -395,7 +408,8 @@ A diferencia de la pila que solo requiere de un puntero al tope, la cola utiliza
 
 #### Creación de una Cola
 
-```c
+```{code-block}c
+:linenos:
 cola_t *cola_crear(void)
 {
     cola_t *cola = malloc(sizeof(*cola));
@@ -414,7 +428,8 @@ cola_t *cola_crear(void)
 
 #### Encolar (Enqueue)
 
-```c
+```{code-block}c
+:linenos:
 bool cola_enqueue(cola_t *cola, void *dato)
 {
     if (cola == NULL)
@@ -453,7 +468,8 @@ Es indispensable considerar el caso particular de la cola vacía. En tal situaci
 
 #### Desencolar (Dequeue)
 
-```c
+```{code-block}c
+:linenos:
 bool cola_dequeue(cola_t *cola, void **dato)
 {
     if (cola == NULL || cola->frente == NULL)
@@ -486,7 +502,8 @@ Al extraer el último elemento de la cola, esta queda vacía. En ese escenario, 
 
 #### Ver Frente (Peek)
 
-```c
+```{code-block}c
+:linenos:
 bool cola_peek(const cola_t *cola, void **dato)
 {
     if (cola == NULL || cola->frente == NULL)
@@ -504,7 +521,8 @@ bool cola_peek(const cola_t *cola, void **dato)
 
 #### Destruir Cola
 
-```c
+```{code-block}c
+:linenos:
 void cola_destruir(cola_t *cola, destruir_dato_fn destruir_dato)
 {
     if (cola == NULL)
@@ -549,7 +567,8 @@ Cola implementada como arreglo circular. Los índices se calculan módulo la cap
 
 #### Estructura de Datos
 
-```c
+```{code-block}c
+:linenos:
 struct cola {
     void **elementos;
     size_t frente;
@@ -565,7 +584,8 @@ En esta implementación con arreglo circular, el índice `final` apunta a la pos
 
 #### Creación de Cola Circular
 
-```c
+```{code-block}c
+:linenos:
 cola_t *cola_crear_circular(size_t capacidad_inicial)
 {
     if (capacidad_inicial == 0)
@@ -597,7 +617,8 @@ cola_t *cola_crear_circular(size_t capacidad_inicial)
 
 #### Encolar en Arreglo Circular
 
-```c
+```{code-block}c
+:linenos:
 static bool cola_redimensionar_circular(cola_t *cola)
 {
     size_t nueva_capacidad = cola->capacidad * 2;
@@ -651,7 +672,8 @@ El operador módulo `%` permite que el índice "dé la vuelta". Por ejemplo, si 
 
 #### Desencolar en Arreglo Circular
 
-```c
+```{code-block}c
+:linenos:
 bool cola_dequeue_circular(cola_t *cola, void **dato)
 {
     if (cola == NULL || cola->tamanio == 0)
@@ -806,12 +828,12 @@ Cada estructura de datos representa un compromiso (*trade-off*) entre tiempo de 
 
 ### Ejercicio 1: Inversión de una Cadena con Pila
 
-````{exercise}
+:::{exercise}
 :label: ejercicio-invertir-cadena
 
 Implementá una función que use una pila para invertir una cadena de caracteres.
 
-```
+```text
 función invertir_cadena(cadena: cadena) → cadena:
     // Tu implementación aquí
 ```
@@ -819,18 +841,18 @@ función invertir_cadena(cadena: cadena) → cadena:
 Por ejemplo:
 - Entrada: "hola"
 - Salida: "aloh"
-````
+:::
 
 ### Ejercicio 2: Validar Expresiones con Múltiples Delimitadores
 
-````{exercise}
+:::{exercise}
 :label: ejercicio-validar-delimitadores
 
 Extendé el ejemplo de paréntesis balanceados para soportar múltiples tipos de delimitadores: `()`, `[]`, `{}`. La función debe verificar que:
 1. Cada apertura tenga su cierre correspondiente
 2. Los cierres ocurran en el orden correcto
 
-```
+```text
 función delimitadores_balanceados(expresion: cadena) → booleano:
     // Tu implementación aquí
 ```
@@ -839,11 +861,11 @@ Por ejemplo:
 - `"{[()]}"` → válido
 - `"{[(])}"` → inválido (cierre en orden incorrecto)
 - `"{[("` → inválido (sin cerrar)
-````
+:::
 
 ### Ejercicio 3: Simulador de Impresora
 
-````{exercise}
+:::{exercise}
 :label: ejercicio-simulador-impresora
 
 Implementá un simulador de cola de impresión que:
@@ -851,7 +873,7 @@ Implementá un simulador de cola de impresión que:
 2. Procese trabajos en orden FIFO
 3. Reporte el tiempo total de procesamiento (asumí 1 segundo por página)
 
-```
+```text
 Trabajo:
     id: entero
     paginas: entero
@@ -859,11 +881,11 @@ Trabajo:
 función simular_impresora(trabajos: arreglo de Trabajo) → entero:
     // Retorna tiempo total de procesamiento
 ```
-````
+:::
 
 ### Ejercicio 4: Implementar Cola con Dos Pilas
 
-````{exercise}
+:::{exercise}
 :label: ejercicio-cola-dos-pilas
 
 Implementá una cola usando dos pilas. La idea es:
@@ -871,7 +893,7 @@ Implementá una cola usando dos pilas. La idea es:
 - Una pila para `dequeue` (salida)
 - Cuando la pila de salida está vacía, transferir todos los elementos de entrada a salida
 
-```
+```text
 Cola_con_Pilas:
     pila_entrada: Pila
     pila_salida: Pila
@@ -884,11 +906,11 @@ función dequeue_con_pilas(cola: Cola_con_Pilas, dato: referencia a entero) → 
 ```
 
 Analizá la complejidad amortizada de las operaciones.
-````
+:::
 
 ### Ejercicio 5: Evaluación de Expresiones Postfijas
 
-````{exercise}
+:::{exercise}
 :label: ejercicio-evaluar-postfija
 
 Implementá un evaluador de expresiones en notación postfija (Reverse Polish Notation) usando una pila.
@@ -902,7 +924,7 @@ Algoritmo:
 2. Si es número, apilar
 3. Si es operador, desapilar dos operandos, aplicar operación, apilar resultado
 
-```
+```text
 función evaluar_postfija(expresion: cadena) → entero:
     // Tu implementación
 ```
@@ -910,7 +932,7 @@ función evaluar_postfija(expresion: cadena) → entero:
 Por ejemplo:
 - `"3 4 + 5 *"` → 35
 - `"15 7 1 1 + - / 3 * 2 1 1 + + -"` → 5
-````
+:::
 
 ## Referencias y Lecturas Complementarias
 

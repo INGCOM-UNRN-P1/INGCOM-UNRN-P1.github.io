@@ -137,7 +137,8 @@ una variable válida o con `NULL`.
 
 Un puntero es una variable cuyo valor es una dirección de memoria física. En términos didácticos, asume el **rol de variable de referencia**: su propósito no es almacenar datos para operaciones directas, sino "apuntar" a otra variable, facilitando un acceso y una manipulación indirecta sobre la misma.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -366,7 +367,8 @@ int main() {
 
 Dado que en C todo pasaje de argumentos es estrictamente por valor (la función trabaja sobre copias en su propio stack frame), para permitir que una función altere variables del llamador y "retorne" resultados de manera indirecta, debemos emplear punteros en el rol de **parámetros de salida**.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 // 'resultado' es un parámetro de salida (puntero)
@@ -405,7 +407,8 @@ Aquí, `cociente` y `resto` son **parámetros de salida**. La función `dividir`
 
 Similar al parámetro de salida, un **parámetro de entrada/salida** utiliza un puntero para permitir que la función lea un valor inicial proporcionado por el invocador (entrada) y, tras procesarlo, modifique ese mismo espacio de memoria física (salida), reintegrando el valor alterado al ámbito original.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 // 'contador' es un parámetro de entrada/salida
@@ -581,7 +584,8 @@ La diferencia en las restricciones del compilador se resume a continuación:
 
 Analizá el siguiente comportamiento con este fragmento de código:
 
-```c
+```{code-block}c
+:linenos:
 int x = 5;
 int y = 10;
 

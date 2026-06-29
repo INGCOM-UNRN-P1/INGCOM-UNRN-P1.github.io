@@ -130,13 +130,13 @@ int main() {
 
 La salida de este código en una computadora de escritorio actual sería:
 
-````
+```text
 Tamaño de char: 1 bytes
 Tamaño de int: 4 bytes
 Tamaño de float: 4 bytes
 Tamaño de double: 8 bytes
 Tamaño de long long: 8 bytes
-````
+```
 
 Una característica del lenguaje C es que los tamaños de sus tipos de datos
 numéricos pueden variar entre diferentes arquitecturas de hardware. El operador
@@ -153,7 +153,6 @@ abordará más adelante.
 Para imprimir un valor de tipo {term}`size_t` con `printf`, se utiliza el
 especificador de formato `%zu`. El uso de `%d` o `%lu` puede provocar
 advertencias del compilador debido a posibles inconsistencias de tipo.
-
 ::::
 ### Acceso, Modificación y la Identidad del Arreglo
 
@@ -170,7 +169,7 @@ ya que representa un valor que puede ser leído.
 Por ejemplo `int valor = mi_arreglo[3];`. Aquí, `mi_arreglo[3]` nos permite
 acceder al valor de la cuarta posición.
 
-````{code-block}c
+```{code-block}c
 :linenos:
 int calificaciones[5] = {10, 8, 9, 7, 10};
 
@@ -183,15 +182,15 @@ int cuarta = calificaciones[3];
 printf("La primera calificación es: %d\n", primera);
 printf("La cuarta calificación es: %d\n", cuarta);
 printf("Acceso directo al segundo elemento: %d\n", calificaciones[1]);
-````
+```
 
 Salida:
 
-````
+```text
 La primera calificación es: 10
 La cuarta calificación es: 7
 Acceso directo al segundo elemento: 8
-````
+```
 
 #### Modificación (escritura)
 
@@ -203,7 +202,7 @@ de memoria modificable.
 Por ejemplo, `mi_arreglo[3] = 100;`. Acá, `mi_arreglo[3]` nos permite modificar
 el cuarto valor de la secuencia.
 
-````{code-block}c
+:::{code-block}c
 :linenos:
 int edades[4] = {20, 25, 22, 28};
 // 1. Mostrar el valor original del tercer elemento (índice 2)
@@ -212,14 +211,14 @@ printf("La edad original en el índice 2 es: %d\n", edades[2]);
 edades[2] = 23;
 // 3. Mostrar el valor modificado. 'edades[2]' se evalúa como un r-value.
 printf("La nueva edad en el índice 2 es: %d\n", edades[2]);
-````
+:::
 
 Salida:
 
-````
+:::
 La edad original en el índice 2 es: 22
 La nueva edad en el índice 2 es: 23
-````
+:::
 
 #### Identidad
 
@@ -390,7 +389,8 @@ En algunos casos, puede ser útil definir **una función pura** que calcule un r
 
 Por ejemplo:
 
-```c
+```{code-block}c
+:linenos:
 int encontrar_maximo(int v[], int cantidad);
 void imprimir_maximo(int v[], int cantidad) 
 {
@@ -411,7 +411,7 @@ por fuera del _retorno_ explícito de la función.
 
 Esta situación se puede dar cuando utilizamos al arreglo como una variable más.
 
-````{code-block}c
+```{code-block}c
 :caption: Contraejemplo con efectos secundarios destructivos
 :emphasize-lines: 4
 :linenos:
@@ -423,7 +423,7 @@ int maximo(int arreglo[], size_t size) {
     }
     return arreglo[0];
 }
-````
+```
 
 El problema principal del código es el efecto secundario **destructivo**. La
 función no solo calcula el valor máximo, sino que también modifica de manera
@@ -448,7 +448,8 @@ Dentro de la función, `sizeof(arreglo)` no funciona como se espera. La función
 solo conoce la dirección en memoria del arreglo, no el tamaño total de la
 secuencia original.
 
-````c
+```{code-block}c
+:linenos:
 /**
  * Esta funcion, ¡no cumple con su objetivo!
  * para cualquier arreglo que le pasemos;
@@ -471,7 +472,7 @@ int main() {
     printf("Tamaño de arreglo2: %zu\n", dos); // obtenemos 2
     return 0;
 }
-````
+```
 
 Esta situación se explica porque, teniendo en cuenta que `sizeof` se resuelve en
 tiempo de compilación, el operador no puede saber con qué arreglo vamos a llamar
@@ -518,7 +519,7 @@ El comportamiento general de una cadena es el mismo que el de un arreglo.
 
 Por ejemplo, la siguiente cadena:
 
-````c
+```{code-block}c
 char cadena[7] = "Hola";
 ````
 
@@ -536,10 +537,9 @@ basura.
 También, si aplicamos el cálculo de tamaño usando `sizeof` que vimos antes,
 vamos a obtener el tamaño en bytes de la cadena.
 
-````{code-block}c
-:linenos:
+```{code-block}c
 size_t espacio_reservado = sizeof(mi_cadena) / sizeof(mi_cadena[0]);
-````
+```
 
 Esto coincide con el largo del arreglo, ya que en el estándar del lenguaje C, el operador `sizeof(char)` es siempre igual a `1` por definición. El byte en C es, precisamente, el tamaño de almacenamiento físico de un `char`. Esto es independiente de la estrategia de codificación de caracteres empleada por la plataforma (como ASCII o UTF-8), garantizando la portabilidad de este cálculo.
 
@@ -561,7 +561,7 @@ variable arreglo (`char []`), **no pueden ser modificados**. Esto significa que
 nuestros programas no funcionaran si pasamos como argumento un literal a una
 función que modifica dicha cadena.
 
-````{code-block}c
+```{code-block}c
 :caption: Modificando cadenas
 :linenos:
 void ordena_caracteres(char cadena[]) {
@@ -592,17 +592,17 @@ int main() {
 
     return 0;
 }
-````
+```
 
 Y la salida sería:
 
-````{code-block}text
+```text
 :linenos:
 :emphasize-lines: 3
 Cadena original: "ejemplo de cadena desordenada"
 Cadena ordenada: "   aaaacdddddeeeeeejlmnnooprs"
 Segmentation fault (core dumped)
-````
+```
 
 Ese `Segmentation fault (core dumped)` resulta de intentar modificar algo que no debía ser modificado, por lo que es importante utilizar una variable de cadena intermedia para evitar este tipo de errores.
 
@@ -615,9 +615,9 @@ Para obtener el largo de una cadena, podemos usar `strlen`, definido en
 
 Esta función está definida de la siguiente forma:
 
-````{code-block}c
+```{code-block}c
 size_t strlen(const char str[]);
-````
+```
 
 Y se encarga de recorrer la cadena hasta encontrarse un carácter nulo (`\0`)
 
@@ -727,7 +727,8 @@ hay espacio suficiente**.
 
 Imagina este código:
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 #include <string.h>
 
@@ -794,7 +795,8 @@ las funciones de cadena tradicionales. Estas funciones, como `strcpy_s()`,
 `strcat_s()` y `snprintf_s()`, generalmente toman un argumento adicional: el
 tamaño del búfer de destino.
 
-```c
+```{code-block}c
+:linenos:
 // Ejemplo con strcpy_s
 char buffer[10];
 const char* origen = "Texto largo";
@@ -826,19 +828,20 @@ bibliotecas de alta calidad.
   puntero a los datos, lo que la hace compatible con funciones C que esperan un
   `char*`.
 
-  ```c
-  // Ejemplo (conceptual) de uso de SDS
-  #include "sds.h"
+```{code-block}c
+:linenos:
+// Ejemplo (conceptual) de uso de SDS
+#include "sds.h"
 
-  sds mi_cadena = sdsnew("Hola "); // Crea una nueva cadena SDS
-  mi_cadena = sdscat(mi_cadena, "Mundo!"); // Concatena de forma segura
+sds mi_cadena = sdsnew("Hola "); // Crea una nueva cadena SDS
+mi_cadena = sdscat(mi_cadena, "Mundo!"); // Concatena de forma segura
 
-  printf("%s\n", mi_cadena); // Imprime "Hola Mundo!"
-  printf("Longitud: %zu\n", sdslen(mi_cadena)); // Obtiene la longitud en O(1)
+printf("%s\n", mi_cadena); // Imprime "Hola Mundo!"
+printf("Longitud: %zu\n", sdslen(mi_cadena)); // Obtiene la longitud en O(1)
 
-  sdsfree(mi_cadena); // Libera la memoria
+sdsfree(mi_cadena); // Libera la memoria
 
-  ```
+```
 
 - **The Better String Library (bstring):** Otra biblioteca robusta y bien
   establecida que ofrece un enfoque similar a SDS.
@@ -900,7 +903,7 @@ Utilizá el operador `sizeof` para determinar la cantidad de elementos de forma 
 
 ```
 
-````{solution} sumar_arreglo
+:::{solution} sumar_arreglo
 :class: dropdown
 
 ```{code-block}c
@@ -923,7 +926,7 @@ int main()
     return 0;
 }
 ```
-````
+:::
 
 ```{exercise}
 :label: promedio_arreglo
@@ -934,7 +937,7 @@ La función debe devolver el promedio de sus elementos como un `float`.
 
 ```
 
-````{solution} promedio_arreglo
+:::{solution} promedio_arreglo
 :class: dropdown
 
 ```{code-block}c
@@ -962,7 +965,7 @@ int main()
 }
 ```
 
-````
+:::
 
 ```{exercise}
 :label: invertir_arreglo
@@ -973,7 +976,7 @@ y modifique el arreglo invirtiendo el orden de sus elementos. La función no deb
 
 ```
 
-````{solution} invertir_arreglo
+:::{solution} invertir_arreglo
 :class: dropdown
 
 ```{code-block}c
@@ -1021,7 +1024,7 @@ int main()
 
 ```
 
-````
+:::
 
 ```{exercise}
 :label: contar_vocales
@@ -1029,10 +1032,9 @@ int main()
 
 Implementá una función `contar_vocales` que reciba una cadena de caracteres y devuelva 
 la cantidad de vocales (mayúsculas y minúsculas) que contiene.
-
 ```
 
-````{solution} contar_vocales
+:::{solution} contar_vocales
 :class: dropdown
 
 ```{code-block}c
@@ -1062,8 +1064,8 @@ int main()
     printf("Tiene %d vocales.\n", vocales);
     return 0;
 }
-
-````
+```
+:::
 
 ```{exercise}
 :label: leer_cadena
@@ -1074,7 +1076,7 @@ Luego, eliminá el carácter de nueva línea (`\n`) que `fgets` suele agregar al
 
 ```
 
-````{solution} leer_cadena
+:::{solution} leer_cadena
 :class: dropdown
 
 ```{code-block}c
@@ -1101,7 +1103,7 @@ int main()
 
 ```
 
-````
+:::
 
 ## Conceptos Clave
 

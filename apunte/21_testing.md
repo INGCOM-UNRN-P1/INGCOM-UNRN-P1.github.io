@@ -57,7 +57,8 @@ Una prueba bien estructurada típicamente sigue el patrón **AAA (Arrange-Act-As
 2. **Act (Actuar)**: Ejecutar la función bajo prueba
 3. **Assert (Verificar)**: Comprobar que el resultado es el esperado
 
-```c
+```{code-block}c
+:linenos:
 void test_suma_positivo_positivo() {
     // Arrange: preparar datos de entrada
     int a = 5, b = 3;
@@ -79,7 +80,8 @@ Al diseñar pruebas, es crucial considerar diferentes categorías de casos:
 
 Representan el uso típico y esperado de la función:
 
-```c
+```{code-block}c
+:linenos:
 void test_suma_numeros_positivos() {
     assert(suma(10, 20) == 30);
 }
@@ -93,7 +95,8 @@ void test_suma_numeros_negativos() {
 
 Prueban los extremos del dominio de entrada:
 
-```c
+```{code-block}c
+:linenos:
 void test_suma_con_cero() {
     assert(suma(0, 5) == 5);
     assert(suma(5, 0) == 5);
@@ -110,7 +113,8 @@ void test_suma_valores_maximos() {
 
 Verifican el comportamiento ante entradas inválidas o condiciones de error:
 
-```c
+```{code-block}c
+:linenos:
 void test_division_por_cero() {
     // La función debería manejar este error
     int resultado;
@@ -123,7 +127,8 @@ void test_division_por_cero() {
 
 Combinaciones inusuales pero válidas de condiciones límite:
 
-```c
+```{code-block}c
+:linenos:
 void test_buscar_en_array_vacio() {
     int array[] = {};
     assert(buscar(array, 0, 42) == -1);
@@ -134,7 +139,8 @@ void test_buscar_en_array_vacio() {
 
 La macro `assert` es la herramienta básica para verificar condiciones en C:
 
-```c
+```{code-block}c
+:linenos:
 #include <assert.h>
 
 // Uso básico
@@ -154,7 +160,8 @@ assert(tamanio > 0 && tamanio <= MAX_TAMANIO);
 - En código de producción compilado con optimizaciones, los `assert` típicamente se eliminan
 - Para validaciones que deben ejecutarse siempre, usar estructuras condicionales normales (`if`)
 
-```c
+```{code-block}c
+:linenos:
 // ✗ NO usar assert para validar entrada del usuario
 assert(edad >= 0 && edad <= 150);
 
@@ -176,7 +183,8 @@ La **cobertura** mide qué porcentaje del código es ejecutado por las pruebas. 
 - **Cobertura de ramas**: ¿Se prueba cada camino condicional?
 - **Cobertura de funciones**: ¿Se llama cada función?
 
-```c
+```{code-block}c
+:linenos:
 int valor_absoluto(int x) {
     if (x < 0) {        // Rama 1
         return -x;
@@ -196,7 +204,8 @@ void test_valor_absoluto() {
 
 En lugar de casos específicos, verificar propiedades generales:
 
-```c
+```{code-block}c
+:linenos:
 void test_suma_conmutativa() {
     // Propiedad: a + b = b + a
     for (int i = -10; i <= 10; i++) {
@@ -233,7 +242,8 @@ proyecto/
 
 Ejemplo de estructura de archivo de pruebas:
 
-```c
+```{code-block}c
+:linenos:
 // tests/test_calculadora.c
 #include <assert.h>
 #include <stdio.h>
@@ -266,7 +276,8 @@ Aunque `assert` es útil para pruebas simples, existen frameworks más completos
 
 #### Ejemplo con estructura propia
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -320,7 +331,8 @@ int main() {
 2. **Green**: Escribir el código mínimo para que pase
 3. **Refactor**: Mejorar el código manteniendo las pruebas verdes
 
-```c
+```{code-block}c
+:linenos:
 // Paso 1: Escribir la prueba primero
 void test_multiplicar() {
     assert(multiplicar(3, 4) == 12);
@@ -372,7 +384,8 @@ Ejemplos de precondiciones:
 - Archivos abiertos correctamente
 - Estado del sistema en condición específica
 
-```c
+```{code-block}c
+:linenos:
 /*
  * Calcula la raíz cuadrada de un número.
  * PRE: x >= 0
@@ -393,7 +406,8 @@ Ejemplos de postcondiciones:
 - Memoria liberada apropiadamente
 - Invariantes preservados
 
-```c
+```{code-block}c
+:linenos:
 /*
  * Busca un elemento en un array ordenado.
  * PRE: array != NULL, tamanio > 0, array está ordenado
@@ -411,7 +425,8 @@ int busqueda_binaria(int* array, int tamanio, int elemento);
 
 **Invariante de lazo**: condición que es verdadera antes y después de cada iteración.
 
-```c
+```{code-block}c
+:linenos:
 // Calcular suma de elementos
 int suma_array(int* array, int n) {
     int suma = 0;
@@ -428,7 +443,8 @@ int suma_array(int* array, int n) {
 
 **Invariante de estructura**: propiedad que una estructura de datos mantiene siempre.
 
-```c
+```{code-block}c
+:linenos:
 typedef struct {
     int* datos;
     int tamanio;
@@ -443,7 +459,8 @@ typedef struct {
 
 ### Ejemplo completo de contrato en documentación
 
-```c
+```{code-block}c
+:linenos:
 /*
  * Suma dos números enteros.
  * 
@@ -463,7 +480,8 @@ int suma(int termino1, int termino2);
 
 Para funciones que manejan recursos o estructuras de datos:
 
-```c
+```{code-block}c
+:linenos:
 /*
  * Agrega un elemento al final de un vector dinámico.
  * 
@@ -490,7 +508,8 @@ bool vector_agregar(Vector* vec, int elemento);
 
 Los contratos pueden verificarse en desarrollo usando `assert`:
 
-```c
+```{code-block}c
+:linenos:
 int suma_positivos(int a, int b) {
     // Verificar precondiciones
     assert(a > 0);
@@ -508,7 +527,8 @@ int suma_positivos(int a, int b) {
 
 Para validaciones que deben ejecutarse en producción:
 
-```c
+```{code-block}c
+:linenos:
 typedef enum {
     OK,
     ERROR_PARAMETRO_INVALIDO,
@@ -536,7 +556,8 @@ CodigoError dividir(int dividendo, int divisor, double* resultado) {
 
 Los contratos guían directamente el diseño de pruebas:
 
-```c
+```{code-block}c
+:linenos:
 // Función con contrato
 /*
  * PRE: array != NULL, n > 0
@@ -581,7 +602,8 @@ void test_encontrar_maximo_precondiciones() {
 
 En proyectos grandes, los contratos ayudan a modularizar:
 
-```c
+```{code-block}c
+:linenos:
 // módulo: lista_enlazada.h
 
 typedef struct nodo {
@@ -644,7 +666,8 @@ Una práctica común en C es usar **valores especiales** para indicar condicione
 
 #### Códigos de Error Numéricos
 
-```c
+```{code-block}c
+:linenos:
 /*
  * Busca un elemento en un array.
  * 
@@ -674,7 +697,8 @@ int buscar(int* array, int n, int elemento) {
 
 #### Punteros NULL como Indicadores
 
-```c
+```{code-block}c
+:linenos:
 /*
  * Crea un nodo con el dato especificado.
  * 
@@ -708,7 +732,8 @@ if (nodo == NULL) {
 
 #### Caracteres Especiales
 
-```c
+```{code-block}c
+:linenos:
 /*
  * Lee el siguiente carácter del archivo.
  * 
@@ -726,7 +751,8 @@ int leer_caracter(FILE* archivo);
 
 Las enumeraciones hacen el código más expresivo y mantenible:
 
-```c
+```{code-block}c
+:linenos:
 typedef enum {
     EXITO = 0,
     ERROR_ARCHIVO_NO_EXISTE = 1,
@@ -773,7 +799,8 @@ if (resultado != EXITO) {
 
 Los **valores centinela** marcan el final de una secuencia:
 
-```c
+```{code-block}c
+:linenos:
 // Strings en C: centinela '\0'
 char nombre[] = "Hola";  // Internamente: {'H','o','l','a','\0'}
 
@@ -803,7 +830,8 @@ int sumar_hasta_centinela(int* array) {
 
 Las invariantes internas ayudan a razonar sobre el código:
 
-```c
+```{code-block}c
+:linenos:
 typedef struct {
     int* buffer;
     int capacidad;
@@ -855,7 +883,8 @@ void cola_encolar(ColaCircular* cola, int elemento) {
 
 Especificar claramente los rangos válidos previene errores:
 
-```c
+```{code-block}c
+:linenos:
 /*
  * Establece el brillo de un LED.
  * 
@@ -900,7 +929,8 @@ bool led_set_brillo_estricto(int brillo) {
 
 Los valores especiales deben probarse explícitamente:
 
-```c
+```{code-block}c
+:linenos:
 void test_buscar_valores_especiales() {
     int array[] = {10, 20, 30, 40, 50};
     
@@ -936,7 +966,8 @@ void test_valores_centinela() {
 
 Cada test debe ser independiente de los demás:
 
-```c
+```{code-block}c
+:linenos:
 // ✗ MAL: tests dependientes
 int contador_global = 0;
 
@@ -968,7 +999,8 @@ void test_incremento_desde_diez() {
 
 Los nombres deben describir qué se prueba y bajo qué condiciones:
 
-```c
+```{code-block}c
+:linenos:
 // ✗ MAL: nombres ambiguos
 void test1() { ... }
 void test_suma() { ... }
@@ -983,7 +1015,8 @@ void test_suma_numeros_negativos() { ... }
 
 Cada test debe verificar un solo aspecto:
 
-```c
+```{code-block}c
+:linenos:
 // ✗ MAL: test sobrecargado
 void test_lista() {
     Lista* lista = lista_crear();
@@ -1035,7 +1068,8 @@ void test_lista_eliminar_reduce_tamanio() {
 
 Los tests deben ser simples y obvios:
 
-```c
+```{code-block}c
+:linenos:
 // ✗ MAL: lógica en el test
 void test_suma_complejo() {
     for (int i = 0; i < 10; i++) {
@@ -1065,7 +1099,8 @@ void test_suma_numeros_impares() {
 
 Cuando varios tests necesitan la misma preparación:
 
-```c
+```{code-block}c
+:linenos:
 // Función auxiliar para crear configuración común
 Lista* crear_lista_con_elementos(int n) {
     Lista* lista = lista_crear();

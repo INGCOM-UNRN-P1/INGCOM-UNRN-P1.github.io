@@ -428,13 +428,12 @@ La relación de recurrencia para Merge Sort es $T(n) = 2T(n/2) + O(n)$. Esto se 
 
 ## Ejercicios Prácticos
 
-```exercise
+```{exercise}
 :label: ej-recursividad-iteracion
 Escribir una función recursiva en C para calcular la potencia de un número ($a^b$, con $b \geq 0$). Luego, implementar su equivalente versión iterativa utilizando lazos de control (`while` o `for`).
 ```
 
-```solution
-:for: ej-recursividad-iteracion
+:::{solution} ej-recursividad-iteracion
 **Versión Recursiva:**
 ```c
 double potencia_recursiva(double a, int b) {
@@ -466,7 +465,7 @@ double potencia_iterativa(double a, int b) {
 ```
 :::
 
-```exercise
+:::{exercise}
 :label: ej-recursividad-parada
 Analizar la siguiente función recursiva en C y determinar por qué se produce un error de desbordamiento de pila (*stack overflow*) para ciertos valores de entrada enteros. ¿Cuál es el error en la condición de parada (caso base)?
 ```c
@@ -477,10 +476,9 @@ int sumar_hasta_cero(int n) {
     return n + sumar_hasta_cero(n - 1);
 }
 ```
-```
+:::
 
-```solution
-:for: ej-recursividad-parada
+:::{solution} ej-recursividad-parada
 El error reside en que la condición de parada `if (n == 0)` solo se alcanza si el argumento inicial `n` es un entero no negativo. Si la función se invoca con un valor negativo (por ejemplo, `sumar_hasta_cero(-1)`), la llamada recursiva realiza `n - 1`, decrementando el valor de forma indefinida hacia $-\infty$ (`-2`, `-3`, `-4`, etc.). Como nunca se cumple la condición `n == 0`, la función continúa apilando marcos de pila en el *Call Stack* de forma infinita hasta agotar el límite físico de memoria del stack, provocando un *stack overflow*.
 
 Para resolver esta vulnerabilidad de parada, la guarda del caso base debe generalizarse para cubrir todos los números menores o iguales a cero:
@@ -494,7 +492,7 @@ int sumar_hasta_cero_robusta(int n) {
 ```
 :::
 
-```exercise
+:::{exercise}
 :label: ej-recursividad-stackframe
 Considerando la siguiente función recursiva en C:
 ```c
@@ -508,10 +506,9 @@ long int calcular_suma_recursiva(int n) {
 }
 ```
 Estimar el tamaño mínimo teórico de su marco de pila (*stack frame*) en una arquitectura típica de 64 bits (x86_64, donde `sizeof(int) == 4` y `sizeof(long int) == 8`), asumiendo que el compilador no realiza optimizaciones de llamada de cola. Estimar la profundidad de recursión teórica y el número máximo de llamadas antes de producir un desbordamiento físico de la pila (*stack overflow*) si el límite de la pila del sistema operativo es de $8 \text{ MB}$.
-```
+:::
 
-```solution
-:for: ej-recursividad-stackframe
+:::{solution} ej-recursividad-stackframe
 Para estimar el tamaño mínimo de un marco de pila en la arquitectura x86_64 bajo el estándar de llamada estándar System V AMD64 ABI, debemos analizar cuantitativamente cada componente del registro del marco:
 
 1. **Dirección de Retorno:** Requiere 8 bytes para almacenar el puntero de instrucción del llamador.

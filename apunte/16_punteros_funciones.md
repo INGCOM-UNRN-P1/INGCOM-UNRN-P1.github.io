@@ -19,13 +19,13 @@ La sintaxis para declarar un puntero a función en C puede parecer compleja al p
 
 La estructura general de una declaración es:
 
-```c
+```{code-block}c
 tipo_retorno (*nombre_puntero)(tipo_parametro1, tipo_parametro2, ...);
 ```
 
 *   El paréntesis alrededor de `*nombre_puntero` es **obligatorio**. Si se omite, se declara una función normal que retorna un puntero del tipo especificado.
 
-```c
+```{code-block}c
 int *funcion(int, int);   // Declaración de una función que retorna un puntero a int (int *)
 int (*puntero)(int, int); // Declaración de un puntero a una función que retorna int
 ```
@@ -34,7 +34,8 @@ int (*puntero)(int, int); // Declaración de un puntero a una función que retor
 
 Asignar una función a un puntero es directo: solo se utiliza el nombre de la función (que decae en su dirección física de memoria).
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 int sumar(int a, int b) {
@@ -61,7 +62,8 @@ int main(void) {
 
 Para evitar declarar firmas de punteros complejas repetidamente, es una buena práctica de ingeniería de software definir alias de tipos utilizando `typedef` (regla {ref}`0x3004h`):
 
-```c
+```{code-block}c
+:linenos:
 // Definimos el alias 'operacion_fn' para representar punteros a funciones (int, int) -> int
 typedef int (*operacion_fn)(int, int);
 
@@ -79,7 +81,7 @@ Un **callback** es una función que se pasa a otra función como argumento para 
 
 El ejemplo por excelencia de genericidad y callbacks es `qsort` (definida en `<stdlib.h>`), la cual implementa el algoritmo de ordenamiento rápido QuickSort de forma genérica para cualquier tipo de arreglo:
 
-```c
+```{code-block}c
 void qsort(void *base, size_t nmemb, size_t size,
            int (*comparar)(const void *, const void *));
 ```
@@ -98,6 +100,7 @@ Para ordenar un arreglo, le proveemos a `qsort`:
 ```{code} c
 :caption: Uso de qsort con callbacks para ordenar enteros y structs en C
 :label: qsort-callback-example
+:linenos:
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -180,6 +183,7 @@ Para consolidar estos conceptos, implementemos nuestro propio algoritmo genéric
 ```{code} c
 :caption: Implementación de búsqueda lineal genérica en C usando callbacks y void*
 :label: generic-search-example
+:linenos:
 
 #include <stdio.h>
 #include <stddef.h>
@@ -231,14 +235,14 @@ int main(void) {
 
 ## Ejercicios Prácticos
 
-```exercise
+```{exercise}
 :label: ej-genericidad-filtrar
 Escribir una función genérica `filtrar_elementos` en C que reciba un arreglo genérico, su tamaño, el tamaño de cada elemento, y un callback de predicado (una función que recibe `const void*` y retorna un booleano `int`). La función debe imprimir los elementos que satisfagan el predicado.
 ```
 
-```solution
-:for: ej-genericidad-filtrar
-```c
+:::{solution} ej-genericidad-filtrar
+```{code-block}c
+:linenos:
 #include <stdio.h>
 #include <stddef.h>
 

@@ -147,7 +147,8 @@ donde $\text{Estado}_{\text{in}}$ representa el estado del programa antes de la 
 - **Consecuencia**: Si Pre es falsa, el comportamiento es indefinido
 
 **Ejemplo**: Búsqueda binaria
-```c
+```{code-block}c
+:linenos:
 // Pre: arr != NULL ∧ n > 0 ∧ sorted(arr, 0, n-1)
 int busqueda_binaria(int arr[], int n, int clave);
 ```
@@ -173,7 +174,8 @@ $$
 - **Frame condition**: Especifica qué puede cambiar
 
 **Ejemplo**: Búsqueda binaria
-```c
+```{code-block}c
+:linenos:
 // Post: (r = -1 ∧ ∀i. 0 ≤ i < n → arr[i] ≠ clave) ∨
 //       (0 ≤ r < n ∧ arr[r] = clave)
 int busqueda_binaria(int arr[], int n, int clave);
@@ -213,7 +215,8 @@ Comportamiento del invariante de lazo a través de las iteraciones, mostrando su
 ```
 
 **Ejemplo**: Suma de arreglo
-```c
+```{code-block}c
+:linenos:
 // Pre: arr != NULL ∧ n ≥ 0
 // Post: result = Σ(arr[i]) para i ∈ [0, n)
 int sumar_arreglo(int arr[], int n) {
@@ -273,7 +276,8 @@ $$
 3. Puede violarse temporalmente en métodos privados
 
 **Ejemplo**: Cola circular con arreglo
-```c
+```{code-block}c
+:linenos:
 typedef struct {
     int *elementos;
     int capacidad;
@@ -396,7 +400,8 @@ $$
 
 ### Ejemplo Completo: Máximo de Dos Números
 
-```c
+```{code-block}c
+:linenos:
 // Pre: true
 // Post: r = max(a, b)
 int maximo(int a, int b) {
@@ -430,7 +435,8 @@ int maximo(int a, int b) {
 
 En C, las aserciones se implementan con `assert.h`:
 
-```c
+```{code-block}c
+:linenos:
 #include <assert.h>
 
 // Pre: arr != NULL ∧ n > 0
@@ -451,7 +457,8 @@ void procesar(int arr[], int n) {
 
 **ACSL** (ANSI/ISO C Specification Language) extiende C con contratos formales para Frama-C:
 
-```c
+```{code-block}c
+:linenos:
 /*@ requires n > 0;
     requires \valid(arr + (0..n-1));
     ensures \result >= 0;
@@ -484,7 +491,8 @@ Flujo de verificación automática: desde código anotado hasta prueba formal.
 
 **Ejemplo completo verificable**:
 
-```c
+```{code-block}c
+:linenos:
 /*@ requires n >= 0;
     requires \valid(arr + (0..n-1));
     ensures \result == \sum(0, n-1, \lambda integer i; arr[i]);
@@ -509,7 +517,8 @@ int sumar_arreglo(int arr[], int n) {
 
 ### Ejemplo 1: Pila
 
-```c
+```{code-block}c
+:linenos:
 typedef struct {
     int *elementos;
     int tope;
@@ -557,7 +566,8 @@ int pop(pila_t *p) {
 
 ### Ejemplo 2: Lista Enlazada
 
-```c
+```{code-block}c
+:linenos:
 typedef struct nodo {
     int dato;
     struct nodo *siguiente;
@@ -634,7 +644,8 @@ Diagrama del Principio de Sustitución de Liskov mostrando la relación entre co
 
 **Ejemplo**: Rectángulo vs Cuadrado
 
-```c
+```{code-block}c
+:linenos:
 // Rectángulo (supertipo)
 typedef struct {
     int ancho;
@@ -669,7 +680,8 @@ El **Frame Problem** consiste en especificar qué **no cambia** en una operació
 ### Cláusulas de Frame
 
 **Sintaxis**:
-```c
+```{code-block}c
+:linenos:
 //@ assigns x, y, z;
 ```
 
@@ -677,7 +689,8 @@ El **Frame Problem** consiste en especificar qué **no cambia** en una operació
 
 **Ejemplo**:
 
-```c
+```{code-block}c
+:linenos:
 /*@ requires \valid(arr + (0..n-1));
     requires 0 <= i < n;
     assigns arr[i];
@@ -712,7 +725,8 @@ Esto especifica que $x$ e $y$ apuntan a celdas distintas (separación) y que `sw
 
 ### Caso 1: Ordenamiento por Inserción
 
-```c
+```{code-block}c
+:linenos:
 /*@ predicate sorted{L}(int *arr, integer i, integer j) =
         \forall integer k, l; i <= k < l <= j ==> arr[k] <= arr[l];
   */
@@ -762,7 +776,8 @@ void insertion_sort(int arr[], int n) {
 
 ### Caso 2: Búsqueda Binaria con Demostración
 
-```c
+```{code-block}c
+:linenos:
 /*@ requires n > 0;
     requires \valid_read(arr + (0..n-1));
     requires sorted(arr, 0, n-1);
@@ -950,7 +965,8 @@ Los contratos son la **mejor documentación**:
 
 Especificá precondiciones, postcondiciones e invariantes de lazo para el siguiente código que calcula el factorial:
 
-```c
+```{code-block}c
+:linenos:
 int factorial(int n) {
     int resultado = 1;
     int i = 1;
@@ -972,7 +988,8 @@ Demostrá que el invariante se preserva en cada iteración.
 
 **Especificación**:
 
-```c
+```{code-block}c
+:linenos:
 /*@ requires n >= 0;
     requires n <= 12;  // Para evitar overflow en int de 32 bits
     assigns \nothing;
@@ -1009,7 +1026,8 @@ $$
 
 Encontrá el error en la siguiente especificación e implementación:
 
-```c
+```{code-block}c
+:linenos:
 /*@ requires n > 0;
     requires \valid(arr + (0..n-1));
     ensures \forall integer i; 0 <= i < n-1 ==> arr[i] <= arr[i+1];
@@ -1038,7 +1056,8 @@ void ordenar_ascendente(int arr[], int n) {
 
 **Especificación corregida**:
 
-```c
+```{code-block}c
+:linenos:
 /*@ requires n > 0;
     requires \valid(arr + (0..n-1));
     assigns arr[0..n-1];
@@ -1049,7 +1068,8 @@ void ordenar_ascendente(int arr[], int n);
 ```
 
 donde:
-```c
+```{code-block}c
+:linenos:
 /*@ predicate sorted(int *arr, integer i, integer j) =
         \forall integer k; i <= k < j ==> arr[k] <= arr[k+1];
   */
@@ -1073,7 +1093,8 @@ Escribí la especificación formal completa (Pre/Post/Invariantes) para una func
 
 **Especificación**:
 
-```c
+```{code-block}c
+:linenos:
 /*@ requires n >= 0;
     requires \valid(arr + (0..n-1));
     assigns arr[0..n-1];

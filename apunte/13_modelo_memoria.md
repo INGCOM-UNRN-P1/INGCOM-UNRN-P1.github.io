@@ -108,7 +108,8 @@ incluye:
 
 Analicemos el estado en un punto específico del siguiente programa en C:
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -340,7 +341,8 @@ La palabra clave `extern` se utiliza para declarar una variable global que está
 **Ejemplo:**
 
 **`archivo1.c`**
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 // Definición de la variable global
@@ -355,7 +357,8 @@ int main() {
 ```
 
 **`archivo2.c`**
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 // Declaración de la variable externa
@@ -398,7 +401,8 @@ Este mecanismo automático es extremadamente eficiente porque simplemente implic
 
 **Ejemplo conceptual:**
 
-```c
+```{code-block}c
+:linenos:
 void funcion_b()
 {
     int z = 30;
@@ -520,7 +524,8 @@ Tené presente que las variables declaradas en la pila dejan de existir al final
 
 **Ejemplo del error común:**
 
-```c
+```{code-block}c
+:linenos:
 int *funcion_incorrecta()
 {
     int valor = 42;
@@ -670,7 +675,8 @@ CPU → L1? (hit) → Usar dato (rápido)
 
 **Ejemplo cuantitativo:**
 
-```c
+```{code-block}c
+:linenos:
 // Versión stack (rápida):
 void procesar_stack()
 {
@@ -705,7 +711,8 @@ En un benchmark real, la versión stack podría ser 2-5 veces más rápida, espe
 :::{note} Optimización Práctica
 Comprender el caché te permite optimizar código:
 
-```c
+```{code-block}c
+:linenos:
 // Malo: Recorrer matriz por columnas (pobre localidad)
 for (int j = 0; j < cols; j++)
     for (int i = 0; i < rows; i++)
@@ -747,7 +754,8 @@ Si un acceso a registro tomara 1 segundo, acceder a RAM tomaría entre 2 y 5 min
 
 **1. Las asignaciones no son gratuitas:**
 
-```c
+```{code-block}c
+:linenos:
 // Ineficiente: muchas asignaciones pequeñas
 for (int i = 0; i < 1000; i++)
 {
@@ -799,7 +807,8 @@ Un `void *` es un puntero especial que puede apuntar a cualquier tipo de dato. N
 
 Las funciones de memoria como `malloc` retornan `void *` porque no saben qué tipo de dato vas a almacenar:
 
-```c
+```{code-block}c
+:linenos:
 void *memoria_generica = malloc(100);  // void *, no sabemos qué tipo
 int *enteros = memoria_generica;        // Conversión implícita a int *
 char *caracteres = memoria_generica;    // O a char *, según necesites
@@ -807,7 +816,8 @@ char *caracteres = memoria_generica;    // O a char *, según necesites
 
 **Limitaciones:**
 
-```c
+```{code-block}c
+:linenos:
 void *ptr = malloc(10 * sizeof(int));
 
 // ERROR: No se puede desreferenciar void *
@@ -838,7 +848,8 @@ Los casteos de punteros en C son una herramienta poderosa pero peligrosa. Compre
 
 El casteo más simple convierte un puntero de un tipo a otro:
 
-```c
+```{code-block}c
+:linenos:
 int *int_ptr = malloc(sizeof(int));
 char *char_ptr = (char *)int_ptr;  // Cast explícito
 
@@ -855,7 +866,8 @@ El compilador asume bajo esta regla que punteros de tipos incompatibles nunca ap
 **Ejemplo real de fallo por optimización:**
 
 Considerá la siguiente función:
-```c
+```{code-block}c
+:linenos:
 float foo(float *f, int *i) {
     *f = 1.0f;
     *i = 2;
@@ -865,7 +877,8 @@ float foo(float *f, int *i) {
 
 Bajo la regla de *strict aliasing*, el compilador asume que la escritura `*i = 2` no puede modificar el contenido de `*f`, ya que apuntan a tipos de datos incompatibles. Por lo tanto, al optimizar con `-O2` o `-O3`, el compilador eliminará la lectura redundante de la memoria al final y reescribirá la función para que retorne directamente la constante `1.0f`:
 
-```c
+```{code-block}c
+:linenos:
 float foo(float *f, int *i) {
     *f = 1.0f;
     *i = 2;
@@ -881,7 +894,8 @@ Si intentás hacer *type punning* y pasás la misma variable como argumento (`fo
 
 Un patrón común es usar punteros a punteros para crear arrays bidimensionales dinámicos:
 
-```c
+```{code-block}c
+:linenos:
 // Array 2D: 3 filas, 4 columnas
 int **matriz = malloc(3 * sizeof(int *));
 for (int i = 0; i < 3; i++)
@@ -919,7 +933,8 @@ Un **puntero a array** es fundamentalmente diferente de un puntero a puntero. Ap
 
 **Sintaxis:**
 
-```c
+```{code-block}c
+:linenos:
 int (*ptr)[4];  // Puntero a array de 4 enteros
 ```
 
@@ -932,7 +947,8 @@ Los paréntesis son cruciales:
 
 **Ejemplo fundamental:**
 
-```c
+```{code-block}c
+:linenos:
 // Declaración de array 2D tradicional
 int matriz[3][4] = {
     {1, 2, 3, 4},
@@ -957,7 +973,8 @@ printf("%d\n", (*(ptr + 1))[2]); // 7 - explícito
 
 **Aritmética de punteros a array:**
 
-```c
+```{code-block}c
+:linenos:
 int (*ptr)[4] = matriz;
 
 // ptr apunta a matriz[0] (toda la primera fila)
@@ -972,7 +989,8 @@ int (*ptr)[4] = matriz;
 
 La forma más portable, robusta y eficiente de representar una matriz dinámica contigua en memoria es mediante un **puntero plano (`int *`)** en el heap, realizando la indexación bidimensional manualmente a través de la fórmula matemática `i * columnas + j`:
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -1048,7 +1066,8 @@ Comparación entre puntero a puntero (int **) con filas dispersas y puntero a ar
 
 A veces necesitás reinterpretar memoria asignada como array multidimensional:
 
-```c
+```{code-block}c
+:linenos:
 // Asignar memoria plana
 int *memoria_plana = malloc(3 * 4 * sizeof(int));
 
@@ -1066,7 +1085,8 @@ matriz[2][3] = 12;
 
 **Equivalencia:**
 
-```c
+```{code-block}c
+:linenos:
 // Estas tres formas son equivalentes:
 matriz[i][j]
 (*(matriz + i))[j]
@@ -1076,7 +1096,8 @@ memoria_plana[i * 4 + j]
 (memoria-ejemplo-completo-casteo)=
 #### Ejemplo Completo: Múltiples Representaciones
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -1147,7 +1168,8 @@ int main()
 
 Los punteros a arrays pueden ser difíciles de leer. Los typedef ayudan:
 
-```c
+```{code-block}c
+:linenos:
 // Sin typedef (difícil de leer):
 int (*crear_matriz(size_t n))[10]
 {
@@ -1170,7 +1192,8 @@ free(matriz);
 
 **Otro ejemplo con struct:**
 
-```c
+```{code-block}c
+:linenos:
 typedef struct {
     int datos[4];
 } fila_estructurada_t;
@@ -1187,7 +1210,8 @@ matriz[0].datos[0] = 10;
 
 El tamaño del array debe ser conocido en tiempo de compilación, o necesitás VLAs (Variable Length Arrays, C99):
 
-```c
+```{code-block}c
+:linenos:
 // OK en C99+ con VLAs:
 int (*crear(size_t cols))[cols]
 {
@@ -1202,7 +1226,8 @@ int (*crear(size_t cols))[cols]
 
 VLAs en tipos de retorno no son universalmente soportados. Para máxima portabilidad:
 
-```c
+```{code-block}c
+:linenos:
 // Usar typedef con tamaño fijo:
 typedef int fila_fija_t[10];
 fila_fija_t *crear(size_t filas)
@@ -1221,7 +1246,8 @@ void *crear_generico(size_t filas, size_t cols)
 
 Los punteros a arrays pueden ser confusos en debuggers. A veces es más claro usar puntero plano con acceso manual:
 
-```c
+```{code-block}c
+:linenos:
 // Más fácil de debuggear:
 int *arr = malloc(filas * cols * sizeof(int));
 int elemento = arr[i * cols + j];  // Cálculo explícito

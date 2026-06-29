@@ -16,7 +16,7 @@ memoria del heap durante la ejecución del programa.
 
 #### Sintaxis
 
-```c
+```{code-block}c
 void *malloc(size_t size);
 ```
 
@@ -41,7 +41,8 @@ Según la {ref}`0x3001h`, siempre debés verificar que la asignación de memoria
 
 La {ref}`0x3003h` indica que no debés mezclar operaciones de asignación y comparación en una sola línea.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -93,7 +94,7 @@ En C, no es necesario hacer cast del puntero `void *` retornado por `malloc` a o
 
 #### Sintaxis
 
-```c
+```{code-block}c
 void *calloc(size_t num_elements, size_t element_size);
 ```
 
@@ -123,7 +124,8 @@ Usá `malloc` cuando:
 - Querés máxima eficiencia y no necesitás inicialización.
 - Estás asignando memoria para un único elemento (no un arreglo).
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -156,7 +158,8 @@ int main()
 
 #### Sintaxis
 
-```c
+```{code-block}c
+:linenos:
 void *realloc(void *ptr, size_t new_size);
 ```
 
@@ -192,7 +195,8 @@ El error más común con `realloc` es perder la referencia al bloque original si
 
 **Incorrecto:**
 
-```c
+```{code-block}c
+:linenos:
 // ¡PELIGRO! Si realloc falla, se pierde el puntero original
 ptr = realloc(ptr, nuevo_tamano);
 if (ptr == NULL) {
@@ -202,7 +206,8 @@ if (ptr == NULL) {
 
 **Correcto:**
 
-```c
+```{code-block}c
+:linenos:
 #include <stdlib.h>
 
 int *numeros = malloc(5 * sizeof(*numeros));
@@ -227,7 +232,8 @@ numeros = temp;
 
 #### Sintaxis
 
-```c
+```{code-block}c
+:linenos:
 void free(void *ptr);
 ```
 
@@ -244,7 +250,8 @@ Según la {ref}`0x3002h`, debés:
 
 Es seguro llamar a `free(NULL)`, la función simplemente no hace nada.
 
-```c
+```{code-block}c
+:linenos:
 free(ptr);
 ptr = NULL;  // Previene el uso accidental del puntero colgante
 ```
@@ -353,7 +360,8 @@ Una fuga de memoria ocurre cuando se pierde la referencia a un bloque de memoria
 
 #### Ejemplo Problemático
 
-```c
+```{code-block}c
+:linenos:
 #include <stdlib.h>
 
 void funcion_con_fuga()
@@ -371,7 +379,8 @@ void funcion_con_fuga()
 
 Asegurate de que cada asignación tenga su correspondiente liberación, siguiendo la {ref}`0x3002h`.
 
-```c
+```{code-block}c
+:linenos:
 void funcion_sin_fuga()
 {
     int *datos = malloc(100 * sizeof(*datos));
@@ -395,7 +404,8 @@ Un puntero colgante es un puntero que apunta a una dirección de memoria que ya 
 
 #### Ejemplo Problemático
 
-```c
+```{code-block}c
+:linenos:
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -417,7 +427,8 @@ int main()
 
 Asigná `NULL` al puntero inmediatamente después de llamar a `free`, como exige la {ref}`0x3002h`.
 
-```c
+```{code-block}c
+:linenos:
 int main()
 {
     int *ptr = malloc(sizeof(*ptr));
@@ -440,7 +451,8 @@ Intentar liberar el mismo bloque de memoria dos veces causa comportamiento indef
 
 #### Ejemplo Problemático
 
-```c
+```{code-block}c
+:linenos:
 #include <stdlib.h>
 
 int main()
@@ -458,7 +470,8 @@ int main()
 
 Asignar `NULL` después de cada `free` previene este problema, ya que `free(NULL)` es una operación segura que no hace nada.
 
-```c
+```{code-block}c
+:linenos:
 int main()
 {
     int *ptr = malloc(sizeof(*ptr));
@@ -479,7 +492,8 @@ Leer o escribir fuera de los límites del bloque de memoria reservado corrompe d
 
 #### Ejemplo Problemático
 
-```c
+```{code-block}c
+:linenos:
 #include <stdlib.h>
 
 int main()
@@ -508,7 +522,8 @@ int main()
 
 La {ref}`0x300Ch` exige verificar siempre los límites de los arreglos antes de acceder a sus elementos. La {ref}`0x3010h` establece que las variables que representan tamaños o índices de arreglos deben ser de tipo `size_t`.
 
-```c
+```{code-block}c
+:linenos:
 int main()
 {
     size_t tamano = 5;
@@ -539,7 +554,8 @@ Acceder a memoria después de liberarla es un error similar al puntero colgante.
 
 #### Ejemplo Problemático
 
-```c
+```{code-block}c
+:linenos:
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -585,7 +601,8 @@ El comportamiento indefinido existe por dos razones principales:
 
 **Ejemplos de UB en gestión de memoria:**
 
-```c
+```{code-block}c
+:linenos:
 // UB #1: Desreferenciar puntero NULL
 int *ptr = NULL;
 *ptr = 42;  // Crash probable, pero no garantizado
@@ -622,7 +639,8 @@ El comportamiento indefinido no solo causa crashes. Puede:
 
 4. **Ser "optimizado" por el compilador de forma sorprendente:**
 
-   ```c
+   ```{code-block}c
+:linenos:
    // El programador escribe:
    if (ptr != NULL) {
        *ptr = 42;
@@ -642,7 +660,8 @@ Los errores de memoria no son solo bugs: son vulnerabilidades de seguridad. Comp
 
 Un buffer overflow ocurre cuando escribís más datos de los que un buffer puede contener, sobrescribiendo memoria adyacente.
 
-```c
+```{code-block}c
+:linenos:
 void vulnerable()
 {
     char buffer[10];
@@ -667,7 +686,8 @@ Visualización de buffer overflow en el stack: antes del overflow el buffer tien
 
 Usar memoria después de liberarla puede permitir que un atacante controle datos críticos:
 
-```c
+```{code-block}c
+:linenos:
 struct usuario {
     char nombre[50];
     int es_admin;
@@ -694,7 +714,8 @@ if (usr->es_admin) {  // ⚠️ UAF: usa memoria liberada
 
 Liberar memoria dos veces puede corromper las estructuras internas del allocator, permitiendo ataques sofisticados:
 
-```c
+```{code-block}c
+:linenos:
 free(ptr);
 // ... código ...
 free(ptr);  // Corrompe la lista de bloques libres
@@ -712,7 +733,8 @@ int *b = malloc(100);
 
 **2. Verificación exhaustiva:**
 
-```c
+```{code-block}c
+:linenos:
 // No solo verificar malloc:
 if (ptr == NULL) { /* error */ }
 
@@ -725,7 +747,8 @@ if (ptr_entrada == NULL) { /* error */ }
 
 **3. Inicialización defensiva:**
 
-```c
+```{code-block}c
+:linenos:
 // Inicializar punteros:
 int *ptr = NULL;
 
@@ -739,7 +762,8 @@ struct datos d = {0};  // Todos los campos en cero
 
 **4. Encapsulación:** Ocultá la gestión de memoria detrás de funciones:
 
-```c
+```{code-block}c
+:linenos:
 // En lugar de exponer punteros directamente:
 recurso_t *crear_recurso(void);
 void usar_recurso(recurso_t *r);
@@ -750,7 +774,8 @@ void destruir_recurso(recurso_t *r);
 
 **5. Usar funciones seguras:**
 
-```c
+```{code-block}c
+:linenos:
 // En lugar de:
 strcpy(dest, src);  // No verifica límites
 
@@ -777,7 +802,8 @@ La gestión segura de memoria dinámica requiere disciplina y adherencia a un co
 
 Siempre inicializá los punteros a `NULL` al declararlos si no tenés una dirección válida para asignarles inmediatamente. Esto está codificado en la {ref}`0x0003h` y la {ref}`0x3008h`.
 
-```c
+```{code-block}c
+:linenos:
 int *ptr = NULL;
 ```
 
@@ -786,7 +812,8 @@ int *ptr = NULL;
 
 Siempre comprobá si el valor devuelto por `malloc` o `calloc` es `NULL` antes de usar el puntero. La {ref}`0x3001h` lo exige explícitamente.
 
-```c
+```{code-block}c
+:linenos:
 ptr = malloc(tamano);
 if (ptr == NULL)
 {
@@ -801,7 +828,8 @@ if (ptr == NULL)
 
 Por cada asignación exitosa con `malloc` o `calloc`, debe haber una llamada correspondiente a `free`. La {ref}`0x3002h` establece esta simetría como obligatoria.
 
-```c
+```{code-block}c
+:linenos:
 free(ptr);
 ```
 
@@ -810,7 +838,8 @@ free(ptr);
 
 Después de llamar a `free(puntero)`, asigná `puntero = NULL` para evitar punteros colgantes. La {ref}`0x3002h` lo exige.
 
-```c
+```{code-block}c
+:linenos:
 free(ptr);
 ptr = NULL;
 ```
@@ -820,7 +849,8 @@ ptr = NULL;
 
 Intentá que la función que reserva la memoria sea también responsable de liberarla, o que haya una correspondencia clara, como `crear_estructura()` y `destruir_estructura()`. Esta práctica está documentada en la {ref}`0x3002h`.
 
-```c
+```{code-block}c
+:linenos:
 recurso_t *crear_recurso()
 {
     recurso_t *r = malloc(sizeof(*r));
@@ -847,7 +877,8 @@ void destruir_recurso(recurso_t *r)
 
 La {ref}`0x3006h` exige que documentes claramente quién es el responsable de liberar la memoria cuando una función recibe o devuelve un puntero a memoria dinámica.
 
-```c
+```{code-block}c
+:linenos:
 /**
  * Crea un nuevo nodo de lista.
  * @param valor El valor a almacenar en el nodo.
@@ -863,7 +894,8 @@ nodo_t *crear_nodo(int valor);
 
 Según la {ref}`0x3007h`, los argumentos de tipo puntero deben ser `const` siempre que la función no los modifique. Esto establece un contrato claro y permite al compilador detectar modificaciones no intencionales.
 
-```c
+```{code-block}c
+:linenos:
 void imprimir_arreglo(const int *arreglo, size_t tamano)
 {
     for (size_t i = 0; i < tamano; i++)
@@ -879,7 +911,8 @@ void imprimir_arreglo(const int *arreglo, size_t tamano)
 
 La {ref}`0x300Bh` establece que debés usar siempre `sizeof` en las asignaciones de memoria dinámica, y preferir `sizeof(*puntero)` sobre `sizeof(tipo)`.
 
-```c
+```{code-block}c
+:linenos:
 // Preferido
 int *ptr = malloc(n * sizeof(*ptr));
 
@@ -892,7 +925,8 @@ int *ptr = malloc(n * sizeof(int));  // Si el tipo de ptr cambia, esto falla
 
 La {ref}`0x3010h` exige que las variables que representan tamaños o índices de arreglos sean de tipo `size_t`.
 
-```c
+```{code-block}c
+:linenos:
 size_t tamano = 10;
 int *arreglo = malloc(tamano * sizeof(*arreglo));
 
@@ -907,7 +941,8 @@ for (size_t i = 0; i < tamano; i++)
 
 La {ref}`0x300Ch` exige verificar siempre los límites de los arreglos antes de acceder a sus elementos.
 
-````c
+````{code-block}c
+:linenos:
 void establecer_elemento(int *arreglo, size_t tamano, size_t indice, int valor)
 {
     if (indice < tamano)
@@ -921,7 +956,8 @@ void establecer_elemento(int *arreglo, size_t tamano, size_t indice, int valor)
 
 Este ejemplo demuestra cómo aplicar las buenas prácticas de gestión de memoria en un caso realista: una estructura que encapsula un arreglo dinámico de enteros de tamaño fijo.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

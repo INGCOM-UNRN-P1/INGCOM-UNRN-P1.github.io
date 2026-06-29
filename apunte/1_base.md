@@ -122,7 +122,7 @@ La computadora necesita instrucciones de este segundo tipo: específicas, ordena
 
 ### Ejercicio 1
 
-```exercise
+```{exercise}
 :label: ex-instrucciones-precisas
 Escribí instrucciones detalladas y secuenciales (como para alguien que nunca lo hizo) para:
 
@@ -131,8 +131,7 @@ Escribí instrucciones detalladas y secuenciales (como para alguien que nunca lo
 3. Calcular el promedio de tres números.
 ```
 
-```solution
-:for: ex-instrucciones-precisas
+```{solution} ex-instrucciones-precisas
 **Hacer un sándwich de jamón y queso:**
 1. Retirar 2 rebanadas de pan del paquete.
 2. Colocar ambas rebanadas horizontalmente sobre un plato limpio.
@@ -367,7 +366,7 @@ Una variable se declara e inicializa en memoria, es leída o modificada durante 
 En lenguajes de alto nivel como Python, la memoria ocupada por las variables se libera de forma automática mediante un recolector de basura (*garbage collector*). Sin embargo, en C la gestión de la memoria es explícita: la memoria de las variables locales (en la pila o *stack*) se libera automáticamente al salir de su ámbito de visibilidad, mientras que la memoria dinámica asignada manualmente (en el *heap*) debe ser liberada explícitamente por el programador. Si olvidás liberarla, se genera una fuga de memoria (*memory leak*).
 :::
 
-```exercise
+```{exercise}
 :label: ex-tipos-vars
 Para cada uno de los siguientes datos, indicá qué tipo de variable (`entero`, `real`, `cadena`, `logico`) usarías en pseudocódigo:
 
@@ -378,8 +377,7 @@ Para cada uno de los siguientes datos, indicá qué tipo de variable (`entero`, 
 5. Calificación académica con decimales.
 ```
 
-```solution
-:for: ex-tipos-vars
+```{solution} ex-tipos-vars
 1. **`entero`**: Se cuentan individuos discretos.
 2. **`real`**: Requiere representar centavos fraccionarios.
 3. **`cadena`**: Secuencia de caracteres alfabéticos.
@@ -623,7 +621,7 @@ flowchart TD
 
 ## Ejercicio 2: Aplicación Algorítmica
 
-```exercise
+```{exercise}
 :label: ex-pseudo-2
 Escribí en pseudocódigo estructurado (estilo C en español) algoritmos para resolver las siguientes cuestiones, sin declarar subprogramas (`def`) ni importar librerías complejas:
 
@@ -633,8 +631,7 @@ C. Calcular el Máximo Común Divisor (MCD) de dos números enteros utilizando e
 D. Determinar si una cadena de caracteres es un palíndromo (se lee igual de izquierda a derecha que de derecha a izquierda), comparando sus extremos mediante un lazo.
 ```
 
-:::{solution}
-:for: ex-pseudo-2
+:::{solution} ex-pseudo-2
 **A. Conversión de temperatura:**
 ```text
 real celsius;
@@ -760,8 +757,7 @@ Escribir("Resultado: ", suma);
 3. Modificalo para que realice la suma exclusiva de números impares.
 :::
 
-:::{solution}
-:for: ex-integrador-1
+:::{solution} ex-integrador-1
 1. **¿Qué hace?** Suma todos los números pares en el rango de 1 a `n` inclusive.
 2. **Resultado para n=10:** 2 + 4 + 6 + 8 + 10 = **30**.
 3. **Modificación para impares:** Modificar la condición del módulo en la decisión (`i % 2 != 0`):

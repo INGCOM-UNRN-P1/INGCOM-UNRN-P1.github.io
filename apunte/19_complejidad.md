@@ -160,7 +160,8 @@ Jerarquía de las clases de complejidad más comunes, ordenadas de más eficient
 - Ejemplo: acceso a un elemento de arreglo, operaciones aritméticas
 
 **Código ejemplo**:
-```c
+```{code-block}c
+:linenos:
 int obtener_primero(int arr[], int n) {
     return arr[0];  // O(1): una operación, independiente de n
 }
@@ -185,7 +186,8 @@ Los arreglos proporcionan acceso por índice en tiempo constante, una de sus ven
 **Ejemplos**: búsqueda binaria, operaciones en árboles balanceados
 
 **Código ejemplo**:
-```c
+```{code-block}c
+:linenos:
 // Búsqueda binaria: O(log n)
 // Precondición: el arreglo 'arr' debe estar ordenado de menor a mayor.
 int busqueda_binaria(int arr[], int n, int clave) {
@@ -226,7 +228,8 @@ En cada iteración del lazo, el espacio de búsqueda se reduce a la mitad. Si in
 **Ejemplos**: búsqueda secuencial, recorrer un arreglo, suma de elementos
 
 **Código ejemplo**:
-```c
+```{code-block}c
+:linenos:
 // Suma de elementos: O(n)
 int sumar_elementos(int arr[], int n) {
     int suma = 0;
@@ -253,7 +256,8 @@ La búsqueda lineal $O(n)$ es necesaria en estructuras sin orden, como listas en
 **Ejemplos**: Merge Sort, Heap Sort, Quick Sort (promedio)
 
 **Código ejemplo (Merge Sort)**:
-```c
+```{code-block}c
+:linenos:
 // Merge Sort: O(n log n)
 void merge_sort(int arr[], int izq, int der) {
     if (izq < der) {
@@ -278,7 +282,8 @@ void merge_sort(int arr[], int izq, int der) {
 **Ejemplos**: Bubble Sort, Selection Sort, Insertion Sort
 
 **Código ejemplo**:
-```c
+```{code-block}c
+:linenos:
 // Bubble Sort: O(n²)
 void bubble_sort(int arr[], int n) {
     for (int i = 0; i < n - 1; i++) {           // n iteraciones
@@ -302,7 +307,8 @@ void bubble_sort(int arr[], int n) {
 **Ejemplos**: multiplicación ingenua de matrices, algunos algoritmos de grafos
 
 **Código ejemplo**:
-```c
+```{code-block}c
+:linenos:
 // Multiplicación de matrices: O(n³)
 void multiplicar_matrices(int A[][N], int B[][N], int C[][N], int n) {
     for (int i = 0; i < n; i++) {         // n iteraciones
@@ -326,7 +332,8 @@ void multiplicar_matrices(int A[][N], int B[][N], int C[][N], int n) {
 **Ejemplos**: subconjuntos de un conjunto, Torre de Hanoi, algunos problemas NP-completos
 
 **Código ejemplo**:
-```c
+```{code-block}c
+:linenos:
 // Fibonacci recursivo ingenuo: O(2^n)
 int fibonacci(int n) {
     if (n <= 1) {
@@ -352,7 +359,8 @@ cuyas raíces son $r_1 = \frac{1+\sqrt{5}}{2} = \phi \approx 1.618$ (la razón �
 **Ejemplos**: generar todas las permutaciones, problema del viajante (fuerza bruta)
 
 **Código ejemplo**:
-```c
+```{code-block}c
+:linenos:
 // Generar permutaciones: O(n!)
 void generar_permutaciones(int arr[], int inicio, int fin) {
     if (inicio == fin) {
@@ -400,7 +408,8 @@ Comparación del crecimiento de diferentes funciones de complejidad para valores
 
 #### Lazo Simple
 
-```c
+```{code-block}c
+:linenos:
 for (int i = 0; i < n; i++) {
     // Operación O(1)
 }
@@ -410,7 +419,8 @@ for (int i = 0; i < n; i++) {
 
 #### Lazos Anidados
 
-```c
+```{code-block}c
+:linenos:
 for (int i = 0; i < n; i++) {       // n iteraciones
     for (int j = 0; j < n; j++) {   // n iteraciones
         // Operación O(1)
@@ -422,7 +432,8 @@ for (int i = 0; i < n; i++) {       // n iteraciones
 
 #### Lazos con Dependencia
 
-```c
+```{code-block}c
+:linenos:
 for (int i = 0; i < n; i++) {
     for (int j = i; j < n; j++) {  // Depende de i
         // Operación O(1)
@@ -437,7 +448,8 @@ $$
 
 #### Lazo Logarítmico
 
-```c
+```{code-block}c
+:linenos:
 for (int i = 1; i < n; i *= 2) {
     // Operación O(1)
 }
@@ -569,7 +581,8 @@ El **análisis amortizado** considera el costo promedio de una secuencia de oper
 
 Supongamos que implementamos un arreglo dinámico en C mediante una estructura que almacena un puntero, el tamaño actual y la capacidad máxima de almacenamiento. Cuando el arreglo alcanza su capacidad límite, duplicamos su tamaño utilizando `realloc`:
 
-```c
+```{code-block}c
+:linenos:
 typedef struct {
     int *datos;
     size_t tamaño;
@@ -665,7 +678,8 @@ La **complejidad espacial** mide la cantidad de memoria adicional que un algorit
 Cada llamada recursiva ocupa espacio en la pila. La profundidad máxima de recursión determina la complejidad espacial.
 
 **Ejemplo**: Fibonacci recursivo
-```c
+```{code-block}c
+:linenos:
 int fibonacci(int n) {
     if (n <= 1) {
         return n;
@@ -682,7 +696,8 @@ int fibonacci(int n) {
 A menudo es posible reducir tiempo usando más espacio (memoización) o viceversa.
 
 **Ejemplo**: Fibonacci con memoización
-```c
+```{code-block}c
+:linenos:
 int fibonacci_memo(int n, int memo[]) {
     if (n <= 1) {
         return n;
@@ -817,7 +832,8 @@ Frente a la intratabilidad de los problemas NP-Completos, en el desarrollo prác
 
 ### Ejemplo 1: Búsqueda del Máximo
 
-```c
+```{code-block}c
+:linenos:
 int buscar_maximo(int arr[], int n) {
     int max = arr[0];          // O(1)
     
@@ -839,7 +855,8 @@ int buscar_maximo(int arr[], int n) {
 
 ### Ejemplo 2: Búsqueda de Duplicados
 
-```c
+```{code-block}c
+:linenos:
 // Versión ingenua: O(n²)
 bool tiene_duplicados_ingenuo(int arr[], int n) {
     for (int i = 0; i < n; i++) {           // n iteraciones
@@ -858,7 +875,8 @@ $$
 T(n) = \sum_{i=0}^{n-1} \sum_{j=i+1}^{n-1} O(1) = \sum_{i=0}^{n-1} (n-i-1) = \frac{n(n-1)}{2} \in O(n^2)
 $$
 
-```c
+```{code-block}c
+:linenos:
 // Versión optimizada: O(n log n) con ordenamiento previo
 bool tiene_duplicados_ordenado(int arr[], int n) {
     qsort(arr, n, sizeof(int), comparar);  // O(n log n)
@@ -877,7 +895,8 @@ bool tiene_duplicados_ordenado(int arr[], int n) {
 
 ### Ejemplo 3: Torres de Hanoi
 
-```c
+```{code-block}c
+:linenos:
 void hanoi(int n, char origen, char destino, char auxiliar) {
     if (n == 1) {
         printf("Mover disco 1 de %c a %c\n", origen, destino);
@@ -923,7 +942,8 @@ $$
 
 Determiná la complejidad temporal del siguiente fragmento de código:
 
-```c
+```{code-block}c
+:linenos:
 for (int i = 0; i < n; i++) {
     for (int j = 0; j < i; j++) {
         printf("%d ", i * j);
@@ -946,7 +966,8 @@ $O(n^2)$
 
 Determiná la complejidad temporal del siguiente fragmento de código:
 
-```c
+```{code-block}c
+:linenos:
 for (int i = 1; i < n; i *= 3) {
     for (int j = 0; j < n; j++) {
         printf("%d ", i + j);
@@ -969,7 +990,8 @@ $O(n \log n)$
 
 Determiná la complejidad temporal de la siguiente función recursiva, asegurando que respete las directivas de estilo en sus condicionales:
 
-```c
+```{code-block}c
+:linenos:
 void misterio(int n) {
     if (n <= 1) {
         return;
@@ -1036,7 +1058,8 @@ Implementá un algoritmo para encontrar los dos elementos más grandes en un arr
 
 **Solución óptima**: $O(n)$
 
-```c
+```{code-block}c
+:linenos:
 void dos_maximos(int arr[], int n, int *max1, int *max2) {
     // Inicializar
     if (arr[0] > arr[1]) {

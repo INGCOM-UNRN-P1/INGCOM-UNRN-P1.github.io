@@ -44,7 +44,8 @@ Una función en C es un bloque de código que:
 
 **Sintaxis básica**
 
-```c
+```{code-block}c
+:linenos:
 <tipo> <nombre>(<tipo parámetro1> <nombre parámetro1>, <tipo parámetro2> <nombre parámetro2>, ...) {
     // instrucciones
     return valor;
@@ -58,7 +59,8 @@ Asimismo, una función en C puede no retornar valores y esto se hace con la pala
 
 En este ejemplo comentado, podemos ver una función que recibe un par de números y devuelve su suma:
 
-```c
+```{code-block}c
+:linenos:
 // retorno de tipo int, identificador sumar y dos int como argumentos
 int sumar(int a, int b) {
     int retorno = a + b; // instrucciones que completan el objetivo de la función
@@ -68,7 +70,8 @@ int sumar(int a, int b) {
 
 Esto se puede usar desde `main()` u otra función:
 
-```c
+```{code-block}c
+:linenos:
 int resultado = sumar(5, 3);
 printf("Resultado: %d\n", resultado);
 ```
@@ -82,7 +85,8 @@ Flujo de llamada y retorno de una función. Los parámetros son copias, por lo q
 
 Y también un ejemplo de función que no recibe argumentos y simultáneamente no devuelve valores:
 
-```c
+```{code-block}c
+:linenos:
 // sin retorno de valor, identificador saludar y sin argumentos
 void saludar() {
     printf("Hola Mundo!\n");
@@ -109,7 +113,8 @@ El funcionamiento del compilador está limitado a pasar una sola vez por el arch
 
 Podés ver esto si ubicás la definición de las funciones debajo del `main`. Como el compilador ve una llamada a la función antes de su declaración, la compilación fallará:
 
-```c
+```{code-block}c
+:linenos:
 int main() {
     printf("%f\n", areaCirculo(10.0));
     return 0;
@@ -122,7 +127,8 @@ double areaCirculo(double radio) {
 
 Para que este código funcione, se necesita declarar el prototipo de la función al principio del archivo:
 
-```c
+```{code-block}c
+:linenos:
 // prototipo de la función
 double areaCirculo(double radio);
 
@@ -138,7 +144,8 @@ double areaCirculo(double radio) {
 
 Los prototipos de función se utilizan obligatoriamente cuando dos funciones se llaman mutuamente (mutua recursión), y no podemos organizarlas simplemente reordenándolas:
 
-```c
+```{code-block}c
+:linenos:
 // Declaraciones de prototipos para resolver la mutua recursión
 int funcion_uno();
 int funcion_dos();
@@ -174,7 +181,8 @@ función los datos necesarios** para que realice su tarea. La función usa este
 valor, pero generalmente no lo modifica de forma que el llamador vea ese cambio
 (a menos que se pase por referencia).
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 // 'num1' y 'num2' son parámetros de entrada
@@ -205,7 +213,8 @@ suma.
 
 En el cuerpo de una función, las variables locales adoptan a menudo el rol de almacenamiento temporal. Su tiempo de vida y ámbito quedan limitados exclusivamente al registro de activación de la llamada. Su propósito principal es **servir como espacio de trabajo transitorio para cómputos intermedios** que simplifican el flujo lógico de cálculo antes de generar el resultado final.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 float calcularPromedio(int a, int b, int c) {
@@ -256,7 +265,8 @@ Jerarquía de alcances en C mostrando el scope global, de función y de bloque.
 
 Las variables globales se declaran fuera de cualquier función. Su principal característica es que son accesibles desde cualquier función en todo el programa. Una vez declarada, cualquier parte de tu código puede leerla y modificarla.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 int variableGlobal = 10; // Declarada fuera de todas las funciones
@@ -282,7 +292,8 @@ Por estas razones, la cátedra prohíbe el uso de variables globales (ver [Regla
 
 Estas son las variables que se declaran en la definición de una función. Su alcance está limitado exclusivamente a esa función. Actúan como variables locales que se inicializan con los valores que se les pasan cuando se llama a la función.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 void suma(int a, int b) { // 'a' y 'b' son argumentos
@@ -305,7 +316,8 @@ Las variables locales se declaran dentro de una función, pero fuera de cualquie
 Las variables locales se almacenan en el **stack** (pila), una región de memoria gestionada automáticamente por el sistema. Cuando una función se llama, se crea un marco de pila (stack frame) con todas sus variables locales; cuando termina, ese marco se libera automáticamente. Para entender en profundidad cómo funciona este mecanismo, consultá el [Memoria Dinámica](14_memoria_dinamica).
 :::
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 void miFuncion() {
@@ -326,7 +338,8 @@ La `variableLocal` solo es accesible desde `miFuncion`.
 
 Son variables declaradas dentro de un bloque de código específico, que se delimita por llaves `{}`. Su alcance es aún más restringido: solo existen desde el punto de su declaración hasta el final de ese bloque. Son comunes en lazos y condicionales.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -356,7 +369,8 @@ Cuando aplicás el modificador `static` a una variable local, alterás su tiempo
 
 Analizá el comportamiento con este ejemplo comparativo:
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 void contador_normal() {
@@ -409,7 +423,8 @@ Cuando esto sucede, la variable del alcance más interno "oculta" o le hace "som
 Visualización del ocultamiento de variables (shadowing).
 ```
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -481,7 +496,8 @@ Queremos un programa que solicite dos números (base y altura), calcule el área
 2.  Calcular el área de forma pura.
 3.  Mostrar el resultado en la salida estándar.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 int leer_entero(const char *mensaje);
@@ -555,7 +571,8 @@ estamos factorizando de una forma aún mejor.
 
 ### Ejemplo de factorización:
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 void solicitar_datos() {
@@ -666,14 +683,16 @@ propias palabras.
 Este es un comentario de una sola línea, que pueden usar para reforzar alguna
 explicación de algo que vean flojo (pero puntual)
 
-```c
+```{code-block}c
+:linenos:
 // este es un comentario de una única linea, todo lo que esta a la derecha es ignorado
 ```
 
 Y este es un comentario de bloque, que se usa para documentar funciones, pero
 también lo pueden usar para desactivar una parte del programa:
 
-```c
+```{code-block}c
+:linenos:
 /*
 Este es un comentario de bloque, todo lo que esta dentro del bloque es
 ignorado, y este, a diferencia del otro, puede abarcar múltiples lineas.
@@ -708,7 +727,8 @@ forma, la misma no es casual. Está pensada para una herramienta que toma estos
 comentarios y construye un manual del código que, si nos da el tiempo, la
 veremos, [Doxygen](https://doxygen.nl/).
 
-```c
+```{code-block}c
+:linenos:
 /**
  * Calcula el área de un rectángulo dado su base y altura.
  *
@@ -743,7 +763,8 @@ obtenido.
 
 ### Ejemplo:
 
-```c
+```{code-block}c
+:linenos:
 #define DIV_CERO -99999
 
 /**
@@ -882,7 +903,8 @@ Incluilas como parte del comentario de documentación de la función:
 
 Una forma es incluirlas como parte de la prosa de la documentación.
 
-```c
+```{code-block}c
+:linenos:
 /**
  * Calcula el cociente entre dos números.
  *
@@ -901,7 +923,8 @@ int dividir(int dividendo, int divisor)
 Y otra opción, completamente válida es la de indicar explícitamente que una
 frase refiere a una de estas características:
 
-```c
+```{code-block}c
+:linenos:
 /**
  * Calcula el cociente entre dos números.
  *

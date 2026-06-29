@@ -803,10 +803,11 @@ predefinidos. Luego, recorrela utilizando lazos anidados para imprimir sus
 elementos en la consola, manteniendo el formato de filas y columnas.
 ```
 
-````{solution} imprimir_matriz
+:::{solution} imprimir_matriz
 :class: dropdown
 
 ```{code-block}c
+:linenos:
 #include <stdio.h>
 
 #define FILAS 3
@@ -826,7 +827,7 @@ int main() {
   return 0;
 }
 ```
-````
+:::
 
 ```{exercise}
 :label: sumar_diagonal
@@ -835,7 +836,7 @@ int main() {
 Implementá una función `int sumar_diagonal_principal(int matriz[][3], int dimension)` que reciba una matriz cuadrada y su dimensión. La función debe devolver la suma de los elementos de su diagonal principal (donde el índice de fila es igual al de columna).
 ```
 
-````{solution} sumar_diagonal
+:::{solution} sumar_diagonal
 :class: dropdown
 
 ```{code-block}c
@@ -863,7 +864,7 @@ int main() {
   return 0;
 }
 ```
-````
+:::
 
 ## Apéndice Avanzado: Operaciones Matriciales de Álgebra Lineal
 

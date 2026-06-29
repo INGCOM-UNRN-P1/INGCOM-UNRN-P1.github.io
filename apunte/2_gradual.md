@@ -191,7 +191,8 @@ Diseño algorítmico:
 3. Calcular la suma y asignarla a un destino.
 4. Mostrar el resultado de la suma por pantalla.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -295,7 +296,8 @@ Para garantizar la portabilidad y evitar desbordamientos accidentales al cambiar
 
 Toda variable debe declararse antes de ser usada, indicando su tipo y su nombre:
 
-```c
+```{code-block}c
+:linenos:
 #include <stdbool.h>
 
 int edad = 42;
@@ -323,7 +325,8 @@ transitoria, generalmente para facilitar una operación que requiere conservar u
 dato mientras se manipulan otros. El caso más común es el intercambio de valores
 entre dos variables sin perder ninguno.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -384,7 +387,8 @@ Un **R-value** representa simplemente el valor de una expresión. No posee una u
 #### Restricciones del compilador
 Intentar realizar asignaciones sobre un R-value producirá un error inmediato en tiempo de compilación.
 
-```c
+```{code-block}c
+:linenos:
 int x = 10;
 int y = 20;
 
@@ -407,7 +411,8 @@ y = x + 5;       // VÁLIDO: 'y' es un L-value, 'x + 5' evalúa a un R-value.
 Se utiliza para imprimir texto y valores de variables formateados en la salida estándar de consola.
 Podés consultar el [apunte más detallado del tema](../extras/printf).
 
-```c
+```{code-block}c
+:linenos:
 printf("Tiene %d años\n", edad);
 ```
 
@@ -430,7 +435,8 @@ Las **variables de salida** se utilizan para almacenar los resultados finales de
 un cálculo o proceso, los cuales serán mostrados al usuario o guardados en algún
 medio (como un archivo).
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -454,7 +460,8 @@ Permite leer datos de entrada ingresados por teclado en la entrada estándar (`s
 Requiere pasar la dirección de la variable de destino anteponiendo el operador de dirección `&` 
 (vamos a ver más adelante que significa).
 
-```c
+```{code-block}c
+:linenos:
 int edad = 0;
 printf("Ingrese su edad: ");
 scanf("%d", &edad);
@@ -466,7 +473,8 @@ Una **variable de entrada** es aquella que se utiliza para almacenar datos que
 provienen de una fuente externa al programa, como la entrada del usuario a
 través del teclado, la lectura de un archivo o datos recibidos de una red.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -486,7 +494,8 @@ En este ejemplo, `edad` toma el valor que el usuario introduce.
 
 Al presionar "Enter" para enviar datos en la consola, se agrega un carácter de salto de línea (`\n`) en el buffer de entrada `stdin`. Si la siguiente instrucción lee un carácter (`scanf("%c")`), leerá ese `\n` residual en lugar de la entrada esperada. Para evitar esto, se debe anteponer un espacio en blanco en el especificador (`" %c"`), lo cual instruye a `scanf` a descartar los espacios en blanco y saltos de línea residuales del buffer.
 
-```c
+```{code-block}c
+:linenos:
 char inicial = ' ';
 printf("Ingrese su inicial: ");
 scanf(" %c", &inicial); // El espacio antes de %c limpia el buffer de stdin

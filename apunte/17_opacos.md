@@ -20,7 +20,8 @@ Los punteros opacos son la técnica de programación central sobre la cual se co
 
 Considerá una implementación ingenua de un punto geométrico en dos dimensiones donde la estructura está completamente expuesta:
 
-```c
+```{code-block}c
+:linenos:
 // punto_malo.h - NO USAR: Implementación expuesta
 typedef struct {
     double x;
@@ -35,7 +36,7 @@ void desplazar_punto(punto_t *p, double dx, double dy);
 ### Problemas de Esta Aproximación
 
 **1. Violación del encapsulamiento:**
-```c
+```{code-block}c
 punto_t *p = crear_punto(3.0, 4.0);
 // El usuario puede acceder y modificar directamente los campos internos
 p->x = -9999.0;  // Modificación directa sin control
@@ -65,7 +66,8 @@ Las directivas de diseño de la cátedra establecen que todos los Tipos de Datos
 
 #### Archivo de Cabecera (`.h`) - Interfaz Pública
 
-```c
+```{code-block}c
+:linenos:
 // punto.h - Interfaz pública
 #ifndef PUNTO_H
 #define PUNTO_H
@@ -86,7 +88,8 @@ void punto_desplazar(punto_t *punto, double dx, double dy);
 
 #### Archivo de Implementación (`.c`) - Detalles Privados
 
-```c
+```{code-block}c
+:linenos:
 // punto.c - Implementación privada
 #include "punto.h"
 #include <stdlib.h>
@@ -136,7 +139,8 @@ void punto_desplazar(punto_t *punto, double dx, double dy) {
 
 #### Código Cliente
 
-```c
+```{code-block}c
+:linenos:
 // main.c - Usuario de la interfaz
 #include <stdio.h>
 #include "punto.h"
@@ -172,7 +176,8 @@ Dado que las instancias de tipos opacos se alocan dinámicamente en el heap, es 
 ### Tipo Incompleto (Incomplete Type)
 
 Cuando declarás:
-```c
+```{code-block}c
+:linenos:
 typedef struct punto punto_t;
 ```
 
@@ -183,17 +188,17 @@ Sin dar la definición completa, creás un **tipo incompleto** (*incomplete type
 Con un tipo incompleto, el código cliente **solo puede**:
 
 1. **Declarar punteros** al tipo:
-   ```c
+   ```{code-block}c
    punto_t *p;  // ✅ Permitido
    ```
 
 2. **Pasar punteros** a funciones:
-   ```c
+   ```{code-block}c
    punto_desplazar(p, 1.0, 2.0);  // ✅ Permitido
    ```
 
 3. **Usar punteros** en expresiones que no requieran el tamaño:
-   ```c
+   ```{code-block}c
    if (p == NULL) { ... }  // ✅ Permitido
    ```
 
@@ -202,22 +207,22 @@ Con un tipo incompleto, el código cliente **solo puede**:
 El código cliente **NO puede**:
 
 1. **Declarar instancias** por valor:
-   ```c
+   ```{code-block}c
    punto_t p;  // ❌ ERROR: incomplete type
    ```
 
 2. **Acceder a miembros**:
-   ```c
+   ```{code-block}c
    p->x = 5.0;  // ❌ ERROR: incomplete type
    ```
 
 3. **Usar sizeof**:
-   ```c
+   ```{code-block}c
    sizeof(punto_t);  // ❌ ERROR: incomplete type
    ```
 
 4. **Desreferenciar**:
-   ```c
+   ```{code-block}c
    punto_t copia = *p;  // ❌ ERROR: incomplete type
    ```
 
@@ -253,7 +258,8 @@ Un puntero en C simplemente almacena una dirección de memoria. Independientemen
 
 La implementación está **completamente oculta**. El código cliente no puede (ni accidentalmente) acceder o modificar los campos internos.
 
-```c
+```{code-block}c
+:linenos:
 // Esto NO compila - el compilador protege los detalles internos
 punto_t *p = crear_punto(3.0, 4.0);
 p->x = 100.0;  // ERROR en tiempo de compilación
@@ -263,7 +269,8 @@ p->x = 100.0;  // ERROR en tiempo de compilación
 
 Podés cambiar completamente la implementación interna sin afectar al código cliente:
 
-```c
+```{code-block}c
+:linenos:
 // punto.c - Versión con coordenadas polares (cambio de implementación)
 struct punto {
     double radio;
@@ -277,7 +284,8 @@ Si cambiás la implementación a coordenadas polares, las funciones públicas en
 
 Solo las funciones del módulo pueden modificar la estructura, garantizando que los invariantes se cumplan siempre. Por ejemplo, si tenés un tipo `usuario_t` que representa a un usuario del sistema:
 
-```c
+```{code-block}c
+:linenos:
 bool usuario_establecer_edad(usuario_t *u, int nueva_edad) {
     // Garantiza que la edad no sea negativa
     if (u == NULL || nueva_edad < 0) {
@@ -306,14 +314,15 @@ Los archivos que incluyen `punto.h` no necesitan incluir las dependencias intern
 
 Toda estructura opaca alocada dinámicamente debe proveer funciones para crear y destruir instancias:
 
-```c
+```{code-block}c
 // Convención de nombres: tipo_accion
 tipo_t *crear_tipo(parametros);
 void destruir_tipo(tipo_t *instancia);
 ```
 
 **Ejemplo:**
-```c
+```{code-block}c
+:linenos:
 usuario_t *usr = crear_usuario("Carlos", 35);
 // ... usar usr ...
 destruir_usuario(usr);
@@ -328,7 +337,8 @@ Debés implementar un lazo de destrucción que recorra la colección elemento po
 
 **Ejemplo práctico de destrucción de un array de usuarios:**
 
-```c
+```{code-block}c
+:linenos:
 #define CANT_USUARIOS 5
 
 void liberar_grupo_usuarios(usuario_t **grupo, size_t cantidad) {
@@ -351,7 +361,8 @@ void liberar_grupo_usuarios(usuario_t **grupo, size_t cantidad) {
 
 Para acceder a propiedades sin exponer los campos de la estructura:
 
-```c
+```{code-block}c
+:linenos:
 // Getter - solo lectura
 const char *usuario_obtener_nombre(const usuario_t *u);
 int usuario_obtener_edad(const usuario_t *u);
@@ -368,7 +379,8 @@ Usá `const tipo_t *` en funciones que solo leen, no modifican. Esto documenta l
 
 Siempre verificá punteros nulos y condiciones de error de manera defensiva:
 
-```c
+```{code-block}c
+:linenos:
 bool usuario_establecer_edad(usuario_t *u, int nueva_edad) {
     // Verificaciones defensivas
     if (u == NULL || nueva_edad < 0) {
@@ -400,7 +412,8 @@ bool usuario_establecer_edad(usuario_t *u, int nueva_edad) {
 
 ### vs. Void Pointers
 
-```c
+```{code-block}c
+:linenos:
 // Opción 1: Puntero opaco (RECOMENDADO)
 typedef struct punto punto_t;
 double punto_obtener_x(const punto_t *p);
@@ -427,7 +440,8 @@ Este ejemplo implementa un módulo para gestionar un usuario, donde los campos i
 
 ### Interfaz Pública (`usuario.h`)
 
-```c
+```{code-block}c
+:linenos:
 #ifndef USUARIO_H
 #define USUARIO_H
 
@@ -453,7 +467,8 @@ void usuario_imprimir(const usuario_t *u);
 
 ### Implementación (`usuario.c`)
 
-```c
+```{code-block}c
+:linenos:
 #include "usuario.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -530,7 +545,8 @@ void usuario_imprimir(const usuario_t *u) {
 
 ### Uso del Cliente
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 #include "usuario.h"
 
@@ -600,7 +616,8 @@ Muchas bibliotecas conocidas usan punteros opacos:
 
 ### POSIX: FILE
 
-```c
+```{code-block}c
+:linenos:
 // stdio.h
 typedef struct _IO_FILE FILE;
 
@@ -612,7 +629,8 @@ No sabés cómo está implementado `FILE` internamente, pero podés usarlo a tra
 
 ### OpenSSL
 
-```c
+```{code-block}c
+:linenos:
 typedef struct ssl_ctx_st SSL_CTX;
 typedef struct ssl_st SSL;
 
@@ -622,7 +640,8 @@ SSL *SSL_new(SSL_CTX *ctx);
 
 ### GTK+ (GUI)
 
-```c
+```{code-block}c
+:linenos:
 typedef struct _GtkWidget GtkWidget;
 typedef struct _GtkWindow GtkWindow;
 
@@ -637,7 +656,8 @@ Todos estos ejemplos siguen el mismo patrón de puntero opaco.
 
 ### 1. Convenciones de Nombres
 
-```c
+```{code-block}c
+:linenos:
 // Patrón: tipo_t para el tipo, crear_tipo/destruir_tipo para funciones
 typedef struct usuario usuario_t;
 
@@ -647,7 +667,8 @@ void destruir_usuario(usuario_t *u);
 
 ### 2. Documentación Clara
 
-```c
+```{code-block}c
+:linenos:
 /**
  * Crea una nueva instancia de un usuario.
  * 
@@ -667,7 +688,8 @@ void destruir_usuario(usuario_t *u);
 
 ### 3. Manejo de Errores Consistente
 
-```c
+```{code-block}c
+:linenos:
 // Retornar NULL en creación si falla
 tipo_t *crear_tipo(void) {
     tipo_t *t = malloc(sizeof(*t));
@@ -690,7 +712,8 @@ bool tipo_operar(tipo_t *t, int dato) {
 
 ### 4. Tolerancia a NULL
 
-```c
+```{code-block}c
+:linenos:
 void destruir_tipo(tipo_t *t) {
     // Tolerante a NULL - comportamiento similar a free()
     if (t == NULL) {
@@ -702,7 +725,8 @@ void destruir_tipo(tipo_t *t) {
 
 ### 5. Uso de `const` para Intenciones
 
-```c
+```{code-block}c
+:linenos:
 // Solo lectura - no modifica la estructura
 double punto_obtener_x(const punto_t *punto);
 
@@ -718,14 +742,16 @@ void punto_desplazar(punto_t *punto, double dx, double dy);
 
 No podés acceder directamente a los campos para debugging o inspección rápida en herramientas tradicionales:
 
-```c
+```{code-block}c
+:linenos:
 // En GDB:
 (gdb) print punto->x
 Cannot access memory at address 0x0: incomplete type
 ```
 
 **Solución:** Proveer funciones de inspección para debugging si es necesario:
-```c
+```{code-block}c
+:linenos:
 #ifdef DEBUG
 void punto_debug_print(const punto_t *p);
 #endif
@@ -733,7 +759,8 @@ void punto_debug_print(const punto_t *p);
 
 ### 2. No se Puede Alocar en el Stack
 
-```c
+```{code-block}c
+:linenos:
 // Esto NO compila con puntero opaco
 punto_t p;  // ERROR: incomplete type
 
@@ -747,12 +774,14 @@ punto_t *p = crear_punto(3.0, 4.0);
 
 No podés realizar una copia superficial por asignación directa:
 
-```c
+```{code-block}c
+:linenos:
 punto_t copia = *original;  // ERROR: incomplete type
 ```
 
 **Solución:** Proveer una función de copia explícita (clonación):
-```c
+```{code-block}c
+:linenos:
 punto_t *punto_clonar(const punto_t *original);
 ```
 
@@ -798,7 +827,8 @@ Asegurá mediante invariantes que el ancho y el alto sean siempre mayores a cero
 
 Convertí la siguiente estructura expuesta a un diseño basado en puntero opaco:
 
-```c
+```{code-block}c
+:linenos:
 // fecha.h - ANTES (expuesta)
 typedef struct {
     int dia;
@@ -856,7 +886,8 @@ Los punteros opacos son una técnica esencial para construir software modular y 
 4. **Compatibilidad binaria:** Actualizar la biblioteca sin recompilar las aplicaciones.
 
 **Patrón típico:**
-```c
+```{code-block}c
+:linenos:
 // tipo.h
 typedef struct tipo tipo_t;
 tipo_t *crear_tipo(...);

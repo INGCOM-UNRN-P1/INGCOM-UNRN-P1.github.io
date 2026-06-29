@@ -19,7 +19,7 @@ Cuando una estructura (`struct`) contiene punteros a otros datos, debemos gestio
 
 Para crear una instancia de una estructura que contiene punteros (como `char* nombre`), se requieren múltiples asignaciones de memoria. Consideremos una estructura `persona_t`:
 
-```c
+```{code-block}c
 typedef struct {
     char *nombre;
     int edad;
@@ -32,7 +32,8 @@ El proceso de creación involucra **tres pasos fundamentales**:
 
 Primero, reservamos memoria para la estructura en sí:
 
-```c
+```{code-block}c
+:linenos:
 persona_t *nuevo = malloc(sizeof(persona_t));
 if (nuevo == NULL) {
     // Manejar error de asignación
@@ -48,7 +49,8 @@ Como se detalla en {ref}`memoria-bp-verificar`, **nunca** asumas que `malloc` ti
 
 Luego, reservamos memoria para cada puntero dentro de la estructura:
 
-```c
+```{code-block}c
+:linenos:
 // +1 para el carácter nulo '\0'
 nuevo->nombre = malloc(sizeof(char) * (strlen(nombre) + 1));
 if (nuevo->nombre == NULL) {
@@ -65,7 +67,8 @@ Si la segunda asignación falla, debemos liberar la primera antes de retornar. D
 
 Finalmente, copiamos los datos a la memoria recién asignada:
 
-```c
+```{code-block}c
+:linenos:
 strcpy(nuevo->nombre, nombre);
 nuevo->edad = edad;
 ```
@@ -76,13 +79,15 @@ nuevo->edad = edad;
 El operador `->` es un **atajo sintáctico** para acceder a miembros de una estructura a través de un puntero. Como se explica en {ref}`Punteros <punteros-capitulo>`, este operador combina la desreferencia y el acceso a miembro en una sola operación.
 
 **Equivalencia:**
-```c
+```{code-block}c
+:linenos:
 puntero->miembro  ≡  (*puntero).miembro
 ```
 
 **Ejemplo comparativo:**
 
-```c
+```{code-block}c
+:linenos:
 persona_t *p = /* ... */;
 
 // Usando ->
@@ -103,7 +108,8 @@ La liberación de memoria debe seguir el **orden inverso** al de la creación. E
 
 #### Orden Correcto de Liberación
 
-```c
+```{code-block}c
+:linenos:
 void persona_destruir(persona_t *persona) {
     if (persona == NULL) {
         return;  // Nada que hacer
@@ -130,7 +136,8 @@ Orden correcto vs incorrecto de liberación de memoria en estructuras anidadas.
 ```
 
 :::{danger} Error Común: Orden Incorrecto
-```c
+```{code-block}c
+:linenos:
 // INCORRECTO
 free(persona);          // Ahora persona->nombre es inaccesible
 free(persona->nombre);  // ¡Comportamiento indefinido!
@@ -143,7 +150,8 @@ Una vez que `persona` se libera, acceder a cualquiera de sus miembros (incluyend
 
 Para estructuras con varios niveles de punteros, aplicá el mismo principio recursivamente:
 
-```c
+```{code-block}c
+:linenos:
 typedef struct {
     char *nombre;
     char *apellido;
@@ -215,7 +223,8 @@ Un **puntero colgante** (_dangling pointer_) es un puntero que apunta a memoria 
 
 Cuando llamás `free(puntero)`, la memoria se libera pero **la variable `puntero` no cambia**. Sigue conteniendo la dirección antigua, que ahora es inválida.
 
-```c
+```{code-block}c
+:linenos:
 int *datos = malloc(sizeof(int) * 10);
 // ... usar datos ...
 free(datos);
@@ -231,14 +240,16 @@ Usar un puntero colgante (leer o escribir) invoca **undefined behavior**. El pro
 - Corromper otros datos silenciosamente
 - Comportarse de forma impredecible
 
-```c
+```{code-block}c
+:linenos:
 free(datos);
 datos[0] = 42;  // UNDEFINED BEHAVIOR
 ```
 
 #### Solución: Poner en `NULL` Después de `free`
 
-```c
+```{code-block}c
+:linenos:
 free(puntero);
 puntero = NULL;  // Ahora es seguro verificar con if (puntero != NULL)
 ```
@@ -252,7 +263,8 @@ Poner punteros en `NULL` después de `free` tiene dos ventajas:
 :::{tip} Concepto Avanzado: Liberación Defensiva con Doble Puntero
 Para evitar repetir manualmente la asignación a `NULL` tras cada llamada a `free`, se puede encapsular la liberación en una función auxiliar que reciba la dirección de la variable puntero (un doble puntero). Esto permite modificar el puntero original de la función invocadora.
 
-```c
+```{code-block}c
+:linenos:
 void datos_liberar(int **ptr) {
     if (ptr == NULL) {
         return;  // Evita desreferenciar si se pasa un puntero inválido
@@ -284,7 +296,8 @@ Solo podés liberar memoria que fue obtenida de `malloc`, `calloc` o `realloc`. 
 
 **1. Liberar variables del stack:**
 
-```c
+```{code-block}c
+:linenos:
 int main() {
     char automatica[] = "hola mundo";  // En el stack
     free(automatica);  // ERROR: undefined behavior
@@ -295,7 +308,8 @@ Como se explica en {ref}`memoria-segmentacion`, las variables automáticas se ge
 
 **2. Liberar literales de cadena:**
 
-```c
+```{code-block}c
+:linenos:
 char *mensaje = "Hola";  // Literal en .rodata (read-only data)
 free(mensaje);  // ERROR: undefined behavior
 ```
@@ -304,7 +318,8 @@ Los literales de cadena residen en el segmento `.rodata` (ver {ref}`memoria-segm
 
 **3. Liberar variables globales:**
 
-```c
+```{code-block}c
+:linenos:
 int global_arr[100];  // Segmento .bss o .data
 
 void funcion() {
@@ -320,7 +335,8 @@ Más allá de `malloc` y `free`, C proporciona funciones adicionales para manipu
 (punteros2-calloc)=
 ### `calloc`: Asignación con Inicialización
 
-```c
+```{code-block}c
+:linenos:
 void *calloc(size_t cantidad, size_t tamaño);
 ```
 
@@ -328,7 +344,8 @@ Asigna memoria para un **arreglo** de `cantidad` elementos, cada uno de `tamaño
 
 **Comparación con `malloc`:**
 
-```c
+```{code-block}c
+:linenos:
 // Usando malloc
 int *arr1 = malloc(10 * sizeof(int));
 // arr1[i] contiene basura
@@ -347,7 +364,8 @@ int *arr2 = calloc(10, sizeof(int));
 (punteros2-realloc)=
 ### `realloc`: Redimensionar Bloques
 
-```c
+```{code-block}c
+:linenos:
 void *realloc(void *bloque, size_t nuevo_tamaño);
 ```
 
@@ -380,7 +398,8 @@ Cambia el tamaño de un bloque de memoria existente. Esta función es fundamenta
 #### Uso Correcto de `realloc`
 
 :::{danger} Patrón Incorrecto Común
-```c
+```{code-block}c
+:linenos:
 // INCORRECTO: Pierde el puntero si realloc falla
 arr = realloc(arr, nuevo_tamaño * sizeof(int));
 ```
@@ -390,7 +409,8 @@ Si `realloc` falla, retorna `NULL` pero el bloque original **no se libera**. Asi
 
 **Patrón correcto:**
 
-```c
+```{code-block}c
+:linenos:
 int *temp = realloc(arr, nuevo_tamaño * sizeof(int));
 if (temp == NULL) {
     // realloc falló, arr sigue válido
@@ -424,7 +444,8 @@ Cuando `realloc` mueve un bloque, **todos los punteros** al bloque original qued
 (punteros2-memset)=
 ### `memset`: Relleno de Memoria
 
-```c
+```{code-block}c
+:linenos:
 void *memset(void *destino, int valor, size_t count);
 ```
 
@@ -432,7 +453,8 @@ Rellena los primeros `count` bytes de `destino` con `valor` (convertido a `unsig
 
 **Usos comunes:**
 
-```c
+```{code-block}c
+:linenos:
 // Inicializar array a cero
 int arr[100];
 memset(arr, 0, sizeof(arr));
@@ -446,7 +468,8 @@ memset(password, 0, sizeof(password));  // Borrar rastros
 :::{warning} Limitación de `memset`
 `memset` trabaja **byte a byte**. Para inicializar arrays de tipos más grandes a valores distintos de cero, usá un lazo o `calloc`.
 
-```c
+```{code-block}c
+:linenos:
 int arr[10];
 memset(arr, 1, sizeof(arr));  // NO inicializa a 1
 // Cada byte es 1, entonces cada int es 0x01010101
@@ -456,7 +479,8 @@ memset(arr, 1, sizeof(arr));  // NO inicializa a 1
 (punteros2-memcpy)=
 ### `memcpy`: Copia de Memoria
 
-```c
+```{code-block}c
+:linenos:
 void *memcpy(void *destino, const void *origen, size_t count);
 ```
 
@@ -464,7 +488,8 @@ Copia `count` bytes desde `origen` a `destino`. **Las regiones no deben solapars
 
 **Ejemplo:**
 
-```c
+```{code-block}c
+:linenos:
 int src[5] = {1, 2, 3, 4, 5};
 int dst[5];
 memcpy(dst, src, sizeof(src));
@@ -474,7 +499,8 @@ memcpy(dst, src, sizeof(src));
 :::{danger} Solapamiento
 Si las regiones de memoria se solapan, el comportamiento es indefinido. Para copias con solapamiento, usá `memmove`.
 
-```c
+```{code-block}c
+:linenos:
 int arr[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 // Mover elementos 3 posiciones a la derecha
 memmove(&arr[3], &arr[0], 7 * sizeof(int));  // Correcto
@@ -487,7 +513,8 @@ memcpy(&arr[3], &arr[0], 7 * sizeof(int));   // Indefinido
 
 Los **VLA** (_Variable Length Arrays_) son arreglos cuyo tamaño se determina en tiempo de ejecución, no en compilación.
 
-```c
+```{code-block}c
+:linenos:
 void funcion(int cantidad) {
     int arreglo[cantidad];  // <-- VLA: tamaño determinado en runtime
 }
@@ -503,7 +530,8 @@ Los VLAs están **explícitamente prohibidos** en este curso. Usá memoria diná
 
 Los VLAs se crean en el **stack**, no en el heap (ver {ref}`memoria-comparacion-stack-heap`). El stack tiene tamaño limitado (típicamente 1-8 MB).
 
-```c
+```{code-block}c
+:linenos:
 void procesar(int n) {
     int datos[n];  // VLA en el stack
     
@@ -515,7 +543,8 @@ void procesar(int n) {
 
 A diferencia de `malloc`, que retorna `NULL` si falla, un VLA cuya dimensión excede la capacidad del stack en tiempo de ejecución simplemente **provoca un desbordamiento del stack (stack overflow) y crashea el programa** de manera irrecuperable:
 
-```c
+```{code-block}c
+:linenos:
 int *heap_arr = malloc(n * sizeof(int));
 if (heap_arr == NULL) {
     // Podemos manejar el error
@@ -536,7 +565,8 @@ El límite del stack varía entre plataformas y configuraciones. Código que fun
 
 ### Alternativa Correcta: Memoria Dinámica
 
-```c
+```{code-block}c
+:linenos:
 void funcion(int cantidad) {
     int *arreglo = malloc(cantidad * sizeof(int));
     if (arreglo == NULL) {
@@ -562,7 +592,8 @@ void funcion(int cantidad) {
 
 Una variable puntero es un tipo de dato que almacena una dirección de memoria. Sin embargo, al ser una variable en sí misma, también reside en una dirección de memoria física específica del sistema. La **doble indirección** consiste en utilizar un puntero que almacena la dirección de otra variable puntero, declarándose mediante el operador de doble asterisco (`**`).
 
-```c
+```{code-block}c
+:linenos:
 int valor = 42;
 int *p = &valor;    // Puntero simple (indirección simple)
 int **pp = &p;      // Doble puntero (doble indirección)
@@ -593,7 +624,8 @@ Si necesitás que una función modifique un tipo de dato básico (como un `int`)
 
 Considerá la siguiente función que intenta asignar memoria para un entero:
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -621,7 +653,8 @@ Al invocar `inicializar_incorrecto(mi_puntero)`, el valor de `mi_puntero` (que e
 
 Para modificar el puntero original de la función invocadora, se debe enviar su dirección de memoria (`&mi_puntero`). La función receptora utilizará un parámetro de doble indirección para acceder y modificar el puntero original mediante desreferencia:
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -665,7 +698,8 @@ Es fundamental comprender la diferencia entre operar sobre el doble puntero o so
 
 Este enfoque es el estándar en C para construir interfaces limpias de Tipos Abstractos de Datos (TAD), garantizando que las funciones que modifican la estructura interna o el estado de los punteros del cliente lo hagan de forma segura y controlada.
 
-```c
+```{code-block}c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -747,7 +781,8 @@ Representación de una matriz dentada: array de punteros a arrays.
 
 #### Asignación
 
-```c
+```{code-block}c
+:linenos:
 int **matriz;
 int filas = 3, columnas = 4;
 
@@ -775,7 +810,8 @@ for (int i = 0; i < filas; i++) {
 
 El acceso es natural con la sintaxis estándar de C:
 
-```c
+```{code-block}c
+:linenos:
 matriz[i][j] = 42;
 int valor = matriz[i][j];
 ```
@@ -790,7 +826,8 @@ int valor = matriz[i][j];
 
 Siguiendo el principio "de adentro hacia afuera" ({ref}`punteros2-destruccion`):
 
-```c
+```{code-block}c
+:linenos:
 // 1. Liberar cada fila
 for (int i = 0; i < filas; i++) {
     free(matriz[i]);
@@ -827,7 +864,8 @@ Matriz almacenada como bloque contiguo: todas las filas consecutivas en memoria.
 
 #### Asignación
 
-```c
+```{code-block}c
+:linenos:
 int *matriz;
 int filas = 3, columnas = 4;
 
@@ -841,7 +879,8 @@ if (matriz == NULL) {
 
 No podés usar `matriz[i][j]` directamente porque `matriz` es `int *`, no `int **`. Debés calcular el índice lineal:
 
-```c
+```{code-block}c
+:linenos:
 // Acceso: fila i, columna j
 int valor = matriz[i * columnas + j];
 
@@ -866,7 +905,8 @@ Mapeo entre la representación lógica 2D y la memoria lineal contigua.
 
 Solo una llamada a `free`:
 
-```c
+```{code-block}c
+:linenos:
 free(matriz);
 ```
 
@@ -874,7 +914,8 @@ free(matriz);
 
 Para mejorar la legibilidad, podés crear una función:
 
-```c
+```{code-block}c
+:linenos:
 static inline int matriz_get(int *matriz, int fila, int col, int num_cols) {
     return matriz[fila * num_cols + col];
 }
@@ -907,7 +948,8 @@ Este enfoque combina lo mejor de ambos mundos: **memoria contigua** del Enfoque 
 
 #### Asignación con Puntero a Array
 
-```c
+```{code-block}c
+:linenos:
 #define COLUMNAS 4
 
 int filas = 3;
@@ -935,7 +977,8 @@ Es decir, `matriz` es un puntero a un array de `columnas` enteros.
 
 Ahora podés usar la sintaxis estándar:
 
-```c
+```{code-block}c
+:linenos:
 matriz[i][j] = 42;
 int valor = matriz[i][j];
 ```
@@ -966,13 +1009,15 @@ Este cálculo de desplazamiento en bytes coincide exactamente con la simulación
 
 Solo un `free`:
 
-```c
+```{code-block}c
+:linenos:
 free(matriz);
 ```
 
 #### Comparación de Declaraciones
 
-```c
+```{code-block}c
+:linenos:
 // Enfoque 1: Array de punteros
 int **matriz1;           // Puntero a puntero a int
 
@@ -993,7 +1038,8 @@ En esta cátedra, **los VLAs están estrictamente prohibidos en todas sus formas
 
 Para C89 y para cumplir las directivas de la materia se utiliza:
 
-```c
+```{code-block}c
+:linenos:
 #define COLUMNAS 4
 int (*matriz)[COLUMNAS] = malloc(sizeof(int) * COLUMNAS * filas);
 ```

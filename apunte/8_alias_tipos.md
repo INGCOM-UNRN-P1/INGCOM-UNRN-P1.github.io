@@ -13,13 +13,13 @@ En C, el mecanismo nativo para crear nombres alternativos o **alias** de tipos d
 
 La declaración se asemeja a la de una variable estándar, pero precedida por `typedef`:
 
-```c
+```{code-block}c
 typedef tipo_existente nuevo_nombre_t;
 ```
 
 Por ejemplo, si necesitás trabajar con enteros que representen distancias en metros y querés que el código exprese con claridad esa unidad:
 
-```c
+```{code-block}c
 typedef double metros_t;
 
 // Ahora podés usar 'metros_t' como un tipo estándar
@@ -35,7 +35,7 @@ Uno de los usos más rigurosos de `typedef` es garantizar la portabilidad e inde
 
 Mediante `typedef`, se pueden definir alias que denoten explícitamente el ancho físico del tipo de dato, facilitando la compilación del mismo código en múltiples plataformas:
 
-```c
+```{code-block}c
 // Definiciones basadas en la arquitectura del compilador
 typedef signed char        entero8_t;
 typedef short int          entero16_t;
@@ -102,6 +102,7 @@ de C para tipos definidos por el usuario:
 
 ```{code-block}c
 :caption: Sintaxis básica de enumeración
+:linenos:
 
 enum nombre_enumeracion {
     IDENTIFICADOR_1,
@@ -209,6 +210,7 @@ Por defecto, se asignan valores enteros consecutivos comenzando desde `0`:
 
 ```{code-block}c
 :caption: Asignación automática de valores
+:linenos:
 
 enum dias_semana {
     LUNES,      // 0
@@ -247,6 +249,7 @@ compilación:
 
 ```{code-block}c
 :caption: Uso de expresiones constantes en enums
+:linenos:
 
 #define BASE_ERROR 1000
 
@@ -751,7 +754,8 @@ La documentación adecuada de enumeraciones es esencial para comunicar el propó
 
 Este enfoque utiliza un único bloque de comentario antes de la definición de la enumeración para describir su propósito y todos sus valores. Es ideal para enumeraciones simples donde los valores son autoexplicativos.
 
-```c
+```{code-block}c
+:linenos:
 /**
  * Representa los niveles de severidad de un mensaje de log.
  * 
@@ -790,7 +794,8 @@ typedef enum {
 
 Este enfoque combina un bloque de comentario general con comentarios individuales para cada valor. Es preferible cuando cada valor requiere explicación específica o tiene restricciones particulares.
 
-```c
+```{code-block}c
+:linenos:
 /**
  * Representa los estados posibles de un proceso de compilación.
  * 
@@ -824,7 +829,8 @@ typedef enum {
 
 Para enumeraciones con valores explícitos o que representan códigos de protocolo, la documentación debe ser exhaustiva:
 
-```c
+```{code-block}c
+:linenos:
 /**
  * Códigos de estado HTTP más comunes.
  * 
@@ -858,7 +864,8 @@ typedef enum {
 
 Para enumeraciones que representan flags combinables, la documentación debe explicar cómo combinarlos:
 
-```c
+```{code-block}c
+:linenos:
 /**
  * Flags para control de permisos de archivo.
  * 
