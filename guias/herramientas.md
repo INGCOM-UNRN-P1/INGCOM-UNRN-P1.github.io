@@ -743,7 +743,7 @@ La mejor herramienta de debugging es tu cerebro. Estas herramientas son asistent
 
 ## Ejercicios Prácticos
 
-```exercise
+```{exercise}
 :label: ex-herramientas-1
 
 Creá un programa en C que tenga al menos tres errores diferentes (fuga de memoria, acceso fuera de límites, variable no inicializada). Luego:
@@ -754,7 +754,7 @@ Creá un programa en C que tenga al menos tres errores diferentes (fuga de memor
 4. Verificá que el programa pase todas las verificaciones
 ```
 
-```exercise
+```{exercise}
 :label: ex-herramientas-2
 
 Tomá uno de tus ejercicios anteriores y usá GDB para:
@@ -765,7 +765,7 @@ Tomá uno de tus ejercicios anteriores y usá GDB para:
 4. Documentar el flujo de ejecución
 ```
 
-```exercise
+```{exercise}
 :label: ex-herramientas-3
 
 Configurá VS Code con las tasks proporcionadas en esta guía. Verificá que podés:
