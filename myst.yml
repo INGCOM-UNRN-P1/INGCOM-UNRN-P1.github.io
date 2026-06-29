@@ -120,7 +120,7 @@ project:
             - file: referencia/refactorizaciones/ref-variables.md
             - file: referencia/refactorizaciones/ref-naming.md
             - file: referencia/refactorizaciones/ref-dry.md
-    - title: Ayuda
+    - title: Guías
       children:
         - file: guias/indice.md
         - file: guias/bash.md
