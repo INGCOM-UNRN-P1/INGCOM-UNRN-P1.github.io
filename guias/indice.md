@@ -29,6 +29,7 @@ Comprender las etapas de traducción de código fuente a lenguaje de máquina es
 *   **[Instalación del compilador](compilador.md)**: Guía detallada de instalación manual de GCC/MinGW-w64 en Windows y su vinculación con las variables de entorno del sistema.
 *   **[Compilador GCC](gcc.md)**: Manual profundo sobre la suite de compilación de GNU. Detalla banderas de compilación (`-Wall`, `-Wextra`, `-Wpedantic`), optimizaciones, modularidad y depuración.
 *   **[Compilador Clang/LLVM](clang.md)**: Guía completa de Clang y LLVM. Explica la arquitectura modular en tres fases, uso básico, optimización, herramientas integradas (`clang-format`, `clang-tidy`, `clangd`), depuración con `lldb` e integración con CMake y Ninja en el entorno CLANG64.
+*   **[Lógica proposicional](proposicional.md)**: Conceptos lógicos esenciales para la especificación formal. Explica conectivos lógicos, tablas de verdad, leyes de De Morgan y el condicional (implicación material) aplicados a aserciones y contratos.
 
 ---
 

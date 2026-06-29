@@ -131,6 +131,7 @@ project:
         - file: guias/compilador.md
         - file: guias/gcc.md
         - file: guias/clang.md
+        - file: guias/proposicional.md
         - file: guias/doxygen.md
         - file: guias/markdown.md
         - file: guias/vscode.md
