@@ -464,6 +464,7 @@ sin mayores cambios.
 Es crucial notar que en la firma `void imprimir_matriz(int mat[][COLUMNAS], size_t filas, size_t columnas)`, el parámetro `columnas` sirve únicamente como límite de control para el lazo interno de impresión (`j < columnas`). El compilador de C utiliza exclusivamente el valor constante `COLUMNAS` del tipo de dato (`int mat[][COLUMNAS]`) para realizar el cálculo de desplazamiento de memoria al evaluar `mat[i][j]`. Pasar `columnas` no altera en absoluto cómo el compilador direcciona físicamente los elementos en la memoria contigua.
 :::
 
+(sec-matriz-direccionamiento)=
 ### Cálculo de Desplazamiento de Memoria
 
 Dicha información es indispensable para que el compilador pueda calcular

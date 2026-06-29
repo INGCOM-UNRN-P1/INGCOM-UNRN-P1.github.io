@@ -339,6 +339,7 @@ Las implicaciones y el uso correcto de la memoria dinámica, que es la alternati
 
 De todas formas y como se imaginarán, hay una regla de estilo {ref}`0x5001h`.
 
+(sec-decaimiento-arreglos)=
 ### El Mecanismo de Paso a Funciones: Paso por Referencia Simulado
 
 En el lenguaje C, los arreglos poseen un comportamiento particular al ser transmitidos como argumentos a una función: **no se pasan por valor**. Esto significa que el compilador no realiza una copia de todos los elementos del arreglo en el registro de activación de la función receptora.

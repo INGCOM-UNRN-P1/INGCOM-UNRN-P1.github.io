@@ -206,10 +206,9 @@ indirecta.
 
 ### Punteros y arreglos
 
-El nombre de un arreglo no es un puntero, sino el identificador de un bloque de memoria contiguo. Sin embargo, al evaluarse en la mayoría de las expresiones de C, este decae (se degrada) automáticamente a un puntero al primer elemento del arreglo. Esto significa que, en esos contextos, usar el nombre del arreglo es equivalente a `&arreglo[0]`.
+El nombre de un arreglo no es un puntero, sino el identificador de un bloque de memoria contiguo. Sin embargo, como se analizó en {ref}`sec-decaimiento-arreglos`, al evaluarse en la mayoría de las expresiones de C este decae (se degrada) automáticamente a un puntero al primer elemento de la secuencia (`&arreglo[0]`). 
 
-Esta relación nos permite usar punteros para acceder y manipular los elementos
-de un arreglo, lo cual nos lleva directamente a la aritmética de punteros.
+Esta relación nos permite usar punteros para acceder y manipular los elementos de la secuencia de forma indirecta, lo cual nos lleva directamente a la aritmética de punteros.
 
 ### Ejercicios de Autoevaluación (Introducción y Operadores)
 
@@ -273,14 +272,9 @@ La regla de la cátedra {ref}`0x0003h` exige la inicialización obligatoria de t
 
 ## Aritmética de punteros
 
-La aritmética de punteros te permite realizar operaciones matemáticas sobre los
-punteros. Sin embargo, estas operaciones no son como las operaciones aritméticas
-tradicionales. El compilador ajusta automáticamente los cálculos según el tamaño
-del tipo de dato al que apunta el puntero.
+La aritmética de punteros permite realizar operaciones matemáticas sobre las direcciones de memoria. A diferencia de las operaciones aritméticas tradicionales, el compilador ajusta automáticamente los cálculos según el tamaño físico del tipo de dato al que se apunta.
 
-Si tenés un puntero `ptr` a un tipo de dato `T` que ocupa `sizeof(T)` bytes, al
-hacer `ptr + 1`, la dirección de memoria no se incrementa en 1, sino en
-`sizeof(T)`. Esto permite "saltar" de un elemento a otro en un arreglo.
+Si tenés un puntero `ptr` a un tipo de dato `T` que ocupa `sizeof(T)` bytes, al hacer `ptr + 1`, la dirección de memoria física no se incrementa en 1, sino en `sizeof(T)`. Este mecanismo es el fundamento del acceso indexado y el cálculo de desplazamientos bidimensionales en memoria contigua que estudiamos en {ref}`sec-matriz-direccionamiento`. Esto permite "saltar" de un elemento a otro en un arreglo de forma eficiente.
 
 ```{figure} 9/aritmetica_punteros.svg
 :label: fig-aritmetica-punteros
@@ -431,9 +425,9 @@ Explicá de forma detallada la diferencia de comportamiento entre las siguientes
 
 ## Punteros en funciones y efectos secundarios
 
-En el lenguaje C, **todas las funciones pasan sus argumentos estrictamente por valor**. No existe soporte nativo en el lenguaje para el paso por referencia (a diferencia de otros lenguajes como C++). Esto significa que al invocar una función, los parámetros formales reciben una copia de los valores de los argumentos. Cualquier modificación que se realice dentro del cuerpo de la función sobre esos parámetros afecta exclusivamente a sus copias locales en el marco de pila (*stack frame*), dejando intactas las variables originales del invocador.
+En C, **todas las funciones pasan sus argumentos por valor** (copia de datos). Ya experimentaste el **paso por referencia simulado** con los arreglos en {ref}`sec-decaimiento-arreglos`: al no poder copiar todo el bloque de memoria de la secuencia, C pasa la dirección de su primer elemento.
 
-El **paso por referencia simulado** es la técnica mediante la cual logramos que una función pueda acceder y modificar variables del entorno que la invoca. Para simular esta referencia, pasamos por valor la *dirección de memoria* (un puntero) de la variable original. Aunque la dirección en sí se copia en la pila de la función, la desreferencia de este puntero permite interactuar directamente con la celda de memoria original.
+Para variables de tipo primario (como `int` o `char`), aplicamos el mismo principio físico: si queremos permitir que una función modifique una variable del invocador (un efecto secundario), pasamos por valor su *dirección de memoria* (un puntero). Aunque la dirección en sí se copia en el registro de activación (*stack frame*), la desreferencia de este puntero permite interactuar directamente con la celda de memoria original del invocador.
 
 ### Justificación de Diseño: Eficiencia y Rendimiento en Sistemas
 
@@ -555,15 +549,9 @@ La variable `contador` de `incrementarContador` tiene el rol de **parámetro de 
 
 ### El impacto en los efectos secundarios
 
-La capacidad de una función para modificar variables que no le pertenecen (es
-decir, que no están en su ámbito local) es un nuevo tipo de efecto secundario
-(side effect), que en parte, ya vimos en [Secuencias y Arreglos](./6_secuencias.md).
+Esta capacidad para modificar variables externas al ámbito de la función constituye un efecto secundario (side effect) análogo al que estudiamos con la modificación de arreglos en [](6_secuencias). 
 
-Si bien los efectos secundarios son extremadamente útiles y necesarios (como en
-nuestra función `intercambiar`), también pueden hacer que el código sea más
-difícil de entender y depurar. Cuando una función modifica una variable externa,
-tenés que rastrear no solo qué hace la función, sino también qué variables de tu
-programa podrían haber cambiado después de llamarla.
+Si bien los efectos secundarios son indispensables para la eficiencia y para permitir la salida de múltiples resultados, incrementan la complejidad del flujo lógico del programa. El programador debe rastrear minuciosamente qué variables del invocador pueden cambiar tras la ejecución de la función, razón por la cual es obligatorio documentar sus poscondiciones y restringir las mutaciones no deseadas mediante `const` (ver regla de estilo {ref}`0x3007h`).
 
 ## El Calificador `const`: el ancla de seguridad con punteros
 
