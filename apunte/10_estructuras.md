@@ -278,6 +278,96 @@ Aunque el orden `char a; char c; int b;` también reduce el tamaño a 8 bytes, l
 
 ---
 
+### Ejercicios de Autoevaluación (Sintaxis y offsetof)
+
+:::{exercise}
+:label: ej-struct-acceso-puntero
+Declarás una estructura llamada `persona_t` con un arreglo de caracteres `nombre` de tamaño 50 y un entero `edad`. Escribí una función en C llamada `cumplir_anos` que reciba un puntero a `persona_t` e incremente su miembro `edad` en `1` utilizando el operador de flecha `->`.
+:::
+
+:::{solution} ej-struct-acceso-puntero
+:class: dropdown
+```c
+#include <stdio.h>
+
+typedef struct {
+    char nombre[50];
+    int edad;
+} persona_t;
+
+// La función recibe el puntero a la estructura
+void cumplir_anos(persona_t *persona) {
+    if (persona != NULL) {
+        // Acceso indirecto mediante el operador ->
+        persona->edad++;
+    }
+}
+```
+:::
+
+:::{exercise}
+:label: ej-struct-offsetof-manual
+Dada la estructura:
+```c
+struct Contenedor {
+    char c;
+    int i;
+    char d;
+};
+```
+Calculá de forma matemática los desplazamientos (*offsets*) en bytes de los miembros `c`, `i` y `d` en un sistema de 32 bits con alineación natural de 4 bytes, y mostrá cómo imprimirlos usando la macro `offsetof`.
+:::
+
+:::{solution} ej-struct-offsetof-manual
+:class: dropdown
+En una arquitectura con alineación natural de 4 bytes:
+1. `c`: Se ubica al inicio de la estructura (desplazamiento 0).
+2. `i`: Siendo un `int` de 4 bytes, requiere un desplazamiento múltiplo de 4. Como `c` ocupa 1 byte, el compilador inserta 3 bytes de padding. Por lo tanto, `i` se ubica en el desplazamiento 4.
+3. `d`: Se coloca inmediatamente después de `i`, que ocupa los bytes 4 al 7. Por ende, `d` se ubica en el desplazamiento 8.
+*(Nota: El tamaño total de la estructura será 12 bytes, ya que se insertan 3 bytes de padding al final para completar un múltiplo de 4 bytes).*
+
+Código para imprimir los desplazamientos:
+```c
+#include <stdio.h>
+#include <stddef.h>
+
+int main() {
+    printf("Offset de c: %zu\n", offsetof(struct Contenedor, c)); // Imprime 0
+    printf("Offset de i: %zu\n", offsetof(struct Contenedor, i)); // Imprime 4
+    printf("Offset de d: %zu\n", offsetof(struct Contenedor, d)); // Imprime 8
+    return 0;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-struct-init-designados
+Declará una estructura `punto_t` con miembros reales `x`, `y` y un puntero a caracter `etiqueta`. Escribí la inicialización correcta de una instancia de esta estructura utilizando **inicializadores designados** (de acuerdo con las buenas prácticas recomendadas por la cátedra).
+:::
+
+:::{solution} ej-struct-init-designados
+:class: dropdown
+```c
+typedef struct {
+    double x;
+    double y;
+    const char *etiqueta;
+} punto_t;
+
+int main() {
+    // Inicialización explícita utilizando inicializadores designados
+    punto_t origen = {
+        .x = 0.0,
+        .y = 0.0,
+        .etiqueta = "Origen de Coordenadas"
+    };
+    return 0;
+}
+```
+:::
+
+---
+
 ### Documentación de Estructuras
 
 La documentación clara y detallada de las estructuras es fundamental para mantener código comprensible y mantenible. Una buena documentación explica no solo qué es cada campo, sino también su propósito, restricciones y relaciones con otros miembros. Existen dos enfoques principales para documentar estructuras, cada uno con sus ventajas según el contexto.
@@ -898,6 +988,98 @@ Este patrón (estructura con un `enum` que indica el tipo y un `union` que conti
 
 ---
 
+### Ejercicios de Autoevaluación (AoS, SoA y Diseño)
+
+:::{exercise}
+:label: ej-struct-aos-vs-soa-simd
+Explicá de forma conceptual por qué la organización de datos en Estructura de Arreglos (SoA) is computacionalmente más eficiente para optimizaciones de paralelismo vectorial (SIMD) en la CPU cuando procesamos masivamente un solo miembro (por ejemplo, el promedio de masas de miles de partículas) en comparación con un Arreglo de Estructuras (AoS).
+:::
+
+:::{solution} ej-struct-aos-vs-soa-simd
+:class: dropdown
+- **AoS (Arreglo de Estructuras)**: Organiza la memoria disponiendo cada partícula contigua con todos sus atributos (`x`, `y`, `z`, `masa`, etc.). Al recorrer el arreglo para leer únicamente `masa`, la CPU carga líneas de caché completas que contienen datos adyacentes irrelevantes para este cómputo (como las posiciones y velocidades), resultando en desperdicio de ancho de banda y fallos de caché.
+- **SoA (Estructura de Arreglos)**: Dispone todas las masas de forma contigua en un arreglo unidimensional único en memoria física. Esto permite a la CPU realizar lecturas lineales continuas y optimizar el uso de registros SIMD precargando múltiples masas contiguas sin ningún dato residual, maximizando la localidad espacial.
+:::
+
+:::{exercise}
+:label: ej-struct-invariante-rectangulo
+Diseñá una estructura `circulo_t` con un miembro real `radio` y otro miembro `centro` (de tipo `punto_2d_t`). Implementá una función constructora `crear_circulo` que valide la invariante de que el radio debe ser mayor a cero, asignando un valor por defecto seguro en caso contrario.
+:::
+
+:::{solution} ej-struct-invariante-rectangulo
+:class: dropdown
+```c
+#include <stdio.h>
+
+typedef struct {
+    double x;
+    double y;
+} punto_2d_t;
+
+typedef struct {
+    punto_2d_t centro;
+    double radio;
+} circulo_t;
+
+// Constructor con validación de invariante
+circulo_t crear_circulo(double cx, double cy, double r) {
+    circulo_t circ;
+    circ.centro.x = cx;
+    circ.centro.y = cy;
+
+    if (r <= 0.0) {
+        fprintf(stderr, "Error: El radio debe ser mayor a cero. Asignando 1.0 por seguridad.\n");
+        circ.radio = 1.0;
+    } else {
+        circ.radio = r;
+    }
+
+    return circ;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-struct-funcion-miembro
+Implementá una estructura en C llamada `operacion_t` que contenga una constante de caracteres `nombre` y un miembro de tipo puntero a función capaz de recibir dos números enteros y retornar un entero. Mostrá cómo instanciar la estructura, asignarle una función de suma e invocarla a través del puntero a función.
+:::
+
+:::{solution} ej-struct-funcion-miembro
+:class: dropdown
+```c
+#include <stdio.h>
+
+// Definición del tipo de puntero a función
+typedef int (*operacion_fn)(int, int);
+
+typedef struct {
+    const char *nombre;
+    operacion_fn ejecutar;
+} operacion_t;
+
+// Función compatible
+int sumar(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    // Instanciación
+    operacion_t op_suma = {
+        .nombre = "Suma Aritmética",
+        .ejecutar = sumar
+    };
+
+    // Invocación indirecta a través de la estructura
+    int resultado = op_suma.ejecutar(15, 25);
+    printf("Operación: %s | Resultado: %d\n", op_suma.nombre, resultado); // Imprime 40
+
+    return 0;
+}
+```
+:::
+
+---
+
 ## Uniones (`union`): Un Espacio para Múltiples Propósitos
 
 Una `union` permite que varios miembros compartan la **misma ubicación de
@@ -1231,7 +1413,100 @@ int main() {
 ```
 :::
 
-\n\n## Alineación de Miembros y Relleno en Estructuras (Padding)
+### Ejercicios de Autoevaluación (Uniones y Tagged Unions)
+
+:::{exercise}
+:label: ej-union-size-calculation
+Dadas las declaraciones:
+```c
+union A {
+    char c;
+    int i;
+};
+
+union B {
+    char buffer[20];
+    double d;
+};
+```
+Calculá el tamaño exacto en bytes de cada una de estas uniones en un compilador estándar donde `char` es 1 byte, `int` es 4 bytes y `double` es 8 bytes.
+:::
+
+:::{solution} ej-union-size-calculation
+:class: dropdown
+El tamaño de una `union` está determinado por el tamaño de su miembro más grande, con alineación ajustada a su miembro con restricciones más fuertes:
+- **`union A`**: El miembro más grande es `int i` (4 bytes). Por lo tanto, el tamaño total es de **4 bytes** (donde los 1 byte del `char c` comparten la misma ubicación física).
+- **`union B`**: El miembro más grande es `char buffer[20]` (20 bytes). Sin embargo, el miembro con restricción de alineación más fuerte es `double d` (8 bytes), lo que obliga a que el tamaño de la unión sea un múltiplo de 8 bytes. Para alinear correctamente la unión, el compilador redondea el tamaño a 24 bytes. Por ende, el tamaño total es de **24 bytes**.
+:::
+
+:::{exercise}
+:label: ej-union-bit-granularidad
+Diseñá una unión en C llamada `registro_t` que permita acceder a un valor entero sin signo de 16 bits completo llamado `valor`, o de forma individual a sus bytes superior (`alto`) e inferior (`bajo`) utilizando una estructura anidada.
+:::
+
+:::{solution} ej-union-bit-granularidad
+:class: dropdown
+```c
+#include <stdint.h>
+
+typedef union {
+    uint16_t valor; // Acceso completo de 16 bits
+    struct {
+        uint8_t bajo;  // Byte menos significativo (en little-endian)
+        uint8_t alto;  // Byte más significativo (en little-endian)
+    } bytes;
+} registro_t;
+```
+:::
+
+:::{exercise}
+:label: ej-union-tagged-shape
+Diseñá una unión etiquetada (tagged union) llamada `figura_t` que pueda representar un círculo (radio real) o un rectángulo (ancho y alto reales). Implementá una función `calcular_area` que retorne el área de la figura según su tipo.
+:::
+
+:::{solution} ej-union-tagged-shape
+:class: dropdown
+```c
+#include <stdio.h>
+
+typedef enum {
+    FIGURA_CIRCULO,
+    FIGURA_RECTANGULO
+} tipo_figura_t;
+
+typedef struct {
+    tipo_figura_t tipo;
+    union {
+        struct {
+            double radio;
+        } circulo;
+        struct {
+            double ancho;
+            double alto;
+        } rectangulo;
+    } datos;
+} figura_t;
+
+double calcular_area(const figura_t *figura) {
+    if (figura == NULL) {
+        return 0.0;
+    }
+
+    switch (figura->tipo) {
+        case FIGURA_CIRCULO:
+            return 3.14159265 * figura->datos.circulo.radio * figura->datos.circulo.radio;
+        case FIGURA_RECTANGULO:
+            return figura->datos.rectangulo.ancho * figura->datos.rectangulo.alto;
+        default:
+            return 0.0;
+    }
+}
+```
+:::
+
+---
+
+## Alineación de Miembros y Relleno en Estructuras (Padding)
 
 En el desarrollo de software en C estándar, la disposición de los datos en la memoria física no siempre es contigua ni directa. Los procesadores modernos acceden a la memoria física mediante **palabras de máquina** (típicamente de 32 o 64 bits, es decir, 4 u 8 bytes). Para optimizar el rendimiento de las operaciones de lectura y escritura en el bus de datos, el hardware impone restricciones de alineación.
 
@@ -1326,6 +1601,66 @@ int main(void) {
 
 :::{tip} Estilo
 Al declarar variables o tipos estructurados, recordá seguir la regla {ref}`0x0001h` que exige identificadores descriptivos, y usá el sufijo `_t` para los alias definidos con `typedef` de acuerdo a la buena práctica del proyecto.
+:::
+
+---
+
+### Ejercicios de Autoevaluación (Alineación y Padding)
+
+:::{exercise}
+:label: ej-struct-padding-waste
+Dada la estructura:
+```c
+struct Suboptimo {
+    char c1;
+    double d;
+    char c2;
+};
+```
+Calculá el tamaño total en bytes de esta estructura en una arquitectura x86_64 y reescribila reordenando sus miembros para minimizar el consumo de memoria física (padding).
+:::
+
+:::{solution} ej-struct-padding-waste
+:class: dropdown
+En una arquitectura x86_64 de 64 bits:
+- `c1` ocupa 1 byte (offset 0).
+- `d` (8 bytes) requiere estar alineado a una dirección múltiplo de 8. Por ende, se insertan 7 bytes de padding (offsets 1 al 7), ubicando a `d` en el offset 8.
+- `c2` ocupa 1 byte (offset 16).
+- Para alinear la estructura completa a múltiplos de 8 (el tamaño de `double`), el compilador añade 7 bytes de padding al final (del offset 17 al 23).
+El tamaño de `struct Suboptimo` es de **24 bytes**, desperdiciando 14 bytes en padding.
+
+La versión optimizada ordenando los miembros de mayor a menor tamaño es:
+```c
+struct Optimizado {
+    double d;   // 8 bytes (offset 0)
+    char c1;    // 1 byte  (offset 8)
+    char c2;    // 1 byte  (offset 9)
+    // 6 bytes de padding al final para completar el múltiplo de 8
+};
+```
+El tamaño de `struct Optimizado` se reduce a **16 bytes**.
+:::
+
+:::{exercise}
+:label: ej-struct-padding-array
+Explicá detalladamente por qué el compilador debe insertar bytes de relleno (*padding*) al final de una estructura (e.g., después del último miembro) y no únicamente en el espacio intermedio entre miembros.
+:::
+
+:::{solution} ej-struct-padding-array
+:class: dropdown
+El padding final se inserta para garantizar la correcta alineación de todos los elementos cuando la estructura se utiliza dentro de un **arreglo**.
+En un arreglo, los elementos se disponen de forma contigua en memoria virtual. Si no se agregaran bytes de relleno al final de la estructura para completar un múltiplo del tamaño del miembro más restrictivo, el segundo elemento del arreglo (ubicado en la dirección `dirección_base + sizeof(estructura)`) tendría sus miembros desalineados. Por ejemplo, en una estructura que contiene un `int` y un `char` en ese orden, el padding final de 3 bytes tras el `char` asegura que el siguiente `int` en el arreglo inicie en una dirección múltiplo de 4.
+:::
+
+:::{exercise}
+:label: ej-struct-alignas-custom
+Explicá qué es la restricción de "alineación natural" en procesadores de hardware modernos y qué impacto tiene en la eficiencia del bus de datos de la CPU que una variable se encuentre en una dirección no alineada.
+:::
+
+:::{solution} ej-struct-alignas-custom
+:class: dropdown
+Los procesadores modernos leen de la memoria RAM principal a través de palabras físicas (bloques de 4 u 8 bytes). La alineación natural establece que un dato de tamaño $T$ debe residir en una dirección que sea divisible por $T$.
+Si un dato de 4 bytes se almacena en una dirección no alineada (por ejemplo, dividida entre dos palabras de memoria), el controlador de memoria se ve obligado a realizar **dos lecturas de bus de datos**, aplicar operaciones de desplazamiento de bits (*shifting*) y máscaras lógicas para unir los fragmentos del dato. Esto duplica el tiempo de acceso al bus de datos y degrada la velocidad de ejecución. En algunas arquitecturas embebidas y RISC estrictas, el acceso no alineado no está soportado y produce una interrupción por fallo de alineación de hardware.
 :::
 
 ---

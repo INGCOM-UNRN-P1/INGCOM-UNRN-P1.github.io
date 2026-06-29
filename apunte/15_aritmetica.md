@@ -169,6 +169,93 @@ void estudiante_destruir(estudiante_t *est) {
 ```
 
 (punteros2-problemas)=
+### Ejercicios de Autoevaluación (Punteros a Estructuras)
+
+:::{exercise}
+:label: ej-ptr-struct-crear-copia
+Implementá una función constructora `recurso_crear` que reserve memoria en el heap para una estructura `recurso_t` que contenga un miembro entero `id` y un puntero a caracteres `nombre`. La función debe asignar memoria para copiar dinámicamente la cadena de entrada `nombre` y controlar de forma exhaustiva las fallas de asignación de memoria sin producir fugas (memory leaks).
+:::
+
+:::{solution} ej-ptr-struct-crear-copia
+:class: dropdown
+```c
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+    char *nombre;
+    int id;
+} recurso_t;
+
+recurso_t *recurso_crear(const char *nombre, int id) {
+    if (nombre == NULL) return NULL;
+
+    // Paso 1: Asignar estructura contenedora
+    recurso_t *nuevo = malloc(sizeof(recurso_t));
+    if (nuevo == NULL) return NULL;
+
+    // Paso 2: Asignar miembro interno (+1 para '\0')
+    nuevo->nombre = malloc(strlen(nombre) + 1);
+    if (nuevo->nombre == NULL) {
+        free(nuevo); // Liberar contenedor previo para evitar leak
+        return NULL;
+    }
+
+    // Paso 3: Copiar datos
+    strcpy(nuevo->nombre, nombre);
+    nuevo->id = id;
+
+    return nuevo;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-ptr-struct-flecha-equivalencia
+Explicá de manera teórica la equivalencia semántica entre el operador punto `.` combinado con desreferencia y el operador flecha `->` en C, y justificá por qué la cátedra promueve el uso de este último en el apunte.
+:::
+
+:::{solution} ej-ptr-struct-flecha-equivalencia
+:class: dropdown
+La expresión `p->miembro` es un atajo sintáctico exacto de `(*p).miembro`.
+En C, el operador de acceso a miembro punto `.` posee mayor precedencia que el operador de desreferencia asterisco `*`. Por lo tanto, escribir `*p.miembro` se interpretaría como desreferenciar el campo `p.miembro` (lo cual es un error si `p` es el puntero). Para desreferenciar primero el puntero y luego acceder al miembro, se requiere forzar la prioridad con paréntesis: `(*p).miembro`.
+El operador `->` elimina la necesidad de escribir paréntesis redundantes, haciendo que el código sea más limpio, legible e intuitivo para el programador.
+:::
+
+:::{exercise}
+:label: ej-ptr-struct-destruir-lifo
+Implementá una función destructora `estudiante_destruir` para la estructura:
+```c
+typedef struct {
+    char *nombre;
+    char *apellido;
+} estudiante_t;
+```
+Asegurá que la liberación de memoria se realice de forma LIFO ("de adentro hacia afuera") para evitar dejar campos huérfanos e inaccesibles en el heap.
+:::
+
+:::{solution} ej-ptr-struct-destruir-lifo
+:class: dropdown
+```c
+#include <stdlib.h>
+
+void estudiante_destruir(estudiante_t *est) {
+    if (est == NULL) {
+        return; // Cláusula de guarda
+    }
+
+    // 1. Liberar los miembros dinámicos internos primero
+    free(est->nombre);
+    free(est->apellido);
+
+    // 2. Liberar la estructura contenedora al final
+    free(est);
+}
+```
+:::
+
+---
+
 ## Problemas Comunes de Memoria Dinámica
 
 Esta sección detalla errores frecuentes en la gestión de memoria dinámica y sus soluciones. Estos problemas se amplían en {ref}`memoria-errores`.
@@ -328,6 +415,73 @@ void funcion() {
 ```
 
 (punteros2-funciones-memoria)=
+### Ejercicios de Autoevaluación (Problemas de Memoria)
+
+:::{exercise}
+:label: ej-ptr-heap-dangling
+Escribí un código en C que asigne un bloque de enteros en el heap, lo libere utilizando `free`, y muestre cómo desactivar de forma segura la variable puntero para evitar que se convierta en un **puntero colgante** (*dangling pointer*).
+:::
+
+:::{solution} ej-ptr-heap-dangling
+:class: dropdown
+```c
+#include <stdlib.h>
+
+int main() {
+    int *datos = malloc(5 * sizeof(int));
+    if (datos == NULL) return 1;
+
+    // ... uso de la memoria ...
+
+    free(datos);    // Se libera el bloque, pero 'datos' sigue guardando la dirección
+    datos = NULL;   // Se mitiga el dangling pointer asignando NULL
+
+    // Ahora es seguro realizar comprobaciones como:
+    // if (datos != NULL) { ... }
+    return 0;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-ptr-heap-double-free
+Explicá por qué intentar realizar `free(var)` sobre una variable asignada estáticamente en el stack (como `int var = 100;` o `char buffer[10];`) genera un fallo catastrófico en tiempo de ejecución.
+:::
+
+:::{solution} ej-ptr-heap-double-free
+:class: dropdown
+La función `free()` está diseñada exclusivamente para devolver bloques de memoria previamente asignados en el **heap** mediante las rutinas del gestor de memoria (`malloc`, `calloc`, `realloc`).
+El stack se gestiona de forma automática mediante registros del procesador (puntero de pila). Si pasamos una dirección del stack a `free()`, el gestor de memoria del heap intentará leer metadatos de control inexistentes antes de esa dirección de memoria, corrompiendo las estructuras de datos de la biblioteca estándar y provocando un comportamiento indefinido inmediato (usualmente un crash del programa con el mensaje `free(): invalid pointer`).
+:::
+
+:::{exercise}
+:label: ej-ptr-heap-defensive-free
+Implementá una función utilitaria en C llamada `free_seguro` que tome un doble puntero a entero (`int **ptr`), libere la memoria asociada y de forma automática establezca el puntero del invocador a `NULL` para implementar un patrón de liberación defensivo.
+:::
+
+:::{solution} ej-ptr-heap-defensive-free
+:class: dropdown
+```c
+#include <stdlib.h>
+
+void free_seguro(int **ptr) {
+    if (ptr == NULL || *ptr == NULL) {
+        return; // Evita doble liberación o desreferencia nula
+    }
+
+    free(*ptr);   // Libera el bloque de memoria
+    *ptr = NULL;  // Pone el puntero original del invocador en NULL
+}
+
+// Ejemplo de uso:
+// int *p = malloc(sizeof(int));
+// free_seguro(&p);
+// En este punto p es NULL de forma automática.
+```
+:::
+
+---
+
 ## Funciones Adicionales de Gestión de Memoria
 
 Más allá de `malloc` y `free`, C proporciona funciones adicionales para manipular memoria dinámica. Estas se detallan completamente en {ref}`memoria-dinamica-capitulo`.
@@ -588,6 +742,62 @@ void funcion(int cantidad) {
 :::
 
 (punteros2-doble-indireccion)=
+### Ejercicios de Autoevaluación (Funciones de Gestión y VLAs)
+
+:::{exercise}
+:label: ej-ptr-calloc-vs-malloc
+Explicá la diferencia entre usar `malloc` y `calloc` para reservar memoria para un arreglo de 100 enteros, y justificá en qué casos es preferible utilizar esta última.
+:::
+
+:::{solution} ej-ptr-calloc-vs-malloc
+:class: dropdown
+- **`malloc(100 * sizeof(int))`**: Reserva el bloque de memoria de 400 bytes, pero **no altera su contenido**. La memoria retiene cualquier dato residual (basura) que estuviese previamente en esas celdas físicas.
+- **`calloc(100, sizeof(int))`**: Reserva la misma cantidad de memoria y realiza un paso adicional inicializando **todos los bytes en cero**.
+Es preferible usar `calloc` cuando los valores iniciales de la estructura o arreglo deben estar limpios por diseño (por ejemplo, contadores en cero, punteros en `NULL` o strings vacíos), evitando errores lógicos por lectura de variables no inicializadas.
+:::
+
+:::{exercise}
+:label: ej-ptr-realloc-safe-temp
+Escribí un fragmento de código en C que redimensione un arreglo de enteros `arr` de capacidad $N$ a una nueva capacidad $2N$ de forma segura. Asegurate de no perder la dirección del bloque original en caso de que la asignación de memoria dinámica falle.
+:::
+
+:::{solution} ej-ptr-realloc-safe-temp
+:class: dropdown
+```c
+#include <stdlib.h>
+#include <stdio.h>
+
+int redimensionar_arreglo(int **arr, size_t *capacidad) {
+    size_t nueva_capacidad = (*capacidad) * 2;
+
+    // Se asigna el retorno en un puntero temporal
+    int *temp = realloc(*arr, nueva_capacidad * sizeof(int));
+    if (temp == NULL) {
+        // En caso de fallo, *arr sigue apuntando al bloque original válido
+        fprintf(stderr, "Error: Memoria insuficiente para redimensionar.\n");
+        return -1;
+    }
+
+    *arr = temp; // Éxito: se actualiza el puntero del invocador
+    *capacidad = nueva_capacidad;
+    return 0;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-ptr-vla-stack-overflow
+Explicá por qué declarar arreglos de tamaño variable en el stack (`int arr[n];` con `n` dinámico) es una práctica peligrosa que la cátedra prohíbe, y de qué forma puede resultar en un crasheo irrecuperable del programa.
+:::
+
+:::{solution} ej-ptr-vla-stack-overflow
+:class: dropdown
+Los Arreglos de Longitud Variable (VLA) en el stack reservan espacio dinámicamente en la pila en tiempo de ejecución.
+Debido a que el stack de un proceso es limitado (frecuentemente 1 MB o 8 MB según el sistema operativo), si el valor de `n` ingresado por el usuario o calculado es excesivamente grande, la pila se desbordará (*Stack Overflow*). A diferencia de `malloc` (que retorna `NULL` ante la falta de memoria, permitiendo al programa recuperarse y manejar el error), el desbordamiento del stack provocado por un VLA causa una interrupción de hardware inmediata e irrecuperable, abortando el sistema operativo el proceso del programa al instante.
+:::
+
+---
+
 ## Doble Indirección (Puntero a Puntero)
 
 Una variable puntero es un tipo de dato que almacena una dirección de memoria. Sin embargo, al ser una variable en sí misma, también reside en una dirección de memoria física específica del sistema. La **doble indirección** consiste en utilizar un puntero que almacena la dirección de otra variable puntero, declarándose mediante el operador de doble asterisco (`**`).
@@ -1100,6 +1310,108 @@ int (*matriz)[COLUMNAS] = malloc(sizeof(int) * COLUMNAS * filas);
 - Para matrices pequeñas o con filas de tamaño variable: **Enfoque 1**
 - Para matrices grandes con acceso frecuente: **Enfoque 2** (mejor performance)
 - Si necesitás sintaxis natural + performance: **Enfoque 3** (si la complejidad no es problema)
+:::
+
+---
+
+### Ejercicios de Autoevaluación (Doble Indirección y Matrices)
+
+:::{exercise}
+:label: ej-ptr-doble-referencia
+Implementá una función llamada `inicializar_puntero` que reciba un doble puntero a entero `int **out_ptr` y le asigne memoria dinámica para un entero con el valor `100`. Retorná un código de error de tipo enumeración `status_t`.
+:::
+
+:::{solution} ej-ptr-doble-referencia
+:class: dropdown
+```c
+#include <stdlib.h>
+
+typedef enum {
+    STATUS_OK = 0,
+    STATUS_ERR_PARAM,
+    STATUS_ERR_MEMORIA
+} status_t;
+
+status_t inicializar_puntero(int **out_ptr) {
+    if (out_ptr == NULL) {
+        return STATUS_ERR_PARAM;
+    }
+
+    // Se asigna memoria desreferenciando una vez
+    *out_ptr = malloc(sizeof(int));
+    if (*out_ptr == NULL) {
+        return STATUS_ERR_MEMORIA;
+    }
+
+    // Doble desreferencia para escribir el valor entero en el heap
+    **out_ptr = 100;
+    return STATUS_OK;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-ptr-matriz-dentada-aloc
+Escribí los algoritmos completos en C para asignar y liberar de forma correcta una matriz dinámica de tipo `double` usando el **Enfoque 1 (Matriz Dentada)** de dimensiones $F \times C$.
+:::
+
+:::{solution} ej-ptr-matriz-dentada-aloc
+:class: dropdown
+```c
+#include <stdlib.h>
+
+// Asignación de la matriz dentada
+double **matriz_crear(size_t filas, size_t columnas) {
+    double **mat = malloc(filas * sizeof(double *));
+    if (mat == NULL) return NULL;
+
+    for (size_t i = 0; i < filas; i++) {
+        mat[i] = malloc(columnas * sizeof(double));
+        if (mat[i] == NULL) {
+            // Liberar lo asignado previamente en caso de fallo (LIFO)
+            for (size_t j = 0; j < i; j++) {
+                free(mat[j]);
+            }
+            free(mat);
+            return NULL;
+        }
+    }
+    return mat;
+}
+
+// Liberación de la matriz dentada
+void matriz_liberar(double **mat, size_t filas) {
+    if (mat == NULL) return;
+
+    for (size_t i = 0; i < filas; i++) {
+        free(mat[i]); // Liberar cada fila primero
+    }
+    free(mat); // Liberar el array de punteros contenedor
+}
+```
+:::
+
+:::{exercise}
+:label: ej-ptr-matriz-bloque-index
+Dada una matriz dinámica implementada como un bloque contiguo único de memoria (Enfoque 2) de dimensiones `filas` y `columnas`, implementá una función `obtener_celda` que reciba el puntero lineal de la matriz, las dimensiones, y los índices de consulta `f` y `c`, y retorne el valor correspondiente aplicando la aritmética de indexación lineal.
+:::
+
+:::{solution} ej-ptr-matriz-bloque-index
+:class: dropdown
+```c
+#include <stdio.h>
+
+int obtener_celda(const int *matriz, int columnas, int f, int c) {
+    // Cálculo del índice plano correspondiente a la celda bidimensional
+    // Se desplazan f filas completas de ancho 'columnas', y se avanza c elementos
+    int indice_lineal = f * columnas + c;
+    return matriz[indice_lineal];
+}
+
+// Ejemplo de uso:
+// int *matriz = malloc(3 * 4 * sizeof(int));
+// int valor = obtener_celda(matriz, 4, 2, 1); // Accede a matriz[2][1]
+```
 :::
 
 ---

@@ -344,6 +344,92 @@ Aunque no implementés tu propio allocator, comprender su funcionamiento explica
 4. **Por qué el heap puede crecer pero no decrecer fácilmente:** El allocator solo puede devolver memoria al SO si los bloques al final del heap están libres. 
 :::
 
+### Ejercicios de Autoevaluación (Funciones de Gestión)
+
+:::{exercise}
+:label: ej-memoria-gest-matriz
+Escribí una función en C llamada `crear_matriz` que reciba el número de filas y columnas (de tipo `size_t`) y asigne dinámicamente memoria para una matriz bidimensional de enteros de tamaño `filas x columnas`. Utilizá `malloc` para el arreglo de punteros a filas y `calloc` para cada fila, garantizando que todos los elementos se inicialicen en cero. Si alguna asignación intermedia falla, asegurate de liberar toda la memoria reservada previamente y retornar `NULL`. Respetá las reglas de estilo `{ref}`0x3001h`` y `{ref}`0x300Bh``.
+:::
+
+:::{solution} ej-memoria-gest-matriz
+:class: dropdown
+La solución requiere reservar primero un arreglo de punteros (`int **`) y luego cada fila de enteros (`int *`) de forma individual. En caso de error en cualquier paso intermedio, se debe realizar una liberación ordenada en sentido inverso (lazo de liberación) para evitar fugas de memoria:
+
+```c
+#include <stdlib.h>
+
+int **crear_matriz(size_t filas, size_t columnas) {
+    if (filas == 0 || columnas == 0) {
+        return NULL;
+    }
+
+    // Reservar el arreglo de punteros a filas
+    int **matriz = (int **)malloc(filas * sizeof(*matriz));
+    if (matriz == NULL) {
+        return NULL;
+    }
+
+    // Reservar e inicializar en cero cada fila
+    for (size_t i = 0; i < filas; i++) {
+        matriz[i] = (int *)calloc(columnas, sizeof(*(matriz[i])));
+        if (matriz[i] == NULL) {
+            // Lazo de liberación en caso de fallo intermedio
+            for (size_t j = 0; j < i; j++) {
+                free(matriz[j]);
+            }
+            free(matriz);
+            return NULL;
+        }
+    }
+
+    return matriz;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-memoria-gest-realloc
+Escribí una función en C llamada `redimensionar_arreglo` que reciba por referencia un puntero a un arreglo de enteros (`int **arreglo`), su capacidad actual y su nueva capacidad (ambas de tipo `size_t`). La función debe redimensionar la memoria del arreglo de forma segura. Si la asignación con `realloc` falla, la función debe retornar `false` y garantizar que el arreglo original no se pierda ni quede inaccesible. Si es exitosa, debe actualizar el puntero y retornar `true`.
+:::
+
+:::{solution} ej-memoria-gest-realloc
+:class: dropdown
+El error más común con `realloc` es asignar el retorno directamente sobre la misma variable. Si falla, `realloc` devuelve `NULL` y se pierde el puntero original, provocando una fuga de memoria. Se debe emplear un puntero temporal:
+
+```c
+#include <stdlib.h>
+#include <stdbool.h>
+
+bool redimensionar_arreglo(int **arreglo, size_t capacidad_actual, size_t nueva_capacidad) {
+    if (arreglo == NULL || nueva_capacidad == 0) {
+        return false;
+    }
+
+    // Uso de un puntero temporal para resguardar la dirección original
+    int *temp = (int *)realloc(*arreglo, nueva_capacidad * sizeof(*temp));
+    if (temp == NULL) {
+        // La memoria original en *arreglo sigue siendo válida
+        return false;
+    }
+
+    // Asignación exitosa
+    *arreglo = temp;
+    return true;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-memoria-gest-malloc-calloc
+Explicá de forma conceptual la diferencia en rendimiento e inicialización de memoria física entre `malloc` y `calloc` cuando se solicita al allocator un bloque de memoria muy grande (por ejemplo, 1 GB de enteros). Hacé referencia al concepto de paginación bajo demanda (*demand paging*) del sistema operativo.
+:::
+
+:::{solution} ej-memoria-gest-malloc-calloc
+:class: dropdown
+- **`malloc`**: Solo reserva el espacio virtual de direcciones en el proceso, retornando un puntero. El sistema operativo utiliza *paginación bajo demanda*, lo que significa que no asigna páginas de memoria física reales hasta que el programa intente leer o escribir efectivamente en cada dirección del bloque reservado. Por ende, la llamada a `malloc` es prácticamente instantánea.
+- **`calloc`**: Además de reservar el espacio virtual, garantiza que todos los bytes estén inicializados en cero. Para hacer esto, la biblioteca estándar escribe ceros en toda la memoria solicitada, lo que fuerza al sistema operativo a asignar físicamente todas las páginas de memoria de forma inmediata. Esto produce una penalización medible de tiempo de CPU y acceso a disco/RAM durante la llamada a `calloc`.
+:::
+
 (memoria-errores)=
 ## Errores Comunes y Peligros
 
@@ -581,6 +667,81 @@ Asegurate de no usar el puntero después de liberarlo, y asigná `NULL` para det
 Herramientas como **Valgrind** pueden detectar automáticamente fugas de memoria, accesos inválidos y otros errores relacionados con la gestión de memoria. Su uso es altamente recomendable durante el desarrollo. 
 :::
 
+### Ejercicios de Autoevaluación (Errores Comunes y Peligros)
+
+:::{exercise}
+:label: ej-memoria-err-identificar
+Identificá y explicá de manera detallada todos los errores de gestión de memoria dinámica en el siguiente fragmento de código C:
+
+```c
+void procesar_valores(size_t n) {
+    int *datos = (int *)malloc(n * sizeof(int));
+    if (n > 10) {
+        datos[n] = 100;
+        return;
+    }
+    free(datos);
+    printf("Primer elemento: %d\n", datos[0]);
+}
+```
+:::
+
+:::{solution} ej-memoria-err-identificar
+:class: dropdown
+El fragmento de código presenta cuatro infracciones graves de las pautas de gestión de memoria:
+1. **Falta de validación de asignación**: No se comprueba si `datos` es `NULL` antes de escribir en él, violando la regla `{ref}`0x3001h``. Si el sistema se queda sin memoria, ocurrirá una falla de segmentación al intentar escribir.
+2. **Acceso fuera de límites (Buffer Overflow)**: Si `n > 10`, se ejecuta `datos[n] = 100`. Para un arreglo de tamaño `n`, los índices válidos van desde `0` hasta `n - 1`. Acceder al índice `n` sobrescribe datos del heap fuera del espacio asignado (violación de la regla `{ref}`0x300Ch``).
+3. **Fuga de memoria (Memory Leak)**: Dentro del bloque `if (n > 10)`, la función retorna (`return;`) sin invocar `free(datos)`, dejando el bloque huérfano en el heap y violando la regla `{ref}`0x3002h``.
+4. **Uso de memoria después de liberar (Use-After-Free)**: Tras ejecutar `free(datos);`, se intenta imprimir `datos[0]`. Acceder a memoria liberada (puntero colgante) produce comportamiento indefinido.
+:::
+
+:::{exercise}
+:label: ej-memoria-err-stack-local
+Explicá por qué la función `obtener_saludo` descrita a continuación retorna un puntero inválido que genera comportamiento indefinido en el código del cliente. ¿Cómo debés modificarla si necesitás que la cadena sobreviva a la ejecución de la función?
+
+```c
+char *obtener_saludo(void) {
+    char saludo[] = "Hola mundo";
+    return saludo;
+}
+```
+:::
+
+:::{solution} ej-memoria-err-stack-local
+:class: dropdown
+El arreglo `saludo` es una variable automática alocada localmente en el marco de pila (*Stack Frame*) de la función `obtener_saludo`. Cuando la función retorna, su marco de pila se destruye y la memoria asignada a `saludo` queda disponible para ser sobrescrita por cualquier otra llamada a función. Por lo tanto, el puntero retornado apunta a una zona inválida del stack.
+
+Para solucionarlo de modo que la memoria persista en el tiempo, debés alocar la cadena en el heap mediante memoria dinámica:
+
+```c
+#include <stdlib.h>
+#include <string.h>
+
+char *obtener_saludo_dinamico(void) {
+    const char *texto = "Hola mundo";
+    // Sumamos 1 para el caracter terminador nulo '\0'
+    char *saludo = (char *)malloc((strlen(texto) + 1) * sizeof(*saludo));
+    if (saludo == NULL) {
+        return NULL;
+    }
+    strcpy(saludo, texto);
+    return saludo;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-memoria-err-double-free
+Describí qué ocurre a nivel de la estructura interna del allocator del heap si se invoca la función `free()` dos veces seguidas sobre el mismo puntero sin modificarlo. ¿Cómo previene este problema el patrón sugerido en la regla `{ref}`0x3002h``?
+:::
+
+:::{solution} ej-memoria-err-double-free
+:class: dropdown
+El allocator de memoria dinámica gestiona las zonas libres a través de estructuras internas (listas enlazadas llamadas *bins*). Al ejecutar `free(ptr)`, el allocator toma la dirección de memoria y la reinserta en la lista de bloques disponibles. Si realizás un doble `free` sobre el mismo puntero, el allocator intentará reinsertar el mismo bloque por segunda vez en su lista de libres, corrompiendo los punteros internos de la lista (generando ciclos infinitos o nodos duplicados). Esto puede provocar que llamadas futuras a `malloc` entregar en el mismo bloque de memoria a dos variables distintas, lo que genera corrupción de datos cruzada y graves fallos de seguridad.
+
+La regla `{ref}`0x3002h`` exige establecer `ptr = NULL` inmediatamente después de liberarlo. Como el estándar de C define que llamar a `free(NULL)` no realiza ninguna operación ni produce efectos secundarios, cualquier llamada posterior a `free` sobre ese puntero será inocua.
+:::
+
 (memoria-seguridad-conceptual)=
 ## Seguridad de Memoria: Una Perspectiva Profunda
 
@@ -792,6 +953,72 @@ En el desarrollo profesional, los errores de memoria no son solo bugs molestos: 
 Escribir código memory-safe no es solo seguir buenas prácticas: es una responsabilidad ética. Tu código podría procesar datos sensibles, ejecutarse en infraestructura crítica, o estar expuesto a atacantes motivados. La seguridad debe ser parte del diseño desde el principio, no un añadido posterior.
 :::
 
+### Ejercicios de Autoevaluación (Seguridad de Memoria)
+
+:::{exercise}
+:label: ej-memoria-seg-overflow-ret
+Explicá desde una perspectiva de bajo nivel de qué manera un desbordamiento de buffer en el stack (por ejemplo, al leer una cadena más larga que el arreglo receptor mediante `gets()`) permite a un atacante ejecutar código arbitrario. ¿Qué registros del procesador se ven afectados?
+:::
+
+:::{solution} ej-memoria-seg-overflow-ret
+:class: dropdown
+En la pila (*stack*), cada llamada a función apila un marco de pila que contiene las variables locales de la función y, justo por encima de ellas, los datos de control del flujo de ejecución, principalmente la **dirección de retorno** de la función (el puntero a la instrucción que se debe ejecutar cuando la función termine).
+
+Dado que las variables se llenan desde direcciones de memoria más bajas hacia direcciones más altas, escribir más caracteres de los permitidos en un buffer local sobrescribirá la memoria adyacente en el stack. Si el desbordamiento es lo suficientemente grande, sobrescribirá la dirección de retorno guardada. Un atacante puede diseñar la entrada para inyectar código binario ejecutable (*shellcode*) en la pila y reemplazar la dirección de retorno original por la dirección de inicio del *shellcode*. Al ejecutarse la instrucción de retorno de la función (`ret` en x86-64), el registro de instrucción del procesador (`rip`) saltará a la dirección modificada por el atacante, ejecutando el código inyectado con los privilegios del programa actual.
+:::
+
+:::{exercise}
+:label: ej-memoria-seg-uaf
+Analizá el siguiente fragmento de código vulnerable. Explicá cómo un atacante que controle el flujo de entrada en `stdin` podría explotar el error de tipo *Use-After-Free* para lograr que se llame a la función `ejecutar_privilegios()`.
+
+```c
+typedef struct {
+    char login[16];
+    int es_admin;
+} perfil_t;
+
+void procesar_sistema(void) {
+    perfil_t *p = (perfil_t *)malloc(sizeof(*p));
+    p->es_admin = 0;
+    free(p); // Liberación prematura
+
+    char *mensaje = (char *)malloc(sizeof(perfil_t));
+    if (mensaje != NULL) {
+        fgets(mensaje, sizeof(perfil_t), stdin);
+    }
+
+    // Uso de la sesión después de ser liberada
+    if (p->es_admin == 1) {
+        ejecutar_privilegios();
+    }
+}
+```
+:::
+
+:::{solution} ej-memoria-seg-uaf
+:class: dropdown
+El programa presenta un error crítico de **Use-After-Free (UAF)**.
+1. Se reserva memoria para la estructura `p` y luego se libera mediante `free(p)`, pero el puntero `p` no se anula.
+2. Inmediatamente después, se solicita memoria para `mensaje` con el mismo tamaño exacto de la estructura `perfil_t`. Para optimizar recursos y evitar la fragmentación, el allocator del heap suele reutilizar el último bloque liberado. Por ende, el puntero `mensaje` recibirá casi con seguridad la misma dirección de memoria que tenía `p`.
+3. Al leer de `stdin` con `fgets(mensaje, ...)`, el usuario escribe directamente sobre el bloque de memoria que `p` todavía apunta.
+4. Un atacante puede ingresar 16 caracteres cualquiera seguidos por el valor entero `1` en formato binario (escribiendo en la posición que correspondía a `es_admin`).
+5. Cuando el código evalúa `if (p->es_admin == 1)`, accede al bloque a través del puntero colgante `p` y lee el valor modificado por el usuario, activando la llamada a `ejecutar_privilegios()`.
+:::
+
+:::{exercise}
+:label: ej-memoria-seg-int-overflow
+Explicá de qué forma un desbordamiento de enteros en la multiplicación de la expresión `cantidad * sizeof(*datos)` al usar `malloc` puede provocar un desbordamiento de buffer en el heap. ¿Cómo previene `calloc` esta vulnerabilidad?
+:::
+
+:::{solution} ej-memoria-seg-int-overflow
+:class: dropdown
+Cuando se calcula el tamaño de memoria con `cantidad * sizeof(*datos)`, si `cantidad` es un valor extremadamente grande proporcionado por un usuario malicioso, la multiplicación puede superar el valor máximo representable por el tipo `size_t`. Esto produce un desbordamiento de enteros (*integer overflow*), provocando que el resultado se envuelva modularmente a un número muy chico.
+
+Por ejemplo, si el cálculo da como resultado virtual `4` bytes debido al desbordamiento, `malloc(4)` se ejecutará con éxito y asignará un bloque de tamaño mínimo en el heap. Sin embargo, el programa principal asumirá que la asignación fue exitosa para la `cantidad` original solicitada. Al ejecutar un lazo para escribir datos en el arreglo, se sobrepasará la capacidad real de 4 bytes del heap, corrompiendo la memoria del allocator y provocando un desbordamiento de buffer en el heap (*heap overflow*).
+
+`calloc(cantidad, sizeof(*datos))` evita esto porque realiza la multiplicación de forma interna en su implementación y verifica explícitamente si se produce un desbordamiento antes de solicitar memoria. Si se detecta un desbordamiento de enteros, `calloc` aborta la operación de forma segura retornando `NULL`.
+:::
+
 (memoria-buenas-practicas)=
 ## Resumen de Buenas Prácticas
 
@@ -950,6 +1177,121 @@ void establecer_elemento(int *arreglo, size_t tamano, size_t indice, int valor)
         arreglo[indice] = valor;
     }
 }
+````
+
+### Ejercicios de Autoevaluación (Buenas Prácticas)
+
+:::{exercise}
+:label: ej-memoria-prac-simetria
+Diseñá una estructura llamada `libro_t` que represente un libro con un título (cadena asignada dinámicamente) y el año de publicación. Escribí las firmas y la implementación de las funciones `libro_crear` y `libro_destruir`, garantizando la regla de simetría en la gestión de recursos de la regla `{ref}`0x3002h``.
+:::
+
+:::{solution} ej-memoria-prac-simetria
+:class: dropdown
+Para mantener la simetría de asignación y liberación, la función constructora debe inicializar todos los recursos dinámicos y la destructora debe liberarlos en orden inverso:
+
+```c
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+    char *titulo;
+    int anio_publicacion;
+} libro_t;
+
+libro_t *libro_crear(const char *titulo, int anio) {
+    if (titulo == NULL) {
+        return NULL;
+    }
+
+    libro_t *l = (libro_t *)malloc(sizeof(*l));
+    if (l == NULL) {
+        return NULL;
+    }
+
+    // Alocar memoria para copiar la cadena del título
+    l->titulo = (char *)malloc((strlen(titulo) + 1) * sizeof(*(l->titulo)));
+    if (l->titulo == NULL) {
+        free(l);
+        return NULL;
+    }
+
+    strcpy(l->titulo, titulo);
+    l->anio_publicacion = anio;
+    return l;
+}
+
+void libro_destruir(libro_t *l) {
+    if (l != NULL) {
+        if (l->titulo != NULL) {
+            free(l->titulo);
+        }
+        free(l);
+    }
+}
+```
+:::
+
+:::{exercise}
+:label: ej-memoria-prac-precondicion
+Escribí una función en C llamada `copiar_enteros` que reciba un arreglo destino, un arreglo origen y la cantidad de elementos a copiar (de tipo `size_t`). Aplicá de forma estricta las reglas de estilo de la cátedra para el calificador `const` en punteros de solo lectura (`{ref}`0x3007h``) y la documentación de precondiciones para punteros nulos (`{ref}`0x300Eh``).
+:::
+
+:::{solution} ej-memoria-prac-precondicion
+:class: dropdown
+El puntero de origen debe ser de solo lectura (`const int *`), mientras que el destino debe ser modificable. Además, se deben validar y documentar las precondiciones contra punteros nulos:
+
+```c
+#include <stdlib.h>
+#include <stdbool.h>
+
+/**
+ * Copia los elementos de un arreglo de enteros a otro.
+ * @param destino Arreglo donde se copiarán los datos. No debe ser NULL.
+ * @param origen Arreglo fuente de datos. No debe ser NULL.
+ * @param n Cantidad de elementos a copiar.
+ * @pre destino != NULL
+ * @pre origen != NULL
+ * @returns true si la copia fue exitosa, false si algún puntero es NULL.
+ */
+bool copiar_enteros(int *destino, const int *origen, size_t n) {
+    if (destino == NULL || origen == NULL) {
+        return false;
+    }
+
+    for (size_t i = 0; i < n; i++) {
+        destino[i] = origen[i];
+    }
+    return true;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-memoria-prac-sizeof
+Explicá por qué la regla `{ref}`0x300Bh`` establece que debés preferir `sizeof(*ptr)` sobre `sizeof(tipo)` al usar `malloc` o `calloc`, y ejemplificá mediante un fragmento de código cómo una refactorización de tipo de dato puede generar un error catastrófico si no se sigue esta directiva.
+:::
+
+:::{solution} ej-memoria-prac-sizeof
+:class: dropdown
+El uso de `sizeof(*ptr)` asegura que el compilador resuelva el tamaño basándose directamente en la declaración del puntero. Si se utiliza `sizeof(tipo)` y posteriormente se refactoriza el tipo de datos de la variable, el operando del `sizeof` podría quedar desactualizado si el programador olvida modificarlo manualmente, lo que causa una asignación de tamaño erróneo.
+
+**Ejemplo de bug de refactorización:**
+```c
+// Inicialmente el puntero era float
+float *valores = (float *)malloc(100 * sizeof(float));
+```
+Si el programa se refactoriza para usar mayor precisión (`double`) y solo se edita el tipo de la variable:
+```c
+double *valores = (double *)malloc(100 * sizeof(float)); // ¡BUG SILENCIOSO!
+```
+En un sistema de 64 bits, `sizeof(double) == 8` and `sizeof(float) == 4`. Se asignarán 400 bytes en lugar de los 800 bytes necesarios para almacenar 100 doubles. Al iterar y escribir sobre el arreglo, se producirá corrupción de memoria en el heap.
+
+Si se hubiera usado la regla recomendada, la asignación se adapta automáticamente sin inducir errores:
+```c
+double *valores = (double *)malloc(100 * sizeof(*valores));
+```
+:::
 
 (memoria-ejemplo-integrador)=
 ## Ejemplo Integrador: Arreglo Dinámico de Tamaño Fijo
@@ -1261,6 +1603,58 @@ funcion:
     ret                   ; Retornar
 ```
 
+### Ejercicios de Autoevaluación (Conceptos Avanzados y Bajo Nivel)
+
+:::{exercise}
+:label: ej-memoria-av-pila-registros
+Explicá cuál es el rol de los registros de procesador `rsp` y `rbp` en la arquitectura x86-64 durante el prólogo y el epílogo de la ejecución de una función en C. ¿Qué problema acarrea no restaurar correctamente el registro `rbp` antes de retornar?
+:::
+
+:::{solution} ej-memoria-av-pila-registros
+:class: dropdown
+- **`rsp` (Stack Pointer)**: Apunta a la dirección de memoria que representa la posición actual del tope del stack. Se modifica dinámicamente mediante instrucciones de apilado/desapilado (`push`/`pop`) o al restar espacio para variables locales (`sub rsp, X`).
+- **`rbp` (Base Pointer)**: Apunta a una dirección fija en el marco de pila de la función en ejecución. Permite que la CPU acceda a los parámetros y variables locales de forma constante usando desplazamientos relativos fijos (como `rbp - 8` o `rbp + 16`).
+
+En el prólogo de una función, se ejecuta:
+```asm
+push rbp      ; Guarda el Base Pointer de la función llamadora
+mov rbp, rsp  ; Establece el inicio del nuevo marco de pila
+```
+En el epílogo, antes de retornar, se ejecuta:
+```asm
+mov rsp, rbp  ; Libera el espacio de variables locales del stack
+pop rbp       ; Restaura el Base Pointer de la función llamadora
+ret           ; Retorna control
+```
+Si `rbp` no se restaura de forma correcta al finalizar la ejecución, la función llamadora reanudará sus instrucciones con un marco de pila corrompido, haciendo que intente leer sus propias variables locales y parámetros desde direcciones erróneas, provocando comportamientos indefinidos y típicamente una violación de segmento (*segmentation fault*).
+:::
+
+:::{exercise}
+:label: ej-memoria-av-alineacion
+La especificación ABI (*Application Binary Interface*) System V para la arquitectura x86-64 establece que el puntero de pila `rsp` debe estar alineado a 16 bytes antes de invocar cualquier instrucción `call`. Explicá qué ocurre con la alineación cuando se ejecuta `call` y cómo el prólogo de la función invocada restablece dicha alineación.
+:::
+
+:::{solution} ej-memoria-av-alineacion
+:class: dropdown
+1. Antes de ejecutar la instrucción `call`, la dirección contenida en `rsp` es múltiplo de 16 bytes (alineación de 16 bytes).
+2. Cuando el procesador ejecuta la instrucción `call`, empuja automáticamente en la pila la dirección de retorno de la instrucción siguiente (que ocupa 8 bytes en arquitecturas de 64 bits). Esto desalinea el registro `rsp` en 8 bytes (dejándolo como `múltiplo_de_16 + 8`).
+3. Al ingresar a la función invocada, lo primero que hace el prólogo en ensamblador es realizar `push rbp`. Esta operación empuja otros 8 bytes en la pila, con lo cual el desplazamiento total acumulado respecto a la alineación original es de 16 bytes ($8 + 8$). Esto hace que `rsp` vuelva a quedar perfectamente alineado a un múltiplo de 16 bytes.
+4. Si la función requiere variables locales, el compilador debe ajustar el desplazamiento del stack (por ejemplo, con `sub rsp, X`) de manera que `X` sea un múltiplo de 16 para conservar este alineamiento a lo largo de las siguientes llamadas a funciones. La desalineación del stack en llamadas externas a funciones de biblioteca estándar (como `printf`) que utilicen instrucciones vectoriales SSE/AVX provocará una caída inmediata del programa.
+:::
+
+:::{exercise}
+:label: ej-memoria-av-rendimiento
+Compará, desde la perspectiva del rendimiento del microprocesador y los accesos a memoria, el costo temporal implicado al reservar espacio para una variable local en la pila contra la reserva de la misma en el heap mediante `malloc`.
+:::
+
+:::{solution} ej-memoria-av-rendimiento
+:class: dropdown
+- **Asignación en la pila (Stack)**: Tiene un costo temporal prácticamente despreciable (generalmente se ejecuta en una sola instrucción y tarda menos de un ciclo de reloj de CPU). El compilador simplemente resta un valor constante al registro `rsp` (por ejemplo, `sub rsp, 16`) al iniciar la función. No hay algoritmos de búsqueda ni llamadas al sistema involucradas.
+- **Asignación en el heap (Heap)**: Tiene un costo temporal considerable y variable (puede tomar de decenas a cientos de ciclos de CPU). El allocator de la biblioteca estándar de C debe:
+  1. Ejecutar algoritmos de búsqueda (como listas segregadas o búsqueda de primer ajuste) para localizar un bloque libre que cumpla con el tamaño requerido en sus estructuras de datos.
+  2. Modificar la metadata de los bloques y manejar la fragmentación.
+  3. En caso de no contar con bloques suficientes en su pool, ejecutar una llamada al sistema (*syscall* como `sbrk` o `mmap`) para pedir memoria al sistema operativo, lo que requiere un costoso cambio de contexto del procesador entre modo usuario y modo kernel.
+:::
 
 
 ## Conexión con el Siguiente Tema

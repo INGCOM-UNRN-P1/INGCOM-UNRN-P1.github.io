@@ -135,6 +135,63 @@ void test_buscar_en_array_vacio() {
 }
 ```
 
+### Ejercicios de Autoevaluación (Conceptos y AAA)
+
+:::{exercise}
+:label: ej-test-aaa-structure
+Escribí una prueba unitaria para una función llamada `invertir_cadena(char *cadena)` estructurada bajo el patrón AAA (Arrange-Act-Assert).
+:::
+
+:::{solution} ej-test-aaa-structure
+:class: dropdown
+```c
+#include <assert.h>
+#include <string.h>
+
+void test_invertir_cadena_palabra_simple() {
+    // 1. Arrange: Preparar el estado y datos de entrada
+    char entrada[] = "hola";
+    const char *esperado = "aloh";
+
+    // 2. Act: Ejecutar la función bajo prueba
+    invertir_cadena(entrada);
+
+    // 3. Assert: Verificar el resultado
+    assert(strcmp(entrada, esperado) == 0);
+}
+```
+:::
+
+:::{exercise}
+:label: ej-test-boundary-cases
+Dada la firma de función `int buscar_elemento(const int *arr, size_t n, int elem);`, enumerá al menos tres casos límite (*boundary cases*) y un caso de esquina (*corner case*) que debas incorporar obligatoriamente en tu suite de pruebas.
+:::
+
+:::{solution} ej-test-boundary-cases
+:class: dropdown
+- **Casos límite (Boundary cases)**:
+  1. `n == 1`: El arreglo posee un único elemento, y coincide con el buscado (`arr[0] == elem`).
+  2. `n == 1`: El arreglo posee un único elemento, y no coincide con el buscado (`arr[0] != elem`).
+  3. `elem` se encuentra en la primera posición del arreglo (`arr[0] == elem`).
+  4. `elem` se encuentra en la última posición del arreglo (`arr[n-1] == elem`).
+- **Caso de esquina (Corner case)**:
+  - `n == 0` (búsqueda en un arreglo vacío). En este caso, la función debe abortar o retornar error de forma segura antes de desreferenciar el puntero.
+:::
+
+:::{exercise}
+:label: ej-test-unitario-vs-integracion
+Explicá conceptualmente la diferencia que existe entre una prueba unitaria (*unit test*) y una prueba de integración, y fundamentá por qué es crucial el aislamiento en las pruebas unitarias.
+:::
+
+:::{solution} ej-test-unitario-vs-integracion
+:class: dropdown
+- **Prueba Unitaria**: Verifica la corrección de un único componente de software (normalmente una función individual) de forma completamente aislada de cualquier otro módulo o recurso externo (disco, red, base de datos).
+- **Prueba de Integración**: Verifica la correcta interacción y comunicación entre dos o más módulos integrados del sistema.
+El aislamiento en las pruebas unitarias es crucial porque asegura que si la prueba falla, la causa raíz del error se encuentra exclusivamente en la unidad bajo prueba. Si no existiera aislamiento, un fallo en una biblioteca de red externa podría hacer fallar el test unitario de un algoritmo de ordenamiento, haciendo que el diagnóstico del error sea complejo y confuso.
+:::
+
+---
+
 ### Uso de `assert`
 
 La macro `assert` es la herramienta básica para verificar condiciones en C:
@@ -350,6 +407,75 @@ int multiplicar(int a, int b) {
 
 :::{tip}
 TDD no solo ayuda a escribir código correcto, sino que también guía el diseño. Si una función es difícil de probar, probablemente necesita ser rediseñada.
+:::
+
+---
+
+### Ejercicios de Autoevaluación (assert y Cobertura)
+
+:::{exercise}
+:label: ej-test-assert-production
+Explicá de forma detallada por qué es un anti-patrón de seguridad crítico escribir `assert(malloc(100) != NULL);` en C y qué consecuencias provoca la definición de la macro `NDEBUG` en producción.
+:::
+
+:::{solution} ej-test-assert-production
+:class: dropdown
+La macro `assert(condición)` es una herramienta de depuración en desarrollo. Cuando el software se compila para producción, es una práctica estándar definir la macro de optimización `#define NDEBUG`, lo que desactiva y elimina por completo todas las líneas de `assert` durante el preprocesamiento del compilador.
+Si escribimos `assert(malloc(100) != NULL);`, en la compilación de producción la llamada entera a `malloc` será eliminada del ejecutable. Por ende, la memoria nunca se reservará y el programa experimentará fallos silenciosos por desreferenciación de punteros no inicializados. Las asignaciones de recursos deben validarse con condicionales `if` tradicionales.
+:::
+
+:::{exercise}
+:label: ej-test-cobertura-ramas
+Dada la función:
+```c
+bool es_bisiesto(int anio) {
+    if (anio % 400 == 0) return true;
+    if (anio % 100 == 0) return false;
+    if (anio % 4 == 0) return true;
+    return false;
+}
+```
+Escribí un conjunto de pruebas unitarias mínimo que garantice el 100% de cobertura de ramas (*branch coverage*).
+:::
+
+:::{solution} ej-test-cobertura-ramas
+:class: dropdown
+Para lograr el 100% de cobertura de ramas debemos forzar a que cada sentencia condicional tome caminos verdaderos y falsos:
+```c
+#include <assert.h>
+
+void test_es_bisiesto_ramas() {
+    assert(es_bisiesto(2000) == true);  // Evalúa VERDADERO la rama 1 (divisible por 400)
+    assert(es_bisiesto(1900) == false); // Evalúa FALSO la rama 1 y VERDADERO la rama 2 (divisible por 100)
+    assert(es_bisiesto(2024) == true);  // Evalúa FALSAS rama 1 y 2, y VERDADERO la rama 3 (divisible por 4)
+    assert(es_bisiesto(2023) == false); // Evalúa FALSAS todas las ramas (camino por defecto final)
+}
+```
+:::
+
+:::{exercise}
+:label: ej-test-propiedades-conmutativa
+Implementá una prueba basada en propiedades en C que valide de manera sistemática que la operación de multiplicación de enteros es asociativa para cualquier par de valores en el intervalo $[-20, 20]$.
+:::
+
+:::{solution} ej-test-propiedades-conmutativa
+:class: dropdown
+```c
+#include <assert.h>
+
+void test_propiedad_asociativa_multiplicacion() {
+    // Propiedad: (a * b) * c == a * (b * c)
+    for (int a = -20; a <= 20; a++) {
+        for (int b = -20; b <= 20; b++) {
+            for (int c = -20; c <= 20; c++) {
+                int resultado1 = (a * b) * c;
+                int resultado2 = a * (b * c);
+                assert(resultado1 == resultado2);
+            }
+        }
+    }
+}
+```
 :::
 
 ---
@@ -654,6 +780,77 @@ void lista_destruir(Lista* lista);
 
 :::{note}
 Los contratos son especialmente valiosos en interfaces públicas de bibliotecas, donde múltiples desarrolladores usarán las funciones sin conocer su implementación interna.
+:::
+
+---
+
+### Ejercicios de Autoevaluación (Diseño por Contrato)
+
+:::{exercise}
+:label: ej-contrato-raiz-cuadrada
+Documentá de forma formal el contrato (precondiciones y postcondiciones) de una función llamada `calcular_logaritmo(double x)` y escribí su implementación en C utilizando `assert` para validar las restricciones del cliente.
+:::
+
+:::{solution} ej-contrato-raiz-cuadrada
+:class: dropdown
+```c
+#include <assert.h>
+#include <math.h>
+
+/*
+ * Calcula el logaritmo natural de un número real.
+ * 
+ * @param x: Número real de entrada
+ * @returns: Logaritmo natural de x
+ * 
+ * PRE: x > 0.0 (El logaritmo solo está definido para reales positivos)
+ * POST: Si e = 2.71828..., entonces e^(resultado) es aproximadamente x
+ */
+double calcular_logaritmo(double x) {
+    // Validación del contrato del cliente
+    assert(x > 0.0);
+    return log(x);
+}
+```
+:::
+
+:::{exercise}
+:label: ej-contrato-invariante-lazo
+Dada una función que realiza la búsqueda secuencial de un elemento en un arreglo, identificá y documentá el invariante de lazo (*loop invariant*) del lazo de búsqueda.
+:::
+
+:::{solution} ej-contrato-invariante-lazo
+:class: dropdown
+```c
+int buscar(const int *arr, size_t n, int elem) {
+    size_t i = 0;
+    
+    // INVARIANTE DE LAZO: El elemento 'elem' no se encuentra en el subarreglo arr[0 .. i-1]
+    while (i < n) {
+        if (arr[i] == elem) {
+            return (int)i;
+        }
+        i++;
+        // El invariante se mantiene: tras avanzar i, sabemos que elem no está en arr[0 .. i-1]
+    }
+    return -1;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-contrato-invariante-structure
+Escribí las invariantes de estructura de datos para un TAD de tipo `Cola` implementado mediante una lista enlazada simple que registre referencias al `nodo_inicio`, `nodo_fin` y la `cantidad` de elementos.
+:::
+
+:::{solution} ej-contrato-invariante-structure
+:class: dropdown
+Las invariantes de estructura para el TAD `Cola` son:
+1. `cantidad >= 0`.
+2. Si `cantidad == 0`, entonces `nodo_inicio == NULL` y `nodo_fin == NULL`.
+3. Si `cantidad == 1`, entonces `nodo_inicio == nodo_fin` y `nodo_inicio != NULL`.
+4. Si `cantidad > 1`, entonces `nodo_inicio != NULL`, `nodo_fin != NULL` y `nodo_inicio != nodo_fin`.
+5. El número total de nodos alcanzables recorriendo el puntero `siguiente` desde `nodo_inicio` hasta llegar a `NULL` es exactamente igual a `cantidad`.
 :::
 
 ---
@@ -1182,6 +1379,68 @@ $ make all            # Compilar programa
 $ git add .
 $ git commit -m "Implementada función X con tests"
 ```
+
+### Ejercicios de Autoevaluación (Valores Especiales y Modularización)
+
+:::{exercise}
+:label: ej-test-valor-centinela-string
+Implementá una función `longitud_string` utilizando el centinela `'\0'` para recorrerla y escribí un test unitario que verifique su comportamiento en el caso límite de una cadena vacía.
+:::
+
+:::{solution} ej-test-valor-centinela-string
+:class: dropdown
+```c
+#include <assert.h>
+#include <stddef.h>
+
+size_t longitud_string(const char *cadena) {
+    if (cadena == NULL) return 0;
+    
+    size_t longitud = 0;
+    // Recorrido hasta encontrar el valor centinela '\0'
+    while (cadena[longitud] != '\0') {
+        longitud++;
+    }
+    return longitud;
+}
+
+void test_longitud_cadena_vacia() {
+    const char *vacio = "";
+    assert(longitud_string(vacio) == 0); // Caso límite centinela inmediato
+}
+```
+:::
+
+:::{exercise}
+:label: ej-test-independencia
+Explicá por qué es de vital importancia que las pruebas unitarias sean independientes entre sí y qué problemas lógicos ocurren al compartir un estado global mutable en las pruebas.
+:::
+
+:::{solution} ej-test-independencia
+:class: dropdown
+La independencia de las pruebas garantiza que el resultado de un test no se vea afectado por la ejecución o el éxito/fallo de otros tests previos.
+Si los tests comparten un estado global mutable (por ejemplo, una variable global contador), el test B asumirá que el estado está en un punto inicial, pero si el test A falló o modificó dicho estado global, el test B fallará por causas ajenas a su código. Adicionalmente, impide la ejecución de pruebas de forma aleatoria o en paralelo, dificultando la localización de bugs.
+:::
+
+:::{exercise}
+:label: ej-test-makefile-integration
+Escribí una regla de Makefile simplificada llamada `test` que compile una suite de pruebas `tests/run_tests.c` junto al módulo `src/operaciones.c` and ejecute el binario de forma automática, deteniendo la compilación si las pruebas fallan.
+:::
+
+:::{solution} ej-test-makefile-integration
+:class: dropdown
+```makefile
+CC = gcc
+CFLAGS = -Wall -Wextra -std=c99 -g
+
+test: tests/run_tests.c src/operaciones.c
+	$(CC) $(CFLAGS) -o run_tests tests/run_tests.c src/operaciones.c
+	@echo "Ejecutando pruebas unitarias..."
+	./run_tests
+	@echo "Pruebas pasadas exitosamente."
+```
+*(Nota: En los Makefiles, si el ejecutable `./run_tests` retorna un código de salida distinto de 0 debido a un fallo en un assert, el comando Makefile se interrumpirá e indicará que el target falló).*
+:::
 
 ---
 

@@ -140,6 +140,76 @@ Las notaciones asintóticas tienen propiedades útiles:
 4. **Suma**: $O(f) + O(g) = O(\max(f, g))$
 5. **Producto**: $O(f) \cdot O(g) = O(f \cdot g)$
 
+### Ejercicios de Notaciones Asintóticas
+
+:::{exercise}
+:label: ejer-notaciones-theta
+Demostrá formalmente que $f(n) = 3n^2 + 5n + 2 \in \Theta(n^2)$ utilizando la definición formal de Big-Theta (encontrando constantes adecuadas $c_1, c_2$ y $n_0$).
+:::
+
+:::{solution} ejer-notaciones-theta
+:class: dropdown
+Debemos encontrar constantes $c_1, c_2, n_0 > 0$ tales que:
+$$c_1 n^2 \leq 3n^2 + 5n + 2 \leq c_2 n^2 \quad \forall n \geq n_0$$
+
+**Cota inferior** ($c_1 n^2 \leq 3n^2 + 5n + 2$):
+- Tomemos $c_1 = 3$.
+- Para $n \geq 1$: $3n^2 \leq 3n^2 + 5n + 2$ es verdadero ya que $5n + 2 > 0$.
+
+**Cota superior** ($3n^2 + 5n + 2 \leq c_2 n^2$):
+- Necesitamos un $c_2$ tal que la desigualdad se mantenga.
+- Para $n \geq 1$, se cumple que $5n \leq 5n^2$ y $2 \leq 2n^2$.
+- Entonces: $3n^2 + 5n + 2 \leq 3n^2 + 5n^2 + 2n^2 = 10n^2$.
+- Tomemos $c_2 = 10$.
+
+**Conclusión**: Con $c_1 = 3$, $c_2 = 10$ y $n_0 = 1$, se cumple:
+$$3n^2 \leq 3n^2 + 5n + 2 \leq 10n^2 \quad \forall n \geq 1$$
+
+Por lo tanto, por definición formal, $f(n) \in \Theta(n^2)$.
+:::
+
+:::{exercise}
+:label: ejer-notaciones-log
+Demostrá que para cualquier par de bases constantes $a, b > 1$, se cumple que $\log_a n \in \Theta(\log_b n)$.
+:::
+
+:::{solution} ejer-notaciones-log
+:class: dropdown
+Utilizando la fórmula de cambio de base para logaritmos, sabemos que:
+$$\log_a n = \frac{\log_b n}{\log_b a} = \left(\frac{1}{\log_b a}\right) \log_b n$$
+
+Dado que $a$ y $b$ son constantes mayores que 1, el término $k = \frac{1}{\log_b a}$ es una constante positiva fija.
+
+Por definición de Big-Theta, una función $f(n) \in \Theta(g(n))$ si existen constantes $c_1, c_2, n_0 > 0$ tales que:
+$$c_1 \cdot g(n) \le f(n) \le c_2 \cdot g(n) \quad \forall n \ge n_0$$
+
+Si elegimos $c_1 = k$, $c_2 = k$ y $n_0 = 1$, se cumple la igualdad:
+$$k \cdot \log_b n \le k \cdot \log_b n \le k \cdot \log_b n \quad \forall n \ge 1$$
+
+Lo que demuestra formalmente que $\log_a n \in \Theta(\log_b n)$. Por ende, en el análisis asintótico la base del logaritmo no afecta a la clase de complejidad y se escribe simplemente $O(\log n)$.
+:::
+
+:::{exercise}
+:label: ejer-notaciones-little-o
+Determiná si la relación $n \log n \in o(n^2)$ es verdadera o falsa, y justificalo aplicando la definición del límite.
+:::
+
+:::{solution} ejer-notaciones-little-o
+:class: dropdown
+La relación es verdadera.
+
+Por definición, $f(n) \in o(g(n))$ si el límite del cociente de ambas funciones tiende a cero cuando $n$ tiende a infinito:
+$$\lim_{n \to \infty} \frac{f(n)}{g(n)} = 0$$
+
+Sustituyendo las funciones correspondientes:
+$$\lim_{n \to \infty} \frac{n \log n}{n^2} = \lim_{n \to \infty} \frac{\log n}{n}$$
+
+Aplicando la regla de L'Hôpital (derivando numerador y denominador respecto a $n$):
+$$\lim_{n \to \infty} \frac{\frac{1}{n}}{1} = \lim_{n \to \infty} \frac{1}{n} = 0$$
+
+Como el límite es $0$, se cumple formalmente que $n \log n \in o(n^2)$, lo que significa que $n \log n$ crece estrictamente más lento que $n^2$.
+:::
+
 ## Jerarquía de Complejidades
 
 ```{figure} 19/complexity_hierarchy.svg
@@ -402,6 +472,69 @@ Comparación del crecimiento de diferentes funciones de complejidad para valores
 - **$O(n!)$**: Viable solo hasta $n \approx 12$
 :::
 
+### Ejercicios de Jerarquía de Complejidades
+
+:::{exercise}
+:label: ejer-jerarquia-ordenar
+Ordená las siguientes funciones de acuerdo con su tasa de crecimiento asintótico, de menor a mayor eficiencia (es decir, de la que crece más rápido a la que crece más lento):
+$$2^n, \quad n \log n, \quad 1000, \quad n!, \quad n^3, \quad \sqrt{n}, \quad n^2$$
+:::
+
+:::{solution} ejer-jerarquia-ordenar
+:class: dropdown
+El orden de crecimiento asintótico de menor eficiencia (crecimiento más rápido) a mayor eficiencia (crecimiento más lento) es:
+$$n! > 2^n > n^3 > n^2 > n \log n > \sqrt{n} > 1000$$
+
+- **$n!$**: Crecimiento factorial (inviable para $n > 15$).
+- **$2^n$**: Crecimiento exponencial (inviable para $n > 30$).
+- **$n^3$**: Crecimiento cúbico.
+- **$n^2$**: Crecimiento cuadrático.
+- **$n \log n$**: Crecimiento log-lineal.
+- **$\sqrt{n}$**: Crecimiento sublineal ($n^{0.5}$).
+- **$1000$**: Crecimiento constante ($O(1)$).
+:::
+
+:::{exercise}
+:label: ejer-jerarquia-identificar
+Asociá cada uno de los siguientes fragmentos de código con su clase de complejidad correspondiente en la jerarquía ($O(1)$, $O(\log n)$, $O(n)$, $O(n^2)$):
+- a) Un lazo que recorre un arreglo de tamaño $n$ para imprimir sus elementos.
+- b) Un acceso directo a la posición `arr[i]` de un arreglo de tamaño $n$.
+- c) Un algoritmo de búsqueda binaria sobre un arreglo ordenado de tamaño $n$.
+- d) Dos lazos anidados que realizan comparaciones sobre una matriz de tamaño $n \times n$.
+:::
+
+:::{solution} ejer-jerarquia-identificar
+:class: dropdown
+- **a) $O(n)$ (Lineal)**: El lazo visita cada uno de los $n$ elementos exactamente una vez.
+- **b) $O(1)$ (Constante)**: El acceso por índice calcula la dirección de memoria en tiempo fijo, independientemente del tamaño $n$.
+- **c) $O(\log n)$ (Logarítmica)**: En cada iteración del lazo se descarta la mitad de los elementos restantes.
+- **d) $O(n^2)$ (Cuadrática)**: El lazo interno se ejecuta $n$ veces por cada iteración del lazo externo, acumulando $n^2$ operaciones.
+:::
+
+:::{exercise}
+:label: ejer-jerarquia-exponencial
+Un algoritmo de fuerza bruta tarda 1 milisegundo en resolver un problema para una entrada de tamaño $n = 10$. Si la complejidad del algoritmo es $O(2^n)$, estimá cuánto tiempo tardará en resolver el mismo problema para una entrada de tamaño $n = 40$ (expresá el resultado en la unidad de tiempo más adecuada).
+:::
+
+:::{solution} ejer-jerarquia-exponencial
+:class: dropdown
+El tiempo de ejecución $T(n)$ se puede modelar como $T(n) = k \cdot 2^n$ para alguna constante $k$.
+
+Sabemos que para $n = 10$:
+$$T(10) = k \cdot 2^{10} = 1 \text{ ms} \implies k = \frac{1}{1024} \text{ ms}$$
+
+Para $n = 40$:
+$$T(40) = k \cdot 2^{40} = \frac{1}{2^{10}} \cdot 2^{40} \text{ ms} = 2^{30} \text{ ms}$$
+
+Realizamos la conversión a unidades más comprensibles:
+- $2^{30} \text{ ms} = 1.073.741.824 \text{ ms}$
+- En segundos: $\frac{2^{30}}{1000} \approx 1.073.741 \text{ s}$
+- En horas: $\frac{1.073.741}{3600} \approx 298.26 \text{ h}$
+- En días: $\frac{298.26}{24} \approx 12.4 \text{ días}$
+
+Por lo tanto, resolver el problema para $n = 40$ tomará aproximadamente **12,4 días**, lo cual ilustra la intratabilidad práctica de los algoritmos de complejidad exponencial.
+:::
+
 ## Técnicas de Análisis
 
 ### Análisis de Lazos
@@ -662,6 +795,95 @@ El arreglo está lleno ($t_{i-1} = c_{i-1}$). Para insertar, se debe duplicar la
 En ambos escenarios (con o sin redimensionamiento), el costo amortizado de una inserción en el arreglo dinámico es exactamente $3$, lo que demuestra formalmente que la operación de inserción tiene una complejidad de amortización constante:
 $$\hat{c}_i \in \Theta(1)$$
 
+### Ejercicios de Técnicas de Análisis
+
+:::{exercise}
+:label: ejer-tecnicas-lazos-anidados
+Determiná la complejidad temporal del siguiente fragmento de código analizando la cantidad de ejecuciones del lazo interno:
+
+```{code-block}c
+:linenos:
+for (int i = 0; i < n; i++) {
+    for (int j = 0; j < i; j++) {
+        printf("%d ", i * j);
+    }
+}
+```
+:::
+
+:::{solution} ejer-tecnicas-lazos-anidados
+:class: dropdown
+- El lazo externo ejecuta $n$ iteraciones, con la variable $i$ tomando valores de $0$ a $n-1$.
+- Para cada iteración del lazo externo, el lazo interno se ejecuta exactamente $i$ veces (con $j$ desde $0$ hasta $i-1$).
+- El número total de ejecuciones del cuerpo del lazo interno se calcula mediante la sumatoria:
+$$\sum_{i=0}^{n-1} i = 0 + 1 + 2 + \dots + (n-1) = \frac{(n-1)n}{2} = \frac{n^2 - n}{2}$$
+- Al descartar las constantes multiplicativas y los términos de menor orden, la complejidad temporal resultante es $O(n^2)$.
+:::
+
+:::{exercise}
+:label: ejer-tecnicas-lazo-multiplicativo
+Determiná la complejidad temporal del siguiente fragmento de código:
+
+```{code-block}c
+:linenos:
+for (int i = 1; i < n; i *= 3) {
+    for (int j = 0; j < n; j++) {
+        printf("%d ", i + j);
+    }
+}
+```
+:::
+
+:::{solution} ejer-tecnicas-lazo-multiplicativo
+:class: dropdown
+- **Lazo externo**: La variable de control $i$ se triplica en cada iteración ($1, 3, 9, 27, \dots$). El lazo finaliza cuando $3^k \ge n$, lo que implica que realiza $k = \lceil \log_3 n \rceil$ iteraciones. Su complejidad es $O(\log n)$.
+- **Lazo interno**: Para cada iteración del lazo externo, este lazo se ejecuta de forma lineal exactamente $n$ veces, realizando una operación elemental de tiempo constante $O(1)$.
+- **Complejidad total**: Dado que los lazos están anidados de forma independiente, multiplicamos el costo de ambos:
+$$T(n) = \log_3 n \cdot n \in O(n \log n)$$
+:::
+
+:::{exercise}
+:label: ejer-tecnicas-recursividad-maestro
+Determiná la complejidad temporal de la siguiente función recursiva aplicando el Teorema Maestro:
+
+```{code-block}c
+:linenos:
+void misterio(int n) {
+    if (n <= 1) {
+        return;
+    }
+    for (int i = 0; i < n; i++) {
+        printf("%d ", i);
+    }
+    misterio(n / 3);
+    misterio(n / 3);
+}
+```
+:::
+
+:::{solution} ejer-tecnicas-recursividad-maestro
+:class: dropdown
+Planteamos la relación de recurrencia para el tiempo de ejecución:
+$$T(n) = 2T(n/3) + f(n)$$
+
+Donde:
+- $a = 2$: Se realizan dos llamadas recursivas por nivel.
+- $b = 3$: El tamaño de la entrada se divide por 3 en cada llamada.
+- $f(n) = O(n)$: El lazo `for` realiza $n$ iteraciones de costo constante.
+
+Comparamos $f(n)$ con $n^{\log_b a}$:
+$$n^{\log_3 2} \approx n^{0.63}$$
+
+Dado que $f(n) = n^1$ y $1 > 0.63$, el trabajo no recursivo en la raíz del árbol domina la complejidad.
+
+Verificamos la condición de regularidad: $a f(n/b) \le c f(n)$ para algún $c < 1$.
+$$2 \cdot \frac{n}{3} = \frac{2}{3} n \le c \cdot n$$
+Esta desigualdad se satisface para cualquier $c \ge 2/3$.
+
+Por lo tanto, aplicando el **Caso 3** del Teorema Maestro, la complejidad es:
+$$T(n) \in \Theta(f(n)) = \Theta(n)$$
+:::
+
 ## Complejidad Espacial
 
 La **complejidad espacial** mide la cantidad de memoria adicional que un algoritmo requiere.
@@ -720,6 +942,70 @@ int fibonacci_memo(int n, int memo[]) {
 
 Ilustración del trade-off entre tiempo y espacio en el problema de Fibonacci.
 ```
+
+### Ejercicios de Complejidad Espacial
+
+:::{exercise}
+:label: ejer-espacial-fibonacci
+Compará la complejidad espacial de las dos implementaciones de Fibonacci dadas en esta sección: la versión recursiva ingenua y la versión recursiva con memoización.
+:::
+
+:::{solution} ejer-espacial-fibonacci
+:class: dropdown
+1. **Versión recursiva ingenua**:
+   - Aunque realiza un número exponencial de llamadas en total ($O(2^n)$), la pila del sistema solo almacena una rama del árbol de llamadas a la vez.
+   - La profundidad máxima de la pila es $n$ marcos de activación. Por lo tanto, su complejidad espacial es $O(n)$.
+2. **Versión con memoización**:
+   - Requiere un arreglo auxiliar de tamaño $n + 1$ para almacenar los resultados previamente computados.
+   - La profundidad máxima de la pila de llamadas también es $n$.
+   - En consecuencia, consume $O(n)$ de memoria para el arreglo de memoización y $O(n)$ en la pila de ejecución, lo que totaliza una complejidad espacial de $O(n)$.
+
+Ambas versiones requieren espacio lineal $O(n)$, pero la versión con memoización reduce la complejidad temporal de exponencial a lineal ($O(n)$) a cambio de un uso explícito de memoria.
+:::
+
+:::{exercise}
+:label: ejer-espacial-iterativo-recursivo
+Considerá una función iterativa que calcula el factorial de un número y una recursiva. Determiná la complejidad espacial de ambas.
+:::
+
+:::{solution} ejer-espacial-iterativo-recursivo
+:class: dropdown
+1. **Versión iterativa**:
+   ```c
+   long long factorial_iterativo(int n) {
+       long long resultado = 1;
+       for (int i = 2; i <= n; i++) {
+           resultado *= i;
+       }
+       return resultado;
+   }
+   ```
+   Esta función solo requiere almacenar las variables locales de control (`resultado`, `i`), cuyo tamaño en memoria es constante e independiente de la entrada $n$. Su complejidad espacial es **$O(1)$**.
+
+2. **Versión recursiva**:
+   ```c
+   long long factorial_recursivo(int n) {
+       if (n <= 1) return 1;
+       return n * factorial_recursivo(n - 1);
+   }
+   ```
+   Cada llamada recursiva introduce un nuevo marco de activación en la pila del sistema para guardar el parámetro `n` y la dirección de retorno. Como se realizan $n$ llamadas recursivas anidadas consecutivas antes de alcanzar el caso base, la pila crece linealmente. Su complejidad espacial es **$O(n)$**.
+:::
+
+:::{exercise}
+:label: ejer-espacial-matriz
+Un programador decide implementar un algoritmo para procesar un conjunto de $n$ registros numéricos. Para ello, crea una matriz dinámica de tamaño $n \times n$ en la que guarda las diferencias relativas de cada registro con respecto a todos los demás. Determiná la complejidad espacial de esta solución y evaluá su viabilidad si $n = 100.000$ (asumiendo que cada elemento es un entero de 4 bytes).
+:::
+
+:::{solution} ejer-espacial-matriz
+:class: dropdown
+- La matriz de tamaño $n \times n$ tiene un total de $n^2$ celdas. Como el espacio crece cuadráticamente respecto al tamaño de la entrada, la complejidad espacial es **$O(n^2)$**.
+- Evaluamos la viabilidad para $n = 100.000$:
+$$\text{Cantidad de celdas} = n^2 = (10^5)^2 = 10^{10} \text{ enteros}$$
+- Multiplicando por el tamaño de un entero (4 bytes):
+$$10^{10} \times 4 \text{ bytes} = 4 \times 10^{10} \text{ bytes} \approx 40 \text{ GB}$$
+- **Conclusión**: Esta solución es inviable en computadoras hogareñas estándar, ya que supera ampliamente la capacidad promedio de memoria RAM, provocando un desbordamiento o fallo por falta de memoria (out of memory).
+:::
 
 ## Límites Inferiores y Óptimalidad
 
@@ -827,6 +1113,54 @@ graph TD
 
 Frente a la intratabilidad de los problemas NP-Completos, en el desarrollo práctico de software se emplean algoritmos de aproximación, heurísticas o restricciones del dominio para hallar soluciones aceptables en tiempos razonables, sabiendo que una solución óptima general y rápida no es viable.
 
+### Ejercicios de Clases de Complejidad
+
+:::{exercise}
+:label: ejer-teoria-p-np
+Explicá la diferencia fundamental entre la clase P y la clase NP, y mencioná por qué el problema de la factorización de enteros es de especial interés en esta clasificación.
+:::
+
+:::{solution} ejer-teoria-p-np
+:class: dropdown
+- La clase **P** agrupa a los problemas de decisión que se pueden **resolver** de forma eficiente en tiempo polinomial (por ejemplo, determinar si un elemento pertenece a un arreglo).
+- La clase **NP** agrupa a los problemas de decisión para los cuales, dada una posible solución (certificado), se puede **verificar** su validez en tiempo polinomial, aunque encontrarla inicialmente pueda requerir tiempo exponencial.
+- El problema de **factorización de enteros** (dado un entero $N$, hallar sus factores primos) es de gran interés porque:
+  1. Pertenece a la clase NP (es trivial verificar si un conjunto de factores es correcto simplemente multiplicándolos en tiempo polinomial).
+  2. No se conoce ningún algoritmo eficiente en computación clásica para resolverlo en tiempo polinomial.
+  3. No se ha demostrado que sea NP-Completo, situándose en una categoría intermedia (NP-Intermedio) bajo la hipótesis de que $P \neq NP$.
+:::
+
+:::{exercise}
+:label: ejer-teoria-np-completo
+Definí qué es un problema **NP-Completo** y explicá las implicaciones que tendría encontrar un algoritmo de tiempo polinomial para resolver uno de ellos.
+:::
+
+:::{solution} ejer-teoria-np-completo
+:class: dropdown
+- Un problema es **NP-Completo** si cumple con dos condiciones:
+  1. Pertenece a la clase NP (es verificable en tiempo polinomial).
+  2. Es al menos tan difícil como cualquier otro problema en NP. Esto significa que cualquier problema en NP puede reducirse polinomialmente a él.
+- Si se encontrara un algoritmo que resolviera un único problema NP-Completo en tiempo polinomial, todos los demás problemas de la clase NP también podrían resolverse en tiempo polinomial mediante su correspondiente reducción.
+- Esto demostraría matemáticamente la igualdad **$P = NP$**, colapsando la jerarquía de complejidad. Tendría consecuencias masivas, rompiendo la seguridad de la criptografía moderna de clave pública y permitiendo optimizaciones óptimas inmediatas en logística y diseño de chips.
+:::
+
+:::{exercise}
+:label: ejer-teoria-tsp-verificacion
+Considerá el problema del Viajante (TSP) en su versión de decisión: dado un conjunto de ciudades, las distancias entre ellas y un límite $D$, ¿existe un recorrido que visite todas las ciudades exactamente una vez y regrese al inicio con un costo total menor o igual a $D$? Describí cómo se realiza la verificación en tiempo polinomial de una solución propuesta.
+:::
+
+:::{solution} ejer-teoria-tsp-verificacion
+:class: dropdown
+Para verificar un recorrido propuesto (el certificado) en tiempo polinomial, se realiza el siguiente algoritmo:
+1. **Certificado**: La solución propuesta consiste en una secuencia ordenada de ciudades: $C_1, C_2, \dots, C_n$.
+2. **Validación de ciudades**: Se verifica que la secuencia contenga exactamente todas las ciudades del problema sin repeticiones (a excepción del retorno a la primera ciudad). Esto toma $O(n)$ tiempo.
+3. **Cálculo de distancias**: Se recorre la secuencia y se suman las distancias entre elementos consecutivos de la matriz de distancias:
+   $$\text{Costo} = \sum_{i=1}^{n-1} \text{distancia}(C_i, C_{i+1}) + \text{distancia}(C_n, C_1)$$
+   Dado que acceder a cada celda de la matriz toma $O(1)$ tiempo, la sumatoria toma $O(n)$ operaciones.
+4. **Comparación**: Se comprueba si el $\text{Costo} \leq D$, lo cual toma $O(1)$ tiempo.
+
+Dado que todos los pasos de verificación descritos se ejecutan en tiempo lineal $O(n)$, el problema pertenece a la clase NP.
+:::
 
 ## Ejemplos Detallados de Análisis
 
@@ -934,166 +1268,6 @@ T(n) = 2^{n-1}T(1) + 2^{n-1} - 1 = 2^{n-1} + 2^{n-1} - 1 = 2^n - 1 \in \Theta(2^
 $$
 
 **Conclusión**: Torres de Hanoi es inherentemente exponencial. No existe solución más eficiente.
-
-## Ejercicios
-
-```{exercise}
-:label: ejer-comp-1a
-
-Determiná la complejidad temporal del siguiente fragmento de código:
-
-```{code-block}c
-:linenos:
-for (int i = 0; i < n; i++) {
-    for (int j = 0; j < i; j++) {
-        printf("%d ", i * j);
-    }
-}
-```
-```
-
-````{solution} ejer-comp-1a
-:class: dropdown
-
-$O(n^2)$
-- Lazo externo: $n$ iteraciones
-- Lazo interno: $i$ iteraciones (depende de $i$)
-- Total: $\sum_{i=0}^{n-1} i = \frac{n(n-1)}{2} \in O(n^2)$
-````
-
-```{exercise}
-:label: ejer-comp-1b
-
-Determiná la complejidad temporal del siguiente fragmento de código:
-
-```{code-block}c
-:linenos:
-for (int i = 1; i < n; i *= 3) {
-    for (int j = 0; j < n; j++) {
-        printf("%d ", i + j);
-    }
-}
-```
-```
-
-````{solution} ejer-comp-1b
-:class: dropdown
-
-$O(n \log n)$
-- Lazo externo: $\log_3 n$ iteraciones (crece multiplicativamente)
-- Lazo interno: $n$ iteraciones
-- Total: $n \times \log_3 n \in O(n \log n)$
-````
-
-```{exercise}
-:label: ejer-comp-1c
-
-Determiná la complejidad temporal de la siguiente función recursiva, asegurando que respete las directivas de estilo en sus condicionales:
-
-```{code-block}c
-:linenos:
-void misterio(int n) {
-    if (n <= 1) {
-        return;
-    }
-    for (int i = 0; i < n; i++) {
-        printf("%d ", i);
-    }
-    misterio(n / 3);
-    misterio(n / 3);
-}
-```
-```
-
-````{solution} ejer-comp-1c
-:class: dropdown
-
-$O(n)$
-- Recurrencia: $T(n) = 2T(n/3) + O(n)$
-- Por Teorema Maestro: $a=2, b=3, f(n)=n$
-- $\log_b a = \log_3 2 \approx 0.631 < 1$
-- Caso 3: $T(n) \in \Theta(n)$
-````
-
-```{exercise}
-:label: ejer-comp-2
-
-Demostrá que $f(n) = 3n^2 + 5n + 2 \in \Theta(n^2)$ usando la definición formal de Big-Theta.
-```
-
-````{solution} ejer-comp-2
-:class: dropdown
-
-Debemos encontrar constantes $c_1, c_2, n_0$ tales que:
-$$
-c_1 n^2 \leq 3n^2 + 5n + 2 \leq c_2 n^2 \quad \forall n \geq n_0
-$$
-
-**Cota inferior** ($c_1 n^2 \leq 3n^2 + 5n + 2$):
-- Tomemos $c_1 = 3$
-- Para $n \geq 1$: $3n^2 \leq 3n^2 + 5n + 2$ ✓
-
-**Cota superior** ($3n^2 + 5n + 2 \leq c_2 n^2$):
-- Necesitamos $c_2$ tal que $3n^2 + 5n + 2 \leq c_2 n^2$
-- Para $n \geq 1$: $5n \leq 5n^2$ y $2 \leq 2n^2$
-- Entonces: $3n^2 + 5n + 2 \leq 3n^2 + 5n^2 + 2n^2 = 10n^2$
-- Tomemos $c_2 = 10$
-
-**Conclusión**: Con $c_1 = 3$, $c_2 = 10$, $n_0 = 1$:
-$$
-3n^2 \leq 3n^2 + 5n + 2 \leq 10n^2 \quad \forall n \geq 1
-$$
-
-Por tanto, $f(n) \in \Theta(n^2)$.
-````
-
-```{exercise}
-:label: ejer-comp-3
-
-Implementá un algoritmo para encontrar los dos elementos más grandes en un arreglo y analizá su complejidad. Compará tu solución con el enfoque ingenuo de ordenar el arreglo completo.
-```
-
-````{solution} ejer-comp-3
-:class: dropdown
-
-**Solución óptima**: $O(n)$
-
-```{code-block}c
-:linenos:
-void dos_maximos(int arr[], int n, int *max1, int *max2) {
-    // Inicializar
-    if (arr[0] > arr[1]) {
-        *max1 = arr[0];
-        *max2 = arr[1];
-    } else {
-        *max1 = arr[1];
-        *max2 = arr[0];
-    }
-    
-    // Un solo recorrido: O(n)
-    for (int i = 2; i < n; i++) {
-        if (arr[i] > *max1) {
-            *max2 = *max1;
-            *max1 = arr[i];
-        } else if (arr[i] > *max2) {
-            *max2 = arr[i];
-        }
-    }
-}
-```
-
-**Análisis**:
-- Un único recorrido del arreglo: $O(n)$
-- Operaciones constantes por elemento
-- **Complejidad**: $O(n)$
-
-**Comparación con ordenamiento**:
-- Ordenar todo el arreglo: $O(n \log n)$
-- Tomar los dos últimos elementos: $O(1)$
-- **Complejidad total**: $O(n \log n)$
-
-**Conclusión**: La solución óptima es asintóticamente mejor ($O(n)$ vs $O(n \log n)$).
-````
 
 ## Referencias y Lecturas Complementarias
 

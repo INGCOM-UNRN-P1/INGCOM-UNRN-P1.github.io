@@ -120,6 +120,47 @@ Una **teoría** $T$ es un conjunto de axiomas (fórmulas) en LPO.
 - **Teoría de conjuntos**: ZFC (Zermelo-Fraenkel con Axioma de Elección)
 - **Teoría de arreglos**: axiomas para estructuras indexadas
 
+### Ejercicios de Autoevaluación (Lógica de Primer Orden)
+
+:::{exercise}
+:label: ej-contrato-lpo-cuantificador
+Traducí a una fórmula matemática formal en Lógica de Primer Orden la siguiente proposición: "Todos los elementos del arreglo `arr` de tamaño `n` comprendidos entre los índices `0` y `limit` inclusive son mayores que la constante entera `K`".
+:::
+
+:::{solution} ej-contrato-lpo-cuantificador
+:class: dropdown
+La fórmula en LPO utilizando cuantificación universal es:
+$$
+\forall i.\ (0 \leq i \leq \text{limit} < n) \rightarrow (\text{arr}[i] > K)
+$$
+:::
+
+:::{exercise}
+:label: ej-contrato-lpo-free-bound
+Dada la fórmula $\forall x.\ (x < y) \rightarrow \exists z.\ (x + z = y)$, identificá de forma precisa cuáles variables tienen ocurrencias ligadas y cuáles libres en la expresión.
+:::
+
+:::{solution} ej-contrato-lpo-free-bound
+:class: dropdown
+- **Ligadas**: Las variables $x$ y $z$ son variables ligadas debido a que sus ocurrencias se encuentran bajo el alcance directo de los cuantificadores universal $\forall x$ y existencial $\exists z$ respectivamente.
+- **Libres**: La variable $y$ es libre porque no se encuentra bajo el alcance de ningún cuantificador lógico en la fórmula.
+:::
+
+:::{exercise}
+:label: ej-contrato-lpo-substitution
+Realizá el cálculo de la sustitución del término `w+2` en la variable `x` para la fórmula lógica $(\exists y.\ x * y > 10)[w+2/x]$.
+:::
+
+:::{solution} ej-contrato-lpo-substitution
+:class: dropdown
+La sustitución reemplaza la ocurrencia libre de $x$ por el término sin alterar la estructura ligada de $y$:
+$$
+(\exists y.\ x * y > 10)[w+2/x] \equiv \exists y.\ (w + 2) * y > 10
+$$
+:::
+
+---
+
 ## Diseño por Contratos: Formalización
 
 ```{figure} 22/contract_components.svg
@@ -307,6 +348,52 @@ $$
 \end{align}
 $$
 
+### Ejercicios de Autoevaluación (Formalización de Contratos)
+
+:::{exercise}
+:label: ej-contrato-dbc-pre-sign
+Definí la precondición matemática de la función de división entera `int dividir(int a, int b)` y explicá detalladamente qué establece el Diseño por Contratos sobre el comportamiento del sistema si el cliente decide llamar a la función violando dicha precondición.
+:::
+
+:::{solution} ej-contrato-dbc-pre-sign
+:class: dropdown
+La precondición formal de la función es:
+$$
+\text{Pre} \equiv (b \neq 0)
+$$
+El Diseño por Contratos establece que si el cliente viola la precondición (por ejemplo, llamando con $b = 0$), el proveedor queda completamente liberado de sus obligaciones de cumplimiento de la postcondición. El comportamiento del programa pasa a ser indefinido (*undefined behavior*), pudiendo crashearse, retornar basura o corromper la memoria del sistema.
+:::
+
+:::{exercise}
+:label: ej-contrato-dbc-post-abs
+Escribí la postcondición matemática formal en Lógica de Primer Orden para una función `int valor_absoluto(int x)` que retorne el valor absoluto de $x$.
+:::
+
+:::{solution} ej-contrato-dbc-post-abs
+:class: dropdown
+La postcondición formal asociando el valor de retorno $r$ de la función es:
+$$
+\text{Post}(x, r) \equiv (x \geq 0 \rightarrow r = x) \land (x < 0 \rightarrow r = -x)
+$$
+:::
+
+:::{exercise}
+:label: ej-contrato-dbc-inv-class-cola
+Explicá de forma concisa la diferencia semántica que existe entre un invariante de lazo (*loop invariant*) y un invariante de clase (o estructura), y proveé un invariante de estructura lógico para un TAD de tipo Pila.
+:::
+
+:::{solution} ej-contrato-dbc-inv-class-cola
+:class: dropdown
+- **Invariante de lazo**: Es una propiedad lógica temporal que debe ser verdadera antes y después de cada iteración individual de un lazo dentro de una función, ayudando a probar la corrección del algoritmo iterativo.
+- **Invariante de clase/estructura**: Es una propiedad fundamental del estado de un objeto que se mantiene verdadera durante toda la vida útil del mismo. Debe cumplirse luego de su construcción y antes y después de la invocación de cualquier método o función pública del TAD.
+- **Invariante de una Pila**: Para `struct pila { int *elementos; int tope; int capacidad; }`, un invariante válido es:
+  $$
+  (\text{elementos} \neq \text{NULL}) \land (\text{capacidad} > 0) \land (0 \leq \text{tope} \leq \text{capacidad})
+  $$
+:::
+
+---
+
 ## Lógica de Hoare
 
 La **Lógica de Hoare** proporciona un sistema formal para razonar sobre la corrección de programas.
@@ -428,6 +515,58 @@ int maximo(int a, int b) {
    $$
    \{\text{true}\}\ \textbf{if}\ (a \geq b)\ \cdots\ \{r = \max(a, b)\}
    $$
+
+### Ejercicios de Autoevaluación (Lógica de Hoare)
+
+:::{exercise}
+:label: ej-hoare-triple-swap
+Demostrá mediante el uso de la regla de asignación de Hoare que la terna lógica $\{y = B \land x = A\}\ t := x; x := y; y := t\ \{x = B \land y = A\}$ es parcialmente correcta.
+:::
+
+:::{solution} ej-hoare-triple-swap
+:class: dropdown
+Aplicamos la regla de asignación de Hoare de atrás hacia adelante:
+1. Para la última instrucción $y := t$ con postcondición $Q = (x = B \land y = A)$:
+   $$
+   Q[t/y] \equiv (x = B \land t = A)
+   $$
+2. Para la instrucción anterior $x := y$:
+   $$
+   (x = B \land t = A)[y/x] \equiv (y = B \land t = A)
+   $$
+3. Para la primera instrucción $t := x$:
+   $$
+   (y = B \land t = A)[x/t] \equiv (y = B \land x = A)
+   $$
+La precondición obtenida de forma analítica es exactamente $\{y = B \land x = A\}$, lo cual demuestra la corrección de la terna.
+:::
+
+:::{exercise}
+:label: ej-hoare-weakest-pre
+Calculá analíticamente la precondición más débil ($wp$) de la instrucción `x := x * 2` con respecto a la postcondición `x > 10`.
+:::
+
+:::{solution} ej-hoare-weakest-pre
+:class: dropdown
+Utilizando la regla de la precondición más débil para la asignación:
+$$
+wp(\texttt{x := x * 2}, x > 10) \equiv (x * 2 > 10) \equiv (x > 5)
+$$
+:::
+
+:::{exercise}
+:label: ej-hoare-rule-consequence
+Explicá el funcionamiento y propósito de la Regla de Consecuencia en la Lógica de Hoare, detallando qué significa "debilitar la precondición" y "fortalecer la postcondición".
+:::
+
+:::{solution} ej-hoare-rule-consequence
+:class: dropdown
+La Regla de Consecuencia permite adaptar tripletas de Hoare preexistentes a contextos más estrictos o específicos.
+- **Debilitar la precondición ($P' \rightarrow P$)**: Significa que podemos reemplazar la precondición $P$ por una condición $P'$ que es más restrictiva (se cumple en menos estados). Si el programa es correcto asumiendo poco ($P$), seguirá siendo correcto asumiendo más ($P'$).
+- **Fortalecer la postcondición ($Q \rightarrow Q'$)**: Significa que podemos prometer una postcondición $Q'$ que sea menos restrictiva (o de mayor alcance) que la postcondición real $Q$ que el programa garantiza.
+:::
+
+---
 
 ## Verificación Automática y Herramientas
 
@@ -721,6 +860,48 @@ $$
 
 Esto especifica que $x$ e $y$ apuntan a celdas distintas (separación) y que `swap` intercambia sus contenidos.
 
+### Ejercicios de Autoevaluación (ACSL, LSP y Frame Problem)
+
+:::{exercise}
+:label: ej-contrato-acsl-valid
+Escribí la cabecera anotada con especificaciones formales de ACSL para una función `void resetear(int *ptr)` que requiera que el puntero sea de escritura válido y garantice que el valor apuntado tras la llamada es `0`.
+:::
+
+:::{solution} ej-contrato-acsl-valid
+:class: dropdown
+```c
+/*@ requires \valid(ptr);
+    assigns *ptr;
+    ensures *ptr == 0;
+ */
+void resetear(int *ptr);
+```
+:::
+
+:::{exercise}
+:label: ej-contrato-lsp-violation
+Explicá por qué la redefinición del comportamiento de un subtipo `Cuadrado` derivado de `Rectangulo` en estructuras mutables viola el Principio de Sustitución de Liskov (LSP) de acuerdo con la fuerza de las precondiciones y postcondiciones de sus operaciones de redimensionamiento.
+:::
+
+:::{solution} ej-contrato-lsp-violation
+:class: dropdown
+En un `Rectangulo` mutable, la operación `set_ancho(w)` tiene la postcondición de que el ancho se actualiza a `w` y el alto permanece inalterado.
+Si `Cuadrado` es un subtipo, para mantener su invariante de estructura (`ancho == alto`), la operación `set_ancho(w)` debe forzosamente alterar el alto también. Esto viola la postcondición heredada de `Rectangulo` (que garantiza que el alto no se modifica), rompiendo el Principio de Sustitución de Liskov ya que un código cliente diseñado para `Rectangulo` fallaría si se le pasa un objeto de tipo `Cuadrado` (fortalece de forma ilegal la precondición o debilita de forma ilegal la postcondición).
+:::
+
+:::{exercise}
+:label: ej-contrato-frame-assigns
+Explicá qué es el *Frame Problem* en la especificación formal de software y de qué forma la directiva `assigns` en ACSL permite solucionarlo para los analizadores estáticos.
+:::
+
+:::{solution} ej-contrato-frame-assigns
+:class: dropdown
+El *Frame Problem* es la dificultad de expresar formalmente qué variables y recursos del sistema **no se modifican** tras la ejecución de una rutina sin tener que listar explícitamente el infinito número de variables inalteradas.
+La directiva `assigns` soluciona esto en ACSL permitiendo declarar un marco delimitado de variables de escritura. El analizador estático (como Frama-C) asume automáticamente que cualquier variable o celda del heap que no esté listada de forma explícita en la directiva `assigns` permanece inalterada, lo que simplifica drásticamente el cálculo de las condiciones de verificación.
+:::
+
+---
+
 ## Casos de Estudio
 
 ### Caso 1: Ordenamiento por Inserción
@@ -957,196 +1138,6 @@ Los contratos son la **mejor documentación**:
 - **QuickCheck para C**: Generación de tests basada en propiedades
 - **American Fuzzy Lop (AFL)**: Fuzzing guiado por cobertura
 - **Valgrind/Memcheck**: Detección de errores de memoria en runtime
-
-## Ejercicios
-
-```{exercise}
-:label: ejer-contratos-1
-
-Especificá precondiciones, postcondiciones e invariantes de lazo para el siguiente código que calcula el factorial:
-
-```{code-block}c
-:linenos:
-int factorial(int n) {
-    int resultado = 1;
-    int i = 1;
-    
-    while (i <= n) {
-        resultado *= i;
-        i++;
-    }
-    
-    return resultado;
-}
-```
-
-Demostrá que el invariante se preserva en cada iteración.
-```
-
-````{solution} ejer-contratos-1
-:class: dropdown
-
-**Especificación**:
-
-```{code-block}c
-:linenos:
-/*@ requires n >= 0;
-    requires n <= 12;  // Para evitar overflow en int de 32 bits
-    assigns \nothing;
-    ensures \result == factorial_matematico(n);
-  */
-int factorial(int n);
-```
-
-**Invariante de lazo**:
-$$
-I \equiv (1 \leq i \leq n+1) \land (\text{resultado} = i-1!)
-$$
-
-**Demostración**:
-
-1. **Inicialización**: Antes del lazo, $i = 1$ y $\text{resultado} = 1$
-   $$
-   I[1/i, 1/\text{resultado}] = (1 \leq 1 \leq n+1) \land (1 = 0!) = \text{true}
-   $$
-
-2. **Preservación**: Asumiendo $I \land (i \leq n)$ antes de la iteración:
-   - Tenemos: $\text{resultado} = (i-1)!$
-   - Después de `resultado *= i`: $\text{resultado}' = (i-1)! \times i = i!$
-   - Después de `i++`: $i' = i + 1$
-   - Nuevo invariante: $\text{resultado}' = (i'-1)! = i!$ ✓
-
-3. **Terminación**: Al salir, $I \land (i > n)$, entonces $i = n+1$ y $\text{resultado} = n!$
-
-**Postcondición satisfecha**: $\text{resultado} = n!$ ✓
-````
-
-```{exercise}
-:label: ejer-contratos-2
-
-Encontrá el error en la siguiente especificación e implementación:
-
-```{code-block}c
-:linenos:
-/*@ requires n > 0;
-    requires \valid(arr + (0..n-1));
-    ensures \forall integer i; 0 <= i < n-1 ==> arr[i] <= arr[i+1];
-  */
-void ordenar_ascendente(int arr[], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        arr[i] = i;
-    }
-}
-```
-
-¿La implementación satisface la especificación? ¿Es esto lo que se quería especificar?
-```
-
-````{solution} ejer-contratos-2
-:class: dropdown
-
-**Problema 1**: La implementación **sí satisface** la especificación técnicamente:
-- Postcondición: $\forall i.\ 0 \leq i < n-1 \rightarrow \text{arr}[i] \leq \text{arr}[i+1]$
-- Después del código: `arr = [0, 1, 2, ..., n-2, ???]`
-- La postcondición es verdadera
-
-**Problema 2**: La especificación es **demasiado débil**. Falta:
-1. **Permutación**: Los elementos finales deben ser los mismos que los iniciales
-2. **Frame**: No especifica qué no debe cambiar
-
-**Especificación corregida**:
-
-```{code-block}c
-:linenos:
-/*@ requires n > 0;
-    requires \valid(arr + (0..n-1));
-    assigns arr[0..n-1];
-    ensures sorted(arr, 0, n-1);
-    ensures permutation{Pre,Post}(arr, n);
-  */
-void ordenar_ascendente(int arr[], int n);
-```
-
-donde:
-```{code-block}c
-:linenos:
-/*@ predicate sorted(int *arr, integer i, integer j) =
-        \forall integer k; i <= k < j ==> arr[k] <= arr[k+1];
-  */
-
-/*@ predicate permutation{L1,L2}(int *arr, integer n) =
-        multiset_same{L1,L2}(arr, 0, n-1);
-  */
-```
-
-**Lección**: Especificaciones incompletas permiten implementaciones "correctas" pero inútiles.
-````
-
-```{exercise}
-:label: ejer-contratos-3
-
-Escribí la especificación formal completa (Pre/Post/Invariantes) para una función que invierte un arreglo in-place. Demostrá que tu invariante es correcto.
-```
-
-````{solution} ejer-contratos-3
-:class: dropdown
-
-**Especificación**:
-
-```{code-block}c
-:linenos:
-/*@ requires n >= 0;
-    requires \valid(arr + (0..n-1));
-    assigns arr[0..n-1];
-    ensures \forall integer i; 0 <= i < n ==> arr[i] == \old(arr[n-1-i]);
-  */
-void invertir(int arr[], int n) {
-    int i = 0;
-    int j = n - 1;
-    
-    /*@ loop invariant 0 <= i <= j+1 <= n;
-        loop invariant \forall integer k; 0 <= k < i ==>
-            arr[k] == \old(arr[n-1-k]);
-        loop invariant \forall integer k; j < k < n ==>
-            arr[k] == \old(arr[n-1-k]);
-        loop invariant \forall integer k; i <= k <= j ==>
-            arr[k] == \old(arr[k]);
-        loop assigns i, j, arr[0..n-1];
-        loop variant j - i + 1;
-      */
-    while (i < j) {
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-        i++;
-        j--;
-    }
-}
-```
-
-**Invariante**:
-$$
-\begin{align}
-I \equiv\ &(0 \leq i \leq j+1 \leq n) \\
-\land\ &\forall k.\ 0 \leq k < i \rightarrow \text{arr}[k] = \text{arr}_{\text{old}}[n-1-k] \\
-\land\ &\forall k.\ j < k < n \rightarrow \text{arr}[k] = \text{arr}_{\text{old}}[n-1-k] \\
-\land\ &\forall k.\ i \leq k \leq j \rightarrow \text{arr}[k] = \text{arr}_{\text{old}}[k]
-\end{align}
-$$
-
-**Interpretación**:
-- Los elementos antes de $i$ ya están invertidos
-- Los elementos después de $j$ ya están invertidos
-- Los elementos entre $i$ y $j$ aún no se han tocado
-
-**Demostración de preservación**: En cada iteración:
-1. Intercambiamos `arr[i]` y `arr[j]`
-2. Incrementamos $i$ y decrementamos $j$
-3. Los elementos recién intercambiados ahora satisfacen la propiedad de inversión
-4. Los elementos previamente intercambiados no se modifican
-
-Al terminar ($i \geq j$), todos los elementos han sido procesados y están invertidos.
-````
 
 ## Referencias y Lecturas Complementarias
 

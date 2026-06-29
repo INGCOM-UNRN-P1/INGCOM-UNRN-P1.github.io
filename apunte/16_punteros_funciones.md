@@ -73,6 +73,61 @@ operacion_fn mi_operacion = sumar;
 
 ---
 
+### Ejercicios de Autoevaluación (Sintaxis y Declaración)
+
+:::{exercise}
+:label: ej-fn-ptr-sintaxis-error
+Explicá detalladamente la diferencia sintáctica y el significado para el compilador de las siguientes dos declaraciones:
+1. `double *procesar(double, double);`
+2. `double (*procesar)(double, double);`
+:::
+
+:::{solution} ej-fn-ptr-sintaxis-error
+:class: dropdown
+1. **`double *procesar(double, double);`**: Declara un prototipo de función ordinario llamado `procesar` que recibe dos parámetros de tipo `double` y retorna un **puntero a double** (`double *`).
+2. **`double (*procesar)(double, double);`**: El paréntesis altera la precedencia indicando que el operador `*` se asocia directamente con el identificador. Declara una variable llamada `procesar` cuyo tipo de dato es **puntero a función**, la cual recibe dos parámetros de tipo `double` y retorna un valor de tipo `double`.
+:::
+
+:::{exercise}
+:label: ej-fn-ptr-typedef-alias
+Escribí la declaración de un alias de tipo utilizando `typedef` de acuerdo con la regla de la cátedra {ref}`0x3004h` para representar punteros a funciones que reciben como parámetro una cadena de caracteres constante (`const char *`) y retornan un entero de tipo `size_t`.
+:::
+
+:::{solution} ej-fn-ptr-typedef-alias
+:class: dropdown
+La sintaxis correcta aplicando el sufijo de alias de tipo `_t` es:
+```c
+#include <stddef.h>
+
+typedef size_t (*medidor_cadena_fn_t)(const char *);
+```
+Este alias `medidor_cadena_fn_t` permite declarar punteros a funciones de forma sencilla:
+```c
+medidor_cadena_fn_t mi_funcion = strlen;
+```
+:::
+
+:::{exercise}
+:label: ej-fn-ptr-invocacion-variacion
+Dada una función `int multiplicar(int a, int b);` y un puntero a función declarado y asignado como `int (*operacion)(int, int) = multiplicar;`, escribí las dos líneas de código válidas bajo el estándar de C para realizar la invocación de la función con los argumentos `10` y `20` a través del puntero, indicando cuál es la preferida por legibilidad.
+:::
+
+:::{solution} ej-fn-ptr-invocacion-variacion
+:class: dropdown
+Las dos formas de invocación soportadas son:
+1. **Invocación explícita (desreferencia)**:
+   ```c
+   int res1 = (*operacion)(10, 20);
+   ```
+2. **Invocación implícita o directa**:
+   ```c
+   int res2 = operacion(10, 20);
+   ```
+Ambas son funcionalmente idénticas debido a que el compilador de C promociona automáticamente el identificador de la función a su dirección física. La cátedra prefiere y recomienda la **segunda variante** (invocación directa) por asemejarse a una llamada de función estándar, mejorando la claridad de lectura del código.
+:::
+
+---
+
 ## Callbacks: Comportamiento como Parámetro
 
 Un **callback** es una función que se pasa a otra función como argumento para ser ejecutada ("llamada de vuelta") bajo ciertas condiciones o flujos de control.
@@ -167,6 +222,97 @@ int main(void) {
 
 ---
 
+### Ejercicios de Autoevaluación (Callbacks y qsort)
+
+:::{exercise}
+:label: ej-fn-ptr-qsort-reversa
+Escribí un callback de comparación compatible con `qsort` llamado `comparar_reversa` que permita ordenar un arreglo de enteros de forma descendente (de mayor a menor).
+:::
+
+:::{solution} ej-fn-ptr-qsort-reversa
+:class: dropdown
+```c
+int comparar_reversa(const void *a, const void *b) {
+    // 1. Casteamos los punteros genéricos const void* al tipo real const int*
+    const int *ptr_a = (const int *)a;
+    const int *ptr_b = (const int *)b;
+
+    // 2. Para orden descendente:
+    // Retorna mayor a 0 si b > a, menor a 0 si a > b, 0 si son iguales.
+    if (*ptr_a < *ptr_b) {
+        return 1;
+    }
+    if (*ptr_a > *ptr_b) {
+        return -1;
+    }
+    return 0;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-fn-ptr-qsort-cadenas
+Escribí un callback de comparación para `qsort` que permita ordenar alfabéticamente un arreglo de cadenas de caracteres (`const char *`).
+:::
+
+:::{solution} ej-fn-ptr-qsort-cadenas
+:class: dropdown
+Al pasar un arreglo de cadenas `char *arr[]` a `qsort`, los elementos individuales que se comparan son de tipo `char *`. Dado que `qsort` pasa punteros a los elementos del arreglo, los punteros genéricos `a` y `b` que recibe el callback deben ser interpretados como punteros a cadenas, es decir, `const char **`.
+```c
+#include <string.h>
+
+int comparar_cadenas(const void *a, const void *b) {
+    // Casteo a puntero de cadena (char**)
+    const char * const *str_a = (const char * const *)a;
+    const char * const *str_b = (const char * const *)b;
+
+    // Comparación léxica de los contenidos apuntados
+    return strcmp(*str_a, *str_b);
+}
+```
+:::
+
+:::{exercise}
+:label: ej-fn-ptr-qsort-struct-dos-criterios
+Dada la estructura:
+```c
+typedef struct {
+    int codigo;
+    double precio;
+} producto_t;
+```
+Implementá un callback de comparación para ordenar un arreglo de `producto_t` por `precio` de menor a mayor. En caso de que dos productos tengan el mismo precio, se debe desempatar ordenando por `codigo` de menor a mayor.
+:::
+
+:::{solution} ej-fn-ptr-qsort-struct-dos-criterios
+:class: dropdown
+```c
+int comparar_productos(const void *a, const void *b) {
+    const producto_t *p1 = (const producto_t *)a;
+    const producto_t *p2 = (const producto_t *)b;
+
+    // Primer criterio: comparación de precios
+    if (p1->precio < p2->precio) {
+        return -1;
+    }
+    if (p1->precio > p2->precio) {
+        return 1;
+    }
+
+    // Segundo criterio (desempate): comparación de códigos
+    if (p1->codigo < p2->codigo) {
+        return -1;
+    }
+    if (p1->codigo > p2->codigo) {
+        return 1;
+    }
+    return 0;
+}
+```
+:::
+
+---
+
 ## Genericidad en C mediante `void *`
 
 Dado que C carece de tipos genéricos en tiempo de compilación (como *templates* de C++ o genéricos de Java), la genericidad se simula a bajo nivel utilizando punteros genéricos `void *`.
@@ -233,51 +379,86 @@ int main(void) {
 }
 ```
 
-## Ejercicios Prácticos
+### Ejercicios de Autoevaluación (Genericidad y void*)
 
-```{exercise}
-:label: ej-genericidad-filtrar
-Escribir una función genérica `filtrar_elementos` en C que reciba un arreglo genérico, su tamaño, el tamaño de cada elemento, y un callback de predicado (una función que recibe `const void*` y retorna un booleano `int`). La función debe imprimir los elementos que satisfagan el predicado.
-```
+:::{exercise}
+:label: ej-fn-ptr-void-dereferencia
+Explicá por qué el compilador de C rechaza expresiones como `*ptr` o `ptr++` cuando la variable `ptr` es un puntero genérico de tipo `void *`, y cómo se debe proceder para realizar la manipulación correcta de la memoria física.
+:::
 
-:::{solution} ej-genericidad-filtrar
-```{code-block}c
-:linenos:
+:::{solution} ej-fn-ptr-void-dereferencia
+:class: dropdown
+El tipo `void *` representa una dirección de memoria genérica sin información sobre el tipo de dato subyacente.
+- **Desreferencia (`*ptr`)**: Para leer o escribir a través de un puntero, el compilador requiere saber cuántos bytes ocupa el dato (por ejemplo, 4 bytes para un `int`, 8 para un `double`) para leer la palabra de memoria correcta. Al ser `void` (vacío de tipo), el tamaño es indeterminado, resultando en un error de compilación.
+- **Aritmética (`ptr++`)**: Para avanzar al siguiente elemento, el compilador escala la suma de bytes por el tamaño del tipo apuntado (`sizeof(tipo)`). Sin tipo asociado, el tamaño es desconocido.
+La solución consiste en realizar un casteo (*cast*) explícito al tipo de puntero real correspondiente antes de operar (por ejemplo, `const char *` para aritmética byte a byte).
+:::
+
+:::{exercise}
+:label: ej-fn-ptr-generic-filter
+Implementá una función genérica en C llamada `filtrar_arreglo` que reciba un arreglo genérico de elementos, su cantidad, el tamaño en bytes de cada elemento, un callback de predicado (que reciba `const void*` y retorne un booleano `int`), y un callback de impresión. La función debe recorrer el arreglo e imprimir los elementos que cumplan con la condición.
+:::
+
+:::{solution} ej-fn-ptr-generic-filter
+:class: dropdown
+```c
 #include <stdio.h>
 #include <stddef.h>
 
-typedef int (*predicado_fn)(const void *);
+typedef int (*predicado_fn_t)(const void *);
+typedef void (*imprimir_fn_t)(const void *);
 
-void filtrar_elementos(const void *base, size_t nmemb, size_t size, predicado_fn predicado, void (*imprimir)(const void *)) {
+void filtrar_arreglo(const void *base, size_t nmemb, size_t size, 
+                     predicado_fn_t predicado, imprimir_fn_t imprimir) {
+    if (base == NULL || predicado == NULL || imprimir == NULL) {
+        return;
+    }
+
+    // Casteo a const char* para aritmética de punteros byte a byte
     const char *ptr = (const char *)base;
+
     for (size_t i = 0; i < nmemb; i++) {
+        // Cálculo de dirección del elemento i-ésimo: base + i * size
         const void *elem = ptr + (i * size);
+
         if (predicado(elem)) {
             imprimir(elem);
         }
     }
 }
+```
+:::
 
-// Ejemplo de uso para números pares:
-int es_par(const void *a) {
-    return (*(const int *)a % 2) == 0;
-}
+:::{exercise}
+:label: ej-fn-ptr-generic-swap
+Implementá un procedimiento genérico en C llamado `intercambiar_bloques` que reciba dos punteros genéricos `void *a` y `void *b` junto con el tamaño de su tipo `size_t size` en bytes, y realice el intercambio de sus contenidos físicos byte a byte en memoria.
+:::
 
-void imprimir_int(const void *a) {
-    printf("%d ", *(const int *)a);
-}
+:::{solution} ej-fn-ptr-generic-swap
+:class: dropdown
+```c
+#include <stddef.h>
 
-int main(void) {
-    int datos[] = {1, 2, 3, 4, 5, 6, 7, 8};
-    size_t n = sizeof(datos) / sizeof(datos[0]);
-    
-    printf("Numeros pares filtrados: ");
-    filtrar_elementos(datos, n, sizeof(int), es_par, imprimir_int);
-    printf("\n");
-    return 0;
+void intercambiar_bloques(void *a, void *b, size_t size) {
+    if (a == NULL || b == NULL || size == 0) {
+        return;
+    }
+
+    // Casteo a char* para operar sobre bytes individuales de forma contigua
+    char *ptr_a = (char *)a;
+    char *ptr_b = (char *)b;
+
+    for (size_t i = 0; i < size; i++) {
+        // Intercambio clásico byte a byte
+        char temp = ptr_a[i];
+        ptr_a[i] = ptr_b[i];
+        ptr_b[i] = temp;
+    }
 }
 ```
 :::
+
+---
 
 ## Lecturas Recomendadas
 

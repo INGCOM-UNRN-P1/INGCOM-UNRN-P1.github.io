@@ -3,9 +3,10 @@ title: Tipos de Datos Abstractos, Pilas y Colas
 short_title: "18 - TADs"
 subtitle: Estructuras de datos dinámicas y especializadas
 ---
-
 (tad-capitulo)=
-## Introducción
+## Concepto y Diseño de TADs
+
+### Introducción
 
 Un **Tipo de Dato Abstracto** (TAD, del inglés *Abstract Data Type*, ADT) es un modelo matemático que define un conjunto de datos junto con las operaciones que pueden realizarse sobre ellos, ocultando los detalles de su implementación. El concepto de TAD es fundamental en la ciencia de la computación porque establece una separación clara entre **qué** hace una estructura de datos (su interfaz) y **cómo** lo hace (su implementación).
 
@@ -36,14 +37,14 @@ Para un análisis detallado sobre cómo funciona esta técnica a nivel del compi
 La abstracción no se reduce a ocultar información; su objetivo es proveer una interfaz limpia y coherente que proteja las invariantes internas del TAD y permita su uso de manera intuitiva y segura.
 :::
 
-## TAD vs. Estructura de Datos
+### TAD vs. Estructura de Datos
 
 - **TAD**: Es un concepto lógico, una **especificación** de comportamiento (el "qué").
 - **Estructura de Datos**: Es una implementación concreta, una **organización** de datos en memoria (el "cómo").
 
 ---
 
-# Ejemplos Clásicos de Tipos de Datos Abstractos
+### Ejemplos Clásicos de Tipos de Datos Abstractos
 
 - **Lista (List)**: Colección ordenada y posicionada de elementos.
 - **Pila (Stack)**: Colección LIFO (Last-In, First-Out).
@@ -53,7 +54,7 @@ La abstracción no se reduce a ocultar información; su objetivo es proveer una 
 
 ---
 
-# Metodología para el Diseño de un TAD Propio
+### Metodología para el Diseño de un TAD Propio
 
 Crear un TAD es un ejercicio de diseño centrado en la abstracción. Seguir un proceso metodológico asegura que el resultado sea robusto, claro y útil.
 
@@ -65,7 +66,7 @@ Crear un TAD es un ejercicio de diseño centrado en la abstracción. Seguir un p
 
 ---
 
-## Asignación de Memoria: Estática vs. Dinámica
+### Asignación de Memoria: Estática vs. Dinámica
 
 El diseño e implementación de Tipos de Datos Abstractos en C requiere una gestión rigurosa de la memoria. La elección entre el ciclo de vida automático en el *stack* (memoria estática) o el ciclo de vida dinámico en el *heap* (memoria dinámica) define cómo se almacenan, acceden y destruyen los elementos del TAD.
 
@@ -73,6 +74,156 @@ Para un análisis detallado sobre el funcionamiento del stack, consultá la secc
 
 :::{important}
 En este apunte se utiliza prioritariamente la asignación dinámica de memoria en el heap para permitir que las estructuras de datos tengan un tamaño variable y flexible en tiempo de ejecución. Recordá aplicar siempre las buenas prácticas de inicialización y liberación de punteros documentadas en {ref}`memoria-buenas-practicas` (reglas {ref}`0x0003h` y {ref}`0x0036h`).
+:::
+
+### Ejercicios de Concepto y Diseño de TADs
+
+:::{exercise}
+:label: ejercicio-tad-punto-interfaz
+
+Diseñá la interfaz pública (`punto.h`) de un Tipo de Dato Abstracto `punto_t` que represente un punto en el plano cartesiano bidimensional. El diseño debe cumplir estrictamente con el principio de ocultamiento de la información utilizando un puntero opaco. Definí las firmas para las siguientes operaciones elementales:
+1. Crear un punto a partir de sus coordenadas $(x, y)$.
+2. Obtener la coordenada $x$.
+3. Obtener la coordenada $y$.
+4. Calcular la distancia euclídea entre dos puntos.
+5. Modificar las coordenadas del punto.
+6. Destruir el punto liberando su memoria.
+:::
+
+:::{solution} ejercicio-tad-punto-interfaz
+:class: dropdown
+
+La interfaz pública en el archivo de cabecera `punto.h` debe declarar el tipo de forma incompleta para actuar como puntero opaco, ocultando la estructura interna al código cliente:
+
+```c
+#ifndef PUNTO_H
+#define PUNTO_H
+
+#include <stdbool.h>
+
+/* Declaración incompleta del tipo. La estructura se define en punto.c */
+typedef struct punto punto_t;
+
+/* 
+ * Constructor: Crea un nuevo punto en el heap.
+ * Retorna un puntero al punto creado o NULL si falla la asignación de memoria.
+ */
+punto_t *punto_crear(double x, double y);
+
+/*
+ * Selectores: Retornan las coordenadas del punto.
+ * Precondición: el punto no debe ser NULL.
+ */
+double punto_obtener_x(const punto_t *punto);
+double punto_obtener_y(const punto_t *punto);
+
+/*
+ * Consultor: Calcula la distancia euclídea entre p1 y p2.
+ * Precondición: ambos puntos deben ser válidos (no NULL).
+ */
+double punto_distancia(const punto_t *p1, const punto_t *p2);
+
+/*
+ * Mutador: Modifica las coordenadas del punto.
+ * Retorna true si la operación fue exitosa, o false si el punto es NULL.
+ */
+bool punto_modificar(punto_t *punto, double nuevo_x, double nuevo_y);
+
+/*
+ * Destructor: Libera toda la memoria asociada al punto.
+ */
+void punto_destruir(punto_t *punro);
+```
+
+Wait, corregimos la errata "punro" a "punto".
+
+```c
+void punto_destruir(punto_t *punto);
+
+#endif /* PUNTO_H */
+```
+:::
+
+:::{exercise}
+:label: ejercicio-tad-fraccion
+
+Siguiendo la metodología de diseño de TADs, escribí el archivo de cabecera (`fraccion.h`) para representar números racionales (`fraccion_t`). Asegurá que las fracciones se mantengan siempre en su forma irreducible (invariante del TAD) tras realizar cualquier operación. Definí las operaciones básicas de creación, suma, y conversión a número en punto flotante (`double`).
+:::
+
+:::{solution} ejercicio-tad-fraccion
+:class: dropdown
+
+El archivo `fraccion.h` define la interfaz. Para asegurar el invariante de que toda fracción esté simplificada, la implementación del constructor y de los mutadores debe calcular el máximo común divisor (MCD) y dividir los términos por este valor.
+
+```c
+#ifndef FRACCION_H
+#define FRACCION_H
+
+#include <stdbool.h>
+
+/* Tipo de dato abstracto fraccion_t como puntero opaco */
+typedef struct fraccion fraccion_t;
+
+/* 
+ * Constructor: Crea una fracción simplificada en el heap.
+ * Precondición: el denominador no debe ser cero.
+ * Retorna NULL si el denominador es cero o si falla la memoria.
+ */
+fraccion_t *fraccion_crear(int numerador, int denominador);
+
+/*
+ * Mutador: Suma dos fracciones y retorna una nueva fracción simplificada.
+ * Retorna NULL en caso de error de memoria.
+ */
+fraccion_t *fraccion_sumar(const fraccion_t *f1, const fraccion_t *f2);
+
+/*
+ * Conversor: Devuelve el valor decimal equivalente de la fracción.
+ */
+double fraccion_a_decimal(const fraccion_t *fraccion);
+
+/*
+ * Destructor: Libera la memoria de la fracción.
+ */
+void fraccion_destruir(fraccion_t *fraccion);
+
+#endif /* FRACCION_H */
+```
+:::
+
+:::{exercise}
+:label: ejercicio-tad-fecha-invariantes
+
+Identificá y describí formalmente los invariantes de representación de un TAD `fecha_t` que almacena de manera privada el día, el mes y el año como números enteros. Explicá cómo influye la existencia de años bisiestos en la validación de estos invariantes y qué papel juegan las funciones de interfaz en su preservación.
+:::
+
+:::{solution} ejercicio-tad-fecha-invariantes
+:class: dropdown
+
+Los invariantes de representación son propiedades lógicas que deben mantenerse verdaderas durante todo el ciclo de vida de la estructura. Para el TAD `fecha_t`, definido de forma interna como:
+
+```c
+struct fecha {
+    int dia;
+    int mes;
+    int anio;
+};
+```
+
+Los invariantes formales son:
+1. $1 \le \text{mes} \le 12$.
+2. $\text{anio} \ne 0$ (si se asume la inexistencia del año cero en el calendario gregoriano).
+3. $1 \le \text{dia} \le \text{dias\_del\_mes(mes, anio)}$, donde:
+   - Para meses 1, 3, 5, 7, 8, 10 y 12: el límite es 31.
+   - Para meses 4, 6, 9 y 11: el límite es 30.
+   - Para el mes 2 (febrero): el límite es 29 si el año es bisiesto, y 28 en caso contrario.
+
+**Influencia de los años bisiestos:**
+Un año es bisiesto si es divisible por 4 pero no por 100, excepto que sea divisible por 400. La función interna de validación debe computar esta regla para asegurar que fechas como el 29 de febrero de 2024 sean válidas, pero el 29 de febrero de 2023 no lo sea.
+
+**Preservación de los invariantes:**
+- **Constructores y Mutadores:** Son las únicas operaciones que pueden modificar el estado. Tienen la obligación de validar rigurosamente los parámetros recibidos antes de realizar cualquier asignación. Si los datos violan las reglas, la operación debe abortarse retornando un error (por ejemplo, `NULL` o `false`).
+- **Selectores y Consultores:** Al ser de solo lectura, no pueden violar los invariantes, pero confían en que se mantuvieron válidos previamente.
 :::
 
 ## Tipificación de Acciones
@@ -281,7 +432,197 @@ Cuando diseñes un nuevo TAD, usá esta tipificación como lista de verificació
 Esta clasificación no solo organiza tu código, sino que comunica claramente la **intención** de cada función a quienes usen tu TAD.
 :::
 
-## El TAD Secuencia
+### Ejercicios de Tipificación de Acciones
+
+:::{exercise}
+:label: ejercicio-tipificacion-firmas
+
+Dada la interfaz de un TAD `conjunto_t` que almacena valores enteros únicos, clasificá cada una de las siguientes firmas de función en una de las siete categorías de tipificación de acciones (Constructor, Selector, Consultor, Iterador, Mutador, Conversor, Destructor):
+
+```c
+conjunto_t *conjunto_crear(void);
+bool conjunto_insertar(conjunto_t *c, int elemento);
+bool conjunto_pertenece(const conjunto_t *c, int elemento);
+size_t conjunto_cardinalidad(const conjunto_t *c);
+int *conjunto_a_arreglo(const conjunto_t *c, size_t *tam);
+void conjunto_destruir(conjunto_t *c);
+conjunto_iter_t *conjunto_iter_crear(const conjunto_t *c);
+```
+:::
+
+:::{solution} ejercicio-tipificacion-firmas
+:class: dropdown
+
+La clasificación correspondiente es:
+
+1. `conjunto_crear`: **Constructor**. Reserva memoria e inicializa un nuevo conjunto vacío.
+2. `conjunto_insertar`: **Mutador**. Modifica el estado del conjunto agregando un elemento.
+3. `conjunto_pertenece`: **Selector**. Recupera información interna buscando la presencia del elemento en la estructura sin modificarla.
+4. `conjunto_cardinalidad`: **Consultor**. Retorna meta-información sobre la estructura (la cantidad total de elementos que contiene).
+5. `conjunto_a_arreglo`: **Conversor**. Crea y retorna una nueva estructura (un arreglo dinámico en el heap) con el contenido del conjunto. El cliente debe liberar el arreglo generado.
+6. `conjunto_destruir`: **Destructor**. Libera la memoria del conjunto y todos los recursos asociados.
+7. `conjunto_iter_crear`: **Iterador** (en particular, constructor de un iterador externo). Retorna un objeto especializado para recorrer los elementos de manera secuencial.
+:::
+
+:::{exercise}
+:label: ejercicio-tipificacion-conversor-pila
+
+Escribí la implementación de un conversor para una estructura `pila_t` de enteros que cumpla la siguiente firma:
+
+```c
+int *pila_a_arreglo(const pila_t *pila, size_t *cantidad);
+```
+
+La función debe devolver un arreglo en el heap con los elementos de la pila ordenados desde el tope hacia la base, sin alterar el estado de la pila original (usando únicamente las operaciones públicas del TAD: `crear`, `apilar`, `desapilar`, `ver_tope`, `esta_vacia` y `destruir`).
+:::
+
+:::{solution} ejercicio-tipificacion-conversor-pila
+:class: dropdown
+
+Dado que la función recibe un puntero constante `const pila_t *` y no podemos modificar la pila original directamente, debemos desapilar los elementos a una pila auxiliar para obtenerlos, y luego restaurarlos a la pila original. Al no poder alterar la pila cliente, usamos un lazo para volcarla temporalmente en una pila auxiliar.
+
+```c
+#include <stdlib.h>
+#include <stdbool.h>
+
+/* Suponemos la existencia de las funciones públicas del TAD pila_t */
+typedef struct pila pila_t;
+pila_t *pila_crear(void);
+bool pila_apilar(pila_t *p, int dato);
+int pila_desapilar(pila_t *p);
+int pila_ver_tope(const pila_t *p);
+bool pila_esta_vacia(const pila_t *p);
+void pila_destruir(pila_t *p);
+
+int *pila_a_arreglo(const pila_t *pila, size_t *cantidad)
+{
+    if (pila == NULL || cantidad == NULL)
+    {
+        return NULL;
+    }
+
+    /* Creamos dos pilas auxiliares para no alterar el estado final */
+    pila_t *aux = pila_crear();
+    if (aux == NULL)
+    {
+        return NULL;
+    }
+
+    size_t count = 0;
+    
+    /* Desapilamos de la pila (suponiendo que removemos el const para la copia interna) */
+    pila_t *pila_trabajo = (pila_t *)pila; /* Cast de conveniencia para usar la interfaz */
+    
+    while (!pila_esta_vacia(pila_trabajo))
+    {
+        int valor = pila_desapilar(pila_trabajo);
+        pila_apilar(aux, valor);
+        count++;
+    }
+
+    int *arreglo = malloc(count * sizeof(int));
+    if (arreglo == NULL)
+    {
+        /* Si falla la asignación, restauramos la pila original antes de salir */
+        while (!pila_esta_vacia(aux))
+        {
+            pila_apilar(pila_trabajo, pila_desapilar(aux));
+        }
+        pila_destruir(aux);
+        return NULL;
+    }
+
+    /* Al reconstruir, guardamos en el arreglo.
+       Los elementos en aux están invertidos.
+       Para guardarlos del tope a la base en el arreglo: */
+    size_t i = 0;
+    while (!pila_esta_vacia(aux))
+    {
+        int valor = pila_desapilar(aux);
+        arreglo[i] = valor;
+        pila_apilar(pila_trabajo, valor); /* Restauramos el elemento a la pila original */
+        i++;
+    }
+
+    pila_destruir(aux);
+    *cantidad = count;
+    return arreglo;
+}
+```
+:::
+
+:::{exercise}
+:label: ejercicio-tipificacion-destructor-callback
+
+Diseñá e implementá el destructor de un TAD `tabla_hash_t` que almacena punteros genéricos a datos en sus celdas. La función de destrucción debe aceptar una función callback para que el cliente defina cómo destruir el dato almacenado en cada nodo, controlando las fugas de memoria. La firma debe ser:
+
+```c
+void tabla_destruir(tabla_hash_t *tabla, void (*destruir_dato)(void *));
+```
+:::
+
+:::{solution} ejercicio-tipificacion-destructor-callback
+:class: dropdown
+
+El destructor del TAD es responsable de liberar la estructura de soporte de la tabla, delegando la liberación de los datos de usuario a la función callback provista:
+
+```c
+#include <stdlib.h>
+
+typedef struct nodo_hash
+{
+    char *clave;
+    void *valor;
+    struct nodo_hash *siguiente;
+} nodo_hash_t;
+
+struct tabla_hash
+{
+    nodo_hash_t **baldes;
+    size_t capacidad;
+    size_t cantidad;
+};
+
+void tabla_destruir(tabla_hash_t *tabla, void (*destruir_dato)(void *))
+{
+    if (tabla == NULL)
+    {
+        return;
+    }
+
+    /* Recorremos todos los baldes del arreglo */
+    for (size_t i = 0; i < tabla->capacidad; i++)
+    {
+        nodo_hash_t *actual = tabla->baldes[i];
+        
+        /* Lazo para recorrer y liberar la lista enlazada de colisiones */
+        while (actual != NULL)
+        {
+            nodo_hash_t *siguiente = actual->siguiente;
+            
+            /* Liberamos la clave */
+            free(actual->clave);
+            
+            /* Si el cliente pasó un callback, liberamos el valor genérico */
+            if (destruir_dato != NULL && actual->valor != NULL)
+            {
+                destruir_dato(actual->valor);
+            }
+            
+            /* Liberamos el nodo en sí */
+            free(actual);
+            actual = siguiente;
+        }
+    }
+
+    /* Liberamos el arreglo de baldes y la estructura contenedora */
+    free(tabla->baldes);
+    free(tabla);
+}
+```
+:::
+
+## Listas Enlazadas (TAD Secuencia)
 
 Una **secuencia** es una colección ordenada de elementos donde cada elemento tiene una posición definida. Es uno de los TADs más fundamentales en programación, ya que representa la idea abstracta de "una serie de cosas en orden".
 
@@ -334,9 +675,10 @@ El código que usa una secuencia no necesita saber si está implementada con arr
 Las notaciones $O(1)$, $O(n)$, etc., describen el **comportamiento asintótico** del tiempo de ejecución. Para entender en profundidad qué significa la notación Big-O, cómo analizar algoritmos formalmente, y las diferentes notaciones asintóticas (Omega, Theta), consultá {ref}`complejidad-introduccion`.
 :::
 
-## Listas Enlazadas: Implementación de Secuencia
+### Implementación de Secuencia con Listas
 
 Una **lista enlazada** es una implementación del TAD Secuencia donde los elementos se almacenan en nodos individuales conectados mediante punteros. A diferencia de los arreglos, los nodos no necesitan estar en posiciones contiguas de memoria, lo que permite inserciones y eliminaciones eficientes al inicio.
+
 
 Esta es una de las estructuras de datos dinámicas más fundamentales y sirve como base para implementar otros TADs como pilas y colas.
 
@@ -801,8 +1143,190 @@ Observá cómo la estructura del código refleja claramente la lógica: primero 
 
 Una **lista circular** es una variante donde el último nodo apunta de nuevo al primero, formando un ciclo. Puede ser simple o doblemente enlazada. Son útiles en aplicaciones que requieren procesamiento cíclico, como buffers circulares o sistemas round-robin.
 
+### Ejercicios de Listas Enlazadas
 
-## Arreglos: Implementación Alternativa de Secuencia
+:::{exercise}
+:label: ejercicio-lista-fusionar
+
+Dadas dos listas enlazadas simples ordenadas de forma creciente, implementá una función en C que las fusione en una nueva lista enlazada también ordenada, sin modificar las listas originales (es decir, creando copias de los nodos). La firma de la función es:
+
+```c
+lista_t *fusionar_listas(const lista_t *lista1, const lista_t *lista2);
+```
+:::
+
+:::{solution} ejercicio-lista-fusionar
+:class: dropdown
+
+Para resolver este ejercicio de manera limpia, recorremos ambas listas simultáneamente mediante un lazo, comparando los elementos actuales de cada una. Insertamos el menor en la nueva lista de forma secuencial y avanzamos el puntero correspondiente.
+
+```c
+#include <stdlib.h>
+#include <stdbool.h>
+
+/* Suponemos declaradas las estructuras lista_t y nodo_t del apunte */
+
+lista_t *fusionar_listas(const lista_t *lista1, const lista_t *lista2)
+{
+    if (lista1 == NULL || lista2 == NULL)
+    {
+        return NULL;
+    }
+
+    lista_t *resultado = crear_lista();
+    if (resultado == NULL)
+    {
+        return NULL;
+    }
+
+    nodo_t *n1 = lista1->inicio;
+    nodo_t *n2 = lista2->inicio;
+
+    /* Lazo principal de comparación */
+    while (n1 != NULL && n2 != NULL)
+    {
+        if (n1->dato <= n2->dato)
+        {
+            if (!insertar_al_final(resultado, n1->dato))
+            {
+                destruir_lista(resultado);
+                return NULL;
+            }
+            n1 = n1->siguiente;
+        }
+        else
+        {
+            if (!insertar_al_final(resultado, n2->dato))
+            {
+                destruir_lista(resultado);
+                return NULL;
+            }
+            n2 = n2->siguiente;
+        }
+    }
+
+    /* Lazo para vaciar los elementos restantes de la lista 1, si quedan */
+    while (n1 != NULL)
+    {
+        if (!insertar_al_final(resultado, n1->dato))
+        {
+            destruir_lista(resultado);
+            return NULL;
+        }
+        n1 = n1->siguiente;
+    }
+
+    /* Lazo para vaciar los elementos restantes de la lista 2, si quedan */
+    while (n2 != NULL)
+    {
+        if (!insertar_al_final(resultado, n2->dato))
+        {
+            destruir_lista(resultado);
+            return NULL;
+        }
+        n2 = n2->siguiente;
+    }
+
+    return resultado;
+}
+```
+:::
+
+:::{exercise}
+:label: ejercicio-lista-ciclo
+
+Implementá una función en C que determine si una lista enlazada simple contiene un ciclo (es decir, si un nodo apunta a un elemento anterior de la secuencia, provocando un bucle infinito al recorrerla). Usá el algoritmo de detección de ciclos de Floyd (conocido como algoritmo de "la liebre y la tortuga") que utiliza dos punteros recorriendo la estructura a diferentes velocidades.
+
+```c
+bool tiene_ciclo(const lista_t *lista);
+```
+:::
+
+:::{solution} ejercicio-lista-ciclo
+:class: dropdown
+
+El algoritmo utiliza dos punteros: uno rápido (la liebre) que avanza de a dos nodos por iteración del lazo, y uno lento (la tortuga) que avanza de a un nodo. Si hay un ciclo, la liebre eventualmente alcanzará a la tortuga. Si no lo hay, la liebre llegará a `NULL`.
+
+```c
+#include <stdbool.h>
+#include <stdlib.h>
+
+bool tiene_ciclo(const lista_t *lista)
+{
+    if (lista == NULL || lista->inicio == NULL)
+    {
+        return false;
+    }
+
+    nodo_t *lento = lista->inicio;
+    nodo_t *rapido = lista->inicio;
+
+    /* Lazo de recorrido a dos velocidades */
+    while (rapido != NULL && rapido->siguiente != NULL)
+    {
+        lento = lento->siguiente;
+        rapido = rapido->siguiente->siguiente;
+
+        /* Si los punteros coinciden en la misma dirección de memoria, hay un ciclo */
+        if (lento == rapido)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+```
+:::
+
+:::{exercise}
+:label: ejercicio-lista-invertir
+
+Escribí una función iterativa en C que invierta *in-place* el orden de los elementos de una lista enlazada simple. La operación debe modificar directamente los enlaces de los nodos existentes, sin asignar nueva memoria para nodos ni cambiar sus datos internos. La firma debe ser:
+
+```c
+void invertir_lista(lista_t *lista);
+```
+:::
+
+:::{solution} ejercicio-lista-invertir
+:class: dropdown
+
+Para invertir la lista *in-place*, recorremos la estructura con un lazo manteniendo tres punteros temporales: `anterior`, `actual` y `siguiente`. En cada iteración reorientamos el puntero `siguiente` del nodo actual hacia el nodo `anterior`.
+
+```c
+#include <stdlib.h>
+
+void invertir_lista(lista_t *lista)
+{
+    if (lista == NULL || lista->inicio == NULL)
+    {
+        return;
+    }
+
+    nodo_t *anterior = NULL;
+    nodo_t *actual = lista->inicio;
+    nodo_t *siguiente = NULL;
+
+    /* Lazo para invertir los enlaces */
+    while (actual != NULL)
+    {
+        siguiente = actual->siguiente;  /* Guardamos el resto de la lista */
+        actual->siguiente = anterior;  /* Invertimos el enlace del nodo */
+        
+        /* Avanzamos los punteros de control hacia la derecha */
+        anterior = actual;
+        actual = siguiente;
+    }
+
+    /* El último nodo procesado (anterior) es el nuevo inicio de la lista */
+    lista->inicio = anterior;
+}
+```
+:::
+
+## Arreglos Dinámicos (TAD Secuencia)
+
 
 Para demostrar el poder de la abstracción del TAD, presentamos ahora una implementación alternativa del TAD Secuencia utilizando arreglos en lugar de listas enlazadas. Esta implementación ofrece diferentes características de rendimiento, pero mantiene la misma interfaz conceptual.
 
@@ -1019,7 +1543,189 @@ Esta tabla muestra las complejidades temporales en notación Big-O, que describe
 Esta separación entre interfaz e implementación es un ejemplo del patrón de diseño **Strategy**. El código cliente puede trabajar con "secuencias" sin importar la implementación subyacente, permitiendo optimizar según el caso de uso.
 :::
 
-## Consideraciones de Implementación
+### Complejidad Temporal de las Operaciones
+
+La eficiencia de las operaciones es un criterio fundamental al elegir una estructura de datos:
+
+| Operación | Lista Simple | Lista Doble |
+|-----------|--------------|-------------|
+| Insertar al inicio | $O(1)$ | $O(1)$ |
+| Insertar al final | $O(n)$ o $O(1)$* | $O(1)$ |
+| Eliminar al inicio | $O(1)$ | $O(1)$ |
+| Eliminar al final | $O(n)$ | $O(1)$ |
+| Buscar elemento | $O(n)$ | $O(n)$ |
+| Acceso por índice | $O(n)$ | $O(n)$ |
+
+\* $O(1)$ si se mantiene un puntero al final.
+
+:::{important}
+La notación Big-O describe el comportamiento asintótico en el peor caso. En casos promedio o con estructuras auxiliares, las complejidades pueden variar. Para un análisis formal y riguroso del análisis asintótico, incluyendo las notaciones Omega ($\Omega$) y Theta ($\Theta$), consultá {ref}`complejidad-introduccion`.
+:::
+
+### Comparación: Arreglos vs. Listas Enlazadas como Secuencias
+
+Ya hemos visto en detalle cómo tanto los arreglos dinámicos como las listas enlazadas pueden implementar el TAD Secuencia. Esta tabla resume las diferencias clave entre ambas implementaciones:
+
+| Característica | Arreglos Dinámicos | Listas Enlazadas |
+|----------------|-------------------|------------------|
+| Tamaño | Redimensionable (costo amortizado) | Dinámico sin redimensionamiento |
+| Acceso por índice | $O(1)$ | $O(n)$ |
+| Inserción al inicio | $O(n)$ (desplazamiento) | $O(1)$ |
+| Inserción al final | $O(1)$ amortizado | $O(1)$ o $O(n)$ |
+| Uso de memoria | Contiguo, eficiente en caché | Disperso, overhead por punteros |
+| Fragmentación | No sufre | Puede fragmentar el heap |
+| Mejor caso de uso | Acceso aleatorio frecuente | Inserciones/eliminaciones frecuentes |
+
+:::{note} Consideraciones de Rendimiento
+
+La elección entre arreglos y listas enlazadas tiene profundas implicaciones de rendimiento más allá de la complejidad algorítmica. Los arreglos tienen mejor localidad de memoria, lo que resulta en mejor uso del caché del procesador. Las listas enlazadas, al tener nodos dispersos en memoria, sufren más penalizaciones por accesos a memoria. Para un análisis detallado del impacto del caché y la localidad de memoria, consultá {ref}`memoria-modelo-costos`.
+
+Para ver implementaciones concretas de ambas aproximaciones, consultá las secciones anteriores sobre "Listas Enlazadas: Implementación de Secuencia" y "Arreglos: Implementación Alternativa de Secuencia".
+:::
+
+:::{important} El Poder de la Abstracción
+
+El concepto clave aquí es que **ambas estructuras implementan el mismo TAD Secuencia**. El código que utiliza una secuencia puede ser escrito de forma genérica, permitiendo cambiar entre implementaciones según las necesidades de rendimiento específicas sin reescribir la lógica de negocio.
+:::
+
+### Ejercicios de Arreglos Dinámicos
+
+
+:::{exercise}
+:label: ejercicio-arreglo-insertar-posicion
+
+Implementá la función de inserción en una posición específica de la secuencia implementada con arreglo dinámico. La función debe desplazar los elementos necesarios hacia la derecha para hacer espacio al nuevo dato, y debe redimensionar la capacidad del arreglo al doble utilizando la función `redimensionar()` si se encuentra lleno. La firma es:
+
+```c
+bool insertar_en_posicion_arreglo(secuencia_arreglo_t *sec, size_t pos, int dato);
+```
+:::
+
+:::{solution} ejercicio-arreglo-insertar-posicion
+:class: dropdown
+
+La solución requiere verificar primero la validez del puntero y de la posición de inserción. Si el tamaño alcanzó la capacidad máxima, se invoca a la función de redimensionamiento. Luego, mediante un lazo inverso, se desplazan los elementos desde la última posición hacia la derecha hasta llegar al índice de destino, donde se almacena el nuevo elemento.
+
+```c
+#include <stdlib.h>
+#include <stdbool.h>
+
+/* Suponemos definida la estructura secuencia_arreglo_t del apunte */
+
+bool insertar_en_posicion_arreglo(secuencia_arreglo_t *sec, size_t pos, int dato)
+{
+    if (sec == NULL || pos > sec->tamanio)
+    {
+        return false;
+    }
+
+    /* Redimensionamiento si el arreglo está lleno */
+    if (sec->tamanio >= sec->capacidad)
+    {
+        if (!redimensionar(sec))
+        {
+            return false;
+        }
+    }
+
+    /* Desplazamos los elementos hacia la derecha para abrir espacio */
+    for (size_t i = sec->tamanio; i > pos; i--)
+    {
+        sec->elementos[i] = sec->elementos[i - 1];
+    }
+
+    /* Insertamos el nuevo valor en la posición libre y actualizamos el tamaño */
+    sec->elementos[pos] = dato;
+    sec->tamanio++;
+
+    return true;
+}
+```
+:::
+
+:::{exercise}
+:label: ejercicio-arreglo-eliminar-encoger
+
+Implementá una función para eliminar un elemento en una posición dada de una secuencia con arreglo dinámico, desplazando los elementos restantes hacia la izquierda para cubrir la vacante. Además, para optimizar el uso de la memoria, si la cantidad de elementos cae por debajo del 25% de la capacidad contratada, la función debe reducir a la mitad la capacidad del arreglo en el heap, asegurando que nunca sea menor que la capacidad inicial. La firma es:
+
+```c
+bool eliminar_en_posicion_arreglo(secuencia_arreglo_t *sec, size_t pos);
+```
+:::
+
+:::{solution} ejercicio-arreglo-eliminar-encoger
+:class: dropdown
+
+El algoritmo desplaza los elementos del arreglo hacia la izquierda para sobreescribir el elemento eliminado. Tras reducir el tamaño, verifica si se cumple la condición de reducción de memoria ($4 \times \text{tamanio} < \text{capacidad}$) y que no se reduzca por debajo de la capacidad inicial mínima (por ejemplo, `CAPACIDAD_INICIAL` = 10).
+
+```c
+#include <stdlib.h>
+#include <stdbool.h>
+
+#define CAPACIDAD_INICIAL 10
+
+bool eliminar_en_posicion_arreglo(secuencia_arreglo_t *sec, size_t pos)
+{
+    if (sec == NULL || pos >= sec->tamanio)
+    {
+        return false;
+    }
+
+    /* Desplazamos los elementos siguientes hacia la izquierda */
+    for (size_t i = pos; i < sec->tamanio - 1; i++)
+    {
+        sec->elementos[i] = sec->elementos[i + 1];
+    }
+    
+    sec->tamanio--;
+
+    /* Verificamos si podemos encoger la capacidad para ahorrar memoria */
+    if (sec->tamanio < sec->capacidad / 4 && sec->capacidad / 2 >= CAPACIDAD_INICIAL)
+    {
+        size_t nueva_capacidad = sec->capacidad / 2;
+        int *nuevo_arreglo = realloc(sec->elementos, nueva_capacidad * sizeof(int));
+        
+        /* Si falla realloc al achicar, no consideramos error fatal, mantenemos capacidad */
+        if (nuevo_arreglo != NULL)
+        {
+            sec->elementos = nuevo_arreglo;
+            sec->capacidad = nueva_capacidad;
+        }
+    }
+
+    return true;
+}
+```
+:::
+
+:::{exercise}
+:label: ejercicio-arreglo-filtrar-complejidad
+
+Compará de manera asintótica en el peor caso la complejidad temporal del proceso de filtrar una secuencia (remover todos los elementos que no cumplan con un determinado criterio) en dos escenarios:
+1. La secuencia está implementada mediante una Lista Enlazada Simple.
+2. La secuencia está implementada mediante un Arreglo Dinámico que realiza desplazamientos por cada eliminación.
+
+Describí estrategias de optimización para cada caso y justificá tus respuestas utilizando notaciones asintóticas.
+:::
+
+:::{solution} ejercicio-arreglo-filtrar-complejidad
+:class: dropdown
+
+**1. Escenario con Lista Enlazada Simple:**
+- **Complejidad del peor caso:** $O(n)$, donde $n$ es la cantidad de elementos.
+- **Justificación:** Recorrer la lista requiere visitar cada nodo secuencialmente. Si un nodo debe eliminarse, la reconexión de punteros y la liberación con `free` toman tiempo constante $O(1)$. Solo necesitamos mantener un puntero al nodo anterior.
+- **Optimización:** Mantener un puntero auxiliar al nodo `anterior` durante el lazo para evitar tener que buscarlo desde el inicio de la lista, asegurando que cada nodo se procese en $O(1)$.
+
+**2. Escenario con Arreglo Dinámico:**
+- **Complejidad del peor caso (ingenua):** $O(n^2)$.
+- **Justificación:** Si se recorre el arreglo y por cada elemento a eliminar se llama a una función que desplaza los elementos restantes hacia la izquierda, en el peor caso (por ejemplo, si eliminamos casi todos los elementos) realizaremos $O(n)$ desplazamientos de tamaño proporcional a $n$ por cada remoción, resultando en un comportamiento cuadrático.
+- **Optimización ($O(n)$ temporal y $O(1)$ espacial):** Podemos aplicar la técnica de los **dos índices** en un solo lazo. Usamos un índice de lectura que recorre todo el arreglo elemento por elemento, y un índice de escritura que indica dónde debe copiarse el siguiente elemento que *sí* pasa el filtro. Una vez terminado el lazo, actualizamos el tamaño de la secuencia a la posición final del índice de escritura. Esto reduce la complejidad a un único paso lineal $O(n)$ con un mínimo costo de copiado.
+:::
+
+## Genericidad y Callbacks
+
+### Consideraciones de Implementación
+
 
 ### Manejo de Errores
 
@@ -1068,7 +1774,8 @@ La programación defensiva es especialmente importante en TADs porque el usuario
 Para técnicas avanzadas de validación y depuración de errores relacionados con memoria en estructuras dinámicas, consultá [Capítulo: Memoria Dinámica — sección Valgrind](14_memoria_dinamica.md). Herramientas como Valgrind son invaluables para detectar fugas de memoria y accesos inválidos en TADs complejos.
 :::
 
-## Genericidad Elemental y Callbacks
+### Introducción a la Genericidad
+
 
 En los ejemplos anteriores, diseñamos estructuras que almacenan un tipo de dato específico (como enteros `int`). Sin embargo, en el desarrollo real de software a menudo necesitás estructuras reutilizables que puedan almacenar *cualquier* tipo de información (números reales, caracteres, structs personalizadas, etc.). Para lograr esto en C estándar sin tener que duplicar el código, se recurre a la **genericidad elemental** utilizando punteros genéricos `void*` y **funciones callback**.
 
@@ -1264,86 +1971,186 @@ int main(void) {
 }
 ```
 
-## Complejidad Temporal
-
-La eficiencia de las operaciones es un criterio fundamental al elegir una estructura de datos:
-
-| Operación | Lista Simple | Lista Doble |
-|-----------|--------------|-------------|
-| Insertar al inicio | $O(1)$ | $O(1)$ |
-| Insertar al final | $O(n)$ o $O(1)$* | $O(1)$ |
-| Eliminar al inicio | $O(1)$ | $O(1)$ |
-| Eliminar al final | $O(n)$ | $O(1)$ |
-| Buscar elemento | $O(n)$ | $O(n)$ |
-| Acceso por índice | $O(n)$ | $O(n)$ |
-
-* $O(1)$ si se mantiene un puntero al final.
-
-:::{important}
-La notación Big-O describe el comportamiento asintótico en el peor caso. En casos promedio o con estructuras auxiliares, las complejidades pueden variar. Para un análisis formal y riguroso del análisis asintótico, incluyendo las notaciones Omega ($\Omega$) y Theta ($\Theta$), consultá {ref}`complejidad-introduccion`.
-:::
-
-## Comparación: Arreglos vs. Listas Enlazadas como Secuencias
-
-Ya hemos visto en detalle cómo tanto los arreglos dinámicos como las listas enlazadas pueden implementar el TAD Secuencia. Esta tabla resume las diferencias clave entre ambas implementaciones:
-
-| Característica | Arreglos Dinámicos | Listas Enlazadas |
-|----------------|-------------------|------------------|
-| Tamaño | Redimensionable (costo amortizado) | Dinámico sin redimensionamiento |
-| Acceso por índice | $O(1)$ | $O(n)$ |
-| Inserción al inicio | $O(n)$ (desplazamiento) | $O(1)$ |
-| Inserción al final | $O(1)$ amortizado | $O(1)$ o $O(n)$ |
-| Uso de memoria | Contiguo, eficiente en caché | Disperso, overhead por punteros |
-| Fragmentación | No sufre | Puede fragmentar el heap |
-| Mejor caso de uso | Acceso aleatorio frecuente | Inserciones/eliminaciones frecuentes |
-
-:::{note} Consideraciones de Rendimiento
-
-La elección entre arreglos y listas enlazadas tiene profundas implicaciones de rendimiento más allá de la complejidad algorítmica. Los arreglos tienen mejor localidad de memoria, lo que resulta en mejor uso del caché del procesador. Las listas enlazadas, al tener nodos dispersos en memoria, sufren más penalizaciones por accesos a memoria. Para un análisis detallado del impacto del caché y la localidad de memoria, consultá {ref}`memoria-modelo-costos`.
-
-Para ver implementaciones concretas de ambas aproximaciones, consultá las secciones anteriores sobre "Listas Enlazadas: Implementación de Secuencia" y "Arreglos: Implementación Alternativa de Secuencia".
-:::
-
-:::{important} El Poder de la Abstracción
-
-El concepto clave aquí es que **ambas estructuras implementan el mismo TAD Secuencia**. El código que utiliza una secuencia puede ser escrito de forma genérica, permitiendo cambiar entre implementaciones según las necesidades de rendimiento específicas sin reescribir la lógica de negocio.
-:::
-
-## Ejercicios
-
-### Ejercicio 1: Fusionar Listas Ordenadas
+### Ejercicios de Genericidad y Callbacks
 
 :::{exercise}
-:label: ejercicio-fusionar-listas
+:label: ejercicio-genericidad-buscar-lineal
 
-Dadas dos listas enlazadas ordenadas ascendentemente, escribí una función que las fusione en una nueva lista también ordenada.
+Implementá una función genérica de búsqueda para la lista enlazada genérica. La función debe recorrer la estructura buscando un elemento que coincida con una clave de búsqueda, utilizando un callback de comparación provisto por el usuario. La firma debe ser:
 
-```{code-block}c
-:linenos:
-lista_t *fusionar_listas(const lista_t *lista1, const lista_t *lista2);
+```c
+void *lista_buscar_generica(const lista_generica_t *lista, const void *clave, int (*comparar)(const void *, const void *));
 ```
 
-Por ejemplo:
-- Lista 1: 1 → 3 → 5 → 7
-- Lista 2: 2 → 4 → 6 → 8
-- Resultado: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
+Retorná el puntero al dato almacenado en la lista si se encuentra una coincidencia (cuando el callback retorne `0`), o `NULL` si no se encuentra.
 :::
 
-### Ejercicio 2: Detectar Ciclo en una Lista
+:::{solution} ejercicio-genericidad-buscar-lineal
+:class: dropdown
+
+La función realiza una búsqueda lineal clásica sobre los nodos genéricos. En cada paso del lazo se invoca al callback `comparar`, pasándole como argumentos el campo `dato` almacenado en el nodo y la `clave` de búsqueda recibida.
+
+```c
+#include <stdlib.h>
+
+/* Suponemos definidas las estructuras de lista genérica del apunte */
+
+void *lista_buscar_generica(const lista_generica_t *lista, const void *clave, int (*comparar)(const void *, const void *))
+{
+    if (lista == NULL || comparar == NULL)
+    {
+        return NULL;
+    }
+
+    nodo_generico_t *actual = lista->inicio;
+
+    /* Lazo de búsqueda lineal */
+    while (actual != NULL)
+    {
+        /* Invocamos al callback pasándole el dato del nodo y la clave buscada */
+        if (comparar(actual->dato, clave) == 0)
+        {
+            return actual->dato; /* Retornamos el dato original hallado */
+        }
+        
+        actual = actual->siguiente;
+    }
+
+    return NULL; /* No se encontró coincidencia en la lista */
+}
+```
+:::
 
 :::{exercise}
-:label: ejercicio-detectar-ciclo
+:label: ejercicio-genericidad-filtrar-destruir
 
-Escribí una función que detecte si una lista enlazada contiene un ciclo (es decir, si siguiendo los punteros `siguiente` eventualmente volvés a un nodo ya visitado).
+Escribí una función genérica que filtre los elementos de una lista enlazada genérica de `void*`. La función debe evaluar cada elemento usando un callback "predicado" (que retorna `true` si el elemento debe conservarse y `false` si debe eliminarse). Para los elementos que no cumplan la condición, se debe remover el nodo de la lista, liberar la memoria del nodo y utilizar un callback de destrucción para liberar los recursos del dato en sí. La firma es:
 
-```{code-block}c
-:linenos:
-bool tiene_ciclo(const lista_t *lista);
+```c
+void lista_filtrar_generica(lista_generica_t *lista, bool (*predicado)(const void *), void (*destruir_dato)(void *));
 ```
-
-Sugerencia: Investigá el algoritmo de "la liebre y la tortuga" (Floyd's cycle detection).
 :::
 
+:::{solution} ejercicio-genericidad-filtrar-destruir
+:class: dropdown
+
+Para implementar esta función de manera segura, debemos mantener un puntero al nodo `anterior` para desvincular correctamente los nodos eliminados de la secuencia. Además, guardamos la referencia al nodo `siguiente` antes de liberar el nodo `actual` para no perder la conexión de la lista en el lazo.
+
+```c
+#include <stdlib.h>
+#include <stdbool.h>
+
+void lista_filtrar_generica(lista_generica_t *lista, bool (*predicado)(const void *), void (*destruir_dato)(void *))
+{
+    if (lista == NULL || predicado == NULL)
+    {
+        return;
+    }
+
+    nodo_generico_t *actual = lista->inicio;
+    nodo_generico_t *anterior = NULL;
+
+    /* Lazo de recorrido y filtrado */
+    while (actual != NULL)
+    {
+        nodo_generico_t *siguiente = actual->siguiente;
+
+        if (!predicado(actual->dato))
+        {
+            /* El elemento no cumple el predicado: debe eliminarse */
+            if (anterior == NULL)
+            {
+                /* Eliminamos el primer elemento */
+                lista->inicio = siguiente;
+            }
+            else
+            {
+                /* Saltamos el nodo actual en el encadenamiento */
+                anterior->siguiente = siguiente;
+            }
+
+            /* Liberamos los recursos del dato de usuario si se proveyó callback */
+            if (destruir_dato != NULL && actual->dato != NULL)
+            {
+                destruir_dato(actual->dato);
+            }
+
+            /* Liberamos la memoria física del nodo */
+            free(actual);
+            lista->tamanio--;
+        }
+        else
+        {
+            /* Si se conserva el nodo, este pasa a ser el anterior para el siguiente paso */
+            anterior = actual;
+        }
+
+        actual = siguiente;
+    }
+}
+```
+:::
+
+:::{exercise}
+:label: ejercicio-genericidad-callback-alumno
+
+Dada la estructura de un alumno de la universidad:
+
+```c
+typedef struct {
+    int padron;
+    char *nombre;
+    double promedio;
+} alumno_t;
+```
+
+Escribí una función callback de comparación compatible con la firma estándar `int (*comparar)(const void *, const void *)`. La función debe comparar dos alumnos por promedio en orden descendente. Si tienen el mismo promedio, la comparación debe dirimirse por padrón en orden ascendente (menor padrón primero).
+:::
+
+:::{solution} ejercicio-genericidad-callback-alumno
+:class: dropdown
+
+La función callback debe realizar primero la conversión segura de los punteros constantes `void*` a punteros del tipo `alumno_t*`. Luego, realiza las comparaciones correspondientes respetando los signos esperados por el contrato de las funciones de ordenación y búsqueda.
+
+```c
+#include <string.h>
+
+typedef struct {
+    int padron;
+    char *nombre;
+    double promedio;
+} alumno_t;
+
+int comparar_alumnos(const void *a, const void *b)
+{
+    /* Casting de punteros genéricos constantes a tipos concretos */
+    const alumno_t *alumno_a = (const alumno_t *)a;
+    const alumno_t *alumno_b = (const alumno_t *)b;
+
+    /* Comparación por promedio en orden descendente */
+    if (alumno_a->promedio > alumno_b->promedio)
+    {
+        return -1; /* alumno_a va antes porque tiene mayor promedio */
+    }
+    if (alumno_a->promedio < alumno_b->promedio)
+    {
+        return 1;  /* alumno_b va antes */
+    }
+
+    /* Desempate por padrón en orden ascendente */
+    if (alumno_a->padron < alumno_b->padron)
+    {
+        return -1; /* Menor padrón primero */
+    }
+    if (alumno_a->padron > alumno_b->padron)
+    {
+        return 1;
+    }
+
+    return 0; /* Alumnos equivalentes en promedio y padrón */
+}
+```
+:::
 
 
 ## Resumen de la Unidad
@@ -1355,3 +2162,4 @@ En este apunte hemos cubierto:
 - **Diferencia física de asignación estática y dinámica** en memoria.
 
 Para continuar con estructuras lineales de acceso restringido, consultá {ref}`pilas-colas-capitulo`.
+

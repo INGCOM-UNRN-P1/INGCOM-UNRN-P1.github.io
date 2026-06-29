@@ -105,6 +105,55 @@ Este patrón idiomático **parece contradecir** las reglas {ref}`0x0000h <0x0000
 **Recomendación pedagógica**: Entender el patrón, pero priorizar claridad usando índices o funciones estándar hasta ganar experiencia.
 :::!
 
+### Ejercicios de Autoevaluación (Concepto e Iteración)
+
+:::{exercise}
+:label: ej-idio-iteracion-size
+Explicá por qué es más idiomático y seguro usar `size_t` en lugar de `int` para los índices y límites de un lazo de iteración sobre arreglos en C.
+:::
+
+:::{solution} ej-idio-iteracion-size
+:class: dropdown
+El tipo `size_t` es un tipo entero sin signo definido por el estándar para representar el tamaño de cualquier objeto en memoria. 
+1. **Límites físicos**: El tamaño máximo de un arreglo puede exceder el límite positivo de un entero con signo (`int`), produciendo un desbordamiento si se usa `int` para indexar arreglos grandes.
+2. **Semántica**: Un tamaño o índice de arreglo nunca puede ser negativo. Utilizar `size_t` previene errores lógicos de índices negativos y documenta el propósito de la variable directamente a través de su tipo.
+:::
+
+:::{exercise}
+:label: ej-idio-malloc-inmediato
+Escribí un bloque de código idiomático en C para solicitar memoria para un arreglo de `n` elementos de tipo `double` y validarlo inmediatamente en concordancia con las buenas prácticas del curso.
+:::
+
+:::{solution} ej-idio-malloc-inmediato
+:class: dropdown
+El patrón idiomático realiza la validación justo en la siguiente línea a la asignación, impidiendo cualquier uso del puntero si la reserva falla:
+```c
+#include <stdlib.h>
+
+double *valores = malloc(n * sizeof(*valores));
+if (valores == NULL) {
+    // Manejo de error inmediato (por ejemplo, abortar o retornar error)
+    return;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-idio-string-compact
+Analizá el lazo de copia de cadenas `while (*destino++ = *origen++);` explicando el orden exacto de evaluación de sus operadores y por qué se prefiere evitar su uso en etapas de aprendizaje.
+:::
+
+:::{solution} ej-idio-string-compact
+:class: dropdown
+La expresión funciona de la siguiente manera:
+1. Se desreferencia `origen` y se copia su carácter en la dirección apuntada por `destino`.
+2. Como efecto secundario de la post-incrementación `++`, ambos punteros avanzan al siguiente carácter de memoria.
+3. El resultado de la asignación completa (el carácter copiado) se evalúa como la condición del lazo `while`. Cuando se copia el carácter nulo `'\0'` (cuyo valor entero es 0), la condición se evalúa como falsa y el lazo termina.
+Se prefiere evitar en el aprendizaje porque condensa múltiples operaciones con efectos secundarios en una sola línea (violando la regla {ref}`0x3003h` del curso), dificultando la depuración y la comprensión del flujo de datos para estudiantes novatos.
+:::
+
+---
+
 #### 4. Inicialización de estructuras
 
 **Idiomático:**
@@ -238,6 +287,85 @@ int resultado = (x > 0) ? ((y > 0) ? 1 : 2) : ((y > 0) ? 3 : 4);
 ```
 :::!
 
+### Ejercicios de Autoevaluación (Inicialización y Estructuras de Control)
+
+:::{exercise}
+:label: ej-idio-init-designada
+Dada la estructura `typedef struct { char *c; int i; } datos_t;`, compará la inicialización clásica campo por campo frente al uso de inicializadores designados de C99, indicando por qué esta última previene la lectura de basura en memoria.
+:::
+
+:::{solution} ej-idio-init-designada
+:class: dropdown
+- **Asignación campo por campo**:
+  ```c
+  datos_t d;
+  d.c = "texto";
+  // d.i queda sin inicializar, conteniendo basura residual del stack.
+  ```
+- **Inicializadores designados (C99)**:
+  ```c
+  datos_t d = {
+      .c = "texto"
+  };
+  // El estándar garantiza que cualquier miembro no explícitamente inicializado se establece en cero (d.i = 0).
+  ```
+El uso de inicializadores designados previene lecturas accidentales de basura de forma automática e implícita en la declaración.
+:::
+
+:::{exercise}
+:label: ej-idio-early-return
+Refactorizá la siguiente función no idiomática aplicando el patrón de retorno anticipado (*early return*) para eliminar el anidamiento profundo:
+```c
+int procesar_sensor(sensor_t *s) {
+    int resultado = -1;
+    if (s != NULL) {
+        if (s->activo) {
+            resultado = leer_valores(s);
+        }
+    }
+    return resultado;
+}
+```
+:::
+
+:::{solution} ej-idio-early-return
+:class: dropdown
+Aplicando el retorno anticipado para validar primero las precondiciones, el "camino feliz" queda libre de indentación:
+```c
+int procesar_sensor(sensor_t *s) {
+    if (s == NULL) {
+        return -1; // Validación de puntero nulo
+    }
+    if (!s->activo) {
+        return -1; // Validación de estado
+    }
+
+    return leer_valores(s); // Lógica principal
+}
+```
+:::
+
+:::{exercise}
+:label: ej-idio-ternario-prohibicion
+Explicá por qué el uso del operador ternario `condicion ? a : b` está restringido en el curso por la regla de estilo {ref}`0x1007h`, y escribí la refactorización tradicional de la expresión `int x = (a > b) ? a : b;`.
+:::
+
+:::{solution} ej-idio-ternario-prohibicion
+:class: dropdown
+La regla {ref}`0x1007h` prohíbe o restringe el operador ternario en el curso porque su sintaxis compacta tiende a incentivar la escritura de expresiones altamente anidadas y difíciles de leer, reduciendo la claridad visual del flujo de control para los estudiantes.
+La refactorización explícita recomendada es:
+```c
+int x;
+if (a > b) {
+    x = a;
+} else {
+    x = b;
+}
+```
+:::
+
+---
+
 #### 7. Convenciones de tipos opacos
 
 **Idiomático:**
@@ -335,6 +463,55 @@ static void insertar_nodo(lista_t *lista, nodo_t *nodo) {
 
 En este curso, **preferimos el enfoque defensivo** para todas las funciones, especialmente durante el aprendizaje.
 :::!
+
+### Ejercicios de Autoevaluación (Tipos Opacos y Validación)
+
+:::{exercise}
+:label: ej-idio-tipo-opaco-ventaja
+Explicá de qué manera el uso de tipos opacos (por ejemplo, declarar `typedef struct lista lista_t;` en el archivo de cabecera `.h` y la estructura real en el `.c`) contribuye a la encapsulación de datos en proyectos de C de gran escala.
+:::
+
+:::{solution} ej-idio-tipo-opaco-ventaja
+:class: dropdown
+El uso de tipos opacos impide que el código cliente (el que importa el `.h`) acceda directamente a los miembros internos de la estructura (como `lista->primero`), ya que el compilador desconoce el tamaño y los campos de la estructura en ese ámbito. Esto obliga al cliente a interactuar con la estructura únicamente a través de la interfaz pública de funciones expuestas, logrando encapsulación total y permitiendo al desarrollador modificar la implementación interna (por ejemplo, pasar de una lista enlazada a un array dinámico) sin romper la compatibilidad con el código cliente.
+:::
+
+:::{exercise}
+:label: ej-idio-validar-null
+Escribí una función defensiva en C llamada `eliminar_elemento` que tome un puntero a una estructura `lista_t` y un entero, aplicando la validación de punteros requerida por las reglas de estilo de la cátedra para el manejo de `NULL`.
+:::
+
+:::{solution} ej-idio-validar-null
+:class: dropdown
+```c
+#include <stdbool.h>
+#include <stddef.h>
+
+bool eliminar_elemento(lista_t *lista, int valor) {
+    // Validación defensiva obligatoria (Regla 0x3008h)
+    if (lista == NULL) {
+        return false; 
+    }
+
+    // Lógica de eliminación
+    // ...
+    return true;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-idio-macro-vs-funcion
+Explicá de forma conceptual la diferencia entre definir una constante mediante una macro `#define LIMITE 100` frente a declararla como una variable constante global `const int Limite = 100;` en C estándar.
+:::
+
+:::{solution} ej-idio-macro-vs-funcion
+:class: dropdown
+1. **Macros (`#define`)**: Son procesadas por el preprocesador antes de la compilación, realizando una sustitución de texto literal en el código fuente. Carecen de tipo de dato y no ocupan espacio en la memoria en tiempo de ejecución.
+2. **Constantes (`const int`)**: Son variables reales de solo lectura evaluadas por el compilador. Tienen un tipo de dato estricto (lo que permite validaciones de tipo en el compilador) y ocupan espacio en memoria, teniendo una dirección física a la cual se puede apuntar. En C estándar (C89/C99), las macros se prefieren para dimensionar arreglos estáticos ya que las constantes `const` no se evalúan como constantes en tiempo de compilación.
+:::
+
+---
 
 ### Idiomas específicos de C
 
@@ -790,3 +967,113 @@ El **código idiomático** y las **reglas de estilo** no son oponentes, sino **h
 En caso de conflicto, durante el aprendizaje: **claridad > brevedad**, **explícito > implícito**, **seguro > conciso**.
 
 Con experiencia, muchos patrones idiomáticos *se vuelven* claros porque los has internalizado. Ese es el objetivo del curso: que llegues a ese punto de forma estructurada y segura.
+
+### Ejercicios de Autoevaluación (Patrones y Anti-patrones)
+
+:::{exercise}
+:label: ej-idio-patron-cleanup-goto
+Escribí una función que abra un archivo y reserve memoria en el heap, utilizando de forma idiomática el patrón `goto error` para liberar los recursos asignados sin duplicar el código de limpieza en caso de fallos.
+:::
+
+:::{solution} ej-idio-patron-cleanup-goto
+:class: dropdown
+Este es el único uso de `goto` permitido y catalogado como idiomático para sistemas en C:
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int procesar_datos_archivo(const char *ruta) {
+    FILE *archivo = NULL;
+    int *buffer = NULL;
+    int estado = -1;
+
+    archivo = fopen(ruta, "r");
+    if (archivo == NULL) {
+        goto cleanup; // Falla la apertura del archivo
+    }
+
+    buffer = malloc(100 * sizeof(int));
+    if (buffer == NULL) {
+        goto cleanup; // Falla la asignación de memoria
+    }
+
+    // Lógica de procesamiento
+    // ...
+    estado = 0; // Éxito
+
+cleanup:
+    // Código de liberación centralizado
+    free(buffer);
+    if (archivo != NULL) {
+        fclose(archivo);
+    }
+    return estado;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-idio-antipatron-bool
+Refactorizá el siguiente bloque de código para remover las comparaciones redundantes no idiomáticas:
+```c
+if (esta_activo == true) {
+    if (ptr == NULL == false) {
+        printf("Válido\n");
+    }
+}
+```
+:::
+
+:::{solution} ej-idio-antipatron-bool
+:class: dropdown
+En C, los booleanos e inicializaciones lógicas se evalúan directamente. Refactorización idiomática en base a las reglas de la cátedra:
+```c
+if (esta_activo) {
+    if (ptr != NULL) {
+        printf("Válido\n");
+    }
+}
+```
+:::
+
+:::{exercise}
+:label: ej-idio-construct-destruct
+Diseñá las funciones de constructor y destructor para un tipo de dato `conexion_t` en el heap, asegurando una liberación defensiva que ponga a `NULL` el puntero del invocador en el destructor.
+:::
+
+:::{solution} ej-idio-construct-destruct
+:class: dropdown
+```c
+#include <stdlib.h>
+
+typedef struct {
+    int puerto;
+} conexion_t;
+
+conexion_t *conexion_crear(int puerto) {
+    conexion_t *c = malloc(sizeof(conexion_t));
+    if (c == NULL) return NULL;
+    c->puerto = puerto;
+    return c;
+}
+
+// Destructor defensivo con doble puntero para anular la referencia
+void conexion_destruir(conexion_t **c) {
+    if (c == NULL || *c == NULL) {
+        return;
+    }
+    free(*c);
+    *c = NULL; // El puntero del invocador ahora es NULL
+}
+```
+:::
+
+## Glosario
+
+:::{glossary}
+código idiomático
+: Conjunto de patrones y convenciones culturales aceptados y compartidos por la comunidad de un lenguaje de programación para expresar algoritmos comunes de forma legible y natural.
+
+tagged union
+: Estructura de datos que combina una unión (`union`) para compartir el espacio de memoria junto con un enumerador (`enum`) que actúa como etiqueta para indicar de forma segura cuál de los miembros de la unión se encuentra activo.
+:::
