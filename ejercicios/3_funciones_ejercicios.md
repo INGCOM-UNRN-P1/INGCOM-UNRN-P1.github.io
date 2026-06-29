@@ -1,7 +1,7 @@
 ## Ejercicios sobre funciones
 
 (funcion_doble)=
-```exercise
+```{exercise}
 :label: funcion_doble
 Escribí una función que reciba un número entero y devuelva su doble. Probala desde `main()` con distintos valores.
 ```
@@ -25,7 +25,7 @@ int main() {
 ```
 :::
 
-:::exercise}
+:::{exercise}
 :label: funcion_mayor
 :enumerator: funciones-2
 
@@ -57,7 +57,7 @@ int main() {
 :::
 
 (funcion_par_impar)=
-```exercise
+```{exercise}
 :label: funcion_par_impar
 Definí una función que indique si un número es par o impar. Mostrá el resultado llamando a la función desde `main()`.
 ```
