@@ -132,6 +132,8 @@ Escribí instrucciones detalladas y secuenciales (como para alguien que nunca lo
 ```
 
 ```{solution} ex-instrucciones-precisas
+class: dropdown
+
 **Hacer un sándwich de jamón y queso:**
 1. Retirar 2 rebanadas de pan del paquete.
 2. Colocar ambas rebanadas horizontalmente sobre un plato limpio.
@@ -378,6 +380,8 @@ Para cada uno de los siguientes datos, indicá qué tipo de variable (`entero`, 
 ```
 
 ```{solution} ex-tipos-vars
+class: dropdown
+
 1. **`entero`**: Se cuentan individuos discretos.
 2. **`real`**: Requiere representar centavos fraccionarios.
 3. **`cadena`**: Secuencia de caracteres alfabéticos.
@@ -632,6 +636,8 @@ D. Determinar si una cadena de caracteres es un palíndromo (se lee igual de izq
 ```
 
 :::{solution} ex-pseudo-2
+class: dropdown
+
 **A. Conversión de temperatura:**
 ```text
 real celsius;
@@ -758,6 +764,7 @@ Escribir("Resultado: ", suma);
 :::
 
 :::{solution} ex-integrador-1
+class: dropdown
 1. **¿Qué hace?** Suma todos los números pares en el rango de 1 a `n` inclusive.
 2. **Resultado para n=10:** 2 + 4 + 6 + 8 + 10 = **30**.
 3. **Modificación para impares:** Modificar la condición del módulo en la decisión (`i % 2 != 0`):
