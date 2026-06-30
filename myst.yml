@@ -39,33 +39,51 @@ project:
     - title: Apunte
       children:
         - file: apunte/indice.md
-        - file: apunte/1_base.md
-        - file: apunte/2_gradual.md
-        - file: apunte/2b_casts.md
-        - file: apunte/3_control_flujo.md
-        - file: apunte/4_funciones.md
-        - file: apunte/5_compilacion.md
-        - file: apunte/6_secuencias.md
-        - file: apunte/7_matrices.md
-        - file: apunte/8_alias_tipos.md
-        - file: apunte/9_punteros.md
-        - file: apunte/10_estructuras.md
-        - file: apunte/10b_bitwise.md
-        - file: apunte/11_archivos_texto.md
-        - file: apunte/12_recursividad.md
-        - file: apunte/13_modelo_memoria.md
-        - file: apunte/14_memoria_dinamica.md
-        - file: apunte/15_aritmetica.md
-        - file: apunte/16_punteros_funciones.md
-        - file: apunte/17_opacos.md
-        - file: apunte/18_tad.md
-        - file: apunte/18b_tad_pilas_colas.md
-        - file: apunte/19_complejidad.md
-        - file: apunte/20_idiomatico.md
-        - file: apunte/21_testing.md
-        - file: apunte/22_contratos.md
-        - file: apunte/23_diseno_api.md
-        - file: apunte/23b_ingenieria_api.md
+        - title: "Bloque 1: Fundamentos"
+          children:
+            - file: apunte/bloque_1_fundamentos/1_base.md
+            - file: apunte/bloque_1_fundamentos/2_gradual.md
+            - file: apunte/bloque_1_fundamentos/3_numeros.md
+            - file: apunte/bloque_1_fundamentos/4_casts.md
+            - file: apunte/bloque_1_fundamentos/5_control_flujo.md
+            - file: apunte/bloque_1_fundamentos/6_funciones.md
+            - file: apunte/bloque_1_fundamentos/7_testing_basico.md
+            - file: apunte/bloque_1_fundamentos/8_recursividad_intro.md
+            - file: apunte/bloque_1_fundamentos/9_contratos_intro.md
+        - title: "Bloque 2: Estructuración y Proyectos"
+          children:
+            - file: apunte/bloque_2_proyectos/1_compilacion.md
+            - file: apunte/bloque_2_proyectos/2_makefiles.md
+            - file: apunte/bloque_2_proyectos/3_alias_tipos.md
+            - file: apunte/bloque_2_proyectos/4_enums.md
+        - title: "Bloque 3: Disposición de Memoria y Estructuras Estáticas"
+          children:
+            - file: apunte/bloque_3_memoria_estatica/1_modelo_memoria.md
+            - file: apunte/bloque_3_memoria_estatica/2_secuencias.md
+            - file: apunte/bloque_3_memoria_estatica/3_matrices.md
+            - file: apunte/bloque_3_memoria_estatica/4_punteros.md
+            - file: apunte/bloque_3_memoria_estatica/5_estructuras.md
+        - title: "Bloque 4: Gestión Dinámica de Recursos e Interfaces"
+          children:
+            - file: apunte/bloque_4_dinamica_interfaces/1_memoria_dinamica.md
+            - file: apunte/bloque_4_dinamica_interfaces/2_aritmetica.md
+            - file: apunte/bloque_4_dinamica_interfaces/3_archivos_texto.md
+            - file: apunte/bloque_4_dinamica_interfaces/4_punteros_funciones.md
+            - file: apunte/bloque_4_dinamica_interfaces/5_opacos.md
+            - file: apunte/bloque_4_dinamica_interfaces/6_tad.md
+            - file: apunte/bloque_4_dinamica_interfaces/7_tad_pilas_colas.md
+            - file: apunte/bloque_4_dinamica_interfaces/8_testing_avanzado.md
+            - file: apunte/bloque_4_dinamica_interfaces/9_contratos_formales.md
+            - file: apunte/bloque_4_dinamica_interfaces/10_complejidad.md
+        - title: "Bloque 5: Temas avanzados"
+          children:
+            - file: apunte/bloque_5_avanzados/binarios_archivos.md
+            - file: apunte/bloque_5_avanzados/binarios_bitwise.md
+            - file: apunte/bloque_5_avanzados/bitmaps.md
+            - file: apunte/bloque_5_avanzados/recursividad_avanzada.md
+            - file: apunte/bloque_5_avanzados/idiomatico.md
+            - file: apunte/bloque_5_avanzados/api_diseno.md
+            - file: apunte/bloque_5_avanzados/api_ingenieria.md
     - title: Reglas de estilo
       children:
         - file: reglas/indice.md

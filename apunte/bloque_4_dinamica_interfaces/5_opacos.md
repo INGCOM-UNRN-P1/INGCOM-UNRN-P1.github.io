@@ -4,21 +4,31 @@ short_title: 'Encapsulamiento'
 subtitle: Técnicas de ocultamiento de información y diseño modular
 ---
 
+(capitulo-tipos-opacos)=
+# Referencias y Lecturas Complementarias
+
+## Introducción
+
+
+
+## Desarrollo
+
 (concepto-y-mecanismo-de-punteros-opacos)=
-## Concepto y Mecanismo de Punteros Opacos
+### Concepto y Mecanismo de Punteros Opacos
+
 
 Los **punteros opacos** (opaque pointers) son una técnica fundamental en C para implementar **encapsulamiento** y **ocultamiento de información** (information hiding). Esta técnica permite ocultar la implementación interna de una estructura, exponiendo solo una interfaz pública al usuario, de manera análoga al encapsulamiento de miembros privados de una clase en lenguajes orientados a objetos.
 
 El concepto de puntero opaco es esencial para construir **APIs robustas** y **bibliotecas mantenibles**, donde los detalles de implementación pueden cambiar sin romper el código cliente que las utiliza.
 
 :::{important} Conexión con TADs
-Los punteros opacos son la técnica de programación central sobre la cual se construyen los Tipos de Datos Abstractos (TADs) en C, concepto que se aborda en detalle en el capítulo siguiente ([](18_tad)).
+Los punteros opacos son la técnica de programación central sobre la cual se construyen los Tipos de Datos Abstractos (TADs) en C, concepto que se aborda en detalle en el capítulo siguiente ([](6_tad.md)).
 :::
 
 ---
 
 (motivacion-el-problema-del-acceso-directo)=
-### Motivación: El Problema del Acceso Directo
+#### Motivación: El Problema del Acceso Directo
 
 Considerá una implementación ingenua de un punto geométrico en dos dimensiones donde la estructura está completamente expuesta:
 
@@ -35,7 +45,7 @@ punto_t *crear_punto(double x, double y);
 void desplazar_punto(punto_t *p, double dx, double dy);
 ```
 
-#### Problemas de Esta Aproximación
+##### Problemas de Esta Aproximación
 
 **1. Violación del encapsulamiento:**
 ```c
@@ -57,7 +67,7 @@ Exponer la definición completa de una estructura en el archivo de cabecera es u
 ---
 
 (la-solucion-punteros-opacos)=
-### La Solución: Punteros Opacos
+#### La Solución: Punteros Opacos
 
 La técnica de punteros opacos consiste en **declarar la estructura en el archivo de cabecera pero definirla en el archivo de implementación**.
 
@@ -65,9 +75,9 @@ La técnica de punteros opacos consiste en **declarar la estructura en el archiv
 Las directivas de diseño de la cátedra establecen que todos los Tipos de Datos Abstractos deben diseñarse utilizando punteros opacos. La interfaz expuesta en el archivo `.h` debe ser lo más limpia posible, documentando de manera exhaustiva sus precondiciones, poscondiciones y el comportamiento ante casos de error mediante comentarios estructurados (regla {ref}`0x0035h`).
 :::
 
-#### Estructura del Patrón
+##### Estructura del Patrón
 
-##### Archivo de Cabecera (`.h`) - Interfaz Pública
+###### Archivo de Cabecera (`.h`) - Interfaz Pública
 
 ```{code-block}c
 :linenos:
@@ -89,7 +99,7 @@ void punto_desplazar(punto_t *punto, double dx, double dy);
 #endif  // PUNTO_H
 ```
 
-##### Archivo de Implementación (`.c`) - Detalles Privados
+###### Archivo de Implementación (`.c`) - Detalles Privados
 
 ```{code-block}c
 :linenos:
@@ -140,7 +150,7 @@ void punto_desplazar(punto_t *punto, double dx, double dy) {
 }
 ```
 
-##### Código Cliente
+###### Código Cliente
 
 ```{code-block}c
 :linenos:
@@ -175,9 +185,9 @@ Dado que las instancias de tipos opacos se alocan dinámicamente en el heap, es 
 ---
 
 (analisis-tecnico-como-funciona)=
-### Análisis Técnico: ¿Cómo Funciona?
+#### Análisis Técnico: ¿Cómo Funciona?
 
-#### Tipo Incompleto (Incomplete Type)
+##### Tipo Incompleto (Incomplete Type)
 
 Cuando declarás:
 ```{code-block}c
@@ -187,7 +197,7 @@ typedef struct punto punto_t;
 
 Sin dar la definición completa, creás un **tipo incompleto** (*incomplete type*). El compilador sabe que existe una estructura llamada `punto`, pero no conoce su contenido ni tamaño.
 
-#### Restricciones del Tipo Incompleto
+##### Restricciones del Tipo Incompleto
 
 Con un tipo incompleto, el código cliente **solo puede**:
 
@@ -206,7 +216,7 @@ Con un tipo incompleto, el código cliente **solo puede**:
    if (p == NULL) { ... }  // ✅ Permitido
    ```
 
-#### Operaciones Prohibidas
+##### Operaciones Prohibidas
 
 El código cliente **NO puede**:
 
@@ -230,7 +240,7 @@ El código cliente **NO puede**:
    punto_t copia = *p;  // ❌ ERROR: incomplete type
    ```
 
-#### Compilación Separada y el Rol del Enlazador
+##### Compilación Separada y el Rol del Enlazador
 
 Para entender por qué es posible trabajar con tipos incompletos en C, debemos analizar el proceso de **compilación separada**:
 
@@ -242,7 +252,7 @@ Para entender por qué es posible trabajar con tipos incompletos en C, debemos a
    - El enlazador se encarga de resolver las direcciones de las llamadas a funciones en `main.o`, redirigiéndolas a las implementaciones reales presentes en `punto.o`.
    - Así, el ocultamiento es físico: en tiempo de compilación, el cliente no posee la estructura detallada; en tiempo de ejecución, el enlazador conecta las llamadas y las funciones operan sobre el espacio de memoria real asignado dinámicamente en el heap.
 
-```{figure} 17/opacidad_memoria.svg
+```{figure} 5/opacidad_memoria.svg
 :label: fig-opacidad-memoria
 :align: center
 :width: 85%
@@ -257,7 +267,591 @@ Un puntero en C simplemente almacena una dirección de memoria. Independientemen
 ---
 
 (ejercicios-concepto-y-mecanismo)=
-### Ejercicios: Concepto y Mecanismo
+#### Ejercicios: Concepto y Mecanismo
+
+
+
+
+
+
+
+---
+
+
+(patrones-de-diseno-ventajas-y-limitaciones)=
+### Patrones de Diseño, Ventajas y Limitaciones
+
+
+(ventajas-de-los-punteros-opacos)=
+#### Ventajas de los Punteros Opacos
+
+##### 1. Encapsulamiento Fuerte
+
+La implementación está **completamente oculta**. El código cliente no puede (ni accidentalmente) acceder o modificar los campos internos.
+
+```{code-block}c
+:linenos:
+// Esto NO compila - el compilador protege los detalles internos
+punto_t *p = crear_punto(3.0, 4.0);
+p->x = 100.0;  // ERROR en tiempo de compilación
+```
+
+##### 2. Flexibilidad de Implementación
+
+Podés cambiar completamente la implementación interna sin afectar al código cliente:
+
+```{code-block}c
+:linenos:
+// punto.c - Versión con coordenadas polares (cambio de implementación)
+struct punto {
+    double radio;
+    double angulo; // en radianes
+};
+```
+
+Si cambiás la implementación a coordenadas polares, las funciones públicas en `punto.c` realizarán la conversión matemática necesaria para retornar la proyección de `x` e `y` cuando el cliente llame a `punto_obtener_x` o `punto_obtener_y`. El código cliente que usa `punto.h` **no necesita modificarse** porque la interfaz pública sigue intacta.
+
+##### 3. Mantenimiento de Invariantes
+
+Solo las funciones del módulo pueden modificar la estructura, garantizando que los invariantes se cumplan siempre. Por ejemplo, si tenés un tipo `usuario_t` que representa a un usuario del sistema:
+
+```{code-block}c
+:linenos:
+bool usuario_establecer_edad(usuario_t *u, int nueva_edad) {
+    // Garantiza que la edad no sea negativa
+    if (u == NULL || nueva_edad < 0) {
+        return false;
+    }
+    u->edad = nueva_edad;
+    return true;
+}
+```
+
+El código cliente no puede burlar esta validación modificando el campo directamente.
+
+##### 4. Compatibilidad Binaria (ABI)
+
+Si la interfaz pública no cambia, podés actualizar la biblioteca compilada (`.so` o `.dll`) sin recompilar las aplicaciones que la usan. Esto es crucial para bibliotecas del sistema.
+
+##### 5. Reducción de Dependencias
+
+Los archivos que incluyen `punto.h` no necesitan incluir las dependencias internas de `punto.c` (por ejemplo, `<math.h>` si se usaran funciones trigonométricas), reduciendo tiempos de compilación y acoplamiento.
+
+---
+
+(patrones-de-uso-comunes)=
+#### Patrones de Uso Comunes
+
+##### Patrón Constructor/Destructor
+
+Toda estructura opaca alocada dinámicamente debe proveer funciones para crear y destruir instancias:
+
+```{code-block}c
+// Convención de nombres: tipo_accion
+tipo_t *crear_tipo(parametros);
+void destruir_tipo(tipo_t *instancia);
+```
+
+**Ejemplo:**
+```{code-block}c
+:linenos:
+usuario_t *usr = crear_usuario("Carlos", 35);
+// ... usar usr ...
+destruir_usuario(usr);
+usr = NULL;
+```
+
+###### Destrucción de Colecciones de Punteros Opacos
+
+Cuando gestionás una colección (como un array dinámico o una lista enlazada) de punteros opacos, no podés liberar la colección llamando simplemente a `free` sobre ella. Hacerlo generará una **fuga de memoria masiva**, ya que los elementos individuales apuntados seguirán existiendo en el heap sin ninguna referencia para liberarlos.
+
+Debés implementar un lazo de destrucción que recorra la colección elemento por elemento, invocando el destructor específico de cada tipo opaco, y recién entonces liberar la estructura contenedora.
+
+**Ejemplo práctico de destrucción de un array de usuarios:**
+
+```{code-block}c
+:linenos:
+#define CANT_USUARIOS 5
+
+void liberar_grupo_usuarios(usuario_t **grupo, size_t cantidad) {
+    if (grupo == NULL) {
+        return;
+    }
+    
+    // Recorremos la colección destruyendo cada elemento individual con un lazo
+    for (size_t i = 0; i < cantidad; i++) {
+        destruir_usuario(grupo[i]);
+        grupo[i] = NULL; // Evita punteros colgantes en el array
+    }
+    
+    // Finalmente, liberamos el array contenedor en sí
+    free(grupo);
+}
+```
+
+##### Patrón Getter/Setter
+
+Para acceder a propiedades sin exponer los campos de la estructura:
+
+```{code-block}c
+:linenos:
+// Getter - solo lectura
+const char *usuario_obtener_nombre(const usuario_t *u);
+int usuario_obtener_edad(const usuario_t *u);
+
+// Setter - modificación controlada
+bool usuario_establecer_edad(usuario_t *u, int nueva_edad);
+```
+
+:::{tip} Uso de `const`
+Usá `const tipo_t *` en funciones que solo leen, no modifican. Esto documenta la intención y permite al compilador optimizar el código.
+:::
+
+##### Patrón de Verificación
+
+Siempre verificá punteros nulos y condiciones de error de manera defensiva:
+
+```{code-block}c
+:linenos:
+bool usuario_establecer_edad(usuario_t *u, int nueva_edad) {
+    // Verificaciones defensivas
+    if (u == NULL || nueva_edad < 0) {
+        return false;
+    }
+    u->edad = nueva_edad;
+    return true;
+}
+```
+
+---
+
+(comparacion-con-otras-tecnicas)=
+#### Comparación con Otras Técnicas
+
+##### vs. Estructuras Expuestas
+
+:::{table} Comparación con Estructuras Expuestas
+:label: tbl-comparacion-expuestas
+
+| Aspecto | Puntero Opaco | Estructura Expuesta |
+| :--- | :--- | :--- |
+| **Encapsulamiento** | ✅ Fuerte | ❌ Ninguno |
+| **Cambios de implementación** | ✅ No rompen código cliente | ❌ Rompen todo el código dependiente |
+| **Protección de invariantes** | ✅ Garantizada por la API | ❌ Imposible de controlar |
+| **Rendimiento** | ✅ Similar (indirección de puntero) | ✅ Similar |
+| **Depuración (Debugging)** | ⚠️ Más complejo (campos ocultos) | ✅ Directo y simple |
+| **Alocación en Stack** | ❌ No disponible | ✅ Permitido |
+:::
+
+##### vs. Void Pointers
+
+```{code-block}c
+:linenos:
+// Opción 1: Puntero opaco (RECOMENDADO)
+typedef struct punto punto_t;
+double punto_obtener_x(const punto_t *p);
+
+// Opción 2: Void pointer (EVITAR)
+double punto_obtener_x(const void *p);
+```
+
+**Problemas de void pointers:**
+- Pérdida de type safety (se puede pasar accidentalmente cualquier puntero sin advertencia del compilador).
+- No hay verificación de tipos en tiempo de compilación.
+- Requiere casts explícitos en la implementación.
+- Es más propenso a errores de desarrollo.
+
+:::{danger} Anti-patrón: Void Pointers para Opacos
+Aunque `void *` también oculta la implementación, **no es la forma adecuada** en C. Usá siempre punteros opacos con tipos específicos para mantener la seguridad de tipos.
+:::
+
+---
+
+(ejemplo-completo-usuario-opaco)=
+#### Ejemplo Completo: Usuario Opaco
+
+Este ejemplo implementa un módulo para gestionar un usuario, donde los campos internos (un string dinámico y un entero) se mantienen estrictamente encapsulados.
+
+##### Interfaz Pública (`usuario.h`)
+
+```{code-block}c
+:linenos:
+#ifndef USUARIO_H
+#define USUARIO_H
+
+#include <stdbool.h>
+
+// Tipo opaco
+typedef struct usuario usuario_t;
+
+// Constructor/Destructor
+usuario_t *crear_usuario(const char *nombre, int edad);
+void destruir_usuario(usuario_t *u);
+
+// Getters y Setters con validación
+const char *usuario_obtener_nombre(const usuario_t *u);
+int usuario_obtener_edad(const usuario_t *u);
+bool usuario_establecer_edad(usuario_t *u, int nueva_edad);
+
+// Operaciones
+void usuario_imprimir(const usuario_t *u);
+
+#endif  // USUARIO_H
+```
+
+##### Implementación (`usuario.c`)
+
+```{code-block}c
+:linenos:
+#include "usuario.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Definición completa del usuario - solo visible aquí
+struct usuario {
+    char *nombre;
+    int edad;
+};
+
+usuario_t *crear_usuario(const char *nombre, int edad) {
+    if (nombre == NULL || edad < 0) {
+        return NULL;
+    }
+    
+    // Alocación robusta desreferenciando el puntero (regla {ref}`0x0003h`)
+    usuario_t *u = malloc(sizeof(*u));
+    if (u == NULL) {
+        return NULL;
+    }
+    
+    u->nombre = malloc(strlen(nombre) + 1);
+    if (u->nombre == NULL) {
+        free(u);
+        return NULL;
+    }
+    memcpy(u->nombre, nombre, strlen(nombre) + 1);
+    
+    u->edad = edad;
+    return u;
+}
+
+void destruir_usuario(usuario_t *u) {
+    if (u == NULL) {
+        return;
+    }
+    
+    // Primero liberamos los recursos internos
+    free(u->nombre);
+    // Luego liberamos la estructura contenedora
+    free(u);
+}
+
+const char *usuario_obtener_nombre(const usuario_t *u) {
+    if (u == NULL) {
+        return NULL;
+    }
+    return u->nombre;
+}
+
+int usuario_obtener_edad(const usuario_t *u) {
+    if (u == NULL) {
+        return -1;
+    }
+    return u->edad;
+}
+
+bool usuario_establecer_edad(usuario_t *u, int nueva_edad) {
+    if (u == NULL || nueva_edad < 0) {
+        return false;
+    }
+    u->edad = nueva_edad;
+    return true;
+}
+
+void usuario_imprimir(const usuario_t *u) {
+    if (u == NULL) {
+        return;
+    }
+    printf("Usuario: %s | Edad: %d\n", u->nombre, u->edad);
+}
+```
+
+##### Uso del Cliente
+
+```{code-block}c
+:linenos:
+#include <stdio.h>
+#include "usuario.h"
+
+int main(void) {
+    usuario_t *u = crear_usuario("Martín", 21);
+    if (u == NULL) {
+        return 1;
+    }
+    
+    usuario_imprimir(u);
+    
+    // Intento de modificación válida
+    if (usuario_establecer_edad(u, 22)) {
+        printf("Edad actualizada con éxito.\n");
+    }
+    
+    // Intento de asignación inválida
+    if (!usuario_establecer_edad(u, -5)) {
+        printf("Error: no se admiten edades negativas.\n");
+    }
+    
+    usuario_imprimir(u);
+    
+    destruir_usuario(u);
+    u = NULL;
+    return 0;
+}
+```
+
+---
+
+(punteros-opacos-en-bibliotecas-estandar)=
+#### Punteros Opacos en Bibliotecas Estándar
+
+Muchas bibliotecas conocidas usan punteros opacos:
+
+##### POSIX: FILE
+
+```{code-block}c
+:linenos:
+// stdio.h
+typedef struct _IO_FILE FILE;
+
+FILE *fopen(const char *filename, const char *mode);
+int fclose(FILE *stream);
+```
+
+No sabés cómo está implementado `FILE` internamente, pero podés usarlo a través de punteros.
+
+##### OpenSSL
+
+```{code-block}c
+:linenos:
+typedef struct ssl_ctx_st SSL_CTX;
+typedef struct ssl_st SSL;
+
+SSL_CTX *SSL_CTX_new(const SSL_METHOD *method);
+SSL *SSL_new(SSL_CTX *ctx);
+```
+
+##### GTK+ (GUI)
+
+```{code-block}c
+:linenos:
+typedef struct _GtkWidget GtkWidget;
+typedef struct _GtkWindow GtkWindow;
+
+GtkWidget *gtk_window_new(GtkWindowType type);
+```
+
+Todos estos ejemplos siguen el mismo patrón de puntero opaco.
+
+---
+
+(buenas-practicas)=
+#### Buenas Prácticas
+
+##### 1. Convenciones de Nombres
+
+```{code-block}c
+:linenos:
+// Patrón: tipo_t para el tipo, crear_tipo/destruir_tipo para funciones
+typedef struct usuario usuario_t;
+
+usuario_t *crear_usuario(const char *nombre, int edad);
+void destruir_usuario(usuario_t *u);
+```
+
+##### 2. Documentación Clara
+
+```{code-block}c
+:linenos:
+/**
+ * Crea una nueva instancia de un usuario.
+ * 
+ * @param nombre Cadena de caracteres que representa el nombre (no debe ser NULL).
+ * @param edad Entero no negativo que representa la edad.
+ * @return Puntero al usuario creado, o NULL si falla la asignación de memoria o los parámetros son inválidos.
+ */
+usuario_t *crear_usuario(const char *nombre, int edad);
+
+/**
+ * Destruye al usuario liberando toda la memoria asociada.
+ * 
+ * @param u Usuario a destruir. Puede ser NULL.
+ */
+void destruir_usuario(usuario_t *u);
+```
+
+##### 3. Manejo de Errores Consistente
+
+```{code-block}c
+:linenos:
+// Retornar NULL en creación si falla
+tipo_t *crear_tipo(void) {
+    tipo_t *t = malloc(sizeof(*t));
+    if (t == NULL) {
+        return NULL;  // Indicación clara de fallo al cliente
+    }
+    // ... inicialización ...
+    return t;
+}
+
+// Retornar bool en operaciones para reportar éxito o fracaso
+bool tipo_operar(tipo_t *t, int dato) {
+    if (t == NULL) {
+        return false;  // Fallo: puntero inválido
+    }
+    // ... operación ...
+    return true;  // Éxito
+}
+```
+
+##### 4. Tolerancia a NULL
+
+```{code-block}c
+:linenos:
+void destruir_tipo(tipo_t *t) {
+    // Tolerante a NULL - comportamiento similar a free()
+    if (t == NULL) {
+        return;
+    }
+    // ... liberación ...
+}
+```
+
+##### 5. Uso de `const` para Intenciones
+
+```{code-block}c
+:linenos:
+// Solo lectura - no modifica la estructura
+double punto_obtener_x(const punto_t *punto);
+
+// Modifica la estructura
+void punto_desplazar(punto_t *punto, double dx, double dy);
+```
+
+---
+
+(limitaciones-y-consideraciones)=
+#### Limitaciones y Consideraciones
+
+##### 1. Pérdida de Acceso Directo
+
+No podés acceder directamente a los campos para debugging o inspección rápida en herramientas tradicionales:
+
+```{code-block}c
+:linenos:
+// En GDB:
+(gdb) print punto->x
+Cannot access memory at address 0x0: incomplete type
+```
+
+**Solución:** Proveer funciones de inspección para debugging si es necesario:
+```{code-block}c
+:linenos:
+#ifdef DEBUG
+void punto_debug_print(const punto_t *p);
+#endif
+```
+
+##### 2. No se Puede Alocar en el Stack
+
+```{code-block}c
+:linenos:
+// Esto NO compila con puntero opaco
+punto_t p;  // ERROR: incomplete type
+
+// Debés usar el heap
+punto_t *p = crear_punto(3.0, 4.0);
+```
+
+**Implicación:** Siempre hay un costo asociado a la alocación dinámica de memoria mediante `malloc` y `free`.
+
+##### 3. Dificultad para Copiar
+
+No podés realizar una copia superficial por asignación directa:
+
+```{code-block}c
+:linenos:
+punto_t copia = *original;  // ERROR: incomplete type
+```
+
+**Solución:** Proveer una función de copia explícita (clonación):
+```{code-block}c
+:linenos:
+punto_t *punto_clonar(const punto_t *original);
+```
+
+##### 4. Compatibilidad con Análisis Estático
+
+Algunas herramientas de análisis estático tienen dificultades para verificar el uso de memoria en tipos incompletos fuera de su archivo de implementación. Asegurate de que Valgrind y las opciones de compilación sanitizer rastreen correctamente todo el ciclo de vida de estas estructuras.
+
+---
+
+(ejercicios-patrones-y-buenas-practicas)=
+#### Ejercicios: Patrones y Buenas Prácticas
+
+
+
+
+
+
+
+---
+
+
+(contratos-en-modulos-c)=
+### Contratos en Módulos C
+
+
+El diseño de punteros opacos impone una separación estricta entre interfaz e implementación. Para formalizar esa separación, el **Diseño por Contratos** proporciona el marco conceptual: cada función de la interfaz tiene precondiciones (qué exige del cliente) y poscondiciones (qué garantiza al cliente).
+
+(introduccion-al-diseno-por-contratos)=
+#### Introducción al Diseño por Contratos
+
+El **Diseño por Contratos** (Design by Contract, DbC) es una metodología formal de desarrollo de software introducida por Bertrand Meyer en el lenguaje Eiffel. Se fundamenta en la metáfora de un contrato legal entre partes: cada componente de software tiene **obligaciones** (precondiciones que debe garantizar el cliente) y **beneficios** (postcondiciones que garantiza el proveedor). Este enfoque transforma el desarrollo de software de una actividad artesanal a una disciplina ingenieril rigurosa.
+
+```{figure} ../bloque_1_fundamentos/9/contract_metaphor.svg
+:label: fig-metaphor
+:align: center
+:width: 90%
+
+Metáfora del contrato: cliente y proveedor tienen obligaciones y derechos mutuos, formalizados mediante precondiciones y postcondiciones.
+```
+
+:::{important} Beneficios del Diseño por Contratos
+
+1. **Documentación ejecutable**: Los contratos son especificaciones precisas y verificables
+2. **Detección temprana de errores**: Violaciones se detectan en el punto exacto de falla
+3. **Facilita testing**: Los contratos definen casos de prueba automáticamente
+4. **Mejora mantenibilidad**: El comportamiento esperado está explícito
+5. **Razonamiento formal**: Permite demostraciones matemáticas de corrección
+:::
+
+La formalización mediante Lógica de Primer Orden (LPO) proporciona el rigor matemático necesario para especificar, verificar y razonar sobre la corrección de programas.
+
+---
+
+(ejercicios-contratos-en-modulos-c)=
+#### Ejercicios: Contratos en Módulos C
+
+
+
+
+
+
+
+---
+
+## Ejercicios de Autoevaluación
 
 :::{exercise}
 :label: ejercicio-opaco-1-mecanismo
@@ -372,528 +966,6 @@ destruir_usuario(mi_cuenta); // El compilador no advierte el error y compila sin
 
 Si hubiésemos definido `destruir_usuario(usuario_t *u)` con un tipo opaco, el compilador habría detectado que `mi_cuenta` (de tipo `cuenta_t *`) no coincide con el tipo esperado, previniendo un potencial fallo grave (fuga de memoria o corrupción) en tiempo de ejecución.
 :::
-
----
-
-(patrones-de-diseno-ventajas-y-limitaciones)=
-## Patrones de Diseño, Ventajas y Limitaciones
-
-(ventajas-de-los-punteros-opacos)=
-### Ventajas de los Punteros Opacos
-
-#### 1. Encapsulamiento Fuerte
-
-La implementación está **completamente oculta**. El código cliente no puede (ni accidentalmente) acceder o modificar los campos internos.
-
-```{code-block}c
-:linenos:
-// Esto NO compila - el compilador protege los detalles internos
-punto_t *p = crear_punto(3.0, 4.0);
-p->x = 100.0;  // ERROR en tiempo de compilación
-```
-
-#### 2. Flexibilidad de Implementación
-
-Podés cambiar completamente la implementación interna sin afectar al código cliente:
-
-```{code-block}c
-:linenos:
-// punto.c - Versión con coordenadas polares (cambio de implementación)
-struct punto {
-    double radio;
-    double angulo; // en radianes
-};
-```
-
-Si cambiás la implementación a coordenadas polares, las funciones públicas en `punto.c` realizarán la conversión matemática necesaria para retornar la proyección de `x` e `y` cuando el cliente llame a `punto_obtener_x` o `punto_obtener_y`. El código cliente que usa `punto.h` **no necesita modificarse** porque la interfaz pública sigue intacta.
-
-#### 3. Mantenimiento de Invariantes
-
-Solo las funciones del módulo pueden modificar la estructura, garantizando que los invariantes se cumplan siempre. Por ejemplo, si tenés un tipo `usuario_t` que representa a un usuario del sistema:
-
-```{code-block}c
-:linenos:
-bool usuario_establecer_edad(usuario_t *u, int nueva_edad) {
-    // Garantiza que la edad no sea negativa
-    if (u == NULL || nueva_edad < 0) {
-        return false;
-    }
-    u->edad = nueva_edad;
-    return true;
-}
-```
-
-El código cliente no puede burlar esta validación modificando el campo directamente.
-
-#### 4. Compatibilidad Binaria (ABI)
-
-Si la interfaz pública no cambia, podés actualizar la biblioteca compilada (`.so` o `.dll`) sin recompilar las aplicaciones que la usan. Esto es crucial para bibliotecas del sistema.
-
-#### 5. Reducción de Dependencias
-
-Los archivos que incluyen `punto.h` no necesitan incluir las dependencias internas de `punto.c` (por ejemplo, `<math.h>` si se usaran funciones trigonométricas), reduciendo tiempos de compilación y acoplamiento.
-
----
-
-(patrones-de-uso-comunes)=
-### Patrones de Uso Comunes
-
-#### Patrón Constructor/Destructor
-
-Toda estructura opaca alocada dinámicamente debe proveer funciones para crear y destruir instancias:
-
-```{code-block}c
-// Convención de nombres: tipo_accion
-tipo_t *crear_tipo(parametros);
-void destruir_tipo(tipo_t *instancia);
-```
-
-**Ejemplo:**
-```{code-block}c
-:linenos:
-usuario_t *usr = crear_usuario("Carlos", 35);
-// ... usar usr ...
-destruir_usuario(usr);
-usr = NULL;
-```
-
-##### Destrucción de Colecciones de Punteros Opacos
-
-Cuando gestionás una colección (como un array dinámico o una lista enlazada) de punteros opacos, no podés liberar la colección llamando simplemente a `free` sobre ella. Hacerlo generará una **fuga de memoria masiva**, ya que los elementos individuales apuntados seguirán existiendo en el heap sin ninguna referencia para liberarlos.
-
-Debés implementar un lazo de destrucción que recorra la colección elemento por elemento, invocando el destructor específico de cada tipo opaco, y recién entonces liberar la estructura contenedora.
-
-**Ejemplo práctico de destrucción de un array de usuarios:**
-
-```{code-block}c
-:linenos:
-#define CANT_USUARIOS 5
-
-void liberar_grupo_usuarios(usuario_t **grupo, size_t cantidad) {
-    if (grupo == NULL) {
-        return;
-    }
-    
-    // Recorremos la colección destruyendo cada elemento individual con un lazo
-    for (size_t i = 0; i < cantidad; i++) {
-        destruir_usuario(grupo[i]);
-        grupo[i] = NULL; // Evita punteros colgantes en el array
-    }
-    
-    // Finalmente, liberamos el array contenedor en sí
-    free(grupo);
-}
-```
-
-#### Patrón Getter/Setter
-
-Para acceder a propiedades sin exponer los campos de la estructura:
-
-```{code-block}c
-:linenos:
-// Getter - solo lectura
-const char *usuario_obtener_nombre(const usuario_t *u);
-int usuario_obtener_edad(const usuario_t *u);
-
-// Setter - modificación controlada
-bool usuario_establecer_edad(usuario_t *u, int nueva_edad);
-```
-
-:::{tip} Uso de `const`
-Usá `const tipo_t *` en funciones que solo leen, no modifican. Esto documenta la intención y permite al compilador optimizar el código.
-:::
-
-#### Patrón de Verificación
-
-Siempre verificá punteros nulos y condiciones de error de manera defensiva:
-
-```{code-block}c
-:linenos:
-bool usuario_establecer_edad(usuario_t *u, int nueva_edad) {
-    // Verificaciones defensivas
-    if (u == NULL || nueva_edad < 0) {
-        return false;
-    }
-    u->edad = nueva_edad;
-    return true;
-}
-```
-
----
-
-(comparacion-con-otras-tecnicas)=
-### Comparación con Otras Técnicas
-
-#### vs. Estructuras Expuestas
-
-:::{table} Comparación con Estructuras Expuestas
-:label: tbl-comparacion-expuestas
-
-| Aspecto | Puntero Opaco | Estructura Expuesta |
-| :--- | :--- | :--- |
-| **Encapsulamiento** | ✅ Fuerte | ❌ Ninguno |
-| **Cambios de implementación** | ✅ No rompen código cliente | ❌ Rompen todo el código dependiente |
-| **Protección de invariantes** | ✅ Garantizada por la API | ❌ Imposible de controlar |
-| **Rendimiento** | ✅ Similar (indirección de puntero) | ✅ Similar |
-| **Depuración (Debugging)** | ⚠️ Más complejo (campos ocultos) | ✅ Directo y simple |
-| **Alocación en Stack** | ❌ No disponible | ✅ Permitido |
-:::
-
-#### vs. Void Pointers
-
-```{code-block}c
-:linenos:
-// Opción 1: Puntero opaco (RECOMENDADO)
-typedef struct punto punto_t;
-double punto_obtener_x(const punto_t *p);
-
-// Opción 2: Void pointer (EVITAR)
-double punto_obtener_x(const void *p);
-```
-
-**Problemas de void pointers:**
-- Pérdida de type safety (se puede pasar accidentalmente cualquier puntero sin advertencia del compilador).
-- No hay verificación de tipos en tiempo de compilación.
-- Requiere casts explícitos en la implementación.
-- Es más propenso a errores de desarrollo.
-
-:::{danger} Anti-patrón: Void Pointers para Opacos
-Aunque `void *` también oculta la implementación, **no es la forma adecuada** en C. Usá siempre punteros opacos con tipos específicos para mantener la seguridad de tipos.
-:::
-
----
-
-(ejemplo-completo-usuario-opaco)=
-### Ejemplo Completo: Usuario Opaco
-
-Este ejemplo implementa un módulo para gestionar un usuario, donde los campos internos (un string dinámico y un entero) se mantienen estrictamente encapsulados.
-
-#### Interfaz Pública (`usuario.h`)
-
-```{code-block}c
-:linenos:
-#ifndef USUARIO_H
-#define USUARIO_H
-
-#include <stdbool.h>
-
-// Tipo opaco
-typedef struct usuario usuario_t;
-
-// Constructor/Destructor
-usuario_t *crear_usuario(const char *nombre, int edad);
-void destruir_usuario(usuario_t *u);
-
-// Getters y Setters con validación
-const char *usuario_obtener_nombre(const usuario_t *u);
-int usuario_obtener_edad(const usuario_t *u);
-bool usuario_establecer_edad(usuario_t *u, int nueva_edad);
-
-// Operaciones
-void usuario_imprimir(const usuario_t *u);
-
-#endif  // USUARIO_H
-```
-
-#### Implementación (`usuario.c`)
-
-```{code-block}c
-:linenos:
-#include "usuario.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-// Definición completa del usuario - solo visible aquí
-struct usuario {
-    char *nombre;
-    int edad;
-};
-
-usuario_t *crear_usuario(const char *nombre, int edad) {
-    if (nombre == NULL || edad < 0) {
-        return NULL;
-    }
-    
-    // Alocación robusta desreferenciando el puntero (regla {ref}`0x0003h`)
-    usuario_t *u = malloc(sizeof(*u));
-    if (u == NULL) {
-        return NULL;
-    }
-    
-    u->nombre = malloc(strlen(nombre) + 1);
-    if (u->nombre == NULL) {
-        free(u);
-        return NULL;
-    }
-    memcpy(u->nombre, nombre, strlen(nombre) + 1);
-    
-    u->edad = edad;
-    return u;
-}
-
-void destruir_usuario(usuario_t *u) {
-    if (u == NULL) {
-        return;
-    }
-    
-    // Primero liberamos los recursos internos
-    free(u->nombre);
-    // Luego liberamos la estructura contenedora
-    free(u);
-}
-
-const char *usuario_obtener_nombre(const usuario_t *u) {
-    if (u == NULL) {
-        return NULL;
-    }
-    return u->nombre;
-}
-
-int usuario_obtener_edad(const usuario_t *u) {
-    if (u == NULL) {
-        return -1;
-    }
-    return u->edad;
-}
-
-bool usuario_establecer_edad(usuario_t *u, int nueva_edad) {
-    if (u == NULL || nueva_edad < 0) {
-        return false;
-    }
-    u->edad = nueva_edad;
-    return true;
-}
-
-void usuario_imprimir(const usuario_t *u) {
-    if (u == NULL) {
-        return;
-    }
-    printf("Usuario: %s | Edad: %d\n", u->nombre, u->edad);
-}
-```
-
-#### Uso del Cliente
-
-```{code-block}c
-:linenos:
-#include <stdio.h>
-#include "usuario.h"
-
-int main(void) {
-    usuario_t *u = crear_usuario("Martín", 21);
-    if (u == NULL) {
-        return 1;
-    }
-    
-    usuario_imprimir(u);
-    
-    // Intento de modificación válida
-    if (usuario_establecer_edad(u, 22)) {
-        printf("Edad actualizada con éxito.\n");
-    }
-    
-    // Intento de asignación inválida
-    if (!usuario_establecer_edad(u, -5)) {
-        printf("Error: no se admiten edades negativas.\n");
-    }
-    
-    usuario_imprimir(u);
-    
-    destruir_usuario(u);
-    u = NULL;
-    return 0;
-}
-```
-
----
-
-(punteros-opacos-en-bibliotecas-estandar)=
-### Punteros Opacos en Bibliotecas Estándar
-
-Muchas bibliotecas conocidas usan punteros opacos:
-
-#### POSIX: FILE
-
-```{code-block}c
-:linenos:
-// stdio.h
-typedef struct _IO_FILE FILE;
-
-FILE *fopen(const char *filename, const char *mode);
-int fclose(FILE *stream);
-```
-
-No sabés cómo está implementado `FILE` internamente, pero podés usarlo a través de punteros.
-
-#### OpenSSL
-
-```{code-block}c
-:linenos:
-typedef struct ssl_ctx_st SSL_CTX;
-typedef struct ssl_st SSL;
-
-SSL_CTX *SSL_CTX_new(const SSL_METHOD *method);
-SSL *SSL_new(SSL_CTX *ctx);
-```
-
-#### GTK+ (GUI)
-
-```{code-block}c
-:linenos:
-typedef struct _GtkWidget GtkWidget;
-typedef struct _GtkWindow GtkWindow;
-
-GtkWidget *gtk_window_new(GtkWindowType type);
-```
-
-Todos estos ejemplos siguen el mismo patrón de puntero opaco.
-
----
-
-(buenas-practicas)=
-### Buenas Prácticas
-
-#### 1. Convenciones de Nombres
-
-```{code-block}c
-:linenos:
-// Patrón: tipo_t para el tipo, crear_tipo/destruir_tipo para funciones
-typedef struct usuario usuario_t;
-
-usuario_t *crear_usuario(const char *nombre, int edad);
-void destruir_usuario(usuario_t *u);
-```
-
-#### 2. Documentación Clara
-
-```{code-block}c
-:linenos:
-/**
- * Crea una nueva instancia de un usuario.
- * 
- * @param nombre Cadena de caracteres que representa el nombre (no debe ser NULL).
- * @param edad Entero no negativo que representa la edad.
- * @return Puntero al usuario creado, o NULL si falla la asignación de memoria o los parámetros son inválidos.
- */
-usuario_t *crear_usuario(const char *nombre, int edad);
-
-/**
- * Destruye al usuario liberando toda la memoria asociada.
- * 
- * @param u Usuario a destruir. Puede ser NULL.
- */
-void destruir_usuario(usuario_t *u);
-```
-
-#### 3. Manejo de Errores Consistente
-
-```{code-block}c
-:linenos:
-// Retornar NULL en creación si falla
-tipo_t *crear_tipo(void) {
-    tipo_t *t = malloc(sizeof(*t));
-    if (t == NULL) {
-        return NULL;  // Indicación clara de fallo al cliente
-    }
-    // ... inicialización ...
-    return t;
-}
-
-// Retornar bool en operaciones para reportar éxito o fracaso
-bool tipo_operar(tipo_t *t, int dato) {
-    if (t == NULL) {
-        return false;  // Fallo: puntero inválido
-    }
-    // ... operación ...
-    return true;  // Éxito
-}
-```
-
-#### 4. Tolerancia a NULL
-
-```{code-block}c
-:linenos:
-void destruir_tipo(tipo_t *t) {
-    // Tolerante a NULL - comportamiento similar a free()
-    if (t == NULL) {
-        return;
-    }
-    // ... liberación ...
-}
-```
-
-#### 5. Uso de `const` para Intenciones
-
-```{code-block}c
-:linenos:
-// Solo lectura - no modifica la estructura
-double punto_obtener_x(const punto_t *punto);
-
-// Modifica la estructura
-void punto_desplazar(punto_t *punto, double dx, double dy);
-```
-
----
-
-(limitaciones-y-consideraciones)=
-### Limitaciones y Consideraciones
-
-#### 1. Pérdida de Acceso Directo
-
-No podés acceder directamente a los campos para debugging o inspección rápida en herramientas tradicionales:
-
-```{code-block}c
-:linenos:
-// En GDB:
-(gdb) print punto->x
-Cannot access memory at address 0x0: incomplete type
-```
-
-**Solución:** Proveer funciones de inspección para debugging si es necesario:
-```{code-block}c
-:linenos:
-#ifdef DEBUG
-void punto_debug_print(const punto_t *p);
-#endif
-```
-
-#### 2. No se Puede Alocar en el Stack
-
-```{code-block}c
-:linenos:
-// Esto NO compila con puntero opaco
-punto_t p;  // ERROR: incomplete type
-
-// Debés usar el heap
-punto_t *p = crear_punto(3.0, 4.0);
-```
-
-**Implicación:** Siempre hay un costo asociado a la alocación dinámica de memoria mediante `malloc` y `free`.
-
-#### 3. Dificultad para Copiar
-
-No podés realizar una copia superficial por asignación directa:
-
-```{code-block}c
-:linenos:
-punto_t copia = *original;  // ERROR: incomplete type
-```
-
-**Solución:** Proveer una función de copia explícita (clonación):
-```{code-block}c
-:linenos:
-punto_t *punto_clonar(const punto_t *original);
-```
-
-#### 4. Compatibilidad con Análisis Estático
-
-Algunas herramientas de análisis estático tienen dificultades para verificar el uso de memoria en tipos incompletos fuera de su archivo de implementación. Asegurate de que Valgrind y las opciones de compilación sanitizer rastreen correctamente todo el ciclo de vida de estas estructuras.
-
----
-
-(ejercicios-patrones-y-buenas-practicas)=
-### Ejercicios: Patrones y Buenas Prácticas
 
 :::{exercise}
 :label: ejercicio-opaco-1-patrones
@@ -1068,42 +1140,6 @@ char *cuenta_clonar_titular(const cuenta_t *c) {
 ```
 :::
 
----
-
-(contratos-en-modulos-c)=
-## Contratos en Módulos C
-
-El diseño de punteros opacos impone una separación estricta entre interfaz e implementación. Para formalizar esa separación, el **Diseño por Contratos** proporciona el marco conceptual: cada función de la interfaz tiene precondiciones (qué exige del cliente) y poscondiciones (qué garantiza al cliente).
-
-(introduccion-al-diseno-por-contratos)=
-### Introducción al Diseño por Contratos
-
-El **Diseño por Contratos** (Design by Contract, DbC) es una metodología formal de desarrollo de software introducida por Bertrand Meyer en el lenguaje Eiffel. Se fundamenta en la metáfora de un contrato legal entre partes: cada componente de software tiene **obligaciones** (precondiciones que debe garantizar el cliente) y **beneficios** (postcondiciones que garantiza el proveedor). Este enfoque transforma el desarrollo de software de una actividad artesanal a una disciplina ingenieril rigurosa.
-
-```{figure} 22/contract_metaphor.svg
-:label: fig-metaphor
-:align: center
-:width: 90%
-
-Metáfora del contrato: cliente y proveedor tienen obligaciones y derechos mutuos, formalizados mediante precondiciones y postcondiciones.
-```
-
-:::{important} Beneficios del Diseño por Contratos
-
-1. **Documentación ejecutable**: Los contratos son especificaciones precisas y verificables
-2. **Detección temprana de errores**: Violaciones se detectan en el punto exacto de falla
-3. **Facilita testing**: Los contratos definen casos de prueba automáticamente
-4. **Mejora mantenibilidad**: El comportamiento esperado está explícito
-5. **Razonamiento formal**: Permite demostraciones matemáticas de corrección
-:::
-
-La formalización mediante Lógica de Primer Orden (LPO) proporciona el rigor matemático necesario para especificar, verificar y razonar sobre la corrección de programas.
-
----
-
-(ejercicios-contratos-en-modulos-c)=
-### Ejercicios: Contratos en Módulos C
-
 :::{exercise}
 :label: ejercicio-opaco-1-contratos
 Para la función constructora del TAD usuario:
@@ -1221,37 +1257,17 @@ Para garantizar la integridad del TAD, esta función debe invocarse en los sigui
 2. **Al ingresar a cualquier función mutadora (como depositar o extraer):** Se verifica al inicio de la función (precondición del estado interno) y al finalizar la operación (antes del `return`), asegurando que la lógica interna de la función no corrompió las invariantes de representación de la estructura.
 :::
 
----
+## Glosario
 
-(referencias-y-lecturas-complementarias)=
-## Referencias y Lecturas Complementarias
+- **Tipo Opaco**: Puntero a una estructura cuya definición no se expone en la interfaz (encapsulamiento).
+- **API (Interfaz de Programación de Aplicaciones)**: Conjunto de firmas de funciones y tipos expuestos para el cliente.
+- **Encapsulamiento**: Principio que oculta los detalles de implementación interna.
 
-(textos-fundamentales)=
-### Textos Fundamentales
-
-- {cite:t}`hanson_c_1996`. *C Interfaces and Implementations*. Capítulo 1: Interfaces. Tratamiento exhaustivo de punteros opacos y diseño de interfaces.
-
-- {cite:t}`kernighan_c_2014`. *The C Programming Language*. Capítulo 6: Structures. Sección sobre tipos incompletos.
-
-- {cite:t}`king_c_2008`. *C Programming: A Modern Approach*. Capítulo 19: Program Design. Information hiding y modularidad.
-
-(documentacion-de-estandares)=
-### Documentación de Estándares
-
-- **ISO C99 Standard** (6.2.5): Definición formal de tipos incompletos.
-- **ISO C11 Standard** (6.7.2.3): Declaraciones de estructuras y tipos opacos.
-
-(articulos-y-recursos)=
-### Artículos y Recursos
-
-- **"Object-Oriented Programming With ANSI-C"** - Axel-Tobias Schreiner. Uso avanzado de punteros opacos para simular OOP.
-
-- **POSIX API Design Guidelines** - Ejemplos de APIs del sistema que usan punteros opacos extensivamente.
-
----
+## Síntesis y Resumen
 
 (resumen)=
-## Resumen
+### Resumen
+
 
 Los punteros opacos son una técnica esencial para construir software modular y mantenible en C:
 
@@ -1283,7 +1299,7 @@ struct tipo {
 ```
 
 **Conexiones:**
-- Fundamental para implementar TADs (ver [](18_tad)).
+- Fundamental para implementar TADs (ver [](6_tad.md)).
 - Requiere memoria dinámica (ver {ref}`memoria-dinamica-capitulo`).
 - Usado extensivamente en bibliotecas del sistema y APIs públicas.
 :::
@@ -1302,3 +1318,33 @@ struct tipo {
 :::
 
 Dominar los punteros opacos es esencial para escribir código C profesional, mantenible y robusto. Es la base del diseño modular en C y el equivalente más cercano al encapsulamiento de la programación orientada a objetos.
+
+## Referencias y Lecturas Complementarias
+
+(referencias-y-lecturas-complementarias)=
+### Referencias y Lecturas Complementarias
+
+
+(textos-fundamentales)=
+#### Textos Fundamentales
+
+- {cite:t}`hanson_c_1996`. *C Interfaces and Implementations*. Capítulo 1: Interfaces. Tratamiento exhaustivo de punteros opacos y diseño de interfaces.
+
+- {cite:t}`kernighan_c_2014`. *The C Programming Language*. Capítulo 6: Structures. Sección sobre tipos incompletos.
+
+- {cite:t}`king_c_2008`. *C Programming: A Modern Approach*. Capítulo 19: Program Design. Information hiding y modularidad.
+
+(documentacion-de-estandares)=
+#### Documentación de Estándares
+
+- **ISO C99 Standard** (6.2.5): Definición formal de tipos incompletos.
+- **ISO C11 Standard** (6.7.2.3): Declaraciones de estructuras y tipos opacos.
+
+(articulos-y-recursos)=
+#### Artículos y Recursos
+
+- **"Object-Oriented Programming With ANSI-C"** - Axel-Tobias Schreiner. Uso avanzado de punteros opacos para simular OOP.
+
+- **POSIX API Design Guidelines** - Ejemplos de APIs del sistema que usan punteros opacos extensivamente.
+
+---

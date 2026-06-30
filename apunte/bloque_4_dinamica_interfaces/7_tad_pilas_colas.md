@@ -4,12 +4,22 @@ short_title: 'Pilas y Colas'
 subtitle: 'TAD Pila, Cola y Deque'
 ---
 
+(capitulo-tad-pilas-colas)=
+# Referencias y Lecturas Complementarias
+
+## Introducción
+
+
+
+## Desarrollo
+
 (pilas-stacks)=
-## Pilas (Stacks)
+### Pilas (Stacks)
+
 
 Una **pila** es una estructura de datos lineal que sigue el principio **LIFO** (*Last In, First Out*): el último elemento en entrar es el primero en salir. Es análogo a una pila de platos donde solo podés agregar o quitar platos desde la parte superior.
 
-```{figure} 18/pila_stack.svg
+```{figure} 6/pila_stack.svg
 :label: fig-pila
 :align: center
 
@@ -17,7 +27,7 @@ Estructura de pila con operaciones push (apilar) y pop (desapilar). El acceso es
 ```
 
 (operaciones-fundamentales)=
-### Operaciones Fundamentales
+#### Operaciones Fundamentales
 
 - **push(elemento):** Agrega un elemento al tope de la pila.
 - **pop():** Extrae y retorna el elemento del tope.
@@ -25,16 +35,16 @@ Estructura de pila con operaciones push (apilar) y pop (desapilar). El acceso es
 - **es_vacia():** Verifica si la pila está vacía.
 
 (implementacion-con-lista-enlazada)=
-### Implementación con Lista Enlazada
+#### Implementación con Lista Enlazada
 
-```{figure} 18/pila_lista_enlazada.svg
+```{figure} 6/pila_lista_enlazada.svg
 :label: fig-pila-lista
 :align: center
 
 Representación en memoria de una pila implementada con lista enlazada. El tope apunta al primer nodo de la lista.
 ```
 
-#### Estructura de Datos
+##### Estructura de Datos
 
 ```{code-block}c
 :linenos:
@@ -49,7 +59,7 @@ struct pila {
 };
 ```
 
-#### Creación de una Pila
+##### Creación de una Pila
 
 ```{code-block}c
 :linenos:
@@ -66,7 +76,7 @@ pila_t *pila_crear(void)
 }
 ```
 
-#### Apilar (Push)
+##### Apilar (Push)
 
 ```{code-block}c
 :linenos:
@@ -96,7 +106,7 @@ bool pila_push(pila_t *pila, void *dato)
 La operación `pila_push` es equivalente a realizar una inserción al inicio en una lista enlazada, siendo el tope de la pila el primer elemento de la lista.
 :::
 
-#### Desapilar (Pop)
+##### Desapilar (Pop)
 
 ```{code-block}c
 :linenos:
@@ -121,7 +131,7 @@ bool pila_pop(pila_t *pila, void **dato)
 }
 ```
 
-#### Ver Tope (Peek)
+##### Ver Tope (Peek)
 
 ```{code-block}c
 :linenos:
@@ -140,7 +150,7 @@ bool pila_peek(const pila_t *pila, void **dato)
 }
 ```
 
-#### Verificar si está Vacía
+##### Verificar si está Vacía
 
 ```{code-block}c
 :linenos:
@@ -150,7 +160,7 @@ bool pila_es_vacia(const pila_t *pila)
 }
 ```
 
-#### Destruir Pila
+##### Destruir Pila
 
 ```{code-block}c
 :linenos:
@@ -181,7 +191,7 @@ Es fundamental liberar toda la memoria utilizada, recorriendo la lista y liberan
 :::
 
 (analisis-de-complejidad-lista-enlazada)=
-### Análisis de Complejidad (Lista Enlazada)
+#### Análisis de Complejidad (Lista Enlazada)
 
 | Operación | Complejidad Temporal | Complejidad Espacial |
 |-----------|---------------------|---------------------|
@@ -191,18 +201,18 @@ Es fundamental liberar toda la memoria utilizada, recorriendo la lista y liberan
 | es_vacia | $O(1)$ | $O(1)$ |
 
 (implementacion-con-arreglo-dinamico)=
-### Implementación con Arreglo Dinámico
+#### Implementación con Arreglo Dinámico
 
 Una alternativa es implementar la pila usando un arreglo, donde el tope es el último elemento ocupado.
 
-```{figure} 18/pila_arreglo.svg
+```{figure} 6/pila_arreglo.svg
 :label: fig-pila-arreglo
 :align: center
 
 Pila implementada con arreglo. El índice `tope` indica la posición del último elemento.
 ```
 
-#### Estructura de Datos
+##### Estructura de Datos
 
 ```{code-block}c
 :linenos:
@@ -213,7 +223,7 @@ struct pila {
 };
 ```
 
-#### Creación con Capacidad Inicial
+##### Creación con Capacidad Inicial
 
 ```{code-block}c
 :linenos:
@@ -244,7 +254,7 @@ pila_t *pila_crear_arreglo(size_t capacidad_inicial)
 }
 ```
 
-#### Apilar con Redimensionamiento
+##### Apilar con Redimensionamiento
 
 ```{code-block}c
 :linenos:
@@ -289,7 +299,7 @@ bool pila_push_arreglo(pila_t *pila, void *dato)
 El factor de redimensionamiento (comúnmente 2) es importante. Duplicar la capacidad garantiza que el costo amortizado de `pila_push_arreglo` sea $O(1)$, aunque un `push` individual pueda ser $O(n)$ cuando requiere redimensionar. Para entender cómo se calcula formalmente el análisis amortizado usando el método del banquero o el método del potencial, consultá la sección sobre análisis amortizado en {ref}`complejidad-introduccion`.
 :::
 
-#### Desapilar (Arreglo)
+##### Desapilar (Arreglo)
 
 ```{code-block}c
 :linenos:
@@ -311,7 +321,7 @@ bool pila_pop_arreglo(pila_t *pila, void **dato)
 ```
 
 (analisis-de-complejidad-arreglo)=
-### Análisis de Complejidad (Arreglo)
+#### Análisis de Complejidad (Arreglo)
 
 | Operación | Complejidad Temporal | Complejidad Espacial |
 |-----------|---------------------|---------------------|
@@ -325,7 +335,7 @@ Aunque `push` puede ser $O(n)$ cuando requiere redimensionar, el análisis amort
 :::
 
 (aplicaciones-de-pilas)=
-### Aplicaciones de Pilas
+#### Aplicaciones de Pilas
 
 Las pilas aparecen naturalmente en numerosos contextos de programación:
 
@@ -335,7 +345,7 @@ Las pilas aparecen naturalmente en numerosos contextos de programación:
 4. **Deshacer/Rehacer:** Editores de texto mantienen pilas de operaciones.
 5. **Parsing:** Análisis sintáctico de lenguajes de programación (verificación de paréntesis balanceados).
 
-#### Ejemplo: Verificación de Paréntesis Balanceados
+##### Ejemplo: Verificación de Paréntesis Balanceados
 
 ```{code-block}c
 :linenos:
@@ -382,9 +392,517 @@ bool parentesis_balanceados(const char *expresion)
 ```
 
 (ejercicios-de-pilas)=
-### Ejercicios de Pilas
+#### Ejercicios de Pilas
 
-#### Ejercicio 1: Inversión de una cadena con pila
+##### Ejercicio 1: Inversión de una cadena con pila
+
+
+##### Ejercicio 2: Validar expresiones con múltiples delimitadores
+
+
+##### Ejercicio 3: Evaluación de expresiones postfijas
+
+
+
+
+(colas-queues)=
+### Colas (Queues)
+
+
+Una **cola** es una estructura de datos lineal que sigue el principio **FIFO** (*First In, First Out*): el primer elemento en entrar es el primero en salir. Es análogo a una fila de personas donde quien llega primero es atendido primero.
+
+```{figure} 6/cola_lista_enlazada.svg
+:label: fig-cola-lista
+:align: center
+
+Representación en memoria de una cola implementada con lista enlazada. Se mantienen punteros al frente y al final.
+```
+
+##### Estructura de Datos
+
+```{code-block}c
+:linenos:
+typedef struct nodo {
+    void *dato;
+    struct nodo *siguiente;
+} nodo_t;
+
+struct cola {
+    nodo_t *frente;
+    nodo_t *final;
+    size_t tamanio;
+};
+```
+
+::::{note}
+A diferencia de la pila que solo requiere de un puntero al tope, la cola utiliza dos punteros: uno al frente (para `cola_dequeue`) y otro al final (para `cola_enqueue`). Esto garantiza que ambas operaciones se ejecuten en tiempo constante $O(1)$.
+:::
+
+##### Creación de una Cola
+
+```{code-block}c
+:linenos:
+cola_t *cola_crear(void)
+{
+    cola_t *cola = malloc(sizeof(*cola));
+    if (cola == NULL)
+    {
+        return NULL;
+    }
+    
+    cola->frente = NULL;
+    cola->final = NULL;
+    cola->tamanio = 0;
+    
+    return cola;
+}
+```
+
+##### Encolar (Enqueue)
+
+```{code-block}c
+:linenos:
+bool cola_enqueue(cola_t *cola, void *dato)
+{
+    if (cola == NULL)
+    {
+        return false;
+    }
+    
+    nodo_t *nuevo = malloc(sizeof(*nuevo));
+    if (nuevo == NULL)
+    {
+        return false;
+    }
+    
+    nuevo->dato = dato;
+    nuevo->siguiente = NULL;
+    
+    if (cola->final == NULL)
+    {
+        cola->frente = nuevo;
+        cola->final = nuevo;
+    }
+    else
+    {
+        cola->final->siguiente = nuevo;
+        cola->final = nuevo;
+    }
+    
+    cola->tamanio++;
+    return true;
+}
+```
+
+:::{important}
+Es indispensable considerar el caso particular de la cola vacía. En tal situación, tanto el puntero `frente` como el puntero `final` deben referenciar al nuevo nodo creado.
+:::
+
+##### Desencolar (Dequeue)
+
+```{code-block}c
+:linenos:
+bool cola_dequeue(cola_t *cola, void **dato)
+{
+    if (cola == NULL || cola->frente == NULL)
+    {
+        return false;
+    }
+    
+    nodo_t *nodo_a_eliminar = cola->frente;
+    if (dato != NULL)
+    {
+        *dato = nodo_a_eliminar->dato;
+    }
+    cola->frente = nodo_a_eliminar->siguiente;
+    
+    if (cola->frente == NULL)
+    {
+        cola->final = NULL;
+    }
+    
+    free(nodo_a_eliminar);
+    cola->tamanio--;
+    
+    return true;
+}
+```
+
+:::{important}
+Al extraer el último elemento de la cola, esta queda vacía. En ese escenario, además de actualizar el puntero `frente` a `NULL`, es necesario establecer el puntero `final` en `NULL`.
+:::
+
+##### Ver Frente (Peek)
+
+```{code-block}c
+:linenos:
+bool cola_peek(const cola_t *cola, void **dato)
+{
+    if (cola == NULL || cola->frente == NULL)
+    {
+        return false;
+    }
+    
+    if (dato != NULL)
+    {
+        *dato = cola->frente->dato;
+    }
+    return true;
+}
+```
+
+##### Destruir Cola
+
+```{code-block}c
+:linenos:
+void cola_destruir(cola_t *cola, destruir_dato_fn destruir_dato)
+{
+    if (cola == NULL)
+    {
+        return;
+    }
+    
+    while (cola->frente != NULL)
+    {
+        nodo_t *nodo_actual = cola->frente;
+        cola->frente = nodo_actual->siguiente;
+        if (destruir_dato != NULL && nodo_actual->dato != NULL)
+        {
+            destruir_dato(nodo_actual->dato);
+        }
+        free(nodo_actual);
+    }
+    
+    free(cola);
+}
+```
+
+(analisis-de-complejidad-lista-enlazada)=
+#### Análisis de Complejidad (Lista Enlazada)
+
+| Operación | Complejidad Temporal | Complejidad Espacial |
+|-----------|---------------------|---------------------|
+| enqueue | $O(1)$ | $O(1)$ |
+| dequeue | $O(1)$ | $O(1)$ |
+| peek | $O(1)$ | $O(1)$ |
+| es_vacia | $O(1)$ | $O(1)$ |
+
+(implementacion-con-arreglo-circular)=
+#### Implementación con Arreglo Circular
+
+Una implementación eficiente de cola con arreglo usa la técnica de **arreglo circular**, donde los índices "dan la vuelta" al final del arreglo.
+
+```{figure} 6/cola_circular.svg
+:label: fig-cola-circular
+:align: center
+
+Cola implementada como arreglo circular. Los índices se calculan módulo la capacidad.
+```
+
+##### Estructura de Datos
+
+```{code-block}c
+:linenos:
+struct cola {
+    void **elementos;
+    size_t frente;
+    size_t final;
+    size_t tamanio;
+    size_t capacidad;
+};
+```
+
+:::{note}
+En esta implementación con arreglo circular, el índice `final` apunta a la posición **después** del último elemento. Esto simplifica la lógica de detección de cola vacía o llena.
+:::
+
+##### Creación de Cola Circular
+
+```{code-block}c
+:linenos:
+cola_t *cola_crear_circular(size_t capacidad_inicial)
+{
+    if (capacidad_inicial == 0)
+    {
+        return NULL;
+    }
+    
+    cola_t *cola = malloc(sizeof(*cola));
+    if (cola == NULL)
+    {
+        return NULL;
+    }
+    
+    cola->elementos = malloc(capacidad_inicial * sizeof(*(cola->elementos)));
+    if (cola->elementos == NULL)
+    {
+        free(cola);
+        return NULL;
+    }
+    
+    cola->frente = 0;
+    cola->final = 0;
+    cola->tamanio = 0;
+    cola->capacidad = capacidad_inicial;
+    
+    return cola;
+}
+```
+
+##### Encolar en Arreglo Circular
+
+```{code-block}c
+:linenos:
+static bool cola_redimensionar_circular(cola_t *cola)
+{
+    size_t nueva_capacidad = cola->capacidad * 2;
+    void **nuevo_arreglo = malloc(nueva_capacidad * sizeof(*nuevo_arreglo));
+    if (nuevo_arreglo == NULL)
+    {
+        return false;
+    }
+    
+    for (size_t i = 0; i < cola->tamanio; i++)
+    {
+        size_t indice = (cola->frente + i) % cola->capacidad;
+        nuevo_arreglo[i] = cola->elementos[indice];
+    }
+    
+    free(cola->elementos);
+    cola->elementos = nuevo_arreglo;
+    cola->frente = 0;
+    cola->final = cola->tamanio;
+    cola->capacidad = nueva_capacidad;
+    
+    return true;
+}
+
+bool cola_enqueue_circular(cola_t *cola, void *dato)
+{
+    if (cola == NULL)
+    {
+        return false;
+    }
+    
+    if (cola->tamanio == cola->capacidad)
+    {
+        if (!cola_redimensionar_circular(cola))
+        {
+            return false;
+        }
+    }
+    
+    cola->elementos[cola->final] = dato;
+    cola->final = (cola->final + 1) % cola->capacidad;
+    cola->tamanio++;
+    
+    return true;
+}
+```
+
+:::{tip}
+El operador módulo `%` permite que el índice "dé la vuelta". Por ejemplo, si `capacidad = 5` y `final = 4`, entonces `(4 + 1) % 5 = 0`, retornando al inicio del arreglo.
+:::
+
+##### Desencolar en Arreglo Circular
+
+```{code-block}c
+:linenos:
+bool cola_dequeue_circular(cola_t *cola, void **dato)
+{
+    if (cola == NULL || cola->tamanio == 0)
+    {
+        return false;
+    }
+    
+    if (dato != NULL)
+    {
+        *dato = cola->elementos[cola->frente];
+    }
+    cola->frente = (cola->frente + 1) % cola->capacidad;
+    cola->tamanio--;
+    
+    return true;
+}
+```
+
+:::{important}
+Al redimensionar, es crucial copiar los elementos en el orden secuencial correcto (frente a final), considerando que el frente puede no estar alineado en la posición 0 del arreglo original.
+:::
+
+(analisis-de-complejidad-arreglo-circular)=
+#### Análisis de Complejidad (Arreglo Circular)
+
+| Operación | Complejidad Temporal | Complejidad Espacial |
+|-----------|---------------------|---------------------|
+| enqueue | $O(1)$ amortizado | $O(1)$ |
+| dequeue | $O(1)$ | $O(1)$ |
+| peek | $O(1)$ | $O(1)$ |
+| es_vacia | $O(1)$ | $O(1)$ |
+
+(aplicaciones-de-colas)=
+#### Aplicaciones de Colas
+
+Las colas modelan situaciones donde el orden de llegada importa:
+
+1. **Sistemas operativos:** Scheduling de procesos, colas de impresión.
+2. **Redes:** Buffers de transmisión, enrutamiento de paquetes.
+3. **Algoritmos de grafos:** Búsqueda en anchura (BFS).
+4. **Simulaciones:** Modelado de filas de espera, teoría de colas.
+5. **Procesamiento asíncrono:** Cola de tareas, sistemas de mensajería.
+
+(ejercicios-de-colas)=
+#### Ejercicios de Colas
+
+##### Ejercicio 1: Simulador de cola de impresión
+
+
+##### Ejercicio 2: Implementación de cola con dos pilas
+
+
+##### Ejercicio 3: Invertir los primeros K elementos de una cola
+
+
+
+(comparacion-pilas-vs-colas)=
+### Comparación: Pilas vs Colas
+
+
+| Aspecto | Pila (LIFO) | Cola (FIFO) |
+|---------|------------|------------|
+| **Política** | Last In, First Out | First In, First Out |
+| **Analogía** | Pila de platos | Fila de personas |
+| **Operaciones** | push, pop, peek | enqueue, dequeue, peek |
+| **Complejidad** | $O(1)$ todas | $O(1)$ todas |
+| **Aplicación típica** | Backtracking, parsing | Scheduling, BFS |
+| **Implementación simple** | Lista (un puntero) | Lista (dos punteros) |
+| **Implementación arreglo** | Índice tope | Arreglo circular |
+
+:::{important}
+Ambas estructuras son especializaciones del TAD Secuencia con restricciones de acceso. La restricción no es una limitación, sino una garantía que simplifica el razonamiento sobre el código.
+:::
+
+
+(deques-double-ended-queues)=
+### Deques (Double-Ended Queues)
+
+
+Un **deque** (pronunciado "deck") es una generalización que permite insertar y extraer elementos en ambos extremos.
+
+```{figure} 6/deque.svg
+:label: fig-deque
+:align: center
+
+Deque con operaciones en ambos extremos. Es una generalización de pilas y colas.
+```
+
+(operaciones)=
+#### Operaciones
+
+- **push_front(elemento):** Agrega al frente.
+- **push_back(elemento):** Agrega al final.
+- **pop_front():** Extrae del frente.
+- **pop_back():** Extrae del final.
+
+:::{note}
+Un deque puede simular tanto una pila (usando solo un extremo) como una cola (usando ambos extremos de forma restringida). Es más general pero potencialmente más difícil de razonar sobre su uso.
+:::
+
+(aplicaciones-de-deques)=
+#### Aplicaciones de Deques
+
+- **Algoritmos de ventana deslizante:** Mantener mínimos/máximos en una ventana.
+- **Navegación con historial:** Forward/backward en navegadores.
+- **Work stealing:** Algoritmos paralelos donde los threads roban tareas de ambos extremos.
+
+(ejercicios-de-deques)=
+#### Ejercicios de Deques
+
+##### Ejercicio 1: Verificar palíndromo con Deque
+
+
+##### Ejercicio 2: Simulación de una Pila usando un Deque
+
+
+##### Ejercicio 3: Máximo en una ventana deslizante
+
+
+
+(comparacion-de-implementaciones)=
+### Comparación de Implementaciones
+
+
+(lista-enlazada-vs-arreglo)=
+#### Lista Enlazada vs Arreglo
+
+| Criterio | Lista Enlazada | Arreglo (Circular) |
+|----------|---------------|-------------------|
+| **Memoria** | Overhead por punteros | Compacta, localidad de caché |
+| **Tamaño** | Dinámico sin límite | Requiere redimensionamiento |
+| **Operaciones** | Siempre $O(1)$ | $O(1)$ amortizado |
+| **Complejidad código** | Media | Alta (aritmética modular) |
+| **Uso típico** | Tamaño impredecible | Tamaño acotado |
+
+:::{tip}
+Para aplicaciones donde el rendimiento es crítico y el tamaño máximo es conocido, la implementación con arreglo circular es preferible por su mejor localidad de caché. Para tamaños muy variables o cuando la simplicidad del código importa más que el rendimiento, la lista enlazada es más apropiada.
+:::
+
+
+(panorama-de-estructuras-de-datos)=
+### Panorama de Estructuras de Datos
+
+
+Las pilas y colas son solo el comienzo. Existe un ecosistema rico de estructuras de datos, cada una optimizada para diferentes patrones de acceso.
+
+(clasificacion-por-restricciones-de-acceso)=
+#### Clasificación por Restricciones de Acceso
+
+1. **Acceso Completamente Restringido:**
+   - Pilas: solo el tope es accesible
+   - Colas: solo frente y final
+   
+2. **Acceso Parcialmente Restringido:**
+   - Deques: ambos extremos
+   - Colas de Prioridad: elemento de máxima prioridad
+
+3. **Acceso Indexado:**
+   - Arreglos: acceso por índice en $O(1)$
+   - Listas: acceso secuencial en $O(n)$
+
+4. **Acceso por Clave:**
+   - Tablas Hash: búsqueda en $O(1)$ promedio
+   - Árboles Binarios de Búsqueda: búsqueda en $O(\log n)$
+
+(estructuras-avanzadas)=
+#### Estructuras Avanzadas
+
+**Árboles:**
+- **Heap (Montículo):** Cola de prioridad eficiente, $O(\log n)$ insert/extract-min
+- **BST (Binary Search Tree):** Búsqueda, inserción, eliminación en $O(\log n)$ promedio
+- **AVL/Red-Black:** BST balanceados, garantizan $O(\log n)$ peor caso
+- **B-trees:** Árboles de búsqueda para almacenamiento en disco
+- **Tries:** Árboles de prefijos para strings
+
+**Grafos:**
+- **Matriz de Adyacencia:** Representación densa, $O(1)$ para verificar arista
+- **Lista de Adyacencia:** Representación dispersa, eficiente en espacio
+
+**Tablas Hash:**
+- **Chaining:** Manejo de colisiones con listas
+- **Open Addressing:** Probing para resolver colisiones
+- **Rendimiento:** $O(1)$ promedio para insert/search/delete
+
+**Estructuras Especializadas:**
+- **Union-Find:** Conjuntos disjuntos dinámicos
+- **Filtros de Bloom:** Verificación probabilística de pertenencia
+- **Skip Lists:** Estructura probabilística alternativa a BST
+
+:::{note}
+Cada estructura de datos representa un compromiso (*trade-off*) entre tiempo de operaciones, espacio usado y complejidad de implementación. No existe la "mejor" estructura, solo la más apropiada para cada contexto. Para comprender cómo comparar formalmente estructuras de datos usando análisis de complejidad, consultá {ref}`complejidad-introduccion`.
+:::
+
+## Ejercicios de Autoevaluación
+
 :::{exercise}
 :label: ejercicio-pila-invertir-cadena
 
@@ -445,7 +963,6 @@ void invertir_cadena(char *cadena)
 Este algoritmo tiene una complejidad temporal de $O(n)$ y una complejidad espacial de $O(n)$ debido al espacio ocupado por los nodos de la pila.
 :::
 
-#### Ejercicio 2: Validar expresiones con múltiples delimitadores
 :::{exercise}
 :label: ejercicio-pila-validar-delimitadores
 
@@ -526,7 +1043,6 @@ bool delimitadores_balanceados(const char *expresion)
 La complejidad temporal del algoritmo es $O(n)$ donde $n$ representa la longitud de la expresión, ya que se recorre la cadena mediante un único lazo. La complejidad espacial es $O(n)$ en el peor caso de una cadena formada enteramente por delimitadores de apertura.
 :::
 
-#### Ejercicio 3: Evaluación de expresiones postfijas
 :::{exercise}
 :label: ejercicio-pila-evaluar-postfija
 
@@ -661,356 +1177,6 @@ int evaluar_postfija(const char *expresion, bool *error)
 La complejidad temporal es lineal $O(n)$ con respecto a la longitud de la cadena, y la complejidad espacial es $O(n)$ debido a la memoria de la pila.
 :::
 
-
-(colas-queues)=
-## Colas (Queues)
-
-Una **cola** es una estructura de datos lineal que sigue el principio **FIFO** (*First In, First Out*): el primer elemento en entrar es el primero en salir. Es análogo a una fila de personas donde quien llega primero es atendido primero.
-
-```{figure} 18/cola_lista_enlazada.svg
-:label: fig-cola-lista
-:align: center
-
-Representación en memoria de una cola implementada con lista enlazada. Se mantienen punteros al frente y al final.
-```
-
-#### Estructura de Datos
-
-```{code-block}c
-:linenos:
-typedef struct nodo {
-    void *dato;
-    struct nodo *siguiente;
-} nodo_t;
-
-struct cola {
-    nodo_t *frente;
-    nodo_t *final;
-    size_t tamanio;
-};
-```
-
-::::{note}
-A diferencia de la pila que solo requiere de un puntero al tope, la cola utiliza dos punteros: uno al frente (para `cola_dequeue`) y otro al final (para `cola_enqueue`). Esto garantiza que ambas operaciones se ejecuten en tiempo constante $O(1)$.
-:::
-
-#### Creación de una Cola
-
-```{code-block}c
-:linenos:
-cola_t *cola_crear(void)
-{
-    cola_t *cola = malloc(sizeof(*cola));
-    if (cola == NULL)
-    {
-        return NULL;
-    }
-    
-    cola->frente = NULL;
-    cola->final = NULL;
-    cola->tamanio = 0;
-    
-    return cola;
-}
-```
-
-#### Encolar (Enqueue)
-
-```{code-block}c
-:linenos:
-bool cola_enqueue(cola_t *cola, void *dato)
-{
-    if (cola == NULL)
-    {
-        return false;
-    }
-    
-    nodo_t *nuevo = malloc(sizeof(*nuevo));
-    if (nuevo == NULL)
-    {
-        return false;
-    }
-    
-    nuevo->dato = dato;
-    nuevo->siguiente = NULL;
-    
-    if (cola->final == NULL)
-    {
-        cola->frente = nuevo;
-        cola->final = nuevo;
-    }
-    else
-    {
-        cola->final->siguiente = nuevo;
-        cola->final = nuevo;
-    }
-    
-    cola->tamanio++;
-    return true;
-}
-```
-
-:::{important}
-Es indispensable considerar el caso particular de la cola vacía. En tal situación, tanto el puntero `frente` como el puntero `final` deben referenciar al nuevo nodo creado.
-:::
-
-#### Desencolar (Dequeue)
-
-```{code-block}c
-:linenos:
-bool cola_dequeue(cola_t *cola, void **dato)
-{
-    if (cola == NULL || cola->frente == NULL)
-    {
-        return false;
-    }
-    
-    nodo_t *nodo_a_eliminar = cola->frente;
-    if (dato != NULL)
-    {
-        *dato = nodo_a_eliminar->dato;
-    }
-    cola->frente = nodo_a_eliminar->siguiente;
-    
-    if (cola->frente == NULL)
-    {
-        cola->final = NULL;
-    }
-    
-    free(nodo_a_eliminar);
-    cola->tamanio--;
-    
-    return true;
-}
-```
-
-:::{important}
-Al extraer el último elemento de la cola, esta queda vacía. En ese escenario, además de actualizar el puntero `frente` a `NULL`, es necesario establecer el puntero `final` en `NULL`.
-:::
-
-#### Ver Frente (Peek)
-
-```{code-block}c
-:linenos:
-bool cola_peek(const cola_t *cola, void **dato)
-{
-    if (cola == NULL || cola->frente == NULL)
-    {
-        return false;
-    }
-    
-    if (dato != NULL)
-    {
-        *dato = cola->frente->dato;
-    }
-    return true;
-}
-```
-
-#### Destruir Cola
-
-```{code-block}c
-:linenos:
-void cola_destruir(cola_t *cola, destruir_dato_fn destruir_dato)
-{
-    if (cola == NULL)
-    {
-        return;
-    }
-    
-    while (cola->frente != NULL)
-    {
-        nodo_t *nodo_actual = cola->frente;
-        cola->frente = nodo_actual->siguiente;
-        if (destruir_dato != NULL && nodo_actual->dato != NULL)
-        {
-            destruir_dato(nodo_actual->dato);
-        }
-        free(nodo_actual);
-    }
-    
-    free(cola);
-}
-```
-
-(analisis-de-complejidad-lista-enlazada)=
-### Análisis de Complejidad (Lista Enlazada)
-
-| Operación | Complejidad Temporal | Complejidad Espacial |
-|-----------|---------------------|---------------------|
-| enqueue | $O(1)$ | $O(1)$ |
-| dequeue | $O(1)$ | $O(1)$ |
-| peek | $O(1)$ | $O(1)$ |
-| es_vacia | $O(1)$ | $O(1)$ |
-
-(implementacion-con-arreglo-circular)=
-### Implementación con Arreglo Circular
-
-Una implementación eficiente de cola con arreglo usa la técnica de **arreglo circular**, donde los índices "dan la vuelta" al final del arreglo.
-
-```{figure} 18/cola_circular.svg
-:label: fig-cola-circular
-:align: center
-
-Cola implementada como arreglo circular. Los índices se calculan módulo la capacidad.
-```
-
-#### Estructura de Datos
-
-```{code-block}c
-:linenos:
-struct cola {
-    void **elementos;
-    size_t frente;
-    size_t final;
-    size_t tamanio;
-    size_t capacidad;
-};
-```
-
-:::{note}
-En esta implementación con arreglo circular, el índice `final` apunta a la posición **después** del último elemento. Esto simplifica la lógica de detección de cola vacía o llena.
-:::
-
-#### Creación de Cola Circular
-
-```{code-block}c
-:linenos:
-cola_t *cola_crear_circular(size_t capacidad_inicial)
-{
-    if (capacidad_inicial == 0)
-    {
-        return NULL;
-    }
-    
-    cola_t *cola = malloc(sizeof(*cola));
-    if (cola == NULL)
-    {
-        return NULL;
-    }
-    
-    cola->elementos = malloc(capacidad_inicial * sizeof(*(cola->elementos)));
-    if (cola->elementos == NULL)
-    {
-        free(cola);
-        return NULL;
-    }
-    
-    cola->frente = 0;
-    cola->final = 0;
-    cola->tamanio = 0;
-    cola->capacidad = capacidad_inicial;
-    
-    return cola;
-}
-```
-
-#### Encolar en Arreglo Circular
-
-```{code-block}c
-:linenos:
-static bool cola_redimensionar_circular(cola_t *cola)
-{
-    size_t nueva_capacidad = cola->capacidad * 2;
-    void **nuevo_arreglo = malloc(nueva_capacidad * sizeof(*nuevo_arreglo));
-    if (nuevo_arreglo == NULL)
-    {
-        return false;
-    }
-    
-    for (size_t i = 0; i < cola->tamanio; i++)
-    {
-        size_t indice = (cola->frente + i) % cola->capacidad;
-        nuevo_arreglo[i] = cola->elementos[indice];
-    }
-    
-    free(cola->elementos);
-    cola->elementos = nuevo_arreglo;
-    cola->frente = 0;
-    cola->final = cola->tamanio;
-    cola->capacidad = nueva_capacidad;
-    
-    return true;
-}
-
-bool cola_enqueue_circular(cola_t *cola, void *dato)
-{
-    if (cola == NULL)
-    {
-        return false;
-    }
-    
-    if (cola->tamanio == cola->capacidad)
-    {
-        if (!cola_redimensionar_circular(cola))
-        {
-            return false;
-        }
-    }
-    
-    cola->elementos[cola->final] = dato;
-    cola->final = (cola->final + 1) % cola->capacidad;
-    cola->tamanio++;
-    
-    return true;
-}
-```
-
-:::{tip}
-El operador módulo `%` permite que el índice "dé la vuelta". Por ejemplo, si `capacidad = 5` y `final = 4`, entonces `(4 + 1) % 5 = 0`, retornando al inicio del arreglo.
-:::
-
-#### Desencolar en Arreglo Circular
-
-```{code-block}c
-:linenos:
-bool cola_dequeue_circular(cola_t *cola, void **dato)
-{
-    if (cola == NULL || cola->tamanio == 0)
-    {
-        return false;
-    }
-    
-    if (dato != NULL)
-    {
-        *dato = cola->elementos[cola->frente];
-    }
-    cola->frente = (cola->frente + 1) % cola->capacidad;
-    cola->tamanio--;
-    
-    return true;
-}
-```
-
-:::{important}
-Al redimensionar, es crucial copiar los elementos en el orden secuencial correcto (frente a final), considerando que el frente puede no estar alineado en la posición 0 del arreglo original.
-:::
-
-(analisis-de-complejidad-arreglo-circular)=
-### Análisis de Complejidad (Arreglo Circular)
-
-| Operación | Complejidad Temporal | Complejidad Espacial |
-|-----------|---------------------|---------------------|
-| enqueue | $O(1)$ amortizado | $O(1)$ |
-| dequeue | $O(1)$ | $O(1)$ |
-| peek | $O(1)$ | $O(1)$ |
-| es_vacia | $O(1)$ | $O(1)$ |
-
-(aplicaciones-de-colas)=
-### Aplicaciones de Colas
-
-Las colas modelan situaciones donde el orden de llegada importa:
-
-1. **Sistemas operativos:** Scheduling de procesos, colas de impresión.
-2. **Redes:** Buffers de transmisión, enrutamiento de paquetes.
-3. **Algoritmos de grafos:** Búsqueda en anchura (BFS).
-4. **Simulaciones:** Modelado de filas de espera, teoría de colas.
-5. **Procesamiento asíncrono:** Cola de tareas, sistemas de mensajería.
-
-(ejercicios-de-colas)=
-### Ejercicios de Colas
-
-#### Ejercicio 1: Simulador de cola de impresión
 :::{exercise}
 :label: ejercicio-cola-simulador-impresora
 
@@ -1075,7 +1241,6 @@ int simular_impresora(trabajo_t *trabajos, size_t n)
 La complejidad temporal es $O(n)$ debido a que se encolan y desencolan $n$ elementos exactamente una vez. La complejidad espacial es $O(n)$ para mantener la estructura interna de la cola.
 :::
 
-#### Ejercicio 2: Implementación de cola con dos pilas
 :::{exercise}
 :label: ejercicio-cola-dos-pilas
 
@@ -1175,7 +1340,6 @@ void cola_pilas_destruir(cola_pilas_t *cola, destruir_dato_fn destruir_dato)
 La operación `enqueue` tiene un costo temporal de $O(1)$. La operación `dequeue` tiene un costo temporal amortizado de $O(1)$ porque cada elemento es apilado y desapilado un número constante de veces a lo largo de su ciclo de vida en la estructura. La complejidad espacial es $O(n)$ donde $n$ es el número de elementos contenidos en la cola.
 :::
 
-#### Ejercicio 3: Invertir los primeros K elementos de una cola
 :::{exercise}
 :label: ejercicio-cola-invertir-k
 
@@ -1246,58 +1410,6 @@ bool invertir_primeros_k(cola_t *cola, size_t k)
 La complejidad temporal de esta solución es lineal $O(n)$ donde $n$ es la cantidad de elementos en la cola. La complejidad espacial es $O(k)$ por los elementos almacenados temporalmente en la pila auxiliar.
 :::
 
-(comparacion-pilas-vs-colas)=
-## Comparación: Pilas vs Colas
-
-| Aspecto | Pila (LIFO) | Cola (FIFO) |
-|---------|------------|------------|
-| **Política** | Last In, First Out | First In, First Out |
-| **Analogía** | Pila de platos | Fila de personas |
-| **Operaciones** | push, pop, peek | enqueue, dequeue, peek |
-| **Complejidad** | $O(1)$ todas | $O(1)$ todas |
-| **Aplicación típica** | Backtracking, parsing | Scheduling, BFS |
-| **Implementación simple** | Lista (un puntero) | Lista (dos punteros) |
-| **Implementación arreglo** | Índice tope | Arreglo circular |
-
-:::{important}
-Ambas estructuras son especializaciones del TAD Secuencia con restricciones de acceso. La restricción no es una limitación, sino una garantía que simplifica el razonamiento sobre el código.
-:::
-
-(deques-double-ended-queues)=
-## Deques (Double-Ended Queues)
-
-Un **deque** (pronunciado "deck") es una generalización que permite insertar y extraer elementos en ambos extremos.
-
-```{figure} 18/deque.svg
-:label: fig-deque
-:align: center
-
-Deque con operaciones en ambos extremos. Es una generalización de pilas y colas.
-```
-
-(operaciones)=
-### Operaciones
-
-- **push_front(elemento):** Agrega al frente.
-- **push_back(elemento):** Agrega al final.
-- **pop_front():** Extrae del frente.
-- **pop_back():** Extrae del final.
-
-:::{note}
-Un deque puede simular tanto una pila (usando solo un extremo) como una cola (usando ambos extremos de forma restringida). Es más general pero potencialmente más difícil de razonar sobre su uso.
-:::
-
-(aplicaciones-de-deques)=
-### Aplicaciones de Deques
-
-- **Algoritmos de ventana deslizante:** Mantener mínimos/máximos en una ventana.
-- **Navegación con historial:** Forward/backward en navegadores.
-- **Work stealing:** Algoritmos paralelos donde los threads roban tareas de ambos extremos.
-
-(ejercicios-de-deques)=
-### Ejercicios de Deques
-
-#### Ejercicio 1: Verificar palíndromo con Deque
 :::{exercise}
 :label: ejercicio-deque-palindromo
 
@@ -1371,7 +1483,6 @@ bool es_palindromo_deque(const char *cadena)
 La complejidad temporal de la verificación es lineal $O(n)$ con respecto a la longitud de la cadena. La complejidad espacial es $O(n)$ debido al almacenamiento de los caracteres en el deque.
 :::
 
-#### Ejercicio 2: Simulación de una Pila usando un Deque
 :::{exercise}
 :label: ejercicio-deque-pila
 
@@ -1449,7 +1560,6 @@ void pila_deque_destruir(pila_deque_t *pila, destruir_dato_fn destruir_dato)
 Tanto `push` como `pop` heredan la complejidad temporal de $O(1)$ del Deque. La complejidad espacial es $O(n)$ en función del número de elementos contenidos.
 :::
 
-#### Ejercicio 3: Máximo en una ventana deslizante
 :::{exercise}
 :label: ejercicio-deque-ventana-deslizante
 
@@ -1552,99 +1662,18 @@ int *maximos_ventana_deslizante(const int *arreglo, size_t n, size_t k, size_t *
 Dado que cada índice del arreglo se inserta y extrae del deque como máximo una vez, el tiempo consumido por las operaciones internas del deque a lo largo de todo el proceso está acotado por $O(n)$, logrando una complejidad temporal óptima de $O(n)$. La complejidad espacial es $O(k)$ para almacenar los índices dentro del deque.
 :::
 
-(comparacion-de-implementaciones)=
-## Comparación de Implementaciones
+## Glosario
 
-(lista-enlazada-vs-arreglo)=
-### Lista Enlazada vs Arreglo
+- **TAD (Tipo Abstracto de Datos)**: Modelo matemático para tipos de datos definidos por su comportamiento y operaciones.
+- **Pila (Stack)**: Estructura de datos LIFO.
+- **Cola (Queue)**: Estructura de datos FIFO.
+- **Encapsulación**: Ocultamiento de la representación de datos del cliente.
 
-| Criterio | Lista Enlazada | Arreglo (Circular) |
-|----------|---------------|-------------------|
-| **Memoria** | Overhead por punteros | Compacta, localidad de caché |
-| **Tamaño** | Dinámico sin límite | Requiere redimensionamiento |
-| **Operaciones** | Siempre $O(1)$ | $O(1)$ amortizado |
-| **Complejidad código** | Media | Alta (aritmética modular) |
-| **Uso típico** | Tamaño impredecible | Tamaño acotado |
-
-:::{tip}
-Para aplicaciones donde el rendimiento es crítico y el tamaño máximo es conocido, la implementación con arreglo circular es preferible por su mejor localidad de caché. Para tamaños muy variables o cuando la simplicidad del código importa más que el rendimiento, la lista enlazada es más apropiada.
-:::
-
-(panorama-de-estructuras-de-datos)=
-## Panorama de Estructuras de Datos
-
-Las pilas y colas son solo el comienzo. Existe un ecosistema rico de estructuras de datos, cada una optimizada para diferentes patrones de acceso.
-
-(clasificacion-por-restricciones-de-acceso)=
-### Clasificación por Restricciones de Acceso
-
-1. **Acceso Completamente Restringido:**
-   - Pilas: solo el tope es accesible
-   - Colas: solo frente y final
-   
-2. **Acceso Parcialmente Restringido:**
-   - Deques: ambos extremos
-   - Colas de Prioridad: elemento de máxima prioridad
-
-3. **Acceso Indexado:**
-   - Arreglos: acceso por índice en $O(1)$
-   - Listas: acceso secuencial en $O(n)$
-
-4. **Acceso por Clave:**
-   - Tablas Hash: búsqueda en $O(1)$ promedio
-   - Árboles Binarios de Búsqueda: búsqueda en $O(\log n)$
-
-(estructuras-avanzadas)=
-### Estructuras Avanzadas
-
-**Árboles:**
-- **Heap (Montículo):** Cola de prioridad eficiente, $O(\log n)$ insert/extract-min
-- **BST (Binary Search Tree):** Búsqueda, inserción, eliminación en $O(\log n)$ promedio
-- **AVL/Red-Black:** BST balanceados, garantizan $O(\log n)$ peor caso
-- **B-trees:** Árboles de búsqueda para almacenamiento en disco
-- **Tries:** Árboles de prefijos para strings
-
-**Grafos:**
-- **Matriz de Adyacencia:** Representación densa, $O(1)$ para verificar arista
-- **Lista de Adyacencia:** Representación dispersa, eficiente en espacio
-
-**Tablas Hash:**
-- **Chaining:** Manejo de colisiones con listas
-- **Open Addressing:** Probing para resolver colisiones
-- **Rendimiento:** $O(1)$ promedio para insert/search/delete
-
-**Estructuras Especializadas:**
-- **Union-Find:** Conjuntos disjuntos dinámicos
-- **Filtros de Bloom:** Verificación probabilística de pertenencia
-- **Skip Lists:** Estructura probabilística alternativa a BST
-
-:::{note}
-Cada estructura de datos representa un compromiso (*trade-off*) entre tiempo de operaciones, espacio usado y complejidad de implementación. No existe la "mejor" estructura, solo la más apropiada para cada contexto. Para comprender cómo comparar formalmente estructuras de datos usando análisis de complejidad, consultá {ref}`complejidad-introduccion`.
-:::
-
-
-
-(referencias-y-lecturas-complementarias)=
-## Referencias y Lecturas Complementarias
-
-Para profundizar en el estudio de los TADs y estructuras de datos, se recomiendan las siguientes referencias:
-
-- Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2009). *Introduction to Algorithms* (3rd ed.). MIT Press.
-- Weiss, M. A. (2014). *Data Structures and Algorithm Analysis in C* (2nd ed.). Pearson.
-- Sedgewick, R., & Wayne, K. (2011). *Algorithms* (4th ed.). Addison-Wesley.
-
-Para aspectos específicos de gestión de memoria y su impacto en la implementación de TADs, consultá:
-
-- {ref}`memoria-dinamica-capitulo` para entender el modelo de memoria completo.
-- {ref}`memoria-buenas-practicas` para patrones seguros de manejo de memoria dinámica.
-- [Capítulo: Memoria Dinámica — sección Valgrind](14_memoria_dinamica.md) para técnicas de depuración de estructuras dinámicas.
-
-:::{tip}
-La implementación de TADs es una habilidad fundamental que requiere práctica. Te recomendamos implementar cada estructura desde cero al menos una vez, probando exhaustivamente cada operación con casos de prueba variados. Usá herramientas como Valgrind durante el desarrollo para detectar fugas de memoria tempranamente.
-:::
+## Síntesis y Resumen
 
 (resumen)=
-## Resumen
+### Resumen
+
 
 Los Tipos de Datos Abstractos son una herramienta fundamental para construir software modular y mantenible. En este apunte hemos cubierto:
 
@@ -1672,4 +1701,26 @@ Las pilas y colas demuestran este principio perfectamente: ambas pueden implemen
 
 :::{tip}
 Dominar estas estructuras de datos es esencial para avanzar hacia estructuras más complejas como árboles, grafos y tablas de hash, que se construyen sobre estos fundamentos. La correcta gestión de memoria dinámica, tema central en este apunte, es la base para implementar cualquier estructura de datos compleja de manera segura y eficiente.
+:::
+
+## Referencias y Lecturas Complementarias
+
+(referencias-y-lecturas-complementarias)=
+### Referencias y Lecturas Complementarias
+
+
+Para profundizar en el estudio de los TADs y estructuras de datos, se recomiendan las siguientes referencias:
+
+- Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2009). *Introduction to Algorithms* (3rd ed.). MIT Press.
+- Weiss, M. A. (2014). *Data Structures and Algorithm Analysis in C* (2nd ed.). Pearson.
+- Sedgewick, R., & Wayne, K. (2011). *Algorithms* (4th ed.). Addison-Wesley.
+
+Para aspectos específicos de gestión de memoria y su impacto en la implementación de TADs, consultá:
+
+- {ref}`memoria-dinamica-capitulo` para entender el modelo de memoria completo.
+- {ref}`memoria-buenas-practicas` para patrones seguros de manejo de memoria dinámica.
+- [Capítulo: Memoria Dinámica — sección Valgrind](1_memoria_dinamica.md) para técnicas de depuración de estructuras dinámicas.
+
+:::{tip}
+La implementación de TADs es una habilidad fundamental que requiere práctica. Te recomendamos implementar cada estructura desde cero al menos una vez, probando exhaustivamente cada operación con casos de prueba variados. Usá herramientas como Valgrind durante el desarrollo para detectar fugas de memoria tempranamente.
 :::

@@ -4,55 +4,24 @@ short_title: La memoria
 description: 'Mapeo de memoria virtual, segmento de código, datos, stack, heap y la jerarquía de memoria física.'
 ---
 
-(introduccion-el-mapa-de-memoria-de-un-programa)=
-## Introducción: El Mapa de Memoria de un Programa
+(capitulo-modelo-memoria)=
+## Introducción
 
 Todas las variables y el código de un programa residen en la memoria. Cuando un programa se ejecuta, el sistema operativo le asigna un espacio de direcciones virtuales que se organiza en secciones específicas, cada una con un propósito diferente. Esta organización permite al sistema gestionar eficientemente los recursos y aislar las distintas necesidades de almacenamiento.
 
-(ejercicios-de-autoevaluacion-mapa-de-memoria)=
-### Ejercicios de Autoevaluación: Mapa de Memoria
 
-:::{exercise}
-:label: ejer-intro-mmu
-Explicá el rol de la MMU (Memory Management Unit) y de la tabla de páginas en el proceso de traducción de direcciones virtuales a físicas. ¿Qué ventaja ofrece este mecanismo en términos de aislamiento de procesos?
-:::
 
-:::{solution} ejer-intro-mmu
-:class: dropdown
-La MMU es el componente de hardware que intercepta cada acceso a memoria realizado por la CPU y traduce la dirección virtual (generada por el programa) a una dirección física (en la RAM). Esta traducción se basa en la **tabla de páginas** gestionada por el sistema operativo para el proceso activo.
 
-La principal ventaja en términos de aislamiento es la seguridad: cada proceso posee su propia tabla de páginas y, por ende, su propio espacio de direcciones virtuales. Un proceso no puede leer ni escribir en la memoria física asignada a otro proceso porque no dispone de entradas en su tabla de páginas que apunten a esas ubicaciones físicas, lo que garantiza el aislamiento absoluto de los recursos de cada programa.
-:::
 
-:::{exercise}
-:label: ejer-intro-text-readonly
-Analizá por qué el segmento de código (`.text`) posee permisos de solo lectura a nivel de hardware y qué ocurre si un programa intenta realizar una escritura en una dirección de memoria perteneciente a este segmento durante su ejecución.
-:::
 
-:::{solution} ejer-intro-text-readonly
-:class: dropdown
-El segmento `.text` se configura como solo lectura por razones de seguridad y robustez:
-1. **Seguridad:** Evita que se inyecte código malicioso o malware que intente reescribir las instrucciones en tiempo de ejecución.
-2. **Robustez:** Previene modificaciones accidentales de la lógica del programa debido a errores de punteros (punteros colgantes o accesos fuera de límites).
 
-Si un programa intenta escribir en el segmento `.text`, la MMU detectará la violación de los permisos asignados a esa página de memoria (permisos de lectura/ejecución, pero no de escritura). El hardware notificará al procesador, el cual generará una interrupción que el sistema operativo capturará, terminando el proceso inmediatamente mediante una señal de fallo de segmentación (típicamente `SIGSEGV` en sistemas tipo Unix/Linux).
-:::
-
-:::{exercise}
-:label: ejer-intro-data-bss
-Considerá el caso de dos variables globales en C: `int var_a = 42;` e `int var_b = 0;`. Explicá detalladamente en qué segmentos de memoria se almacena cada una y cuál es la justificación técnica de esta subdivisión en el archivo ejecutable.
-:::
-
-:::{solution} ejer-intro-data-bss
-:class: dropdown
-1. `var_a` se almacena en el segmento `.data` porque es una variable global inicializada explícitamente con un valor distinto de cero.
-2. `var_b` se almacena en el segmento `.bss` (Block Started by Symbol) porque es una variable global inicializada con valor cero.
-
-La justificación técnica de esta división es la optimización del tamaño del archivo ejecutable en disco. El segmento `.data` requiere almacenar físicamente los valores iniciales (en este caso, los bytes correspondientes al entero `42`). Por el contrario, el segmento `.bss` no necesita almacenar bytes individuales de ceros en el disco; el formato del ejecutable simplemente registra el tamaño total requerido para las variables en `.bss`. Al cargar el programa, el sistema operativo reserva esa cantidad de memoria física y la inicializa a cero en un solo paso, ahorrando espacio de almacenamiento en el disco duro y tiempo de transferencia.
-:::
 
 (estado-de-un-programa)=
-## Estado de un Programa
+
+## Desarrollo
+
+### Introducción: El Mapa de Memoria de un Programa
+### Estado de un Programa
 
 //? Integrar a este apunte.
 
@@ -67,12 +36,12 @@ análisis del comportamiento del programa. Se compone de varios elementos
 distribuidos en la memoria y en los registros del procesador.
 
 (componentes-principales-del-estado)=
-### Componentes Principales del Estado
+#### Componentes Principales del Estado
 
 El estado de un programa en C se almacena principalmente en las siguientes áreas
 de memoria y registros de la CPU:
 
-#### 1\. **La Pila (Stack)**
+##### 1\. **La Pila (Stack)**
 
 Es una región de memoria gestionada por el compilador bajo un modelo LIFO
 (Last-In, First-Out). Cada vez que se invoca una función, se crea un nuevo
@@ -92,7 +61,7 @@ El _stack frame_ de una función contiene:
 El estado en la pila es **volátil y efímero**; se crea al entrar en una función
 y se destruye al salir de ella.
 
-#### 2\. **El Montículo (Heap)**
+##### 2\. **El Montículo (Heap)**
 
 Es una región de memoria para la **asignación dinámica**. A diferencia de la
 pila, su gestión es explícita y responsabilidad del programador mediante el uso
@@ -105,7 +74,7 @@ los cuales pueden residir en la pila, en el segmento de datos, o incluso en otro
 bloque del propio montículo. La gestión incorrecta del heap (e.g., no liberar
 memoria con `free()`) conduce a **fugas de memoria** (_memory leaks_).
 
-#### 3\. **Segmentos de Datos Estáticos**
+##### 3\. **Segmentos de Datos Estáticos**
 
 Estas áreas de memoria se asignan cuando el programa se carga y persisten
 durante toda su ejecución. Se dividen principalmente en dos:
@@ -121,7 +90,7 @@ durante toda su ejecución. Se dividen principalmente en dos:
 El contenido de estas variables forma una parte persistente del estado del
 programa.
 
-#### 4\. **Contexto de Ejecución (CPU)**
+##### 4\. **Contexto de Ejecución (CPU)**
 
 El estado no reside únicamente en la memoria RAM, sino también en los registros
 internos de la CPU.
@@ -135,7 +104,7 @@ internos de la CPU.
   El contenido de estos registros es una parte muy volátil pero esencial del
   estado en un instante preciso.
 
-#### 5\. **Estado Externo**
+##### 5\. **Estado Externo**
 
 Un programa interactúa con el sistema operativo y otros sistemas. Este estado
 incluye:
@@ -148,7 +117,7 @@ incluye:
   pero aún no han sido vaciados (_flushed_) al disco o a la red, y viceversa.
 
 (ejemplo-practico-detallado)=
-### Ejemplo Práctico Detallado
+#### Ejemplo Práctico Detallado
 
 Analicemos el estado en un punto específico del siguiente programa en C:
 
@@ -226,7 +195,7 @@ int main() {
     `sprintf`.
 
 (transiciones-de-estado)=
-### Transiciones de Estado
+#### Transiciones de Estado
 
 El programa es una máquina que transita de un estado a otro. Cada instrucción
 ejecutada modifica el estado:
@@ -249,14 +218,14 @@ de estado más allá de su implementación técnica en C, enfocándose en su rol
 información unificada.
 
 (ampliacion-el-estado-como-informacion-y-potencialidad)=
-### Ampliación: El Estado como Información y Potencialidad
+#### Ampliación: El Estado como Información y Potencialidad
 
 Si nos abstraemos de la implementación física (pila, montículo, registros),
 podemos entender el **estado del programa** desde una perspectiva teórica más
 amplia, como un concepto de la teoría de la información y de los sistemas
 dinámicos.
 
-#### El Programa como una Trayectoria en un Espacio de Estados
+##### El Programa como una Trayectoria en un Espacio de Estados
 
 Imaginemos un vasto universo multidimensional donde cada punto representa un
 único estado posible que el programa podría adoptar. Este universo es el
@@ -278,7 +247,7 @@ $S_{t+1}$).
 Desde esta óptica, el estado en su conjunto es la **coordenada exacta del
 programa dentro de su universo de posibilidades** en un instante dado.
 
-#### Determinismo y la Flecha del Tiempo del Programa
+##### Determinismo y la Flecha del Tiempo del Programa
 
 Un sistema es **determinista** si su estado futuro está completamente
 determinado por su estado actual y sus entradas. Gran parte de un programa en C
@@ -301,7 +270,7 @@ El estado, por lo tanto, es el registro de la historia única de la trayectoria
 del programa, incluyendo cómo resolvió las bifurcaciones no-deterministas que
 encontró.
 
-#### El Estado como Información y Potencialidad
+##### El Estado como Información y Potencialidad
 
 En su nivel más fundamental, el estado es la **encarnación de la información**
 que el programa ha acumulado. Es su memoria. Contiene todo lo que el programa
@@ -328,7 +297,7 @@ futuro.
 
 
 (memoria-virtual-la-abstraccion-fundamental)=
-### Memoria Virtual: La Abstracción Fundamental
+#### Memoria Virtual: La Abstracción Fundamental
 
 Es crucial comprender que la memoria que ves desde tu programa no es la memoria física (RAM) directamente. El sistema operativo, en colaboración con el procesador, implementa un sistema de **memoria virtual** que proporciona a cada proceso su propio espacio de direcciones aislado.
 
@@ -350,7 +319,7 @@ La memoria virtual es una capa de abstracción que mapea direcciones virtuales (
 
 La memoria se divide en bloques de tamaño fijo llamados **páginas** (típicamente 4 KB en sistemas x86/x86_64). El sistema operativo gestiona la memoria en unidades de páginas, no bytes individuales. Cuando tu programa solicita memoria, el sistema operativo asigna páginas completas, aunque solo uses una porción de ellas.
 
-```{figure} 13/mmu_translation.svg
+```{figure} 1/mmu_translation.svg
 :name: fig-mmu-translation
 :width: 90%
 
@@ -366,7 +335,7 @@ Aunque esta abstracción es transparente para el programador en la mayoría de l
   :::
 
 (segmentacion-de-la-memoria)=
-### Segmentación de la Memoria
+#### Segmentación de la Memoria
 
 Un programa en ejecución divide su espacio de memoria en las siguientes áreas:
 
@@ -380,7 +349,7 @@ Un programa en ejecución divide su espacio de memoria en las siguientes áreas:
 les dará un valore en cero al cargar el programa.
 
 
-#### La palabra clave `extern`
+##### La palabra clave `extern`
 
 La palabra clave `extern` se utiliza para declarar una variable global que está definida en otro archivo fuente. No crea una variable, sino que le dice al compilador: "Esta variable existe en otro lugar, confía en mí. El enlazador (linker) se encargará de encontrarla".
 
@@ -426,76 +395,27 @@ entre varios archivos son aún mas problemáticas, ver {ref}`0x2004h`.
 
 **Stack (Pila)** : Zona de memoria para variables locales y gestión de llamadas a funciones. Crece desde direcciones altas hacia direcciones bajas. Su gestión es automática.
 
-```{figure} 13/mapa.png
+```{figure} 1/mapa.png
 :name: fig-memory-layout
 :width: 60%
 
 Organización típica de la memoria de un proceso en sistemas Unix/Linux.
 ```
 
-(ejercicios-de-autoevaluacion-estado-de-un-programa)=
-### Ejercicios de Autoevaluación: Estado de un Programa
 
-:::{exercise}
-:label: ejer-estado-snapshot
-Si quisieras pausar la ejecución de un programa en C en un instante $t$ y reanudarlo exactamente en el mismo punto en otra máquina con la misma arquitectura, describí qué elementos concretos deberías capturar para reconstruir el **estado del programa**. ¿Es necesario guardar el segmento `.text`?
-:::
 
-:::{solution} ejer-estado-snapshot
-:class: dropdown
-Para capturar y reconstruir completamente el estado del programa necesitás:
-1. El contenido completo del **Stack** (los marcos de pila activos, variables locales y parámetros).
-2. El contenido completo del **Heap** (toda la memoria dinámica asignada y aún no liberada).
-3. Los segmentos de memoria estática **`.data`** y **`.bss`** con los valores de las variables globales y estáticas en el instante $t$.
-4. El contexto de ejecución de la CPU: el **Contador de Programa (PC)** (para saber cuál es la siguiente instrucción a ejecutar), el puntero de pila (SP) y los registros de propósito general.
-5. El estado de los descriptores de archivos abiertos y buffers del sistema operativo asociados al proceso.
 
-No es necesario guardar el segmento `.text` en la instantánea si se dispone del archivo ejecutable original en la máquina de destino, dado que el segmento `.text` es de solo lectura y permanece inmutable durante toda la ejecución.
-:::
 
-:::{exercise}
-:label: ejer-estado-clasificacion
-Identificá en qué área del estado de memoria (Stack, Heap, `.rodata`, `.data` o `.bss`) se ubican los siguientes elementos durante la ejecución de un programa en C:
-a) Una variable local declarada como `static int llamadas = 0;`.
-b) Una cadena literal `"Ingrese una opcion: "` pasada a un `printf`.
-c) La memoria de una estructura reservada mediante `malloc` para almacenar un nodo.
-d) Un puntero local `nodo_t *nuevo` que guarda la dirección retornada por el `malloc` anterior.
-:::
 
-:::{solution} ejer-estado-clasificacion
-:class: dropdown
-La ubicación de cada elemento es la siguiente:
-a) **Segmento `.bss`:** La palabra clave `static` indica que la variable tiene duración de almacenamiento estática (persiste durante todo el programa) pero su alcance es local a la función. Al estar inicializada en cero, se destina a `.bss`.
-b) **Segmento `.rodata`:** Las cadenas literales son datos constantes de solo lectura.
-c) **Heap (Montículo):** Toda la memoria asignada explícitamente en tiempo de ejecución mediante funciones como `malloc` reside en el heap.
-d) **Stack (Pila):** El puntero en sí es una variable local declarada dentro del ámbito de una función, por lo que su marco de pila contiene la dirección de memoria donde se almacena el puntero.
-:::
 
-:::{exercise}
-:label: ejer-estado-transicion
-Explicá de qué manera una instrucción de llamada a función (como `procesar(5);`) y su correspondiente retorno (`return;`) modifican el estado de la pila y el Contador de Programa (PC). Describí los pasos en términos del prólogo y epílogo.
-:::
-
-:::{solution} ejer-estado-transicion
-:class: dropdown
-1. **Llamada a función (`CALL`):**
-   - El procesador almacena en el stack la dirección de la siguiente instrucción (dirección de retorno).
-   - El Contador de Programa (PC) se actualiza con la dirección de la primera instrucción de la función llamada.
-   - Se ejecuta el **prólogo** en la función: se guarda el Frame Pointer (`rbp`) del llamador en el stack y se decrementa el Stack Pointer (`rsp`) para reservar espacio para las variables locales del nuevo frame.
-
-2. **Retorno de función (`return`):**
-   - Se ejecuta el **epílogo**: se restaura el Stack Pointer al Base Pointer y se recupera el Base Pointer del llamador.
-   - Se ejecuta la instrucción de retorno (`RET`), la cual extrae la dirección de retorno guardada en la cima del stack y la carga en el PC.
-   - De este modo, el estado de la pila vuelve a la posición que tenía antes de la llamada y la ejecución continúa en la instrucción posterior a la llamada.
-:::
 
 (la-pila-stack)=
-## La Pila (Stack)
+### La Pila (Stack)
 
 La pila es una estructura de datos fundamental en la ejecución de programas. Su nombre proviene de la analogía con una pila de platos: el último elemento añadido es el primero en ser retirado.
 
 (funcionamiento)=
-### Funcionamiento
+#### Funcionamiento
 
 La pila opera bajo el principio **LIFO** (_Last-In, First-Out_): el último elemento que entra es el primero en salir, similar a una pila de platos donde solo podés tomar el plato superior. Cada vez que llamás a una función, el sistema reserva un nuevo marco de pila (_stack frame_) que contiene las variables locales, los parámetros y la dirección de retorno. Cuando la función termina, ese marco se libera automáticamente.
 
@@ -531,13 +451,13 @@ int main()
 ```
 
 (anatomia-de-un-stack-frame)=
-### Anatomía de un Stack Frame
+#### Anatomía de un Stack Frame
 
 Cada llamada a función crea un **stack frame** (marco de pila) que contiene toda la información necesaria para ejecutar esa función y retornar correctamente. Comprender la estructura de un stack frame es fundamental para entender cómo funcionan las llamadas a funciones y por qué ciertos errores ocurren.
 
 **Estructura típica de un stack frame:**
 
-```{figure} 13/stack_frame.svg
+```{figure} 1/stack_frame.svg
 :name: fig-stack-frame
 :width: 80%
 
@@ -595,7 +515,7 @@ Esta estructura explica varios fenómenos importantes:
 :::
 
 (contenido-del-stack)=
-### Contenido del Stack
+#### Contenido del Stack
 
 La pila almacena:
 
@@ -605,7 +525,7 @@ La pila almacena:
 - **Información de estado** del procesador (registros salvados).
 
 (ventajas-y-desventajas)=
-### Ventajas y Desventajas
+#### Ventajas y Desventajas
 
 **Ventajas:**
 
@@ -648,59 +568,20 @@ int *funcion_correcta()
 }
 ```
 
-(ejercicios-de-autoevaluacion-la-pila)=
-### Ejercicios de Autoevaluación: La Pila
 
-:::{exercise}
-:label: ejer-pila-stack-overflow
-¿Por qué se produce un fallo de tipo *Stack Overflow* al ejecutar una función recursiva sin un caso base o con un lazo infinito de llamadas? Explicá detalladamente qué sucede con el Stack Pointer (`rsp`) y cómo reacciona el sistema operativo.
-:::
 
-:::{solution} ejer-pila-stack-overflow
-:class: dropdown
-Cada invocación a una función requiere la creación de un nuevo marco de pila (*stack frame*). El compilador genera código que decrementa el Stack Pointer (`rsp`) para reservar el espacio físico correspondiente a los parámetros y variables locales de esa nueva llamada.
 
-Si no hay un caso base que detenga la recursividad, las llamadas se acumulan y el `rsp` continúa decreciendo hacia direcciones más bajas. Tarde o temprano, el `rsp` sobrepasa los límites de la página de memoria reservada por el sistema operativo para la pila de ese proceso (típicamente entre 1 y 8 MB). Cuando el programa intenta acceder a una dirección de memoria fuera del rango asignado a la pila, se genera un fallo de página que el sistema operativo no puede resolver mapeando más RAM física para ese propósito. El sistema operativo interviene de inmediato y aborta el programa enviando una señal de fallo de segmentación (`SIGSEGV`).
-:::
 
-:::{exercise}
-:label: ejer-pila-buffer-overflow
-Analizá el siguiente fragmento de código y explicá qué riesgo de seguridad presenta en relación con la estructura del *stack frame* si se introduce una cadena de entrada de 128 caracteres:
 
-```c
-void vulnerable() {
-    char buffer[16];
-    gets(buffer); // Lee de la entrada estándar sin validar límites
-}
-```
-:::
 
-:::{solution} ejer-pila-buffer-overflow
-:class: dropdown
-El código presenta una vulnerabilidad crítica de **desbordamiento de búfer** (*buffer overflow*). En el stack frame de la función `vulnerable`, el arreglo local `buffer` de 16 bytes se ubica físicamente en direcciones de memoria inferiores a la dirección de retorno guardada en el stack y al Base Pointer anterior.
-
-Al utilizar la función insegura `gets()`, que no limita la cantidad de caracteres que lee de la entrada estándar, ingresar una cadena de 128 caracteres sobrescribirá los 16 bytes destinados al arreglo `buffer` y continuará escribiendo sobre las celdas de memoria adyacentes de mayor dirección. Esto alterará el Base Pointer salvado y, crucialmente, la **dirección de retorno**. Al finalizar la función, la instrucción de retorno cargará en el PC el valor corrupto, haciendo que el programa intente ejecutar código en una dirección inválida (causando un *crash* inmediato) o, en un escenario de explotación de seguridad, salte a una dirección con código malicioso inyectado por el atacante.
-:::
-
-:::{exercise}
-:label: ejer-pila-retorno-local
-Explicá por qué retornar la dirección de una variable local (como `return &valor;`) representa un error grave de programación en C, aun cuando el compilador solo emita una advertencia (*warning*) y el programa parezca funcionar correctamente en la primera prueba.
-:::
-
-:::{solution} ejer-pila-retorno-local
-:class: dropdown
-Las variables locales tienen una duración de almacenamiento automática vinculada al tiempo de vida de su función. Residen en el marco de pila actual y, cuando la función finaliza, el compilador simplemente decrementa la pila (mueve el `rsp` hacia arriba), marcando ese espacio como libre para futuras llamadas.
-
-Si retornás la dirección de una variable local, la dirección apunta a un área de memoria no protegida. Si desreferenciás ese puntero inmediatamente, es posible que el dato siga allí y el programa parezca funcionar. Sin embargo, en el instante en que tu programa invoque cualquier otra función, el sistema operativo creará un nuevo marco de pila sobre la misma región de memoria, sobrescribiendo los antiguos valores de la variable local. A partir de ese momento, desreferenciar el puntero devolverá basura o causará un comportamiento indefinido, siendo un error sutil y sumamente difícil de detectar.
-:::
 
 (el-monton-heap)=
-## El Montón (Heap)
+### El Montón (Heap)
 
 El heap es una región de memoria diseñada para la asignación dinámica. A diferencia de la pila, el heap permite solicitar memoria en tiempo de ejecución y mantenerla disponible hasta que explícitamente decidás liberarla.
 
 (concepto)=
-### Concepto
+#### Concepto
 
 El heap puede visualizarse como una gran "reserva" de memoria disponible para el programa. Cuando necesitás un bloque de memoria de tamaño variable o que persista más allá del alcance de una función, recurrís al heap mediante funciones especializadas de asignación de memoria.
 
@@ -724,7 +605,7 @@ Usá el stack cuando:
 - Querés la máxima eficiencia de acceso a memoria.
 
 (ventajas-y-desventajas)=
-### Ventajas y Desventajas
+#### Ventajas y Desventajas
 
 **Ventajas:**
 
@@ -744,7 +625,7 @@ Con el heap, la gestión de memoria es completamente tu responsabilidad. Cada ll
 :::
 
 (comparacion-stack-vs-heap)=
-### Comparación Stack vs Heap
+#### Comparación Stack vs Heap
 
 La siguiente tabla resume las diferencias clave entre el stack y el heap para ayudarte a decidir cuál usar en cada situación:
 
@@ -766,13 +647,13 @@ La siguiente tabla resume las diferencias clave entre el stack y el heap para ay
 **Regla práctica:** Usá el stack siempre que puedas (por velocidad y simplicidad), y recurrí al heap solo cuando sea necesario (por flexibilidad).
 
 (jerarquia-de-memoria-y-cache)=
-### Jerarquía de Memoria y Caché
+#### Jerarquía de Memoria y Caché
 
 Para comprender completamente por qué el stack es más rápido que el heap, necesitás entender la **jerarquía de memoria** del hardware moderno. La memoria no es un espacio uniforme: hay múltiples niveles con diferentes velocidades y tamaños.
 
 **La jerarquía típica (de más rápido a más lento):**
 
-```{figure} 13/cache_hierarchy.svg
+```{figure} 1/cache_hierarchy.svg
 :label: fig-cache-hierarchy
 :width: 70%
 
@@ -876,7 +757,7 @@ La segunda versión puede ser 10-50 veces más rápida para matrices grandes, si
 :::
 
 (modelo-de-costos-cuantificando-el-rendimiento)=
-### Modelo de Costos: Cuantificando el Rendimiento
+#### Modelo de Costos: Cuantificando el Rendimiento
 
 Comprender el costo relativo de las operaciones de memoria permite tomar decisiones informadas sobre diseño y optimización. Este modelo proporciona una intuición sobre el rendimiento relativo.
 
@@ -922,53 +803,15 @@ for (int i = 0; i < 1000; i++)
 free(buffer);  // Una sola llamada a free
 ```
 
-(ejercicios-de-autoevaluacion-el-monton)=
-### Ejercicios de Autoevaluación: El Montón
 
-:::{exercise}
-:label: ejer-heap-fragmentacion
-Explicá en qué consiste la fragmentación externa en el heap. Planteá un escenario concreto donde una solicitud de memoria dinámica mediante `malloc(512)` falle a pesar de que el heap cuente con 1024 bytes de memoria libre en total.
-:::
 
-:::{solution} ejer-heap-fragmentacion
-:class: dropdown
-La fragmentación externa ocurre cuando la memoria libre en el heap se encuentra distribuida en múltiples bloques pequeños y dispersos, separados por bloques de memoria que están actualmente asignados y en uso por el programa.
 
-Un escenario donde `malloc(512)` falla con 1024 bytes libres es el siguiente:
-1. El programa realiza tres asignaciones consecutivas de 512 bytes cada una: `p1`, `p2` y `p3` (totalizando 1536 bytes contiguos).
-2. Luego, se liberan las variables en las posiciones de los extremos: `free(p1)` y `free(p3)`.
-3. En este instante, el heap cuenta con dos bloques libres de 512 bytes cada uno (totalizando 1024 bytes de memoria libre). Sin embargo, el bloque central `p2` de 512 bytes sigue asignado.
-4. Si el programa intenta solicitar un bloque contiguo de 768 bytes, el asignador de memoria fallará y retornará `NULL`. A pesar de que hay 1024 bytes libres en total, no existe ningún bloque contiguo libre que pueda satisfacer la solicitud de 768 bytes.
-:::
 
-:::{exercise}
-:label: ejer-heap-localidad
-Desde la perspectiva de la jerarquía de memoria y el caché de la CPU, justificá por qué iterar sobre un arreglo de 1000 enteros en la pila es sustancialmente más rápido que recorrer una lista enlazada de 1000 nodos en el heap.
-:::
 
-:::{solution} ejer-heap-localidad
-:class: dropdown
-La diferencia de rendimiento radica en el **principio de localidad**:
-1. **Localidad Espacial y Temporal en la Pila:** Las variables del arreglo en la pila están asignadas de forma contigua en memoria física. Cuando la CPU accede al primer elemento del arreglo, el hardware de caché carga una línea completa de memoria (usualmente 64 bytes) en el caché L1/L2 de la CPU. Las lecturas de los elementos siguientes se resuelven casi instantáneamente desde el caché (hits), sin necesidad de acceder a la memoria RAM.
-2. **Indirección y Dispersión en el Heap:** Los nodos de la lista enlazada en el heap son asignados de forma individual mediante llamadas consecutivas a `malloc`. Esto hace que los nodos queden distribuidos de forma dispersa y no contigua en la RAM. Al recorrer la lista, cada salto de puntero (`actual->siguiente`) obliga a la CPU a buscar en direcciones lejanas, lo que incrementa los fallos de caché (*cache misses*) y obliga a realizar lecturas directas a la memoria RAM (que es cientos de veces más lenta).
-:::
 
-:::{exercise}
-:label: ejer-heap-memory-leak
-Definí el concepto de fuga de memoria (*memory leak*). Explicá detalladamente cuál es la consecuencia de no liberar memoria dinámica en un script que se ejecuta en pocos segundos versus un proceso servidor HTTP que debe correr de manera ininterrumpida.
-:::
-
-:::{solution} ejer-heap-memory-leak
-:class: dropdown
-Una fuga de memoria ocurre cuando un programa asigna memoria dinámica en el heap y luego pierde o sobrescribe todos los punteros que almacenaban la dirección de ese bloque de memoria sin haber invocado previamente la función `free()`, imposibilitando su liberación.
-
-La consecuencia depende de la duración del proceso:
-1. **Script de corta duración:** Cuando un programa finaliza, el sistema operativo reclama y libera automáticamente toda la memoria que estaba asignada a ese proceso (tanto pila como montón y segmentos estáticos). Por lo tanto, una fuga pequeña de memoria en un script rápido no suele afectar el rendimiento general del sistema.
-2. **Servidor HTTP ininterrumpido:** Un servidor web corre de forma continua durante semanas o meses. Si cada petición HTTP atendida genera una pequeña fuga de memoria (por ejemplo, 1 KB por no liberar una estructura), la memoria consumida por el proceso crecerá linealmente con el tiempo. Tarde o temprano, el proceso consumirá toda la memoria física disponible en el servidor, degradando el rendimiento general (debido al swap de disco) hasta que el sistema operativo mate el proceso por falta de memoria (a través del mecanismo *Out-Of-Memory Killer* en Linux).
-:::
 
 (herramienta-clave-punteros)=
-## Herramienta Clave: Punteros
+### Herramienta Clave: Punteros
 
 Los punteros son el mecanismo fundamental que permite trabajar con memoria dinámica en C. Un puntero no almacena un valor directo, sino la **dirección de memoria** donde se encuentra ese valor.
 
@@ -986,7 +829,7 @@ En este capítulo nos enfocamos en aspectos avanzados de punteros específicos p
 :::
 
 (el-puntero-void-puntero-generico)=
-### El Puntero `void *`: Puntero Genérico
+#### El Puntero `void *`: Puntero Genérico
 
 Un `void *` es un puntero especial que puede apuntar a cualquier tipo de dato. No tiene asociado un tipo específico, por lo que:
 
@@ -1030,12 +873,12 @@ El puntero `void *` es fundamental para escribir funciones genéricas que trabaj
 :::
 
 (casteos-avanzados-de-punteros)=
-### Casteos Avanzados de Punteros
+#### Casteos Avanzados de Punteros
 
 Los casteos de punteros en C son una herramienta poderosa pero peligrosa. Comprender los casteos avanzados, especialmente los punteros a arrays, es esencial para trabajar con memoria dinámica multidimensional y estructuras de datos complejas.
 
 (memoria-casteo-basico)=
-#### Casteos Básicos entre Tipos de Punteros
+##### Casteos Básicos entre Tipos de Punteros
 
 El casteo más simple convierte un puntero de un tipo a otro:
 
@@ -1081,7 +924,7 @@ Si intentás hacer *type punning* y pasás la misma variable como argumento (`fo
 :::
 
 (memoria-puntero-a-puntero)=
-#### Punteros a Punteros y Arrays Dinámicos 2D
+##### Punteros a Punteros y Arrays Dinámicos 2D
 
 Un patrón común es usar punteros a punteros para crear arrays bidimensionales dinámicos:
 
@@ -1108,7 +951,7 @@ free(matriz);
 
 **Visualización en memoria:**
 
-```{figure} 13/pointer_to_pointer_visual.svg
+```{figure} 1/pointer_to_pointer_visual.svg
 :name: fig-ptr-to-ptr-visual
 :width: 90%
 
@@ -1118,7 +961,7 @@ Estructura de int **matriz mostrando un array de punteros donde cada puntero apu
 **Desventaja:** Las filas no están contiguas en memoria, lo que reduce la localidad del caché.
 
 (memoria-puntero-a-array)=
-#### Puntero a Array: `(*)[N]`
+##### Puntero a Array: `(*)[N]`
 
 Un **puntero a array** es fundamentalmente diferente de un puntero a puntero. Apunta a un array completo como una unidad, no a un elemento individual.
 
@@ -1176,7 +1019,7 @@ int (*ptr)[4] = matriz;
 ```
 
 (memoria-array-2d-contiguo)=
-#### Arrays 2D Contiguos con Puntero Plano
+##### Arrays 2D Contiguos con Puntero Plano
 
 La forma más portable, robusta y eficiente de representar una matriz dinámica contigua en memoria es mediante un **puntero plano (`int *`)** en el heap, realizando la indexación bidimensional manualmente a través de la fórmula matemática `i * columnas + j`:
 
@@ -1238,7 +1081,7 @@ int main()
 
 **Visualización en memoria:**
 
-```{figure} 13/pointer_to_array.svg
+```{figure} 1/pointer_to_array.svg
 :name: fig-pointer-to-array
 :width: 100%
 
@@ -1253,7 +1096,7 @@ Comparación entre puntero a puntero (int **) con filas dispersas y puntero a ar
 :::
 
 (memoria-casteo-puntero-array)=
-#### Casteo a Puntero a Array
+##### Casteo a Puntero a Array
 
 A veces necesitás reinterpretar memoria asignada como array multidimensional:
 
@@ -1285,7 +1128,7 @@ memoria_plana[i * 4 + j]
 ```
 
 (memoria-ejemplo-completo-casteo)=
-#### Ejemplo Completo: Múltiples Representaciones
+##### Ejemplo Completo: Múltiples Representaciones
 
 ```{code-block}c
 :linenos:
@@ -1355,7 +1198,7 @@ int main()
 ```
 
 (memoria-typedef-arrays)=
-#### Typedef para Simplificar
+##### Typedef para Simplificar
 
 Los punteros a arrays pueden ser difíciles de leer. Los typedef ayudan:
 
@@ -1395,7 +1238,7 @@ matriz[0].datos[0] = 10;
 ```
 
 (memoria-limitaciones-puntero-array)=
-#### Limitaciones y Consideraciones
+##### Limitaciones y Consideraciones
 
 **1. Compatibilidad con C99/C11:**
 
@@ -1464,8 +1307,198 @@ int elemento = arr[i * cols + j];  // Cálculo explícito
 - Cuando querés control total del layout de memoria
 :::
 
-(ejercicios-de-autoevaluacion-punteros-y-casteos)=
-### Ejercicios de Autoevaluación: Punteros y Casteos
+## Ejercicios de Autoevaluación
+
+### Mapa de Memoria
+
+:::{exercise}
+:label: ejer-intro-mmu
+Explicá el rol de la MMU (Memory Management Unit) y de la tabla de páginas en el proceso de traducción de direcciones virtuales a físicas. ¿Qué ventaja ofrece este mecanismo en términos de aislamiento de procesos?
+:::
+
+:::{solution} ejer-intro-mmu
+:class: dropdown
+La MMU es el componente de hardware que intercepta cada acceso a memoria realizado por la CPU y traduce la dirección virtual (generada por el programa) a una dirección física (en la RAM). Esta traducción se basa en la **tabla de páginas** gestionada por el sistema operativo para el proceso activo.
+
+La principal ventaja en términos de aislamiento es la seguridad: cada proceso posee su propia tabla de páginas y, por ende, su propio espacio de direcciones virtuales. Un proceso no puede leer ni escribir en la memoria física asignada a otro proceso porque no dispone de entradas en su tabla de páginas que apunten a esas ubicaciones físicas, lo que garantiza el aislamiento absoluto de los recursos de cada programa.
+:::
+
+:::{exercise}
+:label: ejer-intro-text-readonly
+Analizá por qué el segmento de código (`.text`) posee permisos de solo lectura a nivel de hardware y qué ocurre si un programa intenta realizar una escritura en una dirección de memoria perteneciente a este segmento durante su ejecución.
+:::
+
+:::{solution} ejer-intro-text-readonly
+:class: dropdown
+El segmento `.text` se configura como solo lectura por razones de seguridad y robustez:
+1. **Seguridad:** Evita que se inyecte código malicioso o malware que intente reescribir las instrucciones en tiempo de ejecución.
+2. **Robustez:** Previene modificaciones accidentales de la lógica del programa debido a errores de punteros (punteros colgantes o accesos fuera de límites).
+
+Si un programa intenta escribir en el segmento `.text`, la MMU detectará la violación de los permisos asignados a esa página de memoria (permisos de lectura/ejecución, pero no de escritura). El hardware notificará al procesador, el cual generará una interrupción que el sistema operativo capturará, terminando el proceso inmediatamente mediante una señal de fallo de segmentación (típicamente `SIGSEGV` en sistemas tipo Unix/Linux).
+:::
+
+:::{exercise}
+:label: ejer-intro-data-bss
+Considerá el caso de dos variables globales en C: `int var_a = 42;` e `int var_b = 0;`. Explicá detalladamente en qué segmentos de memoria se almacena cada una y cuál es la justificación técnica de esta subdivisión en el archivo ejecutable.
+:::
+
+:::{solution} ejer-intro-data-bss
+:class: dropdown
+1. `var_a` se almacena en el segmento `.data` porque es una variable global inicializada explícitamente con un valor distinto de cero.
+2. `var_b` se almacena en el segmento `.bss` (Block Started by Symbol) porque es una variable global inicializada con valor cero.
+
+La justificación técnica de esta división es la optimización del tamaño del archivo ejecutable en disco. El segmento `.data` requiere almacenar físicamente los valores iniciales (en este caso, los bytes correspondientes al entero `42`). Por el contrario, el segmento `.bss` no necesita almacenar bytes individuales de ceros en el disco; el formato del ejecutable simplemente registra el tamaño total requerido para las variables en `.bss`. Al cargar el programa, el sistema operativo reserva esa cantidad de memoria física y la inicializa a cero en un solo paso, ahorrando espacio de almacenamiento en el disco duro y tiempo de transferencia.
+:::
+
+
+### Estado de un Programa
+
+:::{exercise}
+:label: ejer-estado-snapshot
+Si quisieras pausar la ejecución de un programa en C en un instante $t$ y reanudarlo exactamente en el mismo punto en otra máquina con la misma arquitectura, describí qué elementos concretos deberías capturar para reconstruir el **estado del programa**. ¿Es necesario guardar el segmento `.text`?
+:::
+
+:::{solution} ejer-estado-snapshot
+:class: dropdown
+Para capturar y reconstruir completamente el estado del programa necesitás:
+1. El contenido completo del **Stack** (los marcos de pila activos, variables locales y parámetros).
+2. El contenido completo del **Heap** (toda la memoria dinámica asignada y aún no liberada).
+3. Los segmentos de memoria estática **`.data`** y **`.bss`** con los valores de las variables globales y estáticas en el instante $t$.
+4. El contexto de ejecución de la CPU: el **Contador de Programa (PC)** (para saber cuál es la siguiente instrucción a ejecutar), el puntero de pila (SP) y los registros de propósito general.
+5. El estado de los descriptores de archivos abiertos y buffers del sistema operativo asociados al proceso.
+
+No es necesario guardar el segmento `.text` en la instantánea si se dispone del archivo ejecutable original en la máquina de destino, dado que el segmento `.text` es de solo lectura y permanece inmutable durante toda la ejecución.
+:::
+
+:::{exercise}
+:label: ejer-estado-clasificacion
+Identificá en qué área del estado de memoria (Stack, Heap, `.rodata`, `.data` o `.bss`) se ubican los siguientes elementos durante la ejecución de un programa en C:
+a) Una variable local declarada como `static int llamadas = 0;`.
+b) Una cadena literal `"Ingrese una opcion: "` pasada a un `printf`.
+c) La memoria de una estructura reservada mediante `malloc` para almacenar un nodo.
+d) Un puntero local `nodo_t *nuevo` que guarda la dirección retornada por el `malloc` anterior.
+:::
+
+:::{solution} ejer-estado-clasificacion
+:class: dropdown
+La ubicación de cada elemento es la siguiente:
+a) **Segmento `.bss`:** La palabra clave `static` indica que la variable tiene duración de almacenamiento estática (persiste durante todo el programa) pero su alcance es local a la función. Al estar inicializada en cero, se destina a `.bss`.
+b) **Segmento `.rodata`:** Las cadenas literales son datos constantes de solo lectura.
+c) **Heap (Montículo):** Toda la memoria asignada explícitamente en tiempo de ejecución mediante funciones como `malloc` reside en el heap.
+d) **Stack (Pila):** El puntero en sí es una variable local declarada dentro del ámbito de una función, por lo que su marco de pila contiene la dirección de memoria donde se almacena el puntero.
+:::
+
+:::{exercise}
+:label: ejer-estado-transicion
+Explicá de qué manera una instrucción de llamada a función (como `procesar(5);`) y su correspondiente retorno (`return;`) modifican el estado de la pila y el Contador de Programa (PC). Describí los pasos en términos del prólogo y epílogo.
+:::
+
+:::{solution} ejer-estado-transicion
+:class: dropdown
+1. **Llamada a función (`CALL`):**
+   - El procesador almacena en el stack la dirección de la siguiente instrucción (dirección de retorno).
+   - El Contador de Programa (PC) se actualiza con la dirección de la primera instrucción de la función llamada.
+   - Se ejecuta el **prólogo** en la función: se guarda el Frame Pointer (`rbp`) del llamador en el stack y se decrementa el Stack Pointer (`rsp`) para reservar espacio para las variables locales del nuevo frame.
+
+2. **Retorno de función (`return`):**
+   - Se ejecuta el **epílogo**: se restaura el Stack Pointer al Base Pointer y se recupera el Base Pointer del llamador.
+   - Se ejecuta la instrucción de retorno (`RET`), la cual extrae la dirección de retorno guardada en la cima del stack y la carga en el PC.
+   - De este modo, el estado de la pila vuelve a la posición que tenía antes de la llamada y la ejecución continúa en la instrucción posterior a la llamada.
+:::
+
+
+### La Pila
+
+:::{exercise}
+:label: ejer-pila-stack-overflow
+¿Por qué se produce un fallo de tipo *Stack Overflow* al ejecutar una función recursiva sin un caso base o con un lazo infinito de llamadas? Explicá detalladamente qué sucede con el Stack Pointer (`rsp`) y cómo reacciona el sistema operativo.
+:::
+
+:::{solution} ejer-pila-stack-overflow
+:class: dropdown
+Cada invocación a una función requiere la creación de un nuevo marco de pila (*stack frame*). El compilador genera código que decrementa el Stack Pointer (`rsp`) para reservar el espacio físico correspondiente a los parámetros y variables locales de esa nueva llamada.
+
+Si no hay un caso base que detenga la recursividad, las llamadas se acumulan y el `rsp` continúa decreciendo hacia direcciones más bajas. Tarde o temprano, el `rsp` sobrepasa los límites de la página de memoria reservada por el sistema operativo para la pila de ese proceso (típicamente entre 1 y 8 MB). Cuando el programa intenta acceder a una dirección de memoria fuera del rango asignado a la pila, se genera un fallo de página que el sistema operativo no puede resolver mapeando más RAM física para ese propósito. El sistema operativo interviene de inmediato y aborta el programa enviando una señal de fallo de segmentación (`SIGSEGV`).
+:::
+
+:::{exercise}
+:label: ejer-pila-buffer-overflow
+Analizá el siguiente fragmento de código y explicá qué riesgo de seguridad presenta en relación con la estructura del *stack frame* si se introduce una cadena de entrada de 128 caracteres:
+
+```c
+void vulnerable() {
+    char buffer[16];
+    gets(buffer); // Lee de la entrada estándar sin validar límites
+}
+```
+:::
+
+:::{solution} ejer-pila-buffer-overflow
+:class: dropdown
+El código presenta una vulnerabilidad crítica de **desbordamiento de búfer** (*buffer overflow*). En el stack frame de la función `vulnerable`, el arreglo local `buffer` de 16 bytes se ubica físicamente en direcciones de memoria inferiores a la dirección de retorno guardada en el stack y al Base Pointer anterior.
+
+Al utilizar la función insegura `gets()`, que no limita la cantidad de caracteres que lee de la entrada estándar, ingresar una cadena de 128 caracteres sobrescribirá los 16 bytes destinados al arreglo `buffer` y continuará escribiendo sobre las celdas de memoria adyacentes de mayor dirección. Esto alterará el Base Pointer salvado y, crucialmente, la **dirección de retorno**. Al finalizar la función, la instrucción de retorno cargará en el PC el valor corrupto, haciendo que el programa intente ejecutar código en una dirección inválida (causando un *crash* inmediato) o, en un escenario de explotación de seguridad, salte a una dirección con código malicioso inyectado por el atacante.
+:::
+
+:::{exercise}
+:label: ejer-pila-retorno-local
+Explicá por qué retornar la dirección de una variable local (como `return &valor;`) representa un error grave de programación en C, aun cuando el compilador solo emita una advertencia (*warning*) y el programa parezca funcionar correctamente en la primera prueba.
+:::
+
+:::{solution} ejer-pila-retorno-local
+:class: dropdown
+Las variables locales tienen una duración de almacenamiento automática vinculada al tiempo de vida de su función. Residen en el marco de pila actual y, cuando la función finaliza, el compilador simplemente decrementa la pila (mueve el `rsp` hacia arriba), marcando ese espacio como libre para futuras llamadas.
+
+Si retornás la dirección de una variable local, la dirección apunta a un área de memoria no protegida. Si desreferenciás ese puntero inmediatamente, es posible que el dato siga allí y el programa parezca funcionar. Sin embargo, en el instante en que tu programa invoque cualquier otra función, el sistema operativo creará un nuevo marco de pila sobre la misma región de memoria, sobrescribiendo los antiguos valores de la variable local. A partir de ese momento, desreferenciar el puntero devolverá basura o causará un comportamiento indefinido, siendo un error sutil y sumamente difícil de detectar.
+:::
+
+
+### El Montón
+
+:::{exercise}
+:label: ejer-heap-fragmentacion
+Explicá en qué consiste la fragmentación externa en el heap. Planteá un escenario concreto donde una solicitud de memoria dinámica mediante `malloc(512)` falle a pesar de que el heap cuente con 1024 bytes de memoria libre en total.
+:::
+
+:::{solution} ejer-heap-fragmentacion
+:class: dropdown
+La fragmentación externa ocurre cuando la memoria libre en el heap se encuentra distribuida en múltiples bloques pequeños y dispersos, separados por bloques de memoria que están actualmente asignados y en uso por el programa.
+
+Un escenario donde `malloc(512)` falla con 1024 bytes libres es el siguiente:
+1. El programa realiza tres asignaciones consecutivas de 512 bytes cada una: `p1`, `p2` y `p3` (totalizando 1536 bytes contiguos).
+2. Luego, se liberan las variables en las posiciones de los extremos: `free(p1)` y `free(p3)`.
+3. En este instante, el heap cuenta con dos bloques libres de 512 bytes cada uno (totalizando 1024 bytes de memoria libre). Sin embargo, el bloque central `p2` de 512 bytes sigue asignado.
+4. Si el programa intenta solicitar un bloque contiguo de 768 bytes, el asignador de memoria fallará y retornará `NULL`. A pesar de que hay 1024 bytes libres en total, no existe ningún bloque contiguo libre que pueda satisfacer la solicitud de 768 bytes.
+:::
+
+:::{exercise}
+:label: ejer-heap-localidad
+Desde la perspectiva de la jerarquía de memoria y el caché de la CPU, justificá por qué iterar sobre un arreglo de 1000 enteros en la pila es sustancialmente más rápido que recorrer una lista enlazada de 1000 nodos en el heap.
+:::
+
+:::{solution} ejer-heap-localidad
+:class: dropdown
+La diferencia de rendimiento radica en el **principio de localidad**:
+1. **Localidad Espacial y Temporal en la Pila:** Las variables del arreglo en la pila están asignadas de forma contigua en memoria física. Cuando la CPU accede al primer elemento del arreglo, el hardware de caché carga una línea completa de memoria (usualmente 64 bytes) en el caché L1/L2 de la CPU. Las lecturas de los elementos siguientes se resuelven casi instantáneamente desde el caché (hits), sin necesidad de acceder a la memoria RAM.
+2. **Indirección y Dispersión en el Heap:** Los nodos de la lista enlazada en el heap son asignados de forma individual mediante llamadas consecutivas a `malloc`. Esto hace que los nodos queden distribuidos de forma dispersa y no contigua en la RAM. Al recorrer la lista, cada salto de puntero (`actual->siguiente`) obliga a la CPU a buscar en direcciones lejanas, lo que incrementa los fallos de caché (*cache misses*) y obliga a realizar lecturas directas a la memoria RAM (que es cientos de veces más lenta).
+:::
+
+:::{exercise}
+:label: ejer-heap-memory-leak
+Definí el concepto de fuga de memoria (*memory leak*). Explicá detalladamente cuál es la consecuencia de no liberar memoria dinámica en un script que se ejecuta en pocos segundos versus un proceso servidor HTTP que debe correr de manera ininterrumpida.
+:::
+
+:::{solution} ejer-heap-memory-leak
+:class: dropdown
+Una fuga de memoria ocurre cuando un programa asigna memoria dinámica en el heap y luego pierde o sobrescribe todos los punteros que almacenaban la dirección de ese bloque de memoria sin haber invocado previamente la función `free()`, imposibilitando su liberación.
+
+La consecuencia depende de la duración del proceso:
+1. **Script de corta duración:** Cuando un programa finaliza, el sistema operativo reclama y libera automáticamente toda la memoria que estaba asignada a ese proceso (tanto pila como montón y segmentos estáticos). Por lo tanto, una fuga pequeña de memoria en un script rápido no suele afectar el rendimiento general del sistema.
+2. **Servidor HTTP ininterrumpido:** Un servidor web corre de forma continua durante semanas o meses. Si cada petición HTTP atendida genera una pequeña fuga de memoria (por ejemplo, 1 KB por no liberar una estructura), la memoria consumida por el proceso crecerá linealmente con el tiempo. Tarde o temprano, el proceso consumirá toda la memoria física disponible en el servidor, degradando el rendimiento general (debido al swap de disco) hasta que el sistema operativo mate el proceso por falta de memoria (a través del mecanismo *Out-Of-Memory Killer* en Linux).
+:::
+
+
+### Punteros y Casteos
 
 :::{exercise}
 :label: ejer-puntero-plano
@@ -1537,3 +1570,29 @@ En C, todos los argumentos de las funciones se pasan por valor (se realiza una c
 Al pasar la dirección del puntero (`char **ptr`), la función recibe una copia de la dirección donde reside el puntero original. Al desreferenciarlo con `*ptr`, la función accede directamente a la variable de la función llamadora en su respectivo marco de pila y puede modificar su valor con la nueva dirección asignada por `malloc`.
 :::
 
+
+
+## Glosario
+
+::::{glossary}
+Memoria virtual
+: Abstracción que mapea direcciones lógicas de un proceso a la memoria física (RAM), proveyendo aislamiento y seguridad.
+
+Stack (Pila)
+: Región de memoria que se gestiona automáticamente bajo el orden LIFO para variables locales y llamadas a funciones.
+
+Heap (Montículo)
+: Región de memoria para asignación dinámica que el programador gestiona manualmente en tiempo de ejecución.
+
+Línea de caché
+: Unidad mínima de transferencia de datos entre la memoria principal y la memoria caché de la CPU.
+::::
+
+## Síntesis y Resumen
+
+La memoria de un programa se organiza en segmentos virtuales: código (`.text`), datos de solo lectura (`.rodata`), datos estáticos (`.data` y `.bss`), la pila (stack) y el montón (heap). La pila provee accesos rápidos y liberación automática para variables de ámbito local, mientras que el montón permite persistencia y tamaños dinámicos a costa de una gestión manual rigurosa. El rendimiento del acceso a datos está determinado por la jerarquía de memoria (registros, cachés L1/L2/L3 y RAM) y el principio de localidad espacial y temporal.
+
+## Referencias y Lecturas Complementarias
+
+- {cite:t}`kernighan_c_2014`. Capítulo 5: Pointers and Arrays.
+- {cite:t}`king_c_2008`. Capítulo 17: Advanced Uses of Pointers.

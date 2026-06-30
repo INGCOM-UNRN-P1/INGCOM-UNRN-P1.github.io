@@ -4,8 +4,8 @@ short_title: Secuencias
 subtitle: "Colecciones de datos homogéneos y texto."
 ---
 
-(introduccion-a-las-secuencias-en-c)=
-## Introducción a las Secuencias en C
+(capitulo-secuencias)=
+## Introducción
 
 En C, una **secuencia** es una colección de elementos de datos del mismo tipo,
 almacenados en **ubicaciones de memoria contiguas**. Esta organización en
@@ -24,10 +24,14 @@ arreglo de caracteres (`char`) cuyo final se indica con un carácter especial, e
 toda la manipulación de texto en C y también la de algunos problemas.
 
 (arreglos-secuencias-de-datos)=
-## Arreglos: Secuencias de datos
+
+## Desarrollo
+
+### Introducción a las Secuencias en C
+### Arreglos: Secuencias de datos
 
 (definicion-y-disposicion-en-memoria)=
-### Definición y Disposición en Memoria
+#### Definición y Disposición en Memoria
 
 Un **arreglo** es una colección de tamaño fijo de elementos homogéneos. Al
 declararlo, el compilador reserva un bloque de memoria continuo y
@@ -39,7 +43,7 @@ int mi_arreglo[4];
 
 Esta declaración reserva espacio para 4 enteros. Si un `int` ocupa 4 bytes, la disposición en memoria es contigua:
 
-```{figure} 6/array_memory_layout.svg
+```{figure} 2/array_memory_layout.svg
 :name: fig-array-memory-layout
 :width: 100%
 
@@ -49,7 +53,7 @@ Disposición en memoria de un arreglo de enteros. Los elementos se almacenan de 
 Esta contigüidad es lo que permite el acceso indexado (`mi_arreglo[2]`) de forma casi instantánea.
 
 (declaracion-e-inicializacion)=
-### Declaración e Inicialización
+#### Declaración e Inicialización
 
 La declaración de un arreglo sigue la sintaxis `tipo identificador[cantidad];`.
 
@@ -64,7 +68,7 @@ estáticos:
 
 Formas de inicialización explícita:
 
-```{figure} 6/array_initialization.svg
+```{figure} 2/array_initialization.svg
 :name: fig-array-initialization
 :width: 100%
 
@@ -80,7 +84,7 @@ Tres formas de inicializar arreglos en C: completa (todos los valores especifica
   `int arr[5] = {[0] = 10, [4] = 50};` (los no indicados se inicializan a `0`).
 
 (el-operador-sizeof)=
-### El Operador `sizeof`
+#### El Operador `sizeof`
 
 Para comprender mejor el manejo de memoria de los arreglos, es necesario
 introducir el operador `sizeof`.
@@ -159,60 +163,22 @@ Para imprimir un valor de tipo {term}`size_t` con `printf`, se utiliza el
 especificador de formato `%zu`. El uso de `%d` o `%lu` puede provocar
 advertencias del compilador debido a posibles inconsistencias de tipo.
 ::::
-(ejercicios-de-autoevaluacion-inicializacion-y-memoria)=
-### Ejercicios de Autoevaluación (Inicialización y Memoria)
 
-:::{exercise}
-:label: ej-arr-sizeof-calc
-Escribí la expresión matemática completa en C para determinar la cantidad de elementos de un arreglo declarado como `double temperaturas[50]` utilizando el operador `sizeof`. Explicá por qué es un cálculo portátil e independiente de la arquitectura.
-:::
 
-:::{solution} ej-arr-sizeof-calc
-:class: dropdown
-La expresión correcta es:
-```c
-size_t cantidad = sizeof(temperaturas) / sizeof(temperaturas[0]);
-```
-Este cálculo es portable porque:
-- `sizeof(temperaturas)` devuelve el espacio en bytes reservado para todo el arreglo (ej: $50 \times 8 = 400$ bytes en plataformas de 64 bits).
-- `sizeof(temperaturas[0])` devuelve el tamaño de un único elemento del arreglo, equivalente a `sizeof(double)` (8 bytes).
-El cociente $400 / 8$ es siempre $50$, sin importar cuántos bytes asigne la arquitectura física al tipo `double`.
-:::
 
-:::{exercise}
-:label: ej-arr-init-parcial
-Si declarás localmente un arreglo en C de la siguiente manera:
-`int datos[10] = {1, 2, 3};`
-Explicá detalladamente el estado lógico y físico de cada una de las posiciones del arreglo desde `datos[0]` hasta `datos[9]`.
-:::
 
-:::{solution} ej-arr-init-parcial
-:class: dropdown
-En C, cuando se inicializa de forma parcial un arreglo:
-- Los elementos correspondientes a los inicializadores explícitos toman los valores indicados: `datos[0]` vale `1`, `datos[1]` vale `2`, y `datos[2]` vale `3`.
-- El estándar del lenguaje garantiza que **todos los elementos restantes** que no fueron declarados explícitamente (`datos[3]` a `datos[9]`) se inicializan automáticamente a `0`. No contienen datos "basura", a diferencia de una declaración sin inicializador como `int datos[10];`.
-:::
 
-:::{exercise}
-:label: ej-arr-vla-restriction
-Explicá detalladamente por qué el estándar de C prohíbe inicializar un arreglo de longitud variable (ALV/VLA) en su declaración (ej: `int n = 5; int arr[n] = {0};` causa un error de compilación).
-:::
 
-:::{solution} ej-arr-vla-restriction
-:class: dropdown
-La inicialización estática `{0}` requiere que el compilador conozca el tamaño y el diseño del arreglo en **tiempo de compilación** para generar las instrucciones de asignación de memoria correspondientes en el segmento de datos.
-Dado que el tamaño de un ALV/VLA se determina recién en **tiempo de ejecución** (según el valor de la variable `n`), el compilador no puede generar el bloque de inicialización de antemano. Para inicializar un VLA, debés declararlo y luego rellenar sus celdas de forma procedimental (por ejemplo, mediante un lazo `for`).
-:::
 
 ---
 
 (acceso-modificacion-y-la-identidad-del-arreglo)=
-### Acceso, Modificación y la Identidad del Arreglo
+#### Acceso, Modificación y la Identidad del Arreglo
 
 Se accede a los elementos mediante el operador de subíndice `[]`, donde el
 índice va de `0` a `cantidad - 1`.
 
-#### Acceso (lectura)
+##### Acceso (lectura)
 
 Para leer el valor de un elemento, se utiliza el operador de subíndice `[]` con
 el índice del elemento deseado. Es importante recordar que los índices en C
@@ -245,7 +211,7 @@ La cuarta calificación es: 7
 Acceso directo al segundo elemento: 8
 ```
 
-#### Modificación (escritura)
+##### Modificación (escritura)
 
 Para escribir un nuevo valor en un elemento, la expresión de subíndice
 `mi_arreglo[i]` se coloca en el lado izquierdo de una operación de asignación.
@@ -273,7 +239,7 @@ La edad original en el índice 2 es: 22
 La nueva edad en el índice 2 es: 23
 :::
 
-#### Identidad
+##### Identidad
 
 El identificador de un arreglo, como `mi_arreglo`, es especial. No es una
 variable que _contiene_ el arreglo, sino que está **permanentemente asociado con
@@ -294,7 +260,7 @@ arr1 = arr2; // Error: expression is not assignable.
 ````
 
 (recorrido-de-arreglos-y-comportamiento-indefinido)=
-### Recorrido de Arreglos y Comportamiento Indefinido
+#### Recorrido de Arreglos y Comportamiento Indefinido
 
 La estructura de control ideal para iterar sobre un arreglo es el lazo `for`.
 El uso de `size_t` para el índice del lazo es la forma correcta de hacerlo, tal como lo indica la regla de estilo {ref}`0x3010h`.
@@ -319,7 +285,7 @@ trivial en otra parte del código revele el error latente. Es responsabilidad de
 ::::
 
 (arreglos-de-longitud-variable-alv-vla)=
-### Arreglos de Longitud Variable (ALV/VLA)
+#### Arreglos de Longitud Variable (ALV/VLA)
 
 Desde el estándar C99, C permite declarar arreglos cuyo tamaño se determina en
 tiempo de ejecución. Estos se conocen como {abbr}`ALV (Array Largo Variable)` o
@@ -344,22 +310,22 @@ inicializado en su declaración. Intentarlo producirá un error de compilación:
 error: variable-sized object may not be initialized
 ```
 
-Las implicaciones y el uso correcto de la memoria dinámica, que es la alternativa recomendada a los ALV, se abordarán en [Memoria Dinámica](14_memoria_dinamica).
+Las implicaciones y el uso correcto de la memoria dinámica, que es la alternativa recomendada a los ALV, se abordarán en [Memoria Dinámica](../bloque_4_dinamica_interfaces/1_memoria_dinamica.md).
 
 De todas formas y como se imaginarán, hay una regla de estilo {ref}`0x5001h`.
 
 (el-mecanismo-de-paso-a-funciones-paso-por-referencia-simulado)=
-### El Mecanismo de Paso a Funciones: Paso por Referencia Simulado
+#### El Mecanismo de Paso a Funciones: Paso por Referencia Simulado
 
 En el lenguaje C, los arreglos poseen un comportamiento particular al ser transmitidos como argumentos a una función: **no se pasan por valor**. Esto significa que el compilador no realiza una copia de todos los elementos del arreglo en el registro de activación de la función receptora.
 
 En su lugar, la función recibe únicamente la **dirección de memoria** donde se inicia el arreglo original. Como consecuencia, cualquier lectura o modificación que la función realice sobre los elementos utilizando el operador de indexación (`[]`) afectará de forma directa e inmediata a los datos originales en la memoria del programa.
 
 :::{note} El concepto subyacente: Decaimiento de Arreglos
-Este mecanismo por el cual el arreglo se reduce a la dirección de su primer elemento se conoce técnicamente como **decaimiento de arreglo a puntero** (*array decay*). Dado que requiere comprender cómo se organizan las direcciones de memoria físicas y lógicas, este comportamiento tendrá mucho más sentido una vez que se aborde el estudio de los punteros en el capítulo de {ref}`punteros-capitulo` (disponible en [](9_punteros)).
+Este mecanismo por el cual el arreglo se reduce a la dirección de su primer elemento se conoce técnicamente como **decaimiento de arreglo a puntero** (*array decay*). Dado que requiere comprender cómo se organizan las direcciones de memoria físicas y lógicas, este comportamiento tendrá mucho más sentido una vez que se aborde el estudio de los punteros en el capítulo de {ref}`punteros-capitulo` (disponible en [](4_punteros.md)).
 :::
 
-```{figure} 6/array_pass_by_reference.svg
+```{figure} 2/array_pass_by_reference.svg
 :name: fig-array-pass-by-reference
 :width: 100%
 
@@ -367,11 +333,11 @@ Paso de arreglos a funciones por referencia: a diferencia de las variables simpl
 ```
 
 (funciones-puras-y-con-efectos-secundarios)=
-### Funciones Puras y con Efectos Secundarios
+#### Funciones Puras y con Efectos Secundarios
 
 Al trabajar con secuencias, la distinción entre funciones puras y aquellas con efectos secundarios (ver {ref}`sec-funciones-puras`) adquiere una relevancia crítica debido al mecanismo de pasaje de parámetros en C. Como los arreglos se transmiten mediante su dirección de memoria (paso por referencia simulado), las funciones pueden modificar su contenido directamente en el invocador.
 
-#### Funciones puras sobre arreglos
+##### Funciones puras sobre arreglos
 
 Una función que opera sobre arreglos es pura si se limita a leer sus elementos sin alterar el contenido original. Para indicar explícitamente esta intención y garantizar la portabilidad y seguridad, se debe usar el calificador `const` en el parámetro del arreglo (ver regla de estilo {ref}`0x3007h`).
 
@@ -395,7 +361,7 @@ int maximo(const int valores[], int cantidad)
 
 Esta función sólo **lee** el contenido del arreglo y **devuelve** un resultado. No altera el contenido original.
 
-#### Funciones con efectos secundarios en arreglos
+##### Funciones con efectos secundarios en arreglos
 
 Una función con efectos secundarios modifica el contenido del arreglo original. En este caso, el parámetro de arreglo no debe llevar el calificador `const`.
 
@@ -422,20 +388,20 @@ void ordenar(int v[], int cantidad)
 
 Esta función cambia el contenido del arreglo original; su ejecución modifica el estado de la secuencia en el invocador.
 
-#### ¿Por qué distinguirlas?
+##### ¿Por qué distinguirlas?
 
 - **Legibilidad**: un lector puede asumir que una función pura no altera nada, lo que simplifica su comprensión.
 - **Reutilización**: las funciones puras son más fáciles de testear y componer.
 - **Depuración**: los errores son más fáciles de rastrear si las funciones tienen efectos bien delimitados.
 
-#### Buenas prácticas
+##### Buenas prácticas
 
 - Usá funciones puras para cálculo, conteo o análisis.
 - Reservá funciones con efectos para inicialización, transformación explícita o lazo de interacción con el entorno.
 - Documentá claramente qué efectos tiene cada función.
 - Cuando una función modifica su entrada, elegí un nombre que lo indique: `normalizar`, `ordenar`, `ajustar`, etc.
 
-#### Estrategia mixta
+##### Estrategia mixta
 
 En algunos casos, puede ser útil definir **una función pura** que calcule un resultado y **otra función con efectos** que lo aplique.
 
@@ -455,7 +421,7 @@ Esta separación permite testear `encontrar_maximo` independientemente de la fun
 
 Esto explica dos situaciones clave:
 
-#### Efectos secundarios en arreglos
+##### Efectos secundarios en arreglos
 
 Al recibir la "dirección de la casa", los cambios en el arreglo que pasamos a la
 función, se reflejan en el arreglo original, efectivamente dando un resultado
@@ -494,7 +460,7 @@ expresado en la documentación.
 
 Aunque parezca algo negativo, la utilización de efectos secundarios en arreglos es sumamente importante y se utiliza en código que, por ejemplo, ordene los valores que contiene.
 
-#### Pérdida de `sizeof`
+##### Pérdida de `sizeof`
 
 Dentro de la función, `sizeof(arreglo)` no funciona como se espera. La función
 solo conoce la dirección en memoria del arreglo, no el tamaño total de la
@@ -557,72 +523,21 @@ cosas.
 ::::
 
 (retorno-de-secuencias-desde-funciones)=
-### Retorno de Secuencias desde Funciones
+#### Retorno de Secuencias desde Funciones
 
 Una función **no puede retornar un arreglo local**. Las variables de un arreglo local se alojan en el registro de activación (*stack frame*) de la función en la pila. Al ejecutarse la instrucción de retorno, el registro de activación de la función se desapila y destruye de forma física en memoria lógica, quedando ese espacio disponible para ser sobrescrito por cualquier llamada subsiguiente en el programa. Intentar acceder a la dirección de memoria de un objeto local que ya ha sido liberado del stack constituye una desreferenciación de puntero colgante y provoca comportamiento indefinido o fallas de segmentación.
 
-(ejercicios-de-autoevaluacion-acceso-e-iteracion)=
-### Ejercicios de Autoevaluación (Acceso e Iteración)
 
-:::{exercise}
-:label: ej-arr-func-pure
-Implementá una **función pura** en C llamada `buscar_minimo` que reciba un arreglo de enteros y su tamaño, y retorne el menor valor contenido. Respetá la regla de estilo {ref}`0x3007h`.
-:::
 
-:::{solution} ej-arr-func-pure
-:class: dropdown
-Al ser una función pura, se utiliza el calificador `const` para prometer que el arreglo original no será alterado.
-```c
-#include <stddef.h>
 
-int buscar_minimo(const int arreglo[], size_t size) {
-    // #PRE: size > 0
-    int minimo = arreglo[0];
-    for (size_t i = 1; i < size; i++) {
-        if (arreglo[i] < minimo) {
-            minimo = arreglo[i];
-        }
-    }
-    return minimo;
-}
-```
-:::
 
-:::{exercise}
-:label: ej-arr-func-effect
-Implementá una función con **efectos secundarios** llamada `escalar_arreglo` que multiplique todos los elementos de un arreglo de enteros por un factor entero dado. Explicá cómo se simula el paso por referencia de los arreglos.
-:::
 
-:::{solution} ej-arr-func-effect
-:class: dropdown
-Al ser una función con efectos secundarios, modificamos el arreglo original de forma directa en su memoria física:
-```c
-#include <stddef.h>
 
-void escalar_arreglo(int arreglo[], size_t size, int factor) {
-    for (size_t i = 0; i < size; i++) {
-        arreglo[i] = arreglo[i] * factor; // Efecto secundario
-    }
-}
-```
-El paso por referencia se simula porque el compilador no copia los elementos a la función; en su lugar, le pasa la dirección del primer elemento del arreglo. La indexación `arreglo[i]` opera sobre la misma dirección física de la memoria del invocador.
-:::
-
-:::{exercise}
-:label: ej-arr-decay-sizeof
-Si pasás un arreglo a una función (ej: `void f(int arr[])`), explicá por qué realizar `sizeof(arr)` dentro de la función devolverá el tamaño de un puntero (habitualmente 8 bytes en 64 bits) y no el tamaño en bytes del arreglo original.
-:::
-
-:::{solution} ej-arr-decay-sizeof
-:class: dropdown
-Esto ocurre debido al fenómeno de **decaimiento de arreglo a puntero (array decay)**.
-Cuando un arreglo se pasa como parámetro a una función, la firma `int arr[]` es convertida implícitamente por el compilador en un puntero al primer elemento (`int *arr`). Dado que el operador `sizeof` evalúa el tipo de datos de su operando en tiempo de compilación, calcula el tamaño de la variable parámetro `arr` (que es de tipo puntero, ocupando 8 bytes en sistemas de 64 bits), habiéndose perdido la información sobre la capacidad del bloque de memoria del arreglo original.
-:::
 
 ---
 
 (cadenas-secuencias-de-caracteres)=
-## Cadenas: Secuencias de Caracteres
+### Cadenas: Secuencias de Caracteres
 
 Una cadena es un arreglo de `char` que sigue una regla: el último carácter de
 interés está seguido por un **carácter nulo (`\0`)**. Este terminador es
@@ -637,7 +552,7 @@ Por ejemplo, la siguiente cadena:
 char cadena[7] = "Hola";
 ````
 
-```{figure} 6/string_null_terminator.svg
+```{figure} 2/string_null_terminator.svg
 :name: fig-string-null-terminator
 :width: 100%
 
@@ -661,7 +576,7 @@ Por lo tanto, el `espacio_reservado` tendría `7`, y no el largo de la cadena qu
 es `4`.
 
 (inicializacion-de-una-cadena)=
-### Inicialización de una cadena
+#### Inicialización de una cadena
 
 Al declarar una cadena usando la sintaxis de arreglo, estás creando una copia
 local y mutable del texto basada en el {term}`literal de cadena`; el texto entre
@@ -724,7 +639,7 @@ Ese `Segmentation fault (core dumped)` resulta de intentar modificar algo que no
 Más adelante veremos detalles adicionales sobre los literales de cadena y qué situaciones nos podemos encontrar si no los utilizamos con cuidado.
 
 (largo-de-cadenas)=
-### Largo de cadenas
+#### Largo de cadenas
 
 Para obtener el largo de una cadena, podemos usar `strlen`, definido en
 `<string.h>`.
@@ -742,7 +657,7 @@ Y se encarga de recorrer la cadena hasta encontrarse un carácter nulo (`\0`)
 ::::{note} Largo vs. capacidad
 Es muy importante tener en cuenta que las cadenas tienen dos "tamaños" diferentes.
 
-```{figure} 6/string_length_vs_capacity.svg
+```{figure} 2/string_length_vs_capacity.svg
 :name: fig-string-length-vs-capacity
 :width: 100%
 
@@ -756,8 +671,427 @@ Por otro, tenemos el tamaño en memoria del arreglo de caracteres que guarda la 
 Esta es la base para las cadenas seguras.
 
 ::::
-(ejercicios-de-autoevaluacion-cadenas-y-caracteres)=
-### Ejercicios de Autoevaluación (Cadenas y Caracteres)
+
+
+
+
+
+
+
+---
+
+(lectura-segura-de-cadenas)=
+#### Lectura Segura de Cadenas
+
+El uso de `scanf("%s", buffer)` es una de las fuentes de errores de seguridad
+más comunes en C. La alternativa segura es `fgets`, como lo recomienda la regla de estilo {ref}`0x5001h`.
+
+````{code-block}c
+:linenos:
+char buffer[100];
+fgets(buffer, sizeof(buffer), stdin);
+
+// fgets puede incluir el salto de línea ('\n'). Es buena práctica removerlo.
+size_t len = strlen(buffer);
+if (len > 0 && buffer[len - 1] == '\n') {
+    buffer[len - 1] = '\0';
+}
+````
+
+(biblioteca-estandar-string-h-un-vistazo-rapido)=
+#### Biblioteca Estándar `<string.h>`: Un Vistazo Rápido
+
+Las funciones de biblioteca para manipular cadenas más importantes:
+
+- `strcpy(dest, src)`: Copia `src` en `dest`, incluyendo `\0`. No comprueba el
+  tamaño de `dest`, siendo muy peligrosa.
+- `strncpy(dest, src, n)`: Copia hasta `n` caracteres. **Cuidado**: si la
+  longitud de `src` es `n` o más, **no añade el `\0`**. La terminación nula debe
+  ser asegurada manualmente.
+- `strcmp(s1, s2)`: Compara las cadenas carácter por carácter según su valor
+  numérico. Devuelve `<0` si `s1<s2`, `0` si son iguales, y `>0` si `s1>s2`.
+- `strcat(dest, src)`: Busca el `\0` en `dest` y copia `src` a partir de ahí.
+  También es insegura por no verificar el tamaño.
+
+[Más información sobre `string.h`](https://en.cppreference.com/w/c/header/string.html)
+y otras funciones disponibles.
+
+
+
+---
+
+(cadenas-seguras-el-dilema-del-nul)=
+### Cadenas Seguras: El Dilema del NUL
+
+El modelo de cadenas de C —terminadas en `'\0'` sin información de longitud— es una fuente histórica de vulnerabilidades. La Regla {ref}`0x5004h` exige usar operaciones seguras. Esta sección fundamenta por qué.
+
+Las cadenas de caracteres en el lenguaje C son una de sus características más
+fundamentales y, a la vez, una de sus mayores fuentes de vulnerabilidades de
+seguridad. Entender su diseño histórico es clave para comprender por qué son
+inseguras y por qué surgieron las "cadenas seguras".
+
+(cadenas-tradicionales-en-c-el-legado-del-nul)=
+### Cadenas Tradicionales en C: El Legado del `NUL`
+
+(historia-y-diseno)=
+#### Historia y Diseño
+
+Cuando Dennis Ritchie y Ken Thompson diseñaron el lenguaje C en la década de
+1970, lo hicieron pensando en la eficiencia y el hardware de la época (como la
+PDP-11). Los recursos eran extremadamente limitados. Para representar una
+secuencia de caracteres, adoptaron una convención simple y eficaz:
+
+- Una cadena es una **secuencia contigua de bytes (caracteres) en memoria.**
+
+- El final de la cadena se marca con un **carácter nulo (`\0`)**.
+
+Este estilo se conoce como **cadena terminada en nulo** (o _null-terminated
+string_). Por ejemplo, la cadena "HOLA" se almacena en memoria como:
+
+| `H` | `o` | `l` | `a` | `\0` |
+| --- | --- | --- | --- | ---- |
+
+Esta simplicidad era genial para los sistemas de esa era. No se necesitaba
+almacenar metadatos adicionales como la longitud; la función que leía la cadena
+simplemente avanzaba hasta encontrar el `\0`.
+
+(la-raiz-de-la-inseguridad-ausencia-de-informacion-de-tamano)=
+#### La Raíz de la Inseguridad: Ausencia de Información de Tamaño
+
+La principal debilidad de este diseño es que la propia cadena **no sabe cuál es
+su longitud ni la capacidad del buffer que la contiene**. Para obtener su
+longitud, una función como `strlen()` debe recorrerla carácter por carácter
+desde el inicio hasta encontrar el `\0`, una operación de complejidad $O(n)$.
+
+El verdadero peligro surge con funciones de manipulación como `strcpy()`
+(copiar), `strcat()` (concatenar) o `gets()` (leer desde la entrada estándar).
+Estas funciones escriben datos en una memoria destino **asumiendo ciegamente que
+hay espacio suficiente**.
+
+##### El Ataque Clásico: Buffer Overflow (Desbordamiento de Búfer)
+
+Imagina este código:
+
+```{code-block}c
+:linenos:
+#include <stdio.h>
+#include <string.h>
+
+void vulnerable() {
+    char buffer_pequeno[10]; // Buffer con capacidad para 9 caracteres + \0
+    char entrada_maliciosa[] = "AAAAAAAAAAAAAAAAAAAA"; // 20 caracteres
+
+    //strcpy no sabe que buffer_pequeno solo tiene 10 bytes.
+    //Copiará los 20 caracteres de la entrada, más el \0.
+    strcpy(buffer_pequeno, entrada_maliciosa);
+
+    printf("Contenido del buffer: %s\n", buffer_pequeno);
+}
+
+```
+
+Al ejecutar `strcpy()`, se escriben 21 bytes (`20` 'A' más el `\0`) en un
+espacio de solo `10` bytes. Los 11 bytes extra se escriben fuera de los límites
+del `buffer_pequeno`, **sobrescribiendo otras áreas de la memoria** en el stack.
+
+Esto puede causar desde un simple fallo del programa hasta las peores
+vulnerabilidades de seguridad, como la **ejecución de código arbitrario**, si un
+atacante diseña la `entrada_maliciosa` para sobrescribir la dirección de retorno
+de la función con la dirección de su propio código malicioso.
+
+(cadenas-seguras-la-solucion-del-tamano-explicito)=
+### Cadenas Seguras: La Solución del Tamaño Explícito
+
+Para solucionar estos problemas, surgieron las "cadenas seguras". El concepto
+fundamental es simple pero poderoso: **la estructura de datos de la cadena debe
+contener información sobre su tamaño**.
+
+Una cadena segura generalmente almacena dos piezas clave de metadatos junto a
+los datos de los caracteres:
+
+1. **Longitud (length):** El número actual de caracteres en la cadena.
+
+1. **Capacidad (capacity):** El tamaño total del bloque de memoria asignado para
+   la cadena, indicado como un `size_t`.
+
+Con esta información, cualquier operación de escritura puede verificar primero
+si `longitud < capacidad`.
+
+(ventajas-clave-de-las-cadenas-seguras)=
+#### Ventajas Clave de las Cadenas Seguras
+
+- **Seguridad:** Previenen los desbordamientos de búfer por diseño. Las
+  funciones de copia o concatenación pueden negarse a operar o redimensionar el
+  búfer si no hay espacio suficiente.
+
+- **Eficiencia:** Obtener la longitud de la cadena es una operación instantánea
+  (O(1)), ya que el valor está almacenado y no necesita ser calculado.
+
+- **Compatibilidad Binaria:** Pueden almacenar datos que contienen caracteres
+  nulos (`\0`) en medio de la secuencia, ya que el final no está determinado por
+  el `\0`, sino por el campo de longitud.
+
+(implementaciones-y-alternativas)=
+#### Implementaciones y Alternativas
+
+Existen varias formas de implementar cadenas seguras en C y otros lenguajes.
+
+##### **1. Anexo K de C11 (Funciones `_s`)**
+
+El estándar C11 introdujo un anexo opcional (Anexo K) con versiones "seguras" de
+las funciones de cadena tradicionales. Estas funciones, como `strcpy_s()`,
+`strcat_s()` y `snprintf_s()`, generalmente toman un argumento adicional: el
+tamaño del búfer de destino.
+
+```{code-block}c
+:linenos:
+// Ejemplo con strcpy_s
+char buffer[10];
+const char* origen = "Texto largo";
+
+// strcpy_s verifica que el tamaño del buffer (10)
+// es suficiente para copiar el origen.
+// En este caso, devolvería un error en lugar de desbordar.
+errno_t resultado = strcpy_s(buffer, sizeof(buffer), origen);
+
+if (resultado != 0) {
+    // Manejar el error de copia
+}
+
+```
+
+**Problema:** Este anexo es **opcional** y su adopción ha sido muy limitada.
+Compiladores populares como GCC y Clang no lo implementan por defecto, y la
+comunidad lo ha criticado por su diseño y usabilidad. Microsoft sí lo implementa
+en su compilador MSVC.
+
+##### 2. Bibliotecas de Terceros (La Solución Práctica en C)
+
+La forma más común y recomendada de usar cadenas seguras en C es a través de
+bibliotecas de alta calidad.
+
+- **Simple Dynamic Strings (SDS):** Es una de las más populares, creada para el
+  proyecto Redis. Es extremadamente eficiente y fácil de usar. La estructura de
+  SDS almacena la longitud y la capacidad en una cabecera justo antes del
+  puntero a los datos, lo que la hace compatible con funciones C que esperan un
+  `char*`.
+
+```{code-block}c
+:linenos:
+// Ejemplo (conceptual) de uso de SDS
+#include "sds.h"
+
+sds mi_cadena = sdsnew("Hola "); // Crea una nueva cadena SDS
+mi_cadena = sdscat(mi_cadena, "Mundo!"); // Concatena de forma segura
+
+printf("%s\n", mi_cadena); // Imprime "Hola Mundo!"
+printf("Longitud: %zu\n", sdslen(mi_cadena)); // Obtiene la longitud en O(1)
+
+sdsfree(mi_cadena); // Libera la memoria
+
+```
+
+- **The Better String Library (bstring):** Otra biblioteca robusta y bien
+  establecida que ofrece un enfoque similar a SDS.
+
+(tabla-comparativa)=
+#### Tabla Comparativa
+
+| Característica         | Cadenas NUL-Terminadas                              | Anexo K de C11 (`_s`)                                 | Bibliotecas (SDS) / C++ `std::string`            |
+| ---------------------- | --------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------ |
+| **Seguridad**          | **Muy Baja** (propensa a overflows)              |  **Mejorada** (requiere disciplina del programador) |  **Alta** (seguridad por diseño)               |
+| **Obtener Longitud**   | O(n) - Lento                                        | O(n) - Lento                                          | O(1) - Instantáneo                               |
+| **Gestión de Memoria** | Manual y propensa a errores                         | Manual (el programador provee el buffer)              | Automática y gestionada por la biblioteca/objeto |
+| **Facilidad de Uso**   | Simple para tareas básicas, compleja para seguridad | Verbosa y propensa a errores de uso                   | Muy alta, interfaz de alto nivel                 |
+| **Datos Binarios**     |  **No** (el `\0` actúa como terminador)           |  **No**                                             |  **Sí** (la longitud determina el final)       |
+
+(conclusion)=
+#### Conclusión
+
+Aunque las cadenas tradicionales de C son un pilar histórico de la programación
+de sistemas, su diseño es inherentemente inseguro para el desarrollo de software
+moderno. Ignorar la información sobre el tamaño del búfer fue una decisión
+comprensible en su momento, pero ha sido la causa de innumerables
+vulnerabilidades.
+
+(conexion-con-el-siguiente-tema)=
+### Conexión con el Siguiente Tema
+
+Los arreglos que estudiamos tienen una limitación crítica: **tamaño fijo determinado en compilación**. Si declaramos `int arr[100]`, consumimos memoria para 100 enteros incluso si solo usamos 10. Si necesitamos 101, el programa no compila. Esta rigidez es problemática para software real que debe adaptarse a cantidades variables de datos.
+
+Además, cuando pasamos arreglos a funciones, vimos que en realidad estamos pasando **la dirección del primer elemento**. ¿Qué significa "dirección"? ¿Cómo manipulamos estas direcciones directamente?
+
+El próximo tema introduce conceptos que profundizan en cómo se organiza y manipula la memoria:
+
+- Los **punteros** ([Punteros](4_punteros.md)) como variables que almacenan direcciones
+- Las **matrices** ([Matrices](3_matrices.md)) como arreglos multidimensionales
+- La **gestión de memoria** ([Memoria Dinámica](../bloque_4_dinamica_interfaces/1_memoria_dinamica.md)) para estructuras dinámicas
+
+Los punteros son el concepto más poderoso y peligroso de C. Dominando punteros y arreglos simultáneamente, se comprende la esencia del lenguaje: **control directo sobre la memoria** con la sintaxis mínima necesaria.
+
+**Pregunta puente**: Cuando escribimos `int arr[5]`, ¿dónde exactamente en la memoria se almacenan estos 5 enteros? ¿Cómo accede la CPU a `arr[3]`? La respuesta requiere entender direcciones de memoria, lo que nos lleva naturalmente a los punteros.
+
+(textos-fundamentales)=
+#### Textos Fundamentales
+
+- {cite:t}`kernighan_c_2014`. Capítulo 5: Pointers and Arrays. La relación fundamental entre punteros y arreglos.
+
+- {cite:t}`king_c_2008`. Capítulo 8: Arrays y Capítulo 13: Strings. Funciones de biblioteca y manipulación de cadenas.
+
+- {cite:t}`weiss_data_2014`. Capítulo 3: Lists, Stacks, and Queues. Algoritmos sobre secuencias.
+
+(algoritmos-sobre-arreglos)=
+#### Algoritmos sobre Arreglos
+
+- {cite:t}`cormen_introduction_2009`. Capítulo 2: Getting Started (Insertion Sort), Capítulo 6: Heapsort, Capítulo 9: Medians and Order Statistics.
+
+- {cite:t}`sedgewick_algorithms_2011`. Capítulo 2: Sorting. Visualizaciones excelentes de algoritmos de ordenamiento.
+
+(cadenas-y-procesamiento-de-texto)=
+#### Cadenas y Procesamiento de Texto
+
+- **POSIX String Handling** - https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/string.h.html
+  - Especificación estándar de funciones de cadenas.
+
+- {cite:t}`seacord_secure_2013`. Capítulo 2: Strings. Vulnerabilidades comunes con cadenas.
+
+(recursos-en-linea)=
+#### Recursos en Línea
+
+- **C String Handling** - https://en.cppreference.com/w/c/string
+  - Referencia completa de `<string.h>` con ejemplos.
+
+- **Sorting Algorithms Visualizations** - https://visualgo.net/en/sorting
+  - Visualizaciones interactivas de algoritmos de ordenamiento.
+
+- **Big-O Cheat Sheet** - https://www.bigocheatsheet.com/
+  - Complejidades de operaciones comunes sobre arreglos.
+
+(herramientas)=
+#### Herramientas
+
+- **Valgrind** - https://valgrind.org/
+  - Detección de accesos fuera de límites en arreglos.
+
+- **AddressSanitizer** - https://github.com/google/sanitizers
+  - Instrumentación de compilador para detectar errores de memoria.
+  - Uso: `gcc -fsanitize=address programa.c`
+
+(ejercicios-y-practica)=
+#### Ejercicios y Práctica
+
+- **LeetCode - Array Problems** - https://leetcode.com/tag/array/
+  - Cientos de problemas clasificados por dificultad.
+
+- **HackerRank - Data Structures** - https://www.hackerrank.com/domains/data-structures
+  - Arrays y strings con tests automáticos.
+
+## Ejercicios de Autoevaluación
+
+### Inicialización y Memoria
+
+:::{exercise}
+:label: ej-arr-sizeof-calc
+Escribí la expresión matemática completa en C para determinar la cantidad de elementos de un arreglo declarado como `double temperaturas[50]` utilizando el operador `sizeof`. Explicá por qué es un cálculo portátil e independiente de la arquitectura.
+:::
+
+:::{solution} ej-arr-sizeof-calc
+:class: dropdown
+La expresión correcta es:
+```c
+size_t cantidad = sizeof(temperaturas) / sizeof(temperaturas[0]);
+```
+Este cálculo es portable porque:
+- `sizeof(temperaturas)` devuelve el espacio en bytes reservado para todo el arreglo (ej: $50 \times 8 = 400$ bytes en plataformas de 64 bits).
+- `sizeof(temperaturas[0])` devuelve el tamaño de un único elemento del arreglo, equivalente a `sizeof(double)` (8 bytes).
+El cociente $400 / 8$ es siempre $50$, sin importar cuántos bytes asigne la arquitectura física al tipo `double`.
+:::
+
+:::{exercise}
+:label: ej-arr-init-parcial
+Si declarás localmente un arreglo en C de la siguiente manera:
+`int datos[10] = {1, 2, 3};`
+Explicá detalladamente el estado lógico y físico de cada una de las posiciones del arreglo desde `datos[0]` hasta `datos[9]`.
+:::
+
+:::{solution} ej-arr-init-parcial
+:class: dropdown
+En C, cuando se inicializa de forma parcial un arreglo:
+- Los elementos correspondientes a los inicializadores explícitos toman los valores indicados: `datos[0]` vale `1`, `datos[1]` vale `2`, y `datos[2]` vale `3`.
+- El estándar del lenguaje garantiza que **todos los elementos restantes** que no fueron declarados explícitamente (`datos[3]` a `datos[9]`) se inicializan automáticamente a `0`. No contienen datos "basura", a diferencia de una declaración sin inicializador como `int datos[10];`.
+:::
+
+:::{exercise}
+:label: ej-arr-vla-restriction
+Explicá detalladamente por qué el estándar de C prohíbe inicializar un arreglo de longitud variable (ALV/VLA) en su declaración (ej: `int n = 5; int arr[n] = {0};` causa un error de compilación).
+:::
+
+:::{solution} ej-arr-vla-restriction
+:class: dropdown
+La inicialización estática `{0}` requiere que el compilador conozca el tamaño y el diseño del arreglo en **tiempo de compilación** para generar las instrucciones de asignación de memoria correspondientes en el segmento de datos.
+Dado que el tamaño de un ALV/VLA se determina recién en **tiempo de ejecución** (según el valor de la variable `n`), el compilador no puede generar el bloque de inicialización de antemano. Para inicializar un VLA, debés declararlo y luego rellenar sus celdas de forma procedimental (por ejemplo, mediante un lazo `for`).
+:::
+
+
+### Acceso e Iteración
+
+:::{exercise}
+:label: ej-arr-func-pure
+Implementá una **función pura** en C llamada `buscar_minimo` que reciba un arreglo de enteros y su tamaño, y retorne el menor valor contenido. Respetá la regla de estilo {ref}`0x3007h`.
+:::
+
+:::{solution} ej-arr-func-pure
+:class: dropdown
+Al ser una función pura, se utiliza el calificador `const` para prometer que el arreglo original no será alterado.
+```c
+#include <stddef.h>
+
+int buscar_minimo(const int arreglo[], size_t size) {
+    // #PRE: size > 0
+    int minimo = arreglo[0];
+    for (size_t i = 1; i < size; i++) {
+        if (arreglo[i] < minimo) {
+            minimo = arreglo[i];
+        }
+    }
+    return minimo;
+}
+```
+:::
+
+:::{exercise}
+:label: ej-arr-func-effect
+Implementá una función con **efectos secundarios** llamada `escalar_arreglo` que multiplique todos los elementos de un arreglo de enteros por un factor entero dado. Explicá cómo se simula el paso por referencia de los arreglos.
+:::
+
+:::{solution} ej-arr-func-effect
+:class: dropdown
+Al ser una función con efectos secundarios, modificamos el arreglo original de forma directa en su memoria física:
+```c
+#include <stddef.h>
+
+void escalar_arreglo(int arreglo[], size_t size, int factor) {
+    for (size_t i = 0; i < size; i++) {
+        arreglo[i] = arreglo[i] * factor; // Efecto secundario
+    }
+}
+```
+El paso por referencia se simula porque el compilador no copia los elementos a la función; en su lugar, le pasa la dirección del primer elemento del arreglo. La indexación `arreglo[i]` opera sobre la misma dirección física de la memoria del invocador.
+:::
+
+:::{exercise}
+:label: ej-arr-decay-sizeof
+Si pasás un arreglo a una función (ej: `void f(int arr[])`), explicá por qué realizar `sizeof(arr)` dentro de la función devolverá el tamaño de un puntero (habitualmente 8 bytes en 64 bits) y no el tamaño en bytes del arreglo original.
+:::
+
+:::{solution} ej-arr-decay-sizeof
+:class: dropdown
+Esto ocurre debido al fenómeno de **decaimiento de arreglo a puntero (array decay)**.
+Cuando un arreglo se pasa como parámetro a una función, la firma `int arr[]` es convertida implícitamente por el compilador en un puntero al primer elemento (`int *arr`). Dado que el operador `sizeof` evalúa el tipo de datos de su operando en tiempo de compilación, calcula el tamaño de la variable parámetro `arr` (que es de tipo puntero, ocupando 8 bytes en sistemas de 64 bits), habiéndose perdido la información sobre la capacidad del bloque de memoria del arreglo original.
+:::
+
+
+### Cadenas y Caracteres
 
 :::{exercise}
 :label: ej-cadena-literal-fault
@@ -815,273 +1149,8 @@ Longitud lógica: 10 caracteres
 - `strlen(mensaje)` retorna la cantidad de caracteres antes del `\0` (`10`).
 :::
 
----
 
-(lectura-segura-de-cadenas)=
-### Lectura Segura de Cadenas
-
-El uso de `scanf("%s", buffer)` es una de las fuentes de errores de seguridad
-más comunes en C. La alternativa segura es `fgets`, como lo recomienda la regla de estilo {ref}`0x5001h`.
-
-````{code-block}c
-:linenos:
-char buffer[100];
-fgets(buffer, sizeof(buffer), stdin);
-
-// fgets puede incluir el salto de línea ('\n'). Es buena práctica removerlo.
-size_t len = strlen(buffer);
-if (len > 0 && buffer[len - 1] == '\n') {
-    buffer[len - 1] = '\0';
-}
-````
-
-(biblioteca-estandar-string-h-un-vistazo-rapido)=
-### Biblioteca Estándar `<string.h>`: Un Vistazo Rápido
-
-Las funciones de biblioteca para manipular cadenas más importantes:
-
-- `strcpy(dest, src)`: Copia `src` en `dest`, incluyendo `\0`. No comprueba el
-  tamaño de `dest`, siendo muy peligrosa.
-- `strncpy(dest, src, n)`: Copia hasta `n` caracteres. **Cuidado**: si la
-  longitud de `src` es `n` o más, **no añade el `\0`**. La terminación nula debe
-  ser asegurada manualmente.
-- `strcmp(s1, s2)`: Compara las cadenas carácter por carácter según su valor
-  numérico. Devuelve `<0` si `s1<s2`, `0` si son iguales, y `>0` si `s1>s2`.
-- `strcat(dest, src)`: Busca el `\0` en `dest` y copia `src` a partir de ahí.
-  También es insegura por no verificar el tamaño.
-
-[Más información sobre `string.h`](https://en.cppreference.com/w/c/header/string.html)
-y otras funciones disponibles.
-
-
-
----
-
-(cadenas-seguras-el-dilema-del-nul)=
-## Cadenas Seguras: El Dilema del NUL
-
-El modelo de cadenas de C —terminadas en `'\0'` sin información de longitud— es una fuente histórica de vulnerabilidades. La Regla {ref}`0x5004h` exige usar operaciones seguras. Esta sección fundamenta por qué.
-
-Las cadenas de caracteres en el lenguaje C son una de sus características más
-fundamentales y, a la vez, una de sus mayores fuentes de vulnerabilidades de
-seguridad. Entender su diseño histórico es clave para comprender por qué son
-inseguras y por qué surgieron las "cadenas seguras".
-
-(cadenas-tradicionales-en-c-el-legado-del-nul)=
-## Cadenas Tradicionales en C: El Legado del `NUL`
-
-(historia-y-diseno)=
-### Historia y Diseño
-
-Cuando Dennis Ritchie y Ken Thompson diseñaron el lenguaje C en la década de
-1970, lo hicieron pensando en la eficiencia y el hardware de la época (como la
-PDP-11). Los recursos eran extremadamente limitados. Para representar una
-secuencia de caracteres, adoptaron una convención simple y eficaz:
-
-- Una cadena es una **secuencia contigua de bytes (caracteres) en memoria.**
-
-- El final de la cadena se marca con un **carácter nulo (`\0`)**.
-
-Este estilo se conoce como **cadena terminada en nulo** (o _null-terminated
-string_). Por ejemplo, la cadena "HOLA" se almacena en memoria como:
-
-| `H` | `o` | `l` | `a` | `\0` |
-| --- | --- | --- | --- | ---- |
-
-Esta simplicidad era genial para los sistemas de esa era. No se necesitaba
-almacenar metadatos adicionales como la longitud; la función que leía la cadena
-simplemente avanzaba hasta encontrar el `\0`.
-
-(la-raiz-de-la-inseguridad-ausencia-de-informacion-de-tamano)=
-### La Raíz de la Inseguridad: Ausencia de Información de Tamaño
-
-La principal debilidad de este diseño es que la propia cadena **no sabe cuál es
-su longitud ni la capacidad del buffer que la contiene**. Para obtener su
-longitud, una función como `strlen()` debe recorrerla carácter por carácter
-desde el inicio hasta encontrar el `\0`, una operación de complejidad $O(n)$.
-
-El verdadero peligro surge con funciones de manipulación como `strcpy()`
-(copiar), `strcat()` (concatenar) o `gets()` (leer desde la entrada estándar).
-Estas funciones escriben datos en una memoria destino **asumiendo ciegamente que
-hay espacio suficiente**.
-
-#### El Ataque Clásico: Buffer Overflow (Desbordamiento de Búfer)
-
-Imagina este código:
-
-```{code-block}c
-:linenos:
-#include <stdio.h>
-#include <string.h>
-
-void vulnerable() {
-    char buffer_pequeno[10]; // Buffer con capacidad para 9 caracteres + \0
-    char entrada_maliciosa[] = "AAAAAAAAAAAAAAAAAAAA"; // 20 caracteres
-
-    //strcpy no sabe que buffer_pequeno solo tiene 10 bytes.
-    //Copiará los 20 caracteres de la entrada, más el \0.
-    strcpy(buffer_pequeno, entrada_maliciosa);
-
-    printf("Contenido del buffer: %s\n", buffer_pequeno);
-}
-
-```
-
-Al ejecutar `strcpy()`, se escriben 21 bytes (`20` 'A' más el `\0`) en un
-espacio de solo `10` bytes. Los 11 bytes extra se escriben fuera de los límites
-del `buffer_pequeno`, **sobrescribiendo otras áreas de la memoria** en el stack.
-
-Esto puede causar desde un simple fallo del programa hasta las peores
-vulnerabilidades de seguridad, como la **ejecución de código arbitrario**, si un
-atacante diseña la `entrada_maliciosa` para sobrescribir la dirección de retorno
-de la función con la dirección de su propio código malicioso.
-
-(cadenas-seguras-la-solucion-del-tamano-explicito)=
-## Cadenas Seguras: La Solución del Tamaño Explícito
-
-Para solucionar estos problemas, surgieron las "cadenas seguras". El concepto
-fundamental es simple pero poderoso: **la estructura de datos de la cadena debe
-contener información sobre su tamaño**.
-
-Una cadena segura generalmente almacena dos piezas clave de metadatos junto a
-los datos de los caracteres:
-
-1. **Longitud (length):** El número actual de caracteres en la cadena.
-
-1. **Capacidad (capacity):** El tamaño total del bloque de memoria asignado para
-   la cadena, indicado como un `size_t`.
-
-Con esta información, cualquier operación de escritura puede verificar primero
-si `longitud < capacidad`.
-
-(ventajas-clave-de-las-cadenas-seguras)=
-### Ventajas Clave de las Cadenas Seguras
-
-- **Seguridad:** Previenen los desbordamientos de búfer por diseño. Las
-  funciones de copia o concatenación pueden negarse a operar o redimensionar el
-  búfer si no hay espacio suficiente.
-
-- **Eficiencia:** Obtener la longitud de la cadena es una operación instantánea
-  (O(1)), ya que el valor está almacenado y no necesita ser calculado.
-
-- **Compatibilidad Binaria:** Pueden almacenar datos que contienen caracteres
-  nulos (`\0`) en medio de la secuencia, ya que el final no está determinado por
-  el `\0`, sino por el campo de longitud.
-
-(implementaciones-y-alternativas)=
-### Implementaciones y Alternativas
-
-Existen varias formas de implementar cadenas seguras en C y otros lenguajes.
-
-#### **1. Anexo K de C11 (Funciones `_s`)**
-
-El estándar C11 introdujo un anexo opcional (Anexo K) con versiones "seguras" de
-las funciones de cadena tradicionales. Estas funciones, como `strcpy_s()`,
-`strcat_s()` y `snprintf_s()`, generalmente toman un argumento adicional: el
-tamaño del búfer de destino.
-
-```{code-block}c
-:linenos:
-// Ejemplo con strcpy_s
-char buffer[10];
-const char* origen = "Texto largo";
-
-// strcpy_s verifica que el tamaño del buffer (10)
-// es suficiente para copiar el origen.
-// En este caso, devolvería un error en lugar de desbordar.
-errno_t resultado = strcpy_s(buffer, sizeof(buffer), origen);
-
-if (resultado != 0) {
-    // Manejar el error de copia
-}
-
-```
-
-**Problema:** Este anexo es **opcional** y su adopción ha sido muy limitada.
-Compiladores populares como GCC y Clang no lo implementan por defecto, y la
-comunidad lo ha criticado por su diseño y usabilidad. Microsoft sí lo implementa
-en su compilador MSVC.
-
-#### 2. Bibliotecas de Terceros (La Solución Práctica en C)
-
-La forma más común y recomendada de usar cadenas seguras en C es a través de
-bibliotecas de alta calidad.
-
-- **Simple Dynamic Strings (SDS):** Es una de las más populares, creada para el
-  proyecto Redis. Es extremadamente eficiente y fácil de usar. La estructura de
-  SDS almacena la longitud y la capacidad en una cabecera justo antes del
-  puntero a los datos, lo que la hace compatible con funciones C que esperan un
-  `char*`.
-
-```{code-block}c
-:linenos:
-// Ejemplo (conceptual) de uso de SDS
-#include "sds.h"
-
-sds mi_cadena = sdsnew("Hola "); // Crea una nueva cadena SDS
-mi_cadena = sdscat(mi_cadena, "Mundo!"); // Concatena de forma segura
-
-printf("%s\n", mi_cadena); // Imprime "Hola Mundo!"
-printf("Longitud: %zu\n", sdslen(mi_cadena)); // Obtiene la longitud en O(1)
-
-sdsfree(mi_cadena); // Libera la memoria
-
-```
-
-- **The Better String Library (bstring):** Otra biblioteca robusta y bien
-  establecida que ofrece un enfoque similar a SDS.
-
-(tabla-comparativa)=
-### Tabla Comparativa
-
-| Característica         | Cadenas NUL-Terminadas                              | Anexo K de C11 (`_s`)                                 | Bibliotecas (SDS) / C++ `std::string`            |
-| ---------------------- | --------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------ |
-| **Seguridad**          | **Muy Baja** (propensa a overflows)              |  **Mejorada** (requiere disciplina del programador) |  **Alta** (seguridad por diseño)               |
-| **Obtener Longitud**   | O(n) - Lento                                        | O(n) - Lento                                          | O(1) - Instantáneo                               |
-| **Gestión de Memoria** | Manual y propensa a errores                         | Manual (el programador provee el buffer)              | Automática y gestionada por la biblioteca/objeto |
-| **Facilidad de Uso**   | Simple para tareas básicas, compleja para seguridad | Verbosa y propensa a errores de uso                   | Muy alta, interfaz de alto nivel                 |
-| **Datos Binarios**     |  **No** (el `\0` actúa como terminador)           |  **No**                                             |  **Sí** (la longitud determina el final)       |
-
-(conclusion)=
-### Conclusión
-
-Aunque las cadenas tradicionales de C son un pilar histórico de la programación
-de sistemas, su diseño es inherentemente inseguro para el desarrollo de software
-moderno. Ignorar la información sobre el tamaño del búfer fue una decisión
-comprensible en su momento, pero ha sido la causa de innumerables
-vulnerabilidades.
-
-(glosario)=
-## Glosario
-
-::::{glossary}
-`size_t`
-
-: Según el estándar ISO C de 1999 (C99), **size_t** es un tipo de dato entero
-sin signo de al menos 16 bits (en las secciones 7.17 y 7.18.3). Este se utiliza
-para representar el tamaño de un objeto. Las funciones de la biblioteca que
-toman o devuelven tamaños esperan que estos sean de este tipo. Además, el
-operador **`sizeof`**, que es evaluado en tiempo de compilación, debe dar como
-resultado un valor que debe ser al menos, compatible. Para utilizarlo, es
-necesario importar `stddef.h` o `stdlib.h`. Esto también implica que un
-**`size_t`** es un tipo garantizado para contener cualquier índice de un
-arreglo. Para mas información, ver:
-[CPPReference - `size_t`](https://en.cppreference.com/w/c/types/size_t.html)
-
-Literal de cadena
-
-: Es el texto que se escribe directamente en el código, encerrado entre comillas
-dobles, como "Texto inicial". Piensa en él como una plantilla de texto
-original y constante que el programa crea al compilarse. Este literal se
-almacena en una parte de la memoria del programa que se considera fija y no debe
-alterarse. Cuando creas un arreglo como `char mi_cadena[] = "Texto inicial";`,
-lo que realmente sucede es que el contenido de este literal se **copia** al
-arreglo, permitiendo su modificación.
-
-::::
-
-(ejercicios-de-autoevaluacion-cadenas-seguras)=
-### Ejercicios de Autoevaluación (Cadenas Seguras)
+### Cadenas Seguras
 
 :::{exercise}
 :label: ej-seguro-fgets-newline
@@ -1149,13 +1218,46 @@ La función `strcpy` copia los bytes de la cadena `src` al buffer `dest` de form
 Si la longitud de `src` excede la capacidad de `dest`, `strcpy` continuará escribiendo sobrepasando los límites del arreglo. Esto sobrescribe variables adyacentes en el stack, incluyendo punteros y la dirección de retorno de la función actual. Un atacante puede explotar esto para secuestrar el flujo de control ejecutando código malicioso (vulnerabilidad de *stack buffer overflow*). Para evitarlo, deben emplearse funciones con control de tamaño explícito o comprobar los límites de antemano.
 :::
 
----
 
-(glosario)=
+
 ## Glosario
 
-(conceptos-clave)=
-## Conceptos Clave
+::::{glossary}
+`size_t`
+
+: Según el estándar ISO C de 1999 (C99), **size_t** es un tipo de dato entero
+sin signo de al menos 16 bits (en las secciones 7.17 y 7.18.3). Este se utiliza
+para representar el tamaño de un objeto. Las funciones de la biblioteca que
+toman o devuelven tamaños esperan que estos sean de este tipo. Además, el
+operador **`sizeof`**, que es evaluado en tiempo de compilación, debe dar como
+resultado un valor que debe ser al menos, compatible. Para utilizarlo, es
+necesario importar `stddef.h` o `stdlib.h`. Esto también implica que un
+**`size_t`** es un tipo garantizado para contener cualquier índice de un
+arreglo. Para mas información, ver:
+[CPPReference - `size_t`](https://en.cppreference.com/w/c/types/size_t.html)
+
+Literal de cadena
+
+: Es el texto que se escribe directamente en el código, encerrado entre comillas
+dobles, como "Texto inicial". Piensa en él como una plantilla de texto
+original y constante que el programa crea al compilarse. Este literal se
+almacena en una parte de la memoria del programa que se considera fija y no debe
+alterarse. Cuando creas un arreglo como `char mi_cadena[] = "Texto inicial";`,
+lo que realmente sucede es que el contenido de este literal se **copia** al
+arreglo, permitiendo su modificación.
+
+::::
+
+
+
+
+
+
+
+
+---
+
+## Síntesis y Resumen
 
 Este apunte introduce las **secuencias** (arreglos) como la primera estructura de datos para manejar colecciones homogéneas, y las **cadenas** como caso especial para texto.
 
@@ -1184,81 +1286,9 @@ Este apunte introduce las **secuencias** (arreglos) como la primera estructura d
 
 **Relación con Punteros**
 - Los arreglos y los punteros están íntimamente vinculados en C.
-- El estudio de las direcciones de memoria y la aritmética de punteros (por ejemplo, comprender que la expresión `arr[i]` equivale técnicamente a una operación de indirección sobre la dirección de memoria) se explican de forma detallada en el capítulo {ref}`punteros-capitulo` en [](9_punteros).
+- El estudio de las direcciones de memoria y la aritmética de punteros (por ejemplo, comprender que la expresión `arr[i]` equivale técnicamente a una operación de indirección sobre la dirección de memoria) se explican de forma detallada en el capítulo {ref}`punteros-capitulo` en [](4_punteros.md).
 :::
 
-(conexion-con-el-siguiente-tema)=
-## Conexión con el Siguiente Tema
-
-Los arreglos que estudiamos tienen una limitación crítica: **tamaño fijo determinado en compilación**. Si declaramos `int arr[100]`, consumimos memoria para 100 enteros incluso si solo usamos 10. Si necesitamos 101, el programa no compila. Esta rigidez es problemática para software real que debe adaptarse a cantidades variables de datos.
-
-Además, cuando pasamos arreglos a funciones, vimos que en realidad estamos pasando **la dirección del primer elemento**. ¿Qué significa "dirección"? ¿Cómo manipulamos estas direcciones directamente?
-
-El próximo tema introduce conceptos que profundizan en cómo se organiza y manipula la memoria:
-
-- Los **punteros** ([Punteros](9_punteros)) como variables que almacenan direcciones
-- Las **matrices** ([Matrices](7_matrices)) como arreglos multidimensionales
-- La **gestión de memoria** ([Memoria Dinámica](14_memoria_dinamica)) para estructuras dinámicas
-
-Los punteros son el concepto más poderoso y peligroso de C. Dominando punteros y arreglos simultáneamente, se comprende la esencia del lenguaje: **control directo sobre la memoria** con la sintaxis mínima necesaria.
-
-**Pregunta puente**: Cuando escribimos `int arr[5]`, ¿dónde exactamente en la memoria se almacenan estos 5 enteros? ¿Cómo accede la CPU a `arr[3]`? La respuesta requiere entender direcciones de memoria, lo que nos lleva naturalmente a los punteros.
-
-(referencias-y-lecturas-complementarias)=
 ## Referencias y Lecturas Complementarias
 
-(textos-fundamentales)=
-### Textos Fundamentales
-
-- {cite:t}`kernighan_c_2014`. Capítulo 5: Pointers and Arrays. La relación fundamental entre punteros y arreglos.
-
-- {cite:t}`king_c_2008`. Capítulo 8: Arrays y Capítulo 13: Strings. Funciones de biblioteca y manipulación de cadenas.
-
-- {cite:t}`weiss_data_2014`. Capítulo 3: Lists, Stacks, and Queues. Algoritmos sobre secuencias.
-
-(algoritmos-sobre-arreglos)=
-### Algoritmos sobre Arreglos
-
-- {cite:t}`cormen_introduction_2009`. Capítulo 2: Getting Started (Insertion Sort), Capítulo 6: Heapsort, Capítulo 9: Medians and Order Statistics.
-
-- {cite:t}`sedgewick_algorithms_2011`. Capítulo 2: Sorting. Visualizaciones excelentes de algoritmos de ordenamiento.
-
-(cadenas-y-procesamiento-de-texto)=
-### Cadenas y Procesamiento de Texto
-
-- **POSIX String Handling** - https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/string.h.html
-  - Especificación estándar de funciones de cadenas.
-
-- {cite:t}`seacord_secure_2013`. Capítulo 2: Strings. Vulnerabilidades comunes con cadenas.
-
-(recursos-en-linea)=
-### Recursos en Línea
-
-- **C String Handling** - https://en.cppreference.com/w/c/string
-  - Referencia completa de `<string.h>` con ejemplos.
-
-- **Sorting Algorithms Visualizations** - https://visualgo.net/en/sorting
-  - Visualizaciones interactivas de algoritmos de ordenamiento.
-
-- **Big-O Cheat Sheet** - https://www.bigocheatsheet.com/
-  - Complejidades de operaciones comunes sobre arreglos.
-
-(herramientas)=
-### Herramientas
-
-- **Valgrind** - https://valgrind.org/
-  - Detección de accesos fuera de límites en arreglos.
-
-- **AddressSanitizer** - https://github.com/google/sanitizers
-  - Instrumentación de compilador para detectar errores de memoria.
-  - Uso: `gcc -fsanitize=address programa.c`
-
-(ejercicios-y-practica)=
-### Ejercicios y Práctica
-
-- **LeetCode - Array Problems** - https://leetcode.com/tag/array/
-  - Cientos de problemas clasificados por dificultad.
-
-- **HackerRank - Data Structures** - https://www.hackerrank.com/domains/data-structures
-  - Arrays y strings con tests automáticos.
 

@@ -499,7 +499,7 @@ bool es_potencia_de_dos(int n) {
 
 :::
 
-(glosario)=
+(glosario_bitwise)=
 ## Glosario
 
 :::{glossary}
@@ -524,7 +524,7 @@ portabilidad de datos binarios.
 
 Una aplicación directa de los operadores bitwise en ingeniería de sistemas es la codificación de múltiples errores en un único entero mediante *bitmasks*. Este patrón es ubicuo en drivers, sistemas embebidos y APIs de bajo nivel.
 
-(introduccion)=
+(introduccion_bitmasks_errores)=
 ## Introducción
 
 En muchas situaciones reales, una operación puede fallar por múltiples razones simultáneas. Por ejemplo, al validar datos de un formulario, pueden existir varios campos inválidos al mismo tiempo. Reportar solo el primer error obliga al usuario a corregir y reintentar múltiples veces. Una mejor solución es reportar **todas** las causas de error simultáneamente.

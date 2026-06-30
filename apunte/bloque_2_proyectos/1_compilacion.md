@@ -4,8 +4,8 @@ short_title: Compilación
 subtitle: Haciendonos entender por la computadora.
 ---
 
-(proceso-de-compilacion-en-c)=
-## Proceso de compilación en C
+(capitulo-compilacion)=
+## Introducción
 
 Cuando ejecutás en tu terminal el comando:
 
@@ -24,12 +24,17 @@ Sin embargo, detrás de esa aparente simplicidad, el compilador `gcc` (GNU Compi
 Comprender esta transformación del código, desde `programa.c` hasta `mi_programa`, es una habilidad fundamental para cualquier desarrollador de C. Te proporciona las bases para diagnosticar errores de compilación complejos, optimizar el rendimiento de tus aplicaciones y gestionar eficientemente proyectos que se componen de múltiples archivos fuente.
 
 (diagrama-del-proceso)=
-### Diagrama del Proceso
+
+## Desarrollo
+
+(proceso-de-compilacion-en-c)=
+### Proceso de compilación en C
+#### Diagrama del Proceso
 
 El flujo de transformación desde tu código fuente hasta un programa ejecutable
 se puede visualizar de la siguiente manera:
 
-```{figure} 5/proceso_compilacion.svg
+```{figure} 1/proceso_compilacion.svg
 :name: fig-proceso-compilacion
 :width: 60%
 
@@ -37,7 +42,7 @@ Proceso completo de compilación desde el código fuente hasta el ejecutable, mo
 ```
 
 (fase-1-preprocesado-preprocessing)=
-### Fase 1: Preprocesado (Preprocessing)
+#### Fase 1: Preprocesado (Preprocessing)
 
 Esta es la etapa inicial del proceso de compilación. Su función es transformar
 tu código fuente antes de que el compilador propiamente dicho comience su
@@ -50,7 +55,7 @@ código, resolviendo inclusiones de archivos, expandiendo abreviaturas (macros) 
 seleccionando fragmentos de código según ciertas condiciones, antes de
 entregárselo al compilador.
 
-#### Tareas del preprocesador
+##### Tareas del preprocesador
 
 ##### Inclusión de Cabeceras **Directiva:** `#include`
 
@@ -83,7 +88,7 @@ Las macros realizan una sustitución de texto literal. Esto genera dos peligros 
 2. **Evaluación múltiple (efectos colaterales)**: Si un parámetro se evalúa más de una vez dentro de la macro, pasar expresiones con efectos secundarios (como `x++`) provocará un comportamiento incorrecto. Por ejemplo, con una macro `MAX(a, b)` definida como `((a) > (b) ? (a) : (b))`, la llamada `MAX(x++, y)` incrementará `x` dos veces si `x > y`.
 :::
 
-##### Compilación Condicional **Directivas:** `#if`, `#ifdef`,
+###### Compilación Condicional **Directivas:** `#if`, `#ifdef`,
 
 `#ifndef`, `#else`, `#elif`, `#endif`
 
@@ -107,7 +112,7 @@ código del archivo fuente final que se pasará al compilador. Son extremadament
   #endif // MI_CABECERA_H
   ```
 
-##### Eliminación de Comentarios
+###### Eliminación de Comentarios
 
 El preprocesador también se encarga de una tarea de limpieza fundamental:
 eliminar todo el texto que se encuentre dentro de los bloques de comentarios
@@ -115,7 +120,7 @@ eliminar todo el texto que se encuentre dentro de los bloques de comentarios
 reduce el "ruido" y entrega al compilador únicamente el código que debe
 analizar.
 
-#### ¿Cómo verlo en acción?
+##### ¿Cómo verlo en acción?
 
 Para aislar y examinar el resultado de esta fase, podés indicarle a `gcc` que se
 detenga justo después del preprocesado. Esto se logra con la opción `-E`. El
@@ -133,7 +138,7 @@ técnica de depuración excelente cuando sospechás que un error se origina en u
 macro mal definida o en una inclusión de archivo incorrecta.
 
 (etapa-2-compilacion)=
-### Etapa 2: Compilación
+#### Etapa 2: Compilación
 
 Esta es la fase central del proceso, donde el compilador (como `gcc`) toma el
 código C preprocesado y lo traduce a un lenguaje de mucho más bajo nivel: el
@@ -144,14 +149,14 @@ RISC-V).
 El compilador no solo traduce, sino que también analiza y optimiza el código.
 Este proceso se puede descomponer en varias sub-fases:
 
-```{figure} 5/fases_compilador.svg
+```{figure} 1/fases_compilador.svg
 :name: fig-fases-compilador
 :width: 90%
 
 Fases del compilador divididas en Frontend (análisis léxico, sintáctico y semántico) y Backend (generación de código intermedio, optimización y código ensamblador).
 ```
 
-#### Análisis Léxico y Sintáctico
+##### Análisis Léxico y Sintáctico
 
 El compilador primero descompone el código fuente en tokens (palabras clave,
 identificadores, operadores) y luego verifica que la secuencia de estos tokens
@@ -160,7 +165,7 @@ siga las reglas gramaticales del lenguaje C, construyendo una estructura de
 coma, las llaves no coinciden o una instrucción está mal formada, el proceso
 falla aquí.
 
-#### Análisis Semántico
+##### Análisis Semántico
 
 Una vez que la sintaxis es correcta, el compilador verifica la coherencia
 semántica. Se asegura de que las variables estén declaradas antes de usarse, que
@@ -168,7 +173,7 @@ los tipos de datos sean compatibles en las operaciones (no podés sumar un núme
 a una `struct`, por ejemplo) y que las llamadas a funciones coincidan con sus
 declaraciones.
 
-#### Optimización
+##### Optimización
 
 Esta es una de las tareas más importantes del compilador. Transforma el código
 para que sea más eficiente o más pequeño en tamaño, sin cambiar su
@@ -176,7 +181,7 @@ comportamiento. Las optimizaciones pueden incluir la eliminación de código
 muerto, el desenrollado de lazos (loop unrolling) o la inserción de funciones
 en línea (inlining).
 
-#### Generación de Código
+##### Generación de Código
 
 Finalmente, el código optimizado se traduce a las instrucciones específicas del
 lenguaje ensamblador para la arquitectura de destino. Cada línea de código C se
@@ -250,54 +255,17 @@ En el ejemplo x86-64 anterior bajo Linux, se observa la aplicación de la conven
    - En `main`, la instrucción `sub rsp, 16` desplaza el puntero de pila (`rsp`) reservando 16 bytes de espacio local, manteniendo a su vez la alineación de pila requerida por la ABI antes de realizar una llamada a función.
 3. **Retorno de resultados:** Por convención, el valor de retorno de la función se deposita en el registro acumulador `eax`, de donde `main` lo recupera tras ejecutarse la instrucción `ret` (retorno).
 
-(ejercicios-de-autoevaluacion-fases-de-compilacion)=
-### Ejercicios de Autoevaluación (Fases de Compilación)
 
-:::{exercise}
-:label: ej-comp-fases-ext
-Relacioná cada una de las cuatro fases de compilación de C con su correspondiente archivo intermedio generado por GCC indicando su extensión habitual y su formato (texto plano o binario).
-:::
 
-:::{solution} ej-comp-fases-ext
-:class: dropdown
-1.  **Preprocesado**: Genera el archivo fuente expandido con extensión `.i` (Texto plano).
-2.  **Compilación**: Traduce el código C a código ensamblador con extensión `.s` (Texto plano específico de la arquitectura).
-3.  **Ensamblado**: Genera el archivo objeto con extensión `.o` (Binario en formato estructurado, como ELF).
-4.  **Enlazado**: Produce el archivo ejecutable binario final (sin extensión en Unix/Linux, `.exe` en Windows).
-:::
 
-:::{exercise}
-:label: ej-comp-macro-hazard
-Explicá detalladamente por qué la macro `#define DUPLICAR(x) x * 2` produce un resultado incorrecto al evaluarse como `DUPLICAR(5 + 3)`. Proponé la definición correcta y segura para esta macro.
-:::
 
-:::{solution} ej-comp-macro-hazard
-:class: dropdown
-El preprocesador realiza una sustitución de texto literal sin evaluar precedencias matemáticas.
-- Al expandir `DUPLICAR(5 + 3)`, el texto resultante es `5 + 3 * 2`.
-- Siguiendo la precedencia de operadores, la multiplicación se evalúa antes que la suma: $5 + (3 \times 2) = 11$. El resultado esperado era $(5 + 3) \times 2 = 16$.
-Para evitar este peligro de orden de operaciones, se deben proteger todos los parámetros y la expresión completa con paréntesis:
-```c
-#define DUPLICAR(x) ((x) * 2)
-```
-:::
 
-:::{exercise}
-:label: ej-comp-flags-warn
-Si compilás un programa utilizando `gcc -Wall -Wextra -Werror main.c` y el compilador detecta una variable local declarada que nunca se lee ni se utiliza en el código, ¿cuál es el resultado de la compilación?
-:::
 
-:::{solution} ej-comp-flags-warn
-:class: dropdown
-La compilación fallará y **no se generará el archivo ejecutable**.
-- `-Wall` y `-Wextra` hacen que el compilador emita una advertencia (*warning*) informando de la variable no utilizada.
-- `-Werror` instruye al compilador a tratar todas las advertencias como errores fatales, lo que aborta inmediatamente el proceso de compilación impidiendo la generación del binario.
-:::
 
 ---
 
 (archivos-de-cabecera-h-en-c)=
-## Archivos de Cabecera (`.h`) en C
+### Archivos de Cabecera (`.h`) en C
 
 Un archivo de cabecera (o `header`) en C actúa como un contrato o una interfaz
 pública para un módulo de código. Su función principal es declarar los elementos
@@ -305,7 +273,7 @@ pública para un módulo de código. Su función principal es declarar los eleme
 fuente que lo incluyan, sin exponer los detalles de su implementación.
 
 (propositos-fundamentales)=
-### Propósitos Fundamentales
+#### Propósitos Fundamentales
 
 Los archivos de cabecera son cruciales para un desarrollo de software
 estructurado y modular en C. Sus principales beneficios son:
@@ -331,13 +299,13 @@ que los archivos que utilizan el módulo necesiten ser cambiados, siempre y
 cuando la interfaz (el `.h`) permanezca constante.
 
 (que-suelen-contener)=
-### ¿Qué suelen contener?
+#### ¿Qué suelen contener?
 
 Un archivo de cabecera puede contener varias clases de declaraciones, pero nunca debería contener definiciones de funciones (cuerpos de código) o definiciones/inicializaciones de variables globales.
 
 Esto se debe a la **Regla de Definición Única** (*One Definition Rule* o *ODR*). Si definís una función o una variable global en un archivo `.h`, y luego incluís ese encabezado en múltiples archivos fuente `.c` (que compilan por separado para generar distintos archivos de objeto `.o`), la misma función o variable se definirá físicamente en múltiples unidades de traducción. Al final del proceso, el enlazador (*linker*) fallará con un error del tipo `multiple definition of...` o `symbol redefined`, ya que el sistema es incapaz de decidir a cuál de todas las definiciones idénticas enlazar el programa. En su lugar, el archivo `.h` solo debe declarar la existencia de los elementos (por ejemplo, mediante prototipos de funciones o variables con el calificador `extern`), y el archivo `.c` correspondiente debe definirlos una única vez.
 
-#### Prototipos de Funciones
+##### Prototipos de Funciones
 
 Es el contenido más común. Se declara la firma de la función (tipo de retorno,
 nombre y parámetros) para que el compilador conozca su existencia antes de que
@@ -358,7 +326,7 @@ sea utilizada. Una buena documentación, como la que pide la regla {ref}`0x000Ah
 int suma(int n, int m);
 ```
 
-#### Definiciones de Macros
+##### Definiciones de Macros
 
 Se utilizan para definir constantes simbólicas o pequeñas porciones de código
 que se expanden durante el preprocesamiento.
@@ -370,7 +338,7 @@ que se expanden durante el preprocesamiento.
 #define PI 3.1415926535
 ```
 
-#### Definiciones de Tipos y Estructuras
+##### Definiciones de Tipos y Estructuras
 
 Es el lugar ideal para declarar `struct`, `enum` y `typedef`, ya que estos tipos
 de datos a menudo necesitan ser compartidos entre varios archivos. El uso del sufijo `_t` para los tipos definidos con `typedef` sigue la regla {ref}`0x3004h`.
@@ -398,7 +366,7 @@ typedef enum {
 } DiaDeLaSemana;
 ```
 
-#### Declaraciones de Variables Globales
+##### Declaraciones de Variables Globales
 
 Si necesitás compartir una variable global entre varios archivos, la declarás en
 el `.h` usando la palabra clave `extern` y la definís (le das un valor inicial)
@@ -414,7 +382,7 @@ extern int errno;
 ```
 
 (guardas-de-inclusion)=
-### Guardas de Inclusión
+#### Guardas de Inclusión
 
 Para evitar errores de "redefinición" que ocurren cuando un mismo archivo de
 cabecera es incluido más de una vez en la misma unidad de compilación (archivo
@@ -460,53 +428,17 @@ prolijidad y previene errores futuros si el contenido del archivo cambia.
 :::
 
 
-#### Ejercicios de Autoevaluación (Cabeceras y Modularidad)
 
-:::{exercise}
-:label: ej-header-odr-viol
-Explicá por qué colocar la definición de una función (por ejemplo, `int sumar(int a, int b) { return a + b; }`) en un archivo de cabecera `operaciones.h` incluido por `main.c` y `utilidades.c` viola la regla de definición única (ODR) y qué error produce.
-:::
 
-:::{solution} ej-header-odr-viol
-:class: dropdown
-Al incluir `operaciones.h` en `main.c` y `utilidades.c`, el preprocesador copia textualmente el cuerpo de `sumar` en ambas unidades de traducción.
-Al compilar por separado, tanto `main.o` como `utilidades.o` contendrán el código máquina y el símbolo de la función `sumar`. Durante la fase de enlazado, el linker detectará que el símbolo `sumar` está definido físicamente en más de un archivo objeto, abortando el proceso con un error del tipo `multiple definition of 'sumar'`.
-Para solucionarlo, solo se debe colocar el prototipo de la función en `operaciones.h` y su definición en un archivo `operaciones.c`.
-:::
 
-:::{exercise}
-:label: ej-header-inclusion-guards
-Escribí la estructura completa de directivas del preprocesador necesarias para implementar guardas de inclusión en un archivo de cabecera llamado `sensor_temperatura.h` de acuerdo con las pautas de estilo.
-:::
 
-:::{solution} ej-header-inclusion-guards
-:class: dropdown
-```c
-#ifndef SENSOR_TEMPERATURA_H
-#define SENSOR_TEMPERATURA_H
 
-// Declaraciones de prototipos y tipos del módulo del sensor
-float leer_sensor_celsius(int pin);
 
-#endif // SENSOR_TEMPERATURA_H
-```
-:::
-
-:::{exercise}
-:label: ej-header-extern-use
-Explicá la diferencia de roles entre declarar una variable con `extern int contador;` en un archivo `.h` y definirla como `int contador = 0;` en un archivo `.c`.
-:::
-
-:::{solution} ej-header-extern-use
-:class: dropdown
-- **Declaración (`extern int contador;`)**: Le indica al compilador que la variable `contador` existe y está alojada físicamente en otra parte del programa. No reserva memoria ni inicializa ningún valor; es un anuncio de su existencia para permitir que otros archivos compilen sin error.
-- **Definición (`int contador = 0;`)**: Reserva el espacio físico real en la memoria del segmento de datos e inicializa la variable. Solo debe existir una única definición física para evitar colisiones en el linker.
-:::
 
 ---
 
 (fase-3-ensamblado-assembly)=
-## Fase 3: Ensamblado (Assembly)
+### Fase 3: Ensamblado (Assembly)
 
 Esta fase actúa como el traductor final entre un lenguaje simbólico de bajo
 nivel y el lenguaje nativo de la máquina. El **ensamblador** toma el código en
@@ -519,7 +451,7 @@ conjunto de instrucciones de máquina. Por lo tanto, el código ensamblador
 generado en la fase anterior es específico para la arquitectura de destino, y el
 ensamblador realiza la traducción final para esa plataforma concreta.
 
-#### Tareas Principales del Ensamblador
+##### Tareas Principales del Ensamblador
 
 El ensamblador, invocado internamente por `gcc`, realiza una tarea fundamental:
 
@@ -536,7 +468,7 @@ El ensamblador, invocado internamente por `gcc`, realiza una tarea fundamental:
 - **Generación del Archivo Objeto**: El resultado de este proceso se empaqueta y
   guarda en un **archivo objeto**, que por convención tiene la extensión `.o`.
 
-#### El Archivo Objeto: Más que solo Código Máquina
+##### El Archivo Objeto: Más que solo Código Máquina
 
 Un error común es pensar que un archivo `.o` es simplemente un volcado del
 código binario. En realidad, es un archivo con una estructura bien definida
@@ -562,7 +494,7 @@ Por esta razón, un archivo objeto no es ejecutable por sí mismo. Es un módulo
 código máquina autocontenido, pero con "huecos" o "referencias sin resolver" que
 deben ser completados por el enlazador.
 
-#### ¿Cómo verlo en acción?
+##### ¿Cómo verlo en acción?
 
 La opción `-c` de `gcc` es una de las más importantes en el desarrollo de
 software, ya que detiene el proceso de compilación justo después de la fase de
@@ -595,7 +527,7 @@ en proyectos grandes.
 :::
 
 (fase-4-enlazado-linking)=
-### Fase 4: Enlazado (Linking)
+#### Fase 4: Enlazado (Linking)
 
 Esta es la culminación del proceso de compilación, la fase donde todas las
 piezas de código máquina, previamente compiladas de forma aislada, se ensamblan
@@ -607,9 +539,9 @@ necesarias, y los combina para producir el archivo final que el sistema
 operativo puede cargar en memoria y ejecutar. Su misión principal es resolver
 las referencias cruzadas entre los distintos módulos de código.
 
-#### Tareas Principales del Enlazador
+##### Tareas Principales del Enlazador
 
-##### Resolución de Símbolos
+###### Resolución de Símbolos
 
 Esta es la tarea más crítica del enlazador. Cada archivo objeto tiene una "tabla
 de símbolos" que lista las funciones y variables que define (símbolos
@@ -629,7 +561,7 @@ El enlazador recorre los archivos objeto y:
     proceso de enlazado falla con un error de "símbolo no definido" (_undefined
     symbol_).
 
-##### Combinación y Reubicación
+###### Combinación y Reubicación
 
 El enlazador fusiona las secciones del mismo tipo de todos los archivos objeto
 de entrada. Por ejemplo, combina todas las secciones `.text` (código máquina) en
@@ -640,7 +572,7 @@ Durante este proceso, ajusta las direcciones de memoria en el código para que
 apunten a las ubicaciones finales correctas dentro del ejecutable. Este ajuste
 se conoce como **reubicación**.
 
-#### Enlazado Estático vs. Dinámico
+##### Enlazado Estático vs. Dinámico
 
 El enlazador puede incorporar el código de las bibliotecas de dos maneras:
 
@@ -659,7 +591,7 @@ El enlazador puede incorporar el código de las bibliotecas de dos maneras:
   copia de una biblioteca en memoria, ahorrando recursos.
 
 (como-verlo-en-accion)=
-### ¿Cómo verlo en acción?
+#### ¿Cómo verlo en acción?
 
 El enlazado es el paso final y automático que `gcc` realiza si no se le indica
 que se detenga antes con las opciones `-E`, `-S` o `-c`.
@@ -687,7 +619,7 @@ $> gcc -o mi_programa programa.c
 ```
 
 (opciones-del-compilador-recomendadas)=
-## Opciones del Compilador Recomendadas
+### Opciones del Compilador Recomendadas
 
 Usar `gcc` sin opciones es desaprovechar su potencial para ayudarte a escribir
 mejor código. Las siguientes opciones, exigidas por la regla {ref}`0x300Eh`, son altamente recomendadas en un entorno
@@ -717,20 +649,20 @@ simple y no dependa de que nos acordemos este conjunto de opciones _cada vez_
 que sea necesario compilar un programa.
 
 (documentacion-oficial)=
-### Documentación Oficial
+#### Documentación Oficial
 
 [Manual en línea de GCC](https://gcc.gnu.org/onlinedocs/). La fuente definitiva
 sobre todas las opciones y el funcionamiento del compilador.
 
 
 (makefiles)=
-## Makefiles
+### Makefiles
 
 Hay una guia mucho más detallada para quienes quieran entender cómo funcionan
 los [makefiles](../extras/makefiles).
 
 (que-es-un-makefile)=
-### ¿Qué es un Makefile?
+#### ¿Qué es un Makefile?
 
 `make` es una utilidad que automatiza el proceso de compilación de un programa a
 partir de su código fuente. Funciona modelando el proyecto como un **grafo de dependencias** (un grafo dirigido donde los nodos representan archivos y las aristas representan relaciones de dependencia) y leyendo un archivo especial llamado `Makefile` que define estas reglas. Su principal ventaja es la **compilación incremental**: a partir del grafo, `make` determina qué archivos han sido modificados desde la última compilación y recompila únicamente lo necesario, ahorrando una cantidad significativa de tiempo en proyectos grandes.
@@ -783,7 +715,7 @@ fallará.
 :::
 
 (estructura-basica-de-un-tp-con-proyecto)=
-### Estructura básica de un TP con proyecto
+#### Estructura básica de un TP con proyecto
 
 Como aprender a crear Makefiles no es parte de los temas críticos de la cátedra,
 hemos construido una estructura de proyecto que los utiliza y que nos permite
@@ -795,105 +727,36 @@ desarrollar las prácticas de una forma más profesional.
 - `make run`: compila y ejecuta el programa en `main.c`
 
 La tarea del Makefile de la raíz del proyecto, es conectar a todos los de los
-diferentes ejercicios.
+### Makefiles e Integración
 
-Y la estructura de un ejercicio individual está pensada para separar el `main`
-de las funciones que resuelven el ejercicio en sí.
+Para proyectos que constan de múltiples archivos fuentes, realizar la compilación manualmente en la terminal resulta insostenible. Se emplea la utilidad `make` para automatizar este flujo. 
 
-Cuando ejecutás `make test` allí, `make` ejecutará el objetivo `test` en todos los
-subproyectos.
-
-```{code-block} text
-+-- Makefile
-+-- libcadenas
-|   +-- cadenas.c
-|   +-- cadenas.h
-|   +-- Makefile
-|   +-- prueba.c
-+-- ejercicio1
-|   +-- ejercicio.c
-|   +-- ejercicio.h
-|   +-- main.c
-|   +-- Makefile
-|   +-- prueba.c
-+-- ejercicio2
-    +-- ejercicio.c
-    +-- ejercicio.h
-    +-- main.c
-    +-- Makefile
-    +-- prueba.c
-```
-
-Pero, para trabajar específicamente en uno de los ejercicios, y en particular,
-para no ver la salida de todos los otros ejercicios, la opción más simple es
-ubicar nuestra consola en el ejercicio que estamos desarrollando.
-
-Como verás, ¡hay un Makefile por directorio! Esto es para que puedas compilar
-por separado los ejercicios, que estarían en subdirectorios
-
-Las primeras prácticas no contarán con el lugar para "librerías", pero la mecánica
-es casi la misma, esencialmente, estas no tienen un `main.c`, solo `pruebas.c`.
-Estos directorios estarán para alojar funciones comunes como las necesarias para
-`cadenas_seguras` o `arreglos`
-
-
+Para un análisis detallado sobre cómo configurar y escribir las reglas de dependencias de un archivo de configuración para compilar de forma incremental, consultá el capítulo específico de {ref}`makefiles-capitulo`.
 
 ---
 
-(ejercicios-de-autoevaluacion-automatizacion-con-makefiles)=
-### Ejercicios de Autoevaluación (Automatización con Makefiles)
 
-:::{exercise}
-:label: ej-make-incremental
-Describí el criterio físico que utiliza la herramienta `make` para decidir si es necesario reconstruir un archivo objeto (por ejemplo, `funciones.o`) a partir de su archivo fuente `funciones.c`.
-:::
 
-:::{solution} ej-make-incremental
-:class: dropdown
-`make` examina las **marcas de tiempo de modificación (timestamps)** de los archivos en el disco físico.
-Si la fecha de última modificación del archivo de entrada (`funciones.c` o alguna de sus cabeceras declaradas como dependencias, ej: `funciones.h`) es **más reciente** que la fecha de última modificación del archivo objeto de salida (`funciones.o`), `make` deduce que el código fuente cambió y ejecuta la regla de compilación para reconstruir el objeto. Si el objeto es más nuevo que sus dependencias, `make` omite su compilación.
-:::
 
-:::{exercise}
-:label: ej-make-clean-phony
-Explicá detalladamente para qué sirve la regla `.PHONY: clean` en un Makefile y qué problema se produciría si se omitiera esta declaración y existiera en el directorio un archivo físico llamado `clean`.
-:::
 
-:::{solution} ej-make-clean-phony
-:class: dropdown
-La directiva `.PHONY` le indica a `make` que el objetivo indicado no corresponde a un archivo real que deba ser generado.
-Si se omitiera `.PHONY: clean` y en el mismo directorio existiera un archivo llamado `clean`, al ejecutar `make clean`, la herramienta buscaría dependencias para el objetivo `clean`. Al no tener dependencias y ver que el archivo `clean` ya existe físicamente en el disco, `make` reportaría que el objetivo está actualizado (`make: 'clean' is up to date`) y se negaría a ejecutar el bloque de comandos para limpiar el proyecto.
-:::
 
-:::{exercise}
-:label: ej-make-escritura
-Escribí una regla de Makefile para compilar el archivo objeto `usuario.o` a partir de sus dependencias `usuario.c` y `usuario.h`. Utilizá variables para el compilador (`$(CC)`) y banderas (`$(CFLAGS)`), recordando el requisito de indentación de Makefiles.
-:::
 
-:::{solution} ej-make-escritura
-:class: dropdown
-```makefile
-usuario.o: usuario.c usuario.h
-	$(CC) $(CFLAGS) -c usuario.c -o usuario.o
-```
-*Nota: La línea de comandos de la acción debe estar precedida obligatoriamente por un carácter de tabulación (Tab).*
-:::
 
 ---
 
 (argumentos-de-la-linea-de-comandos)=
-## Argumentos de la Línea de Comandos
+### Argumentos de la Línea de Comandos
 
 Una vez que el programa se compila, puede recibir información directamente desde la terminal a través de los argumentos de `main`. Este mecanismo completa el ciclo compilación-ejecución visto en este capítulo.
 
 (los-parametros-main-int-argc-char-argv)=
-## Los parámetros `main(int argc, char *argv[])`
+### Los parámetros `main(int argc, char *argv[])`
 
 Cuando ejecutás un programa en C desde la terminal, tenés la posibilidad de pasarle información directamente en la línea de comandos. Esta información, conocida como "argumentos", es recibida por la función `main` a través de dos parámetros especiales: `argc` y `argv`.
 
 :::{note} Prerequisitos
 
-Este capítulo asume conocimiento de arreglos ({doc}`6_secuencias`) y punteros ({doc}`9_punteros`), ya que `argv` es un arreglo de punteros a cadenas (`char *argv[]`). Si estos conceptos no están claros, repasalos antes de continuar.
+Este capítulo asume conocimiento de arreglos ({doc}`../bloque_3_memoria_estatica/2_secuencias.md`) y punteros ({doc}`../bloque_3_memoria_estatica/4_punteros.md`), ya que `argv` es un arreglo de punteros a cadenas (`char *argv[]`). Si estos conceptos no están claros, repasalos antes de continuar.
 
 :::
 
@@ -931,7 +794,7 @@ Estos dos parámetros contienen toda la información que se pasa al programa en 
 
 ```
 
-```{figure} 5/argc_argv_estructura.svg
+```{figure} 1/argc_argv_estructura.svg
 :label: fig-argc-argv-estructura
 :align: center
 
@@ -939,7 +802,7 @@ Estructura en memoria de `argc` y `argv[]`. El arreglo `argv` contiene punteros 
 ```
 
 (ejemplo-basico-imprimir-todos-los-argumentos)=
-## Ejemplo Básico: Imprimir Todos los Argumentos
+### Ejemplo Básico: Imprimir Todos los Argumentos
 
 El programa más simple para entender su funcionamiento es uno que recorre los
 valores en `argv` e imprime cada uno de sus elementos.
@@ -972,7 +835,7 @@ int main(int argc, char *argv[]) {
 ```
 
 (compilacion-y-ejecucion)=
-### Compilación y ejecución
+#### Compilación y ejecución
 
 Si guardás el código anterior como `main_args.c` y lo compilás, podés ver la
 salida al ejecutarlo con distintos argumentos.
@@ -1013,7 +876,7 @@ separados.
 :::
 
 (procesamiento-de-opciones)=
-## Procesamiento de opciones
+### Procesamiento de opciones
 
 Las opciones (también llamadas _flags_ o _switches_) son argumentos especiales
 que modifican el comportamiento de un programa. Usualmente comienzan con un
@@ -1054,7 +917,7 @@ como `getopt` (en sistemas POSIX) que simplifican enormemente este proceso.
 :::
 
 (conversion-de-argumentos-a-numeros)=
-## Conversión de Argumentos a Números
+### Conversión de Argumentos a Números
 
 Un punto crucial es que **todos los argumentos en `argv` son cadenas de
 caracteres**, incluso si parecen números (como `"42"`). Para poder realizar
@@ -1092,7 +955,7 @@ int main(int argc, char *argv[]) {
 ```
 
 (compilacion-y-ejecucion-del-sumador)=
-### Compilación y Ejecución del Sumador
+#### Compilación y Ejecución del Sumador
 
 ```bash
 (compilamos)=
@@ -1115,7 +978,7 @@ Para un código más robusto, es preferible usar `strtol` (ver {ref}`stdlib-strt
 :::
 
 (funciones-utiles-de-la-biblioteca-estandar)=
-## Funciones Útiles de la Biblioteca Estándar
+### Funciones Útiles de la Biblioteca Estándar
 
 Para construir programas de línea de comandos robustos, es indispensable conocer algunas de las herramientas que provee la biblioteca estándar de C. A continuación, se mencionan algunas de las funciones más relevantes en este contexto.
 
@@ -1126,7 +989,7 @@ Este es solo un resumen. Para una descripción detallada de todas las funciones,
 :::
 
 (funciones-clave)=
-### Funciones Clave
+#### Funciones Clave
 
 - **Conversión de Cadenas (`<stdlib.h>`)**:
   - {ref}`strtol <stdlib-strtol>`: Convierte cadenas a números de forma segura, permitiendo un control de errores robusto.
@@ -1154,7 +1017,7 @@ Dominar el uso de `argc` y `argv` junto con estas funciones te permitirá crear 
 ---
 
 (interaccion-con-el-shell)=
-## Interacción con el Shell
+### Interacción con el Shell
 
 :::{note} Temas opcionales
 
@@ -1167,7 +1030,7 @@ Sin embargo, hacen al desarrollo de buenas aplicaciones _de consola_.
 Cuando ejecutás un programa desde la línea de comandos, tu programa no existe en aislamiento sino que forma parte de un ecosistema más amplio: el shell o intérprete de comandos (como `bash`, `zsh`, o `sh`). El shell proporciona mecanismos poderosos para conectar programas entre sí y controlar el flujo de datos, lo que convierte a los programas C en herramientas componibles dentro de un sistema más grande.
 
 (codigos-de-salida)=
-### Códigos de Salida
+#### Códigos de Salida
 
 Cada programa retorna un **código de salida** (o _exit status_) al shell cuando termina su ejecución. Por convención en Unix y Linux:
 
@@ -1200,7 +1063,7 @@ echo $?  # Imprime el código de salida (0 si éxito)
 ```
 
 (variables-de-entorno)=
-### Variables de Entorno
+#### Variables de Entorno
 
 El shell mantiene un conjunto de **variables de entorno** que los programas pueden leer. Estas variables configuran el comportamiento del sistema y almacenan información útil como rutas de búsqueda, configuraciones del usuario, etc.
 
@@ -1229,7 +1092,7 @@ int main(void) {
 
 Variables comunes incluyen `PATH` (rutas de búsqueda de ejecutables), `HOME` (directorio del usuario), `USER` (nombre del usuario), y `LANG` (configuración de idioma).
 
-```{figure} 5/codigos_salida.svg
+```{figure} 1/codigos_salida.svg
 :label: fig-codigos-salida
 :align: center
 
@@ -1237,12 +1100,12 @@ Códigos de salida en programas C. El shell usa estos códigos para determinar s
 ```
 
 (redirecciones)=
-## Redirecciones
+### Redirecciones
 
 Una característica fundamental del shell es su capacidad de **redirigir** la entrada y salida de los programas. Esto permite cambiar de dónde un programa lee datos y hacia dónde escribe sus resultados, sin modificar el código del programa.
 
 (salida-estandar-y-error-estandar)=
-### Salida Estándar y Error Estándar
+#### Salida Estándar y Error Estándar
 
 Todo programa en Unix/Linux tiene tres flujos de datos estándar abiertos automáticamente:
 
@@ -1250,7 +1113,7 @@ Todo programa en Unix/Linux tiene tres flujos de datos estándar abiertos autom�
 - **Salida estándar** (`stdout`, descriptor 1): Donde el programa escribe su salida normal
 - **Error estándar** (`stderr`, descriptor 2): Donde el programa escribe mensajes de error
 
-```{figure} 5/flujos_estandar.svg
+```{figure} 1/flujos_estandar.svg
 :label: fig-flujos-estandar
 :align: center
 
@@ -1285,7 +1148,7 @@ Es una buena práctica escribir la salida normal del programa a `stdout` usando 
 :::
 
 (redireccion-de-salida)=
-### Redirección de Salida
+#### Redirección de Salida
 
 El shell puede redirigir hacia dónde va la salida de un programa usando el operador `>`:
 
@@ -1307,7 +1170,7 @@ El shell puede redirigir hacia dónde va la salida de un programa usando el oper
 ./mi_programa > todo.txt 2>&1
 ```
 
-```{figure} 5/redirecciones.svg
+```{figure} 1/redirecciones.svg
 :label: fig-redirecciones
 :align: center
 
@@ -1346,7 +1209,7 @@ int main(void) {
 ```
 
 (redireccion-de-entrada)=
-### Redirección de Entrada
+#### Redirección de Entrada
 
 De forma similar, el shell puede cambiar de dónde un programa lee su entrada usando el operador `<`:
 
@@ -1386,7 +1249,7 @@ int main(void) {
 ```
 
 (canalizaciones-pipes)=
-## Canalizaciones (Pipes)
+### Canalizaciones (Pipes)
 
 Las **canalizaciones** o _pipes_ son uno de los conceptos más poderosos del shell Unix. Permiten conectar la salida de un programa directamente con la entrada de otro, creando cadenas de procesamiento de datos.
 
@@ -1402,7 +1265,7 @@ programa1 | programa2
 ls -l | wc -l
 ```
 
-```{figure} 5/pipes_canalizaciones.svg
+```{figure} 1/pipes_canalizaciones.svg
 :label: fig-pipes-canalizaciones
 :align: center
 
@@ -1410,11 +1273,11 @@ Canalizaciones (pipes) en Unix. La salida estándar de un programa se conecta co
 ```
 
 (filosofia-unix-hacer-una-cosa-bien)=
-### Filosofía Unix: Hacer Una Cosa Bien
+#### Filosofía Unix: Hacer Una Cosa Bien
 
 Las canalizaciones promueven la **filosofía Unix**: escribir programas pequeños que hagan una cosa muy bien, y combinarlos para tareas complejas. Tu programa C puede ser un eslabón en esta cadena.
 
-#### Ejemplo: Filtro de Números Pares
+##### Ejemplo: Filtro de Números Pares
 
 ```{code-block}c
 :linenos:
@@ -1451,7 +1314,7 @@ seq 1 10 | ./filtro_pares
 seq 1 100 | ./filtro_pares | wc -l  # Cuenta cuántos pares hay
 ```
 
-```{figure} 5/ejemplo_filtro.svg
+```{figure} 1/ejemplo_filtro.svg
 :label: fig-ejemplo-filtro
 :align: center
 
@@ -1459,7 +1322,7 @@ Flujo de datos en una canalización que genera números, filtra solo los pares y
 ```
 
 (canalizaciones-complejas)=
-### Canalizaciones Complejas
+#### Canalizaciones Complejas
 
 Podés encadenar múltiples programas:
 
@@ -1476,7 +1339,7 @@ Cada programa en la cadena:
 4. El shell conecta todo automáticamente
 
 (consideraciones-de-diseno)=
-### Consideraciones de Diseño
+#### Consideraciones de Diseño
 
 Para que tu programa funcione bien en canalizaciones:
 
@@ -1544,7 +1407,7 @@ Un programa bien diseñado para la línea de comandos es como una pieza de LEGO:
 :::
 
 (ejemplo-completo-conversor-de-temperatura)=
-### Ejemplo Completo: Conversor de Temperatura
+#### Ejemplo Completo: Conversor de Temperatura
 
 Veamos un ejemplo que integra todos estos conceptos:
 
@@ -1646,8 +1509,146 @@ seq 0 10 100 | ./temp_converter -f | grep "°C"
 
 La separación entre `stdout` (resultados) y `stderr` (mensajes de error y ayuda) permite que el programa funcione correctamente en canalizaciones sin contaminar los datos con mensajes no deseados.
 
-(ejercicios-de-autoevaluacion-argumentos-e-interaccion)=
-### Ejercicios de Autoevaluación (Argumentos e Interacción)
+
+
+
+
+
+
+
+---
+
+
+## Ejercicios de Autoevaluación
+
+### Fases de Compilación
+
+:::{exercise}
+:label: ej-comp-fases-ext
+Relacioná cada una de las cuatro fases de compilación de C con su correspondiente archivo intermedio generado por GCC indicando su extensión habitual y su formato (texto plano o binario).
+:::
+
+:::{solution} ej-comp-fases-ext
+:class: dropdown
+1.  **Preprocesado**: Genera el archivo fuente expandido con extensión `.i` (Texto plano).
+2.  **Compilación**: Traduce el código C a código ensamblador con extensión `.s` (Texto plano específico de la arquitectura).
+3.  **Ensamblado**: Genera el archivo objeto con extensión `.o` (Binario en formato estructurado, como ELF).
+4.  **Enlazado**: Produce el archivo ejecutable binario final (sin extensión en Unix/Linux, `.exe` en Windows).
+:::
+
+:::{exercise}
+:label: ej-comp-macro-hazard
+Explicá detalladamente por qué la macro `#define DUPLICAR(x) x * 2` produce un resultado incorrecto al evaluarse como `DUPLICAR(5 + 3)`. Proponé la definición correcta y segura para esta macro.
+:::
+
+:::{solution} ej-comp-macro-hazard
+:class: dropdown
+El preprocesador realiza una sustitución de texto literal sin evaluar precedencias matemáticas.
+- Al expandir `DUPLICAR(5 + 3)`, el texto resultante es `5 + 3 * 2`.
+- Siguiendo la precedencia de operadores, la multiplicación se evalúa antes que la suma: $5 + (3 \times 2) = 11$. El resultado esperado era $(5 + 3) \times 2 = 16$.
+Para evitar este peligro de orden de operaciones, se deben proteger todos los parámetros y la expresión completa con paréntesis:
+```c
+#define DUPLICAR(x) ((x) * 2)
+```
+:::
+
+:::{exercise}
+:label: ej-comp-flags-warn
+Si compilás un programa utilizando `gcc -Wall -Wextra -Werror main.c` y el compilador detecta una variable local declarada que nunca se lee ni se utiliza en el código, ¿cuál es el resultado de la compilación?
+:::
+
+:::{solution} ej-comp-flags-warn
+:class: dropdown
+La compilación fallará y **no se generará el archivo ejecutable**.
+- `-Wall` y `-Wextra` hacen que el compilador emita una advertencia (*warning*) informando de la variable no utilizada.
+- `-Werror` instruye al compilador a tratar todas las advertencias como errores fatales, lo que aborta inmediatamente el proceso de compilación impidiendo la generación del binario.
+:::
+
+
+### Cabeceras y Modularidad
+
+:::{exercise}
+:label: ej-header-odr-viol
+Explicá por qué colocar la definición de una función (por ejemplo, `int sumar(int a, int b) { return a + b; }`) en un archivo de cabecera `operaciones.h` incluido por `main.c` y `utilidades.c` viola la regla de definición única (ODR) y qué error produce.
+:::
+
+:::{solution} ej-header-odr-viol
+:class: dropdown
+Al incluir `operaciones.h` en `main.c` y `utilidades.c`, el preprocesador copia textualmente el cuerpo de `sumar` en ambas unidades de traducción.
+Al compilar por separado, tanto `main.o` como `utilidades.o` contendrán el código máquina y el símbolo de la función `sumar`. Durante la fase de enlazado, el linker detectará que el símbolo `sumar` está definido físicamente en más de un archivo objeto, abortando el proceso con un error del tipo `multiple definition of 'sumar'`.
+Para solucionarlo, solo se debe colocar el prototipo de la función en `operaciones.h` y su definición en un archivo `operaciones.c`.
+:::
+
+:::{exercise}
+:label: ej-header-inclusion-guards
+Escribí la estructura completa de directivas del preprocesador necesarias para implementar guardas de inclusión en un archivo de cabecera llamado `sensor_temperatura.h` de acuerdo con las pautas de estilo.
+:::
+
+:::{solution} ej-header-inclusion-guards
+:class: dropdown
+```c
+#ifndef SENSOR_TEMPERATURA_H
+#define SENSOR_TEMPERATURA_H
+
+// Declaraciones de prototipos y tipos del módulo del sensor
+float leer_sensor_celsius(int pin);
+
+#endif // SENSOR_TEMPERATURA_H
+```
+:::
+
+:::{exercise}
+:label: ej-header-extern-use
+Explicá la diferencia de roles entre declarar una variable con `extern int contador;` en un archivo `.h` y definirla como `int contador = 0;` en un archivo `.c`.
+:::
+
+:::{solution} ej-header-extern-use
+:class: dropdown
+- **Declaración (`extern int contador;`)**: Le indica al compilador que la variable `contador` existe y está alojada físicamente en otra parte del programa. No reserva memoria ni inicializa ningún valor; es un anuncio de su existencia para permitir que otros archivos compilen sin error.
+- **Definición (`int contador = 0;`)**: Reserva el espacio físico real en la memoria del segmento de datos e inicializa la variable. Solo debe existir una única definición física para evitar colisiones en el linker.
+:::
+
+
+### Automatización con Makefiles
+
+:::{exercise}
+:label: ej-make-incremental
+Describí el criterio físico que utiliza la herramienta `make` para decidir si es necesario reconstruir un archivo objeto (por ejemplo, `funciones.o`) a partir de su archivo fuente `funciones.c`.
+:::
+
+:::{solution} ej-make-incremental
+:class: dropdown
+`make` examina las **marcas de tiempo de modificación (timestamps)** de los archivos en el disco físico.
+Si la fecha de última modificación del archivo de entrada (`funciones.c` o alguna de sus cabeceras declaradas como dependencias, ej: `funciones.h`) es **más reciente** que la fecha de última modificación del archivo objeto de salida (`funciones.o`), `make` deduce que el código fuente cambió y ejecuta la regla de compilación para reconstruir el objeto. Si el objeto es más nuevo que sus dependencias, `make` omite su compilación.
+:::
+
+:::{exercise}
+:label: ej-make-clean-phony
+Explicá detalladamente para qué sirve la regla `.PHONY: clean` en un Makefile y qué problema se produciría si se omitiera esta declaración y existiera en el directorio un archivo físico llamado `clean`.
+:::
+
+:::{solution} ej-make-clean-phony
+:class: dropdown
+La directiva `.PHONY` le indica a `make` que el objetivo indicado no corresponde a un archivo real que deba ser generado.
+Si se omitiera `.PHONY: clean` y en el mismo directorio existiera un archivo llamado `clean`, al ejecutar `make clean`, la herramienta buscaría dependencias para el objetivo `clean`. Al no tener dependencias y ver que el archivo `clean` ya existe físicamente en el disco, `make` reportaría que el objetivo está actualizado (`make: 'clean' is up to date`) y se negaría a ejecutar el bloque de comandos para limpiar el proyecto.
+:::
+
+:::{exercise}
+:label: ej-make-escritura
+Escribí una regla de Makefile para compilar el archivo objeto `usuario.o` a partir de sus dependencias `usuario.c` y `usuario.h`. Utilizá variables para el compilador (`$(CC)`) y banderas (`$(CFLAGS)`), recordando el requisito de indentación de Makefiles.
+:::
+
+:::{solution} ej-make-escritura
+:class: dropdown
+```makefile
+usuario.o: usuario.c usuario.h
+	$(CC) $(CFLAGS) -c usuario.c -o usuario.o
+```
+*Nota: La línea de comandos de la acción debe estar precedida obligatoriamente por un carácter de tabulación (Tab).*
+:::
+
+
+### Argumentos e Interacción
 
 :::{exercise}
 :label: ej-cli-argc-argv-val
@@ -1692,9 +1693,33 @@ La instrucción correspondiente en bash es:
 El operador pipe `|` conecta la salida estándar de `./productor` al canal de entrada estándar de `./consumidor`, mientras que `2>` desvía el descriptor 2 (error estándar) del segundo comando hacia el archivo indicado.
 :::
 
----
 
-(referencias-y-lecturas-complementarias)=
+## Glosario
+
+::::{glossary}
+Compilación
+: Proceso de traducción de código fuente escrito en C a instrucciones binarias ejecutables por el procesador.
+
+Preprocesador
+: Herramienta que procesa directivas iniciales (indicadas con `#`) operando a nivel de texto antes de la compilación propiamente dicha.
+
+Enlazador (Linker)
+: Fase final que combina archivos objeto y bibliotecas resolviendo referencias de símbolos cruzados.
+
+Makefile
+: Archivo de configuración que define las dependencias y recetas necesarias para automatizar la compilación incremental de un proyecto.
+
+Argumentos de línea de comandos
+: Parámetros recibidos por la función `main` mediante `argc` y `argv` desde la terminal.
+
+Canalización (Pipe)
+: Operador de shell (`|`) que transfiere la salida estándar de un proceso directamente a la entrada estándar de otro.
+::::
+
+## Síntesis y Resumen
+
+La traducción de código C en un binario ejecutable se compone de cuatro etapas sucesivas: preprocesado (directivas textuales), compilación (traducción a ensamblador de la arquitectura), ensamblado (generación de archivos objeto `.o` en formato binario estructurado como ELF) y enlazado (resolución de símbolos externos y fusión de segmentos). Para automatizar y optimizar este flujo en proyectos modulares se utiliza `make`, el cual determina qué archivos recompilar en función de las marcas de tiempo físicas. Los programas interactúan con la terminal a través de argumentos de consola (`argc`, `argv`), códigos de salida (`EXIT_SUCCESS` o `EXIT_FAILURE`), y mecanismos del shell como redirecciones (`>`, `<`) y canalizaciones (`|`).
+
 ## Referencias y Lecturas Complementarias
 
 (proceso-de-compilacion)=

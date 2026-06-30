@@ -25,7 +25,7 @@ Antes de sumergirnos en el lenguaje C, es crucial entender una idea central que 
 
 Programar es dar instrucciones precisas a una computadora, una entidad que no interpreta ambigüedades. Cada paso debe estar perfectamente definido. Omitir un detalle puede hacer que todo falle. Por ello, aprenderemos a **pensar como una máquina** en términos de lógica, pero también a **estructurar el pensamiento como un ser humano inteligente**.
 
-:::{figure} apunte/2/think.jpg
+:::{figure} apunte/bloque_1_fundamentos/2/think.jpg
 :alt: Roll Safe thinking
 :align: center
 

@@ -1081,7 +1081,7 @@ void conexion_destruir(conexion_t **c) {
 ```
 :::
 
-(glosario)=
+(glosario_idioms)=
 ## Glosario
 
 :::{glossary}

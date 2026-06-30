@@ -4,7 +4,8 @@ short_title: Sintaxis base
 subtitle: La sintaxis y programas básicos.
 ---
 
-(introduccion)=
+(capitulo-introduccion-c)=
+
 ## Introducción
 
 Antes de iniciar el estudio de la programación en C, es fundamental comprender que programar no consiste únicamente en aprender un lenguaje, sino en desarrollar una forma de pensar. El lenguaje es la herramienta, pero el verdadero arte reside en la construcción de instrucciones lógicas para resolver problemas.
@@ -21,8 +22,10 @@ En C, no existen atajos, lo cual es una ventaja, ya que obliga a pensar de forma
 
 ---
 
+## Desarrollo
+
 (por-que-aprender-c)=
-## ¿Por qué aprender C?
+### ¿Por qué aprender C?
 
 El lenguaje C fue creado en 1972 por **Dennis Ritchie** y **Brian Kernighan** en los Bell Labs. A pesar de tener más de 50 años de existencia, se sigue utilizando ampliamente debido a sus características fundamentales:
 
@@ -40,15 +43,13 @@ El lenguaje C fue creado en 1972 por **Dennis Ritchie** y **Brian Kernighan** en
 - **Influencia:** C ha servido como base e inspiración para muchos de los lenguajes más utilizados hoy en día (C++, C#, Java, JavaScript, PHP). Aprender C proporciona una base sólida para entender cómo funcionan muchos otros lenguajes.
 - **Popularidad**: Figura entre los lenguajes más usados según el [índice TIOBE](https://www.tiobe.com/tiobe-index/c/), que mide el interés en los diferentes lenguajes.
 
----
-
 (caracteristicas-principales-de-c)=
-## Características Principales de C
+### Características Principales de C
 
 (nivel-de-abstraccion)=
-### Nivel de Abstracción
+#### Nivel de Abstracción
 
-Aunque C es considerado un lenguaje de **nivel medio**, en el momento en el que fue creado se lo consideraba de alto nivel en comparación con el {term}`Lenguaje Ensamblador`.
+Aunque C es considerado un lenguaje de **nivel medio**, en el momento en el que fue creado se lo consideraba de alto nivel en comparación con el lenguaje ensamblador.
 
 Hoy en día, y teniendo en cuenta que pasaron _solo_ 50 años desde que fue creado, se lo sitúa en un nivel superior a los de bajo nivel, pero inferior a los que actualmente son considerados de alto nivel como Python o Java.
 
@@ -59,74 +60,41 @@ Esto le da un balance único:
 C es un lenguaje **compilado**. El código fuente se traduce directamente a código máquina integramente antes de ejecutarse mediante un compilador, a diferencia de los lenguajes **interpretados** que son traducidos línea por línea en tiempo de ejecución.
 
 (atributos-clave)=
-### Atributos Clave
+#### Atributos Clave
 
 - **Compilado:** El código fuente se traduce por completo a instrucciones nativas de CPU antes de su ejecución.
 - **Imperativo:** Un programa consiste en una secuencia de instrucciones que modifican el estado (las variables) del programa.
 - **Estructurado:** El código se organiza en bloques lógicos y funciones, lo que promueve la claridad y la reutilización.
 
----
-
 (fortalezas-del-lenguaje-c)=
-### Fortalezas del Lenguaje C
+#### Fortalezas del Lenguaje C
 
-#### Acceso a conceptos de bajo nivel
+##### Acceso a conceptos de bajo nivel
 C provee acceso a conceptos directamente relacionados con el hardware. Conceptos como el tamaño de la memoria, punteros y direccionamiento físico de memoria son muy similares a los que la CPU utiliza, de forma que los programas sean lo más rápidos posible.
 
-#### C es un lenguaje pequeño
+##### C es un lenguaje pequeño
 El lenguaje C posee un núcleo sintáctico y un conjunto de palabras clave reducido. Todo lo demás provisto por el entorno se cubre mediante la biblioteca estándar de C y funciones auxiliares.
 
-#### C es un lenguaje permisivo
+##### C es un lenguaje permisivo
 El lenguaje asume que el programador sabe lo que está haciendo, por lo que permite un control absoluto sobre el sistema, reduciendo las capas de validación del compilador, para bien y para mal.
 
----
+(debitades-del-lenguaje-c)=
+#### Debilidades del Lenguaje C
 
-(debilidades-del-lenguaje-c)=
-### Debilidades del Lenguaje C
-
-#### Los programas en C pueden ser propensos a errores
+##### Los programas en C pueden ser propensos a errores
 La gran flexibilidad y permisividad de C facilitan la introducción de fallas de lógica o memoria que no siempre son detectadas por el compilador en tiempo de traducción. La mayoría de los errores de memoria (como el acceso fuera de límites o desreferencia de punteros nulos) se detectan recién en tiempo de ejecución.
 
-#### Los programas en C pueden ser difíciles de entender
+##### Los programas en C pueden ser difíciles de entender
 Debido a su diseño conciso e histórico (creado en una época donde la entrada de texto por consola era lenta), C utiliza una sintaxis compacta y operadores que pueden combinarse de forma críptica, exigiendo un cuidado extremo para mantener la legibilidad.
 
-#### Los programas en C pueden ser difíciles de modificar
+##### Los programas en C pueden ser difíciles de modificar
 Los programas grandes escritos en C pueden ser difíciles de mantener si no se diseñan con cuidado. A diferencia de lenguajes orientados a objetos, C carece de conceptos como clases o paquetes integrados, delegando la modularidad a la estructuración de archivos del desarrollador.
 
----
-
-(ejercicios-de-autoevaluacion-historia-y-caracteristicas)=
-### Ejercicios de Autoevaluación (Historia y Características)
-
-:::{exercise}
-:label: ej-compilacion-versus
-Explicá de forma breve y rigurosa la diferencia de rendimiento entre un lenguaje compilado (como C) y uno interpretado (como Python) en términos del ciclo de traducción y ejecución del código.
-:::
-
-:::{solution} ej-compilacion-versus
-:class: dropdown
-La diferencia principal radica en el momento de la traducción y en quién ejecuta las instrucciones:
-- **C (compilado)**: El código fuente se traduce por completo y de antemano a código máquina (instrucciones nativas de la CPU) mediante el compilador. La CPU del host ejecuta el binario de forma directa y a máxima velocidad, sin intermediarios en tiempo de ejecución.
-- **Python (interpretado)**: El código fuente se traduce a un código intermedio (*bytecode*) y una máquina virtual de software (el intérprete) lo procesa línea por línea en tiempo de ejecución. Esto introduce un overhead de traducción constante, haciéndolo significativamente más lento pero más flexible.
-:::
-
-:::{exercise}
-:label: ej-tipado-seguridad
-C es considerado un lenguaje "permisivo" que prioriza la velocidad sobre la seguridad de memoria. Da un ejemplo de error común derivado de esta permisividad que el compilador no pueda detectar en tiempo de compilación.
-:::
-
-:::{solution} ej-tipado-seguridad
-:class: dropdown
-Un ejemplo claro es el **desbordamiento de buffer (buffer overflow)** o el acceso fuera de los límites de un arreglo. En C, si declarás un arreglo de tamaño 5 y escribís en la posición 10, el compilador no realiza ninguna verificación automática en tiempo de compilación para impedirlo. El programa intentará escribir en esa dirección física de memoria en tiempo de ejecución, lo que puede sobreescribir otros datos, corromper el estado del programa o provocar un fallo de segmentación (*Segmentation Fault*).
-:::
-
----
-
 (la-caja-de-herramientas)=
-## La caja de herramientas
+### La caja de herramientas
 
 (preparacion-del-entorno)=
-### Preparación del entorno
+#### Preparación del entorno
 
 Para los usuarios de Windows, la cátedra ha preparado un programa para simplificar la instalación de las herramientas necesarias para editar, compilar y ejecutar los programas.
 
@@ -145,7 +113,7 @@ Si surgen problemas o dificultades en la instalación del entorno, consultá inm
 :::
 
 (primer-programa-el-hola-mundo-en-c)=
-### Primer programa: el «Hola Mundo» en C
+#### Primer programa: el «Hola Mundo» en C
 
 ```{code-block} c
 :label: holamundo
@@ -162,7 +130,7 @@ int main()                      // punto de entrada del programa
 }                               // fin del bloque de código
 ```
 
-#### Compilación y Ejecución
+##### Compilación y Ejecución
 
 Para ejecutar un programa en C, primero hay que compilarlo. Esto se realiza desde la terminal traduciendo el código fuente en un ejecutable de código máquina.
 
@@ -192,7 +160,7 @@ En la función `printf`, el carácter especial `\n` es una secuencia de control 
 
 _Más adelante, vamos a ver detalles de la compilación para crear programas más complejos._
 
-#### Pieza por pieza
+##### Pieza por pieza
 
 1. `#include <stdio.h>`: Es una **directiva del preprocesador**. Le indica al preprocesador que inserte el contenido de la cabecera de la biblioteca estándar de entrada/salida (`stdio.h`), que contiene la declaración de la función `printf`.
 2. `int main()`: Es la definición de la función principal y el **punto de entrada** del programa. Todo ejecutable en C comienza su ejecución en esta función. `int` indica que devolverá un valor numérico entero al sistema operativo.
@@ -200,14 +168,390 @@ _Más adelante, vamos a ver detalles de la compilación para crear programas má
 4. `printf("Hola mundo C.\n");`: Es una **llamada a función de biblioteca para salida** que imprime la cadena en pantalla.
 5. `return 0;`: Finaliza la ejecución de la función `main` devolviendo el estado `0` al entorno. Por convención, un retorno de `0` significa finalización exitosa.
 
----
 :::{warning} Atención
 Si no ves el mensaje que está dentro de la instrucción `printf`, hay algún problema que es **fundamental** solucionar. No se debe detener en este punto, ya que es un bloqueante para todos los temas siguientes.
 :::
 
-(ejercicios-de-autoevaluacion-hola-mundo-y-compilacion)=
-### Ejercicios de Autoevaluación (Hola Mundo y Compilación)
+(de-la-idea-al-codigo-en-c)=
+### De la Idea al Código en C
 
+En el capítulo {doc}`1_base` se estudiaron los fundamentos lógicos y el diseño de algoritmos en pseudocódigo. Ahora daremos el paso crucial: **traducir ese diseño abstracto a un programa real en C**.
+
+(la-mentalidad-del-programador)=
+#### La Mentalidad del Programador
+
+1. **Leé el problema, comprendelo y diseñalo.**
+2. **Dividilo en pasos simples e inequívocos** (en papel o pseudocódigo) antes de tipear una sola línea.
+3. **Escribí el código en C** basándote estrictamente en el algoritmo diseñado, no en la improvisación.
+
+:::{figure} ./2/think.jpg
+:alt: Roll Safe thinking
+:align: center
+
+_Pensar es más importante que escribir._
+:::
+
+(ejemplo-sumar-dos-numeros-enteros)=
+#### Ejemplo: Sumar dos números enteros
+
+Diseño algorítmico:
+1. Declarar variables para almacenar dos números.
+2. Solicitar y leer los números.
+3. Calcular la suma y asignarla a un destino.
+4. Mostrar el resultado de la suma por pantalla.
+
+```{code-block}c
+:linenos:
+#include <stdio.h>
+
+int main() {
+    int a = 0;
+    int b = 0;
+    int resultado = 0;
+    printf("Ingresá dos números: ");
+    scanf("%d %d", &a, &b);
+    resultado = a + b;
+    printf("La suma es: %d\n", resultado);
+    return 0;
+}
+```
+
+(sobre-las-reglas-de-estilo)=
+### Sobre las reglas de estilo
+
+El uso de reglas de estilo es fundamental para garantizar la consistencia y legibilidad del código. Al adherirse a normas uniformes (como nomenclatura, indentación y posición de llaves), se facilita la colaboración y el mantenimiento del software. Para más detalles, consultá la regla {ref}`0x0000h`.
+
+Y cuando nos referimos a colaboración, esto incluye al profesor que tiene que leer su código.
+
+(sintaxis-y-semantica-basica)=
+### Sintaxis y Semántica Básica
+
+La **sintaxis** es el conjunto de reglas formales que definen cómo debe escribirse el código para que sea válido para el compilador.
+La **semántica** determina el significado lógico, la estructura y el comportamiento real que tiene el código durante su ejecución. Un código puede ser sintácticamente correcto pero semánticamente erróneo.
+
+(identificadores-y-palabras-reservadas)=
+#### Identificadores y Palabras Reservadas
+
+**Identificadores:** Son los nombres que asignamos a variables, constantes y funciones. Deben comenzar obligatoriamente con una letra o guion bajo (`_`) y pueden contener letras, dígitos y guiones bajos. C distingue entre mayúsculas y minúsculas (`suma` es un identificador distinto de `Suma`). No pueden coincidir con palabras reservadas del lenguaje.
+
+**Palabras Reservadas:** Son palabras clave del lenguaje C que poseen un significado sintáctico especial predefinido y no pueden ser utilizadas como identificadores (ej: `int`, `float`, `char`, `if`, `else`, `while`, `return`).
+
+Nuestros identificadores deben respetar las pautas de estilo (ver {ref}`0x0001h`).
+
+(tipos-de-operadores)=
+#### Tipos de operadores
+
+Los operadores son símbolos que le indican al compilador realizar manipulaciones matemáticas o lógicas específicas sobre las variables. En C se clasifican según su función y la cantidad de operandos que requieren:
+
+*   **Aritméticos (Binarios):** Operan sobre dos valores numéricos.
+    *   Suma (`+`), Resta (`-`), Multiplicación (`*`), División (`/`).
+    *   Módulo (`%`): Devuelve el resto de la división entera (ej: `7 % 3` da `1`).
+*   **Unarios:** Requieren un único operando.
+    *   Incremento (`++`) y Decremento (`--`): Suman o restan uno a una variable (ej: `contador++`).
+    *   Negación aritmética (`-`): Cambia el signo de un valor.
+*   **Relacionales o de Comparación:** Comparan dos operandos y devuelven un valor lógico (`true` o `false`).
+    *   Mayor que (`>`), Menor que (`<`), Mayor o igual (`>=`), Menor o igual (`<=`).
+    *   Igualdad (`==`) y Diferencia (`!=`).
+*   **Lógicos (Booleanos):** Permiten combinar o negar condiciones lógicas.
+    *   Conjunción (`&&`): Verdadero si ambos operandos son verdaderos (AND).
+    *   Disyunción (`||`): Verdadero si al menos uno de los operandos es verdadero (OR).
+    *   Negación lógica (`!`): Invierte el valor lógico (NOT).
+
+:::{warning} Confusión entre Operadores Lógicos y de bits (Bitwise)
+Es fundamental no confundir los operadores lógicos booleanos (`&&` y `||`) con sus equivalentes a nivel de bits (`&` y `|`).
+*   `&&` y `||` evalúan expresiones lógicas y aplican cortocircuito (si el primer operando de `&&` es falso, el segundo no se evalúa).
+*   `&` y `|` son operadores a nivel de bits que manipulan la representación binaria física de los datos. Usar `&` en un condicional lógico en lugar de `&&` es un error semántico que puede producir comportamientos imprevistos.
+:::
+
+:::{warning} Cuidado con el operador de asignación
+No confundas el operador de asignación simple `=` (que guarda un valor en una variable) con el operador de comparación `==` (que verifica igualdad). Este es uno de los errores semánticos más comunes en C.
+:::
+
+(variables-y-tipos-de-datos)=
+### Variables y Tipos de Datos
+
+(que-es-una-variable)=
+#### ¿Qué es una variable?
+
+Una variable es un identificador asociado a una dirección física de memoria RAM que almacena un dato de un tipo específico.
+
+:::{figure} 2/variable_memory_concept.svg
+:name: fig-variable-memory
+:alt: Variables y memoria
+
+Las variables abstraen ubicaciones físicas de memoria. Cada una tiene una dirección de memoria, un nombre y un tipo.
+:::
+
+(tipos-basicos-de-datos-en-c)=
+#### Tipos básicos de datos en C
+
+- `int`: Representa números enteros (ej. `42`, `-5`).
+- `float`: Representa números reales con punto flotante (ej. `3.1415`).
+- `char`: Representa un único carácter o símbolo (ej. `'A'`).
+- `bool`: Tipo de dato lógico que admite únicamente `true` o `false`. Requiere la inclusión de la cabecera `<stdbool.h>` (estándar C99).
+
+:::{figure} 2/data_types_overview.svg
+:name: fig-data-types
+:alt: Tipos de datos en C
+
+Especificadores de formato de tipos básicos en C.
+:::
+
+:::{important} Tamaños dependientes de la arquitectura
+El estándar de C no define tamaños fijos en bytes para los tipos básicos, sino únicamente rangos mínimos y relaciones de tamaño (ej. un `long` debe ser al menos tan grande como un `int`).
+*   En arquitecturas de escritorio modernas de 32 o 64 bits (x86_64, ARM64), un `int` suele ocupar 4 bytes (32 bits).
+*   En microcontroladores embebidos pequeños de 8 o 16 bits (como en sistemas de automatización), un `int` puede ocupar únicamente 2 bytes (16 bits), reduciendo a la mitad su rango máximo (de $\pm 2.147.483.647$ a $\pm 32.767$).
+
+Para garantizar la portabilidad y evitar desbordamientos accidentales al cambiar de plataforma, el estándar C99 introdujo la cabecera `<stdint.h>`, la cual proporciona tipos con tamaños fijos y explícitos en bits, como `int8_t`, `int16_t`, `int32_t` y sus variantes sin signo (`uint8_t`, `uint32_t`).
+:::
+
+(declaracion-e-inicializacion)=
+#### Declaración e Inicialización
+
+Toda variable debe declararse antes de ser usada, indicando su tipo y su nombre:
+
+```code-block}c
+:linenos:
+#include <stdbool.h>
+
+int edad = 42;
+float pi = 3.14f;
+char inicial = 'A';
+bool activo = true;
+```
+
+Si declarás una variable sin inicializarla, su contenido inicial en memoria física es indeterminado ("basura"). **Siempre inicializá tus variables** a un valor conocido antes de utilizarlas (ver regla de estilo {ref}`0x0003h`).
+
+(1-secuencia-incorrecta-de-asignaciones)=
+##### Secuencia incorrecta de asignaciones
+Las variables deben poseer datos válidos antes de ser leídas o manipuladas en expresiones o asignaciones.
+
+*   **Incorrecto (Lectura de variables sin inicializar):**
+    ```c
+    int a;
+    int b;
+    // a y b no tienen datos definidos en memoria RAM (contienen "basura").
+    // La operación sumará valores arbitrarios de la memoria.
+    int resultado = a + b; 
+    scanf("%d", &a);
+    scanf("%d", &b);
+    ```
+*   **Correcto (Orden lineal lógico y seguro):**
+    ```c
+    int a = 0;
+    int b = 0;
+    // Leemos los datos de entrada primero.
+    scanf("%d", &a);
+    scanf("%d", &b);
+    // Operamos una vez que las variables contienen valores válidos.
+    int resultado = a + b;
+    ```
+
+(roles-de-las-variables)=
+#### Roles de las Variables
+
+En programación, el **rol de una variable** se refiere al propósito específico que una variable desempeña dentro de un algoritmo. No es solo lo que la variable _contiene_, sino para _qué_ la usamos. Identificar el rol de una variable nos permite diseñar algoritmos más claros, eficientes y fáciles de depurar. Es como asignar una tarea a cada miembro de un equipo; cada uno tiene su función y sabe qué hacer.
+
+Establecer el rol, nos ayuda a elegir un buen identificador y salir de nombres como `a`, `b` y `c` y pasar a `sumador`, `promedio` y `bandera`. Por poner un ejemplo.
+
+##### Rol de variable Auxiliar o Temporal
+
+Una **variable auxiliar o temporal** se usa para almacenar un valor de forma transitoria, generalmente para facilitar una operación que requiere conservar un dato mientras se manipulan otros. El caso más común es el intercambio de valores entre dos variables sin perder ninguno.
+
+```{code-block}c
+:linenos:
+#include <stdio.h>
+
+int main() {
+    int a = 10;
+    int b = 20;
+    int auxiliar; // 'temp' es nuestra variable auxiliar
+
+    printf("Antes del intercambio: a = %d, b = %d\n", a, b);
+
+    auxiliar = a; // Guarda el valor de 'a'
+    a = b;    // 'a' toma el valor de 'b'
+    b = auxiliar; // 'b' recupera el valor original de 'a' desde 'auxiliar'
+
+    printf("Despues del intercambio: a = %d, b = %d\n", a, b);
+    return 0;
+}
+```
+
+Acá, `auxiliar` es crucial para no perder el valor original de `a` cuando se lo asignamos a `b`.
+
+(la-importancia-de-los-roles)=
+#### La Importancia de los Roles
+
+Entender estos roles te da una perspectiva más rica sobre cómo funcionan tus programas. No se trata solo de saber qué tipo de dato almacena una variable, sino **para qué la estás usando**. Reconocer estos patrones te ayudará a:
+
+- **Escribir código más limpio y legible.**
+- **Depurar errores más fácilmente.**
+- **Diseñar algoritmos más eficientes y comprensibles.**
+
+Vamos a ir viendo más roles a medida que vamos aprendiendo las diferentes cosas que podemos hacer con C.
+
+(l-values-y-r-values-asignacion-y-expresiones)=
+#### L-Values y R-Values (Asignación y Expresiones)
+
+Para comprender cómo el compilador evalúa y almacena los datos durante una asignación, tenés que conocer las dos categorías de expresiones en C: **L-values** y **R-values**, según lo define formalmente el estándar del lenguaje.
+
+##### L-Values (locator values / object locators)
+Un **L-value** es una expresión que identifica o localiza un objeto persistente en memoria (es decir, una celda física de memoria direccionable).
+- Pensalo como una ubicación o "contenedor" que posee una dirección física en memoria lógica.
+- Puede aparecer tanto a la izquierda como a la derecha de un operador de asignación (`=`).
+- Son obligatorios para ciertos operadores fundamentales:
+  - El operador de dirección (`&`), ya que solo se puede obtener la dirección en memoria de un objeto con ubicación física.
+  - Los operadores de incremento (`++`) y decremento (`--`), porque requieren leer y reescribir sobre una posición de memoria persistente.
+- Ejemplo: en `int x = 10;`, la expresión `x` es un L-value ya que referencia a una celda física de memoria asignada por el sistema.
+
+##### R-Values (value of an expression)
+Un **R-value** representa simplemente el valor de una expresión. No posee una ubicación de memoria direccionable de almacenamiento persistente; es un valor transitorio.
+- Solo pueden aparecer en el lado derecho de un operador de asignación.
+- No es posible aplicarles el operador de dirección `&` ni los operadores `++`/`--`.
+- Ejemplos comunes de R-values:
+  - Literales numéricos o caracteres (`10`, `3.14f`, `'A'`).
+  - Resultados de expresiones matemáticas o lógicas (`a + b`, `x * 5`).
+  - Valores de retorno temporales de funciones.
+
+##### Restricciones del compilador
+Intentar realizar asignaciones sobre un R-value producirá un error inmediato en tiempo de compilación.
+
+```{code-block}c
+:linenos:
+int x = 10;
+int y = 20;
+
+x = 50;          // VÁLIDO: 'x' es un L-value (ubicación modificable).
+y = x + 5;       // VÁLIDO: 'y' es un L-value, 'x + 5' evalúa a un R-value.
+
+// Asignaciones inválidas que causan ERROR DE COMPILACIÓN:
+// 100 = x;      // ERROR: el literal '100' es un R-value, no podés asignarle nada.
+// (x + y) = 15; // ERROR: la expresión 'x + y' es un R-value temporal sin dirección física.
+// &x = &y;      // ERROR: la expresión de la izquierda no es un L-value asignable.
+// &(x + 5);     // ERROR: el operador de dirección (&) requiere un L-value.
+```
+
+(entrada-y-salida-basica)=
+### Entrada y Salida Básica
+
+(printf-salida-formateada)=
+#### `printf()` - Salida Formateada
+
+Se utiliza para imprimir texto y valores de variables formateados en la salida estándar de consola.
+Podés consultar el [apunte más detallado del tema](../extras/printf).
+
+```{code-block}c
+:linenos:
+printf("Tiene %d años\n", edad);
+```
+
+El par de símbolos `\n` se usan para indicar el 'salto de línea', para que no quede todo junto en una sola. Específicamente, cada vez que se ve una `\`, se indica que el siguiente carácter tiene un significado diferente del que se ve; esto se llama [secuencias de escape](../extras/printf#escape).
+
+##### Especificadores de formato de tipos básicos
+
+- `%d` o `%i` para enteros (`int`).
+- `%f` para flotantes (`float`).
+- `%c` para caracteres individuales (`char`).
+- `%s` para cadenas de caracteres (arreglos de caracteres).
+
+##### Rol de variable de Salida
+
+Las **variables de salida** se utilizan para almacenar los resultados finales de un cálculo o proceso, los cuales serán mostrados al usuario o guardados en algún medio (como un archivo).
+
+```{code-block}c
+:linenos:
+#include <stdio.h>
+
+int main() {
+    float radio = 5.0;
+    float area = 0.0; // 'area' es una variable de salida (resultado)
+
+    // Calculamos el área del círculo
+    area = 3.14159 * radio * radio;
+
+    printf("El area del circulo con radio %.2f es: %.2f\n", radio, area); // Se muestra el valor de 'area'
+    return 0;
+}
+```
+
+Aquí, `area` guarda el resultado del cálculo y luego se imprime.
+
+(scanf-entrada-formateada)=
+#### `scanf()` - Entrada Formateada
+
+Permite leer datos de entrada ingresados por teclado en la entrada estándar (`stdin`). 
+Requiere pasar la dirección de la variable de destino anteponiendo el operador de dirección `&`.
+
+```{code-block}c
+:linenos:
+int edad = 0;
+printf("Ingrese su edad: ");
+scanf("%d", &edad);
+```
+
+##### Rol de variable de Entrada
+
+Una **variable de entrada** es aquella que se utiliza para almacenar datos que provienen de una fuente externa al programa, como la entrada del usuario a través del teclado, la lectura de un archivo o datos recibidos de una red.
+
+```{code-block}c
+:linenos:
+#include <stdio.h>
+
+int main() {
+    int edad = -1; // 'edad' es una variable de entrada
+
+    printf("Por favor, ingresa tu edad: ");
+    scanf("%d", &edad); // Aquí, el valor ingresado se guarda en 'edad'
+
+    printf("Tu edad es: %d años.\n", edad);
+    return 0;
+}
+```
+
+En este ejemplo, `edad` toma el valor que el usuario introduce.
+
+##### El Buffer de Entrada y la Lectura de Caracteres
+
+Al presionar "Enter" para enviar datos en la consola, se agrega un carácter de salto de línea (`\n`) en el buffer de entrada `stdin`. Si la siguiente instrucción lee un carácter (`scanf("%c")`), leerá ese `\n` residual en lugar de la entrada esperada. Para evitar esto, se debe anteponer un espacio en blanco en el especificador (`" %c"`), lo cual instruye a `scanf` a descartar los espacios en blanco y saltos de línea residuales del buffer.
+
+```{code-block}c
+:linenos:
+char inicial = ' ';
+printf("Ingrese su inicial: ");
+scanf(" %c", &inicial); // El espacio antes de %c limpia el buffer de stdin
+```
+
+---
+
+## Ejercicios de Autoevaluación
+
+(ejercicios-de-autoevaluacion-historia-y-caracteristicas)=
+### Historia y Características
+:::{exercise}
+:label: ej-compilacion-versus
+Explicá de forma breve y rigurosa la diferencia de rendimiento entre un lenguaje compilado (como C) y uno interpretado (como Python) en términos del ciclo de traducción y ejecución del código.
+:::
+
+:::{solution} ej-compilacion-versus
+:class: dropdown
+La diferencia principal radica en el momento de la traducción y en quién ejecuta las instrucciones:
+- **C (compilado)**: El código fuente se traduce por completo y de antemano a código máquina (instrucciones nativas de la CPU) mediante el compilador. La CPU del host ejecuta el binario de forma directa y a máxima velocidad, sin intermediarios en tiempo de ejecución.
+- **Python (interpretado)**: El código fuente se traduce a un código intermedio (*bytecode*) y una máquina virtual de software (el intérprete) lo procesa línea por línea en tiempo de ejecución. Esto introduce un overhead de traducción constante, haciéndolo significativamente más lento pero más flexible.
+:::
+
+:::{exercise}
+:label: ej-tipado-seguridad
+C es considerado un lenguaje "permisivo" que prioriza la velocidad sobre la seguridad de memoria. Da un ejemplo de error común derivado de esta permisividad que el compilador no pueda detectar en tiempo de compilación.
+:::
+
+:::{solution} ej-tipado-seguridad
+:class: dropdown
+Un ejemplo claro es el **desbordamiento de buffer (buffer overflow)** o el acceso fuera de los límites de un arreglo. En C, si declarás un arreglo de tamaño 5 y escribís en la posición 10, el compilador no realiza ninguna verificación automática en tiempo de compilación para impedirlo. El programa intentará escribir en esa dirección física de memoria en tiempo de ejecución, lo que puede sobreescribir otros datos, corromper el estado del programa o provocar un fallo de segmentación (*Segmentation Fault*).
+:::
+
+(ejercicios-de-autoevaluacion-hola-mundo-y-compilacion)=
+### Hola Mundo y Compilación
 :::{exercise}
 :label: ej-holamundo-syntax
 ¿Qué ocurre si eliminás la directiva `#include <stdio.h>` en el código del "Hola Mundo" e intentás compilarlo con `gcc -Wall`? ¿Por qué es una mala práctica de ingeniería?
@@ -231,55 +575,8 @@ La opción `-o` (output) le indica al compilador el nombre específico que debe 
 - Si se omite: el compilador genera el ejecutable con el nombre por defecto del sistema: `a.out` en sistemas de tipo Unix/Linux y `a.exe` en Windows.
 :::
 
----
-
-(de-la-idea-al-codigo-en-c)=
-## De la Idea al Código en C
-
-En el capítulo {doc}`1_base` se estudiaron los fundamentos lógicos y el diseño de algoritmos en pseudocódigo. Ahora daremos el paso crucial: **traducir ese diseño abstracto a un programa real en C**.
-
-(la-mentalidad-del-programador)=
-### La Mentalidad del Programador
-
-1. **Leé el problema, comprendelo y diseñalo.**
-2. **Dividilo en pasos simples e inequívocos** (en papel o pseudocódigo) antes de tipear una sola línea.
-3. **Escribí el código en C** basándote estrictamente en el algoritmo diseñado, no en la improvisación.
-
-:::{figure} ./2/think.jpg
-:alt: Roll Safe thinking
-:align: center
-
-_Pensar es más importante que escribir._
-:::
-
-(ejemplo-sumar-dos-numeros-enteros)=
-### Ejemplo: Sumar dos números enteros
-
-Diseño algorítmico:
-1. Declarar variables para almacenar dos números.
-2. Solicitar y leer los números.
-3. Calcular la suma y asignarla a un destino.
-4. Mostrar el resultado de la suma por pantalla.
-
-```{code-block}c
-:linenos:
-#include <stdio.h>
-
-int main() {
-    int a = 0;
-    int b = 0;
-    int resultado = 0;
-    printf("Ingresá dos números: ");
-    scanf("%d %d", &a, &b);
-    resultado = a + b
-    printf("La suma es: %d\n", resultado);
-    return 0;
-}
-```
-
 (ejercicios-de-autoevaluacion-algoritmo-a-codigo)=
-### Ejercicios de Autoevaluación (Algoritmo a Código)
-
+### Algoritmo a Código
 :::{exercise}
 :label: ej-idea-area-rectangulo
 Diseñá y escribí un programa completo en C que solicite al usuario el ingreso de la base y la altura de un rectángulo (como valores reales `float`) y muestre por pantalla su área.
@@ -336,65 +633,8 @@ int main() {
 ```
 :::
 
----
-
-(sobre-las-reglas-de-estilo)=
-## Sobre las reglas de estilo
-
-El uso de reglas de estilo es fundamental para garantizar la consistencia y legibilidad del código. Al adherirse a normas uniformes (como nomenclatura, indentación y posición de llaves), se facilita la colaboración y el mantenimiento del software. Para más detalles, consultá la regla {ref}`0x0000h`.
-
-Y cuando nos referimos a colaboración, esto incluye al profesor que tiene que leer su código.
-
-(sintaxis-y-semantica-basica)=
-## Sintaxis y Semántica Básica
-
-La **sintaxis** es el conjunto de reglas formales que definen cómo debe escribirse el código para que sea válido para el compilador.
-La **semántica** determina el significado lógico, la estructura y el comportamiento real que tiene el código durante su ejecución. Un código puede ser sintácticamente correcto pero semánticamente erróneo.
-
-(identificadores-y-palabras-reservadas)=
-### Identificadores y Palabras Reservadas
-
-**Identificadores:** Son los nombres que asignamos a variables, constantes y funciones. Deben comenzar obligatoriamente con una letra o guion bajo (`_`) y pueden contener letras, dígitos y guiones bajos. C distingue entre mayúsculas y minúsculas (`suma` es un identificador distinto de `Suma`). No pueden coincidir con palabras reservadas del lenguaje.
-
-**Palabras Reservadas:** Son palabras clave del lenguaje C que poseen un significado sintáctico especial predefinido y no pueden ser utilizadas como identificadores (ej: `int`, `float`, `char`, `if`, `else`, `while`, `return`).
-
-Nuestros identificadores deben respetar las pautas de estilo (ver {ref}`0x0001h`).
-
-(tipos-de-operadores)=
-### Tipos de operadores
-
-Los operadores son símbolos que le indican al compilador realizar manipulaciones matemáticas o lógicas específicas sobre las variables. En C se clasifican según su función y la cantidad de operandos que requieren:
-
-*   **Aritméticos (Binarios):** Operan sobre dos valores numéricos.
-    *   Suma (`+`), Resta (`-`), Multiplicación (`*`), División (`/`).
-    *   Módulo (`%`): Devuelve el resto de la división entera (ej: `7 % 3` da `1`).
-*   **Unarios:** Requieren un único operando.
-    *   Incremento (`++`) y Decremento (`--`): Suman o restan uno a una variable (ej: `contador++`).
-    *   Negación aritmética (`-`): Cambia el signo de un valor.
-*   **Relacionales o de Comparación:** Comparan dos operandos y devuelven un valor lógico (`true` o `false`).
-    *   Mayor que (`>`), Menor que (`<`), Mayor o igual (`>=`), Menor o igual (`<=`).
-    *   Igualdad (`==`) y Diferencia (`!=`).
-*   **Lógicos (Booleanos):** Permiten combinar o negar condiciones lógicas.
-    *   Conjunción (`&&`): Verdadero si ambos operandos son verdaderos (AND).
-    *   Disyunción (`||`): Verdadero si al menos uno de los operandos es verdadero (OR).
-    *   Negación lógica (`!`): Invierte el valor lógico (NOT).
-
-:::{warning} Confusión entre Operadores Lógicos y de bits (Bitwise)
-Es fundamental no confundir los operadores lógicos booleanos (`&&` y `||`) con sus equivalentes a nivel de bits (`&` y `|`).
-*   `&&` y `||` evalúan expresiones lógicas y aplican cortocircuito (si el primer operando de `&&` es falso, el segundo no se evalúa).
-*   `&` y `|` son operadores a nivel de bits que manipulan la representación binaria física de los datos. Usar `&` en un condicional lógico en lugar de `&&` es un error semántico que puede producir comportamientos imprevistos.
-:::
-
-:::{warning} Cuidado con el operador de asignación
-No confundas el operador de asignación simple `=` (que guarda un valor en una variable) con el operador de comparación `==` (que verifica igualdad). Este es uno de los errores semánticos más comunes en C.
-:::
-
-
----
-
 (ejercicios-de-autoevaluacion-sintaxis-y-operadores)=
-### Ejercicios de Autoevaluación (Sintaxis y Operadores)
-
+### Sintaxis y Operadores
 :::{exercise}
 :label: ej-operadores-division
 Si ejecutás el siguiente código en C:
@@ -411,173 +651,19 @@ La diferencia semántica radica en el tipo de los operandos:
 :::
 
 :::{exercise}
-:label: ej-operadores-cortocircuito
+:label: ej-operadores-cortocorticuito
 Explicá de qué manera la evaluación de cortocircuito del operador lógico `&&` evita un fallo de división por cero en la siguiente condición:
 `if (denominador != 0 && (numerador / denominador) > 2)`
 :::
 
-:::{solution} ej-operadores-cortocircuito
+:::{solution} ej-operadores-cortocorticuito
 :class: dropdown
 La evaluación por cortocircuito de `&&` establece que si el operando izquierdo es falso, el resultado de la conjunción es necesariamente falso, por lo que **el operando derecho no es evaluado**.
 Si `denominador` es igual a `0`, la primera subexpresión `denominador != 0` evalúa a `false`. El compilador aborta la evaluación del `&&` y no ejecuta la expresión del lado derecho `(numerador / denominador) > 2`, evitando así un error fatal de división por cero en tiempo de ejecución.
 :::
 
----
-
-(variables-y-tipos-de-datos)=
-## Variables y Tipos de Datos
-
-(que-es-una-variable)=
-### ¿Qué es una variable?
-
-Una variable es un identificador asociado a una dirección física de memoria RAM que almacena un dato de un tipo específico.
-
-:::{figure} 2/variable_memory_concept.svg
-:name: fig-variable-memory
-:alt: Variables y memoria
-
-Las variables abstraen ubicaciones físicas de memoria. Cada una tiene una dirección de memoria, un nombre y un tipo.
-:::
-
-(tipos-basicos-de-datos-en-c)=
-### Tipos básicos de datos en C
-
-- `int`: Representa números enteros (ej. `42`, `-5`).
-- `float`: Representa números reales con punto flotante (ej. `3.1415`).
-- `char`: Representa un único carácter o símbolo (ej. `'A'`).
-- `bool`: Tipo de dato lógico que admite únicamente `true` o `false`. Requiere la inclusión de la cabecera `<stdbool.h>` (estándar C99).
-
-:::{figure} 2/data_types_overview.svg
-:name: fig-data-types
-:alt: Tipos de datos en C
-
-Especificadores de formato de tipos básicos en C.
-:::
-
-:::{important} Tamaños dependientes de la arquitectura
-El estándar de C no define tamaños fijos en bytes para los tipos básicos, sino únicamente rangos mínimos y relaciones de tamaño (ej. un `long` debe ser al menos tan grande como un `int`).
-*   En arquitecturas de escritorio modernas de 32 o 64 bits (x86_64, ARM64), un `int` suele ocupar 4 bytes (32 bits).
-*   En microcontroladores embebidos pequeños de 8 o 16 bits (como en sistemas de automatización), un `int` puede ocupar únicamente 2 bytes (16 bits), reduciendo a la mitad su rango máximo (de $\pm 2.147.483.647$ a $\pm 32.767$).
-
-Para garantizar la portabilidad y evitar desbordamientos accidentales al cambiar de plataforma, el estándar C99 introdujo la cabecera `<stdint.h>`, la cual proporciona tipos con tamaños fijos y explícitos en bits, como `int8_t`, `int16_t`, `int32_t` y sus variantes sin signo (`uint8_t`, `uint32_t`).
-:::
-
-(declaracion-e-inicializacion)=
-### Declaración e Inicialización
-
-Toda variable debe declararse antes de ser usada, indicando su tipo y su nombre:
-
-```{code-block}c
-:linenos:
-#include <stdbool.h>
-
-int edad = 42;
-float pi = 3.14f;
-char inicial = 'A';
-bool activo = true;
-```
-
-Si declarás una variable sin inicializarla, su contenido inicial en memoria física es indeterminado ("basura"). **Siempre inicializá tus variables** a un valor conocido antes de utilizarlas (ver regla de estilo {ref}`0x0003h`).
-
-
-(roles-de-las-variables)=
-### Roles de las Variables
-
-En programación, el **rol de una variable** se refiere al propósito específico que una variable desempeña dentro de un algoritmo. No es solo lo que la variable _contiene_, sino para _qué_ la usamos. Identificar el rol de una variable nos permite diseñar algoritmos más claros, eficientes y fáciles de depurar. Es como asignar una tarea a cada miembro de un equipo; cada uno tiene su función y sabe qué hacer.
-
-Establecer el rol, nos ayuda a elegir un buen identificador y salir de nombres como `a`, `b` y `c` y pasar a `sumador`, `promedio` y `bandera`. Por poner un ejemplo.
-
----
-
-#### Rol de variable Auxiliar o Temporal
-
-Una **variable auxiliar o temporal** se usa para almacenar un valor de forma
-transitoria, generalmente para facilitar una operación que requiere conservar un
-dato mientras se manipulan otros. El caso más común es el intercambio de valores
-entre dos variables sin perder ninguno.
-
-```{code-block}c
-:linenos:
-#include <stdio.h>
-
-int main() {
-    int a = 10;
-    int b = 20;
-    int auxiliar; // 'temp' es nuestra variable auxiliar
-
-    printf("Antes del intercambio: a = %d, b = %d\n", a, b);
-
-    auxiliar = a; // Guarda el valor de 'a'
-    a = b;    // 'a' toma el valor de 'b'
-    b = auxiliar; // 'b' recupera el valor original de 'a' desde 'auxiliar'
-
-    printf("Despues del intercambio: a = %d, b = %d\n", a, b);
-    return 0;
-}
-```
-
-Acá, `auxiliar` es crucial para no perder el valor original de `a` cuando se lo
-asignamos a `b`.
-
-
-(la-importancia-de-los-roles)=
-### La Importancia de los Roles
-
-Entender estos roles te da una perspectiva más rica sobre cómo funcionan tus
-programas. No se trata solo de saber qué tipo de dato almacena una variable,
-sino **para qué la estás usando**. Reconocer estos patrones te ayudará a:
-
-- **Escribir código más limpio y legible.**
-- **Depurar errores más fácilmente.**
-- **Diseñar algoritmos más eficientes y comprensibles.**
-
-Vamos a ir viendo más roles a medida que vamos aprendiendo las diferentes cosas que podemos hacer con C.
-
-
-(l-values-y-r-values-asignacion-y-expresiones)=
-### L-Values y R-Values (Asignación y Expresiones)
-
-Para comprender cómo el compilador evalúa y almacena los datos durante una asignación, tenés que conocer las dos categorías de expresiones en C: **L-values** y **R-values**, según lo define formalmente el estándar del lenguaje.
-
-#### L-Values (locator values / object locators)
-Un **L-value** es una expresión que identifica o localiza un objeto persistente en memoria (es decir, una celda física de memoria direccionable).
-- Pensalo como una ubicación o "contenedor" que posee una dirección física en memoria lógica.
-- Puede aparecer tanto a la izquierda como a la derecha de un operador de asignación (`=`).
-- Son obligatorios para ciertos operadores fundamentales:
-  - El operador de dirección (`&`), ya que solo se puede obtener la dirección en memoria de un objeto con ubicación física. *_tema de más adelante_.
-  - Los operadores de incremento (`++`) y decremento (`--`), porque requieren leer y reescribir sobre una posición de memoria persistente.
-- Ejemplo: en `int x = 10;`, la expresión `x` es un L-value ya que referencia a una celda física de memoria asignada por el sistema.
-
-#### R-Values (value of an expression)
-Un **R-value** representa simplemente el valor de una expresión. No posee una ubicación de memoria direccionable de almacenamiento persistente; es un valor transitorio.
-- Solo pueden aparecer en el lado derecho de un operador de asignación.
-- No es posible aplicarles el operador de dirección `&` ni los operadores `++`/`--`.
-- Ejemplos comunes de R-values:
-  - Literales numéricos o caracteres (`10`, `3.14f`, `'A'`).
-  - Resultados de expresiones matemáticas o lógicas (`a + b`, `x * 5`).
-  - Valores de retorno temporales de funciones.
-
-#### Restricciones del compilador
-Intentar realizar asignaciones sobre un R-value producirá un error inmediato en tiempo de compilación.
-
-```{code-block}c
-:linenos:
-int x = 10;
-int y = 20;
-
-x = 50;          // VÁLIDO: 'x' es un L-value (ubicación modificable).
-y = x + 5;       // VÁLIDO: 'y' es un L-value, 'x + 5' evalúa a un R-value.
-
-// Asignaciones inválidas que causan ERROR DE COMPILACIÓN:
-// 100 = x;      // ERROR: el literal '100' es un R-value, no podés asignarle nada.
-// (x + y) = 15; // ERROR: la expresión 'x + y' es un R-value temporal sin dirección física.
-// &x = &y;      // ERROR: la expresión de la izquierda no es un L-value asignable.
-// &(x + 5);     // ERROR: el operador de dirección (&) requiere un L-value.
-```
-
 (ejercicios-de-autoevaluacion-variables-y-tipos)=
-### Ejercicios de Autoevaluación (Variables y Tipos)
-
+### Variables y Tipos
 :::{exercise}
 :label: ej-lvalue-rvalue-comp
 Dadas las declaraciones `int a = 5; int b = 10;`, indicá cuáles de las siguientes expresiones son L-values y cuáles son R-values. Si alguna de ellas causa un error de compilación como parte de una asignación, justificá por qué:
@@ -606,111 +692,8 @@ En un sistema estándar de complemento a dos, el valor pasará a ser el entero m
 Este fenómeno se denomina **desbordamiento de enteros con signo (signed integer overflow)**. Desde el punto de vista del estándar de C, el desbordamiento de enteros con signo produce un **comportamiento indefinido (undefined behavior)**, aunque físicamente en la mayoría de las arquitecturas de CPU se comporta mediante un ciclo de desbordamiento circular hacia los números negativos.
 :::
 
----
-
-(entrada-y-salida-basica)=
-## Entrada y Salida Básica
-
-(printf-salida-formateada)=
-### `printf()` - Salida Formateada
-
-Se utiliza para imprimir texto y valores de variables formateados en la salida estándar de consola.
-Podés consultar el [apunte más detallado del tema](../extras/printf).
-
-```{code-block}c
-:linenos:
-printf("Tiene %d años\n", edad);
-```
-
-El par de símbolos `\n` se usan para indicar el 'salto de línea', para que no
-quede todo junto en una sola. Específicamente, cada vez que se ve una `\`, se
-indica que el siguiente carácter tiene un significado diferente del que se ve;
-esto se llama [secuencias de escape](../extras/printf#escape).
-
-
-#### Especificadores de formato de tipos básicos
-
-- `%d` o `%i` para enteros (`int`).
-- `%f` para flotantes (`float`).
-- `%c` para caracteres individuales (`char`).
-- `%s` para cadenas de caracteres (arreglos de caracteres).
-
-#### Rol de variable de Salida
-
-Las **variables de salida** se utilizan para almacenar los resultados finales de
-un cálculo o proceso, los cuales serán mostrados al usuario o guardados en algún
-medio (como un archivo).
-
-```{code-block}c
-:linenos:
-#include <stdio.h>
-
-int main() {
-    float radio = 5.0;
-    float area = 0.0; // 'area' es una variable de salida (resultado)
-
-    // Calculamos el área del círculo
-    area = 3.14159 * radio * radio;
-
-    printf("El area del circulo con radio %.2f es: %.2f\n", radio, area); // Se muestra el valor de 'area'
-    return 0;
-}
-```
-
-Aquí, `area` guarda el resultado del cálculo y luego se imprime.
-
-
-(scanf-entrada-formateada)=
-### `scanf()` - Entrada Formateada
-
-Permite leer datos de entrada ingresados por teclado en la entrada estándar (`stdin`). 
-Requiere pasar la dirección de la variable de destino anteponiendo el operador de dirección `&` 
-(vamos a ver más adelante que significa).
-
-```{code-block}c
-:linenos:
-int edad = 0;
-printf("Ingrese su edad: ");
-scanf("%d", &edad);
-```
-
-#### Rol de variable de Entrada
-
-Una **variable de entrada** es aquella que se utiliza para almacenar datos que
-provienen de una fuente externa al programa, como la entrada del usuario a
-través del teclado, la lectura de un archivo o datos recibidos de una red.
-
-```{code-block}c
-:linenos:
-#include <stdio.h>
-
-int main() {
-    int edad = -1; // 'edad' es una variable de entrada
-
-    printf("Por favor, ingresa tu edad: ");
-    scanf("%d", &edad); // Aquí, el valor ingresado se guarda en 'edad'
-
-    printf("Tu edad es: %d años.\n", edad);
-    return 0;
-}
-```
-
-En este ejemplo, `edad` toma el valor que el usuario introduce.
-
-#### El Buffer de Entrada y la Lectura de Caracteres
-
-Al presionar "Enter" para enviar datos en la consola, se agrega un carácter de salto de línea (`\n`) en el buffer de entrada `stdin`. Si la siguiente instrucción lee un carácter (`scanf("%c")`), leerá ese `\n` residual en lugar de la entrada esperada. Para evitar esto, se debe anteponer un espacio en blanco en el especificador (`" %c"`), lo cual instruye a `scanf` a descartar los espacios en blanco y saltos de línea residuales del buffer.
-
-```{code-block}c
-:linenos:
-char inicial = ' ';
-printf("Ingrese su inicial: ");
-scanf(" %c", &inicial); // El espacio antes de %c limpia el buffer de stdin
-```
-
 (ejercicios-de-autoevaluacion-entrada-y-salida)=
-### Ejercicios de Autoevaluación (Entrada y Salida)
-
+### Entrada y Salida
 :::{exercise}
 :label: ej-scanf-espacio-buffer
 Analizá el siguiente bloque de código. Si el usuario ingresa `25` y presiona Enter, y luego ingresa la letra `S` y presiona Enter, explicá detalladamente el comportamiento del buffer de entrada y el valor final de la variable `opcion`.
@@ -748,13 +731,44 @@ Esto imprimirá el texto `Valor: ` seguido de cuatro espacios en blanco y los ca
 
 ---
 
-(resumen-de-fundamentos)=
-## Resumen de Fundamentos
+## Glosario
 
-En esta unidad introductoria hemos cubierto:
-- La historia y filosofía del lenguaje C.
-- El concepto de estado de un programa.
-- Los roles de las variables y el ciclo de vida de los datos.
-- Entrada y salida elemental mediante `printf` y `scanf`.
+::{glossary}
+Compilador
+: Herramienta de software que traduce un programa escrito en código fuente de alto nivel a instrucciones de código máquina nativo.
+
+Sintaxis
+: Conjunto de reglas formales y gramaticales que definen la validez estructural de un programa para el compilador.
+
+Semántica
+: Significado lógico y comportamiento operacional de las instrucciones de un programa en tiempo de ejecución.
+
+L-value
+: Expresión que localiza un objeto persistente en memoria física, cuya dirección puede ser obtenida.
+
+R-value
+: Expresión transitoria que representa únicamente un valor y carece de dirección física de almacenamiento direccionable.
+
+Buffer de entrada
+: Área de almacenamiento temporal de memoria donde se retienen las entradas del usuario hasta ser consumidas por funciones como `scanf`.
+:::
+
+---
+
+## Síntesis y Resumen
+
+En esta unidad introductoria de C analizaste los siguientes fundamentos:
+- **Filosofía de C**: Lenguaje de nivel medio, imperativo, estructurado y altamente eficiente que prioriza el acceso directo al hardware.
+- **Ciclo de Traducción**: Compilación explícita que transforma el código fuente íntegramente a binarios ejecutables nativos.
+- **Declaración y Roles**: La memoria de las variables requiere inicialización explícita, existiendo roles funcionales (entrada, salida, auxiliar).
+- **Entrada y Salida**: Uso básico de `printf` y `scanf` con especificadores de formato, contemplando los efectos colaterales de saltos de línea residuales en el buffer.
 
 Para continuar con el control de flujo condicional y los lazos iterativos, consultá {ref}`control-flujo-capitulo`.
+
+---
+
+## Referencias y Lecturas Complementarias
+
+- Kernighan, B. W., & Ritchie, D. M. (1988). *The C Programming Language* (2nd ed.). Prentice Hall.
+- ISO/IEC 9899 standard drafts (C99, C11, C18, C2y).
+- GCC, GNU Compiler Collection - Command Options (https://gcc.gnu.org/onlinedocs/).

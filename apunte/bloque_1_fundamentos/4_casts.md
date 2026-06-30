@@ -4,10 +4,9 @@ short_title: '2b - Conversiones'
 subtitle: 'Promoción, coerción implícita y conversión explícita de tipos de datos'
 ---
 
-(conversiones-capitulo)=
+(capitulo-conversiones-casts)=
 
-(el-dilema-de-la-mezcla-de-tipos)=
-## El Dilema de la Mezcla de Tipos
+## Introducción
 
 En C, las variables poseen un tipo estático y rígido asignado en su declaración. Sin embargo, en la práctica es extremadamente común necesitar operar con variables de distintos tipos en una misma expresión (por ejemplo, sumar un entero de tipo `int` con un valor de punto flotante de tipo `double`). 
 
@@ -15,13 +14,15 @@ Para resolver estas situaciones, el compilador aplica reglas automáticas de con
 
 ---
 
-(1-conversiones-implicitas-promocion-y-coercion)=
-## 1. Conversiones Implícitas (Promoción y Coerción)
+## Desarrollo
+
+(conversiones-capitulo)=
+
+### Conversiones Implícitas (Promoción y Coerción)
 
 Las conversiones implícitas son aquellas que el compilador de C realiza de forma automática, sin intervención explícita del programador, al evaluar expresiones mixtas o al realizar asignaciones.
 
-(promocion-entera-integer-promotion)=
-### Promoción Entera (Integer Promotion)
+#### Promoción Entera (Integer Promotion)
 
 Antes de realizar cualquier operación aritmética, C promueve automáticamente los tipos enteros de menor rango (como `char`, `short` o tipos enumerados) a `int` (o a `unsigned int` si el rango original no cabe en un entero signado). Esto se realiza porque las unidades aritmético-lógicas (ALU) de la CPU operan de forma más eficiente con el tamaño nativo de palabra del procesador.
 
@@ -32,8 +33,7 @@ char b = 20;
 int c = a + b; 
 ```
 
-(conversiones-aritmeticas-habituales)=
-### Conversiones Aritméticas Habituales
+#### Conversiones Aritméticas Habituales
 
 Cuando operandos de tipos diferentes interactúan en una expresión aritmética (como `+`, `-`, `*`, `/`), el compilador promueve el operando de "menor rango" al tipo del operando de "mayor rango". El orden general de jerarquía de tipos (de menor a mayor) es:
 
@@ -48,8 +48,7 @@ double factor = 1.5;
 double resultado = base * factor; 
 ```
 
-(coercion-y-truncamiento-democion-de-tipos)=
-### Coerción y Truncamiento (Democión de Tipos)
+#### Coerción y Truncamiento (Democión de Tipos)
 
 El peligro real de las conversiones implícitas ocurre al asignar un tipo de mayor rango a uno de menor rango. En este caso, el compilador realiza una coerción hacia abajo (democión), lo que puede provocar:
 
@@ -63,6 +62,71 @@ int pi_entero = pi; // pi_entero tomará el valor 3 (truncamiento implícito)
 int grande = 300;
 char chico = grande; // Truncamiento de bits: 300 (0x012C) se reduce a 0x2C (44)
 ```
+
+### Conversiones Explícitas (El Operador Cast)
+
+Un **cast** (o conversión explícita) es una instrucción directa del programador al compilador para forzar la conversión de una expresión a un tipo de dato específico.
+
+#### Sintaxis
+
+La sintaxis del operador cast antepone el tipo de destino entre paréntesis a la expresión a convertir:
+
+```myst
+(tipo_destino) expresion
+```
+
+El operador cast tiene una precedencia muy alta (operador unario), por lo que se evalúa antes que la mayoría de los operadores aritméticos a menos que utilices paréntesis agrupadores.
+
+#### Casos de Uso Comunes
+
+El cast explícito se utiliza principalmente en tres escenarios didácticos y de ingeniería:
+
+##### 1. Evitar la División Entera
+En C, si dividís dos enteros, el resultado es una división entera que descarta los decimales. Si necesitás la precisión decimal, debés castear al menos uno de los operandos a un tipo de punto flotante para forzar la promoción del otro operando.
+
+```c
+int leidos = 3;
+int total = 4;
+// Sin cast, leidos / total retornaría 0 (división entera)
+double porcentaje = (double)leidos / total; // Retorna 0.75
+```
+
+##### 2. Documentar la Pérdida Intencional de Precisión
+Castear explícitamente al asignar un tipo grande a uno chico le comunica al compilador (y a futuros desarrolladores) que el truncamiento de datos es intencional, evitando que el compilador emita advertencias (*warnings*).
+
+```c
+double medicion = 99.987;
+int parte_entera = (int)medicion; // Claridad de diseño: descarta decimales voluntariamente
+```
+
+##### 3. Trabajar con Interfaces Genéricas
+Aunque se abordará en profundidad en capítulos avanzados, el cast explícito es fundamental al manipular punteros genéricos (`void*`) para reinterpretar la dirección física de la memoria.
+
+### Conversiones y Representación en Memoria
+
+Las conversiones de tipos no son meramente lógicas; tienen un impacto físico directo en cómo la CPU manipula los bits de las variables en la memoria RAM.
+
+#### Cast Aritmético vs. Cast de Reinterpretación
+
+Es fundamental diferenciar conceptualmente entre dos tipos de transformaciones:
+
+*   **Conversión de Valor (Cast Aritmético):** Modifica la representación física de los bits para preservar el valor matemático del dato original en el tipo de destino. Por ejemplo, al convertir `int a = 5` a `float`, el procesador traduce la codificación entera tradicional (complemento a 2) a la representación de punto flotante de precisión simple estándar IEEE 754. Los patrones de bits de `5` y `5.0f` son completamente distintos en memoria, pero representan el mismo valor numérico.
+*   **Reinterpretación de Bits (Cast de Punteros):** No altera los bits de la memoria, sino que le indica al compilador que lea la misma dirección de memoria física bajo las reglas de otro tipo de dato. Esto se realiza únicamente a través del casteo de punteros (lo que se analizará en detalle en el capítulo de Aritmética de Punteros).
+
+#### Conversión entre Signed y Unsigned (Complemento a 2)
+
+Al castear entre enteros signados y no signados del mismo tamaño (por ejemplo, de `int` a `unsigned int`), los bits en memoria **no se modifican en absoluto**. La CPU simplemente reinterpreta el bit más significativo (el bit de signo en complemento a 2) como parte del valor numérico absoluto.
+
+```c
+int negativo = -1; // En memoria (32 bits): 0xFFFFFFFF
+unsigned int positivo = (unsigned int)negativo; // Reinterpretado como 4294967295 (0xFFFFFFFF)
+```
+
+Este tipo de conversiones implícitas o explícitas mal controladas son el origen de graves problemas de seguridad y lazos infinitos cuando se comparan índices de tamaño en expresiones mixtas.
+
+---
+
+## Ejercicios de Autoevaluación
 
 :::{exercise}
 :label: ej-conversion-implicita-aritmetica
@@ -83,50 +147,6 @@ El proceso de evaluación ocurre en dos pasos físicos:
 
 Por lo tanto, la variable `resultado` almacena el valor entero `2`.
 :::
-
----
-
-(2-conversiones-explicitas-el-operador-cast)=
-## 2. Conversiones Explícitas (El Operador Cast)
-
-Un **cast** (o conversión explícita) es una instrucción directa del programador al compilador para forzar la conversión de una expresión a un tipo de dato específico.
-
-(sintaxis)=
-### Sintaxis
-
-La sintaxis del operador cast antepone el tipo de destino entre paréntesis a la expresión a convertir:
-
-```myst
-(tipo_destino) expresion
-```
-
-El operador cast tiene una precedencia muy alta (operador unario), por lo que se evalúa antes que la mayoría de los operadores aritméticos a menos que utilices paréntesis agrupadores.
-
-(casos-de-uso-comunes)=
-### Casos de Uso Comunes
-
-El cast explícito se utiliza principalmente en tres escenarios didácticos y de ingeniería:
-
-#### 1. Evitar la División Entera
-En C, si dividís dos enteros, el resultado es una división entera que descarta los decimales. Si necesitás la precisión decimal, debés castear al menos uno de los operandos a un tipo de punto flotante para forzar la promoción del otro operando.
-
-```c
-int leidos = 3;
-int total = 4;
-// Sin cast, leidos / total retornaría 0 (división entera)
-double porcentaje = (double)leidos / total; // Retorna 0.75
-```
-
-#### 2. Documentar la Pérdida Intencional de Precisión
-Castear explícitamente al asignar un tipo grande a uno chico le comunica al compilador (y a futuros desarrolladores) que el truncamiento de datos es intencional, evitando que el compilador emita advertencias (*warnings*).
-
-```c
-double medicion = 99.987;
-int parte_entera = (int)medicion; // Claridad de diseño: descarta decimales voluntariamente
-```
-
-#### 3. Trabajar con Interfaces Genéricas
-Aunque se abordará en profundidad en capítulos avanzados, el cast explícito es fundamental al manipular punteros genéricos (`void*`) para reinterpretar la dirección física de la memoria.
 
 :::{exercise}
 :label: ej-cast-division-entera
@@ -151,33 +171,6 @@ El error reside en la colocación de los paréntesis de agrupación, lo que anul
 double promedio = (double)total_horas / dias; // (double)5.0 / 2 -> 5.0 / 2.0 -> 2.5
 ```
 :::
-
----
-
-(3-conversiones-y-representacion-en-memoria)=
-## 3. Conversiones y Representación en Memoria
-
-Las conversiones de tipos no son meramente lógicas; tienen un impacto físico directo en cómo la CPU manipula los bits de las variables en la memoria RAM.
-
-(cast-aritmetico-vs-cast-de-reinterpretacion)=
-### Cast Aritmético vs. Cast de Reinterpretación
-
-Es fundamental diferenciar conceptualmente entre dos tipos de transformaciones:
-
-*   **Conversión de Valor (Cast Aritmético):** Modifica la representación física de los bits para preservar el valor matemático del dato original en el tipo de destino. Por ejemplo, al convertir `int a = 5` a `float`, el procesador traduce la codificación entera tradicional (complemento a 2) a la representación de punto flotante de precisión simple estándar IEEE 754. Los patrones de bits de `5` y `5.0f` son completamente distintos en memoria, pero representan el mismo valor numérico.
-*   **Reinterpretación de Bits (Cast de Punteros):** No altera los bits de la memoria, sino que le indica al compilador que lea la misma dirección de memoria física bajo las reglas de otro tipo de dato. Esto se realiza únicamente a través del casteo de punteros (lo que se analizará en detalle en el capítulo de Aritmética de Punteros).
-
-(conversion-entre-signed-y-unsigned-complemento-a-2)=
-### Conversión entre Signed y Unsigned (Complemento a 2)
-
-Al castear entre enteros signados y no signados del mismo tamaño (por ejemplo, de `int` a `unsigned int`), los bits en memoria **no se modifican en absoluto**. La CPU simplemente reinterpreta el bit más significativo (el bit de signo en complemento a 2) como parte del valor numérico absoluto.
-
-```c
-int negativo = -1; // En memoria (32 bits): 0xFFFFFFFF
-unsigned int positivo = (unsigned int)negativo; // Reinterpretado como 4294967295 (0xFFFFFFFF)
-```
-
-Este tipo de conversiones implícitas o explícitas mal controladas son el origen de graves problemas de seguridad y lazos infinitos cuando se comparan índices de tamaño en expresiones mixtas.
 
 :::{exercise}
 :label: ej-cast-signo-comparacion
@@ -210,3 +203,37 @@ El comportamiento inesperado ocurre debido a las **Conversiones Aritméticas Hab
 
 **Lección de Ingeniería:** Nunca debés realizar comparaciones aritméticas mixtas entre tipos signados y no signados sin castear previamente de forma explícita y segura a un tipo común que pueda contener a ambos.
 :::
+
+---
+
+## Glosario
+
+::{glossary}
+Cast (Casteo)
+: Operación explícita para forzar al compilador a convertir una expresión a un tipo de dato específico.
+
+Coerción (Coercion)
+: Conversión automática o implícita de tipos realizada por el compilador para compatibilizar operandos en una expresión o asignación.
+
+Promoción Entera
+: Regla de C que convierte automáticamente tipos enteros pequeños a `int` o `unsigned int` antes de evaluarlos.
+
+Democión de Tipos (Truncamiento)
+: Conversión de un tipo de mayor jerarquía o rango de representación a uno menor, usualmente acompañada de pérdida de datos o precisión.
+:::
+
+---
+
+## Síntesis y Resumen
+
+En esta unidad cubriste las conversiones de datos en C:
+- **Implícitas**: El compilador realiza promociones enteras o conversiones aritméticas automáticas ordenadas por jerarquía física de datos.
+- **Explícitas**: Mediante el operador cast, forzás la transformación de expresiones evitando truncamientos indeseados en divisiones.
+- **Consecuencias físicas**: Las conversiones pueden requerir reordenar bits en la CPU (ej: entero a real) o simplemente reinterpretar los mismos bits sin cambio físico (ej: signed a unsigned), lo que puede causar fallas de lógica si no se controlan debidamente.
+
+---
+
+## Referencias y Lecturas Complementarias
+
+- ISO/IEC 9899 Language Standard Section 6.3: Conversions.
+- Seacord, R. C. (2013). *Secure Coding in C and C++*. Addison-Wesley Professional. Chapter 5: Integer Security.

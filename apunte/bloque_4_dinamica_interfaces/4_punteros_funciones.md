@@ -4,6 +4,11 @@ short_title: 'Punteros III'
 description: 'Punteros a funciones, genericidad básica en C utilizando void* y el uso de callbacks para ordenar y filtrar datos.'
 ---
 
+(capitulo-punteros-funciones)=
+# Lecturas Recomendadas
+
+## Introducción
+
 (genericidad-y-callbacks-punteros-a-funciones)=
 # Genericidad y Callbacks (Punteros a Funciones)
 
@@ -11,13 +16,16 @@ En capítulos anteriores, exploramos cómo los punteros nos permiten referenciar
 
 Un **puntero a función** almacena la dirección de memoria de una función ejecutable, lo que nos permite invocarla dinámicamente y pasar comportamiento como argumento a otras funciones. Este mecanismo se conoce como **callback** y es el pilar para construir código genérico y extensible en C.
 
+## Desarrollo
+
 (punteros-a-funciones-sintaxis-y-declaracion)=
-## Punteros a Funciones: Sintaxis y Declaración
+### Punteros a Funciones: Sintaxis y Declaración
+
 
 La sintaxis para declarar un puntero a función en C puede parecer compleja al principio, ya que requiere agrupar el operador de indirección con el nombre del puntero para diferenciarlo de una función que retorna un puntero.
 
 (declaracion-basica)=
-### Declaración Básica
+#### Declaración Básica
 
 La estructura general de una declaración es:
 
@@ -33,7 +41,7 @@ int (*puntero)(int, int); // Declaración de un puntero a una función que retor
 ```
 
 (asignacion-e-invocacion)=
-### Asignación e Invocación
+#### Asignación e Invocación
 
 Asignar una función a un puntero es directo: solo se utiliza el nombre de la función (que decae en su dirección física de memoria).
 
@@ -62,7 +70,7 @@ int main(void) {
 ```
 
 (simplificacion-con-typedef)=
-### Simplificación con `typedef`
+#### Simplificación con `typedef`
 
 Para evitar declarar firmas de punteros complejas repetidamente, es una buena práctica de ingeniería de software definir alias de tipos utilizando `typedef` (regla {ref}`0x3004h`):
 
@@ -78,68 +86,25 @@ operacion_fn mi_operacion = sumar;
 ---
 
 (ejercicios-de-autoevaluacion-sintaxis-y-declaracion)=
-### Ejercicios de Autoevaluación (Sintaxis y Declaración)
+#### Ejercicios de Autoevaluación (Sintaxis y Declaración)
 
-:::{exercise}
-:label: ej-fn-ptr-sintaxis-error
-Explicá detalladamente la diferencia sintáctica y el significado para el compilador de las siguientes dos declaraciones:
-1. `double *procesar(double, double);`
-2. `double (*procesar)(double, double);`
-:::
 
-:::{solution} ej-fn-ptr-sintaxis-error
-:class: dropdown
-1. **`double *procesar(double, double);`**: Declara un prototipo de función ordinario llamado `procesar` que recibe dos parámetros de tipo `double` y retorna un **puntero a double** (`double *`).
-2. **`double (*procesar)(double, double);`**: El paréntesis altera la precedencia indicando que el operador `*` se asocia directamente con el identificador. Declara una variable llamada `procesar` cuyo tipo de dato es **puntero a función**, la cual recibe dos parámetros de tipo `double` y retorna un valor de tipo `double`.
-:::
 
-:::{exercise}
-:label: ej-fn-ptr-typedef-alias
-Escribí la declaración de un alias de tipo utilizando `typedef` de acuerdo con la regla de la cátedra {ref}`0x3004h` para representar punteros a funciones que reciben como parámetro una cadena de caracteres constante (`const char *`) y retornan un entero de tipo `size_t`.
-:::
 
-:::{solution} ej-fn-ptr-typedef-alias
-:class: dropdown
-La sintaxis correcta aplicando el sufijo de alias de tipo `_t` es:
-```c
-#include <stddef.h>
 
-typedef size_t (*medidor_cadena_fn_t)(const char *);
-```
-Este alias `medidor_cadena_fn_t` permite declarar punteros a funciones de forma sencilla:
-```c
-medidor_cadena_fn_t mi_funcion = strlen;
-```
-:::
 
-:::{exercise}
-:label: ej-fn-ptr-invocacion-variacion
-Dada una función `int multiplicar(int a, int b);` y un puntero a función declarado y asignado como `int (*operacion)(int, int) = multiplicar;`, escribí las dos líneas de código válidas bajo el estándar de C para realizar la invocación de la función con los argumentos `10` y `20` a través del puntero, indicando cuál es la preferida por legibilidad.
-:::
-
-:::{solution} ej-fn-ptr-invocacion-variacion
-:class: dropdown
-Las dos formas de invocación soportadas son:
-1. **Invocación explícita (desreferencia)**:
-   ```c
-   int res1 = (*operacion)(10, 20);
-   ```
-2. **Invocación implícita o directa**:
-   ```c
-   int res2 = operacion(10, 20);
-   ```
-Ambas son funcionalmente idénticas debido a que el compilador de C promociona automáticamente el identificador de la función a su dirección física. La cátedra prefiere y recomienda la **segunda variante** (invocación directa) por asemejarse a una llamada de función estándar, mejorando la claridad de lectura del código.
-:::
 
 ---
 
+
 (callbacks-comportamiento-como-parametro)=
-## Callbacks: Comportamiento como Parámetro
+### Callbacks: Comportamiento como Parámetro
+
 
 Un **callback** es una función que se pasa a otra función como argumento para ser ejecutada ("llamada de vuelta") bajo ciertas condiciones o flujos de control.
 
 (ejemplo-clasico-qsort-de-la-biblioteca-estandar)=
-### Ejemplo Clásico: qsort() de la Biblioteca Estándar
+#### Ejemplo Clásico: qsort() de la Biblioteca Estándar
 
 El ejemplo por excelencia de genericidad y callbacks es `qsort` (definida en `<stdlib.h>`), la cual implementa el algoritmo de ordenamiento rápido QuickSort de forma genérica para cualquier tipo de arreglo:
 
@@ -157,7 +122,7 @@ Para ordenar un arreglo, le proveemos a `qsort`:
    * 0 si son iguales.
    * Mayor a 0 si el primer elemento es mayor al segundo.
 
-#### Implementación Completa con qsort()
+##### Implementación Completa con qsort()
 
 ```{code} c
 :caption: Uso de qsort con callbacks para ordenar enteros y structs en C
@@ -230,7 +195,150 @@ int main(void) {
 ---
 
 (ejercicios-de-autoevaluacion-callbacks-y-qsort)=
-### Ejercicios de Autoevaluación (Callbacks y qsort)
+#### Ejercicios de Autoevaluación (Callbacks y qsort)
+
+
+
+
+
+
+
+---
+
+
+(genericidad-en-c-mediante-void)=
+### Genericidad en C mediante `void *`
+
+
+Dado que C carece de tipos genéricos en tiempo de compilación (como *templates* de C++ o genéricos de Java), la genericidad se simula a bajo nivel utilizando punteros genéricos `void *`.
+
+(reglas-de-oro-para-trabajar-con-void)=
+#### Reglas de Oro para Trabajar con `void *`
+
+1. **No se puede desreferenciar directamente un `void *`**: Como el compilador no sabe cuántos bytes ocupa el tipo apuntado, la expresión `*p_void` genera un error de compilación. Siempre debés realizar un casteo explícito a un puntero del tipo real antes de acceder a la memoria.
+2. **No se permite aritmética de punteros sobre `void *`**: Sumar o restar a un `void *` genera comportamiento indefinido o errores, ya que la escala de incremento depende del tamaño del tipo. Nuevamente, debés castear previamente a un tipo con tamaño conocido (ej: `char *` para aritmética byte a byte).
+
+(disenando-una-funcion-generica-de-busqueda-lineal)=
+#### Diseñando una Función Genérica de Búsqueda Lineal
+
+Para consolidar estos conceptos, implementemos nuestro propio algoritmo genérico de búsqueda lineal, capaz de buscar en cualquier tipo de arreglo utilizando un callback de comparación:
+
+```{code} c
+:caption: Implementación de búsqueda lineal genérica en C usando callbacks y void*
+:label: generic-search-example
+:linenos:
+
+#include <stdio.h>
+#include <stddef.h>
+#include <string.h>
+
+// Definición de tipo para el callback de comparación
+typedef int (*comparar_fn)(const void *, const void *);
+
+// Función genérica de búsqueda lineal
+// Retorna la dirección del elemento si se encuentra, o NULL si no está.
+const void *buscar_generico(const void *base, size_t nmemb, size_t size, 
+                            const void *clave, comparar_fn cmp) {
+    // Convertimos a const char* para poder realizar aritmética de punteros byte a byte
+    const char *ptr = (const char *)base;
+
+    for (size_t i = 0; i < nmemb; i++) {
+        // Calculamos la dirección del elemento i-ésimo: base + i * size
+        const void *elemento = ptr + (i * size);
+
+        // Invocamos el callback de comparación
+        if (cmp(elemento, clave) == 0) {
+            return elemento; // Encontrado
+        }
+    }
+    return NULL; // No encontrado
+}
+
+// Callback para buscar en enteros
+int cmp_enteros(const void *a, const void *b) {
+    return *(const int *)a - *(const int *)b;
+}
+
+int main(void) {
+    int arr[] = {10, 20, 30, 40, 50};
+    size_t n = sizeof(arr) / sizeof(arr[0]);
+    int clave = 30;
+
+    const void *resultado = buscar_generico(arr, n, sizeof(int), &clave, cmp_enteros);
+
+    if (resultado != NULL) {
+        printf("El numero %d fue encontrado en la posicion: %ld\n", 
+               clave, ((const int *)resultado - arr));
+    } else {
+        printf("El numero %d no fue encontrado.\n", clave);
+    }
+    return 0;
+}
+```
+
+(ejercicios-de-autoevaluacion-genericidad-y-void)=
+#### Ejercicios de Autoevaluación (Genericidad y void*)
+
+
+
+
+
+
+
+---
+
+## Ejercicios de Autoevaluación
+
+:::{exercise}
+:label: ej-fn-ptr-sintaxis-error
+Explicá detalladamente la diferencia sintáctica y el significado para el compilador de las siguientes dos declaraciones:
+1. `double *procesar(double, double);`
+2. `double (*procesar)(double, double);`
+:::
+
+:::{solution} ej-fn-ptr-sintaxis-error
+:class: dropdown
+1. **`double *procesar(double, double);`**: Declara un prototipo de función ordinario llamado `procesar` que recibe dos parámetros de tipo `double` y retorna un **puntero a double** (`double *`).
+2. **`double (*procesar)(double, double);`**: El paréntesis altera la precedencia indicando que el operador `*` se asocia directamente con el identificador. Declara una variable llamada `procesar` cuyo tipo de dato es **puntero a función**, la cual recibe dos parámetros de tipo `double` y retorna un valor de tipo `double`.
+:::
+
+:::{exercise}
+:label: ej-fn-ptr-typedef-alias
+Escribí la declaración de un alias de tipo utilizando `typedef` de acuerdo con la regla de la cátedra {ref}`0x3004h` para representar punteros a funciones que reciben como parámetro una cadena de caracteres constante (`const char *`) y retornan un entero de tipo `size_t`.
+:::
+
+:::{solution} ej-fn-ptr-typedef-alias
+:class: dropdown
+La sintaxis correcta aplicando el sufijo de alias de tipo `_t` es:
+```c
+#include <stddef.h>
+
+typedef size_t (*medidor_cadena_fn_t)(const char *);
+```
+Este alias `medidor_cadena_fn_t` permite declarar punteros a funciones de forma sencilla:
+```c
+medidor_cadena_fn_t mi_funcion = strlen;
+```
+:::
+
+:::{exercise}
+:label: ej-fn-ptr-invocacion-variacion
+Dada una función `int multiplicar(int a, int b);` y un puntero a función declarado y asignado como `int (*operacion)(int, int) = multiplicar;`, escribí las dos líneas de código válidas bajo el estándar de C para realizar la invocación de la función con los argumentos `10` y `20` a través del puntero, indicando cuál es la preferida por legibilidad.
+:::
+
+:::{solution} ej-fn-ptr-invocacion-variacion
+:class: dropdown
+Las dos formas de invocación soportadas son:
+1. **Invocación explícita (desreferencia)**:
+   ```c
+   int res1 = (*operacion)(10, 20);
+   ```
+2. **Invocación implícita o directa**:
+   ```c
+   int res2 = operacion(10, 20);
+   ```
+Ambas son funcionalmente idénticas debido a que el compilador de C promociona automáticamente el identificador de la función a su dirección física. La cátedra prefiere y recomienda la **segunda variante** (invocación directa) por asemejarse a una llamada de función estándar, mejorando la claridad de lectura del código.
+:::
 
 :::{exercise}
 :label: ej-fn-ptr-qsort-reversa
@@ -319,80 +427,6 @@ int comparar_productos(const void *a, const void *b) {
 ```
 :::
 
----
-
-(genericidad-en-c-mediante-void)=
-## Genericidad en C mediante `void *`
-
-Dado que C carece de tipos genéricos en tiempo de compilación (como *templates* de C++ o genéricos de Java), la genericidad se simula a bajo nivel utilizando punteros genéricos `void *`.
-
-(reglas-de-oro-para-trabajar-con-void)=
-### Reglas de Oro para Trabajar con `void *`
-
-1. **No se puede desreferenciar directamente un `void *`**: Como el compilador no sabe cuántos bytes ocupa el tipo apuntado, la expresión `*p_void` genera un error de compilación. Siempre debés realizar un casteo explícito a un puntero del tipo real antes de acceder a la memoria.
-2. **No se permite aritmética de punteros sobre `void *`**: Sumar o restar a un `void *` genera comportamiento indefinido o errores, ya que la escala de incremento depende del tamaño del tipo. Nuevamente, debés castear previamente a un tipo con tamaño conocido (ej: `char *` para aritmética byte a byte).
-
-(disenando-una-funcion-generica-de-busqueda-lineal)=
-### Diseñando una Función Genérica de Búsqueda Lineal
-
-Para consolidar estos conceptos, implementemos nuestro propio algoritmo genérico de búsqueda lineal, capaz de buscar en cualquier tipo de arreglo utilizando un callback de comparación:
-
-```{code} c
-:caption: Implementación de búsqueda lineal genérica en C usando callbacks y void*
-:label: generic-search-example
-:linenos:
-
-#include <stdio.h>
-#include <stddef.h>
-#include <string.h>
-
-// Definición de tipo para el callback de comparación
-typedef int (*comparar_fn)(const void *, const void *);
-
-// Función genérica de búsqueda lineal
-// Retorna la dirección del elemento si se encuentra, o NULL si no está.
-const void *buscar_generico(const void *base, size_t nmemb, size_t size, 
-                            const void *clave, comparar_fn cmp) {
-    // Convertimos a const char* para poder realizar aritmética de punteros byte a byte
-    const char *ptr = (const char *)base;
-
-    for (size_t i = 0; i < nmemb; i++) {
-        // Calculamos la dirección del elemento i-ésimo: base + i * size
-        const void *elemento = ptr + (i * size);
-
-        // Invocamos el callback de comparación
-        if (cmp(elemento, clave) == 0) {
-            return elemento; // Encontrado
-        }
-    }
-    return NULL; // No encontrado
-}
-
-// Callback para buscar en enteros
-int cmp_enteros(const void *a, const void *b) {
-    return *(const int *)a - *(const int *)b;
-}
-
-int main(void) {
-    int arr[] = {10, 20, 30, 40, 50};
-    size_t n = sizeof(arr) / sizeof(arr[0]);
-    int clave = 30;
-
-    const void *resultado = buscar_generico(arr, n, sizeof(int), &clave, cmp_enteros);
-
-    if (resultado != NULL) {
-        printf("El numero %d fue encontrado en la posicion: %ld\n", 
-               clave, ((const int *)resultado - arr));
-    } else {
-        printf("El numero %d no fue encontrado.\n", clave);
-    }
-    return 0;
-}
-```
-
-(ejercicios-de-autoevaluacion-genericidad-y-void)=
-### Ejercicios de Autoevaluación (Genericidad y void*)
-
 :::{exercise}
 :label: ej-fn-ptr-void-dereferencia
 Explicá por qué el compilador de C rechaza expresiones como `*ptr` o `ptr++` cuando la variable `ptr` es un puntero genérico de tipo `void *`, y cómo se debe proceder para realizar la manipulación correcta de la memoria física.
@@ -470,10 +504,21 @@ void intercambiar_bloques(void *a, void *b, size_t size) {
 ```
 :::
 
----
+## Glosario
+
+- **Puntero a Función**: Puntero que almacena la dirección de código ejecutable.
+- **Callback**: Función pasada como argumento a otra función para ser invocada posteriormente.
+- **Genericidad**: Técnica de programación que permite escribir algoritmos independientes del tipo de datos.
+
+## Síntesis y Resumen
+
+En este apunte se han presentado los conceptos fundamentales del tema.
+
+## Referencias y Lecturas Complementarias
 
 (lecturas-recomendadas)=
-## Lecturas Recomendadas
+### Lecturas Recomendadas
+
 
 - **{cite:t}`king_c_2008`**. Capítulo 17: Advanced Uses of Pointers (sección de punteros a funciones).
 - **{cite:t}`kernighan_c_2014`**. Capítulo 5: Pointers and Arrays (sección sobre punteros a funciones y qsort).

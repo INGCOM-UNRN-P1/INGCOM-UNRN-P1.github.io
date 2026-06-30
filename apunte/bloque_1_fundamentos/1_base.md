@@ -4,7 +4,8 @@ short_title: Fundamentos
 subtitle: Conceptos básicos antes de programar en C
 ---
 
-(introduccion)=
+(capitulo-fundamentos-computacion)=
+
 ## Introducción
 
 Antes de escribir tu primera línea de código en C, es fundamental repasar (y comprender) algunos conceptos básicos sobre cómo funcionan las computadoras y cómo comunicarnos con ellas de manera efectiva. En este apunte, sentaremos las bases algorítmicas de forma independiente de cualquier lenguaje, utilizando un pseudocódigo estructurado similar a C en español. Esto te permitirá concentrarte en el pensamiento lógico antes de abordar la sintaxis formal de C.
@@ -15,8 +16,10 @@ Este material es **prerrequisito** para el apunte de introducción a C, y es un 
 
 ---
 
+## Desarrollo
+
 (que-es-una-computadora)=
-## ¿Qué es una computadora?
+### ¿Qué es una computadora?
 
 Una computadora es una máquina electrónica diseñada para procesar información de manera automática, siguiendo instrucciones precisas y explícitas. A diferencia de los seres humanos, una computadora:
 
@@ -31,11 +34,11 @@ La computadora hará **exactamente** lo que le pidamos, incluso si está mal. De
 :::
 
 (componentes-basicos)=
-### Componentes básicos
+#### Componentes básicos
 
 Para entender cómo programar, es útil conocer los componentes físicos de una computadora y cómo interactúan entre sí.
 
-#### Hardware
+##### Hardware
 
 El **hardware** son los componentes físicos de la computadora:
 
@@ -57,7 +60,7 @@ Arquitectura básica de una computadora: el CPU coordina el flujo de datos entre
 La RAM es extremadamente rápida pero volátil y costosa. El disco es mucho más lento pero persistente y económico. Esta combinación nos da lo mejor de ambos mundos: velocidad para ejecutar programas en memoria activa y persistencia para guardar nuestros archivos a largo plazo.
 :::
 
-#### Software
+##### Software
 
 El **software** son los programas e instrucciones de control:
 
@@ -73,10 +76,8 @@ El **software** son los programas e instrucciones de control:
 Las aplicaciones utilizan los servicios del sistema operativo, que a su vez controla y gestiona el hardware.
 ```
 
----
-
 (que-es-programar)=
-## ¿Qué es programar?
+### ¿Qué es programar?
 
 Programar es el proceso de estructurar instrucciones detalladas para que una computadora realice una tarea específica.
 
@@ -89,7 +90,7 @@ Cuando programamos, debemos considerar:
 5. **¿Funciona correctamente?** - Probar y depurar.
 
 (analogia-la-receta-de-cocina)=
-### Analogía: La receta de cocina
+#### Analogía: La receta de cocina
 
 Imaginá que querés hacer un bizcochuelo y le das las instrucciones a alguien que **nunca cocinó** y que seguirá **literalmente** cada palabra:
 
@@ -125,45 +126,8 @@ Imaginá que querés hacer un bizcochuelo y le das las instrucciones a alguien q
 
 La computadora necesita instrucciones de este segundo tipo: específicas, ordenadas, sin ambigüedades y detalladas al extremo.
 
-(ejercicio-1)=
-### Ejercicio 1
-
-```{exercise}
-:label: ex-instrucciones-precisas
-Escribí instrucciones detalladas y secuenciales (como para alguien que nunca lo hizo) para:
-
-1. Hacer un sándwich de jamón y queso.
-2. Atarse los cordones de las zapatillas.
-3. Calcular el promedio de tres números.
-```
-
-```{solution} ex-instrucciones-precisas
-class: dropdown
-
-**Hacer un sándwich de jamón y queso:**
-1. Retirar 2 rebanadas de pan del paquete.
-2. Colocar ambas rebanadas horizontalmente sobre un plato limpio.
-3. Retirar una rebanada de jamón del paquete correspondiente.
-4. Colocar la rebanada de jamón cubriendo la primera rebanada de pan.
-5. Retirar una rebanada de queso del paquete.
-6. Colocar la rebanada de queso sobre el jamón.
-7. Tomar la segunda rebanada de pan.
-8. Colocarla sobre el queso, tapando el sándwich.
-9. Presionar suavemente hacia abajo para asentar el sándwich.
-
-**Calcular el promedio de tres números:**
-1. Obtener el primer número (llamémoslo A).
-2. Obtener el segundo número (llamémoslo B).
-3. Obtener el tercer número (llamémoslo C).
-4. Sumar los tres valores: suma = A + B + C.
-5. Dividir el resultado de la suma por 3: promedio = suma / 3.
-6. Mostrar el valor del promedio obtenido.
-```
-
----
-
 (que-es-un-algoritmo)=
-## ¿Qué es un algoritmo?
+### ¿Qué es un algoritmo?
 
 Un **algoritmo** es una secuencia finita, ordenada y no ambigua de pasos bien definidos que resuelve un problema o realiza una tarea específica. Los algoritmos son la base fundamental de la programación y el diseño de sistemas.
 
@@ -180,7 +144,7 @@ Un algoritmo es **independiente** del lenguaje de programación. El mismo algori
 :::
 
 (caracteristicas-de-un-buen-algoritmo)=
-### Características de un buen algoritmo
+#### Características de un buen algoritmo
 
 Un algoritmo efectivo debe cumplir con los siguientes vectores de diseño:
 
@@ -211,15 +175,13 @@ Dado el mismo conjunto de datos de entrada, debe producir siempre exactamente el
 :::
 ::::
 
----
-
 (representacion-de-algoritmos-y-diagramas-de-flujo)=
-## Representación de Algoritmos y Diagramas de Flujo
+### Representación de Algoritmos y Diagramas de Flujo
 
 Los **diagramas de flujo** son representaciones gráficas estandarizadas de algoritmos. Permiten visualizar la lógica de control, bifurcaciones e iteraciones antes de escribir código.
 
 (simbolos-estandar-de-diagramas-de-flujo)=
-### Símbolos estándar de diagramas de flujo
+#### Símbolos estándar de diagramas de flujo
 
 ```{figure} 1/simbolos_diagramas_flujo.svg
 :alt: Símbolos estándar de diagramas de flujo
@@ -231,17 +193,15 @@ Símbolos universales utilizados en diagramas de flujo para representar diferent
 
 - **Óvalo / Elipse:** Representa el inicio o el fin del algoritmo.
 - **Rectángulo:** Representa un proceso o instrucción de cómputo (cálculos, asignación de variables).
-- **Rombo:** Representa una decisión o bifurcación condicional. Posee una pregunta adentro y al menos dos caminos de salida (generalmente Sí y No).
+- **Rombo:** Representa un decisión o bifurcación condicional. Posee una pregunta adentro y al menos dos caminos de salida (generalmente Sí y No).
 - **Paralelogramo:** Representa operaciones de entrada y salida de datos (leer entrada del usuario o mostrar un mensaje por pantalla).
 - **Flechas de flujo:** Indican la dirección lógica de ejecución del algoritmo.
 
----
-
 (ejemplos-de-algoritmos-en-pseudocodigo-y-diagramas-de-flujo)=
-## Ejemplos de Algoritmos en Pseudocódigo y Diagramas de Flujo
+### Ejemplos de Algoritmos en Pseudocódigo y Diagramas de Flujo
 
 (ejemplo-1-algoritmo-para-hacer-cafe)=
-### Ejemplo 1: Algoritmo para hacer café
+#### Ejemplo 1: Algoritmo para hacer café
 
 Homogeneizando la estructura cotidiana mediante ramificaciones secuenciales condicionales:
 
@@ -286,7 +246,7 @@ flowchart TD
 ```
 
 (ejemplo-2-verificar-si-n-es-par)=
-### Ejemplo 2: Verificar si N es par
+#### Ejemplo 2: Verificar si N es par
 
 Este algoritmo calcula si un número entero es par utilizando el operador módulo `%` (resto de la división entera):
 
@@ -320,15 +280,13 @@ flowchart TD
     PrintImpar --> End
 ```
 
----
-
 (representacion-de-datos-y-memoria)=
-## Representación de datos y memoria
+### Representación de datos y memoria
 
 Las computadoras operan sobre datos almacenados en memoria física. Para procesar esta información, es necesario asignarle un tipo de dato que defina su rango y operaciones válidas.
 
 (tipos-de-informacion-fundamentales)=
-### Tipos de información fundamentales
+#### Tipos de información fundamentales
 
 ```{figure} 1/tipos_datos.svg
 :alt: Tipos de datos fundamentales
@@ -343,10 +301,8 @@ Los cuatro tipos de datos fundamentales: enteros, reales, cadenas de caracteres 
 3.  **Caracteres / Cadenas (`cadena` / `char` / `str`):** Texto delimitado por comillas (ej. `"Hola Mundo"`, `'A'`). Representan símbolos legibles.
 4.  **Lógicos / Booleanos (`logico` / `bool`):** Solo admiten dos estados lógicos: `verdadero` (`true`) o `falso` (`false`).
 
----
-
 (variables-direcciones-fisicas-de-memoria)=
-### Variables: Direcciones físicas de memoria
+#### Variables: Direcciones físicas de memoria
 
 Una **variable** es un espacio reservado en la memoria física RAM de la computadora para almacenar un dato que puede cambiar durante la ejecución del programa.
 
@@ -368,10 +324,8 @@ Cada variable posee:
 3.  **Tipo de dato:** Define el tamaño en bytes reservado y cómo el hardware interpretará los bits guardados.
 4.  **Valor:** El contenido binario actual de la celda de memoria.
 
----
-
 (el-ciclo-de-vida-de-una-variable-en-memoria)=
-### El ciclo de vida de una variable en memoria
+#### El ciclo de vida de una variable en memoria
 
 ```{figure} 1/ciclo_vida_variable.svg
 :alt: Ciclo de vida de una variable
@@ -385,34 +339,11 @@ Una variable se declara e inicializa en memoria, es leída o modificada durante 
 En lenguajes de alto nivel como Python, la memoria ocupada por las variables se libera de forma automática mediante un recolector de basura (*garbage collector*). Sin embargo, en C la gestión de la memoria es explícita: la memoria de las variables locales (en la pila o *stack*) se libera automáticamente al salir de su ámbito de visibilidad, mientras que la memoria dinámica asignada manualmente (en el *heap*) debe ser liberada explícitamente por el programador. Si olvidás liberarla, se genera una fuga de memoria (*memory leak*).
 :::
 
-```{exercise}
-:label: ex-tipos-vars
-Para cada uno de los siguientes datos, indicá qué tipo de variable (`entero`, `real`, `cadena`, `logico`) usarías en pseudocódigo:
-
-1. Cantidad de estudiantes en una clase.
-2. Precio de un producto con centavos.
-3. Nombre completo de una persona.
-4. Si un archivo existe o no.
-5. Calificación académica con decimales.
-```
-
-```{solution} ex-tipos-vars
-class: dropdown
-
-1. **`entero`**: Se cuentan individuos discretos.
-2. **`real`**: Requiere representar centavos fraccionarios.
-3. **`cadena`**: Secuencia de caracteres alfabéticos.
-4. **`logico`**: Estado binario (verdadero/falso).
-5. **`real`**: Contiene parte fraccionaria (ej: 8.5).
-```
-
----
-
 (estructuras-logicas-y-operaciones-basicas)=
-## Estructuras lógicas y operaciones básicas
+### Estructuras lógicas y operaciones básicas
 
 (operaciones-aritmeticas)=
-### Operaciones aritméticas
+#### Operaciones aritméticas
 
 A nivel de hardware, se ejecutan operaciones aritméticas sobre celdas numéricas:
 
@@ -428,7 +359,7 @@ Operaciones aritméticas básicas y especiales, con precedencia de evaluación.
 -   **Precedencia estándar:** 1. Paréntesis `()`, 2. Potencias, 3. Multiplicación/División/Módulo, 4. Suma/Resta.
 
 (operaciones-logicas-y-tablas-de-verdad)=
-### Operaciones lógicas y tablas de verdad
+#### Operaciones lógicas y tablas de verdad
 
 Las operaciones lógicas combinan valores booleanos para evaluar condiciones complejas:
 
@@ -444,10 +375,8 @@ Las tres operaciones lógicas fundamentales (Y, O, NO) con sus tablas de verdad.
 -   **OR (`o`):** Da verdadero si al menos uno de los operandos es verdadero.
 -   **NOT (`no`):** Invierte el estado lógico.
 
----
-
 (las-tres-estructuras-fundamentales-del-pensamiento-logico)=
-## Las Tres Estructuras Fundamentales del Pensamiento Lógico
+### Las Tres Estructuras Fundamentales del Pensamiento Lógico
 
 Todo algoritmo de control estructurado puede resolverse utilizando únicamente tres estructuras lógicas:
 
@@ -460,28 +389,26 @@ Las tres estructuras fundamentales del pensamiento algorítmico: secuencia, deci
 ```
 
 (1-secuencia)=
-### 1. Secuencia
+#### 1. Secuencia
 Ejecución lineal de instrucciones en orden cronológico estricto de arriba hacia abajo. El cambio del orden de los factores altera el resultado lógico o provoca fallas en tiempo de ejecución.
 
 (2-decisiones-condicionales)=
-### 2. Decisiones (Condicionales)
+#### 2. Decisiones (Condicionales)
 Bifurcación del flujo lógico en base al resultado de una condición booleana (`Si... Sino`).
 
 (3-repeticion-lazos)=
-### 3. Repetición (Lazos)
+#### 3. Repetición (Lazos)
 Estructuras de iteración de código. Se clasifican didácticamente en:
 -   **Lazo controlado por contador (`Para` / `for`):** Utilizado cuando el límite de iteraciones es conocido de antemano.
 -   **Lazo controlado por condición (`Mientras` / `while`):** Utilizado cuando la parada del lazo depende de una expresión lógica evaluada dinámicamente.
 
----
-
 (ejemplos-de-programas-traducidos-a-pseudocodigo-estricto-estilo-c)=
-## Ejemplos de Programas Traducidos a Pseudocódigo Estricto (Estilo C)
+### Ejemplos de Programas Traducidos a Pseudocódigo Estricto (Estilo C)
 
 A continuación se presentan los ejemplos lógicos resueltos en pseudocódigo estricto con sintaxis cercana a C en español, eliminando dependencias de lenguajes interpretados dinámicos.
 
 (ejemplo-1-calculadora-simple)=
-### Ejemplo 1: Calculadora simple
+#### Ejemplo 1: Calculadora simple
 
 ```text
 // Algoritmo: Calculadora Simple
@@ -553,7 +480,7 @@ flowchart TD
 ```
 
 (ejemplo-2-tabla-de-multiplicar)=
-### Ejemplo 2: Tabla de multiplicar
+#### Ejemplo 2: Tabla de multiplicar
 
 ```text
 // Algoritmo: Tabla de Multiplicar
@@ -591,7 +518,7 @@ flowchart TD
 ```
 
 (ejemplo-3-adivinar-numero)=
-### Ejemplo 3: Adivinar número
+#### Ejemplo 3: Adivinar número
 
 ```text
 // Algoritmo: Adivinar Número
@@ -649,11 +576,85 @@ flowchart TD
     CondWon -- No --> End
 ```
 
+(errores-comunes-y-estrategias-para-prevenirlos)=
+#### Errores comunes y estrategias para prevenirlos
+
+##### 1. Secuencia incorrecta de asignaciones
+Las variables deben poseer datos válidos antes de ser leídas o manipuladas en expresiones. Para ver ejemplos prácticos de este error adaptados al lenguaje C, consultá la sección de {ref}`1-secuencia-incorrecta-de-asignaciones`.
+
+##### 2. Lazos infinitos
+Ocurren cuando la condición de permanencia de un lazo de control nunca resulta en falsa. Para ver ejemplos prácticos de este error adaptados al lenguaje C, consultá la sección de {ref}`2-lazos-infinitos`.
+
+(3-desbordamiento-numerico-e-imprecision-de-reales)=
+##### 3. Desbordamiento numérico e imprecisión de reales
+
+Las variables en memoria física tienen un almacenamiento binario de tamaño finito. Esto introduce limitaciones físicas ausentes en la matemática pura, tales como el desbordamiento aritmético y la imprecisión en números de punto flotante. 
+
+Para un análisis detallado y riguroso de cómo se representan físicamente los números en C, cómo ocurren los desbordamientos (con y sin signo), la truncación en divisiones y la comparación robusta de números reales mediante épsilon, consultá el capítulo específico de {ref}`numeros-capitulo`.
+
 ---
 
-(ejercicio-2-aplicacion-algoritmica)=
-## Ejercicio 2: Aplicación Algorítmica
+## Ejercicios de Autoevaluación
 
+(ejercicio-1)=
+### Ejercicio 1: Instrucciones precisas
+```{exercise}
+:label: ex-instrucciones-precisas
+Escribí instrucciones detalladas y secuenciales (como para alguien que nunca lo hizo) para:
+
+1. Hacer un sándwich de jamón y queso.
+2. Atarse los cordones de las zapatillas.
+3. Calcular el promedio de tres números.
+```
+
+```{solution} ex-instrucciones-precisas
+class: dropdown
+
+**Hacer un sándwich de jamón y queso:**
+1. Retirar 2 rebanadas de pan del paquete.
+2. Colocar ambas rebanadas horizontalmente sobre un plato limpio.
+3. Retirar una rebanada de jamón del paquete correspondiente.
+4. Colocar la rebanada de jamón cubriendo la primera rebanada de pan.
+5. Retirar una rebanada de queso del paquete.
+6. Colocar la rebanada de queso sobre el jamón.
+7. Tomar la segunda rebanada de pan.
+8. Colocarla sobre el queso, tapando el sándwich.
+9. Presionar suavemente hacia abajo para asentar el sándwich.
+
+**Calcular el promedio de tres números:**
+1. Obtener el primer número (llamémoslo A).
+2. Obtener el segundo número (llamémoslo B).
+3. Obtener el tercer número (llamémoslo C).
+4. Sumar los tres valores: suma = A + B + C.
+5. Dividir el resultado de la suma por 3: promedio = suma / 3.
+6. Mostrar el valor del promedio obtenido.
+```
+
+(ejercicio-tipos-variables)=
+### Ejercicio 2: Tipos de variables
+```{exercise}
+:label: ex-tipos-vars
+Para cada uno de los siguientes datos, indicá qué tipo de variable (`entero`, `real`, `cadena`, `logico`) usarías en pseudocódigo:
+
+1. Cantidad de estudiantes en una clase.
+2. Precio de un producto con centavos.
+3. Nombre completo de una persona.
+4. Si un archivo existe o no.
+5. Calificación académica con decimales.
+```
+
+```{solution} ex-tipos-vars
+class: dropdown
+
+1. **`entero`**: Se cuentan individuos discretos.
+2. **`real`**: Requiere representar centavos fraccionarios.
+3. **`cadena`**: Secuencia de caracteres alfabéticos.
+4. **`logico`**: Estado binario (verdadero/falso).
+5. **`real`**: Contiene parte fraccionaria (ej: 8.5).
+```
+
+(ejercicio-2-aplicacion-algoritmica)=
+### Ejercicio 3: Aplicación Algorítmica
 ```{exercise}
 :label: ex-pseudo-2
 Escribí en pseudocódigo estructurado (estilo C en español) algoritmos para resolver las siguientes cuestiones, sin declarar subprogramas (`def`) ni importar librerías complejas:
@@ -678,7 +679,6 @@ Leer(celsius);
 fahrenheit = celsius * 9.0 / 5.0 + 32.0;
 Escribir("Equivalente en Fahrenheit: ", fahrenheit);
 ```
-
 
 **B. Verificar triángulo:**
 ```text
@@ -760,11 +760,8 @@ Sino
 ```
 :::
 
----
-
 (ejercicio-3-integradores)=
-## Ejercicio 3 : Integradores
-
+### Ejercicio 4: Integradores
 :::{exercise}
 :label: ex-integrador-1
 Analizá el siguiente pseudocódigo estructurado y respondé las consignas:
@@ -821,145 +818,7 @@ Escribir("Resultado: ", suma);
 
 ---
 
-(errores-comunes-y-estrategias-para-prevenirlos)=
-## Errores comunes y estrategias para prevenirlos
-
-(1-secuencia-incorrecta-de-asignaciones)=
-### 1. Secuencia incorrecta de asignaciones
-Las variables deben poseer datos válidos antes de ser leídas o manipuladas en expresiones.
-
--   **Incorrecto (Lectura ciega tardía):**
-    ```text
-    entero a;
-    entero b;
-    entero resultado = a + b; // a y b no tienen datos definidos en memoria RAM
-    Leer(a);
-    Leer(b);
-    ```
--   **Correcto (Orden lineal lógico):**
-    ```text
-    entero a;
-    entero b;
-    Leer(a);
-    Leer(b);
-    entero resultado = a + b;
-    ```
-
-(2-lazos-infinitos)=
-### 2. Lazos infinitos
-Ocurren cuando la condición de permanencia de un lazo `Mientras` nunca resulta en `falsa`. Es obligatorio asegurar que el bloque interno altere la variable de control.
-
--   **Incorrecto (Falta de paso de iteración):**
-    ```text
-    entero contador = 1;
-    Mientras (contador <= 10)
-    {
-        Escribir(contador);
-        // contador se mantiene en 1 eternamente
-    }
-    ```
--   **Correcto (Paso de iteración explícito):**
-    ```text
-    entero contador = 1;
-    Mientras (contador <= 10)
-    {
-        Escribir(contador);
-        contador = contador + 1;
-    }
-    ```
-
-(3-desbordamiento-numerico-e-imprecision-de-reales)=
-### 3. Desbordamiento numérico e imprecisión de reales
-
-Las variables en memoria física tienen un almacenamiento binario de tamaño finito. Esto introduce limitaciones físicas ausentes en la matemática pura.
-
-#### Desbordamiento (Overflow y Underflow)
-Ocurre cuando una operación aritmética produce un valor que excede el límite almacenable por el tipo de dato.
-
-- **Overflow (sobreflujo):** El valor supera el límite máximo representable. Para enteros con signo, esto constituye un **Comportamiento Indefinido** (*Undefined Behavior* o *UB*) según el estándar C. Esto significa que el estándar no garantiza qué va a suceder: el compilador es libre de optimizar el código asumiendo que el desbordamiento nunca ocurrirá, lo que puede provocar fallas lógicas o de seguridad críticas. El comportamiento modular cíclico de desbordamiento (aritmética módulo $2^w$, donde $w$ es la cantidad de bits del tipo de dato) está estrictamente garantizado por el estándar únicamente para los tipos enteros sin signo (`unsigned`). En sistemas reales, dependiendo de la arquitectura de la CPU y de la optimización del compilador, un overflow con signo suele manifestarse como un salto cíclico al valor mínimo o **comportamientos erráticos**.
-- **Underflow (subflujo):** El valor es menor al límite mínimo representable. En números reales de punto flotante, ocurre cuando el valor absoluto es tan pequeño y cercano a cero que el hardware es incapaz de representarlo con una mantisa válida, diferenciándose únicamente de cero por subdesbordamiento.
-
-Ejemplo de desbordamiento de enteros sin signo en C (comportamiento modular cíclico garantizado):
-```c
-unsigned short numero = 65535; // Valor máximo para 16 bits sin signo
-numero = numero + 1;           // Garantizado por estándar: produce 0
-```
-
-Ejemplo de desbordamiento de enteros con signo en C (comportamiento indefinido):
-```c
-short numero = 32767;          // Valor máximo para 16 bits con signo
-numero = numero + 1;           // ¡Comportamiento Indefinido! No asumas que dará -32768.
-```
-
-#### Imprecisión de reales y estándar IEEE 754
-Las computadoras almacenan números reales mediante el estándar IEEE 754. Al representar infinitos números reales con un número finito de bits, la gran mayoría de los números fraccionarios no pueden representarse de forma exacta, lo que obliga al hardware a realizar un redondeo o truncamiento.
-
-##### Demostración de la periodicidad binaria de $0.1$
-
-Para comprender el origen de esta imprecisión, considerá la conversión del número decimal $0.1_{10}$ a base binaria. El método consiste en multiplicar de manera sucesiva la parte fraccionaria por $2$ y tomar la parte entera resultante como el siguiente bit a la derecha del punto binario:
-
-1. $0.1 \times 2 = 0.2 \rightarrow \text{bit } 0$ (resto $0.2$)
-2. $0.2 \times 2 = 0.4 \rightarrow \text{bit } 0$ (resto $0.4$)
-3. $0.4 \times 2 = 0.8 \rightarrow \text{bit } 0$ (resto $0.8$)
-4. $0.8 \times 2 = 1.6 \rightarrow \text{bit } 1$ (resto $0.6$)
-5. $0.6 \times 2 = 1.2 \rightarrow \text{bit } 1$ (resto $0.2$)
-6. $0.2 \times 2 = 0.4 \rightarrow \text{bit } 0$ (se repite la secuencia de restos)
-7. $0.4 \times 2 = 0.8 \rightarrow \text{bit } 0$
-8. $0.8 \times 2 = 1.6 \rightarrow \text{bit } 1$
-9. $0.6 \times 2 = 1.2 \rightarrow \text{bit } 1$
-
-A partir del paso 6 la parte fraccionaria vuelve a ser $0.2$, lo que genera un ciclo periódico infinito. Por lo tanto, la representación binaria exacta de $0.1$ es:
-
-$$0.1_{10} = 0.00011001100110011\dots_2 = 0.0\overline{0011}_2$$
-
-##### El límite físico del hardware
-
-Dado que la memoria de una computadora es finita, es imposible almacenar infinitos dígitos. En el estándar IEEE 754 de precisión simple (`float`), se reservan únicamente 23 bits para la mantisa. En consecuencia, la secuencia binaria infinita de $0.1$ se corta y se redondea en el bit 23, guardándose en la celda de memoria el valor aproximado:
-
-$$0.100000001490116119384765625$$
-
-Este error de redondeo se acumula al realizar operaciones aritméticas. Por este motivo, una comparación de igualdad directa entre números reales resulta en un comportamiento incorrecto.
-
-Ejemplo de error en C:
-```c
-float a = 0.1f;
-float b = 0.2f;
-if (a + b == 0.3f) {
-    // Esta condición resulta falsa debido a la imprecisión de redondeo
-}
-```
-
-#### Solución: Margen de tolerancia (Épsilon)
-Para comparar dos números reales de forma segura, se debe verificar si la diferencia absoluta entre ellos es menor que un valor de tolerancia sumamente pequeño (denominado *épsilon* o $\epsilon$).
-
-Ejemplo de comparación robusta en C:
-```c
-#include <math.h>
-#include <stdbool.h>
-#include <stdio.h>
-
-#define EPSILON 0.00001f
-
-bool son_casi_iguales(float a, float b) {
-    return fabsf(a - b) < EPSILON;
-}
-```
-
----
-(proximos-pasos-el-lenguaje-c)=
-## Próximos Pasos: El Lenguaje C
-
-Ahora que comprendés estos conceptos fundamentales mediante pseudocódigo estructurado, estás mucho mejor preparado para abordar el lenguaje C. En el próximo apunte veremos:
-
-- Cómo escribir estos mismos algoritmos en el lenguaje C
-- La sintaxis más estricta y detallada de C
-- El proceso de compilación y ejecución de programas
-- Variables y tipos de datos estáticos en C
-- Estructuras de control (`if`, `while`, `for`) en C
-
-Recordá que toda la lógica que vimos aquí se aplica directamente a C. La principal diferencia será la sintaxis y la necesidad de gestionar la memoria de forma más explícita.
-
-(glosario)=
+(glosario_base)=
 ## Glosario
 
 ::{glossary}
@@ -984,63 +843,57 @@ Diagrama de flujo
 
 ---
 
-(recursos-adicionales)=
-## Recursos adicionales
+## Síntesis y Resumen
 
-- Practicá resolviendo problemas simples mediante pseudocódigo estructurado orientado a C.
-- Dibujá diagramas de flujo antes de empezar a codificar.
-- Intentá "ejecutar" tus algoritmos mentalmente o en papel para seguir la lógica.
-- Discutí tus soluciones con compañeros - hay muchas formas de resolver un problema.
+En este capítulo analizaste los cimientos de la computación y la algoritmia antes de codificar en C:
+- **Computadora**: Máquina determinista y rápida sin intuición, limitada por la representación física de datos en hardware.
+- **Hardware y Software**: El CPU y la RAM procesan y guardan datos eficientemente, coordinados por el Sistema Operativo.
+- **Algoritmo**: Secuencia finita, ordenada y no ambigua de instrucciones lógicas para resolver un problema.
+- **Variables y Memoria**: Espacios con nombre en la RAM que asocian una dirección física con un tipo de dato y un valor.
+- **Estructuras de Control**: Secuencia, decisión (condicionales) y repetición (lazos controlados por contador o condición).
 
-```{figure} 1/xkcd-algorithms.png
-:label: fig-xkcd-algorithms
-:alt: XKCD Algorithms
-:align: center
+(proximos-pasos-el-lenguaje-c)=
+### Próximos Pasos: El Lenguaje C
 
-Fuente: [xkcd.com](https://xkcd.com/1667/)
-```
+Ahora que comprendés estos conceptos fundamentales mediante pseudocódigo estructurado, estás mucho mejor preparado para abordar el lenguaje C. En el próximo apunte, [](2_gradual.md), comenzaremos a traducir estos conceptos al lenguaje C y escribiremos nuestros primeros programas:
+- Cómo escribir estos mismos algoritmos en el lenguaje C.
+- La sintaxis más estricta y detallada de C.
+- El proceso de compilación y ejecución de programas.
+- Variables y tipos de datos estáticos en C.
+- Estructuras de control (`if`, `while`, `for`) en C.
+
+Recordá que toda la lógica que vimos aquí se aplica directamente a C. La principal diferencia será la sintaxis y la necesidad de gestionar la memoria de forma más explícita.
+
+---
 
 (referencias-y-lecturas-complementarias)=
 ## Referencias y Lecturas Complementarias
 
 (fundamentos-de-algoritmos)=
 ### Fundamentos de Algoritmos
-
 - {cite:t}`cormen_introduction_2009`. Capítulos 3-4: Growth of Functions y Divide-and-Conquer.
-  
 - {cite:t}`sedgewick_algorithms_2011`. Capítulo 1: Fundamentals. Introducción accesible con visualizaciones.
   - Disponible en: https://algs4.cs.princeton.edu/
 
 (pensamiento-computacional)=
 ### Pensamiento Computacional
-
 - {cite:t}`wing_computational_2006`. El artículo que popularizó el término "pensamiento computacional".
-
 - {cite:t}`aho_foundations_1995`. Conceptos fundamentales: algoritmos, estructuras de datos, lógica.
 
 (resolucion-de-problemas)=
 ### Resolución de Problemas
-
 - {cite:t}`polya_how_2014`. Clásico sobre heurísticas de resolución de problemas (1945).
-
 - {cite:t}`bentley_programming_1999`. Columnas sobre diseño de algoritmos y resolución de problemas.
 
 (recursos-en-linea)=
 ### Recursos en Línea
-
 - **Khan Academy - Algorithms** - https://www.khanacademy.org/computing/computer-science/algorithms
   - Curso interactivo sobre algoritmos básicos.
   - Visualizaciones y ejercicios progresivos.
-
 - **Visualgo** - https://visualgo.net/
   - Visualización de algoritmos y estructuras de datos.
   - Muy útil para entender ejecución paso a paso.
-
 - **CS Unplugged** - https://csunplugged.org/
   - Actividades para aprender conceptos sin computadora.
   - Ideal para desarrollar intuición algorítmica.
-
----
-
-En el próximo apunte, [](2_gradual.md), comenzaremos a traducir estos conceptos
-al lenguaje C y escribiremos nuestros primeros programas.
+- **xkcd - Algorithms** - https://xkcd.com/1667/ (Ver {numref}`fig-xkcd-algorithms`).
