@@ -5,10 +5,14 @@ subtitle: 'Decisiones condicionales, lazos y control seguro en C'
 ---
 
 (capitulo-control-flujo)=
-
 ## Introducción al Control de Flujo
 
-Hasta ahora, los programas que hemos escrito se ejecutan de manera estrictamente secuencial: una instrucción tras otra, de arriba a abajo. Sin embargo, para resolver problemas reales necesitamos que el programa tome decisiones y repita bloques de instrucciones de forma autónoma. El **control de flujo** es el conjunto de mecanismos que nos permite bifurcar el camino de ejecución y gobernar la repetición del código.
+Hasta ahora, los programas que hemos escrito se ejecutan de manera estrictamente
+secuencial: una instrucción tras otra, de arriba a abajo. Sin embargo, para
+resolver problemas reales necesitamos que el programa tome decisiones y repita
+bloques de instrucciones de forma autónoma. El **control de flujo** es el
+conjunto de mecanismos que nos permite bifurcar el camino de ejecución y
+gobernar la repetición del código.
 
 ---
 
@@ -17,21 +21,29 @@ Hasta ahora, los programas que hemos escrito se ejecutan de manera estrictamente
 (decisiones-condicionales)=
 ### Decisiones Condicionales
 
-Las decisiones permiten que el flujo de ejecución tome distintos caminos con base en condiciones lógicas booleanas.
+Las decisiones permiten que el flujo de ejecución tome distintos caminos con
+base en condiciones lógicas booleanas.
 
 :::{figure} 2/if_else_flow.svg
 :name: fig-if-else-flow
 :alt: Flujo de control con if/else
 
-El programa evalúa condiciones lógicas y ejecuta el bloque de instrucciones correspondiente.
+El programa evalúa condiciones lógicas y ejecuta el bloque de instrucciones
+correspondiente.
+
 :::
+<!-- {figure} 2/if_else_flow.svg -->
 
 (estructura-if-else-if-else)=
 #### Estructura `if...else if...else`
 
-Las estructuras condicionales bifurcan el camino del programa. Es importante notar que tanto las ramas alternativas `else if` como la rama por defecto `else` son **opcionales**; podés utilizar una instrucción `if` simple para ejecutar un bloque de código únicamente si se cumple la condición, continuando de forma secuencial en caso contrario.
+Las estructuras condicionales bifurcan el camino del programa. Es importante
+notar que tanto las ramas alternativas `else if` como la rama por defecto `else`
+son **opcionales**; podés utilizar una instrucción `if` simple para ejecutar un
+bloque de código únicamente si se cumple la condición, continuando de forma
+secuencial en caso contrario.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 if (condicion) {
     // Bloque ejecutado si la condición es verdadera
@@ -40,36 +52,56 @@ if (condicion) {
 } else {
     // Bloque ejecutado si ninguna condición fue verdadera
 }
-```
 
-Las condiciones evaluadas deben ser expresiones de comparación explícitas (ver regla de estilo {ref}`0x1005h`). Recuerde que en esta cátedra **es obligatorio el uso de llaves** para delimitar el bloque de toda estructura de control (ver regla {ref}`0x0005h`).
+:::
+<!-- {code-block}c -->
+
+Las condiciones evaluadas deben ser expresiones de comparación explícitas (ver
+regla de estilo {ref}`0x1005h`). Recuerde que en esta cátedra **es obligatorio
+el uso de llaves** para delimitar el bloque de toda estructura de control (ver
+regla {ref}`0x0005h`).
 
 :::{note} «Veracidad»
-Para C, los valores lógicos no forman parte del lenguaje original y el mismo considera cualquier valor entero en `0` como falso y cualquier otro como verdadero. Esto se conoce como "veracidad" ({ref}`0x1005h`) y su uso no está permitido, ya que puede generar confusión.
+
+Para C, los valores lógicos no forman parte del lenguaje original y el mismo
+considera cualquier valor entero en `0` como falso y cualquier otro como
+verdadero. Esto se conoce como "veracidad" ({ref}`0x1005h`) y su uso no está
+permitido, ya que puede generar confusión.
+
 :::
+<!-- {note} «Veracidad» -->
 
 (operadores-de-comparacion-y-logicos)=
 #### Operadores de comparación y lógicos
+
 - `==` (Igualdad), `!=` (Desigualdad), `>`, `<`, `>=`, `<=`
 - `&&` (Y lógico), `||` (O lógico), `!` (Negación lógica)
 
-En C estándar, los operadores relacionales y lógicos no devuelven un tipo booleano nativo, sino que **devuelven un valor entero (`int`)**: `1` para representar verdadero y `0` para representar falso. Es por esto que expresiones como `5 > 3` se evalúan físicamente como el entero `1`.
+En C estándar, los operadores relacionales y lógicos **no** devuelven un tipo
+booleano nativo, sino que **devuelven un valor entero (`int`)**: `1` para
+representar verdadero y `0` para representar falso. Es por esto que expresiones
+como `5 > 3` se evalúan físicamente como el entero `1`.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 if (edad >= 18) {
     printf("Mayor de edad\n");
 } else {
     printf("Menor de edad\n");
 }
-```
+:::
+<!-- {code-block}c -->
 
 (bifurcacion-multiple-con-switch)=
 #### Bifurcación Múltiple con `switch`
 
-La estructura `switch` evalúa una expresión entera y busca una coincidencia con alguna de las constantes definidas en las etiquetas `case`. Al encontrarla, transfiere el control directamente a ese punto. Es una alternativa más limpia y eficiente a múltiples `if-else if` anidados cuando se compara una misma variable contra múltiples constantes de tipo entero o carácter.
+La estructura `switch` evalúa una expresión entera y busca una coincidencia con
+alguna de las constantes definidas en las etiquetas `case`. Al encontrarla,
+transfiere el control directamente a ese punto. Es una alternativa más limpia y
+eficiente a múltiples `if-else if` anidados cuando se compara una misma variable
+contra múltiples constantes de tipo entero o carácter.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 switch (opcion) {
     case 1:
@@ -82,46 +114,64 @@ switch (opcion) {
         // Código si no coincide con ningún caso anterior (obligatorio)
         break;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 Al utilizar `switch` debés tener en cuenta dos detalles clave:
-*   **La sentencia `break`:** Es fundamental colocar `break` al final de cada bloque `case`. Si no está, la ejecución continuará ("caerá") hacia las instrucciones del caso siguiente (*fall-through*), lo cual suele ser fuente de errores lógicos grandes.
-*   **La etiqueta `default`:** Se ejecuta si ninguna constante coincide. Aunque técnicamente es opcional en el estándar C, la regla {ref}`0x1008h` de la cátedra **exige que siempre esté presente** como medida de diseño defensivo.
+*   **La sentencia `break`:** Es fundamental colocar `break` al final de cada
+    bloque `case`. Si no está, la ejecución continuará ("caerá") hacia las
+    instrucciones del caso siguiente (*fall-through*), lo cual suele ser fuente
+    de errores lógicos grandes.
+*   **La etiqueta `default`:** Se ejecuta si ninguna constante coincide. Aunque
+    técnicamente es opcional en el estándar C, la regla {ref}`0x1008h` de la
+    cátedra **exige que siempre esté presente** como medida de diseño defensivo.
 
 (estructuras-de-repeticion-lazos)=
 ### Estructuras de Repetición (Lazos)
 
-Un **lazo** es una estructura lógica que repite un bloque de instrucciones mientras se verifique una condición de permanencia.
+Un **lazo** es una estructura lógica que repite un bloque de instrucciones
+mientras se verifique una condición de permanencia.
 
 Hay tres construcciones principales de lazos en C:
 - `while`: Evalúa la condición antes de ejecutar cada iteración.
 - `for`: Lazo estructurado controlado por un contador o rango definido.
-- `do...while`: Ejecuta el bloque de código al menos una vez antes de evaluar la condición.
+- `do...while`: Ejecuta el bloque de código al menos una vez antes de evaluar la
+  condición.
 
 (while-iteracion-condicional)=
 #### `while` — Iteración condicional
 
-El bloque de código interno se ejecuta mientras la condición lógica sea verdadera.
+El bloque de código interno se ejecuta mientras la condición lógica sea
+verdadera.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 int i = 0;
 while (i < 5) {
     printf("i vale %d\n", i);
     i = i + 1;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{figure} 2/while_loop_flow.svg
 :name: fig-while-flow
 :alt: Flujo del lazo while
 
-Diagrama de flujo del lazo while: evalúa la condición, ejecuta el bloque si es verdadera, y repite hasta que la condición sea falsa.
+Diagrama de flujo del lazo while: evalúa la condición, ejecuta el bloque si es
+verdadera, y repite hasta que la condición sea falsa.
+
 :::
+<!-- {figure} 2/while_loop_flow.svg -->
 
 (2-lazos-infinitos)=
 ##### Lazos infinitos
-Un lazo infinito ocurre cuando la condición de permanencia de la estructura de repetición nunca evalúa a falsa. Es obligatorio garantizar que el cuerpo del lazo realice alguna operación o altere el estado de las variables de control de modo que la guarda de control resulte falsa eventualmente.
+Un lazo infinito ocurre cuando la condición de permanencia de la estructura de
+repetición nunca evalúa a falsa. Es obligatorio garantizar que el cuerpo del
+lazo realice alguna operación o altere el estado de las variables de control de
+modo que la guarda de control resulte falsa eventualmente.
 
 *   **Incorrecto (Falta de paso de iteración):**
     ```c
@@ -144,104 +194,146 @@ Un lazo infinito ocurre cuando la condición de permanencia de la estructura de 
 (for-iteracion-controlada-por-contador)=
 #### `for` — Iteración controlada por contador
 
-Es la estructura recomendada para repeticiones de rango conocido. Su sintaxis concentra el control de la iteración:
+Es la estructura recomendada para repeticiones de rango conocido. Su sintaxis
+concentra el control de la iteración:
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 for (inicialización; condición; incremento)
 {
     // Bloque de instrucciones
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{admonition} Las partes del `for`
+
 `for (inicio; condición; paso) { bloque }`
 
 - **inicio:** una sola vez al comenzar.
 - **condición:** se evalúa antes de cada iteración.
 - **paso:** se ejecuta al final de cada vuelta.
 - **bloque:** las instrucciones ejecutadas mientras la condición sea verdadera.
+
 :::
+<!-- {admonition} Las partes del `for` -->
 
-Este tipo de lazo es ideal cuando se sabe cuántas veces se quiere repetir. Aunque hace lo mismo que el `while`, este es más estructurado con secciones específicas para cada acción del lazo.
+Este tipo de lazo es ideal cuando se sabe cuántas veces se quiere repetir.
+Aunque hace lo mismo que el `while`, este es más estructurado con secciones
+específicas para cada acción del lazo.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 for (int i = 0; i < 5; i++) {
     printf("i vale %d\n", i);
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ##### Rol de variable: Control de lazo (o Iterador)
 
-*(Para una introducción teórica sobre el propósito de los roles de variables, consultá la sección {ref}`roles-variables`)*.
+*(Para una introducción teórica sobre el propósito de los roles de variables,
+consultá la sección {ref}`roles-variables`)*.
 
-En el lazo anterior, la variable `i` asume el **rol de control de lazo** (o iterador). Este rol se encarga de gobernar las repeticiones del ciclo, incrementándose o decrementándose en cada vuelta hasta que se cumple la condición de parada.
+En el lazo anterior, la variable `i` asume el **rol de control de lazo** (o
+iterador). Este rol se encarga de gobernar las repeticiones del ciclo,
+incrementándose o decrementándose en cada vuelta hasta que se cumple la
+condición de parada.
 
-Esta estructura es directamente análoga a la notación de una sumatoria matemática. Considerá el siguiente ejemplo:
+Esta estructura es directamente análoga a la notación de una sumatoria
+matemática. Considerá el siguiente ejemplo:
 
 $$\sum_{i=0}^{n-1} x_i$$
 
-En esta expresión matemática, la variable $i$ funciona exactamente como nuestra variable de control:
-*   **Inicialización**: Comienza en un valor de partida (el límite inferior, $i = 0$).
-*   **Condición**: Continúa acumulando elementos mientras no supere el límite superior ($i \le n - 1$, lo que equivale en enteros a $i < n$).
-*   **Paso**: Se incrementa implícitamente de a una unidad tras procesar cada término.
+En esta expresión matemática, la variable $i$ funciona exactamente como nuestra
+variable de control:
+*   **Inicialización**: Comienza en un valor de partida (el límite inferior, $i
+    = 0$).
+*   **Condición**: Continúa acumulando elementos mientras no supere el límite
+    superior ($i \le n - 1$, lo que equivale en enteros a $i < n$).
+*   **Paso**: Se incrementa implícitamente de a una unidad tras procesar cada
+    término.
 
-En C, trasladás esta equivalencia matemática directamente a la cabecera del lazo `for`:
+En C, trasladás esta equivalencia matemática directamente a la cabecera del lazo
+`for`:
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 for (int i = 0; i < n; i++) {
     // Procesar x[i]
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{note}
-El rol de control de lazo no es exclusivo de los lazos `for`, pero es donde es más fuerte.
+
+El rol de control de lazo no es exclusivo de los lazos `for`, pero es donde es
+más fuerte.
+
 :::
+<!-- {note} -->
 
 (do-while-ejecucion-obligatoria-al-menos-una-vez)=
 #### `do...while` — Ejecución obligatoria al menos una vez
 
-Garantiza que el bloque se ejecutará al menos una vez antes de verificar la condición lógica de permanencia.
+Garantiza que el bloque se ejecutará al menos una vez antes de verificar la
+condición lógica de permanencia.
 
-```{image} ./2/lazos.jpg
+:::{image} ./2/lazos.jpg
 :alt: Ejemplo Gráfico de lazos
 :align: center
-```
 
-```{code-block}c
+:::
+<!-- {image} ./2/lazos.jpg -->
+
+:::{code-block}c
 :linenos:
 int clave = 0;
 do {
     printf("Ingrese la clave de acceso (1234): ");
     scanf("%d", &clave);
 } while (clave != 1234);
-```
 
-```mermaid
+:::
+<!-- {code-block}c -->
+
+``` mermaid
 flowchart TD
     Inicio --> Ejecutar[Ejecutar bloque de código]
     Ejecutar --> Cond{¿Se cumple la condición?}
     Cond -- Sí --> Ejecutar
     Cond -- No --> Fin
 ```
+<!-- mermaid -->
 
 (rol-bandera-o-flag)=
 ### Rol Bandera (o Flag)
 
-*(Para más información sobre la asignación semántica de roles, consultá {ref}`roles-variables` en [](2_gradual))*.
+*(Para más información sobre la asignación semántica de roles, consultá
+{ref}`roles-variables` en [](2_gradual))*.
 
-Una **bandera** (o _flag_) es una variable booleana (o un tipo entero que simula un valor booleano) que se utiliza para **registrar y señalizar un estado o la ocurrencia de un evento**. Su valor cambia para indicar que un hecho específico se ha verificado en el flujo de ejecución.
+Una **bandera** (o _flag_) es una variable booleana (o un tipo entero que simula
+un valor booleano) que se utiliza para **registrar y señalizar un estado o la
+ocurrencia de un evento**. Su valor cambia para indicar que un hecho específico
+se ha verificado en el flujo de ejecución.
 
-En la programación estructurada y bajo las pautas de esta cátedra, las banderas tienen dos usos fundamentales:
+En la programación estructurada y bajo las pautas de esta cátedra, las banderas
+tienen dos usos fundamentales:
 
 #### 1. Señalización de un estado o evento
-Se utiliza para recordar si una condición fue alcanzada durante un proceso. Por ejemplo, supongamos que queremos verificar si un número determinado existe dentro de una secuencia de elementos. Al encontrarlo, encendemos la bandera (`true`).
+Se utiliza para recordar si una condición fue alcanzada durante un proceso. Por
+ejemplo, supongamos que queremos verificar si un número determinado existe
+dentro de una secuencia de elementos. Al encontrarlo, encendemos la bandera
+(`true`).
 
-Para cumplir con la regla de diseño estructurado (que prohíbe el uso de interrupciones abruptas como `break` en lazos), la bandera se integra directamente como condición de corte en la cabecera del lazo:
+Para cumplir con la regla de diseño estructurado (que prohíbe el uso de
+interrupciones abruptas como `break` en lazos), la bandera se integra
+directamente como condición de corte en la cabecera del lazo:
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 #include <stdbool.h> // Necesario para el tipo de dato bool
@@ -253,7 +345,8 @@ int main() {
     bool encontrado = false; // Bandera inicializada en false
 
     int i = 0;
-    // El lazo continúa si quedan elementos por revisar Y si aún no se encontró el número
+    // El lazo continúa si quedan elementos por revisar Y si aún no se encontró
+    el número
     while (i < tamano && encontrado == false) {
         if (numeros[i] == numero_buscado) {
             encontrado = true; // Se enciende la bandera
@@ -264,17 +357,23 @@ int main() {
     if (encontrado == true) {
         printf("El número %d fue encontrado en el arreglo.\n", numero_buscado);
     } else {
-        printf("El número %d NO fue encontrado en el arreglo.\n", numero_buscado);
+        printf("El número %d NO fue encontrado en el arreglo.\n",
+        numero_buscado);
     }
 
     return 0;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 #### 2. Control de permanencia en lazos interactivos
-Se utiliza para gobernar la repetición de un lazo cuando no se conoce de antemano la cantidad de iteraciones (por ejemplo, entrada de datos interactiva del usuario). El lazo se ejecuta mientras la bandera se mantenga activa y finaliza cuando un evento apaga la bandera:
+Se utiliza para gobernar la repetición de un lazo cuando no se conoce de
+antemano la cantidad de iteraciones (por ejemplo, entrada de datos interactiva
+del usuario). El lazo se ejecuta mientras la bandera se mantenga activa y
+finaliza cuando un evento apaga la bandera:
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 #include <stdbool.h>
@@ -288,7 +387,8 @@ int main() {
         scanf("%d", &numero);
 
         if (numero == 0) {
-            continuar = false; // Se apaga la bandera para salir en la próxima iteración
+            continuar = false; // Se apaga la bandera para salir en la próxima
+            iteración
         } else {
             printf("Ingresaste: %d\n", numero);
         }
@@ -296,17 +396,21 @@ int main() {
 
     return 0;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 #### Rol acumulador
 
-Un **acumulador** es una variable que se utiliza para **sumar o acumular valores** a lo largo de un proceso. Generalmente, se inicializa en cero antes de que comience el proceso de acumulación.
+Un **acumulador** es una variable que se utiliza para **sumar o acumular
+valores** a lo largo de un proceso. Generalmente, se inicializa en cero antes de
+que comience el proceso de acumulación.
 
 ##### Ejemplo de Acumulador en C
 
 Imaginemos que queremos calcular la suma de los primeros N números enteros.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 
@@ -323,19 +427,26 @@ int main() {
     printf("La suma de los primeros %d numeros es: %d\n", n, suma);
     return 0;
 }
-```
 
-En este ejemplo, la variable `suma` tiene el rol de **acumulador**. En cada iteración del lazo `for`, se le suma el valor actual de `i`, acumulando así la suma total.
+:::
+<!-- {code-block}c -->
+
+En este ejemplo, la variable `suma` tiene el rol de **acumulador**. En cada
+iteración del lazo `for`, se le suma el valor actual de `i`, acumulando así la
+suma total.
 
 #### Rol contador
 
-Un **contador** es una variable que se utiliza para **contar la ocurrencia de un evento** o para **llevar un registro del número de iteraciones** en un lazo. Se incrementa o decrementa en un valor fijo (usualmente 1) cada vez que el evento ocurre.
+Un **contador** es una variable que se utiliza para **contar la ocurrencia de un
+evento** o para **llevar un registro del número de iteraciones** en un lazo. Se
+incrementa o decrementa en un valor fijo (usualmente 1) cada vez que el evento
+ocurre.
 
 ##### Ejemplo de Contador en C
 
 Supongamos que queremos contar cuántos números pares hay en un rango dado.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 
@@ -355,12 +466,16 @@ int main() {
         }
     }
 
-    printf("En el rango de %d a %d, hay %d numeros pares.\n", inicio, fin, contadorPares);
+    printf("En el rango de %d a %d, hay %d numeros pares.\n", inicio, fin,
+    contadorPares);
     return 0;
 }
-```
 
-En este caso, `contadorPares` tiene el rol de **contador**. Cada vez que encontramos un número par, incrementamos su valor en 1.
+:::
+<!-- {code-block}c -->
+
+En este caso, `contadorPares` tiene el rol de **contador**. Cada vez que
+encontramos un número par, incrementamos su valor en 1.
 
 (control-de-flujo-seguro-de-lazos)=
 ### Control de Flujo Seguro de Lazos
@@ -368,12 +483,14 @@ En este caso, `contadorPares` tiene el rol de **contador**. Cada vez que encontr
 (atajos-en-lazos-break-y-continue)=
 #### Atajos en Lazos: `break` y `continue`
 
-C provee dos instrucciones de control para alterar el flujo normal de iteración de los lazos:
+C provee dos instrucciones de control para alterar el flujo normal de iteración
+de los lazos:
 
 ##### `break` (Interrupción)
-Finaliza la ejecución del lazo de forma inmediata, saltando a la primera instrucción que se encuentre fuera del bloque del ciclo.
+Finaliza la ejecución del lazo de forma inmediata, saltando a la primera
+instrucción que se encuentre fuera del bloque del ciclo.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 for (int i = 1; i <= 10; i++) {
     if (i == 5) {
@@ -381,12 +498,15 @@ for (int i = 1; i <= 10; i++) {
     }
     printf("i = %d\n", i);
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ##### `continue` (Salto de iteración)
-Omite el resto del bloque de instrucciones del ciclo actual y avanza directamente a evaluar la condición para la siguiente iteración.
+Omite el resto del bloque de instrucciones del ciclo actual y avanza
+directamente a evaluar la condición para la siguiente iteración.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 for (int i = 1; i <= 5; i++) {
     if (i == 3) {
@@ -394,39 +514,65 @@ for (int i = 1; i <= 5; i++) {
     }
     printf("i = %d\n", i);
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 (prohibicion-de-break-y-continue)=
 #### Prohibición de `break` y `continue`
 
-**En esta cátedra, el uso de las instrucciones `break` (fuera de un bloque `switch`) y `continue` para modificar el flujo de repetición de los lazos está prohibido** (ver regla de estilo {ref}`0x1002h`). 
+**En esta cátedra, el uso de las instrucciones `break` (fuera de un bloque
+`switch`) y `continue` para modificar el flujo de repetición de los lazos está
+prohibido** (ver regla de estilo {ref}`0x1002h`).
 
 Esta restricción responde a dos cuestiones fundamentales del diseño de software:
-1.  **Legibilidad y Mantenibilidad:** Crear múltiples puntos de salida invisibles en el cuerpo de un lazo de control oscurece la trazabilidad de la lógica. El código se vuelve difícil de seguir, depurar y verificar matemáticamente.
-2.  **Desarrollo del Pensamiento Algorítmico:** Evitar estos atajos obliga al estudiante a diseñar formalmente condiciones de corte coherentes y estructuradas en la cabecera de la iteración.
+1.  **Legibilidad y Mantenibilidad:** Crear múltiples puntos de salida
+    invisibles en el cuerpo de un lazo de control oscurece la trazabilidad de la
+    lógica. El código se vuelve difícil de seguir, depurar y verificar
+    matemáticamente.
+2.  **Desarrollo del Pensamiento Algorítmico:** Evitar estos atajos obliga al
+    estudiante a diseñar formalmente condiciones de corte coherentes y
+    estructuradas en la cabecera de la iteración.
 
-Para detener un lazo de forma controlada cuando se cumpla una condición anticipada, debés recurrir a la estructuración de lazos con **banderas de control** (`bool`). Consultá la sección {ref}`rol-bandera` para ver la explicación teórica y los ejemplos detallados de implementación estructurada.
+Para detener un lazo de forma controlada cuando se cumpla una condición
+anticipada, debés recurrir a la estructuración de lazos con **banderas de
+control** (`bool`). Consultá la sección {ref}`rol-bandera` para ver la
+explicación teórica y los ejemplos detallados de implementación estructurada.
 
 :::{tip} Ejercicio Práctico Resuelto
-Podés consultar la resolución del **Ejercicio 9 (ingreso de clave con bandera)** en el documento de [](2c_ejercicios_control).
+
+Podés consultar la resolución del **Ejercicio 9 (ingreso de clave con bandera)**
+en el documento de [](2c_ejercicios_control).
+
 :::
+<!-- {tip} Ejercicio Práctico Resuelto -->
 
 (problemas-del-buffer-de-entrada-stdin-y-su-purgado)=
 ### Problemas del Buffer de Entrada (stdin) y su Purgado
 
 (el-origen-del-problema)=
 #### El origen del problema
-Al ingresar datos desde la consola (por ejemplo, al escribir un número y presionar Enter), `scanf` lee únicamente el valor numérico correspondiente al formato especificado (como `%d`), dejando el carácter de salto de línea (`\n`) residual dentro de `stdin`.
+Al ingresar datos desde la consola (por ejemplo, al escribir un número y
+presionar Enter), `scanf` lee únicamente el valor numérico correspondiente al
+formato especificado (como `%d`), dejando el carácter de salto de línea (`\n`)
+residual dentro de `stdin`.
 
-Si a continuación intentás leer un carácter utilizando `%c` o `getchar()`, esa lectura consumirá inmediatamente el `\n` residual en lugar de esperar la nueva entrada del usuario. Esto da la sensación de que el programa "saltea" la instrucción de lectura.
+Si a continuación intentás leer un carácter utilizando `%c` o `getchar()`, esa
+lectura consumirá inmediatamente el `\n` residual en lugar de esperar la nueva
+entrada del usuario. Esto da la sensación de que el programa "saltea" la
+instrucción de lectura.
 
 (purgado-de-stdin-con-un-lazo)=
 #### Purgado de stdin con un lazo
-Para solucionar este comportamiento, debés limpiar o "purgar" el buffer de entrada, consumiendo todos los caracteres residuales hasta llegar al salto de línea inclusive. La manera estándar para lograr esto consiste en implementar un lazo simple de lectura de caracteres.
+Para solucionar este comportamiento, debés limpiar o "purgar" el buffer de
+entrada, consumiendo todos los caracteres residuales hasta llegar al salto de
+línea inclusive. La manera estándar para lograr esto consiste en implementar un
+lazo simple de lectura de caracteres.
 
-El siguiente ejemplo demuestra el problema y su solución utilizando `getchar()` dentro de un lazo `while`:
+El siguiente ejemplo demuestra el problema y su solución utilizando `getchar()`
+dentro de un lazo `while`:
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 
@@ -438,7 +584,8 @@ int main() {
     scanf("%d", &edad);
 
     // Purgado del buffer: lee y descarta caracteres hasta el salto de línea.
-    // Usamos 'int' y no 'char' porque getchar() retorna un entero para representar EOF (-1).
+    // Usamos 'int' y no 'char' porque getchar() retorna un entero para
+    representar EOF (-1).
     int c = 0;
     while ((c = getchar()) != '\n' && c != EOF) {
         // Lazo vacío: solo consume el buffer residual
@@ -450,9 +597,17 @@ int main() {
     printf("Edad: %d, Inicial: %c\n", edad, inicial);
     return 0;
 }
-```
 
-La condición `(c = getchar()) != '\n' && c != EOF` realiza tres acciones: lee un carácter de `stdin`, lo asigna a `c`, y continúa la iteración del lazo mientras no sea un salto de línea ni el fin del archivo (`EOF`). Se declara `c` como `int` porque la macro `EOF` representa habitualmente el valor entero `-1`. En plataformas donde el tipo `char` es `unsigned` (sin signo) por defecto, una variable `char` no podría almacenar un valor negativo, provocando un lazo infinito al comparar contra `EOF`.
+:::
+<!-- {code-block}c -->
+
+La condición `(c = getchar()) != '\n' && c != EOF` realiza tres acciones: lee un
+carácter de `stdin`, lo asigna a `c`, y continúa la iteración del lazo mientras
+no sea un salto de línea ni el fin del archivo (`EOF`). Se declara `c` como
+`int` porque la macro `EOF` representa habitualmente el valor entero `-1`. En
+plataformas donde el tipo `char` es `unsigned` (sin signo) por defecto, una
+variable `char` no podría almacenar un valor negativo, provocando un lazo
+infinito al comparar contra `EOF`.
 
 ---
 
@@ -462,30 +617,42 @@ La condición `(c = getchar()) != '\n' && c != EOF` realiza tres acciones: lee u
 ### Decisiones Condicionales
 :::{exercise}
 :label: ej-cond-bisiesto
-Escribí la expresión condicional necesaria para determinar si un año es bisiesto. Un año es bisiesto si es divisible por 4, excepto aquellos divisibles por 100, pero sí aquellos divisibles por 400.
+Escribí la expresión condicional necesaria para determinar si un año es
+bisiesto. Un año es bisiesto si es divisible por 4, excepto aquellos divisibles
+por 100, pero sí aquellos divisibles por 400.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-cond-bisiesto
 :class: dropdown
 La expresión lógica se traduce en C de la siguiente manera:
-```c
+``` c
 if ((anio % 4 == 0 && anio % 100 != 0) || anio % 400 == 0) {
     printf("El año %d es bisiesto.\n", anio);
 } else {
     printf("El año %d no es bisiesto.\n", anio);
 }
 ```
+<!-- c -->
+
 :::
+<!-- {solution} ej-cond-bisiesto -->
 
 :::{exercise}
 :label: ej-cond-switch-mes
-Escribí una estructura `switch` que tome una variable entera `mes` (con valores de 1 a 12) y asigne a la variable `dias` la cantidad de días del mes. Considerá febrero con 28 días. No olvides la etiqueta `default` obligatoria.
+Escribí una estructura `switch` que tome una variable entera `mes` (con valores
+de 1 a 12) y asigne a la variable `dias` la cantidad de días del mes. Considerá
+febrero con 28 días. No olvides la etiqueta `default` obligatoria.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-cond-switch-mes
 :class: dropdown
-Aprovechando la caída (*fall-through*) controlada omitiendo el `break` en casos con el mismo valor resultante:
-```c
+Aprovechando la caída (*fall-through*) controlada omitiendo el `break` en casos
+con el mismo valor resultante:
+``` c
 switch (mes) {
     case 2:
         dias = 28;
@@ -511,39 +678,56 @@ switch (mes) {
         break;
 }
 ```
+<!-- c -->
+
 :::
+<!-- {solution} ej-cond-switch-mes -->
 
 :::{exercise}
 :label: ej-cond-veracidad
-Explicá detalladamente qué error semántico ocurre en el siguiente fragmento y por qué la regla {ref}`0x1005h` prohíbe el uso de la veracidad implícita:
-```c
+Explicá detalladamente qué error semántico ocurre en el siguiente fragmento y
+por qué la regla {ref}`0x1005h` prohíbe el uso de la veracidad implícita:
+``` c
 int estado = 0;
 // ...
 if (estado = 5) {
     printf("El estado es activo.\n");
 }
 ```
+<!-- c -->
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-cond-veracidad
 :class: dropdown
-El condicional utiliza el operador de asignación `=` en lugar del operador de comparación `==`.
+El condicional utiliza el operador de asignación `=` en lugar del operador de
+comparación `==`.
 1. La expresión `estado = 5` asigna el valor `5` a la variable `estado`.
 2. La expresión condicional evalúa al resultado de la asignación, que es `5`.
-3. Bajo el concepto de "veracidad" en C, dado que `5` es distinto de `0`, el bloque `if` se evalúa siempre como verdadero, ejecutando la rama del `printf` de forma incondicional.
-La regla {ref}`0x1005h` exige comparaciones booleanas explícitas (ej: `if (estado == 5)`) para que el compilador emita una advertencia ante este error de tipeo tan común.
+3. Bajo el concepto de "veracidad" en C, dado que `5` es distinto de `0`, el
+   bloque `if` se evalúa siempre como verdadero, ejecutando la rama del `printf`
+   de forma incondicional.
+La regla {ref}`0x1005h` exige comparaciones booleanas explícitas (ej: `if
+(estado == 5)`) para que el compilador emita una advertencia ante este error de
+tipeo tan común.
+
 :::
+<!-- {solution} ej-cond-veracidad -->
 
 (ejercicios-de-autoevaluacion-lazos)=
 ### Lazos
 :::{exercise}
 :label: ej-lazos-factorial
-Escribí un programa en C que calcule y muestre el factorial de un número entero positivo ingresado por el usuario usando un lazo `while`.
+Escribí un programa en C que calcule y muestre el factorial de un número entero
+positivo ingresado por el usuario usando un lazo `while`.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-lazos-factorial
 :class: dropdown
-```c
+``` c
 #include <stdio.h>
 
 int main() {
@@ -566,16 +750,22 @@ int main() {
     return 0;
 }
 ```
+<!-- c -->
+
 :::
+<!-- {solution} ej-lazos-factorial -->
 
 :::{exercise}
 :label: ej-lazos-for-sumatoria
-Escribí un lazo `for` que calcule la suma de todos los números impares comprendidos en un rango cerrado $[A, B]$ provisto por el usuario.
+Escribí un lazo `for` que calcule la suma de todos los números impares
+comprendidos en un rango cerrado $[A, B]$ provisto por el usuario.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-lazos-for-sumatoria
 :class: dropdown
-```c
+``` c
 #include <stdio.h>
 
 int main() {
@@ -596,16 +786,25 @@ int main() {
     return 0;
 }
 ```
+<!-- c -->
+
 :::
+<!-- {solution} ej-lazos-for-sumatoria -->
 
 :::{exercise}
 :label: ej-lazos-dowhile-menu
-Escribí un fragmento de código que implemente un menú de usuario interactivo utilizando un lazo `do...while`. El programa debe mostrar 3 opciones de configuración y una opción `4` para salir. Si el usuario ingresa un número fuera del rango $1-4$, el programa debe indicar el error y volver a solicitar la opción.
+Escribí un fragmento de código que implemente un menú de usuario interactivo
+utilizando un lazo `do...while`. El programa debe mostrar 3 opciones de
+configuración y una opción `4` para salir. Si el usuario ingresa un número fuera
+del rango $1-4$, el programa debe indicar el error y volver a solicitar la
+opción.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-lazos-dowhile-menu
 :class: dropdown
-```c
+``` c
 int opcion = 0;
 do {
     printf("\n--- CONFIGURACIÓN ---\n");
@@ -621,18 +820,26 @@ do {
     }
 } while (opcion != 4);
 ```
+<!-- c -->
+
 :::
+<!-- {solution} ej-lazos-dowhile-menu -->
 
 (ejercicios-de-autoevaluacion-roles-de-variables)=
 ### Roles de Variables
 :::{exercise}
 :label: ej-roles-primo
-Diseñá un algoritmo en C para determinar si un número entero positivo ingresado por el usuario es primo. Utilizá una variable con **rol bandera** booleana para detener la iteración del lazo tan pronto como encuentres un divisor, respetando las pautas de diseño estructurado.
+Diseñá un algoritmo en C para determinar si un número entero positivo ingresado
+por el usuario es primo. Utilizá una variable con **rol bandera** booleana para
+detener la iteración del lazo tan pronto como encuentres un divisor, respetando
+las pautas de diseño estructurado.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-roles-primo
 :class: dropdown
-```c
+``` c
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -663,16 +870,24 @@ int main() {
     return 0;
 }
 ```
+<!-- c -->
+
 :::
+<!-- {solution} ej-roles-primo -->
 
 :::{exercise}
 :label: ej-roles-promedio
-Escribí un programa en C que lea valores reales del teclado de forma continua hasta que el usuario ingrese un valor negativo. Al finalizar, debe calcular e imprimir el promedio de los valores ingresados. Identificá los roles de las variables utilizadas.
+Escribí un programa en C que lea valores reales del teclado de forma continua
+hasta que el usuario ingrese un valor negativo. Al finalizar, debe calcular e
+imprimir el promedio de los valores ingresados. Identificá los roles de las
+variables utilizadas.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-roles-promedio
 :class: dropdown
-```c
+``` c
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -702,16 +917,23 @@ int main() {
     return 0;
 }
 ```
+<!-- c -->
+
 :::
+<!-- {solution} ej-roles-promedio -->
 
 :::{exercise}
 :label: ej-roles-digitos
-Escribí un fragmento de código en C que calcule el número de dígitos de un entero positivo usando divisiones enteras sucesivas. Especificá las variables correspondientes al rol de contador y de acumulador si las hubiera.
+Escribí un fragmento de código en C que calcule el número de dígitos de un
+entero positivo usando divisiones enteras sucesivas. Especificá las variables
+correspondientes al rol de contador y de acumulador si las hubiera.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-roles-digitos
 :class: dropdown
-```c
+``` c
 int numero = 12345;
 int temporal = numero; // Variable auxiliar
 int digitos = 0;       // Contador
@@ -726,17 +948,23 @@ if (temporal == 0) {
 }
 printf("El número %d tiene %d dígitos.\n", numero, digitos);
 ```
+<!-- c -->
 En este algoritmo:
 - `digitos` tiene el **rol de contador** (se incrementa linealmente en 1).
-- `temporal` funciona como una variable de trabajo. No se requiere un acumulador en este algoritmo ya que no estamos sumando valores variables.
+- `temporal` funciona como una variable de trabajo. No se requiere un acumulador
+  en este algoritmo ya que no estamos sumando valores variables.
+
 :::
+<!-- {solution} ej-roles-digitos -->
 
 (ejercicios-de-autoevaluacion-flujo-seguro-y-buffer)=
 ### Flujo Seguro y Buffer
 :::{exercise}
 :label: ej-seguro-busqueda-bandera
-El siguiente lazo de búsqueda utiliza la instrucción prohibida `break`. Reescribilo para que cumpla con el estándar de programación estructurada utilizando una bandera booleana.
-```c
+El siguiente lazo de búsqueda utiliza la instrucción prohibida `break`.
+Reescribilo para que cumpla con el estándar de programación estructurada
+utilizando una bandera booleana.
+``` c
 int numeros[] = {3, 7, 2, 9, 5};
 int buscado = 9;
 int posicion = -1;
@@ -747,12 +975,16 @@ for (int i = 0; i < 5; i++) {
     }
 }
 ```
+<!-- c -->
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-seguro-busqueda-bandera
 :class: dropdown
-Se reescribe transformándolo en un lazo `while` que integre el estado de la bandera booleana en su condición de corte:
-```c
+Se reescribe transformándolo en un lazo `while` que integre el estado de la
+bandera booleana en su condición de corte:
+``` c
 int numeros[] = {3, 7, 2, 9, 5};
 int buscado = 9;
 int posicion = -1;
@@ -767,29 +999,48 @@ while (i < 5 && encontrado == false) {
     i++;
 }
 ```
+<!-- c -->
+
 :::
+<!-- {solution} ej-seguro-busqueda-bandera -->
 
 :::{exercise}
 :label: ej-purgado-lectura-caracter
-Explicá por qué en C se "saltea" la lectura de un carácter al ejecutar `scanf("%c", &char_var)` inmediatamente después de haber ejecutado `scanf("%d", &int_var)`, y cómo lo resuelve el purgado manual con `getchar()`.
+Explicá por qué en C se "saltea" la lectura de un carácter al ejecutar
+`scanf("%c", &char_var)` inmediatamente después de haber ejecutado `scanf("%d",
+&int_var)`, y cómo lo resuelve el purgado manual con `getchar()`.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-purgado-lectura-caracter
 :class: dropdown
-Al ingresar el número entero y presionar Enter, en el buffer de entrada `stdin` se almacenan los dígitos del número y el salto de línea `\n`.
-- `scanf("%d", ...)` consume únicamente los caracteres numéricos y deja el `\n` en el buffer.
-- `scanf("%c", ...)` busca el siguiente carácter en el buffer y, al no descartar espacios en blanco por defecto, consume inmediatamente el `\n` residual.
-El purgado manual con `while (getchar() != '\n');` lee y descarta todos los caracteres que queden en el buffer hasta el salto de línea inclusive, dejando `stdin` vacío para la siguiente entrada interactiva.
+Al ingresar el número entero y presionar Enter, en el buffer de entrada `stdin`
+se almacenan los dígitos del número y el salto de línea `\n`.
+- `scanf("%d", ...)` consume únicamente los caracteres numéricos y deja el `\n`
+  en el buffer.
+- `scanf("%c", ...)` busca el siguiente carácter en el buffer y, al no descartar
+  espacios en blanco por defecto, consume inmediatamente el `\n` residual.
+El purgado manual con `while (getchar() != '\n');` lee y descarta todos los
+caracteres que queden en el buffer hasta el salto de línea inclusive, dejando
+`stdin` vacío para la siguiente entrada interactiva.
+
 :::
+<!-- {solution} ej-purgado-lectura-caracter -->
 
 :::{exercise}
 :label: ej-seguro-menu-completo
-Escribí un programa en C estructurado y seguro que solicite al usuario ingresar su edad. Tras leer la edad, debe purgar el buffer `stdin` y solicitar si desea continuar ('S' o 'N'), validando que el carácter ingresado sea uno de estos dos únicamente.
+Escribí un programa en C estructurado y seguro que solicite al usuario ingresar
+su edad. Tras leer la edad, debe purgar el buffer `stdin` y solicitar si desea
+continuar ('S' o 'N'), validando que el carácter ingresado sea uno de estos dos
+únicamente.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-seguro-menu-completo
 :class: dropdown
-```c
+``` c
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -824,7 +1075,10 @@ int main() {
     return 0;
 }
 ```
+<!-- c -->
+
 :::
+<!-- {solution} ej-seguro-menu-completo -->
 
 ---
 
@@ -833,57 +1087,87 @@ int main() {
 (glosario_flujo)=
 
 :::{glossary}
+
 Lenguaje Ensamblador
-: Lenguaje de bajo nivel que utiliza mnemónicos para representar instrucciones nativas de código máquina de un procesador específico.
+: Lenguaje de bajo nivel que utiliza mnemónicos para representar instrucciones
+nativas de código máquina de un procesador específico.
 
 Lenguaje de Máquina
-: El conjunto de instrucciones binarias directas ejecutable por el circuito físico de la CPU.
+: El conjunto de instrucciones binarias directas ejecutable por el circuito
+físico de la CPU.
 
 Lazo (Bucle)
-: Estructura de control diseñada para repetir la ejecución de un bloque de instrucciones mientras se verifique una condición lógica de permanencia.
+: Estructura de control diseñada para repetir la ejecución de un bloque de
+instrucciones mientras se verifique una condición lógica de permanencia.
 
 Acumulador
-: Variable de rol específico utilizada para almacenar y sumar valores de forma progresiva en un ciclo o algoritmo.
+: Variable de rol específico utilizada para almacenar y sumar valores de forma
+progresiva en un ciclo o algoritmo.
 
 Contador
-: Variable de rol específico utilizada para llevar el conteo de la cantidad de ocurrencias de un evento o iteración en un ciclo.
+: Variable de rol específico utilizada para llevar el conteo de la cantidad de
+ocurrencias de un evento o iteración en un ciclo.
 
 Bandera (Flag)
-: Variable lógica o de estado utilizada para señalizar que un evento o condición determinada se ha verificado en el flujo.
+: Variable lógica o de estado utilizada para señalizar que un evento o condición
+determinada se ha verificado en el flujo.
 
 Fall-through
-: Comportamiento por defecto en una estructura `switch` donde, al omitir la sentencia `break`, la ejecución continúa fluyendo a través de los casos subsiguientes.
+: Comportamiento por defecto en una estructura `switch` donde, al omitir la
+sentencia `break`, la ejecución continúa fluyendo a través de los casos
+subsiguientes.
+
 :::
+<!-- {glossary} -->
 
 ---
 
 ## Síntesis y Resumen
 
-En esta unidad analizaste los mecanismos clave del control de flujo y las buenas prácticas asociadas en C:
-- **Toma de decisiones**: La estructuración con `if/else if/else` y `switch` permite bifurcar la ejecución. C representa los valores de verdad con enteros (`0` para falso, distinto de `0` para verdadero).
-- **Lazos de iteración**: Se clasifican según su momento de evaluación en `while` (pre-evaluado), `for` (iteración controlada por contador) y `do...while` (post-evaluado, garantizando al menos una ejecución).
-- **Flujo seguro y estructurado**: Para cumplir las directrices de diseño, se prohíbe el uso de `break` (fuera del `switch`) y `continue`, reemplazándolos por el uso controlado de banderas lógicas.
-- **Manejo del buffer**: El purgado del canal de entrada `stdin` mediante un lazo manual de `getchar()` evita fallas por saltos de línea residuales.
+En esta unidad analizaste los mecanismos clave del control de flujo y las buenas
+prácticas asociadas en C:
+- **Toma de decisiones**: La estructuración con `if/else if/else` y `switch`
+  permite bifurcar la ejecución. C representa los valores de verdad con enteros
+  (`0` para falso, distinto de `0` para verdadero).
+- **Lazos de iteración**: Se clasifican según su momento de evaluación en
+  `while` (pre-evaluado), `for` (iteración controlada por contador) y
+  `do...while` (post-evaluado, garantizando al menos una ejecución).
+- **Flujo seguro y estructurado**: Para cumplir las directrices de diseño, se
+  prohíbe el uso de `break` (fuera del `switch`) y `continue`, reemplazándolos
+  por el uso controlado de banderas lógicas.
+- **Manejo del buffer**: El purgado del canal de entrada `stdin` mediante un
+  lazo manual de `getchar()` evita fallas por saltos de línea residuales.
 
 ### Recomendaciones Didácticas
 Cuando encuentres dificultades al depurar o diseñar un programa:
 - Redactá el algoritmo en lenguaje natural de forma secuencial paso a paso.
-- Graficá el algoritmo mediante un diagrama de flujo simple para validar bifurcaciones e iteraciones.
-- Ejecutá una prueba de escritorio (seguimiento de variables en papel) para validar la lógica del programa.
-- Utilizá llamadas a funciones de impresión (`printf`) en puntos estratégicos para examinar el estado de las variables en memoria física.
+- Graficá el algoritmo mediante un diagrama de flujo simple para validar
+  bifurcaciones e iteraciones.
+- Ejecutá una prueba de escritorio (seguimiento de variables en papel) para
+  validar la lógica del programa.
+- Utilizá llamadas a funciones de impresión (`printf`) en puntos estratégicos
+  para examinar el estado de las variables en memoria física.
 
 ### Próximos Pasos
-En los siguientes capítulos avanzaremos en la construcción de software modular en C:
-- [](6_funciones.md) — Modularización y diseño de subprogramas mediante funciones con contratos y parámetros.
-- [Secuencias y arreglos](../bloque_3_memoria_estatica/2_secuencias.md) — Arreglos de memoria estáticos y cadenas de caracteres.
-- [Compilación separada](../bloque_2_proyectos/1_compilacion.md) — Proceso de compilación multi-etapa y Makefile.
-- [Punteros](../bloque_3_memoria_estatica/4_punteros.md) — Punteros y manipulación de memoria.
-- [Archivos de texto](../bloque_4_dinamica_interfaces/3_archivos_texto.md) — Entrada y salida persistente con archivos.
+En los siguientes capítulos avanzaremos en la construcción de software modular
+en C:
+- [](6_funciones.md) — Modularización y diseño de subprogramas mediante
+  funciones con contratos y parámetros.
+- [Secuencias y arreglos](../bloque_3_memoria_estatica/2_secuencias.md) —
+  Arreglos de memoria estáticos y cadenas de caracteres.
+- [Compilación separada](../bloque_2_proyectos/1_compilacion.md) — Proceso de
+  compilación multi-etapa y Makefile.
+- [Punteros](../bloque_3_memoria_estatica/4_punteros.md) — Punteros y
+  manipulación de memoria.
+- [Archivos de texto](../bloque_4_dinamica_interfaces/3_archivos_texto.md) —
+  Entrada y salida persistente con archivos.
 
 ---
 
 ## Referencias y Lecturas Complementarias
 
-- Kernighan, B. W., & Ritchie, D. M. (1988). _The C Programming Language (2nd ed.)_. Prentice Hall. (El libro de referencia de C, "K&R").
-- King, K. N. (2008). _C Programming: A Modern Approach (2nd ed.)_. W. W. Norton & Company. (Libro detallado con abundantes ejercicios).
+- Kernighan, B. W., & Ritchie, D. M. (1988). _The C Programming Language (2nd
+  ed.)_. Prentice Hall. (El libro de referencia de C, "K&R").
+- King, K. N. (2008). _C Programming: A Modern Approach (2nd ed.)_. W. W. Norton
+  & Company. (Libro detallado con abundantes ejercicios).
 - ISO/IEC 9899 Language Standard Section 6.8: Statements and blocks.
