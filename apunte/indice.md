@@ -7,6 +7,7 @@ subtitle: Apunte de la cátedra
 
 *   **[](1_base.md)**: Fundamentos de algoritmos, diagramas de flujo y representación de datos.
 *   **[](2_gradual.md)**: Introducción práctica al lenguaje C, variables, tipos primarios y el concepto de estado.
+*   **[](2b_casts.md)**: Conversión de tipos de datos, promoción entera, coerción y el operador de cast explícito.
 *   **[](3_control_flujo.md)**: Decisiones condicionales, estructuras de repetición (lazos) y control seguro de flujos.
 *   **[](4_funciones.md)**: Modularización, firmas de funciones, ámbitos y persistencia de almacenamiento con `static`.
 *   **[](5_compilacion.md)**: Fases del proceso de compilación, cabeceras `.h`, modularidad mediante Makefiles y argumentos de `main`.
@@ -15,6 +16,7 @@ subtitle: Apunte de la cátedra
 *   **[](8_alias_tipos.md)**: Alias de tipos con `typedef` y modelado lógico con enumerativos (`enum`).
 *   **[](9_punteros.md)**: Concepto físico de punteros, indirección y paso por referencia simulado.
 *   **[](10_estructuras.md)**: Tipos de datos compuestos (`struct` y `union`), junto con su alineación en memoria (`padding`).
+*   **[](10b_bitwise.md)**: Campos de bits, operaciones a nivel de bits y máscaras de error.
 *   **[](11_archivos_texto.md)**: Persistencia mediante streams de caracteres, manipulación y direccionamiento de archivos de texto.
 *   **[](12_recursividad.md)**: Pensamiento recursivo, trazabilidad en el stack de llamadas e inducción matemática.
 *   **[](13_modelo_memoria.md)**: Anatomía de la memoria física de un proceso, jerarquías y comparación cuantitativa de Stack y Heap.
@@ -28,3 +30,5 @@ subtitle: Apunte de la cátedra
 *   **[](20_idiomatico.md)**: Modismos idiomáticos, patrones recurrentes del estándar C e integración de recursos.
 *   **[](21_testing.md)**: Metodologías de verificación, diseño de pruebas unitarias automáticas y depuración física.
 *   **[](22_contratos.md)**: Diseño por contrato, invariantes de representación de datos y aserciones.
+*   **[](23_diseno_api.md)**: Principios de diseño de interfaces, encapsulamiento y modularidad (APIs).
+*   **[](23b_ingenieria_api.md)**: Versionado semántico, estabilidad binaria (ABI), rendimiento y casos de estudio de APIs industriales.
