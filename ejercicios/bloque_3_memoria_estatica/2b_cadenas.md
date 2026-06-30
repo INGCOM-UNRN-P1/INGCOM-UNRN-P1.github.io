@@ -1,23 +1,20 @@
 ---
-title: Ejercicios de Cadenas
-short_title: 4. Cadenas
+title: "Ejercicios de Cadenas"
+short_title: "4. Cadenas"
 ---
+
+# Ejercicios de Cadenas
 
 ## Acerca de
 
-La manipulación de cadenas es una de las tareas más comunes y, en C, una de las
-más propensas a errores. Estos ejercicios están diseñados para construir una
-base sólida en el manejo de cadenas de caracteres (estilo C, terminadas en
-nulo), enfocándose en la implementación de algoritmos comunes desde cero. Es
-crucial que al resolverlos, se apliquen los principios de manejo de "cadenas
-seguras" ({ref}`0x5003h`), pasando siempre la capacidad del búfer para evitar
-desbordamientos.
+La manipulación de cadenas es una de las tareas más comunes y, en C, una de las más propensas a errores. Estos ejercicios están diseñados para construir una base sólida en el manejo de cadenas de caracteres (estilo C, terminadas en nulo), enfocándose en la implementación de algoritmos comunes desde cero. Es crucial que al resolverlos, se apliquen los principios de manejo de "cadenas seguras" ({ref}`0x5003h`), pasando siempre la capacidad del búfer para evitar desbordamientos.
 
----
+Para profundizar en los conceptos teóricos, podés consultar el siguiente capítulo del apunte:
+- [Secuencias y Arreglos](../../apunte/bloque_3_memoria_estatica/2_secuencias.md)
 
-## 1: Análisis de Cadenas
+## Análisis de Cadenas
 
-### 1.1: Contar vocales
+### Ejercicio 2b.1 - Contar vocales
 
 #### Descripción
 Escribir una función que cuente el número total de vocales (a, e, i, o, u) en una cadena de texto. La función no debe distinguir entre mayúsculas y minúsculas.
@@ -32,6 +29,7 @@ Escribir una función que cuente el número total de vocales (a, e, i, o, u) en 
     5.  Si es una vocal, incrementar el `contador`.
 -   **Salida:** Devolver el valor final del `contador`.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -52,7 +50,7 @@ FIN FUNCION
 ```
 :::
 
-### 1.2: Contabilizador de caracteres
+### Ejercicio 2b.2 - Contabilizador de caracteres
 
 #### Descripción
 Implementar una función que calcule la frecuencia de aparición de cada carácter dentro de una cadena y muestre el resultado para aquellos caracteres que aparecen al menos una vez.
@@ -64,6 +62,7 @@ Implementar una función que calcule la frecuencia de aparición de cada caráct
     2.  Recorrer la cadena de entrada. Para cada carácter `c`, incrementar el contador en la posición correspondiente a su valor ASCII: `frecuencias[(int)c]++`.
     3.  Después de recorrer toda la cadena, iterar sobre el arreglo `frecuencias` desde 0 a 255. Si `frecuencias[i]` es mayor que 0, significa que el carácter con código ASCII `i` apareció, y se imprime junto con su frecuencia.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -86,7 +85,7 @@ FIN PROCEDIMIENTO
 ```
 :::
 
-### 1.3: ¿Es un número válido?
+### Ejercicio 2b.3 - ¿Es un número válido?
 
 #### Descripción
 Desarrollar una función que verifique si una cadena de texto representa un número de punto flotante válido. La validación debe seguir un conjunto de reglas específicas.
@@ -103,6 +102,7 @@ Desarrollar una función que verifique si una cadena de texto representa un núm
     3.  Manejar el signo solo en la primera posición.
     4.  Verificar que cada carácter sea un dígito o un punto (en la posición correcta).
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -138,7 +138,7 @@ FIN FUNCION
 ```
 :::
 
-### 1.4: ¿Es alfabética?
+### Ejercicio 2b.4 - ¿Es alfabética?
 
 #### Descripción
 Crear una función que determine si una cadena contiene únicamente caracteres alfabéticos (de la 'a' a la 'z', mayúsculas o minúsculas).
@@ -148,6 +148,7 @@ Crear una función que determine si una cadena contiene únicamente caracteres a
 -   **Funciones de Biblioteca:** La biblioteca `ctype.h` proporciona la función `isalpha()`, que simplifica enormemente esta comprobación.
 -   **Condición de Salida:** Si se encuentra un carácter que no es alfabético, la función puede retornar `falso` inmediatamente. Si el lazo termina, significa que todos los caracteres son alfabéticos.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -162,11 +163,10 @@ INICIO
 FIN FUNCION
 ```
 :::
----
 
-## 2: Propiedades de Cadenas
+## Propiedades de Cadenas
 
-### 2.1: Palíndromo
+### Ejercicio 2b.5 - Palíndromo
 
 #### Descripción
 Implementar una función que verifique si una cadena es un palíndromo, es decir, si se lee igual de izquierda a derecha que de derecha a izquierda. La verificación debe ignorar espacios en blanco y no debe ser sensible a mayúsculas/minúsculas.
@@ -182,6 +182,7 @@ Implementar una función que verifique si una cadena es un palíndromo, es decir
         d. Si son iguales, mover ambos punteros hacia el centro (`izquierda++`, `derecha--`).
 -   **Salida:** Si el lazo termina, significa que todos los caracteres coincidieron, por lo que es un palíndromo y se retorna `verdadero`.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -208,7 +209,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 2.2: Anagrama
+
+### Ejercicio 2b.6 - Anagrama
 
 #### Descripción
 Escribir una función que determine si una cadena es un anagrama de otra (es decir, si ambas tienen los mismos caracteres con la misma frecuencia), ignorando mayúsculas/minúsculas y espacios.
@@ -220,6 +222,7 @@ Escribir una función que determine si una cadena es un anagrama de otra (es dec
     3.  Recorrer la segunda cadena. Para cada carácter alfabético, decrementar el contador correspondiente.
     4.  Finalmente, recorrer el arreglo de contadores. Si todos los contadores son cero, las cadenas son anagramas.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -249,7 +252,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 2.3: Pangrama
+
+### Ejercicio 2b.7 - Pangrama
 
 #### Descripción
 Verificar si una cadena es un pangrama, es decir, si contiene todas las letras del alfabeto inglés al menos una vez. La verificación debe ser insensible a mayúsculas/minúsculas.
@@ -261,6 +265,7 @@ Verificar si una cadena es un pangrama, es decir, si contiene todas las letras d
     2.  Recorrer la cadena. Para cada carácter, si es una letra, marcar la posición correspondiente en el arreglo como `verdadero`.
     3.  Después de recorrer la cadena, verificar si todas las posiciones del arreglo `letras_vistas` son `verdadero`. Si es así, es un pangrama.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -284,11 +289,10 @@ INICIO
 FIN FUNCION
 ```
 :::
----
 
-## 3: Manipulación y Transformación
+## Manipulación y Transformación
 
-### 3.1: Tokenización
+### Ejercicio 2b.8 - Tokenización
 
 #### Descripción
 Dividir una cadena en una secuencia de "tokens" (subcadenas) basándose en un carácter delimitador. La función `strtok` de C es un ejemplo clásico de esto.
@@ -330,7 +334,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 3.2: Compresión RLE (Run-Length Encoding)
+
+### Ejercicio 2b.9 - Compresión RLE (Run-Length Encoding)
 
 #### Descripción
 Implementar una forma simple de compresión de cadenas llamada Run-Length Encoding. Esta técnica compacta una cadena reemplazando secuencias de caracteres idénticos por el número de repeticiones seguido del carácter.
@@ -342,6 +347,7 @@ Implementar una forma simple de compresión de cadenas llamada Run-Length Encodi
     3.  Si el siguiente carácter es diferente o se llega al final de la cadena, se añade el `contador` y el carácter actual a la cadena de resultado.
     4.  Reiniciar el `contador` y continuar.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -364,7 +370,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 3.3: Desduplicador
+
+### Ejercicio 2b.10 - Desduplicador
 
 #### Descripción
 Escribir una función que elimine los caracteres duplicados de una cadena, conservando únicamente la primera aparición de cada carácter. La modificación puede ser _in-place_.
@@ -379,6 +386,7 @@ Escribir una función que elimine los caracteres duplicados de una cadena, conse
         b. Si no ha sido visto, copiarlo a la posición de `puntero_escritura`, marcarlo como visto (`vistos[(int)c] = VERDADERO`), y avanzar `puntero_escritura`.
     4.  Al final, colocar el carácter nulo `\0` en la posición de `puntero_escritura`.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -403,7 +411,8 @@ INICIO
 FIN PROCEDIMIENTO
 ```
 :::
-### 3.4: Número a cadena con formato
+
+### Ejercicio 2b.11 - Número a cadena con formato
 
 #### Descripción
 Transformar un número entero largo en una cadena de texto, insertando separadores de miles (puntos o comas) para mejorar la legibilidad.
@@ -415,6 +424,7 @@ Transformar un número entero largo en una cadena de texto, insertando separador
     3.  Crear una nueva cadena con el tamaño suficiente para albergar los dígitos y los separadores.
     4.  Copiar los dígitos de la cadena original a la nueva, insertando los separadores en las posiciones correctas. Es más fácil hacerlo de derecha a izquierda.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -439,7 +449,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 3.5: Búsqueda de Subcadena
+
+### Ejercicio 2b.12 - Búsqueda de subcadena
 
 #### Descripción
 Implementar una función que busque la primera ocurrencia de una subcadena (`needle` o aguja) dentro de una cadena principal (`haystack` o pajar). Es una reimplementación de la función `strstr`.
@@ -451,6 +462,7 @@ Implementar una función que busque la primera ocurrencia de una subcadena (`nee
     3.  Si todos los caracteres de `needle` coinciden, devolver la posición `i` (o un puntero a `haystack[i]`).
     4.  Si el lazo exterior termina, la subcadena no se encontró.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -476,11 +488,10 @@ INICIO
 FIN FUNCION
 ```
 :::
----
 
-## 4: Conversión de Base Numérica
+## Conversión de Base Numérica
 
-### 4.1: Binario a Decimal
+### Ejercicio 2b.13 - Binario a decimal
 
 #### Descripción
 Convertir una cadena que representa un número en formato binario (compuesta de '0's y '1's) a su valor entero decimal correspondiente.
@@ -489,6 +500,7 @@ Convertir una cadena que representa un número en formato binario (compuesta de 
 -   **Proceso:** Recorrer la cadena binaria. Para cada dígito, multiplicar el valor acumulado por 2 y sumar el valor del dígito actual (0 o 1).
 -   $D = \sum_{i=0}^{n-1} b_i \cdot 2^{n-1-i}$
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -504,7 +516,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 4.2: Hexadecimal a Decimal
+
+### Ejercicio 2b.14 - Hexadecimal a decimal
 
 #### Descripción
 Convertir una cadena que representa un número en formato hexadecimal (dígitos 0-9 y letras A-F, insensibles a mayúsculas) a su valor entero decimal.
@@ -513,6 +526,7 @@ Convertir una cadena que representa un número en formato hexadecimal (dígitos 
 -   **Proceso:** Similar a la conversión de binario, pero la base es 16.
 -   **Conversión de Dígitos:** Se necesita una lógica para convertir los caracteres 'A'- 'F' a sus valores numéricos (10-15).
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -536,7 +550,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 4.3: Decimal a Binario
+
+### Ejercicio 2b.15 - Decimal a binario
 
 #### Descripción
 Convertir un número entero decimal a su representación en una cadena de texto binaria.
@@ -547,6 +562,7 @@ Convertir un número entero decimal a su representación en una cadena de texto 
     2.  Guardar estos dígitos en un arreglo o cadena.
     3.  Como los dígitos se generan en orden inverso, la cadena resultante debe ser invertida al final.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -567,7 +583,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 4.4: Decimal a Hexadecimal
+
+### Ejercicio 2b.16 - Decimal a hexadecimal
 
 #### Descripción
 Convertir un número entero decimal a su representación en una cadena de texto hexadecimal.
@@ -576,6 +593,7 @@ Convertir un número entero decimal a su representación en una cadena de texto 
 -   **Proceso:** Similar a la conversión a binario, pero usando 16 como base.
 -   **Conversión de Dígitos:** Los restos entre 10 y 15 deben ser mapeados a los caracteres 'A' a 'F'.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -597,11 +615,10 @@ INICIO
 FIN FUNCION
 ```
 :::
----
 
-## 5: Más Ejercicios de Cadenas
+## Más Ejercicios de Cadenas
 
-### 5.1: Invertir Palabras en una Frase
+### Ejercicio 2b.17 - Invertir palabras en una frase
 
 #### Descripción
 Escribir una función que tome una frase y la modifique de tal manera que cada palabra individual quede invertida, pero el orden de las palabras en la frase se mantenga intacto.
@@ -613,6 +630,7 @@ Escribir una función que tome una frase y la modifique de tal manera que cada p
     2.  Para cada palabra encontrada, se necesita una función auxiliar que pueda invertir una subcadena. Esta función tomaría punteros o índices al inicio y al final de la palabra.
     3.  La función de inversión de subcadena usaría la técnica de dos punteros (uno al inicio y otro al final de la palabra) que se mueven hacia el centro, intercambiando caracteres en cada paso.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -638,7 +656,8 @@ INICIO
 FIN PROCEDIMIENTO
 ```
 :::
-### 5.2: Invertir Orden de las Palabras
+
+### Ejercicio 2b.18 - Invertir orden de las palabras
 
 #### Descripción
 Escribir una función que invierta el orden de las palabras en una frase. Por ejemplo, "Hola Mundo desde C" se convertiría en "C desde Mundo Hola".
@@ -648,6 +667,7 @@ Escribir una función que invierta el orden de las palabras en una frase. Por ej
     1.  Invertir la cadena de caracteres completa. ("Hola Mundo desde C" -> "C edsed odnuM aloH").
     2.  Recorrer la nueva cadena e invertir cada palabra individualmente (usando la lógica del ejercicio 5.1). ("C" -> "C", "edsed" -> "desde", etc.).
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -661,7 +681,8 @@ INICIO
 FIN PROCEDIMIENTO
 ```
 :::
-### 5.3: Capitalización (Title Case)
+
+### Ejercicio 2b.19 - Capitalización (Title Case)
 
 #### Descripción
 Implementar una función que convierta una cadena a "Title Case", donde la primera letra de cada palabra está en mayúscula y el resto de las letras de la palabra están en minúscula.
@@ -672,6 +693,7 @@ Implementar una función que convierta una cadena a "Title Case", donde la prime
     2.  Capitalizar el primer carácter de la cadena (si es una letra).
     3.  Recorrer la cadena. Si se encuentra un espacio (u otro delimitador de palabra), capitalizar el siguiente carácter si es una letra.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -688,7 +710,8 @@ INICIO
 FIN PROCEDIMIENTO
 ```
 :::
-### 5.4: Contar Palabras
+
+### Ejercicio 2b.20 - Contar palabras
 
 #### Descripción
 Desarrollar una función que cuente el número de palabras en una cadena. Se puede considerar que las palabras están separadas por uno o más espacios.
@@ -700,6 +723,7 @@ Desarrollar una función que cuente el número de palabras en una cadena. Se pue
     2.  Recorrer la cadena. Si se está `FUERA_DE_PALABRA` y se encuentra un carácter que no es un espacio, se ha encontrado el inicio de una nueva palabra. Incrementar `contador_palabras` y cambiar a `estado = DENTRO_DE_PALABRA`.
     3.  Si se está `DENTRO_DE_PALABRA` y se encuentra un espacio, cambiar a `estado = FUERA_DE_PALABRA`.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -722,7 +746,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 5.5: Eliminar Espacios Extra
+
+### Ejercicio 2b.21 - Eliminar espacios extra
 
 #### Descripción
 Crear una función que elimine los espacios en blanco redundantes de una cadena: espacios al principio, al final y múltiples espacios entre palabras, dejando solo un espacio entre cada palabra.
@@ -734,6 +759,7 @@ Crear una función que elimine los espacios en blanco redundantes de una cadena:
     3.  Copiar un carácter de lectura a escritura solo si no es un espacio redundante. La condición para copiar podría ser: `si el carácter actual no es un espacio, O si el carácter anterior copiado no fue un espacio`.
     4.  Manejar los espacios al principio como un caso especial.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -760,7 +786,8 @@ INICIO
 FIN PROCEDIMIENTO
 ```
 :::
-### 5.6: Recorte de Cadena (Trim)
+
+### Ejercicio 2b.22 - Recorte de cadena (Trim)
 
 #### Descripción
 Implementar una función `trim` que modifique una cadena para eliminar todos los espacios en blanco (o cualquier otro carácter de espaciado como tabuladores o saltos de línea) que se encuentren al principio y al final de la misma.
@@ -771,6 +798,7 @@ Implementar una función `trim` que modifique una cadena para eliminar todos los
     2.  **Eliminar espacios del principio:** Encontrar el puntero al primer carácter que no sea un espacio. Luego, mover todo el bloque de la cadena (incluyendo el terminador nulo) a la posición inicial usando `memmove`.
 -   **Funciones de Biblioteca:** `isspace()` de `ctype.h` es útil para detectar cualquier tipo de carácter de espaciado.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -800,7 +828,8 @@ INICIO
 FIN PROCEDIMIENTO
 ```
 :::
-### 5.7: Reemplazar Subcadena
+
+### Ejercicio 2b.23 - Reemplazar subcadena
 
 #### Descripción
 Escribir una función que reemplace todas las ocurrencias de una subcadena por otra dentro de una cadena principal. La función debe manejar cambios en la longitud de la cadena, lo que usualmente requiere memoria dinámica.
@@ -811,6 +840,7 @@ Escribir una función que reemplace todas las ocurrencias de una subcadena por o
     2.  Reservar memoria (`malloc`) para la nueva cadena.
     3.  Recorrer la cadena original. Cuando se encuentre una ocurrencia de la subcadena a buscar, copiar la cadena de reemplazo a la nueva cadena. Si no, copiar el carácter actual.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -836,7 +866,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 5.8: Validación de Email (Simple)
+
+### Ejercicio 2b.24 - Validación de email (Simple)
 
 #### Descripción
 Crear una función que verifique si una cadena tiene un formato de correo electrónico básico. No busca ser exhaustiva (lo cual es muy complejo), sino validar una estructura mínima.
@@ -848,6 +879,7 @@ Crear una función que verifique si una cadena tiene un formato de correo electr
     3.  Debe contener al menos un `.` después del `@`.
     4.  El `.` no puede estar inmediatamente después del `@`.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -872,7 +904,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 5.9: Cifrado César
+
+### Ejercicio 2b.25 - Cifrado César
 
 #### Descripción
 Implementar el Cifrado César, un tipo de cifrado por sustitución en el que cada letra en el texto original es reemplazada por una letra un número fijo de posiciones más adelante en el alfabeto, de forma circular.
@@ -884,6 +917,7 @@ Implementar el Cifrado César, un tipo de cifrado por sustitución en el que cad
     3.  El desplazamiento es circular. Si al desplazar 'y' 3 posiciones se pasa de 'z', se debe volver al principio del alfabeto. Esto se logra con el operador módulo (`%`).
     4.  Ejemplo para una letra minúscula `c`: `'a' + (c - 'a' + desplazamiento) % 26`.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -906,7 +940,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 5.10: Descifrado César
+
+### Ejercicio 2b.26 - Descifrado César
 
 #### Descripción
 Escribir la función complementaria que descifre un mensaje cifrado con el Cifrado César, conociendo el desplazamiento. Es la operación inversa al ejercicio anterior.
@@ -914,6 +949,7 @@ Escribir la función complementaria que descifre un mensaje cifrado con el Cifra
 :::{tip} Lógica y Consideraciones
 -   **Proceso:** Es idéntico al cifrado, pero en lugar de sumar el desplazamiento, se resta. Para manejar el wraparound negativo, la fórmula puede ser `'a' + (c - 'a' - desplazamiento + 26) % 26`.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -924,7 +960,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 5.11: Encontrar el Carácter Más Frecuente
+
+### Ejercicio 2b.27 - Encontrar el carácter más frecuente
 
 #### Descripción
 Desarrollar una función que encuentre y devuelva el carácter que aparece con más frecuencia en una cadena. Si hay empates, puede devolver cualquiera de los más frecuentes.
@@ -935,6 +972,7 @@ Desarrollar una función que encuentre y devuelva el carácter que aparece con m
     2.  Llenar el arreglo de frecuencias recorriendo la cadena.
     3.  Recorrer el arreglo de frecuencias para encontrar el índice que tiene el valor más alto. Ese índice es el código ASCII del carácter más frecuente.
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -956,7 +994,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 5.12: Comparación de Cadenas (Ignorando Mayúsculas)
+
+### Ejercicio 2b.28 - Comparación de cadenas (Ignorando mayúsculas)
 
 #### Descripción
 Implementar su propia versión de la función `strcasecmp`, que compara dos cadenas sin diferenciar entre mayúsculas y minúsculas.
@@ -987,7 +1026,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 5.13: Extraer Subcadena
+
+### Ejercicio 2b.29 - Extraer subcadena
 
 #### Descripción
 Crear una función que extraiga una porción de una cadena. La función debe recibir la cadena original, una posición de inicio y una longitud, y devolver una nueva cadena con la subcadena extraída.
@@ -1014,7 +1054,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 5.14: Justificar Texto (Simple)
+
+### Ejercicio 2b.30 - Justificar texto (Simple)
 
 #### Descripción
 Implementar una función que justifique una línea de texto a un ancho específico, insertando espacios adicionales entre las palabras de la manera más uniforme posible.
@@ -1042,7 +1083,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 5.15: Acrónimo
+
+### Ejercicio 2b.31 - Acrónimo
 
 #### Descripción
 Escribir una función que genere un acrónimo a partir de una frase, tomando la primera letra de cada palabra.
@@ -1077,11 +1119,10 @@ INICIO
 FIN FUNCION
 ```
 :::
----
 
-## 6: Cadenas y Algoritmos
+## Cadenas y Algoritmos
 
-### 6.1: Distancia de Hamming
+### Ejercicio 2b.32 - Distancia de Hamming
 
 #### Descripción
 Implementar una función que calcule la distancia de Hamming entre dos cadenas de igual longitud. Esta distancia es el número de posiciones en las que los caracteres correspondientes son diferentes.
@@ -1113,7 +1154,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 6.2: Subsecuencia Común Más Larga (LCS)
+
+### Ejercicio 2b.33 - Subsecuencia común más larga (LCS)
 
 #### Descripción
 Escribir una función que encuentre la longitud de la subsecuencia común más larga (LCS) entre dos cadenas. Una subsecuencia no tiene por qué ser contigua.
@@ -1141,7 +1183,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 6.3: Validación de IP Simple
+
+### Ejercicio 2b.34 - Validación de IP simple
 
 #### Descripción
 Crear una función que verifique si una cadena representa una dirección IPv4 válida. Debe consistir en cuatro números entre 0 y 255, separados por puntos.
@@ -1175,7 +1218,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 6.4: Convertir a `snake_case`
+
+### Ejercicio 2b.35 - Convertir a `snake_case`
 
 #### Descripción
 Implementar una función que convierta una cadena en `camelCase` o `PascalCase` a `snake_case`. Esto implica insertar un guion bajo antes de cada letra mayúscula y convertir toda la cadena a minúsculas.
@@ -1204,7 +1248,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 6.5: Convertir a `camelCase`
+
+### Ejercicio 2b.36 - Convertir a `camelCase`
 
 #### Descripción
 Implementar una función que convierta una cadena en `snake_case` a `camelCase`. Esto implica eliminar los guiones bajos y poner en mayúscula la letra que les seguía.
@@ -1240,7 +1285,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 6.6: Rotación de Cadena
+
+### Ejercicio 2b.37 - Rotación de cadena
 
 #### Descripción
 Escribir una función que determine si una cadena `s2` es una rotación de otra cadena `s1`.
@@ -1266,10 +1312,11 @@ INICIO
     SINO
         RETORNAR FALSO
     FIN SI
-FIN FUNCION
+    FIN FUNCION
 ```
 :::
-### 6.7: Eliminar Comentarios
+
+### Ejercicio 2b.38 - Eliminar comentarios
 
 #### Descripción
 Crear una función que reciba una cadena (que puede representar una o más líneas de código) y elimine los comentarios de estilo C (`//...` hasta el final de la línea y `/*...*/` incluyendo el contenido).
@@ -1277,7 +1324,6 @@ Crear una función que reciba una cadena (que puede representar una o más líne
 :::{tip} Lógica y Consideraciones
 -   **Máquina de Estados:** Este problema se resuelve mejor con una máquina de estados para rastrear si el procesador está en modo `NORMAL`, `DENTRO_DE_COMENTARIO_LINEA`, o `DENTRO_DE_COMENTARIO_BLOQUE`.
 :::
-
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1307,7 +1353,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 6.8: Análisis de URL Simple
+
+### Ejercicio 2b.39 - Análisis de URL simple
 
 #### Descripción
 Dada una URL en formato de cadena, escribir una función que la analice y extraiga sus componentes principales: protocolo, host y ruta.
@@ -1331,7 +1378,7 @@ FIN PROCEDIMIENTO
 ```
 :::
 
-### 6.9: Generador de "Slugs"
+### Ejercicio 2b.40 - Generador de "Slugs"
 
 #### Descripción
 Un "slug" es una versión de una cadena amigable para URLs. Escribir una función que convierta un título en un slug: debe estar en minúsculas, los espacios deben ser reemplazados por guiones y se deben eliminar todos los caracteres no alfanuméricos.
@@ -1364,7 +1411,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 6.10: Primer Carácter No Repetido
+
+### Ejercicio 2b.41 - Primer carácter no repetido
 
 #### Descripción
 Implementar una función que encuentre y devuelva el primer carácter en una cadena que no se repite en el resto de la cadena.

@@ -64,6 +64,23 @@ A lo largo de la cursada, haremos hincapié en la importancia de escribir códig
 
 Un buen estilo eleva la calidad del código no solo en su funcionalidad, sino también en su claridad. Para más detalles, pueden consultar la regla sobre la claridad y prolijidad ({ref}`0x0000h`).
 
+## Ejercicios Complejos y Proyectos Multiarquivo
+
+Para los ejercicios de mayor complejidad que requieran modularización avanzada, estructuración en múltiples archivos o para la entrega de Trabajos Prácticos (TPs), la cátedra provee un repositorio base que debés clonar y utilizar:
+- **Plantilla de Proyecto**: [INGCOM-UNRN-P1/plantilla-TP](https://github.com/INGCOM-UNRN-P1/plantilla-TP)
+
+Este repositorio plantilla incluye un **Makefile** preconfigurado para automatizar las tareas del ciclo de vida del software:
+- `make`: Compila el programa principal (`main.c` y `prueba.c`).
+- `make run`: Ejecuta el programa del archivo principal (`main`).
+- `make test`: Ejecuta el suite de pruebas unitarias (`prueba`).
+- `make clean`: Limpia los archivos binarios compilados e intermedios (`.o`, `.a`, `.exe`).
+- `make librerias`: Compila todas las librerías compartidas del proyecto.
+- `make ejercicio1`: Compila el ejercicio 1 (pudiendo compilar los demás modificando el número final).
+
+> [!IMPORTANT]
+> - Luego de cargar las librerías en tu espacio de trabajo, no olvides compilarlas con `make librerias` antes de darles uso en tus ejercicios.
+> - Recordá no enviar nunca archivos compilados o intermedios al control de versiones de Git. Ejecutá `make clean` en la raíz del proyecto antes de hacer un commit o push.
+
 ## ¡Se aceptan contribuciones!
 
 Este sitio es un proyecto vivo y en constante mejora. Está construido con [MyST Markdown](https://mystmd.org/), una herramienta que combina la simplicidad de Markdown con la potencia de la documentación técnica.

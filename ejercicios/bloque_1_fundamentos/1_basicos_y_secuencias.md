@@ -3,29 +3,30 @@ title: Ejercicios Básicos y Secuencias
 short_title: 1. Básicos
 ---
 
+# Ejercicios Básicos y Secuencias
+
 ## Acerca de
 
-Estos ejercicios están diseñados para afianzar los conceptos más fundamentales
-de la programación en C. A través de ellos, practicarás el uso de variables, la
-entrada y salida por consola, y la implementación de estructuras de control
-básicas como lazos y condicionales para resolver problemas simples y generar
-secuencias numéricas.
+Estos ejercicios están diseñados para afianzar los conceptos más fundamentales de la programación en C. A través de ellos, se practicará el uso de variables, la entrada y salida por consola, y la implementación de estructuras de control básicas (lazos y condicionales) para resolver problemas simples y generar secuencias numéricas.
 
-### Consideraciones Generales
+### Capítulos de Apunte Correspondientes
+- {ref}`capitulo-fundamentos-computacion`
+- {ref}`capitulo-introduccion-c`
 
-1.  **Función Principal**: La lógica principal que resuelve cada enunciado debe
-    estar contenida en una función, incluso si no se especifica explícitamente.
-2.  **Estilo**: Todo el código debe adherirse a la
-    [guía de estilo](../apunte/0_estilo.md) de la cátedra.
-3.  **Entrada y Salida**: Separá la lógica de tu programa de las operaciones de
-    entrada/salida. Las funciones principales no deben interactuar directamente
-    con el usuario, a menos que ese sea su propósito específico.
+### Cuestiones de Estilo Aplicables
+- **Resolución mediante funciones:** Según la [Regla 0x2009h](../../reglas/2_funciones.md#0x2009h), la lógica principal que resuelve cada enunciado debe estar contenida en una función, incluso si no se especifica de forma explícitamente.
+- **Separación de entrada/salida:** De acuerdo con la [Regla 0x2002h](../../reglas/2_funciones.md#0x2002h), las funciones no deben contener `printf` o `scanf`, a menos que su propósito explícito sea interactuar con el usuario.
+- **Uso de llaves:** Toda estructura de control debe utilizar llaves (`{}`) según la [Regla 0x1001h](../../reglas/1_control.md#0x1001h).
+- **Lazos:** Según la [Regla 0x1003h](../../reglas/1_control.md#0x1003h), se debe preferir el uso de lazos `for` para iteraciones con rango o contador definido, y `while` para lazos controlados por condiciones lógicas.
 
+---
 
-## 1.1: Cuenta regresiva
+## Primeros Pasos y Salida Básica
 
-### Descripción
-Este ejercicio consiste en implementar un programa que realice una cuenta regresiva desde un número entero positivo `N` hasta 1, para finalmente imprimir un mensaje de "¡Lanzamiento!". El objetivo es practicar el uso de lazos (lazos) y la gestión de tiempos de ejecución simples.
+### Ejercicio 1.1 - Cuenta regresiva
+
+#### Descripción
+Este ejercicio consiste en implementar un programa que realice una cuenta regresiva desde un número entero positivo `N` hasta 1, para finalmente imprimir un mensaje de "¡Lanzamiento!". El objetivo es practicar el uso de lazos y la gestión de tiempos de ejecución simples.
 
 Para que la cuenta no sea instantánea y se pueda percibir en tiempo real, se debe introducir una pausa de 1 segundo entre cada número impreso.
 
@@ -53,10 +54,11 @@ FIN
 ```
 :::
 
-## 1.2: ¡Hola mundo!
+### Ejercicio 1.2 - ¡Hola mundo!
 
-### Descripción
+#### Descripción
 El "Hola, mundo!" es el primer paso tradicional en el aprendizaje de un nuevo lenguaje de programación. El objetivo es escribir el programa más simple posible que produzca una salida visible en la pantalla, confirmando que el compilador y el entorno de desarrollo están configurados y funcionando correctamente.
+
 :::{hint} Lógica y Consideraciones
 -   **Entrada:** Este programa no requiere ninguna entrada del usuario.
 -   **Proceso:** Se utiliza una función de la biblioteca estándar para enviar texto a la salida estándar (la consola). En C, la función más común para esto es `printf()`.
@@ -75,9 +77,9 @@ FIN
 ```
 :::
 
-## 1.3: Saludador
+### Ejercicio 1.3 - Saludador
 
-### Descripción
+#### Descripción
 Este ejercicio amplía el "Hola, mundo!" para que el programa interactúe con el usuario. Debe solicitarle su nombre y luego mostrar un saludo personalizado que lo incluya. Sirve para practicar la lectura de datos desde la entrada estándar.
 
 :::{hint} Lógica y Consideraciones
@@ -104,9 +106,11 @@ FIN
 ```
 :::
 
-## 1.4: Secuencias de Pares e Impares
+---
 
-### 1.4.1: Pares en un rango
+## Rangos y Secuencias
+
+### Ejercicio 1.4 - Pares en un rango
 
 #### Descripción
 El programa debe ser capaz de identificar y mostrar todos los números pares que existen dentro de un intervalo cerrado `[n, m]`, donde los límites `n` y `m` son proporcionados por el usuario.
@@ -135,7 +139,7 @@ FIN
 ```
 :::
 
-### 1.4.2: Primeros N Impares
+### Ejercicio 1.5 - Primeros N Impares
 
 #### Descripción
 Este ejercicio consiste en generar una secuencia de números impares, comenzando desde 1, hasta alcanzar un total de `N` términos, donde `N` es un número proporcionado por el usuario.
@@ -164,9 +168,11 @@ FIN
 ```
 :::
 
-## 1.5: Operaciones con Rangos Numéricos
+---
 
-### 1.5.1: Secuencia Ascendente
+## Operaciones con Rangos Numéricos
+
+### Ejercicio 1.6 - Secuencia Ascendente
 
 #### Descripción
 El objetivo es mostrar una secuencia de números enteros que comienza en un número `n` y termina justo antes de un número `m`. Esto corresponde al intervalo matemático `[n, m)`.
@@ -192,7 +198,7 @@ FIN
 ```
 :::
 
-### 1.5.2: Secuencia Descendente
+### Ejercicio 1.7 - Secuencia Descendente
 
 #### Descripción
 Similar al anterior, pero esta vez la secuencia debe ir en orden descendente. Se parte de un número `n` y se retrocede hasta un número `m`, sin incluirlo. Esto corresponde al intervalo `(m, n]`.
@@ -201,8 +207,8 @@ Similar al anterior, pero esta vez la secuencia debe ir en orden descendente. Se
 -   **Entrada:** Leer los enteros `n` (inclusive) y `m` (exclusive).
 -   **Proceso:** Utilizar un lazo `for` que se inicialice en `n` y continúe mientras el contador sea mayor que `m`, decrementando el contador en cada paso.
 -   **Salida:** Imprimir el valor del contador en cada iteración.
-
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -218,7 +224,7 @@ FIN
 ```
 :::
 
-### 1.5.3: Sumatoria
+### Ejercicio 1.8 - Sumatoria
 
 #### Descripción
 Calcular la suma de todos los números enteros en un rango cerrado `[n, m]`. Esto es equivalente a la operación matemática $\sum_{i=n}^{m} i$.
@@ -249,7 +255,7 @@ FIN
 ```
 :::
 
-### 1.5.4: Suma de Cuadrados
+### Ejercicio 1.9 - Suma de Cuadrados
 
 #### Descripción
 Calcular la suma de los cuadrados de todos los números enteros en un rango cerrado `[n, m]`. La operación es $\sum_{i=n}^{m} i^2$.
@@ -280,9 +286,13 @@ FIN
 ```
 :::
 
-## 1.6: Par o Impar
+---
 
-### Descripción
+## Estructuras Condicionales
+
+### Ejercicio 1.10 - Par o Impar
+
+#### Descripción
 Este es un ejercicio fundamental de lógica condicional. El programa debe solicitar un número entero al usuario y determinar si es par (divisible por 2) o impar.
 
 :::{hint} Lógica y Consideraciones
@@ -310,9 +320,9 @@ FIN
 ```
 :::
 
-## 1.7: Signo de un Número
+### Ejercicio 1.11 - Signo de un Número
 
-### Descripción
+#### Descripción
 El programa debe clasificar un número real (de punto flotante) ingresado por el usuario en una de tres categorías: positivo, negativo o cero.
 
 :::{hint} Lógica y Consideraciones
@@ -323,7 +333,7 @@ El programa debe clasificar un número real (de punto flotante) ingresado por el
     2.  Si no es cero, verificar si es mayor que 0 (positivo).
     3.  Si no es ninguna de las anteriores, por descarte, es negativo.
 -   **Salida:** Imprimir el mensaje correspondiente a la categoría.
-
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -345,9 +355,11 @@ FIN
 ```
 :::
 
-## 1.8: Fórmulas Geométricas
+---
 
-### 1.8.1: Área de Triángulo (Base y Altura)
+## Fórmulas Geométricas
+
+### Ejercicio 1.12 - Área de Triángulo (Base y Altura)
 
 #### Descripción
 Calcular el área de un triángulo a partir de las longitudes de su base y su altura. La fórmula es $A = \frac{1}{2} b \cdot h$.
@@ -376,7 +388,7 @@ FIN
 ```
 :::
 
-### 1.8.2: Área de Triángulo (Fórmula de Herón)
+### Ejercicio 1.13 - Área de Triángulo (Fórmula de Herón)
 
 #### Descripción
 Calcular el área de un triángulo conociendo únicamente la longitud de sus tres lados (`a`, `b`, `c`). Para esto se utiliza la fórmula de Herón.
@@ -408,7 +420,7 @@ FIN
 ```
 :::
 
-### 1.8.3: Círculo
+### Ejercicio 1.14 - Círculo
 
 #### Descripción
 Calcular el área y la circunferencia (perímetro) de un círculo a partir de su radio.
@@ -444,7 +456,7 @@ FIN
 ```
 :::
 
-### 1.8.4: Trapecio
+### Ejercicio 1.15 - Trapecio
 
 #### Descripción
 Calcular el área de un trapecio dadas las longitudes de sus dos bases paralelas y su altura.
@@ -453,8 +465,8 @@ Calcular el área de un trapecio dadas las longitudes de sus dos bases paralelas
 -   **Entrada:** Solicitar al usuario tres valores: la base mayor (`B`), la base menor (`b`) y la altura (`h`).
 -   **Proceso:** Aplicar la fórmula del área del trapecio: $A = \frac{B+b}{2} h$.
 -   **Salida:** Mostrar el área calculada.
-
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -472,7 +484,7 @@ FIN
 ```
 :::
 
-### 1.8.5: Polígono Regular
+### Ejercicio 1.16 - Polígono Regular
 
 #### Descripción
 Calcular el área de un polígono regular (lados y ángulos iguales) a partir del número de lados, la longitud de un lado y la apotema.
@@ -483,8 +495,8 @@ Calcular el área de un polígono regular (lados y ángulos iguales) a partir de
     1.  Calcular el perímetro (`P`): $P = n \cdot l$.
     2.  Aplicar la fórmula del área: $A = \frac{P \cdot a}{2}$.
 -   **Salida:** Mostrar el área calculada.
-
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -503,7 +515,7 @@ FIN
 ```
 :::
 
-### 1.8.6: Rectángulo
+### Ejercicio 1.17 - Rectángulo
 
 #### Descripción
 Calcular el área y el perímetro de un rectángulo dadas las longitudes de su largo y su ancho.
@@ -514,8 +526,8 @@ Calcular el área y el perímetro de un rectángulo dadas las longitudes de su l
     1.  Calcular el área: $A = l \cdot w$.
     2.  Calcular el perímetro: $P = 2l + 2w$.
 -   **Salida:** Mostrar ambos resultados.
-
 :::
+
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
@@ -535,9 +547,11 @@ FIN
 ```
 :::
 
-## 1.9: Conversiones de Unidades
+---
 
-### 1.9.1: Temperaturas
+## Conversiones de Unidades
+
+### Ejercicio 1.18 - Temperaturas
 
 #### Descripción
 Crear un programa que pueda convertir temperaturas entre las escalas Celsius, Fahrenheit y Kelvin.
@@ -568,7 +582,7 @@ FIN
 ```
 :::
 
-### 1.9.2: Ángulos a Segundos
+### Ejercicio 1.19 - Ángulos a Segundos
 
 #### Descripción
 Convertir una medida de ángulo dada en formato sexagesimal (grados, minutos y segundos) a su valor total equivalente en segundos.
@@ -597,9 +611,13 @@ FIN
 ```
 :::
 
-## 1.10: Tabla de Multiplicar
+---
 
-### Descripción
+## Control de Flujo Avanzado
+
+### Ejercicio 1.20 - Tabla de Multiplicar
+
+#### Descripción
 El programa debe solicitar un número entero al usuario y mostrar su tabla de multiplicar, desde el 1 hasta el 10.
 
 :::{hint} Lógica y Consideraciones
@@ -625,18 +643,18 @@ FIN
 ```
 :::
 
-## 1.11: Patrón de Asteriscos (Triángulo)
+### Ejercicio 1.21 - Patrón de Asteriscos (Triángulo)
 
-### Descripción
+#### Descripción
 Implementar un programa que pida un número `n` e imprima un triángulo rectángulo de `n` filas de altura, construido con asteriscos.
 
 :::{hint} Lógica y Consideraciones
 -   **Entrada:** Leer un entero `n` para la altura del triángulo.
--   **Proceso:** Se necesitan dos lazos anidados.
+-   **Proceso:** Se necesitan dos lazos aninados.
     1.  El lazo exterior controlará las filas, iterando desde 1 hasta `n`.
     2.  El lazo interior controlará las columnas (los asteriscos a imprimir en cada fila). Este lazo debe iterar desde 1 hasta el número de la fila actual (la variable del lazo exterior).
 -   **Salida:** Después de que el lazo interior complete sus iteraciones para una fila, se debe imprimir un salto de línea para pasar a la siguiente.
-
+:::
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -656,10 +674,9 @@ FIN
 ```
 :::
 
+### Ejercicio 1.22 - Calculadora Básica
 
-## 1.12: Calculadora Básica
-
-### Descripción
+#### Descripción
 Crear un programa que funcione como una calculadora simple. Debe solicitar al usuario dos números y un carácter que represente la operación aritmética a realizar (+, -, *, /).
 
 :::{hint} Lógica y Consideraciones
@@ -700,9 +717,9 @@ FIN
 ```
 :::
 
-## 1.13: Adivina el Número
+### Ejercicio 1.23 - Adivina el Número
 
-### Descripción
+#### Descripción
 Desarrollar un juego simple donde el programa genera un número secreto aleatorio y el usuario debe adivinarlo. El programa proporciona pistas para guiar al usuario.
 
 :::{hint} Lógica y Consideraciones
@@ -740,10 +757,9 @@ FIN
 ```
 :::
 
+### Ejercicio 1.24 - Serie de Fibonacci (Iterativa)
 
-## 1.14: Serie de Fibonacci (Iterativa)
-
-### Descripción
+#### Descripción
 Generar y mostrar los primeros `n` términos de la serie de Fibonacci. En esta serie, cada número es la suma de los dos anteriores, comenzando con 0 y 1.
 
 :::{hint} Lógica y Consideraciones
@@ -782,9 +798,9 @@ FIN
 ```
 :::
 
-## 1.15: Cálculo de Interés Simple
+### Ejercicio 1.25 - Cálculo de Interés Simple
 
-### Descripción
+#### Descripción
 Implementar una función que calcule el monto final y el interés simple ganado a partir de un capital inicial, una tasa de interés anual y un período de tiempo en años.
 
 :::{hint} Lógica y Consideraciones
@@ -817,10 +833,9 @@ FIN
 ```
 :::
 
+### Ejercicio 1.26 - Índice de Masa Corporal (IMC)
 
-## 1.16: Índice de Masa Corporal (IMC)
-
-### Descripción
+#### Descripción
 Escribir un programa que calcule el Índice de Masa Corporal (IMC) de una persona y lo clasifique según las categorías de la OMS.
 
 :::{hint} Lógica y Consideraciones
@@ -863,9 +878,9 @@ FIN
 ```
 :::
 
-## 1.17: Días del Mes
+### Ejercicio 1.27 - Días del Mes
 
-### Descripción
+#### Descripción
 Crear un programa que, dado un mes (como número del 1 al 12) y un año, determine y muestre cuántos días tiene ese mes. Este ejercicio requiere manejar el caso especial de febrero en los años bisiestos.
 
 :::{hint} Lógica y Consideraciones
@@ -911,10 +926,9 @@ FIN
 ```
 :::
 
+### Ejercicio 1.28 - Máximo de Tres Números
 
-## 1.18: Máximo de Tres Números
-
-### Descripción
+#### Descripción
 El objetivo es encontrar el valor más grande entre tres números enteros proporcionados por el usuario. Este ejercicio se centra en el uso de condicionales anidados o operadores lógicos para realizar comparaciones múltiples.
 
 :::{hint} Lógica y Consideraciones
@@ -952,9 +966,9 @@ FIN
 ```
 :::
 
-## 1.19: Clasificación de Triángulo
+### Ejercicio 1.29 - Clasificación de Triángulo
 
-### Descripción
+#### Descripción
 Dados los largos de tres lados, el programa debe determinar si pueden formar un triángulo válido y, en caso afirmativo, clasificarlo como equilátero (todos los lados iguales), isósceles (dos lados iguales) o escaleno (todos los lados diferentes).
 
 :::{hint} Lógica y Consideraciones
@@ -990,9 +1004,9 @@ FIN
 ```
 :::
 
-## 1.20: Desglose de Billetes
+### Ejercicio 1.30 - Desglose de Billetes
 
-### Descripción
+#### Descripción
 Dado un monto de dinero entero, el programa debe calcular la cantidad mínima de billetes de distintas denominaciones para representar dicho monto.
 
 :::{hint} Lógica y Consideraciones
@@ -1028,10 +1042,9 @@ FIN
 ```
 :::
 
+### Ejercicio 1.31 - Piedra, Papel o Tijera
 
-## 1.21: Piedra, Papel o Tijera
-
-### Descripción
+#### Descripción
 Implementar el clásico juego de Piedra, Papel o Tijera para que un usuario juegue una partida contra la computadora.
 
 :::{hint} Lógica y Consideraciones
@@ -1070,14 +1083,14 @@ FIN
 ```
 :::
 
-## 1.22: Patrón de Pirámide
+### Ejercicio 1.32 - Patrón de Pirámide
 
-### Descripción
-Implementar un programa que pida un número `n` e imprima un triángulo rectángulo de `n` filas de altura, construido con asteriscos.
+#### Descripción
+Implementar un programa que pida un número `n` e imprima un triángulo de `n` filas de altura, construido con asteriscos, centrado como una pirámide.
 
 :::{hint} Lógica y Consideraciones
 -   **Entrada:** Leer un entero `n` para la altura del triángulo.
--   **Proceso:** Se necesitan dos lazos anidados.
+-   **Proceso:** Se necesitan dos lazos aninados.
     1.  El lazo exterior itera `n` veces, una por cada fila.
     2.  Se necesitan dos lazos interiores dentro del exterior:
         -   El primer lazo interior imprime los espacios en blanco necesarios para centrar la pirámide. En la fila `i`, se necesitan `n-i` espacios.
@@ -1110,10 +1123,9 @@ FIN
 ```
 :::
 
+### Ejercicio 1.33 - Validación de Contraseña Simple
 
-## 1.23: Validación de Contraseña Simple
-
-### Descripción
+#### Descripción
 Crear un programa que solicite una contraseña al usuario y no le permita continuar hasta que ingrese la contraseña correcta. Este ejercicio practica el uso de lazos `do-while` y la comparación de cadenas.
 
 :::{hint} Lógica y Consideraciones
@@ -1144,9 +1156,9 @@ FIN
 ```
 :::
 
-## 1.24: Cajero Automático (Menú)
+### Ejercicio 1.34 - Cajero Automático (Menú)
 
-### Descripción
+#### Descripción
 Simular la interfaz de un menú de cajero automático. El programa debe mostrar una lista de opciones y ejecutar una acción simple según la elección del usuario, repitiendo el proceso hasta que el usuario decida salir.
 
 :::{hint} Lógica y Consideraciones
@@ -1195,9 +1207,9 @@ FIN
 ```
 :::
 
-## 1.25: Patrón de Rombo
+### Ejercicio 1.35 - Patrón de Rombo
 
-### Descripción
+#### Descripción
 Implementar un programa que pida un número impar `n` e imprima un rombo de asteriscos de `n` filas de altura.
 
 :::{hint} Lógica y Consideraciones
@@ -1205,7 +1217,7 @@ Implementar un programa que pida un número impar `n` e imprima un rombo de aste
 -   **Entrada:** Leer un entero impar `n`.
 -   **Proceso:**
     1.  **Parte Superior:** Usar la lógica del ejercicio de la pirámide para imprimir la mitad superior del rombo, con una altura de `(n/2) + 1`.
-    2.  **Parte Inferior:** Usar un segundo conjunto de lazos anidados para imprimir la pirámide invertida. El lazo exterior iterará desde `n/2` hacia abajo hasta 1.
+    2.  **Parte Inferior:** Usar un segundo conjunto de lazos aninados para imprimir la pirámide invertida. El lazo exterior iterará desde `n/2` hacia abajo hasta 1.
 :::
 
 :::{tip} Ayuda (pseudocódigo)
@@ -1229,9 +1241,9 @@ FIN
 ```
 :::
 
-## 1.26: Promedio de N Números
+### Ejercicio 1.36 - Promedio de N Números
 
-### Descripción
+#### Descripción
 Escribir un programa que sea flexible en la cantidad de números a promediar. Primero debe preguntar al usuario cuántos números va a ingresar y luego calcular el promedio de esa cantidad de números.
 
 :::{hint} Lógica y Consideraciones
@@ -1272,9 +1284,9 @@ FIN
 ```
 :::
 
-## 1.27: Contador de Dígitos
+### Ejercicio 1.37 - Contador de Dígitos
 
-### Descripción
+#### Descripción
 Crear una función que reciba un número entero y devuelva la cantidad de dígitos que lo componen.
 
 :::{hint} Lógica y Consideraciones
@@ -1311,9 +1323,9 @@ FIN
 ```
 :::
 
-## 1.28: Invertir un Número Entero
+### Ejercicio 1.38 - Invertir un Número Entero
 
-### Descripción
+#### Descripción
 Implementar una función que tome un número entero y devuelva otro número con los dígitos en orden inverso.
 
 :::{hint} Lógica y Consideraciones
@@ -1348,9 +1360,9 @@ FIN
 ```
 :::
 
-## 1.29: Potencia con Lazos
+### Ejercicio 1.39 - Potencia con Lazos
 
-### Descripción
+#### Descripción
 Escribir una función que calcule `base^exponente` sin usar la función `pow()` de la biblioteca `math.h`. Debe funcionar para exponentes enteros no negativos.
 
 :::{hint} Lógica y Consideraciones
@@ -1381,9 +1393,9 @@ FIN
 ```
 :::
 
-## 1.30: Menú de Conversiones
+### Ejercicio 1.40 - Menú de Conversiones
 
-### Descripción
+#### Descripción
 Crear un programa robusto que presente al usuario un menú con varias opciones de conversión de unidades (ej. Celsius a Fahrenheit, Metros a Pies, Kilogramos a Libras). El programa debe repetir el menú hasta que el usuario elija la opción de salir.
 
 :::{hint} Lógica y Consideraciones
@@ -1415,9 +1427,9 @@ FIN
 ```
 :::
 
-## 1.31: Validación de Fecha
+### Ejercicio 1.41 - Validación de Fecha
 
-### Descripción
+#### Descripción
 Crear una función que valide si una combinación de día, mes y año corresponde a una fecha real en el calendario gregoriano.
 
 :::{hint} Lógica y Consideraciones
@@ -1456,14 +1468,14 @@ FIN FUNCION
 ```
 :::
 
-## 1.32: Dibujar un Cuadrado Hueco
+### Ejercicio 1.42 - Dibujar un Cuadrado Hueco
 
-### Descripción
+#### Descripción
 Pedir al usuario un número `n` y dibujar el contorno de un cuadrado de `n x n` utilizando asteriscos. El interior del cuadrado debe estar vacío.
 
 :::{hint} Lógica y Consideraciones
 -   **Entrada:** Leer un entero `n`.
--   **Proceso:** Usar lazos anidados. El lazo exterior para las filas y el interior para las columnas.
+-   **Proceso:** Usar lazos aninados. El lazo exterior para las filas y el interior para las columnas.
 -   **Condición:** Dentro del lazo interior, se debe decidir si imprimir un asterisco o un espacio. Se imprime un asterisco si:
     -   Es la primera o la última fila (`fila == 1` o `fila == n`).
     -   Es la primera o la última columna (`columna == 1` o `columna == n`).
@@ -1492,9 +1504,9 @@ FIN
 ```
 :::
 
-## 1.33: Suma Separada de Pares e Impares
+### Ejercicio 1.43 - Suma Separada de Pares e Impares
 
-### Descripción
+#### Descripción
 Dado un rango de números `[n, m]`, el programa debe calcular la suma de todos los números pares y la suma de todos los números impares de forma independiente y mostrar ambos resultados.
 
 :::{hint} Lógica y Consideraciones
@@ -1532,15 +1544,15 @@ FIN
 ```
 :::
 
-## 1.34: Número de la Suerte
+### Ejercicio 1.44 - Número de la Suerte
 
-### Descripción
+#### Descripción
 Un número de la suerte es un entero con una cantidad par de dígitos, donde la suma de los dígitos de la primera mitad es igual a la suma de los dígitos de la segunda mitad. El programa debe verificar si un número dado es de la suerte.
 
 :::{hint} Lógica y Consideraciones
 -   **Entrada:** Leer un número entero.
 -   **Proceso:**
-    1.  Primero, contar el número de dígitos (ver ejercicio 1.27). Si es impar, no es un número de la suerte.
+    1.  Primero, contar el número de dígitos (ver ejercicio 1.37). Si es impar, no es un número de la suerte.
     2.  Si es par, dividir el número en dos mitades. Esto se puede hacer matemáticamente. Por ejemplo, para un número de 4 dígitos, la primera mitad son los dos primeros dígitos y la segunda mitad son los dos últimos.
     3.  Calcular la suma de los dígitos de cada mitad por separado.
     4.  Comparar las dos sumas.
@@ -1583,4 +1595,3 @@ INICIO
 FIN
 ```
 :::
-

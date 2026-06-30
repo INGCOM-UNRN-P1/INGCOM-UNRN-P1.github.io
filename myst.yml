@@ -97,35 +97,48 @@ project:
     - title: Ejercicios
       file: ejercicios/readme.md
       children:
-        - file: ejercicios/cuadernillo.md
-        - title: Fundamentos
+        - title: "Bloque 1: Fundamentos"
           children:
-            - file: ejercicios/1_basicos_y_secuencias.md
-            - file: ejercicios/2_matematicos.md
-            - file: ejercicios/3_arreglos.md
-            - file: ejercicios/4_cadenas.md
-            - file: ejercicios/5_punteros.md
-            - file: ejercicios/6_memoria_dinamica.md
-            - file: ejercicios/7_matrices.md
-            - file: ejercicios/8_archivos.md
-            - file: ejercicios/9_structs.md
-            - file: ejercicios/10_enums.md
-            - file: ejercicios/10_recursion.md
-        - title: Avanzados
+            - file: ejercicios/bloque_1_fundamentos/cuadernillo.md
+            - file: ejercicios/bloque_1_fundamentos/1_basicos_y_secuencias.md
+            - file: ejercicios/bloque_1_fundamentos/2_gradual_ejercicios.md
+            - file: ejercicios/bloque_1_fundamentos/3_matematicos.md
+            - file: ejercicios/bloque_1_fundamentos/5_ejercicios_control.md
+            - file: ejercicios/bloque_1_fundamentos/6_funciones_ejercicios.md
+            - file: ejercicios/bloque_1_fundamentos/8_recursion.md
+        - title: "Bloque 2: Estructuración y Proyectos"
           children:
-            - file: ejercicios/11_memoria.md
-            - file: ejercicios/11_ordenamiento_y_busqueda.md
-            - file: ejercicios/12_punteros_2.md
-            - file: ejercicios/12_operaciones_de_bits.md
-            - file: ejercicios/13_tad.md
-            - file: ejercicios/13_estructuras_de_datos.md
-            - file: ejercicios/14_complejidad.md
-            - file: ejercicios/14_compilacion_y_makefiles.md
-            - file: ejercicios/15_recursividad.md
-            - file: ejercicios/15_archivos_binarios.md
-            - file: ejercicios/16_punteros_avanzados.md
-            - file: ejercicios/17_analisis_de_codigo.md
-            - file: ejercicios/diseno_api.md
+            - file: ejercicios/bloque_2_proyectos/2_compilacion_y_makefiles.md
+            - file: ejercicios/bloque_2_proyectos/3_alias_tipos_ejercicios.md
+            - file: ejercicios/bloque_2_proyectos/4_enums.md
+        - title: "Bloque 3: Disposición de Memoria y Estructuras Estáticas"
+          children:
+            - file: ejercicios/bloque_3_memoria_estatica/1b_operaciones_de_bits.md
+            - file: ejercicios/bloque_3_memoria_estatica/2_arreglos.md
+            - file: ejercicios/bloque_3_memoria_estatica/2b_cadenas.md
+            - file: ejercicios/bloque_3_memoria_estatica/3_matrices.md
+            - file: ejercicios/bloque_3_memoria_estatica/4_punteros.md
+            - file: ejercicios/bloque_3_memoria_estatica/4b_punteros_ejercicios.md
+            - file: ejercicios/bloque_3_memoria_estatica/5_structs.md
+        - title: "Bloque 4: Gestión Dinámica de Recursos e Interfaces"
+          children:
+            - file: ejercicios/bloque_4_dinamica_interfaces/1_memoria_dinamica.md
+            - file: ejercicios/bloque_4_dinamica_interfaces/1b_memoria.md
+            - file: ejercicios/bloque_4_dinamica_interfaces/1c_ejercicios_memoria.md
+            - file: ejercicios/bloque_4_dinamica_interfaces/2_punteros_2.md
+            - file: ejercicios/bloque_4_dinamica_interfaces/3_archivos.md
+            - file: ejercicios/bloque_4_dinamica_interfaces/3b_ejercicios_archivos.md
+            - file: ejercicios/bloque_4_dinamica_interfaces/4_punteros_avanzados.md
+            - file: ejercicios/bloque_4_dinamica_interfaces/6_tad.md
+            - file: ejercicios/bloque_4_dinamica_interfaces/7_estructuras_de_datos.md
+            - file: ejercicios/bloque_4_dinamica_interfaces/10_complejidad.md
+        - title: "Bloque 5: Temas avanzados"
+          children:
+            - file: ejercicios/bloque_5_avanzados/ordenamiento_y_busqueda.md
+            - file: ejercicios/bloque_5_avanzados/archivos_binarios.md
+            - file: ejercicios/bloque_5_avanzados/recursividad_avanzada.md
+            - file: ejercicios/bloque_5_avanzados/analisis_de_codigo.md
+            - file: ejercicios/bloque_5_avanzados/diseno_api.md
     - title: Referencia
       children:
         - file: referencia/indice.md

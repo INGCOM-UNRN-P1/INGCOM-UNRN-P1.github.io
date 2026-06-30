@@ -1,17 +1,22 @@
 ---
-title: Ejercicios de Arreglos (Estáticos)
-short_title: 3. Arreglos
+title: "Ejercicios de Arreglos (Estáticos)"
+short_title: "3. Arreglos"
 ---
 
-Ejercicios para practicar la manipulación de arreglos de tamaño fijo. Un arreglo
-es una colección de elementos del mismo tipo almacenados en ubicaciones de
-memoria contiguas.
+# Ejercicios de Arreglos (Estáticos)
 
----
+## Acerca de
 
-## 1: Operaciones Básicas
+Ejercicios para practicar la manipulación de arreglos de tamaño fijo. Un arreglo es una colección de elementos del mismo tipo almacenados en ubicaciones de memoria contiguas.
 
-### 1.1: Carga y Muestra
+Para profundizar en los conceptos teóricos, podés consultar el siguiente capítulo del apunte:
+- [Secuencias y Arreglos](../../apunte/bloque_3_memoria_estatica/2_secuencias.md)
+
+## Operaciones Básicas
+
+## Operaciones Básicas
+
+### Ejercicio 2.1 - Carga y muestra
 
 #### Descripción
 Crear dos funciones complementarias para manejar arreglos: una para que el usuario ingrese datos y llene un arreglo, y otra para mostrar el contenido del arreglo de una forma clara y legible.
@@ -50,7 +55,7 @@ FIN PROCEDIMIENTO
 ```
 :::
 
-### 1.2: Suma
+### Ejercicio 2.2 - Suma
 
 #### Descripción
 Calcular la suma de todos los elementos contenidos en un arreglo de números.
@@ -77,7 +82,7 @@ FIN FUNCION
 ```
 :::
 
-### 1.3: Promedio
+### Ejercicio 2.3 - Promedio
 
 #### Descripción
 Calcular el valor promedio (media aritmética) de los elementos de un arreglo.
@@ -103,8 +108,9 @@ INICIO
     RETORNAR suma / (real)tamano
 FIN FUNCION
 ```
+:::
 
-### 1.4: Productoria
+### Ejercicio 2.4 - Productoria
 
 #### Descripción
 Calcular el producto de todos los elementos de un arreglo.
@@ -130,11 +136,10 @@ INICIO
 FIN FUNCION
 ```
 :::
----
 
-## 2: Búsqueda y Estadísticas
+## Búsqueda y Estadísticas
 
-### 2.1: Máximo y Mínimo
+### Ejercicio 2.5 - Máximo y mínimo
 
 #### Descripción
 Encontrar los valores más grande (máximo) y más pequeño (mínimo) dentro de un arreglo de números.
@@ -170,7 +175,7 @@ FIN PROCEDIMIENTO
 ```
 :::
 
-### 2.2: Casi Máximo
+### Ejercicio 2.6 - Casi máximo
 
 #### Descripción
 Encontrar el segundo elemento más grande en un arreglo. Este ejercicio requiere un seguimiento más cuidadoso que simplemente encontrar el máximo.
@@ -209,7 +214,7 @@ FIN FUNCION
 ```
 :::
 
-### 2.3: Búsqueda de Elemento
+### Ejercicio 2.7 - Búsqueda de elemento
 
 #### Descripción
 Implementar una búsqueda lineal para encontrar la primera ocurrencia de un elemento específico dentro de un arreglo. Si se encuentra, se debe devolver su índice.
@@ -235,7 +240,7 @@ FIN FUNCION
 ```
 :::
 
-### 2.4: Contar Repeticiones
+### Ejercicio 2.8 - Contar repeticiones
 
 #### Descripción
 Contar cuántas veces aparece un número específico en un arreglo.
@@ -264,7 +269,7 @@ FIN FUNCION
 ```
 :::
 
-### 2.5: Elemento más Cercano
+### Ejercicio 2.9 - Elemento más cercano
 
 #### Descripción
 Dado un arreglo y un valor de referencia, encontrar el elemento en el arreglo que tiene la menor diferencia absoluta con dicho valor.
@@ -298,11 +303,9 @@ FIN FUNCION
 ```
 :::
 
----
+## Manipulación de Arreglos
 
-## 3: Manipulación de Arreglos
-
-### 3.1: Inversión
+### Ejercicio 2.10 - Inversión
 
 #### Descripción
 Invertir el orden de los elementos de un arreglo _in-place_, es decir, sin usar un segundo arreglo para almacenar el resultado temporalmente.
@@ -337,7 +340,7 @@ FIN PROCEDIMIENTO
 ```
 :::
 
-### 3.2: Copia
+### Ejercicio 2.11 - Copia
 
 #### Descripción
 Copiar todos los elementos de un arreglo de origen a un arreglo de destino.
@@ -359,7 +362,7 @@ FIN PROCEDIMIENTO
 ```
 :::
 
-### 3.3: Deduplicación
+### Ejercicio 2.12 - Deduplicación
 
 #### Descripción
 Eliminar los elementos duplicados de un arreglo, conservando solo la primera aparición de cada elemento. La función debe modificar el arreglo _in-place_ y devolver el nuevo tamaño lógico.
@@ -390,11 +393,9 @@ FIN FUNCION
 ```
 :::
 
----
+## Verificación
 
-## 4: Verificación
-
-### 4.1: ¿Está ordenado?
+### Ejercicio 2.13 - ¿Está ordenado?
 
 #### Descripción
 Verificar si un arreglo está ordenado de forma ascendente.
@@ -420,7 +421,7 @@ FIN FUNCION
 ```
 :::
 
-### 4.2: Solo Positivos
+### Ejercicio 2.14 - Solo positivos
 
 #### Descripción
 Verificar si todos los elementos de un arreglo son números positivos (mayores que cero).
@@ -446,11 +447,9 @@ FIN FUNCION
 ```
 :::
 
----
+## Operaciones Avanzadas con Arreglos
 
-## 5: Operaciones Avanzadas con Arreglos
-
-### 5.1: Rotación de Arreglo
+### Ejercicio 2.15 - Rotación de arreglo
 
 #### Descripción
 Implementar una función que rote los elementos de un arreglo `k` posiciones hacia la derecha. Esto significa que los últimos `k` elementos se moverán al principio del arreglo, y el resto de los elementos se desplazarán hacia la derecha.
@@ -489,7 +488,7 @@ FIN PROCEDIMIENTO
 ```
 :::
 
-### 5.2: Fusión de Arreglos
+### Ejercicio 2.16 - Fusión de arreglos
 
 #### Descripción
 Escribir una función que fusione dos arreglos en un tercer arreglo que contenga todos los elementos de los dos primeros. Si los arreglos originales están ordenados, el resultado también debería estarlo (ver Merge Sort).
@@ -502,7 +501,7 @@ Escribir una función que fusione dos arreglos en un tercer arreglo que contenga
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
-```{code-block} pseudocodev
+```{code-block} pseudocode
 FUNCION fusionar_ordenado(a1, n1, a2, n2)
 VARIABLES:
     resultado (arreglo de tamaño n1+n2)
@@ -535,7 +534,7 @@ FIN FUNCION
 ```
 :::
 
-### 5.3: Intersección de Arreglos
+### Ejercicio 2.17 - Intersección de arreglos
 
 #### Descripción
 Crear una función que reciba dos arreglos y devuelva un nuevo arreglo con los elementos que son comunes a ambos. Cada elemento debe aparecer solo una vez en el resultado.
@@ -569,7 +568,7 @@ FIN FUNCION
 ```
 :::
 
-### 5.4: Unión de Arreglos
+### Ejercicio 2.18 - Unión de arreglos
 
 #### Descripción
 Crear una función que reciba dos arreglos y devuelva un nuevo arreglo con todos los elementos de ambos, sin duplicados.
@@ -605,7 +604,7 @@ FIN FUNCION
 ```
 :::
 
-### 5.5: Separar Pares e Impares
+### Ejercicio 2.19 - Separar pares e impares
 
 #### Descripción
 Reorganizar un arreglo _in-place_ de tal manera que todos los números pares queden al principio y todos los impares al final. El orden relativo entre los números pares o entre los impares no necesita conservarse.
@@ -644,7 +643,7 @@ FIN PROCEDIMIENTO
 ```
 :::
 
-### 5.6: Algoritmo de Kadane (Suma Máxima de Subarreglo)
+### Ejercicio 2.20 - Algoritmo de Kadane (Suma máxima de subarreglo)
 
 #### Descripción
 Implementar el algoritmo de Kadane para encontrar la suma del subarreglo contiguo que tenga la suma más grande. El arreglo puede contener números negativos.
@@ -678,7 +677,7 @@ FIN FUNCION
 ```
 :::
 
-### 5.7: Histograma
+### Ejercicio 2.21 - Histograma
 
 #### Descripción
 Dado un arreglo de enteros no negativos, el programa debe imprimir un histograma simple usando asteriscos, donde cada número `n` se representa con una línea de `n` asteriscos.
@@ -705,7 +704,7 @@ FIN PROCEDIMIENTO
 ```
 :::
 
-### 5.8: Barajar Arreglo (Fisher-Yates)
+### Ejercicio 2.22 - Barajar arreglo (Fisher-Yates)
 
 #### Descripción
 Implementar el algoritmo de Fisher-Yates para barajar (desordenar aleatoriamente) los elementos de un arreglo _in-place_.
@@ -732,7 +731,7 @@ FIN PROCEDIMIENTO
 ```
 :::
 
-### 5.9: Encontrar Elemento Faltante
+### Ejercicio 2.23 - Encontrar elemento faltante
 
 #### Descripción
 Dado un arreglo que contiene `n-1` números distintos en el rango de 1 a `n`, encontrar el único número que falta.
@@ -747,7 +746,6 @@ Dado un arreglo que contiene `n-1` números distintos en el rango de 1 a `n`, en
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
-```pseudocode
 FUNCION encontrar_faltante(arreglo, tamano_actual)
 VARIABLES:
     n, suma_esperada, suma_real (enteros)
@@ -760,7 +758,7 @@ FIN FUNCION
 ```
 :::
 
-### 5.10: Encontrar Par con Suma X
+### Ejercicio 2.24 - Encontrar par con suma X
 
 #### Descripción
 Dado un arreglo de números y un valor `X`, determinar si existe un par de elementos en el arreglo cuya suma sea exactamente `X`.
@@ -800,7 +798,7 @@ FIN FUNCION
 ```
 :::
 
-### 5.11: Mediana de un Arreglo
+### Ejercicio 2.25 - Mediana de un arreglo
 
 #### Descripción
 Calcular la mediana de un arreglo. La mediana es el valor que se encuentra en la posición central de un arreglo ordenado. Si el arreglo tiene un número par de elementos, la mediana es el promedio de los dos elementos centrales.
@@ -823,11 +821,11 @@ INICIO
     SINO
         RETORNAR (arreglo[tamano/2 - 1] + arreglo[tamano/2]) / 2.0
     FIN SI
-FIN FUNCION
+    FIN FUNCION
 ```
 :::
 
-### 5.12: Moda de un Arreglo
+### Ejercicio 2.26 - Moda de un arreglo
 
 #### Descripción
 Encontrar la moda de un arreglo, que es el elemento que aparece con mayor frecuencia.
@@ -864,7 +862,7 @@ FIN FUNCION
 ```
 :::
 
-### 5.13: Rellenar con Secuencia Aritmética
+### Ejercicio 2.27 - Rellenar con secuencia aritmética
 
 #### Descripción
 Escribir una función que llene un arreglo con los términos de una secuencia aritmética, dados un valor de inicio, un tamaño y un paso (la diferencia constante entre términos).
@@ -885,7 +883,7 @@ FIN PROCEDIMIENTO
 ```
 :::
 
-### 5.14: Diferencia Simétrica
+### Ejercicio 2.28 - Diferencia simétrica
 
 #### Descripción
 Calcular la diferencia simétrica entre dos arreglos. El resultado debe ser un nuevo arreglo que contenga los elementos que están en uno de los arreglos, pero no en ambos.
@@ -918,7 +916,7 @@ FIN FUNCION
 ```
 :::
 
-### 5.15: Conteo de Inversiones
+### Ejercicio 2.29 - Conteo de inversiones
 
 #### Descripción
 Contar el número de "inversiones" en un arreglo. Una inversión es un par de índices `(i, j)` tales que `i < j` y `arr[i] > arr[j]`. Un arreglo perfectamente ordenado tiene 0 inversiones.
@@ -947,11 +945,9 @@ FIN FUNCION
 ```
 :::
 
----
+## Más Manipulación de Arreglos
 
-## 6: Más Manipulación de Arreglos
-
-### 6.1: Picos y Valles
+### Ejercicio 2.30 - Picos y valles
 
 #### Descripción
 Escribir una función que encuentre todos los "picos" en un arreglo. Un pico es un elemento que es estrictamente mayor que sus dos vecinos (el anterior y el siguiente). Los elementos en los extremos no pueden ser picos.
@@ -974,7 +970,7 @@ FIN PROCEDIMIENTO
 ```
 :::
 
-### 6.2: Subarreglo Más Largo con Suma Cero
+### Ejercicio 2.31 - Subarreglo más largo con suma cero
 
 #### Descripción
 Dado un arreglo de enteros (positivos y negativos), encontrar la longitud del subarreglo contiguo más largo cuya suma de elementos sea cero.
@@ -1009,7 +1005,7 @@ FIN FUNCION
 ```
 :::
 
-### 6.3: Reorganizar Positivos y Negativos
+### Ejercicio 2.32 - Reorganizar positivos y negativos
 
 #### Descripción
 Reorganizar un arreglo _in-place_ de tal manera que todos los números negativos aparezcan antes que todos los números positivos. El orden relativo entre los números del mismo signo no es importante.
@@ -1041,7 +1037,7 @@ FIN PROCEDIMIENTO
 ```
 :::
 
-### 6.4: Producto de los Demás Elementos
+### Ejercicio 2.33 - Producto de los demás elementos
 
 #### Descripción
 Dado un arreglo de números, crear un nuevo arreglo donde cada elemento en la posición `i` sea el producto de todos los demás números del arreglo original, pero sin usar el operador de división.
@@ -1077,7 +1073,7 @@ FIN FUNCION
 ```
 :::
 
-### 6.5: Arreglo de Frecuencias
+### Ejercicio 2.34 - Arreglo de frecuencias
 
 #### Descripción
 Dado un arreglo de enteros que contiene números en un rango conocido (por ejemplo, de 0 a 99), crear un "arreglo de frecuencias" que cuente cuántas veces aparece cada número.
@@ -1103,7 +1099,7 @@ FIN FUNCION
 ```
 :::
 
-### 6.6: ¿Es Subconjunto?
+### Ejercicio 2.35 - ¿Es subconjunto?
 
 #### Descripción
 Implementar una función que determine si un arreglo `A` es un subconjunto de otro arreglo `B`. Esto significa que todos los elementos de `A` deben estar presentes en `B`.
@@ -1139,7 +1135,7 @@ FIN FUNCION
 ```
 :::
 
-### 6.7: Mover Ceros al Final
+### Ejercicio 2.36 - Mover ceros al final
 
 #### Descripción
 Escribir una función que mueva todos los ceros de un arreglo al final del mismo, manteniendo el orden relativo de los elementos no nulos.
@@ -1172,7 +1168,7 @@ FIN PROCEDIMIENTO
 ```
 :::
 
-### 6.8: Líderes en un Arreglo
+### Ejercicio 2.37 - Líderes en un arreglo
 
 #### Descripción
 Encontrar todos los "líderes" en un arreglo. Un elemento es un líder si es mayor que todos los elementos que se encuentran a su derecha. El elemento más a la derecha siempre es un líder.
@@ -1203,7 +1199,7 @@ FIN PROCEDIMIENTO
 ```
 :::
 
-### 6.9: Máxima Diferencia
+### Ejercicio 2.38 - Máxima diferencia
 
 #### Descripción
 Encontrar la máxima diferencia `arr[j] - arr[i]` en un arreglo, con la condición de que el índice `j` sea mayor que el índice `i`.
@@ -1239,7 +1235,7 @@ FIN FUNCION
 ```
 :::
 
-### 6.10: Punto de Equilibrio
+### Ejercicio 2.39 - Punto de equilibrio
 
 #### Descripción
 Encontrar un "punto de equilibrio" en un arreglo. Es un índice tal que la suma de los elementos a su izquierda es igual a la suma de los elementos a su derecha. Si no existe, devolver -1.

@@ -1,21 +1,30 @@
 ---
 title: Ejercicios Matemáticos
-short_title: 2. Matemáticos
+short_title: 3. Matemáticos
 ---
 
 # Ejercicios Matemáticos
 
-Ejercicios centrados en algoritmos de teoría de números y operaciones
-matemáticas.
+## Acerca de
+
+Estos ejercicios están centrados en algoritmos de teoría de números y operaciones matemáticas en C. Te permitirán comprender cómo se implementan los cálculos matemáticos de forma iterativa y condicional, y cómo manejar las limitaciones de precisión de las variables.
+
+### Capítulos de Apunte Correspondientes
+- {ref}`capitulo-aritmetica-numeros`
+- {ref}`capitulo-conversiones-casts`
+
+### Cuestiones de Estilo Aplicables
+- **Desbordamientos numéricos:** Es fundamental elegir los tipos de datos apropiados (`long long`, `unsigned long long`) al realizar operaciones como factoriales para evitar desbordamientos aritméticos (ver [Capítulo de Representación de Números](capitulo-aritmetica-numeros)).
+- **Uso de tipos reales:** Al dividir enteros para obtener coeficientes reales, recordá realizar el cast explícito o usar constantes reales (como `2.0`) para prevenir la truncación no deseada por división entera.
 
 ---
 
-## 1: Aritmética Lenta
+## Aritmética Lenta
 
-### 1.1: Suma lenta
+### Ejercicio 3.1 - Suma lenta
 
 #### Descripción
-Implementar una función que simule la adición de dos números enteros, `n` y `m`, utilizando ñicamente las operaciones más básicas de la unidad aritmético-lógica: sumar o restar 1. Este ejercicio ayuda a comprender la suma como una serie de incrementos o decrementos sucesivos.
+Implementar una función que simule la adición de dos números enteros, `n` y `m`, utilizando únicamente las operaciones más básicas de la unidad aritmético-lógica: sumar o restar 1. Este ejercicio ayuda a comprender la suma como una serie de incrementos o decrementos sucesivos.
 
 #### Lógica y Consideraciones
 -   **Entrada:** Dos números enteros, `n` y `m`.
@@ -44,10 +53,11 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 1.2: División lenta
+
+### Ejercicio 3.2 - División lenta
 
 #### Descripción
-Implementar la división entera para obtener el cociente y el resto de `a / b` utilizando ñicamente restas sucesivas. Este método emula cómo se podría realizar una división de forma manual o en hardware muy simple.
+Implementar la división entera para obtener el cociente y el resto de `a / b` utilizando únicamente restas sucesivas. Este método emula cómo se podría realizar una división de forma manual o en hardware muy simple.
 
 #### Lógica y Consideraciones
 -   **Entrada:** Dos enteros positivos, `dividendo` y `divisor`.
@@ -69,7 +79,8 @@ INICIO
 FIN PROCEDIMIENTO
 ```
 :::
-### 1.3: División egipcia
+
+### Ejercicio 3.3 - División egipcia
 
 #### Descripción
 Implementar el antiguo método de división egipcio, que no requiere tablas de multiplicar ni operaciones de división directa. Se basa en duplicar el divisor, encontrar qué duplicaciones suman el dividendo y sumar los factores de duplicación correspondientes.
@@ -78,7 +89,7 @@ Implementar el antiguo método de división egipcio, que no requiere tablas de m
 -   **Entrada:** Un dividendo y un divisor.
 -   **Proceso:** 
     1.  **Tabla de Duplicación:** Crear dos columnas. La primera empieza en 1 y la segunda en el `divisor`. En cada paso, duplicar el valor de la fila anterior en ambas columnas. Detenerse cuando el siguiente valor en la columna del divisor supere al `dividendo`.
-    2.  **Básqueda y Suma:** Recorrer la tabla de abajo hacia arriba. Para cada fila, si el valor en la columna del divisor es menor o igual al `dividendo` restante, se resta ese valor del `dividendo` y se suma el valor correspondiente de la primera columna al `cociente`.
+    2.  **Búsqueda y Suma:** Recorrer la tabla de abajo hacia arriba. Para cada fila, si el valor en la columna del divisor es menor o igual al `dividendo` restante, se resta ese valor del `dividendo` y se suma el valor correspondiente de la primera columna al `cociente`.
 -   **Salida:** El `cociente` acumulado y el `dividendo` final (que es el resto).
 
 :::{tip} Ayuda (pseudocódigo)
@@ -110,11 +121,12 @@ INICIO
 FIN PROCEDIMIENTO
 ```
 :::
+
 ---
 
-## 2: Divisibilidad y Factores
+## Divisibilidad y Factores
 
-### 2.1: Divisibilidad
+### Ejercicio 3.4 - Divisibilidad
 
 #### Descripción
 Determinar si un número entero `a` es divisible de forma exacta por otro entero `b`.
@@ -137,10 +149,11 @@ INICIO
     SINO
         RETORNAR FALSO
     FIN SI
-FIN FUNCION
+END FUNCION
 ```
+:::
 
-### 2.2: Factorial
+### Ejercicio 3.5 - Factorial
 
 #### Descripción
 Calcular el factorial de un número entero no negativo `n`, denotado como `n!`. El factorial es el producto de todos los enteros positivos desde 1 hasta `n`.
@@ -174,13 +187,13 @@ FIN FUNCION
 ```
 :::
 
-### 2.3: MCD y MCM
+### Ejercicio 3.6 - MCD y MCM
 
 #### Descripción
-Implementar funciones para calcular el Máximo Comón Divisor (MCD) y el Mínimo Comón Móltiplo (MCM) de dos números enteros.
+Implementar funciones para calcular el Máximo Común Divisor (MCD) y el Mínimo Común Múltiplo (MCM) de dos números enteros.
 
 #### Lógica y Consideraciones
--   **MCD (Algoritmo de Euclides):** Es el método más eficiente. Mientras `b` no sea cero, se calcula el resto `r = a % b`, luego se actualiza `a = b` y `b = r`. El MCD es el óltimo valor no nulo de `a`.
+-   **MCD (Algoritmo de Euclides):** Es el método más eficiente. Mientras `b` no sea cero, se calcula el resto `r = a % b`, luego se actualiza `a = b` y `b = r`. El MCD es el último valor no nulo de `a`.
 -   **MCM:** Se puede calcular fácilmente una vez que se tiene el MCD, usando la fórmula: $MCM(a, b) = \frac{|a \cdot b|}{MCD(a, b)}$. 
 
 :::{tip} Ayuda (pseudocódigo)
@@ -199,11 +212,12 @@ INICIO
 FIN FUNCION
 ```
 :::
+
 ---
 
-## 3: Propiedades de los Números
+## Propiedades de los Números
 
-### 3.1: Suma de dígitos
+### Ejercicio 3.7 - Suma de dígitos
 
 #### Descripción
 Calcular la suma de los dígitos individuales de un número entero positivo.
@@ -211,9 +225,9 @@ Calcular la suma de los dígitos individuales de un número entero positivo.
 #### Lógica y Consideraciones
 -   **Entrada:** Un entero positivo `n`.
 -   **Proceso:** Se utiliza un lazo que se repite mientras `n` sea mayor que 0.
-    1.  **Obtener óltimo dígito:** `digito = n % 10`.
+    1.  **Obtener último dígito:** `digito = n % 10`.
     2.  **Sumar dígito:** `suma = suma + digito`.
-    3.  **Eliminar óltimo dígito:** `n = n / 10` (división entera).
+    3.  **Eliminar último dígito:** `n = n / 10` (división entera).
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -232,7 +246,7 @@ FIN FUNCION
 ```
 :::
 
-### 3.2: Invertir un número
+### Ejercicio 3.8 - Invertir un número
 
 #### Descripción
 Tomar un número entero y devolver otro número con sus dígitos en orden inverso.
@@ -262,7 +276,7 @@ FIN FUNCION
 ```
 :::
 
-### 3.3: Capicúas
+### Ejercicio 3.9 - Capicúas
 
 #### Descripción
 Verificar si un número es capicúa (o palíndromo), es decir, si se lee igual de izquierda a derecha que de derecha a izquierda.
@@ -283,16 +297,17 @@ INICIO
     FIN SI
 FIN FUNCION
 ```
+:::
 
-### 3.4: Números Primos
+### Ejercicio 3.10 - Números Primos
 
 #### Descripción
 Verificar si un número entero mayor que 1 es un número primo. Un número es primo si solo es divisible por 1 y por sí mismo.
 
 #### Lógica y Consideraciones
 -   **Entrada:** Un entero `n`.
--   **Casos Base:** Números menores o iguales a 1 no son primos. 2 es el ónico primo par.
--   **Proceso:** Para verificar si `n` es primo, basta con comprobar si es divisible por algón número desde 2 hasta la raíz cuadrada de `n` ($\sqrt{n}$). Si se encuentra un divisor en ese rango, el número no es primo.
+-   **Casos Base:** Números menores o iguales a 1 no son primos. 2 es el único primo par.
+-   **Proceso:** Para verificar si `n` es primo, basta con comprobar si es divisible por algún número desde 2 hasta la raíz cuadrada de `n` ($\sqrt{n}$). Si se encuentra un divisor en ese rango, el número no es primo.
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -310,7 +325,7 @@ FIN FUNCION
 ```
 :::
 
-### 3.5: Números Perfectos
+### Ejercicio 3.11 - Números Perfectos
 
 #### Descripción
 Determinar si un número es un "número perfecto". Un número perfecto es un entero positivo que es igual a la suma de sus divisores propios positivos (todos sus divisores excepto él mismo).
@@ -340,7 +355,7 @@ FIN FUNCION
 ```
 :::
 
-### 3.6: Números Amigos
+### Ejercicio 3.12 - Números Amigos
 
 #### Descripción
 Verificar si dos números enteros positivos, `a` y `b`, son "números amigos". Dos números son amigos si la suma de los divisores propios de `a` es igual a `b`, y viceversa.
@@ -379,7 +394,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 3.7: Números Abundantes
+
+### Ejercicio 3.13 - Números Abundantes
 
 #### Descripción
 Determinar si un número es "abundante". Un número es abundante si la suma de sus divisores propios es mayor que el propio número.
@@ -405,7 +421,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 3.8: Conjetura de Collatz
+
+### Ejercicio 3.14 - Conjetura de Collatz
 
 #### Descripción
 Implementar la secuencia de Collatz para un número inicial `n`. La secuencia se genera aplicando repetidamente una regla: si el número actual es par, se divide por 2; si es impar, se multiplica por 3 y se le suma 1. La conjetura (no probada) es que esta secuencia siempre llega a 1.
@@ -427,12 +444,12 @@ INICIO
             n = 3 * n + 1
         FIN SI
     FIN MIENTRAS
-    ESCRIBIR 1 // El óltimo término de la secuencia
+    ESCRIBIR 1 // El último término de la secuencia
 FIN PROCEDIMIENTO
 ```
 :::
 
-### 3.9: Números de Armstrong
+### Ejercicio 3.15 - Números de Armstrong
 
 #### Descripción
 Verificar si un número es un número de Armstrong (o narcisista). Un número de `k` dígitos es de Armstrong si es igual a la suma de sus propios dígitos elevados a la potencia `k`.
@@ -467,7 +484,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 3.10: Números Felices
+
+### Ejercicio 3.16 - Números Felices
 
 #### Descripción
 Determinar si un número es un "número feliz". El proceso consiste en reemplazar el número por la suma de los cuadrados de sus dígitos repetidamente. Si el proceso llega a 1, el número es feliz. Si entra en un ciclo que no incluye el 1 (notablemente el ciclo `4 → 16 → 37 → 58 → 89 → 145 → 42 → 20 → 4`), no es feliz.
@@ -496,11 +514,12 @@ INICIO
 FIN FUNCION
 ```
 :::
+
 ---
 
-## 4: Algoritmos Numéricos Avanzados
+## Algoritmos Numéricos Avanzados
 
-### 4.1: Criba de Eratóstenes
+### Ejercicio 3.17 - Criba de Eratóstenes
 
 #### Descripción
 Implementar la Criba de Eratóstenes, un algoritmo altamente eficiente para encontrar todos los números primos hasta un límite superior `N` especificado.
@@ -511,7 +530,7 @@ Implementar la Criba de Eratóstenes, un algoritmo altamente eficiente para enco
 -   **Proceso:** 
     1.  Se itera con un número `p` desde 2 hasta $\sqrt{N}$.
     2.  Si `p` sigue marcado como primo (`es_primo[p]` es verdadero):
-        a. Se itera a través de todos los móltiplos de `p` (comenzando desde `p*p`) y se marcan como no primos (`es_primo[multiplo] = falso`). Se empieza en `p*p` porque los móltiplos menores ya habrán sido marcados por primos más pequeños.
+        a. Se itera a través de todos los múltiplos de `p` (comenzando desde `p*p`) y se marcan como no primos (`es_primo[multiplo] = falso`). Se empieza en `p*p` porque los múltiplos menores ya habrán sido marcados por primos más pequeños.
 -   **Salida:** Al final, se recorre el arreglo `es_primo` y se imprimen todos los índices `i` para los cuales `es_primo[i]` es verdadero.
 
 :::{tip} Ayuda (pseudocódigo)
@@ -528,7 +547,7 @@ INICIO
     FIN PARA
     es_primo[0] = FALSO, es_primo[1] = FALSO
 
-    // Marcado de móltiplos
+    // Marcado de múltiplos
     PARA p DESDE 2 HASTA RAIZ_CUADRADA(N) HACER
         SI es_primo[p] == VERDADERO ENTONCES
             PARA i DESDE p*p HASTA N CON PASO p HACER
@@ -547,7 +566,8 @@ INICIO
 FIN PROCEDIMIENTO
 ```
 :::
-### 4.2: Descomposición en Factores Primos
+
+### Ejercicio 3.18 - Descomposición en Factores Primos
 
 #### Descripción
 Dado un número entero, encontrar y mostrar su descomposición en factores primos. Por ejemplo, para 360, la salida sería `2^3 * 3^2 * 5`.
@@ -592,10 +612,11 @@ INICIO
 FIN PROCEDIMIENTO
 ```
 :::
-### 4.3: Números de Catalan
+
+### Ejercicio 3.19 - Números de Catalan
 
 #### Descripción
-Implementar una función que calcule el n- ésimo número de Catalan, $C_n$. Estos números forman una secuencia de números naturales que aparece en varios problemas de conteo en combinatoria.
+Implementar una función que calcule el n-ésimo número de Catalan, $C_n$. Estos números forman una secuencia de números naturales que aparece en varios problemas de conteo en combinatoria.
 
 #### Lógica y Consideraciones
 -   **Entrada:** Un entero no negativo `n`.
@@ -634,7 +655,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 4.4: Coeficiente Binomial
+
+### Ejercicio 3.20 - Coeficiente Binomial
 
 #### Descripción
 Calcular el coeficiente binomial "n en k", denotado como $C(n, k)$ o $\binom{n}{k}$, que representa el número de formas de elegir `k` elementos de un conjunto de `n` elementos sin importar el orden.
@@ -667,7 +689,8 @@ FUNCION coeficiente_binomial(n, k)
 FIN FUNCION
 ```
 :::
-### 4.5: Raíz Cuadrada Entera (Método Babilónico)
+
+### Ejercicio 3.21 - Raíz Cuadrada Entera (Método Babilónico)
 
 #### Descripción
 Implementar un algoritmo para calcular la parte entera de la raíz cuadrada de un número `n` utilizando el método babilónico (o de Herón), que es un método iterativo eficiente.
@@ -699,10 +722,11 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 4.6: Números Triangulares
+
+### Ejercicio 3.22 - Números Triangulares
 
 #### Descripción
-Un número triangular es la suma de los `n` primeros números naturales. Por ejemplo, el 4ó número triangular es 1+2+3+4=10. El objetivo es escribir una función que determine si un número entero dado es un número triangular.
+Un número triangular es la suma de los `n` primeros números naturales. Por ejemplo, el 4º número triangular es 1+2+3+4=10. El objetivo es escribir una función que determine si un número entero dado es un número triangular.
 
 #### Lógica y Consideraciones
 -   **Entrada:** Un entero positivo `num`.
@@ -730,10 +754,11 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 4.7: Conjetura de Goldbach
+
+### Ejercicio 3.23 - Conjetura de Goldbach
 
 #### Descripción
-La conjetura de Goldbach (aùn no probada) establece que todo número par mayor que 2 puede expresarse como la suma de dos números primos. Escribir un programa que, dado un número par, encuentre un par de números primos que lo sumen.
+La conjetura de Goldbach (aún no probada) establece que todo número par mayor que 2 puede expresarse como la suma de dos números primos. Escribir un programa que, dado un número par, encuentre un par de números primos que lo sumen.
 
 #### Lógica y Consideraciones
 -   **Entrada:** Un número entero par `n` > 2.
@@ -758,7 +783,7 @@ FIN PROCEDIMIENTO
 ```
 :::
 
-### 4.8: Primos Gemelos
+### Ejercicio 3.24 - Primos Gemelos
 
 #### Descripción
 Dos números primos `p` y `q` son gemelos si `q = p + 2`. El programa debe encontrar todos los pares de primos gemelos hasta un límite `N`.
@@ -784,7 +809,7 @@ FIN PROCEDIMIENTO
 ```
 :::
 
-### 4.9: Identidad de Bézout
+### Ejercicio 3.25 - Identidad de Bézout
 
 #### Descripción
 Extender el Algoritmo de Euclides para encontrar no solo el MCD de dos enteros `a` y `b`, sino también dos enteros `x` e `y` que satisfacen la identidad de Bézout: $ax + by = mcd(a, b)$.
@@ -815,7 +840,7 @@ FIN FUNCION
 ```
 :::
 
-### 4.10: Cálculo de Pi (Serie de Leibniz)
+### Ejercicio 3.26 - Cálculo de Pi (Serie de Leibniz)
 
 #### Descripción
 Aproximar el valor de $\pi$ utilizando la serie de Leibniz. La función debe recibir el número de términos a utilizar para la aproximación.
@@ -844,7 +869,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 4.11: Números de Lucas
+
+### Ejercicio 3.27 - Números de Lucas
 
 #### Descripción
 Generar los primeros `n` términos de la secuencia de Lucas. Es una secuencia similar a la de Fibonacci, pero comienza con 2 y 1.
@@ -874,7 +900,7 @@ FIN PROCEDIMIENTO
 ```
 :::
 
-### 4.12: Números de Mersenne
+### Ejercicio 3.28 - Números de Mersenne
 
 #### Descripción
 Un número de Mersenne es un número de la forma $M_p = 2^p - 1$, donde `p` es un número primo. El programa debe generar números de Mersenne y verificar si son a su vez primos (primos de Mersenne).
@@ -902,7 +928,7 @@ FIN PROCEDIMIENTO
 ```
 :::
 
-### 4.13: Test de Primalidad de Miller-Rabin
+### Ejercicio 3.29 - Test de Primalidad de Miller-Rabin
 
 #### Descripción
 Implementar una versión simplificada del test de primalidad de Miller-Rabin. Es un test probabilístico que, a diferencia de la división por tentativa, es eficiente para números grandes.
@@ -932,7 +958,7 @@ FIN FUNCION
 ```
 :::
 
-### 4.14: Números Vampiro
+### Ejercicio 3.30 - Números Vampiro
 
 #### Descripción
 Un número vampiro es un número de `2k` dígitos que puede ser factorizado en dos números de `k` dígitos (los "colmillos"), donde los dígitos de los colmillos, concatenados, son una permutación de los dígitos del número original.
@@ -965,7 +991,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 4.15: Cuadrado Mágico
+
+### Ejercicio 3.31 - Cuadrado Mágico
 
 #### Descripción
 Verificar si una matriz cuadrada `n x n` de números es un cuadrado mágico. Un cuadrado mágico es una matriz donde la suma de los números de cada fila, cada columna y ambas diagonales principales es la misma ("constante mágica").
@@ -1003,11 +1030,12 @@ INICIO
 FIN FUNCION
 ```
 :::
+
 ---
 
-## 5: Más Teoría de Números y Algoritmos
+## Más Teoría de Números y Algoritmos
 
-### 5.1: Números de Smith
+### Ejercicio 3.32 - Números de Smith
 
 #### Descripción
 Un número de Smith es un número compuesto cuya suma de dígitos es igual a la suma de los dígitos de sus factores primos. El programa debe verificar si un número dado es un número de Smith.
@@ -1040,7 +1068,7 @@ FIN FUNCION
 ```
 :::
 
-### 5.2: Primos de Sophie Germain
+### Ejercicio 3.33 - Primos de Sophie Germain
 
 #### Descripción
 Un número primo `p` es un primo de Sophie Germain si `2p + 1` también es un número primo. El programa debe encontrar todos los primos de Sophie Germain hasta un límite `N`.
@@ -1067,7 +1095,7 @@ FIN PROCEDIMIENTO
 ```
 :::
 
-### 5.3: Función φ de Euler (Totient)
+### Ejercicio 3.34 - Función φ de Euler (Totient)
 
 #### Descripción
 Implementar una función que calcule el Totient de Euler, `φ(n)`. Esta función cuenta el número de enteros positivos hasta `n` que son coprimos con `n` (es decir, `mcd(k, n) = 1` para `1 <= k <= n`).
@@ -1103,7 +1131,8 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 5.4: Radical de un Número
+
+### Ejercicio 3.35 - Radical de un Número
 
 #### Descripción
 Calcular el radical de un número `n`, denotado como `rad(n)`, que es el producto de sus factores primos distintos.
@@ -1126,10 +1155,11 @@ INICIO
 FIN FUNCION
 ```
 :::
-### 5.5: Secuencia de Tribonacci
+
+### Ejercicio 3.36 - Secuencia de Tribonacci
 
 #### Descripción
-Generar los primeros `n` términos de la secuencia de Tribonacci, donde cada término es la suma de los tres anteriores. La secuencia puede comenzar de diferentes formas, una comón es `0, 1, 1, 2, 4, 7, 13, ...`
+Generar los primeros `n` términos de la secuencia de Tribonacci, donde cada término es la suma de los tres anteriores. La secuencia puede comenzar de diferentes formas, una común es `0, 1, 1, 2, 4, 7, 13, ...`
 
 #### Lógica y Consideraciones
 -   **Entrada:** Un entero `n`.
@@ -1143,7 +1173,7 @@ VARIABLES:
     a, b, c, siguiente (enteros)
 INICIO
     a=0, b=1, c=1
-    // Imprimir los primeros términos segùn n
+    // Imprimir los primeros términos según n
     PARA i DESDE 4 HASTA n HACER
         siguiente = a + b + c
         ESCRIBIR siguiente
@@ -1153,13 +1183,13 @@ FIN PROCEDIMIENTO
 ```
 :::
 
-### 5.6: Fracciones Egipcias
+### Ejercicio 3.37 - Fracciones Egipcias
 
 #### Descripción
 Escribir una función que descomponga una fracción propia `a/b` en una suma de fracciones unitarias distintas (fracciones con numerador 1).
 
 #### Lógica y Consideraciones
--   **Algoritmo Greedy:** Un método comón es encontrar repetidamente la fracción unitaria más grande que sea menor o igual a la fracción restante.
+-   **Algoritmo Greedy:** Un método común es encontrar repetidamente la fracción unitaria más grande que sea menor o igual a la fracción restante.
 -   **Proceso:** 
     1.  Dada la fracción `num/den`.
     2.  Encontrar el denominador `d` de la siguiente fracción unitaria: `d = techo(den / num)`.
@@ -1179,10 +1209,11 @@ INICIO
         den = den * d
         // Simplificar fracción num/den
     FIN MIENTRAS
-FIN PROCEDIMIENTO
+    FIN PROCEDIMIENTO
 ```
 :::
-### 5.7: Ternas Pitagóricas
+
+### Ejercicio 3.38 - Ternas Pitagóricas
 
 #### Descripción
 Implementar un programa que genere todas las ternas pitagóricas primitivas (`a^2 + b^2 = c^2`, con `mcd(a,b,c)=1`) hasta un cierto límite para `c`, utilizando la fórmula de Euclides.
@@ -1214,10 +1245,11 @@ INICIO
 FIN PROCEDIMIENTO
 ```
 :::
-### 5.8: Números de Carmichael
+
+### Ejercicio 3.39 - Números de Carmichael
 
 #### Descripción
-Un número de Carmichael es un número compuesto `n` que satisface la congruencia $b^{n-1} \equiv 1 \pmod{n}$ para todos los enteros `b` coprimos con `n`. Escribir una función que verifique si un número es un número de Carmichael.
+Un número de Carmichael es un número que satisface la congruencia $b^{n-1} \equiv 1 \pmod{n}$ para todos los enteros `b` coprimos con `n`. Escribir una función que verifique si un número es un número de Carmichael.
 
 #### Lógica y Consideraciones
 -   **Proceso:** 
@@ -1245,7 +1277,7 @@ FIN FUNCION
 ```
 :::
 
-### 5.9: Logaritmo Entero
+### Ejercicio 3.40 - Logaritmo Entero
 
 #### Descripción
 Calcular el logaritmo entero en base `b` de un número `n`. Es el mayor entero `k` tal que $b^k \le n$. La implementación no debe usar funciones de `math.h`.
@@ -1273,7 +1305,7 @@ FIN FUNCION
 ```
 :::
 
-### 5.10: Conversión de Base Numérica
+### Ejercicio 3.41 - Conversión de Base Numérica
 
 #### Descripción
 Escribir una función que convierta un número `n` de una base `b1` a una base `b2`.

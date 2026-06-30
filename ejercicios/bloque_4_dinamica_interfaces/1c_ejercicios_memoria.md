@@ -6,9 +6,18 @@ subtitle: 'Problemas y soluciones detalladas sobre gestión de memoria en C'
 
 (memoria-ejercicios-unidad)=
 (memoria-ejercicios)=
-## Ejercicios
 
-```{exercise} Asignación Básica
+# Ejercicios Resueltos: Memoria Dinámica
+
+## Acerca de
+
+Este archivo contiene problemas y soluciones detalladas sobre la gestión de memoria dinámica en C, con foco en el uso de `malloc`, `calloc`, `realloc` y `free`.
+
+Para más detalles teóricos sobre estos conceptos, consultá el capítulo de {doc}`../../apunte/bloque_4_dinamica_interfaces/1_memoria_dinamica.md` del apunte. Asegurate de seguir la regla de estilo {ref}`0x3002h` para la liberación adecuada de recursos y prevención de punteros colgantes.
+
+## Ejercicios Resueltos
+
+```{exercise} Ejercicio 1c.1 - Asignación Básica
 :label: ej-memoria-basico
 
 Escribí un programa que:
@@ -82,7 +91,7 @@ int main()
 
 ````
 
-```{exercise} Cadena Dinámica
+```{exercise} Ejercicio 1c.2 - Cadena Dinámica
 :label: ej-memoria-cadena
 
 Implementá una función `duplicar_cadena` que reciba una cadena de caracteres y devuelva una copia exacta de ella en memoria dinámica. La función debe tener la siguiente firma:
@@ -172,7 +181,7 @@ int main()
 
 ````
 
-```{exercise} Búsqueda en Arreglo Dinámico
+```{exercise} Ejercicio 1c.3 - Búsqueda en Arreglo Dinámico
 :label: ej-memoria-busqueda
 
 Implementá las siguientes funciones para trabajar con un arreglo dinámico de enteros:
@@ -337,7 +346,7 @@ int main()
 
 ````
 
-```{exercise} Matriz Dinámica
+```{exercise} Ejercicio 1c.4 - Matriz Dinámica
 :label: ej-memoria-matriz
 
 Implementá funciones para crear y manipular una matriz dinámica de enteros de tamaño $m \times n$:
@@ -479,7 +488,7 @@ int main()
 
 ````
 
-```{exercise} Estructura con Memoria Dinámica
+```{exercise} Ejercicio 1c.5 - Estructura con Memoria Dinámica
 :label: ej-memoria-estructura
 
 Implementá un tipo de dato `persona_t` que almacene información de una persona:
@@ -642,7 +651,7 @@ int main()
 
 ````
 
-```{exercise} Detección de Errores de Memoria
+```{exercise} Ejercicio 1c.6 - Detección de Errores de Memoria
 :label: ej-memoria-errores
 
 El siguiente programa contiene varios errores relacionados con la gestión de memoria. Identificá todos los errores, explicá por qué son problemáticos, y corregílos.
@@ -792,7 +801,7 @@ int main()
 
 ```
 
-````{exercise} Matriz Contígua con Puntero a Array
+````{exercise} Ejercicio 1c.7 - Matriz Contígua con Puntero a Array
 :label: ej-memoria-puntero-array
 
 Implementá funciones para crear y manipular una matriz dinámica contigua usando un puntero plano (`int *`):
@@ -1005,7 +1014,7 @@ Imaginá que tenés un estante con espacios libres dispersos de diferentes tama�
 
 **Ejemplo conceptual:**
 
-```{figure} 14/fragmentacion_externa.svg
+```{figure} ../../apunte/bloque_4_dinamica_interfaces/1/fragmentacion_externa.svg
 :name: fig-fragmentacion-externa
 :width: 100%
 
@@ -1036,7 +1045,7 @@ Un dato está **alineado** cuando su dirección de memoria es un múltiplo de su
 - Un `int` (4 bytes) debería estar en direcciones múltiplo de 4.
 - Un `double` (8 bytes) debería estar en direcciones múltiplo de 8.
 
-```{figure} 14/memory_alignment.svg
+```{figure} ../../apunte/bloque_4_dinamica_interfaces/1/memory_alignment.svg
 :name: fig-memory-alignment
 :width: 100%
 
@@ -1071,7 +1080,7 @@ struct ejemplo {
 
 **Visualización:**
 
-```{figure} 14/struct_padding.svg
+```{figure} ../../apunte/bloque_4_dinamica_interfaces/1/struct_padding.svg
 :name: fig-struct-padding
 :width: 100%
 
