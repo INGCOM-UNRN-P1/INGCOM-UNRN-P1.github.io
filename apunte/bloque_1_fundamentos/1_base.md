@@ -5,13 +5,22 @@ subtitle: Conceptos básicos antes de programar en C
 ---
 
 (capitulo-fundamentos-computacion)=
-
 ## Introducción
 
-Antes de escribir tu primera línea de código en C, es fundamental repasar (y comprender) algunos conceptos básicos sobre cómo funcionan las computadoras y cómo comunicarnos con ellas de manera efectiva. En este apunte, sentaremos las bases algorítmicas de forma independiente de cualquier lenguaje, utilizando un pseudocódigo estructurado similar a C en español. Esto te permitirá concentrarte en el pensamiento lógico antes de abordar la sintaxis formal de C.
+Antes de escribir tu primera línea de código en C, es fundamental repasar (y
+comprender) algunos conceptos básicos sobre cómo funcionan las computadoras y
+cómo comunicarnos con ellas de manera efectiva. En este apunte, sentaremos las
+bases algorítmicas de forma independiente de cualquier lenguaje, utilizando un
+pseudocódigo estructurado similar a C en español. Esto te permitirá concentrarte
+en el pensamiento lógico antes de abordar la sintaxis formal de C.
 
-:::{important}
-Este material es **prerrequisito** para el apunte de introducción a C, y es un repaso de los temas vistos en el Curso de Ingreso y en Introducción a la Ingeniería en Computación. Asegurate de comprender estos conceptos antes de avanzar, ya que forman la base de todo lo que veremos posteriormente.
+:::{important} 
+
+Esta parte del apunte es un **prerrequisito** para el resto de los temas de la 
+cátedra, y es un repaso de los temas vistos en el Curso de Ingreso y en Introducción
+a la Ingeniería en Computación. Asegurate de comprender estos conceptos antes de
+avanzar, ya que forman la base de todo lo que veremos posteriormente. 
+
 :::
 
 ---
@@ -21,32 +30,55 @@ Este material es **prerrequisito** para el apunte de introducción a C, y es un 
 (que-es-una-computadora)=
 ### ¿Qué es una computadora?
 
-Una computadora es una máquina electrónica diseñada para procesar información de manera automática, siguiendo instrucciones precisas y explícitas. A diferencia de los seres humanos, una computadora:
+Una computadora es una máquina electrónica diseñada para procesar información de
+manera automática, siguiendo instrucciones precisas y explícitas. A diferencia
+de los seres humanos, una computadora:
 
-- **No entiende ambigüedades**: necesita instrucciones exactas y sin interpretación posible.
-- **No tiene intuición**: hace exactamente lo que le decimos, ni más ni menos, sin asumir nada.
-- **Es extremadamente rápida**: puede ejecutar millones (o incluso miles de millones) de instrucciones por segundo.
-- **Es determinista y sigue instrucciones de forma estricta**: ejecuta exactamente las instrucciones que le proporcionamos, pero su aritmética física está limitada por el almacenamiento finito de datos. No comete "descuidos" humanos, pero la representación matemática en hardware (por ejemplo, de números reales mediante el estándar IEEE 754) tiene imprecisiones de redondeo y límites de rango (desbordamiento o subdesbordamiento).
-- **No se cansa**: puede repetir la misma operación millones de veces sin degradación en su rendimiento.
+- **No entiende ambigüedades**: necesita instrucciones exactas y sin
+  interpretación posible.
+- **No tiene intuición**: hace exactamente lo que le decimos, ni más ni menos,
+  sin asumir nada.
+- **Es extremadamente rápida**: puede ejecutar millones (o incluso miles de
+  millones) de instrucciones por segundo.
+- **Es determinista y sigue instrucciones de forma estricta**: ejecuta
+  exactamente las instrucciones que le proporcionamos, pero su aritmética física
+  está limitada por el almacenamiento finito de datos. No comete "descuidos"
+  humanos, pero la representación matemática en hardware (por ejemplo, de
+  números reales mediante el estándar IEEE 754) tiene imprecisiones de redondeo
+  y límites de rango (desbordamiento o subdesbordamiento).
+- **No se cansa**: puede repetir la misma operación millones de veces sin
+  degradación en su rendimiento.
 
-:::{note}
-La computadora hará **exactamente** lo que le pidamos, incluso si está mal. De ahí la importancia de diseñar y escribir algoritmos correctos.
+:::{note} 
+
+La computadora hará **exactamente** lo que le pidamos, incluso si está
+mal. De ahí la importancia de diseñar y escribir algoritmos correctos. 
+
 :::
 
 (componentes-basicos)=
 #### Componentes básicos
 
-Para entender cómo programar, es útil conocer los componentes físicos de una computadora y cómo interactúan entre sí.
+Para entender cómo programar, es útil conocer los componentes físicos de una
+computadora y cómo interactúan entre sí.
 
 ##### Hardware
 
 El **hardware** son los componentes físicos de la computadora:
 
-- **Procesador (CPU)**: El "cerebro" que ejecuta las instrucciones. Realiza operaciones aritméticas, lógicas y de control. Su velocidad se mide en GHz (gigahertz).
-- **Memoria RAM**: Memoria de acceso rápido donde se guardan temporalmente los datos y programas mientras se ejecutan. Es **volátil**: se borra por completo cuando se apaga o reinicia el equipo.
-- **Almacenamiento permanente**: Disco duro (HDD) o unidad de estado sólido (SSD) donde se guardan archivos, programas y el sistema operativo de forma persistente.
-- **Dispositivos de entrada**: Permiten introducir información (teclado, mouse, sensores, etc.).
-- **Dispositivos de salida**: Permiten obtener información (pantalla, parlantes, impresoras, etc.).
+- **Procesador (CPU)**: El "cerebro" que ejecuta las instrucciones. Realiza
+  operaciones aritméticas, lógicas y de control. Su velocidad se mide en GHz
+  (gigahertz).
+- **Memoria RAM**: Memoria de acceso rápido donde se guardan temporalmente los
+  datos y programas mientras se ejecutan. Es **volátil**: se borra por completo
+  cuando se apaga o reinicia el equipo.
+- **Almacenamiento permanente**: Disco duro (HDD) o unidad de estado sólido
+  (SSD) donde se guardan archivos, programas y el sistema operativo de forma
+  persistente.
+- **Dispositivos de entrada**: Permiten introducir información (teclado, mouse,
+  sensores, etc.).
+- **Dispositivos de salida**: Permiten obtener información (pantalla, parlantes,
+  impresoras, etc.).
 
 ```{figure} 1/componentes_computadora.svg
 :alt: Componentes de una computadora
@@ -56,17 +88,28 @@ El **hardware** son los componentes físicos de la computadora:
 Arquitectura básica de una computadora: el CPU coordina el flujo de datos entre la memoria RAM (rápida y volátil), el almacenamiento permanente (lento pero persistente), y los dispositivos de entrada/salida.
 ```
 
-:::{tip} ¿Por qué necesitamos RAM y almacenamiento permanente?
-La RAM es extremadamente rápida pero volátil y costosa. El disco es mucho más lento pero persistente y económico. Esta combinación nos da lo mejor de ambos mundos: velocidad para ejecutar programas en memoria activa y persistencia para guardar nuestros archivos a largo plazo.
+:::{tip} ¿Por qué necesitamos RAM y almacenamiento permanente? 
+
+La RAM es extremadamente rápida pero volátil y costosa. El disco es más lento 
+pero persistente y económico. Esta combinación nos da lo mejor de ambos mundos:
+velocidad para ejecutar programas en memoria activa y persistencia para guardar
+nuestros archivos a largo plazo. 
+
 :::
 
 ##### Software
 
 El **software** son los programas e instrucciones de control:
 
-- **Sistema operativo**: El programa fundamental que controla directamente el hardware y proporciona servicios básicos a las aplicaciones. Actúa como intermediario directo.
-- **Programas o aplicaciones**: Software diseñado para realizar tareas específicas para el usuario (editores de texto, navegadores, compiladores).
-- **Código fuente**: Las instrucciones estructuradas que los programadores escriben en lenguajes de programación. Este código debe ser traducido a código de máquina (código binario de instrucciones de CPU) para que el procesador pueda ejecutarlo.
+- **Sistema operativo**: El programa fundamental que controla directamente el
+  hardware y proporciona servicios básicos a las aplicaciones. Actúa como
+  intermediario directo.
+- **Programas o aplicaciones**: Software diseñado para realizar tareas
+  específicas para el usuario (editores de texto, navegadores, compiladores).
+- **Código fuente**: Las instrucciones estructuradas que los programadores
+  escriben en lenguajes de programación. Este código debe ser traducido a código
+  de máquina (código binario de instrucciones de CPU) para que el procesador
+  pueda ejecutarlo.
 
 ```{figure} 1/capas_software.svg
 :alt: Capas de software
@@ -79,35 +122,42 @@ Las aplicaciones utilizan los servicios del sistema operativo, que a su vez cont
 (que-es-programar)=
 ### ¿Qué es programar?
 
-Programar es el proceso de estructurar instrucciones detalladas para que una computadora realice una tarea específica.
+Programar es el proceso de estructurar instrucciones detalladas para que una
+computadora realice una tarea específica.
 
 Cuando programamos, debemos considerar:
 
 1. **¿Qué problema queremos resolver?** - Entender el objetivo.
-2. **¿Qué datos necesitamos?** - Identificar las entradas de información y las salidas resultantes.
+2. **¿Qué datos necesitamos?** - Identificar las entradas de información y las
+   salidas resultantes.
 3. **¿Qué pasos seguir?** - Diseñar el algoritmo.
 4. **¿Cómo traducirlo a código?** - Escribir en un lenguaje de programación.
 5. **¿Funciona correctamente?** - Probar y depurar.
 
 (analogia-la-receta-de-cocina)=
+
 #### Analogía: La receta de cocina
 
-Imaginá que querés hacer un bizcochuelo y le das las instrucciones a alguien que **nunca cocinó** y que seguirá **literalmente** cada palabra:
+Imaginá que querés hacer un bizcochuelo y le das las instrucciones a alguien que
+**nunca cocinó** y que seguirá **literalmente** cada palabra:
 
 ::::{grid} 1 1 2 2
 
-:::{grid-item-card} ❌ Instrucciones vagas (no funcionan)
-"Poné un poco de harina, algo de azúcar, mezclá los ingredientes y horneá hasta que esté listo."
+:::{grid-item-card} ❌ Instrucciones vagas (no funcionan) "Poné un poco de
+harina, algo de azúcar, mezclá los ingredientes y horneá hasta que esté listo."
 
 **Problemas:**
+
 - ¿Cuánto es "un poco"?
 - ¿Qué otros ingredientes lleva?
 - ¿En qué orden se mezclan?
 - ¿A qué temperatura?
-- ¿Cómo saber cuándo está "listo"?
+- ¿Cómo saber cuándo está "listo"? 
+
 :::
 
 :::{grid-item-card} ✅ Instrucciones precisas (como un programa)
+
 1. Precalentar el horno a 180°C.
 2. En un recipiente, colocar 200 gramos de harina.
 3. Agregar 150 gramos de azúcar.
@@ -118,18 +168,24 @@ Imaginá que querés hacer un bizcochuelo y le das las instrucciones a alguien q
 8. Retirar del horno usando guantes protectores.
 
 **Características:**
+
 - Cantidades exactas e inequívocas.
 - Orden cronológico específico.
-- Tiempos definidos.
-:::
+- Tiempos definidos. 
+
+::: 
+
 ::::
 
-La computadora necesita instrucciones de este segundo tipo: específicas, ordenadas, sin ambigüedades y detalladas al extremo.
+La computadora necesita instrucciones de este segundo tipo: específicas,
+ordenadas, sin ambigüedades y detalladas al extremo.
 
 (que-es-un-algoritmo)=
 ### ¿Qué es un algoritmo?
 
-Un **algoritmo** es una secuencia finita, ordenada y no ambigua de pasos bien definidos que resuelve un problema o realiza una tarea específica. Los algoritmos son la base fundamental de la programación y el diseño de sistemas.
+Un **algoritmo** es una secuencia finita, ordenada y no ambigua de pasos bien
+definidos que resuelve un problema o realiza una tarea específica. Los
+algoritmos son la base fundamental de la programación y el diseño de sistemas.
 
 ```{figure} 1/algoritmo_problema_solucion.svg
 :alt: Del problema a la solución
@@ -139,8 +195,12 @@ Un **algoritmo** es una secuencia finita, ordenada y no ambigua de pasos bien de
 El algoritmo es el puente conceptual que transforma un problema de entrada en su solución.
 ```
 
-:::{important}
-Un algoritmo es **independiente** del lenguaje de programación. El mismo algoritmo lógico puede implementarse en C, Python, Java o incluso traducirse a un circuito físico de hardware.
+:::{important} 
+
+Un algoritmo es **independiente** del lenguaje de programación.
+El mismo algoritmo lógico puede implementarse en C, Python, Java o incluso
+traducirse a un circuito físico de hardware. 
+
 :::
 
 (caracteristicas-de-un-buen-algoritmo)=
@@ -150,35 +210,56 @@ Un algoritmo efectivo debe cumplir con los siguientes vectores de diseño:
 
 ::::{grid} 1 1 2 2
 
-:::{grid-item-card} 1. Finito
-Debe finalizar en algún momento, después de un número determinado de pasos ejecutados.
+:::{grid-item-card} 
+
+1. **Finito**: Debe finalizar en algún momento, después de un
+número determinado de pasos ejecutados. 
+
 :::
 
-:::{grid-item-card} 2. Bien definido
-Cada paso debe ser unívoco, claro y libre de toda ambigüedad en su interpretación.
+:::{grid-item-card} 
+
+2. **Bien definido**: Cada paso debe ser unívoco, claro y libre
+de toda ambigüedad en su interpretación. 
+
 :::
 
-:::{grid-item-card} 3. Con entrada (opcional)
-Puede recibir cero o más datos iniciales del entorno para procesar.
+:::{grid-item-card} 
+
+3. **Con entrada** (opcional): Puede recibir cero o más datos
+iniciales del entorno para procesar. 
+
 :::
 
-:::{grid-item-card} 4. Con salida
-Debe retornar o producir al menos un resultado o cambio de estado visible.
+:::{grid-item-card} 
+
+4. **Con salida**: Debe retornar o producir al menos un resultado
+o cambio de estado visible. 
+
 :::
 
-:::{grid-item-card} 5. Efectivo
-Cada paso debe ser realizable y computable en un tiempo finito utilizando recursos de memoria finitos.
+:::{grid-item-card} 
+
+5. **Efectivo**: Cada paso debe ser realizable y computable en un
+tiempo finito utilizando recursos de memoria finitos. 
+
 :::
 
-:::{grid-item-card} 6. Determinista
-Dado el mismo conjunto de datos de entrada, debe producir siempre exactamente el mismo resultado de salida.
-:::
+:::{grid-item-card} 
+
+6. **Determinista**: Dado el mismo conjunto de datos de entrada,
+debe producir siempre exactamente el mismo resultado de salida. 
+
+::: 
+
 ::::
 
 (representacion-de-algoritmos-y-diagramas-de-flujo)=
 ### Representación de Algoritmos y Diagramas de Flujo
 
-Los **diagramas de flujo** son representaciones gráficas estandarizadas de algoritmos. Permiten visualizar la lógica de control, bifurcaciones e iteraciones antes de escribir código.
+Los **diagramas de flujo** son representaciones gráficas estandarizadas de
+algoritmos. Permiten visualizar la lógica de control, bifurcaciones e
+iteraciones antes de escribir código.
 
 (simbolos-estandar-de-diagramas-de-flujo)=
 #### Símbolos estándar de diagramas de flujo
@@ -192,9 +273,12 @@ Símbolos universales utilizados en diagramas de flujo para representar diferent
 ```
 
 - **Óvalo / Elipse:** Representa el inicio o el fin del algoritmo.
-- **Rectángulo:** Representa un proceso o instrucción de cómputo (cálculos, asignación de variables).
-- **Rombo:** Representa un decisión o bifurcación condicional. Posee una pregunta adentro y al menos dos caminos de salida (generalmente Sí y No).
-- **Paralelogramo:** Representa operaciones de entrada y salida de datos (leer entrada del usuario o mostrar un mensaje por pantalla).
+- **Rectángulo:** Representa un proceso o instrucción de cómputo (cálculos,
+  asignación de variables).
+- **Rombo:** Representa un decisión o bifurcación condicional. Posee una
+  pregunta adentro y al menos dos caminos de salida (generalmente Sí y No).
+- **Paralelogramo:** Representa operaciones de entrada y salida de datos (leer
+  entrada del usuario o mostrar un mensaje por pantalla).
 - **Flechas de flujo:** Indican la dirección lógica de ejecución del algoritmo.
 
 (ejemplos-de-algoritmos-en-pseudocodigo-y-diagramas-de-flujo)=
@@ -203,7 +287,8 @@ Símbolos universales utilizados en diagramas de flujo para representar diferent
 (ejemplo-1-algoritmo-para-hacer-cafe)=
 #### Ejemplo 1: Algoritmo para hacer café
 
-Homogeneizando la estructura cotidiana mediante ramificaciones secuenciales condicionales:
+Homogeneizando la estructura cotidiana mediante ramificaciones secuenciales
+condicionales:
 
 ```text
 =================================================
@@ -248,7 +333,8 @@ flowchart TD
 (ejemplo-2-verificar-si-n-es-par)=
 #### Ejemplo 2: Verificar si N es par
 
-Este algoritmo calcula si un número entero es par utilizando el operador módulo `%` (resto de la división entera):
+Este algoritmo calcula si un número entero es par utilizando el operador módulo
+`%` (resto de la división entera):
 
 ```text
 =================================================
@@ -283,7 +369,9 @@ flowchart TD
 (representacion-de-datos-y-memoria)=
 ### Representación de datos y memoria
 
-Las computadoras operan sobre datos almacenados en memoria física. Para procesar esta información, es necesario asignarle un tipo de dato que defina su rango y operaciones válidas.
+Las computadoras operan sobre datos almacenados en memoria física. Para procesar
+esta información, es necesario asignarle un tipo de dato que defina su rango y
+operaciones válidas.
 
 (tipos-de-informacion-fundamentales)=
 #### Tipos de información fundamentales
@@ -296,17 +384,25 @@ Las computadoras operan sobre datos almacenados en memoria física. Para procesa
 Los cuatro tipos de datos fundamentales: enteros, reales, cadenas de caracteres y valores lógicos.
 ```
 
-1.  **Enteros (`entero` / `int`):** Números sin parte fraccionaria (ej. `5`, `-20`, `0`). Se utilizan para conteos, índices de lazos y posiciones.
-2.  **Reales / Decimales (`real` / `float`):** Números con coma fraccionaria (ej. `3.1415`, `-0.75`). Tienen precisión finita debido a la representación estándar binaria IEEE 754 de hardware.
-3.  **Caracteres / Cadenas (`cadena` / `char` / `str`):** Texto delimitado por comillas (ej. `"Hola Mundo"`, `'A'`). Representan símbolos legibles.
-4.  **Lógicos / Booleanos (`logico` / `bool`):** Solo admiten dos estados lógicos: `verdadero` (`true`) o `falso` (`false`).
+1.  **Enteros (`entero` / `int`):** Números sin parte fraccionaria (ej. `5`,
+    `-20`, `0`). Se utilizan para conteos, índices de lazos y posiciones.
+2.  **Reales / Decimales (`real` / `float`):** Números con coma fraccionaria
+    (ej. `3.1415`, `-0.75`). Tienen precisión finita debido a la representación
+    estándar binaria IEEE 754 de hardware.
+3.  **Caracteres / Cadenas (`cadena` / `char` / `str`):** Texto delimitado por
+    comillas (ej. `"Hola Mundo"`, `'A'`). Representan símbolos legibles.
+4.  **Lógicos / Booleanos (`logico` / `bool`):** Solo admiten dos estados
+    lógicos: `verdadero` (`true`) o `falso` (`false`).
 
 (variables-direcciones-fisicas-de-memoria)=
 #### Variables: Direcciones físicas de memoria
 
-Una **variable** es un espacio reservado en la memoria física RAM de la computadora para almacenar un dato que puede cambiar durante la ejecución del programa.
+Una **variable** es un espacio reservado en la memoria física RAM de la
+computadora para almacenar un dato que puede cambiar durante la ejecución del
+programa.
 
-Visualmente, una variable vincula una etiqueta lógica con una dirección física en el hardware:
+Visualmente, una variable vincula una etiqueta lógica con una dirección física
+en el hardware:
 
 ```text
 +------------------------------------------+
@@ -319,9 +415,13 @@ Visualmente, una variable vincula una etiqueta lógica con una dirección físic
 ```
 
 Cada variable posee:
-1.  **Dirección física de memoria:** La dirección hexadecimal real en el hardware RAM donde se ubica el dato.
-2.  **Nombre (identificador):** La etiqueta lógica que usa el programador en el código (ej. `edad`, `temperatura`).
-3.  **Tipo de dato:** Define el tamaño en bytes reservado y cómo el hardware interpretará los bits guardados.
+
+1.  **Dirección física de memoria:** La dirección hexadecimal real en el
+    hardware RAM donde se ubica el dato.
+2.  **Nombre (identificador):** La etiqueta lógica que usa el programador en el
+    código (ej. `edad`, `temperatura`).
+3.  **Tipo de dato:** Define el tamaño en bytes reservado y cómo el hardware
+    interpretará los bits guardados.
 4.  **Valor:** El contenido binario actual de la celda de memoria.
 
 (el-ciclo-de-vida-de-una-variable-en-memoria)=
@@ -335,8 +435,17 @@ Cada variable posee:
 Una variable se declara e inicializa en memoria, es leída o modificada durante la ejecución, y finalmente se libera de la memoria física.
 ```
 
-:::{important}
-En lenguajes de alto nivel como Python, la memoria ocupada por las variables se libera de forma automática mediante un recolector de basura (*garbage collector*). Sin embargo, en C la gestión de la memoria es explícita: la memoria de las variables locales (en la pila o *stack*) se libera automáticamente al salir de su ámbito de visibilidad, mientras que la memoria dinámica asignada manualmente (en el *heap*) debe ser liberada explícitamente por el programador. Si olvidás liberarla, se genera una fuga de memoria (*memory leak*).
+:::{important} 
+
+En lenguajes de alto nivel como Python, la memoria ocupada por
+las variables se libera de forma automática mediante un recolector de basura
+(_garbage collector_). Sin embargo, en C la gestión de la memoria es explícita:
+la memoria de las variables locales (en la pila o _stack_) se libera
+automáticamente al salir de su ámbito de visibilidad, mientras que la memoria
+dinámica asignada manualmente (en el _heap_) debe ser liberada explícitamente
+por el programador. Si olvidás liberarla, se genera una fuga de memoria (_memory
+leak_). 
+
 :::
 
 (estructuras-logicas-y-operaciones-basicas)=
@@ -355,13 +464,16 @@ A nivel de hardware, se ejecutan operaciones aritméticas sobre celdas numérica
 Operaciones aritméticas básicas y especiales, con precedencia de evaluación.
 ```
 
--   **Módulo `%`:** Retorna el resto de la división entera. Es útil para evaluar paridad (`N % 2 == 0`) o extraer dígitos.
--   **Precedencia estándar:** 1. Paréntesis `()`, 2. Potencias, 3. Multiplicación/División/Módulo, 4. Suma/Resta.
+- **Módulo `%`:** Retorna el resto de la división entera. Es útil para evaluar
+  paridad (`N % 2 == 0`) o extraer dígitos.
+- **Precedencia estándar:** 1. Paréntesis `()`, 2. Potencias, 3.
+  Multiplicación/División/Módulo, 4. Suma/Resta.
 
 (operaciones-logicas-y-tablas-de-verdad)=
 #### Operaciones lógicas y tablas de verdad
 
-Las operaciones lógicas combinan valores booleanos para evaluar condiciones complejas:
+Las operaciones lógicas combinan valores booleanos para evaluar condiciones
+complejas:
 
 ```{figure} 1/operaciones_logicas.svg
 :alt: Operaciones lógicas
@@ -371,14 +483,15 @@ Las operaciones lógicas combinan valores booleanos para evaluar condiciones com
 Las tres operaciones lógicas fundamentales (Y, O, NO) con sus tablas de verdad.
 ```
 
--   **AND (`y`):** Da verdadero únicamente si ambos operandos son verdaderos.
--   **OR (`o`):** Da verdadero si al menos uno de los operandos es verdadero.
--   **NOT (`no`):** Invierte el estado lógico.
+- **AND (`y`):** Da verdadero únicamente si ambos operandos son verdaderos.
+- **OR (`o`):** Da verdadero si al menos uno de los operandos es verdadero.
+- **NOT (`no`):** Invierte el estado lógico.
 
 (las-tres-estructuras-fundamentales-del-pensamiento-logico)=
 ### Las Tres Estructuras Fundamentales del Pensamiento Lógico
 
-Todo algoritmo de control estructurado puede resolverse utilizando únicamente tres estructuras lógicas:
+Todo algoritmo de control estructurado puede resolverse utilizando únicamente
+tres estructuras lógicas:
 
 ```{figure} 1/estructuras_control.svg
 :alt: Tres estructuras fundamentales de control
@@ -390,22 +503,33 @@ Las tres estructuras fundamentales del pensamiento algorítmico: secuencia, deci
 
 (1-secuencia)=
 #### 1. Secuencia
-Ejecución lineal de instrucciones en orden cronológico estricto de arriba hacia abajo. El cambio del orden de los factores altera el resultado lógico o provoca fallas en tiempo de ejecución.
+
+Ejecución lineal de instrucciones en orden cronológico estricto de arriba hacia
+abajo. El cambio del orden de los factores altera el resultado lógico o provoca
+fallas en tiempo de ejecución.
 
 (2-decisiones-condicionales)=
 #### 2. Decisiones (Condicionales)
-Bifurcación del flujo lógico en base al resultado de una condición booleana (`Si... Sino`).
+
+Bifurcación del flujo lógico en base al resultado de una condición booleana
+(`Si... Sino`).
 
 (3-repeticion-lazos)=
 #### 3. Repetición (Lazos)
+
 Estructuras de iteración de código. Se clasifican didácticamente en:
--   **Lazo controlado por contador (`Para` / `for`):** Utilizado cuando el límite de iteraciones es conocido de antemano.
--   **Lazo controlado por condición (`Mientras` / `while`):** Utilizado cuando la parada del lazo depende de una expresión lógica evaluada dinámicamente.
+
+- **Lazo controlado por contador (`Para` / `for`):** Utilizado cuando el límite
+  de iteraciones es conocido de antemano.
+- **Lazo controlado por condición (`Mientras` / `while`):** Utilizado cuando la
+  parada del lazo depende de una expresión lógica evaluada dinámicamente.
 
 (ejemplos-de-programas-traducidos-a-pseudocodigo-estricto-estilo-c)=
 ### Ejemplos de Programas Traducidos a Pseudocódigo Estricto (Estilo C)
 
-A continuación se presentan los ejemplos lógicos resueltos en pseudocódigo estricto con sintaxis cercana a C en español, eliminando dependencias de lenguajes interpretados dinámicos.
+A continuación se presentan los ejemplos lógicos resueltos en pseudocódigo
+estricto con sintaxis cercana a C en español, eliminando dependencias de
+lenguajes interpretados dinámicos.
 
 (ejemplo-1-calculadora-simple)=
 #### Ejemplo 1: Calculadora simple
@@ -576,28 +700,13 @@ flowchart TD
     CondWon -- No --> End
 ```
 
-(errores-comunes-y-estrategias-para-prevenirlos)=
-#### Errores comunes y estrategias para prevenirlos
-
-##### 1. Secuencia incorrecta de asignaciones
-Las variables deben poseer datos válidos antes de ser leídas o manipuladas en expresiones. Para ver ejemplos prácticos de este error adaptados al lenguaje C, consultá la sección de {ref}`1-secuencia-incorrecta-de-asignaciones`.
-
-##### 2. Lazos infinitos
-Ocurren cuando la condición de permanencia de un lazo de control nunca resulta en falsa. Para ver ejemplos prácticos de este error adaptados al lenguaje C, consultá la sección de {ref}`2-lazos-infinitos`.
-
-(3-desbordamiento-numerico-e-imprecision-de-reales)=
-##### 3. Desbordamiento numérico e imprecisión de reales
-
-Las variables en memoria física tienen un almacenamiento binario de tamaño finito. Esto introduce limitaciones físicas ausentes en la matemática pura, tales como el desbordamiento aritmético y la imprecisión en números de punto flotante. 
-
-Para un análisis detallado y riguroso de cómo se representan físicamente los números en C, cómo ocurren los desbordamientos (con y sin signo), la truncación en divisiones y la comparación robusta de números reales mediante épsilon, consultá el capítulo específico de {ref}`numeros-capitulo`.
-
 ---
 
 ## Ejercicios de Autoevaluación
 
 (ejercicio-1)=
 ### Ejercicio 1: Instrucciones precisas
+
 ```{exercise}
 :label: ex-instrucciones-precisas
 Escribí instrucciones detalladas y secuenciales (como para alguien que nunca lo hizo) para:
@@ -608,7 +717,7 @@ Escribí instrucciones detalladas y secuenciales (como para alguien que nunca lo
 ```
 
 ```{solution} ex-instrucciones-precisas
-class: dropdown
+:class: dropdown
 
 **Hacer un sándwich de jamón y queso:**
 1. Retirar 2 rebanadas de pan del paquete.
@@ -632,6 +741,7 @@ class: dropdown
 
 (ejercicio-tipos-variables)=
 ### Ejercicio 2: Tipos de variables
+
 ```{exercise}
 :label: ex-tipos-vars
 Para cada uno de los siguientes datos, indicá qué tipo de variable (`entero`, `real`, `cadena`, `logico`) usarías en pseudocódigo:
@@ -644,7 +754,7 @@ Para cada uno de los siguientes datos, indicá qué tipo de variable (`entero`, 
 ```
 
 ```{solution} ex-tipos-vars
-class: dropdown
+:class: dropdown
 
 1. **`entero`**: Se cuentan individuos discretos.
 2. **`real`**: Requiere representar centavos fraccionarios.
@@ -655,6 +765,7 @@ class: dropdown
 
 (ejercicio-2-aplicacion-algoritmica)=
 ### Ejercicio 3: Aplicación Algorítmica
+
 ```{exercise}
 :label: ex-pseudo-2
 Escribí en pseudocódigo estructurado (estilo C en español) algoritmos para resolver las siguientes cuestiones, sin declarar subprogramas (`def`) ni importar librerías complejas:
@@ -665,10 +776,11 @@ C. Calcular el Máximo Común Divisor (MCD) de dos números enteros utilizando e
 D. Determinar si una cadena de caracteres es un palíndromo (se lee igual de izquierda a derecha que de derecha a izquierda), comparando sus extremos mediante un lazo.
 ```
 
-:::{solution} ex-pseudo-2
-class: dropdown
+:::{solution} ex-pseudo-2 
+:class: dropdown
 
 **A. Conversión de temperatura:**
+
 ```text
 real celsius;
 real fahrenheit;
@@ -681,6 +793,7 @@ Escribir("Equivalente en Fahrenheit: ", fahrenheit);
 ```
 
 **B. Verificar triángulo:**
+
 ```text
 real lado1;
 real lado2;
@@ -704,6 +817,7 @@ Sino
 ```
 
 **C. MCD (Algoritmo de Euclides):**
+
 ```text
 entero a;
 entero b;
@@ -725,6 +839,7 @@ Escribir("El MCD es: ", a);
 ```
 
 **D. Palíndromo (lazo de comparación de extremos):**
+
 ```text
 cadena palabra;
 entero longitud;
@@ -758,12 +873,15 @@ Sino
     Escribir("La palabra NO es un palíndromo.");
 }
 ```
+
 :::
 
 (ejercicio-3-integradores)=
 ### Ejercicio 4: Integradores
-:::{exercise}
-:label: ex-integrador-1
+
+:::{exercise} 
+:label: ex-integrador-1 
+
 Analizá el siguiente pseudocódigo estructurado y respondé las consignas:
 
 ```text
@@ -787,14 +905,15 @@ Escribir("Resultado: ", suma);
 
 1. ¿Qué hace este algoritmo?
 2. Si `n` ingresado es 10, ¿cuál es la salida final?
-3. Modificalo para que realice la suma exclusiva de números impares.
-:::
+3. Modificalo para que realice la suma exclusiva de números impares. :::
 
-:::{solution} ex-integrador-1
-class: dropdown
+:::{solution} ex-integrador-1 
+:class: dropdown
+
 1. **¿Qué hace?** Suma todos los números pares en el rango de 1 a `n` inclusive.
 2. **Resultado para n=10:** 2 + 4 + 6 + 8 + 10 = **30**.
-3. **Modificación para impares:** Modificar la condición del módulo en la decisión (`i % 2 != 0`):
+3. **Modificación para impares:** Modificar la condición del módulo en la
+   decisión (`i % 2 != 0`):
 
 ```text
 entero n;
@@ -821,48 +940,59 @@ Escribir("Resultado: ", suma);
 (glosario_base)=
 ## Glosario
 
-::{glossary}
-Algoritmo
-: Secuencia finita, ordenada y unívoca de pasos lógicos diseñados para resolver un problema.
+::{glossary} Algoritmo : Secuencia finita, ordenada y unívoca de pasos lógicos
+diseñados para resolver un problema.
 
-Variable
-: Espacio con nombre asignado en la memoria física RAM asociado a una dirección de memoria, cuyo valor puede modificarse.
+Variable : Espacio con nombre asignado en la memoria física RAM asociado a una
+dirección de memoria, cuyo valor puede modificarse.
 
-Tipo de dato
-: Definición del conjunto de valores y operaciones válidos asignados a una variable.
+Tipo de dato : Definición del conjunto de valores y operaciones válidos
+asignados a una variable.
 
-Lazo
-: Estructura de control diseñada para repetir la ejecución de un bloque de instrucciones (`Para`, `Mientras`).
+Lazo : Estructura de control diseñada para repetir la ejecución de un bloque de
+instrucciones (`Para`, `Mientras`).
 
-Pseudocódigo
-: Notación estructurada en lenguaje natural que representa un algoritmo de forma cercana a un lenguaje de programación.
+Pseudocódigo : Notación estructurada en lenguaje natural que representa un
+algoritmo de forma cercana a un lenguaje de programación.
 
-Diagrama de flujo
-: Modelado gráfico y estandarizado del flujo lógico de un algoritmo.
-:::
+Diagrama de flujo : Modelado gráfico y estandarizado del flujo lógico de un
+algoritmo. :::
 
 ---
 
 ## Síntesis y Resumen
 
-En este capítulo analizaste los cimientos de la computación y la algoritmia antes de codificar en C:
-- **Computadora**: Máquina determinista y rápida sin intuición, limitada por la representación física de datos en hardware.
-- **Hardware y Software**: El CPU y la RAM procesan y guardan datos eficientemente, coordinados por el Sistema Operativo.
-- **Algoritmo**: Secuencia finita, ordenada y no ambigua de instrucciones lógicas para resolver un problema.
-- **Variables y Memoria**: Espacios con nombre en la RAM que asocian una dirección física con un tipo de dato y un valor.
-- **Estructuras de Control**: Secuencia, decisión (condicionales) y repetición (lazos controlados por contador o condición).
+En este capítulo analizaste los cimientos de la computación y la algoritmia
+antes de codificar en C:
+
+- **Computadora**: Máquina determinista y rápida sin intuición, limitada por la
+  representación física de datos en hardware.
+- **Hardware y Software**: El CPU y la RAM procesan y guardan datos
+  eficientemente, coordinados por el Sistema Operativo.
+- **Algoritmo**: Secuencia finita, ordenada y no ambigua de instrucciones
+  lógicas para resolver un problema.
+- **Variables y Memoria**: Espacios con nombre en la RAM que asocian una
+  dirección física con un tipo de dato y un valor.
+- **Estructuras de Control**: Secuencia, decisión (condicionales) y repetición
+  (lazos controlados por contador o condición).
 
 (proximos-pasos-el-lenguaje-c)=
 ### Próximos Pasos: El Lenguaje C
 
-Ahora que comprendés estos conceptos fundamentales mediante pseudocódigo estructurado, estás mucho mejor preparado para abordar el lenguaje C. En el próximo apunte, [](2_gradual.md), comenzaremos a traducir estos conceptos al lenguaje C y escribiremos nuestros primeros programas:
+Ahora que comprendés estos conceptos fundamentales mediante pseudocódigo
+estructurado, estás mucho mejor preparado para abordar el lenguaje C. En el
+próximo apunte, [](2_gradual.md), comenzaremos a traducir estos conceptos al
+lenguaje C y escribiremos nuestros primeros programas:
+
 - Cómo escribir estos mismos algoritmos en el lenguaje C.
 - La sintaxis más estricta y detallada de C.
 - El proceso de compilación y ejecución de programas.
 - Variables y tipos de datos estáticos en C.
 - Estructuras de control (`if`, `while`, `for`) en C.
 
-Recordá que toda la lógica que vimos aquí se aplica directamente a C. La principal diferencia será la sintaxis y la necesidad de gestionar la memoria de forma más explícita.
+Recordá que toda la lógica que vimos aquí se aplica directamente a C. La
+principal diferencia será la sintaxis y la necesidad de gestionar la memoria de
+forma más explícita.
 
 ---
 
@@ -871,23 +1001,34 @@ Recordá que toda la lógica que vimos aquí se aplica directamente a C. La prin
 
 (fundamentos-de-algoritmos)=
 ### Fundamentos de Algoritmos
-- {cite:t}`cormen_introduction_2009`. Capítulos 3-4: Growth of Functions y Divide-and-Conquer.
-- {cite:t}`sedgewick_algorithms_2011`. Capítulo 1: Fundamentals. Introducción accesible con visualizaciones.
+
+- {cite:t}`cormen_introduction_2009`. Capítulos 3-4: Growth of Functions y
+  Divide-and-Conquer.
+- {cite:t}`sedgewick_algorithms_2011`. Capítulo 1: Fundamentals. Introducción
+  accesible con visualizaciones.
   - Disponible en: https://algs4.cs.princeton.edu/
 
 (pensamiento-computacional)=
 ### Pensamiento Computacional
-- {cite:t}`wing_computational_2006`. El artículo que popularizó el término "pensamiento computacional".
-- {cite:t}`aho_foundations_1995`. Conceptos fundamentales: algoritmos, estructuras de datos, lógica.
+
+- {cite:t}`wing_computational_2006`. El artículo que popularizó el término
+  "pensamiento computacional".
+- {cite:t}`aho_foundations_1995`. Conceptos fundamentales: algoritmos,
+  estructuras de datos, lógica.
 
 (resolucion-de-problemas)=
 ### Resolución de Problemas
-- {cite:t}`polya_how_2014`. Clásico sobre heurísticas de resolución de problemas (1945).
-- {cite:t}`bentley_programming_1999`. Columnas sobre diseño de algoritmos y resolución de problemas.
+
+- {cite:t}`polya_how_2014`. Clásico sobre heurísticas de resolución de problemas
+  (1945).
+- {cite:t}`bentley_programming_1999`. Columnas sobre diseño de algoritmos y
+  resolución de problemas.
 
 (recursos-en-linea)=
 ### Recursos en Línea
-- **Khan Academy - Algorithms** - https://www.khanacademy.org/computing/computer-science/algorithms
+
+- **Khan Academy - Algorithms** -
+  https://www.khanacademy.org/computing/computer-science/algorithms
   - Curso interactivo sobre algoritmos básicos.
   - Visualizaciones y ejercicios progresivos.
 - **Visualgo** - https://visualgo.net/
@@ -896,4 +1037,5 @@ Recordá que toda la lógica que vimos aquí se aplica directamente a C. La prin
 - **CS Unplugged** - https://csunplugged.org/
   - Actividades para aprender conceptos sin computadora.
   - Ideal para desarrollar intuición algorítmica.
-- **xkcd - Algorithms** - https://xkcd.com/1667/ (Ver {numref}`fig-xkcd-algorithms`).
+- **xkcd - Algorithms** - https://xkcd.com/1667/ (Ver
+  {numref}`fig-xkcd-algorithms`).
