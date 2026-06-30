@@ -1,6 +1,6 @@
 ---
 title: 'Modelo de Memoria y Pila'
-short_title: '13 - Modelo de Memoria'
+short_title: La memoria
 description: 'Mapeo de memoria virtual, segmento de código, datos, stack, heap y la jerarquía de memoria física.'
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: 'Definición de Tipos y Alias'
-short_title: '4 - Alias y Enumeraciones'
+short_title: Alias y Enumeraciones
 subtitle: 'Typedef y enum en C'
 ---
 

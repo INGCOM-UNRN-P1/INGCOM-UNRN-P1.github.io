@@ -1,6 +1,6 @@
 ---
-title: 'Genericidad y Callbacks (Punteros a Funciones)'
-short_title: '16 - Callbacks y Genericidad'
+title: 'Punteros a Funciones'
+short_title: 'Punteros III'
 description: 'Punteros a funciones, genericidad básica en C utilizando void* y el uso de callbacks para ordenar y filtrar datos.'
 ---
 

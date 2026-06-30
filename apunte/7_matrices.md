@@ -1,6 +1,6 @@
 ---
 title: "Matrices"
-short_title: "8 - Matrices"
+short_title: Matrices
 subtitle: "The matrix has you..."
 ---
 

@@ -1,9 +1,7 @@
 ---
 title: Código Idiomático en C
-short_title: '20 - Idiomático'
+short_title: 'Idiomático'
 description: 'Convenciones, patrones y anti-patrones del C idiomático. Cómo escribir C que los programadores experimentados reconocen como natural y correcto.'
-numbering:
-  code: true
 ---
 
 (idiomatico-capitulo)=

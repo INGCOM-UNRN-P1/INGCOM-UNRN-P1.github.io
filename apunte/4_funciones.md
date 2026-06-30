@@ -1,6 +1,6 @@
 ---
 title: Funciones y descomposición funcional
-short_title: 3 - Funciones
+short_title: Funciones
 subtitle: Dividiendo problemas en partes más chicas.
 ---
 

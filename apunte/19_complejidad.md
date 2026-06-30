@@ -1,6 +1,6 @@
 ---
 title: Análisis de Complejidad Algorítmica
-short_title: "19 - Complejidad"
+short_title: Complejidad
 subtitle: Fundamentos matemáticos del análisis asintótico
 ---
 

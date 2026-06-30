@@ -1,6 +1,6 @@
 ---
 title: "Secuencias: Arreglos y Cadenas"
-short_title: "7 - Secuencias"
+short_title: Secuencias
 subtitle: "Colecciones de datos homogéneos y texto."
 ---
 

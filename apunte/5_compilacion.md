@@ -1,6 +1,6 @@
 ---
 title: Compilación
-short_title: "9 - Compilación"
+short_title: Compilación
 subtitle: Haciendonos entender por la computadora.
 ---
 

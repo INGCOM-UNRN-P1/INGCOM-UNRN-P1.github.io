@@ -1,6 +1,6 @@
 ---
 title: 'Archivos de Texto'
-short_title: '10 - Archivos de Texto'
+short_title: Archivos (de texto)
 description: 'Apertura, lectura, escritura y control de errores al trabajar con archivos de texto.'
 ---
 

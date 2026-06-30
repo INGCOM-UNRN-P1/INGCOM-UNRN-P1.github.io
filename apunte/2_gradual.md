@@ -1,6 +1,6 @@
 ---
 title: Introducción a la programación en C
-short_title: 2 - C base
+short_title: Sintaxis base
 subtitle: La sintaxis y programas básicos.
 ---
 

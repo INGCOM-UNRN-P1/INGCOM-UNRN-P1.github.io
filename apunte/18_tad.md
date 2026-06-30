@@ -1,6 +1,6 @@
 ---
 title: Tipos de Datos Abstractos, Pilas y Colas
-short_title: "18 - TADs"
+short_title: "Estructuras de datos"
 subtitle: Estructuras de datos dinámicas y especializadas
 ---
 (tad-capitulo)=

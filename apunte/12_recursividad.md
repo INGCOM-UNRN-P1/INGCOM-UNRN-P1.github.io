@@ -1,6 +1,6 @@
 ---
 title: Recursividad y Divide y Vencerás en C
-short_title: "12 - Recursividad"
+short_title: Recursividad
 description: Una introducción a la recursividad, su definición matemática, construcción de algoritmos recursivos y el paradigma de divide y conquista con ejemplos prácticos.
 ---
 

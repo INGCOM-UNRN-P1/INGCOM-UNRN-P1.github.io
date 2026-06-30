@@ -1,6 +1,6 @@
 ---
 title: 'Estructuras y Tipos Compuestos'
-short_title: '6 - Estructuras'
+short_title: Estructuras
 subtitle: 'struct, union y campos de bits en C'
 ---
 

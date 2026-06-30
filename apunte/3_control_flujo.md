@@ -1,6 +1,6 @@
 ---
 title: 'Control de Flujo Gradual'
-short_title: '2b - Control de Flujo'
+short_title: Control de Flujo
 subtitle: 'Decisiones condicionales, lazos y control seguro en C'
 ---
 

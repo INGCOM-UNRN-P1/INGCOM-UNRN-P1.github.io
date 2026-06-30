@@ -1,6 +1,6 @@
 ---
 title: Punteros Opacos y Encapsulamiento en C
-short_title: "17 - Opacos"
+short_title: 'Encapsulamiento'
 subtitle: Técnicas de ocultamiento de información y diseño modular
 ---
 

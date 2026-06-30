@@ -1,6 +1,6 @@
 ---
 title: Fundamentos de Computación y Algoritmos
-short_title: 1 - Fundamentos
+short_title: Fundamentos
 subtitle: Conceptos básicos antes de programar en C
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: 'Memoria Dinámica'
-short_title: '14 - Memoria Dinámica'
+short_title: 'Memoria Dinámica'
 description: 'Gestión y alocación en el Heap utilizando malloc, calloc, realloc y free.'
 ---
 

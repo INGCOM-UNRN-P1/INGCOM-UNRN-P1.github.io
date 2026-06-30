@@ -1,6 +1,6 @@
 ---
-title: 'Aritmética de Punteros Avanzada y Matrices Dinámicas'
-short_title: '15 - Aritmética de Punteros'
+title: 'Aritmética de punteros y matrices dinámicas'
+short_title: 'Punteros II - aritmética'
 description: 'Indirecciones múltiples, punteros a arrays, aritmética pura y matrices en memoria dinámica.'
 ---
 

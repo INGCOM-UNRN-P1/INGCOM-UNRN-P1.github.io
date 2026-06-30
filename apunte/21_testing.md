@@ -1,9 +1,7 @@
 ---
 title: Testing y Verificación en C
-short_title: '21 - Testing'
+short_title: 'Testing'
 description: 'Estrategias de prueba, uso de assert, TDD, frameworks de testing en C, y relación con el diseño por contratos.'
-numbering:
-  code: true
 ---
 
 (testing-capitulo)=

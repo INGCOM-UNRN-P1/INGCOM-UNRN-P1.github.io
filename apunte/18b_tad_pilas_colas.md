@@ -1,6 +1,6 @@
 ---
 title: 'Pilas, Colas y Estructuras Lineales Restringidas'
-short_title: '18b - Pilas y Colas'
+short_title: 'Pilas y Colas'
 subtitle: 'TAD Pila, Cola y Deque'
 ---
 

@@ -1,9 +1,7 @@
 ---
 title: Diseño por Contratos y Lógica Formal
-short_title: '22 - Contratos'
+short_title: Contratos
 description: 'Fundamentos formales del Diseño por Contratos: lógica de primer orden, ternas de Hoare, invariantes de lazo, precondiciones y postcondiciones en C.'
-numbering:
-  code: true
 ---
 
 (contratos-capitulo)=

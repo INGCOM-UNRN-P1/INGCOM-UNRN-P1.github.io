@@ -1,6 +1,6 @@
 ---
 title: "Punteros"
-short_title: "5 - Punteros"
+short_title: Punteros
 subtitle: "Control directo de memoria en sistemas integrados"
 ---
 
