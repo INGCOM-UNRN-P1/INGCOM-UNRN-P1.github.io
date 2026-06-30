@@ -6,6 +6,7 @@ description: Una introducción a la recursividad, su definición matemática, co
 
 La recursividad es una técnica de programación fundamental en la que una función se llama a sí misma para resolver un problema. Este enfoque se basa en la idea de descomponer un problema complejo en subproblemas más pequeños y de la misma naturaleza.
 
+(definicion-matematica)=
 ## Definición Matemática
 
 Desde una perspectiva matemática, una definición recursiva tiene dos partes esenciales:
@@ -82,10 +83,12 @@ $$
 Cada paso recursivo realiza la división entera por 10 (eliminando el último dígito del número) y suma 1 al contador acumulado, repitiendo el proceso hasta que el número sea menor que 10, donde se alcanza el caso base.
 :::
 
+(construccion-de-algoritmos-recursivos-en-c)=
 ## Construcción de Algoritmos Recursivos en C
 
 Para implementar un algoritmo recursivo en C (o en cualquier otro lenguaje de programación), debés seguir la estructura de la definición matemática.
 
+(componentes-clave)=
 ### Componentes Clave
 
 Un algoritmo recursivo siempre debe tener:
@@ -93,6 +96,7 @@ Un algoritmo recursivo siempre debe tener:
 *   **Caso Base:** Una estructura condicional (normalmente un `if`) que verifica si se ha alcanzado la condición de parada. Sin un caso base, la función se llamaría a sí misma infinitamente, resultando en un error de desbordamiento de pila (*stack overflow*).
 *   **Paso Recursivo:** La parte del código donde la función se invoca a sí misma, pero con argumentos que la acercan progresivamente al caso base. Es crucial que cada llamada recursiva opere sobre un subproblema más pequeño.
 
+(ejemplo-funcion-factorial-en-c)=
 ### Ejemplo: Función Factorial en C
 
 Veamos cómo se traduce la definición matemática del factorial a una función en C.
@@ -256,6 +260,7 @@ void invertir_arreglo(int arr[], size_t ini, size_t fin) {
 ```
 :::
 
+(el-peligro-de-la-recursividad-stack-overflow-y-la-paradoja-del-factorial)=
 ## El Peligro de la Recursividad: Stack Overflow y la Paradoja del Factorial
 
 El tamaño total disponible para la pila de llamadas (*call stack*) es finito, preconfigurado por el sistema operativo o el entorno de ejecución (típicamente entre 1 y 8 megabytes en sistemas Unix/Linux). Si el consumo de pila excede dicho límite físico, se produce un desbordamiento catastrófico de pila o **stack overflow**, lo cual interrumpe inmediatamente el programa con un fallo de segmentación (*segmentation fault*).
@@ -264,6 +269,7 @@ Las causas principales de este fallo son:
 1. **Ausencia o fallo en el Caso Base (Recursión Infinita):** Si la condición de parada no se cumple o los parámetros no convergen al caso base.
 2. **Recursión Demasiado Profunda:** Aún si el algoritmo es lógicamente correcto, si la profundidad de llamadas es excesiva, la pila se agotará.
 
+(la-paradoja-del-factorial-limites-del-tipo-de-dato-vs-limites-de-la-pila)=
 ### La Paradoja del Factorial: Límites del Tipo de Dato vs. Límites de la Pila
 
 :::{note} Contraste Cuantitativo
@@ -368,6 +374,7 @@ Un entero `unsigned long long` en C (64 bits) tiene un valor máximo representab
 Por lo tanto, la implementación de Fibonacci fallará primero debido a un desbordamiento aritmético en $n = 94$ mucho antes de aproximarse a un *stack overflow*.
 :::
 
+(recursion-de-cola-tail-recursion-y-optimizacion-tco)=
 ## Recursión de Cola (Tail Recursion) y Optimización TCO
 
 Una llamada recursiva se considera **recursiva de cola** (*tail recursive*) si la llamada a sí misma es la última instrucción ejecutada por la función antes de retornar, y su resultado se devuelve directamente sin realizar ninguna operación aritmética o lógica adicional.
@@ -389,6 +396,7 @@ long int factorial_tail_rec(int n, long int acumulador) {
 }
 ```
 
+(optimizacion-por-parte-del-compilador-tco)=
 ### Optimización por parte del compilador (TCO)
 
 Cuando una llamada es recursiva de cola, los compiladores modernos pueden aplicar una optimización llamada **Tail Call Optimization (TCO)**. En lugar de empujar un nuevo marco de pila al *call stack*, el compilador sobrescribe el marco de pila de la función actual y reutiliza sus registros y variables locales, transformando efectivamente la recursión en un salto incondicional (equivalente a un lazo de control). Esto reduce la complejidad espacial auxiliar del algoritmo de $O(n)$ a $O(1)$.
@@ -497,6 +505,7 @@ size_t contar_digitos_cola(unsigned long n, size_t acumulador) {
 ```
 :::
 
+(paradigma-de-divide-y-venceras)=
 ## Paradigma de Divide y Vencerás
 
 El paradigma de "Divide y Conquista" (Divide and Conquer) es una potente estrategia para el diseño de algoritmos que consiste en resolver un problema complejo descomponiéndolo en subproblemas más pequeños y manejables. Este paradigma aplica naturalmente la recursividad para su implementación. El proceso se puede resumir en tres fases principales:
@@ -515,6 +524,7 @@ Este flujo de trabajo de divide y vencerás se puede visualizar de manera gráfi
 Paradigma de Divide y Vencerás aplicado a la ordenación del arreglo [12, 11, 13, 5] mediante Merge Sort.
 ```
 
+(ejemplo-1-busqueda-binaria)=
 ### Ejemplo 1: Búsqueda Binaria
 
 La búsqueda binaria es un algoritmo altamente eficiente para localizar un elemento dentro de un **arreglo ordenado**. Se basa en el paradigma de divide y conquista.
@@ -617,6 +627,7 @@ int main(void) {
 }
 ```
 
+(ejemplo-2-ordenamiento-por-fusion-merge-sort)=
 ### Ejemplo 2: Ordenamiento por Fusión (Merge Sort)
 
 Merge Sort representa una aplicación más compleja del paradigma de divide y vencerás que involucra recursión múltiple (dos llamadas recursivas) y una fase de combinación no trivial (la fusión de arreglos ordenados).
@@ -856,6 +867,7 @@ size_t contar_pares_divide_y_venceras(const int arr[], size_t ini, size_t fin) {
 ```
 :::
 
+(ventajas-y-desventajas)=
 ## Ventajas y Desventajas
 
 ```{list-table}
@@ -871,6 +883,7 @@ size_t contar_pares_divide_y_venceras(const int arr[], size_t ini, size_t fin) {
   - La recursividad profunda puede llevar a un desbordamiento de la pila (*stack overflow*) si no se maneja con cuidado.
 ```
 
+(lecturas-recomendadas)=
 ## Lecturas Recomendadas
 
 - **{cite:t}`cormen_introduction_2009`**. Capítulo 4: Divide-and-Conquer.

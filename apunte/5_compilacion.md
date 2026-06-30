@@ -4,6 +4,7 @@ short_title: Compilación
 subtitle: Haciendonos entender por la computadora.
 ---
 
+(proceso-de-compilacion-en-c)=
 ## Proceso de compilación en C
 
 Cuando ejecutás en tu terminal el comando:
@@ -22,6 +23,7 @@ Sin embargo, detrás de esa aparente simplicidad, el compilador `gcc` (GNU Compi
 
 Comprender esta transformación del código, desde `programa.c` hasta `mi_programa`, es una habilidad fundamental para cualquier desarrollador de C. Te proporciona las bases para diagnosticar errores de compilación complejos, optimizar el rendimiento de tus aplicaciones y gestionar eficientemente proyectos que se componen de múltiples archivos fuente.
 
+(diagrama-del-proceso)=
 ### Diagrama del Proceso
 
 El flujo de transformación desde tu código fuente hasta un programa ejecutable
@@ -34,6 +36,7 @@ se puede visualizar de la siguiente manera:
 Proceso completo de compilación desde el código fuente hasta el ejecutable, mostrando las cuatro fases principales y los archivos intermedios generados.
 ```
 
+(fase-1-preprocesado-preprocessing)=
 ### Fase 1: Preprocesado (Preprocessing)
 
 Esta es la etapa inicial del proceso de compilación. Su función es transformar
@@ -129,6 +132,7 @@ comentarios eliminados y las condiciones resueltas. Revisar este archivo es una
 técnica de depuración excelente cuando sospechás que un error se origina en una
 macro mal definida o en una inclusión de archivo incorrecta.
 
+(etapa-2-compilacion)=
 ### Etapa 2: Compilación
 
 Esta es la fase central del proceso, donde el compilador (como `gcc`) toma el
@@ -246,6 +250,7 @@ En el ejemplo x86-64 anterior bajo Linux, se observa la aplicación de la conven
    - En `main`, la instrucción `sub rsp, 16` desplaza el puntero de pila (`rsp`) reservando 16 bytes de espacio local, manteniendo a su vez la alineación de pila requerida por la ABI antes de realizar una llamada a función.
 3. **Retorno de resultados:** Por convención, el valor de retorno de la función se deposita en el registro acumulador `eax`, de donde `main` lo recupera tras ejecutarse la instrucción `ret` (retorno).
 
+(ejercicios-de-autoevaluacion-fases-de-compilacion)=
 ### Ejercicios de Autoevaluación (Fases de Compilación)
 
 :::{exercise}
@@ -291,6 +296,7 @@ La compilación fallará y **no se generará el archivo ejecutable**.
 
 ---
 
+(archivos-de-cabecera-h-en-c)=
 ## Archivos de Cabecera (`.h`) en C
 
 Un archivo de cabecera (o `header`) en C actúa como un contrato o una interfaz
@@ -298,6 +304,7 @@ pública para un módulo de código. Su función principal es declarar los eleme
 (como funciones y _tipos de datos_) que estarán disponibles para otros archivos
 fuente que lo incluyan, sin exponer los detalles de su implementación.
 
+(propositos-fundamentales)=
 ### Propósitos Fundamentales
 
 Los archivos de cabecera son cruciales para un desarrollo de software
@@ -323,6 +330,7 @@ _cómo_ lo hace (la implementación). Esto permite modificar la implementación 
 que los archivos que utilizan el módulo necesiten ser cambiados, siempre y
 cuando la interfaz (el `.h`) permanezca constante.
 
+(que-suelen-contener)=
 ### ¿Qué suelen contener?
 
 Un archivo de cabecera puede contener varias clases de declaraciones, pero nunca debería contener definiciones de funciones (cuerpos de código) o definiciones/inicializaciones de variables globales.
@@ -405,6 +413,7 @@ en _un único_ archivo `.c`. Esta práctica está desaconsejada por la regla {re
 extern int errno;
 ```
 
+(guardas-de-inclusion)=
 ### Guardas de Inclusión
 
 Para evitar errores de "redefinición" que ocurren cuando un mismo archivo de
@@ -496,6 +505,7 @@ Explicá la diferencia de roles entre declarar una variable con `extern int cont
 
 ---
 
+(fase-3-ensamblado-assembly)=
 ## Fase 3: Ensamblado (Assembly)
 
 Esta fase actúa como el traductor final entre un lenguaje simbólico de bajo
@@ -584,6 +594,7 @@ los sistemas de construcción como `make` y ahorra una cantidad inmensa de tiemp
 en proyectos grandes.
 :::
 
+(fase-4-enlazado-linking)=
 ### Fase 4: Enlazado (Linking)
 
 Esta es la culminación del proceso de compilación, la fase donde todas las
@@ -647,6 +658,7 @@ El enlazador puede incorporar el código de las bibliotecas de dos maneras:
   ejecutables más pequeños y permite que múltiples programas compartan la misma
   copia de una biblioteca en memoria, ahorrando recursos.
 
+(como-verlo-en-accion)=
 ### ¿Cómo verlo en acción?
 
 El enlazado es el paso final y automático que `gcc` realiza si no se le indica
@@ -656,6 +668,7 @@ Si ya tenés un archivo objeto compilado, podés invocar explícitamente la fase
 enlazado de la siguiente manera:
 
 ```{code-block} sh
+(asumiendo-que-ya-existe-programa-o)=
 # Asumiendo que ya existe programa.o
 $> gcc -o mi_programa programa.o
 ```
@@ -668,10 +681,12 @@ Por supuesto, el comando original que inicia todo el proceso desde el principio
 también realiza este paso al final:
 
 ```{code-block} sh
+(el-comando-completo-que-ejecuta-las-cuatro-fases-en-secuencia)=
 # El comando completo que ejecuta las cuatro fases en secuencia
 $> gcc -o mi_programa programa.c
 ```
 
+(opciones-del-compilador-recomendadas)=
 ## Opciones del Compilador Recomendadas
 
 Usar `gcc` sin opciones es desaprovechar su potencial para ayudarte a escribir
@@ -701,17 +716,20 @@ Aunque es un montón, a continuación, vamos a ver cómo hacer que esto sea más
 simple y no dependa de que nos acordemos este conjunto de opciones _cada vez_
 que sea necesario compilar un programa.
 
+(documentacion-oficial)=
 ### Documentación Oficial
 
 [Manual en línea de GCC](https://gcc.gnu.org/onlinedocs/). La fuente definitiva
 sobre todas las opciones y el funcionamiento del compilador.
 
 
+(makefiles)=
 ## Makefiles
 
 Hay una guia mucho más detallada para quienes quieran entender cómo funcionan
 los [makefiles](../extras/makefiles).
 
+(que-es-un-makefile)=
 ### ¿Qué es un Makefile?
 
 `make` es una utilidad que automatiza el proceso de compilación de un programa a
@@ -724,20 +742,25 @@ En este ejemplo, para crear el programa ejecutable `programa`, son necesarios
 `main.c` y `funciones.c`.
 
 ```{code-block} makefile
+(variables-para-el-compilador-flags-y-archivos)=
 # Variables para el compilador, flags y archivos
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -std=c23 -O0 -g
 TARGET = programa
 OBJS = main.o funciones.o
 
+(regla-por-defecto-construye-el-programa-principal)=
 # Regla por defecto: construye el programa principal
 all: $(TARGET)
 
+(regla-de-enlace-linking-crea-el-ejecutable-a-partir-de-los-objetos)=
 # Regla de ENLACE (Linking): Crea el ejecutable a partir de los objetos.
+(se-ejecuta-solo-si-alguno-de-los-o-es-mas-nuevo-que-el-ejecutable)=
 # Se ejecuta solo si alguno de los .o es más nuevo que el ejecutable.
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
 
+(reglas-de-compilacion-convierten-cada-c-en-un-o)=
 # Reglas de COMPILACIÓN: Convierten cada .c en un .o
 main.o: main.c funciones.h
 	$(CC) $(CFLAGS) -c main.c -o main.o
@@ -745,6 +768,7 @@ main.o: main.c funciones.h
 funciones.o: funciones.c funciones.h
 	$(CC) $(CFLAGS) -c funciones.c -o funciones.o
 
+(objetivo-phony-para-limpieza-no-corresponde-a-un-archivo-real)=
 # Objetivo "phony" para limpieza (no corresponde a un archivo real)
 .PHONY: clean all
 
@@ -758,6 +782,7 @@ Los _Makefiles_ deben ser indentados con tabulaciones, ya que si usamos espacios
 fallará.
 :::
 
+(estructura-basica-de-un-tp-con-proyecto)=
 ### Estructura básica de un TP con proyecto
 
 Como aprender a crear Makefiles no es parte de los temas críticos de la cátedra,
@@ -815,7 +840,7 @@ Estos directorios estarán para alojar funciones comunes como las necesarias par
 
 ---
 
-(argumentos-cli)=
+(ejercicios-de-autoevaluacion-automatizacion-con-makefiles)=
 ### Ejercicios de Autoevaluación (Automatización con Makefiles)
 
 :::{exercise}
@@ -856,10 +881,12 @@ usuario.o: usuario.c usuario.h
 
 ---
 
+(argumentos-de-la-linea-de-comandos)=
 ## Argumentos de la Línea de Comandos
 
 Una vez que el programa se compila, puede recibir información directamente desde la terminal a través de los argumentos de `main`. Este mecanismo completa el ciclo compilación-ejecución visto en este capítulo.
 
+(los-parametros-main-int-argc-char-argv)=
 ## Los parámetros `main(int argc, char *argv[])`
 
 Cuando ejecutás un programa en C desde la terminal, tenés la posibilidad de pasarle información directamente en la línea de comandos. Esta información, conocida como "argumentos", es recibida por la función `main` a través de dos parámetros especiales: `argc` y `argv`.
@@ -911,6 +938,7 @@ Estos dos parámetros contienen toda la información que se pasa al programa en 
 Estructura en memoria de `argc` y `argv[]`. El arreglo `argv` contiene punteros a cadenas de caracteres (strings), cada una representando un argumento pasado al programa.
 ```
 
+(ejemplo-basico-imprimir-todos-los-argumentos)=
 ## Ejemplo Básico: Imprimir Todos los Argumentos
 
 El programa más simple para entender su funcionamiento es uno que recorre los
@@ -943,18 +971,22 @@ int main(int argc, char *argv[]) {
 }
 ```
 
+(compilacion-y-ejecucion)=
 ### Compilación y ejecución
 
 Si guardás el código anterior como `main_args.c` y lo compilás, podés ver la
 salida al ejecutarlo con distintos argumentos.
 
 ```bash
+(compilamos-el-programa)=
 # Compilamos el programa
 gcc main_args.c -o mi_programa
 
+(ejecutamos-sin-argumentos)=
 # Ejecutamos sin argumentos
 ./mi_programa
 
+(ejecutamos-con-varios-argumentos)=
 # Ejecutamos con varios argumentos
 ./mi_programa hola "mundo con espacios" 42
 ```
@@ -980,6 +1012,7 @@ separados.
 
 :::
 
+(procesamiento-de-opciones)=
 ## Procesamiento de opciones
 
 Las opciones (también llamadas _flags_ o _switches_) son argumentos especiales
@@ -1020,6 +1053,7 @@ como `getopt` (en sistemas POSIX) que simplifican enormemente este proceso.
 
 :::
 
+(conversion-de-argumentos-a-numeros)=
 ## Conversión de Argumentos a Números
 
 Un punto crucial es que **todos los argumentos en `argv` son cadenas de
@@ -1057,14 +1091,18 @@ int main(int argc, char *argv[]) {
 }
 ```
 
+(compilacion-y-ejecucion-del-sumador)=
 ### Compilación y Ejecución del Sumador
 
 ```bash
+(compilamos)=
 # Compilamos
 gcc sumador.c -o sumador
 
+(ejecutamos-con-numeros)=
 # Ejecutamos con números
 ./sumador 10 20 5
+(salida-la-suma-total-es-35)=
 # Salida: La suma total es: 35
 ```
 
@@ -1076,6 +1114,7 @@ Para un código más robusto, es preferible usar `strtol` (ver {ref}`stdlib-strt
 
 :::
 
+(funciones-utiles-de-la-biblioteca-estandar)=
 ## Funciones Útiles de la Biblioteca Estándar
 
 Para construir programas de línea de comandos robustos, es indispensable conocer algunas de las herramientas que provee la biblioteca estándar de C. A continuación, se mencionan algunas de las funciones más relevantes en este contexto.
@@ -1086,6 +1125,7 @@ Este es solo un resumen. Para una descripción detallada de todas las funciones,
 
 :::
 
+(funciones-clave)=
 ### Funciones Clave
 
 - **Conversión de Cadenas (`<stdlib.h>`)**:
@@ -1113,6 +1153,7 @@ Dominar el uso de `argc` y `argv` junto con estas funciones te permitirá crear 
 
 ---
 
+(interaccion-con-el-shell)=
 ## Interacción con el Shell
 
 :::{note} Temas opcionales
@@ -1125,6 +1166,7 @@ Sin embargo, hacen al desarrollo de buenas aplicaciones _de consola_.
 
 Cuando ejecutás un programa desde la línea de comandos, tu programa no existe en aislamiento sino que forma parte de un ecosistema más amplio: el shell o intérprete de comandos (como `bash`, `zsh`, o `sh`). El shell proporciona mecanismos poderosos para conectar programas entre sí y controlar el flujo de datos, lo que convierte a los programas C en herramientas componibles dentro de un sistema más grande.
 
+(codigos-de-salida)=
 ### Códigos de Salida
 
 Cada programa retorna un **código de salida** (o _exit status_) al shell cuando termina su ejecución. Por convención en Unix y Linux:
@@ -1157,6 +1199,7 @@ Desde el shell, podés inspeccionar el código de salida del último programa ej
 echo $?  # Imprime el código de salida (0 si éxito)
 ```
 
+(variables-de-entorno)=
 ### Variables de Entorno
 
 El shell mantiene un conjunto de **variables de entorno** que los programas pueden leer. Estas variables configuran el comportamiento del sistema y almacenan información útil como rutas de búsqueda, configuraciones del usuario, etc.
@@ -1193,10 +1236,12 @@ Variables comunes incluyen `PATH` (rutas de búsqueda de ejecutables), `HOME` (d
 Códigos de salida en programas C. El shell usa estos códigos para determinar si la ejecución fue exitosa (`0`) o falló (distinto de `0`).
 ```
 
+(redirecciones)=
 ## Redirecciones
 
 Una característica fundamental del shell es su capacidad de **redirigir** la entrada y salida de los programas. Esto permite cambiar de dónde un programa lee datos y hacia dónde escribe sus resultados, sin modificar el código del programa.
 
+(salida-estandar-y-error-estandar)=
 ### Salida Estándar y Error Estándar
 
 Todo programa en Unix/Linux tiene tres flujos de datos estándar abiertos automáticamente:
@@ -1239,20 +1284,25 @@ Es una buena práctica escribir la salida normal del programa a `stdout` usando 
 
 :::
 
+(redireccion-de-salida)=
 ### Redirección de Salida
 
 El shell puede redirigir hacia dónde va la salida de un programa usando el operador `>`:
 
 ```bash
+(redirige-stdout-a-un-archivo-sobrescribe)=
 # Redirige stdout a un archivo (sobrescribe)
 ./mi_programa > salida.txt
 
+(redirige-stdout-a-un-archivo-agrega-al-final)=
 # Redirige stdout a un archivo (agrega al final)
 ./mi_programa >> salida.txt
 
+(redirige-stderr-a-un-archivo)=
 # Redirige stderr a un archivo
 ./mi_programa 2> errores.txt
 
+(redirige-ambos-stdout-y-stderr-al-mismo-archivo)=
 # Redirige ambos stdout y stderr al mismo archivo
 ./mi_programa > todo.txt 2>&1
 ```
@@ -1284,19 +1334,24 @@ int main(void) {
 ```
 
 ```bash
+(ejecuta-y-guarda-solo-la-salida-normal-en-archivo-txt)=
 # Ejecuta y guarda solo la salida normal en archivo.txt
 ./mi_programa > archivo.txt
+(los-errores-aun-aparecen-en-pantalla)=
 # Los errores aún aparecen en pantalla
 
+(para-capturar-solo-los-errores)=
 # Para capturar solo los errores
 ./mi_programa 2> errores.txt
 ```
 
+(redireccion-de-entrada)=
 ### Redirección de Entrada
 
 De forma similar, el shell puede cambiar de dónde un programa lee su entrada usando el operador `<`:
 
 ```bash
+(lee-stdin-desde-un-archivo-en-lugar-del-teclado)=
 # Lee stdin desde un archivo en lugar del teclado
 ./mi_programa < datos.txt
 ```
@@ -1321,13 +1376,16 @@ int main(void) {
 ```
 
 ```bash
+(si-ejecutas-directamente-lee-del-teclado)=
 # Si ejecutás directamente, lee del teclado
 ./mi_programa
 
+(con-redireccion-lee-del-archivo)=
 # Con redirección, lee del archivo
 ./mi_programa < datos.txt
 ```
 
+(canalizaciones-pipes)=
 ## Canalizaciones (Pipes)
 
 Las **canalizaciones** o _pipes_ son uno de los conceptos más poderosos del shell Unix. Permiten conectar la salida de un programa directamente con la entrada de otro, creando cadenas de procesamiento de datos.
@@ -1335,9 +1393,11 @@ Las **canalizaciones** o _pipes_ son uno de los conceptos más poderosos del she
 El operador `|` (pipe) conecta `stdout` del primer programa con `stdin` del segundo:
 
 ```bash
+(la-salida-de-programa1-se-convierte-en-la-entrada-de-programa2)=
 # La salida de programa1 se convierte en la entrada de programa2
 programa1 | programa2
 
+(ejemplo-real-cuenta-las-lineas-de-salida-de-ls)=
 # Ejemplo real: cuenta las líneas de salida de ls
 ls -l | wc -l
 ```
@@ -1349,6 +1409,7 @@ ls -l | wc -l
 Canalizaciones (pipes) en Unix. La salida estándar de un programa se conecta con la entrada estándar del siguiente, permitiendo construir cadenas de procesamiento.
 ```
 
+(filosofia-unix-hacer-una-cosa-bien)=
 ### Filosofía Unix: Hacer Una Cosa Bien
 
 Las canalizaciones promueven la **filosofía Unix**: escribir programas pequeños que hagan una cosa muy bien, y combinarlos para tareas complejas. Tu programa C puede ser un eslabón en esta cadena.
@@ -1379,10 +1440,13 @@ int main(void) {
 Este programa se convierte en un filtro reutilizable:
 
 ```bash
+(genera-numeros-del-1-al-10-y-filtra-solo-los-pares)=
 # Genera números del 1 al 10 y filtra solo los pares
 seq 1 10 | ./filtro_pares
+(salida-2-4-6-8-10)=
 # Salida: 2, 4, 6, 8, 10
 
+(combina-con-otros-programas)=
 # Combina con otros programas
 seq 1 100 | ./filtro_pares | wc -l  # Cuenta cuántos pares hay
 ```
@@ -1394,11 +1458,13 @@ seq 1 100 | ./filtro_pares | wc -l  # Cuenta cuántos pares hay
 Flujo de datos en una canalización que genera números, filtra solo los pares y toma los primeros 5 resultados.
 ```
 
+(canalizaciones-complejas)=
 ### Canalizaciones Complejas
 
 Podés encadenar múltiples programas:
 
 ```bash
+(genera-numeros-filtra-pares-suma-los-primeros-5)=
 # Genera números, filtra pares, suma los primeros 5
 seq 1 100 | ./filtro_pares | head -5 | ./sumador
 ```
@@ -1409,6 +1475,7 @@ Cada programa en la cadena:
 3. Escribe a `stdout`
 4. El shell conecta todo automáticamente
 
+(consideraciones-de-diseno)=
 ### Consideraciones de Diseño
 
 Para que tu programa funcione bien en canalizaciones:
@@ -1453,15 +1520,19 @@ int main(int argc, char *argv[]) {
 Este diseño permite flexibilidad total:
 
 ```bash
+(lee-del-archivo-directamente)=
 # Lee del archivo directamente
 ./mi_programa datos.txt
 
+(lee-de-stdin-teclado)=
 # Lee de stdin (teclado)
 ./mi_programa
 
+(lee-de-stdin-via-redireccion)=
 # Lee de stdin vía redirección
 ./mi_programa < datos.txt
 
+(lee-de-stdin-via-canalizacion)=
 # Lee de stdin vía canalización
 cat datos.txt | ./mi_programa
 ```
@@ -1472,6 +1543,7 @@ Un programa bien diseñado para la línea de comandos es como una pieza de LEGO:
 
 :::
 
+(ejemplo-completo-conversor-de-temperatura)=
 ### Ejemplo Completo: Conversor de Temperatura
 
 Veamos un ejemplo que integra todos estos conceptos:
@@ -1548,27 +1620,33 @@ int main(int argc, char *argv[]) {
 Este programa puede usarse de múltiples formas:
 
 ```bash
+(uso-interactivo)=
 # Uso interactivo
 ./temp_converter -c
 32
 212
 
+(desde-archivo)=
 # Desde archivo
 echo -e "32\n98.6\n212" > temps.txt
 ./temp_converter -c temps.txt
 
+(con-redireccion)=
 # Con redirección
 ./temp_converter -c < temps.txt
 
+(con-canalizacion)=
 # Con canalización
 echo "100" | ./temp_converter -f
 
+(encadenado-con-otros-comandos)=
 # Encadenado con otros comandos
 seq 0 10 100 | ./temp_converter -f | grep "°C"
 ```
 
 La separación entre `stdout` (resultados) y `stderr` (mensajes de error y ayuda) permite que el programa funcione correctamente en canalizaciones sin contaminar los datos con mensajes no deseados.
 
+(ejercicios-de-autoevaluacion-argumentos-e-interaccion)=
 ### Ejercicios de Autoevaluación (Argumentos e Interacción)
 
 :::{exercise}
@@ -1616,14 +1694,17 @@ El operador pipe `|` conecta la salida estándar de `./productor` al canal de en
 
 ---
 
+(referencias-y-lecturas-complementarias)=
 ## Referencias y Lecturas Complementarias
 
+(proceso-de-compilacion)=
 ### Proceso de Compilación
 
 - {cite:t}`kernighan_c_2014`. Apéndice A12: Preprocessing y Capítulo 4: Functions and Program Structure.
 
 - {cite:t}`levine_linkers_1999`. Libro completo sobre enlazado y carga.
 
+(gcc-y-herramientas)=
 ### GCC y Herramientas
 
 - **GCC Documentation** - https://gcc.gnu.org/onlinedocs/
@@ -1636,6 +1717,7 @@ El operador pipe `|` conecta la salida estándar de `./productor` al canal de en
 
 - {cite:t}`mecklenburg_managing_2004`. Guía práctica de Makefiles complejos.
 
+(recursos-en-linea)=
 ### Recursos en Línea
 
 - **An Introduction to GCC** - https://www.linuxtopia.org/online_books/an_introduction_to_gcc/

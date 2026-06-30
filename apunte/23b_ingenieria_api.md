@@ -4,11 +4,12 @@ short_title: '23b - Ingeniería de APIs'
 subtitle: 'Versionado semántico, estabilidad de ABI y performance de interfaces en C'
 ---
 
-(ingeneria-api-capitulo)=
+(versionado-y-compatibilidad)=
 ## Versionado y Compatibilidad
 
 Un aspecto crítico del diseño de APIs profesionales es la gestión de versiones y la compatibilidad hacia atrás (_backwards compatibility_).
 
+(versionado-semantico)=
 ### Versionado Semántico
 
 Se recomienda seguir el esquema **MAJOR.MINOR.PATCH** propuesto por Preston-Werner [@preston2013]:
@@ -27,6 +28,7 @@ El versionado semántico se aplica típicamente a la API (interfaz a nivel de c�
 Para bibliotecas que deben mantener estabilidad del ABI, el uso de punteros opacos como se describe en {ref}`api-ocultamiento` es esencial.
 :::
 
+(estrategias-de-evolucion)=
 ### Estrategias de Evolución
 
 Cuando es necesario cambiar una función existente:
@@ -67,6 +69,7 @@ rectangulo_config_t rectangulo_config_defecto(void);
 void dibujar_rectangulo_config(int x, int y, const rectangulo_config_t *config);
 :::
 
+(ejercicios-sobre-diseno-de-apis)=
 ## Ejercicios sobre Diseño de APIs
 
 ```{exercise}
@@ -790,10 +793,12 @@ const char *json_obtener_error(void);
 - La API es minimalista pero extensible: se podrían agregar funciones para soportar arrays, booleanos, y null en futuras versiones.
 ````
 
+(performance-y-apis-el-costo-de-la-abstraccion)=
 ## Performance y APIs: El Costo de la Abstracción
 
 Una preocupación legítima al diseñar APIs con múltiples capas de abstracción es el impacto en el rendimiento. ¿Cuánto cuesta la llamada a función indirecta? ¿Vale la pena el overhead?
 
+(el-mito-de-la-abstraccion-costosa)=
 ### El Mito de la Abstracción Costosa
 
 En sistemas modernos, el costo de una llamada a función bien diseñada es despreciable en la vasta mayoría de los casos. Knuth [@knuth1974] famosamente advirtió: "La optimización prematura es la raíz de todos los males" (*"premature optimization is the root of all evil"*). Esta observación, basada en décadas de experiencia, enfatiza que el tiempo de desarrollo debe invertirse en claridad y corrección antes que en optimizaciones especulativas.
@@ -821,6 +826,7 @@ Antes de sacrificar claridad por performance:
 Como observa Martin [@martin2008], "El código limpio es más fácil de optimizar que el código sucio", porque es más fácil identificar y modificar las partes críticas cuando el código es comprensible.
 :::
 
+(cuando-preocuparse-por-performance)=
 ### Cuándo Preocuparse por Performance
 
 La performance sí importa en contextos específicos:
@@ -847,6 +853,7 @@ void lista_insertar_unsafe(lista_t *lista, size_t pos, void *elem);
 
 Esta estrategia es común en bibliotecas de sistemas. Por ejemplo, la librería estándar de C ofrece `strcpy` (rápida pero peligrosa) y `strncpy` (más segura pero requiere especificar tamaño). Bibliotecas modernas como OpenSSL exponen APIs de alto nivel simples para casos comunes y APIs de bajo nivel complejas para casos que requieren máximo control.
 
+(testing-de-apis-validacion-del-contrato)=
 ### Testing de APIs: Validación del Contrato
 
 El testing de una API no solo verifica que el código funciona, sino que valida que el *contrato* se cumple. Beck [@beck2002] popularizó el desarrollo guiado por tests (*Test-Driven Development*, TDD), donde los tests se escriben antes que el código de producción, sirviendo como especificación ejecutable.
@@ -882,10 +889,12 @@ void test_lista_agregar_retorna_true_en_exito(void) {
 
 Una técnica avanzada, popularizada por QuickCheck [@claessen2000], genera automáticamente cientos de casos de test basados en propiedades declaradas. Por ejemplo, para una lista: "agregar N elementos y luego consultar el largo debe retornar N".
 
+(documentacion-de-apis-el-contrato-escrito)=
 ## Documentación de APIs: El Contrato Escrito
 
 La documentación no es opcional; es parte integral del contrato entre la API y sus usuarios. Una función sin documentación es una función cuyo comportamiento es indefinido desde la perspectiva del usuario.
 
+(elementos-esenciales-de-documentacion)=
 ### Elementos Esenciales de Documentación
 
 Cada función pública debe documentar:
@@ -901,6 +910,7 @@ Cada función pública debe documentar:
 9. **Thread-Safety**: ¿Es seguro llamar desde múltiples hilos concurrentemente?
 10. **Complejidad**: Si es relevante, complejidad temporal y espacial ($O(n)$, etc.).
 
+(formato-de-documentacion-doxygen)=
 ### Formato de Documentación: Doxygen
 
 Doxygen [@doxygen2023] es el estándar de facto para documentación de APIs en C/C++. Usa comentarios especialmente formateados que pueden ser procesados para generar HTML, PDF, y man pages.
@@ -936,10 +946,12 @@ bool lista_buscar_binaria(const lista_t *lista,
 
 Esta documentación es exhaustiva pero necesaria. Comunica el contrato completo y permite al usuario de la API trabajar con confianza.
 
+(estudio-de-caso-apis-exitosas-en-la-practica)=
 ## Estudio de Caso: APIs Exitosas en la Práctica
 
 Analizar APIs exitosas y ampliamente adoptadas revela patrones comunes y lecciones valiosas.
 
+(posix-el-estandar-de-facto)=
 ### POSIX: El Estándar de Facto
 
 POSIX (Portable Operating System Interface) [@ieee2018] es quizás el ejemplo más exitoso de diseño de API en C. Define interfaces estándar para interacción con el sistema operativo (archivos, procesos, hilos, señales, etc.) que han sido adoptadas por prácticamente todos los sistemas Unix-like y muchos otros.
@@ -966,6 +978,7 @@ La API POSIX [@ieee2018] define interfaces para sistemas Unix-like y ha sobreviv
 - **Composabilidad**: Funciones pequeñas se combinan para crear funcionalidad compleja.
 - **Consistencia**: Patrones repetidos (descriptores de archivo, códigos de error) facilitan el aprendizaje.
 
+(sqlite-la-libreria-mas-deployada-del-mundo)=
 ### SQLite: La Librería más Deployada del Mundo
 
 SQLite [@hipp2020] es probablemente la librería C más ampliamente desplegada en el planeta. Se encuentra en miles de millones de dispositivos: smartphones, navegadores web, sistemas operativos, aviones, y prácticamente cualquier sistema que necesite almacenar datos estructurados localmente. Su éxito se debe en gran parte a decisiones de diseño deliberadas:
@@ -984,6 +997,7 @@ SQLite [@hipp2020] es probablemente la librería C más ampliamente desplegada e
 
 Richard Hipp, creador de SQLite, enfatiza que "SQLite es software embebido, no un producto con clientes". Esta filosofía de diseño como componente reutilizable, no como servicio independiente, informa cada decisión de API. El objetivo es que SQLite "simplemente funcione" sin que el usuario tenga que pensar en ella.
 
+(git-porcelain-vs-plumbing)=
 ### Git: Porcelain vs Plumbing
 
 Git [@chacon2014] es el sistema de control de versiones más utilizado del mundo. Su diseño de API es notable por la separación explícita en dos niveles de abstracción:
@@ -1006,6 +1020,7 @@ Esta separación es brillante porque permite:
 
 El diseño de Git demuestra que no es necesario elegir entre simplicidad para principiantes y poder para expertos. Una API puede ofrecer ambos mediante niveles de abstracción apropiados, cada uno con su propio contrato de estabilidad.
 
+(conclusion-disenar-para-el-usuario)=
 ## Conclusión: Diseñar para el Usuario
 
 El diseño de una buena interfaz en C es un ejercicio de empatía y disciplina. Requiere que te pongas en el lugar del programador que utilizará tu código. ¿Es la interfaz clara? ¿Es predecible? ¿Es segura? ¿Oculta la complejidad innecesaria?
@@ -1014,6 +1029,7 @@ Al aplicar estos principios y las reglas de estilo, no solo estarás creando fun
 
 Como observa Stroustrup [@stroustrup2012], diseñador de C++: "El diseño de bibliotecas es el diseño de lenguajes". Una buena API extiende el lenguaje con un vocabulario nuevo, expresivo y coherente para resolver problemas de un dominio específico.
 
+(principios-clave-a-recordar)=
 ### Principios Clave a Recordar
 
 1. **Claridad sobre Cleverness**: Un código claro y simple es superior a uno "inteligente" pero difícil de entender. Como dice la regla {ref}`0x0000h`, la claridad y prolijidad son fundamentales.
@@ -1032,6 +1048,7 @@ Como observa Stroustrup [@stroustrup2012], diseñador de C++: "El diseño de bib
 
 El dominio de estos principios te diferencia de un programador amateur de uno profesional. Es la diferencia entre escribir código que funciona hoy y escribir código que seguirá siendo valioso dentro de años.
 
+(referencias-adicionales-y-lecturas-recomendadas)=
 ## Referencias Adicionales y Lecturas Recomendadas
 
 Para profundizar en los temas tratados, se recomiendan las siguientes lecturas:

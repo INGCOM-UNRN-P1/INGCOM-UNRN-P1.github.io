@@ -4,14 +4,14 @@ short_title: 'Memoria Dinámica'
 description: 'Gestión y alocación en el Heap utilizando malloc, calloc, realloc y free.'
 ---
 
-(memoria-dinamica-capitulo)=
+(funciones-de-gestion-de-memoria-stdlib-h)=
 ## Funciones de Gestión de Memoria (`<stdlib.h>`)
 
 Las funciones de gestión de memoria dinámica están declaradas en el archivo de
 cabecera `<stdlib.h>`. Estas funciones permiten solicitar y liberar bloques de
 memoria del heap durante la ejecución del programa.
 
-(memoria-malloc)=
+(malloc-memory-allocation)=
 ### `malloc` (Memory Allocation)
 
 #### Sintaxis
@@ -89,7 +89,7 @@ Verificar el retorno de `malloc` permite que tu programa:
 En C, no es necesario hacer cast del puntero `void *` retornado por `malloc` a otro tipo de puntero, ya que la conversión es implícita. Sin embargo, algunos programadores prefieren el cast explícito por claridad o para compatibilidad con C++. La {ref}`0x300Ah` recomienda usar cast explícito al convertir tipos de punteros por claridad. 
 :::
 
-(memoria-calloc)=
+(calloc-contiguous-allocation)=
 ### `calloc` (Contiguous Allocation)
 
 #### Sintaxis
@@ -153,7 +153,7 @@ int main()
 }
 ```
 
-(memoria-realloc)=
+(realloc-re-allocation)=
 ### `realloc` (Re-allocation)
 
 #### Sintaxis
@@ -227,7 +227,7 @@ if (temp == NULL) {
 numeros = temp;
 ```
 
-(memoria-free)=
+(free-liberacion)=
 ### `free` (Liberación)
 
 #### Sintaxis
@@ -260,7 +260,7 @@ ptr = NULL;  // Previene el uso accidental del puntero colgante
 La {ref}`0x3002h` también enfatiza la simetría: si creaste una función `crear_recurso()` para encapsular la asignación, debés crear una función `liberar_recurso()` correspondiente para su liberación. Esto mantiene el nivel de abstracción consistente y facilita el mantenimiento.
 :::
 
-(memoria-heap-allocator)=
+(el-allocator-gestion-interna-del-heap)=
 ### El Allocator: Gestión Interna del Heap
 
 Cuando llamás a `malloc` o `calloc`, no estás interactuando directamente con el sistema operativo en cada llamada. En cambio, estas funciones son parte de un subsistema llamado **allocator** (asignador de memoria) que gestiona el heap de tu proceso.
@@ -344,6 +344,7 @@ Aunque no implementés tu propio allocator, comprender su funcionamiento explica
 4. **Por qué el heap puede crecer pero no decrecer fácilmente:** El allocator solo puede devolver memoria al SO si los bloques al final del heap están libres. 
 :::
 
+(ejercicios-de-autoevaluacion-funciones-de-gestion)=
 ### Ejercicios de Autoevaluación (Funciones de Gestión)
 
 :::{exercise}
@@ -430,7 +431,7 @@ Explicá de forma conceptual la diferencia en rendimiento e inicialización de m
 - **`calloc`**: Además de reservar el espacio virtual, garantiza que todos los bytes estén inicializados en cero. Para hacer esto, la biblioteca estándar escribe ceros en toda la memoria solicitada, lo que fuerza al sistema operativo a asignar físicamente todas las páginas de memoria de forma inmediata. Esto produce una penalización medible de tiempo de CPU y acceso a disco/RAM durante la llamada a `calloc`.
 :::
 
-(memoria-errores)=
+(errores-comunes-y-peligros)=
 ## Errores Comunes y Peligros
 
 La gestión manual de memoria es una fuente frecuente de errores en C. Comprender estos errores y cómo prevenirlos es fundamental para escribir código robusto.
@@ -439,7 +440,7 @@ La gestión manual de memoria es una fuente frecuente de errores en C. Comprende
 Los errores discutidos en esta sección son específicos de la gestión de memoria dinámica. Para errores básicos con punteros (como punteros salvajes, desreferencia de `NULL`, y problemas de inicialización), consultá primero el [](9_punteros), que cubre los conceptos fundamentales necesarios para trabajar con punteros de forma segura.
 :::
 
-(memoria-memory-leak)=
+(memory-leak-fuga-de-memoria)=
 ### Memory Leak (Fuga de Memoria)
 
 Una fuga de memoria ocurre cuando se pierde la referencia a un bloque de memoria reservado sin haberlo liberado con `free`. La memoria queda inutilizable para el programa hasta que este termina.
@@ -483,7 +484,7 @@ void funcion_sin_fuga()
 }
 ```
 
-(memoria-dangling-pointer)=
+(dangling-pointer-puntero-colgante)=
 ### Dangling Pointer (Puntero Colgante)
 
 Un puntero colgante es un puntero que apunta a una dirección de memoria que ya ha sido liberada con `free`. Intentar acceder a través de él produce comportamiento indefinido.
@@ -530,7 +531,7 @@ int main()
 }
 ```
 
-(memoria-double-free)=
+(double-free-doble-liberacion)=
 ### Double Free (Doble Liberación)
 
 Intentar liberar el mismo bloque de memoria dos veces causa comportamiento indefinido y puede corromper la gestión de memoria del heap.
@@ -571,7 +572,7 @@ int main()
 }
 ```
 
-(memoria-acceso-invalido)=
+(acceso-fuera-de-limites)=
 ### Acceso Fuera de Límites
 
 Leer o escribir fuera de los límites del bloque de memoria reservado corrompe datos adyacentes y causa comportamiento impredecible.
@@ -633,7 +634,7 @@ int main()
 }
 ```
 
-(memoria-uso-despues-free)=
+(uso-de-memoria-despues-de-free)=
 ### Uso de Memoria Después de `free`
 
 Acceder a memoria después de liberarla es un error similar al puntero colgante.
@@ -667,6 +668,7 @@ Asegurate de no usar el puntero después de liberarlo, y asigná `NULL` para det
 Herramientas como **Valgrind** pueden detectar automáticamente fugas de memoria, accesos inválidos y otros errores relacionados con la gestión de memoria. Su uso es altamente recomendable durante el desarrollo. 
 :::
 
+(ejercicios-de-autoevaluacion-errores-comunes-y-peligros)=
 ### Ejercicios de Autoevaluación (Errores Comunes y Peligros)
 
 :::{exercise}
@@ -742,12 +744,12 @@ El allocator de memoria dinámica gestiona las zonas libres a través de estruct
 La regla `{ref}`0x3002h`` exige establecer `ptr = NULL` inmediatamente después de liberarlo. Como el estándar de C define que llamar a `free(NULL)` no realiza ninguna operación ni produce efectos secundarios, cualquier llamada posterior a `free` sobre ese puntero será inocua.
 :::
 
-(memoria-seguridad-conceptual)=
+(seguridad-de-memoria-una-perspectiva-profunda)=
 ## Seguridad de Memoria: Una Perspectiva Profunda
 
 La seguridad de memoria (memory safety) es uno de los desafíos más importantes en programación de sistemas. Comprender por qué los errores de memoria son tan peligrosos requiere entender qué significa "comportamiento indefinido" y cómo puede ser explotado.
 
-(memoria-comportamiento-indefinido)=
+(comportamiento-indefinido-undefined-behavior)=
 ### Comportamiento Indefinido (Undefined Behavior)
 
 Cuando el estándar de C dice que una operación tiene "comportamiento indefinido" (UB), significa que **absolutamente cualquier cosa puede pasar**. El compilador no está obligado a hacer nada razonable.
@@ -812,7 +814,7 @@ El comportamiento indefinido no solo causa crashes. Puede:
    // cuando es NULL sería UB), y eliminar la verificación.
    ```
 
-(memoria-vulnerabilidades)=
+(vulnerabilidades-comunes)=
 ### Vulnerabilidades Comunes
 
 Los errores de memoria no son solo bugs: son vulnerabilidades de seguridad. Comprender los ataques comunes te ayuda a escribir código más defensivo.
@@ -887,7 +889,7 @@ int *b = malloc(100);
 // Ahora 'a' y 'b' podrían apuntar a la misma memoria!
 ```
 
-(memoria-estrategias-defensivas)=
+(estrategias-defensivas)=
 ### Estrategias Defensivas
 
 **1. Principio de mínimo privilegio:** No uses más memoria de la que necesitás, y no la mantengas asignada más tiempo del necesario.
@@ -953,6 +955,7 @@ En el desarrollo profesional, los errores de memoria no son solo bugs molestos: 
 Escribir código memory-safe no es solo seguir buenas prácticas: es una responsabilidad ética. Tu código podría procesar datos sensibles, ejecutarse en infraestructura crítica, o estar expuesto a atacantes motivados. La seguridad debe ser parte del diseño desde el principio, no un añadido posterior.
 :::
 
+(ejercicios-de-autoevaluacion-seguridad-de-memoria)=
 ### Ejercicios de Autoevaluación (Seguridad de Memoria)
 
 :::{exercise}
@@ -1019,12 +1022,12 @@ Por ejemplo, si el cálculo da como resultado virtual `4` bytes debido al desbor
 `calloc(cantidad, sizeof(*datos))` evita esto porque realiza la multiplicación de forma interna en su implementación y verifica explícitamente si se produce un desbordamiento antes de solicitar memoria. Si se detecta un desbordamiento de enteros, `calloc` aborta la operación de forma segura retornando `NULL`.
 :::
 
-(memoria-buenas-practicas)=
+(resumen-de-buenas-practicas)=
 ## Resumen de Buenas Prácticas
 
 La gestión segura de memoria dinámica requiere disciplina y adherencia a un conjunto de prácticas probadas. Este resumen consolida las reglas fundamentales.
 
-(memoria-bp-inicializar)=
+(inicializar-punteros)=
 ### Inicializar Punteros
 
 Siempre inicializá los punteros a `NULL` al declararlos si no tenés una dirección válida para asignarles inmediatamente. Esto está codificado en la {ref}`0x0003h` y la {ref}`0x3008h`.
@@ -1034,7 +1037,7 @@ Siempre inicializá los punteros a `NULL` al declararlos si no tenés una direcc
 int *ptr = NULL;
 ```
 
-(memoria-bp-verificar)=
+(verificar-asignaciones)=
 ### Verificar Asignaciones
 
 Siempre comprobá si el valor devuelto por `malloc` o `calloc` es `NULL` antes de usar el puntero. La {ref}`0x3001h` lo exige explícitamente.
@@ -1050,7 +1053,7 @@ if (ptr == NULL)
 }
 ```
 
-(memoria-bp-liberar)=
+(liberar-memoria)=
 ### Liberar Memoria
 
 Por cada asignación exitosa con `malloc` o `calloc`, debe haber una llamada correspondiente a `free`. La {ref}`0x3002h` establece esta simetría como obligatoria.
@@ -1060,7 +1063,7 @@ Por cada asignación exitosa con `malloc` o `calloc`, debe haber una llamada cor
 free(ptr);
 ```
 
-(memoria-bp-anular)=
+(anular-punteros-despues-de-liberar)=
 ### Anular Punteros Después de Liberar
 
 Después de llamar a `free(puntero)`, asigná `puntero = NULL` para evitar punteros colgantes. La {ref}`0x3002h` lo exige.
@@ -1071,7 +1074,7 @@ free(ptr);
 ptr = NULL;
 ```
 
-(memoria-bp-simetria)=
+(mantener-simetria)=
 ### Mantener Simetría
 
 Intentá que la función que reserva la memoria sea también responsable de liberarla, o que haya una correspondencia clara, como `crear_estructura()` y `destruir_estructura()`. Esta práctica está documentada en la {ref}`0x3002h`.
@@ -1099,7 +1102,7 @@ void destruir_recurso(recurso_t *r)
 }
 ```
 
-(memoria-bp-documentar)=
+(documentar-propiedad)=
 ### Documentar Propiedad
 
 La {ref}`0x3006h` exige que documentes claramente quién es el responsable de liberar la memoria cuando una función recibe o devuelve un puntero a memoria dinámica.
@@ -1116,7 +1119,7 @@ La {ref}`0x3006h` exige que documentes claramente quién es el responsable de li
 nodo_t *crear_nodo(int valor);
 ```
 
-(memoria-bp-const)=
+(usar-const-apropiadamente)=
 ### Usar `const` Apropiadamente
 
 Según la {ref}`0x3007h`, los argumentos de tipo puntero deben ser `const` siempre que la función no los modifique. Esto establece un contrato claro y permite al compilador detectar modificaciones no intencionales.
@@ -1133,7 +1136,7 @@ void imprimir_arreglo(const int *arreglo, size_t tamano)
 }
 ```
 
-(memoria-bp-sizeof)=
+(usar-sizeof-correctamente)=
 ### Usar `sizeof` Correctamente
 
 La {ref}`0x300Bh` establece que debés usar siempre `sizeof` en las asignaciones de memoria dinámica, y preferir `sizeof(*puntero)` sobre `sizeof(tipo)`.
@@ -1147,7 +1150,7 @@ int *ptr = malloc(n * sizeof(*ptr));
 int *ptr = malloc(n * sizeof(int));  // Si el tipo de ptr cambia, esto falla
 ```
 
-(memoria-bp-tamanos)=
+(usar-size-t-para-tamanos-e-indices)=
 ### Usar `size_t` para Tamaños e Índices
 
 La {ref}`0x3010h` exige que las variables que representan tamaños o índices de arreglos sean de tipo `size_t`.
@@ -1163,7 +1166,7 @@ for (size_t i = 0; i < tamano; i++)
 }
 ```
 
-(memoria-bp-limites)=
+(verificar-limites)=
 ### Verificar Límites
 
 La {ref}`0x300Ch` exige verificar siempre los límites de los arreglos antes de acceder a sus elementos.
@@ -1179,6 +1182,7 @@ void establecer_elemento(int *arreglo, size_t tamano, size_t indice, int valor)
 }
 ````
 
+(ejercicios-de-autoevaluacion-buenas-practicas)=
 ### Ejercicios de Autoevaluación (Buenas Prácticas)
 
 :::{exercise}
@@ -1293,7 +1297,7 @@ double *valores = (double *)malloc(100 * sizeof(*valores));
 ```
 :::
 
-(memoria-ejemplo-integrador)=
+(ejemplo-integrador-arreglo-dinamico-de-tamano-fijo)=
 ## Ejemplo Integrador: Arreglo Dinámico de Tamaño Fijo
 
 Este ejemplo demuestra cómo aplicar las buenas prácticas de gestión de memoria en un caso realista: una estructura que encapsula un arreglo dinámico de enteros de tamaño fijo.
@@ -1519,7 +1523,7 @@ Este ejemplo integra múltiples buenas prácticas:
 - Verificación de límites antes de acceder a elementos ({ref}`0x300Ch`) 
 :::
 
-(memoria-conclusiones)=
+(conclusiones)=
 ## Conclusiones
 
 La gestión de memoria dinámica es una de las características más poderosas y peligrosas de C. Su dominio requiere comprender no solo las funciones y sintaxis, sino también los principios fundamentales de cómo funciona la memoria en un programa.
@@ -1528,7 +1532,7 @@ Las buenas prácticas presentadas en este apunte no son sugerencias opcionales: 
 
 A medida que adquirás experiencia, estas prácticas se vuelven segunda naturaleza. Inicialmente pueden parecer restrictivas, pero con el tiempo reconocerás que son liberadoras: te permiten escribir código complejo con confianza, sabiendo que has evitado las trampas más comunes.
 
-(memoria-referencias)=
+(referencias-y-lecturas-adicionales)=
 ## Referencias y Lecturas Adicionales
 
 Para profundizar en la gestión de memoria, consultá:
@@ -1540,6 +1544,7 @@ Para profundizar en la gestión de memoria, consultá:
 
 Para las reglas de estilo, consultá el documento {ref}`0x0000h` donde se detallan todas las convenciones utilizadas en este curso.
 
+(conceptos-clave)=
 ## Conceptos Clave
 
 Este apunte explora la **gestión de memoria dinámica**, el mecanismo que permite a los programas solicitar y liberar memoria durante la ejecución, habilitando estructuras de datos flexibles y adaptables.
@@ -1577,11 +1582,12 @@ Este apunte explora la **gestión de memoria dinámica**, el mecanismo que permi
 - **Análisis estático**: herramientas que detectan problemas sin ejecutar
 :::
 
-(memoria-avanzada-asm)=
+(conceptos-avanzados-y-rendimiento-de-bajo-nivel)=
 ## Conceptos Avanzados y Rendimiento de Bajo Nivel
 
 En esta sección se presentan detalles técnicos complementarios sobre la ejecución y la jerarquía de hardware, orientados a comprender el rendimiento real de los programas.
 
+(funcionamiento-de-la-pila-en-ensamblador-x86-64)=
 ### Funcionamiento de la Pila en Ensamblador (x86-64)
 
 A nivel de arquitectura de hardware, la pila se gestiona a través de registros del procesador. En la arquitectura x86-64:
@@ -1603,6 +1609,7 @@ funcion:
     ret                   ; Retornar
 ```
 
+(ejercicios-de-autoevaluacion-conceptos-avanzados-y-bajo-nivel)=
 ### Ejercicios de Autoevaluación (Conceptos Avanzados y Bajo Nivel)
 
 :::{exercise}
@@ -1657,6 +1664,7 @@ Compará, desde la perspectiva del rendimiento del microprocesador y los accesos
 :::
 
 
+(conexion-con-el-siguiente-tema)=
 ## Conexión con el Siguiente Tema
 
 Con memoria dinámica dominada, tenemos las herramientas para implementar cualquier estructura de datos. Pero antes de construir estructuras complejas, necesitamos entender **cómo medir su eficiencia**: ¿cuánto tiempo toma buscar un elemento? ¿Cómo crece el tiempo de ejecución al duplicar el tamaño de entrada?

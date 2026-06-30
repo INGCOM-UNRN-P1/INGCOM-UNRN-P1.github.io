@@ -5,7 +5,7 @@ subtitle: 'struct, union y campos de bits en C'
 ---
 
 
-(estructuras-capitulo)=
+(los-ladrillos-de-la-memoria)=
 ## Los Ladrillos de la memoria
 
 En C, las **estructuras (`struct`)**, **uniones (`union`)** y **campos de bits
@@ -29,6 +29,7 @@ Muchos detalles de bajo nivel, como el `padding` y el orden de los bits, son
 común (x86_64, little-endian), pero siempre debés verificar en tu plataforma.
 :::
 
+(estructuras-struct-agrupando-datos)=
 ## Estructuras (`struct`): Agrupando Datos
 
 Una `struct` es una colección de variables (miembros) de diferentes tipos,
@@ -42,6 +43,7 @@ agrupadas bajo un solo nombre.
 Las estructuras agrupan datos relacionados en memoria. El compilador puede añadir padding entre campos para optimizar el acceso.
 ```
 
+(declaracion-y-typedef)=
 ### Declaración y `typedef`
 
 La práctica estándar, como indica la regla {ref}`0x3004h`, es usar `typedef`
@@ -59,6 +61,7 @@ typedef struct {
 estudiante_t estudiante1 = { .inicial = 'J', .legajo = 12345, .promedio = 8.5f };
 ```
 
+(acceso-a-miembros-vs)=
 ### Acceso a Miembros: `.` vs `->`
 
 - **Operador Punto (`.`):** Para acceder a miembros de una variable `struct`.
@@ -77,6 +80,7 @@ p_est->promedio = 9.0f;  // Acceso mediante puntero
 El acceso `->` es equivalente a usar `(*p_est).promedio`, se prefiere la flecha
 para simplificar este uso.
 
+(estructuras-y-memoria-alineacion-y-relleno-padding)=
 ### Estructuras y Memoria: Alineación y Relleno (Padding)
 
 El compilador a puede insertar bytes de relleno (padding), que son invisibles al
@@ -104,6 +108,7 @@ exacta de un miembro dentro de una estructura sin tener una instancia de esa
 estructura. Esto es común en programación de bajo nivel, {term}`serialización`
 de datos y al trabajar con _buffers_ de memoria genéricos.
 
+(sintaxis)=
 ### Sintaxis
 
 La sintaxis es la siguiente:
@@ -122,6 +127,7 @@ capaz de representar el tamaño de cualquier objeto en memoria.
 
 ---
 
+(ejemplo-practico)=
 ### Ejemplo Práctico
 
 Imagina que tienes la siguiente estructura:
@@ -150,6 +156,7 @@ int main() {
 }
 ```
 
+(posible-salida)=
 ### Posible Salida
 
 La salida de este código podría ser:
@@ -174,6 +181,7 @@ Desplazamiento de 'salario': 8 bytes
 
 ---
 
+(casos-de-uso-comunes)=
 ### Casos de Uso Comunes
 
 1.  **Cálculos de Punteros**: Es fundamental en la "aritmética de punteros"
@@ -278,6 +286,7 @@ Aunque el orden `char a; char c; int b;` también reduce el tamaño a 8 bytes, l
 
 ---
 
+(ejercicios-de-autoevaluacion-sintaxis-y-offsetof)=
 ### Ejercicios de Autoevaluación (Sintaxis y offsetof)
 
 :::{exercise}
@@ -368,6 +377,7 @@ int main() {
 
 ---
 
+(documentacion-de-estructuras)=
 ### Documentación de Estructuras
 
 La documentación clara y detallada de las estructuras es fundamental para mantener código comprensible y mantenible. Una buena documentación explica no solo qué es cada campo, sino también su propósito, restricciones y relaciones con otros miembros. Existen dos enfoques principales para documentar estructuras, cada uno con sus ventajas según el contexto.
@@ -438,6 +448,7 @@ typedef struct {
 - Puede hacer la definición visualmente más extensa.
 - Las relaciones entre campos pueden ser menos evidentes.
 
+(ejemplo-completo-estructura-compleja)=
 ### Ejemplo Completo: Estructura Compleja
 
 Para estructuras complejas que involucran múltiples conceptos, el enfoque distribuido suele ser más efectivo:
@@ -471,6 +482,7 @@ typedef struct {
 } transaccion_bancaria_t;
 ```
 
+(recomendaciones-generales)=
 ### Recomendaciones Generales
 
 1. **Consistencia:** Elegí un enfoque y mantenélo en todo el proyecto. Si usás el enfoque distribuido, todos los miembros deben tener comentarios.
@@ -487,6 +499,7 @@ Para más detalles sobre el estilo de comentarios y documentación, consultá la
 
 ---
 
+(consideraciones-de-uso-y-diseno-new)=
 ### Consideraciones de Uso y Diseño \[new\]
 
 El diseño de estructuras va más allá de simplemente agrupar datos relacionados. Las decisiones sobre cómo organizar los miembros impactan directamente en la claridad del código, el rendimiento, la mantenibilidad y la corrección del programa. Esta sección explora principios y patrones de diseño fundamentales para crear estructuras efectivas.
@@ -988,6 +1001,7 @@ Este patrón (estructura con un `enum` que indica el tipo y un `union` que conti
 
 ---
 
+(ejercicios-de-autoevaluacion-aos-soa-y-diseno)=
 ### Ejercicios de Autoevaluación (AoS, SoA y Diseño)
 
 :::{exercise}
@@ -1080,6 +1094,7 @@ int main() {
 
 ---
 
+(uniones-union-un-espacio-para-multiples-propositos)=
 ## Uniones (`union`): Un Espacio para Múltiples Propósitos
 
 Una `union` permite que varios miembros compartan la **misma ubicación de
@@ -1146,6 +1161,7 @@ Este patrón es la base para implementar tipos de datos polimórficos en C.
 
 ---
 
+(documentacion-de-uniones)=
 ### Documentación de Uniones
 
 Las uniones (`union`) requieren documentación particularmente cuidadosa debido a que múltiples miembros comparten la misma ubicación de memoria. Es fundamental documentar cuándo y cómo debe accederse a cada miembro para evitar comportamiento indefinido.
@@ -1265,6 +1281,7 @@ typedef union {
 } registro_64bits_t;
 ```
 
+(ejemplo-completo-union-etiquetada-con-documentacion-exhaustiva)=
 ### Ejemplo Completo: Unión Etiquetada con Documentación Exhaustiva
 
 Para uniones etiquetadas (el patrón más común y seguro), la documentación debe cubrir tanto la unión como la estructura contenedora:
@@ -1331,6 +1348,7 @@ valor_t crear_valor_entero(int64_t entero) {
 }
 ```
 
+(recomendaciones-generales-para-uniones)=
 ### Recomendaciones Generales para Uniones
 
 1. **Advertencias de seguridad:** Siempre documentá que solo un miembro es válido a la vez y que leer el miembro incorrecto causa comportamiento indefinido.
@@ -1347,6 +1365,7 @@ valor_t crear_valor_entero(int64_t entero) {
 
 Para más detalles sobre el estilo de comentarios, consultá la {ref}`regla 0x0032h  <0x000Ah>` sobre cómo escribir comentarios que expliquen el "porqué" y no el "qué".
 
+(ejercicio)=
 ### Ejercicio
 
 ```{exercise}
@@ -1413,6 +1432,7 @@ int main() {
 ```
 :::
 
+(ejercicios-de-autoevaluacion-uniones-y-tagged-unions)=
 ### Ejercicios de Autoevaluación (Uniones y Tagged Unions)
 
 :::{exercise}
@@ -1506,6 +1526,7 @@ double calcular_area(const figura_t *figura) {
 
 ---
 
+(alineacion-de-miembros-y-relleno-en-estructuras-padding)=
 ## Alineación de Miembros y Relleno en Estructuras (Padding)
 
 En el desarrollo de software en C estándar, la disposición de los datos en la memoria física no siempre es contigua ni directa. Los procesadores modernos acceden a la memoria física mediante **palabras de máquina** (típicamente de 32 o 64 bits, es decir, 4 u 8 bytes). Para optimizar el rendimiento de las operaciones de lectura y escritura en el bus de datos, el hardware impone restricciones de alineación.
@@ -1514,6 +1535,7 @@ La **alineación natural** establece que una variable de tamaño $T$ bytes debe 
 
 Para cumplir con estas restricciones sin intervención del programador, el compilador introduce automáticamente bytes de relleno denominados **padding** entre los miembros de una estructura.
 
+(impacto-en-el-consumo-de-memoria-fisica)=
 ### Impacto en el Consumo de Memoria Física
 
 Considerá la estructura `ejemplo_padding_t` presentada y analizada en el Laboratorio 1:
@@ -1544,6 +1566,7 @@ El compilador reorganiza el espacio aplicando las siguientes reglas:
 | **8** | `estado` (1B) | *Padding* | *Padding* | *Padding* |
 :::
 
+(estrategia-de-optimizacion-reordenamiento-por-tamano)=
 ### Estrategia de Optimización: Reordenamiento por Tamaño
 
 Para mitigar el desperdicio de memoria física (que en el ejemplo anterior asciende al $50\%$), se debe declarar los miembros de la estructura en orden descendente de tamaño (o de restricción de alineación). Esto permite que los tipos de menor tamaño aprovechen los huecos naturales de alineación de los tipos más grandes.
@@ -1575,6 +1598,7 @@ El tamaño físico de `sensor_optimizado_t` es de **8 bytes**. Se logró reducir
 Si bien una diferencia de 4 bytes puede parecer insignificante en sistemas modernos, este impacto se magnifica exponencialmente al trabajar con arreglos dinámicos de estructuras o buffers de red que almacenan millones de registros, afectando directamente la tasa de aciertos en la memoria caché del procesador.
 :::
 
+(inspeccion-de-desplazamientos-con-offsetof)=
 ### Inspección de Desplazamientos con `offsetof`
 
 La biblioteca estándar `<stddef.h>` proporciona la macro `offsetof`, que permite obtener el desplazamiento en bytes de un miembro respecto al inicio de la estructura.
@@ -1605,6 +1629,7 @@ Al declarar variables o tipos estructurados, recordá seguir la regla {ref}`0x00
 
 ---
 
+(ejercicios-de-autoevaluacion-alineacion-y-padding)=
 ### Ejercicios de Autoevaluación (Alineación y Padding)
 
 :::{exercise}
@@ -1665,6 +1690,7 @@ Si un dato de 4 bytes se almacena en una dirección no alineada (por ejemplo, di
 
 ---
 
+(glosario)=
 ## Glosario
 
 :::{glossary}
@@ -1703,8 +1729,10 @@ adicional (como `ENUM_MAX`) para facilitar la validación de rangos y iteración
 
 :::
 
+(referencias-y-lecturas-complementarias)=
 ## Referencias y Lecturas Complementarias
 
+(textos-fundamentales)=
 ### Textos Fundamentales
 
 - {cite:t}`kernighan_c_2014`. Sección 2.3: Constants y Apéndice A8.4: Enumeration Constants.
@@ -1713,18 +1741,21 @@ adicional (como `ENUM_MAX`) para facilitar la validación de rangos y iteración
 
 - {cite:t}`gustedt_modern_2019`. Level 1, Takeaway 1.6.2: Enumerations.
 
+(estructuras-y-uniones)=
 ### Estructuras y Uniones
 
 - {cite:t}`harbison_c_2002`. Capítulo 5: Types. Referencia exhaustiva de enums, structs y unions.
 
 - {cite:t}`van_der_linden_expert_1994`. Capítulo 5: Thinking of Linking y Capítulo 6: Poetry in Motion.
 
+(patrones-de-diseno-con-enums)=
 ### Patrones de Diseño con Enums
 
 - {cite:t}`hanson_c_1996`. Técnicas para crear interfaces limpias usando enumeraciones.
 
 - {cite:t}`lakos_large_1996`. Capítulo 2: Ground Rules. Enumeraciones para legibilidad.
 
+(bit-fields-y-optimizacion)=
 ### Bit-fields y Optimización
 
 - {cite:t}`warren_hackers_2012`. Capítulo 2: Basics. Manipulación de bits y flags.
@@ -1733,6 +1764,7 @@ adicional (como `ENUM_MAX`) para facilitar la validación de rangos y iteración
   - Disponible en: https://www.agner.org/optimize/
   - Sección sobre layout de memoria y bit-fields.
 
+(estandares-y-especificaciones)=
 ### Estándares y Especificaciones
 
 - **ISO/IEC 9899:2018 - C18 Standard**
@@ -1743,6 +1775,7 @@ adicional (como `ENUM_MAX`) para facilitar la validación de rangos y iteración
   - Reglas específicas para enumeraciones en sistemas críticos.
   - Rule 10.3: Value of enumeration constant shall be used only in appropriate context.
 
+(recursos-en-linea)=
 ### Recursos en Línea
 
 - **C Enumerations** - https://en.cppreference.com/w/c/language/enum
@@ -1751,6 +1784,7 @@ adicional (como `ENUM_MAX`) para facilitar la validación de rangos y iteración
 - **Enum Best Practices** - https://stackoverflow.com/questions/tagged/enums+c
   - Discusiones de la comunidad sobre patrones y anti-patrones.
 
+(herramientas)=
 ### Herramientas
 
 - **Doxygen** - https://www.doxygen.nl/manual/commands.html#cmddef

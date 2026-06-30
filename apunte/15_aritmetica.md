@@ -4,17 +4,17 @@ short_title: 'Punteros II - aritmética'
 description: 'Indirecciones múltiples, punteros a arrays, aritmética pura y matrices en memoria dinámica.'
 ---
 
-(aritmetica-avanzada-capitulo)=
+(introduccion)=
 ## Introducción
 
 Este apunte explora conceptos avanzados de memoria dinámica en C, construyendo sobre las bases presentadas en {ref}`Modelo de Memoria <modelo-memoria-capitulo>` y {ref}`Punteros <punteros-capitulo>`. Aquí profundizamos en el manejo de {ref}`Estructuras <estructuras-capitulo>` que contienen punteros, problemas comunes de gestión de memoria, y técnicas para trabajar con matrices dinámicas.
 
-(punteros2-estructuras)=
+(punteros-a-estructuras)=
 ## Punteros a Estructuras
 
 Cuando una estructura (`struct`) contiene punteros a otros datos, debemos gestionar la memoria en **múltiples niveles**. Como vimos en {ref}`memoria-heap`, cada llamada a `malloc` reserva memoria en el heap que debe ser liberada explícitamente. Con estructuras anidadas, este principio se aplica recursivamente.
 
-(punteros2-creacion)=
+(creacion-de-estructuras-dinamicas)=
 ### Creación de Estructuras Dinámicas
 
 Para crear una instancia de una estructura que contiene punteros (como `char* nombre`), se requieren múltiples asignaciones de memoria. Consideremos una estructura `persona_t`:
@@ -73,7 +73,7 @@ strcpy(nuevo->nombre, nombre);
 nuevo->edad = edad;
 ```
 
-(punteros2-operador-flecha)=
+(operador-flecha)=
 ### Operador Flecha (`->`)
 
 El operador `->` es un **atajo sintáctico** para acceder a miembros de una estructura a través de un puntero. Como se explica en {ref}`Punteros <punteros-capitulo>`, este operador combina la desreferencia y el acceso a miembro en una sola operación.
@@ -101,7 +101,7 @@ p->nombre[0] = 'J';
 
 La notación con `->` es más legible y es la **forma idiomática** en C para trabajar con punteros a estructuras.
 
-(punteros2-destruccion)=
+(destruccion-de-estructuras-dinamicas)=
 ### Destrucción de Estructuras Dinámicas
 
 La liberación de memoria debe seguir el **orden inverso** al de la creación. Este patrón se conoce como **"de adentro hacia afuera"** o **LIFO** (Last In, First Out).
@@ -168,7 +168,7 @@ void estudiante_destruir(estudiante_t *est) {
 }
 ```
 
-(punteros2-problemas)=
+(ejercicios-de-autoevaluacion-punteros-a-estructuras)=
 ### Ejercicios de Autoevaluación (Punteros a Estructuras)
 
 :::{exercise}
@@ -256,11 +256,12 @@ void estudiante_destruir(estudiante_t *est) {
 
 ---
 
+(problemas-comunes-de-memoria-dinamica)=
 ## Problemas Comunes de Memoria Dinámica
 
 Esta sección detalla errores frecuentes en la gestión de memoria dinámica y sus soluciones. Estos problemas se amplían en {ref}`memoria-errores`.
 
-(punteros2-fragmentacion)=
+(fragmentacion-del-heap)=
 ### Fragmentación del Heap
 
 La **fragmentación externa** ocurre cuando la memoria libre se divide en bloques pequeños y no contiguos, aunque la suma total de memoria libre sea suficiente para una solicitud.
@@ -301,7 +302,7 @@ Proceso de fragmentación del heap: bloques libres no contiguos impiden asignaci
 En lugar de asignar cada elemento de una lista por separado, asigná un array de elementos y gestioná el crecimiento con `realloc` (ver {ref}`memoria-realloc`).
 :::
 
-(punteros2-dangling)=
+(punteros-colgantes-dangling-pointers)=
 ### Punteros Colgantes (Dangling Pointers)
 
 Un **puntero colgante** (_dangling pointer_) es un puntero que apunta a memoria que ya ha sido liberada con `free`. Este es uno de los errores más peligrosos en C (ver {ref}`memoria-dangling-pointer` para más detalles).
@@ -368,7 +369,7 @@ datos_liberar(&datos);  // Pasa la dirección de la variable puntero
 ```
 :::
 
-(punteros2-free-invalido)=
+(liberar-memoria-no-dinamica)=
 ### Liberar Memoria No Dinámica
 
 Intentar liberar memoria que **no fue asignada dinámicamente** es un error grave que resulta en **undefined behavior**.
@@ -414,7 +415,7 @@ void funcion() {
 }
 ```
 
-(punteros2-funciones-memoria)=
+(ejercicios-de-autoevaluacion-problemas-de-memoria)=
 ### Ejercicios de Autoevaluación (Problemas de Memoria)
 
 :::{exercise}
@@ -482,11 +483,12 @@ void free_seguro(int **ptr) {
 
 ---
 
+(funciones-adicionales-de-gestion-de-memoria)=
 ## Funciones Adicionales de Gestión de Memoria
 
 Más allá de `malloc` y `free`, C proporciona funciones adicionales para manipular memoria dinámica. Estas se detallan completamente en {ref}`memoria-dinamica-capitulo`.
 
-(punteros2-calloc)=
+(calloc-asignacion-con-inicializacion)=
 ### `calloc`: Asignación con Inicialización
 
 ```{code-block}c
@@ -515,7 +517,7 @@ int *arr2 = calloc(10, sizeof(int));
 - En estructuras donde campos en cero representan estado "vacío"
 :::
 
-(punteros2-realloc)=
+(realloc-redimensionar-bloques)=
 ### `realloc`: Redimensionar Bloques
 
 ```{code-block}c
@@ -595,7 +597,7 @@ Proceso de realloc cuando debe mover el bloque a una nueva ubicación.
 Cuando `realloc` mueve un bloque, **todos los punteros** al bloque original quedan inválidos. Debés actualizar cualquier referencia.
 :::
 
-(punteros2-memset)=
+(memset-relleno-de-memoria)=
 ### `memset`: Relleno de Memoria
 
 ```{code-block}c
@@ -630,7 +632,7 @@ memset(arr, 1, sizeof(arr));  // NO inicializa a 1
 ```
 :::
 
-(punteros2-memcpy)=
+(memcpy-copia-de-memoria)=
 ### `memcpy`: Copia de Memoria
 
 ```{code-block}c
@@ -662,7 +664,7 @@ memcpy(&arr[3], &arr[0], 7 * sizeof(int));   // Indefinido
 ```
 :::
 
-(punteros2-vla)=
+(arreglos-de-largo-variable-vla)=
 ## Arreglos de Largo Variable (VLA)
 
 Los **VLA** (_Variable Length Arrays_) son arreglos cuyo tamaño se determina en tiempo de ejecución, no en compilación.
@@ -678,6 +680,7 @@ void funcion(int cantidad) {
 Los VLAs están **explícitamente prohibidos** en este curso. Usá memoria dinámica (`malloc`) en su lugar.
 :::
 
+(por-que-prohibimos-vlas)=
 ### ¿Por Qué Prohibimos VLAs?
 
 #### 1. Asignación en el Stack
@@ -717,6 +720,7 @@ void procesar_con_vla(int n) {
 
 El límite del stack varía entre plataformas y configuraciones. Código que funciona en una máquina puede crashear en otra.
 
+(alternativa-correcta-memoria-dinamica)=
 ### Alternativa Correcta: Memoria Dinámica
 
 ```{code-block}c
@@ -741,7 +745,7 @@ void funcion(int cantidad) {
 - Portabilidad garantizada
 :::
 
-(punteros2-doble-indireccion)=
+(ejercicios-de-autoevaluacion-funciones-de-gestion-y-vlas)=
 ### Ejercicios de Autoevaluación (Funciones de Gestión y VLAs)
 
 :::{exercise}
@@ -798,6 +802,7 @@ Debido a que el stack de un proceso es limitado (frecuentemente 1 MB o 8 MB seg�
 
 ---
 
+(doble-indireccion-puntero-a-puntero)=
 ## Doble Indirección (Puntero a Puntero)
 
 Una variable puntero es un tipo de dato que almacena una dirección de memoria. Sin embargo, al ser una variable en sí misma, también reside en una dirección de memoria física específica del sistema. La **doble indirección** consiste en utilizar un puntero que almacena la dirección de otra variable puntero, declarándose mediante el operador de doble asterisco (`**`).
@@ -824,6 +829,7 @@ Desreferenciar `pp` una vez (`*pp`) evalúa al puntero `p` (obteniendo la direcc
 Representación en stack y heap de la doble indirección con `pp`, `p` y `valor`.
 ```
 
+(paso-de-punteros-por-referencia)=
 ### Paso de Punteros por Referencia
 
 En el lenguaje C, todos los argumentos de una función se transmiten **estrictamente por valor** (copia). Esto significa que la función trabaja con copias locales de los parámetros recibidos. 
@@ -904,6 +910,7 @@ Es fundamental comprender la diferencia entre operar sobre el doble puntero o so
 - `**ptr`: Es el entero en el heap al que apunta el puntero modificado (tipo `int`).
 :::
 
+(patron-practico-creacion-y-destruccion-modular)=
 ### Patrón Práctico: Creación y Destrucción Modular
 
 Este enfoque es el estándar en C para construir interfaces limpias de Tipos Abstractos de Datos (TAD), garantizando que las funciones que modifican la estructura interna o el estado de los punteros del cliente lo hagan de forma segura y controlada.
@@ -969,14 +976,14 @@ void recurso_destruir(recurso_t **recurso_out) {
 Declarar los asteriscos junto al identificador de la variable (por ejemplo, `recurso_t **recurso_out`) y verificar siempre los retornos de asignación de memoria dinámica para cumplir con la regla {ref}`0x0006h` y las directivas de robustez del apunte.
 :::
 
-(punteros2-matrices)=
+(matrices-dinamicas)=
 ## Matrices Dinámicas
 
 Una **matriz** (arreglo bidimensional) puede implementarse de varias formas en memoria dinámica. Cada enfoque tiene trade-offs en complejidad, eficiencia de memoria y acceso.
 
 Como se explica en {ref}`memoria-heap`, la memoria dinámica nos permite crear estructuras de tamaño arbitrario. Las matrices dinámicas extienden este concepto a dos dimensiones.
 
-(punteros2-matriz-dentada)=
+(enfoque-1-matriz-dentada-array-de-punteros)=
 ### Enfoque 1: Matriz "Dentada" (Array de Punteros)
 
 Este enfoque crea un **arreglo de punteros**, donde cada puntero apunta a una fila (otro arreglo). Se llama "dentada" (_jagged array_) porque cada fila puede tener largo diferente (aunque típicamente usamos filas del mismo tamaño).
@@ -1059,7 +1066,7 @@ free(matriz);
 - **Overhead de memoria:** Punteros adicionales para cada fila
 - **Cache-unfriendly:** Filas no están contiguas en memoria (ver {ref}`memoria-jerarquia-cache`)
 
-(punteros2-matriz-bloque)=
+(enfoque-2-bloque-unico-simulacion-manual)=
 ### Enfoque 2: Bloque Único (Simulación Manual)
 
 Este enfoque asigna toda la matriz como **un único bloque contiguo** en memoria. Es más eficiente pero requiere calcular índices manualmente.
@@ -1151,7 +1158,7 @@ int val = matriz_get(matriz, i, j, columnas);
 - Todas las filas deben tener el mismo tamaño
 - Fácil cometer errores en el cálculo de índices
 
-(punteros2-matriz-cast)=
+(enfoque-3-bloque-unico-con-cast-avanzado)=
 ### Enfoque 3: Bloque Único con Cast Avanzado
 
 Este enfoque combina lo mejor de ambos mundos: **memoria contigua** del Enfoque 2 con la **sintaxis natural** del Enfoque 1, mediante un cast especial del puntero constante. Es fundamental aclarar que, para evitar la definición de tipos modificados dinámicamente en tiempo de ejecución (que constituyen una forma de VLA prohibida), las dimensiones de las columnas deben ser constantes conocidas en tiempo de compilación.
@@ -1266,6 +1273,7 @@ int (*matriz)[COLUMNAS] = malloc(sizeof(int) * COLUMNAS * filas);
 - En C89, requiere tamaño de columnas constante
 - Menos portable que los otros enfoques
 
+(comparacion-de-enfoques)=
 ### Comparación de Enfoques
 
 ```{list-table} Comparación de Implementaciones de Matrices
@@ -1314,6 +1322,7 @@ int (*matriz)[COLUMNAS] = malloc(sizeof(int) * COLUMNAS * filas);
 
 ---
 
+(ejercicios-de-autoevaluacion-doble-indireccion-y-matrices)=
 ### Ejercicios de Autoevaluación (Doble Indirección y Matrices)
 
 :::{exercise}
@@ -1416,6 +1425,7 @@ int obtener_celda(const int *matriz, int columnas, int f, int c) {
 
 ---
 
+(conceptos-clave)=
 ## Conceptos Clave
 
 Este apunte explora patrones avanzados de memoria dinámica en C, construyendo sobre los fundamentos de {ref}`Modelo de Memoria <modelo-memoria-capitulo>` y {ref}`Punteros <punteros-capitulo>`.
@@ -1451,6 +1461,7 @@ Este apunte explora patrones avanzados de memoria dinámica en C, construyendo s
 - Menos asignaciones reducen fragmentación y overhead
 :::
 
+(conexion-con-el-siguiente-tema)=
 ## Conexión con el Siguiente Tema
 
 Dominando la gestión avanzada de memoria dinámica, tenés las herramientas para implementar estructuras de datos complejas: listas enlazadas, árboles, grafos, hash tables. Pero construir estas estructuras correctamente requiere algo más que conocimiento técnico de punteros.
@@ -1468,8 +1479,10 @@ Los punteros y la memoria dinámica son las herramientas de bajo nivel; los TADs
 
 **Pregunta puente**: Una lista enlazada y un array dinámico implementan la misma interfaz abstracta (secuencia de elementos). ¿Cómo decidir cuál usar? ¿Cómo diseñar la interfaz para que sea independiente de la implementación? El análisis de TADs responde estas preguntas.
 
+(referencias-y-lecturas-complementarias)=
 ## Referencias y Lecturas Complementarias
 
+(textos-fundamentales-sobre-memoria-dinamica)=
 ### Textos Fundamentales sobre Memoria Dinámica
 
 - {cite:t}`kernighan_c_2014`. Capítulo 8: The UNIX System Interface. Gestión de memoria y estructuras complejas.
@@ -1478,6 +1491,7 @@ Los punteros y la memoria dinámica son las herramientas de bajo nivel; los TADs
 
 - {cite:t}`gustedt_modern_2019`. Level 2, Takeaway 2.6.5: Dynamic allocation. Patrones modernos de gestión de memoria.
 
+(gestion-de-memoria-y-debugging)=
 ### Gestión de Memoria y Debugging
 
 - {cite:t}`seacord_secure_2013`. Capítulo 4: Dynamic Memory Management. Errores comunes y cómo evitarlos.
@@ -1485,24 +1499,28 @@ Los punteros y la memoria dinámica son las herramientas de bajo nivel; los TADs
 - **Valgrind Memcheck Manual** - https://valgrind.org/docs/manual/mc-manual.html
   - Herramienta esencial para detectar leaks y dangling pointers.
 
+(matrices-y-estructuras-multidimensionales)=
 ### Matrices y Estructuras Multidimensionales
 
 - {cite:t}`van_der_linden_expert_1994`. Capítulo 4: The Shocking Truth: C Arrays and Pointers Are NOT the Same!
 
 - **Multi-dimensional Arrays in C** - https://www.cs.cmu.edu/~ab/15-123S11/lectures/Lecture%2009%20-%20%20Multidimensional%20Arrays.pdf
 
+(optimizacion-y-performance)=
 ### Optimización y Performance
 
 - {cite:t}`bryant_computer_2015`. Capítulo 6: Memory Hierarchy. Localidad de cache y performance de acceso.
 
 - {cite:t}`warren_hackers_2012`. Capítulo 9: Memory. Técnicas de optimización de memoria.
 
+(patrones-de-diseno-con-memoria-dinamica)=
 ### Patrones de Diseño con Memoria Dinámica
 
 - {cite:t}`hanson_c_1996`. Interfaces y implementaciones con gestión de memoria robusta.
 
 - {cite:t}`plauger1992`. Implementaciones de la biblioteca estándar que usan memoria dinámica.
 
+(herramientas-de-analisis)=
 ### Herramientas de Análisis
 
 - **AddressSanitizer** - https://github.com/google/sanitizers/wiki/AddressSanitizer

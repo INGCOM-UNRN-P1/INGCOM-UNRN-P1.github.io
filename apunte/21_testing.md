@@ -6,10 +6,12 @@ description: 'Estrategias de prueba, uso de assert, TDD, frameworks de testing e
 
 (testing-capitulo)=
 
+(testing)=
 ## Testing
 
 El **testing** o prueba de software es una práctica fundamental en el desarrollo que consiste en verificar que el código funciona como se espera bajo diferentes condiciones. En programación, no basta con que el código «parezca» funcionar; es necesario someterlo a pruebas sistemáticas que validen su comportamiento.
 
+(para-que-probar)=
 ### ¿Para qué probar?
 
 Las pruebas cumplen múltiples propósitos esenciales en el ciclo de desarrollo:
@@ -25,6 +27,7 @@ Las pruebas cumplen múltiples propósitos esenciales en el ciclo de desarrollo:
 En proyectos profesionales, el testing no es opcional. Es una práctica estándar que se espera en cualquier código de calidad industrial.
 :::
 
+(tipos-de-testing)=
 ### Tipos de Testing
 
 Existen diferentes niveles de testing, cada uno con un propósito específico:
@@ -47,6 +50,7 @@ Las **pruebas de integración** verifican que múltiples componentes funcionen c
 
 Las **pruebas de sistema** evalúan el comportamiento del programa completo, desde la perspectiva del usuario final.
 
+(anatomia-de-una-prueba)=
 ### Anatomía de una Prueba
 
 Una prueba bien estructurada típicamente sigue el patrón **AAA (Arrange-Act-Assert)**:
@@ -70,6 +74,7 @@ void test_suma_positivo_positivo() {
 }
 ```
 
+(casos-de-prueba-importantes)=
 ### Casos de Prueba Importantes
 
 Al diseñar pruebas, es crucial considerar diferentes categorías de casos:
@@ -133,6 +138,7 @@ void test_buscar_en_array_vacio() {
 }
 ```
 
+(ejercicios-de-autoevaluacion-conceptos-y-aaa)=
 ### Ejercicios de Autoevaluación (Conceptos y AAA)
 
 :::{exercise}
@@ -190,6 +196,7 @@ El aislamiento en las pruebas unitarias es crucial porque asegura que si la prue
 
 ---
 
+(uso-de-assert)=
 ### Uso de `assert`
 
 La macro `assert` es la herramienta básica para verificar condiciones en C:
@@ -228,6 +235,7 @@ if (edad < 0 || edad > 150) {
 ```
 :::
 
+(estrategias-de-testing)=
 ### Estrategias de Testing
 
 #### Cobertura de Código
@@ -278,6 +286,7 @@ void test_suma_elemento_neutro() {
 }
 ```
 
+(organizacion-de-tests)=
 ### Organización de Tests
 
 Un proyecto bien estructurado separa el código de producción de las pruebas:
@@ -325,6 +334,7 @@ int main() {
 }
 ```
 
+(frameworks-de-testing-en-c)=
 ### Frameworks de Testing en C
 
 Aunque `assert` es útil para pruebas simples, existen frameworks más completos:
@@ -378,6 +388,7 @@ int main() {
 }
 ```
 
+(test-driven-development-tdd)=
 ### Test-Driven Development (TDD)
 
 **TDD** es una metodología donde las pruebas se escriben antes que el código de producción:
@@ -409,6 +420,7 @@ TDD no solo ayuda a escribir código correcto, sino que también guía el diseñ
 
 ---
 
+(ejercicios-de-autoevaluacion-assert-y-cobertura)=
 ### Ejercicios de Autoevaluación (assert y Cobertura)
 
 :::{exercise}
@@ -478,10 +490,12 @@ void test_propiedad_asociativa_multiplicacion() {
 
 ---
 
+(contratos)=
 ## Contratos
 
 Los **contratos** son especificaciones formales que documentan el comportamiento esperado de una función. Establecen un "acuerdo" entre quien implementa la función y quien la usa, definiendo claramente qué se espera antes de llamarla y qué se garantiza después.
 
+(filosofia-de-diseno-por-contrato)=
 ### Filosofía de Diseño por Contrato
 
 El **Design by Contract** (DbC), popularizado por Bertrand Meyer, se basa en la metáfora de contratos legales: cada parte tiene obligaciones y beneficios. En programación:
@@ -496,6 +510,7 @@ Esta filosofía ayuda a:
 - Mejorar la documentación
 - Reducir código defensivo redundante
 
+(tipos-de-condiciones)=
 ### Tipos de condiciones
 
 #### Precondición
@@ -581,6 +596,7 @@ typedef struct {
 // - datos apunta a memoria válida para 'capacidad' elementos
 ```
 
+(ejemplo-completo-de-contrato-en-documentacion)=
 ### Ejemplo completo de contrato en documentación
 
 ```{code-block}c
@@ -600,6 +616,7 @@ typedef struct {
 int suma(int termino1, int termino2);
 ```
 
+(contratos-mas-complejos)=
 ### Contratos más complejos
 
 Para funciones que manejan recursos o estructuras de datos:
@@ -628,6 +645,7 @@ Para funciones que manejan recursos o estructuras de datos:
 bool vector_agregar(Vector* vec, int elemento);
 ```
 
+(verificacion-de-contratos-en-codigo)=
 ### Verificación de Contratos en Código
 
 Los contratos pueden verificarse en desarrollo usando `assert`:
@@ -676,6 +694,7 @@ CodigoError dividir(int dividendo, int divisor, double* resultado) {
 }
 ```
 
+(contratos-y-testing)=
 ### Contratos y Testing
 
 Los contratos guían directamente el diseño de pruebas:
@@ -722,6 +741,7 @@ void test_encontrar_maximo_precondiciones() {
 }
 ```
 
+(contratos-en-proyectos-reales)=
 ### Contratos en Proyectos Reales
 
 En proyectos grandes, los contratos ayudan a modularizar:
@@ -782,6 +802,7 @@ Los contratos son especialmente valiosos en interfaces públicas de bibliotecas,
 
 ---
 
+(ejercicios-de-autoevaluacion-diseno-por-contrato)=
 ### Ejercicios de Autoevaluación (Diseño por Contrato)
 
 :::{exercise}
@@ -853,10 +874,12 @@ Las invariantes de estructura para el TAD `Cola` son:
 
 ---
 
+(valores-especiales-y-documentacion)=
 ## Valores especiales y documentación
 
 Una práctica común en C es usar **valores especiales** para indicar condiciones de error o estados particulares. Esta práctica requiere documentación clara para evitar malentendidos.
 
+(valores-de-retorno-especiales)=
 ### Valores de Retorno Especiales
 
 #### Códigos de Error Numéricos
@@ -942,6 +965,7 @@ if (nodo == NULL) {
 int leer_caracter(FILE* archivo);
 ```
 
+(enumeraciones-para-mayor-claridad)=
 ### Enumeraciones para Mayor Claridad
 
 Las enumeraciones hacen el código más expresivo y mantenible:
@@ -990,6 +1014,7 @@ if (resultado != EXITO) {
 }
 ```
 
+(valores-centinela)=
 ### Valores Centinela
 
 Los **valores centinela** marcan el final de una secuencia:
@@ -1021,6 +1046,7 @@ int sumar_hasta_centinela(int* array) {
 }
 ```
 
+(documentacion-de-invariantes-internas)=
 ### Documentación de Invariantes Internas
 
 Las invariantes internas ayudan a razonar sobre el código:
@@ -1074,6 +1100,7 @@ void cola_encolar(ColaCircular* cola, int elemento) {
 }
 ```
 
+(documentacion-de-rangos-validos)=
 ### Documentación de Rangos Válidos
 
 Especificar claramente los rangos válidos previene errores:
@@ -1120,6 +1147,7 @@ bool led_set_brillo_estricto(int brillo) {
 }
 ```
 
+(testing-de-valores-especiales)=
 ### Testing de Valores Especiales
 
 Los valores especiales deben probarse explícitamente:
@@ -1155,8 +1183,10 @@ void test_valores_centinela() {
 
 ---
 
+(mejores-practicas-de-testing)=
 ## Mejores Prácticas de Testing
 
+(1-tests-independientes)=
 ### 1. Tests Independientes
 
 Cada test debe ser independiente de los demás:
@@ -1190,6 +1220,7 @@ void test_incremento_desde_diez() {
 }
 ```
 
+(2-nombres-descriptivos)=
 ### 2. Nombres Descriptivos
 
 Los nombres deben describir qué se prueba y bajo qué condiciones:
@@ -1206,6 +1237,7 @@ void test_suma_con_overflow() { ... }
 void test_suma_numeros_negativos() { ... }
 ```
 
+(3-un-concepto-por-test)=
 ### 3. Un Concepto por Test
 
 Cada test debe verificar un solo aspecto:
@@ -1259,6 +1291,7 @@ void test_lista_eliminar_reduce_tamanio() {
 }
 ```
 
+(4-evitar-logica-compleja-en-tests)=
 ### 4. Evitar Lógica Compleja en Tests
 
 Los tests deben ser simples y obvios:
@@ -1290,6 +1323,7 @@ void test_suma_numeros_impares() {
 }
 ```
 
+(5-usar-funciones-auxiliares-para-setup)=
 ### 5. Usar Funciones Auxiliares para Setup
 
 Cuando varios tests necesitan la misma preparación:
@@ -1320,23 +1354,28 @@ void test_lista_obtener_ultimo() {
 
 ---
 
+(integracion-de-testing-en-el-flujo-de-trabajo)=
 ## Integración de Testing en el Flujo de Trabajo
 
+(makefile-con-tests)=
 ### Makefile con Tests
 
 ```makefile
+(compilacion-del-proyecto)=
 # Compilación del proyecto
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99 -g
 SRC = src/calculadora.c src/utilidades.c
 TESTS = tests/test_calculadora.c tests/test_utilidades.c
 
+(targets-principales)=
 # Targets principales
 all: programa
 
 programa: src/main.c $(SRC)
 	$(CC) $(CFLAGS) -o programa src/main.c $(SRC)
 
+(target-para-tests)=
 # Target para tests
 test: test_calculadora test_utilidades
 	@echo "=== Ejecutando todas las pruebas ==="
@@ -1350,16 +1389,19 @@ test_calculadora: tests/test_calculadora.c src/calculadora.c
 test_utilidades: tests/test_utilidades.c src/utilidades.c
 	$(CC) $(CFLAGS) -o test_utilidades tests/test_utilidades.c src/utilidades.c
 
+(limpieza)=
 # Limpieza
 clean:
 	rm -f programa test_calculadora test_utilidades *.o
 
+(test-programa)=
 # Test + programa
 build-all: programa test
 
 .PHONY: all test clean build-all
 ```
 
+(flujo-de-desarrollo-recomendado)=
 ### Flujo de Desarrollo Recomendado
 
 1. **Escribir/modificar código**
@@ -1369,6 +1411,7 @@ build-all: programa test
 5. **Commit**: guardar cambios con git
 
 ```bash
+(flujo-tipico)=
 # Flujo típico
 $ make test           # Verificar que no rompimos nada
 $ # ... hacer cambios ...
@@ -1378,6 +1421,7 @@ $ git add .
 $ git commit -m "Implementada función X con tests"
 ```
 
+(ejercicios-de-autoevaluacion-valores-especiales-y-modularizacion)=
 ### Ejercicios de Autoevaluación (Valores Especiales y Modularización)
 
 :::{exercise}
@@ -1442,10 +1486,12 @@ test: tests/run_tests.c src/operaciones.c
 
 ---
 
+(conclusion)=
 ## Conclusión
 
 El testing y los contratos son herramientas fundamentales del desarrollo de software profesional. Estos conceptos no son "extras opcionales", sino prácticas estándar que todo programador debe dominar.
 
+(conceptos-clave)=
 ### Conceptos Clave
 
 - **Testing** valida que el código funciona correctamente bajo diversas condiciones
@@ -1455,6 +1501,7 @@ El testing y los contratos son herramientas fundamentales del desarrollo de soft
 - **Invariantes** son propiedades que siempre se mantienen
 - **Valores especiales** requieren documentación clara y testing explícito
 
+(beneficios-de-estas-practicas)=
 ### Beneficios de Estas Prácticas
 
 1. **Código más robusto**: Los errores se detectan temprano
@@ -1468,6 +1515,7 @@ El testing y los contratos son herramientas fundamentales del desarrollo de soft
 En la industria del software, el testing no es negociable. Proyectos sin tests son considerados "código legacy" incluso si fueron escritos ayer. Las empresas esperan que los desarrolladores sepan escribir y mantener tests como parte natural de su trabajo.
 :::
 
+(aplicacion-en-trabajos-practicos)=
 ### Aplicación en Trabajos Prácticos
 
 Estos conceptos se aplicarán directamente en los trabajos prácticos del curso:
@@ -1482,6 +1530,7 @@ No esperes a que te pidan tests. Escríbelos desde el principio. Es más fácil 
 
 ---
 
+(recursos-adicionales)=
 ## Recursos Adicionales
 
 Para profundizar en testing y contratos:
@@ -1491,6 +1540,7 @@ Para profundizar en testing y contratos:
 - **Metodologías**: TDD (Test-Driven Development), BDD (Behavior-Driven Development)
 - **Verificación formal**: Para sistemas críticos, existen herramientas como Frama-C que pueden verificar formalmente contratos en C
 
+(proximos-pasos)=
 ### Próximos Pasos
 
 1. Practicar escribiendo tests para funciones simples

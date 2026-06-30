@@ -4,7 +4,7 @@ short_title: Archivos (de texto)
 description: 'Apertura, lectura, escritura y control de errores al trabajar con archivos de texto.'
 ---
 
-(archivos-texto-capitulo)=
+(trabajando-con-archivos-de-texto-en-c)=
 # Trabajando con archivos (de texto) en C
 
 El manejo de archivos es una capacidad fundamental en la mayoría de las
@@ -22,6 +22,7 @@ gestión de errores detallada y profesional.
 Diagrama de flujo que muestra la secuencia completa de operaciones al trabajar con archivos: abrir, verificar NULL, realizar operaciones, verificar errores y cerrar.
 ```
 
+(el-file-la-conexion-con-el-archivo)=
 ## El `FILE`, la conexión con el archivo
 
 Toda operación sobre archivos en C se realiza a través de un puntero a una estructura especial y opaca llamada `FILE`. Esta estructura, definida en la biblioteca estándar `<stdio.h>`, actúa como un intermediario que contiene toda la información de estado necesaria para gestionar el flujo de datos ( _stream_ ) hacia y desde el archivo.
@@ -57,6 +58,7 @@ Este puntero, una vez que la función `fopen()` lo inicializa exitosamente, se c
 en tu identificador único para interactuar con ese archivo específico hasta que
 lo cierres con `fclose()`.
 
+(una-analogia-con-arreglos-y-punteros)=
 ### Una Analogía con Arreglos y Punteros
 
 La idea de usar un puntero para manejar una entidad compleja les debe resultar
@@ -131,6 +133,7 @@ Si intentás reutilizar una única variable de tipo puntero (por ejemplo, `f1 = 
 2. Comportamiento indefinido: El descriptor del primer archivo queda abierto en el sistema hasta que finalice el programa.
 :::
 
+(apertura-de-archivos-fopen)=
 ## Apertura de Archivos: `fopen()`
 
 La función `fopen()` es el punto de entrada crucial para cualquier operación de
@@ -168,6 +171,7 @@ FILE *fopen(const char *pathname, const char *mode);
 - `const char *mode`: Es una cadena corta que especifica el modo de acceso,
 definiendo qué operaciones estarán permitidas sobre el archivo.
 
+(modos-de-apertura)=
 ### Modos de apertura
 
 Elegir el modo correcto es fundamental, ya que determina el comportamiento del
@@ -223,6 +227,7 @@ Guía visual de los diferentes modos de apertura y un diagrama de decisión para
   - Leer datos de un log y luego añadir nuevos eventos al final.
 ```
 
+(manejo-de-errores-en-la-apertura)=
 ### Manejo de Errores en la Apertura
 
 Cuando `fopen()` devuelve `NULL`, la variable global `errno` (definida en
@@ -262,6 +267,7 @@ Al ejecutar este código, `perror()` probablemente imprimiría algo como:
 Error al intentar abrir el archivo: No such file or directory`
 ```
 
+(binario-vs-texto)=
 ### Binario vs. Texto
 
 Por defecto, los modos listados arriba operan en **modo texto**. Esto implica
@@ -356,11 +362,13 @@ FILE *abrir_para_escribir_seguro(const char *nombre_archivo) {
 ```
 :::
 
+(escribiendo)=
 ## Escribiendo
 
 Existen tres funciones para escribir en archivos, que van desde caracteres
 individuales, cadenas, y terminando en cadenas con formato.
 
+(fputc)=
 ### `fputc`
 
 La función `fputc` se utiliza para escribir un único carácter en un flujo de
@@ -385,6 +393,7 @@ archivos a bajo nivel en C.
 int fputc(int character, FILE *stream);
 ```
 
+(fputs)=
 ### `fputs`
 
 Escribe una cadena. **No añade** el carácter de nueva línea (`\n`)
@@ -405,6 +414,7 @@ de error.
 int fputs(const char *cadena, FILE *stream);
 ```
 
+(fprintf)=
 ### `fprintf`
 
 La opción más versátil. Escribe datos con formato, análogamente a `printf()`.
@@ -431,6 +441,7 @@ error.
 int fprintf(FILE *stream, const char *formato, ...);
 ```
 
+(ejemplo-de-escritura-completo)=
 ### Ejemplo de escritura completo
 
 ```{code-block}c
@@ -631,8 +642,10 @@ Por ende:
 Debés elegir `fprintf` solo cuando necesites concatenar o formatear variables (como enteros, reales, etc.) en una cadena textual en el archivo.
 :::
 
+(leyendo)=
 ## Leyendo
 
+(fgetc)=
 ### `fgetc`
 
 La función `fgetc` se utiliza para leer un único carácter desde un flujo de archivo. Es la contraparte directa de `fputc`.
@@ -650,6 +663,7 @@ La función `fgetc` se utiliza para leer un único carácter desde un flujo de a
 int fgetc(FILE *stream);
 ```
 
+(fgets)=
 ### `fgets`
 
 La función `fgets` se utiliza para leer una línea o una cadena de caracteres desde un flujo de archivo. Es más segura que la antigua función `gets` porque permite especificar un tamaño máximo para el búfer, evitando desbordamientos, una práctica recomendada por la regla {ref}`0x5006h`.
@@ -681,6 +695,7 @@ la función provocará comportamiento no definido al escribir fuera del espacio 
 memoria de la `cadena`.
 :::
 
+(fscanf)=
 ### `fscanf`
 
 La función `fscanf` se utiliza para leer datos con formato desde un flujo de archivo. Funciona de manera análoga a `scanf`, pero operando sobre un archivo en lugar de la entrada estándar.
@@ -700,6 +715,7 @@ La función `fscanf` se utiliza para leer datos con formato desde un flujo de ar
 int fscanf(FILE *stream, const char *format, ...);
 ```
 
+(leyendo-un-archivo-paso-a-paso)=
 ### Leyendo un archivo, paso a paso
 
 El código de ejemplo es una demostración de cómo leer un archivo de texto de
@@ -1019,6 +1035,7 @@ int main(void) {
 ```
 :::
 
+(cierre-de-archivos-fclose-el-paso-final)=
 ## Cierre de Archivos: `fclose()`, el Paso Final
 
 `fclose(FILE *stream)` disocia el archivo del puntero `FILE`. Es una operación
@@ -1165,8 +1182,10 @@ El fragmento de código presenta dos problemas de seguridad graves:
 Para solucionarlo, se debe evitar el doble llamado o asignar `archivo = NULL;` inmediatamente después de un cierre exitoso, permitiendo realizar una verificación previa.
 :::
 
+(funciones-y-variables-para-la-gestion-de-errores)=
 ## Funciones y variables para la gestión de errores
 
+(stderr-el-flujo-de-error-estandar)=
 ### `stderr`: El flujo de error estándar
 
 En C, tenés tres flujos de comunicación estándar:
@@ -1188,6 +1207,7 @@ cuando la salida "buena" está siendo redirigida.
 **Uso general**: Se utilizá `stderr` para mensajes de error, diagnósticos o
 advertencias.
 
+(errno-el-codigo-del-ultimo-error)=
 ### `errno`: El código del último error
 
 `errno` es una variable global (técnicamente, una macro que se expande a una
@@ -1204,6 +1224,7 @@ de un error anterior.
 **Uso general**: Consultá `errno` solo después de haber detectado que una
 función ha fallado (por ejemplo, verificando un retorno `NULL` o `-1`).
 
+(perror-const-char-s-el-informador-directo)=
 ### `perror(const char *s)`: El informador directo
 
 `perror` es la forma más sencilla de reportar un error. Hace dos cosas:
@@ -1223,6 +1244,7 @@ perror("Error al leer el archivo de configuración");
 // Error al leer el archivo de configuración: No such file or directory
 ```
 
+(strerror-int-errnum-el-traductor-flexible)=
 ### `strerror(int errnum)`: El traductor flexible
 
 `strerror` te da más control. Toma un número de error (casi siempre le pasarás
@@ -1316,10 +1338,12 @@ Analizá las diferencias de flexibilidad entre `perror` y `strerror`. Proponé u
 3. **Internacionalización**: Si tu software debe mostrar los errores adaptados a diferentes lenguajes o a una interfaz gráfica de usuario (GUI), debés usar `strerror` para tomar el texto y pasárselo a la ventana de tu aplicación.
 :::
 
+(posicionamiento-en-archivos-acceso-aleatorio)=
 ## Posicionamiento en Archivos: Acceso Aleatorio
 
 No siempre querés leer un archivo secuencialmente. Las funciones de posicionamiento te permiten moverte a cualquier punto del archivo.
 
+(ftell)=
 ### `ftell`
 
 La función `ftell` se utiliza para obtener la posición actual del indicador de posición del fichero (el "cursor") dentro de un flujo. Devuelve esta posición como un número de bytes desde el inicio del archivo.
@@ -1337,6 +1361,7 @@ La función `ftell` se utiliza para obtener la posición actual del indicador de
 long int ftell(FILE *stream);
 ```
 
+(fseek)=
 ### `fseek`
 
 La función `fseek` es la herramienta principal para mover el indicador de posición del fichero a una ubicación específica dentro del flujo. Permite un control preciso, moviendo el cursor un número determinado de bytes (`offset`) desde un punto de origen (`origin`).
@@ -1359,6 +1384,7 @@ La función `fseek` es la herramienta principal para mover el indicador de posic
 int fseek(FILE *stream, long int offset, int origin);
 ```
 
+(rewind)=
 ### `rewind`
 
 La función `rewind` es un caso especial y simplificado de `fseek`. Su única función es mover el indicador de posición del fichero de vuelta al inicio del archivo. Además, limpia cualquier indicador de error que pudiera tener el flujo.
@@ -1376,6 +1402,7 @@ La función `rewind` es un caso especial y simplificado de `fseek`. Su única fu
 void rewind(FILE *stream);
 ```
 
+(ejemplo-de-uso)=
 ### Ejemplo de uso
 
 ```{code-block}c
@@ -1531,6 +1558,7 @@ Aunque ambas operaciones mueven el indicador de posición (el cursor) de vuelta 
 3. **Simplicidad**: `rewind` simplifica el control de errores al agrupar la limpieza de flags y el posicionamiento en un solo paso, eliminando la necesidad de escribir una cláusula condicional `if (fseek(...) != 0)`.
 :::
 
+(glosario)=
 ## Glosario
 
 :::{glossary}

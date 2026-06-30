@@ -4,6 +4,7 @@ short_title: 'Encapsulamiento'
 subtitle: Técnicas de ocultamiento de información y diseño modular
 ---
 
+(concepto-y-mecanismo-de-punteros-opacos)=
 ## Concepto y Mecanismo de Punteros Opacos
 
 Los **punteros opacos** (opaque pointers) son una técnica fundamental en C para implementar **encapsulamiento** y **ocultamiento de información** (information hiding). Esta técnica permite ocultar la implementación interna de una estructura, exponiendo solo una interfaz pública al usuario, de manera análoga al encapsulamiento de miembros privados de una clase en lenguajes orientados a objetos.
@@ -16,6 +17,7 @@ Los punteros opacos son la técnica de programación central sobre la cual se co
 
 ---
 
+(motivacion-el-problema-del-acceso-directo)=
 ### Motivación: El Problema del Acceso Directo
 
 Considerá una implementación ingenua de un punto geométrico en dos dimensiones donde la estructura está completamente expuesta:
@@ -54,6 +56,7 @@ Exponer la definición completa de una estructura en el archivo de cabecera es u
 
 ---
 
+(la-solucion-punteros-opacos)=
 ### La Solución: Punteros Opacos
 
 La técnica de punteros opacos consiste en **declarar la estructura en el archivo de cabecera pero definirla en el archivo de implementación**.
@@ -171,6 +174,7 @@ Dado que las instancias de tipos opacos se alocan dinámicamente en el heap, es 
 
 ---
 
+(analisis-tecnico-como-funciona)=
 ### Análisis Técnico: ¿Cómo Funciona?
 
 #### Tipo Incompleto (Incomplete Type)
@@ -252,6 +256,7 @@ Un puntero en C simplemente almacena una dirección de memoria. Independientemen
 
 ---
 
+(ejercicios-concepto-y-mecanismo)=
 ### Ejercicios: Concepto y Mecanismo
 
 :::{exercise}
@@ -370,8 +375,10 @@ Si hubiésemos definido `destruir_usuario(usuario_t *u)` con un tipo opaco, el c
 
 ---
 
+(patrones-de-diseno-ventajas-y-limitaciones)=
 ## Patrones de Diseño, Ventajas y Limitaciones
 
+(ventajas-de-los-punteros-opacos)=
 ### Ventajas de los Punteros Opacos
 
 #### 1. Encapsulamiento Fuerte
@@ -428,6 +435,7 @@ Los archivos que incluyen `punto.h` no necesitan incluir las dependencias intern
 
 ---
 
+(patrones-de-uso-comunes)=
 ### Patrones de Uso Comunes
 
 #### Patrón Constructor/Destructor
@@ -513,6 +521,7 @@ bool usuario_establecer_edad(usuario_t *u, int nueva_edad) {
 
 ---
 
+(comparacion-con-otras-tecnicas)=
 ### Comparación con Otras Técnicas
 
 #### vs. Estructuras Expuestas
@@ -554,6 +563,7 @@ Aunque `void *` también oculta la implementación, **no es la forma adecuada** 
 
 ---
 
+(ejemplo-completo-usuario-opaco)=
 ### Ejemplo Completo: Usuario Opaco
 
 Este ejemplo implementa un módulo para gestionar un usuario, donde los campos internos (un string dinámico y un entero) se mantienen estrictamente encapsulados.
@@ -698,6 +708,7 @@ int main(void) {
 
 ---
 
+(punteros-opacos-en-bibliotecas-estandar)=
 ### Punteros Opacos en Bibliotecas Estándar
 
 Muchas bibliotecas conocidas usan punteros opacos:
@@ -740,6 +751,7 @@ Todos estos ejemplos siguen el mismo patrón de puntero opaco.
 
 ---
 
+(buenas-practicas)=
 ### Buenas Prácticas
 
 #### 1. Convenciones de Nombres
@@ -824,6 +836,7 @@ void punto_desplazar(punto_t *punto, double dx, double dy);
 
 ---
 
+(limitaciones-y-consideraciones)=
 ### Limitaciones y Consideraciones
 
 #### 1. Pérdida de Acceso Directo
@@ -879,6 +892,7 @@ Algunas herramientas de análisis estático tienen dificultades para verificar e
 
 ---
 
+(ejercicios-patrones-y-buenas-practicas)=
 ### Ejercicios: Patrones y Buenas Prácticas
 
 :::{exercise}
@@ -1056,11 +1070,12 @@ char *cuenta_clonar_titular(const cuenta_t *c) {
 
 ---
 
-(contratos-modulos)=
+(contratos-en-modulos-c)=
 ## Contratos en Módulos C
 
 El diseño de punteros opacos impone una separación estricta entre interfaz e implementación. Para formalizar esa separación, el **Diseño por Contratos** proporciona el marco conceptual: cada función de la interfaz tiene precondiciones (qué exige del cliente) y poscondiciones (qué garantiza al cliente).
 
+(introduccion-al-diseno-por-contratos)=
 ### Introducción al Diseño por Contratos
 
 El **Diseño por Contratos** (Design by Contract, DbC) es una metodología formal de desarrollo de software introducida por Bertrand Meyer en el lenguaje Eiffel. Se fundamenta en la metáfora de un contrato legal entre partes: cada componente de software tiene **obligaciones** (precondiciones que debe garantizar el cliente) y **beneficios** (postcondiciones que garantiza el proveedor). Este enfoque transforma el desarrollo de software de una actividad artesanal a una disciplina ingenieril rigurosa.
@@ -1086,6 +1101,7 @@ La formalización mediante Lógica de Primer Orden (LPO) proporciona el rigor ma
 
 ---
 
+(ejercicios-contratos-en-modulos-c)=
 ### Ejercicios: Contratos en Módulos C
 
 :::{exercise}
@@ -1207,8 +1223,10 @@ Para garantizar la integridad del TAD, esta función debe invocarse en los sigui
 
 ---
 
+(referencias-y-lecturas-complementarias)=
 ## Referencias y Lecturas Complementarias
 
+(textos-fundamentales)=
 ### Textos Fundamentales
 
 - {cite:t}`hanson_c_1996`. *C Interfaces and Implementations*. Capítulo 1: Interfaces. Tratamiento exhaustivo de punteros opacos y diseño de interfaces.
@@ -1217,11 +1235,13 @@ Para garantizar la integridad del TAD, esta función debe invocarse en los sigui
 
 - {cite:t}`king_c_2008`. *C Programming: A Modern Approach*. Capítulo 19: Program Design. Information hiding y modularidad.
 
+(documentacion-de-estandares)=
 ### Documentación de Estándares
 
 - **ISO C99 Standard** (6.2.5): Definición formal de tipos incompletos.
 - **ISO C11 Standard** (6.7.2.3): Declaraciones de estructuras y tipos opacos.
 
+(articulos-y-recursos)=
 ### Artículos y Recursos
 
 - **"Object-Oriented Programming With ANSI-C"** - Axel-Tobias Schreiner. Uso avanzado de punteros opacos para simular OOP.
@@ -1230,6 +1250,7 @@ Para garantizar la integridad del TAD, esta función debe invocarse en los sigui
 
 ---
 
+(resumen)=
 ## Resumen
 
 Los punteros opacos son una técnica esencial para construir software modular y mantenible en C:

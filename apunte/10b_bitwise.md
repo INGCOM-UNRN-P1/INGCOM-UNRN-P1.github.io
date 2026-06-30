@@ -7,11 +7,13 @@ subtitle: 'Operadores a nivel de bits y máscaras en C'
 (bitwise-capitulo)=
 ---
 
+(campos-de-bits-bit-fields-ahorro-extremo-de-memoria)=
 ## Campos de Bits (Bit-fields): Ahorro Extremo de Memoria
 
 Los bit-fields permiten definir miembros de una `struct` con un ancho en bits
 exacto, ideal para empaquetar flags o valores pequeños.
 
+(sintaxis-y-ejemplo)=
 ### Sintaxis y Ejemplo
 
 ```c
@@ -24,6 +26,7 @@ typedef struct {
 
 El compilador empaquetará estos 8 bits en un solo byte (si es posible).
 
+(acceso-y-type-punning-seguro)=
 ### Acceso y Type Punning Seguro
 
 Cuando se trabaja con estructuras de campos de bits o representaciones de bajo nivel, suele ser necesario interpretar una estructura empaquetada como una secuencia cruda de bytes (por ejemplo, para transmitirla por red) o viceversa.
@@ -40,6 +43,7 @@ Existen dos formas válidas y seguras de realizar *type punning* en C:
 1. **El uso de uniones (`union`)**: En C estándar, escribir en un miembro de una unión y leer de otro diferente es un comportamiento bien definido y el método preferido para reinterpretación de datos.
 2. **Uso de `memcpy`**: Copiar los bytes mediante `memcpy` es seguro y los optimizadores modernos suelen eliminar la llamada física a la función, generando código máquina óptimo.
 
+(laboratorio-2-inspeccion-de-bit-fields-con-uniones)=
 ### Laboratorio 2: Inspección de Bit-fields con Uniones
 
 **`bitfield_inspect.c`**
@@ -141,11 +145,12 @@ int main() {
 
 ---
 
-(operadores-bitwise)=
+(operadores-a-nivel-de-bits)=
 ## Operadores a Nivel de Bits
 
 Los Campos de Bits del apartado anterior operan físicamente con bits individuales. Para manipularlos de forma explícita en código, C provee un conjunto de operadores bitwise que actúan sobre la representación binaria de los enteros.
 
+(introduccion-el-poder-a-nivel-de-bit)=
 ## Introducción: El Poder a Nivel de Bit
 
 En el corazón de cada operación que realiza una computadora se encuentran los
@@ -154,6 +159,7 @@ interactuar directamente con esta representación binaria de los datos. En C,
 dominar estas técnicas es una habilidad práctica y poderosa para optimizar el
 rendimiento, ahorrar memoria e interactuar con hardware.
 
+(representacion-binaria)=
 ## Representación Binaria
 
 Todos los tipos de datos en C se almacenan como una secuencia de bits. Un
@@ -167,7 +173,7 @@ Binario:  1   1   0   0   1   0   0   0
 Suma:   128 + 64+ 0 + 0 + 8 + 0 + 0 + 0 = 200
 ```
 
-(memoria-endianness)=
+(endianness)=
 ### Endianness
 
 El **endianness** define el orden en que se almacenan en memoria los bytes que componen un tipo de dato multi-byte (como `int` o `double`). Es un detalle de la arquitectura del procesador que puede ser crucial en programación de sistemas, redes o al trabajar con formatos de archivo binarios.
@@ -210,8 +216,10 @@ int main(void) {
 
 Este código funciona porque si es little-endian, el byte `01` se almacena en la primera dirección, y `*c` será `1`. Si es big-endian, el primer byte será `00`, y `*c` será `0`.
 
+(los-operadores-a-nivel-de-bits)=
 ## Los Operadores a Nivel de Bits
 
+(1-and-a-nivel-de-bits)=
 ### 1. AND a nivel de bits (`&`)
 
 El bit del resultado es `1` solo si ambos bits correspondientes en los operandos
@@ -241,6 +249,7 @@ bool es_par(int numero) {
 
 :::
 
+(2-or-a-nivel-de-bits)=
 ### 2. OR a nivel de bits (`|`)
 
 El bit del resultado es `1` si al menos uno de los bits correspondientes es `1`.
@@ -266,6 +275,7 @@ void activar_flag_4(unsigned char *estado) {
 
 :::
 
+(3-xor-a-nivel-de-bits)=
 ### 3. XOR a nivel de bits (`^`)
 
 El bit del resultado es `1` solo si los bits correspondientes son
@@ -293,6 +303,7 @@ void swap_xor(int *a, int *b) {
 
 :::
 
+(4-not-a-nivel-de-bits)=
 ### 4. NOT a nivel de bits (`~`)
 
 El operador NOT (complemento a uno) invierte todos los bits de su operando. `0`
@@ -324,6 +335,7 @@ unsigned char mascara_apagado = ~(1 << 1);
 
 :::
 
+(5-desplazamientos-y)=
 ### 5. Desplazamientos (`<<` y `>>`)
 
 - `<<`: Desplaza los bits a la izquierda. Equivale a multiplicar por potencias
@@ -360,8 +372,10 @@ realizar las operaciones. :::
 
 :::
 
+(ejercicios-de-aplicacion-recetario)=
 ## Ejercicios de Aplicación (Recetario)
 
+(1-obtener-el-n-esimo-bit)=
 ### 1. Obtener el N-ésimo Bit
 
 :::{exercise} get_bit
@@ -382,6 +396,7 @@ int get_bit(int numero, int n) {
 
 :::
 
+(2-establecer-el-n-esimo-bit)=
 ### 2. Establecer el N-ésimo Bit
 
 :::{exercise} set_bit
@@ -401,6 +416,7 @@ void set_bit(int *numero, int n) {
 
 :::
 
+(3-limpiar-el-n-esimo-bit)=
 ### 3. Limpiar el N-ésimo Bit
 
 :::{exercise} clear_bit
@@ -421,6 +437,7 @@ void clear_bit(int *numero, int n) {
 
 :::
 
+(4-contar-bits-encendidos-hamming-weight)=
 ### 4. Contar Bits Encendidos (Hamming Weight)
 
 :::{exercise} kernighan
@@ -453,6 +470,7 @@ int contar_bits_encendidos(int n) {
 
 :::
 
+(5-verificar-si-es-potencia-de-dos)=
 ### 5. Verificar si es Potencia de Dos
 
 :::{exercise} potencia
@@ -481,6 +499,7 @@ bool es_potencia_de_dos(int n) {
 
 :::
 
+(glosario)=
 ## Glosario
 
 :::{glossary}
@@ -500,11 +519,12 @@ portabilidad de datos binarios.
 
 ---
 
-(bitmasks-errores)=
+(bitmasks-para-errores-multiples)=
 ## Bitmasks para Errores Múltiples
 
 Una aplicación directa de los operadores bitwise en ingeniería de sistemas es la codificación de múltiples errores en un único entero mediante *bitmasks*. Este patrón es ubicuo en drivers, sistemas embebidos y APIs de bajo nivel.
 
+(introduccion)=
 ## Introducción
 
 En muchas situaciones reales, una operación puede fallar por múltiples razones simultáneas. Por ejemplo, al validar datos de un formulario, pueden existir varios campos inválidos al mismo tiempo. Reportar solo el primer error obliga al usuario a corregir y reintentar múltiples veces. Una mejor solución es reportar **todas** las causas de error simultáneamente.
@@ -515,8 +535,10 @@ Este apunte presenta técnicas para manejar múltiples códigos de error usando 
 Cuando múltiples validaciones pueden fallar independientemente, es más útil reportar todas las fallas simultáneamente en lugar de forzar al usuario a corregir de a uno. Las bitmasks permiten representar combinaciones de errores en un solo valor entero.
 :::
 
+(problema-un-solo-codigo-de-error)=
 ## Problema: Un Solo Código de Error
 
+(enfoque-tradicional-un-error)=
 ### Enfoque Tradicional (Un Error)
 
 ```c
@@ -551,8 +573,10 @@ error_validacion_t validar_usuario(const usuario_t* usuario) {
 
 **Problema:** Si el nombre está vacío Y el email es inválido, el usuario solo sabrá del nombre. Deberá corregir y volver a intentar para descubrir el siguiente error.
 
+(solucion-codigos-de-error-con-bitmasks)=
 ## Solución: Códigos de Error con Bitmasks
 
+(definicion-con-potencias-de-2)=
 ### Definición con Potencias de 2
 
 Para representar múltiples errores simultáneamente, cada código de error debe ser una potencia de 2 (un único bit activado):
@@ -573,6 +597,7 @@ typedef enum {
 typedef unsigned int errores_t;
 ```
 
+(acumular-multiples-errores)=
 ### Acumular Múltiples Errores
 
 ```c
@@ -604,6 +629,7 @@ errores_t validar_usuario(const usuario_t* usuario) {
 }
 ```
 
+(verificar-presencia-de-errores)=
 ### Verificar Presencia de Errores
 
 ```c
@@ -635,8 +661,10 @@ if (hay_errores(resultado)) {
 }
 ```
 
+(operaciones-con-bitmasks-de-error)=
 ## Operaciones con Bitmasks de Error
 
+(agregar-errores)=
 ### Agregar Errores
 
 ```c
@@ -649,6 +677,7 @@ errores |= ERROR_NOMBRE_VACIO;
 errores |= (ERROR_EMAIL_INVALIDO | ERROR_EDAD_FUERA_RANGO);
 ```
 
+(remover-errores)=
 ### Remover Errores
 
 ```c
@@ -659,6 +688,7 @@ errores &= ~ERROR_EMAIL_INVALIDO;
 errores &= ~(ERROR_NOMBRE_VACIO | ERROR_DNI_INVALIDO);
 ```
 
+(alternar-toggle-errores)=
 ### Alternar (Toggle) Errores
 
 ```c
@@ -666,6 +696,7 @@ errores &= ~(ERROR_NOMBRE_VACIO | ERROR_DNI_INVALIDO);
 errores ^= ERROR_TELEFONO_INVALIDO;
 ```
 
+(verificar-todos-o-alguno)=
 ### Verificar Todos o Alguno
 
 ```c
@@ -689,6 +720,7 @@ if (tiene_alguno(resultado, ERROR_EDAD_FUERA_RANGO | ERROR_DNI_INVALIDO)) {
 }
 ```
 
+(contar-errores)=
 ### Contar Errores
 
 ```c
@@ -710,8 +742,10 @@ int contar_errores_rapido(errores_t errores) {
 }
 ```
 
+(casos-practicos)=
 ## Casos Prácticos
 
+(caso-1-validacion-de-formulario-web)=
 ### Caso 1: Validación de Formulario Web
 
 ```c
@@ -787,6 +821,7 @@ void mostrar_errores_formulario(errores_t errores) {
 }
 ```
 
+(caso-2-verificacion-de-permisos)=
 ### Caso 2: Verificación de Permisos
 
 ```c
@@ -841,6 +876,7 @@ mis_permisos = otorgar_permiso(mis_permisos, PERMISO_EJECUTAR);
 mis_permisos = revocar_permiso(mis_permisos, PERMISO_ESCRIBIR);
 ```
 
+(caso-3-estado-de-conexion-de-red)=
 ### Caso 3: Estado de Conexión de Red
 
 ```c
@@ -933,6 +969,7 @@ void diagnosticar_conexion(const resultado_conexion_t* resultado) {
 }
 ```
 
+(caso-4-validacion-de-documento)=
 ### Caso 4: Validación de Documento
 
 ```c
@@ -999,8 +1036,10 @@ bool es_error_recuperable(errores_t errores) {
 }
 ```
 
+(funciones-auxiliares-genericas)=
 ## Funciones Auxiliares Genéricas
 
+(conversion-a-cadenas)=
 ### Conversión a Cadenas
 
 ```c
@@ -1036,6 +1075,7 @@ void imprimir_errores(errores_t errores) {
 }
 ```
 
+(construccion-de-json-con-errores)=
 ### Construcción de JSON con Errores
 
 ```c
@@ -1067,8 +1107,10 @@ char* errores_a_json(errores_t errores) {
 }
 ```
 
+(limites-y-consideraciones)=
 ## Límites y Consideraciones
 
+(numero-maximo-de-errores)=
 ### Número Máximo de Errores
 
 Con un `unsigned int` (32 bits), podés representar hasta **32 errores diferentes**. Si necesitás más:
@@ -1085,6 +1127,7 @@ typedef enum {
 } errores_64_t;
 ```
 
+(arrays-de-bitmasks)=
 ### Arrays de Bitmasks
 
 Para sistemas muy complejos con cientos de posibles errores:
@@ -1117,8 +1160,10 @@ bool tiene_error_multiples(const errores_multiples_t* errores, int numero_error)
 }
 ```
 
+(buenas-practicas)=
 ## Buenas Prácticas
 
+(1-documentar-los-codigos)=
 ### 1. Documentar los Códigos
 
 ```c
@@ -1137,6 +1182,7 @@ typedef enum {
 } errores_validacion_t;
 ```
 
+(2-usar-nombres-descriptivos)=
 ### 2. Usar Nombres Descriptivos
 
 ```c
@@ -1150,6 +1196,7 @@ ERR_NOM
 E_MAIL
 ```
 
+(3-agrupar-errores-relacionados)=
 ### 3. Agrupar Errores Relacionados
 
 ```c
@@ -1167,6 +1214,7 @@ if (errores & ERRORES_ENTRADA) {
 }
 ```
 
+(4-separar-errores-de-advertencias)=
 ### 4. Separar Errores de Advertencias
 
 ```c
@@ -1189,8 +1237,10 @@ bool solo_advertencias(validacion_t resultado) {
 }
 ```
 
+(comparacion-con-alternativas)=
 ## Comparación con Alternativas
 
+(vs-array-de-codigos)=
 ### vs. Array de Códigos
 
 **Bitmask:**
@@ -1208,6 +1258,7 @@ int num_errores = 2;
 // Verificación: O(n)
 ```
 
+(vs-lista-enlazada)=
 ### vs. Lista Enlazada
 
 **Bitmask:**
@@ -1222,8 +1273,10 @@ int num_errores = 2;
 - Operaciones más lentas
 - Ilimitado número de errores
 
+(integracion-con-otros-patrones)=
 ## Integración con Otros Patrones
 
+(con-unico-retorno)=
 ### Con Único Retorno
 
 ```c
@@ -1240,6 +1293,7 @@ errores_t procesar_formulario(const formulario_t* form) {
 }
 ```
 
+(con-codigos-de-estado)=
 ### Con Códigos de Estado
 
 ```c
@@ -1267,6 +1321,7 @@ resultado_operacion_t realizar_operacion(const datos_t* entrada) {
 }
 ```
 
+(resumen)=
 ## Resumen
 
 **Ventajas de códigos de error con bitmasks:**

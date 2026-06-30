@@ -4,6 +4,7 @@ short_title: Sintaxis base
 subtitle: La sintaxis y programas básicos.
 ---
 
+(introduccion)=
 ## Introducción
 
 Antes de iniciar el estudio de la programación en C, es fundamental comprender que programar no consiste únicamente en aprender un lenguaje, sino en desarrollar una forma de pensar. El lenguaje es la herramienta, pero el verdadero arte reside en la construcción de instrucciones lógicas para resolver problemas.
@@ -20,6 +21,7 @@ En C, no existen atajos, lo cual es una ventaja, ya que obliga a pensar de forma
 
 ---
 
+(por-que-aprender-c)=
 ## ¿Por qué aprender C?
 
 El lenguaje C fue creado en 1972 por **Dennis Ritchie** y **Brian Kernighan** en los Bell Labs. A pesar de tener más de 50 años de existencia, se sigue utilizando ampliamente debido a sus características fundamentales:
@@ -40,8 +42,10 @@ El lenguaje C fue creado en 1972 por **Dennis Ritchie** y **Brian Kernighan** en
 
 ---
 
+(caracteristicas-principales-de-c)=
 ## Características Principales de C
 
+(nivel-de-abstraccion)=
 ### Nivel de Abstracción
 
 Aunque C es considerado un lenguaje de **nivel medio**, en el momento en el que fue creado se lo consideraba de alto nivel en comparación con el {term}`Lenguaje Ensamblador`.
@@ -54,6 +58,7 @@ Esto le da un balance único:
 
 C es un lenguaje **compilado**. El código fuente se traduce directamente a código máquina integramente antes de ejecutarse mediante un compilador, a diferencia de los lenguajes **interpretados** que son traducidos línea por línea en tiempo de ejecución.
 
+(atributos-clave)=
 ### Atributos Clave
 
 - **Compilado:** El código fuente se traduce por completo a instrucciones nativas de CPU antes de su ejecución.
@@ -62,6 +67,7 @@ C es un lenguaje **compilado**. El código fuente se traduce directamente a cód
 
 ---
 
+(fortalezas-del-lenguaje-c)=
 ### Fortalezas del Lenguaje C
 
 #### Acceso a conceptos de bajo nivel
@@ -75,6 +81,7 @@ El lenguaje asume que el programador sabe lo que está haciendo, por lo que perm
 
 ---
 
+(debilidades-del-lenguaje-c)=
 ### Debilidades del Lenguaje C
 
 #### Los programas en C pueden ser propensos a errores
@@ -88,6 +95,7 @@ Los programas grandes escritos en C pueden ser difíciles de mantener si no se d
 
 ---
 
+(ejercicios-de-autoevaluacion-historia-y-caracteristicas)=
 ### Ejercicios de Autoevaluación (Historia y Características)
 
 :::{exercise}
@@ -114,8 +122,10 @@ Un ejemplo claro es el **desbordamiento de buffer (buffer overflow)** o el acces
 
 ---
 
+(la-caja-de-herramientas)=
 ## La caja de herramientas
 
+(preparacion-del-entorno)=
 ### Preparación del entorno
 
 Para los usuarios de Windows, la cátedra ha preparado un programa para simplificar la instalación de las herramientas necesarias para editar, compilar y ejecutar los programas.
@@ -134,6 +144,7 @@ sudo apt install build-essential
 Si surgen problemas o dificultades en la instalación del entorno, consultá inmediatamente en las clases prácticas o en el espacio de [Discussions](https://github.com/orgs/INGCOM-UNRN-P1/discussions).
 :::
 
+(primer-programa-el-hola-mundo-en-c)=
 ### Primer programa: el «Hola Mundo» en C
 
 ```{code-block} c
@@ -166,9 +177,11 @@ El proceso de compilación transforma el código fuente en un ejecutable que la 
 :label: salidamundo
 :caption: La salida por la terminal.
 
+(compila-el-archivo-hola-c-y-crea-un-ejecutable-por-defecto-llamado-a-out-a-exe-en-windows)=
 # Compila el archivo hola.c y crea un ejecutable por defecto llamado a.out (a.exe en Windows)
 $> gcc hola.c
 
+(ejecuta-el-programa)=
 # Ejecuta el programa
 $> ./a.out
 Hola mundo C.
@@ -192,6 +205,7 @@ _Más adelante, vamos a ver detalles de la compilación para crear programas má
 Si no ves el mensaje que está dentro de la instrucción `printf`, hay algún problema que es **fundamental** solucionar. No se debe detener en este punto, ya que es un bloqueante para todos los temas siguientes.
 :::
 
+(ejercicios-de-autoevaluacion-hola-mundo-y-compilacion)=
 ### Ejercicios de Autoevaluación (Hola Mundo y Compilación)
 
 :::{exercise}
@@ -219,10 +233,12 @@ La opción `-o` (output) le indica al compilador el nombre específico que debe 
 
 ---
 
+(de-la-idea-al-codigo-en-c)=
 ## De la Idea al Código en C
 
 En el capítulo {doc}`1_base` se estudiaron los fundamentos lógicos y el diseño de algoritmos en pseudocódigo. Ahora daremos el paso crucial: **traducir ese diseño abstracto a un programa real en C**.
 
+(la-mentalidad-del-programador)=
 ### La Mentalidad del Programador
 
 1. **Leé el problema, comprendelo y diseñalo.**
@@ -236,6 +252,7 @@ En el capítulo {doc}`1_base` se estudiaron los fundamentos lógicos y el diseñ
 _Pensar es más importante que escribir._
 :::
 
+(ejemplo-sumar-dos-numeros-enteros)=
 ### Ejemplo: Sumar dos números enteros
 
 Diseño algorítmico:
@@ -260,6 +277,7 @@ int main() {
 }
 ```
 
+(ejercicios-de-autoevaluacion-algoritmo-a-codigo)=
 ### Ejercicios de Autoevaluación (Algoritmo a Código)
 
 :::{exercise}
@@ -320,17 +338,20 @@ int main() {
 
 ---
 
+(sobre-las-reglas-de-estilo)=
 ## Sobre las reglas de estilo
 
 El uso de reglas de estilo es fundamental para garantizar la consistencia y legibilidad del código. Al adherirse a normas uniformes (como nomenclatura, indentación y posición de llaves), se facilita la colaboración y el mantenimiento del software. Para más detalles, consultá la regla {ref}`0x0000h`.
 
 Y cuando nos referimos a colaboración, esto incluye al profesor que tiene que leer su código.
 
+(sintaxis-y-semantica-basica)=
 ## Sintaxis y Semántica Básica
 
 La **sintaxis** es el conjunto de reglas formales que definen cómo debe escribirse el código para que sea válido para el compilador.
 La **semántica** determina el significado lógico, la estructura y el comportamiento real que tiene el código durante su ejecución. Un código puede ser sintácticamente correcto pero semánticamente erróneo.
 
+(identificadores-y-palabras-reservadas)=
 ### Identificadores y Palabras Reservadas
 
 **Identificadores:** Son los nombres que asignamos a variables, constantes y funciones. Deben comenzar obligatoriamente con una letra o guion bajo (`_`) y pueden contener letras, dígitos y guiones bajos. C distingue entre mayúsculas y minúsculas (`suma` es un identificador distinto de `Suma`). No pueden coincidir con palabras reservadas del lenguaje.
@@ -339,6 +360,7 @@ La **semántica** determina el significado lógico, la estructura y el comportam
 
 Nuestros identificadores deben respetar las pautas de estilo (ver {ref}`0x0001h`).
 
+(tipos-de-operadores)=
 ### Tipos de operadores
 
 Los operadores son símbolos que le indican al compilador realizar manipulaciones matemáticas o lógicas específicas sobre las variables. En C se clasifican según su función y la cantidad de operandos que requieren:
@@ -370,6 +392,7 @@ No confundas el operador de asignación simple `=` (que guarda un valor en una v
 
 ---
 
+(ejercicios-de-autoevaluacion-sintaxis-y-operadores)=
 ### Ejercicios de Autoevaluación (Sintaxis y Operadores)
 
 :::{exercise}
@@ -401,8 +424,10 @@ Si `denominador` es igual a `0`, la primera subexpresión `denominador != 0` eva
 
 ---
 
+(variables-y-tipos-de-datos)=
 ## Variables y Tipos de Datos
 
+(que-es-una-variable)=
 ### ¿Qué es una variable?
 
 Una variable es un identificador asociado a una dirección física de memoria RAM que almacena un dato de un tipo específico.
@@ -414,6 +439,7 @@ Una variable es un identificador asociado a una dirección física de memoria RA
 Las variables abstraen ubicaciones físicas de memoria. Cada una tiene una dirección de memoria, un nombre y un tipo.
 :::
 
+(tipos-basicos-de-datos-en-c)=
 ### Tipos básicos de datos en C
 
 - `int`: Representa números enteros (ej. `42`, `-5`).
@@ -436,6 +462,7 @@ El estándar de C no define tamaños fijos en bytes para los tipos básicos, sin
 Para garantizar la portabilidad y evitar desbordamientos accidentales al cambiar de plataforma, el estándar C99 introdujo la cabecera `<stdint.h>`, la cual proporciona tipos con tamaños fijos y explícitos en bits, como `int8_t`, `int16_t`, `int32_t` y sus variantes sin signo (`uint8_t`, `uint32_t`).
 :::
 
+(declaracion-e-inicializacion)=
 ### Declaración e Inicialización
 
 Toda variable debe declararse antes de ser usada, indicando su tipo y su nombre:
@@ -453,7 +480,7 @@ bool activo = true;
 Si declarás una variable sin inicializarla, su contenido inicial en memoria física es indeterminado ("basura"). **Siempre inicializá tus variables** a un valor conocido antes de utilizarlas (ver regla de estilo {ref}`0x0003h`).
 
 
-(roles-variables)=
+(roles-de-las-variables)=
 ### Roles de las Variables
 
 En programación, el **rol de una variable** se refiere al propósito específico que una variable desempeña dentro de un algoritmo. No es solo lo que la variable _contiene_, sino para _qué_ la usamos. Identificar el rol de una variable nos permite diseñar algoritmos más claros, eficientes y fáciles de depurar. Es como asignar una tarea a cada miembro de un equipo; cada uno tiene su función y sabe qué hacer.
@@ -493,6 +520,7 @@ Acá, `auxiliar` es crucial para no perder el valor original de `a` cuando se lo
 asignamos a `b`.
 
 
+(la-importancia-de-los-roles)=
 ### La Importancia de los Roles
 
 Entender estos roles te da una perspectiva más rica sobre cómo funcionan tus
@@ -506,6 +534,7 @@ sino **para qué la estás usando**. Reconocer estos patrones te ayudará a:
 Vamos a ir viendo más roles a medida que vamos aprendiendo las diferentes cosas que podemos hacer con C.
 
 
+(l-values-y-r-values-asignacion-y-expresiones)=
 ### L-Values y R-Values (Asignación y Expresiones)
 
 Para comprender cómo el compilador evalúa y almacena los datos durante una asignación, tenés que conocer las dos categorías de expresiones en C: **L-values** y **R-values**, según lo define formalmente el estándar del lenguaje.
@@ -546,6 +575,7 @@ y = x + 5;       // VÁLIDO: 'y' es un L-value, 'x + 5' evalúa a un R-value.
 // &(x + 5);     // ERROR: el operador de dirección (&) requiere un L-value.
 ```
 
+(ejercicios-de-autoevaluacion-variables-y-tipos)=
 ### Ejercicios de Autoevaluación (Variables y Tipos)
 
 :::{exercise}
@@ -578,8 +608,10 @@ Este fenómeno se denomina **desbordamiento de enteros con signo (signed integer
 
 ---
 
+(entrada-y-salida-basica)=
 ## Entrada y Salida Básica
 
+(printf-salida-formateada)=
 ### `printf()` - Salida Formateada
 
 Se utiliza para imprimir texto y valores de variables formateados en la salida estándar de consola.
@@ -628,6 +660,7 @@ int main() {
 Aquí, `area` guarda el resultado del cálculo y luego se imprime.
 
 
+(scanf-entrada-formateada)=
 ### `scanf()` - Entrada Formateada
 
 Permite leer datos de entrada ingresados por teclado en la entrada estándar (`stdin`). 
@@ -675,6 +708,7 @@ printf("Ingrese su inicial: ");
 scanf(" %c", &inicial); // El espacio antes de %c limpia el buffer de stdin
 ```
 
+(ejercicios-de-autoevaluacion-entrada-y-salida)=
 ### Ejercicios de Autoevaluación (Entrada y Salida)
 
 :::{exercise}
@@ -714,6 +748,7 @@ Esto imprimirá el texto `Valor: ` seguido de cuatro espacios en blanco y los ca
 
 ---
 
+(resumen-de-fundamentos)=
 ## Resumen de Fundamentos
 
 En esta unidad introductoria hemos cubierto:

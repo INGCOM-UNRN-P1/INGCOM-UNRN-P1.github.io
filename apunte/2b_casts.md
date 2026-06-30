@@ -6,6 +6,7 @@ subtitle: 'Promoción, coerción implícita y conversión explícita de tipos de
 
 (conversiones-capitulo)=
 
+(el-dilema-de-la-mezcla-de-tipos)=
 ## El Dilema de la Mezcla de Tipos
 
 En C, las variables poseen un tipo estático y rígido asignado en su declaración. Sin embargo, en la práctica es extremadamente común necesitar operar con variables de distintos tipos en una misma expresión (por ejemplo, sumar un entero de tipo `int` con un valor de punto flotante de tipo `double`). 
@@ -14,10 +15,12 @@ Para resolver estas situaciones, el compilador aplica reglas automáticas de con
 
 ---
 
+(1-conversiones-implicitas-promocion-y-coercion)=
 ## 1. Conversiones Implícitas (Promoción y Coerción)
 
 Las conversiones implícitas son aquellas que el compilador de C realiza de forma automática, sin intervención explícita del programador, al evaluar expresiones mixtas o al realizar asignaciones.
 
+(promocion-entera-integer-promotion)=
 ### Promoción Entera (Integer Promotion)
 
 Antes de realizar cualquier operación aritmética, C promueve automáticamente los tipos enteros de menor rango (como `char`, `short` o tipos enumerados) a `int` (o a `unsigned int` si el rango original no cabe en un entero signado). Esto se realiza porque las unidades aritmético-lógicas (ALU) de la CPU operan de forma más eficiente con el tamaño nativo de palabra del procesador.
@@ -29,6 +32,7 @@ char b = 20;
 int c = a + b; 
 ```
 
+(conversiones-aritmeticas-habituales)=
 ### Conversiones Aritméticas Habituales
 
 Cuando operandos de tipos diferentes interactúan en una expresión aritmética (como `+`, `-`, `*`, `/`), el compilador promueve el operando de "menor rango" al tipo del operando de "mayor rango". El orden general de jerarquía de tipos (de menor a mayor) es:
@@ -44,6 +48,7 @@ double factor = 1.5;
 double resultado = base * factor; 
 ```
 
+(coercion-y-truncamiento-democion-de-tipos)=
 ### Coerción y Truncamiento (Democión de Tipos)
 
 El peligro real de las conversiones implícitas ocurre al asignar un tipo de mayor rango a uno de menor rango. En este caso, el compilador realiza una coerción hacia abajo (democión), lo que puede provocar:
@@ -81,10 +86,12 @@ Por lo tanto, la variable `resultado` almacena el valor entero `2`.
 
 ---
 
+(2-conversiones-explicitas-el-operador-cast)=
 ## 2. Conversiones Explícitas (El Operador Cast)
 
 Un **cast** (o conversión explícita) es una instrucción directa del programador al compilador para forzar la conversión de una expresión a un tipo de dato específico.
 
+(sintaxis)=
 ### Sintaxis
 
 La sintaxis del operador cast antepone el tipo de destino entre paréntesis a la expresión a convertir:
@@ -95,6 +102,7 @@ La sintaxis del operador cast antepone el tipo de destino entre paréntesis a la
 
 El operador cast tiene una precedencia muy alta (operador unario), por lo que se evalúa antes que la mayoría de los operadores aritméticos a menos que utilices paréntesis agrupadores.
 
+(casos-de-uso-comunes)=
 ### Casos de Uso Comunes
 
 El cast explícito se utiliza principalmente en tres escenarios didácticos y de ingeniería:
@@ -146,10 +154,12 @@ double promedio = (double)total_horas / dias; // (double)5.0 / 2 -> 5.0 / 2.0 ->
 
 ---
 
+(3-conversiones-y-representacion-en-memoria)=
 ## 3. Conversiones y Representación en Memoria
 
 Las conversiones de tipos no son meramente lógicas; tienen un impacto físico directo en cómo la CPU manipula los bits de las variables en la memoria RAM.
 
+(cast-aritmetico-vs-cast-de-reinterpretacion)=
 ### Cast Aritmético vs. Cast de Reinterpretación
 
 Es fundamental diferenciar conceptualmente entre dos tipos de transformaciones:
@@ -157,6 +167,7 @@ Es fundamental diferenciar conceptualmente entre dos tipos de transformaciones:
 *   **Conversión de Valor (Cast Aritmético):** Modifica la representación física de los bits para preservar el valor matemático del dato original en el tipo de destino. Por ejemplo, al convertir `int a = 5` a `float`, el procesador traduce la codificación entera tradicional (complemento a 2) a la representación de punto flotante de precisión simple estándar IEEE 754. Los patrones de bits de `5` y `5.0f` son completamente distintos en memoria, pero representan el mismo valor numérico.
 *   **Reinterpretación de Bits (Cast de Punteros):** No altera los bits de la memoria, sino que le indica al compilador que lea la misma dirección de memoria física bajo las reglas de otro tipo de dato. Esto se realiza únicamente a través del casteo de punteros (lo que se analizará en detalle en el capítulo de Aritmética de Punteros).
 
+(conversion-entre-signed-y-unsigned-complemento-a-2)=
 ### Conversión entre Signed y Unsigned (Complemento a 2)
 
 Al castear entre enteros signados y no signados del mismo tamaño (por ejemplo, de `int` a `unsigned int`), los bits en memoria **no se modifican en absoluto**. La CPU simplemente reinterpreta el bit más significativo (el bit de signo en complemento a 2) como parte del valor numérico absoluto.

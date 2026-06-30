@@ -4,7 +4,7 @@ short_title: Punteros
 subtitle: "Control directo de memoria en sistemas integrados"
 ---
 
-(punteros-capitulo)=
+(introduccion-a-los-punteros-y-la-memoria)=
 ## Introducción a los Punteros y la Memoria
 
 Para profundizar en cómo funcionan estructuras como los arreglos y para ganar un
@@ -13,6 +13,7 @@ fundamental entender los **punteros**. Los punteros son la herramienta que nos
 permite pasar de trabajar solo con los _valores_ de las variables a trabajar con
 sus _ubicaciones_ en la memoria.
 
+(que-es-una-direccion-de-memoria-y-un-puntero)=
 ### ¿Qué es una Dirección de Memoria y un Puntero?
 
 Cada vez que declarás una variable, el entorno de ejecución y el sistema operativo le asignan un bloque de espacio en la memoria del programa. En los sistemas operativos modernos con soporte de hardware para paginación (a través de la MMU o *Memory Management Unit*), los programas de usuario no acceden directamente a las direcciones de la memoria RAM física. En su lugar, trabajan dentro de un espacio de **direcciones virtuales (memoria lógica)**. El sistema operativo se encarga de mapear de forma transparente estas direcciones lógicas a direcciones físicas reales de la memoria RAM o incluso a disco (memoria de intercambio o *swap*). Este mecanismo de abstracción proporciona seguridad y aislamiento entre los diferentes procesos que se ejecutan simultáneamente en la máquina.
@@ -44,6 +45,7 @@ Como se observa en la tabla, el valor almacenado en `ptr` (`0x7ffd`) coincide ex
 Representación conceptual de un puntero apuntando a una variable en memoria mediante su dirección física hexadecimal.
 ```
 
+(declaracion-de-punteros)=
 ## Declaración de punteros
 
 Para declarar un puntero, debés especificar el tipo de dato al que va a apuntar,
@@ -61,6 +63,7 @@ Una vez declarado, un puntero debe ser inicializado para que apunte a una
 dirección de memoria específica y válida. No hacerlo es una fuente común de
 errores graves. Tenés principalmente dos formas de inicializar un puntero:
 
+(asignacion-a-una-direccion-especifica)=
 ### Asignación a una dirección específica
 
 Para que un puntero sea útil, generalmente lo hacés apuntar a una variable
@@ -73,6 +76,7 @@ int numero = 42;
 int *ptr_numero = &numero; // ptr_numero ahora almacena la dirección de 'numero'
 ```
 
+(inicializar-a-nulo-null)=
 ### Inicializar a Nulo (`NULL`)
 
 Si al momento de declarar un puntero no tenés una dirección de memoria válida
@@ -130,7 +134,7 @@ vulnerabilidades de seguridad.
 una variable válida o con `NULL`.
 
 
-(rol-referencia)=
+(variable-de-referencia-o-puntero)=
 ### Variable de Referencia (o Puntero)
 
 *(Para comprender el marco pedagógico de los roles de variables, podés consultar la introducción en la sección {ref}`roles-variables` del capítulo [](2_gradual))*.
@@ -162,6 +166,7 @@ int main() {
 
 El rol de `ptrNumero` es el de una **variable de referencia**, permitiendo interactuar con `numero` de forma indirecta.
 
+(operadores-de-punteros)=
 ## Operadores de Punteros
 
 El trabajo con punteros se basa principalmente en dos operadores fundamentales:
@@ -204,12 +209,14 @@ Esta dualidad del operador de desreferencia es lo que hace a los punteros tan
 poderosos, ya que nos permiten tanto leer como modificar datos de forma
 indirecta.
 
+(punteros-y-arreglos)=
 ### Punteros y arreglos
 
 El nombre de un arreglo no es un puntero, sino el identificador de un bloque de memoria contiguo. Sin embargo, como se analizó en {ref}`sec-decaimiento-arreglos`, al evaluarse en la mayoría de las expresiones de C este decae (se degrada) automáticamente a un puntero al primer elemento de la secuencia (`&arreglo[0]`). 
 
 Esta relación nos permite usar punteros para acceder y manipular los elementos de la secuencia de forma indirecta, lo cual nos lleva directamente a la aritmética de punteros.
 
+(ejercicios-de-autoevaluacion-introduccion-y-operadores)=
 ### Ejercicios de Autoevaluación (Introducción y Operadores)
 
 :::{exercise}
@@ -270,6 +277,7 @@ La regla de la cátedra {ref}`0x0003h` exige la inicialización obligatoria de t
 
 ---
 
+(aritmetica-de-punteros)=
 ## Aritmética de punteros
 
 La aritmética de punteros permite realizar operaciones matemáticas sobre las direcciones de memoria. A diferencia de las operaciones aritméticas tradicionales, el compilador ajusta automáticamente los cálculos según el tamaño físico del tipo de dato al que se apunta.
@@ -283,6 +291,7 @@ Si tenés un puntero `ptr` a un tipo de dato `T` que ocupa `sizeof(T)` bytes, al
 Aritmética de punteros: cómo el compilador ajusta los incrementos según el tipo de dato.
 ```
 
+(incremento-y-decremento)=
 ### Incremento (`++`) y decremento (`--`)
 
 Podés incrementar un puntero para que apunte al siguiente elemento de un arreglo
@@ -309,6 +318,7 @@ int main() {
 }
 ```
 
+(suma-y-resta)=
 ### Suma (`+`) y resta (`-`)
 
 Podés sumar o restar un valor entero a un puntero para desplazarte varias
@@ -331,6 +341,7 @@ int main() {
 }
 ```
 
+(un-detalle-sobre-la-resta-en-punteros)=
 ### Un detalle sobre la resta en punteros
 
 Podés restar dos punteros que apunten a elementos del mismo arreglo. El
@@ -363,6 +374,7 @@ correctamente con `printf`, se utiliza el especificador de formato `%td`.
 
 :::
 
+(ejercicios-de-autoevaluacion-aritmetica-de-punteros)=
 ### Ejercicios de Autoevaluación (Aritmética de Punteros)
 
 :::{exercise}
@@ -423,12 +435,14 @@ Explicá de forma detallada la diferencia de comportamiento entre las siguientes
 
 ---
 
+(punteros-en-funciones-y-efectos-secundarios)=
 ## Punteros en funciones y efectos secundarios
 
 En C, **todas las funciones pasan sus argumentos por valor** (copia de datos). Ya experimentaste el **paso por referencia simulado** con los arreglos en {ref}`sec-decaimiento-arreglos`: al no poder copiar todo el bloque de memoria de la secuencia, C pasa la dirección de su primer elemento.
 
 Para variables de tipo primario (como `int` o `char`), aplicamos el mismo principio físico: si queremos permitir que una función modifique una variable del invocador (un efecto secundario), pasamos por valor su *dirección de memoria* (un puntero). Aunque la dirección en sí se copia en el registro de activación (*stack frame*), la desreferencia de este puntero permite interactuar directamente con la celda de memoria original del invocador.
 
+(justificacion-de-diseno-eficiencia-y-rendimiento-en-sistemas)=
 ### Justificación de Diseño: Eficiencia y Rendimiento en Sistemas
 
 Simular el paso por referencia no es únicamente una herramienta para permitir la modificación de variables (efectos secundarios). En el desarrollo de software de sistemas, es un mecanismo indispensable por razones de rendimiento.
@@ -474,7 +488,7 @@ int main() {
 }
 ```
 
-(rol-parametro-salida)=
+(parametro-de-salida-a-traves-de-punteros)=
 ### Parámetro de Salida (a través de Punteros)
 
 *(Este rol extiende el pasaje de datos entre ámbitos; para más contexto conceptual, podés revisar la sección {ref}`roles-variables` de [](2_gradual))*.
@@ -514,7 +528,7 @@ int main() {
 
 Aquí, `cociente` y `resto` son **parámetros de salida**. La función `dividir` escribe directamente en las ubicaciones de memoria de `miCociente` y `miResto` en la función `main` a través de sus punteros, permitiendo que `main` acceda a los resultados de la división.
 
-(rol-parametro-entrada-salida)=
+(parametro-de-entrada-salida-a-traves-de-punteros)=
 ### Parámetro de Entrada/Salida (a través de Punteros)
 
 *(Esta especialización semántica complementa los roles analizados en la sección {ref}`roles-variables` de [](2_gradual))*.
@@ -547,12 +561,14 @@ int main() {
 
 La variable `contador` de `incrementarContador` tiene el rol de **parámetro de entrada/salida**. La función lee el valor inicial de `miVariableContador` (`10`), lo incrementa a `11`, y ese cambio se refleja directamente en `miVariableContador` en `main`.
 
+(el-impacto-en-los-efectos-secundarios)=
 ### El impacto en los efectos secundarios
 
 Esta capacidad para modificar variables externas al ámbito de la función constituye un efecto secundario (side effect) análogo al que estudiamos con la modificación de arreglos en [](6_secuencias). 
 
 Si bien los efectos secundarios son indispensables para la eficiencia y para permitir la salida de múltiples resultados, incrementan la complejidad del flujo lógico del programa. El programador debe rastrear minuciosamente qué variables del invocador pueden cambiar tras la ejecución de la función, razón por la cual es obligatorio documentar sus poscondiciones y restringir las mutaciones no deseadas mediante `const` (ver regla de estilo {ref}`0x3007h`).
 
+(el-calificador-const-el-ancla-de-seguridad-con-punteros)=
 ## El Calificador `const`: el ancla de seguridad con punteros
 
 El calificador `const` es una de las herramientas más importantes en C para
@@ -571,6 +587,7 @@ limitando los efectos secundarios productos de pasar el puntero a la función.
 Diferentes combinaciones del calificador `const` con punteros.
 ```
 
+(1-puntero-a-un-dato-constante-no-podes-cambiar-el-valor)=
 ### 1. Puntero a un Dato Constante (No podés cambiar el VALOR)
 
 Esta es la forma más común. La nota adhesiva es normal (podés borrar el número y
@@ -608,6 +625,7 @@ int main() {
 necesita leer los datos, pero no modificarlos. Esto previene efectos secundarios
 _accidentales_.
 
+(2-puntero-constante-a-un-dato-no-podes-cambiar-la-direccion)=
 ### 2. Puntero Constante a un Dato (No podés cambiar la dirección)
 
 En este caso, la nota adhesiva está escrita con tinta imborrable: siempre
@@ -641,6 +659,7 @@ int main() {
 **Cuándo usarlo:** Cuando necesitás que un puntero se refiera siempre a la misma
 ubicación de memoria, como un búfer fijo o una dirección de hardware específica.
 
+(3-puntero-constante-a-un-dato-constante-no-podes-cambiar-nada)=
 ### 3. Puntero Constante a un Dato Constante (No podés cambiar NADA)
 
 Esta es la forma más restrictiva. La nota está escrita con tinta imborrable y el
@@ -672,6 +691,7 @@ int main() {
 como un puntero a una tabla de configuración o a una constante almacenada en
 memoria de solo lectura.
 
+(diferencia-estricta-const-int-p-vs-int-const-p)=
 ### Diferencia estricta: `const int *p` vs `int *const p`
 
 Para evitar confusiones al leer declaraciones con el calificador `const`, se puede aplicar una regla de lectura de derecha a izquierda:
@@ -708,6 +728,7 @@ int *const p_const = &x;
 // p_const = &y;      // ERROR DE COMPILACIÓN: el puntero es de solo lectura.
 ```
 
+(documentando-funciones-con-punteros)=
 ## Documentando funciones con punteros
 
 Cuando una función utiliza punteros como parámetros, especialmente para
@@ -721,6 +742,7 @@ Usaremos la función `intercambiar` como ejemplo para ilustrar cómo documentar
 este contrato, definiendo el flujo de los datos, las precondiciones, las
 poscondiciones y los invariantes.
 
+(direccion-del-flujo-de-informacion)=
 ### Dirección del Flujo de Información
 
 Al trabajar con punteros, no solo es importante el tipo de dato, sino también la
@@ -739,6 +761,7 @@ indicarlo:
 
 ---
 
+(contratos-ii-precondiciones-poscondiciones-e-invariantes-con-punteros)=
 ### Contratos II: Precondiciones, Poscondiciones e Invariantes con punteros
 
 Recordemos que es cada uno de ellos
@@ -758,6 +781,7 @@ Su uso como metodología de documentación es una simplificación de su verdader
 poder, pero nos ayuda a pensar que en términos de lo que entra, lo que sale y lo
 que no cambia.
 
+(ejemplo-de-documentacion-completa)=
 ### Ejemplo de Documentación Completa
 
 Aplicando estos conceptos, una documentación exhaustiva para la función
@@ -785,6 +809,7 @@ void intercambiar(int *primero, int *segundo) {
 
 De esta forma, eliminamos las ambigüedades, y reducimos los potenciales errores.
 
+(ejercicios-de-autoevaluacion-funciones-const-y-contratos)=
 ### Ejercicios de Autoevaluación (Funciones, const y Contratos)
 
 :::{exercise}
@@ -848,6 +873,7 @@ La declaración `const int *ptr` define a `ptr` como un "puntero a entero consta
 
 ---
 
+(la-degradacion-de-arreglos-a-punteros)=
 ## La "degradación" de arreglos a punteros
 
 Uno de los comportamientos más importantes —y a menudo confusos— en C es que los
@@ -855,6 +881,7 @@ Uno de los comportamientos más importantes —y a menudo confusos— en C es qu
 Este no es un truco, sino una regla de conversión fundamental del lenguaje que
 explica la íntima relación entre ambos conceptos.
 
+(que-significa-realmente-la-degradacion)=
 ### ¿Qué significa realmente la "degradación"?
 
 La regla es simple: cuando usás el nombre de un arreglo en una expresión (por
@@ -878,6 +905,7 @@ printf("La dirección almacenada en p es: %p\n", (void*)p);
 printf("La dirección del primer elemento es: %p\n", (void*)&numeros[0]);
 ```
 
+(consecuencias-practicas-y-cruciales-de-la-degradacion)=
 ### Consecuencias Prácticas (y Cruciales) de la Degradación
 
 Entender esta conversión es vital porque tiene implicaciones directas en cómo
@@ -947,6 +975,7 @@ que todo quede más bonito.)
 :::
 
 
+(punteros-dobles-la-indireccion-a-un-nuevo-nivel)=
 ## Punteros Dobles: La Indirección a un Nuevo Nivel
 
 Un puntero doble es, literalmente, un **puntero que apunta a otro puntero**.
@@ -977,6 +1006,7 @@ extremadamente poderosa y se usa principalmente en dos escenarios cruciales.
 Uno de ellos lo veremos aquí, el segundo, lo haremos cuando veamos memoria
 dinámica.
 
+(simular-pasaje-por-referencia-para-punteros)=
 ### Simular "Pasaje por Referencia" para Punteros
 
 Recordá que C siempre pasa los argumentos a las funciones **por valor**. Esto
@@ -1031,11 +1061,13 @@ En este ejemplo, se realiza una conversión explícita `(void*)` al imprimir los
 :::
 
 
+(manipulando-arreglos-con-aritmetica-de-punteros)=
 ## Manipulando arreglos con aritmética de punteros
 
 La relación entre arreglos y punteros en C es tan estrecha que se pueden usar de
 forma intercambiable en muchos contextos.
 
+(1-recorrido-solo-lectura)=
 ### 1. Recorrido solo lectura
 
 La tarea más básica es iterar sobre todos los elementos para leerlos o
@@ -1074,6 +1106,7 @@ int main() {
 }
 ```
 
+(2-busqueda-de-un-elemento)=
 ### 2. Búsqueda de un elemento
 
 Para buscar un valor, recorremos el arreglo y nos detenemos si encontramos una
@@ -1130,6 +1163,7 @@ int main() {
 }
 ```
 
+(3-modificando-el-arreglo)=
 ### 3. Modificando el arreglo
 
 Para modificar los datos, usamos el operador de desreferencia (`*`) en el lado
@@ -1173,6 +1207,7 @@ int main() {
 }
 ```
 
+(4-copiando-un-arreglo)=
 ### 4. Copiando un Arreglo
 
 Para copiar un arreglo, necesitamos dos punteros: uno para la fuente (de donde
@@ -1239,6 +1274,7 @@ para evitar corrupción de memoria y comportamientos indefinidos.
 
 :::
 
+(5-version-alternativa)=
 ### 5. Versión alternativa
 
 Si la función que necesitamos crear, necesita de la posición en la que nos
@@ -1285,6 +1321,7 @@ En resumen:
 
 
 
+(ejercicios-de-autoevaluacion-degradacion-y-indireccion-avanzada)=
 ### Ejercicios de Autoevaluación (Degradación y Indirección Avanzada)
 
 :::{exercise}
@@ -1356,6 +1393,7 @@ void invertir_arreglo(int *arr, size_t tamano) {
 
 ---
 
+(proximos-pasos-memoria-dinamica)=
 ## Próximos Pasos: Memoria Dinámica
 
 Los punteros que estudiaste en este capítulo son fundamentales, pero hasta ahora solo trabajaste con memoria que el compilador gestiona automáticamente (variables locales y globales). El verdadero poder de los punteros se revela cuando aprendés a gestionar memoria **dinámicamente** durante la ejecución del programa.
@@ -1372,6 +1410,7 @@ Estos conceptos amplían dramáticamente lo que podés hacer en C, permitiéndot
 
 Cuando te sientas cómodo con los conceptos de este capítulo, estás listo para dar el próximo paso hacia la memoria dinámica.
 
+(conceptos-clave)=
 ## Conceptos Clave
 
 Este apunte desmitifica los **punteros**, el concepto más distintivo y poderoso de C, revelando su naturaleza como simples variables que almacenan direcciones de memoria.
@@ -1407,6 +1446,7 @@ Este apunte desmitifica los **punteros**, el concepto más distintivo y poderoso
 - **Desbordamiento**: acceder más allá de los límites de un arreglo via punteros
 :::
 
+(conexion-con-el-siguiente-tema)=
 ## Conexión con el Siguiente Tema
 
 Los punteros que estudiamos operan sobre memoria **estática** (conocida en compilación) o **automática** (stack, gestionada por el sistema). Pero la verdadera potencia de los punteros emerge cuando los combinamos con **memoria dinámica**: la capacidad de solicitar y liberar memoria durante la ejecución según las necesidades del programa.
@@ -1424,8 +1464,10 @@ Los punteros son las herramientas; la memoria dinámica es el material sobre el 
 
 **Pregunta puente**: Si declaramos `int arr[1000000]` en una función, el programa probablemente falle con stack overflow. ¿Por qué? ¿Cómo solicitamos memoria para estructuras arbitrariamente grandes? La respuesta está en la memoria dinámica y el heap.
 
+(referencias-y-lecturas-complementarias)=
 ## Referencias y Lecturas Complementarias
 
+(textos-fundamentales)=
 ### Textos Fundamentales
 
 - {cite:t}`kernighan_c_2014`. Capítulo 5: Pointers and Arrays. El tratamiento definitivo de punteros.
@@ -1434,18 +1476,21 @@ Los punteros son las herramientas; la memoria dinámica es el material sobre el 
 
 - {cite:t}`reek_pointers_1997`. Libro entero dedicado a punteros en C.
 
+(punteros-y-arquitectura)=
 ### Punteros y Arquitectura
 
 - {cite:t}`bryant_computer_2015`. Capítulo 3: Machine-Level Representation y Capítulo 9: Virtual Memory.
 
 - {cite:t}`patterson_computer_2017`. Capítulo 2: Instructions. Instrucciones de carga/almacenamiento que usan direcciones.
 
+(gestion-de-memoria-y-errores)=
 ### Gestión de Memoria y Errores
 
 - {cite:t}`seacord_secure_2013`. Capítulo 4: Dynamic Memory Management y Capítulo 5: Integer Security.
 
 - {cite:t}`van_der_linden_expert_1994`. Capítulo 4: The Shocking Truth: C Arrays and Pointers Are NOT the Same!
 
+(recursos-en-linea)=
 ### Recursos en Línea
 
 - **C Pointer Tutorial** - https://www.cprogramming.com/tutorial/c/lesson6.html
@@ -1457,6 +1502,7 @@ Los punteros son las herramientas; la memoria dinámica es el material sobre el 
 - **C Pointers and Arrays** - https://en.cppreference.com/w/c/language/pointer
   - Referencia técnica completa de la sintaxis de punteros.
 
+(visualizacion-y-debugging)=
 ### Visualización y Debugging
 
 - **Python Tutor (C Support)** - https://pythontutor.com/c.html
@@ -1468,6 +1514,7 @@ Los punteros son las herramientas; la memoria dinámica es el material sobre el 
 - **Valgrind Manual** - https://valgrind.org/docs/manual/mc-manual.html
   - Memcheck: detección de uso incorrecto de punteros.
 
+(articulos-clasicos)=
 ### Artículos Clásicos
 
 - {cite:t}`ritchie_development_1993`. Historia de cómo surgieron los punteros en C.
@@ -1476,6 +1523,7 @@ Los punteros son las herramientas; la memoria dinámica es el material sobre el 
   - Reflexión sobre punteros nulos y sus consecuencias.
   - Video: https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/
 
+(ejercicios-y-practica)=
 ### Ejercicios y Práctica
 
 - **C Puzzles** - http://www.gowrikumar.com/c/

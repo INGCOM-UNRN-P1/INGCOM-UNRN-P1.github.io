@@ -6,14 +6,17 @@ description: 'Convenciones, patrones y anti-patrones del C idiomático. Cómo es
 
 (idiomatico-capitulo)=
 
+(codigo-idiomatico)=
 ## Código Idiomático
 
+(que-es-el-codigo-idiomatico)=
 ### ¿Qué es el código idiomático?
 
 El **código idiomático** (del inglés *idiomatic code*) es aquel que sigue las convenciones, patrones y prácticas establecidas de un lenguaje de programación particular. No se trata simplemente de código que funciona, sino de código que refleja la forma en que los programadores experimentados escriben naturalmente en ese lenguaje, aprovechando sus características únicas y respetando sus convenciones culturales.
 
 Un programador competente en C debería poder reconocer inmediatamente las intenciones detrás de un fragmento de código idiomático sin necesidad de analizarlo en profundidad. El código idiomático es a la programación lo que las expresiones idiomáticas son al lenguaje natural: formas establecidas y reconocibles de expresar ideas comunes.
 
+(por-que-es-importante-el-codigo-idiomatico)=
 ### ¿Por qué es importante el código idiomático?
 
 1. **Legibilidad mejorada**: Los patrones idiomáticos son inmediatamente reconocibles por otros programadores familiarizados con el lenguaje.
@@ -26,6 +29,7 @@ Un programador competente en C debería poder reconocer inmediatamente las inten
 
 5. **Aprovechamiento del lenguaje**: Los idiomas explotan las características específicas de C de manera efectiva.
 
+(caracteristicas-del-codigo-idiomatico-en-c)=
 ### Características del código idiomático en C
 
 #### 1. Patrones de iteración estándar
@@ -103,6 +107,7 @@ Este patrón idiomático **parece contradecir** las reglas {ref}`0x0000h <0x0000
 **Recomendación pedagógica**: Entender el patrón, pero priorizar claridad usando índices o funciones estándar hasta ganar experiencia.
 :::!
 
+(ejercicios-de-autoevaluacion-concepto-e-iteracion)=
 ### Ejercicios de Autoevaluación (Concepto e Iteración)
 
 :::{exercise}
@@ -285,6 +290,7 @@ int resultado = (x > 0) ? ((y > 0) ? 1 : 2) : ((y > 0) ? 3 : 4);
 ```
 :::!
 
+(ejercicios-de-autoevaluacion-inicializacion-y-estructuras-de-control)=
 ### Ejercicios de Autoevaluación (Inicialización y Estructuras de Control)
 
 :::{exercise}
@@ -462,6 +468,7 @@ static void insertar_nodo(lista_t *lista, nodo_t *nodo) {
 En este curso, **preferimos el enfoque defensivo** para todas las funciones, especialmente durante el aprendizaje.
 :::!
 
+(ejercicios-de-autoevaluacion-tipos-opacos-y-validacion)=
 ### Ejercicios de Autoevaluación (Tipos Opacos y Validación)
 
 :::{exercise}
@@ -511,6 +518,7 @@ Explicá de forma conceptual la diferencia entre definir una constante mediante 
 
 ---
 
+(idiomas-especificos-de-c)=
 ### Idiomas específicos de C
 
 Algunos patrones son especialmente característicos de C y reconocidos universalmente:
@@ -585,6 +593,7 @@ void iterar(lista_t *lista, callback_t callback, void *contexto) {
 }
 ```
 
+(evolucion-del-codigo-idiomatico-en-c)=
 ### Evolución del código idiomático en C
 
 El concepto de código idiomático en C ha evolucionado con las diferentes versiones del estándar:
@@ -596,6 +605,7 @@ El concepto de código idiomático en C ha evolucionado con las diferentes versi
 
 En este curso, nos enfocamos en patrones idiomáticos de **C99** en adelante, que es el estándar más ampliamente soportado y usado en la industria actual.
 
+(anti-patrones-codigo-no-idiomatico)=
 ### Anti-patrones: código no idiomático
 
 Es igualmente importante reconocer construcciones que **no son idiomáticas** en C:
@@ -756,6 +766,7 @@ Ver {ref}`0x1006h <0x1006h>` para el análisis completo.
 
 Excepción: `goto` para limpieza de recursos en caso de error es un patrón idiomático en C (ver Regla 0x1006h).
 
+(contexto-cultural-del-codigo-idiomatico)=
 ### Contexto cultural del código idiomático
 
 El código idiomático en C está profundamente influenciado por:
@@ -771,6 +782,7 @@ El código idiomático en C está profundamente influenciado por:
 
 4. **La comunidad**: Convenciones que emergen de la práctica común y son reforzadas por code reviews.
 
+(aplicacion-en-este-curso)=
 ### Aplicación en este curso
 
 Las reglas de estilo de este documento están diseñadas para guiarte hacia la escritura de **código idiomático en C**. Cada regla no es arbitraria, sino que refleja prácticas establecidas que hacen que tu código sea:
@@ -782,6 +794,7 @@ Las reglas de estilo de este documento están diseñadas para guiarte hacia la e
 
 A medida que avances en el curso, comenzarás a internalizar estos patrones y escribirlos naturalmente, como un hablante nativo usa expresiones idiomáticas sin pensarlo conscientemente.
 
+(reconciliando-codigo-idiomatico-con-reglas-de-estilo)=
 ### Reconciliando código idiomático con reglas de estilo
 
 Es importante entender que **el código idiomático y las reglas de estilo no siempre coinciden perfectamente**, especialmente cuando se trata de código pedagógico versus código de producción. Esta sección clarifica cómo navegar estas tensiones:
@@ -954,6 +967,7 @@ Si respondés "sí" a las cuatro, probablemente sea apropiado usar el patrón id
 - Contribución a proyectos open source con sus guías de estilo
 - Desarrollo de tu propio estilo informado por estas bases
 
+(resumen-la-sintesis)=
 ### Resumen: La síntesis
 
 El **código idiomático** y las **reglas de estilo** no son oponentes, sino **herramientas complementarias**:
@@ -966,6 +980,7 @@ En caso de conflicto, durante el aprendizaje: **claridad > brevedad**, **explíc
 
 Con experiencia, muchos patrones idiomáticos *se vuelven* claros porque los has internalizado. Ese es el objetivo del curso: que llegues a ese punto de forma estructurada y segura.
 
+(ejercicios-de-autoevaluacion-patrones-y-anti-patrones)=
 ### Ejercicios de Autoevaluación (Patrones y Anti-patrones)
 
 :::{exercise}
@@ -1066,6 +1081,7 @@ void conexion_destruir(conexion_t **c) {
 ```
 :::
 
+(glosario)=
 ## Glosario
 
 :::{glossary}

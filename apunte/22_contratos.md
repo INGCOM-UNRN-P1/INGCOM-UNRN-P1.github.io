@@ -11,8 +11,10 @@ Para la versión introductoria aplicada a funciones, ver {ref}`contratos-funcion
 capítulo de Funciones. Para la versión aplicada a módulos con punteros opacos, ver
 {ref}`contratos-modulos` en el capítulo de Punteros Opacos.
 
+(fundamentos-de-logica-de-primer-orden)=
 ## Fundamentos de Lógica de Primer Orden
 
+(sintaxis-de-la-logica-de-primer-orden)=
 ### Sintaxis de la Lógica de Primer Orden
 
 La **Lógica de Primer Orden** (First-Order Logic, FOL) extiende la lógica proposicional con cuantificadores sobre individuos.
@@ -61,6 +63,7 @@ $$
 - $\text{sorted}(\text{arr})$ (predicado de ordenamiento)
 - $\forall i.\ (0 \leq i < n) \rightarrow (\text{arr}[i] \geq 0)$ (todos los elementos son no negativos)
 
+(semantica)=
 ### Semántica
 
 La **interpretación** $\mathcal{I}$ asigna significado a símbolos no lógicos:
@@ -90,6 +93,7 @@ $$
 
 **Validez**: $\phi$ es válida ($\models \phi$) si $\mathcal{I}, \sigma \models \phi$ para toda interpretación $\mathcal{I}$ y asignación $\sigma$.
 
+(variables-libres-y-ligadas)=
 ### Variables Libres y Ligadas
 
 En $\forall x.\phi$ y $\exists x.\phi$, las ocurrencias de $x$ en $\phi$ están **ligadas**.
@@ -100,6 +104,7 @@ Una variable es **libre** si no está bajo el alcance de un cuantificador.
 
 Una fórmula sin variables libres es una **sentencia**.
 
+(sustitucion)=
 ### Sustitución
 
 La sustitución $\phi[t/x]$ reemplaza todas las ocurrencias libres de $x$ en $\phi$ por el término $t$, evitando captura de variables.
@@ -109,6 +114,7 @@ $$
 (\forall y.(x < y))[z+1/x] = \forall y.(z+1 < y)
 $$
 
+(teorias-de-primer-orden)=
 ### Teorías de Primer Orden
 
 Una **teoría** $T$ es un conjunto de axiomas (fórmulas) en LPO.
@@ -118,6 +124,7 @@ Una **teoría** $T$ es un conjunto de axiomas (fórmulas) en LPO.
 - **Teoría de conjuntos**: ZFC (Zermelo-Fraenkel con Axioma de Elección)
 - **Teoría de arreglos**: axiomas para estructuras indexadas
 
+(ejercicios-de-autoevaluacion-logica-de-primer-orden)=
 ### Ejercicios de Autoevaluación (Lógica de Primer Orden)
 
 :::{exercise}
@@ -159,6 +166,7 @@ $$
 
 ---
 
+(diseno-por-contratos-formalizacion)=
 ## Diseño por Contratos: Formalización
 
 ```{figure} 22/contract_components.svg
@@ -168,6 +176,7 @@ $$
 Componentes de un contrato: precondición, postcondición e invariante, con sus roles en la verificación.
 ```
 
+(precondiciones)=
 ### Precondiciones
 
 Una **precondición** $\text{Pre}(x_1, \ldots, x_n)$ es una fórmula LPO sobre los parámetros de entrada que debe ser verdadera antes de ejecutar la función.
@@ -197,6 +206,7 @@ $$
 \text{Pre} \equiv (\text{arr} \neq \text{NULL}) \land (n > 0) \land \left(\forall i, j.\ 0 \leq i < j < n \rightarrow \text{arr}[i] \leq \text{arr}[j]\right)
 $$
 
+(postcondiciones)=
 ### Postcondiciones
 
 Una **postcondición** $\text{Post}(x_1, \ldots, x_n, r)$ es una fórmula LPO que debe ser verdadera después de ejecutar la función, relacionando entradas, salidas y estado.
@@ -228,6 +238,7 @@ $$
 \end{align}
 $$
 
+(invariantes)=
 ### Invariantes
 
 Un **invariante de lazo** $I$ es una fórmula que es verdadera antes y después de cada iteración.
@@ -299,6 +310,7 @@ $$
    $$
    que es la postcondición deseada.
 
+(invariantes-de-clase)=
 ### Invariantes de Clase
 
 Un **invariante de clase** es una propiedad que debe ser verdadera para todos los objetos en todos los estados observables.
@@ -346,6 +358,7 @@ $$
 \end{align}
 $$
 
+(ejercicios-de-autoevaluacion-formalizacion-de-contratos)=
 ### Ejercicios de Autoevaluación (Formalización de Contratos)
 
 :::{exercise}
@@ -392,10 +405,12 @@ Explicá de forma concisa la diferencia semántica que existe entre un invariant
 
 ---
 
+(logica-de-hoare)=
 ## Lógica de Hoare
 
 La **Lógica de Hoare** proporciona un sistema formal para razonar sobre la corrección de programas.
 
+(tripletas-de-hoare)=
 ### Tripletas de Hoare
 
 Una **tripleta de Hoare** tiene la forma:
@@ -421,6 +436,7 @@ donde:
 Representación de una tripleta de Hoare mostrando la transformación de estados.
 ```
 
+(reglas-de-inferencia)=
 ### Reglas de Inferencia
 
 #### Regla de Asignación
@@ -462,6 +478,7 @@ $$
 
 Esta regla permite **debilitar** la precondición y **fortalecer** la postcondición.
 
+(debilidad-de-precondiciones)=
 ### Debilidad de Precondiciones
 
 Una precondición $P_1$ es **más débil** que $P_2$ si:
@@ -483,6 +500,7 @@ $$
 wp(\texttt{x := x + 1}, x > 5) = (x + 1 > 5) = (x > 4)
 $$
 
+(ejemplo-completo-maximo-de-dos-numeros)=
 ### Ejemplo Completo: Máximo de Dos Números
 
 ```{code-block}c
@@ -514,6 +532,7 @@ int maximo(int a, int b) {
    \{\text{true}\}\ \textbf{if}\ (a \geq b)\ \cdots\ \{r = \max(a, b)\}
    $$
 
+(ejercicios-de-autoevaluacion-logica-de-hoare)=
 ### Ejercicios de Autoevaluación (Lógica de Hoare)
 
 :::{exercise}
@@ -566,8 +585,10 @@ La Regla de Consecuencia permite adaptar tripletas de Hoare preexistentes a cont
 
 ---
 
+(verificacion-automatica-y-herramientas)=
 ## Verificación Automática y Herramientas
 
+(aserciones-en-c)=
 ### Aserciones en C
 
 En C, las aserciones se implementan con `assert.h`:
@@ -590,6 +611,7 @@ void procesar(int arr[], int n) {
 - No hay distinción entre Pre/Post
 - No soporta cuantificadores directamente
 
+(anotaciones-avanzadas-acsl)=
 ### Anotaciones Avanzadas: ACSL
 
 **ACSL** (ANSI/ISO C Specification Language) extiende C con contratos formales para Frama-C:
@@ -612,6 +634,7 @@ int buscar_maximo(int arr[], int n);
 - `\old(x)`: valor de `x` en el estado previo
 - `\result`: valor de retorno
 
+(verificadores-de-modelos)=
 ### Verificadores de Modelos
 
 **Frama-C**: Framework para análisis estático de C
@@ -650,8 +673,10 @@ int sumar_arreglo(int arr[], int n) {
 }
 ```
 
+(contratos-en-estructuras-de-datos)=
 ## Contratos en Estructuras de Datos
 
+(ejemplo-1-pila)=
 ### Ejemplo 1: Pila
 
 ```{code-block}c
@@ -701,6 +726,7 @@ int pop(pila_t *p) {
 }
 ```
 
+(ejemplo-2-lista-enlazada)=
 ### Ejemplo 2: Lista Enlazada
 
 ```{code-block}c
@@ -749,8 +775,10 @@ void insertar_inicio(lista_t *l, int dato) {
 }
 ```
 
+(subtipos-y-contratos)=
 ## Subtipos y Contratos
 
+(principio-de-sustitucion-de-liskov)=
 ### Principio de Sustitución de Liskov
 
 El **Principio de Sustitución de Liskov** (LSP) establece que un subtipo debe poder usarse donde se espera el supertipo sin alterar la corrección.
@@ -810,10 +838,12 @@ void set_dimensiones_cuad(cuadrado_t *c, int ancho, int alto) {
 
 Este es el **problema clásico del cuadrado-rectángulo**: un cuadrado matemáticamente es un rectángulo, pero como tipo mutable viola LSP porque tiene restricciones adicionales.
 
+(frame-problem-y-especificacion-de-cambios)=
 ## Frame Problem y Especificación de Cambios
 
 El **Frame Problem** consiste en especificar qué **no cambia** en una operación. Es fundamental para contratos precisos.
 
+(clausulas-de-frame)=
 ### Cláusulas de Frame
 
 **Sintaxis**:
@@ -841,6 +871,7 @@ void actualizar(int arr[], int n, int i, int valor) {
 
 La cláusula `assigns arr[i]` especifica que solo `arr[i]` puede cambiar. El resto del arreglo permanece igual, lo cual se hace explícito en la postcondición.
 
+(separacion-logica)=
 ### Separación Lógica
 
 La **Lógica de Separación** (Separation Logic) extiende Lógica de Hoare con conectivos espaciales para razonar sobre heap:
@@ -858,6 +889,7 @@ $$
 
 Esto especifica que $x$ e $y$ apuntan a celdas distintas (separación) y que `swap` intercambia sus contenidos.
 
+(ejercicios-de-autoevaluacion-acsl-lsp-y-frame-problem)=
 ### Ejercicios de Autoevaluación (ACSL, LSP y Frame Problem)
 
 :::{exercise}
@@ -900,8 +932,10 @@ La directiva `assigns` soluciona esto en ACSL permitiendo declarar un marco deli
 
 ---
 
+(casos-de-estudio)=
 ## Casos de Estudio
 
+(caso-1-ordenamiento-por-insercion)=
 ### Caso 1: Ordenamiento por Inserción
 
 ```{code-block}c
@@ -953,6 +987,7 @@ void insertion_sort(int arr[], int n) {
 2. **Lazo interno**: Se mantiene espacio para insertar `clave`
 3. **Permutación**: Los elementos del arreglo son los mismos (orden distinto)
 
+(caso-2-busqueda-binaria-con-demostracion)=
 ### Caso 2: Búsqueda Binaria con Demostración
 
 ```{code-block}c
@@ -1032,8 +1067,10 @@ $$
 - Por $I_2$: todos los elementos $> \text{clave}$ están después de $\text{der}$
 - Por estar ordenado y ser $\text{izq} = \text{der} + 1$: no existe elemento igual a $\text{clave}$
 
+(limitaciones-y-desafios)=
 ## Limitaciones y Desafíos
 
+(indecidibilidad)=
 ### Indecidibilidad
 
 **Teorema**: La corrección de programas con respecto a especificaciones en LPO es **indecidible** (consecuencia del Teorema de Rice).
@@ -1045,6 +1082,7 @@ $$
   - **Encontrar errores** con contraejemplos
   - **No terminar** en casos complejos
 
+(complejidad-de-las-especificaciones)=
 ### Complejidad de las Especificaciones
 
 Escribir especificaciones completas puede ser más difícil que escribir el código:
@@ -1062,6 +1100,7 @@ $$
 
 donde $\pi$ es la permutación aplicada.
 
+(limites-de-la-verificacion-automatica)=
 ### Límites de la Verificación Automática
 
 **SMT Solvers** tienen dificultades con:
@@ -1070,6 +1109,7 @@ donde $\pi$ es la permutación aplicada.
 - **Estructuras recursivas**: listas, árboles requieren inducción manual
 - **Funciones no especificadas**: bibliotecas externas sin contratos
 
+(mejores-practicas)=
 ## Mejores Prácticas
 
 ```{figure} 22/best_practices.svg
@@ -1079,12 +1119,14 @@ donde $\pi$ es la permutación aplicada.
 Diagrama de flujo para aplicar diseño por contratos efectivamente en proyectos.
 ```
 
+(granularidad-de-contratos)=
 ### Granularidad de Contratos
 
 1. **Contratos públicos completos**: APIs públicas deben tener Pre/Post completas
 2. **Contratos privados opcionales**: Funciones auxiliares pueden tener contratos más relajados
 3. **Invariantes de clase siempre**: Estructuras de datos deben tener invariantes claros
 
+(orden-de-desarrollo)=
 ### Orden de Desarrollo
 
 **Test-Driven Design by Contract**:
@@ -1094,6 +1136,7 @@ Diagrama de flujo para aplicar diseño por contratos efectivamente en proyectos.
 3. **Implementar**: Código que satisface contratos
 4. **Verificar**: Con herramientas automáticas cuando sea posible
 
+(contratos-como-documentacion)=
 ### Contratos como Documentación
 
 Los contratos son la **mejor documentación**:
@@ -1102,6 +1145,7 @@ Los contratos son la **mejor documentación**:
 - **Ejecutables**: Se convierten en checks en runtime
 - **Mantenibles**: Evolucionan con el código
 
+(balance-costo-beneficio)=
 ### Balance Costo-Beneficio
 
 | Tipo de Proyecto | Nivel de Contratos Recomendado |
@@ -1111,8 +1155,10 @@ Los contratos son la **mejor documentación**:
 | Sistemas críticos | Especificación formal completa, verificación automática |
 | Software certificado | Pruebas formales de corrección con asistentes de prueba (Coq, Isabelle) |
 
+(herramientas-y-ecosistema)=
 ## Herramientas y Ecosistema
 
+(lenguajes-con-soporte-nativo)=
 ### Lenguajes con Soporte Nativo
 
 - **Eiffel**: Diseño por Contratos desde su creación
@@ -1120,6 +1166,7 @@ Los contratos son la **mejor documentación**:
 - **Spec#**: Extensión de C# con contratos
 - **Dafny**: Lenguaje verificado con SMT solvers integrados
 
+(herramientas-para-c)=
 ### Herramientas para C
 
 - **Frama-C**: Framework completo de análisis
@@ -1131,14 +1178,17 @@ Los contratos son la **mejor documentación**:
 - **VCC**: Verificador para código concurrente en C
 - **VeriFast**: Verificador con Separation Logic
 
+(frameworks-de-testing)=
 ### Frameworks de Testing
 
 - **QuickCheck para C**: Generación de tests basada en propiedades
 - **American Fuzzy Lop (AFL)**: Fuzzing guiado por cobertura
 - **Valgrind/Memcheck**: Detección de errores de memoria en runtime
 
+(referencias-y-lecturas-complementarias)=
 ## Referencias y Lecturas Complementarias
 
+(textos-fundamentales)=
 ### Textos Fundamentales
 
 - Meyer, B. (1997). *Object-Oriented Software Construction* (2nd ed.). Prentice Hall. El texto definitivo sobre Diseño por Contratos.
@@ -1147,12 +1197,14 @@ Los contratos son la **mejor documentación**:
 
 - Dijkstra, E. W. (1975). "Guarded Commands, Nondeterminacy and Formal Derivation of Programs". *Communications of the ACM*, 18(8), 453-457. Introduce precondiciones más débiles.
 
+(logica-de-primer-orden)=
 ### Lógica de Primer Orden
 
 - Enderton, H. B. (2001). *A Mathematical Introduction to Logic* (2nd ed.). Academic Press. Tratamiento riguroso de lógica matemática.
 
 - Fitting, M. (1996). *First-Order Logic and Automated Theorem Proving* (2nd ed.). Springer. Enfoque computacional de LPO.
 
+(verificacion-formal)=
 ### Verificación Formal
 
 - Nipkow, T., Wenzel, M., & Paulson, L. C. (2002). *Isabelle/HOL: A Proof Assistant for Higher-Order Logic*. Springer. Asistente de pruebas interactivo.
@@ -1161,22 +1213,26 @@ Los contratos son la **mejor documentación**:
 
 - Baudin, P., et al. (2020). *ACSL: ANSI/ISO C Specification Language*. CEA LIST. Manual completo de ACSL para Frama-C.
 
+(separation-logic)=
 ### Separation Logic
 
 - Reynolds, J. C. (2002). "Separation Logic: A Logic for Shared Mutable Data Structures". *LICS*, 55-74. Introduce Separation Logic.
 
 - O'Hearn, P. W., Reynolds, J. C., & Yang, H. (2001). "Local Reasoning about Programs that Alter Data Structures". *CSL*, 1-19. Aplicaciones prácticas.
 
+(recursos-en-linea)=
 ### Recursos en Línea
 
 - Frama-C Tutorial: https://frama-c.com/tutorial.html
 - ACSL by Example: Colección de especificaciones ACSL para algoritmos estándar
 - Software Foundations (Coq): https://softwarefoundations.cis.upenn.edu/
 
+(resumen)=
 ## Resumen
 
 El Diseño por Contratos es una metodología que transforma el desarrollo de software en una disciplina ingenieril rigurosa mediante especificaciones formales basadas en Lógica de Primer Orden.
 
+(conceptos-clave)=
 ### Conceptos Clave
 
 :::{important} Ideas Fundamentales
@@ -1190,6 +1246,7 @@ El Diseño por Contratos es una metodología que transforma el desarrollo de sof
 7. **Verificación automática**: Herramientas pueden probar corrección matemáticamente
 :::
 
+(beneficios-practicos)=
 ### Beneficios Prácticos
 
 1. **Documentación precisa**: Sin ambigüedades
@@ -1198,6 +1255,7 @@ El Diseño por Contratos es una metodología que transforma el desarrollo de sof
 4. **Mantenibilidad**: El comportamiento esperado es explícito
 5. **Confianza**: Pruebas matemáticas de corrección
 
+(desafios)=
 ### Desafíos
 
 1. **Curva de aprendizaje**: Requiere familiaridad con lógica formal
@@ -1205,6 +1263,7 @@ El Diseño por Contratos es una metodología que transforma el desarrollo de sof
 3. **Límites de automatización**: No todo es decidible
 4. **Especificaciones complejas**: A veces más difíciles que el código
 
+(cuando-usar-dbc)=
 ### Cuándo Usar DbC
 
 - **Siempre**: Aserciones básicas en código crítico

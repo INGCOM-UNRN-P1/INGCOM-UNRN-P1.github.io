@@ -4,7 +4,7 @@ short_title: Complejidad
 subtitle: Fundamentos matemáticos del análisis asintótico
 ---
 
-(complejidad-introduccion)=
+(introduccion-el-estudio-de-la-eficiencia)=
 ## Introducción: El Estudio de la Eficiencia
 
 El **análisis de algoritmos** es una disciplina fundamental en la ciencia de la
@@ -31,6 +31,7 @@ Para lograr esto, la herramienta central es el **análisis asintótico**.
 El análisis de complejidad es esencial para comparar diferentes implementaciones de Tipos de Datos Abstractos. Por ejemplo, ¿cuándo conviene usar una lista enlazada vs. un arreglo? ¿Una pila con arreglo o con nodos? Estas decisiones se fundamentan en análisis de complejidad. Para ver aplicaciones concretas de estos conceptos a estructuras de datos fundamentales, consultá el apunte sobre [TAD, Pilas y Colas](18_tad).
 :::
 
+(analisis-asintotico-enfocandose-en-lo-que-importa)=
 ## Análisis Asintótico: Enfocándose en lo que Importa
 
 El análisis asintótico es una metodología matemática que describe el
@@ -46,11 +47,13 @@ asintótico nos permite simplificar esta expresión a su orden de crecimiento, q
 es $n^2$, ignorando constantes multiplicativas ($3$) y términos de menor orden
 ($100n + 500$).
 
+(las-notaciones-asintoticas-o-y)=
 ## Las Notaciones Asintóticas: O, Ω, y Θ
 
 Para formalizar este análisis, utilizamos un conjunto de notaciones que
 describen los límites del crecimiento de la función de costo de un algoritmo.
 
+(1-notacion-big-o-o-cota-superior-peor-caso)=
 ### 1. Notación Big O (O) - Cota Superior (Peor Caso)
 
 La notación **Big O** es la más utilizada en la práctica, ya que describe una
@@ -76,6 +79,7 @@ Representación gráfica de la cota superior asintótica $f(n) \in O(g(n))$. A p
 Aunque tradicionalmente en computación se escribe $f(n) = O(g(n))$ como un abuso de lenguaje, la notación matemáticamente rigurosa desde la teoría de conjuntos establece que $O(g(n))$ es un conjunto de funciones. Por lo tanto, se utiliza la relación de pertenencia: $f(n) \in O(g(n))$. En este apunte priorizamos la notación de conjuntos por su rigor conceptual.
 :::
 
+(2-notacion-omega-cota-inferior-mejor-caso)=
 ### 2. Notación Omega (Ω) - Cota Inferior (Mejor Caso)
 
 La notación **Omega** describe una **cota inferior asintótica**. Nos garantiza
@@ -87,6 +91,7 @@ que el rendimiento del algoritmo nunca será mejor que esta cota.
   $c$ y $n_0$ tales que $0 \le c \cdot g(n) \le f(n)$ para todo $n \ge n_0$.
 - **Uso Práctico**: Representa el **mejor caso** de ejecución.
 
+(3-notacion-theta-cota-ajustada-caso-exacto)=
 ### 3. Notación Theta (Θ) - Cota Ajustada (Caso Exacto)
 
 La notación **Theta** proporciona la descripción más precisa del comportamiento
@@ -108,6 +113,7 @@ de un algoritmo, acotándolo tanto por arriba como por abajo.
 Representación gráfica de la cota ajustada asintótica $f(n) \in \Theta(g(n))$. La función $f(n)$ queda atrapada entre las cotas $c_1 \cdot g(n)$ y $c_2 \cdot g(n)$ para todo $n \ge n_0$.
 ```
 
+(notaciones-menos-comunes)=
 ### Notaciones Menos Comunes
 
 #### Little-o (Límite Asintótico Estricto)
@@ -130,6 +136,7 @@ $$
 0 \leq c \cdot g(n) < f(n) \quad \forall n \geq n_0
 $$
 
+(propiedades-algebraicas)=
 ### Propiedades Algebraicas
 
 Las notaciones asintóticas tienen propiedades útiles:
@@ -140,6 +147,7 @@ Las notaciones asintóticas tienen propiedades útiles:
 4. **Suma**: $O(f) + O(g) = O(\max(f, g))$
 5. **Producto**: $O(f) \cdot O(g) = O(f \cdot g)$
 
+(ejercicios-de-notaciones-asintoticas)=
 ### Ejercicios de Notaciones Asintóticas
 
 :::{exercise}
@@ -210,6 +218,7 @@ $$\lim_{n \to \infty} \frac{\frac{1}{n}}{1} = \lim_{n \to \infty} \frac{1}{n} = 
 Como el límite es $0$, se cumple formalmente que $n \log n \in o(n^2)$, lo que significa que $n \log n$ crece estrictamente más lento que $n^2$.
 :::
 
+(jerarquia-de-complejidades)=
 ## Jerarquía de Complejidades
 
 ```{figure} 19/complexity_hierarchy.svg
@@ -220,6 +229,7 @@ Como el límite es $0$, se cumple formalmente que $n \log n \in o(n^2)$, lo que 
 Jerarquía de las clases de complejidad más comunes, ordenadas de más eficiente a menos eficiente.
 ```
 
+(clasificacion-detallada)=
 ### Clasificación Detallada
 
 #### Constante: $O(1)$
@@ -454,6 +464,7 @@ void generar_permutaciones(int arr[], int inicio, int fin) {
 Comparación del crecimiento de diferentes funciones de complejidad para valores de $n$ hasta 100.
 ```
 
+(tabla-comparativa-de-crecimiento)=
 ### Tabla Comparativa de Crecimiento
 
 | $n$ | $\log n$ | $n$ | $n \log n$ | $n^2$ | $n^3$ | $2^n$ | $n!$ |
@@ -472,6 +483,7 @@ Comparación del crecimiento de diferentes funciones de complejidad para valores
 - **$O(n!)$**: Viable solo hasta $n \approx 12$
 :::
 
+(ejercicios-de-jerarquia-de-complejidades)=
 ### Ejercicios de Jerarquía de Complejidades
 
 :::{exercise}
@@ -535,8 +547,10 @@ Realizamos la conversión a unidades más comprensibles:
 Por lo tanto, resolver el problema para $n = 40$ tomará aproximadamente **12,4 días**, lo cual ilustra la intratabilidad práctica de los algoritmos de complejidad exponencial.
 :::
 
+(tecnicas-de-analisis)=
 ## Técnicas de Análisis
 
+(analisis-de-lazos)=
 ### Análisis de Lazos
 
 #### Lazo Simple
@@ -590,6 +604,7 @@ for (int i = 1; i < n; i *= 2) {
 
 **Análisis**: Si $i$ comienza en 1 y se duplica cada iteración, el lazo ejecuta $k$ veces donde $2^k = n$, es decir, $k = \log_2 n$. Por tanto, $O(\log n)$.
 
+(analisis-de-recursion)=
 ### Análisis de Recursión
 
 #### Método de Sustitución
@@ -704,6 +719,7 @@ La **condición de regularidad** garantiza que la tasa de trabajo no recursivo d
    - **Solución**: $T(n) \in \Theta(n^{\log_2 3}) \approx \Theta(n^{1.585})$
 
 
+(analisis-amortizado)=
 ### Análisis Amortizado
 
 El **análisis amortizado** considera el costo promedio de una secuencia de operaciones, permitiendo que algunas operaciones sean costosas si la mayoría son baratas.
@@ -795,6 +811,7 @@ El arreglo está lleno ($t_{i-1} = c_{i-1}$). Para insertar, se debe duplicar la
 En ambos escenarios (con o sin redimensionamiento), el costo amortizado de una inserción en el arreglo dinámico es exactamente $3$, lo que demuestra formalmente que la operación de inserción tiene una complejidad de amortización constante:
 $$\hat{c}_i \in \Theta(1)$$
 
+(ejercicios-de-tecnicas-de-analisis)=
 ### Ejercicios de Técnicas de Análisis
 
 :::{exercise}
@@ -884,10 +901,12 @@ Por lo tanto, aplicando el **Caso 3** del Teorema Maestro, la complejidad es:
 $$T(n) \in \Theta(f(n)) = \Theta(n)$$
 :::
 
+(complejidad-espacial)=
 ## Complejidad Espacial
 
 La **complejidad espacial** mide la cantidad de memoria adicional que un algoritmo requiere.
 
+(clasificacion)=
 ### Clasificación
 
 - **$O(1)$**: Espacio constante, independiente de la entrada
@@ -895,6 +914,7 @@ La **complejidad espacial** mide la cantidad de memoria adicional que un algorit
 - **$O(n)$**: Espacio lineal, como copiar un arreglo
 - **$O(n^2)$**: Matrices cuadradas
 
+(recursion-y-pila-de-llamadas)=
 ### Recursión y Pila de Llamadas
 
 Cada llamada recursiva ocupa espacio en la pila. La profundidad máxima de recursión determina la complejidad espacial.
@@ -913,6 +933,7 @@ int fibonacci(int n) {
 - **Complejidad temporal**: $O(2^n)$
 - **Complejidad espacial**: $O(n)$ (profundidad máxima de la pila)
 
+(trade-off-tiempo-espacio)=
 ### Trade-off Tiempo-Espacio
 
 A menudo es posible reducir tiempo usando más espacio (memoización) o viceversa.
@@ -943,6 +964,7 @@ int fibonacci_memo(int n, int memo[]) {
 Ilustración del trade-off entre tiempo y espacio en el problema de Fibonacci.
 ```
 
+(ejercicios-de-complejidad-espacial)=
 ### Ejercicios de Complejidad Espacial
 
 :::{exercise}
@@ -1007,8 +1029,10 @@ $$10^{10} \times 4 \text{ bytes} = 4 \times 10^{10} \text{ bytes} \approx 40 \te
 - **Conclusión**: Esta solución es inviable en computadoras hogareñas estándar, ya que supera ampliamente la capacidad promedio de memoria RAM, provocando un desbordamiento o fallo por falta de memoria (out of memory).
 :::
 
+(limites-inferiores-y-optimalidad)=
 ## Límites Inferiores y Óptimalidad
 
+(limites-inferiores-basados-en-informacion)=
 ### Límites Inferiores Basados en Información
 
 Un **límite inferior** establece que ningún algoritmo puede resolver un problema más rápido que cierta complejidad.
@@ -1031,6 +1055,7 @@ Un **límite inferior** establece que ningún algoritmo puede resolver un proble
 
 **Conclusión**: Cualquier algoritmo basado en comparaciones requiere al menos $\Omega(n \log n)$ comparaciones en el peor caso. Algoritmos como Merge Sort y Heap Sort son, por lo tanto, **óptimos**.
 
+(algoritmos-optimos)=
 ### Algoritmos Óptimos
 
 Un algoritmo es **asintóticamente óptimo** si su complejidad coincide con el límite inferior teórico del problema.
@@ -1039,6 +1064,7 @@ Un algoritmo es **asintóticamente óptimo** si su complejidad coincide con el l
 - **Búsqueda en arreglo no ordenado**: $\Theta(n)$ (deben revisarse todos los elementos)
 - **Multiplicación de matrices**: $O(n^{2.376})$ (algoritmo de Coppersmith-Winograd), límite inferior $\Omega(n^2)$
 
+(mas-alla-una-introduccion-a-la-teoria-de-la-complejidad-p-vs-np)=
 ## Más Allá: Una Introducción a la Teoría de la Complejidad (P vs. NP)
 
 Mientras que el análisis de algoritmos se enfoca en determinar la eficiencia de
@@ -1052,15 +1078,18 @@ complejidad** basadas en los recursos (tiempo y memoria) que se requieren para
 resolverlos en el peor de los casos, independientemente del algoritmo específico
 utilizado.
 
+(conceptos-de-complejidad-intratabilidad-y-las-clases-p-y-np)=
 ## Conceptos de Complejidad: Intratabilidad y las Clases P y NP
 
 En el análisis de algoritmos, no solo nos interesa determinar la complejidad asintótica exacta, sino también clasificar los problemas según si son resolubles de forma eficiente en la práctica. Esta distinción introduce la noción de **intratabilidad**.
 
+(problemas-tratables-vs-intratables)=
 ### Problemas Tratables vs. Intratables
 - **Problemas Tratables**: Son aquellos para los cuales existe un algoritmo que los resuelve en tiempo polinomial en el peor de los casos (es decir, $O(n^k)$ para alguna constante $k$). Cuando la entrada crece, el tiempo requerido aumenta de forma manejable por el hardware.
   *Ejemplos*: Ordenar una lista, buscar un elemento en un arreglo, encontrar el camino más corto en un grafo.
 - **Problemas Intratables**: Son problemas de gran complejidad computacional para los cuales no se conocen algoritmos polinomiales que garanticen una solución óptima en el peor de los casos. Sus mejores algoritmos conocidos requieren tiempo exponencial (ej. $O(2^n)$) o factorial (ej. $O(n!)$), volviéndolos imposibles de computar para tamaños de entrada moderados.
 
+(las-clases-p-y-np)=
 ### Las Clases P y NP
 Para formalizar esta clasificación, la teoría de la complejidad define conjuntos de problemas llamados clases de complejidad:
 
@@ -1068,6 +1097,7 @@ Para formalizar esta clasificación, la teoría de la complejidad define conjunt
 - **La Clase NP (Tiempo Polinomial No Determinista)**: Contiene a los problemas de decisión para los cuales, si bien encontrar una solución puede ser computacionalmente difícil, es posible **verificar** la validez de una solución propuesta (un certificado) en tiempo polinomial.
   *Ejemplo (Satisfacibilidad Booleana - SAT)*: Evaluar si existe una asignación de variables lógicas que haga verdadera una fórmula booleana. Encontrar la combinación exacta puede requerir probar exponencialmente muchas opciones ($2^n$), pero verificar si una asignación dada satisface la fórmula toma tiempo lineal en el tamaño de la fórmula. Por lo tanto, SAT pertenece a la clase NP.
 
+(la-cuestion-p-neq-np-y-los-problemas-np-completos)=
 ### La Cuestión $P \neq NP$ y los Problemas NP-Completos
 La relación entre estas clases plantea uno de los interrogantes abiertos más importantes de la ciencia de la computación: **¿Es $P = NP$?**
 Es decir: si la solución a un problema se puede verificar eficientemente, ¿se puede también encontrar de forma eficiente?
@@ -1080,6 +1110,7 @@ Dentro de la clase NP, existen problemas denominados **NP-Completos**. Estos pro
 - El problema del Viajante (TSP) en su versión de decisión.
 - Coloreado de grafos.
 
+(visualizacion-de-las-clases-de-complejidad)=
 ### Visualización de las Clases de Complejidad
 
 Asumiendo que P ≠ NP, la relación entre estas clases se puede visualizar de la siguiente manera:
@@ -1113,6 +1144,7 @@ graph TD
 
 Frente a la intratabilidad de los problemas NP-Completos, en el desarrollo práctico de software se emplean algoritmos de aproximación, heurísticas o restricciones del dominio para hallar soluciones aceptables en tiempos razonables, sabiendo que una solución óptima general y rápida no es viable.
 
+(ejercicios-de-clases-de-complejidad)=
 ### Ejercicios de Clases de Complejidad
 
 :::{exercise}
@@ -1162,8 +1194,10 @@ Para verificar un recorrido propuesto (el certificado) en tiempo polinomial, se 
 Dado que todos los pasos de verificación descritos se ejecutan en tiempo lineal $O(n)$, el problema pertenece a la clase NP.
 :::
 
+(ejemplos-detallados-de-analisis)=
 ## Ejemplos Detallados de Análisis
 
+(ejemplo-1-busqueda-del-maximo)=
 ### Ejemplo 1: Búsqueda del Máximo
 
 ```{code-block}c
@@ -1187,6 +1221,7 @@ int buscar_maximo(int arr[], int n) {
 - **Complejidad total**: $T(n) = O(1) + O(n) + O(1) = O(n)$
 - **Optimalidad**: Es óptimo porque debemos examinar todos los elementos al menos una vez para garantizar que encontramos el máximo
 
+(ejemplo-2-busqueda-de-duplicados)=
 ### Ejemplo 2: Búsqueda de Duplicados
 
 ```{code-block}c
@@ -1227,6 +1262,7 @@ bool tiene_duplicados_ordenado(int arr[], int n) {
 
 **Análisis**: $T(n) = O(n \log n) + O(n) = O(n \log n)$
 
+(ejemplo-3-torres-de-hanoi)=
 ### Ejemplo 3: Torres de Hanoi
 
 ```{code-block}c
@@ -1269,8 +1305,10 @@ $$
 
 **Conclusión**: Torres de Hanoi es inherentemente exponencial. No existe solución más eficiente.
 
+(referencias-y-lecturas-complementarias)=
 ## Referencias y Lecturas Complementarias
 
+(textos-fundamentales)=
 ### Textos Fundamentales
 
 - **{cite:t}`cormen_introduction_2009`**. Capítulos 3 y 4: Growth of Functions y Divide-and-Conquer.
@@ -1279,18 +1317,21 @@ $$
 
 - **{cite:t}`knuth1974`**. Análisis matemático de algoritmos de control de flujo y su estructuración.
 
+(recursos-complementarios)=
 ### Recursos Complementarios
 
 - **{cite:t}`bentley_programming_1999`**. *Programming Pearls*. Excelente para el diseño y optimización práctica de algoritmos en el mundo real.
 
 - **{cite:t}`bryant_computer_2015`**. Capítulo 6: La jerarquía de memoria y su impacto directo en la complejidad real del hardware.
 
+(recursos-en-linea)=
 ### Recursos en Línea
 
 - **MIT OpenCourseWare**: 6.006 Introduction to Algorithms
 - **Khan Academy**: Algoritmos y Análisis Asintótico
 - **Big-O Cheat Sheet**: https://www.bigocheatsheet.com/
 
+(resumen)=
 ## Resumen
 
 El análisis de complejidad es fundamental para:
@@ -1300,6 +1341,7 @@ El análisis de complejidad es fundamental para:
 3. **Identificar cuellos de botella**: Localizar partes del código que necesitan optimización
 4. **Establecer límites teóricos**: Determinar si un algoritmo es óptimo o puede mejorarse
 
+(puntos-clave)=
 ### Puntos Clave
 
 :::{important} Ideas Centrales
@@ -1313,6 +1355,7 @@ El análisis de complejidad es fundamental para:
 7. **Análisis amortizado** considera costo promedio en secuencias de operaciones
 :::
 
+(guia-practica-de-decision)=
 ### Guía Práctica de Decisión
 
 Para elegir un algoritmo:

@@ -4,11 +4,12 @@ short_title: La memoria
 description: 'Mapeo de memoria virtual, segmento de código, datos, stack, heap y la jerarquía de memoria física.'
 ---
 
-(modelo-memoria-capitulo)=
+(introduccion-el-mapa-de-memoria-de-un-programa)=
 ## Introducción: El Mapa de Memoria de un Programa
 
 Todas las variables y el código de un programa residen en la memoria. Cuando un programa se ejecuta, el sistema operativo le asigna un espacio de direcciones virtuales que se organiza en secciones específicas, cada una con un propósito diferente. Esta organización permite al sistema gestionar eficientemente los recursos y aislar las distintas necesidades de almacenamiento.
 
+(ejercicios-de-autoevaluacion-mapa-de-memoria)=
 ### Ejercicios de Autoevaluación: Mapa de Memoria
 
 :::{exercise}
@@ -50,7 +51,7 @@ Considerá el caso de dos variables globales en C: `int var_a = 42;` e `int var_
 La justificación técnica de esta división es la optimización del tamaño del archivo ejecutable en disco. El segmento `.data` requiere almacenar físicamente los valores iniciales (en este caso, los bytes correspondientes al entero `42`). Por el contrario, el segmento `.bss` no necesita almacenar bytes individuales de ceros en el disco; el formato del ejecutable simplemente registra el tamaño total requerido para las variables en `.bss`. Al cargar el programa, el sistema operativo reserva esa cantidad de memoria física y la inicializa a cero en un solo paso, ahorrando espacio de almacenamiento en el disco duro y tiempo de transferencia.
 :::
 
-(estado-programa)=
+(estado-de-un-programa)=
 ## Estado de un Programa
 
 //? Integrar a este apunte.
@@ -65,6 +66,7 @@ Comprender el estado es fundamental para el debugging, la concurrencia y el
 análisis del comportamiento del programa. Se compone de varios elementos
 distribuidos en la memoria y en los registros del procesador.
 
+(componentes-principales-del-estado)=
 ### Componentes Principales del Estado
 
 El estado de un programa en C se almacena principalmente en las siguientes áreas
@@ -145,6 +147,7 @@ incluye:
 - **Buffers de E/S (I/O Buffers):** Datos que han sido escritos por el programa
   pero aún no han sido vaciados (_flushed_) al disco o a la red, y viceversa.
 
+(ejemplo-practico-detallado)=
 ### Ejemplo Práctico Detallado
 
 Analicemos el estado en un punto específico del siguiente programa en C:
@@ -222,6 +225,7 @@ int main() {
     la cadena literal `"Hola"`, listos para ser usados como argumentos para
     `sprintf`.
 
+(transiciones-de-estado)=
 ### Transiciones de Estado
 
 El programa es una máquina que transita de un estado a otro. Cada instrucción
@@ -244,6 +248,7 @@ De acuerdo. A continuación, una ampliación del concepto que generaliza la idea
 de estado más allá de su implementación técnica en C, enfocándose en su rol como
 información unificada.
 
+(ampliacion-el-estado-como-informacion-y-potencialidad)=
 ### Ampliación: El Estado como Información y Potencialidad
 
 Si nos abstraemos de la implementación física (pila, montículo, registros),
@@ -322,7 +327,7 @@ futuro.
 
 
 
-(memoria-virtual)=
+(memoria-virtual-la-abstraccion-fundamental)=
 ### Memoria Virtual: La Abstracción Fundamental
 
 Es crucial comprender que la memoria que ves desde tu programa no es la memoria física (RAM) directamente. El sistema operativo, en colaboración con el procesador, implementa un sistema de **memoria virtual** que proporciona a cada proceso su propio espacio de direcciones aislado.
@@ -360,7 +365,7 @@ Aunque esta abstracción es transparente para el programador en la mayoría de l
 - Los primeros accesos a memoria recién asignada pueden ser más lentos (_page faults_) mientras el sistema operativo mapea las páginas físicas.
   :::
 
-(memoria-segmentacion)=
+(segmentacion-de-la-memoria)=
 ### Segmentación de la Memoria
 
 Un programa en ejecución divide su espacio de memoria en las siguientes áreas:
@@ -428,6 +433,7 @@ entre varios archivos son aún mas problemáticas, ver {ref}`0x2004h`.
 Organización típica de la memoria de un proceso en sistemas Unix/Linux.
 ```
 
+(ejercicios-de-autoevaluacion-estado-de-un-programa)=
 ### Ejercicios de Autoevaluación: Estado de un Programa
 
 :::{exercise}
@@ -483,12 +489,12 @@ Explicá de qué manera una instrucción de llamada a función (como `procesar(5
    - De este modo, el estado de la pila vuelve a la posición que tenía antes de la llamada y la ejecución continúa en la instrucción posterior a la llamada.
 :::
 
-(memoria-stack)=
+(la-pila-stack)=
 ## La Pila (Stack)
 
 La pila es una estructura de datos fundamental en la ejecución de programas. Su nombre proviene de la analogía con una pila de platos: el último elemento añadido es el primero en ser retirado.
 
-(memoria-stack-funcionamiento)=
+(funcionamiento)=
 ### Funcionamiento
 
 La pila opera bajo el principio **LIFO** (_Last-In, First-Out_): el último elemento que entra es el primero en salir, similar a una pila de platos donde solo podés tomar el plato superior. Cada vez que llamás a una función, el sistema reserva un nuevo marco de pila (_stack frame_) que contiene las variables locales, los parámetros y la dirección de retorno. Cuando la función termina, ese marco se libera automáticamente.
@@ -524,7 +530,7 @@ int main()
 }
 ```
 
-(memoria-stack-frames)=
+(anatomia-de-un-stack-frame)=
 ### Anatomía de un Stack Frame
 
 Cada llamada a función crea un **stack frame** (marco de pila) que contiene toda la información necesaria para ejecutar esa función y retornar correctamente. Comprender la estructura de un stack frame es fundamental para entender cómo funcionan las llamadas a funciones y por qué ciertos errores ocurren.
@@ -588,7 +594,7 @@ Esta estructura explica varios fenómenos importantes:
 4. **Velocidad del stack:** Reservar y liberar espacio es trivial (solo mover un puntero), lo que hace el stack extremadamente eficiente.
 :::
 
-(memoria-stack-contenido)=
+(contenido-del-stack)=
 ### Contenido del Stack
 
 La pila almacena:
@@ -598,7 +604,7 @@ La pila almacena:
 - **Direcciones de retorno** que indican dónde debe continuar la ejecución después de que una función termine.
 - **Información de estado** del procesador (registros salvados).
 
-(memoria-stack-ventajas-desventajas)=
+(ventajas-y-desventajas)=
 ### Ventajas y Desventajas
 
 **Ventajas:**
@@ -642,6 +648,7 @@ int *funcion_correcta()
 }
 ```
 
+(ejercicios-de-autoevaluacion-la-pila)=
 ### Ejercicios de Autoevaluación: La Pila
 
 :::{exercise}
@@ -687,12 +694,12 @@ Las variables locales tienen una duración de almacenamiento automática vincula
 Si retornás la dirección de una variable local, la dirección apunta a un área de memoria no protegida. Si desreferenciás ese puntero inmediatamente, es posible que el dato siga allí y el programa parezca funcionar. Sin embargo, en el instante en que tu programa invoque cualquier otra función, el sistema operativo creará un nuevo marco de pila sobre la misma región de memoria, sobrescribiendo los antiguos valores de la variable local. A partir de ese momento, desreferenciar el puntero devolverá basura o causará un comportamiento indefinido, siendo un error sutil y sumamente difícil de detectar.
 :::
 
-(memoria-heap)=
+(el-monton-heap)=
 ## El Montón (Heap)
 
 El heap es una región de memoria diseñada para la asignación dinámica. A diferencia de la pila, el heap permite solicitar memoria en tiempo de ejecución y mantenerla disponible hasta que explícitamente decidás liberarla.
 
-(memoria-heap-concepto)=
+(concepto)=
 ### Concepto
 
 El heap puede visualizarse como una gran "reserva" de memoria disponible para el programa. Cuando necesitás un bloque de memoria de tamaño variable o que persista más allá del alcance de una función, recurrís al heap mediante funciones especializadas de asignación de memoria.
@@ -716,7 +723,7 @@ Usá el stack cuando:
 - Los datos solo son necesarios dentro del ámbito de la función actual.
 - Querés la máxima eficiencia de acceso a memoria.
 
-(memoria-heap-ventajas-desventajas)=
+(ventajas-y-desventajas)=
 ### Ventajas y Desventajas
 
 **Ventajas:**
@@ -736,7 +743,7 @@ Usá el stack cuando:
 Con el heap, la gestión de memoria es completamente tu responsabilidad. Cada llamada a `malloc` o `calloc` debe tener su correspondiente `free`. Esta disciplina está codificada en la {ref}`0x3002h`, que exige liberar siempre la memoria dinámica y prevenir punteros colgantes. 
 :::
 
-(memoria-comparacion-stack-heap)=
+(comparacion-stack-vs-heap)=
 ### Comparación Stack vs Heap
 
 La siguiente tabla resume las diferencias clave entre el stack y el heap para ayudarte a decidir cuál usar en cada situación:
@@ -758,7 +765,7 @@ La siguiente tabla resume las diferencias clave entre el stack y el heap para ay
 
 **Regla práctica:** Usá el stack siempre que puedas (por velocidad y simplicidad), y recurrí al heap solo cuando sea necesario (por flexibilidad).
 
-(memoria-jerarquia-cache)=
+(jerarquia-de-memoria-y-cache)=
 ### Jerarquía de Memoria y Caché
 
 Para comprender completamente por qué el stack es más rápido que el heap, necesitás entender la **jerarquía de memoria** del hardware moderno. La memoria no es un espacio uniforme: hay múltiples niveles con diferentes velocidades y tamaños.
@@ -868,7 +875,7 @@ for (int i = 0; i < rows; i++)
 La segunda versión puede ser 10-50 veces más rápida para matrices grandes, simplemente porque usa mejor el caché. 
 :::
 
-(memoria-modelo-costos)=
+(modelo-de-costos-cuantificando-el-rendimiento)=
 ### Modelo de Costos: Cuantificando el Rendimiento
 
 Comprender el costo relativo de las operaciones de memoria permite tomar decisiones informadas sobre diseño y optimización. Este modelo proporciona una intuición sobre el rendimiento relativo.
@@ -915,6 +922,7 @@ for (int i = 0; i < 1000; i++)
 free(buffer);  // Una sola llamada a free
 ```
 
+(ejercicios-de-autoevaluacion-el-monton)=
 ### Ejercicios de Autoevaluación: El Montón
 
 :::{exercise}
@@ -959,7 +967,7 @@ La consecuencia depende de la duración del proceso:
 2. **Servidor HTTP ininterrumpido:** Un servidor web corre de forma continua durante semanas o meses. Si cada petición HTTP atendida genera una pequeña fuga de memoria (por ejemplo, 1 KB por no liberar una estructura), la memoria consumida por el proceso crecerá linealmente con el tiempo. Tarde o temprano, el proceso consumirá toda la memoria física disponible en el servidor, degradando el rendimiento general (debido al swap de disco) hasta que el sistema operativo mate el proceso por falta de memoria (a través del mecanismo *Out-Of-Memory Killer* en Linux).
 :::
 
-(memoria-punteros)=
+(herramienta-clave-punteros)=
 ## Herramienta Clave: Punteros
 
 Los punteros son el mecanismo fundamental que permite trabajar con memoria dinámica en C. Un puntero no almacena un valor directo, sino la **dirección de memoria** donde se encuentra ese valor.
@@ -977,7 +985,7 @@ Este capítulo asume que ya conocés los fundamentos de punteros que se presenta
 En este capítulo nos enfocamos en aspectos avanzados de punteros específicos para la gestión de memoria dinámica.
 :::
 
-(memoria-punteros-void)=
+(el-puntero-void-puntero-generico)=
 ### El Puntero `void *`: Puntero Genérico
 
 Un `void *` es un puntero especial que puede apuntar a cualquier tipo de dato. No tiene asociado un tipo específico, por lo que:
@@ -1021,7 +1029,7 @@ int_ptr = int_ptr + 1;  // Avanza sizeof(int) bytes
 El puntero `void *` es fundamental para escribir funciones genéricas que trabajan con cualquier tipo de dato. Por ejemplo, `qsort()` de la biblioteca estándar usa `void *` para ordenar arreglos de cualquier tipo. 
 :::
 
-(memoria-casteos-avanzados)=
+(casteos-avanzados-de-punteros)=
 ### Casteos Avanzados de Punteros
 
 Los casteos de punteros en C son una herramienta poderosa pero peligrosa. Comprender los casteos avanzados, especialmente los punteros a arrays, es esencial para trabajar con memoria dinámica multidimensional y estructuras de datos complejas.
@@ -1456,6 +1464,7 @@ int elemento = arr[i * cols + j];  // Cálculo explícito
 - Cuando querés control total del layout de memoria
 :::
 
+(ejercicios-de-autoevaluacion-punteros-y-casteos)=
 ### Ejercicios de Autoevaluación: Punteros y Casteos
 
 :::{exercise}

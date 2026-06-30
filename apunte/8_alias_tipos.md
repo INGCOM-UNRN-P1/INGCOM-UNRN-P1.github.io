@@ -4,11 +4,12 @@ short_title: Alias y Enumeraciones
 subtitle: 'Typedef y enum en C'
 ---
 
-(typedef-alias)=
+(alias-de-tipos-con-typedef)=
 ## Alias de Tipos con `typedef`
 
 En C, el mecanismo nativo para crear nombres alternativos o **alias** de tipos de datos es la palabra clave `typedef`. A diferencia de lo que ocurre en otros lenguajes, `typedef` no introduce un nuevo tipo de dato físicamente diferente para el compilador; simplemente asocia un identificador secundario a un tipo existente (primitivo, puntero, estructura o enumeración) para simplificar la escritura o mejorar la abstracción conceptual del código.
 
+(sintaxis-basica)=
 ### Sintaxis Básica
 
 La declaración se asemeja a la de una variable estándar, pero precedida por `typedef`:
@@ -29,6 +30,7 @@ metros_t altura_edificio = 45.2;
 
 Físicamente, `distancia_casa` es un `double`. El compilador simplemente reemplazará sintácticamente `metros_t` por `double` durante el análisis semántico.
 
+(abstraccion-de-plataforma)=
 ### Abstracción de Plataforma
 
 Uno de los usos más rigurosos de `typedef` es garantizar la portabilidad e independencia del hardware. Tipos de datos como `int` o `long` pueden variar su tamaño en bytes dependiendo de la arquitectura de la CPU (16, 32 o 64 bits). 
@@ -45,6 +47,7 @@ typedef long long int      entero64_t;
 
 *(Nota: En el C estándar moderno, estas definiciones ya se encuentran normalizadas en la cabecera estándar `<stdint.h>` mediante los tipos `int8_t`, `int16_t`, `int32_t` e `int64_t`)*.
 
+(regla-de-estilo-de-la-catedra-el-sufijo-t)=
 ### Regla de Estilo de la Cátedra: El sufijo `_t`
 
 Para mantener la claridad y coherencia en el código desarrollado, la cátedra impone la regla **{ref}`0x3004h`**, la cual establece que **todo alias de tipo creado mediante `typedef` debe finalizar de forma obligatoria con el sufijo `_t`** (por ejemplo, `metros_t`, `velocidad_t`, `nodo_t`). Esto permite distinguir instantáneamente los tipos personalizados de las variables y constantes en cualquier bloque de código.
@@ -54,7 +57,7 @@ A lo largo de este apunte le iremos dando uso a este concepto de manera gradual,
 
 ---
 
-(alias-tipos-capitulo)=
+(ejercicios-de-autoevaluacion-alias-de-tipos)=
 ### Ejercicios de Autoevaluación (Alias de Tipos)
 
 :::{exercise}
@@ -109,6 +112,7 @@ No define un nuevo tipo de dato físicamente diferente.
 
 ---
 
+(enumeraciones-en-c)=
 ## Enumeraciones en C
 
 Las **enumeraciones** (`enum`) constituyen un mecanismo fundamental en el lenguaje C para la definición de tipos de datos que representan un **conjunto finito y discreto** de valores con nombres simbólicos. A diferencia de usar valores literales o constantes dispersas en el código, las enumeraciones proporcionan una abstracción semántica que mejora considerablemente la legibilidad, mantenibilidad y robustez del programa.
@@ -119,6 +123,7 @@ Este capítulo asume familiaridad con los tipos de datos básicos de C presentad
 
 Desde una perspectiva técnica, las enumeraciones son esencialmente **constantes enteras nombradas** que el compilador traduce en tiempo de compilación. Sin embargo, permiten modelar de forma explícita conjuntos limitados de valores, estados o categorías.
 
+(enum-vs-const-vs-define)=
 ### `enum` vs `const` vs `#define`
 
 Si este concepto resulta similar a las constantes `const` y a los literales de
@@ -147,6 +152,7 @@ depuradores, que pueden mostrar los nombres de las constantes (`LUNES`,
 `MARTES`) en lugar de sus valores numéricos (`0`, `1`), facilitando enormemente
 la depuración.
 
+(sintaxis-y-declaracion)=
 ### Sintaxis y Declaración
 
 #### Declaración Básica
@@ -183,6 +189,7 @@ enum estado_conexion {
 enum estado_conexion estado_actual = DESCONECTADO;
 ```
 
+(alcance-y-namespaces)=
 ### Alcance y Namespaces
 
 :::{note} Espacios de Nombres (*name spaces*) según la norma ISO/IEC 9899
@@ -256,6 +263,7 @@ Seguí una convención consistente en tu proyecto:
 
 :::
 
+(ejercicios-de-autoevaluacion-sintaxis-y-namespaces)=
 ### Ejercicios de Autoevaluación (Sintaxis y Namespaces)
 
 :::{exercise}
@@ -312,6 +320,7 @@ Mencioná al menos dos ventajas importantes que presenta el uso de enumeraciones
 
 ---
 
+(asignacion-de-valores)=
 ### Asignación de Valores
 
 #### Asignación Automática
@@ -371,6 +380,7 @@ enum errores_sistema {
 };
 ```
 
+(definicion-de-tipos-con-typedef)=
 ### Definición de Tipos con `typedef`
 
 Para mejorar la legibilidad, es recomendable usar `typedef`, a continuación en
@@ -400,6 +410,7 @@ convenciones del estándar POSIX. Esto hace evidente que se trata de un tipo de
 dato y no de una variable ({ref}`0x0001h`).
 :::
 
+(enumeraciones-como-parametros-de-funcion)=
 ### Enumeraciones como Parámetros de Función
 
 Las enumeraciones proporcionan una interfaz más segura y expresiva para
@@ -421,6 +432,7 @@ void escribir_log(nivel_log_t nivel, const char *mensaje) {
     ...
 ```
 
+(validacion-y-manejo-seguro)=
 ### Validación y Manejo Seguro
 
 #### Validación de Rangos
@@ -488,6 +500,7 @@ const char *obtener_extension(formato_archivo_t formato) {
 }
 ```
 
+(enumeraciones-con-flags-bit-flags)=
 ### Enumeraciones con Flags (Bit Flags)
 
 Para representar combinaciones de opciones, podés usar enumeraciones con valores
@@ -505,6 +518,7 @@ typedef enum {
 } bit_flag_t;
 ```
 
+(problemas-comunes)=
 ### Problemas Comunes
 
 #### 1. Falta de Verificación de Tipo
@@ -607,6 +621,7 @@ int obtener_dias_mes(mes_t mes) {
 }
 ```
 
+(mejores-practicas)=
 ### Mejores Prácticas
 
 #### 1. Usar Enumeraciones para Máquinas de Estado
@@ -791,6 +806,7 @@ if (resultado != RESULTADO_EXITO) {
 }
 ```
 
+(consideraciones-de-rendimiento)=
 ### Consideraciones de Rendimiento
 
 #### Tamaño en Memoria
@@ -818,6 +834,7 @@ typedef enum {
 // sizeof(enum_grande_t) será 4 bytes (int)
 ```
 
+(interoperabilidad-con-interfaces-de-programacion-api-del-sistema)=
 ### Interoperabilidad con Interfaces de Programación (API) del Sistema
 
 Muchas **APIs** o Interfaces de Programación de Aplicaciones (ver término en el {ref}`glosario-alias`) del sistema operativo usan enumeraciones. Es importante entender sus valores:
@@ -856,6 +873,7 @@ tipo_archivo_t obtener_tipo_archivo(const char *ruta) {
 
 ---
 
+(ejercicios-de-autoevaluacion-asignacion-y-utilidades)=
 ### Ejercicios de Autoevaluación (Asignación y Utilidades)
 
 :::{exercise}
@@ -927,6 +945,7 @@ permisos_red_t mis_permisos = PERM_CONECTAR | PERM_ENVIAR; // Resulta en 3 (0b00
 
 ---
 
+(documentacion-de-enumeraciones)=
 ### Documentación de Enumeraciones
 
 La documentación adecuada de enumeraciones es esencial para comunicar el propósito de cada valor, las relaciones entre valores y las restricciones de uso. Al igual que con las estructuras, existen dos enfoques principales para documentar enumeraciones.
@@ -971,6 +990,7 @@ typedef enum {
 - La separación entre documentación y valores puede dificultar actualizaciones.
 - Puede volverse verbosa si cada valor requiere explicación extensa.
 
+(enfoque-2-documentacion-distribuida)=
 ### Enfoque 2: Documentación Distribuida
 
 Este enfoque combina un bloque de comentario general con comentarios individuales para cada valor. Es preferible cuando cada valor requiere explicación específica o tiene restricciones particulares.
@@ -1006,6 +1026,7 @@ typedef enum {
 - Puede hacer la definición más extensa visualmente.
 - Requiere disciplina para mantener comentarios en todos los valores.
 
+(ejemplo-completo-enumeracion-con-valores-explicitos)=
 ### Ejemplo Completo: Enumeración con Valores Explícitos
 
 Para enumeraciones con valores explícitos o que representan códigos de protocolo, la documentación debe ser exhaustiva:
@@ -1072,6 +1093,7 @@ typedef enum {
 } permisos_archivo_t;
 ```
 
+(recomendaciones-generales-para-enumeraciones)=
 ### Recomendaciones Generales para Enumeraciones
 
 1. **Significado de los valores:** Explicá claramente qué representa cada valor y cuándo debe usarse.
@@ -1089,7 +1111,7 @@ typedef enum {
 Para más detalles sobre el estilo de comentarios, consultá la {ref}`regla 0x0032h  <0x000Ah>` sobre cómo escribir comentarios que expliquen el "porqué" y no el "qué".
 
 
-(glosario-alias)=
+(ejercicios-de-autoevaluacion-documentacion-y-apis)=
 ### Ejercicios de Autoevaluación (Documentación y APIs)
 
 :::{exercise}
@@ -1155,6 +1177,7 @@ bool es_nivel_valido(int valor) {
 
 ---
 
+(glosario)=
 ## Glosario
 
 :::{glossary}

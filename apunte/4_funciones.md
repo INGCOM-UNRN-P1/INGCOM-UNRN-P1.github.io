@@ -4,10 +4,12 @@ short_title: Funciones
 subtitle: Dividiendo problemas en partes más chicas.
 ---
 
+(funciones)=
 ## Funciones
 
 Ya vimos cómo darle instrucciones en C a la computadora, pero ahora vamos a crear nuestras propias funciones para hacer de nuestros programas no solo más útiles, sino también con menos código duplicado.
 
+(definicion-intuitiva)=
 ### Definición intuitiva
 
 En la programación estructurada en C, las **funciones** constituyen los bloques modulares fundamentales de construcción de software. Un programa se descompone jerárquicamente en módulos independientes que cooperan para resolver un problema complejo. Cada función representa un flujo de control aislado que recibe parámetros de entrada, ejecuta una secuencia de instrucciones en su propio ámbito y opcionalmente retorna un resultado al flujo invocador.
@@ -19,7 +21,7 @@ En la programación estructurada en C, las **funciones** constituyen los bloques
 - **Abstracción**: Permite al programador concentrarse en la interfaz de la función (qué datos requiere y qué retorna) sin necesidad de mantener en la memoria de trabajo los detalles de su implementación interna.
 - **Registros de Activación (Stack Frames)**: Al invocar una función, el procesador suspende temporalmente el flujo actual y reserva dinámicamente una porción de memoria en la pila de ejecución física del programa (denominada *registro de activación* o *stack frame*). Este espacio aloja los parámetros, las variables locales y la dirección de retorno de la instrucción del invocador. Al finalizar la ejecución de la función y ejecutarse la sentencia `return`, su registro de activación se libera (destruyendo todas sus variables locales) y el flujo de control se reanuda inmediatamente en la instrucción posterior a la llamada.
 
-(sec-funciones-puras)=
+(una-definicion-mas-formal)=
 ### Una definición más formal
 
 En C, una **función** es un bloque de código reutilizable diseñado para realizar una tarea específica. Recibe uno o más valores de entrada, llamados *parámetros*, ejecuta un conjunto de instrucciones y produce un único valor de salida. Su propósito principal es actuar como un procesador de datos: recibe el contexto necesario, lo transforma mediante operaciones definidas y devuelve un resultado.
@@ -34,6 +36,7 @@ Aunque su uso no aplica a todos los casos, este concepto simplifica el comportam
 
 ---
 
+(que-es-una-funcion-en-c)=
 ## ¿Qué es una función en C?
 
 Una función en C es un bloque de código que:
@@ -56,6 +59,7 @@ Una función en C es un bloque de código que:
 De esta sintaxis básica, es posible crear una función que no reciba argumentos; solo tenemos que dejar vacía la lista de parámetros.
 Asimismo, una función en C puede no retornar valores y esto se hace con la palabra reservada `void` (vacío en inglés).
 
+(ejemplos)=
 ### Ejemplos
 
 En este ejemplo comentado, podemos ver una función que recibe un par de números y devuelve su suma:
@@ -99,6 +103,7 @@ Esta función, que no tuvo un retorno al programa, dio lugar a un {term}`efecto 
 Cuando una función no tiene retorno, se dice que es un «Procedimiento», esta distinción es para separar conceptualmente del código que da resultados explícitos al programa.
 :::
 
+(prototipos-de-funcion)=
 ### Prototipos de función
 
 Son una declaración anticipada que informa al compilador sobre el nombre, tipo de retorno y lista de parámetros de una función **antes** de que sea utilizada en el código. Su propósito es permitir que el compilador verifique la coherencia de las llamadas a la función, garantizando que el número y el tipo de argumentos coincidan con su definición. Un prototipo no contiene el cuerpo de la función, sino únicamente su firma, y suele colocarse al inicio del archivo fuente.
@@ -164,6 +169,7 @@ int funcion_dos() {
 }
 ```
 
+(ejercicios-de-autoevaluacion-definicion-y-sintaxis)=
 ### Ejercicios de Autoevaluación (Definición y Sintaxis)
 
 :::{exercise}
@@ -238,6 +244,7 @@ Describí qué ocurre en la pila física de llamadas del sistema (stack frame) d
 
 ---
 
+(roles-en-funciones)=
 ## Roles en Funciones
 
 *(Para una introducción teórica y conceptual sobre la asignación de roles semánticos a las variables, consultá la sección {ref}`roles-variables` del capítulo [](2_gradual))*.
@@ -246,6 +253,7 @@ Al estructurar modularmente un programa mediante funciones, las variables locale
 
 ---
 
+(parametro-de-entrada)=
 ### Parámetro de Entrada
 
 Un **parámetro de entrada** es una variable que recibe un valor de la parte que
@@ -280,6 +288,7 @@ En la función `sumar`, `num1` y `num2` son **parámetros de entrada**. Reciben
 los valores `5` y `3` respectivamente, y la función los usa para realizar la
 suma.
 
+(variable-local-temporal-en-funciones)=
 ### Variable Local Temporal (en funciones)
 
 *(Este rol es una especialización aplicada del **Rol de variable Auxiliar o Temporal** descripto en {ref}`roles-variables` del capítulo [](2_gradual))*.
@@ -309,6 +318,7 @@ Aquí, `sumaTemporal` es una **variable local temporal** dentro de
 calcular el promedio final.
 
 
+(ejercicios-de-autoevaluacion-scope-y-roles)=
 ### Ejercicios de Autoevaluación (Scope y Roles)
 
 :::{exercise}
@@ -384,6 +394,7 @@ Cuando la función ejecuta el `return`, su stack frame se destruye y la direcci�
 
 ---
 
+(alcance-scope-y-tiempo-de-vida-lifetime-de-variables)=
 ## Alcance (Scope) y Tiempo de Vida (Lifetime) de Variables
 
 Para programar de forma modular en C, tenés que dominar cómo se relacionan el **alcance (ámbito o scope)** de una variable —en qué regiones del código es visible y accesible su identificador— y su **tiempo de vida (lifetime)** —duración y ubicación física de su almacenamiento en memoria—.
@@ -407,6 +418,7 @@ La tabla {numref}`tbl-ambitos-y-tiempos` resume de forma estructurada las difere
 Jerarquía de alcances en C mostrando el scope global, de función y de bloque.
 ```
 
+(variables-globales)=
 ### Variables Globales
 
 Las variables globales se declaran fuera de cualquier función. Su principal característica es que son accesibles desde cualquier función en todo el programa. Una vez declarada, cualquier parte de tu código puede leerla y modificarla.
@@ -434,6 +446,7 @@ Aunque las variables globales pueden parecer una forma fácil de compartir datos
 
 Por estas razones, la cátedra prohíbe el uso de variables globales (ver [Regla 0x2004h](0_estilo.md#0x2004h)).
 
+(argumentos-de-funcion-parametros)=
 ### Argumentos de Función (Parámetros)
 
 Estas son las variables que se declaran en la definición de una función. Su alcance está limitado exclusivamente a esa función. Actúan como variables locales que se inicializan con los valores que se les pasan cuando se llama a la función.
@@ -454,6 +467,7 @@ int main() {
 }
 ```
 
+(variables-locales-automaticas)=
 ### Variables Locales (Automáticas)
 
 Las variables locales se declaran dentro de una función, pero fuera de cualquier bloque de código interno (como un `if` o un `for`). Su alcance se limita a la función en la que fueron declaradas. Se liberan de la memoria automáticamente cuando la función termina su ejecución.
@@ -480,6 +494,7 @@ int main() {
 
 La `variableLocal` solo es accesible desde `miFuncion`.
 
+(variables-de-bloque)=
 ### Variables de Bloque
 
 Son variables declaradas dentro de un bloque de código específico, que se delimita por llaves `{}`. Su alcance es aún más restringido: solo existen desde el punto de su declaración hasta el final de ese bloque. Son comunes en lazos y condicionales.
@@ -509,6 +524,7 @@ int main() {
 
 La `variableBloque` solo es accesible dentro de las llaves del `if`, y la variable `i` solo existe dentro del lazo `for`.
 
+(el-modificador-de-almacenamiento-static)=
 ### El Modificador de Almacenamiento `static`
 
 Cuando aplicás el modificador `static` a una variable local, alterás su tiempo de vida sin modificar su ámbito de visibilidad. La variable persistirá en el segmento de datos durante toda la ejecución del programa, inicializándose una única vez al comenzar. Sin embargo, su visibilidad permanece restringida únicamente al bloque de la función donde fue declarada.
@@ -556,6 +572,7 @@ En este fragmento, `contador_normal` se reinicia a `0` en cada invocación porqu
 El uso de `static` conserva el estado de la variable local entre ejecuciones de la función. Esto rompe la noción de función pura y puede dificultar las pruebas unitarias al hacer que el resultado de una llamada dependa de las ejecuciones anteriores. Utilizalo solo cuando el diseño técnico lo requiera expresamente.
 :::
 
+(ocultamiento-de-variables-shadowing)=
 ### Ocultamiento de variables (Shadowing)
 
 El *shadowing* ocurre cuando declarás una variable en un alcance interno (por ejemplo, en un lazo o un bloque) con el mismo nombre que una variable en un alcance externo. La variable del alcance más interno "oculta" a la del alcance más externo dentro de su bloque.
@@ -600,6 +617,7 @@ Fuera del for, 'i' es de nuevo: 10
 ```
 
 
+(descomposicion-funcional)=
 ## Descomposición Funcional
 
 El proceso de dividir un problema complejo en piezas pequeñas, comprensibles y fáciles de encarar se conoce como **descomposición funcional**. Cada parte se convierte en una función especializada con una única responsabilidad.
@@ -611,11 +629,13 @@ completa del programa.
 > Pensá en tu programa como una obra de teatro. `main()` es el director que da
 > las órdenes, y cada función es un actor especializado.
 
+(pensar-como-un-programador-el-metodo-top-down)=
 ## Pensar como un programador: el método top-down
 
 El método top-down (de arriba hacia abajo) es una forma de resolver problemas
 desde lo general hacia lo específico. Así se programa con claridad y orden.
 
+(etapas-del-metodo)=
 ### Etapas del método:
 
 1. **Analizá el problema global.** ¿Qué debe hacer el programa, en líneas
@@ -632,11 +652,14 @@ desde lo general hacia lo específico. Así se programa con claridad y orden.
 Este enfoque permite **testear partes** antes de armar el todo, y hace que tu
 programa sea mucho más fácil de entender.
 
+(ejemplo-completo-calcular-el-area-de-un-rectangulo)=
 ## Ejemplo Completo: Calcular el área de un rectángulo
 
+(paso-1-entender-el-problema)=
 ### Paso 1: Entender el problema
 Queremos un programa que solicite dos números (base y altura), calcule el área (base \* altura) y la muestre en pantalla.
 
+(paso-2-dividir-en-tareas-y-responsabilidades)=
 ### Paso 2: Dividir en tareas y responsabilidades
 1.  Leer un valor entero validando la entrada.
 2.  Calcular el área de forma pura.
@@ -682,6 +705,7 @@ int calcular_area(int base, int altura) {
 
 ::::
 
+(ejercicios-de-autoevaluacion-descomposicion-funcional)=
 ### Ejercicios de Autoevaluación (Descomposición Funcional)
 
 :::{exercise}
@@ -801,6 +825,7 @@ void procesar_calificacion();
 
 ---
 
+(factorizacion-de-funciones-duplicadas)=
 ## Factorización de Funciones Duplicadas
 
 Una de las habilidades clave en la programación es **reconocer patrones
@@ -808,6 +833,7 @@ repetidos** y simplificarlos. Así como en álgebra factorizamos términos comun
 para escribir expresiones más simples y elegantes, en programación podemos
 **factorizar comportamiento común en una única función**.
 
+(el-paralelismo-con-la-matematica)=
 ### El paralelismo con la matemática
 
 En matemática:
@@ -832,6 +858,7 @@ estamos factorizando de una forma aún mejor.
 :::
 
 
+(ejemplo-de-factorizacion)=
 ### Ejemplo de factorización:
 
 ```{code-block}c
@@ -854,6 +881,7 @@ int main() {
 }
 ```
 
+(por-que-esto-es-importante)=
 ### ¿Por qué esto es importante?
 
 - **Evitás repetir código.** Si hay que cambiar un mensaje, lo hacés en un solo
@@ -864,6 +892,7 @@ int main() {
 - **Fomentás la reutilización.** Una vez creada, una función puede usarse en
   otros contextos.
 
+(como-aplicar-esta-idea)=
 ### Cómo aplicar esta idea:
 
 1. Leé tu código buscando repeticiones.
@@ -876,6 +905,7 @@ int main() {
 > **simplificarlos inteligentemente**.
 :::
 
+(responsabilidades-de-las-funciones)=
 ## Responsabilidades de las funciones
 
 En la sección anterior, se menciona algo sobre 'responsabilidades', este es uno
@@ -886,6 +916,7 @@ Consiste en que **cada función debe tener una única responsabilidad** y es
 fundamental para lograr código claro, mantenible y fácil de testear.
 
 
+(aplicacion-practica-modularizacion-y-desacoplamiento-de-i-o)=
 ### Aplicación práctica: Modularización y desacoplamiento de I/O
 
 A partir de esta unidad temática, **es obligatorio resolver todos los ejercicios prácticos diseñando funciones específicas** en lugar de agrupar toda la lógica procedural dentro del punto de entrada `main()`. La función `main()` debe limitarse a invocar y coordinar tus módulos lógicos.
@@ -894,6 +925,7 @@ Asimismo, debés prestar especial atención a la regla de estilo {ref}`0x2002h`,
 
 Las funciones de procesamiento lógico deben recibir sus parámetros como entrada, computar los resultados sobre registros locales y retornar los datos calculados. Esto simplifica el testeo automático de la cátedra y desacopla la lógica de negocios del canal físico de entrada/salida de la consola.
 
+(que-significa-una-unica-responsabilidad)=
 ### ¿Qué significa una única responsabilidad?
 
 Una función debe encargarse de hacer **una sola cosa**, y hacerla bien. Si una
@@ -906,6 +938,7 @@ Por ejemplo:
 - Una función que **lee datos del usuario** no debería **procesarlos** al mismo
   tiempo.
 
+(senales-de-alerta)=
 ### Señales de alerta
 
 - La función tiene un nombre vago o genérico (como `procesar()` o
@@ -927,10 +960,12 @@ oración compuesta, probablemente estás metiendo dos responsabilidades en una.
 
 ---
 
+(documentacion-de-funciones-y-contratos)=
 ## Documentación de Funciones y Contratos
 
 La documentación define las especificaciones formales que debe cumplir el código. En esta cátedra se utiliza el formato estructurado compatible con **Doxygen** para detallar precondiciones y poscondiciones.
 
+(comentarios)=
 ### Comentarios
 
 Los comentarios son texto libre que podemos agregar a nuestros programas sin que
@@ -962,6 +997,7 @@ ignorado, y este, a diferencia del otro, puede abarcar múltiples lineas.
 */
 ```
 
+(por-que-documentar-funciones)=
 ### ¿Por qué documentar funciones?
 
 Una buena razón para documentar, y hacerlo antes de empezar a programar, es para
@@ -974,6 +1010,7 @@ implementando tiene que hacer, además de:
 - Para evitar errores de uso (pasar valores incorrectos, malinterpretar
   comportamientos, etc.).
 
+(que-incluir-en-la-documentacion-de-una-funcion)=
 ### Qué incluir en la documentación de una función
 
 Una buena documentación puede colocarse como comentario justo encima de la
@@ -983,6 +1020,7 @@ función, e incluye:
 2. Para qué recibe los parámetros que solicita.
 3. Como devuelve los valores obtenidos.
 
+(ejemplo)=
 ### Ejemplo:
 
 Los comentarios de documentación que les pediremos que completen, tienen esta
@@ -1005,6 +1043,7 @@ int calcular_area(int base, int altura)
 }
 ```
 
+(precondiciones-poscondiciones-e-invariantes)=
 ### Precondiciones, Poscondiciones e Invariantes
 
 En el contexto del diseño y verificación de software, estos conceptos forman
@@ -1024,6 +1063,7 @@ obtenido.
 -   **Poscondición (`#POST`):** Promesa que la función garantiza cumplir al finalizar su ejecución, siempre que se hayan respetado las precondiciones.
 -   **Invariante:** Propiedad que permanece verdadera a lo largo de toda la ejecución del módulo o algoritmo.
 
+(ejemplo)=
 ### Ejemplo:
 
 ```{code-block}c
@@ -1051,11 +1091,12 @@ int dividir(int dividendo, int divisor) {
 
 ---
 
-(contratos-funciones)=
+(contratos-de-funcion-precondiciones-poscondiciones-e-invariantes)=
 ## Contratos de Función: Precondiciones, Poscondiciones e Invariantes
 
 Al diseñar funciones, la Regla {ref}`0x2003h` exige documentación estructurada. Una forma rigurosa de hacerlo es mediante contratos: especificaciones formales de qué garantiza el cliente (precondiciones) y qué garantiza la función (poscondiciones), junto con propiedades que deben mantenerse siempre (invariantes).
 
+(precondiciones-poscondiciones-e-invariantes)=
 ## Precondiciones, Poscondiciones e Invariantes
 
 En el contexto del diseño y verificación de software, estos conceptos forman
@@ -1078,6 +1119,7 @@ tratamiento intuitivo y coloquial. Pero estos, están basados en lógica de prim
 Orden y los tres conceptos están conectados lógicamente, de forma que lo pre,
 vaya hacia lo post, manteniendo lo que no cambia.
 
+(precondiciones)=
 ### Precondiciones
 
 Una _precondición_ es una afirmación lógica que debe cumplirse **antes** de la
@@ -1103,6 +1145,7 @@ Si la precondición no se cumple, el resultado puede ser inválido, o el program
 puede fallar (por ejemplo, dividir por cero).
 
 ::::
+(poscondiciones)=
 ### Poscondiciones
 
 Una _poscondición_ es una afirmación lógica que debe cumplirse **después** de
@@ -1125,6 +1168,7 @@ Las poscondiciones son una promesa. Si las precondiciones se cumplen, la funció
 debe cumplir lo prometido.
 
 ::::
+(invariantes)=
 ### Invariantes
 
 Un _invariante_ es una condición lógica que permanece **verdadera en todo
@@ -1152,6 +1196,7 @@ Aunque son menos visibles, son fundamentales para asegurar que el comportamiento
 del programa sea coherente.
 
 ::::
+(por-que-son-importantes)=
 ### ¿Por qué son importantes?
 
 - Obligan a **pensar antes de programar**.
@@ -1160,6 +1205,7 @@ del programa sea coherente.
 - Mejoran la **legibilidad y el contrato** entre quien implementa y quien usa
   una función.
 
+(como-documentarlas)=
 ### Cómo documentarlas
 
 Incluilas como parte del comentario de documentación de la función:
@@ -1217,6 +1263,7 @@ errores antes de que ocurran y construir soluciones más elegantes.
 
 
 
+(ejercicios-de-autoevaluacion-documentacion-y-contratos)=
 ### Ejercicios de Autoevaluación (Documentación y Contratos)
 
 :::{exercise}
@@ -1298,6 +1345,7 @@ void calcular_potencia(float a, float b) {
 
 ---
 
+(glosario)=
 ## Glosario
 
 :::{glossary}
@@ -1307,6 +1355,7 @@ efecto secundario
 
 ---
 
+(referencias-y-lecturas-complementarias)=
 ## Referencias y Lecturas Complementarias
 
 - {cite:t}`kernighan_c_2014`. Capítulo 4: Functions and Program Structure.

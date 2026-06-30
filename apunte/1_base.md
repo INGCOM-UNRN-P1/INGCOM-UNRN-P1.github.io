@@ -4,6 +4,7 @@ short_title: Fundamentos
 subtitle: Conceptos básicos antes de programar en C
 ---
 
+(introduccion)=
 ## Introducción
 
 Antes de escribir tu primera línea de código en C, es fundamental repasar (y comprender) algunos conceptos básicos sobre cómo funcionan las computadoras y cómo comunicarnos con ellas de manera efectiva. En este apunte, sentaremos las bases algorítmicas de forma independiente de cualquier lenguaje, utilizando un pseudocódigo estructurado similar a C en español. Esto te permitirá concentrarte en el pensamiento lógico antes de abordar la sintaxis formal de C.
@@ -14,6 +15,7 @@ Este material es **prerrequisito** para el apunte de introducción a C, y es un 
 
 ---
 
+(que-es-una-computadora)=
 ## ¿Qué es una computadora?
 
 Una computadora es una máquina electrónica diseñada para procesar información de manera automática, siguiendo instrucciones precisas y explícitas. A diferencia de los seres humanos, una computadora:
@@ -28,6 +30,7 @@ Una computadora es una máquina electrónica diseñada para procesar informació
 La computadora hará **exactamente** lo que le pidamos, incluso si está mal. De ahí la importancia de diseñar y escribir algoritmos correctos.
 :::
 
+(componentes-basicos)=
 ### Componentes básicos
 
 Para entender cómo programar, es útil conocer los componentes físicos de una computadora y cómo interactúan entre sí.
@@ -72,6 +75,7 @@ Las aplicaciones utilizan los servicios del sistema operativo, que a su vez cont
 
 ---
 
+(que-es-programar)=
 ## ¿Qué es programar?
 
 Programar es el proceso de estructurar instrucciones detalladas para que una computadora realice una tarea específica.
@@ -84,6 +88,7 @@ Cuando programamos, debemos considerar:
 4. **¿Cómo traducirlo a código?** - Escribir en un lenguaje de programación.
 5. **¿Funciona correctamente?** - Probar y depurar.
 
+(analogia-la-receta-de-cocina)=
 ### Analogía: La receta de cocina
 
 Imaginá que querés hacer un bizcochuelo y le das las instrucciones a alguien que **nunca cocinó** y que seguirá **literalmente** cada palabra:
@@ -120,6 +125,7 @@ Imaginá que querés hacer un bizcochuelo y le das las instrucciones a alguien q
 
 La computadora necesita instrucciones de este segundo tipo: específicas, ordenadas, sin ambigüedades y detalladas al extremo.
 
+(ejercicio-1)=
 ### Ejercicio 1
 
 ```{exercise}
@@ -156,6 +162,7 @@ class: dropdown
 
 ---
 
+(que-es-un-algoritmo)=
 ## ¿Qué es un algoritmo?
 
 Un **algoritmo** es una secuencia finita, ordenada y no ambigua de pasos bien definidos que resuelve un problema o realiza una tarea específica. Los algoritmos son la base fundamental de la programación y el diseño de sistemas.
@@ -172,6 +179,7 @@ El algoritmo es el puente conceptual que transforma un problema de entrada en su
 Un algoritmo es **independiente** del lenguaje de programación. El mismo algoritmo lógico puede implementarse en C, Python, Java o incluso traducirse a un circuito físico de hardware.
 :::
 
+(caracteristicas-de-un-buen-algoritmo)=
 ### Características de un buen algoritmo
 
 Un algoritmo efectivo debe cumplir con los siguientes vectores de diseño:
@@ -205,10 +213,12 @@ Dado el mismo conjunto de datos de entrada, debe producir siempre exactamente el
 
 ---
 
+(representacion-de-algoritmos-y-diagramas-de-flujo)=
 ## Representación de Algoritmos y Diagramas de Flujo
 
 Los **diagramas de flujo** son representaciones gráficas estandarizadas de algoritmos. Permiten visualizar la lógica de control, bifurcaciones e iteraciones antes de escribir código.
 
+(simbolos-estandar-de-diagramas-de-flujo)=
 ### Símbolos estándar de diagramas de flujo
 
 ```{figure} 1/simbolos_diagramas_flujo.svg
@@ -227,8 +237,10 @@ Símbolos universales utilizados en diagramas de flujo para representar diferent
 
 ---
 
+(ejemplos-de-algoritmos-en-pseudocodigo-y-diagramas-de-flujo)=
 ## Ejemplos de Algoritmos en Pseudocódigo y Diagramas de Flujo
 
+(ejemplo-1-algoritmo-para-hacer-cafe)=
 ### Ejemplo 1: Algoritmo para hacer café
 
 Homogeneizando la estructura cotidiana mediante ramificaciones secuenciales condicionales:
@@ -273,6 +285,7 @@ flowchart TD
     Serve --> End([Fin])
 ```
 
+(ejemplo-2-verificar-si-n-es-par)=
 ### Ejemplo 2: Verificar si N es par
 
 Este algoritmo calcula si un número entero es par utilizando el operador módulo `%` (resto de la división entera):
@@ -309,10 +322,12 @@ flowchart TD
 
 ---
 
+(representacion-de-datos-y-memoria)=
 ## Representación de datos y memoria
 
 Las computadoras operan sobre datos almacenados en memoria física. Para procesar esta información, es necesario asignarle un tipo de dato que defina su rango y operaciones válidas.
 
+(tipos-de-informacion-fundamentales)=
 ### Tipos de información fundamentales
 
 ```{figure} 1/tipos_datos.svg
@@ -330,6 +345,7 @@ Los cuatro tipos de datos fundamentales: enteros, reales, cadenas de caracteres 
 
 ---
 
+(variables-direcciones-fisicas-de-memoria)=
 ### Variables: Direcciones físicas de memoria
 
 Una **variable** es un espacio reservado en la memoria física RAM de la computadora para almacenar un dato que puede cambiar durante la ejecución del programa.
@@ -354,6 +370,7 @@ Cada variable posee:
 
 ---
 
+(el-ciclo-de-vida-de-una-variable-en-memoria)=
 ### El ciclo de vida de una variable en memoria
 
 ```{figure} 1/ciclo_vida_variable.svg
@@ -391,8 +408,10 @@ class: dropdown
 
 ---
 
+(estructuras-logicas-y-operaciones-basicas)=
 ## Estructuras lógicas y operaciones básicas
 
+(operaciones-aritmeticas)=
 ### Operaciones aritméticas
 
 A nivel de hardware, se ejecutan operaciones aritméticas sobre celdas numéricas:
@@ -408,6 +427,7 @@ Operaciones aritméticas básicas y especiales, con precedencia de evaluación.
 -   **Módulo `%`:** Retorna el resto de la división entera. Es útil para evaluar paridad (`N % 2 == 0`) o extraer dígitos.
 -   **Precedencia estándar:** 1. Paréntesis `()`, 2. Potencias, 3. Multiplicación/División/Módulo, 4. Suma/Resta.
 
+(operaciones-logicas-y-tablas-de-verdad)=
 ### Operaciones lógicas y tablas de verdad
 
 Las operaciones lógicas combinan valores booleanos para evaluar condiciones complejas:
@@ -426,6 +446,7 @@ Las tres operaciones lógicas fundamentales (Y, O, NO) con sus tablas de verdad.
 
 ---
 
+(las-tres-estructuras-fundamentales-del-pensamiento-logico)=
 ## Las Tres Estructuras Fundamentales del Pensamiento Lógico
 
 Todo algoritmo de control estructurado puede resolverse utilizando únicamente tres estructuras lógicas:
@@ -438,12 +459,15 @@ Todo algoritmo de control estructurado puede resolverse utilizando únicamente t
 Las tres estructuras fundamentales del pensamiento algorítmico: secuencia, decisión y repetición.
 ```
 
+(1-secuencia)=
 ### 1. Secuencia
 Ejecución lineal de instrucciones en orden cronológico estricto de arriba hacia abajo. El cambio del orden de los factores altera el resultado lógico o provoca fallas en tiempo de ejecución.
 
+(2-decisiones-condicionales)=
 ### 2. Decisiones (Condicionales)
 Bifurcación del flujo lógico en base al resultado de una condición booleana (`Si... Sino`).
 
+(3-repeticion-lazos)=
 ### 3. Repetición (Lazos)
 Estructuras de iteración de código. Se clasifican didácticamente en:
 -   **Lazo controlado por contador (`Para` / `for`):** Utilizado cuando el límite de iteraciones es conocido de antemano.
@@ -451,10 +475,12 @@ Estructuras de iteración de código. Se clasifican didácticamente en:
 
 ---
 
+(ejemplos-de-programas-traducidos-a-pseudocodigo-estricto-estilo-c)=
 ## Ejemplos de Programas Traducidos a Pseudocódigo Estricto (Estilo C)
 
 A continuación se presentan los ejemplos lógicos resueltos en pseudocódigo estricto con sintaxis cercana a C en español, eliminando dependencias de lenguajes interpretados dinámicos.
 
+(ejemplo-1-calculadora-simple)=
 ### Ejemplo 1: Calculadora simple
 
 ```text
@@ -526,6 +552,7 @@ flowchart TD
     Print --> End
 ```
 
+(ejemplo-2-tabla-de-multiplicar)=
 ### Ejemplo 2: Tabla de multiplicar
 
 ```text
@@ -563,6 +590,7 @@ flowchart TD
     LoopCond -- No --> End([Fin])
 ```
 
+(ejemplo-3-adivinar-numero)=
 ### Ejemplo 3: Adivinar número
 
 ```text
@@ -623,6 +651,7 @@ flowchart TD
 
 ---
 
+(ejercicio-2-aplicacion-algoritmica)=
 ## Ejercicio 2: Aplicación Algorítmica
 
 ```{exercise}
@@ -733,6 +762,7 @@ Sino
 
 ---
 
+(ejercicio-3-integradores)=
 ## Ejercicio 3 : Integradores
 
 :::{exercise}
@@ -791,8 +821,10 @@ Escribir("Resultado: ", suma);
 
 ---
 
+(errores-comunes-y-estrategias-para-prevenirlos)=
 ## Errores comunes y estrategias para prevenirlos
 
+(1-secuencia-incorrecta-de-asignaciones)=
 ### 1. Secuencia incorrecta de asignaciones
 Las variables deben poseer datos válidos antes de ser leídas o manipuladas en expresiones.
 
@@ -813,6 +845,7 @@ Las variables deben poseer datos válidos antes de ser leídas o manipuladas en 
     entero resultado = a + b;
     ```
 
+(2-lazos-infinitos)=
 ### 2. Lazos infinitos
 Ocurren cuando la condición de permanencia de un lazo `Mientras` nunca resulta en `falsa`. Es obligatorio asegurar que el bloque interno altere la variable de control.
 
@@ -835,6 +868,7 @@ Ocurren cuando la condición de permanencia de un lazo `Mientras` nunca resulta 
     }
     ```
 
+(3-desbordamiento-numerico-e-imprecision-de-reales)=
 ### 3. Desbordamiento numérico e imprecisión de reales
 
 Las variables en memoria física tienen un almacenamiento binario de tamaño finito. Esto introduce limitaciones físicas ausentes en la matemática pura.
@@ -912,6 +946,7 @@ bool son_casi_iguales(float a, float b) {
 ```
 
 ---
+(proximos-pasos-el-lenguaje-c)=
 ## Próximos Pasos: El Lenguaje C
 
 Ahora que comprendés estos conceptos fundamentales mediante pseudocódigo estructurado, estás mucho mejor preparado para abordar el lenguaje C. En el próximo apunte veremos:
@@ -924,6 +959,7 @@ Ahora que comprendés estos conceptos fundamentales mediante pseudocódigo estru
 
 Recordá que toda la lógica que vimos aquí se aplica directamente a C. La principal diferencia será la sintaxis y la necesidad de gestionar la memoria de forma más explícita.
 
+(glosario)=
 ## Glosario
 
 ::{glossary}
@@ -948,6 +984,7 @@ Diagrama de flujo
 
 ---
 
+(recursos-adicionales)=
 ## Recursos adicionales
 
 - Practicá resolviendo problemas simples mediante pseudocódigo estructurado orientado a C.
@@ -963,8 +1000,10 @@ Diagrama de flujo
 Fuente: [xkcd.com](https://xkcd.com/1667/)
 ```
 
+(referencias-y-lecturas-complementarias)=
 ## Referencias y Lecturas Complementarias
 
+(fundamentos-de-algoritmos)=
 ### Fundamentos de Algoritmos
 
 - {cite:t}`cormen_introduction_2009`. Capítulos 3-4: Growth of Functions y Divide-and-Conquer.
@@ -972,18 +1011,21 @@ Fuente: [xkcd.com](https://xkcd.com/1667/)
 - {cite:t}`sedgewick_algorithms_2011`. Capítulo 1: Fundamentals. Introducción accesible con visualizaciones.
   - Disponible en: https://algs4.cs.princeton.edu/
 
+(pensamiento-computacional)=
 ### Pensamiento Computacional
 
 - {cite:t}`wing_computational_2006`. El artículo que popularizó el término "pensamiento computacional".
 
 - {cite:t}`aho_foundations_1995`. Conceptos fundamentales: algoritmos, estructuras de datos, lógica.
 
+(resolucion-de-problemas)=
 ### Resolución de Problemas
 
 - {cite:t}`polya_how_2014`. Clásico sobre heurísticas de resolución de problemas (1945).
 
 - {cite:t}`bentley_programming_1999`. Columnas sobre diseño de algoritmos y resolución de problemas.
 
+(recursos-en-linea)=
 ### Recursos en Línea
 
 - **Khan Academy - Algorithms** - https://www.khanacademy.org/computing/computer-science/algorithms

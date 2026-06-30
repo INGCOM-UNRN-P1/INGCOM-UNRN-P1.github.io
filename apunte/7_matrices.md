@@ -4,6 +4,7 @@ short_title: Matrices
 subtitle: "The matrix has you..."
 ---
 
+(matrices-arreglos-bidimensionales)=
 ## Matrices (Arreglos Bidimensionales)
 
 En el ámbito de la programación, una **matriz** se define como una estructura de datos que facilita el almacenamiento de un conjunto homogéneo de elementos, organizados en una disposición bidimensional de filas y columnas. En el lenguaje de programación C, esta abstracción se materializa mediante la implementación de **arreglos bidimensionales** (2D), los cuales pueden ser conceptualizados como arreglos cuyos elementos son, a su vez, otros arreglos.
@@ -14,10 +15,12 @@ Este capítulo asume que ya dominás los conceptos de arreglos unidimensionales 
 
 Las matrices son fundamentales en numerosas aplicaciones: desde operaciones matemáticas básicas hasta algoritmos complejos de procesamiento de imágenes, simulaciones físicas, análisis de datos, representación de grafos, implementación de juegos como el tres en raya o ajedrez, y sistemas de coordenadas bidimensionales. Su comprensión es esencial para el desarrollo de software eficiente y estructurado.
 
+(relacion-con-el-algebra-lineal)=
 ### Relación con el álgebra lineal
 Las matrices en programación están íntimamente relacionadas con el concepto matemático de matriz del álgebra lineal. Esto permite aplicar directamente teoremas y algoritmos matemáticos en implementaciones de software, especialmente en campos como gráficos por computadora, machine learning, y simulaciones científicas.
 
 
+(extension-a-multiples-dimensiones)=
 ###  Extensión a múltiples dimensiones
 Técnicamente, no están limitadas a dos dimensiones. Podés tener arreglos
 tridimensionales (`int cubo[3][4][5]`) o de mayor dimensionalidad. Sin embargo,
@@ -25,6 +28,7 @@ las aplicaciones prácticas se vuelven menos claras y la complejidad de manejo
 aumenta considerablemente. Todos los conceptos presentados aquí se extienden
 naturalmente a estas dimensiones superiores.
 
+(declaracion)=
 ## Declaración
 
 La declaración de una matriz requiere la especificación del tipo de dato de sus
@@ -72,6 +76,7 @@ almacenan de forma contigua siguiendo el orden row-major, donde cada fila se
 almacena completa antes de pasar a la siguiente.
 :::
 
+(ejercicios-de-autoevaluacion-definicion-y-declaracion)=
 ### Ejercicios de Autoevaluación (Definición y Declaración)
 
 :::{exercise}
@@ -118,6 +123,7 @@ $$\text{Elementos} = 3 \times 4 \times 5 = 60\text{ celdas}$$
 
 ---
 
+(inicializacion)=
 ## Inicialización
 
 Podemos inicializar nuestras matrices, esencialmente, de dos formas diferentes,
@@ -132,6 +138,7 @@ declaración implícita de la primera dimensión, y programáticamente mediante
 lazos.
 :::
 
+(inicializacion-completa)=
 ### Inicialización completa
 
 Este proceso se realiza mediante el uso de llaves anidadas, donde cada conjunto
@@ -145,6 +152,7 @@ int matriz[2][3] = {
 };
 ```
 
+(inicializacion-con-declaracion-implicita)=
 ### Inicialización con declaración implícita
 
 En C, es posible omitir la primera dimensión (filas) durante la inicialización,
@@ -164,6 +172,7 @@ int matriz[][3] = {
 La forma `int matriz[][]` es **inválida** y no compilará, ya que el compilador
 no tendría forma de saber dónde termina una fila y empieza la siguiente.
 
+(inicializacion-manual)=
 ### Inicialización manual
 
 Constituye un método más flexible y programático. El uso de macros en mayúsculas
@@ -184,6 +193,7 @@ for (size_t i = 0; i < FILAS; i++) {
 }
 ```
 
+(acceso-a-los-elementos)=
 ## Acceso a los Elementos
 
 El acceso a un elemento específico de la matriz se realiza mediante la
@@ -210,6 +220,7 @@ lo cual puede manifestarse en fallos de ejecución (`segmentation fault`) o
 corrupción de datos, violando la regla de estilo {ref}`0x300Ch`.
 :::
 
+(ejercicios-de-autoevaluacion-inicializacion-y-acceso)=
 ### Ejercicios de Autoevaluación (Inicialización y Acceso)
 
 :::{exercise}
@@ -266,6 +277,7 @@ El índice `matriz[FILAS][COLUMNAS]` apunta a un elemento situado completamente 
 
 ---
 
+(patrones-de-recorrido-y-localidad-de-memoria-cache)=
 ## Patrones de Recorrido y Localidad de Memoria (Caché)
 
 El procesamiento sistemático de todos los elementos de una matriz requiere el uso de **lazos anidados**. La comprensión de la relación entre el almacenamiento en memoria y el hardware de la CPU es crucial tanto para la corrección del algoritmo como para el rendimiento del programa.
@@ -274,6 +286,7 @@ A nivel físico, la memoria RAM es unidimensional. Para almacenar una matriz bid
 
 Cuando el programa solicita un elemento de la matriz, la CPU no lee una única variable directamente desde la RAM. En su lugar, el hardware lee un bloque contiguo completo de datos (línea de caché) y lo transfiere a la **memoria caché** del procesador. Este mecanismo responde al principio de **localidad espacial**: si accedés a un dato, es altamente probable que necesités los datos adyacentes a la brevedad.
 
+(recorrido-por-filas-row-major-alto-rendimiento)=
 ### Recorrido por Filas (Row-Major): Alto Rendimiento
 
 El patrón más común y eficiente es el recorrido por filas, donde se accede a todos los elementos de una fila antes de pasar a la siguiente. 
@@ -294,6 +307,7 @@ for (size_t i = 0; i < FILAS; i++) {
 }
 ```
 
+(recorrido-por-columnas-column-major-bajo-rendimiento)=
 ### Recorrido por Columnas (Column-Major): Bajo Rendimiento
 
 Si recorrés la matriz columna por columna (lazo externo en columnas `j`, lazo interno en filas `i`), forzás al procesador a realizar "saltos" en memoria física. Cada incremento de `i` requiere avanzar una distancia de `COLUMNAS * sizeof(tipo)` bytes. 
@@ -331,6 +345,7 @@ Impacto del orden de acceso en el rendimiento. El acceso secuencial (Row-Major) 
 En matrices de gran tamaño (por ejemplo, procesamiento de imágenes o simulaciones), el recorrido ineficiente puede degradar el rendimiento por un factor de hasta 10 veces o más. Siempre estructurá los lazos anidados de forma que el lazo más interno avance en la dimensión contigua en memoria (las columnas, en el caso de C).
 :::
 
+(recorrido-diagonal)=
 ### Recorrido Diagonal
 
 Para matrices cuadradas, es común necesitar acceder a las diagonales.
@@ -363,6 +378,7 @@ printf("\n");
 Las diagonales principal y secundaria en una matriz cuadrada. La diagonal principal cumple la condición `i == j`, mientras que la secundaria cumple `i + j == DIM - 1`.
 :::
 
+(ejercicios-de-autoevaluacion-recorridos-y-memoria)=
 ### Ejercicios de Autoevaluación (Recorridos y Memoria)
 
 :::{exercise}
@@ -429,6 +445,7 @@ for (size_t i = 0; i < FILAS; i++) {
 
 ---
 
+(pasando-matrices-a-funciones-metodo-clasico)=
 ## Pasando matrices a funciones (Método Clásico)
 
 Al pasar una matriz como argumento a una función, el estándar de C requiere que
@@ -464,7 +481,7 @@ sin mayores cambios.
 Es crucial notar que en la firma `void imprimir_matriz(int mat[][COLUMNAS], size_t filas, size_t columnas)`, el parámetro `columnas` sirve únicamente como límite de control para el lazo interno de impresión (`j < columnas`). El compilador de C utiliza exclusivamente el valor constante `COLUMNAS` del tipo de dato (`int mat[][COLUMNAS]`) para realizar el cálculo de desplazamiento de memoria al evaluar `mat[i][j]`. Pasar `columnas` no altera en absoluto cómo el compilador direcciona físicamente los elementos en la memoria contigua.
 :::
 
-(sec-matriz-direccionamiento)=
+(calculo-de-desplazamiento-de-memoria)=
 ### Cálculo de Desplazamiento de Memoria
 
 Dicha información es indispensable para que el compilador pueda calcular
@@ -475,6 +492,7 @@ elemento `matriz[i][j]`, utilizando una fórmula análoga a:
 \text{direccionbase} + (i \times \text{COLUMNAS} + j) \times \text{sizeof(int)}
 ```
 
+(pasando-matrices-a-funciones-metodo-alv)=
 ### Pasando matrices a funciones (Método ALV)
 
 Aunque el uso de ALV en el stack está estrictamente prohibido por seguridad (riesgo de desborde de pila), la sintaxis de parámetros ALV en firmas de funciones (introducida en el estándar C99) es una herramienta sumamente útil y segura para crear funciones genéricas capaces de operar sobre matrices de dimensiones arbitrarias sin recurrir a macros estáticas.
@@ -497,6 +515,7 @@ void procesar_matriz(size_t filas, size_t cols, int matriz[filas][cols]) {
 }
 ```
 
+(matrices-multidimensionales)=
 ## Matrices Multidimensionales
 
 El lenguaje C no impone un límite de dos dimensiones para los arreglos; es
@@ -532,6 +551,7 @@ for (size_t i = 0; i < 2; i++) {       // Capas
 
 
 
+(operaciones-matematicas-con-matrices)=
 # Operaciones Matemáticas con Matrices
 
 En el ámbito de la programación en C y otras áreas de la computación, el manejo de matrices es fundamental. A continuación, se presentan los algoritmos y las expresiones matemáticas para las operaciones básicas entre matrices.
@@ -544,10 +564,12 @@ Operaciones básicas con matrices: suma, resta y transposición. Cada operación
 requiere validar que las dimensiones sean compatibles antes de proceder.
 :::
 
+(suma-de-matrices)=
 ## Suma de Matrices
 
 La suma de dos matrices, A y B, de las mismas dimensiones ($m \times n$), guarda el resultado en una matriz C de la misma dimensión. Cada elemento de C es la suma de los elementos correspondientes en A y B.
 
+(expresion-matematica)=
 ### Expresión Matemática
 
 Para dos matrices A y B de tamaño $m \times n$, la matriz resultante C se define
@@ -560,6 +582,7 @@ C_{i,j} = A_{i,j} + B_{i,j}
 
 donde $i$ representa la fila y $j$ la columna.
 
+(expansion-matematica)=
 ### Expansión Matemática
 
 Visualmente, la suma de dos matrices de 2x2 se vería así:
@@ -581,6 +604,7 @@ A_{2,1} + B_{2,1} & A_{2,2} + B_{2,2}
 \end{pmatrix}
 $$
 
+(algoritmo-en-pseudocodigo)=
 ### Algoritmo en Pseudocódigo
 
 El algoritmo recorre ambas matrices y suma los elementos en la misma posición.
@@ -603,12 +627,14 @@ FIN PROCEDIMIENTO
 
 ---
 
+(resta-de-matrices)=
 ## Resta de Matrices
 
 De manera análoga a la suma, la resta de dos matrices A y B de idénticas
 dimensiones guarda el resultado en una matriz C donde cada elemento es la diferencia de
 los elementos correspondientes.
 
+(expresion-matematica)=
 ### Expresión Matemática
 
 Para dos matrices A y B de tamaño $m \times n$, la matriz resultante C se define
@@ -619,6 +645,7 @@ como:
 C_{i,j} = A_{i,j} - B_{i,j}
 ```
 
+(algoritmo-en-pseudocodigo)=
 ### Algoritmo en Pseudocódigo
 
 El procedimiento es idéntico al de la suma, pero se realiza una resta.
@@ -641,6 +668,7 @@ FIN PROCEDIMIENTO
 
 ---
 
+(multiplicacion-de-matrices)=
 ## Multiplicación de Matrices
 
 La multiplicación de una matriz A de dimensión $m \times p$ por una matriz B de
@@ -656,6 +684,7 @@ producto escalar de la fila i de A con la columna j de B, sumando los productos
 elemento por elemento.
 :::
 
+(expresion-matematica)=
 ### Expresión Matemática
 
 El elemento $(i,j)$ de la matriz resultante C se calcula como la suma de los
@@ -667,6 +696,7 @@ de B.
 C_{i,j} = \sum_{k=1}^{p} A_{i,k} \cdot B_{k,j}
 ```
 
+(expansion-matematica)=
 ### Expansión Matemática
 
 Cada elemento $C_{i,j}$ de la matriz resultante se calcula realizando el
@@ -701,11 +731,13 @@ $$
 Donde
 $C_{1,1} = (\color{blue}A_{1,1} \cdot \color{red}B_{1,1}) + (\color{blue}A_{1,2} \cdot \color{red}B_{2,1})$.
 
+(algoritmo-en-pseudocodigo)=
 ### Algoritmo en Pseudocódigo
 
 Este algoritmo requiere tres lazos anidados para calcular el producto escalar de
 cada fila de A con cada columna de B.
 
+(algoritmo-en-pseudocodigo-optimizado-cache-friendly)=
 ### Algoritmo en Pseudocódigo Optimizado (Cache-Friendly)
 
 Para realizar la multiplicación minimizando los fallos de caché, es conveniente reordenar los lazos del algoritmo clásico ($i, j, k$) al orden optimizado ($i, k, j$). De esta forma, el lazo más interno recorre consecutivamente las columnas de las matrices en memoria principal, garantizando localidad espacial.
@@ -742,6 +774,7 @@ FIN PROCEDIMIENTO
 En la implementación clásica ($i, j, k$), el lazo más interno recorre `k`, accediendo a `B[k][j]`. Como `k` varía y `j` es constante, saltamos filas de la matriz `B` en memoria física, provocando constantes fallos de caché (*cache misses*). En cambio, al usar el orden ($i, k, j$), el lazo más interno recorre `j` (las columnas). Tanto `C[i][j]` como `B[k][j]` se acceden de forma contigua en memoria, maximizando el rendimiento del hardware y aprovechando la línea de caché.
 :::
 
+(validacion-y-manejo-de-errores)=
 ## Validación y Manejo de Errores
 
 En aplicaciones robustas, es fundamental implementar validaciones para prevenir
@@ -757,6 +790,7 @@ requieren dimensiones idénticas, mientras que la multiplicación requiere que l
 columnas de A sean igual a las filas de B.
 :::
 
+(validacion-de-indices)=
 ### Validación de Índices
 
 ```{code-block}c
@@ -785,6 +819,7 @@ int acceso_seguro_matriz(size_t filas, size_t columnas, int matriz[filas][column
 }
 ```
 
+(validacion-de-operaciones)=
 ### Validación de Operaciones
 
 Para operaciones matemáticas entre matrices, debemos verificar la compatibilidad
@@ -826,8 +861,10 @@ indefinido, violando la regla de estilo {ref}`0x0000h` sobre claridad y prolijid
 del código. 
 :::
 
+(mejores-practicas-y-optimizaciones)=
 ## Mejores Prácticas y Optimizaciones
 
+(uso-de-macros-para-dimensiones)=
 ### Uso de Macros para Dimensiones
 
 Utilizá siempre macros para definir las dimensiones de tus matrices, siguiendo
@@ -843,6 +880,7 @@ modificación del código.
 int matriz[MAX_FILAS][MAX_COLUMNAS];
 ```
 
+(funciones-auxiliares)=
 ### Funciones Auxiliares
 
 Creá funciones auxiliares para operaciones comunes, siguiendo la regla de claridad {ref}`0x0000h`:
@@ -881,6 +919,7 @@ bool son_matrices_iguales(int a[][MAX_COLUMNAS], int b[][MAX_COLUMNAS],
 }
 ```
 
+(glosario)=
 ## Glosario
 
 :::{glossary}
@@ -961,6 +1000,7 @@ elemento neutro en la multiplicación de matrices: A × I = I × A = A. Es
 fundamental en operaciones como la inversión de matrices. 
 :::
 
+(ejercicios-de-autoevaluacion-funciones-y-operaciones)=
 ### Ejercicios de Autoevaluación (Funciones y Operaciones)
 
 :::{exercise}
@@ -1033,8 +1073,10 @@ void transponer_matriz(size_t filas_a, size_t cols_a,
 
 ---
 
+(apendice-avanzado-operaciones-matriciales-de-algebra-lineal)=
 ## Apéndice Avanzado: Operaciones Matriciales de Álgebra Lineal
 
+(calculo-de-determinantes)=
 ### Cálculo de Determinantes
 
 El determinante es un valor escalar que se puede calcular para toda **matriz
@@ -1118,6 +1160,7 @@ FIN FUNCIÓN
 
 ---
 
+(inversion-de-matrices)=
 ### Inversión de Matrices
 
 La inversa de una matriz cuadrada A, denotada como $A^{-1}$, es aquella matriz

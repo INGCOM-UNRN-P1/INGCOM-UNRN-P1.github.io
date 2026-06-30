@@ -4,17 +4,19 @@ short_title: 'Punteros III'
 description: 'Punteros a funciones, genericidad básica en C utilizando void* y el uso de callbacks para ordenar y filtrar datos.'
 ---
 
-(callbacks-genericidad-capitulo)=
+(genericidad-y-callbacks-punteros-a-funciones)=
 # Genericidad y Callbacks (Punteros a Funciones)
 
 En capítulos anteriores, exploramos cómo los punteros nos permiten referenciar y manipular datos en el heap de manera dinámica. Sin embargo, en C, las instrucciones ejecutables de una función también residen en la memoria física (en el segmento de código o de texto). 
 
 Un **puntero a función** almacena la dirección de memoria de una función ejecutable, lo que nos permite invocarla dinámicamente y pasar comportamiento como argumento a otras funciones. Este mecanismo se conoce como **callback** y es el pilar para construir código genérico y extensible en C.
 
+(punteros-a-funciones-sintaxis-y-declaracion)=
 ## Punteros a Funciones: Sintaxis y Declaración
 
 La sintaxis para declarar un puntero a función en C puede parecer compleja al principio, ya que requiere agrupar el operador de indirección con el nombre del puntero para diferenciarlo de una función que retorna un puntero.
 
+(declaracion-basica)=
 ### Declaración Básica
 
 La estructura general de una declaración es:
@@ -30,6 +32,7 @@ int *funcion(int, int);   // Declaración de una función que retorna un puntero
 int (*puntero)(int, int); // Declaración de un puntero a una función que retorna int
 ```
 
+(asignacion-e-invocacion)=
 ### Asignación e Invocación
 
 Asignar una función a un puntero es directo: solo se utiliza el nombre de la función (que decae en su dirección física de memoria).
@@ -58,6 +61,7 @@ int main(void) {
 }
 ```
 
+(simplificacion-con-typedef)=
 ### Simplificación con `typedef`
 
 Para evitar declarar firmas de punteros complejas repetidamente, es una buena práctica de ingeniería de software definir alias de tipos utilizando `typedef` (regla {ref}`0x3004h`):
@@ -73,6 +77,7 @@ operacion_fn mi_operacion = sumar;
 
 ---
 
+(ejercicios-de-autoevaluacion-sintaxis-y-declaracion)=
 ### Ejercicios de Autoevaluación (Sintaxis y Declaración)
 
 :::{exercise}
@@ -128,10 +133,12 @@ Ambas son funcionalmente idénticas debido a que el compilador de C promociona a
 
 ---
 
+(callbacks-comportamiento-como-parametro)=
 ## Callbacks: Comportamiento como Parámetro
 
 Un **callback** es una función que se pasa a otra función como argumento para ser ejecutada ("llamada de vuelta") bajo ciertas condiciones o flujos de control.
 
+(ejemplo-clasico-qsort-de-la-biblioteca-estandar)=
 ### Ejemplo Clásico: qsort() de la Biblioteca Estándar
 
 El ejemplo por excelencia de genericidad y callbacks es `qsort` (definida en `<stdlib.h>`), la cual implementa el algoritmo de ordenamiento rápido QuickSort de forma genérica para cualquier tipo de arreglo:
@@ -222,6 +229,7 @@ int main(void) {
 
 ---
 
+(ejercicios-de-autoevaluacion-callbacks-y-qsort)=
 ### Ejercicios de Autoevaluación (Callbacks y qsort)
 
 :::{exercise}
@@ -313,15 +321,18 @@ int comparar_productos(const void *a, const void *b) {
 
 ---
 
+(genericidad-en-c-mediante-void)=
 ## Genericidad en C mediante `void *`
 
 Dado que C carece de tipos genéricos en tiempo de compilación (como *templates* de C++ o genéricos de Java), la genericidad se simula a bajo nivel utilizando punteros genéricos `void *`.
 
+(reglas-de-oro-para-trabajar-con-void)=
 ### Reglas de Oro para Trabajar con `void *`
 
 1. **No se puede desreferenciar directamente un `void *`**: Como el compilador no sabe cuántos bytes ocupa el tipo apuntado, la expresión `*p_void` genera un error de compilación. Siempre debés realizar un casteo explícito a un puntero del tipo real antes de acceder a la memoria.
 2. **No se permite aritmética de punteros sobre `void *`**: Sumar o restar a un `void *` genera comportamiento indefinido o errores, ya que la escala de incremento depende del tamaño del tipo. Nuevamente, debés castear previamente a un tipo con tamaño conocido (ej: `char *` para aritmética byte a byte).
 
+(disenando-una-funcion-generica-de-busqueda-lineal)=
 ### Diseñando una Función Genérica de Búsqueda Lineal
 
 Para consolidar estos conceptos, implementemos nuestro propio algoritmo genérico de búsqueda lineal, capaz de buscar en cualquier tipo de arreglo utilizando un callback de comparación:
@@ -379,6 +390,7 @@ int main(void) {
 }
 ```
 
+(ejercicios-de-autoevaluacion-genericidad-y-void)=
 ### Ejercicios de Autoevaluación (Genericidad y void*)
 
 :::{exercise}
@@ -460,6 +472,7 @@ void intercambiar_bloques(void *a, void *b, size_t size) {
 
 ---
 
+(lecturas-recomendadas)=
 ## Lecturas Recomendadas
 
 - **{cite:t}`king_c_2008`**. Capítulo 17: Advanced Uses of Pointers (sección de punteros a funciones).

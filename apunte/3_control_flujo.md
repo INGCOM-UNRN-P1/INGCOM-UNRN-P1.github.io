@@ -4,11 +4,12 @@ short_title: Control de Flujo
 subtitle: 'Decisiones condicionales, lazos y control seguro en C'
 ---
 
-(control-flujo-capitulo)=
+(introduccion-al-control-de-flujo)=
 ## Introducción al Control de Flujo
 
 Hasta ahora, los programas que hemos escrito se ejecutan de manera estrictamente secuencial: una instrucción tras otra, de arriba a abajo. Sin embargo, para resolver problemas reales necesitamos que el programa tome decisiones y repita bloques de instrucciones de forma autónoma. El **control de flujo** es el conjunto de mecanismos que nos permite bifurcar el camino de ejecución y gobernar la repetición del código.
 
+(decisiones-condicionales)=
 ## Decisiones Condicionales
 
 Las decisiones permiten que el flujo de ejecución tome distintos caminos con base en condiciones lógicas booleanas.
@@ -20,6 +21,7 @@ Las decisiones permiten que el flujo de ejecución tome distintos caminos con ba
 El programa evalúa condiciones lógicas y ejecuta el bloque de instrucciones correspondiente.
 :::
 
+(estructura-if-else-if-else)=
 ### Estructura `if...else if...else`
 
 Las estructuras condicionales bifurcan el camino del programa. Es importante notar que tanto las ramas alternativas `else if` como la rama por defecto `else` son **opcionales**; podés utilizar una instrucción `if` simple para ejecutar un bloque de código únicamente si se cumple la condición, continuando de forma secuencial en caso contrario.
@@ -44,6 +46,7 @@ verdadero. Esto se conoce como "veracidad" ({ref}`0x1005h`) y su uso no
 está permitido, ya que puede generar confusión.
 :::
 
+(operadores-de-comparacion-y-logicos)=
 ### Operadores de comparación y lógicos
 - `==` (Igualdad), `!=` (Desigualdad), `>`, `<`, `>=`, `<=`
 - `&&` (Y lógico), `||` (O lógico), `!` (Negación lógica)
@@ -60,6 +63,7 @@ if (edad >= 18) {
 ```
 
 
+(bifurcacion-multiple-con-switch)=
 ### Bifurcación Múltiple con `switch`
 
 La estructura `switch` evalúa una expresión entera y busca una coincidencia con alguna de las constantes definidas en las etiquetas `case`. Al encontrarla, transfiere el control directamente a ese punto. Es una alternativa más limpia y eficiente a múltiples `if-else if` anidados cuando se compara una misma variable contra múltiples constantes de tipo entero o carácter.
@@ -83,6 +87,7 @@ Al utilizar `switch` debés tener en cuenta dos detalles clave:
 *   **La sentencia `break`:** Es fundamental colocar `break` al final de cada bloque `case`. Si no está, la ejecución continuará ("caerá") hacia las instrucciones del caso siguiente (*fall-through*), lo cual suele ser fuente de errores lógicos grandes.
 *   **La etiqueta `default`:** Se ejecuta si ninguna constante coincide. Aunque técnicamente es opcional en el estándar C, la regla {ref}`0x1008h` de la cátedra **exige que siempre esté presente** como medida de diseño defensivo.
 
+(ejercicios-de-autoevaluacion-decisiones-condicionales)=
 ### Ejercicios de Autoevaluación (Decisiones Condicionales)
 
 :::{exercise}
@@ -161,6 +166,7 @@ La regla {ref}`0x1005h` exige comparaciones booleanas explícitas (ej: `if (esta
 
 ---
 
+(estructuras-de-repeticion-lazos)=
 ## Estructuras de Repetición (Lazos)
 
 Un **lazo** es una estructura lógica que repite un bloque de instrucciones mientras se verifique una condición de permanencia.
@@ -170,6 +176,7 @@ Hay tres construcciones principales de lazos en C:
 - `for`: Lazo estructurado controlado por un contador o rango definido.
 - `do...while`: Ejecuta el bloque de código al menos una vez antes de evaluar la condición.
 
+(while-iteracion-condicional)=
 ### `while` — Iteración condicional
 
 El bloque de código interno se ejecuta mientras la condición lógica sea verdadera.
@@ -190,6 +197,7 @@ while (i < 5) {
 Diagrama de flujo del lazo while: evalúa la condición, ejecuta el bloque si es verdadera, y repite hasta que la condición sea falsa.
 :::
 
+(for-iteracion-controlada-por-contador)=
 ### `for` — Iteración controlada por contador
 
 Es la estructura recomendada para repeticiones de rango conocido. Su sintaxis concentra el control de la iteración:
@@ -253,6 +261,7 @@ El rol de control de lazo, no es exclusivo de los lazos `for`, pero es donde es 
 
 :::
 
+(do-while-ejecucion-obligatoria-al-menos-una-vez)=
 ### `do...while` — Ejecución obligatoria al menos una vez
 
 Garantiza que el bloque se ejecutará al menos una vez antes de verificar la condición lógica de permanencia.
@@ -281,6 +290,7 @@ flowchart TD
 
 ---
 
+(ejercicios-de-autoevaluacion-lazos)=
 ### Ejercicios de Autoevaluación (Lazos)
 
 :::{exercise}
@@ -372,7 +382,7 @@ do {
 
 ---
 
-(rol-bandera)=
+(rol-bandera-o-flag)=
 ## Rol Bandera (o Flag)
 
 *(Para más información sobre la asignación semántica de roles, consultá {ref}`roles-variables` en [](2_gradual))*.
@@ -381,6 +391,7 @@ Una **bandera** (o _flag_) es una variable booleana (o un tipo entero que simula
 
 En la programación estructurada y bajo las pautas de esta cátedra, las banderas tienen dos usos fundamentales:
 
+(1-senalizacion-de-un-estado-o-evento)=
 ### 1. Señalización de un estado o evento
 Se utiliza para recordar si una condición fue alcanzada durante un proceso. Por ejemplo, supongamos que queremos verificar si un número determinado existe dentro de una secuencia de elementos. Al encontrarlo, encendemos la bandera (`true`).
 
@@ -416,6 +427,7 @@ int main() {
 }
 ```
 
+(2-control-de-permanencia-en-lazos-interactivos)=
 ### 2. Control de permanencia en lazos interactivos
 Se utiliza para gobernar la repetición de un lazo cuando no se conoce de antemano la cantidad de iteraciones (por ejemplo, entrada de datos interactiva del usuario). El lazo se ejecuta mientras la bandera se mantenga activa y finaliza cuando un evento apaga la bandera:
 
@@ -444,6 +456,7 @@ int main() {
 ```
 
 
+(rol-acumulador)=
 ### Rol acumulador
 
 Un **acumulador** es una variable que se utiliza para **sumar o acumular
@@ -452,6 +465,7 @@ que comience el proceso de acumulación.
 
 ---
 
+(ejemplo-de-acumulador-en-c)=
 ### Ejemplo de Acumulador en C
 
 Imaginemos que queremos calcular la suma de los primeros N números enteros.
@@ -483,6 +497,7 @@ suma total.
 
 ---
 
+(rol-contador)=
 ### Rol contador
 
 Un **contador** es una variable que se utiliza para **contar la ocurrencia de un
@@ -494,6 +509,7 @@ ocurre.
 
 ---
 
+(ejemplo-de-contador-en-c)=
 ### Ejemplo de Contador en C
 
 Supongamos que queremos contar cuántos números pares hay en un rango dado.
@@ -529,6 +545,7 @@ encontramos un número par, incrementamos su valor en 1.
 
 //? agregar expresion matematica equivalente
 
+(ejercicios-de-autoevaluacion-roles-de-variables)=
 ### Ejercicios de Autoevaluación (Roles de Variables)
 
 :::{exercise}
@@ -639,8 +656,10 @@ En este algoritmo:
 
 ---
 
+(control-de-flujo-seguro-de-lazos)=
 ## Control de Flujo Seguro de Lazos
 
+(atajos-en-lazos-break-y-continue)=
 ### Atajos en Lazos: `break` y `continue`
 
 C provee dos instrucciones de control para alterar el flujo normal de iteración de los lazos:
@@ -671,6 +690,7 @@ for (int i = 1; i <= 5; i++) {
 }
 ```
 
+(prohibicion-de-break-y-continue)=
 ### Prohibición de `break` y `continue`
 
 **En esta cátedra, el uso de las instrucciones `break` (fuera de un bloque `switch`) y `continue` para modificar el flujo de repetición de los lazos esta prohibidas** (ver regla de estilo {ref}`0x1002h`). 
@@ -686,15 +706,18 @@ Podés consultar la resolución del **Ejercicio 9 (ingreso de clave con bandera)
 :::
 
 
+(problemas-del-buffer-de-entrada-stdin-y-su-purgado)=
 ## Problemas del Buffer de Entrada (stdin) y su Purgado
 
 Cuando usas `scanf` para leer datos numéricos o caracteres, el flujo de entrada `stdin` puede almacenar residuos no deseados que alteran las lecturas posteriores.
 
+(el-origen-del-problema)=
 ### El origen del problema
 Al ingresar datos desde la consola (por ejemplo, al escribir un número y presionar Enter), `scanf` lee únicamente el valor numérico correspondiente al formato especificado (como `%d`), dejando el carácter de salto de línea (`\n`) residual dentro de `stdin`.
 
 Si a continuación intentás leer un carácter utilizando `%c` o `getchar()`, esa lectura consumirá inmediatamente el `\n` residual en lugar de esperar la nueva entrada del usuario. Esto da la sensación de que el programa "saltea" la instrucción de lectura.
 
+(purgado-de-stdin-con-un-lazo)=
 ### Purgado de stdin con un lazo
 Para solucionar este comportamiento, debés limpiar o "purgar" el buffer de entrada, consumiendo todos los caracteres residuales hasta llegar al salto de línea inclusive. La manera estándar para lograr esto consiste en implementar un lazo simple de lectura de caracteres.
 
@@ -729,6 +752,7 @@ int main() {
 La condición `(c = getchar()) != '\n' && c != EOF` realiza tres acciones: lee un carácter de `stdin`, lo asigna a `c`, y continúa la iteración del lazo mientras no sea un salto de línea ni el fin del archivo (`EOF`). Se declara `c` como `int` porque la macro `EOF` representa habitualmente el valor entero `-1`. En plataformas donde el tipo `char` es `unsigned` (sin signo) por defecto, una variable `char` no podría almacenar un valor negativo, provocando un lazo infinito al comparar contra `EOF`.
 
 
+(ejercicios-de-autoevaluacion-flujo-seguro-y-buffer)=
 ### Ejercicios de Autoevaluación (Flujo Seguro y Buffer)
 
 :::{exercise}
@@ -826,6 +850,7 @@ int main() {
 
 ---
 
+(recomendaciones-didacticas)=
 ## Recomendaciones didácticas
 
 Cuando encuentres dificultades al depurar o diseñar un programa:
@@ -836,6 +861,7 @@ Cuando encuentres dificultades al depurar o diseñar un programa:
 
 ---
 
+(proximos-pasos)=
 ## Próximos Pasos
 
 En los siguientes capítulos avanzaremos en la construcción de software modular en C:
@@ -847,6 +873,7 @@ En los siguientes capítulos avanzaremos en la construcción de software modular
 
 ---
 
+(bibliografia-y-recursos-adicionales)=
 ## Bibliografía y Recursos Adicionales
 
 - Kernighan, B. W., & Ritchie, D. M. (1988). _The C Programming Language (2nd ed.)_. Prentice Hall. (El libro de referencia de C, "K&R").
@@ -854,6 +881,7 @@ En los siguientes capítulos avanzaremos en la construcción de software modular
 
 ---
 
+(glosario)=
 ## Glosario
 
 :::{glossary}

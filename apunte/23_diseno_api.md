@@ -12,6 +12,7 @@ Para el marco formal de contratos que sustenta el diseño de interfaces, ver
 {ref}`contratos-capitulo`. Para el patrón de punteros opacos que implementa
 el encapsulamiento, ver el capítulo [17_opacos](17_opacos).
 
+(introduccion-el-arte-de-disenar-contratos)=
 ## Introducción: El Arte de Diseñar Contratos
 
 Más allá de escribir algoritmos que funcionen, un programador profesional debe saber cómo construir **módulos de software** que otros puedan utilizar de manera fácil, segura y predecible. En C, la puerta de entrada a un módulo es su **interfaz pública** o **API** (Application Programming Interface), definida casi siempre en un archivo de cabecera (`.h`).
@@ -22,17 +23,19 @@ La noción de "contrato" fue formalizada por Bertrand Meyer en su metodología d
 
 Este apunte establece los lineamientos para diseñar interfaces de alta calidad en C, aplicando los principios de la descomposición funcional y las reglas de estilo para crear código que no solo es correcto, sino también elegante y mantenible.
 
+(el-desafio-del-diseno-en-c)=
 ### El Desafío del Diseño en C
 
 C es un lenguaje minimalista que delega gran parte de la responsabilidad de seguridad y corrección al programador. A diferencia de lenguajes modernos con sistemas de tipos más ricos, manejo automático de memoria o espacios de nombres modulares, C ofrece pocas herramientas para encapsulamiento y abstracción. Esta aparente limitación es también su fortaleza: la simplicidad y el control directo que brinda C son la razón por la cual sigue siendo el lenguaje de elección para sistemas operativos, drivers, sistemas embebidos y software de alto rendimiento [@kernighan1988].
 
 El diseño de APIs en C requiere disciplina y conocimiento profundo de los patrones idiomáticos del lenguaje. Como señalan Spinellis y Gousios [@spinellis2009], el código bien diseñado no es accidental; es el resultado de decisiones conscientes y la aplicación sistemática de principios de ingeniería de software.
 
+(principios-fundamentales-del-diseno-de-interfaces)=
 ## Principios Fundamentales del Diseño de Interfaces
 
 Un buen diseño de API se rige por un conjunto de principios que buscan maximizar la claridad, la seguridad y la facilidad de uso.
 
-(api-claridad)= 
+(1-claridad-y-expresividad)=
 ### 1. Claridad y Expresividad
 
 Una interfaz debe ser auto-documentada en la medida de lo posible. El código debe comunicar su intención de forma clara y directa. Como observa Martin [@martin2008], "el código se lee muchas más veces de las que se escribe", por lo que invertir en claridad es una optimización fundamental.
@@ -58,7 +61,7 @@ Una interfaz debe ser auto-documentada en la medida de lo posible. El código de
 
   La especificación formal de interfaces mediante contratos permite aplicar técnicas de verificación estática y testing basado en propiedades (*property-based testing*) [@claessen2000], aumentando drásticamente la confiabilidad del software.
 
-(api-sorpresa)= 
+(2-principio-de-minima-sorpresa)=
 ### 2. Principio de Mínima Sorpresa
 
 Una función o librería debe comportarse de la manera que un programador esperaría razonablemente. Evitá la "magia" y los comportamientos inesperados que obligan al usuario a leer la implementación para entender qué está pasando.
@@ -91,7 +94,7 @@ Por ejemplo, si una función modifica sus argumentos, esto debe ser evidente des
 
   La programación funcional, con su énfasis en funciones puras sin efectos secundarios, ha demostrado ventajas significativas en razonamiento y testing [@hughes1989]. Aunque C no es un lenguaje funcional, minimizar y hacer explícitos los efectos secundarios acerca el código a estas ventajas.
 
-(api-ocultamiento)= 
+(3-encapsulamiento-y-ocultamiento-de-informacion)=
 ### 3. Encapsulamiento y Ocultamiento de Información
 
 El usuario de tu librería no necesita (y no debe) conocer los detalles internos de su implementación. La interfaz pública (`.h`) debe exponer el **qué** (la capacidad), mientras que la implementación (`.c`) oculta el **cómo** (los detalles).
@@ -156,7 +159,7 @@ El trabajo seminal de Liskov y Zilles sobre TADs estableció que un tipo de dato
 
 - **Soporte para Múltiples Implementaciones**: Es posible tener diferentes implementaciones del mismo TAD (por ejemplo, una optimizada para memoria y otra para velocidad) que comparten la misma interfaz pública, permitiendo al usuario elegir en tiempo de compilación o enlace.
 
-(api-propiedad)= 
+(4-gestion-de-recursos-y-propiedad-ownership)=
 ### 4. Gestión de Recursos y Propiedad (Ownership)
 
 Una de las mayores fuentes de errores en C es la gestión de memoria. Tu API debe ser explícita sobre quién es el responsable (`owner`) de asignar y liberar cada recurso.
@@ -187,7 +190,7 @@ Cuando una función recibe un puntero a una estructura compleja, debe ser claro 
   bool lista_contiene(const lista_t *lista, const char *dato);
   :::
 
-(api-errores)= 
+(5-manejo-de-errores-robusto-y-consistente)=
 ### 5. Manejo de Errores Robusto y Consistente
 
 Una librería no debe terminar el programa abruptamente (ej. con `exit()`). Debe reportar los errores al llamador para que este decida cómo proceder.
@@ -210,7 +213,7 @@ Una librería no debe terminar el programa abruptamente (ej. con `exit()`). Debe
   const char *mi_libreria_ultimo_error_str(void);
   :::
 
-(api-minimalismo)= 
+(6-simplicidad-y-minimalismo)=
 ### 6. Simplicidad y Minimalismo
 
 Una buena interfaz es aquella que es lo más pequeña posible, pero no más. Cada función expuesta públicamente aumenta la "superficie de ataque" (potenciales bugs y vulnerabilidades) y la carga de mantenimiento.
@@ -221,11 +224,12 @@ Una buena interfaz es aquella que es lo más pequeña posible, pero no más. Cad
 
 - **Evitar la Complejidad Prematura**: No agregues funcionalidades que "podrían ser útiles en el futuro". Diseñá una API que resuelva el problema actual de forma elegante. Es más fácil agregar funciones después que quitarlas, ya que quitar una función rompe la compatibilidad con versiones anteriores.
 
+(ejemplos-practicos-de-diseno-de-apis)=
 ## Ejemplos Prácticos de Diseño de APIs
 
 Los principios anteriores cobran vida cuando se aplican a problemas reales. A continuación se presentan ejemplos concretos que ilustran cómo diseñar interfaces robustas y mantenibles en C.
 
-(api-ejemplo-lista)= 
+(ejemplo-1-diseno-de-una-lista-enlazada)=
 ### Ejemplo 1: Diseño de una Lista Enlazada
 
 Una lista enlazada es una estructura de datos fundamental que ejemplifica perfectamente los principios de diseño de APIs. El objetivo es ofrecer una interfaz que oculte la complejidad interna de la gestión de nodos y memoria.
@@ -305,7 +309,7 @@ bool lista_contiene(const lista_t *lista, int dato);
 
 - **Prefijo Consistente ({ref}`api-claridad`)**: Todas las funciones públicas usan el prefijo `lista_`, evitando colisiones de nombres en el espacio de nombres global de C.
 
-(api-ejemplo-calculadora)= 
+(ejemplo-2-modulo-de-operaciones-matematicas-seguras)=
 ### Ejemplo 2: Módulo de Operaciones Matemáticas Seguras
 
 Un módulo que realiza operaciones matemáticas básicas con manejo de errores robusto demuestra cómo diseñar una API que reporta errores sin terminar el programa.
@@ -447,7 +451,7 @@ int main(void)
 
 - **Función Auxiliar para Mensajes**: `mat_error_str()` permite al llamador decidir cómo manejar los mensajes de error (mostrarlos, guardarlos en un log, etc.), sin que la librería asuma control sobre la salida.
 
-(api-ejemplo-archivo-config)= 
+(ejemplo-3-lector-de-archivos-de-configuracion)=
 ### Ejemplo 3: Lector de Archivos de Configuración
 
 Un módulo que lee archivos de configuración simple (formato clave=valor) ilustra cómo diseñar APIs que gestionan recursos del sistema de forma segura.
@@ -538,11 +542,12 @@ bool config_existe(const config_t *config, const char *clave);
 
 - **Uso Consistente de `const`**: Los parámetros que no son modificados están marcados como `const`, tanto los punteros a estructuras opacas como las cadenas.
 
+(patrones-comunes-de-diseno-en-c)=
 ## Patrones Comunes de Diseño en C
 
 Además de los principios fundamentales, existen patrones de diseño que han demostrado ser efectivos en el desarrollo de APIs en C.
 
-(api-patron-constructor-destructor)= 
+(patron-constructor-destructor)=
 ### Patrón Constructor/Destructor
 
 Este patrón garantiza que cada recurso tenga un ciclo de vida bien definido. Para cada función `X_crear()`, debe existir una `X_destruir()` correspondiente, como exige la regla {ref}`0x3002h`.
@@ -560,7 +565,7 @@ void recurso_destruir(recurso_t *recurso);
 - Hace explícito el ciclo de vida de los recursos.
 - Facilita la gestión de recursos del sistema (archivos, sockets, etc.).
 
-(api-patron-init-finalize)= 
+(patron-init-finalize)=
 ### Patrón Init/Finalize
 
 Cuando el usuario provee la memoria (por ejemplo, una variable en el stack), se utiliza un par de funciones de inicialización y finalización.
@@ -600,7 +605,7 @@ La elección entre estos patrones depende del contexto de uso:
 Muchas APIs profesionales ofrecen ambas alternativas para máxima flexibilidad. Por ejemplo, `pthread_mutex_t` de POSIX puede ser inicializado estáticamente o dinámicamente [@ieee2018].
 :::
 
-(api-patron-getter-setter)= 
+(patron-getter-setter)=
 ### Patrón Getter/Setter
 
 Para estructuras opacas, se proveen funciones de acceso que mantienen la encapsulación.
@@ -627,11 +632,12 @@ El patrón getter/setter introduce una indirección adicional (una llamada a fun
 2. En la mayoría de los programas, el costo de la abstracción es despreciable comparado con los beneficios de mantenibilidad y evolución del código.
 3. Como enfatiza Knuth [@knuth1974]: "La optimización prematura es la raíz de todos los males". Optimizá solo después de medir y cuando sea realmente necesario.
 
+(antipatrones-que-evitar)=
 ## Antipatrones: Qué Evitar
 
 Tan importante como saber qué hacer es saber qué NO hacer. Los siguientes son errores comunes en el diseño de APIs en C.
 
-(api-antipatron-magic-numbers)= 
+(antipatron-1-numeros-magicos-en-la-interfaz)=
 ### Antipatrón 1: Números Mágicos en la Interfaz
 
 :::{code-block} c
@@ -658,7 +664,7 @@ archivo_abrir("datos.txt", ARCHIVO_ESCRITURA);
 
 Este antipatrón viola la regla {ref}`0x2005h`, que exige usar constantes simbólicas para valores especiales.
 
-(api-antipatron-funciones-globales)= 
+(antipatron-2-estado-global-oculto)=
 ### Antipatrón 2: Estado Global Oculto
 
 :::{code-block} c
@@ -684,7 +690,7 @@ void motor_procesar(motor_t *motor);
 void motor_destruir(motor_t *motor);
 :::
 
-(api-antipatron-boolean-trap)= 
+(antipatron-3-trampa-booleana-boolean-trap)=
 ### Antipatrón 3: Trampa Booleana (_Boolean Trap_)
 
 :::{code-block} c
@@ -712,7 +718,7 @@ ventana_crear(800, 600, VENTANA_VISIBLE, VENTANA_NO_MODAL);
 
 La solución es reemplazar los booleanos por tipos enumerados que hagan explícito el significado de cada valor. Esto mejora dramáticamente la legibilidad y previene errores sutiles causados por invertir accidentalmente el orden de los argumentos.
 
-(api-antipatron-out-params)= 
+(antipatron-4-abuso-de-parametros-de-salida)=
 ### Antipatrón 4: Abuso de Parámetros de Salida
 
 :::{code-block} c
@@ -744,6 +750,7 @@ if (parsear_fecha("2024-03-15", &fecha)) {
 
 
 
+(resumen-del-diseno-de-interfaces)=
 ## Resumen del Diseño de Interfaces
 
 En este apunte hemos cubierto los fundamentos del diseño de APIs en C:

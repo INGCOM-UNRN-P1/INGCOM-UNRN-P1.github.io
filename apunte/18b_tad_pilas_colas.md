@@ -4,7 +4,7 @@ short_title: 'Pilas y Colas'
 subtitle: 'TAD Pila, Cola y Deque'
 ---
 
-(pilas-colas-capitulo)=
+(pilas-stacks)=
 ## Pilas (Stacks)
 
 Una **pila** es una estructura de datos lineal que sigue el principio **LIFO** (*Last In, First Out*): el último elemento en entrar es el primero en salir. Es análogo a una pila de platos donde solo podés agregar o quitar platos desde la parte superior.
@@ -16,6 +16,7 @@ Una **pila** es una estructura de datos lineal que sigue el principio **LIFO** (
 Estructura de pila con operaciones push (apilar) y pop (desapilar). El acceso es únicamente por el tope.
 ```
 
+(operaciones-fundamentales)=
 ### Operaciones Fundamentales
 
 - **push(elemento):** Agrega un elemento al tope de la pila.
@@ -23,6 +24,7 @@ Estructura de pila con operaciones push (apilar) y pop (desapilar). El acceso es
 - **peek() o top():** Retorna el elemento del tope sin extraerlo.
 - **es_vacia():** Verifica si la pila está vacía.
 
+(implementacion-con-lista-enlazada)=
 ### Implementación con Lista Enlazada
 
 ```{figure} 18/pila_lista_enlazada.svg
@@ -178,6 +180,7 @@ void pila_destruir(pila_t *pila, destruir_dato_fn destruir_dato)
 Es fundamental liberar toda la memoria utilizada, recorriendo la lista y liberando cada nodo antes de liberar la estructura de la pila.
 :::
 
+(analisis-de-complejidad-lista-enlazada)=
 ### Análisis de Complejidad (Lista Enlazada)
 
 | Operación | Complejidad Temporal | Complejidad Espacial |
@@ -187,6 +190,7 @@ Es fundamental liberar toda la memoria utilizada, recorriendo la lista y liberan
 | peek | $O(1)$ | $O(1)$ |
 | es_vacia | $O(1)$ | $O(1)$ |
 
+(implementacion-con-arreglo-dinamico)=
 ### Implementación con Arreglo Dinámico
 
 Una alternativa es implementar la pila usando un arreglo, donde el tope es el último elemento ocupado.
@@ -306,6 +310,7 @@ bool pila_pop_arreglo(pila_t *pila, void **dato)
 }
 ```
 
+(analisis-de-complejidad-arreglo)=
 ### Análisis de Complejidad (Arreglo)
 
 | Operación | Complejidad Temporal | Complejidad Espacial |
@@ -319,6 +324,7 @@ bool pila_pop_arreglo(pila_t *pila, void **dato)
 Aunque `push` puede ser $O(n)$ cuando requiere redimensionar, el análisis amortizado muestra que en promedio sigue siendo $O(1)$. Este tipo de análisis es crucial para estructuras de datos dinámicas y se estudia en profundidad en {ref}`complejidad-introduccion`.
 :::
 
+(aplicaciones-de-pilas)=
 ### Aplicaciones de Pilas
 
 Las pilas aparecen naturalmente en numerosos contextos de programación:
@@ -375,6 +381,7 @@ bool parentesis_balanceados(const char *expresion)
 }
 ```
 
+(ejercicios-de-pilas)=
 ### Ejercicios de Pilas
 
 #### Ejercicio 1: Inversión de una cadena con pila
@@ -655,6 +662,7 @@ La complejidad temporal es lineal $O(n)$ con respecto a la longitud de la cadena
 :::
 
 
+(colas-queues)=
 ## Colas (Queues)
 
 Una **cola** es una estructura de datos lineal que sigue el principio **FIFO** (*First In, First Out*): el primer elemento en entrar es el primero en salir. Es análogo a una fila de personas donde quien llega primero es atendido primero.
@@ -825,6 +833,7 @@ void cola_destruir(cola_t *cola, destruir_dato_fn destruir_dato)
 }
 ```
 
+(analisis-de-complejidad-lista-enlazada)=
 ### Análisis de Complejidad (Lista Enlazada)
 
 | Operación | Complejidad Temporal | Complejidad Espacial |
@@ -834,6 +843,7 @@ void cola_destruir(cola_t *cola, destruir_dato_fn destruir_dato)
 | peek | $O(1)$ | $O(1)$ |
 | es_vacia | $O(1)$ | $O(1)$ |
 
+(implementacion-con-arreglo-circular)=
 ### Implementación con Arreglo Circular
 
 Una implementación eficiente de cola con arreglo usa la técnica de **arreglo circular**, donde los índices "dan la vuelta" al final del arreglo.
@@ -976,6 +986,7 @@ bool cola_dequeue_circular(cola_t *cola, void **dato)
 Al redimensionar, es crucial copiar los elementos en el orden secuencial correcto (frente a final), considerando que el frente puede no estar alineado en la posición 0 del arreglo original.
 :::
 
+(analisis-de-complejidad-arreglo-circular)=
 ### Análisis de Complejidad (Arreglo Circular)
 
 | Operación | Complejidad Temporal | Complejidad Espacial |
@@ -985,6 +996,7 @@ Al redimensionar, es crucial copiar los elementos en el orden secuencial correct
 | peek | $O(1)$ | $O(1)$ |
 | es_vacia | $O(1)$ | $O(1)$ |
 
+(aplicaciones-de-colas)=
 ### Aplicaciones de Colas
 
 Las colas modelan situaciones donde el orden de llegada importa:
@@ -995,6 +1007,7 @@ Las colas modelan situaciones donde el orden de llegada importa:
 4. **Simulaciones:** Modelado de filas de espera, teoría de colas.
 5. **Procesamiento asíncrono:** Cola de tareas, sistemas de mensajería.
 
+(ejercicios-de-colas)=
 ### Ejercicios de Colas
 
 #### Ejercicio 1: Simulador de cola de impresión
@@ -1233,6 +1246,7 @@ bool invertir_primeros_k(cola_t *cola, size_t k)
 La complejidad temporal de esta solución es lineal $O(n)$ donde $n$ es la cantidad de elementos en la cola. La complejidad espacial es $O(k)$ por los elementos almacenados temporalmente en la pila auxiliar.
 :::
 
+(comparacion-pilas-vs-colas)=
 ## Comparación: Pilas vs Colas
 
 | Aspecto | Pila (LIFO) | Cola (FIFO) |
@@ -1249,6 +1263,7 @@ La complejidad temporal de esta solución es lineal $O(n)$ donde $n$ es la canti
 Ambas estructuras son especializaciones del TAD Secuencia con restricciones de acceso. La restricción no es una limitación, sino una garantía que simplifica el razonamiento sobre el código.
 :::
 
+(deques-double-ended-queues)=
 ## Deques (Double-Ended Queues)
 
 Un **deque** (pronunciado "deck") es una generalización que permite insertar y extraer elementos en ambos extremos.
@@ -1260,6 +1275,7 @@ Un **deque** (pronunciado "deck") es una generalización que permite insertar y 
 Deque con operaciones en ambos extremos. Es una generalización de pilas y colas.
 ```
 
+(operaciones)=
 ### Operaciones
 
 - **push_front(elemento):** Agrega al frente.
@@ -1271,12 +1287,14 @@ Deque con operaciones en ambos extremos. Es una generalización de pilas y colas
 Un deque puede simular tanto una pila (usando solo un extremo) como una cola (usando ambos extremos de forma restringida). Es más general pero potencialmente más difícil de razonar sobre su uso.
 :::
 
+(aplicaciones-de-deques)=
 ### Aplicaciones de Deques
 
 - **Algoritmos de ventana deslizante:** Mantener mínimos/máximos en una ventana.
 - **Navegación con historial:** Forward/backward en navegadores.
 - **Work stealing:** Algoritmos paralelos donde los threads roban tareas de ambos extremos.
 
+(ejercicios-de-deques)=
 ### Ejercicios de Deques
 
 #### Ejercicio 1: Verificar palíndromo con Deque
@@ -1534,8 +1552,10 @@ int *maximos_ventana_deslizante(const int *arreglo, size_t n, size_t k, size_t *
 Dado que cada índice del arreglo se inserta y extrae del deque como máximo una vez, el tiempo consumido por las operaciones internas del deque a lo largo de todo el proceso está acotado por $O(n)$, logrando una complejidad temporal óptima de $O(n)$. La complejidad espacial es $O(k)$ para almacenar los índices dentro del deque.
 :::
 
+(comparacion-de-implementaciones)=
 ## Comparación de Implementaciones
 
+(lista-enlazada-vs-arreglo)=
 ### Lista Enlazada vs Arreglo
 
 | Criterio | Lista Enlazada | Arreglo (Circular) |
@@ -1550,10 +1570,12 @@ Dado que cada índice del arreglo se inserta y extrae del deque como máximo una
 Para aplicaciones donde el rendimiento es crítico y el tamaño máximo es conocido, la implementación con arreglo circular es preferible por su mejor localidad de caché. Para tamaños muy variables o cuando la simplicidad del código importa más que el rendimiento, la lista enlazada es más apropiada.
 :::
 
+(panorama-de-estructuras-de-datos)=
 ## Panorama de Estructuras de Datos
 
 Las pilas y colas son solo el comienzo. Existe un ecosistema rico de estructuras de datos, cada una optimizada para diferentes patrones de acceso.
 
+(clasificacion-por-restricciones-de-acceso)=
 ### Clasificación por Restricciones de Acceso
 
 1. **Acceso Completamente Restringido:**
@@ -1572,6 +1594,7 @@ Las pilas y colas son solo el comienzo. Existe un ecosistema rico de estructuras
    - Tablas Hash: búsqueda en $O(1)$ promedio
    - Árboles Binarios de Búsqueda: búsqueda en $O(\log n)$
 
+(estructuras-avanzadas)=
 ### Estructuras Avanzadas
 
 **Árboles:**
@@ -1601,6 +1624,7 @@ Cada estructura de datos representa un compromiso (*trade-off*) entre tiempo de 
 
 
 
+(referencias-y-lecturas-complementarias)=
 ## Referencias y Lecturas Complementarias
 
 Para profundizar en el estudio de los TADs y estructuras de datos, se recomiendan las siguientes referencias:
@@ -1619,6 +1643,7 @@ Para aspectos específicos de gestión de memoria y su impacto en la implementac
 La implementación de TADs es una habilidad fundamental que requiere práctica. Te recomendamos implementar cada estructura desde cero al menos una vez, probando exhaustivamente cada operación con casos de prueba variados. Usá herramientas como Valgrind durante el desarrollo para detectar fugas de memoria tempranamente.
 :::
 
+(resumen)=
 ## Resumen
 
 Los Tipos de Datos Abstractos son una herramienta fundamental para construir software modular y mantenible. En este apunte hemos cubierto:

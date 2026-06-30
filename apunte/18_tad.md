@@ -3,9 +3,10 @@ title: Tipos de Datos Abstractos, Pilas y Colas
 short_title: "Estructuras de datos"
 subtitle: Estructuras de datos dinámicas y especializadas
 ---
-(tad-capitulo)=
+(concepto-y-diseno-de-tads)=
 ## Concepto y Diseño de TADs
 
+(introduccion)=
 ### Introducción
 
 Un **Tipo de Dato Abstracto** (TAD, del inglés *Abstract Data Type*, ADT) es un modelo matemático que define un conjunto de datos junto con las operaciones que pueden realizarse sobre ellos, ocultando los detalles de su implementación. El concepto de TAD es fundamental en la ciencia de la computación porque establece una separación clara entre **qué** hace una estructura de datos (su interfaz) y **cómo** lo hace (su implementación).
@@ -19,6 +20,7 @@ Esta abstracción permite que el usuario de la estructura se concentre en resolv
 Separación entre interfaz e implementación en un TAD. La barrera de abstracción protege los detalles internos.
 ```
 
+(caracteristicas-de-un-tad)=
 ### Características de un TAD
 
 Un TAD se caracteriza por tres componentes esenciales:
@@ -27,6 +29,7 @@ Un TAD se caracteriza por tres componentes esenciales:
 2. **Operaciones:** Conjunto de funciones que manipulan los datos de manera controlada.
 3. **Axiomas o invariantes:** Propiedades que deben cumplirse en todo momento para garantizar la coherencia de la estructura.
 
+(encapsulamiento-y-abstraccion)=
 ### Encapsulamiento y Abstracción
 
 El principio de **encapsulamiento** es el pilar que sostiene a la abstracción: garantiza que los datos internos de un TAD no puedan ser manipulados de manera directa desde el código cliente. En C, este ocultamiento físico se implementa a través de la técnica de **punteros opacos**, declarando tipos incompletos en la cabecera e implementando sus detalles estructurales en el archivo fuente `.c`.
@@ -37,6 +40,7 @@ Para un análisis detallado sobre cómo funciona esta técnica a nivel del compi
 La abstracción no se reduce a ocultar información; su objetivo es proveer una interfaz limpia y coherente que proteja las invariantes internas del TAD y permita su uso de manera intuitiva y segura.
 :::
 
+(tad-vs-estructura-de-datos)=
 ### TAD vs. Estructura de Datos
 
 - **TAD**: Es un concepto lógico, una **especificación** de comportamiento (el "qué").
@@ -44,6 +48,7 @@ La abstracción no se reduce a ocultar información; su objetivo es proveer una 
 
 ---
 
+(ejemplos-clasicos-de-tipos-de-datos-abstractos)=
 ### Ejemplos Clásicos de Tipos de Datos Abstractos
 
 - **Lista (List)**: Colección ordenada y posicionada de elementos.
@@ -54,6 +59,7 @@ La abstracción no se reduce a ocultar información; su objetivo es proveer una 
 
 ---
 
+(metodologia-para-el-diseno-de-un-tad-propio)=
 ### Metodología para el Diseño de un TAD Propio
 
 Crear un TAD es un ejercicio de diseño centrado en la abstracción. Seguir un proceso metodológico asegura que el resultado sea robusto, claro y útil.
@@ -66,6 +72,7 @@ Crear un TAD es un ejercicio de diseño centrado en la abstracción. Seguir un p
 
 ---
 
+(asignacion-de-memoria-estatica-vs-dinamica)=
 ### Asignación de Memoria: Estática vs. Dinámica
 
 El diseño e implementación de Tipos de Datos Abstractos en C requiere una gestión rigurosa de la memoria. La elección entre el ciclo de vida automático en el *stack* (memoria estática) o el ciclo de vida dinámico en el *heap* (memoria dinámica) define cómo se almacenan, acceden y destruyen los elementos del TAD.
@@ -76,6 +83,7 @@ Para un análisis detallado sobre el funcionamiento del stack, consultá la secc
 En este apunte se utiliza prioritariamente la asignación dinámica de memoria en el heap para permitir que las estructuras de datos tengan un tamaño variable y flexible en tiempo de ejecución. Recordá aplicar siempre las buenas prácticas de inicialización y liberación de punteros documentadas en {ref}`memoria-buenas-practicas` (reglas {ref}`0x0003h` y {ref}`0x0036h`).
 :::
 
+(ejercicios-de-concepto-y-diseno-de-tads)=
 ### Ejercicios de Concepto y Diseño de TADs
 
 :::{exercise}
@@ -226,12 +234,14 @@ Un año es bisiesto si es divisible por 4 pero no por 100, excepto que sea divis
 - **Selectores y Consultores:** Al ser de solo lectura, no pueden violar los invariantes, pero confían en que se mantuvieron válidos previamente.
 :::
 
+(tipificacion-de-acciones)=
 ## Tipificación de Acciones
 
 Cuando diseñamos un TAD, las operaciones que lo componen no son arbitrarias. Cada función cumple un **rol específico** en la manipulación de la estructura de datos. Clasificar estas operaciones según su propósito permite crear interfaces coherentes y predecibles, facilitando tanto la implementación como el uso del TAD.
 
 A continuación se presentan las **siete categorías fundamentales** de operaciones que típicamente conforman un TAD bien diseñado:
 
+(1-constructor)=
 ### 1. Constructor
 
 **Propósito:** "Prepara el terreno".
@@ -251,6 +261,7 @@ lista_t* crear_lista(void);
 En C, los constructores siempre devuelven un puntero a la estructura recién creada, o `NULL` si la creación falla (por ejemplo, por falta de memoria). El llamador es responsable de verificar el resultado antes de usar la estructura.
 :::
 
+(2-selector)=
 ### 2. Selector
 
 **Propósito:** "Recupera información".
@@ -270,6 +281,7 @@ int primero = frente(cola);
 Los selectores **no modifican** el estado de la estructura. Deben ser operaciones seguras que puedan invocarse múltiples veces sin efectos secundarios. En términos de programación funcional, son funciones puras respecto al estado del TAD.
 :::
 
+(3-consultor)=
 ### 3. Consultor
 
 **Propósito:** "Recupera meta-información".
@@ -290,6 +302,7 @@ size_t capacidad_actual = capacidad(arreglo_dinamico);
 - **Selector:** Devuelve un dato del usuario almacenado → `ver_tope(pila)` devuelve el elemento en el tope.
 - **Consultor:** Devuelve información sobre la estructura → `esta_vacia(pila)` informa si hay elementos o no.
 
+(4-iterador)=
 ### 4. Iterador
 
 **Propósito:** "Recorre la información".
@@ -315,6 +328,7 @@ recorrer(lista, procesar, contexto);
 Los iteradores son especialmente útiles cuando la estructura de datos tiene múltiples formas de recorrido (por ejemplo, un árbol puede recorrerse en preorden, inorden o postorden). Cada estrategia puede implementarse como un iterador diferente sin cambiar la estructura subyacente.
 :::
 
+(5-mutador)=
 ### 5. Mutador
 
 **Propósito:** "Modifica la información".
@@ -336,6 +350,7 @@ void modificar(matriz, fila, col, nuevo_valor);
 Los mutadores deben garantizar que la estructura permanece en un estado **válido** después de la operación. Por ejemplo, si una pila tiene un invariante de que `tope < capacidad`, la operación `apilar` debe verificar esta condición antes de agregar un elemento, y devolver `false` o redimensionar la estructura si es necesario.
 :::
 
+(6-conversor)=
 ### 6. Conversor
 
 **Propósito:** "Crea una estructura similar".
@@ -360,6 +375,7 @@ Los conversores típicamente **asignan memoria nueva** para el resultado. El lla
 - **Selector:** Devuelve una *referencia* a datos existentes → `obtener(arreglo, 5)` devuelve el elemento en posición 5.
 - **Conversor:** Crea una *nueva estructura* con datos derivados → `rebanar(arreglo, 2, 5)` crea un nuevo arreglo con copia de elementos 2-5.
 
+(7-destructor)=
 ### 7. Destructor
 
 **Propósito:** "Libera los recursos".
@@ -403,6 +419,7 @@ void destruir_lista(lista_t* lista, void (*destruir_dato)(void*)) {
 }
 ```
 
+(resumen-de-tipificacion)=
 ### Resumen de Tipificación
 
 La siguiente tabla resume las siete categorías de operaciones:
@@ -432,6 +449,7 @@ Cuando diseñes un nuevo TAD, usá esta tipificación como lista de verificació
 Esta clasificación no solo organiza tu código, sino que comunica claramente la **intención** de cada función a quienes usen tu TAD.
 :::
 
+(ejercicios-de-tipificacion-de-acciones)=
 ### Ejercicios de Tipificación de Acciones
 
 :::{exercise}
@@ -622,10 +640,12 @@ void tabla_destruir(tabla_hash_t *tabla, void (*destruir_dato)(void *))
 ```
 :::
 
+(listas-enlazadas-tad-secuencia)=
 ## Listas Enlazadas (TAD Secuencia)
 
 Una **secuencia** es una colección ordenada de elementos donde cada elemento tiene una posición definida. Es uno de los TADs más fundamentales en programación, ya que representa la idea abstracta de "una serie de cosas en orden".
 
+(interfaz-del-tad-secuencia)=
 ### Interfaz del TAD Secuencia
 
 El TAD Secuencia define las siguientes operaciones esenciales:
@@ -641,6 +661,7 @@ El TAD Secuencia define las siguientes operaciones esenciales:
 - **es_vacia(secuencia):** Verifica si la secuencia está vacía.
 - **destruir(secuencia):** Libera todos los recursos asociados.
 
+(multiples-implementaciones)=
 ### Múltiples Implementaciones
 
 Lo poderoso de un TAD es que esta misma interfaz puede implementarse de diferentes maneras, cada una con sus ventajas y desventajas. Las dos implementaciones más comunes de una secuencia son:
@@ -657,6 +678,7 @@ La misma interfaz de secuencia puede implementarse con arreglos (memoria contigu
 El código que usa una secuencia no necesita saber si está implementada con arreglos o listas enlazadas. Esto permite cambiar la implementación sin modificar el código cliente, eligiendo la mejor opción según las necesidades de rendimiento.
 :::
 
+(comparacion-de-implementaciones)=
 ### Comparación de Implementaciones
 
 | Aspecto | Arreglo | Lista Enlazada |
@@ -675,6 +697,7 @@ El código que usa una secuencia no necesita saber si está implementada con arr
 Las notaciones $O(1)$, $O(n)$, etc., describen el **comportamiento asintótico** del tiempo de ejecución. Para entender en profundidad qué significa la notación Big-O, cómo analizar algoritmos formalmente, y las diferentes notaciones asintóticas (Omega, Theta), consultá {ref}`complejidad-introduccion`.
 :::
 
+(implementacion-de-secuencia-con-listas)=
 ### Implementación de Secuencia con Listas
 
 Una **lista enlazada** es una implementación del TAD Secuencia donde los elementos se almacenan en nodos individuales conectados mediante punteros. A diferencia de los arreglos, los nodos no necesitan estar en posiciones contiguas de memoria, lo que permite inserciones y eliminaciones eficientes al inicio.
@@ -682,12 +705,14 @@ Una **lista enlazada** es una implementación del TAD Secuencia donde los elemen
 
 Esta es una de las estructuras de datos dinámicas más fundamentales y sirve como base para implementar otros TADs como pilas y colas.
 
+(ventajas-de-las-listas-enlazadas)=
 ### Ventajas de las Listas Enlazadas
 
 - **Tamaño dinámico:** Crece y decrece según las necesidades sin redimensionamiento.
 - **Inserción y eliminación eficientes:** $O(1)$ si tenemos la referencia al nodo.
 - **No requiere reorganización:** Al insertar o eliminar elementos intermedios.
 
+(desventajas-de-las-listas-enlazadas)=
 ### Desventajas de las Listas Enlazadas
 
 - **Acceso secuencial:** No hay acceso directo por índice ($O(n)$).
@@ -699,6 +724,7 @@ Esta es una de las estructuras de datos dinámicas más fundamentales y sirve co
 Las operaciones de la lista enlazada implementan directamente las operaciones del TAD Secuencia. Por ejemplo, `insertar_al_inicio` de la lista corresponde a la operación abstracta de la secuencia.
 :::
 
+(lista-enlazada-simple)=
 ### Lista Enlazada Simple
 
 En una lista enlazada simple, cada nodo apunta únicamente al siguiente nodo de la secuencia. El último nodo apunta a `NULL`, indicando el final de la lista.
@@ -1011,6 +1037,7 @@ La destrucción apropiada de estructuras de datos es crítica para evitar fugas 
 Operaciones fundamentales en listas enlazadas: inserción, eliminación, búsqueda y recorrido.
 ```
 
+(lista-doblemente-enlazada)=
 ### Lista Doblemente Enlazada
 
 Una lista doblemente enlazada extiende la lista simple agregando un puntero adicional en cada nodo que apunta al nodo anterior. Esto permite el recorrido bidireccional de la lista.
@@ -1139,10 +1166,12 @@ bool eliminar_nodo_doble(lista_doble_t *lista, nodo_doble_t *nodo)
 Observá cómo la estructura del código refleja claramente la lógica: primero se actualizan los punteros de los nodos adyacentes, luego se libera el nodo. Esta organización facilita la comprensión.
 :::
 
+(lista-circular)=
 ### Lista Circular
 
 Una **lista circular** es una variante donde el último nodo apunta de nuevo al primero, formando un ciclo. Puede ser simple o doblemente enlazada. Son útiles en aplicaciones que requieren procesamiento cíclico, como buffers circulares o sistemas round-robin.
 
+(ejercicios-de-listas-enlazadas)=
 ### Ejercicios de Listas Enlazadas
 
 :::{exercise}
@@ -1325,11 +1354,13 @@ void invertir_lista(lista_t *lista)
 ```
 :::
 
+(arreglos-dinamicos-tad-secuencia)=
 ## Arreglos Dinámicos (TAD Secuencia)
 
 
 Para demostrar el poder de la abstracción del TAD, presentamos ahora una implementación alternativa del TAD Secuencia utilizando arreglos en lugar de listas enlazadas. Esta implementación ofrece diferentes características de rendimiento, pero mantiene la misma interfaz conceptual.
 
+(secuencia-con-arreglo-dinamico)=
 ### Secuencia con Arreglo Dinámico
 
 Un arreglo dinámico combina las ventajas del acceso aleatorio de los arreglos con la flexibilidad de tamaño de las estructuras dinámicas.
@@ -1511,6 +1542,7 @@ void destruir_secuencia_arreglo(secuencia_arreglo_t *sec)
 }
 ```
 
+(comparacion-arreglo-vs-lista-enlazada-como-secuencia)=
 ### Comparación: Arreglo vs Lista Enlazada como Secuencia
 
 Ahora que hemos visto ambas implementaciones del TAD Secuencia, podemos compararlas directamente:
@@ -1543,6 +1575,7 @@ Esta tabla muestra las complejidades temporales en notación Big-O, que describe
 Esta separación entre interfaz e implementación es un ejemplo del patrón de diseño **Strategy**. El código cliente puede trabajar con "secuencias" sin importar la implementación subyacente, permitiendo optimizar según el caso de uso.
 :::
 
+(complejidad-temporal-de-las-operaciones)=
 ### Complejidad Temporal de las Operaciones
 
 La eficiencia de las operaciones es un criterio fundamental al elegir una estructura de datos:
@@ -1562,6 +1595,7 @@ La eficiencia de las operaciones es un criterio fundamental al elegir una estruc
 La notación Big-O describe el comportamiento asintótico en el peor caso. En casos promedio o con estructuras auxiliares, las complejidades pueden variar. Para un análisis formal y riguroso del análisis asintótico, incluyendo las notaciones Omega ($\Omega$) y Theta ($\Theta$), consultá {ref}`complejidad-introduccion`.
 :::
 
+(comparacion-arreglos-vs-listas-enlazadas-como-secuencias)=
 ### Comparación: Arreglos vs. Listas Enlazadas como Secuencias
 
 Ya hemos visto en detalle cómo tanto los arreglos dinámicos como las listas enlazadas pueden implementar el TAD Secuencia. Esta tabla resume las diferencias clave entre ambas implementaciones:
@@ -1588,6 +1622,7 @@ Para ver implementaciones concretas de ambas aproximaciones, consultá las secci
 El concepto clave aquí es que **ambas estructuras implementan el mismo TAD Secuencia**. El código que utiliza una secuencia puede ser escrito de forma genérica, permitiendo cambiar entre implementaciones según las necesidades de rendimiento específicas sin reescribir la lógica de negocio.
 :::
 
+(ejercicios-de-arreglos-dinamicos)=
 ### Ejercicios de Arreglos Dinámicos
 
 
@@ -1722,11 +1757,14 @@ Describí estrategias de optimización para cada caso y justificá tus respuesta
 - **Optimización ($O(n)$ temporal y $O(1)$ espacial):** Podemos aplicar la técnica de los **dos índices** en un solo lazo. Usamos un índice de lectura que recorre todo el arreglo elemento por elemento, y un índice de escritura que indica dónde debe copiarse el siguiente elemento que *sí* pasa el filtro. Una vez terminado el lazo, actualizamos el tamaño de la secuencia a la posición final del índice de escritura. Esto reduce la complejidad a un único paso lineal $O(n)$ con un mínimo costo de copiado.
 :::
 
+(genericidad-y-callbacks)=
 ## Genericidad y Callbacks
 
+(consideraciones-de-implementacion)=
 ### Consideraciones de Implementación
 
 
+(manejo-de-errores)=
 ### Manejo de Errores
 
 En C no existen excepciones nativas, por lo que el manejo de errores debe realizarse mediante códigos de retorno o valores especiales. Las convenciones comunes incluyen:
@@ -1740,6 +1778,7 @@ En C no existen excepciones nativas, por lo que el manejo de errores debe realiz
 Documentá exhaustivamente la interfaz pública de tu TAD, especificando el comportamiento ante casos de error, condiciones previas y posteriores de cada función.
 :::
 
+(invariantes)=
 ### Invariantes
 
 Un **invariante** es una propiedad que siempre debe ser verdadera en una estructura de datos bien formada. Por ejemplo:
@@ -1749,6 +1788,7 @@ Un **invariante** es una propiedad que siempre debe ser verdadera en una estruct
 
 Mantener estos invariantes es responsabilidad de las funciones de manipulación del TAD.
 
+(seguridad-y-robustez)=
 ### Seguridad y Robustez
 
 ```{code-block}c
@@ -1774,11 +1814,13 @@ La programación defensiva es especialmente importante en TADs porque el usuario
 Para técnicas avanzadas de validación y depuración de errores relacionados con memoria en estructuras dinámicas, consultá [Capítulo: Memoria Dinámica — sección Valgrind](14_memoria_dinamica.md). Herramientas como Valgrind son invaluables para detectar fugas de memoria y accesos inválidos en TADs complejos.
 :::
 
+(introduccion-a-la-genericidad)=
 ### Introducción a la Genericidad
 
 
 En los ejemplos anteriores, diseñamos estructuras que almacenan un tipo de dato específico (como enteros `int`). Sin embargo, en el desarrollo real de software a menudo necesitás estructuras reutilizables que puedan almacenar *cualquier* tipo de información (números reales, caracteres, structs personalizadas, etc.). Para lograr esto en C estándar sin tener que duplicar el código, se recurre a la **genericidad elemental** utilizando punteros genéricos `void*` y **funciones callback**.
 
+(genericidad-con-void)=
 ### Genericidad con `void*`
 
 Un puntero a `void` (`void*`) es un puntero especial que puede almacenar la dirección de cualquier objeto, sin importar su tipo. En C, podés convertir cualquier puntero a `void*` y viceversa sin necesidad de un cast explícito.
@@ -1789,6 +1831,7 @@ Al diseñar un TAD genérico, la representación de datos interna no guarda el v
 El compilador no puede verificar a qué tipo de dato apunta un `void*`. Tampoco podés desreferenciar un puntero `void*` directamente (`*ptr`), ni realizar aritmética de punteros con él, ya que su tamaño asociado es desconocido. Es tu responsabilidad como programador recordar el tipo subyacente y realizar la conversión correspondiente cuando extraigas el dato.
 :::
 
+(funciones-callback)=
 ### Funciones Callback
 
 Como el TAD genérico maneja direcciones a ciegas (`void*`), no sabe cómo comparar los elementos, cómo imprimirlos o cómo destruirlos de forma segura. Para solucionar esto, el TAD delega estas tareas al código cliente mediante **punteros a funciones** o **callbacks**.
@@ -1897,6 +1940,7 @@ int main(void)
 }
 ```
 
+(callbacks-de-comparacion)=
 ### Callbacks de Comparación
 
 En colecciones genéricas (`void*`), el tipo de dato subyacente es desconocido por la estructura. Por lo tanto, operaciones que dependen del valor de los elementos (como la búsqueda de un elemento específico, el ordenamiento o la inserción ordenada) no pueden realizarse con los operadores tradicionales (`==`, `<`, `>`). 
@@ -1971,6 +2015,7 @@ int main(void) {
 }
 ```
 
+(ejercicios-de-genericidad-y-callbacks)=
 ### Ejercicios de Genericidad y Callbacks
 
 :::{exercise}
@@ -2153,6 +2198,7 @@ int comparar_alumnos(const void *a, const void *b)
 :::
 
 
+(resumen-de-la-unidad)=
 ## Resumen de la Unidad
 
 En este apunte hemos cubierto:
