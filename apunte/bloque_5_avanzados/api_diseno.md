@@ -1,6 +1,6 @@
 ---
 title: Diseño de Interfaces y APIs en C
-short_title: '23 - Diseño de APIs'
+short_title: 'Diseño de APIs'
 description: 'Principios para crear interfaces modulares, reutilizables y robustas en C: encapsulamiento, gestión de recursos, manejo de errores y patrones de diseño.'
 numbering:
   code: true

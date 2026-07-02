@@ -1,6 +1,6 @@
 ---
 title: 'Ingeniería de APIs y Gestión de Compatibilidad'
-short_title: '23b - Ingeniería de APIs'
+short_title: 'Ingeniería de APIs'
 subtitle: 'Versionado semántico, estabilidad de ABI y performance de interfaces en C'
 ---
 

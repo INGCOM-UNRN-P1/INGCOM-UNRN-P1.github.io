@@ -1,6 +1,6 @@
 ---
 title: Programación Concurrente con Hilos en C
-short_title: Hilos POSIX
+short_title: 'Hilos POSIX'
 subtitle: Multithreading en sistemas Unix/Linux
 ---
 

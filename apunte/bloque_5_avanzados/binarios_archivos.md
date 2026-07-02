@@ -1,6 +1,6 @@
 ---
 title: 'Archivos Binarios'
-short_title: '11 - Archivos Binarios'
+short_title: 'Archivos Binarios'
 description: 'Persistencia eficiente de estructuras físicas mediante fread, fwrite y posicionamiento aleatorio.'
 ---
 

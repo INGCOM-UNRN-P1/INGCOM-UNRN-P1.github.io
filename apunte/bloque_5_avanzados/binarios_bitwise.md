@@ -1,6 +1,6 @@
 ---
 title: 'Campos de Bits y Operaciones Bitwise'
-short_title: '10b - Bitwise'
+short_title: 'Bitwise'
 subtitle: 'Operadores a nivel de bits y máscaras en C'
 ---
 

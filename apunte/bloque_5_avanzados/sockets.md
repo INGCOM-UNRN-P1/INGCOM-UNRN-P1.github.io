@@ -1,6 +1,6 @@
 ---
 title: Programación de Sockets en C
-short_title: Sockets POSIX
+short_title: 'Sockets POSIX'
 subtitle: Comunicación de red en sistemas Unix/Linux
 ---
 

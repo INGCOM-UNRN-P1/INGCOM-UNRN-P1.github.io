@@ -1,6 +1,6 @@
 ---
 title: Diseño por Contratos Formal y Verificación
-short_title: '18d - Contratos Formales'
+short_title: 'Contratos Formales'
 subtitle: 'Lógica de primer orden, tripletas de Hoare, invariantes de TADs y cálculo de wp en C'
 ---
 

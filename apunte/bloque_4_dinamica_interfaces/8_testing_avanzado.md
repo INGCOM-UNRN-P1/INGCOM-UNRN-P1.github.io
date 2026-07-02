@@ -1,6 +1,6 @@
 ---
 title: Testing Avanzado y Automatización
-short_title: '18c - Testing Avanzado'
+short_title: 'Testing Avanzado'
 subtitle: 'Estructuras de pruebas, frameworks y testing basado en propiedades en C'
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Creación de Imágenes de Mapa de Bits
-short_title: Bitmaps
+short_title: 'Bitmaps'
 subtitle: Para crear salidas gráficas.
 numbering:
   code: true

@@ -1,6 +1,6 @@
 ---
 title: Recursión de Cola y Divide y Vencerás
-short_title: '15b - Recursión Avanzada'
+short_title: 'Recursión Avanzada'
 subtitle: 'TCO, optimización de la pila y algoritmos de división recursiva en C'
 ---
 
