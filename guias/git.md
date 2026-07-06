@@ -71,7 +71,7 @@ un commit.
 (estados-archivos)=
 ### Estados de los archivos
 
-```mermaid
+```{mermaid}
 graph LR
     A[Untracked] --> B[Staged]
     B --> C[Committed]

@@ -562,7 +562,7 @@ gprof programa gmon.out > analisis.txt
 
 ## Flujo de Trabajo Recomendado
 
-```mermaid
+```{mermaid}
 graph TD
     A[Escribir Código] --> B[Análisis Estático]
     B --> C{Cppcheck OK?}
