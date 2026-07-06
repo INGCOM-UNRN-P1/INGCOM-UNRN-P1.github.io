@@ -1753,9 +1753,6 @@ Padding (Relleno)
 Parsing (Análisis Sintáctico)
 : Proceso de analizar una secuencia de tokens para determinar su estructura gramatical. El objetivo es construir una representación interna (como un árbol sintáctico) que el programa pueda entender y procesar.
 
-Precondición
-: Condición que debe ser verdadera antes de que se llame a una función para que esta pueda operar correctamente. `assert` se usa comúnmente para verificar precondiciones.
-
 Profiling (Perfilado)
 : Análisis del comportamiento de un programa en tiempo de ejecución para medir su uso de recursos, como el tiempo de CPU o la memoria utilizada por cada función. Ayuda a identificar cuellos de botella de rendimiento.
 
