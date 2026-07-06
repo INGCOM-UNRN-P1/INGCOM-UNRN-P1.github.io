@@ -1597,14 +1597,6 @@ Shadowing (Ocultamiento)
 : Declaración de una variable en un ámbito interno con el mismo identificador
 que una variable en un ámbito más externo, ocultando a esta última.
 
-Precondición
-: Requisito lógico obligatorio que el invocador de una función debe cumplir
-antes de llamarla.
-
-Poscondición
-: Compromiso lógico que una función garantiza cumplir al retornar si se
-satisfacen sus precondiciones.
-
 :::
 <!-- {glossary} -->
 
