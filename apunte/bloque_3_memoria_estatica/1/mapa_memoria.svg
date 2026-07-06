@@ -1,99 +1,465 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?xml-stylesheet href="../../../resources/svg.css" type="text/css"?>
-<svg width="650" height="550" viewBox="0 0 650 550" xmlns="http://www.w3.org/2000/svg">
-  <defs>
+<?xml-stylesheet href="../../../resources/svg.css" type="text/css"?><svg
+   width="757.69751"
+   height="521.31146"
+   viewBox="0 0 757.69751 521.31146"
+   version="1.1"
+   id="svg34"
+   sodipodi:docname="mapa_memoria.svg"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview34"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.0302002"
+     inkscape:cx="387.78871"
+     inkscape:cy="316.44335"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg34" />
+  <defs
+     id="defs3">
     <!-- Marcador de flecha para direcciones de memoria -->
-    <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
-      <polygon points="0 0, 8 4, 0 8" fill="#404040"/>
+    <marker
+       id="arrowhead"
+       markerWidth="8"
+       markerHeight="8"
+       refX="4"
+       refY="4"
+       orient="auto">
+      <polygon
+         points="8,4 0,8 0,0 "
+         fill="#404040"
+         id="polygon1" />
     </marker>
     <!-- Marcador de flecha para el Stack -->
-    <marker id="arrowhead-red" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
-      <polygon points="0 0, 8 4, 0 8" fill="#eb2141"/>
+    <marker
+       id="arrowhead-red"
+       markerWidth="8"
+       markerHeight="8"
+       refX="4"
+       refY="4"
+       orient="auto">
+      <polygon
+         points="8,4 0,8 0,0 "
+         fill="#eb2141"
+         id="polygon2" />
     </marker>
     <!-- Marcador de flecha para el Heap -->
-    <marker id="arrowhead-blue" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
-      <polygon points="0 0, 8 4, 0 8" fill="#192437"/>
+    <marker
+       id="arrowhead-blue"
+       markerWidth="8"
+       markerHeight="8"
+       refX="4"
+       refY="4"
+       orient="auto">
+      <polygon
+         points="8,4 0,8 0,0 "
+         fill="#192437"
+         id="polygon3" />
     </marker>
   </defs>
-
   <!-- Título principal -->
-  <text x="325" y="30" class="title" text-anchor="middle">Layout de Memoria Virtual de un Proceso C</text>
-
   <!-- Eje de direcciones de memoria (a la izquierda) -->
-  <line x1="80" y1="80" x2="80" y2="480" stroke="#404040" stroke-width="2" marker-start="url(#arrowhead)" marker-end="url(#arrowhead)"/>
-  <text x="70" y="85" class="code" text-anchor="end">0xFFFFFFFF (Dir. Altas)</text>
-  <text x="70" y="485" class="code" text-anchor="end">0x00000000 (Dir. Bajas)</text>
-  
-  <text x="50" y="280" class="label-bold" transform="rotate(-90 50 280)" text-anchor="middle" fill="#404040">Espacio de Direcciones Virtuales</text>
-
   <!-- Bloques de Memoria -->
-  
   <!-- Stack -->
-  <rect x="180" y="80" width="220" height="70" fill="#fce8ec" stroke="#eb2141" stroke-width="2" rx="4"/>
-  <text x="290" y="110" class="label-bold" text-anchor="middle" fill="#eb2141">PILA (Stack)</text>
-  <text x="290" y="130" class="label" text-anchor="middle" fill="#737373">LIFO - Variables Locales</text>
-
   <!-- Crecimiento del Stack (Flecha hacia abajo) -->
-  <line x1="290" y1="150" x2="290" y2="185" stroke="#eb2141" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrowhead-red)"/>
-  <text x="300" y="175" class="label" fill="#eb2141" font-size="11">crece hacia abajo</text>
-
   <!-- Área Libre (Brecha) -->
-  <rect x="180" y="150" width="220" height="120" fill="#fafafa" stroke="#d4d4d4" stroke-width="1" stroke-dasharray="4,4" rx="4"/>
-  <text x="290" y="215" class="label" text-anchor="middle" fill="#a3a3a3">Espacio de Crecimiento Libre</text>
-
   <!-- Crecimiento del Heap (Flecha hacia arriba) -->
-  <line x1="290" y1="270" x2="290" y2="235" stroke="#192437" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrowhead-blue)"/>
-  <text x="300" y="250" class="label" fill="#192437" font-size="11">crece hacia arriba</text>
-
   <!-- Heap -->
-  <rect x="180" y="270" width="220" height="60" fill="#e8ebf0" stroke="#192437" stroke-width="2" rx="4"/>
-  <text x="290" y="295" class="label-bold" text-anchor="middle" fill="#192437">HEAP (Memoria Dinámica)</text>
-  <text x="290" y="315" class="label" text-anchor="middle" fill="#525252">malloc / calloc / free</text>
-
   <!-- BSS -->
-  <rect x="180" y="330" width="220" height="50" fill="#f5f5f5" stroke="#a3a3a3" stroke-width="2" rx="4"/>
-  <text x="290" y="360" class="label-bold" text-anchor="middle" fill="#404040">BSS</text>
-  <text x="290" y="372" class="label" text-anchor="middle" fill="#737373" font-size="10">Globales no inicializadas</text>
-
   <!-- DATA -->
-  <rect x="180" y="380" width="220" height="50" fill="#e5e5e5" stroke="#737373" stroke-width="2" rx="4"/>
-  <text x="290" y="410" class="label-bold" text-anchor="middle" fill="#262626">DATOS (Data)</text>
-  <text x="290" y="422" class="label" text-anchor="middle" fill="#404040" font-size="10">Globales inicializadas</text>
-
   <!-- TEXT (Code) -->
-  <rect x="180" y="430" width="220" height="50" fill="#d8def0" stroke="#2d3a50" stroke-width="2" rx="4"/>
-  <text x="290" y="455" class="label-bold" text-anchor="middle" fill="#2d3a50">CÓDIGO (Text)</text>
-  <text x="290" y="470" class="label" text-anchor="middle" fill="#4a5a75" font-size="10">Instrucciones (Sólo lectura)</text>
-
   <!-- Conectores y Descripciones a la Derecha -->
-
   <!-- Stack Desc -->
-  <line x1="400" y1="115" x2="440" y2="115" stroke="#eb2141" stroke-width="1" stroke-dasharray="2,2"/>
-  <text x="450" y="110" class="label-bold" fill="#eb2141">Variables Locales</text>
-  <text x="450" y="125" class="label" fill="#737373" font-size="11">Almacena variables locales y datos de</text>
-  <text x="450" y="138" class="label" fill="#737373" font-size="11">control de llamadas (Stack frames).</text>
-
   <!-- Heap Desc -->
-  <line x1="400" y1="300" x2="440" y2="300" stroke="#192437" stroke-width="1" stroke-dasharray="2,2"/>
-  <text x="450" y="295" class="label-bold" fill="#192437">Memoria Dinámica</text>
-  <text x="450" y="310" class="label" fill="#525252" font-size="11">Bloques de tamaño variable pedidos</text>
-  <text x="450" y="323" class="label" fill="#525252" font-size="11">al sistema durante la ejecución.</text>
-
   <!-- BSS Desc -->
-  <line x1="400" y1="355" x2="440" y2="355" stroke="#737373" stroke-width="1" stroke-dasharray="2,2"/>
-  <text x="450" y="352" class="label-bold" fill="#404040">Segmento BSS</text>
-  <text x="450" y="367" class="label" fill="#737373" font-size="11">Variables globales y estáticas no</text>
-  <text x="450" y="380" class="label" fill="#737373" font-size="11">inicializadas explicitamente (valen 0).</text>
-
   <!-- Data Desc -->
-  <line x1="400" y1="405" x2="440" y2="405" stroke="#737373" stroke-width="1" stroke-dasharray="2,2"/>
-  <text x="450" y="402" class="label-bold" fill="#262626">Segmento Data</text>
-  <text x="450" y="417" class="label" fill="#404040" font-size="11">Variables globales y estáticas</text>
-  <text x="450" y="430" class="label" fill="#404040" font-size="11">inicializadas en el código.</text>
-
   <!-- Text Desc -->
-  <line x1="400" y1="455" x2="440" y2="455" stroke="#2d3a50" stroke-width="1" stroke-dasharray="2,2"/>
-  <text x="450" y="452" class="label-bold" fill="#2d3a50">Segmento de Texto</text>
-  <text x="450" y="467" class="label" fill="#4a5a75" font-size="11">Código compilado en lenguaje de</text>
-  <text x="450" y="480" class="label" fill="#4a5a75" font-size="11">máquina y constantes literales.</text>
+  <text
+     x="413.84433"
+     y="33.175434"
+     class="title"
+     text-anchor="middle"
+     id="text3"
+     style="font-size:16px"><tspan
+       style="font-weight:bold;font-size:16px"
+       id="tspan46">Layout de Memoria Virtual de un Proceso C</tspan></text>
+  <line
+     x1="168.84435"
+     y1="83.17543"
+     x2="168.84435"
+     y2="483.17545"
+     stroke="#404040"
+     stroke-width="2"
+     marker-start="url(#arrowhead)"
+     marker-end="url(#arrowhead)"
+     id="line3" />
+  <text
+     x="158.84435"
+     y="88.17543"
+     class="code"
+     text-anchor="end"
+     id="text4">0xFFFFFFFF (Dir. Altas)</text>
+  <text
+     x="158.84435"
+     y="488.17545"
+     class="code"
+     text-anchor="end"
+     id="text5">0x00000000 (Dir. Bajas)</text>
+  <text
+     x="-283.32095"
+     y="140.29985"
+     class="label-bold"
+     transform="rotate(-90)"
+     text-anchor="middle"
+     fill="#404040"
+     id="text6"
+     style="font-size:17.5981px;stroke-width:1.46651">Espacio de Direcciones Virtuales</text>
+  <rect
+     x="268.84433"
+     y="83.17543"
+     width="220"
+     height="70"
+     fill="#fce8ec"
+     stroke="#eb2141"
+     stroke-width="2"
+     rx="4"
+     id="rect6" />
+  <text
+     x="378.84433"
+     y="113.17543"
+     class="label-bold"
+     text-anchor="middle"
+     fill="#eb2141"
+     id="text7">PILA (Stack)</text>
+  <text
+     x="378.84433"
+     y="133.17543"
+     class="label"
+     text-anchor="middle"
+     fill="#737373"
+     id="text8">LIFO - Variables Locales</text>
+  <line
+     x1="378.84198"
+     y1="152.44742"
+     x2="378.84198"
+     y2="187.44742"
+     stroke="#eb2141"
+     stroke-width="2"
+     stroke-dasharray="3, 3"
+     marker-end="url(#arrowhead-red)"
+     id="line8" />
+  <text
+     x="378.84433"
+     y="218.17543"
+     class="label"
+     text-anchor="middle"
+     fill="#a3a3a3"
+     id="text10"
+     style="fill:#353535;fill-opacity:1">Espacio de Crecimiento Libre</text>
+  <line
+     x1="378.84433"
+     y1="267.17545"
+     x2="378.84433"
+     y2="232.17543"
+     stroke="#192437"
+     stroke-width="2"
+     stroke-dasharray="3, 3"
+     marker-end="url(#arrowhead-blue)"
+     id="line10" />
+  <text
+     x="388.84433"
+     y="253.17543"
+     class="label"
+     fill="#192437"
+     font-size="11px"
+     id="text11">crece hacia arriba</text>
+  <rect
+     x="268.84433"
+     y="267.66077"
+     width="220"
+     height="60"
+     fill="#e8ebf0"
+     stroke="#192437"
+     stroke-width="2"
+     rx="4"
+     id="rect11" />
+  <text
+     x="378.84433"
+     y="292.66077"
+     class="label-bold"
+     text-anchor="middle"
+     fill="#192437"
+     id="text12">HEAP (Memoria Dinámica)</text>
+  <text
+     x="378.84433"
+     y="312.66077"
+     class="label"
+     text-anchor="middle"
+     fill="#525252"
+     id="text13">malloc / calloc / free</text>
+  <rect
+     x="268.84433"
+     y="329.8421"
+     width="220"
+     height="50"
+     fill="#f5f5f5"
+     stroke="#a3a3a3"
+     stroke-width="2"
+     rx="4"
+     id="rect13" />
+  <g
+     id="g35"
+     transform="translate(88.764342,-6.8638966)">
+    <text
+       x="290"
+       y="360"
+       class="label-bold"
+       text-anchor="middle"
+       fill="#404040"
+       id="text14">BSS</text>
+    <text
+       x="290"
+       y="372"
+       class="label"
+       text-anchor="middle"
+       fill="#737373"
+       font-size="10px"
+       id="text15">Globales no inicializadas</text>
+  </g>
+  <rect
+     x="268.84433"
+     y="381.50876"
+     width="220"
+     height="50"
+     fill="#e5e5e5"
+     stroke="#737373"
+     stroke-width="2"
+     rx="4"
+     id="rect15" />
+  <g
+     id="g36"
+     transform="translate(88.844344,-5.1912333)">
+    <text
+       x="290"
+       y="410"
+       class="label-bold"
+       text-anchor="middle"
+       fill="#262626"
+       id="text16">DATOS (Data)</text>
+    <text
+       x="290"
+       y="422"
+       class="label"
+       text-anchor="middle"
+       fill="#404040"
+       font-size="10px"
+       id="text17">Globales inicializadas</text>
+  </g>
+  <rect
+     x="268.84433"
+     y="433.17545"
+     width="220"
+     height="50"
+     fill="#d8def0"
+     stroke="#2d3a50"
+     stroke-width="2"
+     rx="4"
+     id="rect17" />
+  <g
+     id="g37"
+     transform="translate(88.844344,0.549429)">
+    <text
+       x="290"
+       y="455"
+       class="label-bold"
+       text-anchor="middle"
+       fill="#2d3a50"
+       id="text18">CÓDIGO (Text)</text>
+    <text
+       x="290"
+       y="470"
+       class="label"
+       text-anchor="middle"
+       fill="#4a5a75"
+       font-size="10px"
+       id="text19">Instrucciones (Sólo lectura)</text>
+  </g>
+  <line
+     x1="488.84433"
+     y1="118.17543"
+     x2="528.84436"
+     y2="118.17543"
+     stroke="#eb2141"
+     stroke-width="1"
+     stroke-dasharray="2, 2"
+     id="line19" />
+  <text
+     x="538.84436"
+     y="107.86643"
+     class="label-bold"
+     fill="#eb2141"
+     id="text20">Variables Locales</text>
+  <text
+     x="538.84436"
+     y="122.86643"
+     class="label"
+     fill="#737373"
+     font-size="11px"
+     id="text21">Almacena variables locales y datos de</text>
+  <text
+     x="538.84436"
+     y="135.86642"
+     class="label"
+     fill="#737373"
+     font-size="11px"
+     id="text22">control de llamadas (Stack frames).</text>
+  <line
+     x1="488.84433"
+     y1="297.6608"
+     x2="528.84436"
+     y2="297.6608"
+     stroke="#192437"
+     stroke-width="1"
+     stroke-dasharray="2, 2"
+     id="line22" />
+  <text
+     x="538.84436"
+     y="286.93677"
+     class="label-bold"
+     fill="#192437"
+     id="text23">Memoria Dinámica</text>
+  <text
+     x="538.84436"
+     y="301.93677"
+     class="label"
+     fill="#525252"
+     font-size="11px"
+     id="text24">Bloques de tamaño variable pedidos</text>
+  <text
+     x="538.84436"
+     y="314.93677"
+     class="label"
+     fill="#525252"
+     font-size="11px"
+     id="text25">al sistema durante la ejecución.</text>
+  <line
+     x1="488.84433"
+     y1="354.8421"
+     x2="528.84436"
+     y2="354.8421"
+     stroke="#737373"
+     stroke-width="1"
+     stroke-dasharray="2, 2"
+     id="line25" />
+  <text
+     x="538.84436"
+     y="343.86612"
+     class="label-bold"
+     fill="#404040"
+     id="text26">Segmento BSS</text>
+  <text
+     x="538.84436"
+     y="358.86612"
+     class="label"
+     fill="#737373"
+     font-size="11px"
+     id="text27">Variables globales y estáticas no</text>
+  <text
+     x="538.84436"
+     y="371.86612"
+     class="label"
+     fill="#737373"
+     font-size="11px"
+     id="text28">inicializadas explicitamente (valen 0).</text>
+  <line
+     x1="488.84433"
+     y1="406.50879"
+     x2="528.84436"
+     y2="406.50879"
+     stroke="#737373"
+     stroke-width="1"
+     stroke-dasharray="2, 2"
+     id="line28" />
+  <text
+     x="538.84436"
+     y="395.53278"
+     class="label-bold"
+     fill="#262626"
+     id="text29">Segmento Data</text>
+  <text
+     x="538.84436"
+     y="410.53278"
+     class="label"
+     fill="#404040"
+     font-size="11px"
+     id="text30">Variables globales y estáticas</text>
+  <text
+     x="538.84436"
+     y="423.53278"
+     class="label"
+     fill="#404040"
+     font-size="11px"
+     id="text31">inicializadas en el código.</text>
+  <line
+     x1="488.84433"
+     y1="458.17545"
+     x2="528.84436"
+     y2="458.17545"
+     stroke="#2d3a50"
+     stroke-width="1"
+     stroke-dasharray="2, 2"
+     id="line31" />
+  <text
+     x="538.84436"
+     y="447.41544"
+     class="label-bold"
+     fill="#2d3a50"
+     id="text32">Segmento de Texto</text>
+  <text
+     x="538.84436"
+     y="462.41544"
+     class="label"
+     fill="#4a5a75"
+     font-size="11px"
+     id="text33">Código compilado en lenguaje de</text>
+  <text
+     x="538.84436"
+     y="475.41544"
+     class="label"
+     fill="#4a5a75"
+     font-size="11px"
+     id="text34">máquina y constantes literales.</text>
+  <text
+     x="388.84433"
+     y="175.11543"
+     class="label"
+     fill="#192437"
+     font-size="11px"
+     id="text35">crece hacia abajo</text>
+  <rect
+     x="268.84433"
+     y="153.17543"
+     width="220"
+     height="114.48534"
+     fill="#fafafa"
+     stroke="#d4d4d4"
+     stroke-width="0.974679"
+     stroke-dasharray="4, 4"
+     rx="4"
+     id="rect9"
+     style="fill:none;stroke:#767676;stroke-width:1.47814;stroke-dasharray:6.06615, 6.06615;stroke-dashoffset:0;stroke-opacity:1" />
 </svg>
