@@ -54,7 +54,8 @@ transformando números mágicos en código legible y mantenible.
 La sintaxis fundamental para declarar una enumeración sigue la estructura típica
 de C:
 
-``` c
+```{code-block} c
+:linenos:
 enum estado_conexion {
     DESCONECTADO,
     CONECTANDO,
@@ -64,8 +65,9 @@ enum estado_conexion {
 
 // Uso para declarar variables
 enum estado_conexion estado_actual = DESCONECTADO;
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 #### El Problema de la Contaminación del Namespace
 
@@ -95,7 +97,8 @@ variable o constante del mismo ámbito que posea el mismo nombre.
 
 Para evitar colisiones de nombres, se deben utilizar prefijos consistentes:
 
-``` c
+```{code-block} c
+:linenos:
 enum motor_estado {
     MOTOR_APAGADO,
     MOTOR_ENCENDIDO,
@@ -107,8 +110,9 @@ enum luz_estado {
     LUZ_PRENDIDA,
     LUZ_PARPADEANDO
 };
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 ### 3. Asignación de Valores y Definición de Tipos
 
@@ -116,7 +120,8 @@ enum luz_estado {
 Podés especificar valores explícitos para cualquier constante. Los valores no
 especificados continuarán la secuencia desde el último valor asignado:
 
-``` c
+```{code-block} c
+:linenos:
 enum codigo_error {
     EXITO = 0,
     ERROR_ARCHIVO = 100,
@@ -125,15 +130,17 @@ enum codigo_error {
     ERROR_CRITICO = 500,
     ERROR_FATAL             // Toma el valor 501 automáticamente
 };
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 #### Definición de Tipos con `typedef`
 Para simplificar la declaración de variables y evitar escribir repetidamente la
 palabra clave `enum`, es una buena práctica definir alias de tipo utilizando
 `typedef` (siguiendo la regla de estilo {ref}`0x3004h`):
 
-``` c
+```{code-block} c
+:linenos:
 typedef enum {
     OPERACION_SUMA,
     OPERACION_RESTA,
@@ -143,8 +150,9 @@ typedef enum {
 
 // Declaración directa
 operacion_t operacion_actual = OPERACION_SUMA;
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 ### 4. Validación de Rangos y Switch Defensivo
 
@@ -157,7 +165,8 @@ defensiva.
 Podés agregar una constante centinela (típicamente al final) para validar que un
 entero externo pertenezca al rango de la enumeración:
 
-``` c
+```{code-block} c
+:linenos:
 typedef enum {
     ESTADO_INICIAL,
     ESTADO_PROCESANDO,
@@ -168,15 +177,17 @@ typedef enum {
 bool es_estado_valido(int valor) {
     return (valor >= ESTADO_INICIAL && valor < ESTADO_MAX);
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 #### Patrón de Switch Defensivo
 Toda evaluación de una enumeración mediante una estructura `switch` debe
 incorporar un caso `default` para atrapar e informar posibles corrupciones de
 estado (ver regla de estilo {ref}`0x1008h`):
 
-``` c
+```{code-block} c
+:linenos:
 const char *obtener_nombre_estado(estado_t estado) {
     switch (estado) {
         case ESTADO_INICIAL:    return "Inicial";
@@ -189,8 +200,9 @@ const char *obtener_nombre_estado(estado_t estado) {
             return "Desconocido";
     }
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 ## Ejercicios de Autoevaluación
 
@@ -238,7 +250,8 @@ la constante de severidad alta.
 
 :::{solution} ej-enum-sintaxis-declaracion
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 // Declaración de la enumeración
 enum nivel_severidad {
     SEV_BAJA,
@@ -249,8 +262,9 @@ enum nivel_severidad {
 
 // Declaración e inicialización de la variable
 enum nivel_severidad severidad_actual = SEV_ALTA;
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-enum-sintaxis-declaracion -->
@@ -313,7 +327,8 @@ textual del estado, aplicando un diseño defensivo con un caso `default`.
 
 :::{solution} ej-enum-switch-defensivo
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 const char *obtener_nombre_estado(estado_t estado) {
@@ -331,8 +346,9 @@ const char *obtener_nombre_estado(estado_t estado) {
             return "Desconocido";
     }
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-enum-switch-defensivo -->
@@ -349,7 +365,8 @@ Luego, escribí una expresión en C que combine los permisos de `LECTURA` y
 
 :::{solution} ej-enum-bit-flags
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 typedef enum {
     PERM_NINGUNO = 0,
     PERM_LECTURA = 1,    // 0b0001
@@ -359,8 +376,9 @@ typedef enum {
 
 // Combinación de permisos mediante operador OR a nivel de bits (|)
 permisos_t mis_permisos = PERM_LECTURA | PERM_ESCRITURA; // Resulta en 3 (0b0011)
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-enum-bit-flags -->

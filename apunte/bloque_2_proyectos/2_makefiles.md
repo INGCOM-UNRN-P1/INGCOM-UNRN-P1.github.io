@@ -75,7 +75,8 @@ Supongamos un proyecto con una estructura simple:
 El `Makefile` correspondiente para este proyecto se define de la siguiente
 manera:
 
-``` makefile
+```{code-block} makefile
+:linenos:
 # Definición de variables para facilitar el mantenimiento
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -std=c99
@@ -95,8 +96,9 @@ calculadora.o: calculadora.c calculadora.h
 .PHONY: clean
 clean:
 	rm -f *.o programa
+
 ```
-<!-- makefile -->
+<!-- {code-block} makefile -->
 
 #### Objetivos Ficticios (`.PHONY`)
 
@@ -117,7 +119,7 @@ su archivo fuente `funciones.c`.
 :::
 <!-- {exercise} -->
 
-:::{solution} ej-make-incremental
+:::{solution} 2_makefiles-ej-make-incremental
 :class: dropdown
 `make` examina las **marcas de tiempo de modificación (timestamps)** de los
 archivos en el disco físico.
@@ -130,7 +132,7 @@ receta de compilación para reconstruir el objeto. Si el objeto es más nuevo qu
 sus dependencias, `make` omite su compilación.
 
 :::
-<!-- {solution} ej-make-incremental -->
+<!-- {solution} 2_makefiles-ej-make-incremental -->
 
 :::{exercise}
 :label: 2_makefiles-ej-make-clean-phony
@@ -141,7 +143,7 @@ directorio un archivo físico llamado `clean`.
 :::
 <!-- {exercise} -->
 
-:::{solution} ej-make-clean-phony
+:::{solution} 2_makefiles-ej-make-clean-phony
 :class: dropdown
 La directiva `.PHONY` le indica a `make` que el objetivo indicado no corresponde
 a un archivo real que deba ser generado.
@@ -154,7 +156,7 @@ actualizado (`make: 'clean' is up to date`) y se negaría a ejecutar el bloque d
 comandos para limpiar el proyecto.
 
 :::
-<!-- {solution} ej-make-clean-phony -->
+<!-- {solution} 2_makefiles-ej-make-clean-phony -->
 
 :::{exercise}
 :label: 2_makefiles-ej-make-escritura
@@ -166,7 +168,7 @@ indentación de Makefiles.
 :::
 <!-- {exercise} -->
 
-:::{solution} ej-make-escritura
+:::{solution} 2_makefiles-ej-make-escritura
 :class: dropdown
 ``` makefile
 usuario.o: usuario.c usuario.h
@@ -177,7 +179,7 @@ usuario.o: usuario.c usuario.h
 por un carácter de tabulación (Tab) en el archivo físico.*
 
 :::
-<!-- {solution} ej-make-escritura -->
+<!-- {solution} 2_makefiles-ej-make-escritura -->
 
 ## Glosario
 

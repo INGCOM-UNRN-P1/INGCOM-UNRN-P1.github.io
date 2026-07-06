@@ -103,7 +103,8 @@ utilizando dichos alias.
 
 :::{solution} ej-typedef-metros-velocidad
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 // Definición de alias con el sufijo _t obligatorio
@@ -117,8 +118,9 @@ velocidad_t calcular_velocidad(distancia_t d, tiempo_t t) {
     }
     return d / t;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-typedef-metros-velocidad -->

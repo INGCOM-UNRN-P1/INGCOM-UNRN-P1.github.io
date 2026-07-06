@@ -9,11 +9,11 @@ subtitle: Haciendonos entender por la computadora.
 
 Cuando ejecutás en tu terminal el comando:
 
-:::{code-block} sh
+```{code-block} sh
 
 $> gcc -o mi_programa programa.c
 
-:::
+```
 <!-- {code-block} sh -->
 
 No solo estás invocando un programa, sino que desencadenás un sofisticado
@@ -161,11 +161,11 @@ detenga justo después del preprocesado. Esto se logra con la opción `-E`. El
 resultado es el código fuente "expandido", que normalmente se redirige a un
 archivo con extensión `.i`.
 
-:::{code-block} sh
+```{code-block} sh
 
 $> gcc -E programa.c > programa.i
 
-:::
+```
 <!-- {code-block} sh -->
 
 El archivo `programa.i` es un archivo de texto plano que contiene tu código
@@ -239,7 +239,7 @@ el código ensamblador correspondiente.
 
 Si partimos de un archivo `programa.c` simple:
 
-:::{code-block} c
+```{code-block} c
 
 // programa.c
 int suma(int a, int b) {
@@ -251,24 +251,24 @@ int main() {
     return 0;
 }
 
-:::
+```
 <!-- {code-block} c -->
 
 Al ejecutar el comando especificando la sintaxis Intel (para coincidir con el
 ejemplo):
 
-:::{code-block} bash
+```{code-block} bash
 
 gcc -S -masm=intel programa.c
 
-:::
+```
 <!-- {code-block} bash -->
 
 Se creará un archivo `programa.s`. Su contenido en sintaxis Intel será similar a
 este (puede
 variar según el compilador y la arquitectura):
 
-:::{code-block} assembler
+```{code-block} assembler
 
 ; programa.s (ejemplo para x86-64)
 suma:
@@ -294,7 +294,7 @@ main:
     leave
     ret
 
-:::
+```
 <!-- {code-block} assembler -->
 
 Analizar este archivo es una excelente manera de entender cómo tus
@@ -392,7 +392,7 @@ nombre y parámetros) para que el compilador conozca su existencia antes de que
 sea utilizada. Una buena documentación, como la que pide la regla
 {ref}`0x000Ah`, es fundamental.
 
-:::{code-block} c
+```{code-block} c
 :caption: Documentación de prototipos con estilo Doxygen
 /**
  * @brief Calcula la suma de dos números enteros.
@@ -406,7 +406,7 @@ sea utilizada. Una buena documentación, como la que pide la regla
  */
 int suma(int n, int m);
 
-:::
+```
 <!-- {code-block} c -->
 
 ##### Definiciones de Macros
@@ -414,13 +414,13 @@ int suma(int n, int m);
 Se utilizan para definir constantes simbólicas o pequeñas porciones de código
 que se expanden durante el preprocesamiento.
 
-:::{code-block} c
+```{code-block} c
 :caption: Definición de constantes y macros
 
 // Constante matemática documentada.
 #define PI 3.1415926535
 
-:::
+```
 <!-- {code-block} c -->
 
 ##### Definiciones de Tipos y Estructuras
@@ -432,7 +432,7 @@ sufijo `_t` para los tipos definidos con `typedef` sigue la regla
 
 _(Estos conceptos serán tratados más adelante en la cátedra.)_
 
-:::{code-block} c
+```{code-block} c
 :caption: Declaración de un nuevo tipo de dato
 
 // Define una estructura para representar un punto en 2D.
@@ -452,7 +452,7 @@ typedef enum {
     DOMINGO
 } DiaDeLaSemana;
 
-:::
+```
 <!-- {code-block} c -->
 
 ##### Declaraciones de Variables Globales
@@ -462,7 +462,7 @@ el `.h` usando la palabra clave `extern` y la definís (le das un valor inicial)
 en _un único_ archivo `.c`. Esta práctica está desaconsejada por la regla
 {ref}`0x2004h`.
 
-:::{code-block} c
+```{code-block} c
 :caption: Declaración de una variable global externa
 :emphasize-lines: 3
 
@@ -470,7 +470,7 @@ en _un único_ archivo `.c`. Esta práctica está desaconsejada por la regla
 // La definición real se encuentra en la biblioteca estándar.
 extern int errno;
 
-:::
+```
 <!-- {code-block} c -->
 
 (guardas-de-inclusion)=
@@ -489,7 +489,7 @@ La técnica estándar utiliza directivas del preprocesador para verificar si un
 símbolo único ya fue definido. Si no lo fue, define el símbolo e incluye el
 contenido del archivo.
 
-:::{code-block} c
+```{code-block} c
 :caption: Estructura de una guarda de inclusión
 :label: inclusion-guard
 
@@ -511,7 +511,7 @@ int suma(int n, int m);
 // 3. Fin del bloque condicional.
 #endif // MATH_OPERATIONS_H
 
-:::
+```
 <!-- {code-block} c -->
 
 :::{important} Cuestión de estilo
@@ -603,11 +603,11 @@ La opción `-c` de `gcc` es una de las más importantes en el desarrollo de
 software, ya que detiene el proceso de compilación justo después de la fase de
 ensamblado, generando únicamente el archivo objeto.
 
-:::{code-block} sh
+```{code-block} sh
 
 $> gcc -c programa.c
 
-:::
+```
 <!-- {code-block} sh -->
 
 Este comando creará el archivo `programa.o` en el mismo directorio.
@@ -619,13 +619,13 @@ En proyectos que constan de múltiples archivos fuente (`modulo1.c`, `modulo2.c`
 compila cada archivo `.c` por separado para generar su correspondiente archivo
 `.o`:
 
-:::{code-block} sh
+```{code-block} sh
 
 $> gcc -c modulo1.c   # Genera modulo1.o
 $> gcc -c modulo2.c   # Genera modulo2.o
 $> gcc -c main.c      # Genera main.o
 
-:::
+```
 <!-- {code-block} sh -->
 
 Si luego modificás solo `modulo1.c`, únicamente necesitás recompilar ese archivo
@@ -711,12 +711,12 @@ que se detenga antes con las opciones `-E`, `-S` o `-c`.
 Si ya tenés un archivo objeto compilado, podés invocar explícitamente la fase de
 enlazado de la siguiente manera:
 
-:::{code-block} sh
+```{code-block} sh
 
 # Asumiendo que ya existe programa.o
 $> gcc -o mi_programa programa.o
 
-:::
+```
 <!-- {code-block} sh -->
 
 Este comando le dice a `gcc` que use `programa.o` como entrada para el
@@ -726,12 +726,12 @@ estándar de C por defecto) y genere el ejecutable `mi_programa`.
 Por supuesto, el comando original que inicia todo el proceso desde el principio
 también realiza este paso al final:
 
-:::{code-block} sh
+```{code-block} sh
 
 # El comando completo que ejecuta las cuatro fases en secuencia
 $> gcc -o mi_programa programa.c
 
-:::
+```
 <!-- {code-block} sh -->
 
 (opciones-del-compilador-recomendadas)=
@@ -771,11 +771,11 @@ académico y profesional:
 
 Un comando de compilación robusto para desarrollo se vería así:
 
-:::{code-block} shell
+```{code-block} shell
 
 $> gcc -Wall -Wextra -Werror -std=c23 -O0 -g -o mi_programa programa.c
 
-:::
+```
 <!-- {code-block} shell -->
 
 Aunque es un montón, a continuación, vamos a ver cómo hacer que esto sea más
@@ -813,7 +813,7 @@ objetivo, qué ingredientes hay que preparar antes.
 En este ejemplo, para crear el programa ejecutable `programa`, son necesarios
 `main.c` y `funciones.c`.
 
-:::{code-block} makefile
+```{code-block} makefile
 
 # Variables para el compilador, flags y archivos
 CC = gcc
@@ -843,7 +843,7 @@ clean:
 	# Elimina los archivos generados para empezar de cero.
 	rm -f $(TARGET) $(OBJS)
 
-:::
+```
 <!-- {code-block} makefile -->
 
 :::{attention} Indentación
@@ -877,15 +877,6 @@ utilidad `make` para automatizar este flujo.
 Para un análisis detallado sobre cómo configurar y escribir las reglas de
 dependencias de un archivo de configuración para compilar de forma incremental,
 consultá el capítulo específico de {ref}`makefiles-capitulo`.
-
----
-
-
-
-
-
-
-
 
 ---
 
@@ -979,7 +970,7 @@ programa.
 El programa más simple para entender su funcionamiento es uno que recorre los
 valores en `argv` e imprime cada uno de sus elementos.
 
-:::{code-block} c
+```{code-block} c
 :caption: "Programa que itera e imprime sus argumentos."
 :label: "c-print-args"
 :linenos:
@@ -1005,7 +996,7 @@ int main(int argc, char *argv[]) {
     return EXIT_SUCCESS;
 }
 
-:::
+```
 <!-- {code-block} c -->
 
 (compilacion-y-ejecucion)=
@@ -1014,7 +1005,8 @@ int main(int argc, char *argv[]) {
 Si guardás el código anterior como `main_args.c` y lo compilás, podés ver la
 salida al ejecutarlo con distintos argumentos.
 
-``` bash
+```{code-block} bash
+:linenos:
 (compilamos-el-programa)=
 # Compilamos el programa
 gcc main_args.c -o mi_programa
@@ -1026,8 +1018,9 @@ gcc main_args.c -o mi_programa
 (ejecutamos-con-varios-argumentos)=
 # Ejecutamos con varios argumentos
 ./mi_programa hola "mundo con espacios" 42
+
 ```
-<!-- bash -->
+<!-- {code-block} bash -->
 
 **Salida de la segunda ejecución:**
 
@@ -1141,7 +1134,8 @@ int main(int argc, char *argv[]) {
 (compilacion-y-ejecucion-del-sumador)=
 #### Compilación y Ejecución del Sumador
 
-``` bash
+```{code-block} bash
+:linenos:
 (compilamos)=
 # Compilamos
 gcc sumador.c -o sumador
@@ -1151,8 +1145,9 @@ gcc sumador.c -o sumador
 ./sumador 10 20 5
 (salida-la-suma-total-es-35)=
 # Salida: La suma total es: 35
+
 ```
-<!-- bash -->
+<!-- {code-block} bash -->
 
 :::{warning} Manejo de Errores en la Conversión
 
@@ -1398,7 +1393,8 @@ de información de forma independiente.
 El shell puede redirigir hacia dónde va la salida de un programa usando el
 operador `>`:
 
-``` bash
+```{code-block} bash
+:linenos:
 (redirige-stdout-a-un-archivo-sobrescribe)=
 # Redirige stdout a un archivo (sobrescribe)
 ./mi_programa > salida.txt
@@ -1414,8 +1410,9 @@ operador `>`:
 (redirige-ambos-stdout-y-stderr-al-mismo-archivo)=
 # Redirige ambos stdout y stderr al mismo archivo
 ./mi_programa > todo.txt 2>&1
+
 ```
-<!-- bash -->
+<!-- {code-block} bash -->
 
 :::{figure} 1/redirecciones.svg
 :label: fig-redirecciones
@@ -1450,7 +1447,8 @@ int main(void) {
 :::
 <!-- {code-block}c -->
 
-``` bash
+```{code-block} bash
+:linenos:
 (ejecuta-y-guarda-solo-la-salida-normal-en-archivo-txt)=
 # Ejecuta y guarda solo la salida normal en archivo.txt
 ./mi_programa > archivo.txt
@@ -1460,8 +1458,9 @@ int main(void) {
 (para-capturar-solo-los-errores)=
 # Para capturar solo los errores
 ./mi_programa 2> errores.txt
+
 ```
-<!-- bash -->
+<!-- {code-block} bash -->
 
 (redireccion-de-entrada)=
 #### Redirección de Entrada
@@ -1498,7 +1497,8 @@ int main(void) {
 :::
 <!-- {code-block}c -->
 
-``` bash
+```{code-block} bash
+:linenos:
 (si-ejecutas-directamente-lee-del-teclado)=
 # Si ejecutás directamente, lee del teclado
 ./mi_programa
@@ -1506,8 +1506,9 @@ int main(void) {
 (con-redireccion-lee-del-archivo)=
 # Con redirección, lee del archivo
 ./mi_programa < datos.txt
+
 ```
-<!-- bash -->
+<!-- {code-block} bash -->
 
 (canalizaciones-pipes)=
 ### Canalizaciones (Pipes)
@@ -1519,7 +1520,8 @@ entrada de otro, creando cadenas de procesamiento de datos.
 El operador `|` (pipe) conecta `stdout` del primer programa con `stdin` del
 segundo:
 
-``` bash
+```{code-block} bash
+:linenos:
 (la-salida-de-programa1-se-convierte-en-la-entrada-de-programa2)=
 # La salida de programa1 se convierte en la entrada de programa2
 programa1 | programa2
@@ -1527,8 +1529,9 @@ programa1 | programa2
 (ejemplo-real-cuenta-las-lineas-de-salida-de-ls)=
 # Ejemplo real: cuenta las líneas de salida de ls
 ls -l | wc -l
+
 ```
-<!-- bash -->
+<!-- {code-block} bash -->
 
 :::{figure} 1/pipes_canalizaciones.svg
 :label: fig-pipes-canalizaciones
@@ -1575,7 +1578,8 @@ int main(void) {
 
 Este programa se convierte en un filtro reutilizable:
 
-``` bash
+```{code-block} bash
+:linenos:
 (genera-numeros-del-1-al-10-y-filtra-solo-los-pares)=
 # Genera números del 1 al 10 y filtra solo los pares
 seq 1 10 | ./filtro_pares
@@ -1585,8 +1589,9 @@ seq 1 10 | ./filtro_pares
 (combina-con-otros-programas)=
 # Combina con otros programas
 seq 1 100 | ./filtro_pares | wc -l  # Cuenta cuántos pares hay
+
 ```
-<!-- bash -->
+<!-- {code-block} bash -->
 
 :::{figure} 1/ejemplo_filtro.svg
 :label: fig-ejemplo-filtro
@@ -1664,7 +1669,8 @@ int main(int argc, char *argv[]) {
 
 Este diseño permite flexibilidad total:
 
-``` bash
+```{code-block} bash
+:linenos:
 (lee-del-archivo-directamente)=
 # Lee del archivo directamente
 ./mi_programa datos.txt
@@ -1680,8 +1686,9 @@ Este diseño permite flexibilidad total:
 (lee-de-stdin-via-canalizacion)=
 # Lee de stdin vía canalización
 cat datos.txt | ./mi_programa
+
 ```
-<!-- bash -->
+<!-- {code-block} bash -->
 
 :::{tip} Programas Componibles
 
@@ -1770,7 +1777,8 @@ int main(int argc, char *argv[]) {
 
 Este programa puede usarse de múltiples formas:
 
-``` bash
+```{code-block} bash
+:linenos:
 (uso-interactivo)=
 # Uso interactivo
 ./temp_converter -c
@@ -1793,8 +1801,9 @@ echo "100" | ./temp_converter -f
 (encadenado-con-otros-comandos)=
 # Encadenado con otros comandos
 seq 0 10 100 | ./temp_converter -f | grep "°C"
+
 ```
-<!-- bash -->
+<!-- {code-block} bash -->
 
 La separación entre `stdout` (resultados) y `stderr` (mensajes de error y ayuda)
 permite que el programa funcione correctamente en canalizaciones sin contaminar
@@ -1972,7 +1981,7 @@ su archivo fuente `funciones.c`.
 :::
 <!-- {exercise} -->
 
-:::{solution} ej-make-incremental
+:::{solution} 1_compilacion-ej-make-incremental
 :class: dropdown
 `make` examina las **marcas de tiempo de modificación (timestamps)** de los
 archivos en el disco físico.
@@ -1995,7 +2004,7 @@ directorio un archivo físico llamado `clean`.
 :::
 <!-- {exercise} -->
 
-:::{solution} ej-make-clean-phony
+:::{solution} 1_compilacion-ej-make-clean-phony
 :class: dropdown
 La directiva `.PHONY` le indica a `make` que el objetivo indicado no corresponde
 a un archivo real que deba ser generado.
@@ -2019,7 +2028,7 @@ indentación de Makefiles.
 :::
 <!-- {exercise} -->
 
-:::{solution} ej-make-escritura
+:::{solution} 1_compilacion-ej-make-escritura
 :class: dropdown
 ``` makefile
 usuario.o: usuario.c usuario.h
