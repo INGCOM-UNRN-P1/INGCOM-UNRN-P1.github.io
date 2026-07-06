@@ -239,7 +239,7 @@ printf("Acceso directo al segundo elemento: %d\n", calificaciones[1]);
 
 Salida:
 
-```text
+``` text
 La primera calificación es: 10
 La cuarta calificación es: 7
 Acceso directo al segundo elemento: 8
@@ -423,7 +423,7 @@ el parámetro del arreglo (ver regla de estilo {ref}`0x3007h`).
 
 **Ejemplo de función pura:**
 
-:::{code-block} c
+```{code-block} c
 :linenos:
 int maximo(const int valores[], int cantidad) 
 {
@@ -438,7 +438,7 @@ int maximo(const int valores[], int cantidad)
     return max;
 }
 
-:::
+```
 <!-- {code-block} c -->
 
 Esta función sólo **lee** el contenido del arreglo y **devuelve** un resultado.
@@ -451,7 +451,7 @@ En este caso, el parámetro de arreglo no debe llevar el calificador `const`.
 
 **Ejemplo de función con efectos secundarios:**
 
-:::{code-block} c
+```{code-block} c
 :linenos:
 void ordenar(int v[], int cantidad) 
 {
@@ -469,7 +469,7 @@ void ordenar(int v[], int cantidad)
     }
 }
 
-:::
+```
 <!-- {code-block} c -->
 
 Esta función cambia el contenido del arreglo original; su ejecución modifica el
@@ -1269,7 +1269,8 @@ regla de estilo {ref}`0x3007h`.
 :class: dropdown
 Al ser una función pura, se utiliza el calificador `const` para prometer que el
 arreglo original no será alterado.
-``` c
+```{code-block} c
+:linenos:
 #include <stddef.h>
 
 int buscar_minimo(const int arreglo[], size_t size) {
@@ -1282,8 +1283,9 @@ int buscar_minimo(const int arreglo[], size_t size) {
     }
     return minimo;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-arr-func-pure -->
@@ -1301,7 +1303,8 @@ dado. Explicá cómo se simula el paso por referencia de los arreglos.
 :class: dropdown
 Al ser una función con efectos secundarios, modificamos el arreglo original de
 forma directa en su memoria física:
-``` c
+```{code-block} c
+:linenos:
 #include <stddef.h>
 
 void escalar_arreglo(int arreglo[], size_t size, int factor) {
@@ -1309,7 +1312,9 @@ void escalar_arreglo(int arreglo[], size_t size, int factor) {
         arreglo[i] = arreglo[i] * factor; // Efecto secundario
     }
 }
+
 ```
+<!-- {code-block} c -->
 <!-- c -->
 El paso por referencia se simula porque el compilador no copia los elementos a
 la función; en su lugar, le pasa la dirección del primer elemento del arreglo.
@@ -1408,7 +1413,8 @@ utilizados.
 
 :::{solution} ej-cadena-largo-capacidad
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <string.h>
 
@@ -1424,8 +1430,9 @@ int main() {
     
     return 0;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 La salida será:
 ```
 Capacidad física: 100 bytes
@@ -1451,7 +1458,8 @@ salto de línea `\n` residual al final si estuviera presente.
 
 :::{solution} ej-seguro-fgets-newline
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <string.h>
 
@@ -1469,8 +1477,9 @@ int main() {
     }
     return 0;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-seguro-fgets-newline -->
@@ -1486,7 +1495,8 @@ minúsculas (usando la función `tolower` de `<ctype.h>`).
 
 :::{solution} ej-seguro-strcmp-case
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <ctype.h>
 #include <stddef.h>
 
@@ -1503,8 +1513,9 @@ int comparar_ignorar_caso(const char s1[], const char s2[]) {
     }
     return tolower((unsigned char)s1[i]) - tolower((unsigned char)s2[i]);
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-seguro-strcmp-case -->
@@ -1533,7 +1544,6 @@ comprobar los límites de antemano.
 
 :::
 <!-- {solution} ej-seguro-buffer-overflow -->
-
 
 
 ## Glosario
@@ -1565,13 +1575,6 @@ arreglo, permitiendo su modificación.
 
 ::::
 <!-- {glossary} -->
-
-
-
-
-
-
-
 
 ---
 
@@ -1615,6 +1618,24 @@ especial para texto.
 :::
 <!-- {important} Ideas Centrales -->
 
+(referencias-lecturas-secuencias)=
 ## Referencias y Lecturas Complementarias
 
-
+- **Kernighan, B. W. y Ritchie, D. M.** [@kernighan_c_2014]. *The C Programming
+  Language* (2.ª edición). Prentice Hall.
+  - Consultá el **Capítulo 5: Pointers and Arrays**, que establece la relación
+    fundamental entre punteros, arreglos y aritmética de direcciones en C, y
+    explica la manipulación tradicional de cadenas basada en punteros.
+- **King, K. N.** [@king_c_2008]. *C Programming: A Modern Approach* (2.ª
+  edición). W. W. Norton & Company.
+  - Revisá el **Capítulo 8: Arrays** para una introducción didáctica a la
+    disposición en memoria de los arreglos estáticos, y el **Capítulo 13:
+    Strings** para comprender en profundidad los riesgos y buenas prácticas en
+    la lectura, manipulación y terminación de cadenas de caracteres en C.
+- **Gustedt, J.** [@gustedt_modern_2019]. *Modern C*. Manning Publications.
+  - Estudiá el **Nivel 1 (Encounter)**, específicamente las secciones dedicadas
+    a tipos derivados, donde se analiza cómo C gestiona los arreglos estáticos
+    en el stack y la importancia del terminador nulo en las cadenas.
+- **Sommers, J.** [@sommers_jsommers/cbook_2025]. *jsommers/cbook*.
+  - Consultá las secciones de introducción a arreglos y manipulación de texto
+    para ejemplos prácticos e implementaciones de algoritmos sobre secuencias.

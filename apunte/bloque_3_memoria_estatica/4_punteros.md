@@ -1513,7 +1513,7 @@ memoria dinámica y el heap.
   Keynote, QCon London.
   - Reflexión sobre punteros nulos y sus consecuencias.
   - Video:
-    https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/
+https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/
 
 (4_punteros-ejercicios-y-practica)=
 #### Ejercicios y Práctica
@@ -1540,7 +1540,8 @@ imprimiendo `var`.
 
 :::{solution} ej-ptr-declaracion-deref
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -1552,8 +1553,9 @@ int main() {
     printf("El valor de var es: %d\n", var); // Imprime 88
     return 0;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-ptr-declaracion-deref -->
@@ -1575,7 +1577,8 @@ como de acceso no permitido. Si un proceso intenta desreferenciar un puntero
 nulo, la MMU de la CPU detecta la infracción y aborta inmediatamente el proceso
 enviándole una señal de fallo de segmentación (*Segmentation Fault*).
 Para evitarlo, se debe realizar una validación explícita previa:
-``` c
+```{code-block} c
+:linenos:
 #include <stddef.h>
 #include <stdio.h>
 
@@ -1586,8 +1589,9 @@ void modificar_seguro(int *p) {
         fprintf(stderr, "Error: Intento de desreferenciar un puntero NULL.\n");
     }
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-ptr-nulo-seguro -->
@@ -1658,7 +1662,8 @@ punteros. Mostrá cómo imprimir el resultado de forma portable.
 
 :::{solution} ej-ptr-aritmetica-resta
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stddef.h> // Necesario para ptrdiff_t
 
@@ -1673,8 +1678,9 @@ int main() {
     printf("Distancia entre elementos: %td\n", distancia); // Imprime 4
     return 0;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-ptr-aritmetica-resta -->
@@ -1722,7 +1728,8 @@ incrementarse con `x`, y un puntero `salida` en el que se escriba el doble de
 
 :::{solution} ej-ptr-func-intercambio
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 /**
  * @brief Procesa valores numéricos mediante punteros.
  * @param[in] x Valor entero constante a procesar.
@@ -1737,8 +1744,9 @@ void procesar_datos(int x, int *entrada_salida, int *salida) {
         *salida = x * 2;
     }
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-ptr-func-intercambio -->
@@ -1840,7 +1848,8 @@ resultado.
 
 :::{solution} ej-ptr-doble-indireccion
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -1853,8 +1862,9 @@ int main() {
     printf("El valor modificado es: %d\n", numero); // Imprime 999
     return 0;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-ptr-doble-indireccion -->
@@ -1871,7 +1881,8 @@ primer elemento y otro `der` inicializado al último.
 
 :::{solution} ej-ptr-algoritmo-invertir
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <stddef.h>
 
 void invertir_arreglo(int *arr, size_t tamano) {
@@ -1893,8 +1904,9 @@ void invertir_arreglo(int *arr, size_t tamano) {
         der--;
     }
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-ptr-algoritmo-invertir -->
@@ -1969,6 +1981,25 @@ de memoria.
 :::
 <!-- {important} Ideas Centrales -->
 
+(referencias-lecturas-punteros)=
 ## Referencias y Lecturas Complementarias
 
-
+- **Kernighan, B. W. y Ritchie, D. M.** [@kernighan_c_2014]. *The C Programming
+  Language* (2.ª edición). Prentice Hall.
+  - Consultá el **Capítulo 5: Pointers and Arrays**, que provee la explicación
+    clásica e histórica del modelo de punteros en C, la equivalencia entre
+    arreglos y punteros, y la manipulación de memoria de bajo nivel.
+- **King, K. N.** [@king_c_2008]. *C Programming: A Modern Approach* (2.ª
+  edición). W. W. Norton & Company.
+  - Revisá el **Capítulo 11: Pointers** para una introducción didáctica paso a
+    paso de las direcciones de memoria y los parámetros de salida, y el
+    **Capítulo 12: Pointers and Arrays** para el desglose detallado de la
+    aritmética de punteros.
+- **Gustedt, J.** [@gustedt_modern_2019]. *Modern C*. Manning Publications.
+  - Estudiá el **Nivel 2 (Refine)**, en especial las secciones de punteros y
+    estado de los objetos, que analizan en profundidad la seguridad del tipado,
+    el puntero `NULL` y los problemas asociados al ciclo de vida de los datos.
+- **Sommers, J.** [@sommers_jsommers/cbook_2025]. *jsommers/cbook*.
+  - Consultá los capítulos sobre punteros y direccionamiento de memoria para
+    explicaciones prácticas sobre el modelo mental de almacenamiento y
+    desreferencia de variables.

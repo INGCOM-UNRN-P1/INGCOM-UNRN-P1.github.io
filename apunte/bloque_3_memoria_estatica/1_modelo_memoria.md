@@ -18,13 +18,15 @@ recursos y aislar las distintas necesidades de almacenamiento.
 
 Introducción: El Mapa de Memoria de un Programa
 
-```{figure} 1/mapa_memoria.svg
+:::{figure} 1/mapa_memoria.svg
 :label: fig-mapa-memoria
 :align: center
 :width: 90%
 
 Organización típica de la memoria virtual para un proceso en C.
-```
+
+:::
+<!-- {figure} 1/mapa_memoria.svg -->
 
 (estado-de-un-programa)=
 ### Estado de un Programa
@@ -369,7 +371,9 @@ casos, tiene implicaciones importantes:
   (mejor uso del caché y predicción del sistema).
 - Los primeros accesos a memoria recién asignada pueden ser más lentos (_page
   faults_) mientras el sistema operativo mapea las páginas físicas.
-  :::
+
+:::
+<!-- {note} Implicaciones Prácticas -->
 
 (segmentacion-de-la-memoria)=
 #### Segmentación de la Memoria
@@ -1976,7 +1980,8 @@ en esa posición utilizando únicamente aritmética de punteros (sin corchetes
 
 :::{solution} ejer-puntero-plano
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 int obtener_elemento(const int *matriz, size_t cols, size_t i, size_t j) {
@@ -1987,7 +1992,9 @@ int obtener_elemento(const int *matriz, size_t cols, size_t i, size_t j) {
     // Usamos el operador de desreferencia (*) sobre la dirección base desplazada
     return *(matriz + (i * cols + j));
 }
+
 ```
+<!-- {code-block} c -->
 <!-- c -->
 
 :::
@@ -2042,7 +2049,8 @@ puntero simple (`char *`).
 
 :::{solution} ejer-doble-indireccion
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <stdlib.h>
 #include <string.h>
 
@@ -2055,7 +2063,9 @@ void inicializar_mensaje(char **ptr) {
         }
     }
 }
+
 ```
+<!-- {code-block} c -->
 <!-- c -->
 
 En C, todos los argumentos de las funciones se pasan por valor (se realiza una

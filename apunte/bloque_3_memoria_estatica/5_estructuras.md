@@ -1674,7 +1674,8 @@ Declarás una estructura llamada `persona_t` con un arreglo de caracteres
 
 :::{solution} ej-struct-acceso-puntero
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 typedef struct {
@@ -1689,8 +1690,9 @@ void cumplir_anos(persona_t *persona) {
         persona->edad++;
     }
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-struct-acceso-puntero -->
@@ -1726,7 +1728,8 @@ En una arquitectura con alineación natural de 4 bytes:
 bytes de padding al final para completar un múltiplo de 4 bytes).*
 
 Código para imprimir los desplazamientos:
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stddef.h>
 
@@ -1736,8 +1739,9 @@ int main() {
     printf("Offset de d: %zu\n", offsetof(struct Contenedor, d)); // Imprime 8
     return 0;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-struct-offsetof-manual -->
@@ -1754,7 +1758,8 @@ prácticas recomendadas por la cátedra).
 
 :::{solution} ej-struct-init-designados
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 typedef struct {
     double x;
     double y;
@@ -1770,8 +1775,9 @@ int main() {
     };
     return 0;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-struct-init-designados -->
@@ -1819,7 +1825,8 @@ asignando un valor por defecto seguro en caso contrario.
 
 :::{solution} ej-struct-invariante-rectangulo
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 typedef struct {
@@ -1847,8 +1854,9 @@ circulo_t crear_circulo(double cx, double cy, double r) {
 
     return circ;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-struct-invariante-rectangulo -->
@@ -1865,7 +1873,8 @@ asignarle una función de suma e invocarla a través del puntero a función.
 
 :::{solution} ej-struct-funcion-miembro
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 // Definición del tipo de puntero a función
@@ -1894,8 +1903,9 @@ int main() {
 
     return 0;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-struct-funcion-miembro -->
@@ -1951,7 +1961,10 @@ int main() {
     procesar_evento(&ev3);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ejer-tagged-union-2 -->
 
@@ -1962,7 +1975,8 @@ int main() {
 :label: ej-union-size-calculation
 
 Dadas las declaraciones:
-``` c
+```{code-block} c
+:linenos:
 union A {
     char c;
     int i;
@@ -1972,11 +1986,14 @@ union B {
     char buffer[20];
     double d;
 };
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 Calculá el tamaño exacto en bytes de cada una de estas uniones en un compilador
 estándar donde `char` es 1 byte, `int` es 4 bytes y `double` es 8 bytes.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-union-size-calculation
 :class: dropdown
@@ -1991,6 +2008,7 @@ grande, con alineación ajustada a su miembro con restricciones más fuertes:
   bytes), lo que obliga a que el tamaño de la unión sea un múltiplo de 8 bytes.
   Para alinear correctamente la unión, el compilador redondea el tamaño a 24
   bytes. Por ende, el tamaño total es de **24 bytes**.
+
 :::
 <!-- {solution} ej-union-size-calculation -->
 
@@ -2000,12 +2018,15 @@ grande, con alineación ajustada a su miembro con restricciones más fuertes:
 Diseñá una unión en C llamada `registro_t` que permita acceder a un valor entero
 sin signo de 16 bits completo llamado `valor`, o de forma individual a sus bytes
 superior (`alto`) e inferior (`bajo`) utilizando una estructura anidada.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-union-bit-granularidad
 :class: dropdown
 
-``` c
+```{code-block} c
+:linenos:
 #include <stdint.h>
 
 typedef union {
@@ -2015,8 +2036,10 @@ typedef union {
         uint8_t alto;  // Byte más significativo (en little-endian)
     } bytes;
 } registro_t;
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-union-bit-granularidad -->
 
@@ -2027,12 +2050,15 @@ Diseñá una unión etiquetada (tagged union) llamada `figura_t` que pueda
 representar un círculo (radio real) o un rectángulo (ancho y alto reales).
 Implementá una función `calcular_area` que retorne el área de la figura según su
 tipo.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-union-tagged-shape
 :class: dropdown
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 typedef enum {
@@ -2067,8 +2093,10 @@ double calcular_area(const figura_t *figura) {
             return 0.0;
     }
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-union-tagged-shape -->
 
@@ -2090,7 +2118,9 @@ struct Suboptimo {
 Calculá el tamaño total en bytes de esta estructura en una arquitectura x86_64 y
 reescribila reordenando sus miembros para minimizar el consumo de memoria física
 (padding).
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-struct-padding-waste
 :class: dropdown
@@ -2107,17 +2137,21 @@ El tamaño de `struct Suboptimo` es de **24 bytes**, desperdiciando 14 bytes en
 padding.
 
 La versión optimizada ordenando los miembros de mayor a menor tamaño es:
-``` c
+```{code-block} c
+:linenos:
 struct Optimizado {
     double d;   // 8 bytes (offset 0)
     char c1;    // 1 byte  (offset 8)
     char c2;    // 1 byte  (offset 9)
     // 6 bytes de padding al final para completar el múltiplo de 8
 };
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 El tamaño de `struct Optimizado` se reduce a **16 bytes**.
+
 :::
+<!-- {solution} ej-struct-padding-waste -->
 
 :::{exercise}
 :label: ej-struct-padding-array
@@ -2125,7 +2159,9 @@ El tamaño de `struct Optimizado` se reduce a **16 bytes**.
 Explicá detalladamente por qué el compilador debe insertar bytes de relleno
 (*padding*) al final de una estructura (e.g., después del último miembro) y no
 únicamente en el espacio intermedio entre miembros.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-struct-padding-array
 :class: dropdown
@@ -2149,7 +2185,9 @@ siguiente `int` en el arreglo inicie en una dirección múltiplo de 4.
 Explicá qué es la restricción de "alineación natural" en procesadores de
 hardware modernos y qué impacto tiene en la eficiencia del bus de datos de la
 CPU que una variable se encuentre en una dirección no alineada.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-struct-alignas-custom
 :class: dropdown
@@ -2219,6 +2257,26 @@ de memoria para todos sus miembros, permitiendo representar datos alternativos
 eficientemente (por ejemplo, en uniones etiquetadas). Los campos de bits
 optimizan el espacio agrupando datos al nivel de bits individuales.
 
+(referencias-lecturas-estructuras)=
 ## Referencias y Lecturas Complementarias
 
-
+- **Kernighan, B. W. y Ritchie, D. M.** [@kernighan_c_2014]. *The C Programming
+  Language* (2.ª edición). Prentice Hall.
+  - Consultá el **Capítulo 6: Structures**, que expone la base histórica de las
+    estructuras en C, la anidación de tipos, el pasaje de estructuras a
+    funciones y el direccionamiento mediante punteros de tipo struct.
+- **King, K. N.** [@king_c_2008]. *C Programming: A Modern Approach* (2.ª
+  edición). W. W. Norton & Company.
+  - Revisá el **Capítulo 16: Structures, Unions, and Enumerations** para un
+    análisis pedagógico brillante sobre la inicialización de estructuras
+    (incluyendo inicializadores designados de C99), el uso seguro de uniones y
+    la modelización de uniones etiquetadas (*tagged unions*).
+- **Gustedt, J.** [@gustedt_modern_2019]. *Modern C*. Manning Publications.
+  - Estudiá las secciones correspondientes al almacenamiento y alineación de
+    datos estructurados, donde se detalla el comportamiento del alineamiento
+    natural de las variables y el cálculo preciso de los bytes de relleno
+    (*padding*).
+- **Sommers, J.** [@sommers_jsommers/cbook_2025]. *jsommers/cbook*.
+  - Consultá los capítulos referidos a estructuras y campos de bits para ver
+    ejemplos prácticos de cómo empaquetar información y optimizar la utilización
+    de la memoria RAM.

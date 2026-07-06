@@ -1270,7 +1270,8 @@ principal tengan el valor `1` y el resto de los elementos tengan el valor `0`
 
 :::{solution} ej-mat-init-manual
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #define N 4
 
@@ -1288,8 +1289,9 @@ int main() {
     }
     return 0;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-mat-init-manual -->
@@ -1335,7 +1337,8 @@ elementos pertenecientes a su diagonal secundaria.
 La diagonal secundaria de una matriz cuadrada de orden $N$ cumple que la suma de
 sus índices de fila $i$ y columna $j$ es igual a $N - 1$. Por lo tanto, $j = N -
 1 - i$.
-``` c
+```{code-block} c
+:linenos:
 #include <stddef.h>
 #define N 4
 
@@ -1347,8 +1350,9 @@ int sumar_diagonal_secundaria(const int matriz[N][N]) {
     }
     return suma;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-mat-recorrido-diagonal-sec -->
@@ -1390,7 +1394,8 @@ inferior y columna izquierda).
 
 :::{solution} ej-mat-recorrido-bordes
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #define FILAS 4
 #define COLUMNAS 5
 int M[FILAS][COLUMNAS];
@@ -1407,8 +1412,9 @@ for (size_t i = 0; i < FILAS; i++) {
     }
     printf("\n");
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-mat-recorrido-bordes -->
@@ -1430,7 +1436,8 @@ es decir, $M_{i,j} == M_{j,i}$ para toda celda).
 :class: dropdown
 Para que una matriz sea simétrica, debe ser necesariamente cuadrada (filas ==
 columnas).
-``` c
+```{code-block} c
+:linenos:
 #include <stdbool.h>
 #include <stddef.h>
 
@@ -1445,8 +1452,9 @@ bool es_matriz_simetrica(size_t n, const int matriz[n][n]) {
     }
     return true;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-mat-func-vla-param -->
@@ -1491,7 +1499,8 @@ matriz `B` de dimensiones $N \times M$.
 
 :::{solution} ej-mat-operacion-transpuesta
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <stddef.h>
 
 void transponer_matriz(size_t filas_a, size_t cols_a, 
@@ -1504,8 +1513,9 @@ void transponer_matriz(size_t filas_a, size_t cols_a,
         }
     }
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-mat-operacion-transpuesta -->
