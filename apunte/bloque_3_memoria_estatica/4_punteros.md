@@ -13,20 +13,37 @@ fundamental entender los **punteros**. Los punteros son la herramienta que nos
 permite pasar de trabajar solo con los _valores_ de las variables a trabajar con
 sus _ubicaciones_ en la memoria.
 
-(que-es-una-direccion-de-memoria-y-un-puntero)=
 
 ## Desarrollo
 
-### Introducción a los Punteros y la Memoria
+Introducción a los Punteros y la Memoria
+
+(que-es-una-direccion-de-memoria-y-un-puntero)=
 #### ¿Qué es una Dirección de Memoria y un Puntero?
 
-Cada vez que declarás una variable, el entorno de ejecución y el sistema operativo le asignan un bloque de espacio en la memoria del programa. En los sistemas operativos modernos con soporte de hardware para paginación (a través de la MMU o *Memory Management Unit*), los programas de usuario no acceden directamente a las direcciones de la memoria RAM física. En su lugar, trabajan dentro de un espacio de **direcciones virtuales (memoria lógica)**. El sistema operativo se encarga de mapear de forma transparente estas direcciones lógicas a direcciones físicas reales de la memoria RAM o incluso a disco (memoria de intercambio o *swap*). Este mecanismo de abstracción proporciona seguridad y aislamiento entre los diferentes procesos que se ejecutan simultáneamente en la máquina.
+Cada vez que declarás una variable, el entorno de ejecución y el sistema
+operativo le asignan un bloque de espacio en la memoria del programa. En los
+sistemas operativos modernos con soporte de hardware para paginación (a través
+de la MMU o *Memory Management Unit*), los programas de usuario no acceden
+directamente a las direcciones de la memoria RAM física. En su lugar, trabajan
+dentro de un espacio de **direcciones virtuales (memoria lógica)**. El sistema
+operativo se encarga de mapear de forma transparente estas direcciones lógicas a
+direcciones físicas reales de la memoria RAM o incluso a disco (memoria de
+intercambio o *swap*). Este mecanismo de abstracción proporciona seguridad y
+aislamiento entre los diferentes procesos que se ejecutan simultáneamente en la
+máquina.
 
-Desde la perspectiva del programador en C, esta memoria lógica se organiza como una secuencia de celdas contiguas de 1 byte (u octeto), donde cada celda posee una dirección única representada comúnmente en formato hexadecimal (por ejemplo, `0x7ffee390a1bc`).
+Desde la perspectiva del programador en C, esta memoria lógica se organiza como
+una secuencia de celdas contiguas de 1 byte (u octeto), donde cada celda posee
+una dirección única representada comúnmente en formato hexadecimal (por ejemplo,
+`0x7ffee390a1bc`).
 
-Un **puntero** es simplemente otra variable cuyo contenido es, precisamente, una de estas direcciones de memoria lógica.
+Un **puntero** es simplemente otra variable cuyo contenido es, precisamente, una
+de estas direcciones de memoria lógica.
 
-Para visualizarlo, consideremos la siguiente organización en memoria de un entero `numero` (de 4 bytes) almacenado en la dirección `0x7ffd` y un puntero `ptr` almacenado en la dirección `0x8004` que apunta a él:
+Para visualizarlo, consideremos la siguiente organización en memoria de un
+entero `numero` (de 4 bytes) almacenado en la dirección `0x7ffd` y un puntero
+`ptr` almacenado en la dirección `0x8004` que apunta a él:
 
 :::{table} Representación de variables en celdas de memoria contiguas
 :label: tbl-representacion-memoria
@@ -38,16 +55,23 @@ Para visualizarlo, consideremos la siguiente organización en memoria de un ente
 | `0x7fff` | *(contiguo)* | - | *(parte de numero)* |
 | `0x8000` | *(contiguo)* | - | *(parte de numero)* |
 | `0x8004` | `ptr` | `int*` | `0x7ffd` |
+
 :::
+<!-- {table} Representación de variables en celdas de memoria contiguas -->
 
-Como se observa en la tabla, el valor almacenado en `ptr` (`0x7ffd`) coincide exactamente con la dirección donde inicia la variable `numero`. Al desreferenciar `ptr` (usando `*ptr`), accedemos al valor `42`.
+Como se observa en la tabla, el valor almacenado en `ptr` (`0x7ffd`) coincide
+exactamente con la dirección donde inicia la variable `numero`. Al
+desreferenciar `ptr` (usando `*ptr`), accedemos al valor `42`.
 
-```{figure} 4/concepto_puntero.svg
+:::{figure} 4/concepto_puntero.svg
 :label: fig-concepto-puntero
 :align: center
 
-Representación conceptual de un puntero apuntando a una variable en memoria mediante su dirección física hexadecimal.
-```
+Representación conceptual de un puntero apuntando a una variable en memoria
+mediante su dirección física hexadecimal.
+
+:::
+<!-- {figure} 4/concepto_puntero.svg -->
 
 (declaracion-de-punteros)=
 ### Declaración de punteros
@@ -56,12 +80,14 @@ Para declarar un puntero, debés especificar el tipo de dato al que va a apuntar
 seguido de un asterisco (`*`) y el nombre de la variable. La regla de estilo
 {ref}`0x0006h` indica que el asterisco debe ir junto al nombre de la variable.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 int *ptr_entero;
 double *ptr_double;
 char *ptr_char;
-```
+
+:::
+<!-- {code-block}c -->
 
 Una vez declarado, un puntero debe ser inicializado para que apunte a una
 dirección de memoria específica y válida. No hacerlo es una fuente común de
@@ -74,11 +100,13 @@ Para que un puntero sea útil, generalmente lo hacés apuntar a una variable
 existente. Esto se logra utilizando el operador de dirección `&` (ampersand), el
 cual obtiene la dirección de memoria de dicha variable.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 int numero = 42;
 int *ptr_numero = &numero; // ptr_numero ahora almacena la dirección de 'numero'
-```
+
+:::
+<!-- {code-block}c -->
 
 (inicializar-a-nulo-null)=
 #### Inicializar a Nulo (`NULL`)
@@ -97,28 +125,33 @@ indica que se debe usar `NULL` en lugar de `0` para esta inicialización, ya que
 objeto válido.
 
 :::
+<!-- {tip} Estilo: Inicialización Segura -->
 
 `NULL` es una constante de preprocesador, que se encuentra definida en el
 encabezado `<stddef.h>` y representa la dirección a «ningún lado».
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stddef.h> // Necesario para NULL
 
 int *puntero_seguro = NULL;
-```
+
+:::
+<!-- {code-block}c -->
 
 Es una práctica habitual en C que las funciones que devuelven punteros retornen
 `NULL` para indicar un error o la ausencia de un resultado. Siempre debés
 comprobar si un puntero es `NULL` antes de intentar desreferenciarlo (usar el
 operador `*` sobre él).
 
-```{figure} 4/punteros_null.svg
+:::{figure} 4/punteros_null.svg
 :label: fig-punteros-null
 :align: center
 
 Representación de un puntero nulo y la verificación antes de desreferenciar.
-```
+
+:::
+<!-- {figure} 4/punteros_null.svg -->
 
 :::{danger} Peligro: Punteros No Inicializados (Punteros Salvajes)
 
@@ -133,6 +166,7 @@ podría fallar inmediatamente, corromper datos silenciosamente o crear
 vulnerabilidades de seguridad.
 
 :::
+<!-- {danger} Peligro: Punteros No Inicializados (Punteros Salvajes) -->
 
 **Regla de oro:** Siempre inicializá tus punteros, ya sea con la dirección de
 una variable válida o con `NULL`.
@@ -141,23 +175,30 @@ una variable válida o con `NULL`.
 (variable-de-referencia-o-puntero)=
 #### Variable de Referencia (o Puntero)
 
-*(Para comprender el marco pedagógico de los roles de variables, podés consultar la introducción en la sección {ref}`roles-variables` del capítulo [](2_gradual))*.
+*(Para comprender el marco pedagógico de los roles de variables, podés consultar
+la introducción en la sección {ref}`roles-variables` del capítulo
+[](2_gradual))*.
 
-Un puntero es una variable cuyo valor es una dirección de memoria física. En términos didácticos, asume el **rol de variable de referencia**: su propósito no es almacenar datos para operaciones directas, sino "apuntar" a otra variable, facilitando un acceso y una manipulación indirecta sobre la misma.
+Un puntero es una variable cuyo valor es una dirección de memoria física. En
+términos didácticos, asume el **rol de variable de referencia**: su propósito no
+es almacenar datos para operaciones directas, sino "apuntar" a otra variable,
+facilitando un acceso y una manipulación indirecta sobre la misma.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 
 int main() {
     int numero = 100;
-    int *ptrNumero; // 'ptrNumero' es un puntero, su rol es referenciar a 'numero'
+    int *ptrNumero; // 'ptrNumero' es un puntero, su rol es referenciar a
+    'numero'
 
     ptrNumero = &numero; // 'ptrNumero' ahora apunta a la dirección de 'numero'
 
     printf("Valor de numero: %d\n", numero);
     printf("Direccion de numero: %p\n", (void*)&numero);
-    printf("Valor al que apunta ptrNumero: %d\n", *ptrNumero); // Desreferencia el puntero
+    printf("Valor al que apunta ptrNumero: %d\n", *ptrNumero); // Desreferencia
+    el puntero
     printf("Valor de ptrNumero (direccion): %p\n", (void*)ptrNumero);
 
     // Modificando 'numero' a traves del puntero
@@ -166,35 +207,52 @@ int main() {
 
     return 0;
 }
-```
 
-El rol de `ptrNumero` es el de una **variable de referencia**, permitiendo interactuar con `numero` de forma indirecta.
+:::
+<!-- {code-block}c -->
+
+El rol de `ptrNumero` es el de una **variable de referencia**, permitiendo
+interactuar con `numero` de forma indirecta.
 
 (operadores-de-punteros)=
 ### Operadores de Punteros
 
 El trabajo con punteros se basa principalmente en dos operadores fundamentales:
 
-- **Operador de Dirección `&` (Ampersand / "dirección de")**: Obtiene la dirección de memoria de una variable. Por ejemplo, `&numero` evalúa a la dirección física donde está guardada la variable `numero`. Esta dirección de memoria es un valor de solo lectura; no podés asignarle un valor a la dirección directamente (`&numero = 100` es inválido).
+- **Operador de Dirección `&` (Ampersand / "dirección de")**: Obtiene la
+  dirección de memoria de una variable. Por ejemplo, `&numero` evalúa a la
+  dirección física donde está guardada la variable `numero`. Esta dirección de
+  memoria es un valor de solo lectura; no podés asignarle un valor a la
+  dirección directamente (`&numero = 100` es inválido).
 
-- **Operador de Indirección o Desreferencia `*` (Asterisco / "valor apuntado por")**: Permite acceder al contenido de la celda de memoria cuya dirección está guardada en el puntero. Este operador funciona tanto para leer como para escribir el valor apuntado, según dónde se lo ubique:
-  - **Escritura (Modificación)**: Si usás `*ptr` a la izquierda de una asignación (por ejemplo, `*ptr = 150`), le estás indicando a la computadora que guarde el valor `150` en la dirección de memoria apuntada por `ptr`.
-  - **Lectura (Acceso)**: Si usás `*ptr` en una expresión o a la derecha de una asignación (por ejemplo, `valor = *ptr` o dentro de un `printf`), estás pidiendo el valor contenido dentro del casillero al que apunta `ptr`.
+- **Operador de Indirección o Desreferencia `*` (Asterisco / "valor apuntado
+  por")**: Permite acceder al contenido de la celda de memoria cuya dirección
+  está guardada en el puntero. Este operador funciona tanto para leer como para
+  escribir el valor apuntado, según dónde se lo ubique:
+  - **Escritura (Modificación)**: Si usás `*ptr` a la izquierda de una
+    asignación (por ejemplo, `*ptr = 150`), le estás indicando a la computadora
+    que guarde el valor `150` en la dirección de memoria apuntada por `ptr`.
+  - **Lectura (Acceso)**: Si usás `*ptr` en una expresión o a la derecha de una
+    asignación (por ejemplo, `valor = *ptr` o dentro de un `printf`), estás
+    pidiendo el valor contenido dentro del casillero al que apunta `ptr`.
 
-```{figure} 4/operadores_punteros.svg
+:::{figure} 4/operadores_punteros.svg
 :label: fig-operadores-punteros
 :align: center
 
 Funcionamiento de los operadores `&` (dirección de) y `*` (desreferencia).
-```
 
-```{code-block}c
+:::
+<!-- {figure} 4/operadores_punteros.svg -->
+
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 
 int main() {
     int numero = 99;
-    int *puntero = &numero; // '&numero' obtiene la dirección de memoria de la variable
+    int *puntero = &numero; // '&numero' obtiene la dirección de memoria de la
+    variable
 
     // Leemos el valor apuntado (lectura)
     // La expresión *puntero accede al valor contenido en 'numero'
@@ -207,7 +265,9 @@ int main() {
 
     return 0;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 Esta dualidad del operador de desreferencia es lo que hace a los punteros tan
 poderosos, ya que nos permiten tanto leer como modificar datos de forma
@@ -216,9 +276,15 @@ indirecta.
 (punteros-y-arreglos)=
 #### Punteros y arreglos
 
-El nombre de un arreglo no es un puntero, sino el identificador de un bloque de memoria contiguo. Sin embargo, como se analizó en {ref}`sec-decaimiento-arreglos`, al evaluarse en la mayoría de las expresiones de C este decae (se degrada) automáticamente a un puntero al primer elemento de la secuencia (`&arreglo[0]`). 
+El nombre de un arreglo no es un puntero, sino el identificador de un bloque de
+memoria contiguo. Sin embargo, como se analizó en
+{ref}`sec-decaimiento-arreglos`, al evaluarse en la mayoría de las expresiones
+de C este decae (se degrada) automáticamente a un puntero al primer elemento de
+la secuencia (`&arreglo[0]`).
 
-Esta relación nos permite usar punteros para acceder y manipular los elementos de la secuencia de forma indirecta, lo cual nos lleva directamente a la aritmética de punteros.
+Esta relación nos permite usar punteros para acceder y manipular los elementos
+de la secuencia de forma indirecta, lo cual nos lleva directamente a la
+aritmética de punteros.
 
 
 
@@ -232,16 +298,27 @@ Esta relación nos permite usar punteros para acceder y manipular los elementos 
 (aritmetica-de-punteros)=
 ### Aritmética de punteros
 
-La aritmética de punteros permite realizar operaciones matemáticas sobre las direcciones de memoria. A diferencia de las operaciones aritméticas tradicionales, el compilador ajusta automáticamente los cálculos según el tamaño físico del tipo de dato al que se apunta.
+La aritmética de punteros permite realizar operaciones matemáticas sobre las
+direcciones de memoria. A diferencia de las operaciones aritméticas
+tradicionales, el compilador ajusta automáticamente los cálculos según el tamaño
+físico del tipo de dato al que se apunta.
 
-Si tenés un puntero `ptr` a un tipo de dato `T` que ocupa `sizeof(T)` bytes, al hacer `ptr + 1`, la dirección de memoria física no se incrementa en 1, sino en `sizeof(T)`. Este mecanismo es el fundamento del acceso indexado y el cálculo de desplazamientos bidimensionales en memoria contigua que estudiamos en {ref}`sec-matriz-direccionamiento`. Esto permite "saltar" de un elemento a otro en un arreglo de forma eficiente.
+Si tenés un puntero `ptr` a un tipo de dato `T` que ocupa `sizeof(T)` bytes, al
+hacer `ptr + 1`, la dirección de memoria física no se incrementa en 1, sino en
+`sizeof(T)`. Este mecanismo es el fundamento del acceso indexado y el cálculo de
+desplazamientos bidimensionales en memoria contigua que estudiamos en
+{ref}`sec-matriz-direccionamiento`. Esto permite "saltar" de un elemento a otro
+en un arreglo de forma eficiente.
 
-```{figure} 4/aritmetica_punteros.svg
+:::{figure} 4/aritmetica_punteros.svg
 :label: fig-aritmetica-punteros
 :align: center
 
-Aritmética de punteros: cómo el compilador ajusta los incrementos según el tipo de dato.
-```
+Aritmética de punteros: cómo el compilador ajusta los incrementos según el tipo
+de dato.
+
+:::
+<!-- {figure} 4/aritmetica_punteros.svg -->
 
 (incremento-y-decremento)=
 #### Incremento (`++`) y decremento (`--`)
@@ -249,7 +326,7 @@ Aritmética de punteros: cómo el compilador ajusta los incrementos según el ti
 Podés incrementar un puntero para que apunte al siguiente elemento de un arreglo
 o decrementarlo para que apunte al anterior.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 
@@ -268,7 +345,9 @@ int main() {
 
     return 0;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 (suma-y-resta)=
 #### Suma (`+`) y resta (`-`)
@@ -276,7 +355,7 @@ int main() {
 Podés sumar o restar un valor entero a un puntero para desplazarte varias
 posiciones dentro de un arreglo.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 
@@ -291,7 +370,9 @@ int main() {
 
     return 0;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 (un-detalle-sobre-la-resta-en-punteros)=
 #### Un detalle sobre la resta en punteros
@@ -300,7 +381,7 @@ Podés restar dos punteros que apunten a elementos del mismo arreglo. El
 resultado no es una dirección de memoria, sino la cantidad de elementos que hay
 entre ellos.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 #include <stddef.h> // Necesario para ptrdiff_t
@@ -315,7 +396,9 @@ int main() {
 
     return 0;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{note} ¿Qué es `ptrdiff_t`?
 
@@ -325,6 +408,7 @@ entero con signo definido en la cabecera `<stddef.h>`. Para imprimirlo
 correctamente con `printf`, se utiliza el especificador de formato `%td`.
 
 :::
+<!-- {note} ¿Qué es `ptrdiff_t`? -->
 
 
 
@@ -338,31 +422,61 @@ correctamente con `printf`, se utiliza el especificador de formato `%td`.
 (punteros-en-funciones-y-efectos-secundarios)=
 ### Punteros en funciones y efectos secundarios
 
-En C, **todas las funciones pasan sus argumentos por valor** (copia de datos). Ya experimentaste el **paso por referencia simulado** con los arreglos en {ref}`sec-decaimiento-arreglos`: al no poder copiar todo el bloque de memoria de la secuencia, C pasa la dirección de su primer elemento.
+En C, **todas las funciones pasan sus argumentos por valor** (copia de datos).
+Ya experimentaste el **paso por referencia simulado** con los arreglos en
+{ref}`sec-decaimiento-arreglos`: al no poder copiar todo el bloque de memoria de
+la secuencia, C pasa la dirección de su primer elemento.
 
-Para variables de tipo primario (como `int` o `char`), aplicamos el mismo principio físico: si queremos permitir que una función modifique una variable del invocador (un efecto secundario), pasamos por valor su *dirección de memoria* (un puntero). Aunque la dirección en sí se copia en el registro de activación (*stack frame*), la desreferencia de este puntero permite interactuar directamente con la celda de memoria original del invocador.
+Para variables de tipo primario (como `int` o `char`), aplicamos el mismo
+principio físico: si queremos permitir que una función modifique una variable
+del invocador (un efecto secundario), pasamos por valor su *dirección de
+memoria* (un puntero). Aunque la dirección en sí se copia en el registro de
+activación (*stack frame*), la desreferencia de este puntero permite interactuar
+directamente con la celda de memoria original del invocador.
 
 (justificacion-de-diseno-eficiencia-y-rendimiento-en-sistemas)=
 #### Justificación de Diseño: Eficiencia y Rendimiento en Sistemas
 
-Simular el paso por referencia no es únicamente una herramienta para permitir la modificación de variables (efectos secundarios). En el desarrollo de software de sistemas, es un mecanismo indispensable por razones de rendimiento.
+Simular el paso por referencia no es únicamente una herramienta para permitir la
+modificación de variables (efectos secundarios). En el desarrollo de software de
+sistemas, es un mecanismo indispensable por razones de rendimiento.
 
-Cuando pasamos un dato por valor, todo su contenido debe copiarse en el marco de pila de la función invocada. Si el argumento es un tipo de dato básico (como un `int` de 4 bytes o un `char` de 1 byte), el costo de la copia es insignificante. Sin embargo, en C trabajamos frecuentemente con estructuras de datos complejas (`struct`) que pueden agrupar arreglos y múltiples miembros, ocupando cientos o miles de bytes. Copiar estructuras de gran tamaño de manera repetida consume tiempo de procesamiento de la CPU (operaciones de copia en memoria) y agota rápidamente el espacio limitado del *stack* del programa (pudiendo provocar un desbordamiento de pila o *stack overflow*).
+Cuando pasamos un dato por valor, todo su contenido debe copiarse en el marco de
+pila de la función invocada. Si el argumento es un tipo de dato básico (como un
+`int` de 4 bytes o un `char` de 1 byte), el costo de la copia es insignificante.
+Sin embargo, en C trabajamos frecuentemente con estructuras de datos complejas
+(`struct`) que pueden agrupar arreglos y múltiples miembros, ocupando cientos o
+miles de bytes. Copiar estructuras de gran tamaño de manera repetida consume
+tiempo de procesamiento de la CPU (operaciones de copia en memoria) y agota
+rápidamente el espacio limitado del *stack* del programa (pudiendo provocar un
+desbordamiento de pila o *stack overflow*).
 
 Al pasar un puntero a dicha estructura:
-1. **Consumo de memoria mínimo**: Se copia únicamente la dirección de memoria, cuyo tamaño es fijo y pequeño (4 bytes en arquitecturas de 32 bits, 8 bytes en arquitecturas de 64 bits).
-2. **Tiempo de ejecución constante**: La transmisión de una dirección de memoria es una operación de bajo costo a nivel de registros de la CPU, independiente del tamaño real del objeto apuntado.
+1. **Consumo de memoria mínimo**: Se copia únicamente la dirección de memoria,
+   cuyo tamaño es fijo y pequeño (4 bytes en arquitecturas de 32 bits, 8 bytes
+   en arquitecturas de 64 bits).
+2. **Tiempo de ejecución constante**: La transmisión de una dirección de memoria
+   es una operación de bajo costo a nivel de registros de la CPU, independiente
+   del tamaño real del objeto apuntado.
 
-Para garantizar que esta optimización no vulnere la seguridad de los datos (es decir, evitar que la función modifique accidentalmente la estructura que solo queríamos leer), debemos calificar el parámetro con `const`. Esto crea un contrato inmutable: el compilador rechazará cualquier intento de escritura sobre la estructura, logrando la máxima eficiencia de rendimiento con la seguridad de la inmutabilidad del paso por valor clásico.
+Para garantizar que esta optimización no vulnere la seguridad de los datos (es
+decir, evitar que la función modifique accidentalmente la estructura que solo
+queríamos leer), debemos calificar el parámetro con `const`. Esto crea un
+contrato inmutable: el compilador rechazará cualquier intento de escritura sobre
+la estructura, logrando la máxima eficiencia de rendimiento con la seguridad de
+la inmutabilidad del paso por valor clásico.
 
-```{figure} 4/paso_por_referencia.svg
+:::{figure} 4/paso_por_referencia.svg
 :label: fig-paso-por-referencia
 :align: center
 
-Diferencia entre el paso por valor y el paso por referencia simulado con punteros.
-```
+Diferencia entre el paso por valor y el paso por referencia simulado con
+punteros.
 
-```{code-block}c
+:::
+<!-- {figure} 4/paso_por_referencia.svg -->
+
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 
@@ -386,24 +500,32 @@ int main() {
 
     return 0;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 (parametro-de-salida-a-traves-de-punteros)=
 #### Parámetro de Salida (a través de Punteros)
 
-*(Este rol extiende el pasaje de datos entre ámbitos; para más contexto conceptual, podés revisar la sección {ref}`roles-variables` de [](2_gradual))*.
+*(Este rol extiende el pasaje de datos entre ámbitos; para más contexto
+conceptual, podés revisar la sección {ref}`roles-variables` de [](2_gradual))*.
 
-Dado que en C todo pasaje de argumentos es estrictamente por valor (la función trabaja sobre copias en su propio stack frame), para permitir que una función altere variables del llamador y "retorne" resultados de manera indirecta, debemos emplear punteros en el rol de **parámetros de salida**.
+Dado que en C todo pasaje de argumentos es estrictamente por valor (la función
+trabaja sobre copias en su propio stack frame), para permitir que una función
+altere variables del llamador y "retorne" resultados de manera indirecta,
+debemos emplear punteros en el rol de **parámetros de salida**.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 
 // 'resultado' es un parámetro de salida (puntero)
 void dividir(int dividendo, int divisor, int *cociente, int *resto) {
     if (divisor != 0) {
-        *cociente = dividendo / divisor; // Modifica el valor apuntado por 'cociente'
-        *resto = dividendo % divisor;   // Modifica el valor apuntado por 'resto'
+        *cociente = dividendo / divisor; // Modifica el valor apuntado por
+        'cociente'
+        *resto = dividendo % divisor;   // Modifica el valor apuntado por
+        'resto'
     } else {
         printf("Error: Division por cero.\n");
         // Podríamos asignar valores especiales o manejar el error de otra forma
@@ -421,21 +543,31 @@ int main() {
     // Pasamos las direcciones de 'miCociente' y 'miResto'
     dividir(num1, num2, &miCociente, &miResto);
 
-    printf("%d dividido por %d es: Cociente = %d, Resto = %d\n", num1, num2, miCociente, miResto);
+    printf("%d dividido por %d es: Cociente = %d, Resto = %d\n", num1, num2,
+    miCociente, miResto);
     return 0;
 }
-```
 
-Aquí, `cociente` y `resto` son **parámetros de salida**. La función `dividir` escribe directamente en las ubicaciones de memoria de `miCociente` y `miResto` en la función `main` a través de sus punteros, permitiendo que `main` acceda a los resultados de la división.
+:::
+<!-- {code-block}c -->
+
+Aquí, `cociente` y `resto` son **parámetros de salida**. La función `dividir`
+escribe directamente en las ubicaciones de memoria de `miCociente` y `miResto`
+en la función `main` a través de sus punteros, permitiendo que `main` acceda a
+los resultados de la división.
 
 (parametro-de-entrada-salida-a-traves-de-punteros)=
 #### Parámetro de Entrada/Salida (a través de Punteros)
 
-*(Esta especialización semántica complementa los roles analizados en la sección {ref}`roles-variables` de [](2_gradual))*.
+*(Esta especialización semántica complementa los roles analizados en la sección
+{ref}`roles-variables` de [](2_gradual))*.
 
-Similar al parámetro de salida, un **parámetro de entrada/salida** utiliza un puntero para permitir que la función lea un valor inicial proporcionado por el invocador (entrada) y, tras procesarlo, modifique ese mismo espacio de memoria física (salida), reintegrando el valor alterado al ámbito original.
+Similar al parámetro de salida, un **parámetro de entrada/salida** utiliza un
+puntero para permitir que la función lea un valor inicial proporcionado por el
+invocador (entrada) y, tras procesarlo, modifique ese mismo espacio de memoria
+física (salida), reintegrando el valor alterado al ámbito original.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 
@@ -457,16 +589,28 @@ int main() {
     printf("Valor final de miVariableContador: %d\n", miVariableContador);
     return 0;
 }
-```
 
-La variable `contador` de `incrementarContador` tiene el rol de **parámetro de entrada/salida**. La función lee el valor inicial de `miVariableContador` (`10`), lo incrementa a `11`, y ese cambio se refleja directamente en `miVariableContador` en `main`.
+:::
+<!-- {code-block}c -->
+
+La variable `contador` de `incrementarContador` tiene el rol de **parámetro de
+entrada/salida**. La función lee el valor inicial de `miVariableContador`
+(`10`), lo incrementa a `11`, y ese cambio se refleja directamente en
+`miVariableContador` en `main`.
 
 (el-impacto-en-los-efectos-secundarios)=
 #### El impacto en los efectos secundarios
 
-Esta capacidad para modificar variables externas al ámbito de la función constituye un efecto secundario (side effect) análogo al que estudiamos con la modificación de arreglos en [](6_secuencias). 
+Esta capacidad para modificar variables externas al ámbito de la función
+constituye un efecto secundario (side effect) análogo al que estudiamos con la
+modificación de arreglos en [](6_secuencias).
 
-Si bien los efectos secundarios son indispensables para la eficiencia y para permitir la salida de múltiples resultados, incrementan la complejidad del flujo lógico del programa. El programador debe rastrear minuciosamente qué variables del invocador pueden cambiar tras la ejecución de la función, razón por la cual es obligatorio documentar sus poscondiciones y restringir las mutaciones no deseadas mediante `const` (ver regla de estilo {ref}`0x3007h`).
+Si bien los efectos secundarios son indispensables para la eficiencia y para
+permitir la salida de múltiples resultados, incrementan la complejidad del flujo
+lógico del programa. El programador debe rastrear minuciosamente qué variables
+del invocador pueden cambiar tras la ejecución de la función, razón por la cual
+es obligatorio documentar sus poscondiciones y restringir las mutaciones no
+deseadas mediante `const` (ver regla de estilo {ref}`0x3007h`).
 
 (el-calificador-const-el-ancla-de-seguridad-con-punteros)=
 ### El Calificador `const`: el ancla de seguridad con punteros
@@ -480,12 +624,14 @@ permite "bloquear" o bien el dato apuntado, el puntero en sí, o ambos.
 `const` nos permite poner reglas sobre qué se puede modificar, _potencialmente_,
 limitando los efectos secundarios productos de pasar el puntero a la función.
 
-```{figure} 4/const_punteros.svg
+:::{figure} 4/const_punteros.svg
 :label: fig-const-punteros
 :align: center
 
 Diferentes combinaciones del calificador `const` con punteros.
-```
+
+:::
+<!-- {figure} 4/const_punteros.svg -->
 
 (1-puntero-a-un-dato-constante-no-podes-cambiar-el-valor)=
 #### 1. Puntero a un Dato Constante (No podés cambiar el VALOR)
@@ -497,12 +643,13 @@ cambiar su contenido a través de este puntero.
 - **Sintaxis:** `const T *puntero`.
 - **Regla:** El **valor** apuntado es constante. El **puntero** es variable.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 
 void imprimir(const char *mensaje) {
-    // mensaje[0] = 'X'; // ERROR DE COMPILACIÓN: intentás modificar un dato constante.
+    // mensaje[0] = 'X'; // ERROR DE COMPILACIÓN: intentás modificar un dato
+    constante.
     printf("El mensaje es: %s\n", mensaje);
 }
 
@@ -519,7 +666,9 @@ int main() {
     imprimir(ptr); // Imprime "Chau"
     return 0;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 **¿Cuándo usarlo?:** Siempre que pases un puntero a una función que solo
 necesita leer los datos, pero no modificarlos. Esto previene efectos secundarios
@@ -535,7 +684,7 @@ lo que podés cambiar su contenido libremente.
 - **Sintaxis:** `T * const puntero`.
 - **Regla:** El puntero es constante. El valor apuntado es variable.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 
@@ -543,18 +692,22 @@ int main() {
     int valor_a = 10;
     int valor_b = 20;
 
-    // El puntero debe inicializarse en la declaración, ya que no se puede cambiar después.
+    // El puntero debe inicializarse en la declaración, ya que no se puede
+    cambiar después.
     int * const ptr = &valor_a;
 
     *ptr = 50; // VÁLIDO: podés modificar el valor en la dirección apuntada.
                // Ahora, 'valor_a' es 50.
 
-    // ptr = &valor_b; // ERROR DE COMPILACIÓN: no se puede reasignar un puntero constante.
+    // ptr = &valor_b; // ERROR DE COMPILACIÓN: no se puede reasignar un puntero
+    constante.
 
     printf("El valor de A es: %d\n", valor_a); // Imprime 50
     return 0;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 **Cuándo usarlo:** Cuando necesitás que un puntero se refiera siempre a la misma
 ubicación de memoria, como un búfer fijo o una dirección de hardware específica.
@@ -569,7 +722,7 @@ ni el contenido del lugar al que apunta.
 - **Sintaxis:** `const T * const puntero`.
 - **Regla:** Tanto el puntero como el valor apuntado son constantes.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 
@@ -585,7 +738,9 @@ int main() {
     printf("El valor fijo es: %d\n", *ptr); // Imprime 100
     return 0;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 **Cuándo usarlo:** Para definir una referencia totalmente inmutable a un dato,
 como un puntero a una tabla de configuración o a una constante almacenada en
@@ -594,10 +749,13 @@ memoria de solo lectura.
 (diferencia-estricta-const-int-p-vs-int-const-p)=
 #### Diferencia estricta: `const int *p` vs `int *const p`
 
-Para evitar confusiones al leer declaraciones con el calificador `const`, se puede aplicar una regla de lectura de derecha a izquierda:
+Para evitar confusiones al leer declaraciones con el calificador `const`, se
+puede aplicar una regla de lectura de derecha a izquierda:
 
-* `const int *p` o `int const *p`: `p` es un puntero a un entero constante (`const int`). El valor apuntado no se puede modificar a través del puntero.
-* `int *const p`: `p` es un puntero constante (`const`) a un entero (`int`). El puntero no puede apuntar a otra dirección de memoria una vez inicializado.
+* `const int *p` o `int const *p`: `p` es un puntero a un entero constante
+  (`const int`). El valor apuntado no se puede modificar a través del puntero.
+* `int *const p`: `p` es un puntero constante (`const`) a un entero (`int`). El
+  puntero no puede apuntar a otra dirección de memoria una vez inicializado.
 
 La diferencia en las restricciones del compilador se resume a continuación:
 
@@ -608,25 +766,30 @@ La diferencia en las restricciones del compilador se resume a continuación:
 | :--- | :---: | :---: |
 | `const int *p` | Sí | No |
 | `int *const p` | No | Sí |
+
 :::
+<!-- {table} Comparación de restricciones con `const` -->
 
 Analizá el siguiente comportamiento con este fragmento de código:
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 int x = 5;
 int y = 10;
 
 // Puntero a constante (el valor apuntado no se puede modificar)
 const int *p_a_const = &x;
-p_a_const = &y;       // VÁLIDO: se cambia la dirección almacenada en el puntero.
+p_a_const = &y;       // VÁLIDO: se cambia la dirección almacenada en el
+puntero.
 // *p_a_const = 20;   // ERROR DE COMPILACIÓN: el contenido es de solo lectura.
 
 // Puntero constante (la dirección almacenada no se puede modificar)
 int *const p_const = &x;
 *p_const = 20;        // VÁLIDO: se modifica el entero al que apunta.
 // p_const = &y;      // ERROR DE COMPILACIÓN: el puntero es de solo lectura.
-```
+
+:::
+<!-- {code-block}c -->
 
 (documentando-funciones-con-punteros)=
 ### Documentando funciones con punteros
@@ -687,17 +850,22 @@ que no cambia.
 Aplicando estos conceptos, una documentación exhaustiva para la función
 `intercambiar` se vería así, siguiendo el estilo creado por la cátedra.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 /**
  * Intercambia los valores de dos variables enteras a través de sus punteros.
- * @param[in, out] primero Puntero al primer valor. Su contenido será leído y luego
+ * @param[in, out] primero Puntero al primer valor. Su contenido será leído y
+   luego
  * sobrescrito con el del segundo.
- * @param[in, out] segundo Puntero al segundo valor. Su contenido será leído y luego
+ * @param[in, out] segundo Puntero al segundo valor. Su contenido será leído y
+   luego
  * sobrescrito con el contenido del primero.
- * @pre Ambos punteros no deben ser NULL y apuntar a direcciones de memoria válidas y modificables.
- * @post El valor almacenado en la dirección apuntada por 'primero' será el valor original
- * que se encontraba en la dirección de 'segundo' y viceversa. No se introducirán otros valores por fuera
+ * @pre Ambos punteros no deben ser NULL y apuntar a direcciones de memoria
+   válidas y modificables.
+ * @post El valor almacenado en la dirección apuntada por 'primero' será el
+   valor original
+ * que se encontraba en la dirección de 'segundo' y viceversa. No se
+   introducirán otros valores por fuera
  * de los que estén referenciados.
  */
 void intercambiar(int *primero, int *segundo) {
@@ -705,7 +873,9 @@ void intercambiar(int *primero, int *segundo) {
     *primero = *segundo;
     *segundo = temporal;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 De esta forma, eliminamos las ambigüedades, y reducimos los potenciales errores.
 
@@ -736,11 +906,12 @@ trabaja con el arreglo completo. En su lugar, lo convierte automáticamente en u
 
 Por lo tanto, las siguientes dos líneas de código son funcionalmente idénticas:
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 int numeros[5] = {10, 20, 30, 40, 50};
 
-// La "degradación" ocurre aquí: 'numeros' se convierte en la dirección de numeros[0]
+// La "degradación" ocurre aquí: 'numeros' se convierte en la dirección de
+numeros[0]
 int *p = numeros;
 
 // Esta es la forma explícita y equivalente
@@ -748,7 +919,9 @@ int *p_explicito = &numeros[0];
 
 printf("La dirección almacenada en p es: %p\n", (void*)p);
 printf("La dirección del primer elemento es: %p\n", (void*)&numeros[0]);
-```
+
+:::
+<!-- {code-block}c -->
 
 (consecuencias-practicas-y-cruciales-de-la-degradacion)=
 #### Consecuencias Prácticas (y Cruciales) de la Degradación
@@ -763,19 +936,23 @@ del arreglo.
 Por eso, estas tres declaraciones de función son absolutamente equivalentes para
 el compilador:
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 void procesar_datos(int arr[10]); // El 10 es ignorado por el compilador
-void procesar_datos(int arr[]);   // Notación más común para indicar que se espera un arreglo
-void procesar_datos(int *arr);    // La forma más honesta: la función recibe un puntero
-```
+void procesar_datos(int arr[]);   // Notación más común para indicar que se
+espera un arreglo
+void procesar_datos(int *arr);    // La forma más honesta: la función recibe un
+puntero
+
+:::
+<!-- {code-block}c -->
 
 Debido a esto, la función pierde la información sobre el tamaño original del
 arreglo y el tamaño que obtendremos es únicamente el de la dirección de memoria.
 
 $$\text{sizeof}(\text{arreglo decaido}) = \text{sizeof}(\text{puntero})$$
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 
@@ -785,7 +962,9 @@ void imprimir_tamano(int arr[]) {
     // Mide el tamaño de un puntero en tu sistema (usualmente 4 u 8 bytes).
     printf("Tamaño DENTRO de la función: %zu bytes\n", sizeof(arr));
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 `sizeof` funciona como es esperado solo cuando su uso se hace en el mismo
 alcance de la declaración del arreglo.
@@ -795,20 +974,23 @@ arreglo, de forma que sea (número de elementos \* tamaño del tipo del arreglo)
 
 $$\text{sizeof}(\text{arreglo}) = \text{elementos} \times \text{sizeof}(T)$$
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 
 int main() {
     int mi_arreglo[10] = {0};
 
     // Aquí 'sizeof' conoce el tamaño real del arreglo.
-    printf("Tamaño FUERA de la función: %zu bytes\n", sizeof(mi_arreglo)); // Imprimirá 40 (10 * 4 bytes)
+    printf("Tamaño FUERA de la función: %zu bytes\n", sizeof(mi_arreglo)); //
+    Imprimirá 40 (10 * 4 bytes)
 
     imprimir_tamano(mi_arreglo); // Imprimirá 4 u 8
 
     return 0;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{important} Regla de Oro
 
@@ -818,6 +1000,7 @@ puede leer o escribir de forma segura. (Y ya que estamos, como un `size_t` para
 que todo quede más bonito.)
 
 :::
+<!-- {important} Regla de Oro -->
 
 
 (punteros-dobles-la-indireccion-a-un-nuevo-nivel)=
@@ -831,19 +1014,23 @@ Si un puntero (`int *p`) es una nota con la dirección de un cofre que contiene
 un tesoro (un `int`), un puntero doble (`int **pp`) es una nota con la dirección
 de **otra nota**, que a su vez tiene la dirección del cofre del tesoro.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 int valor = 100;
 int *p = &valor;    // p apunta a 'valor'
 int **pp = &p;      // pp apunta a 'p'
-```
+
+:::
+<!-- {code-block}c -->
 
 Podemos acceder a `valor`, desreferenciando dos veces el puntero `pp`;
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 printf("%d\n", **pp);
-```
+
+:::
+<!-- {code-block}c -->
 
 Esta capacidad de manipular un puntero a través de otro puntero es
 extremadamente poderosa y se usa principalmente en dos escenarios cruciales.
@@ -863,7 +1050,7 @@ cambiar a dónde apunta el puntero original.
 Para poder modificar el puntero original desde dentro de una función, necesitás
 pasar la dirección de ese puntero, es decir, un puntero doble.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 
@@ -895,15 +1082,23 @@ int main() {
 
     return 0;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 Al desreferenciar `puntero1` y `puntero2`, accedemos directamente a los punteros
 originales (`ptr_a` y `ptr_b` en `main`) y podemos modificar las direcciones de
 memoria que almacenan.
 
 :::{note} Conversión explícita a `void*` en printf
-En este ejemplo, se realiza una conversión explícita `(void*)` al imprimir los punteros con `%p` para evitar la advertencia de compilación `"warning: format '%p' expects argument of type 'void *'"`. Esta es la forma estándar recomendada en C para imprimir direcciones de memoria de manera segura y limpia.
+
+En este ejemplo, se realiza una conversión explícita `(void*)` al imprimir los
+punteros con `%p` para evitar la advertencia de compilación `"warning: format
+'%p' expects argument of type 'void *'"`. Esta es la forma estándar recomendada
+en C para imprimir direcciones de memoria de manera segura y limpia.
+
 :::
+<!-- {note} Conversión explícita a `void*` en printf -->
 
 
 (manipulando-arreglos-con-aritmetica-de-punteros)=
@@ -927,7 +1122,7 @@ imprimirlos. La estrategia consiste en tener un puntero que avanza y un puntero
     de posiciónes.
 3.  El lazo `while` se ejecuta mientras `ptr` sea menor que `fin`.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 #include <stddef.h> // Para size_t
@@ -949,7 +1144,9 @@ int main() {
     imprimir_arreglo(numeros, 5);
     return 0;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 (2-busqueda-de-un-elemento)=
 #### 2. Búsqueda de un elemento
@@ -969,12 +1166,13 @@ no se encuentra. La comprobación explícita contra `NULL` sigue la regla
     éxito.
 4.  Si el lazo termina sin encontrar el valor, devolver `NULL`.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 #include <stddef.h> // Para NULL y size_t
 
-// Devuelve un puntero al primer elemento que coincida con 'valor', o NULL si no se encuentra.
+// Devuelve un puntero al primer elemento que coincida con 'valor', o NULL si no
+se encuentra.
 const int* buscar_valor(const int *arr, size_t tamano, int valor) {
     const int *ptr = arr;
     const int *fin = arr + tamano;
@@ -999,14 +1197,17 @@ int main() {
     const int *encontrado = buscar_valor(numeros, 5, valor_a_buscar);
 
     if (encontrado != NULL) {
-        printf("Valor %d encontrado en la dirección de memoria %p\n", *encontrado, (void*)encontrado);
+        printf("Valor %d encontrado en la dirección de memoria %p\n",
+        *encontrado, (void*)encontrado);
     } else {
         printf("Valor %d no encontrado en el arreglo.\n", valor_a_buscar);
     }
 
     return 0;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 (3-modificando-el-arreglo)=
 #### 3. Modificando el arreglo
@@ -1021,7 +1222,7 @@ apunta el puntero.
 2.  Dentro del lazo, en lugar de leer, realizamos una asignación:
     `*ptr = nuevo_valor`.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 #include <stddef.h> // Para size_t
@@ -1045,12 +1246,15 @@ int main() {
 
     duplicar_valores(numeros, 5);
 
-    printf("Arreglo modificado: %d %d %d %d %d\n", numeros[0], numeros[1], numeros[2], numeros[3], numeros[4]);
+    printf("Arreglo modificado: %d %d %d %d %d\n", numeros[0], numeros[1],
+    numeros[2], numeros[3], numeros[4]);
     // Salida esperada: 2 4 6 8 10
 
     return 0;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 (4-copiando-un-arreglo)=
 #### 4. Copiando un Arreglo
@@ -1068,7 +1272,7 @@ paso.
 
 3.  Dentro del lazo, copiá el valor y luego incrementá **ambos** punteros.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 #include <stddef.h> // Para size_t
@@ -1098,12 +1302,15 @@ int main() {
 
     copiar_arreglo(arreglo_b, arreglo_a, 3);
 
-    printf("Contenido del arreglo copiado: %d %d %d\n", arreglo_b[0], arreglo_b[1], arreglo_b[2]);
+    printf("Contenido del arreglo copiado: %d %d %d\n", arreglo_b[0],
+    arreglo_b[1], arreglo_b[2]);
     // Salida esperada: 100 200 300
 
     return 0;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{warning} Advertencia sobre los límites de los arreglos
 
@@ -1118,6 +1325,7 @@ y operaciones se mantengan siempre dentro de los límites válidos del arreglo
 para evitar corrupción de memoria y comportamientos indefinidos.
 
 :::
+<!-- {warning} Advertencia sobre los límites de los arreglos -->
 
 (5-version-alternativa)=
 #### 5. Versión alternativa
@@ -1128,17 +1336,19 @@ encontramos, no vamos a escapar de 'contar' posiciones.
 En ese caso, lo que podemos hacer, es ir sumando al puntero del arreglo la
 `i`-esima posición, en lugar de ir incrementando el puntero mismo.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 for (size_t i = 0; i < 5; i++) {
     printf("%d ", *(p + i));
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 De esta forma, podemos obtener un código que es más similar al uso tradicional
 de arreglos
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 void imprimir_arreglo(const int *ptr, size_t tamano) {
     printf("Contenido del arreglo: ");
@@ -1147,7 +1357,9 @@ void imprimir_arreglo(const int *ptr, size_t tamano) {
     }
     printf("\n");
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 Prestá atención a los paréntesis en `*(p + i)`, ya que son cruciales para el
 orden de las operaciones. Su presencia asegura que primero realicemos la
@@ -1178,60 +1390,94 @@ En resumen:
 (proximos-pasos-memoria-dinamica)=
 ### Próximos Pasos: Memoria Dinámica
 
-Los punteros que estudiaste en este capítulo son fundamentales, pero hasta ahora solo trabajaste con memoria que el compilador gestiona automáticamente (variables locales y globales). El verdadero poder de los punteros se revela cuando aprendés a gestionar memoria **dinámicamente** durante la ejecución del programa.
+Los punteros que estudiaste en este capítulo son fundamentales, pero hasta ahora
+solo trabajaste con memoria que el compilador gestiona automáticamente
+(variables locales y globales). El verdadero poder de los punteros se revela
+cuando aprendés a gestionar memoria **dinámicamente** durante la ejecución del
+programa.
 
-En el [Memoria Dinámica](../bloque_4_dinamica_interfaces/1_memoria_dinamica.md), vas a aprender sobre:
+En el [Memoria Dinámica](../bloque_4_dinamica_interfaces/1_memoria_dinamica.md),
+vas a aprender sobre:
 
-- **El heap (montón):** Una región de memoria que podés solicitar y liberar bajo demanda.
-- **Funciones de asignación dinámica:** Como `malloc` y `calloc`, que te permiten crear estructuras de datos de tamaño variable.
-- **Gestión manual de memoria:** Cómo y cuándo liberar la memoria que asignaste con `free`.
-- **Punteros avanzados:** Incluyendo `void *`, casteos complejos, y punteros a arrays `(*)[N]`.
+- **El heap (montón):** Una región de memoria que podés solicitar y liberar bajo
+  demanda.
+- **Funciones de asignación dinámica:** Como `malloc` y `calloc`, que te
+  permiten crear estructuras de datos de tamaño variable.
+- **Gestión manual de memoria:** Cómo y cuándo liberar la memoria que asignaste
+  con `free`.
+- **Punteros avanzados:** Incluyendo `void *`, casteos complejos, y punteros a
+  arrays `(*)[N]`.
 - **Errores de memoria:** Memory leaks, dangling pointers, y cómo evitarlos.
 
-Estos conceptos amplían dramáticamente lo que podés hacer en C, permitiéndote crear programas que adaptan su uso de memoria a las necesidades del momento. Sin embargo, con este poder viene una gran responsabilidad: la gestión manual de memoria requiere disciplina y atención a los detalles.
+Estos conceptos amplían dramáticamente lo que podés hacer en C, permitiéndote
+crear programas que adaptan su uso de memoria a las necesidades del momento. Sin
+embargo, con este poder viene una gran responsabilidad: la gestión manual de
+memoria requiere disciplina y atención a los detalles.
 
-Cuando te sientas cómodo con los conceptos de este capítulo, estás listo para dar el próximo paso hacia la memoria dinámica.
+Cuando te sientas cómodo con los conceptos de este capítulo, estás listo para
+dar el próximo paso hacia la memoria dinámica.
 
 (conexion-con-el-siguiente-tema)=
 ### Conexión con el Siguiente Tema
 
-Los punteros que estudiamos operan sobre memoria **estática** (conocida en compilación) o **automática** (stack, gestionada por el sistema). Pero la verdadera potencia de los punteros emerge cuando los combinamos con **memoria dinámica**: la capacidad de solicitar y liberar memoria durante la ejecución según las necesidades del programa.
+Los punteros que estudiamos operan sobre memoria **estática** (conocida en
+compilación) o **automática** (stack, gestionada por el sistema). Pero la
+verdadera potencia de los punteros emerge cuando los combinamos con **memoria
+dinámica**: la capacidad de solicitar y liberar memoria durante la ejecución
+según las necesidades del programa.
 
-El apunte **[Memoria Dinámica](../bloque_4_dinamica_interfaces/1_memoria_dinamica.md)** introduce la gestión explícita de memoria mediante:
+El apunte **[Memoria
+Dinámica](../bloque_4_dinamica_interfaces/1_memoria_dinamica.md)** introduce la
+gestión explícita de memoria mediante:
 
 - **`malloc()`**: solicitar memoria del heap
 - **`free()`**: liberar memoria para evitar memory leaks
 - **Stack vs Heap**: diferencias conceptuales y de performance
 - **Estructuras dinámicas**: listas enlazadas, árboles, grafos
 
-La memoria dinámica permite construir estructuras que crecen y encogen según necesidad: una lista que se expande al agregar elementos, un grafo que se construye progresivamente. Sin embargo, introduce responsabilidad total sobre el ciclo de vida de la memoria: **cada `malloc()` debe tener su `free()` correspondiente**.
+La memoria dinámica permite construir estructuras que crecen y encogen según
+necesidad: una lista que se expande al agregar elementos, un grafo que se
+construye progresivamente. Sin embargo, introduce responsabilidad total sobre el
+ciclo de vida de la memoria: **cada `malloc()` debe tener su `free()`
+correspondiente**.
 
-Los punteros son las herramientas; la memoria dinámica es el material sobre el que trabajan. Juntos, permiten implementar cualquier estructura de datos imaginable, desde simples listas hasta bases de datos completas.
+Los punteros son las herramientas; la memoria dinámica es el material sobre el
+que trabajan. Juntos, permiten implementar cualquier estructura de datos
+imaginable, desde simples listas hasta bases de datos completas.
 
-**Pregunta puente**: Si declaramos `int arr[1000000]` en una función, el programa probablemente falle con stack overflow. ¿Por qué? ¿Cómo solicitamos memoria para estructuras arbitrariamente grandes? La respuesta está en la memoria dinámica y el heap.
+**Pregunta puente**: Si declaramos `int arr[1000000]` en una función, el
+programa probablemente falle con stack overflow. ¿Por qué? ¿Cómo solicitamos
+memoria para estructuras arbitrariamente grandes? La respuesta está en la
+memoria dinámica y el heap.
 
 (textos-fundamentales)=
 #### Textos Fundamentales
 
-- {cite:t}`kernighan_c_2014`. Capítulo 5: Pointers and Arrays. El tratamiento definitivo de punteros.
+- {cite:t}`kernighan_c_2014`. Capítulo 5: Pointers and Arrays. El tratamiento
+  definitivo de punteros.
 
-- {cite:t}`king_c_2008`. Capítulo 11: Pointers y Capítulo 12: Pointers and Arrays.
+- {cite:t}`king_c_2008`. Capítulo 11: Pointers y Capítulo 12: Pointers and
+  Arrays.
 
 - {cite:t}`reek_pointers_1997`. Libro entero dedicado a punteros en C.
 
 (punteros-y-arquitectura)=
 #### Punteros y Arquitectura
 
-- {cite:t}`bryant_computer_2015`. Capítulo 3: Machine-Level Representation y Capítulo 9: Virtual Memory.
+- {cite:t}`bryant_computer_2015`. Capítulo 3: Machine-Level Representation y
+  Capítulo 9: Virtual Memory.
 
-- {cite:t}`patterson_computer_2017`. Capítulo 2: Instructions. Instrucciones de carga/almacenamiento que usan direcciones.
+- {cite:t}`patterson_computer_2017`. Capítulo 2: Instructions. Instrucciones de
+  carga/almacenamiento que usan direcciones.
 
 (gestion-de-memoria-y-errores)=
 #### Gestión de Memoria y Errores
 
-- {cite:t}`seacord_secure_2013`. Capítulo 4: Dynamic Memory Management y Capítulo 5: Integer Security.
+- {cite:t}`seacord_secure_2013`. Capítulo 4: Dynamic Memory Management y
+  Capítulo 5: Integer Security.
 
-- {cite:t}`van_der_linden_expert_1994`. Capítulo 4: The Shocking Truth: C Arrays and Pointers Are NOT the Same!
+- {cite:t}`van_der_linden_expert_1994`. Capítulo 4: The Shocking Truth: C Arrays
+  and Pointers Are NOT the Same!
 
 (recursos-en-linea)=
 #### Recursos en Línea
@@ -1260,11 +1506,14 @@ Los punteros son las herramientas; la memoria dinámica es el material sobre el 
 (articulos-clasicos)=
 #### Artículos Clásicos
 
-- {cite:t}`ritchie_development_1993`. Historia de cómo surgieron los punteros en C.
+- {cite:t}`ritchie_development_1993`. Historia de cómo surgieron los punteros en
+  C.
 
-- **Hoare, C. A. R. (2009)**. "Null References: The Billion Dollar Mistake". Keynote, QCon London.
+- **Hoare, C. A. R. (2009)**. "Null References: The Billion Dollar Mistake".
+  Keynote, QCon London.
   - Reflexión sobre punteros nulos y sus consecuencias.
-  - Video: https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/
+  - Video:
+    https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/
 
 (ejercicios-y-practica)=
 #### Ejercicios y Práctica
@@ -1281,12 +1530,17 @@ Los punteros son las herramientas; la memoria dinámica es el material sobre el 
 
 :::{exercise}
 :label: ej-ptr-declaracion-deref
-Escribí un fragmento de código en C que declare una variable entera `var` con el valor `77` y un puntero `ptr` a dicha variable. Luego, modificá el valor de `var` asignándole `88` de manera indirecta a través del puntero y verificalo imprimiendo `var`.
+Escribí un fragmento de código en C que declare una variable entera `var` con el
+valor `77` y un puntero `ptr` a dicha variable. Luego, modificá el valor de
+`var` asignándole `88` de manera indirecta a través del puntero y verificalo
+imprimiendo `var`.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-ptr-declaracion-deref
 :class: dropdown
-```c
+``` c
 #include <stdio.h>
 
 int main() {
@@ -1299,18 +1553,29 @@ int main() {
     return 0;
 }
 ```
+<!-- c -->
+
 :::
+<!-- {solution} ej-ptr-declaracion-deref -->
 
 :::{exercise}
 :label: ej-ptr-nulo-seguro
-Explicá por qué desreferenciar un puntero que almacena la dirección `NULL` (por ejemplo, `int *p = NULL; *p = 10;`) genera un fallo de ejecución en sistemas modernos y escribí un bloque de código defensivo que evite este error.
+Explicá por qué desreferenciar un puntero que almacena la dirección `NULL` (por
+ejemplo, `int *p = NULL; *p = 10;`) genera un fallo de ejecución en sistemas
+modernos y escribí un bloque de código defensivo que evite este error.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-ptr-nulo-seguro
 :class: dropdown
-La constante `NULL` representa la dirección de memoria `0x0`. Los sistemas operativos modernos protegen esta página de direcciones virtuales reservándola como de acceso no permitido. Si un proceso intenta desreferenciar un puntero nulo, la MMU de la CPU detecta la infracción y aborta inmediatamente el proceso enviándole una señal de fallo de segmentación (*Segmentation Fault*).
+La constante `NULL` representa la dirección de memoria `0x0`. Los sistemas
+operativos modernos protegen esta página de direcciones virtuales reservándola
+como de acceso no permitido. Si un proceso intenta desreferenciar un puntero
+nulo, la MMU de la CPU detecta la infracción y aborta inmediatamente el proceso
+enviándole una señal de fallo de segmentación (*Segmentation Fault*).
 Para evitarlo, se debe realizar una validación explícita previa:
-```c
+``` c
 #include <stddef.h>
 #include <stdio.h>
 
@@ -1322,31 +1587,54 @@ void modificar_seguro(int *p) {
     }
 }
 ```
+<!-- c -->
+
 :::
+<!-- {solution} ej-ptr-nulo-seguro -->
 
 :::{exercise}
 :label: ej-ptr-wild-pointer
-Definí el concepto de "puntero salvaje" (*wild pointer*), cómo se introduce en un programa de C y de qué manera la regla de estilo de la cátedra {ref}`0x0003h` mitiga este riesgo de seguridad.
+Definí el concepto de "puntero salvaje" (*wild pointer*), cómo se introduce en
+un programa de C y de qué manera la regla de estilo de la cátedra {ref}`0x0003h`
+mitiga este riesgo de seguridad.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-ptr-wild-pointer
 :class: dropdown
-Un puntero salvaje es un puntero declarado que no ha sido inicializado a una dirección válida ni a `NULL`. Al ser una variable automática del stack, contendrá un valor residual aleatorio (basura) que se interprete como una dirección de memoria arbitraria. Intentar desreferenciarlo para leer o escribir puede corromper datos de otras variables en el stack o hacer que el programa falle de forma impredecible.
-La regla de la cátedra {ref}`0x0003h` exige la inicialización obligatoria de todas las variables en su punto de declaración (asignando una dirección válida o `NULL`), erradicando la existencia de punteros salvajes.
+Un puntero salvaje es un puntero declarado que no ha sido inicializado a una
+dirección válida ni a `NULL`. Al ser una variable automática del stack,
+contendrá un valor residual aleatorio (basura) que se interprete como una
+dirección de memoria arbitraria. Intentar desreferenciarlo para leer o escribir
+puede corromper datos de otras variables en el stack o hacer que el programa
+falle de forma impredecible.
+La regla de la cátedra {ref}`0x0003h` exige la inicialización obligatoria de
+todas las variables en su punto de declaración (asignando una dirección válida o
+`NULL`), erradicando la existencia de punteros salvajes.
+
 :::
+<!-- {solution} ej-ptr-wild-pointer -->
 
 
 ### Aritmética de Punteros
 
 :::{exercise}
 :label: ej-ptr-aritmetica-sizeof
-Dado un puntero a reales de doble precisión `double *ptr` que contiene actualmente la dirección de memoria virtual `0x3000` en una máquina de 64 bits, calculá la dirección hexadecimal resultante tras evaluar la expresión de aritmética de punteros `ptr + 3`.
+Dado un puntero a reales de doble precisión `double *ptr` que contiene
+actualmente la dirección de memoria virtual `0x3000` en una máquina de 64 bits,
+calculá la dirección hexadecimal resultante tras evaluar la expresión de
+aritmética de punteros `ptr + 3`.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-ptr-aritmetica-sizeof
 :class: dropdown
-La aritmética de punteros escala los desplazamientos según el tamaño físico del tipo de dato al que apunta:
-$$\text{Dirección Resultante} = \text{Dirección Base} + (\text{Desplazamiento} \times \text{sizeof(tipo)})$$
+La aritmética de punteros escala los desplazamientos según el tamaño físico del
+tipo de dato al que apunta:
+$$\text{Dirección Resultante} = \text{Dirección Base} + (\text{Desplazamiento}
+\times \text{sizeof(tipo)})$$
 Sustituyendo los valores:
 - Dirección Base = `0x3000`
 - Desplazamiento = $3$
@@ -1354,16 +1642,23 @@ Sustituyendo los valores:
 $$\text{Desplazamiento en bytes} = 3 \times 8 = 24\text{ bytes}$$
 Convertimos 24 a hexadecimal: $24_{10} = 18_{16}$ (`0x18`). Por lo tanto:
 $$\text{Dirección Resultante} = \text{0x3000} + \text{0x0018} = \text{0x3018}$$
+
 :::
+<!-- {solution} ej-ptr-aritmetica-sizeof -->
 
 :::{exercise}
 :label: ej-ptr-aritmetica-resta
-Escribí un programa corto en C que declare un arreglo de enteros `int arr[5]` y calcule la cantidad de elementos de distancia entre la dirección del último elemento `&arr[4]` y la dirección del primer elemento `&arr[0]` restando sus punteros. Mostrá cómo imprimir el resultado de forma portable.
+Escribí un programa corto en C que declare un arreglo de enteros `int arr[5]` y
+calcule la cantidad de elementos de distancia entre la dirección del último
+elemento `&arr[4]` y la dirección del primer elemento `&arr[0]` restando sus
+punteros. Mostrá cómo imprimir el resultado de forma portable.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-ptr-aritmetica-resta
 :class: dropdown
-```c
+``` c
 #include <stdio.h>
 #include <stddef.h> // Necesario para ptrdiff_t
 
@@ -1379,32 +1674,55 @@ int main() {
     return 0;
 }
 ```
+<!-- c -->
+
 :::
+<!-- {solution} ej-ptr-aritmetica-resta -->
 
 :::{exercise}
 :label: ej-ptr-aritmetica-vla-precedencia
-Explicá de forma detallada la diferencia de comportamiento entre las siguientes dos expresiones de C que combinan el operador de desreferencia y el operador de incremento:
+Explicá de forma detallada la diferencia de comportamiento entre las siguientes
+dos expresiones de C que combinan el operador de desreferencia y el operador de
+incremento:
 1. `*ptr++`
 2. `(*ptr)++`
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-ptr-aritmetica-vla-precedencia
 :class: dropdown
-1. **`*ptr++`**: Debido a que el operador de post-incremento `++` tiene mayor precedencia que el operador de desreferencia `*`, el incremento se aplica al *puntero* (la dirección). La expresión evalúa al valor almacenado originalmente en la dirección apuntada por `ptr` y, como efecto secundario, desplaza la dirección de `ptr` al siguiente casillero de memoria.
-2. **`(*ptr)++`**: El paréntesis altera el orden de precedencia forzando a que se evalúe primero la desreferencia `*ptr`. Por lo tanto, la expresión accede al *valor* numérico contenido en la variable a la que apunta `ptr` e incrementa ese valor en `1` en la memoria física, dejando la dirección de `ptr` inalterada.
+1. **`*ptr++`**: Debido a que el operador de post-incremento `++` tiene mayor
+   precedencia que el operador de desreferencia `*`, el incremento se aplica al
+   *puntero* (la dirección). La expresión evalúa al valor almacenado
+   originalmente en la dirección apuntada por `ptr` y, como efecto secundario,
+   desplaza la dirección de `ptr` al siguiente casillero de memoria.
+2. **`(*ptr)++`**: El paréntesis altera el orden de precedencia forzando a que
+   se evalúe primero la desreferencia `*ptr`. Por lo tanto, la expresión accede
+   al *valor* numérico contenido en la variable a la que apunta `ptr` e
+   incrementa ese valor en `1` en la memoria física, dejando la dirección de
+   `ptr` inalterada.
+
 :::
+<!-- {solution} ej-ptr-aritmetica-vla-precedencia -->
 
 
 ### Funciones, const y Contratos
 
 :::{exercise}
 :label: ej-ptr-func-intercambio
-Escribí una función pura en C llamada `procesar_datos` que reciba un número entero `x` por valor, un puntero a entero `entrada_salida` que deba incrementarse con `x`, y un puntero `salida` en el que se escriba el doble de `x`. Documentá esta función siguiendo la directiva de la cátedra con `@param[in]`, `@param[in, out]` y `@param[out]`.
+Escribí una función pura en C llamada `procesar_datos` que reciba un número
+entero `x` por valor, un puntero a entero `entrada_salida` que deba
+incrementarse con `x`, y un puntero `salida` en el que se escriba el doble de
+`x`. Documentá esta función siguiendo la directiva de la cátedra con
+`@param[in]`, `@param[in, out]` y `@param[out]`.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-ptr-func-intercambio
 :class: dropdown
-```c
+``` c
 /**
  * @brief Procesa valores numéricos mediante punteros.
  * @param[in] x Valor entero constante a procesar.
@@ -1420,65 +1738,109 @@ void procesar_datos(int x, int *entrada_salida, int *salida) {
     }
 }
 ```
+<!-- c -->
+
 :::
+<!-- {solution} ej-ptr-func-intercambio -->
 
 :::{exercise}
 :label: ej-ptr-const-declaraciones
-Escribí las declaraciones de firmas de función correspondientes para los siguientes tres casos hipotéticos en C, aplicando el calificador `const` donde corresponda para garantizar máxima robustez del código:
-1. Una función `imprimir_mensaje` que reciba una cadena de texto para lectura exclusiva.
-2. Una función `configurar_puerto` que reciba un puntero constante a un entero mutable que representa un registro físico de hardware.
-3. Una función `comparar_tablas` que reciba dos punteros constantes a arreglos constantes de enteros de lectura exclusiva.
+Escribí las declaraciones de firmas de función correspondientes para los
+siguientes tres casos hipotéticos en C, aplicando el calificador `const` donde
+corresponda para garantizar máxima robustez del código:
+1. Una función `imprimir_mensaje` que reciba una cadena de texto para lectura
+   exclusiva.
+2. Una función `configurar_puerto` que reciba un puntero constante a un entero
+   mutable que representa un registro físico de hardware.
+3. Una función `comparar_tablas` que reciba dos punteros constantes a arreglos
+   constantes de enteros de lectura exclusiva.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-ptr-const-declaraciones
 :class: dropdown
 Las firmas correspondientes son:
 1. `void imprimir_mensaje(const char *mensaje);` (Puntero a datos constantes)
-2. `void configurar_puerto(int * const registro);` (Puntero constante a datos variables)
-3. `void comparar_tablas(const int * const tablaA, const int * const tablaB);` (Puntero constante a datos constantes)
+2. `void configurar_puerto(int * const registro);` (Puntero constante a datos
+   variables)
+3. `void comparar_tablas(const int * const tablaA, const int * const tablaB);`
+   (Puntero constante a datos constantes)
+
 :::
+<!-- {solution} ej-ptr-const-declaraciones -->
 
 :::{exercise}
 :label: ej-ptr-const-diferencia
-Analizá el siguiente código en C e indicá en qué línea el compilador arrojará un error de sintaxis y por qué:
-```c
+Analizá el siguiente código en C e indicá en qué línea el compilador arrojará un
+error de sintaxis y por qué:
+``` c
 int x = 10;
 int y = 20;
 const int *ptr = &x;
 ptr = &y;
 *ptr = 30;
 ```
+<!-- c -->
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-ptr-const-diferencia
 :class: dropdown
 El error de compilación ocurre en la línea `*ptr = 30;`.
-La declaración `const int *ptr` define a `ptr` como un "puntero a entero constante". Esto significa que el compilador bloquea cualquier intento de escribir o modificar el valor apuntado a través de dicho puntero. La reasignación de la dirección del puntero (`ptr = &y;`) es totalmente válida porque el puntero en sí no es constante.
+La declaración `const int *ptr` define a `ptr` como un "puntero a entero
+constante". Esto significa que el compilador bloquea cualquier intento de
+escribir o modificar el valor apuntado a través de dicho puntero. La
+reasignación de la dirección del puntero (`ptr = &y;`) es totalmente válida
+porque el puntero en sí no es constante.
+
 :::
+<!-- {solution} ej-ptr-const-diferencia -->
 
 
 ### Degradación y Indirección Avanzada
 
 :::{exercise}
 :label: ej-ptr-decay-sizeof
-Explicá de forma rigurosa por qué al declarar un arreglo `int arr[10];` en `main`, la expresión `sizeof(arr)` devuelve `40` bytes, pero si pasamos ese arreglo a una función `void procesar(int arr[])`, la llamada a `sizeof(arr)` dentro de la función devuelve `8` bytes (en una arquitectura de 64 bits).
+Explicá de forma rigurosa por qué al declarar un arreglo `int arr[10];` en
+`main`, la expresión `sizeof(arr)` devuelve `40` bytes, pero si pasamos ese
+arreglo a una función `void procesar(int arr[])`, la llamada a `sizeof(arr)`
+dentro de la función devuelve `8` bytes (en una arquitectura de 64 bits).
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-ptr-decay-sizeof
 :class: dropdown
 Esto se debe al fenómeno de **degradación de arreglos** (*array decay*):
-- En el ámbito donde se declara el arreglo (`main`), el compilador conoce el tipo de dato y su tamaño estático completo ($10 \times \text{sizeof(int)} = 40$ bytes).
-- Al pasar el arreglo como parámetro a una función, este decae automáticamente a un puntero al primer elemento (`int*`). Por lo tanto, el parámetro formal `int arr[]` de la función es interpretado por el compilador exactamente como `int *arr`. Al evaluar `sizeof(arr)` dentro de la función, se está calculando el tamaño en bytes del tipo puntero, el cual es de 8 bytes en arquitecturas de 64 bits, perdiendo la dimensión del arreglo.
+- En el ámbito donde se declara el arreglo (`main`), el compilador conoce el
+  tipo de dato y su tamaño estático completo ($10 \times \text{sizeof(int)} =
+  40$ bytes).
+- Al pasar el arreglo como parámetro a una función, este decae automáticamente a
+  un puntero al primer elemento (`int*`). Por lo tanto, el parámetro formal `int
+  arr[]` de la función es interpretado por el compilador exactamente como `int
+  *arr`. Al evaluar `sizeof(arr)` dentro de la función, se está calculando el
+  tamaño en bytes del tipo puntero, el cual es de 8 bytes en arquitecturas de 64
+  bits, perdiendo la dimensión del arreglo.
+
 :::
+<!-- {solution} ej-ptr-decay-sizeof -->
 
 :::{exercise}
 :label: ej-ptr-doble-indireccion
-Implementá un fragmento de código en C que declare una variable entera `numero` con el valor `500`, un puntero simple `ptr` que apunte a `numero`, y un puntero doble `ptr_ptr` que apunte a `ptr`. Modificá el valor de `numero` a `999` utilizando una expresión que involucre al puntero doble `ptr_ptr` e imprimí el resultado.
+Implementá un fragmento de código en C que declare una variable entera `numero`
+con el valor `500`, un puntero simple `ptr` que apunte a `numero`, y un puntero
+doble `ptr_ptr` que apunte a `ptr`. Modificá el valor de `numero` a `999`
+utilizando una expresión que involucre al puntero doble `ptr_ptr` e imprimí el
+resultado.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-ptr-doble-indireccion
 :class: dropdown
-```c
+``` c
 #include <stdio.h>
 
 int main() {
@@ -1492,16 +1854,24 @@ int main() {
     return 0;
 }
 ```
+<!-- c -->
+
 :::
+<!-- {solution} ej-ptr-doble-indireccion -->
 
 :::{exercise}
 :label: ej-ptr-algoritmo-invertir
-Implementá una función llamada `invertir_arreglo` que reciba un arreglo de enteros y su tamaño, y revierta el orden de sus elementos utilizando exclusivamente aritmética de punteros con un puntero `izq` inicializado al primer elemento y otro `der` inicializado al último.
+Implementá una función llamada `invertir_arreglo` que reciba un arreglo de
+enteros y su tamaño, y revierta el orden de sus elementos utilizando
+exclusivamente aritmética de punteros con un puntero `izq` inicializado al
+primer elemento y otro `der` inicializado al último.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-ptr-algoritmo-invertir
 :class: dropdown
-```c
+``` c
 #include <stddef.h>
 
 void invertir_arreglo(int *arr, size_t tamano) {
@@ -1524,47 +1894,62 @@ void invertir_arreglo(int *arr, size_t tamano) {
     }
 }
 ```
+<!-- c -->
+
 :::
+<!-- {solution} ej-ptr-algoritmo-invertir -->
 
 
 
 ## Glosario
 
 ::::{glossary}
+
 Puntero
 : Variable que almacena la dirección de memoria de otra variable.
 
 Desreferenciación
-: Operación (`*`) que permite acceder o modificar el valor almacenado en la dirección apuntada.
+: Operación (`*`) que permite acceder o modificar el valor almacenado en la
+dirección apuntada.
 
 Degradación de arreglos (array decay)
-: Pérdida del tamaño de un arreglo al ser pasado a una función, convirtiéndose en un puntero simple a su primer elemento.
+: Pérdida del tamaño de un arreglo al ser pasado a una función, convirtiéndose
+en un puntero simple a su primer elemento.
 
 Efecto secundario (side effect)
 : Modificación de variables o estado fuera del ámbito local de una función.
+
 ::::
+<!-- {glossary} -->
 
 ## Síntesis y Resumen
 
-Este apunte desmitifica los **punteros**, el concepto más distintivo y poderoso de C, revelando su naturaleza como simples variables que almacenan direcciones de memoria.
+Este apunte desmitifica los **punteros**, el concepto más distintivo y poderoso
+de C, revelando su naturaleza como simples variables que almacenan direcciones
+de memoria.
 
 :::{important} Ideas Centrales
 
 **Punteros como Direcciones**
-- Un puntero es una variable que almacena la dirección de memoria de otra variable
+- Un puntero es una variable que almacena la dirección de memoria de otra
+  variable
 - Declaración: `int *p` declara un puntero a entero
 - Operador `&`: obtiene la dirección de una variable
-- Operador `*`: desreferencia un puntero para acceder/modificar el valor apuntado
+- Operador `*`: desreferencia un puntero para acceder/modificar el valor
+  apuntado
 
 **Relación Punteros-Arreglos**
 - Un arreglo decae a un puntero al primer elemento en la mayoría de contextos
 - `arr[i]` es equivalente a `*(arr + i)` (notación puntero)
-- Aritmética de punteros: sumar $n$ a un puntero avanza $n \times \text{sizeof(tipo)}$ bytes
+- Aritmética de punteros: sumar $n$ a un puntero avanza $n \times
+  \text{sizeof(tipo)}$ bytes
 - Esta equivalencia explica por qué los arreglos se pasan por dirección
 
 **Punteros y Funciones**
-- Paso por referencia simulado: pasar `&variable` permite que la función la modifique
-- Los arreglos siempre se pasan como punteros (por eso las modificaciones persisten)
+- Paso por referencia simulado: pasar `&variable` permite que la función la
+  modifique
+- Los arreglos siempre se pasan como punteros (por eso las modificaciones
+  persisten)
 - Punteros permiten que funciones "retornen" múltiples valores via parámetros
 
 **Punteros a Punteros**
@@ -1573,11 +1958,16 @@ Este apunte desmitifica los **punteros**, el concepto más distintivo y poderoso
 - Cada nivel de indirección agrega una desreferencia
 
 **Seguridad y Errores Comunes**
-- **Punteros no inicializados**: contienen "basura", desreferenciarlos es undefined behavior
-- **Punteros nulos**: `NULL` representa dirección inválida, siempre verificar antes de usar
-- **Dangling pointers**: punteros que apuntan a memoria ya liberada o fuera de scope
+- **Punteros no inicializados**: contienen "basura", desreferenciarlos es
+  undefined behavior
+- **Punteros nulos**: `NULL` representa dirección inválida, siempre verificar
+  antes de usar
+- **Dangling pointers**: punteros que apuntan a memoria ya liberada o fuera de
+  scope
 - **Desbordamiento**: acceder más allá de los límites de un arreglo via punteros
+
 :::
+<!-- {important} Ideas Centrales -->
 
 ## Referencias y Lecturas Complementarias
 

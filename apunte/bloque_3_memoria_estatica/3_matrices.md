@@ -7,21 +7,43 @@ subtitle: "The matrix has you..."
 (capitulo-matrices)=
 ## Introducción
 
-En el ámbito de la programación, una **matriz** se define como una estructura de datos que facilita el almacenamiento de un conjunto homogéneo de elementos, organizados en una disposición bidimensional de filas y columnas. En el lenguaje de programación C, esta abstracción se materializa mediante la implementación de **arreglos bidimensionales** (2D), los cuales pueden ser conceptualizados como arreglos cuyos elementos son, a su vez, otros arreglos.
+En el ámbito de la programación, una **matriz** se define como una estructura de
+datos que facilita el almacenamiento de un conjunto homogéneo de elementos,
+organizados en una disposición bidimensional de filas y columnas. En el lenguaje
+de programación C, esta abstracción se materializa mediante la implementación de
+**arreglos bidimensionales** (2D), los cuales pueden ser conceptualizados como
+arreglos cuyos elementos son, a su vez, otros arreglos.
 
 :::{note} Prerequisitos
-Este capítulo asume que ya dominás los conceptos de arreglos unidimensionales presentados en el [Secuencias y arreglos](2_secuencias.md). Si necesitás repasar cómo funcionan los arreglos básicos, su declaración, inicialización y recorrido, consultá ese capítulo primero.
+
+Este capítulo asume que ya dominás los conceptos de arreglos unidimensionales
+presentados en el [Secuencias y arreglos](2_secuencias.md). Si necesitás repasar
+cómo funcionan los arreglos básicos, su declaración, inicialización y recorrido,
+consultá ese capítulo primero.
+
 :::
+<!-- {note} Prerequisitos -->
 
-Las matrices son fundamentales en numerosas aplicaciones: desde operaciones matemáticas básicas hasta algoritmos complejos de procesamiento de imágenes, simulaciones físicas, análisis de datos, representación de grafos, implementación de juegos como el tres en raya o ajedrez, y sistemas de coordenadas bidimensionales. Su comprensión es esencial para el desarrollo de software eficiente y estructurado.
+Las matrices son fundamentales en numerosas aplicaciones: desde operaciones
+matemáticas básicas hasta algoritmos complejos de procesamiento de imágenes,
+simulaciones físicas, análisis de datos, representación de grafos,
+implementación de juegos como el tres en raya o ajedrez, y sistemas de
+coordenadas bidimensionales. Su comprensión es esencial para el desarrollo de
+software eficiente y estructurado.
 
-(relacion-con-el-algebra-lineal)=
+
 
 ## Desarrollo
 
-### Matrices (Arreglos Bidimensionales)
+Matrices (Arreglos Bidimensionales)
+
+(relacion-con-el-algebra-lineal)=
 #### Relación con el álgebra lineal
-Las matrices en programación están íntimamente relacionadas con el concepto matemático de matriz del álgebra lineal. Esto permite aplicar directamente teoremas y algoritmos matemáticos en implementaciones de software, especialmente en campos como gráficos por computadora, machine learning, y simulaciones científicas.
+Las matrices en programación están íntimamente relacionadas con el concepto
+matemático de matriz del álgebra lineal. Esto permite aplicar directamente
+teoremas y algoritmos matemáticos en implementaciones de software, especialmente
+en campos como gráficos por computadora, machine learning, y simulaciones
+científicas.
 
 
 (extension-a-multiples-dimensiones)=
@@ -41,22 +63,37 @@ de filas y columnas.
 
 Sintaxis
 
-```{code-block}c
+:::{code-block}c
+
 tipo_dato nombre_matriz[CANTIDAD_FILAS][CANTIDAD_COLUMNAS];
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{warning} Uso de ALV/VLA
 
-Es muy importante destacar que los Arreglos de Longitud Variable (ALV/VLA) están estrictamente prohibidos para la declaración de matrices en la pila (stack) debido al grave riesgo de desborde de pila (stack overflow) ante dimensiones no controladas, cumpliendo con la regla de estilo {ref}`0x5001h`.
+Es muy importante destacar que los Arreglos de Longitud Variable (ALV/VLA) están
+estrictamente prohibidos para la declaración de matrices en la pila (stack)
+debido al grave riesgo de desborde de pila (stack overflow) ante dimensiones no
+controladas, cumpliendo con la regla de estilo {ref}`0x5001h`.
 
-Sin embargo, el estándar C99 admite y habilita el uso de la sintaxis ALV en las firmas de funciones para permitir el pasaje de matrices con dimensiones dinámicas (donde las dimensiones se pasan como parámetros previos), facilitando el cálculo de desplazamientos de memoria en tiempo de ejecución de manera genérica y segura.
+Sin embargo, el estándar C99 admite y habilita el uso de la sintaxis ALV en las
+firmas de funciones para permitir el pasaje de matrices con dimensiones
+dinámicas (donde las dimensiones se pasan como parámetros previos), facilitando
+el cálculo de desplazamientos de memoria en tiempo de ejecución de manera
+genérica y segura.
+
 :::
+<!-- {warning} Uso de ALV/VLA -->
 
 Ejemplo
 
-```{code-block}c
+:::{code-block}c
+
 int miMatriz[3][4]; // Matriz de 3 filas y 4 columnas
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{note} Almacenamiento en memoria
 
@@ -70,6 +107,7 @@ Para la matriz `mi_matriz[3][4]`, la memoria contendría los 12 enteros en
 secuencia, como un arreglo: `[f0c0, f0c1, f0c2, f0c3, f1c0, f1c1, ...]`.
 
 :::
+<!-- {note} Almacenamiento en memoria -->
 
 :::{figure} 3/matriz_2d_memoria.svg
 :label: fig-matriz-memoria
@@ -78,7 +116,9 @@ secuencia, como un arreglo: `[f0c0, f0c1, f0c2, f0c3, f1c0, f1c1, ...]`.
 Representación de una matriz bidimensional en memoria. Los elementos se
 almacenan de forma contigua siguiendo el orden row-major, donde cada fila se
 almacena completa antes de pasar a la siguiente.
+
 :::
+<!-- {figure} 3/matriz_2d_memoria.svg -->
 
 
 
@@ -102,7 +142,9 @@ con un inicializador como con los arreglos, o con código.
 Tres métodos de inicialización de matrices: con inicializador completo, con
 declaración implícita de la primera dimensión, y programáticamente mediante
 lazos.
+
 :::
+<!-- {figure} 3/inicializacion_matriz.svg -->
 
 (inicializacion-completa)=
 #### Inicialización completa
@@ -110,13 +152,15 @@ lazos.
 Este proceso se realiza mediante el uso de llaves anidadas, donde cada conjunto
 de llaves interno corresponde a una fila de la matriz.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 int matriz[2][3] = {
     {1, 2, 3},  // Fila 0
     {4, 5, 6}   // Fila 1
 };
-```
+
+:::
+<!-- {code-block}c -->
 
 (inicializacion-con-declaracion-implicita)=
 #### Inicialización con declaración implícita
@@ -126,14 +170,16 @@ pero **todas las dimensiones subsecuentes deben ser especificadas
 explícitamente**. Esto se debe a que el compilador necesita conocer el tamaño de
 cada "sub-arreglo" para calcular las posiciones de memoria.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 // Válido: el compilador infiere 2 filas basándose en el inicializador.
 int matriz[][3] = {
     {1, 2, 3},  // Fila 0
     {4, 5, 6}   // Fila 1
 };
-```
+
+:::
+<!-- {code-block}c -->
 
 La forma `int matriz[][]` es **inválida** y no compilará, ya que el compilador
 no tendría forma de saber dónde termina una fila y empieza la siguiente.
@@ -145,7 +191,7 @@ Constituye un método más flexible y programático. El uso de macros en mayúsc
 para las dimensiones ({ref}`0x3011h`) y de `size_t` para los índices
 ({ref}`0x3010h`) son buenas prácticas que mejoran la legibilidad y portabilidad.
 
-```{code-block}c
+:::{code-block}c
 :caption: Asignación de valores mediante lazo anidados
 
 #define FILAS 3
@@ -157,7 +203,9 @@ for (size_t i = 0; i < FILAS; i++) {
         matriz[i][j] = i * 10 + j;
     }
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 (acceso-a-los-elementos)=
 ### Acceso a los Elementos
@@ -168,23 +216,32 @@ cero**.
 
 Sintaxis
 
-```{code-block}c
+:::{code-block}c
+
 nombre_matriz[indice_fila][indice_columna];
-```
+
+:::
+<!-- {code-block}c -->
 
 Ejemplo de L-Value y R-Value
 
-```{code-block}c
+:::{code-block}c
+
 matriz[0][1] = 100; // Asigna 100 al elemento en la fila 0, columna 1.
 int valor = matriz[2][3]; // Toma el valor del elemento en la fila 2, columna 3.
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{danger} Comportamiento no definido
+
 Es imperativo señalar que el acceso a un índice que excede los límites definidos
 para la matriz invoca un **comportamiento indefinido** según el estándar de C,
 lo cual puede manifestarse en fallos de ejecución (`segmentation fault`) o
 corrupción de datos, violando la regla de estilo {ref}`0x300Ch`.
+
 :::
+<!-- {danger} Comportamiento no definido -->
 
 
 
@@ -198,20 +255,37 @@ corrupción de datos, violando la regla de estilo {ref}`0x300Ch`.
 (patrones-de-recorrido-y-localidad-de-memoria-cache)=
 ### Patrones de Recorrido y Localidad de Memoria (Caché)
 
-El procesamiento sistemático de todos los elementos de una matriz requiere el uso de **lazos anidados**. La comprensión de la relación entre el almacenamiento en memoria y el hardware de la CPU es crucial tanto para la corrección del algoritmo como para el rendimiento del programa.
+El procesamiento sistemático de todos los elementos de una matriz requiere el
+uso de **lazos anidados**. La comprensión de la relación entre el almacenamiento
+en memoria y el hardware de la CPU es crucial tanto para la corrección del
+algoritmo como para el rendimiento del programa.
 
-A nivel físico, la memoria RAM es unidimensional. Para almacenar una matriz bidimensional, C utiliza el esquema **Row-Major Order** (ordenación por filas), disponiendo los elementos de la fila 0 de forma consecutiva, seguidos inmediatamente por los de la fila 1, y así sucesivamente.
+A nivel físico, la memoria RAM es unidimensional. Para almacenar una matriz
+bidimensional, C utiliza el esquema **Row-Major Order** (ordenación por filas),
+disponiendo los elementos de la fila 0 de forma consecutiva, seguidos
+inmediatamente por los de la fila 1, y así sucesivamente.
 
-Cuando el programa solicita un elemento de la matriz, la CPU no lee una única variable directamente desde la RAM. En su lugar, el hardware lee un bloque contiguo completo de datos (línea de caché) y lo transfiere a la **memoria caché** del procesador. Este mecanismo responde al principio de **localidad espacial**: si accedés a un dato, es altamente probable que necesités los datos adyacentes a la brevedad.
+Cuando el programa solicita un elemento de la matriz, la CPU no lee una única
+variable directamente desde la RAM. En su lugar, el hardware lee un bloque
+contiguo completo de datos (línea de caché) y lo transfiere a la **memoria
+caché** del procesador. Este mecanismo responde al principio de **localidad
+espacial**: si accedés a un dato, es altamente probable que necesités los datos
+adyacentes a la brevedad.
 
 (recorrido-por-filas-row-major-alto-rendimiento)=
 #### Recorrido por Filas (Row-Major): Alto Rendimiento
 
-El patrón más común y eficiente es el recorrido por filas, donde se accede a todos los elementos de una fila antes de pasar a la siguiente. 
+El patrón más común y eficiente es el recorrido por filas, donde se accede a
+todos los elementos de una fila antes de pasar a la siguiente.
 
-Si recorrés la matriz fila por fila (lazo externo en filas `i`, lazo interno en columnas `j`), el orden de acceso del programa coincide exactamente con la disposición lineal en el hardware. Los elementos contiguos ya se encontrarán precargados en la caché, generando un **acierto de caché (cache hit)** y agilizando notablemente el procesamiento, respetando la regla de estilo {ref}`0x0000h`.
+Si recorrés la matriz fila por fila (lazo externo en filas `i`, lazo interno en
+columnas `j`), el orden de acceso del programa coincide exactamente con la
+disposición lineal en el hardware. Los elementos contiguos ya se encontrarán
+precargados en la caché, generando un **acierto de caché (cache hit)** y
+agilizando notablemente el procesamiento, respetando la regla de estilo
+{ref}`0x0000h`.
 
-```{code-block}c
+:::{code-block}c
 :caption: Recorrido fila por fila (Cache-Friendly) - patrón recomendado
 :linenos:
 
@@ -223,16 +297,23 @@ for (size_t i = 0; i < FILAS; i++) {
     }
     printf("\n"); // Salto de línea al final de cada fila
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 (recorrido-por-columnas-column-major-bajo-rendimiento)=
 #### Recorrido por Columnas (Column-Major): Bajo Rendimiento
 
-Si recorrés la matriz columna por columna (lazo externo en columnas `j`, lazo interno en filas `i`), forzás al procesador a realizar "saltos" en memoria física. Cada incremento de `i` requiere avanzar una distancia de `COLUMNAS * sizeof(tipo)` bytes. 
+Si recorrés la matriz columna por columna (lazo externo en columnas `j`, lazo
+interno en filas `i`), forzás al procesador a realizar "saltos" en memoria
+física. Cada incremento de `i` requiere avanzar una distancia de `COLUMNAS *
+sizeof(tipo)` bytes.
 
-Esto invalida la caché constantemente, produciendo un **fallo de caché (cache miss)** en cada paso, obligando a la CPU a suspender momentáneamente la ejecución para esperar lecturas de la lenta memoria principal (RAM).
+Esto invalida la caché constantemente, produciendo un **fallo de caché (cache
+miss)** en cada paso, obligando a la CPU a suspender momentáneamente la
+ejecución para esperar lecturas de la lenta memoria principal (RAM).
 
-```{code-block}c
+:::{code-block}c
 :caption: Recorrido columna por columna (Cache-Unfriendly)
 
 // Lazo externo: columnas (j)
@@ -243,7 +324,9 @@ for (size_t j = 0; j < COLUMNAS; j++) {
     }
     printf("\n"); // Nueva línea al final de cada columna
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{figure} 3/recorrido_filas_columnas.svg
 :name: fig-recorrido-filas-columnas
@@ -251,25 +334,38 @@ for (size_t j = 0; j < COLUMNAS; j++) {
 :align: center
 
 Comparación de recorridos por fila vs por columna.
+
 :::
+<!-- {figure} 3/recorrido_filas_columnas.svg -->
 
 :::{figure} 3/cache_localidad.svg
 :label: fig-cache-localidad
 :width: 100%
 
-Impacto del orden de acceso en el rendimiento. El acceso secuencial (Row-Major) aprovecha la localidad espacial en caché, mientras que el acceso no secuencial genera múltiples fallos de caché debido a los saltos en memoria física.
+Impacto del orden de acceso en el rendimiento. El acceso secuencial (Row-Major)
+aprovecha la localidad espacial en caché, mientras que el acceso no secuencial
+genera múltiples fallos de caché debido a los saltos en memoria física.
+
 :::
+<!-- {figure} 3/cache_localidad.svg -->
 
 :::{important} Impacto en la Práctica
-En matrices de gran tamaño (por ejemplo, procesamiento de imágenes o simulaciones), el recorrido ineficiente puede degradar el rendimiento por un factor de hasta 10 veces o más. Siempre estructurá los lazos anidados de forma que el lazo más interno avance en la dimensión contigua en memoria (las columnas, en el caso de C).
+
+En matrices de gran tamaño (por ejemplo, procesamiento de imágenes o
+simulaciones), el recorrido ineficiente puede degradar el rendimiento por un
+factor de hasta 10 veces o más. Siempre estructurá los lazos anidados de forma
+que el lazo más interno avance en la dimensión contigua en memoria (las
+columnas, en el caso de C).
+
 :::
+<!-- {important} Impacto en la Práctica -->
 
 (recorrido-diagonal)=
 #### Recorrido Diagonal
 
 Para matrices cuadradas, es común necesitar acceder a las diagonales.
 
-```{code-block}c
+:::{code-block}c
 :caption: Acceso a diagonal principal y secundaria
 
 #define DIM 4
@@ -288,14 +384,20 @@ for (size_t i = 0; i < DIM; i++) {
     printf("%d ", matriz_cuadrada[i][DIM - 1 - i]);
 }
 printf("\n");
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{figure} 3/diagonales_matriz.svg
 :label: fig-diagonales
 :width: 100%
 
-Las diagonales principal y secundaria en una matriz cuadrada. La diagonal principal cumple la condición `i == j`, mientras que la secundaria cumple `i + j == DIM - 1`.
+Las diagonales principal y secundaria en una matriz cuadrada. La diagonal
+principal cumple la condición `i == j`, mientras que la secundaria cumple `i + j
+== DIM - 1`.
+
 :::
+<!-- {figure} 3/diagonales_matriz.svg -->
 
 
 
@@ -314,7 +416,7 @@ se especifiquen explícitamente **todas las dimensiones, a excepción de la
 primera**. Esto es necesario para que el compilador pueda calcular el
 desplazamiento en memoria de cada elemento.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #define COLUMNAS 4
 
@@ -327,7 +429,9 @@ void imprimir_matriz(int mat[][COLUMNAS], size_t filas, size_t columnas) {
         printf("\n");
     }
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ¿Acaso las `columnas` _no están ya en el macro_ `COLUMNAS`? Para garantizar la
 consistencia y minimizar los efectos secundarios en las funciones que operan con
@@ -339,8 +443,17 @@ sin él, en el momento en que veamos memoria dinámica, el código no funcionar�
 sin mayores cambios.
 
 :::{important} Límite de control vs. Direccionamiento en memoria
-Es crucial notar que en la firma `void imprimir_matriz(int mat[][COLUMNAS], size_t filas, size_t columnas)`, el parámetro `columnas` sirve únicamente como límite de control para el lazo interno de impresión (`j < columnas`). El compilador de C utiliza exclusivamente el valor constante `COLUMNAS` del tipo de dato (`int mat[][COLUMNAS]`) para realizar el cálculo de desplazamiento de memoria al evaluar `mat[i][j]`. Pasar `columnas` no altera en absoluto cómo el compilador direcciona físicamente los elementos en la memoria contigua.
+
+Es crucial notar que en la firma `void imprimir_matriz(int mat[][COLUMNAS],
+size_t filas, size_t columnas)`, el parámetro `columnas` sirve únicamente como
+límite de control para el lazo interno de impresión (`j < columnas`). El
+compilador de C utiliza exclusivamente el valor constante `COLUMNAS` del tipo de
+dato (`int mat[][COLUMNAS]`) para realizar el cálculo de desplazamiento de
+memoria al evaluar `mat[i][j]`. Pasar `columnas` no altera en absoluto cómo el
+compilador direcciona físicamente los elementos en la memoria contigua.
+
 :::
+<!-- {important} Límite de control vs. Direccionamiento en memoria -->
 
 (calculo-de-desplazamiento-de-memoria)=
 #### Cálculo de Desplazamiento de Memoria
@@ -349,23 +462,40 @@ Dicha información es indispensable para que el compilador pueda calcular
 correctamente el desplazamiento de memoria necesario para localizar cualquier
 elemento `matriz[i][j]`, utilizando una fórmula análoga a:
 
-```{math}
+:::{math}
+
 \text{direccionbase} + (i \times \text{COLUMNAS} + j) \times \text{sizeof(int)}
-```
+
+:::
+<!-- {math} -->
 
 (pasando-matrices-a-funciones-metodo-alv)=
 #### Pasando matrices a funciones (Método ALV)
 
-Aunque el uso de ALV en el stack está estrictamente prohibido por seguridad (riesgo de desborde de pila), la sintaxis de parámetros ALV en firmas de funciones (introducida en el estándar C99) es una herramienta sumamente útil y segura para crear funciones genéricas capaces de operar sobre matrices de dimensiones arbitrarias sin recurrir a macros estáticas.
+Aunque el uso de ALV en el stack está estrictamente prohibido por seguridad
+(riesgo de desborde de pila), la sintaxis de parámetros ALV en firmas de
+funciones (introducida en el estándar C99) es una herramienta sumamente útil y
+segura para crear funciones genéricas capaces de operar sobre matrices de
+dimensiones arbitrarias sin recurrir a macros estáticas.
 
-Al declarar la matriz en los parámetros de la función utilizando variables previamente declaradas como dimensiones, el compilador puede generar código para calcular el desplazamiento de memoria de manera dinámica y precisa.
+Al declarar la matriz en los parámetros de la función utilizando variables
+previamente declaradas como dimensiones, el compilador puede generar código para
+calcular el desplazamiento de memoria de manera dinámica y precisa.
 
 :::{important} Orden de los Parámetros
-Resulta crucial observar que, en la firma de la función, los parámetros que definen las dimensiones de la matriz deben estar antes que el parámetro de la matriz misma. Esto se debe a que el compilador debe conocer el tamaño de `filas` y `cols` antes de interpretar la declaración de `matriz[filas][cols]`.
-:::
 
-```{code-block}c
-// Correcto: filas y cols se conocen antes de que el compilador procese matriz[filas][cols]
+Resulta crucial observar que, en la firma de la función, los parámetros que
+definen las dimensiones de la matriz deben estar antes que el parámetro de la
+matriz misma. Esto se debe a que el compilador debe conocer el tamaño de `filas`
+y `cols` antes de interpretar la declaración de `matriz[filas][cols]`.
+
+:::
+<!-- {important} Orden de los Parámetros -->
+
+:::{code-block}c
+
+// Correcto: filas y cols se conocen antes de que el compilador procese
+matriz[filas][cols]
 void procesar_matriz(size_t filas, size_t cols, int matriz[filas][cols]) {
     printf("\nProcesando matriz de %zu x %zu\n", filas, cols);
     for (size_t i = 0; i < filas; i++) {
@@ -374,7 +504,9 @@ void procesar_matriz(size_t filas, size_t cols, int matriz[filas][cols]) {
         }
     }
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 (matrices-multidimensionales)=
 ### Matrices Multidimensionales
@@ -390,9 +522,11 @@ ejemplo, puede conceptualizarse como un cubo de datos.
 Arreglo tridimensional representado como capas de matrices bidimensionales. Cada
 capa contiene una matriz completa, y el acceso requiere tres índices: capa,
 fila y columna.
-:::
 
-```{code-block}c
+:::
+<!-- {figure} 3/matriz_3d.svg -->
+
+:::{code-block}c
 :caption: Declaración y recorrido de un arreglo 3D
 // Arreglo tridimensional: 2 capas, 3 filas, y 4 columnas.
 int cubo[2][3][4];
@@ -408,14 +542,18 @@ for (size_t i = 0; i < 2; i++) {       // Capas
         }
     }
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 
 
 (operaciones-matematicas-con-matrices)=
 ## Operaciones Matemáticas con Matrices
 
-En el ámbito de la programación en C y otras áreas de la computación, el manejo de matrices es fundamental. A continuación, se presentan los algoritmos y las expresiones matemáticas para las operaciones básicas entre matrices.
+En el ámbito de la programación en C y otras áreas de la computación, el manejo
+de matrices es fundamental. A continuación, se presentan los algoritmos y las
+expresiones matemáticas para las operaciones básicas entre matrices.
 
 :::{figure} 3/operaciones_basicas.svg
 :label: fig-operaciones-basicas
@@ -423,12 +561,16 @@ En el ámbito de la programación en C y otras áreas de la computación, el man
 
 Operaciones básicas con matrices: suma, resta y transposición. Cada operación
 requiere validar que las dimensiones sean compatibles antes de proceder.
+
 :::
+<!-- {figure} 3/operaciones_basicas.svg -->
 
 (suma-de-matrices)=
 ### Suma de Matrices
 
-La suma de dos matrices, A y B, de las mismas dimensiones ($m \times n$), guarda el resultado en una matriz C de la misma dimensión. Cada elemento de C es la suma de los elementos correspondientes en A y B.
+La suma de dos matrices, A y B, de las mismas dimensiones ($m \times n$), guarda
+el resultado en una matriz C de la misma dimensión. Cada elemento de C es la
+suma de los elementos correspondientes en A y B.
 
 (expresion-matematica)=
 #### Expresión Matemática
@@ -436,10 +578,12 @@ La suma de dos matrices, A y B, de las mismas dimensiones ($m \times n$), guarda
 Para dos matrices A y B de tamaño $m \times n$, la matriz resultante C se define
 como:
 
-```{math}
+:::{math}
 :label: eq-suma-matrices
 C_{i,j} = A_{i,j} + B_{i,j}
-```
+
+:::
+<!-- {math} -->
 
 donde $i$ representa la fila y $j$ la columna.
 
@@ -470,7 +614,7 @@ $$
 
 El algoritmo recorre ambas matrices y suma los elementos en la misma posición.
 
-```{code-block}pseudocode
+:::{code-block}pseudocode
 :caption: Algoritmo para la suma de dos matrices A y B.
 :linenos:
 
@@ -484,7 +628,9 @@ PROCEDIMIENTO sumar_matrices(A, B, C, m, n)
     FIN PARA
   FIN PARA
 FIN PROCEDIMIENTO
-```
+
+:::
+<!-- {code-block}pseudocode -->
 
 ---
 
@@ -492,7 +638,8 @@ FIN PROCEDIMIENTO
 ### Resta de Matrices
 
 De manera análoga a la suma, la resta de dos matrices A y B de idénticas
-dimensiones guarda el resultado en una matriz C donde cada elemento es la diferencia de
+dimensiones guarda el resultado en una matriz C donde cada elemento es la
+diferencia de
 los elementos correspondientes.
 
 (expresion-matematica)=
@@ -501,17 +648,19 @@ los elementos correspondientes.
 Para dos matrices A y B de tamaño $m \times n$, la matriz resultante C se define
 como:
 
-```{math}
+:::{math}
 :label: eq-resta-matrices
 C_{i,j} = A_{i,j} - B_{i,j}
-```
+
+:::
+<!-- {math} -->
 
 (algoritmo-en-pseudocodigo)=
 #### Algoritmo en Pseudocódigo
 
 El procedimiento es idéntico al de la suma, pero se realiza una resta.
 
-```{code-block}pseudocode
+:::{code-block}pseudocode
 :caption: Algoritmo para la resta de dos matrices A y B.
 :linenos:
 
@@ -525,7 +674,9 @@ PROCEDIMIENTO restar_matrices(A, B, C, m, n)
     FIN PARA
   FIN PARA
 FIN PROCEDIMIENTO
-```
+
+:::
+<!-- {code-block}pseudocode -->
 
 ---
 
@@ -533,7 +684,8 @@ FIN PROCEDIMIENTO
 ### Multiplicación de Matrices
 
 La multiplicación de una matriz A de dimensión $m \times p$ por una matriz B de
-dimensión $p \times n$ guarda el resultado en una matriz C de dimensión $m \times n$. Es crucial que el
+dimensión $p \times n$ guarda el resultado en una matriz C de dimensión $m
+\times n$. Es crucial que el
 número de columnas de A sea igual al número de filas de B.
 
 :::{figure} 3/multiplicacion_matrices.svg
@@ -543,19 +695,24 @@ número de columnas de A sea igual al número de filas de B.
 Proceso de multiplicación de matrices. Cada elemento C[i][j] se calcula como el
 producto escalar de la fila i de A con la columna j de B, sumando los productos
 elemento por elemento.
+
 :::
+<!-- {figure} 3/multiplicacion_matrices.svg -->
 
 (expresion-matematica)=
 #### Expresión Matemática
 
 El elemento $(i,j)$ de la matriz resultante C se calcula como la suma de los
-productos de los elementos de la fila $i$ de A por los elementos de la columna $j$
+productos de los elementos de la fila $i$ de A por los elementos de la columna
+$j$
 de B.
 
-```{math}
+:::{math}
 :label: eq-mult-matrices
 C_{i,j} = \sum_{k=1}^{p} A_{i,k} \cdot B_{k,j}
-```
+
+:::
+<!-- {math} -->
 
 (expansion-matematica)=
 #### Expansión Matemática
@@ -585,12 +742,15 @@ Por ejemplo, para calcular el elemento $C_{1,1}$ de una multiplicación de
 matrices de 2x2:
 
 $$
-\begin{pmatrix} \color{blue}A_{1,1} & \color{blue}A_{1,2} \\ A_{2,1} & A_{2,2} \end{pmatrix} \times \begin{pmatrix} \color{red}B_{1,1} & B_{1,2} \\ \color{red}B_{2,1} & B_{2,2} \end{pmatrix} = \begin{pmatrix} C_{1,1} & C_{1,2}
+\begin{pmatrix} \color{blue}A_{1,1} & \color{blue}A_{1,2} \\ A_{2,1} & A_{2,2}
+\end{pmatrix} \times \begin{pmatrix} \color{red}B_{1,1} & B_{1,2} \\
+\color{red}B_{2,1} & B_{2,2} \end{pmatrix} = \begin{pmatrix} C_{1,1} & C_{1,2}
 \\ C_{2,1} & C_{2,2} \end{pmatrix}
 $$
 
 Donde
-$C_{1,1} = (\color{blue}A_{1,1} \cdot \color{red}B_{1,1}) + (\color{blue}A_{1,2} \cdot \color{red}B_{2,1})$.
+$C_{1,1} = (\color{blue}A_{1,1} \cdot \color{red}B_{1,1}) + (\color{blue}A_{1,2}
+\cdot \color{red}B_{2,1})$.
 
 (algoritmo-en-pseudocodigo)=
 #### Algoritmo en Pseudocódigo
@@ -601,16 +761,20 @@ cada fila de A con cada columna de B.
 (algoritmo-en-pseudocodigo-optimizado-cache-friendly)=
 #### Algoritmo en Pseudocódigo Optimizado (Cache-Friendly)
 
-Para realizar la multiplicación minimizando los fallos de caché, es conveniente reordenar los lazos del algoritmo clásico ($i, j, k$) al orden optimizado ($i, k, j$). De esta forma, el lazo más interno recorre consecutivamente las columnas de las matrices en memoria principal, garantizando localidad espacial.
+Para realizar la multiplicación minimizando los fallos de caché, es conveniente
+reordenar los lazos del algoritmo clásico ($i, j, k$) al orden optimizado ($i,
+k, j$). De esta forma, el lazo más interno recorre consecutivamente las columnas
+de las matrices en memoria principal, garantizando localidad espacial.
 
-```{code-block}pseudocode
+:::{code-block}pseudocode
 :caption: Algoritmo optimizado para la multiplicación de una matriz A (m x p) por una matriz B (p x n) en orden i-k-j.
 :linenos:
 
 PROCEDIMIENTO multiplicar_matrices(A, B, C, m, p, n)
   // A es una matriz de m x p de entrada
   // B es una matriz de p x n de entrada
-  // C es la de dimensión m x n de salida (por referencia). Se asume inicializada en 0.
+  // C es la de dimensión m x n de salida (por referencia). Se asume
+  inicializada en 0.
   
   // Inicializar la matriz de resultados C en cero
   PARA i DESDE 0 HASTA m - 1
@@ -629,11 +793,22 @@ PROCEDIMIENTO multiplicar_matrices(A, B, C, m, p, n)
     FIN PARA
   FIN PARA
 FIN PROCEDIMIENTO
-```
+
+:::
+<!-- {code-block}pseudocode -->
 
 :::{tip} ¿Por qué el orden $i, k, j$?
-En la implementación clásica ($i, j, k$), el lazo más interno recorre `k`, accediendo a `B[k][j]`. Como `k` varía y `j` es constante, saltamos filas de la matriz `B` en memoria física, provocando constantes fallos de caché (*cache misses*). En cambio, al usar el orden ($i, k, j$), el lazo más interno recorre `j` (las columnas). Tanto `C[i][j]` como `B[k][j]` se acceden de forma contigua en memoria, maximizando el rendimiento del hardware y aprovechando la línea de caché.
+
+En la implementación clásica ($i, j, k$), el lazo más interno recorre `k`,
+accediendo a `B[k][j]`. Como `k` varía y `j` es constante, saltamos filas de la
+matriz `B` en memoria física, provocando constantes fallos de caché (*cache
+misses*). En cambio, al usar el orden ($i, k, j$), el lazo más interno recorre
+`j` (las columnas). Tanto `C[i][j]` como `B[k][j]` se acceden de forma contigua
+en memoria, maximizando el rendimiento del hardware y aprovechando la línea de
+caché.
+
 :::
+<!-- {tip} ¿Por qué el orden $i, k, j$? -->
 
 (validacion-y-manejo-de-errores)=
 ### Validación y Manejo de Errores
@@ -649,12 +824,14 @@ en C, donde no existe verificación automática de límites ({ref}`0x300Ch`).
 Validación de dimensiones para operaciones con matrices. La suma y resta
 requieren dimensiones idénticas, mientras que la multiplicación requiere que las
 columnas de A sean igual a las filas de B.
+
 :::
+<!-- {figure} 3/validacion_dimensiones.svg -->
 
 (validacion-de-indices)=
 #### Validación de Índices
 
-```{code-block}c
+:::{code-block}c
 :caption: Función para validar acceso seguro a matriz
 :linenos:
 
@@ -668,7 +845,8 @@ bool indice_valido(size_t fila, size_t columna,
     return (fila < max_filas && columna < max_columnas);
 }
 
-int acceso_seguro_matriz(size_t filas, size_t columnas, int matriz[filas][columnas],
+int acceso_seguro_matriz(size_t filas, size_t columnas, int
+matriz[filas][columnas],
                         size_t fila, size_t columna) {
     if (!indice_valido(fila, columna, filas, columnas)) {
         fprintf(stderr, "Error: Índices fuera de límites (%zu, %zu)\n",
@@ -678,7 +856,9 @@ int acceso_seguro_matriz(size_t filas, size_t columnas, int matriz[filas][column
 
     return matriz[fila][columna];
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 (validacion-de-operaciones)=
 #### Validación de Operaciones
@@ -686,7 +866,7 @@ int acceso_seguro_matriz(size_t filas, size_t columnas, int matriz[filas][column
 Para operaciones matemáticas entre matrices, debemos verificar la compatibilidad
 de dimensiones antes de proceder.
 
-```{code-block}c
+:::{code-block}c
 :caption: Validación para operaciones con matrices
 :linenos:
 
@@ -712,15 +892,21 @@ resultado_matriz_t validar_multiplicacion(size_t filas_a, size_t columnas_a,
     }
     return MATRIZ_OK;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{warning} Responsabilidad del programador
+
 En C, la validación de límites es responsabilidad del programador. El lenguaje 
 no proporciona verificaciones automáticas, por lo que debés implementar estas 
 validaciones de forma explícita. El no hacerlo puede resultar en comportamiento 
-indefinido, violando la regla de estilo {ref}`0x0000h` sobre claridad y prolijidad 
+indefinido, violando la regla de estilo {ref}`0x0000h` sobre claridad y
+prolijidad
 del código. 
+
 :::
+<!-- {warning} Responsabilidad del programador -->
 
 (mejores-practicas-y-optimizaciones)=
 ### Mejores Prácticas y Optimizaciones
@@ -732,25 +918,29 @@ Utilizá siempre macros para definir las dimensiones de tus matrices, siguiendo
 la regla de estilo {ref}`0x3011h`. Esto facilita el mantenimiento y la
 modificación del código.
 
-```{code-block}c
+:::{code-block}c
 :caption: Definición de dimensiones con macros
 
 #define MAX_FILAS 100
 #define MAX_COLUMNAS 100
 
 int matriz[MAX_FILAS][MAX_COLUMNAS];
-```
+
+:::
+<!-- {code-block}c -->
 
 (funciones-auxiliares)=
 #### Funciones Auxiliares
 
-Creá funciones auxiliares para operaciones comunes, siguiendo la regla de claridad {ref}`0x0000h`:
+Creá funciones auxiliares para operaciones comunes, siguiendo la regla de
+claridad {ref}`0x0000h`:
 
-```{code-block}c
+:::{code-block}c
 :caption: Funciones auxiliares para matrices
 :linenos:
 
-void imprimir_matriz(int matriz[][MAX_COLUMNAS], size_t filas, size_t columnas) {
+void imprimir_matriz(int matriz[][MAX_COLUMNAS], size_t filas, size_t columnas)
+{
     for (size_t i = 0; i < filas; i++) {
         for (size_t j = 0; j < columnas; j++) {
             printf("%4d ", matriz[i][j]);
@@ -759,7 +949,8 @@ void imprimir_matriz(int matriz[][MAX_COLUMNAS], size_t filas, size_t columnas) 
     }
 }
 
-void inicializar_con_ceros(int matriz[][MAX_COLUMNAS], size_t filas, size_t columnas) {
+void inicializar_con_ceros(int matriz[][MAX_COLUMNAS], size_t filas, size_t
+columnas) {
     for (size_t i = 0; i < filas; i++) {
         for (size_t j = 0; j < columnas; j++) {
             matriz[i][j] = 0;
@@ -778,7 +969,9 @@ bool son_matrices_iguales(int a[][MAX_COLUMNAS], int b[][MAX_COLUMNAS],
     }
     return true;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 (apendice-avanzado-operaciones-matriciales-de-algebra-lineal)=
 ### Apéndice Avanzado: Operaciones Matriciales de Álgebra Lineal
@@ -796,14 +989,17 @@ Para una matriz de 2x2, el cálculo es directo:
 
 $$ \det(A) = \begin{vmatrix} a & b \\ c & d \end{vmatrix} = ad - bc $$
 
-Para matrices de mayor tamaño $(n \times n)$, un método común es la **expansión por
+Para matrices de mayor tamaño $(n \times n)$, un método común es la **expansión
+por
 cofactores**. El determinante se calcula expandiendo a lo largo de una fila o
 columna. Usando la primera fila, la fórmula es:
 
-```{math}
+:::{math}
 :label: eq-determinante
 \det(A) = \sum_{j=1}^{n} (-1)^{1+j} \cdot A_{1,j} \cdot \det(M_{1,j})
-```
+
+:::
+<!-- {math} -->
 
 Donde:
 
@@ -819,12 +1015,16 @@ Este método matemático se traduce de forma natural en un algoritmo recursivo. 
 idea es reducir el problema de un determinante $n \times n$ al cálculo de varios
 determinantes $(n-1) \times (n-1)$, hasta llegar al caso base de una matriz 2x2.
 
-```{warning} Costo Computacional
+:::{warning} Costo Computacional
 :class: dropdown
-Este algoritmo es conceptualmente claro, pero computacionalmente ineficiente para matrices grandes, con una complejidad de $O(n!)$. Para aplicaciones de alto rendimiento, se utilizan otros métodos como la descomposición LU.
-```
+Este algoritmo es conceptualmente claro, pero computacionalmente ineficiente
+para matrices grandes, con una complejidad de $O(n!)$. Para aplicaciones de alto
+rendimiento, se utilizan otros métodos como la descomposición LU.
 
-```{code-block}pseudocode
+:::
+<!-- {warning} Costo Computacional -->
+
+:::{code-block}pseudocode
 :caption: Algoritmo recursivo para el cálculo del determinante.
 :linenos:
 
@@ -858,12 +1058,15 @@ FUNCIÓN calcular_determinante(A, n)
 
     // 3. Suma recursiva
     sub_determinante = calcular_determinante(M, n-1)
-    determinante_total = determinante_total + (signo * A[0][j_actual] * sub_determinante)
+    determinante_total = determinante_total + (signo * A[0][j_actual] *
+    sub_determinante)
   FIN PARA
 
   RETORNAR determinante_total
 FIN FUNCIÓN
-```
+
+:::
+<!-- {code-block}pseudocode -->
 
 ---
 
@@ -888,10 +1091,12 @@ Una matriz es invertible si y solo si cumple dos condiciones:
 Un método para encontrar la inversa se basa en el determinante y la **matriz
 adjunta**. La fórmula es:
 
-```{math}
+:::{math}
 :label: eq-inversa
 A^{-1} = \frac{1}{\det(A)} \cdot \text{adj}(A)
-```
+
+:::
+<!-- {math} -->
 
 Donde $adj(A)$ es la matriz adjunta de A, que se define como la **transpuesta
 de la matriz de cofactores** de A.
@@ -907,7 +1112,7 @@ El algoritmo consiste en seguir los pasos de la fórmula matemática.
 4.  **Obtener la inversa:** Multiplicar la matriz adjunta por el escalar
     $1 / \det(A)$.
 
-```{code-block}pseudocode
+:::{code-block}pseudocode
 :caption: Algoritmo para la inversión de una matriz A.
 :linenos:
 
@@ -952,7 +1157,9 @@ FUNCIÓN invertir_matriz(A, n)
 
   RETORNAR matriz_inversa
 FIN FUNCIÓN
-```
+
+:::
+<!-- {code-block}pseudocode -->
 
 ## Ejercicios de Autoevaluación
 
@@ -960,68 +1167,110 @@ FIN FUNCIÓN
 
 :::{exercise}
 :label: ej-mat-declaracion-size
-Declará una matriz de números reales de punto flotante de precisión simple (`float`) de 5 filas y 10 columnas. Calculá de forma matemática cuántos bytes ocupará físicamente en la memoria del programa si el tipo `float` ocupa 4 bytes.
+Declará una matriz de números reales de punto flotante de precisión simple
+(`float`) de 5 filas y 10 columnas. Calculá de forma matemática cuántos bytes
+ocupará físicamente en la memoria del programa si el tipo `float` ocupa 4 bytes.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-mat-declaracion-size
 :class: dropdown
 La declaración correspondiente es:
-```c
+``` c
 float temperaturas[5][10];
 ```
-El tamaño total en bytes se calcula multiplicando el número de filas por el de columnas por el tamaño en bytes del tipo básico:
-$$\text{Tamaño} = 5 \times 10 \times \text{sizeof(float)} = 50 \times 4\text{ bytes} = 200\text{ bytes}$$
+<!-- c -->
+El tamaño total en bytes se calcula multiplicando el número de filas por el de
+columnas por el tamaño en bytes del tipo básico:
+$$\text{Tamaño} = 5 \times 10 \times \text{sizeof(float)} = 50 \times 4\text{
+bytes} = 200\text{ bytes}$$
+
 :::
+<!-- {solution} ej-mat-declaracion-size -->
 
 :::{exercise}
 :label: ej-mat-row-major-layout
-Dada la matriz `int M[2][3] = {{10, 20, 30}, {40, 50, 60}};`, escribí la secuencia lineal exacta de valores en la que se guardarán estos elementos en la memoria física del computador siguiendo el criterio *Row-Major Order*.
+Dada la matriz `int M[2][3] = {{10, 20, 30}, {40, 50, 60}};`, escribí la
+secuencia lineal exacta de valores en la que se guardarán estos elementos en la
+memoria física del computador siguiendo el criterio *Row-Major Order*.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-mat-row-major-layout
 :class: dropdown
-El criterio *Row-Major Order* (orden de fila principal) dispone las filas una detrás de otra en la memoria contigua. La secuencia física en RAM será:
+El criterio *Row-Major Order* (orden de fila principal) dispone las filas una
+detrás de otra en la memoria contigua. La secuencia física en RAM será:
 `[10, 20, 30, 40, 50, 60]`
-Físicamente en memoria, el elemento `M[0][2]` (`30`) es inmediatamente adyacente a `M[1][0]` (`40`).
+Físicamente en memoria, el elemento `M[0][2]` (`30`) es inmediatamente adyacente
+a `M[1][0]` (`40`).
+
 :::
+<!-- {solution} ej-mat-row-major-layout -->
 
 :::{exercise}
 :label: ej-mat-multidim-cube
-Escribí la declaración de un arreglo tridimensional de enteros llamado `sensores_3d` que represente lecturas físicas organizadas en 3 niveles de profundidad, donde cada nivel tiene una cuadrícula de 4 filas y 5 columnas. Calculá el número total de elementos individuales que se reservan en memoria.
+Escribí la declaración de un arreglo tridimensional de enteros llamado
+`sensores_3d` que represente lecturas físicas organizadas en 3 niveles de
+profundidad, donde cada nivel tiene una cuadrícula de 4 filas y 5 columnas.
+Calculá el número total de elementos individuales que se reservan en memoria.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-mat-multidim-cube
 :class: dropdown
 La declaración del arreglo tridimensional es:
-```c
+``` c
 int sensores_3d[3][4][5];
 ```
-El número total de celdas de almacenamiento entero reservadas en memoria se calcula como el producto de todas sus dimensiones:
+<!-- c -->
+El número total de celdas de almacenamiento entero reservadas en memoria se
+calcula como el producto de todas sus dimensiones:
 $$\text{Elementos} = 3 \times 4 \times 5 = 60\text{ celdas}$$
+
 :::
+<!-- {solution} ej-mat-multidim-cube -->
 
 
 ### Inicialización y Acceso
 
 :::{exercise}
 :label: ej-mat-init-implicita
-Explicá por qué la declaración `int M[3][] = {{1, 2}, {3, 4}, {5, 6}};` no es válida en C y provoca un error de compilación, fundamentando tu respuesta basándote en la forma en que el compilador direcciona la memoria.
+Explicá por qué la declaración `int M[3][] = {{1, 2}, {3, 4}, {5, 6}};` no es
+válida en C y provoca un error de compilación, fundamentando tu respuesta
+basándote en la forma en que el compilador direcciona la memoria.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-mat-init-implicita
 :class: dropdown
 Es inválida porque la segunda dimensión (columnas) no está especificada.
-En C, para calcular la dirección física del elemento `M[i][j]`, el compilador requiere saber de forma exacta cuántos elementos contiene cada fila ($\text{CANTIDAD\_COLUMNAS}$). Sin esta dimensión, el compilador es incapaz de computar la fórmula de direccionamiento $\text{desplazamiento} = i \times \text{columnas} + j$ en memoria contigua, provocando un error de traducción. La primera dimensión es la única que puede ser implícita.
+En C, para calcular la dirección física del elemento `M[i][j]`, el compilador
+requiere saber de forma exacta cuántos elementos contiene cada fila
+($\text{CANTIDAD\_COLUMNAS}$). Sin esta dimensión, el compilador es incapaz de
+computar la fórmula de direccionamiento $\text{desplazamiento} = i \times
+\text{columnas} + j$ en memoria contigua, provocando un error de traducción. La
+primera dimensión es la única que puede ser implícita.
+
 :::
+<!-- {solution} ej-mat-init-implicita -->
 
 :::{exercise}
 :label: ej-mat-init-manual
-Implementá un programa en C que declare una matriz de enteros de 4x4 y la inicialice programáticamente de forma tal que todos los elementos de la diagonal principal tengan el valor `1` y el resto de los elementos tengan el valor `0` (matriz identidad).
+Implementá un programa en C que declare una matriz de enteros de 4x4 y la
+inicialice programáticamente de forma tal que todos los elementos de la diagonal
+principal tengan el valor `1` y el resto de los elementos tengan el valor `0`
+(matriz identidad).
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-mat-init-manual
 :class: dropdown
-```c
+``` c
 #include <stdio.h>
 #define N 4
 
@@ -1040,33 +1289,53 @@ int main() {
     return 0;
 }
 ```
+<!-- c -->
+
 :::
+<!-- {solution} ej-mat-init-manual -->
 
 :::{exercise}
 :label: ej-mat-acceso-indefinido
-Explicá por qué intentar leer o escribir en `matriz[FILAS][COLUMNAS]` de una matriz declarada como `int matriz[FILAS][COLUMNAS]` es un error grave de tipo "fuera de límites" y qué consecuencias físicas provoca en la memoria.
+Explicá por qué intentar leer o escribir en `matriz[FILAS][COLUMNAS]` de una
+matriz declarada como `int matriz[FILAS][COLUMNAS]` es un error grave de tipo
+"fuera de límites" y qué consecuencias físicas provoca en la memoria.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-mat-acceso-indefinido
 :class: dropdown
 Debido al uso de índices de base cero en C, los rangos válidos son:
 - Para filas: de `0` a `FILAS - 1`.
 - Para columnas: de `0` a `COLUMNAS - 1`.
-El índice `matriz[FILAS][COLUMNAS]` apunta a un elemento situado completamente fuera de la memoria reservada para el arreglo (específicamente, es la dirección adyacente a la primera posición de la fila posterior inexistente). Leer o escribir en esta dirección provoca un **comportamiento indefinido**, el cual puede resultar en corrupción de variables adyacentes en el stack o en un fallo de segmentación (*Segmentation Fault*).
+El índice `matriz[FILAS][COLUMNAS]` apunta a un elemento situado completamente
+fuera de la memoria reservada para el arreglo (específicamente, es la dirección
+adyacente a la primera posición de la fila posterior inexistente). Leer o
+escribir en esta dirección provoca un **comportamiento indefinido**, el cual
+puede resultar en corrupción de variables adyacentes en el stack o en un fallo
+de segmentación (*Segmentation Fault*).
+
 :::
+<!-- {solution} ej-mat-acceso-indefinido -->
 
 
 ### Recorridos y Memoria
 
 :::{exercise}
 :label: ej-mat-recorrido-diagonal-sec
-Escribí una función pura en C llamada `sumar_diagonal_secundaria` que reciba una matriz cuadrada de dimensión fija de $4 \times 4$ y retorne la suma de los elementos pertenecientes a su diagonal secundaria.
+Escribí una función pura en C llamada `sumar_diagonal_secundaria` que reciba una
+matriz cuadrada de dimensión fija de $4 \times 4$ y retorne la suma de los
+elementos pertenecientes a su diagonal secundaria.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-mat-recorrido-diagonal-sec
 :class: dropdown
-La diagonal secundaria de una matriz cuadrada de orden $N$ cumple que la suma de sus índices de fila $i$ y columna $j$ es igual a $N - 1$. Por lo tanto, $j = N - 1 - i$.
-```c
+La diagonal secundaria de una matriz cuadrada de orden $N$ cumple que la suma de
+sus índices de fila $i$ y columna $j$ es igual a $N - 1$. Por lo tanto, $j = N -
+1 - i$.
+``` c
 #include <stddef.h>
 #define N 4
 
@@ -1079,28 +1348,49 @@ int sumar_diagonal_secundaria(const int matriz[N][N]) {
     return suma;
 }
 ```
+<!-- c -->
+
 :::
+<!-- {solution} ej-mat-recorrido-diagonal-sec -->
 
 :::{exercise}
 :label: ej-mat-cache-performance
-Explicá por qué el recorrido de una matriz por columnas (lazo externo en columnas, interno en filas) produce una degradación notable de velocidad en la CPU en comparación con el recorrido secuencial por filas.
+Explicá por qué el recorrido de una matriz por columnas (lazo externo en
+columnas, interno en filas) produce una degradación notable de velocidad en la
+CPU en comparación con el recorrido secuencial por filas.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-mat-cache-performance
 :class: dropdown
 En C, las matrices se disponen linealmente en memoria por filas.
-- **Recorrido por filas**: Accede a elementos secuenciales que se encuentran de forma adyacente en memoria física. El hardware precarga estos bloques en la rápida memoria caché (localidad espacial), resultando en aciertos de caché (*cache hits*).
-- **Recorrido por columnas**: Provoca saltos en memoria equivalentes al tamaño de una fila entera en cada iteración. Esto invalida constantemente los bloques cargados en caché, forzando a la CPU a buscar los datos en la memoria RAM principal lenta (fallos de caché o *cache misses*), ralentizando el procesamiento.
+- **Recorrido por filas**: Accede a elementos secuenciales que se encuentran de
+  forma adyacente en memoria física. El hardware precarga estos bloques en la
+  rápida memoria caché (localidad espacial), resultando en aciertos de caché
+  (*cache hits*).
+- **Recorrido por columnas**: Provoca saltos en memoria equivalentes al tamaño
+  de una fila entera en cada iteración. Esto invalida constantemente los bloques
+  cargados en caché, forzando a la CPU a buscar los datos en la memoria RAM
+  principal lenta (fallos de caché o *cache misses*), ralentizando el
+  procesamiento.
+
 :::
+<!-- {solution} ej-mat-cache-performance -->
 
 :::{exercise}
 :label: ej-mat-recorrido-bordes
-Escribí un fragmento de código en C que recorra una matriz de enteros `M` de dimensiones `FILAS` x `COLUMNAS` e imprima por pantalla únicamente los elementos que pertenecen al borde periférico (fila superior, columna derecha, fila inferior y columna izquierda).
+Escribí un fragmento de código en C que recorra una matriz de enteros `M` de
+dimensiones `FILAS` x `COLUMNAS` e imprima por pantalla únicamente los elementos
+que pertenecen al borde periférico (fila superior, columna derecha, fila
+inferior y columna izquierda).
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-mat-recorrido-bordes
 :class: dropdown
-```c
+``` c
 #define FILAS 4
 #define COLUMNAS 5
 int M[FILAS][COLUMNAS];
@@ -1118,20 +1408,29 @@ for (size_t i = 0; i < FILAS; i++) {
     printf("\n");
 }
 ```
+<!-- c -->
+
 :::
+<!-- {solution} ej-mat-recorrido-bordes -->
 
 
 ### Funciones y Operaciones
 
 :::{exercise}
 :label: ej-mat-func-vla-param
-Implementá una función en C utilizando la sintaxis de parámetros ALV/VLA (estándar C99) que reciba una matriz de enteros de dimensiones dinámicas y verifique si es una **matriz simétrica** (aquella que es igual a su transpuesta, es decir, $M_{i,j} == M_{j,i}$ para toda celda).
+Implementá una función en C utilizando la sintaxis de parámetros ALV/VLA
+(estándar C99) que reciba una matriz de enteros de dimensiones dinámicas y
+verifique si es una **matriz simétrica** (aquella que es igual a su transpuesta,
+es decir, $M_{i,j} == M_{j,i}$ para toda celda).
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-mat-func-vla-param
 :class: dropdown
-Para que una matriz sea simétrica, debe ser necesariamente cuadrada (filas == columnas).
-```c
+Para que una matriz sea simétrica, debe ser necesariamente cuadrada (filas ==
+columnas).
+``` c
 #include <stdbool.h>
 #include <stddef.h>
 
@@ -1147,35 +1446,52 @@ bool es_matriz_simetrica(size_t n, const int matriz[n][n]) {
     return true;
 }
 ```
+<!-- c -->
+
 :::
+<!-- {solution} ej-mat-func-vla-param -->
 
 :::{exercise}
 :label: ej-mat-func-desplazamiento
-Dada una matriz `int M[3][4]` cuya dirección de memoria base de inicio (`&M[0][0]`) es `0x1000` en la memoria física y sabiendo que el tipo `int` ocupa exactamente 4 bytes, deducí el cálculo matemático detallado y la dirección física resultante en la que el compilador ubicará al elemento `M[2][1]`.
+Dada una matriz `int M[3][4]` cuya dirección de memoria base de inicio
+(`&M[0][0]`) es `0x1000` en la memoria física y sabiendo que el tipo `int` ocupa
+exactamente 4 bytes, deducí el cálculo matemático detallado y la dirección
+física resultante en la que el compilador ubicará al elemento `M[2][1]`.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-mat-func-desplazamiento
 :class: dropdown
-El cálculo de desplazamiento para un elemento `M[i][j]` en una matriz de columnas $C$ es:
-$$\text{Dirección} = \text{Dirección Base} + (i \times C + j) \times \text{sizeof(tipo)}$$
+El cálculo de desplazamiento para un elemento `M[i][j]` en una matriz de
+columnas $C$ es:
+$$\text{Dirección} = \text{Dirección Base} + (i \times C + j) \times
+\text{sizeof(tipo)}$$
 Sustituyendo los valores del problema:
 - Dirección Base = `0x1000`
 - $i = 2$, $j = 1$
 - $C = 4$ columnas
 - $\text{sizeof(int)} = 4$ bytes
-$$\text{Desplazamiento} = (2 \times 4 + 1) \times 4 = (8 + 1) \times 4 = 9 \times 4 = 36\text{ bytes}$$
+$$\text{Desplazamiento} = (2 \times 4 + 1) \times 4 = (8 + 1) \times 4 = 9
+\times 4 = 36\text{ bytes}$$
 En base hexadecimal, $36$ es igual a `0x24`. Por lo tanto:
 $$\text{Dirección física} = \text{0x1000} + \text{0x0024} = \text{0x1024}$$
+
 :::
+<!-- {solution} ej-mat-func-desplazamiento -->
 
 :::{exercise}
 :label: ej-mat-operacion-transpuesta
-Escribí un procedimiento en C utilizando parámetros de tamaño variable que tome una matriz `A` de dimensiones $M \times N$ y guarde su transpuesta en otra matriz `B` de dimensiones $N \times M$.
+Escribí un procedimiento en C utilizando parámetros de tamaño variable que tome
+una matriz `A` de dimensiones $M \times N$ y guarde su transpuesta en otra
+matriz `B` de dimensiones $N \times M$.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-mat-operacion-transpuesta
 :class: dropdown
-```c
+``` c
 #include <stddef.h>
 
 void transponer_matriz(size_t filas_a, size_t cols_a, 
@@ -1189,22 +1505,29 @@ void transponer_matriz(size_t filas_a, size_t cols_a,
     }
 }
 ```
+<!-- c -->
+
 :::
+<!-- {solution} ej-mat-operacion-transpuesta -->
 
 
 
 ## Glosario
 
 :::{glossary}
+
 memoria caché 
 : Una **memoria caché** (del francés _cacher_,
-  "esconder") es un componente de hardware o software que almacena datos para que
+  "esconder") es un componente de hardware o software que almacena datos para
+  que
   las futuras solicitudes de esos datos puedan ser atendidas más rápidamente. Se
   trata de una memoria auxiliar, de alta velocidad y menor capacidad, situada
-  entre la unidad central de procesamiento (CPU) y la memoria de acceso aleatorio
+  entre la unidad central de procesamiento (CPU) y la memoria de acceso
+  aleatorio
   (RAM).
   
-  El objetivo principal de una caché es **acelerar el acceso a los datos** que se
+  El objetivo principal de una caché es **acelerar el acceso a los datos** que
+  se
   utilizan con mayor frecuencia. Cuando la CPU necesita leer o escribir datos,
   primero busca en la caché. Si los datos se encuentran allí (lo que se conoce
   como un **acierto de caché** o _cache hit_), se accede a ellos de forma casi
@@ -1213,12 +1536,14 @@ memoria caché
   recuperar de la RAM y, por lo general, se copian en la caché para futuros
   accesos.
   
-  Existen diferentes **niveles de caché** (L1, L2, L3), que se diferencian por su
+  Existen diferentes **niveles de caché** (L1, L2, L3), que se diferencian por
+  su
   tamaño, velocidad y proximidad a los núcleos de la CPU. La caché L1 es la más
   pequeña y rápida, mientras que la L3 es la más grande y lenta de las tres.
   
   ¿Pero por que no todo es memoria caché? La relación costo capacidad. Las
-  memorias mas cercanas al procesador y las mas rápidas, son las mas caras, tengan
+  memorias mas cercanas al procesador y las mas rápidas, son las mas caras,
+  tengan
   en cuenta que una computadora moderna tiene algunos kilobytes de memoria L1 y
   unos pocos megabytes en L3.
 
@@ -1271,7 +1596,9 @@ matriz identidad
 diagonal principal son 1 y todos los demás elementos son 0. Actúa como el
 elemento neutro en la multiplicación de matrices: A × I = I × A = A. Es
 fundamental en operaciones como la inversión de matrices. 
+
 :::
+<!-- {glossary} -->
 
 
 
@@ -1284,7 +1611,13 @@ fundamental en operaciones como la inversión de matrices.
 
 ## Síntesis y Resumen
 
-Las matrices en C se almacenan de forma contigua en memoria siguiendo un orden de fila mayor (*row-major*). Recorrer una matriz fila por fila maximiza el uso del caché de la CPU, mientras que hacerlo por columnas degrada el rendimiento. Al pasar matrices a funciones, es necesario indicar todas las dimensiones (excepto opcionalmente la primera) para permitir que el compilador calcule el desplazamiento físico correcto. Se deben validar rigurosamente los límites de los índices para evitar accesos fuera de rango.
+Las matrices en C se almacenan de forma contigua en memoria siguiendo un orden
+de fila mayor (*row-major*). Recorrer una matriz fila por fila maximiza el uso
+del caché de la CPU, mientras que hacerlo por columnas degrada el rendimiento.
+Al pasar matrices a funciones, es necesario indicar todas las dimensiones
+(excepto opcionalmente la primera) para permitir que el compilador calcule el
+desplazamiento físico correcto. Se deben validar rigurosamente los límites de
+los índices para evitar accesos fuera de rango.
 
 ## Referencias y Lecturas Complementarias
 

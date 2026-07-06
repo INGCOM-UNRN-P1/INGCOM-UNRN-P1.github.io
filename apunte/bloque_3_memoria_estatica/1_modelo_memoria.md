@@ -13,13 +13,21 @@ virtuales que se organiza en secciones específicas, cada una con un propósito
 diferente. Esta organización permite al sistema gestionar eficientemente los
 recursos y aislar las distintas necesidades de almacenamiento.
 
-(estado-de-un-programa)=
+
 ## Desarrollo
 
-### Introducción: El Mapa de Memoria de un Programa
-### Estado de un Programa
+Introducción: El Mapa de Memoria de un Programa
 
-//? Integrar a este apunte.
+```{figure} 1/mapa_memoria.svg
+:label: fig-mapa-memoria
+:align: center
+:width: 90%
+
+Organización típica de la memoria virtual para un proceso en C.
+```
+
+(estado-de-un-programa)=
+### Estado de un Programa
 
 El **estado de un programa** (del inglés, _program state_) en un instante de
 tiempo $t$ es la colección completa y precisa de toda la información mutable que
@@ -152,8 +160,7 @@ int main() {
 :::{important}
 
 - El resultado de una comparación (`x < 3`) es `int` (`1` si es verdadera, `0`
-  si es
-  falsa).
+  si es falsa).
 - Cualquier número distinto de `0` se considera **verdadero**, esto se llama en
   C, veracidad y utilizarlo es una mala idea, ya que depende de una
   interpretación implícita (ver {ref}`0x1005h`).
