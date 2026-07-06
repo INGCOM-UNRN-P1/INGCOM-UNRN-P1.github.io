@@ -6,13 +6,19 @@ subtitle: Comunicación de red en sistemas Unix/Linux
 
 ## Introducción a la Programación de Red
 
-Los **sockets** son el mecanismo fundamental para la comunicación entre procesos a través de una red (o en la misma máquina). Proporcionan una abstracción que permite que programas intercambien datos usando protocolos como TCP e UDP, ocultando los detalles de bajo nivel de la comunicación de red.
+Los **sockets** son el mecanismo fundamental para la comunicación entre procesos
+a través de una red (o en la misma máquina). Proporcionan una abstracción que
+permite que programas intercambien datos usando protocolos como TCP e UDP,
+ocultando los detalles de bajo nivel de la comunicación de red.
 
 ### ¿Qué es un Socket?
 
-Un socket es un **punto final de comunicación** bidireccional. Podés pensarlo como un "archivo especial" que permite leer y escribir datos que viajan por la red.
+Un socket es un **punto final de comunicación** bidireccional. Podés pensarlo
+como un "archivo especial" que permite leer y escribir datos que viajan por la
+red.
 
-**Analogía:** Si los procesos son casas, los sockets son las puertas y ventanas por donde entra y sale información.
+**Analogía:** Si los procesos son casas, los sockets son las puertas y ventanas
+por donde entra y sale información.
 
 ### Tipos de Sockets
 
@@ -26,9 +32,10 @@ Un socket es un **punto final de comunicación** bidireccional. Podés pensarlo 
   - Control de flujo y congestión
 - **Usos:** HTTP, HTTPS, SSH, FTP, correo electrónico
 
-```c
+``` c
 socket(AF_INET, SOCK_STREAM, 0);  // TCP
 ```
+<!-- c -->
 
 #### 2. Datagram Sockets (UDP)
 
@@ -40,9 +47,10 @@ socket(AF_INET, SOCK_STREAM, 0);  // TCP
   - Más rápido y ligero
 - **Usos:** DNS, streaming de video, juegos en línea, VoIP
 
-```c
+``` c
 socket(AF_INET, SOCK_DGRAM, 0);  // UDP
 ```
+<!-- c -->
 
 ### Comparación TCP vs. UDP
 
@@ -57,9 +65,13 @@ socket(AF_INET, SOCK_DGRAM, 0);  // UDP
 | Casos de uso | Transferencia de archivos, web | Streaming, juegos |
 
 :::{important}
+
 TCP es como una llamada telefónica: establecés conexión, conversás, y colgás.  
-UDP es como enviar postales: mandás el mensaje sin garantía de que llegue o en qué orden.
+UDP es como enviar postales: mandás el mensaje sin garantía de que llegue o en
+qué orden.
+
 :::
+<!-- {important} -->
 
 ## Conceptos Fundamentales
 
@@ -75,7 +87,8 @@ Identifica un dispositivo en la red:
 
 Identifica una aplicación específica en un dispositivo:
 - Número de 16 bits: 0-65535
-- **Puertos bien conocidos (0-1023):** HTTP (80), HTTPS (443), SSH (22), FTP (21)
+- **Puertos bien conocidos (0-1023):** HTTP (80), HTTPS (443), SSH (22), FTP
+  (21)
 - **Puertos registrados (1024-49151):** Asignados por IANA
 - **Puertos dinámicos (49152-65535):** Uso temporal
 
@@ -97,7 +110,8 @@ Las computadoras pueden almacenar números de diferentes formas:
 
 **Funciones de conversión:**
 
-```c
+```{code-block} c
+:linenos:
 #include <arpa/inet.h>
 
 // Host to Network
@@ -107,17 +121,24 @@ uint16_t htons(uint16_t hostshort);  // short (16 bits)
 // Network to Host
 uint32_t ntohl(uint32_t netlong);
 uint16_t ntohs(uint16_t netshort);
+
 ```
+<!-- {code-block} c -->
 
 **Ejemplo:**
-```c
+``` c
 uint16_t puerto_host = 8080;
 uint16_t puerto_red = htons(puerto_host);  // Convertir a orden de red
 ```
+<!-- c -->
 
 :::{warning}
-**Siempre** convertir puertos y direcciones IP a orden de red antes de usarlos en estructuras de sockets.
+
+**Siempre** convertir puertos y direcciones IP a orden de red antes de usarlos
+en estructuras de sockets.
+
 :::
+<!-- {warning} -->
 
 ## Estructuras de Datos Principales
 
@@ -125,16 +146,18 @@ uint16_t puerto_red = htons(puerto_host);  // Convertir a orden de red
 
 Estructura genérica para direcciones:
 
-```c
+``` c
 struct sockaddr {
     sa_family_t sa_family;  // Familia de direcciones (AF_INET, AF_INET6, etc.)
     char sa_data[14];       // Datos específicos de la familia
 };
 ```
+<!-- c -->
 
 ### `struct sockaddr_in` (IPv4)
 
-```c
+```{code-block} c
+:linenos:
 #include <netinet/in.h>
 
 struct sockaddr_in {
@@ -147,11 +170,14 @@ struct sockaddr_in {
 struct in_addr {
     uint32_t s_addr;  // Dirección en orden de red
 };
+
 ```
+<!-- {code-block} c -->
 
 ### `struct sockaddr_in6` (IPv6)
 
-```c
+```{code-block} c
+:linenos:
 struct sockaddr_in6 {
     sa_family_t     sin6_family;   // AF_INET6
     in_port_t       sin6_port;     // Puerto
@@ -159,13 +185,16 @@ struct sockaddr_in6 {
     struct in6_addr sin6_addr;     // Dirección IPv6
     uint32_t        sin6_scope_id; // Scope ID
 };
+
 ```
+<!-- {code-block} c -->
 
 ### `struct addrinfo`
 
 Usada para resolver nombres de host:
 
-```c
+```{code-block} c
+:linenos:
 struct addrinfo {
     int              ai_flags;
     int              ai_family;    // AF_INET, AF_INET6, AF_UNSPEC
@@ -176,17 +205,20 @@ struct addrinfo {
     char            *ai_canonname;
     struct addrinfo *ai_next;      // Lista enlazada
 };
+
 ```
+<!-- {code-block} c -->
 
 ## API de Sockets: Funciones Fundamentales
 
 ### 1. Crear un Socket: `socket()`
 
-```c
+``` c
 #include <sys/socket.h>
 
 int socket(int domain, int type, int protocol);
 ```
+<!-- c -->
 
 **Parámetros:**
 - `domain`: Familia de direcciones (AF_INET, AF_INET6, AF_UNIX)
@@ -196,24 +228,27 @@ int socket(int domain, int type, int protocol);
 **Retorna:** Descriptor de archivo del socket, o -1 en error.
 
 **Ejemplo:**
-```c
+``` c
 int sockfd = socket(AF_INET, SOCK_STREAM, 0);
 if (sockfd == -1) {
     perror("socket");
     exit(1);
 }
 ```
+<!-- c -->
 
 ### 2. Vincular a una Dirección: `bind()`
 
 Asocia el socket con una dirección IP y puerto específicos (servidor).
 
-```c
+``` c
 int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
 ```
+<!-- c -->
 
 **Ejemplo:**
-```c
+```{code-block} c
+:linenos:
 struct sockaddr_in servidor;
 memset(&servidor, 0, sizeof(servidor));
 servidor.sin_family = AF_INET;
@@ -224,44 +259,54 @@ if (bind(sockfd, (struct sockaddr*)&servidor, sizeof(servidor)) == -1) {
     perror("bind");
     exit(1);
 }
+
 ```
+<!-- {code-block} c -->
 
 :::{note}
-`INADDR_ANY` (valor 0) indica que el servidor escucha en todas las interfaces de red disponibles.
+
+`INADDR_ANY` (valor 0) indica que el servidor escucha en todas las interfaces de
+red disponibles.
+
 :::
+<!-- {note} -->
 
 ### 3. Escuchar Conexiones: `listen()`
 
 Marca el socket como pasivo, listo para aceptar conexiones (solo TCP).
 
-```c
+``` c
 int listen(int sockfd, int backlog);
 ```
+<!-- c -->
 
 **Parámetros:**
 - `sockfd`: Socket vinculado
 - `backlog`: Número máximo de conexiones pendientes en cola
 
 **Ejemplo:**
-```c
+``` c
 if (listen(sockfd, 10) == -1) {
     perror("listen");
     exit(1);
 }
 ```
+<!-- c -->
 
 ### 4. Aceptar Conexión: `accept()`
 
 Bloquea hasta que un cliente se conecte (solo TCP).
 
-```c
+``` c
 int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 ```
+<!-- c -->
 
 **Retorna:** Nuevo descriptor de socket para comunicación con el cliente.
 
 **Ejemplo:**
-```c
+```{code-block} c
+:linenos:
 struct sockaddr_in cliente;
 socklen_t len = sizeof(cliente);
 
@@ -275,18 +320,22 @@ if (cliente_fd == -1) {
 char ip_cliente[INET_ADDRSTRLEN];
 inet_ntop(AF_INET, &cliente.sin_addr, ip_cliente, sizeof(ip_cliente));
 printf("Cliente conectado desde %s:%d\n", ip_cliente, ntohs(cliente.sin_port));
+
 ```
+<!-- {code-block} c -->
 
 ### 5. Conectar a un Servidor: `connect()`
 
 Inicia conexión a un servidor remoto (cliente TCP, o asociar socket UDP).
 
-```c
+``` c
 int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
 ```
+<!-- c -->
 
 **Ejemplo:**
-```c
+```{code-block} c
+:linenos:
 struct sockaddr_in servidor;
 memset(&servidor, 0, sizeof(servidor));
 servidor.sin_family = AF_INET;
@@ -299,33 +348,39 @@ if (connect(sockfd, (struct sockaddr*)&servidor, sizeof(servidor)) == -1) {
 }
 
 printf("Conectado al servidor\n");
+
 ```
+<!-- {code-block} c -->
 
 ### 6. Enviar Datos: `send()` / `write()`
 
-```c
+``` c
 ssize_t send(int sockfd, const void *buf, size_t len, int flags);
 ssize_t write(int sockfd, const void *buf, size_t count);
 ```
+<!-- c -->
 
 **Ejemplo:**
-```c
+``` c
 const char *mensaje = "Hola, servidor!";
 ssize_t enviados = send(sockfd, mensaje, strlen(mensaje), 0);
 if (enviados == -1) {
     perror("send");
 }
 ```
+<!-- c -->
 
 ### 7. Recibir Datos: `recv()` / `read()`
 
-```c
+``` c
 ssize_t recv(int sockfd, void *buf, size_t len, int flags);
 ssize_t read(int sockfd, void *buf, size_t count);
 ```
+<!-- c -->
 
 **Ejemplo:**
-```c
+```{code-block} c
+:linenos:
 char buffer[1024];
 ssize_t recibidos = recv(sockfd, buffer, sizeof(buffer) - 1, 0);
 if (recibidos == -1) {
@@ -336,37 +391,47 @@ if (recibidos == -1) {
     buffer[recibidos] = '\0';  // Null-terminar
     printf("Recibido: %s\n", buffer);
 }
+
 ```
+<!-- {code-block} c -->
 
 :::{important}
-`recv()` retorna 0 cuando la conexión se cierra ordenadamente. Un valor -1 indica error.
+
+`recv()` retorna 0 cuando la conexión se cierra ordenadamente. Un valor -1
+indica error.
+
 :::
+<!-- {important} -->
 
 ### 8. Cerrar Socket: `close()`
 
-```c
+``` c
 #include <unistd.h>
 
 int close(int sockfd);
 ```
+<!-- c -->
 
 **Ejemplo:**
-```c
+``` c
 close(sockfd);
 ```
+<!-- c -->
 
 Para cerrar solo escritura o lectura:
 
-```c
+``` c
 int shutdown(int sockfd, int how);
 // how: SHUT_RD (lectura), SHUT_WR (escritura), SHUT_RDWR (ambos)
 ```
+<!-- c -->
 
 ## Ejemplo Completo: Servidor TCP Echo
 
 Un servidor que repite lo que recibe del cliente.
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -460,17 +525,21 @@ int main(void) {
     close(servidor_fd);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Compilar y ejecutar:**
-```bash
+``` bash
 gcc -Wall -Wextra servidor_echo.c -o servidor_echo
 ./servidor_echo
 ```
+<!-- bash -->
 
 ## Ejemplo Completo: Cliente TCP
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -541,10 +610,13 @@ int main(void) {
     close(sockfd);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Probar:**
-```bash
+```{code-block} bash
+:linenos:
 # Terminal 1
 ./servidor_echo
 
@@ -552,13 +624,16 @@ int main(void) {
 ./cliente
 Hola servidor
 Respuesta del servidor: Hola servidor
+
 ```
+<!-- {code-block} bash -->
 
 ## Sockets UDP (Datagram)
 
 ### Servidor UDP
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -625,11 +700,14 @@ int main(void) {
     close(sockfd);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### Cliente UDP
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -687,13 +765,16 @@ int main(void) {
     close(sockfd);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Resolución de Nombres: `getaddrinfo()`
 
 En lugar de codificar IPs, usá `getaddrinfo()` para resolver nombres de host.
 
-```c
+```{code-block} c
+:linenos:
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
@@ -701,11 +782,14 @@ En lugar de codificar IPs, usá `getaddrinfo()` para resolver nombres de host.
 int getaddrinfo(const char *node, const char *service,
                 const struct addrinfo *hints,
                 struct addrinfo **res);
+
 ```
+<!-- {code-block} c -->
 
 ### Ejemplo: Cliente Moderno con `getaddrinfo()`
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -776,18 +860,22 @@ int main(int argc, char *argv[]) {
     
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Probar:**
-```bash
+``` bash
 ./cliente_http www.example.com 80
 ```
+<!-- bash -->
 
 ## Servidor Concurrente con Múltiples Clientes
 
 ### Opción 1: Fork (Multiproceso)
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -887,11 +975,14 @@ int main(void) {
     close(servidor_fd);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### Opción 2: Threads (Multihilo)
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -982,12 +1073,15 @@ int main(void) {
     close(servidor_fd);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Compilar con threads:**
-```bash
+``` bash
 gcc -Wall -pthread servidor_threads.c -o servidor_threads
 ```
+<!-- bash -->
 
 ## Multiplexación de E/S: `select()` y `poll()`
 
@@ -995,7 +1089,8 @@ Para manejar múltiples conexiones sin threads ni procesos.
 
 ### Servidor con `select()`
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -1137,20 +1232,27 @@ int main(void) {
     close(servidor_fd);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 :::{note}
-`select()` tiene limitaciones (máximo 1024 descriptores en muchos sistemas). Para escalar mejor, usá `poll()` o `epoll()` (específico de Linux).
+
+`select()` tiene limitaciones (máximo 1024 descriptores en muchos sistemas).
+Para escalar mejor, usá `poll()` o `epoll()` (específico de Linux).
+
 :::
+<!-- {note} -->
 
 ## Opciones de Socket: `setsockopt()`
 
 Configurar comportamiento del socket.
 
-```c
+``` c
 int setsockopt(int sockfd, int level, int optname, 
                const void *optval, socklen_t optlen);
 ```
+<!-- c -->
 
 ### Opciones Comunes
 
@@ -1158,46 +1260,51 @@ int setsockopt(int sockfd, int level, int optname,
 
 Permite reutilizar dirección inmediatamente (evita "Address already in use"):
 
-```c
+``` c
 int opt = 1;
 setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 ```
+<!-- c -->
 
 #### SO_REUSEPORT
 
 Permite múltiples sockets vinculados al mismo puerto:
 
-```c
+``` c
 int opt = 1;
 setsockopt(sockfd, SOL_SOCKET, SO_REUSEPORT, &opt, sizeof(opt));
 ```
+<!-- c -->
 
 #### SO_RCVBUF / SO_SNDBUF
 
 Tamaño de buffers de recepción/envío:
 
-```c
+``` c
 int buffer_size = 65536;
 setsockopt(sockfd, SOL_SOCKET, SO_RCVBUF, &buffer_size, sizeof(buffer_size));
 ```
+<!-- c -->
 
 #### SO_KEEPALIVE
 
 Mantener conexión activa (TCP):
 
-```c
+``` c
 int opt = 1;
 setsockopt(sockfd, SOL_SOCKET, SO_KEEPALIVE, &opt, sizeof(opt));
 ```
+<!-- c -->
 
 #### TCP_NODELAY
 
 Deshabilitar algoritmo de Nagle (envío inmediato):
 
-```c
+``` c
 int opt = 1;
 setsockopt(sockfd, IPPROTO_TCP, TCP_NODELAY, &opt, sizeof(opt));
 ```
+<!-- c -->
 
 ## Sockets No Bloqueantes
 
@@ -1205,18 +1312,21 @@ Por defecto, operaciones como `accept()` y `recv()` son bloqueantes.
 
 ### Hacer Socket No Bloqueante
 
-```c
+``` c
 #include <fcntl.h>
 
 int flags = fcntl(sockfd, F_GETFL, 0);
 fcntl(sockfd, F_SETFL, flags | O_NONBLOCK);
 ```
+<!-- c -->
 
-Ahora, `recv()` retorna inmediatamente con -1 y `errno` = `EWOULDBLOCK` si no hay datos.
+Ahora, `recv()` retorna inmediatamente con -1 y `errno` = `EWOULDBLOCK` si no
+hay datos.
 
 ### Ejemplo con No Bloqueante
 
-```c
+```{code-block} c
+:linenos:
 #include <errno.h>
 
 char buffer[1024];
@@ -1229,7 +1339,9 @@ if (n == -1) {
         perror("recv");
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Manejo de Errores Comunes
 
@@ -1238,42 +1350,47 @@ if (n == -1) {
 **Causa:** El puerto sigue vinculado a un proceso anterior.
 
 **Solución:**
-```c
+``` c
 int opt = 1;
 setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 ```
+<!-- c -->
 
 ### "Connection refused"
 
 **Causa:** No hay servidor escuchando en ese puerto.
 
-**Solución:** Verificar que el servidor esté ejecutándose y en el puerto correcto.
+**Solución:** Verificar que el servidor esté ejecutándose y en el puerto
+correcto.
 
 ### "Broken pipe" (SIGPIPE)
 
 **Causa:** Intentar escribir en un socket cerrado.
 
 **Solución:** Ignorar la señal o manejarla:
-```c
+``` c
 signal(SIGPIPE, SIG_IGN);  // Ignorar
 ```
+<!-- c -->
 
 O usar flag `MSG_NOSIGNAL`:
-```c
+``` c
 send(sockfd, buffer, len, MSG_NOSIGNAL);
 ```
+<!-- c -->
 
 ### Recv retorna 0
 
 **Causa:** Conexión cerrada por el otro extremo.
 
 **Solución:** Cerrar el socket localmente:
-```c
+``` c
 if (recv(sockfd, buffer, sizeof(buffer), 0) == 0) {
     printf("Conexión cerrada\n");
     close(sockfd);
 }
 ```
+<!-- c -->
 
 ## Protocolo de Aplicación Simple
 
@@ -1287,7 +1404,8 @@ Un ejemplo de protocolo personalizado para un chat.
 
 ### Servidor de Chat
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -1341,7 +1459,9 @@ int main(void) {
     // ... código del servidor ...
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Depuración y Herramientas
 
@@ -1349,103 +1469,115 @@ int main(void) {
 
 Ver sockets activos:
 
-```bash
+``` bash
 netstat -tuln    # Todos los sockets escuchando
 ss -tuln         # Alternativa moderna
 ```
+<!-- bash -->
 
 ### tcpdump / Wireshark
 
 Capturar y analizar tráfico de red:
 
-```bash
+``` bash
 sudo tcpdump -i lo port 8080 -XX
 ```
+<!-- bash -->
 
 ### telnet / nc (netcat)
 
 Probar servidores manualmente:
 
-```bash
+``` bash
 telnet localhost 8080
 nc localhost 8080
 ```
+<!-- bash -->
 
 ### strace
 
 Ver llamadas al sistema:
 
-```bash
+``` bash
 strace ./servidor
 strace -e trace=network ./cliente
 ```
+<!-- bash -->
 
 ### lsof
 
 Ver archivos abiertos (incluye sockets):
 
-```bash
+``` bash
 lsof -i :8080         # Qué proceso usa el puerto 8080
 lsof -i -n -P        # Todos los sockets
 ```
+<!-- bash -->
 
 ## Mejores Prácticas
 
 ### 1. Siempre Verificar Retornos
 
-```c
+``` c
 if (send(sockfd, buffer, len, 0) == -1) {
     perror("send");
     // Manejar error
 }
 ```
+<!-- c -->
 
 ### 2. Usar `SO_REUSEADDR` en Servidores
 
-```c
+``` c
 int opt = 1;
 setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 ```
+<!-- c -->
 
 ### 3. Cerrar Sockets Apropiadamente
 
-```c
+``` c
 shutdown(sockfd, SHUT_RDWR);
 close(sockfd);
 ```
+<!-- c -->
 
 ### 4. Manejar Señales
 
-```c
+``` c
 signal(SIGPIPE, SIG_IGN);  // Ignorar broken pipe
 ```
+<!-- c -->
 
 ### 5. Timeout en Operaciones
 
-```c
+``` c
 struct timeval timeout;
 timeout.tv_sec = 5;
 timeout.tv_usec = 0;
 setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
 ```
+<!-- c -->
 
 ### 6. Validar Entrada del Usuario
 
 Nunca confiar en datos recibidos por la red:
 
-```c
+``` c
 if (bytes_recibidos >= BUFFER_SIZE) {
     fprintf(stderr, "Mensaje demasiado largo\n");
     return;
 }
 buffer[bytes_recibidos] = '\0';  // Null-terminar
 ```
+<!-- c -->
 
 ### 7. Manejo de Envío Parcial
 
 `send()` puede no enviar todos los bytes:
 
-```c
+```{code-block} c
+:linenos:
 ssize_t enviar_completo(int sockfd, const void *buf, size_t len) {
     size_t total = 0;
     size_t restante = len;
@@ -1463,11 +1595,14 @@ ssize_t enviar_completo(int sockfd, const void *buf, size_t len) {
     
     return total;
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Ejemplo Avanzado: Servidor HTTP Minimalista
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -1571,30 +1706,35 @@ int main(void) {
     close(servidor_fd);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Probar:**
-```bash
+``` bash
 gcc servidor_http.c -o servidor_http
 ./servidor_http
 # Abrir navegador: http://localhost:8080/
 ```
+<!-- bash -->
 
 ## Seguridad en Sockets
 
 ### 1. Validación de Entrada
 
-```c
+``` c
 if (bytes_recibidos < 0 || bytes_recibidos >= BUFFER_SIZE) {
     fprintf(stderr, "Datos inválidos\n");
     close(sockfd);
     return;
 }
 ```
+<!-- c -->
 
 ### 2. Límites de Conexiones
 
-```c
+```{code-block} c
+:linenos:
 #define MAX_CONEXIONES 100
 
 if (num_conexiones >= MAX_CONEXIONES) {
@@ -1602,22 +1742,26 @@ if (num_conexiones >= MAX_CONEXIONES) {
     close(cliente_fd);
     continue;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 3. Timeouts
 
-```c
+``` c
 struct timeval tv;
 tv.tv_sec = 30;  // 30 segundos
 tv.tv_usec = 0;
 setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
 ```
+<!-- c -->
 
 ### 4. TLS/SSL
 
 Para comunicación segura, usar OpenSSL:
 
-```c
+```{code-block} c
+:linenos:
 #include <openssl/ssl.h>
 #include <openssl/err.h>
 
@@ -1634,7 +1778,9 @@ if (SSL_accept(ssl) <= 0) {
 
 SSL_shutdown(ssl);
 SSL_free(ssl);
+
 ```
+<!-- {code-block} c -->
 
 ## Referencias y Recursos
 
@@ -1651,7 +1797,8 @@ SSL_free(ssl);
 
 ### Páginas Man
 
-```bash
+```{code-block} bash
+:linenos:
 man 2 socket
 man 2 bind
 man 2 listen
@@ -1660,7 +1807,9 @@ man 2 connect
 man 7 ip
 man 7 tcp
 man 7 udp
+
 ```
+<!-- {code-block} bash -->
 
 ### RFC Relevantes
 
@@ -1683,14 +1832,17 @@ La programación de sockets permite crear aplicaciones de red en C:
 1. **Socket = punto final de comunicación** bidireccional.
 2. **TCP (SOCK_STREAM):** Confiable, orientado a conexión.
 3. **UDP (SOCK_DGRAM):** Rápido, sin conexión, no confiable.
-4. **Servidor:** `socket()` → `bind()` → `listen()` → `accept()` → `recv()`/`send()`
+4. **Servidor:** `socket()` → `bind()` → `listen()` → `accept()` →
+   `recv()`/`send()`
 5. **Cliente:** `socket()` → `connect()` → `send()`/`recv()`
 6. **Orden de bytes:** Siempre usar `htons()`/`htonl()` para puertos e IPs.
 7. **Multiplexación:** `select()`, `poll()`, `epoll()` para múltiples clientes.
 8. **Concurrencia:** Procesos (`fork()`), threads (`pthread`), o multiplexación.
 9. **Seguridad:** Validar entrada, usar timeouts, considerar TLS/SSL.
 10. **Depuración:** `netstat`, `tcpdump`, `strace`, `lsof`.
+
 :::
+<!-- {important} Conceptos Clave -->
 
 :::{tip} Cuándo Usar TCP vs UDP
 
@@ -1704,9 +1856,13 @@ La programación de sockets permite crear aplicaciones de red en C:
 - Pérdida ocasional de datos es aceptable
 - Baja latencia es crítica (juegos, VoIP)
 - Broadcast/multicast
-:::
 
-La programación de sockets es la base de todas las aplicaciones de red modernas. Este apunte cubre los fundamentos, pero dominar redes requiere entender también protocolos, concurrencia y rendimiento a nivel de sistema.
+:::
+<!-- {tip} Cuándo Usar TCP vs UDP -->
+
+La programación de sockets es la base de todas las aplicaciones de red modernas.
+Este apunte cubre los fundamentos, pero dominar redes requiere entender también
+protocolos, concurrencia y rendimiento a nivel de sistema.
 
 
 
@@ -1720,7 +1876,7 @@ PARA INTEGRAR
 Las enumeraciones pueden causar problemas al guardar datos en archivos o
 enviarlos por red:
 
-```{code-block}c
+:::{code-block}c
 :caption: Problema: serialización frágil
 
 typedef enum {
@@ -1733,11 +1889,13 @@ typedef enum {
 void guardar_configuracion(FILE *archivo, version_formato_t version) {
     fwrite(&version, sizeof(version), 1, archivo);  // ¡Peligroso!
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 **Solución**: Usar valores explícitos y funciones de conversión:
 
-```{code-block}c
+:::{code-block}c
 :caption: Solución: serialización robusta
 :linenos:
 
@@ -1779,8 +1937,16 @@ version_formato_t cargar_configuracion(FILE *archivo) {
     fread(&valor_protocolo, sizeof(uint32_t), 1, archivo);
     return protocolo_a_version(valor_protocolo);
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{tip} Estabilidad de Protocolo
-Al usar valores explícitos y funciones de conversión, podés reorganizar el `enum` internamente sin romper la compatibilidad con archivos existentes. Las funciones de conversión actúan como una capa de abstracción entre la representación interna y el formato persistido.
+
+Al usar valores explícitos y funciones de conversión, podés reorganizar el
+`enum` internamente sin romper la compatibilidad con archivos existentes. Las
+funciones de conversión actúan como una capa de abstracción entre la
+representación interna y el formato persistido.
+
 :::
+<!-- {tip} Estabilidad de Protocolo -->

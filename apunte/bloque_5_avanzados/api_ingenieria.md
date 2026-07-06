@@ -7,53 +7,81 @@ subtitle: 'Versionado semántico, estabilidad de ABI y performance de interfaces
 (versionado-y-compatibilidad)=
 ## Versionado y Compatibilidad
 
-Un aspecto crítico del diseño de APIs profesionales es la gestión de versiones y la compatibilidad hacia atrás (_backwards compatibility_).
+Un aspecto crítico del diseño de APIs profesionales es la gestión de versiones y
+la compatibilidad hacia atrás (_backwards compatibility_).
 
 (versionado-semantico)=
 ### Versionado Semántico
 
-Se recomienda seguir el esquema **MAJOR.MINOR.PATCH** propuesto por Preston-Werner [@preston2013]:
+Se recomienda seguir el esquema **MAJOR.MINOR.PATCH** propuesto por
+Preston-Werner [@preston2013]:
 
-- **MAJOR**: Cambios incompatibles en la API (rompen código existente). Ejemplo: eliminar una función pública, cambiar la firma de una función, modificar el comportamiento documentado de forma incompatible.
-- **MINOR**: Nuevas funcionalidades compatibles hacia atrás. Ejemplo: agregar nuevas funciones, agregar parámetros opcionales con valores predeterminados, agregar nuevos valores a enumeraciones existentes (con cuidado).
-- **PATCH**: Correcciones de bugs compatibles hacia atrás. Ejemplo: corregir fugas de memoria, corregir comportamiento que no coincide con la documentación, mejorar performance sin cambiar la API.
+- **MAJOR**: Cambios incompatibles en la API (rompen código existente). Ejemplo:
+  eliminar una función pública, cambiar la firma de una función, modificar el
+  comportamiento documentado de forma incompatible.
+- **MINOR**: Nuevas funcionalidades compatibles hacia atrás. Ejemplo: agregar
+  nuevas funciones, agregar parámetros opcionales con valores predeterminados,
+  agregar nuevos valores a enumeraciones existentes (con cuidado).
+- **PATCH**: Correcciones de bugs compatibles hacia atrás. Ejemplo: corregir
+  fugas de memoria, corregir comportamiento que no coincide con la
+  documentación, mejorar performance sin cambiar la API.
 
-El versionado semántico comunica explícitamente el impacto de actualizar una dependencia. Un cambio de versión `1.2.3` a `1.2.4` garantiza que es seguro actualizar sin revisar código, mientras que un cambio a `2.0.0` indica que se requiere revisión y posiblemente modificaciones.
+El versionado semántico comunica explícitamente el impacto de actualizar una
+dependencia. Un cambio de versión `1.2.3` a `1.2.4` garantiza que es seguro
+actualizar sin revisar código, mientras que un cambio a `2.0.0` indica que se
+requiere revisión y posiblemente modificaciones.
 
 :::{tip}
+
 **Estabilidad del ABI**
 
-El versionado semántico se aplica típicamente a la API (interfaz a nivel de código fuente). Sin embargo, en bibliotecas dinámicas (`.so` en Linux, `.dll` en Windows), también es crucial mantener la estabilidad del ABI (Application Binary Interface). Cambios que preservan la API pero rompen el ABI incluyen: modificar el tamaño de estructuras públicas, reordenar campos, cambiar convenciones de llamada, etc.
+El versionado semántico se aplica típicamente a la API (interfaz a nivel de
+código fuente). Sin embargo, en bibliotecas dinámicas (`.so` en Linux, `.dll` en
+Windows), también es crucial mantener la estabilidad del ABI (Application Binary
+Interface). Cambios que preservan la API pero rompen el ABI incluyen: modificar
+el tamaño de estructuras públicas, reordenar campos, cambiar convenciones de
+llamada, etc.
 
-Para bibliotecas que deben mantener estabilidad del ABI, el uso de punteros opacos como se describe en {ref}`3-encapsulamiento-y-ocultamiento-de-informacion` es esencial.
+Para bibliotecas que deben mantener estabilidad del ABI, el uso de punteros
+opacos como se describe en
+{ref}`3-encapsulamiento-y-ocultamiento-de-informacion` es esencial.
+
 :::
+<!-- {tip} -->
 
 (estrategias-de-evolucion)=
 ### Estrategias de Evolución
 
 Cuando es necesario cambiar una función existente:
 
-1. **Deprecación Gradual**: Mantener la función antigua, marcarla como obsoleta, y ofrecer una alternativa.
+1. **Deprecación Gradual**: Mantener la función antigua, marcarla como obsoleta,
+   y ofrecer una alternativa.
 
-:::{code-block} c
+```{code-block} c
 // Función antigua (deprecada)
 // DEPRECADO: Usar lista_agregar_v2() en su lugar
 bool lista_agregar(lista_t *lista, int dato);
 
 // Nueva función
 bool lista_agregar_v2(lista_t *lista, int dato, size_t *indice_out);
-:::
 
-2. **Sobrecarga por Nombre**: Dado que C no soporta sobrecarga de funciones, se usan nombres distintos.
+```
+<!-- {code-block} c -->
 
-:::{code-block} c
+2. **Sobrecarga por Nombre**: Dado que C no soporta sobrecarga de funciones, se
+   usan nombres distintos.
+
+```{code-block} c
 void dibujar_rectangulo(int x, int y, int ancho, int alto);
 void dibujar_rectangulo_ex(int x, int y, int ancho, int alto, color_t color);
-:::
 
-3. **Uso de Estructuras de Opciones**: Para funciones con muchos parámetros opcionales, se puede usar una estructura de configuración.
+```
+<!-- {code-block} c -->
 
-:::{code-block} c
+3. **Uso de Estructuras de Opciones**: Para funciones con muchos parámetros
+   opcionales, se puede usar una estructura de configuración.
+
+```{code-block} c
 typedef struct {
     int ancho;
     int alto;
@@ -67,25 +95,32 @@ rectangulo_config_t rectangulo_config_defecto(void);
 
 // Función que acepta configuración
 void dibujar_rectangulo_config(int x, int y, const rectangulo_config_t *config);
-:::
+
+```
+<!-- {code-block} c -->
 
 (ejercicios-sobre-diseno-de-apis)=
 ## Ejercicios sobre Diseño de APIs
 
-```{exercise}
+:::{exercise}
 :label: api_pila_basica
 :enumerator: api-1
 
-Diseñá la interfaz (archivo `.h`) para una pila (_stack_) de enteros. La pila debe soportar las operaciones básicas: crear, destruir, apilar (_push_), desapilar (_pop_), y consultar el tope sin desapilar (_peek_). Incluí documentación completa con precondiciones y poscondiciones para cada función.
+Diseñá la interfaz (archivo `.h`) para una pila (_stack_) de enteros. La pila
+debe soportar las operaciones básicas: crear, destruir, apilar (_push_),
+desapilar (_pop_), y consultar el tope sin desapilar (_peek_). Incluí
+documentación completa con precondiciones y poscondiciones para cada función.
 
 **Requisitos:**
 - Usar un tipo opaco `pila_t`.
 - Seguir el patrón constructor/destructor.
 - Especificar claramente la gestión de memoria.
 - Indicar cómo se reportan los errores (ej. pila vacía al desapilar).
-```
 
-````{solution} api_pila_basica
+:::
+<!-- {exercise} -->
+
+::::{solution} api_pila_basica
 :class: dropdown
 
 ```{code-block} c
@@ -167,21 +202,32 @@ bool pila_esta_vacia(const pila_t *pila);
 size_t pila_tamano(const pila_t *pila);
 
 #endif // PILA_H
-```
-````
 
-```{exercise}
+```
+<!-- {code-block} c -->
+
+::::
+<!-- {solution} api_pila_basica -->
+
+:::{exercise}
 :label: api_calculadora_mejorada
 :enumerator: api-2
 
-Extendé el módulo `matematica.h` del {ref}`ejemplo-2-modulo-de-operaciones-matematicas-seguras` para incluir operaciones de multiplicación y suma, ambas con detección de desbordamiento (_overflow_). Implementá las funciones y un programa de ejemplo que demuestre el manejo de errores.
+Extendé el módulo `matematica.h` del
+{ref}`ejemplo-2-modulo-de-operaciones-matematicas-seguras` para incluir
+operaciones de multiplicación y suma, ambas con detección de desbordamiento
+(_overflow_). Implementá las funciones y un programa de ejemplo que demuestre el
+manejo de errores.
 
 **Pistas:**
-- Para detectar desbordamiento en la suma: verificar si `a + b < a` (para números sin signo) o usar límites de `INT_MAX`.
+- Para detectar desbordamiento en la suma: verificar si `a + b < a` (para
+  números sin signo) o usar límites de `INT_MAX`.
 - Para la multiplicación: verificar si `a * b / a != b` cuando `a != 0`.
-```
 
-````{solution} api_calculadora_mejorada
+:::
+<!-- {exercise} -->
+
+::::{solution} api_calculadora_mejorada
 :class: dropdown
 
 ```{code-block} c
@@ -213,7 +259,9 @@ mat_error_t mat_sumar(int a, int b, int *resultado);
  * @pre resultado != NULL
  */
 mat_error_t mat_multiplicar(int a, int b, int *resultado);
+
 ```
+<!-- {code-block} c -->
 
 ```{code-block} c
 :linenos:
@@ -261,7 +309,9 @@ mat_error_t mat_multiplicar(int a, int b, int *resultado)
     *resultado = a * b;
     return MAT_OK;
 }
+
 ```
+<!-- {code-block} c -->
 
 ```{code-block} c
 :linenos:
@@ -295,14 +345,21 @@ int main(void)
 
     return 0;
 }
-```
-````
 
-```{exercise}
+```
+<!-- {code-block} c -->
+
+::::
+<!-- {solution} api_calculadora_mejorada -->
+
+:::{exercise}
 :label: api_buffer_circular
 :enumerator: api-3
 
-Diseñá e implementá una API para un buffer circular de tamaño fijo. El buffer debe permitir escribir y leer bytes, y debe reportar cuando esté lleno o vacío. Usá el patrón Init/Finalize del {ref}`patron-init-finalize`, de forma que el usuario pueda declarar el buffer en el stack.
+Diseñá e implementá una API para un buffer circular de tamaño fijo. El buffer
+debe permitir escribir y leer bytes, y debe reportar cuando esté lleno o vacío.
+Usá el patrón Init/Finalize del {ref}`patron-init-finalize`, de forma que el
+usuario pueda declarar el buffer en el stack.
 
 **Operaciones requeridas:**
 - `buffer_init()`: Inicializa un buffer con capacidad especificada.
@@ -311,9 +368,11 @@ Diseñá e implementá una API para un buffer circular de tamaño fijo. El buffe
 - `buffer_leer()`: Lee datos del buffer.
 - `buffer_disponible()`: Consulta cuántos bytes hay disponibles para leer.
 - `buffer_espacio_libre()`: Consulta cuánto espacio hay para escribir.
-```
 
-````{solution} api_buffer_circular
+:::
+<!-- {exercise} -->
+
+::::{solution} api_buffer_circular
 :class: dropdown
 
 ```{code-block} c
@@ -415,7 +474,9 @@ bool buffer_esta_vacio(const buffer_circular_t *buffer);
 bool buffer_esta_lleno(const buffer_circular_t *buffer);
 
 #endif // BUFFER_CIRCULAR_H
+
 ```
+<!-- {code-block} c -->
 
 ```{code-block} c
 :linenos:
@@ -492,27 +553,39 @@ bool buffer_esta_lleno(const buffer_circular_t *buffer)
 {
     return buffer->cantidad == buffer->capacidad;
 }
-```
-````
 
-```{exercise}
+```
+<!-- {code-block} c -->
+
+::::
+<!-- {solution} api_buffer_circular -->
+
+:::{exercise}
 :label: api_parser_cli
 :enumerator: api-4
 
-Diseñá una API para parsear argumentos de línea de comandos. La API debe soportar opciones booleanas (flags como `-v` para verbose), opciones con valores (como `-o archivo.txt`), y argumentos posicionales. Implementá solo la interfaz (archivo `.h`) con documentación completa.
+Diseñá una API para parsear argumentos de línea de comandos. La API debe
+soportar opciones booleanas (flags como `-v` para verbose), opciones con valores
+(como `-o archivo.txt`), y argumentos posicionales. Implementá solo la interfaz
+(archivo `.h`) con documentación completa.
 
 **Ejemplo de uso esperado:**
-```c
+```{code-block} c
+:linenos:
 parser_t *parser = parser_crear("Mi Programa", "1.0");
 parser_agregar_flag(parser, 'v', "verbose", "Modo verbose");
 parser_agregar_opcion(parser, 'o', "output", "Archivo de salida", "stdout");
 parser_parsear(parser, argc, argv);
 bool verbose = parser_obtener_flag(parser, "verbose");
 const char *salida = parser_obtener_opcion(parser, "output");
-```
-```
 
-````{solution} api_parser_cli
+```
+<!-- {code-block} c -->
+
+:::
+<!-- {exercise} -->
+
+::::{solution} api_parser_cli
 :class: dropdown
 
 ```{code-block} c
@@ -644,17 +717,27 @@ void parser_mostrar_ayuda(const parser_t *parser);
 const char *parser_obtener_error(const parser_t *parser);
 
 #endif // PARSER_CLI_H
-```
-````
 
-```{exercise}
+```
+<!-- {code-block} c -->
+
+::::
+<!-- {solution} api_parser_cli -->
+
+:::{exercise}
 :label: api_json_simple
 :enumerator: api-5
 
-Diseñá una API minimalista para leer archivos JSON simples (solo objetos con pares clave-valor donde los valores son cadenas o números). La API debe permitir cargar un archivo JSON y consultar valores por clave. Aplicá todos los principios de diseño vistos: tipo opaco, manejo de errores consistente, documentación completa, y uso de `const` apropiado.
-```
+Diseñá una API minimalista para leer archivos JSON simples (solo objetos con
+pares clave-valor donde los valores son cadenas o números). La API debe permitir
+cargar un archivo JSON y consultar valores por clave. Aplicá todos los
+principios de diseño vistos: tipo opaco, manejo de errores consistente,
+documentación completa, y uso de `const` apropiado.
 
-````{solution} api_json_simple
+:::
+<!-- {exercise} -->
+
+::::{solution} api_json_simple
 :class: dropdown
 
 ```{code-block} c
@@ -783,65 +866,120 @@ const char **json_obtener_claves(const json_t *json);
 const char *json_obtener_error(void);
 
 #endif // JSON_SIMPLE_H
+
 ```
+<!-- {code-block} c -->
 
 **Notas sobre el diseño:**
 
-- Se usa `json_obtener_error()` como función global para obtener errores, similar a `errno` en la biblioteca estándar de C.
-- Los valores por defecto permiten un uso simple sin necesidad de verificar siempre si una clave existe.
-- El uso consistente de `const` indica qué funciones modifican el objeto y qué datos son propiedad de la librería.
-- La API es minimalista pero extensible: se podrían agregar funciones para soportar arrays, booleanos, y null en futuras versiones.
-````
+- Se usa `json_obtener_error()` como función global para obtener errores,
+  similar a `errno` en la biblioteca estándar de C.
+- Los valores por defecto permiten un uso simple sin necesidad de verificar
+  siempre si una clave existe.
+- El uso consistente de `const` indica qué funciones modifican el objeto y qué
+  datos son propiedad de la librería.
+- La API es minimalista pero extensible: se podrían agregar funciones para
+  soportar arrays, booleanos, y null en futuras versiones.
+
+::::
+<!-- {solution} api_json_simple -->
 
 (performance-y-apis-el-costo-de-la-abstraccion)=
 ## Performance y APIs: El Costo de la Abstracción
 
-Una preocupación legítima al diseñar APIs con múltiples capas de abstracción es el impacto en el rendimiento. ¿Cuánto cuesta la llamada a función indirecta? ¿Vale la pena el overhead?
+Una preocupación legítima al diseñar APIs con múltiples capas de abstracción es
+el impacto en el rendimiento. ¿Cuánto cuesta la llamada a función indirecta?
+¿Vale la pena el overhead?
 
 (el-mito-de-la-abstraccion-costosa)=
 ### El Mito de la Abstracción Costosa
 
-En sistemas modernos, el costo de una llamada a función bien diseñada es despreciable en la vasta mayoría de los casos. Knuth [@knuth1974] famosamente advirtió: "La optimización prematura es la raíz de todos los males" (*"premature optimization is the root of all evil"*). Esta observación, basada en décadas de experiencia, enfatiza que el tiempo de desarrollo debe invertirse en claridad y corrección antes que en optimizaciones especulativas.
+En sistemas modernos, el costo de una llamada a función bien diseñada es
+despreciable en la vasta mayoría de los casos. Knuth [@knuth1974] famosamente
+advirtió: "La optimización prematura es la raíz de todos los males" (*"premature
+optimization is the root of all evil"*). Esta observación, basada en décadas de
+experiencia, enfatiza que el tiempo de desarrollo debe invertirse en claridad y
+corrección antes que en optimizaciones especulativas.
 
-El compilador moderno realiza optimizaciones agresivas que eliminan gran parte del overhead de la abstracción, incluyendo:
+El compilador moderno realiza optimizaciones agresivas que eliminan gran parte
+del overhead de la abstracción, incluyendo:
 
-- **Inlining**: Funciones pequeñas y frecuentemente llamadas se insertan directamente en el sitio de llamada, eliminando completamente el overhead de la llamada a función. Los compiladores modernos con optimización `-O2` o superior realizan inlining automático basado en heurísticas de costo-beneficio.
+- **Inlining**: Funciones pequeñas y frecuentemente llamadas se insertan
+  directamente en el sitio de llamada, eliminando completamente el overhead de
+  la llamada a función. Los compiladores modernos con optimización `-O2` o
+  superior realizan inlining automático basado en heurísticas de
+  costo-beneficio.
 
-- **Link-Time Optimization (LTO)**: Optimizaciones entre unidades de compilación, permitiendo inlining incluso de funciones definidas en otros archivos objeto. LTO permite al compilador tener una visión global del programa y tomar decisiones de optimización más informadas.
+- **Link-Time Optimization (LTO)**: Optimizaciones entre unidades de
+  compilación, permitiendo inlining incluso de funciones definidas en otros
+  archivos objeto. LTO permite al compilador tener una visión global del
+  programa y tomar decisiones de optimización más informadas.
 
-- **Constant Propagation y Dead Code Elimination**: El compilador puede propagar constantes a través de llamadas a función y eliminar código que nunca se ejecuta, reduciendo dramáticamente el tamaño y mejorando la localidad del cache.
+- **Constant Propagation y Dead Code Elimination**: El compilador puede propagar
+  constantes a través de llamadas a función y eliminar código que nunca se
+  ejecuta, reduciendo dramáticamente el tamaño y mejorando la localidad del
+  cache.
 
-Un estudio de Mytkowicz et al. [@mytkowicz2009] demostró que diferencias en performance son frecuentemente atribuidas incorrectamente a causas obvias (como llamadas a función), cuando en realidad factores como la alineación de código en memoria, el estado del cache, y efectos del layout de memoria tienen impactos más significativos. Este estudio es una advertencia sobre la importancia de medir, no asumir.
+Un estudio de Mytkowicz et al. [@mytkowicz2009] demostró que diferencias en
+performance son frecuentemente atribuidas incorrectamente a causas obvias (como
+llamadas a función), cuando en realidad factores como la alineación de código en
+memoria, el estado del cache, y efectos del layout de memoria tienen impactos
+más significativos. Este estudio es una advertencia sobre la importancia de
+medir, no asumir.
 
 :::{important}
+
 **Regla de Oro: Medir, No Asumir**
 
 Antes de sacrificar claridad por performance:
 
-1. **Perfilá** (*profile*) tu código con herramientas como `gprof`, `perf`, o Valgrind/Callgrind [@nethercote2007].
-2. **Identificá** los verdaderos cuellos de botella (*hotspots*). Típicamente, el 90% del tiempo se gasta en el 10% del código.
-3. **Optimizá** solo ese 10%, manteniendo el resto del código claro y mantenible.
-4. **Verificá** que la optimización realmente mejoró el rendimiento de forma significativa.
+1. **Perfilá** (*profile*) tu código con herramientas como `gprof`, `perf`, o
+   Valgrind/Callgrind [@nethercote2007].
+2. **Identificá** los verdaderos cuellos de botella (*hotspots*). Típicamente,
+   el 90% del tiempo se gasta en el 10% del código.
+3. **Optimizá** solo ese 10%, manteniendo el resto del código claro y
+   mantenible.
+4. **Verificá** que la optimización realmente mejoró el rendimiento de forma
+   significativa.
 
-Como observa Martin [@martin2008], "El código limpio es más fácil de optimizar que el código sucio", porque es más fácil identificar y modificar las partes críticas cuando el código es comprensible.
+Como observa Martin [@martin2008], "El código limpio es más fácil de optimizar
+que el código sucio", porque es más fácil identificar y modificar las partes
+críticas cuando el código es comprensible.
+
 :::
+<!-- {important} -->
 
 (cuando-preocuparse-por-performance)=
 ### Cuándo Preocuparse por Performance
 
 La performance sí importa en contextos específicos:
 
-1. **Lazos Internos Críticos (_Hot Paths_)**: Código que se ejecuta millones o miles de millones de veces por segundo, como kernels de procesamiento de señales, codecs de video/audio, motores de rendering 3D, o algoritmos criptográficos. En estos casos, incluso el overhead de una única instrucción puede acumularse significativamente.
+1. **Lazos Internos Críticos (_Hot Paths_)**: Código que se ejecuta millones o
+   miles de millones de veces por segundo, como kernels de procesamiento de
+   señales, codecs de video/audio, motores de rendering 3D, o algoritmos
+   criptográficos. En estos casos, incluso el overhead de una única instrucción
+   puede acumularse significativamente.
 
-2. **Sistemas de Tiempo Real Duro**: Donde límites temporales estrictos (*deadlines*) son obligatorios y su incumplimiento puede tener consecuencias catastróficas (sistemas de control industrial, aviación, dispositivos médicos). En estos sistemas, no solo importa la performance promedio, sino también la varianza y el peor caso (*worst-case execution time*, WCET).
+2. **Sistemas de Tiempo Real Duro**: Donde límites temporales estrictos
+   (*deadlines*) son obligatorios y su incumplimiento puede tener consecuencias
+   catastróficas (sistemas de control industrial, aviación, dispositivos
+   médicos). En estos sistemas, no solo importa la performance promedio, sino
+   también la varianza y el peor caso (*worst-case execution time*, WCET).
 
-3. **Sistemas Embebidos con Recursos Limitados**: Microcontroladores con kilobytes de RAM y megahertz de clock, donde cada byte de código y cada ciclo de CPU cuenta. En estos entornos, las asignaciones dinámicas pueden estar completamente prohibidas.
+3. **Sistemas Embebidos con Recursos Limitados**: Microcontroladores con
+   kilobytes de RAM y megahertz de clock, donde cada byte de código y cada ciclo
+   de CPU cuenta. En estos entornos, las asignaciones dinámicas pueden estar
+   completamente prohibidas.
 
-4. **Algoritmos de Complejidad Crítica**: Cuando la elección de estructura de datos o algoritmo afecta la complejidad asintótica (por ejemplo, $O(n)$ vs. $O(n^2)$), el diseño de la API debe facilitar el uso eficiente, no obstaculizarlo.
+4. **Algoritmos de Complejidad Crítica**: Cuando la elección de estructura de
+   datos o algoritmo afecta la complejidad asintótica (por ejemplo, $O(n)$ vs.
+   $O(n^2)$), el diseño de la API debe facilitar el uso eficiente, no
+   obstaculizarlo.
 
-En estos casos, las APIs pueden exponer versiones "unsafe" optimizadas junto a versiones "safe" con verificaciones completas:
+En estos casos, las APIs pueden exponer versiones "unsafe" optimizadas junto a
+versiones "safe" con verificaciones completas:
 
-:::{code-block} c
+```{code-block} c
 // Versión con verificaciones completas: segura pero más lenta
 bool lista_insertar(lista_t *lista, size_t pos, void *elem);
 
@@ -849,26 +987,44 @@ bool lista_insertar(lista_t *lista, size_t pos, void *elem);
 // PRECONDICIÓN: pos < lista->tamanio, lista != NULL, elem != NULL
 // El incumplimiento de las precondiciones resulta en comportamiento indefinido
 void lista_insertar_unsafe(lista_t *lista, size_t pos, void *elem);
-:::
 
-Esta estrategia es común en bibliotecas de sistemas. Por ejemplo, la librería estándar de C ofrece `strcpy` (rápida pero peligrosa) y `strncpy` (más segura pero requiere especificar tamaño). Bibliotecas modernas como OpenSSL exponen APIs de alto nivel simples para casos comunes y APIs de bajo nivel complejas para casos que requieren máximo control.
+```
+<!-- {code-block} c -->
+
+Esta estrategia es común en bibliotecas de sistemas. Por ejemplo, la librería
+estándar de C ofrece `strcpy` (rápida pero peligrosa) y `strncpy` (más segura
+pero requiere especificar tamaño). Bibliotecas modernas como OpenSSL exponen
+APIs de alto nivel simples para casos comunes y APIs de bajo nivel complejas
+para casos que requieren máximo control.
 
 (testing-de-apis-validacion-del-contrato)=
 ### Testing de APIs: Validación del Contrato
 
-El testing de una API no solo verifica que el código funciona, sino que valida que el *contrato* se cumple. Beck [@beck2002] popularizó el desarrollo guiado por tests (*Test-Driven Development*, TDD), donde los tests se escriben antes que el código de producción, sirviendo como especificación ejecutable.
+El testing de una API no solo verifica que el código funciona, sino que valida
+que el *contrato* se cumple. Beck [@beck2002] popularizó el desarrollo guiado
+por tests (*Test-Driven Development*, TDD), donde los tests se escriben antes
+que el código de producción, sirviendo como especificación ejecutable.
 
 **Niveles de testing para APIs:**
 
-1. **Tests de Contrato**: Verifican que las precondiciones, poscondiciones e invariantes documentados se cumplen. Por ejemplo, si la documentación dice que `lista_crear()` retorna `NULL` en caso de fallo, debe haber un test que verifique este comportamiento.
+1. **Tests de Contrato**: Verifican que las precondiciones, poscondiciones e
+   invariantes documentados se cumplen. Por ejemplo, si la documentación dice
+   que `lista_crear()` retorna `NULL` en caso de fallo, debe haber un test que
+   verifique este comportamiento.
 
-2. **Tests de Casos Límite**: Proban comportamiento en fronteras (listas vacías, tamaño máximo, valores nulos, etc.). Muchos bugs se esconden en estos casos extremos.
+2. **Tests de Casos Límite**: Proban comportamiento en fronteras (listas vacías,
+   tamaño máximo, valores nulos, etc.). Muchos bugs se esconden en estos casos
+   extremos.
 
-3. **Tests de Estrés**: Crean miles de objetos, realizan millones de operaciones, buscan fugas de memoria con Valgrind [@nethercote2007].
+3. **Tests de Estrés**: Crean miles de objetos, realizan millones de
+   operaciones, buscan fugas de memoria con Valgrind [@nethercote2007].
 
-4. **Tests de Uso Incorrecto**: Verifican que la API se comporta razonablemente (idealmente, falla de forma predecible) cuando se usa incorrectamente. Por ejemplo, pasar `NULL` donde no está permitido debería causar un `assert` en modo debug, no un crash silencioso.
+4. **Tests de Uso Incorrecto**: Verifican que la API se comporta razonablemente
+   (idealmente, falla de forma predecible) cuando se usa incorrectamente. Por
+   ejemplo, pasar `NULL` donde no está permitido debería causar un `assert` en
+   modo debug, no un crash silencioso.
 
-:::{code-block} c
+```{code-block} c
 // Ejemplo de test de contrato
 void test_lista_agregar_retorna_true_en_exito(void) {
     lista_t *lista = lista_crear();
@@ -883,16 +1039,23 @@ void test_lista_agregar_retorna_true_en_exito(void) {
     
     lista_destruir(lista);
 }
-:::
+
+```
+<!-- {code-block} c -->
 
 **Property-Based Testing:**
 
-Una técnica avanzada, popularizada por QuickCheck [@claessen2000], genera automáticamente cientos de casos de test basados en propiedades declaradas. Por ejemplo, para una lista: "agregar N elementos y luego consultar el largo debe retornar N".
+Una técnica avanzada, popularizada por QuickCheck [@claessen2000], genera
+automáticamente cientos de casos de test basados en propiedades declaradas. Por
+ejemplo, para una lista: "agregar N elementos y luego consultar el largo debe
+retornar N".
 
 (documentacion-de-apis-el-contrato-escrito)=
 ## Documentación de APIs: El Contrato Escrito
 
-La documentación no es opcional; es parte integral del contrato entre la API y sus usuarios. Una función sin documentación es una función cuyo comportamiento es indefinido desde la perspectiva del usuario.
+La documentación no es opcional; es parte integral del contrato entre la API y
+sus usuarios. Una función sin documentación es una función cuyo comportamiento
+es indefinido desde la perspectiva del usuario.
 
 (elementos-esenciales-de-documentacion)=
 ### Elementos Esenciales de Documentación
@@ -903,19 +1066,23 @@ Cada función pública debe documentar:
 2. **Parámetros**: Significado, unidades, restricciones de cada parámetro.
 3. **Valor de Retorno**: Qué representa, qué valores son posibles.
 4. **Precondiciones**: Qué debe ser verdadero antes de llamar la función.
-5. **Poscondiciones**: Qué será verdadero después de que la función retorne exitosamente.
+5. **Poscondiciones**: Qué será verdadero después de que la función retorne
+   exitosamente.
 6. **Efectos Secundarios**: ¿Modifica argumentos? ¿Accede a recursos externos?
 7. **Gestión de Memoria**: ¿Quién aloja? ¿Quién libera?
 8. **Manejo de Errores**: ¿Cómo reporta errores? ¿Qué errores son posibles?
 9. **Thread-Safety**: ¿Es seguro llamar desde múltiples hilos concurrentemente?
-10. **Complejidad**: Si es relevante, complejidad temporal y espacial ($O(n)$, etc.).
+10. **Complejidad**: Si es relevante, complejidad temporal y espacial ($O(n)$,
+    etc.).
 
 (formato-de-documentacion-doxygen)=
 ### Formato de Documentación: Doxygen
 
-Doxygen [@doxygen2023] es el estándar de facto para documentación de APIs en C/C++. Usa comentarios especialmente formateados que pueden ser procesados para generar HTML, PDF, y man pages.
+Doxygen [@doxygen2023] es el estándar de facto para documentación de APIs en
+C/C++. Usa comentarios especialmente formateados que pueden ser procesados para
+generar HTML, PDF, y man pages.
 
-:::{code-block} c
+```{code-block} c
 /**
  * @brief Busca un elemento en una lista ordenada usando búsqueda binaria.
  *
@@ -942,127 +1109,221 @@ Doxygen [@doxygen2023] es el estándar de facto para documentación de APIs en C
 bool lista_buscar_binaria(const lista_t *lista, 
                          int elemento,
                          size_t *indice_out);
-:::
 
-Esta documentación es exhaustiva pero necesaria. Comunica el contrato completo y permite al usuario de la API trabajar con confianza.
+```
+<!-- {code-block} c -->
+
+Esta documentación es exhaustiva pero necesaria. Comunica el contrato completo y
+permite al usuario de la API trabajar con confianza.
 
 (estudio-de-caso-apis-exitosas-en-la-practica)=
 ## Estudio de Caso: APIs Exitosas en la Práctica
 
-Analizar APIs exitosas y ampliamente adoptadas revela patrones comunes y lecciones valiosas.
+Analizar APIs exitosas y ampliamente adoptadas revela patrones comunes y
+lecciones valiosas.
 
 (posix-el-estandar-de-facto)=
 ### POSIX: El Estándar de Facto
 
-POSIX (Portable Operating System Interface) [@ieee2018] es quizás el ejemplo más exitoso de diseño de API en C. Define interfaces estándar para interacción con el sistema operativo (archivos, procesos, hilos, señales, etc.) que han sido adoptadas por prácticamente todos los sistemas Unix-like y muchos otros.
+POSIX (Portable Operating System Interface) [@ieee2018] es quizás el ejemplo más
+exitoso de diseño de API en C. Define interfaces estándar para interacción con
+el sistema operativo (archivos, procesos, hilos, señales, etc.) que han sido
+adoptadas por prácticamente todos los sistemas Unix-like y muchos otros.
 
 **Principios de diseño de POSIX:**
 
-- **Simplicidad Conceptual**: Las abstracciones son pocas pero poderosas. "Everything is a file" permite unificar E/S de archivos, dispositivos, pipes y sockets bajo una interfaz común (`open`, `read`, `write`, `close`).
+- **Simplicidad Conceptual**: Las abstracciones son pocas pero poderosas.
+  "Everything is a file" permite unificar E/S de archivos, dispositivos, pipes y
+  sockets bajo una interfaz común (`open`, `read`, `write`, `close`).
 
-- **Composabilidad**: Los programas POSIX están diseñados para ser combinados mediante pipes y redirección. Esta filosofía, heredada de Unix [@raymond2003], enfatiza hacer una cosa y hacerla bien.
+- **Composabilidad**: Los programas POSIX están diseñados para ser combinados
+  mediante pipes y redirección. Esta filosofía, heredada de Unix [@raymond2003],
+  enfatiza hacer una cosa y hacerla bien.
 
-- **Gestión Explícita de Errores**: Todas las funciones que pueden fallar retornan valores que indican éxito o fracaso, y establecen la variable global `errno` con detalles del error. Aunque el uso de una variable global para errores es controversial (viola el principio de estado explícito), ha probado ser práctico en contexto de llamadas al sistema.
+- **Gestión Explícita de Errores**: Todas las funciones que pueden fallar
+  retornan valores que indican éxito o fracaso, y establecen la variable global
+  `errno` con detalles del error. Aunque el uso de una variable global para
+  errores es controversial (viola el principio de estado explícito), ha probado
+  ser práctico en contexto de llamadas al sistema.
 
-- **Estabilidad a Largo Plazo**: POSIX ha mantenido compatibilidad hacia atrás por décadas. Código escrito para POSIX en los 80s frecuentemente compila y ejecuta sin cambios en sistemas modernos.
+- **Estabilidad a Largo Plazo**: POSIX ha mantenido compatibilidad hacia atrás
+  por décadas. Código escrito para POSIX en los 80s frecuentemente compila y
+  ejecuta sin cambios en sistemas modernos.
 
 **Lecciones:**
 
-- La estabilidad y compatibilidad a largo plazo son más valiosas que la perfección teórica. Una API "suficientemente buena" que se mantiene estable es preferible a una API "perfecta" que cambia constantemente.
+- La estabilidad y compatibilidad a largo plazo son más valiosas que la
+  perfección teórica. Una API "suficientemente buena" que se mantiene estable es
+  preferible a una API "perfecta" que cambia constantemente.
 
-- Las abstracciones simples y uniformes (como el descriptor de archivo) pueden aplicarse a dominios inesperados, aumentando la utilidad de la API más allá de sus casos de uso originales.
+- Las abstracciones simples y uniformes (como el descriptor de archivo) pueden
+  aplicarse a dominios inesperados, aumentando la utilidad de la API más allá de
+  sus casos de uso originales.
 
-La API POSIX [@ieee2018] define interfaces para sistemas Unix-like y ha sobrevivido décadas. Sus lecciones:
+La API POSIX [@ieee2018] define interfaces para sistemas Unix-like y ha
+sobrevivido décadas. Sus lecciones:
 
-- **Simplicidad**: Funciones hacen una cosa y la hacen bien (`fopen`, `read`, `write`).
-- **Composabilidad**: Funciones pequeñas se combinan para crear funcionalidad compleja.
-- **Consistencia**: Patrones repetidos (descriptores de archivo, códigos de error) facilitan el aprendizaje.
+- **Simplicidad**: Funciones hacen una cosa y la hacen bien (`fopen`, `read`,
+  `write`).
+- **Composabilidad**: Funciones pequeñas se combinan para crear funcionalidad
+  compleja.
+- **Consistencia**: Patrones repetidos (descriptores de archivo, códigos de
+  error) facilitan el aprendizaje.
 
 (sqlite-la-libreria-mas-deployada-del-mundo)=
 ### SQLite: La Librería más Deployada del Mundo
 
-SQLite [@hipp2020] es probablemente la librería C más ampliamente desplegada en el planeta. Se encuentra en miles de millones de dispositivos: smartphones, navegadores web, sistemas operativos, aviones, y prácticamente cualquier sistema que necesite almacenar datos estructurados localmente. Su éxito se debe en gran parte a decisiones de diseño deliberadas:
+SQLite [@hipp2020] es probablemente la librería C más ampliamente desplegada en
+el planeta. Se encuentra en miles de millones de dispositivos: smartphones,
+navegadores web, sistemas operativos, aviones, y prácticamente cualquier sistema
+que necesite almacenar datos estructurados localmente. Su éxito se debe en gran
+parte a decisiones de diseño deliberadas:
 
 **Principios de diseño de SQLite:**
 
-- **Zero Configuration**: No requiere instalación, configuración ni administración de servidor. La librería es completamente autocontenida.
+- **Zero Configuration**: No requiere instalación, configuración ni
+  administración de servidor. La librería es completamente autocontenida.
 
-- **Single File Database**: Toda la base de datos (tablas, índices, schema, datos) reside en un único archivo del sistema operativo, facilitando backup, transferencia y versionado.
+- **Single File Database**: Toda la base de datos (tablas, índices, schema,
+  datos) reside en un único archivo del sistema operativo, facilitando backup,
+  transferencia y versionado.
 
-- **API Minimalista pero Poderosa**: Pocas funciones esenciales (`sqlite3_open`, `sqlite3_exec`, `sqlite3_prepare_v2`, `sqlite3_step`, `sqlite3_finalize`) permiten realizar operaciones SQL completas. La API es fácil de aprender pero suficientemente expresiva para casos de uso avanzados.
+- **API Minimalista pero Poderosa**: Pocas funciones esenciales (`sqlite3_open`,
+  `sqlite3_exec`, `sqlite3_prepare_v2`, `sqlite3_step`, `sqlite3_finalize`)
+  permiten realizar operaciones SQL completas. La API es fácil de aprender pero
+  suficientemente expresiva para casos de uso avanzados.
 
-- **Backward Compatibility Extrema**: SQLite mantiene un compromiso de compatibilidad hacia atrás virtualmente infinito. Bases de datos creadas hace 20 años pueden ser leídas por versiones modernas sin conversión. Este compromiso es posible gracias al uso de punteros opacos y al diseño cuidadoso de la ABI.
+- **Backward Compatibility Extrema**: SQLite mantiene un compromiso de
+  compatibilidad hacia atrás virtualmente infinito. Bases de datos creadas hace
+  20 años pueden ser leídas por versiones modernas sin conversión. Este
+  compromiso es posible gracias al uso de punteros opacos y al diseño cuidadoso
+  de la ABI.
 
-- **Testing Exhaustivo**: SQLite tiene una cobertura de testing que excede el 100% del código (más líneas de test que de código producto), incluyendo testing de errores de hardware y condiciones excepcionales [@hipp2020].
+- **Testing Exhaustivo**: SQLite tiene una cobertura de testing que excede el
+  100% del código (más líneas de test que de código producto), incluyendo
+  testing de errores de hardware y condiciones excepcionales [@hipp2020].
 
-Richard Hipp, creador de SQLite, enfatiza que "SQLite es software embebido, no un producto con clientes". Esta filosofía de diseño como componente reutilizable, no como servicio independiente, informa cada decisión de API. El objetivo es que SQLite "simplemente funcione" sin que el usuario tenga que pensar en ella.
+Richard Hipp, creador de SQLite, enfatiza que "SQLite es software embebido, no
+un producto con clientes". Esta filosofía de diseño como componente
+reutilizable, no como servicio independiente, informa cada decisión de API. El
+objetivo es que SQLite "simplemente funcione" sin que el usuario tenga que
+pensar en ella.
 
 (git-porcelain-vs-plumbing)=
 ### Git: Porcelain vs Plumbing
 
-Git [@chacon2014] es el sistema de control de versiones más utilizado del mundo. Su diseño de API es notable por la separación explícita en dos niveles de abstracción:
+Git [@chacon2014] es el sistema de control de versiones más utilizado del mundo.
+Su diseño de API es notable por la separación explícita en dos niveles de
+abstracción:
 
 **Arquitectura de dos niveles:**
 
-- **Plumbing (Fontanería)**: Comandos de bajo nivel, estables y diseñados para scripting y automatización. Ejemplos: `git hash-object`, `git cat-file`, `git update-index`. Estos comandos exponen directamente los objetos internos de Git (blobs, trees, commits) y garantizan estabilidad de interfaz a largo plazo.
+- **Plumbing (Fontanería)**: Comandos de bajo nivel, estables y diseñados para
+  scripting y automatización. Ejemplos: `git hash-object`, `git cat-file`, `git
+  update-index`. Estos comandos exponen directamente los objetos internos de Git
+  (blobs, trees, commits) y garantizan estabilidad de interfaz a largo plazo.
 
-- **Porcelain (Porcelana)**: Comandos de alto nivel, user-friendly, diseñados para uso humano. Ejemplos: `git add`, `git commit`, `git push`. Estos comandos pueden cambiar su comportamiento o flags en nuevas versiones para mejorar la experiencia de usuario.
+- **Porcelain (Porcelana)**: Comandos de alto nivel, user-friendly, diseñados
+  para uso humano. Ejemplos: `git add`, `git commit`, `git push`. Estos comandos
+  pueden cambiar su comportamiento o flags en nuevas versiones para mejorar la
+  experiencia de usuario.
 
 **Lecciones de diseño:**
 
 Esta separación es brillante porque permite:
 
-1. **Evolución de UX**: Los comandos de alto nivel pueden mejorar (mejor mensajes de error, nuevos flags, comportamiento más intuitivo) sin romper scripts y herramientas que dependen de Git.
+1. **Evolución de UX**: Los comandos de alto nivel pueden mejorar (mejor
+   mensajes de error, nuevos flags, comportamiento más intuitivo) sin romper
+   scripts y herramientas que dependen de Git.
 
-2. **Estabilidad para Automatización**: Scripts y herramientas de terceros pueden confiar en que los comandos de *plumbing* mantendrán su comportamiento indefinidamente.
+2. **Estabilidad para Automatización**: Scripts y herramientas de terceros
+   pueden confiar en que los comandos de *plumbing* mantendrán su comportamiento
+   indefinidamente.
 
-3. **Acceso a Primitivas**: Usuarios avanzados y herramientas pueden construir funcionalidad compleja combinando comandos de bajo nivel.
+3. **Acceso a Primitivas**: Usuarios avanzados y herramientas pueden construir
+   funcionalidad compleja combinando comandos de bajo nivel.
 
-El diseño de Git demuestra que no es necesario elegir entre simplicidad para principiantes y poder para expertos. Una API puede ofrecer ambos mediante niveles de abstracción apropiados, cada uno con su propio contrato de estabilidad.
+El diseño de Git demuestra que no es necesario elegir entre simplicidad para
+principiantes y poder para expertos. Una API puede ofrecer ambos mediante
+niveles de abstracción apropiados, cada uno con su propio contrato de
+estabilidad.
 
 (conclusion-disenar-para-el-usuario)=
 ## Conclusión: Diseñar para el Usuario
 
-El diseño de una buena interfaz en C es un ejercicio de empatía y disciplina. Requiere que te pongas en el lugar del programador que utilizará tu código. ¿Es la interfaz clara? ¿Es predecible? ¿Es segura? ¿Oculta la complejidad innecesaria?
+El diseño de una buena interfaz en C es un ejercicio de empatía y disciplina.
+Requiere que te pongas en el lugar del programador que utilizará tu código. ¿Es
+la interfaz clara? ¿Es predecible? ¿Es segura? ¿Oculta la complejidad
+innecesaria?
 
-Al aplicar estos principios y las reglas de estilo, no solo estarás creando funciones, sino componentes de software robustos, modulares y profesionales. Estarás construyendo "contratos" en los que otros desarrolladores pueden confiar, asegurando la mantenibilidad y longevidad de tu código.
+Al aplicar estos principios y las reglas de estilo, no solo estarás creando
+funciones, sino componentes de software robustos, modulares y profesionales.
+Estarás construyendo "contratos" en los que otros desarrolladores pueden
+confiar, asegurando la mantenibilidad y longevidad de tu código.
 
-Como observa Stroustrup [@stroustrup2012], diseñador de C++: "El diseño de bibliotecas es el diseño de lenguajes". Una buena API extiende el lenguaje con un vocabulario nuevo, expresivo y coherente para resolver problemas de un dominio específico.
+Como observa Stroustrup [@stroustrup2012], diseñador de C++: "El diseño de
+bibliotecas es el diseño de lenguajes". Una buena API extiende el lenguaje con
+un vocabulario nuevo, expresivo y coherente para resolver problemas de un
+dominio específico.
 
 (principios-clave-a-recordar)=
 ### Principios Clave a Recordar
 
-1. **Claridad sobre Cleverness**: Un código claro y simple es superior a uno "inteligente" pero difícil de entender. Como dice la regla {ref}`0x0000h`, la claridad y prolijidad son fundamentales.
+1. **Claridad sobre Cleverness**: Un código claro y simple es superior a uno
+   "inteligente" pero difícil de entender. Como dice la regla {ref}`0x0000h`, la
+   claridad y prolijidad son fundamentales.
 
-2. **Contratos Explícitos**: Las precondiciones y poscondiciones no son decoración, son especificaciones formales del comportamiento esperado.
+2. **Contratos Explícitos**: Las precondiciones y poscondiciones no son
+   decoración, son especificaciones formales del comportamiento esperado.
 
-3. **Encapsulamiento Riguroso**: La información que no necesita ser pública, no debe serlo. Los tipos opacos son tu herramienta principal para lograr esto.
+3. **Encapsulamiento Riguroso**: La información que no necesita ser pública, no
+   debe serlo. Los tipos opacos son tu herramienta principal para lograr esto.
 
-4. **Errores sin Sorpresas**: Los errores deben ser reportados de manera predecible y consistente. El usuario de tu API debe poder manejarlos de forma adecuada a su contexto.
+4. **Errores sin Sorpresas**: Los errores deben ser reportados de manera
+   predecible y consistente. El usuario de tu API debe poder manejarlos de forma
+   adecuada a su contexto.
 
-5. **Evolución Controlada**: Una API bien diseñada puede evolucionar sin romper código existente, mediante deprecación gradual y versionado semántico.
+5. **Evolución Controlada**: Una API bien diseñada puede evolucionar sin romper
+   código existente, mediante deprecación gradual y versionado semántico.
 
-6. **Testing como Diseño**: Los tests no solo verifican corrección; informan y validan el diseño desde la perspectiva del usuario.
+6. **Testing como Diseño**: Los tests no solo verifican corrección; informan y
+   validan el diseño desde la perspectiva del usuario.
 
-7. **Performance Consciente pero no Obsesiva**: Optimizá lo que importa, después de medir. La claridad y corrección primero, optimización después.
+7. **Performance Consciente pero no Obsesiva**: Optimizá lo que importa, después
+   de medir. La claridad y corrección primero, optimización después.
 
-El dominio de estos principios te diferencia de un programador amateur de uno profesional. Es la diferencia entre escribir código que funciona hoy y escribir código que seguirá siendo valioso dentro de años.
+El dominio de estos principios te diferencia de un programador amateur de uno
+profesional. Es la diferencia entre escribir código que funciona hoy y escribir
+código que seguirá siendo valioso dentro de años.
 
 (referencias-adicionales-y-lecturas-recomendadas)=
 ## Referencias Adicionales y Lecturas Recomendadas
 
 Para profundizar en los temas tratados, se recomiendan las siguientes lecturas:
 
-- **"The C Programming Language"** [@kernighan1988]: El libro definitivo sobre C, escrito por los creadores del lenguaje.
-- **"Expert C Programming: Deep C Secrets"** [@linden1994]: Discute sutilezas y patrones idiomáticos avanzados de C.
-- **"Large-Scale C++ Software Design"** [@lakos1996]: Aunque enfocado en C++, muchos principios aplican directamente a C, especialmente sobre diseño modular y gestión de dependencias.
-- **"The Art of Unix Programming"** [@raymond2003]: Filosofía y principios de diseño de software Unix, altamente relevante para APIs en C.
-- **"API Design for C++"** [@reddy2011]: Exhaustivo tratamiento de diseño de APIs, con muchos principios aplicables a C.
-- **"Code Complete"** [@mcconnell_code_2004]: Guía comprensiva de construcción de software de alta calidad.
+- **"The C Programming Language"** [@kernighan1988]: El libro definitivo sobre
+  C, escrito por los creadores del lenguaje.
+- **"Expert C Programming: Deep C Secrets"** [@linden1994]: Discute sutilezas y
+  patrones idiomáticos avanzados de C.
+- **"Large-Scale C++ Software Design"** [@lakos1996]: Aunque enfocado en C++,
+  muchos principios aplican directamente a C, especialmente sobre diseño modular
+  y gestión de dependencias.
+- **"The Art of Unix Programming"** [@raymond2003]: Filosofía y principios de
+  diseño de software Unix, altamente relevante para APIs en C.
+- **"API Design for C++"** [@reddy2011]: Exhaustivo tratamiento de diseño de
+  APIs, con muchos principios aplicables a C.
+- **"Code Complete"** [@mcconnell_code_2004]: Guía comprensiva de construcción
+  de software de alta calidad.
 - **"Clean Code"** [@martin2008]: Principios de código limpio y mantenible.
 
 ---
 
 :::{tip} Estilo
-En este apunte se aplicaron los principios de diseño de APIs descriptos en las reglas {ref}`0x0000h` (claridad y prolijidad), {ref}`0x0001h` (nomenclatura), {ref}`0x000Ah` (documentación), y {ref}`0x3002h` (gestión de memoria), demostrando su aplicación práctica en el diseño de interfaces profesionales.
+
+En este apunte se aplicaron los principios de diseño de APIs descriptos en las
+reglas {ref}`0x0000h` (claridad y prolijidad), {ref}`0x0001h` (nomenclatura),
+{ref}`0x000Ah` (documentación), y {ref}`0x3002h` (gestión de memoria),
+demostrando su aplicación práctica en el diseño de interfaces profesionales.
+
 :::
+<!-- {tip} Estilo -->

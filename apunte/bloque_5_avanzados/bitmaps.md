@@ -29,6 +29,7 @@ estructuras, [archivos binarios](binarios.md) y [manipulación de bits](bits.md)
 para entender todo sin dificultad.
 
 :::
+<!-- {note} Antes de seguir -->
 
 ## ¿Cómo son los archivos?
 
@@ -98,13 +99,15 @@ usamos tipos de ancho fijo como `uint16_t` de `<stdint.h>` para garantizar la
 portabilidad y el tamaño exacto de los campos. 
 
 :::
+<!-- {tip} Estilo -->
 
-```{code}c
+:::{code}c
 :linenos:
 
 #include <stdint.h>
 
-// Desactiva el padding para que la estructura coincida con el formato del archivo.
+// Desactiva el padding para que la estructura coincida con el formato del
+archivo.
 #pragma pack(push, 1)
 
 /**
@@ -116,7 +119,8 @@ typedef struct {
     uint32_t tamano_archivo;    // Tamaño total del archivo en bytes.
     uint16_t reservado1;        // No se usa, debe ser 0.
     uint16_t reservado2;        // No se usa, debe ser 0.
-    uint32_t offset_datos;      // Distancia en bytes desde el inicio del archivo hasta los datos de píxeles.
+    uint32_t offset_datos;      // Distancia en bytes desde el inicio del
+    archivo hasta los datos de píxeles.
 } cabecera_archivo_bmp_t;
 
 /**
@@ -130,16 +134,20 @@ typedef struct {
     uint16_t planos;            // Número de planos de color (siempre 1).
     uint16_t bits_por_pixel;    // Profundidad de color (ej. 1, 8, 24).
     uint32_t compresion;        // Tipo de compresión (0 para sin compresión).
-    uint32_t tamano_imagen;     // Tamaño de los datos de píxeles en bytes (incluyendo padding).
+    uint32_t tamano_imagen;     // Tamaño de los datos de píxeles en bytes
+    (incluyendo padding).
     int32_t  resolucion_x;      // Píxeles por metro en X (generalmente 0).
     int32_t  resolucion_y;      // Píxeles por metro en Y (generalmente 0).
-    uint32_t colores_usados;    // Número de colores en la paleta (0 para 24-bit).
+    uint32_t colores_usados;    // Número de colores en la paleta (0 para
+    24-bit).
     uint32_t colores_importantes; // Número de colores importantes (0 = todos).
 } cabecera_info_bmp_t;
 
 // Restaura la configuración de padding original.
 #pragma pack(pop)
-```
+
+:::
+<!-- {code}c -->
 
 ## Ejemplo 1: Crear una imagen de 24 bits (True Color)
 
@@ -180,8 +188,9 @@ posteriores no se ejecutan, llevando el control directamente al bloque de
 limpieza final. Este patrón cumple con la regla {ref}`0x0008h`.
 
 :::
+<!-- {tip} Estilo -->
 
-```{code}c
+:::{code}c
 :linenos:
 
 #include <stdbool.h>
@@ -201,7 +210,8 @@ limpieza final. Este patrón cumple con la regla {ref}`0x0008h`.
  * @pre nombre_archivo no debe ser NULL.
  * @post Se crea un archivo BMP en disco o se retorna `false`.
  */
-bool crear_degradado_bmp_24bit(const char *nombre_archivo, int ancho, int alto) {
+bool crear_degradado_bmp_24bit(const char *nombre_archivo, int ancho, int alto)
+{
     FILE *archivo = NULL;
     uint8_t *fila_pixeles = NULL;
     bool exito = true;
@@ -221,10 +231,12 @@ bool crear_degradado_bmp_24bit(const char *nombre_archivo, int ancho, int alto) 
         // --- Cabecera de Archivo ---
         cabecera_archivo_bmp_t cabecera_archivo = {
             .tipo = 0x4D42, // 'BM' en little-endian
-            .tamano_archivo = sizeof(cabecera_archivo_bmp_t) + sizeof(cabecera_info_bmp_t) + tamano_datos_pixeles,
+            .tamano_archivo = sizeof(cabecera_archivo_bmp_t) +
+            sizeof(cabecera_info_bmp_t) + tamano_datos_pixeles,
             .reservado1 = 0,
             .reservado2 = 0,
-            .offset_datos = sizeof(cabecera_archivo_bmp_t) + sizeof(cabecera_info_bmp_t)
+            .offset_datos = sizeof(cabecera_archivo_bmp_t) +
+            sizeof(cabecera_info_bmp_t)
         };
 
         // --- Cabecera de Información (DIB) ---
@@ -243,8 +255,10 @@ bool crear_degradado_bmp_24bit(const char *nombre_archivo, int ancho, int alto) 
         };
 
         // --- Escritura de Cabeceras ---
-        if (fwrite(&cabecera_archivo, sizeof(cabecera_archivo_bmp_t), 1, archivo) != 1 ||
-            fwrite(&cabecera_info, sizeof(cabecera_info_bmp_t), 1, archivo) != 1) {
+        if (fwrite(&cabecera_archivo, sizeof(cabecera_archivo_bmp_t), 1,
+        archivo) != 1 ||
+            fwrite(&cabecera_info, sizeof(cabecera_info_bmp_t), 1, archivo) !=
+            1) {
             exito = false;
         }
     }
@@ -258,7 +272,8 @@ bool crear_degradado_bmp_24bit(const char *nombre_archivo, int ancho, int alto) 
     }
 
     if (exito) {
-        // Escribimos las filas desde abajo hacia arriba (y = 0 es la fila inferior).
+        // Escribimos las filas desde abajo hacia arriba (y = 0 es la fila
+        inferior).
         for (int y = 0; y < alto && exito; y++) {
             for (int x = 0; x < ancho; x++) {
                 // Creamos un degradado azul que varía con la altura
@@ -288,7 +303,9 @@ bool crear_degradado_bmp_24bit(const char *nombre_archivo, int ancho, int alto) 
 
     return exito;
 }
-```
+
+:::
+<!-- {code}c -->
 
 ## Ejemplo 2: Crear una imagen de 8 bits (Escala de Grises)
 
@@ -304,7 +321,7 @@ imagen en escala de grises, crearemos una paleta donde cada entrada tiene el
 mismo valor para R, G y B (ej. R=G=B=128 para un gris medio), creando así 256
 tonos de gris.
 
-```{code}c
+:::{code}c
 :linenos:
 
 /**
@@ -316,14 +333,16 @@ typedef struct {
     uint8_t rojo;
     uint8_t reservado; // Debe ser 0
 } rgb_quad_t;
-```
+
+:::
+<!-- {code}c -->
 
 ### Código de Ejemplo
 
 Esta función crea una imagen en escala de grises de 8 bits con un degradado
 horizontal.
 
-```{code}c
+:::{code}c
 :linenos:
 
 // Incluir cabeceras y estructuras...
@@ -344,7 +363,8 @@ bool crear_degradado_bmp_8bit(const char *nombre_archivo, int ancho, int alto) {
         int tamano_fila = ancho + padding;
         uint32_t tamano_datos_pixeles = tamano_fila * alto;
         uint32_t tamano_paleta = 256 * sizeof(rgb_quad_t);
-        uint32_t offset_datos = sizeof(cabecera_archivo_bmp_t) + sizeof(cabecera_info_bmp_t) + tamano_paleta;
+        uint32_t offset_datos = sizeof(cabecera_archivo_bmp_t) +
+        sizeof(cabecera_info_bmp_t) + tamano_paleta;
 
         cabecera_archivo_bmp_t cabecera_archivo = {
             .tipo = 0x4D42,
@@ -365,12 +385,15 @@ bool crear_degradado_bmp_8bit(const char *nombre_archivo, int ancho, int alto) {
             .resolucion_x = 2835,
             .resolucion_y = 2835,
             .colores_usados = 256, // Indicamos que usamos 256 colores
-            .colores_importantes = 256 // O 0 para indicar que todos son importantes
+            .colores_importantes = 256 // O 0 para indicar que todos son
+            importantes
         };
 
         // --- Escritura de Cabeceras y Paleta ---
-        if (fwrite(&cabecera_archivo, 1, sizeof(cabecera_archivo_bmp_t), archivo) != sizeof(cabecera_archivo_bmp_t) ||
-            fwrite(&cabecera_info, 1, sizeof(cabecera_info_bmp_t), archivo) != sizeof(cabecera_info_bmp_t)) {
+        if (fwrite(&cabecera_archivo, 1, sizeof(cabecera_archivo_bmp_t),
+        archivo) != sizeof(cabecera_archivo_bmp_t) ||
+            fwrite(&cabecera_info, 1, sizeof(cabecera_info_bmp_t), archivo) !=
+            sizeof(cabecera_info_bmp_t)) {
             exito = false;
         } else {
             rgb_quad_t paleta[256];
@@ -396,7 +419,8 @@ bool crear_degradado_bmp_8bit(const char *nombre_archivo, int ancho, int alto) {
     if (exito) {
         for (int y = 0; y < alto && exito; y++) {
             for (int x = 0; x < ancho; x++) {
-                // El valor del píxel es el índice en la paleta (degradado horizontal)
+                // El valor del píxel es el índice en la paleta (degradado
+                horizontal)
                 uint8_t indice_gris = (uint8_t)((double)x / ancho * 255.0);
                 fila_indices[x] = indice_gris;
             }
@@ -416,14 +440,16 @@ bool crear_degradado_bmp_8bit(const char *nombre_archivo, int ancho, int alto) {
 
     return exito;
 }
-```
+
+:::
+<!-- {code}c -->
 
 ## Poniéndolo todo junto
 
 Para compilar y ejecutar los ejemplos, podemos usar una función `main` como la
 siguiente:
 
-```{code}c
+:::{code}c
 :linenos:
 
 int main() {
@@ -437,7 +463,9 @@ int main() {
 
     return 0;
 }
-```
+
+:::
+<!-- {code}c -->
 
 ## Conclusión
 

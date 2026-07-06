@@ -6,16 +6,24 @@ subtitle: Multithreading en sistemas Unix/Linux
 
 ## Introducción a la Programación Concurrente
 
-La **programación concurrente** permite que múltiples secuencias de instrucciones se ejecuten simultáneamente dentro de un mismo proceso. En sistemas Unix/Linux, esto se logra mediante **hilos** (*threads*), unidades de ejecución más livianas que los procesos que comparten el mismo espacio de memoria.
+La **programación concurrente** permite que múltiples secuencias de
+instrucciones se ejecuten simultáneamente dentro de un mismo proceso. En
+sistemas Unix/Linux, esto se logra mediante **hilos** (*threads*), unidades de
+ejecución más livianas que los procesos que comparten el mismo espacio de
+memoria.
 
 ### ¿Por Qué Usar Hilos?
 
 Los hilos permiten:
 
-1. **Aprovechar procesadores multinúcleo**: Ejecutar código verdaderamente en paralelo.
-2. **Mejorar la responsividad**: Mantener la interfaz activa mientras se realizan tareas pesadas.
-3. **Simplificar arquitecturas**: Modelar naturalmente tareas concurrentes (servidor web con múltiples clientes).
-4. **Optimizar uso de recursos**: Compartir memoria en lugar de duplicarla (como con procesos).
+1. **Aprovechar procesadores multinúcleo**: Ejecutar código verdaderamente en
+   paralelo.
+2. **Mejorar la responsividad**: Mantener la interfaz activa mientras se
+   realizan tareas pesadas.
+3. **Simplificar arquitecturas**: Modelar naturalmente tareas concurrentes
+   (servidor web con múltiples clientes).
+4. **Optimizar uso de recursos**: Compartir memoria en lugar de duplicarla (como
+   con procesos).
 
 ### Hilos vs. Procesos
 
@@ -28,59 +36,75 @@ Los hilos permiten:
 | **Falla** | Aislada | Afecta todo el proceso |
 
 :::{important}
-Los hilos comparten el **heap** y las variables globales, pero cada hilo tiene su propio **stack**. Esto significa que las variables locales de una función son privadas de cada hilo, pero las variables globales y dinámicas son compartidas.
+
+Los hilos comparten el **heap** y las variables globales, pero cada hilo tiene
+su propio **stack**. Esto significa que las variables locales de una función son
+privadas de cada hilo, pero las variables globales y dinámicas son compartidas.
+
 :::
+<!-- {important} -->
 
 ## La Biblioteca POSIX Threads (pthreads)
 
-POSIX define una API estándar para hilos llamada **pthreads**. Esta biblioteca está disponible en todos los sistemas Unix/Linux modernos.
+POSIX define una API estándar para hilos llamada **pthreads**. Esta biblioteca
+está disponible en todos los sistemas Unix/Linux modernos.
 
 ### Compilación con pthreads
 
 Para compilar programas que usan pthreads, debés enlazar la biblioteca:
 
-```bash
+``` bash
 gcc -pthread programa.c -o programa
 ```
+<!-- bash -->
 
 O alternativamente:
 
-```bash
+``` bash
 gcc programa.c -lpthread -o programa
 ```
+<!-- bash -->
 
 :::{note}
-La opción `-pthread` es preferible porque además configura las macros de preprocesador necesarias para compilación segura con hilos.
+
+La opción `-pthread` es preferible porque además configura las macros de
+preprocesador necesarias para compilación segura con hilos.
+
 :::
+<!-- {note} -->
 
 ### Cabecera Principal
 
-```c
+``` c
 #include <pthread.h>
 ```
+<!-- c -->
 
 ## Creación y Terminación de Hilos
 
 ### Crear un Hilo: `pthread_create`
 
-```c
+``` c
 int pthread_create(pthread_t *thread,
                    const pthread_attr_t *attr,
                    void *(*start_routine)(void *),
                    void *arg);
 ```
+<!-- c -->
 
 **Parámetros:**
 - `thread`: Puntero donde se almacenará el identificador del hilo creado.
 - `attr`: Atributos del hilo (generalmente `NULL` para valores por defecto).
-- `start_routine`: Función que ejecutará el hilo. Debe tener firma `void* funcion(void*)`.
+- `start_routine`: Función que ejecutará el hilo. Debe tener firma `void*
+  funcion(void*)`.
 - `arg`: Argumento que se pasará a la función del hilo.
 
 **Retorna:** `0` si tiene éxito, código de error en caso contrario.
 
 ### Ejemplo Básico: Hola Mundo con Hilos
 
-```c
+```{code-block} c
+:linenos:
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -113,7 +137,9 @@ int main(void) {
     printf("Ambos hilos terminaron\n");
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Salida posible:**
 ```
@@ -123,22 +149,29 @@ Ambos hilos terminaron
 ```
 
 :::{warning}
-El orden de ejecución de los hilos **no está garantizado**. En diferentes ejecuciones, el hilo 2 podría imprimir antes que el hilo 1.
+
+El orden de ejecución de los hilos **no está garantizado**. En diferentes
+ejecuciones, el hilo 2 podría imprimir antes que el hilo 1.
+
 :::
+<!-- {warning} -->
 
 ### Esperar Terminación: `pthread_join`
 
-```c
+``` c
 int pthread_join(pthread_t thread, void **retval);
 ```
+<!-- c -->
 
 **Propósito:** Bloquea el hilo llamante hasta que el hilo especificado termine.
 
 **Parámetros:**
 - `thread`: Identificador del hilo a esperar.
-- `retval`: Puntero donde se almacenará el valor de retorno del hilo (puede ser `NULL`).
+- `retval`: Puntero donde se almacenará el valor de retorno del hilo (puede ser
+  `NULL`).
 
-```c
+```{code-block} c
+:linenos:
 void* calcular(void* arg) {
     int* resultado = malloc(sizeof(int));
     *resultado = 42;
@@ -156,17 +189,21 @@ int main(void) {
     free(resultado);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### Terminación de un Hilo: `pthread_exit`
 
-```c
+``` c
 void pthread_exit(void *retval);
 ```
+<!-- c -->
 
 **Propósito:** Termina el hilo actual y devuelve un valor.
 
-```c
+```{code-block} c
+:linenos:
 void* trabajador(void* arg) {
     // Hacer trabajo...
     
@@ -176,21 +213,32 @@ void* trabajador(void* arg) {
     
     pthread_exit((void*)0);  // Éxito
 }
+
 ```
+<!-- {code-block} c -->
 
 :::{note}
-Si un hilo ejecuta `return valor;`, es equivalente a `pthread_exit(valor);`. Sin embargo, en la función `main`, `return` termina todo el proceso, no solo el hilo principal.
+
+Si un hilo ejecuta `return valor;`, es equivalente a `pthread_exit(valor);`. Sin
+embargo, en la función `main`, `return` termina todo el proceso, no solo el hilo
+principal.
+
 :::
+<!-- {note} -->
 
 ### Hilos Separados (Detached)
 
-Un hilo puede marcarse como **separado** (*detached*), lo que significa que sus recursos se liberarán automáticamente al terminar, sin necesidad de `pthread_join`.
+Un hilo puede marcarse como **separado** (*detached*), lo que significa que sus
+recursos se liberarán automáticamente al terminar, sin necesidad de
+`pthread_join`.
 
-```c
+``` c
 int pthread_detach(pthread_t thread);
 ```
+<!-- c -->
 
-```c
+```{code-block} c
+:linenos:
 void* tarea_independiente(void* arg) {
     printf("Ejecutando tarea independiente\n");
     // Trabajo...
@@ -207,49 +255,63 @@ int main(void) {
     sleep(1);  // Dar tiempo al hilo
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 :::{warning} Cuidado con Hilos Detached
-Si el proceso principal termina, **todos los hilos terminan** inmediatamente, incluso los detached. Asegurate de que el hilo tenga tiempo suficiente para completar su trabajo.
+
+Si el proceso principal termina, **todos los hilos terminan** inmediatamente,
+incluso los detached. Asegurate de que el hilo tenga tiempo suficiente para
+completar su trabajo.
+
 :::
+<!-- {warning} Cuidado con Hilos Detached -->
 
 ## Identificación de Hilos
 
 ### Obtener el ID del Hilo Actual
 
-```c
+``` c
 pthread_t pthread_self(void);
 ```
+<!-- c -->
 
-```c
+``` c
 void* funcion(void* arg) {
     pthread_t mi_id = pthread_self();
     printf("Mi ID de hilo: %lu\n", (unsigned long)mi_id);
     return NULL;
 }
 ```
+<!-- c -->
 
 ### Comparar IDs de Hilos
 
-```c
+``` c
 int pthread_equal(pthread_t t1, pthread_t t2);
 ```
+<!-- c -->
 
 Retorna un valor no cero si los IDs son iguales.
 
-```c
+``` c
 if (pthread_equal(pthread_self(), hilo_maestro)) {
     printf("Soy el hilo maestro\n");
 }
 ```
+<!-- c -->
 
 ## Sincronización: El Problema de las Condiciones de Carrera
 
-Cuando múltiples hilos acceden a datos compartidos **sin sincronización**, se producen **condiciones de carrera** (*race conditions*), donde el resultado depende del orden impredecible de ejecución.
+Cuando múltiples hilos acceden a datos compartidos **sin sincronización**, se
+producen **condiciones de carrera** (*race conditions*), donde el resultado
+depende del orden impredecible de ejecución.
 
 ### Ejemplo de Condición de Carrera
 
-```c
+```{code-block} c
+:linenos:
 #include <pthread.h>
 #include <stdio.h>
 
@@ -274,7 +336,9 @@ int main(void) {
     printf("Contador: %d (esperado: 200000)\n", contador);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Salida típica:**
 ```
@@ -282,60 +346,73 @@ Contador: 137842 (esperado: 200000)
 ```
 
 :::{important} ¿Por Qué Falla?
+
 La operación `contador++` se traduce a tres instrucciones de ensamblador:
 1. Leer `contador` en un registro
 2. Incrementar el registro
 3. Escribir el registro de vuelta a `contador`
 
-Si dos hilos ejecutan esto simultáneamente, pueden **entrelazar** estas instrucciones, causando que incrementos se pierdan.
+Si dos hilos ejecutan esto simultáneamente, pueden **entrelazar** estas
+instrucciones, causando que incrementos se pierdan.
+
 :::
+<!-- {important} ¿Por Qué Falla? -->
 
 ## Mutexes: Exclusión Mutua
 
-Un **mutex** (mutual exclusion) es un mecanismo de sincronización que garantiza que solo un hilo a la vez puede acceder a una sección crítica del código.
+Un **mutex** (mutual exclusion) es un mecanismo de sincronización que garantiza
+que solo un hilo a la vez puede acceder a una sección crítica del código.
 
 ### Declaración e Inicialización
 
-```c
+``` c
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;  // Inicialización estática
 ```
+<!-- c -->
 
 O dinámicamente:
 
-```c
+``` c
 pthread_mutex_t mutex;
 pthread_mutex_init(&mutex, NULL);
 ```
+<!-- c -->
 
 ### Operaciones Básicas
 
 #### Bloquear (Lock)
 
-```c
+``` c
 int pthread_mutex_lock(pthread_mutex_t *mutex);
 ```
+<!-- c -->
 
-Bloquea el mutex. Si ya está bloqueado por otro hilo, espera hasta que se libere.
+Bloquea el mutex. Si ya está bloqueado por otro hilo, espera hasta que se
+libere.
 
 #### Desbloquear (Unlock)
 
-```c
+``` c
 int pthread_mutex_unlock(pthread_mutex_t *mutex);
 ```
+<!-- c -->
 
 Libera el mutex, permitiendo que otro hilo lo adquiera.
 
 #### Intentar Bloquear
 
-```c
+``` c
 int pthread_mutex_trylock(pthread_mutex_t *mutex);
 ```
+<!-- c -->
 
-Intenta bloquear sin esperar. Retorna `0` si tiene éxito, `EBUSY` si ya está bloqueado.
+Intenta bloquear sin esperar. Retorna `0` si tiene éxito, `EBUSY` si ya está
+bloqueado.
 
 ### Ejemplo Corregido con Mutex
 
-```c
+```{code-block} c
+:linenos:
 #include <pthread.h>
 #include <stdio.h>
 
@@ -365,7 +442,9 @@ int main(void) {
     pthread_mutex_destroy(&mutex);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Salida garantizada:**
 ```
@@ -374,22 +453,31 @@ Contador: 200000 (esperado: 200000)
 
 ### Destruir un Mutex
 
-```c
+``` c
 int pthread_mutex_destroy(pthread_mutex_t *mutex);
 ```
+<!-- c -->
 
-Libera los recursos asociados al mutex. Solo debe llamarse cuando ningún hilo lo esté usando.
+Libera los recursos asociados al mutex. Solo debe llamarse cuando ningún hilo lo
+esté usando.
 
 :::{warning} Reglas Cruciales de Mutexes
+
 1. **Siempre desbloquear**: Todo `lock` debe tener su correspondiente `unlock`.
-2. **No bloquear dos veces**: Un hilo que ya tiene el mutex no debe intentar bloquearlo de nuevo (deadlock).
-3. **Quien bloquea, desbloquea**: El mismo hilo que hizo `lock` debe hacer `unlock`.
-4. **Secciones críticas cortas**: Minimizar el tiempo dentro del mutex para mejorar concurrencia.
+2. **No bloquear dos veces**: Un hilo que ya tiene el mutex no debe intentar
+   bloquearlo de nuevo (deadlock).
+3. **Quien bloquea, desbloquea**: El mismo hilo que hizo `lock` debe hacer
+   `unlock`.
+4. **Secciones críticas cortas**: Minimizar el tiempo dentro del mutex para
+   mejorar concurrencia.
+
 :::
+<!-- {warning} Reglas Cruciales de Mutexes -->
 
 ## Ejemplo Práctico: Contador con Múltiples Hilos
 
-```c
+```{code-block} c
+:linenos:
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -445,29 +533,34 @@ int main(void) {
     pthread_mutex_destroy(&mutex);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Variables de Condición
 
-Las **variables de condición** permiten que hilos esperen hasta que se cumpla cierta condición, liberando eficientemente el CPU mientras esperan.
+Las **variables de condición** permiten que hilos esperen hasta que se cumpla
+cierta condición, liberando eficientemente el CPU mientras esperan.
 
 ### Declaración e Inicialización
 
-```c
+``` c
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;  // Estática
 
 // O dinámica:
 pthread_cond_t cond;
 pthread_cond_init(&cond, NULL);
 ```
+<!-- c -->
 
 ### Operaciones Principales
 
 #### Esperar
 
-```c
+``` c
 int pthread_cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex);
 ```
+<!-- c -->
 
 **Comportamiento:**
 1. Libera el mutex
@@ -476,16 +569,18 @@ int pthread_cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex);
 
 #### Señalizar
 
-```c
+``` c
 int pthread_cond_signal(pthread_cond_t *cond);  // Despierta UN hilo
 int pthread_cond_broadcast(pthread_cond_t *cond);  // Despierta TODOS los hilos
 ```
+<!-- c -->
 
 ### Patrón Productor-Consumidor
 
 Problema clásico: Un productor genera datos, un consumidor los procesa.
 
-```c
+```{code-block} c
+:linenos:
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -598,12 +693,18 @@ int main(void) {
     printf("Programa finalizado\n");
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 :::{important} Patrón While, No If
-Siempre usar `while` (no `if`) para verificar la condición antes de `pthread_cond_wait`. Esto protege contra **señales espurias** (*spurious wakeups*), donde el hilo puede despertar sin que nadie haya señalizado.
 
-```c
+Siempre usar `while` (no `if`) para verificar la condición antes de
+`pthread_cond_wait`. Esto protege contra **señales espurias** (*spurious
+wakeups*), donde el hilo puede despertar sin que nadie haya señalizado.
+
+```{code-block} c
+:linenos:
 // CORRECTO
 while (condicion_no_cumplida) {
     pthread_cond_wait(&cond, &mutex);
@@ -613,29 +714,37 @@ while (condicion_no_cumplida) {
 if (condicion_no_cumplida) {
     pthread_cond_wait(&cond, &mutex);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {important} Patrón While, No If -->
 
 ## Barreras de Sincronización
 
-Una **barrera** es un punto de sincronización donde todos los hilos deben llegar antes de que cualquiera pueda continuar.
+Una **barrera** es un punto de sincronización donde todos los hilos deben llegar
+antes de que cualquiera pueda continuar.
 
 ### Declaración e Uso
 
-```c
+``` c
 pthread_barrier_t barrera;
 pthread_barrier_init(&barrera, NULL, num_hilos);
 ```
+<!-- c -->
 
-```c
+``` c
 int pthread_barrier_wait(pthread_barrier_t *barrier);
 ```
+<!-- c -->
 
 Bloquea hasta que `num_hilos` hilos hayan llamado a `pthread_barrier_wait`.
 
 ### Ejemplo: Procesamiento por Fases
 
-```c
+```{code-block} c
+:linenos:
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -681,33 +790,39 @@ int main(void) {
     pthread_barrier_destroy(&barrera);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Read-Write Locks (Cerrojos de Lectura-Escritura)
 
-Permiten que múltiples lectores accedan simultáneamente, pero escritores tienen acceso exclusivo.
+Permiten que múltiples lectores accedan simultáneamente, pero escritores tienen
+acceso exclusivo.
 
 ### Declaración
 
-```c
+``` c
 pthread_rwlock_t rwlock = PTHREAD_RWLOCK_INITIALIZER;
 
 // O dinámico:
 pthread_rwlock_t rwlock;
 pthread_rwlock_init(&rwlock, NULL);
 ```
+<!-- c -->
 
 ### Operaciones
 
-```c
+``` c
 pthread_rwlock_rdlock(&rwlock);   // Bloqueo lectura
 pthread_rwlock_wrlock(&rwlock);   // Bloqueo escritura
 pthread_rwlock_unlock(&rwlock);   // Desbloquear
 ```
+<!-- c -->
 
 ### Ejemplo: Base de Datos Simple
 
-```c
+```{code-block} c
+:linenos:
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -784,7 +899,9 @@ int main(void) {
     pthread_rwlock_destroy(&bd->lock);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Almacenamiento Local del Hilo (Thread-Local Storage)
 
@@ -792,13 +909,15 @@ Permite que cada hilo tenga su propia copia de una variable.
 
 ### Declaración con `__thread`
 
-```c
+``` c
 __thread int mi_variable = 0;  // Cada hilo tiene su propia copia
 ```
+<!-- c -->
 
 ### Ejemplo: Contador por Hilo
 
-```c
+```{code-block} c
+:linenos:
 #include <pthread.h>
 #include <stdio.h>
 
@@ -829,7 +948,9 @@ int main(void) {
     
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Salida:**
 ```
@@ -842,11 +963,13 @@ Cada hilo incrementa su propia copia, sin interferencia.
 
 ## Deadlocks: El Abrazo Mortal
 
-Un **deadlock** (interbloqueo) ocurre cuando dos o más hilos se bloquean mutuamente esperando recursos que el otro posee.
+Un **deadlock** (interbloqueo) ocurre cuando dos o más hilos se bloquean
+mutuamente esperando recursos que el otro posee.
 
 ### Ejemplo de Deadlock
 
-```c
+```{code-block} c
+:linenos:
 pthread_mutex_t mutex_a = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t mutex_b = PTHREAD_MUTEX_INITIALIZER;
 
@@ -873,11 +996,14 @@ void* hilo2_func(void* arg) {
     pthread_mutex_unlock(&mutex_b);
     return NULL;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### Condiciones para Deadlock
 
-Un deadlock requiere **cuatro condiciones simultáneas** (Condiciones de Coffman):
+Un deadlock requiere **cuatro condiciones simultáneas** (Condiciones de
+Coffman):
 
 1. **Exclusión mutua**: Los recursos no pueden compartirse.
 2. **Retención y espera**: Un hilo retiene recursos mientras espera otros.
@@ -890,7 +1016,8 @@ Un deadlock requiere **cuatro condiciones simultáneas** (Condiciones de Coffman
 
 Todos los hilos adquieren mutexes en el **mismo orden**.
 
-```c
+```{code-block} c
+:linenos:
 // CORRECTO: Ambos hilos usan el mismo orden
 void* hilo1_func(void* arg) {
     pthread_mutex_lock(&mutex_a);
@@ -909,11 +1036,14 @@ void* hilo2_func(void* arg) {
     pthread_mutex_unlock(&mutex_a);
     return NULL;
 }
+
 ```
+<!-- {code-block} c -->
 
 #### Estrategia 2: Bloqueo Atómico con Trylock
 
-```c
+```{code-block} c
+:linenos:
 void* hilo_seguro(void* arg) {
     while (1) {
         pthread_mutex_lock(&mutex_a);
@@ -932,25 +1062,30 @@ void* hilo_seguro(void* arg) {
     }
     return NULL;
 }
+
 ```
+<!-- {code-block} c -->
 
 #### Estrategia 3: Timeout
 
 Usar versiones con timeout (extensiones no estándar o implementaciones propias):
 
-```c
+``` c
 if (pthread_mutex_timedlock(&mutex, &timeout) != 0) {
     // Timeout, liberar recursos y reintentar
 }
 ```
+<!-- c -->
 
 ## Buenas Prácticas y Patrones Comunes
 
 ### 1. RAII para Mutexes (Cleanup Handlers)
 
-Aunque C no tiene RAII como C++, podés usar cleanup handlers para garantizar liberación:
+Aunque C no tiene RAII como C++, podés usar cleanup handlers para garantizar
+liberación:
 
-```c
+```{code-block} c
+:linenos:
 void cleanup_mutex(void* arg) {
     pthread_mutex_t* mutex = (pthread_mutex_t*)arg;
     pthread_mutex_unlock(mutex);
@@ -967,19 +1102,23 @@ void* hilo_con_cleanup(void* arg) {
     pthread_cleanup_pop(1);  // 1 = ejecutar cleanup
     return NULL;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 2. Granularidad de Bloqueo
 
 **Bloqueo grueso** (un mutex para todo):
-```c
+``` c
 pthread_mutex_lock(&mutex_global);
 // Muchas operaciones independientes
 pthread_mutex_unlock(&mutex_global);
 ```
+<!-- c -->
 
 **Bloqueo fino** (múltiples mutexes específicos):
-```c
+```{code-block} c
+:linenos:
 pthread_mutex_lock(&mutex_lista_A);
 // Operación en lista A
 pthread_mutex_unlock(&mutex_lista_A);
@@ -987,17 +1126,25 @@ pthread_mutex_unlock(&mutex_lista_A);
 pthread_mutex_lock(&mutex_lista_B);
 // Operación en lista B
 pthread_mutex_unlock(&mutex_lista_B);
+
 ```
+<!-- {code-block} c -->
 
 :::{tip}
-El bloqueo grueso es más simple pero reduce concurrencia. El bloqueo fino permite más paralelismo pero es más complejo y propenso a deadlocks.
+
+El bloqueo grueso es más simple pero reduce concurrencia. El bloqueo fino
+permite más paralelismo pero es más complejo y propenso a deadlocks.
+
 :::
+<!-- {tip} -->
 
 ### 3. Patrón Double-Checked Locking (con Cuidado)
 
-Este patrón es problemático en C debido a reordenamiento de instrucciones. Usarlo solo con barreras de memoria apropiadas:
+Este patrón es problemático en C debido a reordenamiento de instrucciones.
+Usarlo solo con barreras de memoria apropiadas:
 
-```c
+```{code-block} c
+:linenos:
 // Inicialización perezosa thread-safe
 void* recurso = NULL;
 pthread_mutex_t mutex_init = PTHREAD_MUTEX_INITIALIZER;
@@ -1012,12 +1159,17 @@ void* obtener_recurso(void) {
     }
     return recurso;
 }
+
 ```
+<!-- {code-block} c -->
 
 :::{warning}
-En C, este patrón puede fallar sin barreras de memoria apropiadas (memory fences). Para casos simples, mejor usar `pthread_once`:
 
-```c
+En C, este patrón puede fallar sin barreras de memoria apropiadas (memory
+fences). Para casos simples, mejor usar `pthread_once`:
+
+```{code-block} c
+:linenos:
 static pthread_once_t once = PTHREAD_ONCE_INIT;
 static void* recurso;
 
@@ -1029,22 +1181,28 @@ void* obtener_recurso(void) {
     pthread_once(&once, inicializar);
     return recurso;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {warning} -->
 
 ### 4. Cancelación de Hilos
 
 Podés cancelar un hilo desde otro:
 
-```c
+``` c
 pthread_t hilo;
 // ...
 pthread_cancel(hilo);  // Solicitar cancelación
 ```
+<!-- c -->
 
 El hilo objetivo debe estar preparado para cancelación:
 
-```c
+```{code-block} c
+:linenos:
 void* hilo_cancelable(void* arg) {
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
     pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
@@ -1056,13 +1214,16 @@ void* hilo_cancelable(void* arg) {
     
     return NULL;
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Ejemplo Completo: Pool de Hilos Trabajadores
 
 Un patrón común es tener un pool de hilos que procesan tareas de una cola.
 
-```c
+```{code-block} c
+:linenos:
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -1260,7 +1421,9 @@ int main(void) {
     
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Depuración de Programas Multihilo
 
@@ -1268,18 +1431,20 @@ int main(void) {
 
 Detecta condiciones de carrera y errores de sincronización:
 
-```bash
+``` bash
 valgrind --tool=helgrind ./programa
 ```
+<!-- bash -->
 
 ### Thread Sanitizer (TSan)
 
 Compilá con soporte para TSan:
 
-```bash
+``` bash
 gcc -g -fsanitize=thread programa.c -pthread -o programa
 ./programa
 ```
+<!-- bash -->
 
 TSan detecta:
 - Condiciones de carrera
@@ -1288,7 +1453,8 @@ TSan detecta:
 
 ### GDB con Hilos
 
-```bash
+```{code-block} bash
+:linenos:
 gdb ./programa
 (gdb) break pthread_create
 (gdb) run
@@ -1296,32 +1462,39 @@ gdb ./programa
 (gdb) thread 2               # Cambiar al hilo 2
 (gdb) where                  # Stack trace del hilo actual
 (gdb) thread apply all bt    # Stack traces de todos los hilos
+
 ```
+<!-- {code-block} bash -->
 
 ## Consideraciones de Rendimiento
 
 ### 1. Overhead de Creación de Hilos
 
-Crear hilos es costoso. Si necesitás crear muchos hilos para tareas cortas, usá un **thread pool**.
+Crear hilos es costoso. Si necesitás crear muchos hilos para tareas cortas, usá
+un **thread pool**.
 
 ### 2. Granularidad vs. Overhead
 
 Muy poca concurrencia → no aprovechás todos los núcleos  
 Demasiada concurrencia → overhead de sincronización domina
 
-**Regla práctica:** Número de hilos ≈ número de núcleos disponibles para tareas CPU-bound.
+**Regla práctica:** Número de hilos ≈ número de núcleos disponibles para tareas
+CPU-bound.
 
-```c
+``` c
 #include <unistd.h>
 
 int num_nucleos = sysconf(_SC_NPROCESSORS_ONLN);
 ```
+<!-- c -->
 
 ### 3. Caché y False Sharing
 
-Cuando múltiples hilos modifican datos en la **misma línea de caché** (típicamente 64 bytes), se produce **false sharing**:
+Cuando múltiples hilos modifican datos en la **misma línea de caché**
+(típicamente 64 bytes), se produce **false sharing**:
 
-```c
+```{code-block} c
+:linenos:
 // MAL: Contadores en la misma línea de caché
 struct {
     int contador_hilo1;
@@ -1334,13 +1507,16 @@ struct {
     char padding[60];
     int contador_hilo2;
 } compartido;
+
 ```
+<!-- {code-block} c -->
 
 ### 4. Operaciones Atómicas
 
-Para operaciones simples como incrementos, considerar operaciones atómicas en lugar de mutexes:
+Para operaciones simples como incrementos, considerar operaciones atómicas en
+lugar de mutexes:
 
-```c
+``` c
 #include <stdatomic.h>
 
 atomic_int contador = ATOMIC_VAR_INIT(0);
@@ -1349,10 +1525,15 @@ void incrementar(void) {
     atomic_fetch_add(&contador, 1);  // Atómico, sin mutex
 }
 ```
+<!-- c -->
 
 :::{note}
-Las operaciones atómicas son más eficientes que mutexes para operaciones simples, pero no reemplazan mutexes para secciones críticas complejas.
+
+Las operaciones atómicas son más eficientes que mutexes para operaciones
+simples, pero no reemplazan mutexes para secciones críticas complejas.
+
 :::
+<!-- {note} -->
 
 ## Patrones de Diseño Comunes
 
@@ -1360,7 +1541,8 @@ Las operaciones atómicas son más eficientes que mutexes para operaciones simpl
 
 Dividir trabajo en subtareas paralelas y luego combinar resultados:
 
-```c
+```{code-block} c
+:linenos:
 void* procesar_rango(void* arg) {
     int* rango = (int*)arg;
     int inicio = rango[0];
@@ -1396,7 +1578,9 @@ int suma_paralela(int* array, int n, int num_hilos) {
     
     return suma_total;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 2. Pipeline
 
@@ -1410,7 +1594,8 @@ Dividir procesamiento en etapas, cada una manejada por un hilo:
 
 Un hilo maestro distribuye trabajo a workers:
 
-```c
+```{code-block} c
+:linenos:
 // Maestro
 void* maestro(void* arg) {
     while (hay_trabajo()) {
@@ -1429,13 +1614,16 @@ void* worker(void* arg) {
     }
     return NULL;
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Errores Comunes y Cómo Evitarlos
 
 ### 1. Olvidar Inicializar/Destruir Primitivas
 
-```c
+```{code-block} c
+:linenos:
 // MAL
 pthread_mutex_t mutex;
 pthread_mutex_lock(&mutex);  // ¡Comportamiento indefinido!
@@ -1444,28 +1632,33 @@ pthread_mutex_lock(&mutex);  // ¡Comportamiento indefinido!
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 // o
 pthread_mutex_init(&mutex, NULL);
+
 ```
+<!-- {code-block} c -->
 
 ### 2. Bloquear el Mismo Mutex Dos Veces
 
-```c
+``` c
 pthread_mutex_lock(&mutex);
 // ...
 pthread_mutex_lock(&mutex);  // ¡DEADLOCK!
 ```
+<!-- c -->
 
 Solución: Usar mutexes recursivos si realmente necesitás anidamiento:
 
-```c
+``` c
 pthread_mutexattr_t attr;
 pthread_mutexattr_init(&attr);
 pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
 pthread_mutex_init(&mutex, &attr);
 ```
+<!-- c -->
 
 ### 3. No Proteger Datos Compartidos
 
-```c
+```{code-block} c
+:linenos:
 // Compartido entre hilos
 int saldo = 1000;
 
@@ -1486,11 +1679,14 @@ void retirar(int monto) {
     }
     pthread_mutex_unlock(&mutex_saldo);
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 4. Pasar Punteros a Variables Locales
 
-```c
+```{code-block} c
+:linenos:
 // MAL
 void crear_hilos(void) {
     for (int i = 0; i < 10; i++) {
@@ -1506,11 +1702,14 @@ void crear_hilos(void) {
         pthread_create(&hilos[i], NULL, trabajador, &ids[i]);
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 5. No Verificar Códigos de Error
 
-```c
+```{code-block} c
+:linenos:
 // MAL
 pthread_create(&hilo, NULL, funcion, NULL);
 
@@ -1519,7 +1718,9 @@ if (pthread_create(&hilo, NULL, funcion, NULL) != 0) {
     perror("Error creando hilo");
     exit(1);
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Comparación con Otras Alternativas
 
@@ -1527,7 +1728,7 @@ if (pthread_create(&hilo, NULL, funcion, NULL) != 0) {
 
 Para paralelismo de datos simple, OpenMP es más sencillo:
 
-```c
+``` c
 #include <omp.h>
 
 #pragma omp parallel for
@@ -1535,6 +1736,7 @@ for (int i = 0; i < n; i++) {
     procesar(array[i]);
 }
 ```
+<!-- c -->
 
 Compilar con: `gcc -fopenmp programa.c`
 
@@ -1565,7 +1767,8 @@ Compilar con: `gcc -fopenmp programa.c`
 
 - `man pthread_create`, `man pthread_mutex_lock`, etc.
 - [POSIX Threads Programming (LLNL)](https://hpc-tutorials.llnl.gov/posix/)
-- [GNU C Library Manual - POSIX Threads](https://www.gnu.org/software/libc/manual/html_node/POSIX-Threads.html)
+- [GNU C Library Manual - POSIX
+  Threads](https://www.gnu.org/software/libc/manual/html_node/POSIX-Threads.html)
 
 ### Herramientas
 
@@ -1576,18 +1779,27 @@ Compilar con: `gcc -fopenmp programa.c`
 
 ## Resumen
 
-La programación con hilos en C mediante pthreads permite aprovechar el paralelismo de hardware moderno, pero requiere disciplina y comprensión de los mecanismos de sincronización:
+La programación con hilos en C mediante pthreads permite aprovechar el
+paralelismo de hardware moderno, pero requiere disciplina y comprensión de los
+mecanismos de sincronización:
 
 :::{important} Conceptos Clave
 
-1. **Hilos comparten memoria**: Eficiente pero requiere sincronización cuidadosa.
+1. **Hilos comparten memoria**: Eficiente pero requiere sincronización
+   cuidadosa.
 2. **Mutexes protegen secciones críticas**: Garantizan exclusión mutua.
-3. **Variables de condición coordinan hilos**: Permiten esperar condiciones eficientemente.
+3. **Variables de condición coordinan hilos**: Permiten esperar condiciones
+   eficientemente.
 4. **Deadlocks son peligrosos**: Prevenirlos con orden global de bloqueo.
-5. **Condiciones de carrera son sutiles**: Usar herramientas como Helgrind y TSan.
-6. **Rendimiento no es automático**: El overhead de sincronización puede dominar para problemas pequeños.
-7. **Depuración es más difícil**: Errores no determinísticos requieren herramientas especializadas.
+5. **Condiciones de carrera son sutiles**: Usar herramientas como Helgrind y
+   TSan.
+6. **Rendimiento no es automático**: El overhead de sincronización puede dominar
+   para problemas pequeños.
+7. **Depuración es más difícil**: Errores no determinísticos requieren
+   herramientas especializadas.
+
 :::
+<!-- {important} Conceptos Clave -->
 
 :::{tip} Cuándo Usar Hilos
 
@@ -1601,6 +1813,10 @@ La programación con hilos en C mediante pthreads permite aprovechar el paraleli
 - El overhead de sincronización supera los beneficios
 - La complejidad no justifica el beneficio de rendimiento
 - Podés usar procesos para aislamiento más seguro
-:::
 
-La programación concurrente es un tema profundo y complejo. Este apunte cubre los fundamentos, pero dominar hilos requiere práctica, experiencia con errores comunes, y estudio continuo de patrones y técnicas avanzadas.
+:::
+<!-- {tip} Cuándo Usar Hilos -->
+
+La programación concurrente es un tema profundo y complejo. Este apunte cubre
+los fundamentos, pero dominar hilos requiere práctica, experiencia con errores
+comunes, y estudio continuo de patrones y técnicas avanzadas.

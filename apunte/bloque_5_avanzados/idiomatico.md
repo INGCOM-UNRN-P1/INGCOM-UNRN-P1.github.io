@@ -12,22 +12,36 @@ description: 'Convenciones, patrones y anti-patrones del C idiomático. Cómo es
 (que-es-el-codigo-idiomatico)=
 ### ¿Qué es el código idiomático?
 
-El **código idiomático** (del inglés *idiomatic code*) es aquel que sigue las convenciones, patrones y prácticas establecidas de un lenguaje de programación particular. No se trata simplemente de código que funciona, sino de código que refleja la forma en que los programadores experimentados escriben naturalmente en ese lenguaje, aprovechando sus características únicas y respetando sus convenciones culturales.
+El **código idiomático** (del inglés *idiomatic code*) es aquel que sigue las
+convenciones, patrones y prácticas establecidas de un lenguaje de programación
+particular. No se trata simplemente de código que funciona, sino de código que
+refleja la forma en que los programadores experimentados escriben naturalmente
+en ese lenguaje, aprovechando sus características únicas y respetando sus
+convenciones culturales.
 
-Un programador competente en C debería poder reconocer inmediatamente las intenciones detrás de un fragmento de código idiomático sin necesidad de analizarlo en profundidad. El código idiomático es a la programación lo que las expresiones idiomáticas son al lenguaje natural: formas establecidas y reconocibles de expresar ideas comunes.
+Un programador competente en C debería poder reconocer inmediatamente las
+intenciones detrás de un fragmento de código idiomático sin necesidad de
+analizarlo en profundidad. El código idiomático es a la programación lo que las
+expresiones idiomáticas son al lenguaje natural: formas establecidas y
+reconocibles de expresar ideas comunes.
 
 (por-que-es-importante-el-codigo-idiomatico)=
 ### ¿Por qué es importante el código idiomático?
 
-1. **Legibilidad mejorada**: Los patrones idiomáticos son inmediatamente reconocibles por otros programadores familiarizados con el lenguaje.
+1. **Legibilidad mejorada**: Los patrones idiomáticos son inmediatamente
+   reconocibles por otros programadores familiarizados con el lenguaje.
 
-2. **Reducción de errores**: Las construcciones idiomáticas han sido probadas extensamente por la comunidad y suelen evitar trampas comunes.
+2. **Reducción de errores**: Las construcciones idiomáticas han sido probadas
+   extensamente por la comunidad y suelen evitar trampas comunes.
 
-3. **Mantenibilidad**: El código que sigue convenciones establecidas es más fácil de mantener y modificar.
+3. **Mantenibilidad**: El código que sigue convenciones establecidas es más
+   fácil de mantener y modificar.
 
-4. **Integración en equipos**: Facilita la colaboración al usar un lenguaje común que todos comprenden.
+4. **Integración en equipos**: Facilita la colaboración al usar un lenguaje
+   común que todos comprenden.
 
-5. **Aprovechamiento del lenguaje**: Los idiomas explotan las características específicas de C de manera efectiva.
+5. **Aprovechamiento del lenguaje**: Los idiomas explotan las características
+   específicas de C de manera efectiva.
 
 (caracteristicas-del-codigo-idiomatico-en-c)=
 ### Características del código idiomático en C
@@ -35,36 +49,42 @@ Un programador competente en C debería poder reconocer inmediatamente las inten
 #### 1. Patrones de iteración estándar
 
 **Idiomático:**
-```{code-block}c
+:::{code-block}c
 :linenos:
 for (size_t i = 0; i < n; i++) {
     // Procesar elemento i
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 **No idiomático:**
-```{code-block}c
+:::{code-block}c
 :linenos:
 size_t i = 0;
 while (i < n) {
     // Procesar elemento i
     i = i + 1;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 #### 2. Manejo de memoria con validación inmediata
 
 **Idiomático:**
-```{code-block}c
+:::{code-block}c
 :linenos:
 int *arr = malloc(n * sizeof(int));
 if (arr == NULL) {
     return ERROR_MEMORIA;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 **No idiomático:**
-```{code-block}c
+:::{code-block}c
 :linenos:
 int *arr;
 arr = malloc(n * sizeof(int));
@@ -72,19 +92,23 @@ arr = malloc(n * sizeof(int));
 if (arr == NULL) {  // Validación tardía
     return ERROR_MEMORIA;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 #### 3. Uso de punteros para recorrer arreglos (cuando es apropiado)
 
 **Idiomático para copia de cadenas:**
-```{code-block}c
+:::{code-block}c
 :linenos:
 while (*destino++ = *origen++)
     ;
-```
+
+:::
+<!-- {code-block}c -->
 
 **Menos idiomático:**
-```{code-block}c
+:::{code-block}c
 :linenos:
 int i = 0;
 while (origen[i] != '\0') {
@@ -92,45 +116,71 @@ while (origen[i] != '\0') {
     i++;
 }
 destino[i] = '\0';
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{admonition} Relación con las reglas de estilo
 :class: tip
 
-Este patrón idiomático **parece contradecir** las reglas {ref}`0x0000h <0x0000h>` (claridad) y {ref}`0x3003h <0x3003h>` (operaciones múltiples), pero es una **excepción reconocida** en C por ser un modismo tan común que los programadores experimentados lo reconocen instantáneamente.
+Este patrón idiomático **parece contradecir** las reglas {ref}`0x0000h
+<0x0000h>` (claridad) y {ref}`0x3003h <0x3003h>` (operaciones múltiples), pero
+es una **excepción reconocida** en C por ser un modismo tan común que los
+programadores experimentados lo reconocen instantáneamente.
 
-**Sin embargo**, para estudiantes principiantes, es preferible usar la versión más explícita o directamente `strcpy()` de `<string.h>`. El patrón idiomático compacto es aceptable cuando:
+**Sin embargo**, para estudiantes principiantes, es preferible usar la versión
+más explícita o directamente `strcpy()` de `<string.h>`. El patrón idiomático
+compacto es aceptable cuando:
 1. Se trabaja en código de bajo nivel
 2. El equipo tiene experiencia suficiente
 3. No hay funciones de biblioteca disponibles
 
-**Recomendación pedagógica**: Entender el patrón, pero priorizar claridad usando índices o funciones estándar hasta ganar experiencia.
+**Recomendación pedagógica**: Entender el patrón, pero priorizar claridad usando
+índices o funciones estándar hasta ganar experiencia.
+
 :::
+<!-- {admonition} Relación con las reglas de estilo -->
 
 (ejercicios-de-autoevaluacion-concepto-e-iteracion)=
 ### Ejercicios de Autoevaluación (Concepto e Iteración)
 
-```{exercise}
+:::{exercise}
 :label: ej-idio-iteracion-size
-Explicá por qué es más idiomático y seguro usar `size_t` en lugar de `int` para los índices y límites de un lazo de iteración sobre arreglos en C.
-```
+Explicá por qué es más idiomático y seguro usar `size_t` en lugar de `int` para
+los índices y límites de un lazo de iteración sobre arreglos en C.
 
-```{solution} ej-idio-iteracion-size
+:::
+<!-- {exercise} -->
+
+:::{solution} ej-idio-iteracion-size
 :class: dropdown
-El tipo `size_t` es un tipo entero sin signo definido por el estándar para representar el tamaño de cualquier objeto en memoria. 
-1. **Límites físicos**: El tamaño máximo de un arreglo puede exceder el límite positivo de un entero con signo (`int`), produciendo un desbordamiento si se usa `int` para indexar arreglos grandes.
-2. **Semántica**: Un tamaño o índice de arreglo nunca puede ser negativo. Utilizar `size_t` previene errores lógicos de índices negativos y documenta el propósito de la variable directamente a través de su tipo.
-```
+El tipo `size_t` es un tipo entero sin signo definido por el estándar para
+representar el tamaño de cualquier objeto en memoria.
+1. **Límites físicos**: El tamaño máximo de un arreglo puede exceder el límite
+   positivo de un entero con signo (`int`), produciendo un desbordamiento si se
+   usa `int` para indexar arreglos grandes.
+2. **Semántica**: Un tamaño o índice de arreglo nunca puede ser negativo.
+   Utilizar `size_t` previene errores lógicos de índices negativos y documenta
+   el propósito de la variable directamente a través de su tipo.
 
-```{exercise}
+:::
+<!-- {solution} ej-idio-iteracion-size -->
+
+:::{exercise}
 :label: ej-idio-malloc-inmediato
-Escribí un bloque de código idiomático en C para solicitar memoria para un arreglo de `n` elementos de tipo `double` y validarlo inmediatamente en concordancia con las buenas prácticas del curso.
-```
+Escribí un bloque de código idiomático en C para solicitar memoria para un
+arreglo de `n` elementos de tipo `double` y validarlo inmediatamente en
+concordancia con las buenas prácticas del curso.
 
-```{solution} ej-idio-malloc-inmediato
+:::
+<!-- {exercise} -->
+
+:::{solution} ej-idio-malloc-inmediato
 :class: dropdown
-El patrón idiomático realiza la validación justo en la siguiente línea a la asignación, impidiendo cualquier uso del puntero si la reserva falla:
-```c
+El patrón idiomático realiza la validación justo en la siguiente línea a la
+asignación, impidiendo cualquier uso del puntero si la reserva falla:
+```{code-block} c
+:linenos:
 #include <stdlib.h>
 
 double *valores = malloc(n * sizeof(*valores));
@@ -138,65 +188,91 @@ if (valores == NULL) {
     // Manejo de error inmediato (por ejemplo, abortar o retornar error)
     return;
 }
+
 ```
-```
+<!-- {code-block} c -->
+
+:::
+<!-- {solution} ej-idio-malloc-inmediato -->
 
 :::{exercise}
 :label: ej-idio-string-compact
 
-Analizá el lazo de copia de cadenas `while (*destino++ = *origen++);` explicando el orden exacto de evaluación de sus operadores y por qué se prefiere evitar su uso en etapas de aprendizaje.
+Analizá el lazo de copia de cadenas `while (*destino++ = *origen++);` explicando
+el orden exacto de evaluación de sus operadores y por qué se prefiere evitar su
+uso en etapas de aprendizaje.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-idio-string-compact
 :class: dropdown
 
 La expresión funciona de la siguiente manera:
-1. Se desreferencia `origen` y se copia su carácter en la dirección apuntada por `destino`.
-2. Como efecto secundario de la post-incrementación `++`, ambos punteros avanzan al siguiente carácter de memoria.
-3. El resultado de la asignación completa (el carácter copiado) se evalúa como la condición del lazo `while`. Cuando se copia el carácter nulo `'\0'` (cuyo valor entero es 0), la condición se evalúa como falsa y el lazo termina.
-Se prefiere evitar en el aprendizaje porque condensa múltiples operaciones con efectos secundarios en una sola línea (violando la regla {ref}`0x3003h` del curso), dificultando la depuración y la comprensión del flujo de datos para estudiantes novatos.
+1. Se desreferencia `origen` y se copia su carácter en la dirección apuntada por
+   `destino`.
+2. Como efecto secundario de la post-incrementación `++`, ambos punteros avanzan
+   al siguiente carácter de memoria.
+3. El resultado de la asignación completa (el carácter copiado) se evalúa como
+   la condición del lazo `while`. Cuando se copia el carácter nulo `'\0'` (cuyo
+   valor entero es 0), la condición se evalúa como falsa y el lazo termina.
+Se prefiere evitar en el aprendizaje porque condensa múltiples operaciones con
+efectos secundarios en una sola línea (violando la regla {ref}`0x3003h` del
+curso), dificultando la depuración y la comprensión del flujo de datos para
+estudiantes novatos.
+
 :::
+<!-- {solution} ej-idio-string-compact -->
 
 ---
 
 #### 4. Inicialización de estructuras
 
 **Idiomático:**
-```{code-block}c
+:::{code-block}c
 :linenos:
 persona_t persona = {
     .nombre = "Juan",
     .edad = 30,
     .activo = true
 };
-```
+
+:::
+<!-- {code-block}c -->
 
 **No idiomático:**
-```{code-block}c
+:::{code-block}c
 :linenos:
 persona_t persona;
 persona.nombre = "Juan";
 persona.edad = 30;
 persona.activo = true;
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{admonition} Relación con las reglas de estilo
 :class: tip
 
 Este patrón **cumple perfectamente** con:
 - {ref}`0x0003h <0x0003h>`: Inicializar variables a valor conocido
-- {ref}`0x3004h <0x3004h>`: Inicialización de estructuras con inicializadores designados (C99)
+- {ref}`0x3004h <0x3004h>`: Inicialización de estructuras con inicializadores
+  designados (C99)
 
-La inicialización con sintaxis designada (`.campo = valor`) es tanto idiomática como obligatoria según nuestras reglas de estilo. Es claramente superior a la asignación campo por campo porque:
+La inicialización con sintaxis designada (`.campo = valor`) es tanto idiomática
+como obligatoria según nuestras reglas de estilo. Es claramente superior a la
+asignación campo por campo porque:
 1. Garantiza que todos los campos no especificados se inicialicen en cero
 2. Es más compacta y legible
 3. Permite cambiar el orden de los campos sin afectar la inicialización
+
 :::
+<!-- {admonition} Relación con las reglas de estilo -->
 
 #### 5. Retorno anticipado (early return)
 
 **Idiomático:**
-```{code-block}c
+:::{code-block}c
 :linenos:
 int procesar_datos(const int *datos, size_t n) {
     if (datos == NULL) {
@@ -209,10 +285,12 @@ int procesar_datos(const int *datos, size_t n) {
     // Lógica principal sin anidamiento profundo
     return resultado;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 **No idiomático:**
-```{code-block}c
+:::{code-block}c
 :linenos:
 int procesar_datos(const int *datos, size_t n) {
     int resultado = -1;
@@ -226,7 +304,9 @@ int procesar_datos(const int *datos, size_t n) {
     }
     return resultado;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{admonition} Relación con las reglas de estilo
 :class: tip
@@ -235,25 +315,31 @@ El retorno anticipado **es totalmente compatible** con:
 - {ref}`0x2001h <0x2001h>`: Evitar anidamiento profundo
 - {ref}`0x3008h <0x3008h>`: Validación de precondiciones
 
-Este patrón es una de las técnicas más importantes para mantener código legible. Al validar las condiciones de error primero y salir temprano, el "camino feliz" (happy path) queda sin anidar, mejorando drásticamente la claridad.
+Este patrón es una de las técnicas más importantes para mantener código legible.
+Al validar las condiciones de error primero y salir temprano, el "camino feliz"
+(happy path) queda sin anidar, mejorando drásticamente la claridad.
 
 **Ventajas:**
 1. Reduce el nivel de indentación
 2. Hace explícitas las precondiciones
 3. Separa la validación de la lógica principal
 4. Facilita la lectura secuencial del código
+
 :::
+<!-- {admonition} Relación con las reglas de estilo -->
 
 #### 6. Uso de operador ternario para asignaciones simples
 
 **Idiomático:**
-```{code-block}c
+:::{code-block}c
 :linenos:
 int maximo = (a > b) ? a : b;
-```
+
+:::
+<!-- {code-block}c -->
 
 **No idiomático:**
-```{code-block}c
+:::{code-block}c
 :linenos:
 int maximo;
 if (a > b) {
@@ -261,12 +347,16 @@ if (a > b) {
 } else {
     maximo = b;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{admonition} Relación con las reglas de estilo
 :class: tip
 
-El operador ternario **está estrictamente prohibido por la regla** {ref}`0x1007h <0x1007h>` en esta cátedra. Su uso en los laboratorios está penalizado, debiendo preferirse la estructura de control `if-else` tradicional.
+El operador ternario **está estrictamente prohibido por la regla** {ref}`0x1007h
+<0x1007h>` en esta cátedra. Su uso en los laboratorios está penalizado, debiendo
+preferirse la estructura de control `if-else` tradicional.
 
 **Cuándo usar el operador ternario:**
 - Asignaciones condicionales simples de una sola línea
@@ -279,28 +369,40 @@ El operador ternario **está estrictamente prohibido por la regla** {ref}`0x1007
 - Cuando se necesita ejecutar múltiples sentencias
 
 **Ejemplo apropiado:**
-```{code-block}c
+:::{code-block}c
 :linenos:
 const char *mensaje = (usuario_conectado) ? "Bienvenido" : "Inicia sesión";
-```
+
+:::
+<!-- {code-block}c -->
 
 **Ejemplo inapropiado (anidado):**
-```{code-block}c
+:::{code-block}c
 :linenos:
 // NO hacer esto - viola la claridad
 int resultado = (x > 0) ? ((y > 0) ? 1 : 2) : ((y > 0) ? 3 : 4);
-```
+
 :::
+<!-- {code-block}c -->
+
+:::
+<!-- {admonition} Relación con las reglas de estilo -->
 
 (ejercicios-de-autoevaluacion-inicializacion-y-estructuras-de-control)=
 ### Ejercicios de Autoevaluación (Inicialización y Estructuras de Control)
 
-```{exercise}
+:::{exercise}
 :label: ej-idio-init-designada
-Dada la estructura `typedef struct { char *c; int i; } datos_t;`, compará la inicialización clásica campo por campo frente al uso de inicializadores designados de C99, indicando por qué esta última previene la lectura de basura en memoria.
-```
 
-```{solution} ej-idio-init-designada
+Dada la estructura `typedef struct { char *c; int i; } datos_t;`, compará la
+inicialización clásica campo por campo frente al uso de inicializadores
+designados de C99, indicando por qué esta última previene la lectura de basura
+en memoria.
+
+:::
+<!-- {exercise} -->
+
+:::{solution} ej-idio-init-designada
 :class: dropdown
 - **Asignación campo por campo**:
   ```c
@@ -313,15 +415,21 @@ Dada la estructura `typedef struct { char *c; int i; } datos_t;`, compará la in
   datos_t d = {
       .c = "texto"
   };
-  // El estándar garantiza que cualquier miembro no explícitamente inicializado se establece en cero (d.i = 0).
+  // El estándar garantiza que cualquier miembro no explícitamente inicializado
+  se establece en cero (d.i = 0).
   ```
-El uso de inicializadores designados previene lecturas accidentales de basura de forma automática e implícita en la declaración.
-```
+El uso de inicializadores designados previene lecturas accidentales de basura de
+forma automática e implícita en la declaración.
 
-```{exercise}
+:::
+<!-- {solution} ej-idio-init-designada -->
+
+:::{exercise}
 :label: ej-idio-early-return
-Refactorizá la siguiente función no idiomática aplicando el patrón de retorno anticipado (*early return*) para eliminar el anidamiento profundo:
-```c
+Refactorizá la siguiente función no idiomática aplicando el patrón de retorno
+anticipado (*early return*) para eliminar el anidamiento profundo:
+```{code-block} c
+:linenos:
 int procesar_sensor(sensor_t *s) {
     int resultado = -1;
     if (s != NULL) {
@@ -331,13 +439,19 @@ int procesar_sensor(sensor_t *s) {
     }
     return resultado;
 }
-```
-```
 
-```{solution} ej-idio-early-return
+```
+<!-- {code-block} c -->
+
+:::
+<!-- {exercise} -->
+
+:::{solution} ej-idio-early-return
 :class: dropdown
-Aplicando el retorno anticipado para validar primero las precondiciones, el "camino feliz" queda libre de indentación:
-```c
+Aplicando el retorno anticipado para validar primero las precondiciones, el
+"camino feliz" queda libre de indentación:
+```{code-block} c
+:linenos:
 int procesar_sensor(sensor_t *s) {
     if (s == NULL) {
         return -1; // Validación de puntero nulo
@@ -348,36 +462,52 @@ int procesar_sensor(sensor_t *s) {
 
     return leer_valores(s); // Lógica principal
 }
+
 ```
-```
+<!-- {code-block} c -->
+
+:::
+<!-- {solution} ej-idio-early-return -->
 
 :::{exercise}
 :label: ej-idio-ternario-prohibicion
 
-Explicá por qué el uso del operador ternario `condicion ? a : b` está restringido en el curso por la regla de estilo {ref}`0x1007h`, y escribí la refactorización tradicional de la expresión `int x = (a > b) ? a : b;`.
+Explicá por qué el uso del operador ternario `condicion ? a : b` está
+restringido en el curso por la regla de estilo {ref}`0x1007h`, y escribí la
+refactorización tradicional de la expresión `int x = (a > b) ? a : b;`.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-idio-ternario-prohibicion
 :class: dropdown
 
-La regla {ref}`0x1007h` prohíbe o restringe el operador ternario en el curso porque su sintaxis compacta tiende a incentivar la escritura de expresiones altamente anidadas y difíciles de leer, reduciendo la claridad visual del flujo de control para los estudiantes.
+La regla {ref}`0x1007h` prohíbe o restringe el operador ternario en el curso
+porque su sintaxis compacta tiende a incentivar la escritura de expresiones
+altamente anidadas y difíciles de leer, reduciendo la claridad visual del flujo
+de control para los estudiantes.
 La refactorización explícita recomendada es:
-```c
+```{code-block} c
+:linenos:
 int x;
 if (a > b) {
     x = a;
 } else {
     x = b;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} ej-idio-ternario-prohibicion -->
 
 ---
 
 #### 7. Convenciones de tipos opacos
 
 **Idiomático:**
-```{code-block}c
+:::{code-block}c
 :linenos:
 typedef struct lista lista_t;  // Declaración adelantada
 
@@ -388,10 +518,12 @@ struct lista {
 
 lista_t* lista_crear(void);
 void lista_destruir(lista_t *lista);
-```
+
+:::
+<!-- {code-block}c -->
 
 **No idiomático:**
-```{code-block}c
+:::{code-block}c
 :linenos:
 struct lista {
     nodo_t *primero;
@@ -400,28 +532,36 @@ struct lista {
 
 // Uso directo de struct en todas partes
 struct lista* crear_lista(void);
-```
+
+:::
+<!-- {code-block}c -->
 
 #### 8. Macros para constantes y expresiones simples
 
 **Idiomático:**
-```{code-block}c
+:::{code-block}c
 :linenos:
 #define MAX_BUFFER 1024
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
-```
+
+:::
+<!-- {code-block}c -->
 
 **No idiomático:**
-```{code-block}c
+:::{code-block}c
 :linenos:
-const int MAX_BUFFER = 1024;  // En C89/90 no es idiomático para constantes globales
-int min(int a, int b) { return a < b ? a : b; }  // Overhead de función para operación trivial
-```
+const int MAX_BUFFER = 1024;  // En C89/90 no es idiomático para constantes
+globales
+int min(int a, int b) { return a < b ? a : b; }  // Overhead de función para
+operación trivial
+
+:::
+<!-- {code-block}c -->
 
 #### 9. Validación de punteros antes de uso
 
 **Idiomático:**
-```{code-block}c
+:::{code-block}c
 :linenos:
 void procesar(const dato_t *dato) {
     if (dato == NULL) {
@@ -429,26 +569,31 @@ void procesar(const dato_t *dato) {
     }
     // Procesar dato
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 **No idiomático:**
-```{code-block}c
+:::{code-block}c
 :linenos:
 void procesar(const dato_t *dato) {
     // Asumir que dato nunca es NULL
     printf("%d\n", dato->valor);  // Peligroso
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{admonition} Relación con las reglas de estilo
 :class: tip
 
-La validación de punteros **es obligatoria** según {ref}`0x3008h <0x3008h>` (validación de precondiciones) y {ref}`0x0036h <0x0036h>` (manejo de NULL).
+La validación de punteros **es obligatoria** según {ref}`0x3008h <0x3008h>`
+(validación de precondiciones) y {ref}`0x0036h <0x0036h>` (manejo de NULL).
 
 **Dos enfoques válidos:**
 
 **1. Enfoque defensivo (preferido para funciones públicas):**
-```{code-block}c
+:::{code-block}c
 :linenos:
 bool agregar_elemento(lista_t *lista, int valor) {
     if (lista == NULL) {
@@ -457,42 +602,68 @@ bool agregar_elemento(lista_t *lista, int valor) {
     // ... lógica
     return true;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 **2. Enfoque por contrato (aceptable para funciones privadas):**
-```{code-block}c
+:::{code-block}c
 :linenos:
 // PRECONDICIÓN: lista != NULL (documentado)
 static void insertar_nodo(lista_t *lista, nodo_t *nodo) {
     assert(lista != NULL);  // Solo en debug
     // ... lógica sin validación en producción
 }
-```
 
-En este curso, **preferimos el enfoque defensivo** para todas las funciones, especialmente durante el aprendizaje.
 :::
+<!-- {code-block}c -->
+
+En este curso, **preferimos el enfoque defensivo** para todas las funciones,
+especialmente durante el aprendizaje.
+
+:::
+<!-- {admonition} Relación con las reglas de estilo -->
 
 (ejercicios-de-autoevaluacion-tipos-opacos-y-validacion)=
 ### Ejercicios de Autoevaluación (Tipos Opacos y Validación)
 
-```{exercise}
+:::{exercise}
 :label: ej-idio-tipo-opaco-ventaja
-Explicá de qué manera el uso de tipos opacos (por ejemplo, declarar `typedef struct lista lista_t;` en el archivo de cabecera `.h` y la estructura real en el `.c`) contribuye a la encapsulación de datos en proyectos de C de gran escala.
-```
+Explicá de qué manera el uso de tipos opacos (por ejemplo, declarar `typedef
+struct lista lista_t;` en el archivo de cabecera `.h` y la estructura real en el
+`.c`) contribuye a la encapsulación de datos en proyectos de C de gran escala.
 
-```{solution} ej-idio-tipo-opaco-ventaja
+:::
+<!-- {exercise} -->
+
+:::{solution} ej-idio-tipo-opaco-ventaja
 :class: dropdown
-El uso de tipos opacos impide que el código cliente (el que importa el `.h`) acceda directamente a los miembros internos de la estructura (como `lista->primero`), ya que el compilador desconoce el tamaño y los campos de la estructura en ese ámbito. Esto obliga al cliente a interactuar con la estructura únicamente a través de la interfaz pública de funciones expuestas, logrando encapsulación total y permitiendo al desarrollador modificar la implementación interna (por ejemplo, pasar de una lista enlazada a un array dinámico) sin romper la compatibilidad con el código cliente.
-```
+El uso de tipos opacos impide que el código cliente (el que importa el `.h`)
+acceda directamente a los miembros internos de la estructura (como
+`lista->primero`), ya que el compilador desconoce el tamaño y los campos de la
+estructura en ese ámbito. Esto obliga al cliente a interactuar con la estructura
+únicamente a través de la interfaz pública de funciones expuestas, logrando
+encapsulación total y permitiendo al desarrollador modificar la implementación
+interna (por ejemplo, pasar de una lista enlazada a un array dinámico) sin
+romper la compatibilidad con el código cliente.
 
-```{exercise}
+:::
+<!-- {solution} ej-idio-tipo-opaco-ventaja -->
+
+:::{exercise}
 :label: ej-idio-validar-null
-Escribí una función defensiva en C llamada `eliminar_elemento` que tome un puntero a una estructura `lista_t` y un entero, aplicando la validación de punteros requerida por las reglas de estilo de la cátedra para el manejo de `NULL`.
-```
+Escribí una función defensiva en C llamada `eliminar_elemento` que tome un
+puntero a una estructura `lista_t` y un entero, aplicando la validación de
+punteros requerida por las reglas de estilo de la cátedra para el manejo de
+`NULL`.
 
-```{solution} ej-idio-validar-null
+:::
+<!-- {exercise} -->
+
+:::{solution} ej-idio-validar-null
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <stdbool.h>
 #include <stddef.h>
 
@@ -506,32 +677,51 @@ bool eliminar_elemento(lista_t *lista, int valor) {
     // ...
     return true;
 }
+
 ```
-```
+<!-- {code-block} c -->
+
+:::
+<!-- {solution} ej-idio-validar-null -->
 
 :::{exercise}
 :label: ej-idio-macro-vs-funcion
 
-Explicá de forma conceptual la diferencia entre definir una constante mediante una macro `#define LIMITE 100` frente a declararla como una variable constante global `const int Limite = 100;` en C estándar.
+Explicá de forma conceptual la diferencia entre definir una constante mediante
+una macro `#define LIMITE 100` frente a declararla como una variable constante
+global `const int Limite = 100;` en C estándar.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-idio-macro-vs-funcion
 :class: dropdown
 
-1. **Macros (`#define`)**: Son procesadas por el preprocesador antes de la compilación, realizando una sustitución de texto literal en el código fuente. Carecen de tipo de dato y no ocupan espacio en la memoria en tiempo de ejecución.
-2. **Constantes (`const int`)**: Son variables reales de solo lectura evaluadas por el compilador. Tienen un tipo de dato estricto (lo que permite validaciones de tipo en el compilador) y ocupan espacio en memoria, teniendo una dirección física a la cual se puede apuntar. En C estándar (C89/C99), las macros se prefieren para dimensionar arreglos estáticos ya que las constantes `const` no se evalúan como constantes en tiempo de compilación.
+1. **Macros (`#define`)**: Son procesadas por el preprocesador antes de la
+   compilación, realizando una sustitución de texto literal en el código fuente.
+   Carecen de tipo de dato y no ocupan espacio en la memoria en tiempo de
+   ejecución.
+2. **Constantes (`const int`)**: Son variables reales de solo lectura evaluadas
+   por el compilador. Tienen un tipo de dato estricto (lo que permite
+   validaciones de tipo en el compilador) y ocupan espacio en memoria, teniendo
+   una dirección física a la cual se puede apuntar. En C estándar (C89/C99), las
+   macros se prefieren para dimensionar arreglos estáticos ya que las constantes
+   `const` no se evalúan como constantes en tiempo de compilación.
+
 :::
+<!-- {solution} ej-idio-macro-vs-funcion -->
 
 ---
 
 (idiomas-especificos-de-c)=
 ### Idiomas específicos de C
 
-Algunos patrones son especialmente característicos de C y reconocidos universalmente:
+Algunos patrones son especialmente característicos de C y reconocidos
+universalmente:
 
 #### Patrón de constructor/destructor
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 // Crear
 tipo_t* tipo_crear(void) {
@@ -551,11 +741,13 @@ void tipo_destruir(tipo_t *obj) {
     // Liberar recursos internos
     free(obj);
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 #### Patrón de handle opaco
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 // En el .h (interfaz pública)
 typedef struct archivo_ctx archivo_ctx_t;
@@ -569,11 +761,13 @@ struct archivo_ctx {
     size_t bytes_leidos;
     // Detalles de implementación ocultos
 };
-```
+
+:::
+<!-- {code-block}c -->
 
 #### Patrón de función con parámetro de salida
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 bool operacion_compleja(const dato_t *entrada, resultado_t *salida) {
     if (entrada == NULL || salida == NULL) {
@@ -584,11 +778,13 @@ bool operacion_compleja(const dato_t *entrada, resultado_t *salida) {
     *salida = resultado;
     return true;  // Éxito
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 #### Patrón de callback con contexto
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 typedef void (*callback_t)(void *datos, void *contexto);
 
@@ -597,28 +793,35 @@ void iterar(lista_t *lista, callback_t callback, void *contexto) {
         callback(&nodo->dato, contexto);
     }
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 (evolucion-del-codigo-idiomatico-en-c)=
 ### Evolución del código idiomático en C
 
-El concepto de código idiomático en C ha evolucionado con las diferentes versiones del estándar:
+El concepto de código idiomático en C ha evolucionado con las diferentes
+versiones del estándar:
 
-- **C89/C90**: Declaraciones de variables al inicio de bloques, sin comentarios `//`
-- **C99**: Variables declaradas cerca de su uso, `for (int i = 0; ...)`, comentarios `//`
+- **C89/C90**: Declaraciones de variables al inicio de bloques, sin comentarios
+  `//`
+- **C99**: Variables declaradas cerca de su uso, `for (int i = 0; ...)`,
+  comentarios `//`
 - **C11**: `_Static_assert`, `_Generic`, mejoras en concurrencia
 - **C23**: Mejoras en seguridad de tipos, literales binarios, atributos
 
-En este curso, nos enfocamos en patrones idiomáticos de **C99** en adelante, que es el estándar más ampliamente soportado y usado en la industria actual.
+En este curso, nos enfocamos en patrones idiomáticos de **C99** en adelante, que
+es el estándar más ampliamente soportado y usado en la industria actual.
 
 (anti-patrones-codigo-no-idiomatico)=
 ### Anti-patrones: código no idiomático
 
-Es igualmente importante reconocer construcciones que **no son idiomáticas** en C:
+Es igualmente importante reconocer construcciones que **no son idiomáticas** en
+C:
 
 #### Anti-patrón 1: Reimplementar funciones estándar
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 // No idiomático
 int mi_strlen(const char *s) {
@@ -629,44 +832,55 @@ int mi_strlen(const char *s) {
 
 // Idiomático: usar strlen() de <string.h>
 size_t longitud = strlen(cadena);
-```
+
+:::
+<!-- {code-block}c -->
 
 #### Anti-patrón 2: Comparar con `true`/`false` explícitamente
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 // No idiomático
 if (condicion == true) { ... }
 
 // Idiomático
 if (condicion) { ... }
-```
+
+:::
+<!-- {code-block}c -->
 
 #### Anti-patrón 3: Comparar punteros con NULL usando `==`
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 // Menos idiomático
 if (ptr != NULL) { ... }
 
 // Idiomático (pero ambos son aceptables)
 if (ptr) { ... }
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{admonition} Relación con las reglas de estilo
 :class: warning
 
-**Esta es una área de debate en la comunidad de C** y este curso adopta una postura específica:
+**Esta es una área de debate en la comunidad de C** y este curso adopta una
+postura específica:
 
-**Postura de este curso:** Preferimos la comparación explícita `ptr != NULL` por las siguientes razones:
+**Postura de este curso:** Preferimos la comparación explícita `ptr != NULL` por
+las siguientes razones:
 
-1. **Claridad sobre brevedad**: Hace explícito que estamos verificando un puntero, no un booleano
-2. **Consistencia con otros lenguajes**: Facilita la transición entre C y otros lenguajes
-3. **Documentación implícita**: El código es más autodocumentado para principiantes
+1. **Claridad sobre brevedad**: Hace explícito que estamos verificando un
+   puntero, no un booleano
+2. **Consistencia con otros lenguajes**: Facilita la transición entre C y otros
+   lenguajes
+3. **Documentación implícita**: El código es más autodocumentado para
+   principiantes
 4. **Prevención de errores**: Evita confusión entre `if (ptr)` y `if (*ptr)`
 
 **Comparación:**
-```{code-block}c
+:::{code-block}c
 :linenos:
 // PREFERIDO en este curso (explícito)
 if (ptr != NULL) {
@@ -685,18 +899,24 @@ if (esta_activo) { ... }  // Correcto para bool
 if (!ptr) { ... }         // Aceptable
 if (ptr == NULL) { ... }  // Aceptable
 // Pero elegir uno y ser consistente
-```
 
-**Excepción:** En código muy idiomático y denso, la forma breve `if (ptr)` es aceptable si el contexto es claro.
+:::
+<!-- {code-block}c -->
+
+**Excepción:** En código muy idiomático y denso, la forma breve `if (ptr)` es
+aceptable si el contexto es claro.
 
 Ver {ref}`0x3008h <0x3008h>` para más sobre validación de punteros.
-:::
 
-Nota: Esta es una cuestión de preferencia. Algunos equipos prefieren la forma explícita para mayor claridad.
+:::
+<!-- {admonition} Relación con las reglas de estilo -->
+
+Nota: Esta es una cuestión de preferencia. Algunos equipos prefieren la forma
+explícita para mayor claridad.
 
 #### Anti-patrón 4: Uso excesivo de `goto`
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 // No idiomático (salvo para limpieza de recursos)
 void funcion(void) {
@@ -712,12 +932,15 @@ void funcion(void) {
         // ...
     }
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{admonition} Relación con las reglas de estilo
 :class: tip
 
-**El uso de `goto` está estrictamente prohibido por la regla** {ref}`0x1006h <0x1006h>` en todas las prácticas de la materia.
+**El uso de `goto` está estrictamente prohibido por la regla** {ref}`0x1006h
+<0x1006h>` en todas las prácticas de la materia.
 
 **Uso PROHIBIDO de `goto`:**
 - Reemplazar estructuras de control (`for`, `while`)
@@ -727,9 +950,10 @@ void funcion(void) {
 
 **Uso PERMITIDO e IDIOMÁTICO de `goto`:**
 
-El único uso idiomático de `goto` en C moderno es para **limpieza de recursos en caso de error**:
+El único uso idiomático de `goto` en C moderno es para **limpieza de recursos en
+caso de error**:
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 int procesar_archivo(const char *ruta) {
     FILE *archivo = NULL;
@@ -756,7 +980,9 @@ error:
     }
     return resultado;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 **Ventajas de este patrón:**
 1. Evita duplicación de código de limpieza
@@ -765,52 +991,68 @@ error:
 4. Es ampliamente usado en código de sistema (ej: Linux kernel)
 
 **Alternativa sin `goto` (válida pero más verbosa):**
-Funciones auxiliares o estructuras de control anidadas, pero el código de limpieza se duplica.
+Funciones auxiliares o estructuras de control anidadas, pero el código de
+limpieza se duplica.
 
 Ver {ref}`0x1006h <0x1006h>` para el análisis completo.
-:::
 
-Excepción: `goto` para limpieza de recursos en caso de error es un patrón idiomático en C (ver Regla 0x1006h).
+:::
+<!-- {admonition} Relación con las reglas de estilo -->
+
+Excepción: `goto` para limpieza de recursos en caso de error es un patrón
+idiomático en C (ver Regla 0x1006h).
 
 (contexto-cultural-del-codigo-idiomatico)=
 ### Contexto cultural del código idiomático
 
 El código idiomático en C está profundamente influenciado por:
 
-1. **El libro K&R** (*The C Programming Language* por Kernighan y Ritchie): Define muchos de los patrones considerados canónicos.
+1. **El libro K&R** (*The C Programming Language* por Kernighan y Ritchie):
+   Define muchos de los patrones considerados canónicos.
 
-2. **Proyectos de referencia**: El kernel de Linux, GNU Coreutils, y otros proyectos establecen estándares de facto.
+2. **Proyectos de referencia**: El kernel de Linux, GNU Coreutils, y otros
+   proyectos establecen estándares de facto.
 
 3. **Guías de estilo influyentes**: 
    - Linux Kernel Coding Style
    - GNU Coding Standards
    - MISRA C (para sistemas embebidos críticos)
 
-4. **La comunidad**: Convenciones que emergen de la práctica común y son reforzadas por code reviews.
+4. **La comunidad**: Convenciones que emergen de la práctica común y son
+   reforzadas por code reviews.
 
 (aplicacion-en-este-curso)=
 ### Aplicación en este curso
 
-Las reglas de estilo de este documento están diseñadas para guiarte hacia la escritura de **código idiomático en C**. Cada regla no es arbitraria, sino que refleja prácticas establecidas que hacen que tu código sea:
+Las reglas de estilo de este documento están diseñadas para guiarte hacia la
+escritura de **código idiomático en C**. Cada regla no es arbitraria, sino que
+refleja prácticas establecidas que hacen que tu código sea:
 
 - Reconocible para otros programadores de C
 - Más robusto y menos propenso a errores
 - Más fácil de mantener y extender
 - Profesionalmente aceptable en la industria
 
-A medida que avances en el curso, comenzarás a internalizar estos patrones y escribirlos naturalmente, como un hablante nativo usa expresiones idiomáticas sin pensarlo conscientemente.
+A medida que avances en el curso, comenzarás a internalizar estos patrones y
+escribirlos naturalmente, como un hablante nativo usa expresiones idiomáticas
+sin pensarlo conscientemente.
 
 (reconciliando-codigo-idiomatico-con-reglas-de-estilo)=
 ### Reconciliando código idiomático con reglas de estilo
 
-Es importante entender que **el código idiomático y las reglas de estilo no siempre coinciden perfectamente**, especialmente cuando se trata de código pedagógico versus código de producción. Esta sección clarifica cómo navegar estas tensiones:
+Es importante entender que **el código idiomático y las reglas de estilo no
+siempre coinciden perfectamente**, especialmente cuando se trata de código
+pedagógico versus código de producción. Esta sección clarifica cómo navegar
+estas tensiones:
 
 #### Principio rector: Claridad sobre brevedad (en etapa de aprendizaje)
 
-En el mundo profesional, se asume un nivel de experiencia donde ciertos patrones densos son inmediatamente comprensibles. En un contexto educativo, **priorizamos la claridad explícita**.
+En el mundo profesional, se asume un nivel de experiencia donde ciertos patrones
+densos son inmediatamente comprensibles. En un contexto educativo, **priorizamos
+la claridad explícita**.
 
 **Ejemplo:**
-```{code-block}c
+:::{code-block}c
 :linenos:
 // Idiomático profesional (denso pero correcto)
 while (*d++ = *s++);
@@ -825,19 +1067,23 @@ while (*origen != '\0') {
 
 // O mejor aún, usar biblioteca estándar
 strcpy(destino, origen);
-```
+
+:::
+<!-- {code-block}c -->
 
 #### Reglas de estilo como "entrenamiento con rueditas"
 
 Las reglas de estilo estrictas funcionan como **rueditas de bicicleta**:
 
-1. **Al principio**: Te obligan a mantener el equilibrio (claridad, buenas prácticas)
+1. **Al principio**: Te obligan a mantener el equilibrio (claridad, buenas
+   prácticas)
 2. **Con práctica**: Internalizas los principios subyacentes
-3. **Eventualmente**: Podés "quitar las rueditas" y escribir código más idiomático sin sacrificar claridad
+3. **Eventualmente**: Podés "quitar las rueditas" y escribir código más
+   idiomático sin sacrificar claridad
 
 **Progresión esperada:**
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 // Nivel principiante (muy explícito)
 int suma = 0;
@@ -857,9 +1103,12 @@ int suma = 0;
 for (int *p = arreglo; p < arreglo + n; p++) {
     suma += *p;
 }
-```
 
-Todos son correctos, pero el nivel de idiomaticidad apropiado depende de tu experiencia y el contexto.
+:::
+<!-- {code-block}c -->
+
+Todos son correctos, pero el nivel de idiomaticidad apropiado depende de tu
+experiencia y el contexto.
 
 #### Tabla de reconciliación: Idiomas vs Reglas
 
@@ -882,7 +1131,7 @@ Todos son correctos, pero el nivel de idiomaticidad apropiado depende de tu expe
 
 **1. Código de sistema vs código de aplicación**
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 // Código de sistema (Linux kernel style - muy idiomático)
 if (unlikely(!ptr))
@@ -892,11 +1141,13 @@ if (unlikely(!ptr))
 if (ptr == NULL) {
     goto out_free;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 **2. Optimización vs claridad**
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 // Idiomático optimizado (registro loop)
 register int i;
@@ -904,13 +1155,16 @@ for (i = 0; i < n; i++) { /* ... */ }
 
 // Pedagógico (deja optimización al compilador)
 for (int i = 0; i < n; i++) { /* ... */ }
-```
 
-Compiladores modernos optimizan mejor que programadores humanos en el 99% de los casos.
+:::
+<!-- {code-block}c -->
+
+Compiladores modernos optimizan mejor que programadores humanos en el 99% de los
+casos.
 
 **3. Expresividad de dominio vs generalidad**
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 // Idiomático para grafos (nombres de dominio)
 for (v = g->V; v; v = v->next) { /* ... */ }
@@ -921,11 +1175,14 @@ for (vertice_t *vertice = grafo->vertices;
      vertice = vertice->siguiente) {
     /* ... */
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 #### Cuándo "romper" las reglas
 
-A medida que avances, habrá situaciones donde el código idiomático justifica apartarse de las reglas estrictas:
+A medida que avances, habrá situaciones donde el código idiomático justifica
+apartarse de las reglas estrictas:
 
 ✅ **Romper regla OK:**
 - Estás implementando una interfaz estándar (ej: `qsort` callback)
@@ -941,7 +1198,9 @@ A medida que avances, habrá situaciones donde el código idiomático justifica 
 
 #### Metarregla: El juicio informado
 
-La verdadera maestría en C viene de desarrollar **juicio informado**: saber cuándo aplicar reglas estrictamente y cuándo el contexto justifica un patrón más idiomático pero menos explícito.
+La verdadera maestría en C viene de desarrollar **juicio informado**: saber
+cuándo aplicar reglas estrictamente y cuándo el contexto justifica un patrón más
+idiomático pero menos explícito.
 
 **Preguntá antes de decidir:**
 1. ¿El código será más **claro** con el patrón idiomático?
@@ -949,7 +1208,8 @@ La verdadera maestría en C viene de desarrollar **juicio informado**: saber cu�
 3. ¿La **ventaja** (brevedad, rendimiento, expresividad) justifica el costo?
 4. ¿Puedo **explicar** por qué este patrón es superior aquí?
 
-Si respondés "sí" a las cuatro, probablemente sea apropiado usar el patrón idiomático incluso si parece violar una regla de estilo pedagógica.
+Si respondés "sí" a las cuatro, probablemente sea apropiado usar el patrón
+idiomático incluso si parece violar una regla de estilo pedagógica.
 
 #### Progresión recomendada en el curso
 
@@ -976,28 +1236,39 @@ Si respondés "sí" a las cuatro, probablemente sea apropiado usar el patrón id
 (resumen-la-sintesis)=
 ### Resumen: La síntesis
 
-El **código idiomático** y las **reglas de estilo** no son oponentes, sino **herramientas complementarias**:
+El **código idiomático** y las **reglas de estilo** no son oponentes, sino
+**herramientas complementarias**:
 
 - **Las reglas** te dan un marco sólido y previenen errores comunes
 - **Los idiomas** te dan fluidez y reconocimiento en la comunidad de C
-- **La síntesis** es escribir código que sea idiomático *dentro* de los límites de claridad y seguridad establecidos por las reglas
+- **La síntesis** es escribir código que sea idiomático *dentro* de los límites
+  de claridad y seguridad establecidos por las reglas
 
-En caso de conflicto, durante el aprendizaje: **claridad > brevedad**, **explícito > implícito**, **seguro > conciso**.
+En caso de conflicto, durante el aprendizaje: **claridad > brevedad**,
+**explícito > implícito**, **seguro > conciso**.
 
-Con experiencia, muchos patrones idiomáticos *se vuelven* claros porque los has internalizado. Ese es el objetivo del curso: que llegues a ese punto de forma estructurada y segura.
+Con experiencia, muchos patrones idiomáticos *se vuelven* claros porque los has
+internalizado. Ese es el objetivo del curso: que llegues a ese punto de forma
+estructurada y segura.
 
 (ejercicios-de-autoevaluacion-patrones-y-anti-patrones)=
 ### Ejercicios de Autoevaluación (Patrones y Anti-patrones)
 
-```{exercise}
+:::{exercise}
 :label: ej-idio-patron-cleanup-goto
-Escribí una función que abra un archivo y reserve memoria en el heap, utilizando de forma idiomática el patrón `goto error` para liberar los recursos asignados sin duplicar el código de limpieza en caso de fallos.
-```
+Escribí una función que abra un archivo y reserve memoria en el heap, utilizando
+de forma idiomática el patrón `goto error` para liberar los recursos asignados
+sin duplicar el código de limpieza en caso de fallos.
 
-```{solution} ej-idio-patron-cleanup-goto
+:::
+<!-- {exercise} -->
+
+:::{solution} ej-idio-patron-cleanup-goto
 :class: dropdown
-Este es el único uso de `goto` permitido y catalogado como idiomático para sistemas en C:
-```c
+Este es el único uso de `goto` permitido y catalogado como idiomático para
+sistemas en C:
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -1028,43 +1299,60 @@ cleanup:
     }
     return estado;
 }
-```
-```
 
-```{exercise}
+```
+<!-- {code-block} c -->
+
+:::
+<!-- {solution} ej-idio-patron-cleanup-goto -->
+
+:::{exercise}
 :label: ej-idio-antipatron-bool
-Refactorizá el siguiente bloque de código para remover las comparaciones redundantes no idiomáticas:
-```c
+Refactorizá el siguiente bloque de código para remover las comparaciones
+redundantes no idiomáticas:
+``` c
 if (esta_activo == true) {
     if (ptr == NULL == false) {
         printf("Válido\n");
     }
 }
 ```
-```
+<!-- c -->
 
-```{solution} ej-idio-antipatron-bool
+:::
+<!-- {exercise} -->
+
+:::{solution} ej-idio-antipatron-bool
 :class: dropdown
-En C, los booleanos e inicializaciones lógicas se evalúan directamente. Refactorización idiomática en base a las reglas de la cátedra:
-```c
+En C, los booleanos e inicializaciones lógicas se evalúan directamente.
+Refactorización idiomática en base a las reglas de la cátedra:
+``` c
 if (esta_activo) {
     if (ptr != NULL) {
         printf("Válido\n");
     }
 }
 ```
-```
+<!-- c -->
+
+:::
+<!-- {solution} ej-idio-antipatron-bool -->
 
 :::{exercise}
 :label: ej-idio-construct-destruct
 
-Diseñá las funciones de constructor y destructor para un tipo de dato `conexion_t` en el heap, asegurando una liberación defensiva que ponga a `NULL` el puntero del invocador en el destructor.
+Diseñá las funciones de constructor y destructor para un tipo de dato
+`conexion_t` en el heap, asegurando una liberación defensiva que ponga a `NULL`
+el puntero del invocador en el destructor.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-idio-construct-destruct
 :class: dropdown
 
-```c
+```{code-block} c
+:linenos:
 #include <stdlib.h>
 
 typedef struct {
@@ -1086,16 +1374,27 @@ void conexion_destruir(conexion_t **c) {
     free(*c);
     *c = NULL; // El puntero del invocador ahora es NULL
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} ej-idio-construct-destruct -->
 
 (glosario_idioms)=
 ## Glosario
 
 :::{glossary}
+
 código idiomático
-: Conjunto de patrones y convenciones culturales aceptados y compartidos por la comunidad de un lenguaje de programación para expresar algoritmos comunes de forma legible y natural.
+: Conjunto de patrones y convenciones culturales aceptados y compartidos por la
+comunidad de un lenguaje de programación para expresar algoritmos comunes de
+forma legible y natural.
 
 tagged union
-: Estructura de datos que combina una unión (`union`) para compartir el espacio de memoria junto con un enumerador (`enum`) que actúa como etiqueta para indicar de forma segura cuál de los miembros de la unión se encuentra activo.
+: Estructura de datos que combina una unión (`union`) para compartir el espacio
+de memoria junto con un enumerador (`enum`) que actúa como etiqueta para indicar
+de forma segura cuál de los miembros de la unión se encuentra activo.
+
 :::
+<!-- {glossary} -->

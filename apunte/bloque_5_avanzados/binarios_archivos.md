@@ -56,25 +56,37 @@ Para indicarle a la librería estándar que vas a operar con datos crudos, sin
 interpretaciones de caracteres de fin de línea u otras conversiones de texto,
 añadís una `b` al modo de apertura en `fopen()`.
 
-```{list-table} Modos de Apertura Binaria
+:::{list-table} Modos de Apertura Binaria
 :header-rows: 1
 :label: table-binary-modes
 
 * - Modo
   - Descripción y Caso de Uso
 * - `"rb"`
-  - **Read Binary**: Abre para lectura. Es el modo más seguro si solo necesitás consumir datos. Falla si el archivo no existe.
+  - **Read Binary**: Abre para lectura. Es el modo más seguro si solo necesitás
+    consumir datos. Falla si el archivo no existe.
 * - `"wb"`
-  - **Write Binary**: Abre para escritura. Si el archivo existe, **su contenido se borra sin previo aviso**. Ideal para crear archivos desde cero o para sobrescribir completamente un archivo de resultados.
+  - **Write Binary**: Abre para escritura. Si el archivo existe, **su contenido
+    se borra sin previo aviso**. Ideal para crear archivos desde cero o para
+    sobrescribir completamente un archivo de resultados.
 * - `"ab"`
-  - **Append Binary**: Abre para añadir datos al final. Perfecto para archivos de log o para agregar nuevos registros a un archivo existente sin tocar los datos previos.
+  - **Append Binary**: Abre para añadir datos al final. Perfecto para archivos
+    de log o para agregar nuevos registros a un archivo existente sin tocar los
+    datos previos.
 * - `"rb+"`
-  - Abre para lectura y escritura. El archivo debe existir. Te permite leer un registro, modificarlo en memoria y luego sobrescribirlo en la misma posición.
+  - Abre para lectura y escritura. El archivo debe existir. Te permite leer un
+    registro, modificarlo en memoria y luego sobrescribirlo en la misma
+    posición.
 * - `"wb+"`
-  - Crea un archivo para lectura y escritura. Borra el contenido si ya existía. Útil para archivos temporales que necesitás escribir y leer repetidamente.
+  - Crea un archivo para lectura y escritura. Borra el contenido si ya existía.
+    Útil para archivos temporales que necesitás escribir y leer repetidamente.
 * - `"ab+"`
-  - Abre para lectura y para añadir datos al final. Te permite leer cualquier parte del archivo, pero cualquier operación de escritura ocurrirá siempre al final.
-```
+  - Abre para lectura y para añadir datos al final. Te permite leer cualquier
+    parte del archivo, pero cualquier operación de escritura ocurrirá siempre al
+    final.
+
+:::
+<!-- {list-table} Modos de Apertura Binaria -->
 
 La gestión de errores con `perror` y `errno` es idéntica a la de los archivos de
 texto y es una práctica no negociable.
@@ -88,11 +100,12 @@ destino.
 
 ### Anatomía Detallada de sus Parámetros
 
-```c
+``` c
 size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
 
 size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream);
 ```
+<!-- c -->
 
 - `void *ptr`: Este es el **puntero al inicio del bloque de memoria** que
   contiene los datos (para `fwrite`) o donde se almacenarán los datos leídos
@@ -135,6 +148,7 @@ lectura corta, debés usar `feof(stream)` y `ferror(stream)`.
 Guardar una estructura o un array de ellas es el caso de uso por excelencia.
 
 ```{code-block} c
+:linenos:
 :caption: Escribiendo un array de structs con fwrite
 :label: fwrite-example
 
@@ -181,7 +195,9 @@ int main(void) {
     fclose(archivo_salida);
     return EXIT_SUCCESS;
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Leyendo Datos Binarios (`fread`)
 
@@ -190,6 +206,7 @@ La lectura es el espejo de la escritura. Es fundamental que la definición del
 escribir.
 
 ```{code-block} c
+:linenos:
 :caption: Lectura secuencial y robusta con fread
 :label: fread-example
 
@@ -235,7 +252,9 @@ int main(void) {
     fclose(archivo_entrada);
     return EXIT_SUCCESS;
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Posicionamiento: El Poder de `fseek` en Modo Binario
 
@@ -247,6 +266,7 @@ y fiable. Podés saltar a cualquier registro con un simple cálculo.
 inicio del registro `N+1`.
 
 ```{code-block} c
+:linenos:
 :caption: Acceso aleatorio para modificar un registro
 :label: fseek-binary-update
 
@@ -302,7 +322,9 @@ int main(void) {
     fclose(archivo);
     return EXIT_SUCCESS;
 }
+
 ```
+<!-- {code-block} c -->
 
 :::{warning} Cuestiones Críticas de Portabilidad
 
@@ -326,3 +348,4 @@ tipos multibyte a un formato estándar, como el orden de bytes de red
 (`network byte order`), usando funciones como `htonl()` y `ntohl()`.
 
 :::
+<!-- {warning} Cuestiones Críticas de Portabilidad -->

@@ -16,39 +16,54 @@ exacto, ideal para empaquetar flags o valores pequeños.
 (sintaxis-y-ejemplo)=
 ### Sintaxis y Ejemplo
 
-```c
+``` c
 typedef struct {
     unsigned int activo      : 1; // 1 bit
     unsigned int modo_op     : 3; // 3 bits (valores 0-7)
     unsigned int prioridad   : 4; // 4 bits (valores 0-15)
 } config_t;
 ```
+<!-- c -->
 
 El compilador empaquetará estos 8 bits en un solo byte (si es posible).
 
 (acceso-y-type-punning-seguro)=
 ### Acceso y Type Punning Seguro
 
-Cuando se trabaja con estructuras de campos de bits o representaciones de bajo nivel, suele ser necesario interpretar una estructura empaquetada como una secuencia cruda de bytes (por ejemplo, para transmitirla por red) o viceversa.
+Cuando se trabaja con estructuras de campos de bits o representaciones de bajo
+nivel, suele ser necesario interpretar una estructura empaquetada como una
+secuencia cruda de bytes (por ejemplo, para transmitirla por red) o viceversa.
 
-Un error común para lograr esto es castear la dirección de la estructura directamente:
-```c
+Un error común para lograr esto es castear la dirección de la estructura
+directamente:
+``` c
 packed_byte_t data;
 uint8_t byte_crudo = *(uint8_t*)&data; // ¡ERROR! Violación de strict aliasing
 ```
+<!-- c -->
 
-Esta técnica, llamada *type punning* mediante casteo de punteros, está prohibida en C moderno. El compilador asume que dos punteros de tipos incompatibles no apuntan al mismo objeto en memoria (regla de ***strict aliasing***). Optimizar el código bajo este supuesto permite mejoras de rendimiento significativas, pero si violamos la regla, el compilador puede reorganizar los accesos y producir un comportamiento indefinido.
+Esta técnica, llamada *type punning* mediante casteo de punteros, está prohibida
+en C moderno. El compilador asume que dos punteros de tipos incompatibles no
+apuntan al mismo objeto en memoria (regla de ***strict aliasing***). Optimizar
+el código bajo este supuesto permite mejoras de rendimiento significativas, pero
+si violamos la regla, el compilador puede reorganizar los accesos y producir un
+comportamiento indefinido.
 
 Existen dos formas válidas y seguras de realizar *type punning* en C:
-1. **El uso de uniones (`union`)**: En C estándar, escribir en un miembro de una unión y leer de otro diferente es un comportamiento bien definido y el método preferido para reinterpretación de datos.
-2. **Uso de `memcpy`**: Copiar los bytes mediante `memcpy` es seguro y los optimizadores modernos suelen eliminar la llamada física a la función, generando código máquina óptimo.
+1. **El uso de uniones (`union`)**: En C estándar, escribir en un miembro de una
+   unión y leer de otro diferente es un comportamiento bien definido y el método
+   preferido para reinterpretación de datos.
+2. **Uso de `memcpy`**: Copiar los bytes mediante `memcpy` es seguro y los
+   optimizadores modernos suelen eliminar la llamada física a la función,
+   generando código máquina óptimo.
 
 (laboratorio-2-inspeccion-de-bit-fields-con-uniones)=
 ### Laboratorio 2: Inspección de Bit-fields con Uniones
 
 **`bitfield_inspect.c`**
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdint.h>
 
@@ -74,21 +89,24 @@ int main() {
     printf("Byte resultante: 0x%02X\n", data.valor_raw);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Compilación y Ejecución:**
 
-```bash
+``` bash
 gcc -Wextra -Wall bitfield_inspect.c -o bitfield_inspect
 ./bitfield_inspect
 ```
+<!-- bash -->
 
 **Análisis:** La salida `0xFD` (o `11111101` en binario) puede parecer
 sorprendente. El orden en que el compilador asigna los bits dentro del byte es
 **implementation-defined**. No asumas un orden específico si necesitás
 portabilidad.
 
-```{exercise}
+:::{exercise}
 :label: ejer-bitfield-2
 **Decodificador de Paquetes**
 
@@ -98,12 +116,17 @@ Un protocolo de red envía un byte de estado con la siguiente estructura de bits
 - Bits 2-4: `tipo_paquete` (un número de 0 a 7)
 - Bits 5-7: `checksum` (un número de 0 a 7)
 
-Creá una `struct` con bit-fields para representar este byte. Escribí una función que reciba un `unsigned char` y lo imprima de forma legible usando la estructura.
-```
+Creá una `struct` con bit-fields para representar este byte. Escribí una función
+que reciba un `unsigned char` y lo imprima de forma legible usando la
+estructura.
 
-````{solution} ejer-bitfield-2
+:::
+<!-- {exercise} -->
+
+::::{solution} ejer-bitfield-2
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdint.h>
 
@@ -138,8 +161,12 @@ int main() {
     imprimir_estado_paquete(paquete);
     return 0;
 }
+
 ```
-````
+<!-- {code-block} c -->
+
+::::
+<!-- {solution} ejer-bitfield-2 -->
 
 
 
@@ -148,7 +175,10 @@ int main() {
 (operadores-a-nivel-de-bits)=
 ## Operadores a Nivel de Bits
 
-Los Campos de Bits del apartado anterior operan físicamente con bits individuales. Para manipularlos de forma explícita en código, C provee un conjunto de operadores bitwise que actúan sobre la representación binaria de los enteros.
+Los Campos de Bits del apartado anterior operan físicamente con bits
+individuales. Para manipularlos de forma explícita en código, C provee un
+conjunto de operadores bitwise que actúan sobre la representación binaria de los
+enteros.
 
 (introduccion-el-poder-a-nivel-de-bit)=
 ## Introducción: El Poder a Nivel de Bit
@@ -165,21 +195,29 @@ rendimiento, ahorrar memoria e interactuar con hardware.
 Todos los tipos de datos en C se almacenan como una secuencia de bits. Un
 `unsigned char` (1 byte) que representa el número 200, en binario es `11001000`.
 
-```text
+``` text
 Bit:      7   6   5   4   3   2   1   0
 Valor:  128  64  32  16   8   4   2   1
 -----------------------------------------
 Binario:  1   1   0   0   1   0   0   0
 Suma:   128 + 64+ 0 + 0 + 8 + 0 + 0 + 0 = 200
 ```
+<!-- text -->
 
 (endianness)=
 ### Endianness
 
-El **endianness** define el orden en que se almacenan en memoria los bytes que componen un tipo de dato multi-byte (como `int` o `double`). Es un detalle de la arquitectura del procesador que puede ser crucial en programación de sistemas, redes o al trabajar con formatos de archivo binarios.
+El **endianness** define el orden en que se almacenan en memoria los bytes que
+componen un tipo de dato multi-byte (como `int` o `double`). Es un detalle de la
+arquitectura del procesador que puede ser crucial en programación de sistemas,
+redes o al trabajar con formatos de archivo binarios.
 
-- **Little-endian**: El byte **menos** significativo se almacena en la dirección de memoria más baja. Es la arquitectura dominante hoy en día (Intel x86, AMD64, Apple Silicon).
-- **Big-endian**: El byte **más** significativo se almacena en la dirección de memoria más baja. Era común en arquitecturas más antiguas (Motorola 68k, SPARC) y se sigue usando como el orden estándar en redes (Network Byte Order).
+- **Little-endian**: El byte **menos** significativo se almacena en la dirección
+  de memoria más baja. Es la arquitectura dominante hoy en día (Intel x86,
+  AMD64, Apple Silicon).
+- **Big-endian**: El byte **más** significativo se almacena en la dirección de
+  memoria más baja. Era común en arquitecturas más antiguas (Motorola 68k,
+  SPARC) y se sigue usando como el orden estándar en redes (Network Byte Order).
 
 **Ejemplo con el valor `0x1A2B3C4D` (un `int` de 32 bits):**
 
@@ -192,11 +230,13 @@ El **endianness** define el orden en que se almacenan en memoria los bytes que c
 
 **¿Por qué es importante?**
 
-Si escribís un `int` a un archivo en una máquina little-endian y lo leés en una big-endian, el valor será incorrecto.
+Si escribís un `int` a un archivo en una máquina little-endian y lo leés en una
+big-endian, el valor será incorrecto.
 
 **Cómo detectar el endianness en C:**
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h> 
 #include <stdint.h> 
 
@@ -212,9 +252,13 @@ int main(void) {
 
     return 0;
 }
-```
 
-Este código funciona porque si es little-endian, el byte `01` se almacena en la primera dirección, y `*c` será `1`. Si es big-endian, el primer byte será `00`, y `*c` será `0`.
+```
+<!-- {code-block} c -->
+
+Este código funciona porque si es little-endian, el byte `01` se almacena en la
+primera dirección, y `*c` será `1`. Si es big-endian, el primer byte será `00`,
+y `*c` será `0`.
 
 (los-operadores-a-nivel-de-bits)=
 ## Los Operadores a Nivel de Bits
@@ -233,11 +277,13 @@ Un número es par si su bit menos significativo (LSB, bit 0) es 0. Escribí una
 función que use el operador `&` para determinar si un número es par.
 
 :::
+<!-- {exercise} espar -->
 
 :::{solution} espar
 :class: dropdown
 
-```{code-block}c
+:::{code-block}c
+
 #include <stdbool.h>
 
 bool es_par(int numero) {
@@ -245,9 +291,12 @@ bool es_par(int numero) {
     // Si el resultado de (numero & 1) es 0, el bit era 0.
     return (numero & 1) == 0;
 }
-```
 
 :::
+<!-- {code-block}c -->
+
+:::
+<!-- {solution} espar -->
 
 (2-or-a-nivel-de-bits)=
 ### 2. OR a nivel de bits (`|`)
@@ -255,7 +304,7 @@ bool es_par(int numero) {
 El bit del resultado es `1` si al menos uno de los bits correspondientes es `1`.
 Su uso principal es para **encender** bits.
 
-:::{exercise} activar
+:::::::::{exercise} activar
 :label: activar
 
 Encender un Flag Dado un `unsigned char` que representa un
@@ -271,9 +320,12 @@ void activar_flag_4(unsigned char *estado) {
     // El OR encenderá ese bit sin tocar los otros.
     *estado = *estado | (1 << 3);
 }
+
 ```
+<!-- {code-block} c -->
 
 :::
+<!-- {solution} activar -->
 
 (3-xor-a-nivel-de-bits)=
 ### 3. XOR a nivel de bits (`^`)
@@ -281,7 +333,7 @@ void activar_flag_4(unsigned char *estado) {
 El bit del resultado es `1` solo si los bits correspondientes son
 **diferentes**. Su uso principal es para **alternar (toggle)** bits.
 
-:::{exercise} intercambio
+::::{exercise} intercambio
 :label: intercambio
 
 Intercambio con XOR Escribí una función que intercambie los
@@ -292,6 +344,7 @@ valores de dos variables enteras **sin usar una variable temporal**, utilizando
 :class: dropdown
 
 ```{code-block} c
+:linenos:
 void swap_xor(int *a, int *b) {
     if (a != b) { // Previene que se anulen si apuntan al mismo lugar
         *a = *a ^ *b;
@@ -299,9 +352,12 @@ void swap_xor(int *a, int *b) {
         *a = *a ^ *b; // *a se convierte en el valor original de *b
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 :::
+<!-- {solution} intercambio -->
 
 (4-not-a-nivel-de-bits)=
 ### 4. NOT a nivel de bits (`~`)
@@ -316,13 +372,15 @@ Crear una Máscara para Apagar Escribí una expresión que cree una
 máscara para apagar el 2do bit (posición 1) de un `char`, sin afectar a los
 demás. 
 
-::: 
+:::
+<!-- {exercise} mask -->
 
 Crear una Máscara para Apagar Escribí una expresión que cree una
 máscara para apagar el 2do bit (posición 1) de un `char`, sin afectar a los
 demás. 
 
-::: 
+::::
+<!-- {exercise} intercambio -->
 
 :::{solution} mask
 :class: dropdown
@@ -331,9 +389,12 @@ demás.
 // Máscara para el 2do bit: (1 << 1) -> 00000010
 // Máscara invertida: ~(1 << 1) -> 11111101
 unsigned char mascara_apagado = ~(1 << 1);
+
 ```
+<!-- {code-block} c -->
 
 :::
+<!-- {solution} mask -->
 
 (5-desplazamientos-y)=
 ### 5. Desplazamientos (`<<` y `>>`)
@@ -355,7 +416,7 @@ unsigned char mascara_apagado = ~(1 << 1);
   00010100 (20) >> 2  -->  00000101 (5)
   ```
 
-:::{exercise} multiplicacion
+::::::::{exercise} multiplicacion
 :label: multiplicacion
 
 Multiplicación y División Rápida Escribí dos macros,
@@ -368,9 +429,12 @@ realizar las operaciones. :::
 ```{code-block} c
 #define MULT_POR_8(x) ((x) << 3) // 2^3 = 8
 #define DIV_POR_4(x)  ((x) >> 2) // 2^2 = 4
+
 ```
+<!-- {code-block} c -->
 
 :::
+<!-- {solution} multiplicacion -->
 
 (ejercicios-de-aplicacion-recetario)=
 ## Ejercicios de Aplicación (Recetario)
@@ -378,7 +442,7 @@ realizar las operaciones. :::
 (1-obtener-el-n-esimo-bit)=
 ### 1. Obtener el N-ésimo Bit
 
-:::{exercise} get_bit
+:::::::{exercise} get_bit
 :label: get_bit
 
 Escribí una función `int get_bit(int numero, int n)` que devuelva
@@ -392,14 +456,17 @@ int get_bit(int numero, int n) {
     // Desplaza el bit n a la posición 0 y usa AND con 1 para aislarlo.
     return (numero >> n) & 1;
 }
+
 ```
+<!-- {code-block} c -->
 
 :::
+<!-- {solution} get_bit -->
 
 (2-establecer-el-n-esimo-bit)=
 ### 2. Establecer el N-ésimo Bit
 
-:::{exercise} set_bit
+::::::{exercise} set_bit
 :label: set_bit
 Escribí una función `void set_bit(int *numero, int n)` que
 encienda el bit en la posición `n`. :::
@@ -412,14 +479,17 @@ void set_bit(int *numero, int n) {
     // Crea una máscara con el bit n encendido (ej: 00001000) y aplica OR.
     *numero |= (1 << n);
 }
+
 ```
+<!-- {code-block} c -->
 
 :::
+<!-- {solution} set_bit -->
 
 (3-limpiar-el-n-esimo-bit)=
 ### 3. Limpiar el N-ésimo Bit
 
-:::{exercise} clear_bit
+:::::{exercise} clear_bit
 :label: clear_bit
 
 Escribí una función `void clear_bit(int *numero, int n)` que
@@ -433,9 +503,12 @@ void clear_bit(int *numero, int n) {
     // Crea una máscara con el bit n en 0 y el resto en 1, y aplica AND.
     *numero &= ~(1 << n);
 }
+
 ```
+<!-- {code-block} c -->
 
 :::
+<!-- {solution} clear_bit -->
 
 (4-contar-bits-encendidos-hamming-weight)=
 ### 4. Contar Bits Encendidos (Hamming Weight)
@@ -448,6 +521,7 @@ Implementar una función que cuente el número de bits que están en
 Kernighan. 
 
 :::
+<!-- {exercise} kernighan -->
 
 :::{solution} kernighan
 :class: dropdown
@@ -458,6 +532,7 @@ se puede hacer esta operación antes de que `n` sea 0 es el número de bits
 encendidos.
 
 ```{code-block} c
+:linenos:
 int contar_bits_encendidos(int n) {
     int contador = 0;
     while (n > 0) {
@@ -466,14 +541,17 @@ int contar_bits_encendidos(int n) {
     }
     return contador;
 }
+
 ```
+<!-- {code-block} c -->
 
 :::
+<!-- {solution} kernighan -->
 
 (5-verificar-si-es-potencia-de-dos)=
 ### 5. Verificar si es Potencia de Dos
 
-:::{exercise} potencia
+::::{exercise} potencia
 :label: potencia
 
 Escribí una función que determine si un número entero positivo es
@@ -488,6 +566,7 @@ tiene exactamente un bit encendido en su representación binaria (ej. 8 es
 encendidos (ej. 7 es `0111`). Por lo tanto, `n & (n - 1)` será siempre cero.
 
 ```{code-block} c
+:linenos:
 #include <stdbool.h>
 
 bool es_potencia_de_dos(int n) {
@@ -495,9 +574,12 @@ bool es_potencia_de_dos(int n) {
     // (n & (n - 1)) == 0 verifica que solo haya un bit encendido.
     return (n > 0) && ((n & (n - 1)) == 0);
 }
+
 ```
+<!-- {code-block} c -->
 
 :::
+<!-- {solution} potencia -->
 
 (glosario_bitwise)=
 ## Glosario
@@ -515,6 +597,7 @@ componen un tipo de dato multibyte. Es una consideración crucial para la
 portabilidad de datos binarios.
 
 :::
+<!-- {glossary} -->
 
 
 ---
@@ -522,18 +605,32 @@ portabilidad de datos binarios.
 (bitmasks-para-errores-multiples)=
 ## Bitmasks para Errores Múltiples
 
-Una aplicación directa de los operadores bitwise en ingeniería de sistemas es la codificación de múltiples errores en un único entero mediante *bitmasks*. Este patrón es ubicuo en drivers, sistemas embebidos y APIs de bajo nivel.
+Una aplicación directa de los operadores bitwise en ingeniería de sistemas es la
+codificación de múltiples errores en un único entero mediante *bitmasks*. Este
+patrón es ubicuo en drivers, sistemas embebidos y APIs de bajo nivel.
 
 (introduccion_bitmasks_errores)=
 ## Introducción
 
-En muchas situaciones reales, una operación puede fallar por múltiples razones simultáneas. Por ejemplo, al validar datos de un formulario, pueden existir varios campos inválidos al mismo tiempo. Reportar solo el primer error obliga al usuario a corregir y reintentar múltiples veces. Una mejor solución es reportar **todas** las causas de error simultáneamente.
+En muchas situaciones reales, una operación puede fallar por múltiples razones
+simultáneas. Por ejemplo, al validar datos de un formulario, pueden existir
+varios campos inválidos al mismo tiempo. Reportar solo el primer error obliga al
+usuario a corregir y reintentar múltiples veces. Una mejor solución es reportar
+**todas** las causas de error simultáneamente.
 
-Este apunte presenta técnicas para manejar múltiples códigos de error usando **bitmasks con enumeraciones**, permitiendo representar y comunicar combinaciones de errores de forma eficiente y expresiva.
+Este apunte presenta técnicas para manejar múltiples códigos de error usando
+**bitmasks con enumeraciones**, permitiendo representar y comunicar
+combinaciones de errores de forma eficiente y expresiva.
 
 :::{important} Errores Compuestos
-Cuando múltiples validaciones pueden fallar independientemente, es más útil reportar todas las fallas simultáneamente en lugar de forzar al usuario a corregir de a uno. Las bitmasks permiten representar combinaciones de errores en un solo valor entero.
+
+Cuando múltiples validaciones pueden fallar independientemente, es más útil
+reportar todas las fallas simultáneamente en lugar de forzar al usuario a
+corregir de a uno. Las bitmasks permiten representar combinaciones de errores en
+un solo valor entero.
+
 :::
+<!-- {important} Errores Compuestos -->
 
 (problema-un-solo-codigo-de-error)=
 ## Problema: Un Solo Código de Error
@@ -541,7 +638,8 @@ Cuando múltiples validaciones pueden fallar independientemente, es más útil r
 (enfoque-tradicional-un-error)=
 ### Enfoque Tradicional (Un Error)
 
-```c
+```{code-block} c
+:linenos:
 typedef enum {
     ERROR_NINGUNO = 0,
     ERROR_NOMBRE_VACIO,
@@ -569,9 +667,13 @@ error_validacion_t validar_usuario(const usuario_t* usuario) {
     
     return ERROR_NINGUNO;
 }
-```
 
-**Problema:** Si el nombre está vacío Y el email es inválido, el usuario solo sabrá del nombre. Deberá corregir y volver a intentar para descubrir el siguiente error.
+```
+<!-- {code-block} c -->
+
+**Problema:** Si el nombre está vacío Y el email es inválido, el usuario solo
+sabrá del nombre. Deberá corregir y volver a intentar para descubrir el
+siguiente error.
 
 (solucion-codigos-de-error-con-bitmasks)=
 ## Solución: Códigos de Error con Bitmasks
@@ -579,9 +681,11 @@ error_validacion_t validar_usuario(const usuario_t* usuario) {
 (definicion-con-potencias-de-2)=
 ### Definición con Potencias de 2
 
-Para representar múltiples errores simultáneamente, cada código de error debe ser una potencia de 2 (un único bit activado):
+Para representar múltiples errores simultáneamente, cada código de error debe
+ser una potencia de 2 (un único bit activado):
 
-```c
+```{code-block} c
+:linenos:
 typedef enum {
     ERROR_NINGUNO           = 0,      // 0b00000000
     ERROR_NOMBRE_VACIO      = 1 << 0, // 0b00000001
@@ -595,12 +699,15 @@ typedef enum {
 
 // Tipo para almacenar combinaciones
 typedef unsigned int errores_t;
+
 ```
+<!-- {code-block} c -->
 
 (acumular-multiples-errores)=
 ### Acumular Múltiples Errores
 
-```c
+```{code-block} c
+:linenos:
 errores_t validar_usuario(const usuario_t* usuario) {
     errores_t errores = ERROR_NINGUNO;
     
@@ -627,12 +734,15 @@ errores_t validar_usuario(const usuario_t* usuario) {
     
     return errores;
 }
+
 ```
+<!-- {code-block} c -->
 
 (verificar-presencia-de-errores)=
 ### Verificar Presencia de Errores
 
-```c
+```{code-block} c
+:linenos:
 // Verificar si hay algún error
 bool hay_errores(errores_t errores) {
     return errores != ERROR_NINGUNO;
@@ -659,7 +769,9 @@ if (hay_errores(resultado)) {
         printf("Error: La edad debe estar entre 18 y 120\n");
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 (operaciones-con-bitmasks-de-error)=
 ## Operaciones con Bitmasks de Error
@@ -667,7 +779,7 @@ if (hay_errores(resultado)) {
 (agregar-errores)=
 ### Agregar Errores
 
-```c
+``` c
 errores_t errores = ERROR_NINGUNO;
 
 // Agregar un error
@@ -676,30 +788,34 @@ errores |= ERROR_NOMBRE_VACIO;
 // Agregar múltiples errores a la vez
 errores |= (ERROR_EMAIL_INVALIDO | ERROR_EDAD_FUERA_RANGO);
 ```
+<!-- c -->
 
 (remover-errores)=
 ### Remover Errores
 
-```c
+``` c
 // Remover un error específico
 errores &= ~ERROR_EMAIL_INVALIDO;
 
 // Remover múltiples errores
 errores &= ~(ERROR_NOMBRE_VACIO | ERROR_DNI_INVALIDO);
 ```
+<!-- c -->
 
 (alternar-toggle-errores)=
 ### Alternar (Toggle) Errores
 
-```c
+``` c
 // Alternar un error (si está, lo quita; si no está, lo agrega)
 errores ^= ERROR_TELEFONO_INVALIDO;
 ```
+<!-- c -->
 
 (verificar-todos-o-alguno)=
 ### Verificar Todos o Alguno
 
-```c
+```{code-block} c
+:linenos:
 // Verificar si TODOS los errores especificados están presentes
 bool tiene_todos(errores_t errores, errores_t conjunto) {
     return (errores & conjunto) == conjunto;
@@ -718,12 +834,15 @@ if (tiene_todos(resultado, ERROR_NOMBRE_VACIO | ERROR_EMAIL_INVALIDO)) {
 if (tiene_alguno(resultado, ERROR_EDAD_FUERA_RANGO | ERROR_DNI_INVALIDO)) {
     printf("Problema con edad o DNI\n");
 }
+
 ```
+<!-- {code-block} c -->
 
 (contar-errores)=
 ### Contar Errores
 
-```c
+```{code-block} c
+:linenos:
 int contar_errores(errores_t errores) {
     int contador = 0;
     
@@ -740,7 +859,9 @@ int contar_errores(errores_t errores) {
 int contar_errores_rapido(errores_t errores) {
     return __builtin_popcount(errores);
 }
+
 ```
+<!-- {code-block} c -->
 
 (casos-practicos)=
 ## Casos Prácticos
@@ -748,7 +869,8 @@ int contar_errores_rapido(errores_t errores) {
 (caso-1-validacion-de-formulario-web)=
 ### Caso 1: Validación de Formulario Web
 
-```c
+```{code-block} c
+:linenos:
 typedef enum {
     ERROR_FORM_NINGUNO          = 0,
     ERROR_FORM_USUARIO_VACIO    = 1 << 0,
@@ -819,12 +941,15 @@ void mostrar_errores_formulario(errores_t errores) {
         printf("  - Debe aceptar los términos y condiciones\n");
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 (caso-2-verificacion-de-permisos)=
 ### Caso 2: Verificación de Permisos
 
-```c
+```{code-block} c
+:linenos:
 typedef enum {
     PERMISO_NINGUNO      = 0,
     PERMISO_LEER         = 1 << 0,  // 0b00000001
@@ -874,12 +999,15 @@ mis_permisos = otorgar_permiso(mis_permisos, PERMISO_EJECUTAR);
 
 // Revocar permiso de escritura
 mis_permisos = revocar_permiso(mis_permisos, PERMISO_ESCRIBIR);
+
 ```
+<!-- {code-block} c -->
 
 (caso-3-estado-de-conexion-de-red)=
 ### Caso 3: Estado de Conexión de Red
 
-```c
+```{code-block} c
+:linenos:
 typedef enum {
     RED_OK               = 0,
     RED_SIN_CONEXION     = 1 << 0,
@@ -967,12 +1095,15 @@ void diagnosticar_conexion(const resultado_conexion_t* resultado) {
         printf("\nSugerencia: Verifica la fecha del sistema\n");
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 (caso-4-validacion-de-documento)=
 ### Caso 4: Validación de Documento
 
-```c
+```{code-block} c
+:linenos:
 typedef enum {
     DOC_VALIDO               = 0,
     DOC_ENCABEZADO_INVALIDO  = 1 << 0,
@@ -1034,7 +1165,9 @@ bool es_error_recuperable(errores_t errores) {
     
     return (errores & ERRORES_RECUPERABLES) != 0 && !es_error_critico(errores);
 }
+
 ```
+<!-- {code-block} c -->
 
 (funciones-auxiliares-genericas)=
 ## Funciones Auxiliares Genéricas
@@ -1042,7 +1175,8 @@ bool es_error_recuperable(errores_t errores) {
 (conversion-a-cadenas)=
 ### Conversión a Cadenas
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     errores_validacion_t codigo;
     const char* mensaje;
@@ -1073,12 +1207,15 @@ void imprimir_errores(errores_t errores) {
         }
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 (construccion-de-json-con-errores)=
 ### Construcción de JSON con Errores
 
-```c
+```{code-block} c
+:linenos:
 char* errores_a_json(errores_t errores) {
     if (errores == ERROR_NINGUNO) {
         return strdup("{\"errores\": []}");
@@ -1105,7 +1242,9 @@ char* errores_a_json(errores_t errores) {
     strcat(buffer, "]}");
     return strdup(buffer);
 }
+
 ```
+<!-- {code-block} c -->
 
 (limites-y-consideraciones)=
 ## Límites y Consideraciones
@@ -1113,9 +1252,11 @@ char* errores_a_json(errores_t errores) {
 (numero-maximo-de-errores)=
 ### Número Máximo de Errores
 
-Con un `unsigned int` (32 bits), podés representar hasta **32 errores diferentes**. Si necesitás más:
+Con un `unsigned int` (32 bits), podés representar hasta **32 errores
+diferentes**. Si necesitás más:
 
-```c
+```{code-block} c
+:linenos:
 // Para 64 errores
 typedef unsigned long long errores_extendido_t;
 
@@ -1125,14 +1266,17 @@ typedef enum {
     // ...
     ERROR_64 = 1ULL << 63
 } errores_64_t;
+
 ```
+<!-- {code-block} c -->
 
 (arrays-de-bitmasks)=
 ### Arrays de Bitmasks
 
 Para sistemas muy complejos con cientos de posibles errores:
 
-```c
+```{code-block} c
+:linenos:
 #define NUM_PALABRAS_ERROR 4  // 4 * 32 = 128 errores posibles
 
 typedef struct {
@@ -1158,7 +1302,9 @@ bool tiene_error_multiples(const errores_multiples_t* errores, int numero_error)
     
     return false;
 }
+
 ```
+<!-- {code-block} c -->
 
 (binarios_bitwise-buenas-practicas)=
 ## Buenas Prácticas
@@ -1166,7 +1312,8 @@ bool tiene_error_multiples(const errores_multiples_t* errores, int numero_error)
 (1-documentar-los-codigos)=
 ### 1. Documentar los Códigos
 
-```c
+```{code-block} c
+:linenos:
 /**
  * Códigos de error para validación de usuarios.
  * Pueden combinarse usando OR bitwise (|).
@@ -1180,12 +1327,15 @@ typedef enum {
     ERROR_EMAIL_INVALIDO    = 1 << 1, ///< Formato email inválido
     ERROR_EDAD_FUERA_RANGO  = 1 << 2  ///< Edad < 18 o > 120
 } errores_validacion_t;
+
 ```
+<!-- {code-block} c -->
 
 (2-usar-nombres-descriptivos)=
 ### 2. Usar Nombres Descriptivos
 
-```c
+```{code-block} c
+:linenos:
 // Bien: nombres claros
 ERROR_NOMBRE_VACIO
 ERROR_EMAIL_INVALIDO
@@ -1194,12 +1344,15 @@ ERROR_EMAIL_INVALIDO
 ERR_1
 ERR_NOM
 E_MAIL
+
 ```
+<!-- {code-block} c -->
 
 (3-agrupar-errores-relacionados)=
 ### 3. Agrupar Errores Relacionados
 
-```c
+```{code-block} c
+:linenos:
 // Errores de entrada
 const errores_t ERRORES_ENTRADA = 
     ERROR_NOMBRE_VACIO | ERROR_EMAIL_INVALIDO | ERROR_DNI_INVALIDO;
@@ -1212,12 +1365,15 @@ const errores_t ERRORES_RANGO =
 if (errores & ERRORES_ENTRADA) {
     printf("Hay problemas con los datos de entrada\n");
 }
+
 ```
+<!-- {code-block} c -->
 
 (4-separar-errores-de-advertencias)=
 ### 4. Separar Errores de Advertencias
 
-```c
+```{code-block} c
+:linenos:
 typedef enum {
     // Errores (bits 0-15)
     ERROR_NOMBRE_VACIO      = 1 << 0,
@@ -1235,7 +1391,9 @@ bool solo_advertencias(validacion_t resultado) {
     return (resultado & MASCARA_ERRORES) == 0 && 
            (resultado & MASCARA_ADVERTENCIAS) != 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 (comparacion-con-alternativas)=
 ## Comparación con Alternativas
@@ -1244,19 +1402,21 @@ bool solo_advertencias(validacion_t resultado) {
 ### vs. Array de Códigos
 
 **Bitmask:**
-```c
+``` c
 errores_t errores = ERROR_NOMBRE_VACIO | ERROR_EMAIL_INVALIDO;
 // Tamaño: 4 bytes (un int)
 // Verificación: O(1)
 ```
+<!-- c -->
 
 **Array:**
-```c
+``` c
 int errores[] = {ERROR_NOMBRE_VACIO, ERROR_EMAIL_INVALIDO};
 int num_errores = 2;
 // Tamaño: 8+ bytes (dos ints + contador)
 // Verificación: O(n)
 ```
+<!-- c -->
 
 (vs-lista-enlazada)=
 ### vs. Lista Enlazada
@@ -1279,7 +1439,8 @@ int num_errores = 2;
 (con-unico-retorno)=
 ### Con Único Retorno
 
-```c
+```{code-block} c
+:linenos:
 errores_t procesar_formulario(const formulario_t* form) {
     errores_t resultado = ERROR_NINGUNO;
     
@@ -1291,12 +1452,15 @@ errores_t procesar_formulario(const formulario_t* form) {
     // Único retorno con todos los errores acumulados
     return resultado;
 }
+
 ```
+<!-- {code-block} c -->
 
 (con-codigos-de-estado)=
 ### Con Códigos de Estado
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     bool exito;
     errores_t errores;
@@ -1319,7 +1483,9 @@ resultado_operacion_t realizar_operacion(const datos_t* entrada) {
     
     return resultado;
 }
+
 ```
+<!-- {code-block} c -->
 
 (binarios_bitwise-resumen)=
 ## Resumen
@@ -1343,5 +1509,7 @@ resultado_operacion_t realizar_operacion(const datos_t* entrada) {
 - Cuando necesitás más de 32-64 códigos diferentes
 - Si la información del error es muy compleja (usa estructuras)
 
-Los códigos de error con bitmasks son una herramienta poderosa para mejorar la usabilidad de APIs y aplicaciones, permitiendo comunicar de forma eficiente y completa todas las causas de un problema.
+Los códigos de error con bitmasks son una herramienta poderosa para mejorar la
+usabilidad de APIs y aplicaciones, permitiendo comunicar de forma eficiente y
+completa todas las causas de un problema.
 
