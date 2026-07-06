@@ -60,7 +60,7 @@ void desplazar_punto(punto_t *p, double dx, double dy);
 :::
 <!-- {code-block}c -->
 
-##### Problemas de Esta Aproximación
+#### Problemas de Esta Aproximación
 
 **1. Violación del encapsulamiento:**
 ``` c
@@ -109,9 +109,9 @@ error mediante comentarios estructurados (regla {ref}`0x0035h`).
 :::
 <!-- {tip} Directivas de Estilo para TADs (regla {ref}`0x0035h`) -->
 
-##### Estructura del Patrón
+#### Estructura del Patrón
 
-###### Archivo de Cabecera (`.h`) - Interfaz Pública
+**Archivo de Cabecera (`.h`) - Interfaz Pública**
 
 :::{code-block}c
 :linenos:
@@ -135,7 +135,7 @@ void punto_desplazar(punto_t *punto, double dx, double dy);
 :::
 <!-- {code-block}c -->
 
-###### Archivo de Implementación (`.c`) - Detalles Privados
+**Archivo de Implementación (`.c`) - Detalles Privados**
 
 :::{code-block}c
 :linenos:
@@ -188,7 +188,7 @@ void punto_desplazar(punto_t *punto, double dx, double dy) {
 :::
 <!-- {code-block}c -->
 
-###### Código Cliente
+**Código Cliente**
 
 :::{code-block}c
 :linenos:
@@ -234,7 +234,7 @@ para evitar el uso accidental de punteros colgantes (regla {ref}`0x0036h`).
 (analisis-tecnico-como-funciona)=
 #### Análisis Técnico: ¿Cómo Funciona?
 
-##### Tipo Incompleto (Incomplete Type)
+**Tipo Incompleto (Incomplete Type)**
 
 Cuando declarás:
 :::{code-block}c
@@ -248,7 +248,7 @@ Sin dar la definición completa, creás un **tipo incompleto** (*incomplete
 type*). El compilador sabe que existe una estructura llamada `punto`, pero no
 conoce su contenido ni tamaño.
 
-##### Restricciones del Tipo Incompleto
+**Restricciones del Tipo Incompleto**
 
 Con un tipo incompleto, el código cliente **solo puede**:
 
@@ -267,7 +267,7 @@ Con un tipo incompleto, el código cliente **solo puede**:
    if (p == NULL) { ... }  // ✅ Permitido
    ```
 
-##### Operaciones Prohibidas
+**Operaciones Prohibidas**
 
 El código cliente **NO puede**:
 
@@ -291,7 +291,7 @@ El código cliente **NO puede**:
    punto_t copia = *p;  // ❌ ERROR: incomplete type
    ```
 
-##### Compilación Separada y el Rol del Enlazador
+**Compilación Separada y el Rol del Enlazador**
 
 Para entender por qué es posible trabajar con tipos incompletos en C, debemos
 analizar el proceso de **compilación separada**:
@@ -366,7 +366,7 @@ hardware específica.
 (ventajas-de-los-punteros-opacos)=
 #### Ventajas de los Punteros Opacos
 
-##### 1. Encapsulamiento Fuerte
+**1. Encapsulamiento Fuerte**
 
 La implementación está **completamente oculta**. El código cliente no puede (ni
 accidentalmente) acceder o modificar los campos internos.
@@ -380,7 +380,7 @@ p->x = 100.0;  // ERROR en tiempo de compilación
 :::
 <!-- {code-block}c -->
 
-##### 2. Flexibilidad de Implementación
+**2. Flexibilidad de Implementación**
 
 Podés cambiar completamente la implementación interna sin afectar al código
 cliente:
@@ -402,7 +402,7 @@ proyección de `x` e `y` cuando el cliente llame a `punto_obtener_x` o
 `punto_obtener_y`. El código cliente que usa `punto.h` **no necesita
 modificarse** porque la interfaz pública sigue intacta.
 
-##### 3. Mantenimiento de Invariantes
+**3. Mantenimiento de Invariantes**
 
 Solo las funciones del módulo pueden modificar la estructura, garantizando que
 los invariantes se cumplan siempre. Por ejemplo, si tenés un tipo `usuario_t`
@@ -425,13 +425,13 @@ bool usuario_establecer_edad(usuario_t *u, int nueva_edad) {
 El código cliente no puede burlar esta validación modificando el campo
 directamente.
 
-##### 4. Compatibilidad Binaria (ABI)
+**4. Compatibilidad Binaria (ABI)**
 
 Si la interfaz pública no cambia, podés actualizar la biblioteca compilada
 (`.so` o `.dll`) sin recompilar las aplicaciones que la usan. Esto es crucial
 para bibliotecas del sistema.
 
-##### 5. Reducción de Dependencias
+**5. Reducción de Dependencias**
 
 Los archivos que incluyen `punto.h` no necesitan incluir las dependencias
 internas de `punto.c` (por ejemplo, `<math.h>` si se usaran funciones
@@ -442,7 +442,7 @@ trigonométricas), reduciendo tiempos de compilación y acoplamiento.
 (patrones-de-uso-comunes)=
 #### Patrones de Uso Comunes
 
-##### Patrón Constructor/Destructor
+**Patrón Constructor/Destructor**
 
 Toda estructura opaca alocada dinámicamente debe proveer funciones para crear y
 destruir instancias:
@@ -467,7 +467,7 @@ usr = NULL;
 :::
 <!-- {code-block}c -->
 
-###### Destrucción de Colecciones de Punteros Opacos
+**Destrucción de Colecciones de Punteros Opacos**
 
 Cuando gestionás una colección (como un array dinámico o una lista enlazada) de
 punteros opacos, no podés liberar la colección llamando simplemente a `free`
@@ -503,7 +503,7 @@ void liberar_grupo_usuarios(usuario_t **grupo, size_t cantidad) {
 :::
 <!-- {code-block}c -->
 
-##### Patrón Getter/Setter
+**Patrón Getter/Setter**
 
 Para acceder a propiedades sin exponer los campos de la estructura:
 
@@ -527,7 +527,7 @@ intención y permite al compilador optimizar el código.
 :::
 <!-- {tip} Uso de `const` -->
 
-##### Patrón de Verificación
+**Patrón de Verificación**
 
 Siempre verificá punteros nulos y condiciones de error de manera defensiva:
 
@@ -550,7 +550,7 @@ bool usuario_establecer_edad(usuario_t *u, int nueva_edad) {
 (comparacion-con-otras-tecnicas)=
 #### Comparación con Otras Técnicas
 
-##### vs. Estructuras Expuestas
+**vs. Estructuras Expuestas**
 
 :::{table} Comparación con Estructuras Expuestas
 :label: tbl-comparacion-expuestas
@@ -567,7 +567,7 @@ bool usuario_establecer_edad(usuario_t *u, int nueva_edad) {
 :::
 <!-- {table} Comparación con Estructuras Expuestas -->
 
-##### vs. Void Pointers
+**vs. Void Pointers**
 
 :::{code-block}c
 :linenos:
@@ -606,7 +606,7 @@ Este ejemplo implementa un módulo para gestionar un usuario, donde los campos
 internos (un string dinámico y un entero) se mantienen estrictamente
 encapsulados.
 
-##### Interfaz Pública (`usuario.h`)
+**Interfaz Pública (`usuario.h`)**
 
 :::{code-block}c
 :linenos:
@@ -635,7 +635,7 @@ void usuario_imprimir(const usuario_t *u);
 :::
 <!-- {code-block}c -->
 
-##### Implementación (`usuario.c`)
+**Implementación (`usuario.c`)**
 
 :::{code-block}c
 :linenos:
@@ -715,7 +715,7 @@ void usuario_imprimir(const usuario_t *u) {
 :::
 <!-- {code-block}c -->
 
-##### Uso del Cliente
+**Uso del Cliente**
 
 :::{code-block}c
 :linenos:
@@ -757,7 +757,7 @@ int main(void) {
 
 Muchas bibliotecas conocidas usan punteros opacos:
 
-##### POSIX: FILE
+**POSIX: FILE**
 
 :::{code-block}c
 :linenos:
@@ -773,7 +773,7 @@ int fclose(FILE *stream);
 No sabés cómo está implementado `FILE` internamente, pero podés usarlo a través
 de punteros.
 
-##### OpenSSL
+**OpenSSL**
 
 :::{code-block}c
 :linenos:
@@ -786,7 +786,7 @@ SSL *SSL_new(SSL_CTX *ctx);
 :::
 <!-- {code-block}c -->
 
-##### GTK+ (GUI)
+**GTK+ (GUI)**
 
 :::{code-block}c
 :linenos:
@@ -805,7 +805,7 @@ Todos estos ejemplos siguen el mismo patrón de puntero opaco.
 (5_opacos-buenas-practicas)=
 #### Buenas Prácticas
 
-##### 1. Convenciones de Nombres
+**1. Convenciones de Nombres**
 
 :::{code-block}c
 :linenos:
@@ -818,7 +818,7 @@ void destruir_usuario(usuario_t *u);
 :::
 <!-- {code-block}c -->
 
-##### 2. Documentación Clara
+**2. Documentación Clara**
 
 :::{code-block}c
 :linenos:
@@ -843,7 +843,7 @@ void destruir_usuario(usuario_t *u);
 :::
 <!-- {code-block}c -->
 
-##### 3. Manejo de Errores Consistente
+**3. Manejo de Errores Consistente**
 
 :::{code-block}c
 :linenos:
@@ -869,7 +869,7 @@ bool tipo_operar(tipo_t *t, int dato) {
 :::
 <!-- {code-block}c -->
 
-##### 4. Tolerancia a NULL
+**4. Tolerancia a NULL**
 
 :::{code-block}c
 :linenos:
@@ -884,7 +884,7 @@ void destruir_tipo(tipo_t *t) {
 :::
 <!-- {code-block}c -->
 
-##### 5. Uso de `const` para Intenciones
+**5. Uso de `const` para Intenciones**
 
 :::{code-block}c
 :linenos:
@@ -902,7 +902,7 @@ void punto_desplazar(punto_t *punto, double dx, double dy);
 (limitaciones-y-consideraciones)=
 #### Limitaciones y Consideraciones
 
-##### 1. Pérdida de Acceso Directo
+**1. Pérdida de Acceso Directo**
 
 No podés acceder directamente a los campos para debugging o inspección rápida en
 herramientas tradicionales:
@@ -926,7 +926,7 @@ void punto_debug_print(const punto_t *p);
 :::
 <!-- {code-block}c -->
 
-##### 2. No se Puede Alocar en el Stack
+**2. No se Puede Alocar en el Stack**
 
 :::{code-block}c
 :linenos:
@@ -942,7 +942,7 @@ punto_t *p = crear_punto(3.0, 4.0);
 **Implicación:** Siempre hay un costo asociado a la alocación dinámica de
 memoria mediante `malloc` y `free`.
 
-##### 3. Dificultad para Copiar
+**3. Dificultad para Copiar**
 
 No podés realizar una copia superficial por asignación directa:
 
@@ -961,7 +961,7 @@ punto_t *punto_clonar(const punto_t *original);
 :::
 <!-- {code-block}c -->
 
-##### 4. Compatibilidad con Análisis Estático
+**4. Compatibilidad con Análisis Estático**
 
 Algunas herramientas de análisis estático tienen dificultades para verificar el
 uso de memoria en tipos incompletos fuera de su archivo de implementación.
@@ -1030,17 +1030,6 @@ mutuos, formalizados mediante precondiciones y postcondiciones.
 La formalización mediante Lógica de Primer Orden (LPO) proporciona el rigor
 matemático necesario para especificar, verificar y razonar sobre la corrección
 de programas.
-
----
-
-(ejercicios-contratos-en-modulos-c)=
-#### Ejercicios: Contratos en Módulos C
-
-
-
-
-
-
 
 ---
 
