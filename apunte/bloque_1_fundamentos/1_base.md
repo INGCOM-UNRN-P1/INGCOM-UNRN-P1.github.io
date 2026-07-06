@@ -1058,22 +1058,28 @@ Escribir("Resultado: ", suma);
 
 :::{glossary}
 
-Algoritmo : Secuencia finita, ordenada y unívoca de pasos lógicos
+Algoritmo
+: Secuencia finita, ordenada y unívoca de pasos lógicos
 diseñados para resolver un problema.
 
-Variable : Espacio con nombre asignado en la memoria física RAM asociado a una
+Variable
+: Espacio con nombre asignado en la memoria física RAM asociado a una
 dirección de memoria, cuyo valor puede modificarse.
 
-Tipo de dato : Definición del conjunto de valores y operaciones válidos
+Tipo de dato
+: Definición del conjunto de valores y operaciones válidos
 asignados a una variable.
 
-Lazo : Estructura de control diseñada para repetir la ejecución de un bloque de
+Lazo
+: Estructura de control diseñada para repetir la ejecución de un bloque de
 instrucciones (`Para`, `Mientras`).
 
-Pseudocódigo : Notación estructurada en lenguaje natural que representa un
+Pseudocódigo
+: Notación estructurada en lenguaje natural que representa un
 algoritmo de forma cercana a un lenguaje de programación.
 
-Diagrama de flujo : Modelado gráfico y estandarizado del flujo lógico de un
+Diagrama de flujo
+: Modelado gráfico y estandarizado del flujo lógico de un
 algoritmo. 
 
 :::
