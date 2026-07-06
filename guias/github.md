@@ -191,7 +191,7 @@ git push origin main         # subir cambios
 ```
 <!-- {code-block} bash -->
 
-## 3. El flujo de trabajo con Pull Requests (PR)
+## 4. El flujo de trabajo con Pull Requests (PR)
 
 En la cátedra, cada entrega o corrección de trabajos prácticos se gestiona
 mediante un **Pull Request** (Petición de Integración). Un PR es una propuesta
@@ -235,7 +235,7 @@ Banner de aviso para iniciar un nuevo Pull Request.
 
 ---
 
-## 4. Revisión y respuesta a comentarios
+## 5. Revisión y respuesta a comentarios
 
 Una vez abierto el Pull Request, los docentes de la cátedra revisarán el código.
 Las correcciones se realizan directamente sobre las líneas de código afectadas
@@ -272,7 +272,7 @@ Request.
 
 ---
 
-## 5. Consultas con GitHub Discussions
+## 6. Consultas con GitHub Discussions
 
 Para canalizar las dudas teóricas y metodológicas de la cursada, la cátedra
 utiliza la pestaña **Discussions** del repositorio institucional en lugar del
@@ -290,7 +290,7 @@ correo electrónico.
 
 ---
 
-## 6. Reporte de fallas mediante GitHub Issues
+## 7. Reporte de fallas mediante GitHub Issues
 
 Los **Issues** se reservan exclusivamente para reportar fallas de
 infraestructura del entorno, errores ortográficos o conceptuales detectados en
@@ -314,7 +314,7 @@ Para reportar un error del apunte:
 ---
 
 (github-intro)=
-## 7. GitHub CLI (`gh`)
+## 8. GitHub CLI (`gh`)
 
 GitHub CLI (`gh`) es la herramienta oficial de línea de comandos que te permite interactuar directamente con GitHub desde tu terminal local. Esto acelera significativamente el flujo de trabajo al evitar tener que abrir el navegador web para realizar tareas administrativas comunes.
 
