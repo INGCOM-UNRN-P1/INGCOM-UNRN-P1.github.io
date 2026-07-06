@@ -277,7 +277,7 @@ int main(void) {
 
 Mostrá el stack después de cada línea con un diagrama ASCII."
 
-`````
+````
 
 ### Patrón 5: Análisis de Errores
 
@@ -294,7 +294,7 @@ punteros en C. Para cada uno:
 4. Cómo corregirlo
 5. Cómo prevenirlo en el futuro"
 
-````
+``````
 
 ## Uso de Archivos de Instrucciones: `GEMINI.md`
 
@@ -312,7 +312,7 @@ aprendizaje, convenciones de código y nivel de detalle esperado.
 
 ### Estructura de un Archivo de Instrucciones
 
-```{code-block} markdown
+```````{code-block} markdown
 :linenos:
 # Directivas para Asistente de IA
 
@@ -362,13 +362,13 @@ NO hacer:
 
 ## Formato de Respuestas de Código
 
-```` c
+```````` c
 // Descripción breve de qué hace la función
 tipo_retorno nombre_funcion(parametros) {
     // Comentario solo si agrega valor
     codigo;
 }
-````
+````````
 <!-- c -->
 
 ## Preferencias de Aprendizaje
@@ -378,7 +378,7 @@ tipo_retorno nombre_funcion(parametros) {
 - Señalá errores comunes relacionados
 - Conectá conceptos nuevos con conocidos
 
-```
+```````
 <!-- {code-block} markdown -->
 
 ### Cómo Usar el Archivo en Diferentes Herramientas
@@ -390,13 +390,13 @@ tipo_retorno nombre_funcion(parametros) {
    - Pegá el contenido de tu archivo de instrucciones
 
 2. **Por proyecto (cada conversación):**
-```
+```````
 
 "Para esta conversación, seguí estas directivas: [pegar contenido de GEMINI.md]
 
 Confirmá que entendiste las directivas antes de continuar."
 
-```
+```````
 
 #### Con Claude (Anthropic)
 
@@ -406,25 +406,25 @@ Confirmá que entendiste las directivas antes de continuar."
 - Todas las conversaciones en ese proyecto seguirán las directivas
 
 2. **Por conversación:**
-```
+```````
 
 "Leé y aplicá estas instrucciones de contexto: [contenido]
 
 Respondé 'Listo' cuando hayas procesado las directivas."
 
-```
+```````
 
 #### Con GitHub Copilot
 
 1. **Archivo `.github/copilot-instructions.md` en el repositorio:**
-``` markdown
+``````` markdown
 # Copilot Instructions
 
 Use K&R style bracing.
 Always check malloc() return values.
 Prefer explicit over implicit.
 Comment only when adding clarity.
-```
+```````
 <!-- markdown -->
 
 2. **Comentarios en archivos:**
@@ -450,15 +450,15 @@ Comment only when adding clarity.
 
 **Sin instrucciones previas:**
 
-```
+```````
 Usuario: "Dame código para una lista enlazada"
 
 IA: [Genera código genérico, tal vez en C++, con estilo inconsistente]
-```
+```````
 
 **Con archivo de instrucciones cargado:**
 
-```
+```````
 Usuario: "Dame código para una lista enlazada"
 
 IA: "Voy a implementar una lista enlazada simple en C siguiendo
@@ -474,7 +474,7 @@ Errores comunes a evitar:
 3. No liberar todos los nodos en destruir_lista()
 
 Ejercicio: Implementá una función que invierte la lista..."
-```
+```````
 
 ## Ejemplos de Casos de Uso Reales
 
@@ -482,7 +482,7 @@ Ejercicio: Implementá una función que invierte la lista..."
 
 **Prompt inicial:**
 
-```
+```````
 "Estoy trabado con punteros a punteros. Tengo este código que
 modifica una lista y necesito entender por qué el tercer parámetro
 es int** en lugar de int*:
@@ -492,7 +492,7 @@ void insertar(lista_t *lista, int dato, int **referencia) {
 }
 
 Explicame paso por paso por qué necesito el doble puntero aquí."
-```
+```````
 
 **La IA te guiará:**
 
@@ -506,7 +506,7 @@ Explicame paso por paso por qué necesito el doble puntero aquí."
 
 **Prompt efectivo:**
 
-```
+```````
 "Tengo un segfault al ejecutar este código:
 
 [código completo]
@@ -522,7 +522,7 @@ La línea que falla es:
 Mi hipótesis: 'actual->siguiente' es NULL cuando no debería serlo.
 
 ¿Qué debo verificar en mi lógica de recorrido?"
-```
+```````
 
 **Respuesta esperada de la IA:**
 
@@ -536,7 +536,7 @@ Mi hipótesis: 'actual->siguiente' es NULL cuando no debería serlo.
 
 **Prompt de diseño:**
 
-```
+```````
 "Estoy diseñando un TAD para una pila. Tengo dos opciones:
 
 Opción A: Estructura opaca
@@ -558,16 +558,16 @@ de vista de:
 5. Mantenibilidad
 
 Dame tu recomendación justificada para un proyecto académico."
-```
+```````
 
 ### Caso 4: Optimización Guiada
 
 **Prompt de optimización:**
 
-````
+``````
 "Tengo esta función que busca en una lista:
 
-`````{code-block} c
+``````{code-block} c
 :linenos:
 bool contiene(lista_t *lista, int valor) {
     nodo_t *actual = lista->inicio;
@@ -579,7 +579,7 @@ bool contiene(lista_t *lista, int valor) {
     return false;
 }
 
-`````
+``````
 <!-- {code-block} c -->
 
 Funciona correctamente, pero en mi programa se llama miles de veces y es un
@@ -762,7 +762,8 @@ ejemplo que muestre específicamente ese caso."
 
 ### Error 5: Dependencia Excesiva
 
-**Síntoma:** Consultás la IA para cada pequeño problema sin intentar por tu cuenta.
+**Síntoma:** Consultás la IA para cada pequeño problema sin intentar por tu
+cuenta.
 
 **Solución:** Regla de los 15 minutos:
 1. Intentá resolver por tu cuenta durante al menos 15 minutos
@@ -791,7 +792,7 @@ solución │ │ - Sin mirar la ayuda de la IA │ │ - Basado en tu comprensi
 │ │ - Prueba tu código │ │ - Compara con la sugerencia de IA │ │ - Pide feedback
 sobre tu solución │ └─────────────────────────────────────────────────────┘
 
-````
+``````
 
 ### Momentos Ideales para Usar IA
 
@@ -836,7 +837,7 @@ sobre tu solución │ └──────────────────
 
 ### Workflow de Debugging con IA
 
-```{code-block} bash
+```````{code-block} bash
 :linenos:
 # 1. Reproducir el error
 ./programa
@@ -851,12 +852,12 @@ valgrind ./programa
 
 # 4. Consultar a IA con contexto completo
 
-```
+```````
 <!-- {code-block} bash -->
 
 Prompt para IA:
 
-```
+```````
 "Mi programa tiene un segfault. Contexto:
 
 Código: [código relevante]
@@ -871,13 +872,13 @@ Mi análisis: El error parece estar en [línea X] porque [razón].
 
 ¿Qué estoy pasando por alto? Dame preguntas para diagnosticar,
 no la solución directa."
-```
+```````
 
 ## Creación de tu Propio `GEMINI.md`
 
 ### Plantilla Base
 
-````{code-block} markdown
+```````{code-block} markdown
 :linenos:
 # Instrucciones de IA para [Tu Nombre/Proyecto]
 
@@ -949,7 +950,7 @@ no la solución directa."
 
 ### Para código:
 
-`````{code-block} c
+````````{code-block} c
 :linenos:
 // Siempre con esta estructura
 tipo_retorno nombre_funcion(parametros) {
@@ -960,10 +961,10 @@ tipo_retorno nombre_funcion(parametros) {
     // Limpieza y retorno
 }
 
-`````
+````````
 <!-- {code-block} c -->
 
-````
+```````
 <!-- {code-block} markdown -->
 
 ### Para debugging:
@@ -1032,12 +1033,12 @@ Ejemplo:
 - Tengo dificultad con recursión, necesito diagramas
 - Me gusta ver el código compilándose paso por paso
 
-````
+``````
 
 ### Cómo Mantenerlo Actualizado
 
 **Revisión semanal:**
-`````{code-block} markdown
+``````{code-block} markdown
 :linenos:
 ## Actualización [Fecha]
 
@@ -1053,7 +1054,7 @@ Ejemplo:
 - Aritmética de punteros
 - Casting de punteros void*
 
-`````
+``````
 <!-- {code-block} markdown -->
 
 ## Casos de Estudio

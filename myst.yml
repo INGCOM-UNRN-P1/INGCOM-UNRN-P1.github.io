@@ -173,7 +173,6 @@ project:
         - file: guias/markdown.md
         - file: guias/vscode.md
         - file: guias/herramientas.md
-        - file: guias/critica_ia.md
         - file: guias/ia_aprendizaje.md
     - title: Bibliografia
       children:
@@ -181,4 +180,3 @@ project:
 
 bibliography:
   - bibliografia.bib
-

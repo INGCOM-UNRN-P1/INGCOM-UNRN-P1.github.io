@@ -752,8 +752,7 @@ echo "- git reset --hard <SHA>: restaurar estado completo"
 
 - [Git Pro Book](https://git-scm.com/book) - Capítulos avanzados (7-10)
 - [Git Reference](https://git-scm.com/docs) - Documentación completa de comandos
-- [Git
-  Internals](https://git-scm.com/book/en/v2/Git-Internals-Plumbing-and-Porcelain)
+- [Git Internals](https://git-scm.com/book/en/v2/Git-Internals-Plumbing-and-Porcelain)
   -
   Cómo funciona Git internamente
 

@@ -24,7 +24,6 @@ Estos ejercicios tienen como finalidad practicar la descomposición modular de p
 
 ### Ejercicio 6.1 - Doble de un número
 
-(funcion_doble)=
 :::{exercise}
 :label: funcion_doble
 Escribí una función que reciba un número entero y devuelva su doble. Probala desde `main()` con distintos valores.
@@ -84,7 +83,6 @@ int main(void) {
 
 ### Ejercicio 6.3 - Paridad de un número
 
-(funcion_par_impar)=
 :::{exercise}
 :label: funcion_par_impar
 Definí una función que indique si un número es par o impar. Mostrá el resultado llamando a la función desde `main()`.

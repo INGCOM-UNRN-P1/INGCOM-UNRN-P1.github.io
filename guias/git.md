@@ -202,11 +202,14 @@ git commit -m "Primer commit: agregar README"
 {ref}`archivo-gitignore` para evitar agregar archivos innecesarios a tu
 repositorio. 
 
-Podemos consultar el repositorio [github/gitignore](https://github.com/github/gitignore)
-para ver ejemplos por tipo de proyecto para no tener que analizar de cero que tenemos
+Podemos consultar el repositorio
+[github/gitignore](https://github.com/github/gitignore)
+para ver ejemplos por tipo de proyecto para no tener que analizar de cero que
+tenemos
 que dejar afuera del repositorio.
 
 :::
+<!-- {tip} Próximo paso Después de tu primer commit, considerá crear un -->
 
 :::{tip} Mensajes de commit
 
@@ -1064,7 +1067,7 @@ git log --oneline
 7. Hacé commit de ambos cambios juntos 
 
 :::
-<!-- {exercise} ejercicio-manejo-cambios -->
+<!-- {exercise} Manejo de cambios -->
 
 :::{solution} ejercicio-manejo-cambios
 
@@ -1808,7 +1811,7 @@ gh api repos/:owner/:repo --method PATCH --field "has_pages=true"
 6. Subí el proyecto y verificá que se vea correctamente en GitHub web 
 
 :::
-<!-- {exercise} ejercicio-github-setup -->
+<!-- {exercise} Setup completo de GitHub -->
 
 :::{solution} ejercicio-github-setup
 
@@ -1876,7 +1879,7 @@ gh repo view --web
 4. Verificá que el issue se cerró correctamente
 
 :::
-<!-- {exercise} ejercicio-github-workflow -->
+<!-- {exercise} Workflow completo con issues y CLI -->
 
 :::{solution} ejercicio-github-workflow
 
@@ -2020,7 +2023,7 @@ habilidades, proyectos e intereses, y que puedas usar como referencia en
 aplicaciones laborales. 
 
 :::
-<!-- {exercise} ejercicio-repositorio-perfil -->
+<!-- {exercise} Crear tu repositorio de perfil -->
 
 :::{solution} ejercicio-repositorio-perfil
 :class: dropdown
