@@ -1,11 +1,25 @@
 ---
 title: 'Ejercicios Resueltos: Archivos de Texto'
-short_title: '10b - Ejercicios Archivos'
+short_title: '3b. Ejercicios Archivos'
 subtitle: 'Problemas y soluciones detalladas sobre streams y persistencia en C'
 ---
 
-(archivos-ejercicios-unidad)=
+# Ejercicios Resueltos: Archivos de Texto
+
+## Acerca de
+
+Estos ejercicios resueltos profundizan en la manipulación y persistencia de datos usando streams de entrada/salida estándar y archivos de texto formateados en C.
+
+### Capítulos de Apunte Correspondientes
+- {ref}`capitulo-archivos-texto`
+
+### Cuestiones de Estilo Aplicables
+- **Manejo defensivo de archivos:** Asegurá siempre la validación del puntero retornado por `fopen` y liberá el descriptor de archivo llamando a `fclose` en todas las ramas de control de errores.
+- **Validación de buffer:** Evitá desbordamientos de buffer pasando siempre la capacidad límite al leer flujos con `fgets`.
+
 ## Ejercicios Propuestos
+
+### Ejercicio 3b.1 - Escribir un diario personal
 
 ```{exercise}
 :label: ejercicio_archivos_1
@@ -104,6 +118,8 @@ int main(void)
 
 ```
 ````
+
+### Ejercicio 3b.2 - Contador de líneas
 
 ```{exercise}
 :label: ejercicio_archivos_2
@@ -205,6 +221,8 @@ int main(void)
 }
 ```
 ````
+
+### Ejercicio 3b.3 - Copiar un archivo de texto
 
 ```{exercise}
 :label: ejercicio_archivos_3
@@ -335,6 +353,8 @@ int main(void)
 ```
 ````
 
+### Ejercicio 3b.4 - Registrar eventos en un log
+
 ```{exercise}
 :label: ejercicio_archivos_4
 :enumerator: 4
@@ -424,6 +444,8 @@ int main(void)
 }
 ```
 ````
+
+### Ejercicio 3b.5 - Procesar un archivo CSV de ventas
 
 ```{exercise}
 :label: ejercicio_archivos_5
@@ -550,6 +572,8 @@ int main(void)
 }
 ```
 ````
+
+### Ejercicio 3b.6 - Inversión de archivo
 
 ```{exercise}
 :label: ejercicio_archivos_6

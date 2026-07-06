@@ -14,7 +14,7 @@ Estos ejercicios están centrados en algoritmos de teoría de números y operaci
 - {ref}`capitulo-conversiones-casts`
 
 ### Cuestiones de Estilo Aplicables
-- **Desbordamientos numéricos:** Es fundamental elegir los tipos de datos apropiados (`long long`, `unsigned long long`) al realizar operaciones como factoriales para evitar desbordamientos aritméticos (ver [Capítulo de Representación de Números](capitulo-aritmetica-numeros)).
+- **Desbordamientos numéricos:** Es fundamental elegir los tipos de datos apropiados (`long long`, `unsigned long long`) al realizar operaciones como factoriales para evitar desbordamientos aritméticos (ver {ref}`capitulo-aritmetica-numeros`).
 - **Uso de tipos reales:** Al dividir enteros para obtener coeficientes reales, recordá realizar el cast explícito o usar constantes reales (como `2.0`) para prevenir la truncación no deseada por división entera.
 
 ---

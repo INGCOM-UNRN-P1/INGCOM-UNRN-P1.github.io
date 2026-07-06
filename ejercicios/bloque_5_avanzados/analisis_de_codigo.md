@@ -1,26 +1,25 @@
 ---
 title: "Ejercicios: Análisis de Código"
-short_title: "17. Análisis de Código"
+short_title: "5. Análisis de Código"
 ---
+
+# Ejercicios de Análisis de Código
 
 ## Acerca de
 
-A diferencia de otros ejercicios, el objetivo aquí no es escribir código, sino
-**analizarlo**. La capacidad de leer, entender y razonar sobre un código
-existente es una habilidad tan importante como la de escribirlo. Estos
-ejercicios están diseñados para aplicar los conceptos teóricos de los apuntes
-sobre [](../extras/notes-roles.md) y [](../extras/notes-estado.md).
+Estos ejercicios de auto-evaluación tienen como finalidad consolidar la capacidad de razonamiento abstracto y lectura crítica de programas en C, identificando los roles de las variables y el estado del espacio de direccionamiento de memoria.
 
-:::{note} Habilidades a desarrollar
-- **Comprensión de código**: Leer y entender código escrito por otros
-- **Identificación de patrones**: Reconocer roles y propósitos de variables
-- **Análisis de flujo de control**: Seguir la ejecución paso a paso
-- **Debugging mental**: Identificar posibles problemas sin ejecutar el código
-:::
+### Capítulos de Apunte Correspondientes
+- {ref}`capitulo-control-flujo`
 
-## 1: Identificación de Roles de Variables
+### Cuestiones de Estilo Aplicables
+- **Razonamiento sobre invariantes:** Analizá el estado de las variables y punteros en puntos clave del código para deducir condiciones lógicas invariantes.
 
-### 1.1: Análisis de una Función
+---
+
+## Identificación de Roles de Variables
+
+### Ejercicio 5.17 - Análisis de promedio
 
 :::{exercise} rol_promedio
 :label: rol_promedio
@@ -80,7 +79,7 @@ double promedio_positivos(const int arreglo[], size_t n, bool *exito) {
     
 :::
 
-### 1.2: Análisis de Función de Búsqueda
+### Ejercicio 5.18 - Análisis de Función de Búsqueda
 
 :::{exercise} rol_busqueda
 :label: rol_busqueda
@@ -127,7 +126,7 @@ int encontrar_maximo(const int arr[], size_t tam, bool *encontrado) {
 
 :::
 
-### 1.3: Análisis de Función con Múltiples Roles
+### Ejercicio 5.19 - Análisis de Función con Múltiples Roles
 
 :::{exercise} roles_multiples
 :label: roles_multiples
@@ -199,7 +198,7 @@ reporte_ventas_t procesar_ventas(const double ventas[], int dias) {
 
 ## 2: Descripción del Estado de un Programa
 
-### 2.1: Fotografía de la Memoria
+### Ejercicio 5.20 - Fotografía de la Memoria
 
 :::{exercise} estado_1
 :label: estado_1
@@ -285,7 +284,7 @@ variables en cada marco de la pila y el estado del montículo.
 
 :::
 
-### 2.2: Análisis de Memoria con Estructuras
+### Ejercicio 5.21 - Análisis de Memoria con Estructuras
 
 :::{exercise} estado_struct
 :label: estado_struct
@@ -358,7 +357,7 @@ int main() {
 
 :::
 
-### 2.3: Trazado de Ejecución con Arrays Dinámicos
+### Ejercicio 5.22 - Trazado de Ejecución con Arrays Dinámicos
 
 :::{exercise} traza_ejecucion
 :label: traza_ejecucion
@@ -441,7 +440,7 @@ int main() {
 
 ## 3: Análisis de Bugs y Problemas
 
-### 3.1: Identificación de Errores de Lógica
+### Ejercicio 5.23 - Identificación de Errores de Lógica
 
 :::{exercise} debugging_1
 :label: debugging_1
@@ -526,7 +525,7 @@ int segundo_maximo_corregido(int arr[], int tam) {
 
 :::
 
-### 3.2: Análisis de Memory Leaks
+### Ejercicio 5.24 - Análisis de Memory Leaks
 
 :::{exercise} fugas_1
 :label: fugas_1
@@ -639,7 +638,7 @@ int main() {
 
 ## 4: Análisis de Eficiencia y Optimización
 
-### 4.1: Análisis de Complejidad Temporal
+### Ejercicio 5.25 - Análisis de Complejidad Temporal
 
 :::{exercise} eficiencia_1
 :label: eficiencia_1
@@ -715,7 +714,7 @@ bool buscar_par_suma_optimizado(int arr[], int tam, int objetivo) {
 
 :::
 
-### 4.2: Análisis de Uso de Memoria
+### Ejercicio 5.26 - Análisis de Uso de Memoria
 
 :::{exercise} eficiencia_2
 :label: eficiencia_2
@@ -822,7 +821,7 @@ long factorial_memoizado(int n) {
 
 ## 5: Ejercicios de Síntesis
 
-### 5.1: Análisis Integral de Sistema
+### Ejercicio 5.27 - Análisis Integral de Sistema
 
 :::{exercise} analisis_1
 :label: analisis_1
@@ -993,7 +992,7 @@ Este ejercicio integra todos los conceptos de análisis de código, roles de var
 
 ## 11: Análisis Avanzado de Punteros
 
-### 11.1: Punteros y Aliasing
+### Ejercicio 5.28 - Punteros y Aliasing
 
 :::{exercise} analisis_aliasing
 :label: analisis_aliasing
@@ -1110,7 +1109,7 @@ void procesar_datos(int *p1, int *p2, int valor);
 
 :::
 
-### 11.2: Punteros Colgantes (Dangling Pointers)
+### Ejercicio 5.29 - Punteros Colgantes (Dangling Pointers)
 
 :::{exercise} analisis_dangling
 :label: analisis_dangling
@@ -1319,7 +1318,7 @@ if (arr3 != NULL) {  // Esto ahora es false
 
 :::
 
-### 11.3: Aritmética de Punteros y Límites de Arreglos
+### Ejercicio 5.30 - Aritmética de Punteros y Límites de Arreglos
 
 :::{exercise} analisis_aritmetica
 :label: analisis_aritmetica
@@ -1594,7 +1593,7 @@ void funcion_a(int *arr, size_t n) {
 
 :::
 
-### 11.4: Punteros a Funciones y Callbacks
+### Ejercicio 5.31 - Punteros a Funciones y Callbacks
 
 :::{exercise} analisis_callbacks
 :label: analisis_callbacks
@@ -1910,7 +1909,7 @@ positivos = len(list(filter(lambda x: x > 0, numeros)))
 
 :::
 
-### 11.5: Análisis Integral - Sistema de Gestión con Punteros
+### Ejercicio 5.32 - Análisis Integral - Sistema de Gestión con Punteros
 
 :::{exercise} analisis_integral_punteros
 :label: analisis_integral_punteros

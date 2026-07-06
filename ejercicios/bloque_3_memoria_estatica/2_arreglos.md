@@ -14,8 +14,6 @@ Para profundizar en los conceptos teóricos, podés consultar el siguiente capí
 
 ## Operaciones Básicas
 
-## Operaciones Básicas
-
 ### Ejercicio 2.1 - Carga y muestra
 
 #### Descripción

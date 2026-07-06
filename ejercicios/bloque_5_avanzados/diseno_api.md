@@ -3,13 +3,24 @@ title: Ejercicios de Diseño de Interfaces y Librerías en C
 short_title: Diseño de APIs
 ---
 
+# Ejercicios de Diseño de Interfaces y Librerías en C
+
 ## Acerca de
 
-Estos ejercicios profundizan en los principios de diseño de interfaces (APIs) en C, cubriendo claridad, encapsulamiento, manejo de errores, tipos opacos, contratos de interfaz, versionado y evolución de APIs. El objetivo es desarrollar la capacidad de crear módulos robustos, mantenibles y fáciles de usar, aplicando los principios profesionales del diseño de software.
+Estos ejercicios abordan los criterios profesionales para el diseño y construcción de interfaces de programación de aplicaciones (APIs) modulares, seguras y extensibles en el lenguaje C.
 
-## 1: Principios de Nomenclatura y Claridad
+### Capítulos de Apunte Correspondientes
+- [Capítulo de TAD](#capitulo-tad)
 
-### 1.1: Crítica de Nombres
+### Cuestiones de Estilo Aplicables
+- **Encapsulamiento opaco:** Exponé únicamente los tipos incompletos (`typedef struct stack stack_t;`) y los prototipos de funciones en los archivos de interfaz `.h` (ver {ref}`0x3002h`).
+- **Nomenclatura consistente:** Seguí siempre la convención de prefijos para evitar colisiones de símbolos globales en el espacio de nombres (ver reglas en {ref}`0x0001h`).
+
+---
+
+## Principios de Nomenclatura y Claridad
+
+### Ejercicio 5.33 - Crítica de Nombres
 
 Analizar estos nombres de funciones y proponer mejoras siguiendo las reglas de estilo:
 
@@ -28,10 +39,10 @@ void fix(img *i);
 3. Agregar documentación de contrato para cada función
 
 :::{tip} Nombres Descriptivos
-Como se menciona en {ref}`api-claridad`, los nombres deben comunicar claramente la acción que realizan. Usar verbos específicos en lugar de genéricos como "process" o "update".
+Como se menciona en [claridad y expresividad](#1-claridad-y-expresividad), los nombres deben comunicar claramente la acción que realizan. Usar verbos específicos en lugar de genéricos como "process" o "update".
 :::
 
-### 1.2: Diseño de Prefijos
+### Ejercicio 5.34 - Diseño de Prefijos
 
 Diseñar esquemas de prefijos para estas librerías:
 
@@ -53,7 +64,7 @@ json_value_t* json_parser_parse_string(json_parser_t* parser, const char* str);
 bool json_value_es_objeto(const json_value_t* value);
 ```
 
-### 1.3: Consistencia en Familias de Funciones
+### Ejercicio 5.35 - Consistencia en Familias de Funciones
 
 Completar estas familias de funciones con nombres consistentes:
 
@@ -68,7 +79,7 @@ bool config_???_a_archivo(const config_t* cfg, const char* ruta);  // Guardar
 void config_destruir(config_t** ptr_config);
 ```
 
-### 1.4: Nombres que Reflejan Comportamiento
+### Ejercicio 5.36 - Nombres que Reflejan Comportamiento
 
 Renombrar estas funciones para reflejar mejor su comportamiento real:
 
@@ -86,9 +97,11 @@ double obtener_promedio(const int* calificaciones, size_t n);
 void agregar_elemento(lista_t* lista, int elemento);
 ```
 
-## 2: Tipos Opacos y Encapsulamiento
+---
 
-### 2.1: Implementación de Tipo Opaco Básico
+## Tipos Opacos y Encapsulamiento
+
+### Ejercicio 5.37 - Implementación de Tipo Opaco Básico
 
 Implementar un stack usando tipo opaco completo:
 
@@ -1790,6 +1803,6 @@ Diseñar API para definir y ejecutar máquinas de estados finitas:
 ---
 
 :::{tip} Aplicación Práctica
-Estos ejercicios están diseñados para ser progresivos. Comenzá con los fundamentos (nomenclatura, tipos opacos) y avanzá hacia diseños más complejos. Cada ejercicio refuerza los principios de {ref}`api-claridad`, {ref}`api-sorpresa` y las reglas de estilo del curso.
+Estos ejercicios están diseñados para ser progresivos. Comenzá con los fundamentos (nomenclatura, tipos opacos) y avanzá hacia diseños más complejos. Cada ejercicio refuerza los principios de [claridad](#1-claridad-y-expresividad), [principio de mínima sorpresa](#2-principio-de-minima-sorpresa) y las reglas de estilo del curso.
 :::
 

@@ -4,43 +4,36 @@ short_title: Cuadernillo 1
 subtitle: Los primeros ejercicios
 ---
 
+# Cuadernillo de Ejercicios Iniciales
+
 ## Acerca de
 
-El (__primer__) gran repositorio de enunciados de programación, 
-y aunque esté pensado para la cátedra Programación 1 en la que 
-utilizamos C, pero son aplicables a (casi) cualquier lenguaje.
+Este es el primer repositorio de enunciados de programación de la cátedra. Está pensado para asentar los conceptos prácticos iniciales explicados en los apuntes de [](../../apunte/bloque_1_fundamentos/1_base.md) y [](../../apunte/bloque_1_fundamentos/2_gradual.md). Aunque implementamos las resoluciones en el lenguaje C, la lógica algorítmica subyacente es aplicable a cualquier lenguaje estructurado.
+
+Al resolver estos ejercicios, debés prestar especial atención a las reglas de estilo de codificación de la cátedra (ver {ref}`0x0000h` y {ref}`0x0001h`).
 
 ### Consideraciones generales
 
 A seguir siempre y cuando no esté indicada otra cosa:
 
-1.  Resuelvan todos los ejercicios de manera iterativa, a no ser que
-    esté indicado puntualmente.
-2. Los números son números enteros, estos incluyen al cero y los
-    negativos.
-3. El nombre del archivo debe ser, el número del ejercicio
-    reemplazando el punto por un guion y su apellido, por ejemplo\
-    *1-1_vilugron.c*
-4. Apliquen y completen la plantilla de resolución de ejercicios que
-    está a continuación, en la misma, copien el título y consigna del
-    ejercicio primero. Y luego completen con sus datos.
-5.  Lo que 'resuelve' el enunciado, debe de estar en una función.
-    Incluso si no hay una indicada explicitamente.
-6. El código debe seguir la [guía de estilo](../apunte/0_estilo.md).
-7. Los ejercicios marcados como \[*plus ultra*\] son variaciones
-    del ejercicio, con otras formas para ir «más allá» de la consigna
-    original.
+1.  Resuelvan todos los ejercicios de manera iterativa, a no ser que esté indicado puntualmente.
+2. Los números son números enteros, estos incluyen al cero y los negativos.
+3. El nombre del archivo debe ser el número del ejercicio reemplazando el punto por un guion y su apellido, por ejemplo: `1-1_apellido.c`.
+4. Apliquen y completen la plantilla de resolución de ejercicios que está a continuación, en la misma, copien el título y consigna del ejercicio primero. Y luego completen con sus datos.
+5. Lo que 'resuelve' el enunciado debe estar en una función, incluso si no hay una indicada explícitamente.
+6. El código debe seguir la [guía de estilo](../../apunte/0_estilo.md).
+7. Los ejercicios marcados como \[*plus ultra*\] son variaciones del ejercicio, con otras formas para ir «más allá» de la consigna original.
 
 ```{note}
 "Más allá" Frase en latín utilizada por Carlos I, durante la
     época de Colón.
     
-[Wikipedia - Plus_ultra_(lema)](https://es.wikipedia.org/wiki/Plus_ultra_(lema))
+[Wikipedia - Plus_ultra_(lema)](https://en.wikipedia.org/wiki/Plus_ultra_(lema))
 ```
 
 ### Plantilla de archivo
 
-En un archivo llamado
+En un archivo llamado `1-1_apellido.c`:
 
 ```{code} textc
 :label: c_template
@@ -58,10 +51,9 @@ Usuario Github
 */
 ```
 
-A pesar de que varios de los ejercicios son combinables, es mejor
-hacerlo cuando veamos funciones, cosa de simplificar las cosas.
+A pesar de que varios de los ejercicios son combinables, es mejor hacerlo cuando veamos funciones, para simplificar el flujo lógico.
 
-## 1.1 - ¡Hola mundo!
+## Ejercicio 0.1 - ¡Hola mundo!
 
 Porque hay que empezar por algún lado, escribir un programa que imprima
 \"Hola, mundo!\" en la pantalla.
@@ -115,7 +107,7 @@ Salida
                                                                               
 ```
 
-## 1.2 - Geometría
+## Ejercicio 0.2 - Geometría
 
 ### 1.2.1 - Área de triángulos
 
@@ -201,7 +193,7 @@ Donde:
 -   $w$ es el ancho.
 
 
-## 1.3 - Conversiones
+## Ejercicio 0.3 - Conversiones
 
 ```{note} {ref}`Regla 0x0001h <0x0001h>`
 
@@ -298,7 +290,7 @@ Una vuelta son 360 grados.
 
 ```
 
-## 1.4 - Matemáticos
+## Ejercicio 0.4 - Matemáticos
 
 ### 1.4.1 - Suma lenta
 
@@ -697,7 +689,7 @@ Pedir un número entero positivo y mostrarlo con sus dígitos en orden inverso, 
 54321
 ```
 
-## 1.5 - Secuencias
+## Ejercicio 0.5 - Secuencias
 
 Los ejercicios de secuencias no requieren que guardemos los valores
 intermedios, ejercicios que si lo requieren están en la categoría
@@ -940,7 +932,7 @@ Siendo el octavo termino $13$, la suma de sus dígitos es $4$; $1+3$
 4
 ```
 
-## 1.6 - Condicionales
+## Ejercicio 0.6 - Condicionales
 
 ### 1.6.1 - Par o Impar
 Dado un número entero, determinar si es par o impar.
@@ -970,7 +962,7 @@ S(n-1) + n & \text{si } n > 1
 \end{cases}
 $$
 
-## 1.7 - Primos
+## Ejercicio 0.7 - Primos
 
 Un número natural $p > 1$ se considera **primo** si sus únicos divisores positivos son $1$ y él mismo. Cualquier número entero mayor que $1$ que no es primo se denomina **número compuesto**.
 
@@ -982,7 +974,7 @@ Determinar si un número es primo o compuesto.
 
 Escribir un programa que genere y muestre los primeros $n$ números primos, donde $n$ es un valor proporcionado por el usuario.
 
-## 1.8 - Fechas
+## Ejercicio 0.8 - Fechas
 
 ### 1.8.1 - Es bisiesto?
 

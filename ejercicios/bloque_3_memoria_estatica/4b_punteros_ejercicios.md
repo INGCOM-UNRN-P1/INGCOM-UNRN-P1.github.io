@@ -1,11 +1,33 @@
+---
+title: Ejercicios de Punteros II
+short_title: 4b. Punteros II
+---
+
+# Ejercicios de Punteros II
+
+## Acerca de
+
+Estos ejercicios prácticos y aplicados complementan la teoría de punteros y aritmética básica de indirección de memoria en C.
+
+### Capítulos de Apunte Correspondientes
+- {ref}`capitulo-punteros`
+
+### Cuestiones de Estilo Aplicables
+- **Uso de aserciones:** Es mandatorio validar mediante `assert` de la cabecera `<assert.h>` que los punteros recibidos por parámetros en las funciones no sean `NULL` (ver {ref}`0x2009h`).
+- **Aritmética de punteros:** Recorré los arreglos operando de manera directa sobre los punteros de control y evitando índices lógicos temporales, incrementando o decrementando las direcciones físicas de memoria de forma explícita.
+
+---
+
 ## Ejercicios
 
-```{exercise}
+### Ejercicio 4b.1 - Intercambiar valores
+
+:::{exercise}
 :label: intercambiar_valores
 :enumerator: punteros-1
 
 Implementá un procedimiento `void intercambiar(int *a, int *b)` que reciba dos punteros a enteros. La función debe intercambiar los valores de las variables originales a las que apuntan estos punteros.
-```
+:::
 
 ````{solution} intercambiar_valores
 :class: dropdown
@@ -26,12 +48,14 @@ void intercambiar(int *a, int *b) {
 ```
 ````
 
-```{exercise}
+### Ejercicio 4b.2 - Encontrar máximo
+
+:::{exercise}
 :label: encontrar_maximo
 :enumerator: funciones-1
 
 Escribí una función `int encontrar_maximo(const int *arreglo, size_t n)` que reciba un puntero al inicio de un arreglo de enteros (marcado como `const` para no modificarlo) y su tamaño. La función debe recorrer el arreglo usando el puntero y devolver el valor del elemento más grande.
-```
+:::
 
 ````{solution} encontrar_maximo
 :class: dropdown
@@ -62,12 +86,14 @@ int encontrar_maximo(const int *arreglo, size_t n) {
 ```
 ````
 
-```{exercise}
+### Ejercicio 4b.3 - Copiar cadena
+
+:::{exercise}
 :label: copiar_cadena
 :enumerator: funciones-2
 
 Implementá un procedimiento `void copiar_cadena(char *destino, const char *origen)`. La función debe copiar la cadena de caracteres de `origen` a `destino`, incluyendo el carácter nulo final (`\0`). Debés resolverlo recorriendo las cadenas exclusivamente con punteros.
-```
+:::
 
 ````{solution} copiar_cadena
 :class: dropdown
@@ -92,12 +118,14 @@ void copiar_cadena(char *destino, const char *origen) {
 ```
 ````
 
-```{exercise}
+### Ejercicio 4b.4 - Sumar arreglo con punteros
+
+:::{exercise}
 :label: sumar_arreglo_punteros
 :enumerator: funciones-3
 
 Creá una función `int sumar_arreglo(const int *inicio, const int *fin)` que reciba un puntero al primer elemento de un arreglo y un puntero a la dirección de memoria inmediatamente posterior al último elemento. La función debe sumar los elementos del arreglo iterando con un puntero desde `inicio` hasta que alcance a `fin`.
-```
+:::
 
 ````{solution} sumar_arreglo_punteros
 :class: dropdown
@@ -121,12 +149,14 @@ int sumar_arreglo(const int *inicio, const int *fin) {
 ```
 ````
 
-```{exercise}
+### Ejercicio 4b.5 - Invertir arreglo in-place
+
+:::{exercise}
 :label: invertir_arreglo_inplace
 :enumerator: punteros-2
 
 Implementá un procedimiento `void invertir_arreglo(int *arreglo, size_t n)` que invierta el orden de los elementos de un arreglo "in-place" (sin usar un arreglo auxiliar). Utilizá dos punteros: uno que apunte al inicio del arreglo y otro que apunte al final. Intercambiá los valores a los que apuntan y mové los punteros hacia el centro hasta que se crucen.
-```
+:::
 
 ````{solution} invertir_arreglo_inplace
 :class: dropdown
