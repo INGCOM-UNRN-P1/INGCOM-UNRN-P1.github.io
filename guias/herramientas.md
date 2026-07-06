@@ -5,32 +5,44 @@ short_title: "Herramientas"
 
 # Herramientas de Desarrollo para C
 
-Esta guía detalla la instalación y uso de herramientas esenciales para el desarrollo profesional en C. Estas herramientas te ayudarán a detectar errores, depurar código y mantener la calidad del software.
+Esta guía detalla la instalación y uso de herramientas esenciales para el
+desarrollo profesional en C. Estas herramientas te ayudarán a detectar errores,
+depurar código y mantener la calidad del software.
 
 :::{important}
-Las herramientas presentadas aquí son fundamentales para escribir código robusto y confiable. Se recomienda incorporarlas gradualmente en tu flujo de trabajo.
+
+Las herramientas presentadas aquí son fundamentales para escribir código robusto
+y confiable. Se recomienda incorporarlas gradualmente en tu flujo de trabajo.
+
 :::
+<!-- {important} -->
 
 ## Tabla de Contenidos
 
-```{contents}
+:::{contents}
 :depth: 3
 :local:
-```
+
+:::
+<!-- {contents} -->
 
 ---
 
 ## Cppcheck: Análisis Estático de Código
 
-Cppcheck es una herramienta de análisis estático que detecta errores en el código sin necesidad de ejecutarlo. Identifica problemas como accesos fuera de límites, fugas de memoria, condiciones redundantes y más.
+Cppcheck es una herramienta de análisis estático que detecta errores en el
+código sin necesidad de ejecutarlo. Identifica problemas como accesos fuera de
+límites, fugas de memoria, condiciones redundantes y más.
 
 ### Instalación
 
 #### En Windows
 
 1. **Descargar el instalador:**
-   - Visitá la [página de releases de Cppcheck](https://github.com/danmar/cppcheck/releases)
-   - Descargá el archivo `.msi` más reciente (por ejemplo, `cppcheck-2.12-x64-Setup.msi`)
+   - Visitá la [página de releases de
+     Cppcheck](https://github.com/danmar/cppcheck/releases)
+   - Descargá el archivo `.msi` más reciente (por ejemplo,
+     `cppcheck-2.12-x64-Setup.msi`)
 
 2. **Ejecutar el instalador:**
    - Hacé doble clic en el archivo descargado
@@ -44,52 +56,59 @@ Cppcheck es una herramienta de análisis estático que detecta errores en el có
 
 #### En Linux (Debian/Ubuntu)
 
-```sh
+``` sh
 sudo apt update
 sudo apt install cppcheck
 ```
+<!-- sh -->
 
 #### En Linux (Fedora/RHEL)
 
-```sh
+``` sh
 sudo dnf install cppcheck
 ```
+<!-- sh -->
 
 #### En macOS
 
-```sh
+``` sh
 brew install cppcheck
 ```
+<!-- sh -->
 
 ### Uso Básico
 
 #### Análisis de un Archivo Individual
 
-```sh
+``` sh
 cppcheck archivo.c
 ```
+<!-- sh -->
 
 #### Análisis con Más Verificaciones
 
-```sh
+``` sh
 cppcheck --enable=all --suppress=missingIncludeSystem archivo.c
 ```
+<!-- sh -->
 
 **Opciones explicadas:**
 - `--enable=all`: Habilita todas las verificaciones
-- `--suppress=missingIncludeSystem`: Suprime advertencias sobre archivos de sistema no encontrados
+- `--suppress=missingIncludeSystem`: Suprime advertencias sobre archivos de
+  sistema no encontrados
 
 #### Análisis de Todo un Proyecto
 
-```sh
+``` sh
 cppcheck --enable=all --suppress=missingIncludeSystem src/
 ```
+<!-- sh -->
 
 ### Interpretación de Resultados
 
 Cppcheck reporta diferentes tipos de problemas:
 
-```{list-table}
+:::{list-table}
 :header-rows: 1
 
 * - Tipo
@@ -110,13 +129,16 @@ Cppcheck reporta diferentes tipos de problemas:
 * - `portability`
   - Media
   - Problemas de portabilidad entre plataformas
-```
+
+:::
+<!-- {list-table} -->
 
 ### Ejemplo Práctico
 
 Considerá el siguiente código con errores:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -130,13 +152,16 @@ int main() {
     // Error: no se libera la memoria
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 Al ejecutar cppcheck:
 
-```sh
+``` sh
 cppcheck ejemplo.c
 ```
+<!-- sh -->
 
 Salida esperada:
 ```
@@ -145,43 +170,60 @@ Salida esperada:
 ```
 
 :::{tip}
-Incorporá cppcheck en tu flujo de trabajo antes de compilar. Esto te ayudará a detectar errores tempranamente.
+
+Incorporá cppcheck en tu flujo de trabajo antes de compilar. Esto te ayudará a
+detectar errores tempranamente.
+
 :::
+<!-- {tip} -->
 
 ---
 
 ## Valgrind: Detección de Errores de Memoria
 
-Valgrind es una suite de herramientas para debugging y profiling. Su herramienta más utilizada, Memcheck, detecta fugas de memoria, accesos inválidos y otros problemas relacionados con el manejo de memoria.
+Valgrind es una suite de herramientas para debugging y profiling. Su herramienta
+más utilizada, Memcheck, detecta fugas de memoria, accesos inválidos y otros
+problemas relacionados con el manejo de memoria.
 
 :::{warning}
-Valgrind **no está disponible nativamente en Windows**. En Windows, considerá usar alternativas como Dr. Memory o WSL (Windows Subsystem for Linux).
+
+Valgrind **no está disponible nativamente en Windows**. En Windows, considerá
+usar alternativas como Dr. Memory o WSL (Windows Subsystem for Linux).
+
 :::
+<!-- {warning} -->
 
 ### Instalación
 
 #### En Linux (Debian/Ubuntu)
 
-```sh
+``` sh
 sudo apt update
 sudo apt install valgrind
 ```
+<!-- sh -->
 
 #### En Linux (Fedora/RHEL)
 
-```sh
+``` sh
 sudo dnf install valgrind
 ```
+<!-- sh -->
 
 #### En macOS
 
-```sh
+``` sh
 brew install valgrind
 ```
+<!-- sh -->
 
 :::{note}
-En macOS reciente (con procesadores Apple Silicon), Valgrind tiene soporte limitado. Considerá usar las herramientas de Xcode como alternativa.
+
+En macOS reciente (con procesadores Apple Silicon), Valgrind tiene soporte
+limitado. Considerá usar las herramientas de Xcode como alternativa.
+
 :::
+<!-- {note} -->
 
 #### En Windows (usando WSL)
 
@@ -200,27 +242,32 @@ En macOS reciente (con procesadores Apple Silicon), Valgrind tiene soporte limit
 
 #### Compilación para Valgrind
 
-Para obtener información detallada en los reportes, compilá con símbolos de debugging:
+Para obtener información detallada en los reportes, compilá con símbolos de
+debugging:
 
-```sh
+``` sh
 gcc -g -Wall -Wextra programa.c -o programa
 ```
+<!-- sh -->
 
-La opción `-g` incluye información de debugging que permite a Valgrind mostrar números de línea.
+La opción `-g` incluye información de debugging que permite a Valgrind mostrar
+números de línea.
 
 #### Ejecución con Valgrind
 
-```sh
+``` sh
 valgrind ./programa
 ```
+<!-- sh -->
 
 #### Opciones Recomendadas
 
 Para un análisis más completo:
 
-```sh
+``` sh
 valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./programa
 ```
+<!-- sh -->
 
 **Opciones explicadas:**
 - `--leak-check=full`: Muestra detalles completos de fugas de memoria
@@ -229,7 +276,7 @@ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./programa
 
 ### Tipos de Errores que Detecta
 
-```{list-table}
+:::{list-table}
 :header-rows: 1
 
 * - Error
@@ -250,13 +297,16 @@ valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./programa
 * - Mismatched free
   - Liberar con función incorrecta
   - `new[]` con `free()`
-```
+
+:::
+<!-- {list-table} -->
 
 ### Ejemplo Práctico
 
 Código con errores de memoria:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -273,14 +323,17 @@ int main() {
     // Error 3: Memory leak (no se llama a free)
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 Compilación y análisis:
 
-```sh
+``` sh
 gcc -g -Wall -Wextra ejemplo.c -o ejemplo
 valgrind --leak-check=full ./ejemplo
 ```
+<!-- sh -->
 
 Salida parcial de Valgrind:
 
@@ -297,72 +350,93 @@ Salida parcial de Valgrind:
 ```
 
 :::{tip}
-Ejecutá Valgrind regularmente, especialmente antes de entregar trabajos prácticos. Un programa sin errores de memoria es señal de código profesional.
+
+Ejecutá Valgrind regularmente, especialmente antes de entregar trabajos
+prácticos. Un programa sin errores de memoria es señal de código profesional.
+
 :::
+<!-- {tip} -->
 
 ---
 
 ## GDB: GNU Debugger
 
-GDB es el debugger estándar para C/C++ en sistemas Unix-like. Permite ejecutar programas paso a paso, inspeccionar variables, establecer breakpoints y analizar el comportamiento del programa en tiempo de ejecución.
+GDB es el debugger estándar para C/C++ en sistemas Unix-like. Permite ejecutar
+programas paso a paso, inspeccionar variables, establecer breakpoints y analizar
+el comportamiento del programa en tiempo de ejecución.
 
 ### Instalación
 
 #### En Windows (MinGW incluye GDB)
 
-Si instalaste GCC mediante MinGW (como se describe en la guía de GCC), GDB ya está disponible.
+Si instalaste GCC mediante MinGW (como se describe en la guía de GCC), GDB ya
+está disponible.
 
 Verificá la instalación:
-```sh
+``` sh
 gdb --version
 ```
+<!-- sh -->
 
 #### En Linux (Debian/Ubuntu)
 
-```sh
+``` sh
 sudo apt update
 sudo apt install gdb
 ```
+<!-- sh -->
 
 #### En Linux (Fedora/RHEL)
 
-```sh
+``` sh
 sudo dnf install gdb
 ```
+<!-- sh -->
 
 #### En macOS
 
-```sh
+``` sh
 brew install gdb
 ```
+<!-- sh -->
 
 :::{note}
-En macOS, puede ser necesario firmar el certificado de GDB para que funcione correctamente. Consultá la documentación oficial para este proceso.
+
+En macOS, puede ser necesario firmar el certificado de GDB para que funcione
+correctamente. Consultá la documentación oficial para este proceso.
+
 :::
+<!-- {note} -->
 
 ### Compilación para Debugging
 
 Para usar GDB efectivamente, compilá tu programa con la opción `-g`:
 
-```sh
+``` sh
 gcc -g -Wall -Wextra programa.c -o programa
 ```
+<!-- sh -->
 
 :::{important}
-No uses la opción `-O2` o superiores al compilar para debugging, ya que las optimizaciones dificultan el análisis del código.
+
+No uses la opción `-O2` o superiores al compilar para debugging, ya que las
+optimizaciones dificultan el análisis del código.
+
 :::
+<!-- {important} -->
 
 ### Comandos Básicos de GDB
 
 #### Iniciar GDB
 
-```sh
+``` sh
 gdb ./programa
 ```
+<!-- sh -->
 
 #### Comandos Fundamentales
 
-```{list-table}
+:::{list-table}
 :header-rows: 1
 
 * - Comando
@@ -395,13 +469,16 @@ gdb ./programa
 * - `quit`
   - `q`
   - Sale de GDB
-```
+
+:::
+<!-- {list-table} -->
 
 ### Ejemplo Práctico de Debugging
 
 Considerá un programa con un bug:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 int calcular_suma(int n) {
@@ -417,21 +494,25 @@ int main() {
     printf("Suma: %d\n", resultado);  // Esperado: 15, Obtiene: 10
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 #### Sesión de Debugging
 
-```sh
+``` sh
 # Compilar con información de debug
 gcc -g suma.c -o suma
 
 # Iniciar GDB
 gdb ./suma
 ```
+<!-- sh -->
 
 Dentro de GDB:
 
-```gdb
+```{code-block} gdb
+:linenos:
 (gdb) break main
 Breakpoint 1 at 0x401156: file suma.c, line 11.
 
@@ -454,15 +535,20 @@ $1 = 1
 Suma: 10
 
 (gdb) quit
+
 ```
+<!-- {code-block} gdb -->
 
 :::{tip}
+
 Usá GDB cuando:
 - Un programa crashea y no sabés por qué
 - Los resultados no son los esperados
 - Necesitás entender el flujo de ejecución
 - Querés inspeccionar valores de variables en tiempo de ejecución
+
 :::
+<!-- {tip} -->
 
 ### Comandos Avanzados
 
@@ -470,28 +556,32 @@ Usá GDB cuando:
 
 Detiene la ejecución cuando una variable cambia:
 
-```gdb
+``` gdb
 (gdb) watch variable
 ```
+<!-- gdb -->
 
 #### Breakpoints Condicionales
 
-```gdb
+``` gdb
 (gdb) break suma.c:5 if i == 3
 ```
+<!-- gdb -->
 
 #### Examinar Memoria
 
-```gdb
+``` gdb
 (gdb) x/10d &array    # Muestra 10 enteros desde la dirección de array
 ```
+<!-- gdb -->
 
 #### Pretty Printing de Estructuras
 
-```gdb
+``` gdb
 (gdb) set print pretty on
 (gdb) print mi_estructura
 ```
+<!-- gdb -->
 
 ---
 
@@ -499,14 +589,16 @@ Detiene la ejecución cuando una variable cambia:
 
 ### AddressSanitizer (ASan)
 
-AddressSanitizer es una herramienta de detección de errores de memoria integrada en GCC y Clang. Es más rápida que Valgrind pero requiere recompilación.
+AddressSanitizer es una herramienta de detección de errores de memoria integrada
+en GCC y Clang. Es más rápida que Valgrind pero requiere recompilación.
 
 #### Uso
 
-```sh
+``` sh
 gcc -g -fsanitize=address -fno-omit-frame-pointer programa.c -o programa
 ./programa
 ```
+<!-- sh -->
 
 #### Ventajas
 
@@ -515,20 +607,25 @@ gcc -g -fsanitize=address -fno-omit-frame-pointer programa.c -o programa
 - Integrado en el compilador
 
 :::{note}
+
 ASan no detecta fugas de memoria por defecto. Para habilitarlas, configurá:
-```sh
+``` sh
 export ASAN_OPTIONS=detect_leaks=1
 ```
+<!-- sh -->
+
 :::
+<!-- {note} -->
 
 ### UndefinedBehaviorSanitizer (UBSan)
 
 Detecta comportamiento indefinido en C:
 
-```sh
+``` sh
 gcc -g -fsanitize=undefined programa.c -o programa
 ./programa
 ```
+<!-- sh -->
 
 Detecta:
 - Desbordamientos de enteros
@@ -540,11 +637,12 @@ Detecta:
 
 Gcov mide qué partes del código se ejecutan durante las pruebas:
 
-```sh
+``` sh
 gcc -fprofile-arcs -ftest-coverage programa.c -o programa
 ./programa
 gcov programa.c
 ```
+<!-- sh -->
 
 Genera un reporte mostrando qué líneas se ejecutaron.
 
@@ -552,17 +650,19 @@ Genera un reporte mostrando qué líneas se ejecutaron.
 
 Identifica qué funciones consumen más tiempo:
 
-```sh
+``` sh
 gcc -pg programa.c -o programa
 ./programa
 gprof programa gmon.out > analisis.txt
 ```
+<!-- sh -->
 
 ---
 
 ## Flujo de Trabajo Recomendado
 
-```{mermaid}
+:::{mermaid}
+
 graph TD
     A[Escribir Código] --> B[Análisis Estático]
     B --> C{Cppcheck OK?}
@@ -578,7 +678,9 @@ graph TD
     I --> J{Valgrind OK?}
     J -->|No| A
     J -->|Sí| K[Código Listo]
-```
+
+:::
+<!-- {mermaid} -->
 
 ### Checklist de Calidad
 
@@ -591,8 +693,12 @@ Antes de entregar un trabajo práctico, verificá:
 - [ ] El código está documentado y formateado consistentemente
 
 :::{important}
-Estas herramientas no reemplazan las buenas prácticas de programación, pero ayudan a detectar errores que pueden pasar desapercibidos durante el desarrollo.
+
+Estas herramientas no reemplazan las buenas prácticas de programación, pero
+ayudan a detectar errores que pueden pasar desapercibidos durante el desarrollo.
+
 :::
+<!-- {important} -->
 
 ---
 
@@ -611,7 +717,8 @@ Visual Studio Code puede integrar estas herramientas para facilitar su uso.
 
 Creá un archivo `.vscode/tasks.json` en tu proyecto:
 
-```json
+```{code-block} json
+:linenos:
 {
     "version": "2.0.0",
     "tasks": [
@@ -655,13 +762,16 @@ Creá un archivo `.vscode/tasks.json` en tu proyecto:
         }
     ]
 }
+
 ```
+<!-- {code-block} json -->
 
 ### Configuración de Launch para GDB
 
 Creá un archivo `.vscode/launch.json`:
 
-```json
+```{code-block} json
+:linenos:
 {
     "version": "0.2.0",
     "configurations": [
@@ -680,11 +790,17 @@ Creá un archivo `.vscode/launch.json`:
         }
     ]
 }
+
 ```
+<!-- {code-block} json -->
 
 :::{tip}
-Con estas configuraciones, podés compilar, analizar y depurar directamente desde VS Code usando atajos de teclado.
+
+Con estas configuraciones, podés compilar, analizar y depurar directamente desde
+VS Code usando atajos de teclado.
+
 :::
+<!-- {tip} -->
 
 ---
 
@@ -695,7 +811,8 @@ Con estas configuraciones, podés compilar, analizar y depurar directamente desd
 - [Cppcheck Manual](https://cppcheck.sourceforge.io/manual.pdf)
 - [Valgrind User Manual](https://valgrind.org/docs/manual/manual.html)
 - [GDB Documentation](https://sourceware.org/gdb/documentation/)
-- [GCC Sanitizers](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html)
+- [GCC
+  Sanitizers](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html)
 
 ### Tutoriales Interactivos
 
@@ -704,7 +821,7 @@ Con estas configuraciones, podés compilar, analizar y depurar directamente desd
 
 ### Cheat Sheets
 
-```{list-table} Comandos Rápidos
+:::{list-table} Comandos Rápidos
 :header-rows: 1
 
 * - Herramienta
@@ -722,13 +839,16 @@ Con estas configuraciones, podés compilar, analizar y depurar directamente desd
 * - ASan
   - `gcc -fsanitize=address -g archivo.c`
   - Detección rápida de errores
-```
+
+:::
+<!-- {list-table} Comandos Rápidos -->
 
 ---
 
 ## Conclusión
 
-El dominio de estas herramientas es fundamental para desarrollar software de calidad en C. Incorporarlas en tu flujo de trabajo te ayudará a:
+El dominio de estas herramientas es fundamental para desarrollar software de
+calidad en C. Incorporarlas en tu flujo de trabajo te ayudará a:
 
 - Detectar errores tempranamente
 - Entender mejor el comportamiento de tu código
@@ -736,25 +856,33 @@ El dominio de estas herramientas es fundamental para desarrollar software de cal
 - Desarrollar habilidades profesionales valoradas en la industria
 
 :::{important}
-La mejor herramienta de debugging es tu cerebro. Estas herramientas son asistentes poderosos, pero no reemplazan el pensamiento crítico y el análisis cuidadoso del código.
+
+La mejor herramienta de debugging es tu cerebro. Estas herramientas son
+asistentes poderosos, pero no reemplazan el pensamiento crítico y el análisis
+cuidadoso del código.
+
 :::
+<!-- {important} -->
 
 ---
 
 ## Ejercicios Prácticos
 
-```{exercise}
+:::{exercise}
 :label: ex-herramientas-1
 
-Creá un programa en C que tenga al menos tres errores diferentes (fuga de memoria, acceso fuera de límites, variable no inicializada). Luego:
+Creá un programa en C que tenga al menos tres errores diferentes (fuga de
+memoria, acceso fuera de límites, variable no inicializada). Luego:
 
 1. Usá Cppcheck para identificar errores estáticos
 2. Compilá y ejecutá con Valgrind
 3. Corregí todos los errores reportados
 4. Verificá que el programa pase todas las verificaciones
-```
 
-```{exercise}
+:::
+<!-- {exercise} -->
+
+:::{exercise}
 :label: ex-herramientas-2
 
 Tomá uno de tus ejercicios anteriores y usá GDB para:
@@ -763,9 +891,11 @@ Tomá uno de tus ejercicios anteriores y usá GDB para:
 2. Ejecutar el programa paso a paso
 3. Inspeccionar el valor de al menos tres variables en diferentes puntos
 4. Documentar el flujo de ejecución
-```
 
-```{exercise}
+:::
+<!-- {exercise} -->
+
+:::{exercise}
 :label: ex-herramientas-3
 
 Configurá VS Code con las tasks proporcionadas en esta guía. Verificá que podés:
@@ -773,4 +903,6 @@ Configurá VS Code con las tasks proporcionadas en esta guía. Verificá que pod
 1. Compilar con {kbd}`Ctrl+Shift+B`
 2. Ejecutar Cppcheck desde el menú de tasks
 3. Iniciar una sesión de debugging con {kbd}`F5`
-```
+
+:::
+<!-- {exercise} -->

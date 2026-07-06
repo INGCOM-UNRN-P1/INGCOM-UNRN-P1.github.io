@@ -6,42 +6,73 @@ subtitle: Instalación, configuración y uso del compilador Clang
 
 ## Introducción a Clang y LLVM
 
-Clang es un compilador de C, C++ y Objective-C de código abierto construido sobre la infraestructura LLVM (Low Level Virtual Machine). Desarrollado originalmente por Apple y ahora mantenido por la comunidad LLVM, se ha convertido en una alternativa moderna y robusta a GCC.
+Clang es un compilador de C, C++ y Objective-C de código abierto construido
+sobre la infraestructura LLVM (Low Level Virtual Machine). Desarrollado
+originalmente por Apple y ahora mantenido por la comunidad LLVM, se ha
+convertido en una alternativa moderna y robusta a GCC.
 
 ### Arquitectura de LLVM / Clang
 
-LLVM utiliza una arquitectura modular de tres fases (Frontend, Optimizador y Backend) que se diferencia de los compiladores tradicionales monolíticos. A continuación podés observar el flujo de compilación detallado:
+LLVM utiliza una arquitectura modular de tres fases (Frontend, Optimizador y
+Backend) que se diferencia de los compiladores tradicionales monolíticos. A
+continuación podés observar el flujo de compilación detallado:
 
-```{figure} images/arquitectura_llvm.svg
+:::{figure} images/arquitectura_llvm.svg
 :alt: Diagrama de la arquitectura de compilación de LLVM. Se detallan las tres fases secuenciales: el Frontend de Clang (que toma el archivo fuente y genera el árbol sintáctico AST y la Representación Intermedia LLVM IR), el Optimizador independiente de la plataforma (que aplica optimizaciones sobre el código IR), y el Backend de Codegen junto con el Enlazador lld (que transforman el IR en código ensamblador y finalmente en el archivo binario ejecutable final para la máquina host).
 :align: center
 :width: 100%
 
 Arquitectura modular de compilación en tres fases de LLVM / Clang.
-```
+
+:::
+<!-- {figure} images/arquitectura_llvm.svg -->
 
 #### Descripción de las Fases
 
-1.  **Frontend (Clang):** Procesa tu código fuente (.c/.cpp). Realiza el análisis léxico (descomposición en tokens), el análisis sintáctico (construcción del AST - Árbol de Sintaxis Abstracta) y la validación semántica (chequeo de tipos y reglas del lenguaje). Finalmente, genera la **Representación Intermedia de LLVM (LLVM IR)**.
-2.  **Representación Intermedia (LLVM IR):** Es un lenguaje de ensamblador universal, independiente de la arquitectura de destino. Permite que el optimizador trabaje sobre un estándar unificado.
-3.  **Optimizador (opt):** Aplica transformaciones sobre el LLVM IR para mejorar el rendimiento y reducir el tamaño del ejecutable (ej: eliminación de código muerto, desenrollado de lazos, inlining de funciones). Es totalmente independiente del procesador del host.
-4.  **Backend (Codegen / llc):** Toma el LLVM IR optimizado y lo traduce al lenguaje ensamblador específico de tu procesador (ej: x86-64).
-5.  **Enlazador (lld):** Une los archivos de código objeto generados con las bibliotecas del sistema (como la UCRT de Windows o la glibc de Linux) para producir el archivo binario ejecutable final.
+1.  **Frontend (Clang):** Procesa tu código fuente (.c/.cpp). Realiza el
+    análisis léxico (descomposición en tokens), el análisis sintáctico
+    (construcción del AST - Árbol de Sintaxis Abstracta) y la validación
+    semántica (chequeo de tipos y reglas del lenguaje). Finalmente, genera la
+    **Representación Intermedia de LLVM (LLVM IR)**.
+2.  **Representación Intermedia (LLVM IR):** Es un lenguaje de ensamblador
+    universal, independiente de la arquitectura de destino. Permite que el
+    optimizador trabaje sobre un estándar unificado.
+3.  **Optimizador (opt):** Aplica transformaciones sobre el LLVM IR para mejorar
+    el rendimiento y reducir el tamaño del ejecutable (ej: eliminación de código
+    muerto, desenrollado de lazos, inlining de funciones). Es totalmente
+    independiente del procesador del host.
+4.  **Backend (Codegen / llc):** Toma el LLVM IR optimizado y lo traduce al
+    lenguaje ensamblador específico de tu procesador (ej: x86-64).
+5.  **Enlazador (lld):** Une los archivos de código objeto generados con las
+    bibliotecas del sistema (como la UCRT de Windows o la glibc de Linux) para
+    producir el archivo binario ejecutable final.
 
 ### ¿Por qué usar Clang?
 
-- **Mensajes de error superiores**: Clang es famoso por sus mensajes de error claros y útiles, con sugerencias específicas de cómo corregir problemas.
-- **Velocidad de compilación**: Generalmente más rápido que GCC, especialmente en proyectos grandes.
-- **Arquitectura modular**: Diseñado desde cero como una biblioteca reutilizable, facilitando la creación de herramientas auxiliares.
-- **Herramientas integradas**: Incluye clang-format, clang-tidy, clangd (language server) y más.
-- **Análisis estático avanzado**: Mejor detección de bugs potenciales durante la compilación.
+- **Mensajes de error superiores**: Clang es famoso por sus mensajes de error
+  claros y útiles, con sugerencias específicas de cómo corregir problemas.
+- **Velocidad de compilación**: Generalmente más rápido que GCC, especialmente
+  en proyectos grandes.
+- **Arquitectura modular**: Diseñado desde cero como una biblioteca
+  reutilizable, facilitando la creación de herramientas auxiliares.
+- **Herramientas integradas**: Incluye clang-format, clang-tidy, clangd
+  (language server) y más.
+- **Análisis estático avanzado**: Mejor detección de bugs potenciales durante la
+  compilación.
 - **Soporte multiplataforma**: Funciona idénticamente en Linux, macOS y Windows.
 
 :::{note}
+
 **Historia**
 
-Clang fue iniciado en 2007 por Chris Lattner en Apple como reemplazo de GCC en el ecosistema de desarrollo de Apple. Desde entonces, ha crecido hasta convertirse en el compilador por defecto en macOS, iOS, y es usado por Google en Android y Chrome. LLVM (el backend) ganó el premio ACM Software System Award en 2012, reconociendo su impacto en la industria del software.
+Clang fue iniciado en 2007 por Chris Lattner en Apple como reemplazo de GCC en
+el ecosistema de desarrollo de Apple. Desde entonces, ha crecido hasta
+convertirse en el compilador por defecto en macOS, iOS, y es usado por Google en
+Android y Chrome. LLVM (el backend) ganó el premio ACM Software System Award en
+2012, reconociendo su impacto en la industria del software.
+
 :::
+<!-- {note} -->
 
 ## Instalación de Clang
 
@@ -49,9 +80,11 @@ Clang fue iniciado en 2007 por Chris Lattner en Apple como reemplazo de GCC en e
 
 #### Ubuntu/Debian
 
-Clang está disponible en los repositorios oficiales. Podés instalar la versión estable o la más reciente:
+Clang está disponible en los repositorios oficiales. Podés instalar la versión
+estable o la más reciente:
 
-```bash
+```{code-block} bash
+:linenos:
 # Versión estable del repositorio (puede ser antigua)
 sudo apt update
 sudo apt install clang
@@ -63,11 +96,14 @@ sudo apt install clang-18
 # Verificar instalación
 clang --version
 clang-18 --version
+
 ```
+<!-- {code-block} bash -->
 
 **Instalación desde repositorio oficial de LLVM** (para última versión):
 
-```bash
+```{code-block} bash
+:linenos:
 # Descargar e instalar script de LLVM
 wget https://apt.llvm.org/llvm.sh
 chmod +x llvm.sh
@@ -84,11 +120,14 @@ sudo apt install clang-18 clangd-18 clang-tidy-18 clang-format-18 \
 sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-18 100
 sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-18 100
 sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-18 100
+
 ```
+<!-- {code-block} bash -->
 
 #### Fedora/RHEL/CentOS
 
-```bash
+```{code-block} bash
+:linenos:
 # Fedora
 sudo dnf install clang clang-tools-extra
 
@@ -98,17 +137,20 @@ sudo yum install clang
 
 # Verificar instalación
 clang --version
+
 ```
+<!-- {code-block} bash -->
 
 #### Arch Linux
 
-```bash
+``` bash
 # Arch siempre tiene la última versión
 sudo pacman -S clang llvm lld lldb
 
 # Verificar instalación
 clang --version
 ```
+<!-- bash -->
 
 ### Windows
 
@@ -121,18 +163,20 @@ clang --version
    - ☑️ "Add LLVM to the system PATH for all users"
    - ☑️ "Add LLVM to the system PATH for current user"
 
-```powershell
+``` powershell
 # Verificar instalación (PowerShell o CMD)
 clang --version
 clang++ --version
 clang-format --version
 ```
+<!-- powershell -->
 
 ### Verificación de instalación
 
 Independientemente del sistema operativo, verificá la instalación:
 
-```bash
+```{code-block} bash
+:linenos:
 # Versión de Clang
 clang --version
 
@@ -151,13 +195,16 @@ clang test.c -o test
 ./test          # Linux/macOS
 test.exe        # Windows
 echo $?         # Debe mostrar 0
+
 ```
+<!-- {code-block} bash -->
 
 ## Uso básico de Clang
 
 ### Compilación simple
 
-```bash
+```{code-block} bash
+:linenos:
 # Compilar un programa básico
 clang programa.c -o programa
 
@@ -166,23 +213,28 @@ clang -std=c11 programa.c -o programa
 
 # Con warnings habilitados (recomendado)
 clang -Wall -Wextra -Wpedantic programa.c -o programa
+
 ```
+<!-- {code-block} bash -->
 
 ### Comparación con GCC
 
-Clang es compatible con las opciones de GCC. La mayoría de los flags funcionan idénticamente:
+Clang es compatible con las opciones de GCC. La mayoría de los flags funcionan
+idénticamente:
 
-```bash
+``` bash
 # Estas líneas funcionan igual con gcc o clang
 clang -Wall -Wextra -std=c11 -g -O2 -o programa main.c utils.c
 gcc  -Wall -Wextra -std=c11 -g -O2 -o programa main.c utils.c
 ```
+<!-- bash -->
 
 ### Opciones de compilación comunes
 
 #### Warnings (advertencias)
 
-```bash
+```{code-block} bash
+:linenos:
 # Warnings básicos (siempre usar)
 clang -Wall -Wextra programa.c
 
@@ -198,11 +250,14 @@ clang -Wshadow               # Variables que ocultan otras
 clang -Wformat=2             # Verificación estricta de printf/scanf
 clang -Wcast-align           # Casts con problemas de alineación
 clang -Wstrict-overflow=5    # Overflow en operaciones aritméticas
+
 ```
+<!-- {code-block} bash -->
 
 #### Niveles de optimización
 
-```bash
+```{code-block} bash
+:linenos:
 # Sin optimización (desarrollo/debug)
 clang -O0 programa.c
 
@@ -220,11 +275,14 @@ clang -Os programa.c
 
 # Optimizar para tamaño (más agresivo)
 clang -Oz programa.c
+
 ```
+<!-- {code-block} bash -->
 
 #### Información de debug
 
-```bash
+```{code-block} bash
+:linenos:
 # Información completa de debug para GDB/LLDB
 clang -g programa.c
 
@@ -233,11 +291,14 @@ clang -g -O0 programa.c
 
 # Información de debug específica de LLVM
 clang -glldb programa.c
+
 ```
+<!-- {code-block} bash -->
 
 #### Estándares de C
 
-```bash
+```{code-block} bash
+:linenos:
 # C89/C90 (ANSI C)
 clang -std=c89 programa.c
 
@@ -252,13 +313,16 @@ clang -std=c17 programa.c
 
 # C23 (borrador, soporte parcial)
 clang -std=c2x programa.c
+
 ```
+<!-- {code-block} bash -->
 
 ### Compilación modular
 
 Para proyectos con múltiples archivos:
 
-```bash
+```{code-block} bash
+:linenos:
 # Compilar todo en un paso
 clang -Wall -Wextra -std=c11 -o programa main.c lista.c utils.c
 
@@ -272,15 +336,20 @@ clang -o programa main.o lista.o utils.o
 
 # Con bibliotecas del sistema
 clang -o programa main.o lista.o utils.o -lm  # linkear libm (matemática)
+
 ```
+<!-- {code-block} bash -->
 
 ### Proyectos complejos (CMake y Ninja)
 
-Cuando tu proyecto crece y se divide en múltiples módulos, no es práctico escribir comandos manuales en la consola. El entorno portable de la cátedra bajo el subsistema CLANG64 de Windows incluye **CMake** y **Ninja** para la automatización del proceso de compilación.
+Cuando tu proyecto crece y se divide en múltiples módulos, no es práctico
+escribir comandos manuales en la consola. El entorno portable de la cátedra bajo
+el subsistema CLANG64 de Windows incluye **CMake** y **Ninja** para la
+automatización del proceso de compilación.
 
 Podés definir un archivo `CMakeLists.txt` básico en la raíz de tu proyecto:
 
-```cmake
+``` cmake
 cmake_minimum_required(VERSION 3.20)
 project(MiProyecto C)
 
@@ -288,22 +357,27 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(programa main.c lista.c utils.c)
 ```
+<!-- cmake -->
 
 Y luego compilar desde tu consola ejecutando:
 
-```bash
+``` bash
 # Configurar el directorio de construcción
 cmake -G Ninja -B build
 
 # Compilar el proyecto
 cmake --build build
 ```
+<!-- bash -->
 
-Ninja utilizará el compilador Clang en paralelo para realizar compilaciones incrementales ultrarrápidas, compilando únicamente los archivos modificados desde la última compilación.
+Ninja utilizará el compilador Clang en paralelo para realizar compilaciones
+incrementales ultrarrápidas, compilando únicamente los archivos modificados
+desde la última compilación.
 
 ### Sanitizers: detectores de bugs en runtime
 
-Una de las características más poderosas de Clang son los **sanitizers**: herramientas que instrumentan el código para detectar bugs durante la ejecución.
+Una de las características más poderosas de Clang son los **sanitizers**:
+herramientas que instrumentan el código para detectar bugs durante la ejecución.
 
 #### AddressSanitizer (ASan)
 
@@ -314,13 +388,14 @@ Detecta:
 - Double free
 - Memory leaks
 
-```bash
+``` bash
 # Compilar con AddressSanitizer
 clang -fsanitize=address -g -O1 programa.c -o programa
 
 # Ejecutar (mostrará error detallado si hay problema)
 ./programa
 ```
+<!-- bash -->
 
 **Ejemplo de output de ASan:**
 
@@ -345,66 +420,78 @@ Detecta comportamiento indefinido:
 - Shifts inválidos
 - Conversiones ilegales
 
-```bash
+``` bash
 # Compilar con UBSan
 clang -fsanitize=undefined -g programa.c -o programa
 
 # Ejecutar
 ./programa
 ```
+<!-- bash -->
 
 #### MemorySanitizer (MSan)
 
 Detecta uso de memoria no inicializada:
 
-```bash
+``` bash
 # Compilar con MSan (solo Linux)
 clang -fsanitize=memory -g -O1 programa.c -o programa
 
 # Ejecutar
 ./programa
 ```
+<!-- bash -->
 
 #### ThreadSanitizer (TSan)
 
 Detecta data races en programas multi-hilo:
 
-```bash
+``` bash
 # Compilar con TSan
 clang -fsanitize=thread -g programa.c -o programa -lpthread
 
 # Ejecutar
 ./programa
 ```
+<!-- bash -->
 
 #### Combinar sanitizers
 
-```bash
+``` bash
 # ASan + UBSan (combinación común)
 clang -fsanitize=address,undefined -g programa.c -o programa
 
 # Todos excepto TSan (TSan no se puede combinar con ASan/MSan)
 clang -fsanitize=address,undefined,leak -g programa.c -o programa
 ```
+<!-- bash -->
 
 :::{important}
+
 **Usar sanitizers en desarrollo**
 
-Los sanitizers tienen un overhead de performance (2-5x más lento) y memoria (2-3x más memoria). No son para producción, pero son invaluables durante desarrollo y testing. Encontrarán bugs que son casi imposibles de detectar de otra forma.
+Los sanitizers tienen un overhead de performance (2-5x más lento) y memoria
+(2-3x más memoria). No son para producción, pero son invaluables durante
+desarrollo y testing. Encontrarán bugs que son casi imposibles de detectar de
+otra forma.
 
 Un workflow recomendado:
 1. Desarrollo normal con `-O0 -g`
 2. Testing con `-fsanitize=address,undefined -g -O1`
 3. Release con `-O2 -DNDEBUG` (sin sanitizers)
+
 :::
+<!-- {important} -->
 
 ## Análisis estático con Clang
 
-Clang incluye herramientas de análisis estático que detectan bugs sin ejecutar el código.
+Clang incluye herramientas de análisis estático que detectan bugs sin ejecutar
+el código.
 
 ### Clang Static Analyzer
 
-```bash
+```{code-block} bash
+:linenos:
 # Análisis básico
 clang --analyze programa.c
 
@@ -416,11 +503,14 @@ clang --analyze -Xanalyzer -analyzer-list-checkers
 
 # Análisis completo de proyecto (con scan-build)
 scan-build make
+
 ```
+<!-- {code-block} bash -->
 
 **Ejemplo de uso con proyecto:**
 
-```bash
+```{code-block} bash
+:linenos:
 # Limpiar compilación previa
 make clean
 
@@ -430,13 +520,17 @@ scan-build -o analysis-results make
 # Si encuentra bugs, generará reporte HTML
 # Abrir con navegador:
 firefox analysis-results/[fecha]/index.html
+
 ```
+<!-- {code-block} bash -->
 
 ### clang-tidy: linter moderno
 
-`clang-tidy` es una herramienta de análisis estático y refactoring que verifica estilo y bugs potenciales.
+`clang-tidy` es una herramienta de análisis estático y refactoring que verifica
+estilo y bugs potenciales.
 
-```bash
+```{code-block} bash
+:linenos:
 # Verificar un archivo
 clang-tidy programa.c
 
@@ -451,11 +545,14 @@ clang-tidy -checks='bugprone-*,modernize-*,readability-*' programa.c
 
 # Autofijar algunos problemas
 clang-tidy -fix programa.c
+
 ```
+<!-- {code-block} bash -->
 
 **Archivo de configuración `.clang-tidy`:**
 
-```yaml
+```{code-block} yaml
+:linenos:
 ---
 Checks: >
   -*,
@@ -479,13 +576,16 @@ CheckOptions:
     value: lower_case
   - key: readability-identifier-naming.ConstantCase
     value: UPPER_CASE
+
 ```
+<!-- {code-block} yaml -->
 
 ### clang-format: formateo automático de código
 
 `clang-format` formatea código C automáticamente según reglas configurables.
 
-```bash
+```{code-block} bash
+:linenos:
 # Formatear archivo (imprime a stdout)
 clang-format programa.c
 
@@ -499,11 +599,14 @@ clang-format -i *.c *.h
 clang-format -style=llvm programa.c
 clang-format -style=google programa.c
 clang-format -style=mozilla programa.c
+
 ```
+<!-- {code-block} bash -->
 
 **Archivo de configuración `.clang-format`:**
 
-```yaml
+```{code-block} yaml
+:linenos:
 ---
 Language: Cpp
 BasedOnStyle: LLVM
@@ -517,11 +620,14 @@ IndentCaseLabels: false
 AlignConsecutiveAssignments: true
 AlignConsecutiveDeclarations: true
 PointerAlignment: Right
+
 ```
+<!-- {code-block} yaml -->
 
-Guardá este archivo en la raíz de tu proyecto. `clang-format` lo detectará automáticamente.
+Guardá este archivo en la raíz de tu proyecto. `clang-format` lo detectará
+automáticamente.
 
-```bash
+``` bash
 # Generar .clang-format con configuración interactiva
 clang-format -style=llvm -dump-config > .clang-format
 
@@ -529,6 +635,7 @@ clang-format -style=llvm -dump-config > .clang-format
 # Formatear respetando configuración local
 clang-format -i programa.c
 ```
+<!-- bash -->
 
 ### Integración en editor
 
@@ -536,12 +643,13 @@ La mayoría de los editores soportan ejecutar `clang-format` automáticamente:
 
 **VS Code**: Instalar extensión "C/C++" y configurar en `settings.json`:
 
-```json
+``` json
 {
     "editor.formatOnSave": true,
     "C_Cpp.clang_format_style": "file"
 }
 ```
+<!-- json -->
 
 **Vim/Neovim**: Con plugin ALE o vim-clang-format
 
@@ -551,9 +659,12 @@ La mayoría de los editores soportan ejecutar `clang-format` automáticamente:
 
 ### clangd: Language Server
 
-`clangd` es un language server que provee autocompletado, navegación de código, diagnósticos en tiempo real, etc. para editores que soportan LSP (Language Server Protocol).
+`clangd` es un language server que provee autocompletado, navegación de código,
+diagnósticos en tiempo real, etc. para editores que soportan LSP (Language
+Server Protocol).
 
-```bash
+```{code-block} bash
+:linenos:
 # Instalar clangd
 sudo apt install clangd  # Linux
 brew install llvm        # macOS (incluye clangd)
@@ -568,15 +679,19 @@ bear -- make
 
 # Con CMake:
 cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .
-```
 
-Ver la guía de VS Code en este mismo repositorio para configuración detallada de clangd.
+```
+<!-- {code-block} bash -->
+
+Ver la guía de VS Code en este mismo repositorio para configuración detallada de
+clangd.
 
 ### LLDB: debugger de LLVM
 
 LLDB es el debugger oficial del proyecto LLVM, alternativa a GDB.
 
-```bash
+```{code-block} bash
+:linenos:
 # Instalar LLDB
 sudo apt install lldb       # Linux
 brew install llvm           # macOS (incluye lldb)
@@ -596,7 +711,9 @@ lldb programa
 (lldb) print variable
 (lldb) continue
 (lldb) quit
+
 ```
+<!-- {code-block} bash -->
 
 **Comparación de comandos GDB vs LLDB:**
 
@@ -612,20 +729,23 @@ lldb programa
 
 ### LLD: linker rápido
 
-LLD es el linker de LLVM, significativamente más rápido que ld (linker tradicional).
+LLD es el linker de LLVM, significativamente más rápido que ld (linker
+tradicional).
 
-```bash
+``` bash
 # Usar LLD al compilar
 clang -fuse-ld=lld programa.c -o programa
 
 # En proyectos grandes, LLD puede reducir tiempo de linking de minutos a segundos
 ```
+<!-- bash -->
 
 ## Diferencias y compatibilidad con GCC
 
 ### Opciones específicas de Clang
 
-```bash
+```{code-block} bash
+:linenos:
 # Warnings específicos de Clang
 clang -Weverything programa.c  # TODOS los warnings (muy estricto)
 
@@ -637,13 +757,16 @@ clang -fdiagnostics-show-category=name programa.c
 
 # Formato de diagnósticos
 clang -fdiagnostics-format=vi programa.c  # Formato compatible con Vi
+
 ```
+<!-- {code-block} bash -->
 
 ### Extensiones de GCC no soportadas
 
 Algunas extensiones específicas de GCC pueden no funcionar en Clang:
 
-```c
+```{code-block} c
+:linenos:
 // Nested functions (GCC extension, NO soportado en Clang)
 void outer() {
     void inner() {  // ❌ Error en Clang
@@ -659,13 +782,16 @@ void inner_impl() {
 void outer() {
     inner_impl();
 }
+
 ```
+<!-- {code-block} c -->
 
 ### Pragmas y atributos
 
 Clang soporta los atributos estándar de C11 y muchos de GCC:
 
-```c
+```{code-block} c
+:linenos:
 // Atributos compatibles
 __attribute__((unused)) int x;
 __attribute__((warn_unused_result)) int funcion(void);
@@ -675,23 +801,27 @@ __attribute__((warn_unused_result)) int funcion(void);
 #pragma clang diagnostic ignored "-Wunused-variable"
 int x;  // No genera warning
 #pragma clang diagnostic pop
+
 ```
+<!-- {code-block} c -->
 
 ### Modo de compatibilidad
 
-```bash
+``` bash
 # Emular versión específica de GCC (útil para compatibilidad)
 clang -fgnuc-version=11 programa.c
 
 # En Windows, emular MSVC
 clang-cl programa.c  # Usa sintaxis de MSVC
 ```
+<!-- bash -->
 
 ## Ejemplos prácticos
 
 ### Ejemplo 1: Compilación básica con buenas prácticas
 
-```bash
+```{code-block} bash
+:linenos:
 # Compilar programa simple con flags recomendados
 clang -std=c11 \
       -Wall -Wextra -Wpedantic \
@@ -703,11 +833,14 @@ clang -std=c11 \
 
 # Ejecutar
 ./programa
+
 ```
+<!-- {code-block} bash -->
 
 ### Ejemplo 2: Proyecto con múltiples archivos
 
-```bash
+```{code-block} bash
+:linenos:
 # Estructura del proyecto:
 # proyecto/
 # +-- src/
@@ -741,11 +874,14 @@ EOF
 
 # Compilar
 make
+
 ```
+<!-- {code-block} bash -->
 
 ### Ejemplo 3: Detección de memory leaks con ASan
 
-```c
+```{code-block} c
+:linenos:
 // leak.c - programa con memory leak intencional
 #include <stdlib.h>
 
@@ -754,9 +890,12 @@ int main() {
     // ❌ Olvidamos hacer free(ptr)
     return 0;
 }
-```
 
-```bash
+```
+<!-- {code-block} c -->
+
+```{code-block} bash
+:linenos:
 # Compilar con AddressSanitizer (detecta leaks)
 clang -fsanitize=address -g leak.c -o leak
 
@@ -772,11 +911,14 @@ clang -fsanitize=address -g leak.c -o leak
 #     #1 0x... in main leak.c:4
 # 
 # SUMMARY: AddressSanitizer: 400 byte(s) leaked in 1 allocation(s).
+
 ```
+<!-- {code-block} bash -->
 
 ### Ejemplo 4: Detección de undefined behavior
 
-```c
+```{code-block} c
+:linenos:
 // ub.c - programa con comportamiento indefinido
 #include <stdio.h>
 
@@ -786,9 +928,12 @@ int main() {
     printf("%d\n", y);
     return 0;
 }
-```
 
-```bash
+```
+<!-- {code-block} c -->
+
+```{code-block} bash
+:linenos:
 # Compilar con UBSan
 clang -fsanitize=undefined -g ub.c -o ub
 
@@ -798,11 +943,14 @@ clang -fsanitize=undefined -g ub.c -o ub
 # Output:
 # ub.c:5:15: runtime error: signed integer overflow: 
 # 2147483647 + 1 cannot be represented in type 'int'
+
 ```
+<!-- {code-block} bash -->
 
 ### Ejemplo 5: Análisis de proyecto completo
 
-```bash
+```{code-block} bash
+:linenos:
 # Script para análisis completo de calidad de código
 
 #!/bin/bash
@@ -825,13 +973,16 @@ clang -fsanitize=address,undefined -g programa.c -o programa-asan
 ./programa-asan < test_input.txt
 
 echo "=== Análisis completo terminado ==="
+
 ```
+<!-- {code-block} bash -->
 
 ### Ejemplo 6: Cross-compilation
 
 Clang facilita la compilación cruzada (compilar en una plataforma para otra):
 
-```bash
+```{code-block} bash
+:linenos:
 # Compilar para otra arquitectura (en Linux)
 # Ver targets disponibles:
 clang --print-targets
@@ -844,13 +995,16 @@ clang --target=x86_64-w64-mingw32 programa.c -o programa.exe
 
 # Compilar para WebAssembly
 clang --target=wasm32 programa.c -o programa.wasm
+
 ```
+<!-- {code-block} bash -->
 
 ## Configuración para diferentes flujos de trabajo
 
 ### Para estudiantes/principiantes
 
-```bash
+```{code-block} bash
+:linenos:
 # Alias útiles para .bashrc o .zshrc
 
 # Compilación básica con buenos defaults
@@ -862,11 +1016,14 @@ alias ccsan='clang -std=c11 -Wall -Wextra -fsanitize=address,undefined -g'
 # Uso:
 cc11 programa.c -o programa
 ccsan programa.c -o programa
+
 ```
+<!-- {code-block} bash -->
 
 ### Para desarrollo profesional
 
-```bash
+```{code-block} bash
+:linenos:
 # Makefile completo con múltiples targets
 
 CC = clang
@@ -926,11 +1083,14 @@ analyze:
 	scan-build make
 
 .PHONY: all release debug asan clean format tidy analyze
+
 ```
+<!-- {code-block} bash -->
 
 ### Integración continua (CI/CD)
 
-```yaml
+```{code-block} yaml
+:linenos:
 # .github/workflows/clang-ci.yml
 # Ejemplo de CI con GitHub Actions
 
@@ -968,13 +1128,16 @@ jobs:
       run: |
         clang-18 -fsanitize=address,undefined -g src/*.c -o programa-asan
         ./programa-asan
+
 ```
+<!-- {code-block} yaml -->
 
 ## Troubleshooting y problemas comunes
 
 ### Clang no encuentra headers del sistema
 
-```bash
+```{code-block} bash
+:linenos:
 # Ver directorios de búsqueda
 clang -v -E -xc /dev/null
 
@@ -983,11 +1146,14 @@ sudo apt install build-essential
 
 # En macOS, instalar Xcode Command Line Tools
 xcode-select --install
+
 ```
+<!-- {code-block} bash -->
 
 ### Conflicto entre GCC y Clang
 
-```bash
+```{code-block} bash
+:linenos:
 # Verificar qué compilador se está usando
 which cc
 ls -la /usr/bin/cc
@@ -997,11 +1163,14 @@ sudo update-alternatives --config cc
 
 # Forzar uso de Clang en Makefile
 CC=clang make
+
 ```
+<!-- {code-block} bash -->
 
 ### Errores de linkeo en Windows
 
-```powershell
+```{code-block} powershell
+:linenos:
 # Asegurar que MSVC está instalado (Clang en Windows usa el linker de MSVC)
 # O usar MinGW
 
@@ -1010,11 +1179,14 @@ clang -o programa.exe programa.c
 
 # Con MinGW
 clang --target=x86_64-w64-mingw32 programa.c -o programa.exe
+
 ```
+<!-- {code-block} powershell -->
 
 ### Sanitizers no funcionan
 
-```bash
+```{code-block} bash
+:linenos:
 # ASan requiere compilar SIN optimizaciones agresivas
 clang -fsanitize=address -O1 -g programa.c -o programa
 
@@ -1023,11 +1195,14 @@ clang -fsanitize=address -O1 -g programa.c -o programa
 
 # En macOS, puede requerir deshabilitar SIP
 # (System Integrity Protection) para algunos casos
+
 ```
+<!-- {code-block} bash -->
 
 ### Performance de clangd es lenta
 
-```bash
+```{code-block} bash
+:linenos:
 # Limitar uso de RAM
 clangd --limit-results=20 --background-index-priority=low
 
@@ -1047,64 +1222,87 @@ If:
 Index:
   Background: Skip
 EOF
+
 ```
+<!-- {code-block} bash -->
 
 ## Recursos adicionales
 
 ### Documentación oficial
 
-- [Clang Documentation](https://clang.llvm.org/docs/) - Documentación completa oficial
+- [Clang Documentation](https://clang.llvm.org/docs/) - Documentación completa
+  oficial
 - [LLVM Documentation](https://llvm.org/docs/) - Documentación del proyecto LLVM
-- [Clang Language Extensions](https://clang.llvm.org/docs/LanguageExtensions.html) - Extensiones y atributos
-- [Clang Compiler User's Manual](https://clang.llvm.org/docs/UsersManual.html) - Manual del usuario
+- [Clang Language
+  Extensions](https://clang.llvm.org/docs/LanguageExtensions.html) - Extensiones
+  y atributos
+- [Clang Compiler User's Manual](https://clang.llvm.org/docs/UsersManual.html) -
+  Manual del usuario
 
 ### Herramientas
 
-- [Compiler Explorer (Godbolt)](https://godbolt.org/) - Ver código ensamblador generado online
-- [clang-format configurator](https://zed0.co.uk/clang-format-configurator/) - Configurador visual de clang-format
-- [C/C++ Sanitizer Guides](https://github.com/google/sanitizers) - Documentación de sanitizers
+- [Compiler Explorer (Godbolt)](https://godbolt.org/) - Ver código ensamblador
+  generado online
+- [clang-format configurator](https://zed0.co.uk/clang-format-configurator/) -
+  Configurador visual de clang-format
+- [C/C++ Sanitizer Guides](https://github.com/google/sanitizers) - Documentación
+  de sanitizers
 
 ### Comparaciones y benchmarks
 
-- [GCC vs Clang Benchmarks](https://www.phoronix.com/search/gcc%20clang) - Comparativas de performance
+- [GCC vs Clang Benchmarks](https://www.phoronix.com/search/gcc%20clang) -
+  Comparativas de performance
 - [LLVM Weekly](https://llvmweekly.org/) - Newsletter con novedades
 
 ### Libros y artículos
 
-- **Getting Started with LLVM Core Libraries** - Trabajar con la infraestructura LLVM
+- **Getting Started with LLVM Core Libraries** - Trabajar con la infraestructura
+  LLVM
 - **"Clang and LLVM Tricks"** - Blog oficial del proyecto
 - **"Understanding Compilation"** series en LLVM blog
 
 ## Conclusión
 
-Clang es una herramienta moderna y poderosa que ofrece ventajas significativas para el desarrollo en C:
+Clang es una herramienta moderna y poderosa que ofrece ventajas significativas
+para el desarrollo en C:
 
 - **Mensajes de error claros** que aceleran el debugging
 - **Sanitizers integrados** que detectan bugs difíciles de encontrar
-- **Herramientas de calidad de código** (clang-tidy, clang-format) que mejoran la mantenibilidad
+- **Herramientas de calidad de código** (clang-tidy, clang-format) que mejoran
+  la mantenibilidad
 - **Análisis estático** que previene bugs antes de ejecutar el código
 - **Velocidad de compilación** que mejora la productividad
 
-Para estudiantes de programación, Clang es especialmente valioso: sus mensajes de error educativos ayudan a entender qué está mal y cómo corregirlo, mientras que los sanitizers detectan errores comunes (uso después de free, buffer overflows, etc.) que son fundamentales de aprender a evitar.
+Para estudiantes de programación, Clang es especialmente valioso: sus mensajes
+de error educativos ayudan a entender qué está mal y cómo corregirlo, mientras
+que los sanitizers detectan errores comunes (uso después de free, buffer
+overflows, etc.) que son fundamentales de aprender a evitar.
 
 :::{tip}
+
 **Recomendación para el curso**
 
 Usá Clang con estos flags durante el desarrollo:
 
-```bash
+``` bash
 clang -std=c11 -Wall -Wextra -Wpedantic \
       -fsanitize=address,undefined \
       -g -O0 \
       programa.c -o programa
 ```
+<!-- bash -->
 
-Esto detectará la mayoría de los errores comunes automáticamente, permitiéndote enfocarte en la lógica del programa en lugar de perseguir bugs sutiles.
+Esto detectará la mayoría de los errores comunes automáticamente, permitiéndote
+enfocarte en la lógica del programa en lugar de perseguir bugs sutiles.
+
 :::
+<!-- {tip} -->
 
-¡Felicitaciones! Ya tenés el conocimiento para aprovechar al máximo Clang en tu desarrollo en C.
+¡Felicitaciones! Ya tenés el conocimiento para aprovechar al máximo Clang en tu
+desarrollo en C.
 
-```bash
+```{code-block} bash
+:linenos:
 $ clang --version
 clang version 18.1.8
 Target: x86_64-pc-linux-gnu
@@ -1112,6 +1310,8 @@ Thread model: posix
 
 $ echo "¡Listo para compilar con Clang!"
 ¡Listo para compilar con Clang!
+
 ```
+<!-- {code-block} bash -->
 
 ---

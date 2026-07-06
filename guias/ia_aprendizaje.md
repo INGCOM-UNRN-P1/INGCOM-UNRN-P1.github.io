@@ -22,6 +22,7 @@ La IA es un **multiplicador de esfuerzo**, no un reemplazo del mismo. Úsala par
 entender mejor, no para evitar pensar.
 
 :::
+<!-- {important} -->
 
 ## Principios Fundamentales
 
@@ -61,6 +62,7 @@ Dedicá al menos el 70% de tu tiempo a pensar y
 programar por vos mismo, y como máximo el 30% consultando a la IA. 
 
 :::
+<!-- {tip} La regla del 70/30: -->
 
 ### 3. Contextualización y Especificidad
 
@@ -260,7 +262,8 @@ Pedí que la IA "trace" el código paso por paso.
 "Tracé este código línea por línea, indicando qué pasa en
 memoria después de cada línea:
 
-```c
+`````{code-block} c
+:linenos:
 int main(void) {
     int x = 5;
     int *p = &x;
@@ -268,17 +271,19 @@ int main(void) {
     **pp = 10;
     return 0;
 }
-````
+
+`````
+<!-- {code-block} c -->
 
 Mostrá el stack después de cada línea con un diagrama ASCII."
 
-```
+`````
 
 ### Patrón 5: Análisis de Errores
 
 Comprende errores comunes y cómo evitarlos.
 
-```
+`````
 
 "Dame los 5 errores más comunes que cometen principiantes al trabajar con
 punteros en C. Para cada uno:
@@ -295,7 +300,9 @@ punteros en C. Para cada uno:
 
 ### ¿Qué es un Archivo de Instrucciones?
 
-Un archivo como `GEMINI.md` es un **contrato de contexto** que establece reglas y preferencias para que la IA genere contenido consistente con tu estilo de aprendizaje, convenciones de código y nivel de detalle esperado.
+Un archivo como `GEMINI.md` es un **contrato de contexto** que establece reglas
+y preferencias para que la IA genere contenido consistente con tu estilo de
+aprendizaje, convenciones de código y nivel de detalle esperado.
 
 **Beneficios:**
 1. **Consistencia:** Respuestas alineadas con tu forma de aprender
@@ -305,7 +312,8 @@ Un archivo como `GEMINI.md` es un **contrato de contexto** que establece reglas 
 
 ### Estructura de un Archivo de Instrucciones
 
-```markdown
+```{code-block} markdown
+:linenos:
 # Directivas para Asistente de IA
 
 ## Contexto del Proyecto
@@ -354,13 +362,14 @@ NO hacer:
 
 ## Formato de Respuestas de Código
 
-```c
+```` c
 // Descripción breve de qué hace la función
 tipo_retorno nombre_funcion(parametros) {
     // Comentario solo si agrega valor
     codigo;
 }
 ````
+<!-- c -->
 
 ## Preferencias de Aprendizaje
 
@@ -370,6 +379,7 @@ tipo_retorno nombre_funcion(parametros) {
 - Conectá conceptos nuevos con conocidos
 
 ```
+<!-- {code-block} markdown -->
 
 ### Cómo Usar el Archivo en Diferentes Herramientas
 
@@ -402,19 +412,20 @@ Confirmá que entendiste las directivas antes de continuar."
 
 Respondé 'Listo' cuando hayas procesado las directivas."
 
-````
+```
 
 #### Con GitHub Copilot
 
 1. **Archivo `.github/copilot-instructions.md` en el repositorio:**
-```markdown
+``` markdown
 # Copilot Instructions
 
 Use K&R style bracing.
 Always check malloc() return values.
 Prefer explicit over implicit.
 Comment only when adding clarity.
-````
+```
+<!-- markdown -->
 
 2. **Comentarios en archivos:**
    ```c
@@ -556,7 +567,8 @@ Dame tu recomendación justificada para un proyecto académico."
 ````
 "Tengo esta función que busca en una lista:
 
-```c
+`````{code-block} c
+:linenos:
 bool contiene(lista_t *lista, int valor) {
     nodo_t *actual = lista->inicio;
     while (actual != NULL) {
@@ -566,7 +578,9 @@ bool contiene(lista_t *lista, int valor) {
     }
     return false;
 }
-````
+
+`````
+<!-- {code-block} c -->
 
 Funciona correctamente, pero en mi programa se llama miles de veces y es un
 cuello de botella.
@@ -575,7 +589,7 @@ No me des una solución, pero guiame con preguntas para que yo mismo descubra
 cómo optimizarla. Considerá que la lista puede ser modificada (no es solo
 lectura)."
 
-```
+`````
 
 **La IA responderá con preguntas como:**
 - ¿Qué complejidad tiene tu función actual?
@@ -590,7 +604,7 @@ lectura)."
 
 Pedí comparaciones lado a lado para entender diferencias sutiles.
 
-```
+`````
 
 "Creá una tabla comparativa lado a lado mostrando:
 
@@ -606,13 +620,13 @@ Para cada uno, mostrá:
 3. Qué puede salir mal
 4. Cómo lo detectaría Valgrind"
 
-```
+`````
 
 ### 2. Historias de Debugging
 
 Pedí narrativas de debugging para aprender el proceso.
 
-```
+`````
 
 "Contame una historia de debugging paso por paso:
 
@@ -631,13 +645,13 @@ la causa raíz, incluyendo:
 
 Basalo en un bug real de gestión de memoria en C."
 
-```
+`````
 
 ### 3. Análisis Postmortem
 
 Después de resolver un problema, pedí análisis retrospectivo.
 
-```
+`````
 
 "Acabo de resolver [problema]. Mi solución fue [código/descripción].
 
@@ -650,13 +664,13 @@ Hacé un análisis postmortem:
 5. ¿Hay una forma más 'idiomática' de resolver esto en C?
 6. ¿Qué problema similar debería intentar ahora para consolidar?"
 
-```
+`````
 
 ### 4. Construcción de Intuición
 
 Pedí múltiples ejemplos para desarrollar intuición sobre cuándo usar qué.
 
-```
+`````
 
 "Dame 10 escenarios diferentes (con código mínimo) donde necesitaría usar:
 
@@ -669,13 +683,13 @@ Pedí múltiples ejemplos para desarrollar intuición sobre cuándo usar qué.
 Para cada escenario, explicá brevemente POR QUÉ ese tipo específico es
 necesario."
 
-```
+`````
 
 ### 5. Meta-Aprendizaje
 
 Usá la IA para reflexionar sobre tu propio proceso de aprendizaje.
 
-```
+`````
 
 "He estado aprendiendo C durante 3 meses. Mis áreas de dominio:
 
@@ -692,7 +706,7 @@ Basándote en este perfil:
 3. Proponé un plan de estudio de 2 semanas con ejercicios específicos
 4. ¿Qué indicadores usaría para medir mi progreso?"
 
-```
+`````
 
 ## Errores Comunes al Usar IA para Aprender
 
@@ -701,7 +715,7 @@ Basándote en este perfil:
 **Síntoma:** Pegás código de la IA que funciona pero no podés explicar por qué.
 
 **Solución:**
-```
+`````
 
 "Explicá línea por línea qué hace este código que me diste:
 
@@ -710,7 +724,7 @@ Basándote en este perfil:
 Después, dame un ejercicio similar para que lo resuelva yo sin tu ayuda y
 verifique que realmente entendí."
 
-```
+`````
 
 ### Error 2: No Verificar las Respuestas
 
@@ -726,25 +740,25 @@ verifique que realmente entendí."
 **Síntoma:** Preguntas tipo "¿Cómo aprendo C?" o "Explicá punteros"
 
 **Solución:** Sé específico. En lugar de "Explicá punteros", preguntá:
-```
+`````
 
 "Entiendo que un puntero almacena una dirección de memoria. Lo que no entiendo
 es por qué cuando hago \*p = 5, el valor 5 termina en la variable original. ¿Qué
 pasa exactamente en memoria?"
 
-```
+`````
 
 ### Error 4: No Iterar en las Respuestas
 
 **Síntoma:** Aceptás la primera respuesta sin profundizar.
 
 **Solución:** Hacé preguntas de seguimiento:
-```
+`````
 
 "Entendí tu explicación, pero tengo dudas sobre [aspecto específico]. Dame un
 ejemplo que muestre específicamente ese caso."
 
-```
+`````
 
 ### Error 5: Dependencia Excesiva
 
@@ -759,7 +773,7 @@ ejemplo que muestre específicamente ese caso."
 
 ### Flujo de Trabajo Recomendado
 
-```
+`````
 
 ┌─────────────────────────────────────────────────────┐ │ 1. Lee el
 problema/concepto │ │ - Entendé qué se pide │ │ - Identificá conceptos
@@ -822,7 +836,8 @@ sobre tu solución │ └──────────────────
 
 ### Workflow de Debugging con IA
 
-```bash
+```{code-block} bash
+:linenos:
 # 1. Reproducir el error
 ./programa
 # Segmentation fault
@@ -835,7 +850,9 @@ valgrind ./programa
 # Analizar output
 
 # 4. Consultar a IA con contexto completo
-````
+
+```
+<!-- {code-block} bash -->
 
 Prompt para IA:
 
@@ -860,7 +877,8 @@ no la solución directa."
 
 ### Plantilla Base
 
-````markdown
+````{code-block} markdown
+:linenos:
 # Instrucciones de IA para [Tu Nombre/Proyecto]
 
 ## Contexto Personal
@@ -931,7 +949,8 @@ no la solución directa."
 
 ### Para código:
 
-```c
+`````{code-block} c
+:linenos:
 // Siempre con esta estructura
 tipo_retorno nombre_funcion(parametros) {
     // Validación de entradas si aplica
@@ -940,8 +959,12 @@ tipo_retorno nombre_funcion(parametros) {
 
     // Limpieza y retorno
 }
-```
+
+`````
+<!-- {code-block} c -->
+
 ````
+<!-- {code-block} markdown -->
 
 ### Para debugging:
 
@@ -1014,7 +1037,8 @@ Ejemplo:
 ### Cómo Mantenerlo Actualizado
 
 **Revisión semanal:**
-```markdown
+`````{code-block} markdown
+:linenos:
 ## Actualización [Fecha]
 
 **Nuevos conceptos dominados:**
@@ -1028,7 +1052,9 @@ Ejemplo:
 **Áreas que necesitan refuerzo:**
 - Aritmética de punteros
 - Casting de punteros void*
-````
+
+`````
+<!-- {code-block} markdown -->
 
 ## Casos de Estudio
 
@@ -1044,30 +1070,30 @@ Ejemplo:
 
 1. **Sesión de diagnóstico:**
 
-```
+`````
 "Necesito que evalúes mi comprensión de punteros.
 Haceme 5 preguntas de diagnóstico (sin código) para
 identificar exactamente qué conceptos tengo confusos."
-```
+`````
 
 2. **Aprendizaje estructurado:**
 
-```
+`````
 "Basándote en mis respuestas, diseñá un plan de 4 sesiones
 para que domine punteros. Cada sesión debe:
 - Durar ~1 hora
 - Incluir explicación + ejercicios
 - Construir sobre la anterior
 - Terminar con un miniproyecto"
-```
+`````
 
 3. **Seguimiento:**
 
-```
+`````
 "Terminé la sesión 1. Revisá mi solución del ejercicio final
 y determiná si estoy listo para la sesión 2 o necesito
 reforzar algo primero."
-```
+`````
 
 ### Caso B: Estudiante Avanzado Buscando Optimización
 
@@ -1081,7 +1107,7 @@ reforzar algo primero."
 
 1. **Análisis de código:**
 
-```
+`````
 "Este es mi TAD de lista enlazada. Funciona correctamente.
 Hacé un análisis de:
 1. Complejidad temporal de cada operación
@@ -1090,11 +1116,11 @@ Hacé un análisis de:
 4. Impacto en legibilidad vs performance
 
 [código]"
-```
+`````
 
 2. **Exploración de alternativas:**
 
-```
+`````
 "Tengo esta lista enlazada simple. Mostrá 3 estructuras
 alternativas que podrían ser más eficientes para mi caso
 de uso: [descripción]. Para cada una:
@@ -1102,17 +1128,17 @@ de uso: [descripción]. Para cada una:
 - Ventajas/desventajas
 - Complejidad de operaciones
 - Cuándo elegir esa estructura"
-```
+`````
 
 3. **Profiling guiado:**
 
-```
+`````
 "Corrí mi programa con perf y estos son los resultados:
 [output de perf]
 
 Guiame para interpretar estos datos. ¿Qué me dicen sobre
 dónde está el cuello de botella?"
-```
+`````
 
 ### Caso C: Preparación para Entrevistas Técnicas
 
@@ -1120,7 +1146,7 @@ dónde está el cuello de botella?"
 
 1. **Generación de problemas:**
 
-```
+`````
 "Generá 10 problemas tipo entrevista técnica que evalúen:
 - Punteros y memoria
 - Estructuras de datos fundamentales
@@ -1128,11 +1154,11 @@ dónde está el cuello de botella?"
 - Edge cases
 
 Ordenados por dificultad. Dame solo los enunciados."
-```
+`````
 
 2. **Simulación de entrevista:**
 
-```
+`````
 "Actuá como entrevistador técnico. Dame un problema,
 dejame resolverlo (no me ayudes), y después:
 1. Evaluá mi solución (correctitud)
@@ -1140,11 +1166,11 @@ dejame resolverlo (no me ayudes), y después:
 3. Preguntame cómo optimizarla
 4. Evaluá mi comunicación durante el proceso
 5. Dame feedback como lo haría un entrevistador real"
-```
+`````
 
 3. **Revisión de soluciones:**
 
-```
+`````
 "Esta fue mi solución al problema anterior. Compárala
 con la solución óptima y explicá:
 - Qué hice bien
@@ -1152,7 +1178,7 @@ con la solución óptima y explicá:
 - Qué señales le daría a un entrevistador sobre mi
   nivel de habilidad
 - Qué debería estudiar para mejorar"
-```
+`````
 
 ## Ética y Responsabilidad
 
@@ -1178,15 +1204,15 @@ con la solución óptima y explicá:
 
 **Con profesores:**
 
-```
+`````
 "Profesor, usé ChatGPT para entender mejor [concepto].
 La IA me explicó [X] de esta manera: [explicación].
 ¿Es correcta esta comprensión?"
-```
+`````
 
 **En trabajos:**
 
-```
+`````
 # Nota del autor
 
 Para el desarrollo de este código consulté a ChatGPT para:
@@ -1196,7 +1222,7 @@ Para el desarrollo de este código consulté a ChatGPT para:
 
 Todo el código fue escrito por mí después de entender
 los conceptos.
-```
+`````
 
 ### Señales de Uso Problemático
 
@@ -1256,6 +1282,7 @@ los conceptos.
 10. **La IA amplifica:** Buenos hábitos se potencian, malos también 
 
 :::
+<!-- {important} Reglas de Oro -->
 
 :::{tip} El Test de Comprensión Real
 
@@ -1270,6 +1297,7 @@ Después de usar IA para aprender algo, preguntate:
 Si respondés "no" a más de dos, necesitás reforzar más antes de avanzar. 
 
 :::
+<!-- {tip} El Test de Comprensión Real -->
 
 ## Conclusión
 

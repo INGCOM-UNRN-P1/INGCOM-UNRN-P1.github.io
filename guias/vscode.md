@@ -33,6 +33,7 @@ de simplicidad y potencia lo hace ideal tanto para principiantes como expertos.
 
 
 :::
+<!-- {note} Origenes -->
 
 ## Instalación en diferentes sistemas
 
@@ -40,7 +41,8 @@ de simplicidad y potencia lo hace ideal tanto para principiantes como expertos.
 
 #### Método 1: Paquete .deb (recomendado)
 
-```bash
+```{code-block} bash
+:linenos:
 # Descargar e instalar el paquete oficial
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
@@ -48,26 +50,31 @@ sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/p
 
 sudo apt update
 sudo apt install code
+
 ```
+<!-- {code-block} bash -->
 
 #### Método 2: Snap (alternativo)
 
-```bash
+``` bash
 sudo snap install --classic code
 ```
+<!-- bash -->
 
 #### Método 3: AppImage (portable)
 
-```bash
+``` bash
 # Descargar desde el sitio oficial
 wget "https://code.visualstudio.com/sha/download?build=stable&os=linux-x64" -O code.AppImage
 chmod +x code.AppImage
 ./code.AppImage
 ```
+<!-- bash -->
 
 ### Linux (CentOS/RHEL/Fedora)
 
-```bash
+```{code-block} bash
+:linenos:
 # Agregar repositorio de Microsoft
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
@@ -79,7 +86,9 @@ sudo dnf install code
 # O en sistemas más antiguos con yum
 sudo yum check-update
 sudo yum install code
+
 ```
+<!-- {code-block} bash -->
 
 ### macOS
 
@@ -92,10 +101,11 @@ sudo yum install code
 
 #### Método 2: Homebrew (recomendado para desarrolladores)
 
-```bash
+``` bash
 # Instalar con Homebrew
 brew install --cask visual-studio-code
 ```
+<!-- bash -->
 
 ### Windows
 
@@ -112,21 +122,24 @@ brew install --cask visual-studio-code
 
 #### Método 2: Winget (Windows 10/11)
 
-```bash
+``` bash
 winget install Microsoft.VisualStudioCode
 ```
+<!-- bash -->
 
 #### Método 3: Chocolatey
 
-```bash
+``` bash
 choco install vscode
 ```
+<!-- bash -->
 
 ## Primera configuración
 
 ### Verificar instalación
 
-```bash
+```{code-block} bash
+:linenos:
 # Verificar que VS Code está en el PATH
 code --version
 
@@ -138,7 +151,9 @@ code .
 
 # Abrir archivo específico
 code mi-archivo.py
+
 ```
+<!-- {code-block} bash -->
 
 ### Configuración inicial recomendada
 
@@ -191,7 +206,8 @@ Al abrir VS Code por primera vez:
 
 #### Navegación y archivos
 
-```bash
+```{code-block} bash
+:linenos:
 Ctrl+N              # Nuevo archivo
 Ctrl+O              # Abrir archivo
 Ctrl+S              # Guardar archivo
@@ -201,11 +217,14 @@ Ctrl+Shift+T        # Reabrir última pestaña cerrada
 Ctrl+Tab            # Alternar entre pestañas abiertas
 Ctrl+P              # Quick Open (buscar archivos)
 Ctrl+Shift+P        # Command Palette (todos los comandos)
+
 ```
+<!-- {code-block} bash -->
 
 #### Edición
 
-```bash
+```{code-block} bash
+:linenos:
 Ctrl+Z              # Deshacer
 Ctrl+Y              # Rehacer
 Ctrl+X              # Cortar línea completa (sin selección)
@@ -216,27 +235,33 @@ Ctrl+Enter          # Insertar línea debajo
 Ctrl+Shift+Enter    # Insertar línea arriba
 Alt+↑/↓             # Mover línea arriba/abajo
 Shift+Alt+↑/↓       # Duplicar línea arriba/abajo
+
 ```
+<!-- {code-block} bash -->
 
 #### Búsqueda y reemplazo
 
-```bash
+```{code-block} bash
+:linenos:
 Ctrl+F              # Buscar en archivo actual
 Ctrl+H              # Buscar y reemplazar
 Ctrl+Shift+F        # Buscar en todo el proyecto
 Ctrl+Shift+H        # Reemplazar en todo el proyecto
 F3                  # Siguiente ocurrencia
 Shift+F3            # Ocurrencia anterior
+
 ```
+<!-- {code-block} bash -->
 
 #### Selección múltiple
 
-```bash
+``` bash
 Ctrl+D              # Seleccionar siguiente ocurrencia de palabra
 Ctrl+Shift+L        # Seleccionar todas las ocurrencias
 Alt+Click           # Agregar cursor adicional
 Ctrl+Alt+↑/↓        # Agregar cursor arriba/abajo
 ```
+<!-- bash -->
 
 ## Extensiones esenciales
 
@@ -247,10 +272,11 @@ para comenzar:
 
 #### 1. **Prettier - Code formatter**
 
-```bash
+``` bash
 # Instalar desde terminal
 code --install-extension esbenp.prettier-vscode
 ```
+<!-- bash -->
 
 - Formateador automático de código
 - Soporta JavaScript, HTML, CSS, JSON, Markdown y más
@@ -258,9 +284,10 @@ code --install-extension esbenp.prettier-vscode
 
 #### 2. **GitLens**
 
-```bash
+``` bash
 code --install-extension eamodio.gitlens
 ```
+<!-- bash -->
 
 - Superpoderes para Git integrado
 - Ve quién modificó cada línea y cuándo
@@ -268,9 +295,10 @@ code --install-extension eamodio.gitlens
 
 #### 3. **Auto Rename Tag**
 
-```bash
+``` bash
 code --install-extension formulahendry.auto-rename-tag
 ```
+<!-- bash -->
 
 - Renombra automáticamente tags HTML/XML pareados
 - Esencial para desarrollo web
@@ -282,9 +310,10 @@ code --install-extension formulahendry.auto-rename-tag
 
 #### 5. **Live Server**
 
-```bash
+``` bash
 code --install-extension ritwickdey.liveserver
 ```
+<!-- bash -->
 
 - Servidor local con recarga automática
 - Perfecto para desarrollo web frontend
@@ -293,42 +322,47 @@ code --install-extension ritwickdey.liveserver
 
 #### Python
 
-```bash
+``` bash
 code --install-extension ms-python.python
 ```
+<!-- bash -->
 
 - IntelliSense, linting, debugging para Python
 - Integración con Jupyter notebooks
 
 #### JavaScript/TypeScript
 
-```bash
+``` bash
 code --install-extension ms-vscode.vscode-typescript-next
 ```
+<!-- bash -->
 
 - Soporte avanzado para JS/TS (viene integrado)
 
 #### HTML/CSS
 
-```bash
+``` bash
 code --install-extension ecmel.vscode-html-css
 ```
+<!-- bash -->
 
 - Autocompletado de CSS en archivos HTML
 
 #### C/C++
 
-```bash
+``` bash
 code --install-extension ms-vscode.cpptools
 ```
+<!-- bash -->
 
 - IntelliSense, debugging y browsing para C++
 
 #### Java
 
-```bash
+``` bash
 code --install-extension vscjava.vscode-java-pack
 ```
+<!-- bash -->
 
 - Pack completo para desarrollo Java
 
@@ -336,7 +370,8 @@ code --install-extension vscjava.vscode-java-pack
 
 #### Temas populares
 
-```bash
+```{code-block} bash
+:linenos:
 # Tema oscuro muy popular
 code --install-extension PKief.material-icon-theme
 
@@ -345,7 +380,9 @@ code --install-extension PKief.material-icon-theme
 
 # Tema Dracula
 code --install-extension dracula-theme.theme-dracula
+
 ```
+<!-- {code-block} bash -->
 
 ### Instalar extensiones desde interfaz
 
@@ -365,19 +402,21 @@ VS Code tiene dos niveles de configuración:
 
 #### Acceder a configuración
 
-```bash
+``` bash
 # Desde Command Palette
 Ctrl+Shift+P → "Preferences: Open Settings"
 
 # O con atajo directo
 Ctrl+,
 ```
+<!-- bash -->
 
 ### Configuraciones esenciales
 
 #### settings.json básico
 
-```json
+```{code-block} json
+:linenos:
 {
   // Configuración del editor
   "editor.fontSize": 14,
@@ -407,14 +446,17 @@ Ctrl+,
   "prettier.singleQuote": true,
   "prettier.semi": true
 }
+
 ```
+<!-- {code-block} json -->
 
 #### Abrir configuración como JSON
 
-```bash
+``` bash
 # Command Palette
 Ctrl+Shift+P → "Preferences: Open Settings (JSON)"
 ```
+<!-- bash -->
 
 ### Snippets personalizados
 
@@ -426,7 +468,8 @@ Los snippets son plantillas de código reutilizables.
 2. Elegir lenguaje (ej: "html.json")
 3. Agregar snippet:
 
-```json
+```{code-block} json
+:linenos:
 {
   "HTML5 Boilerplate": {
     "prefix": "html5",
@@ -446,7 +489,9 @@ Los snippets son plantillas de código reutilizables.
     "description": "HTML5 boilerplate básico"
   }
 }
+
 ```
+<!-- {code-block} json -->
 
 Uso: Escribí `html5` y presioná `Tab` para expandir.
 
@@ -456,7 +501,8 @@ Una de las características más útiles de VS Code es su terminal integrada.
 
 ### Usar la terminal
 
-```bash
+```{code-block} bash
+:linenos:
 # Abrir/cerrar terminal
 Ctrl+`
 
@@ -465,22 +511,26 @@ Ctrl+Shift+`
 
 # Alternar entre terminales
 Ctrl+PageUp/PageDown
+
 ```
+<!-- {code-block} bash -->
 
 ### Configurar terminal por defecto
 
 #### En Linux/macOS
 
-```json
+``` json
 {
   "terminal.integrated.shell.linux": "/bin/bash",
   "terminal.integrated.shell.osx": "/bin/zsh"
 }
 ```
+<!-- json -->
 
 #### En Windows
 
-```json
+```{code-block} json
+:linenos:
 {
   "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe"
   // O para PowerShell:
@@ -488,7 +538,9 @@ Ctrl+PageUp/PageDown
   // O para Git Bash:
   // "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe"
 }
+
 ```
+<!-- {code-block} json -->
 
 ## Integración con Git
 
@@ -499,11 +551,12 @@ versiones.
 
 Si no configuraste Git globalmente:
 
-```bash
+``` bash
 # En la terminal integrada de VS Code
 git config --global user.name "Tu Nombre"
 git config --global user.email "tu.email@ejemplo.com"
 ```
+<!-- bash -->
 
 ### Usar Git desde VS Code
 
@@ -522,7 +575,8 @@ git config --global user.email "tu.email@ejemplo.com"
 
 #### Funciones avanzadas
 
-```bash
+```{code-block} bash
+:linenos:
 # Ver diferencias
 Click en archivo modificado en Source Control
 
@@ -534,7 +588,9 @@ Ctrl+Shift+P → "Git: Create Branch"
 
 # Cambiar branch
 Click en nombre de branch en Status Bar
+
 ```
+<!-- {code-block} bash -->
 
 ## Debugging (depuración)
 
@@ -546,7 +602,8 @@ VS Code incluye un depurador visual potente para múltiples lenguajes.
 
 1. Creá archivo `.vscode/launch.json` en tu proyecto:
 
-```json
+```{code-block} json
+:linenos:
 {
   "version": "0.2.0",
   "configurations": [
@@ -559,11 +616,14 @@ VS Code incluye un depurador visual potente para múltiples lenguajes.
     }
   ]
 }
+
 ```
+<!-- {code-block} json -->
 
 #### Para JavaScript (Node.js)
 
-```json
+```{code-block} json
+:linenos:
 {
   "version": "0.2.0",
   "configurations": [
@@ -576,7 +636,9 @@ VS Code incluye un depurador visual potente para múltiples lenguajes.
     }
   ]
 }
+
 ```
+<!-- {code-block} json -->
 
 ### Usar el debugger
 
@@ -618,7 +680,8 @@ mi-proyecto-web/
 
 #### Setup básico
 
-```bash
+```{code-block} bash
+:linenos:
 # Crear proyecto Python
 mkdir mi-proyecto-python
 cd mi-proyecto-python
@@ -638,7 +701,9 @@ echo "requests==2.28.1" > requirements.txt
 
 # Instalar dependencias
 pip install -r requirements.txt
+
 ```
+<!-- {code-block} bash -->
 
 #### Configuración de Python en VS Code
 
@@ -650,7 +715,8 @@ pip install -r requirements.txt
 
 #### Setup completo desde cero
 
-```bash
+```{code-block} bash
+:linenos:
 # Crear directorio y abrir en VS Code
 mkdir mi-proyecto
 cd mi-proyecto
@@ -671,7 +737,9 @@ echo "node_modules/" > .gitignore
 # Conectar con GitHub (si tenés repo remoto)
 git remote add origin https://github.com/usuario/mi-proyecto.git
 git push -u origin main
+
 ```
+<!-- {code-block} bash -->
 
 ## Ejercicios prácticos
 
@@ -692,10 +760,12 @@ git push -u origin main
 4. Verificá que podés abrir VS Code desde terminal con `code .` 
 
 :::
+<!-- {exercise} ejercicio-setup-vscode -->
 
 :::{solution} ejercicio-setup-vscode
 
-```bash
+```{code-block} bash
+:linenos:
 # 1. Instalación en Ubuntu/Debian
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
@@ -729,9 +799,12 @@ code .
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
+
 ```
+<!-- {code-block} bash -->
 
 :::
+<!-- {solution} ejercicio-setup-vscode -->
 
 :::{exercise} ejercicio-proyecto-web
 :label: ejercicio-proyecto-web
@@ -745,10 +818,12 @@ code .
 5. Agregá un snippet personalizado para estructura HTML 
 
 :::
+<!-- {exercise} ejercicio-proyecto-web -->
 
 :::{solution} ejercicio-proyecto-web
 
-```bash
+```{code-block} bash
+:linenos:
 # 1. Crear estructura del proyecto
 mkdir mi-primera-web
 cd mi-primera-web
@@ -883,9 +958,12 @@ git commit -m "Add gitignore file"
 }
 
 echo "¡Proyecto completado! Ahora podés usar 'html5resp' + Tab para crear estructura HTML rápida"
+
 ```
+<!-- {code-block} bash -->
 
 :::
+<!-- {solution} ejercicio-proyecto-web -->
 
 ### Ejercicios adicionales para practicar
 
@@ -915,7 +993,8 @@ echo "¡Proyecto completado! Ahora podés usar 'html5resp' + Tab para crear estr
 
 ### Comandos útiles desde Command Palette
 
-```bash
+```{code-block} bash
+:linenos:
 # Acceso rápido: Ctrl+Shift+P
 
 "Developer: Reload Window"           # Reiniciar VS Code sin cerrar
@@ -924,29 +1003,37 @@ echo "¡Proyecto completado! Ahora podés usar 'html5resp' + Tab para crear estr
 "Format Document"                    # Formatear archivo completo
 "Transform to Uppercase/Lowercase"   # Cambiar case del texto seleccionado
 "Sort Lines Ascending"               # Ordenar líneas alfabéticamente
+
 ```
+<!-- {code-block} bash -->
 
 ### Navegación eficiente
 
-```bash
+```{code-block} bash
+:linenos:
 Ctrl+G                    # Ir a línea específica
 Ctrl+Shift+O             # Ir a símbolo en archivo
 Ctrl+T                   # Ir a símbolo en workspace
 Ctrl+P                   # Quick Open (buscar archivos)
 Ctrl+R                   # Abrir workspace reciente
 Alt+← / Alt+→            # Navegar historial de archivos
+
 ```
+<!-- {code-block} bash -->
 
 ### Edición avanzada
 
-```bash
+```{code-block} bash
+:linenos:
 Ctrl+Shift+\             # Ir a paréntesis/bracket de cierre
 Ctrl+]/[                 # Indentar/desindentar
 Ctrl+/                   # Comentar/descomentar línea
 Shift+Alt+A              # Comentar/descomentar bloque
 Ctrl+Shift+↑/↓          # Seleccionar líneas arriba/abajo
 Ctrl+L                   # Seleccionar línea completa
+
 ```
+<!-- {code-block} bash -->
 
 ### Workspace multi-carpeta
 
@@ -958,17 +1045,21 @@ VS Code permite trabajar con múltiples carpetas en un solo workspace:
 
 ## Configuración avanzada para C/C++
 
-Esta sección cubre la configuración profesional de VS Code para desarrollo en C, incluyendo Language Server Protocol (LSP), compilación integrada y debugging visual.
+Esta sección cubre la configuración profesional de VS Code para desarrollo en C,
+incluyendo Language Server Protocol (LSP), compilación integrada y debugging
+visual.
 
 ### Instalación de extensiones necesarias
 
-Para trabajar con C en VS Code, necesitás instalar estas extensiones fundamentales:
+Para trabajar con C en VS Code, necesitás instalar estas extensiones
+fundamentales:
 
 1. **C/C++ (Microsoft)** - `ms-vscode.cpptools`
    - IntelliSense, debugging y navegación de código
    - Language server oficial de Microsoft
 
-2. **clangd** - `llvm-vs-code-extensions.vscode-clangd` (alternativa recomendada)
+2. **clangd** - `llvm-vs-code-extensions.vscode-clangd` (alternativa
+   recomendada)
    - Language server más rápido y preciso que el de Microsoft
    - Mejor autocompletado y diagnósticos
 
@@ -979,20 +1070,24 @@ Para trabajar con C en VS Code, necesitás instalar estas extensiones fundamenta
 4. **CodeLLDB** - `vadimcn.vscode-lldb` (opcional, para debugging avanzado)
    - Debugger alternativo con mejor visualización
 
-```bash
+``` bash
 # Instalar desde terminal
 code --install-extension ms-vscode.cpptools
 code --install-extension llvm-vs-code-extensions.vscode-clangd
 code --install-extension ms-vscode.makefile-tools
 ```
+<!-- bash -->
 
 ### Configuración del Language Server: clangd
 
-El Language Server Protocol (LSP) es un estándar que permite a los editores obtener información semántica del código: autocompletado, diagnósticos, navegación, refactoring, etc. Para C, `clangd` es la opción más robusta.
+El Language Server Protocol (LSP) es un estándar que permite a los editores
+obtener información semántica del código: autocompletado, diagnósticos,
+navegación, refactoring, etc. Para C, `clangd` es la opción más robusta.
 
 #### Instalación de clangd
 
-```bash
+```{code-block} bash
+:linenos:
 # Ubuntu/Debian
 sudo apt install clangd
 
@@ -1004,13 +1099,16 @@ brew install llvm
 
 # Verificar instalación
 clangd --version
+
 ```
+<!-- {code-block} bash -->
 
 #### Configuración de clangd en VS Code
 
 Creá o editá el archivo `.vscode/settings.json` en tu proyecto:
 
-```json
+```{code-block} json
+:linenos:
 {
     // Configuración de clangd
     "clangd.path": "/usr/bin/clangd",
@@ -1033,23 +1131,28 @@ Creá o editá el archivo `.vscode/settings.json` en tu proyecto:
     "editor.bracketPairColorization.enabled": true,
     "editor.guides.bracketPairs": true
 }
+
 ```
+<!-- {code-block} json -->
 
 **Explicación de argumentos de clangd:**
 
 - `--background-index`: Indexa el código en segundo plano para navegación rápida
 - `--clang-tidy`: Activa análisis estático de código (detecta bugs comunes)
 - `--completion-style=detailed`: Autocompletado detallado con documentación
-- `--header-insertion=iwyu`: Incluye headers automáticamente ("Include What You Use")
+- `--header-insertion=iwyu`: Incluye headers automáticamente ("Include What You
+  Use")
 - `--pch-storage=memory`: Usa RAM para headers precompilados (más rápido)
 
 #### Archivo compile_commands.json
 
-Para que clangd entienda tu proyecto, necesita saber cómo compilarlo. Esto se especifica en `compile_commands.json`.
+Para que clangd entienda tu proyecto, necesita saber cómo compilarlo. Esto se
+especifica en `compile_commands.json`.
 
 **Método 1: Generar con Make + Bear**
 
-```bash
+```{code-block} bash
+:linenos:
 # Instalar bear (Build EAR - genera compile_commands.json)
 sudo apt install bear  # Ubuntu/Debian
 sudo dnf install bear  # Fedora
@@ -1058,13 +1161,17 @@ sudo dnf install bear  # Fedora
 bear -- make
 
 # Esto crea compile_commands.json en el directorio actual
+
 ```
+<!-- {code-block} bash -->
 
 **Método 2: Generar manualmente para proyecto simple**
 
-Si tenés un proyecto simple con pocos archivos, podés crear `compile_commands.json` manualmente:
+Si tenés un proyecto simple con pocos archivos, podés crear
+`compile_commands.json` manualmente:
 
-```json
+```{code-block} json
+:linenos:
 [
   {
     "directory": "/home/usuario/mi-proyecto",
@@ -1082,17 +1189,20 @@ Si tenés un proyecto simple con pocos archivos, podés crear `compile_commands.
     "file": "utils.c"
   }
 ]
+
 ```
+<!-- {code-block} json -->
 
 **Método 3: Con CMake**
 
-```bash
+``` bash
 # CMake genera compile_commands.json automáticamente
 cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .
 
 # Crear symlink en la raíz del proyecto si CMake está en build/
 ln -s build/compile_commands.json compile_commands.json
 ```
+<!-- bash -->
 
 :::{tip} Verificación de clangd
 
@@ -1106,18 +1216,23 @@ Para verificar que clangd está funcionando correctamente:
    - **Tooltips con documentación** al pasar el mouse
    - **"Go to Definition"** (F12) funcionando
 
-Si no funciona, revisá el output: `View` → `Output` → seleccionar "clangd" en el dropdown.
+Si no funciona, revisá el output: `View` → `Output` → seleccionar "clangd" en el
+dropdown.
+
 :::
+<!-- {tip} Verificación de clangd -->
 
 ### Configuración de compilación integrada
 
-VS Code permite compilar tu proyecto sin salir del editor. Hay dos métodos principales:
+VS Code permite compilar tu proyecto sin salir del editor. Hay dos métodos
+principales:
 
 #### Método 1: Tasks con tasks.json (proyecto simple)
 
 Creá `.vscode/tasks.json`:
 
-```json
+```{code-block} json
+:linenos:
 {
     "version": "2.0.0",
     "tasks": [
@@ -1191,11 +1306,14 @@ Creá `.vscode/tasks.json`:
         }
     ]
 }
+
 ```
+<!-- {code-block} json -->
 
 **Uso de tasks:**
 
-```bash
+```{code-block} bash
+:linenos:
 # Compilar (task por defecto)
 Ctrl+Shift+B
 
@@ -1204,22 +1322,28 @@ Ctrl+Shift+P → "Tasks: Run Task" → elegir task
 
 # Atajo: configurar keybinding personalizado
 # File → Preferences → Keyboard Shortcuts → buscar "workbench.action.tasks.runTask"
+
 ```
+<!-- {code-block} bash -->
 
 **Explicación de opciones importantes:**
 
 - `"isDefault": true`: Marca la task como predeterminada para `Ctrl+Shift+B`
-- `"problemMatcher": "$gcc"`: Parsea la salida de GCC para mostrar errores en el panel "Problems"
-- `"dependsOn"`: Ejecuta otra task antes de esta (útil para "compilar y ejecutar")
+- `"problemMatcher": "$gcc"`: Parsea la salida de GCC para mostrar errores en el
+  panel "Problems"
+- `"dependsOn"`: Ejecuta otra task antes de esta (útil para "compilar y
+  ejecutar")
 - `"presentation"`: Controla cómo se muestra la terminal de la task
 
 #### Método 2: Makefile Tools (proyecto con Makefile)
 
-Si tu proyecto usa Makefile, la extensión Makefile Tools provee integración visual.
+Si tu proyecto usa Makefile, la extensión Makefile Tools provee integración
+visual.
 
 **Configuración en `.vscode/settings.json`:**
 
-```json
+```{code-block} json
+:linenos:
 {
     "makefile.extensionOutputFolder": ".vscode",
     "makefile.launchConfigurations": [
@@ -1240,7 +1364,9 @@ Si tu proyecto usa Makefile, la extensión Makefile Tools provee integración vi
         }
     ]
 }
+
 ```
+<!-- {code-block} json -->
 
 **Uso:**
 
@@ -1262,17 +1388,22 @@ VS Code provee variables que podés usar en configuraciones:
 - `${env:VARIABLE}`: Variable de entorno
 
 Ejemplo: `"${workspaceFolder}/build/${fileBasenameNoExtension}"`
+
 :::
+<!-- {important} Variables útiles en tasks y launch configs -->
 
 ### Configuración de debugging integrado
 
-El debugging visual es una de las características más poderosas de VS Code. Permite ejecutar código paso a paso, inspeccionar variables, establecer breakpoints condicionales, y más.
+El debugging visual es una de las características más poderosas de VS Code.
+Permite ejecutar código paso a paso, inspeccionar variables, establecer
+breakpoints condicionales, y más.
 
 #### Configuración básica de launch.json
 
 Creá `.vscode/launch.json`:
 
-```json
+```{code-block} json
+:linenos:
 {
     "version": "0.2.0",
     "configurations": [
@@ -1339,7 +1470,9 @@ Creá `.vscode/launch.json`:
         }
     ]
 }
+
 ```
+<!-- {code-block} json -->
 
 **Explicación de campos importantes:**
 
@@ -1356,7 +1489,8 @@ Creá `.vscode/launch.json`:
 
 **Iniciar debugging:**
 
-```bash
+```{code-block} bash
+:linenos:
 # Iniciar debug de la configuración por defecto
 F5
 
@@ -1365,18 +1499,23 @@ Ctrl+Shift+D → seleccionar config → F5
 
 # Ejecutar sin debuggear
 Ctrl+F5
+
 ```
+<!-- {code-block} bash -->
 
 **Controles de debugging:**
 
-```bash
+```{code-block} bash
+:linenos:
 F5          # Continuar ejecución
 F10         # Step Over (ejecutar línea, no entrar en funciones)
 F11         # Step Into (entrar en función)
 Shift+F11   # Step Out (salir de función actual)
 Shift+F5    # Detener debugging
 Ctrl+Shift+F5  # Reiniciar debugging
+
 ```
+<!-- {code-block} bash -->
 
 **Breakpoints:**
 
@@ -1413,13 +1552,15 @@ Ctrl+Shift+F5  # Reiniciar debugging
 
 #### Debugging avanzado: Pretty Printers
 
-GDB puede ser configurado para mostrar estructuras complejas de forma legible mediante *pretty printers*.
+GDB puede ser configurado para mostrar estructuras complejas de forma legible
+mediante *pretty printers*.
 
 **Ejemplo: Pretty printer para lista enlazada**
 
 Creá `.gdbinit` en el directorio de tu proyecto:
 
-```python
+```{code-block} python
+:linenos:
 # .gdbinit - Pretty printers personalizados
 
 python
@@ -1452,22 +1593,28 @@ def lookup_type(val):
 gdb.pretty_printers.append(lookup_type)
 
 end
-```
 
-Ahora al inspeccionar una `lista_t` en el debugger, verás los elementos expandidos automáticamente.
+```
+<!-- {code-block} python -->
+
+Ahora al inspeccionar una `lista_t` en el debugger, verás los elementos
+expandidos automáticamente.
 
 :::{note} Permisos de .gdbinit
 
 Por seguridad, GDB puede requerir que permitas cargar `.gdbinit` locales:
 
-```bash
+``` bash
 # Agregar a ~/.gdbinit
 add-auto-load-safe-path /home/usuario/mi-proyecto/.gdbinit
 
 # O permitir todos (menos seguro)
 set auto-load safe-path /
 ```
+<!-- bash -->
+
 :::
+<!-- {note} Permisos de .gdbinit -->
 
 #### Debugging con Valgrind integrado
 
@@ -1475,7 +1622,8 @@ Podés ejecutar Valgrind desde VS Code y parsear su salida:
 
 **Task en `tasks.json`:**
 
-```json
+```{code-block} json
+:linenos:
 {
     "label": "Valgrind memcheck",
     "type": "shell",
@@ -1494,11 +1642,14 @@ Podés ejecutar Valgrind desde VS Code y parsear su salida:
         "reveal": "always"
     }
 }
+
 ```
+<!-- {code-block} json -->
 
 **Launch config para debugging con Valgrind:**
 
-```json
+```{code-block} json
+:linenos:
 {
     "name": "Debug con Valgrind",
     "type": "cppdbg",
@@ -1515,13 +1666,16 @@ Podés ejecutar Valgrind desde VS Code y parsear su salida:
     "externalConsole": false,
     "MIMode": "gdb"
 }
+
 ```
+<!-- {code-block} json -->
 
 ### Configuración completa de ejemplo
 
 Aquí hay una estructura completa de `.vscode/` para un proyecto típico en C:
 
-```bash
+```{code-block} bash
+:linenos:
 mi-proyecto/
 +-- .vscode/
 |   +-- c_cpp_properties.json  # Configuración de IntelliSense
@@ -1537,11 +1691,14 @@ mi-proyecto/
 +-- Makefile
 +-- compile_commands.json
 +-- .gdbinit
+
 ```
+<!-- {code-block} bash -->
 
 **`.vscode/c_cpp_properties.json`** (solo si no usás clangd):
 
-```json
+```{code-block} json
+:linenos:
 {
     "configurations": [
         {
@@ -1558,13 +1715,17 @@ mi-proyecto/
     ],
     "version": 4
 }
+
 ```
+<!-- {code-block} json -->
 
 ### Atajos de teclado útiles para C
 
-Agregá estos keybindings personalizados en `File` → `Preferences` → `Keyboard Shortcuts` (JSON):
+Agregá estos keybindings personalizados en `File` → `Preferences` → `Keyboard
+Shortcuts` (JSON):
 
-```json
+```{code-block} json
+:linenos:
 [
     {
         "key": "ctrl+shift+b",
@@ -1585,7 +1746,9 @@ Agregá estos keybindings personalizados en `File` → `Preferences` → `Keyboa
         "when": "editorTextFocus"
     }
 ]
+
 ```
+<!-- {code-block} json -->
 
 :::{tip} Workflow recomendado
 
@@ -1600,14 +1763,18 @@ Un workflow eficiente para desarrollo en C con VS Code:
 7. **Verificar memoria** con task de Valgrind
 8. **Commit** cuando todo funciona
 
-Este ciclo iterativo, completamente dentro de VS Code, es mucho más rápido que cambiar entre editor, terminal, y debugger separados.
+Este ciclo iterativo, completamente dentro de VS Code, es mucho más rápido que
+cambiar entre editor, terminal, y debugger separados.
+
 :::
+<!-- {tip} Workflow recomendado -->
 
 ### Problemas específicos de C/C++
 
 #### clangd no funciona o da errores
 
-```bash
+```{code-block} bash
+:linenos:
 # Verificar que clangd está instalado
 which clangd
 clangd --version
@@ -1620,15 +1787,19 @@ ls -la compile_commands.json
 
 # Regenerar compile_commands.json
 bear -- make clean && bear -- make
+
 ```
+<!-- {code-block} bash -->
 
 **Error común**: "clangd: compile commands not found"
 
-Solución: Asegurate de que `compile_commands.json` esté en la raíz del workspace.
+Solución: Asegurate de que `compile_commands.json` esté en la raíz del
+workspace.
 
 #### GDB no inicia o crashea
 
-```bash
+```{code-block} bash
+:linenos:
 # Verificar instalación de GDB
 gdb --version
 
@@ -1640,7 +1811,9 @@ gdb ./programa
 # Si falla, puede ser problema de permisos ptrace
 # En Linux, permitir ptrace para debugging
 echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+
 ```
+<!-- {code-block} bash -->
 
 #### Breakpoints no funcionan o se "saltan"
 
@@ -1662,7 +1835,8 @@ echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
 
 #### IntelliSense no muestra sugerencias
 
-```bash
+```{code-block} bash
+:linenos:
 # Si usas clangd y C/C++ extension simultáneamente:
 # Desactivar IntelliSense de C/C++ extension
 # En settings.json:
@@ -1672,13 +1846,16 @@ echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
 
 # Recargar window
 Ctrl+Shift+P → "Developer: Reload Window"
+
 ```
+<!-- {code-block} bash -->
 
 #### Errores de "undefined reference" al compilar
 
 Esto indica problema de linkeo, no del editor. Verificá:
 
-```bash
+```{code-block} bash
+:linenos:
 # Asegurate de linkear todas las bibliotecas necesarias
 # En tasks.json, args debe incluir todos los .c
 "args": [
@@ -1688,11 +1865,13 @@ Esto indica problema de linkeo, no del editor. Verificá:
     "utils.c",
     "-lm"           // ← Bibliotecas del sistema si son necesarias
 ]
+
 ```
+<!-- {code-block} bash -->
 
 #### Variables no se muestran en debugger
 
-```bash
+``` bash
 # Compilar sin optimizaciones
 gcc -g -O0 -o programa main.c
 
@@ -1700,12 +1879,14 @@ gcc -g -O0 -o programa main.c
 # Usar 'volatile' para forzar que se mantengan:
 volatile int debug_var = 42;
 ```
+<!-- bash -->
 
 ## Resolución de problemas comunes
 
 ### VS Code no abre desde terminal
 
-```bash
+```{code-block} bash
+:linenos:
 # En Linux, agregar al PATH si es necesario
 echo 'export PATH="$PATH:/usr/share/code/bin"' >> ~/.bashrc
 source ~/.bashrc
@@ -1713,21 +1894,24 @@ source ~/.bashrc
 # Verificar instalación
 which code
 code --version
+
 ```
+<!-- {code-block} bash -->
 
 ### Extensiones no cargan
 
-```bash
+``` bash
 # Reiniciar con extensiones deshabilitadas
 code --disable-extensions
 
 # Ver logs de extensiones
 # Help → Toggle Developer Tools → Console
 ```
+<!-- bash -->
 
 ### Performance lenta
 
-```bash
+``` bash
 # Excluir archivos/carpetas grandes de búsqueda
 # Configuración → Files: Exclude
 # Agregar: **/node_modules, **/.git
@@ -1735,10 +1919,12 @@ code --disable-extensions
 # Desactivar extensiones innecesarias
 # Extensions → Gear icon → Disable
 ```
+<!-- bash -->
 
 ### Problemas de formateo
 
-```bash
+```{code-block} bash
+:linenos:
 # Verificar formateador por defecto
 # Ctrl+Shift+P → "Format Document With..."
 # Elegir Prettier o el apropiado
@@ -1750,7 +1936,9 @@ code --disable-extensions
         "editor.defaultFormatter": "ms-python.black-formatter"
     }
 }
+
 ```
+<!-- {code-block} bash -->
 
 ## Recursos para seguir aprendiendo
 
@@ -1758,7 +1946,8 @@ code --disable-extensions
 
 - [VS Code Documentation](https://code.visualstudio.com/docs) - documentación
   completa oficial
-- [VS Code Tips and Tricks](https://code.visualstudio.com/docs/getstarted/tips-and-tricks) -
+- [VS Code Tips and
+  Tricks](https://code.visualstudio.com/docs/getstarted/tips-and-tricks) -
   consejos oficiales
 - [Keyboard Shortcuts Reference](https://code.visualstudio.com/shortcuts/) - PDF
   con todos los atajos
@@ -1810,7 +1999,7 @@ con vos. Empezás con funcionalidades básicas y gradualmente incorporás
 extensiones y configuraciones que se adaptan a tu estilo de trabajo y
 necesidades específicas.
 
-:::{tip} Aprendizaje progresivo 
+:::{tip} Aprendizaje progresivo
 
 No trates de aprender todas las funcionalidades
 de una vez. Empezá con lo básico (editar, guardar, terminal) y gradualmente
@@ -1818,6 +2007,7 @@ incorporá nuevas herramientas. Cada developer tiene su setup personalizado que
 evolucionó con el tiempo. 
 
 :::
+<!-- {tip} Aprendizaje progresivo -->
 
 La belleza de VS Code está en su balance perfecto entre simplicidad para
 principiantes y potencia para expertos. Con la configuración básica que viste en
@@ -1828,7 +2018,8 @@ hacer tu workflow aún más eficiente.
 ¡Felicitaciones! Ya tenés las herramientas para convertir VS Code en tu ambiente
 de desarrollo ideal.
 
-```bash
+```{code-block} bash
+:linenos:
 $ code --version
 1.84.2
 f1b07bd25dfad64b0167beb15359ae573aecd2cc
@@ -1836,7 +2027,9 @@ x64
 
 $ echo "¡Listo para programar!"
 ¡Listo para programar!
+
 ```
+<!-- {code-block} bash -->
 
 ---
 

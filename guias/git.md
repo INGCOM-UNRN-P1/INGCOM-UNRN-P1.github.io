@@ -31,6 +31,7 @@ día es el estándar de facto para control de versiones en el desarrollo de
 software.
 
 :::
+<!-- {note} Un poco de historia -->
 
 (conceptos-fundamentales)=
 ## Conceptos fundamentales
@@ -71,13 +72,16 @@ un commit.
 (estados-archivos)=
 ### Estados de los archivos
 
-```{mermaid}
+:::{mermaid}
+
 graph LR
     A[Untracked] --> B[Staged]
     B --> C[Committed]
     C --> D[Modified]
     D --> B
-```
+
+:::
+<!-- {mermaid} -->
 
 - **Untracked**: Git no conoce el archivo
 - **Staged**: El archivo está preparado para el próximo commit
@@ -92,26 +96,29 @@ graph LR
 
 **En Linux (Ubuntu/Debian):**
 
-```bash
+``` bash
 sudo apt update
 sudo apt install git
 ```
+<!-- bash -->
 
 **En Linux (CentOS/RHEL/Fedora):**
 
-```bash
+``` bash
 sudo dnf install git
 ```
+<!-- bash -->
 
 **En macOS:**
 
-```bash
+``` bash
 # Con Homebrew
 brew install git
 
 # O usar el que viene con Xcode
 xcode-select --install
 ```
+<!-- bash -->
 
 **En Windows:**
 
@@ -124,14 +131,16 @@ xcode-select --install
 Antes de usar Git por primera vez, configurá tu identidad. Esta información
 aparecerá en todos los {ref}`commit-concepto` que hagas:
 
-```bash
+``` bash
 git config --global user.name "Tu Nombre"
 git config --global user.email "tu.email@ejemplo.com"
 ```
+<!-- bash -->
 
 Configuraciones útiles adicionales:
 
-```bash
+```{code-block} bash
+:linenos:
 # Editor por defecto (opcional)
 git config --global core.editor "code --wait"  # VS Code
 git config --global core.editor "nano"         # Nano (simple)
@@ -141,7 +150,9 @@ git config --global color.ui auto
 
 # Verificar configuración
 git config --list
+
 ```
+<!-- {code-block} bash -->
 
 (primeros-pasos)=
 ## Primeros pasos: tu primer repositorio
@@ -149,7 +160,7 @@ git config --list
 (crear-repositorio)=
 ### Crear un nuevo repositorio
 
-```bash
+``` bash
 # Crear directorio y entrar
 mkdir mi-proyecto
 cd mi-proyecto
@@ -157,6 +168,7 @@ cd mi-proyecto
 # Inicializar Git
 git init
 ```
+<!-- bash -->
 
 Esto crea una carpeta oculta `.git` donde Git guarda toda la información del
 repositorio. Una vez inicializado, podés comenzar a usar todos los
@@ -165,7 +177,8 @@ repositorio. Una vez inicializado, podés comenzar a usar todos los
 (primer-commit)=
 ### Tu primer commit
 
-```bash
+```{code-block} bash
+:linenos:
 # Crear un archivo
 echo "# Mi Primer Proyecto" > README.md
 
@@ -180,11 +193,20 @@ git status
 
 # Hacer el commit
 git commit -m "Primer commit: agregar README"
+
 ```
+<!-- {code-block} bash -->
 
 :::{tip} Próximo paso Después de tu primer commit, considerá crear un
+
 {ref}`archivo-gitignore` para evitar agregar archivos innecesarios a tu
-repositorio. :::
+repositorio. 
+
+Podemos consultar el repositorio [github/gitignore](https://github.com/github/gitignore)
+para ver ejemplos por tipo de proyecto para no tener que analizar de cero que tenemos
+que dejar afuera del repositorio.
+
+:::
 
 :::{tip} Mensajes de commit
 
@@ -194,6 +216,7 @@ aunque para empezar, podemos dejar cualquier cosa, con el tiempo van a ver lo
 poderoso que es tener un historial más detallado.
 
 :::
+<!-- {tip} Mensajes de commit -->
 
 (comandos-esenciales)=
 ## Comandos esenciales para uso diario
@@ -208,9 +231,10 @@ están en el staging area listos para commit, y cuáles son completamente nuevos
 resumen completo de la situación. Usalo constantemente para entender dónde estás
 parado antes de hacer cualquier operación.
 
-```bash
+``` bash
 git status
 ```
+<!-- bash -->
 
 Este comando te muestra:
 
@@ -229,7 +253,8 @@ incluso si modificaste múltiples archivos. Podés agregar archivos individuales
 grupos de archivos, o todos los cambios de una vez. Es fundamental para mantener
 un historial limpio y organizado.
 
-```bash
+```{code-block} bash
+:linenos:
 # Agregar un archivo específico
 git add archivo.txt
 
@@ -242,7 +267,9 @@ git add .
 # Agregar archivos por patrón
 git add *.py        # todos los .py
 git add src/        # todo en la carpeta src
+
 ```
+<!-- {code-block} bash -->
 
 (git-commit)=
 ### git commit - Confirmar cambios
@@ -255,7 +282,8 @@ irreversible en el sentido de que una vez hecho el commit, esos cambios quedan
 grabados en la historia para siempre. Los buenos mensajes de commit son
 cruciales para entender la evolución del proyecto más adelante.
 
-```bash
+```{code-block} bash
+:linenos:
 # Commit con mensaje
 git commit -m "Descripción del cambio"
 
@@ -267,7 +295,9 @@ y por qué se hizo el cambio."
 
 # Agregar y hacer commit en un paso (solo archivos ya tracked)
 git commit -am "Mensaje del commit"
+
 ```
+<!-- {code-block} bash -->
 
 (git-log)=
 ### git log - Historial de cambios
@@ -281,7 +311,8 @@ línea por commit, buscar commits específicos, ver estadísticas de archivos
 modificados, o incluso filtrar por autor o fecha. Es esencial para entender cómo
 llegó tu proyecto al estado actual.
 
-```bash
+```{code-block} bash
+:linenos:
 # Ver historial completo
 git log
 
@@ -296,7 +327,9 @@ git log --stat
 
 # Buscar commits por mensaje
 git log --grep="bugfix"
+
 ```
+<!-- {code-block} bash -->
 
 (git-diff)=
 ### git diff - Ver diferencias
@@ -310,7 +343,8 @@ muestra línea por línea, con colores que indican qué se agregó (verde) y qu�
 eliminó (rojo). Es fundamental para revisar tus cambios antes de hacer un commit
 y para entender qué modificó alguien más en el código.
 
-```bash
+```{code-block} bash
+:linenos:
 # Ver cambios no preparados (working directory vs staging)
 git diff
 
@@ -323,7 +357,9 @@ git diff archivo.txt
 # Comparar con un commit anterior
 git diff HEAD~1    # comparar con el commit anterior
 git diff HEAD~3    # comparar con 3 commits atrás
+
 ```
+<!-- {code-block} bash -->
 
 (trabajando-archivos)=
 ## Trabajando con archivos
@@ -337,7 +373,8 @@ agregarlo explícitamente con {ref}`git-add`. Los archivos nuevos aparecen como
 agregados y confirmados con {ref}`git-commit`, Git comenzará a monitorear todos
 los cambios futuros en esos archivos.
 
-```bash
+```{code-block} bash
+:linenos:
 # Creamos el archivo
 touch nuevo-archivo.py
 echo 'print("Hola mundo")' > nuevo-archivo.py
@@ -348,7 +385,9 @@ git status
 # Agregarlo al tracking
 git add nuevo-archivo.py
 git commit -m "Agregar script hola mundo"
+
 ```
+<!-- {code-block} bash -->
 
 (modificar-archivos)=
 ### Modificar archivos existentes
@@ -360,7 +399,8 @@ pero no los incluye en commits hasta que explícitamente los agregues con
 confirmarlos, asegurándote de que solo incluís las modificaciones que realmente
 querés guardar en el historial.
 
-```bash
+```{code-block} bash
+:linenos:
 # Modificar archivo
 echo 'print("Hola Git!")' >> nuevo-archivo.py
 
@@ -370,7 +410,9 @@ git diff nuevo-archivo.py
 # Preparar y confirmar cambios
 git add nuevo-archivo.py
 git commit -m "Actualizar mensaje de saludo"
+
 ```
+<!-- {code-block} bash -->
 
 (git-mv)=
 ### git mv - Renombrar archivos
@@ -382,7 +424,8 @@ asociado. Si renombrás manualmente, Git lo ve como un archivo eliminado y otro
 nuevo creado, perdiendo la continuidad histórica. Siempre usá `git mv` para
 mantener la integridad del historial de versiones.
 
-```bash
+```{code-block} bash
+:linenos:
 # Renombrar usando Git (recomendado)
 git mv archivo-viejo.txt archivo-nuevo.txt
 git commit -m "Renombrar archivo"
@@ -392,7 +435,9 @@ mv archivo-viejo.txt archivo-nuevo.txt
 git add archivo-nuevo.txt
 git rm archivo-viejo.txt
 git commit -m "Renombrar archivo"
+
 ```
+<!-- {code-block} bash -->
 
 (git-rm)=
 ### git rm - Eliminar archivos
@@ -404,7 +449,8 @@ podés mantener el archivo físicamente pero sacarlo del control de versiones
 (útil para archivos que agregaste por error al repo). Es la forma correcta de
 "des-trackear" archivos sin perder el trabajo local.
 
-```bash
+```{code-block} bash
+:linenos:
 # Eliminar del sistema de archivos y de Git
 git rm archivo-innecesario.txt
 git commit -m "Eliminar archivo innecesario"
@@ -412,7 +458,9 @@ git commit -m "Eliminar archivo innecesario"
 # Solo eliminar de Git (mantener en el sistema)
 git rm --cached archivo-secreto.txt
 git commit -m "Dejar de trackear archivo secreto"
+
 ```
+<!-- {code-block} bash -->
 
 (deshaciendo-cambios)=
 ## Deshaciendo cambios
@@ -428,7 +476,8 @@ se pierden permanentemente, así que usalo solo cuando estés seguro de que quer
 eliminar las modificaciones. Es útil cuando experimentaste algo que no funcionó
 y querés volver al estado conocido y estable.
 
-```bash
+```{code-block} bash
+:linenos:
 # Descartar cambios en un archivo específico
 git checkout -- archivo.txt
 
@@ -438,7 +487,9 @@ git checkout -- .
 # Alternativa moderna (Git 2.23+)
 git restore archivo.txt
 git restore .
+
 ```
+<!-- {code-block} bash -->
 
 (git-restore-staged)=
 ### git restore --staged - Quitar archivos del staging area
@@ -451,7 +502,8 @@ permanecen en tus archivos, solo se quitan del área de preparación. Es perfect
 para cuando agregaste demasiados archivos de una vez y querés hacer commits más
 específicos y granulares.
 
-```bash
+```{code-block} bash
+:linenos:
 # Quitar archivo específico del staging
 git reset HEAD archivo.txt
 
@@ -461,7 +513,9 @@ git reset HEAD
 # Alternativa moderna (Git 2.23+)
 git restore --staged archivo.txt
 git restore --staged .
+
 ```
+<!-- {code-block} bash -->
 
 (git-commit-amend)=
 ### git commit --amend - Modificar el último commit
@@ -474,7 +528,7 @@ hacer un commit, como typos en el mensaje o archivos olvidados. Sin embargo, es
 peligroso si ya compartiste el commit con otros ({ref}`git-push`), porque
 cambiar el historial público puede crear conflictos para otros colaboradores.
 
-```bash
+``` bash
 # Cambiar el mensaje del último commit
 git commit --amend -m "Mensaje corregido"
 
@@ -482,6 +536,7 @@ git commit --amend -m "Mensaje corregido"
 git add archivo-olvidado.txt
 git commit --amend --no-edit
 ```
+<!-- bash -->
 
 :::{important} Cuidado con `--amend`
 
@@ -489,6 +544,7 @@ Solo usá `--amend` en commits que **no hayas compartido con otros** (`git push`
 ya que cambiar el historial público puede causar problemas.
 
 :::
+<!-- {important} Cuidado con `--amend` -->
 
 (git-reset-revert)=
 ### git reset y git revert - Volver atrás en el tiempo
@@ -501,7 +557,8 @@ específico, preservando todo el historial. `git reset` reescribe la historia,
 `git revert` la extiende. Para trabajo colaborativo siempre preferí `git revert`
 porque no altera el historial que otros podrían tener.
 
-```bash
+```{code-block} bash
+:linenos:
 # Ver historial para encontrar el commit
 git log --oneline
 
@@ -510,7 +567,9 @@ git reset --hard abc1234
 
 # Crear un nuevo commit que deshace cambios (SEGURO)
 git revert abc1234
+
 ```
+<!-- {code-block} bash -->
 
 (archivo-gitignore)=
 ## Archivo .gitignore
@@ -529,14 +588,16 @@ ejemplos ajustados a diferentes tipos de proyectos.
 (crear-gitignore)=
 ### Crear .gitignore
 
-```bash
+``` bash
 # Crear el archivo
 touch .gitignore
 ```
+<!-- bash -->
 
 ### Patrones comunes
 
-```gitignore
+```{code-block} gitignore
+:linenos:
 # Archivos del sistema
 .DS_Store
 Thumbs.db
@@ -569,19 +630,24 @@ config.local.json
 .idea/
 *.swp
 *.swo
+
 ```
+<!-- {code-block} gitignore -->
 
 (sintaxis-gitignore)=
 ### Sintaxis de .gitignore
 
-```gitignore
+```{code-block} gitignore
+:linenos:
 archivo.txt         # ignorar archivo específico
 *.log              # ignorar todos los .log
 logs/              # ignorar carpeta completa
 !importante.log    # NO ignorar este archivo (excepción)
 docs/**/*.pdf      # ignorar PDFs en docs y subcarpetas
 temp/*             # ignorar contenido de temp, pero no temp/
+
 ```
+<!-- {code-block} gitignore -->
 
 (repositorios-remotos)=
 ## Trabajando con repositorios remotos
@@ -597,7 +663,8 @@ cual podés recibir cambios. Por convención, el remoto principal se llama
 servicios en la nube, colaborar con otros, y tener respaldos automáticos de tu
 código.
 
-```bash
+```{code-block} bash
+:linenos:
 # Agregar un remoto llamado 'origin'
 git remote add origin https://github.com/usuario/mi-proyecto.git
 
@@ -606,7 +673,9 @@ git remote -v
 
 # Cambiar URL del remoto
 git remote set-url origin https://github.com/usuario/nuevo-repo.git
+
 ```
+<!-- {code-block} bash -->
 
 (git-push)=
 ### git push - Subir cambios
@@ -620,7 +689,8 @@ commits que ya confirmaste localmente; los cambios en tu
 {ref}`working-directory` o {ref}`staging-area` no se suben hasta que hagas
 {ref}`git-commit`.
 
-```bash
+```{code-block} bash
+:linenos:
 # Primera vez (establecer upstream)
 git push -u origin main
 
@@ -629,7 +699,9 @@ git push
 
 # Push específico
 git push origin main
+
 ```
+<!-- {code-block} bash -->
 
 (git-pull)=
 ### git pull - Bajar cambios
@@ -642,7 +714,7 @@ colaborativos. Si hay conflictos entre tu trabajo local y los cambios remotos,
 Git te pedirá que los resuelvas manualmente. Es esencial para mantener tu copia
 local sincronizada con el trabajo de otros colaboradores.
 
-```bash
+``` bash
 # Bajar y fusionar cambios del remoto
 git pull
 
@@ -650,6 +722,7 @@ git pull
 git fetch    # descargar cambios
 git merge    # fusionar cambios
 ```
+<!-- bash -->
 
 (git-clone)=
 ### git clone - Clonar un repositorio existente
@@ -662,7 +735,8 @@ desde GitHub (u otro servicio) a tu máquina. Automáticamente configura el remo
 la forma estándar de comenzar a trabajar en un proyecto existente o de obtener
 el código de cualquier proyecto open source.
 
-```bash
+```{code-block} bash
+:linenos:
 # Clonar repositorio
 git clone https://github.com/usuario/proyecto.git
 
@@ -673,7 +747,9 @@ git clone https://github.com/usuario/proyecto.git mi-carpeta
 cd proyecto
 git remote -v
 git log --oneline -5
+
 ```
+<!-- {code-block} bash -->
 
 (flujo-trabajo-basico)=
 ## Flujo de trabajo básico
@@ -689,7 +765,8 @@ y finalmente los subís con {ref}`git-push`. Este ciclo se vuelve tan natural
 como respirar y es la base de todo desarrollo profesional con control de
 versiones.
 
-```bash
+```{code-block} bash
+:linenos:
 # 1. Ver estado actual
 git status
 
@@ -707,7 +784,9 @@ git commit -m "Descripción clara del cambio"
 
 # 6. Subir al repositorio remoto
 git push
+
 ```
+<!-- {code-block} bash -->
 
 (flujo-nuevo-proyecto)=
 ### Flujo para nuevo proyecto
@@ -720,7 +799,8 @@ tu {ref}`primer-commit`, conectás con el remoto usando {ref}`git-remote`, y
 subís todo con {ref}`git-push`. Es el proceso estándar para comenzar cualquier
 proyecto nuevo que querés versionar.
 
-```bash
+```{code-block} bash
+:linenos:
 # 1. Crear proyecto local
 mkdir mi-proyecto
 cd mi-proyecto
@@ -739,7 +819,9 @@ git remote add origin https://github.com/usuario/mi-proyecto.git
 
 # 5. Subir código
 git push -u origin main
+
 ```
+<!-- {code-block} bash -->
 
 (comandos-informacion)=
 ## Comandos de información útiles
@@ -754,7 +836,8 @@ ahora, `git config --list` muestra toda tu configuración de Git, y
 historial. Son comandos "de solo lectura" que nunca modifican nada, perfectos
 para orientarte cuando no estás seguro del estado actual del proyecto.
 
-```bash
+```{code-block} bash
+:linenos:
 # Estado actual
 git status
 
@@ -770,11 +853,14 @@ git ls-files
 
 # Ver espacio usado
 du -sh .git
+
 ```
+<!-- {code-block} bash -->
 
 ### Exploración del historial
 
-```bash
+```{code-block} bash
+:linenos:
 # Historial gráfico simple
 git log --graph --oneline
 
@@ -790,13 +876,16 @@ git log -p archivo.txt
 
 # Ver quién modificó cada línea
 git blame archivo.txt
+
 ```
+<!-- {code-block} bash -->
 
 ## Configuraciones útiles
 
 ### Alias para comandos frecuentes
 
-```bash
+```{code-block} bash
+:linenos:
 # Crear aliases útiles
 git config --global alias.st status
 git config --global alias.co checkout
@@ -808,11 +897,14 @@ git config --global alias.unstage "reset HEAD --"
 # Usar los aliases
 git st        # equivale a git status
 git lg        # log gráfico compacto
+
 ```
+<!-- {code-block} bash -->
 
 ### Configuraciones de editor
 
-```bash
+```{code-block} bash
+:linenos:
 # Configurar VS Code como editor
 git config --global core.editor "code --wait"
 
@@ -821,75 +913,81 @@ git config --global core.editor "vim"
 
 # Configurar Nano (más simple)
 git config --global core.editor "nano"
+
 ```
+<!-- {code-block} bash -->
 
 ### Configuración de colores
 
-```bash
+``` bash
 # Habilitar colores
 git config --global color.ui auto
 git config --global color.status auto
 git config --global color.diff auto
 git config --global color.branch auto
 ```
+<!-- bash -->
 
 ## Errores comunes y soluciones
 
 ### "fatal: not a git repository"
 
-```bash
+``` bash
 # Verificar que estás en un directorio con Git
 ls -la | grep .git
 
 # Si no existe, inicializar
 git init
 ```
+<!-- bash -->
 
 ### "Author identity unknown"
 
-```bash
+``` bash
 # Configurar identidad
 git config --global user.name "Tu Nombre"
 git config --global user.email "tu@email.com"
 ```
+<!-- bash -->
 
 ### Commit sin mensaje
 
-```bash
+``` bash
 # Si se abre un editor, escribir mensaje y guardar
 # Para salir de Vim: presionar ESC, luego :wq
 
 # Para evitarlo, siempre usar -m
 git commit -m "Mensaje descriptivo"
 ```
+<!-- bash -->
 
 ### Archivos grandes en el historial
 
-```bash
+``` bash
 # Ver archivos más grandes en el repo
 git ls-tree -r -t -l --full-name HEAD | sort -n -k 4
 
 # Para eliminar archivos grandes del historial (avanzado)
 # Considerar usar git-filter-branch o BFG Repo-Cleaner
 ```
+<!-- bash -->
 
 ### Problema con line endings (Windows/Linux)
 
-```bash
+``` bash
 # Para Windows (convierte LF a CRLF al checkout)
 git config --global core.autocrlf true
 
 # Para Linux/Mac (mantiene LF)
 git config --global core.autocrlf input
 ```
+<!-- bash -->
 
 (ejercicios-git-basico)=
 ## Ejercicios prácticos
 
-:::{exercise} ejercicio-primer-repo
+::::{exercise} Tu primer repositorio
 :label: ejercicio-primer-repo
-
-**Ejercicio 1: Tu primer repositorio**
 
 Este ejercicio integra todo lo que aprendiste sobre {ref}`crear-repositorio`,
 {ref}`git-add`, {ref}`git-commit`, y {ref}`archivo-gitignore`. Es tu oportunidad
@@ -905,7 +1003,8 @@ de practicar el {ref}`flujo-diario` completo.
 
 :::{solution} ejercicio-primer-repo
 
-```bash
+```{code-block} bash
+:linenos:
 # 1. Crear directorio
 mkdir mi-blog
 cd mi-blog
@@ -946,14 +1045,15 @@ git commit -m "Agregar primer artículo al blog"
 
 # Verificar historial
 git log --oneline
+
 ```
+<!-- {code-block} bash -->
 
 :::
+<!-- {solution} ejercicio-primer-repo -->
 
-:::{exercise} ejercicio-manejo-cambios
+:::{exercise} Manejo de cambios
 :label: ejercicio-manejo-cambios
-
-**Ejercicio 2: Manejo de cambios**
 
 1. En el proyecto anterior, creá un archivo `estilos.css`
 2. Agregalo al staging area pero NO hagas commit todavía
@@ -964,10 +1064,12 @@ git log --oneline
 7. Hacé commit de ambos cambios juntos 
 
 :::
+<!-- {exercise} ejercicio-manejo-cambios -->
 
 :::{solution} ejercicio-manejo-cambios
 
-```bash
+```{code-block} bash
+:linenos:
 # 1. Crear archivo CSS
 cat > estilos.css << EOF
 body {
@@ -1004,9 +1106,12 @@ git commit -m "Agregar estilos CSS y vincular con HTML"
 # Verificar resultado
 git log --oneline
 git status
+
 ```
+<!-- {code-block} bash -->
 
 :::
+<!-- {solution} ejercicio-manejo-cambios -->
 
 ### Ejercicios adicionales para practicar
 
@@ -1101,7 +1206,8 @@ mi-proyecto/
 
 ### Comandos de referencia rápida
 
-```bash
+```{code-block} bash
+:linenos:
 # Configuración inicial
 git config --global user.name "Nombre"
 git config --global user.email "email@ejemplo.com"
@@ -1127,7 +1233,9 @@ git show HEAD          # ver último commit
 git checkout -- archivo    # descartar cambios
 git reset HEAD archivo     # quitar de staging
 git commit --amend         # corregir último commit
+
 ```
+<!-- {code-block} bash -->
 
 (github-intro)=
 ## 🐙 GitHub y GitHub CLI
@@ -1158,6 +1266,7 @@ limitaciones. Para equipos y empresas hay planes de pago con funcionalidades
 adicionales. 
 
 :::
+<!-- {note} GitHub -->
 
 ### Crear cuenta y primer repositorio en GitHub
 
@@ -1174,7 +1283,8 @@ Ahora que ya sabés usar {ref}`git-clone`, {ref}`git-add`, {ref}`git-commit`, y
 {ref}`git-push`, podés conectar tu trabajo local con GitHub. Tenés dos opciones
 principales:
 
-```bash
+```{code-block} bash
+:linenos:
 # Opción 1: Crear repositorio vacío en GitHub primero
 # 1. Click en "New repository" en github.com
 # 2. Ingresá nombre, descripción y configuración
@@ -1188,9 +1298,12 @@ echo "# Mi Proyecto" > README.md
 git add README.md
 git commit -m "Initial commit"
 git push origin main
-```
 
-```bash
+```
+<!-- {code-block} bash -->
+
+```{code-block} bash
+:linenos:
 # Opción 2: Subir repositorio local existente
 # Crear repositorio vacío en GitHub (sin README)
 # Luego conectar tu repo local:
@@ -1198,13 +1311,16 @@ git push origin main
 git remote add origin https://github.com/tu-usuario/mi-proyecto.git
 git branch -M main
 git push -u origin main
+
 ```
+<!-- {code-block} bash -->
 
 ### Flujo básico con GitHub
 
 #### Flujo diario típico
 
-```bash
+```{code-block} bash
+:linenos:
 # 1. Comenzar el día - sincronizar con remoto
 git pull origin main
 
@@ -1217,11 +1333,14 @@ git commit -m "Implementar nueva funcionalidad"
 git push origin main
 
 # 4. Verificar en GitHub web que los cambios están
+
 ```
+<!-- {code-block} bash -->
 
 #### Mantener historial sincronizado
 
-```bash
+```{code-block} bash
+:linenos:
 # Antes de empezar a trabajar siempre:
 git status                    # verificar estado local
 git pull origin main         # traer últimos cambios
@@ -1229,7 +1348,9 @@ git pull origin main         # traer últimos cambios
 # Después de cada sesión de trabajo:
 git log --oneline -5         # revisar commits locales
 git push origin main         # subir cambios
+
 ```
+<!-- {code-block} bash -->
 
 ### Autenticación con GitHub
 
@@ -1238,7 +1359,8 @@ opciones:
 
 #### Personal Access Token (PAT)
 
-```bash
+```{code-block} bash
+:linenos:
 # 1. En GitHub: Settings > Developer settings > Personal access tokens > Tokens (classic)
 # 2. Generate new token con scopes: repo, workflow
 # 3. Copiar el token (¡guardarlo seguro!)
@@ -1249,11 +1371,14 @@ git config --global credential.helper store
 # 5. La primera vez que hagas push, usar:
 # Username: tu-usuario-github
 # Password: ghp_tu_personal_access_token
+
 ```
+<!-- {code-block} bash -->
 
 #### SSH Keys (Recomendado para uso frecuente)
 
-```bash
+```{code-block} bash
+:linenos:
 # 1. Generar clave SSH (si no tenés)
 ssh-keygen -t ed25519 -C "tu.email@ejemplo.com"
 
@@ -1272,7 +1397,9 @@ git remote set-url origin git@github.com:tu-usuario/mi-proyecto.git
 
 # 7. Probar conexión
 ssh -T git@github.com
+
 ```
+<!-- {code-block} bash -->
 
 ### Explorando repositorios en GitHub
 
@@ -1287,7 +1414,8 @@ ssh -T git@github.com
 
 #### Funcionalidades útiles de la interfaz
 
-```bash
+```{code-block} bash
+:linenos:
 # Ver historial de un archivo específico
 # En GitHub web: navegar al archivo > History
 
@@ -1299,7 +1427,9 @@ ssh -T git@github.com
 
 # Ver releases
 # En GitHub web: Releases section
+
 ```
+<!-- {code-block} bash -->
 
 (github-cli-intro)=
 #### GitHub CLI - Herramienta de línea de comandos
@@ -1312,7 +1442,8 @@ terminal.
 
 #### Linux (Ubuntu/Debian)
 
-```bash
+```{code-block} bash
+:linenos:
 # Método oficial
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
@@ -1321,27 +1452,32 @@ sudo apt install gh
 
 # Método alternativo con snap
 sudo snap install gh
+
 ```
+<!-- {code-block} bash -->
 
 #### Linux (CentOS/RHEL/Fedora)
 
-```bash
+``` bash
 sudo dnf install gh
 ```
+<!-- bash -->
 
 #### macOS
 
-```bash
+``` bash
 # Con Homebrew
 brew install gh
 
 # Con MacPorts
 sudo port install gh
 ```
+<!-- bash -->
 
 #### Windows
 
-```bash
+```{code-block} bash
+:linenos:
 # Con winget
 winget install --id GitHub.cli
 
@@ -1350,11 +1486,14 @@ choco install gh
 
 # Con Scoop
 scoop install gh
+
 ```
+<!-- {code-block} bash -->
 
 ### Configuración inicial de GitHub CLI
 
-```bash
+```{code-block} bash
+:linenos:
 # Autenticarse con GitHub
 gh auth login
 
@@ -1369,14 +1508,17 @@ gh auth status
 
 # Ver configuración actual
 gh config list
+
 ```
+<!-- {code-block} bash -->
 
 (comandos-github-cli)=
 ### Comandos esenciales de GitHub CLI
 
 #### Gestión de repositorios
 
-```bash
+```{code-block} bash
+:linenos:
 # Crear repositorio nuevo
 gh repo create mi-nuevo-proyecto --public --clone
 gh repo create mi-proyecto-privado --private --clone
@@ -1396,11 +1538,14 @@ gh repo list
 
 # Hacer fork de un repositorio
 gh repo fork usuario/proyecto --clone
+
 ```
+<!-- {code-block} bash -->
 
 #### Issues (problemas/tareas)
 
-```bash
+```{code-block} bash
+:linenos:
 # Listar issues del repositorio actual
 gh issue list
 
@@ -1418,11 +1563,14 @@ gh issue close 123
 
 # Asignar issue
 gh issue edit 123 --assignee @me
+
 ```
+<!-- {code-block} bash -->
 
 #### Pull Requests
 
-```bash
+```{code-block} bash
+:linenos:
 # Listar pull requests
 gh pr list
 
@@ -1443,11 +1591,14 @@ gh pr merge 456
 
 # Cerrar pull request
 gh pr close 456
+
 ```
+<!-- {code-block} bash -->
 
 #### Releases
 
-```bash
+```{code-block} bash
+:linenos:
 # Listar releases
 gh release list
 
@@ -1459,11 +1610,14 @@ gh release create v1.0.0 --title "Primera versión" --notes "Cambios principales
 
 # Descargar assets de release
 gh release download v1.0.0
+
 ```
+<!-- {code-block} bash -->
 
 #### Gists (snippets de código)
 
-```bash
+```{code-block} bash
+:linenos:
 # Crear gist público
 gh gist create archivo.py --public
 
@@ -1478,13 +1632,16 @@ gh gist view abc123def456
 
 # Editar gist
 gh gist edit abc123def456
+
 ```
+<!-- {code-block} bash -->
 
 ### Workflows comunes con GitHub CLI
 
 #### Flujo completo de nuevo proyecto
 
-```bash
+```{code-block} bash
+:linenos:
 # 1. Crear repositorio y clonarlo
 gh repo create mi-proyecto --public --clone
 cd mi-proyecto
@@ -1501,11 +1658,14 @@ gh issue create --title "Setup inicial" --body "Configurar estructura del proyec
 
 # 4. Ver el repositorio en GitHub
 gh repo view --web
+
 ```
+<!-- {code-block} bash -->
 
 #### Contribuir a proyecto existente
 
-```bash
+```{code-block} bash
+:linenos:
 # 1. Fork del proyecto
 gh repo fork usuario/proyecto --clone
 cd proyecto
@@ -1526,11 +1686,14 @@ gh pr create --title "Nueva funcionalidad" --body "Descripción detallada"
 
 # 6. Ver el PR en navegador
 gh pr view --web
+
 ```
+<!-- {code-block} bash -->
 
 #### Gestión de issues como tareas
 
-```bash
+```{code-block} bash
+:linenos:
 # Crear lista de tareas para sprint
 gh issue create --title "Implementar autenticación" --label "feature"
 gh issue create --title "Agregar tests unitarios" --label "testing"
@@ -1546,13 +1709,16 @@ git commit -m "Fix #123: implementar autenticación"
 
 # Cerrar issue automáticamente al hacer push
 git push
+
 ```
+<!-- {code-block} bash -->
 
 ### Integración con workflow diario
 
 #### Alias útiles para GitHub CLI
 
-```bash
+```{code-block} bash
+:linenos:
 # Agregar aliases a tu .bashrc o .zshrc
 alias ghs="gh status"
 alias ghi="gh issue list"
@@ -1564,11 +1730,14 @@ alias ghc="gh pr create"
 gh alias set prs "pr list"
 gh alias set issues "issue list"
 gh alias set repo "repo view"
+
 ```
+<!-- {code-block} bash -->
 
 #### Scripts de automatización
 
-```bash
+```{code-block} bash
+:linenos:
 # Script para inicio de día
 #!/bin/bash
 echo "=== GitHub Dashboard ==="
@@ -1583,14 +1752,17 @@ gh pr list --limit 5
 
 echo -e "\nStatus de Actions:"
 gh run list --limit 3
+
 ```
+<!-- {code-block} bash -->
 
 ### GitHub Pages - Hosting gratuito
 
 GitHub Pages te permite hospedar sitios web estáticos directamente desde tu
 repositorio.
 
-```bash
+```{code-block} bash
+:linenos:
 # 1. Crear repositorio para GitHub Pages
 gh repo create mi-usuario.github.io --public --clone
 
@@ -1618,14 +1790,15 @@ git push
 gh api repos/:owner/:repo --method PATCH --field "has_pages=true"
 
 # 5. Tu sitio estará disponible en https://mi-usuario.github.io
+
 ```
+<!-- {code-block} bash -->
 
 ### Ejercicios prácticos con GitHub y CLI
 
-:::{exercise} ejercicio-github-setup
+:::{exercise} Setup completo de GitHub
 :label: ejercicio-github-setup
 
-**Ejercicio 1: Setup completo de GitHub**
 
 1. Creá una cuenta en GitHub si no tenés
 2. Instalá GitHub CLI en tu sistema
@@ -1635,10 +1808,12 @@ gh api repos/:owner/:repo --method PATCH --field "has_pages=true"
 6. Subí el proyecto y verificá que se vea correctamente en GitHub web 
 
 :::
+<!-- {exercise} ejercicio-github-setup -->
 
 :::{solution} ejercicio-github-setup
 
-```bash
+```{code-block} bash
+:linenos:
 # 1. Crear cuenta en github.com (manual)
 
 # 2. Instalar GitHub CLI (según tu sistema)
@@ -1682,14 +1857,15 @@ git push
 
 # Ver en web
 gh repo view --web
+
 ```
+<!-- {code-block} bash -->
 
 :::
+<!-- {solution} ejercicio-github-setup -->
 
-:::{exercise} ejercicio-github-workflow
+:::{exercise} Workflow completo con issues y CLI
 :label: ejercicio-github-workflow
-
-**Ejercicio 2: Workflow completo con issues y CLI**
 
 1. En tu repositorio `mi-portfolio`, creá 3 issues usando GitHub CLI:
    - "Agregar página de proyectos"
@@ -1700,10 +1876,12 @@ gh repo view --web
 4. Verificá que el issue se cerró correctamente
 
 :::
+<!-- {exercise} ejercicio-github-workflow -->
 
 :::{solution} ejercicio-github-workflow
 
-```bash
+```{code-block} bash
+:linenos:
 # Asegurate de estar en el repositorio mi-portfolio
 cd mi-portfolio
 
@@ -1754,9 +1932,12 @@ gh issue list
 gh issue view 1
 
 echo "¡El issue #1 debería aparecer como cerrado!"
+
 ```
+<!-- {code-block} bash -->
 
 :::
+<!-- {solution} ejercicio-github-workflow -->
 
 (repositorios-especiales-github)=
 ### Repositorios especiales de GitHub
@@ -1809,10 +1990,8 @@ características especiales:
 - **Gists con nombre específico**: Pueden embeberse fácilmente
 - **Gists con múltiples archivos**: Funcionan como mini-proyectos
 
-:::{exercise} ejercicio-repositorio-perfil
+:::{exercise} Crear tu repositorio de perfil
 :label: ejercicio-repositorio-perfil
-
-**Ejercicio 3: Crear tu repositorio de perfil profesional**
 
 En este ejercicio vas a crear tu repositorio de perfil de GitHub, que será tu
 carta de presentación profesional. Integrará todo lo aprendido sobre
@@ -1841,10 +2020,13 @@ habilidades, proyectos e intereses, y que puedas usar como referencia en
 aplicaciones laborales. 
 
 :::
+<!-- {exercise} ejercicio-repositorio-perfil -->
 
 :::{solution} ejercicio-repositorio-perfil
+:class: dropdown
 
-```bash
+```{code-block} bash
+:linenos:
 # 1. Verificar configuración de GitHub CLI
 gh auth status
 echo "Tu username actual de GitHub:"
@@ -2030,16 +2212,20 @@ echo "- Crear repositorio $USERNAME.github.io para tu sitio web personal"
 echo "- Agregar más repositorios públicos para mostrar tu trabajo"
 echo "- Contribuir a proyectos open source para mejorar tus estadísticas"
 echo "- Configurar LinkedIn y otros perfiles para coincidir con tu GitHub"
+
 ```
+<!-- {code-block} bash -->
 
 :::
+<!-- {solution} ejercicio-repositorio-perfil -->
 
 (otros-repositorios-especiales)=
 ### Guía completa de repositorios especiales
 
 #### Repositorio GitHub Pages (usuario.github.io)
 
-```bash
+```{code-block} bash
+:linenos:
 # Crear tu sitio web personal
 gh repo create "$USERNAME.github.io" --public --clone
 cd "$USERNAME.github.io"
@@ -2095,11 +2281,14 @@ git commit -m " Add personal website homepage"
 git push origin main
 
 echo " Tu sitio web estará disponible en: https://$USERNAME.github.io"
+
 ```
+<!-- {code-block} bash -->
 
 #### Repositorio de configuración (.github)
 
-```bash
+```{code-block} bash
+:linenos:
 # Crear repositorio para templates y configuración
 gh repo create ".github" --public --clone
 cd ".github"
@@ -2162,7 +2351,9 @@ EOF
 git add .
 git commit -m "Add issue templates for better project management"
 git push origin main
+
 ```
+<!-- {code-block} bash -->
 
 #### Resumen de repositorios especiales
 
@@ -2173,7 +2364,7 @@ git push origin main
 | `.github`            | **Templates y configuración** | Aplicable a todos tus repos         |
 | `.github.io`         | **Alias de GitHub Pages**     | Alternativa a `username.github.io`  |
 
-:::{tip} Estrategia de presencia online completa 
+:::{tip} Estrategia de presencia online completa
 
 Para una presencia profesional sólida en GitHub:
 
@@ -2184,6 +2375,7 @@ Para una presencia profesional sólida en GitHub:
 5. **Actividad consistente**: Commits regulares demuestran dedicación 
 
 :::
+<!-- {tip} Estrategia de presencia online completa -->
 
 ### Buenas prácticas con GitHub
 
@@ -2201,7 +2393,8 @@ Ya viste en el {ref}`ejercicio-repositorio-perfil` cómo crear un repositorio de
 perfil profesional. Acá hay algunos consejos adicionales para maximizar su
 impacto:
 
-```bash
+```{code-block} bash
+:linenos:
 # El proceso completo está detallado en el ejercicio anterior
 # Puntos clave para un perfil efectivo:
 
@@ -2213,7 +2406,9 @@ impacto:
 
 # Ver ejercicio completo: {ref}`ejercicio-repositorio-perfil`
 echo "Consulta el ejercicio anterior para el proceso completo paso a paso"
+
 ```
+<!-- {code-block} bash -->
 
 **Elementos clave de un perfil profesional efectivo:**
 
@@ -2236,7 +2431,8 @@ echo "Consulta el ejercicio anterior para el proceso completo paso a paso"
 
 #### Problemas de autenticación
 
-```bash
+```{code-block} bash
+:linenos:
 # Verificar autenticación actual
 gh auth status
 
@@ -2247,11 +2443,13 @@ gh auth login
 # Verificar configuración de Git
 git config --global user.name
 git config --global user.email
+
 ```
+<!-- {code-block} bash -->
 
 #### Problemas con permisos
 
-```bash
+``` bash
 # Si tenés problemas de permisos, verificar:
 gh repo view
 gh auth status
@@ -2259,16 +2457,18 @@ gh auth status
 # Para repositorios de organizaciones
 gh auth refresh --scopes repo,org:read
 ```
+<!-- bash -->
 
 #### Sincronización de cambios
 
-```bash
+``` bash
 # Si hay conflictos al hacer push
 git status
 git pull origin main
 # Resolver conflictos si existen
 git push origin main
 ```
+<!-- bash -->
 
 ## Epílogo
 
@@ -2287,6 +2487,7 @@ esta guía, luego con proyectos pequeños y personales para ganar confianza ante
 de usar Git en proyectos importantes. 
 
 :::
+<!-- {tip} Práctica constante -->
 
 Recordá que Git es una herramienta poderosa que te va a acompañar durante toda
 tu carrera como programador. Entender bien los {ref}`conceptos-fundamentales` y
@@ -2296,12 +2497,13 @@ eventualmente aprender técnicas más avanzadas.
 ¡Felicitaciones! Ya tenés todo lo necesario para usar Git de forma efectiva en
 tu trabajo diario.
 
-```bash
+``` bash
 $ git log --oneline
 a1b2c3d (HEAD -> main) docs: completar guía de Git para principiantes
 4d5e6f7 feat: agregar conceptos fundamentales y flujo básico
 8g9h0i1 init: crear estructura inicial de la guía
 ```
+<!-- bash -->
 
 ---
 

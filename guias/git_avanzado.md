@@ -35,6 +35,7 @@ Si necesitás repasar estos conceptos, consultá primero la
 [Guía de Git para principiantes](./git.md). 
 
 :::
+<!-- {important} Prerequisitos Esta guía asume que ya dominás: -->
 
 (conceptos-avanzados)=
 ## Conceptos avanzados fundamentales
@@ -50,7 +51,8 @@ objetos. Entender estas referencias es fundamental para el trabajo avanzado.
 
 #### Tipos de referencias
 
-```bash
+```{code-block} bash
+:linenos:
 # Referencias absolutas
 git show 1a2b3c4d5e6f                    # Hash completo del commit
 git show 1a2b3c4                         # Hash corto (mínimo 4 caracteres)
@@ -71,7 +73,9 @@ git show feature/nueva-funcionalidad     # Último commit de la rama feature
 git show main@{yesterday}                # main como estaba ayer
 git show main@{2.weeks.ago}              # main hace 2 semanas
 git show HEAD@{5}                        # HEAD hace 5 cambios en reflog
+
 ```
+<!-- {code-block} bash -->
 
 (objetos-git)=
 ### Objetos internos de Git
@@ -81,7 +85,8 @@ comprender cómo funciona Git internamente.
 
 #### Los cuatro tipos de objetos
 
-```bash
+```{code-block} bash
+:linenos:
 # 1. Blob - contenido de archivos
 git cat-file -t 1a2b3c4d    # muestra el tipo: "blob"
 git cat-file -p 1a2b3c4d    # muestra el contenido
@@ -97,7 +102,9 @@ git cat-file -p HEAD         # muestra la estructura del commit
 # 4. Tag - referencia a otros objetos
 git show-ref --tags          # listar todos los tags
 git cat-file -p v1.0.0       # información del tag
+
 ```
+<!-- {code-block} bash -->
 
 (indice-staging-avanzado)=
 ### Índice y staging avanzado
@@ -105,7 +112,8 @@ git cat-file -p v1.0.0       # información del tag
 El índice de Git es más poderoso que un simple "área de preparación". Entender
 sus capacidades avanzadas te permite workflows más sofisticados.
 
-```bash
+```{code-block} bash
+:linenos:
 # Agregar cambios parciales (hunk por hunk)
 git add -p archivo.txt              # modo patch interactivo
 git add -i                          # modo interactivo completo
@@ -124,7 +132,9 @@ git reset HEAD~1 --hard             # mover HEAD, resetear todo
 git stash push -m "trabajo parcial" archivo.txt    # stash de archivo específico
 git stash push --keep-index         # stash excepto lo que está en staging
 git stash push --include-untracked  # incluir archivos untracked
+
 ```
+<!-- {code-block} bash -->
 
 (branching-estrategias)=
 ## Branching y estrategias de ramificación
@@ -136,7 +146,8 @@ y colaborar eficientemente.
 (conceptos-branching)=
 ### Conceptos fundamentales de branching
 
-```bash
+```{code-block} bash
+:linenos:
 # Crear y cambiar ramas
 git branch feature/nueva-funcionalidad         # crear rama
 git checkout feature/nueva-funcionalidad       # cambiar a rama
@@ -155,7 +166,9 @@ git branch --no-merged                         # ramas pendientes de fusionar
 git branch -u origin/feature                   # establecer upstream
 git branch --set-upstream-to=origin/feature    # sintaxis alternativa
 git push -u origin feature                     # push y establecer upstream
+
 ```
+<!-- {code-block} bash -->
 
 (merge-strategies)=
 ### Estrategias de merge
@@ -165,7 +178,8 @@ diferentes escenarios.
 
 #### Fast-forward merge
 
-```bash
+```{code-block} bash
+:linenos:
 # Cuando no hay commits en la rama target después del branch point
 git checkout main
 git merge feature/simple-change
@@ -173,11 +187,14 @@ git merge feature/simple-change
 # El historial queda lineal:
 # A - B - C (main) - D - E (feature)
 #                    ↑ main después del merge
+
 ```
+<!-- {code-block} bash -->
 
 #### Three-way merge
 
-```bash
+```{code-block} bash
+:linenos:
 # Cuando ambas ramas tienen commits nuevos
 git checkout main
 git merge feature/complex-change
@@ -186,11 +203,14 @@ git merge feature/complex-change
 # A - B - C - F (main)
 #     \     /
 #      D - E (feature)
+
 ```
+<!-- {code-block} bash -->
 
 #### Merge strategies específicas
 
-```bash
+```{code-block} bash
+:linenos:
 # Forzar merge commit incluso en fast-forward
 git merge --no-ff feature/branch
 
@@ -202,7 +222,9 @@ git merge -X ours feature/branch              # preferir "nuestra" versión en c
 git merge -X theirs feature/branch            # preferir "su" versión en conflictos
 git merge -s ours feature/branch              # ignorar completamente los cambios de la otra rama
 git merge -s subtree feature/branch           # para proyectos con subárboles
+
 ```
+<!-- {code-block} bash -->
 
 (rebase-avanzado)=
 ### Rebase: Reescribiendo la historia
@@ -212,7 +234,8 @@ lineal. Sin embargo, requiere cuidado porque reescribe la historia.
 
 #### Rebase básico vs merge
 
-```bash
+```{code-block} bash
+:linenos:
 # Situación inicial:
 # A - B - C (main)
 #     \
@@ -231,13 +254,16 @@ git rebase main
 git checkout main
 git merge feature  # fast-forward
 # Resultado: A - B - C - D' - E' (main, feature)
+
 ```
+<!-- {code-block} bash -->
 
 #### Rebase interactivo
 
 El rebase interactivo te permite editar, reordenar, combinar o eliminar commits.
 
-```bash
+```{code-block} bash
+:linenos:
 # Rebase interactivo de los últimos 3 commits
 git rebase -i HEAD~3
 
@@ -253,11 +279,14 @@ git rebase -i HEAD~3
 # squash = fusionar este commit con el anterior
 # fixup = como squash pero descartar el mensaje de este commit
 # drop = eliminar el commit
+
 ```
+<!-- {code-block} bash -->
 
 #### Casos de uso avanzados de rebase
 
-```bash
+```{code-block} bash
+:linenos:
 # Rebase sobre otra rama
 git rebase upstream/main                    # rebase sobre upstream
 git rebase main feature                     # rebase feature sobre main
@@ -275,9 +304,11 @@ git rebase -X theirs main                   # en conflictos, preferir la otra ra
 git rebase --continue                       # continuar después de resolver conflictos
 git rebase --abort                         # cancelar rebase y volver al estado original
 git rebase --skip                          # saltar el commit actual
-```
 
-:::{warning} Regla de oro del rebase 
+```
+<!-- {code-block} bash -->
+
+:::{warning} Regla de oro del rebase
 
 **Nunca hagas rebase de commits que ya
 fueron pusheados y compartidos con otros**. El rebase reescribe la historia, y
@@ -286,6 +317,7 @@ si otros ya tienen esos commits, crearás problemas de sincronización.
 Rebase solo commits locales o en ramas que solo vos usás. 
 
 :::
+<!-- {warning} Regla de oro del rebase -->
 
 (resolucion-conflictos)=
 ## Resolución avanzada de conflictos
@@ -296,18 +328,22 @@ eficientemente es una habilidad esencial.
 (anatomia-conflictos)=
 ### Anatomía de un conflicto
 
-```bash
+```{code-block} bash
+:linenos:
 # Cuando Git no puede fusionar automáticamente, marca los conflictos:
 <<<<<<< HEAD
 Código de la rama actual (HEAD)
 =======
 Código de la rama que se está fusionando
 >>>>>>> feature/nueva-funcionalidad
+
 ```
+<!-- {code-block} bash -->
 
 #### Herramientas para resolución de conflictos
 
-```bash
+```{code-block} bash
+:linenos:
 # Ver el estado de conflictos
 git status                              # archivos en conflicto
 git diff                               # ver diferencias con marcas de conflicto
@@ -322,11 +358,14 @@ git mergetool --tool=opendiff         # usar FileMerge (macOS)
 # Configurar herramienta de merge por defecto
 git config --global merge.tool vimdiff
 git config --global merge.tool vscode  # VS Code
+
 ```
+<!-- {code-block} bash -->
 
 #### Estrategias avanzadas de resolución
 
-```bash
+```{code-block} bash
+:linenos:
 # Ver diferentes versiones del archivo
 git show :1:archivo.txt               # versión base (common ancestor)
 git show :2:archivo.txt               # versión de HEAD (nuestra)
@@ -343,7 +382,9 @@ git checkout --theirs .               # usar su versión para todos
 # Reset específico después de merge fallido
 git merge --abort                     # cancelar merge y volver al estado anterior
 git reset --hard HEAD                 # descartar todos los cambios
+
 ```
+<!-- {code-block} bash -->
 
 (git-workflows)=
 ## Git Workflows para equipos
@@ -357,7 +398,8 @@ Elegir el workflow correcto es crucial para la productividad del equipo.
 Git Flow es un workflow que define roles específicos para diferentes tipos de
 ramas.
 
-```bash
+```{code-block} bash
+:linenos:
 # Ramas permanentes
 main (master)     # código de producción, siempre estable
 develop           # rama de integración, próxima release
@@ -381,7 +423,9 @@ git flow release finish 1.2.0
 # Trabajar con hotfixes
 git flow hotfix start fix-critico
 git flow hotfix finish fix-critico
+
 ```
+<!-- {code-block} bash -->
 
 (github-flow)=
 ### GitHub Flow
@@ -389,7 +433,8 @@ git flow hotfix finish fix-critico
 GitHub Flow es más simple que Git Flow, ideal para proyectos con deploy
 continuo.
 
-```bash
+```{code-block} bash
+:linenos:
 # 1. Crear rama para nueva feature
 git checkout main
 git pull origin main
@@ -409,7 +454,9 @@ git push origin feature/nueva-funcionalidad
 git checkout main
 git pull origin main
 git branch -d feature/nueva-funcionalidad
+
 ```
+<!-- {code-block} bash -->
 
 (herramientas-avanzadas)=
 ## Herramientas avanzadas de Git
@@ -417,7 +464,8 @@ git branch -d feature/nueva-funcionalidad
 (git-bisect)=
 ### Git Bisect: Búsqueda binaria de bugs
 
-```bash
+```{code-block} bash
+:linenos:
 # Iniciar bisect
 git bisect start
 git bisect bad                    # commit actual tiene el bug
@@ -434,12 +482,15 @@ git bisect reset                  # volver al HEAD original
 # Bisect automatizado con script
 git bisect start HEAD HEAD~10
 git bisect run pytest test_que_falla.py    # ejecutar test automáticamente
+
 ```
+<!-- {code-block} bash -->
 
 (git-reflog)=
 ### Git Reflog: Recuperar trabajo perdido
 
-```bash
+```{code-block} bash
+:linenos:
 # Ver reflog
 git reflog                        # reflog de HEAD
 git reflog show main              # reflog de rama específica
@@ -454,7 +505,9 @@ git checkout -b recuperar-trabajo
 git reset --hard HEAD~3           # "perdemos" 3 commits
 git reflog                        # encontrar SHA anterior
 git reset --hard HEAD@{1}        # volver al estado anterior
+
 ```
+<!-- {code-block} bash -->
 
 (ejercicios-avanzados)=
 ## Ejercicios prácticos avanzados
@@ -476,10 +529,12 @@ mergear.
 5. Crear un historial limpio y profesional 
 
 :::
+<!-- {exercise} ejercicio-rebase-interactivo -->
 
 :::{solution} ejercicio-rebase-interactivo
 
-```bash
+```{code-block} bash
+:linenos:
 # 1. Crear escenario con historial desordenado
 mkdir proyecto-rebase-demo
 cd proyecto-rebase-demo
@@ -549,9 +604,12 @@ echo "- Combinados commits relacionados en commits lógicos"
 echo "-  Corregidos mensajes siguiendo convención"
 echo "- Agregadas descripciones detalladas"
 echo -e "\nEl historial ahora está listo para merge a main"
+
 ```
+<!-- {code-block} bash -->
 
 :::
+<!-- {solution} ejercicio-rebase-interactivo -->
 
 :::{exercise}
 :label: ejercicio-recuperacion-commits
@@ -568,10 +626,12 @@ eliminadas, y archivos borrados.
 3. Recuperar archivo específico de commit anterior 
 
 :::
+<!-- {exercise} -->
 
 :::{solution} ejercicio-recuperacion-commits
 
-```bash
+```{code-block} bash
+:linenos:
 # 1. Configurar proyecto para simulacros
 mkdir proyecto-recuperacion
 cd proyecto-recuperacion
@@ -679,9 +739,12 @@ echo -e "\nTÉCNICAS CLAVE:"
 echo "- git reflog: historial de movimientos de HEAD"
 echo "- git checkout <commit> -- <file>: recuperar archivo específico"
 echo "- git reset --hard <SHA>: restaurar estado completo"
+
 ```
+<!-- {code-block} bash -->
 
 :::
+<!-- {solution} ejercicio-recuperacion-commits -->
 
 ## Recursos para continuar aprendiendo
 
@@ -689,7 +752,9 @@ echo "- git reset --hard <SHA>: restaurar estado completo"
 
 - [Git Pro Book](https://git-scm.com/book) - Capítulos avanzados (7-10)
 - [Git Reference](https://git-scm.com/docs) - Documentación completa de comandos
-- [Git Internals](https://git-scm.com/book/en/v2/Git-Internals-Plumbing-and-Porcelain) -
+- [Git
+  Internals](https://git-scm.com/book/en/v2/Git-Internals-Plumbing-and-Porcelain)
+  -
   Cómo funciona Git internamente
 
 ### Herramientas avanzadas
@@ -720,6 +785,7 @@ miedo de "romper" cosas en repositorios de prueba. Git tiene herramientas de
 recuperación para casi cualquier situación. 
 
 :::
+<!-- {tip} Práctica continua -->
 
 El control de versiones avanzado no es solo sobre comandos técnicos - es sobre
 metodologías que permiten a equipos grandes trabajar eficientemente, mantener
@@ -729,14 +795,17 @@ Con estas habilidades, estás preparado para contribuir a proyectos open source
 complejos, liderar equipos de desarrollo, y diseñar workflows que escalen con el
 crecimiento de tu organización.
 
-```bash
+```{code-block} bash
+:linenos:
 $ git log --oneline --graph --all
 * a1b2c3d (HEAD -> main) docs: complete advanced Git guide
 * 4d5e6f7 feat: add advanced workflows and automation
 * 8g9h0i1 feat: add branching strategies and merge techniques
 * 2m3n4o5 feat: add debugging and recovery techniques
 * 6p7q8r9 init: create advanced Git guide structure
+
 ```
+<!-- {code-block} bash -->
 
 ---
 
