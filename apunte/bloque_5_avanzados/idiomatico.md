@@ -123,8 +123,8 @@ destino[i] = '\0';
 :::{admonition} Relación con las reglas de estilo
 :class: tip
 
-Este patrón idiomático **parece contradecir** las reglas {ref}`0x0000h
-<0x0000h>` (claridad) y {ref}`0x3003h <0x3003h>` (operaciones múltiples), pero
+Este patrón idiomático **parece contradecir** las reglas {ref}`0x0000h`
+(claridad) y {ref}`0x3003h` (operaciones múltiples), pero
 es una **excepción reconocida** en C por ser un modismo tan común que los
 programadores experimentados lo reconocen instantáneamente.
 
@@ -629,6 +629,7 @@ especialmente durante el aprendizaje.
 
 :::{exercise}
 :label: ej-idio-tipo-opaco-ventaja
+
 Explicá de qué manera el uso de tipos opacos (por ejemplo, declarar `typedef
 struct lista lista_t;` en el archivo de cabecera `.h` y la estructura real en el
 `.c`) contribuye a la encapsulación de datos en proyectos de C de gran escala.
