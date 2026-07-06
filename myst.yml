@@ -77,6 +77,7 @@ project:
             - file: apunte/bloque_4_dinamica_interfaces/10_complejidad.md
         - title: "Bloque 5: Temas avanzados"
           children:
+            - file: apunte/bloque_5_avanzados/1_indice_avanzados.md
             - file: apunte/bloque_5_avanzados/binarios_archivos.md
             - file: apunte/bloque_5_avanzados/binarios_bitwise.md
             - file: apunte/bloque_5_avanzados/bitmaps.md
