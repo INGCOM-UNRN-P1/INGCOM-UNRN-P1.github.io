@@ -190,7 +190,7 @@ inmediatamente en las clases prácticas o en el espacio de
 (primer-programa-el-hola-mundo-en-c)=
 #### Primer programa: el «Hola Mundo» en C
 
-:::{code-block} c
+```{code-block} c
 :label: holamundo
 :caption: El indispensable Hola Mundo!
 :linenos:
@@ -204,7 +204,7 @@ int main()                      // punto de entrada del programa
     return 0;                   // finalización del programa
 }                               // fin del bloque de código
 
-:::
+```
 <!-- {code-block} c -->
 
 ##### Compilación y Ejecución
@@ -223,7 +223,7 @@ máquina puede ejecutar directamente.
 :::
 <!-- {figure} 2/compilation_process.svg -->
 
-::::{code-block} text
+````{code-block} text
 :label: salidamundo
 :caption: La salida por la terminal.
 
@@ -236,7 +236,7 @@ $> ./a.out
 Hola mundo C.
 $>
 
-::::
+````
 <!-- {code-block} text -->
 
 En la función `printf`, el carácter especial `\n` es una secuencia de control
@@ -378,7 +378,7 @@ su función y la cantidad de operandos que requieren:
         (ej: `contador++`).
     *   Negación aritmética (`-`): Cambia el signo de un valor.
 * **Relacionales o de Comparación:** Comparan dos operandos y devuelven un
-    valor entero (`int`) `0` o `1` representando valores lógicos falso y verdadero.
+    valor entero (`int`) `0` o `1` representando valores lógicos falso y  verdadero.
     * Mayor que (`>`)
     * Menor que (`<`)
     * Mayor o igual (`>=`) 
@@ -475,7 +475,7 @@ proporciona tipos con tamaños fijos y explícitos en bits, como `int8_t`,
 
 Toda variable debe declararse antes de ser usada, indicando su tipo y su nombre:
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdbool.h>
 
@@ -483,8 +483,9 @@ int edad = 42;
 float pi = 3.14f;
 char inicial = 'A';
 bool activo = true;
-```
-<!-- code-block}c -->
+
+:::
+<!-- {code-block}c -->
 
 Si declarás una variable sin inicializarla, su contenido inicial en memoria
 física es indeterminado ("basura"). **Siempre inicializá tus variables** a un
@@ -866,7 +867,8 @@ pantalla su área.
 :::{solution} ej-idea-area-rectangulo
 :class: dropdown
 El programa completo en C:
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -884,8 +886,9 @@ int main() {
     printf("El área del rectángulo es: %.2f\n", area);
     return 0;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-idea-area-rectangulo -->
@@ -903,7 +906,8 @@ aritméticas de suma y resta.
 :::{solution} ej-idea-intercambio
 :class: dropdown
 Este truco aritmético evita el uso de una variable auxiliar:
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -919,8 +923,9 @@ int main() {
     printf("Después del intercambio: x = %d, y = %d\n", x, y);
     return 0;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-idea-intercambio -->
@@ -1095,7 +1100,7 @@ caracteres.
 
 ## Glosario
 
-::{glossary}
+:::{glossary}
 Compilador
 : Herramienta de software que traduce un programa escrito en código fuente de
 alto nivel a instrucciones de código máquina nativo.

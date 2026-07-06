@@ -84,7 +84,8 @@ lógicamente sobre la correctitud de los algoritmos iterativos. Nos permiten
 verificar de forma inductiva que un lazo de control realmente cumple su objetivo
 paso a paso.
 
-``` c
+```{code-block} c
+:linenos:
 // Precondición: arr != NULL y n >= 0
 // Postcondición: retorna la suma de todos los elementos de arr[0] a arr[n-1]
 int sumar_arreglo(const int arr[], int n) {
@@ -99,8 +100,9 @@ int sumar_arreglo(const int arr[], int n) {
     
     return suma;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 *   **Inicialización (Paso Base):** Antes de la primera iteración, $i = 0$, por
     lo que la suma acumulada de $arr[0]$ a $arr[-1]$ es vacía (valor $0$),
@@ -168,7 +170,8 @@ Dada la siguiente implementación de búsqueda lineal en C, identificá el
 invariante de lazo adecuado que permita razonar sobre la corrección del
 algoritmo:
 
-``` c
+```{code-block} c
+:linenos:
 int buscar_elemento(const int arr[], int n, int elem) {
     int i = 0;
     while (i < n && arr[i] != elem) {
@@ -176,8 +179,9 @@ int buscar_elemento(const int arr[], int n, int elem) {
     }
     return i < n ? i : -1;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {exercise} -->
@@ -204,7 +208,7 @@ forma inductiva que `elem` no se encuentra en ninguna posición del arreglo.
 
 ## Glosario
 
-::{glossary}
+:::{glossary}
 Diseño por Contrato (DbC)
 : Metodología de diseño de software que formaliza las interfaces entre
 componentes mediante derechos y obligaciones mutuas (contratos lógicos).

@@ -89,6 +89,7 @@ if (edad >= 18) {
 } else {
     printf("Menor de edad\n");
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -300,7 +301,7 @@ do {
 :::
 <!-- {code-block}c -->
 
-``` mermaid
+```{mermaid}
 flowchart TD
     Inicio --> Ejecutar[Ejecutar bloque de código]
     Ejecutar --> Cond{¿Se cumple la condición?}
@@ -652,7 +653,8 @@ febrero con 28 días. No olvides la etiqueta `default` obligatoria.
 :class: dropdown
 Aprovechando la caída (*fall-through*) controlada omitiendo el `break` en casos
 con el mismo valor resultante:
-``` c
+```{code-block} c
+:linenos:
 switch (mes) {
     case 2:
         dias = 28;
@@ -677,8 +679,9 @@ switch (mes) {
         dias = -1;
         break;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-cond-switch-mes -->
@@ -727,7 +730,8 @@ positivo ingresado por el usuario usando un lazo `while`.
 
 :::{solution} ej-lazos-factorial
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -749,8 +753,9 @@ int main() {
     }
     return 0;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-lazos-factorial -->
@@ -765,7 +770,8 @@ comprendidos en un rango cerrado $[A, B]$ provisto por el usuario.
 
 :::{solution} ej-lazos-for-sumatoria
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -785,8 +791,9 @@ int main() {
     printf("La suma de impares en el rango es: %d\n", suma);
     return 0;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-lazos-for-sumatoria -->
@@ -804,7 +811,8 @@ opción.
 
 :::{solution} ej-lazos-dowhile-menu
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 int opcion = 0;
 do {
     printf("\n--- CONFIGURACIÓN ---\n");
@@ -819,8 +827,9 @@ do {
         printf("Opción inválida. Reintentá.\n");
     }
 } while (opcion != 4);
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-lazos-dowhile-menu -->
@@ -839,7 +848,8 @@ las pautas de diseño estructurado.
 
 :::{solution} ej-roles-primo
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -869,8 +879,9 @@ int main() {
     }
     return 0;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-roles-primo -->
@@ -887,7 +898,8 @@ variables utilizadas.
 
 :::{solution} ej-roles-promedio
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -916,8 +928,9 @@ int main() {
     }
     return 0;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-roles-promedio -->
@@ -933,7 +946,8 @@ correspondientes al rol de contador y de acumulador si las hubiera.
 
 :::{solution} ej-roles-digitos
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 int numero = 12345;
 int temporal = numero; // Variable auxiliar
 int digitos = 0;       // Contador
@@ -947,8 +961,9 @@ if (temporal == 0) {
     }
 }
 printf("El número %d tiene %d dígitos.\n", numero, digitos);
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 En este algoritmo:
 - `digitos` tiene el **rol de contador** (se incrementa linealmente en 1).
 - `temporal` funciona como una variable de trabajo. No se requiere un acumulador
@@ -964,7 +979,8 @@ En este algoritmo:
 El siguiente lazo de búsqueda utiliza la instrucción prohibida `break`.
 Reescribilo para que cumpla con el estándar de programación estructurada
 utilizando una bandera booleana.
-``` c
+```{code-block} c
+:linenos:
 int numeros[] = {3, 7, 2, 9, 5};
 int buscado = 9;
 int posicion = -1;
@@ -974,8 +990,9 @@ for (int i = 0; i < 5; i++) {
         break; // PROHIBIDO
     }
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {exercise} -->
@@ -984,7 +1001,8 @@ for (int i = 0; i < 5; i++) {
 :class: dropdown
 Se reescribe transformándolo en un lazo `while` que integre el estado de la
 bandera booleana en su condición de corte:
-``` c
+```{code-block} c
+:linenos:
 int numeros[] = {3, 7, 2, 9, 5};
 int buscado = 9;
 int posicion = -1;
@@ -998,8 +1016,9 @@ while (i < 5 && encontrado == false) {
     }
     i++;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-seguro-busqueda-bandera -->
@@ -1040,7 +1059,8 @@ continuar ('S' o 'N'), validando que el carácter ingresado sea uno de estos dos
 
 :::{solution} ej-seguro-menu-completo
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -1074,8 +1094,9 @@ int main() {
     printf("Edad ingresada: %d. Elección: %c\n", edad, respuesta);
     return 0;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-seguro-menu-completo -->

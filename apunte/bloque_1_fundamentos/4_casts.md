@@ -102,10 +102,10 @@ específico.
 La sintaxis del operador cast antepone el tipo de destino entre paréntesis a la
 expresión a convertir:
 
-``` myst
+```c
 (tipo_destino) expresion
 ```
-<!-- myst -->
+<!-- c -->
 
 El operador cast tiene una precedencia muy alta (operador unario), por lo que se
 evalúa antes que la mayoría de los operadores aritméticos a menos que utilices
@@ -264,7 +264,8 @@ double promedio = (double)total_horas / dias; // (double)5.0 / 2 -> 5.0 / 2.0 ->
 Explicá por qué el siguiente programa imprime "Indefinido o Inesperado" en lugar
 de "Correcto", analizando las reglas de conversión implícita:
 
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 int main(void) {
@@ -278,8 +279,9 @@ int main(void) {
     }
     return 0;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {exercise} -->
@@ -309,7 +311,7 @@ segura a un tipo común que pueda contener a ambos.
 
 ## Glosario
 
-::{glossary}
+:::{glossary}
 Cast (Casteo)
 : Operación explícita para forzar al compilador a convertir una expresión a un
 tipo de dato específico.

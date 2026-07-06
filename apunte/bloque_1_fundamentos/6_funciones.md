@@ -1061,7 +1061,8 @@ del programa sea coherente.
 Incluilas como parte del comentario de documentación de la función. Podés
 hacerlo como parte de la prosa de la documentación o indicándolo explícitamente:
 
-``` c
+```{code-block} c
+:linenos:
 /**
  * Calcula el cociente entre dos números.
  *
@@ -1073,8 +1074,9 @@ hacerlo como parte de la prosa de la documentación o indicándolo explícitamen
  * Invariante: los argumentos no son modificados.
  */
 int dividir(int dividendo, int divisor);
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::{note} en una frase
 
@@ -1094,7 +1096,8 @@ las invariantes te hacen coherente."
 :label: ej-func-prototipo-err
 El siguiente código causa un error de compilación. Corregilo utilizando una
 declaración de prototipo adecuada.
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -1106,8 +1109,9 @@ int main() {
 double calcular_cubo(double x) {
     return x * x * x;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {exercise} -->
@@ -1117,7 +1121,8 @@ double calcular_cubo(double x) {
 Dado que el compilador procesa el archivo de arriba hacia abajo, al llegar a la
 línea 4 no conoce la firma de la función `calcular_cubo`. Para solucionarlo,
 debés agregar el prototipo de la función antes del punto de entrada `main`:
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 // Prototipo de la función
@@ -1132,8 +1137,9 @@ int main() {
 double calcular_cubo(double x) {
     return x * x * x;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-func-prototipo-err -->
@@ -1199,7 +1205,8 @@ sentencia `return`.
 Determiná qué valores se imprimen en consola al ejecutar el siguiente código y
 justificá la salida aplicando el concepto de ocultamiento de variables
 (*shadowing*):
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 int main() {
@@ -1211,8 +1218,9 @@ int main() {
     printf("Bloque externo: %d\n", valor);
     return 0;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {exercise} -->
@@ -1246,7 +1254,8 @@ llamadas sucesivas durante la vida útil del programa, utilizando el modificador
 
 :::{solution} ej-scope-static-acum
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 int acumular_historico(int valor) {
@@ -1262,8 +1271,9 @@ int main() {
     printf("%d\n", acumular_historico(3));  // Imprime 18
     return 0;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-scope-static-acum -->
@@ -1304,7 +1314,8 @@ otra función, lo cual es un fallo de seguridad e integridad crítico.
 Refactorizá la siguiente función que mezcla la lógica de cálculo con la entrada
 y salida de datos (I/O) en dos funciones independientes que cumplan con la regla
 de única responsabilidad y desacoplamiento de E/S.
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 void verificar_edad() {
@@ -1317,8 +1328,9 @@ void verificar_edad() {
         printf("Es menor de edad.\n");
     }
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {exercise} -->
@@ -1327,7 +1339,8 @@ void verificar_edad() {
 :class: dropdown
 Se divide la lectura del cálculo puro, permitiendo que la lógica de validación
 sea testeable y reutilizable:
-``` c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -1348,8 +1361,9 @@ void procesar_interaccion_edad() {
         printf("Es menor de edad.\n");
     }
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-descomp-refactor-io -->
@@ -1358,7 +1372,8 @@ void procesar_interaccion_edad() {
 :label: ej-descomp-factorizacion
 Factorizá el código redundante de las siguientes dos funciones para evitar la
 duplicación lógica:
-``` c
+```{code-block} c
+:linenos:
 int maximo_de_dos(int a, int b) {
     return (a > b) ? a : b;
 }
@@ -1375,8 +1390,9 @@ int maximo_de_tres(int a, int b, int c) {
     }
     return max;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {exercise} -->
@@ -1385,7 +1401,8 @@ int maximo_de_tres(int a, int b, int c) {
 :class: dropdown
 La función `maximo_de_tres` puede reutilizar directamente la lógica de
 comparación ya encapsulada en `maximo_de_dos`:
-``` c
+```{code-block} c
+:linenos:
 int maximo_de_dos(int a, int b) {
     return (a > b) ? a : b;
 }
@@ -1394,8 +1411,9 @@ int maximo_de_tres(int a, int b, int c) {
     // Factorización lógica mediante composición de llamadas
     return maximo_de_dos(maximo_de_dos(a, b), c);
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-descomp-factorizacion -->
@@ -1421,7 +1439,8 @@ La función realiza tres tareas distintas: interactuar con el usuario para leer
 una nota, verificar si la nota está dentro del rango académico válido y decidir
 si esa nota califica para aprobar.
 Se descompone en los siguientes módulos especializados:
-``` c
+```{code-block} c
+:linenos:
 #include <stdbool.h>
 
 // 1. Responsabilidad de lectura por consola (I/O)
@@ -1435,8 +1454,9 @@ bool nota_es_aprobada(float nota);
 
 // 4. Función de orquestación o control (I/O y control)
 void procesar_calificacion();
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-descomp-responsabilidad -->
@@ -1458,7 +1478,8 @@ bool dividir_reales(float a, float b, float *resultado);
 
 :::{solution} ej-contrato-div-segura
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 /**
  * @brief Divide dos números reales de forma segura.
  * 
@@ -1476,8 +1497,9 @@ bool dividir_reales(float a, float b, float *resultado);
  *       y la función retorna true. De lo contrario, retorna false.
  */
 bool dividir_reales(float a, float b, float *resultado);
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-contrato-div-segura -->
@@ -1486,7 +1508,8 @@ bool dividir_reales(float a, float b, float *resultado);
 :label: ej-contrato-invariante-ciclo
 Encontrá e indicá formalmente cuál es la invariante de lazo para el siguiente
 ciclo que realiza una búsqueda secuencial:
-``` c
+```{code-block} c
+:linenos:
 int i = 0;
 while (i < limite && encontrado == false) {
     if (arreglo[i] == buscado) {
@@ -1494,8 +1517,9 @@ while (i < limite && encontrado == false) {
     }
     i++;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {exercise} -->
@@ -1511,6 +1535,7 @@ En este caso, la invariante del ciclo está compuesta por:
     desde el índice `0` hasta `i - 1`.
 
 :::
+<!-- {solution} ej-contrato-invariante-ciclo -->
 <!-- {solution} ej-contrato-invariante-ciclo -->
 
 :::{exercise}
@@ -1532,7 +1557,8 @@ La precondición formal es: $\text{Si } a == 0.0 \implies b > 0.0$.
 Aplicando la implicación material:
 $$P \implies Q \equiv \neg P \lor Q \equiv (a \neq 0.0) \lor (b > 0.0)$$
 En C, la instrucción de aserción correspondiente es:
-``` c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 void calcular_potencia(float a, float b) {
@@ -1540,8 +1566,9 @@ void calcular_potencia(float a, float b) {
     assert(a != 0.0f || b > 0.0f);
     // ...
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-contrato-assert-pre -->

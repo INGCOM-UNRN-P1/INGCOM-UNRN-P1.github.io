@@ -14,14 +14,16 @@ bases algorítmicas de forma independiente de cualquier lenguaje, utilizando un
 pseudocódigo estructurado similar a C en español. Esto te permitirá concentrarte
 en el pensamiento lógico antes de abordar la sintaxis formal de C.
 
-:::{important} 
+::::{important}
 
 Esta parte del apunte es un **prerrequisito** para el resto de los temas de la 
-cátedra, y es un repaso de los temas vistos en el Curso de Ingreso y en Introducción
+cátedra, y es un repaso de los temas vistos en el Curso de Ingreso y en
+Introducción
 a la Ingeniería en Computación. Asegurate de comprender estos conceptos antes de
 avanzar, ya que forman la base de todo lo que veremos posteriormente. 
 
-:::
+::::
+<!-- {important} -->
 
 ---
 
@@ -49,12 +51,13 @@ de los seres humanos, una computadora:
 - **No se cansa**: puede repetir la misma operación millones de veces sin
   degradación en su rendimiento.
 
-:::{note} 
+::::{note}
 
 La computadora hará **exactamente** lo que le pidamos, incluso si está
 mal. De ahí la importancia de diseñar y escribir algoritmos correctos. 
 
-:::
+::::
+<!-- {note} -->
 
 (componentes-basicos)=
 #### Componentes básicos
@@ -80,22 +83,27 @@ El **hardware** son los componentes físicos de la computadora:
 - **Dispositivos de salida**: Permiten obtener información (pantalla, parlantes,
   impresoras, etc.).
 
-```{figure} 1/componentes_computadora.svg
+:::{figure} 1/componentes_computadora.svg
 :alt: Componentes de una computadora
 :align: center
 :width: 90%
 
-Arquitectura básica de una computadora: el CPU coordina el flujo de datos entre la memoria RAM (rápida y volátil), el almacenamiento permanente (lento pero persistente), y los dispositivos de entrada/salida.
-```
+Arquitectura básica de una computadora: el CPU coordina el flujo de datos entre
+la memoria RAM (rápida y volátil), el almacenamiento permanente (lento pero
+persistente), y los dispositivos de entrada/salida.
 
-:::{tip} ¿Por qué necesitamos RAM y almacenamiento permanente? 
+:::
+<!-- {figure} 1/componentes_computadora.svg -->
+
+::::{tip} ¿Por qué necesitamos RAM y almacenamiento permanente?
 
 La RAM es extremadamente rápida pero volátil y costosa. El disco es más lento 
 pero persistente y económico. Esta combinación nos da lo mejor de ambos mundos:
 velocidad para ejecutar programas en memoria activa y persistencia para guardar
 nuestros archivos a largo plazo. 
 
-:::
+::::
+<!-- {tip} ¿Por qué necesitamos RAM y almacenamiento permanente? -->
 
 ##### Software
 
@@ -111,13 +119,16 @@ El **software** son los programas e instrucciones de control:
   de máquina (código binario de instrucciones de CPU) para que el procesador
   pueda ejecutarlo.
 
-```{figure} 1/capas_software.svg
+:::{figure} 1/capas_software.svg
 :alt: Capas de software
 :align: center
 :width: 70%
 
-Las aplicaciones utilizan los servicios del sistema operativo, que a su vez controla y gestiona el hardware.
-```
+Las aplicaciones utilizan los servicios del sistema operativo, que a su vez
+controla y gestiona el hardware.
+
+:::
+<!-- {figure} 1/capas_software.svg -->
 
 (que-es-programar)=
 ### ¿Qué es programar?
@@ -144,6 +155,7 @@ Imaginá que querés hacer un bizcochuelo y le das las instrucciones a alguien q
 ::::{grid} 1 1 2 2
 
 :::{grid-item-card} ❌ Instrucciones vagas (no funcionan) "Poné un poco de
+
 harina, algo de azúcar, mezclá los ingredientes y horneá hasta que esté listo."
 
 **Problemas:**
@@ -155,6 +167,7 @@ harina, algo de azúcar, mezclá los ingredientes y horneá hasta que esté list
 - ¿Cómo saber cuándo está "listo"? 
 
 :::
+<!-- {grid-item-card} ❌ Instrucciones vagas (no funcionan) "Poné un poco de -->
 
 :::{grid-item-card} ✅ Instrucciones precisas (como un programa)
 
@@ -173,9 +186,11 @@ harina, algo de azúcar, mezclá los ingredientes y horneá hasta que esté list
 - Orden cronológico específico.
 - Tiempos definidos. 
 
-::: 
+:::
+<!-- {grid-item-card} ✅ Instrucciones precisas (como un programa) -->
 
 ::::
+<!-- {grid} 1 1 2 2 -->
 
 La computadora necesita instrucciones de este segundo tipo: específicas,
 ordenadas, sin ambigüedades y detalladas al extremo.
@@ -187,21 +202,25 @@ Un **algoritmo** es una secuencia finita, ordenada y no ambigua de pasos bien
 definidos que resuelve un problema o realiza una tarea específica. Los
 algoritmos son la base fundamental de la programación y el diseño de sistemas.
 
-```{figure} 1/algoritmo_problema_solucion.svg
+:::{figure} 1/algoritmo_problema_solucion.svg
 :alt: Del problema a la solución
 :align: center
 :width: 80%
 
-El algoritmo es el puente conceptual que transforma un problema de entrada en su solución.
-```
+El algoritmo es el puente conceptual que transforma un problema de entrada en su
+solución.
 
-:::{important} 
+:::
+<!-- {figure} 1/algoritmo_problema_solucion.svg -->
+
+::::{important}
 
 Un algoritmo es **independiente** del lenguaje de programación.
 El mismo algoritmo lógico puede implementarse en C, Python, Java o incluso
 traducirse a un circuito físico de hardware. 
 
-:::
+::::
+<!-- {important} -->
 
 (caracteristicas-de-un-buen-algoritmo)=
 #### Características de un buen algoritmo
@@ -210,49 +229,56 @@ Un algoritmo efectivo debe cumplir con los siguientes vectores de diseño:
 
 ::::{grid} 1 1 2 2
 
-:::{grid-item-card} 
+:::{grid-item-card}
 
 1. **Finito**: Debe finalizar en algún momento, después de un
 número determinado de pasos ejecutados. 
 
 :::
+<!-- {grid-item-card} -->
 
-:::{grid-item-card} 
+:::{grid-item-card}
 
 2. **Bien definido**: Cada paso debe ser unívoco, claro y libre
 de toda ambigüedad en su interpretación. 
 
 :::
+<!-- {grid-item-card} -->
 
-:::{grid-item-card} 
+:::{grid-item-card}
 
 3. **Con entrada** (opcional): Puede recibir cero o más datos
 iniciales del entorno para procesar. 
 
 :::
+<!-- {grid-item-card} -->
 
-:::{grid-item-card} 
+:::{grid-item-card}
 
 4. **Con salida**: Debe retornar o producir al menos un resultado
 o cambio de estado visible. 
 
 :::
+<!-- {grid-item-card} -->
 
-:::{grid-item-card} 
+:::{grid-item-card}
 
 5. **Efectivo**: Cada paso debe ser realizable y computable en un
 tiempo finito utilizando recursos de memoria finitos. 
 
 :::
+<!-- {grid-item-card} -->
 
-:::{grid-item-card} 
+:::{grid-item-card}
 
 6. **Determinista**: Dado el mismo conjunto de datos de entrada,
 debe producir siempre exactamente el mismo resultado de salida. 
 
-::: 
+:::
+<!-- {grid-item-card} -->
 
 ::::
+<!-- {grid} 1 1 2 2 -->
 
 (representacion-de-algoritmos-y-diagramas-de-flujo)=
 ### Representación de Algoritmos y Diagramas de Flujo
@@ -264,13 +290,16 @@ iteraciones antes de escribir código.
 (simbolos-estandar-de-diagramas-de-flujo)=
 #### Símbolos estándar de diagramas de flujo
 
-```{figure} 1/simbolos_diagramas_flujo.svg
+:::{figure} 1/simbolos_diagramas_flujo.svg
 :alt: Símbolos estándar de diagramas de flujo
 :align: center
 :width: 85%
 
-Símbolos universales utilizados en diagramas de flujo para representar diferentes procesos de un algoritmo.
-```
+Símbolos universales utilizados en diagramas de flujo para representar
+diferentes procesos de un algoritmo.
+
+:::
+<!-- {figure} 1/simbolos_diagramas_flujo.svg -->
 
 - **Óvalo / Elipse:** Representa el inicio o el fin del algoritmo.
 - **Rectángulo:** Representa un proceso o instrucción de cómputo (cálculos,
@@ -290,7 +319,8 @@ Símbolos universales utilizados en diagramas de flujo para representar diferent
 Homogeneizando la estructura cotidiana mediante ramificaciones secuenciales
 condicionales:
 
-```text
+```{code-block} text
+:linenos:
 =================================================
  Algoritmo: Hacer café
 =================================================
@@ -315,9 +345,12 @@ condicionales:
  9. Servir café en una taza limpia
  10. Fin
 =================================================
-```
 
-```mermaid
+```
+<!-- {code-block} text -->
+
+```{code-block} mermaid
+:linenos:
 flowchart TD
     Start([Inicio]) --> CheckWater{¿Depósito vacío?}
     CheckWater -- Sí --> FillWater[Llenar depósito con agua] --> CheckFilter
@@ -328,7 +361,9 @@ flowchart TD
     TurnOn --> Wait[Esperar filtrado]
     Wait --> Serve[Servir en taza]
     Serve --> End([Fin])
+
 ```
+<!-- {code-block} mermaid -->
 
 (ejemplo-2-verificar-si-n-es-par)=
 #### Ejemplo 2: Verificar si N es par
@@ -336,7 +371,8 @@ flowchart TD
 Este algoritmo calcula si un número entero es par utilizando el operador módulo
 `%` (resto de la división entera):
 
-```text
+```{code-block} text
+:linenos:
 =================================================
  Algoritmo: Verificar si N es par
 =================================================
@@ -353,9 +389,12 @@ Este algoritmo calcula si un número entero es par utilizando el operador módul
         b. Escribir "El número es impar"
  5. Fin
 =================================================
-```
 
-```mermaid
+```
+<!-- {code-block} text -->
+
+```{code-block} mermaid
+:linenos:
 flowchart TD
     Start([Inicio]) --> ReadN[/Leer N/]
     ReadN --> CalcResto[resto = N % 2]
@@ -364,7 +403,9 @@ flowchart TD
     CondPar -- No --> PrintImpar[/Escribir 'El número es impar'/]
     PrintPar --> End([Fin])
     PrintImpar --> End
+
 ```
+<!-- {code-block} mermaid -->
 
 (representacion-de-datos-y-memoria)=
 ### Representación de datos y memoria
@@ -376,13 +417,16 @@ operaciones válidas.
 (tipos-de-informacion-fundamentales)=
 #### Tipos de información fundamentales
 
-```{figure} 1/tipos_datos.svg
+:::{figure} 1/tipos_datos.svg
 :alt: Tipos de datos fundamentales
 :align: center
 :width: 95%
 
-Los cuatro tipos de datos fundamentales: enteros, reales, cadenas de caracteres y valores lógicos.
-```
+Los cuatro tipos de datos fundamentales: enteros, reales, cadenas de caracteres
+y valores lógicos.
+
+:::
+<!-- {figure} 1/tipos_datos.svg -->
 
 1.  **Enteros (`entero` / `int`):** Números sin parte fraccionaria (ej. `5`,
     `-20`, `0`). Se utilizan para conteos, índices de lazos y posiciones.
@@ -404,7 +448,8 @@ programa.
 Visualmente, una variable vincula una etiqueta lógica con una dirección física
 en el hardware:
 
-```text
+```{code-block} text
+:linenos:
 +------------------------------------------+
 | Dirección Física (ej. 0x7ffd8)            | <- Celda en la memoria RAM
 +------------------------------------------+
@@ -412,7 +457,9 @@ en el hardware:
 |  tipo: entero                            | <- Tipo de dato asignado
 |  valor: 25                               | <- Dato de almacenamiento actual
 +------------------------------------------+
+
 ```
+<!-- {code-block} text -->
 
 Cada variable posee:
 
@@ -427,15 +474,18 @@ Cada variable posee:
 (el-ciclo-de-vida-de-una-variable-en-memoria)=
 #### El ciclo de vida de una variable en memoria
 
-```{figure} 1/ciclo_vida_variable.svg
+:::{figure} 1/ciclo_vida_variable.svg
 :alt: Ciclo de vida de una variable
 :align: center
 :width: 85%
 
-Una variable se declara e inicializa en memoria, es leída o modificada durante la ejecución, y finalmente se libera de la memoria física.
-```
+Una variable se declara e inicializa en memoria, es leída o modificada durante
+la ejecución, y finalmente se libera de la memoria física.
 
-:::{important} 
+:::
+<!-- {figure} 1/ciclo_vida_variable.svg -->
+
+::::{important}
 
 En lenguajes de alto nivel como Python, la memoria ocupada por
 las variables se libera de forma automática mediante un recolector de basura
@@ -446,7 +496,8 @@ dinámica asignada manualmente (en el _heap_) debe ser liberada explícitamente
 por el programador. Si olvidás liberarla, se genera una fuga de memoria (_memory
 leak_). 
 
-:::
+::::
+<!-- {important} -->
 
 (estructuras-logicas-y-operaciones-basicas)=
 ### Estructuras lógicas y operaciones básicas
@@ -456,13 +507,15 @@ leak_).
 
 A nivel de hardware, se ejecutan operaciones aritméticas sobre celdas numéricas:
 
-```{figure} 1/operaciones_aritmeticas.svg
+:::{figure} 1/operaciones_aritmeticas.svg
 :alt: Operaciones aritméticas
 :align: center
 :width: 85%
 
 Operaciones aritméticas básicas y especiales, con precedencia de evaluación.
-```
+
+:::
+<!-- {figure} 1/operaciones_aritmeticas.svg -->
 
 - **Módulo `%`:** Retorna el resto de la división entera. Es útil para evaluar
   paridad (`N % 2 == 0`) o extraer dígitos.
@@ -475,13 +528,15 @@ Operaciones aritméticas básicas y especiales, con precedencia de evaluación.
 Las operaciones lógicas combinan valores booleanos para evaluar condiciones
 complejas:
 
-```{figure} 1/operaciones_logicas.svg
+:::{figure} 1/operaciones_logicas.svg
 :alt: Operaciones lógicas
 :align: center
 :width: 95%
 
 Las tres operaciones lógicas fundamentales (Y, O, NO) con sus tablas de verdad.
-```
+
+:::
+<!-- {figure} 1/operaciones_logicas.svg -->
 
 - **AND (`y`):** Da verdadero únicamente si ambos operandos son verdaderos.
 - **OR (`o`):** Da verdadero si al menos uno de los operandos es verdadero.
@@ -493,13 +548,16 @@ Las tres operaciones lógicas fundamentales (Y, O, NO) con sus tablas de verdad.
 Todo algoritmo de control estructurado puede resolverse utilizando únicamente
 tres estructuras lógicas:
 
-```{figure} 1/estructuras_control.svg
+:::{figure} 1/estructuras_control.svg
 :alt: Tres estructuras fundamentales de control
 :align: center
 :width: 100%
 
-Las tres estructuras fundamentales del pensamiento algorítmico: secuencia, decisión y repetición.
-```
+Las tres estructuras fundamentales del pensamiento algorítmico: secuencia,
+decisión y repetición.
+
+:::
+<!-- {figure} 1/estructuras_control.svg -->
 
 (1-secuencia)=
 #### 1. Secuencia
@@ -534,7 +592,8 @@ lenguajes interpretados dinámicos.
 (ejemplo-1-calculadora-simple)=
 #### Ejemplo 1: Calculadora simple
 
-```text
+```{code-block} text
+:linenos:
 // Algoritmo: Calculadora Simple
 // Entrada: dos números reales y un carácter de operación
 // Salida: el resultado de la operación matemática por pantalla
@@ -583,9 +642,12 @@ Sino
 {
     Escribir("Error: Operación no válida.");
 }
-```
 
-```mermaid
+```
+<!-- {code-block} text -->
+
+```{code-block} mermaid
+:linenos:
 flowchart TD
     Start([Inicio]) --> ReadNums[/Leer numero1, numero2/]
     ReadNums --> ReadOp[/Leer operacion/]
@@ -601,12 +663,15 @@ flowchart TD
     CondZero -- No --> ErrorZero[/Escribir error división por cero/] --> End([Fin])
     CondDiv -- No --> ErrorOp[/Escribir error operación inválida/] --> End
     Print --> End
+
 ```
+<!-- {code-block} mermaid -->
 
 (ejemplo-2-tabla-de-multiplicar)=
 #### Ejemplo 2: Tabla de multiplicar
 
-```text
+```{code-block} text
+:linenos:
 // Algoritmo: Tabla de Multiplicar
 // Entrada: un número entero
 // Salida: la tabla de multiplicar de N del 1 al 10
@@ -628,9 +693,12 @@ Para (contador = 1; contador <= 10; contador = contador + 1)
     resultado = numero * contador;
     Escribir(numero, " x ", contador, " = ", resultado);
 }
-```
 
-```mermaid
+```
+<!-- {code-block} text -->
+
+```{code-block} mermaid
+:linenos:
 flowchart TD
     Start([Inicio]) --> ReadNum[/Leer numero/]
     ReadNum --> Init[contador = 1]
@@ -639,12 +707,15 @@ flowchart TD
     Calc --> Print[/Escribir numero x contador = resultado/]
     Print --> Inc[contador = contador + 1] --> LoopCond
     LoopCond -- No --> End([Fin])
+
 ```
+<!-- {code-block} mermaid -->
 
 (ejemplo-3-adivinar-numero)=
 #### Ejemplo 3: Adivinar número
 
-```text
+```{code-block} text
+:linenos:
 // Algoritmo: Adivinar Número
 // Entrada: intento numérico del usuario
 // Salida: mensajes guía (mayor/menor) e indicación de éxito o derrota
@@ -683,9 +754,12 @@ Si (adivinado == false)
 {
     Escribir("Game Over. El número secreto era: ", numero_secreto);
 }
-```
 
-```mermaid
+```
+<!-- {code-block} text -->
+
+```{code-block} mermaid
+:linenos:
 flowchart TD
     Start([Inicio]) --> CondLoop{¿intentos < max e adivinado == false?}
     CondLoop -- Sí --> Inc[intentos = intentos + 1]
@@ -698,7 +772,9 @@ flowchart TD
     CondLoop -- No --> CondWon{¿adivinado == false?}
     CondWon -- Sí --> PrintLose[/Escribir 'Game Over'/] --> End([Fin])
     CondWon -- No --> End
+
 ```
+<!-- {code-block} mermaid -->
 
 ---
 
@@ -707,16 +783,19 @@ flowchart TD
 (ejercicio-1)=
 ### Ejercicio 1: Instrucciones precisas
 
-```{exercise}
+:::{exercise}
 :label: ex-instrucciones-precisas
-Escribí instrucciones detalladas y secuenciales (como para alguien que nunca lo hizo) para:
+Escribí instrucciones detalladas y secuenciales (como para alguien que nunca lo
+hizo) para:
 
 1. Hacer un sándwich de jamón y queso.
 2. Atarse los cordones de las zapatillas.
 3. Calcular el promedio de tres números.
-```
 
-```{solution} ex-instrucciones-precisas
+:::
+<!-- {exercise} -->
+
+:::{solution} ex-instrucciones-precisas
 :class: dropdown
 
 **Hacer un sándwich de jamón y queso:**
@@ -737,23 +816,28 @@ Escribí instrucciones detalladas y secuenciales (como para alguien que nunca lo
 4. Sumar los tres valores: suma = A + B + C.
 5. Dividir el resultado de la suma por 3: promedio = suma / 3.
 6. Mostrar el valor del promedio obtenido.
-```
+
+:::
+<!-- {solution} ex-instrucciones-precisas -->
 
 (ejercicio-tipos-variables)=
 ### Ejercicio 2: Tipos de variables
 
-```{exercise}
+:::{exercise}
 :label: ex-tipos-vars
-Para cada uno de los siguientes datos, indicá qué tipo de variable (`entero`, `real`, `cadena`, `logico`) usarías en pseudocódigo:
+Para cada uno de los siguientes datos, indicá qué tipo de variable (`entero`,
+`real`, `cadena`, `logico`) usarías en pseudocódigo:
 
 1. Cantidad de estudiantes en una clase.
 2. Precio de un producto con centavos.
 3. Nombre completo de una persona.
 4. Si un archivo existe o no.
 5. Calificación académica con decimales.
-```
 
-```{solution} ex-tipos-vars
+:::
+<!-- {exercise} -->
+
+:::{solution} ex-tipos-vars
 :class: dropdown
 
 1. **`entero`**: Se cuentan individuos discretos.
@@ -761,27 +845,38 @@ Para cada uno de los siguientes datos, indicá qué tipo de variable (`entero`, 
 3. **`cadena`**: Secuencia de caracteres alfabéticos.
 4. **`logico`**: Estado binario (verdadero/falso).
 5. **`real`**: Contiene parte fraccionaria (ej: 8.5).
-```
+
+:::
+<!-- {solution} ex-tipos-vars -->
 
 (ejercicio-2-aplicacion-algoritmica)=
 ### Ejercicio 3: Aplicación Algorítmica
 
-```{exercise}
-:label: ex-pseudo-2
-Escribí en pseudocódigo estructurado (estilo C en español) algoritmos para resolver las siguientes cuestiones, sin declarar subprogramas (`def`) ni importar librerías complejas:
+:::{exercise} ex-pseudo-2
+Escribí en pseudocódigo estructurado (estilo C en español) algoritmos para
+resolver las siguientes cuestiones, sin declarar subprogramas (`def`) ni
+importar librerías complejas:
 
 A. Convertir una temperatura dada de grados Celsius a Fahrenheit.
-B. Determinar si tres medidas de lados reales pueden formar un triángulo (la suma de dos lados cualesquiera debe ser siempre estrictamente mayor que el tercer lado).
-C. Calcular el Máximo Común Divisor (MCD) de dos números enteros utilizando el algoritmo de Euclides.
-D. Determinar si una cadena de caracteres es un palíndromo (se lee igual de izquierda a derecha que de derecha a izquierda), comparando sus extremos mediante un lazo.
-```
+B. Determinar si tres medidas de lados reales pueden formar un triángulo (la
+suma de dos lados cualesquiera debe ser siempre estrictamente mayor que el
+tercer lado).
+C. Calcular el Máximo Común Divisor (MCD) de dos números enteros utilizando el
+algoritmo de Euclides.
+D. Determinar si una cadena de caracteres es un palíndromo (se lee igual de
+izquierda a derecha que de derecha a izquierda), comparando sus extremos
+mediante un lazo.
 
-:::{solution} ex-pseudo-2 
+:::
+<!-- {exercise} -->
+
+::::{solution} ex-pseudo-2
 :class: dropdown
 
 **A. Conversión de temperatura:**
 
-```text
+```{code-block} text
+:linenos:
 real celsius;
 real fahrenheit;
 
@@ -790,11 +885,14 @@ Leer(celsius);
 
 fahrenheit = celsius * 9.0 / 5.0 + 32.0;
 Escribir("Equivalente en Fahrenheit: ", fahrenheit);
+
 ```
+<!-- {code-block} text -->
 
 **B. Verificar triángulo:**
 
-```text
+```{code-block} text
+:linenos:
 real lado1;
 real lado2;
 real lado3;
@@ -814,11 +912,14 @@ Sino
 {
     Escribir("Los lados NO pueden formar un triángulo.");
 }
+
 ```
+<!-- {code-block} text -->
 
 **C. MCD (Algoritmo de Euclides):**
 
-```text
+```{code-block} text
+:linenos:
 entero a;
 entero b;
 entero temporal;
@@ -836,11 +937,14 @@ Mientras (b != 0)
 }
 
 Escribir("El MCD es: ", a);
+
 ```
+<!-- {code-block} text -->
 
 **D. Palíndromo (lazo de comparación de extremos):**
 
-```text
+```{code-block} text
+:linenos:
 cadena palabra;
 entero longitud;
 entero inicio = 0;
@@ -872,19 +976,23 @@ Sino
 {
     Escribir("La palabra NO es un palíndromo.");
 }
-```
 
-:::
+```
+<!-- {code-block} text -->
+
+::::
+<!-- {solution} ex-pseudo-2 -->
 
 (ejercicio-3-integradores)=
 ### Ejercicio 4: Integradores
 
-:::{exercise} 
+:::{exercise}
 :label: ex-integrador-1 
 
 Analizá el siguiente pseudocódigo estructurado y respondé las consignas:
 
-```text
+```{code-block} text
+:linenos:
 entero n;
 entero suma = 0;
 entero i = 1;
@@ -901,13 +1009,15 @@ Mientras (i <= n)
     i = i + 1;
 }
 Escribir("Resultado: ", suma);
+
 ```
+<!-- {code-block} text -->
 
 1. ¿Qué hace este algoritmo?
 2. Si `n` ingresado es 10, ¿cuál es la salida final?
 3. Modificalo para que realice la suma exclusiva de números impares. :::
 
-:::{solution} ex-integrador-1 
+:::{solution} ex-integrador-1
 :class: dropdown
 
 1. **¿Qué hace?** Suma todos los números pares en el rango de 1 a `n` inclusive.
@@ -915,7 +1025,8 @@ Escribir("Resultado: ", suma);
 3. **Modificación para impares:** Modificar la condición del módulo en la
    decisión (`i % 2 != 0`):
 
-```text
+```{code-block} text
+:linenos:
 entero n;
 entero suma = 0;
 entero i = 1;
@@ -932,15 +1043,21 @@ Mientras (i <= n)
     i = i + 1;
 }
 Escribir("Resultado: ", suma);
+
 ```
+<!-- {code-block} text -->
+
 :::
+<!-- {solution} ex-integrador-1 -->
 
 ---
 
 (glosario_base)=
 ## Glosario
 
-::{glossary} Algoritmo : Secuencia finita, ordenada y unívoca de pasos lógicos
+:::{glossary}
+
+Algoritmo : Secuencia finita, ordenada y unívoca de pasos lógicos
 diseñados para resolver un problema.
 
 Variable : Espacio con nombre asignado en la memoria física RAM asociado a una
@@ -956,7 +1073,9 @@ Pseudocódigo : Notación estructurada en lenguaje natural que representa un
 algoritmo de forma cercana a un lenguaje de programación.
 
 Diagrama de flujo : Modelado gráfico y estandarizado del flujo lógico de un
-algoritmo. :::
+algoritmo. 
+
+:::
 
 ---
 

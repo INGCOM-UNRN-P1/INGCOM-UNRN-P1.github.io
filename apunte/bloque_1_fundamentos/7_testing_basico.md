@@ -47,7 +47,7 @@ Una prueba unitaria robusta se estructura sistemáticamente siguiendo el patrón
 3.  **Assert (Verificar):** Comprueba que el resultado obtenido coincide
     exactamente con el valor esperado utilizando aserciones.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <assert.h>
 
@@ -66,8 +66,9 @@ void test_suma_valores_positivos(void) {
     // 3. Assert: Verificar
     assert(resultado == esperado);
 }
-```
-<!-- c -->
+
+:::
+<!-- {code-block}c -->
 
 #### Categorías de Casos de Prueba
 
@@ -98,7 +99,7 @@ normalmente; si es falsa, la macro aborta inmediatamente la ejecución del
 programa mostrando por la salida de error estándar (`stderr`) la expresión
 lógica fallida, el nombre del archivo fuente y la línea física del código.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <assert.h>
 
@@ -107,10 +108,11 @@ void procesar_indice(int *arreglo, int idx) {
     assert(arreglo != NULL);
     assert(idx >= 0);
 }
-```
-<!-- c -->
 
-:::{warning} Uso Correcto de `assert` vs. Validaciones de Producción
+:::
+<!-- {code-block}c -->
+
+::::{warning} Uso Correcto de `assert` vs. Validaciones de Producción
 
 *   **assert es para depuración:** Los `assert` se diseñan para detectar errores
     del programador durante la fase de desarrollo.
@@ -123,19 +125,21 @@ void procesar_indice(int *arreglo, int idx) {
     `assert`, el control de errores desaparecerá silenciosamente en la versión
     compilada para producción.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
-// ✗ ANTIPATRÓN: Si NDEBUG está activo, la validación se descarta y el programa fallará catastróficamente.
+// ✗ ANTIPATRÓN: Si NDEBUG está activo, la validación se descarta y el programa
+fallará catastróficamente.
 assert(edad >= 0 && edad <= 150);
 
 // ✓ DISEÑO CORRECTO: Validación persistente que siempre se evalúa en ejecución.
 if (edad < 0 || edad > 150) {
     return ERROR_EDAD_INVALIDA;
 }
-```
-<!-- c -->
 
 :::
+<!-- {code-block}c -->
+
+::::
 <!-- {warning} Uso Correcto de `assert` vs. Validaciones de Producción -->
 
 #### Cobertura de Ramas (Branch Coverage)
@@ -146,7 +150,7 @@ estructurada es lograr el **100% de cobertura de ramas** (*branch coverage*),
 garantizando que se prueben tanto las condiciones verdaderas como las falsas de
 cada bifurcación del flujo de control.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 int valor_absoluto(int x) {
     if (x < 0) { // Bifurcación en rama 1 y rama 2
@@ -158,8 +162,9 @@ int valor_absoluto(int x) {
 // Para lograr 100% de cobertura de ramas debemos invocar:
 assert(valor_absoluto(-5) == 5); // Cubre la rama verdadera (x < 0)
 assert(valor_absoluto(5) == 5);  // Cubre la rama falsa (x >= 0)
-```
-<!-- c -->
+
+:::
+<!-- {code-block}c -->
 
 ---
 
@@ -175,9 +180,9 @@ Escribí una prueba unitaria para una función llamada `invertir_cadena(char
 :::
 <!-- {exercise} -->
 
-:::{solution} ej-test-aaa-structure
+::::{solution} ej-test-aaa-structure
 :class: dropdown
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <assert.h>
 #include <string.h>
@@ -193,13 +198,14 @@ void test_invertir_cadena_palabra_simple(void) {
     // 3. Assert: Verificar el resultado
     assert(strcmp(entrada, esperado) == 0);
 }
-```
-<!-- c -->
 
 :::
+<!-- {code-block}c -->
+
+::::
 <!-- {solution} ej-test-aaa-structure -->
 
-:::{exercise}
+:::{exercise} 
 :label: ej-test-boundary-cases
 Dada la firma de función `int buscar_elemento(const int *arr, size_t n, int
 elem);`, enumerá al menos tres casos límite (*boundary cases*) y un caso de
@@ -252,10 +258,10 @@ deben validarse con condicionales `if` tradicionales.
 :::
 <!-- {solution} ej-test-assert-production -->
 
-:::{exercise}
+::::{exercise}
 :label: ej-test-cobertura-ramas
 Dada la función:
-```{code-block}c
+:::{code-block}c
 :linenos:
 bool es_bisiesto(int anio) {
     if (anio % 400 == 0) return true;
@@ -263,39 +269,42 @@ bool es_bisiesto(int anio) {
     if (anio % 4 == 0) return true;
     return false;
 }
-```
-<!-- c -->
+:::
+<!-- {code-block}c -->
 Escribí un conjunto de pruebas unitarias mínimo que garantice el 100% de
 cobertura de ramas (*branch coverage*).
 
-:::
+::::
 <!-- {exercise} -->
 
-:::{solution} ej-test-cobertura-ramas
+::::{solution} ej-test-cobertura-ramas
 :class: dropdown
+
 Para lograr el 100% de cobertura de ramas debemos forzar a que cada sentencia
-condicional tome caminos verdaderos y falsos:
-```{code-block}c
+condicional tome caminos verdaderos y falsos
+
+:::{code-block}c
 :linenos:
 #include <assert.h>
 
 void test_es_bisiesto_ramas(void) {
     assert(es_bisiesto(2000) == true);  // Evalúa VERDADERO la rama 1 (divisible por 400)
-    assert(es_bisiesto(1900) == false); // Evalúa FALSO la rama 1 y VERDADERO la rama 2 (divisible por 100)
-    assert(es_bisiesto(2024) == true);  // Evalúa FALSAS rama 1 y 2, y VERDADERO la rama 3 (divisible por 4)
+    assert(es_bisiesto(1900) == false); // Evalúa FALSO la rama 1 y VERDADERO la rama 2 (divisible  por 100)
+    assert(es_bisiesto(2024) == true);  // Evalúa FALSAS rama 1 y 2, y VERDADERO la rama 3 divisible por 4)
     assert(es_bisiesto(2023) == false); // Evalúa FALSAS todas las ramas (camino por defecto final)
 }
-```
-<!-- c -->
 
 :::
+<!-- {code-block}c -->
+
+::::
 <!-- {solution} ej-test-cobertura-ramas -->
 
 ---
 
 ## Glosario
 
-::{glossary}
+:::{glossary}
 Prueba unitaria (Unit Test)
 : Método de verificación que examina de forma aislada el comportamiento de
 bloques individuales de código fuente (habitualmente funciones).
