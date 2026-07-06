@@ -257,7 +257,7 @@ int funcion_dos() {
 ### Roles en Funciones
 
 *(Para una introducción teórica y conceptual sobre la asignación de roles
-semánticos a las variables, consultá la sección {ref}`roles-variables` del
+semánticos a las variables, consultá la sección {ref}`roles-de-las-variables` del
 capítulo [](2_gradual))*.
 
 Al estructurar modularmente un programa mediante funciones, las variables
@@ -307,7 +307,7 @@ suma.
 #### Variable Local Temporal (en funciones)
 
 *(Este rol es una especialización aplicada del **Rol de variable Auxiliar o
-Temporal** descripto en {ref}`roles-variables` del capítulo [](2_gradual))*.
+Temporal** descripto en {ref}`roles-de-las-variables` del capítulo [](2_gradual))*.
 
 En el cuerpo de una función, las variables locales adoptan a menudo el rol de
 almacenamiento temporal. Su tiempo de vida y ámbito quedan limitados

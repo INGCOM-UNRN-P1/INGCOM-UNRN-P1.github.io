@@ -144,7 +144,7 @@ cast)
 <!-- {code-block}c -->
 
 Para mayor detalle de cómo el compilador convierte implícitamente estos tipos
-durante operaciones aritméticas, consultá el capítulo de {ref}`casts-capitulo`.
+durante operaciones aritméticas, consultá el capítulo de {ref}`capitulo-conversiones-casts`.
 
 ### Imprecisión de Reales (IEEE 754)
 
@@ -210,7 +210,6 @@ variable tras ejecutar la instrucción `x = x + 2;` en C? Justificá tu respuest
 en base al estándar.
 
 :::
-<!-- {exercise} -->
 
 :::{solution} ej-num-overflow-unsigned
 :class: dropdown
@@ -226,7 +225,6 @@ Por lo tanto, la variable `x` almacenará el valor `1` de manera completamente
 segura y predecible.
 
 :::
-<!-- {solution} ej-num-overflow-unsigned -->
 
 :::{exercise}
 :label: ej-num-division-truncation
@@ -234,18 +232,14 @@ Explicá de forma detallada qué valor imprimirá por pantalla el siguiente
 fragmento de código en C y de qué forma se puede solucionar su comportamiento
 erróneo:
 
-:::{code-block}c
+```{code-block} c
 :linenos:
 int total_puntos = 15;
 int partidas = 4;
 float promedio = total_puntos / partidas;
 printf("Promedio: %.2f\n", promedio);
-
+```
 :::
-<!-- {code-block}c -->
-
-:::
-<!-- {exercise} -->
 
 :::{solution} ej-num-division-truncation
 :class: dropdown
@@ -260,15 +254,11 @@ implícitamente a flotante (`3.0f`) durante la asignación a la variable
 Para solucionar esto y conservar la precisión decimal, se debe realizar una
 conversión explícita o cast (ver regla de casts) de al menos uno de los
 operandos a `float` antes de operar:
-:::{code-block}c
+```{code-block} c
 :linenos:
 float promedio = (float)total_puntos / partidas; // Produce 3.75f
-
+```
 :::
-<!-- {code-block}c -->
-
-:::
-<!-- {solution} ej-num-division-truncation -->
 
 :::{exercise}
 :label: ej-num-epsilon-compare
@@ -277,10 +267,10 @@ un sistema informático real? Escribí la estructura lógica condicional en C qu
 permita realizar dicha comparación de forma robusta y segura.
 
 :::
-<!-- {exercise} -->
 
 :::{solution} ej-num-epsilon-compare
 :class: dropdown
+
 La comparación evalúa como falsa debido a la imprecisión en la representación
 binaria bajo el estándar IEEE 754. Ni $0.1$ ni $0.2$ tienen representaciones
 binarias exactas finitas, lo que introduce un pequeño error de redondeo en la
@@ -289,7 +279,7 @@ difiera ligeramente de $0.3f$.
 
 La forma correcta de realizar esta comparación es evaluando la diferencia
 absoluta contra un épsilon:
-:::{code-block}c
+```{code-block} c
 :linenos:
 #include <math.h>
 #include <stdio.h>
@@ -301,12 +291,8 @@ void comparar(float a, float b) {
         printf("Son equivalentes dentro del margen de error.\n");
     }
 }
-
+```
 :::
-<!-- {code-block}c -->
-
-:::
-<!-- {solution} ej-num-epsilon-compare -->
 
 ---
 

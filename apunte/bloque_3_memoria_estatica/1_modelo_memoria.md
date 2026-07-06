@@ -997,7 +997,7 @@ memoria** donde se encuentra ese valor.
 :::{note} Prerequisito: Conceptos Básicos de Punteros
 
 Este capítulo asume que ya conocés los fundamentos de punteros que se
-presentaron en el {ref}`punteros-capitulo`. Si necesitás repasar los siguientes
+presentaron en el {ref}`capitulo-punteros`. Si necesitás repasar los siguientes
 temas, consultá ese capítulo:
 
 - Declaración de punteros y sintaxis básica

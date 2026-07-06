@@ -176,8 +176,8 @@ una variable válida o con `NULL`.
 #### Variable de Referencia (o Puntero)
 
 *(Para comprender el marco pedagógico de los roles de variables, podés consultar
-la introducción en la sección {ref}`roles-variables` del capítulo
-[](2_gradual))*.
+la introducción en la sección {ref}`roles-de-las-variables` del capítulo
+[el capítulo del lenguaje C](../bloque_1_fundamentos/2_gradual.md))*.
 
 Un puntero es una variable cuyo valor es una dirección de memoria física. En
 términos didácticos, asume el **rol de variable de referencia**: su propósito no
@@ -278,7 +278,7 @@ indirecta.
 
 El nombre de un arreglo no es un puntero, sino el identificador de un bloque de
 memoria contiguo. Sin embargo, como se analizó en
-{ref}`sec-decaimiento-arreglos`, al evaluarse en la mayoría de las expresiones
+el capítulo de [Secuencias](2_secuencias.md) (ver [decaimiento de arreglos](#el-mecanismo-de-paso-a-funciones-paso-por-referencia-simulado)), al evaluarse en la mayoría de las expresiones
 de C este decae (se degrada) automáticamente a un puntero al primer elemento de
 la secuencia (`&arreglo[0]`).
 
@@ -307,7 +307,7 @@ Si tenés un puntero `ptr` a un tipo de dato `T` que ocupa `sizeof(T)` bytes, al
 hacer `ptr + 1`, la dirección de memoria física no se incrementa en 1, sino en
 `sizeof(T)`. Este mecanismo es el fundamento del acceso indexado y el cálculo de
 desplazamientos bidimensionales en memoria contigua que estudiamos en
-{ref}`sec-matriz-direccionamiento`. Esto permite "saltar" de un elemento a otro
+{ref}`calculo-de-desplazamiento-de-memoria`. Esto permite "saltar" de un elemento a otro
 en un arreglo de forma eficiente.
 
 :::{figure} 4/aritmetica_punteros.svg
@@ -424,7 +424,7 @@ correctamente con `printf`, se utiliza el especificador de formato `%td`.
 
 En C, **todas las funciones pasan sus argumentos por valor** (copia de datos).
 Ya experimentaste el **paso por referencia simulado** con los arreglos en
-{ref}`sec-decaimiento-arreglos`: al no poder copiar todo el bloque de memoria de
+{ref}`el-mecanismo-de-paso-a-funciones-paso-por-referencia-simulado`: al no poder copiar todo el bloque de memoria de
 la secuencia, C pasa la dirección de su primer elemento.
 
 Para variables de tipo primario (como `int` o `char`), aplicamos el mismo
@@ -508,7 +508,7 @@ int main() {
 #### Parámetro de Salida (a través de Punteros)
 
 *(Este rol extiende el pasaje de datos entre ámbitos; para más contexto
-conceptual, podés revisar la sección {ref}`roles-variables` de [](2_gradual))*.
+conceptual, podés revisar la sección {ref}`roles-de-las-variables` de [el capítulo del lenguaje C](../bloque_1_fundamentos/2_gradual.md))*.
 
 Dado que en C todo pasaje de argumentos es estrictamente por valor (la función
 trabaja sobre copias en su propio stack frame), para permitir que una función
@@ -560,7 +560,7 @@ los resultados de la división.
 #### Parámetro de Entrada/Salida (a través de Punteros)
 
 *(Esta especialización semántica complementa los roles analizados en la sección
-{ref}`roles-variables` de [](2_gradual))*.
+{ref}`roles-de-las-variables` de [el capítulo del lenguaje C](../bloque_1_fundamentos/2_gradual.md))*.
 
 Similar al parámetro de salida, un **parámetro de entrada/salida** utiliza un
 puntero para permitir que la función lea un valor inicial proporcionado por el
@@ -603,7 +603,7 @@ entrada/salida**. La función lee el valor inicial de `miVariableContador`
 
 Esta capacidad para modificar variables externas al ámbito de la función
 constituye un efecto secundario (side effect) análogo al que estudiamos con la
-modificación de arreglos en [](6_secuencias).
+modificación de arreglos en [el capítulo de Secuencias](2_secuencias.md).
 
 Si bien los efectos secundarios son indispensables para la eficiencia y para
 permitir la salida de múltiples resultados, incrementan la complejidad del flujo

@@ -1142,7 +1142,7 @@ En esta unidad introductoria de C analizaste los siguientes fundamentos:
   el buffer.
 
 Para continuar con el control de flujo condicional y los lazos iterativos,
-consultá {ref}`control-flujo-capitulo`.
+consultá {ref}`capitulo-control-flujo`.
 
 ---
 

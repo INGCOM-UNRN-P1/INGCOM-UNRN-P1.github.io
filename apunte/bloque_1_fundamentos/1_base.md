@@ -852,7 +852,8 @@ Para cada uno de los siguientes datos, indicá qué tipo de variable (`entero`,
 (ejercicio-2-aplicacion-algoritmica)=
 ### Ejercicio 3: Aplicación Algorítmica
 
-:::{exercise} ex-pseudo-2
+:::{exercise}
+:label: ex-pseudo-2
 Escribí en pseudocódigo estructurado (estilo C en español) algoritmos para
 resolver las siguientes cuestiones, sin declarar subprogramas (`def`) ni
 importar librerías complejas:
@@ -1156,5 +1157,13 @@ forma más explícita.
 - **CS Unplugged** - https://csunplugged.org/
   - Actividades para aprender conceptos sin computadora.
   - Ideal para desarrollar intuición algorítmica.
-- **xkcd - Algorithms** - https://xkcd.com/1667/ (Ver
-  {numref}`fig-xkcd-algorithms`).
+- **xkcd - Algorithms** - https://xkcd.com/1667/
+
+:::{figure} 1/xkcd-algorithms.png
+:name: fig-xkcd-algorithms
+:align: center
+:width: 60%
+
+Diagrama de flujo humorístico de un algoritmo según xkcd.
+:::
+

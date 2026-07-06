@@ -236,7 +236,7 @@ for (int i = 0; i < 5; i++) {
 ##### Rol de variable: Control de lazo (o Iterador)
 
 *(Para una introducción teórica sobre el propósito de los roles de variables,
-consultá la sección {ref}`roles-variables`)*.
+consultá la sección {ref}`roles-de-las-variables`)*.
 
 En el lazo anterior, la variable `i` asume el **rol de control de lazo** (o
 iterador). Este rol se encarga de gobernar las repeticiones del ciclo,
@@ -314,7 +314,7 @@ flowchart TD
 ### Rol Bandera (o Flag)
 
 *(Para más información sobre la asignación semántica de roles, consultá
-{ref}`roles-variables` en [](2_gradual))*.
+{ref}`roles-de-las-variables` en [](2_gradual))*.
 
 Una **bandera** (o _flag_) es una variable booleana (o un tipo entero que simula
 un valor booleano) que se utiliza para **registrar y señalizar un estado o la
@@ -537,13 +537,13 @@ Esta restricción responde a dos cuestiones fundamentales del diseño de softwar
 
 Para detener un lazo de forma controlada cuando se cumpla una condición
 anticipada, debés recurrir a la estructuración de lazos con **banderas de
-control** (`bool`). Consultá la sección {ref}`rol-bandera` para ver la
+control** (`bool`). Consultá la sección {ref}`rol-bandera-o-flag` para ver la
 explicación teórica y los ejemplos detallados de implementación estructurada.
 
 :::{tip} Ejercicio Práctico Resuelto
 
 Podés consultar la resolución del **Ejercicio 9 (ingreso de clave con bandera)**
-en el documento de [](2c_ejercicios_control).
+en el documento de [ejercicios](../../ejercicios/bloque_1_fundamentos/5_ejercicios_control.md).
 
 :::
 <!-- {tip} Ejercicio Práctico Resuelto -->

@@ -388,7 +388,7 @@ elemento se conoce técnicamente como **decaimiento de arreglo a puntero**
 (*array decay*). Dado que requiere comprender cómo se organizan las direcciones
 de memoria físicas y lógicas, este comportamiento tendrá mucho más sentido una
 vez que se aborde el estudio de los punteros en el capítulo de
-{ref}`punteros-capitulo` (disponible en [](4_punteros.md)).
+{ref}`capitulo-punteros` (disponible en [](4_punteros.md)).
 
 :::
 <!-- {note} El concepto subyacente: Decaimiento de Arreglos -->
@@ -409,7 +409,7 @@ ubicación, permitiendo modificaciones directas del contenido original.
 #### Funciones Puras y con Efectos Secundarios
 
 Al trabajar con secuencias, la distinción entre funciones puras y aquellas con
-efectos secundarios (ver {ref}`sec-funciones-puras`) adquiere una relevancia
+efectos secundarios (ver {ref}`funciones-puras-y-con-efectos-secundarios`) adquiere una relevancia
 crítica debido al mecanismo de pasaje de parámetros en C. Como los arreglos se
 transmiten mediante su dirección de memoria (paso por referencia simulado), las
 funciones pueden modificar su contenido directamente en el invocador.
@@ -1613,7 +1613,7 @@ especial para texto.
 - El estudio de las direcciones de memoria y la aritmética de punteros (por
   ejemplo, comprender que la expresión `arr[i]` equivale técnicamente a una
   operación de indirección sobre la dirección de memoria) se explican de forma
-  detallada en el capítulo {ref}`punteros-capitulo` en [](4_punteros.md).
+  detallada en el capítulo {ref}`capitulo-punteros` en [](4_punteros.md).
 
 :::
 <!-- {important} Ideas Centrales -->

@@ -24,8 +24,8 @@ archivo ejecutable que la máquina puede interpretar directamente.
 :::{note} Prerequisitos
 
 Este capítulo asume que ya escribiste y ejecutaste programas básicos en C como
-los presentados en el [](2_gradual.md). También es útil tener familiaridad con
-el concepto de funciones ([](4_funciones.md)) ya que se mencionan prototipos y
+los presentados en el [](../bloque_1_fundamentos/2_gradual.md). También es útil tener familiaridad con
+el concepto de funciones ([](../bloque_1_fundamentos/6_funciones.md)) ya que se mencionan prototipos y
 definiciones en el contexto de compilación de múltiples archivos.
 
 :::
@@ -876,7 +876,7 @@ utilidad `make` para automatizar este flujo.
 
 Para un análisis detallado sobre cómo configurar y escribir las reglas de
 dependencias de un archivo de configuración para compilar de forma incremental,
-consultá el capítulo específico de {ref}`makefiles-capitulo`.
+consultá el capítulo específico de {ref}`capitulo-makefiles-basico`.
 
 ---
 
@@ -1173,7 +1173,7 @@ contexto.
 
 Este es solo un resumen. Para una descripción detallada de todas las funciones,
 sus parámetros, valores de retorno y ejemplos de uso, consultá el apunte de
-referencia: {doc}`../referencia/A_stdlib`.
+referencia: [A_stdlib](../../referencia/A_stdlib.md).
 
 :::
 <!-- {important} Referencia Completa -->

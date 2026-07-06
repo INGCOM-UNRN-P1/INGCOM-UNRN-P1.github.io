@@ -86,7 +86,7 @@ discretos de constantes enteras nombradas.
 Para un análisis detallado de la sintaxis de enumerativos, la asignación de
 valores, las colisiones en espacios de nombres y las validaciones de rango con
 switch defensivo, consultá el capítulo específico de
-{ref}`enumeraciones-capitulo`.
+{ref}`capitulo-enums`.
 
 ## Ejercicios de Autoevaluación
 

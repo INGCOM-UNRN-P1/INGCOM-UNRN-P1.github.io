@@ -481,7 +481,7 @@ typedef struct {
    relaciones claramente.
 
 Para más detalles sobre el estilo de comentarios y documentación, consultá la
-{ref}`regla 0x0032h  <0x000Ah>` sobre cómo escribir comentarios que expliquen el
+regla {ref}`0x000Ah` sobre cómo escribir comentarios que expliquen el
 "porqué" y no el "qué".
 
 ---
@@ -1391,8 +1391,8 @@ valor_t crear_valor_entero(int64_t entero) {
 6. **Casos de uso:** Explicá para qué situaciones está diseñada la unión y
    cuándo debería (o no) usarse.
 
-Para más detalles sobre el estilo de comentarios, consultá la {ref}`regla
-0x0032h  <0x000Ah>` sobre cómo escribir comentarios que expliquen el "porqué" y
+Para más detalles sobre el estilo de comentarios, consultá la regla
+{ref}`0x000Ah` sobre cómo escribir comentarios que expliquen el "porqué" y
 no el "qué".
 
 (ejercicio)=
