@@ -38,18 +38,22 @@ Este apunte está organizado para acompañarlos de manera gradual en su aprendiz
 
 ### El Apunte de Cátedra
 
-El [material principal de la materia](apunte/1_base.md) está diseñado para seguir el ritmo de las clases. Comienza con una introducción gradual al lenguaje C y avanza progresivamente hacia conceptos más complejos.
+El [material principal de la materia](apunte/indice.md) está estructurado en cinco bloques progresivos:
+- **[Bloque 1: Fundamentos](apunte/bloque_1_fundamentos/1_base.md)**: Bases de la computación, control de flujo, funciones, recursividad introductoria y nociones de contratos.
+- **[Bloque 2: Estructuración y Proyectos](apunte/bloque_2_proyectos/1_compilacion.md)**: Compilación, Makefiles, alias de tipos y enumeraciones.
+- **[Bloque 3: Disposición de Memoria y Estructuras Estáticas](apunte/bloque_3_memoria_estatica/1_modelo_memoria.md)**: Modelo de memoria (Stack y Code), secuencias, matrices, punteros y estructuras de datos estáticas.
+- **[Bloque 4: Gestión Dinámica de Recursos e Interfaces](apunte/bloque_4_dinamica_interfaces/1_memoria_dinamica.md)**: Memoria dinámica (Heap), aritmética de punteros, archivos de texto, punteros a funciones, tipos opacos, TADs (listas, pilas y colas), testing y contratos formales.
+- **[Bloque 5: Temas Avanzados](apunte/bloque_5_avanzados/1_indice_avanzados.md)**: Archivos binarios, operaciones bitwise, manipulación de imágenes BMP, recursividad avanzada, C idiomático y diseño de APIs.
 
 ### Ejercicios para hacer
 
-Las [prácticas](ejercicios/indice.md) son el campo de entrenamiento. Aquí aplicarán la teoría vista en clase para resolver problemas concretos, afianzando el conocimiento y ganando experiencia.
+Las [prácticas y cuadernillos de autoevaluación](ejercicios/readme.md) están organizados para seguir de cerca cada bloque del apunte. Es el campo de entrenamiento fundamental para fijar conceptos y resolver problemas mediante código real.
 
 ### Artículos y Guías Complementarias
 
+La cátedra hace uso extensivo de control de versiones con [Git](guias/git.md) y [GitHub](guias/github.md), por lo que es de lectura recomendada.
 
-La cátedra hace uso extensivo de [git](guias/git.md) y [gitHub](guias/github.md), por lo que es importante, al menos, una leída a las guías específicas.
-
-Disponemos de un [Índice de Guías](guias/indice.md) complementarias que cubren herramientas del ecosistema de desarrollo. Si estás comenzando, debés seguir la guía para configurar tu [Entorno de Desarrollo](guias/entorno.md) paso a paso en tu sistema operativo.
+Disponemos de un [Índice de Guías](guias/indice.md) complementarias que cubren herramientas del ecosistema de desarrollo. Si estás comenzando, debés seguir la guía para configurar tu [Entorno de Desarrollo](guias/entorno.md) paso a paso.
 
 
 
