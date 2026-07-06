@@ -2103,6 +2103,12 @@ Buffer
 
 En este apunte se han presentado los conceptos fundamentales del tema.
 
+(referencias-lecturas-archivos-texto)=
 ## Referencias y Lecturas Complementarias
 
-No se especifican lecturas complementarias para este tema.
+- **Kernighan, B. W. y Ritchie, D. M.** [@kernighan_c_2014]. *The C Programming Language* (2.ª edición). Prentice Hall.
+  - Consultá el **Capítulo 7: Input and Output**, donde se detalla el diseño de la biblioteca estándar de E/S, la manipulación de archivos y los descriptores del sistema.
+- **King, K. N.** [@king_c_2008]. *C Programming: A Modern Approach* (2.ª edición). W. W. Norton & Company.
+  - Revisá el **Capítulo 22: Input/Output** para un estudio pormenorizado de los flujos de texto, las diferencias entre E/S con y sin buffer, y el manejo de errores con `feof` y `ferror`.
+- **Gustedt, J.** [@gustedt_modern_2019]. *Modern C*. Manning Publications.
+  - Estudiá el **Nivel 2 (Refine)**, sección de entrada/salida de la biblioteca estándar, donde se analiza la interacción de streams con el sistema operativo y la portabilidad del código.

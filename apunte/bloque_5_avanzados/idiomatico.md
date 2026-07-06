@@ -5,8 +5,6 @@ description: 'Convenciones, patrones y anti-patrones del C idiomático. Cómo es
 ---
 
 (idiomatico-capitulo)=
-
-(codigo-idiomatico)=
 ## Código Idiomático
 
 (que-es-el-codigo-idiomatico)=
@@ -354,8 +352,8 @@ if (a > b) {
 :::{admonition} Relación con las reglas de estilo
 :class: tip
 
-El operador ternario **está estrictamente prohibido por la regla** {ref}`0x1007h
-<0x1007h>` en esta cátedra. Su uso en los laboratorios está penalizado, debiendo
+El operador ternario **está estrictamente prohibido por la regla** {ref}`0x1007h`
+en esta cátedra. Su uso en los laboratorios está penalizado, debiendo
 preferirse la estructura de control `if-else` tradicional.
 
 **Cuándo usar el operador ternario:**
@@ -369,22 +367,17 @@ preferirse la estructura de control `if-else` tradicional.
 - Cuando se necesita ejecutar múltiples sentencias
 
 **Ejemplo apropiado:**
-:::{code-block}c
+```{code-block} c
 :linenos:
 const char *mensaje = (usuario_conectado) ? "Bienvenido" : "Inicia sesión";
-
-:::
-<!-- {code-block}c -->
+```
 
 **Ejemplo inapropiado (anidado):**
-:::{code-block}c
+```{code-block} c
 :linenos:
 // NO hacer esto - viola la claridad
 int resultado = (x > 0) ? ((y > 0) ? 1 : 2) : ((y > 0) ? 3 : 4);
-
-:::
-<!-- {code-block}c -->
-
+```
 :::
 <!-- {admonition} Relación con las reglas de estilo -->
 
@@ -400,10 +393,10 @@ designados de C99, indicando por qué esta última previene la lectura de basura
 en memoria.
 
 :::
-<!-- {exercise} -->
 
 :::{solution} ej-idio-init-designada
 :class: dropdown
+
 - **Asignación campo por campo**:
   ```c
   datos_t d;
@@ -422,7 +415,6 @@ El uso de inicializadores designados previene lecturas accidentales de basura de
 forma automática e implícita en la declaración.
 
 :::
-<!-- {solution} ej-idio-init-designada -->
 
 :::{exercise}
 :label: ej-idio-early-return
@@ -593,7 +585,7 @@ La validación de punteros **es obligatoria** según {ref}`0x3008h <0x3008h>`
 **Dos enfoques válidos:**
 
 **1. Enfoque defensivo (preferido para funciones públicas):**
-:::{code-block}c
+```{code-block} c
 :linenos:
 bool agregar_elemento(lista_t *lista, int valor) {
     if (lista == NULL) {
@@ -602,25 +594,20 @@ bool agregar_elemento(lista_t *lista, int valor) {
     // ... lógica
     return true;
 }
-
-:::
-<!-- {code-block}c -->
+```
 
 **2. Enfoque por contrato (aceptable para funciones privadas):**
-:::{code-block}c
+```{code-block} c
 :linenos:
 // PRECONDICIÓN: lista != NULL (documentado)
 static void insertar_nodo(lista_t *lista, nodo_t *nodo) {
     assert(lista != NULL);  // Solo en debug
     // ... lógica sin validación en producción
 }
-
-:::
-<!-- {code-block}c -->
+```
 
 En este curso, **preferimos el enfoque defensivo** para todas las funciones,
 especialmente durante el aprendizaje.
-
 :::
 <!-- {admonition} Relación con las reglas de estilo -->
 
@@ -635,10 +622,10 @@ struct lista lista_t;` en el archivo de cabecera `.h` y la estructura real en el
 `.c`) contribuye a la encapsulación de datos en proyectos de C de gran escala.
 
 :::
-<!-- {exercise} -->
 
 :::{solution} ej-idio-tipo-opaco-ventaja
 :class: dropdown
+
 El uso de tipos opacos impide que el código cliente (el que importa el `.h`)
 acceda directamente a los miembros internos de la estructura (como
 `lista->primero`), ya que el compilador desconoce el tamaño y los campos de la
@@ -649,7 +636,6 @@ interna (por ejemplo, pasar de una lista enlazada a un array dinámico) sin
 romper la compatibilidad con el código cliente.
 
 :::
-<!-- {solution} ej-idio-tipo-opaco-ventaja -->
 
 :::{exercise}
 :label: ej-idio-validar-null
@@ -940,8 +926,8 @@ void funcion(void) {
 :::{admonition} Relación con las reglas de estilo
 :class: tip
 
-**El uso de `goto` está estrictamente prohibido por la regla** {ref}`0x1006h
-<0x1006h>` en todas las prácticas de la materia.
+**El uso de `goto` está estrictamente prohibido por la regla** {ref}`0x1006h`
+en todas las prácticas de la materia.
 
 **Uso PROHIBIDO de `goto`:**
 - Reemplazar estructuras de control (`for`, `while`)
@@ -995,7 +981,7 @@ error:
 Funciones auxiliares o estructuras de control anidadas, pero el código de
 limpieza se duplica.
 
-Ver {ref}`0x1006h <0x1006h>` para el análisis completo.
+Ver {ref}`0x1006h` para el análisis completo.
 
 :::
 <!-- {admonition} Relación con las reglas de estilo -->
@@ -1115,18 +1101,18 @@ experiencia y el contexto.
 
 | Patrón Idiomático | Regla de Estilo Relacionada | Postura del Curso | Cuándo Usar |
 |-------------------|------------------------------|-------------------|-------------|
-| `while (*d++ = *s++)` | {ref}`0x0000h <0x0000h>` (claridad) | **Preferir claridad** | Código muy idiomático de bajo nivel |
-| Inicializadores designados | {ref}`0x3004h <0x3004h>` | **Totalmente alineado** | Siempre |
-| Early return | {ref}`0x2001h <0x2001h>`, {ref}`0x3008h <0x3008h>` | **Totalmente alineado** | Siempre |
-| Operador ternario simple | {ref}`0x1007h <0x1007h>` | **Totalmente alineado** | Asignaciones simples |
-| Ternario anidado | {ref}`0x1007h <0x1007h>` | **Prohibido** | Nunca |
-| `if (ptr)` | {ref}`0x3008h <0x3008h>` | **Preferir explícito** | Código muy idiomático |
-| `if (ptr != NULL)` | {ref}`0x3008h <0x3008h>` | **Recomendado** | Siempre, especialmente al aprender |
-| `goto` para limpieza | {ref}`0x1006h <0x1006h>` | **Permitido específicamente** | Manejo de errores con recursos |
-| `goto` para lazos | {ref}`0x1006h <0x1006h>` | **Prohibido** | Nunca |
-| Macros vs funciones | {ref}`0x2008h <0x2008h>`, {ref}`0x2008h <0x2008h>` | **Caso por caso** | Constantes: macro; Lógica: función |
-| Nombres cortos (`i`, `j`) | {ref}`0x0001h <0x0001h>` | **Permitido con restricciones** | Lazos simples, ámbito reducido |
-| Punteros vs índices | {ref}`0x0000h <0x0000h>` | **Preferir índices** | Índices por defecto; punteros cuando clarifica |
+| `while (*d++ = *s++)` | {ref}`0x0000h` (claridad) | **Preferir claridad** | Código muy idiomático de bajo nivel |
+| Inicializadores designados | {ref}`0x3004h` | **Totalmente alineado** | Siempre |
+| Early return | {ref}`0x2001h`, {ref}`0x3008h` | **Totalmente alineado** | Siempre |
+| Operador ternario simple | {ref}`0x1007h` | **Totalmente alineado** | Asignaciones simples |
+| Ternario anidado | {ref}`0x1007h` | **Prohibido** | Nunca |
+| `if (ptr)` | {ref}`0x3008h` | **Preferir explícito** | Código muy idiomático |
+| `if (ptr != NULL)` | {ref}`0x3008h` | **Recomendado** | Siempre, especialmente al aprender |
+| `goto` para limpieza | {ref}`0x1006h` | **Permitido específicamente** | Manejo de errores con recursos |
+| `goto` para lazos | {ref}`0x1006h` | **Prohibido** | Nunca |
+| Macros vs funciones | {ref}`0x2008h` | **Caso por caso** | Constantes: macro; Lógica: función |
+| Nombres cortos (`i`, `j`) | {ref}`0x0001h` | **Permitido con restricciones** | Lazos simples, ámbito reducido |
+| Punteros vs índices | {ref}`0x0000h` | **Preferir índices** | Índices por defecto; punteros cuando clarifica |
 
 #### Contextos donde divergen idiomaticidad y reglas pedagógicas
 

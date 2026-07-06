@@ -1641,8 +1641,11 @@ siguientes puntos:
 ## Glosario
 
 :::{glossary}
-Tipo Opaco
-: Puntero a una estructura cuya definición no se expone en la interfaz (encapsulamiento).
+
+Tipo opaco 
+: Un tipo de dato cuya implementación interna está oculta al código
+cliente. Generalmente, como un puntero a una estructura cuya estructura no se expone
+fuera de la librería. Se dice que esta está "Encapsulada".
 
 API (Interfaz de Programación de Aplicaciones)
 : Conjunto de firmas de funciones y tipos expuestos para el cliente.

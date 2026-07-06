@@ -2006,11 +2006,14 @@ local en la pila contra la reserva de la misma en el heap mediante `malloc`.
 ## Glosario
 
 :::{glossary}
-Heap (Montículo)
-: Región de memoria para alocación dinámica gestionada manualmente.
 
 Stack (Pila)
-: Memoria LIFO utilizada para variables locales y llamadas a funciones.
+: Región de memoria que se gestiona automáticamente bajo el orden LIFO para
+variables locales y llamadas a funciones.
+
+Heap (Montículo)
+: Región de memoria para asignación dinámica que el programador gestiona
+manualmente en tiempo de ejecución.
 
 Memory Leak (Fuga de memoria)
 : Pérdida de la referencia a memoria dinámica sin liberarla.
@@ -2220,15 +2223,6 @@ void establecer_elemento(int *arreglo, size_t tamano, size_t indice, int valor)
 
 ::::
 <!-- {code-block}c -->
-
-(ejercicios-de-autoevaluacion-buenas-practicas)=
-#### Ejercicios de Autoevaluación (Buenas Prácticas)
-
-
-
-
-
-
 
 
 (1_memoria_dinamica-conceptos-clave)=

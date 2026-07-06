@@ -2905,6 +2905,14 @@ En este apunte hemos cubierto:
 Para continuar con estructuras lineales de acceso restringido, consultá
 {ref}`capitulo-tad-pilas-colas`.
 
+(referencias-lecturas-tad)=
 ## Referencias y Lecturas Complementarias
 
-No se especifican lecturas complementarias para este tema.
+- **King, K. N.** [@king_c_2008]. *C Programming: A Modern Approach* (2.ª edición). W. W. Norton & Company.
+  - Revisá el **Capítulo 19: Program Design**, que introduce el concepto de encapsulamiento, ocultamiento de información y la distinción entre interfaz y TAD en C.
+- **Sedgewick, R. y Wayne, K.** [@sedgewick_algorithms_2011]. *Algorithms* (4.ª edición). Addison-Wesley.
+  - Consultá el **Capítulo 1: Fundamentals**, sección de APIs y tipos de datos abstractos, para una perspectiva sobre cómo estructurar colecciones genéricas mediante listas enlazadas.
+- **Cormen, T. H. y otros** [@cormen_introduction_2009]. *Introduction to Algorithms* (3.ª edición). MIT Press.
+  - Estudiá el **Capítulo 10: Elementary Data Structures**, donde se explica en detalle el funcionamiento lógico de listas enlazadas y estructuras lineales elementales.
+- **Hanson, D. R.** [@hanson_c_1996]. *C Interfaces and Implementations*. Addison-Wesley.
+  - Consultá los capítulos iniciales para comprender el diseño de APIs abstractas basadas en punteros opacos de forma profesional.

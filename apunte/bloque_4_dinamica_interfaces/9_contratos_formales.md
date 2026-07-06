@@ -377,12 +377,23 @@ Postcondición
 
 Invariante
 : Propiedad que debe permanecer verdadera durante el ciclo de vida de un objeto o ejecución.
+
+Invariante de lazo (Loop Invariant)
+: Condición o propiedad lógica asociada a una estructura iterativa que permanece
+verdadera antes de ingresar al lazo, antes y después de cada vuelta, y al salir
+de este.
 :::
 
 ## Síntesis y Resumen
 
 En este apunte se han presentado los conceptos fundamentales del tema.
 
+(referencias-lecturas-contratos-formales)=
 ## Referencias y Lecturas Complementarias
 
-No se especifican lecturas complementarias para este tema.
+- **Meyer, B.** [@meyer1988]. *Design by Contract*. Prentice Hall.
+  - El ensayo original que define e introduce la metodología de Diseño por Contrato en la construcción de software robusto.
+- **Meyer, B.** [@meyer1992]. *Applying "Design by Contract"*. IEEE Computer.
+  - Artículo clásico que analiza de forma compacta y pragmática el uso de precondiciones, postcondiciones e invariantes para el control de errores en tiempo de ejecución.
+- **Meyer, B.** [@meyer_object_1997]. *Object-Oriented Software Construction* (2.ª edición). Prentice Hall.
+  - Consultá los capítulos dedicados a la teoría de contratos, herencia y correctitud de algoritmos, que sientan las bases formales del modelado de invariantes de representación.

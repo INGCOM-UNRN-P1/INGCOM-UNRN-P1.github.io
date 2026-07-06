@@ -2223,11 +2223,6 @@ constante enumerada
 enumeración. Por defecto, reciben valores enteros consecutivos comenzando desde
 0, pero pueden tener valores explícitos asignados por el programador.
 
-tipo opaco 
-: Un tipo de dato cuya implementación interna está oculta al código
-cliente. Las enumeraciones pueden usarse para crear tipos opacos que encapsulan
-conjuntos de valores válidos sin exponer su representación numérica subyacente.
-
 máquina de estados finita 
 : Un modelo computacional que consiste en un número
 finito de estados, transiciones entre esos estados, y acciones. Las

@@ -2094,14 +2094,6 @@ Memoria virtual
 : Abstracción que mapea direcciones lógicas de un proceso a la memoria física
 (RAM), proveyendo aislamiento y seguridad.
 
-Stack (Pila)
-: Región de memoria que se gestiona automáticamente bajo el orden LIFO para
-variables locales y llamadas a funciones.
-
-Heap (Montículo)
-: Región de memoria para asignación dinámica que el programador gestiona
-manualmente en tiempo de ejecución.
-
 Línea de caché
 : Unidad mínima de transferencia de datos entre la memoria principal y la
 memoria caché de la CPU.

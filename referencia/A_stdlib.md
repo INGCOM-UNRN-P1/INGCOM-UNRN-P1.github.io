@@ -1723,9 +1723,6 @@ Análisis Léxico (Lexical Analysis)
 Benchmarking
 : Proceso de ejecutar pruebas estandarizadas para medir y comparar el rendimiento (velocidad, uso de memoria) de un programa o una función.
 
-Buffer
-: Zona de memoria temporal usada para almacenar datos mientras se transfieren de un lugar a otro, optimizando operaciones de entrada/salida.
-
 Buffer Overflow (Desbordamiento de Búfer)
 : Error de seguridad que ocurre cuando se escriben datos más allá de los límites de un buffer, sobrescribiendo memoria adyacente y pudiendo causar fallos o vulnerabilidades.
 
@@ -1737,9 +1734,6 @@ Core Dump
 
 Epoch (Época)
 : Un instante de tiempo que sirve como punto de referencia. En sistemas Unix/POSIX, el epoch es el 1 de enero de 1970 a las 00:00:00 UTC. `time_t` suele medir los segundos transcurridos desde ese momento.
-
-Invariante
-: Condición o propiedad que debe mantenerse siempre verdadera en un punto específico de la ejecución de un programa. Las aserciones (`assert`) son una forma de verificar invariantes durante el desarrollo.
 
 Locale (Configuración Regional)
 : Conjunto de parámetros que definen el idioma, país y otras convenciones culturales (formato de fecha, moneda, separador decimal, codificación de caracteres) para adaptar el comportamiento de un programa.

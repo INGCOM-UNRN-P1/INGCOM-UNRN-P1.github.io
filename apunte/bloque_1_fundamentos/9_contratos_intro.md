@@ -213,18 +213,6 @@ Diseño por Contrato (DbC)
 : Metodología de diseño de software que formaliza las interfaces entre
 componentes mediante derechos y obligaciones mutuas (contratos lógicos).
 
-Precondición
-: Condición lógica obligatoria que debe cumplirse antes de la ejecución de una
-función; su cumplimiento recae sobre el invocador (cliente).
-
-Postcondición
-: Condición lógica garantizada por la función al finalizar su ejecución, siempre
-que se hayan respetado las precondiciones al inicio.
-
-Invariante de lazo (Loop Invariant)
-: Condición o propiedad lógica asociada a una estructura iterativa que permanece
-verdadera antes de ingresar al lazo, antes y después de cada vuelta, y al salir
-de este.
 :::
 
 ---
