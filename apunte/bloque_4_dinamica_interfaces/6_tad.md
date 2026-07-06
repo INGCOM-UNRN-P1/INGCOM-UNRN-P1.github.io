@@ -1742,7 +1742,7 @@ Esta función debe recibir dos punteros genéricos constantes y retornar:
 A continuación se presenta cómo el módulo de la lista genérica implementa la
 búsqueda secuencial, y cómo el código cliente la consume.
 
-###### En la biblioteca (`lista_generica.c`):
+**En la biblioteca (`lista_generica.c`):**
 :::{code-block}c
 :linenos:
 void *lista_buscar_generica(const lista_generica_t *lista, const void *clave,
@@ -1766,7 +1766,7 @@ comparar_fn comparar) {
 :::
 <!-- {code-block}c -->
 
-###### En el programa cliente (`main.c`):
+**En el programa cliente (`main.c`):**
 :::{code-block}c
 :linenos:
 // Callback de comparación personalizado para el tipo persona_t

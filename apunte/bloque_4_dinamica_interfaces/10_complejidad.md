@@ -833,7 +833,7 @@ $$\hat{c}_i = c_i + \Phi(D_i) - \Phi(D_{i-1})$$
 donde $c_i$ es el costo real de la operación y $\Delta\Phi_i = \Phi(D_i) -
 \Phi(D_{i-1})$ es el cambio en el potencial.
 
-###### Análisis del Arreglo Dinámico
+**Análisis del Arreglo Dinámico**
 Para un arreglo dinámico, definimos la función potencial después de la operación
 $i$ como:
 $$\Phi_i = 2 \cdot t_i - c_i$$
@@ -873,7 +873,7 @@ capacidad: $c_i = 2 \cdot c_{i-1}$.
 4. El **costo amortizado** calculado es:
    $$\hat{c}_i = c_i + \Delta\Phi_i = (t_{i-1} + 1) + (2 - t_{i-1}) = 3$$
 
-###### Conclusión
+**Conclusión**
 En ambos escenarios (con o sin redimensionamiento), el costo amortizado de una
 inserción en el arreglo dinámico es exactamente $3$, lo que demuestra
 formalmente que la operación de inserción tiene una complejidad de amortización

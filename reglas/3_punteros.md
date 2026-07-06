@@ -30,7 +30,7 @@ free(ptr);
 ptr = NULL;
 ```
 
-#### Simetría en la liberación de recursos
+### Simetría en la liberación de recursos
 
 La liberación de memoria debe realizarse al mismo nivel de abstracción que su asignación. Si se encapsula la creación de una estructura con una función `crear_recurso`, se debe proveer una función `liberar_recurso` correspondiente.
 

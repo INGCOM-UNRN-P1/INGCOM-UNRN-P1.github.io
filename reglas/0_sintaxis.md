@@ -45,7 +45,7 @@ precio = obtener_precio();
 descuento = calcular_descuento(precio);
 ```
 
-#### Sin embargo, no debés temer el uso de nombres de variables cortos
+### Nombres de variables cortos aceptables
 
 Bajo ciertas condiciones, los nombres cortos son aceptables y hasta preferibles:
 
@@ -92,7 +92,7 @@ El compilador le advertirá sobre el uso de variables sin inicializar, pero solo
 
 :::
 
-#### Esto incluye evitar inicializaciones implícitas en estructuras.
+### Evitar inicializaciones implícitas en estructuras
 
 - Incorrecto:
 

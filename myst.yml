@@ -27,8 +27,8 @@ project:
       ror: 048zgak80
 
   id: a1cc80a8-3217-49d3-9022-1f4d25f6518e
-  settings:
-    code_style: minted
+  bibliography:
+    - bibliografia.bib
   exports:
     - format: pdf
       template: plain_latex_book
@@ -183,5 +183,3 @@ project:
       children:
         - file: bibliografia/suplementaria.md
 
-bibliography:
-  - bibliografia.bib
