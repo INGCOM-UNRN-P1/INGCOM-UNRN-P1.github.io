@@ -1300,7 +1300,7 @@ struct tipo {
 
 **Conexiones:**
 - Fundamental para implementar TADs (ver [](6_tad.md)).
-- Requiere memoria dinámica (ver {ref}`memoria-dinamica-capitulo`).
+- Requiere memoria dinámica (ver {ref}`capitulo-memoria-dinamica`).
 - Usado extensivamente en bibliotecas del sistema y APIs públicas.
 :::
 
@@ -1319,10 +1319,10 @@ struct tipo {
 
 Dominar los punteros opacos es esencial para escribir código C profesional, mantenible y robusto. Es la base del diseño modular en C y el equivalente más cercano al encapsulamiento de la programación orientada a objetos.
 
-## Referencias y Lecturas Complementarias
+## Referencias y Lecturas de Tipos Opacos
 
-(referencias-y-lecturas-complementarias)=
-### Referencias y Lecturas Complementarias
+(referencias-lecturas-opacos)=
+### Referencias y Lecturas de Tipos Opacos
 
 
 (textos-fundamentales)=

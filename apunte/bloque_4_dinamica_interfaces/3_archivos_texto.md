@@ -59,7 +59,7 @@ FILE *puntero_archivo;
 ```
 
 :::{note} Punteros: Direcciones de Memoria
-Esta variable utiliza el asterisco (`*`) como declarador para indicar que `puntero_archivo` es un tipo de dato derivado: un "puntero a `FILE`". Un puntero almacena la dirección de memoria de un objeto (en este caso, la estructura `FILE`). Si necesitás repasar qué son los punteros, cómo se declaran y cómo funcionan las direcciones de memoria, consultá el [](9_punteros) donde se explica este concepto en detalle.
+Esta variable utiliza el asterisco (`*`) como declarador para indicar que `puntero_archivo` es un tipo de dato derivado: un "puntero a `FILE`". Un puntero almacena la dirección de memoria de un objeto (en este caso, la estructura `FILE`). Si necesitás repasar qué son los punteros, cómo se declaran y cómo funcionan las direcciones de memoria, consultá el {ref}`capitulo-punteros` donde se explica este concepto en detalle.
 :::
 
 Este puntero, una vez que la función `fopen()` lo inicializa exitosamente, se convierte
@@ -1149,7 +1149,7 @@ Si hubieras utilizado `"w"`, el archivo existente se habría truncado a cero byt
 :::
 
 :::{exercise}
-:label: fopen-seguridad-escritura
+:label: abrir_para_escribir_seguro
 Diseñá una función en C llamada `abrir_para_escribir_seguro` que reciba el nombre de un archivo. La función debe intentar abrir el archivo en modo lectura `"r"` primero para verificar si ya existe. Si existe, debe retornar `NULL` (para evitar sobreescribirlo accidentalmente). Si no existe, debe abrirlo en modo escritura `"w"`, creándolo, y retornar el puntero `FILE *` obtenido.
 :::
 

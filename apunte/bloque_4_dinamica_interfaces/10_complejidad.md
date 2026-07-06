@@ -1418,10 +1418,10 @@ Para elegir un algoritmo:
 
 El análisis de complejidad no reemplaza la medición empírica, pero proporciona garantías teóricas esenciales para el diseño de software robusto y escalable.
 
-## Referencias y Lecturas Complementarias
+## Referencias y Lecturas de Complejidad Algorítmica
 
-(referencias-y-lecturas-complementarias)=
-### Referencias y Lecturas Complementarias
+(referencias-lecturas-complejidad)=
+### Referencias y Lecturas de Complejidad Algorítmica
 
 
 (textos-fundamentales)=

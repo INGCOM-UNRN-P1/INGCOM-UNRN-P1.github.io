@@ -627,8 +627,8 @@ La pila almacena:
   después de que una función termine.
 - **Información de estado** del procesador (registros salvados).
 
-(ventajas-y-desventajas)=
-#### Ventajas y Desventajas
+(ventajas-desventajas-pila)=
+#### Ventajas y Desventajas de la Pila
 
 **Ventajas:**
 
@@ -728,8 +728,8 @@ Usá el stack cuando:
 - Los datos solo son necesarios dentro del ámbito de la función actual.
 - Querés la máxima eficiencia de acceso a memoria.
 
-(ventajas-y-desventajas)=
-#### Ventajas y Desventajas
+(ventajas-desventajas-heap)=
+#### Ventajas y Desventajas del Heap
 
 **Ventajas:**
 
@@ -898,7 +898,7 @@ void procesar_heap()
 En un benchmark real, la versión stack podría ser 2-5 veces más rápida,
 especialmente para arreglos pequeños que caben completamente en caché.
 
-:::{note} Optimización Práctica
+::::{note} Optimización Práctica
 
 Comprender el caché te permite optimizar código:
 
@@ -920,7 +920,7 @@ for (int i = 0; i < rows; i++)
 La segunda versión puede ser 10-50 veces más rápida para matrices grandes,
 simplemente porque usa mejor el caché.
 
-:::
+::::
 <!-- {note} Optimización Práctica -->
 
 (modelo-de-costos-cuantificando-el-rendimiento)=
@@ -1089,7 +1089,7 @@ printf("%c\n", char_ptr[0]);  // Imprime 'D' (little-endian)
 :::
 <!-- {code-block}c -->
 
-:::{warning} Aliasing y Strict Aliasing Rule
+::::{warning} Aliasing y Strict Aliasing Rule
 
 Acceder al mismo objeto de memoria a través de punteros de tipos incompatibles
 viola la **strict aliasing rule** del estándar C y causa comportamiento
@@ -1136,7 +1136,7 @@ Si intentás hacer *type punning* y pasás la misma variable como argumento
 representación entera), pero la función retornará `1.0f`. El código se ha roto
 silenciosamente a nivel binario debido al supuesto optimizador.
 
-:::
+::::
 <!-- {warning} Aliasing y Strict Aliasing Rule -->
 
 (memoria-puntero-a-puntero)=

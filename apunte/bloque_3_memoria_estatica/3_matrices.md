@@ -572,8 +572,8 @@ La suma de dos matrices, A y B, de las mismas dimensiones ($m \times n$), guarda
 el resultado en una matriz C de la misma dimensión. Cada elemento de C es la
 suma de los elementos correspondientes en A y B.
 
-(expresion-matematica)=
-#### Expresión Matemática
+(expresion-matematica-suma-matrices)=
+#### Expresión de Suma de Matrices
 
 Para dos matrices A y B de tamaño $m \times n$, la matriz resultante C se define
 como:
@@ -587,8 +587,8 @@ C_{i,j} = A_{i,j} + B_{i,j}
 
 donde $i$ representa la fila y $j$ la columna.
 
-(expansion-matematica)=
-#### Expansión Matemática
+(expansion-matematica-suma-matrices)=
+#### Expansión de Suma de Matrices
 
 Visualmente, la suma de dos matrices de 2x2 se vería así:
 
@@ -609,8 +609,8 @@ A_{2,1} + B_{2,1} & A_{2,2} + B_{2,2}
 \end{pmatrix}
 $$
 
-(algoritmo-en-pseudocodigo)=
-#### Algoritmo en Pseudocódigo
+(algoritmo-en-pseudocodigo-suma-matrices)=
+#### Algoritmo de Suma de Matrices en Pseudocódigo
 
 El algoritmo recorre ambas matrices y suma los elementos en la misma posición.
 
@@ -642,8 +642,8 @@ dimensiones guarda el resultado en una matriz C donde cada elemento es la
 diferencia de
 los elementos correspondientes.
 
-(expresion-matematica)=
-#### Expresión Matemática
+(expresion-matematica-resta-matrices)=
+#### Expresión de Resta de Matrices
 
 Para dos matrices A y B de tamaño $m \times n$, la matriz resultante C se define
 como:
@@ -655,8 +655,8 @@ C_{i,j} = A_{i,j} - B_{i,j}
 :::
 <!-- {math} -->
 
-(algoritmo-en-pseudocodigo)=
-#### Algoritmo en Pseudocódigo
+(algoritmo-en-pseudocodigo-resta-matrices)=
+#### Algoritmo de Resta de Matrices en Pseudocódigo
 
 El procedimiento es idéntico al de la suma, pero se realiza una resta.
 
@@ -699,8 +699,8 @@ elemento por elemento.
 :::
 <!-- {figure} 3/multiplicacion_matrices.svg -->
 
-(expresion-matematica)=
-#### Expresión Matemática
+(expresion-matematica-multiplicacion-matrices)=
+#### Expresión de Multiplicación de Matrices
 
 El elemento $(i,j)$ de la matriz resultante C se calcula como la suma de los
 productos de los elementos de la fila $i$ de A por los elementos de la columna
@@ -714,8 +714,8 @@ C_{i,j} = \sum_{k=1}^{p} A_{i,k} \cdot B_{k,j}
 :::
 <!-- {math} -->
 
-(expansion-matematica)=
-#### Expansión Matemática
+(expansion-matematica-multiplicacion-matrices)=
+#### Expansión de Multiplicación de Matrices
 
 Cada elemento $C_{i,j}$ de la matriz resultante se calcula realizando el
 producto escalar del vector fila $i$ de la matriz A con el vector columna $j$ de
@@ -752,8 +752,8 @@ Donde
 $C_{1,1} = (\color{blue}A_{1,1} \cdot \color{red}B_{1,1}) + (\color{blue}A_{1,2}
 \cdot \color{red}B_{2,1})$.
 
-(algoritmo-en-pseudocodigo)=
-#### Algoritmo en Pseudocódigo
+(algoritmo-en-pseudocodigo-multiplicacion-matrices)=
+#### Algoritmo de Multiplicación de Matrices en Pseudocódigo
 
 Este algoritmo requiere tres lazos anidados para calcular el producto escalar de
 cada fila de A con cada columna de B.

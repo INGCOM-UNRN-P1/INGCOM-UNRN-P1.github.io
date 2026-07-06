@@ -25,7 +25,7 @@ El versionado semántico comunica explícitamente el impacto de actualizar una d
 
 El versionado semántico se aplica típicamente a la API (interfaz a nivel de código fuente). Sin embargo, en bibliotecas dinámicas (`.so` en Linux, `.dll` en Windows), también es crucial mantener la estabilidad del ABI (Application Binary Interface). Cambios que preservan la API pero rompen el ABI incluyen: modificar el tamaño de estructuras públicas, reordenar campos, cambiar convenciones de llamada, etc.
 
-Para bibliotecas que deben mantener estabilidad del ABI, el uso de punteros opacos como se describe en {ref}`api-ocultamiento` es esencial.
+Para bibliotecas que deben mantener estabilidad del ABI, el uso de punteros opacos como se describe en {ref}`3-encapsulamiento-y-ocultamiento-de-informacion` es esencial.
 :::
 
 (estrategias-de-evolucion)=
@@ -174,7 +174,7 @@ size_t pila_tamano(const pila_t *pila);
 :label: api_calculadora_mejorada
 :enumerator: api-2
 
-Extendé el módulo `matematica.h` del {ref}`api-ejemplo-calculadora` para incluir operaciones de multiplicación y suma, ambas con detección de desbordamiento (_overflow_). Implementá las funciones y un programa de ejemplo que demuestre el manejo de errores.
+Extendé el módulo `matematica.h` del {ref}`ejemplo-2-modulo-de-operaciones-matematicas-seguras` para incluir operaciones de multiplicación y suma, ambas con detección de desbordamiento (_overflow_). Implementá las funciones y un programa de ejemplo que demuestre el manejo de errores.
 
 **Pistas:**
 - Para detectar desbordamiento en la suma: verificar si `a + b < a` (para números sin signo) o usar límites de `INT_MAX`.
@@ -302,7 +302,7 @@ int main(void)
 :label: api_buffer_circular
 :enumerator: api-3
 
-Diseñá e implementá una API para un buffer circular de tamaño fijo. El buffer debe permitir escribir y leer bytes, y debe reportar cuando esté lleno o vacío. Usá el patrón Init/Finalize del {ref}`api-patron-init-finalize`, de forma que el usuario pueda declarar el buffer en el stack.
+Diseñá e implementá una API para un buffer circular de tamaño fijo. El buffer debe permitir escribir y leer bytes, y debe reportar cuando esté lleno o vacío. Usá el patrón Init/Finalize del {ref}`patron-init-finalize`, de forma que el usuario pueda declarar el buffer en el stack.
 
 **Operaciones requeridas:**
 - `buffer_init()`: Inicializa un buffer con capacidad especificada.

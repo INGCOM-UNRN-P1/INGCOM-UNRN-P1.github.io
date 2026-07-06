@@ -9,7 +9,7 @@ numbering:
 (diseno-api-capitulo)=
 
 Para el marco formal de contratos que sustenta el diseño de interfaces, ver
-{ref}`contratos-capitulo`. Para el patrón de punteros opacos que implementa
+{ref}`capitulo-contratos-formales`. Para el patrón de punteros opacos que implementa
 el encapsulamiento, ver el capítulo [17_opacos](17_opacos).
 
 (introduccion-el-arte-de-disenar-contratos)=
@@ -299,15 +299,15 @@ bool lista_contiene(const lista_t *lista, int dato);
 
 **Análisis del Diseño:**
 
-- **Puntero Opaco ({ref}`api-ocultamiento`)**: La estructura `lista_t` es completamente opaca. El usuario no puede acceder directamente a los nodos internos, lo que permite cambiar la implementación sin romper el código cliente.
+- **Puntero Opaco ([ocultamiento de información](#3-encapsulamiento-y-ocultamiento-de-informacion))**: La estructura `lista_t` es completamente opaca. El usuario no puede acceder directamente a los nodos internos, lo que permite cambiar la implementación sin romper el código cliente.
 
-- **Gestión de Recursos Explícita ({ref}`api-propiedad`)**: Las funciones `lista_crear()` y `lista_destruir()` forman un par simétrico, siguiendo la regla {ref}`0x3002h`. La documentación especifica claramente que el llamador es responsable de llamar a `lista_destruir()`.
+- **Gestión de Recursos Explícita ([gestión de recursos](#4-gestion-de-recursos-y-propiedad-ownership))**: Las funciones `lista_crear()` y `lista_destruir()` forman un par simétrico, siguiendo la regla {ref}`0x3002h`. La documentación especifica claramente que el llamador es responsable de llamar a `lista_destruir()`.
 
 - **Uso de `const` ({ref}`0x3007h`)**: `lista_largo()` y `lista_contiene()` reciben `const lista_t *`, indicando que no modificarán la lista. Esto permite al compilador optimizar y comunica la intención al usuario.
 
-- **Manejo de Errores Consistente ({ref}`api-errores`)**: Las funciones que pueden fallar (como `lista_crear()` y `lista_agregar()`) devuelven un valor que indica éxito o fracaso (`NULL` o `bool`). No hay `printf` ni `exit` en la librería.
+- **Manejo de Errores Consistente ([manejo de errores](#5-manejo-de-errores-robusto-y-consistente))**: Las funciones que pueden fallar (como `lista_crear()` y `lista_agregar()`) devuelven un valor que indica éxito o fracaso (`NULL` o `bool`). No hay `printf` ni `exit` en la librería.
 
-- **Prefijo Consistente ({ref}`api-claridad`)**: Todas las funciones públicas usan el prefijo `lista_`, evitando colisiones de nombres en el espacio de nombres global de C.
+- **Prefijo Consistente ([claridad y expresividad](#1-claridad-y-expresividad))**: Todas las funciones públicas usan el prefijo `lista_`, evitando colisiones de nombres en el espacio de nombres global de C.
 
 (ejemplo-2-modulo-de-operaciones-matematicas-seguras)=
 ### Ejemplo 2: Módulo de Operaciones Matemáticas Seguras
@@ -538,7 +538,7 @@ bool config_existe(const config_t *config, const char *clave);
 
 - **Propiedad de Memoria Clara**: La documentación especifica que las cadenas retornadas son propiedad de la librería. El llamador no debe intentar liberarlas ni modificarlas.
 
-- **Ortogonalidad ({ref}`api-minimalismo`)**: Hay funciones específicas para cada tipo de dato (`config_obtener_cadena`, `config_obtener_entero`), en lugar de una única función genérica compleja.
+- **Ortogonalidad ([simplicidad y minimalismo](#6-simplicidad-y-minimalismo))**: Hay funciones específicas para cada tipo de dato (`config_obtener_cadena`, `config_obtener_entero`), en lugar de una única función genérica compleja.
 
 - **Uso Consistente de `const`**: Los parámetros que no son modificados están marcados como `const`, tanto los punteros a estructuras opacas como las cadenas.
 
@@ -759,4 +759,4 @@ En este apunte hemos cubierto los fundamentos del diseño de APIs en C:
 - **Patrones comunes:** Uso de callbacks, inicializadores designados e inyección de dependencias.
 - **Antipatrones a evitar:** Exposición de representaciones internas, variables globales, y APIs prolijas pero complejas.
 
-Para continuar con el versionado, compatibilidad de ABI y optimizaciones avanzadas de APIs, consultá {ref}`ingeneria-api-capitulo`.
+Para continuar con el versionado, compatibilidad de ABI y optimizaciones avanzadas de APIs, consultá {ref}`versionado-y-compatibilidad`.

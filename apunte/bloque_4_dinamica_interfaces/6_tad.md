@@ -88,10 +88,10 @@ Crear un TAD es un ejercicio de diseño centrado en la abstracción. Seguir un p
 
 El diseño e implementación de Tipos de Datos Abstractos en C requiere una gestión rigurosa de la memoria. La elección entre el ciclo de vida automático en el *stack* (memoria estática) o el ciclo de vida dinámico en el *heap* (memoria dinámica) define cómo se almacenan, acceden y destruyen los elementos del TAD.
 
-Para un análisis detallado sobre el funcionamiento del stack, consultá la sección {ref}`memoria-stack` en el apunte correspondiente. Asimismo, los detalles operativos de la asignación dinámica, el uso del heap y la gestión de errores mediante `malloc`, `realloc` y `free` se abordan en profundidad en {ref}`memoria-heap` y {ref}`memoria-errores`.
+Para un análisis detallado sobre el funcionamiento del stack, consultá la sección {ref}`la-pila-stack` en el apunte correspondiente. Asimismo, los detalles operativos de la asignación dinámica, el uso del heap y la gestión de errores mediante `malloc`, `realloc` y `free` se abordan en profundidad en {ref}`el-monton-heap` y {ref}`errores-comunes-y-peligros`.
 
 :::{important}
-En este apunte se utiliza prioritariamente la asignación dinámica de memoria en el heap para permitir que las estructuras de datos tengan un tamaño variable y flexible en tiempo de ejecución. Recordá aplicar siempre las buenas prácticas de inicialización y liberación de punteros documentadas en {ref}`memoria-buenas-practicas` (reglas {ref}`0x0003h` y {ref}`0x0036h`).
+En este apunte se utiliza prioritariamente la asignación dinámica de memoria en el heap para permitir que las estructuras de datos tengan un tamaño variable y flexible en tiempo de ejecución. Recordá aplicar siempre las buenas prácticas de inicialización y liberación de punteros documentadas en {ref}`resumen-de-buenas-practicas` (reglas {ref}`0x0003h` y {ref}`0x0036h`).
 :::
 
 (ejercicios-de-concepto-y-diseno-de-tads)=
@@ -385,7 +385,7 @@ El código que usa una secuencia no necesita saber si está implementada con arr
 ** $O(1)$ si se mantiene puntero al final, $O(n)$ si no.
 
 :::{tip} Complejidad Asintótica
-Las notaciones $O(1)$, $O(n)$, etc., describen el **comportamiento asintótico** del tiempo de ejecución. Para entender en profundidad qué significa la notación Big-O, cómo analizar algoritmos formalmente, y las diferentes notaciones asintóticas (Omega, Theta), consultá {ref}`complejidad-introduccion`.
+Las notaciones $O(1)$, $O(n)$, etc., describen el **comportamiento asintótico** del tiempo de ejecución. Para entender en profundidad qué significa la notación Big-O, cómo analizar algoritmos formalmente, y las diferentes notaciones asintóticas (Omega, Theta), consultá {ref}`capitulo-complejidad`.
 :::
 
 (implementacion-de-secuencia-con-listas)=
@@ -482,7 +482,7 @@ El nombre `crear_lista` es descriptivo y refleja claramente la operación que re
 
 :::{note} Verificación de Asignación
 
-Siempre verificamos que `malloc` no retorne `NULL` antes de usar la memoria asignada. Este patrón es esencial para escribir código robusto. Para más detalles sobre manejo de errores en asignación dinámica, consultá {ref}`memoria-malloc`.
+Siempre verificamos que `malloc` no retorne `NULL` antes de usar la memoria asignada. Este patrón es esencial para escribir código robusto. Para más detalles sobre manejo de errores en asignación dinámica, consultá {ref}`malloc-memory-allocation`.
 :::
 
 ##### Inserción al Inicio
@@ -713,12 +713,12 @@ void destruir_lista(lista_t *lista)
 ```
 
 :::{warning}
-Nunca accedas a un nodo después de haberlo liberado con `free`. Por eso guardamos `siguiente` antes de liberar `actual`. Este es un error común que puede causar comportamiento indefinido. Para más información sobre este y otros errores relacionados con memoria, consultá {ref}`memoria-errores`.
+Nunca accedas a un nodo después de haberlo liberado con `free`. Por eso guardamos `siguiente` antes de liberar `actual`. Este es un error común que puede causar comportamiento indefinido. Para más información sobre este y otros errores relacionados con memoria, consultá {ref}`errores-comunes-y-peligros`.
 :::
 
 :::{important} Gestión de Memoria en TADs
 
-La destrucción apropiada de estructuras de datos es crítica para evitar fugas de memoria. Observá el patrón: primero liberamos todos los nodos recursivamente, y finalmente liberamos la estructura contenedora. Para más detalles sobre patrones de liberación y técnicas avanzadas, consultá {ref}`memoria_dinamica.md`.
+La destrucción apropiada de estructuras de datos es crítica para evitar fugas de memoria. Observá el patrón: primero liberamos todos los nodos recursivamente, y finalmente liberamos la estructura contenedora. Para más detalles sobre patrones de liberación y técnicas avanzadas, consultá {ref}`capitulo-memoria-dinamica`.
 :::
 
 ```{figure} 6/lista_operaciones.svg
@@ -1079,7 +1079,7 @@ Ahora que hemos visto ambas implementaciones del TAD Secuencia, podemos comparar
 ** $O(1)$ si se mantiene puntero al final, $O(n)$ si no.
 
 :::{note} Análisis de Complejidad
-Esta tabla muestra las complejidades temporales en notación Big-O, que describe el **peor caso** del algoritmo. El apunte {ref}`complejidad-introduccion` explica en detalle cómo se derivan estas complejidades, qué significa cada notación, y cómo realizar análisis formal de algoritmos.
+Esta tabla muestra las complejidades temporales en notación Big-O, que describe el **peor caso** del algoritmo. Para realizar análisis formal de algoritmos, consultá {ref}`capitulo-complejidad`.
 :::
 
 :::{important} Eligiendo la Implementación Correcta
@@ -1111,7 +1111,7 @@ La eficiencia de las operaciones es un criterio fundamental al elegir una estruc
 \* $O(1)$ si se mantiene un puntero al final.
 
 :::{important}
-La notación Big-O describe el comportamiento asintótico en el peor caso. En casos promedio o con estructuras auxiliares, las complejidades pueden variar. Para un análisis formal y riguroso del análisis asintótico, incluyendo las notaciones Omega ($\Omega$) y Theta ($\Theta$), consultá {ref}`complejidad-introduccion`.
+La notación Big-O describe el comportamiento asintótico en el peor caso. En casos promedio o con estructuras auxiliares, las complejidades pueden variar. Para un análisis formal y riguroso del análisis asintótico, incluyendo las notaciones Omega ($\Omega$) y Theta ($\Theta$), consultá {ref}`capitulo-complejidad`.
 :::
 
 (comparacion-arreglos-vs-listas-enlazadas-como-secuencias)=
@@ -1131,7 +1131,7 @@ Ya hemos visto en detalle cómo tanto los arreglos dinámicos como las listas en
 
 :::{note} Consideraciones de Rendimiento
 
-La elección entre arreglos y listas enlazadas tiene profundas implicaciones de rendimiento más allá de la complejidad algorítmica. Los arreglos tienen mejor localidad de memoria, lo que resulta en mejor uso del caché del procesador. Las listas enlazadas, al tener nodos dispersos en memoria, sufren más penalizaciones por accesos a memoria. Para un análisis detallado del impacto del caché y la localidad de memoria, consultá {ref}`memoria-modelo-costos`.
+La elección entre arreglos y listas enlazadas tiene profundas implicaciones de rendimiento más allá de la complejidad algorítmica. Los arreglos tienen mejor localidad de memoria, lo que resulta en mejor uso del caché del procesador. Las listas enlazadas, al tener nodos dispersos en memoria, sufren más penalizaciones por accesos a memoria. Para un análisis detallado del impacto del caché y la localidad de memoria, consultá {ref}`jerarquia-de-memoria-y-cache`.
 
 Para ver implementaciones concretas de ambas aproximaciones, consultá las secciones anteriores sobre "Listas Enlazadas: Implementación de Secuencia" y "Arreglos: Implementación Alternativa de Secuencia".
 :::
@@ -1207,7 +1207,7 @@ La programación defensiva es especialmente importante en TADs porque el usuario
 
 :::{note} Validación y Depuración
 
-Para técnicas avanzadas de validación y depuración de errores relacionados con memoria en estructuras dinámicas, consultá [Capítulo: Memoria Dinámica — sección Valgrind](1/memoria_dinamica.md). Herramientas como Valgrind son invaluables para detectar fugas de memoria y accesos inválidos en TADs complejos.
+Para técnicas avanzadas de validación y depuración de errores relacionados con memoria en estructuras dinámicas, consultá [Capítulo: Memoria Dinámica — sección Valgrind](1_memoria_dinamica.md). Herramientas como Valgrind son invaluables para detectar fugas de memoria y accesos inválidos en TADs complejos.
 :::
 
 (introduccion-a-la-genericidad)=
@@ -2261,7 +2261,7 @@ En este apunte hemos cubierto:
 - **Listas enlazadas simples, dobles y circulares**, con sus operaciones fundamentales.
 - **Diferencia física de asignación estática y dinámica** en memoria.
 
-Para continuar con estructuras lineales de acceso restringido, consultá {ref}`pilas-colas-capitulo`.
+Para continuar con estructuras lineales de acceso restringido, consultá {ref}`capitulo-tad-pilas-colas`.
 
 ## Referencias y Lecturas Complementarias
 

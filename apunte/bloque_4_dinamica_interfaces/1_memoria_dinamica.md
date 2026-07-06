@@ -1107,7 +1107,7 @@ funcion:
 
 Con memoria dinámica dominada, tenemos las herramientas para implementar cualquier estructura de datos. Pero antes de construir estructuras complejas, necesitamos entender **cómo medir su eficiencia**: ¿cuánto tiempo toma buscar un elemento? ¿Cómo crece el tiempo de ejecución al duplicar el tamaño de entrada?
 
-El apunte {ref}`complejidad-introduccion` introduce el **análisis asintótico** de algoritmos:
+El apunte {ref}`capitulo-complejidad` introduce el **análisis asintótico** de algoritmos:
 
 - Notación Big-O, Omega, Theta para caracterizar crecimiento
 - Análisis de lazos, recursión, y algoritmos complejos
@@ -1116,7 +1116,7 @@ El apunte {ref}`complejidad-introduccion` introduce el **análisis asintótico**
 
 El análisis de complejidad es fundamental para tomar decisiones informadas: ¿vale la pena usar una lista enlazada (memoria dinámica, $O(n)$ búsqueda) o un arreglo redimensionable (overhead de copia, $O(1)$ acceso)? Sin complejidad, solo podemos intuir; con ella, podemos **demostrar matemáticamente** qué solución es mejor.
 
-Después, el apunte **{ref}`tad-capitulo`** muestra cómo **encapsular** estructuras con memoria dinámica en Tipos Abstractos de Datos, ocultando detalles de implementación y exponiendo interfaces limpias.
+Después, el apunte **{ref}`capitulo-tad`** muestra cómo **encapsular** estructuras con memoria dinámica en Tipos Abstractos de Datos, ocultando detalles de implementación y exponiendo interfaces limpias.
 
 **Pregunta puente**: Una búsqueda lineal en lista enlazada toma $O(n)$ tiempo. ¿Podemos hacer mejor? ¿Cómo cuantificamos "mejor"? La respuesta requiere análisis formal de complejidad algorítmica.
 

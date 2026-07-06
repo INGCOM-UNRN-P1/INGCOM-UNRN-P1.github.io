@@ -1902,7 +1902,8 @@ int main() {
 
 :::{solution} ejer-tagged-union-2
 :class: dropdown
-:::{code-block}c
+
+```{code-block} c
 :linenos:
 #include <stdio.h>
 
@@ -1950,10 +1951,7 @@ int main() {
     procesar_evento(&ev3);
     return 0;
 }
-
-:::
-<!-- {code-block}c -->
-
+```
 :::
 <!-- {solution} ejer-tagged-union-2 -->
 
@@ -1962,6 +1960,7 @@ int main() {
 
 :::{exercise}
 :label: ej-union-size-calculation
+
 Dadas las declaraciones:
 ``` c
 union A {
@@ -1977,12 +1976,11 @@ union B {
 <!-- c -->
 Calculá el tamaño exacto en bytes de cada una de estas uniones en un compilador
 estándar donde `char` es 1 byte, `int` es 4 bytes y `double` es 8 bytes.
-
 :::
-<!-- {exercise} -->
 
 :::{solution} ej-union-size-calculation
 :class: dropdown
+
 El tamaño de una `union` está determinado por el tamaño de su miembro más
 grande, con alineación ajustada a su miembro con restricciones más fuertes:
 - **`union A`**: El miembro más grande es `int i` (4 bytes). Por lo tanto, el
@@ -1993,21 +1991,20 @@ grande, con alineación ajustada a su miembro con restricciones más fuertes:
   bytes), lo que obliga a que el tamaño de la unión sea un múltiplo de 8 bytes.
   Para alinear correctamente la unión, el compilador redondea el tamaño a 24
   bytes. Por ende, el tamaño total es de **24 bytes**.
-
 :::
 <!-- {solution} ej-union-size-calculation -->
 
 :::{exercise}
 :label: ej-union-bit-granularidad
+
 Diseñá una unión en C llamada `registro_t` que permita acceder a un valor entero
 sin signo de 16 bits completo llamado `valor`, o de forma individual a sus bytes
 superior (`alto`) e inferior (`bajo`) utilizando una estructura anidada.
-
 :::
-<!-- {exercise} -->
 
 :::{solution} ej-union-bit-granularidad
 :class: dropdown
+
 ``` c
 #include <stdint.h>
 
@@ -2020,23 +2017,22 @@ typedef union {
 } registro_t;
 ```
 <!-- c -->
-
 :::
 <!-- {solution} ej-union-bit-granularidad -->
 
 :::{exercise}
 :label: ej-union-tagged-shape
+
 Diseñá una unión etiquetada (tagged union) llamada `figura_t` que pueda
 representar un círculo (radio real) o un rectángulo (ancho y alto reales).
 Implementá una función `calcular_area` que retorne el área de la figura según su
 tipo.
-
 :::
-<!-- {exercise} -->
 
 :::{solution} ej-union-tagged-shape
 :class: dropdown
-``` c
+
+```c
 #include <stdio.h>
 
 typedef enum {
@@ -2073,7 +2069,6 @@ double calcular_area(const figura_t *figura) {
 }
 ```
 <!-- c -->
-
 :::
 <!-- {solution} ej-union-tagged-shape -->
 
@@ -2082,6 +2077,7 @@ double calcular_area(const figura_t *figura) {
 
 :::{exercise}
 :label: ej-struct-padding-waste
+
 Dada la estructura:
 ``` c
 struct Suboptimo {
@@ -2094,12 +2090,11 @@ struct Suboptimo {
 Calculá el tamaño total en bytes de esta estructura en una arquitectura x86_64 y
 reescribila reordenando sus miembros para minimizar el consumo de memoria física
 (padding).
-
 :::
-<!-- {exercise} -->
 
 :::{solution} ej-struct-padding-waste
 :class: dropdown
+
 En una arquitectura x86_64 de 64 bits:
 - `c1` ocupa 1 byte (offset 0).
 - `d` (8 bytes) requiere estar alineado a una dirección múltiplo de 8. Por ende,
@@ -2122,21 +2117,19 @@ struct Optimizado {
 ```
 <!-- c -->
 El tamaño de `struct Optimizado` se reduce a **16 bytes**.
-
 :::
-<!-- {solution} ej-struct-padding-waste -->
 
 :::{exercise}
 :label: ej-struct-padding-array
+
 Explicá detalladamente por qué el compilador debe insertar bytes de relleno
 (*padding*) al final de una estructura (e.g., después del último miembro) y no
 únicamente en el espacio intermedio entre miembros.
-
 :::
-<!-- {exercise} -->
 
 :::{solution} ej-struct-padding-array
 :class: dropdown
+
 El padding final se inserta para garantizar la correcta alineación de todos los
 elementos cuando la estructura se utiliza dentro de un **arreglo**.
 En un arreglo, los elementos se disponen de forma contigua en memoria virtual.
@@ -2152,12 +2145,11 @@ siguiente `int` en el arreglo inicie en una dirección múltiplo de 4.
 
 :::{exercise}
 :label: ej-struct-alignas-custom
+
 Explicá qué es la restricción de "alineación natural" en procesadores de
 hardware modernos y qué impacto tiene en la eficiencia del bus de datos de la
 CPU que una variable se encuentre en una dirección no alineada.
-
 :::
-<!-- {exercise} -->
 
 :::{solution} ej-struct-alignas-custom
 :class: dropdown

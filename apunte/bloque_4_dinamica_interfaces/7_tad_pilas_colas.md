@@ -190,8 +190,8 @@ void pila_destruir(pila_t *pila, destruir_dato_fn destruir_dato)
 Es fundamental liberar toda la memoria utilizada, recorriendo la lista y liberando cada nodo antes de liberar la estructura de la pila.
 :::
 
-(analisis-de-complejidad-lista-enlazada)=
-#### Análisis de Complejidad (Lista Enlazada)
+(analisis-de-complejidad-pila-lista-enlazada)=
+#### Análisis de Complejidad de la Pila (Lista Enlazada)
 
 | Operación | Complejidad Temporal | Complejidad Espacial |
 |-----------|---------------------|---------------------|
@@ -296,7 +296,7 @@ bool pila_push_arreglo(pila_t *pila, void *dato)
 ```
 
 :::{tip}
-El factor de redimensionamiento (comúnmente 2) es importante. Duplicar la capacidad garantiza que el costo amortizado de `pila_push_arreglo` sea $O(1)$, aunque un `push` individual pueda ser $O(n)$ cuando requiere redimensionar. Para entender cómo se calcula formalmente el análisis amortizado usando el método del banquero o el método del potencial, consultá la sección sobre análisis amortizado en {ref}`complejidad-introduccion`.
+El factor de redimensionamiento (comúnmente 2) es importante. Duplicar la capacidad garantiza que el costo amortizado de `pila_push_arreglo` sea $O(1)$, aunque un `push` individual pueda ser $O(n)$ cuando requiere redimensionar. Para entender cómo se calcula formalmente el análisis amortizado usando el método del banquero o el método del potencial, consultá la sección sobre análisis amortizado en {ref}`capitulo-complejidad`.
 :::
 
 ##### Desapilar (Arreglo)
@@ -331,7 +331,7 @@ bool pila_pop_arreglo(pila_t *pila, void **dato)
 | es_vacia | $O(1)$ | $O(1)$ |
 
 :::{note}
-Aunque `push` puede ser $O(n)$ cuando requiere redimensionar, el análisis amortizado muestra que en promedio sigue siendo $O(1)$. Este tipo de análisis es crucial para estructuras de datos dinámicas y se estudia en profundidad en {ref}`complejidad-introduccion`.
+Aunque `push` puede ser $O(n)$ cuando requiere redimensionar, el análisis amortizado muestra que en promedio sigue siendo $O(1)$. Este tipo de análisis es crucial para estructuras de datos dinámicas y se estudia en profundidad en {ref}`capitulo-complejidad`.
 :::
 
 (aplicaciones-de-pilas)=
@@ -577,8 +577,8 @@ void cola_destruir(cola_t *cola, destruir_dato_fn destruir_dato)
 }
 ```
 
-(analisis-de-complejidad-lista-enlazada)=
-#### Análisis de Complejidad (Lista Enlazada)
+(analisis-de-complejidad-cola-lista-enlazada)=
+#### Análisis de Complejidad de la Cola (Lista Enlazada)
 
 | Operación | Complejidad Temporal | Complejidad Espacial |
 |-----------|---------------------|---------------------|
@@ -898,7 +898,7 @@ Las pilas y colas son solo el comienzo. Existe un ecosistema rico de estructuras
 - **Skip Lists:** Estructura probabilística alternativa a BST
 
 :::{note}
-Cada estructura de datos representa un compromiso (*trade-off*) entre tiempo de operaciones, espacio usado y complejidad de implementación. No existe la "mejor" estructura, solo la más apropiada para cada contexto. Para comprender cómo comparar formalmente estructuras de datos usando análisis de complejidad, consultá {ref}`complejidad-introduccion`.
+Cada estructura de datos representa un compromiso (*trade-off*) entre tiempo de operaciones, espacio usado y complejidad de implementación. No existe la "mejor" estructura, solo la más apropiada para cada contexto. Para comprender cómo comparar formalmente estructuras de datos usando análisis de complejidad, consultá {ref}`capitulo-complejidad`.
 :::
 
 ## Ejercicios de Autoevaluación
@@ -1682,14 +1682,14 @@ Los Tipos de Datos Abstractos son una herramienta fundamental para construir sof
 - **Dos implementaciones de Secuencia:**
   - Arreglos dinámicos: excelentes para acceso aleatorio y localidad de caché.
   - Listas enlazadas: ideales para inserciones/eliminaciones dinámicas.
-- La diferencia entre **memoria estática y dinámica**, y cuándo usar cada una (para detalles completos, consultá {ref}`memoria-dinamica-capitulo`).
+- La diferencia entre **memoria estática y dinámica**, y cuándo usar cada una (para detalles completos, consultá {ref}`capitulo-memoria-dinamica`).
 - **Listas enlazadas** simples, dobles y circulares, con todas sus operaciones fundamentales.
 - **Pilas (LIFO)** y **Colas (FIFO)** como TADs especializados:
   - Múltiples implementaciones (lista enlazada, arreglo, arreglo circular)
   - Aplicaciones prácticas en sistemas y algoritmos
   - Análisis de complejidad temporal y espacial
 - **Consideraciones de implementación:** manejo de errores, invariantes y seguridad.
-- **Análisis de complejidad temporal** de las operaciones en diferentes implementaciones (para el fundamento teórico completo, consultá {ref}`complejidad-introduccion`).
+- **Análisis de complejidad temporal** de las operaciones en diferentes implementaciones (para el fundamento teórico completo, consultá {ref}`capitulo-complejidad`).
 - **Panorama general** de estructuras de datos avanzadas y su clasificación.
 
 :::{important} Lección Clave: Múltiples Implementaciones
@@ -1703,10 +1703,10 @@ Las pilas y colas demuestran este principio perfectamente: ambas pueden implemen
 Dominar estas estructuras de datos es esencial para avanzar hacia estructuras más complejas como árboles, grafos y tablas de hash, que se construyen sobre estos fundamentos. La correcta gestión de memoria dinámica, tema central en este apunte, es la base para implementar cualquier estructura de datos compleja de manera segura y eficiente.
 :::
 
-## Referencias y Lecturas Complementarias
+## Referencias y Lecturas de Pilas y Colas
 
-(referencias-y-lecturas-complementarias)=
-### Referencias y Lecturas Complementarias
+(referencias-lecturas-pilas-colas)=
+### Referencias y Lecturas de Pilas y Colas
 
 
 Para profundizar en el estudio de los TADs y estructuras de datos, se recomiendan las siguientes referencias:
@@ -1717,8 +1717,8 @@ Para profundizar en el estudio de los TADs y estructuras de datos, se recomienda
 
 Para aspectos específicos de gestión de memoria y su impacto en la implementación de TADs, consultá:
 
-- {ref}`memoria-dinamica-capitulo` para entender el modelo de memoria completo.
-- {ref}`memoria-buenas-practicas` para patrones seguros de manejo de memoria dinámica.
+- {ref}`capitulo-memoria-dinamica` para entender el modelo de memoria completo.
+- {ref}`resumen-de-buenas-practicas` para patrones seguros de manejo de memoria dinámica.
 - [Capítulo: Memoria Dinámica — sección Valgrind](1_memoria_dinamica.md) para técnicas de depuración de estructuras dinámicas.
 
 :::{tip}
