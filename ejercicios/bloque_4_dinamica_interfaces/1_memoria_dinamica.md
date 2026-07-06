@@ -9,7 +9,7 @@ short_title: 6. Memoria Dinámica
 
 A diferencia de la memoria estática (stack), la memoria dinámica (heap) nos permite solicitar y liberar bloques de memoria en tiempo de ejecución, cuyo tamaño puede no ser conocido al momento de compilar. Estos ejercicios se centran en el uso correcto de `malloc`, `calloc`, `realloc` y `free` para gestionar el ciclo de vida de arreglos, cadenas y matrices.
 
-Para más detalles teóricos sobre la gestión de memoria dinámica, consultá el capítulo de {doc}`../../apunte/bloque_4_dinamica_interfaces/1_memoria_dinamica.md` del apunte. Recordá aplicar la regla de estilo de la cátedra {ref}`0x3002h` para asegurar la liberación correcta de recursos y evitar punteros colgantes.
+Para más detalles teóricos sobre la gestión de memoria dinámica, consultá [el capítulo de Memoria Dinámica](../../apunte/bloque_4_dinamica_interfaces/1_memoria_dinamica.md) del apunte. Recordá aplicar la regla de estilo de la cátedra {ref}`0x3002h` para asegurar la liberación correcta de recursos y evitar punteros colgantes.
 
 ## Arreglos Dinámicos
 

@@ -5,7 +5,6 @@ subtitle: 'Problemas y soluciones detalladas sobre gestión de memoria en C'
 ---
 
 (memoria-ejercicios-unidad)=
-(memoria-ejercicios)=
 
 # Ejercicios Resueltos: Memoria Dinámica
 
@@ -13,7 +12,7 @@ subtitle: 'Problemas y soluciones detalladas sobre gestión de memoria en C'
 
 Este archivo contiene problemas y soluciones detalladas sobre la gestión de memoria dinámica en C, con foco en el uso de `malloc`, `calloc`, `realloc` y `free`.
 
-Para más detalles teóricos sobre estos conceptos, consultá el capítulo de {doc}`../../apunte/bloque_4_dinamica_interfaces/1_memoria_dinamica.md` del apunte. Asegurate de seguir la regla de estilo {ref}`0x3002h` para la liberación adecuada de recursos y prevención de punteros colgantes.
+Para más detalles teóricos sobre estos conceptos, consultá [el capítulo de Memoria Dinámica](../../apunte/bloque_4_dinamica_interfaces/1_memoria_dinamica.md) del apunte. Asegurate de seguir la regla de estilo {ref}`0x3002h` para la liberación adecuada de recursos y prevención de punteros colgantes.
 
 ## Ejercicios Resueltos
 

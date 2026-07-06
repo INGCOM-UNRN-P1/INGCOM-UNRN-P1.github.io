@@ -17,14 +17,6 @@ y confiable. Se recomienda incorporarlas gradualmente en tu flujo de trabajo.
 :::
 <!-- {important} -->
 
-## Tabla de Contenidos
-
-:::{contents}
-:depth: 3
-:local:
-
-:::
-<!-- {contents} -->
 
 ---
 

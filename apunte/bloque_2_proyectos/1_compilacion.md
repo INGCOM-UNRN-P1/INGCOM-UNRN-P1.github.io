@@ -898,8 +898,8 @@ parámetros especiales: `argc` y `argv`.
 :::{note} Prerequisitos
 
 Este capítulo asume conocimiento de arreglos
-({doc}`../bloque_3_memoria_estatica/2_secuencias.md`) y punteros
-({doc}`../bloque_3_memoria_estatica/4_punteros.md`), ya que `argv` es un arreglo
+([](../bloque_3_memoria_estatica/2_secuencias.md)) y punteros
+([](../bloque_3_memoria_estatica/4_punteros.md)), ya que `argv` es un arreglo
 de punteros a cadenas (`char *argv[]`). Si estos conceptos no están claros,
 repasalos antes de continuar.
 

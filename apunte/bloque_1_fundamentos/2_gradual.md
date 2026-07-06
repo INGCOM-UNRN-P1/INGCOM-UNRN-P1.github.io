@@ -275,7 +275,7 @@ que es un bloqueante para todos los temas siguientes.
 (de-la-idea-al-codigo-en-c)=
 ### De la Idea al Código en C
 
-En el capítulo {doc}`1_base` se estudiaron los fundamentos lógicos y el diseño
+En el capítulo [](1_base.md) se estudiaron los fundamentos lógicos y el diseño
 de algoritmos en pseudocódigo. Ahora daremos el paso crucial: **traducir ese
 diseño abstracto a un programa real en C**.
 

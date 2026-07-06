@@ -9,7 +9,7 @@ short_title: 11. Memoria Dinámica
 
 Estos ejercicios profundizan en la gestión de memoria dinámica, cubriendo temas avanzados como la relación stack-heap, el modelo de memoria de procesos, patrones de gestión de memoria, y la detección de errores comunes mediante herramientas de análisis.
 
-Para más detalles teóricos sobre estos conceptos, podés consultar el capítulo de {doc}`../../apunte/bloque_3_memoria_estatica/1_modelo_memoria.md` y el de {doc}`../../apunte/bloque_4_dinamica_interfaces/1_memoria_dinamica.md` del apunte. Asegurate de seguir la regla de estilo {ref}`0x3002h` para la liberación adecuada de recursos y prevención de punteros colgantes.
+Para más detalles teóricos sobre estos conceptos, podés consultar [el capítulo de Modelo de Memoria](../../apunte/bloque_3_memoria_estatica/1_modelo_memoria.md) y el de [Memoria Dinámica](../../apunte/bloque_4_dinamica_interfaces/1_memoria_dinamica.md) del apunte. Asegurate de seguir la regla de estilo {ref}`0x3002h` para la liberación adecuada de recursos y prevención de punteros colgantes.
 
 ## Modelo de Memoria
 

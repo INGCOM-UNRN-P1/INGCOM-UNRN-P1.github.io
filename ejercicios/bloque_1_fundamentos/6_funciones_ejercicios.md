@@ -25,11 +25,11 @@ Estos ejercicios tienen como finalidad practicar la descomposición modular de p
 ### Ejercicio 6.1 - Doble de un número
 
 :::{exercise}
-:label: funcion_doble
+:label: ej-funcion-doble
 Escribí una función que reciba un número entero y devuelva su doble. Probala desde `main()` con distintos valores.
 :::
 
-:::{solution} funcion_doble
+:::{solution} ej-funcion-doble
 :class: dropdown
 
 ```{code-block} c
@@ -51,13 +51,13 @@ int main(void) {
 ### Ejercicio 6.2 - Mayor de dos números
 
 :::{exercise}
-:label: funcion_mayor
+:label: ej-funcion-mayor
 :enumerator: funciones-2
 
 Programá una función que reciba dos números enteros y retorne el mayor de ellos.
 :::
 
-:::{solution} funcion_mayor
+:::{solution} ej-funcion-mayor
 :class: dropdown
 
 ```{code-block} c
@@ -84,11 +84,11 @@ int main(void) {
 ### Ejercicio 6.3 - Paridad de un número
 
 :::{exercise}
-:label: funcion_par_impar
+:label: ej-funcion-par-impar
 Definí una función que indique si un número es par o impar. Mostrá el resultado llamando a la función desde `main()`.
 :::
 
-:::{solution} funcion_par_impar
+:::{solution} ej-funcion-par-impar
 :class: dropdown
 
 ```{code-block} c
