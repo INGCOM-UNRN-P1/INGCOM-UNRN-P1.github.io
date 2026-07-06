@@ -16,10 +16,15 @@ project:
   authors:
     - name: Martín René Vilugrón
       email: mrvilugron@unrn.edu.ar
-      affiliation: Universidad Nacional de Rio Negro - Sede Andina
       github: martinvilu
       linkedin: https://www.linkedin.com/in/martinvilu/
       youtube: https://www.youtube.com/@programacion-i-ingcom
+      affiliations:
+        - unrn
+  affiliations:
+    - id: unrn
+      name: Universidad Nacional de Río Negro
+      ror: 048zgak80
 
   id: a1cc80a8-3217-49d3-9022-1f4d25f6518e
   settings:
