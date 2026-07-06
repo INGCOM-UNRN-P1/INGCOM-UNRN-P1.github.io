@@ -67,7 +67,7 @@ Un algoritmo recursivo siempre debe tener:
 Veamos cómo se traduce la definición matemática del factorial a una función en
 C.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 
@@ -98,8 +98,9 @@ long int factorial(int n) {
     // Paso Recursivo: n * factorial(n-1)
     return n * factorial(n - 1);
 }
-```
-<!-- c -->
+
+:::
+<!-- {code-block}c -->
 
 ##### Análisis del Código
 
@@ -302,14 +303,14 @@ utilizando lazos de control (`while` o `for`).
 :::
 <!-- {exercise} -->
 
-:::{solution} ej-alg-c-potencia
+::::{solution} ej-alg-c-potencia
 :class: dropdown
 **Versión Recursiva:**
 
 Aplica la regla de robustez {ref}`0x2001h` para validar precondiciones y el uso
 de llaves:
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 double potencia_recursiva(double a, int b) {
     if (b < 0) {
@@ -322,12 +323,13 @@ double potencia_recursiva(double a, int b) {
     // Paso Recursivo
     return a * potencia_recursiva(a, b - 1);
 }
-```
-<!-- c -->
+
+:::
+<!-- {code-block}c -->
 
 **Versión Iterativa (con lazo for):**
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 double potencia_iterativa(double a, int b) {
     if (b < 0) {
@@ -339,10 +341,11 @@ double potencia_iterativa(double a, int b) {
     }
     return resultado;
 }
-```
-<!-- c -->
 
 :::
+<!-- {code-block}c -->
+
+::::
 <!-- {solution} ej-alg-c-potencia -->
 
 :::{exercise}
@@ -354,13 +357,13 @@ aparece en la cadena dada.
 :::
 <!-- {exercise} -->
 
-:::{solution} ej-alg-c-conteo-caracteres
+::::{solution} ej-alg-c-conteo-caracteres
 :class: dropdown
 Siguiendo las buenas prácticas, la cadena de entrada se declara como constante
 (`const char *`) según la regla {ref}`0x3007h` y se retorna el tipo `size_t` de
 acuerdo a la regla {ref}`0x3010h`:
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stddef.h>
 
@@ -371,10 +374,11 @@ size_t contar_caracter(const char *cadena, char c) {
     size_t coincide = (*cadena == c) ? 1 : 0;
     return coincide + contar_caracter(cadena + 1, c);
 }
-```
-<!-- c -->
 
 :::
+<!-- {code-block}c -->
+
+::::
 <!-- {solution} ej-alg-c-conteo-caracteres -->
 
 :::{exercise}
@@ -386,12 +390,12 @@ firma: `void invertir_arreglo(int arr[], size_t ini, size_t fin)`.
 :::
 <!-- {exercise} -->
 
-:::{solution} ej-alg-c-invertir-arreglo
+::::{solution} ej-alg-c-invertir-arreglo
 :class: dropdown
 Para cumplir con las directivas de tipo, los índices se manejan con `size_t`
 (regla {ref}`0x3010h`):
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stddef.h>
 
@@ -404,21 +408,22 @@ void invertir_arreglo(int arr[], size_t ini, size_t fin) {
     arr[fin] = aux;
     invertir_arreglo(arr, ini + 1, fin - 1);
 }
-```
-<!-- c -->
 
 :::
+<!-- {code-block}c -->
+
+::::
 <!-- {solution} ej-alg-c-invertir-arreglo -->
 
 ### Diagnóstico y Estabilidad
 
-:::{exercise}
+::::{exercise}
 :label: ej-peligro-parada
 Analizá la siguiente función recursiva en C y determiná por qué se produce un
 error de desbordamiento de pila (*stack overflow*) para ciertos valores de
 entrada enteros. ¿Cuál es el error en la condición de parada (caso base)?
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 int sumar_hasta_cero(int n) {
     if (n == 0) {
@@ -426,13 +431,14 @@ int sumar_hasta_cero(int n) {
     }
     return n + sumar_hasta_cero(n - 1);
 }
-```
-<!-- c -->
 
 :::
+<!-- {code-block}c -->
+
+::::
 <!-- {exercise} -->
 
-:::{solution} ej-peligro-parada
+::::{solution} ej-peligro-parada
 :class: dropdown
 El error reside en que la condición de parada `if (n == 0)` solo se alcanza si
 el argumento inicial `n` es un entero no negativo. Si la función se invoca con
@@ -446,7 +452,7 @@ Para resolver esta vulnerabilidad de parada, de acuerdo a la regla de robustez
 {ref}`0x2001h`, la guarda del caso base debe generalizarse para cubrir todos los
 números menores o iguales a cero:
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 int sumar_hasta_cero_robusta(int n) {
     if (n <= 0) {
@@ -454,17 +460,18 @@ int sumar_hasta_cero_robusta(int n) {
     }
     return n + sumar_hasta_cero_robusta(n - 1);
 }
-```
-<!-- c -->
 
 :::
+<!-- {code-block}c -->
+
+::::
 <!-- {solution} ej-peligro-parada -->
 
-:::{exercise}
+::::{exercise}
 :label: ej-peligro-stackframe
 Considerando la siguiente función recursiva en C:
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 long int calcular_suma_recursiva(int n) {
     long int variables_locales[4] = {0};
@@ -474,8 +481,9 @@ long int calcular_suma_recursiva(int n) {
     variables_locales[0] = n;
     return variables_locales[0] + calcular_suma_recursiva(n - 1);
 }
-```
-<!-- c -->
+
+:::
+<!-- {code-block}c -->
 
 Estimá el tamaño mínimo teórico de su marco de pila (*stack frame*) en una
 arquitectura típica de 64 bits (donde `sizeof(int) == 4` y `sizeof(long int) ==
@@ -484,7 +492,7 @@ Estimá la profundidad de recursión teórica y el número máximo de llamadas a
 de producir un desbordamiento físico de la pila (*stack overflow*) si el límite
 de la pila del sistema operativo es de $8 \text{ MB}$.
 
-:::
+::::
 <!-- {exercise} -->
 
 :::{solution} ej-peligro-stackframe
@@ -564,6 +572,7 @@ overflow*.
 ## Glosario
 
 :::{glossary}
+
 Recursión
 : Técnica de programación y diseño algorítmico donde una función se define e
 invoca en términos de sí misma.
@@ -583,7 +592,9 @@ consumo excesivo de memoria física asignada al stack.
 Desbordamiento aritmético
 : Situación física en la cual el resultado numérico de una operación excede los
 límites representables por el tipo de dato físico de la variable.
+
 :::
+<!-- {glossary} -->
 
 ---
 
