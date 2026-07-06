@@ -17,14 +17,20 @@ subtitle: 'TAD Pila, Cola y Deque'
 ### Pilas (Stacks)
 
 
-Una **pila** es una estructura de datos lineal que sigue el principio **LIFO** (*Last In, First Out*): el último elemento en entrar es el primero en salir. Es análogo a una pila de platos donde solo podés agregar o quitar platos desde la parte superior.
+Una **pila** es una estructura de datos lineal que sigue el principio **LIFO**
+(*Last In, First Out*): el último elemento en entrar es el primero en salir. Es
+análogo a una pila de platos donde solo podés agregar o quitar platos desde la
+parte superior.
 
-```{figure} 6/pila_stack.svg
+:::{figure} 6/pila_stack.svg
 :label: fig-pila
 :align: center
 
-Estructura de pila con operaciones push (apilar) y pop (desapilar). El acceso es únicamente por el tope.
-```
+Estructura de pila con operaciones push (apilar) y pop (desapilar). El acceso es
+únicamente por el tope.
+
+:::
+<!-- {figure} 6/pila_stack.svg -->
 
 (operaciones-fundamentales)=
 #### Operaciones Fundamentales
@@ -37,16 +43,19 @@ Estructura de pila con operaciones push (apilar) y pop (desapilar). El acceso es
 (implementacion-con-lista-enlazada)=
 #### Implementación con Lista Enlazada
 
-```{figure} 6/pila_lista_enlazada.svg
+:::{figure} 6/pila_lista_enlazada.svg
 :label: fig-pila-lista
 :align: center
 
-Representación en memoria de una pila implementada con lista enlazada. El tope apunta al primer nodo de la lista.
-```
+Representación en memoria de una pila implementada con lista enlazada. El tope
+apunta al primer nodo de la lista.
+
+:::
+<!-- {figure} 6/pila_lista_enlazada.svg -->
 
 ##### Estructura de Datos
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 typedef struct nodo {
     void *dato;
@@ -57,11 +66,13 @@ struct pila {
     nodo_t *tope;
     size_t tamanio;
 };
-```
+
+:::
+<!-- {code-block}c -->
 
 ##### Creación de una Pila
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 pila_t *pila_crear(void)
 {
@@ -74,11 +85,13 @@ pila_t *pila_crear(void)
     pila->tamanio = 0;
     return pila;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ##### Apilar (Push)
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 bool pila_push(pila_t *pila, void *dato)
 {
@@ -100,15 +113,21 @@ bool pila_push(pila_t *pila, void *dato)
     
     return true;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{note}
-La operación `pila_push` es equivalente a realizar una inserción al inicio en una lista enlazada, siendo el tope de la pila el primer elemento de la lista.
+
+La operación `pila_push` es equivalente a realizar una inserción al inicio en
+una lista enlazada, siendo el tope de la pila el primer elemento de la lista.
+
 :::
+<!-- {note} -->
 
 ##### Desapilar (Pop)
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 bool pila_pop(pila_t *pila, void **dato)
 {
@@ -129,11 +148,13 @@ bool pila_pop(pila_t *pila, void **dato)
     
     return true;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ##### Ver Tope (Peek)
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 bool pila_peek(const pila_t *pila, void **dato)
 {
@@ -148,21 +169,25 @@ bool pila_peek(const pila_t *pila, void **dato)
     }
     return true;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ##### Verificar si está Vacía
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 bool pila_es_vacia(const pila_t *pila)
 {
     return (pila == NULL) || (pila->tope == NULL);
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ##### Destruir Pila
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 void pila_destruir(pila_t *pila, destruir_dato_fn destruir_dato)
 {
@@ -184,11 +209,17 @@ void pila_destruir(pila_t *pila, destruir_dato_fn destruir_dato)
     
     free(pila);
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{important}
-Es fundamental liberar toda la memoria utilizada, recorriendo la lista y liberando cada nodo antes de liberar la estructura de la pila.
+
+Es fundamental liberar toda la memoria utilizada, recorriendo la lista y
+liberando cada nodo antes de liberar la estructura de la pila.
+
 :::
+<!-- {important} -->
 
 (analisis-de-complejidad-pila-lista-enlazada)=
 #### Análisis de Complejidad de la Pila (Lista Enlazada)
@@ -203,29 +234,35 @@ Es fundamental liberar toda la memoria utilizada, recorriendo la lista y liberan
 (implementacion-con-arreglo-dinamico)=
 #### Implementación con Arreglo Dinámico
 
-Una alternativa es implementar la pila usando un arreglo, donde el tope es el último elemento ocupado.
+Una alternativa es implementar la pila usando un arreglo, donde el tope es el
+último elemento ocupado.
 
-```{figure} 6/pila_arreglo.svg
+:::{figure} 6/pila_arreglo.svg
 :label: fig-pila-arreglo
 :align: center
 
-Pila implementada con arreglo. El índice `tope` indica la posición del último elemento.
-```
+Pila implementada con arreglo. El índice `tope` indica la posición del último
+elemento.
+
+:::
+<!-- {figure} 6/pila_arreglo.svg -->
 
 ##### Estructura de Datos
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 struct pila {
     void **elementos;
     size_t tope;       // Próximo índice libre / Cantidad de elementos
     size_t capacidad;  // Capacidad total del arreglo
 };
-```
+
+:::
+<!-- {code-block}c -->
 
 ##### Creación con Capacidad Inicial
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 pila_t *pila_crear_arreglo(size_t capacidad_inicial)
 {
@@ -252,16 +289,19 @@ pila_t *pila_crear_arreglo(size_t capacidad_inicial)
     
     return pila;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ##### Apilar con Redimensionamiento
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 static bool pila_redimensionar(pila_t *pila)
 {
     size_t nueva_capacidad = pila->capacidad * 2;
-    void **nuevo_arreglo = realloc(pila->elementos, nueva_capacidad * sizeof(*nuevo_arreglo));
+    void **nuevo_arreglo = realloc(pila->elementos, nueva_capacidad *
+    sizeof(*nuevo_arreglo));
     if (nuevo_arreglo == NULL)
     {
         return false;
@@ -293,15 +333,25 @@ bool pila_push_arreglo(pila_t *pila, void *dato)
     
     return true;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{tip}
-El factor de redimensionamiento (comúnmente 2) es importante. Duplicar la capacidad garantiza que el costo amortizado de `pila_push_arreglo` sea $O(1)$, aunque un `push` individual pueda ser $O(n)$ cuando requiere redimensionar. Para entender cómo se calcula formalmente el análisis amortizado usando el método del banquero o el método del potencial, consultá la sección sobre análisis amortizado en {ref}`capitulo-complejidad`.
+
+El factor de redimensionamiento (comúnmente 2) es importante. Duplicar la
+capacidad garantiza que el costo amortizado de `pila_push_arreglo` sea $O(1)$,
+aunque un `push` individual pueda ser $O(n)$ cuando requiere redimensionar. Para
+entender cómo se calcula formalmente el análisis amortizado usando el método del
+banquero o el método del potencial, consultá la sección sobre análisis
+amortizado en {ref}`capitulo-complejidad`.
+
 :::
+<!-- {tip} -->
 
 ##### Desapilar (Arreglo)
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 bool pila_pop_arreglo(pila_t *pila, void **dato)
 {
@@ -318,7 +368,9 @@ bool pila_pop_arreglo(pila_t *pila, void **dato)
     
     return true;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 (analisis-de-complejidad-arreglo)=
 #### Análisis de Complejidad (Arreglo)
@@ -331,23 +383,33 @@ bool pila_pop_arreglo(pila_t *pila, void **dato)
 | es_vacia | $O(1)$ | $O(1)$ |
 
 :::{note}
-Aunque `push` puede ser $O(n)$ cuando requiere redimensionar, el análisis amortizado muestra que en promedio sigue siendo $O(1)$. Este tipo de análisis es crucial para estructuras de datos dinámicas y se estudia en profundidad en {ref}`capitulo-complejidad`.
+
+Aunque `push` puede ser $O(n)$ cuando requiere redimensionar, el análisis
+amortizado muestra que en promedio sigue siendo $O(1)$. Este tipo de análisis es
+crucial para estructuras de datos dinámicas y se estudia en profundidad en
+{ref}`capitulo-complejidad`.
+
 :::
+<!-- {note} -->
 
 (aplicaciones-de-pilas)=
 #### Aplicaciones de Pilas
 
 Las pilas aparecen naturalmente en numerosos contextos de programación:
 
-1. **Gestión de llamadas a funciones:** La pila de ejecución (*call stack*) mantiene los registros de activación.
-2. **Evaluación de expresiones:** Conversión de notación infija a postfija, evaluación de expresiones postfijas.
-3. **Backtracking:** Algoritmos de búsqueda en profundidad, resolución de laberintos.
+1. **Gestión de llamadas a funciones:** La pila de ejecución (*call stack*)
+   mantiene los registros de activación.
+2. **Evaluación de expresiones:** Conversión de notación infija a postfija,
+   evaluación de expresiones postfijas.
+3. **Backtracking:** Algoritmos de búsqueda en profundidad, resolución de
+   laberintos.
 4. **Deshacer/Rehacer:** Editores de texto mantienen pilas de operaciones.
-5. **Parsing:** Análisis sintáctico de lenguajes de programación (verificación de paréntesis balanceados).
+5. **Parsing:** Análisis sintáctico de lenguajes de programación (verificación
+   de paréntesis balanceados).
 
 ##### Ejemplo: Verificación de Paréntesis Balanceados
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 bool parentesis_balanceados(const char *expresion)
 {
@@ -389,7 +451,9 @@ bool parentesis_balanceados(const char *expresion)
     pila_destruir(pila);
     return resultado;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 (ejercicios-de-pilas)=
 #### Ejercicios de Pilas
@@ -409,18 +473,23 @@ bool parentesis_balanceados(const char *expresion)
 ### Colas (Queues)
 
 
-Una **cola** es una estructura de datos lineal que sigue el principio **FIFO** (*First In, First Out*): el primer elemento en entrar es el primero en salir. Es análogo a una fila de personas donde quien llega primero es atendido primero.
+Una **cola** es una estructura de datos lineal que sigue el principio **FIFO**
+(*First In, First Out*): el primer elemento en entrar es el primero en salir. Es
+análogo a una fila de personas donde quien llega primero es atendido primero.
 
-```{figure} 6/cola_lista_enlazada.svg
+:::{figure} 6/cola_lista_enlazada.svg
 :label: fig-cola-lista
 :align: center
 
-Representación en memoria de una cola implementada con lista enlazada. Se mantienen punteros al frente y al final.
-```
+Representación en memoria de una cola implementada con lista enlazada. Se
+mantienen punteros al frente y al final.
+
+:::
+<!-- {figure} 6/cola_lista_enlazada.svg -->
 
 ##### Estructura de Datos
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 typedef struct nodo {
     void *dato;
@@ -432,15 +501,21 @@ struct cola {
     nodo_t *final;
     size_t tamanio;
 };
-```
 
-::::{note}
-A diferencia de la pila que solo requiere de un puntero al tope, la cola utiliza dos punteros: uno al frente (para `cola_dequeue`) y otro al final (para `cola_enqueue`). Esto garantiza que ambas operaciones se ejecuten en tiempo constante $O(1)$.
 :::
+<!-- {code-block}c -->
+
+:::::{note}
+
+A diferencia de la pila que solo requiere de un puntero al tope, la cola utiliza
+dos punteros: uno al frente (para `cola_dequeue`) y otro al final (para
+`cola_enqueue`). Esto garantiza que ambas operaciones se ejecuten en tiempo
+constante $O(1)$.
+::::
 
 ##### Creación de una Cola
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 cola_t *cola_crear(void)
 {
@@ -456,11 +531,13 @@ cola_t *cola_crear(void)
     
     return cola;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ##### Encolar (Enqueue)
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 bool cola_enqueue(cola_t *cola, void *dato)
 {
@@ -492,15 +569,22 @@ bool cola_enqueue(cola_t *cola, void *dato)
     cola->tamanio++;
     return true;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{important}
-Es indispensable considerar el caso particular de la cola vacía. En tal situación, tanto el puntero `frente` como el puntero `final` deben referenciar al nuevo nodo creado.
+
+Es indispensable considerar el caso particular de la cola vacía. En tal
+situación, tanto el puntero `frente` como el puntero `final` deben referenciar
+al nuevo nodo creado.
+
 :::
+<!-- {important} -->
 
 ##### Desencolar (Dequeue)
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 bool cola_dequeue(cola_t *cola, void **dato)
 {
@@ -526,15 +610,22 @@ bool cola_dequeue(cola_t *cola, void **dato)
     
     return true;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{important}
-Al extraer el último elemento de la cola, esta queda vacía. En ese escenario, además de actualizar el puntero `frente` a `NULL`, es necesario establecer el puntero `final` en `NULL`.
+
+Al extraer el último elemento de la cola, esta queda vacía. En ese escenario,
+además de actualizar el puntero `frente` a `NULL`, es necesario establecer el
+puntero `final` en `NULL`.
+
 :::
+<!-- {important} -->
 
 ##### Ver Frente (Peek)
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 bool cola_peek(const cola_t *cola, void **dato)
 {
@@ -549,11 +640,13 @@ bool cola_peek(const cola_t *cola, void **dato)
     }
     return true;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ##### Destruir Cola
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 void cola_destruir(cola_t *cola, destruir_dato_fn destruir_dato)
 {
@@ -575,7 +668,9 @@ void cola_destruir(cola_t *cola, destruir_dato_fn destruir_dato)
     
     free(cola);
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 (analisis-de-complejidad-cola-lista-enlazada)=
 #### Análisis de Complejidad de la Cola (Lista Enlazada)
@@ -590,18 +685,22 @@ void cola_destruir(cola_t *cola, destruir_dato_fn destruir_dato)
 (implementacion-con-arreglo-circular)=
 #### Implementación con Arreglo Circular
 
-Una implementación eficiente de cola con arreglo usa la técnica de **arreglo circular**, donde los índices "dan la vuelta" al final del arreglo.
+Una implementación eficiente de cola con arreglo usa la técnica de **arreglo
+circular**, donde los índices "dan la vuelta" al final del arreglo.
 
-```{figure} 6/cola_circular.svg
+:::{figure} 6/cola_circular.svg
 :label: fig-cola-circular
 :align: center
 
-Cola implementada como arreglo circular. Los índices se calculan módulo la capacidad.
-```
+Cola implementada como arreglo circular. Los índices se calculan módulo la
+capacidad.
+
+:::
+<!-- {figure} 6/cola_circular.svg -->
 
 ##### Estructura de Datos
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 struct cola {
     void **elementos;
@@ -610,15 +709,22 @@ struct cola {
     size_t tamanio;
     size_t capacidad;
 };
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{note}
-En esta implementación con arreglo circular, el índice `final` apunta a la posición **después** del último elemento. Esto simplifica la lógica de detección de cola vacía o llena.
+
+En esta implementación con arreglo circular, el índice `final` apunta a la
+posición **después** del último elemento. Esto simplifica la lógica de detección
+de cola vacía o llena.
+
 :::
+<!-- {note} -->
 
 ##### Creación de Cola Circular
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 cola_t *cola_crear_circular(size_t capacidad_inicial)
 {
@@ -647,11 +753,13 @@ cola_t *cola_crear_circular(size_t capacidad_inicial)
     
     return cola;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ##### Encolar en Arreglo Circular
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 static bool cola_redimensionar_circular(cola_t *cola)
 {
@@ -698,15 +806,22 @@ bool cola_enqueue_circular(cola_t *cola, void *dato)
     
     return true;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{tip}
-El operador módulo `%` permite que el índice "dé la vuelta". Por ejemplo, si `capacidad = 5` y `final = 4`, entonces `(4 + 1) % 5 = 0`, retornando al inicio del arreglo.
+
+El operador módulo `%` permite que el índice "dé la vuelta". Por ejemplo, si
+`capacidad = 5` y `final = 4`, entonces `(4 + 1) % 5 = 0`, retornando al inicio
+del arreglo.
+
 :::
+<!-- {tip} -->
 
 ##### Desencolar en Arreglo Circular
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 bool cola_dequeue_circular(cola_t *cola, void **dato)
 {
@@ -724,11 +839,18 @@ bool cola_dequeue_circular(cola_t *cola, void **dato)
     
     return true;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{important}
-Al redimensionar, es crucial copiar los elementos en el orden secuencial correcto (frente a final), considerando que el frente puede no estar alineado en la posición 0 del arreglo original.
+
+Al redimensionar, es crucial copiar los elementos en el orden secuencial
+correcto (frente a final), considerando que el frente puede no estar alineado en
+la posición 0 del arreglo original.
+
 :::
+<!-- {important} -->
 
 (analisis-de-complejidad-arreglo-circular)=
 #### Análisis de Complejidad (Arreglo Circular)
@@ -779,22 +901,30 @@ Las colas modelan situaciones donde el orden de llegada importa:
 | **Implementación arreglo** | Índice tope | Arreglo circular |
 
 :::{important}
-Ambas estructuras son especializaciones del TAD Secuencia con restricciones de acceso. La restricción no es una limitación, sino una garantía que simplifica el razonamiento sobre el código.
+
+Ambas estructuras son especializaciones del TAD Secuencia con restricciones de
+acceso. La restricción no es una limitación, sino una garantía que simplifica el
+razonamiento sobre el código.
+
 :::
+<!-- {important} -->
 
 
 (deques-double-ended-queues)=
 ### Deques (Double-Ended Queues)
 
 
-Un **deque** (pronunciado "deck") es una generalización que permite insertar y extraer elementos en ambos extremos.
+Un **deque** (pronunciado "deck") es una generalización que permite insertar y
+extraer elementos en ambos extremos.
 
-```{figure} 6/deque.svg
+:::{figure} 6/deque.svg
 :label: fig-deque
 :align: center
 
 Deque con operaciones en ambos extremos. Es una generalización de pilas y colas.
-```
+
+:::
+<!-- {figure} 6/deque.svg -->
 
 (operaciones)=
 #### Operaciones
@@ -805,15 +935,21 @@ Deque con operaciones en ambos extremos. Es una generalización de pilas y colas
 - **pop_back():** Extrae del final.
 
 :::{note}
-Un deque puede simular tanto una pila (usando solo un extremo) como una cola (usando ambos extremos de forma restringida). Es más general pero potencialmente más difícil de razonar sobre su uso.
+
+Un deque puede simular tanto una pila (usando solo un extremo) como una cola
+(usando ambos extremos de forma restringida). Es más general pero potencialmente
+más difícil de razonar sobre su uso.
+
 :::
+<!-- {note} -->
 
 (aplicaciones-de-deques)=
 #### Aplicaciones de Deques
 
 - **Algoritmos de ventana deslizante:** Mantener mínimos/máximos en una ventana.
 - **Navegación con historial:** Forward/backward en navegadores.
-- **Work stealing:** Algoritmos paralelos donde los threads roban tareas de ambos extremos.
+- **Work stealing:** Algoritmos paralelos donde los threads roban tareas de
+  ambos extremos.
 
 (ejercicios-de-deques)=
 #### Ejercicios de Deques
@@ -844,15 +980,22 @@ Un deque puede simular tanto una pila (usando solo un extremo) como una cola (us
 | **Uso típico** | Tamaño impredecible | Tamaño acotado |
 
 :::{tip}
-Para aplicaciones donde el rendimiento es crítico y el tamaño máximo es conocido, la implementación con arreglo circular es preferible por su mejor localidad de caché. Para tamaños muy variables o cuando la simplicidad del código importa más que el rendimiento, la lista enlazada es más apropiada.
+
+Para aplicaciones donde el rendimiento es crítico y el tamaño máximo es
+conocido, la implementación con arreglo circular es preferible por su mejor
+localidad de caché. Para tamaños muy variables o cuando la simplicidad del
+código importa más que el rendimiento, la lista enlazada es más apropiada.
+
 :::
+<!-- {tip} -->
 
 
 (panorama-de-estructuras-de-datos)=
 ### Panorama de Estructuras de Datos
 
 
-Las pilas y colas son solo el comienzo. Existe un ecosistema rico de estructuras de datos, cada una optimizada para diferentes patrones de acceso.
+Las pilas y colas son solo el comienzo. Existe un ecosistema rico de estructuras
+de datos, cada una optimizada para diferentes patrones de acceso.
 
 (clasificacion-por-restricciones-de-acceso)=
 #### Clasificación por Restricciones de Acceso
@@ -877,8 +1020,10 @@ Las pilas y colas son solo el comienzo. Existe un ecosistema rico de estructuras
 #### Estructuras Avanzadas
 
 **Árboles:**
-- **Heap (Montículo):** Cola de prioridad eficiente, $O(\log n)$ insert/extract-min
-- **BST (Binary Search Tree):** Búsqueda, inserción, eliminación en $O(\log n)$ promedio
+- **Heap (Montículo):** Cola de prioridad eficiente, $O(\log n)$
+  insert/extract-min
+- **BST (Binary Search Tree):** Búsqueda, inserción, eliminación en $O(\log n)$
+  promedio
 - **AVL/Red-Black:** BST balanceados, garantizan $O(\log n)$ peor caso
 - **B-trees:** Árboles de búsqueda para almacenamiento en disco
 - **Tries:** Árboles de prefijos para strings
@@ -898,32 +1043,47 @@ Las pilas y colas son solo el comienzo. Existe un ecosistema rico de estructuras
 - **Skip Lists:** Estructura probabilística alternativa a BST
 
 :::{note}
-Cada estructura de datos representa un compromiso (*trade-off*) entre tiempo de operaciones, espacio usado y complejidad de implementación. No existe la "mejor" estructura, solo la más apropiada para cada contexto. Para comprender cómo comparar formalmente estructuras de datos usando análisis de complejidad, consultá {ref}`capitulo-complejidad`.
+
+Cada estructura de datos representa un compromiso (*trade-off*) entre tiempo de
+operaciones, espacio usado y complejidad de implementación. No existe la "mejor"
+estructura, solo la más apropiada para cada contexto. Para comprender cómo
+comparar formalmente estructuras de datos usando análisis de complejidad,
+consultá {ref}`capitulo-complejidad`.
+
 :::
+<!-- {note} -->
 
 ## Ejercicios de Autoevaluación
 
 :::{exercise}
 :label: ejercicio-pila-invertir-cadena
 
-Escribí una función que utilice una pila para invertir una cadena de caracteres *in-place* (modificando la cadena original).
+Escribí una función que utilice una pila para invertir una cadena de caracteres
+*in-place* (modificando la cadena original).
 
 Firma de la función:
-```c
+``` c
 void invertir_cadena(char *cadena);
 ```
+<!-- c -->
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ejercicio-pila-invertir-cadena
 :class: dropdown
 
-Una solución eficiente consiste en recorrer la cadena y apilar los caracteres. Al desapilar, los elementos se obtienen en el orden inverso (LIFO), permitiendo reescribir la cadena original.
+Una solución eficiente consiste en recorrer la cadena y apilar los caracteres.
+Al desapilar, los elementos se obtienen en el orden inverso (LIFO), permitiendo
+reescribir la cadena original.
 
-Para no requerir memoria dinámica adicional por cada carácter, se puede castear el valor de cada carácter directamente al tipo `void*` que recibe la pila.
+Para no requerir memoria dinámica adicional por cada carácter, se puede castear
+el valor de cada carácter directamente al tipo `void*` que recibe la pila.
 
 Implementación en C:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdint.h>
 #include "pila.h"
 
@@ -958,30 +1118,44 @@ void invertir_cadena(char *cadena)
 
     pila_destruir(pila, NULL);
 }
-```
 
-Este algoritmo tiene una complejidad temporal de $O(n)$ y una complejidad espacial de $O(n)$ debido al espacio ocupado por los nodos de la pila.
+```
+<!-- {code-block} c -->
+
+Este algoritmo tiene una complejidad temporal de $O(n)$ y una complejidad
+espacial de $O(n)$ debido al espacio ocupado por los nodos de la pila.
+
 :::
+<!-- {solution} ejercicio-pila-invertir-cadena -->
 
 :::{exercise}
 :label: ejercicio-pila-validar-delimitadores
 
-Extendé el ejemplo de verificación de paréntesis balanceados para soportar múltiples tipos de delimitadores: paréntesis `()`, corchetes `[]` y llaves `{}`. La función debe verificar que cada apertura tenga su cierre correspondiente y que los cierres ocurran en el orden correcto.
+Extendé el ejemplo de verificación de paréntesis balanceados para soportar
+múltiples tipos de delimitadores: paréntesis `()`, corchetes `[]` y llaves `{}`.
+La función debe verificar que cada apertura tenga su cierre correspondiente y
+que los cierres ocurran en el orden correcto.
 
 Firma de la función:
-```c
+``` c
 bool delimitadores_balanceados(const char *expresion);
 ```
+<!-- c -->
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ejercicio-pila-validar-delimitadores
 :class: dropdown
 
-Para validar múltiples delimitadores se utiliza una pila que almacena los caracteres de apertura. Al encontrarse un carácter de cierre, este debe emparejarse con el delimitador del tope de la pila.
+Para validar múltiples delimitadores se utiliza una pila que almacena los
+caracteres de apertura. Al encontrarse un carácter de cierre, este debe
+emparejarse con el delimitador del tope de la pila.
 
 Implementación en C:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdint.h>
 #include "pila.h"
 
@@ -1038,32 +1212,50 @@ bool delimitadores_balanceados(const char *expresion)
     pila_destruir(pila, NULL);
     return balanceado;
 }
-```
 
-La complejidad temporal del algoritmo es $O(n)$ donde $n$ representa la longitud de la expresión, ya que se recorre la cadena mediante un único lazo. La complejidad espacial es $O(n)$ en el peor caso de una cadena formada enteramente por delimitadores de apertura.
+```
+<!-- {code-block} c -->
+
+La complejidad temporal del algoritmo es $O(n)$ donde $n$ representa la longitud
+de la expresión, ya que se recorre la cadena mediante un único lazo. La
+complejidad espacial es $O(n)$ en el peor caso de una cadena formada enteramente
+por delimitadores de apertura.
+
 :::
+<!-- {solution} ejercicio-pila-validar-delimitadores -->
 
 :::{exercise}
 :label: ejercicio-pila-evaluar-postfija
 
-Implementá una función que evalúe una expresión en notación postfija (Reverse Polish Notation) usando una pila. Asumí que la cadena contiene números enteros de un solo dígito y los operadores básicos `+`, `-`, `*`, `/`, separados por espacios.
+Implementá una función que evalúe una expresión en notación postfija (Reverse
+Polish Notation) usando una pila. Asumí que la cadena contiene números enteros
+de un solo dígito y los operadores básicos `+`, `-`, `*`, `/`, separados por
+espacios.
 
 Firma de la función:
-```c
+``` c
 int evaluar_postfija(const char *expresion, bool *error);
 ```
+<!-- c -->
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ejercicio-pila-evaluar-postfija
 :class: dropdown
 
-El algoritmo recorre la cadena carácter por carácter empleando un lazo. Si el carácter actual es un número, se lo apila. Si es un operador, se desapilan los dos operandos superiores, se realiza la operación y se apila el resultado.
+El algoritmo recorre la cadena carácter por carácter empleando un lazo. Si el
+carácter actual es un número, se lo apila. Si es un operador, se desapilan los
+dos operandos superiores, se realiza la operación y se apila el resultado.
 
-Es importante recordar que el primer operando desapilado corresponde al operando derecho ($b$) y el segundo al operando izquierdo ($a$) en operaciones no conmutativas como la resta o la división ($a - b$ o $a / b$).
+Es importante recordar que el primer operando desapilado corresponde al operando
+derecho ($b$) y el segundo al operando izquierdo ($a$) en operaciones no
+conmutativas como la resta o la división ($a - b$ o $a / b$).
 
 Implementación en C:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdint.h>
 #include "pila.h"
 
@@ -1172,18 +1364,26 @@ int evaluar_postfija(const char *expresion, bool *error)
     pila_destruir(pila, NULL);
     return resultado_final;
 }
-```
 
-La complejidad temporal es lineal $O(n)$ con respecto a la longitud de la cadena, y la complejidad espacial es $O(n)$ debido a la memoria de la pila.
+```
+<!-- {code-block} c -->
+
+La complejidad temporal es lineal $O(n)$ con respecto a la longitud de la
+cadena, y la complejidad espacial es $O(n)$ debido a la memoria de la pila.
+
 :::
+<!-- {solution} ejercicio-pila-evaluar-postfija -->
 
 :::{exercise}
 :label: ejercicio-cola-simulador-impresora
 
-Diseñá un simulador de cola de impresión que procese trabajos en el orden de llegada (FIFO) y retorne el tiempo total de procesamiento. Cada trabajo de impresión se define mediante una estructura con su identificador y cantidad de páginas, asumiendo que procesar una página demora 1 segundo.
+Diseñá un simulador de cola de impresión que procese trabajos en el orden de
+llegada (FIFO) y retorne el tiempo total de procesamiento. Cada trabajo de
+impresión se define mediante una estructura con su identificador y cantidad de
+páginas, asumiendo que procesar una página demora 1 segundo.
 
 Firma de la función y estructura:
-```c
+``` c
 typedef struct {
     int id;
     int paginas;
@@ -1191,16 +1391,22 @@ typedef struct {
 
 int simular_impresora(trabajo_t *trabajos, size_t n);
 ```
+<!-- c -->
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ejercicio-cola-simulador-impresora
 :class: dropdown
 
-El simulador encola todas las referencias a los trabajos del arreglo. A continuación, mediante un lazo, desencola cada elemento para procesar el trabajo e incrementar el acumulador de tiempo total según sus páginas.
+El simulador encola todas las referencias a los trabajos del arreglo. A
+continuación, mediante un lazo, desencola cada elemento para procesar el trabajo
+e incrementar el acumulador de tiempo total según sus páginas.
 
 Implementación en C:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdlib.h>
 #include "cola.h"
 
@@ -1236,18 +1442,27 @@ int simular_impresora(trabajo_t *trabajos, size_t n)
     cola_destruir(cola, NULL);
     return tiempo_total;
 }
-```
 
-La complejidad temporal es $O(n)$ debido a que se encolan y desencolan $n$ elementos exactamente una vez. La complejidad espacial es $O(n)$ para mantener la estructura interna de la cola.
+```
+<!-- {code-block} c -->
+
+La complejidad temporal es $O(n)$ debido a que se encolan y desencolan $n$
+elementos exactamente una vez. La complejidad espacial es $O(n)$ para mantener
+la estructura interna de la cola.
+
 :::
+<!-- {solution} ejercicio-cola-simulador-impresora -->
 
 :::{exercise}
 :label: ejercicio-cola-dos-pilas
 
-Implementá el TAD Cola utilizando como estructura de almacenamiento subyacente dos instancias del TAD Pila. La cola debe comportarse de forma FIFO respetando las firmas de las operaciones fundamentales.
+Implementá el TAD Cola utilizando como estructura de almacenamiento subyacente
+dos instancias del TAD Pila. La cola debe comportarse de forma FIFO respetando
+las firmas de las operaciones fundamentales.
 
 Firma de la estructura y de las funciones:
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     pila_t *pila_entrada;
     pila_t *pila_salida;
@@ -1257,17 +1472,26 @@ cola_pilas_t *cola_pilas_crear(void);
 bool cola_pilas_enqueue(cola_pilas_t *cola, void *dato);
 bool cola_pilas_dequeue(cola_pilas_t *cola, void **dato);
 void cola_pilas_destruir(cola_pilas_t *cola, destruir_dato_fn destruir_dato);
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ejercicio-cola-dos-pilas
 :class: dropdown
 
-La idea central es utilizar la `pila_entrada` para recibir los nuevos elementos (`enqueue`). Al solicitar un elemento (`dequeue`), si la `pila_salida` posee elementos, se extrae el de su tope. Si está vacía, se transfieren todos los elementos de `pila_entrada` a `pila_salida` usando un lazo. Esta transferencia invierte el orden LIFO de la primera pila, convirtiéndolo en FIFO en la segunda.
+La idea central es utilizar la `pila_entrada` para recibir los nuevos elementos
+(`enqueue`). Al solicitar un elemento (`dequeue`), si la `pila_salida` posee
+elementos, se extrae el de su tope. Si está vacía, se transfieren todos los
+elementos de `pila_entrada` a `pila_salida` usando un lazo. Esta transferencia
+invierte el orden LIFO de la primera pila, convirtiéndolo en FIFO en la segunda.
 
 Implementación en C:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdlib.h>
 #include "pila.h"
 
@@ -1335,30 +1559,49 @@ void cola_pilas_destruir(cola_pilas_t *cola, destruir_dato_fn destruir_dato)
     pila_destruir(cola->pila_salida, destruir_dato);
     free(cola);
 }
-```
 
-La operación `enqueue` tiene un costo temporal de $O(1)$. La operación `dequeue` tiene un costo temporal amortizado de $O(1)$ porque cada elemento es apilado y desapilado un número constante de veces a lo largo de su ciclo de vida en la estructura. La complejidad espacial es $O(n)$ donde $n$ es el número de elementos contenidos en la cola.
+```
+<!-- {code-block} c -->
+
+La operación `enqueue` tiene un costo temporal de $O(1)$. La operación `dequeue`
+tiene un costo temporal amortizado de $O(1)$ porque cada elemento es apilado y
+desapilado un número constante de veces a lo largo de su ciclo de vida en la
+estructura. La complejidad espacial es $O(n)$ donde $n$ es el número de
+elementos contenidos en la cola.
+
 :::
+<!-- {solution} ejercicio-cola-dos-pilas -->
 
 :::{exercise}
 :label: ejercicio-cola-invertir-k
 
-Escribí una función que reciba una cola y un entero $K$, e invierta el orden de los primeros $K$ elementos de la cola, preservando el orden relativo del resto de los elementos.
+Escribí una función que reciba una cola y un entero $K$, e invierta el orden de
+los primeros $K$ elementos de la cola, preservando el orden relativo del resto
+de los elementos.
 
 Firma de la función:
-```c
+``` c
 bool invertir_primeros_k(cola_t *cola, size_t k);
 ```
+<!-- c -->
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ejercicio-cola-invertir-k
 :class: dropdown
 
-Para invertir los primeros $K$ elementos de la cola se emplea una pila auxiliar. Primero se desencolan $K$ elementos y se los apila. Luego, se desapilan y se encolan de nuevo (quedando al final de la cola con el orden invertido). Finalmente, se desencolan los elementos restantes no invertidos (que ahora están al frente) y se los encola nuevamente para mantener su posición original relativa.
+Para invertir los primeros $K$ elementos de la cola se emplea una pila auxiliar.
+Primero se desencolan $K$ elementos y se los apila. Luego, se desapilan y se
+encolan de nuevo (quedando al final de la cola con el orden invertido).
+Finalmente, se desencolan los elementos restantes no invertidos (que ahora están
+al frente) y se los encola nuevamente para mantener su posición original
+relativa.
 
 Implementación en C:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdlib.h>
 #include "cola.h"
 #include "pila.h"
@@ -1405,30 +1648,44 @@ bool invertir_primeros_k(cola_t *cola, size_t k)
     pila_destruir(pila, NULL);
     return true;
 }
-```
 
-La complejidad temporal de esta solución es lineal $O(n)$ donde $n$ es la cantidad de elementos en la cola. La complejidad espacial es $O(k)$ por los elementos almacenados temporalmente en la pila auxiliar.
+```
+<!-- {code-block} c -->
+
+La complejidad temporal de esta solución es lineal $O(n)$ donde $n$ es la
+cantidad de elementos en la cola. La complejidad espacial es $O(k)$ por los
+elementos almacenados temporalmente en la pila auxiliar.
+
 :::
+<!-- {solution} ejercicio-cola-invertir-k -->
 
 :::{exercise}
 :label: ejercicio-deque-palindromo
 
-Escribí una función que determine si una cadena de caracteres es un palíndromo utilizando un Deque.
+Escribí una función que determine si una cadena de caracteres es un palíndromo
+utilizando un Deque.
 
 Firma de la función:
-```c
+``` c
 bool es_palindromo_deque(const char *cadena);
 ```
+<!-- c -->
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ejercicio-deque-palindromo
 :class: dropdown
 
-El algoritmo consiste en insertar cada carácter de la cadena en el final del deque. Luego, utilizando un lazo, se extraen caracteres del frente y del final simultáneamente y se comparan. Si en algún momento difieren, la cadena no es un palíndromo.
+El algoritmo consiste en insertar cada carácter de la cadena en el final del
+deque. Luego, utilizando un lazo, se extraen caracteres del frente y del final
+simultáneamente y se comparan. Si en algún momento difieren, la cadena no es un
+palíndromo.
 
 Implementación en C:
 
-```c
+```{code-block} c
+:linenos:
 #include <string.h>
 #include <stdint.h>
 #include "deque.h"
@@ -1478,18 +1735,26 @@ bool es_palindromo_deque(const char *cadena)
     deque_destruir(deque, NULL);
     return palindromo;
 }
-```
 
-La complejidad temporal de la verificación es lineal $O(n)$ con respecto a la longitud de la cadena. La complejidad espacial es $O(n)$ debido al almacenamiento de los caracteres en el deque.
+```
+<!-- {code-block} c -->
+
+La complejidad temporal de la verificación es lineal $O(n)$ con respecto a la
+longitud de la cadena. La complejidad espacial es $O(n)$ debido al
+almacenamiento de los caracteres en el deque.
+
 :::
+<!-- {solution} ejercicio-deque-palindromo -->
 
 :::{exercise}
 :label: ejercicio-deque-pila
 
-Implementá el TAD Pila utilizando únicamente las operaciones fundamentales provistas por un Deque.
+Implementá el TAD Pila utilizando únicamente las operaciones fundamentales
+provistas por un Deque.
 
 Firma de la estructura y funciones:
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     deque_t *deque;
 } pila_deque_t;
@@ -1498,17 +1763,24 @@ pila_deque_t *pila_deque_crear(void);
 bool pila_deque_push(pila_deque_t *pila, void *dato);
 bool pila_deque_pop(pila_deque_t *pila, void **dato);
 void pila_deque_destruir(pila_deque_t *pila, destruir_dato_fn destruir_dato);
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ejercicio-deque-pila
 :class: dropdown
 
-Para emular una pila (LIFO) basta con restringir las operaciones del deque a un solo extremo de la estructura. En este caso, realizaremos tanto la inserción como la extracción por el final del deque.
+Para emular una pila (LIFO) basta con restringir las operaciones del deque a un
+solo extremo de la estructura. En este caso, realizaremos tanto la inserción
+como la extracción por el final del deque.
 
 Implementación en C:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdlib.h>
 #include "deque.h"
 
@@ -1555,30 +1827,48 @@ void pila_deque_destruir(pila_deque_t *pila, destruir_dato_fn destruir_dato)
     deque_destruir(pila->deque, destruir_dato);
     free(pila);
 }
-```
 
-Tanto `push` como `pop` heredan la complejidad temporal de $O(1)$ del Deque. La complejidad espacial es $O(n)$ en función del número de elementos contenidos.
+```
+<!-- {code-block} c -->
+
+Tanto `push` como `pop` heredan la complejidad temporal de $O(1)$ del Deque. La
+complejidad espacial es $O(n)$ en función del número de elementos contenidos.
+
 :::
+<!-- {solution} ejercicio-deque-pila -->
 
 :::{exercise}
 :label: ejercicio-deque-ventana-deslizante
 
-Dado un arreglo de enteros y un tamaño de ventana $K$, diseñá una función que encuentre el valor máximo en cada ventana deslizante de tamaño $K$ a medida que se desplaza de izquierda a derecha. Utilizá un Deque para almacenar índices de manera que se logre una complejidad temporal lineal óptima de $O(n)$.
+Dado un arreglo de enteros y un tamaño de ventana $K$, diseñá una función que
+encuentre el valor máximo en cada ventana deslizante de tamaño $K$ a medida que
+se desplaza de izquierda a derecha. Utilizá un Deque para almacenar índices de
+manera que se logre una complejidad temporal lineal óptima de $O(n)$.
 
 Firma de la función:
-```c
+``` c
 int *maximos_ventana_deslizante(const int *arreglo, size_t n, size_t k, size_t *resultado_tamanio);
 ```
+<!-- c -->
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ejercicio-deque-ventana-deslizante
 :class: dropdown
 
-El deque mantendrá los índices de los elementos útiles dentro de la ventana actual. En cada paso del lazo principal, se remueven del frente del deque los índices de elementos que ya están fuera de la ventana. Luego, se remueven del final los índices de elementos que son menores o iguales al elemento actual, ya que no podrán volver a ser el máximo. Finalmente, se inserta el índice actual en el final del deque y se reporta el elemento del frente como máximo de la ventana.
+El deque mantendrá los índices de los elementos útiles dentro de la ventana
+actual. En cada paso del lazo principal, se remueven del frente del deque los
+índices de elementos que ya están fuera de la ventana. Luego, se remueven del
+final los índices de elementos que son menores o iguales al elemento actual, ya
+que no podrán volver a ser el máximo. Finalmente, se inserta el índice actual en
+el final del deque y se reporta el elemento del frente como máximo de la
+ventana.
 
 Implementación en C:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdlib.h>
 #include <stdint.h>
 #include "deque.h"
@@ -1657,17 +1947,34 @@ int *maximos_ventana_deslizante(const int *arreglo, size_t n, size_t k, size_t *
     deque_destruir(deque, NULL);
     return resultado;
 }
-```
 
-Dado que cada índice del arreglo se inserta y extrae del deque como máximo una vez, el tiempo consumido por las operaciones internas del deque a lo largo de todo el proceso está acotado por $O(n)$, logrando una complejidad temporal óptima de $O(n)$. La complejidad espacial es $O(k)$ para almacenar los índices dentro del deque.
+```
+<!-- {code-block} c -->
+
+Dado que cada índice del arreglo se inserta y extrae del deque como máximo una
+vez, el tiempo consumido por las operaciones internas del deque a lo largo de
+todo el proceso está acotado por $O(n)$, logrando una complejidad temporal
+óptima de $O(n)$. La complejidad espacial es $O(k)$ para almacenar los índices
+dentro del deque.
+
 :::
+<!-- {solution} ejercicio-deque-ventana-deslizante -->
 
 ## Glosario
 
-- **TAD (Tipo Abstracto de Datos)**: Modelo matemático para tipos de datos definidos por su comportamiento y operaciones.
-- **Pila (Stack)**: Estructura de datos LIFO.
-- **Cola (Queue)**: Estructura de datos FIFO.
-- **Encapsulación**: Ocultamiento de la representación de datos del cliente.
+:::{glossary}
+TAD (Tipo Abstracto de Datos)
+: Modelo matemático para tipos de datos definidos por su comportamiento y operaciones.
+
+Pila (Stack)
+: Estructura de datos LIFO.
+
+Cola (Queue)
+: Estructura de datos FIFO.
+
+Encapsulación
+: Ocultamiento de la representación de datos del cliente.
+:::
 
 ## Síntesis y Resumen
 
@@ -1675,33 +1982,55 @@ Dado que cada índice del arreglo se inserta y extrae del deque como máximo una
 ### Resumen
 
 
-Los Tipos de Datos Abstractos son una herramienta fundamental para construir software modular y mantenible. En este apunte hemos cubierto:
+Los Tipos de Datos Abstractos son una herramienta fundamental para construir
+software modular y mantenible. En este apunte hemos cubierto:
 
 - **El concepto de TAD** y la separación entre interfaz e implementación.
-- **El TAD Secuencia** como abstracción fundamental, demostrando cómo la misma interfaz puede implementarse con diferentes estructuras de datos.
+- **El TAD Secuencia** como abstracción fundamental, demostrando cómo la misma
+  interfaz puede implementarse con diferentes estructuras de datos.
 - **Dos implementaciones de Secuencia:**
   - Arreglos dinámicos: excelentes para acceso aleatorio y localidad de caché.
   - Listas enlazadas: ideales para inserciones/eliminaciones dinámicas.
-- La diferencia entre **memoria estática y dinámica**, y cuándo usar cada una (para detalles completos, consultá {ref}`capitulo-memoria-dinamica`).
-- **Listas enlazadas** simples, dobles y circulares, con todas sus operaciones fundamentales.
+- La diferencia entre **memoria estática y dinámica**, y cuándo usar cada una
+  (para detalles completos, consultá {ref}`capitulo-memoria-dinamica`).
+- **Listas enlazadas** simples, dobles y circulares, con todas sus operaciones
+  fundamentales.
 - **Pilas (LIFO)** y **Colas (FIFO)** como TADs especializados:
   - Múltiples implementaciones (lista enlazada, arreglo, arreglo circular)
   - Aplicaciones prácticas en sistemas y algoritmos
   - Análisis de complejidad temporal y espacial
-- **Consideraciones de implementación:** manejo de errores, invariantes y seguridad.
-- **Análisis de complejidad temporal** de las operaciones en diferentes implementaciones (para el fundamento teórico completo, consultá {ref}`capitulo-complejidad`).
+- **Consideraciones de implementación:** manejo de errores, invariantes y
+  seguridad.
+- **Análisis de complejidad temporal** de las operaciones en diferentes
+  implementaciones (para el fundamento teórico completo, consultá
+  {ref}`capitulo-complejidad`).
 - **Panorama general** de estructuras de datos avanzadas y su clasificación.
 
 :::{important} Lección Clave: Múltiples Implementaciones
 
-El concepto más importante de este apunte es que **un mismo TAD puede tener múltiples implementaciones**, cada una con diferentes características de rendimiento. La elección de la implementación correcta depende del contexto de uso, y el poder de la abstracción permite cambiar entre implementaciones sin reescribir el código cliente.
+El concepto más importante de este apunte es que **un mismo TAD puede tener
+múltiples implementaciones**, cada una con diferentes características de
+rendimiento. La elección de la implementación correcta depende del contexto de
+uso, y el poder de la abstracción permite cambiar entre implementaciones sin
+reescribir el código cliente.
 
-Las pilas y colas demuestran este principio perfectamente: ambas pueden implementarse con listas enlazadas o arreglos, y la elección depende de los requisitos específicos de rendimiento y uso de memoria.
+Las pilas y colas demuestran este principio perfectamente: ambas pueden
+implementarse con listas enlazadas o arreglos, y la elección depende de los
+requisitos específicos de rendimiento y uso de memoria.
+
 :::
+<!-- {important} Lección Clave: Múltiples Implementaciones -->
 
 :::{tip}
-Dominar estas estructuras de datos es esencial para avanzar hacia estructuras más complejas como árboles, grafos y tablas de hash, que se construyen sobre estos fundamentos. La correcta gestión de memoria dinámica, tema central en este apunte, es la base para implementar cualquier estructura de datos compleja de manera segura y eficiente.
+
+Dominar estas estructuras de datos es esencial para avanzar hacia estructuras
+más complejas como árboles, grafos y tablas de hash, que se construyen sobre
+estos fundamentos. La correcta gestión de memoria dinámica, tema central en este
+apunte, es la base para implementar cualquier estructura de datos compleja de
+manera segura y eficiente.
+
 :::
+<!-- {tip} -->
 
 ## Referencias y Lecturas de Pilas y Colas
 
@@ -1709,18 +2038,31 @@ Dominar estas estructuras de datos es esencial para avanzar hacia estructuras m�
 ### Referencias y Lecturas de Pilas y Colas
 
 
-Para profundizar en el estudio de los TADs y estructuras de datos, se recomiendan las siguientes referencias:
+Para profundizar en el estudio de los TADs y estructuras de datos, se
+recomiendan las siguientes referencias:
 
-- Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2009). *Introduction to Algorithms* (3rd ed.). MIT Press.
-- Weiss, M. A. (2014). *Data Structures and Algorithm Analysis in C* (2nd ed.). Pearson.
+- Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2009).
+  *Introduction to Algorithms* (3rd ed.). MIT Press.
+- Weiss, M. A. (2014). *Data Structures and Algorithm Analysis in C* (2nd ed.).
+  Pearson.
 - Sedgewick, R., & Wayne, K. (2011). *Algorithms* (4th ed.). Addison-Wesley.
 
-Para aspectos específicos de gestión de memoria y su impacto en la implementación de TADs, consultá:
+Para aspectos específicos de gestión de memoria y su impacto en la
+implementación de TADs, consultá:
 
 - {ref}`capitulo-memoria-dinamica` para entender el modelo de memoria completo.
-- {ref}`resumen-de-buenas-practicas` para patrones seguros de manejo de memoria dinámica.
-- [Capítulo: Memoria Dinámica — sección Valgrind](1_memoria_dinamica.md) para técnicas de depuración de estructuras dinámicas.
+- {ref}`resumen-de-buenas-practicas` para patrones seguros de manejo de memoria
+  dinámica.
+- [Capítulo: Memoria Dinámica — sección Valgrind](1_memoria_dinamica.md) para
+  técnicas de depuración de estructuras dinámicas.
 
 :::{tip}
-La implementación de TADs es una habilidad fundamental que requiere práctica. Te recomendamos implementar cada estructura desde cero al menos una vez, probando exhaustivamente cada operación con casos de prueba variados. Usá herramientas como Valgrind durante el desarrollo para detectar fugas de memoria tempranamente.
+
+La implementación de TADs es una habilidad fundamental que requiere práctica. Te
+recomendamos implementar cada estructura desde cero al menos una vez, probando
+exhaustivamente cada operación con casos de prueba variados. Usá herramientas
+como Valgrind durante el desarrollo para detectar fugas de memoria
+tempranamente.
+
 :::
+<!-- {tip} -->

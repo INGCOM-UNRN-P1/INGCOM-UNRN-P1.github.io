@@ -19,13 +19,17 @@ amplía el manejo de archivos de texto, cubriendo no solo las operaciones básic
 sino también el posicionamiento dentro del archivo y, de manera crucial, una
 gestión de errores detallada y profesional.
 
-```{figure} 3/file_operations_flow.svg
+:::{figure} 3/file_operations_flow.svg
 :name: fig-file-operations-flow
 :alt: Flujo completo de operaciones con archivos
 :align: center
 
-Diagrama de flujo que muestra la secuencia completa de operaciones al trabajar con archivos: abrir, verificar NULL, realizar operaciones, verificar errores y cerrar.
-```
+Diagrama de flujo que muestra la secuencia completa de operaciones al trabajar
+con archivos: abrir, verificar NULL, realizar operaciones, verificar errores y
+cerrar.
+
+:::
+<!-- {figure} 3/file_operations_flow.svg -->
 
 ## Desarrollo
 
@@ -33,36 +37,60 @@ Diagrama de flujo que muestra la secuencia completa de operaciones al trabajar c
 ### El `FILE`, la conexión con el archivo
 
 
-Toda operación sobre archivos en C se realiza a través de un puntero a una estructura especial y opaca llamada `FILE`. Esta estructura, definida en la biblioteca estándar `<stdio.h>`, actúa como un intermediario que contiene toda la información de estado necesaria para gestionar el flujo de datos ( _stream_ ) hacia y desde el archivo.
+Toda operación sobre archivos en C se realiza a través de un puntero a una
+estructura especial y opaca llamada `FILE`. Esta estructura, definida en la
+biblioteca estándar `<stdio.h>`, actúa como un intermediario que contiene toda
+la información de estado necesaria para gestionar el flujo de datos ( _stream_ )
+hacia y desde el archivo.
 
-```{figure} 3/file_pointer_concept.svg
+:::{figure} 3/file_pointer_concept.svg
 :name: fig-file-pointer-concept
 :alt: Concepto del puntero FILE* como intermediario
 :align: center
 
-El puntero `FILE*` actúa como "manija" o "handle" que conecta tu programa con el archivo físico en disco. La estructura FILE contiene toda la información necesaria para gestionar las operaciones.
-```
+El puntero `FILE*` actúa como "manija" o "handle" que conecta tu programa con el
+archivo físico en disco. La estructura FILE contiene toda la información
+necesaria para gestionar las operaciones.
 
-Dentro de esta estructura, el sistema operativo y la biblioteca estándar de C manejan los detalles como:
+:::
+<!-- {figure} 3/file_pointer_concept.svg -->
+
+Dentro de esta estructura, el sistema operativo y la biblioteca estándar de C
+manejan los detalles como:
 
 - El **descriptor de archivo** a bajo nivel y en el sistema operativo.
-- La ubicación del **búfer de E/S** en memoria para optimizar lecturas y escrituras.
+- La ubicación del **búfer de E/S** en memoria para optimizar lecturas y
+  escrituras.
 - **Indicadores de estado**, como los flags de error y de fin de archivo (EOF).
 - La **posición actual** del cursor dentro del archivo.
 
-Al ser una **estructura opaca**, vos no necesitás conocer ni manipular sus miembros internos directamente. En su lugar, interactuás con el archivo a través de funciones que reciben un puntero a esta estructura.
+Al ser una **estructura opaca**, vos no necesitás conocer ni manipular sus
+miembros internos directamente. En su lugar, interactuás con el archivo a través
+de funciones que reciben un puntero a esta estructura.
 
 Para declarar un puntero a `FILE`, la sintaxis es simple:
 
-```{code-block}c
+:::{code-block}c
+
 FILE *puntero_archivo;
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{note} Punteros: Direcciones de Memoria
-Esta variable utiliza el asterisco (`*`) como declarador para indicar que `puntero_archivo` es un tipo de dato derivado: un "puntero a `FILE`". Un puntero almacena la dirección de memoria de un objeto (en este caso, la estructura `FILE`). Si necesitás repasar qué son los punteros, cómo se declaran y cómo funcionan las direcciones de memoria, consultá el {ref}`capitulo-punteros` donde se explica este concepto en detalle.
-:::
 
-Este puntero, una vez que la función `fopen()` lo inicializa exitosamente, se convierte
+Esta variable utiliza el asterisco (`*`) como declarador para indicar que
+`puntero_archivo` es un tipo de dato derivado: un "puntero a `FILE`". Un puntero
+almacena la dirección de memoria de un objeto (en este caso, la estructura
+`FILE`). Si necesitás repasar qué son los punteros, cómo se declaran y cómo
+funcionan las direcciones de memoria, consultá el {ref}`capitulo-punteros` donde
+se explica este concepto en detalle.
+
+:::
+<!-- {note} Punteros: Direcciones de Memoria -->
+
+Este puntero, una vez que la función `fopen()` lo inicializa exitosamente, se
+convierte
 en tu identificador único para interactuar con ese archivo específico hasta que
 lo cierres con `fclose()`.
 
@@ -70,25 +98,39 @@ lo cierres con `fclose()`.
 #### Una Analogía con Arreglos y Punteros
 
 La idea de usar un puntero para manejar una entidad compleja les debe resultar
-familiar, ya que hemos trabajado con arreglos. El concepto es similar y se relaciona directamente con el manejo de punteros:
+familiar, ya que hemos trabajado con arreglos. El concepto es similar y se
+relaciona directamente con el manejo de punteros:
 
-- En un **arreglo**, el nombre del arreglo es el identificador de un bloque de memoria contiguo, pero decae automáticamente a un puntero a su primer elemento (es decir, evalúa su dirección) en la mayoría de las expresiones. Esto te proporciona el punto de acceso para recorrer la secuencia contigua.
+- En un **arreglo**, el nombre del arreglo es el identificador de un bloque de
+  memoria contiguo, pero decae automáticamente a un puntero a su primer elemento
+  (es decir, evalúa su dirección) en la mayoría de las expresiones. Esto te
+  proporciona el punto de acceso para recorrer la secuencia contigua.
 - De manera análoga, un puntero `FILE *` no es el archivo en sí. Es un puntero a
   una estructura en memoria que "sabe" todo sobre el archivo y cómo comunicarse
   con él.
 
 :::{seealso} El Rol de los Punteros
+
 El manejo de punteros es un pilar en la programación en C. Próximamente,
 profundizaremos en cómo los punteros nos permiten manipular direcciones de
 memoria directamente, lo cual es la base para entender cómo funcionan los
 arreglos, la gestión de memoria dinámica y, como vimos aquí, la interacción con
 sistemas externos como el sistema de archivos.
+
 :::
+<!-- {seealso} El Rol de los Punteros -->
 
 Por ahora, es suficiente que entiendas que `puntero_archivo` es tu "manija" o
 "handle" para leer, escribir y manipular el archivo que abriste.
 
-Otro detalle importante: los argumentos de tipo cadena suelen declararse con la notación `char *modo` (puntero a carácter). Aunque a nivel de acceso podamos indexarlos de forma similar a un arreglo, **no hay equivalencia de identidad**: una declaración como `char *modo = "r"` crea un puntero a un literal de cadena almacenado en una región de memoria de solo lectura, mientras que `char modo[] = "r"` define un arreglo mutable en la pila que se inicializa con una copia de dicho texto. Debemos ser conscientes de esto al manipular cadenas para evitar accesos inválidos o intentos de escritura sobre literales.
+Otro detalle importante: los argumentos de tipo cadena suelen declararse con la
+notación `char *modo` (puntero a carácter). Aunque a nivel de acceso podamos
+indexarlos de forma similar a un arreglo, **no hay equivalencia de identidad**:
+una declaración como `char *modo = "r"` crea un puntero a un literal de cadena
+almacenado en una región de memoria de solo lectura, mientras que `char modo[] =
+"r"` define un arreglo mutable en la pila que se inicializa con una copia de
+dicho texto. Debemos ser conscientes de esto al manipular cadenas para evitar
+accesos inválidos o intentos de escritura sobre literales.
 
 
 
@@ -112,23 +154,29 @@ devuelve un puntero a dicha estructura. Si por alguna razón la operación falla
 (el archivo no existe, no tenés permisos, etc.), la función te devolverá `NULL`.
 
 :::{important} ¡La verificación con `NULL` es obligatoria!
+
 Nunca asumas que `fopen()` tendrá éxito. Una de las fuentes más comunes de
 errores y caídas inesperadas en programas de C es no verificar si el puntero
-devuelto es `NULL` antes de intentar usarlo, una práctica exigida por la regla de estilo {ref}`0x4001h`.
+devuelto es `NULL` antes de intentar usarlo, una práctica exigida por la regla
+de estilo {ref}`0x4001h`.
 
 Esta función puede fallar de muchas formas y que no dependen de nuestro
 programa, con situaciones como, problemas de permisos, si el archivo existe (o
 no) , o algún fallo en el medio de almacenamiento en sí.
+
 :::
+<!-- {important} ¡La verificación con `NULL` es obligatoria! -->
 
 La sintaxis, definida en `<stdio.h>`, es la siguiente:
 
-```{code-block}c
+:::{code-block}c
 :caption: Sintaxis de fopen()
 :label: fopen-syntax
 
 FILE *fopen(const char *pathname, const char *mode);
-```
+
+:::
+<!-- {code-block}c -->
 
 - `const char *pathname`: Es una cadena de caracteres que representa la ruta al
   archivo. Puede ser una ruta relativa (ej. `"datos.txt"`) o absoluta (ej.
@@ -143,15 +191,18 @@ Elegir el modo correcto es fundamental, ya que determina el comportamiento del
 puntero del archivo y lo que sucede con el contenido que ya estaba en el
 archivo.
 
-```{figure} 3/fopen_modes.svg
+:::{figure} 3/fopen_modes.svg
 :name: fig-fopen-modes
 :alt: Modos de apertura de archivos con fopen()
 :align: center
 
-Guía visual de los diferentes modos de apertura y un diagrama de decisión para elegir el modo correcto según tus necesidades.
-```
+Guía visual de los diferentes modos de apertura y un diagrama de decisión para
+elegir el modo correcto según tus necesidades.
 
-```{list-table}
+:::
+<!-- {figure} 3/fopen_modes.svg -->
+
+:::{list-table}
 :header-rows: 1
 :label: table-fopen-modes
 
@@ -186,11 +237,15 @@ Guía visual de los diferentes modos de apertura y un diagrama de decisión para
   - **El contenido se borra**. Permite escribir y luego leer desde el inicio.
   - Archivos temporales que necesitás escribir y luego releer.
 * - `"a+"`
-  - **Añadir y Lectura**: Abre para actualizar, posicionando la escritura al final.
+  - **Añadir y Lectura**: Abre para actualizar, posicionando la escritura al
+    final.
   - Se crea un archivo nuevo.
-  - El puntero se posiciona al final para escribir, pero podés moverlo para leer.
+  - El puntero se posiciona al final para escribir, pero podés moverlo para
+    leer.
   - Leer datos de un log y luego añadir nuevos eventos al final.
-```
+
+:::
+<!-- {list-table} -->
 
 (manejo-de-errores-en-la-apertura)=
 #### Manejo de Errores en la Apertura
@@ -200,7 +255,7 @@ Cuando `fopen()` devuelve `NULL`, la variable global `errno` (definida en
 mostrar un mensaje de error legible por humanos, podés usar la función
 `perror()`.
 
-```{code-block}c
+:::{code-block}c
 :caption: Verificación de errores al abrir un archivo
 :label: fopen-error-handling
 :linenos:
@@ -224,13 +279,16 @@ int main() {
 
     return 0;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 Al ejecutar este código, `perror()` probablemente imprimiría algo como:
 
-```text
+``` text
 Error al intentar abrir el archivo: No such file or directory`
 ```
+<!-- text -->
 
 (binario-vs-texto)=
 #### Binario vs. Texto
@@ -246,11 +304,14 @@ traducciones. Para ello, simplemente agregá una `b` al final del modo (ej.
 `"rb"`, `"wb+"`, `"ab"`).
 
 :::{warning} Corrupción de Datos
+
 Abrir un archivo no textual en modo texto puede corromper irreversiblemente los
 datos, ya que secuencias de bytes que casualmente coincidan con caracteres
 especiales (como el de fin de línea) serán alteradas. Usá siempre el modo
 binario para archivos no textuales.
-::: 
+
+:::
+<!-- {warning} Corrupción de Datos -->
 
 Trabajar con archivos binarios es importante, pero complejo y requiere de un par
 de cosas más que no hemos visto del lenguaje. Para quienes deseen chusmear como
@@ -278,7 +339,7 @@ La función `fputc` se utiliza para escribir un único carácter en un flujo de
 archivo (_file stream_). Es una herramienta fundamental para la manipulación de
 archivos a bajo nivel en C.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 /**
  * Escribe un carácter en un flujo de archivo.
@@ -294,7 +355,9 @@ archivos a bajo nivel en C.
  *               y activa el indicador de error del flujo.
  */
 int fputc(int character, FILE *stream);
-```
+
+:::
+<!-- {code-block}c -->
 
 (fputs)=
 #### `fputs`
@@ -303,7 +366,7 @@ Escribe una cadena. **No añade** el carácter de nueva línea (`\n`)
 automáticamente. Devuelve un valor no negativo si tiene éxito, o `EOF` en caso
 de error.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 /**
  * Escribe una cadena de caracteres en un flujo de archivo.
@@ -315,7 +378,9 @@ de error.
  *         Devuelve la constante `EOF` para indicar un error.
  */
 int fputs(const char *cadena, FILE *stream);
-```
+
+:::
+<!-- {code-block}c -->
 
 (fprintf)=
 #### `fprintf`
@@ -324,7 +389,7 @@ La opción más versátil. Escribe datos con formato, análogamente a `printf()`
 Devuelve el número de caracteres escritos, o un valor negativo si ocurre un
 error.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 /**
  * @brief Escribe datos con formato en un flujo de archivo.
@@ -338,16 +403,19 @@ error.
  * @param ... Lista variable de argumentos. Debe haber un argumento
  *               por cada especificador de formato en la cadena `format`.
  *
- * @return Si la operación es exitosa, devuelve el número total de caracteres escritos.
+ * @return Si la operación es exitosa, devuelve el número total de caracteres
+   escritos.
  *         Si ocurre un error de escritura, devuelve un número negativo.
  */
 int fprintf(FILE *stream, const char *formato, ...);
-```
+
+:::
+<!-- {code-block}c -->
 
 (ejemplo-de-escritura-completo)=
 #### Ejemplo de escritura completo
 
-```{code-block}c
+:::{code-block}c
 :caption: Ejemplo de escritura y gestión de errores
 :label: file-writing-example-advanced
 :linenos:
@@ -375,11 +443,13 @@ int main(void) {
     }
 
     // 3. Escribir datos formateados usando fprintf()
-    // fprintf() permite escribir datos con formato (como printf, pero a un archivo).
+    // fprintf() permite escribir datos con formato (como printf, pero a un
+    archivo).
     const char *item_1 = "Placa de Video RTX 4080";
     int cantidad_1 = 1;
     double precio_1 = 1200000.75;
-    int chars_escritos_1 = fprintf(salida, "Item: %s\nCantidad: %d\nPrecio: %.2f ARS\n\n", item_1, cantidad_1, precio_1);
+    int chars_escritos_1 = fprintf(salida, "Item: %s\nCantidad: %d\nPrecio: %.2f
+    ARS\n\n", item_1, cantidad_1, precio_1);
     if (chars_escritos_1 < 0) {
         perror("Error al formatear y escribir el item 1 con fprintf()");
         fclose(salida);
@@ -428,7 +498,8 @@ int main(void) {
         return EXIT_FAILURE;
     }
 
-    // 6. Cerrar el archivo. Es crucial para asegurar que todos los datos en el búfer se guarden en el disco.
+    // 6. Cerrar el archivo. Es crucial para asegurar que todos los datos en el
+    búfer se guarden en el disco.
     if (fclose(salida) != 0) {
         perror("Error al cerrar el archivo");
         return EXIT_FAILURE;
@@ -438,15 +509,19 @@ int main(void) {
     return EXIT_SUCCESS;
 }
 
-```
+:::
+<!-- {code-block}c -->
 
 :::{important} Búferes y `fflush()`
+
 La E/S de archivos en C está _bufferizada_ por defecto para mejorar el
 rendimiento. Los datos no se escriben al disco inmediatamente, sino que se
 acumulan en un búfer. `fclose()` vacía (hace _flush_) este búfer
 automáticamente. Si necesitás forzar la escritura sin cerrar el archivo, podés
 usar `fflush(FILE *stream)`.
+
 :::
+<!-- {important} Búferes y `fflush()` -->
 
 
 
@@ -462,27 +537,35 @@ usar `fflush(FILE *stream)`.
 (fgetc)=
 #### `fgetc`
 
-La función `fgetc` se utiliza para leer un único carácter desde un flujo de archivo. Es la contraparte directa de `fputc`.
+La función `fgetc` se utiliza para leer un único carácter desde un flujo de
+archivo. Es la contraparte directa de `fputc`.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 /**
  * @brief Lee un carácter desde un flujo de archivo.
  *
  * @param stream Puntero al objeto `FILE` que identifica el flujo de entrada.
  *
- * @return Si la operación es exitosa, devuelve el carácter leído (promocionado a `int`).
- * @return Si se alcanza el final del archivo o si ocurre un error, devuelve `EOF`.
+ * @return Si la operación es exitosa, devuelve el carácter leído (promocionado
+   a `int`).
+ * @return Si se alcanza el final del archivo o si ocurre un error, devuelve
+   `EOF`.
  */
 int fgetc(FILE *stream);
-```
+
+:::
+<!-- {code-block}c -->
 
 (fgets)=
 #### `fgets`
 
-La función `fgets` se utiliza para leer una línea o una cadena de caracteres desde un flujo de archivo. Es más segura que la antigua función `gets` porque permite especificar un tamaño máximo para el búfer, evitando desbordamientos, una práctica recomendada por la regla {ref}`0x5006h`.
+La función `fgets` se utiliza para leer una línea o una cadena de caracteres
+desde un flujo de archivo. Es más segura que la antigua función `gets` porque
+permite especificar un tamaño máximo para el búfer, evitando desbordamientos,
+una práctica recomendada por la regla {ref}`0x5006h`.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 /**
  * @brief Lee una cadena de caracteres desde un flujo de archivo.
@@ -493,7 +576,8 @@ La función `fgets` se utiliza para leer una línea o una cadena de caracteres d
  * se incluye en la cadena. Se añade un carácter nulo (`\0`) al final.
  *
  * @param cadena de caracteres donde se almacenará la cadena leída.
- * @param numero máximo de caracteres a ser leídos (incluyendo el carácter nulo final).
+ * @param numero máximo de caracteres a ser leídos (incluyendo el carácter nulo
+   final).
  * @param stream Puntero al objeto `FILE` que identifica el flujo de entrada.
  *
  * @return En caso de éxito, devuelve el puntero `str`.
@@ -501,33 +585,47 @@ La función `fgets` se utiliza para leer una línea o una cadena de caracteres d
                 o si ocurre un error, devuelve `NULL`.
  */
 char *fgets(char *cadena, int numero, FILE *stream);
-```
+
+:::
+<!-- {code-block}c -->
 
 :::{warning} `numero` y `str`
-El argumento `numero` debe ser igual o menor a la capacidad de la `cadena`, ya que de otra forma
+
+El argumento `numero` debe ser igual o menor a la capacidad de la `cadena`, ya
+que de otra forma
 la función provocará comportamiento no definido al escribir fuera del espacio de
 memoria de la `cadena`.
+
 :::
+<!-- {warning} `numero` y `str` -->
 
 (fscanf)=
 #### `fscanf`
 
-La función `fscanf` se utiliza para leer datos con formato desde un flujo de archivo. Funciona de manera análoga a `scanf`, pero operando sobre un archivo en lugar de la entrada estándar.
+La función `fscanf` se utiliza para leer datos con formato desde un flujo de
+archivo. Funciona de manera análoga a `scanf`, pero operando sobre un archivo en
+lugar de la entrada estándar.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 /**
  * @brief Lee datos con formato desde un flujo de archivo.
  *
- * @param[in] stream Puntero al objeto `FILE` que identifica el flujo de entrada.
- * @param[in] format Cadena de caracteres que especifica cómo interpretar los datos leídos.
- * @param[out] ... Lista variable de punteros a las variables donde se almacenarán los datos leídos.
+ * @param[in] stream Puntero al objeto `FILE` que identifica el flujo de
+   entrada.
+ * @param[in] format Cadena de caracteres que especifica cómo interpretar los
+   datos leídos.
+ * @param[out] ... Lista variable de punteros a las variables donde se
+   almacenarán los datos leídos.
  *
  * @return Devuelve el número de elementos de entrada asignados exitosamente.
- * @return Puede devolver `EOF` si se encuentra el final del archivo o ocurre un error antes de la primera asignación.
+ * @return Puede devolver `EOF` si se encuentra el final del archivo o ocurre un
+   error antes de la primera asignación.
  */
 int fscanf(FILE *stream, const char *format, ...);
-```
+
+:::
+<!-- {code-block}c -->
 
 (leyendo-un-archivo-paso-a-paso)=
 #### Leyendo un archivo, paso a paso
@@ -543,7 +641,7 @@ A continuación, se descompone el código sección por sección.
 
 ##### 1. Inclusiones y definiciones (`#include` y `#define`)
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
@@ -552,7 +650,8 @@ A continuación, se descompone el código sección por sección.
 #define MAX_LINEA 512
 #define NOMBRE_ARCHIVO "factura.txt"
 
-```
+:::
+<!-- {code-block}c -->
 
 - **`#include <stdio.h>`**: Incluye la biblioteca estándar de entrada/salida. Es
   fundamental porque nos da acceso a funciones como `fopen()`, `fgets()`,
@@ -577,14 +676,16 @@ A continuación, se descompone el código sección por sección.
 
 ##### 2. Apertura del archivo y manejo de errores
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 FILE *entrada = fopen(NOMBRE_ARCHIVO, "r");
 if (!entrada) {
     perror("No se pudo abrir 'factura.txt' para lectura");
     return EXIT_FAILURE;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 - **`FILE *entrada = fopen(NOMBRE_ARCHIVO, "r");`**: Esta línea intenta abrir el
   archivo especificado por `NOMBRE_ARCHIVO` en modo lectura (`"r"`). Si tiene
@@ -608,7 +709,7 @@ if (!entrada) {
 
 ##### 3. Lazo principal de lectura
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 char buffer[MAX_LINEA];
 int numero_linea = 0;
@@ -617,7 +718,9 @@ while (fgets(buffer, sizeof(buffer), entrada) != NULL) {
     numero_linea++;
     // ... procesamiento de la línea ...
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 - **`char buffer[MAX_LINEA];`**: Declara el búfer, un array de caracteres donde
   `fgets()` almacenará cada línea leída del archivo.
@@ -636,14 +739,15 @@ while (fgets(buffer, sizeof(buffer), entrada) != NULL) {
 
 ##### 4. Procesamiento y análisis de cada línea (Parsing)
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 if (strncmp(buffer, "Item:", 5) == 0) {
     char item_nombre[100];
     int cantidad;
     double precio;
 
-    int campos_leidos = sscanf(buffer, "Item: %99[^,], Cantidad: %d, Precio: %lf ARS",
+    int campos_leidos = sscanf(buffer, "Item: %99[^,], Cantidad: %d, Precio: %lf
+    ARS",
                                item_nombre, &cantidad, &precio);
 
     if (campos_leidos == 3) {
@@ -653,7 +757,8 @@ if (strncmp(buffer, "Item:", 5) == 0) {
     }
 }
 
-```
+:::
+<!-- {code-block}c -->
 
 - **`if (strncmp(buffer, "Item:", 5) == 0)`**: Antes de intentar un análisis
   costoso, se realiza una verificación rápida y eficiente. `strncmp()` compara
@@ -688,20 +793,22 @@ cadena de caracteres que ya está en memoria (el `buffer`).
 
 ##### 5. Verificación post-lazo
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 if (ferror(entrada)) {
     perror("Ocurrió un error de lectura en el archivo");
 } else if (feof(entrada)) {
     printf("\nProcesamiento completado. Se llegó al final del archivo.\n");
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 - Cuando el lazo `while (fgets(...) != NULL)` termina, hay dos posibles
   razones: se alcanzó el final del archivo (lo normal) o ocurrió un error de E/S
   (raro, pero posible). Es crucial distinguir entre ambos casos.
 - **`ferror(entrada)`**: Esta función devuelve un valor verdadero si el
-  indicador de error del _stream_ `entrada` está activado. Esto podría pasar si, 
+  indicador de error del _stream_ `entrada` está activado. Esto podría pasar si,
   por ejemplo, el disco duro falla o se desconecta una unidad USB a mitad de la
   lectura.
 - **`feof(entrada)`**: Devuelve un valor verdadero si el indicador de fin de
@@ -710,12 +817,14 @@ if (ferror(entrada)) {
 
 ##### 6. Limpieza y cierre
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 clearerr(entrada);
 fclose(entrada);
 return EXIT_SUCCESS;
-```
+
+:::
+<!-- {code-block}c -->
 
 - **`clearerr(entrada)`**: Limpia los indicadores de error y de fin de archivo
   del _stream_. Es una buena práctica, aunque en este caso el programa está a
@@ -750,11 +859,14 @@ crítica que:
 Devuelve `0` si tiene éxito y `EOF` si ocurre un error.
 
 :::{important} Cerrar lo abierto
+
 Siempre tenés que cerrar el archivo que abriste. No hacerlo puede resultar en
 pérdida de datos, corrupción de archivos y agotamiento de recursos del sistema.
 Es una de las causas más comunes de errores sutiles en programas que manejan
 archivos y una violación de la regla de estilo {ref}`0x4001h`.
-::: 
+
+:::
+<!-- {important} Cerrar lo abierto -->
 
 Aunque parezca una simple formalidad, la llamada a `fclose()` también puede
 fallar. Esto es particularmente cierto al escribir archivos: si el disco se
@@ -764,7 +876,7 @@ que la operación fue exitosa cuando en realidad los últimos datos se perdieron
 La única forma de estar 100% seguro de que toda la información se guardó
 correctamente es verificar el resultado del cierre.
 
-```{code-block}c
+:::{code-block}c
 :caption: Verificación del cierre de un archivo
 :label: fclose-example
 :linenos:
@@ -797,7 +909,9 @@ int main(void) {
     printf("Log escrito y cerrado correctamente.\n");
     return EXIT_SUCCESS;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 
 
@@ -862,12 +976,15 @@ función ha fallado (por ejemplo, verificando un retorno `NULL` o `-1`).
 donde necesitás un mensaje de error rápido, estándar y sin formato complejo. Es
 menos flexible pero muy conveniente.
 
-```{code-block}c
+:::{code-block}c
+
 // Si errno es 2 ("No such file or directory")
 perror("Error al leer el archivo de configuración");
 // Salida en stderr:
 // Error al leer el archivo de configuración: No such file or directory
-```
+
+:::
+<!-- {code-block}c -->
 
 (strerror-int-errnum-el-traductor-flexible)=
 #### `strerror(int errnum)`: El traductor flexible
@@ -884,12 +1001,16 @@ descripción del error. Vos sos responsable de cómo y dónde imprimir esa caden
 - **Internacionalización**, donde podrías querer traducir el mensaje de error a
   diferentes idiomas.
 
-```{code-block}c
+:::{code-block}c
+
 // Si errno es 13 ("Permission denied")
-fprintf(stderr, "[FATAL] Imposible acceder al recurso. Razón: %s\n", strerror(errno));
+fprintf(stderr, "[FATAL] Imposible acceder al recurso. Razón: %s\n",
+strerror(errno));
 // Salida en stderr:
 // [FATAL] Imposible acceder al recurso. Razón: Permission denied
-```
+
+:::
+<!-- {code-block}c -->
 
 
 
@@ -902,14 +1023,17 @@ fprintf(stderr, "[FATAL] Imposible acceder al recurso. Razón: %s\n", strerror(e
 ### Posicionamiento en Archivos: Acceso Aleatorio
 
 
-No siempre querés leer un archivo secuencialmente. Las funciones de posicionamiento te permiten moverte a cualquier punto del archivo.
+No siempre querés leer un archivo secuencialmente. Las funciones de
+posicionamiento te permiten moverte a cualquier punto del archivo.
 
 (ftell)=
 #### `ftell`
 
-La función `ftell` se utiliza para obtener la posición actual del indicador de posición del fichero (el "cursor") dentro de un flujo. Devuelve esta posición como un número de bytes desde el inicio del archivo.
+La función `ftell` se utiliza para obtener la posición actual del indicador de
+posición del fichero (el "cursor") dentro de un flujo. Devuelve esta posición
+como un número de bytes desde el inicio del archivo.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 /**
  * @brief Obtiene la posición actual del indicador de posición del fichero.
@@ -917,24 +1041,31 @@ La función `ftell` se utiliza para obtener la posición actual del indicador de
  * @param[in] stream Puntero al objeto `FILE` que identifica el flujo.
  *
  * @return Si es exitoso, devuelve el valor actual del indicador de posición.
- * @return En caso de error, devuelve -1L y la variable global `errno` se establece a un valor positivo.
+ * @return En caso de error, devuelve -1L y la variable global `errno` se
+   establece a un valor positivo.
  */
 long int ftell(FILE *stream);
-```
+
+:::
+<!-- {code-block}c -->
 
 (fseek)=
 #### `fseek`
 
-La función `fseek` es la herramienta principal para mover el indicador de posición del fichero a una ubicación específica dentro del flujo. Permite un control preciso, moviendo el cursor un número determinado de bytes (`offset`) desde un punto de origen (`origin`).
+La función `fseek` es la herramienta principal para mover el indicador de
+posición del fichero a una ubicación específica dentro del flujo. Permite un
+control preciso, moviendo el cursor un número determinado de bytes (`offset`)
+desde un punto de origen (`origin`).
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 /**
  * @brief Establece el indicador de posición del fichero a una nueva posición.
  *
  * @param stream Puntero al objeto `FILE` que identifica el flujo.
  * @param offset Desplazamiento en bytes relativo al parámetro `origin`.
- * @param origin Posición desde donde se calcula el desplazamiento. Los valores pueden ser:
+ * @param origin Posición desde donde se calcula el desplazamiento. Los valores
+   pueden ser:
  * - `SEEK_SET`: Inicio del archivo.
  * - `SEEK_CUR`: Posición actual.
  * - `SEEK_END`: Final del archivo.
@@ -943,14 +1074,18 @@ La función `fseek` es la herramienta principal para mover el indicador de posic
  *         Devuelve un valor distinto de cero en caso de error.
  */
 int fseek(FILE *stream, long int offset, int origin);
-```
+
+:::
+<!-- {code-block}c -->
 
 (rewind)=
 #### `rewind`
 
-La función `rewind` es un caso especial y simplificado de `fseek`. Su única función es mover el indicador de posición del fichero de vuelta al inicio del archivo. Además, limpia cualquier indicador de error que pudiera tener el flujo.
+La función `rewind` es un caso especial y simplificado de `fseek`. Su única
+función es mover el indicador de posición del fichero de vuelta al inicio del
+archivo. Además, limpia cualquier indicador de error que pudiera tener el flujo.
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 /**
  * Reposiciona el indicador de posición del fichero al inicio del flujo.
@@ -961,12 +1096,14 @@ La función `rewind` es un caso especial y simplificado de `fseek`. Su única fu
  * @param stream Puntero al objeto `FILE` que identifica el flujo.
  */
 void rewind(FILE *stream);
-```
+
+:::
+<!-- {code-block}c -->
 
 (ejemplo-de-uso)=
 #### Ejemplo de uso
 
-```{code-block}c
+:::{code-block}c
 :caption: Uso de fseek() y ftell() para leer el último carácter
 :label: fseek-example
 :linenos:
@@ -1007,7 +1144,8 @@ int main(void) {
 
     int ultimo_caracter = fgetc(archivo);
     if (ultimo_caracter != EOF) {
-        printf("El último carácter imprimible del archivo es: \x27%c\x27\n", (char)ultimo_caracter);
+        printf("El último carácter imprimible del archivo es: \x27%c\x27\n",
+        (char)ultimo_caracter);
     }
 
     // Volver al principio
@@ -1017,7 +1155,9 @@ int main(void) {
     fclose(archivo);
     return EXIT_SUCCESS;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 
 
@@ -1031,48 +1171,79 @@ int main(void) {
 
 
 :::{glossary}
+
 Búfer
 : En el contexto de la programación y los sistemas operativos, un **búfer** (del
-  inglés _buffer_) es una región de memoria física (generalmente en la `RAM`) que
-  se utiliza para almacenar datos de forma temporal mientras se transfieren de un
-  lugar a otro.
+  inglés _buffer_) es una región de memoria física (generalmente en la `RAM`)
+  que se utiliza para almacenar datos de forma temporal mientras se
+  transfieren de un lugar a otro.
 
-    El objetivo principal de un búfer es optimizar el rendimiento y gestionar las diferencias de velocidad entre dos procesos o dispositivos. Por ejemplo, en las operaciones de entrada/salida (`I/O`), los datos se acumulan en un búfer antes de ser procesados o escritos en un dispositivo físico como un disco duro. Esto permite que el sistema realice menos operaciones de escritura/lectura, pero de mayor tamaño, lo cual es significativamente más eficiente.
+    El objetivo principal de un búfer es optimizar el rendimiento y gestionar
+    las diferencias de velocidad entre dos procesos o dispositivos. Por ejemplo,
+    en las operaciones de entrada/salida (`I/O`), los datos se acumulan en un
+    búfer antes de ser procesados o escritos en un dispositivo físico como un
+    disco duro. Esto permite que el sistema realice menos operaciones de
+    escritura/lectura, pero de mayor tamaño, lo cual es significativamente más
+    eficiente.
 
-    Pensá en el proceso de escribir en un archivo como si fuera enviar una carta. Escribir carácter por carácter directamente al disco (sin búfer) sería como llevar cada letra individualmente hasta el correo. Es ineficiente y lento.
+    Pensá en el proceso de escribir en un archivo como si fuera enviar una
+    carta. Escribir carácter por carácter directamente al disco (sin búfer)
+    sería como llevar cada letra individualmente hasta el correo. Es ineficiente
+    y lento.
 
-    Usar un búfer es como escribir la carta completa en una hoja de papel (el búfer en la memoria). Una vez que terminaste la carta (el búfer se llenó o cerraste el archivo), la llevás al correo en un solo viaje. Este método es mucho más rápido y organizado.
+    Usar un búfer es como escribir la carta completa en una hoja de papel (el
+    búfer en la memoria). Una vez que terminaste la carta (el búfer se llenó o
+    cerraste el archivo), la llevás al correo en un solo viaje. Este método es
+    mucho más rápido y organizado.
 
     ```{figure} 3/buffer_concept.svg
     :name: fig-buffer-concept
     :alt: Concepto de búfer en operaciones de archivos
     :align: center
 
-    Comparación entre operaciones sin búfer (ineficientes) y con búfer (eficientes), mostrando cómo el búfer optimiza las operaciones de E/S.
+    Comparación entre operaciones sin búfer (ineficientes) y con búfer
+    (eficientes), mostrando cómo el búfer optimiza las operaciones de E/S.
     ```
+
 :::
+<!-- {glossary} -->
 
 ## Ejercicios de Autoevaluación
 
 :::{exercise}
 :label: file-conexion-miembros
-Explicá por qué no se debe intentar acceder a los miembros internos de la estructura `FILE` directamente en tu código y qué ventajas ofrece que sea tratada como una estructura opaca.
+Explicá por qué no se debe intentar acceder a los miembros internos de la
+estructura `FILE` directamente en tu código y qué ventajas ofrece que sea
+tratada como una estructura opaca.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} file-conexion-miembros
 :class: dropdown
-La estructura `FILE` es opaca porque sus detalles de implementación dependen de la biblioteca estándar del compilador y del sistema operativo subyacente. Si accedés directamente a sus miembros (como el descriptor de archivo, la posición del búfer o los flags de error):
-1. Perdés la portabilidad: un código que compila en un sistema podría fallar en otro donde la estructura `FILE` tenga campos diferentes.
-2. Podés corromper el estado interno del flujo de datos (stream) al eludir las funciones estandarizadas de E/S (`fopen`, `fread`, `fwrite`, etc.) que controlan la sincronización del búfer y el cursor.
+La estructura `FILE` es opaca porque sus detalles de implementación dependen de
+la biblioteca estándar del compilador y del sistema operativo subyacente. Si
+accedés directamente a sus miembros (como el descriptor de archivo, la posición
+del búfer o los flags de error):
+1. Perdés la portabilidad: un código que compila en un sistema podría fallar en
+   otro donde la estructura `FILE` tenga campos diferentes.
+2. Podés corromper el estado interno del flujo de datos (stream) al eludir las
+   funciones estandarizadas de E/S (`fopen`, `fread`, `fwrite`, etc.) que
+   controlan la sincronización del búfer y el cursor.
 
-Al tratarla como opaca, el estándar garantiza una interfaz uniforme e independiente de la plataforma a través de punteros (`FILE *`).
+Al tratarla como opaca, el estándar garantiza una interfaz uniforme e
+independiente de la plataforma a través de punteros (`FILE *`).
+
 :::
+<!-- {solution} file-conexion-miembros -->
 
 :::{exercise}
 :label: file-conexion-puntero-invalido
-Analizá el siguiente código e identificá el error de concepto respecto al manejo de la variable `archivo`:
+Analizá el siguiente código e identificá el error de concepto respecto al manejo
+de la variable `archivo`:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 int main(void) {
@@ -1080,41 +1251,71 @@ int main(void) {
     archivo = fopen("datos.txt", "r");
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {exercise} -->
 
 :::{solution} file-conexion-puntero-invalido
 :class: dropdown
-El error radica en que se declaró `archivo` como una variable de tipo `FILE` en lugar de un puntero a `FILE` (`FILE *`). 
+El error radica en que se declaró `archivo` como una variable de tipo `FILE` en
+lugar de un puntero a `FILE` (`FILE *`).
 1. La función `fopen` devuelve un puntero (`FILE *`), no la estructura en sí.
-2. Como `FILE` es una estructura opaca, el compilador usualmente no conoce su tamaño completo o no permite instanciarla directamente en la pila, lo que provoca un error de compilación.
+2. Como `FILE` es una estructura opaca, el compilador usualmente no conoce su
+   tamaño completo o no permite instanciarla directamente en la pila, lo que
+   provoca un error de compilación.
 La declaración correcta debe ser `FILE *archivo;`.
+
 :::
+<!-- {solution} file-conexion-puntero-invalido -->
 
 :::{exercise}
 :label: file-conexion-multiples
-Supongamos que tu aplicación necesita procesar de forma simultánea tres archivos de entrada diferentes. Explicá cómo debés declarar e inicializar las conexiones correspondientes utilizando la estructura `FILE *` y qué sucede si intentás reutilizar un único puntero sin cerrar las conexiones previas.
+Supongamos que tu aplicación necesita procesar de forma simultánea tres archivos
+de entrada diferentes. Explicá cómo debés declarar e inicializar las conexiones
+correspondientes utilizando la estructura `FILE *` y qué sucede si intentás
+reutilizar un único puntero sin cerrar las conexiones previas.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} file-conexion-multiples
 :class: dropdown
-Para procesar tres archivos en forma simultánea, debés declarar tres punteros `FILE *` independientes (por ejemplo, `FILE *f1, *f2, *f3;`) e invocar `fopen` para cada uno de ellos. 
+Para procesar tres archivos en forma simultánea, debés declarar tres punteros
+`FILE *` independientes (por ejemplo, `FILE *f1, *f2, *f3;`) e invocar `fopen`
+para cada uno de ellos.
 
-Si intentás reutilizar una única variable de tipo puntero (por ejemplo, `f1 = fopen("a.txt", "r"); f1 = fopen("b.txt", "r");`) sin cerrar la primera con `fclose`:
-1. Pérdida del handle: Perdés la dirección de memoria de la estructura `FILE` del primer archivo. Ya no podrás leer de él ni cerrarlo correctamente, lo que provoca una fuga de recursos (resource leak) en el sistema operativo.
-2. Comportamiento indefinido: El descriptor del primer archivo queda abierto en el sistema hasta que finalice el programa.
+Si intentás reutilizar una única variable de tipo puntero (por ejemplo, `f1 =
+fopen("a.txt", "r"); f1 = fopen("b.txt", "r");`) sin cerrar la primera con
+`fclose`:
+1. Pérdida del handle: Perdés la dirección de memoria de la estructura `FILE`
+   del primer archivo. Ya no podrás leer de él ni cerrarlo correctamente, lo que
+   provoca una fuga de recursos (resource leak) en el sistema operativo.
+2. Comportamiento indefinido: El descriptor del primer archivo queda abierto en
+   el sistema hasta que finalice el programa.
+
 :::
+<!-- {solution} file-conexion-multiples -->
 
 :::{exercise}
 :label: fopen-lectura-segura
-Escribí un fragmento de código en C que intente abrir el archivo `"config.json"` en modo de solo lectura. Si el archivo no existe o no se puede abrir, debés informar el error correspondiente utilizando `perror` de forma clara y finalizar la ejecución con un estado de error.
+Escribí un fragmento de código en C que intente abrir el archivo `"config.json"`
+en modo de solo lectura. Si el archivo no existe o no se puede abrir, debés
+informar el error correspondiente utilizando `perror` de forma clara y finalizar
+la ejecución con un estado de error.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} fopen-lectura-segura
 :class: dropdown
-El siguiente código abre el archivo y realiza la verificación obligatoria del puntero devuelto (`{ref}0x4001h`):
+El siguiente código abre el archivo y realiza la verificación obligatoria del
+puntero devuelto (`{ref}0x4001h`):
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -1130,34 +1331,58 @@ int main(void) {
     fclose(archivo);
     return EXIT_SUCCESS;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} fopen-lectura-segura -->
 
 :::{exercise}
 :label: fopen-modos-seleccion
-Un sistema requiere leer la configuración de un archivo llamado `"historial.log"`. Si el archivo ya contiene información, el programa debe conservar todos los datos y añadir nuevos registros al final del archivo. Si el archivo no existe, el programa debe crearlo. Determiná cuál es el modo de apertura de `fopen` que debés utilizar y justificá tu respuesta.
+Un sistema requiere leer la configuración de un archivo llamado
+`"historial.log"`. Si el archivo ya contiene información, el programa debe
+conservar todos los datos y añadir nuevos registros al final del archivo. Si el
+archivo no existe, el programa debe crearlo. Determiná cuál es el modo de
+apertura de `fopen` que debés utilizar y justificá tu respuesta.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} fopen-modos-seleccion
 :class: dropdown
-El modo de apertura adecuado es `"a"` (añadir/append) o `"a+"` (si además necesitás realizar operaciones de lectura). 
+El modo de apertura adecuado es `"a"` (añadir/append) o `"a+"` (si además
+necesitás realizar operaciones de lectura).
 
 Justificación:
-1. Si el archivo existe: El cursor se posiciona automáticamente al final del archivo y cualquier escritura se agregará allí, protegiendo y conservando la información que ya estaba en el archivo.
-2. Si el archivo no existe: El sistema operativo crea el archivo de forma automática.
-Si hubieras utilizado `"w"`, el archivo existente se habría truncado a cero bytes, perdiendo toda la información previa.
+1. Si el archivo existe: El cursor se posiciona automáticamente al final del
+   archivo y cualquier escritura se agregará allí, protegiendo y conservando la
+   información que ya estaba en el archivo.
+2. Si el archivo no existe: El sistema operativo crea el archivo de forma
+   automática.
+Si hubieras utilizado `"w"`, el archivo existente se habría truncado a cero
+bytes, perdiendo toda la información previa.
+
 :::
+<!-- {solution} fopen-modos-seleccion -->
 
 :::{exercise}
 :label: abrir_para_escribir_seguro
-Diseñá una función en C llamada `abrir_para_escribir_seguro` que reciba el nombre de un archivo. La función debe intentar abrir el archivo en modo lectura `"r"` primero para verificar si ya existe. Si existe, debe retornar `NULL` (para evitar sobreescribirlo accidentalmente). Si no existe, debe abrirlo en modo escritura `"w"`, creándolo, y retornar el puntero `FILE *` obtenido.
+Diseñá una función en C llamada `abrir_para_escribir_seguro` que reciba el
+nombre de un archivo. La función debe intentar abrir el archivo en modo lectura
+`"r"` primero para verificar si ya existe. Si existe, debe retornar `NULL` (para
+evitar sobreescribirlo accidentalmente). Si no existe, debe abrirlo en modo
+escritura `"w"`, creándolo, y retornar el puntero `FILE *` obtenido.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} abrir_para_escribir_seguro
 :class: dropdown
 La función implementa una estrategia de validación previa:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 FILE *abrir_para_escribir_seguro(const char *nombre_archivo) {
@@ -1172,19 +1397,30 @@ FILE *abrir_para_escribir_seguro(const char *nombre_archivo) {
     // Ahora es seguro abrirlo con "w".
     return fopen(nombre_archivo, "w");
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} abrir_para_escribir_seguro -->
 
 :::{exercise}
 :label: escribiendo-abecedario-fputc
-Escribí un programa en C que cree el archivo `"alfabeto.txt"` y escriba en él todas las letras mayúsculas de la `'A'` a la `'Z'`, separadas por un espacio en blanco, utilizando un lazo y la función `fputc`. Recordá realizar el control de errores de apertura y cierre del archivo.
+Escribí un programa en C que cree el archivo `"alfabeto.txt"` y escriba en él
+todas las letras mayúsculas de la `'A'` a la `'Z'`, separadas por un espacio en
+blanco, utilizando un lazo y la función `fputc`. Recordá realizar el control de
+errores de apertura y cierre del archivo.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} escribiendo-abecedario-fputc
 :class: dropdown
-El programa utiliza un lazo para recorrer los caracteres ASCII y los escribe uno a uno:
+El programa utiliza un lazo para recorrer los caracteres ASCII y los escribe uno
+a uno:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -1218,19 +1454,32 @@ int main(void) {
 
     return EXIT_SUCCESS;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} escribiendo-abecedario-fputc -->
 
 :::{exercise}
 :label: escribiendo-matriz-fprintf
-Escribí una función en C llamada `guardar_matriz` que reciba un puntero `FILE *salida`, una matriz bidimensional de enteros `int matriz[3][3]` y sus dimensiones. La función debe guardar la matriz en el archivo con un formato alineado de filas y columnas (por ejemplo, tres números por línea separados por tabuladores). La función debe validar el puntero al archivo y retornar `-1` si ocurre un error de escritura o `0` si tiene éxito.
+Escribí una función en C llamada `guardar_matriz` que reciba un puntero `FILE
+*salida`, una matriz bidimensional de enteros `int matriz[3][3]` y sus
+dimensiones. La función debe guardar la matriz en el archivo con un formato
+alineado de filas y columnas (por ejemplo, tres números por línea separados por
+tabuladores). La función debe validar el puntero al archivo y retornar `-1` si
+ocurre un error de escritura o `0` si tiene éxito.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} escribiendo-matriz-fprintf
 :class: dropdown
-La función utiliza `fprintf` y valida los valores de retorno para asegurar que la escritura fue correcta:
+La función utiliza `fprintf` y valida los valores de retorno para asegurar que
+la escritura fue correcta:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 int guardar_matriz(FILE *salida, int matriz[3][3], int filas, int columnas) {
@@ -1252,36 +1501,61 @@ int guardar_matriz(FILE *salida, int matriz[3][3], int filas, int columnas) {
     }
     return 0; // Éxito
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} escribiendo-matriz-fprintf -->
 
 :::{exercise}
 :label: escribiendo-fputs-vs-fprintf
-Analizá el rendimiento y la complejidad de las funciones `fputs` y `fprintf`. Explicá en qué situación es más adecuado usar `fputs` en lugar de `fprintf` y por qué.
+Analizá el rendimiento y la complejidad de las funciones `fputs` y `fprintf`.
+Explicá en qué situación es más adecuado usar `fputs` en lugar de `fprintf` y
+por qué.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} escribiendo-fputs-vs-fprintf
 :class: dropdown
-`fputs` es una función diseñada exclusivamente para escribir cadenas de caracteres literales en un archivo, sin realizar ninguna interpretación ni procesamiento de formato. 
+`fputs` es una función diseñada exclusivamente para escribir cadenas de
+caracteres literales en un archivo, sin realizar ninguna interpretación ni
+procesamiento de formato.
 
-Por otro lado, `fprintf` debe analizar la cadena de formato (buscando los `%`), evaluar los tipos de datos de los argumentos variables pasados al final y convertirlos a texto en tiempo de ejecución. 
+Por otro lado, `fprintf` debe analizar la cadena de formato (buscando los `%`),
+evaluar los tipos de datos de los argumentos variables pasados al final y
+convertirlos a texto en tiempo de ejecución.
 
 Por ende:
-1. **Rendimiento**: `fputs` es significativamente más rápida porque no tiene el costo computacional de análisis y conversión de formato.
-2. **Simplicidad**: Para cadenas fijas (ej. un encabezado como `"--- Fin de reporte ---\n"`), `fputs` es más directa y segura.
-Debés elegir `fprintf` solo cuando necesites concatenar o formatear variables (como enteros, reales, etc.) en una cadena textual en el archivo.
+1. **Rendimiento**: `fputs` es significativamente más rápida porque no tiene el
+   costo computacional de análisis y conversión de formato.
+2. **Simplicidad**: Para cadenas fijas (ej. un encabezado como `"--- Fin de
+   reporte ---\n"`), `fputs` es más directa y segura.
+Debés elegir `fprintf` solo cuando necesites concatenar o formatear variables
+(como enteros, reales, etc.) en una cadena textual en el archivo.
+
 :::
+<!-- {solution} escribiendo-fputs-vs-fprintf -->
 
 :::{exercise}
 :label: leyendo-imprimir-fgetc
-Escribí una función en C llamada `mostrar_archivo` que reciba una cadena con el nombre de un archivo y muestre todo su contenido en la salida estándar (`stdout`) carácter por carácter, utilizando la función `fgetc`. Asegurá el correcto tratamiento del final de archivo (`EOF`) y el manejo de errores al abrir el archivo.
+Escribí una función en C llamada `mostrar_archivo` que reciba una cadena con el
+nombre de un archivo y muestre todo su contenido en la salida estándar
+(`stdout`) carácter por carácter, utilizando la función `fgetc`. Asegurá el
+correcto tratamiento del final de archivo (`EOF`) y el manejo de errores al
+abrir el archivo.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} leyendo-imprimir-fgetc
 :class: dropdown
-La función abre el archivo en modo de lectura y utiliza un lazo `while` para leer y mostrar cada carácter hasta llegar a `EOF`:
+La función abre el archivo en modo de lectura y utiliza un lazo `while` para
+leer y mostrar cada carácter hasta llegar a `EOF`:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -1303,19 +1577,33 @@ void mostrar_archivo(const char *nombre_archivo) {
 
     fclose(archivo);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} leyendo-imprimir-fgetc -->
 
 :::{exercise}
 :label: leyendo-contar-lineas-fgets
-Escribí una función en C llamada `contar_lineas` que reciba el puntero a un archivo abierto para lectura. La función debe recorrer el archivo utilizando `fgets` con un búfer seguro de 256 bytes y retornar la cantidad de líneas encontradas. Asegurate de manejar correctamente el caso en que una línea exceda el tamaño del búfer.
+Escribí una función en C llamada `contar_lineas` que reciba el puntero a un
+archivo abierto para lectura. La función debe recorrer el archivo utilizando
+`fgets` con un búfer seguro de 256 bytes y retornar la cantidad de líneas
+encontradas. Asegurate de manejar correctamente el caso en que una línea exceda
+el tamaño del búfer.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} leyendo-contar-lineas-fgets
 :class: dropdown
-Cuando una línea excede el tamaño del búfer de `fgets`, la función lee la línea en "fragmentos". Solo debemos contar una nueva línea cuando encontremos el carácter de salto de línea `\n` al final del búfer, o cuando la lectura termine y hayamos leído caracteres en la última línea:
+Cuando una línea excede el tamaño del búfer de `fgets`, la función lee la línea
+en "fragmentos". Solo debemos contar una nueva línea cuando encontremos el
+carácter de salto de línea `\n` al final del búfer, o cuando la lectura termine
+y hayamos leído caracteres en la última línea:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <string.h>
 
@@ -1345,19 +1633,31 @@ int contar_lineas(FILE *archivo) {
 
     return lineas;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} leyendo-contar-lineas-fgets -->
 
 :::{exercise}
 :label: leyendo-sscanf-parsing
-Un archivo de texto `"estudiantes.txt"` contiene registros con el formato `"Nombre,Nota1,Nota2"`. Escribí un fragmento de código que lea este archivo línea por línea de manera segura utilizando `fgets` y, mediante `sscanf`, extraiga el nombre del estudiante y sus dos notas (enteros) para calcular y mostrar su promedio.
+Un archivo de texto `"estudiantes.txt"` contiene registros con el formato
+`"Nombre,Nota1,Nota2"`. Escribí un fragmento de código que lea este archivo
+línea por línea de manera segura utilizando `fgets` y, mediante `sscanf`,
+extraiga el nombre del estudiante y sus dos notas (enteros) para calcular y
+mostrar su promedio.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} leyendo-sscanf-parsing
 :class: dropdown
-El código implementa la recomendación de separar la lectura del parsing, utilizando un búfer de línea y `sscanf` con validación de campos:
+El código implementa la recomendación de separar la lectura del parsing,
+utilizando un búfer de línea y `sscanf` con validación de campos:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -1390,34 +1690,61 @@ int main(void) {
     fclose(archivo);
     return EXIT_SUCCESS;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} leyendo-sscanf-parsing -->
 
 :::{exercise}
 :label: fclose-descriptores-leak
-Explicá qué es una fuga de descriptores de archivo (file descriptor leak), cómo se produce en C y por qué este problema puede provocar el colapso de un servidor que debe permanecer encendido en producción por varios meses.
+Explicá qué es una fuga de descriptores de archivo (file descriptor leak), cómo
+se produce en C y por qué este problema puede provocar el colapso de un servidor
+que debe permanecer encendido en producción por varios meses.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} fclose-descriptores-leak
 :class: dropdown
-Una fuga de descriptores de archivo ocurre cuando un programa abre un archivo usando `fopen` (u otras llamadas del sistema) pero nunca lo cierra mediante `fclose` antes de perder la referencia al puntero `FILE *`.
+Una fuga de descriptores de archivo ocurre cuando un programa abre un archivo
+usando `fopen` (u otras llamadas del sistema) pero nunca lo cierra mediante
+`fclose` antes de perder la referencia al puntero `FILE *`.
 
 Consecuencias:
-1. El sistema operativo asigna un identificador único (un número entero de bajo nivel) a cada archivo abierto y tiene un límite estricto de cuántos descriptores puede abrir un único proceso simultáneamente.
-2. Si un servidor abre archivos de configuración o logs en cada conexión entrante de clientes y olvida cerrarlos, irá agotando este límite de forma gradual.
-3. Una vez alcanzado el límite máximo, cualquier intento posterior de abrir archivos (o incluso sockets de red) fallará con un error, haciendo que el servidor no pueda responder o colapse por completo.
+1. El sistema operativo asigna un identificador único (un número entero de bajo
+   nivel) a cada archivo abierto y tiene un límite estricto de cuántos
+   descriptores puede abrir un único proceso simultáneamente.
+2. Si un servidor abre archivos de configuración o logs en cada conexión
+   entrante de clientes y olvida cerrarlos, irá agotando este límite de forma
+   gradual.
+3. Una vez alcanzado el límite máximo, cualquier intento posterior de abrir
+   archivos (o incluso sockets de red) fallará con un error, haciendo que el
+   servidor no pueda responder o colapse por completo.
+
 :::
+<!-- {solution} fclose-descriptores-leak -->
 
 :::{exercise}
 :label: fclose-retorno-validacion
-Escribí un código en C donde crees un archivo de log llamado `"critico.txt"`, escribas una cadena formateada con datos de una transacción y verifiques el código de retorno tanto al escribir como al realizar el cierre (`fclose`). Justificá por qué esta verificación de error al cerrar es tan importante en operaciones de escritura.
+Escribí un código en C donde crees un archivo de log llamado `"critico.txt"`,
+escribas una cadena formateada con datos de una transacción y verifiques el
+código de retorno tanto al escribir como al realizar el cierre (`fclose`).
+Justificá por qué esta verificación de error al cerrar es tan importante en
+operaciones de escritura.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} fclose-retorno-validacion
 :class: dropdown
-La verificación en el cierre es indispensable porque `fclose` fuerza la escritura física de los datos acumulados en los búferes de memoria del sistema operativo:
+La verificación en el cierre es indispensable porque `fclose` fuerza la
+escritura física de los datos acumulados en los búferes de memoria del sistema
+operativo:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -1442,16 +1769,26 @@ int main(void) {
 
     return EXIT_SUCCESS;
 }
-```
 
-Justificación: Para evitar operaciones lentas, el sistema operativo almacena temporalmente los datos en la memoria RAM (el búfer). Cuando llamás a `fclose`, estos datos se transfieren al disco rígido. Si el disco se llenó o el medio se desconectó en ese instante, la escritura final fallará y la única forma de enterarte es evaluando el retorno de `fclose`.
+```
+<!-- {code-block} c -->
+
+Justificación: Para evitar operaciones lentas, el sistema operativo almacena
+temporalmente los datos en la memoria RAM (el búfer). Cuando llamás a `fclose`,
+estos datos se transfieren al disco rígido. Si el disco se llenó o el medio se
+desconectó en ese instante, la escritura final fallará y la única forma de
+enterarte es evaluando el retorno de `fclose`.
+
 :::
+<!-- {solution} fclose-retorno-validacion -->
 
 :::{exercise}
 :label: fclose-doble-cierre
-Analizá el siguiente fragmento de código e identificá los riesgos asociados con la ejecución de `fclose`:
+Analizá el siguiente fragmento de código e identificá los riesgos asociados con
+la ejecución de `fclose`:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 void liberar_recursos(FILE *f) {
@@ -1466,27 +1803,49 @@ int main(void) {
     }
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {exercise} -->
 
 :::{solution} fclose-doble-cierre
 :class: dropdown
 El fragmento de código presenta dos problemas de seguridad graves:
-1. **Doble cierre (Double Close)**: Se llama a `fclose` sobre el mismo puntero `archivo` dos veces consecutivas (una dentro de `liberar_recursos` y otra en el `main`). Esto produce un comportamiento indefinido. En sistemas reales, puede causar accesos inválidos de memoria o cerrar accidentalmente otro archivo que haya sido abierto por el sistema en el mismo hilo y al que se le haya asignado el mismo descriptor.
-2. **Puntero huérfano**: Tras el primer `fclose`, la variable `archivo` sigue apuntando a la dirección de memoria de la estructura `FILE` que ya fue liberada.
-Para solucionarlo, se debe evitar el doble llamado o asignar `archivo = NULL;` inmediatamente después de un cierre exitoso, permitiendo realizar una verificación previa.
+1. **Doble cierre (Double Close)**: Se llama a `fclose` sobre el mismo puntero
+   `archivo` dos veces consecutivas (una dentro de `liberar_recursos` y otra en
+   el `main`). Esto produce un comportamiento indefinido. En sistemas reales,
+   puede causar accesos inválidos de memoria o cerrar accidentalmente otro
+   archivo que haya sido abierto por el sistema en el mismo hilo y al que se le
+   haya asignado el mismo descriptor.
+2. **Puntero huérfano**: Tras el primer `fclose`, la variable `archivo` sigue
+   apuntando a la dirección de memoria de la estructura `FILE` que ya fue
+   liberada.
+Para solucionarlo, se debe evitar el doble llamado o asignar `archivo = NULL;`
+inmediatamente después de un cierre exitoso, permitiendo realizar una
+verificación previa.
+
 :::
+<!-- {solution} fclose-doble-cierre -->
 
 :::{exercise}
 :label: errores-stdout-vs-stderr
-Escribí una función en C llamada `registrar_log` que reciba un entero con el nivel de gravedad (`0` para información general, `1` para error crítico) y un mensaje. La función debe dirigir el mensaje al flujo estándar adecuado (`stdout` o `stderr`) según corresponda. Explicá cómo permite esto redireccionar los errores por separado en la terminal.
+Escribí una función en C llamada `registrar_log` que reciba un entero con el
+nivel de gravedad (`0` para información general, `1` para error crítico) y un
+mensaje. La función debe dirigir el mensaje al flujo estándar adecuado (`stdout`
+o `stderr`) según corresponda. Explicá cómo permite esto redireccionar los
+errores por separado en la terminal.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} errores-stdout-vs-stderr
 :class: dropdown
 La función implementa la separación de flujos estándar:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 void registrar_log(int gravedad, const char *mensaje) {
@@ -1498,22 +1857,38 @@ void registrar_log(int gravedad, const char *mensaje) {
         fprintf(stderr, "[ERROR] %s\n", mensaje);
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 Explicación:
-En los sistemas operativos modernos, podés redirigir la salida estándar del programa a un archivo usando `./programa > salida.txt`. Al usar `stderr` para los errores, estos no se mezclan en `salida.txt` y se siguen visualizando directamente en la terminal. También podés redirigir únicamente los errores a un archivo de log específico mediante `./programa 2> errores.log`.
+En los sistemas operativos modernos, podés redirigir la salida estándar del
+programa a un archivo usando `./programa > salida.txt`. Al usar `stderr` para
+los errores, estos no se mezclan en `salida.txt` y se siguen visualizando
+directamente en la terminal. También podés redirigir únicamente los errores a un
+archivo de log específico mediante `./programa 2> errores.log`.
+
 :::
+<!-- {solution} errores-stdout-vs-stderr -->
 
 :::{exercise}
 :label: errores-errno-strerror
-Escribí un fragmento de código que intente abrir un archivo de configuración en un directorio inexistente (lo cual forzará un error). Al detectar que `fopen` retornó `NULL`, debés utilizar la variable global `errno` junto con `strerror` para imprimir en `stderr` un mensaje de error personalizado con la fecha del sistema simulada y la causa exacta.
+Escribí un fragmento de código que intente abrir un archivo de configuración en
+un directorio inexistente (lo cual forzará un error). Al detectar que `fopen`
+retornó `NULL`, debés utilizar la variable global `errno` junto con `strerror`
+para imprimir en `stderr` un mensaje de error personalizado con la fecha del
+sistema simulada y la causa exacta.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} errores-errno-strerror
 :class: dropdown
-El código requiere incluir los encabezados `<errno.h>` y `<string.h>` para realizar el formateo del error:
+El código requiere incluir los encabezados `<errno.h>` y `<string.h>` para
+realizar el formateo del error:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
@@ -1531,34 +1906,62 @@ int main(void) {
     fclose(conf);
     return EXIT_SUCCESS;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} errores-errno-strerror -->
 
 :::{exercise}
 :label: errores-perror-vs-strerror
-Analizá las diferencias de flexibilidad entre `perror` y `strerror`. Proponé un caso concreto en el que `perror` sea insuficiente y sea obligatorio emplear `strerror`.
+Analizá las diferencias de flexibilidad entre `perror` y `strerror`. Proponé un
+caso concreto en el que `perror` sea insuficiente y sea obligatorio emplear
+`strerror`.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} errores-perror-vs-strerror
 :class: dropdown
-`perror` es una función simple y rígida: siempre imprime el mensaje provisto, seguido de `: ` y el error del sistema en el flujo `stderr`.
+`perror` es una función simple y rígida: siempre imprime el mensaje provisto,
+seguido de `: ` y el error del sistema en el flujo `stderr`.
 
-`strerror` es una función de conversión: recibe el código de error y devuelve una cadena de caracteres (`char *`). Esto la hace mucho más flexible por tres motivos:
-1. **Destino alternativo**: Si querés registrar el error en un archivo físico en lugar de mostrarlo por consola (por ejemplo, escribiéndolo en un archivo de log con `fprintf(archivo_log, "%s", strerror(errno))`), `perror` no te sirve porque escribe directamente en `stderr`.
-2. **Formateo**: Si necesitás incrustar el mensaje en medio de una frase compleja (ej: `"[Transaccion fallida] - Codigo: %d - Detalle: %s\n"`), `strerror` es obligatoria.
-3. **Internacionalización**: Si tu software debe mostrar los errores adaptados a diferentes lenguajes o a una interfaz gráfica de usuario (GUI), debés usar `strerror` para tomar el texto y pasárselo a la ventana de tu aplicación.
+`strerror` es una función de conversión: recibe el código de error y devuelve
+una cadena de caracteres (`char *`). Esto la hace mucho más flexible por tres
+motivos:
+1. **Destino alternativo**: Si querés registrar el error en un archivo físico en
+   lugar de mostrarlo por consola (por ejemplo, escribiéndolo en un archivo de
+   log con `fprintf(archivo_log, "%s", strerror(errno))`), `perror` no te sirve
+   porque escribe directamente en `stderr`.
+2. **Formateo**: Si necesitás incrustar el mensaje en medio de una frase
+   compleja (ej: `"[Transaccion fallida] - Codigo: %d - Detalle: %s\n"`),
+   `strerror` es obligatoria.
+3. **Internacionalización**: Si tu software debe mostrar los errores adaptados a
+   diferentes lenguajes o a una interfaz gráfica de usuario (GUI), debés usar
+   `strerror` para tomar el texto y pasárselo a la ventana de tu aplicación.
+
 :::
+<!-- {solution} errores-perror-vs-strerror -->
 
 :::{exercise}
 :label: posicionamiento-tamano-bytes
-Escribí una función en C llamada `obtener_tamano` que reciba el nombre de un archivo, determine su tamaño exacto en bytes utilizando `fseek` y `ftell` sin alterar su contenido, y devuelva ese tamaño como un valor de tipo `long`. Asegurate de controlar todos los posibles errores de posicionamiento y de dejar el archivo debidamente cerrado.
+Escribí una función en C llamada `obtener_tamano` que reciba el nombre de un
+archivo, determine su tamaño exacto en bytes utilizando `fseek` y `ftell` sin
+alterar su contenido, y devuelva ese tamaño como un valor de tipo `long`.
+Asegurate de controlar todos los posibles errores de posicionamiento y de dejar
+el archivo debidamente cerrado.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} posicionamiento-tamano-bytes
 :class: dropdown
-El proceso requiere posicionar el cursor al final del archivo para consultar la distancia en bytes al origen:
+El proceso requiere posicionar el cursor al final del archivo para consultar la
+distancia en bytes al origen:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -1587,19 +1990,31 @@ long obtener_tamano(const char *nombre_archivo) {
     fclose(archivo);
     return tamano;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} posicionamiento-tamano-bytes -->
 
 :::{exercise}
 :label: posicionamiento-reemplazo-caracter
-Escribí un programa en C que abra un archivo llamado `"datos.txt"` en modo lectura/escritura (sin borrar su contenido previo). Si el archivo tiene al menos 5 bytes, debés posicionar el cursor sobre el quinto byte (índice 4 en base 0) y reemplazar dicho carácter por una `'X'`. Recordá validar el resultado de cada llamada.
+Escribí un programa en C que abra un archivo llamado `"datos.txt"` en modo
+lectura/escritura (sin borrar su contenido previo). Si el archivo tiene al menos
+5 bytes, debés posicionar el cursor sobre el quinto byte (índice 4 en base 0) y
+reemplazar dicho carácter por una `'X'`. Recordá validar el resultado de cada
+llamada.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} posicionamiento-reemplazo-caracter
 :class: dropdown
-El programa debe utilizar el modo `"r+"` que permite lectura y escritura simultáneas sin truncar el archivo a cero bytes:
+El programa debe utilizar el modo `"r+"` que permite lectura y escritura
+simultáneas sin truncar el archivo a cero bytes:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -1632,29 +2047,57 @@ int main(void) {
 
     return EXIT_SUCCESS;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} posicionamiento-reemplazo-caracter -->
 
 :::{exercise}
 :label: posicionamiento-rewind-vs-fseek
-Explicá de forma detallada la diferencia de comportamiento entre llamar a `rewind(stream)` y ejecutar la instrucción `fseek(stream, 0L, SEEK_SET)`. ¿En qué circunstancias la llamada a `rewind` simplifica el control de errores?
+Explicá de forma detallada la diferencia de comportamiento entre llamar a
+`rewind(stream)` y ejecutar la instrucción `fseek(stream, 0L, SEEK_SET)`. ¿En
+qué circunstancias la llamada a `rewind` simplifica el control de errores?
+
 :::
+<!-- {exercise} -->
 
 :::{solution} posicionamiento-rewind-vs-fseek
 :class: dropdown
-Aunque ambas operaciones mueven el indicador de posición (el cursor) de vuelta al principio del archivo (byte 0), existen diferencias fundamentales:
+Aunque ambas operaciones mueven el indicador de posición (el cursor) de vuelta
+al principio del archivo (byte 0), existen diferencias fundamentales:
 
-1. **Indicador de error**: `rewind` borra automáticamente el indicador de error del flujo (como si invocaras `clearerr`), mientras que `fseek` no lo altera. Si el archivo tenía activo un flag de error de lectura previo, `fseek` mantendrá ese flag encendido, impidiendo operaciones futuras, mientras que `rewind` lo restablecerá a un estado limpio.
-2. **Valor de retorno**: `fseek` devuelve un entero (`0` si tiene éxito o un valor distinto en caso de error), lo que te obliga a validar la llamada. En cambio, `rewind` no devuelve ningún valor (`void`).
-3. **Simplicidad**: `rewind` simplifica el control de errores al agrupar la limpieza de flags y el posicionamiento en un solo paso, eliminando la necesidad de escribir una cláusula condicional `if (fseek(...) != 0)`.
+1. **Indicador de error**: `rewind` borra automáticamente el indicador de error
+   del flujo (como si invocaras `clearerr`), mientras que `fseek` no lo altera.
+   Si el archivo tenía activo un flag de error de lectura previo, `fseek`
+   mantendrá ese flag encendido, impidiendo operaciones futuras, mientras que
+   `rewind` lo restablecerá a un estado limpio.
+2. **Valor de retorno**: `fseek` devuelve un entero (`0` si tiene éxito o un
+   valor distinto en caso de error), lo que te obliga a validar la llamada. En
+   cambio, `rewind` no devuelve ningún valor (`void`).
+3. **Simplicidad**: `rewind` simplifica el control de errores al agrupar la
+   limpieza de flags y el posicionamiento en un solo paso, eliminando la
+   necesidad de escribir una cláusula condicional `if (fseek(...) != 0)`.
+
 :::
+<!-- {solution} posicionamiento-rewind-vs-fseek -->
 
 ## Glosario
 
-- **Stream (Flujo)**: Abstracción que representa un canal de comunicación para E/S.
-- **FILE**: Estructura de C que encapsula la información de control de un stream.
-- **EOF (End of File)**: Constante que representa el fin de un archivo.
-- **Buffer**: Área de almacenamiento temporal para optimizar transferencias de E/S.
+:::{glossary}
+Stream (Flujo)
+: Abstracción que representa un canal de comunicación para E/S.
+
+FILE
+: Estructura de C que encapsula la información de control de un stream.
+
+EOF (End of File)
+: Constante que representa el fin de un archivo.
+
+Buffer
+: Área de almacenamiento temporal para optimizar transferencias de E/S.
+:::
 
 ## Síntesis y Resumen
 
