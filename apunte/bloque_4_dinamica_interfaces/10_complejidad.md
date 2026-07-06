@@ -1373,7 +1373,7 @@ Dado que todos los pasos de verificación descritos se ejecutan en tiempo lineal
 
 ## Síntesis y Resumen
 
-(resumen)=
+(10_complejidad-resumen)=
 ### Resumen
 
 
@@ -1424,7 +1424,7 @@ El análisis de complejidad no reemplaza la medición empírica, pero proporcion
 ### Referencias y Lecturas de Complejidad Algorítmica
 
 
-(textos-fundamentales)=
+(10_complejidad-textos-fundamentales)=
 #### Textos Fundamentales
 
 - **{cite:t}`cormen_introduction_2009`**. Capítulos 3 y 4: Growth of Functions y Divide-and-Conquer.
@@ -1440,7 +1440,7 @@ El análisis de complejidad no reemplaza la medición empírica, pero proporcion
 
 - **{cite:t}`bryant_computer_2015`**. Capítulo 6: La jerarquía de memoria y su impacto directo en la complejidad real del hardware.
 
-(recursos-en-linea)=
+(10_complejidad-recursos-en-linea)=
 #### Recursos en Línea
 
 - **MIT OpenCourseWare**: 6.006 Introduction to Algorithms

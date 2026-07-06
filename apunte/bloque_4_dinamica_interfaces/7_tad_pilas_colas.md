@@ -828,7 +828,7 @@ Un deque puede simular tanto una pila (usando solo un extremo) como una cola (us
 
 
 
-(comparacion-de-implementaciones)=
+(7_tad_pilas_colas-comparacion-de-implementaciones)=
 ### Comparación de Implementaciones
 
 
@@ -1671,7 +1671,7 @@ Dado que cada índice del arreglo se inserta y extrae del deque como máximo una
 
 ## Síntesis y Resumen
 
-(resumen)=
+(7_tad_pilas_colas-resumen)=
 ### Resumen
 
 

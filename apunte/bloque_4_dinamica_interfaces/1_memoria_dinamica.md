@@ -1101,7 +1101,7 @@ funcion:
 
 
 
-(conexion-con-el-siguiente-tema)=
+(1_memoria_dinamica-conexion-con-el-siguiente-tema)=
 ### Conexión con el Siguiente Tema
 
 
@@ -1687,7 +1687,7 @@ void establecer_elemento(int *arreglo, size_t tamano, size_t indice, int valor)
 
 
 
-(conceptos-clave)=
+(1_memoria_dinamica-conceptos-clave)=
 ### Conceptos Clave
 
 

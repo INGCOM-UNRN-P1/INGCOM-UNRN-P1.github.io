@@ -62,7 +62,7 @@ organización es fundamental para el acceso eficiente en tiempo constante O(1).
 Esta contigüidad es lo que permite el acceso indexado (`mi_arreglo[2]`) de forma
 casi instantánea.
 
-(declaracion-e-inicializacion)=
+(2_secuencias-declaracion-e-inicializacion)=
 #### Declaración e Inicialización
 
 La declaración de un arreglo sigue la sintaxis `tipo identificador[cantidad];`.
@@ -1079,7 +1079,7 @@ moderno. Ignorar la información sobre el tamaño del búfer fue una decisión
 comprensible en su momento, pero ha sido la causa de innumerables
 vulnerabilidades.
 
-(conexion-con-el-siguiente-tema)=
+(2_secuencias-conexion-con-el-siguiente-tema)=
 ### Conexión con el Siguiente Tema
 
 Los arreglos que estudiamos tienen una limitación crítica: **tamaño fijo
@@ -1111,7 +1111,7 @@ memoria se almacenan estos 5 enteros? ¿Cómo accede la CPU a `arr[3]`? La
 respuesta requiere entender direcciones de memoria, lo que nos lleva
 naturalmente a los punteros.
 
-(textos-fundamentales)=
+(2_secuencias-textos-fundamentales)=
 #### Textos Fundamentales
 
 - {cite:t}`kernighan_c_2014`. Capítulo 5: Pointers and Arrays. La relación
@@ -1142,7 +1142,7 @@ naturalmente a los punteros.
 - {cite:t}`seacord_secure_2013`. Capítulo 2: Strings. Vulnerabilidades comunes
   con cadenas.
 
-(recursos-en-linea)=
+(2_secuencias-recursos-en-linea)=
 #### Recursos en Línea
 
 - **C String Handling** - https://en.cppreference.com/w/c/string
@@ -1154,7 +1154,7 @@ naturalmente a los punteros.
 - **Big-O Cheat Sheet** - https://www.bigocheatsheet.com/
   - Complejidades de operaciones comunes sobre arreglos.
 
-(herramientas)=
+(2_secuencias-herramientas)=
 #### Herramientas
 
 - **Valgrind** - https://valgrind.org/
@@ -1164,7 +1164,7 @@ naturalmente a los punteros.
   - Instrumentación de compilador para detectar errores de memoria.
   - Uso: `gcc -fsanitize=address programa.c`
 
-(ejercicios-y-practica)=
+(2_secuencias-ejercicios-y-practica)=
 #### Ejercicios y Práctica
 
 - **LeetCode - Array Problems** - https://leetcode.com/tag/array/

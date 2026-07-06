@@ -470,7 +470,7 @@ proporciona tipos con tamaños fijos y explícitos en bits, como `int8_t`,
 :::
 <!-- {important} Tamaños dependientes de la arquitectura -->
 
-(declaracion-e-inicializacion)=
+(2_gradual-declaracion-e-inicializacion)=
 #### Declaración e Inicialización
 
 Toda variable debe declararse antes de ser usada, indicando su tipo y su nombre:

@@ -1589,7 +1589,7 @@ los alias definidos con `typedef` de acuerdo a la buena práctica del proyecto.
 
 ---
 
-(textos-fundamentales)=
+(5_estructuras-textos-fundamentales)=
 #### Textos Fundamentales
 
 - {cite:t}`kernighan_c_2014`. Sección 2.3: Constants y Apéndice A8.4:
@@ -1640,7 +1640,7 @@ los alias definidos con `typedef` de acuerdo a la buena práctica del proyecto.
   - Rule 10.3: Value of enumeration constant shall be used only in appropriate
     context.
 
-(recursos-en-linea)=
+(5_estructuras-recursos-en-linea)=
 #### Recursos en Línea
 
 - **C Enumerations** - https://en.cppreference.com/w/c/language/enum
@@ -1649,7 +1649,7 @@ los alias definidos con `typedef` de acuerdo a la buena práctica del proyecto.
 - **Enum Best Practices** - https://stackoverflow.com/questions/tagged/enums+c
   - Discusiones de la comunidad sobre patrones y anti-patrones.
 
-(herramientas)=
+(5_estructuras-herramientas)=
 #### Herramientas
 
 - **Doxygen** - https://www.doxygen.nl/manual/commands.html#cmddef

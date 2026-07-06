@@ -1160,7 +1160,7 @@ bool tiene_error_multiples(const errores_multiples_t* errores, int numero_error)
 }
 ```
 
-(buenas-practicas)=
+(binarios_bitwise-buenas-practicas)=
 ## Buenas Prácticas
 
 (1-documentar-los-codigos)=
@@ -1321,7 +1321,7 @@ resultado_operacion_t realizar_operacion(const datos_t* entrada) {
 }
 ```
 
-(resumen)=
+(binarios_bitwise-resumen)=
 ## Resumen
 
 **Ventajas de códigos de error con bitmasks:**

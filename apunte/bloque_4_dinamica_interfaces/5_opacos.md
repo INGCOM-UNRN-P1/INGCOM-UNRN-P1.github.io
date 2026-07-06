@@ -655,7 +655,7 @@ Todos estos ejemplos siguen el mismo patrón de puntero opaco.
 
 ---
 
-(buenas-practicas)=
+(5_opacos-buenas-practicas)=
 #### Buenas Prácticas
 
 ##### 1. Convenciones de Nombres
@@ -1265,7 +1265,7 @@ Para garantizar la integridad del TAD, esta función debe invocarse en los sigui
 
 ## Síntesis y Resumen
 
-(resumen)=
+(5_opacos-resumen)=
 ### Resumen
 
 
@@ -1325,7 +1325,7 @@ Dominar los punteros opacos es esencial para escribir código C profesional, man
 ### Referencias y Lecturas de Tipos Opacos
 
 
-(textos-fundamentales)=
+(5_opacos-textos-fundamentales)=
 #### Textos Fundamentales
 
 - {cite:t}`hanson_c_1996`. *C Interfaces and Implementations*. Capítulo 1: Interfaces. Tratamiento exhaustivo de punteros opacos y diseño de interfaces.

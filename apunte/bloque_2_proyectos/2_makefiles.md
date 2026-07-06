@@ -109,7 +109,7 @@ carpeta.
 ## Ejercicios de Autoevaluación
 
 :::{exercise}
-:label: ej-make-incremental
+:label: 2_makefiles-ej-make-incremental
 Describí el criterio físico que utiliza la herramienta `make` para decidir si es
 necesario reconstruir un archivo objeto (por ejemplo, `funciones.o`) a partir de
 su archivo fuente `funciones.c`.
@@ -133,7 +133,7 @@ sus dependencias, `make` omite su compilación.
 <!-- {solution} ej-make-incremental -->
 
 :::{exercise}
-:label: ej-make-clean-phony
+:label: 2_makefiles-ej-make-clean-phony
 Explicá detalladamente para qué sirve la regla `.PHONY: clean` en un Makefile y
 qué problema se produciría si se omitiera esta declaración y existiera en el
 directorio un archivo físico llamado `clean`.
@@ -157,7 +157,7 @@ comandos para limpiar el proyecto.
 <!-- {solution} ej-make-clean-phony -->
 
 :::{exercise}
-:label: ej-make-escritura
+:label: 2_makefiles-ej-make-escritura
 Escribí una regla de Makefile para compilar el archivo objeto `usuario.o` a
 partir de sus dependencias `usuario.c` y `usuario.h`. Utilizá variables para el
 compilador (`$(CC)`) y banderas (`$(CFLAGS)`), recordando el requisito de

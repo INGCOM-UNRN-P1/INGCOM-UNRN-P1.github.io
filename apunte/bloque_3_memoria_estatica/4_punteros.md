@@ -1417,7 +1417,7 @@ memoria requiere disciplina y atención a los detalles.
 Cuando te sientas cómodo con los conceptos de este capítulo, estás listo para
 dar el próximo paso hacia la memoria dinámica.
 
-(conexion-con-el-siguiente-tema)=
+(4_punteros-conexion-con-el-siguiente-tema)=
 ### Conexión con el Siguiente Tema
 
 Los punteros que estudiamos operan sobre memoria **estática** (conocida en
@@ -1450,7 +1450,7 @@ programa probablemente falle con stack overflow. ¿Por qué? ¿Cómo solicitamos
 memoria para estructuras arbitrariamente grandes? La respuesta está en la
 memoria dinámica y el heap.
 
-(textos-fundamentales)=
+(4_punteros-textos-fundamentales)=
 #### Textos Fundamentales
 
 - {cite:t}`kernighan_c_2014`. Capítulo 5: Pointers and Arrays. El tratamiento
@@ -1479,7 +1479,7 @@ memoria dinámica y el heap.
 - {cite:t}`van_der_linden_expert_1994`. Capítulo 4: The Shocking Truth: C Arrays
   and Pointers Are NOT the Same!
 
-(recursos-en-linea)=
+(4_punteros-recursos-en-linea)=
 #### Recursos en Línea
 
 - **C Pointer Tutorial** - https://www.cprogramming.com/tutorial/c/lesson6.html
@@ -1515,7 +1515,7 @@ memoria dinámica y el heap.
   - Video:
     https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/
 
-(ejercicios-y-practica)=
+(4_punteros-ejercicios-y-practica)=
 #### Ejercicios y Práctica
 
 - **C Puzzles** - http://www.gowrikumar.com/c/

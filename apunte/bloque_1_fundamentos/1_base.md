@@ -1024,7 +1024,7 @@ forma más explícita.
 - {cite:t}`bentley_programming_1999`. Columnas sobre diseño de algoritmos y
   resolución de problemas.
 
-(recursos-en-linea)=
+(1_base-recursos-en-linea)=
 ### Recursos en Línea
 
 - **Khan Academy - Algorithms** -

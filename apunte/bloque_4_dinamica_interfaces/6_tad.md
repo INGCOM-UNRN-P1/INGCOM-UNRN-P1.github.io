@@ -369,7 +369,7 @@ La misma interfaz de secuencia puede implementarse con arreglos (memoria contigu
 El código que usa una secuencia no necesita saber si está implementada con arreglos o listas enlazadas. Esto permite cambiar la implementación sin modificar el código cliente, eligiendo la mejor opción según las necesidades de rendimiento.
 :::
 
-(comparacion-de-implementaciones)=
+(6_tad-comparacion-de-implementaciones)=
 #### Comparación de Implementaciones
 
 | Aspecto | Arreglo | Lista Enlazada |

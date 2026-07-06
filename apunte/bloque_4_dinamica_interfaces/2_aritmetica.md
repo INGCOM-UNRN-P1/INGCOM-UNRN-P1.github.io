@@ -1176,7 +1176,7 @@ int (*matriz)[COLUMNAS] = malloc(sizeof(int) * COLUMNAS * filas);
 ---
 
 
-(conexion-con-el-siguiente-tema)=
+(2_aritmetica-conexion-con-el-siguiente-tema)=
 ### Conexión con el Siguiente Tema
 
 
@@ -1502,7 +1502,7 @@ int obtener_celda(const int *matriz, int columnas, int f, int c) {
 
 ## Síntesis y Resumen
 
-(conceptos-clave)=
+(2_aritmetica-conceptos-clave)=
 ### Conceptos Clave
 
 
