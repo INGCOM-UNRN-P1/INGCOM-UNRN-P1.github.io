@@ -768,7 +768,7 @@ que almacena un puntero, el tamaño actual y la capacidad máxima de
 almacenamiento. Cuando el arreglo alcanza su capacidad límite, duplicamos su
 tamaño utilizando `realloc`:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 typedef struct {
     int *datos;
@@ -805,8 +805,7 @@ de carga, comenzando con una capacidad inicial de 1:
 Para $n$ inserciones (donde $n$ es una potencia de 2), el costo total acumulado
 es la suma de los accesos normales y los costos de copia por redimensionamiento:
 $$
-\text{Costo Total} = n + \sum_{j=0}^{\log_2 n} 2^j = n + (2^{\log_2 n + 1} - 1)
-= n + 2n - 1 < 3n
+\text{Costo Total} = n + \sum_{j=0}^{\log_2 n} 2^j = n + (2^{\log_2 n + 1} - 1) = n + 2n - 1 < 3n
 $$
 
 **Costo amortizado**: Al dividir el costo total por la cantidad de operaciones,
@@ -847,20 +846,20 @@ $t_0 = 0$ y $c_0 = 0$, por lo que $\Phi_0 = 0$.
 
 Analicemos los dos escenarios posibles para la $i$-ésima inserción:
 
-####### Escenario 1: Inserción sin Redimensionamiento
+**Escenario 1**: Inserción sin Redimensionamiento
+
 El arreglo tiene espacio libre ($t_{i-1} < c_{i-1}$).
 1. El **costo real** es constante: $c_i = 1$ (copiar el elemento en el arreglo).
 2. El tamaño aumenta en uno ($t_i = t_{i-1} + 1$), y la capacidad permanece
    constante ($c_i = c_{i-1}$).
 3. El cambio en el potencial es:
-   $$\Delta\Phi_i = \Phi_i - \Phi_{i-1} = (2 \cdot t_i - c_i) - (2 \cdot t_{i-1}
-   - c_{i-1})$$
-   $$\Delta\Phi_i = (2(t_{i-1} + 1) - c_{i-1}) - (2 \cdot t_{i-1} - c_{i-1}) =
-   2$$
+   $$\Delta\Phi_i = \Phi_i - \Phi_{i-1} = (2 \cdot t_i - c_i) - (2 \cdot t_{i-1} - c_{i-1})$$
+   $$\Delta\Phi_i = (2(t_{i-1} + 1) - c_{i-1}) - (2 \cdot t_{i-1} - c_{i-1}) = 2$$
 4. El **costo amortizado** calculado es:
    $$\hat{c}_i = c_i + \Delta\Phi_i = 1 + 2 = 3$$
 
-####### Escenario 2: Inserción con Redimensionamiento
+**Escenario 2**: Inserción con Redimensionamiento
+
 El arreglo está lleno ($t_{i-1} = c_{i-1}$). Para insertar, se debe duplicar la
 capacidad: $c_i = 2 \cdot c_{i-1}$.
 1. El **costo real** de esta inserción implica alocar nueva memoria y copiar
@@ -868,8 +867,7 @@ capacidad: $c_i = 2 \cdot c_{i-1}$.
 2. El tamaño aumenta en uno ($t_i = t_{i-1} + 1$), y la capacidad se duplica
    ($c_i = 2 \cdot t_{i-1}$).
 3. Calculamos la variación del potencial $\Delta\Phi_i$:
-   $$\Phi_{i-1} = 2 \cdot t_{i-1} - c_{i-1} = 2 \cdot t_{i-1} - t_{i-1} =
-   t_{i-1}$$
+   $$\Phi_{i-1} = 2 \cdot t_{i-1} - c_{i-1} = 2 \cdot t_{i-1} - t_{i-1} = t_{i-1}$$
    $$\Phi_i = 2 \cdot t_i - c_i = 2(t_{i-1} + 1) - 2 \cdot t_{i-1} = 2$$
    $$\Delta\Phi_i = \Phi_i - \Phi_{i-1} = 2 - t_{i-1}$$
 4. El **costo amortizado** calculado es:
@@ -1003,9 +1001,7 @@ caso.
 6. Demostramos la cota inferior de $\log_2(n!)$ expandiendo la sumatoria y
    acotándola inferiormente desde su término medio:
    $$
-   \log_2(n!) = \sum_{i=1}^n \log_2 i \geq \sum_{i=n/2}^n \log_2 i \geq
-   \sum_{i=n/2}^n \log_2(n/2) = \frac{n}{2} \log_2(n/2) = \frac{n}{2} (\log_2 n
-   - 1) \in \Omega(n \log n)
+   \log_2(n!) = \sum_{i=1}^n \log_2 i \geq \sum_{i=n/2}^n \log_2 i \geq \sum_{i=n/2}^n \log_2(n/2) = \frac{n}{2} \log_2(n/2) = \frac{n}{2} (\log_2 n - 1) \in \Omega(n \log n)
    $$
 
 **Conclusión**: Cualquier algoritmo basado en comparaciones requiere al menos
@@ -1143,16 +1139,6 @@ Frente a la intratabilidad de los problemas NP-Completos, en el desarrollo
 práctico de software se emplean algoritmos de aproximación, heurísticas o
 restricciones del dominio para hallar soluciones aceptables en tiempos
 razonables, sabiendo que una solución óptima general y rápida no es viable.
-
-(ejercicios-de-clases-de-complejidad)=
-#### Ejercicios de Clases de Complejidad
-
-
-
-
-
-
-
 
 (ejemplos-detallados-de-analisis)=
 ### Ejemplos Detallados de Análisis
