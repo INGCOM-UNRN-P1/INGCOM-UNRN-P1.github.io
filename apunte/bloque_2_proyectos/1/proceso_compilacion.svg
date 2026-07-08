@@ -1,80 +1,108 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 500">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="700" height="520" viewBox="0 0 700 520" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <style>
-      .file-box { fill: #f9f; stroke: #333; stroke-width: 2; }
-      .exec-box { fill: #ccf; stroke: #333; stroke-width: 2; }
-      .process-box { fill: #fff; stroke: #333; stroke-width: 2; rx: 10; }
-      .text { font-family: Arial, sans-serif; font-size: 14px; text-anchor: middle; }
-      .arrow { stroke: #333; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .title { font-family: 'Fabrikat', Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #192437; text-anchor: middle; }
+      .subtitle { font-family: 'Lato', Arial, sans-serif; font-size: 13px; fill: #555; text-anchor: middle; }
+      .box-file { fill: #f8f9fa; stroke: #192437; stroke-width: 1.5; rx: 4; }
+      .box-process { fill: #fff0f2; stroke: #eb2141; stroke-width: 2; rx: 6; }
+      .text-title { font-family: 'Fabrikat', Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #192437; }
+      .text-process { font-family: 'Fabrikat', Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #eb2141; text-anchor: middle; }
+      .text-body { font-family: 'Lato', Arial, sans-serif; font-size: 11px; fill: #333; }
+      .text-code { font-family: 'Share Tech Mono', monospace; font-size: 11px; fill: #192437; }
+      .arrow { fill: none; stroke: #eb2141; stroke-width: 2; marker-end: url(#arrowhead); }
+      .arrow-dashed { fill: none; stroke: #192437; stroke-width: 1.5; stroke-dasharray: 4,4; marker-end: url(#arrowhead-blue); }
     </style>
-    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#333" />
+    <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#eb2141"/>
+    </marker>
+    <marker id="arrowhead-blue" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#192437"/>
     </marker>
   </defs>
+
+  <!-- Fondo Blanco -->
+  <rect width="100%" height="100%" fill="#ffffff" />
+
+  <!-- Títulos -->
+  <text x="350" y="35" class="title">Flujo Físico de Compilación Separada</text>
+  <text x="350" y="55" class="subtitle">Etapas de transformación de código fuente a binario ejecutable en C</text>
+
+  <!-- SECCIÓN 1: Código Fuente -->
+  <g transform="translate(30, 80)">
+    <rect width="120" height="90" class="box-file" />
+    <text x="15" y="20" class="text-title">main.c / modulo.c</text>
+    <text x="15" y="40" class="text-body">Código fuente</text>
+    <text x="15" y="60" class="text-code">#include "modulo.h"</text>
+    <text x="15" y="75" class="text-code">int main() { ... }</text>
+  </g>
+
+  <g transform="translate(180, 80)">
+    <rect width="120" height="90" class="box-file" />
+    <text x="15" y="20" class="text-title">modulo.h</text>
+    <text x="15" y="40" class="text-body">Cabecera pública</text>
+    <text x="15" y="60" class="text-code">#define MAX 100</text>
+    <text x="15" y="75" class="text-code">void func();</text>
+  </g>
+
+  <!-- Flujos hacia Preprocesador -->
+  <path d="M 90,170 C 90,210 200,210 200,230" class="arrow-dashed" />
+  <path d="M 240,170 C 240,210 240,210 240,230" class="arrow-dashed" />
+
+  <!-- ETAPA 1: Preprocesador -->
+  <g transform="translate(140, 230)">
+    <rect width="200" height="50" class="box-process" />
+    <text x="100" y="30" class="text-process">1. Preprocesador (gcc -E)</text>
+  </g>
+  <text x="350" y="260" class="text-body">Expande macros, directivas e incluye cabeceras</text>
+
+  <!-- Flujo a Código Preprocesado -->
+  <path d="M 240,280 L 240,310" class="arrow" />
+
+  <!-- ETAPA 2: Compilador -->
+  <g transform="translate(140, 310)">
+    <rect width="200" height="50" class="box-process" />
+    <text x="100" y="30" class="text-process">2. Compilador (gcc -c)</text>
+  </g>
+  <text x="350" y="340" class="text-body">Traduce código C a instrucciones ensamblador/binario</text>
+
+  <!-- Flujo a Unidades Objeto -->
+  <path d="M 240,360 L 240,390" class="arrow" />
+
+  <!-- SECCIÓN 2: Archivos Objeto (.o) -->
+  <g transform="translate(140, 390)">
+    <rect width="200" height="70" class="box-file" />
+    <text x="15" y="20" class="text-title">main.o / modulo.o</text>
+    <text x="15" y="40" class="text-body"> Unidades de traducción (.o)</text>
+    <text x="15" y="58" class="text-code">Símbolos no resueltos</text>
+  </g>
+
+  <!-- Flujo a Linker -->
+  <path d="M 240,460 L 240,490" class="arrow" />
   
-  <!-- Archivo fuente -->
-  <rect class="file-box" x="250" y="10" width="100" height="40" />
-  <text class="text" x="300" y="35">programa.c</text>
+  <!-- ETAPA 3: Enlazador (Linker) -->
+  <g transform="translate(140, 490)">
+    <rect width="200" height="50" class="box-process" />
+    <text x="100" y="30" class="text-process">3. Enlazador (Linker - ld)</text>
+  </g>
+
+  <!-- Bibliotecas externas hacia Linker -->
+  <g transform="translate(420, 440)">
+    <rect width="140" height="50" class="box-file" />
+    <text x="15" y="20" class="text-title">libc.a / libm.a</text>
+    <text x="15" y="38" class="text-body">Bibliotecas estándar</text>
+  </g>
+  <path d="M 490,490 C 490,515 360,515 350,515" class="arrow-dashed" />
+
+  <!-- Flujo de Salida al binario ejecutable final -->
+  <path d="M 140,515 L 90,515 C 60,515 60,420 60,420" class="arrow" />
   
-  <!-- Arrow -->
-  <path class="arrow" d="M 300 50 L 300 80" />
-  
-  <!-- Preprocesador -->
-  <rect class="process-box" x="220" y="80" width="160" height="50" />
-  <text class="text" x="300" y="110">1. Preprocesador</text>
-  
-  <!-- Arrow -->
-  <path class="arrow" d="M 300 130 L 300 160" />
-  
-  <!-- Archivo preprocesado -->
-  <rect class="file-box" x="250" y="160" width="100" height="40" />
-  <text class="text" x="300" y="185">programa.i</text>
-  
-  <!-- Arrow -->
-  <path class="arrow" d="M 300 200 L 300 230" />
-  
-  <!-- Compilador -->
-  <rect class="process-box" x="220" y="230" width="160" height="50" />
-  <text class="text" x="300" y="260">2. Compilador</text>
-  
-  <!-- Arrow -->
-  <path class="arrow" d="M 300 280 L 300 310" />
-  
-  <!-- Archivo ensamblador -->
-  <rect class="file-box" x="250" y="310" width="100" height="40" />
-  <text class="text" x="300" y="335">programa.s</text>
-  
-  <!-- Arrow -->
-  <path class="arrow" d="M 300 350 L 300 380" />
-  
-  <!-- Ensamblador -->
-  <rect class="process-box" x="220" y="380" width="160" height="50" />
-  <text class="text" x="300" y="410">3. Ensamblador</text>
-  
-  <!-- Arrow -->
-  <path class="arrow" d="M 300 430 L 300 460" />
-  
-  <!-- Archivo objeto -->
-  <rect class="file-box" x="250" y="460" width="100" height="40" />
-  <text class="text" x="300" y="485">programa.o</text>
-  
-  <!-- Arrow to linker column -->
-  <path class="arrow" d="M 350 480 L 420 480 L 420 350" />
-  
-  <!-- Enlazador -->
-  <rect class="process-box" x="370" y="300" width="160" height="50" />
-  <text class="text" x="450" y="330">4. Enlazador</text>
-  
-  <!-- Arrow -->
-  <path class="arrow" d="M 450 300 L 450 270" />
-  
-  <!-- Ejecutable -->
-  <rect class="exec-box" x="400" y="220" width="100" height="50" />
-  <text class="text" x="450" y="250">mi_programa</text>
-  <text class="text" style="font-size: 11px;" x="450" y="265">(ejecutable)</text>
-  
-  <!-- Bibliotecas -->
-  <rect class="file-box" x="50" y="300" width="100" height="40" />
-  <text class="text" x="100" y="325">Bibliotecas</text>
-  <path class="arrow" d="M 150 320 L 370 325" />
+  <g transform="translate(10, 320)">
+    <rect width="100" height="90" fill="#e9ecef" stroke="#495057" stroke-width="2" rx="4" />
+    <text x="50" y="25" font-family="Fabrikat" font-size="12" font-weight="bold" fill="#495057" text-anchor="middle">Ejecutable</text>
+    <text x="50" y="45" class="text-code" text-anchor="middle">./programa</text>
+    <text x="50" y="65" class="text-body" text-anchor="middle">Binario listo</text>
+    <text x="50" y="80" class="text-body" text-anchor="middle">para ejecución</text>
+  </g>
+
 </svg>

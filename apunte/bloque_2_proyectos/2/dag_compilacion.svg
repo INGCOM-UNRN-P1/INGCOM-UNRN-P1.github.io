@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="650" height="420" viewBox="0 0 650 420" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: 'Fabrikat', Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #192437; text-anchor: middle; }
+      .subtitle { font-family: 'Lato', Arial, sans-serif; font-size: 13px; fill: #555; text-anchor: middle; }
+      .node-src { fill: #f8f9fa; stroke: #192437; stroke-width: 1.5; rx: 4; }
+      .node-obj { fill: #eef1f6; stroke: #192437; stroke-width: 1.5; rx: 4; }
+      .node-recomp { fill: #fff0f2; stroke: #eb2141; stroke-width: 2.5; rx: 4; }
+      .node-exe { fill: #e8f5e9; stroke: #2e7d32; stroke-width: 2; rx: 4; }
+      .label-title { font-family: 'Fabrikat', Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #192437; }
+      .label-title-active { font-family: 'Fabrikat', Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #eb2141; }
+      .label-time { font-family: 'Share Tech Mono', monospace; font-size: 11px; fill: #666; }
+      .label-time-active { font-family: 'Share Tech Mono', monospace; font-size: 11px; fill: #eb2141; font-weight: bold; }
+      .text-body { font-family: 'Lato', Arial, sans-serif; font-size: 11px; fill: #333; }
+      .arrow { fill: none; stroke: #192437; stroke-width: 1.5; marker-end: url(#arrowhead); }
+      .arrow-recomp { fill: none; stroke: #eb2141; stroke-width: 2; stroke-dasharray: 4,4; marker-end: url(#arrowhead-red); }
+    </style>
+    <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#192437"/>
+    </marker>
+    <marker id="arrowhead-red" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#eb2141"/>
+    </marker>
+  </defs>
+
+  <!-- Fondo Blanco -->
+  <rect width="100%" height="100%" fill="#ffffff" />
+
+  <!-- Título principal -->
+  <text x="325" y="30" class="title">Grafo Dirigido Acíclico (DAG) de Dependencias</text>
+  <text x="325" y="50" class="subtitle">Evaluación de marcas de tiempo físicas para la compilación incremental</text>
+
+  <!-- NIVEL 1: Archivos Fuente -->
+  <!-- main.c (Modificado recientemente) -->
+  <g transform="translate(50, 100)">
+    <rect width="130" height="70" class="node-recomp" />
+    <text x="15" y="25" class="label-title-active">main.c</text>
+    <text x="15" y="45" class="text-body">Modificado</text>
+    <text x="15" y="60" class="label-time-active">T = 14:30 (Nuevo)</text>
+  </g>
+
+  <!-- comun.h -->
+  <g transform="translate(260, 100)">
+    <rect width="130" height="70" class="node-src" />
+    <text x="15" y="25" class="label-title">comun.h</text>
+    <text x="15" y="45" class="text-body">Cabecera</text>
+    <text x="15" y="60" class="label-time">T = 14:00</text>
+  </g>
+
+  <!-- comun.c -->
+  <g transform="translate(470, 100)">
+    <rect width="130" height="70" class="node-src" />
+    <text x="15" y="25" class="label-title">comun.c</text>
+    <text x="15" y="45" class="text-body">Sin cambios</text>
+    <text x="15" y="60" class="label-time">T = 14:00</text>
+  </g>
+
+  <!-- NIVEL 2: Archivos Objeto -->
+  <!-- main.o (Requiere Recompilación) -->
+  <g transform="translate(50, 240)">
+    <rect width="130" height="70" class="node-recomp" />
+    <text x="15" y="25" class="label-title-active">main.o</text>
+    <text x="15" y="45" class="text-body">Desactualizado</text>
+    <text x="15" y="60" class="label-time-active">T = 14:15 (Viejo)</text>
+  </g>
+
+  <!-- comun.o (Al día) -->
+  <g transform="translate(470, 240)">
+    <rect width="130" height="70" class="node-obj" />
+    <text x="15" y="25" class="label-title">comun.o</text>
+    <text x="15" y="45" class="text-body">Al día</text>
+    <text x="15" y="60" class="label-time">T = 14:15</text>
+  </g>
+
+  <!-- NIVEL 3: Ejecutable Final -->
+  <!-- programa -->
+  <g transform="translate(260, 340)">
+    <rect width="130" height="60" class="node-exe" />
+    <text x="15" y="22" class="label-title" fill="#2e7d32">programa</text>
+    <text x="15" y="38" class="text-body">Requiere Enlace</text>
+    <text x="15" y="52" class="label-time">T = 14:15 (Viejo)</text>
+  </g>
+
+  <!-- Flechas de Dependencia (DAG) -->
+  <!-- main.c -> main.o -->
+  <path d="M 115,170 L 115,240" class="arrow-recomp" />
+  <!-- comun.h -> main.o -->
+  <path d="M 290,170 C 250,195 180,205 145,240" class="arrow" />
+  <!-- comun.h -> comun.o -->
+  <path d="M 360,170 C 400,195 470,205 505,240" class="arrow" />
+  <!-- comun.c -> comun.o -->
+  <path d="M 535,170 L 535,240" class="arrow" />
+
+  <!-- Objetos hacia Ejecutable -->
+  <path d="M 115,310 C 115,335 220,355 260,365" class="arrow-recomp" />
+  <path d="M 535,310 C 535,335 430,355 390,365" class="arrow" />
+
+  <!-- Leyenda descriptiva -->
+  <text x="130" y="210" font-family="Lato" font-size="10" fill="#eb2141" text-anchor="middle">T(main.c) > T(main.o) ➔ Recompilar</text>
+  <text x="540" y="210" font-family="Lato" font-size="10" fill="#666" text-anchor="middle">T(comun.c) &lt; T(comun.o) ➔ Omitir</text>
+
+</svg>

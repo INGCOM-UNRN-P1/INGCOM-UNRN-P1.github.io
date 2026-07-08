@@ -54,15 +54,14 @@ proyectos que se componen de múltiples archivos fuente.
 El flujo de transformación desde tu código fuente hasta un programa ejecutable
 se puede visualizar de la siguiente manera:
 
-:::{figure} 1/proceso_compilacion.svg
-:name: fig-proceso-compilacion
-:width: 60%
 
-Proceso completo de compilación desde el código fuente hasta el ejecutable,
-mostrando las cuatro fases principales y los archivos intermedios generados.
+```{figure} 1/proceso_compilacion.svg
+:label: fig-proceso-compilacion
+:align: center
+:width: 90%
 
-:::
-<!-- {figure} 1/proceso_compilacion.svg -->
+Fases físicas del proceso de compilación separada. Se muestra la transformación desde archivos fuente independientes `.c` y cabeceras `.h` hacia código objeto `.o` y su posterior unión en el binario ejecutable final por el Linker.
+```
 
 (fase-1-preprocesado-preprocessing)=
 #### Fase 1: Preprocesado (Preprocessing)
@@ -479,11 +478,13 @@ extern int errno;
 Para evitar errores de "redefinición" que ocurren cuando un mismo archivo de
 cabecera es incluido más de una vez en la misma unidad de compilación (archivo
 `.c`), se utilizan las "guardas de inclusión", una técnica exigida por la regla
-de estilo {ref}`0x300Fh`.
+de estilo {ref}`0x5003h`.
 
-El problema surge en escenarios como este: `main.c` incluye a `a.h` y `b.h`,
-pero a su vez `a.h` también incluye a `b.h`. Sin una guarda, el contenido de
-`b.h` se insertaría dos veces en `main.c`, causando un error.
+:::{warning} Prohibición de Definiciones en Cabeceras
+
+El archivo de cabecera `.h` actúa como un **contrato de interfaz pública** y solo debe contener declaraciones (firmas de funciones, prototipos, macros y definiciones de tipos). Está estrictamente prohibido definir variables (por ejemplo, `int mi_global = 10;`) o cuerpos de funciones ejecutables en una cabecera. Si violás esta directiva, cuando múltiples archivos `.c` incluyan ese `.h`, el compilador generará múltiples copias físicas de la función o variable en cada archivo objeto `.o`. Al final, el enlazador (Linker) fallará con un error del tipo `multiple definition of...` debido a la violación de la regla de definición única (*One Definition Rule*).
+
+:::
 
 La técnica estándar utiliza directivas del preprocesador para verificar si un
 símbolo único ya fue definido. Si no lo fue, define el símbolo e incluye el

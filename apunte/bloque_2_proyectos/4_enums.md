@@ -154,12 +154,22 @@ operacion_t operacion_actual = OPERACION_SUMA;
 ```
 <!-- {code-block} c -->
 
-### 4. Validación de Rangos y Switch Defensivo
+### 4. Representación Interna, Promoción Entera y Switch Defensivo
 
-Dado que el compilador de C trata internamente a los enumerativos como valores
-enteros, permite asignar valores numéricos arbitrarios a una variable `enum` sin
-advertencias de compilación. Por ello, es imperativo aplicar programación
-defensiva.
+Desde el punto de vista de la arquitectura subyacente, **los tipos enumerativos en C no constituyen un sistema de tipos fuertes**. El estándar de C establece que los miembros de un `enum` son constantes de tipo `int`. Por lo tanto, el compilador realiza una promoción entera automática y permite la coerción implícita sin generar advertencias (*warnings*):
+
+```c
+typedef enum {
+    MODO_LECTURA,
+    MODO_ESCRITURA
+} modo_t;
+
+modo_t modo = MODO_LECTURA;
+modo = 100; // Compila sin advertencias, a pesar de que 100 no está en la enumeración
+int valor_entero = MODO_ESCRITURA; // Promoción implícita: valor_entero = 1
+```
+
+Este comportamiento expone al sistema a fallos si un dato externo (leído de un archivo, sensor o red) es mapeado directamente a un enum sin validar su rango físico. Por ello, es mandatorio aplicar programación defensiva.
 
 #### Patrón de Validación Centinela
 Podés agregar una constante centinela (típicamente al final) para validar que un
