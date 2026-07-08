@@ -22,14 +22,14 @@ Una **pila** es una estructura de datos lineal que sigue el principio **LIFO**
 análogo a una pila de platos donde solo podés agregar o quitar platos desde la
 parte superior.
 
-:::{figure} 7/pila_stack.svg
+:::{figure} 4/pila_stack.svg
 :label: fig-pila-stack
 :align: center
 
-Operaciones de apilado (push) y desapilado (pop) en una Pila.
+Operaciones de apilado (push) and desapilado (pop) en una Pila.
 
 :::
-<!-- {figure} 7/pila_stack.svg -->
+<!-- {figure} 4/pila_stack.svg -->
 
 (operaciones-fundamentales)=
 #### Operaciones Fundamentales
@@ -42,14 +42,14 @@ Operaciones de apilado (push) y desapilado (pop) en una Pila.
 (implementacion-con-lista-enlazada)=
 #### Implementación con Lista Enlazada
 
-:::{figure} 7/pila_lista_enlazada.svg
+:::{figure} 4/pila_lista_enlazada.svg
 :label: fig-pila-lista-enlazada
 :align: center
 
 Estructura de una Pila implementada dinámicamente mediante nodos enlazados en el heap.
 
 :::
-<!-- {figure} 7/pila_lista_enlazada.svg -->
+<!-- {figure} 4/pila_lista_enlazada.svg -->
 
 ##### Estructura de Datos
 
@@ -235,14 +235,14 @@ liberando cada nodo antes de liberar la estructura de la pila.
 Una alternativa es implementar la pila usando un arreglo, donde el tope es el
 último elemento ocupado.
 
-:::{figure} 7/pila_arreglo.svg
+:::{figure} 4/pila_arreglo.svg
 :label: fig-pila-arreglo
 :align: center
 
 Estructura de una Pila implementada estáticamente mediante un arreglo y un índice de tope.
 
 :::
-<!-- {figure} 7/pila_arreglo.svg -->
+<!-- {figure} 4/pila_arreglo.svg -->
 
 ##### Estructura de Datos
 
@@ -474,14 +474,14 @@ Una **cola** es una estructura de datos lineal que sigue el principio **FIFO**
 (*First In, First Out*): el primer elemento en entrar es el primero en salir. Es
 análogo a una fila de personas donde quien llega primero es atendido primero.
 
-:::{figure} 7/cola_lista_enlazada.svg
+:::{figure} 4/cola_lista_enlazada.svg
 :label: fig-cola-lista-enlazada
 :align: center
 
 Estructura de una Cola implementada dinámicamente mediante nodos enlazados en el heap con punteros a inicio y fin.
 
 :::
-<!-- {figure} 7/cola_lista_enlazada.svg -->
+<!-- {figure} 4/cola_lista_enlazada.svg -->
 
 ##### Estructura de Datos
 
@@ -684,14 +684,14 @@ void cola_destruir(cola_t *cola, destruir_dato_fn destruir_dato)
 Una implementación eficiente de cola con arreglo usa la técnica de **arreglo
 circular**, donde los índices "dan la vuelta" al final del arreglo.
 
-:::{figure} 7/cola_circular.svg
+:::{figure} 4/cola_circular.svg
 :label: fig-cola-circular
 :align: center
 
 Implementación eficiente de Cola sobre un arreglo circular para evitar el desplazamiento costoso de elementos.
 
 :::
-<!-- {figure} 7/cola_circular.svg -->
+<!-- {figure} 4/cola_circular.svg -->
 
 ##### Estructura de Datos
 
@@ -912,14 +912,14 @@ razonamiento sobre el código.
 Un **deque** (pronunciado "deck") es una generalización que permite insertar y
 extraer elementos en ambos extremos.
 
-:::{figure} 7/deque.svg
+:::{figure} 4/deque.svg
 :label: fig-deque
 :align: center
 
 Representación de una Cola de Doble Extremo (Deque), permitiendo inserciones y eliminaciones por ambos extremos.
 
 :::
-<!-- {figure} 7/deque.svg -->
+<!-- {figure} 4/deque.svg -->
 
 (operaciones)=
 #### Operaciones

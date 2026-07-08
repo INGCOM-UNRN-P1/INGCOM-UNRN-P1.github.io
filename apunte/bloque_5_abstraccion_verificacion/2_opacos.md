@@ -32,7 +32,7 @@ sin romper el código cliente que las utiliza.
 
 Los punteros opacos son la técnica de programación central sobre la cual se
 construyen los Tipos de Datos Abstractos (TADs) en C, concepto que se aborda en
-detalle en el capítulo siguiente ([](6_tad.md)).
+detalle en el capítulo siguiente ([](3_tad.md)).
 
 :::
 <!-- {important} Conexión con TADs -->
@@ -324,7 +324,7 @@ analizar el proceso de **compilación separada**:
      las llamadas y las funciones operan sobre el espacio de memoria real
      asignado dinámicamente en el heap.
 
-:::{figure} 5/opacidad_memoria.svg
+:::{figure} 2/opacidad_memoria.svg
 :label: fig-opacidad-memoria
 :align: center
 :width: 85%
@@ -334,7 +334,7 @@ almacena la dirección del puntero, mientras que la estructura interna reside en
 el heap y solo es visible en el ámbito de la implementación (usuario.c).
 
 :::
-<!-- {figure} 5/opacidad_memoria.svg -->
+<!-- {figure} 2/opacidad_memoria.svg -->
 
 :::{note} El Tamaño del Puntero es Constante
 
@@ -1685,7 +1685,7 @@ struct tipo {
 <!-- {code-block} c -->
 
 **Conexiones:**
-- Fundamental para implementar TADs (ver [](6_tad.md)).
+- Fundamental para implementar TADs (ver [](3_tad.md)).
 - Requiere memoria dinámica (ver {ref}`capitulo-memoria-dinamica`).
 - Usado extensivamente en bibliotecas del sistema y APIs públicas.
 

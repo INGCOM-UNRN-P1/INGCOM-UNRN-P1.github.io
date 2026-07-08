@@ -33,15 +33,15 @@ cómo se almacenan o manipulan los datos. Al mismo tiempo, el implementador tien
 la libertad de optimizar o modificar la representación interna sin afectar al
 código que utiliza el TAD, siempre que mantenga la misma interfaz pública.
 
-:::{figure} 6/tad_concepto.svg
+:::{figure} 3/tad_concepto.svg
 :label: fig-tad-concepto
 :align: center
+:width: 80%
 
-Separación entre interfaz e implementación en un TAD. La barrera de abstracción
-protege los detalles internos.
+Concepto de Tipo de Dato Abstracto (TAD) como barrera de abstracción. El cliente opera únicamente a través de la interfaz pública, desconociendo la representación física.
 
 :::
-<!-- {figure} 6/tad_concepto.svg -->
+<!-- {figure} 3/tad_concepto.svg -->
 
 (caracteristicas-de-un-tad)=
 #### Características de un TAD
@@ -66,7 +66,7 @@ cabecera e implementando sus detalles estructurales en el archivo fuente `.c`.
 
 Para un análisis detallado sobre cómo funciona esta técnica a nivel del
 compilador, sus restricciones sintácticas y un ejemplo completo de
-implementación opaca, consultá el capítulo previo sobre [](5_opacos.md).
+implementación opaca, consultá el capítulo previo sobre [](2_opacos.md).
 
 :::{important} Interfaz Clara e Invariantes
 
@@ -331,7 +331,7 @@ si es necesario.
 
 **Función:** Genera una **nueva estructura** o representación a partir del
 contenido de la estructura actual. Los conversores transforman el TAD en otro
-formato, típicamente para interoperabilidad o presentación.
+formatos, típicamente para interoperabilidad o presentación.
 
 **Ejemplos:**
 :::{code-block}c
@@ -589,15 +589,15 @@ la operación abstracta de la secuencia.
 En una lista enlazada simple, cada nodo apunta únicamente al siguiente nodo de
 la secuencia. El último nodo apunta a `NULL`, indicando el final de la lista.
 
-:::{figure} 6/lista_enlazada_simple.svg
-:label: fig-lista-simple
+:::{figure} 3/lista_enlazada_simple.svg
+:label: fig-lista-enlazada-simple
 :align: center
+:width: 85%
 
-Estructura de una lista enlazada simple. Cada nodo contiene datos y un puntero
-al siguiente nodo.
+Estructura física de una Lista Enlazada Simple en el heap.
 
 :::
-<!-- {figure} 6/lista_enlazada_simple.svg -->
+<!-- {figure} 3/lista_enlazada_simple.svg -->
 
 ##### Estructura de un Nodo
 
@@ -956,14 +956,15 @@ de liberación y técnicas avanzadas, consultá {ref}`capitulo-memoria-dinamica`
 :::
 <!-- {important} Gestión de Memoria en TADs -->
 
-:::{figure} 6/lista_operaciones.svg
-:name: fig-lista-operaciones
-:width: 100%
+:::{figure} 3/lista_operaciones.svg
+:label: fig-lista-operaciones
+:align: center
+:width: 90%
 
-Operaciones fundamentales en listas enlazadas (inserción y eliminación).
+Operaciones lógicas de inserción y remoción de nodos en una Lista Enlazada.
 
 :::
-<!-- {figure} 6/lista_operaciones.svg -->
+<!-- {figure} 3/lista_operaciones.svg -->
 
 (lista-doblemente-enlazada)=
 #### Lista Doblemente Enlazada
@@ -972,14 +973,15 @@ Una lista doblemente enlazada extiende la lista simple agregando un puntero
 adicional en cada nodo que apunta al nodo anterior. Esto permite el recorrido
 bidireccional de la lista.
 
-:::{figure} 6/lista_enlazada_doble.svg
-:label: fig-lista-doble
+:::{figure} 3/lista_enlazada_doble.svg
+:label: fig-lista-enlazada-doble
 :align: center
+:width: 85%
 
-Lista doblemente enlazada con punteros tanto al siguiente como al anterior nodo.
+Estructura física de una Lista Doblemente Enlazada. Cada nodo almacena punteros a su predecesor y a su sucesor.
 
 :::
-<!-- {figure} 6/lista_enlazada_doble.svg -->
+<!-- {figure} 3/lista_enlazada_doble.svg -->
 
 ##### Estructura
 

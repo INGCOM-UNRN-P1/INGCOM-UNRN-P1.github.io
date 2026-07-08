@@ -70,28 +70,28 @@ project:
             - file: apunte/bloque_3_memoria_estatica/7_casts.md
         - title: "Bloque 4: Gestión Dinámica e Indirección Avanzada"
           children:
-            - file: apunte/bloque_4_dinamica_interfaces/1_memoria_dinamica.md
-            - file: apunte/bloque_4_dinamica_interfaces/2_aritmetica.md
-            - file: apunte/bloque_4_dinamica_interfaces/3_archivos_texto.md
+            - file: apunte/bloque_4_dinamica_indireccion/1_memoria_dinamica.md
+            - file: apunte/bloque_4_dinamica_indireccion/2_aritmetica.md
+            - file: apunte/bloque_4_dinamica_indireccion/3_archivos_texto.md
         - title: "Bloque 5: Abstracción de Datos y Verificación"
           children:
-            - file: apunte/bloque_4_dinamica_interfaces/4_punteros_funciones.md
-            - file: apunte/bloque_4_dinamica_interfaces/5_opacos.md
-            - file: apunte/bloque_4_dinamica_interfaces/6_tad.md
-            - file: apunte/bloque_4_dinamica_interfaces/7_tad_pilas_colas.md
-            - file: apunte/bloque_4_dinamica_interfaces/8_testing_avanzado.md
-            - file: apunte/bloque_4_dinamica_interfaces/9_contratos_formales.md
-            - file: apunte/bloque_4_dinamica_interfaces/10_complejidad.md
+            - file: apunte/bloque_5_abstraccion_verificacion/1_punteros_funciones.md
+            - file: apunte/bloque_5_abstraccion_verificacion/2_opacos.md
+            - file: apunte/bloque_5_abstraccion_verificacion/3_tad.md
+            - file: apunte/bloque_5_abstraccion_verificacion/4_tad_pilas_colas.md
+            - file: apunte/bloque_5_abstraccion_verificacion/5_testing_avanzado.md
+            - file: apunte/bloque_5_abstraccion_verificacion/6_contratos_formales.md
+            - file: apunte/bloque_5_abstraccion_verificacion/7_complejidad.md
         - title: "Bloque 6: Temas Avanzados"
           children:
-            - file: apunte/bloque_5_avanzados/1_indice_avanzados.md
-            - file: apunte/bloque_5_avanzados/binarios_archivos.md
-            - file: apunte/bloque_5_avanzados/binarios_bitwise.md
-            - file: apunte/bloque_5_avanzados/bitmaps.md
-            - file: apunte/bloque_5_avanzados/recursividad_avanzada.md
-            - file: apunte/bloque_5_avanzados/idiomatico.md
-            - file: apunte/bloque_5_avanzados/api_diseno.md
-            - file: apunte/bloque_5_avanzados/api_ingenieria.md
+            - file: apunte/bloque_6_avanzados/1_indice_avanzados.md
+            - file: apunte/bloque_6_avanzados/binarios_archivos.md
+            - file: apunte/bloque_6_avanzados/binarios_bitwise.md
+            - file: apunte/bloque_6_avanzados/bitmaps.md
+            - file: apunte/bloque_6_avanzados/recursividad_avanzada.md
+            - file: apunte/bloque_6_avanzados/idiomatico.md
+            - file: apunte/bloque_6_avanzados/api_diseno.md
+            - file: apunte/bloque_6_avanzados/api_ingenieria.md
     - title: Reglas de estilo
       children:
         - file: reglas/indice.md
@@ -130,25 +130,25 @@ project:
             - file: ejercicios/bloque_3_memoria_estatica/5_structs.md
         - title: "Bloque 4: Gestión Dinámica e Indirección Avanzada"
           children:
-            - file: ejercicios/bloque_4_dinamica_interfaces/1_memoria_dinamica.md
-            - file: ejercicios/bloque_4_dinamica_interfaces/1b_memoria.md
-            - file: ejercicios/bloque_4_dinamica_interfaces/1c_ejercicios_memoria.md
-            - file: ejercicios/bloque_4_dinamica_interfaces/2_punteros_2.md
-            - file: ejercicios/bloque_4_dinamica_interfaces/3_archivos.md
-            - file: ejercicios/bloque_4_dinamica_interfaces/3b_ejercicios_archivos.md
+            - file: ejercicios/bloque_4_dinamica_indireccion/1_memoria_dinamica.md
+            - file: ejercicios/bloque_4_dinamica_indireccion/1b_memoria.md
+            - file: ejercicios/bloque_4_dinamica_indireccion/1c_ejercicios_memoria.md
+            - file: ejercicios/bloque_4_dinamica_indireccion/2_punteros_2.md
+            - file: ejercicios/bloque_4_dinamica_indireccion/3_archivos.md
+            - file: ejercicios/bloque_4_dinamica_indireccion/3b_ejercicios_archivos.md
         - title: "Bloque 5: Abstracción de Datos y Verificación"
           children:
-            - file: ejercicios/bloque_4_dinamica_interfaces/4_punteros_avanzados.md
-            - file: ejercicios/bloque_4_dinamica_interfaces/6_tad.md
-            - file: ejercicios/bloque_4_dinamica_interfaces/7_estructuras_de_datos.md
-            - file: ejercicios/bloque_4_dinamica_interfaces/10_complejidad.md
+            - file: ejercicios/bloque_5_abstraccion_verificacion/1_punteros_avanzados.md
+            - file: ejercicios/bloque_5_abstraccion_verificacion/2_tad.md
+            - file: ejercicios/bloque_5_abstraccion_verificacion/3_estructuras_de_datos.md
+            - file: ejercicios/bloque_5_abstraccion_verificacion/4_complejidad.md
         - title: "Bloque 6: Temas Avanzados"
           children:
-            - file: ejercicios/bloque_5_avanzados/ordenamiento_y_busqueda.md
-            - file: ejercicios/bloque_5_avanzados/archivos_binarios.md
-            - file: ejercicios/bloque_5_avanzados/recursividad_avanzada.md
-            - file: ejercicios/bloque_5_avanzados/analisis_de_codigo.md
-            - file: ejercicios/bloque_5_avanzados/diseno_api.md
+            - file: ejercicios/bloque_6_avanzados/ordenamiento_y_busqueda.md
+            - file: ejercicios/bloque_6_avanzados/archivos_binarios.md
+            - file: ejercicios/bloque_6_avanzados/recursividad_avanzada.md
+            - file: ejercicios/bloque_6_avanzados/analisis_de_codigo.md
+            - file: ejercicios/bloque_6_avanzados/diseno_api.md
     - title: Referencia
       children:
         - file: referencia/indice.md

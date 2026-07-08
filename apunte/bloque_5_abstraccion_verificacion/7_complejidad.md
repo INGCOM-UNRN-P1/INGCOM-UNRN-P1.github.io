@@ -91,7 +91,7 @@ algoritmo: nunca será peor que esta cota.
   $n_0$ tales que $0 \le f(n) \le c \cdot g(n)$ para todo $n \ge n_0$.
 - **Uso Práctico**: Representa el **peor caso** de ejecución de un algoritmo.
 
-:::{figure} 10/big_o_definition.svg
+:::{figure} 7/big_o_definition.svg
 :label: fig-big-o-definition
 :align: center
 :width: 85%
@@ -100,7 +100,7 @@ Representación gráfica de la cota superior asintótica $f(n) \in O(g(n))$. A
 partir de $n_0$, la función $c \cdot g(n)$ es siempre mayor o igual a $f(n)$.
 
 :::
-<!-- {figure} 10/big_o_definition.svg -->
+<!-- {figure} 7/big_o_definition.svg -->
 
 :::{note} Pertenencia vs. Igualdad
 
@@ -141,7 +141,7 @@ de un algoritmo, acotándolo tanto por arriba como por abajo.
   a menudo representando el **caso promedio** o un escenario donde el mejor y el
   peor caso coinciden.
 
-:::{figure} 10/big_theta_definition.svg
+:::{figure} 7/big_theta_definition.svg
 :label: fig-big-theta-definition
 :align: center
 :width: 85%
@@ -151,7 +151,7 @@ La función $f(n)$ queda atrapada entre las cotas $c_1 \cdot g(n)$ y $c_2 \cdot
 g(n)$ para todo $n \ge n_0$.
 
 :::
-<!-- {figure} 10/big_theta_definition.svg -->
+<!-- {figure} 7/big_theta_definition.svg -->
 
 (notaciones-menos-comunes)=
 #### Notaciones Menos Comunes
@@ -201,7 +201,7 @@ Las notaciones asintóticas tienen propiedades útiles:
 ### Jerarquía de Complejidades
 
 
-:::{figure} 10/complexity_hierarchy.svg
+:::{figure} 7/complexity_hierarchy.svg
 :label: fig-hierarchy
 :align: center
 :width: 100%
@@ -210,7 +210,7 @@ Jerarquía de las clases de complejidad más comunes, ordenadas de más eficient
 menos eficiente.
 
 :::
-<!-- {figure} 10/complexity_hierarchy.svg -->
+<!-- {figure} 7/complexity_hierarchy.svg -->
 
 (clasificacion-detallada)=
 #### Clasificación Detallada
@@ -491,7 +491,7 @@ void generar_permutaciones(int arr[], int inicio, int fin) {
 :::
 <!-- {code-block}c -->
 
-:::{figure} 10/growth_comparison.svg
+:::{figure} 7/growth_comparison.svg
 :label: fig-growth
 :align: center
 :width: 100%
@@ -500,7 +500,7 @@ Comparación del crecimiento de diferentes funciones de complejidad para valores
 de $n$ hasta 100.
 
 :::
-<!-- {figure} 10/growth_comparison.svg -->
+<!-- {figure} 7/growth_comparison.svg -->
 
 (tabla-comparativa-de-crecimiento)=
 #### Tabla Comparativa de Crecimiento
@@ -656,7 +656,7 @@ distribuye el trabajo en un algoritmo recursivo de tipo divide y vencerás. El
 - La suma del trabajo de todos los nodos en todos los niveles del árbol
   determina el costo total del algoritmo.
 
-:::{figure} 10/master_theorem.svg
+:::{figure} 7/master_theorem.svg
 :label: fig-master
 :align: center
 
@@ -664,7 +664,7 @@ distribuye el trabajo en un algoritmo recursivo de tipo divide y vencerás. El
 en cada nivel del árbol.
 
 :::
-<!-- {figure} 10/master_theorem.svg -->
+<!-- {figure} 7/master_theorem.svg -->
 
 **Ejemplo de análisis con árbol**: Consideremos la recurrencia $T(n) = 2T(n/2) +
 n$ (con caso base $T(1) = O(1)$):
@@ -823,7 +823,7 @@ sobre pilas en el apunte de [TAD, Pilas y Colas](6_tad.md).
 
 ##### Método del Potencial
 
-El **método del potencial** analiza la complejidad amortizada definiendo una
+El **mÃ©todo del potencial** analiza la complejidad amortizada definiendo una
 función potencial $\Phi$ sobre los estados de la estructura de datos. Esta
 función asocia un número real no negativo $\Phi(D_i)$ a la estructura tras la
 operación $i$.
@@ -953,14 +953,14 @@ int fibonacci_memo(int n, int memo[]) {
 - **Complejidad temporal**: $O(n)$ (cada valor se calcula una vez)
 - **Complejidad espacial**: $O(n)$ (arreglo de memoización + pila)
 
-:::{figure} 10/time_space_tradeoff.svg
+:::{figure} 7/time_space_tradeoff.svg
 :label: fig-tradeoff
 :align: center
 
 Ilustración del trade-off entre tiempo y espacio en el problema de Fibonacci.
 
 :::
-<!-- {figure} 10/time_space_tradeoff.svg -->
+<!-- {figure} 7/time_space_tradeoff.svg -->
 
 (ejercicios-de-complejidad-espacial)=
 #### Ejercicios de Complejidad Espacial

@@ -12,7 +12,7 @@ subtitle: 'Problemas y soluciones detalladas sobre gestión de memoria en C'
 
 Este archivo contiene problemas y soluciones detalladas sobre la gestión de memoria dinámica en C, con foco en el uso de `malloc`, `calloc`, `realloc` y `free`.
 
-Para más detalles teóricos sobre estos conceptos, consultá [el capítulo de Memoria Dinámica](../../apunte/bloque_4_dinamica_interfaces/1_memoria_dinamica.md) del apunte. Asegurate de seguir la regla de estilo {ref}`0x3002h` para la liberación adecuada de recursos y prevención de punteros colgantes.
+Para más detalles teóricos sobre estos conceptos, consultá [el capítulo de Memoria Dinámica](../../apunte/bloque_4_dinamica_indireccion/1_memoria_dinamica.md) del apunte. Asegurate de seguir la regla de estilo {ref}`0x3002h` para la liberación adecuada de recursos y prevención de punteros colgantes.
 
 ## Ejercicios Resueltos
 
@@ -1013,7 +1013,7 @@ Imaginá que tenés un estante con espacios libres dispersos de diferentes tama�
 
 **Ejemplo conceptual:**
 
-```{figure} ../../apunte/bloque_4_dinamica_interfaces/1/fragmentacion_externa.svg
+```{figure} ../../apunte/bloque_4_dinamica_indireccion/1/fragmentacion_externa.svg
 :name: fig-fragmentacion-externa
 :width: 100%
 
@@ -1044,7 +1044,7 @@ Un dato está **alineado** cuando su dirección de memoria es un múltiplo de su
 - Un `int` (4 bytes) debería estar en direcciones múltiplo de 4.
 - Un `double` (8 bytes) debería estar en direcciones múltiplo de 8.
 
-```{figure} ../../apunte/bloque_4_dinamica_interfaces/1/memory_alignment.svg
+```{figure} ../../apunte/bloque_4_dinamica_indireccion/1/memory_alignment.svg
 :name: fig-memory-alignment
 :width: 100%
 
@@ -1079,7 +1079,7 @@ struct ejemplo {
 
 **Visualización:**
 
-```{figure} ../../apunte/bloque_4_dinamica_interfaces/1/struct_padding.svg
+```{figure} ../../apunte/bloque_4_dinamica_indireccion/1/struct_padding.svg
 :name: fig-struct-padding
 :width: 100%
 

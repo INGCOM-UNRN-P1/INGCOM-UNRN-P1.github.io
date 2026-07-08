@@ -37,29 +37,42 @@ Conceptos necesarios para construir programas divididos en múltiples archivos f
 
 ## Bloque 3: Disposición de Memoria y Estructuras Estáticas
 
-Análisis físico del direccionamiento lógico de variables, jerarquías de caché de CPU, arreglos estáticos, indirectación física con punteros y empaquetamiento de estructuras.
+Análisis físico del direccionamiento lógico de variables, jerarquías de caché de CPU, arreglos estáticos, indirección física con punteros y empaquetamiento de estructuras.
 
 *   **[1. Modelo Físico de Memoria](bloque_3_memoria_estatica/1_modelo_memoria.md)**: Organización de RAM (Stack vs Heap) y hardware de memoria caché del procesador.
-*   **[2. Arreglos Unidimensionales y Strings](bloque_3_memoria_estatica/2_secuencias.md)**: Secuencias de datos estáticas, degradación y gestión segura de cadenas de caracteres.
-*   **[3. Matrices Multidimensionales](bloque_3_memoria_estatica/3_matrices.md)**: Disposición *Row-Major* en RAM y optimización de localidad espacial para evitar fallos de caché.
-*   **[4. Indirección Física y Punteros](bloque_3_memoria_estatica/4_punteros.md)**: Punteros físicos, operador de dirección `&` e indirección `*`, y simulación de paso por referencia.
+*   **[2. Indirección Física y Punteros](bloque_3_memoria_estatica/2_punteros.md)**: Punteros físicos, operador de dirección `&` e indirección `*`, y simulación de pasaje por referencia.
+*   **[3. Arreglos Unidimensionales y Strings](bloque_3_memoria_estatica/3_secuencias.md)**: Secuencias de datos estáticas, decaimiento a puntero y gestión segura de cadenas de caracteres.
+*   **[4. Matrices Multidimensionales](bloque_3_memoria_estatica/4_matrices.md)**: Disposición *Row-Major* en RAM y optimización de localidad espacial para evitar fallos de caché.
 *   **[5. Estructuras y Tipos Compuestos](bloque_3_memoria_estatica/5_estructuras.md)**: Registros compuestos (`struct`, `union`) y alineación en memoria (*padding*).
 *   **[6. Representación de Números](bloque_3_memoria_estatica/6_numeros.md)**: Límites de representación física, desbordamientos e imprecisión de punto flotante.
 *   **[7. Conversión de Tipos (Casts)](bloque_3_memoria_estatica/7_casts.md)**: Promoción entera, coerción aritmética implícita y conversión explícita.
 
 ---
 
-## Bloque 4: Gestión Dinámica de Recursos e Interfaces Avanzadas
+## Bloque 4: Gestión Dinámica e Indirección Avanzada
 
-Asignación y liberación controlada de recursos del sistema, persistencia física de archivos, punteros a funciones, genericidad, tipos opacos y Tipos de Datos Abstractos.
+Asignación y liberación controlada de recursos del sistema, persistencia física de archivos y aritmética avanzada de punteros.
 
-*   **[1. Memoria Dinámica en el Heap](bloque_4_dinamica_interfaces/1_memoria_dinamica.md)**: Alocación con `malloc`/`free`, punteros colgantes y detección de fugas de memoria.
-*   **[2. Aritmética de Direcciones y Doble Indirección](bloque_4_dinamica_interfaces/2_aritmetica.md)**: Aritmética de punteros, redimensionamiento con `realloc` y matrices dinámicas (`int **`).
-*   **[3. Persistencia y Archivos de Texto](bloque_4_dinamica_interfaces/3_archivos_texto.md)**: Manejo físico de archivos de texto empleando streams de caracteres (`FILE *`).
-*   **[4. Callbacks y Genericidad](bloque_4_dinamica_interfaces/4_punteros_funciones.md)**: Punteros a funciones y diseño paramétrico empleando punteros genéricos `void*`.
-*   **[5. Encapsulamiento y Tipos Opacos](bloque_4_dinamica_interfaces/5_opacos.md)**: Ocultamiento estricto de información mediante tipos de datos incompletos en C.
-*   **[6. Tipos de Datos Abstractos (TAD)](bloque_4_dinamica_interfaces/6_tad.md)**: Definición de TAD, interfaces y contratos aplicados a la estructura Secuencia (listas enlazadas).
-*   **[7. Pilas, Colas y Deques](bloque_4_dinamica_interfaces/7_tad_pilas_colas.md)**: Estructuras con restricciones semánticas de acceso LIFO y FIFO.
-*   **[8. Testing Avanzado y Automatización](bloque_4_dinamica_interfaces/8_testing_avanzado.md)**: Frameworks de pruebas personalizadas y testing basado en propiedades.
-*   **[9. Diseño por Contratos Formal](bloque_4_dinamica_interfaces/9_contratos_formales.md)**: Lógica de Primer Orden, tripletas de Hoare, cálculo de wp, Frame Problem y ACSL.
-*   **[10. Complejidad Algorítmica](bloque_4_dinamica_interfaces/10_complejidad.md)**: Eficiencia de algoritmos y de TADs, notación asintótica Big-O, límites de hardware y P vs NP.
+*   **[1. Memoria Dinámica en el Heap](bloque_4_dinamica_indireccion/1_memoria_dinamica.md)**: Alocación con `malloc`/`free`, punteros colgantes y detección de fugas de memoria.
+*   **[2. Aritmética de Direcciones y Doble Indirección](bloque_4_dinamica_indireccion/2_aritmetica.md)**: Aritmética de punteros, redimensionamiento con `realloc` y matrices dinámicas (`int **`).
+*   **[3. Persistencia y Archivos de Texto](bloque_4_dinamica_indireccion/3_archivos_texto.md)**: Manejo físico de archivos de texto empleando streams de caracteres (`FILE *`).
+
+---
+
+## Bloque 5: Abstracción de Datos y Verificación
+
+Callbacks para genericidad, tipos opacos, Tipos de Datos Abstractos con contratos y aserciones dinámicas y análisis asintótico de complejidad.
+
+*   **[1. Callbacks y Genericidad](bloque_5_abstraccion_verificacion/1_punteros_funciones.md)**: Punteros a funciones y diseño paramétrico empleando punteros genéricos `void*`.
+*   **[2. Encapsulamiento y Tipos Opacos](bloque_5_abstraccion_verificacion/2_opacos.md)**: Ocultamiento estricto de información mediante tipos de datos incompletos en C.
+*   **[3. Tipos de Datos Abstractos (TAD)](bloque_5_abstraccion_verificacion/3_tad.md)**: Definición de TAD, interfaces y contratos aplicados a la estructura Secuencia (listas enlazadas).
+*   **[4. Pilas, Colas y Deques](bloque_5_abstraccion_verificacion/4_tad_pilas_colas.md)**: Estructuras con restricciones semánticas de acceso LIFO y FIFO.
+*   **[5. Testing Avanzado y Automatización](bloque_5_abstraccion_verificacion/5_testing_avanzado.md)**: Frameworks de pruebas personalizadas y testing basado en propiedades.
+*   **[6. Diseño por Contratos y Aserciones](bloque_5_abstraccion_verificacion/6_contratos_formales.md)**: Precondiciones, postcondiciones e invariantes de estructura usando `assert.h` en C estándar.
+*   **[7. Complejidad Algorítmica](bloque_5_abstraccion_verificacion/7_complejidad.md)**: Eficiencia de algoritmos y de TADs, notación asintótica Big-O, límites de hardware y P vs NP.
+
+---
+
+## Bloque 6: Temas Avanzados
+
+Tópicos de optimización a bajo nivel, manipulación de bits y diseño arquitectónico de APIs robustas en C.
