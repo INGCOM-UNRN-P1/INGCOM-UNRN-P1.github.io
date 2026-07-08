@@ -51,7 +51,10 @@ construcción de programas complejos no demore mucho tiempo. En los ejemplos y
 trabajos de la cátedra, el proceso es instantáneo, pero pensando en proyectos
 grandes, como el [kernel de Linux](https://github.com/torvalds/linux), el
 proceso de compilación demorar tanto que se lo utiliza como
-[medida de](https://openbenchmarking.org/test/pts/build-linux-kernel&eval=095284d5c95ecf2ec79cabe9e4c51a295825423f#metrics)[la capacidad de cómputo](https://openbenchmarking.org/test/pts/build-linux-kernel&eval=095284d5c95ecf2ec79cabe9e4c51a295825423f#metrics)[^1]
+[medida
+de](https://openbenchmarking.org/test/pts/build-linux-kernel&eval=095284d5c95ecf2ec79cabe9e4c51a295825423f#metrics)[la
+capacidad de
+cómputo](https://openbenchmarking.org/test/pts/build-linux-kernel&eval=095284d5c95ecf2ec79cabe9e4c51a295825423f#metrics)[^1]
 de una computadora.
 
 ### ¿Hay alternativas a `make`?
@@ -86,15 +89,18 @@ instalación especifica antes de seguir con este apunte.
 
 Pero pueden verificar que está todo en orden ejecutando.
 
-```text
+``` shell
 $> make
 ```
+<!-- shell -->
+<!-- text -->
 
 Debieran ver...
 
-```text
+``` text
 `make`: *** No targets specified and no makefile found.  Stop.
 ```
+<!-- text -->
 
 Que indica que la herramienta está lista para ser configurada.
 
@@ -104,10 +110,11 @@ Para cada ejemplo, pon el contenido en un archivo llamado _Makefile_, y en ese
 directorio ejecuta el comando `make`. Comencemos con el "Hola Mundo" de los
 _`Makefiles`_:
 
-```makefile
+``` makefile
 hola:
 	echo "hola mundo"
 ```
+<!-- makefile -->
 
 :::{attention} Indentación
 
@@ -115,14 +122,17 @@ Los _Makefiles_ deben ser indentados con tabulaciones ya que si usamos espacios,
 fallará.
 
 :::
+<!-- {attention} Indentación -->
 
 Aquí está la salida de la ejecución del ejemplo anterior:
 
-```text
+``` shell
 $> make
 echo "hola mundo"
 hola mundo
 ```
+<!-- shell -->
+<!-- text -->
 
 Este es un ejemplo simple, pero como ves, es simplemente una forma de llamar a
 otros programas, en donde veremos como salida, el comando ejecutado y luego la
@@ -133,12 +143,13 @@ salida del mismo.
 Un _Makefile_ consiste en un conjunto de reglas. Una regla generalmente tiene el
 siguiente aspecto:
 
-```makefile
+``` makefile
 objetivo: prerequisitos
 	comando
 	comando
 	comando
 ```
+<!-- makefile -->
 
 - Los objetivos es el nombre del archivo generado por los comandos en la regla.
   Aunque, lo más común es que cada regla contenga un único archivo como
@@ -158,12 +169,13 @@ receta de cocina, los comandos como las operaciones individuales en la receta y
 los prerrequisitos como todo aquello que sea posible hacer por separado, del que
 dependa alguno de los pasos. Por ejemplo, cocinar unas galletitas para hornear.
 
-```makefile
+``` makefile
 bandeja_galletitas_crudas: bandeja_en_mantecada masa_preparada
 	hacer_galletitas bandeja masa --en=bandeja_galletitas_crudas
 bandeja_galletitas: bandeja_galletitas_crudas
 	hornear 20min 250C bandeja_galletitas_crudas
 ```
+<!-- makefile -->
 
 De este ejemplo podemos extraer un detalle interesante, ¿en qué se diferencia
 una receta de este tipo de una en la que todos los pasos son una secuencia
@@ -192,14 +204,17 @@ en la terminal, construirá un programa llamado `blah` en una serie de pasos:
   están listas
 - Eso es todo: `blah` es un programa C compilado
 
-```makefile
+```{code-block} makefile
+:linenos:
 blah: blah.o
 	cc blah.o -o blah # Tercero
 blah.o: blah.c
 	cc -c blah.c -o blah.o # Segundo
 blah.c:
 	echo "int main() { return 0; }" > blah.c # Primero
+
 ```
+<!-- {code-block} makefile -->
 
 ### Objetivo 'implícito'
 
@@ -207,10 +222,11 @@ El siguiente `makefile` tiene un único objetivo, llamado `some_file`. El
 objetivo por defecto es el primer objetivo, por lo que en este caso `some_file`
 se ejecutará.
 
-```makefile
+``` makefile
 some_file:
 	echo "Esta línea siempre imprime"
 ```
+<!-- makefile -->
 
 Como `make` no "ve" el archivo `some_file`, el objetivo no es alcanzado y `make`
 seguirá ejecutando sus comandos.
@@ -233,6 +249,7 @@ la modifica al momento en el que lo ejecutamos, podemos volver a completar el
 paso sin que se haya modificado realmente el archivo.
 
 :::
+<!-- {tip} Recompilación -->
 
 ### Dependencias
 
@@ -243,7 +260,8 @@ antigua, primero ejecutará los objetivos de esas dependencias, y luego se
 ejecutará a sí mismo. La segunda vez que se ejecute, ningún objetivo se
 ejecutará porque ambos objetivos existen.
 
-```makefile
+```{code-block} makefile
+:linenos:
 some_file: other_file
 	echo "Esto va después, porque depende de other_file"
 	touch some_file
@@ -251,19 +269,22 @@ some_file: other_file
 other_file:
 	echo "Esto va primero"
 	touch other_file
+
 ```
+<!-- {code-block} makefile -->
 
 La noción de dependencia es importante, en el siguiente Makefile, ambos
 objetivos se ejecutarán, ya que la dependencia de `some_file` con respecto de
 `other_file` nunca es satisfecha, ya que el archivo no es creado.
 
-```makefile
+``` makefile
 some_file: other_file
 	touch some_file
 
 other_file:
 	echo "Tipo nada"
 ```
+<!-- makefile -->
 
 ### Empezando de cero con `clean`
 
@@ -272,13 +293,14 @@ los objetivos, esto es usado para "empezar de cero". Este objetivo no lleva un
 nombre especial o reservado, y lo podríamos llamar "limpiar", pero es mejor
 apegarnos al nombre en inglés para mantener consistencia.
 
-```makefile
+``` makefile
 some_file:
 	touch some_file
 
 clean:
 	rm -f some_file`
 ```
+<!-- makefile -->
 
 ### Variables
 
@@ -292,7 +314,8 @@ Hay más sobre este tema por acá [variables parte 2](#7.Variables parte
 
 Acá tenés un ejemplo con variables:
 
-```makefile
+```{code-block} makefile
+:linenos:
 files := file1 file2
 some_file: $(files)
 	echo "Mirá a esta variable!: " $(files)
@@ -305,17 +328,20 @@ file2:
 
 clean:
 	rm -f file1 file2 some_file
+
 ```
+<!-- {code-block} makefile -->
 
 Podes referenciar las variables con `${}` o `$()`
 
-```makefile
+``` makefile
 x := coso
 
 all:
 	echo $(x)
 	echo ${x}
 ```
+<!-- makefile -->
 
 Demás está decir que es muy recomendable usar nombres razonables para las
 variables
@@ -331,7 +357,8 @@ Es muy recomendable agregar al principio a este objetivo. Ya que de esta forma,
 será el llamado si no indicamos uno específico y de esta forma podemos compilar
 _todo_ sin tener que indicarlo puntualmente cada vez.
 
-```makefile
+```{code-block} makefile
+:linenos:
 
 all: one two three
 
@@ -344,7 +371,9 @@ three:
 
 clean:
 	rm -f one two three
+
 ```
+<!-- {code-block} makefile -->
 
 ### Objetivos múltiples
 
@@ -352,7 +381,8 @@ Cuando hay varios objetivos para una regla, los comandos se ejecutarán para cad
 objetivo, para saber cuál se está procesando, podemos utilizar la variable
 automática `$@` que contiene el nombre del objetivo.
 
-```makefile
+```{code-block} makefile
+:linenos:
 all: f1.o f2.o
 
 f1.o f2.o:
@@ -362,7 +392,9 @@ f1.o f2.o:
 #	echo f1.o
 # f2.o:
 #	echo f2.o
+
 ```
+<!-- {code-block} makefile -->
 
 Es particularmente útil cuando tenemos que hacer lo mismo en varios archivos
 diferentes, pero no es la única forma.
@@ -377,11 +409,12 @@ que coincidan. Es muy recomendable que siempre esté envuelto en la función
 `wildcard`, porque de lo contrario podés caer en una trampa común que se
 describe un poco más abajo.
 
-```makefile
+``` makefile
 # Imprime información de cada archivo .c
 print: $(wildcard *.c)
 	ls -la  $?
 ```
+<!-- makefile -->
 
 El comodín `*` puede ser utilizado en el objetivo, prerrequisitos o en la
 función `wildcard`.
@@ -390,7 +423,7 @@ Pero, no es posible usarlo directamente en la creación de variables, y cuando n
 hay coincidencias, es dejado como está, a no ser que sea utilizado dentro de la
 función `wildcard`.
 
-```{code}makefile
+:::{code}makefile
 :caption: Trampa con el comodín
 
 thing_wrong := *.o # No lo hagas. '*' no se expandirá
@@ -409,7 +442,9 @@ three: $(thing_right)
 
 # Igual que la regla three
 four: $(wildcard *.o)
-```
+
+:::
+<!-- {code}makefile -->
 
 ### El comodín `%`
 
@@ -435,10 +470,12 @@ Consulte estas secciones para ver ejemplos de su uso:
 ### Variables automáticas
 
 Hay más
-[variables](https://www.gnu.org/software/`make`/manual/html_node/Automatic-Variables.html)[s ](https://www.gnu.org/software/`make`/manual/html_node/Automatic-Variables.html)[automáticas](https://www.gnu.org/software/`make`/manual/html_node/Automatic-Variables.html),
+[variables](https://www.gnu.org/software/`make`/manual/html_node/Automatic-Variables.html)[s
+](https://www.gnu.org/software/`make`/manual/html_node/Automatic-Variables.html)[automáticas](https://www.gnu.org/software/`make`/manual/html_node/Automatic-Variables.html),
 pero estas son las más comunes:
 
-```makefile
+```{code-block} makefile
+:linenos:
 hey: one two
 	# Da como resultado "hey", ya que este es el primer objetivo
 	echo $@
@@ -459,7 +496,9 @@ two:
 
 clean:
 	rm -f hey one two
+
 ```
+<!-- {code-block} makefile -->
 
 ## Fancy Rules
 
@@ -493,7 +532,8 @@ Las variables importantes que utilizan las reglas implícitas son:
 Veamos cómo podemos ahora construir un programa en C sin tener que decirle
 explícitamente a `make` cómo hacer la compilación:
 
-```makefile
+```{code-block} makefile
+:linenos:
 CC = gcc    # Utilizamos gcc como compilador
 CFLAGS = -g # Activar la información de depuración
 
@@ -508,7 +548,9 @@ blah.c:
 
 clean:
 	rm -f blah*
+
 ```
+<!-- {code-block} makefile -->
 
 ### Patrones de reglas estáticas
 
@@ -516,10 +558,11 @@ Las reglas de patrones estáticos son otra forma de escribir menos en un
 Makefile, pero yo diría que son más útiles y un poco menos "mágicas". Esta es su
 sintaxis:
 
-```makefile
+``` makefile
 objetivos...: patron-objetivo: patrones-prereq ...
 	comandos
 ```
+<!-- makefile -->
 
 La esencia es que el `objetivo` dado coincide con el `patrón-objetivo` (a través
 de un comodín `%`). Lo que se ha encontrado se denomina "tronco", este se
@@ -528,7 +571,8 @@ sustituye por `patrones-prereq`, para generar los prerrequisitos del objetivo.
 Un caso de uso típico es compilar archivos `.c` en archivos `.o`. Esta es la
 forma manual:
 
-```makefile
+```{code-block} makefile
+:linenos:
 objects = foo.o bar.o all.o
 all: $(objects)
 
@@ -545,11 +589,14 @@ all.c:
 
 clean:
 	rm -f *.c *.o all
+
 ```
+<!-- {code-block} makefile -->
 
 Esta es la forma más eficiente, utilizando una regla de patrón estático:
 
-```makefile
+```{code-block} makefile
+:linenos:
 objects = foo.o bar.o all.o
 all: $(objects)
 
@@ -569,7 +616,9 @@ all.c:
 
 clean:
 	rm -f *.c *.o all
+
 ```
+<!-- {code-block} makefile -->
 
 ### Reglas y filtro de patrones estáticos
 
@@ -578,7 +627,8 @@ hacer con ellas. La función `filter` se puede utilizar en las reglas de patrone
 estáticos para hacer coincidir los archivos correctos. En este ejemplo, hice las
 extensiones `.raw` y `.result`.
 
-```makefile
+```{code-block} makefile
+:linenos:
 obj_files = foo.result bar.o lose.o
 src_files = foo.raw bar.c lose.c
 
@@ -595,7 +645,9 @@ $(filter %.result,$(obj_files)): %.result: %.raw
 
 clean:
 	rm -f $(src_files)
+
 ```
+<!-- {code-block} makefile -->
 
 ### Reglas de los patrones
 
@@ -607,11 +659,12 @@ Puedes verlas de dos maneras:
 
 Empecemos con un ejemplo:
 
-```makefile
+``` makefile
 # Definir una regla de patrón que compile cada archivo .c en un archivo .o
 %.o : %.c
 		$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
 ```
+<!-- makefile -->
 
 Las reglas de patrones contienen un '`%`' en el objetivo. Este '`%`' coincide
 con cualquier cadena no vacía, y los demás caracteres coinciden por sí mismos.
@@ -620,13 +673,14 @@ que fue igualado por el '`%`' en el objetivo.
 
 Aquí hay otro ejemplo:
 
-```makefile
+``` makefile
 # Definir una regla de patrón que no tenga ningún
 #   patrón en los prerrequisitos.
 # Esto sólo crea archivos .c vacíos cuando es necesario.
 %.c:
    touch $@
 ```
+<!-- makefile -->
 
 ### Reglas de dos puntos
 
@@ -634,7 +688,7 @@ Las Reglas de dos puntos se utilizan raramente, pero permiten definir múltiples
 reglas para el mismo objetivo. Si fueran dos puntos simples, se imprimiría una
 advertencia y solo se ejecutaría el segundo conjunto de comandos.
 
-```makefile
+``` makefile
 all: blah
 
 blah::
@@ -643,6 +697,7 @@ blah::
 blah::
 	echo "Hola denuevo!"
 ```
+<!-- makefile -->
 
 ## Comandos y ejecución
 
@@ -651,17 +706,19 @@ blah::
 Añade una _`@`_ antes de un comando para evitar que se imprima. También puedes
 ejecutar `make` con _`-s`_ para añadir una _`@`_ antes de cada línea
 
-```makefile
+``` makefile
 all:
 	@echo "Esto no va a aparecer en la salida"
 	echo "Pero eso si!"
 ```
+<!-- makefile -->
 
 ### Ejecución de comandos
 
 Cada comando se ejecuta en un nuevo shell (o al menos el efecto es como tal)
 
-```makefile
+```{code-block} makefile
+:linenos:
 all:
 	cd ..
 	# El cd anterior no afecta a esta línea,
@@ -674,19 +731,22 @@ all:
 	# Igual que antes, pero con la barra para dividir la linea en dos
 	cd ..; \
 	echo `pwd`
+
 ```
+<!-- {code-block} makefile -->
 
 ### Shell por defecto
 
 El shell por defecto es `/bin/sh`. Es posible cambiar esto modificando la
 variable `SHELL`:
 
-```makefile
+``` makefile
 SHELL=/bin/bash
 
 cool:
 	echo "Hola desde bash"
 ```
+<!-- makefile -->
 
 ### Gestión de errores con `-k`, `-i`, y `-`
 
@@ -699,12 +759,13 @@ Agregá un `-` antes de un comando para suprimir el error
 Y con `-i` al llamar a `make` para que esto pase con cada comando.
 (`--ignore-errors`)
 
-```makefile
+``` makefile
 one:
 	# Este error se imprimirá pero se ignorará, make continuará ejecutándose
 	-false
 	touch one
 ```
+<!-- makefile -->
 
 ### Uso recursivo de `make`
 
@@ -712,7 +773,8 @@ Para llamar recursivamente a un `makefile`, usá el especial `$(make)` en lugar
 de `make`, ya que pasará las opciones de la llamada original de `make` por usted
 y no se verá afectado por ellas.
 
-```makefile
+```{code-block} makefile
+:linenos:
 new_contents = "hello:\n\ttouch a inside_file"
 all:
 	mkdir -p subdir
@@ -721,7 +783,9 @@ all:
 
 clean:
 	rm -rf subdir
+
 ```
+<!-- {code-block} makefile -->
 
 ### Usar export para un `make` recursivo
 
@@ -732,7 +796,8 @@ el subdirectorio puede usarlo.
 Nota: _export_ tiene la misma sintaxis que en la terminal de la consola (`sh`,
 `bash`), pero no están relacionados (aunque son similares en su función)
 
-```makefile
+```{code-block} makefile
+:linenos:
 new_contents = "hello:\n\\techo \$$(cooly)"
 
 all:
@@ -751,11 +816,14 @@ export cooly
 
 clean:
 	rm -rf subdir
+
 ```
+<!-- {code-block} makefile -->
 
 Es necesario exportar las variables para que se ejecuten también en el shell.
 
-```makefile
+```{code-block} makefile
+:linenos:
 one=esto sólo funcionará localmente
 export two=podemos ejecutar subcomandos con esto
 
@@ -764,11 +832,14 @@ all:
 	@echo $$one
 	@echo $(two)
 	@echo $$two
+
 ```
+<!-- {code-block} makefile -->
 
 Mientras que `.EXPORT_ALL_VARIABLES` lo hace por tí, para todas las variables.
 
-```makefile
+```{code-block} makefile
+:linenos:
 .EXPORT_ALL_VARIABLES:
 new_contents = "hello:\n\techo \$$(cooly)"
 
@@ -785,12 +856,15 @@ all:
 
 clean:
 	rm -rf subdir
+
 ```
+<!-- {code-block} makefile -->
 
 ### Argumentos a `make`
 
 De la muy bonita lista en el manual
-[lista de opciones](http://www.gnu.org/software/`make`/manual/`make`.html#Options-Summary),
+[lista de
+opciones](http://www.gnu.org/software/`make`/manual/`make`.html#Options-Summary),
 peguenlé una mirada a `--dry-run`, `--touch` y `--old-file`. Además de ver en
 detalle que hace `-i` y `-k`.
 
@@ -799,9 +873,11 @@ varios y en orden, solo tenemos que indicarlos uno a continuación de otro.
 
 Por ejemplo:
 
-```text
+``` shell
 $> make clean run test
 ```
+<!-- shell -->
+<!-- text -->
 
 Que limpia los archivos generados previamente (`clean`), compila y ejecuta el
 programa (`run`) y finalmente corre los `test`'s.
@@ -817,7 +893,8 @@ Hay dos sabores de variables
 - Expansión simple (usa `:=`) - como en programación normal, las variables toman
   su valor cuando son definidas, sin expansión
 
-```makefile
+```{code-block} makefile
+:linenos:
 # Variable recursiva. Esto imprimirá "tardio" a continuación
 uno = uno ${later_variable}
 # Variable simplemente expandida. Esto no imprimirá "tardio" abajo
@@ -828,12 +905,15 @@ later_variable = tardio
 all:
 	echo $(uno)
 	echo $(dos)
+
 ```
+<!-- {code-block} makefile -->
 
 La expansión simple (utilizando `:=`) permite añadir a una variable. Las
 definiciones recursivas darán un error de lazo infinito.
 
-```makefile
+```{code-block} makefile
+:linenos:
 uno = hola
 uno ?= no será asignado
 dos ?= será asignado
@@ -841,12 +921,15 @@ dos ?= será asignado
 all:
 	echo $(uno)
 	echo $(dos)
+
 ```
+<!-- {code-block} makefile -->
 
 Los espacios al final de una línea no se eliminan, pero sí los del principio.
 Para crear una variable con un solo espacio, utilice `$(nullstring)`
 
-```makefile
+```{code-block} makefile
+:linenos:
 con_espacios = alo   # con_espacios tiene 3 espacios luego de "alo"
 after = $(con_espacios)there
 
@@ -856,32 +939,38 @@ space = $(nullstring) # Hace una variable con un solo espacio.
 all:
 	echo "$(after)"
 	echo inicio"$(space)"fin
+
 ```
+<!-- {code-block} makefile -->
 
 Una variable indefinida es en realidad una cadena vacía, por lo que emplear una
 variable desconocida no producirá un error.
 
-```makefile
+``` makefile
 all:
 	# Las variables no definidas son sólo cadenas vacías!
 	echo $(nowhere)
 ```
+<!-- makefile -->
 
 Y podes usar `+=` para concatenar.
 
-```makefile
+``` makefile
 foo := start
 foo += more
 
 all:
 	echo $(foo)
 ```
+<!-- makefile -->
 
 La substitución de cadenas es una forma muy útil para modificar el contenido de
 las variables. Para más información, consulten las páginas del manual
-[Text Functions](https://www.gnu.org/software/`make`/manual/html_node/Text-Functions.html#Text-Functions)
+[Text
+Functions](https://www.gnu.org/software/`make`/manual/html_node/Text-Functions.html#Text-Functions)
 y
-[Filename Functions](https://www.gnu.org/software/`make`/manual/html_node/File-Name-Functions.html#File-Name-Functions)
+[Filename
+Functions](https://www.gnu.org/software/`make`/manual/html_node/File-Name-Functions.html#File-Name-Functions)
 de GNU/`make`.
 
 ### Argumentos de linea de comandos y anulaciones
@@ -889,7 +978,8 @@ de GNU/`make`.
 Puedes anular las variables que provienen de la línea de comandos utilizando
 `override`. Aquí ejecutamos `make` con `make option_one=hi`
 
-```makefile
+```{code-block} makefile
+:linenos:
 # Supera los argumentos de la línea de comandos
 override option_one = did_override
 # No anula los argumentos de la línea de comandos
@@ -897,7 +987,9 @@ option_two = not_override
 all:
 	echo $(option_one)
 	echo $(option_two)
+
 ```
+<!-- {code-block} makefile -->
 
 Puesto de otra manera, no importa lo que venga de afuera, el valor siempre va a
 ser el que este definido internamente.
@@ -909,7 +1001,8 @@ ser una función. Tené en cuenta aquí que es un poco diferente a tener un punt
 coma entre los comandos, porque cada uno se ejecuta en un shell separado, como
 se espera.
 
-```makefile
+```{code-block} makefile
+:linenos:
 one = export blah="Estaba definida!"; echo $$blah
 
 define two
@@ -924,13 +1017,15 @@ all:
 	@$(one)
 	@echo "Esto no muestra 'Estaba definida!', ya que cada comando se ejecuta en un shell separado."
 	@$(two)
+
 ```
+<!-- {code-block} makefile -->
 
 ### Variables específicas de los objetivos
 
 Las variables pueden ser asignadas para objetivos específicos:
 
-```makefile
+``` makefile
 all: uno = copado
 
 all:
@@ -939,13 +1034,14 @@ all:
 other:
 	echo uno esta definida: $(uno)
 ```
+<!-- makefile -->
 
 ### Variables específicas a patrones
 
 Así como podemos definir variables para objetivos específicos, podemos también
 asignarlas a patrones.
 
-```makefile
+``` makefile
 %.c: one = buenardo
 
 blah.c:
@@ -954,12 +1050,14 @@ blah.c:
 other:
 	echo uno esta definida: $(one)
 ```
+<!-- makefile -->
 
 ## La parte condicional de los `Makefiles`
 
 ### Un `if`/`else` clásico
 
-```makefile
+```{code-block} makefile
+:linenos:
 foo = ok
 
 all:
@@ -968,11 +1066,14 @@ ifeq ($(foo), ok)
 else
 	echo "nope"
 endif
+
 ```
+<!-- {code-block} makefile -->
 
 ### []{#anchor-13}Verificar si una variable esta vacía
 
-```makefile
+```{code-block} makefile
+:linenos:
 nullstring =
 foo = $(nullstring) # fin de linea; noten que hay un espacio acá
 
@@ -983,14 +1084,17 @@ endif
 ifeq ($(nullstring),)
 	echo "nullstring ni siquiera tiene espacios"
 endif
+
 ```
+<!-- {code-block} makefile -->
 
 ### Verificar si una variable está definida
 
 `ifdef` no expande las referencias a variables, solo se encarga de verificar que
 existen.
 
-```makefile
+```{code-block} makefile
+:linenos:
 bar =
 foo = $(bar)
 
@@ -1001,7 +1105,9 @@ endif
 ifndef bar
 	echo "pero bar no lo esta"
 endif
+
 ```
+<!-- {code-block} makefile -->
 
 ### `$(makeflags)`
 
@@ -1011,7 +1117,8 @@ construir.
 
 Para el siguiente ejemplo, utilizá `-i` para ver el texto en el `echo`.
 
-```makefile
+```{code-block} makefile
+:linenos:
 bar =
 foo = $(bar)
 
@@ -1021,7 +1128,9 @@ all:
 ifneq (,$(findstring i, $(MAKEFLAGS)))
 	echo "la opcion i fue agregada a MAKEFLAGS"
 endif
+
 ```
+<!-- {code-block} makefile -->
 
 ## Funciones
 
@@ -1036,19 +1145,22 @@ _\$(fn, argumentos)_ o _\${fn, argumentos}_.
 Podes hacer `make` propio utilizando
 [call](https://www.gnu.org/software/`make`/manual/html_node/Call-Function.html#Call-Function)
 para llamar funciones 'de libreria'. Y `make` tiene una cantidad interesante de
-[funciones integradas](https://www.gnu.org/software/`make`/manual/html_node/Functions.html).
+[funciones
+integradas](https://www.gnu.org/software/`make`/manual/html_node/Functions.html).
 
 ### Substituciones textuales (`subst`)
 
-```makefile
+``` makefile
 bar := ${subst no, absolutamentoe, "Yo no soy Paturuzu"}
 all:
 	@echo $(bar)
 ```
+<!-- makefile -->
 
 Si querés reemplazar espacio o comas, usá variables:
 
-```makefile
+```{code-block} makefile
+:linenos:
 comma := ,
 empty:=
 space := $(empty) $(empty)
@@ -1057,12 +1169,15 @@ bar := $(subst $(space),$(comma),$(foo))
 
 all:
 	@echo $(bar)
+
 ```
+<!-- {code-block} makefile -->
 
 No incluyas espacios en los argumentos antes del primero, esto será visto como
 parte de la cadena.
 
-```makefile
+```{code-block} makefile
+:linenos:
 comma := ,
 empty:=
 space := $(empty) $(empty)
@@ -1072,7 +1187,9 @@ bar := $(subst $(space), $(comma) , $(foo))
 all:
 	# La salida es is ", a , b , c". Mirá los espacios que se introdujeron
 	@echo $(bar)
+
 ```
+<!-- {code-block} makefile -->
 
 ### Substituciones usando patrones (`patsubst`)
 
@@ -1088,7 +1205,8 @@ Según el manual:
 > el primero "`%`" en el patrón y el reemplazo se trata de esta manera;
 > cualquier "`%`" posterior no se modifica.
 
-([GNU docs](https://www.gnu.org/software/`make`/manual/html_node/Text-Functions.html#Text-Functions))
+([GNU
+docs](https://www.gnu.org/software/`make`/manual/html_node/Text-Functions.html#Text-Functions))
 
 La referencia de substitución `$(texto:patron=reemplazo)` es un atajo para esto.
 
@@ -1096,9 +1214,11 @@ Existe otra abreviación que solo reemplaza sufijos, `$(texto:sufijo=reemplazo)`
 No es necesario el comodín "`%`".
 
 :::{note}Cuidado con los espacios No agregues espacios para este atajo, ya que
+
 será interpretado como una búsqueda o término de reemplazo. :::
 
-```makefile
+```{code-block} makefile
+:linenos:
 foo := a.o b.o l.a c.o
 one := $(patsubst %.o,%.c,$(foo))
 # Esto es un atajo para lo de arriba
@@ -1110,7 +1230,9 @@ all:
 	echo $(one)
 	echo $(two)
 	echo $(three)
+
 ```
+<!-- {code-block} makefile -->
 
 ### La función `foreach`
 
@@ -1120,7 +1242,8 @@ a cada palabra de la lista y texto se expande para cada palabra.
 
 El siguiente ejemplo agrega una exclamación `!` a cada palabra.
 
-```makefile
+```{code-block} makefile
+:linenos:
 foo := quien so vo
 # para cada 'palabra' en 'foo', mostrá esa palabra con una exclamación a continuación.
 bar := $(foreach palabra,$(foo),$(palabra)!)
@@ -1128,14 +1251,17 @@ bar := $(foreach palabra,$(foo),$(palabra)!)
 all:
 	# Output is "who! are! you!"
 	@echo $(bar)
+
 ```
+<!-- {code-block} makefile -->
 
 ### La función `if`
 
 `if` verifica si el primer argumento tiene algo (no vacío), entonces, devuelve
 el segundo y sino, devuelve el tercero.
 
-```makefile
+```{code-block} makefile
+:linenos:
 foo := $(if no-vacio,entonces!,sino!)
 empty :=
 bar := $(if $(empty),entonces!,sino!)
@@ -1143,7 +1269,9 @@ bar := $(if $(empty),entonces!,sino!)
 all:
 	@echo $(foo)
 	@echo $(bar)
+
 ```
+<!-- {code-block} makefile -->
 
 ### La función `call`
 
@@ -1156,7 +1284,7 @@ Son más parecidas a plantillas de texto que a _verdaderas_ funciones.
 La sintaxis de un llamado a función es el siguiente,
 `$(call variable_funcion,parametro,parametro)`
 
-```makefile
+``` makefile
 mi_super_funcion = Nombre funcion: $(0) primer arg: $(1) segundo arg: $(2) variable vacia: $(3)
 
 all:
@@ -1164,6 +1292,7 @@ all:
     # muestra "Nombre funcion: mi_super_funcion primer arg: vamo segundo arg: bokee variable vacia:"
 	@echo $(call mi_super_funcion, vamo, bokee)
 ```
+<!-- makefile -->
 
 Los argumentos no indicados no hacen fallar a la función, simplemente quedan
 vacíos.
@@ -1173,10 +1302,11 @@ vacíos.
 Esta llama a un programa en la consola reemplazando los saltos de línea con
 espacios.
 
-```makefile
+``` makefile
 all:
 	@echo $(shell ls -la) # Horrendo porque los saltos de línea se van, pero funciona!
 ```
+<!-- makefile -->
 
 ## Otras características
 
@@ -1195,15 +1325,17 @@ crean `Makefiles` en función del código fuente. Por ejemplo, si algún archivo
 Esta se utiliza para indicar en donde encontrar algún conjunto de
 prerrequisitos. Su formato es
 
-```makefile
+``` makefile
 vpath <patrón> <directorios, separados por coma o espacios>
 ```
+<!-- makefile -->
 
 Puede tener una `%`, que significa que coincide a cero o más caracteres.
 
 Esto se puede hacer de forma _un poco_ más global utilizando la variable `VPATH`
 
-```makefile
+```{code-block} makefile
+:linenos:
 vpath %.h ../headers ../otro-directorio
 
 some_binary: ../headers blah.h
@@ -1218,18 +1350,21 @@ blah.h:
 clean:
 	rm -rf ../headers
 	rm -f un_binario
+
 ```
+<!-- {code-block} makefile -->
 
 ### Saltos de línea
 
 La barra invertida "`\`" nos da la posibilidad de dividir una línea cuando es
 demasiado larga.
 
-```makefile
+``` makefile
 some_file:
 	echo esta linea es demasiado larga, por lo que \
 		la dividimos en varias.
 ```
+<!-- makefile -->
 
 ### `.phony`
 
@@ -1243,7 +1378,8 @@ que evitar crear archivos con el nombre de estos 'objetivos' especiales, como
 `test`, `run`, `clean` y otros, por lo que lo saltearemos para mantener todo más
 simple.
 
-```makefile
+```{code-block} makefile
+:linenos:
 some_file:
 	touch un_archivo
 	touch clean
@@ -1252,7 +1388,9 @@ some_file:
 clean:
 	rm -f un_archivo
 	rm -f clean
+
 ```
+<!-- {code-block} makefile -->
 
 ### `.delete_on_error`
 
@@ -1267,7 +1405,8 @@ de cocina, incluyendo los dependientes.
 Esto es importante de activar, ya que si tenemos un problema en las
 herramientas, la salida en sí no tiene mucho sentido.
 
-```makefile
+```{code-block} makefile
+:linenos:
 .DELETE_ON_ERROR:
 all: uno dos
 
@@ -1278,7 +1417,9 @@ one:
 two:
 	touch dos
 	false
+
 ```
+<!-- {code-block} makefile -->
 
 [Más información](https://innolitics.com/articles/make-delete-on-error/)
 
@@ -1290,7 +1431,8 @@ de tamaño mediano.
 Lo piola de este archivo `Makefile` es que determina automáticamente las
 dependencias. Solo tienes que colocar tus archivos C/C++ en la carpeta `src/`.
 
-```makefile
+```{code-block} makefile
+:linenos:
 # Thanks to Job Vranish (https://spin.atomicobject.com/2016/08/26/makefile-c-projects/)
 TARGET_EXEC := final_program
 
@@ -1371,6 +1513,7 @@ clean:
 -include $(DEPS)
 
 ```
+<!-- {code-block} makefile -->
 
 [^1]:
     A julio del 2022, el primer puesto lo tiene una computadora doble

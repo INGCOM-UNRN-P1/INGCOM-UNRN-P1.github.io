@@ -1,155 +1,266 @@
 ---
 title: La función printf
 short_title: Guía printf
-subtitle: Para que podemos mostrar variables.
+subtitle: Guía de referencia sobre el formateo de salida de datos en lenguaje C.
 ---
 
 ## Introducción
 
-La función `printf` (que deriva su nombre de “print formatted”) imprime un
-mensaje por pantalla utilizando una “cadena de formato” que incluye las
-instrucciones para mezclar múltiples cadenas en la cadena final a mostrar por
-pantalla.
+La función `printf` (cuyo nombre proviene de *print formatted*) permite imprimir
+mensajes por la salida estándar (normalmente la terminal) utilizando una
+**cadena de formato**. Esta cadena de control describe de manera exacta cómo
+deben formatearse y representarse los argumentos adicionales pasados a la
+función.
 
-`printf` es una función especial porque recibe un número variable de parámetros.
-El primer parámetro es fijo y es la cadena de formato. En ella se incluye texto
-a imprimir literalmente y marcas a reemplazar por texto que se obtiene de los
-parámetros adicionales. Por tanto, `printf` se llama con tantos parámetros como
-marcas haya en la cadena de formato más uno (la propia cadena de formato). El
-siguiente ejemplo muestra cómo se imprime el valor de la variable contador.
+`printf` es una función especial y potente de la biblioteca estándar `<stdio.h>`
+porque es **variádica**, lo que significa que recibe un número variable de
+parámetros.
 
-```C
-printf("El valor es %d.\n", contador);
+El primer parámetro es fijo: la cadena de formato. Dentro de ella se intercalan
+texto literal y **especificadores de formato** (comenzando con `%`). `printf`
+procesará la cadena y reemplazará cada especificador con el valor de la variable
+o argumento correspondiente, respetando el orden secuencial de aparición:
+
+``` c
+printf("El valor del contador es %d.\n", contador);
 ```
+<!-- c -->
 
-El símbolo “`%`” denota el comienzo de la marca de formato. La marca “`%d`” se
-reemplaza por el valor de la variable contador y se imprime la cadena
-resultante. El símbolo “`\n`” representa un salto de línea. La salida, por
-defecto, se justifica a la derecha del ancho total que le hallamos dado al
-campo, que por defecto tiene como longitud la longitud de la cadena.
+:::{warning} Comportamiento Indeterminado
 
-Si en la cadena de formato aparecen varias marcas, los valores a incluir se
-toman en el mismo orden en el que aparecen. La siguiente figura muestra un
-ejemplo en el que la cadena de formato tiene tres marcas, `%s`, `%d` y `%5.2f`,
-que se procesan utilizando respectivamente la cadena `"red"`, el entero
-`1234567` y el número decimal `3.14`.
+El estándar de C no obliga a verificar en tiempo de compilación que la cantidad
+y los tipos de los argumentos coincidan de manera exacta con los especificadores
+de la cadena de formato. Si se proporcionan menos argumentos de los requeridos o
+si se pasan tipos incompatibles, el comportamiento resultante es
+**indeterminado** (*undefined behavior*).
 
-No se comprueba que el número de marcas en la cadena de formato y el número de
-parámetros restantes sea consistente. En caso de error, el comportamiento de
-`printf` es indeterminado.
+:::
+<!-- {warning} Comportamiento Indeterminado -->
 
-Las marcas en la cadena de formato deben tener la siguiente estructura (_los
-campos entre corchetes son opcionales_):
+---
 
-```c
-%[parametro][opcion][ancho][.precisión][largo]tipo
+## Anatomía de un Especificador de Formato
+
+Cualquier especificador de formato que se inserte en la cadena de control debe
+respetar la siguiente estructura jerárquica (donde los componentes entre
+corchetes son opcionales):
+
+``` c
+%[parámetro][banderas][ancho][.precisión][largo]tipo
 ```
+<!-- c -->
 
-Toda marca, por tanto, comienza por el símbolo “`%`” y termina con su tipo. Cada
-uno de los nombres (parameter, flags, width, precision, length y type)
-representa un conjunto de valores posibles que se explican a continuación:
+Para comprender en detalle cada uno de estos componentes, a continuación se
+presentan divididos en tablas temáticas según su función.
 
-| Parametro     | Descripción                                                                                                                                                                                                                                                    |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `n$`          | Se reemplaza “n” por un número para cambiar el orden en el que se procesan los argumentos. Por ejemplo `%3$d` se refiere al tercer argumento independientemente del lugar que ocupa en la cadena de formato.                                                   |
-| **opcion**    | **Descripción**                                                                                                                                                                                                                                                |
-| `número`      | Rellena con espacios (o con ceros, ver siguiente flag) a la izquierda hasta el valor del número.                                                                                                                                                               |
-| `0`           | Se rellena con ceros a la izquierda hasta el valor dado por el flag anterior. Por ejemplo “`%03d`” imprime un número justificado con ceros hasta tres dígitos.                                                                                                 |
-| `+`           | Imprimir el signo de un número                                                                                                                                                                                                                                 |
-| `\-`          | Justifica el campo a la izquierda (por defecto ya hemos dicho que se justifica a la derecha)                                                                                                                                                                   |
-| `#`           | Formato alternativo. Para reales se dejan ceros al final y se imprime siempre la coma. Para números que no están en base 10, se añade un prefijo denotando la base.                                                                                            |
-| **ancho**     | **Descripción**                                                                                                                                                                                                                                                |
-| `número`      | Tamaño del ancho del campo donde se imprimirá el valor.                                                                                                                                                                                                        |
-| `\*`          | Igual que el caso anterior, pero el número a utilizar se pasa como parámetro justo antes del valor. Por ejemplo `printf("%*d", 5, 10)` imprime el número 10, pero con un ancho de cinco dígitos (es decir, rellenará con 3 espacios en blanco a la izquierda). |
-| **precisión** | **Descripción**                                                                                                                                                                                                                                                |
-| número        | Tamaño de la parte decimal para números reales. Número de caracteres a imprimir para cadenas de texto                                                                                                                                                          |
-| `\*`          | Igual que el caso anterior, pero el número a utilizar se pasa como parámetro justo antes del valor. Por ejemplo `printf("%.*s", 3, "abcdef")` imprime `"abc"`.                                                                                                 |
-| **largo**     | **Descripción**                                                                                                                                                                                                                                                |
-| `hh`          | Convertir variable de tipo `char` a entero e imprimir                                                                                                                                                                                                          |
-| `h`           | Convertir variable de tipo `short` a entero e imprimir                                                                                                                                                                                                         |
-| `l`           | Para enteros, se espera una variable de tipo `long`.                                                                                                                                                                                                           |
-| `ll`          | Para enteros, se espera una variable de tipo `long long`.                                                                                                                                                                                                      |
-| `L`           | Para reales, se espera una variable de tipo `long double`.                                                                                                                                                                                                     |
-| `z`           | Para enteros, se espera un argumento de tipo `size_t`.                                                                                                                                                                                                         |
-| **tipo**      | **Descripción**                                                                                                                                                                                                                                                |
-| `%c`          | Imprime el carácter ASCII correspondiente                                                                                                                                                                                                                      |
-| `%d`, `%i`    | Conversión decimal con signo de un entero                                                                                                                                                                                                                      |
-| `%x`, `%X`    | Conversión hexadecimal sin signo                                                                                                                                                                                                                               |
-| `%p`          | Dirección de memoria (puntero)                                                                                                                                                                                                                                 |
-| `%e`, `%E`    | Conversión a coma flotante con signo en notación científica                                                                                                                                                                                                    |
-| `%f`, `%F`    | Conversión a coma flotante con signo, usando punto decimal                                                                                                                                                                                                     |
-| `%g`, `%G`    | Conversión a coma flotante, usando la notación que requiera menor espacio                                                                                                                                                                                      |
-| `%o`          | Conversión octal sin signo de un entero                                                                                                                                                                                                                        |
-| `%u`          | Conversión decimal sin signo de un entero                                                                                                                                                                                                                      |
-| `%s`          | Cadena de caracteres (terminada en '\\0')                                                                                                                                                                                                                      |
-| `%%`          | Imprime el símbolo %                                                                                                                                                                                                                                           |
+### 1. Especificadores de Tipo (Obligatorio)
 
-### Ejemplos de marcas de formato
+Determinan cómo se interpretará y mostrará el argumento correspondiente en
+memoria.
 
-Las marcas de formato que se incluyen como parte de la cadena que se pasa como
-primer parámetro a printf ofrece muchas posibilidades. A continuación se
-muestran algunos ejemplos:
+:::{table} Especificadores de Tipo comunes
+:label: tbl-especificadores-tipo
 
-- Especificar el ancho mínimo: Podemos poner un entero entre el símbolo de
-  porcentaje (%) y el especificador de formato, para indicar que la salida
-  alcance un ancho mínimo. Por ejemplo, %10f asegura que la salida va a tener al
-  menos 10 espacios de ancho. Esto es útil cuando se van a imprimir datos en
-  forma de columnas. Por ejemplo, si tenemos:
+| Especificador | Tipo esperado | Descripción | Ejemplo de salida |
+| :--- | :--- | :--- | :--- |
+| `%d` o `%i` | `int` | Entero con signo en base 10. | `42` o `-42` |
+| `%u` | `unsigned int` | Entero sin signo en base 10. | `3000000000` |
+| `%f` o `%F` | `double` | Representación decimal tradicional (coma flotante). | `3.141593` |
+| `%e` o `%E` | `double` | Coma flotante en notación científica (exponencial). | `3.141593e+00` |
+| `%g` o `%G` | `double` | Utiliza la representación más compacta entre `%f` y `%e`. | `3.1416` |
+| `%c` | `int` / `char` | Imprime el carácter ASCII correspondiente. | `'A'` |
+| `%s` | `char*` | Cadena de caracteres (debe finalizar con el carácter nulo `\0`). | `"Hola"` |
+| `%x` o `%X` | `unsigned int` | Representación hexadecimal (base 16) en minúsculas o mayúsculas. | `2a` o `2A` |
+| `%o` | `unsigned int` | Representación octal (base 8). | `52` |
+| `%p` | `void*` | Dirección de memoria (representación de puntero). | `0x7ffee3bf8a10` |
+| `%%` | Ninguno | Imprime el símbolo `%` literal. No consume ningún argumento. | `%` |
 
-```c
-    int num = 12;
-    int num2 = 12345;
-    printf("%d\n",num2);
-    printf("%5d\n",num);
+:::
+<!-- {table} Especificadores de Tipo comunes -->
+
+### 2. Banderas u Opciones (Opcional)
+
+Modifican aspectos de la alineación, signos matemáticos y relleno de la salida.
+
+:::{table} Banderas de formato
+:label: tbl-banderas-formato
+
+| Bandera | Descripción | Ejemplo | Salida resultante |
+| :--- | :--- | :--- | :--- |
+| `-` | Justifica a la izquierda (por defecto se justifica a la derecha). | `printf("%-5d!", 42);` | `"42   !"` |
+| `+` | Fuerza la visualización del signo (tanto `+` como `-`). | `printf("%+d", 42);` | `"+42"` |
+| ` ` (espacio) | Agrega un espacio inicial si el número es positivo; útil para alinear con números negativos. | `printf("% d", 42);` | `" 42"` |
+| `0` | Rellena con ceros a la izquierda en lugar de espacios en blanco. | `printf("%05d", 42);` | `"00042"` |
+| `#` | Representación alternativa: agrega prefijo (`0x` para `%X`, `0` para `%o`) o mantiene el punto decimal en decimales vacíos. | `printf("%#X", 255);` | `"0XFF"` |
+
+:::
+<!-- {table} Banderas de formato -->
+
+### 3. Ancho y Precisión (Opcional)
+
+Controlan de forma exacta el espacio reservado para la salida y el redondeo o
+recorte de valores.
+
+:::{table} Control de Ancho y Precisión
+:label: tbl-ancho-precision
+
+| Componente | Sintaxis | Descripción | Ejemplo | Salida |
+| :--- | :--- | :--- | :--- | :--- |
+| **Ancho fijo** | Un número (ej. `5`) | Ancho mínimo del campo. Rellena con espacios si el dato es más corto. | `printf("%5d", 42);` | `"   42"` |
+| **Ancho dinámico** | `*` | El ancho se lee de un argumento entero previo. | `printf("%*d", 5, 42);` | `"   42"` |
+| **Precisión fija** | `.número` (ej. `.2`) | **Reales**: Cantidad de decimales. **Enteros**: Dígitos mínimos a mostrar. **Cadenas**: Longitud máxima de caracteres. | `printf("%.2f", 3.1415);` | `"3.14"` |
+| **Precisión dinámica** | `.*` | La precisión se lee de un argumento entero previo. | `printf("%.*s", 3, "Frutas");` | `"Fru"` |
+
+:::
+<!-- {table} Control de Ancho y Precisión -->
+
+### 4. Modificadores de Largo o Tamaño (Opcional)
+
+Adaptan el tipo básico esperado a otros tamaños de variables.
+
+:::{table} Modificadores de largo
+:label: tbl-modificadores-largo
+
+| Modificador | Tipo entero compatible | Tipo real compatible | Descripción | Ejemplo de uso |
+| :--- | :--- | :--- | :--- | :--- |
+| `hh` | `char` / `unsigned char` | - | Imprime como tipo entero de 8 bits. | `printf("%hhd", variable_char);` |
+| `h` | `short` / `unsigned short` | - | Imprime como tipo entero corto de 16 bits. | `printf("%hd", variable_short);` |
+| `l` | `long` / `unsigned long` | - | Imprime enteros largos. | `printf("%ld", 1234567890L);` |
+| `ll` | `long long` / `unsigned long long` | - | Imprime enteros extra largos de 64 bits. | `printf("%lld", 123456789012LL);` |
+| `z` | `size_t` | - | **Obligatorio para tamaños de variables y llamadas a `sizeof`**. | `printf("%zu bytes", sizeof(double));` |
+| `L` | - | `long double` | Modificador para coma flotante de precisión extendida. | `printf("%Lf", variable_long_double);` |
+
+:::
+<!-- {table} Modificadores de largo -->
+
+---
+
+## Ejemplos Detallados de Formateo
+
+A continuación se presentan una serie de ejemplos interactivos organizados por
+caso de uso práctico.
+
+### Alineación y Columnas en Tablas
+
+Cuando se imprimen listados en la consola, formatear los anchos de campo evita
+que el texto se desalinee.
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+
+int main(void) {
+    char *prod1 = "Manzanas";
+    char *prod2 = "Pan";
+    int cant1 = 15;
+    int cant2 = 2;
+    double precio1 = 150.50;
+    double precio2 = 45.00;
+
+    // Encabezado
+    printf("%-15s %8s %10s\n", "Producto", "Cantidad", "Precio");
+    printf("-----------------------------------------\n");
+    // Filas alineadas
+    printf("%-15s %8d %10.2f\n", prod1, cant1, precio1);
+    printf("%-15s %8d %10.2f\n", prod2, cant2, precio2);
+
+    return 0;
+}
+
 ```
+<!-- {code-block} c -->
 
-Se imprime como:
+**Salida en consola:**
+``` text
+Producto        Cantidad     Precio↵
+-----------------------------------------↵
+Manzanas              15     150.50↵
+Pan                    2      45.00↵
+```
+<!-- text -->
+
+### Formato de Números Decimales y Redondeo
+
+El uso de la precisión permite recortar decimales de variables de tipo `double`
+y `float`. Observar cómo se aplica el redondeo aritmético convencional:
+
+``` c
+double pi = 3.1415926535;
+
+printf("Sin formato: %f\n", pi);          // Muestra 6 decimales por defecto
+printf("Dos decimales: %.2f\n", pi);       // "3.14"
+printf("Cuatro decimales: %.4f\n", pi);    // "3.1416" (Redondea el último dígito)
+printf("Notación científica: %e\n", pi);   // "3.141593e+00"
+```
+<!-- c -->
+
+### Ancho y Precisión Dinámica
+
+Podemos evitar codificar valores rígidos dentro de la cadena de formato
+pasándolos como parámetros dinámicos mediante el asterisco (`*`):
+
+```{code-block} c
+:linenos:
+int ancho = 10;
+int precision = 3;
+double valor = 12.345678;
+
+// El primer asterisco consume 'ancho' (10) y el segundo 'precision' (3)
+printf("Dinámico: '%*.*f'\n", ancho, precision, valor);
+// Salida: '    12.346'↵
 
 ```
-12345
-   12
+<!-- {code-block} c -->
+
+### Uso de Ceros a la Izquierda
+
+Común al mostrar fechas, horas o códigos de barras que requieren tamaños de
+campo fijos:
+
+``` c
+int dia = 9;
+int mes = 4;
+int anio = 2026;
+
+printf("Fecha: %02d/%02d/%04d\n", dia, mes, anio);
+// Salida: Fecha: 09/04/2026↵
 ```
+<!-- c -->
 
-- Alinear la salida: Por defecto, la salida cuando se especifica ancho mínimo
-  está justificada a la derecha. Para justificarla a la izquierda, hay que
-  preceder el dígito de la anchura con el signo menos (-). Por ejemplo, `%-12d`
-  especifica un ancho mínimo de 12, saca la salida justificada a la izquierda.
+---
 
-- Especificador de precisión: Puedes poner un punto (.) y un entero después de
-  especificar un ancho de campo mínimo para especificar la precisión. En un dato
-  de tipo float, esto permite especificar el número de decimales a sacar. En un
-  dato de tipo entero o en cadenas de caracteres, especifica el ancho o longitud
-  máxima.
+## Secuencias de Escape
 
+Las secuencias de escape permiten incluir caracteres no imprimibles o con un
+comportamiento sintáctico especial en la cadena de salida. Todas inician con una
+barra invertida (`\`).
 
-(escape)=
-## Secuencias de escape
+:::{table} Secuencias de escape comunes
+:label: tbl-secuencias-escape
 
-Una secuencia de escape es una forma de cambiar como el compilador tratará el
-siguiente caracter. El código siempre empieza con una barra invertida (\). Este
-simbolo indica que hay un tratamiento especial para lo que viene a continuación.
+| Secuencia | Nombre | Descripción |
+| :--- | :--- | :--- |
+| `\n` | Nueva línea | Mueve el cursor al inicio de la línea siguiente (salto de línea `↵`). |
+| `\t` | Tabulación | Desplaza el cursor al siguiente punto de tabulación horizontal. |
+| `\0` | Byte Nulo | Indica el fin lógico de una cadena de caracteres en C. |
+| `\\` | Barra invertida | Imprime un carácter literal de barra invertida (`\`). |
+| `\"` | Comillas dobles | Permite escribir comillas dentro de un literal delimitado por comillas. |
+| `\'` | Comilla simple | Permite representar comillas simples dentro de literales de caracteres. |
 
-Esto tiene dos propósitos:
+:::
+<!-- {table} Secuencias de escape comunes -->
 
-- Dar un significado especial a un carácter normal: Por ejemplo, la letra n por
-  sí sola es solo una n. Pero si le antepones la barra (`\n`), le estás dando el
-  poder especial de crear una nueva línea en el texto. Has "escapado" de su
-  significado literal para convertirlo en un comando.
+### Ejemplo práctico de secuencias de escape
 
-- Quitar el significado especial a un carácter de control: En C, las comillas
-  dobles (`"`) se usan para delimitar una cadena de texto. Pero, ¿y si queres
-  imprimir unas comillas dobles literalmente? Si directamente usas `"`, el
-  compilador va a entender que cadena de texto ha terminado. Para evitarlo, usas
-  la secuencia de escape `\"`. La barra invertida le quita el poder de
-  "delimitar la cadena" y lo convierte en un simple carácter de comillas para
-  imprimir.
+``` c
+printf("Ruta del archivo: C:\\Program Files\\app\\bin\\\n");
+printf("El docente dijo: \"Recuerden validar los punteros con NULL\"\n");
+```
+<!-- c -->
 
-- `\n` Nueva Línea (Line Feed), Mueve el cursor al inicio de la siguiente línea.
-- `\t` Tabulación Horizontal, Inserta un espacio de tabulación horizontal.
-- `\0` Carácter Nulo (NULL), Carácter con valor cero, utilizado como terminador
-  en las cadenas de caracteres de C.
-- `\\` Barra Invertida, Representa un carácter de barra invertida (`\`).
-- `\"` Comillas Dobles, Representa un carácter de comillas dobles (`"`) dentro
-  de un literal de cadena.
-- `\'` Comilla Simple, Representa un carácter de comilla simple (`'`) dentro de
-  un literal de carácter.
+**Salida en consola:**
+``` text
+Ruta del archivo: C:\Program Files\app\bin\↵
+El docente dijo: "Recuerden validar los punteros con NULL"↵
+```
+<!-- text -->
