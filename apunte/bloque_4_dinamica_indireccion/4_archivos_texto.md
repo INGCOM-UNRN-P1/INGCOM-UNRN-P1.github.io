@@ -19,17 +19,16 @@ amplía el manejo de archivos de texto, cubriendo no solo las operaciones básic
 sino también el posicionamiento dentro del archivo y, de manera crucial, una
 gestión de errores detallada y profesional.
 
-:::{figure} 3/file_operations_flow.svg
+:::{figure} 4/file_operations_flow.svg
 :name: fig-file-operations-flow
 :alt: Flujo completo de operaciones con archivos
 :align: center
+:width: 85%
 
-Diagrama de flujo que muestra la secuencia completa de operaciones al trabajar
-con archivos: abrir, verificar NULL, realizar operaciones, verificar errores y
-cerrar.
+Ciclo de vida físico en el manejo de archivos: Apertura, Operación y Cierre.
 
 :::
-<!-- {figure} 3/file_operations_flow.svg -->
+<!-- {figure} 4/file_operations_flow.svg -->
 
 ## Desarrollo
 
@@ -43,17 +42,16 @@ biblioteca estándar `<stdio.h>`, actúa como un intermediario que contiene toda
 la información de estado necesaria para gestionar el flujo de datos ( _stream_ )
 hacia y desde el archivo.
 
-:::{figure} 3/file_pointer_concept.svg
+:::{figure} 4/file_pointer_concept.svg
 :name: fig-file-pointer-concept
 :alt: Concepto del puntero FILE* como intermediario
 :align: center
+:width: 80%
 
-El puntero `FILE*` actúa como "manija" o "handle" que conecta tu programa con el
-archivo físico en disco. La estructura FILE contiene toda la información
-necesaria para gestionar las operaciones.
+El cursor de lectura/escritura (`FILE *`) apuntando al stream físico en disco.
 
 :::
-<!-- {figure} 3/file_pointer_concept.svg -->
+<!-- {figure} 4/file_pointer_concept.svg -->
 
 Dentro de esta estructura, el sistema operativo y la biblioteca estándar de C
 manejan los detalles como:
@@ -191,16 +189,16 @@ Elegir el modo correcto es fundamental, ya que determina el comportamiento del
 puntero del archivo y lo que sucede con el contenido que ya estaba en el
 archivo.
 
-:::{figure} 3/fopen_modes.svg
+:::{figure} 4/fopen_modes.svg
 :name: fig-fopen-modes
 :alt: Modos de apertura de archivos con fopen()
 :align: center
+:width: 85%
 
-Guía visual de los diferentes modos de apertura y un diagrama de decisión para
-elegir el modo correcto según tus necesidades.
+Modos de apertura física con `fopen`: lectura, escritura y agregado.
 
 :::
-<!-- {figure} 3/fopen_modes.svg -->
+<!-- {figure} 4/fopen_modes.svg -->
 
 :::{list-table}
 :header-rows: 1
@@ -1196,7 +1194,7 @@ Búfer
     cerraste el archivo), la llevás al correo en un solo viaje. Este método es
     mucho más rápido y organizado.
 
-    ```{figure} 3/buffer_concept.svg
+    ```{figure} 4/buffer_concept.svg
     :name: fig-buffer-concept
     :alt: Concepto de búfer en operaciones de archivos
     :align: center

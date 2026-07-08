@@ -42,7 +42,7 @@ Los Ladrillos de la memoria
 Una `struct` es una colección de variables (miembros) de diferentes tipos,
 agrupadas bajo un solo nombre.
 
-:::{figure} 5/struct_memory_layout.svg
+:::{figure} 4/struct_memory_layout.svg
 :name: fig-struct-memory-layout
 :alt: Organización de estructuras en memoria
 :align: center
@@ -51,7 +51,7 @@ Las estructuras agrupan datos relacionados en memoria. El compilador puede
 añadir padding entre campos para optimizar el acceso.
 
 :::
-<!-- {figure} 5/struct_memory_layout.svg -->
+<!-- {figure} 4/struct_memory_layout.svg -->
 
 (declaracion-y-typedef)=
 #### Declaración y `typedef`
@@ -102,7 +102,7 @@ El compilador de C inserta bytes de relleno invisibles (denominados **padding**)
 
 La razón detrás de este comportamiento radica en la eficiencia del hardware: la CPU no accede a la RAM física byte a byte, sino en **palabras de memoria** de 32 o 64 bits a través de su bus de datos. Si un entero de 4 bytes se encuentra en una dirección desalineada (por ejemplo, una dirección impar como `0x01`), la CPU se vería obligada a realizar dos transferencias físicas por el bus de datos y operaciones lógicas de shift para rearmar el valor, degradando la performance del sistema.
 
-```{figure} 5/alineamiento_struct.svg
+```{figure} 4/alineamiento_struct.svg
 :label: fig-alineamiento-struct
 :align: center
 :width: 90%
@@ -520,7 +520,7 @@ Una de las decisiones más importantes al diseñar estructuras es elegir entre
 enfoques tienen trade-offs significativos en términos de claridad, rendimiento y
 facilidad de uso.
 
-:::{figure} 5/aos_vs_soa.svg
+:::{figure} 4/aos_vs_soa.svg
 :name: fig-aos-vs-soa
 :align: center
 :width: 100%
@@ -529,7 +529,7 @@ Comparación visual entre AoS y SoA mostrando cómo se organizan los datos en
 memoria y el impacto en el uso de caché.
 
 :::
-<!-- {figure} 5/aos_vs_soa.svg -->
+<!-- {figure} 4/aos_vs_soa.svg -->
 (AoS)=
 ###### Arreglo de Estructuras (Array of Structures - AoS)
 
@@ -892,7 +892,7 @@ uso del constructor, por lo que la documentación clara es esencial.
 Ordenar los miembros de mayor a menor tamaño reduce el padding y el tamaño total
 de la estructura:
 
-:::{figure} 5/padding_optimization.svg
+:::{figure} 4/padding_optimization.svg
 :name: fig-padding-optimization
 :align: center
 :width: 90%
@@ -901,7 +901,7 @@ Optimización de estructuras ordenando miembros por tamaño. El diseño subópti
 desperdicia 50% del espacio, mientras que el optimizado solo 25%.
 
 :::
-<!-- {figure} 5/padding_optimization.svg -->
+<!-- {figure} 4/padding_optimization.svg -->
 
 :::{code-block}c
 :linenos:
@@ -1102,7 +1102,7 @@ Una `union` permite que varios miembros compartan la **misma ubicación de
 memoria**. Su tamaño es el de su miembro más grande. Solo un miembro puede estar
 "activo" a la vez.
 
-:::{figure} 5/union_vs_struct.svg
+:::{figure} 4/union_vs_struct.svg
 :name: fig-union-vs-struct
 :alt: Diferencias entre struct y union
 :align: center
@@ -1111,7 +1111,7 @@ Comparación visual entre estructuras (todos los miembros en memoria separada) y
 uniones (todos comparten el mismo espacio de memoria).
 
 :::
-<!-- {figure} 5/union_vs_struct.svg -->
+<!-- {figure} 4/union_vs_struct.svg -->
 
 ##### El Patrón de Unión Etiquetada (Tagged Union)
 

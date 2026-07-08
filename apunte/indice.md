@@ -42,10 +42,9 @@ Análisis físico del direccionamiento lógico de variables, jerarquías de cach
 *   **[1. Modelo Físico de Memoria](bloque_3_memoria_estatica/1_modelo_memoria.md)**: Organización de RAM (Stack vs Heap) y hardware de memoria caché del procesador.
 *   **[2. Indirección Física y Punteros](bloque_3_memoria_estatica/2_punteros.md)**: Punteros físicos, operador de dirección `&` e indirección `*`, y simulación de pasaje por referencia.
 *   **[3. Arreglos Unidimensionales y Strings](bloque_3_memoria_estatica/3_secuencias.md)**: Secuencias de datos estáticas, decaimiento a puntero y gestión segura de cadenas de caracteres.
-*   **[4. Matrices Multidimensionales](bloque_3_memoria_estatica/4_matrices.md)**: Disposición *Row-Major* en RAM y optimización de localidad espacial para evitar fallos de caché.
-*   **[5. Estructuras y Tipos Compuestos](bloque_3_memoria_estatica/5_estructuras.md)**: Registros compuestos (`struct`, `union`) y alineación en memoria (*padding*).
-*   **[6. Representación de Números](bloque_3_memoria_estatica/6_numeros.md)**: Límites de representación física, desbordamientos e imprecisión de punto flotante.
-*   **[7. Conversión de Tipos (Casts)](bloque_3_memoria_estatica/7_casts.md)**: Promoción entera, coerción aritmética implícita y conversión explícita.
+*   **[4. Estructuras y Tipos Compuestos](bloque_3_memoria_estatica/4_estructuras.md)**: Registros compuestos (`struct`, `union`) y alineación en memoria (*padding*).
+*   **[5. Representación de Números](bloque_3_memoria_estatica/5_numeros.md)**: Límites de representación física, desbordamientos e imprecisión de punto flotante.
+*   **[6. Conversión de Tipos (Casts)](bloque_3_memoria_estatica/6_casts.md)**: Promoción entera, coerción aritmética implícita y conversión explícita.
 
 ---
 
@@ -55,7 +54,8 @@ Asignación y liberación controlada de recursos del sistema, persistencia físi
 
 *   **[1. Memoria Dinámica en el Heap](bloque_4_dinamica_indireccion/1_memoria_dinamica.md)**: Alocación con `malloc`/`free`, punteros colgantes y detección de fugas de memoria.
 *   **[2. Aritmética de Direcciones y Doble Indirección](bloque_4_dinamica_indireccion/2_aritmetica.md)**: Aritmética de punteros, redimensionamiento con `realloc` y matrices dinámicas (`int **`).
-*   **[3. Persistencia y Archivos de Texto](bloque_4_dinamica_indireccion/3_archivos_texto.md)**: Manejo físico de archivos de texto empleando streams de caracteres (`FILE *`).
+*   **[3. Matrices Multidimensionales](bloque_4_dinamica_indireccion/3_matrices.md)**: Disposición *Row-Major* en RAM y optimización de localidad espacial para evitar fallos de caché.
+*   **[4. Persistencia y Archivos de Texto](bloque_4_dinamica_indireccion/4_archivos_texto.md)**: Manejo físico de archivos de texto empleando streams de caracteres (`FILE *`).
 
 ---
 

@@ -10,7 +10,7 @@ short_title: "7. Matrices"
 Ejercicios para trabajar con arreglos bidimensionales (matrices), tanto estáticas como dinámicas.
 
 Para profundizar en los conceptos teóricos, podés consultar el siguiente capítulo del apunte:
-- [Matrices](../../apunte/bloque_3_memoria_estatica/4_matrices.md)
+- [Matrices](../../apunte/bloque_4_dinamica_indireccion/3_matrices.md)
 
 ## Operaciones Básicas
 

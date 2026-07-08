@@ -1076,9 +1076,8 @@ manipula la memoria:
 
 - Los **punteros** ([Punteros](2_punteros.md)) como variables que almacenan
   direcciones
-- Las **matrices** ([Matrices](4_matrices.md)) como arreglos multidimensionales
-- La **gestión de memoria** ([Memoria
-  Dinámica](../bloque_4_dinamica_interfaces/1_memoria_dinamica.md)) para
+- Las **matrices** ([Matrices](../bloque_4_dinamica_indireccion/3_matrices.md)) como arreglos multidimensionales
+- La **gestión de memoria** ([Memoria Dinámica](../bloque_4_dinamica_indireccion/1_memoria_dinamica.md)) para
   estructuras dinámicas
 
 Los punteros son el concepto más poderoso y peligroso de C. Dominando punteros y

@@ -64,15 +64,15 @@ project:
             - file: apunte/bloque_3_memoria_estatica/1_modelo_memoria.md
             - file: apunte/bloque_3_memoria_estatica/2_punteros.md
             - file: apunte/bloque_3_memoria_estatica/3_secuencias.md
-            - file: apunte/bloque_3_memoria_estatica/4_matrices.md
-            - file: apunte/bloque_3_memoria_estatica/5_estructuras.md
-            - file: apunte/bloque_3_memoria_estatica/6_numeros.md
-            - file: apunte/bloque_3_memoria_estatica/7_casts.md
+            - file: apunte/bloque_3_memoria_estatica/4_estructuras.md
+            - file: apunte/bloque_3_memoria_estatica/5_numeros.md
+            - file: apunte/bloque_3_memoria_estatica/6_casts.md
         - title: "Bloque 4: Gestión Dinámica e Indirección Avanzada"
           children:
             - file: apunte/bloque_4_dinamica_indireccion/1_memoria_dinamica.md
             - file: apunte/bloque_4_dinamica_indireccion/2_aritmetica.md
-            - file: apunte/bloque_4_dinamica_indireccion/3_archivos_texto.md
+            - file: apunte/bloque_4_dinamica_indireccion/3_matrices.md
+            - file: apunte/bloque_4_dinamica_indireccion/4_archivos_texto.md
         - title: "Bloque 5: Abstracción de Datos y Verificación"
           children:
             - file: apunte/bloque_5_abstraccion_verificacion/1_punteros_funciones.md
