@@ -128,6 +128,25 @@ Al utilizar `switch` debés tener en cuenta dos detalles clave:
     técnicamente es opcional en el estándar C, la regla {ref}`0x1008h` de la
     cátedra **exige que siempre esté presente** como medida de diseño defensivo.
 
+    Por ejemplo, en un switch que controla los estados de un sensor:
+
+    ```{code-block}c
+    switch (estado_sensor) {
+        case APAGADO:
+            apagar_sistema();
+            break;
+        case ACTIVO:
+            monitorear_sistema();
+            break;
+        default:
+            // Caso defensivo: maneja valores inesperados por corrupción o error
+            assert(false && "Estado de sensor inválido o inalcanzable");
+            break;
+    }
+    ```
+
+    Este uso de `assert` detiene inmediatamente el programa ante un estado inconsistente en la fase de desarrollo. Para más detalles sobre las aserciones, consultá {ref}`capitulo-testing-verificacion`.
+
 (estructuras-de-repeticion-lazos)=
 ### Estructuras de Repetición (Lazos)
 

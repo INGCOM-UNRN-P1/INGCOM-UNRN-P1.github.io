@@ -415,11 +415,16 @@ y valores lógicos.
 
 1.  **Enteros (`entero` / `int`):** Números sin parte fraccionaria (ej. `5`,
     `-20`, `0`). Se utilizan para conteos, índices de lazos y posiciones.
-2.  **Reales / Decimales (`real` / `float`):** Números con coma fraccionaria
-    (ej. `3.1415`, `-0.75`). Tienen precisión finita debido a la representación
-    estándar binaria IEEE 754 de hardware.
-3.  **Caracteres / Cadenas (`cadena` / `char` / `str`):** Texto delimitado por
-    comillas (ej. `"Hola Mundo"`, `'A'`). Representan símbolos legibles.
+2.  **Decimales / Punto Flotante (`float` / `double`)**: Representan aproximaciones numéricas finitas de números racionales bajo el estándar internacional IEEE 754.
+  
+    :::{warning} Limitación Física
+    Un tipo `float` no representa números reales matemáticos con precisión infinita. Es un modelo con precisión limitada por el hardware. Dos operaciones decimales idénticas pueden dar resultados ligeramente diferentes debido al redondeo de representación binaria, por lo que nunca deben compararse de forma directa con el operador de igualdad `==`.
+    :::
+3.  **Carácter (`char`)**: Representa un único símbolo físico (letra, dígito, signo de puntuación) que ocupa exactamente 1 byte de memoria RAM.
+  
+    :::{important} Cadenas en C
+    En el lenguaje C, las secuencias de texto (cadenas de caracteres) se representan mediante arreglos de caracteres contiguos que finalizan con un carácter nulo especial (`'\0'`). Este tema se estudia en detalle más adelante.
+    :::
 4.  **Lógicos / Booleanos (`logico` / `bool`):** Solo admiten dos estados
     lógicos: `verdadero` (`true`) o `falso` (`false`).
 
@@ -476,10 +481,8 @@ En lenguajes de alto nivel como Python, la memoria ocupada por
 las variables se libera de forma automática mediante un recolector de basura
 (_garbage collector_). Sin embargo, en C la gestión de la memoria es explícita:
 la memoria de las variables locales (en la pila o _stack_) se libera
-automáticamente al salir de su ámbito de visibilidad, mientras que la memoria
-dinámica asignada manualmente (en el _heap_) debe ser liberada explícitamente
-por el programador. Si olvidás liberarla, se genera una fuga de memoria (_memory
-leak_). 
+automáticamente al salir de su ámbito de visibilidad. Más adelante se estudiará 
+el uso de memoria asignada de forma dinámica y manual.
 
 ::::
 <!-- {important} -->

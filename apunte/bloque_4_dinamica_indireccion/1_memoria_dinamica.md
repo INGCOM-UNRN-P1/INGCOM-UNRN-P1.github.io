@@ -284,6 +284,10 @@ if (ptr == NULL) {
 #include <stdlib.h>
 
 int *numeros = malloc(5 * sizeof(*numeros));
+if (numeros == NULL) {
+    fprintf(stderr, "Error: No se pudo asignar memoria inicial.\n");
+    return 1;
+}
 // ...
 
 size_t nuevo_tamano = 10;
@@ -293,6 +297,7 @@ if (temp == NULL) {
     // realloc falló, pero 'numeros' sigue siendo válido
     fprintf(stderr, "Error: No se pudo redimensionar la memoria.\n");
     free(numeros); // Liberar el bloque original
+    numeros = NULL;
     return 1;
 }
 
@@ -566,10 +571,14 @@ comportamiento indefinido.
 int main()
 {
     int *ptr = malloc(sizeof(*ptr));
+    if (ptr == NULL)
+    {
+        return 1;
+    }
     *ptr = 42;
 
     free(ptr);
-    // ERROR: 'ptr' aún contiene la dirección liberada
+    ptr = NULL;  // Previene el uso del puntero colgante
 
     printf("%d\n", *ptr);  // Comportamiento indefinido
 
@@ -638,6 +647,10 @@ Asignar `NULL` después de cada `free` previene este problema, ya que
 int main()
 {
     int *ptr = malloc(sizeof(*ptr));
+    if (ptr == NULL)
+    {
+        return 1;
+    }
 
     free(ptr);
     ptr = NULL;
@@ -1202,18 +1215,20 @@ void imprimir_arreglo(const arreglo_t *arreglo)
 
 /**
  * Destruye un arreglo y libera toda la memoria asociada.
- * @param arreglo Puntero al arreglo a destruir. Puede ser NULL.
- * @post Toda la memoria del arreglo es liberada.
+ * @param arreglo Doble puntero al arreglo a destruir.
+ * @post Toda la memoria del arreglo es liberada y el puntero se anula.
  */
-void destruir_arreglo(arreglo_t *arreglo)
+void destruir_arreglo(arreglo_t **arreglo)
 {
-    if (arreglo != NULL)
+    if (arreglo != NULL && *arreglo != NULL)
     {
-        if (arreglo->datos != NULL)
+        if ((*arreglo)->datos != NULL)
         {
-            free(arreglo->datos);
+            free((*arreglo)->datos);
+            (*arreglo)->datos = NULL;
         }
-        free(arreglo);
+        free(*arreglo);
+        *arreglo = NULL;
     }
 }
 
@@ -1253,7 +1268,7 @@ int main()
     printf("Suma de todos los elementos: %d\n", suma);
 
     // Liberar recursos
-    destruir_arreglo(mi_arreglo);
+    destruir_arreglo(&mi_arreglo);
 
     return 0;
 }
@@ -1787,12 +1802,14 @@ libro_t *libro_crear(const char *titulo, int anio) {
     return l;
 }
 
-void libro_destruir(libro_t *l) {
-    if (l != NULL) {
-        if (l->titulo != NULL) {
-            free(l->titulo);
+void libro_destruir(libro_t **l) {
+    if (l != NULL && *l != NULL) {
+        if ((*l)->titulo != NULL) {
+            free((*l)->titulo);
+            (*l)->titulo = NULL;
         }
-        free(l);
+        free(*l);
+        *l = NULL;
     }
 }
 

@@ -64,13 +64,18 @@ Fases físicas del proceso de compilación separada. Se muestra la transformaci�
 ```
 
 (fase-1-preprocesado-preprocessing)=
-#### Fase 1: Preprocesado (Preprocessing)
+#### Etapa 1: Preprocesado (Preprocessing)
 
 Esta es la etapa inicial del proceso de compilación. Su función es transformar
 tu código fuente antes de que el compilador propiamente dicho comience su
-análisis. El preprocesador opera a un nivel textual: no comprende la sintaxis o
-la semántica de C, sino que se limita a interpretar y ejecutar directivas, que
-son instrucciones especiales identificadas por el carácter inicial `#`.
+análisis. El preprocesador opera a un nivel puramente textual: no comprende la
+sintaxis o la semántica de C, sino que se limita a interpretar y ejecutar
+directivas, que son instrucciones especiales identificadas por el carácter
+inicial `#`.
+
+:::{important} Desmitificación de `#include`
+La directiva `#include` no realiza una importación lógica en tiempo de ejecución (como el `import` de Java o Python). Su comportamiento consiste simplemente en realizar una copia textual del contenido íntegro del archivo de cabecera en el punto de inclusión física de la directiva, generando una única unidad de traducción expandida.
+:::
 
 Podés pensar en el preprocesador como un asistente que prepara y limpia el
 código, resolviendo inclusiones de archivos, expandiendo abreviaturas (macros) y
@@ -174,16 +179,19 @@ técnica de depuración excelente cuando sospechás que un error se origina en u
 macro mal definida o en una inclusión de archivo incorrecta.
 
 (etapa-2-compilacion)=
-#### Etapa 2: Compilación
+#### Etapa 2: Compilación a Código Objeto (Compilation to Object Code)
 
-Esta es la fase central del proceso, donde el compilador (como `gcc`) toma el
-código C preprocesado y lo traduce a un lenguaje de mucho más bajo nivel: el
-lenguaje ensamblador (Assembly). Este lenguaje no es universal; es específico
-para la arquitectura del procesador de destino (por ejemplo, x86-64, ARM,
-RISC-V).
+En esta etapa, el compilador toma el código fuente C preprocesado y lo traduce a instrucciones binarias de código máquina específicas para la arquitectura de la CPU, empaquetándolas en un **archivo objeto** (con extensión `.o`). Físicamente, esta etapa engloba el análisis del compilador (que produce código ensamblador simbólico `.s`) y la posterior traducción del ensamblador al formato binario.
 
-El compilador no solo traduce, sino que también analiza y optimiza el código.
-Este proceso se puede descomponer en varias sub-fases:
+Para detener el proceso en esta etapa y generar el archivo objeto sin realizar el enlazado, se utiliza la opción `-c`:
+
+```sh
+gcc -c programa.c
+```
+
+Esto generará el archivo objeto `programa.o`.
+
+Detrás de escena, este proceso se compone de las siguientes sub-fases:
 
 :::{figure} 1/fases_compilador.svg
 :name: fig-fases-compilador
@@ -245,7 +253,7 @@ int suma(int a, int b) {
     return a + b;
 }
 
-int main() {
+int main(void) {
     int resultado = suma(5, 3);
     return 0;
 }
@@ -537,13 +545,9 @@ prolijidad y previene errores futuros si el contenido del archivo cambia.
 ---
 
 (fase-3-ensamblado-assembly)=
-### Fase 3: Ensamblado (Assembly)
+##### Detrás de escena: El Ensamblado
 
-Esta fase actúa como el traductor final entre un lenguaje simbólico de bajo
-nivel y el lenguaje nativo de la máquina. El **ensamblador** toma el código en
-lenguaje ensamblador, que todavía utiliza mnemónicos legibles por humanos (como
-`mov`, `add`, `jmp`), y lo convierte en **código máquina**: las instrucciones
-binarias puras que el procesador puede ejecutar directamente.
+Esta sub-fase actúa como el traductor final entre el lenguaje ensamblador simbólico y el lenguaje nativo binario de la máquina. El **ensamblador** toma el código C previamente traducido a ensamblador (que todavía utiliza mnemónicos legibles por humanos como `mov`, `add`, `jmp`) y lo convierte en **código máquina**: las instrucciones binarias puras que el procesador de la CPU puede ejecutar directamente.
 
 Cada arquitectura de procesador (como x86-64, ARM, MIPS) tiene su propio y único
 conjunto de instrucciones de máquina. Por lo tanto, el código ensamblador
@@ -640,12 +644,9 @@ en proyectos grandes.
 <!-- {tip} La Importancia de la Compilación Separada -->
 
 (fase-4-enlazado-linking)=
-### Fase 4: Enlazado (Linking)
+#### Etapa 3: Enlazado (Linking)
 
-Esta es la culminación del proceso de compilación, la fase donde todas las
-piezas de código máquina, previamente compiladas de forma aislada, se ensamblan
-para formar un único archivo ejecutable. El programa responsable de esta tarea
-es el **enlazador** (o _linker_), invocado por `gcc` bajo el nombre de `ld`.
+Esta es la etapa final de la compilación, donde todas las piezas de código máquina, previamente compiladas de forma aislada, se ensamblan para formar un único archivo ejecutable. El programa responsable de esta tarea es el **enlazador** (o _linker_), invocado por `gcc` bajo el nombre de `ld`.
 
 El enlazador toma uno o más archivos objeto (`.o`) y las bibliotecas de código
 necesarias, y los combina para producir el archivo final que el sistema

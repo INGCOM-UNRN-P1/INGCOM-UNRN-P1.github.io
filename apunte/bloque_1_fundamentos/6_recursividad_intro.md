@@ -139,11 +139,11 @@ resolución y retorno ("desapilado") en orden inverso al de la llamada (LIFO:
 A continuación se muestra de forma gráfica y formal la distribución física en memoria del *Call Stack* durante el cálculo recursivo de `factorial(3)` hasta alcanzar el caso base, ilustrando las direcciones físicas de memoria en la pila y las direcciones lógicas de retorno de código:
 
 ```{figure} 6/pila_factorial.svg
-:label: fig-pila-factorial
+:label: fig-pila-factorial-stack
 :align: center
-:width: 90%
+:width: 85%
 
-Distribución física del Call Stack en la ejecución de `factorial(3)`. Cada marco ocupa un espacio de memoria contiguo definido por direcciones físicas ficticias (ej. `0x7FFF08C0`) y guarda la dirección de instrucción de retorno (`0x00401A24`).
+Crecimiento y colapso de los marcos de pila en la recursión de `factorial(3)`. Cada llamada apila un nuevo marco temporal consumiendo espacio físico de memoria RAM.
 ```
 
 Como se observa en el diagrama, cada llamada suspendida (`factorial(3)` y `factorial(2)`) mantiene su estado completo en una dirección de memoria diferente de la RAM. Solo cuando `factorial(1)` retorna su valor constante $1$ a la dirección de retorno de su llamador, el marco superior se destruye (se desplaza el puntero de pila `rsp`) y se reanuda la evaluación aritmética en el marco inmediatamente inferior.

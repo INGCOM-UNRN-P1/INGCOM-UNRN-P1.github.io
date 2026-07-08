@@ -1154,6 +1154,126 @@ FIN FUNCIÓN
 :::
 <!-- {code-block}pseudocode -->
 
+### Matrices Dinámicas en el Heap
+
+Cuando las dimensiones de una matriz no se conocen en tiempo de compilación y no querés incurrir en el riesgo de usar Arreglos de Longitud Variable (ALV/VLA) en la pila (violando la regla {ref}`0x5001h`), debés recurrir a la asignación de memoria dinámica en el Heap.
+
+En C, existen dos formas de modelar matrices dinámicas:
+
+#### 1. Modelo de Bloque Único Contiguo (Recomendado para rendimiento)
+
+Consiste en alocar un único bloque unidimensional continuo en el Heap que contenga todos los elementos de la matriz ($F \times C$). Luego, se calcula el desplazamiento manualmente para indexar los elementos: `matriz[i * columnas + j]`.
+
+**Ventajas:**
+- **Localidad espacial máxima:** Todos los elementos son físicamente contiguos en memoria, lo que optimiza el uso de la memoria caché y reduce drásticamente los fallos de caché (*cache misses*).
+- **Menor sobrecarga (overhead):** Solo realizás una llamada a `malloc`/`calloc`, lo que reduce el costo de metadatos en el Heap y acelera la liberación.
+- **Evita la fragmentación:** No fragmenta el Heap con múltiples pequeñas asignaciones.
+
+**Desventajas:**
+- La sintaxis de indexación es manual (`matriz[i * columnas + j]`) y puede ser menos intuitiva que `matriz[i][j]`.
+
+Ejemplo de implementación:
+
+:::{code-block}c
+:linenos:
+#include <stdio.h>
+#include <stdlib.h>
+
+int *crear_matriz_contigua(size_t filas, size_t columnas) {
+    if (filas == 0 || columnas == 0) {
+        return NULL;
+    }
+
+    // Alocación de un único bloque físico contiguo
+    int *matriz = malloc(filas * columnas * sizeof(*matriz));
+    if (matriz == NULL) {
+        perror("Error al asignar memoria para la matriz contigua");
+        return NULL;
+    }
+
+    // Inicialización a cero
+    for (size_t i = 0; i < filas * columnas; i++) {
+        matriz[i] = 0;
+    }
+
+    return matriz;
+}
+
+void destruir_matriz_contigua(int **matriz) {
+    if (matriz == NULL || *matriz == NULL) {
+        return;
+    }
+    free(*matriz);
+    *matriz = NULL; // Aniquilación del puntero post-free
+}
+:::
+
+#### 2. Modelo de Arreglo de Punteros (Matriz Deshilachada o *Jagged Matrix*)
+
+Consiste en alocar un arreglo de punteros (de tamaño $F$) donde cada elemento del arreglo apunta a una fila alocada de forma independiente en el Heap (de tamaño $C$). Esto permite la sintaxis nativa `matriz[i][j]`.
+
+**Ventajas:**
+- Sintaxis intuitiva idéntica a las matrices estáticas: `matriz[i][j]`.
+
+**Desventajas:**
+- **Pérdida de localidad espacial:** Cada fila puede estar alocada en cualquier parte del Heap, lo que rompe la contigüidad física e incrementa los fallos de caché.
+- **Fragmentación física:** Se realizan $F + 1$ llamadas a alocadores, lo que introduce un alto overhead de metadatos en el Heap.
+- **Complejidad de liberación:** Se requiere un lazo para liberar cada fila individualmente antes de liberar el arreglo de punteros.
+
+Ejemplo de implementación:
+
+:::{code-block}c
+:linenos:
+#include <stdio.h>
+#include <stdlib.h>
+
+int **crear_matriz_punteros(size_t filas, size_t columnas) {
+    if (filas == 0 || columnas == 0) {
+        return NULL;
+    }
+
+    // Asignación del arreglo de punteros a filas
+    int **matriz = malloc(filas * sizeof(*matriz));
+    if (matriz == NULL) {
+        perror("Error al asignar el arreglo de filas");
+        return NULL;
+    }
+
+    // Asignación individual de cada fila
+    for (size_t i = 0; i < filas; i++) {
+        matriz[i] = calloc(columnas, sizeof(*(matriz[i])));
+        if (matriz[i] == NULL) {
+            // Lazo de liberación en caso de fallo intermedio
+            for (size_t j = 0; j < i; j++) {
+                free(matriz[j]);
+                matriz[j] = NULL;
+            }
+            free(matriz);
+            matriz = NULL;
+            return NULL;
+        }
+    }
+
+    return matriz;
+}
+
+void destruir_matriz_punteros(int ***matriz, size_t filas) {
+    if (matriz == NULL || *matriz == NULL) {
+        return;
+    }
+    
+    int **m = *matriz;
+    for (size_t i = 0; i < filas; i++) {
+        if (m[i] != NULL) {
+            free(m[i]);
+            m[i] = NULL;
+        }
+    }
+    free(m);
+    *matriz = NULL; // Aniquilación del puntero a nivel de cliente
+}
+:::
+
 ## Ejercicios de Autoevaluación
 
 ### Definición y Declaración

@@ -37,8 +37,7 @@ programa no funcione. Por ello, es necesario aprender a **pensar como una
 máquina**, pero también a **estructurar el pensamiento como un ser humano
 inteligente**.
 
-En C, no existen atajos, lo cual es una ventaja, ya que obliga a pensar de forma
-clara y lógica.
+El lenguaje C es minimalista y provee acceso directo al hardware. Si bien promueve un estilo de programación explícito y prolijo para evitar bugs, C ofrece numerosos atajos sintácticos (tales como operadores de incremento `++`, asignaciones compactas `+=` y el operador condicional ternario `?:`). La recomendación de evitarlos al principio responde a una decisión didáctica y no a una limitación técnica del lenguaje.
 
 ---
 
@@ -198,7 +197,7 @@ inmediatamente en las clases prácticas o en el espacio de
 
 #include <stdio.h>              // directiva del preprocesador
 
-int main()                      // punto de entrada del programa
+int main(void)                  // punto de entrada del programa
 {                               // inicio de un bloque de código
     printf("Hola mundo C.\n");  // llamada a función de biblioteca para salida
     return 0;                   // finalización del programa
@@ -251,7 +250,7 @@ complejos._
    preprocesador que inserte el contenido de la cabecera de la biblioteca
    estándar de entrada/salida (`stdio.h`), que contiene la declaración de la
    función `printf`.
-2. `int main()`: Es la definición de la función principal y el **punto de
+2. `int main(void)`: Es la definición de la función principal y el **punto de
    entrada** del programa. Todo ejecutable en C comienza su ejecución en esta
    función. `int` indica que devolverá un valor numérico entero al sistema
    operativo.
@@ -310,7 +309,7 @@ Diseño algorítmico:
 :linenos:
 #include <stdio.h>
 
-int main() {
+int main(void) {
     int a = 0;
     int b = 0;
     int resultado = 0;
@@ -544,7 +543,7 @@ entre dos variables sin perder ninguno.
 :linenos:
 #include <stdio.h>
 
-int main() {
+int main(void) {
     int a = 10;
     int b = 20;
     int auxiliar = 0; // Inicialización explícita según la regla {ref}`0x0003h`
@@ -677,7 +676,7 @@ medio (como un archivo).
 :linenos:
 #include <stdio.h>
 
-int main() {
+int main(void) {
     float radio = 5.0;
     float area = 0.0; // 'area' es una variable de salida (resultado)
 
@@ -721,7 +720,7 @@ través del teclado, la lectura de un archivo o datos recibidos de una red.
 :linenos:
 #include <stdio.h>
 
-int main() {
+int main(void) {
     int edad = -1; // 'edad' es una variable de entrada
 
     printf("Por favor, ingresa tu edad: ");
@@ -871,7 +870,7 @@ El programa completo en C:
 :linenos:
 #include <stdio.h>
 
-int main() {
+int main(void) {
     float base = 0.0f;
     float altura = 0.0f;
     float area = 0.0f;
@@ -910,7 +909,7 @@ Este truco aritmético evita el uso de una variable auxiliar:
 :linenos:
 #include <stdio.h>
 
-int main() {
+int main(void) {
     int x = 15;
     int y = 25;
 
@@ -1044,10 +1043,10 @@ Analizá el siguiente bloque de código. Si el usuario ingresa `25` y presiona
 Enter, y luego ingresa la letra `S` y presiona Enter, explicá detalladamente el
 comportamiento del buffer de entrada y el valor final de la variable `opcion`.
 ``` c
-int edad;
-char opcion;
+int edad = 0;
+char opcion = '\0';
 scanf("%d", &edad);
-scanf("%c", &opcion);
+scanf(" %c", &opcion);
 ```
 <!-- c -->
 

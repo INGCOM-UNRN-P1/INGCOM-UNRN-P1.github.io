@@ -145,15 +145,28 @@ lectura corta, debés usar `feof(stream)` y `ferror(stream)`.
 
 ## Escribiendo Datos Binarios (`fwrite`)
 
-Guardar una estructura o un array de ellas es el caso de uso por excelencia.
+### Prohibición del Volcado Directo de Estructuras
+
+En la programación profesional y académica robusta, **está estrictamente prohibido** volcar estructuras de datos directamente a un archivo en disco mediante instrucciones del tipo:
+```c
+// ¡CÓDIGO NO PORTABLE E INSEGURO!
+fwrite(&mi_struct, sizeof(mi_struct), 1, fp);
+```
+Aunque esta línea parece compacta y atractiva, presenta graves deficiencias de portabilidad física debido a:
+1. **Padding (Bytes de Relleno):** El compilador inserta bytes ocultos de relleno para alinear los campos en múltiplos de la palabra de memoria (e.g., 4 u 8 bytes). El tamaño y disposición del padding cambian según el compilador, la arquitectura (32 vs 64 bits) y los flags de optimización. Un archivo guardado de esta forma no podrá ser leído de manera consistente si cambian estas variables.
+2. **Endianness:** El orden físico de representación de tipos numéricos multibyte (`int`, `float`, `double`) cambia entre plataformas (Little-Endian vs Big-Endian).
+3. **Punteros Internos:** Si la estructura contiene punteros a datos alocados en el Heap (e.g., `char *nombre`), se escribirá la dirección de memoria virtual (un puntero numérico) a disco en lugar del contenido real de los datos. Esta dirección no tendrá validez alguna al recargar el archivo en otra ejecución del proceso.
+
+Para subsanar esto, es mandatorio **serializar explícitamente campo a campo**.
 
 ```{code-block} c
 :linenos:
-:caption: Escribiendo un array de structs con fwrite
+:caption: Serialización explícita de registros campo por campo
 :label: fwrite-example
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct {
     char sku[20];
@@ -161,6 +174,19 @@ typedef struct {
     int cantidad;
     float precio;
 } Producto;
+
+// Función de serialización dedicada
+bool producto_serializar(FILE *fp, const Producto *p) {
+    if (fp == NULL || p == NULL) return false;
+    
+    // Escribimos cada campo de forma independiente y explícita
+    if (fwrite(p->sku, sizeof(char), 20, fp) != 20) return false;
+    if (fwrite(p->nombre, sizeof(char), 50, fp) != 50) return false;
+    if (fwrite(&p->cantidad, sizeof(p->cantidad), 1, fp) != 1) return false;
+    if (fwrite(&p->precio, sizeof(p->precio), 1, fp) != 1) return false;
+    
+    return true;
+}
 
 int main(void) {
     FILE *archivo_salida = fopen("inventario.dat", "wb");
@@ -177,41 +203,34 @@ int main(void) {
 
     size_t num_productos = sizeof(productos) / sizeof(Producto);
 
-    // Escribimos el array completo de una sola vez.
-    // fwrite toma la dirección del primer elemento, 'productos',
-    // y copia sizeof(Producto) * num_productos bytes desde esa
-    // dirección directamente al archivo.
-    size_t elementos_escritos = fwrite(productos, sizeof(Producto), num_productos, archivo_salida);
-
-    if (elementos_escritos < num_productos) {
-        perror("Error de escritura: no se guardaron todos los registros");
-        fclose(archivo_salida);
-        return EXIT_FAILURE;
+    for (size_t i = 0; i < num_productos; i++) {
+        if (!producto_serializar(archivo_salida, &productos[i])) {
+            fprintf(stderr, "Error de escritura al serializar el producto %zu\n", i);
+            fclose(archivo_salida);
+            return EXIT_FAILURE;
+        }
     }
 
-    printf("Se escribieron %zu productos en 'inventario.dat'.\n", elementos_escritos);
+    printf("Se serializaron y guardaron %zu productos con éxito.\n", num_productos);
 
-    // El cierre es crucial para asegurar que el búfer final se escriba en el disco.
     fclose(archivo_salida);
     return EXIT_SUCCESS;
 }
-
 ```
 <!-- {code-block} c -->
 
 ## Leyendo Datos Binarios (`fread`)
 
-La lectura es el espejo de la escritura. Es fundamental que la definición del
-`struct` que uses para leer sea **exactamente idéntica** a la que usaste para
-escribir.
+La lectura es el espejo de la escritura. Debemos deserializar los campos en el mismo orden y con los mismos tamaños en que fueron escritos.
 
 ```{code-block} c
 :linenos:
-:caption: Lectura secuencial y robusta con fread
+:caption: Lectura secuencial y deserialización robusta
 :label: fread-example
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct {
     char sku[20];
@@ -219,6 +238,19 @@ typedef struct {
     int cantidad;
     float precio;
 } Producto;
+
+// Función de deserialización dedicada
+bool producto_deserializar(FILE *fp, Producto *p) {
+    if (fp == NULL || p == NULL) return false;
+    
+    // Leemos cada campo de forma independiente y en orden exacto
+    if (fread(p->sku, sizeof(char), 20, fp) != 20) return false;
+    if (fread(p->nombre, sizeof(char), 50, fp) != 50) return false;
+    if (fread(&p->cantidad, sizeof(p->cantidad), 1, fp) != 1) return false;
+    if (fread(&p->precio, sizeof(p->precio), 1, fp) != 1) return false;
+    
+    return true;
+}
 
 void imprimir_producto(const Producto *p) {
     printf("SKU: %s\nNombre: %s\nCantidad: %d\nPrecio: %.2f\n\n",
@@ -232,67 +264,80 @@ int main(void) {
         return EXIT_FAILURE;
     }
 
-    Producto un_producto; // Buffer en memoria para alojar un producto a la vez
+    Producto un_producto;
 
-    printf("--- Contenido del Inventario ---\n");
-    // El lazo intenta leer un producto (nmemb=1) en cada iteración.
-    // Continúa mientras fread devuelva 1, indicando una lectura exitosa.
-    while (fread(&un_producto, sizeof(Producto), 1, archivo_entrada) == 1) {
+    printf("--- Contenido del Inventario (Deserializado) ---\n");
+    
+    // El lazo continúa mientras la deserialización sea exitosa
+    while (producto_deserializar(archivo_entrada, &un_producto)) {
         imprimir_producto(&un_producto);
     }
 
-    // Al salir del lazo, fread devolvió 0. Debemos averiguar por qué.
+    // Verificación de fin de archivo o error
     if (ferror(archivo_entrada)) {
         perror("Ocurrió un error de E/S durante la lectura");
     } else if (feof(archivo_entrada)) {
-        // Esta es la condición de salida normal y esperada.
         printf("--- Fin del archivo alcanzado con éxito ---\n");
     }
 
     fclose(archivo_entrada);
     return EXIT_SUCCESS;
 }
-
 ```
 <!-- {code-block} c -->
 
 ## Posicionamiento: El Poder de `fseek` en Modo Binario
 
-En archivos binarios, `fseek` brilla. Como cada registro tiene un tamaño fijo y
-conocido, y no hay caracteres "especiales", la aritmética de punteros es directa
-y fiable. Podés saltar a cualquier registro con un simple cálculo.
+En archivos binarios serializados de manera estricta, cada registro guardado posee un tamaño físico exacto en disco (la suma de los tamaños de sus campos individuales), libre de padding del compilador. Para la estructura `Producto`, el tamaño de un registro guardado es:
 
-`fseek(archivo, N * sizeof(Registro), SEEK_SET);` te posicionará exactamente al
-inicio del registro `N+1`.
+$$\text{Tamaño Lógico} = 20 \times \text{sizeof(char)} + 50 \times \text{sizeof(char)} + \text{sizeof(int)} + \text{sizeof(float)}$$
+
+Esto permite calcular con precisión matemática la posición física del registro $N$ mediante un offset constante, posibilitando el acceso directo a cualquier registro en disco sin necesidad de recorrer secuencialmente los anteriores.
 
 ```{code-block} c
 :linenos:
-:caption: Acceso aleatorio para modificar un registro
+:caption: Acceso aleatorio con serialización estricta
 :label: fseek-binary-update
 
-// ... (incluir headers y struct Producto como antes) ...
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+typedef struct {
+    char sku[20];
+    char nombre[50];
+    int cantidad;
+    float precio;
+} Producto;
+
+// Asumimos las firmas de:
+bool producto_deserializar(FILE *fp, Producto *p);
+bool producto_serializar(FILE *fp, const Producto *p);
+void imprimir_producto(const Producto *p);
+
+// Definimos el tamaño exacto en bytes de la estructura guardada
+#define TAM_REGISTRO_DISCO (20 * sizeof(char) + 50 * sizeof(char) + sizeof(int) + sizeof(float))
 
 int main(void) {
-    // Abrimos en modo "rb+" para leer y escribir sobre el mismo archivo.
     FILE *archivo = fopen("inventario.dat", "rb+");
     if (!archivo) {
         perror("No se pudo abrir inventario.dat en modo actualización");
         return EXIT_FAILURE;
     }
 
-    int n_registro_a_modificar = 1; // Vamos a modificar el segundo producto (Mouse)
+    int n_registro_a_modificar = 1; // Segundo producto en el archivo (índice 1)
 
-    // 1. Nos posicionamos al inicio del registro que queremos modificar.
-    long offset = n_registro_a_modificar * sizeof(Producto);
+    // 1. Nos posicionamos al inicio del registro de interés
+    long offset = n_registro_a_modificar * TAM_REGISTRO_DISCO;
     if (fseek(archivo, offset, SEEK_SET) != 0) {
         perror("Error al posicionar el puntero con fseek");
         fclose(archivo);
         return EXIT_FAILURE;
     }
 
-    // 2. Leemos el registro actual en esa posición para tener sus datos.
+    // 2. Deserializamos el registro
     Producto producto_a_modificar;
-    if (fread(&producto_a_modificar, sizeof(Producto), 1, archivo) != 1) {
+    if (!producto_deserializar(archivo, &producto_a_modificar)) {
         fprintf(stderr, "No se pudo leer el registro a modificar.\n");
         fclose(archivo);
         return EXIT_FAILURE;
@@ -301,28 +346,27 @@ int main(void) {
     printf("Producto a modificar:\n");
     imprimir_producto(&producto_a_modificar);
 
-    // 3. Modificamos los datos en nuestra variable en memoria.
-    producto_a_modificar.cantidad = 95; // Actualizamos el stock
-    producto_a_modificar.precio = 9100.00f; // Cambió el precio
+    // 3. Modificamos los campos locales
+    producto_a_modificar.cantidad = 95;
+    producto_a_modificar.precio = 9100.00f;
 
-    // 4. VOLVEMOS a posicionar el puntero, porque la lectura anterior lo movió.
+    // 4. Volvemos a posicionar el puntero (la deserialización avanzó el puntero de archivo)
     if (fseek(archivo, offset, SEEK_SET) != 0) {
         perror("Error al reposicionar el puntero para escribir");
         fclose(archivo);
         return EXIT_FAILURE;
     }
 
-    // 5. Sobrescribimos el registro en el archivo con los nuevos datos.
-    if (fwrite(&producto_a_modificar, sizeof(Producto), 1, archivo) != 1) {
-        perror("Error al sobrescribir el registro modificado");
+    // 5. Escribimos serializado de forma explícita
+    if (!producto_serializar(archivo, &producto_a_modificar)) {
+        fprintf(stderr, "Error al sobrescribir el registro modificado.\n");
     } else {
-        printf("\nRegistro actualizado con éxito.\n");
+        printf("\nRegistro actualizado con éxito en disco.\n");
     }
 
     fclose(archivo);
     return EXIT_SUCCESS;
 }
-
 ```
 <!-- {code-block} c -->
 

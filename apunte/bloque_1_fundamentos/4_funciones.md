@@ -415,9 +415,11 @@ Por estas razones, la cátedra prohíbe el uso de variables globales (ver [Regla
 #### Argumentos de Función (Parámetros)
 
 Estas son las variables que se declaran en la definición de una función. Su
-alcance está limitado exclusivamente a esa función. Actúan como variables
-locales que se inicializan con los valores que se les pasan cuando se llama a la
-función.
+alcance está limitado exclusivamente a esa función.
+
+:::{important} Pasaje por Valor
+En C, **todas** las funciones reciben sus argumentos copiados por valor. Cuando se invoca una función, la CPU copia los datos del llamador y los asigna en el espacio de memoria (Stack Frame) de la función llamada. Las modificaciones locales de los argumentos no afectan de ningún modo las variables del ámbito llamador. Consultá {ref}`anatomia-de-un-stack-frame` en el modelo de memoria para más detalles de esta mecánica física.
+:::
 
 :::{code-block}c
 :linenos:
@@ -428,7 +430,7 @@ void suma(int a, int b) { // 'a' y 'b' son argumentos
     printf("La suma es: %d\n", resultado);
 }
 
-int main() {
+int main(void) {
     suma(5, 3);
     // printf("%d", a); // ERROR: 'a' no existe en este alcance
     return 0;
@@ -565,6 +567,21 @@ Contador Static: 2
 En este fragmento, `contador_normal` se reinicia a `0` en cada invocación porque reside en el **Stack Frame** (marco de pila) de la función, liberándose físicamente cuando finaliza su bloque. 
 
 En contraste, `contador_static` retiene su valor anterior entre ejecuciones porque **no se almacena en el Stack**. El compilador y el linker le asignan una dirección de memoria fija en los segmentos de datos estáticos de la memoria RAM (el segmento `.data` para variables estáticas inicializadas o `.bss` para las no inicializadas). Como estos segmentos se cargan al inicio del programa y persisten durante toda su ejecución, la variable posee un tiempo de vida estático, aunque su ámbito de visibilidad léxica siga estando restringido al cuerpo de `contador_static`.
+
+Visualmente, la distribución en la memoria RAM separa la pila dinámica del área estática de datos:
+
+```text
++-------------------------------------------------------+
+|  Memoria RAM física                                    |
++---------------------------+---------------------------+
+| Segmento de Datos (.data)  | Pila de Ejecución (Stack) |
+| [contador_static: 2]      | [contador_normal: 1]      |
+| (Persistente en ejecuc.)  | (Volátil, se libera al    |
+|                           |  retornar de la función)  |
++---------------------------+---------------------------+
+```
+
+Para una explicación pormenorizada de la organización y división de la memoria RAM física en segmentos, consultá {ref}`segmentacion-de-la-memoria` en el modelo de memoria.
 
 :::{warning} Efecto Secundario y Pureza
 

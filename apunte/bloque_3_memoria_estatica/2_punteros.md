@@ -167,8 +167,11 @@ vulnerabilidades de seguridad.
 :::
 <!-- {danger} Peligro: Punteros No Inicializados (Punteros Salvajes) -->
 
-**Regla de oro:** Siempre inicializá tus punteros, ya sea con la dirección de
-una variable válida o con `NULL`.
+**Regla de oro:** Siempre inicializá tus punteros, ya sea con la dirección de una variable válida o con `NULL`.
+
+:::{important} Aniquilación Post-Free (Evitando Punteros Colgantes)
+Al trabajar con memoria asignada de forma dinámica, la llamada a `free(ptr)` libera el bloque en el heap, pero la variable `ptr` sigue reteniendo la dirección de memoria de la celda liberada. Para evitar desreferenciar accidentalmente esta dirección física inválida (punteros colgantes o *dangling pointers*), se debe aniquilar el puntero asignándolo inmediatamente a `NULL` (ej: `free(ptr); ptr = NULL;`).
+:::
 
 
 (variable-de-referencia-o-puntero)=
@@ -420,17 +423,11 @@ correctamente con `printf`, se utiliza el especificador de formato `%td`.
 (punteros-en-funciones-y-efectos-secundarios)=
 ### Punteros en funciones y efectos secundarios
 
-En C, **todas las funciones pasan sus argumentos por valor** (copia de datos).
-Ya experimentaste la **simulación de pasaje por referencia** con los arreglos en
-{ref}`el-mecanismo-de-paso-a-funciones-paso-por-referencia-simulado`: al no poder copiar todo el bloque de memoria de
-la secuencia, C pasa la dirección de su primer elemento.
+:::{important} Pasaje por Valor de Punteros
+C no dispone de pasaje por referencia nativo. Cuando pasas un puntero a una función (por ejemplo, `void duplicar(int *ptr)`), el compilador realiza una copia por valor de la dirección de memoria almacenada. Como la dirección de copia sigue apuntando a la misma celda de memoria RAM del llamador, cualquier acceso mediante el operador de desreferencia `*ptr` modificará el valor original.
+:::
 
-Para variables de tipo primario (como `int` o `char`), aplicamos el mismo
-principio físico: si queremos permitir que una función modifique una variable
-del invocador (un efecto secundario), pasamos por valor su *dirección de
-memoria* (un puntero). Aunque la dirección en sí se copia en el registro de
-activación (*stack frame*), la desreferencia de este puntero permite interactuar
-directamente con la celda de memoria original del invocador.
+Esta simulación de pasaje por referencia también se aplica a los arreglos (ver {ref}`el-mecanismo-de-paso-a-funciones-paso-por-referencia-simulado`). Al pasar la dirección de memoria de una variable por valor, aunque la dirección en sí se copia en el registro de activación (*stack frame*), la desreferencia de este puntero permite interactuar directamente con la celda de memoria original del invocador (efecto secundario).
 
 (justificacion-de-diseno-eficiencia-y-rendimiento-en-sistemas)=
 #### Justificación de Diseño: Eficiencia y Rendimiento en Sistemas

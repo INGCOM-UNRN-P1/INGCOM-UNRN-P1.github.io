@@ -147,7 +147,7 @@ pueden cambiar de tamaño entre compiladores.
 :linenos:
 #include <stdio.h>
 
-int main() {
+int main(void) {
     printf("Tamaño de char: %zu bytes\n", sizeof(char));
     printf("Tamaño de int: %zu bytes\n", sizeof(int));
     printf("Tamaño de float: %zu bytes\n", sizeof(float));
@@ -402,10 +402,10 @@ el parámetro del arreglo (ver regla de estilo {ref}`0x3007h`).
 
 ```{code-block} c
 :linenos:
-int maximo(const int valores[], int cantidad) 
+int maximo(const int valores[], size_t cantidad) 
 {
     int max = valores[0];
-    for (int i = 1; i < cantidad; i++) 
+    for (size_t i = 1; i < cantidad; i++) 
     {
         if (valores[i] > max) 
         {
@@ -430,11 +430,11 @@ En este caso, el parámetro de arreglo no debe llevar el calificador `const`.
 
 ```{code-block} c
 :linenos:
-void ordenar(int v[], int cantidad) 
+void ordenar(int v[], size_t cantidad) 
 {
-    for (int i = 0; i < cantidad - 1; i++) 
+    for (size_t i = 0; i < cantidad - 1; i++) 
     {
-        for (int j = 0; j < cantidad - i - 1; j++) 
+        for (size_t j = 0; j < cantidad - i - 1; j++) 
         {
             if (v[j] > v[j + 1]) 
             {
@@ -561,7 +561,7 @@ size_t obtener_tamanio(int arreglo[]) {
     return sizeof(arreglo) / sizeof(arreglo[0]);
 }
 
-int main() {
+int main(void) {
     int arreglo1[] = {10, 20, 30, 40, 50};
     int arreglo2[20];
     size_t uno = obtener_tamanio(arreglo1);
@@ -718,7 +718,7 @@ void ordena_caracteres(char cadena[]) {
     }
 }
 
-int main() {
+int main(void) {
     char mi_cadena[] = "ejemplo de cadena desordenada";
 
     printf("Cadena original: \"%s\"\n", mi_cadena);
@@ -822,18 +822,28 @@ El uso de `scanf("%s", buffer)` y `gets()` constituye una de las mayores vulnera
 La función estándar `gets()` fue removida de forma definitiva en el estándar C11 debido a que **no verifica el límite de almacenamiento del búfer de destino**. Similarmente, `scanf("%s", ...)` lee datos de la entrada estándar y los escribe en memoria de forma descontrolada hasta encontrar un espacio en blanco o una nueva línea. Si el usuario ingresa una cadena de longitud mayor al tamaño reservado, se produce un **desbordamiento de búfer** (*buffer overflow*), sobrescribiendo celdas de variables contiguas o alterando la dirección de retorno en el Stack Frame.
 :::
 
-::::{code-block}c
+```{code-block}c
 :linenos:
-char buffer[100];
-fgets(buffer, sizeof(buffer), stdin);
+#include <stdio.h>
+#include <string.h>
 
-// fgets puede incluir el salto de línea ('\n'). Es buena práctica removerlo.
-size_t len = strlen(buffer);
-if (len > 0 && buffer[len - 1] == '\n') {
-    buffer[len - 1] = '\0';
+#define BUFFER_SIZE 100
+
+void leer_entrada(void) {
+    char buffer[BUFFER_SIZE];
+    
+    printf("Ingrese su nombre: ");
+    // fgets garantiza que no se lean más bytes que el tamaño máximo del búfer
+    if (fgets(buffer, BUFFER_SIZE, stdin) != NULL) {
+        // Remover el '\n' si fue capturado
+        size_t len = strlen(buffer);
+        if (len > 0 && buffer[len - 1] == '\n') {
+            buffer[len - 1] = '\0';
+        }
+        printf("Nombre ingresado: %s\n", buffer);
+    }
 }
-
-::::
+```
 <!-- {code-block}c -->
 
 (biblioteca-estandar-string-h-un-vistazo-rapido)=
@@ -1396,7 +1406,7 @@ utilizados.
 #include <stdio.h>
 #include <string.h>
 
-int main() {
+int main(void) {
     char mensaje[100] = "Hola Mundo";
     
     size_t capacidad = sizeof(mensaje);
@@ -1441,7 +1451,7 @@ salto de línea `\n` residual al final si estuviera presente.
 #include <stdio.h>
 #include <string.h>
 
-int main() {
+int main(void) {
     char buffer[80];
     printf("Ingresá un texto: ");
     

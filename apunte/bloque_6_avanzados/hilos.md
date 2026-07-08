@@ -1713,10 +1713,11 @@ void crear_hilos(void) {
 // MAL
 pthread_create(&hilo, NULL, funcion, NULL);
 
-// BIEN
-if (pthread_create(&hilo, NULL, funcion, NULL) != 0) {
-    perror("Error creando hilo");
-    exit(1);
+// BIEN (Las funciones de pthread no establecen errno, retornan el código de error directamente)
+int err = pthread_create(&hilo, NULL, funcion, NULL);
+if (err != 0) {
+    fprintf(stderr, "Error creando hilo: %s\n", strerror(err));
+    exit(EXIT_FAILURE);
 }
 
 ```

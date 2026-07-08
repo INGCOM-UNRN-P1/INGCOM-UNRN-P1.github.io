@@ -18,16 +18,11 @@ La utilidad `make` funciona modelando el proyecto como un **Grafo Dirigido Acíc
 
 #### Compilación Incremental y Marcas de Tiempo
 
-La principal ventaja de `make` es la **compilación incremental**. Al analizar las marcas de tiempo de modificación física (*timestamps*) de los archivos en el disco, la herramienta decide qué se debe reconstruir siguiendo una regla matemática simple:
+La principal ventaja de `make` es la **compilación incremental**. La herramienta `make` decide si un archivo objetivo debe reconstruirse comparando la marca de tiempo de modificación física del objetivo con la de sus dependencias en el disco:
 
-$$
-\text{Si } T(\text{Objetivo}) < T(\text{Dependencia}) \implies \text{Ejecutar receta de recompilación}
-$$
+$$\text{Si } T(\text{Objetivo}) < T(\text{Dependencia}) \implies \text{Se ejecuta la regla de compilación}$$
 
-Esto significa que:
-1. `make` compara la fecha del archivo de salida (ej: un archivo objeto `.o`) con las fechas de sus archivos fuentes y cabeceras de entrada correspondientes.
-2. Si ninguno de los archivos de entrada ha sido modificado desde la última compilación, `make` omite de forma inteligente la compilación de ese módulo.
-3. Solo se recompilan los módulos modificados, lo que ahorra una cantidad significativa de tiempo de procesamiento en proyectos de mediana y gran escala.
+Si cambiaste un archivo de cabecera `punto.h`, todos los archivos `.o` que dependen de él serán detectados como más viejos que la cabecera modificada y se recompilarán. Los módulos que no dependen de `punto.h` no serán procesados, permitiendo una compilación incremental eficiente.
 
 ```{figure} 2/dag_compilacion.svg
 :label: fig-dag-compilacion
@@ -135,6 +130,39 @@ programa: $(OBJS)
 	$(CC) $(CFLAGS) -c $< -o $@
 ```
 
+
+#### Recetario de Plantilla Única
+
+La cátedra provee en las prácticas una plantilla genérica funcional de Makefile para que el alumno pueda copiarla y pegarla directamente en sus proyectos sin necesidad de profundizar inmediatamente en la sintaxis interna de Make. Esta plantilla escanea de forma automática todos los archivos `.c` de la carpeta para generar el ejecutable:
+
+```makefile
+# Variables de compilación
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -std=c99
+
+# Nombre del ejecutable binario
+TARGET = programa
+
+# Escaneo automático de archivos fuente y generación de objetos
+SRCS = $(wildcard *.c)
+OBJS = $(SRCS:.c=.o)
+
+# Regla principal por defecto
+all: $(TARGET)
+
+# Vinculación del ejecutable
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
+
+# Compilación de objetos
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Objetivo de limpieza
+.PHONY: clean
+clean:
+	rm -f $(OBJS) $(TARGET)
+```
 
 ### 4. Objetivos Ficticios (`.PHONY`)
 

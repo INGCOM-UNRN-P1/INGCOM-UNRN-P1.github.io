@@ -128,32 +128,77 @@ typedef struct {
 ```
 <!-- {code-block} c -->
 
-#### ACSL (ANSI/ISO C Specification Language)
+#### Verificación Práctica: `assert.h` y la Regla `0x2003h`
 
-ACSL permite escribir anotaciones formales directamente en los comentarios del
-código de C para su verificación estática mediante analizadores como Frama-C:
+Aunque lenguajes de especificación formal como ACSL son valiosos para verificación estática matemática, en el desarrollo práctico de C (y cumpliendo con las directivas de la cátedra) se utiliza un enfoque pragmático basado en la verificación dinámica con la biblioteca `<assert.h>` y la documentación estructurada de la **Regla {ref}`0x2003h`**.
 
-```{code-block} c
+Bajo esta regla, los contratos se establecen de la siguiente manera:
+1. **Documentación estructurada (`@pre` y `@post`):** En la cabecera de la función (`.h`), declarando explícitamente qué asunciones se hacen y qué se garantiza.
+2. **Verificación dinámica de precondiciones (`assert`):** Al inicio de la implementación de la función (`.c`), para abortar inmediatamente la ejecución si el cliente viola el contrato en modo desarrollo, evitando que un estado inválido corrompa la memoria.
+3. **Funciones de validación de invariantes:** Implementar una función interna del módulo (ej: `bool pila_es_valida(const pila_t *p)`) que evalúe y retorne verdadero si todas las invariantes de la estructura de datos se cumplen.
+
+##### Ejemplo Práctico de Contrato Seguro
+
+**Archivo de Cabecera (`pila.h`):**
+
+:::{code-block}c
 :linenos:
-/*@ predicate pila_valida(pila_t *p) =
-        \valid(p) &&
-        p->elementos != NULL &&
-        p->capacidad > 0 &&
-        0 <= p->tope <= p->capacidad &&
-        \valid(p->elementos + (0..p->capacidad-1));
-  */
 
-/*@ requires pila_valida(p);
-    requires p->tope < p->capacidad;
-    assigns p->tope, p->elementos[p->tope];
-    ensures pila_valida(p);
-    ensures p->tope == \old(p->tope) + 1;
-    ensures p->elementos[p->tope - 1] == dato;
-  */
-void push(pila_t *p, int dato);
+typedef struct pila pila_t;
 
-```
-<!-- {code-block} c -->
+/**
+ * Inserta un elemento en el tope de la pila.
+ * 
+ * @param p Puntero a la pila (debe estar inicializada y no estar llena).
+ * @param dato Elemento entero a apilar.
+ * 
+ * @pre p != NULL (Regla 0x2003h)
+ * @pre p->tope < p->capacidad (La pila no debe estar llena)
+ * @post El elemento queda en el tope de la pila y el tamaño se incrementa en 1.
+ */
+void pila_push(pila_t *p, int dato);
+
+:::
+
+**Archivo de Implementación (`pila.c`):**
+
+:::{code-block}c
+:linenos:
+#include "pila.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <assert.h>
+
+struct pila {
+    int *elementos;
+    size_t tope;
+    size_t capacidad;
+};
+
+// Función auxiliar para verificar el invariante del TAD
+static bool pila_es_valida(const pila_t *p) {
+    if (p == NULL) return false;
+    if (p->elementos == NULL) return false;
+    if (p->capacidad == 0) return false;
+    if (p->tope > p->capacidad) return false;
+    return true;
+}
+
+void pila_push(pila_t *p, int dato) {
+    // Verificación defensiva y obligatoria de precondiciones en desarrollo
+    assert(p != NULL);
+    assert(pila_es_valida(p));
+    assert(p->tope < p->capacidad);
+
+    // Operación
+    p->elementos[p->tope] = dato;
+    p->tope++;
+
+    // Verificación de postcondición/invariante
+    assert(pila_es_valida(p));
+}
+:::
 
 #### El Frame Problem y la directiva `assigns`
 
@@ -319,22 +364,35 @@ que simplifica drásticamente el cálculo de las condiciones de verificación.
 <!-- {solution} ej-contrato-frame-assigns -->
 
 :::{exercise}
-:label: ej-contrato-acsl-valid
-Escribí la cabecera anotada con especificaciones formales de ACSL para una
-función `void resetear(int *ptr)` que requiera que el puntero sea de escritura
-válido y garantice que el valor apuntado tras la llamada es `0`.
+:label: ej-contrato-assert-valido
+Escribí la firma documentada según la Regla {ref}`0x2003h` y la implementación con aserciones de `<assert.h>` para una función `void resetear(int *ptr)` que requiera que el puntero no sea `NULL` y garantice que el valor apuntado tras la llamada es `0`.
 
 :::
 <!-- {exercise} -->
 
-:::{solution} ej-contrato-acsl-valid
+:::{solution} ej-contrato-assert-valido
 :class: dropdown
 ``` c
-/*@ requires \valid(ptr);
-    assigns *ptr;
-    ensures *ptr == 0;
+#include <assert.h>
+#include <stddef.h>
+
+/**
+ * Resetea el valor de la variable apuntada a cero.
+ * 
+ * @param ptr Puntero a la variable entera a resetear.
+ * 
+ * @pre ptr != NULL (Regla 0x2003h)
+ * @post El valor apuntado por ptr es igual a 0.
  */
-void resetear(int *ptr);
+void resetear(int *ptr) {
+    // Verificación dinámica de la precondición
+    assert(ptr != NULL);
+
+    *ptr = 0;
+
+    // Verificación de la postcondición
+    assert(*ptr == 0);
+}
 ```
 <!-- c -->
 

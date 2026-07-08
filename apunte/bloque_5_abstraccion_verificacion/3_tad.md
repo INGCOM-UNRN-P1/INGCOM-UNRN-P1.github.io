@@ -372,10 +372,10 @@ destructor es la operación final en el ciclo de vida de una instancia del TAD.
 **Ejemplos:**
 :::{code-block}c
 :linenos:
-void liberar_arreglo(int* arreglo);
-void destruir_matriz(int filas, int** matriz);
-void destruir_pila(pila_t* pila);
-void destruir_lista(lista_t* lista, void (*destruir_dato)(void*));
+void liberar_arreglo(int** arreglo);
+void destruir_matriz(int filas, int*** matriz);
+void destruir_pila(pila_t** pila);
+void destruir_lista(lista_t** lista, void (*destruir_dato)(void*));
 
 :::
 <!-- {code-block}c -->
@@ -393,24 +393,27 @@ personalizada como parámetro para delegar esa responsabilidad al usuario.
 **Patrones comunes:**
 :::{code-block}c
 :linenos:
-// Destructor simple (datos copiados)
-void destruir_pila_int(pila_t* pila) {
-    if (!pila) return;
-    free(pila->elementos);
-    free(pila);
+// Destructor seguro con doble puntero (datos copiados)
+void destruir_pila_int(pila_t** pila) {
+    if (pila == NULL || *pila == NULL) return;
+    free((*pila)->elementos);
+    free(*pila);
+    *pila = NULL;
 }
 
-// Destructor con callback (datos por referencia)
-void destruir_lista(lista_t* lista, void (*destruir_dato)(void*)) {
-    nodo_t* actual = lista->inicio;
+// Destructor seguro con doble puntero y callback (datos por referencia)
+void destruir_lista(lista_t** lista, void (*destruir_dato)(void*)) {
+    if (lista == NULL || *lista == NULL) return;
+    nodo_t* actual = (*lista)->inicio;
     while (actual) {
         nodo_t* siguiente = actual->siguiente;
-        if (destruir_dato)
+        if (destruir_dato != NULL && actual->dato != NULL)
             destruir_dato(actual->dato);
         free(actual);
         actual = siguiente;
     }
-    free(lista);
+    free(*lista);
+    *lista = NULL;
 }
 
 :::
@@ -1327,16 +1330,17 @@ dato)
 
 :::{code-block}c
 :linenos:
-void destruir_secuencia_arreglo(secuencia_arreglo_t *sec)
+void destruir_secuencia_arreglo(secuencia_arreglo_t **sec)
 {
-    if (sec == NULL)
+    if (sec == NULL || *sec == NULL)
     {
         return;
     }
     
-    free(sec->elementos);
-    sec->elementos = NULL;
-    free(sec);
+    free((*sec)->elementos);
+    (*sec)->elementos = NULL;
+    free(*sec);
+    *sec = NULL;
 }
 
 :::
@@ -1632,15 +1636,15 @@ un callback de destrucción:
 /* Firma de la función callback de destrucción */
 typedef void (*destruir_dato_fn)(void *);
 
-void destruir_lista_generica(lista_generica_t *lista, destruir_dato_fn
+void destruir_lista_generica(lista_generica_t **lista, destruir_dato_fn
 destruir_dato)
 {
-    if (lista == NULL)
+    if (lista == NULL || *lista == NULL)
     {
         return;
     }
     
-    nodo_generico_t *actual = lista->inicio;
+    nodo_generico_t *actual = (*lista)->inicio;
     while (actual != NULL) /* Lazo de liberación */
     {
         nodo_generico_t *siguiente = actual->siguiente;
@@ -1654,7 +1658,8 @@ destruir_dato)
         actual = siguiente;
     }
     
-    free(lista);
+    free(*lista);
+    *lista = NULL;
 }
 
 :::
@@ -1704,7 +1709,7 @@ int main(void)
     /* ... procesamos la lista ... */
     
     /* Al finalizar, destruimos la lista delegando la liberación */
-    destruir_lista_generica(mi_lista, destruir_persona);
+    destruir_lista_generica(&mi_lista, destruir_persona);
     
     return 0;
 }
@@ -1870,15 +1875,7 @@ bool punto_modificar(punto_t *punto, double nuevo_x, double nuevo_y);
 /*
  * Destructor: Libera toda la memoria asociada al punto.
  */
-void punto_destruir(punto_t *punro);
-
-```
-<!-- {code-block} c -->
-
-Wait, corregimos la errata "punro" a "punto".
-
-``` c
-void punto_destruir(punto_t *punto);
+void punto_destruir(punto_t **punto);
 
 #endif /* PUNTO_H */
 ```
@@ -1938,7 +1935,7 @@ double fraccion_a_decimal(const fraccion_t *fraccion);
 /*
  * Destructor: Libera la memoria de la fracción.
  */
-void fraccion_destruir(fraccion_t *fraccion);
+void fraccion_destruir(fraccion_t **fraccion);
 
 #endif /* FRACCION_H */
 
@@ -2019,7 +2016,7 @@ bool conjunto_insertar(conjunto_t *c, int elemento);
 bool conjunto_pertenece(const conjunto_t *c, int elemento);
 size_t conjunto_cardinalidad(const conjunto_t *c);
 int *conjunto_a_arreglo(const conjunto_t *c, size_t *tam);
-void conjunto_destruir(conjunto_t *c);
+void conjunto_destruir(conjunto_t **c);
 conjunto_iter_t *conjunto_iter_crear(const conjunto_t *c);
 
 ```
@@ -2093,7 +2090,7 @@ bool pila_apilar(pila_t *p, int dato);
 int pila_desapilar(pila_t *p);
 int pila_ver_tope(const pila_t *p);
 bool pila_esta_vacia(const pila_t *p);
-void pila_destruir(pila_t *p);
+void pila_destruir(pila_t **p);
 
 int *pila_a_arreglo(const pila_t *pila, size_t *cantidad)
 {
@@ -2129,7 +2126,7 @@ int *pila_a_arreglo(const pila_t *pila, size_t *cantidad)
         {
             pila_apilar(pila_trabajo, pila_desapilar(aux));
         }
-        pila_destruir(aux);
+        pila_destruir(&aux);
         return NULL;
     }
 
@@ -2145,7 +2142,7 @@ int *pila_a_arreglo(const pila_t *pila, size_t *cantidad)
         i++;
     }
 
-    pila_destruir(aux);
+    pila_destruir(&aux);
     *cantidad = count;
     return arreglo;
 }
@@ -2165,7 +2162,7 @@ función callback para que el cliente defina cómo destruir el dato almacenado e
 cada nodo, controlando las fugas de memoria. La firma debe ser:
 
 ``` c
-void tabla_destruir(tabla_hash_t *tabla, void (*destruir_dato)(void *));
+void tabla_destruir(tabla_hash_t **tabla, void (*destruir_dato)(void *));
 ```
 <!-- c -->
 
@@ -2197,17 +2194,18 @@ struct tabla_hash
     size_t cantidad;
 };
 
-void tabla_destruir(tabla_hash_t *tabla, void (*destruir_dato)(void *))
+void tabla_destruir(tabla_hash_t **tabla, void (*destruir_dato)(void *))
 {
-    if (tabla == NULL)
+    if (tabla == NULL || *tabla == NULL)
     {
         return;
     }
 
+    tabla_hash_t *t = *tabla;
     /* Recorremos todos los baldes del arreglo */
-    for (size_t i = 0; i < tabla->capacidad; i++)
+    for (size_t i = 0; i < t->capacidad; i++)
     {
-        nodo_hash_t *actual = tabla->baldes[i];
+        nodo_hash_t *actual = t->baldes[i];
         
         /* Lazo para recorrer y liberar la lista enlazada de colisiones */
         while (actual != NULL)
@@ -2216,6 +2214,7 @@ void tabla_destruir(tabla_hash_t *tabla, void (*destruir_dato)(void *))
             
             /* Liberamos la clave */
             free(actual->clave);
+            actual->clave = NULL;
             
             /* Si el cliente pasó un callback, liberamos el valor genérico */
             if (destruir_dato != NULL && actual->valor != NULL)
@@ -2230,8 +2229,10 @@ void tabla_destruir(tabla_hash_t *tabla, void (*destruir_dato)(void *))
     }
 
     /* Liberamos el arreglo de baldes y la estructura contenedora */
-    free(tabla->baldes);
-    free(tabla);
+    free(t->baldes);
+    t->baldes = NULL;
+    free(t);
+    *tabla = NULL;
 }
 
 ```

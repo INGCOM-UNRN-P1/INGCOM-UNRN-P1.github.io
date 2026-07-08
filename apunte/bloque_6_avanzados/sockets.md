@@ -1392,6 +1392,70 @@ if (recv(sockfd, buffer, sizeof(buffer), 0) == 0) {
 ```
 <!-- c -->
 
+### Control Sistemático de Retornos y Simetría de Descriptores
+
+Al trabajar con programación de redes y llamadas al sistema, es mandatorio adoptar un esquema defensivo estricto:
+
+1. **Control Sistemático de Retornos:** Prácticamente todas las funciones de la API de sockets (`socket`, `bind`, `listen`, `accept`, `connect`, `send`, `recv`, `setsockopt`) pueden fallar por factores externos al programa (red caída, falta de puertos, privilegios insuficientes, etc.). Debés verificar siempre que su retorno no sea `-1`. En caso de error, debés reportar la causa exacta al usuario usando `perror()` o consultando `errno` con `strerror(errno)`, y liberar los recursos asignados antes de abortar (reglas de la cátedra para el control de errores).
+2. **Simetría de Descriptores:** Un socket abierto es un **descriptor de archivo** en la tabla del sistema operativo del proceso. La cantidad de descriptores es limitada por el sistema. Es crucial garantizar que por cada llamada exitosa a `socket()` o `accept()`, exista una correspondiente llamada a `close()` en todos los caminos posibles de ejecución (incluyendo los bloques de manejo de errores). El no cerrar un socket genera una fuga de descriptores (*descriptor leak*), lo que eventualmente colgará el servidor al impedirle aceptar nuevas conexiones (regla {ref}`0x4004h`).
+
+##### Ejemplo de Validación y Cierre Simétrico
+
+:::{code-block}c
+:linenos:
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <errno.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+
+void manejar_conexion(int cliente_fd) {
+    char buffer[256];
+    // Recibir datos con verificación de error
+    ssize_t bytes_recibidos = recv(cliente_fd, buffer, sizeof(buffer) - 1, 0);
+    if (bytes_recibidos == -1) {
+        fprintf(stderr, "Error al recibir datos: %s\n", strerror(errno));
+    } else if (bytes_recibidos > 0) {
+        buffer[bytes_recibidos] = '\0';
+        printf("Recibido: %s\n", buffer);
+    }
+    
+    // Garantizar el cierre simétrico del socket del cliente
+    close(cliente_fd);
+}
+
+int iniciar_servidor(int puerto) {
+    int servidor_fd = socket(AF_INET, SOCK_STREAM, 0);
+    if (servidor_fd == -1) {
+        perror("Error al crear el socket del servidor");
+        return -1;
+    }
+
+    struct sockaddr_in servidor = {
+        .sin_family = AF_INET,
+        .sin_port = htons(puerto),
+        .sin_addr.s_addr = INADDR_ANY
+    };
+
+    if (bind(servidor_fd, (struct sockaddr *)&servidor, sizeof(servidor)) == -1) {
+        perror("Error en bind del servidor");
+        close(servidor_fd); // Cierre simétrico en caso de error intermedio
+        return -1;
+    }
+
+    if (listen(servidor_fd, 10) == -1) {
+        perror("Error en listen");
+        close(servidor_fd);
+        return -1;
+    }
+
+    return servidor_fd;
+}
+:::
+
 ## Protocolo de Aplicación Simple
 
 Un ejemplo de protocolo personalizado para un chat.

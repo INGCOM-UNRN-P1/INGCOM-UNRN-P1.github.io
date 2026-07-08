@@ -14,8 +14,8 @@ description: 'Punteros a funciones, genericidad básica en C utilizando void* y 
 
 En capítulos anteriores, exploramos cómo los punteros nos permiten referenciar y
 manipular datos en el heap de manera dinámica. Sin embargo, en C, las
-instrucciones ejecutables de una función también residen en la memoria física
-(en el segmento de código o de texto).
+instrucciones ejecutables de una función también residen en la memoria virtual
+(en el segmento de código o de texto del espacio de direcciones virtual del proceso).
 
 Un **puntero a función** almacena la dirección de memoria de una función
 ejecutable, lo que nos permite invocarla dinámicamente y pasar comportamiento
@@ -62,7 +62,7 @@ int
 #### Asignación e Invocación
 
 Asignar una función a un puntero es directo: solo se utiliza el nombre de la
-función (que decae en su dirección física de memoria).
+función (que decae en su dirección de instrucción en el segmento de código virtual del proceso).
 
 :::{code-block}c
 :linenos:
@@ -195,7 +195,9 @@ int comparar_personas_edad(const void *a, const void *b) {
     const Persona *p1 = (const Persona *)a;
     const Persona *p2 = (const Persona *)b;
 
-    return p1->edad - p2->edad;
+    if (p1->edad < p2->edad) return -1;
+    if (p1->edad > p2->edad) return 1;
+    return 0;
 }
 
 int main(void) {
@@ -287,6 +289,10 @@ typedef int (*comparar_fn)(const void *, const void *);
 // Retorna la dirección del elemento si se encuentra, o NULL si no está.
 const void *buscar_generico(const void *base, size_t nmemb, size_t size, 
                             const void *clave, comparar_fn cmp) {
+    if (base == NULL || clave == NULL || cmp == NULL) {
+        return NULL;
+    }
+
     // Convertimos a const char* para poder realizar aritmética de punteros byte a byte
     const char *ptr = (const char *)base;
 
@@ -304,7 +310,11 @@ const void *buscar_generico(const void *base, size_t nmemb, size_t size,
 
 // Callback para buscar en enteros
 int cmp_enteros(const void *a, const void *b) {
-    return *(const int *)a - *(const int *)b;
+    int val_a = *(const int *)a;
+    int val_b = *(const int *)b;
+    if (val_a < val_b) return -1;
+    if (val_a > val_b) return 1;
+    return 0;
 }
 
 int main(void) {
@@ -415,7 +425,7 @@ Las dos formas de invocación soportadas son:
    int res2 = operacion(10, 20);
    ```
 Ambas son funcionalmente idénticas debido a que el compilador de C promociona
-automáticamente el identificador de la función a su dirección física. La cátedra
+automáticamente el identificador de la función a su dirección de instrucción en el segmento de código virtual del proceso. La cátedra
 prefiere y recomienda la **segunda variante** (invocación directa) por
 asemejarse a una llamada de función estándar, mejorando la claridad de lectura
 del código.

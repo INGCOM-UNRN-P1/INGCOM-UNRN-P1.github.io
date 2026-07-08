@@ -231,6 +231,33 @@ para evitar el uso accidental de punteros colgantes (regla {ref}`0x0036h`).
 :::
 <!-- {warning} Gestión de Recursos y Robustez (regla {ref}`0x0003h` y {ref}`0x0036h`) -->
 
+(patron-destruccion-seguro)=
+##### Patrón de Destrucción Seguro: Puntero Simple vs. Doble Puntero
+
+En el diseño de destructores para tipos opacos y TADs en C, existen dos aproximaciones clásicas:
+
+1. **Destructor Simple (Puntero Simple):**
+   ```c
+   void destruir_punto(punto_t *p) {
+       if (p == NULL) return;
+       free(p);
+   }
+   ```
+   *Funcionamiento:* Se libera la memoria en el Heap, pero la variable puntero en el ámbito del cliente (el llamador) continúa almacenando la dirección de memoria liberada. Esto genera un **puntero colgante** (*dangling pointer*). Es responsabilidad exclusiva del programador cliente asignar de forma manual `p = NULL;` inmediatamente después de la llamada. Si el cliente olvida este paso, cualquier desreferencia posterior resultará en comportamiento indefinido o fallas de seguridad de tipo *Use-After-Free* (UAF).
+
+2. **Destructor Seguro (Doble Puntero - Recomendado y Unificado):**
+   ```c
+   void destruir_punto(punto_t **p) {
+       if (p == NULL || *p == NULL) return;
+       free(*p);
+       *p = NULL; // Aniquilación automática del puntero del cliente
+   }
+   ```
+   *Funcionamiento:* Al pasar la dirección del puntero del cliente (`&p`), el destructor no solo libera la memoria en el Heap, sino que también **pone a `NULL` la variable del cliente en su propio ámbito**. Esto mitiga por completo el riesgo de punteros colgantes de forma automática y transparente.
+
+Por cuestiones de consistencia, robustez y seguridad de memoria, **la cátedra exige unificar todos los destructores de tipos opacos y TADs bajo la firma de doble puntero (`**self`)** y anular la referencia en el cliente.
+<!-- {warning} Gestión de Recursos y Robustez (regla {ref}`0x0003h` y {ref}`0x0036h`) -->
+
 ---
 
 (analisis-tecnico-como-funciona)=
@@ -382,6 +409,18 @@ p->x = 100.0;  // ERROR en tiempo de compilación
 :::
 <!-- {code-block}c -->
 
+::{warning} Límites del Encapsulamiento en C (Convenio vs Compilación)
+
+Es fundamental comprender que en C el encapsulamiento no está garantizado a nivel de hardware o de forma inviolable por el compilador (como en lenguajes con modificadores de acceso como `private` en Java o C++). Se trata de un **convenio de diseño o contrato**.
+
+Un programador cliente malintencionado o descuidado podría:
+1. Re-declarar la estructura `struct punto` de forma idéntica en su propio código.
+2. Realizar un casteo explícito del puntero opaco `punto_t *` a un tipo de estructura que exponga sus miembros.
+
+Por lo tanto, la opacidad en C protege contra errores accidentales y acoplamientos indeseados, pero no constituye una barrera de seguridad informática infranqueable.
+:::
+<!-- {code-block}c -->
+
 **2. Flexibilidad de Implementación**
 
 Podés cambiar completamente la implementación interna sin afectar al código
@@ -453,7 +492,7 @@ destruir instancias:
 
 // Convención de nombres: tipo_accion
 tipo_t *crear_tipo(parametros);
-void destruir_tipo(tipo_t *instancia);
+void destruir_tipo(tipo_t **instancia);
 
 :::
 <!-- {code-block}c -->
@@ -873,12 +912,14 @@ bool tipo_operar(tipo_t *t, int dato) {
 
 :::{code-block}c
 :linenos:
-void destruir_tipo(tipo_t *t) {
+void destruir_tipo(tipo_t **t) {
     // Tolerante a NULL - comportamiento similar a free()
-    if (t == NULL) {
+    if (t == NULL || *t == NULL) {
         return;
     }
     // ... liberación ...
+    free(*t);
+    *t = NULL;
 }
 
 :::
@@ -1077,7 +1118,7 @@ typedef struct vector3d vector3d_t;
 
 // Constructor y destructor
 vector3d_t *vector_crear(double x, double y, double z);
-void vector_destruir(vector3d_t *v);
+void vector_destruir(vector3d_t **v);
 
 // Operaciones que manipulan el tipo a través de punteros
 vector3d_t *vector_sumar(const vector3d_t *v1, const vector3d_t *v2);
@@ -1155,8 +1196,7 @@ int main(void) {
         return 1;
     }
     // ...
-    destruir_punto(p);
-    p = NULL;
+    destruir_punto(&p);
     return 0;
 }
 
@@ -1225,7 +1265,7 @@ dinámicamente) y el saldo (`double`).
 
 Implementá las siguientes operaciones:
 1. `cuenta_t *crear_cuenta(long nro, const char *titular, double saldo_inicial)`
-2. `void destruir_cuenta(cuenta_t *c)`
+2. `void destruir_cuenta(cuenta_t **c)`
 3. `bool cuenta_depositar(cuenta_t *c, double monto)`
 4. `bool cuenta_extraer(cuenta_t *c, double monto)`
 5. `double cuenta_obtener_saldo(const cuenta_t *c)`
@@ -1250,7 +1290,7 @@ asegurate de liberar toda la memoria dinámica.
 typedef struct cuenta cuenta_t;
 
 cuenta_t *crear_cuenta(long nro, const char *titular, double saldo_inicial);
-void destruir_cuenta(cuenta_t *c);
+void destruir_cuenta(cuenta_t **c);
 bool cuenta_depositar(cuenta_t *c, double monto);
 bool cuenta_extraer(cuenta_t *c, double monto);
 double cuenta_obtener_saldo(const cuenta_t *c);
@@ -1293,12 +1333,13 @@ cuenta_t *crear_cuenta(long nro, const char *titular, double saldo_inicial) {
     return c;
 }
 
-void destruir_cuenta(cuenta_t *c) {
-    if (c == NULL) {
+void destruir_cuenta(cuenta_t **c) {
+    if (c == NULL || *c == NULL) {
         return;
     }
-    free(c->titular);
-    free(c);
+    free((*c)->titular);
+    free(*c);
+    *c = NULL;
 }
 
 bool cuenta_depositar(cuenta_t *c, double monto) {
@@ -1365,7 +1406,7 @@ void cartera_destruir(cuenta_t **cartera, size_t cantidad) {
     }
     // Liberamos cada cuenta individual recorriendo el arreglo con un lazo
     for (size_t i = 0; i < cantidad; i++) {
-        destruir_cuenta(cartera[i]);
+        destruir_cuenta(&cartera[i]);
         cartera[i] = NULL; // Evitamos punteros colgantes en el arreglo
     }
     // Liberamos el arreglo contenedor
