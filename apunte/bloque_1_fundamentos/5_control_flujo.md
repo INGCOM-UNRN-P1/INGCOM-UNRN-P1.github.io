@@ -1117,9 +1117,10 @@ Lenguaje de Máquina
 : El conjunto de instrucciones binarias directas ejecutable por el circuito
 físico de la CPU.
 
-Lazo (Bucle)
+Lazo
 : Estructura de control diseñada para repetir la ejecución de un bloque de
-instrucciones mientras se verifique una condición lógica de permanencia.
+instrucciones mientras se verifique una condición lógica de permanencia. También
+conocido como bucle.
 
 Acumulador
 : Variable de rol específico utilizada para almacenar y sumar valores de forma
