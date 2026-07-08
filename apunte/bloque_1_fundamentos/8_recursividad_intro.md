@@ -136,21 +136,17 @@ resolución y retorno ("desapilado") en orden inverso al de la llamada (LIFO:
 :::
 <!-- {important} Pila de llamadas (Call Stack) y Anatomía del Stack Frame -->
 
-A continuación se muestra de forma gráfica el estado del *Call Stack* durante el
-cálculo recursivo de `factorial(3)` hasta alcanzar el caso base, y cómo se
-desapilan los marcos de pila para resolver la multiplicación:
+A continuación se muestra de forma gráfica y formal la distribución física en memoria del *Call Stack* durante el cálculo recursivo de `factorial(3)` hasta alcanzar el caso base, ilustrando las direcciones físicas de memoria en la pila y las direcciones lógicas de retorno de código:
 
-:::{figure} 8/pila_llamadas.svg
-:label: fig-pila-llamadas
+```{figure} 8/pila_factorial.svg
+:label: fig-pila-factorial
 :align: center
-:width: 85%
+:width: 90%
 
-Evolución del Call Stack en la ejecución recursiva de `factorial(3)`. Los marcos
-se apilan secuencialmente hasta el caso base y se desapilan propagando el
-resultado.
+Distribución física del Call Stack en la ejecución de `factorial(3)`. Cada marco ocupa un espacio de memoria contiguo definido por direcciones físicas ficticias (ej. `0x7FFF08C0`) y guarda la dirección de instrucción de retorno (`0x00401A24`).
+```
 
-:::
-<!-- {figure} 8/pila_llamadas.svg -->
+Como se observa en el diagrama, cada llamada suspendida (`factorial(3)` y `factorial(2)`) mantiene su estado completo en una dirección de memoria diferente de la RAM. Solo cuando `factorial(1)` retorna su valor constante $1$ a la dirección de retorno de su llamador, el marco superior se destruye (se desplaza el puntero de pila `rsp`) y se reanuda la evaluación aritmética en el marco inmediatamente inferior.
 
 (el-peligro-de-la-recursividad-stack-overflow-y-la-paradoja-del-factorial)=
 ### El Peligro de la Recursividad: Stack Overflow y la Paradoja del Factorial

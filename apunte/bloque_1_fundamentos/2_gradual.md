@@ -547,7 +547,7 @@ entre dos variables sin perder ninguno.
 int main() {
     int a = 10;
     int b = 20;
-    int auxiliar; // 'temp' es nuestra variable auxiliar
+    int auxiliar = 0; // Inicialización explícita según la regla {ref}`0x0003h`
 
     printf("Antes del intercambio: a = %d, b = %d\n", a, b);
 

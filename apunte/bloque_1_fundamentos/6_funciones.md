@@ -562,10 +562,9 @@ Contador Normal: 1
 Contador Static: 2
 ```
 
-En este fragmento, `contador_normal` se reinicia a `0` en cada invocación porque
-su espacio en el stack se libera al retornar. En contraste, `contador_static`
-retiene su valor anterior entre ejecuciones porque reside de forma permanente en
-el segmento de datos.
+En este fragmento, `contador_normal` se reinicia a `0` en cada invocación porque reside en el **Stack Frame** (marco de pila) de la función, liberándose físicamente cuando finaliza su bloque. 
+
+En contraste, `contador_static` retiene su valor anterior entre ejecuciones porque **no se almacena en el Stack**. El compilador y el linker le asignan una dirección de memoria fija en los segmentos de datos estáticos de la memoria RAM (el segmento `.data` para variables estáticas inicializadas o `.bss` para las no inicializadas). Como estos segmentos se cargan al inicio del programa y persisten durante toda su ejecución, la variable posee un tiempo de vida estático, aunque su ámbito de visibilidad léxica siga estando restringido al cuerpo de `contador_static`.
 
 :::{warning} Efecto Secundario y Pureza
 

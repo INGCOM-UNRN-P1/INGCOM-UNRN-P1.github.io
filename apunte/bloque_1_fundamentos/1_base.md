@@ -145,52 +145,37 @@ Cuando programamos, debemos considerar:
 4. **¿Cómo traducirlo a código?** - Escribir en un lenguaje de programación.
 5. **¿Funciona correctamente?** - Probar y depurar.
 
-(analogia-la-receta-de-cocina)=
+(especificacion-formal-algoritmo)=
 
-#### Analogía: La receta de cocina
+#### Especificación Formal: Máquina de Transición de Estados
 
-Imaginá que querés hacer un bizcochuelo y le das las instrucciones a alguien que
-**nunca cocinó** y que seguirá **literalmente** cada palabra:
+En lugar de analogías informales, en ciencias de la computación modelamos los algoritmos como un sistema formal que transforma un conjunto de entradas ($I$) en un conjunto de salidas ($O$) a través de una secuencia finita de transiciones de estado ($S$).
 
-::::{grid} 1 1 2 2
+Consideremos el algoritmo de control de un **sistema de autenticación de sensor industrial**. El algoritmo debe procesar una señal física (una secuencia de caracteres ASCII que ingresa de a un byte por vez) y determinar si se ha recibido la clave de activación exacta `ON`.
 
-:::{grid-item-card} ❌ Instrucciones vagas (no funcionan) "Poné un poco de
+*   **Entradas ($I$)**: Caracteres individuales recibidos secuencialmente desde el puerto serial: $i_k \in \text{ASCII}$.
+*   **Salidas ($O$)**: Señal de estado de activación: $o_k \in \{\text{BLOQUEADO}, \text{ACTIVO}\}$.
+*   **Estados del Algoritmo ($S$)**: El estado interno cambia según el avance de la coincidencia detectada:
+    *   $S_0$: Estado de reposo (esperando primer carácter `O`).
+    *   $S_1$: Primer carácter correcto recibido (esperando `N`).
+    *   $S_2$: Secuencia completada (emitiendo señal `ACTIVO`).
 
-harina, algo de azúcar, mezclá los ingredientes y horneá hasta que esté listo."
+A continuación se detalla la tabla de transición que define formalmente el comportamiento unívoco de este algoritmo:
 
-**Problemas:**
+:::{table} Tabla de Transición de Estados del Algoritmo
+:label: tbl-transicion-estados
 
-- ¿Cuánto es "un poco"?
-- ¿Qué otros ingredientes lleva?
-- ¿En qué orden se mezclan?
-- ¿A qué temperatura?
-- ¿Cómo saber cuándo está "listo"? 
-
+| Estado Actual ($S$) | Evento / Entrada ($i_k$) | Siguiente Estado ($S'$) | Salida Emitida ($o_k$) |
+| :--- | :--- | :--- | :--- |
+| **$S_0$ (Reposo)** | `'O'` | $S_1$ (Coincidencia parcial) | `BLOQUEADO` |
+| **$S_0$ (Reposo)** | Cualquier otro carácter | $S_0$ (Reposo) | `BLOQUEADO` |
+| **$S_1$ (Parcial)** | `'N'` | $S_2$ (Activado) | `ACTIVO` |
+| **$S_1$ (Parcial)** | `'O'` | $S_1$ (Coincidencia parcial) | `BLOQUEADO` |
+| **$S_1$ (Parcial)** | Cualquier otro carácter | $S_0$ (Reposo) | `BLOQUEADO` |
+| **$S_2$ (Activado)**| Cualquier carácter | $S_0$ (Reposo) | `BLOQUEADO` |
 :::
-<!-- {grid-item-card} ❌ Instrucciones vagas (no funcionan) "Poné un poco de -->
 
-:::{grid-item-card} ✅ Instrucciones precisas (como un programa)
-
-1. Precalentar el horno a 180°C.
-2. En un recipiente, colocar 200 gramos de harina.
-3. Agregar 150 gramos de azúcar.
-4. Agregar 3 huevos.
-5. Batir la mezcla durante 2 minutos a velocidad media.
-6. Verter la mezcla en un molde de 20cm de diámetro previamente enmantecado.
-7. Hornear durante 30 minutos.
-8. Retirar del horno usando guantes protectores.
-
-**Características:**
-
-- Cantidades exactas e inequívocas.
-- Orden cronológico específico.
-- Tiempos definidos. 
-
-:::
-<!-- {grid-item-card} ✅ Instrucciones precisas (como un programa) -->
-
-::::
-<!-- {grid} 1 1 2 2 -->
+Este modelo formal demuestra que un algoritmo no es una receta subjetiva, sino una definición determinista de comportamiento donde cada combinación de estado interno y datos de entrada produce una transición y una salida perfectamente predecibles.
 
 La computadora necesita instrucciones de este segundo tipo: específicas,
 ordenadas, sin ambigüedades y detalladas al extremo.
@@ -1070,7 +1055,7 @@ Tipo de dato
 : Definición del conjunto de valores y operaciones válidos
 asignados a una variable.
 
-Lazo
+Estructura iterativa (Lazo)
 : Estructura de control diseñada para repetir la ejecución de un bloque de
 instrucciones (`Para`, `Mientras`).
 

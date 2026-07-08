@@ -1119,8 +1119,7 @@ físico de la CPU.
 
 Lazo
 : Estructura de control diseñada para repetir la ejecución de un bloque de
-instrucciones mientras se verifique una condición lógica de permanencia. También
-conocido como bucle.
+instrucciones mientras se verifique una condición lógica de permanencia.
 
 Acumulador
 : Variable de rol específico utilizada para almacenar y sumar valores de forma
