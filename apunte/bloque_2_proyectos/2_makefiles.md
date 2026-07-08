@@ -57,9 +57,18 @@ Los comandos de la receta en un `Makefile` deben estar precedidos **obligatoriam
 
 ### 3. Evolución Gradual de un Makefile (Las 3 Fases)
 
-Para evitar la sobrecarga cognitiva al introducir la sintaxis compleja de `make`, analizaremos cómo evoluciona un Makefile de forma incremental. Supongamos un proyecto con:
+Para simplificar la introducción a la sintaxis de `make`, analizaremos cómo evoluciona un Makefile de forma incremental. Supongamos un proyecto con:
 *   `calculadora.c` y `calculadora.h` (implementación de aritmética).
 *   `main.c` (punto de entrada que utiliza la calculadora).
+
+:::{note} Si funciona...
+
+Cualquiera de las siguientes tres fases va bien, en la medida que funcione al proyecto.
+
+Pero si se ven en la necesidad de modificar mucho los Makefiles, quizás sea el momento de mejorarlos.
+
+:::
+
 
 #### Fase 1: Makefiles Explícitos
 
