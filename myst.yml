@@ -48,13 +48,11 @@ project:
           children:
             - file: apunte/bloque_1_fundamentos/1_base.md
             - file: apunte/bloque_1_fundamentos/2_gradual.md
-            - file: apunte/bloque_1_fundamentos/3_numeros.md
-            - file: apunte/bloque_1_fundamentos/4_casts.md
-            - file: apunte/bloque_1_fundamentos/5_control_flujo.md
-            - file: apunte/bloque_1_fundamentos/6_funciones.md
-            - file: apunte/bloque_1_fundamentos/7_testing_basico.md
-            - file: apunte/bloque_1_fundamentos/8_recursividad_intro.md
-            - file: apunte/bloque_1_fundamentos/9_contratos_intro.md
+            - file: apunte/bloque_1_fundamentos/3_control_flujo.md
+            - file: apunte/bloque_1_fundamentos/4_funciones.md
+            - file: apunte/bloque_1_fundamentos/5_testing_basico.md
+            - file: apunte/bloque_1_fundamentos/6_recursividad_intro.md
+            - file: apunte/bloque_1_fundamentos/7_contratos_intro.md
         - title: "Bloque 2: Estructuración y Proyectos"
           children:
             - file: apunte/bloque_2_proyectos/1_compilacion.md
@@ -68,6 +66,8 @@ project:
             - file: apunte/bloque_3_memoria_estatica/3_matrices.md
             - file: apunte/bloque_3_memoria_estatica/4_punteros.md
             - file: apunte/bloque_3_memoria_estatica/5_estructuras.md
+            - file: apunte/bloque_3_memoria_estatica/6_numeros.md
+            - file: apunte/bloque_3_memoria_estatica/7_casts.md
         - title: "Bloque 4: Gestión Dinámica de Recursos e Interfaces"
           children:
             - file: apunte/bloque_4_dinamica_interfaces/1_memoria_dinamica.md

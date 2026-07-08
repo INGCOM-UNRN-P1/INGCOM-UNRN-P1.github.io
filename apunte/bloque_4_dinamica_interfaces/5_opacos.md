@@ -1003,7 +1003,7 @@ cliente) y **beneficios** (postcondiciones que garantiza el proveedor). Este
 enfoque transforma el desarrollo de software de una actividad artesanal a una
 disciplina ingenieril rigurosa.
 
-:::{figure} ../bloque_1_fundamentos/9/contract_metaphor.svg
+:::{figure} ../bloque_1_fundamentos/7/contract_metaphor.svg
 :label: fig-metaphor
 :align: center
 :width: 90%
@@ -1012,7 +1012,7 @@ Metáfora del contrato: cliente y proveedor tienen obligaciones y derechos
 mutuos, formalizados mediante precondiciones y postcondiciones.
 
 :::
-<!-- {figure} ../bloque_1_fundamentos/9/contract_metaphor.svg -->
+<!-- {figure} ../bloque_1_fundamentos/7/contract_metaphor.svg -->
 
 :::{important} Beneficios del Diseño por Contratos
 

@@ -123,7 +123,7 @@ se puede resumir en tres fases principales:
 Este flujo de trabajo de divide y vencerás se puede visualizar de manera gráfica
 en el algoritmo de ordenamiento Merge Sort:
 
-:::{figure} ../bloque_1_fundamentos/8/divide_conquista_merge.svg
+:::{figure} ../bloque_1_fundamentos/6/divide_conquista_merge.svg
 :label: fig-divide-conquista
 :align: center
 :width: 85%
@@ -132,7 +132,7 @@ Paradigma de Divide y Vencerás aplicado a la ordenación del arreglo [12, 11, 1
 5] mediante Merge Sort.
 
 :::
-<!-- {figure} ../bloque_1_fundamentos/8/divide_conquista_merge.svg -->
+<!-- {figure} ../bloque_1_fundamentos/6/divide_conquista_merge.svg -->
 
 #### Ejemplo 1: Búsqueda Binaria
 
@@ -245,7 +245,7 @@ de combinación no trivial (la fusión de arreglos ordenados).
 Este flujo no lineal de llamadas se puede visualizar detalladamente en la
 siguiente traza de ejecución:
 
-:::{figure} ../bloque_1_fundamentos/8/traza_merge_sort.svg
+:::{figure} ../bloque_1_fundamentos/6/traza_merge_sort.svg
 :label: fig-traza-merge-sort
 :align: center
 :width: 85%
@@ -255,7 +255,7 @@ arreglo inicial [5, 2, 7, 3]. Los números en los círculos indican el orden
 cronológico de ejecución (DFS).
 
 :::
-<!-- {figure} ../bloque_1_fundamentos/8/traza_merge_sort.svg -->
+<!-- {figure} ../bloque_1_fundamentos/6/traza_merge_sort.svg -->
 
 ##### Deficiencia del malloc en recursión profunda y optimización de buffer único
 

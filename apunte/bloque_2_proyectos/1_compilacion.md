@@ -25,7 +25,7 @@ archivo ejecutable que la máquina puede interpretar directamente.
 
 Este capítulo asume que ya escribiste y ejecutaste programas básicos en C como
 los presentados en el [](../bloque_1_fundamentos/2_gradual.md). También es útil tener familiaridad con
-el concepto de funciones ([](../bloque_1_fundamentos/6_funciones.md)) ya que se mencionan prototipos y
+el concepto de funciones ([](../bloque_1_fundamentos/4_funciones.md)) ya que se mencionan prototipos y
 definiciones en el contexto de compilación de múltiples archivos.
 
 :::

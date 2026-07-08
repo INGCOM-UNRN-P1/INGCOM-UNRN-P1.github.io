@@ -138,7 +138,7 @@ resolución y retorno ("desapilado") en orden inverso al de la llamada (LIFO:
 
 A continuación se muestra de forma gráfica y formal la distribución física en memoria del *Call Stack* durante el cálculo recursivo de `factorial(3)` hasta alcanzar el caso base, ilustrando las direcciones físicas de memoria en la pila y las direcciones lógicas de retorno de código:
 
-```{figure} 8/pila_factorial.svg
+```{figure} 6/pila_factorial.svg
 :label: fig-pila-factorial
 :align: center
 :width: 90%

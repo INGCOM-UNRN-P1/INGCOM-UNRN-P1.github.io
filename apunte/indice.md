@@ -16,13 +16,11 @@ Este bloque introduce la sintaxis básica de C, la gestión del estado, las bifu
 
 *   **[1. Fundamentos de Algoritmos](bloque_1_fundamentos/1_base.md)**: Representación de lógica, diagramas de flujo y variables.
 *   **[2. Introducción a C y Estado](bloque_1_fundamentos/2_gradual.md)**: Sintaxis básica, tipos primitivos, roles de variables y estado del programa.
-*   **[3. Representación de Números](bloque_1_fundamentos/3_numeros.md)**: Límites de representación física, desbordamientos e imprecisión de punto flotante.
-*   **[4. Conversión de Tipos (Casts)](bloque_1_fundamentos/4_casts.md)**: Promoción entera, coerción aritmética implícita y conversión explícita.
-*   **[5. Estructuras de Control de Flujo](bloque_1_fundamentos/5_control_flujo.md)**: Decisiones condicionales, lazos (estructuras de repetición) y manejo del buffer de entrada.
-*   **[6. Modularización y Ámbitos](bloque_1_fundamentos/6_funciones.md)**: Firmas de funciones, ámbitos de almacenamiento (`static`) y descomposición top-down.
-*   **[7. Testing y Aserciones Básicas](bloque_1_fundamentos/7_testing_basico.md)**: Introducción al patrón AAA, la macro `assert` y la cobertura de ramas.
-*   **[8. Introducción a la Recursividad](bloque_1_fundamentos/8_recursividad_intro.md)**: Fundamentos de recursión simple y anatomía cualitativa del Stack Frame.
-*   **[9. Introducción a Contratos de Software](bloque_1_fundamentos/9_contratos_intro.md)**: Precondiciones, postcondiciones e invariantes de lazo informales.
+*   **[3. Estructuras de Control de Flujo](bloque_1_fundamentos/3_control_flujo.md)**: Decisiones condicionales, lazos (estructuras de repetición) y manejo del buffer de entrada.
+*   **[4. Modularización y Ámbitos](bloque_1_fundamentos/4_funciones.md)**: Firmas de funciones, ámbitos de almacenamiento (`static`) y descomposición top-down.
+*   **[5. Testing y Aserciones Básicas](bloque_1_fundamentos/5_testing_basico.md)**: Introducción al patrón AAA, la macro `assert` y la cobertura de ramas.
+*   **[6. Introducción a la Recursividad](bloque_1_fundamentos/6_recursividad_intro.md)**: Fundamentos de recursión simple y anatomía cualitativa del Stack Frame.
+*   **[7. Introducción a Contratos de Software](bloque_1_fundamentos/7_contratos_intro.md)**: Precondiciones, postcondiciones e invariantes de lazo informales.
 
 ---
 
@@ -46,6 +44,8 @@ Análisis físico del direccionamiento lógico de variables, jerarquías de cach
 *   **[3. Matrices Multidimensionales](bloque_3_memoria_estatica/3_matrices.md)**: Disposición *Row-Major* en RAM y optimización de localidad espacial para evitar fallos de caché.
 *   **[4. Indirección Física y Punteros](bloque_3_memoria_estatica/4_punteros.md)**: Punteros físicos, operador de dirección `&` e indirección `*`, y simulación de paso por referencia.
 *   **[5. Estructuras y Tipos Compuestos](bloque_3_memoria_estatica/5_estructuras.md)**: Registros compuestos (`struct`, `union`) y alineación en memoria (*padding*).
+*   **[6. Representación de Números](bloque_3_memoria_estatica/6_numeros.md)**: Límites de representación física, desbordamientos e imprecisión de punto flotante.
+*   **[7. Conversión de Tipos (Casts)](bloque_3_memoria_estatica/7_casts.md)**: Promoción entera, coerción aritmética implícita y conversión explícita.
 
 ---
 

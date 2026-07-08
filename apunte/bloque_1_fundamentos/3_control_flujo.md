@@ -1172,7 +1172,7 @@ Cuando encuentres dificultades al depurar o diseñar un programa:
 ### Próximos Pasos
 En los siguientes capítulos avanzaremos en la construcción de software modular
 en C:
-- [](6_funciones.md) — Modularización y diseño de subprogramas mediante
+- [](4_funciones.md) — Modularización y diseño de subprogramas mediante
   funciones con contratos y parámetros.
 - [Secuencias y arreglos](../bloque_3_memoria_estatica/2_secuencias.md) —
   Arreglos de memoria estáticos y cadenas de caracteres.
