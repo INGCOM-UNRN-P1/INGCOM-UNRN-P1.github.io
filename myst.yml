@@ -68,11 +68,13 @@ project:
             - file: apunte/bloque_3_memoria_estatica/5_estructuras.md
             - file: apunte/bloque_3_memoria_estatica/6_numeros.md
             - file: apunte/bloque_3_memoria_estatica/7_casts.md
-        - title: "Bloque 4: Gestión Dinámica de Recursos e Interfaces"
+        - title: "Bloque 4: Gestión Dinámica e Indirección Avanzada"
           children:
             - file: apunte/bloque_4_dinamica_interfaces/1_memoria_dinamica.md
             - file: apunte/bloque_4_dinamica_interfaces/2_aritmetica.md
             - file: apunte/bloque_4_dinamica_interfaces/3_archivos_texto.md
+        - title: "Bloque 5: Abstracción de Datos y Verificación"
+          children:
             - file: apunte/bloque_4_dinamica_interfaces/4_punteros_funciones.md
             - file: apunte/bloque_4_dinamica_interfaces/5_opacos.md
             - file: apunte/bloque_4_dinamica_interfaces/6_tad.md
@@ -80,7 +82,7 @@ project:
             - file: apunte/bloque_4_dinamica_interfaces/8_testing_avanzado.md
             - file: apunte/bloque_4_dinamica_interfaces/9_contratos_formales.md
             - file: apunte/bloque_4_dinamica_interfaces/10_complejidad.md
-        - title: "Bloque 5: Temas avanzados"
+        - title: "Bloque 6: Temas Avanzados"
           children:
             - file: apunte/bloque_5_avanzados/1_indice_avanzados.md
             - file: apunte/bloque_5_avanzados/binarios_archivos.md
@@ -126,7 +128,7 @@ project:
             - file: ejercicios/bloque_3_memoria_estatica/4_punteros.md
             - file: ejercicios/bloque_3_memoria_estatica/4b_punteros_ejercicios.md
             - file: ejercicios/bloque_3_memoria_estatica/5_structs.md
-        - title: "Bloque 4: Gestión Dinámica de Recursos e Interfaces"
+        - title: "Bloque 4: Gestión Dinámica e Indirección Avanzada"
           children:
             - file: ejercicios/bloque_4_dinamica_interfaces/1_memoria_dinamica.md
             - file: ejercicios/bloque_4_dinamica_interfaces/1b_memoria.md
@@ -134,11 +136,13 @@ project:
             - file: ejercicios/bloque_4_dinamica_interfaces/2_punteros_2.md
             - file: ejercicios/bloque_4_dinamica_interfaces/3_archivos.md
             - file: ejercicios/bloque_4_dinamica_interfaces/3b_ejercicios_archivos.md
+        - title: "Bloque 5: Abstracción de Datos y Verificación"
+          children:
             - file: ejercicios/bloque_4_dinamica_interfaces/4_punteros_avanzados.md
             - file: ejercicios/bloque_4_dinamica_interfaces/6_tad.md
             - file: ejercicios/bloque_4_dinamica_interfaces/7_estructuras_de_datos.md
             - file: ejercicios/bloque_4_dinamica_interfaces/10_complejidad.md
-        - title: "Bloque 5: Temas avanzados"
+        - title: "Bloque 6: Temas Avanzados"
           children:
             - file: ejercicios/bloque_5_avanzados/ordenamiento_y_busqueda.md
             - file: ejercicios/bloque_5_avanzados/archivos_binarios.md

@@ -124,7 +124,7 @@ typedef struct punto punto_t;
 
 // Funciones públicas - la interfaz
 punto_t *crear_punto(double x, double y);
-void destruir_punto(punto_t *punto);
+void destruir_punto(punto_t **punto);
 
 double punto_obtener_x(const punto_t *punto);
 double punto_obtener_y(const punto_t *punto);
@@ -159,8 +159,11 @@ punto_t *crear_punto(double x, double y) {
     return p;
 }
 
-void destruir_punto(punto_t *punto) {
-    free(punto);
+void destruir_punto(punto_t **punto) {
+    if (punto != NULL && *punto != NULL) {
+        free(*punto);
+        *punto = NULL;
+    }
 }
 
 double punto_obtener_x(const punto_t *punto) {
@@ -210,8 +213,7 @@ int main(void) {
     // Esto NO COMPILA: el usuario no puede acceder a los campos internos
     // p->x = 10.0;  // ERROR: incomplete type 'struct punto'
     
-    destruir_punto(p);
-    p = NULL;
+    destruir_punto(&p);
     return 0;
 }
 
@@ -461,8 +463,7 @@ void destruir_tipo(tipo_t *instancia);
 :linenos:
 usuario_t *usr = crear_usuario("Carlos", 35);
 // ... usar usr ...
-destruir_usuario(usr);
-usr = NULL;
+destruir_usuario(&usr);
 
 :::
 <!-- {code-block}c -->
@@ -492,8 +493,7 @@ void liberar_grupo_usuarios(usuario_t **grupo, size_t cantidad) {
     
     // Recorremos la colección destruyendo cada elemento individual con un lazo
     for (size_t i = 0; i < cantidad; i++) {
-        destruir_usuario(grupo[i]);
-        grupo[i] = NULL; // Evita punteros colgantes en el array
+        destruir_usuario(&grupo[i]);
     }
     
     // Finalmente, liberamos el array contenedor en sí
@@ -620,7 +620,7 @@ typedef struct usuario usuario_t;
 
 // Constructor/Destructor
 usuario_t *crear_usuario(const char *nombre, int edad);
-void destruir_usuario(usuario_t *u);
+void destruir_usuario(usuario_t **u);
 
 // Getters y Setters con validación
 const char *usuario_obtener_nombre(const usuario_t *u);
@@ -672,15 +672,16 @@ usuario_t *crear_usuario(const char *nombre, int edad) {
     return u;
 }
 
-void destruir_usuario(usuario_t *u) {
-    if (u == NULL) {
+void destruir_usuario(usuario_t **u) {
+    if (u == NULL || *u == NULL) {
         return;
     }
     
     // Primero liberamos los recursos internos
-    free(u->nombre);
+    free((*u)->nombre);
     // Luego liberamos la estructura contenedora
-    free(u);
+    free(*u);
+    *u = NULL;
 }
 
 const char *usuario_obtener_nombre(const usuario_t *u) {
@@ -742,8 +743,7 @@ int main(void) {
     
     usuario_imprimir(u);
     
-    destruir_usuario(u);
-    u = NULL;
+    destruir_usuario(&u);
     return 0;
 }
 
@@ -813,7 +813,7 @@ Todos estos ejemplos siguen el mismo patrón de puntero opaco.
 typedef struct usuario usuario_t;
 
 usuario_t *crear_usuario(const char *nombre, int edad);
-void destruir_usuario(usuario_t *u);
+void destruir_usuario(usuario_t **u);
 
 :::
 <!-- {code-block}c -->
@@ -838,7 +838,7 @@ usuario_t *crear_usuario(const char *nombre, int edad);
  * 
  * @param u Usuario a destruir. Puede ser NULL.
  */
-void destruir_usuario(usuario_t *u);
+void destruir_usuario(usuario_t **u);
 
 :::
 <!-- {code-block}c -->
