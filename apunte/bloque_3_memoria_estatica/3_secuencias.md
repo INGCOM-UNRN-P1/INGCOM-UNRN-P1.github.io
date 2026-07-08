@@ -47,17 +47,14 @@ int mi_arreglo[4];
 Esta declaración reserva espacio para 4 enteros. Si un `int` ocupa 4 bytes, la
 disposición en memoria es contigua:
 
-:::{figure} 2/array_memory_layout.svg
-:name: fig-array-memory-layout
-:width: 100%
+:::{figure} 3/array_memory_layout.svg
+:label: fig-array-memory-layout
+:align: center
 
-Disposición en memoria de un arreglo de enteros. Los elementos se almacenan de
-forma contigua, lo que permite calcular la dirección de cualquier elemento
-mediante aritmética: dirección_base + (índice × tamaño_elemento). Esta
-organización es fundamental para el acceso eficiente en tiempo constante O(1).
+Mapeo de un arreglo en la memoria física RAM. Los elementos se ordenan en bloques contiguos.
 
 :::
-<!-- {figure} 2/array_memory_layout.svg -->
+<!-- {figure} 3/array_memory_layout.svg -->
 
 Esta contigüidad es lo que permite el acceso indexado (`mi_arreglo[2]`) de forma
 casi instantánea.
@@ -78,17 +75,14 @@ estáticos:
 
 Formas de inicialización explícita:
 
-:::{figure} 2/array_initialization.svg
-:name: fig-array-initialization
-:width: 100%
+:::{figure} 3/array_initialization.svg
+:label: fig-array-initialization
+:align: center
 
-Tres formas de inicializar arreglos en C: completa (todos los valores
-especificados), parcial (valores restantes a cero), y con inicializadores
-designados C99 (índices específicos). Los elementos no inicializados
-explícitamente en arreglos locales contienen basura (regla {ref}`0x0003h`).
+Inicialización de arreglos en C. Si se omiten elementos, el compilador los rellena con ceros.
 
 :::
-<!-- {figure} 2/array_initialization.svg -->
+<!-- {figure} 3/array_initialization.svg -->
 
 - **Completa**: `int arr[5] = {10, 20, 30, 40, 50};`
 - **Parcial**: `int arr[5] = {10, 20};` (los elementos restantes, `arr[2]` a
@@ -368,42 +362,25 @@ Dinámica](../bloque_4_dinamica_interfaces/1_memoria_dinamica.md).
 De todas formas y como se imaginarán, hay una regla de estilo {ref}`0x5001h`.
 
 (el-mecanismo-de-paso-a-funciones-paso-por-referencia-simulado)=
-#### El Mecanismo de Paso a Funciones: Paso por Referencia Simulado
+#### El Mecanismo de Paso a Funciones: Decaimiento de Arreglos
 
-En el lenguaje C, los arreglos poseen un comportamiento particular al ser
-transmitidos como argumentos a una función: **no se pasan por valor**. Esto
-significa que el compilador no realiza una copia de todos los elementos del
-arreglo en el registro de activación de la función receptora.
+En C, **todo pasaje de parámetros se realiza estrictamente por valor** (copia física en el Stack Frame). Sin embargo, los arreglos poseen un comportamiento físico particular al ser transmitidos a una función: el compilador no realiza una copia de todos los elementos del arreglo en el registro de activación de la función receptora.
 
-En su lugar, la función recibe únicamente la **dirección de memoria** donde se
-inicia el arreglo original. Como consecuencia, cualquier lectura o modificación
-que la función realice sobre los elementos utilizando el operador de indexación
-(`[]`) afectará de forma directa e inmediata a los datos originales en la
-memoria del programa.
+En su lugar, el nombre del arreglo **decae implícitamente a un puntero** que almacena la dirección de memoria de su primer elemento (es decir, `arr` se evalúa como `&arr[0]`). Lo que recibe la función en su Stack Frame es una copia por valor de ese puntero (dirección física).
 
-:::{note} El concepto subyacente: Decaimiento de Arreglos
+Como consecuencia, cualquier lectura o modificación que la función realice sobre los elementos utilizando el operador de indexación (`[]`) afectará de forma directa e inmediata a los datos originales en la memoria del programa, logrando una **simulación de pasaje por referencia mediante indirección**.
 
-Este mecanismo por el cual el arreglo se reduce a la dirección de su primer
-elemento se conoce técnicamente como **decaimiento de arreglo a puntero**
-(*array decay*). Dado que requiere comprender cómo se organizan las direcciones
-de memoria físicas y lógicas, este comportamiento tendrá mucho más sentido una
-vez que se aborde el estudio de los punteros en el capítulo de
-{ref}`capitulo-punteros` (disponible en [](4_punteros.md)).
-
+:::{note} El concepto subyacente: Aritmética de Punteros
+Este mecanismo requiere comprender cómo se organizan las direcciones de memoria físicas y el operador de indirección `*`. Para profundizar en estos conceptos, consultá el capítulo de {ref}`capitulo-punteros` en [](2_punteros.md).
 :::
-<!-- {note} El concepto subyacente: Decaimiento de Arreglos -->
 
-:::{figure} 2/array_pass_by_reference.svg
-:name: fig-array-pass-by-reference
-:width: 100%
+```{figure} 3/degradacion_puntero.svg
+:label: fig-degradacion-puntero
+:align: center
+:width: 90%
 
-Paso de arreglos a funciones por referencia: a diferencia de las variables
-simples (que se copian), los arreglos se pasan mediante su dirección de memoria.
-Tanto el arreglo original como el parámetro de la función apuntan a la misma
-ubicación, permitiendo modificaciones directas del contenido original.
-
-:::
-<!-- {figure} 2/array_pass_by_reference.svg -->
+Decaimiento físico de un arreglo a puntero al ser pasado a una función. El parámetro `ptr` en el Stack Frame de la función `mostrar` recibe una copia del valor de la dirección física del inicio del arreglo `0x7FFEE100`.
+```
 
 (funciones-puras-y-con-efectos-secundarios)=
 #### Funciones Puras y con Efectos Secundarios
@@ -673,7 +650,7 @@ char cadena[7] = "Hola";
 :::
 <!-- {code-block}c -->
 
-:::{figure} 2/string_null_terminator.svg
+:::{figure} 3/string_null_terminator.svg
 :name: fig-string-null-terminator
 :width: 100%
 
@@ -683,7 +660,7 @@ bytes no inicializados contienen basura. El terminador '\0' marca el fin lógico
 de la cadena y es esencial para las funciones de string.h.
 
 :::
-<!-- {figure} 2/string_null_terminator.svg -->
+<!-- {figure} 3/string_null_terminator.svg -->
 
 En donde los `?` _quizás_ sean cero (`\0`), pero como no está inicializado, no
 podemos estar seguros del valor que tendrá, a todos los efectos prácticos, es
@@ -803,7 +780,7 @@ Y se encarga de recorrer la cadena hasta encontrarse un carácter nulo (`\0`)
 Es muy importante tener en cuenta que las cadenas tienen dos "tamaños"
 diferentes.
 
-:::{figure} 2/string_length_vs_capacity.svg
+:::{figure} 3/string_length_vs_capacity.svg
 :name: fig-string-length-vs-capacity
 :width: 100%
 
@@ -814,7 +791,7 @@ incluir el terminador nulo. Esta distinción es fundamental para operaciones
 seguras con cadenas.
 
 :::
-<!-- {figure} 2/string_length_vs_capacity.svg -->
+<!-- {figure} 3/string_length_vs_capacity.svg -->
 
 Tenemos, por un lado, el largo, que es la cantidad de caracteres hasta el
 terminador.
@@ -839,9 +816,11 @@ Esta es la base para las cadenas seguras.
 (lectura-segura-de-cadenas)=
 #### Lectura Segura de Cadenas
 
-El uso de `scanf("%s", buffer)` es una de las fuentes de errores de seguridad
-más comunes en C. La alternativa segura es `fgets`, como lo recomienda la regla
-de estilo {ref}`0x5001h`.
+El uso de `scanf("%s", buffer)` y `gets()` constituye una de las mayores vulnerabilidades de seguridad en lenguaje C. La alternativa segura y exigida es `fgets`, de acuerdo con la regla de estilo {ref}`0x5006h`.
+
+:::{warning} Vulnerabilidad Crítica: Desbordamiento de Búfer
+La función estándar `gets()` fue removida de forma definitiva en el estándar C11 debido a que **no verifica el límite de almacenamiento del búfer de destino**. Similarmente, `scanf("%s", ...)` lee datos de la entrada estándar y los escribe en memoria de forma descontrolada hasta encontrar un espacio en blanco o una nueva línea. Si el usuario ingresa una cadena de longitud mayor al tamaño reservado, se produce un **desbordamiento de búfer** (*buffer overflow*), sobrescribiendo celdas de variables contiguas o alterando la dirección de retorno en el Stack Frame.
+:::
 
 ::::{code-block}c
 :linenos:
@@ -1095,9 +1074,9 @@ manipulamos estas direcciones directamente?
 El próximo tema introduce conceptos que profundizan en cómo se organiza y
 manipula la memoria:
 
-- Los **punteros** ([Punteros](4_punteros.md)) como variables que almacenan
+- Los **punteros** ([Punteros](2_punteros.md)) como variables que almacenan
   direcciones
-- Las **matrices** ([Matrices](3_matrices.md)) como arreglos multidimensionales
+- Las **matrices** ([Matrices](4_matrices.md)) como arreglos multidimensionales
 - La **gestión de memoria** ([Memoria
   Dinámica](../bloque_4_dinamica_interfaces/1_memoria_dinamica.md)) para
   estructuras dinámicas
@@ -1613,7 +1592,7 @@ especial para texto.
 - El estudio de las direcciones de memoria y la aritmética de punteros (por
   ejemplo, comprender que la expresión `arr[i]` equivale técnicamente a una
   operación de indirección sobre la dirección de memoria) se explican de forma
-  detallada en el capítulo {ref}`capitulo-punteros` en [](4_punteros.md).
+  detallada en el capítulo {ref}`capitulo-punteros` en [](2_punteros.md).
 
 :::
 <!-- {important} Ideas Centrales -->

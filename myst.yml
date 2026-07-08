@@ -62,9 +62,9 @@ project:
         - title: "Bloque 3: Disposición de Memoria y Estructuras Estáticas"
           children:
             - file: apunte/bloque_3_memoria_estatica/1_modelo_memoria.md
-            - file: apunte/bloque_3_memoria_estatica/2_secuencias.md
-            - file: apunte/bloque_3_memoria_estatica/3_matrices.md
-            - file: apunte/bloque_3_memoria_estatica/4_punteros.md
+            - file: apunte/bloque_3_memoria_estatica/2_punteros.md
+            - file: apunte/bloque_3_memoria_estatica/3_secuencias.md
+            - file: apunte/bloque_3_memoria_estatica/4_matrices.md
             - file: apunte/bloque_3_memoria_estatica/5_estructuras.md
             - file: apunte/bloque_3_memoria_estatica/6_numeros.md
             - file: apunte/bloque_3_memoria_estatica/7_casts.md

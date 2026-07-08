@@ -63,15 +63,14 @@ Como se observa en la tabla, el valor almacenado en `ptr` (`0x7ffd`) coincide
 exactamente con la dirección donde inicia la variable `numero`. Al
 desreferenciar `ptr` (usando `*ptr`), accedemos al valor `42`.
 
-:::{figure} 4/concepto_puntero.svg
+:::{figure} 2/concepto_puntero.svg
 :label: fig-concepto-puntero
 :align: center
 
-Representación conceptual de un puntero apuntando a una variable en memoria
-mediante su dirección física hexadecimal.
+Concepto básico de un puntero. La variable `ptr` almacena la dirección física de `numero` en la RAM.
 
 :::
-<!-- {figure} 4/concepto_puntero.svg -->
+<!-- {figure} 2/concepto_puntero.svg -->
 
 (declaracion-de-punteros)=
 ### Declaración de punteros
@@ -144,14 +143,14 @@ Es una práctica habitual en C que las funciones que devuelven punteros retornen
 comprobar si un puntero es `NULL` antes de intentar desreferenciarlo (usar el
 operador `*` sobre él).
 
-:::{figure} 4/punteros_null.svg
+:::{figure} 2/punteros_null.svg
 :label: fig-punteros-null
 :align: center
 
 Representación de un puntero nulo y la verificación antes de desreferenciar.
 
 :::
-<!-- {figure} 4/punteros_null.svg -->
+<!-- {figure} 2/punteros_null.svg -->
 
 :::{danger} Peligro: Punteros No Inicializados (Punteros Salvajes)
 
@@ -236,14 +235,14 @@ El trabajo con punteros se basa principalmente en dos operadores fundamentales:
     asignación (por ejemplo, `valor = *ptr` o dentro de un `printf`), estás
     pidiendo el valor contenido dentro del casillero al que apunta `ptr`.
 
-:::{figure} 4/operadores_punteros.svg
+:::{figure} 2/operadores_punteros.svg
 :label: fig-operadores-punteros
 :align: center
 
 Funcionamiento de los operadores `&` (dirección de) y `*` (desreferencia).
 
 :::
-<!-- {figure} 4/operadores_punteros.svg -->
+<!-- {figure} 2/operadores_punteros.svg -->
 
 :::{code-block}c
 :linenos:
@@ -310,15 +309,14 @@ desplazamientos bidimensionales en memoria contigua que estudiamos en
 {ref}`calculo-de-desplazamiento-de-memoria`. Esto permite "saltar" de un elemento a otro
 en un arreglo de forma eficiente.
 
-:::{figure} 4/aritmetica_punteros.svg
+:::{figure} 2/aritmetica_punteros.svg
 :label: fig-aritmetica-punteros
 :align: center
 
-Aritmética de punteros: cómo el compilador ajusta los incrementos según el tipo
-de dato.
+Aritmética de punteros: el incremento de un puntero depende del tamaño en bytes del tipo de dato apuntado.
 
 :::
-<!-- {figure} 4/aritmetica_punteros.svg -->
+<!-- {figure} 2/aritmetica_punteros.svg -->
 
 (incremento-y-decremento)=
 #### Incremento (`++`) y decremento (`--`)
@@ -423,7 +421,7 @@ correctamente con `printf`, se utiliza el especificador de formato `%td`.
 ### Punteros en funciones y efectos secundarios
 
 En C, **todas las funciones pasan sus argumentos por valor** (copia de datos).
-Ya experimentaste el **paso por referencia simulado** con los arreglos en
+Ya experimentaste la **simulación de pasaje por referencia** con los arreglos en
 {ref}`el-mecanismo-de-paso-a-funciones-paso-por-referencia-simulado`: al no poder copiar todo el bloque de memoria de
 la secuencia, C pasa la dirección de su primer elemento.
 
@@ -437,7 +435,7 @@ directamente con la celda de memoria original del invocador.
 (justificacion-de-diseno-eficiencia-y-rendimiento-en-sistemas)=
 #### Justificación de Diseño: Eficiencia y Rendimiento en Sistemas
 
-Simular el paso por referencia no es únicamente una herramienta para permitir la
+La simulación de referencia mediante indirección no es únicamente una herramienta para permitir la
 modificación de variables (efectos secundarios). En el desarrollo de software de
 sistemas, es un mecanismo indispensable por razones de rendimiento.
 
@@ -466,15 +464,14 @@ contrato inmutable: el compilador rechazará cualquier intento de escritura sobr
 la estructura, logrando la máxima eficiencia de rendimiento con la seguridad de
 la inmutabilidad del paso por valor clásico.
 
-:::{figure} 4/paso_por_referencia.svg
+:::{figure} 2/paso_por_referencia.svg
 :label: fig-paso-por-referencia
 :align: center
 
-Diferencia entre el paso por valor y el paso por referencia simulado con
-punteros.
+Diferencia entre el paso por valor y la simulación de referencia mediante punteros.
 
 :::
-<!-- {figure} 4/paso_por_referencia.svg -->
+<!-- {figure} 2/paso_por_referencia.svg -->
 
 :::{code-block}c
 :linenos:
@@ -624,14 +621,14 @@ permite "bloquear" o bien el dato apuntado, el puntero en sí, o ambos.
 `const` nos permite poner reglas sobre qué se puede modificar, _potencialmente_,
 limitando los efectos secundarios productos de pasar el puntero a la función.
 
-:::{figure} 4/const_punteros.svg
+:::{figure} 2/const_punteros.svg
 :label: fig-const-punteros
 :align: center
 
-Diferentes combinaciones del calificador `const` con punteros.
+Modificador const aplicado a punteros: diferencia entre puntero constante y datos apuntados constantes.
 
 :::
-<!-- {figure} 4/const_punteros.svg -->
+<!-- {figure} 2/const_punteros.svg -->
 
 (1-puntero-a-un-dato-constante-no-podes-cambiar-el-valor)=
 #### 1. Puntero a un Dato Constante (No podés cambiar el VALOR)
@@ -1039,7 +1036,7 @@ Uno de ellos lo veremos aquí, el segundo, lo haremos cuando veamos memoria
 dinámica.
 
 (simular-pasaje-por-referencia-para-punteros)=
-#### Simular "Pasaje por Referencia" para Punteros
+#### Simulación de Referencia mediante Indirección para Punteros
 
 Recordá que C siempre pasa los argumentos a las funciones **por valor**. Esto
 significa que la función recibe una **copia** del argumento. Si pasás un puntero

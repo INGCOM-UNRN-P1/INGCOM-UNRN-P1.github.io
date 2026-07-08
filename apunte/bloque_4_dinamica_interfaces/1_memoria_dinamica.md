@@ -492,7 +492,7 @@ estos errores y cómo prevenirlos es fundamental para escribir código robusto.
 Los errores discutidos en esta sección son específicos de la gestión de memoria
 dinámica. Para errores básicos con punteros (como punteros salvajes,
 desreferencia de `NULL`, y problemas de inicialización), consultá primero el
-[](../bloque_3_memoria_estatica/4_punteros.md), que cubre los conceptos
+[](../bloque_3_memoria_estatica/2_punteros.md), que cubre los conceptos
 fundamentales necesarios para trabajar con punteros de forma segura.
 
 :::

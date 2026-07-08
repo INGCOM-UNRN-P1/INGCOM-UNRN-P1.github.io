@@ -109,16 +109,14 @@ secuencia, como un arreglo: `[f0c0, f0c1, f0c2, f0c3, f1c0, f1c1, ...]`.
 :::
 <!-- {note} Almacenamiento en memoria -->
 
-:::{figure} 3/matriz_2d_memoria.svg
-:label: fig-matriz-memoria
-:width: 100%
+:::{figure} 4/matriz_2d_memoria.svg
+:label: fig-matriz-2d-memoria
+:align: center
 
-Representación de una matriz bidimensional en memoria. Los elementos se
-almacenan de forma contigua siguiendo el orden row-major, donde cada fila se
-almacena completa antes de pasar a la siguiente.
+Mapeo de una matriz en un bloque contiguo lineal en la RAM física (Row-Major).
 
 :::
-<!-- {figure} 3/matriz_2d_memoria.svg -->
+<!-- {figure} 4/matriz_2d_memoria.svg -->
 
 
 
@@ -135,16 +133,14 @@ almacena completa antes de pasar a la siguiente.
 Podemos inicializar nuestras matrices, esencialmente, de dos formas diferentes,
 con un inicializador como con los arreglos, o con código.
 
-:::{figure} 3/inicializacion_matriz.svg
+:::{figure} 4/inicializacion_matriz.svg
 :label: fig-inicializacion-matriz
-:width: 100%
+:align: center
 
-Tres métodos de inicialización de matrices: con inicializador completo, con
-declaración implícita de la primera dimensión, y programáticamente mediante
-lazos.
+Inicialización explícita de matrices en C en filas y columnas.
 
 :::
-<!-- {figure} 3/inicializacion_matriz.svg -->
+<!-- {figure} 4/inicializacion_matriz.svg -->
 
 (inicializacion-completa)=
 #### Inicialización completa
@@ -328,26 +324,23 @@ for (size_t j = 0; j < COLUMNAS; j++) {
 :::
 <!-- {code-block}c -->
 
-:::{figure} 3/recorrido_filas_columnas.svg
-:name: fig-recorrido-filas-columnas
-:width: 100%
+:::{figure} 4/recorrido_filas_columnas.svg
+:label: fig-recorrido-filas-columnas
 :align: center
 
-Comparación de recorridos por fila vs por columna.
+Recorrido de matrices: diferencia lógica por filas versus por columnas.
 
 :::
-<!-- {figure} 3/recorrido_filas_columnas.svg -->
+<!-- {figure} 4/recorrido_filas_columnas.svg -->
 
-:::{figure} 3/cache_localidad.svg
+:::{figure} 4/cache_localidad.svg
 :label: fig-cache-localidad
-:width: 100%
+:align: center
 
-Impacto del orden de acceso en el rendimiento. El acceso secuencial (Row-Major)
-aprovecha la localidad espacial en caché, mientras que el acceso no secuencial
-genera múltiples fallos de caché debido a los saltos en memoria física.
+Impacto en caché: el recorrido Row-Major aprovecha la localidad espacial al leer elementos adyacentes cargados en la línea de caché.
 
 :::
-<!-- {figure} 3/cache_localidad.svg -->
+<!-- {figure} 4/cache_localidad.svg -->
 
 :::{important} Impacto en la Práctica
 
@@ -388,16 +381,14 @@ printf("\n");
 :::
 <!-- {code-block}c -->
 
-:::{figure} 3/diagonales_matriz.svg
-:label: fig-diagonales
-:width: 100%
+:::{figure} 4/diagonales_matriz.svg
+:label: fig-diagonales-matriz
+:align: center
 
-Las diagonales principal y secundaria en una matriz cuadrada. La diagonal
-principal cumple la condición `i == j`, mientras que la secundaria cumple `i + j
-== DIM - 1`.
+Diagonales principal y secundaria en matrices cuadradas.
 
 :::
-<!-- {figure} 3/diagonales_matriz.svg -->
+<!-- {figure} 4/diagonales_matriz.svg -->
 
 
 
@@ -515,16 +506,14 @@ El lenguaje C no impone un límite de dos dimensiones para los arreglos; es
 posible declarar arreglos multidimensionales. Un arreglo tridimensional, por
 ejemplo, puede conceptualizarse como un cubo de datos.
 
-:::{figure} 3/matriz_3d.svg
+:::{figure} 4/matriz_3d.svg
 :label: fig-matriz-3d
-:width: 100%
+:align: center
 
-Arreglo tridimensional representado como capas de matrices bidimensionales. Cada
-capa contiene una matriz completa, y el acceso requiere tres índices: capa,
-fila y columna.
+Conceptualización tridimensional de una matriz cúbica (paginas, filas y columnas).
 
 :::
-<!-- {figure} 3/matriz_3d.svg -->
+<!-- {figure} 4/matriz_3d.svg -->
 
 :::{code-block}c
 :caption: Declaración y recorrido de un arreglo 3D
@@ -555,15 +544,14 @@ En el ámbito de la programación en C y otras áreas de la computación, el man
 de matrices es fundamental. A continuación, se presentan los algoritmos y las
 expresiones matemáticas para las operaciones básicas entre matrices.
 
-:::{figure} 3/operaciones_basicas.svg
+:::{figure} 4/operaciones_basicas.svg
 :label: fig-operaciones-basicas
-:width: 100%
+:align: center
 
-Operaciones básicas con matrices: suma, resta y transposición. Cada operación
-requiere validar que las dimensiones sean compatibles antes de proceder.
+Operaciones básicas de matrices: transposición, suma y escalado.
 
 :::
-<!-- {figure} 3/operaciones_basicas.svg -->
+<!-- {figure} 4/operaciones_basicas.svg -->
 
 (suma-de-matrices)=
 ### Suma de Matrices
@@ -688,16 +676,14 @@ dimensión $p \times n$ guarda el resultado en una matriz C de dimensión $m
 \times n$. Es crucial que el
 número de columnas de A sea igual al número de filas de B.
 
-:::{figure} 3/multiplicacion_matrices.svg
+:::{figure} 4/multiplicacion_matrices.svg
 :label: fig-multiplicacion-matrices
-:width: 100%
+:align: center
 
-Proceso de multiplicación de matrices. Cada elemento C[i][j] se calcula como el
-producto escalar de la fila i de A con la columna j de B, sumando los productos
-elemento por elemento.
+Producto de matrices: regla de compatibilidad de dimensiones y recorrido cruzado.
 
 :::
-<!-- {figure} 3/multiplicacion_matrices.svg -->
+<!-- {figure} 4/multiplicacion_matrices.svg -->
 
 (expresion-matematica-multiplicacion-matrices)=
 #### Expresión de Multiplicación de Matrices
@@ -817,16 +803,14 @@ En aplicaciones robustas, es fundamental implementar validaciones para prevenir
 accesos fuera de límites y operaciones inválidas. Esto es especialmente crítico
 en C, donde no existe verificación automática de límites ({ref}`0x300Ch`).
 
-:::{figure} 3/validacion_dimensiones.svg
+:::{figure} 4/validacion_dimensiones.svg
 :label: fig-validacion-dimensiones
-:width: 100%
+:align: center
 
-Validación de dimensiones para operaciones con matrices. La suma y resta
-requieren dimensiones idénticas, mientras que la multiplicación requiere que las
-columnas de A sean igual a las filas de B.
+Validación previa de dimensiones antes de operar sobre matrices.
 
 :::
-<!-- {figure} 3/validacion_dimensiones.svg -->
+<!-- {figure} 4/validacion_dimensiones.svg -->
 
 (validacion-de-indices)=
 #### Validación de Índices

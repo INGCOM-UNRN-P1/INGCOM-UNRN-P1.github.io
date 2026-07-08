@@ -10,7 +10,7 @@ short_title: "3. Arreglos"
 Ejercicios para practicar la manipulación de arreglos de tamaño fijo. Un arreglo es una colección de elementos del mismo tipo almacenados en ubicaciones de memoria contiguas.
 
 Para profundizar en los conceptos teóricos, podés consultar el siguiente capítulo del apunte:
-- [Secuencias y Arreglos](../../apunte/bloque_3_memoria_estatica/2_secuencias.md)
+- [Secuencias y Arreglos](../../apunte/bloque_3_memoria_estatica/3_secuencias.md)
 
 ## Operaciones Básicas
 

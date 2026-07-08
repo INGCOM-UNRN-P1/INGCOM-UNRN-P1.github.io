@@ -10,7 +10,7 @@ short_title: "4. Cadenas"
 La manipulación de cadenas es una de las tareas más comunes y, en C, una de las más propensas a errores. Estos ejercicios están diseñados para construir una base sólida en el manejo de cadenas de caracteres (estilo C, terminadas en nulo), enfocándose en la implementación de algoritmos comunes desde cero. Es crucial que al resolverlos, se apliquen los principios de manejo de "cadenas seguras" ({ref}`0x5003h`), pasando siempre la capacidad del búfer para evitar desbordamientos.
 
 Para profundizar en los conceptos teóricos, podés consultar el siguiente capítulo del apunte:
-- [Secuencias y Arreglos](../../apunte/bloque_3_memoria_estatica/2_secuencias.md)
+- [Secuencias y Arreglos](../../apunte/bloque_3_memoria_estatica/3_secuencias.md)
 
 ## Análisis de Cadenas
 
