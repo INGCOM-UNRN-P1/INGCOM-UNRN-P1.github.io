@@ -2344,7 +2344,7 @@ lista_t *fusionar_listas(const lista_t *lista1, const lista_t *lista2)
 
 Implementá una función en C que determine si una lista enlazada simple contiene
 un ciclo (es decir, si un nodo apunta a un elemento anterior de la secuencia,
-provocando un bucle infinito al recorrerla). Usá el algoritmo de detección de
+provocando un lazo infinito al recorrerla). Usá el algoritmo de detección de
 ciclos de Floyd (conocido como algoritmo de "la liebre y la tortuga") que
 utiliza dos punteros recorriendo la estructura a diferentes velocidades.
 

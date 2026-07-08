@@ -1076,7 +1076,7 @@ int main() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 
-    // Bucle de lectura segura con validación
+    // Lazo de lectura segura con validación
     while (respuesta_valida == false) {
         printf("¿Deseás continuar? (S/N): ");
         scanf("%c", &respuesta);

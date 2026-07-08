@@ -13,7 +13,7 @@ Estos ejercicios tienen como propósito dominar la recursividad de control y el 
 - {ref}`capitulo-recursividad-basica`
 
 ### Cuestiones de Estilo Aplicables
-- **Casos de corte explícitos:** Definí el caso base al inicio de la función recursiva para evitar bucles de llamada infinitos y desbordamientos de stack frame (ver {ref}`0x2009h`).
+- **Casos de corte explícitos:** Definí el caso base al inicio de la función recursiva para evitar lazo de llamada infinitos y desbordamientos de stack frame (ver {ref}`0x2009h`).
 - **Uso de recursión de cola:** Cuando sea posible, estructurá las funciones recursivas utilizando parámetros acumuladores para permitir la optimización por parte del compilador.
 
 ---
