@@ -1,5 +1,5 @@
 ---
-title: Git base
+title: Guía git base
 subtitle: Git para principiantes, control de versiones esencial.
 ---
 

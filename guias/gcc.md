@@ -1,6 +1,6 @@
 ---
 title: "Guía completa de GCC"
-short_title: "Compilador GCC"
+short_title: "Manual GCC"
 subtitle: "Instalación, configuración y uso del compilador GNU"
 ---
 

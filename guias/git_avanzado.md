@@ -1,5 +1,5 @@
 ---
-title: Git Avanzado
+title: Guía git avanzada
 subtitle: Dominio completo del control de versiones.
 ---
 
@@ -12,6 +12,13 @@ Ahora es momento de subir el nivel y aprender las técnicas que usan los
 desarrolladores senior para gestionar proyectos complejos, colaborar
 eficientemente en equipos grandes, y resolver problemas sofisticados de control
 de versiones.
+
+:::{warning}
+
+Los temas de este apunte, no son necesarios para completar la cursada, están 
+únicamente para quien quiera profundizar estos temas
+
+:::
 
 ### Lo que vas a aprender
 
@@ -26,13 +33,13 @@ de versiones.
 
 :::{important} Prerequisitos Esta guía asume que ya dominás:
 
-- Comandos básicos de Git (add, commit, push, pull)
+- Comandos básicos de Git (`add`, `commit`, `push`, `pull`)
 - Trabajo con repositorios remotos
 - GitHub básico
 - Conceptos de staging area y working directory
 
 Si necesitás repasar estos conceptos, consultá primero la
-[Guía de Git para principiantes](./git.md). 
+[Guía de `git` inicial](./git.md). 
 
 :::
 <!-- {important} Prerequisitos Esta guía asume que ya dominás: -->

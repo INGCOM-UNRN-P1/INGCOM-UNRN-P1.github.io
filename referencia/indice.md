@@ -1,6 +1,6 @@
 ---
 title: Índice de Referencia
-short_title: Referencias
+short_title: Índice
 subtitle: Compendio de guías, algoritmos y técnicas de refactorización para C
 ---
 
