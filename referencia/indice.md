@@ -12,9 +12,9 @@ limpio, robusto y conforme a los estándares.
 
 ## Guías y Manuales de Referencia
 
-*   **[](A_stdlib.md)**: Manual de referencia de la Biblioteca Estándar de C
+*   **[](stdlib.md)**: Manual de referencia de la Biblioteca Estándar de C
     (Standard Library) organizado por archivos de cabecera (*headers*).
-*   **[](B_ordenamiento.md)**: Compendio detallado de algoritmos de búsqueda
+*   **[](ordenamiento.md)**: Compendio detallado de algoritmos de búsqueda
     (secuencial, binaria) y ordenamiento (burbuja, selección, inserción,
     QuickSort, MergeSort, HeapSort) junto con su análisis de complejidad
     temporal y espacial.

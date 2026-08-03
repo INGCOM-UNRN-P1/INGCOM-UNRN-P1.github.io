@@ -154,8 +154,8 @@ project:
         - file: referencia/indice.md
         - file: referencia/guide-makefiles.md
         - file: referencia/guide-printf.md
-        - file: referencia/A_stdlib.md
-        - file: referencia/B_ordenamiento.md
+        - file: referencia/stdlib.md
+        - file: referencia/ordenamiento.md
         - title: Refactorización
           children:
             - file: referencia/refactorizaciones/ref-unico-retorno.md

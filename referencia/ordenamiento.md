@@ -1,6 +1,6 @@
 ---
 title: "Decálogo de Algoritmos de Busqueda y Ordenamiento"
-short_title: "B - Algoritmos"
+short_title: "Algoritmos"
 subtitle: "Compendio completo de métodos de ordenamiento y búsqueda"
 ---
 

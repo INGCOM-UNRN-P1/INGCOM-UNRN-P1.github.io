@@ -1,6 +1,6 @@
 ---
 title: Biblioteca Estándar de C
-short_title: "A - stdlib"
+short_title: "La stdlib"
 subtitle: Referencia completa de las bibliotecas estándar de C organizadas por header.
 ---
 
