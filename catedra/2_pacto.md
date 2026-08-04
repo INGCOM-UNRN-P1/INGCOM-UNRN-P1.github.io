@@ -16,7 +16,8 @@ la cátedra.
 
     - Comprendo que la materia es de modalidad **sincrónica**.
     - Me comprometo a mantener una participación activa y a cumplir con un
-      **mínimo de 80% de asistencia** a las clases para regularizar la materia.
+      **mínimo de 80% de asistencia** a las clases para regularizar la materia y las 
+      excepciones a la asistencia se gestionan antes de las clases.
 
 2.  **Trabajos Prácticos:**
 
