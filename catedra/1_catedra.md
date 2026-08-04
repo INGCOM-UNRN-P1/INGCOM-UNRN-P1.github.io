@@ -109,7 +109,7 @@ reforzar.
 
 Los ejercicios hasta el primer parcial, los desarrollarán de manera «suelta»,
 sin repositorio, sin entregas semanales. Y los ejercicios saldrán del
-[cuadernillo](cuadernillo.md)
+[repositorio de ejercicios](../ejercicios/readme.md)
 
 De estos ejercicios haremos un «muestreo», el cual consistirá en que carguen
 los ejercicios resueltos a entregar en el campus. Los detalles de esta actividad

@@ -82,8 +82,6 @@ Ejercicios iniciales para asimilar la lógica de programación, el uso de
 variables, condicionales, lazos iterativos, modularización mediante funciones,
 recursividad introductoria y compilación con Makefiles.
 
-*   [**0. Cuadernillo de Ejercicios**](./bloque_1_fundamentos/cuadernillo.md):
-    La primera colección de ejercicios guiados de programación y bases de C.
 *   [**1. Básicos y
     Secuencias**](./bloque_1_fundamentos/1_basicos_y_secuencias.md): Ejercicios
     introductorios para familiarizarse con la sintaxis de C, variables y lógica

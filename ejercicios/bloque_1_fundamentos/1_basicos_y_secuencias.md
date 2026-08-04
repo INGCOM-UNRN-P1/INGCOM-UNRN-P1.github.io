@@ -102,6 +102,7 @@ el entorno de desarrollo están configurados y funcionando correctamente.
 -   **Salida:** El programa debe imprimir la cadena de texto "Hola, mundo!"
     seguida de un salto de línea para asegurar que el cursor de la terminal se
     mueva a la siguiente línea.
+-   **[*plus ultra*]:** Imprimir la salida utilizando tipografías en ASCII Art.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -795,6 +796,7 @@ Fahrenheit y Kelvin.
 -   **Precisión:** Al trabajar con divisiones como 9/5, es importante usar
     números de punto flotante (ej. `9.0/5.0`) para evitar la división entera que
     truncaría el resultado.
+-   **[*plus ultra*]:** Modificar la implementación para realizar las conversiones utilizando exclusivamente aritmética de enteros y analizar la pérdida de precisión.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -836,6 +838,7 @@ segundos) a su valor total equivalente en segundos.
 -   **Proceso:** Aplicar la fórmula de conversión: $total = (grados \times 3600)
     + (minutos \times 60) + segundos$.
 -   **Salida:** Mostrar el total de segundos.
+-   **[*plus ultra*]:** Permitir ingresar también "vueltas" completas (donde 1 vuelta = 360 grados = 1.296.000 segundos).
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
