@@ -91,7 +91,7 @@ algoritmo: nunca será peor que esta cota.
   $n_0$ tales que $0 \le f(n) \le c \cdot g(n)$ para todo $n \ge n_0$.
 - **Uso Práctico**: Representa el **peor caso** de ejecución de un algoritmo.
 
-:::{figure} 7/big_o_definition.svg
+:::{figure} 6/big_o_definition.svg
 :label: fig-big-o-definition
 :align: center
 :width: 85%
@@ -141,7 +141,7 @@ de un algoritmo, acotándolo tanto por arriba como por abajo.
   a menudo representando el **caso promedio** o un escenario donde el mejor y el
   peor caso coinciden.
 
-:::{figure} 7/big_theta_definition.svg
+:::{figure} 6/big_theta_definition.svg
 :label: fig-big-theta-definition
 :align: center
 :width: 85%
@@ -201,7 +201,7 @@ Las notaciones asintóticas tienen propiedades útiles:
 ### Jerarquía de Complejidades
 
 
-:::{figure} 7/complexity_hierarchy.svg
+:::{figure} 6/complexity_hierarchy.svg
 :label: fig-hierarchy
 :align: center
 :width: 100%
@@ -491,7 +491,7 @@ void generar_permutaciones(int arr[], int inicio, int fin) {
 :::
 <!-- {code-block}c -->
 
-:::{figure} 7/growth_comparison.svg
+:::{figure} 6/growth_comparison.svg
 :label: fig-growth
 :align: center
 :width: 100%
@@ -656,7 +656,7 @@ distribuye el trabajo en un algoritmo recursivo de tipo divide y vencerás. El
 - La suma del trabajo de todos los nodos en todos los niveles del árbol
   determina el costo total del algoritmo.
 
-:::{figure} 7/master_theorem.svg
+:::{figure} 6/master_theorem.svg
 :label: fig-master
 :align: center
 
@@ -954,7 +954,7 @@ int fibonacci_memo(int n, int memo[]) {
 - **Complejidad temporal**: $O(n)$ (cada valor se calcula una vez)
 - **Complejidad espacial**: $O(n)$ (arreglo de memoización + pila)
 
-:::{figure} 7/time_space_tradeoff.svg
+:::{figure} 6/time_space_tradeoff.svg
 :label: fig-tradeoff
 :align: center
 

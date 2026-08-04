@@ -22,7 +22,7 @@ Una **pila** es una estructura de datos lineal que sigue el principio **LIFO**
 análogo a una pila de platos donde solo podés agregar o quitar platos desde la
 parte superior.
 
-:::{figure} 4/pila_stack.svg
+:::{figure} 3/pila_stack.svg
 :label: fig-pila-stack
 :align: center
 
@@ -42,7 +42,7 @@ Operaciones de apilado (push) and desapilado (pop) en una Pila.
 (implementacion-con-lista-enlazada)=
 #### Implementación con Lista Enlazada
 
-:::{figure} 4/pila_lista_enlazada.svg
+:::{figure} 3/pila_lista_enlazada.svg
 :label: fig-pila-lista-enlazada
 :align: center
 
@@ -236,7 +236,7 @@ liberando cada nodo antes de liberar la estructura de la pila.
 Una alternativa es implementar la pila usando un arreglo, donde el tope es el
 último elemento ocupado.
 
-:::{figure} 4/pila_arreglo.svg
+:::{figure} 3/pila_arreglo.svg
 :label: fig-pila-arreglo
 :align: center
 
@@ -476,7 +476,7 @@ Una **cola** es una estructura de datos lineal que sigue el principio **FIFO**
 (*First In, First Out*): el primer elemento en entrar es el primero en salir. Es
 análogo a una fila de personas donde quien llega primero es atendido primero.
 
-:::{figure} 4/cola_lista_enlazada.svg
+:::{figure} 3/cola_lista_enlazada.svg
 :label: fig-cola-lista-enlazada
 :align: center
 
@@ -687,7 +687,7 @@ void cola_destruir(cola_t *cola, destruir_dato_fn destruir_dato)
 Una implementación eficiente de cola con arreglo usa la técnica de **arreglo
 circular**, donde los índices "dan la vuelta" al final del arreglo.
 
-:::{figure} 4/cola_circular.svg
+:::{figure} 3/cola_circular.svg
 :label: fig-cola-circular
 :align: center
 
@@ -916,7 +916,7 @@ razonamiento sobre el código.
 Un **deque** (pronunciado "deck") es una generalización que permite insertar y
 extraer elementos en ambos extremos.
 
-:::{figure} 4/deque.svg
+:::{figure} 3/deque.svg
 :label: fig-deque
 :align: center
 

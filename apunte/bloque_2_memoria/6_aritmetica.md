@@ -183,7 +183,7 @@ que `free(persona)` se ejecuta, acceder a `persona->nombre` es **comportamiento
 indefinido** (ver {ref}`dangling-pointer-puntero-colgante`). Esto resulta en un
 **memory leak** porque la memoria de `nombre` queda asignada pero inaccesible.
 
-:::{figure} 2/destruccion_orden.svg
+:::{figure} 6/destruccion_orden.svg
 :label: fig-destruccion-orden
 :align: center
 :width: 85%
@@ -263,7 +263,7 @@ para una solicitud.
 
 ##### Escenario Ilustrativo
 
-:::{figure} 2/fragmentacion_heap.svg
+:::{figure} 6/fragmentacion_heap.svg
 :label: fig-fragmentacion-heap
 :align: center
 :width: 90%
@@ -593,7 +593,7 @@ Si no hay espacio contiguo para expandir el bloque en su ubicación actual,
 3. Libera el bloque original
 4. Retorna la dirección del nuevo bloque
 
-:::{figure} 2/realloc_movimiento.svg
+:::{figure} 6/realloc_movimiento.svg
 :label: fig-realloc-movimiento
 :align: center
 :width: 90%
@@ -846,7 +846,7 @@ Desreferenciar `pp` una vez (`*pp`) evalúa al puntero `p` (obteniendo la
 dirección de `valor`). Desreferenciar `pp` dos veces (`**pp`) accede
 directamente al contenido de `valor` (`42`).
 
-:::{figure} 2/doble_indireccion.svg
+:::{figure} 6/doble_indireccion.svg
 :label: fig-doble-indireccion
 :align: center
 :width: 85%
@@ -1061,7 +1061,7 @@ Este enfoque crea un **arreglo de punteros**, donde cada puntero apunta a una
 fila (otro arreglo). Se llama "dentada" (_jagged array_) porque cada fila puede
 tener largo diferente (aunque típicamente usamos filas del mismo tamaño).
 
-:::{figure} 2/matriz_dentada.svg
+:::{figure} 6/matriz_dentada.svg
 :label: fig-matriz-dentada
 :align: center
 :width: 85%
@@ -1158,7 +1158,7 @@ free(matriz);
 Este enfoque asigna toda la matriz como **un único bloque contiguo** en memoria.
 Es más eficiente pero requiere calcular índices manualmente.
 
-:::{figure} 2/matriz_bloque.svg
+:::{figure} 6/matriz_bloque.svg
 :label: fig-matriz-bloque
 :align: center
 :width: 85%
@@ -1204,7 +1204,7 @@ matriz[i * columnas + j] = 42;
 - Para llegar a la fila `i`, saltamos `i * columnas` elementos
 - Luego avanzamos `j` columnas dentro de esa fila
 
-:::{figure} 2/matriz_mapeo.svg
+:::{figure} 6/matriz_mapeo.svg
 :label: fig-matriz-mapeo
 :align: center
 :width: 90%

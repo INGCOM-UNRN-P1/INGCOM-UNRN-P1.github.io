@@ -1124,7 +1124,7 @@ liberás bloques de memoria de diferentes tamaños en un orden arbitrario, dejan
 
 **Ejemplo conceptual:**
 
-:::{figure} ../../apunte/bloque_4_dinamica_indireccion/1/fragmentacion_externa.svg
+:::{figure} ../../apunte/bloque_2_memoria/5/fragmentacion_externa.svg
 :name: fig-fragmentacion-externa
 :width: 100%
 
@@ -1166,7 +1166,7 @@ tamaño. Por ejemplo:
 - Un `int` (4 bytes) debería estar en direcciones múltiplo de 4.
 - Un `double` (8 bytes) debería estar en direcciones múltiplo de 8.
 
-:::{figure} ../../apunte/bloque_4_dinamica_indireccion/1/memory_alignment.svg
+:::{figure} ../../apunte/bloque_2_memoria/5/memory_alignment.svg
 :name: fig-memory-alignment
 :width: 100%
 
@@ -1215,7 +1215,7 @@ struct ejemplo {
 
 **Visualización:**
 
-:::{figure} ../../apunte/bloque_4_dinamica_indireccion/1/struct_padding.svg
+:::{figure} ../../apunte/bloque_2_memoria/5/struct_padding.svg
 :name: fig-struct-padding
 :width: 100%
 

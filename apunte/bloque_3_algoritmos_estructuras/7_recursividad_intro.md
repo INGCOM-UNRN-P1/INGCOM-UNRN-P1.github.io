@@ -143,7 +143,7 @@ memoria del *Call Stack* durante el cálculo recursivo de `factorial(3)` hasta
 alcanzar el caso base, ilustrando las direcciones físicas de memoria en la pila
 y las direcciones lógicas de retorno de código:
 
-:::{figure} 6/pila_factorial.svg
+:::{figure} 7/pila_factorial.svg
 :label: fig-pila-factorial-stack
 :align: center
 :width: 85%

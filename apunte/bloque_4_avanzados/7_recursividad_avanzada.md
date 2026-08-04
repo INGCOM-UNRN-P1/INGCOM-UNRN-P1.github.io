@@ -123,7 +123,7 @@ se puede resumir en tres fases principales:
 Este flujo de trabajo de divide y vencerás se puede visualizar de manera gráfica
 en el algoritmo de ordenamiento Merge Sort:
 
-:::{figure} ../bloque_1_fundamentos/6/divide_conquista_merge.svg
+:::{figure} ../bloque_3_algoritmos_estructuras/7/divide_conquista_merge.svg
 :label: fig-divide-conquista
 :align: center
 :width: 85%
@@ -245,7 +245,7 @@ de combinación no trivial (la fusión de arreglos ordenados).
 Este flujo no lineal de llamadas se puede visualizar detalladamente en la
 siguiente traza de ejecución:
 
-:::{figure} ../bloque_1_fundamentos/6/traza_merge_sort.svg
+:::{figure} ../bloque_3_algoritmos_estructuras/7/traza_merge_sort.svg
 :label: fig-traza-merge-sort
 :align: center
 :width: 85%

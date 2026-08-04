@@ -38,7 +38,7 @@ dependen de él serán detectados como más viejos que la cabecera modificada y 
 recompilarán. Los módulos que no dependen de `punto.h` no serán procesados,
 permitiendo una compilación incremental eficiente.
 
-:::{figure} 2/dag_compilacion.svg
+:::{figure} 8/dag_compilacion.svg
 :label: fig-dag-compilacion
 :align: center
 :width: 85%

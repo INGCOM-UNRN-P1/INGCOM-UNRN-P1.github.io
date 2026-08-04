@@ -32,7 +32,7 @@ sin romper el código cliente que las utiliza.
 
 Los punteros opacos son la técnica de programación central sobre la cual se
 construyen los Tipos de Datos Abstractos (TADs) en C, concepto que se aborda en
-detalle en el capítulo siguiente ([](3_tad.md)).
+detalle en el capítulo de [Tipos Abstractos de Datos](../bloque_3_algoritmos_estructuras/2_tad.md).
 
 :::
 <!-- {important} Conexión con TADs -->
@@ -363,7 +363,7 @@ analizar el proceso de **compilación separada**:
      las llamadas y las funciones operan sobre el espacio de memoria real
      asignado dinámicamente en el heap.
 
-:::{figure} 2/opacidad_memoria.svg
+:::{figure} 3/opacidad_memoria.svg
 :label: fig-opacidad-memoria
 :align: center
 :width: 85%

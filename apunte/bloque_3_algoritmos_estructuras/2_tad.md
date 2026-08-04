@@ -33,7 +33,7 @@ cómo se almacenan o manipulan los datos. Al mismo tiempo, el implementador tien
 la libertad de optimizar o modificar la representación interna sin afectar al
 código que utiliza el TAD, siempre que mantenga la misma interfaz pública.
 
-:::{figure} 3/tad_concepto.svg
+:::{figure} 2/tad_concepto.svg
 :label: fig-tad-concepto
 :align: center
 :width: 80%
@@ -68,7 +68,7 @@ cabecera e implementando sus detalles estructurales en el archivo fuente `.c`.
 
 Para un análisis detallado sobre cómo funciona esta técnica a nivel del
 compilador, sus restricciones sintácticas y un ejemplo completo de
-implementación opaca, consultá el capítulo previo sobre [](2_opacos.md).
+implementación opaca, consultá el capítulo sobre [Tipos Opacos](../bloque_4_avanzados/3_opacos.md).
 
 :::{important} Interfaz Clara e Invariantes
 
@@ -594,7 +594,7 @@ la operación abstracta de la secuencia.
 En una lista enlazada simple, cada nodo apunta únicamente al siguiente nodo de
 la secuencia. El último nodo apunta a `NULL`, indicando el final de la lista.
 
-:::{figure} 3/lista_enlazada_simple.svg
+:::{figure} 2/lista_enlazada_simple.svg
 :label: fig-lista-enlazada-simple
 :align: center
 :width: 85%
@@ -961,7 +961,7 @@ de liberación y técnicas avanzadas, consultá {ref}`capitulo-memoria-dinamica`
 :::
 <!-- {important} Gestión de Memoria en TADs -->
 
-:::{figure} 3/lista_operaciones.svg
+:::{figure} 2/lista_operaciones.svg
 :label: fig-lista-operaciones
 :align: center
 :width: 90%
@@ -978,7 +978,7 @@ Una lista doblemente enlazada extiende la lista simple agregando un puntero
 adicional en cada nodo que apunta al nodo anterior. Esto permite el recorrido
 bidireccional de la lista.
 
-:::{figure} 3/lista_enlazada_doble.svg
+:::{figure} 2/lista_enlazada_doble.svg
 :label: fig-lista-enlazada-doble
 :align: center
 :width: 85%

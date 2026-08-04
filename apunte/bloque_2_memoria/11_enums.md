@@ -38,7 +38,7 @@ Esta agrupación lógica no solo hace el código más legible y auto-documentado
 sino que también es reconocida por los depuradores (como GDB), que muestran los
 nombres simbólicos de las constantes en lugar de simples números mágicos.
 
-:::{figure} 4/enum_concept.svg
+:::{figure} 11/enum_concept.svg
 :name: fig-enum-concept
 :alt: Concepto de enumeraciones vs números mágicos
 :align: center

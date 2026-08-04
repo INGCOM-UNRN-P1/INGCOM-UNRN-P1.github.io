@@ -57,7 +57,7 @@ El flujo de transformación desde tu código fuente hasta un programa ejecutable
 se puede visualizar de la siguiente manera:
 
 
-:::{figure} 1/proceso_compilacion.svg
+:::{figure} 5/proceso_compilacion.svg
 :label: fig-proceso-compilacion
 :align: center
 :width: 90%
@@ -212,7 +212,7 @@ Esto generará el archivo objeto `programa.o`.
 
 Detrás de escena, este proceso se compone de las siguientes sub-fases:
 
-:::{figure} 1/fases_compilador.svg
+:::{figure} 5/fases_compilador.svg
 :name: fig-fases-compilador
 :width: 90%
 
@@ -942,8 +942,8 @@ parámetros especiales: `argc` y `argv`.
 :::{note} Prerequisitos
 
 Este capítulo asume conocimiento de arreglos
-([](../bloque_3_memoria_estatica/3_secuencias.md)) y punteros
-([](../bloque_3_memoria_estatica/2_punteros.md)), ya que `argv` es un arreglo
+([Secuencias y Arreglos](../bloque_2_memoria/3_secuencias.md)) y punteros
+([Punteros](../bloque_2_memoria/2_punteros.md)), ya que `argv` es un arreglo
 de punteros a cadenas (`char *argv[]`). Si estos conceptos no están claros,
 repasalos antes de continuar.
 
@@ -997,7 +997,7 @@ momento de su ejecución.
 :::
 <!-- {list-table} Descripción de los parámetros -->
 
-:::{figure} 1/argc_argv_estructura.svg
+:::{figure} 5/argc_argv_estructura.svg
 :label: fig-argc-argv-estructura
 :align: center
 
@@ -1357,7 +1357,7 @@ Variables comunes incluyen `PATH` (rutas de búsqueda de ejecutables), `HOME`
 (directorio del usuario), `USER` (nombre del usuario), y `LANG` (configuración
 de idioma).
 
-:::{figure} 1/codigos_salida.svg
+:::{figure} 5/codigos_salida.svg
 :label: fig-codigos-salida
 :align: center
 
@@ -1387,7 +1387,7 @@ automáticamente:
 - **Error estándar** (`stderr`, descriptor 2): Donde el programa escribe
   mensajes de error
 
-:::{figure} 1/flujos_estandar.svg
+:::{figure} 5/flujos_estandar.svg
 :label: fig-flujos-estandar
 :align: center
 
@@ -1458,7 +1458,7 @@ operador `>`:
 ```
 <!-- {code-block} bash -->
 
-:::{figure} 1/redirecciones.svg
+:::{figure} 5/redirecciones.svg
 :label: fig-redirecciones
 :align: center
 
@@ -1577,7 +1577,7 @@ ls -l | wc -l
 ```
 <!-- {code-block} bash -->
 
-:::{figure} 1/pipes_canalizaciones.svg
+:::{figure} 5/pipes_canalizaciones.svg
 :label: fig-pipes-canalizaciones
 :align: center
 
@@ -1637,7 +1637,7 @@ seq 1 100 | ./filtro_pares | wc -l  # Cuenta cuántos pares hay
 ```
 <!-- {code-block} bash -->
 
-:::{figure} 1/ejemplo_filtro.svg
+:::{figure} 5/ejemplo_filtro.svg
 :label: fig-ejemplo-filtro
 :align: center
 

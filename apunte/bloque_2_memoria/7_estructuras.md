@@ -42,7 +42,7 @@ Los Ladrillos de la memoria
 Una `struct` es una colección de variables (miembros) de diferentes tipos,
 agrupadas bajo un solo nombre.
 
-:::{figure} 4/struct_memory_layout.svg
+:::{figure} 7/struct_memory_layout.svg
 :name: fig-struct-memory-layout
 :alt: Organización de estructuras en memoria
 :align: center
@@ -112,7 +112,7 @@ se vería obligada a realizar dos transferencias físicas por el bus de datos y
 operaciones lógicas de shift para rearmar el valor, degradando la performance
 del sistema.
 
-:::{figure} 4/alineamiento_struct.svg
+:::{figure} 7/alineamiento_struct.svg
 :label: fig-alineamiento-struct
 :align: center
 :width: 90%
@@ -536,7 +536,7 @@ Una de las decisiones más importantes al diseñar estructuras es elegir entre
 enfoques tienen trade-offs significativos en términos de claridad, rendimiento y
 facilidad de uso.
 
-:::{figure} 4/aos_vs_soa.svg
+:::{figure} 7/aos_vs_soa.svg
 :name: fig-aos-vs-soa
 :align: center
 :width: 100%
@@ -908,7 +908,7 @@ uso del constructor, por lo que la documentación clara es esencial.
 Ordenar los miembros de mayor a menor tamaño reduce el padding y el tamaño total
 de la estructura:
 
-:::{figure} 4/padding_optimization.svg
+:::{figure} 7/padding_optimization.svg
 :name: fig-padding-optimization
 :align: center
 :width: 90%
@@ -1118,7 +1118,7 @@ Una `union` permite que varios miembros compartan la **misma ubicación de
 memoria**. Su tamaño es el de su miembro más grande. Solo un miembro puede estar
 "activo" a la vez.
 
-:::{figure} 4/union_vs_struct.svg
+:::{figure} 7/union_vs_struct.svg
 :name: fig-union-vs-struct
 :alt: Diferencias entre struct y union
 :align: center

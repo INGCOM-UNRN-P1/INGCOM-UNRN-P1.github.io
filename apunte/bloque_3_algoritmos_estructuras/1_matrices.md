@@ -109,7 +109,7 @@ secuencia, como un arreglo: `[f0c0, f0c1, f0c2, f0c3, f1c0, f1c1, ...]`.
 :::
 <!-- {note} Almacenamiento en memoria -->
 
-:::{figure} 3/matriz_2d_memoria.svg
+:::{figure} 1/matriz_2d_memoria.svg
 :label: fig-matriz-2d-memoria
 :align: center
 :width: 85%
@@ -134,7 +134,7 @@ Disposición física contigua de una matriz 2D en memoria RAM (*Row-Major order*
 Podemos inicializar nuestras matrices, esencialmente, de dos formas diferentes,
 con un inicializador como con los arreglos, o con código.
 
-:::{figure} 3/inicializacion_matriz.svg
+:::{figure} 1/inicializacion_matriz.svg
 :label: fig-inicializacion-matriz
 :align: center
 :width: 85%
@@ -326,7 +326,7 @@ for (size_t j = 0; j < COLUMNAS; j++) {
 :::
 <!-- {code-block}c -->
 
-:::{figure} 3/recorrido_filas_columnas.svg
+:::{figure} 1/recorrido_filas_columnas.svg
 :label: fig-recorrido-filas-columnas
 :align: center
 :width: 80%
@@ -336,7 +336,7 @@ Recorrido por filas vs. recorrido por columnas.
 :::
 <!-- {figure} 3/recorrido_filas_columnas.svg -->
 
-:::{figure} 3/cache_localidad.svg
+:::{figure} 1/cache_localidad.svg
 :label: fig-cache-localidad
 :align: center
 :width: 85%
@@ -385,7 +385,7 @@ printf("\n");
 :::
 <!-- {code-block}c -->
 
-:::{figure} 3/diagonales_matriz.svg
+:::{figure} 1/diagonales_matriz.svg
 :label: fig-diagonales-matriz
 :align: center
 :width: 75%
@@ -511,7 +511,7 @@ El lenguaje C no impone un límite de dos dimensiones para los arreglos; es
 posible declarar arreglos multidimensionales. Un arreglo tridimensional, por
 ejemplo, puede conceptualizarse como un cubo de datos.
 
-:::{figure} 3/matriz_3d.svg
+:::{figure} 1/matriz_3d.svg
 :label: fig-matriz-3d
 :align: center
 :width: 80%
@@ -550,7 +550,7 @@ En el ámbito de la programación en C y otras áreas de la computación, el man
 de matrices es fundamental. A continuación, se presentan los algoritmos y las
 expresiones matemáticas para las operaciones básicas entre matrices.
 
-:::{figure} 3/operaciones_basicas.svg
+:::{figure} 1/operaciones_basicas.svg
 :label: fig-operaciones-basicas
 :align: center
 :width: 85%
@@ -683,7 +683,7 @@ dimensión $p \times n$ guarda el resultado en una matriz C de dimensión $m
 \times n$. Es crucial que el
 número de columnas de A sea igual al número de filas de B.
 
-:::{figure} 3/multiplicacion_matrices.svg
+:::{figure} 1/multiplicacion_matrices.svg
 :label: fig-multiplicacion-matrices
 :align: center
 :width: 90%
@@ -811,7 +811,7 @@ En aplicaciones robustas, es fundamental implementar validaciones para prevenir
 accesos fuera de límites y operaciones inválidas. Esto es especialmente crítico
 en C, donde no existe verificación automática de límites ({ref}`0x300Ch`).
 
-:::{figure} 3/validacion_dimensiones.svg
+:::{figure} 1/validacion_dimensiones.svg
 :label: fig-validacion-dimensiones
 :align: center
 :width: 80%

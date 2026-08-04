@@ -372,7 +372,7 @@ implementación, pero todas deben resolver dos problemas fundamentales:
 
 **Estructura típica de un bloque de memoria:**
 
-:::{figure} 1/heap_allocator.svg
+:::{figure} 5/heap_allocator.svg
 :name: fig-heap-allocator
 :width: 80%
 
@@ -430,7 +430,7 @@ El allocator solicita memoria al sistema operativo en grandes cantidades
 según las necesidades del programa. Esto reduce enormemente el número de
 llamadas al sistema, que son costosas.
 
-:::{figure} 1/allocator_flow.svg
+:::{figure} 5/allocator_flow.svg
 :name: fig-allocator-flow
 :width: 100%
 
@@ -447,7 +447,7 @@ Cuando liberás un bloque con `free()`, el allocator intenta fusionarlo con
 bloques libres adyacentes para crear bloques más grandes. Esto ayuda a combatir
 la fragmentación externa.
 
-:::{figure} 1/coalescing.svg
+:::{figure} 5/coalescing.svg
 :name: fig-coalescing
 :width: 100%
 
@@ -497,7 +497,7 @@ estos errores y cómo prevenirlos es fundamental para escribir código robusto.
 Los errores discutidos en esta sección son específicos de la gestión de memoria
 dinámica. Para errores básicos con punteros (como punteros salvajes,
 desreferencia de `NULL`, y problemas de inicialización), consultá primero el
-[](../bloque_3_memoria_estatica/2_punteros.md), que cubre los conceptos
+[capítulo de punteros](2_punteros.md), que cubre los conceptos
 fundamentales necesarios para trabajar con punteros de forma segura.
 
 :::
@@ -900,7 +900,7 @@ void vulnerable()
 En el stack, un atacante puede sobrescribir la dirección de retorno para
 ejecutar código arbitrario:
 
-:::{figure} 1/buffer_overflow.svg
+:::{figure} 5/buffer_overflow.svg
 :name: fig-buffer-overflow
 :width: 100%
 
