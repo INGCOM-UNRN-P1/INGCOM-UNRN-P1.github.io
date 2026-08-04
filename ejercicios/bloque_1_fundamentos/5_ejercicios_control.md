@@ -9,15 +9,23 @@ subtitle: 'Problemas y soluciones sobre lazos y condicionales en C'
 
 ## Acerca de
 
-Estos ejercicios tienen como propósito ejercitar la lógica condicional, las estructuras de repetición y el control de flujo estructurado y seguro en C.
+Estos ejercicios tienen como propósito ejercitar la lógica condicional, las
+estructuras de repetición y el control de flujo estructurado y seguro en C.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-control-flujo`
 
 ### Cuestiones de Estilo Aplicables
-- **Estructuras de control y llaves:** De acuerdo con la [Regla 0x1001h](../../reglas/1_control.md#0x1001h), todas las estructuras de control deben utilizar llaves (`{}`).
-- **Prohibición de `break` y `continue`:** Según la [Regla 0x1002h](../../reglas/1_control.md#0x1002h), se encuentra prohibido el uso descontrolado de `break` y `continue`. En su lugar, se deben estructurar lazos controlados mediante banderas lógicas booleanas.
-- **Lazos:** Según la [Regla 0x1003h](../../reglas/1_control.md#0x1003h), utilizá el lazo `for` para iteraciones con rango o contador definido y `while` para lazos controlados por condiciones lógicas.
+- **Estructuras de control y llaves:** De acuerdo con la [Regla
+  0x1001h](../../reglas/1_control.md#0x1001h), todas las estructuras de control
+  deben utilizar llaves (`{}`).
+- **Prohibición de `break` y `continue`:** Según la [Regla
+  0x1002h](../../reglas/1_control.md#0x1002h), se encuentra prohibido el uso
+  descontrolado de `break` y `continue`. En su lugar, se deben estructurar lazos
+  controlados mediante banderas lógicas booleanas.
+- **Lazos:** Según la [Regla 0x1003h](../../reglas/1_control.md#0x1003h),
+  utilizá el lazo `for` para iteraciones con rango o contador definido y `while`
+  para lazos controlados por condiciones lógicas.
 
 ---
 
@@ -33,7 +41,9 @@ Pedí al usuario que ingrese su nota final (entera) e imprimí su condición:
 - "Promociona" si la nota es mayor o igual a 6.
 - "Aprueba" si la nota es mayor o igual a 4 pero menor a 6.
 - "Desaprueba" si la nota es menor a 4.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} entrada-2
 :class: dropdown
@@ -60,8 +70,12 @@ int main(void)
     }
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} entrada-2 -->
 
 ---
 
@@ -73,8 +87,11 @@ int main(void)
 :label: lazo_while 
 :enumerator: while
 
-Escribí un programa en C que imprima los números del 10 al 1 de forma descendente usando un lazo `while`.
+Escribí un programa en C que imprima los números del 10 al 1 de forma
+descendente usando un lazo `while`.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} lazo_while
 :label: solucion-lazo_while
@@ -92,21 +109,29 @@ int main(void) {
     }
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} lazo_while -->
 
 ### Ejercicio 5.3 - Múltiplos de 3
 
 :::{exercise}
 :label: lazo_for
 :enumerator: for
-Usá un lazo `for` para mostrar los números múltiplos de 3 comprendidos en el rango de 0 a 30 inclusive.
+Usá un lazo `for` para mostrar los números múltiplos de 3 comprendidos en el
+rango de 0 a 30 inclusive.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} lazo_for
 :label: solucion-lazo_for
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 int main(void) {
@@ -117,8 +142,12 @@ int main(void) {
     }
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} lazo_for -->
 
 ### Ejercicio 5.4 - Clave de acceso con do-while
 
@@ -126,8 +155,11 @@ int main(void) {
 :label: lazo_repeat
 :enumerator: for
 
-Diseñá un programa con un lazo `do...while` que solicite repetidamente una clave de acceso numérica al usuario hasta que ingrese el valor correcto `1234`.
+Diseñá un programa con un lazo `do...while` que solicite repetidamente una clave
+de acceso numérica al usuario hasta que ingrese el valor correcto `1234`.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} lazo_repeat
 :label: solucion-lazo_repeat
@@ -155,8 +187,12 @@ int main(void) {
     printf("Acceso concedido.\n");
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} lazo_repeat -->
 
 ---
 
@@ -167,7 +203,8 @@ int main(void) {
 :::{exercise}
 :label: lazo_break
 :enumerator: break
-Modificá el siguiente programa para eliminar la instrucción `break` prohibida, estructurando correctamente el lazo:
+Modificá el siguiente programa para eliminar la instrucción `break` prohibida,
+estructurando correctamente el lazo:
 
 ```{code-block} c
 :linenos:
@@ -183,13 +220,19 @@ int main() {
     }
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {exercise} -->
 
 :::{solution} lazo_break
 :label: solucion-lazo_break
 :class: dropdown
-Se reestructura el lazo reemplazando el `for` e implementando un lazo `while` controlado por una bandera lógica booleana (`bool`) del encabezado `<stdbool.h>` que se establece en `false` al alcanzar la condición de parada:
+Se reestructura el lazo reemplazando el `for` e implementando un lazo `while`
+controlado por una bandera lógica booleana (`bool`) del encabezado `<stdbool.h>`
+que se establece en `false` al alcanzar la condición de parada:
 
 ```{code-block} c
 :linenos:
@@ -208,8 +251,12 @@ int main(void) {
     }
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} lazo_break -->
 
 ### Ejercicio 5.6 - Refactorización de continue
 
@@ -232,13 +279,19 @@ int main()
     }
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {exercise} -->
 
 :::{solution} lazo_continue
 :label: solucion-lazo_continue
 :class: dropdown
-Se reestructura el lazo de forma segura eliminando la instrucción `continue` y encerrando el cuerpo restante del lazo dentro de una condición positiva que filtra los elementos que se desean procesar (en este caso, los impares):
+Se reestructura el lazo de forma segura eliminando la instrucción `continue` y
+encerrando el cuerpo restante del lazo dentro de una condición positiva que
+filtra los elementos que se desean procesar (en este caso, los impares):
 
 ```{code-block} c
 :linenos:
@@ -252,8 +305,12 @@ int main(void) {
     }
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} lazo_continue -->
 
 ### Ejercicio 5.7 - Lazo de clave con bandera
 
@@ -261,8 +318,11 @@ int main(void) {
 :label: lazo_flag_break
 :enumerator: continue
 
-Reescribí el ingreso de clave de acceso del Ejercicio 5.4 utilizando un lazo controlado por una bandera booleana (`bool`) en lugar de `do...while`.
+Reescribí el ingreso de clave de acceso del Ejercicio 5.4 utilizando un lazo
+controlado por una bandera booleana (`bool`) en lugar de `do...while`.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} lazo_flag_break
 :label: solucion-lazo_flag_break
@@ -294,27 +354,37 @@ int main(void)
     }
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} lazo_flag_break -->
 
 ---
 
 ## Ejercicios de Práctica
 
 ### Ejercicio 5.8 - Mayor de dos números reales
-Escribí un programa que solicite dos números reales al usuario y muestre cuál es el mayor.
+Escribí un programa que solicite dos números reales al usuario y muestre cuál es
+el mayor.
 
 ### Ejercicio 5.9 - Números del 1 al 100
-Diseñá un programa que imprima en pantalla los números enteros del 1 al 100 utilizando un lazo `for`.
+Diseñá un programa que imprima en pantalla los números enteros del 1 al 100
+utilizando un lazo `for`.
 
 ### Ejercicio 5.10 - Suma de pares del 1 al 100
-Desarrollá un algoritmo que sume los números pares comprendidos en el rango del 1 al 100 inclusive.
+Desarrollá un algoritmo que sume los números pares comprendidos en el rango del
+1 al 100 inclusive.
 
 ### Ejercicio 5.11 - Verificación de número primo
-Escribí un programa que solicite un número entero positivo e indique si es un número primo (divisible únicamente por 1 y por sí mismo).
+Escribí un programa que solicite un número entero positivo e indique si es un
+número primo (divisible únicamente por 1 y por sí mismo).
 
 ### Ejercicio 5.12 - Estado de aprobación de calificación
-Escribí un programa que pida una calificación (0 a 10) e indique si el estudiante aprobó (calificación mayor o igual a 4).
+Escribí un programa que pida una calificación (0 a 10) e indique si el
+estudiante aprobó (calificación mayor o igual a 4).
 
 ### Ejercicio 5.13 - Contraseña de caracteres iterativa
-Escribí un programa que solicite repetidamente una contraseña de caracteres al usuario hasta que coincida con un valor establecido de acceso seguro.
+Escribí un programa que solicite repetidamente una contraseña de caracteres al
+usuario hasta que coincida con un valor establecido de acceso seguro.

@@ -8,34 +8,50 @@ subtitle: Los primeros ejercicios
 
 ## Acerca de
 
-Este es el primer repositorio de enunciados de programación de la cátedra. Está pensado para asentar los conceptos prácticos iniciales explicados en los apuntes de [](../../apunte/bloque_1_fundamentos/1_base.md) y [](../../apunte/bloque_1_fundamentos/2_gradual.md). Aunque implementamos las resoluciones en el lenguaje C, la lógica algorítmica subyacente es aplicable a cualquier lenguaje estructurado.
+Este es el primer repositorio de enunciados de programación de la cátedra. Está
+pensado para asentar los conceptos prácticos iniciales explicados en los apuntes
+de [](../../apunte/bloque_1_fundamentos/1_base.md) y
+[](../../apunte/bloque_1_fundamentos/2_gradual.md). Aunque implementamos las
+resoluciones en el lenguaje C, la lógica algorítmica subyacente es aplicable a
+cualquier lenguaje estructurado.
 
-Al resolver estos ejercicios, debés prestar especial atención a las reglas de estilo de codificación de la cátedra (ver {ref}`0x0000h` y {ref}`0x0001h`).
+Al resolver estos ejercicios, debés prestar especial atención a las reglas de
+estilo de codificación de la cátedra (ver {ref}`0x0000h` y {ref}`0x0001h`).
 
 ### Consideraciones generales
 
 A seguir siempre y cuando no esté indicada otra cosa:
 
-1.  Resuelvan todos los ejercicios de manera iterativa, a no ser que esté indicado puntualmente.
+1.  Resuelvan todos los ejercicios de manera iterativa, a no ser que esté
+    indicado puntualmente.
 2. Los números son números enteros, estos incluyen al cero y los negativos.
-3. El nombre del archivo debe ser el número del ejercicio reemplazando el punto por un guion y su apellido, por ejemplo: `1-1_apellido.c`.
-4. Apliquen y completen la plantilla de resolución de ejercicios que está a continuación, en la misma, copien el título y consigna del ejercicio primero. Y luego completen con sus datos.
-5. Lo que 'resuelve' el enunciado debe estar en una función, incluso si no hay una indicada explícitamente.
+3. El nombre del archivo debe ser el número del ejercicio reemplazando el punto
+   por un guion y su apellido, por ejemplo: `1-1_apellido.c`.
+4. Apliquen y completen la plantilla de resolución de ejercicios que está a
+   continuación, en la misma, copien el título y consigna del ejercicio primero.
+   Y luego completen con sus datos.
+5. Lo que 'resuelve' el enunciado debe estar en una función, incluso si no hay
+   una indicada explícitamente.
 6. El código debe seguir la [guía de estilo](../../apunte/0_estilo.md).
-7. Los ejercicios marcados como \[*plus ultra*\] son variaciones del ejercicio, con otras formas para ir «más allá» de la consigna original.
+7. Los ejercicios marcados como \[*plus ultra*\] son variaciones del ejercicio,
+   con otras formas para ir «más allá» de la consigna original.
 
-```{note}
+:::{note}
+
 "Más allá" Frase en latín utilizada por Carlos I, durante la
     época de Colón.
     
 [Wikipedia - Plus_ultra_(lema)](https://en.wikipedia.org/wiki/Plus_ultra_(lema))
-```
+
+:::
+<!-- {note} -->
 
 ### Plantilla de archivo
 
 En un archivo llamado `1-1_apellido.c`:
 
 ```{code} textc
+:linenos:
 :label: c_template
 :filename: 1-1_apellido.c
 :caption: Para tener todo ordenado
@@ -49,9 +65,12 @@ programación funciona.
 Nombre y Apellido
 Usuario Github
 */
-```
 
-A pesar de que varios de los ejercicios son combinables, es mejor hacerlo cuando veamos funciones, para simplificar el flujo lógico.
+```
+<!-- {code} textc -->
+
+A pesar de que varios de los ejercicios son combinables, es mejor hacerlo cuando
+veamos funciones, para simplificar el flujo lógico.
 
 ## Ejercicio 0.1 - ¡Hola mundo!
 
@@ -69,6 +88,7 @@ funciona.
 Hola mundo!
 
 ```
+<!-- {code} text -->
 
 ### 1.1.A - Saludador \[*plus ultra*\]
 
@@ -80,6 +100,7 @@ Escribir un programa que salude por nombre.
 Martin
 
 ```
+<!-- {code} text -->
 
 ```{code} text
 :caption: El indispensable Hola Mundo!
@@ -88,6 +109,7 @@ Martin
 Hola mundo, Martin!
 
 ```
+<!-- {code} text -->
 
 ### 1.1.B - Tipografías ASCII art \[*plus ultra*\]
 
@@ -106,6 +128,7 @@ Salida
  |_| |_|  \___/  |_|  \__,_|   |_| |_| |_|  \__,_| |_| |_|  \__,_|  \___/  (_)
                                                                               
 ```
+<!-- {code} text -->
 
 ## Ejercicio 0.2 - Geometría
 
@@ -113,7 +136,8 @@ Salida
 
 **Calcular el área de un triángulo con una base y altura dadas.**
 
-El área de un triángulo se puede calcular como la mitad del producto de su base por su altura.
+El área de un triángulo se puede calcular como la mitad del producto de su base
+por su altura.
 
 $$A = \frac{1}{2} \cdot b \cdot h$$
 
@@ -124,7 +148,8 @@ Donde:
 
 **Calcular el área de un triángulo utilizando la fórmula de Herón.**
 
-La fórmula de Herón permite calcular el área de un triángulo conociendo la longitud de sus tres lados.
+La fórmula de Herón permite calcular el área de un triángulo conociendo la
+longitud de sus tres lados.
 
 $$A = \sqrt{s(s-a)(s-b)(s-c)}$$
 
@@ -157,7 +182,8 @@ Donde:
 
 **Calcular el área de un trapecio.**
 
-El área de un trapecio se calcula multiplicando la semisuma de sus bases (los lados paralelos) por su altura.
+El área de un trapecio se calcula multiplicando la semisuma de sus bases (los
+lados paralelos) por su altura.
 
 $$A = \frac{a+b}{2} \cdot h$$
 
@@ -170,13 +196,15 @@ Donde:
 
 **Calcular el área de un polígono regular.**
 
-El área de un polígono regular se puede calcular multiplicando la mitad de su perímetro por la longitud de su apotema.
+El área de un polígono regular se puede calcular multiplicando la mitad de su
+perímetro por la longitud de su apotema.
 
 $$A = \frac{P \cdot a}{2}$$
 
 Donde:
 -   $P$ es el perímetro del polígono (suma de la longitud de sus lados).
--   $a$ es la apotema (la distancia desde el centro del polígono al punto medio de uno de sus lados).
+-   $a$ es la apotema (la distancia desde el centro del polígono al punto medio
+    de uno de sus lados).
 
 ---
 
@@ -195,15 +223,17 @@ Donde:
 
 ## Ejercicio 0.3 - Conversiones
 
-```{note} {ref}`Regla 0x0001h <0x0001h>`
+:::{note} {ref}`Regla 0x0001h <0x0001h>`
 
 No olviden utilizar identificadores descriptivos.
 
-```
+:::
+<!-- {note} {ref}`Regla 0x0001h <0x0001h>` -->
 
 ### 1.3.1 - Temperaturas
 
-Revisen los resultados que las operaciones matematicas en C, con números decimales
+Revisen los resultados que las operaciones matematicas en C, con números
+decimales
 pueden dar resultados erroneos cuando se utilizan de forma inapropiada.
 
 #### 1.3.1.1 - Convertir grados Celsius a Kelvin
@@ -219,20 +249,24 @@ utiliza la fórmula $K=C+273.15$.
 Escribe un programa que solicite al usuario un valor en grados Kelvin y
 lo convierta a grados Celsius.
 
-La conversión de Kelvin ($K$) a grados Celsius ($C$) se realiza con la fórmula: $$C = K - 273.15$$
+La conversión de Kelvin ($K$) a grados Celsius ($C$) se realiza con la fórmula:
+$$C = K - 273.15$$
 
 #### 1.3.1.3 - Convertir grados Celsius a grados Fahrenheit
 
 Escribe un programa que pida un valor en grados Celsius y lo transforme a
 grados Fahrenheit.  
 
-La fórmula para convertir de grados Celsius ($C$) a Fahrenheit ($F$) es: $$F = (C \\times \\frac{9}{5}) + 32$$
+La fórmula para convertir de grados Celsius ($C$) a Fahrenheit ($F$) es: $$F =
+(C \\times \\frac{9}{5}) + 32$$
 
 #### 1.3.1.4 - Convertir grados Fahrenheit a Celsius
 
-Escribe un programa que reciba un valor en grados Fahrenheit y lo convierta a grados Celsius.  
+Escribe un programa que reciba un valor en grados Fahrenheit y lo convierta a
+grados Celsius.
 
-Para transformar grados Fahrenheit ($F$) a Celsius ($C$), la fórmula es: $$C = (F - 32) \\times \\frac{5}{9}$$
+Para transformar grados Fahrenheit ($F$) a Celsius ($C$), la fórmula es: $$C =
+(F - 32) \\times \\frac{5}{9}$$
 
 #### 1.3.1.5 - Conversiones \[*plus ultra*\]
 
@@ -241,7 +275,8 @@ misma se realice utilizando exclusivamente aritmética de números enteros.
 
 Los resultados también deben ser un número entero.
 
-Agrega un comentario en el código que explique las implicaciones de esta restricción
+Agrega un comentario en el código que explique las implicaciones de esta
+restricción
 en la precisión del resultado.
 
 ### 1.3.2 - Ángulos a segundos
@@ -259,6 +294,7 @@ En donde un grado son 60 minutos y un minuto son 60 segundos.
 3
 
 ```
+<!-- {code} text -->
 
 
 ```{code} text
@@ -267,6 +303,7 @@ En donde un grado son 60 minutos y un minuto son 60 segundos.
 1 grado, 2 minutos y 3 segundos son 3723 segundos
 
 ```
+<!-- {code} text -->
 
 #### 1.3.2.1 - Con vueltas \[*plus ultra*\]
 
@@ -281,6 +318,7 @@ Una vuelta son 360 grados.
 4
 
 ```
+<!-- {code} text -->
 
 
 ```{code} text
@@ -289,6 +327,7 @@ Una vuelta son 360 grados.
 1 vuelta, 2 grados, 3 minutos y 4 segundos son 372378203040 segundos
 
 ```
+<!-- {code} text -->
 
 ## Ejercicio 0.4 - Matemáticos
 
@@ -305,6 +344,7 @@ sumar directamente $n$ con $m$.
 6
 
 ```
+<!-- {code} text -->
 
 
 ```{code} text
@@ -313,6 +353,7 @@ sumar directamente $n$ con $m$.
 10 + 6 = 16
 
 ```
+<!-- {code} text -->
 
 Lo importante en este ejercicio, es que el resultado se obtiene con
 sumas o restas de uno en uno.
@@ -332,6 +373,7 @@ Mientras que para un número negativo, sería:
 -6
 
 ```
+<!-- {code} text -->
 
 ```{code} text
 :filename: salida
@@ -339,6 +381,7 @@ Mientras que para un número negativo, sería:
 10 + -6 = 4
 
 ```
+<!-- {code} text -->
 
 En donde los cálculos aplicados terminan siendo:
 
@@ -360,6 +403,7 @@ restas.
 2
 
 ```
+<!-- {code} text -->
 
 ```{code} text
 :filename: salida
@@ -367,6 +411,7 @@ restas.
 10 / 2 = 5
 
 ```
+<!-- {code} text -->
 
 
 En donde los cálculos aplicados terminan siendo:
@@ -390,6 +435,7 @@ utilizando restas.
 2
 
 ```
+<!-- {code} text -->
 
 ```{code} text
 :filename: salida
@@ -397,6 +443,7 @@ utilizando restas.
 13 % 2 = 1
 
 ```
+<!-- {code} text -->
 
 En donde los cálculos aplicados terminan siendo:
 
@@ -408,23 +455,35 @@ Recuerden tener en cuenta las cuatro combinaciones posibles de signos.
 
 ### 1.4.5 - División egipcia
 
-El método de división egipcia es un antiguo algoritmo que permite dividir dos números 
-utilizando únicamente operaciones de duplicación, suma y resta, sin necesidad de realizar 
-la división de forma directa. Se basa en la idea de encontrar qué múltiplos del divisor
+El método de división egipcia es un antiguo algoritmo que permite dividir dos
+números
+utilizando únicamente operaciones de duplicación, suma y resta, sin necesidad de
+realizar
+la división de forma directa. Se basa en la idea de encontrar qué múltiplos del
+divisor
 (obtenidos por duplicación) suman el dividendo.
 
 Pasos del método
 
-1.  **Crear dos columnas:** En la primera columna se escribe el número $1$. En la segunda, el divisor.
-2.  **Duplicar los valores:** Se duplican los valores de ambas columnas en cada fila subsiguiente. Se detiene cuando el siguiente número en la columna del divisor superaría al dividendo.
-3.  **Encontrar la combinación:** Se buscan en la columna del divisor (de abajo hacia arriba) los números que, sumados, se acerquen lo más posible al dividendo sin pasarse.
-4.  **Calcular el cociente:** Se suman los números de la primera columna que corresponden a las filas de los números elegidos en el paso anterior. El resultado es el cociente de la división.
-5.  **Calcular el resto:** Se resta la suma de los números elegidos en la columna del divisor al dividendo original. El resultado es el resto.
+1.  **Crear dos columnas:** En la primera columna se escribe el número $1$. En
+    la segunda, el divisor.
+2.  **Duplicar los valores:** Se duplican los valores de ambas columnas en cada
+    fila subsiguiente. Se detiene cuando el siguiente número en la columna del
+    divisor superaría al dividendo.
+3.  **Encontrar la combinación:** Se buscan en la columna del divisor (de abajo
+    hacia arriba) los números que, sumados, se acerquen lo más posible al
+    dividendo sin pasarse.
+4.  **Calcular el cociente:** Se suman los números de la primera columna que
+    corresponden a las filas de los números elegidos en el paso anterior. El
+    resultado es el cociente de la división.
+5.  **Calcular el resto:** Se resta la suma de los números elegidos en la
+    columna del divisor al dividendo original. El resultado es el resto.
 
  
 **Ejemplo**: Calcular $37 ÷ 6$
 
-1.  **Construir la tabla:** Se crean dos columnas. La primera empieza en $1$ y la segunda en el divisor ($6$). Ambas se duplican en cada paso.
+1.  **Construir la tabla:** Se crean dos columnas. La primera empieza en $1$ y
+    la segunda en el divisor ($6$). Ambas se duplican en cada paso.
 
     | Columna 1 | Columna 2 (Divisor: $6$) |
     | :--- | :--- |
@@ -433,15 +492,19 @@ Pasos del método
     | $4$ | $24$ |
     | $8$ | $48$ *(se detiene porque $48 > 37$)* |
 
-2.  **Buscar la suma:** Se buscan los números en la **Columna 2** que sumen $37$ (o lo más cercano por debajo), empezando por el más grande.
+2.  **Buscar la suma:** Se buscan los números en la **Columna 2** que sumen $37$
+    (o lo más cercano por debajo), empezando por el más grande.
     -   Se toma el **24**. (Queda por sumar: $37 - 24 = 13$).
-    -   Se busca el siguiente número que quepa en 13. Se toma el **12**. (Queda por sumar: 13 - 12 = 1).
+    -   Se busca el siguiente número que quepa en 13. Se toma el **12**. (Queda
+        por sumar: 13 - 12 = 1).
     -   El siguiente número es 6, pero no se puede tomar porque 6 > 1.
     -   Los números seleccionados de la Columna 2 son **24** y **12**.
 
 3.  **Obtener el resultado:**
-    -   **Cociente:** Se suman los números correspondientes de la **Columna 1**: $4 + 2 = 6$.
-    -   **Resto:** Se resta la suma de los números seleccionados (24 + 12 = 36) del dividendo original: $37 - 36 = 1 $.
+    -   **Cociente:** Se suman los números correspondientes de la **Columna 1**:
+        $4 + 2 = 6$.
+    -   **Resto:** Se resta la suma de los números seleccionados (24 + 12 = 36)
+        del dividendo original: $37 - 36 = 1 $.
 
 El resultado final es: 
 
@@ -461,6 +524,7 @@ Determinar si un número es divisible por otro.
 2
 
 ```
+<!-- {code} text -->
 
 
 ```{code} text
@@ -469,6 +533,7 @@ Determinar si un número es divisible por otro.
 10 es divisible por 2
 
 ```
+<!-- {code} text -->
 
 ### 1.4.7 - Al cuadrado
 
@@ -484,6 +549,7 @@ $$
 10
 
 ```
+<!-- {code} text -->
 
 ```{code} text
 :filename: salida
@@ -491,6 +557,7 @@ $$
 10 ^ 2 = 100
 
 ```
+<!-- {code} text -->
 
 ### 1.4.8 - Factorial
 
@@ -511,6 +578,7 @@ $5! = 1×2×3×4×5 = 120$
 5
 
 ```
+<!-- {code} text -->
 
 ```{code} text
 :filename: salida
@@ -518,6 +586,7 @@ $5! = 1×2×3×4×5 = 120$
 5! = 120
 
 ```
+<!-- {code} text -->
 
 ### 1.4.8 - Dígitos
 
@@ -531,6 +600,7 @@ aritmética.
 1234
 
 ```
+<!-- {code} text -->
 
 
 ```{code} text
@@ -539,6 +609,7 @@ aritmética.
 10
 
 ```
+<!-- {code} text -->
 
 El cálculo esperado es: $4+3+2+1 = 10$.
 
@@ -553,6 +624,7 @@ número factorial.
 5
 
 ```
+<!-- {code} text -->
 
 ```{code} text
 :filename: salida
@@ -560,6 +632,7 @@ número factorial.
 5! = 120 -> 3
 
 ```
+<!-- {code} text -->
 
 
 ### 1.4.10 - MCD
@@ -571,7 +644,8 @@ El algoritmo de MCD iterativo plantea que para cada iteración:
 
 * Si $(n \le m)$ y $(m \pmod n) = 0$, entonces el MCD es $n$.
 * Si $m < n$, se intercambian los valores: $m \leftrightarrow n$.
-* Si $m > n$ y $(m \pmod n) \ne 0$, entonces $m = m \pmod n$, y se intercambian los valores: $m \leftrightarrow n$.
+* Si $m > n$ y $(m \pmod n) \ne 0$, entonces $m = m \pmod n$, y se intercambian
+  los valores: $m \leftrightarrow n$.
 
 ### 1.4.11 - MCM
 
@@ -593,6 +667,7 @@ Verificar si un número es capicúa de manera aritmética.
 1001
 
 ```
+<!-- {code} text -->
 
 ```{code} text
 :filename: salida
@@ -600,6 +675,7 @@ Verificar si un número es capicúa de manera aritmética.
 1001 es capicua
 
 ```
+<!-- {code} text -->
 
 **Ejemplo no capicua**
 
@@ -609,6 +685,7 @@ Verificar si un número es capicúa de manera aritmética.
 1234
 
 ```
+<!-- {code} text -->
 
 ```{code} text
 :filename: salida
@@ -616,6 +693,7 @@ Verificar si un número es capicúa de manera aritmética.
 1234 no es capicua
 
 ```
+<!-- {code} text -->
 
 ### 1.4.12 - Capicúas entre
 
@@ -626,7 +704,9 @@ Imprimir todos los números capicúa en un rango $(n,m)$ dado.
 
 100
 200
+
 ```
+<!-- {code} text -->
 
 ```{code} text
 :filename: salida
@@ -635,33 +715,43 @@ Entre 100 y 200, los numeros capicua son:
 101
 
 ```
+<!-- {code} text -->
 
 
 ### 1.4.13 - Números amigos
 
-Solicitar dos números enteros positivos y determinar si son **números amigos**. Dos números son amigos si la suma de los divisores propios de cada uno es igual al otro número.
+Solicitar dos números enteros positivos y determinar si son **números amigos**.
+Dos números son amigos si la suma de los divisores propios de cada uno es igual
+al otro número.
 
-Para entender matemáticamente los números amigos, primero definamos el concepto de **divisores propios**.
+Para entender matemáticamente los números amigos, primero definamos el concepto
+de **divisores propios**.
 
 **Divisores Propios:**
 
-Los divisores propios de un número entero positivo $n$ son todos los divisores positivos de $n$ **excepto el propio $n$**. Por ejemplo, los divisores de $6$ son $1, 2, 3, 6$. Los divisores propios de $6$ son $1, 2, 3$.
+Los divisores propios de un número entero positivo $n$ son todos los divisores
+positivos de $n$ **excepto el propio $n$**. Por ejemplo, los divisores de $6$
+son $1, 2, 3, 6$. Los divisores propios de $6$ son $1, 2, 3$.
 
-Podemos definir una función $\sigma^*(n)$ (o a veces $s(n)$) que representa la suma de los divisores propios de un número $n$. Si $d$ es un divisor de $n$ y $d < n$, entonces la suma de los divisores propios se expresa como:
+Podemos definir una función $\sigma^*(n)$ (o a veces $s(n)$) que representa la
+suma de los divisores propios de un número $n$. Si $d$ es un divisor de $n$ y $d
+< n$, entonces la suma de los divisores propios se expresa como:
 
 $$
 \sigma^*(n) = \sum_{d|n, \ d < n} d
 $$
 
 **Condición para Números Amigos:**
-Dos números enteros positivos $a$ y $b$ son considerados números amigos si cumplen las siguientes dos condiciones simultáneamente:
+Dos números enteros positivos $a$ y $b$ son considerados números amigos si
+cumplen las siguientes dos condiciones simultáneamente:
 
 $$
 \sigma^*(a) = b \\
 \sigma^*(b) = a
 $$
 
-En otras palabras, la suma de los divisores propios de $a$ es igual a $b$, y la suma de los divisores propios de $b$ es igual a $a$.
+En otras palabras, la suma de los divisores propios de $a$ es igual a $b$, y la
+suma de los divisores propios de $b$ es igual a $a$.
 
 **Ejemplo:**
 Consideremos los números $220$ y $284$.
@@ -672,22 +762,28 @@ Consideremos los números $220$ y $284$.
 * **Divisores propios de $284$:** $1, 2, 4, 71, 142$
     $\sigma^*(284) = 1 + 2 + 4 + 71 + 142 = 220$
 
-Dado que $\sigma^*(220) = 284$ y $\sigma^*(284) = 220$, los números $220$ y $284$ son números amigos.
+Dado que $\sigma^*(220) = 284$ y $\sigma^*(284) = 220$, los números $220$ y
+$284$ son números amigos.
 
 ### 1.4.14 - Invertir un número entero
 
-Pedir un número entero positivo y mostrarlo con sus dígitos en orden inverso, sin usar arreglos ni cadenas de caracteres.  
+Pedir un número entero positivo y mostrarlo con sus dígitos en orden inverso,
+sin usar arreglos ni cadenas de caracteres.
 
 ```{code} text
 :filename: entrada
 12345
+
 ```
+<!-- {code} text -->
 
 
 ```{code} text
 :filename: salida
 54321
+
 ```
+<!-- {code} text -->
 
 ## Ejercicio 0.5 - Secuencias
 
@@ -701,6 +797,7 @@ Imprimir una cuenta regresiva de diez, pueden usar `sleep(1)` de
 `stdlib.h` para que la cuenta no sea instantánea.
 
 ```{code} text
+:linenos:
 :filename: salida
 
 10
@@ -711,7 +808,9 @@ Imprimir una cuenta regresiva de diez, pueden usar `sleep(1)` de
 2
 1
 Lanzamiento!
+
 ```
+<!-- {code} text -->
 
 #### 1.5.1.A - Cuenta regresiva ajustable \[*plus ultra*\]
 Lo mismo que el ejercicio anterior, pero con conteo 
@@ -723,6 +822,7 @@ seleccionable por el usuario
 3
 
 ```
+<!-- {code} text -->
 
 
 ```{code} text
@@ -734,6 +834,7 @@ seleccionable por el usuario
 Lanzamiento!
 
 ```
+<!-- {code} text -->
 
 ### 1.5.2 - Pares
 
@@ -746,6 +847,7 @@ Imprimir la secuencia de números pares entre $n$ y $m$.
 15
 
 ```
+<!-- {code} text -->
 
 
 ```{code} text
@@ -756,6 +858,7 @@ Imprimir la secuencia de números pares entre $n$ y $m$.
 14
 
 ```
+<!-- {code} text -->
 
 ### 1.5.3 - Ascendente
 
@@ -768,6 +871,7 @@ Mostrar los números entre $n$ y $m$ de forma ascendente siendo $n ≥ i < m$
 5
 
 ```
+<!-- {code} text -->
 
 
 ```{code} text
@@ -779,6 +883,7 @@ El intervalo [2; 5) es:
 4
 
 ```
+<!-- {code} text -->
 
 ### 1.5.4 - Suma en rango
 
@@ -792,12 +897,16 @@ $$
 :filename: entrada
 3
 5
+
 ```
+<!-- {code} text -->
 
 ```{code} text
 :filename: salida
 La suma entre 3 y 5 es 12
+
 ```
+<!-- {code} text -->
 
 ### 1.5.5 - Cuadrados ascendentes
 
@@ -812,12 +921,16 @@ $$
 :filename: entrada
 3
 5
+
 ```
+<!-- {code} text -->
 
 ```{code} text
 :filename: salida
 Los cuadrados ascendentes entre 3 y 5 es = 50
+
 ```
+<!-- {code} text -->
 
 ### 1.5.6 - Descendente
 
@@ -827,7 +940,9 @@ Imprimir los números entre $n$ y $m$ de forma descendente. ($n ≥ i < m$)
 :filename: entrada
 10
 7
+
 ```
+<!-- {code} text -->
 
 
 ```{code} text
@@ -835,7 +950,9 @@ Imprimir los números entre $n$ y $m$ de forma descendente. ($n ≥ i < m$)
 10
 9
 8
+
 ```
+<!-- {code} text -->
 
 ### 1.5.7 - n-impares
 
@@ -845,7 +962,9 @@ Imprimir la secuencia de números impares del 1 hasta n.
 ```{code} text
 :filename: entrada
 10
+
 ```
+<!-- {code} text -->
 
 ```{code} text
 :filename: salida
@@ -854,7 +973,9 @@ Imprimir la secuencia de números impares del 1 hasta n.
 5
 7
 9
+
 ```
+<!-- {code} text -->
 
 ### 1.5.8 - n-esimos numeros sumados
 
@@ -868,13 +989,17 @@ $$
 ```{code} text
 :filename: entrada
 10
+
 ```
+<!-- {code} text -->
 
 
 ```{code} text
 :filename: salida
 La suma de los primeros 10 numeros es 55
+
 ```
+<!-- {code} text -->
 
 
 ### 1.5.9 - i-fibonacci'esimo
@@ -901,19 +1026,24 @@ $$
 ```{code} text
 :filename: entrada
 8
+
 ```
+<!-- {code} text -->
 
 ```{code} text
 :filename: salida
 El termino 8 es 13
-```
 
-```{note} Sobre los terminos
+```
+<!-- {code} text -->
+
+:::{note} Sobre los terminos
 
 En la literatura también se encuentra el primer término como $1$,
     esto solo desplaza en uno la serie. El resultado en sí no cambia.
 
-```
+:::
+<!-- {note} Sobre los terminos -->
 
 ### 1.5.10 - Dígitos de Fibonacci
 
@@ -925,25 +1055,31 @@ Siendo el octavo termino $13$, la suma de sus dígitos es $4$; $1+3$
 ```{code} text
 :filename: entrada
 8
+
 ```
+<!-- {code} text -->
 
 ```{code} text
 :filename: salida
 4
+
 ```
+<!-- {code} text -->
 
 ## Ejercicio 0.6 - Condicionales
 
 ### 1.6.1 - Par o Impar
 Dado un número entero, determinar si es par o impar.
 
-Un número entero $n$ se considera **par** si es un múltiplo de 2, es decir, si existe un entero $k$ tal que:
+Un número entero $n$ se considera **par** si es un múltiplo de 2, es decir, si
+existe un entero $k$ tal que:
 
 $$
 n = 2k
 $$
 
-Si un número no es par, se considera **impar**. Esto se puede expresar matemáticamente como la existencia de un entero $k$ tal que:
+Si un número no es par, se considera **impar**. Esto se puede expresar
+matemáticamente como la existencia de un entero $k$ tal que:
 
 $$
 n = 2k + 1
@@ -952,7 +1088,8 @@ $$
 
 ### 1.6.2 - Signo de un Número
 
-Dado un número real $x$, clasificarlo como positivo, negativo o cero. La clasificación se basa en las siguientes propiedades:
+Dado un número real $x$, clasificarlo como positivo, negativo o cero. La
+clasificación se basa en las siguientes propiedades:
 
 $$
 S(n) = \begin{cases}
@@ -964,7 +1101,9 @@ $$
 
 ## Ejercicio 0.7 - Primos
 
-Un número natural $p > 1$ se considera **primo** si sus únicos divisores positivos son $1$ y él mismo. Cualquier número entero mayor que $1$ que no es primo se denomina **número compuesto**.
+Un número natural $p > 1$ se considera **primo** si sus únicos divisores
+positivos son $1$ y él mismo. Cualquier número entero mayor que $1$ que no es
+primo se denomina **número compuesto**.
 
 ### 1.7.1 - ¿Es primo?
 
@@ -972,7 +1111,8 @@ Determinar si un número es primo o compuesto.
 
 ### 1.7.2 - Varios primos
 
-Escribir un programa que genere y muestre los primeros $n$ números primos, donde $n$ es un valor proporcionado por el usuario.
+Escribir un programa que genere y muestre los primeros $n$ números primos, donde
+$n$ es un valor proporcionado por el usuario.
 
 ## Ejercicio 0.8 - Fechas
 
@@ -980,7 +1120,8 @@ Escribir un programa que genere y muestre los primeros $n$ números primos, dond
 
 Determinar si un año dado es bisiesto. 
 
-Un año es **bisiesto** si cumple una de las siguientes reglas del calendario gregoriano:
+Un año es **bisiesto** si cumple una de las siguientes reglas del calendario
+gregoriano:
 
 1. Es divisible por 4, pero no es divisible por 100.
 2. Es divisible por 400.

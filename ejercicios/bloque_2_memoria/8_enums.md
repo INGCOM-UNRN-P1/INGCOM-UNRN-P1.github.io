@@ -7,16 +7,23 @@ short_title: "10. enum/struct/union"
 
 ## Acerca de
 
-Estos ejercicios te permitirán practicar y consolidar el uso de enumeraciones (`enum`), estructuras (`struct`) y uniones (`union`) en C, desde conceptos básicos hasta aplicaciones avanzadas en el modelado de estados y la configuración de sistemas.
+Estos ejercicios te permitirán practicar y consolidar el uso de enumeraciones
+(`enum`), estructuras (`struct`) y uniones (`union`) en C, desde conceptos
+básicos hasta aplicaciones avanzadas en el modelado de estados y la
+configuración de sistemas.
 
-Para profundizar en los conceptos teóricos, podés consultar el siguiente capítulo del apunte:
-- [Enumeraciones y Estructuras de Datos](../../apunte/bloque_2_proyectos/4_enums.md)
+Para profundizar en los conceptos teóricos, podés consultar el siguiente
+capítulo del apunte:
+- [Enumeraciones y Estructuras de
+  Datos](../../apunte/bloque_2_proyectos/4_enums.md)
 
 ## Días de la Semana
 
-Crear un tipo `enum` para representar los días de la semana y funciones básicas para trabajar con ellos.
+Crear un tipo `enum` para representar los días de la semana y funciones básicas
+para trabajar con ellos.
 
-```c
+```{code-block} c
+:linenos:
 enum dia_semana {
     LUNES,
     MARTES,
@@ -26,37 +33,45 @@ enum dia_semana {
     SABADO,
     DOMINGO
 };
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.1 - Día siguiente
 
-Implementar una función que retorne el día siguiente al día proporcionado. El día siguiente a `DOMINGO` es `LUNES`.
+Implementar una función que retorne el día siguiente al día proporcionado. El
+día siguiente a `DOMINGO` es `LUNES`.
 
-```c
+``` c
 enum dia_semana dia_siguiente(enum dia_semana dia_actual);
 ```
+<!-- c -->
 
 ### Ejercicio 4.2 - Es día laboral
 
 Implementar una función que determine si un día es laboral (lunes a viernes).
 
-```c
+``` c
 bool es_dia_laboral(enum dia_semana dia);
 ```
+<!-- c -->
 
 ### Ejercicio 4.3 - Nombre del día
 
-Implementar una función que retorne el nombre del día como cadena de texto. Esta función ilustra el patrón de conversión enum-a-string.
+Implementar una función que retorne el nombre del día como cadena de texto. Esta
+función ilustra el patrón de conversión enum-a-string.
 
-```c
+``` c
 const char* nombre_dia(enum dia_semana dia);
 ```
+<!-- c -->
 
 ## Estados de Conexión
 
 Modelar los estados de una conexión de red usando enumeraciones.
 
-```c
+```{code-block} c
+:linenos:
 enum estado_red {
     DESCONECTADO,
     CONECTANDO,
@@ -65,13 +80,18 @@ enum estado_red {
     ERROR_TIMEOUT,
     ERROR_AUTH
 };
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.4 - Máquina de estados
 
-Implementar una función que procese transiciones de estado. La función debe recibir el estado actual y un evento, y retornar el nuevo estado según las reglas de transición.
+Implementar una función que procese transiciones de estado. La función debe
+recibir el estado actual y un evento, y retornar el nuevo estado según las
+reglas de transición.
 
-```c
+```{code-block} c
+:linenos:
 enum evento_red {
     EVENTO_CONECTAR,
     EVENTO_DESCONECTAR,
@@ -80,7 +100,9 @@ enum evento_red {
 };
 
 enum estado_red procesar_evento(enum estado_red estado, enum evento_red evento);
+
 ```
+<!-- {code-block} c -->
 
 **Reglas de transición sugeridas:**
 - `DESCONECTADO` + `EVENTO_CONECTAR` → `CONECTANDO`
@@ -91,9 +113,11 @@ enum estado_red procesar_evento(enum estado_red estado, enum evento_red evento);
 
 ### Ejercicio 4.5 - Validación de estado
 
-Implementar una función que valide si un valor numérico corresponde a un estado válido de la enumeración. Usar el patrón del valor centinela.
+Implementar una función que valide si un valor numérico corresponde a un estado
+válido de la enumeración. Usar el patrón del valor centinela.
 
-```c
+```{code-block} c
+:linenos:
 enum estado_red {
     DESCONECTADO,
     CONECTANDO,
@@ -105,51 +129,64 @@ enum estado_red {
 };
 
 bool estado_valido(int valor);
+
 ```
+<!-- {code-block} c -->
 
 ## Sistema de Permisos con Flags
 
-Implementar un sistema de permisos usando flags de bits. Este ejercicio demuestra cómo combinar múltiples opciones en un único valor.
+Implementar un sistema de permisos usando flags de bits. Este ejercicio
+demuestra cómo combinar múltiples opciones en un único valor.
 
-```c
+```{code-block} c
+:linenos:
 enum permisos {
     PERMISO_LECTURA    = 1 << 0,  // 0x01
     PERMISO_ESCRITURA  = 1 << 1,  // 0x02
     PERMISO_EJECUCION  = 1 << 2,  // 0x04
     PERMISO_ELIMINAR   = 1 << 3   // 0x08
 };
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.6 - Verificar permiso
 
-Implementar una función que verifique si un conjunto de permisos incluye un permiso específico.
+Implementar una función que verifique si un conjunto de permisos incluye un
+permiso específico.
 
-```c
+``` c
 bool tiene_permiso(unsigned int permisos_actuales, enum permisos permiso);
 ```
+<!-- c -->
 
 ### Ejercicio 4.7 - Agregar y quitar permisos
 
 Implementar funciones para modificar el conjunto de permisos.
 
-```c
+``` c
 unsigned int agregar_permiso(unsigned int permisos, enum permisos nuevo);
 unsigned int quitar_permiso(unsigned int permisos, enum permisos remover);
 ```
+<!-- c -->
 
 ### Ejercicio 4.8 - Listar permisos activos
 
-Implementar una función que imprima todos los permisos activos en un conjunto de permisos.
+Implementar una función que imprima todos los permisos activos en un conjunto de
+permisos.
 
-```c
+``` c
 void mostrar_permisos(unsigned int permisos);
 ```
+<!-- c -->
 
 ## Colores RGB con Enum
 
-Definir una enumeración para colores predefinidos y una estructura para representar colores RGB personalizados.
+Definir una enumeración para colores predefinidos y una estructura para
+representar colores RGB personalizados.
 
-```c
+```{code-block} c
+:linenos:
 enum color_predefinido {
     COLOR_NEGRO,
     COLOR_BLANCO,
@@ -166,15 +203,19 @@ typedef struct {
     unsigned char g;
     unsigned char b;
 } rgb_t;
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.9 - Conversión de color predefinido a RGB
 
-Implementar una función que convierta un color predefinido a sus componentes RGB.
+Implementar una función que convierta un color predefinido a sus componentes
+RGB.
 
-```c
+``` c
 rgb_t color_a_rgb(enum color_predefinido color);
 ```
+<!-- c -->
 
 **Valores sugeridos:**
 - `COLOR_ROJO`: (255, 0, 0)
@@ -186,15 +227,18 @@ rgb_t color_a_rgb(enum color_predefinido color);
 
 Implementar una función que mezcle dos colores RGB usando promedio aritmético.
 
-```c
+``` c
 rgb_t mezclar_colores(rgb_t c1, rgb_t c2);
 ```
+<!-- c -->
 
 ## Configuración de Dispositivo con Unión Etiquetada
 
-Implementar una unión etiquetada para almacenar diferentes tipos de configuración de dispositivos.
+Implementar una unión etiquetada para almacenar diferentes tipos de
+configuración de dispositivos.
 
-```c
+```{code-block} c
+:linenos:
 enum tipo_dispositivo {
     DISPOSITIVO_SENSOR_TEMP,
     DISPOSITIVO_MOTOR,
@@ -224,31 +268,37 @@ typedef struct {
         config_led_t led;
     } config;
 } dispositivo_t;
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.11 - Configurar dispositivo
 
 Implementar funciones para configurar cada tipo de dispositivo de forma segura.
 
-```c
+``` c
 dispositivo_t crear_sensor(double temp_min, double temp_max);
 dispositivo_t crear_motor(unsigned int rpm, bool horario);
 dispositivo_t crear_led(unsigned char intensidad, enum color_predefinido color);
 ```
+<!-- c -->
 
 ### Ejercicio 4.12 - Imprimir configuración
 
-Implementar una función que imprima la configuración de un dispositivo según su tipo. Este ejercicio demuestra el uso correcto de uniones etiquetadas.
+Implementar una función que imprima la configuración de un dispositivo según su
+tipo. Este ejercicio demuestra el uso correcto de uniones etiquetadas.
 
-```c
+``` c
 void imprimir_dispositivo(const dispositivo_t* dispositivo);
 ```
+<!-- c -->
 
 ## Códigos de Error
 
 Definir una enumeración exhaustiva para códigos de error de un sistema.
 
-```c
+```{code-block} c
+:linenos:
 enum codigo_error {
     ERROR_NINGUNO = 0,
     ERROR_MEMORIA,
@@ -259,21 +309,27 @@ enum codigo_error {
     ERROR_CONEXION,
     ERROR_DESCONOCIDO
 };
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.13 - Mensaje de error
 
-Implementar una función que retorne un mensaje descriptivo para cada código de error.
+Implementar una función que retorne un mensaje descriptivo para cada código de
+error.
 
-```c
+``` c
 const char* mensaje_error(enum codigo_error error);
 ```
+<!-- c -->
 
 ### Ejercicio 4.14 - Tipo de resultado
 
-Implementar un tipo `resultado_t` que encapsule un valor de retorno o un código de error usando unión etiquetada.
+Implementar un tipo `resultado_t` que encapsule un valor de retorno o un código
+de error usando unión etiquetada.
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     enum codigo_error error;
     union {
@@ -282,21 +338,25 @@ typedef struct {
         void* valor_ptr;
     } datos;
 } resultado_t;
+
 ```
+<!-- {code-block} c -->
 
 Implementar funciones auxiliares:
 
-```c
+``` c
 resultado_t resultado_ok_int(int valor);
 resultado_t resultado_error(enum codigo_error error);
 bool resultado_es_error(const resultado_t* resultado);
 ```
+<!-- c -->
 
 ## Estados de Reproducción Multimedia
 
 Modelar un reproductor multimedia con estados y modos de reproducción.
 
-```c
+```{code-block} c
+:linenos:
 enum estado_reproductor {
     ESTADO_DETENIDO,
     ESTADO_REPRODUCIENDO,
@@ -311,32 +371,38 @@ enum modo_reproduccion {
     MODO_REPETIR_TODOS,
     MODO_ALEATORIO
 };
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.15 - Controlador de reproducción
 
 Implementar una estructura que encapsule el estado completo del reproductor.
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     enum estado_reproductor estado;
     enum modo_reproduccion modo;
     unsigned int pista_actual;
     unsigned int total_pistas;
 } reproductor_t;
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.16 - Comandos de control
 
 Implementar funciones para controlar el reproductor.
 
-```c
+``` c
 void reproducir(reproductor_t* rep);
 void pausar(reproductor_t* rep);
 void detener(reproductor_t* rep);
 void siguiente_pista(reproductor_t* rep);
 void anterior_pista(reproductor_t* rep);
 ```
+<!-- c -->
 
 Las funciones deben respetar el estado actual y el modo de reproducción.
 
@@ -344,7 +410,8 @@ Las funciones deben respetar el estado actual y el modo de reproducción.
 
 Implementar un sistema de logging con niveles de prioridad.
 
-```c
+```{code-block} c
+:linenos:
 enum nivel_log {
     LOG_DEBUG = 0,
     LOG_INFO,
@@ -352,31 +419,39 @@ enum nivel_log {
     LOG_ERROR,
     LOG_FATAL
 };
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.17 - Filtrado de logs
 
-Implementar una función que determine si un mensaje debe ser registrado según el nivel mínimo configurado.
+Implementar una función que determine si un mensaje debe ser registrado según el
+nivel mínimo configurado.
 
-```c
+``` c
 bool debe_registrar(enum nivel_log nivel_mensaje, enum nivel_log nivel_minimo);
 ```
+<!-- c -->
 
 ### Ejercicio 4.18 - Formateo de mensaje de log
 
-Implementar una función que formatee un mensaje de log incluyendo el nivel como prefijo.
+Implementar una función que formatee un mensaje de log incluyendo el nivel como
+prefijo.
 
-```c
+``` c
 void log_mensaje(enum nivel_log nivel, const char* mensaje);
 ```
+<!-- c -->
 
 Ejemplo de salida: `[ERROR] Archivo no encontrado`
 
 ## Protocolo de Comunicación
 
-Diseñar estructuras para un protocolo simple de comunicación usando campos de bits.
+Diseñar estructuras para un protocolo simple de comunicación usando campos de
+bits.
 
-```c
+```{code-block} c
+:linenos:
 enum tipo_mensaje {
     MSG_DATOS = 0,
     MSG_ACK = 1,
@@ -389,33 +464,39 @@ typedef struct {
     unsigned int prioridad : 2;   // 2 bits para prioridad (0-3)
     unsigned int secuencia : 4;   // 4 bits para número de secuencia (0-15)
 } cabecera_mensaje_t;
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.19 - Crear y decodificar cabecera
 
 Implementar funciones para construir y extraer información de la cabecera.
 
-```c
+``` c
 cabecera_mensaje_t crear_cabecera(enum tipo_mensaje tipo, 
                                    unsigned int prioridad, 
                                    unsigned int secuencia);
 
 void imprimir_cabecera(cabecera_mensaje_t cabecera);
 ```
+<!-- c -->
 
 ### Ejercicio 4.20 - Validación de cabecera
 
-Implementar una función que valide que los valores de una cabecera están dentro de los rangos permitidos.
+Implementar una función que valide que los valores de una cabecera están dentro
+de los rangos permitidos.
 
-```c
+``` c
 bool cabecera_valida(cabecera_mensaje_t cabecera);
 ```
+<!-- c -->
 
 ## Opciones de Compilación con Flags
 
 Modelar opciones de compilación como flags combinables.
 
-```c
+```{code-block} c
+:linenos:
 enum opcion_compilacion {
     OPT_NINGUNA       = 0,
     OPT_OPTIMIZAR     = 1 << 0,  // -O
@@ -424,33 +505,41 @@ enum opcion_compilacion {
     OPT_WARNINGS_EXTRA = 1 << 3, // -Wextra
     OPT_PEDANTIC      = 1 << 4   // -pedantic
 };
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.21 - Generar línea de comandos
 
-Implementar una función que genere una cadena con las opciones de compilación correspondientes a los flags activos.
+Implementar una función que genere una cadena con las opciones de compilación
+correspondientes a los flags activos.
 
-```c
+``` c
 void generar_comando_compilacion(unsigned int opciones, char* buffer, size_t tam);
 ```
+<!-- c -->
 
-Ejemplo: Si `opciones` tiene `OPT_DEBUG | OPT_WARNINGS`, el buffer debe contener `"-g -Wall"`.
+Ejemplo: Si `opciones` tiene `OPT_DEBUG | OPT_WARNINGS`, el buffer debe contener
+`"-g -Wall"`.
 
 ### Ejercicio 4.22 - Detectar conflictos
 
 Implementar una función que detecte combinaciones incompatibles de opciones.
 
-```c
+``` c
 bool opciones_compatibles(unsigned int opciones);
 ```
+<!-- c -->
 
-Por ejemplo, `OPT_OPTIMIZAR` y `OPT_DEBUG` podrían considerarse incompatibles en ciertos contextos.
+Por ejemplo, `OPT_OPTIMIZAR` y `OPT_DEBUG` podrían considerarse incompatibles en
+ciertos contextos.
 
 ## Menú de Aplicación
 
 Implementar un sistema de menú interactivo usando enumeraciones.
 
-```c
+```{code-block} c
+:linenos:
 enum opcion_menu {
     MENU_NUEVO = 1,
     MENU_ABRIR,
@@ -459,33 +548,42 @@ enum opcion_menu {
     MENU_SALIR,
     MENU_INVALIDO = -1
 };
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.23 - Parser de opción
 
-Implementar una función que convierta la entrada del usuario en una opción del menú.
+Implementar una función que convierta la entrada del usuario en una opción del
+menú.
 
-```c
+``` c
 enum opcion_menu parsear_opcion(int entrada);
 ```
+<!-- c -->
 
 ### Ejercicio 4.24 - Ejecutor de menú
 
-Implementar una función que ejecute la acción correspondiente a cada opción del menú.
+Implementar una función que ejecute la acción correspondiente a cada opción del
+menú.
 
-```c
+``` c
 void ejecutar_opcion(enum opcion_menu opcion);
 ```
+<!-- c -->
 
 ### Ejercicio 4.25 - Menú interactivo completo
 
-Implementar un lazo principal que muestre el menú, lea la opción del usuario y ejecute la acción hasta que el usuario seleccione `MENU_SALIR`.
+Implementar un lazo principal que muestre el menú, lea la opción del usuario y
+ejecute la acción hasta que el usuario seleccione `MENU_SALIR`.
 
 ## Tipos de Figuras Geométricas con Unión
 
-Combinar enumeraciones, estructuras y uniones para representar diferentes figuras geométricas.
+Combinar enumeraciones, estructuras y uniones para representar diferentes
+figuras geométricas.
 
-```c
+```{code-block} c
+:linenos:
 enum tipo_figura {
     FIGURA_CIRCULO,
     FIGURA_RECTANGULO,
@@ -515,15 +613,19 @@ typedef struct {
         triangulo_t triangulo;
     } datos;
 } figura_t;
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.26 - Cálculo de área
 
-Implementar una función que calcule el área de cualquier figura usando su tipo y datos.
+Implementar una función que calcule el área de cualquier figura usando su tipo y
+datos.
 
-```c
+``` c
 double calcular_area(const figura_t* figura);
 ```
+<!-- c -->
 
 **Fórmulas:**
 - Círculo: $A = \pi r^2$
@@ -536,19 +638,22 @@ double calcular_area(const figura_t* figura);
 
 Implementar funciones para crear cada tipo de figura de forma segura.
 
-```c
+``` c
 figura_t crear_circulo(double radio);
 figura_t crear_rectangulo(double base, double altura);
 figura_t crear_triangulo(double a, double b, double c);
 ```
+<!-- c -->
 
 ## Conversión entre Enums y Strings
 
 ### Ejercicio 4.28 - Tabla de conversión
 
-Implementar un sistema genérico para convertir entre valores enum y strings usando tablas de conversión.
+Implementar un sistema genérico para convertir entre valores enum y strings
+usando tablas de conversión.
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     int valor;
     const char* nombre;
@@ -561,22 +666,26 @@ const enum_string_t tabla_dias[] = {
     {MIERCOLES, "Miércoles"},
     // ...
 };
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.29 - Funciones de conversión genéricas
 
 Implementar funciones genéricas que usen la tabla para realizar conversiones.
 
-```c
+``` c
 const char* enum_a_string(int valor, const enum_string_t* tabla, size_t tam);
 int string_a_enum(const char* nombre, const enum_string_t* tabla, size_t tam, int valor_defecto);
 ```
+<!-- c -->
 
 ## Estado de Juego
 
 Modelar el estado de un juego simple usando múltiples enumeraciones.
 
-```c
+```{code-block} c
+:linenos:
 enum estado_juego {
     JUEGO_MENU,
     JUEGO_JUGANDO,
@@ -599,15 +708,19 @@ typedef struct {
     unsigned int nivel;
     unsigned int vidas;
 } juego_t;
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.30 - Inicializar juego
 
-Implementar una función que inicialice un juego nuevo con la dificultad especificada.
+Implementar una función que inicialice un juego nuevo con la dificultad
+especificada.
 
-```c
+``` c
 juego_t inicializar_juego(enum dificultad dif);
 ```
+<!-- c -->
 
 La dificultad debe afectar el número inicial de vidas y otros parámetros.
 
@@ -615,18 +728,21 @@ La dificultad debe afectar el número inicial de vidas y otros parámetros.
 
 Implementar funciones para transiciones de estado comunes.
 
-```c
+``` c
 void pausar_juego(juego_t* juego);
 void reanudar_juego(juego_t* juego);
 void perder_vida(juego_t* juego);
 void ganar_nivel(juego_t* juego);
 ```
+<!-- c -->
 
 ## Análisis de Tráfico con Enums Aninados
 
-Modelar un sistema de análisis de tráfico de red con múltiples niveles de clasificación.
+Modelar un sistema de análisis de tráfico de red con múltiples niveles de
+clasificación.
 
-```c
+```{code-block} c
+:linenos:
 enum protocolo {
     PROTOCOLO_TCP,
     PROTOCOLO_UDP,
@@ -647,15 +763,19 @@ typedef struct {
     unsigned int puerto_destino;
     size_t bytes_transferidos;
 } paquete_red_t;
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.32 - Clasificador de tráfico
 
-Implementar una función que clasifique un paquete basándose en reglas heurísticas.
+Implementar una función que clasifique un paquete basándose en reglas
+heurísticas.
 
-```c
+``` c
 enum tipo_trafico clasificar_paquete(const paquete_red_t* paquete);
 ```
+<!-- c -->
 
 **Reglas sugeridas:**
 - Puertos conocidos (80, 443, 22) → `TRAFICO_NORMAL`
@@ -664,9 +784,11 @@ enum tipo_trafico clasificar_paquete(const paquete_red_t* paquete);
 
 ### Ejercicio 4.33 - Estadísticas por protocolo
 
-Implementar una función que cuente paquetes por protocolo en un arreglo de paquetes.
+Implementar una función que cuente paquetes por protocolo en un arreglo de
+paquetes.
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     unsigned int tcp;
     unsigned int udp;
@@ -675,7 +797,9 @@ typedef struct {
 } estadisticas_protocolo_t;
 
 estadisticas_protocolo_t contar_por_protocolo(const paquete_red_t* paquetes, size_t cantidad);
+
 ```
+<!-- {code-block} c -->
 
 ## Enums en Sistemas de Archivos
 
@@ -683,7 +807,8 @@ estadisticas_protocolo_t contar_por_protocolo(const paquete_red_t* paquetes, siz
 
 Modelar permisos de archivo estilo UNIX usando flags.
 
-```c
+```{code-block} c
+:linenos:
 enum permiso_unix {
     OWNER_READ    = 0400,  // 0100000000 en octal
     OWNER_WRITE   = 0200,
@@ -695,21 +820,25 @@ enum permiso_unix {
     OTHER_WRITE   = 0002,
     OTHER_EXECUTE = 0001
 };
+
 ```
+<!-- {code-block} c -->
 
 Implementar funciones para manipular permisos:
 
-```c
+``` c
 bool tiene_permiso_unix(unsigned int permisos, enum permiso_unix permiso);
 unsigned int agregar_permiso_unix(unsigned int permisos, enum permiso_unix nuevo);
 void mostrar_permisos_unix(unsigned int permisos);  // Formato: rwxr-xr--
 ```
+<!-- c -->
 
 ### Ejercicio 4.35 - Tipos de archivo
 
 Modelar diferentes tipos de archivo en un sistema de archivos.
 
-```c
+```{code-block} c
+:linenos:
 enum tipo_archivo {
     TIPO_REGULAR,
     TIPO_DIRECTORIO,
@@ -726,7 +855,9 @@ typedef struct {
     size_t tamanio;
     unsigned int permisos;
 } archivo_info_t;
+
 ```
+<!-- {code-block} c -->
 
 ## Sistema de Eventos
 
@@ -734,7 +865,8 @@ typedef struct {
 
 Modelar eventos de interfaz de usuario.
 
-```c
+```{code-block} c
+:linenos:
 enum tipo_evento {
     EVENTO_CLICK,
     EVENTO_DOBLE_CLICK,
@@ -756,15 +888,18 @@ typedef struct {
     unsigned int botones;  // Flags de botones presionados
     unsigned int tecla;
 } evento_t;
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.37 - Procesador de eventos
 
 Implementar un procesador que maneje diferentes tipos de eventos.
 
-```c
+``` c
 void procesar_evento(const evento_t* evento);
 ```
+<!-- c -->
 
 ## Estados de Procesos (Sistema Operativo)
 
@@ -772,7 +907,8 @@ void procesar_evento(const evento_t* evento);
 
 Modelar el ciclo de vida de un proceso en un sistema operativo.
 
-```c
+```{code-block} c
+:linenos:
 enum estado_proceso {
     PROCESO_NUEVO,
     PROCESO_LISTO,
@@ -794,16 +930,19 @@ typedef struct {
     enum razon_bloqueo razon;  // Solo válido si estado == BLOQUEADO
     int prioridad;
 } proceso_t;
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.39 - Planificador simple
 
 Implementar funciones de transición de estado para un planificador.
 
-```c
+``` c
 bool transicion_estado(proceso_t* proceso, enum estado_proceso nuevo_estado);
 bool puede_ejecutar(const proceso_t* proceso);
 ```
+<!-- c -->
 
 ## Protocolo HTTP
 
@@ -811,7 +950,8 @@ bool puede_ejecutar(const proceso_t* proceso);
 
 Modelar métodos y códigos de estado HTTP.
 
-```c
+```{code-block} c
+:linenos:
 enum metodo_http {
     HTTP_GET,
     HTTP_POST,
@@ -835,19 +975,22 @@ enum codigo_http {
     HTTP_500_INTERNAL_ERROR = 500,
     HTTP_503_UNAVAILABLE = 503
 };
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.41 - Parser de respuesta HTTP
 
 Implementar funciones para trabajar con HTTP.
 
-```c
+``` c
 const char* metodo_a_string(enum metodo_http metodo);
 const char* codigo_a_mensaje(enum codigo_http codigo);
 bool es_codigo_exito(enum codigo_http codigo);  // 2xx
 bool es_codigo_error_cliente(enum codigo_http codigo);  // 4xx
 bool es_codigo_error_servidor(enum codigo_http codigo);  // 5xx
 ```
+<!-- c -->
 
 ## Semáforo (Sistema de Control)
 
@@ -855,7 +998,8 @@ bool es_codigo_error_servidor(enum codigo_http codigo);  // 5xx
 
 Modelar un sistema de semáforo de tráfico.
 
-```c
+```{code-block} c
+:linenos:
 enum estado_semaforo {
     SEMAFORO_ROJO,
     SEMAFORO_AMARILLO,
@@ -874,17 +1018,20 @@ typedef struct {
     enum direccion_trafico direccion_activa;
     int tiempo_restante;  // Segundos
 } semaforo_t;
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.43 - Controlador de semáforo
 
 Implementar la lógica de transición de un semáforo.
 
-```c
+``` c
 void actualizar_semaforo(semaforo_t* semaforo);
 enum estado_semaforo siguiente_estado(enum estado_semaforo actual);
 bool puede_pasar(const semaforo_t* semaforo, enum direccion_trafico direccion);
 ```
+<!-- c -->
 
 ## Transacciones de Base de Datos
 
@@ -892,7 +1039,8 @@ bool puede_pasar(const semaforo_t* semaforo, enum direccion_trafico direccion);
 
 Modelar el ciclo de vida de una transacción.
 
-```c
+```{code-block} c
+:linenos:
 enum estado_transaccion {
     TX_INICIADA,
     TX_ACTIVA,
@@ -914,18 +1062,21 @@ typedef struct {
     enum tipo_aislamiento aislamiento;
     int num_operaciones;
 } transaccion_t;
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.45 - Gestor de transacciones
 
 Implementar funciones para gestionar transacciones.
 
-```c
+``` c
 transaccion_t iniciar_transaccion(enum tipo_aislamiento aislamiento);
 bool commit_transaccion(transaccion_t* tx);
 bool rollback_transaccion(transaccion_t* tx);
 bool puede_hacer_commit(const transaccion_t* tx);
 ```
+<!-- c -->
 
 ## Tipos de Datos SQL
 
@@ -933,7 +1084,8 @@ bool puede_hacer_commit(const transaccion_t* tx);
 
 Modelar tipos de datos SQL y sus propiedades.
 
-```c
+```{code-block} c
+:linenos:
 enum tipo_sql {
     SQL_INT,
     SQL_BIGINT,
@@ -962,18 +1114,21 @@ typedef struct {
     unsigned int constraints;
     int longitud;  // Para VARCHAR
 } columna_t;
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.47 - Validación de columnas
 
 Implementar funciones para validar definiciones de columnas.
 
-```c
+``` c
 bool es_tipo_numerico(enum tipo_sql tipo);
 bool es_tipo_texto(enum tipo_sql tipo);
 bool constraints_validos(unsigned int constraints);
 size_t tamanio_tipo(enum tipo_sql tipo);
 ```
+<!-- c -->
 
 ## Formatos de Imagen
 
@@ -981,7 +1136,8 @@ size_t tamanio_tipo(enum tipo_sql tipo);
 
 Modelar diferentes formatos de imagen y sus propiedades.
 
-```c
+```{code-block} c
+:linenos:
 enum formato_imagen {
     FORMATO_JPEG,
     FORMATO_PNG,
@@ -1009,18 +1165,21 @@ typedef struct {
     bool tiene_transparencia;
     bool es_animado;
 } metadata_imagen_t;
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.49 - Análisis de formatos
 
 Implementar funciones para analizar propiedades de formatos.
 
-```c
+``` c
 bool soporta_transparencia(enum formato_imagen formato);
 bool soporta_animacion(enum formato_imagen formato);
 bool es_formato_comprimido(enum formato_imagen formato);
 const char* extension_formato(enum formato_imagen formato);
 ```
+<!-- c -->
 
 ## Sistema de Notificaciones
 
@@ -1028,7 +1187,8 @@ const char* extension_formato(enum formato_imagen formato);
 
 Modelar un sistema de notificaciones con prioridades.
 
-```c
+```{code-block} c
+:linenos:
 enum nivel_notificacion {
     NOTIF_DEBUG,
     NOTIF_INFO,
@@ -1052,17 +1212,20 @@ typedef struct {
     char mensaje[256];
     time_t timestamp;
 } notificacion_t;
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.51 - Gestor de notificaciones
 
 Implementar funciones para filtrar y enviar notificaciones.
 
-```c
+``` c
 void enviar_notificacion(const notificacion_t* notif);
 bool debe_notificar(enum nivel_notificacion nivel, enum nivel_notificacion nivel_minimo);
 unsigned int canales_para_nivel(enum nivel_notificacion nivel);
 ```
+<!-- c -->
 
 ## Compresión de Datos
 
@@ -1070,7 +1233,8 @@ unsigned int canales_para_nivel(enum nivel_notificacion nivel);
 
 Modelar diferentes algoritmos de compresión y sus niveles.
 
-```c
+```{code-block} c
+:linenos:
 enum algoritmo_compresion {
     COMP_NINGUNO,
     COMP_DEFLATE,
@@ -1095,18 +1259,21 @@ typedef struct {
     size_t tamanio_comprimido;
     double ratio;  // tamanio_comprimido / tamanio_original
 } resultado_compresion_t;
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.53 - Análisis de compresión
 
 Implementar funciones para analizar rendimiento de compresión.
 
-```c
+``` c
 double calcular_ratio(const resultado_compresion_t* resultado);
 double porcentaje_ahorro(const resultado_compresion_t* resultado);
 bool es_algoritmo_rapido(enum algoritmo_compresion alg);
 const char* nombre_algoritmo(enum algoritmo_compresion alg);
 ```
+<!-- c -->
 
 ## Máquina de Estados Finita Genérica
 
@@ -1114,7 +1281,8 @@ const char* nombre_algoritmo(enum algoritmo_compresion alg);
 
 Implementar un framework genérico para máquinas de estados finitas.
 
-```c
+```{code-block} c
+:linenos:
 #define MAX_ESTADOS 32
 #define MAX_TRANSICIONES 64
 
@@ -1146,18 +1314,21 @@ typedef struct {
     int num_transiciones;
     void* contexto;
 } maquina_estados_t;
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 4.55 - Motor de FSM
 
 Implementar el motor que procesa eventos y ejecuta transiciones.
 
-```c
+``` c
 void fsm_inicializar(maquina_estados_t* fsm, estado_fsm_t inicial);
 bool fsm_agregar_transicion(maquina_estados_t* fsm, transicion_t trans);
 bool fsm_procesar_evento(maquina_estados_t* fsm, evento_fsm_t evento);
 estado_fsm_t fsm_estado_actual(const maquina_estados_t* fsm);
 ```
+<!-- c -->
 
 ## Análisis Comparativo de Enums
 
@@ -1166,22 +1337,25 @@ estado_fsm_t fsm_estado_actual(const maquina_estados_t* fsm);
 Analizar diferentes formas de implementar el mismo concepto:
 
 **Opción 1: Enum simple**
-```c
+``` c
 enum dia { LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO };
 ```
+<!-- c -->
 
 **Opción 2: Enum con valores explícitos**
-```c
+``` c
 enum dia { LUNES=1, MARTES=2, MIERCOLES=3, JUEVES=4, VIERNES=5, SABADO=6, DOMINGO=7 };
 ```
+<!-- c -->
 
 **Opción 3: Flags con potencias de 2**
-```c
+``` c
 enum dia { 
     LUNES=1<<0, MARTES=1<<1, MIERCOLES=1<<2, JUEVES=1<<3, 
     VIERNES=1<<4, SABADO=1<<5, DOMINGO=1<<6 
 };
 ```
+<!-- c -->
 
 Discutir casos de uso, ventajas y desventajas de cada enfoque.
 

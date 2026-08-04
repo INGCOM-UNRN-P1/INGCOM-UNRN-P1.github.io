@@ -7,14 +7,20 @@ short_title: 4b. Punteros II
 
 ## Acerca de
 
-Estos ejercicios prácticos y aplicados complementan la teoría de punteros y aritmética básica de indirección de memoria en C.
+Estos ejercicios prácticos y aplicados complementan la teoría de punteros y
+aritmética básica de indirección de memoria en C.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-punteros`
 
 ### Cuestiones de Estilo Aplicables
-- **Uso de aserciones:** Es mandatorio validar mediante `assert` de la cabecera `<assert.h>` que los punteros recibidos por parámetros en las funciones no sean `NULL` (ver {ref}`0x2009h`).
-- **Aritmética de punteros:** Recorré los arreglos operando de manera directa sobre los punteros de control y evitando índices lógicos temporales, incrementando o decrementando las direcciones físicas de memoria de forma explícita.
+- **Uso de aserciones:** Es mandatorio validar mediante `assert` de la cabecera
+  `<assert.h>` que los punteros recibidos por parámetros en las funciones no
+  sean `NULL` (ver {ref}`0x2009h`).
+- **Aritmética de punteros:** Recorré los arreglos operando de manera directa
+  sobre los punteros de control y evitando índices lógicos temporales,
+  incrementando o decrementando las direcciones físicas de memoria de forma
+  explícita.
 
 ---
 
@@ -26,13 +32,17 @@ Estos ejercicios prácticos y aplicados complementan la teoría de punteros y ar
 :label: intercambiar_valores
 :enumerator: punteros-1
 
-Implementá un procedimiento `void intercambiar(int *a, int *b)` que reciba dos punteros a enteros. La función debe intercambiar los valores de las variables originales a las que apuntan estos punteros.
-:::
+Implementá un procedimiento `void intercambiar(int *a, int *b)` que reciba dos
+punteros a enteros. La función debe intercambiar los valores de las variables
+originales a las que apuntan estos punteros.
 
-````{solution} intercambiar_valores
+:::
+<!-- {exercise} -->
+
+::::{solution} intercambiar_valores
 :class: dropdown
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <assert.h>
 #include <stddef.h>
@@ -45,8 +55,12 @@ void intercambiar(int *a, int *b) {
   *a = *b;           // Asignamos al lugar de 'a' el valor al que apunta 'b'
   *b = temporal;     // Asignamos al lugar de 'b' el valor guardado
 }
-```
-````
+
+:::
+<!-- {code-block}c -->
+
+::::
+<!-- {solution} intercambiar_valores -->
 
 ### Ejercicio 4b.2 - Encontrar máximo
 
@@ -54,13 +68,18 @@ void intercambiar(int *a, int *b) {
 :label: encontrar_maximo
 :enumerator: funciones-1
 
-Escribí una función `int encontrar_maximo(const int *arreglo, size_t n)` que reciba un puntero al inicio de un arreglo de enteros (marcado como `const` para no modificarlo) y su tamaño. La función debe recorrer el arreglo usando el puntero y devolver el valor del elemento más grande.
-:::
+Escribí una función `int encontrar_maximo(const int *arreglo, size_t n)` que
+reciba un puntero al inicio de un arreglo de enteros (marcado como `const` para
+no modificarlo) y su tamaño. La función debe recorrer el arreglo usando el
+puntero y devolver el valor del elemento más grande.
 
-````{solution} encontrar_maximo
+:::
+<!-- {exercise} -->
+
+::::{solution} encontrar_maximo
 :class: dropdown
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <assert.h>
 #include <stddef.h>
@@ -83,8 +102,12 @@ int encontrar_maximo(const int *arreglo, size_t n) {
   }
   return maximo;
 }
-```
-````
+
+:::
+<!-- {code-block}c -->
+
+::::
+<!-- {solution} encontrar_maximo -->
 
 ### Ejercicio 4b.3 - Copiar cadena
 
@@ -92,13 +115,18 @@ int encontrar_maximo(const int *arreglo, size_t n) {
 :label: copiar_cadena
 :enumerator: funciones-2
 
-Implementá un procedimiento `void copiar_cadena(char *destino, const char *origen)`. La función debe copiar la cadena de caracteres de `origen` a `destino`, incluyendo el carácter nulo final (`\0`). Debés resolverlo recorriendo las cadenas exclusivamente con punteros.
-:::
+Implementá un procedimiento `void copiar_cadena(char *destino, const char
+*origen)`. La función debe copiar la cadena de caracteres de `origen` a
+`destino`, incluyendo el carácter nulo final (`\0`). Debés resolverlo
+recorriendo las cadenas exclusivamente con punteros.
 
-````{solution} copiar_cadena
+:::
+<!-- {exercise} -->
+
+::::{solution} copiar_cadena
 :class: dropdown
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <assert.h>
 #include <stddef.h>
@@ -115,8 +143,12 @@ void copiar_cadena(char *destino, const char *origen) {
   }
   *destino = '\0'; // Aseguramos que la cadena destino termine con el nulo
 }
-```
-````
+
+:::
+<!-- {code-block}c -->
+
+::::
+<!-- {solution} copiar_cadena -->
 
 ### Ejercicio 4b.4 - Sumar arreglo con punteros
 
@@ -124,13 +156,19 @@ void copiar_cadena(char *destino, const char *origen) {
 :label: sumar_arreglo_punteros
 :enumerator: funciones-3
 
-Creá una función `int sumar_arreglo(const int *inicio, const int *fin)` que reciba un puntero al primer elemento de un arreglo y un puntero a la dirección de memoria inmediatamente posterior al último elemento. La función debe sumar los elementos del arreglo iterando con un puntero desde `inicio` hasta que alcance a `fin`.
-:::
+Creá una función `int sumar_arreglo(const int *inicio, const int *fin)` que
+reciba un puntero al primer elemento de un arreglo y un puntero a la dirección
+de memoria inmediatamente posterior al último elemento. La función debe sumar
+los elementos del arreglo iterando con un puntero desde `inicio` hasta que
+alcance a `fin`.
 
-````{solution} sumar_arreglo_punteros
+:::
+<!-- {exercise} -->
+
+::::{solution} sumar_arreglo_punteros
 :class: dropdown
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <assert.h>
 #include <stddef.h>
@@ -146,8 +184,12 @@ int sumar_arreglo(const int *inicio, const int *fin) {
   }
   return suma;
 }
-```
-````
+
+:::
+<!-- {code-block}c -->
+
+::::
+<!-- {solution} sumar_arreglo_punteros -->
 
 ### Ejercicio 4b.5 - Invertir arreglo in-place
 
@@ -155,13 +197,19 @@ int sumar_arreglo(const int *inicio, const int *fin) {
 :label: invertir_arreglo_inplace
 :enumerator: punteros-2
 
-Implementá un procedimiento `void invertir_arreglo(int *arreglo, size_t n)` que invierta el orden de los elementos de un arreglo "in-place" (sin usar un arreglo auxiliar). Utilizá dos punteros: uno que apunte al inicio del arreglo y otro que apunte al final. Intercambiá los valores a los que apuntan y mové los punteros hacia el centro hasta que se crucen.
-:::
+Implementá un procedimiento `void invertir_arreglo(int *arreglo, size_t n)` que
+invierta el orden de los elementos de un arreglo "in-place" (sin usar un arreglo
+auxiliar). Utilizá dos punteros: uno que apunte al inicio del arreglo y otro que
+apunte al final. Intercambiá los valores a los que apuntan y mové los punteros
+hacia el centro hasta que se crucen.
 
-````{solution} invertir_arreglo_inplace
+:::
+<!-- {exercise} -->
+
+::::{solution} invertir_arreglo_inplace
 :class: dropdown
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <assert.h>
 #include <stddef.h>
@@ -186,5 +234,9 @@ void invertir_arreglo(int *arreglo, size_t n) {
     fin--;
   }
 }
-```
-````
+
+:::
+<!-- {code-block}c -->
+
+::::
+<!-- {solution} invertir_arreglo_inplace -->

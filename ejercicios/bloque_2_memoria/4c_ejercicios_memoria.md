@@ -10,13 +10,19 @@ subtitle: 'Problemas y soluciones detalladas sobre gestión de memoria en C'
 
 ## Acerca de
 
-Este archivo contiene problemas y soluciones detalladas sobre la gestión de memoria dinámica en C, con foco en el uso de `malloc`, `calloc`, `realloc` y `free`.
+Este archivo contiene problemas y soluciones detalladas sobre la gestión de
+memoria dinámica en C, con foco en el uso de `malloc`, `calloc`, `realloc` y
+`free`.
 
-Para más detalles teóricos sobre estos conceptos, consultá [el capítulo de Memoria Dinámica](../../apunte/bloque_4_dinamica_indireccion/1_memoria_dinamica.md) del apunte. Asegurate de seguir la regla de estilo {ref}`0x3002h` para la liberación adecuada de recursos y prevención de punteros colgantes.
+Para más detalles teóricos sobre estos conceptos, consultá [el capítulo de
+Memoria
+Dinámica](../../apunte/bloque_4_dinamica_indireccion/1_memoria_dinamica.md) del
+apunte. Asegurate de seguir la regla de estilo {ref}`0x3002h` para la liberación
+adecuada de recursos y prevención de punteros colgantes.
 
 ## Ejercicios Resueltos
 
-```{exercise} Ejercicio 1c.1 - Asignación Básica
+:::{exercise} Ejercicio 1c.1 - Asignación Básica
 :label: ej-memoria-basico
 
 Escribí un programa que:
@@ -27,13 +33,17 @@ Escribí un programa que:
 4. Calcule e imprima el promedio de los números.
 5. Libere correctamente la memoria.
 
-Asegurate de verificar todas las asignaciones de memoria y manejar los errores apropiadamente.
-```
+Asegurate de verificar todas las asignaciones de memoria y manejar los errores
+apropiadamente.
 
-````{solution} ej-memoria-basico
+:::
+<!-- {exercise} Ejercicio 1c.1 - Asignación Básica -->
+
+::::{solution} ej-memoria-basico
 :class: dropdown
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -86,18 +96,24 @@ int main()
 
     return 0;
 }
-````
 
-````
+```
+<!-- {code-block} c -->
 
-```{exercise} Ejercicio 1c.2 - Cadena Dinámica
+::::
+<!-- {solution} ej-memoria-basico -->
+
+:::{exercise} Ejercicio 1c.2 - Cadena Dinámica
 :label: ej-memoria-cadena
 
-Implementá una función `duplicar_cadena` que reciba una cadena de caracteres y devuelva una copia exacta de ella en memoria dinámica. La función debe tener la siguiente firma:
+Implementá una función `duplicar_cadena` que reciba una cadena de caracteres y
+devuelva una copia exacta de ella en memoria dinámica. La función debe tener la
+siguiente firma:
 
-```c
+``` c
 char *duplicar_cadena(const char *original);
-````
+```
+<!-- c -->
 
 La función debe:
 
@@ -106,18 +122,31 @@ La función debe:
 3. Copiar el contenido caracter por caracter.
 4. Retornar un puntero a la nueva cadena, o `NULL` si hay un error.
 
-Luego, escribí un programa principal que use esta función para duplicar una cadena ingresada por el usuario.
+Luego, escribí un programa principal que use esta función para duplicar una
+cadena ingresada por el usuario.
 
-````
+:::
+<!-- {exercise} Ejercicio 1c.2 - Cadena Dinámica -->
 
 :::{warning} Precondición de Seguridad en Copias de Cadenas
-Al trabajar con cadenas de caracteres en C, funciones como `strlen` y `strcpy` asumen de forma estricta que los búferes de entrada están correctamente finalizados con el carácter nulo (`\0`). Si se recibe una secuencia de bytes que carece de este terminador (por ejemplo, debido a una lectura parcial o desborde anterior), la función continuará leyendo o escribiendo en memoria de forma indefinida, provocando violaciones de acceso o corrupción silenciosa del heap. Siempre garantizá la correcta inicialización y terminación en nulo del búfer origen antes de cualquier copia.
-:::
 
-````{solution} ej-memoria-cadena
+Al trabajar con cadenas de caracteres en C, funciones como `strlen` y `strcpy`
+asumen de forma estricta que los búferes de entrada están correctamente
+finalizados con el carácter nulo (`\0`). Si se recibe una secuencia de bytes que
+carece de este terminador (por ejemplo, debido a una lectura parcial o desborde
+anterior), la función continuará leyendo o escribiendo en memoria de forma
+indefinida, provocando violaciones de acceso o corrupción silenciosa del heap.
+Siempre garantizá la correcta inicialización y terminación en nulo del búfer
+origen antes de cualquier copia.
+
+:::
+<!-- {warning} Precondición de Seguridad en Copias de Cadenas -->
+
+::::{solution} ej-memoria-cadena
 :class: dropdown
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -176,33 +205,44 @@ int main()
 
     return 0;
 }
-````
 
-````
+```
+<!-- {code-block} c -->
 
-```{exercise} Ejercicio 1c.3 - Búsqueda en Arreglo Dinámico
+::::
+<!-- {solution} ej-memoria-cadena -->
+
+:::{exercise} Ejercicio 1c.3 - Búsqueda en Arreglo Dinámico
 :label: ej-memoria-busqueda
 
-Implementá las siguientes funciones para trabajar con un arreglo dinámico de enteros:
+Implementá las siguientes funciones para trabajar con un arreglo dinámico de
+enteros:
 
-```c
+``` c
 int *crear_arreglo_inicializado(size_t tamano, int valor_inicial);
 int buscar_elemento(const int *arreglo, size_t tamano, int valor);
 int contar_ocurrencias(const int *arreglo, size_t tamano, int valor);
-````
+```
+<!-- c -->
 
-- `crear_arreglo_inicializado`: Crea un arreglo dinámico donde todos los elementos tienen el valor `valor_inicial`.
-- `buscar_elemento`: Retorna el índice de la primera ocurrencia de `valor` en el arreglo, o -1 si no se encuentra.
+- `crear_arreglo_inicializado`: Crea un arreglo dinámico donde todos los
+  elementos tienen el valor `valor_inicial`.
+- `buscar_elemento`: Retorna el índice de la primera ocurrencia de `valor` en el
+  arreglo, o -1 si no se encuentra.
 - `contar_ocurrencias`: Retorna cuántas veces aparece `valor` en el arreglo.
 
-Escribí un programa principal que use estas funciones para crear un arreglo, inicializarlo, modificar algunos elementos, y luego buscar y contar ocurrencias de valores específicos.
+Escribí un programa principal que use estas funciones para crear un arreglo,
+inicializarlo, modificar algunos elementos, y luego buscar y contar ocurrencias
+de valores específicos.
 
-````
+:::
+<!-- {exercise} Ejercicio 1c.3 - Búsqueda en Arreglo Dinámico -->
 
-```{solution} ej-memoria-busqueda
+:::{solution} ej-memoria-busqueda
 :class: dropdown
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -341,20 +381,25 @@ int main()
 
     return 0;
 }
-````
 
-````
+```
+<!-- {code-block} c -->
 
-```{exercise} Ejercicio 1c.4 - Matriz Dinámica
+:::
+<!-- {solution} ej-memoria-busqueda -->
+
+:::{exercise} Ejercicio 1c.4 - Matriz Dinámica
 :label: ej-memoria-matriz
 
-Implementá funciones para crear y manipular una matriz dinámica de enteros de tamaño $m \times n$:
+Implementá funciones para crear y manipular una matriz dinámica de enteros de
+tamaño $m \times n$:
 
-```c
+``` c
 int **crear_matriz(size_t filas, size_t columnas);
 void liberar_matriz(int **matriz, size_t filas);
 void imprimir_matriz(int **matriz, size_t filas, size_t columnas);
-````
+```
+<!-- c -->
 
 Asegurate de:
 
@@ -362,12 +407,14 @@ Asegurate de:
 - Verificar todas las asignaciones.
 - Manejar errores apropiadamente.
 
-````
+:::
+<!-- {exercise} Ejercicio 1c.4 - Matriz Dinámica -->
 
-```{solution} ej-memoria-matriz
+:::{solution} ej-memoria-matriz
 :class: dropdown
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -483,44 +530,56 @@ int main()
 
     return 0;
 }
-````
 
-````
+```
+<!-- {code-block} c -->
 
-```{exercise} Ejercicio 1c.5 - Estructura con Memoria Dinámica
+:::
+<!-- {solution} ej-memoria-matriz -->
+
+:::{exercise} Ejercicio 1c.5 - Estructura con Memoria Dinámica
 :label: ej-memoria-estructura
 
 Implementá un tipo de dato `persona_t` que almacene información de una persona:
 
-```c
+```{code-block} c
+:linenos:
 typedef struct
 {
     char *nombre;
     char *apellido;
     int edad;
 } persona_t;
-````
+
+```
+<!-- {code-block} c -->
 
 Implementá las siguientes funciones:
 
-```c
+``` c
 persona_t *crear_persona(const char *nombre, const char *apellido, int edad);
 void destruir_persona(persona_t *persona);
 void imprimir_persona(const persona_t *persona);
 ```
+<!-- c -->
 
-- `crear_persona`: Debe reservar memoria para la estructura y para las cadenas de nombre y apellido (copiándolas).
-- `destruir_persona`: Debe liberar toda la memoria asociada, incluyendo las cadenas internas.
+- `crear_persona`: Debe reservar memoria para la estructura y para las cadenas
+  de nombre y apellido (copiándolas).
+- `destruir_persona`: Debe liberar toda la memoria asociada, incluyendo las
+  cadenas internas.
 - `imprimir_persona`: Debe mostrar los datos de la persona.
 
-Recordá seguir el principio de simetría ({ref}`0x3002h`) y verificar todas las asignaciones de memoria.
+Recordá seguir el principio de simetría ({ref}`0x3002h`) y verificar todas las
+asignaciones de memoria.
 
-````
+:::
+<!-- {exercise} Ejercicio 1c.5 - Estructura con Memoria Dinámica -->
 
-````{solution} ej-memoria-estructura
+::::{solution} ej-memoria-estructura
 :class: dropdown
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -646,16 +705,22 @@ int main()
 
     return 0;
 }
-````
 
-````
+```
+<!-- {code-block} c -->
 
-```{exercise} Ejercicio 1c.6 - Detección de Errores de Memoria
+::::
+<!-- {solution} ej-memoria-estructura -->
+
+:::{exercise} Ejercicio 1c.6 - Detección de Errores de Memoria
 :label: ej-memoria-errores
 
-El siguiente programa contiene varios errores relacionados con la gestión de memoria. Identificá todos los errores, explicá por qué son problemáticos, y corregílos.
+El siguiente programa contiene varios errores relacionados con la gestión de
+memoria. Identificá todos los errores, explicá por qué son problemáticos, y
+corregílos.
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -692,27 +757,37 @@ int main()
 
     return 0;
 }
-````
 
-````
+```
+<!-- {code-block} c -->
 
-```{solution} ej-memoria-errores
+:::
+<!-- {exercise} Ejercicio 1c.6 - Detección de Errores de Memoria -->
+
+:::{solution} ej-memoria-errores
 :class: dropdown
 
 **Errores identificados:**
 
 1. **En `crear_arreglo`:** No se verifica si `malloc` retornó `NULL`.
-2. **En `crear_arreglo`:** Acceso fuera de límites en el lazo (`i <= tamano` debería ser `i < tamano`).
-3. **En `crear_arreglo`:** Falta usar `sizeof(*arr)` en lugar de `sizeof(int)` para mayor robustez.
-4. **En `crear_arreglo`:** Se debería usar `size_t` para `tamano` en lugar de `int`.
-5. **En `procesar_arreglo`:** Se libera la memoria al principio y luego se intenta acceder a ella (uso después de `free`).
-6. **En `main`:** Se accede a `numeros` después de que fue liberado en `procesar_arreglo` (puntero colgante).
-7. **En `main`:** Doble liberación: se llama a `free(numeros)` dos veces (una en `procesar_arreglo` y otra en `main`).
+2. **En `crear_arreglo`:** Acceso fuera de límites en el lazo (`i <= tamano`
+   debería ser `i < tamano`).
+3. **En `crear_arreglo`:** Falta usar `sizeof(*arr)` en lugar de `sizeof(int)`
+   para mayor robustez.
+4. **En `crear_arreglo`:** Se debería usar `size_t` para `tamano` en lugar de
+   `int`.
+5. **En `procesar_arreglo`:** Se libera la memoria al principio y luego se
+   intenta acceder a ella (uso después de `free`).
+6. **En `main`:** Se accede a `numeros` después de que fue liberado en
+   `procesar_arreglo` (puntero colgante).
+7. **En `main`:** Doble liberación: se llama a `free(numeros)` dos veces (una en
+   `procesar_arreglo` y otra en `main`).
 8. **En `main`:** No se establece `numeros = NULL` después de liberar.
 
 **Código corregido:**
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -783,7 +858,9 @@ int main()
 
     return 0;
 }
-````
+
+```
+<!-- {code-block} c -->
 
 **Cambios realizados:**
 
@@ -791,21 +868,26 @@ int main()
 - Se corrigió el lazo para evitar acceso fuera de límites.
 - Se cambió `int` por `size_t` para tamaños.
 - Se usó `sizeof(*arr)` en lugar de `sizeof(int)`.
-- Se removió el `free` de `procesar_arreglo` (violaba el principio de responsabilidad única).
-- Se marcó el parámetro de `procesar_arreglo` como `const` para indicar que no modifica el arreglo.
+- Se removió el `free` de `procesar_arreglo` (violaba el principio de
+  responsabilidad única).
+- Se marcó el parámetro de `procesar_arreglo` como `const` para indicar que no
+  modifica el arreglo.
 - Se agregó `numeros = NULL` después de liberar.
 - Se agregó verificación de que `numeros` no es `NULL` antes de usarlo.
 
-```
+:::
+<!-- {solution} ej-memoria-errores -->
 
 ```
 
-````{exercise} Ejercicio 1c.7 - Matriz Contígua con Puntero a Array
+::::{exercise} Ejercicio 1c.7 - Matriz Contígua con Puntero a Array
 :label: ej-memoria-puntero-array
 
-Implementá funciones para crear y manipular una matriz dinámica contigua usando un puntero plano (`int *`):
+Implementá funciones para crear y manipular una matriz dinámica contigua usando
+un puntero plano (`int *`):
 
-```c
+````{code-block} c
+:linenos:
 // Crear matriz de N filas y M columnas (contígua en memoria)
 int *crear_matriz_contigua(size_t filas, size_t columnas);
 
@@ -817,14 +899,18 @@ void imprimir_matriz_contigua(const int *matriz, size_t filas, size_t columnas);
 
 // Transponer la matriz in-place (solo para matrices cuadradas)
 void transponer_cuadrada(int *matriz, size_t n);
-```
+
+````
+<!-- {code-block} c -->
 
 Requisitos:
 
 - Toda la memoria debe asignarse en un solo bloque contiguo en el heap.
 - Debe liberarse con una sola llamada a `free`.
-- El acceso a los elementos en la fila `i` y columna `j` debe realizarse mediante cálculo manual de índices: `i * columnas + j`.
-- La función `transponer_cuadrada` debe intercambiar el elemento en `(i, j)` con el de `(j, i)`.
+- El acceso a los elementos en la fila `i` y columna `j` debe realizarse
+  mediante cálculo manual de índices: `i * columnas + j`.
+- La función `transponer_cuadrada` debe intercambiar el elemento en `(i, j)` con
+  el de `(j, i)`.
 
 Escribí un programa principal que:
 
@@ -835,12 +921,14 @@ Escribí un programa principal que:
 5. La imprima nuevamente.
 6. Libere correctamente la memoria.
 
-````
+::::
+<!-- {exercise} Ejercicio 1c.7 - Matriz Contígua con Puntero a Array -->
 
-````{solution} ej-memoria-puntero-array
+::::{solution} ej-memoria-puntero-array
 :class: dropdown
 
-```c
+````{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -980,14 +1068,19 @@ int main()
 
     free(datos);  // Otra llamada a función
 }
-```
 
-En un benchmark real, la versión stack podría ser 2-5 veces más rápida, especialmente para arreglos pequeños que caben completamente en caché.
+````
+<!-- {code-block} c -->
 
-:::{note} Optimización 
+En un benchmark real, la versión stack podría ser 2-5 veces más rápida,
+especialmente para arreglos pequeños que caben completamente en caché.
+
+:::{note} Optimización
+
 Práctica Comprender el caché te permite optimizar código:
 
-```c
+````{code-block} c
+:linenos:
 // Malo: Recorrer matriz por columnas (pobre localidad)
 for (int j = 0; j < cols; j++)
     for (int i = 0; i < rows; i++)
@@ -997,32 +1090,53 @@ for (int j = 0; j < cols; j++)
 for (int i = 0; i < rows; i++)
     for (int j = 0; j < cols; j++)
         matriz[i][j] = 0;  // Acceso secuencial
-```
 
-La segunda versión puede ser 10-50 veces más rápida para matrices grandes, simplemente porque usa mejor el caché. 
+````
+<!-- {code-block} c -->
+
+La segunda versión puede ser 10-50 veces más rápida para matrices grandes,
+simplemente porque usa mejor el caché.
+
 :::
+<!-- {note} Optimización -->
 
 (memoria-fragmentacion)=
 ### Fragmentación de Memoria
 
-La fragmentación es un fenómeno que ocurre cuando el heap contiene bloques libres pequeños dispersos que no pueden satisfacer solicitudes de memoria más grandes, incluso si la suma total de memoria libre sería suficiente.
+La fragmentación es un fenómeno que ocurre cuando el heap contiene bloques
+libres pequeños dispersos que no pueden satisfacer solicitudes de memoria más
+grandes, incluso si la suma total de memoria libre sería suficiente.
 
-Imaginá que tenés un estante con espacios libres dispersos de diferentes tamaños. Aunque la suma total de espacio libre sea grande, si necesitás colocar un libro grande y solo tenés espacios pequeños separados, no podrás hacerlo. Lo mismo ocurre con la memoria.
+Imaginá que tenés un estante con espacios libres dispersos de diferentes
+tamaños. Aunque la suma total de espacio libre sea grande, si necesitás colocar
+un libro grande y solo tenés espacios pequeños separados, no podrás hacerlo. Lo
+mismo ocurre con la memoria.
 
-**Fragmentación Externa:** Espacios libres entre bloques asignados que son demasiado pequeños para ser útiles individualmente. Ocurre cuando asignás y liberás bloques de memoria de diferentes tamaños en un orden arbitrario, dejando "huecos" entre bloques ocupados.
+**Fragmentación Externa:** Espacios libres entre bloques asignados que son
+demasiado pequeños para ser útiles individualmente. Ocurre cuando asignás y
+liberás bloques de memoria de diferentes tamaños en un orden arbitrario, dejando
+"huecos" entre bloques ocupados.
 
 **Ejemplo conceptual:**
 
-```{figure} ../../apunte/bloque_4_dinamica_indireccion/1/fragmentacion_externa.svg
+:::{figure} ../../apunte/bloque_4_dinamica_indireccion/1/fragmentacion_externa.svg
 :name: fig-fragmentacion-externa
 :width: 100%
 
-Proceso de fragmentación externa: se asignan tres bloques (A, B, C), luego se libera B dejando un hueco. Ahora hay dos bloques libres separados, pero ninguno puede satisfacer una solicitud del tamaño de A+B.
-```
+Proceso de fragmentación externa: se asignan tres bloques (A, B, C), luego se
+libera B dejando un hueco. Ahora hay dos bloques libres separados, pero ninguno
+puede satisfacer una solicitud del tamaño de A+B.
 
-Ahora hay dos bloques libres, pero si necesitás un bloque del tamaño de A+B, no podés usar el espacio libre entre A y C.
+:::
+<!-- {figure} ../../apunte/bloque_4_dinamica_indireccion/1/fragmentacion_externa.svg -->
 
-**Fragmentación Interna:** Desperdicio de memoria dentro de un bloque asignado cuando se solicita menos de lo que el sistema asigna. Algunos sistemas asignan memoria en múltiplos de cierto tamaño (por ejemplo, bloques de 16 bytes), entonces si pedís 10 bytes, te dan 16 y los 6 extra se desperdician.
+Ahora hay dos bloques libres, pero si necesitás un bloque del tamaño de A+B, no
+podés usar el espacio libre entre A y C.
+
+**Fragmentación Interna:** Desperdicio de memoria dentro de un bloque asignado
+cuando se solicita menos de lo que el sistema asigna. Algunos sistemas asignan
+memoria en múltiplos de cierto tamaño (por ejemplo, bloques de 16 bytes),
+entonces si pedís 10 bytes, te dan 16 y los 6 extra se desperdician.
 
 **Cómo minimizar la fragmentación:**
 
@@ -1033,39 +1147,54 @@ Ahora hay dos bloques libres, pero si necesitás un bloque del tamaño de A+B, n
 (memoria-alineacion)=
 ### Alineación de Memoria
 
-La alineación de memoria es un concepto fundamental que afecta tanto el rendimiento como la corrección de los programas. Comprender por qué existe y cómo funciona te permite escribir código más eficiente.
+La alineación de memoria es un concepto fundamental que afecta tanto el
+rendimiento como la corrección de los programas. Comprender por qué existe y
+cómo funciona te permite escribir código más eficiente.
 
 **¿Qué es la alineación?**
 
-Un dato está **alineado** cuando su dirección de memoria es un múltiplo de su tamaño. Por ejemplo:
+Un dato está **alineado** cuando su dirección de memoria es un múltiplo de su
+tamaño. Por ejemplo:
 
 - Un `char` (1 byte) puede estar en cualquier dirección.
 - Un `short` (2 bytes) debería estar en direcciones múltiplo de 2.
 - Un `int` (4 bytes) debería estar en direcciones múltiplo de 4.
 - Un `double` (8 bytes) debería estar en direcciones múltiplo de 8.
 
-```{figure} ../../apunte/bloque_4_dinamica_indireccion/1/memory_alignment.svg
+:::{figure} ../../apunte/bloque_4_dinamica_indireccion/1/memory_alignment.svg
 :name: fig-memory-alignment
 :width: 100%
 
-Comparación entre memoria bien alineada (donde cada int comienza en un múltiplo de 4) y mal alineada (causando penalización de rendimiento). El acceso alineado requiere una sola lectura del CPU, mientras que el desalineado requiere múltiples lecturas y manipulación de bits.
-```
+Comparación entre memoria bien alineada (donde cada int comienza en un múltiplo
+de 4) y mal alineada (causando penalización de rendimiento). El acceso alineado
+requiere una sola lectura del CPU, mientras que el desalineado requiere
+múltiples lecturas y manipulación de bits.
+
+:::
+<!-- {figure} ../../apunte/bloque_4_dinamica_indireccion/1/memory_alignment.svg -->
 
 **¿Por qué importa la alineación?**
 
-Los procesadores modernos leen memoria en bloques (palabras) de tamaño fijo, típicamente 4 u 8 bytes a la vez. Si un dato no está alineado:
+Los procesadores modernos leen memoria en bloques (palabras) de tamaño fijo,
+típicamente 4 u 8 bytes a la vez. Si un dato no está alineado:
 
-1. **Penalización de rendimiento:** El CPU debe hacer múltiples lecturas y combinarlas con operaciones de bits. Una lectura alineada toma 1 operación, mientras que una desalineada puede tomar 2 operaciones más manipulación adicional (2-3x más lento).
+1. **Penalización de rendimiento:** El CPU debe hacer múltiples lecturas y
+   combinarlas con operaciones de bits. Una lectura alineada toma 1 operación,
+   mientras que una desalineada puede tomar 2 operaciones más manipulación
+   adicional (2-3x más lento).
 
-2. **En algunas arquitecturas, causa errores:** ARM en modo estricto y algunos procesadores RISC generan excepciones de alineación.
+2. **En algunas arquitecturas, causa errores:** ARM en modo estricto y algunos
+   procesadores RISC generan excepciones de alineación.
 
-3. **Operaciones atómicas:** Muchas instrucciones atómicas (necesarias para multithreading) requieren alineación natural.
+3. **Operaciones atómicas:** Muchas instrucciones atómicas (necesarias para
+   multithreading) requieren alineación natural.
 
 **Alineación en estructuras:**
 
 El compilador inserta "padding" (bytes de relleno) para mantener la alineación:
 
-```c
+````{code-block} c
+:linenos:
 struct ejemplo {
     char a;      // 1 byte
     // 3 bytes de padding insertados automáticamente
@@ -1075,22 +1204,29 @@ struct ejemplo {
 };
 
 // sizeof(struct ejemplo) = 12, no 6
-```
+
+````
+<!-- {code-block} c -->
 
 **Visualización:**
 
-```{figure} ../../apunte/bloque_4_dinamica_indireccion/1/struct_padding.svg
+:::{figure} ../../apunte/bloque_4_dinamica_indireccion/1/struct_padding.svg
 :name: fig-struct-padding
 :width: 100%
 
-Comparación entre una estructura sin padding (incorrecta con desalineación) y con padding (correcta con alineación apropiada). El compilador inserta bytes de relleno para mantener la alineación de los campos.
-```
+Comparación entre una estructura sin padding (incorrecta con desalineación) y
+con padding (correcta con alineación apropiada). El compilador inserta bytes de
+relleno para mantener la alineación de los campos.
+
+:::
+<!-- {figure} ../../apunte/bloque_4_dinamica_indireccion/1/struct_padding.svg -->
 
 **Optimizar estructuras:**
 
 Podés minimizar el padding ordenando los campos de mayor a menor:
 
-```c
+````{code-block} c
+:linenos:
 // Desperdicia espacio (16 bytes):
 struct ineficiente {
     char a;      // 1 byte
@@ -1105,11 +1241,14 @@ struct eficiente {
     char c;      // 1 byte
     // 2 bytes padding al final (menos que antes)
 };
-```
+
+````
+<!-- {code-block} c -->
 
 **Verificar alineación:**
 
-```c
+````{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stddef.h>
 
@@ -1128,13 +1267,19 @@ int main()
 
     return 0;
 }
-```
+
+````
+<!-- {code-block} c -->
 
 **malloc y alineación:**
 
-Las funciones de asignación de memoria (`malloc` y `calloc`) garantizan que la memoria devuelta está adecuadamente alineada para cualquier tipo de dato estándar. Típicamente retornan direcciones alineadas a 8 o 16 bytes, lo cual satisface los requisitos de todos los tipos básicos.
+Las funciones de asignación de memoria (`malloc` y `calloc`) garantizan que la
+memoria devuelta está adecuadamente alineada para cualquier tipo de dato
+estándar. Típicamente retornan direcciones alineadas a 8 o 16 bytes, lo cual
+satisface los requisitos de todos los tipos básicos.
 
-```c
+````{code-block} c
+:linenos:
 int *p = malloc(sizeof(int));
 // p está garantizado como alineado para 'int'
 
@@ -1144,53 +1289,73 @@ struct grande {
 };
 struct grande *s = malloc(sizeof(*s));
 // s está garantizado como alineado para todos los campos
-```
+
+````
+<!-- {code-block} c -->
 
 :::{note} Packed Structures
-Podés forzar al compilador a no insertar padding usando atributos específicos del compilador:
 
-```c
+Podés forzar al compilador a no insertar padding usando atributos específicos
+del compilador:
+
+````{code-block} c
+:linenos:
 struct __attribute__((packed)) sin_padding {
     char a;
     int b;      // Puede estar desalineado
     char c;
 };
 // sizeof = 6, pero acceso más lento a 'b'
-```
 
-Esto es útil para formatos de archivos binarios o protocolos de red, pero reduce el rendimiento. Usalo solo cuando la compatibilidad binaria es más importante que la velocidad.
+````
+<!-- {code-block} c -->
+
+Esto es útil para formatos de archivos binarios o protocolos de red, pero reduce
+el rendimiento. Usalo solo cuando la compatibilidad binaria es más importante
+que la velocidad.
+
 :::
+<!-- {note} Packed Structures -->
 
 (memoria-valgrind)=
 
 ### Herramientas de Depuración: Valgrind
 
-Valgrind es una herramienta fundamental para detectar errores de memoria en programas C y C++. Funciona ejecutando tu programa en un entorno virtualizado donde puede monitorear cada acceso a memoria y operación de asignación/liberación.
+Valgrind es una herramienta fundamental para detectar errores de memoria en
+programas C y C++. Funciona ejecutando tu programa en un entorno virtualizado
+donde puede monitorear cada acceso a memoria y operación de
+asignación/liberación.
 
 **Tipos de errores que detecta:**
 
-- **Fugas de memoria (memory leaks):** Bloques de memoria asignados que nunca fueron liberados.
-- **Accesos a memoria no inicializada:** Leer valores de memoria que nunca fueron escritos.
-- **Accesos fuera de límites:** Leer o escribir más allá de los límites de un bloque asignado.
+- **Fugas de memoria (memory leaks):** Bloques de memoria asignados que nunca
+  fueron liberados.
+- **Accesos a memoria no inicializada:** Leer valores de memoria que nunca
+  fueron escritos.
+- **Accesos fuera de límites:** Leer o escribir más allá de los límites de un
+  bloque asignado.
 - **Dobles liberaciones:** Intentar liberar el mismo bloque dos veces.
 - **Uso de memoria después de `free`:** Acceder a memoria que ya fue liberada.
-- **Desajustes entre asignación y liberación:** Por ejemplo, asignar con `malloc` y liberar con `delete` (en C++).
+- **Desajustes entre asignación y liberación:** Por ejemplo, asignar con
+  `malloc` y liberar con `delete` (en C++).
 
 **Uso básico:**
 
-```bash
+```` bash
 # Compilar con símbolos de depuración
 gcc -g -o programa programa.c
 
 # Ejecutar con Valgrind
 valgrind --leak-check=full --show-leak-kinds=all ./programa
-```
+````
+<!-- bash -->
 
 **Opciones útiles:**
 
 - `--leak-check=full`: Muestra detalles completos de las fugas de memoria.
 - `--show-leak-kinds=all`: Muestra todos los tipos de fugas.
-- `--track-origins=yes`: Rastrea el origen de valores no inicializados (más lento pero útil).
+- `--track-origins=yes`: Rastrea el origen de valores no inicializados (más
+  lento pero útil).
 - `--verbose`: Muestra información adicional de depuración.
 
 **Interpretando la salida:**
@@ -1204,17 +1369,25 @@ Cuando Valgrind detecta un error, muestra:
 
 **Ejemplo de salida:**
 
-```
+````
 ==12345== Invalid write of size 4
 ==12345==    at 0x108A: main (programa.c:15)
 ==12345==  Address 0x522d068 is 0 bytes after a block of size 40 alloc'd
-```
+````
 
-Esto indica que se intentó escribir 4 bytes fuera de un bloque de 40 bytes asignado, en la línea 15 del archivo `programa.c`.
+Esto indica que se intentó escribir 4 bytes fuera de un bloque de 40 bytes
+asignado, en la línea 15 del archivo `programa.c`.
 
 :::{important} Desarrollo Profesional
-En un entorno profesional, es inaceptable entregar código con errores de memoria. El uso de herramientas como Valgrind durante el desarrollo no es opcional, es una práctica estándar de la industria. Acostumbrate a ejecutar Valgrind regularmente durante el desarrollo, no solo cuando sospechás que hay un problema. 
+
+En un entorno profesional, es inaceptable entregar código con errores de
+memoria. El uso de herramientas como Valgrind durante el desarrollo no es
+opcional, es una práctica estándar de la industria. Acostumbrate a ejecutar
+Valgrind regularmente durante el desarrollo, no solo cuando sospechás que hay un
+problema.
+
 :::
+<!-- {important} Desarrollo Profesional -->
 
 
 
@@ -1222,7 +1395,8 @@ La segunda versión puede ser 10-100 veces más rápida.
 
 **2. La localidad de acceso importa enormemente:**
 
-```c
+````{code-block} c
+:linenos:
 // Malo: Acceso aleatorio (muchos cache misses)
 for (int i = 0; i < n; i++)
 {
@@ -1235,11 +1409,14 @@ for (int i = 0; i < n; i++)
 {
     data[i] = process(data[i]);  // Predecible, alta localidad
 }
-```
+
+````
+<!-- {code-block} c -->
 
 **3. El tamaño de la estructura de datos importa:**
 
-```c
+````{code-block} c
+:linenos:
 // Si tu estructura cabe en caché L1 (32 KB):
 struct pequena datos[1000];  // 4 KB total, cabe en L1
 // Acceso muy rápido, todo en caché
@@ -1247,11 +1424,14 @@ struct pequena datos[1000];  // 4 KB total, cabe en L1
 // Si excede la caché L3 (8 MB):
 struct grande datos[1000000];  // 100 MB, no cabe
 // Muchos accesos a RAM, más lento
-```
+
+````
+<!-- {code-block} c -->
 
 **4. El costo de la indirección:**
 
-```c
+````{code-block} c
+:linenos:
 // Un nivel de indirección:
 int *ptr = malloc(sizeof(int));
 *ptr = 42;  // Lee ptr, luego lee *ptr (2 accesos potenciales a RAM)
@@ -1263,13 +1443,16 @@ int **ptr2 = malloc(sizeof(int *));
 
 // Directo (sin indirección):
 int valor = 42;  // Puede estar en registro, cero accesos a memoria
-```
+
+````
+<!-- {code-block} c -->
 
 **Ejemplo cuantitativo:**
 
 Considerá procesar un millón de elementos:
 
-```c
+````{code-block} c
+:linenos:
 // Opción A: Arreglo continuo (stack o heap)
 int arreglo[1000000];
 for (int i = 0; i < 1000000; i++)
@@ -1293,21 +1476,34 @@ while (actual != NULL)
 // Costo: ~1 millón de escrituras + 1 millón de lecturas de punteros
 // Cache: Malo (los nodos están dispersos)
 // Tiempo: ~5-20 ms (3-10x más lento)
-```
+
+````
+<!-- {code-block} c -->
 
 **Estrategias de optimización basadas en el modelo de costos:**
 
-1. **Minimizá asignaciones dinámicas:** Usá stack cuando sea posible, o pooling de memoria.
+1. **Minimizá asignaciones dinámicas:** Usá stack cuando sea posible, o pooling
+   de memoria.
 
 2. **Maximizá localidad:** Mantené datos relacionados físicamente juntos.
 
-3. **Reducí indirección:** Preferí arreglos sobre listas enlazadas cuando el acceso aleatorio es importante.
+3. **Reducí indirección:** Preferí arreglos sobre listas enlazadas cuando el
+   acceso aleatorio es importante.
 
-4. **Batch operations:** Procesá múltiples elementos antes de saltar a otra región de memoria.
+4. **Batch operations:** Procesá múltiples elementos antes de saltar a otra
+   región de memoria.
 
-5. **Considerá el cache line size:** Operá en bloques de ~64 bytes cuando sea posible.
+5. **Considerá el cache line size:** Operá en bloques de ~64 bytes cuando sea
+   posible.
 
 :::{important} Profiling sobre Intuición
-Aunque este modelo proporciona intuición valiosa, siempre **medí** antes de optimizar. Usa herramientas de profiling como `perf`, `gprof`, o `Valgrind --tool=cachegrind` para identificar cuellos de botella reales. La optimización prematura basada en intuición puede hacer el código más complejo sin beneficios reales. 
+
+Aunque este modelo proporciona intuición valiosa, siempre **medí** antes de
+optimizar. Usa herramientas de profiling como `perf`, `gprof`, o `Valgrind
+--tool=cachegrind` para identificar cuellos de botella reales. La optimización
+prematura basada en intuición puede hacer el código más complejo sin beneficios
+reales.
+
 :::
+<!-- {important} Profiling sobre Intuición -->
 

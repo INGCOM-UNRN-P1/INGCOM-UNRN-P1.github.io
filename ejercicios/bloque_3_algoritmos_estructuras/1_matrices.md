@@ -7,9 +7,11 @@ short_title: "7. Matrices"
 
 ## Acerca de
 
-Ejercicios para trabajar con arreglos bidimensionales (matrices), tanto estáticas como dinámicas.
+Ejercicios para trabajar con arreglos bidimensionales (matrices), tanto
+estáticas como dinámicas.
 
-Para profundizar en los conceptos teóricos, podés consultar el siguiente capítulo del apunte:
+Para profundizar en los conceptos teóricos, podés consultar el siguiente
+capítulo del apunte:
 - [Matrices](../../apunte/bloque_4_dinamica_indireccion/3_matrices.md)
 
 ## Operaciones Básicas
@@ -17,38 +19,55 @@ Para profundizar en los conceptos teóricos, podés consultar el siguiente capí
 ### Ejercicio 3.1 - Mostrar matriz
 
 #### Descripción
-Escribir una función que reciba una matriz (un arreglo 2D), sus dimensiones (filas y columnas), y la imprima en la consola de una forma clara y ordenada, fila por fila.
+Escribir una función que reciba una matriz (un arreglo 2D), sus dimensiones
+(filas y columnas), y la imprima en la consola de una forma clara y ordenada,
+fila por fila.
 
 ::::{tab-set}
+
 :::{tab-item} Entrada
 :sync: tab1
-```text
+``` text
 Una matriz 2x3: 
 [[1, 2, 3], [4, 5, 6]]
 ```
+<!-- text -->
+
 :::
+<!-- {tab-item} Entrada -->
 :::{tab-item} Salida
 :sync: tab2
-```text
+``` text
 Matriz (2x3):
 [ 1, 2, 3 ]
 [ 4, 5, 6 ]
 ```
+<!-- text -->
+
 :::
+<!-- {tab-item} Salida -->
+
 ::::
+<!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
+
 -   **Proceso:** Se necesitan dos lazos `for` anidados para recorrer la matriz.
 -   El lazo exterior itera sobre las filas (desde `0` hasta `filas-1`).
--   El lazo interior itera sobre las columnas de la fila actual (desde `0` hasta `columnas-1`).
+-   El lazo interior itera sobre las columnas de la fila actual (desde `0` hasta
+    `columnas-1`).
 -   Dentro del lazo interior, se imprime cada elemento `matriz[fila][columna]`.
--   Después de que el lazo interior termina (al final de cada fila), se debe imprimir un carácter de nueva línea (`\n`) para pasar a la siguiente fila.
+-   Después de que el lazo interior termina (al final de cada fila), se debe
+    imprimir un carácter de nueva línea (`\n`) para pasar a la siguiente fila.
+
 :::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{hint} Diagrama
 :class: dropdown
 
-```{mermaid}
+:::{mermaid}
+
 flowchart TD
     A["Inicio"] --> B["fila = 0"]
     B --> C{"fila < num_filas?"}
@@ -62,13 +81,18 @@ flowchart TD
     I --> J["fila = fila + 1"]
     J --> C
     C -- No --> K["Fin"]
-```
+
 :::
+<!-- {mermaid} -->
+
+:::
+<!-- {hint} Diagrama -->
 
 :::{hint} Ayuda (Pseudocódigo)
 :class: dropdown
 
 ```{code-block} pseudocode
+:linenos:
 PROCEDIMIENTO mostrar_matriz(matriz, filas, columnas)
 INICIO
     PARA f DESDE 0 HASTA filas-1 HACER
@@ -82,40 +106,62 @@ INICIO
         ESCRIBIR " ]" CON SALTO DE LÍNEA
     FIN PARA
 FIN PROCEDIMIENTO
+
 ```
+<!-- {code-block} pseudocode -->
+
 :::
+<!-- {hint} Ayuda (Pseudocódigo) -->
 
 ### Ejercicio 3.2 - Multiplicación por un escalar
 
 #### Descripción
-Implementar una función que multiplique cada elemento de una matriz por un número escalar dado. La operación modifica la matriz original (_in-place_).
+Implementar una función que multiplique cada elemento de una matriz por un
+número escalar dado. La operación modifica la matriz original (_in-place_).
 
 ::::{tab-set}
+
 :::{tab-item} Entrada
 :sync: tab1
-```text
+``` text
 Matriz: [[1, 2], [3, 4]]
 Escalar: 5
 ```
+<!-- text -->
+
 :::
+<!-- {tab-item} Entrada -->
 :::{tab-item} Salida
 :sync: tab2
-```text
+``` text
 Matriz modificada: [[5, 10], [15, 20]]
 ```
+<!-- text -->
+
 :::
+<!-- {tab-item} Salida -->
+
 ::::
+<!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
--   **Fórmula:** Para cada elemento $a_{ij}$ de la matriz $A$, el nuevo elemento es $b_{ij} = k \cdot a_{ij}$.
--   **Proceso:** Se utilizan dos lazos anidados para recorrer cada elemento de la matriz.
--   En el cuerpo del lazo interior, se multiplica el elemento `matriz[fila][columna]` por el escalar y se guarda el resultado en la misma posición.
+
+-   **Fórmula:** Para cada elemento $a_{ij}$ de la matriz $A$, el nuevo elemento
+    es $b_{ij} = k \cdot a_{ij}$.
+-   **Proceso:** Se utilizan dos lazos anidados para recorrer cada elemento de
+    la matriz.
+-   En el cuerpo del lazo interior, se multiplica el elemento
+    `matriz[fila][columna]` por el escalar y se guarda el resultado en la misma
+    posición.
+
 :::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{hint} Ayuda (Pseudocódigo)
 :class: dropdown
 
 ```{code-block} pseudocode
+:linenos:
 PROCEDIMIENTO multiplicar_por_escalar(REF matriz, filas, columnas, escalar)
 INICIO
     PARA f DESDE 0 HASTA filas-1 HACER
@@ -124,42 +170,64 @@ INICIO
         FIN PARA
     FIN PARA
 FIN PROCEDIMIENTO
+
 ```
+<!-- {code-block} pseudocode -->
+
 :::
+<!-- {hint} Ayuda (Pseudocódigo) -->
 
 ## Aritmética Matricial
 
 ### Ejercicio 3.3 - Suma de matrices
 
 #### Descripción
-Implementar una función que sume dos matrices, `A` y `B`, y almacene el resultado en una tercera matriz, `C`. La suma de matrices solo es posible si ambas tienen las mismas dimensiones.
+Implementar una función que sume dos matrices, `A` y `B`, y almacene el
+resultado en una tercera matriz, `C`. La suma de matrices solo es posible si
+ambas tienen las mismas dimensiones.
 
 ::::{tab-set}
+
 :::{tab-item} Entrada
 :sync: tab1
-```text
+``` text
 Matriz A: [[1, 2], [3, 4]]
 Matriz B: [[5, 6], [7, 8]]
 ```
+<!-- text -->
+
 :::
+<!-- {tab-item} Entrada -->
 :::{tab-item} Salida
 :sync: tab2
-```text
+``` text
 Matriz C: [[6, 8], [10, 12]]
 ```
+<!-- text -->
+
 :::
+<!-- {tab-item} Salida -->
+
 ::::
+<!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
--   **Fórmula:** La suma se realiza elemento a elemento: $c_{ij} = a_{ij} + b_{ij}$.
--   **Precondición:** Las dimensiones de la Matriz A y la Matriz B deben ser idénticas.
--   **Proceso:** Recorrer las matrices con lazos anidados. En cada posición `(f, c)`, calcular `C[f][c] = A[f][c] + B[f][c]`.
+
+-   **Fórmula:** La suma se realiza elemento a elemento: $c_{ij} = a_{ij} +
+    b_{ij}$.
+-   **Precondición:** Las dimensiones de la Matriz A y la Matriz B deben ser
+    idénticas.
+-   **Proceso:** Recorrer las matrices con lazos anidados. En cada posición `(f,
+    c)`, calcular `C[f][c] = A[f][c] + B[f][c]`.
+
 :::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{hint} Ayuda (Pseudocódigo)
 :class: dropdown
 
 ```{code-block} pseudocode
+:linenos:
 PROCEDIMIENTO sumar_matrices(A, B, REF C, filas, columnas)
 INICIO
     PARA f DESDE 0 HASTA filas-1 HACER
@@ -168,43 +236,64 @@ INICIO
         FIN PARA
     FIN PARA
 FIN PROCEDIMIENTO
+
 ```
+<!-- {code-block} pseudocode -->
+
 :::
+<!-- {hint} Ayuda (Pseudocódigo) -->
 
 ### Ejercicio 3.4 - Multiplicación de matrices
 
 #### Descripción
-Implementar la multiplicación de dos matrices, `A` (de $m \times n$) y `B` (de $n \times p$), cuyo resultado es una nueva matriz `C` (de $m \times p$).
+Implementar la multiplicación de dos matrices, `A` (de $m \times n$) y `B` (de
+$n \times p$), cuyo resultado es una nueva matriz `C` (de $m \times p$).
 
 ::::{tab-set}
+
 :::{tab-item} Entrada
 :sync: tab1
-```text
+``` text
 Matriz A (2x3): [[1, 2, 3], [4, 5, 6]]
 Matriz B (3x2): [[7, 8], [9, 10], [11, 12]]
 ```
+<!-- text -->
+
 :::
+<!-- {tab-item} Entrada -->
 :::{tab-item} Salida
 :sync: tab2
-```text
+``` text
 Matriz C (2x2): [[58, 64], [139, 154]]
 ```
+<!-- text -->
+
 :::
+<!-- {tab-item} Salida -->
+
 ::::
+<!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
--   **Precondición:** El número de columnas de la matriz `A` debe ser igual al número de filas de la matriz `B`.
--   **Fórmula:** Cada elemento $c_{ij}$ de la matriz resultado se calcula como el producto punto de la fila `i` de `A` y la columna `j` de `B`: $c_{ij} = \sum_{k=0}^{n-1} a_{ik} \cdot b_{kj}$.
+
+-   **Precondición:** El número de columnas de la matriz `A` debe ser igual al
+    número de filas de la matriz `B`.
+-   **Fórmula:** Cada elemento $c_{ij}$ de la matriz resultado se calcula como
+    el producto punto de la fila `i` de `A` y la columna `j` de `B`: $c_{ij} =
+    \sum_{k=0}^{n-1} a_{ik} \cdot b_{kj}$.
 -   **Proceso:** Se necesitan tres lazos anidados:
     1.  Lazo para las filas de `C` (y `A`), de `i=0` a `m-1`.
     2.  Lazo para las columnas de `C` (y `B`), de `j=0` a `p-1`.
     3.  Lazo para la suma del producto punto, de `k=0` a `n-1`.
+
 :::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{hint} Diagrama
 :class: dropdown
 
-```{mermaid}
+:::{mermaid}
+
 flowchart TD
     A["Inicio"] --> B["i = 0..m-1"]
     B --> C["j = 0..p-1"]
@@ -216,13 +305,18 @@ flowchart TD
     G --> C
     C -- "Fin del lazo j" --> B
     B -- "Fin del lazo i" --> H["Fin"]
-```
+
 :::
+<!-- {mermaid} -->
+
+:::
+<!-- {hint} Diagrama -->
 
 :::{hint} Ayuda (Pseudocódigo)
 :class: dropdown
 
 ```{code-block} pseudocode
+:linenos:
 PROCEDIMIENTO multiplicar_matrices(A, m, n, B, p, REF C)
 INICIO
     // Asumiendo que n == p
@@ -236,44 +330,65 @@ INICIO
         FIN PARA
     FIN PARA
 FIN PROCEDIMIENTO
+
 ```
+<!-- {code-block} pseudocode -->
+
 :::
+<!-- {hint} Ayuda (Pseudocódigo) -->
 
 ## Manipulación
 
 ### Ejercicio 3.5 - Transposición
 
 #### Descripción
-Calcular la transpuesta $A^T$ de una matriz $A$. La transposición se obtiene intercambiando las filas por las columnas.
+Calcular la transpuesta $A^T$ de una matriz $A$. La transposición se obtiene
+intercambiando las filas por las columnas.
 
 ::::{tab-set}
+
 :::{tab-item} Entrada
 :sync: tab1
-```text
+``` text
 Matriz A (2x3): `[[1, 2, 3], [4, 5, 6]]`
 ```
+<!-- text -->
+
 :::
+<!-- {tab-item} Entrada -->
 :::{tab-item} Salida
 :sync: tab2
 Matriz $A^T$ (3x2):
-```text
+``` text
 [ 1, 4 ]
 [ 2, 5 ]
 [ 3, 6 ]
 ```
+<!-- text -->
+
 :::
+<!-- {tab-item} Salida -->
+
 ::::
+<!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
+
 -   **Fórmula:** $(A^T)_{ij} = A_{ji}$.
--   **Dimensiones:** Si la matriz original es $m \times n$, su transpuesta será $n \times m$.
--   **Proceso:** Recorrer la matriz original `A` con lazos anidados. En cada posición `(i, j)`, copiar el elemento `A[i][j]` a la posición `(j, i)` de la nueva matriz transpuesta.
+-   **Dimensiones:** Si la matriz original es $m \times n$, su transpuesta será
+    $n \times m$.
+-   **Proceso:** Recorrer la matriz original `A` con lazos anidados. En cada
+    posición `(i, j)`, copiar el elemento `A[i][j]` a la posición `(j, i)` de la
+    nueva matriz transpuesta.
+
 :::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{hint} Ayuda (Pseudocódigo)
 :class: dropdown
 
 ```{code-block} pseudocode
+:linenos:
 PROCEDIMIENTO transponer_matriz(A, filas, columnas, REF A_T)
 INICIO
     PARA i DESDE 0 HASTA filas-1 HACER
@@ -282,43 +397,65 @@ INICIO
         FIN PARA
     FIN PARA
 FIN PROCEDIMIENTO
+
 ```
+<!-- {code-block} pseudocode -->
+
 :::
+<!-- {hint} Ayuda (Pseudocódigo) -->
 
 ### Ejercicio 3.6 - Suma de diagonales
 
 #### Descripción
-Para una matriz cuadrada, calcular la suma de los elementos de sus dos diagonales: la principal y la secundaria.
+Para una matriz cuadrada, calcular la suma de los elementos de sus dos
+diagonales: la principal y la secundaria.
 
 ::::{tab-set}
+
 :::{tab-item} Entrada
 :sync: tab1
 Matriz (3x3):
-```text
+``` text
 [ 1, 2, 3 ]
 [ 4, 5, 6 ]
 [ 7, 8, 9 ]
 ```
+<!-- text -->
+
 :::
+<!-- {tab-item} Entrada -->
 :::{tab-item} Salida
 :sync: tab2
-```text
+``` text
 Suma Diagonal Principal: `1 + 5 + 9 = 15`
 Suma Diagonal Secundaria: `3 + 5 + 7 = 15`
 ```
+<!-- text -->
+
 :::
+<!-- {tab-item} Salida -->
+
 ::::
+<!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
--   **Diagonal Principal:** Los elementos de la diagonal principal son aquellos donde el índice de fila es igual al índice de columna (`i == j`).
--   **Diagonal Secundaria:** Los elementos de la diagonal secundaria en una matriz de tamaño `n x n` son aquellos donde `i + j == n - 1`.
--   **Proceso:** Usar un solo lazo de `i=0` a `n-1`. En cada iteración, sumar `matriz[i][i]` a la suma principal y `matriz[i][n-1-i]` a la suma secundaria.
+
+-   **Diagonal Principal:** Los elementos de la diagonal principal son aquellos
+    donde el índice de fila es igual al índice de columna (`i == j`).
+-   **Diagonal Secundaria:** Los elementos de la diagonal secundaria en una
+    matriz de tamaño `n x n` son aquellos donde `i + j == n - 1`.
+-   **Proceso:** Usar un solo lazo de `i=0` a `n-1`. En cada iteración, sumar
+    `matriz[i][i]` a la suma principal y `matriz[i][n-1-i]` a la suma
+    secundaria.
+
 :::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{hint} Ayuda (Pseudocódigo)
 :class: dropdown
 
 ```{code-block} pseudocode
+:linenos:
 PROCEDIMIENTO sumar_diagonales(matriz, n, REF suma_princ, REF suma_sec)
 INICIO
     suma_princ = 0
@@ -328,44 +465,63 @@ INICIO
         suma_sec = suma_sec + matriz[i][n-1-i]
     FIN PARA
 FIN PROCEDIMIENTO
+
 ```
+<!-- {code-block} pseudocode -->
+
 :::
+<!-- {hint} Ayuda (Pseudocódigo) -->
 
 ## Generación
 
 ### Ejercicio 3.7 - Matriz identidad
 
 #### Descripción
-Generar una matriz identidad de tamaño `n x n`. La matriz identidad es una matriz cuadrada con unos en la diagonal principal y ceros en todas las demás posiciones.
+Generar una matriz identidad de tamaño `n x n`. La matriz identidad es una
+matriz cuadrada con unos en la diagonal principal y ceros en todas las demás
+posiciones.
 
 ::::{tab-set}
+
 :::{tab-item} Entrada
 :sync: tab1
-```text
+``` text
 Tamaño n = 3
 ```
+<!-- text -->
+
 :::
+<!-- {tab-item} Entrada -->
 :::{tab-item} Salida
 :sync: tab2
-```text
+``` text
 [ 1, 0, 0 ]
 [ 0, 1, 0 ]
 [ 0, 0, 1 ]
 ```
+<!-- text -->
+
 :::
+<!-- {tab-item} Salida -->
+
 ::::
+<!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
+
 -   **Proceso:** Recorrer la matriz `n x n` con lazos anidados.
 -   **Condición:** Para cada elemento en la posición `(i, j)`:
     -   Si `i == j`, el valor es 1.
     -   Si `i != j`, el valor es 0.
+
 :::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{hint} Ayuda (Pseudocódigo)
 :class: dropdown
 
 ```{code-block} pseudocode
+:linenos:
 PROCEDIMIENTO generar_identidad(REF matriz, n)
 INICIO
     PARA i DESDE 0 HASTA n-1 HACER
@@ -378,48 +534,74 @@ INICIO
         FIN PARA
     FIN PARA
 FIN PROCEDIMIENTO
+
 ```
+<!-- {code-block} pseudocode -->
+
 :::
+<!-- {hint} Ayuda (Pseudocódigo) -->
 
 ## Ejercicios Adicionales de Matrices
 
 ### Ejercicio 3.8 - Matriz simétrica
 
 #### Descripción
-Escribir una función que verifique si una matriz cuadrada es simétrica. Una matriz es simétrica si es igual a su propia transpuesta, lo que significa que el elemento en la fila `i`, columna `j` es igual al elemento en la fila `j`, columna `i`.
+Escribir una función que verifique si una matriz cuadrada es simétrica. Una
+matriz es simétrica si es igual a su propia transpuesta, lo que significa que el
+elemento en la fila `i`, columna `j` es igual al elemento en la fila `j`,
+columna `i`.
 
 ::::{tab-set}
+
 :::{tab-item} Entrada
 :sync: tab1
 Matriz (3x3):
-```text
+``` text
 [ 1, 7, 3 ]
 [ 7, 4, 5 ]
 [ 3, 5, 6 ]
 ```
+<!-- text -->
+
 :::
+<!-- {tab-item} Entrada -->
 :::{tab-item} Salida
 :sync: tab2
-```text
+``` text
 La matriz es simétrica.
 ```
+<!-- text -->
+
 :::
+<!-- {tab-item} Salida -->
+
 ::::
+<!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
--   **Fórmula:** Una matriz `A` es simétrica si $A_{ij} = A_{ji}$ para todos los `i`, `j`.
+
+-   **Fórmula:** Una matriz `A` es simétrica si $A_{ij} = A_{ji}$ para todos los
+    `i`, `j`.
 -   **Proceso:**
-    1.  Recorrer solo la mitad superior (o inferior) de la matriz es suficiente. Por ejemplo, con lazos anidados donde el lazo interior para `j` comienza en `i+1`.
+    1.  Recorrer solo la mitad superior (o inferior) de la matriz es suficiente.
+        Por ejemplo, con lazos anidados donde el lazo interior para `j` comienza
+        en `i+1`.
     2.  En cada paso, comparar `matriz[i][j]` con `matriz[j][i]`.
-    3.  Si en algún momento no son iguales, la matriz no es simétrica y la función puede devolver `falso` inmediatamente.
--   **Salida:** Si los lazos se completan sin encontrar diferencias, la matriz es simétrica.
+    3.  Si en algún momento no son iguales, la matriz no es simétrica y la
+        función puede devolver `falso` inmediatamente.
+-   **Salida:** Si los lazos se completan sin encontrar diferencias, la matriz
+    es simétrica.
+
 :::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{hint} Diagrama
 :class: dropdown
-El diagrama muestra los pares de elementos que deben ser iguales. Solo es necesario verificar una mitad del triángulo (excluyendo la diagonal).
+El diagrama muestra los pares de elementos que deben ser iguales. Solo es
+necesario verificar una mitad del triángulo (excluyendo la diagonal).
 
-```{mermaid}
+:::{mermaid}
+
 flowchart TD
     subgraph Matriz
         A11["a11"]
@@ -435,13 +617,18 @@ flowchart TD
     A12 <-.-> A21
     A13 <-.-> A31
     A23 <-.-> A32
-```
+
 :::
+<!-- {mermaid} -->
+
+:::
+<!-- {hint} Diagrama -->
 
 :::{hint} Ayuda (Pseudocódigo)
 :class: dropdown
 
 ```{code-block} pseudocode
+:linenos:
 FUNCION es_simetrica(matriz, n)
 INICIO
     PARA i DESDE 0 HASTA n-1 HACER
@@ -453,47 +640,69 @@ INICIO
     FIN PARA
     RETORNAR VERDADERO
 FIN FUNCION
+
 ```
+<!-- {code-block} pseudocode -->
+
 :::
+<!-- {hint} Ayuda (Pseudocódigo) -->
 
 ### Ejercicio 3.9 - Suma por Filas y Columnas
 
 #### Descripción
-Crear un programa que, dada una matriz, calcule dos arreglos: uno que contenga la suma de los elementos de cada fila y otro que contenga la suma de los elementos de cada columna.
+Crear un programa que, dada una matriz, calcule dos arreglos: uno que contenga
+la suma de los elementos de cada fila y otro que contenga la suma de los
+elementos de cada columna.
 
 ::::{tab-set}
+
 :::{tab-item} Entrada
 :sync: tab1
 Matriz (2x3):
-```text
+``` text
 [ 1, 2, 3 ]
 [ 4, 5, 6 ]
 ```
+<!-- text -->
+
 :::
+<!-- {tab-item} Entrada -->
 :::{tab-item} Salida
 :sync: tab2
-```text
+``` text
 Suma de filas: [6, 15]
 Suma de columnas: [5, 7, 9]
 ```
+<!-- text -->
+
 :::
+<!-- {tab-item} Salida -->
+
 ::::
+<!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
+
 -   **Suma de Filas:**
     -   Recorrer cada fila con un lazo exterior.
     -   Para cada fila, inicializar una `suma_fila` en 0.
-    -   Con un lazo interior, recorrer las columnas de esa fila y acumular los valores en `suma_fila`.
+    -   Con un lazo interior, recorrer las columnas de esa fila y acumular los
+        valores en `suma_fila`.
     -   Guardar el resultado en el arreglo de sumas de filas.
 -   **Suma de Columnas:**
     -   El proceso es inverso. El lazo exterior recorre las columnas.
     -   El lazo interior recorre las filas de esa columna.
--   **Eficiencia:** Se pueden calcular ambas sumas en un solo par de lazos anidados. Al procesar el elemento `matriz[i][j]`, se añade a `suma_filas[i]` y a `suma_columnas[j]`.
+-   **Eficiencia:** Se pueden calcular ambas sumas en un solo par de lazos
+    anidados. Al procesar el elemento `matriz[i][j]`, se añade a `suma_filas[i]`
+    y a `suma_columnas[j]`.
+
 :::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{hint} Ayuda (Pseudocódigo Eficiente)
 :class: dropdown
 ```{code-block} pseudocode
+:linenos:
 PROCEDIMIENTO sumar_filas_y_columnas(matriz, filas, cols, REF sumas_filas, REF sumas_cols)
 INICIO
     // Inicializar arreglos de suma en 0
@@ -512,44 +721,67 @@ INICIO
         FIN PARA
     FIN PARA
 FIN PROCEDIMIENTO
+
 ```
+<!-- {code-block} pseudocode -->
+
 :::
+<!-- {hint} Ayuda (Pseudocódigo Eficiente) -->
 
 ### Ejercicio 3.10 - Elemento "Silla"
 
 #### Descripción
-Encontrar un "punto de silla" en una matriz. Un punto de silla es un elemento que es simultáneamente el valor mínimo en su fila y el valor máximo en su columna.
+Encontrar un "punto de silla" en una matriz. Un punto de silla es un elemento
+que es simultáneamente el valor mínimo en su fila y el valor máximo en su
+columna.
 
 ::::{tab-set}
+
 :::{tab-item} Entrada
 :sync: tab1
 Matriz (3x3):
-```text
+``` text
 [ 1, 2, 3 ]
 [ 4, 5, 6 ]
 [ 7, 8, 9 ]
 ```
+<!-- text -->
+
 :::
+<!-- {tab-item} Entrada -->
 :::{tab-item} Salida
 :sync: tab2
-```text
+``` text
 Punto de silla encontrado en (2, 0) con valor 7.
 ```
+<!-- text -->
+
 :::
+<!-- {tab-item} Salida -->
+
 ::::
+<!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
+
 -   **Proceso:**
     1.  Iterar a través de cada fila `i` de la matriz.
-    2.  En cada fila, encontrar el valor mínimo y su índice de columna `min_col_idx`.
-    3.  Una vez encontrado el candidato (el mínimo de la fila), verificar si este elemento es también el máximo de su columna (`min_col_idx`).
-    4.  Para ello, iterar a través de la columna `min_col_idx` y comparar el candidato con todos los demás elementos de esa columna.
-    5.  Si el candidato es el mayor de su columna, se ha encontrado un punto de silla.
+    2.  En cada fila, encontrar el valor mínimo y su índice de columna
+        `min_col_idx`.
+    3.  Una vez encontrado el candidato (el mínimo de la fila), verificar si
+        este elemento es también el máximo de su columna (`min_col_idx`).
+    4.  Para ello, iterar a través de la columna `min_col_idx` y comparar el
+        candidato con todos los demás elementos de esa columna.
+    5.  Si el candidato es el mayor de su columna, se ha encontrado un punto de
+        silla.
+
 :::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{hint} Ayuda (Pseudocódigo)
 :class: dropdown
 ```{code-block} pseudocode
+:linenos:
 PROCEDIMIENTO encontrar_punto_silla(matriz, filas, cols)
 INICIO
     PARA i DESDE 0 HASTA filas-1 HACER
@@ -579,41 +811,61 @@ INICIO
     FIN PARA
     ESCRIBIR "No se encontraron puntos de silla."
 FIN PROCEDIMIENTO
+
 ```
+<!-- {code-block} pseudocode -->
+
 :::
+<!-- {hint} Ayuda (Pseudocódigo) -->
 
 ## Ejercicios de Matrices Dinámicas
 
 ### Ejercicio 3.11 - Crear y llenar matriz dinámica
 
 #### Descripción
-Escribir una función que solicite al usuario las dimensiones (filas y columnas) y luego los elementos de una matriz, para finalmente imprimirla.
+Escribir una función que solicite al usuario las dimensiones (filas y columnas)
+y luego los elementos de una matriz, para finalmente imprimirla.
 
 ::::{tab-set}
+
 :::{tab-item} Entrada
 :sync: tab1
-Se le pedirá al usuario que ingrese el número de filas y columnas, y luego cada uno de los elementos.
+Se le pedirá al usuario que ingrese el número de filas y columnas, y luego cada
+uno de los elementos.
+
 :::
+<!-- {tab-item} Entrada -->
 :::{tab-item} Salida
 :sync: tab2
 La matriz ingresada por el usuario, impresa de forma ordenada.
+
 :::
+<!-- {tab-item} Salida -->
+
 ::::
+<!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
--   **Entrada:** Se debe usar una función para leer la entrada del usuario para las dimensiones y los elementos.
+
+-   **Entrada:** Se debe usar una función para leer la entrada del usuario para
+    las dimensiones y los elementos.
 -   **Proceso:**
     1.  Solicitar el número de filas (`filas`).
     2.  Solicitar el número de columnas (`columnas`).
     3.  Crear una matriz vacía con las dimensiones especificadas.
-    4.  Usar dos lazos anidados para recorrer la matriz y solicitar cada elemento al usuario, asignándolo a la posición correspondiente.
-    5.  Finalmente, llamar a la función `mostrar_matriz` (del ejercicio 1.1) para imprimir la matriz creada.
+    4.  Usar dos lazos anidados para recorrer la matriz y solicitar cada
+        elemento al usuario, asignándolo a la posición correspondiente.
+    5.  Finalmente, llamar a la función `mostrar_matriz` (del ejercicio 1.1)
+        para imprimir la matriz creada.
+
 :::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{hint} Ayuda (Pseudocódigo)
 :class: dropdown
 
 ```{code-block} pseudocode
+:linenos:
 PROCEDIMIENTO crear_y_llenar_matriz_dinamica()
 INICIO
     ESCRIBIR "Ingrese el número de filas: " SIN SALTO DE LÍNEA
@@ -635,22 +887,33 @@ INICIO
     // Asumiendo que la función mostrar_matriz está definida
     mostrar_matriz(matriz, filas, columnas)
 FIN PROCEDIMIENTO
+
 ```
+<!-- {code-block} pseudocode -->
+
 :::
+<!-- {hint} Ayuda (Pseudocódigo) -->
 
 ## Más Algoritmos con Matrices
 
 ### Ejercicio 3.12 - Reflejar matriz
 
-Implementar dos funciones: una que refleje una matriz horizontalmente (la primera fila se intercambia con la última, la segunda con la penúltima, etc.) y otra que la refleje verticalmente (la primera columna con la última, etc.).
+Implementar dos funciones: una que refleje una matriz horizontalmente (la
+primera fila se intercambia con la última, la segunda con la penúltima, etc.) y
+otra que la refleje verticalmente (la primera columna con la última, etc.).
 
 ### Ejercicio 3.13 - Intercambiar filas o columnas
 
-Crear funciones `intercambiar_filas(mat, f1, f2)` e `intercambiar_columnas(mat, c1, c2)` que modifiquen la matriz intercambiando los elementos de las filas o columnas especificadas.
+Crear funciones `intercambiar_filas(mat, f1, f2)` e `intercambiar_columnas(mat,
+c1, c2)` que modifiquen la matriz intercambiando los elementos de las filas o
+columnas especificadas.
 
 ### Ejercicio 3.14 - Búsqueda de submatriz
 
-Escribir una función que determine si una matriz pequeña `B` (de `k x l`) se encuentra dentro de una matriz más grande `A` (de `m x n`). La función debe devolver las coordenadas de la esquina superior izquierda de la primera ocurrencia, o `(-1, -1)` si no se encuentra.
+Escribir una función que determine si una matriz pequeña `B` (de `k x l`) se
+encuentra dentro de una matriz más grande `A` (de `m x n`). La función debe
+devolver las coordenadas de la esquina superior izquierda de la primera
+ocurrencia, o `(-1, -1)` si no se encuentra.
 
 ### Ejercicio 3.15 - Determinante de matriz 3x3
 
@@ -658,27 +921,39 @@ Calcular el determinante de una matriz 3x3 utilizando la Regla de Sarrus.
 
 ### Ejercicio 3.16 - Suavizado de matriz (Filtro de caja)
 
-Implementar un filtro de "suavizado" o "blur". Para cada elemento de la matriz, su nuevo valor será el promedio de sus 8 vecinos y él mismo. Los elementos en los bordes requerirán un manejo especial.
+Implementar un filtro de "suavizado" o "blur". Para cada elemento de la matriz,
+su nuevo valor será el promedio de sus 8 vecinos y él mismo. Los elementos en
+los bordes requerirán un manejo especial.
 
 ### Ejercicio 3.17 - Detección de bordes (Operador de Sobel)
 
-Aplicar un operador de Sobel simple para la detección de bordes. Esto implica "convolucionar" la matriz con un `kernel` (otra matriz pequeña, ej. 3x3) para resaltar las diferencias de intensidad, como los bordes.
+Aplicar un operador de Sobel simple para la detección de bordes. Esto implica
+"convolucionar" la matriz con un `kernel` (otra matriz pequeña, ej. 3x3) para
+resaltar las diferencias de intensidad, como los bordes.
 
 ### Ejercicio 3.18 - Matriz de permutación
 
-Verificar si una matriz cuadrada es una matriz de permutación. Esta es una matriz binaria (solo 0s y 1s) que tiene exactamente un `1` en cada fila y en cada columna.
+Verificar si una matriz cuadrada es una matriz de permutación. Esta es una
+matriz binaria (solo 0s y 1s) que tiene exactamente un `1` en cada fila y en
+cada columna.
 
 ### Ejercicio 3.19 - Producto de Hadamard
 
-Implementar el producto de Hadamard (o producto elemento a elemento) de dos matrices `A` y `B` de las mismas dimensiones. La matriz resultante `C` se define como $c_{ij} = a_{ij} \cdot b_{ij}$.
+Implementar el producto de Hadamard (o producto elemento a elemento) de dos
+matrices `A` y `B` de las mismas dimensiones. La matriz resultante `C` se define
+como $c_{ij} = a_{ij} \cdot b_{ij}$.
 
 ### Ejercicio 3.20 - Rellenar con triángulo de Pascal
 
-Escribir una función que llene una matriz `N x N` con los valores del Triángulo de Pascal. El elemento `(i, j)` debe ser $\binom{i}{j}$.
+Escribir una función que llene una matriz `N x N` con los valores del Triángulo
+de Pascal. El elemento `(i, j)` debe ser $\binom{i}{j}$.
 
 ### Ejercicio 3.21 - Matriz antisimétrica
 
-Verificar si una matriz cuadrada es antisimétrica. Una matriz `A` es antisimétrica si su transpuesta es igual a su negativa, es decir, $A^T = -A$. Esto implica que $a_{ij} = -a_{ji}$ y que todos los elementos de la diagonal principal deben ser cero.
+Verificar si una matriz cuadrada es antisimétrica. Una matriz `A` es
+antisimétrica si su transpuesta es igual a su negativa, es decir, $A^T = -A$.
+Esto implica que $a_{ij} = -a_{ji}$ y que todos los elementos de la diagonal
+principal deben ser cero.
 
 ## Operaciones Avanzadas con Matrices
 
@@ -686,35 +961,41 @@ Verificar si una matriz cuadrada es antisimétrica. Una matriz `A` es antisimét
 
 Implementar funciones que calculen diferentes normas de una matriz.
 
-```c
+``` c
 double norma_frobenius(double** matriz, int filas, int cols);
 double norma_maxima(double** matriz, int filas, int cols);
 double norma_uno(double** matriz, int filas, int cols);
 ```
+<!-- c -->
 
 **Norma de Frobenius:** $||A||_F = \sqrt{\sum_{i,j} a_{ij}^2}$
 
-**Norma máxima:** $||A||_{\infty} = \max_i \sum_j |a_{ij}|$ (máxima suma de fila)
+**Norma máxima:** $||A||_{\infty} = \max_i \sum_j |a_{ij}|$ (máxima suma de
+fila)
 
 **Norma uno:** $||A||_1 = \max_j \sum_i |a_{ij}|$ (máxima suma de columna)
 
 ### Ejercicio 3.23 - Traza de matriz
 
-Calcular la traza de una matriz cuadrada (suma de elementos de la diagonal principal).
+Calcular la traza de una matriz cuadrada (suma de elementos de la diagonal
+principal).
 
-```c
+``` c
 double traza(double** matriz, int n);
 ```
+<!-- c -->
 
 $$\text{tr}(A) = \sum_{i=1}^n a_{ii}$$
 
 ### Ejercicio 3.24 - Rango de matriz
 
-Implementar un algoritmo para calcular el rango de una matriz usando eliminación gaussiana.
+Implementar un algoritmo para calcular el rango de una matriz usando eliminación
+gaussiana.
 
-```c
+``` c
 int calcular_rango(double** matriz, int filas, int cols);
 ```
+<!-- c -->
 
 **Estrategia:** Reducir la matriz a forma escalonada y contar filas no nulas.
 
@@ -722,19 +1003,24 @@ int calcular_rango(double** matriz, int filas, int cols);
 
 Calcular la matriz de cofactores para una matriz cuadrada.
 
-```c
+``` c
 double** matriz_cofactores(double** matriz, int n);
 ```
+<!-- c -->
 
-El cofactor $C_{ij}$ se calcula como: $C_{ij} = (-1)^{i+j} M_{ij}$ donde $M_{ij}$ es el menor de la matriz (determinante de la submatriz obtenida eliminando fila $i$ y columna $j$).
+El cofactor $C_{ij}$ se calcula como: $C_{ij} = (-1)^{i+j} M_{ij}$ donde
+$M_{ij}$ es el menor de la matriz (determinante de la submatriz obtenida
+eliminando fila $i$ y columna $j$).
 
 ### Ejercicio 3.26 - Matriz inversa
 
-Implementar el cálculo de la inversa de una matriz usando el método de Gauss-Jordan.
+Implementar el cálculo de la inversa de una matriz usando el método de
+Gauss-Jordan.
 
-```c
+``` c
 double** matriz_inversa(double** matriz, int n, bool* invertible);
 ```
+<!-- c -->
 
 **Algoritmo:**
 1. Crear matriz aumentada $[A | I]$
@@ -746,29 +1032,34 @@ double** matriz_inversa(double** matriz, int n, bool* invertible);
 
 Calcular $A^n$ para una matriz cuadrada $A$ y un exponente entero $n$.
 
-```c
+``` c
 double** potencia_matriz(double** matriz, int tam, int exponente);
 ```
+<!-- c -->
 
 **Optimización:** Usar exponenciación rápida para $O(\log n)$ multiplicaciones.
 
 ### Ejercicio 3.28 - Descomposición LU
 
-Implementar la descomposición LU de una matriz: $A = LU$ donde $L$ es triangular inferior y $U$ es triangular superior.
+Implementar la descomposición LU de una matriz: $A = LU$ donde $L$ es triangular
+inferior y $U$ es triangular superior.
 
-```c
+``` c
 bool descomposicion_lu(double** A, int n, double** L, double** U);
 ```
+<!-- c -->
 
 **Aplicación:** Resolver sistemas de ecuaciones lineales eficientemente.
 
 ### Ejercicio 3.29 - Valores propios (Power Method)
 
-Implementar el método de la potencia para calcular el valor propio dominante de una matriz.
+Implementar el método de la potencia para calcular el valor propio dominante de
+una matriz.
 
-```c
+``` c
 double valor_propio_dominante(double** matriz, int n, double tolerancia);
 ```
+<!-- c -->
 
 **Algoritmo:**
 1. Comenzar con vector aleatorio $v$
@@ -779,12 +1070,13 @@ double valor_propio_dominante(double** matriz, int n, double tolerancia);
 
 Implementar funciones para crear y aplicar matrices de rotación 2D y 3D.
 
-```c
+``` c
 double** matriz_rotacion_2d(double angulo);
 double** matriz_rotacion_3d_x(double angulo);
 double** matriz_rotacion_3d_y(double angulo);
 double** matriz_rotacion_3d_z(double angulo);
 ```
+<!-- c -->
 
 **Matriz de rotación 2D:**
 
@@ -796,23 +1088,27 @@ $$
 
 Crear matriz de proyección ortogonal sobre un vector.
 
-```c
+``` c
 double** matriz_proyeccion(double* vector, int n);
 ```
+<!-- c -->
 
 **Fórmula:** $P = \frac{vv^T}{v^Tv}$
 
 ## Algoritmos de Procesamiento de Imágenes
 
-Considerar una matriz como una imagen en escala de grises donde cada elemento representa la intensidad de un píxel.
+Considerar una matriz como una imagen en escala de grises donde cada elemento
+representa la intensidad de un píxel.
 
 ### Ejercicio 3.32 - Umbralización (Thresholding)
 
-Convertir una imagen en escala de grises a binaria (solo 0 y 255) usando un umbral.
+Convertir una imagen en escala de grises a binaria (solo 0 y 255) usando un
+umbral.
 
-```c
+``` c
 void umbralizar(int** imagen, int filas, int cols, int umbral);
 ```
+<!-- c -->
 
 **Algoritmo:** Si `pixel >= umbral`, asignar 255, sino asignar 0.
 
@@ -820,19 +1116,22 @@ void umbralizar(int** imagen, int filas, int cols, int umbral);
 
 Calcular el histograma de una imagen (frecuencia de cada nivel de intensidad).
 
-```c
+``` c
 void calcular_histograma(int** imagen, int filas, int cols, int* histograma);
 ```
+<!-- c -->
 
-El histograma tiene 256 posiciones (0-255) que cuentan la frecuencia de cada intensidad.
+El histograma tiene 256 posiciones (0-255) que cuentan la frecuencia de cada
+intensidad.
 
 ### Ejercicio 3.34 - Ecualización de Histograma
 
 Mejorar el contraste de una imagen mediante ecualización de histograma.
 
-```c
+``` c
 void ecualizar_histograma(int** imagen, int filas, int cols);
 ```
+<!-- c -->
 
 **Algoritmo:**
 1. Calcular histograma
@@ -843,9 +1142,10 @@ void ecualizar_histograma(int** imagen, int filas, int cols);
 
 Implementar un filtro gaussiano para suavizado de imagen.
 
-```c
+``` c
 void filtro_gaussiano(double** imagen, int filas, int cols, double sigma);
 ```
+<!-- c -->
 
 **Kernel gaussiano 3x3:**
 $$K = \frac{1}{16}\begin{pmatrix} 1 & 2 & 1 \\ 2 & 4 & 2 \\ 1 & 2 & 1 \end{pmatrix}$$
@@ -854,9 +1154,10 @@ $$K = \frac{1}{16}\begin{pmatrix} 1 & 2 & 1 \\ 2 & 4 & 2 \\ 1 & 2 & 1 \end{pmatr
 
 Aplicar el operador Laplaciano para detectar bordes.
 
-```c
+``` c
 void detectar_bordes_laplaciano(int** imagen, int filas, int cols, int** resultado);
 ```
+<!-- c -->
 
 **Kernel Laplaciano:**
 $$K = \begin{pmatrix} 0 & 1 & 0 \\ 1 & -4 & 1 \\ 0 & 1 & 0 \end{pmatrix}$$
@@ -867,9 +1168,10 @@ $$K = \begin{pmatrix} 0 & 1 & 0 \\ 1 & -4 & 1 \\ 0 & 1 & 0 \end{pmatrix}$$
 
 Generar una matriz de Vandermonde a partir de un vector.
 
-```c
+``` c
 double** matriz_vandermonde(double* x, int n, int m);
 ```
+<!-- c -->
 
 **Definición:** $V_{ij} = x_i^{j-1}$
 
@@ -880,21 +1182,25 @@ $$V = \begin{pmatrix} 1 & 1 & 1 & 1 \\ 1 & 2 & 4 & 8 \\ 1 & 3 & 9 & 27 \end{pmat
 
 Generar una matriz de Hilbert de orden $n$.
 
-```c
+``` c
 double** matriz_hilbert(int n);
 ```
+<!-- c -->
 
 **Definición:** $H_{ij} = \frac{1}{i+j-1}$
 
-**Nota:** Las matrices de Hilbert son notoriamente mal condicionadas para inversión.
+**Nota:** Las matrices de Hilbert son notoriamente mal condicionadas para
+inversión.
 
 ### Ejercicio 3.39 - Matriz de Toeplitz
 
-Verificar si una matriz es de Toeplitz (cada diagonal descendente de izquierda a derecha tiene valores constantes).
+Verificar si una matriz es de Toeplitz (cada diagonal descendente de izquierda a
+derecha tiene valores constantes).
 
-```c
+``` c
 bool es_toeplitz(int** matriz, int filas, int cols);
 ```
+<!-- c -->
 
 **Propiedad:** $a_{i,j} = a_{i+1,j+1}$
 
@@ -902,20 +1208,23 @@ bool es_toeplitz(int** matriz, int filas, int cols);
 
 Generar una matriz circulante a partir de su primera fila.
 
-```c
+``` c
 int** matriz_circulante(int* primera_fila, int n);
 ```
+<!-- c -->
 
 **Ejemplo con primera fila $[1, 2, 3, 4]$:**
 $$C = \begin{pmatrix} 1 & 2 & 3 & 4 \\ 4 & 1 & 2 & 3 \\ 3 & 4 & 1 & 2 \\ 2 & 3 & 4 & 1 \end{pmatrix}$$
 
 ### Ejercicio 3.41 - Matriz de Hankel
 
-Generar una matriz de Hankel (opuesta a Toeplitz: diagonales de arriba-derecha a abajo-izquierda son constantes).
+Generar una matriz de Hankel (opuesta a Toeplitz: diagonales de arriba-derecha a
+abajo-izquierda son constantes).
 
-```c
+``` c
 double** matriz_hankel(double* c, double* r, int n);
 ```
+<!-- c -->
 
 ## Resolución de Sistemas de Ecuaciones
 
@@ -923,9 +1232,10 @@ double** matriz_hankel(double* c, double* r, int n);
 
 Resolver un sistema triangular inferior $Lx = b$.
 
-```c
+``` c
 double* sustitucion_adelante(double** L, double* b, int n);
 ```
+<!-- c -->
 
 **Algoritmo:** Resolver de arriba hacia abajo.
 
@@ -933,9 +1243,10 @@ double* sustitucion_adelante(double** L, double* b, int n);
 
 Resolver un sistema triangular superior $Ux = b$.
 
-```c
+``` c
 double* sustitucion_atras(double** U, double* b, int n);
 ```
+<!-- c -->
 
 **Algoritmo:** Resolver de abajo hacia arriba.
 
@@ -943,17 +1254,19 @@ double* sustitucion_atras(double** U, double* b, int n);
 
 Implementar eliminación gaussiana con pivoteo completo para resolver $Ax = b$.
 
-```c
+``` c
 double* resolver_sistema(double** A, double* b, int n);
 ```
+<!-- c -->
 
 ### Ejercicio 3.45 - Método de Jacobi
 
 Resolver $Ax = b$ iterativamente usando el método de Jacobi.
 
-```c
+``` c
 double* metodo_jacobi(double** A, double* b, int n, double tolerancia, int max_iter);
 ```
+<!-- c -->
 
 **Fórmula de iteración:**
 $$x_i^{(k+1)} = \frac{1}{a_{ii}}\left(b_i - \sum_{j \neq i} a_{ij}x_j^{(k)}\right)$$
@@ -962,9 +1275,10 @@ $$x_i^{(k+1)} = \frac{1}{a_{ii}}\left(b_i - \sum_{j \neq i} a_{ij}x_j^{(k)}\righ
 
 Similar a Jacobi pero usa valores actualizados inmediatamente.
 
-```c
+``` c
 double* metodo_gauss_seidel(double** A, double* b, int n, double tolerancia, int max_iter);
 ```
+<!-- c -->
 
 **Converge más rápido que Jacobi** para matrices con diagonal dominante.
 
@@ -972,26 +1286,31 @@ double* metodo_gauss_seidel(double** A, double* b, int n, double tolerancia, int
 
 ### Ejercicio 3.47 - Multiplicación por bloques
 
-Implementar multiplicación de matrices usando el algoritmo por bloques (más eficiente para matrices grandes por mejor uso de caché).
+Implementar multiplicación de matrices usando el algoritmo por bloques (más
+eficiente para matrices grandes por mejor uso de caché).
 
-```c
+``` c
 double** multiplicar_bloques(double** A, double** B, int n, int tam_bloque);
 ```
+<!-- c -->
 
 ### Ejercicio 3.48 - Transpuesta por bloques
 
 Implementar transpuesta usando bloques para mejor localidad de caché.
 
-```c
+``` c
 void transponer_bloques(double** matriz, int n, int tam_bloque);
 ```
+<!-- c -->
 
 ### Ejercicio 3.49 - Strassen para matrices grandes
 
-Implementar el algoritmo de Strassen para multiplicación rápida de matrices grandes.
+Implementar el algoritmo de Strassen para multiplicación rápida de matrices
+grandes.
 
-```c
+``` c
 double** strassen(double** A, double** B, int n);
 ```
+<!-- c -->
 
 **Complejidad:** $O(n^{2.807})$ vs $O(n^3)$ del método tradicional.

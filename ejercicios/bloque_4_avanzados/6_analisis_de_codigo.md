@@ -7,13 +7,18 @@ short_title: "5. Análisis de Código"
 
 ## Acerca de
 
-Estos ejercicios de auto-evaluación tienen como finalidad consolidar la capacidad de razonamiento abstracto y lectura crítica de programas en C, identificando los roles de las variables y el estado del espacio de direccionamiento de memoria.
+Estos ejercicios de auto-evaluación tienen como finalidad consolidar la
+capacidad de razonamiento abstracto y lectura crítica de programas en C,
+identificando los roles de las variables y el estado del espacio de
+direccionamiento de memoria.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-control-flujo`
 
 ### Cuestiones de Estilo Aplicables
-- **Razonamiento sobre invariantes:** Analizá el estado de las variables y punteros en puntos clave del código para deducir condiciones lógicas invariantes.
+- **Razonamiento sobre invariantes:** Analizá el estado de las variables y
+  punteros en puntos clave del código para deducir condiciones lógicas
+  invariantes.
 
 ---
 
@@ -27,7 +32,8 @@ Estos ejercicios de auto-evaluación tienen como finalidad consolidar la capacid
 Dado el siguiente código, identificá el "rol" principal de cada una de las
 variables listadas.
 
-```c
+```{code-block} c
+:linenos:
 #include <stdbool.h>
 
 // Encuentra el promedio de los números positivos en un arreglo.
@@ -50,7 +56,9 @@ double promedio_positivos(const int arreglo[], size_t n, bool *exito) {
 
     return 0.0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Tarea**: Para cada una de las siguientes variables, describí su rol principal:
 
@@ -61,8 +69,9 @@ double promedio_positivos(const int arreglo[], size_t n, bool *exito) {
 5.  El valor de retorno de la función.
 
 :::
+<!-- {exercise} rol_promedio -->
 
-:::{solution} rol_promedio 
+:::{solution} rol_promedio
 :class: dropdown
 
 1.  **`suma`**: **Acumulador**. Su propósito es acumular la suma de los valores
@@ -78,6 +87,7 @@ double promedio_positivos(const int arreglo[], size_t n, bool *exito) {
     principal del cálculo de la función. 
     
 :::
+<!-- {solution} rol_promedio -->
 
 ### Ejercicio 5.18 - Análisis de Función de Búsqueda
 
@@ -86,7 +96,8 @@ double promedio_positivos(const int arreglo[], size_t n, bool *exito) {
 
 Analizá el siguiente código que busca el elemento máximo en un arreglo:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdbool.h>
 #include <limits.h>
 
@@ -105,7 +116,9 @@ int encontrar_maximo(const int arr[], size_t tam, bool *encontrado) {
     *encontrado = hay_elementos;
     return maximo;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Tarea**: Identificá el rol de cada variable:
 
@@ -113,18 +126,25 @@ int encontrar_maximo(const int arr[], size_t tam, bool *encontrado) {
 2. `hay_elementos`
 3. `encontrado` (valor apuntado)
 4. `indice`
+
 :::
+<!-- {exercise} rol_busqueda -->
 
 
 :::{solution} rol_busqueda
 :class: dropdown
 
-1. **`maximo`**: **Variable de Mejor Candidato/Guardián**. Mantiene el valor máximo encontrado hasta el momento.
-2. **`hay_elementos`**: **Bandera de Inicialización**. Indica si ya se procesó al menos un elemento para inicializar correctamente la comparación.
-3. **`encontrado`**: **Parámetro de Salida/Bandera de Estado**. Comunica al llamador si la operación fue exitosa.
-4. **`indice`**: **Variable de Control de lazo/Iterador**. Controla el recorrido del arreglo.
+1. **`maximo`**: **Variable de Mejor Candidato/Guardián**. Mantiene el valor
+   máximo encontrado hasta el momento.
+2. **`hay_elementos`**: **Bandera de Inicialización**. Indica si ya se procesó
+   al menos un elemento para inicializar correctamente la comparación.
+3. **`encontrado`**: **Parámetro de Salida/Bandera de Estado**. Comunica al
+   llamador si la operación fue exitosa.
+4. **`indice`**: **Variable de Control de lazo/Iterador**. Controla el recorrido
+   del arreglo.
 
 :::
+<!-- {solution} rol_busqueda -->
 
 ### Ejercicio 5.19 - Análisis de Función con Múltiples Roles
 
@@ -133,7 +153,8 @@ int encontrar_maximo(const int arr[], size_t tam, bool *encontrado) {
 
 Examiná esta función más compleja que procesa datos de ventas:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 typedef struct {
@@ -172,7 +193,9 @@ reporte_ventas_t procesar_ventas(const double ventas[], int dias) {
     printf("Venta máxima registrada: %.2f\n", venta_maxima);
     return resultado;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Tarea**: Identificá el rol principal de cada variable marcada:
 
@@ -182,19 +205,27 @@ reporte_ventas_t procesar_ventas(const double ventas[], int dias) {
 4. `primera_venta`
 5. `venta_maxima`
 6. `dia`
+
 :::
+<!-- {exercise} roles_multiples -->
 
 :::{solution} roles_multiples
 :class: dropdown
 
-1. **`resultado`**: **Variable de Salida Estructurada**. Encapsula múltiples valores de retorno en una estructura.
+1. **`resultado`**: **Variable de Salida Estructurada**. Encapsula múltiples
+   valores de retorno en una estructura.
 2. **`acumulado`**: **Acumulador**. Suma todas las ventas válidas encontradas.
-3. **`dias_activos`**: **Contador**. Cuenta los días que tuvieron ventas positivas.
-4. **`primera_venta`**: **Bandera de Primera Vez**. Controla la inicialización correcta del máximo.
-5. **`venta_maxima`**: **Variable de Mejor Candidato/Guardián**. Mantiene el valor de venta más alto encontrado.
-6. **`dia`**: **Variable de Control de lazo/Iterador**. Controla la iteración a través de los días.
+3. **`dias_activos`**: **Contador**. Cuenta los días que tuvieron ventas
+   positivas.
+4. **`primera_venta`**: **Bandera de Primera Vez**. Controla la inicialización
+   correcta del máximo.
+5. **`venta_maxima`**: **Variable de Mejor Candidato/Guardián**. Mantiene el
+   valor de venta más alto encontrado.
+6. **`dia`**: **Variable de Control de lazo/Iterador**. Controla la iteración a
+   través de los días.
 
 :::
+<!-- {solution} roles_multiples -->
 
 ## 2: Descripción del Estado de un Programa
 
@@ -208,7 +239,8 @@ Montículo) en el momento exacto en que la ejecución llega a la línea marcada
 como `// PUNTO DE ANÁLISIS`. No es necesario indicar direcciones de memoria
 exactas, pero sí la relación entre ellas.
 
-```c
+```{code-block} c
+:linenos:
 #include <stdlib.h>
 
 char* crear_copia(const char* original) {
@@ -236,7 +268,9 @@ int main() {
     free(saludo_copiado);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Tarea**: Completá la siguiente plantilla describiendo los valores de las
 variables en cada marco de la pila y el estado del montículo.
@@ -256,8 +290,9 @@ variables en cada marco de la pila y el estado del montículo.
   - ?
 
 :::
+<!-- {exercise} estado_1 -->
 
-:::{solution} estado_1 
+:::{solution} estado_1
 :class: dropdown
 
 - **Pila (Stack)**:
@@ -283,6 +318,7 @@ variables en cada marco de la pila y el estado del montículo.
     `original`.
 
 :::
+<!-- {solution} estado_1 -->
 
 ### Ejercicio 5.21 - Análisis de Memoria con Estructuras
 
@@ -292,7 +328,8 @@ variables en cada marco de la pila y el estado del montículo.
 
 Analizá el estado de memoria del siguiente programa en el punto marcado:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdlib.h>
 #include <string.h>
 
@@ -325,11 +362,14 @@ int main() {
     
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Tarea**: Describí el estado de memoria en el punto de análisis:
 
 :::
+<!-- {exercise} estado_struct -->
 
 :::{solution} estado_struct
 :class: dropdown
@@ -339,10 +379,12 @@ int main() {
     - `emp1` (puntero): `NULL` (aún no asignado, la función no ha retornado)
     - `emp2` (puntero): `NULL`
   - **Marco de `crear_empleado`**:
-    - `nom` (puntero): Apunta a la cadena literal "Ana García" en el segmento de datos
+    - `nom` (puntero): Apunta a la cadena literal "Ana García" en el segmento de
+      datos
     - `edad_emp` (int): 28
     - `sal` (double): 45000.0
-    - `nuevo` (puntero): Apunta al bloque de `sizeof(empleado_t)` bytes en el heap
+    - `nuevo` (puntero): Apunta al bloque de `sizeof(empleado_t)` bytes en el
+      heap
     - `len_nombre` (int): 10 (longitud de "Ana García")
 
 - **Montículo (Heap)**:
@@ -356,15 +398,18 @@ int main() {
   - Cadena literal "Ana García" (11 bytes incluyendo '\0')
 
 :::
+<!-- {solution} estado_struct -->
 
 ### Ejercicio 5.22 - Trazado de Ejecución con Arrays Dinámicos
 
 :::{exercise} traza_ejecucion
 :label: traza_ejecucion
 
-Seguí la ejecución del siguiente código y describí el estado en cada punto marcado:
+Seguí la ejecución del siguiente código y describí el estado en cada punto
+marcado:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdlib.h>
 
 int* duplicar_array(int* original, int tam) {
@@ -394,7 +439,9 @@ int main() {
     free(duplicados);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Tarea**: Para cada punto (A, B, C, D), describí:
 1. Estado de la pila
@@ -402,6 +449,7 @@ int main() {
 3. Valores de las variables relevantes
 
 :::
+<!-- {exercise} traza_ejecucion -->
 
 :::{solution} traza_ejecucion
 :class: dropdown
@@ -437,6 +485,7 @@ int main() {
 - **Heap**: Bloque de 12 bytes conteniendo {10, 20, 30}
 
 :::
+<!-- {solution} traza_ejecucion -->
 
 ## 3: Análisis de Bugs y Problemas
 
@@ -445,9 +494,11 @@ int main() {
 :::{exercise} debugging_1
 :label: debugging_1
 
-El siguiente código intenta encontrar el segundo elemento más grande en un arreglo, pero contiene errores. Identificá los problemas sin ejecutar el código:
+El siguiente código intenta encontrar el segundo elemento más grande en un
+arreglo, pero contiene errores. Identificá los problemas sin ejecutar el código:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <limits.h>
 
@@ -466,7 +517,9 @@ int segundo_maximo(int arr[], int tam) {
     
     return segundo;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Tarea**: 
 1. ¿Qué problemas podés identificar en este código?
@@ -474,19 +527,24 @@ int segundo_maximo(int arr[], int tam) {
 3. ¿Cómo lo corregirías?
 
 :::
+<!-- {exercise} debugging_1 -->
 
 :::{solution} debugging_1
 :class: dropdown
 
 **Problemas identificados:**
 
-1. **Falta validación de tamaño**: No verifica que `tam >= 2`, que es el mínimo necesario para tener un segundo máximo.
+1. **Falta validación de tamaño**: No verifica que `tam >= 2`, que es el mínimo
+   necesario para tener un segundo máximo.
 
-2. **Elementos duplicados**: Si el máximo se repite, el segundo máximo será igual al máximo, lo cual puede no ser el comportamiento deseado.
+2. **Elementos duplicados**: Si el máximo se repite, el segundo máximo será
+   igual al máximo, lo cual puede no ser el comportamiento deseado.
 
-3. **Array con menos de 2 elementos únicos**: Si todos los elementos son iguales, no hay un verdadero "segundo máximo".
+3. **Array con menos de 2 elementos únicos**: Si todos los elementos son
+   iguales, no hay un verdadero "segundo máximo".
 
-4. **No maneja el caso de array vacío**: Si `tam == 0`, el comportamiento es indefinido.
+4. **No maneja el caso de array vacío**: Si `tam == 0`, el comportamiento es
+   indefinido.
 
 **Casos que fallan:**
 - Array vacío: `[]`
@@ -495,7 +553,8 @@ int segundo_maximo(int arr[], int tam) {
 - Array con solo dos valores únicos donde uno se repite: `[5, 3, 5, 5]`
 
 **Corrección sugerida:**
-```c
+```{code-block} c
+:linenos:
 int segundo_maximo_corregido(int arr[], int tam) {
     if (tam < 2) {
         return INT_MIN; // o manejar error apropiadamente
@@ -521,9 +580,12 @@ int segundo_maximo_corregido(int arr[], int tam) {
     
     return segundo;
 }
+
 ```
+<!-- {code-block} c -->
 
 :::
+<!-- {solution} debugging_1 -->
 
 ### Ejercicio 5.24 - Análisis de Memory Leaks
 
@@ -532,7 +594,8 @@ int segundo_maximo_corregido(int arr[], int tam) {
 
 Identificá los problemas de manejo de memoria en el siguiente código:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdlib.h>
 #include <string.h>
 
@@ -574,27 +637,36 @@ int main() {
     
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Tarea**: Identificá todos los memory leaks y problemas de manejo de memoria.
 
 :::
+<!-- {exercise} fugas_1 -->
 
 :::{solution} fugas_1
 :class: dropdown
 
 **Problemas identificados:**
 
-1. **Memory leak de `temp`**: La variable `temp` se aloca con `malloc()` pero nunca se libera con `free()`. Esto ocurre en ambos caminos de ejecución.
+1. **Memory leak de `temp`**: La variable `temp` se aloca con `malloc()` pero
+   nunca se libera con `free()`. Esto ocurre en ambos caminos de ejecución.
 
-2. **Memory leak de `resultado`**: Cuando `len > 10`, se aloca `resultado` pero luego se aloca `resultado_largo` y se retorna este último, perdiendo la referencia a `resultado` sin liberarlo.
+2. **Memory leak de `resultado`**: Cuando `len > 10`, se aloca `resultado` pero
+   luego se aloca `resultado_largo` y se retorna este último, perdiendo la
+   referencia a `resultado` sin liberarlo.
 
-3. **Memory leaks en `main`**: Las variables `texto1` y `texto2` reciben memoria alocada dinámicamente pero nunca se libera.
+3. **Memory leaks en `main`**: Las variables `texto1` y `texto2` reciben memoria
+   alocada dinámicamente pero nunca se libera.
 
-4. **Uso innecesario de memoria**: El `temp` es redundante ya que se puede trabajar directamente con `entrada`.
+4. **Uso innecesario de memoria**: El `temp` es redundante ya que se puede
+   trabajar directamente con `entrada`.
 
 **Código corregido:**
-```c
+```{code-block} c
+:linenos:
 char* procesar_texto_corregido(const char* entrada) {
     int len = strlen(entrada);
     char* resultado;
@@ -632,9 +704,12 @@ int main() {
     
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 :::
+<!-- {solution} fugas_1 -->
 
 ## 4: Análisis de Eficiencia y Optimización
 
@@ -645,7 +720,8 @@ int main() {
 
 Analizá la complejidad temporal del siguiente algoritmo de búsqueda:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdbool.h>
 
 bool buscar_par_suma(int arr[], int tam, int objetivo) {
@@ -677,7 +753,9 @@ bool buscar_par_suma_optimizado(int arr[], int tam, int objetivo) {
     }
     return false;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Tarea**: 
 1. ¿Cuál es la complejidad temporal de cada función?
@@ -685,12 +763,14 @@ bool buscar_par_suma_optimizado(int arr[], int tam, int objetivo) {
 3. ¿En qué escenarios cada algoritmo sería más apropiado?
 
 :::
+<!-- {exercise} eficiencia_1 -->
 
 :::{solution} eficiencia_1
 :class: dropdown
 
 **Análisis de `buscar_par_suma`:**
-- **Complejidad temporal**: $O(n^2)$ - hay dos lazos anidados que recorren el array
+- **Complejidad temporal**: $O(n^2)$ - hay dos lazos anidados que recorren el
+  array
 - **Variables de control**: 
   - `i`: Iterador externo (rol: control de lazo principal)
   - `j`: Iterador interno (rol: control de lazo secundario, siempre j > i)
@@ -705,23 +785,28 @@ bool buscar_par_suma_optimizado(int arr[], int tam, int objetivo) {
 - **Complejidad espacial**: $O(1)$
 
 **Escenarios apropiados:**
-- **Primer algoritmo**: Cuando el array NO está ordenado y no podemos/queremos ordenarlo
-- **Segundo algoritmo**: Cuando el array YA está ordenado o el costo de ordenarlo es amortizable
+- **Primer algoritmo**: Cuando el array NO está ordenado y no podemos/queremos
+  ordenarlo
+- **Segundo algoritmo**: Cuando el array YA está ordenado o el costo de
+  ordenarlo es amortizable
 
 **Trade-offs:**
 - Si necesitamos ordenar: $O(n log n) + O(n)$ vs $O(n^2)$
 - Si ya está ordenado: $O(n)$ vs $O(n^2)$ - clara ventaja para el optimizado
 
 :::
+<!-- {solution} eficiencia_1 -->
 
 ### Ejercicio 5.26 - Análisis de Uso de Memoria
 
 :::{exercise} eficiencia_2
 :label: eficiencia_2
 
-Compará el uso de memoria de estas dos implementaciones que calculan factoriales:
+Compará el uso de memoria de estas dos implementaciones que calculan
+factoriales:
 
-```c
+```{code-block} c
+:linenos:
 // Versión recursiva
 long factorial_recursivo(int n) {
     if (n <= 1) {
@@ -771,7 +856,9 @@ long factorial_memoizado(int n) {
     cache[n] = n * factorial_memoizado(n - 1);
     return cache[n];
 }
+
 ```
+<!-- {code-block} c -->
 
 **Tarea**: Analizá cada implementación en términos de:
 1. Uso de memoria de la pila
@@ -780,6 +867,7 @@ long factorial_memoizado(int n) {
 4. Trade-offs entre tiempo y espacio
 
 :::
+<!-- {exercise} eficiencia_2 -->
 
 :::{solution} eficiencia_2
 :class: dropdown
@@ -799,7 +887,8 @@ long factorial_memoizado(int n) {
 - **Ventajas**: Uso mínimo de memoria, sin riesgo de stack overflow
 
 **Versión Memoizada:**
-- **Pila**: $O(n)$ - similar a recursiva en la primera llamada, $O(1)$ en llamadas subsecuentes
+- **Pila**: $O(n)$ - similar a recursiva en la primera llamada, $O(1)$ en
+  llamadas subsecuentes
 - **Heap**: $O(n)$ - array para almacenar resultados calculados
 - **Variables**:
   - `cache`: Array estático global (rol: almacén de resultados)
@@ -818,6 +907,7 @@ long factorial_memoizado(int n) {
 | Riesgo de overflow | Alto | Bajo | Medio |
 
 :::
+<!-- {solution} eficiencia_2 -->
 
 ## 5: Ejercicios de Síntesis
 
@@ -828,7 +918,8 @@ long factorial_memoizado(int n) {
 
 Analizá el siguiente sistema completo que gestiona una lista de estudiantes:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -904,16 +995,21 @@ void liberar_sistema(sistema_estudiantes_t* sistema) {
         free(sistema);
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 **Tarea**: Realizá un análisis completo del sistema:
 
-1. **Identificación de roles**: Para cada variable en cada función, identificá su rol
-2. **Análisis de memoria**: Describí cómo evoluciona el uso de memoria durante la ejecución
+1. **Identificación de roles**: Para cada variable en cada función, identificá
+   su rol
+2. **Análisis de memoria**: Describí cómo evoluciona el uso de memoria durante
+   la ejecución
 3. **Identificación de patrones**: ¿Qué patrones de diseño reconocés?
 4. **Análisis de robustez**: ¿Qué validaciones faltan? ¿Qué podría fallar?
 
 :::
+<!-- {exercise} analisis_1 -->
 
 :::{solution} analisis_1
 :class: dropdown
@@ -941,7 +1037,8 @@ void liberar_sistema(sistema_estudiantes_t* sistema) {
 **2. Análisis de Memoria:**
 
 **Estado inicial**: 
-- Heap: `sizeof(sistema_estudiantes_t)` + `capacidad_inicial * sizeof(estudiante_t)`
+- Heap: `sizeof(sistema_estudiantes_t)` + `capacidad_inicial *
+  sizeof(estudiante_t)`
 - Pila: Variables locales de cada función
 
 **Durante agregado**: 
@@ -956,7 +1053,8 @@ void liberar_sistema(sistema_estudiantes_t* sistema) {
 **4. Análisis de Robustez - Problemas identificados:**
 
 **Falta de validaciones:**
-```c
+```{code-block} c
+:linenos:
 // En agregar_estudiante - faltan validaciones:
 if (sistema == NULL || nombre == NULL) {
     return false;
@@ -970,7 +1068,9 @@ if (edad < 0 || edad > 120) { // edad inválida
 if (promedio < 0.0 || promedio > 10.0) { // promedio inválido
     return false;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Problemas de robustez:**
 - No validación de punteros NULL
@@ -987,8 +1087,10 @@ if (promedio < 0.0 || promedio > 10.0) { // promedio inválido
 - Agregar tests unitarios para cada función
 
 :::
+<!-- {solution} analisis_1 -->
 
-Este ejercicio integra todos los conceptos de análisis de código, roles de variables, manejo de memoria y buenas prácticas de programación en C.
+Este ejercicio integra todos los conceptos de análisis de código, roles de
+variables, manejo de memoria y buenas prácticas de programación en C.
 
 ## 11: Análisis Avanzado de Punteros
 
@@ -999,7 +1101,8 @@ Este ejercicio integra todos los conceptos de análisis de código, roles de var
 
 Analizá el siguiente código que presenta un problema común con punteros:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <string.h>
 
@@ -1026,24 +1129,31 @@ int main(void) {
     
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Tarea**:
 
-1. **Análisis de aliasing**: ¿Qué sucede cuando `p1` y `p2` apuntan a la misma dirección?
+1. **Análisis de aliasing**: ¿Qué sucede cuando `p1` y `p2` apuntan a la misma
+   dirección?
 2. **Predicción de salida**: ¿Qué valores se imprimirán en cada caso?
-3. **Identificación del problema**: ¿Por qué el Caso 1 produce un resultado inesperado?
+3. **Identificación del problema**: ¿Por qué el Caso 1 produce un resultado
+   inesperado?
 4. **Roles de variables**: Identificá el rol de `p1`, `p2` y `valor`
 5. **Mejoras**: ¿Cómo modificarías la función para prevenir este problema?
 
 :::
+<!-- {exercise} analisis_aliasing -->
 
 :::{solution} analisis_aliasing
 :class: dropdown
 
 **1. Análisis de Aliasing:**
 
-En el Caso 1, `p1` y `p2` apuntan a la misma dirección de memoria (`&x`). Esto se llama **aliasing** y provoca que las modificaciones a través de un puntero afecten al otro.
+En el Caso 1, `p1` y `p2` apuntan a la misma dirección de memoria (`&x`). Esto
+se llama **aliasing** y provoca que las modificaciones a través de un puntero
+afecten al otro.
 
 **Secuencia de ejecución en Caso 1:**
 ```
@@ -1069,18 +1179,23 @@ Resultado y: 5, z: 10
 
 **3. Identificación del Problema:**
 
-El problema es que la función asume que `p1` y `p2` apuntan a ubicaciones diferentes. Cuando apuntan a la misma, la segunda asignación sobrescribe la primera, perdiendo el valor original.
+El problema es que la función asume que `p1` y `p2` apuntan a ubicaciones
+diferentes. Cuando apuntan a la misma, la segunda asignación sobrescribe la
+primera, perdiendo el valor original.
 
 **4. Roles de Variables:**
 
 - `p1`: **Parámetro de salida (output parameter)** - modifica el valor apuntado
-- `p2`: **Parámetro de salida (output parameter)** - modifica otro valor apuntado
-- `valor`: **Parámetro de entrada (input parameter)** - valor base para los cálculos
+- `p2`: **Parámetro de salida (output parameter)** - modifica otro valor
+  apuntado
+- `valor`: **Parámetro de entrada (input parameter)** - valor base para los
+  cálculos
 
 **5. Mejoras Sugeridas:**
 
 **Opción 1: Verificar aliasing**
-```c
+```{code-block} c
+:linenos:
 void procesar_datos(int *p1, int *p2, int valor) {
     if (p1 == p2) {
         fprintf(stderr, "Error: p1 y p2 no pueden apuntar a la misma dirección\n");
@@ -1089,34 +1204,41 @@ void procesar_datos(int *p1, int *p2, int valor) {
     *p1 = valor;
     *p2 = valor * 2;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Opción 2: Usar `restrict` (C99)**
-```c
+``` c
 void procesar_datos(int *restrict p1, int *restrict p2, int valor) {
     *p1 = valor;
     *p2 = valor * 2;
 }
 ```
+<!-- c -->
 El keyword `restrict` promete al compilador que los punteros no tienen aliasing.
 
 **Opción 3: Documentar el requisito**
-```c
+``` c
 // PRECONDICIÓN: p1 y p2 deben apuntar a ubicaciones diferentes
 // POSTCONDICIÓN: *p1 = valor, *p2 = valor * 2
 void procesar_datos(int *p1, int *p2, int valor);
 ```
+<!-- c -->
 
 :::
+<!-- {solution} analisis_aliasing -->
 
 ### Ejercicio 5.29 - Punteros Colgantes (Dangling Pointers)
 
 :::{exercise} analisis_dangling
 :label: analisis_dangling
 
-Analizá el siguiente código que contiene varios errores relacionados con punteros colgantes:
+Analizá el siguiente código que contiene varios errores relacionados con
+punteros colgantes:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdlib.h>
 #include <string.h>
 
@@ -1168,7 +1290,9 @@ int main(void) {
     
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Tarea**:
 
@@ -1179,6 +1303,7 @@ int main(void) {
 5. **Correcciones**: Proponé soluciones para cada problema identificado
 
 :::
+<!-- {exercise} analisis_dangling -->
 
 :::{solution} analisis_dangling
 :class: dropdown
@@ -1186,27 +1311,33 @@ int main(void) {
 **1. Identificación de Punteros Colgantes:**
 
 **Línea problemática 1:** `return saludo;` en `obtener_saludo()`
-**Línea problemática 3:** `printf("%d\n", arr3[0]);` después de `procesar_y_liberar()`
+**Línea problemática 3:** `printf("%d\n", arr3[0]);` después de
+`procesar_y_liberar()`
 
 **2. Clasificación de Errores:**
 
 **Error 1: Retornar dirección de variable local**
-```c
+``` c
 char* obtener_saludo(void) {
     char saludo[50] = "Hola, mundo!";
     return saludo;  // ¡ERROR!
 }
 ```
-**Problema:** `saludo` es un arreglo local en el stack. Cuando la función retorna, el stack frame se destruye y la memoria ya no es válida. El puntero retornado apunta a memoria inválida.
+<!-- c -->
+**Problema:** `saludo` es un arreglo local en el stack. Cuando la función
+retorna, el stack frame se destruye y la memoria ya no es válida. El puntero
+retornado apunta a memoria inválida.
 
 **Error 2: No anular puntero después de free**
-```c
+``` c
 void procesar_y_liberar(int** ptr) {
     free(*ptr);
     // Debería: *ptr = NULL;
 }
 ```
-**Problema:** Después de `free()`, el puntero sigue apuntando a la misma dirección, pero esa memoria ya fue liberada. Esto es un **dangling pointer**.
+<!-- c -->
+**Problema:** Después de `free()`, el puntero sigue apuntando a la misma
+dirección, pero esa memoria ya fue liberada. Esto es un **dangling pointer**.
 
 **3. Análisis de Memoria por Escenario:**
 
@@ -1218,7 +1349,8 @@ Stack antes de retornar:
 Stack después de retornar:
 [basura o datos de otra función] <- s1 apunta a zona inválida
 ```
-**Resultado:** Comportamiento indefinido. Podría funcionar "por casualidad" o crashear.
+**Resultado:** Comportamiento indefinido. Podría funcionar "por casualidad" o
+crashear.
 
 **Escenario 2:**
 ```
@@ -1260,7 +1392,8 @@ printf("%d\n", arr3[0])  <- Acceso a memoria liberada
 **5. Correcciones:**
 
 **Corrección Función A - Opción 1: Usar malloc**
-```c
+```{code-block} c
+:linenos:
 char* obtener_saludo(void) {
     char* saludo = malloc(50);
     if (saludo == NULL) return NULL;
@@ -1268,19 +1401,23 @@ char* obtener_saludo(void) {
     return saludo;  // OK: memoria en heap persiste
 }
 // El llamador debe hacer free(saludo)
+
 ```
+<!-- {code-block} c -->
 
 **Corrección Función A - Opción 2: Usar static**
-```c
+``` c
 char* obtener_saludo(void) {
     static char saludo[50] = "Hola, mundo!";
     return saludo;  // OK: variable static persiste
 }
 // NOTA: No es thread-safe
 ```
+<!-- c -->
 
 **Corrección Función A - Opción 3: Pasar buffer**
-```c
+```{code-block} c
+:linenos:
 void obtener_saludo(char* buffer, size_t tam) {
     if (buffer == NULL || tam < 14) return;
     strcpy(buffer, "Hola, mundo!");
@@ -1288,26 +1425,32 @@ void obtener_saludo(char* buffer, size_t tam) {
 // Uso:
 char saludo[50];
 obtener_saludo(saludo, sizeof(saludo));
+
 ```
+<!-- {code-block} c -->
 
 **Corrección Función D:**
-```c
+``` c
 void procesar_y_liberar(int** ptr) {
     if (ptr == NULL || *ptr == NULL) return;
     free(*ptr);
     *ptr = NULL;  // IMPORTANTE: Anular el puntero
 }
 ```
+<!-- c -->
 
 **Corrección main():**
-```c
+```{code-block} c
+:linenos:
 int* arr3 = crear_arreglo_dinamico();
 procesar_y_liberar(&arr3);
 // No usar arr3 aquí
 if (arr3 != NULL) {  // Esto ahora es false
     printf("%d\n", arr3[0]);
 }
+
 ```
+<!-- {code-block} c -->
 
 **Buenas Prácticas:**
 1. Siempre anular punteros después de `free()`
@@ -1317,6 +1460,7 @@ if (arr3 != NULL) {  // Esto ahora es false
 5. Considerar patrones como RAII (en C con funciones de limpieza)
 
 :::
+<!-- {solution} analisis_dangling -->
 
 ### Ejercicio 5.30 - Aritmética de Punteros y Límites de Arreglos
 
@@ -1325,7 +1469,8 @@ if (arr3 != NULL) {  // Esto ahora es false
 
 Analizá este código que manipula arreglos usando aritmética de punteros:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <string.h>
 
@@ -1385,18 +1530,24 @@ int main(void) {
     
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Tarea**:
 
 1. **Propósito de funciones**: Describí qué hace cada función
-2. **Análisis de aritmética**: Para cada función, explicá las operaciones con punteros
+2. **Análisis de aritmética**: Para cada función, explicá las operaciones con
+   punteros
 3. **Roles de punteros**: Identificá el rol de cada puntero en las funciones
 4. **Predicción de salida**: ¿Qué imprimirá el programa?
-5. **Seguridad**: ¿Qué problemas de seguridad existen? ¿Qué pasa si se pasan parámetros inválidos?
-6. **Comparación**: Compará las funciones con versiones equivalentes usando índices
+5. **Seguridad**: ¿Qué problemas de seguridad existen? ¿Qué pasa si se pasan
+   parámetros inválidos?
+6. **Comparación**: Compará las funciones con versiones equivalentes usando
+   índices
 
 :::
+<!-- {exercise} analisis_aritmetica -->
 
 :::{solution} analisis_aritmetica
 :class: dropdown
@@ -1411,42 +1562,51 @@ int main(void) {
 **2. Análisis de Aritmética de Punteros:**
 
 **`funcion_a`:**
-```c
+```{code-block} c
+:linenos:
 int *p = arr;          // p apunta al primer elemento
 int *fin = arr + n;    // fin apunta una posición DESPUÉS del último elemento
 while (p < fin) {      // Itera mientras p no llegue a fin
     *p = *p * 2;       // Desreferencia: modifica el elemento actual
     p++;               // Avanza al siguiente elemento (p += sizeof(int))
 }
+
 ```
+<!-- {code-block} c -->
 
 **Equivalente con índices:**
-```c
+``` c
 for (size_t i = 0; i < n; i++) {
     arr[i] = arr[i] * 2;
 }
 ```
+<!-- c -->
 
 **`funcion_b`:**
-```c
+``` c
 for (int *p = arr; p < arr + n; p++) {
     // p recorre desde arr[0] hasta arr[n-1]
     printf("%d ", *p);
 }
 ```
+<!-- c -->
 
 **`funcion_c`:**
-```c
+```{code-block} c
+:linenos:
 while (*origen != '\0') {    // Itera hasta encontrar el terminador
     *destino = *origen;      // Copia carácter por carácter
     destino++;               // Avanza ambos punteros
     origen++;
 }
 *destino = '\0';             // Agrega terminador al destino
+
 ```
+<!-- {code-block} c -->
 
 **`funcion_d`:**
-```c
+```{code-block} c
+:linenos:
 int *inicio = arr;           // Apunta al primer elemento
 int *fin = arr + n - 1;      // Apunta al último elemento
 while (inicio < fin) {       // Se encuentran en el medio
@@ -1457,7 +1617,9 @@ while (inicio < fin) {       // Se encuentran en el medio
     inicio++;                // Avanzan hacia el centro
     fin--;
 }
+
 ```
+<!-- {code-block} c -->
 
 **3. Roles de Punteros:**
 
@@ -1500,33 +1662,38 @@ Salida de funcion_b: "10 8 6 4 2 "
 
 **`funcion_a` y `funcion_b`:**
 - **Puntero NULL**: Si `arr == NULL`, desreferencia causa crash
-- **n inválido**: Si `n = 0`, funciona pero no hace nada. Si `n` es muy grande, acceso fuera de límites
+- **n inválido**: Si `n = 0`, funciona pero no hace nada. Si `n` es muy grande,
+  acceso fuera de límites
 
 **Validación sugerida:**
-```c
+``` c
 void funcion_a(int *arr, size_t n) {
     if (arr == NULL || n == 0) return;
     // ... resto del código
 }
 ```
+<!-- c -->
 
 **`funcion_c` - Problema crítico:**
-```c
+``` c
 void funcion_c(char *destino, const char *origen) {
     // NO verifica el tamaño de destino
     // Puede causar BUFFER OVERFLOW
 }
 ```
+<!-- c -->
 
 **Escenario peligroso:**
-```c
+``` c
 char origen[] = "Esta cadena es muy larga";
 char destino[5];  // Solo 5 bytes!
 funcion_c(destino, origen);  // BUFFER OVERFLOW
 ```
+<!-- c -->
 
 **Versión segura:**
-```c
+```{code-block} c
+:linenos:
 void funcion_c_segura(char *destino, const char *origen, size_t tam_destino) {
     if (destino == NULL || origen == NULL || tam_destino == 0) return;
     
@@ -1538,13 +1705,16 @@ void funcion_c_segura(char *destino, const char *origen, size_t tam_destino) {
     }
     *destino = '\0';
 }
+
 ```
+<!-- {code-block} c -->
 
 **O usar `strncpy`:**
-```c
+``` c
 strncpy(destino, origen, sizeof(destino) - 1);
 destino[sizeof(destino) - 1] = '\0';
 ```
+<!-- c -->
 
 **`funcion_d`:**
 - **Puntero NULL**: Crash si `arr == NULL`
@@ -1552,12 +1722,13 @@ destino[sizeof(destino) - 1] = '\0';
 - **n = 1**: Funciona correctamente (no hace nada)
 
 **Validación sugerida:**
-```c
+``` c
 void funcion_d(int *arr, size_t n) {
     if (arr == NULL || n <= 1) return;
     // ... resto del código
 }
 ```
+<!-- c -->
 
 **6. Comparación: Punteros vs Índices**
 
@@ -1574,7 +1745,8 @@ void funcion_d(int *arr, size_t n) {
 
 **Comparación de rendimiento:**
 
-Compiladores modernos con optimización suelen generar el mismo código máquina para ambas versiones, así que la legibilidad debería ser el factor decisivo.
+Compiladores modernos con optimización suelen generar el mismo código máquina
+para ambas versiones, así que la legibilidad debería ser el factor decisivo.
 
 **Recomendación:** Usar índices por defecto, punteros solo cuando:
 - La lógica sea más clara con punteros (ej: `funcion_d`)
@@ -1582,16 +1754,20 @@ Compiladores modernos con optimización suelen generar el mismo código máquina
 - Se implemente una interfaz que requiera punteros
 
 **Ejemplo de refactorización de `funcion_a` con índices:**
-```c
+```{code-block} c
+:linenos:
 void funcion_a(int *arr, size_t n) {
     if (arr == NULL) return;
     for (size_t i = 0; i < n; i++) {
         arr[i] *= 2;
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 :::
+<!-- {solution} analisis_aritmetica -->
 
 ### Ejercicio 5.31 - Punteros a Funciones y Callbacks
 
@@ -1600,7 +1776,8 @@ void funcion_a(int *arr, size_t n) {
 
 Analizá este código que implementa callbacks usando punteros a funciones:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -1667,28 +1844,36 @@ int main(void) {
     
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Tarea**:
 
 1. **Análisis de tipos**: Explicá qué son `predicado_t` y `operacion_t`
 2. **Roles de punteros a función**: ¿Qué rol cumplen en cada función?
-3. **Flujo de ejecución**: Trazá el flujo cuando se llama `contar_si(numeros, n, es_par)`
-4. **Predicción de resultados**: ¿Qué valores finales tienen `copia1` y `copia2`?
-5. **Ventajas del patrón**: ¿Por qué este diseño es mejor que tener múltiples funciones específicas?
-6. **Extensión**: ¿Cómo agregarías una función que encuentre el primer elemento que cumple una condición?
+3. **Flujo de ejecución**: Trazá el flujo cuando se llama `contar_si(numeros, n,
+   es_par)`
+4. **Predicción de resultados**: ¿Qué valores finales tienen `copia1` y
+   `copia2`?
+5. **Ventajas del patrón**: ¿Por qué este diseño es mejor que tener múltiples
+   funciones específicas?
+6. **Extensión**: ¿Cómo agregarías una función que encuentre el primer elemento
+   que cumple una condición?
 
 :::
+<!-- {exercise} analisis_callbacks -->
 
 :::{solution} analisis_callbacks
 :class: dropdown
 
 **1. Análisis de Tipos:**
 
-```c
+``` c
 typedef bool (*predicado_t)(int);
 typedef int (*operacion_t)(int);
 ```
+<!-- c -->
 
 **`predicado_t`**: 
 - Es un **tipo de puntero a función**
@@ -1701,13 +1886,14 @@ typedef int (*operacion_t)(int);
 - Se usa para funciones que transforman valores
 
 **Sintaxis explicada:**
-```c
+``` c
 // Sin typedef (más confuso):
 bool (*predicado)(int);  // Variable que es puntero a función
 
 // Con typedef (más claro):
 predicado_t predicado;   // Variable de tipo "puntero a función"
 ```
+<!-- c -->
 
 **2. Roles de Punteros a Función:**
 
@@ -1796,7 +1982,8 @@ Positivos: 5
 **5. Ventajas del Patrón:**
 
 **Sin callbacks (enfoque ingenuo):**
-```c
+```{code-block} c
+:linenos:
 int contar_pares(const int *arr, size_t n) {
     int contador = 0;
     for (size_t i = 0; i < n; i++) {
@@ -1817,10 +2004,13 @@ int contar_negativos(const int *arr, size_t n) {
     // Otra función casi idéntica...
 }
 // ¡Mucha duplicación!
+
 ```
+<!-- {code-block} c -->
 
 **Con callbacks (enfoque genérico):**
-```c
+```{code-block} c
+:linenos:
 // Una sola función, infinitas posibilidades
 int contar_si(const int *arr, size_t n, predicado_t pred);
 
@@ -1830,20 +2020,25 @@ contar_si(arr, n, es_positivo);
 contar_si(arr, n, es_negativo);
 contar_si(arr, n, es_multiplo_de_tres);
 // ... cualquier predicado
+
 ```
+<!-- {code-block} c -->
 
 **Ventajas:**
 1. **DRY (Don't Repeat Yourself)**: Evita duplicación de código
 2. **Extensibilidad**: Agregar nuevas condiciones sin modificar código existente
 3. **Composición**: Combinar comportamientos (como en `procesar`)
 4. **Testabilidad**: Más fácil probar funciones pequeñas e independientes
-5. **Reusabilidad**: Las funciones de alto nivel sirven para múltiples propósitos
+5. **Reusabilidad**: Las funciones de alto nivel sirven para múltiples
+   propósitos
 
-**Patrón de diseño:** **Strategy Pattern** - el comportamiento se selecciona en tiempo de ejecución
+**Patrón de diseño:** **Strategy Pattern** - el comportamiento se selecciona en
+tiempo de ejecución
 
 **6. Extensión - Encontrar Primer Elemento:**
 
-```c
+```{code-block} c
+:linenos:
 int* encontrar_si(int *arr, size_t n, predicado_t predicado) {
     for (size_t i = 0; i < n; i++) {
         if (predicado(arr[i])) {
@@ -1862,13 +2057,17 @@ if (primer_positivo != NULL) {
 } else {
     printf("No hay positivos\n");
 }
+
 ```
+<!-- {code-block} c -->
 
 **Extensión adicional - Con contexto:**
 
-A veces los callbacks necesitan estado adicional. Se puede extender usando un puntero `void*`:
+A veces los callbacks necesitan estado adicional. Se puede extender usando un
+puntero `void*`:
 
-```c
+```{code-block} c
+:linenos:
 typedef bool (*predicado_ctx_t)(int, void*);
 
 int contar_si_ctx(const int *arr, size_t n, 
@@ -1891,7 +2090,9 @@ bool es_mayor_que(int valor, void* ctx) {
 // Uso:
 int umbral = 3;
 int cantidad = contar_si_ctx(numeros, n, es_mayor_que, &umbral);
+
 ```
+<!-- {code-block} c -->
 
 **Comparación con otros lenguajes:**
 
@@ -1901,13 +2102,15 @@ Esta técnica en C es la base de conceptos más avanzados en otros lenguajes:
 - **JavaScript**: Callbacks, `map`, `filter`, `reduce`
 
 **Ejemplo equivalente en Python:**
-```python
+``` python
 numeros = [-3, -2, -1, 0, 1, 2, 3, 4, 5]
 pares = len(list(filter(lambda x: x % 2 == 0, numeros)))
 positivos = len(list(filter(lambda x: x > 0, numeros)))
 ```
+<!-- python -->
 
 :::
+<!-- {solution} analisis_callbacks -->
 
 ### Ejercicio 5.32 - Análisis Integral - Sistema de Gestión con Punteros
 
@@ -1916,7 +2119,8 @@ positivos = len(list(filter(lambda x: x > 0, numeros)))
 
 Analizá este sistema completo que utiliza múltiples conceptos de punteros:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -2073,19 +2277,27 @@ int main(void) {
     
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Tarea**:
 
-1. **Análisis completo de punteros**: Identificá todos los tipos de punteros usados y su propósito
-2. **Diagrama de memoria**: Dibujá el estado de la memoria después de insertar 3 elementos
-3. **Roles de variables**: Para cada función, identificá los roles de todas las variables
+1. **Análisis completo de punteros**: Identificá todos los tipos de punteros
+   usados y su propósito
+2. **Diagrama de memoria**: Dibujá el estado de la memoria después de insertar 3
+   elementos
+3. **Roles de variables**: Para cada función, identificá los roles de todas las
+   variables
 4. **Análisis de invariantes**: ¿Qué invariantes mantiene la estructura?
-5. **Gestión de memoria**: Trazá el ciclo de vida de la memoria en todo el programa
-6. **Análisis de robustez**: ¿Qué podría fallar? ¿Qué validaciones existen y cuáles faltan?
+5. **Gestión de memoria**: Trazá el ciclo de vida de la memoria en todo el
+   programa
+6. **Análisis de robustez**: ¿Qué podría fallar? ¿Qué validaciones existen y
+   cuáles faltan?
 7. **Complejidad**: Analizá la complejidad temporal y espacial de cada función
 
 :::
+<!-- {exercise} analisis_integral_punteros -->
 
 :::{solution} analisis_integral_punteros
 :class: dropdown
@@ -2205,20 +2417,22 @@ Heap:                  ↓
 **Verificación en operaciones:**
 
 **Insertar en lista vacía:**
-```c
+``` c
 if (lista->primero == NULL) {
     lista->primero = nuevo;
     lista->ultimo = nuevo;  // Mantiene invariante 1
 }
 ```
+<!-- c -->
 
 **Eliminar último elemento:**
-```c
+``` c
 lista->primero = temp->siguiente;
 if (lista->primero == NULL) {
     lista->ultimo = NULL;  // Mantiene invariante 1
 }
 ```
+<!-- c -->
 
 **5. Gestión de Memoria - Ciclo de Vida:**
 
@@ -2273,29 +2487,32 @@ free(block 7)
 **Problemas potenciales identificados:**
 
 ❌ **`lista_crear` no verifica malloc de lista:**
-```c
+``` c
 lista_t* lista = malloc(sizeof(lista_t));
 if (lista == NULL) return NULL;  // ✅ PERO...
 // No inicializa campos si malloc falla parcialmente
 ```
+<!-- c -->
 
 ❌ **`lista_insertar_final` no verifica malloc de nuevo nodo:**
 Sí lo hace, está correcto.
 
 ❌ **Falta de manejo de errores propagado:**
-```c
+``` c
 if (!lista_insertar_final(nueva, actual->dato)) {
     lista_destruir(nueva);  // ✅ Buena práctica
     return NULL;
 }
 ```
+<!-- c -->
 
 ❌ **`lista_aplicar` no maneja excepciones en callback:**
 Si el callback falla (ej. acceso inválido), no hay forma de recuperarse.
 
 **Mejoras sugeridas:**
 
-```c
+```{code-block} c
+:linenos:
 // 1. Agregar función de validación
 bool lista_es_valida(const lista_t* lista) {
     if (lista == NULL) return false;
@@ -2333,7 +2550,9 @@ lista_error_t lista_insertar_final_v2(lista_t* lista, int dato) {
     // ... resto de la lógica
     return LISTA_OK;
 }
+
 ```
+<!-- {code-block} c -->
 
 **7. Complejidad Temporal y Espacial:**
 
@@ -2358,7 +2577,8 @@ lista_error_t lista_insertar_final_v2(lista_t* lista, int dato) {
 - Espacial: $O(1)$ - sin memoria adicional (modificación in-place)
 
 **`lista_filtrar`:**
-- Temporal: $O(n \cdot (T_{pred} + T_{insertar})) = O(n)$ - recorre y copia elementos filtrados
+- Temporal: $O(n \cdot (T_{pred} + T_{insertar})) = O(n)$ - recorre y copia
+  elementos filtrados
 - Espacial: $O(k)$ - nueva lista con k elementos (k ≤ n)
 
 **Comparación con otras implementaciones:**
@@ -2370,10 +2590,14 @@ lista_error_t lista_insertar_final_v2(lista_t* lista, int dato) {
 | Acceso por índice | $O(n)$ | $O(1)$ |
 | Memoria overhead | Alta (punteros) | Baja + desperdicio |
 
-**Conclusión:** Esta implementación es óptima para operaciones en los extremos, pero ineficiente para acceso aleatorio.
+**Conclusión:** Esta implementación es óptima para operaciones en los extremos,
+pero ineficiente para acceso aleatorio.
 
 :::
+<!-- {solution} analisis_integral_punteros -->
 
 ---
 
-Estos 5 ejercicios cubren conceptos avanzados de punteros incluyendo aliasing, punteros colgantes, aritmética de punteros, callbacks con punteros a funciones, y un análisis integral de un sistema completo con múltiples tipos de punteros.
+Estos 5 ejercicios cubren conceptos avanzados de punteros incluyendo aliasing,
+punteros colgantes, aritmética de punteros, callbacks con punteros a funciones,
+y un análisis integral de un sistema completo con múltiples tipos de punteros.

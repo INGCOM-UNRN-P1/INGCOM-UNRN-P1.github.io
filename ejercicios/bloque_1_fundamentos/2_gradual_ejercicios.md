@@ -7,14 +7,21 @@ short_title: 2. Entrada/Salida Gradual
 
 ## Acerca de
 
-Estos ejercicios tienen como fin afianzar las operaciones de entrada y salida básica en C empleando `printf` y `scanf`, promoviendo la declaración e inicialización correcta de variables con tipos primitivos básicos.
+Estos ejercicios tienen como fin afianzar las operaciones de entrada y salida
+básica en C empleando `printf` y `scanf`, promoviendo la declaración e
+inicialización correcta de variables con tipos primitivos básicos.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-introduccion-c`
 
 ### Cuestiones de Estilo Aplicables
-- **Inicialización de Variables:** De acuerdo con la [Regla 0x0003h](../../reglas/0_sintaxis.md#0x0003h), siempre se deben inicializar las variables a un valor conocido en su declaración.
-- **Robustez en Entrada de Datos:** Al utilizar `scanf`, se debe validar su valor de retorno y realizar el purgado del buffer de entrada cuando sea necesario para evitar comportamientos indefinidos (ver [Regla 0x1005h](../../reglas/1_control.md#0x1005h)).
+- **Inicialización de Variables:** De acuerdo con la [Regla
+  0x0003h](../../reglas/0_sintaxis.md#0x0003h), siempre se deben inicializar las
+  variables a un valor conocido en su declaración.
+- **Robustez en Entrada de Datos:** Al utilizar `scanf`, se debe validar su
+  valor de retorno y realizar el purgado del buffer de entrada cuando sea
+  necesario para evitar comportamientos indefinidos (ver [Regla
+  0x1005h](../../reglas/1_control.md#0x1005h)).
 
 ---
 
@@ -25,8 +32,11 @@ Estos ejercicios tienen como fin afianzar las operaciones de entrada y salida b�
 :::{exercise}
 :label: Mostrando valores
 :enumerator: Valores
-Escribí un programa en C que declare e inicialice variables para tu edad, tu altura en metros y tu inicial de nombre, y muestre sus valores en la consola.
+Escribí un programa en C que declare e inicialice variables para tu edad, tu
+altura en metros y tu inicial de nombre, y muestre sus valores en la consola.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} Mostrando valores
 :class: dropdown
@@ -47,15 +57,22 @@ int main(void) {
 
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} Mostrando valores -->
 
 ### Ejercicio 2.2 - Formateo de entrada y salida
 
 :::{exercise}
 :label: entrada-1
-Pedí al usuario que ingrese su inicial de nombre, edad y calificación promedio, y mostralos formateados en pantalla.
+Pedí al usuario que ingrese su inicial de nombre, edad y calificación promedio,
+y mostralos formateados en pantalla.
+
 :::
+<!-- {exercise} -->
 
 :::{solution} entrada-1
 :class: dropdown
@@ -90,5 +107,9 @@ int main(void) {
     printf("Inicial: %c, Edad: %d, Promedio: %.2f\n", inicial, edad, promedio);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} entrada-1 -->

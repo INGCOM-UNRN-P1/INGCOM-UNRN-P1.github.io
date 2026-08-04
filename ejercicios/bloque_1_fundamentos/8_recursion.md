@@ -7,14 +7,20 @@ short_title: 8. Recursividad
 
 ## Acerca de
 
-Estos ejercicios tienen como fin practicar la recursión como alternativa al control de lazos explícitos. La recursión consiste en estructurar la lógica de un subprograma de forma que se llame a sí mismo con un subproblema de tamaño reducido, hasta converger en un caso base.
+Estos ejercicios tienen como fin practicar la recursión como alternativa al
+control de lazos explícitos. La recursión consiste en estructurar la lógica de
+un subprograma de forma que se llame a sí mismo con un subproblema de tamaño
+reducido, hasta converger en un caso base.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-recursividad-basica`
 
 ### Cuestiones de Estilo Aplicables
-- **Casos base explícitos:** Asegurate de definir de forma inequívoca el caso de corte en la primera instrucción de la función recursiva.
-- **Punteros y arreglos:** Al pasar arreglos a funciones recursivas, utilizá la aritmética de punteros para desplazar la dirección base del sub-arreglo en cada llamada (ver reglas de estilo en {ref}`0x2009h`).
+- **Casos base explícitos:** Asegurate de definir de forma inequívoca el caso de
+  corte en la primera instrucción de la función recursiva.
+- **Punteros y arreglos:** Al pasar arreglos a funciones recursivas, utilizá la
+  aritmética de punteros para desplazar la dirección base del sub-arreglo en
+  cada llamada (ver reglas de estilo en {ref}`0x2009h`).
 
 ---
 
@@ -22,7 +28,8 @@ Estos ejercicios tienen como fin practicar la recursión como alternativa al con
 
 ### Ejercicio 8.1 - Factorial
 
-El factorial de un entero no negativo $n$, denotado como $n!$, es el producto de todos los enteros positivos menores o iguales a $n$.
+El factorial de un entero no negativo $n$, denotado como $n!$, es el producto de
+todos los enteros positivos menores o iguales a $n$.
 
 $$ n! = n \times (n-1) \times (n-2) \times \dots \times 1 $$
 
@@ -38,7 +45,8 @@ $$
 
 ### Ejercicio 8.2 - Suma
 
-Definir la suma de $a+b$ de forma recursiva. La idea es decrementar uno de los operandos hasta llegar a un caso base.
+Definir la suma de $a+b$ de forma recursiva. La idea es decrementar uno de los
+operandos hasta llegar a un caso base.
 
 $$ 
 suma(a, b) = 
@@ -78,7 +86,8 @@ $$
 
 ### Ejercicio 8.5 - Fibonacci
 
-Implementar una función que calcule el n-ésimo término de la serie de Fibonacci, definida por la relación de recurrencia:
+Implementar una función que calcule el n-ésimo término de la serie de Fibonacci,
+definida por la relación de recurrencia:
 
 $$ 
 fib(n) = 
@@ -95,15 +104,18 @@ $$
 
 ### Ejercicio 8.6 - Mostrar arreglo
 
-Imprimir el primer elemento y luego llamar a la función con el resto del arreglo.
+Imprimir el primer elemento y luego llamar a la función con el resto del
+arreglo.
 
 ### Ejercicio 8.7 - Mostrar arreglo invertido
 
-Llamar a la función con el resto del arreglo y luego imprimir el primer elemento.
+Llamar a la función con el resto del arreglo y luego imprimir el primer
+elemento.
 
 ### Ejercicio 8.8 - Suma de valores
 
-Sumar el primer elemento con el resultado de llamar a la función sobre el resto del arreglo.
+Sumar el primer elemento con el resultado de llamar a la función sobre el resto
+del arreglo.
 
 ---
 
@@ -111,7 +123,8 @@ Sumar el primer elemento con el resultado de llamar a la función sobre el resto
 
 ### Ejercicio 8.9 - Palíndromo
 
-Implementar una función recursiva que determine si una cadena es un palíndromo. Un palíndromo se lee igual en ambos sentidos.
+Implementar una función recursiva que determine si una cadena es un palíndromo.
+Un palíndromo se lee igual en ambos sentidos.
 
 **Lógica recursiva:** Una cadena es un palíndromo si:
 1. Su primer y último carácter son iguales, Y

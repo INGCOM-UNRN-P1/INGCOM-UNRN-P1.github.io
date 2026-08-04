@@ -7,14 +7,20 @@ short_title: Diseño de APIs
 
 ## Acerca de
 
-Estos ejercicios abordan los criterios profesionales para el diseño y construcción de interfaces de programación de aplicaciones (APIs) modulares, seguras y extensibles en el lenguaje C.
+Estos ejercicios abordan los criterios profesionales para el diseño y
+construcción de interfaces de programación de aplicaciones (APIs) modulares,
+seguras y extensibles en el lenguaje C.
 
 ### Capítulos de Apunte Correspondientes
 - [Capítulo de TAD](#capitulo-tad)
 
 ### Cuestiones de Estilo Aplicables
-- **Encapsulamiento opaco:** Exponé únicamente los tipos incompletos (`typedef struct stack stack_t;`) y los prototipos de funciones en los archivos de interfaz `.h` (ver {ref}`0x3002h`).
-- **Nomenclatura consistente:** Seguí siempre la convención de prefijos para evitar colisiones de símbolos globales en el espacio de nombres (ver reglas en {ref}`0x0001h`).
+- **Encapsulamiento opaco:** Exponé únicamente los tipos incompletos (`typedef
+  struct stack stack_t;`) y los prototipos de funciones en los archivos de
+  interfaz `.h` (ver {ref}`0x3002h`).
+- **Nomenclatura consistente:** Seguí siempre la convención de prefijos para
+  evitar colisiones de símbolos globales en el espacio de nombres (ver reglas en
+  {ref}`0x0001h`).
 
 ---
 
@@ -22,16 +28,20 @@ Estos ejercicios abordan los criterios profesionales para el diseño y construcc
 
 ### Ejercicio 5.33 - Crítica de Nombres
 
-Analizar estos nombres de funciones y proponer mejoras siguiendo las reglas de estilo:
+Analizar estos nombres de funciones y proponer mejoras siguiendo las reglas de
+estilo:
 
-```c
+```{code-block} c
+:linenos:
 // Biblioteca de procesamiento de imágenes
 void process(img *i);
 int calc(img *i, int x, int y);
 void update(img *i, void *d);
 int check(img *i);
 void fix(img *i);
+
 ```
+<!-- {code-block} c -->
 
 **Tareas:**
 1. Identificar qué está mal con cada nombre
@@ -39,8 +49,13 @@ void fix(img *i);
 3. Agregar documentación de contrato para cada función
 
 :::{tip} Nombres Descriptivos
-Como se menciona en [claridad y expresividad](#1-claridad-y-expresividad), los nombres deben comunicar claramente la acción que realizan. Usar verbos específicos en lugar de genéricos como "process" o "update".
+
+Como se menciona en [claridad y expresividad](#1-claridad-y-expresividad), los
+nombres deben comunicar claramente la acción que realizan. Usar verbos
+específicos en lugar de genéricos como "process" o "update".
+
 :::
+<!-- {tip} Nombres Descriptivos -->
 
 ### Ejercicio 5.34 - Diseño de Prefijos
 
@@ -57,18 +72,20 @@ Para cada una:
 - Justificar la elección del prefijo
 
 **Ejemplo:**
-```c
+``` c
 // Librería de parseo JSON - prefijo: json_
 json_parser_t* json_parser_crear(void);
 json_value_t* json_parser_parse_string(json_parser_t* parser, const char* str);
 bool json_value_es_objeto(const json_value_t* value);
 ```
+<!-- c -->
 
 ### Ejercicio 5.35 - Consistencia en Familias de Funciones
 
 Completar estas familias de funciones con nombres consistentes:
 
-```c
+```{code-block} c
+:linenos:
 // Familia de funciones para manejo de archivos de configuración
 config_t* config_crear_vacio(void);
 config_t* config_???_desde_archivo(const char* ruta);  // Cargar
@@ -77,13 +94,16 @@ bool config_???_a_archivo(const config_t* cfg, const char* ruta);  // Guardar
 ???  // Establecer valor de clave
 ???  // Verificar si existe una clave
 void config_destruir(config_t** ptr_config);
+
 ```
+<!-- {code-block} c -->
 
 ### Ejercicio 5.36 - Nombres que Reflejan Comportamiento
 
 Renombrar estas funciones para reflejar mejor su comportamiento real:
 
-```c
+```{code-block} c
+:linenos:
 // La función busca y reemplaza, no solo busca
 char* buscar_texto(char* str, const char* patron, const char* reemplazo);
 
@@ -95,7 +115,9 @@ double obtener_promedio(const int* calificaciones, size_t n);
 
 // La función no agrega, inserta ordenadamente
 void agregar_elemento(lista_t* lista, int elemento);
+
 ```
+<!-- {code-block} c -->
 
 ---
 
@@ -106,7 +128,8 @@ void agregar_elemento(lista_t* lista, int elemento);
 Implementar un stack usando tipo opaco completo:
 
 **`stack.h`** (interfaz pública):
-```c
+```{code-block} c
+:linenos:
 #ifndef STACK_H
 #define STACK_H
 
@@ -126,7 +149,9 @@ size_t stack_tamano(const stack_t* stack);
 bool stack_esta_vacio(const stack_t* stack);
 
 #endif
+
 ```
+<!-- {code-block} c -->
 
 **Tareas:**
 1. Implementar `stack.c` con la estructura completa
@@ -138,7 +163,8 @@ bool stack_esta_vacio(const stack_t* stack);
 Comparar dos versiones de una estructura:
 
 **Versión A: Estructura expuesta**
-```c
+```{code-block} c
+:linenos:
 // vector.h
 typedef struct {
     int* datos;
@@ -147,27 +173,32 @@ typedef struct {
 } vector_t;
 
 void vector_init(vector_t* vec);
+
 ```
+<!-- {code-block} c -->
 
 **Versión B: Tipo opaco**
-```c
+``` c
 // vector.h
 typedef struct vector vector_t;
 
 vector_t* vector_crear(void);
 ```
+<!-- c -->
 
 **Preguntas conceptuales:**
 1. ¿Qué puede hacer el usuario con la versión A que no puede con la B?
 2. ¿Qué ventajas tiene B para el mantenedor de la librería?
-3. Si querés agregar un campo `version` a la estructura, ¿cuál versión permite hacerlo sin romper compatibilidad?
+3. Si querés agregar un campo `version` a la estructura, ¿cuál versión permite
+   hacerlo sin romper compatibilidad?
 4. ¿Cuál es más eficiente en memoria? ¿Por qué?
 
 ### 2.3: Patrón Handle
 
 Implementar un tipo opaco usando el patrón handle (identificador):
 
-```c
+```{code-block} c
+:linenos:
 // archivo.h
 typedef int archivo_handle_t;
 #define ARCHIVO_HANDLE_INVALIDO (-1)
@@ -176,7 +207,9 @@ archivo_handle_t archivo_abrir(const char* ruta, const char* modo);
 bool archivo_escribir(archivo_handle_t handle, const void* datos, size_t bytes);
 bool archivo_leer(archivo_handle_t handle, void* buffer, size_t bytes);
 void archivo_cerrar(archivo_handle_t handle);
+
 ```
+<!-- {code-block} c -->
 
 **Tareas:**
 1. Implementar la tabla interna de handles
@@ -187,7 +220,8 @@ void archivo_cerrar(archivo_handle_t handle);
 
 Diseñar getters para exponer información sin romper encapsulamiento:
 
-```c
+```{code-block} c
+:linenos:
 typedef struct producto producto_t;
 
 // Implementar:
@@ -198,7 +232,9 @@ int producto_obtener_stock(const producto_t* p);
 // ¿Cómo exponer una fecha sin exponer la implementación interna?
 // ¿Debería retornar un puntero a la estructura interna?
 ??? producto_obtener_fecha_vencimiento(const producto_t* p);
+
 ```
+<!-- {code-block} c -->
 
 **Pregunta:** ¿Por qué retornar `const char*` en lugar de `char*`?
 
@@ -208,7 +244,8 @@ int producto_obtener_stock(const producto_t* p);
 
 Documentar completamente el contrato de estas funciones:
 
-```c
+```{code-block} c
+:linenos:
 /**
  * [COMPLETAR DOCUMENTACIÓN]
  */
@@ -223,7 +260,9 @@ int* arreglo_buscar_binario(int* arr, size_t n, int target);
  * [COMPLETAR DOCUMENTACIÓN]
  */
 void cadena_dividir(const char* str, char delim, char*** resultado, size_t* count);
+
 ```
+<!-- {code-block} c -->
 
 Para cada función, especificar:
 - **Propósito:** ¿Qué hace la función?
@@ -237,7 +276,8 @@ Para cada función, especificar:
 
 Para cada función, decidir si debe validar precondiciones o asumirlas:
 
-```c
+```{code-block} c
+:linenos:
 // Opción 1: Asumir precondiciones (más rápido, menos seguro)
 double promedio(const int* arr, size_t n) {
     // ¿Verificar arr != NULL y n > 0?
@@ -256,7 +296,9 @@ double promedio_seguro(const int* arr, size_t n, double* resultado) {
     // ...
     return true;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Preguntas:**
 1. ¿Cuándo elegir una sobre la otra?
@@ -267,7 +309,8 @@ double promedio_seguro(const int* arr, size_t n, double* resultado) {
 
 Definir e implementar una función de verificación de invariantes:
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     int* datos;
     size_t tamano;
@@ -282,22 +325,26 @@ typedef struct {
  * 3. [AGREGAR MÁS]
  */
 bool vector_verificar_invariantes(const vector_t* vec);
+
 ```
+<!-- {code-block} c -->
 
 Usar esta función en modo debug:
-```c
+``` c
 #ifdef DEBUG
 #define VERIFICAR_INVARIANTES(vec) assert(vector_verificar_invariantes(vec))
 #else
 #define VERIFICAR_INVARIANTES(vec) ((void)0)
 #endif
 ```
+<!-- c -->
 
 ### 3.4: Contratos con Aliasing
 
 Analizar problemas de aliasing en contratos:
 
-```c
+```{code-block} c
+:linenos:
 /**
  * Copia n bytes de src a dest.
  * 
@@ -313,7 +360,9 @@ void mi_memcpy(void* dest, const void* src, size_t n);
  * ¿Cómo especificar que puede manejar solapamiento?
  */
 void mi_memmove(void* dest, const void* src, size_t n);
+
 ```
+<!-- {code-block} c -->
 
 ## 4: Manejo de Errores
 
@@ -322,15 +371,17 @@ void mi_memmove(void* dest, const void* src, size_t n);
 Implementar la misma funcionalidad con tres estrategias de error:
 
 **Estrategia 1: Valor especial de retorno**
-```c
+``` c
 int lista_buscar_indice(const lista_t* lista, int valor) {
     // Retornar -1 si no se encuentra
     // ¿Qué pasa si la búsqueda falla por lista == NULL?
 }
 ```
+<!-- c -->
 
 **Estrategia 2: Código de error + parámetro de salida**
-```c
+```{code-block} c
+:linenos:
 typedef enum {
     LISTA_OK,
     LISTA_ERROR_NULL,
@@ -338,10 +389,12 @@ typedef enum {
 } lista_error_t;
 
 lista_error_t lista_buscar_indice_v2(const lista_t* lista, int valor, size_t* indice);
+
 ```
+<!-- {code-block} c -->
 
 **Estrategia 3: errno global**
-```c
+``` c
 extern int lista_errno;
 
 #define LISTA_EXITO 0
@@ -350,6 +403,7 @@ extern int lista_errno;
 
 int lista_buscar_indice_v3(const lista_t* lista, int valor);
 ```
+<!-- c -->
 
 **Análisis:**
 - Ventajas y desventajas de cada enfoque
@@ -360,7 +414,8 @@ int lista_buscar_indice_v3(const lista_t* lista, int valor);
 
 Diseñar un enum completo de códigos de error para una librería de archivos:
 
-```c
+```{code-block} c
+:linenos:
 typedef enum {
     ARCHIVO_OK = 0,         // Éxito siempre debe ser 0
     ARCHIVO_ERROR_MEMORIA,  // malloc falló
@@ -371,7 +426,9 @@ typedef enum {
  * Convierte código de error a cadena descriptiva.
  */
 const char* archivo_error_str(archivo_error_t error);
+
 ```
+<!-- {code-block} c -->
 
 **Requisitos:**
 - Cubrir todos los casos de error posibles
@@ -382,7 +439,8 @@ const char* archivo_error_str(archivo_error_t error);
 
 Implementar una función que llama a otras y debe propagar errores:
 
-```c
+```{code-block} c
+:linenos:
 typedef enum {
     DB_OK = 0,
     DB_ERROR_CONEXION,
@@ -402,13 +460,17 @@ typedef enum {
  * ¿Cómo propagar cada error al caller?
  */
 db_error_t db_usuario_actualizar_email(db_t* db, int user_id, const char* nuevo_email);
+
 ```
+<!-- {code-block} c -->
 
 ### 4.4: Logging de Errores
 
-Implementar un sistema de logging interno que registre errores sin afectar la API pública:
+Implementar un sistema de logging interno que registre errores sin afectar la
+API pública:
 
-```c
+```{code-block} c
+:linenos:
 // Función interna, no expuesta en el .h
 static void log_error_interno(const char* funcion, const char* mensaje);
 
@@ -420,9 +482,12 @@ lista_error_t lista_agregar(lista_t* lista, int valor) {
     }
     // ...
 }
-```
 
-**Pregunta:** ¿Cómo permitir que el usuario configure el nivel de logging sin modificar la API?
+```
+<!-- {code-block} c -->
+
+**Pregunta:** ¿Cómo permitir que el usuario configure el nivel de logging sin
+modificar la API?
 
 ## 5: Gestión de Memoria en APIs
 
@@ -430,7 +495,8 @@ lista_error_t lista_agregar(lista_t* lista, int valor) {
 
 Analizar y documentar la responsabilidad de memoria en estas funciones:
 
-```c
+```{code-block} c
+:linenos:
 // Caso 1: ¿Quién libera el string retornado?
 char* persona_obtener_nombre_completo(const persona_t* p);
 
@@ -442,15 +508,19 @@ void logger_set_buffer(logger_t* log, char* buffer, size_t tamano);
 
 // Caso 4: ¿El caller debe pre-alojar? ¿Cuánto espacio necesita?
 bool fecha_formatear(const fecha_t* f, char* buffer, size_t buffer_size);
-```
 
-Para cada caso, especificar claramente en la documentación quién es responsable de liberar memoria.
+```
+<!-- {code-block} c -->
+
+Para cada caso, especificar claramente en la documentación quién es responsable
+de liberar memoria.
 
 ### 5.2: Patrón de Constructor/Destructor
 
 Implementar el par constructor/destructor para una estructura compleja:
 
-```c
+```{code-block} c
+:linenos:
 typedef struct biblioteca biblioteca_t;
 
 /**
@@ -476,16 +546,20 @@ biblioteca_t* biblioteca_crear(void);
  * POSCONDICIÓN: *ptr_bib == NULL
  */
 void biblioteca_destruir(biblioteca_t** ptr_bib);
-```
 
-**Implementación:** Crear un módulo completo con varios niveles de memoria dinámica.
+```
+<!-- {code-block} c -->
+
+**Implementación:** Crear un módulo completo con varios niveles de memoria
+dinámica.
 
 ### 5.3: Buffers Pre-alocados vs. Asignación Interna
 
 Comparar dos diseños para una función de serialización:
 
 **Diseño A: Caller provee buffer**
-```c
+```{code-block} c
+:linenos:
 /**
  * Serializa un objeto a JSON en el buffer provisto.
  * 
@@ -496,10 +570,13 @@ Comparar dos diseños para una función de serialización:
  */
 bool objeto_a_json(const objeto_t* obj, char* buffer, size_t buffer_size, 
                    size_t* bytes_escritos);
+
 ```
+<!-- {code-block} c -->
 
 **Diseño B: Función aloja memoria**
-```c
+```{code-block} c
+:linenos:
 /**
  * Serializa un objeto a JSON, asignando memoria dinámicamente.
  * 
@@ -508,7 +585,9 @@ bool objeto_a_json(const objeto_t* obj, char* buffer, size_t buffer_size,
  * RESPONSABILIDAD: El caller debe liberar con free().
  */
 char* objeto_a_json_alloc(const objeto_t* obj);
+
 ```
+<!-- {code-block} c -->
 
 **Análisis:**
 - ¿Cuándo usar cada diseño?
@@ -519,7 +598,8 @@ char* objeto_a_json_alloc(const objeto_t* obj);
 
 Diseñar una API que use un pool de memoria personalizado:
 
-```c
+```{code-block} c
+:linenos:
 typedef struct arena arena_t;
 
 // API del arena
@@ -534,7 +614,9 @@ typedef struct parser parser_t;
 parser_t* parser_crear_con_arena(arena_t* arena);
 nodo_ast_t* parser_parse(parser_t* p, const char* codigo);
 // Todos los nodos del AST se alojan en el arena
+
 ```
+<!-- {code-block} c -->
 
 **Ventaja:** Liberación masiva en $O(1)$ sin memory leaks.
 
@@ -562,7 +644,8 @@ h) Deprecar una función pero mantenerla funcional
 
 Analizar qué cambios rompen compatibilidad binaria (ABI):
 
-```c
+```{code-block} c
+:linenos:
 // Versión 1.0
 typedef struct {
     int x;
@@ -570,10 +653,13 @@ typedef struct {
 } punto_t;
 
 void punto_imprimir(punto_t p);
+
 ```
+<!-- {code-block} c -->
 
 **Cambios propuestos:**
-```c
+```{code-block} c
+:linenos:
 // Cambio A: Agregar campo al final
 typedef struct {
     int x;
@@ -592,7 +678,9 @@ void punto_imprimir(punto_t p, bool con_formato);  // Parámetro nuevo
 
 // Cambio D: Cambiar de valor a puntero
 void punto_imprimir(punto_t* p);  // Ahora puntero
+
 ```
+<!-- {code-block} c -->
 
 **Pregunta:** ¿Cuáles rompen ABI? ¿Por qué?
 
@@ -600,7 +688,8 @@ void punto_imprimir(punto_t* p);  // Ahora puntero
 
 Implementar la deprecación de una función antigua:
 
-```c
+```{code-block} c
+:linenos:
 // viejo_api.h (versión 1.x)
 void config_load(const char* filename);  // Versión antigua
 
@@ -622,13 +711,16 @@ static inline void config_load(const char* filename) {
     config_cargar_desde_archivo(filename);
     // Ignora errores para mantener comportamiento original
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 6.4: Feature Flags
 
 Diseñar un sistema de feature flags para habilitar funcionalidad experimental:
 
-```c
+```{code-block} c
+:linenos:
 // compilar con -DCONFIG_FEATURE_X para habilitar
 
 #ifdef CONFIG_FEATURE_EXPERIMENTAL_CACHE
@@ -638,7 +730,9 @@ Diseñar un sistema de feature flags para habilitar funcionalidad experimental:
  */
 void lista_habilitar_cache(lista_t* lista);
 #endif
+
 ```
+<!-- {code-block} c -->
 
 ## 7: Testing de APIs
 
@@ -646,7 +740,8 @@ void lista_habilitar_cache(lista_t* lista);
 
 Refactorizar este código difícil de testear:
 
-```c
+```{code-block} c
+:linenos:
 // Difícil de testear: lee directamente de stdin
 void procesar_comandos(void) {
     char buffer[100];
@@ -654,10 +749,13 @@ void procesar_comandos(void) {
         ejecutar_comando(buffer);
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 **Refactorización testeable:**
-```c
+```{code-block} c
+:linenos:
 // Inyección de dependencia: acepta FILE*
 void procesar_comandos_desde(FILE* stream) {
     char buffer[100];
@@ -670,23 +768,29 @@ void procesar_comandos_desde(FILE* stream) {
 static inline void procesar_comandos(void) {
     procesar_comandos_desde(stdin);
 }
+
 ```
+<!-- {code-block} c -->
 
 **Test:**
-```c
+```{code-block} c
+:linenos:
 void test_procesar_comandos(void) {
     FILE* test_input = fopen("test_input.txt", "r");
     procesar_comandos_desde(test_input);
     fclose(test_input);
     // Verificar resultados
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 7.2: Mock Objects
 
 Diseñar una interfaz que permita inyectar mocks para testing:
 
-```c
+```{code-block} c
+:linenos:
 // Interfaz de operaciones de archivo
 typedef struct {
     void* (*abrir)(const char* ruta);
@@ -704,13 +808,16 @@ extern const archivo_ops_t archivo_ops_real;
 
 // Mock para testing
 extern const archivo_ops_t archivo_ops_mock;
+
 ```
+<!-- {code-block} c -->
 
 ### 7.3: Tests de Contrato
 
 Escribir tests que verifiquen el contrato de esta función:
 
-```c
+```{code-block} c
+:linenos:
 /**
  * Busca un elemento en un arreglo ordenado.
  * 
@@ -720,23 +827,29 @@ Escribir tests que verifiquen el contrato de esta función:
  * @return Índice del elemento, o -1 si no se encuentra
  */
 int buscar_binario(const int* arr, size_t n, int target);
+
 ```
+<!-- {code-block} c -->
 
 **Tests a implementar:**
-```c
+```{code-block} c
+:linenos:
 void test_buscar_binario_elemento_presente(void);
 void test_buscar_binario_elemento_ausente(void);
 void test_buscar_binario_arreglo_vacio(void);
 void test_buscar_binario_primer_elemento(void);
 void test_buscar_binario_ultimo_elemento(void);
 // ¿Qué otros casos?
+
 ```
+<!-- {code-block} c -->
 
 ### 7.4: Property-Based Testing
 
 Definir propiedades que deben cumplirse siempre:
 
-```c
+```{code-block} c
+:linenos:
 // Propiedad: ordenar es idempotente
 void property_ordenar_idempotente(void) {
     int arr[100];
@@ -764,7 +877,9 @@ void property_insertar_buscar(void) {
     
     lista_destruir(&lista);
 }
+
 ```
+<!-- {code-block} c -->
 
 ## 8: Patrones de Diseño de APIs
 
@@ -772,7 +887,8 @@ void property_insertar_buscar(void) {
 
 Implementar el patrón builder para configuración compleja:
 
-```c
+```{code-block} c
+:linenos:
 typedef struct http_request_builder http_request_builder_t;
 typedef struct http_request http_request_t;
 
@@ -792,13 +908,16 @@ http_request_t* http_request_builder_build(http_request_builder_t* b);
 //     ->url("http://example.com")
 //     ->header("Content-Type", "application/json")
 //     ->build();
+
 ```
+<!-- {code-block} c -->
 
 ### 8.2: Patrón Iterator
 
 Diseñar un iterador genérico para una colección:
 
-```c
+```{code-block} c
+:linenos:
 typedef struct lista lista_t;
 typedef struct lista_iter lista_iter_t;
 
@@ -815,7 +934,9 @@ while (lista_iter_tiene_siguiente(iter)) {
     printf("%d\n", valor);
 }
 lista_iter_destruir(iter);
+
 ```
+<!-- {code-block} c -->
 
 **Pregunta:** ¿Qué pasa si la lista se modifica durante la iteración?
 
@@ -823,7 +944,8 @@ lista_iter_destruir(iter);
 
 Implementar una factory para crear diferentes tipos de objetos:
 
-```c
+```{code-block} c
+:linenos:
 typedef enum {
     PARSER_JSON,
     PARSER_XML,
@@ -839,7 +961,9 @@ parser_t* parser_crear(parser_tipo_t tipo);
 bool parser_parse_string(parser_t* p, const char* str);
 valor_t* parser_obtener_valor(parser_t* p, const char* clave);
 void parser_destruir(parser_t* p);
+
 ```
+<!-- {code-block} c -->
 
 **Implementación:** Usar punteros a funciones internamente para polimorfismo.
 
@@ -847,7 +971,8 @@ void parser_destruir(parser_t* p);
 
 Diseñar una API con callbacks para procesamiento asíncrono:
 
-```c
+```{code-block} c
+:linenos:
 typedef void (*evento_callback_t)(void* contexto, const evento_t* evento);
 
 typedef struct event_loop event_loop_t;
@@ -860,7 +985,9 @@ void event_loop_registrar_callback(event_loop_t* loop,
 void event_loop_ejecutar(event_loop_t* loop);
 void event_loop_detener(event_loop_t* loop);
 void event_loop_destruir(event_loop_t* loop);
+
 ```
+<!-- {code-block} c -->
 
 ## 9: APIs Thread-Safe
 
@@ -868,7 +995,8 @@ void event_loop_destruir(event_loop_t* loop);
 
 Analizar si estas funciones son thread-safe:
 
-```c
+```{code-block} c
+:linenos:
 // Función 1: Variable estática
 int contador_global(void) {
     static int count = 0;
@@ -899,13 +1027,16 @@ void log_mensaje(const char* msg) {
     fprintf(log_file, "%s\n", msg);
     pthread_mutex_unlock(&mutex);
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 9.2: Diseño Thread-Safe
 
 Convertir esta API no thread-safe a thread-safe:
 
-```c
+```{code-block} c
+:linenos:
 // Versión NO thread-safe
 typedef struct cache cache_t;
 
@@ -913,7 +1044,9 @@ cache_t* cache_crear(void);
 void cache_insertar(cache_t* c, const char* clave, const char* valor);
 const char* cache_buscar(cache_t* c, const char* clave);
 void cache_destruir(cache_t* c);
+
 ```
+<!-- {code-block} c -->
 
 **Opciones de diseño:**
 1. Mutex interno (transparente pero menos flexible)
@@ -924,7 +1057,8 @@ void cache_destruir(cache_t* c);
 
 Usar TLS para error handling thread-safe:
 
-```c
+```{code-block} c
+:linenos:
 // En lugar de errno global
 __thread int mi_lib_errno = 0;
 
@@ -939,13 +1073,16 @@ int mi_funcion(void) {
     }
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 9.4: Documentar Garantías de Concurrencia
 
 Documentar las garantías de thread-safety:
 
-```c
+```{code-block} c
+:linenos:
 /**
  * [THREAD-SAFE] Puede ser llamada concurrentemente desde múltiples threads.
  * Usa locking interno.
@@ -963,7 +1100,9 @@ void cache_limpiar(cache_t* cache);
  * No usa variables estáticas ni globales.
  */
 int factorial(int n);
+
 ```
+<!-- {code-block} c -->
 
 ## 10: Performance y Optimización
 
@@ -971,7 +1110,8 @@ int factorial(int n);
 
 Diseñar una API que minimice copias de datos:
 
-```c
+```{code-block} c
+:linenos:
 // Malo: múltiples copias
 char* archivo_leer_todo(const char* ruta);  // Copia 1: archivo → buffer interno
 char* procesar_texto(const char* texto);    // Copia 2: buffer → nuevo buffer
@@ -983,13 +1123,16 @@ buffer_t* buffer_desde_archivo(const char* ruta);  // Mapea archivo
 const char* buffer_obtener_datos(const buffer_t* b);  // Acceso directo, sin copia
 size_t buffer_obtener_tamano(const buffer_t* b);
 void buffer_liberar(buffer_t* b);
+
 ```
+<!-- {code-block} c -->
 
 ### 10.2: API para Operaciones Batch
 
 Diseñar API que permita operaciones en lote para mejor performance:
 
-```c
+```{code-block} c
+:linenos:
 // Ineficiente: múltiples llamadas
 for (int i = 0; i < n; i++) {
     db_insertar(db, &registros[i]);  // Overhead por llamada
@@ -997,10 +1140,13 @@ for (int i = 0; i < n; i++) {
 
 // Eficiente: operación batch
 db_insertar_batch(db, registros, n);  // Una sola transacción
+
 ```
+<!-- {code-block} c -->
 
 Implementar:
-```c
+```{code-block} c
+:linenos:
 typedef struct db db_t;
 typedef struct registro registro_t;
 
@@ -1012,13 +1158,16 @@ bool db_eliminar(db_t* db, int id);
 // Operaciones batch
 bool db_insertar_batch(db_t* db, const registro_t* registros, size_t count);
 bool db_eliminar_batch(db_t* db, const int* ids, size_t count);
+
 ```
+<!-- {code-block} c -->
 
 ### 10.3: Lazy Evaluation
 
 Implementar evaluación perezosa en una API:
 
-```c
+```{code-block} c
+:linenos:
 typedef struct consulta consulta_t;
 typedef struct resultado resultado_t;
 
@@ -1037,13 +1186,16 @@ resultado_t* res = consulta_crear(db, "usuarios")
     ->ordenar("nombre")
     ->limitar(10)
     ->ejecutar();  // Solo aquí se ejecuta la consulta
+
 ```
+<!-- {code-block} c -->
 
 ### 10.4: Profiling-Friendly API
 
 Diseñar puntos de instrumentación en la API:
 
-```c
+```{code-block} c
+:linenos:
 typedef struct stats stats_t;
 
 // API con estadísticas opcionales
@@ -1059,7 +1211,9 @@ typedef struct {
 
 void cache_obtener_stats(const cache_t* c, cache_stats_t* stats);
 void cache_resetear_stats(cache_t* c);
+
 ```
+<!-- {code-block} c -->
 
 ## 11: Internacionalización y Localización
 
@@ -1067,7 +1221,8 @@ void cache_resetear_stats(cache_t* c);
 
 Diseñar un sistema de mensajes de error localizables:
 
-```c
+```{code-block} c
+:linenos:
 typedef enum {
     MSG_ERROR_MEMORIA,
     MSG_ERROR_ARCHIVO_NO_ENCONTRADO,
@@ -1090,13 +1245,16 @@ int archivo_abrir(const char* ruta) {
         return -1;
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 11.2: Separación de Lógica y Presentación
 
 Refactorizar para separar lógica de UI:
 
-```c
+```{code-block} c
+:linenos:
 // Malo: mezcla lógica con presentación
 void procesar_pedido(pedido_t* p) {
     if (validar_pedido(p)) {
@@ -1123,7 +1281,9 @@ if (res == PEDIDO_OK) {
 } else {
     ui_mostrar_error(mensaje_para_resultado(res));
 }
+
 ```
+<!-- {code-block} c -->
 
 ## 12: Documentación de APIs
 
@@ -1131,7 +1291,8 @@ if (res == PEDIDO_OK) {
 
 Escribir documentación completa para este módulo:
 
-```c
+```{code-block} c
+:linenos:
 /**
  * @file cola.h
  * @brief [COMPLETAR]
@@ -1171,7 +1332,9 @@ cola_t* cola_crear(void);
 // [COMPLETAR DOCUMENTACIÓN DE TODAS LAS FUNCIONES]
 
 #endif
+
 ```
+<!-- {code-block} c -->
 
 ### 12.2: README y Guía de Uso
 
@@ -1191,7 +1354,8 @@ Escribir un README completo para tu librería:
 
 Agregar comentarios inline útiles (no obvios):
 
-```c
+```{code-block} c
+:linenos:
 // Malo: comentario obvio
 i++;  // Incrementar i
 
@@ -1207,7 +1371,9 @@ for (int i = 0; i < n; i++) {
 // IMPORTANTE: buffer debe tener al menos MAX_PATH + 1 bytes
 // para incluir el null terminator
 obtener_ruta_absoluta(archivo, buffer);
+
 ```
+<!-- {code-block} c -->
 
 ## 13: Casos de Estudio
 
@@ -1215,9 +1381,10 @@ obtener_ruta_absoluta(archivo, buffer);
 
 Analizar el diseño de `fopen`:
 
-```c
+``` c
 FILE* fopen(const char* filename, const char* mode);
 ```
+<!-- c -->
 
 **Preguntas:**
 1. ¿Por qué retornar puntero opaco en lugar de estructura?
@@ -1232,10 +1399,11 @@ FILE* fopen(const char* filename, const char* mode);
 
 Analizar el diseño de `malloc`:
 
-```c
+``` c
 void* malloc(size_t size);
 void free(void* ptr);
 ```
+<!-- c -->
 
 **Preguntas:**
 1. ¿Por qué retornar `void*`?
@@ -1248,7 +1416,8 @@ void free(void* ptr);
 
 Esta API tiene varios problemas. Identificarlos y proponer mejoras:
 
-```c
+```{code-block} c
+:linenos:
 // api_problematica.h
 struct datos {  // ¿Por qué no typedef?
     int* array;
@@ -1260,7 +1429,9 @@ void init(struct datos* d);  // ¿Malloc o no?
 int add(struct datos* d, int x);  // ¿Qué significa el int retornado?
 void process();  // ¿Dónde están los parámetros?
 char* get_result();  // ¿Quién libera?
+
 ```
+<!-- {code-block} c -->
 
 **Tareas:**
 1. Listar todos los problemas
@@ -1272,21 +1443,23 @@ char* get_result();  // ¿Quién libera?
 Comparar las APIs de estas dos librerías de base de datos:
 
 **SQLite (todo en uno):**
-```c
+``` c
 sqlite3* db;
 sqlite3_open("db.sqlite", &db);
 sqlite3_exec(db, "SELECT * FROM users", callback, NULL, NULL);
 sqlite3_close(db);
 ```
+<!-- c -->
 
 **MySQL (orientada a objetos):**
-```c
+``` c
 MYSQL* conn = mysql_init(NULL);
 mysql_real_connect(conn, host, user, pass, db, 0, NULL, 0);
 MYSQL_RES* result = mysql_query(conn, "SELECT * FROM users");
 mysql_free_result(result);
 mysql_close(conn);
 ```
+<!-- c -->
 
 **Análisis:**
 - Ventajas y desventajas de cada estilo
@@ -1319,7 +1492,8 @@ Diseñar una librería completa de manejo de grafos con:
 
 Dado este código legacy, refactorizar aplicando todos los principios:
 
-```c
+```{code-block} c
+:linenos:
 // legacy_code.c
 int data[MAX];
 int count = 0;
@@ -1337,7 +1511,9 @@ void print() {
         printf("%d ", data[i]);
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 **Mejoras a implementar:**
 - Tipo opaco
@@ -1351,7 +1527,8 @@ void print() {
 
 Diseñar una librería para cliente HTTP REST:
 
-```c
+```{code-block} c
+:linenos:
 typedef struct http_client http_client_t;
 typedef struct http_response http_response_t;
 
@@ -1374,7 +1551,9 @@ const char* http_response_get_header(const http_response_t* resp, const char* cl
 // Limpieza
 void http_response_destruir(http_response_t* resp);
 void http_client_destruir(http_client_t* client);
+
 ```
+<!-- {code-block} c -->
 
 ## 15: Preguntas Conceptuales
 
@@ -1383,31 +1562,37 @@ void http_client_destruir(http_client_t* client);
 **Pregunta:** ¿Cuál es mejor diseño y por qué?
 
 **Opción A: Simple pero menos seguro**
-```c
+``` c
 void buffer_append(buffer_t* buf, const char* str);
 // Asume que buf != NULL, undefined behavior si no
 ```
+<!-- c -->
 
 **Opción B: Seguro pero más verboso**
-```c
+``` c
 bool buffer_append(buffer_t* buf, const char* str) {
     if (buf == NULL || str == NULL) return false;
     // ...
     return true;
 }
 ```
+<!-- c -->
 
-**Respuesta esperada:** Depende del contexto (librería pública vs. código interno, performance crítica vs. no, etc.)
+**Respuesta esperada:** Depende del contexto (librería pública vs. código
+interno, performance crítica vs. no, etc.)
 
 ### 15.2: Abstracción vs. Control
 
-**Pregunta:** Una API de alto nivel es fácil de usar pero menos flexible. Una de bajo nivel es potente pero compleja. ¿Cómo resolver este trade-off?
+**Pregunta:** Una API de alto nivel es fácil de usar pero menos flexible. Una de
+bajo nivel es potente pero compleja. ¿Cómo resolver este trade-off?
 
-**Respuesta esperada:** Múltiples niveles de API, como hace Git con porcelain/plumbing.
+**Respuesta esperada:** Múltiples niveles de API, como hace Git con
+porcelain/plumbing.
 
 ### 15.3: Estabilidad vs. Innovación
 
-**Pregunta:** Mantener compatibilidad hacia atrás limita la evolución de la API. ¿Cómo balancear estabilidad e innovación?
+**Pregunta:** Mantener compatibilidad hacia atrás limita la evolución de la API.
+¿Cómo balancear estabilidad e innovación?
 
 **Respuestas esperadas:**
 - Versionado mayor para cambios breaking
@@ -1419,7 +1604,8 @@ bool buffer_append(buffer_t* buf, const char* str) {
 
 **Pregunta:** ¿Qué significa "zero-cost abstraction"? ¿Es posible en C?
 
-**Respuesta esperada:** Abstracción que no agrega overhead en runtime. En C es posible mediante inline functions y macros.
+**Respuesta esperada:** Abstracción que no agrega overhead en runtime. En C es
+posible mediante inline functions y macros.
 
 ### 15.5: Defensive Programming
 
@@ -1438,7 +1624,8 @@ bool buffer_append(buffer_t* buf, const char* str) {
 
 Implementar la versión más simple posible de:
 
-```c
+```{code-block} c
+:linenos:
 typedef struct map map_t;
 
 map_t* map_crear(void);
@@ -1447,7 +1634,9 @@ bool map_buscar(map_t* m, const char* clave, int* valor);
 bool map_eliminar(map_t* m, const char* clave);
 size_t map_tamano(const map_t* m);
 void map_destruir(map_t** ptr_map);
+
 ```
+<!-- {code-block} c -->
 
 **Requisitos mínimos:**
 - Tipo opaco
@@ -1459,7 +1648,8 @@ void map_destruir(map_t** ptr_map);
 
 Convertir estas macros inseguras en funciones inline seguras:
 
-```c
+```{code-block} c
+:linenos:
 // Macro insegura
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 // Problema: evalúa argumentos múltiples veces
@@ -1468,20 +1658,24 @@ Convertir estas macros inseguras en funciones inline seguras:
 static inline int max_int(int a, int b) {
     return (a > b) ? a : b;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Ejercicio:** Hacer lo mismo para:
-```c
+``` c
 #define SQUARE(x) ((x) * (x))
 #define ABS(x) ((x) < 0 ? -(x) : (x))
 #define SWAP(a, b) { int tmp = a; a = b; b = tmp; }
 ```
+<!-- c -->
 
 ### 16.3: Wrapper Generation
 
 Crear un sistema de wrappers automáticos para logging:
 
-```c
+```{code-block} c
+:linenos:
 // Original
 int funcion_original(int x, int y);
 
@@ -1492,7 +1686,9 @@ int funcion_original_logged(int x, int y) {
     LOG_SALIDA("funcion_original", "resultado=%d", resultado);
     return resultado;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Tarea:** Crear macros o scripts que generen estos wrappers.
 
@@ -1521,7 +1717,8 @@ Crear un checklist completo para revisar una API:
 
 ### 17.2: Revisión de Pares
 
-Intercambiar código con un compañero y revisar mutuamente las APIs diseñadas, usando el checklist del ejercicio anterior.
+Intercambiar código con un compañero y revisar mutuamente las APIs diseñadas,
+usando el checklist del ejercicio anterior.
 
 ## 18: Preguntas de Diseño
 
@@ -1529,7 +1726,8 @@ Intercambiar código con un compañero y revisar mutuamente las APIs diseñadas,
 
 Para cada caso, decidir si pasar/retornar por valor o por puntero:
 
-```c
+```{code-block} c
+:linenos:
 // Estructura pequeña (8 bytes)
 typedef struct {
     int x;
@@ -1549,27 +1747,31 @@ typedef struct {
 // ¿Cuál es mejor?
 void procesar_v1(registro_t reg);        // Por valor
 void procesar_v2(const registro_t* reg); // Por puntero
+
 ```
+<!-- {code-block} c -->
 
 ### 18.2: ¿Callback o Polling?
 
 Diseñar API para operaciones asíncronas: ¿usar callbacks o polling?
 
 **Opción A: Callback**
-```c
+``` c
 typedef void (*completado_callback_t)(void* contexto, int resultado);
 
 void operacion_async(int param, completado_callback_t callback, void* contexto);
 ```
+<!-- c -->
 
 **Opción B: Polling**
-```c
+``` c
 typedef struct operacion operacion_t;
 
 operacion_t* operacion_iniciar(int param);
 bool operacion_completada(const operacion_t* op);
 int operacion_obtener_resultado(operacion_t* op);
 ```
+<!-- c -->
 
 **Análisis:** Ventajas y desventajas de cada enfoque.
 
@@ -1577,7 +1779,8 @@ int operacion_obtener_resultado(operacion_t* op);
 
 Comparar diseños mutables vs. inmutables:
 
-```c
+```{code-block} c
+:linenos:
 // Diseño mutable
 typedef struct string string_t;
 
@@ -1588,7 +1791,9 @@ void string_mayuscula(string_t* str);
 string_t* string_append(const string_t* str, const char* texto);
 string_t* string_mayuscula(const string_t* str);
 // Cada operación retorna nueva string, original sin modificar
+
 ```
+<!-- {code-block} c -->
 
 **Pregunta:** ¿Cuál preferir y cuándo?
 
@@ -1596,7 +1801,8 @@ string_t* string_mayuscula(const string_t* str);
 
 Simular herencia vs. composición en C:
 
-```c
+```{code-block} c
+:linenos:
 // Herencia (via casting)
 typedef struct {
     int tipo;  // "vtable" manual
@@ -1612,7 +1818,9 @@ typedef struct {
     punto_t centro;
     double radio;
 } circulo_v2_t;
+
 ```
+<!-- {code-block} c -->
 
 ## 19: Ejercicios Avanzados
 
@@ -1620,7 +1828,8 @@ typedef struct {
 
 Diseñar un sistema de plugins dinámicos:
 
-```c
+```{code-block} c
+:linenos:
 typedef struct plugin plugin_t;
 typedef struct plugin_api plugin_api_t;
 
@@ -1637,13 +1846,16 @@ struct plugin_api {
 plugin_t* plugin_cargar(const char* ruta_so);
 const plugin_api_t* plugin_get_api(plugin_t* p);
 void plugin_descargar(plugin_t* p);
+
 ```
+<!-- {code-block} c -->
 
 ### 19.2: Reflection System
 
 Implementar un sistema básico de reflexión:
 
-```c
+```{code-block} c
+:linenos:
 // Metadatos de tipos
 typedef enum {
     TYPE_INT,
@@ -1668,13 +1880,16 @@ typedef struct {
 
 // Usar para serialización genérica
 void serializar_struct(const void* instancia, const struct_info_t* info);
+
 ```
+<!-- {code-block} c -->
 
 ### 19.3: Expression Builder
 
 Crear un DSL (Domain Specific Language) embebido para construir consultas:
 
-```c
+```{code-block} c
+:linenos:
 typedef struct query query_t;
 
 // API fluida
@@ -1693,7 +1908,9 @@ query_t* q = query_from("usuarios")
 
 char* sql = query_to_sql(q);
 // SELECT * FROM usuarios WHERE edad > 18 ORDER BY nombre LIMIT 10
+
 ```
+<!-- {code-block} c -->
 
 ## 20: Documentación de Decisiones
 
@@ -1701,7 +1918,8 @@ char* sql = query_to_sql(q);
 
 Documentar una decisión de diseño importante:
 
-```markdown
+```{code-block} markdown
+:linenos:
 # ADR-001: Usar Tipo Opaco para Stack
 
 ## Estado
@@ -1724,7 +1942,9 @@ Usaremos tipo opaco completo con puntero a estructura incompleta.
 - Requiere heap allocation (no puede ser stack-local)
 - Indirección adicional en cada operación
 - Tamaño del struct desconocido para el usuario
+
 ```
+<!-- {code-block} markdown -->
 
 **Tarea:** Crear ADRs para decisiones en tus propias librerías.
 
@@ -1732,7 +1952,8 @@ Usaremos tipo opaco completo con puntero a estructura incompleta.
 
 Escribir un changelog siguiendo convenciones:
 
-```markdown
+```{code-block} markdown
+:linenos:
 # Changelog
 
 ## [2.0.0] - 2024-10-24
@@ -1751,7 +1972,9 @@ Escribir un changelog siguiendo convenciones:
 
 ### Deprecated
 - `lista_append` está deprecada, usar `lista_agregar_al_final`
+
 ```
+<!-- {code-block} markdown -->
 
 ## 21-25: Casos Prácticos Complejos
 
@@ -1803,6 +2026,13 @@ Diseñar API para definir y ejecutar máquinas de estados finitas:
 ---
 
 :::{tip} Aplicación Práctica
-Estos ejercicios están diseñados para ser progresivos. Comenzá con los fundamentos (nomenclatura, tipos opacos) y avanzá hacia diseños más complejos. Cada ejercicio refuerza los principios de [claridad](#1-claridad-y-expresividad), [principio de mínima sorpresa](#2-principio-de-minima-sorpresa) y las reglas de estilo del curso.
+
+Estos ejercicios están diseñados para ser progresivos. Comenzá con los
+fundamentos (nomenclatura, tipos opacos) y avanzá hacia diseños más complejos.
+Cada ejercicio refuerza los principios de
+[claridad](#1-claridad-y-expresividad), [principio de mínima
+sorpresa](#2-principio-de-minima-sorpresa) y las reglas de estilo del curso.
+
 :::
+<!-- {tip} Aplicación Práctica -->
 

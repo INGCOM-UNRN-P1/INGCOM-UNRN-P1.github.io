@@ -7,28 +7,32 @@ short_title: "15. Alias de Tipos"
 
 ## Acerca de
 
-Estos ejercicios te permitirán practicar el uso de alias de tipos (`typedef`) en C para estructurar mejor tu código y mejorar su legibilidad.
+Estos ejercicios te permitirán practicar el uso de alias de tipos (`typedef`) en
+C para estructurar mejor tu código y mejorar su legibilidad.
 
-Para profundizar en los conceptos teóricos, podés consultar el siguiente capítulo del apunte:
+Para profundizar en los conceptos teóricos, podés consultar el siguiente
+capítulo del apunte:
 - [Alias de tipos](../../apunte/bloque_2_proyectos/3_alias_tipos.md)
 
 ## Definición de Alias de Tipos
 
 ### Ejercicio 3.1 - Días de la semana
 
-```{exercise}
+:::{exercise}
 :label: enum_basico
 :enumerator: enums-1
 
 Definí una enumeración para representar los días de la semana.
 Escribí una función que reciba un día y retorne si es día laboral
 o fin de semana. Incluí validación para valores inválidos.
-```
 
-````{solution} enum_basico
+:::
+<!-- {exercise} -->
+
+::::{solution} enum_basico
 :class: dropdown
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 #include <stdbool.h>
@@ -107,5 +111,9 @@ int main() {
 
     return 0;
 }
-```
-````
+
+:::
+<!-- {code-block}c -->
+
+::::
+<!-- {solution} enum_basico -->

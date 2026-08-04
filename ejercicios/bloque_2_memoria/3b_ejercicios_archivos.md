@@ -8,32 +8,42 @@ subtitle: 'Problemas y soluciones detalladas sobre streams y persistencia en C'
 
 ## Acerca de
 
-Estos ejercicios resueltos profundizan en la manipulación y persistencia de datos usando streams de entrada/salida estándar y archivos de texto formateados en C.
+Estos ejercicios resueltos profundizan en la manipulación y persistencia de
+datos usando streams de entrada/salida estándar y archivos de texto formateados
+en C.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-archivos-texto`
 
 ### Cuestiones de Estilo Aplicables
-- **Manejo defensivo de archivos:** Asegurá siempre la validación del puntero retornado por `fopen` y liberá el descriptor de archivo llamando a `fclose` en todas las ramas de control de errores.
-- **Validación de buffer:** Evitá desbordamientos de buffer pasando siempre la capacidad límite al leer flujos con `fgets`.
+- **Manejo defensivo de archivos:** Asegurá siempre la validación del puntero
+  retornado por `fopen` y liberá el descriptor de archivo llamando a `fclose` en
+  todas las ramas de control de errores.
+- **Validación de buffer:** Evitá desbordamientos de buffer pasando siempre la
+  capacidad límite al leer flujos con `fgets`.
 
 ## Ejercicios Propuestos
 
 ### Ejercicio 3b.1 - Escribir un diario personal
 
-```{exercise}
+:::{exercise}
 :label: ejercicio_archivos_1
 :enumerator: 1
 
 **Escribir un diario personal**
 
-Creá una función que reciba el nombre de un archivo y una cadena de texto. La función debe abrir el archivo en modo "append" (añadir) y escribir la cadena de texto seguida de un salto de línea. Asegurate de manejar todos los posibles errores de apertura, escritura y cierre.
-```
+Creá una función que reciba el nombre de un archivo y una cadena de texto. La
+función debe abrir el archivo en modo "append" (añadir) y escribir la cadena de
+texto seguida de un salto de línea. Asegurate de manejar todos los posibles
+errores de apertura, escritura y cierre.
 
-````{solution} ejercicio_archivos_1
+:::
+<!-- {exercise} -->
+
+::::{solution} ejercicio_archivos_1
 :class: dropdown
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
@@ -49,7 +59,8 @@ Creá una función que reciba el nombre de un archivo y una cadena de texto. La 
  * @param entrada El texto a agregar en el diario.
  *      #PRE: No puede ser NULL.
  *
- * @returns EXITO si la entrada se escribió correctamente, ERROR en caso contrario.
+ * @returns EXITO si la entrada se escribió correctamente, ERROR en caso
+   contrario.
  *
  * @post El archivo especificado por nombre_archivo contendrá la nueva entrada
  *       al final del mismo, seguida de un salto de línea.
@@ -104,7 +115,8 @@ int main(void)
     }
 
     printf("Escribiendo segunda entrada...\n");
-    resultado = agregar_entrada_diario(MI_DIARIO, "Aprendí a manejar archivos en C.");
+    resultado = agregar_entrada_diario(MI_DIARIO, "Aprendí a manejar archivos en
+    C.");
     if (resultado == ERROR)
     {
         fprintf(stderr, "No se pudo escribir la segunda entrada.\n");
@@ -116,24 +128,32 @@ int main(void)
     return EXIT_SUCCESS;
 }
 
-```
-````
+:::
+<!-- {code-block}c -->
+
+::::
+<!-- {solution} ejercicio_archivos_1 -->
 
 ### Ejercicio 3b.2 - Contador de líneas
 
-```{exercise}
+:::{exercise}
 :label: ejercicio_archivos_2
 :enumerator: 2
 
 **Contador de líneas**
 
-Escribí una función que reciba el nombre de un archivo, lo lea y devuelva la cantidad de líneas que contiene. Una línea se define como una secuencia de caracteres terminada por un `\n`. La función debe devolver un número negativo en caso de error.
-```
+Escribí una función que reciba el nombre de un archivo, lo lea y devuelva la
+cantidad de líneas que contiene. Una línea se define como una secuencia de
+caracteres terminada por un `\n`. La función debe devolver un número negativo en
+caso de error.
 
-````{solution} ejercicio_archivos_2
+:::
+<!-- {exercise} -->
+
+::::{solution} ejercicio_archivos_2
 :class: dropdown
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
@@ -176,7 +196,8 @@ int contar_lineas(const char *nombre_archivo)
     if (ferror(p_archivo))
     {
         perror("Error de lectura mientras se contaban las líneas");
-        cantidad_lineas = ERROR_LECTURA; // Sobrescribimos el conteo con un código de error
+        cantidad_lineas = ERROR_LECTURA; // Sobrescribimos el conteo con un
+        código de error
     }
 
     if (fclose(p_archivo) != 0)
@@ -213,30 +234,40 @@ int main(void)
     }
     else
     {
-        fprintf(stderr, "Ocurrió un error al procesar el archivo (código: %d).\n", lineas);
+        fprintf(stderr, "Ocurrió un error al procesar el archivo (código:
+        %d).\n", lineas);
         return EXIT_FAILURE;
     }
 
     return EXIT_SUCCESS;
 }
-```
-````
+
+:::
+<!-- {code-block}c -->
+
+::::
+<!-- {solution} ejercicio_archivos_2 -->
 
 ### Ejercicio 3b.3 - Copiar un archivo de texto
 
-```{exercise}
+:::{exercise}
 :label: ejercicio_archivos_3
 :enumerator: 3
 
 **Copiar un archivo de texto**
 
-Implementá una función que copie el contenido de un archivo de origen a un archivo de destino. La función debe leer el archivo de origen línea por línea y escribir cada línea en el archivo de destino. Debe manejar errores para ambos archivos (apertura, lectura, escritura y cierre).
-```
+Implementá una función que copie el contenido de un archivo de origen a un
+archivo de destino. La función debe leer el archivo de origen línea por línea y
+escribir cada línea en el archivo de destino. Debe manejar errores para ambos
+archivos (apertura, lectura, escritura y cierre).
 
-````{solution} ejercicio_archivos_3
+:::
+<!-- {exercise} -->
+
+::::{solution} ejercicio_archivos_3
 :class: dropdown
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
@@ -254,7 +285,8 @@ Implementá una función que copie el contenido de un archivo de origen a un arc
  * @param ruta_destino La ruta del archivo donde se escribirá el contenido.
  *      #PRE: No puede ser NULL.
  *
- * @returns EXITO si la copia fue completamente exitosa, ERROR si ocurrió algún fallo.
+ * @returns EXITO si la copia fue completamente exitosa, ERROR si ocurrió algún
+   fallo.
  *
  * @post Si la operación es exitosa, el archivo en ruta_destino tendrá el mismo
  *       contenido que el de ruta_origen.
@@ -350,24 +382,33 @@ int main(void)
 
     return EXIT_SUCCESS;
 }
-```
-````
+
+:::
+<!-- {code-block}c -->
+
+::::
+<!-- {solution} ejercicio_archivos_3 -->
 
 ### Ejercicio 3b.4 - Registrar eventos en un log
 
-```{exercise}
+:::{exercise}
 :label: ejercicio_archivos_4
 :enumerator: 4
 
 **Registrar eventos en un log**
 
-Crea una función `registrar_evento` que reciba un mensaje y lo añada a un archivo llamado `eventos.log`. La función debe asegurarse de que cada mensaje nuevo se agregue al final del archivo, sin borrar el contenido anterior. Por simplicidad, no es necesario agregar una marca de tiempo.
-```
+Crea una función `registrar_evento` que reciba un mensaje y lo añada a un
+archivo llamado `eventos.log`. La función debe asegurarse de que cada mensaje
+nuevo se agregue al final del archivo, sin borrar el contenido anterior. Por
+simplicidad, no es necesario agregar una marca de tiempo.
 
-````{solution} ejercicio_archivos_4
+:::
+<!-- {exercise} -->
+
+::::{solution} ejercicio_archivos_4
 :class: dropdown
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
@@ -382,7 +423,8 @@ Crea una función `registrar_evento` que reciba un mensaje y lo añada a un arch
  * @param mensaje El mensaje a registrar.
  *      #PRE: No puede ser NULL.
  *
- * @returns EXITO si el evento se registró correctamente, ERROR en caso contrario.
+ * @returns EXITO si el evento se registró correctamente, ERROR en caso
+   contrario.
  *
  * @post El archivo de log contendrá el nuevo mensaje al final.
  */
@@ -432,7 +474,8 @@ int main(void)
         return EXIT_FAILURE;
     }
 
-    if (registrar_evento("[FATAL] No se pudo conectar a la base de datos.") != EXITO)
+    if (registrar_evento("[FATAL] No se pudo conectar a la base de datos.") !=
+    EXITO)
     {
         fprintf(stderr, "Fallo al registrar el tercer evento.\n");
         return EXIT_FAILURE;
@@ -442,32 +485,40 @@ int main(void)
 
     return EXIT_SUCCESS;
 }
-```
-````
+
+:::
+<!-- {code-block}c -->
+
+::::
+<!-- {solution} ejercicio_archivos_4 -->
 
 ### Ejercicio 3b.5 - Procesar un archivo CSV de ventas
 
-```{exercise}
+:::{exercise}
 :label: ejercicio_archivos_5
 :enumerator: 5
 
 **Procesar un archivo CSV de ventas**
 
-Escribí una función que lea un archivo `ventas.csv` con el formato `producto,precio,cantidad`. Por cada línea, debe calcular el total (precio * cantidad) y mostrarlo en pantalla. La función debe ignorar líneas mal formadas o vacías.
+Escribí una función que lea un archivo `ventas.csv` con el formato
+`producto,precio,cantidad`. Por cada línea, debe calcular el total (precio *
+cantidad) y mostrarlo en pantalla. La función debe ignorar líneas mal formadas o
+vacías.
 
 **Ejemplo de `ventas.csv`:**
-```csv
+``` csv
 Teclado Mecanico,150.50,2
 Mouse Gamer,75.00,5
 Monitor 24 pulgadas,300.25,1
 # Esto es un comentario, debe ser ignorado
 Webcam,no_es_un_precio,3
 ```
+<!-- csv -->
 
-````{solution} ejercicio_archivos_5
+::::{solution} ejercicio_archivos_5
 :class: dropdown
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
@@ -479,15 +530,18 @@ Webcam,no_es_un_precio,3
 #define MAX_PRODUCTO 100
 
 /**
- * Procesa un archivo CSV de ventas, calculando e imprimiendo el total por línea.
+ * Procesa un archivo CSV de ventas, calculando e imprimiendo el total por
+   línea.
  *
  * @param nombre_archivo La ruta del archivo CSV a procesar.
  *      #PRE: No puede ser NULL.
  *
  * @returns EXITO si el archivo se procesó (incluso si algunas líneas fallaron),
- *          ERROR si no se pudo abrir el archivo o hubo un error de lectura irrecuperable.
+ *          ERROR si no se pudo abrir el archivo o hubo un error de lectura
+            irrecuperable.
  *
- * @post Se imprimirán en la salida estándar los totales de las líneas bien formadas.
+ * @post Se imprimirán en la salida estándar los totales de las líneas bien
+   formadas.
  */
 int procesar_ventas(const char *nombre_archivo)
 {
@@ -506,24 +560,29 @@ int procesar_ventas(const char *nombre_archivo)
     {
         numero_linea++;
 
-        // Ignorar líneas vacías o comentarios usando lógica positiva conforme a la regla 0x1002h
+        // Ignorar líneas vacías o comentarios usando lógica positiva conforme a
+        la regla 0x1002h
         if (buffer[0] != '\n' && buffer[0] != '#')
         {
             char nombre_producto[MAX_PRODUCTO];
             double precio = 0.0;
             int cantidad = 0;
 
-            // Usar sscanf para parsear la línea. Formato: string-hasta-coma,double,int
-            int campos_leidos = sscanf(buffer, "%99[^,],%lf,%d", nombre_producto, &precio, &cantidad);
+            // Usar sscanf para parsear la línea. Formato:
+            string-hasta-coma,double,int
+            int campos_leidos = sscanf(buffer, "%99[^,],%lf,%d",
+            nombre_producto, &precio, &cantidad);
 
             if (campos_leidos == 3)
             {
                 double total_linea = precio * (double)cantidad;
-                printf("Línea %zu: Producto \x27%s\x27, Total: %.2f\n", numero_linea, nombre_producto, total_linea);
+                printf("Línea %zu: Producto \x27%s\x27, Total: %.2f\n",
+                numero_linea, nombre_producto, total_linea);
             }
             else
             {
-                fprintf(stderr, "[Advertencia] Línea %zu mal formada: %s", numero_linea, buffer);
+                fprintf(stderr, "[Advertencia] Línea %zu mal formada: %s",
+                numero_linea, buffer);
             }
         }
     }
@@ -570,24 +629,37 @@ int main(void)
     printf("\nProcesamiento finalizado.\n");
     return EXIT_SUCCESS;
 }
-```
-````
+
+:::
+<!-- {code-block}c -->
+
+::::
+<!-- {solution} ejercicio_archivos_5 -->
 
 ### Ejercicio 3b.6 - Inversión de archivo
 
-```{exercise}
+:::{exercise}
 :label: ejercicio_archivos_6
 :enumerator: 6
 
 **Inversión de archivo**
 
-Implementá una función `int invertir_archivo(const char *origen, const char *destino)` que reciba el nombre de un archivo de texto existente (`origen`) y genere un nuevo archivo (`destino`) que contenga exactamente el mismo texto pero invertido carácter por carácter (es decir, el último carácter del original será el primero del nuevo, y así sucesivamente). La función debe usar `fseek` y `ftell` para determinar el tamaño del archivo y leer los caracteres desde el final hacia el principio. Debe retornar `0` en caso de éxito y un valor negativo ante fallas de apertura, posicionamiento o escritura.
-```
+Implementá una función `int invertir_archivo(const char *origen, const char
+*destino)` que reciba el nombre de un archivo de texto existente (`origen`) y
+genere un nuevo archivo (`destino`) que contenga exactamente el mismo texto pero
+invertido carácter por carácter (es decir, el último carácter del original será
+el primero del nuevo, y así sucesivamente). La función debe usar `fseek` y
+`ftell` para determinar el tamaño del archivo y leer los caracteres desde el
+final hacia el principio. Debe retornar `0` en caso de éxito y un valor negativo
+ante fallas de apertura, posicionamiento o escritura.
 
-````{solution} ejercicio_archivos_6
+:::
+<!-- {exercise} -->
+
+::::{solution} ejercicio_archivos_6
 :class: dropdown
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
@@ -684,7 +756,8 @@ int main(void)
         fclose(f);
     }
 
-    printf("Invirtiendo archivo \x27%s\x27 en \x27%s\x27...\n", ORIGEN, DESTINO);
+    printf("Invirtiendo archivo \x27%s\x27 en \x27%s\x27...\n", ORIGEN,
+    DESTINO);
     if (invertir_archivo(ORIGEN, DESTINO) == EXITO)
     {
         printf("Archivo invertido exitosamente.\n");
@@ -696,8 +769,12 @@ int main(void)
 
     return 0;
 }
-```
-````
+
+:::
+<!-- {code-block}c -->
+
+::::
+<!-- {solution} ejercicio_archivos_6 -->
 
 
 

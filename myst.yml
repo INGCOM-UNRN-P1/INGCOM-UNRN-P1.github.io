@@ -111,42 +111,38 @@ project:
             - file: ejercicios/bloque_1_fundamentos/3_matematicos.md
             - file: ejercicios/bloque_1_fundamentos/5_ejercicios_control.md
             - file: ejercicios/bloque_1_fundamentos/6_funciones_ejercicios.md
+            - file: ejercicios/bloque_1_fundamentos/7_compilacion_y_makefiles.md
             - file: ejercicios/bloque_1_fundamentos/8_recursion.md
-        - title: "Bloque 2: Estructuración y Proyectos"
+        - title: "Bloque 2: Memoria"
           children:
-            - file: ejercicios/bloque_2_proyectos/2_compilacion_y_makefiles.md
-            - file: ejercicios/bloque_2_proyectos/3_alias_tipos_ejercicios.md
-            - file: ejercicios/bloque_2_proyectos/4_enums.md
-        - title: "Bloque 3: Disposición de Memoria y Estructuras Estáticas"
+            - file: ejercicios/bloque_2_memoria/1_punteros.md
+            - file: ejercicios/bloque_2_memoria/1b_punteros_ejercicios.md
+            - file: ejercicios/bloque_2_memoria/2_arreglos.md
+            - file: ejercicios/bloque_2_memoria/2b_cadenas.md
+            - file: ejercicios/bloque_2_memoria/3_archivos.md
+            - file: ejercicios/bloque_2_memoria/3b_ejercicios_archivos.md
+            - file: ejercicios/bloque_2_memoria/4_memoria_dinamica.md
+            - file: ejercicios/bloque_2_memoria/4b_memoria.md
+            - file: ejercicios/bloque_2_memoria/4c_ejercicios_memoria.md
+            - file: ejercicios/bloque_2_memoria/5_punteros_2.md
+            - file: ejercicios/bloque_2_memoria/6_structs.md
+            - file: ejercicios/bloque_2_memoria/7_alias_tipos_ejercicios.md
+            - file: ejercicios/bloque_2_memoria/8_enums.md
+        - title: "Bloque 3: Algoritmos y Estructuras de Datos"
           children:
-            - file: ejercicios/bloque_3_memoria_estatica/1b_operaciones_de_bits.md
-            - file: ejercicios/bloque_3_memoria_estatica/2_arreglos.md
-            - file: ejercicios/bloque_3_memoria_estatica/2b_cadenas.md
-            - file: ejercicios/bloque_3_memoria_estatica/3_matrices.md
-            - file: ejercicios/bloque_3_memoria_estatica/4_punteros.md
-            - file: ejercicios/bloque_3_memoria_estatica/4b_punteros_ejercicios.md
-            - file: ejercicios/bloque_3_memoria_estatica/5_structs.md
-        - title: "Bloque 4: Gestión Dinámica e Indirección Avanzada"
+            - file: ejercicios/bloque_3_algoritmos_estructuras/1_matrices.md
+            - file: ejercicios/bloque_3_algoritmos_estructuras/2_tad.md
+            - file: ejercicios/bloque_3_algoritmos_estructuras/3_estructuras_de_datos.md
+            - file: ejercicios/bloque_3_algoritmos_estructuras/4_complejidad.md
+        - title: "Bloque 4: Temas Avanzados"
           children:
-            - file: ejercicios/bloque_4_dinamica_indireccion/1_memoria_dinamica.md
-            - file: ejercicios/bloque_4_dinamica_indireccion/1b_memoria.md
-            - file: ejercicios/bloque_4_dinamica_indireccion/1c_ejercicios_memoria.md
-            - file: ejercicios/bloque_4_dinamica_indireccion/2_punteros_2.md
-            - file: ejercicios/bloque_4_dinamica_indireccion/3_archivos.md
-            - file: ejercicios/bloque_4_dinamica_indireccion/3b_ejercicios_archivos.md
-        - title: "Bloque 5: Abstracción de Datos y Verificación"
-          children:
-            - file: ejercicios/bloque_5_abstraccion_verificacion/1_punteros_avanzados.md
-            - file: ejercicios/bloque_5_abstraccion_verificacion/2_tad.md
-            - file: ejercicios/bloque_5_abstraccion_verificacion/3_estructuras_de_datos.md
-            - file: ejercicios/bloque_5_abstraccion_verificacion/4_complejidad.md
-        - title: "Bloque 6: Temas Avanzados"
-          children:
-            - file: ejercicios/bloque_6_avanzados/ordenamiento_y_busqueda.md
-            - file: ejercicios/bloque_6_avanzados/archivos_binarios.md
-            - file: ejercicios/bloque_6_avanzados/recursividad_avanzada.md
-            - file: ejercicios/bloque_6_avanzados/analisis_de_codigo.md
-            - file: ejercicios/bloque_6_avanzados/diseno_api.md
+            - file: ejercicios/bloque_4_avanzados/1_punteros_avanzados.md
+            - file: ejercicios/bloque_4_avanzados/2_operaciones_de_bits.md
+            - file: ejercicios/bloque_4_avanzados/3_archivos_binarios.md
+            - file: ejercicios/bloque_4_avanzados/4_recursividad_avanzada.md
+            - file: ejercicios/bloque_4_avanzados/5_ordenamiento_y_busqueda.md
+            - file: ejercicios/bloque_4_avanzados/6_analisis_de_codigo.md
+            - file: ejercicios/bloque_4_avanzados/7_diseno_api.md
     - title: Referencia
       children:
         - file: referencia/indice.md

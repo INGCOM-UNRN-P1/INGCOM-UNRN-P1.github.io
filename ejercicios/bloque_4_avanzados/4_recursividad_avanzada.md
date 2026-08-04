@@ -7,14 +7,19 @@ short_title: "5. Recursividad"
 
 ## Acerca de
 
-Estos ejercicios tienen como propósito dominar la recursividad de control y el paradigma de diseño "Divide y Vencerás" en C.
+Estos ejercicios tienen como propósito dominar la recursividad de control y el
+paradigma de diseño "Divide y Vencerás" en C.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-recursividad-basica`
 
 ### Cuestiones de Estilo Aplicables
-- **Casos de corte explícitos:** Definí el caso base al inicio de la función recursiva para evitar lazo de llamada infinitos y desbordamientos de stack frame (ver {ref}`0x2009h`).
-- **Uso de recursión de cola:** Cuando sea posible, estructurá las funciones recursivas utilizando parámetros acumuladores para permitir la optimización por parte del compilador.
+- **Casos de corte explícitos:** Definí el caso base al inicio de la función
+  recursiva para evitar lazo de llamada infinitos y desbordamientos de stack
+  frame (ver {ref}`0x2009h`).
+- **Uso de recursión de cola:** Cuando sea posible, estructurá las funciones
+  recursivas utilizando parámetros acumuladores para permitir la optimización
+  por parte del compilador.
 
 ---
 
@@ -22,11 +27,13 @@ Estos ejercicios tienen como propósito dominar la recursividad de control y el 
 
 ### Ejercicio 5.12 - Factorial
 
-Implementar la función factorial de forma recursiva siguiendo la definición matemática.
+Implementar la función factorial de forma recursiva siguiendo la definición
+matemática.
 
-```c
+``` c
 long int factorial(int n);
 ```
+<!-- c -->
 
 **Definición recursiva:**
 
@@ -44,11 +51,13 @@ $$
 
 ### Ejercicio 5.13 - Suma de Enteros
 
-Implementar suma de dos enteros positivos usando solo recursividad (sin operador `+` en el paso recursivo).
+Implementar suma de dos enteros positivos usando solo recursividad (sin operador
+`+` en el paso recursivo).
 
-```c
+``` c
 int suma_recursiva(int a, int b);
 ```
+<!-- c -->
 
 **Estrategia:** Decrementar `b` e incrementar `a` hasta que `b` sea 0.
 
@@ -63,9 +72,10 @@ $$
 
 Implementar multiplicación usando solo sumas recursivas.
 
-```c
+``` c
 int producto_recursivo(int a, int b);
 ```
+<!-- c -->
 
 $$
 a \times b = \begin{cases}
@@ -80,9 +90,10 @@ $$
 
 Implementar $base^{exponente}$ de forma recursiva.
 
-```c
+``` c
 long int potencia(int base, int exponente);
 ```
+<!-- c -->
 
 **Versión básica:** $O(n)$ en tiempo.
 
@@ -93,7 +104,8 @@ base \times potencia(base, exp - 1) & \text{si } exp > 0
 \end{cases}
 $$
 
-**Desafío:** Implementar versión optimizada usando exponenciación rápida (divide y vencerás) con complejidad $O(\log n)$.
+**Desafío:** Implementar versión optimizada usando exponenciación rápida (divide
+y vencerás) con complejidad $O(\log n)$.
 
 $$
 base^{exp} = \begin{cases}
@@ -111,9 +123,10 @@ $$
 
 Implementar la secuencia de Fibonacci recursivamente.
 
-```c
+``` c
 long int fibonacci(int n);
 ```
+<!-- c -->
 
 **Ecuación de recurrencia:**
 
