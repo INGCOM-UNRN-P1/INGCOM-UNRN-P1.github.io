@@ -9,12 +9,19 @@ subtitle: 'Diseño, encapsulamiento e implementación de módulos reutilizables 
 ## Acerca de
 
 La creación de librerías de funciones (módulos reutilizables) permite estructurar
-programas de forma limpia y mantenible. Una librería en C consta de un archivo de cabecera
-(`.h`) con los prototipos, guardas de inclusión y documentación de la interfaz, junto con un
-archivo de implementación (`.c`) con la lógica.
+programas de forma limpia, probable y mantenible. 
 
-En este bloque de ejercicios vas a diseñar módulos temáticos independientes, definiendo
-interfaces claras y contratos robustos (precondiciones, postcondiciones y códigos de estado).
+Para resolver los siguientes ejercicios se recomienda utilizar como base la [**Plantilla para Librerías de la Cátedra (UNRN)**](https://github.com/INGCOM-UNRN-P1/plantilla-libreria), organizando el proyecto con la siguiente estructura modular:
+
+- **`include/`**: Archivos de cabecera (`.h`) públicos con los prototipos, guardas de inclusión (`#ifndef...`) y documentación.
+- **`src/`**: Archivos de implementación (`.c`) con la lógica y funciones auxiliares ocultas mediante `static`.
+- **`examples/`**: Programas de demostración con `main()` que consumen la librería.
+- **`tests/`**: Suite de pruebas unitarias para validar las pre/postcondiciones.
+- **`Makefile`**: Automatización para compilar (`make`), probar (`make test`), ejecutar (`make run`) y limpiar (`make clean`).
+
+Asimismo, mediante el script `./manage.sh` (`rename`, `add-module`, `build`, `test`) podés administrar la librería y posteriormente integrarla en proyectos más grandes o TPs usando `./tp.sh add-lib <nombre_libreria> <url_git>`.
+
+En este bloque de ejercicios vas a diseñar módulos temáticos independientes, definiendo interfaces claras y contratos robustos (precondiciones, postcondiciones y códigos de estado).
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-funciones-descomposicion`
@@ -530,9 +537,12 @@ Creá `checksum.h` y `checksum.c`:
 
 ## Notas Finales
 
-:::{tip} Diseño de Librerías
-- **Guarde de inclusión:** Usá siempre `#ifndef NOMBRE_H`, `#define NOMBRE_H` y `#endif` en cada cabecera.
-- **Encapsulamiento:** Ocultá funciones auxiliares usando la palabra clave `static` dentro del archivo `.c`.
+:::{tip} Diseño de Librerías y Estructura del Proyecto
+- **Estructura limpia:** Ubicá los archivos `.h` en `include/` y los `.c` en `src/`.
+- **Ejemplos y Tests:** Agregá un programa de prueba en `examples/` y pruebas unitarias en `tests/`.
+- **Automatización:** Proveé un `Makefile` con los objetivos `make`, `make test`, `make run` y `make clean`.
+- **Guardas de inclusión:** Usá siempre `#ifndef NOMBRE_H`, `#define NOMBRE_H` y `#endif` en cada cabecera.
+- **Encapsulamiento:** Ocultá funciones auxiliares usando la palabra clave `static` dentro del archivo `.c` en `src/`.
 - **Prefijos de funciones:** Utilizá prefijos en los nombres de las funciones (ej. `geo_`, `str_`, `mat_`) para evitar colisiones de nombres.
 :::
-<!-- {tip} Diseño de Librerías -->
+<!-- {tip} Diseño de Librerías y Estructura del Proyecto -->
