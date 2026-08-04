@@ -1314,3 +1314,484 @@ double** strassen(double** A, double** B, int n);
 <!-- c -->
 
 **Complejidad:** $O(n^{2.807})$ vs $O(n^3)$ del método tradicional.
+
+---
+
+## Ejercicios Adicionales (Práctica Intensiva)
+
+## Ejercicio 1: Inicializar y Mostrar Matriz
+
+**Dificultad:** ⭐☆☆☆☆
+
+Creá una matriz 3×3, inicializala con valores del 1 al 9, y mostrala.
+
+**Orientación:**
+- `int matriz[3][3];`
+- Lazos anidados para llenar: `matriz[i][j] = contador++`
+- Lazos anidados para mostrar con formato
+
+---
+
+## Ejercicio 2: Suma de Elementos
+
+**Dificultad:** ⭐☆☆☆☆
+
+Calculá la suma de todos los elementos de una matriz.
+
+**Orientación:**
+- Recorré con lazos anidados
+- Acumulá suma en variable
+- `suma += matriz[i][j]`
+
+---
+
+## Ejercicio 3: Máximo y Mínimo
+
+**Dificultad:** ⭐⭐☆☆☆
+
+Encontrá el elemento mayor y menor de una matriz, junto con sus posiciones.
+
+**Orientación:**
+- Inicializá `max` y `min` con `matriz[0][0]`
+- Recorré comparando
+- Guardá posiciones (i, j) cuando actualizás max/min
+
+---
+
+## Ejercicio 4: Matriz Identidad
+
+**Dificultad:** ⭐⭐☆☆☆
+
+Generá una matriz identidad de tamaño N×N (1s en diagonal, 0s en el resto).
+
+**Orientación:**
+- `matriz[i][j] = (i == j) ? 1 : 0;`
+- O con `if`: `matriz[i][j] = 1` si `i == j`, sino 0
+
+---
+
+## Ejercicio 5: Transpuesta
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Calculá la transpuesta de una matriz (intercambiar filas por columnas).
+
+**Orientación:**
+- Matriz original: M×N
+- Transpuesta: N×M
+- `transpuesta[j][i] = original[i][j]`
+- Creá nueva matriz para el resultado
+
+---
+
+## Ejercicio 6: Diagonal Principal
+
+**Dificultad:** ⭐⭐☆☆☆
+
+Mostrá y sumá los elementos de la diagonal principal de una matriz cuadrada.
+
+**Orientación:**
+- Diagonal principal: elementos donde `i == j`
+- Lazo de 0 a N-1: `suma += matriz[i][i]`
+
+---
+
+## Ejercicio 7: Diagonal Secundaria
+
+**Dificultad:** ⭐⭐☆☆☆
+
+Mostrá y sumá los elementos de la diagonal secundaria.
+
+**Orientación:**
+- Diagonal secundaria: elementos donde `i + j == N - 1`
+- O directamente: `matriz[i][N-1-i]` para i de 0 a N-1
+
+---
+
+## Ejercicio 8: Matriz Simétrica
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Verificá si una matriz es simétrica (igual a su transpuesta).
+
+**Orientación:**
+- Matriz simétrica: `matriz[i][j] == matriz[j][i]` para todo i, j
+- Solo necesitás verificar una mitad (triángulo superior vs inferior)
+- Si encontrás diferencia, `return false` inmediatamente
+
+---
+
+## Ejercicio 9: Suma de Matrices
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Sumá dos matrices del mismo tamaño.
+
+**Orientación:**
+- Verificá que tengan las mismas dimensiones
+- `resultado[i][j] = A[i][j] + B[i][j]`
+- Creá matriz resultado
+
+---
+
+## Ejercicio 10: Multiplicación por Escalar
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Multiplicá todos los elementos de una matriz por un escalar.
+
+**Orientación:**
+- Leé el escalar
+- `resultado[i][j] = matriz[i][j] * escalar`
+- Podés modificar in-place o crear nueva matriz
+
+---
+
+## Ejercicio 11: Buscar Elemento
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Buscá un valor en la matriz. Si lo encontrás, mostrá su posición (fila, columna).
+
+**Orientación:**
+- Recorré con lazos anidados
+- Al encontrar: guardá posición, `break` del lazo interno
+- Usá flag para `break` del lazo externo también
+
+---
+
+## Ejercicio 12: Suma por Filas y Columnas
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Calculá la suma de cada fila y la suma de cada columna.
+
+**Orientación:**
+- Array para sumas de filas: `suma_filas[M]`
+- Array para sumas de columnas: `suma_cols[N]`
+- Lazo por filas: suma cada fila
+- Lazo por columnas: suma cada columna
+
+---
+
+## Ejercicio 13: Borde de la Matriz
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Mostrá solo los elementos del borde de una matriz.
+
+**Orientación:**
+- Primera fila completa: `i == 0`
+- Última fila completa: `i == M-1`
+- Primera columna: `j == 0`
+- Última columna: `j == N-1`
+- Usá condición: `if (i == 0 || i == M-1 || j == 0 || j == N-1)`
+
+---
+
+## Ejercicio 14: Rotar Matriz 90 Grados
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Rotá una matriz cuadrada 90° en sentido horario.
+
+**Orientación:**
+- Para matriz N×N:
+- Transponer primero: `temp[j][i] = matriz[i][j]`
+- Luego invertir cada fila: `resultado[i][j] = temp[i][N-1-j]`
+- O directamente: `resultado[j][N-1-i] = matriz[i][j]`
+
+---
+
+## Ejercicio 15: Multiplicación de Matrices
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Multiplicá dos matrices (A de M×N y B de N×P, resultado M×P).
+
+**Algoritmo:**
+```
+C[i][j] = suma de A[i][k] * B[k][j] para k = 0..N-1
+```
+
+**Orientación:**
+- Tres lazos anidados:
+  - i: filas de A
+  - j: columnas de B
+  - k: suma de productos
+- Verificá dimensiones compatibles (columnas de A = filas de B)
+
+---
+
+## Ejercicio 16: Matriz en Espiral
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Llenó una matriz en forma de espiral (desde afuera hacia adentro).
+
+**Ejemplo 4×4:**
+```
+ 1  2  3  4
+12 13 14  5
+11 16 15  6
+10  9  8  7
+```
+
+**Orientación:**
+- Usá cuatro límites: arriba, abajo, izquierda, derecha
+- Recorré en orden: derecha, abajo, izquierda, arriba
+- Ajustá límites después de cada lado
+- Repetí hasta llenar todos los elementos
+
+---
+
+## Ejercicio 17: Sudoku - Validador de Fila
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Verificá si una fila de un Sudoku es válida (números 1-9 sin repetir).
+
+**Orientación:**
+- Array booleano `visto[10]` (índices 1-9)
+- Recorré la fila
+- Si `visto[numero]` es true: número repetido, inválido
+- Marca `visto[numero] = true`
+- Al final, todos los 1-9 deben estar vistos
+
+---
+
+## Ejercicio 18: Matriz Traspuesta In-Place
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Transponé una matriz cuadrada sin usar matriz auxiliar completa.
+
+**Orientación:**
+- Solo intercambiá elementos por encima de la diagonal
+- `for (i = 0; i < N; i++)`
+  - `for (j = i+1; j < N; j++)`
+    - Intercambiá `matriz[i][j]` con `matriz[j][i]`
+
+---
+
+## Ejercicio 19: Matriz de Distancias
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Dadas N ciudades con coordenadas (x, y), calculá matriz de distancias entre todas.
+
+**Orientación:**
+- Matriz de distancias D[i][j] = distancia de ciudad i a ciudad j
+- Distancia euclidiana: `sqrt((x2-x1)² + (y2-y1)²)`
+- Diagonal es 0 (distancia de ciudad a sí misma)
+- Matriz es simétrica: `D[i][j] = D[j][i]`
+
+---
+
+## Ejercicio 20: Juego de la Vida (Conway)
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Implementá una generación del Juego de la Vida de Conway.
+
+**Reglas:**
+1. Celda viva con 2-3 vecinos vivos: sobrevive
+2. Celda muerta con exactamente 3 vecinos vivos: nace
+3. Otras: muere o permanece muerta
+
+**Orientación:**
+- Matriz actual y matriz siguiente
+- Función para contar vecinos vivos (8 direcciones)
+- Aplicá reglas para cada celda
+- Copiá matriz siguiente a actual para próxima generación
+- Vecinos: (i-1,j-1), (i-1,j), (i-1,j+1), (i,j-1), (i,j+1), (i+1,j-1), (i+1,j), (i+1,j+1)
+- Cuidado con bordes
+
+---
+
+## Ejercicios Adicionales
+
+### Ejercicio 21: Matriz Pascal (Triángulo de Pascal)
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Generá el triángulo de Pascal como matriz.
+
+**Orientación:**
+- `matriz[i][0] = 1` (primera columna)
+- `matriz[i][i] = 1` (diagonal)
+- `matriz[i][j] = matriz[i-1][j-1] + matriz[i-1][j]` (resto)
+
+---
+
+### Ejercicio 22: Matriz Antisimétrica
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Verificá si una matriz es antisimétrica (`A[i][j] = -A[j][i]`).
+
+**Orientación:**
+- Diagonal debe ser cero: `A[i][i] = 0`
+- Verificá: `matriz[i][j] == -matriz[j][i]`
+
+---
+
+### Ejercicio 23: Submatriz Mayor Suma
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Encontrá la submatriz 2×2 con mayor suma dentro de una matriz más grande.
+
+**Orientación:**
+- Recorré todas las posiciones posibles para submatriz 2×2
+- Para cada posición, sumá los 4 elementos
+- Guardá máximo y posición
+
+---
+
+### Ejercicio 24: Matriz Dispersa (Sparse)
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Representá una matriz dispersa (muchos ceros) eficientemente.
+
+**Orientación:**
+- Estructura: `{fila, columna, valor}` solo para elementos != 0
+- Array de estructuras
+- Funciones: `asignar(f, c, val)`, `obtener(f, c)`, `mostrar()`
+
+---
+
+## Notas Finales
+
+:::{tip} Patrones de Recorrido
+
+**Por Filas (Row-Major):**
+```c
+for (int i = 0; i < filas; i++) {
+    for (int j = 0; j < cols; j++) {
+        // procesar matriz[i][j]
+    }
+}
+```
+
+**Por Columnas (Column-Major):**
+```c
+for (int j = 0; j < cols; j++) {
+    for (int i = 0; i < filas; i++) {
+        // procesar matriz[i][j]
+    }
+}
+```
+
+**Diagonal Principal:**
+```c
+for (int i = 0; i < N; i++) {
+    // procesar matriz[i][i]
+}
+```
+
+**Triangular Superior:**
+```c
+for (int i = 0; i < N; i++) {
+    for (int j = i; j < N; j++) {
+        // procesar matriz[i][j]
+    }
+}
+```
+
+**Triangular Inferior:**
+```c
+for (int i = 0; i < N; i++) {
+    for (int j = 0; j <= i; j++) {
+        // procesar matriz[i][j]
+    }
+}
+```
+:::
+
+:::{warning} Errores Comunes
+
+1. **Confundir filas con columnas**
+   ```c
+   // MAL: intercambiado
+   for (int i = 0; i < N; i++)
+       for (int j = 0; j < M; j++)
+           matriz[j][i] = ...;  // Índices al revés
+   ```
+
+2. **Límites incorrectos**
+   ```c
+   // MAL: <= en lugar de <
+   for (int i = 0; i <= filas; i++)  // Acceso fuera de límites
+   ```
+
+3. **Olvidar inicializar**
+   ```c
+   int matriz[3][3];  // Sin inicializar, contiene basura
+   // BIEN:
+   int matriz[3][3] = {0};  // Todo en cero
+   ```
+
+4. **Modificar matriz mientras se recorre para copiar**
+   ```c
+   // MAL: corrompe datos
+   for (int i = 0; i < N; i++)
+       for (int j = 0; j < N; j++)
+           matriz[i][j] = matriz[j][i];  // Transponer in-place mal hecho
+   ```
+:::
+
+:::{note} Inicialización de Matrices
+
+**Todo en cero:**
+```c
+int matriz[3][4] = {0};
+```
+
+**Valores específicos:**
+```c
+int matriz[3][3] = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
+```
+
+**Parcial (resto en cero):**
+```c
+int matriz[3][3] = {{1}, {2}, {3}};  // Primera columna con valores
+```
+:::
+
+:::{tip} Eficiencia y Cache
+
+- **Row-major es más eficiente en C:** Las matrices se almacenan por filas
+- **Acceso secuencial:** `matriz[i][j++]` es más rápido que `matriz[i++][j]`
+- **Localidad espacial:** Elementos consecutivos están cerca en memoria
+
+```c
+// MÁS RÁPIDO (row-major)
+for (i...) for (j...) matriz[i][j]
+
+// MÁS LENTO (column-major)
+for (j...) for (i...) matriz[i][j]
+```
+:::
+
+:::{note} Matrices como Parámetros
+
+```c
+// Opción 1: Tamaño fijo
+void procesar(int matriz[3][4]) { }
+
+// Opción 2: VLA (C99)
+void procesar(int filas, int cols, int matriz[filas][cols]) { }
+
+// Opción 3: Puntero con dimensiones
+void procesar(int filas, int cols, int (*matriz)[cols]) { }
+```
+:::
+
+Estas consignas cubren arrays bidimensionales desde operaciones básicas hasta algoritmos complejos, preparando para trabajar con matrices dinámicas en apuntes posteriores.
+

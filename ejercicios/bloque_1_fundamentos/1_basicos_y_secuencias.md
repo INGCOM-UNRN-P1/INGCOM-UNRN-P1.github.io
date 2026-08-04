@@ -2163,3 +2163,382 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+
+---
+
+## Ejercicios Adicionales (Práctica Intensiva)
+
+## Ejercicio 1: Hola Mundo Personalizado
+
+**Dificultad:** ⭐☆☆☆☆
+
+Escribí un programa que solicite tu nombre y te salude personalmente.
+
+**Ejemplo de ejecución:**
+```
+Ingresá tu nombre: Juan
+¡Hola, Juan! Bienvenido a la programación en C.
+```
+
+**Orientación:**
+- Usá `printf()` para mostrar mensajes
+- Usá `scanf()` para leer el nombre (máximo 50 caracteres)
+- Recordá incluir `<stdio.h>`
+
+---
+
+## Ejercicio 2: Calculadora Simple
+
+**Dificultad:** ⭐⭐☆☆☆
+
+Escribí un programa que lea dos números enteros y muestre su suma, resta, producto y división.
+
+**Ejemplo de ejecución:**
+```
+Primer número: 10
+Segundo número: 3
+Suma: 13
+Resta: 7
+Producto: 30
+División: 3.33
+```
+
+**Orientación:**
+- Declará variables para los dos números
+- Para la división con decimales, convertí al menos uno de los operandos a `double`
+- Usá `%.2f` para mostrar dos decimales
+
+---
+
+## Ejercicio 3: Conversor de Temperatura
+
+**Dificultad:** ⭐⭐☆☆☆
+
+Creá un programa que convierta temperatura de Celsius a Fahrenheit y Kelvin.
+
+**Fórmulas:**
+- Fahrenheit = Celsius × 9/5 + 32
+- Kelvin = Celsius + 273.15
+
+**Orientación:**
+- Usá `double` para almacenar temperaturas
+- Aplicá las fórmulas de conversión
+- Mostrá resultados con dos decimales
+
+---
+
+## Ejercicio 4: Área y Perímetro
+
+**Dificultad:** ⭐⭐☆☆☆
+
+Escribí un programa que calcule el área y perímetro de un rectángulo dados su ancho y alto.
+
+**Orientación:**
+- Área = ancho × alto
+- Perímetro = 2 × (ancho + alto)
+- Usá `double` para las medidas
+- Verificá que ancho y alto sean positivos
+
+---
+
+## Ejercicio 5: Promedio de Tres Números
+
+**Dificultad:** ⭐⭐☆☆☆
+
+Calculá el promedio de tres números decimales ingresados por el usuario.
+
+**Orientación:**
+- Leé tres números con `scanf("%lf", ...)`
+- Promedio = (a + b + c) / 3.0
+- Mostrá el resultado con dos decimales
+
+---
+
+## Ejercicio 6: Intercambio de Variables
+
+**Dificultad:** ⭐⭐☆☆☆
+
+Leé dos números enteros y mostralos intercambiados (sin usar una tercera variable).
+
+**Ejemplo:**
+```
+Ingresá a: 5
+Ingresá b: 10
+Después del intercambio:
+a = 10
+b = 5
+```
+
+**Orientación:**
+- Usá operaciones aritméticas para intercambiar:
+  - `a = a + b;`
+  - `b = a - b;`
+  - `a = a - b;`
+- Alternativamente, usá operadores bitwise XOR
+
+---
+
+## Ejercicio 7: Conversión de Unidades
+
+**Dificultad:** ⭐⭐☆☆☆
+
+Convertí una distancia en metros a kilómetros, centímetros y milímetros.
+
+**Orientación:**
+- 1 metro = 0.001 km = 100 cm = 1000 mm
+- Usá constantes para los factores de conversión
+- Mostrá todas las conversiones
+
+---
+
+## Ejercicio 8: Cálculo de IMC
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Calculá el Índice de Masa Corporal (IMC) dados peso (kg) y altura (m).
+
+**Fórmula:** IMC = peso / (altura × altura)
+
+**Orientación:**
+- Verificá que altura sea mayor que 0
+- Mostrá el IMC con dos decimales
+- Opcionalmente, mostrá la categoría (bajo peso, normal, sobrepeso)
+
+---
+
+## Ejercicio 9: Cantidad de Billetes
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Dado un monto en pesos, calculá cuántos billetes de cada denominación (1000, 500, 200, 100, 50, 20, 10) se necesitan.
+
+**Ejemplo:**
+```
+Monto: 1780
+1 billete(s) de 1000
+1 billete(s) de 500
+1 billete(s) de 200
+0 billete(s) de 100
+1 billete(s) de 50
+1 billete(s) de 20
+1 billete(s) de 10
+```
+
+**Orientación:**
+- Usá división entera y módulo
+- Empezá por el billete más grande
+- Restá el valor usado del monto
+
+---
+
+## Ejercicio 10: Segundos a Horas, Minutos y Segundos
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Convertí una cantidad de segundos a formato HH:MM:SS.
+
+**Ejemplo:**
+```
+Segundos: 3665
+Resultado: 1:01:05
+```
+
+**Orientación:**
+- Horas = segundos / 3600
+- Minutos = (segundos % 3600) / 60
+- Segundos restantes = segundos % 60
+- Mostrá con formato `printf("%d:%02d:%02d", h, m, s)`
+
+---
+
+## Ejercicio 11: Dígitos de un Número
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Leé un número de tres dígitos y mostrá cada dígito por separado.
+
+**Ejemplo:**
+```
+Número: 457
+Centenas: 4
+Decenas: 5
+Unidades: 7
+```
+
+**Orientación:**
+- Centenas = numero / 100
+- Decenas = (numero / 10) % 10
+- Unidades = numero % 10
+
+---
+
+## Ejercicio 12: Precio con Descuento
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Calculá el precio final de un producto aplicando un descuento porcentual.
+
+**Ejemplo:**
+```
+Precio original: 1000
+Descuento (%): 15
+Precio final: 850.00
+```
+
+**Orientación:**
+- Descuento = precio × (porcentaje / 100.0)
+- Precio final = precio - descuento
+- Mostrá ambos valores
+
+---
+
+## Ejercicio 13: Operaciones Bitwise
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Leé dos números enteros y mostrá el resultado de todas las operaciones bitwise: AND, OR, XOR, NOT (del primero), shift left y shift right.
+
+**Orientación:**
+- Usá operadores: `&`, `|`, `^`, `~`, `<<`, `>>`
+- Mostrá resultados en decimal y binario (opcional)
+- Explicá qué hace cada operación
+
+---
+
+## Ejercicio 14: Conversión de Base
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Convertí un número decimal a binario, octal y hexadecimal.
+
+**Orientación:**
+- Usá especificadores de formato: `%d`, `%o`, `%x`
+- Mostrá el número en las cuatro bases
+- Opcionalmente, implementá conversión manual con divisiones sucesivas
+
+---
+
+## Ejercicio 15: Área de Triángulo (Herón)
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Calculá el área de un triángulo usando la fórmula de Herón dados los tres lados.
+
+**Fórmula:** 
+- s = (a + b + c) / 2
+- área = √(s × (s-a) × (s-b) × (s-c))
+
+**Orientación:**
+- Verificá que los lados formen un triángulo válido (a + b > c, etc.)
+- Usá `sqrt()` de `<math.h>`
+- Compilá con `-lm` para enlazar la biblioteca matemática
+
+---
+
+## Ejercicio 16: Ecuación Cuadrática
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Resolvé una ecuación cuadrática ax² + bx + c = 0, mostrando las raíces reales si existen.
+
+**Orientación:**
+- Calculá el discriminante: Δ = b² - 4ac
+- Si Δ < 0: no hay raíces reales
+- Si Δ = 0: una raíz: x = -b / (2a)
+- Si Δ > 0: dos raíces: x = (-b ± √Δ) / (2a)
+- Usá `sqrt()` de `<math.h>`
+
+---
+
+## Ejercicio 17: Interés Compuesto
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Calculá el monto final de una inversión con interés compuesto.
+
+**Fórmula:** A = P × (1 + r/n)^(n×t)
+
+Donde:
+- P = capital inicial
+- r = tasa de interés anual (decimal)
+- n = veces que se capitaliza por año
+- t = tiempo en años
+
+**Orientación:**
+- Usá `pow()` de `<math.h>`
+- Mostrá el monto inicial, final y la ganancia
+- Compilá con `-lm`
+
+---
+
+## Ejercicio 18: Conversión RGB a Hexadecimal
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Convertí un color RGB (rojo, verde, azul) a su representación hexadecimal.
+
+**Ejemplo:**
+```
+Rojo (0-255): 255
+Verde (0-255): 127
+Azul (0-255): 80
+Hexadecimal: #FF7F50
+```
+
+**Orientación:**
+- Verificá que cada valor esté en rango 0-255
+- Usá `printf("%02X", valor)` para formato hexadecimal
+- Combiná los tres valores en formato #RRGGBB
+
+---
+
+## Ejercicio 19: Cálculo de Potencia (sin pow)
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Calculá base^exponente usando solo multiplicaciones (exponente entero positivo).
+
+**Orientación:**
+- Leé base (double) y exponente (int positivo)
+- Usá un lazo para multiplicar base por sí misma exponente veces
+- Considerá el caso especial cuando exponente = 0 (resultado = 1)
+- **Spoiler:** Este ejercicio requiere lazos, pero podés usar multiplicaciones repetidas en línea
+
+---
+
+## Ejercicio 20: Calculadora Científica Básica
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Creá una calculadora que realice operaciones avanzadas: potencia, raíz cuadrada, seno, coseno, tangente, logaritmo.
+
+**Orientación:**
+- Mostrá un menú de opciones
+- Leé la operación deseada y los operandos necesarios
+- Usá funciones de `<math.h>`: `pow()`, `sqrt()`, `sin()`, `cos()`, `tan()`, `log()`
+- Recordá que funciones trigonométricas usan radianes
+- Verificá casos especiales (raíz de negativo, log de 0 o negativo, etc.)
+- Compilá con `-lm`
+
+---
+
+## Notas Finales
+
+:::{tip} Consejos Generales
+- **Validación:** Siempre verificá entradas inválidas (divisiones por cero, valores fuera de rango)
+- **Formato:** Usá `printf()` con especificadores apropiados (`%d`, `%f`, `%c`, etc.)
+- **Constantes:** Definí valores fijos con `#define` o `const`
+- **Comentarios:** Documentá qué hace cada sección del código
+- **Testing:** Probá con diferentes entradas, incluyendo casos extremos
+:::
+
+:::{note} Compilación con Matemáticas
+Para ejercicios que usan `<math.h>`, compilá con:
+```bash
+gcc -Wall -Wextra -std=c99 programa.c -o programa -lm
+```
+El flag `-lm` enlaza la biblioteca matemática.
+:::
+
+Estas consignas cubren los conceptos fundamentales del Apunte 1: variables, tipos de datos, operadores aritméticos, bitwise, entrada/salida, y uso básico de bibliotecas estándar.
+

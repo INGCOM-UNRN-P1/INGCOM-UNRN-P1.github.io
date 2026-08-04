@@ -289,3 +289,318 @@ int *p = NULL;  // Buena práctica
 int *p;         // Peligroso: contiene basura
 ```
 <!-- c -->
+
+---
+
+## Ejercicios Adicionales (Práctica Intensiva)
+
+## Ejercicio 1: Intercambio con Punteros
+
+**Dificultad:** ⭐☆☆☆☆
+
+Implementá `void intercambiar(int *a, int *b)` que intercambie dos valores.
+
+**Orientación:**
+- Usá una variable temporal
+- Desreferenciá con `*a` para acceder al valor
+- En `main`, mostrá valores antes y después
+
+---
+
+## Ejercicio 2: Encontrar Mayor con Puntero
+
+**Dificultad:** ⭐⭐☆☆☆
+
+Implementá `int *mayor(int *a, int *b)` que retorne puntero al mayor de dos números.
+
+**Orientación:**
+- Compará `*a` y `*b`
+- Retorná el puntero apropiado
+- En `main`, desreferenciá el resultado para mostrar el valor
+
+---
+
+## Ejercicio 3: División con Resto
+
+**Dificultad:** ⭐⭐☆☆☆
+
+Implementá `void dividir(int dividendo, int divisor, int *cociente, int *resto)`.
+
+**Orientación:**
+- Usá punteros para "retornar" múltiples valores
+- `*cociente = dividendo / divisor;`
+- `*resto = dividendo % divisor;`
+- Verificá que divisor != 0
+
+---
+
+## Ejercicio 4: Estadísticas de Array
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Implementá `void estadisticas(int arr[], int n, int *min, int *max, double *prom)`.
+
+**Orientación:**
+- Recorré el array para encontrar mínimo y máximo
+- Calculá promedio
+- Almacená resultados en las direcciones apuntadas
+
+---
+
+## Ejercicio 5: Puntero al Medio
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Implementá `int *elemento_medio(int arr[], int n)` que retorne puntero al elemento del medio.
+
+**Orientación:**
+- Si n es impar: retorna `&arr[n/2]`
+- Si n es par: retorna `&arr[n/2 - 1]` (o el que prefieras)
+- En `main`, modificá el elemento usando el puntero retornado
+
+---
+
+## Ejercicio 6: Recorrer Array con Punteros
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Implementá `int suma_array(int *arr, int n)` usando **aritmética de punteros**.
+
+**Orientación:**
+- No uses índices `[]`
+- Usá `*arr` para acceder al primer elemento
+- Incrementá el puntero: `arr++` para avanzar
+- Recorré: `for (int *p = arr; p < arr + n; p++)`
+
+---
+
+## Ejercicio 7: Invertir Array In-Place
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Implementá `void invertir(int *arr, int n)` usando dos punteros.
+
+**Orientación:**
+- Puntero `inicio` apunta al primer elemento
+- Puntero `fin` apunta al último
+- Intercambiá valores y mové punteros hacia el centro
+- Detené cuando `inicio >= fin`
+
+---
+
+## Ejercicio 8: Buscar Valor en Array
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Implementá `int *buscar(int *arr, int n, int valor)` que retorne puntero al elemento encontrado o NULL.
+
+**Orientación:**
+- Recorré con puntero
+- Si encontrás el valor, retorná puntero a esa posición
+- Si no lo encontrás, retorná NULL
+- En `main`, verificá NULL antes de desreferenciar
+
+---
+
+## Ejercicio 9: Copiar String
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Implementá `void copiar_string(char *dest, const char *src)` usando punteros.
+
+**Orientación:**
+- Copiá carácter por carácter: `*dest++ = *src++`
+- Detené al encontrar '\0'
+- Usá `const` para src (no debe modificarse)
+- **Cuidado:** asumí que dest tiene espacio suficiente
+
+---
+
+## Ejercicio 10: Longitud de String
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Implementá `int longitud_string(const char *str)` usando punteros.
+
+**Orientación:**
+- Contá caracteres hasta '\0'
+- Versión 1: `while (*str++) count++;`
+- Versión 2: `return str_fin - str_inicio;` (aritmética de punteros)
+
+---
+
+## Ejercicio 11: Concatenar Strings
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Implementá `void concatenar(char *dest, const char *src)` usando punteros.
+
+**Orientación:**
+- Avanzá `dest` hasta '\0'
+- Copiá `src` desde esa posición
+- Asegurate de copiar el '\0' final
+
+---
+
+## Ejercicio 12: Comparar Strings
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Implementá `int comparar_strings(const char *s1, const char *s2)` usando punteros.
+
+**Orientación:**
+- Retorná: negativo si s1 < s2, 0 si iguales, positivo si s1 > s2
+- Compará carácter por carácter
+- Detené al encontrar diferencia o '\0'
+- Retorná `*s1 - *s2` en el primer carácter diferente
+
+---
+
+## Ejercicio 13: Buscar Subcadena
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Implementá `char *buscar_subcadena(const char *texto, const char *patron)`.
+
+**Orientación:**
+- Retorná puntero a primera aparición de patron en texto
+- Retorná NULL si no se encuentra
+- Compará subcadenas en cada posición
+
+---
+
+## Ejercicio 14: Eliminar Espacios
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Implementá `void eliminar_espacios(char *str)` que elimine espacios in-place.
+
+**Orientación:**
+- Usá dos punteros: uno para leer, otro para escribir
+- Copiá solo caracteres no-espacio
+- Terminá con '\0'
+
+---
+
+## Ejercicio 15: Matriz como Puntero a Puntero
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Implementá funciones para trabajar con matriz dinámica (`int **matriz`):
+- `int **crear_matriz(int filas, int cols)`
+- `void liberar_matriz(int **matriz, int filas)`
+- `void mostrar_matriz(int **matriz, int filas, int cols)`
+
+**Orientación:**
+- `crear_matriz`: asigna array de punteros, luego cada fila
+- Verificá cada `malloc`
+- `liberar_matriz`: libera filas primero, luego el array de punteros
+
+---
+
+## Ejercicio 16: Rotación de Array
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Implementá `void rotar_izquierda(int *arr, int n, int k)` usando punteros.
+
+**Orientación:**
+- k posiciones hacia la izquierda
+- Guardá los primeros k elementos temporalmente
+- Mové el resto hacia adelante
+- Colocá los guardados al final
+- Optimización: `k = k % n`
+
+---
+
+## Ejercicio 17: Transponer Matriz
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Implementá `void transponer(int **matriz, int filas, int cols, int ***resultado)`.
+
+**Orientación:**
+- Crea una nueva matriz `cols × filas`
+- `resultado[j][i] = matriz[i][j]`
+- Usá triple puntero para modificar puntero en función llamadora
+
+---
+
+## Ejercicio 18: Ordenamiento con Función Comparadora
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Implementá `void ordenar(int *arr, int n, int (*comparar)(int, int))`.
+
+**Orientación:**
+- Recibe puntero a función comparadora
+- La función comparadora retorna: <0 si a<b, 0 si iguales, >0 si a>b
+- Implementá bubble sort usando la función comparadora
+- En `main`, pasá funciones para orden ascendente/descendente
+
+---
+
+## Ejercicio 19: Lista Enlazada Simple
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Implementá una lista enlazada con:
+- `struct nodo { int dato; struct nodo *siguiente; };`
+- `void insertar_inicio(struct nodo **cabeza, int valor)`
+- `void mostrar_lista(struct nodo *cabeza)`
+- `void liberar_lista(struct nodo **cabeza)`
+
+**Orientación:**
+- `insertar_inicio` modifica puntero cabeza (necesita `**`)
+- Nuevo nodo apunta a cabeza actual, luego actualiza cabeza
+- `liberar_lista` recorre y libera cada nodo
+
+---
+
+## Ejercicio 20: Parser de Argumentos
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Implementá un parser que procese argumentos de línea de comandos con flags:
+```
+./programa -n 100 -s "texto" -v
+```
+
+**Orientación:**
+- Recorré `argv` con punteros
+- Detectá flags con `-`
+- Si flag requiere valor, avanzá al siguiente `argv`
+- Almacená valores parseados en estructura
+- Manejá flags booleanos (presencia indica true)
+
+---
+
+## Notas Finales
+
+:::{danger} Peligros Comunes con Punteros
+- **Desreferenciar NULL:** Siempre verificá antes: `if (ptr != NULL)`
+- **Punteros colgantes:** No uses memoria después de `free`
+- **Fugas de memoria:** Cada `malloc` debe tener su `free`
+- **Buffer overflow:** Verificá límites al escribir en arrays
+- **Aritmética incorrecta:** `ptr + 1` avanza `sizeof(tipo)` bytes, no 1 byte
+:::
+
+:::{tip} Buenas Prácticas
+- **Inicializá punteros:** `int *ptr = NULL;`
+- **Después de free:** `ptr = NULL;` para evitar uso accidental
+- **const para proteger:** `const int *ptr` previene modificación
+- **Valgrind es tu amigo:** Detecta leaks y accesos inválidos
+:::
+
+:::{note} Compilación y Testing
+```bash
+# Compilar con máximas advertencias
+gcc -Wall -Wextra -Werror -std=c99 programa.c -o programa
+
+# Verificar memoria con Valgrind
+valgrind --leak-check=full ./programa
+```
+:::
+
+Estas consignas cubren conceptos fundamentales y avanzados de punteros: aritmética, paso por referencia, punteros a funciones, estructuras dinámicas, y gestión de memoria.
+

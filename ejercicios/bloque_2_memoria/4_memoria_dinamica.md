@@ -329,3 +329,373 @@ Implementar una Pila (Stack) usando un arreglo dinámico. La estructura debe
 tener capacidad y tamaño. Cuando la pila se llena, su capacidad debe duplicarse.
 Cuando el tamaño es un cuarto de la capacidad, esta debe reducirse a la mitad.
 Implementar `push`, `pop` y `peek`.
+
+---
+
+## Ejercicios Adicionales (Práctica Intensiva)
+
+## Ejercicio 1: Array Dinámico Simple
+
+**Dificultad:** ⭐☆☆☆☆
+
+Leé un tamaño `n`, creá un array dinámico de `n` enteros, llenalo, mostralo y liberalo.
+
+**Orientación:**
+- `int *arr = malloc(n * sizeof(int));`
+- Verificá: `if (arr == NULL) return 1;`
+- Al final: `free(arr);`
+
+---
+
+## Ejercicio 2: String Dinámico
+
+**Dificultad:** ⭐⭐☆☆☆
+
+Leé un string de tamaño arbitrario (hasta 1000 caracteres), almacenalo dinámicamente con el tamaño exacto.
+
+**Orientación:**
+- Leé en buffer temporal: `char temp[1001];`
+- Asigná memoria exacta: `strlen(temp) + 1`
+- Copiá con `strcpy`
+- Liberá al final
+
+---
+
+## Ejercicio 3: Redimensionar Array
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Implementá un programa que permita agregar elementos dinámicamente a un array, redimensionándolo cuando se llene.
+
+**Orientación:**
+- Mantené `capacidad` actual y `tamanio` usado
+- Cuando `tamanio == capacidad`, duplicá capacidad con `realloc`
+- `arr = realloc(arr, nueva_capacidad * sizeof(int));`
+- Verificá que `realloc` no retorne NULL
+
+---
+
+## Ejercicio 4: Copiar String Dinámicamente
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Implementá `char *duplicar_string(const char *src)` que retorne una copia dinámica.
+
+**Orientación:**
+- Calculá longitud con `strlen`
+- Asigná `strlen + 1` bytes (para '\0')
+- Copiá con `strcpy`
+- El llamador es responsable de liberar
+
+---
+
+## Ejercicio 5: Concatenar Strings Dinámicamente
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Implementá `char *concatenar(const char *s1, const char *s2)` que retorne concatenación en memoria dinámica.
+
+**Orientación:**
+- Longitud total = `strlen(s1) + strlen(s2) + 1`
+- Copiá s1 primero, luego s2
+- Retorná el nuevo string
+
+---
+
+## Ejercicio 6: Matriz Dentada
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Creá una matriz donde cada fila tiene diferente cantidad de columnas.
+
+**Orientación:**
+- `int **matriz = malloc(filas * sizeof(int*));`
+- Para cada fila: `matriz[i] = malloc(cols[i] * sizeof(int));`
+- Liberá en orden inverso: filas primero, luego array de punteros
+
+---
+
+## Ejercicio 7: Lista de Strings
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Leé N strings y almacenalos en un array dinámico de strings.
+
+**Orientación:**
+- `char **strings = malloc(n * sizeof(char*));`
+- Para cada string: asigná memoria exacta
+- Liberá cada string individualmente, luego el array
+
+---
+
+## Ejercicio 8: Histograma Dinámico
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Leé números hasta EOF y creá un histograma de frecuencias (0-9).
+
+**Orientación:**
+- Asigná array dinámico de 10 enteros (inicializado a 0)
+- Usá `calloc(10, sizeof(int))` para inicialización automática
+- Incrementá contador según el dígito
+- Mostrá histograma visual con asteriscos
+
+---
+
+## Ejercicio 9: Vector Dinámico (Estructura)
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Implementá un vector dinámico encapsulado en estructura:
+```c
+typedef struct {
+    int *datos;
+    size_t tamanio;
+    size_t capacidad;
+} vector_t;
+```
+
+Funciones:
+- `vector_t *crear_vector()`
+- `void agregar(vector_t *v, int valor)`
+- `void destruir_vector(vector_t *v)`
+
+**Orientación:**
+- `crear_vector` asigna estructura y array inicial
+- `agregar` redimensiona si es necesario
+- `destruir_vector` libera datos y luego estructura
+
+---
+
+## Ejercicio 10: Leer Archivo Completo en Memoria
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Leé un archivo de texto completo en memoria dinámica.
+
+**Orientación:**
+- Obtené tamaño con `fseek` y `ftell`
+- Asigná `tamanio + 1` bytes
+- Leé todo con `fread`
+- Terminá con '\0'
+- Liberá memoria al terminar
+
+---
+
+## Ejercicio 11: Merge de Arrays
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Implementá `int *merge(int *arr1, int n1, int *arr2, int n2)` que retorne un nuevo array con ambos ordenados.
+
+**Orientación:**
+- Asigná array de tamaño `n1 + n2`
+- Usá dos índices para recorrer ambos arrays
+- Copiá el menor en cada paso
+- Liberá los arrays originales si ya no se usan
+
+---
+
+## Ejercicio 12: Lista Enlazada con Memoria Dinámica
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Implementá lista enlazada completamente dinámica:
+```c
+typedef struct nodo {
+    int dato;
+    struct nodo *siguiente;
+} nodo_t;
+```
+
+Funciones:
+- `nodo_t *crear_nodo(int valor)`
+- `void insertar_ordenado(nodo_t **cabeza, int valor)`
+- `void eliminar_valor(nodo_t **cabeza, int valor)`
+- `void liberar_lista(nodo_t **cabeza)`
+
+**Orientación:**
+- Cada nodo se asigna con `malloc`
+- `insertar_ordenado` encuentra posición correcta
+- `eliminar_valor` busca, reenlaza y libera
+- `liberar_lista` recorre y libera todos los nodos
+
+---
+
+## Ejercicio 13: Árbol Binario de Búsqueda
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Implementá un ABB (Árbol Binario de Búsqueda):
+```c
+typedef struct nodo_arbol {
+    int dato;
+    struct nodo_arbol *izquierdo;
+    struct nodo_arbol *derecho;
+} nodo_arbol_t;
+```
+
+Funciones:
+- `nodo_arbol_t *insertar(nodo_arbol_t *raiz, int valor)`
+- `bool buscar(nodo_arbol_t *raiz, int valor)`
+- `void liberar_arbol(nodo_arbol_t *raiz)`
+
+**Orientación:**
+- Inserción recursiva: menor a izquierda, mayor a derecha
+- Búsqueda recursiva similar
+- Liberación: postorden (izquierdo, derecho, raíz)
+
+---
+
+## Ejercicio 14: Tabla Hash Simple
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Implementá una tabla hash con encadenamiento:
+```c
+typedef struct entrada {
+    char *clave;
+    int valor;
+    struct entrada *siguiente;
+} entrada_t;
+
+typedef struct {
+    entrada_t **tabla;
+    size_t tamanio;
+} hash_t;
+```
+
+Funciones:
+- `hash_t *crear_hash(size_t tam)`
+- `void insertar(hash_t *h, const char *clave, int valor)`
+- `int *buscar(hash_t *h, const char *clave)`
+- `void destruir_hash(hash_t *h)`
+
+**Orientación:**
+- Función hash simple: suma de caracteres % tamaño
+- Encadenamiento para colisiones
+- Destruir: libera cadenas, claves, y tabla
+
+---
+
+## Ejercicio 15: Pool de Memoria
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Implementá un allocator simple que asigna de un pool preasignado.
+
+**Orientación:**
+- Asigná bloque grande inicial con `malloc`
+- Mantené puntero a espacio libre
+- `pool_alloc(size)` retorna puntero y avanza
+- `pool_free()` libera todo el pool de una vez
+- No soporta liberación individual
+
+---
+
+## Ejercicio 16: Parser de CSV Dinámico
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Leé un archivo CSV y almacená datos en estructura dinámica.
+
+**Orientación:**
+- Leé línea por línea con `fgets`
+- Parseá con `strtok` o manualmente
+- Almacená en array dinámico de estructuras
+- Redimensioná si es necesario
+- Liberá todo al terminar
+
+---
+
+## Ejercicio 17: Cache LRU
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Implementá un cache LRU (Least Recently Used) con tamaño fijo.
+
+**Orientación:**
+- Usá lista doblemente enlazada + hash para O(1)
+- Al acceder, mové nodo al frente
+- Si está llena, eliminá el último
+- Liberá al destruir cache
+
+---
+
+## Ejercicio 18: Grafo con Listas de Adyacencia
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Implementá grafo dirigido con listas de adyacencia dinámicas.
+
+**Orientación:**
+- Array dinámico de listas (una por vértice)
+- Cada lista contiene vecinos dinámicamente
+- Función para agregar arista
+- Liberación: cada lista, luego array
+
+---
+
+## Ejercicio 19: Simulador de Memoria
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Implementá un simulador que registre todas las asignaciones/liberaciones.
+
+**Orientación:**
+- Envolvé `malloc` y `free`
+- Mantené registro de bloques activos
+- Detectá double-free y memory leaks
+- Mostrá estadísticas al final
+
+---
+
+## Ejercicio 20: Sistema de Gestión de Memoria Personalizado
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Implementá tu propio `malloc` y `free` usando `sbrk` o un buffer grande.
+
+**Orientación:**
+- Mantené lista de bloques libres/ocupados
+- Algoritmo first-fit o best-fit
+- Metadata en cada bloque (tamaño, ocupado)
+- Coalescencia de bloques libres adyacentes
+
+---
+
+## Notas Finales
+
+:::{danger} Errores Fatales a Evitar
+1. **No verificar NULL:** Siempre: `if (ptr == NULL) { handle error; }`
+2. **Olvidar free:** Cada `malloc` debe tener su `free` correspondiente
+3. **Double free:** Liberar el mismo puntero dos veces
+4. **Use after free:** Usar memoria después de liberarla
+5. **Memory leak:** Perder referencias sin liberar
+:::
+
+:::{tip} Herramientas de Debugging
+```bash
+# Valgrind - detecta leaks y accesos inválidos
+valgrind --leak-check=full --show-leak-kinds=all ./programa
+
+# AddressSanitizer - más rápido, menos completo
+gcc -fsanitize=address -g programa.c -o programa
+./programa
+
+# Verificar código de salida de Valgrind
+valgrind ./programa
+echo $?  # 0 si no hay errores
+```
+:::
+
+:::{note} Patrones Comunes
+1. **Siempre liberar en orden inverso a asignación**
+2. **Usar `calloc` para inicialización a cero**
+3. **Verificar `realloc` antes de reasignar puntero original**
+4. **Mantener punteros a NULL después de `free`**
+5. **Encapsular estructuras dinámicas en funciones de gestión**
+:::
+
+Estas consignas cubren todos los aspectos de memoria dinámica: asignación básica, redimensionamiento, estructuras complejas, gestión avanzada y prevención de errores.
+

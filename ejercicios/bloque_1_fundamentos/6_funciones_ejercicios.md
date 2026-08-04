@@ -204,3 +204,359 @@ int main(void) {
 
 :::
 <!-- {solution} funcion_area -->
+
+---
+
+## Ejercicios Adicionales (Práctica Intensiva)
+
+## Ejercicio 1: Funciones Matemáticas Básicas
+
+**Dificultad:** ⭐☆☆☆☆
+
+Creá funciones para operaciones matemáticas: `sumar`, `restar`, `multiplicar`, `dividir`.
+
+**Orientación:**
+- Cada función recibe dos `double` y retorna el resultado
+- `dividir` debe verificar divisor != 0
+- En `main`, usá las funciones en una calculadora simple
+
+---
+
+## Ejercicio 2: Función Es Primo
+
+**Dificultad:** ⭐⭐☆☆☆
+
+Implementá `bool es_primo(int n)` que determine si un número es primo.
+
+**Orientación:**
+- Probá divisibilidad desde 2 hasta √n
+- Optimización: solo verificar impares después del 2
+- En `main`, mostrá primos en un rango
+
+---
+
+## Ejercicio 3: Factorial Recursivo e Iterativo
+
+**Dificultad:** ⭐⭐☆☆☆
+
+Implementá dos versiones de factorial:
+- `int factorial_iterativo(int n)`
+- `int factorial_recursivo(int n)`
+
+**Orientación:**
+- Iterativo: usá lazo
+- Recursivo: `n * factorial(n-1)`, caso base: `n <= 1` retorna 1
+- Compará tiempos (opcional)
+
+---
+
+## Ejercicio 4: Conversión de Temperatura
+
+**Dificultad:** ⭐⭐☆☆☆
+
+Creá funciones para convertir temperaturas:
+- `celsius_a_fahrenheit`
+- `celsius_a_kelvin`
+- `fahrenheit_a_celsius`
+- `kelvin_a_celsius`
+
+**Orientación:**
+- Cada función recibe y retorna `double`
+- Mostrá un menú en `main` para elegir conversión
+
+---
+
+## Ejercicio 5: Validación de Entrada
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Implementá funciones de validación:
+- `int leer_entero(int min, int max)` - lee y valida rango
+- `double leer_positivo()` - lee y valida > 0
+- `char leer_si_no()` - lee 's' o 'n'
+
+**Orientación:**
+- Cada función repite lectura hasta entrada válida
+- Mostrá mensajes de error descriptivos
+- Usá estas funciones en `main` para varios inputs
+
+---
+
+## Ejercicio 6: Máximo Común Divisor (MCD)
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Implementá el algoritmo de Euclides para calcular MCD.
+
+**Algoritmo:**
+```
+mcd(a, b) = mcd(b, a % b)  si b != 0
+mcd(a, 0) = a
+```
+
+**Orientación:**
+- Implementá versión recursiva e iterativa
+- Agregá función `mcm(a, b)` usando: mcm = (a * b) / mcd(a, b)
+
+---
+
+## Ejercicio 7: Números de Fibonacci
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Implementá:
+- `int fibonacci(int n)` - retorna n-ésimo número de Fibonacci
+- `void imprimir_fibonacci(int cantidad)` - muestra los primeros n
+
+**Orientación:**
+- Implementá versión recursiva e iterativa
+- Compará eficiencia (recursiva es muy lenta para n > 40)
+
+---
+
+## Ejercicio 8: Operaciones con Dígitos
+
+**Dificultad:** ⭐⭐⭐☆☆
+
+Creá funciones para manipular dígitos de un número:
+- `int contar_digitos(int n)`
+- `int suma_digitos(int n)`
+- `int invertir_numero(int n)`
+- `bool es_palindromo(int n)`
+
+**Orientación:**
+- Usá división y módulo para extraer dígitos
+- `es_palindromo` compara el número con su inverso
+
+---
+
+## Ejercicio 9: Conversión de Bases
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Implementá conversiones entre bases numéricas:
+- `int binario_a_decimal(long binario)`
+- `long decimal_a_binario(int decimal)`
+- Similar para octal y hexadecimal
+
+**Orientación:**
+- Para convertir a decimal: suma potencias de la base
+- Para convertir desde decimal: divisiones sucesivas
+- Validá que los dígitos sean válidos para la base
+
+---
+
+## Ejercicio 10: Cálculo de Potencia
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Implementá tres versiones de potencia:
+- `double potencia_simple(double base, int exp)` - O(n)
+- `double potencia_rapida(double base, int exp)` - O(log n)
+- Manejá exponentes negativos
+
+**Orientación:**
+- Simple: multiplica base n veces
+- Rápida: si exp es par, `pow(base, exp) = pow(base*base, exp/2)`
+- Exponente negativo: `pow(base, -n) = 1 / pow(base, n)`
+
+---
+
+## Ejercicio 11: Generador de Números Primos
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Implementá:
+- `bool es_primo(int n)`
+- `int siguiente_primo(int desde)`
+- `void listar_primos(int inicio, int fin)`
+- `int contar_primos(int hasta)`
+
+**Orientación:**
+- Optimizá `es_primo` probando solo hasta √n
+- Reutilizá funciones entre sí
+- `siguiente_primo` busca el próximo primo >= desde
+
+---
+
+## Ejercicio 12: Combinatoria
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Implementá funciones combinatorias:
+- `long factorial(int n)`
+- `long combinaciones(int n, int k)` - C(n,k) = n! / (k! × (n-k)!)
+- `long permutaciones(int n, int k)` - P(n,k) = n! / (n-k)!
+
+**Orientación:**
+- Optimizá evitando calcular factoriales completos
+- Maneja overflow (usa `long` o `long long`)
+- Validá que 0 <= k <= n
+
+---
+
+## Ejercicio 13: Geometría Modular
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Creá funciones para calcular áreas y perímetros de figuras:
+- Círculo
+- Rectángulo
+- Triángulo (con fórmula de Herón)
+- Trapecio
+
+**Orientación:**
+- Parámetros específicos para cada forma
+- Validá dimensiones positivas
+- Opcionalmente, usá un menú para elegir figura
+
+---
+
+## Ejercicio 14: Estadísticas de un Array
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Implementá funciones estadísticas para un array de números:
+- `double promedio(double arr[], int n)`
+- `double mediana(double arr[], int n)`
+- `double desviacion_estandar(double arr[], int n)`
+
+**Orientación:**
+- Promedio: suma / cantidad
+- Mediana: ordenar y tomar el del medio
+- Desviación: √(Σ(x - μ)² / n)
+
+---
+
+## Ejercicio 15: Simulación de Dado
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Creá un simulador de lanzamiento de dados:
+- `int lanzar_dado(int caras)` - retorna 1 a caras
+- `void lanzar_multiples(int cantidad, int caras, int resultados[])`
+- `void estadisticas_lanzamientos(int resultados[], int n)`
+
+**Orientación:**
+- Usá `rand() % caras + 1`
+- Inicializá semilla con `srand(time(NULL))` una sola vez
+- Estadísticas: muestra frecuencia de cada número
+
+---
+
+## Ejercicio 16: Validador de Fechas
+
+**Dificultad:** ⭐⭐⭐⭐☆
+
+Implementá funciones para trabajar con fechas:
+- `bool es_fecha_valida(int dia, int mes, int anio)`
+- `int dias_del_mes(int mes, int anio)`
+- `bool es_bisiesto(int anio)`
+- `int dia_del_anio(int dia, int mes, int anio)`
+
+**Orientación:**
+- Reutilizá funciones entre sí
+- Validá rangos apropiados
+- `dia_del_anio` suma días desde inicio del año
+
+---
+
+## Ejercicio 17: Búsqueda y Ordenamiento
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Implementá algoritmos básicos:
+- `int busqueda_lineal(int arr[], int n, int objetivo)`
+- `void ordenar_burbuja(int arr[], int n)`
+- `void intercambiar(int *a, int *b)`
+
+**Orientación:**
+- Búsqueda lineal: O(n), retorna índice o -1
+- Burbuja: compara adyacentes e intercambia
+- `intercambiar` usa punteros para modificar valores
+
+---
+
+## Ejercicio 18: Calculadora de Fechas
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Calculá diferencias y sumas con fechas:
+- `int diferencia_dias(fecha_t f1, fecha_t f2)`
+- `fecha_t sumar_dias(fecha_t f, int dias)`
+- `int dia_de_semana(fecha_t f)` - 0=Domingo, 6=Sábado
+
+**Orientación:**
+- Definí `typedef struct { int dia, mes, anio; } fecha_t;`
+- Convertí fechas a "número de días desde época"
+- Usá algoritmo de Zeller para día de semana
+
+---
+
+## Ejercicio 19: Sistema de Ecuaciones
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Resolvé sistemas de ecuaciones 2×2:
+```
+a₁x + b₁y = c₁
+a₂x + b₂y = c₂
+```
+
+Implementá:
+- `bool resolver_sistema(double a1, double b1, double c1, 
+                          double a2, double b2, double c2,
+                          double *x, double *y)`
+
+**Orientación:**
+- Usá método de Cramer
+- Calculá determinante: det = a1×b2 - a2×b1
+- Si det = 0, sistema sin solución única
+- x = (c1×b2 - c2×b1) / det
+- y = (a1×c2 - a2×c1) / det
+- Usá punteros para retornar x e y
+
+---
+
+## Ejercicio 20: Biblioteca de Strings
+
+**Dificultad:** ⭐⭐⭐⭐⭐
+
+Reimplementá funciones de `<string.h>` sin usarla:
+- `int mi_strlen(const char *str)`
+- `void mi_strcpy(char *dest, const char *src)`
+- `int mi_strcmp(const char *s1, const char *s2)`
+- `void mi_strcat(char *dest, const char *src)`
+- `char *mi_strchr(const char *str, char c)`
+
+**Orientación:**
+- `strlen`: contá hasta '\0'
+- `strcpy`: copiá carácter por carácter incluyendo '\0'
+- `strcmp`: retorna diferencia del primer carácter distinto
+- `strcat`: copiá src al final de dest
+- `strchr`: retorna puntero a primera aparición de c
+- Verificá límites de destino para evitar buffer overflow
+
+---
+
+## Notas Finales
+
+:::{tip} Diseño de Funciones
+- **Una responsabilidad:** Cada función debe hacer una sola cosa bien
+- **Nombres descriptivos:** `calcular_promedio` en lugar de `calc`
+- **Parámetros mínimos:** No más de 3-4 parámetros si es posible
+- **Retorno significativo:** `bool` para éxito/fallo, valores cuando calculás algo
+- **Sin efectos laterales:** Evitá modificar variables globales
+:::
+
+:::{note} Documentación
+Cada función debe tener:
+- Descripción de qué hace
+- Descripción de parámetros
+- Descripción del valor de retorno
+- Precondiciones (qué debe ser cierto antes de llamarla)
+- Postcondiciones (qué garantiza después de ejecutarse)
+:::
+
+Estas consignas practican modularización, reutilización, paso de parámetros y diseño de interfaces de funciones.
+
