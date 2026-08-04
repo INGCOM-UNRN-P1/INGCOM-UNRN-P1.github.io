@@ -2183,7 +2183,8 @@ Ingresá tu nombre: Juan
 (ejercicio_1_46)=
 ## Ejercicio 1.46 - Calculadora Simple ⭐⭐☆☆☆
 
-Escribí un programa que lea dos números enteros y muestre su suma, resta, producto y división.
+Escribí un programa que lea dos números enteros y muestre su suma, resta,
+producto y división.
 
 **Ejemplo de ejecución:**
 ```
@@ -2197,7 +2198,8 @@ División: 3.33
 
 **Orientación:**
 - Declará variables para los dos números
-- Para la división con decimales, convertí al menos uno de los operandos a `double`
+- Para la división con decimales, convertí al menos uno de los operandos a
+  `double`
 - Usá `%.2f` para mostrar dos decimales
 
 ---
@@ -2219,7 +2221,8 @@ Creá un programa que convierta temperatura de Celsius a Fahrenheit y Kelvin.
 (ejercicio_1_48)=
 ## Ejercicio 1.48 - Área y Perímetro ⭐⭐☆☆☆
 
-Escribí un programa que calcule el área y perímetro de un rectángulo dados su ancho y alto.
+Escribí un programa que calcule el área y perímetro de un rectángulo dados su
+ancho y alto.
 
 **Orientación:**
 - Área = ancho × alto
@@ -2242,7 +2245,8 @@ Calculá el promedio de tres números decimales ingresados por el usuario.
 (ejercicio_1_50)=
 ## Ejercicio 1.50 - Intercambio de Variables ⭐⭐☆☆☆
 
-Leé dos números enteros y mostralos intercambiados (sin usar una tercera variable).
+Leé dos números enteros y mostralos intercambiados (sin usar una tercera
+variable).
 
 **Ejemplo:**
 ```
@@ -2288,7 +2292,8 @@ Calculá el Índice de Masa Corporal (IMC) dados peso (kg) y altura (m).
 (ejercicio_1_53)=
 ## Ejercicio 1.53 - Cantidad de Billetes ⭐⭐⭐☆☆
 
-Dado un monto en pesos, calculá cuántos billetes de cada denominación (1000, 500, 200, 100, 50, 20, 10) se necesitan.
+Dado un monto en pesos, calculá cuántos billetes de cada denominación (1000,
+500, 200, 100, 50, 20, 10) se necesitan.
 
 **Ejemplo:**
 ```
@@ -2366,7 +2371,8 @@ Precio final: 850.00
 (ejercicio_1_57)=
 ## Ejercicio 1.57 - Operaciones Bitwise ⭐⭐⭐☆☆
 
-Leé dos números enteros y mostrá el resultado de todas las operaciones bitwise: AND, OR, XOR, NOT (del primero), shift left y shift right.
+Leé dos números enteros y mostrá el resultado de todas las operaciones bitwise:
+AND, OR, XOR, NOT (del primero), shift left y shift right.
 
 **Orientación:**
 - Usá operadores: `&`, `|`, `^`, `~`, `<<`, `>>`
@@ -2403,7 +2409,8 @@ Calculá el área de un triángulo usando la fórmula de Herón dados los tres l
 (ejercicio_1_60)=
 ## Ejercicio 1.60 - Ecuación Cuadrática ⭐⭐⭐⭐☆
 
-Resolvé una ecuación cuadrática ax² + bx + c = 0, mostrando las raíces reales si existen.
+Resolvé una ecuación cuadrática ax² + bx + c = 0, mostrando las raíces reales si
+existen.
 
 **Orientación:**
 - Calculá el discriminante: Δ = b² - 4ac
@@ -2460,18 +2467,21 @@ Calculá base^exponente usando solo multiplicaciones (exponente entero positivo)
 - Leé base (double) y exponente (int positivo)
 - Usá un lazo para multiplicar base por sí misma exponente veces
 - Considerá el caso especial cuando exponente = 0 (resultado = 1)
-- **Spoiler:** Este ejercicio requiere lazos, pero podés usar multiplicaciones repetidas en línea
+- **Spoiler:** Este ejercicio requiere lazos, pero podés usar multiplicaciones
+  repetidas en línea
 
 ---
 (ejercicio_1_64)=
 ## Ejercicio 1.64 - Calculadora Científica Básica ⭐⭐⭐⭐⭐
 
-Creá una calculadora que realice operaciones avanzadas: potencia, raíz cuadrada, seno, coseno, tangente, logaritmo.
+Creá una calculadora que realice operaciones avanzadas: potencia, raíz cuadrada,
+seno, coseno, tangente, logaritmo.
 
 **Orientación:**
 - Mostrá un menú de opciones
 - Leé la operación deseada y los operandos necesarios
-- Usá funciones de `<math.h>`: `pow()`, `sqrt()`, `sin()`, `cos()`, `tan()`, `log()`
+- Usá funciones de `<math.h>`: `pow()`, `sqrt()`, `sin()`, `cos()`, `tan()`,
+  `log()`
 - Recordá que funciones trigonométricas usan radianes
 - Verificá casos especiales (raíz de negativo, log de 0 o negativo, etc.)
 - Compilá con `-lm`
@@ -2481,20 +2491,31 @@ Creá una calculadora que realice operaciones avanzadas: potencia, raíz cuadrad
 ## Notas Finales
 
 :::{tip} Consejos Generales
-- **Validación:** Siempre verificá entradas inválidas (divisiones por cero, valores fuera de rango)
-- **Formato:** Usá `printf()` con especificadores apropiados (`%d`, `%f`, `%c`, etc.)
+
+- **Validación:** Siempre verificá entradas inválidas (divisiones por cero,
+  valores fuera de rango)
+- **Formato:** Usá `printf()` con especificadores apropiados (`%d`, `%f`, `%c`,
+  etc.)
 - **Constantes:** Definí valores fijos con `#define` o `const`
 - **Comentarios:** Documentá qué hace cada sección del código
 - **Testing:** Probá con diferentes entradas, incluyendo casos extremos
+
 :::
+<!-- {tip} Consejos Generales -->
 
 :::{note} Compilación con Matemáticas
+
 Para ejercicios que usan `<math.h>`, compilá con:
-```bash
+``` bash
 gcc -Wall -Wextra -std=c99 programa.c -o programa -lm
 ```
+<!-- bash -->
 El flag `-lm` enlaza la biblioteca matemática.
-:::
 
-Estas consignas cubren los conceptos fundamentales del Apunte 1: variables, tipos de datos, operadores aritméticos, bitwise, entrada/salida, y uso básico de bibliotecas estándar.
+:::
+<!-- {note} Compilación con Matemáticas -->
+
+Estas consignas cubren los conceptos fundamentales del Apunte 1: variables,
+tipos de datos, operadores aritméticos, bitwise, entrada/salida, y uso básico de
+bibliotecas estándar.
 

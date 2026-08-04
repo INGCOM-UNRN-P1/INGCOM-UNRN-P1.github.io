@@ -37,7 +37,8 @@ utilizando únicamente las operaciones más básicas de la unidad
 aritmético-lógica: sumar o restar 1. Este ejercicio ayuda a comprender la suma
 como una serie de incrementos o decrementos sucesivos.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Dos números enteros, `n` y `m`.
 -   **Proceso:** El objetivo es llegar desde `n` al resultado `n+m` aplicando la
     operación de incremento `m` veces (si `m` es positivo) o la operación de
@@ -46,6 +47,9 @@ como una serie de incrementos o decrementos sucesivos.
     `m`).
 -   Dentro del lazo, se verifica el signo de `m`. Si `m > 0`, se incrementa el
     resultado. Si `m < 0`, se decrementa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -81,7 +85,8 @@ Implementar la división entera para obtener el cociente y el resto de `a / b`
 utilizando únicamente restas sucesivas. Este método emula cómo se podría
 realizar una división de forma manual o en hardware muy simple.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Dos enteros positivos, `dividendo` y `divisor`.
 -   **Proceso:** Se resta el `divisor` del `dividendo` de forma repetida hasta
     que el `dividendo` sea menor que el `divisor`. Se necesita un contador
@@ -90,6 +95,9 @@ realizar una división de forma manual o en hardware muy simple.
     divisor`.
 -   **Salida:** El valor final del contador es el cociente, y el valor final del
     `dividendo` (lo que sobra) es el resto.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -119,7 +127,8 @@ multiplicar ni operaciones de división directa. Se basa en duplicar el divisor,
 encontrar qué duplicaciones suman el dividendo y sumar los factores de
 duplicación correspondientes.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un dividendo y un divisor.
 -   **Proceso:** 
     1.  **Tabla de Duplicación:** Crear dos columnas. La primera empieza en 1 y
@@ -132,6 +141,9 @@ duplicación correspondientes.
         valor correspondiente de la primera columna al `cociente`.
 -   **Salida:** El `cociente` acumulado y el `dividendo` final (que es el
     resto).
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -178,12 +190,16 @@ FIN PROCEDIMIENTO
 Determinar si un número entero `a` es divisible de forma exacta por otro entero
 `b`.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Dos enteros, `a` y `b`.
 -   **Proceso:** La divisibilidad se comprueba con el operador módulo (`%`). Si
     el resto de la división `a % b` es 0, entonces `a` es divisible por `b`.
 -   **Caso Especial:** Asegurarse de que `b` no sea cero para evitar un error de
     división por cero.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -213,7 +229,8 @@ END FUNCION
 Calcular el factorial de un número entero no negativo `n`, denotado como `n!`.
 El factorial es el producto de todos los enteros positivos desde 1 hasta `n`.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un entero no negativo `n`.
 -   **Casos Base:** Por definición, `0! = 1`. El factorial de 1 es 1.
 -   **Proceso:** Se utiliza un lazo que itera desde 2 hasta `n`. Se necesita una
@@ -222,6 +239,9 @@ El factorial es el producto de todos los enteros positivos desde 1 hasta `n`.
     número actual del lazo.
 -   **Desbordamiento:** Los factoriales crecen muy rápido. Usar un tipo de dato
     grande como `unsigned long long` es crucial.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -257,12 +277,16 @@ FIN FUNCION
 Implementar funciones para calcular el Máximo Común Divisor (MCD) y el Mínimo
 Común Múltiplo (MCM) de dos números enteros.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **MCD (Algoritmo de Euclides):** Es el método más eficiente. Mientras `b` no
     sea cero, se calcula el resto `r = a % b`, luego se actualiza `a = b` y `b =
     r`. El MCD es el último valor no nulo de `a`.
 -   **MCM:** Se puede calcular fácilmente una vez que se tiene el MCD, usando la
     fórmula: $MCM(a, b) = \frac{|a \cdot b|}{MCD(a, b)}$.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -295,12 +319,16 @@ FIN FUNCION
 #### Descripción
 Calcular la suma de los dígitos individuales de un número entero positivo.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un entero positivo `n`.
 -   **Proceso:** Se utiliza un lazo que se repite mientras `n` sea mayor que 0.
     1.  **Obtener último dígito:** `digito = n % 10`.
     2.  **Sumar dígito:** `suma = suma + digito`.
     3.  **Eliminar último dígito:** `n = n / 10` (división entera).
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -329,7 +357,8 @@ FIN FUNCION
 #### Descripción
 Tomar un número entero y devolver otro número con sus dígitos en orden inverso.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un entero `n`.
 -   **Proceso:** Similar a la suma de dígitos, pero en lugar de sumar, se
     construye un nuevo número.
@@ -337,6 +366,9 @@ Tomar un número entero y devolver otro número con sus dígitos en orden invers
     2.  En un lazo, mientras `n > 0`:
         a. `invertido = (invertido * 10) + (n % 10)`.
         b. `n = n / 10`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -366,11 +398,15 @@ FIN FUNCION
 Verificar si un número es capicúa (o palíndromo), es decir, si se lee igual de
 izquierda a derecha que de derecha a izquierda.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un entero `n`.
 -   **Proceso:** La forma más sencilla es utilizar la función del ejercicio
     anterior para invertir el número y luego comparar el número invertido con el
     original.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -397,7 +433,8 @@ FIN FUNCION
 Verificar si un número entero mayor que 1 es un número primo. Un número es primo
 si solo es divisible por 1 y por sí mismo.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un entero `n`.
 -   **Casos Base:** Números menores o iguales a 1 no son primos. 2 es el único
     primo par.
@@ -405,6 +442,9 @@ si solo es divisible por 1 y por sí mismo.
     divisible por algún número desde 2 hasta la raíz cuadrada de `n`
     ($\sqrt{n}$). Si se encuentra un divisor en ese rango, el número no es
     primo.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -434,7 +474,8 @@ Determinar si un número es un "número perfecto". Un número perfecto es un ent
 positivo que es igual a la suma de sus divisores propios positivos (todos sus
 divisores excepto él mismo).
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un entero `n`.
 -   **Proceso:** 
     1.  Calcular la suma de los divisores propios de `n`. Para ello, iterar
@@ -442,6 +483,9 @@ divisores excepto él mismo).
     2.  En cada iteración, si el iterador `i` es un divisor de `n` (`n % i ==
         0`), se suma `i` a un acumulador.
     3.  Finalmente, comparar la suma obtenida con el número original `n`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -473,7 +517,8 @@ Verificar si dos números enteros positivos, `a` y `b`, son "números amigos". D
 números son amigos si la suma de los divisores propios de `a` es igual a `b`, y
 viceversa.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Dos enteros positivos, `a` y `b`.
 -   **Reutilización de Código:** Este problema se simplifica si ya se tiene una
     función que calcula la suma de los divisores propios de un número (como la
@@ -488,6 +533,9 @@ viceversa.
 -   **Caso Especial:** Asegurarse de que `a` y `b` no sean el mismo número (un
     número perfecto es amigo de sí mismo, lo que a veces se excluye de la
     definición de números amigos).
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -526,11 +574,15 @@ FIN FUNCION
 Determinar si un número es "abundante". Un número es abundante si la suma de sus
 divisores propios es mayor que el propio número.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un entero `n`.
 -   **Proceso:** Es casi idéntico al de los números perfectos. Se calcula la
     suma de los divisores propios y, en lugar de comparar si es igual a `n`, se
     compara si es mayor que `n`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -563,11 +615,15 @@ genera aplicando repetidamente una regla: si el número actual es par, se divide
 por 2; si es impar, se multiplica por 3 y se le suma 1. La conjetura (no
 probada) es que esta secuencia siempre llega a 1.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un entero positivo `n`.
 -   **Proceso:** Usar un lazo `while` que se ejecute mientras `n` sea diferente
     de 1. Dentro del lazo, aplicar la regla correspondiente y actualizar el
     valor de `n`. Imprimir el valor de `n` en cada paso para ver la secuencia.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -599,7 +655,8 @@ Verificar si un número es un número de Armstrong (o narcisista). Un número de
 `k` dígitos es de Armstrong si es igual a la suma de sus propios dígitos
 elevados a la potencia `k`.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un entero `n`.
 -   **Proceso:** 
     1.  Contar el número de dígitos (`k`) del número `n`.
@@ -607,6 +664,9 @@ elevados a la potencia `k`.
     3.  Recorrer los dígitos de `n` (usando `% 10` y `/ 10`). Para cada dígito,
         calcular `digito^k` y añadirlo a la `suma`.
     4.  Comparar la `suma` final con el número original `n`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -645,13 +705,17 @@ proceso llega a 1, el número es feliz. Si entra en un ciclo que no incluye el 1
 (notablemente el ciclo `4 → 16 → 37 → 58 → 89 → 145 → 42 → 20 → 4`), no es
 feliz.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un entero positivo `n`.
 -   **Proceso:** Usar un lazo `while`. En cada iteración, calcular la suma de
     los cuadrados de los dígitos del número actual. El lazo debe terminar si el
     número se convierte en 1 (feliz) o si se detecta un ciclo (no feliz). Para
     detectar ciclos, se puede guardar los números ya vistos en un arreglo o
     simplemente detectar si se llega al número 4.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -689,7 +753,8 @@ FIN FUNCION
 Implementar la Criba de Eratóstenes, un algoritmo altamente eficiente para
 encontrar todos los números primos hasta un límite superior `N` especificado.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Estructura de Datos:** Se necesita un arreglo booleano (o de enteros)
     `es_primo` de tamaño `N+1`. `es_primo[i]` será verdadero si `i` es primo y
     falso en caso contrario.
@@ -705,6 +770,9 @@ encontrar todos los números primos hasta un límite superior `N` especificado.
         por primos más pequeños.
 -   **Salida:** Al final, se recorre el arreglo `es_primo` y se imprimen todos
     los índices `i` para los cuales `es_primo[i]` es verdadero.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -751,7 +819,8 @@ FIN PROCEDIMIENTO
 Dado un número entero, encontrar y mostrar su descomposición en factores primos.
 Por ejemplo, para 360, la salida sería `2^3 * 3^2 * 5`.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un entero `n`.
 -   **Proceso:** 
     1.  Se itera con un divisor `d` comenzando en 2.
@@ -761,6 +830,9 @@ Por ejemplo, para 360, la salida sería `2^3 * 3^2 * 5`.
         cantidad de veces.
     4.  Si al final del lazo `n` es mayor que 1, ese `n` restante es también un
         factor primo.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -807,7 +879,8 @@ Implementar una función que calcule el n-ésimo número de Catalan, $C_n$. Esto
 números forman una secuencia de números naturales que aparece en varios
 problemas de conteo en combinatoria.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un entero no negativo `n`.
 -   **Fórmula:** La fórmula más directa es $C_n = \frac{1}{n+1} \binom{2n}{n}$.
     Para calcularla, se necesita una función para el coeficiente binomial
@@ -820,6 +893,9 @@ problemas de conteo en combinatoria.
     1.  Implementar una función `coeficiente_binomial(n, k)`.
     2.  La función `numero_catalan(n)` llamará a `coeficiente_binomial(2*n, n)`
         y dividirá el resultado por `n+1`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -863,7 +939,8 @@ Calcular el coeficiente binomial "n en k", denotado como $C(n, k)$ o
 $\binom{n}{k}$, que representa el número de formas de elegir `k` elementos de un
 conjunto de `n` elementos sin importar el orden.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Dos enteros no negativos, `n` y `k`.
 -   **Proceso:** Como se mencionó en el ejercicio anterior, calcularlo mediante
     la fórmula iterativa $\prod_{i=1}^{k} \frac{n-i+1}{i}$ es numéricamente más
@@ -873,6 +950,9 @@ conjunto de `n` elementos sin importar el orden.
 -   **Optimización:** Dado que $\binom{n}{k} = \binom{n}{n-k}$, se puede elegir
     el valor más pequeño entre `k` y `n-k` para reducir el número de
     iteraciones.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -910,13 +990,17 @@ Implementar un algoritmo para calcular la parte entera de la raíz cuadrada de u
 número `n` utilizando el método babilónico (o de Herón), que es un método
 iterativo eficiente.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un número no negativo `n`.
 -   **Proceso:** Es un algoritmo de aproximaciones sucesivas.
     1.  Se elige una estimación inicial `x` (por ejemplo, `x = n`).
     2.  Se repite un número fijo de veces o hasta que la estimación converja: `x
         = (x + n / x) / 2`.
 -   **Salida:** El resultado es la parte entera de la estimación final `x`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -951,7 +1035,8 @@ Un número triangular es la suma de los `n` primeros números naturales. Por
 ejemplo, el 4º número triangular es 1+2+3+4=10. El objetivo es escribir una
 función que determine si un número entero dado es un número triangular.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un entero positivo `num`.
 -   **Proceso:** Hay dos enfoques principales:
     1.  **Iterativo:** Generar números triangulares sumando 1, 2, 3, ... en un
@@ -960,6 +1045,9 @@ función que determine si un número entero dado es un número triangular.
     2.  **Matemático:** Un número `x` es triangular si y solo si $8x+1$ es un
         cuadrado perfecto. Se puede calcular $8x+1$, obtener su raíz cuadrada, y
         verificar si es un entero.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -994,13 +1082,17 @@ La conjetura de Goldbach (aún no probada) establece que todo número par mayor
 que 2 puede expresarse como la suma de dos números primos. Escribir un programa
 que, dado un número par, encuentre un par de números primos que lo sumen.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un número entero par `n` > 2.
 -   **Proceso:** 
     1.  Se necesita una función `es_primo(x)`.
     2.  Iterar con un número `p` desde 2 hasta `n/2`.
     3.  En cada iteración, si `p` es primo, verificar si `n-p` también es primo.
     4.  Si ambos lo son, se ha encontrado un par y se puede terminar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1028,12 +1120,16 @@ FIN PROCEDIMIENTO
 Dos números primos `p` y `q` son gemelos si `q = p + 2`. El programa debe
 encontrar todos los pares de primos gemelos hasta un límite `N`.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un límite superior `N`.
 -   **Proceso:** 
     1.  Iterar con un número `p` desde 2 hasta `N-2`.
     2.  En cada iteración, verificar si tanto `p` como `p+2` son primos.
     3.  Si ambos lo son, se ha encontrado un par de primos gemelos.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1061,13 +1157,17 @@ Extender el Algoritmo de Euclides para encontrar no solo el MCD de dos enteros
 `a` y `b`, sino también dos enteros `x` e `y` que satisfacen la identidad de
 Bézout: $ax + by = mcd(a, b)$.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Algoritmo Extendido de Euclides:** Es una modificación del algoritmo de
     Euclides que mantiene un registro de los coeficientes `x` e `y` en cada
     paso. Es inherentemente recursivo.
 -   **Proceso:** La implementación recursiva es más intuitiva. La llamada
     recursiva devuelve el MCD y los coeficientes para los números más pequeños,
     y la llamada actual los ajusta para los números originales.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1102,7 +1202,8 @@ FIN FUNCION
 Aproximar el valor de $\pi$ utilizando la serie de Leibniz. La función debe
 recibir el número de términos a utilizar para la aproximación.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Fórmula:** $\pi = 4 \sum_{k=0}^{\infty} \frac{(-1)^k}{2k+1} = 4 (1 -
     \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \dots)$
 -   **Proceso:** 
@@ -1111,6 +1212,9 @@ recibir el número de términos a utilizar para la aproximación.
     3.  En cada iteración, calcular el término $\frac{(-1)^k}{2k+1}$ y añadirlo
         a `suma`.
     4.  El resultado final es `4 * suma`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1140,10 +1244,14 @@ FIN FUNCION
 Generar los primeros `n` términos de la secuencia de Lucas. Es una secuencia
 similar a la de Fibonacci, pero comienza con 2 y 1.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Definición:** $L_n = L_{n-1} + L_{n-2}$ con $L_0 = 2$ y $L_1 = 1$.
 -   **Proceso:** La implementación es casi idéntica a la de Fibonacci, solo
     cambian los valores iniciales.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1178,11 +1286,15 @@ Un número de Mersenne es un número de la forma $M_p = 2^p - 1$, donde `p` es u
 número primo. El programa debe generar números de Mersenne y verificar si son a
 su vez primos (primos de Mersenne).
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso:** 
     1.  Generar números primos `p` (usando la criba o la función `es_primo`).
     2.  Para cada primo `p`, calcular $M_p = 2^p - 1$.
     3.  Verificar si el $M_p$ resultante es también primo.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1213,7 +1325,8 @@ Implementar una versión simplificada del test de primalidad de Miller-Rabin. Es
 un test probabilístico que, a diferencia de la división por tentativa, es
 eficiente para números grandes.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Teorema:** Se basa en propiedades de los números primos relacionadas con
     el Pequeño Teorema de Fermat. Es más complejo que los algoritmos anteriores.
 -   **Proceso Simplificado:** 
@@ -1224,6 +1337,9 @@ eficiente para números grandes.
         para todas las bases, es "probablemente primo".
 -   **Nota:** La implementación completa es avanzada. Un ejercicio más simple
     puede ser implementarlo para una sola base fija.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1255,7 +1371,8 @@ Un número vampiro es un número de `2k` dígitos que puede ser factorizado en d
 números de `k` dígitos (los "colmillos"), donde los dígitos de los colmillos,
 concatenados, son una permutación de los dígitos del número original.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un número `n` de 4 dígitos.
 -   **Proceso:** 
     1.  Iterar a través de todos los posibles pares de "colmillos" de 2 dígitos
@@ -1264,6 +1381,9 @@ concatenados, son una permutación de los dígitos del número original.
     3.  Si es así, obtener los 4 dígitos de `n` y los 4 dígitos de `i` y `j`.
     4.  Verificar si los dos conjuntos de dígitos son permutaciones el uno del
         otro (ej. ordenándolos y comparando).
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1298,7 +1418,8 @@ Verificar si una matriz cuadrada `n x n` de números es un cuadrado mágico. Un
 cuadrado mágico es una matriz donde la suma de los números de cada fila, cada
 columna y ambas diagonales principales es la misma ("constante mágica").
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Una matriz `n x n`.
 -   **Proceso:** 
     1.  Calcular la suma de la primera fila y guardarla como la
@@ -1309,6 +1430,9 @@ columna y ambas diagonales principales es la misma ("constante mágica").
     4.  Calcular la suma de la diagonal principal y la diagonal secundaria y
         compararlas.
 -   Si todas las sumas son iguales, es un cuadrado mágico.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1351,7 +1475,8 @@ Un número de Smith es un número compuesto cuya suma de dígitos es igual a la
 suma de los dígitos de sus factores primos. El programa debe verificar si un
 número dado es un número de Smith.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un entero `n`.
 -   **Proceso:** 
     1.  Verificar que `n` no sea primo.
@@ -1361,6 +1486,9 @@ número dado es un número de Smith.
         factor tiene más de un dígito (ej. 13), se deben sumar sus dígitos
         individuales (1+3).
     5.  Comparar las dos sumas.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1393,7 +1521,8 @@ Un número primo `p` es un primo de Sophie Germain si `2p + 1` también es un
 número primo. El programa debe encontrar todos los primos de Sophie Germain
 hasta un límite `N`.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un límite superior `N`.
 -   **Proceso:** 
     1.  Iterar con un número `p` desde 2 hasta `N`.
@@ -1401,6 +1530,9 @@ hasta un límite `N`.
     3.  Si `p` es primo, calcular `q = 2*p + 1` y verificar si `q` también es
         primo.
     4.  Si ambos son primos, `p` es un primo de Sophie Germain.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1428,12 +1560,16 @@ Implementar una función que calcule el Totient de Euler, `φ(n)`. Esta función
 cuenta el número de enteros positivos hasta `n` que son coprimos con `n` (es
 decir, `mcd(k, n) = 1` para `1 <= k <= n`).
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un entero `n`.
 -   **Proceso (simple):** Iterar `k` desde 1 hasta `n` y contar cuántas veces
     `mcd(k, n) == 1`.
 -   **Proceso (eficiente):** Usar la fórmula basada en los factores primos de
     `n`: $\phi(n) = n \prod_{p|n, p \text{ es primo}} (1 - \frac{1}{p})$.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1473,11 +1609,15 @@ FIN FUNCION
 Calcular el radical de un número `n`, denotado como `rad(n)`, que es el producto
 de sus factores primos distintos.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un entero `n`.
 -   **Proceso:** Similar a la descomposición en factores primos, pero en lugar
     de contar potencias, simplemente se multiplica cada factor primo distinto
     encontrado a una variable `resultado`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1506,10 +1646,14 @@ Generar los primeros `n` términos de la secuencia de Tribonacci, donde cada
 término es la suma de los tres anteriores. La secuencia puede comenzar de
 diferentes formas, una común es `0, 1, 1, 2, 4, 7, 13, ...`
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un entero `n`.
 -   **Proceso:** Similar a Fibonacci, pero se necesitan tres variables para
     guardar los tres términos anteriores.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1540,7 +1684,8 @@ FIN PROCEDIMIENTO
 Escribir una función que descomponga una fracción propia `a/b` en una suma de
 fracciones unitarias distintas (fracciones con numerador 1).
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Algoritmo Greedy:** Un método común es encontrar repetidamente la fracción
     unitaria más grande que sea menor o igual a la fracción restante.
 -   **Proceso:** 
@@ -1550,6 +1695,9 @@ fracciones unitarias distintas (fracciones con numerador 1).
     3.  Imprimir `1/d`.
     4.  Actualizar la fracción restante: `num/den = num/den - 1/d`.
     5.  Repetir hasta que `num` sea 0.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1579,7 +1727,8 @@ Implementar un programa que genere todas las ternas pitagóricas primitivas (`a^
 + b^2 = c^2`, con `mcd(a,b,c)=1`) hasta un cierto límite para `c`, utilizando la
 fórmula de Euclides.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Fórmula de Euclides:** Todas las ternas primitivas se pueden generar a
     partir de dos enteros `m > n > 0`, coprimos y de paridad opuesta, usando las
     fórmulas:
@@ -1588,6 +1737,9 @@ fórmula de Euclides.
     -   `c = m^2 + n^2`
 -   **Proceso:** Iterar con `m` y `n` bajo las condiciones dadas y generar `a`,
     `b` y `c`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1622,13 +1774,17 @@ Un número de Carmichael es un número que satisface la congruencia $b^{n-1}
 \equiv 1 \pmod{n}$ para todos los enteros `b` coprimos con `n`. Escribir una
 función que verifique si un número es un número de Carmichael.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso:** 
     1.  Verificar si `n` es compuesto (no es primo).
     2.  Iterar con `b` desde 2 hasta `n-1`.
     3.  Si `mcd(b, n) == 1`, verificar si `potencia_modular(b, n-1, n) != 1`.
     4.  Si se encuentra un `b` que no cumple la condición, `n` no es de
         Carmichael. Si se prueban todos y la cumplen, sí lo es.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1660,11 +1816,15 @@ FIN FUNCION
 Calcular el logaritmo entero en base `b` de un número `n`. Es el mayor entero
 `k` tal que $b^k \le n$. La implementación no debe usar funciones de `math.h`.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso:** Se puede resolver con divisiones sucesivas.
     1.  Inicializar `k = 0`.
     2.  Mientras `n >= b`, dividir `n` por `b` e incrementar `k`.
     3.  El valor final de `k` es el resultado.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1694,13 +1854,17 @@ FIN FUNCION
 Escribir una función que convierta un número `n` de una base `b1` a una base
 `b2`.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso en dos pasos:** El método más simple es:
     1.  **Convertir a base 10:** Convertir el número de su base original `b1` a
         base 10. Si el número está en un arreglo de dígitos, se calcula $\sum
         digito_i \cdot b1^i$.
     2.  **Convertir de base 10:** Convertir el número de base 10 a la base de
         destino `b2` usando divisiones sucesivas y guardando los restos.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown

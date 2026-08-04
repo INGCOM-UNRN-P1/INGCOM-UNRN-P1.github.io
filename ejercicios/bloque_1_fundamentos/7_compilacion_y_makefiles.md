@@ -143,10 +143,11 @@ impriman cuando se compile en "modo debug".
 Compilá un programa simple desde línea de comandos.
 
 **Orientación:**
-```bash
+``` bash
 gcc -o programa programa.c
 ./programa
 ```
+<!-- bash -->
 - `-o` especifica nombre del ejecutable
 - Sin `-o`, crea `a.out` por defecto
 
@@ -157,9 +158,10 @@ gcc -o programa programa.c
 Compilá con warnings completos y corregí los problemas.
 
 **Orientación:**
-```bash
+``` bash
 gcc -Wall -Wextra -std=c99 -pedantic programa.c -o programa
 ```
+<!-- bash -->
 - `-Wall`: warnings comunes
 - `-Wextra`: warnings adicionales
 - `-std=c99`: estándar C99
@@ -172,7 +174,7 @@ gcc -Wall -Wextra -std=c99 -pedantic programa.c -o programa
 Separáun programa en main.c y funciones.c.
 
 **funciones.h:**
-```c
+``` c
 #ifndef FUNCIONES_H
 #define FUNCIONES_H
 
@@ -180,18 +182,20 @@ int sumar(int a, int b);
 
 #endif
 ```
+<!-- c -->
 
 **funciones.c:**
-```c
+``` c
 #include "funciones.h"
 
 int sumar(int a, int b) {
     return a + b;
 }
 ```
+<!-- c -->
 
 **main.c:**
-```c
+``` c
 #include <stdio.h>
 #include "funciones.h"
 
@@ -199,13 +203,15 @@ int main() {
     printf("%d\n", sumar(3, 4));
 }
 ```
+<!-- c -->
 
 **Compilación:**
-```bash
+``` bash
 gcc -c funciones.c    # Genera funciones.o
 gcc -c main.c         # Genera main.o
 gcc funciones.o main.o -o programa
 ```
+<!-- bash -->
 
 ---
 (ejercicio_6_8)=
@@ -214,7 +220,7 @@ gcc funciones.o main.o -o programa
 Explicá por qué se necesitan include guards y implementalos.
 
 **Orientación:**
-```c
+``` c
 #ifndef MI_HEADER_H
 #define MI_HEADER_H
 
@@ -222,6 +228,7 @@ Explicá por qué se necesitan include guards y implementalos.
 
 #endif  // MI_HEADER_H
 ```
+<!-- c -->
 - Previene inclusión múltiple
 - Evita errores de redefinición
 
@@ -232,7 +239,8 @@ Explicá por qué se necesitan include guards y implementalos.
 Creá Makefile para compilar proyecto de ejercicio 3.
 
 **Makefile:**
-```makefile
+```{code-block} makefile
+:linenos:
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99
 
@@ -247,13 +255,16 @@ funciones.o: funciones.c funciones.h
 
 clean:
 	rm -f *.o programa
+
 ```
+<!-- {code-block} makefile -->
 
 **Uso:**
-```bash
+``` bash
 make           # Compila
 make clean     # Limpia
 ```
+<!-- bash -->
 
 ---
 (ejercicio_6_10)=
@@ -282,12 +293,13 @@ proyecto/
 Compilá con diferentes niveles de optimización y medí diferencia.
 
 **Orientación:**
-```bash
+``` bash
 gcc -O0 programa.c -o prog_O0  # Sin optimización
 gcc -O1 programa.c -o prog_O1  # Básica
 gcc -O2 programa.c -o prog_O2  # Recomendada
 gcc -O3 programa.c -o prog_O3  # Agresiva
 ```
+<!-- bash -->
 - Medí tiempo de ejecución: `time ./prog_O2`
 - `-O0` útil para debugging
 - `-O2` balance entre velocidad y tamaño
@@ -300,17 +312,19 @@ gcc -O3 programa.c -o prog_O3  # Agresiva
 Usá directivas de preprocesador para debug opcional.
 
 **Orientación:**
-```c
+``` c
 #ifdef DEBUG
     printf("Debug: valor = %d\n", valor);
 #endif
 ```
+<!-- c -->
 
 **Compilación:**
-```bash
+``` bash
 gcc -DDEBUG programa.c -o programa  # Con debug
 gcc programa.c -o programa           # Sin debug
 ```
+<!-- bash -->
 
 ---
 (ejercicio_6_13)=
@@ -319,7 +333,8 @@ gcc programa.c -o programa           # Sin debug
 Creá módulo `utils` con funciones de uso general: intercambio, mínimo, máximo.
 
 **Estructura:**
-```c
+```{code-block} c
+:linenos:
 // utils.h
 #ifndef UTILS_H
 #define UTILS_H
@@ -337,7 +352,9 @@ int maximo(int a, int b);
 // main.c
 #include "utils.h"
 // Uso...
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_6_14)=
@@ -346,7 +363,8 @@ int maximo(int a, int b);
 Mejorá Makefile usando variables y patrones.
 
 **Makefile:**
-```makefile
+```{code-block} makefile
+:linenos:
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99 -O2
 LDFLAGS = -lm
@@ -365,7 +383,9 @@ clean:
 	rm -f $(OBJS) $(TARGET)
 
 .PHONY: clean
+
 ```
+<!-- {code-block} makefile -->
 
 ---
 (ejercicio_6_15)=
@@ -374,7 +394,7 @@ clean:
 Generá dependencias automáticamente con gcc.
 
 **Orientación:**
-```makefile
+``` makefile
 DEPS = $(OBJS:.o=.d)
 
 -include $(DEPS)
@@ -382,6 +402,7 @@ DEPS = $(OBJS:.o=.d)
 %.o: %.c
 	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
 ```
+<!-- makefile -->
 - `-MMD`: genera archivo .d con dependencias
 - `-MP`: crea targets phony para headers
 
@@ -392,7 +413,8 @@ DEPS = $(OBJS:.o=.d)
 Creá biblioteca estática (.a) y usala en programa.
 
 **Orientación:**
-```bash
+```{code-block} bash
+:linenos:
 # Compilar objetos
 gcc -c modulo1.c modulo2.c
 
@@ -401,7 +423,9 @@ ar rcs libmibiblioteca.a modulo1.o modulo2.o
 
 # Usar biblioteca
 gcc main.c -L. -lmibiblioteca -o programa
+
 ```
+<!-- {code-block} bash -->
 - `ar`: archiver, crea bibliotecas
 - `-L.`: buscar bibliotecas en directorio actual
 - `-lmibiblioteca`: enlazar con libmibiblioteca.a
@@ -413,7 +437,8 @@ gcc main.c -L. -lmibiblioteca -o programa
 Creá biblioteca compartida (.so) y usala.
 
 **Orientación:**
-```bash
+```{code-block} bash
+:linenos:
 # Compilar con PIC (Position Independent Code)
 gcc -fPIC -c modulo.c
 
@@ -426,7 +451,9 @@ gcc main.c -L. -lmodulo -o programa
 # Ejecutar (necesita encontrar .so)
 export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH
 ./programa
+
 ```
+<!-- {code-block} bash -->
 
 ---
 (ejercicio_6_18)=
@@ -448,7 +475,8 @@ proyecto/
 ```
 
 **Makefile:**
-```makefile
+```{code-block} makefile
+:linenos:
 SRCDIR = src
 INCDIR = include
 OBJDIR = obj
@@ -467,7 +495,9 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 
 $(OBJDIR) $(BINDIR):
 	mkdir -p $@
+
 ```
+<!-- {code-block} makefile -->
 
 ---
 (ejercicio_6_19)=
@@ -476,7 +506,8 @@ $(OBJDIR) $(BINDIR):
 Agregá targets útiles: run, test, install, uninstall.
 
 **Makefile:**
-```makefile
+```{code-block} makefile
+:linenos:
 run: $(TARGET)
 	./$(TARGET)
 
@@ -490,7 +521,9 @@ uninstall:
 	rm -f /usr/local/bin/$(TARGET)
 
 .PHONY: run test install uninstall
+
 ```
+<!-- {code-block} makefile -->
 
 ---
 (ejercicio_6_20)=
@@ -499,7 +532,8 @@ uninstall:
 Makefile con modo debug y release.
 
 **Makefile:**
-```makefile
+```{code-block} makefile
+:linenos:
 MODE ?= release
 
 ifeq ($(MODE),debug)
@@ -516,7 +550,9 @@ all: $(TARGET)
 # Uso:
 # make              # Release
 # make MODE=debug   # Debug
+
 ```
+<!-- {code-block} makefile -->
 
 ---
 (ejercicio_6_21)=
@@ -525,7 +561,8 @@ all: $(TARGET)
 Integrá herramientas de análisis en Makefile.
 
 **Makefile:**
-```makefile
+```{code-block} makefile
+:linenos:
 check: $(SRCS)
 	cppcheck --enable=all $(SRCS)
 
@@ -536,7 +573,9 @@ valgrind: $(TARGET)
 	valgrind --leak-check=full ./$(TARGET)
 
 .PHONY: check format valgrind
+
 ```
+<!-- {code-block} makefile -->
 
 ---
 (ejercicio_6_22)=
@@ -545,7 +584,8 @@ valgrind: $(TARGET)
 Configurá cross-compilation para diferentes arquitecturas.
 
 **Makefile:**
-```makefile
+```{code-block} makefile
+:linenos:
 # Compilación nativa
 CC_NATIVE = gcc
 TARGET_NATIVE = programa
@@ -561,7 +601,9 @@ arm: $(TARGET)
 native: CC = $(CC_NATIVE)
 native: TARGET = $(TARGET_NATIVE)
 native: $(TARGET)
+
 ```
+<!-- {code-block} makefile -->
 
 ---
 (ejercicio_6_23)=
@@ -600,7 +642,8 @@ proyecto/
 Convertí proyecto a usar CMake en lugar de Makefile.
 
 **CMakeLists.txt:**
-```cmake
+```{code-block} cmake
+:linenos:
 cmake_minimum_required(VERSION 3.10)
 project(MiProyecto C)
 
@@ -620,16 +663,19 @@ target_link_libraries(programa m)
 enable_testing()
 add_executable(tests tests/test_main.c)
 add_test(NAME tests COMMAND tests)
+
 ```
+<!-- {code-block} cmake -->
 
 **Uso:**
-```bash
+``` bash
 mkdir build
 cd build
 cmake ..
 make
 ./programa
 ```
+<!-- bash -->
 
 ---
 
@@ -655,26 +701,30 @@ make
 - `-I`: Agregar directorio de includes
 - `-L`: Agregar directorio de bibliotecas
 - `-l`: Enlazar con biblioteca
+
 :::
+<!-- {tip} Proceso de Compilación -->
 
 :::{note} Sintaxis de Makefile
 
 **Regla básica:**
-```makefile
+``` makefile
 target: dependencias
 	comando
 ```
+<!-- makefile -->
 - **target:** Archivo a generar
 - **dependencias:** Archivos necesarios
 - **comando:** Qué ejecutar (debe empezar con TAB)
 
 **Variables:**
-```makefile
+``` makefile
 CC = gcc
 CFLAGS = -Wall
 
 $(CC) $(CFLAGS) programa.c
 ```
+<!-- makefile -->
 
 **Variables automáticas:**
 - `$@`: Target
@@ -683,11 +733,14 @@ $(CC) $(CFLAGS) programa.c
 - `$*`: Stem (parte que coincide con %)
 
 **Patrones:**
-```makefile
+``` makefile
 %.o: %.c
 	$(CC) -c $< -o $@
 ```
+<!-- makefile -->
+
 :::
+<!-- {note} Sintaxis de Makefile -->
 
 :::{warning} Errores Comunes
 
@@ -722,7 +775,9 @@ $(CC) $(CFLAGS) programa.c
    #include "modulo.c"  // MAL
    #include "modulo.h"  // BIEN
    ```
+
 :::
+<!-- {warning} Errores Comunes -->
 
 :::{tip} Mejores Prácticas
 
@@ -747,7 +802,9 @@ $(CC) $(CFLAGS) programa.c
    - `-g` para debugging
    - `-O2` para release
    - `-std=c99` o superior
+
 :::
+<!-- {tip} Mejores Prácticas -->
 
 :::{note} Herramientas Útiles
 
@@ -764,7 +821,8 @@ $(CC) $(CFLAGS) programa.c
 - `ninja`: Muy rápido
 
 **Comandos útiles:**
-```bash
+```{code-block} bash
+:linenos:
 # Ver símbolos en objeto
 nm programa.o
 
@@ -776,8 +834,13 @@ size programa
 
 # Desensamblar
 objdump -d programa.o
-```
-:::
 
-Estas consignas cubren compilación desde comandos básicos hasta proyectos complejos multi-archivo con automatización profesional.
+```
+<!-- {code-block} bash -->
+
+:::
+<!-- {note} Herramientas Útiles -->
+
+Estas consignas cubren compilación desde comandos básicos hasta proyectos
+complejos multi-archivo con automatización profesional.
 

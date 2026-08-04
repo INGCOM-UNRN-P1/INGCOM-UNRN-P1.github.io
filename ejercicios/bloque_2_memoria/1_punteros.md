@@ -303,7 +303,8 @@ Implementá `void intercambiar(int *a, int *b)` que intercambie dos valores.
 (ejercicio_8_28)=
 ## Ejercicio 8.28 - Encontrar Mayor con Puntero ⭐⭐☆☆☆
 
-Implementá `int *mayor(int *a, int *b)` que retorne puntero al mayor de dos números.
+Implementá `int *mayor(int *a, int *b)` que retorne puntero al mayor de dos
+números.
 
 **Orientación:**
 - Compará `*a` y `*b`
@@ -314,7 +315,8 @@ Implementá `int *mayor(int *a, int *b)` que retorne puntero al mayor de dos nú
 (ejercicio_8_29)=
 ## Ejercicio 8.29 - División con Resto ⭐⭐☆☆☆
 
-Implementá `void dividir(int dividendo, int divisor, int *cociente, int *resto)`.
+Implementá `void dividir(int dividendo, int divisor, int *cociente, int
+*resto)`.
 
 **Orientación:**
 - Usá punteros para "retornar" múltiples valores
@@ -326,7 +328,8 @@ Implementá `void dividir(int dividendo, int divisor, int *cociente, int *resto)
 (ejercicio_8_30)=
 ## Ejercicio 8.30 - Estadísticas de Array ⭐⭐⭐☆☆
 
-Implementá `void estadisticas(int arr[], int n, int *min, int *max, double *prom)`.
+Implementá `void estadisticas(int arr[], int n, int *min, int *max, double
+*prom)`.
 
 **Orientación:**
 - Recorré el array para encontrar mínimo y máximo
@@ -337,7 +340,8 @@ Implementá `void estadisticas(int arr[], int n, int *min, int *max, double *pro
 (ejercicio_8_31)=
 ## Ejercicio 8.31 - Puntero al Medio ⭐⭐⭐☆☆
 
-Implementá `int *elemento_medio(int arr[], int n)` que retorne puntero al elemento del medio.
+Implementá `int *elemento_medio(int arr[], int n)` que retorne puntero al
+elemento del medio.
 
 **Orientación:**
 - Si n es impar: retorna `&arr[n/2]`
@@ -372,7 +376,8 @@ Implementá `void invertir(int *arr, int n)` usando dos punteros.
 (ejercicio_8_34)=
 ## Ejercicio 8.34 - Buscar Valor en Array ⭐⭐⭐☆☆
 
-Implementá `int *buscar(int *arr, int n, int valor)` que retorne puntero al elemento encontrado o NULL.
+Implementá `int *buscar(int *arr, int n, int valor)` que retorne puntero al
+elemento encontrado o NULL.
 
 **Orientación:**
 - Recorré con puntero
@@ -418,7 +423,8 @@ Implementá `void concatenar(char *dest, const char *src)` usando punteros.
 (ejercicio_8_38)=
 ## Ejercicio 8.38 - Comparar Strings ⭐⭐⭐⭐☆
 
-Implementá `int comparar_strings(const char *s1, const char *s2)` usando punteros.
+Implementá `int comparar_strings(const char *s1, const char *s2)` usando
+punteros.
 
 **Orientación:**
 - Retorná: negativo si s1 < s2, 0 si iguales, positivo si s1 > s2
@@ -479,7 +485,8 @@ Implementá `void rotar_izquierda(int *arr, int n, int k)` usando punteros.
 (ejercicio_8_43)=
 ## Ejercicio 8.43 - Transponer Matriz ⭐⭐⭐⭐⭐
 
-Implementá `void transponer(int **matriz, int filas, int cols, int ***resultado)`.
+Implementá `void transponer(int **matriz, int filas, int cols, int
+***resultado)`.
 
 **Orientación:**
 - Crea una nueva matriz `cols × filas`
@@ -534,29 +541,41 @@ Implementá un parser que procese argumentos de línea de comandos con flags:
 ## Notas Finales
 
 :::{danger} Peligros Comunes con Punteros
+
 - **Desreferenciar NULL:** Siempre verificá antes: `if (ptr != NULL)`
 - **Punteros colgantes:** No uses memoria después de `free`
 - **Fugas de memoria:** Cada `malloc` debe tener su `free`
 - **Buffer overflow:** Verificá límites al escribir en arrays
 - **Aritmética incorrecta:** `ptr + 1` avanza `sizeof(tipo)` bytes, no 1 byte
+
 :::
+<!-- {danger} Peligros Comunes con Punteros -->
 
 :::{tip} Buenas Prácticas
+
 - **Inicializá punteros:** `int *ptr = NULL;`
 - **Después de free:** `ptr = NULL;` para evitar uso accidental
 - **const para proteger:** `const int *ptr` previene modificación
 - **Valgrind es tu amigo:** Detecta leaks y accesos inválidos
+
 :::
+<!-- {tip} Buenas Prácticas -->
 
 :::{note} Compilación y Testing
-```bash
+
+``` bash
 # Compilar con máximas advertencias
 gcc -Wall -Wextra -Werror -std=c99 programa.c -o programa
 
 # Verificar memoria con Valgrind
 valgrind --leak-check=full ./programa
 ```
-:::
+<!-- bash -->
 
-Estas consignas cubren conceptos fundamentales y avanzados de punteros: aritmética, paso por referencia, punteros a funciones, estructuras dinámicas, y gestión de memoria.
+:::
+<!-- {note} Compilación y Testing -->
+
+Estas consignas cubren conceptos fundamentales y avanzados de punteros:
+aritmética, paso por referencia, punteros a funciones, estructuras dinámicas, y
+gestión de memoria.
 

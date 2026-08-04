@@ -261,7 +261,8 @@ Maria,Gomez,30
 ```
 
 **Orientación:**
-- Estructura: `typedef struct { char nombre[50]; char apellido[50]; int edad; } persona_t;`
+- Estructura: `typedef struct { char nombre[50]; char apellido[50]; int edad; }
+  persona_t;`
 - Leé línea con `fgets`
 - Parseá con `sscanf` o `strtok`
 - Almacená en array
@@ -270,7 +271,8 @@ Maria,Gomez,30
 (ejercicio_12_23)=
 ## Ejercicio 12.23 - Merge de Archivos Ordenados ⭐⭐⭐⭐☆
 
-Dados dos archivos con números ordenados, generá un tercer archivo con todos ordenados.
+Dados dos archivos con números ordenados, generá un tercer archivo con todos
+ordenados.
 
 **Orientación:**
 - Abrí ambos archivos de entrada y uno de salida
@@ -330,7 +332,8 @@ Guardá y leé array de estructuras en archivo binario.
 (ejercicio_12_28)=
 ## Ejercicio 12.28 - Acceso Aleatorio ⭐⭐⭐⭐☆
 
-Implementá CRUD (Create, Read, Update, Delete) sobre archivo binario de registros.
+Implementá CRUD (Create, Read, Update, Delete) sobre archivo binario de
+registros.
 
 **Orientación:**
 - Usa `fseek(fp, offset, SEEK_SET)` para posicionarte
@@ -355,7 +358,8 @@ Implementá sistema de logging que agregue eventos con timestamp a un archivo.
 (ejercicio_12_30)=
 ## Ejercicio 12.30 - Compresión RLE Simple ⭐⭐⭐⭐⭐
 
-Implementá compresión Run-Length Encoding: caracteres repetidos se almacenan como `<contador><carácter>`.
+Implementá compresión Run-Length Encoding: caracteres repetidos se almacenan
+como `<contador><carácter>`.
 
 **Ejemplo:** "aaabbcccc" → "3a2b4c"
 
@@ -381,7 +385,8 @@ Creá un índice de palabras con sus posiciones (número de línea) en el archiv
 (ejercicio_12_32)=
 ## Ejercicio 12.32 - Diferencia Entre Archivos (diff simple) ⭐⭐⭐⭐⭐
 
-Implementá versión simple de `diff`: mostrá líneas diferentes entre dos archivos.
+Implementá versión simple de `diff`: mostrá líneas diferentes entre dos
+archivos.
 
 **Orientación:**
 - Abrí ambos archivos
@@ -397,7 +402,8 @@ Implementá versión simple de `diff`: mostrá líneas diferentes entre dos arch
 (ejercicio_12_34)=
 ### Ejercicio 12.34 - Cifrado César ⭐⭐⭐⭐☆
 
-Cifrá/descifrá un archivo usando cifrado César (rotación de N posiciones en alfabeto).
+Cifrá/descifrá un archivo usando cifrado César (rotación de N posiciones en
+alfabeto).
 
 **Orientación:**
 - Para cifrar: `c_cifrado = ((c - 'a' + n) % 26) + 'a'`
@@ -442,7 +448,8 @@ Escribí y leé una estructura simple en formato JSON.
 :::{danger} Manejo de Errores Crítico
 
 **Siempre verificar:**
-```c
+```{code-block} c
+:linenos:
 FILE *fp = fopen("archivo.txt", "r");
 if (fp == NULL) {
     perror("Error al abrir archivo");
@@ -454,10 +461,13 @@ if (fp == NULL) {
 if (fclose(fp) != 0) {
     perror("Error al cerrar archivo");
 }
+
 ```
+<!-- {code-block} c -->
 
 **Verificar operaciones:**
-```c
+```{code-block} c
+:linenos:
 if (fprintf(fp, "texto") < 0) {
     // Error al escribir
 }
@@ -469,8 +479,12 @@ if (fread(buffer, size, count, fp) != count) {
         // Error de lectura
     }
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {danger} Manejo de Errores Crítico -->
 
 :::{tip} Modos de Apertura
 
@@ -484,7 +498,9 @@ if (fread(buffer, size, count, fp) != count) {
 | `"a+"` | Read/Append | Sí | No | Final |
 
 Agregar `b` para binario: `"rb"`, `"wb"`, `"ab"`, etc.
+
 :::
+<!-- {tip} Modos de Apertura -->
 
 :::{note} Funciones Clave
 
@@ -510,7 +526,9 @@ Agregar `b` para binario: `"rb"`, `"wb"`, `"ab"`, etc.
 - `feof(fp)` - Verifica fin de archivo
 - `ferror(fp)` - Verifica error
 - `clearerr(fp)` - Limpia flags de error/EOF
+
 :::
+<!-- {note} Funciones Clave -->
 
 :::{warning} Errores Comunes
 
@@ -546,43 +564,55 @@ Agregar `b` para binario: `"rb"`, `"wb"`, `"ab"`, etc.
    fflush(fp);  // O fseek(fp, 0, SEEK_CUR)
    fwrite(...);
    ```
+
 :::
+<!-- {warning} Errores Comunes -->
 
 :::{tip} Patrones Útiles
 
 **Leer línea por línea:**
-```c
+``` c
 char linea[256];
 while (fgets(linea, sizeof(linea), fp) != NULL) {
     // Procesar linea
 }
 ```
+<!-- c -->
 
 **Leer hasta EOF:**
-```c
+``` c
 int c;
 while ((c = fgetc(fp)) != EOF) {
     // Procesar carácter
 }
 ```
+<!-- c -->
 
 **Tamaño de archivo:**
-```c
+``` c
 fseek(fp, 0, SEEK_END);
 long tamaño = ftell(fp);
 rewind(fp);
 ```
+<!-- c -->
 
 **Leer archivo completo en memoria:**
-```c
+```{code-block} c
+:linenos:
 fseek(fp, 0, SEEK_END);
 long tam = ftell(fp);
 rewind(fp);
 char *contenido = malloc(tam + 1);
 fread(contenido, 1, tam, fp);
 contenido[tam] = '\0';
-```
-:::
 
-Estas consignas cubren operaciones de archivo desde básicas hasta avanzadas, tanto en modo texto como binario, preparando para manejo robusto de persistencia de datos.
+```
+<!-- {code-block} c -->
+
+:::
+<!-- {tip} Patrones Útiles -->
+
+Estas consignas cubren operaciones de archivo desde básicas hasta avanzadas,
+tanto en modo texto como binario, preparando para manejo robusto de persistencia
+de datos.
 

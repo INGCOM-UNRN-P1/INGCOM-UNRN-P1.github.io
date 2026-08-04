@@ -25,7 +25,8 @@ Crear dos funciones complementarias para manejar arreglos: una para que el
 usuario ingrese datos y llene un arreglo, y otra para mostrar el contenido del
 arreglo de una forma clara y legible.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **`cargar_arreglo`:**
     -   **Entrada:** Un arreglo y su tamaño.
     -   **Proceso:** Usar un lazo `for` que itere desde 0 hasta `tamaño-1`. En
@@ -36,6 +37,9 @@ arreglo de una forma clara y legible.
     -   **Proceso:** Usar un lazo `for` para recorrer el arreglo.
     -   **Salida:** Imprimir los elementos de una forma legible, por ejemplo,
         entre corchetes y separados por comas.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -72,13 +76,17 @@ FIN PROCEDIMIENTO
 
 Calcular la suma de todos los elementos contenidos en un arreglo de números.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un arreglo y su tamaño.
 -   **Variables:** Se necesita una variable `acumulador` (o `suma`) inicializada
     en 0.
 -   **Proceso:** Recorrer el arreglo con un lazo `for`. En cada iteración, sumar
     el elemento actual al `acumulador`.
 -   **Salida:** La función debe devolver el valor final del `acumulador`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -106,7 +114,8 @@ FIN FUNCION
 
 Calcular el valor promedio (media aritmética) de los elementos de un arreglo.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un arreglo y su tamaño.
 -   **Reutilización:** Se puede reutilizar la función `sumar_arreglo` del
     ejercicio anterior.
@@ -116,6 +125,9 @@ Calcular el valor promedio (media aritmética) de los elementos de un arreglo.
 -   **Tipos de Datos:** Si la suma y el tamaño son enteros, la división puede
     ser entera. Para un promedio preciso, es importante convertir al menos uno
     de los operandos a un tipo de punto flotante antes de la división.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -142,13 +154,17 @@ FIN FUNCION
 
 Calcular el producto de todos los elementos de un arreglo.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un arreglo y su tamaño.
 -   **Variables:** Se necesita un `acumulador` inicializado en 1 (no en 0, ya
     que cualquier cosa multiplicada por 0 es 0).
 -   **Proceso:** Recorrer el arreglo con un lazo `for`. En cada iteración,
     multiplicar el `acumulador` por el elemento actual.
 -   **Caso Especial:** Si el arreglo contiene un 0, el producto final será 0.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -179,7 +195,8 @@ FIN FUNCION
 Encontrar los valores más grande (máximo) y más pequeño (mínimo) dentro de un
 arreglo de números.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un arreglo y su tamaño.
 -   **Proceso:**
     1.  Inicializar dos variables, `maximo` y `minimo`, con el valor del primer
@@ -191,6 +208,9 @@ arreglo de números.
     4.  Hacer lo mismo para `minimo`, actualizándolo si `arreglo[i]` es menor.
 -   **Salida:** Devolver los valores de `maximo` y `minimo` (por ejemplo, usando
     punteros).
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -225,7 +245,8 @@ FIN PROCEDIMIENTO
 Encontrar el segundo elemento más grande en un arreglo. Este ejercicio requiere
 un seguimiento más cuidadoso que simplemente encontrar el máximo.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un arreglo y su tamaño.
 -   **Variables:** Se necesitan dos variables: `maximo` y `segundo_maximo`.
     Inicializarlas con el menor valor posible o con los dos primeros elementos
@@ -237,6 +258,9 @@ un seguimiento más cuidadoso que simplemente encontrar el máximo.
         b. `maximo` toma el valor de `x`.
     3.  Si no, si `x` es mayor que `segundo_maximo` y diferente de `maximo`, se
         actualiza `segundo_maximo` a `x`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -274,7 +298,8 @@ Implementar una búsqueda lineal para encontrar la primera ocurrencia de un
 elemento específico dentro de un arreglo. Si se encuentra, se debe devolver su
 índice.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un arreglo, su tamaño y el elemento a buscar.
 -   **Proceso:** Recorrer el arreglo con un lazo `for` desde el índice 0.
 -   **Condición:** En cada iteración, comparar el elemento actual del arreglo
@@ -282,6 +307,9 @@ elemento específico dentro de un arreglo. Si se encuentra, se debe devolver su
 -   **Salida:** Si se encuentra el elemento, la función debe devolver el índice
     actual. Si el lazo termina sin encontrar el elemento, se debe devolver un
     valor especial que indique que no se encontró, como `-1`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -308,12 +336,16 @@ FIN FUNCION
 
 Contar cuántas veces aparece un número específico en un arreglo.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un arreglo, su tamaño y el elemento a contar.
 -   **Variables:** Un `contador` inicializado en 0.
 -   **Proceso:** Recorrer el arreglo con un lazo. En cada iteración, si el
     elemento actual es igual al elemento buscado, incrementar el `contador`.
 -   **Salida:** Devolver el valor final del `contador`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -344,7 +376,8 @@ FIN FUNCION
 Dado un arreglo y un valor de referencia, encontrar el elemento en el arreglo
 que tiene la menor diferencia absoluta con dicho valor.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un arreglo, su tamaño y un valor de referencia.
 -   **Variables:** Se necesitan variables para guardar la `menor_diferencia`
     encontrada hasta el momento y el `elemento_mas_cercano`.
@@ -355,6 +388,9 @@ que tiene la menor diferencia absoluta con dicho valor.
         (el valor absoluto de `elemento - referencia`).
     3.  Si `diferencia_actual` es menor que `menor_diferencia`, actualizar
         `menor_diferencia` y `elemento_mas_cercano`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -390,7 +426,8 @@ FIN FUNCION
 Invertir el orden de los elementos de un arreglo _in-place_, es decir, sin usar
 un segundo arreglo para almacenar el resultado temporalmente.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un arreglo y su tamaño.
 -   **Proceso:** Utilizar dos índices (o punteros): `inicio` comenzando en 0 y
     `fin` comenzando en `tamaño-1`.
@@ -399,6 +436,9 @@ un segundo arreglo para almacenar el resultado temporalmente.
     1.  Intercambiar los elementos en las posiciones `inicio` y `fin`.
     2.  Incrementar `inicio` y decrementar `fin` para moverse hacia el centro
         del arreglo.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -432,13 +472,17 @@ FIN PROCEDIMIENTO
 
 Copiar todos los elementos de un arreglo de origen a un arreglo de destino.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un arreglo de origen, un arreglo de destino y el tamaño.
 -   **Precondición:** El arreglo de destino debe tener suficiente capacidad para
     albergar todos los elementos del arreglo de origen.
 -   **Proceso:** Recorrer el arreglo de origen con un lazo `for` y, en cada
     iteración, asignar el elemento de origen al elemento correspondiente en el
     arreglo de destino: `destino[i] = origen[i]`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -464,7 +508,8 @@ Eliminar los elementos duplicados de un arreglo, conservando solo la primera
 aparición de cada elemento. La función debe modificar el arreglo _in-place_ y
 devolver el nuevo tamaño lógico.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un arreglo y su tamaño.
 -   **Proceso (si el orden no importa):** Ordenar el arreglo primero. Luego,
     recorrerlo con dos punteros (`lectura` y `escritura`). Si el elemento actual
@@ -473,6 +518,9 @@ devolver el nuevo tamaño lógico.
 -   **Proceso (si el orden importa):** Usar un lazo anidado o una estructura de
     datos auxiliar (como un hash set) para llevar un registro de los elementos
     ya vistos.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -507,7 +555,8 @@ FIN FUNCION
 
 Verificar si un arreglo está ordenado de forma ascendente.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un arreglo y su tamaño.
 -   **Proceso:** Recorrer el arreglo desde el primer elemento hasta el
     penúltimo. En cada posición `i`, comparar el elemento `arreglo[i]` con el
@@ -517,6 +566,9 @@ Verificar si un arreglo está ordenado de forma ascendente.
     `falso` inmediatamente.
 -   **Salida:** Si el lazo termina sin encontrar ninguna inversión de orden,
     significa que el arreglo está ordenado y la función devuelve `verdadero`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -544,7 +596,8 @@ FIN FUNCION
 Verificar si todos los elementos de un arreglo son números positivos (mayores
 que cero).
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un arreglo y su tamaño.
 -   **Proceso:** Recorrer el arreglo con un lazo.
 -   **Condición de Salida:** En cuanto se encuentre un elemento que sea menor o
@@ -552,6 +605,9 @@ que cero).
     `falso`.
 -   **Salida:** Si el lazo se completa sin encontrar ningún número no positivo,
     devolver `verdadero`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -583,7 +639,8 @@ hacia la derecha. Esto significa que los últimos `k` elementos se moverán al
 principio del arreglo, y el resto de los elementos se desplazarán hacia la
 derecha.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un arreglo, su tamaño `n`, y el número de posiciones a rotar
     `k`.
 -   **Proceso (con arreglo auxiliar):**
@@ -597,6 +654,9 @@ derecha.
     3.  Invertir los `n-k` elementos restantes.
 -   **Módulo:** Es útil calcular `k = k % n` al principio, por si `k` es mayor
     que `n`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -632,7 +692,8 @@ Escribir una función que fusione dos arreglos en un tercer arreglo que contenga
 todos los elementos de los dos primeros. Si los arreglos originales están
 ordenados, el resultado también debería estarlo (ver Merge Sort).
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Dos arreglos (`a1`, `a2`) con sus respectivos tamaños (`n1`,
     `n2`).
 -   **Salida:** Un nuevo arreglo de tamaño `n1 + n2`.
@@ -642,6 +703,9 @@ ordenados, el resultado también debería estarlo (ver Merge Sort).
     punteros (`i` para `a1`, `j` para `a2`, `k` para el resultado), comparar
     `a1[i]` y `a2[j]`, copiar el menor al resultado y avanzar el puntero
     correspondiente.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -690,7 +754,8 @@ Crear una función que reciba dos arreglos y devuelva un nuevo arreglo con los
 elementos que son comunes a ambos. Cada elemento debe aparecer solo una vez en
 el resultado.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Dos arreglos y sus tamaños.
 -   **Proceso (con arreglos ordenados):** Usar dos punteros, uno para cada
     arreglo. Si los elementos son iguales, se añade al resultado y se avanzan
@@ -700,6 +765,9 @@ el resultado.
     elemento del primer arreglo, buscar si existe en el segundo. Para evitar
     duplicados en el resultado, se puede usar una estructura de datos auxiliar
     (hash set) o verificar si el elemento ya fue añadido.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -736,7 +804,8 @@ FIN FUNCION
 Crear una función que reciba dos arreglos y devuelva un nuevo arreglo con todos
 los elementos de ambos, sin duplicados.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso:**
     1.  Copiar el primer arreglo a un arreglo de resultado temporal.
     2.  Recorrer el segundo arreglo. Para cada elemento, verificar si ya existe
@@ -744,6 +813,9 @@ los elementos de ambos, sin duplicados.
     3.  Si no existe, añadirlo.
 -   **Optimización:** Usar una tabla hash para llevar un registro de los
     elementos ya añadidos mejora la eficiencia de la búsqueda.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -781,7 +853,8 @@ Reorganizar un arreglo _in-place_ de tal manera que todos los números pares
 queden al principio y todos los impares al final. El orden relativo entre los
 números pares o entre los impares no necesita conservarse.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso (dos punteros):**
     1.  Usar dos índices, `izquierda` comenzando en 0 y `derecha` en `tamaño-1`.
     2.  Mientras `izquierda < derecha`:
@@ -789,6 +862,9 @@ números pares o entre los impares no necesita conservarse.
         b. Mover `derecha` hacia la izquierda hasta encontrar un número par.
         c. Si `izquierda < derecha`, intercambiar los elementos en esas
         posiciones.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -828,7 +904,8 @@ Implementar el algoritmo de Kadane para encontrar la suma del subarreglo
 contiguo que tenga la suma más grande. El arreglo puede contener números
 negativos.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso:** Se recorre el arreglo una sola vez, manteniendo dos variables:
     -   `max_actual`: La suma máxima del subarreglo que termina en la posición
         actual.
@@ -837,6 +914,9 @@ negativos.
 -   En cada paso `i`:
     1.  `max_actual = MAXIMO(arreglo[i], max_actual + arreglo[i])`
     2.  `max_global = MAXIMO(max_global, max_actual)`
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -871,12 +951,16 @@ Dado un arreglo de enteros no negativos, el programa debe imprimir un histograma
 simple usando asteriscos, donde cada número `n` se representa con una línea de
 `n` asteriscos.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso:** Usar lazos anidados.
     1.  El lazo exterior recorre cada elemento del arreglo.
     2.  El lazo interior se ejecuta tantas veces como el valor del elemento
         actual, imprimiendo un asterisco en cada una de sus iteraciones.
     3.  Después del lazo interior, se imprime un salto de línea.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -905,7 +989,8 @@ FIN PROCEDIMIENTO
 Implementar el algoritmo de Fisher-Yates para barajar (desordenar
 aleatoriamente) los elementos de un arreglo _in-place_.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso:**
     1.  Recorrer el arreglo desde el último elemento hasta el segundo (`i` desde
         `n-1` hasta 1).
@@ -914,6 +999,9 @@ aleatoriamente) los elementos de un arreglo _in-place_.
     3.  Intercambiar el elemento en la posición `i` con el elemento en la
         posición `j`.
 -   **Aleatoriedad:** Requiere `srand()` y `rand()`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -941,7 +1029,8 @@ FIN PROCEDIMIENTO
 Dado un arreglo que contiene `n-1` números distintos en el rango de 1 a `n`,
 encontrar el único número que falta.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso (Suma):**
     1.  Calcular la suma esperada de todos los números de 1 a `n` usando la
         fórmula de la progresión aritmética: `suma_esperada = n * (n + 1) / 2`.
@@ -949,6 +1038,9 @@ encontrar el único número que falta.
     3.  El número faltante es la diferencia: `suma_esperada - suma_real`.
 -   **Proceso (XOR):** El XOR de todos los números del rango con todos los
     números del arreglo dará como resultado el número faltante.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -976,7 +1068,8 @@ FIN FUNCION
 Dado un arreglo de números y un valor `X`, determinar si existe un par de
 elementos en el arreglo cuya suma sea exactamente `X`.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso (Ordenando):**
     1.  Ordenar el arreglo.
     2.  Usar dos punteros: `izquierda` en el inicio y `derecha` en el final.
@@ -987,6 +1080,9 @@ elementos en el arreglo cuya suma sea exactamente `X`.
         a la derecha.
         d. Si `s > X`, se necesita una suma menor, así que se mueve `derecha` a
         la izquierda.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1025,13 +1121,17 @@ Calcular la mediana de un arreglo. La mediana es el valor que se encuentra en la
 posición central de un arreglo ordenado. Si el arreglo tiene un número par de
 elementos, la mediana es el promedio de los dos elementos centrales.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso:**
     1.  Ordenar el arreglo.
     2.  Determinar el índice del medio: `medio = tamano / 2`.
     3.  Si el tamaño es impar, la mediana es `arreglo[medio]`.
     4.  Si el tamaño es par, la mediana es `(arreglo[medio - 1] +
         arreglo[medio]) / 2.0`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1059,13 +1159,17 @@ INICIO
 Encontrar la moda de un arreglo, que es el elemento que aparece con mayor
 frecuencia.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso (con ordenamiento):**
     1.  Ordenar el arreglo. Esto agrupa los elementos iguales.
     2.  Recorrer el arreglo y contar la longitud de cada secuencia de elementos
         idénticos.
     3.  Llevar un registro del elemento con la frecuencia más alta encontrada
         hasta el momento.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1105,10 +1209,14 @@ Escribir una función que llene un arreglo con los términos de una secuencia
 aritmética, dados un valor de inicio, un tamaño y un paso (la diferencia
 constante entre términos).
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Entrada:** Un arreglo, su tamaño, un valor de `inicio` y un `paso`.
 -   **Proceso:** Recorrer el arreglo con un lazo `for`. Para cada índice `i`, el
     valor a asignar es `inicio + (i * paso)`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1134,7 +1242,8 @@ Calcular la diferencia simétrica entre dos arreglos. El resultado debe ser un
 nuevo arreglo que contenga los elementos que están en uno de los arreglos, pero
 no en ambos.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso:**
     1.  Iterar sobre el primer arreglo. Para cada elemento, verificar si está en
         el segundo. Si NO está, añadirlo al resultado.
@@ -1142,6 +1251,9 @@ no en ambos.
         en el primero. Si NO está, añadirlo al resultado.
 -   **Optimización:** Usar tablas hash para las búsquedas puede hacer el proceso
     mucho más eficiente.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1177,12 +1289,16 @@ Contar el número de "inversiones" en un arreglo. Una inversión es un par de
 índices `(i, j)` tales que `i < j` y `arr[i] > arr[j]`. Un arreglo perfectamente
 ordenado tiene 0 inversiones.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso (Fuerza Bruta):** Usar dos lazos anidados. El lazo exterior itera
     con `i` desde 0 hasta `n-2`. El lazo interior itera con `j` desde `i+1`
     hasta `n-1`. Si `arreglo[i] > arreglo[j]`, se incrementa un contador.
 -   **Complejidad:** La solución de fuerza bruta es O(n^2). Existen algoritmos
     más eficientes basados en Merge Sort.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1218,11 +1334,15 @@ Escribir una función que encuentre todos los "picos" en un arreglo. Un pico es
 un elemento que es estrictamente mayor que sus dos vecinos (el anterior y el
 siguiente). Los elementos en los extremos no pueden ser picos.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso:** Recorrer el arreglo desde el segundo elemento (`i=1`) hasta el
     penúltimo (`i=n-2`).
 -   **Condición:** En cada posición `i`, verificar si `arreglo[i] >
     arreglo[i-1]` Y `arreglo[i] > arreglo[i+1]`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1249,7 +1369,8 @@ FIN PROCEDIMIENTO
 Dado un arreglo de enteros (positivos y negativos), encontrar la longitud del
 subarreglo contiguo más largo cuya suma de elementos sea cero.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso (Tabla Hash):**
     1.  Usar una tabla hash para almacenar las sumas acumuladas y sus primeros
         índices de aparición.
@@ -1257,6 +1378,9 @@ subarreglo contiguo más largo cuya suma de elementos sea cero.
     3.  Si `suma_actual` ya se ha visto antes en el índice `j`, entonces el
         subarreglo desde `j+1` hasta la posición actual tiene suma cero.
         Calcular su longitud y actualizar la longitud máxima.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1294,11 +1418,15 @@ Reorganizar un arreglo _in-place_ de tal manera que todos los números negativos
 aparezcan antes que todos los números positivos. El orden relativo entre los
 números del mismo signo no es importante.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso (similar a separar pares/impares):** Usar dos punteros,
     `izquierda` y `derecha`. Mover `izquierda` hasta encontrar un número
     positivo y `derecha` hasta encontrar uno negativo. Luego, intercambiarlos y
     continuar hasta que los punteros se crucen.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1336,7 +1464,8 @@ Dado un arreglo de números, crear un nuevo arreglo donde cada elemento en la
 posición `i` sea el producto de todos los demás números del arreglo original,
 pero sin usar el operador de división.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso (dos pasadas):**
     1.  Crear un arreglo `resultado`.
     2.  **Primera pasada (izquierda a derecha):** Recorrer el arreglo. Para cada
@@ -1345,6 +1474,9 @@ pero sin usar el operador de división.
     3.  **Segunda pasada (derecha a izquierda):** Recorrer el arreglo al revés.
         Mantener un acumulador `derecha_prod`. Multiplicar `resultado[i]` por
         `derecha_prod` para incorporar los productos de la derecha.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1383,13 +1515,17 @@ Dado un arreglo de enteros que contiene números en un rango conocido (por
 ejemplo, de 0 a 99), crear un "arreglo de frecuencias" que cuente cuántas veces
 aparece cada número.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso:**
     1.  Crear un nuevo arreglo `frecuencias` del tamaño del rango (ej. 100),
         inicializado todo en 0.
     2.  Recorrer el arreglo de entrada. Para cada número `x`, usarlo como índice
         en el arreglo de frecuencias e incrementar la cuenta:
         `frecuencias[x]++`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1419,7 +1555,8 @@ Implementar una función que determine si un arreglo `A` es un subconjunto de
 otro arreglo `B`. Esto significa que todos los elementos de `A` deben estar
 presentes en `B`.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso (con ordenamiento):**
     1.  Ordenar ambos arreglos, `A` y `B`.
     2.  Usar dos punteros, `i` para `A` y `j` para `B`.
@@ -1427,6 +1564,9 @@ presentes en `B`.
         coincidencia, avanzar ambos. Si `A[i] > B[j]`, avanzar `j`. Si `A[i] <
         B[j]`, significa que `A[i]` no está en `B`, por lo que no es
         subconjunto.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1464,13 +1604,17 @@ FIN FUNCION
 Escribir una función que mueva todos los ceros de un arreglo al final del mismo,
 manteniendo el orden relativo de los elementos no nulos.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso (un solo recorrido):**
     1.  Usar un índice `posicion_no_cero` inicializado en 0.
     2.  Recorrer el arreglo. Si el elemento actual no es cero, se coloca en la
         posición `posicion_no_cero` y se incrementa `posicion_no_cero`.
     3.  Después del primer lazo, todos los elementos no nulos están al principio
         en su orden original. Llenar el resto del arreglo con ceros.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1506,13 +1650,17 @@ Encontrar todos los "líderes" en un arreglo. Un elemento es un líder si es may
 que todos los elementos que se encuentran a su derecha. El elemento más a la
 derecha siempre es un líder.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso (recorrido inverso):** La forma más eficiente es recorrer el
     arreglo de derecha a izquierda.
     1.  El último elemento siempre es un líder. Guardarlo como `maximo_derecha`.
     2.  Iterar desde el penúltimo elemento hacia el principio.
     3.  Si el elemento actual es mayor que `maximo_derecha`, es un nuevo líder.
         Imprimirlo y actualizar `maximo_derecha`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1545,7 +1693,8 @@ FIN PROCEDIMIENTO
 Encontrar la máxima diferencia `arr[j] - arr[i]` en un arreglo, con la condición
 de que el índice `j` sea mayor que el índice `i`.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso (un solo recorrido):**
     1.  Mantener dos variables: `max_diferencia` y `min_elemento`.
     2.  Inicializar `max_diferencia` a un valor muy bajo y `min_elemento` con el
@@ -1554,6 +1703,9 @@ de que el índice `j` sea mayor que el índice `i`.
         a. Actualizar `max_diferencia` si `elemento_actual - min_elemento` es
         mayor.
         b. Actualizar `min_elemento` si `elemento_actual` es menor.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown
@@ -1590,7 +1742,8 @@ Encontrar un "punto de equilibrio" en un arreglo. Es un índice tal que la suma
 de los elementos a su izquierda es igual a la suma de los elementos a su
 derecha. Si no existe, devolver -1.
 
-#### Lógica y Consideraciones
+:::{hint} Lógica y Consideraciones
+
 -   **Proceso (dos pasadas):**
     1.  Calcular la suma total de todos los elementos del arreglo.
     2.  Inicializar `suma_izquierda = 0`.
@@ -1598,6 +1751,9 @@ derecha. Si no existe, devolver -1.
         a. `suma_derecha = suma_total - suma_izquierda - arreglo[i]`.
         b. Si `suma_izquierda == suma_derecha`, se encontró el punto.
         c. Actualizar `suma_izquierda = suma_izquierda + arreglo[i]`.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown

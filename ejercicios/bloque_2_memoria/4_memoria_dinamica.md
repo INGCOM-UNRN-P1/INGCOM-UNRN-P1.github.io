@@ -333,7 +333,8 @@ Implementar `push`, `pop` y `peek`.
 (ejercicio_14_36)=
 ## Ejercicio 14.36 - Array Dinámico Simple ⭐☆☆☆☆
 
-Leé un tamaño `n`, creá un array dinámico de `n` enteros, llenalo, mostralo y liberalo.
+Leé un tamaño `n`, creá un array dinámico de `n` enteros, llenalo, mostralo y
+liberalo.
 
 **Orientación:**
 - `int *arr = malloc(n * sizeof(int));`
@@ -344,7 +345,8 @@ Leé un tamaño `n`, creá un array dinámico de `n` enteros, llenalo, mostralo 
 (ejercicio_14_37)=
 ## Ejercicio 14.37 - String Dinámico ⭐⭐☆☆☆
 
-Leé un string de tamaño arbitrario (hasta 1000 caracteres), almacenalo dinámicamente con el tamaño exacto.
+Leé un string de tamaño arbitrario (hasta 1000 caracteres), almacenalo
+dinámicamente con el tamaño exacto.
 
 **Orientación:**
 - Leé en buffer temporal: `char temp[1001];`
@@ -356,7 +358,8 @@ Leé un string de tamaño arbitrario (hasta 1000 caracteres), almacenalo dinámi
 (ejercicio_14_38)=
 ## Ejercicio 14.38 - Redimensionar Array ⭐⭐⭐☆☆
 
-Implementá un programa que permita agregar elementos dinámicamente a un array, redimensionándolo cuando se llene.
+Implementá un programa que permita agregar elementos dinámicamente a un array,
+redimensionándolo cuando se llene.
 
 **Orientación:**
 - Mantené `capacidad` actual y `tamanio` usado
@@ -368,7 +371,8 @@ Implementá un programa que permita agregar elementos dinámicamente a un array,
 (ejercicio_14_39)=
 ## Ejercicio 14.39 - Copiar String Dinámicamente ⭐⭐⭐☆☆
 
-Implementá `char *duplicar_string(const char *src)` que retorne una copia dinámica.
+Implementá `char *duplicar_string(const char *src)` que retorne una copia
+dinámica.
 
 **Orientación:**
 - Calculá longitud con `strlen`
@@ -380,7 +384,8 @@ Implementá `char *duplicar_string(const char *src)` que retorne una copia diná
 (ejercicio_14_40)=
 ## Ejercicio 14.40 - Concatenar Strings Dinámicamente ⭐⭐⭐☆☆
 
-Implementá `char *concatenar(const char *s1, const char *s2)` que retorne concatenación en memoria dinámica.
+Implementá `char *concatenar(const char *s1, const char *s2)` que retorne
+concatenación en memoria dinámica.
 
 **Orientación:**
 - Longitud total = `strlen(s1) + strlen(s2) + 1`
@@ -426,13 +431,14 @@ Leé números hasta EOF y creá un histograma de frecuencias (0-9).
 ## Ejercicio 14.44 - Vector Dinámico (Estructura) ⭐⭐⭐⭐☆
 
 Implementá un vector dinámico encapsulado en estructura:
-```c
+``` c
 typedef struct {
     int *datos;
     size_t tamanio;
     size_t capacidad;
 } vector_t;
 ```
+<!-- c -->
 
 Funciones:
 - `vector_t *crear_vector()`
@@ -461,7 +467,8 @@ Leé un archivo de texto completo en memoria dinámica.
 (ejercicio_14_46)=
 ## Ejercicio 14.46 - Merge de Arrays ⭐⭐⭐⭐☆
 
-Implementá `int *merge(int *arr1, int n1, int *arr2, int n2)` que retorne un nuevo array con ambos ordenados.
+Implementá `int *merge(int *arr1, int n1, int *arr2, int n2)` que retorne un
+nuevo array con ambos ordenados.
 
 **Orientación:**
 - Asigná array de tamaño `n1 + n2`
@@ -474,12 +481,13 @@ Implementá `int *merge(int *arr1, int n1, int *arr2, int n2)` que retorne un nu
 ## Ejercicio 14.47 - Lista Enlazada con Memoria Dinámica ⭐⭐⭐⭐⭐
 
 Implementá lista enlazada completamente dinámica:
-```c
+``` c
 typedef struct nodo {
     int dato;
     struct nodo *siguiente;
 } nodo_t;
 ```
+<!-- c -->
 
 Funciones:
 - `nodo_t *crear_nodo(int valor)`
@@ -498,13 +506,14 @@ Funciones:
 ## Ejercicio 14.48 - Árbol Binario de Búsqueda ⭐⭐⭐⭐⭐
 
 Implementá un ABB (Árbol Binario de Búsqueda):
-```c
+``` c
 typedef struct nodo_arbol {
     int dato;
     struct nodo_arbol *izquierdo;
     struct nodo_arbol *derecho;
 } nodo_arbol_t;
 ```
+<!-- c -->
 
 Funciones:
 - `nodo_arbol_t *insertar(nodo_arbol_t *raiz, int valor)`
@@ -521,7 +530,8 @@ Funciones:
 ## Ejercicio 14.49 - Tabla Hash Simple ⭐⭐⭐⭐⭐
 
 Implementá una tabla hash con encadenamiento:
-```c
+```{code-block} c
+:linenos:
 typedef struct entrada {
     char *clave;
     int valor;
@@ -532,7 +542,9 @@ typedef struct {
     entrada_t **tabla;
     size_t tamanio;
 } hash_t;
+
 ```
+<!-- {code-block} c -->
 
 Funciones:
 - `hash_t *crear_hash(size_t tam)`
@@ -624,15 +636,20 @@ Implementá tu propio `malloc` y `free` usando `sbrk` o un buffer grande.
 ## Notas Finales
 
 :::{danger} Errores Fatales a Evitar
+
 1. **No verificar NULL:** Siempre: `if (ptr == NULL) { handle error; }`
 2. **Olvidar free:** Cada `malloc` debe tener su `free` correspondiente
 3. **Double free:** Liberar el mismo puntero dos veces
 4. **Use after free:** Usar memoria después de liberarla
 5. **Memory leak:** Perder referencias sin liberar
+
 :::
+<!-- {danger} Errores Fatales a Evitar -->
 
 :::{tip} Herramientas de Debugging
-```bash
+
+```{code-block} bash
+:linenos:
 # Valgrind - detecta leaks y accesos inválidos
 valgrind --leak-check=full --show-leak-kinds=all ./programa
 
@@ -643,16 +660,25 @@ gcc -fsanitize=address -g programa.c -o programa
 # Verificar código de salida de Valgrind
 valgrind ./programa
 echo $?  # 0 si no hay errores
+
 ```
+<!-- {code-block} bash -->
+
 :::
+<!-- {tip} Herramientas de Debugging -->
 
 :::{note} Patrones Comunes
+
 1. **Siempre liberar en orden inverso a asignación**
 2. **Usar `calloc` para inicialización a cero**
 3. **Verificar `realloc` antes de reasignar puntero original**
 4. **Mantener punteros a NULL después de `free`**
 5. **Encapsular estructuras dinámicas en funciones de gestión**
-:::
 
-Estas consignas cubren todos los aspectos de memoria dinámica: asignación básica, redimensionamiento, estructuras complejas, gestión avanzada y prevención de errores.
+:::
+<!-- {note} Patrones Comunes -->
+
+Estas consignas cubren todos los aspectos de memoria dinámica: asignación
+básica, redimensionamiento, estructuras complejas, gestión avanzada y prevención
+de errores.
 

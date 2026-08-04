@@ -202,7 +202,8 @@ Heap y explicar cómo AddressSanitizer reporta dicho error.
 Creá matriz donde cada fila tiene diferente cantidad de columnas.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 int filas = 3;
 int cols[] = {2, 4, 3};
 
@@ -210,7 +211,9 @@ int **matriz = malloc(filas * sizeof(int*));
 for (int i = 0; i < filas; i++) {
     matriz[i] = malloc(cols[i] * sizeof(int));
 }
+
 ```
+<!-- {code-block} c -->
 - Liberación: cada fila primero, luego array de punteros
 
 ---
@@ -220,7 +223,8 @@ for (int i = 0; i < filas; i++) {
 Creá matriz contigua en memoria (un solo `malloc` para datos).
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 int **crear_matriz(int filas, int cols) {
     int **matriz = malloc(filas * sizeof(int*));
     int *datos = malloc(filas * cols * sizeof(int));
@@ -230,7 +234,9 @@ int **crear_matriz(int filas, int cols) {
     }
     return matriz;
 }
+
 ```
+<!-- {code-block} c -->
 - Ventaja: mejor localidad de caché
 - Liberación: liberar datos, luego array de punteros
 
@@ -241,7 +247,7 @@ int **crear_matriz(int filas, int cols) {
 Implementá acceso a matriz unidimensional como bidimensional.
 
 **Orientación:**
-```c
+``` c
 int *matriz = malloc(filas * cols * sizeof(int));
 // Acceso: matriz[i * cols + j]
 
@@ -249,6 +255,7 @@ int *matriz = malloc(filas * cols * sizeof(int));
 #define MAT(m, i, j, cols) ((m)[(i) * (cols) + (j)])
 MAT(matriz, 2, 3, cols) = 42;
 ```
+<!-- c -->
 - Un solo `malloc` y `free`
 - Menos flexible pero más eficiente
 
@@ -259,7 +266,8 @@ MAT(matriz, 2, 3, cols) = 42;
 Implementá función para redimensionar array preservando datos.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 int *redimensionar(int *arr, int tam_actual, int tam_nuevo) {
     int *nuevo = realloc(arr, tam_nuevo * sizeof(int));
     if (nuevo == NULL) {
@@ -269,7 +277,9 @@ int *redimensionar(int *arr, int tam_actual, int tam_nuevo) {
     // Si tam_nuevo > tam_actual, nuevos elementos sin inicializar
     return nuevo;
 }
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_17_18)=
@@ -278,7 +288,8 @@ int *redimensionar(int *arr, int tam_actual, int tam_nuevo) {
 Creá array dinámico de strings donde cada string también es dinámico.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 char **strings = malloc(n * sizeof(char*));
 for (int i = 0; i < n; i++) {
     strings[i] = malloc((strlen(input) + 1) * sizeof(char));
@@ -290,7 +301,9 @@ for (int i = 0; i < n; i++) {
     free(strings[i]);
 }
 free(strings);
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_17_19)=
@@ -299,7 +312,8 @@ free(strings);
 Creá estructura que contenga arrays dinámicos.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     int *datos;
     size_t tamanio;
@@ -318,7 +332,9 @@ void destruir_vector(vector_t *v) {
     free(v->datos);  // Primero datos
     free(v);         // Luego estructura
 }
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_17_20)=
@@ -327,7 +343,8 @@ void destruir_vector(vector_t *v) {
 Implementá lista donde cada nodo contiene un string dinámico.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef struct nodo {
     char *str;  // String dinámico
     struct nodo *siguiente;
@@ -345,7 +362,9 @@ void liberar_nodo(nodo_t *nodo) {
     free(nodo->str);  // Primero el string
     free(nodo);       // Luego el nodo
 }
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_17_21)=
@@ -354,7 +373,8 @@ void liberar_nodo(nodo_t *nodo) {
 Implementá árbol binario donde cada nodo tiene string dinámico.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef struct nodo_arbol {
     char *clave;  // Dinámico
     int valor;
@@ -368,7 +388,9 @@ void liberar_arbol(nodo_arbol_t *raiz) {
     free(raiz->clave);
     free(raiz);
 }
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_17_22)=
@@ -379,12 +401,13 @@ Implementá matriz triangular inferior (solo almacená elementos <= diagonal).
 **Orientación:**
 - Fila i tiene i+1 elementos
 - Total elementos: n(n+1)/2
-```c
+``` c
 int **matriz = malloc(n * sizeof(int*));
 for (int i = 0; i < n; i++) {
     matriz[i] = malloc((i + 1) * sizeof(int));
 }
 ```
+<!-- c -->
 
 ---
 (ejercicio_17_23)=
@@ -393,7 +416,8 @@ for (int i = 0; i < n; i++) {
 Implementá copia profunda de estructura con punteros.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     char *nombre;
     int *calificaciones;
@@ -409,7 +433,9 @@ estudiante_t *copiar(const estudiante_t *orig) {
            orig->num_calificaciones * sizeof(int));
     return copia;
 }
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_17_24)=
@@ -418,7 +444,8 @@ estudiante_t *copiar(const estudiante_t *orig) {
 Creá grafo con matriz de adyacencia dinámica.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     int **adj;  // Matriz NxN
     int vertices;
@@ -433,7 +460,9 @@ grafo_t *crear_grafo(int n) {
     }
     return g;
 }
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_17_25)=
@@ -442,7 +471,8 @@ grafo_t *crear_grafo(int n) {
 Creá array dinámico de estructuras que contienen punteros.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     char *titulo;
     int *capitulos;
@@ -457,7 +487,9 @@ for (int i = 0; i < n; i++) {
     free(libros[i].capitulos);
 }
 free(libros);
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_17_26)=
@@ -466,7 +498,8 @@ free(libros);
 Implementá tabla hash con encadenamiento y redimensionamiento.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef struct entrada {
     char *clave;
     void *valor;
@@ -485,7 +518,9 @@ void redimensionar(hash_t *h) {
     // Rehash: mover elementos de tabla vieja a nueva
     // Liberar tabla vieja
 }
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_17_27)=
@@ -494,7 +529,8 @@ void redimensionar(hash_t *h) {
 Implementá matriz dispersa con lista de triplas (fila, col, valor).
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     int fila, col;
     double valor;
@@ -506,7 +542,9 @@ typedef struct {
     size_t capacidad;
     int filas, cols;
 } matriz_dispersa_t;
+
 ```
+<!-- {code-block} c -->
 - Solo almacená elementos != 0
 - Búsqueda lineal o binaria para acceso
 
@@ -517,7 +555,8 @@ typedef struct {
 Implementá buffer circular con redimensionamiento.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     void **datos;
     size_t capacidad;
@@ -542,7 +581,9 @@ void redimensionar_buffer(buffer_circular_t *b) {
     b->fin = b->tamanio;
     b->capacidad = nueva_cap;
 }
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_17_29)=
@@ -551,7 +592,8 @@ void redimensionar_buffer(buffer_circular_t *b) {
 Implementá función que modifica puntero pasado como argumento.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 void insertar_inicio(nodo_t **cabeza, int valor) {
     nodo_t *nuevo = malloc(sizeof(nodo_t));
     nuevo->dato = valor;
@@ -562,7 +604,9 @@ void insertar_inicio(nodo_t **cabeza, int valor) {
 // Uso:
 nodo_t *lista = NULL;
 insertar_inicio(&lista, 42);  // Pasa dirección del puntero
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_17_30)=
@@ -571,7 +615,8 @@ insertar_inicio(&lista, 42);  // Pasa dirección del puntero
 Creá array tridimensional dinámico.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 int ***crear_array_3d(int x, int y, int z) {
     int ***arr = malloc(x * sizeof(int**));
     for (int i = 0; i < x; i++) {
@@ -592,7 +637,9 @@ void liberar_array_3d(int ***arr, int x, int y) {
     }
     free(arr);
 }
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_17_31)=
@@ -601,7 +648,8 @@ void liberar_array_3d(int ***arr, int x, int y) {
 Implementá pool de objetos para evitar malloc/free frecuentes.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     void *bloques;
     size_t tam_objeto;
@@ -618,7 +666,9 @@ void *pool_alloc(pool_t *p) {
 void pool_free(pool_t *p, void *obj) {
     p->libres[p->num_libres++] = obj;
 }
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_17_32)=
@@ -627,7 +677,8 @@ void pool_free(pool_t *p, void *obj) {
 Implementá sistema de conteo de referencias para compartir datos.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     void *datos;
     size_t contador_refs;
@@ -650,7 +701,9 @@ void decrementar_ref(ref_counted_t *r, void (*destruir)(void*)) {
         free(r);
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_17_33)=
@@ -659,7 +712,8 @@ void decrementar_ref(ref_counted_t *r, void (*destruir)(void*)) {
 Implementá wrapper de malloc/free que registre asignaciones.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     void *ptr;
     size_t tamanio;
@@ -679,7 +733,9 @@ void *malloc_debug(size_t size, const char *file, int line) {
 void mostrar_leaks() {
     // Mostrar asignaciones no liberadas
 }
+
 ```
+<!-- {code-block} c -->
 
 ---
 
@@ -690,7 +746,8 @@ void mostrar_leaks() {
 **Regla de Oro:** Liberar en orden inverso a asignación
 
 **Matriz dentada:**
-```c
+```{code-block} c
+:linenos:
 // Asignación:
 int **m = malloc(filas * sizeof(int*));      // 1
 for (i...) m[i] = malloc(cols * sizeof(int)); // 2
@@ -698,10 +755,13 @@ for (i...) m[i] = malloc(cols * sizeof(int)); // 2
 // Liberación:
 for (i...) free(m[i]);  // 2 primero
 free(m);                // 1 después
+
 ```
+<!-- {code-block} c -->
 
 **Estructura con punteros:**
-```c
+```{code-block} c
+:linenos:
 // Asignación:
 persona_t *p = malloc(sizeof(persona_t));    // 1
 p->nombre = malloc(100);                      // 2
@@ -709,8 +769,12 @@ p->nombre = malloc(100);                      // 2
 // Liberación:
 free(p->nombre);  // 2 primero
 free(p);          // 1 después
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {danger} Orden de Liberación -->
 
 :::{tip} Estrategias de Matrices Dinámicas
 
@@ -727,7 +791,9 @@ free(p);          // 1 después
 - Desventaja: Sintaxis M[i*cols+j], menos flexible
 
 **Elección:** Depende de requisitos de performance y flexibilidad
+
 :::
+<!-- {tip} Estrategias de Matrices Dinámicas -->
 
 :::{warning} Errores Comunes
 
@@ -760,20 +826,24 @@ free(p);          // 1 después
    copia->nombre = orig->nombre;  // MAL: shallow copy
    copia->nombre = strdup(orig->nombre);  // BIEN: deep copy
    ```
+
 :::
+<!-- {warning} Errores Comunes -->
 
 :::{note} Herramientas de Debugging
 
 **Valgrind - Memcheck:**
-```bash
+``` bash
 valgrind --leak-check=full --show-leak-kinds=all ./programa
 ```
+<!-- bash -->
 
 **AddressSanitizer:**
-```bash
+``` bash
 gcc -fsanitize=address -g programa.c
 ./programa
 ```
+<!-- bash -->
 
 **Errores detectados:**
 - Memory leaks
@@ -781,7 +851,11 @@ gcc -fsanitize=address -g programa.c
 - Double free
 - Buffer overflows
 - Uninitialized memory
-:::
 
-Estas consignas cubren gestión avanzada de memoria y estructuras dinámicas complejas, esenciales para implementar TADs y aplicaciones de performance crítica.
+:::
+<!-- {note} Herramientas de Debugging -->
+
+Estas consignas cubren gestión avanzada de memoria y estructuras dinámicas
+complejas, esenciales para implementar TADs y aplicaciones de performance
+crítica.
 

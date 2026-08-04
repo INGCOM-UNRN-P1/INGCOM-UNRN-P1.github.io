@@ -495,7 +495,7 @@ int main(void)
 (ejercicio_13_6)=
 ### Ejercicio 13.6 - b.5 - Procesar un archivo CSV de ventas ⭐⭐☆☆☆
 
-:::{exercise}
+:::::{exercise}
 :label: ejercicio_archivos_5
 :enumerator: 5
 

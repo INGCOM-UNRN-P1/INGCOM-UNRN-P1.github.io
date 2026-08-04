@@ -464,7 +464,8 @@ Leé números enteros hasta que el usuario ingrese 0, luego mostrá la suma tota
 (ejercicio_4_21)=
 ## Ejercicio 4.21 - Validación de Entrada ⭐⭐⭐☆☆
 
-Leé un número entre 1 y 100. Si está fuera de rango, pedí nuevamente hasta que sea válido.
+Leé un número entre 1 y 100. Si está fuera de rango, pedí nuevamente hasta que
+sea válido.
 
 **Orientación:**
 - `do-while` es ideal aquí
@@ -562,7 +563,8 @@ Invertí los dígitos de un número (ej: 1234 → 4321).
 (ejercicio_4_29)=
 ## Ejercicio 4.29 - Números Perfectos ⭐⭐⭐⭐☆
 
-Encontrá todos los números perfectos hasta N. Un número es perfecto si la suma de sus divisores (excluyéndolo) es igual al número.
+Encontrá todos los números perfectos hasta N. Un número es perfecto si la suma
+de sus divisores (excluyéndolo) es igual al número.
 
 **Ejemplo:** 6 = 1 + 2 + 3
 
@@ -617,7 +619,8 @@ retornar a
 (ejercicio_4_32)=
 ## Ejercicio 4.32 - Número de Armstrong ⭐⭐⭐⭐☆
 
-Determiná si un número es Armstrong (suma de sus dígitos elevados a la cantidad de dígitos igual al número).
+Determiná si un número es Armstrong (suma de sus dígitos elevados a la cantidad
+de dígitos igual al número).
 
 **Ejemplo:** 153 = 1³ + 5³ + 3³ = 153
 
@@ -759,9 +762,12 @@ El programa elige un número aleatorio. El usuario tiene máximo 7 intentos.
 - Validación de entrada
 - Menús que deben mostrarse al menos una vez
 - "Repetir hasta que el usuario confirme"
+
 :::
+<!-- {tip} Elección del Lazo Apropiado -->
 
 :::{warning} Errores Comunes
+
 1. **Lazo infinito:** Olvidar incrementar/decrementar variable de control
    ```c
    // MAL
@@ -798,50 +804,64 @@ El programa elige un número aleatorio. El usuario tiene máximo 7 intentos.
        // código
    }
    ```
+
 :::
+<!-- {warning} Errores Comunes -->
 
 :::{note} Control de Lazos
 
 **`break`:** Termina el lazo inmediatamente
-```c
+``` c
 for (int i = 0; i < 10; i++) {
     if (condicion) break;  // Sale del lazo
 }
 ```
+<!-- c -->
 
 **`continue`:** Salta a la siguiente iteración
-```c
+``` c
 for (int i = 0; i < 10; i++) {
     if (i % 2 == 0) continue;  // Salta pares
     printf("%d\n", i);  // Solo imprime impares
 }
 ```
+<!-- c -->
 
-**Recomendación:** Usá `break` y `continue` con moderación. Preferí condiciones claras.
+**Recomendación:** Usá `break` y `continue` con moderación. Preferí condiciones
+claras.
+
 :::
+<!-- {note} Control de Lazos -->
 
 :::{tip} Optimizaciones
+
 - **Reducir iteraciones:** En búsqueda de primos, probar solo hasta √n
 - **Salir temprano:** Usar `break` cuando encontrás lo que buscás
 - **Precalcular:** Si una expresión no cambia en el lazo, calculala afuera
 - **Evitar trabajo redundante:** Caché resultados que se reusan
-:::
 
-Estas consignas cubren todos los aspectos de lazos: `for`, `while`, `do-while`, lazos anidados, control de flujo y validación con repetición.
+:::
+<!-- {tip} Optimizaciones -->
+
+Estas consignas cubren todos los aspectos de lazos: `for`, `while`, `do-while`,
+lazos anidados, control de flujo y validación con repetición.
 (ejercicio_4_41)=
 ## Ejercicio 4.41 - Mostrar Argumentos ⭐☆☆☆☆
 
 Mostrá todos los argumentos recibidos.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 int main(int argc, char *argv[]) {
     printf("Cantidad de argumentos: %d\n", argc);
     for (int i = 0; i < argc; i++) {
         printf("argv[%d] = %s\n", i, argv[i]);
     }
 }
+
 ```
+<!-- {code-block} c -->
 - `argv[0]` es el nombre del programa
 
 ---
@@ -853,7 +873,8 @@ Lee un nombre desde argv y saludá.
 **Uso:** `./saludo Juan`
 
 **Orientación:**
-- Verificá: `if (argc != 2) { fprintf(stderr, "Uso: %s <nombre>\n", argv[0]); return 1; }`
+- Verificá: `if (argc != 2) { fprintf(stderr, "Uso: %s <nombre>\n", argv[0]);
+  return 1; }`
 - Usá: `printf("Hola, %s!\n", argv[1]);`
 
 ---
@@ -946,7 +967,8 @@ Procesá flag que requiere un valor: `-n <cantidad>`
 **Uso:** `./programa -n 10 archivo.txt`
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 for (int i = 1; i < argc; i++) {
     if (strcmp(argv[i], "-n") == 0) {
         if (i + 1 < argc) {
@@ -956,7 +978,9 @@ for (int i = 1; i < argc; i++) {
         }
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_4_50)=
@@ -979,14 +1003,17 @@ Implementá programa con varios flags: `-v` (verbose), `-o <salida>`, `-n <num>`
 Validá que números sean realmente números.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 char *endptr;
 long num = strtol(argv[1], &endptr, 10);
 if (*endptr != '\0') {
     fprintf(stderr, "Error: '%s' no es un número válido\n", argv[1]);
     return 1;
 }
+
 ```
+<!-- {code-block} c -->
 - `strtol` pone en `endptr` el primer carácter no-numérico
 - Si `*endptr != '\0'`, hay caracteres inválidos
 
@@ -997,7 +1024,8 @@ if (*endptr != '\0') {
 Mostrá ayuda si se pasa `-h` o `--help`, o si argumentos son incorrectos.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 void mostrar_ayuda(const char *programa) {
     printf("Uso: %s [opciones] archivo\n", programa);
     printf("Opciones:\n");
@@ -1011,7 +1039,9 @@ if (argc < 2 || strcmp(argv[1], "-h") == 0 ||
     mostrar_ayuda(argv[0]);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_4_53)=
@@ -1102,14 +1132,17 @@ Implementá programa que puede leer de stdin o archivo.
 - `cat archivo.txt | ./proceso`
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 FILE *entrada;
 if (argc > 1) {
     entrada = fopen(argv[1], "r");
 } else {
     entrada = stdin;  // Lee de stdin
 }
+
 ```
+<!-- {code-block} c -->
 - Permite composición estilo Unix
 
 ---
@@ -1119,9 +1152,10 @@ if (argc > 1) {
 Implementá tu propia versión simplificada de `getopt` para parsear flags.
 
 **Orientación:**
-```c
+``` c
 int getopt_simple(int argc, char *argv[], const char *optstring);
 ```
+<!-- c -->
 - `optstring`: "vhn:" (v y h sin valor, n con valor)
 - Retorna carácter del flag o -1
 - Variable global `optarg` con valor del flag
@@ -1164,7 +1198,9 @@ programa [opciones] [argumentos_posicionales]
 - `-v` o `--version`: versión
 - `-`: stdin (entrada estándar)
 - `--`: fin de opciones, resto son argumentos
+
 :::
+<!-- {tip} Convenciones de Argumentos -->
 
 :::{warning} Errores Comunes
 
@@ -1209,7 +1245,9 @@ programa [opciones] [argumentos_posicionales]
        // FALTA: i++; para saltar el valor
    }
    ```
+
 :::
+<!-- {warning} Errores Comunes -->
 
 :::{note} Funciones de Conversión
 
@@ -1223,32 +1261,41 @@ programa [opciones] [argumentos_posicionales]
 | `sscanf` | Varios | ✅ Parcial | - |
 
 **Recomendación:** Usar `strtol`/`strtod` para conversiones robustas.
+
 :::
+<!-- {note} Funciones de Conversión -->
 
 :::{tip} Patrones de Parsing
 
 **Flags simples:**
-```c
+```{code-block} c
+:linenos:
 bool verbose = false;
 for (int i = 1; i < argc; i++) {
     if (strcmp(argv[i], "-v") == 0) {
         verbose = true;
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 **Flags con valor:**
-```c
+```{code-block} c
+:linenos:
 const char *output = NULL;
 for (int i = 1; i < argc; i++) {
     if (strcmp(argv[i], "-o") == 0 && i + 1 < argc) {
         output = argv[++i];
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 **Separar flags de argumentos:**
-```c
+```{code-block} c
+:linenos:
 int num_archivos = 0;
 char *archivos[MAX];
 
@@ -1259,14 +1306,19 @@ for (int i = 1; i < argc; i++) {
         archivos[num_archivos++] = argv[i];
     }
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {tip} Patrones de Parsing -->
 
 :::{note} getopt (estándar POSIX)
 
 La biblioteca estándar provee `getopt` para parsing robusto:
 
-```c
+```{code-block} c
+:linenos:
 #include <unistd.h>
 
 int opt;
@@ -1284,10 +1336,16 @@ while ((opt = getopt(argc, argv, "vhn:o:")) != -1) {
 for (int i = optind; i < argc; i++) {
     // Procesar archivos
 }
+
 ```
+<!-- {code-block} c -->
 
 `getopt_long` soporta flags largos (`--verbose`).
-:::
 
-Estas consignas cubren procesamiento de argumentos desde básico hasta sistemas complejos estilo herramientas Unix, esenciales para programas de línea de comandos profesionales.
+:::
+<!-- {note} getopt (estándar POSIX) -->
+
+Estas consignas cubren procesamiento de argumentos desde básico hasta sistemas
+complejos estilo herramientas Unix, esenciales para programas de línea de
+comandos profesionales.
 

@@ -108,12 +108,13 @@ for (int i = n; i > 1; i /= 2) {
 
 Contá cuántas operaciones ejecuta este código:
 
-```c
+``` c
 int suma = 0;
 for (int i = 0; i < n; i++) {
     suma += i;
 }
 ```
+<!-- c -->
 
 **Orientación:**
 - Inicialización: 1
@@ -129,13 +130,14 @@ for (int i = 0; i < n; i++) {
 
 ¿Cuál es la complejidad de este código?
 
-```c
+``` c
 for (int i = 0; i < n; i++) {
     for (int j = 0; j < n; j++) {
         printf("%d,%d ", i, j);
     }
 }
 ```
+<!-- c -->
 
 **Orientación:**
 - Lazo externo: n iteraciones
@@ -163,30 +165,33 @@ Compará la complejidad de buscar un elemento en:
 Determiná la complejidad de cada fragmento:
 
 **a)**
-```c
+``` c
 int suma = 0;
 for (int i = 0; i < 100; i++) {
     suma += i;
 }
 ```
+<!-- c -->
 
 **b)**
-```c
+``` c
 for (int i = 0; i < n; i++) {
     for (int j = 0; j < m; j++) {
         printf("%d ", i * j);
     }
 }
 ```
+<!-- c -->
 
 **c)**
-```c
+``` c
 int i = n;
 while (i > 0) {
     printf("%d ", i);
     i = i / 2;
 }
 ```
+<!-- c -->
 
 **Orientación:**
 - **a)** O(1) - cantidad fija de iteraciones
@@ -200,14 +205,17 @@ while (i > 0) {
 Analizá la complejidad de sumar todos los elementos de una matriz n×m.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 int suma = 0;
 for (int i = 0; i < n; i++) {
     for (int j = 0; j < m; j++) {
         suma += matriz[i][j];
     }
 }
+
 ```
+<!-- {code-block} c -->
 - Visita cada elemento una vez
 - n × m elementos
 - **Complejidad:** O(n × m)
@@ -248,10 +256,12 @@ Compará complejidad de Fibonacci recursivo vs iterativo.
 (ejercicio_24_15)=
 ## Ejercicio 24.15 - Búsqueda del Máximo ⭐⭐☆☆☆
 
-Implementá función para encontrar el máximo de un array y analizá su complejidad.
+Implementá función para encontrar el máximo de un array y analizá su
+complejidad.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 int maximo(int arr[], int n) {
     int max = arr[0];
     for (int i = 1; i < n; i++) {
@@ -259,7 +269,9 @@ int maximo(int arr[], int n) {
     }
     return max;
 }
+
 ```
+<!-- {code-block} c -->
 - Recorre array una vez
 - **Tiempo:** O(n)
 - **Espacio:** O(1) - solo una variable
@@ -271,7 +283,8 @@ int maximo(int arr[], int n) {
 Compará dos formas de encontrar duplicados:
 
 **Método 1:** Comparar cada par
-```c
+```{code-block} c
+:linenos:
 bool tiene_duplicados_1(int arr[], int n) {
     for (int i = 0; i < n; i++) {
         for (int j = i+1; j < n; j++) {
@@ -280,10 +293,13 @@ bool tiene_duplicados_1(int arr[], int n) {
     }
     return false;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Método 2:** Ordenar primero
-```c
+```{code-block} c
+:linenos:
 bool tiene_duplicados_2(int arr[], int n) {
     qsort(arr, n, sizeof(int), comparar);  // O(n log n)
     for (int i = 0; i < n-1; i++) {
@@ -291,7 +307,9 @@ bool tiene_duplicados_2(int arr[], int n) {
     }
     return false;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Orientación:**
 - **Método 1:** O(n²) tiempo, O(1) espacio
@@ -305,7 +323,8 @@ bool tiene_duplicados_2(int arr[], int n) {
 Analizá complejidad del ordenamiento burbuja.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 void burbuja(int arr[], int n) {
     for (int i = 0; i < n-1; i++) {
         for (int j = 0; j < n-i-1; j++) {
@@ -315,7 +334,9 @@ void burbuja(int arr[], int n) {
         }
     }
 }
+
 ```
+<!-- {code-block} c -->
 - **Peor caso:** O(n²) - array invertido
 - **Mejor caso:** O(n²) - incluso si ya está ordenado (sin optimizar)
 - **Optimización:** Agregar flag para detectar si hubo swaps
@@ -327,7 +348,8 @@ void burbuja(int arr[], int n) {
 Analizá memoria usada por MergeSort.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 void merge_sort(int arr[], int l, int r) {
     if (l < r) {
         int m = l + (r - l) / 2;
@@ -336,7 +358,9 @@ void merge_sort(int arr[], int l, int r) {
         merge(arr, l, m, r);  // Usa array temporal
     }
 }
+
 ```
+<!-- {code-block} c -->
 - Profundidad de recursión: O(log n)
 - Array temporal en merge: O(n)
 - **Espacio:** O(n) para array + O(log n) para stack de recursión = O(n)
@@ -348,7 +372,8 @@ void merge_sort(int arr[], int l, int r) {
 Encontrá dos números en array que sumen un objetivo.
 
 **Método 1:** Fuerza bruta
-```c
+```{code-block} c
+:linenos:
 bool suma_objetivo_1(int arr[], int n, int objetivo) {
     for (int i = 0; i < n; i++) {
         for (int j = i+1; j < n; j++) {
@@ -357,10 +382,13 @@ bool suma_objetivo_1(int arr[], int n, int objetivo) {
     }
     return false;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Método 2:** Con tabla hash
-```c
+```{code-block} c
+:linenos:
 bool suma_objetivo_2(int arr[], int n, int objetivo) {
     hash_set_t *set = crear_set();
     for (int i = 0; i < n; i++) {
@@ -371,7 +399,9 @@ bool suma_objetivo_2(int arr[], int n, int objetivo) {
     }
     return false;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Orientación:**
 - **Método 1:** O(n²) tiempo, O(1) espacio
@@ -385,15 +415,17 @@ bool suma_objetivo_2(int arr[], int n, int objetivo) {
 Compará verificar primos uno por uno vs Criba de Eratóstenes.
 
 **Método 1:** Verificar cada número
-```c
+``` c
 // Para cada i de 2 a N:
 //   Si es_primo(i): contar
 // es_primo: O(√n) por cada número
 // Total: O(N × √N)
 ```
+<!-- c -->
 
 **Método 2:** Criba
-```c
+```{code-block} c
+:linenos:
 bool *criba(int n) {
     bool *es_primo = malloc((n+1) * sizeof(bool));
     // Inicializar todo en true
@@ -406,7 +438,9 @@ bool *criba(int n) {
     }
     return es_primo;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Orientación:**
 - **Criba:** O(n log log n) tiempo, O(n) espacio
@@ -419,7 +453,8 @@ bool *criba(int n) {
 Analizá complejidad de LCS con programación dinámica.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 int lcs(char *X, char *Y, int m, int n) {
     int dp[m+1][n+1];
     for (int i = 0; i <= m; i++) {
@@ -434,7 +469,9 @@ int lcs(char *X, char *Y, int m, int n) {
     }
     return dp[m][n];
 }
+
 ```
+<!-- {code-block} c -->
 - **Tiempo:** O(m × n) - llena tabla m×n
 - **Espacio:** O(m × n) - tabla DP
 - Optimización espacial: O(min(m, n)) con dos filas
@@ -446,7 +483,8 @@ int lcs(char *X, char *Y, int m, int n) {
 Analizá complejidad de multiplicar dos matrices n×n.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 void multiplicar(int A[N][N], int B[N][N], int C[N][N]) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
@@ -457,7 +495,9 @@ void multiplicar(int A[N][N], int B[N][N], int C[N][N]) {
         }
     }
 }
+
 ```
+<!-- {code-block} c -->
 - Tres lazos anidados: n × n × n
 - **Complejidad:** O(n³)
 - Algoritmos más eficientes existen (Strassen: O(n^2.807))
@@ -469,7 +509,8 @@ void multiplicar(int A[N][N], int B[N][N], int C[N][N]) {
 Analizá complejidad de Torres de Hanoi.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 void hanoi(int n, char origen, char destino, char auxiliar) {
     if (n == 1) {
         mover(origen, destino);
@@ -479,7 +520,9 @@ void hanoi(int n, char origen, char destino, char auxiliar) {
         hanoi(n-1, auxiliar, destino, origen);
     }
 }
+
 ```
+<!-- {code-block} c -->
 - Recurrencia: T(n) = 2T(n-1) + 1
 - Solución: T(n) = 2ⁿ - 1
 - **Complejidad:** O(2ⁿ) - exponencial
@@ -492,14 +535,17 @@ void hanoi(int n, char origen, char destino, char auxiliar) {
 Analizá costo amortizado de inserción en vector dinámico con duplicación.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 void agregar(vector_t *v, int elem) {
     if (v->tamanio == v->capacidad) {
         redimensionar(v, v->capacidad * 2);  // O(n)
     }
     v->datos[v->tamanio++] = elem;  // O(1)
 }
+
 ```
+<!-- {code-block} c -->
 - Inserción simple: O(1)
 - Redimensionamiento: O(n)
 - ¿Cuánto cuesta en promedio?
@@ -531,18 +577,20 @@ Compará complejidad de operaciones en diferentes estructuras:
 Analizá complejidad de soluciones al TSP.
 
 **Fuerza Bruta:**
-```c
+``` c
 // Probar todas las permutaciones de ciudades
 // Cantidad de permutaciones: n!
 // Complejidad: O(n!)
 ```
+<!-- c -->
 
 **Programación Dinámica (Held-Karp):**
-```c
+``` c
 // Estado: (ciudades visitadas, ciudad actual)
 // Estados: 2ⁿ × n
 // Complejidad: O(n² × 2ⁿ)
 ```
+<!-- c -->
 
 **Orientación:**
 - Problema NP-completo
@@ -556,18 +604,20 @@ Analizá complejidad de soluciones al TSP.
 Compará estos dos códigos para sumar matriz:
 
 **Versión 1:**
-```c
+``` c
 for (i = 0; i < N; i++)
     for (j = 0; j < N; j++)
         suma += M[i][j];
 ```
+<!-- c -->
 
 **Versión 2:**
-```c
+``` c
 for (j = 0; j < N; j++)
     for (i = 0; i < N; i++)
         suma += M[i][j];
 ```
+<!-- c -->
 
 **Orientación:**
 - Ambos: O(N²) operaciones
@@ -584,7 +634,8 @@ for (j = 0; j < N; j++)
 Implementá framework para medir tiempos y validar análisis teórico.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 #include <time.h>
 
 double medir_tiempo(void (*funcion)(int*, int), int *arr, int n) {
@@ -599,7 +650,9 @@ for (int n = 1000; n <= 100000; n *= 2) {
     double tiempo = medir_tiempo(burbuja, arr, n);
     printf("n=%d, tiempo=%.4f\n", n, tiempo);
 }
+
 ```
+<!-- {code-block} c -->
 - Graficar tiempo vs n
 - Verificar si crece como n, n log n, n², etc.
 
@@ -627,36 +680,43 @@ De mejor a peor:
   - O(n): ~1M
   - O(n log n): ~20M
   - O(n²): ~1T (inmanejable)
+
 :::
+<!-- {tip} Jerarquía de Complejidades -->
 
 :::{note} Reglas de Análisis
 
 **Sumar complejidades consecutivas:**
-```c
+``` c
 // O(n) + O(n²) = O(n²)
 for (i...) {}      // O(n)
 for (i...)         // O(n²)
     for (j...) {}
 ```
+<!-- c -->
 
 **Multiplicar complejidades anidadas:**
-```c
+``` c
 // O(n) × O(log n) = O(n log n)
 for (i...) {               // O(n)
     busqueda_binaria();    // O(log n)
 }
 ```
+<!-- c -->
 
 **Ignorar constantes y términos menores:**
-```c
+``` c
 // 3n² + 5n + 10 = O(n²)
 // n log n + n = O(n log n)
 ```
+<!-- c -->
 
 **Peor caso vs caso promedio:**
 - QuickSort: O(n²) peor, O(n log n) promedio
 - Hash table: O(n) peor, O(1) promedio
+
 :::
+<!-- {note} Reglas de Análisis -->
 
 :::{warning} Errores de Análisis
 
@@ -672,11 +732,15 @@ for (i...) {               // O(n)
    - Arrays temporales cuentan en espacio
 
 3. **Ignorar constantes ocultas:**
-   - O(n) con constante 1000 puede ser peor que O(n²) con constante 0.001 para n pequeño
+   - O(n) con constante 1000 puede ser peor que O(n²) con constante 0.001 para n
+     pequeño
 
 4. **No considerar caso promedio:**
    - QuickSort es O(n²) peor caso pero casi siempre O(n log n)
-:::
 
-Estas consignas desarrollan capacidad de analizar y comparar algoritmos teórica y empíricamente, esencial para diseñar soluciones eficientes.
+:::
+<!-- {warning} Errores de Análisis -->
+
+Estas consignas desarrollan capacidad de analizar y comparar algoritmos teórica
+y empíricamente, esencial para diseñar soluciones eficientes.
 

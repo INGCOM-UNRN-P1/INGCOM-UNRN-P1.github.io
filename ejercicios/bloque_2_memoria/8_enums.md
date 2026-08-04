@@ -1372,27 +1372,30 @@ Investigar y documentar:
 Definí una enumeración para días de la semana y mostrá el nombre según el valor.
 
 **Orientación:**
-```c
+``` c
 typedef enum {
     LUNES, MARTES, MIERCOLES, JUEVES, 
     VIERNES, SABADO, DOMINGO
 } dia_semana_t;
 ```
+<!-- c -->
 - Usá `switch` para convertir enum a string
 
 ---
 (ejercicio_20_59)=
 ## Ejercicio 20.59 - Estructura Punto 2D ⭐☆☆☆☆
 
-Definí estructura para punto en 2D y función para calcular distancia entre dos puntos.
+Definí estructura para punto en 2D y función para calcular distancia entre dos
+puntos.
 
 **Orientación:**
-```c
+``` c
 typedef struct {
     double x;
     double y;
 } punto_t;
 ```
+<!-- c -->
 - Distancia: `sqrt((p2.x - p1.x)² + (p2.y - p1.y)²)`
 
 ---
@@ -1402,13 +1405,14 @@ typedef struct {
 Creá estructura para fecha y función de validación.
 
 **Orientación:**
-```c
+``` c
 typedef struct {
     int dia;
     int mes;
     int anio;
 } fecha_t;
 ```
+<!-- c -->
 - Validar: 1 ≤ mes ≤ 12, día según mes, considerar bisiestos
 
 ---
@@ -1418,13 +1422,14 @@ typedef struct {
 Definí estructura persona y función para mostrar información.
 
 **Orientación:**
-```c
+``` c
 typedef struct {
     char nombre[50];
     char apellido[50];
     int edad;
 } persona_t;
 ```
+<!-- c -->
 - Función `void mostrar_persona(const persona_t *p)`
 
 ---
@@ -1434,7 +1439,7 @@ typedef struct {
 Creá array de estudiantes y función para encontrar el de mayor promedio.
 
 **Orientación:**
-```c
+``` c
 typedef struct {
     char nombre[50];
     float promedio;
@@ -1442,6 +1447,7 @@ typedef struct {
 
 estudiante_t clase[30];
 ```
+<!-- c -->
 - Recorré array comparando promedios
 
 ---
@@ -1451,7 +1457,8 @@ estudiante_t clase[30];
 Definí enumeración para códigos de error HTTP.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef enum {
     HTTP_OK = 200,
     HTTP_CREATED = 201,
@@ -1459,7 +1466,9 @@ typedef enum {
     HTTP_NOT_FOUND = 404,
     HTTP_SERVER_ERROR = 500
 } http_status_t;
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_20_64)=
@@ -1468,7 +1477,8 @@ typedef enum {
 Creá estructura para dirección y persona que incluya dirección.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     char calle[100];
     int numero;
@@ -1479,7 +1489,9 @@ typedef struct {
     char nombre[50];
     direccion_t direccion;  // Estructura anidada
 } persona_t;
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_20_65)=
@@ -1488,12 +1500,13 @@ typedef struct {
 Definí estructura nodo para lista enlazada.
 
 **Orientación:**
-```c
+``` c
 typedef struct nodo {
     int dato;
     struct nodo *siguiente;  // Puntero a mismo tipo
 } nodo_t;
 ```
+<!-- c -->
 - Funciones: crear_nodo, insertar_inicio, mostrar_lista
 
 ---
@@ -1503,7 +1516,8 @@ typedef struct nodo {
 Usá union para almacenar valor que puede ser int, float o char.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef enum { TIPO_INT, TIPO_FLOAT, TIPO_CHAR } tipo_t;
 
 typedef struct {
@@ -1514,7 +1528,9 @@ typedef struct {
         char c;
     } valor;
 } variable_t;
+
 ```
+<!-- {code-block} c -->
 - El tipo indica cuál campo de la union es válido
 
 ---
@@ -1524,7 +1540,8 @@ typedef struct {
 Practicá diferentes formas de inicializar estructuras.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 // Orden
 punto_t p1 = {3.0, 4.0};
 
@@ -1534,7 +1551,9 @@ punto_t p3 = {.y = 4.0, .x = 3.0};  // Orden no importa
 
 // Parcial (resto en 0)
 punto_t p4 = {.x = 3.0};
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_20_68)=
@@ -1543,12 +1562,13 @@ punto_t p4 = {.x = 3.0};
 Definí rectángulo con dos puntos (esquinas opuestas) y calcula área/perímetro.
 
 **Orientación:**
-```c
+``` c
 typedef struct {
     punto_t superior_izq;
     punto_t inferior_der;
 } rectangulo_t;
 ```
+<!-- c -->
 - Área: ancho × alto
 - Perímetro: 2 × (ancho + alto)
 
@@ -1559,7 +1579,8 @@ typedef struct {
 Sistema con estructuras para libro, autor, editorial.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     char nombre[50];
     int anio_nacimiento;
@@ -1571,7 +1592,9 @@ typedef struct {
     int anio_publicacion;
     float precio;
 } libro_t;
+
 ```
+<!-- {code-block} c -->
 - Funciones: buscar por título, filtrar por autor, ordenar por precio
 
 ---
@@ -1581,7 +1604,8 @@ typedef struct {
 Usá enum para permisos de archivo estilo Unix.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef enum {
     PERM_READ    = 1 << 0,  // 0001
     PERM_WRITE   = 1 << 1,  // 0010
@@ -1593,7 +1617,9 @@ int permisos = PERM_READ | PERM_WRITE;
 
 // Verificar con AND
 if (permisos & PERM_READ) { /* tiene lectura */ }
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_20_71)=
@@ -1602,7 +1628,8 @@ if (permisos & PERM_READ) { /* tiene lectura */ }
 Explorá alineación de memoria en estructuras.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     char c;    // 1 byte + 3 padding
     int i;     // 4 bytes
@@ -1614,7 +1641,9 @@ typedef struct {
     char c;    // 1 byte
     char d;    // 1 byte + 2 padding
 } bien_alineada_t;  // Total: 8 bytes
+
 ```
+<!-- {code-block} c -->
 - Usá `sizeof()` para ver diferencias
 
 ---
@@ -1624,13 +1653,14 @@ typedef struct {
 Implementá estructura de árbol binario y recorridos.
 
 **Orientación:**
-```c
+``` c
 typedef struct nodo_arbol {
     int dato;
     struct nodo_arbol *izquierdo;
     struct nodo_arbol *derecho;
 } nodo_arbol_t;
 ```
+<!-- c -->
 - Funciones: insertar, buscar, recorridos (inorden, preorden, postorden)
 
 ---
@@ -1640,7 +1670,8 @@ typedef struct nodo_arbol {
 Creá sistema de figuras geométricas con union.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef enum { CIRCULO, RECTANGULO, TRIANGULO } tipo_figura_t;
 
 typedef struct {
@@ -1661,7 +1692,9 @@ typedef struct {
 } figura_t;
 
 double calcular_area(const figura_t *f);
+
 ```
+<!-- {code-block} c -->
 
 ---
 (ejercicio_20_74)=
@@ -1670,7 +1703,8 @@ double calcular_area(const figura_t *f);
 Implementá cola FIFO con estructura.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     int *datos;
     int frente;
@@ -1678,7 +1712,9 @@ typedef struct {
     int capacidad;
     int tamanio;
 } cola_t;
+
 ```
+<!-- {code-block} c -->
 - Funciones: crear, encolar, desencolar, esta_llena, destruir
 
 ---
@@ -1688,7 +1724,8 @@ typedef struct {
 Representá grafo con estructuras.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef struct nodo_lista {
     int vertice;
     struct nodo_lista *siguiente;
@@ -1698,7 +1735,9 @@ typedef struct {
     int num_vertices;
     nodo_lista_t **listas_adyacencia;
 } grafo_t;
+
 ```
+<!-- {code-block} c -->
 - Funciones: crear_grafo, agregar_arista, mostrar
 
 ---
@@ -1708,7 +1747,8 @@ typedef struct {
 Sistema CRUD para empleados.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     int id;
     char nombre[50];
@@ -1721,7 +1761,9 @@ typedef struct {
     int cantidad;
     int capacidad;
 } base_datos_t;
+
 ```
+<!-- {code-block} c -->
 - Funciones: crear, agregar, buscar, actualizar, eliminar, listar
 
 ---
@@ -1731,7 +1773,8 @@ typedef struct {
 Implementá máquina de estados finitos.
 
 **Orientación:**
-```c
+```{code-block} c
+:linenos:
 typedef enum {
     ESTADO_INICIO,
     ESTADO_PROCESANDO,
@@ -1754,7 +1797,9 @@ typedef struct {
 } maquina_t;
 
 estado_t transicion(estado_t actual, evento_t evento);
+
 ```
+<!-- {code-block} c -->
 
 ---
 
@@ -1763,43 +1808,51 @@ estado_t transicion(estado_t actual, evento_t evento);
 :::{tip} Convenciones de Nomenclatura
 
 **Enumeraciones:**
-```c
+``` c
 typedef enum {
     COLOR_ROJO,
     COLOR_VERDE,
     COLOR_AZUL
 } color_t;
 ```
+<!-- c -->
 - Sufijo `_t` para el tipo
 - Prefijo común para los valores
 
 **Estructuras:**
-```c
+``` c
 typedef struct {
     // campos
 } nombre_t;
 ```
+<!-- c -->
 - Sufijo `_t` indica que es un tipo definido por el usuario
+
 :::
+<!-- {tip} Convenciones de Nomenclatura -->
 
 :::{note} Tamaño y Alineación
 
 **Obtener tamaño:**
-```c
+``` c
 printf("Tamaño: %zu bytes\n", sizeof(estructura_t));
 ```
+<!-- c -->
 
 **Offset de campos:**
-```c
+``` c
 #include <stddef.h>
 printf("Offset de campo: %zu\n", offsetof(estructura_t, campo));
 ```
+<!-- c -->
 
 **Alineación:**
 - Campos se alinean a múltiplos de su tamaño
 - Estructura completa se alinea al mayor campo
 - Reordenar campos puede ahorrar memoria
+
 :::
+<!-- {note} Tamaño y Alineación -->
 
 :::{warning} Errores Comunes
 
@@ -1842,42 +1895,51 @@ printf("Offset de campo: %zu\n", offsetof(estructura_t, campo));
    persona_t p2 = p1;  // Copia shallow: ambos apuntan al mismo nombre
    // Necesitas copia profunda manual
    ```
+
 :::
+<!-- {warning} Errores Comunes -->
 
 :::{tip} Inicialización
 
 **Cero:**
-```c
+``` c
 estructura_t s = {0};  // Todo en cero
 ```
+<!-- c -->
 
 **Designadores C99:**
-```c
+``` c
 punto_t p = {
     .x = 10,
     .y = 20
 };
 ```
+<!-- c -->
 
 **Compuesta (C99):**
-```c
+``` c
 punto_t p = (punto_t){.x = 10, .y = 20};
 ```
+<!-- c -->
 
 **Array de structs:**
-```c
+``` c
 punto_t puntos[] = {
     {1, 2},
     {3, 4},
     {.x = 5, .y = 6}
 };
 ```
+<!-- c -->
+
 :::
+<!-- {tip} Inicialización -->
 
 :::{note} Estructuras Opacas
 
 **Encapsulamiento:**
-```c
+```{code-block} c
+:linenos:
 // archivo.h
 typedef struct archivo archivo_t;  // Declaración opaca
 archivo_t *abrir_archivo(const char *ruta);
@@ -1887,10 +1949,15 @@ struct archivo {  // Definición oculta
     FILE *fp;
     int linea;
 };
+
 ```
+<!-- {code-block} c -->
 - Usuario solo ve puntero, no puede acceder a campos
 - Facilita cambios internos sin romper código cliente
-:::
 
-Estas consignas cubren tipos de datos personalizados desde básicos hasta sistemas complejos, preparando para diseño de TADs profesionales.
+:::
+<!-- {note} Estructuras Opacas -->
+
+Estas consignas cubren tipos de datos personalizados desde básicos hasta
+sistemas complejos, preparando para diseño de TADs profesionales.
 

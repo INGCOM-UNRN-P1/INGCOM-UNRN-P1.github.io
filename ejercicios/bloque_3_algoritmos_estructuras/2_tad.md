@@ -505,14 +505,19 @@ Operaciones:
 ## Notas Finales
 
 :::{tip} Principios de Diseño de TADs
+
 1. **Encapsulamiento:** Ocultar detalles de implementación
 2. **Interfaz mínima:** Solo exponer lo necesario
 3. **Invariantes:** Mantener estructura consistente siempre
-4. **Error handling:** Retornar códigos de error o usar convenciones (NULL, false)
+4. **Error handling:** Retornar códigos de error o usar convenciones (NULL,
+   false)
 5. **Documentación:** Especificar precondiciones, postcondiciones y complejidad
+
 :::
+<!-- {tip} Principios de Diseño de TADs -->
 
 :::{note} Estructura de Archivos
+
 ```
 tad/
 ├── pila.h          # Interfaz pública
@@ -522,12 +527,16 @@ tad/
 ```
 
 Compilar:
-```bash
+``` bash
 gcc -c pila.c -o pila.o
 gcc -c test_pila.c -o test_pila.o
 gcc pila.o test_pila.o -o test_pila
 ```
-:::
+<!-- bash -->
 
-Estas consignas cubren el diseño e implementación de TADs desde básicos hasta complejos, enfatizando encapsulamiento, modularidad y reutilización.
+:::
+<!-- {note} Estructura de Archivos -->
+
+Estas consignas cubren el diseño e implementación de TADs desde básicos hasta
+complejos, enfatizando encapsulamiento, modularidad y reutilización.
 

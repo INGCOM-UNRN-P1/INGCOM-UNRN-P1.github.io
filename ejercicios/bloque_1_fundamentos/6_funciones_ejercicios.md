@@ -207,7 +207,8 @@ int main(void) {
 (ejercicio_5_6)=
 ## Ejercicio 5.6 - Funciones Matemáticas Básicas ⭐☆☆☆☆
 
-Creá funciones para operaciones matemáticas: `sumar`, `restar`, `multiplicar`, `dividir`.
+Creá funciones para operaciones matemáticas: `sumar`, `restar`, `multiplicar`,
+`dividir`.
 
 **Orientación:**
 - Cada función recibe dos `double` y retorna el resultado
@@ -498,21 +499,29 @@ Reimplementá funciones de `<string.h>` sin usarla:
 ## Notas Finales
 
 :::{tip} Diseño de Funciones
+
 - **Una responsabilidad:** Cada función debe hacer una sola cosa bien
 - **Nombres descriptivos:** `calcular_promedio` en lugar de `calc`
 - **Parámetros mínimos:** No más de 3-4 parámetros si es posible
-- **Retorno significativo:** `bool` para éxito/fallo, valores cuando calculás algo
+- **Retorno significativo:** `bool` para éxito/fallo, valores cuando calculás
+  algo
 - **Sin efectos laterales:** Evitá modificar variables globales
+
 :::
+<!-- {tip} Diseño de Funciones -->
 
 :::{note} Documentación
+
 Cada función debe tener:
 - Descripción de qué hace
 - Descripción de parámetros
 - Descripción del valor de retorno
 - Precondiciones (qué debe ser cierto antes de llamarla)
 - Postcondiciones (qué garantiza después de ejecutarse)
-:::
 
-Estas consignas practican modularización, reutilización, paso de parámetros y diseño de interfaces de funciones.
+:::
+<!-- {note} Documentación -->
+
+Estas consignas practican modularización, reutilización, paso de parámetros y
+diseño de interfaces de funciones.
 

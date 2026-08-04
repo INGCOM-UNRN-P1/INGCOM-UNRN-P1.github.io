@@ -191,7 +191,8 @@ Implementá una calculadora que muestre un menú y ejecute la operación elegida
 (ejercicio_2_8)=
 ## Ejercicio 2.8 - Triángulo Válido ⭐⭐⭐☆☆
 
-Dados tres lados, determiná si forman un triángulo válido y qué tipo es (equilátero, isósceles, escaleno).
+Dados tres lados, determiná si forman un triángulo válido y qué tipo es
+(equilátero, isósceles, escaleno).
 
 **Orientación:**
 - Para ser válido: a + b > c, a + c > b, b + c > a
@@ -283,7 +284,8 @@ Calculá el IMC y clasificá según la categoría.
 (ejercicio_2_15)=
 ## Ejercicio 2.15 - Conversor de Calificaciones ⭐⭐⭐⭐☆
 
-Convertí entre diferentes sistemas de calificación: numérica (0-10), letra (A-F), porcentaje (0-100).
+Convertí entre diferentes sistemas de calificación: numérica (0-10), letra
+(A-F), porcentaje (0-100).
 
 **Orientación:**
 - Mostrá menú para elegir conversión
@@ -339,7 +341,8 @@ Implementá el algoritmo de Luhn para validar números de tarjeta.
 (ejercicio_2_19)=
 ## Ejercicio 2.19 - Juego de Adivinanza ⭐⭐⭐⭐☆
 
-El programa elige un número aleatorio entre 1 y 100. El usuario adivina y recibe pistas ("muy alto", "muy bajo").
+El programa elige un número aleatorio entre 1 y 100. El usuario adivina y recibe
+pistas ("muy alto", "muy bajo").
 
 **Orientación:**
 - Usá `rand()` de `<stdlib.h>`
@@ -406,17 +409,26 @@ MENÚ PRINCIPAL
 ## Notas Finales
 
 :::{tip} Buenas Prácticas
-- **Validación constante:** Verificá siempre que la entrada esté en el rango esperado
+
+- **Validación constante:** Verificá siempre que la entrada esté en el rango
+  esperado
 - **Mensajes claros:** Informá al usuario qué salió mal y qué se espera
 - **Casos extremos:** Probá con valores mínimos, máximos, cero y negativos
-- **Claridad:** Usá nombres de variables descriptivos (`esVocal` en lugar de `v`)
+- **Claridad:** Usá nombres de variables descriptivos (`esVocal` en lugar de
+  `v`)
+
 :::
+<!-- {tip} Buenas Prácticas -->
 
 :::{note} Operadores Útiles
+
 - **Relacionales:** `<`, `>`, `<=`, `>=`, `==`, `!=`
 - **Lógicos:** `&&` (AND), `||` (OR), `!` (NOT)
 - **Ternario:** `condicion ? valor_si_cierto : valor_si_falso`
-:::
 
-Estas consignas cubren estructuras de control, toma de decisiones, validación de datos y lógica condicional compleja.
+:::
+<!-- {note} Operadores Útiles -->
+
+Estas consignas cubren estructuras de control, toma de decisiones, validación de
+datos y lógica condicional compleja.
 
