@@ -1,5 +1,5 @@
 (capitulo-indice-avanzados)=
-# Bloque 5: Temas Avanzados
+# Bloque 4: Temas Avanzados
 
 Esta sección del apunte presenta temas complementarios y de ingeniería avanzada en C. Estos contenidos tienen un propósito formativo y de profundización técnica para completar el panorama del desarrollo con el lenguaje C, proveyendo herramientas clave para el diseño de sistemas robustos y APIs profesionales.
 
