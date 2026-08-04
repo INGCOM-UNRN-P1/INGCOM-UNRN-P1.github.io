@@ -710,36 +710,6 @@ Implementá:
 - Usá punteros para retornar x e y
 
 ---
-(ejercicio_5_25)=
-## Ejercicio 5.25 - Biblioteca de Strings ⭐⭐⭐⭐⭐
-
-Reimplementá funciones de `<string.h>` sin usarla:
-- `int mi_strlen(const char *str)`
-- `void mi_strcpy(char *dest, const char *src)`
-- `int mi_strcmp(const char *s1, const char *s2)`
-- `void mi_strcat(char *dest, const char *src)`
-- `char *mi_strchr(const char *str, char c)`
-
-**Orientación:**
-- `strlen`: contá hasta '\0'
-- `strcpy`: copiá carácter por carácter incluyendo '\0'
-- `strcmp`: retorna diferencia del primer carácter distinto
-- `strcat`: copiá src al final de dest
-- `strchr`: retorna puntero a primera aparición de c
-- Verificá límites de destino para evitar buffer overflow
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
----
 
 ## Notas Finales
 

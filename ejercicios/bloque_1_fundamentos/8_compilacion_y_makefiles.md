@@ -1,6 +1,6 @@
 ---
 title: "Ejercicios: Compilación y Makefiles"
-short_title: "14. Compilación"
+short_title: "8. Compilación"
 ---
 
 # Ejercicios: Compilación y Makefiles

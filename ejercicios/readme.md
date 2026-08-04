@@ -111,13 +111,13 @@ recursividad introductoria y compilación con Makefiles.
     Funciones**](./bloque_1_fundamentos/6_funciones_ejercicios.md): Ejercicios
     para estructurar subprogramas mediante firmas, parámetros y deconstrucción
     funcional.
-*   [**7. Compilación y
-    Makefiles**](./bloque_1_fundamentos/7_compilacion_y_makefiles.md):
+*   [**7. Librerías de
+    Funciones**](./bloque_1_fundamentos/7_librerias_ejercicios.md): Ejercicios
+    centrados en el diseño, encapsulamiento e implementación de módulos reutilizables `.h` y `.c`.
+*   [**8. Compilación y
+    Makefiles**](./bloque_1_fundamentos/8_compilacion_y_makefiles.md):
     Ejercicios sobre las etapas de compilación, enlazado físico y automatización
     de la construcción con `make`.
-*   [**8. Recursividad Introductoria**](./bloque_1_fundamentos/8_recursion.md):
-    Problemas sencillos para iniciar en el pensamiento recursivo y el análisis
-    cualitativo del stack frame.
 
 ### Bloque 2: Memoria
 
