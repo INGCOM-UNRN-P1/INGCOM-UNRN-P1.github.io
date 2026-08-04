@@ -36,8 +36,8 @@ enum dia_semana {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.1 - Día siguiente
+(ejercicio_20_1)=
+### Ejercicio 20.1 - Día siguiente ⭐⭐☆☆☆
 
 Implementar una función que retorne el día siguiente al día proporcionado. El
 día siguiente a `DOMINGO` es `LUNES`.
@@ -46,8 +46,8 @@ día siguiente a `DOMINGO` es `LUNES`.
 enum dia_semana dia_siguiente(enum dia_semana dia_actual);
 ```
 <!-- c -->
-
-### Ejercicio 4.2 - Es día laboral
+(ejercicio_20_2)=
+### Ejercicio 20.2 - Es día laboral ⭐⭐☆☆☆
 
 Implementar una función que determine si un día es laboral (lunes a viernes).
 
@@ -55,8 +55,8 @@ Implementar una función que determine si un día es laboral (lunes a viernes).
 bool es_dia_laboral(enum dia_semana dia);
 ```
 <!-- c -->
-
-### Ejercicio 4.3 - Nombre del día
+(ejercicio_20_3)=
+### Ejercicio 20.3 - Nombre del día ⭐⭐☆☆☆
 
 Implementar una función que retorne el nombre del día como cadena de texto. Esta
 función ilustra el patrón de conversión enum-a-string.
@@ -83,8 +83,8 @@ enum estado_red {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.4 - Máquina de estados
+(ejercicio_20_4)=
+### Ejercicio 20.4 - Máquina de estados ⭐⭐⭐☆☆
 
 Implementar una función que procese transiciones de estado. La función debe
 recibir el estado actual y un evento, y retornar el nuevo estado según las
@@ -110,8 +110,8 @@ enum estado_red procesar_evento(enum estado_red estado, enum evento_red evento);
 - `CONECTANDO` + `EVENTO_ERROR` → `ERROR_AUTH`
 - `CONECTADO` + `EVENTO_DESCONECTAR` → `DESCONECTANDO`
 - `DESCONECTANDO` + transición completa → `DESCONECTADO`
-
-### Ejercicio 4.5 - Validación de estado
+(ejercicio_20_5)=
+### Ejercicio 20.5 - Validación de estado ⭐⭐⭐☆☆
 
 Implementar una función que valide si un valor numérico corresponde a un estado
 válido de la enumeración. Usar el patrón del valor centinela.
@@ -149,8 +149,8 @@ enum permisos {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.6 - Verificar permiso
+(ejercicio_20_6)=
+### Ejercicio 20.6 - Verificar permiso ⭐⭐☆☆☆
 
 Implementar una función que verifique si un conjunto de permisos incluye un
 permiso específico.
@@ -159,8 +159,8 @@ permiso específico.
 bool tiene_permiso(unsigned int permisos_actuales, enum permisos permiso);
 ```
 <!-- c -->
-
-### Ejercicio 4.7 - Agregar y quitar permisos
+(ejercicio_20_7)=
+### Ejercicio 20.7 - Agregar y quitar permisos ⭐⭐☆☆☆
 
 Implementar funciones para modificar el conjunto de permisos.
 
@@ -169,8 +169,8 @@ unsigned int agregar_permiso(unsigned int permisos, enum permisos nuevo);
 unsigned int quitar_permiso(unsigned int permisos, enum permisos remover);
 ```
 <!-- c -->
-
-### Ejercicio 4.8 - Listar permisos activos
+(ejercicio_20_8)=
+### Ejercicio 20.8 - Listar permisos activos ⭐⭐☆☆☆
 
 Implementar una función que imprima todos los permisos activos en un conjunto de
 permisos.
@@ -206,8 +206,8 @@ typedef struct {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.9 - Conversión de color predefinido a RGB
+(ejercicio_20_9)=
+### Ejercicio 20.9 - Conversión de color predefinido a RGB ⭐⭐☆☆☆
 
 Implementar una función que convierta un color predefinido a sus componentes
 RGB.
@@ -222,8 +222,8 @@ rgb_t color_a_rgb(enum color_predefinido color);
 - `COLOR_VERDE`: (0, 255, 0)
 - `COLOR_AZUL`: (0, 0, 255)
 - `COLOR_AMARILLO`: (255, 255, 0)
-
-### Ejercicio 4.10 - Mezcla de colores
+(ejercicio_20_10)=
+### Ejercicio 20.10 - Mezcla de colores ⭐⭐☆☆☆
 
 Implementar una función que mezcle dos colores RGB usando promedio aritmético.
 
@@ -271,8 +271,8 @@ typedef struct {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.11 - Configurar dispositivo
+(ejercicio_20_11)=
+### Ejercicio 20.11 - Configurar dispositivo ⭐⭐☆☆☆
 
 Implementar funciones para configurar cada tipo de dispositivo de forma segura.
 
@@ -282,8 +282,8 @@ dispositivo_t crear_motor(unsigned int rpm, bool horario);
 dispositivo_t crear_led(unsigned char intensidad, enum color_predefinido color);
 ```
 <!-- c -->
-
-### Ejercicio 4.12 - Imprimir configuración
+(ejercicio_20_12)=
+### Ejercicio 20.12 - Imprimir configuración ⭐⭐☆☆☆
 
 Implementar una función que imprima la configuración de un dispositivo según su
 tipo. Este ejercicio demuestra el uso correcto de uniones etiquetadas.
@@ -312,8 +312,8 @@ enum codigo_error {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.13 - Mensaje de error
+(ejercicio_20_13)=
+### Ejercicio 20.13 - Mensaje de error ⭐⭐☆☆☆
 
 Implementar una función que retorne un mensaje descriptivo para cada código de
 error.
@@ -322,8 +322,8 @@ error.
 const char* mensaje_error(enum codigo_error error);
 ```
 <!-- c -->
-
-### Ejercicio 4.14 - Tipo de resultado
+(ejercicio_20_14)=
+### Ejercicio 20.14 - Tipo de resultado ⭐⭐⭐☆☆
 
 Implementar un tipo `resultado_t` que encapsule un valor de retorno o un código
 de error usando unión etiquetada.
@@ -374,8 +374,8 @@ enum modo_reproduccion {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.15 - Controlador de reproducción
+(ejercicio_20_15)=
+### Ejercicio 20.15 - Controlador de reproducción ⭐⭐☆☆☆
 
 Implementar una estructura que encapsule el estado completo del reproductor.
 
@@ -390,8 +390,8 @@ typedef struct {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.16 - Comandos de control
+(ejercicio_20_16)=
+### Ejercicio 20.16 - Comandos de control ⭐⭐☆☆☆
 
 Implementar funciones para controlar el reproductor.
 
@@ -422,8 +422,8 @@ enum nivel_log {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.17 - Filtrado de logs
+(ejercicio_20_17)=
+### Ejercicio 20.17 - Filtrado de logs ⭐⭐☆☆☆
 
 Implementar una función que determine si un mensaje debe ser registrado según el
 nivel mínimo configurado.
@@ -432,8 +432,8 @@ nivel mínimo configurado.
 bool debe_registrar(enum nivel_log nivel_mensaje, enum nivel_log nivel_minimo);
 ```
 <!-- c -->
-
-### Ejercicio 4.18 - Formateo de mensaje de log
+(ejercicio_20_18)=
+### Ejercicio 20.18 - Formateo de mensaje de log ⭐⭐☆☆☆
 
 Implementar una función que formatee un mensaje de log incluyendo el nivel como
 prefijo.
@@ -467,8 +467,8 @@ typedef struct {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.19 - Crear y decodificar cabecera
+(ejercicio_20_19)=
+### Ejercicio 20.19 - Crear y decodificar cabecera ⭐⭐☆☆☆
 
 Implementar funciones para construir y extraer información de la cabecera.
 
@@ -480,8 +480,8 @@ cabecera_mensaje_t crear_cabecera(enum tipo_mensaje tipo,
 void imprimir_cabecera(cabecera_mensaje_t cabecera);
 ```
 <!-- c -->
-
-### Ejercicio 4.20 - Validación de cabecera
+(ejercicio_20_20)=
+### Ejercicio 20.20 - Validación de cabecera ⭐⭐☆☆☆
 
 Implementar una función que valide que los valores de una cabecera están dentro
 de los rangos permitidos.
@@ -508,8 +508,8 @@ enum opcion_compilacion {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.21 - Generar línea de comandos
+(ejercicio_20_21)=
+### Ejercicio 20.21 - Generar línea de comandos ⭐⭐☆☆☆
 
 Implementar una función que genere una cadena con las opciones de compilación
 correspondientes a los flags activos.
@@ -521,8 +521,8 @@ void generar_comando_compilacion(unsigned int opciones, char* buffer, size_t tam
 
 Ejemplo: Si `opciones` tiene `OPT_DEBUG | OPT_WARNINGS`, el buffer debe contener
 `"-g -Wall"`.
-
-### Ejercicio 4.22 - Detectar conflictos
+(ejercicio_20_22)=
+### Ejercicio 20.22 - Detectar conflictos ⭐⭐☆☆☆
 
 Implementar una función que detecte combinaciones incompatibles de opciones.
 
@@ -551,8 +551,8 @@ enum opcion_menu {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.23 - Parser de opción
+(ejercicio_20_23)=
+### Ejercicio 20.23 - Parser de opción ⭐⭐☆☆☆
 
 Implementar una función que convierta la entrada del usuario en una opción del
 menú.
@@ -561,8 +561,8 @@ menú.
 enum opcion_menu parsear_opcion(int entrada);
 ```
 <!-- c -->
-
-### Ejercicio 4.24 - Ejecutor de menú
+(ejercicio_20_24)=
+### Ejercicio 20.24 - Ejecutor de menú ⭐⭐☆☆☆
 
 Implementar una función que ejecute la acción correspondiente a cada opción del
 menú.
@@ -571,8 +571,8 @@ menú.
 void ejecutar_opcion(enum opcion_menu opcion);
 ```
 <!-- c -->
-
-### Ejercicio 4.25 - Menú interactivo completo
+(ejercicio_20_25)=
+### Ejercicio 20.25 - Menú interactivo completo ⭐⭐☆☆☆
 
 Implementar un lazo principal que muestre el menú, lea la opción del usuario y
 ejecute la acción hasta que el usuario seleccione `MENU_SALIR`.
@@ -616,8 +616,8 @@ typedef struct {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.26 - Cálculo de área
+(ejercicio_20_26)=
+### Ejercicio 20.26 - Cálculo de área ⭐⭐☆☆☆
 
 Implementar una función que calcule el área de cualquier figura usando su tipo y
 datos.
@@ -633,8 +633,8 @@ double calcular_area(const figura_t* figura);
 - Triángulo (Fórmula de Herón):
   - $s = \frac{a+b+c}{2}$
   - $A = \sqrt{s(s-a)(s-b)(s-c)}$
-
-### Ejercicio 4.27 - Constructores de figuras
+(ejercicio_20_27)=
+### Ejercicio 20.27 - Constructores de figuras ⭐⭐⭐☆☆
 
 Implementar funciones para crear cada tipo de figura de forma segura.
 
@@ -646,8 +646,8 @@ figura_t crear_triangulo(double a, double b, double c);
 <!-- c -->
 
 ## Conversión entre Enums y Strings
-
-### Ejercicio 4.28 - Tabla de conversión
+(ejercicio_20_28)=
+### Ejercicio 20.28 - Tabla de conversión ⭐⭐☆☆☆
 
 Implementar un sistema genérico para convertir entre valores enum y strings
 usando tablas de conversión.
@@ -669,8 +669,8 @@ const enum_string_t tabla_dias[] = {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.29 - Funciones de conversión genéricas
+(ejercicio_20_29)=
+### Ejercicio 20.29 - Funciones de conversión genéricas ⭐⭐☆☆☆
 
 Implementar funciones genéricas que usen la tabla para realizar conversiones.
 
@@ -711,8 +711,8 @@ typedef struct {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.30 - Inicializar juego
+(ejercicio_20_30)=
+### Ejercicio 20.30 - Inicializar juego ⭐☆☆☆☆
 
 Implementar una función que inicialice un juego nuevo con la dificultad
 especificada.
@@ -723,8 +723,8 @@ juego_t inicializar_juego(enum dificultad dif);
 <!-- c -->
 
 La dificultad debe afectar el número inicial de vidas y otros parámetros.
-
-### Ejercicio 4.31 - Gestión de estado
+(ejercicio_20_31)=
+### Ejercicio 20.31 - Gestión de estado ⭐⭐⭐☆☆
 
 Implementar funciones para transiciones de estado comunes.
 
@@ -766,8 +766,8 @@ typedef struct {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.32 - Clasificador de tráfico
+(ejercicio_20_32)=
+### Ejercicio 20.32 - Clasificador de tráfico ⭐⭐☆☆☆
 
 Implementar una función que clasifique un paquete basándose en reglas
 heurísticas.
@@ -781,8 +781,8 @@ enum tipo_trafico clasificar_paquete(const paquete_red_t* paquete);
 - Puertos conocidos (80, 443, 22) → `TRAFICO_NORMAL`
 - Puertos altos no estándar → `TRAFICO_SOSPECHOSO`
 - Transferencias muy grandes o patrones anómalos → `TRAFICO_MALICIOSO`
-
-### Ejercicio 4.33 - Estadísticas por protocolo
+(ejercicio_20_33)=
+### Ejercicio 20.33 - Estadísticas por protocolo ⭐⭐⭐☆☆
 
 Implementar una función que cuente paquetes por protocolo en un arreglo de
 paquetes.
@@ -802,8 +802,8 @@ estadisticas_protocolo_t contar_por_protocolo(const paquete_red_t* paquetes, siz
 <!-- {code-block} c -->
 
 ## Enums en Sistemas de Archivos
-
-### Ejercicio 4.34 - Permisos de archivo (UNIX)
+(ejercicio_20_34)=
+### Ejercicio 20.34 - Permisos de archivo (UNIX) ⭐⭐☆☆☆
 
 Modelar permisos de archivo estilo UNIX usando flags.
 
@@ -832,8 +832,8 @@ unsigned int agregar_permiso_unix(unsigned int permisos, enum permiso_unix nuevo
 void mostrar_permisos_unix(unsigned int permisos);  // Formato: rwxr-xr--
 ```
 <!-- c -->
-
-### Ejercicio 4.35 - Tipos de archivo
+(ejercicio_20_35)=
+### Ejercicio 20.35 - Tipos de archivo ⭐⭐☆☆☆
 
 Modelar diferentes tipos de archivo en un sistema de archivos.
 
@@ -860,8 +860,8 @@ typedef struct {
 <!-- {code-block} c -->
 
 ## Sistema de Eventos
-
-### Ejercicio 4.36 - Tipos de eventos de UI
+(ejercicio_20_36)=
+### Ejercicio 20.36 - Tipos de eventos de UI ⭐⭐☆☆☆
 
 Modelar eventos de interfaz de usuario.
 
@@ -891,8 +891,8 @@ typedef struct {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.37 - Procesador de eventos
+(ejercicio_20_37)=
+### Ejercicio 20.37 - Procesador de eventos ⭐⭐☆☆☆
 
 Implementar un procesador que maneje diferentes tipos de eventos.
 
@@ -902,8 +902,8 @@ void procesar_evento(const evento_t* evento);
 <!-- c -->
 
 ## Estados de Procesos (Sistema Operativo)
-
-### Ejercicio 4.38 - Modelo de estados
+(ejercicio_20_38)=
+### Ejercicio 20.38 - Modelo de estados ⭐⭐⭐☆☆
 
 Modelar el ciclo de vida de un proceso en un sistema operativo.
 
@@ -933,8 +933,8 @@ typedef struct {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.39 - Planificador simple
+(ejercicio_20_39)=
+### Ejercicio 20.39 - Planificador simple ⭐☆☆☆☆
 
 Implementar funciones de transición de estado para un planificador.
 
@@ -945,8 +945,8 @@ bool puede_ejecutar(const proceso_t* proceso);
 <!-- c -->
 
 ## Protocolo HTTP
-
-### Ejercicio 4.40 - Métodos y códigos HTTP
+(ejercicio_20_40)=
+### Ejercicio 20.40 - Métodos y códigos HTTP ⭐⭐☆☆☆
 
 Modelar métodos y códigos de estado HTTP.
 
@@ -978,8 +978,8 @@ enum codigo_http {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.41 - Parser de respuesta HTTP
+(ejercicio_20_41)=
+### Ejercicio 20.41 - Parser de respuesta HTTP ⭐⭐☆☆☆
 
 Implementar funciones para trabajar con HTTP.
 
@@ -993,8 +993,8 @@ bool es_codigo_error_servidor(enum codigo_http codigo);  // 5xx
 <!-- c -->
 
 ## Semáforo (Sistema de Control)
-
-### Ejercicio 4.42 - Estados de semáforo
+(ejercicio_20_42)=
+### Ejercicio 20.42 - Estados de semáforo ⭐⭐⭐☆☆
 
 Modelar un sistema de semáforo de tráfico.
 
@@ -1021,8 +1021,8 @@ typedef struct {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.43 - Controlador de semáforo
+(ejercicio_20_43)=
+### Ejercicio 20.43 - Controlador de semáforo ⭐⭐☆☆☆
 
 Implementar la lógica de transición de un semáforo.
 
@@ -1034,8 +1034,8 @@ bool puede_pasar(const semaforo_t* semaforo, enum direccion_trafico direccion);
 <!-- c -->
 
 ## Transacciones de Base de Datos
-
-### Ejercicio 4.44 - Estados de transacción
+(ejercicio_20_44)=
+### Ejercicio 20.44 - Estados de transacción ⭐⭐⭐☆☆
 
 Modelar el ciclo de vida de una transacción.
 
@@ -1065,8 +1065,8 @@ typedef struct {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.45 - Gestor de transacciones
+(ejercicio_20_45)=
+### Ejercicio 20.45 - Gestor de transacciones ⭐⭐☆☆☆
 
 Implementar funciones para gestionar transacciones.
 
@@ -1079,8 +1079,8 @@ bool puede_hacer_commit(const transaccion_t* tx);
 <!-- c -->
 
 ## Tipos de Datos SQL
-
-### Ejercicio 4.46 - Tipos de columna
+(ejercicio_20_46)=
+### Ejercicio 20.46 - Tipos de columna ⭐⭐☆☆☆
 
 Modelar tipos de datos SQL y sus propiedades.
 
@@ -1117,8 +1117,8 @@ typedef struct {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.47 - Validación de columnas
+(ejercicio_20_47)=
+### Ejercicio 20.47 - Validación de columnas ⭐⭐☆☆☆
 
 Implementar funciones para validar definiciones de columnas.
 
@@ -1131,8 +1131,8 @@ size_t tamanio_tipo(enum tipo_sql tipo);
 <!-- c -->
 
 ## Formatos de Imagen
-
-### Ejercicio 4.48 - Tipos y formatos
+(ejercicio_20_48)=
+### Ejercicio 20.48 - Tipos y formatos ⭐⭐☆☆☆
 
 Modelar diferentes formatos de imagen y sus propiedades.
 
@@ -1168,8 +1168,8 @@ typedef struct {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.49 - Análisis de formatos
+(ejercicio_20_49)=
+### Ejercicio 20.49 - Análisis de formatos ⭐⭐☆☆☆
 
 Implementar funciones para analizar propiedades de formatos.
 
@@ -1182,8 +1182,8 @@ const char* extension_formato(enum formato_imagen formato);
 <!-- c -->
 
 ## Sistema de Notificaciones
-
-### Ejercicio 4.50 - Niveles de notificación
+(ejercicio_20_50)=
+### Ejercicio 20.50 - Niveles de notificación ⭐⭐☆☆☆
 
 Modelar un sistema de notificaciones con prioridades.
 
@@ -1215,8 +1215,8 @@ typedef struct {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.51 - Gestor de notificaciones
+(ejercicio_20_51)=
+### Ejercicio 20.51 - Gestor de notificaciones ⭐⭐☆☆☆
 
 Implementar funciones para filtrar y enviar notificaciones.
 
@@ -1228,8 +1228,8 @@ unsigned int canales_para_nivel(enum nivel_notificacion nivel);
 <!-- c -->
 
 ## Compresión de Datos
-
-### Ejercicio 4.52 - Algoritmos de compresión
+(ejercicio_20_52)=
+### Ejercicio 20.52 - Algoritmos de compresión ⭐⭐☆☆☆
 
 Modelar diferentes algoritmos de compresión y sus niveles.
 
@@ -1262,8 +1262,8 @@ typedef struct {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.53 - Análisis de compresión
+(ejercicio_20_53)=
+### Ejercicio 20.53 - Análisis de compresión ⭐⭐☆☆☆
 
 Implementar funciones para analizar rendimiento de compresión.
 
@@ -1276,8 +1276,8 @@ const char* nombre_algoritmo(enum algoritmo_compresion alg);
 <!-- c -->
 
 ## Máquina de Estados Finita Genérica
-
-### Ejercicio 4.54 - Framework de FSM
+(ejercicio_20_54)=
+### Ejercicio 20.54 - Framework de FSM ⭐⭐☆☆☆
 
 Implementar un framework genérico para máquinas de estados finitas.
 
@@ -1317,8 +1317,8 @@ typedef struct {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 4.55 - Motor de FSM
+(ejercicio_20_55)=
+### Ejercicio 20.55 - Motor de FSM ⭐⭐☆☆☆
 
 Implementar el motor que procesa eventos y ejecuta transiciones.
 
@@ -1331,8 +1331,8 @@ estado_fsm_t fsm_estado_actual(const maquina_estados_t* fsm);
 <!-- c -->
 
 ## Análisis Comparativo de Enums
-
-### Ejercicio 4.56 - Comparación de implementaciones
+(ejercicio_20_56)=
+### Ejercicio 20.56 - Comparación de implementaciones ⭐⭐☆☆☆
 
 Analizar diferentes formas de implementar el mismo concepto:
 
@@ -1358,22 +1358,16 @@ enum dia {
 <!-- c -->
 
 Discutir casos de uso, ventajas y desventajas de cada enfoque.
-
-### Ejercicio 4.57 - Tamaño y rendimiento
+(ejercicio_20_57)=
+### Ejercicio 20.57 - Tamaño y rendimiento ⭐⭐☆☆☆
 
 Investigar y documentar:
 - Tamaño en memoria de enums (usualmente `sizeof(int)`)
 - Rendimiento de operaciones con enums vs constantes
 - Optimizaciones del compilador con enums
 - Diferencias entre C y C++ en el manejo de enums
-
----
-
-## Ejercicios Adicionales (Práctica Intensiva)
-
-## Ejercicio 1: Enumeración de Días
-
-**Dificultad:** ⭐☆☆☆☆
+(ejercicio_20_58)=
+## Ejercicio 20.58 - Enumeración de Días ⭐☆☆☆☆
 
 Definí una enumeración para días de la semana y mostrá el nombre según el valor.
 
@@ -1387,10 +1381,8 @@ typedef enum {
 - Usá `switch` para convertir enum a string
 
 ---
-
-## Ejercicio 2: Estructura Punto 2D
-
-**Dificultad:** ⭐☆☆☆☆
+(ejercicio_20_59)=
+## Ejercicio 20.59 - Estructura Punto 2D ⭐☆☆☆☆
 
 Definí estructura para punto en 2D y función para calcular distancia entre dos puntos.
 
@@ -1404,10 +1396,8 @@ typedef struct {
 - Distancia: `sqrt((p2.x - p1.x)² + (p2.y - p1.y)²)`
 
 ---
-
-## Ejercicio 3: Estructura Fecha
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_20_60)=
+## Ejercicio 20.60 - Estructura Fecha ⭐⭐☆☆☆
 
 Creá estructura para fecha y función de validación.
 
@@ -1422,10 +1412,8 @@ typedef struct {
 - Validar: 1 ≤ mes ≤ 12, día según mes, considerar bisiestos
 
 ---
-
-## Ejercicio 4: Estructura Persona
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_20_61)=
+## Ejercicio 20.61 - Estructura Persona ⭐⭐☆☆☆
 
 Definí estructura persona y función para mostrar información.
 
@@ -1440,10 +1428,8 @@ typedef struct {
 - Función `void mostrar_persona(const persona_t *p)`
 
 ---
-
-## Ejercicio 5: Array de Estructuras
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_20_62)=
+## Ejercicio 20.62 - Array de Estructuras ⭐⭐⭐☆☆
 
 Creá array de estudiantes y función para encontrar el de mayor promedio.
 
@@ -1459,10 +1445,8 @@ estudiante_t clase[30];
 - Recorré array comparando promedios
 
 ---
-
-## Ejercicio 6: Enumeración con Valores Explícitos
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_20_63)=
+## Ejercicio 20.63 - Enumeración con Valores Explícitos ⭐⭐☆☆☆
 
 Definí enumeración para códigos de error HTTP.
 
@@ -1478,10 +1462,8 @@ typedef enum {
 ```
 
 ---
-
-## Ejercicio 7: Estructura Anidada
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_20_64)=
+## Ejercicio 20.64 - Estructura Anidada ⭐⭐⭐☆☆
 
 Creá estructura para dirección y persona que incluya dirección.
 
@@ -1500,10 +1482,8 @@ typedef struct {
 ```
 
 ---
-
-## Ejercicio 8: Estructura con Puntero
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_20_65)=
+## Ejercicio 20.65 - Estructura con Puntero ⭐⭐⭐☆☆
 
 Definí estructura nodo para lista enlazada.
 
@@ -1517,10 +1497,8 @@ typedef struct nodo {
 - Funciones: crear_nodo, insertar_inicio, mostrar_lista
 
 ---
-
-## Ejercicio 9: Union para Tipos Múltiples
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_20_66)=
+## Ejercicio 20.66 - Union para Tipos Múltiples ⭐⭐⭐☆☆
 
 Usá union para almacenar valor que puede ser int, float o char.
 
@@ -1540,10 +1518,8 @@ typedef struct {
 - El tipo indica cuál campo de la union es válido
 
 ---
-
-## Ejercicio 10: Inicialización Designada
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_20_67)=
+## Ejercicio 20.67 - Inicialización Designada ⭐⭐☆☆☆
 
 Practicá diferentes formas de inicializar estructuras.
 
@@ -1561,10 +1537,8 @@ punto_t p4 = {.x = 3.0};
 ```
 
 ---
-
-## Ejercicio 11: Rectángulo con Puntos
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_20_68)=
+## Ejercicio 20.68 - Rectángulo con Puntos ⭐⭐⭐☆☆
 
 Definí rectángulo con dos puntos (esquinas opuestas) y calcula área/perímetro.
 
@@ -1579,10 +1553,8 @@ typedef struct {
 - Perímetro: 2 × (ancho + alto)
 
 ---
-
-## Ejercicio 12: Biblioteca de Libros
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_20_69)=
+## Ejercicio 20.69 - Biblioteca de Libros ⭐⭐⭐⭐☆
 
 Sistema con estructuras para libro, autor, editorial.
 
@@ -1603,10 +1575,8 @@ typedef struct {
 - Funciones: buscar por título, filtrar por autor, ordenar por precio
 
 ---
-
-## Ejercicio 13: Enum como Flags (Bits)
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_20_70)=
+## Ejercicio 20.70 - Enum como Flags (Bits) ⭐⭐⭐⭐☆
 
 Usá enum para permisos de archivo estilo Unix.
 
@@ -1626,10 +1596,8 @@ if (permisos & PERM_READ) { /* tiene lectura */ }
 ```
 
 ---
-
-## Ejercicio 14: Struct con Padding
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_20_71)=
+## Ejercicio 20.71 - Struct con Padding ⭐⭐⭐⭐☆
 
 Explorá alineación de memoria en estructuras.
 
@@ -1650,10 +1618,8 @@ typedef struct {
 - Usá `sizeof()` para ver diferencias
 
 ---
-
-## Ejercicio 15: Árbol Binario
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_20_72)=
+## Ejercicio 20.72 - Árbol Binario ⭐⭐⭐⭐⭐
 
 Implementá estructura de árbol binario y recorridos.
 
@@ -1668,10 +1634,8 @@ typedef struct nodo_arbol {
 - Funciones: insertar, buscar, recorridos (inorden, preorden, postorden)
 
 ---
-
-## Ejercicio 16: Polimorfismo con Union
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_20_73)=
+## Ejercicio 20.73 - Polimorfismo con Union ⭐⭐⭐⭐⭐
 
 Creá sistema de figuras geométricas con union.
 
@@ -1700,10 +1664,8 @@ double calcular_area(const figura_t *f);
 ```
 
 ---
-
-## Ejercicio 17: Cola con Struct
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_20_74)=
+## Ejercicio 20.74 - Cola con Struct ⭐⭐⭐⭐☆
 
 Implementá cola FIFO con estructura.
 
@@ -1720,10 +1682,8 @@ typedef struct {
 - Funciones: crear, encolar, desencolar, esta_llena, destruir
 
 ---
-
-## Ejercicio 18: Grafo con Listas de Adyacencia
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_20_75)=
+## Ejercicio 20.75 - Grafo con Listas de Adyacencia ⭐⭐⭐⭐⭐
 
 Representá grafo con estructuras.
 
@@ -1742,10 +1702,8 @@ typedef struct {
 - Funciones: crear_grafo, agregar_arista, mostrar
 
 ---
-
-## Ejercicio 19: Base de Datos Simple
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_20_76)=
+## Ejercicio 20.76 - Base de Datos Simple ⭐⭐⭐⭐⭐
 
 Sistema CRUD para empleados.
 
@@ -1767,10 +1725,8 @@ typedef struct {
 - Funciones: crear, agregar, buscar, actualizar, eliminar, listar
 
 ---
-
-## Ejercicio 20: Máquina de Estados con Enum
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_20_77)=
+## Ejercicio 20.77 - Máquina de Estados con Enum ⭐⭐⭐⭐⭐
 
 Implementá máquina de estados finitos.
 

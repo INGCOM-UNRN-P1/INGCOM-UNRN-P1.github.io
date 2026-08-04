@@ -19,8 +19,8 @@ capítulos del apunte:
 - [Makefiles](../../apunte/bloque_2_proyectos/2_makefiles.md)
 
 ## Proyecto Multi-archivo Manual
-
-### Ejercicio 2.1 - Separar un programa
+(ejercicio_6_1)=
+### Ejercicio 6.1 - Separar un programa ⭐⭐☆☆☆
 
 **Tarea**: Tomá un programa simple que tengas en un solo archivo `.c` (por
 ejemplo, una calculadora con funciones `sumar` y `restar`) y dividilo en tres
@@ -32,8 +32,8 @@ archivos:
   contener el código de las funciones `sumar` y `restar`.
 - **`main.c`**: El programa principal. Debe incluir `calculadora.h` y llamar a
   las funciones para usarlas.
-
-### Ejercicio 2.2 - Compilación manual
+(ejercicio_6_2)=
+### Ejercicio 6.2 - Compilación manual ⭐⭐☆☆☆
 
 **Tarea**: Usando la terminal, compilá y enlazá los archivos del ejercicio
 anterior sin usar un Makefile.
@@ -56,8 +56,8 @@ anterior sin usar un Makefile.
 <!-- {hint} Pasos de Compilación -->
 
 ## Automatización con Makefile
-
-### Ejercicio 2.3 - Makefile básico
+(ejercicio_6_3)=
+### Ejercicio 6.3 - Makefile básico ⭐☆☆☆☆
 
 **Tarea**: Crear un `Makefile` para el proyecto del ejercicio anterior. El
 Makefile debe tener los siguientes objetivos (`targets`):
@@ -104,8 +104,8 @@ clean:
 <!-- {tip} Estructura del Makefile -->
 
 ## Compilación Condicional
-
-### Ejercicio 2.4 - Mensajes de depuración
+(ejercicio_6_4)=
+### Ejercicio 6.4 - Mensajes de depuración ⭐⭐☆☆☆
 
 **Tarea**: Modificá tu proyecto para incluir mensajes de depuración que solo se
 impriman cuando se compile en "modo debug".
@@ -137,14 +137,8 @@ impriman cuando se compile en "modo debug".
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
-
----
-
-## Ejercicios Adicionales (Práctica Intensiva)
-
-## Ejercicio 1: Compilación Básica
-
-**Dificultad:** ⭐☆☆☆☆
+(ejercicio_6_5)=
+## Ejercicio 6.5 - Compilación Básica ⭐☆☆☆☆
 
 Compilá un programa simple desde línea de comandos.
 
@@ -157,10 +151,8 @@ gcc -o programa programa.c
 - Sin `-o`, crea `a.out` por defecto
 
 ---
-
-## Ejercicio 2: Warnings Habilitados
-
-**Dificultad:** ⭐☆☆☆☆
+(ejercicio_6_6)=
+## Ejercicio 6.6 - Warnings Habilitados ⭐☆☆☆☆
 
 Compilá con warnings completos y corregí los problemas.
 
@@ -174,10 +166,8 @@ gcc -Wall -Wextra -std=c99 -pedantic programa.c -o programa
 - `-pedantic`: estricto con estándar
 
 ---
-
-## Ejercicio 3: Dos Archivos Separados
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_6_7)=
+## Ejercicio 6.7 - Dos Archivos Separados ⭐⭐☆☆☆
 
 Separáun programa en main.c y funciones.c.
 
@@ -218,10 +208,8 @@ gcc funciones.o main.o -o programa
 ```
 
 ---
-
-## Ejercicio 4: Include Guards
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_6_8)=
+## Ejercicio 6.8 - Include Guards ⭐⭐☆☆☆
 
 Explicá por qué se necesitan include guards y implementalos.
 
@@ -238,10 +226,8 @@ Explicá por qué se necesitan include guards y implementalos.
 - Evita errores de redefinición
 
 ---
-
-## Ejercicio 5: Makefile Básico
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_6_9)=
+## Ejercicio 6.9 - Makefile Básico ⭐⭐⭐☆☆
 
 Creá Makefile para compilar proyecto de ejercicio 3.
 
@@ -270,10 +256,8 @@ make clean     # Limpia
 ```
 
 ---
-
-## Ejercicio 6: Biblioteca Matemática
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_6_10)=
+## Ejercicio 6.10 - Biblioteca Matemática ⭐⭐⭐☆☆
 
 Creá biblioteca con funciones matemáticas: factorial, potencia, fibonacci.
 
@@ -292,10 +276,8 @@ proyecto/
 - `test.c`: programa que usa la biblioteca
 
 ---
-
-## Ejercicio 7: Flags de Optimización
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_6_11)=
+## Ejercicio 6.11 - Flags de Optimización ⭐⭐⭐☆☆
 
 Compilá con diferentes niveles de optimización y medí diferencia.
 
@@ -312,10 +294,8 @@ gcc -O3 programa.c -o prog_O3  # Agresiva
 - `-O3` máxima optimización
 
 ---
-
-## Ejercicio 8: Compilación Condicional
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_6_12)=
+## Ejercicio 6.12 - Compilación Condicional ⭐⭐⭐☆☆
 
 Usá directivas de preprocesador para debug opcional.
 
@@ -333,10 +313,8 @@ gcc programa.c -o programa           # Sin debug
 ```
 
 ---
-
-## Ejercicio 9: Módulo de Utilidades
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_6_13)=
+## Ejercicio 6.13 - Módulo de Utilidades ⭐⭐⭐⭐☆
 
 Creá módulo `utils` con funciones de uso general: intercambio, mínimo, máximo.
 
@@ -362,10 +340,8 @@ int maximo(int a, int b);
 ```
 
 ---
-
-## Ejercicio 10: Makefile con Variables
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_6_14)=
+## Ejercicio 6.14 - Makefile con Variables ⭐⭐⭐⭐☆
 
 Mejorá Makefile usando variables y patrones.
 
@@ -392,10 +368,8 @@ clean:
 ```
 
 ---
-
-## Ejercicio 11: Dependencias Automáticas
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_6_15)=
+## Ejercicio 6.15 - Dependencias Automáticas ⭐⭐⭐⭐☆
 
 Generá dependencias automáticamente con gcc.
 
@@ -412,10 +386,8 @@ DEPS = $(OBJS:.o=.d)
 - `-MP`: crea targets phony para headers
 
 ---
-
-## Ejercicio 12: Biblioteca Estática
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_6_16)=
+## Ejercicio 6.16 - Biblioteca Estática ⭐⭐⭐⭐⭐
 
 Creá biblioteca estática (.a) y usala en programa.
 
@@ -435,10 +407,8 @@ gcc main.c -L. -lmibiblioteca -o programa
 - `-lmibiblioteca`: enlazar con libmibiblioteca.a
 
 ---
-
-## Ejercicio 13: Biblioteca Compartida
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_6_17)=
+## Ejercicio 6.17 - Biblioteca Compartida ⭐⭐⭐⭐⭐
 
 Creá biblioteca compartida (.so) y usala.
 
@@ -459,10 +429,8 @@ export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH
 ```
 
 ---
-
-## Ejercicio 14: Proyecto Multi-Directorio
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_6_18)=
+## Ejercicio 6.18 - Proyecto Multi-Directorio ⭐⭐⭐⭐⭐
 
 Organizá proyecto en directorios: src/, include/, obj/, bin/.
 
@@ -502,10 +470,8 @@ $(OBJDIR) $(BINDIR):
 ```
 
 ---
-
-## Ejercicio 15: Targets Adicionales
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_6_19)=
+## Ejercicio 6.19 - Targets Adicionales ⭐⭐⭐⭐☆
 
 Agregá targets útiles: run, test, install, uninstall.
 
@@ -527,10 +493,8 @@ uninstall:
 ```
 
 ---
-
-## Ejercicio 16: Compilación Debug/Release
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_6_20)=
+## Ejercicio 6.20 - Compilación Debug/Release ⭐⭐⭐⭐⭐
 
 Makefile con modo debug y release.
 
@@ -555,10 +519,8 @@ all: $(TARGET)
 ```
 
 ---
-
-## Ejercicio 17: Análisis Estático
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_6_21)=
+## Ejercicio 6.21 - Análisis Estático ⭐⭐⭐⭐☆
 
 Integrá herramientas de análisis en Makefile.
 
@@ -577,10 +539,8 @@ valgrind: $(TARGET)
 ```
 
 ---
-
-## Ejercicio 18: Cross-Compilation
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_6_22)=
+## Ejercicio 6.22 - Cross-Compilation ⭐⭐⭐⭐⭐
 
 Configurá cross-compilation para diferentes arquitecturas.
 
@@ -604,10 +564,8 @@ native: $(TARGET)
 ```
 
 ---
-
-## Ejercicio 19: Sistema de Build Completo
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_6_23)=
+## Ejercicio 6.23 - Sistema de Build Completo ⭐⭐⭐⭐⭐
 
 Proyecto completo con múltiples bibliotecas y tests.
 
@@ -636,10 +594,8 @@ proyecto/
 - Target para todo (all)
 
 ---
-
-## Ejercicio 20: CMake Básico
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_6_24)=
+## Ejercicio 6.24 - CMake Básico ⭐⭐⭐⭐⭐
 
 Convertí proyecto a usar CMake en lugar de Makefile.
 

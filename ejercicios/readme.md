@@ -56,6 +56,16 @@ Usuario Github
 ```
 <!-- {code-block} c -->
 
+### Niveles de Dificultad
+
+Todos los ejercicios se encuentran clasificados con la etiqueta `**Dificultad:**` según su nivel de complejidad:
+
+- ⭐☆☆☆☆ - **Básico:** Aplicación directa de 1-2 conceptos fundamentales.
+- ⭐⭐☆☆☆ - **Fácil:** Combina 2-3 conceptos simples o estructuras elementales.
+- ⭐⭐⭐☆☆ - **Intermedio:** Requiere diseño algorítmico o manejo de datos.
+- ⭐⭐⭐⭐☆ - **Avanzado:** Múltiples conceptos integrados, indirección o optimización.
+- ⭐⭐⭐⭐⭐ - **Experto:** Problemas complejos de arquitectura o algoritmos avanzados.
+
 ---
 
 ## Estructura de Ejercicios por Bloques

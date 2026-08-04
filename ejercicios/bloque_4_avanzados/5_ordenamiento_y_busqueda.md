@@ -24,8 +24,8 @@ binaria) y ordenamiento (burbuja, selección, inserción, fusión, rápido) en C
 ---
 
 ## Algoritmos de Búsqueda
-
-### Ejercicio 5.1 - Búsqueda Lineal
+(ejercicio_30_1)=
+### Ejercicio 30.1 - Búsqueda Lineal ⭐⭐☆☆☆
 
 Implementar una función que busque un elemento en un arreglo recorriéndolo
 secuencialmente desde el primer hasta el último elemento. Es el método de
@@ -37,8 +37,8 @@ búsqueda más simple y no requiere que el arreglo esté ordenado.
 - **Salida**: Si se encuentra el elemento, devolver su índice `i`. Si el lazo
   termina sin encontrarlo, devolver `-1`.
 - **Complejidad Temporal**: $O(n)$.
-
-### Ejercicio 5.2 - Búsqueda Binaria
+(ejercicio_30_2)=
+### Ejercicio 30.2 - Búsqueda Binaria ⭐⭐☆☆☆
 
 Implementar una función de búsqueda binaria, un algoritmo mucho más eficiente
 que requiere que el arreglo esté **previamente ordenado**. Funciona dividiendo
@@ -59,8 +59,8 @@ repetidamente el intervalo de búsqueda por la mitad.
 ---
 
 ## Algoritmos de Ordenamiento Cuadráticos ($O(n^2)$)
-
-### Ejercicio 5.3 - Ordenamiento de Burbuja (Bubble Sort)
+(ejercicio_30_3)=
+### Ejercicio 30.3 - Ordenamiento de Burbuja (Bubble Sort) ⭐⭐☆☆☆
 
 Implementar el ordenamiento de burbuja. Este método recorre repetidamente la
 lista, compara elementos adyacentes y los intercambia si están en el orden
@@ -74,8 +74,8 @@ necesiten más intercambios.
 - **Optimización**: Se puede agregar una bandera para detectar si en una pasada
   completa no se realizó ningún intercambio, en cuyo caso el arreglo ya está
   ordenado y el algoritmo puede terminar antes.
-
-### Ejercicio 5.4 - Ordenamiento por Selección (Selection Sort)
+(ejercicio_30_4)=
+### Ejercicio 30.4 - Ordenamiento por Selección (Selection Sort) ⭐⭐☆☆☆
 
 Implementar el ordenamiento por selección. Este algoritmo divide el arreglo en
 una parte ordenada y una desordenada. En cada iteración, encuentra el elemento
@@ -87,8 +87,8 @@ esta, moviendo así el límite entre ambas partes.
   iteración, el lazo interior (de `j = i+1` a `n-1`) busca el índice del
   elemento mínimo en el resto del arreglo. Finalmente, se intercambia el
   elemento en `i` con el mínimo encontrado.
-
-### Ejercicio 5.5 - Ordenamiento por Inserción (Insertion Sort)
+(ejercicio_30_5)=
+### Ejercicio 30.5 - Ordenamiento por Inserción (Insertion Sort) ⭐⭐☆☆☆
 
 Implementar el ordenamiento por inserción. Este método construye el arreglo
 ordenado final un elemento a la vez. Es muy eficiente para arreglos pequeños o
@@ -104,8 +104,8 @@ que ya están casi ordenados.
 ---
 
 ## Algoritmos de Ordenamiento Avanzados ($O(n \log n)$)
-
-### Ejercicio 5.6 - Ordenamiento por Fusión (Merge Sort)
+(ejercicio_30_6)=
+### Ejercicio 30.6 - Ordenamiento por Fusión (Merge Sort) ⭐⭐☆☆☆
 
 Implementar Merge Sort, un algoritmo eficiente basado en la técnica "Divide y
 Vencerás".
@@ -118,8 +118,8 @@ Vencerás".
   3. **Combinar**: Implementar una función `merge` que tome las dos mitades ya
      ordenadas y las fusione en un único arreglo ordenado. Este paso requiere un
      arreglo auxiliar.
-
-### Ejercicio 5.7 - Ordenamiento Rápido (Quick Sort)
+(ejercicio_30_7)=
+### Ejercicio 30.7 - Ordenamiento Rápido (Quick Sort) ⭐⭐☆☆☆
 
 Implementar Quick Sort, otro algoritmo "Divide y Vencerás" muy eficiente en la
 práctica.

@@ -21,8 +21,8 @@ apunte. Asegurate de seguir la regla de estilo {ref}`0x3002h` para la liberació
 adecuada de recursos y prevención de punteros colgantes.
 
 ## Modelo de Memoria
-
-### Ejercicio 1b.1 - Exploración del Layout de Memoria
+(ejercicio_15_1)=
+### Ejercicio 15.1 - b.1 - Exploración del Layout de Memoria ⭐⭐☆☆☆
 
 Escribir un programa que imprima las direcciones de memoria de:
 - Una variable local (stack)
@@ -35,8 +35,8 @@ Escribir un programa que imprima las direcciones de memoria de:
 **Objetivo:** Visualizar las diferentes regiones de memoria y confirmar el
 layout típico: stack (altas direcciones) → heap (bajas direcciones) → data/bss →
 text.
-
-### Ejercicio 1b.2 - Dirección de Crecimiento del Stack
+(ejercicio_15_2)=
+### Ejercicio 15.2 - b.2 - Dirección de Crecimiento del Stack ⭐⭐☆☆☆
 
 Escribir una función recursiva que imprima la dirección de una variable local en
 cada llamada. Observar si el stack crece hacia direcciones más altas o más
@@ -54,8 +54,8 @@ void explorar_stack(int nivel) {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 1b.3 - Tamaño de Página del Sistema
+(ejercicio_15_3)=
+### Ejercicio 15.3 - b.3 - Tamaño de Página del Sistema ⭐⭐☆☆☆
 
 Escribir un programa que use `sysconf(_SC_PAGESIZE)` (en sistemas POSIX) para
 obtener el tamaño de página del sistema. Luego, alojar varios bloques de memoria
@@ -71,8 +71,8 @@ memoria física.
 <!-- {note} Memoria Virtual -->
 
 ## Patrones de Gestión de Memoria
-
-### Ejercicio 1b.4 - Inicialización Consistente
+(ejercicio_15_4)=
+### Ejercicio 15.4 - b.4 - Inicialización Consistente ⭐☆☆☆☆
 
 Implementar una función `struct producto_t* crear_producto(const char* nombre,
 double precio)` que:
@@ -92,8 +92,8 @@ de liberar para evitar dangling pointers.
 
 :::
 <!-- {tip} Buena Práctica -->
-
-### Ejercicio 1b.5 - Manejo de Errores en Cadena
+(ejercicio_15_5)=
+### Ejercicio 15.5 - b.5 - Manejo de Errores en Cadena ⭐⭐⭐☆☆
 
 Escribir una función que aloje múltiples estructuras anidadas:
 
@@ -115,8 +115,8 @@ struct direccion_t {
 
 La función debe manejar correctamente fallos de `malloc` en cualquier paso,
 liberando todo lo previamente asignado antes de retornar `NULL`.
-
-### Ejercicio 1b.6 - Pool de Memoria Simple
+(ejercicio_15_6)=
+### Ejercicio 15.6 - b.6 - Pool de Memoria Simple ⭐☆☆☆☆
 
 Implementar un pool de memoria básico que preasigne un bloque grande y
 distribuya bloques pequeños de tamaño fijo desde él.
@@ -142,8 +142,8 @@ void pool_destruir(pool_t* pool);
 **Ventaja:** Reduce la fragmentación y overhead de múltiples `malloc`/`free`.
 
 ## Errores Comunes y Detección
-
-### Ejercicio 1b.7 - Double Free
+(ejercicio_15_7)=
+### Ejercicio 15.7 - b.7 - Double Free ⭐⭐☆☆☆
 
 Escribir un programa que deliberadamente cometa el error de double free:
 
@@ -164,8 +164,8 @@ int main() {
 
 Compilar con AddressSanitizer (`gcc -fsanitize=address`) y observar el error
 detectado.
-
-### Ejercicio 1b.8 - Use After Free
+(ejercicio_15_8)=
+### Ejercicio 15.8 - b.8 - Use After Free ⭐⭐☆☆☆
 
 Crear un programa que cometa use-after-free:
 
@@ -186,8 +186,8 @@ int main() {
 <!-- {code-block} c -->
 
 Ejecutar con Valgrind: `valgrind --leak-check=full ./programa`
-
-### Ejercicio 1b.9 - Memory Leak Complejo
+(ejercicio_15_9)=
+### Ejercicio 15.9 - b.9 - Memory Leak Complejo ⭐⭐⭐⭐☆
 
 Crear un programa con un leak no trivial:
 
@@ -221,8 +221,8 @@ int main() {
 
 Detectar con Valgrind el leak de 100 nodos. Luego implementar una función
 `liberar_lista` que corrija el problema.
-
-### Ejercicio 1b.10 - Buffer Overflow en Heap
+(ejercicio_15_10)=
+### Ejercicio 15.10 - b.10 - Buffer Overflow en Heap ⭐⭐☆☆☆
 
 Demostrar un buffer overflow en memoria dinámica:
 
@@ -245,8 +245,8 @@ Compilar con `-fsanitize=address` y observar la detección del
 heap-buffer-overflow.
 
 ## Estrategias de Realocación
-
-### Ejercicio 1b.11 - Vector con Estrategia de Crecimiento
+(ejercicio_15_11)=
+### Ejercicio 15.11 - b.11 - Vector con Estrategia de Crecimiento ⭐⭐☆☆☆
 
 Implementar un vector dinámico con diferentes estrategias de crecimiento:
 - **Lineal**: incrementar en un valor fijo (ej. +10)
@@ -254,8 +254,8 @@ Implementar un vector dinámico con diferentes estrategias de crecimiento:
 - **Fibonacci**: crecer según la secuencia de Fibonacci
 
 Comparar el número de `realloc` realizados al insertar 10,000 elementos.
-
-### Ejercicio 1b.12 - Shrinking Inteligente
+(ejercicio_15_12)=
+### Ejercicio 15.12 - b.12 - Shrinking Inteligente ⭐⭐☆☆☆
 
 Implementar un vector que no solo crece, sino que también reduce su capacidad
 cuando el tamaño cae por debajo de 1/4 de la capacidad. Esto evita el overhead
@@ -277,8 +277,8 @@ void vector_pop(vector_t* v) {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 1b.13 - Realloc Fallido
+(ejercicio_15_13)=
+### Ejercicio 15.13 - b.13 - Realloc Fallido ⭐⭐☆☆☆
 
 Escribir una función que maneje correctamente el fallo de `realloc`:
 
@@ -313,8 +313,8 @@ puntero original y tenés un leak. Usá un puntero temporal como en el ejemplo.
 <!-- {important} Manejo de `realloc` -->
 
 ## Análisis de Rendimiento y Fragmentación
-
-### Ejercicio 1b.14 - Fragmentación Externa
+(ejercicio_15_14)=
+### Ejercicio 15.14 - b.14 - Fragmentación Externa ⭐⭐☆☆☆
 
 Escribir un programa que demuestre fragmentación externa:
 
@@ -355,8 +355,8 @@ int main() {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 1b.15 - Medición de Overhead de malloc
+(ejercicio_15_15)=
+### Ejercicio 15.15 - b.15 - Medición de Overhead de malloc ⭐⭐☆☆☆
 
 Escribir un programa que mida el overhead de `malloc` comparando el tamaño
 solicitado vs. el espacio realmente consumido (usando herramientas como
@@ -384,8 +384,8 @@ int main() {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 1b.16 - Cache Locality
+(ejercicio_15_16)=
+### Ejercicio 15.16 - b.16 - Cache Locality ⭐⭐☆☆☆
 
 Comparar el rendimiento de acceso secuencial vs. aleatorio en un arreglo grande:
 
@@ -424,8 +424,8 @@ int main() {
 rápido debido a mejor locality y uso del caché.
 
 ## Alineación de Memoria
-
-### Ejercicio 1b.17 - Visualizar Alineación
+(ejercicio_15_17)=
+### Ejercicio 15.17 - b.17 - Visualizar Alineación ⭐⭐☆☆☆
 
 Escribir un programa que demuestre la alineación de memoria en structs:
 
@@ -461,8 +461,8 @@ int main() {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 1b.18 - Alineación Manual
+(ejercicio_15_18)=
+### Ejercicio 15.18 - b.18 - Alineación Manual ⭐⭐☆☆☆
 
 Implementar una función que aloje memoria alineada a un límite específico (ej.
 64 bytes para optimización de caché):
@@ -484,8 +484,8 @@ void* malloc_alineado(size_t size, size_t alineacion) {
 <!-- {code-block} c -->
 
 ## Integración con Herramientas
-
-### Ejercicio 1b.19 - Script de Análisis con Valgrind
+(ejercicio_15_19)=
+### Ejercicio 15.19 - b.19 - Script de Análisis con Valgrind ⭐⭐☆☆☆
 
 Crear un Makefile que incluya targets para análisis automático:
 
@@ -506,8 +506,8 @@ asan:
 
 ```
 <!-- {code-block} makefile -->
-
-### Ejercicio 1b.20 - Supresor de Falsos Positivos
+(ejercicio_15_20)=
+### Ejercicio 15.20 - b.20 - Supresor de Falsos Positivos ⭐⭐☆☆☆
 
 Crear un archivo de supresión para Valgrind que ignore leaks conocidos de
 bibliotecas del sistema:
@@ -522,8 +522,8 @@ bibliotecas del sistema:
 ```
 
 Usar con: `valgrind --suppressions=mi_supresion.supp ./programa`
-
-### Ejercicio 1b.21 - Wrapper de malloc para Debugging
+(ejercicio_15_21)=
+### Ejercicio 15.21 - b.21 - Wrapper de malloc para Debugging ⭐⭐☆☆☆
 
 Implementar wrappers de las funciones de memoria que agreguen logging:
 
@@ -547,8 +547,8 @@ void debug_free(void* ptr, const char* archivo, int linea) {
 <!-- {code-block} c -->
 
 ## Casos Especiales
-
-### Ejercicio 1b.22 - Memoria Compartida entre Funciones
+(ejercicio_15_22)=
+### Ejercicio 15.22 - b.22 - Memoria Compartida entre Funciones ⭐⭐☆☆☆
 
 Implementar un patrón donde una función asigna memoria y otra la libera,
 documentando claramente la responsabilidad:
@@ -587,8 +587,8 @@ comentarios como "Caller must free" o "Takes ownership".
 
 :::
 <!-- {note} Convención de Propiedad -->
-
-### Ejercicio 1b.23 - Retorno de Estructuras con Memoria Dinámica
+(ejercicio_15_23)=
+### Ejercicio 15.23 - b.23 - Retorno de Estructuras con Memoria Dinámica ⭐⭐⭐☆☆
 
 Implementar una función que retorne un struct que contiene punteros a memoria
 dinámica:
@@ -618,8 +618,8 @@ struct resultado_t procesar_numeros(int* entrada, size_t n) {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 1b.24 - Gestión de Recursos con goto
+(ejercicio_15_24)=
+### Ejercicio 15.24 - b.24 - Gestión de Recursos con goto ⭐⭐☆☆☆
 
 Demostrar el uso apropiado de `goto` para cleanup en caso de errores:
 
@@ -656,32 +656,33 @@ int procesar_archivo(const char* ruta) {
 
 ```
 <!-- {code-block} c -->
+(ejercicio_15_25)=
+## Ejercicio 15.25 - s Integradores ⭐⭐☆☆☆
 
-## Ejercicios Integradores
-
-### Ejercicio 1b.25 - Tabla Hash Dinámica
+(ejercicio_15_26)=
+### Ejercicio 15.26 - b.25 - Tabla Hash Dinámica ⭐⭐⭐☆☆
 
 Implementar una tabla hash simple con resolución de colisiones por
 encadenamiento. La tabla debe:
 - Usar un arreglo dinámico de listas enlazadas
 - Crecer automáticamente cuando el factor de carga supere 0.75
 - Liberar toda la memoria correctamente al destruirse
-
-### Ejercicio 1b.26 - Árbol Binario con Memoria Dinámica
+(ejercicio_15_27)=
+### Ejercicio 15.27 - b.26 - Árbol Binario con Memoria Dinámica ⭐⭐⭐⭐☆
 
 Implementar un árbol binario de búsqueda donde cada nodo se aloja dinámicamente.
 Incluir funciones para:
 - Inserción
 - Búsqueda
 - Liberación recursiva (postorder traversal)
-
-### Ejercicio 1b.27 - Parser de JSON Simplificado
+(ejercicio_15_28)=
+### Ejercicio 15.28 - b.27 - Parser de JSON Simplificado ⭐⭐☆☆☆
 
 Crear un parser básico de JSON que construya una estructura de datos en memoria
 dinámica representando el objeto JSON. Manejar cadenas, números, arreglos y
 objetos anidados.
-
-### Ejercicio 1b.28 - Sistema de Gestión de Tareas
+(ejercicio_15_29)=
+### Ejercicio 15.29 - b.28 - Sistema de Gestión de Tareas ⭐⭐☆☆☆
 
 Implementar un sistema que mantenga una lista de tareas donde cada tarea tiene:
 - ID único
@@ -692,8 +693,8 @@ El sistema debe permitir agregar, eliminar y buscar tareas, manejando toda la
 memoria correctamente.
 
 ## Preguntas Conceptuales
-
-### Ejercicio 1b.29 - Stack vs Heap
+(ejercicio_15_30)=
+### Ejercicio 15.30 - b.29 - Stack vs Heap ⭐⭐☆☆☆
 
 **Pregunta:** ¿Por qué no podemos simplemente usar el stack para todas las
 asignaciones de memoria? ¿Qué limitaciones tiene?
@@ -702,8 +703,8 @@ asignaciones de memoria? ¿Qué limitaciones tiene?
 crece automáticamente en cada llamada a función, y su memoria tiene scope
 limitado al bloque actual. El heap permite asignaciones grandes, persistencia
 más allá del scope, y tamaño determinado en runtime.
-
-### Ejercicio 1b.30 - Fragmentación Interna vs Externa
+(ejercicio_15_31)=
+### Ejercicio 15.31 - b.30 - Fragmentación Interna vs Externa ⭐⭐☆☆☆
 
 **Pregunta:** Explicar la diferencia entre fragmentación interna y externa. Dar
 ejemplos de cada una.
@@ -713,8 +714,8 @@ ejemplos de cada una.
 
 **Fragmentación externa:** Espacio libre total suficiente pero dividido en
 bloques no contiguos (ej. después de liberar bloques alternados).
-
-### Ejercicio 1b.31 - Costos Ocultos de malloc
+(ejercicio_15_32)=
+### Ejercicio 15.32 - b.31 - Costos Ocultos de malloc ⭐⭐☆☆☆
 
 **Pregunta:** ¿Por qué `malloc` tiene overhead? ¿Qué información necesita
 guardar el allocator?
@@ -722,8 +723,8 @@ guardar el allocator?
 **Respuesta esperada:** El allocator guarda metadatos como tamaño del bloque,
 estado (libre/ocupado), punteros a bloques vecinos para coalescing, información
 de alineación. Típicamente 8-16 bytes por bloque.
-
-### Ejercicio 1b.32 - free(NULL)
+(ejercicio_15_33)=
+### Ejercicio 15.33 - b.32 - free(NULL) ⭐⭐☆☆☆
 
 **Pregunta:** ¿Qué hace `free(NULL)`? ¿Es seguro? ¿Por qué esta semántica es
 útil?
@@ -731,8 +732,8 @@ de alineación. Típicamente 8-16 bytes por bloque.
 **Respuesta esperada:** `free(NULL)` no hace nada y es completamente seguro
 según el estándar C. Esto permite código más simple sin necesidad de verificar
 `if (ptr != NULL) free(ptr)`.
-
-### Ejercicio 1b.33 - Tiempo de Vida de Memoria
+(ejercicio_15_34)=
+### Ejercicio 15.34 - b.33 - Tiempo de Vida de Memoria ⭐⭐☆☆☆
 
 **Pregunta:** Clasificar las siguientes asignaciones según su tiempo de vida:
 - Variable local

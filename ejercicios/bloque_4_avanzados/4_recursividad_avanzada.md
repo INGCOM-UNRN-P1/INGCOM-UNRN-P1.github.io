@@ -24,8 +24,8 @@ paradigma de diseño "Divide y Vencerás" en C.
 ---
 
 ## Fundamentos de Recursividad
-
-### Ejercicio 5.12 - Factorial
+(ejercicio_29_1)=
+### Ejercicio 29.1 - Factorial ⭐⭐☆☆☆
 
 Implementar la función factorial de forma recursiva siguiendo la definición
 matemática.
@@ -48,8 +48,8 @@ $$
 - `factorial(0)` → 1
 - `factorial(5)` → 120
 - `factorial(10)` → 3628800
-
-### Ejercicio 5.13 - Suma de Enteros
+(ejercicio_29_2)=
+### Ejercicio 29.2 - Suma de Enteros ⭐⭐☆☆☆
 
 Implementar suma de dos enteros positivos usando solo recursividad (sin operador
 `+` en el paso recursivo).
@@ -67,8 +67,8 @@ a & \text{si } b = 0 \\
 suma(a + 1, b - 1) & \text{si } b > 0
 \end{cases}
 $$
-
-### Ejercicio 5.14 - Producto por Sumas Recursivas
+(ejercicio_29_3)=
+### Ejercicio 29.3 - Producto por Sumas Recursivas ⭐⭐☆☆☆
 
 Implementar multiplicación usando solo sumas recursivas.
 
@@ -85,8 +85,8 @@ a + producto(a, b - 1) & \text{si } b > 0
 $$
 
 **Complejidad:** $O(b)$ en tiempo.
-
-### Ejercicio 5.15 - Potencia
+(ejercicio_29_4)=
+### Ejercicio 29.4 - Potencia ⭐⭐☆☆☆
 
 Implementar $base^{exponente}$ de forma recursiva.
 
@@ -118,8 +118,8 @@ $$
 ---
 
 ## Series Numéricas Recursivas
-
-### Ejercicio 5.16 - Fibonacci Básico
+(ejercicio_29_5)=
+### Ejercicio 29.5 - Fibonacci Básico ⭐☆☆☆☆
 
 Implementar la secuencia de Fibonacci recursivamente.
 

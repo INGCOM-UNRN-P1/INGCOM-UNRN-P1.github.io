@@ -25,8 +25,8 @@ defensivo de errores en tiempo de ejecución.
 ---
 
 ## Estructuras con Punteros
-
-### Ejercicio 2.1 - Creación de Persona
+(ejercicio_17_1)=
+### Ejercicio 17.1 - Creación de Persona ⭐⭐☆☆☆
 
 Implementar un constructor para la estructura `persona_t`:
 
@@ -48,8 +48,8 @@ persona_t* persona_crear(const char* nombre, const char* apellido, int edad);
 - Manejar fallos de `malloc` en cualquier etapa, liberando memoria ya asignada.
 - Retornar `NULL` si alguna asignación falla.
 - Inicializar todos los campos correctamente.
-
-### Ejercicio 2.2 - Destrucción de Persona
+(ejercicio_17_2)=
+### Ejercicio 17.2 - Destrucción de Persona ⭐⭐☆☆☆
 
 Implementar el destructor correspondiente:
 
@@ -63,8 +63,8 @@ void persona_destruir(persona_t** ptr_persona);
 - Verificar que el puntero no sea `NULL`.
 - Poner el puntero en `NULL` después de liberar.
 - Manejar correctamente el doble puntero.
-
-### Ejercicio 2.3 - Clonación Profunda
+(ejercicio_17_3)=
+### Ejercicio 17.3 - Clonación Profunda ⭐⭐☆☆☆
 
 Implementar una función que cree una copia completamente independiente de una
 persona:
@@ -76,8 +76,8 @@ persona_t* persona_clonar(const persona_t* original);
 
 La copia debe tener su propia memoria asignada para `nombre` y `apellido`, no
 compartir punteros con el original.
-
-### Ejercicio 2.4 - Estructura con Múltiples Niveles
+(ejercicio_17_4)=
+### Ejercicio 17.4 - Estructura con Múltiples Niveles ⭐⭐⭐☆☆
 
 Implementar constructor y destructor para esta estructura anidada:
 
@@ -111,8 +111,8 @@ principal, la dirección anidada, y el array dinámico de cadenas.
 ---
 
 ## Manejo de Errores en Cadena
-
-### Ejercicio 2.5 - Rollback Completo
+(ejercicio_17_5)=
+### Ejercicio 17.5 - Rollback Completo ⭐⭐☆☆☆
 
 Escribir una función que asigne memoria para una estructura de estudiante con
 cursos:
@@ -132,8 +132,8 @@ typedef struct {
 Si la asignación de `notas` falla después de haber asignado `nombre` y `cursos`,
 la función debe liberar `nombre` y `cursos` antes de retornar `NULL` para evitar
 fugas de memoria.
-
-### Ejercicio 2.6 - Alternativa con Goto
+(ejercicio_17_6)=
+### Ejercicio 17.6 - Alternativa con Goto ⭐⭐☆☆☆
 
 Implementar la función del ejercicio anterior estructurando la liberación de
 recursos en una sección de limpieza al final de la función mediante `goto`, como
@@ -142,8 +142,8 @@ se describe en las buenas prácticas de la cátedra.
 ---
 
 ## Matrices Dinámicas
-
-### Ejercicio 2.7 - Matriz Dentada (Array de Punteros)
+(ejercicio_17_7)=
+### Ejercicio 17.7 - Matriz Dentada (Array de Punteros) ⭐⭐⭐☆☆
 
 Implementar funciones para crear y liberar una matriz dentada donde cada fila se
 aloja como un bloque independiente.
@@ -153,8 +153,8 @@ int** crear_matriz_dentada(size_t filas, size_t columnas);
 void liberar_matriz_dentada(int*** ptr_matriz, size_t filas);
 ```
 <!-- c -->
-
-### Ejercicio 2.8 - Matriz de Bloque Único (Contigua)
+(ejercicio_17_8)=
+### Ejercicio 17.8 - Matriz de Bloque Único (Contigua) ⭐⭐⭐☆☆
 
 Implementar funciones para crear y liberar una matriz contigua en memoria,
 reservando un único bloque para todos los datos y configurando el array de
@@ -165,8 +165,8 @@ int** crear_matriz_contigua(size_t filas, size_t columnas);
 void liberar_matriz_contigua(int*** ptr_matriz);
 ```
 <!-- c -->
-
-### Ejercicio 2.9 - Conversión de Array Plano a Matriz
+(ejercicio_17_9)=
+### Ejercicio 17.9 - Conversión de Array Plano a Matriz ⭐⭐⭐☆☆
 
 Implementar una función que reciba un arreglo plano (`int*`) de tamaño $N \times
 M$ y retorne una estructura de punteros a filas (`int**`) que permita acceder al
@@ -175,35 +175,29 @@ mismo usando la notación `matriz[i][j]`.
 ---
 
 ## Optimización y Casos Prácticos
-
-### Ejercicio 2.10 - Vector Redimensionable con Crecimiento
+(ejercicio_17_10)=
+### Ejercicio 17.10 - Vector Redimensionable con Crecimiento ⭐⭐☆☆☆
 
 Implementar un vector dinámico de enteros que duplique su capacidad
 automáticamente al llenarse, asegurando un manejo correcto del valor de retorno
 de `realloc` mediante un puntero intermedio temporal.
-
-### Ejercicio 2.11 - Reducción Dinámica de Capacidad (Shrinking)
+(ejercicio_17_11)=
+### Ejercicio 17.11 - Reducción Dinámica de Capacidad (Shrinking) ⭐⭐⭐☆☆
 
 Modificar el vector del ejercicio anterior para reducir su capacidad a la mitad
 si la cantidad de elementos en uso cae por debajo de 1/4 de su capacidad máxima.
-
-### Ejercicio 2.12 - Gestión de Memoria en el Parser JSON
+(ejercicio_17_12)=
+### Ejercicio 17.12 - Gestión de Memoria en el Parser JSON ⭐⭐☆☆☆
 
 Diseñar las funciones de reserva y liberación para un nodo AST de un parser JSON
 que representa objetos y arreglos anidados mediante punteros dinámicos.
-
-### Ejercicio 2.13 - Heap Buffer Overflow
+(ejercicio_17_13)=
+### Ejercicio 17.13 - Heap Buffer Overflow ⭐⭐☆☆☆
 
 Escribir un fragmento de código que produzca un desbordamiento de búfer en el
 Heap y explicar cómo AddressSanitizer reporta dicho error.
-
----
-
-## Ejercicios Adicionales (Práctica Intensiva)
-
-## Ejercicio 1: Matriz Dinámica Dentada
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_17_14)=
+## Ejercicio 17.14 - Matriz Dinámica Dentada ⭐⭐☆☆☆
 
 Creá matriz donde cada fila tiene diferente cantidad de columnas.
 
@@ -220,10 +214,8 @@ for (int i = 0; i < filas; i++) {
 - Liberación: cada fila primero, luego array de punteros
 
 ---
-
-## Ejercicio 2: Matriz Dinámica en Bloque
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_17_15)=
+## Ejercicio 17.15 - Matriz Dinámica en Bloque ⭐⭐⭐☆☆
 
 Creá matriz contigua en memoria (un solo `malloc` para datos).
 
@@ -243,10 +235,8 @@ int **crear_matriz(int filas, int cols) {
 - Liberación: liberar datos, luego array de punteros
 
 ---
-
-## Ejercicio 3: Matriz con Cast (ALV)
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_17_16)=
+## Ejercicio 17.16 - Matriz con Cast (ALV) ⭐⭐⭐☆☆
 
 Implementá acceso a matriz unidimensional como bidimensional.
 
@@ -263,10 +253,8 @@ MAT(matriz, 2, 3, cols) = 42;
 - Menos flexible pero más eficiente
 
 ---
-
-## Ejercicio 4: Redimensionar Array Dinámico
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_17_17)=
+## Ejercicio 17.17 - Redimensionar Array Dinámico ⭐⭐⭐☆☆
 
 Implementá función para redimensionar array preservando datos.
 
@@ -284,10 +272,8 @@ int *redimensionar(int *arr, int tam_actual, int tam_nuevo) {
 ```
 
 ---
-
-## Ejercicio 5: Array de Strings Dinámico
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_17_18)=
+## Ejercicio 17.18 - Array de Strings Dinámico ⭐⭐⭐☆☆
 
 Creá array dinámico de strings donde cada string también es dinámico.
 
@@ -307,10 +293,8 @@ free(strings);
 ```
 
 ---
-
-## Ejercicio 6: Estructura con Arrays Dinámicos
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_17_19)=
+## Ejercicio 17.19 - Estructura con Arrays Dinámicos ⭐⭐⭐☆☆
 
 Creá estructura que contenga arrays dinámicos.
 
@@ -337,10 +321,8 @@ void destruir_vector(vector_t *v) {
 ```
 
 ---
-
-## Ejercicio 7: Lista Enlazada con Strings
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_17_20)=
+## Ejercicio 17.20 - Lista Enlazada con Strings ⭐⭐⭐⭐☆
 
 Implementá lista donde cada nodo contiene un string dinámico.
 
@@ -366,10 +348,8 @@ void liberar_nodo(nodo_t *nodo) {
 ```
 
 ---
-
-## Ejercicio 8: Árbol con Datos Dinámicos
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_17_21)=
+## Ejercicio 17.21 - Árbol con Datos Dinámicos ⭐⭐⭐⭐⭐
 
 Implementá árbol binario donde cada nodo tiene string dinámico.
 
@@ -391,10 +371,8 @@ void liberar_arbol(nodo_arbol_t *raiz) {
 ```
 
 ---
-
-## Ejercicio 9: Matriz Triangular
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_17_22)=
+## Ejercicio 17.22 - Matriz Triangular ⭐⭐⭐⭐☆
 
 Implementá matriz triangular inferior (solo almacená elementos <= diagonal).
 
@@ -409,10 +387,8 @@ for (int i = 0; i < n; i++) {
 ```
 
 ---
-
-## Ejercicio 10: Copiar Estructura Profunda
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_17_23)=
+## Ejercicio 17.23 - Copiar Estructura Profunda ⭐⭐⭐⭐☆
 
 Implementá copia profunda de estructura con punteros.
 
@@ -436,10 +412,8 @@ estudiante_t *copiar(const estudiante_t *orig) {
 ```
 
 ---
-
-## Ejercicio 11: Grafo con Matriz de Adyacencia Dinámica
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_17_24)=
+## Ejercicio 17.24 - Grafo con Matriz de Adyacencia Dinámica ⭐⭐⭐⭐⭐
 
 Creá grafo con matriz de adyacencia dinámica.
 
@@ -462,10 +436,8 @@ grafo_t *crear_grafo(int n) {
 ```
 
 ---
-
-## Ejercicio 12: Array de Estructuras con Punteros
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_17_25)=
+## Ejercicio 17.25 - Array de Estructuras con Punteros ⭐⭐⭐⭐☆
 
 Creá array dinámico de estructuras que contienen punteros.
 
@@ -488,10 +460,8 @@ free(libros);
 ```
 
 ---
-
-## Ejercicio 13: Tabla Hash Dinámica
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_17_26)=
+## Ejercicio 17.26 - Tabla Hash Dinámica ⭐⭐⭐⭐⭐
 
 Implementá tabla hash con encadenamiento y redimensionamiento.
 
@@ -518,10 +488,8 @@ void redimensionar(hash_t *h) {
 ```
 
 ---
-
-## Ejercicio 14: Matriz Dispersa (Sparse Matrix)
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_17_27)=
+## Ejercicio 17.27 - Matriz Dispersa (Sparse Matrix) ⭐⭐⭐⭐⭐
 
 Implementá matriz dispersa con lista de triplas (fila, col, valor).
 
@@ -543,10 +511,8 @@ typedef struct {
 - Búsqueda lineal o binaria para acceso
 
 ---
-
-## Ejercicio 15: Buffer Circular Dinámico
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_17_28)=
+## Ejercicio 17.28 - Buffer Circular Dinámico ⭐⭐⭐⭐⭐
 
 Implementá buffer circular con redimensionamiento.
 
@@ -579,10 +545,8 @@ void redimensionar_buffer(buffer_circular_t *b) {
 ```
 
 ---
-
-## Ejercicio 16: Punteros a Punteros para Modificar
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_17_29)=
+## Ejercicio 17.29 - Punteros a Punteros para Modificar ⭐⭐⭐⭐☆
 
 Implementá función que modifica puntero pasado como argumento.
 
@@ -601,10 +565,8 @@ insertar_inicio(&lista, 42);  // Pasa dirección del puntero
 ```
 
 ---
-
-## Ejercicio 17: Array 3D Dinámico
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_17_30)=
+## Ejercicio 17.30 - Array 3D Dinámico ⭐⭐⭐⭐⭐
 
 Creá array tridimensional dinámico.
 
@@ -633,10 +595,8 @@ void liberar_array_3d(int ***arr, int x, int y) {
 ```
 
 ---
-
-## Ejercicio 18: Pool de Objetos
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_17_31)=
+## Ejercicio 17.31 - Pool de Objetos ⭐⭐⭐⭐⭐
 
 Implementá pool de objetos para evitar malloc/free frecuentes.
 
@@ -661,10 +621,8 @@ void pool_free(pool_t *p, void *obj) {
 ```
 
 ---
-
-## Ejercicio 19: Reference Counting
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_17_32)=
+## Ejercicio 17.32 - Reference Counting ⭐⭐⭐⭐⭐
 
 Implementá sistema de conteo de referencias para compartir datos.
 
@@ -695,10 +653,8 @@ void decrementar_ref(ref_counted_t *r, void (*destruir)(void*)) {
 ```
 
 ---
-
-## Ejercicio 20: Sistema de Memoria con Debug
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_17_33)=
+## Ejercicio 17.33 - Sistema de Memoria con Debug ⭐⭐⭐⭐⭐
 
 Implementá wrapper de malloc/free que registre asignaciones.
 

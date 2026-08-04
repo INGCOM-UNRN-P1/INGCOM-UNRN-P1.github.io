@@ -36,23 +36,23 @@ typedef struct nodo {
 } nodo_t;
 ```
 <!-- c -->
-
-### Ejercicio 7.1 - Crear y Destruir
+(ejercicio_23_1)=
+### Ejercicio 23.1 - Crear y Destruir ⭐⭐☆☆☆
 
 - **`nodo_t* crear_nodo(int dato)`**: Reserva memoria para un nuevo nodo, le
   asigna el dato y establece su puntero `siguiente` a `NULL`.
 - **`void liberar_lista(nodo_t *cabeza)`**: Recorre la lista y libera la memoria
   de cada nodo uno por uno para evitar fugas de memoria.
-
-### Ejercicio 7.2 - Inserción
+(ejercicio_23_2)=
+### Ejercicio 23.2 - Inserción ⭐⭐☆☆☆
 
 - **`void insertar_al_principio(nodo_t **cabeza, int dato)`**: Crea un nuevo
   nodo y lo convierte en la nueva cabeza de la lista. Requiere un puntero doble
   para modificar el puntero `cabeza` original.
 - **`void insertar_al_final(nodo_t *cabeza, int dato)`**: Recorre la lista hasta
   el último nodo y enlaza el nuevo nodo al final.
-
-### Ejercicio 7.3 - Eliminación y Búsqueda
+(ejercicio_23_3)=
+### Ejercicio 23.3 - Eliminación y Búsqueda ⭐⭐☆☆☆
 
 - **`nodo_t* buscar_nodo(nodo_t *cabeza, int dato)`**: Recorre la lista y
   devuelve un puntero al primer nodo que contenga el dato, o `NULL` si no se
@@ -67,8 +67,8 @@ typedef struct nodo {
 
 Una pila sigue el principio LIFO (Last-In, First-Out). Se puede implementar
 eficientemente usando una lista enlazada como estructura subyacente.
-
-### Ejercicio 7.4 - Implementación con Lista Enlazada
+(ejercicio_23_4)=
+### Ejercicio 23.4 - Implementación con Lista Enlazada ⭐⭐☆☆☆
 
 - **`void push(nodo_t **cabeza, int dato)`**: Es idéntico a
   `insertar_al_principio` en una lista enlazada.
@@ -92,8 +92,8 @@ typedef struct {
 } cola_t;
 ```
 <!-- c -->
-
-### Ejercicio 7.5 - Implementación con Lista Enlazada
+(ejercicio_23_5)=
+### Ejercicio 23.5 - Implementación con Lista Enlazada ⭐⭐☆☆☆
 
 - **`void encolar(cola_t *cola, int dato)`**: Crea un nuevo nodo y lo añade al
   final de la lista, actualizando el puntero `final`.
@@ -103,8 +103,8 @@ typedef struct {
 ---
 
 ## Estructuras de Datos Avanzadas (Opcional)
-
-### Ejercicio 7.6 - Árbol de Búsqueda Binaria (BST)
+(ejercicio_23_6)=
+### Ejercicio 23.6 - Árbol de Búsqueda Binaria (BST) ⭐⭐☆☆☆
 
 Un árbol binario de búsqueda es una estructura de datos basada en nodos donde
 cada nodo tiene un valor, un puntero a un sub-árbol izquierdo (con valores
@@ -114,8 +114,8 @@ menores) y un puntero a un sub-árbol derecho (con valores mayores).
   recursiva que encuentra la posición correcta e inserta un nuevo nodo.
 - **`void imprimir_en_orden(nodo_arbol_t *raiz)`**: Recorrido recursivo
   (izquierdo, raíz, derecho) que imprime los elementos de forma ordenada.
-
-### Ejercicio 7.7 - Tabla Hash (Encadenamiento Separado)
+(ejercicio_23_7)=
+### Ejercicio 23.7 - Tabla Hash (Encadenamiento Separado) ⭐⭐⭐☆☆
 
 Una tabla hash utiliza una función para convertir una clave en un índice de un
 arreglo. Las colisiones (cuando dos claves mapean al mismo índice) se manejan

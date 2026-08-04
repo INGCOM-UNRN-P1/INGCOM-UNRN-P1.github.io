@@ -41,8 +41,8 @@ size_t lista_longitud(const lista_t* lista);
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 6.1 - Inserción al Inicio
+(ejercicio_22_1)=
+### Ejercicio 22.1 - Inserción al Inicio ⭐⭐☆☆☆
 
 Implementar la operación de insertar un elemento al principio de la lista. Esta
 operación debe tener complejidad $O(1)$.
@@ -51,8 +51,8 @@ operación debe tener complejidad $O(1)$.
 bool insertar_al_inicio(lista_t* lista, int dato);
 ```
 <!-- c -->
-
-### Ejercicio 6.2 - Inserción al Final
+(ejercicio_22_2)=
+### Ejercicio 22.2 - Inserción al Final ⭐⭐☆☆☆
 
 Implementar la operación de insertar un elemento al final de la lista. Analizar
 la complejidad: $O(n)$ sin puntero al último, $O(1)$ con puntero al último.
@@ -61,8 +61,8 @@ la complejidad: $O(n)$ sin puntero al último, $O(1)$ con puntero al último.
 bool insertar_al_final(lista_t* lista, int dato);
 ```
 <!-- c -->
-
-### Ejercicio 6.3 - Ver Primero y Último
+(ejercicio_22_3)=
+### Ejercicio 22.3 - Ver Primero y Último ⭐⭐☆☆☆
 
 Implementar operaciones para obtener el primer y último elemento sin modificar
 la lista.
@@ -72,8 +72,8 @@ bool ver_primero(const lista_t* lista, int* dato);
 bool ver_ultimo(const lista_t* lista, int* dato);
 ```
 <!-- c -->
-
-### Ejercicio 6.4 - Borrar Primero
+(ejercicio_22_4)=
+### Ejercicio 22.4 - Borrar Primero ⭐⭐☆☆☆
 
 Implementar la operación de eliminar el primer elemento y retornar su valor.
 Complejidad: $O(1)$.
@@ -86,8 +86,8 @@ bool borrar_primero(lista_t* lista, int* dato);
 ---
 
 ## Lista Enlazada - Operaciones de Búsqueda
-
-### Ejercicio 6.5 - Buscar Elemento
+(ejercicio_22_5)=
+### Ejercicio 22.5 - Buscar Elemento ⭐⭐☆☆☆
 
 Implementar una función que determine si un elemento está presente en la lista.
 Retornar `true` si lo encuentra.
@@ -98,8 +98,8 @@ bool lista_pertenece(const lista_t* lista, int dato);
 <!-- c -->
 
 **Complejidad:** $O(n)$ en el peor caso.
-
-### Ejercicio 6.6 - Obtener Elemento en Posición
+(ejercicio_22_6)=
+### Ejercicio 22.6 - Obtener Elemento en Posición ⭐⭐☆☆☆
 
 Implementar una función que retorne el elemento en una posición específica
 (índice basado en 0).
@@ -110,8 +110,8 @@ bool lista_obtener(const lista_t* lista, size_t posicion, int* dato);
 <!-- c -->
 
 Retornar `false` si la posición es inválida.
-
-### Ejercicio 6.7 - Contar Ocurrencias
+(ejercicio_22_7)=
+### Ejercicio 22.7 - Contar Ocurrencias ⭐⭐☆☆☆
 
 Implementar una función que cuente cuántas veces aparece un elemento en la
 lista.
@@ -124,8 +124,8 @@ size_t lista_contar(const lista_t* lista, int dato);
 ---
 
 ## Lista Enlazada - Operaciones Avanzadas
-
-### Ejercicio 6.8 - Insertar en Posición
+(ejercicio_22_8)=
+### Ejercicio 22.8 - Insertar en Posición ⭐⭐☆☆☆
 
 Implementar una función que inserte un elemento en una posición específica.
 
@@ -138,8 +138,8 @@ bool lista_insertar_en(lista_t* lista, size_t posicion, int dato);
 - Posición 0: insertar al inicio.
 - Posición >= longitud: insertar al final.
 - Posición intermedia: recorrer hasta la posición.
-
-### Ejercicio 6.9 - Eliminar por Valor
+(ejercicio_22_9)=
+### Ejercicio 22.9 - Eliminar por Valor ⭐⭐☆☆☆
 
 Implementar la operación de eliminar todas las ocurrencias de un elemento y
 liberar sus nodos correspondientes en memoria.
@@ -148,8 +148,8 @@ liberar sus nodos correspondientes en memoria.
 bool lista_eliminar(lista_t* lista, int dato);
 ```
 <!-- c -->
-
-### Ejercicio 6.10 - Invertir Lista
+(ejercicio_22_10)=
+### Ejercicio 22.10 - Invertir Lista ⭐⭐☆☆☆
 
 Reorganizar los enlaces de los nodos de la lista para invertir su orden de
 manera destructiva (in-place, $O(n)$ tiempo, $O(1)$ memoria).
@@ -158,8 +158,8 @@ manera destructiva (in-place, $O(n)$ tiempo, $O(1)$ memoria).
 void lista_invertir(lista_t* lista);
 ```
 <!-- c -->
-
-### Ejercicio 6.11 - Concatenar Listas
+(ejercicio_22_11)=
+### Ejercicio 22.11 - Concatenar Listas ⭐⭐☆☆☆
 
 Desarrollar una función que anexe de forma destructiva todos los elementos de la
 segunda lista al final de la primera.
@@ -168,14 +168,8 @@ segunda lista al final de la primera.
 void lista_concatenar(lista_t* destino, lista_t* origen);
 ```
 <!-- c -->
-
----
-
-## Ejercicios Adicionales (Práctica Intensiva)
-
-## Ejercicio 1: TAD Contador
-
-**Dificultad:** ⭐☆☆☆☆
+(ejercicio_22_12)=
+## Ejercicio 22.12 - TAD Contador ⭐☆☆☆☆
 
 Implementá un contador simple con:
 - `contador_t *crear_contador()`
@@ -190,10 +184,8 @@ Implementá un contador simple con:
 - Mantené valor privado, solo accesible por funciones
 
 ---
-
-## Ejercicio 2: TAD Pila (Stack)
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_22_13)=
+## Ejercicio 22.13 - TAD Pila (Stack) ⭐⭐☆☆☆
 
 Implementá pila con array estático de tamaño fijo:
 - `pila_t *crear_pila(int capacidad)`
@@ -209,10 +201,8 @@ Implementá pila con array estático de tamaño fijo:
 - `desapilar` y `ver_tope` retornan `false` si está vacía
 
 ---
-
-## Ejercicio 3: TAD Cola (Queue)
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_22_14)=
+## Ejercicio 22.14 - TAD Cola (Queue) ⭐⭐⭐☆☆
 
 Implementá cola FIFO con lista enlazada:
 - `cola_t *crear_cola()`
@@ -229,10 +219,8 @@ Implementá cola FIFO con lista enlazada:
 - `desencolar` quita del frente
 
 ---
-
-## Ejercicio 4: TAD Lista Enlazada
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_22_15)=
+## Ejercicio 22.15 - TAD Lista Enlazada ⭐⭐⭐☆☆
 
 Implementá lista enlazada simple:
 - `lista_t *crear_lista()`
@@ -248,10 +236,8 @@ Implementá lista enlazada simple:
 - Mantené contador de tamaño
 
 ---
-
-## Ejercicio 5: TAD Conjunto (Set)
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_22_16)=
+## Ejercicio 22.16 - TAD Conjunto (Set) ⭐⭐⭐⭐☆
 
 Implementá conjunto sin elementos repetidos:
 - `conjunto_t *crear_conjunto()`
@@ -269,10 +255,8 @@ Implementá conjunto sin elementos repetidos:
 - Operaciones de conjuntos crean nuevos conjuntos
 
 ---
-
-## Ejercicio 6: TAD Diccionario (Map)
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_22_17)=
+## Ejercicio 22.17 - TAD Diccionario (Map) ⭐⭐⭐⭐☆
 
 Implementá diccionario clave-valor (strings a enteros):
 - `diccionario_t *crear_diccionario()`
@@ -289,10 +273,8 @@ Implementá diccionario clave-valor (strings a enteros):
 - Liberá claves al eliminar/destruir
 
 ---
-
-## Ejercicio 7: TAD Pila Genérica
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_22_18)=
+## Ejercicio 22.18 - TAD Pila Genérica ⭐⭐⭐⭐☆
 
 Pila que almacena `void *` (cualquier tipo):
 - `pila_t *crear_pila()`
@@ -306,10 +288,8 @@ Pila que almacena `void *` (cualquier tipo):
 - Usuario responsable de castear datos al tipo correcto
 
 ---
-
-## Ejercicio 8: TAD Cola de Prioridad
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_22_19)=
+## Ejercicio 22.19 - TAD Cola de Prioridad ⭐⭐⭐⭐⭐
 
 Cola donde elementos con mayor prioridad salen primero:
 - `cola_prioridad_t *crear_cola_prioridad()`
@@ -323,10 +303,8 @@ Cola donde elementos con mayor prioridad salen primero:
 - Prioridad mayor = sube en el heap
 
 ---
-
-## Ejercicio 9: TAD Árbol Binario de Búsqueda
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_22_20)=
+## Ejercicio 22.20 - TAD Árbol Binario de Búsqueda ⭐⭐⭐⭐⭐
 
 ABB con operaciones estándar:
 - `abb_t *crear_abb()`
@@ -343,10 +321,8 @@ ABB con operaciones estándar:
 - Recorrido inorden: izquierdo, raíz, derecho
 
 ---
-
-## Ejercicio 10: TAD Grafo
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_22_21)=
+## Ejercicio 22.21 - TAD Grafo ⭐⭐⭐⭐⭐
 
 Grafo dirigido con listas de adyacencia:
 - `grafo_t *crear_grafo(int vertices)`
@@ -361,10 +337,8 @@ Grafo dirigido con listas de adyacencia:
 - `obtener_vecinos` retorna array dinámico (caller libera)
 
 ---
-
-## Ejercicio 11: TAD Matriz Dispersa
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_22_22)=
+## Ejercicio 22.22 - TAD Matriz Dispersa ⭐⭐⭐⭐⭐
 
 Matriz que solo almacena elementos no cero:
 - `matriz_t *crear_matriz(int filas, int cols)`
@@ -378,10 +352,8 @@ Matriz que solo almacena elementos no cero:
 - `obtener` retorna 0 si no está almacenado
 
 ---
-
-## Ejercicio 12: TAD Cadena Dinámica
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_22_23)=
+## Ejercicio 22.23 - TAD Cadena Dinámica ⭐⭐⭐⭐☆
 
 String que crece automáticamente:
 - `cadena_t *crear_cadena(const char *inicial)`
@@ -397,10 +369,8 @@ String que crece automáticamente:
 - Redimensioná automáticamente con `realloc`
 
 ---
-
-## Ejercicio 13: TAD Tabla Hash
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_22_24)=
+## Ejercicio 22.24 - TAD Tabla Hash ⭐⭐⭐⭐⭐
 
 Hash table con manejo de colisiones:
 - `hash_t *crear_hash(size_t tamanio_inicial)`
@@ -415,10 +385,8 @@ Hash table con manejo de colisiones:
 - Función hash: suma de caracteres módulo tamaño
 
 ---
-
-## Ejercicio 14: TAD Buffer Circular
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_22_25)=
+## Ejercicio 22.25 - TAD Buffer Circular ⭐⭐⭐⭐☆
 
 Buffer circular para comunicación productor-consumidor:
 - `buffer_t *crear_buffer(size_t capacidad)`
@@ -434,10 +402,8 @@ Buffer circular para comunicación productor-consumidor:
 - Lleno cuando `(fin + 1) % capacidad == inicio`
 
 ---
-
-## Ejercicio 15: TAD Iterador
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_22_26)=
+## Ejercicio 22.26 - TAD Iterador ⭐⭐⭐⭐⭐
 
 Iterador externo para lista:
 - `iterador_t *crear_iterador(const lista_t *lista)`
@@ -452,10 +418,8 @@ Iterador externo para lista:
 - Permite recorrer sin exponer estructura interna
 
 ---
-
-## Ejercicio 16: TAD Árbol AVL
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_22_27)=
+## Ejercicio 22.27 - TAD Árbol AVL ⭐⭐⭐⭐⭐
 
 Árbol auto-balanceado:
 - Misma interfaz que ABB
@@ -468,10 +432,8 @@ Iterador externo para lista:
 - 4 tipos de rotación: LL, RR, LR, RL
 
 ---
-
-## Ejercicio 17: TAD Heap (Min/Max)
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_22_28)=
+## Ejercicio 22.28 - TAD Heap (Min/Max) ⭐⭐⭐⭐⭐
 
 Heap binario genérico:
 - `heap_t *crear_heap(bool es_max, int (*comparar)(int, int))`
@@ -486,10 +448,8 @@ Heap binario genérico:
 - `extraer`: quitar raíz, poner último, bajar (heapify-down)
 
 ---
-
-## Ejercicio 18: TAD Cache LRU
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_22_29)=
+## Ejercicio 22.29 - TAD Cache LRU ⭐⭐⭐⭐⭐
 
 Cache con política Least Recently Used:
 - `cache_t *crear_cache(size_t capacidad)`
@@ -503,10 +463,8 @@ Cache con política Least Recently Used:
 - Al insertar con capacidad llena, elimina último (menos reciente)
 
 ---
-
-## Ejercicio 19: TAD Multi-Conjunto (Bag)
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_22_30)=
+## Ejercicio 22.30 - TAD Multi-Conjunto (Bag) ⭐⭐⭐⭐⭐
 
 Permite elementos repetidos con conteo:
 - `bag_t *crear_bag()`
@@ -520,10 +478,8 @@ Permite elementos repetidos con conteo:
 - Permite múltiples copias del mismo elemento
 
 ---
-
-## Ejercicio 20: Sistema de TADs Interconectados
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_22_31)=
+## Ejercicio 22.31 - Sistema de TADs Interconectados ⭐⭐⭐⭐⭐
 
 Sistema completo: Biblioteca de libros usando múltiples TADs:
 - `libro_t` (TAD básico)

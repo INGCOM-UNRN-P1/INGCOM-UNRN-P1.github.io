@@ -25,8 +25,8 @@ seguras y extensibles en el lenguaje C.
 ---
 
 ## Principios de Nomenclatura y Claridad
-
-### Ejercicio 5.33 - Crítica de Nombres
+(ejercicio_32_1)=
+### Ejercicio 32.1 - Crítica de Nombres ⭐⭐☆☆☆
 
 Analizar estos nombres de funciones y proponer mejoras siguiendo las reglas de
 estilo:
@@ -56,8 +56,8 @@ específicos en lugar de genéricos como "process" o "update".
 
 :::
 <!-- {tip} Nombres Descriptivos -->
-
-### Ejercicio 5.34 - Diseño de Prefijos
+(ejercicio_32_2)=
+### Ejercicio 32.2 - Diseño de Prefijos ⭐⭐☆☆☆
 
 Diseñar esquemas de prefijos para estas librerías:
 
@@ -79,8 +79,8 @@ json_value_t* json_parser_parse_string(json_parser_t* parser, const char* str);
 bool json_value_es_objeto(const json_value_t* value);
 ```
 <!-- c -->
-
-### Ejercicio 5.35 - Consistencia en Familias de Funciones
+(ejercicio_32_3)=
+### Ejercicio 32.3 - Consistencia en Familias de Funciones ⭐⭐☆☆☆
 
 Completar estas familias de funciones con nombres consistentes:
 
@@ -97,8 +97,8 @@ void config_destruir(config_t** ptr_config);
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 5.36 - Nombres que Reflejan Comportamiento
+(ejercicio_32_4)=
+### Ejercicio 32.4 - Nombres que Reflejan Comportamiento ⭐⭐☆☆☆
 
 Renombrar estas funciones para reflejar mejor su comportamiento real:
 
@@ -122,8 +122,8 @@ void agregar_elemento(lista_t* lista, int elemento);
 ---
 
 ## Tipos Opacos y Encapsulamiento
-
-### Ejercicio 5.37 - Implementación de Tipo Opaco Básico
+(ejercicio_32_5)=
+### Ejercicio 32.5 - Implementación de Tipo Opaco Básico ⭐☆☆☆☆
 
 Implementar un stack usando tipo opaco completo:
 

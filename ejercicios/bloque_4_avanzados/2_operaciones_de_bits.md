@@ -19,8 +19,8 @@ capítulo del apunte:
   Memoria](../../apunte/bloque_3_memoria_estatica/1_modelo_memoria.md)
 
 ## Manipulación de Bits Individuales
-
-### Ejercicio 1b.1 - Obtener el n-ésimo bit
+(ejercicio_27_1)=
+### Ejercicio 27.1 - b.1 - Obtener el n-ésimo bit ⭐⭐⭐⭐☆
 
 Escribir una función `int get_bit(int numero, int n)` que devuelva el valor del
 bit en la posición `n` de un número (0 o 1).
@@ -34,8 +34,8 @@ bit en la posición `n` de un número (0 o 1).
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
-
-### Ejercicio 1b.2 - Establecer el n-ésimo bit (Set)
+(ejercicio_27_2)=
+### Ejercicio 27.2 - b.2 - Establecer el n-ésimo bit (Set) ⭐⭐⭐⭐☆
 
 Escribir una función `int set_bit(int numero, int n)` que encienda (ponga en 1)
 el bit en la posición `n` sin alterar los demás.
@@ -48,8 +48,8 @@ el bit en la posición `n` sin alterar los demás.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
-
-### Ejercicio 1b.3 - Limpiar el n-ésimo bit (Clear)
+(ejercicio_27_3)=
+### Ejercicio 27.3 - b.3 - Limpiar el n-ésimo bit (Clear) ⭐⭐⭐⭐☆
 
 Escribir una función `int clear_bit(int numero, int n)` que apague (ponga en 0)
 el bit en la posición `n`.
@@ -63,8 +63,8 @@ el bit en la posición `n`.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
-
-### Ejercicio 1b.4 - Alternar el n-ésimo bit (Toggle)
+(ejercicio_27_4)=
+### Ejercicio 27.4 - b.4 - Alternar el n-ésimo bit (Toggle) ⭐⭐⭐⭐☆
 
 Escribir una función `int toggle_bit(int numero, int n)` que invierta el valor
 del bit en la posición `n` (de 0 a 1, o de 1 a 0).
@@ -79,8 +79,8 @@ del bit en la posición `n` (de 0 a 1, o de 1 a 0).
 <!-- {hint} Lógica y Consideraciones -->
 
 ## Algoritmos con Bits
-
-### Ejercicio 1b.5 - Contar bits encendidos (Hamming Weight)
+(ejercicio_27_5)=
+### Ejercicio 27.5 - b.5 - Contar bits encendidos (Hamming Weight) ⭐⭐⭐⭐☆
 
 Implementar una función que cuente el número de bits que están en 1 en la
 representación binaria de un número.
@@ -94,8 +94,8 @@ representación binaria de un número.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
-
-### Ejercicio 1b.6 - Verificar si es potencia de dos
+(ejercicio_27_6)=
+### Ejercicio 27.6 - b.6 - Verificar si es potencia de dos ⭐⭐☆☆☆
 
 Escribir una función que determine si un número entero positivo es una potencia
 de dos (ej. 2, 4, 8, 16...).
@@ -110,8 +110,8 @@ de dos (ej. 2, 4, 8, 16...).
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
-
-### Ejercicio 1b.7 - Intercambio con XOR
+(ejercicio_27_7)=
+### Ejercicio 27.7 - b.7 - Intercambio con XOR ⭐⭐☆☆☆
 
 Implementar una función `void swap(int *a, int *b)` que intercambie los valores
 de dos variables sin usar una variable temporal, utilizando únicamente el
@@ -126,8 +126,8 @@ operador XOR.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
-
-### Ejercicio 1b.8 - Uso de máscaras de bits para permisos
+(ejercicio_27_8)=
+### Ejercicio 27.8 - b.8 - Uso de máscaras de bits para permisos ⭐⭐⭐⭐☆
 
 Simular un sistema de permisos de archivo (Lectura, Escritura, Ejecución) usando
 una sola variable `unsigned char`.

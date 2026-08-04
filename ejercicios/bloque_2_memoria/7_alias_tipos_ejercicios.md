@@ -15,8 +15,8 @@ capítulo del apunte:
 - [Alias de tipos](../../apunte/bloque_2_proyectos/3_alias_tipos.md)
 
 ## Definición de Alias de Tipos
-
-### Ejercicio 3.1 - Días de la semana
+(ejercicio_19_1)=
+### Ejercicio 19.1 - Días de la semana ⭐⭐☆☆☆
 
 :::{exercise}
 :label: enum_basico

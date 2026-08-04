@@ -23,10 +23,11 @@ aritmética básica de indirección de memoria en C.
   explícita.
 
 ---
+(ejercicio_9_1)=
+## Ejercicio 9.1 - s ⭐⭐☆☆☆
 
-## Ejercicios
-
-### Ejercicio 4b.1 - Intercambiar valores
+(ejercicio_9_2)=
+### Ejercicio 9.2 - b.1 - Intercambiar valores ⭐⭐☆☆☆
 
 :::{exercise}
 :label: intercambiar_valores
@@ -61,8 +62,8 @@ void intercambiar(int *a, int *b) {
 
 ::::
 <!-- {solution} intercambiar_valores -->
-
-### Ejercicio 4b.2 - Encontrar máximo
+(ejercicio_9_3)=
+### Ejercicio 9.3 - b.2 - Encontrar máximo ⭐⭐☆☆☆
 
 :::{exercise}
 :label: encontrar_maximo
@@ -108,8 +109,8 @@ int encontrar_maximo(const int *arreglo, size_t n) {
 
 ::::
 <!-- {solution} encontrar_maximo -->
-
-### Ejercicio 4b.3 - Copiar cadena
+(ejercicio_9_4)=
+### Ejercicio 9.4 - b.3 - Copiar cadena ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: copiar_cadena
@@ -149,8 +150,8 @@ void copiar_cadena(char *destino, const char *origen) {
 
 ::::
 <!-- {solution} copiar_cadena -->
-
-### Ejercicio 4b.4 - Sumar arreglo con punteros
+(ejercicio_9_5)=
+### Ejercicio 9.5 - b.4 - Sumar arreglo con punteros ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: sumar_arreglo_punteros
@@ -190,8 +191,8 @@ int sumar_arreglo(const int *inicio, const int *fin) {
 
 ::::
 <!-- {solution} sumar_arreglo_punteros -->
-
-### Ejercicio 4b.5 - Invertir arreglo in-place
+(ejercicio_9_6)=
+### Ejercicio 9.6 - b.5 - Invertir arreglo in-place ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: invertir_arreglo_inplace

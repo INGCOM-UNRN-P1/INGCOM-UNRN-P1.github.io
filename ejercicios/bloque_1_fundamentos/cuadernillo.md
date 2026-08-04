@@ -71,15 +71,14 @@ Usuario Github
 
 A pesar de que varios de los ejercicios son combinables, es mejor hacerlo cuando
 veamos funciones, para simplificar el flujo lógico.
-
-## Ejercicio 0.1 - ¡Hola mundo!
+(ejercicio_0_1)=
+## Ejercicio 0.1 - ¡Hola mundo! ⭐⭐☆☆☆
 
 Porque hay que empezar por algún lado, escribir un programa que imprima
 \"Hola, mundo!\" en la pantalla.
 
 Este ejercicio nos permitirá verificar el que el entorno de programación
 funciona.
-
 
 ```{code} text
 :caption: El indispensable Hola Mundo!
@@ -129,8 +128,8 @@ Salida
                                                                               
 ```
 <!-- {code} text -->
-
-## Ejercicio 0.2 - Geometría
+(ejercicio_0_2)=
+## Ejercicio 0.2 - Geometría ⭐⭐☆☆☆
 
 ### 1.2.1 - Área de triángulos
 
@@ -160,7 +159,6 @@ $$s = \frac{a+b+c}{2}$$
 Donde:
 -   $a$, $b$, y $c$ son las longitudes de los lados del triángulo.
 
-
 ### 1.2.2 - Círculos
 
 **Calcular el área y la circunferencia de un círculo.**
@@ -177,7 +175,6 @@ Donde:
 -   $r$ es el radio del círculo.
 -   $\pi$ (pi) es una constante aproximadamente igual a 3.14159.
 
-
 ### 1.2.3 - Trapecios
 
 **Calcular el área de un trapecio.**
@@ -190,7 +187,6 @@ $$A = \frac{a+b}{2} \cdot h$$
 Donde:
 -   $a$ y $b$ son las longitudes de las bases paralelas.
 -   $h$ es la altura perpendicular a las bases.
-
 
 ### 1.2.4 - Polígonos
 
@@ -220,8 +216,8 @@ Donde:
 -   $l$ es la longitud.
 -   $w$ es el ancho.
 
-
-## Ejercicio 0.3 - Conversiones
+(ejercicio_0_3)=
+## Ejercicio 0.3 - Conversiones ⭐⭐☆☆☆
 
 :::{note} {ref}`Regla 0x0001h <0x0001h>`
 
@@ -296,7 +292,6 @@ En donde un grado son 60 minutos y un minuto son 60 segundos.
 ```
 <!-- {code} text -->
 
-
 ```{code} text
 :filename: salida
 
@@ -320,7 +315,6 @@ Una vuelta son 360 grados.
 ```
 <!-- {code} text -->
 
-
 ```{code} text
 :filename: salida
 
@@ -328,14 +322,13 @@ Una vuelta son 360 grados.
 
 ```
 <!-- {code} text -->
-
-## Ejercicio 0.4 - Matemáticos
+(ejercicio_0_4)=
+## Ejercicio 0.4 - Matemáticos ⭐⭐⭐☆☆
 
 ### 1.4.1 - Suma lenta
 
 Implementar una suma entre números enteros $n+m$; en la que no se puede
 sumar directamente $n$ con $m$.
-
 
 ```{code} text
 :filename: entrada
@@ -345,7 +338,6 @@ sumar directamente $n$ con $m$.
 
 ```
 <!-- {code} text -->
-
 
 ```{code} text
 :filename: salida
@@ -413,7 +405,6 @@ restas.
 ```
 <!-- {code} text -->
 
-
 En donde los cálculos aplicados terminan siendo:
 
 $$
@@ -426,7 +417,6 @@ Recuerden tener en cuenta las cuatro combinaciones posibles de signos.
 
 Implementar el resto de la división entera de dos números enteros solo
 utilizando restas.
-
 
 ```{code} text
 :filename: entrada
@@ -516,7 +506,6 @@ Cociente = 6 y Resto = 1.
 
 Determinar si un número es divisible por otro.
 
-
 ```{code} text
 :filename: entrada
 
@@ -525,7 +514,6 @@ Determinar si un número es divisible por otro.
 
 ```
 <!-- {code} text -->
-
 
 ```{code} text
 :filename: salida
@@ -593,7 +581,6 @@ $5! = 1×2×3×4×5 = 120$
 Calcular la suma de los dígitos de un número entero de manera
 aritmética.
 
-
 ```{code} text
 :filename: entrada
 
@@ -601,7 +588,6 @@ aritmética.
 
 ```
 <!-- {code} text -->
-
 
 ```{code} text
 :filename: salida
@@ -633,7 +619,6 @@ número factorial.
 
 ```
 <!-- {code} text -->
-
 
 ### 1.4.10 - MCD
 
@@ -717,7 +702,6 @@ Entre 100 y 200, los numeros capicua son:
 ```
 <!-- {code} text -->
 
-
 ### 1.4.13 - Números amigos
 
 Solicitar dos números enteros positivos y determinar si son **números amigos**.
@@ -777,15 +761,14 @@ sin usar arreglos ni cadenas de caracteres.
 ```
 <!-- {code} text -->
 
-
 ```{code} text
 :filename: salida
 54321
 
 ```
 <!-- {code} text -->
-
-## Ejercicio 0.5 - Secuencias
+(ejercicio_0_5)=
+## Ejercicio 0.5 - Secuencias ⭐⭐☆☆☆
 
 Los ejercicios de secuencias no requieren que guardemos los valores
 intermedios, ejercicios que si lo requieren están en la categoría
@@ -824,7 +807,6 @@ seleccionable por el usuario
 ```
 <!-- {code} text -->
 
-
 ```{code} text
 :filename: salida
 
@@ -849,7 +831,6 @@ Imprimir la secuencia de números pares entre $n$ y $m$.
 ```
 <!-- {code} text -->
 
-
 ```{code} text
 :filename: salida
 
@@ -872,7 +853,6 @@ Mostrar los números entre $n$ y $m$ de forma ascendente siendo $n ≥ i < m$
 
 ```
 <!-- {code} text -->
-
 
 ```{code} text
 :filename: salida
@@ -916,7 +896,6 @@ $$
 \sum\limits_{i = n}^{m}i^{2}
 $$
 
-
 ```{code} text
 :filename: entrada
 3
@@ -944,7 +923,6 @@ Imprimir los números entre $n$ y $m$ de forma descendente. ($n ≥ i < m$)
 ```
 <!-- {code} text -->
 
-
 ```{code} text
 :filename: salida
 10
@@ -957,7 +935,6 @@ Imprimir los números entre $n$ y $m$ de forma descendente. ($n ≥ i < m$)
 ### 1.5.7 - n-impares
 
 Imprimir la secuencia de números impares del 1 hasta n.
-
 
 ```{code} text
 :filename: entrada
@@ -993,14 +970,12 @@ $$
 ```
 <!-- {code} text -->
 
-
 ```{code} text
 :filename: salida
 La suma de los primeros 10 numeros es 55
 
 ```
 <!-- {code} text -->
-
 
 ### 1.5.9 - i-fibonacci'esimo
 
@@ -1021,7 +996,6 @@ La secuencia para el octavo termino queda como
 $$
 8 = (0, 1, 1, 2, 3, 5, 8, 13)
 $$
-
 
 ```{code} text
 :filename: entrada
@@ -1065,8 +1039,8 @@ Siendo el octavo termino $13$, la suma de sus dígitos es $4$; $1+3$
 
 ```
 <!-- {code} text -->
-
-## Ejercicio 0.6 - Condicionales
+(ejercicio_0_6)=
+## Ejercicio 0.6 - Condicionales ⭐⭐☆☆☆
 
 ### 1.6.1 - Par o Impar
 Dado un número entero, determinar si es par o impar.
@@ -1085,7 +1059,6 @@ $$
 n = 2k + 1
 $$
 
-
 ### 1.6.2 - Signo de un Número
 
 Dado un número real $x$, clasificarlo como positivo, negativo o cero. La
@@ -1098,8 +1071,8 @@ S(n) = \begin{cases}
 S(n-1) + n & \text{si } n > 1
 \end{cases}
 $$
-
-## Ejercicio 0.7 - Primos
+(ejercicio_0_7)=
+## Ejercicio 0.7 - Primos ⭐⭐☆☆☆
 
 Un número natural $p > 1$ se considera **primo** si sus únicos divisores
 positivos son $1$ y él mismo. Cualquier número entero mayor que $1$ que no es
@@ -1113,8 +1086,8 @@ Determinar si un número es primo o compuesto.
 
 Escribir un programa que genere y muestre los primeros $n$ números primos, donde
 $n$ es un valor proporcionado por el usuario.
-
-## Ejercicio 0.8 - Fechas
+(ejercicio_0_8)=
+## Ejercicio 0.8 - Fechas ⭐⭐☆☆☆
 
 ### 1.8.1 - Es bisiesto?
 
@@ -1125,6 +1098,4 @@ gregoriano:
 
 1. Es divisible por 4, pero no es divisible por 100.
 2. Es divisible por 400.
-
-
 

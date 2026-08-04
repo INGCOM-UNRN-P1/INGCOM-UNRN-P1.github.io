@@ -35,10 +35,10 @@ secuencias numéricas.
 ---
 
 ## Primeros Pasos y Salida Básica
+(ejercicio_1_1)=
+### Ejercicio 1.1 - Cuenta regresiva ⭐⭐☆☆☆
 
-### Ejercicio 1.1 - Cuenta regresiva
 
-#### Descripción
 Este ejercicio consiste en implementar un programa que realice una cuenta
 regresiva desde un número entero positivo `N` hasta 1, para finalmente imprimir
 un mensaje de "¡Lanzamiento!". El objetivo es practicar el uso de lazos y la
@@ -84,10 +84,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_2)=
+### Ejercicio 1.2 - ¡Hola mundo! ⭐⭐☆☆☆
 
-### Ejercicio 1.2 - ¡Hola mundo!
 
-#### Descripción
 El "Hola, mundo!" es el primer paso tradicional en el aprendizaje de un nuevo
 lenguaje de programación. El objetivo es escribir el programa más simple posible
 que produzca una salida visible en la pantalla, confirmando que el compilador y
@@ -121,10 +121,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_3)=
+### Ejercicio 1.3 - Saludador ⭐⭐☆☆☆
 
-### Ejercicio 1.3 - Saludador
 
-#### Descripción
 Este ejercicio amplía el "Hola, mundo!" para que el programa interactúe con el
 usuario. Debe solicitarle su nombre y luego mostrar un saludo personalizado que
 lo incluya. Sirve para practicar la lectura de datos desde la entrada estándar.
@@ -172,10 +172,10 @@ FIN
 ---
 
 ## Rangos y Secuencias
+(ejercicio_1_4)=
+### Ejercicio 1.4 - Pares en un rango ⭐⭐⭐☆☆
 
-### Ejercicio 1.4 - Pares en un rango
 
-#### Descripción
 El programa debe ser capaz de identificar y mostrar todos los números pares que
 existen dentro de un intervalo cerrado `[n, m]`, donde los límites `n` y `m` son
 proporcionados por el usuario.
@@ -216,10 +216,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_5)=
+### Ejercicio 1.5 - Primeros N Impares ⭐⭐☆☆☆
 
-### Ejercicio 1.5 - Primeros N Impares
 
-#### Descripción
 Este ejercicio consiste en generar una secuencia de números impares, comenzando
 desde 1, hasta alcanzar un total de `N` términos, donde `N` es un número
 proporcionado por el usuario.
@@ -264,10 +264,10 @@ FIN
 ---
 
 ## Operaciones con Rangos Numéricos
+(ejercicio_1_6)=
+### Ejercicio 1.6 - Secuencia Ascendente ⭐⭐☆☆☆
 
-### Ejercicio 1.6 - Secuencia Ascendente
 
-#### Descripción
 El objetivo es mostrar una secuencia de números enteros que comienza en un
 número `n` y termina justo antes de un número `m`. Esto corresponde al intervalo
 matemático `[n, m)`.
@@ -302,10 +302,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_7)=
+### Ejercicio 1.7 - Secuencia Descendente ⭐⭐☆☆☆
 
-### Ejercicio 1.7 - Secuencia Descendente
 
-#### Descripción
 Similar al anterior, pero esta vez la secuencia debe ir en orden descendente. Se
 parte de un número `n` y se retrocede hasta un número `m`, sin incluirlo. Esto
 corresponde al intervalo `(m, n]`.
@@ -340,10 +340,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_8)=
+### Ejercicio 1.8 - Sumatoria ⭐⭐☆☆☆
 
-### Ejercicio 1.8 - Sumatoria
 
-#### Descripción
 Calcular la suma de todos los números enteros en un rango cerrado `[n, m]`. Esto
 es equivalente a la operación matemática $\sum_{i=n}^{m} i$.
 
@@ -383,10 +383,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_9)=
+### Ejercicio 1.9 - Suma de Cuadrados ⭐⭐☆☆☆
 
-### Ejercicio 1.9 - Suma de Cuadrados
 
-#### Descripción
 Calcular la suma de los cuadrados de todos los números enteros en un rango
 cerrado `[n, m]`. La operación es $\sum_{i=n}^{m} i^2$.
 
@@ -428,10 +428,10 @@ FIN
 ---
 
 ## Estructuras Condicionales
+(ejercicio_1_10)=
+### Ejercicio 1.10 - Par o Impar ⭐⭐☆☆☆
 
-### Ejercicio 1.10 - Par o Impar
 
-#### Descripción
 Este es un ejercicio fundamental de lógica condicional. El programa debe
 solicitar un número entero al usuario y determinar si es par (divisible por 2) o
 impar.
@@ -472,10 +472,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_11)=
+### Ejercicio 1.11 - Signo de un Número ⭐⭐☆☆☆
 
-### Ejercicio 1.11 - Signo de un Número
 
-#### Descripción
 El programa debe clasificar un número real (de punto flotante) ingresado por el
 usuario en una de tres categorías: positivo, negativo o cero.
 
@@ -522,10 +522,10 @@ FIN
 ---
 
 ## Fórmulas Geométricas
+(ejercicio_1_12)=
+### Ejercicio 1.12 - Área de Triángulo (Base y Altura) ⭐⭐☆☆☆
 
-### Ejercicio 1.12 - Área de Triángulo (Base y Altura)
 
-#### Descripción
 Calcular el área de un triángulo a partir de las longitudes de su base y su
 altura. La fórmula es $A = \frac{1}{2} b \cdot h$.
 
@@ -562,10 +562,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_13)=
+### Ejercicio 1.13 - Área de Triángulo (Fórmula de Herón) ⭐⭐☆☆☆
 
-### Ejercicio 1.13 - Área de Triángulo (Fórmula de Herón)
 
-#### Descripción
 Calcular el área de un triángulo conociendo únicamente la longitud de sus tres
 lados (`a`, `b`, `c`). Para esto se utiliza la fórmula de Herón.
 
@@ -606,10 +606,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_14)=
+### Ejercicio 1.14 - Círculo ⭐⭐☆☆☆
 
-### Ejercicio 1.14 - Círculo
 
-#### Descripción
 Calcular el área y la circunferencia (perímetro) de un círculo a partir de su
 radio.
 
@@ -652,10 +652,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_15)=
+### Ejercicio 1.15 - Trapecio ⭐⭐☆☆☆
 
-### Ejercicio 1.15 - Trapecio
 
-#### Descripción
 Calcular el área de un trapecio dadas las longitudes de sus dos bases paralelas
 y su altura.
 
@@ -691,10 +691,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_16)=
+### Ejercicio 1.16 - Polígono Regular ⭐⭐☆☆☆
 
-### Ejercicio 1.16 - Polígono Regular
 
-#### Descripción
 Calcular el área de un polígono regular (lados y ángulos iguales) a partir del
 número de lados, la longitud de un lado y la apotema.
 
@@ -732,10 +732,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_17)=
+### Ejercicio 1.17 - Rectángulo ⭐⭐☆☆☆
 
-### Ejercicio 1.17 - Rectángulo
 
-#### Descripción
 Calcular el área y el perímetro de un rectángulo dadas las longitudes de su
 largo y su ancho.
 
@@ -777,10 +777,10 @@ FIN
 ---
 
 ## Conversiones de Unidades
+(ejercicio_1_18)=
+### Ejercicio 1.18 - Temperaturas ⭐⭐☆☆☆
 
-### Ejercicio 1.18 - Temperaturas
 
-#### Descripción
 Crear un programa que pueda convertir temperaturas entre las escalas Celsius,
 Fahrenheit y Kelvin.
 
@@ -820,10 +820,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) para celsius a fahrenheit. -->
+(ejercicio_1_19)=
+### Ejercicio 1.19 - Ángulos a Segundos ⭐⭐☆☆☆
 
-### Ejercicio 1.19 - Ángulos a Segundos
 
-#### Descripción
 Convertir una medida de ángulo dada en formato sexagesimal (grados, minutos y
 segundos) a su valor total equivalente en segundos.
 
@@ -865,10 +865,10 @@ FIN
 ---
 
 ## Control de Flujo Avanzado
+(ejercicio_1_20)=
+### Ejercicio 1.20 - Tabla de Multiplicar ⭐⭐☆☆☆
 
-### Ejercicio 1.20 - Tabla de Multiplicar
 
-#### Descripción
 El programa debe solicitar un número entero al usuario y mostrar su tabla de
 multiplicar, desde el 1 hasta el 10.
 
@@ -904,10 +904,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_21)=
+### Ejercicio 1.21 - Patrón de Asteriscos (Triángulo) ⭐⭐☆☆☆
 
-### Ejercicio 1.21 - Patrón de Asteriscos (Triángulo)
 
-#### Descripción
 Implementar un programa que pida un número `n` e imprima un triángulo rectángulo
 de `n` filas de altura, construido con asteriscos.
 
@@ -947,10 +947,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_22)=
+### Ejercicio 1.22 - Calculadora Básica ⭐⭐☆☆☆
 
-### Ejercicio 1.22 - Calculadora Básica
 
-#### Descripción
 Crear un programa que funcione como una calculadora simple. Debe solicitar al
 usuario dos números y un carácter que represente la operación aritmética a
 realizar (+, -, *, /).
@@ -1004,10 +1004,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_23)=
+### Ejercicio 1.23 - Adivina el Número ⭐⭐☆☆☆
 
-### Ejercicio 1.23 - Adivina el Número
 
-#### Descripción
 Desarrollar un juego simple donde el programa genera un número secreto aleatorio
 y el usuario debe adivinarlo. El programa proporciona pistas para guiar al
 usuario.
@@ -1059,10 +1059,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_24)=
+### Ejercicio 1.24 - Serie de Fibonacci (Iterativa) ⭐⭐☆☆☆
 
-### Ejercicio 1.24 - Serie de Fibonacci (Iterativa)
 
-#### Descripción
 Generar y mostrar los primeros `n` términos de la serie de Fibonacci. En esta
 serie, cada número es la suma de los dos anteriores, comenzando con 0 y 1.
 
@@ -1114,10 +1114,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_25)=
+### Ejercicio 1.25 - Cálculo de Interés Simple ⭐☆☆☆☆
 
-### Ejercicio 1.25 - Cálculo de Interés Simple
 
-#### Descripción
 Implementar una función que calcule el monto final y el interés simple ganado a
 partir de un capital inicial, una tasa de interés anual y un período de tiempo
 en años.
@@ -1161,10 +1161,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_26)=
+### Ejercicio 1.26 - Índice de Masa Corporal (IMC) ⭐⭐☆☆☆
 
-### Ejercicio 1.26 - Índice de Masa Corporal (IMC)
 
-#### Descripción
 Escribir un programa que calcule el Índice de Masa Corporal (IMC) de una persona
 y lo clasifique según las categorías de la OMS.
 
@@ -1216,10 +1216,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_27)=
+### Ejercicio 1.27 - Días del Mes ⭐⭐☆☆☆
 
-### Ejercicio 1.27 - Días del Mes
 
-#### Descripción
 Crear un programa que, dado un mes (como número del 1 al 12) y un año, determine
 y muestre cuántos días tiene ese mes. Este ejercicio requiere manejar el caso
 especial de febrero en los años bisiestos.
@@ -1278,10 +1278,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_28)=
+### Ejercicio 1.28 - Máximo de Tres Números ⭐⭐☆☆☆
 
-### Ejercicio 1.28 - Máximo de Tres Números
 
-#### Descripción
 El objetivo es encontrar el valor más grande entre tres números enteros
 proporcionados por el usuario. Este ejercicio se centra en el uso de
 condicionales anidados o operadores lógicos para realizar comparaciones
@@ -1332,10 +1332,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_29)=
+### Ejercicio 1.29 - Clasificación de Triángulo ⭐⭐☆☆☆
 
-### Ejercicio 1.29 - Clasificación de Triángulo
 
-#### Descripción
 Dados los largos de tres lados, el programa debe determinar si pueden formar un
 triángulo válido y, en caso afirmativo, clasificarlo como equilátero (todos los
 lados iguales), isósceles (dos lados iguales) o escaleno (todos los lados
@@ -1385,10 +1385,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_30)=
+### Ejercicio 1.30 - Desglose de Billetes ⭐⭐☆☆☆
 
-### Ejercicio 1.30 - Desglose de Billetes
 
-#### Descripción
 Dado un monto de dinero entero, el programa debe calcular la cantidad mínima de
 billetes de distintas denominaciones para representar dicho monto.
 
@@ -1434,10 +1434,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_31)=
+### Ejercicio 1.31 - Piedra, Papel o Tijera ⭐⭐☆☆☆
 
-### Ejercicio 1.31 - Piedra, Papel o Tijera
 
-#### Descripción
 Implementar el clásico juego de Piedra, Papel o Tijera para que un usuario
 juegue una partida contra la computadora.
 
@@ -1487,10 +1487,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_32)=
+### Ejercicio 1.32 - Patrón de Pirámide ⭐⭐☆☆☆
 
-### Ejercicio 1.32 - Patrón de Pirámide
 
-#### Descripción
 Implementar un programa que pida un número `n` e imprima un triángulo de `n`
 filas de altura, construido con asteriscos, centrado como una pirámide.
 
@@ -1539,10 +1539,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_33)=
+### Ejercicio 1.33 - Validación de Contraseña Simple ⭐☆☆☆☆
 
-### Ejercicio 1.33 - Validación de Contraseña Simple
 
-#### Descripción
 Crear un programa que solicite una contraseña al usuario y no le permita
 continuar hasta que ingrese la contraseña correcta. Este ejercicio practica el
 uso de lazos `do-while` y la comparación de cadenas.
@@ -1588,10 +1588,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_34)=
+### Ejercicio 1.34 - Cajero Automático (Menú) ⭐⭐☆☆☆
 
-### Ejercicio 1.34 - Cajero Automático (Menú)
 
-#### Descripción
 Simular la interfaz de un menú de cajero automático. El programa debe mostrar
 una lista de opciones y ejecutar una acción simple según la elección del
 usuario, repitiendo el proceso hasta que el usuario decida salir.
@@ -1653,10 +1653,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_35)=
+### Ejercicio 1.35 - Patrón de Rombo ⭐⭐☆☆☆
 
-### Ejercicio 1.35 - Patrón de Rombo
 
-#### Descripción
 Implementar un programa que pida un número impar `n` e imprima un rombo de
 asteriscos de `n` filas de altura.
 
@@ -1700,10 +1700,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_36)=
+### Ejercicio 1.36 - Promedio de N Números ⭐⭐☆☆☆
 
-### Ejercicio 1.36 - Promedio de N Números
 
-#### Descripción
 Escribir un programa que sea flexible en la cantidad de números a promediar.
 Primero debe preguntar al usuario cuántos números va a ingresar y luego calcular
 el promedio de esa cantidad de números.
@@ -1754,10 +1754,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_37)=
+### Ejercicio 1.37 - Contador de Dígitos ⭐⭐⭐☆☆
 
-### Ejercicio 1.37 - Contador de Dígitos
 
-#### Descripción
 Crear una función que reciba un número entero y devuelva la cantidad de dígitos
 que lo componen.
 
@@ -1806,10 +1806,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_38)=
+### Ejercicio 1.38 - Invertir un Número Entero ⭐⭐☆☆☆
 
-### Ejercicio 1.38 - Invertir un Número Entero
 
-#### Descripción
 Implementar una función que tome un número entero y devuelva otro número con los
 dígitos en orden inverso.
 
@@ -1854,10 +1854,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_39)=
+### Ejercicio 1.39 - Potencia con Lazos ⭐⭐☆☆☆
 
-### Ejercicio 1.39 - Potencia con Lazos
 
-#### Descripción
 Escribir una función que calcule `base^exponente` sin usar la función `pow()` de
 la biblioteca `math.h`. Debe funcionar para exponentes enteros no negativos.
 
@@ -1897,10 +1897,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_40)=
+### Ejercicio 1.40 - Menú de Conversiones ⭐⭐☆☆☆
 
-### Ejercicio 1.40 - Menú de Conversiones
 
-#### Descripción
 Crear un programa robusto que presente al usuario un menú con varias opciones de
 conversión de unidades (ej. Celsius a Fahrenheit, Metros a Pies, Kilogramos a
 Libras). El programa debe repetir el menú hasta que el usuario elija la opción
@@ -1946,10 +1946,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_41)=
+### Ejercicio 1.41 - Validación de Fecha ⭐⭐☆☆☆
 
-### Ejercicio 1.41 - Validación de Fecha
 
-#### Descripción
 Crear una función que valide si una combinación de día, mes y año corresponde a
 una fecha real en el calendario gregoriano.
 
@@ -1998,10 +1998,10 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_42)=
+### Ejercicio 1.42 - Dibujar un Cuadrado Hueco ⭐⭐☆☆☆
 
-### Ejercicio 1.42 - Dibujar un Cuadrado Hueco
 
-#### Descripción
 Pedir al usuario un número `n` y dibujar el contorno de un cuadrado de `n x n`
 utilizando asteriscos. El interior del cuadrado debe estar vacío.
 
@@ -2045,10 +2045,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_43)=
+### Ejercicio 1.43 - Suma Separada de Pares e Impares ⭐⭐☆☆☆
 
-### Ejercicio 1.43 - Suma Separada de Pares e Impares
 
-#### Descripción
 Dado un rango de números `[n, m]`, el programa debe calcular la suma de todos
 los números pares y la suma de todos los números impares de forma independiente
 y mostrar ambos resultados.
@@ -2097,10 +2097,10 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+(ejercicio_1_44)=
+### Ejercicio 1.44 - Número de la Suerte ⭐⭐☆☆☆
 
-### Ejercicio 1.44 - Número de la Suerte
 
-#### Descripción
 Un número de la suerte es un entero con una cantidad par de dígitos, donde la
 suma de los dígitos de la primera mitad es igual a la suma de los dígitos de la
 segunda mitad. El programa debe verificar si un número dado es de la suerte.
@@ -2163,14 +2163,8 @@ FIN
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-
----
-
-## Ejercicios Adicionales (Práctica Intensiva)
-
-## Ejercicio 1: Hola Mundo Personalizado
-
-**Dificultad:** ⭐☆☆☆☆
+(ejercicio_1_45)=
+## Ejercicio 1.45 - Hola Mundo Personalizado ⭐☆☆☆☆
 
 Escribí un programa que solicite tu nombre y te salude personalmente.
 
@@ -2186,10 +2180,8 @@ Ingresá tu nombre: Juan
 - Recordá incluir `<stdio.h>`
 
 ---
-
-## Ejercicio 2: Calculadora Simple
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_1_46)=
+## Ejercicio 1.46 - Calculadora Simple ⭐⭐☆☆☆
 
 Escribí un programa que lea dos números enteros y muestre su suma, resta, producto y división.
 
@@ -2209,10 +2201,8 @@ División: 3.33
 - Usá `%.2f` para mostrar dos decimales
 
 ---
-
-## Ejercicio 3: Conversor de Temperatura
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_1_47)=
+## Ejercicio 1.47 - Conversor de Temperatura ⭐⭐☆☆☆
 
 Creá un programa que convierta temperatura de Celsius a Fahrenheit y Kelvin.
 
@@ -2226,10 +2216,8 @@ Creá un programa que convierta temperatura de Celsius a Fahrenheit y Kelvin.
 - Mostrá resultados con dos decimales
 
 ---
-
-## Ejercicio 4: Área y Perímetro
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_1_48)=
+## Ejercicio 1.48 - Área y Perímetro ⭐⭐☆☆☆
 
 Escribí un programa que calcule el área y perímetro de un rectángulo dados su ancho y alto.
 
@@ -2240,10 +2228,8 @@ Escribí un programa que calcule el área y perímetro de un rectángulo dados s
 - Verificá que ancho y alto sean positivos
 
 ---
-
-## Ejercicio 5: Promedio de Tres Números
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_1_49)=
+## Ejercicio 1.49 - Promedio de Tres Números ⭐⭐☆☆☆
 
 Calculá el promedio de tres números decimales ingresados por el usuario.
 
@@ -2253,10 +2239,8 @@ Calculá el promedio de tres números decimales ingresados por el usuario.
 - Mostrá el resultado con dos decimales
 
 ---
-
-## Ejercicio 6: Intercambio de Variables
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_1_50)=
+## Ejercicio 1.50 - Intercambio de Variables ⭐⭐☆☆☆
 
 Leé dos números enteros y mostralos intercambiados (sin usar una tercera variable).
 
@@ -2277,10 +2261,8 @@ b = 5
 - Alternativamente, usá operadores bitwise XOR
 
 ---
-
-## Ejercicio 7: Conversión de Unidades
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_1_51)=
+## Ejercicio 1.51 - Conversión de Unidades ⭐⭐☆☆☆
 
 Convertí una distancia en metros a kilómetros, centímetros y milímetros.
 
@@ -2290,10 +2272,8 @@ Convertí una distancia en metros a kilómetros, centímetros y milímetros.
 - Mostrá todas las conversiones
 
 ---
-
-## Ejercicio 8: Cálculo de IMC
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_1_52)=
+## Ejercicio 1.52 - Cálculo de IMC ⭐⭐⭐☆☆
 
 Calculá el Índice de Masa Corporal (IMC) dados peso (kg) y altura (m).
 
@@ -2305,10 +2285,8 @@ Calculá el Índice de Masa Corporal (IMC) dados peso (kg) y altura (m).
 - Opcionalmente, mostrá la categoría (bajo peso, normal, sobrepeso)
 
 ---
-
-## Ejercicio 9: Cantidad de Billetes
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_1_53)=
+## Ejercicio 1.53 - Cantidad de Billetes ⭐⭐⭐☆☆
 
 Dado un monto en pesos, calculá cuántos billetes de cada denominación (1000, 500, 200, 100, 50, 20, 10) se necesitan.
 
@@ -2330,10 +2308,8 @@ Monto: 1780
 - Restá el valor usado del monto
 
 ---
-
-## Ejercicio 10: Segundos a Horas, Minutos y Segundos
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_1_54)=
+## Ejercicio 1.54 - Segundos a Horas, Minutos y Segundos ⭐⭐⭐☆☆
 
 Convertí una cantidad de segundos a formato HH:MM:SS.
 
@@ -2350,10 +2326,8 @@ Resultado: 1:01:05
 - Mostrá con formato `printf("%d:%02d:%02d", h, m, s)`
 
 ---
-
-## Ejercicio 11: Dígitos de un Número
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_1_55)=
+## Ejercicio 1.55 - Dígitos de un Número ⭐⭐⭐☆☆
 
 Leé un número de tres dígitos y mostrá cada dígito por separado.
 
@@ -2371,10 +2345,8 @@ Unidades: 7
 - Unidades = numero % 10
 
 ---
-
-## Ejercicio 12: Precio con Descuento
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_1_56)=
+## Ejercicio 1.56 - Precio con Descuento ⭐⭐⭐☆☆
 
 Calculá el precio final de un producto aplicando un descuento porcentual.
 
@@ -2391,10 +2363,8 @@ Precio final: 850.00
 - Mostrá ambos valores
 
 ---
-
-## Ejercicio 13: Operaciones Bitwise
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_1_57)=
+## Ejercicio 1.57 - Operaciones Bitwise ⭐⭐⭐☆☆
 
 Leé dos números enteros y mostrá el resultado de todas las operaciones bitwise: AND, OR, XOR, NOT (del primero), shift left y shift right.
 
@@ -2404,10 +2374,8 @@ Leé dos números enteros y mostrá el resultado de todas las operaciones bitwis
 - Explicá qué hace cada operación
 
 ---
-
-## Ejercicio 14: Conversión de Base
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_1_58)=
+## Ejercicio 1.58 - Conversión de Base ⭐⭐⭐⭐☆
 
 Convertí un número decimal a binario, octal y hexadecimal.
 
@@ -2417,10 +2385,8 @@ Convertí un número decimal a binario, octal y hexadecimal.
 - Opcionalmente, implementá conversión manual con divisiones sucesivas
 
 ---
-
-## Ejercicio 15: Área de Triángulo (Herón)
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_1_59)=
+## Ejercicio 1.59 - Área de Triángulo (Herón) ⭐⭐⭐⭐☆
 
 Calculá el área de un triángulo usando la fórmula de Herón dados los tres lados.
 
@@ -2434,10 +2400,8 @@ Calculá el área de un triángulo usando la fórmula de Herón dados los tres l
 - Compilá con `-lm` para enlazar la biblioteca matemática
 
 ---
-
-## Ejercicio 16: Ecuación Cuadrática
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_1_60)=
+## Ejercicio 1.60 - Ecuación Cuadrática ⭐⭐⭐⭐☆
 
 Resolvé una ecuación cuadrática ax² + bx + c = 0, mostrando las raíces reales si existen.
 
@@ -2449,10 +2413,8 @@ Resolvé una ecuación cuadrática ax² + bx + c = 0, mostrando las raíces real
 - Usá `sqrt()` de `<math.h>`
 
 ---
-
-## Ejercicio 17: Interés Compuesto
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_1_61)=
+## Ejercicio 1.61 - Interés Compuesto ⭐⭐⭐⭐☆
 
 Calculá el monto final de una inversión con interés compuesto.
 
@@ -2470,10 +2432,8 @@ Donde:
 - Compilá con `-lm`
 
 ---
-
-## Ejercicio 18: Conversión RGB a Hexadecimal
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_1_62)=
+## Ejercicio 1.62 - Conversión RGB a Hexadecimal ⭐⭐⭐⭐☆
 
 Convertí un color RGB (rojo, verde, azul) a su representación hexadecimal.
 
@@ -2491,10 +2451,8 @@ Hexadecimal: #FF7F50
 - Combiná los tres valores en formato #RRGGBB
 
 ---
-
-## Ejercicio 19: Cálculo de Potencia (sin pow)
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_1_63)=
+## Ejercicio 1.63 - Cálculo de Potencia (sin pow) ⭐⭐⭐⭐⭐
 
 Calculá base^exponente usando solo multiplicaciones (exponente entero positivo).
 
@@ -2505,10 +2463,8 @@ Calculá base^exponente usando solo multiplicaciones (exponente entero positivo)
 - **Spoiler:** Este ejercicio requiere lazos, pero podés usar multiplicaciones repetidas en línea
 
 ---
-
-## Ejercicio 20: Calculadora Científica Básica
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_1_64)=
+## Ejercicio 1.64 - Calculadora Científica Básica ⭐⭐⭐⭐⭐
 
 Creá una calculadora que realice operaciones avanzadas: potencia, raíz cuadrada, seno, coseno, tangente, logaritmo.
 

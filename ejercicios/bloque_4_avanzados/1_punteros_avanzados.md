@@ -39,8 +39,8 @@ flowchart TD
 
 :::
 <!-- {mermaid} -->
-
-### Ejercicio 4.1 - Asignación de Memoria en una Función
+(ejercicio_26_1)=
+### Ejercicio 26.1 - Asignación de Memoria en una Función ⭐⭐☆☆☆
 
 Escribir una función `void alocar_cadena(char **puntero_a_cadena, const char
 *valor_inicial)` que reciba un puntero doble. La función debe reservar memoria
@@ -55,8 +55,8 @@ original en `main` apunte a esta nueva memoria.
   2. Usar `strcpy` para copiar el `valor_inicial`.
   3. Asignar la nueva dirección de memoria al puntero desreferenciado:
      `*puntero_a_cadena = nueva_cadena;`.
-
-### Ejercicio 4.2 - Devolución de un Arreglo de Cadenas (Tokenizer)
+(ejercicio_26_2)=
+### Ejercicio 26.2 - Devolución de un Arreglo de Cadenas (Tokenizer) ⭐⭐⭐☆☆
 
 Reimplementar el ejercicio de "Tokenización" para que la función devuelva un
 `char**` (un arreglo de cadenas terminado en `NULL`) alojado dinámicamente. La
@@ -78,8 +78,8 @@ función debe ser `char** dividir_cadena(const char *s, const char
 Un puntero a función almacena la dirección de memoria de una función ejecutable.
 Permite pasar funciones como argumentos a otras funciones, creando código más
 genérico y extensible.
-
-### Ejercicio 4.3 - Typedef para un Puntero a Función
+(ejercicio_26_3)=
+### Ejercicio 26.3 - Typedef para un Puntero a Función ⭐⭐⭐☆☆
 
 Definir un tipo llamado `operacion_aritmetica_t` usando `typedef` que represente
 un puntero a una función que toma dos enteros y devuelve un entero.
@@ -90,8 +90,8 @@ un puntero a una función que toma dos enteros y devuelve un entero.
 - `operacion_aritmetica_t`: Es el nuevo nombre del tipo.
 - `(int, int)`: El puntero apunta a una función que toma dos `int` como
   parámetros.
-
-### Ejercicio 4.4 - Función de Orden Superior (Calculadora)
+(ejercicio_26_4)=
+### Ejercicio 26.4 - Función de Orden Superior (Calculadora) ⭐⭐☆☆☆
 
 Escribir una función `int calculadora(int a, int b, operacion_aritmetica_t
 operacion)` que reciba dos números y un puntero a una función de operación. La
@@ -105,8 +105,8 @@ su resultado.
   `restar(int, int)` y pasarlas a `calculadora`.
   - `calculadora(10, 5, sumar);` // Devuelve 15
   - `calculadora(10, 5, restar);` // Devuelve 5
-
-### Ejercicio 4.5 - Tabla de Despacho (Dispatch Table)
+(ejercicio_26_5)=
+### Ejercicio 26.5 - Tabla de Despacho (Dispatch Table) ⭐⭐☆☆☆
 
 Crear una "tabla de despacho" para la calculadora. Esto consiste en un arreglo
 de punteros a función. El programa debe permitir al usuario elegir una operación

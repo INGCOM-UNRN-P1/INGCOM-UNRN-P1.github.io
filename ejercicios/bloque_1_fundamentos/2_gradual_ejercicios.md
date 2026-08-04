@@ -26,8 +26,8 @@ inicialización correcta de variables con tipos primitivos básicos.
 ---
 
 ## Lectura y Escritura Básica
-
-### Ejercicio 2.1 - Mostrando valores
+(ejercicio_2_1)=
+### Ejercicio 2.1 - Mostrando valores ⭐⭐☆☆☆
 
 :::{exercise}
 :label: Mostrando valores
@@ -63,8 +63,8 @@ int main(void) {
 
 :::
 <!-- {solution} Mostrando valores -->
-
-### Ejercicio 2.2 - Formateo de entrada y salida
+(ejercicio_2_2)=
+### Ejercicio 2.2 - Formateo de entrada y salida ⭐⭐☆☆☆
 
 :::{exercise}
 :label: entrada-1
@@ -113,14 +113,8 @@ int main(void) {
 
 :::
 <!-- {solution} entrada-1 -->
-
----
-
-## Ejercicios Adicionales (Práctica Intensiva)
-
-## Ejercicio 1: Par o Impar
-
-**Dificultad:** ⭐☆☆☆☆
+(ejercicio_2_3)=
+## Ejercicio 2.3 - Par o Impar ⭐☆☆☆☆
 
 Determiná si un número entero es par o impar.
 
@@ -130,10 +124,8 @@ Determiná si un número entero es par o impar.
 - Considerá números negativos (funcionan igual)
 
 ---
-
-## Ejercicio 2: Mayor de Tres Números
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_2_4)=
+## Ejercicio 2.4 - Mayor de Tres Números ⭐⭐☆☆☆
 
 Leé tres números y determiná cuál es el mayor.
 
@@ -143,10 +135,8 @@ Leé tres números y determiná cuál es el mayor.
 - Considerá el caso de números iguales
 
 ---
-
-## Ejercicio 3: Año Bisiesto
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_2_5)=
+## Ejercicio 2.5 - Año Bisiesto ⭐⭐☆☆☆
 
 Determiná si un año es bisiesto.
 
@@ -160,10 +150,8 @@ Determiná si un año es bisiesto.
 - Condición: `(año % 4 == 0 && año % 100 != 0) || (año % 400 == 0)`
 
 ---
-
-## Ejercicio 4: Calificación a Letra
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_2_6)=
+## Ejercicio 2.6 - Calificación a Letra ⭐⭐☆☆☆
 
 Convertí una calificación numérica (0-100) a letra (A, B, C, D, F).
 
@@ -180,10 +168,8 @@ Convertí una calificación numérica (0-100) a letra (A, B, C, D, F).
 - Opcionalmente, usá `switch` dividiendo por 10
 
 ---
-
-## Ejercicio 5: Calculadora con Menú
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_2_7)=
+## Ejercicio 2.7 - Calculadora con Menú ⭐⭐⭐☆☆
 
 Implementá una calculadora que muestre un menú y ejecute la operación elegida.
 
@@ -202,10 +188,8 @@ Implementá una calculadora que muestre un menú y ejecute la operación elegida
 - Permití múltiples operaciones (lazo)
 
 ---
-
-## Ejercicio 6: Triángulo Válido
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_2_8)=
+## Ejercicio 2.8 - Triángulo Válido ⭐⭐⭐☆☆
 
 Dados tres lados, determiná si forman un triángulo válido y qué tipo es (equilátero, isósceles, escaleno).
 
@@ -216,10 +200,8 @@ Dados tres lados, determiná si forman un triángulo válido y qué tipo es (equ
 - Escaleno: todos diferentes
 
 ---
-
-## Ejercicio 7: Mes del Año
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_2_9)=
+## Ejercicio 2.9 - Mes del Año ⭐⭐⭐☆☆
 
 Dado un número de mes (1-12), mostrá su nombre y cantidad de días.
 
@@ -229,10 +211,8 @@ Dado un número de mes (1-12), mostrá su nombre y cantidad de días.
 - Manejá entradas inválidas (fuera de 1-12)
 
 ---
-
-## Ejercicio 8: Signo Zodiacal
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_2_10)=
+## Ejercicio 2.10 - Signo Zodiacal ⭐⭐⭐☆☆
 
 Dados día y mes de nacimiento, determiná el signo zodiacal.
 
@@ -242,10 +222,8 @@ Dados día y mes de nacimiento, determiná el signo zodiacal.
 - Validá fechas (día válido para cada mes)
 
 ---
-
-## Ejercicio 9: Ordenar Tres Números
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_2_11)=
+## Ejercicio 2.11 - Ordenar Tres Números ⭐⭐⭐☆☆
 
 Leé tres números y mostralos ordenados de menor a mayor.
 
@@ -256,10 +234,8 @@ Leé tres números y mostralos ordenados de menor a mayor.
 - Alternativa: usar comparaciones múltiples sin intercambio
 
 ---
-
-## Ejercicio 10: Vocales y Consonantes
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_2_12)=
+## Ejercicio 2.12 - Vocales y Consonantes ⭐⭐⭐☆☆
 
 Leé un carácter y determiná si es vocal, consonante, dígito u otro símbolo.
 
@@ -270,10 +246,8 @@ Leé un carácter y determiná si es vocal, consonante, dígito u otro símbolo.
 - Considerá mayúsculas y minúsculas
 
 ---
-
-## Ejercicio 11: Ecuación de Primer Grado
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_2_13)=
+## Ejercicio 2.13 - Ecuación de Primer Grado ⭐⭐⭐☆☆
 
 Resolvé ecuaciones de la forma ax + b = 0.
 
@@ -287,10 +261,8 @@ Resolvé ecuaciones de la forma ax + b = 0.
 - Mostrá mensajes descriptivos para cada caso
 
 ---
-
-## Ejercicio 12: Clasificación de IMC
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_2_14)=
+## Ejercicio 2.14 - Clasificación de IMC ⭐⭐⭐☆☆
 
 Calculá el IMC y clasificá según la categoría.
 
@@ -308,10 +280,8 @@ Calculá el IMC y clasificá según la categoría.
 - Validá que altura > 0
 
 ---
-
-## Ejercicio 13: Conversor de Calificaciones
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_2_15)=
+## Ejercicio 2.15 - Conversor de Calificaciones ⭐⭐⭐⭐☆
 
 Convertí entre diferentes sistemas de calificación: numérica (0-10), letra (A-F), porcentaje (0-100).
 
@@ -321,10 +291,8 @@ Convertí entre diferentes sistemas de calificación: numérica (0-10), letra (A
 - Validá rangos de entrada
 
 ---
-
-## Ejercicio 14: Operaciones con Fechas
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_2_16)=
+## Ejercicio 2.16 - Operaciones con Fechas ⭐⭐⭐⭐☆
 
 Dadas dos fechas (día, mes, año), determiná cuál es anterior.
 
@@ -334,10 +302,8 @@ Dadas dos fechas (día, mes, año), determiná cuál es anterior.
 - Considerá años bisiestos para febrero
 
 ---
-
-## Ejercicio 15: Calculadora de Impuestos
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_2_17)=
+## Ejercicio 2.17 - Calculadora de Impuestos ⭐⭐⭐⭐☆
 
 Calculá impuesto a las ganancias según tramos.
 
@@ -353,10 +319,8 @@ Calculá impuesto a las ganancias según tramos.
 - Mostrá salario neto (bruto - impuesto)
 
 ---
-
-## Ejercicio 16: Validador de Tarjeta de Crédito
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_2_18)=
+## Ejercicio 2.18 - Validador de Tarjeta de Crédito ⭐⭐⭐⭐☆
 
 Implementá el algoritmo de Luhn para validar números de tarjeta.
 
@@ -372,10 +336,8 @@ Implementá el algoritmo de Luhn para validar números de tarjeta.
 - Implementá sin arrays (solo con variables)
 
 ---
-
-## Ejercicio 17: Juego de Adivinanza
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_2_19)=
+## Ejercicio 2.19 - Juego de Adivinanza ⭐⭐⭐⭐☆
 
 El programa elige un número aleatorio entre 1 y 100. El usuario adivina y recibe pistas ("muy alto", "muy bajo").
 
@@ -386,10 +348,8 @@ El programa elige un número aleatorio entre 1 y 100. El usuario adivina y recib
 - Usá lazo `while` hasta acertar o límite de intentos
 
 ---
-
-## Ejercicio 18: Conversor de Números Romanos
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_2_20)=
+## Ejercicio 2.20 - Conversor de Números Romanos ⭐⭐⭐⭐⭐
 
 Convertí un número decimal (1-3999) a números romanos.
 
@@ -401,10 +361,8 @@ Convertí un número decimal (1-3999) a números romanos.
 - Usá múltiples `if` o `switch` por cada orden de magnitud
 
 ---
-
-## Ejercicio 19: Calculadora de Tiempo
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_2_21)=
+## Ejercicio 2.21 - Calculadora de Tiempo ⭐⭐⭐⭐⭐
 
 Realizá operaciones con tiempos en formato HH:MM:SS (sumar, restar, comparar).
 
@@ -420,10 +378,8 @@ Realizá operaciones con tiempos en formato HH:MM:SS (sumar, restar, comparar).
 - Validá formato de entrada
 
 ---
-
-## Ejercicio 20: Sistema de Menú Multinivel
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_2_22)=
+## Ejercicio 2.22 - Sistema de Menú Multinivel ⭐⭐⭐⭐⭐
 
 Implementá un sistema de menús con submenús.
 

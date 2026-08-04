@@ -38,8 +38,8 @@ typedef struct {
 } fraccion_t;
 ```
 <!-- c -->
-
-### Ejercicio 5.1 - Operaciones Aritméticas
+(ejercicio_18_1)=
+### Ejercicio 18.1 - Operaciones Aritméticas ⭐⭐☆☆☆
 
 Implementar funciones que tomen dos fracciones y retornen el resultado de la
 operación.
@@ -48,8 +48,8 @@ operación.
 - **Resta**: $$\frac{a}{b} - \frac{c}{d} = \frac{ad - bc}{bd}$$
 - **Multiplicación**: $$\frac{a}{b} \times \frac{c}{d} = \frac{ac}{bd}$$
 - **División**: $$\frac{a}{b} \div \frac{c}{d} = \frac{ad}{bc}$$
-
-### Ejercicio 5.2 - Simplificación
+(ejercicio_18_2)=
+### Ejercicio 18.2 - Simplificación ⭐⭐☆☆☆
 
 Implementar una función que modifique una fracción para llevarla a su mínima
 expresión. La simplificación se realiza dividiendo numerador y denominador por
@@ -58,8 +58,8 @@ su **Máximo Común Divisor (MCD)**.
 ---
 
 ## División con Resto
-
-### Ejercicio 5.3 - Estructura de división
+(ejercicio_18_3)=
+### Ejercicio 18.3 - Estructura de división ⭐⭐⭐☆☆
 
 La división entera en C (`/` y `%`) produce dos resultados. El objetivo es
 unificar estas operaciones en una única función que retorne una `struct` con el
@@ -92,8 +92,8 @@ typedef struct {
 } tiempo_t;
 ```
 <!-- c -->
-
-### Ejercicio 5.4 - Suma de Tiempos
+(ejercicio_18_4)=
+### Ejercicio 18.4 - Suma de Tiempos ⭐⭐☆☆☆
 
 Implementar una función que sume dos `tiempo_t`. El resultado debe ser
 normalizado para que los segundos y minutos no excedan 59.
@@ -105,8 +105,8 @@ normalizado para que los segundos y minutos no excedan 59.
 - $H_{acarreo} = M_{total} / 60$
 - $M_{resultado} = M_{total} \% 60$
 - $H_{resultado} = t_1.horas + t_2.horas + H_{acarreo}$
-
-### Ejercicio 5.5 - Comparación de Tiempos
+(ejercicio_18_5)=
+### Ejercicio 18.5 - Comparación de Tiempos ⭐⭐☆☆☆
 
 Implementar una función que compare dos `tiempo_t` y devuelva un valor que
 indique si el primero es anterior, igual o posterior al segundo. Una estrategia
@@ -118,8 +118,8 @@ $$t_{en\_segundos} = horas \times 3600 + minutos \times 60 + segundos$$
 ---
 
 ## Tipos de Datos Compuestos
-
-### Ejercicio 5.6 - Arreglos con Capacidad
+(ejercicio_18_6)=
+### Ejercicio 18.6 - Arreglos con Capacidad ⭐⭐⭐☆☆
 
 Encapsular un arreglo en una estructura para agrupar el contenedor de datos, su
 longitud actual y su capacidad máxima. Esto previene errores de desbordamiento
@@ -136,8 +136,8 @@ typedef struct {
 
 Este ejercicio puede ser mejorado con memoria dinámica, para lo cual es
 necesario agregar un atributo más con el tamaño en memoria pedido para `datos`.
-
-### Ejercicio 5.7 - Cadenas Seguras II
+(ejercicio_18_7)=
+### Ejercicio 18.7 - Cadenas Seguras II ⭐⭐⭐☆☆
 
 Aplicar el mismo principio a las cadenas de caracteres para crear un tipo
 `cadena_segura_t` que gestione su propia capacidad y longitud, evitando los

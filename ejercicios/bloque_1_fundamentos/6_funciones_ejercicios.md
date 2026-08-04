@@ -31,8 +31,8 @@ correspondientes para los parámetros y valores de retorno.
 ---
 
 ## Definición y Llamada de Funciones
-
-### Ejercicio 6.1 - Doble de un número
+(ejercicio_5_1)=
+### Ejercicio 5.1 - Doble de un número ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-funcion-doble
@@ -64,8 +64,8 @@ int main(void) {
 
 :::
 <!-- {solution} ej-funcion-doble -->
-
-### Ejercicio 6.2 - Mayor de dos números
+(ejercicio_5_2)=
+### Ejercicio 5.2 - Mayor de dos números ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-funcion-mayor
@@ -103,8 +103,8 @@ int main(void) {
 
 :::
 <!-- {solution} ej-funcion-mayor -->
-
-### Ejercicio 6.3 - Paridad de un número
+(ejercicio_5_3)=
+### Ejercicio 5.3 - Paridad de un número ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-funcion-par-impar
@@ -140,8 +140,8 @@ int main(void) {
 
 :::
 <!-- {solution} ej-funcion-par-impar -->
-
-### Ejercicio 6.4 - Promedio de notas
+(ejercicio_5_4)=
+### Ejercicio 5.4 - Promedio de notas ⭐⭐☆☆☆
 
 :::{exercise}
 :label: funcion_promedio
@@ -172,8 +172,8 @@ int main(void) {
 
 :::
 <!-- {solution} funcion_promedio -->
-
-### Ejercicio 6.5 - Área de rectángulo
+(ejercicio_5_5)=
+### Ejercicio 5.5 - Área de rectángulo ⭐⭐☆☆☆
 
 :::{exercise}
 :label: funcion_area
@@ -204,14 +204,8 @@ int main(void) {
 
 :::
 <!-- {solution} funcion_area -->
-
----
-
-## Ejercicios Adicionales (Práctica Intensiva)
-
-## Ejercicio 1: Funciones Matemáticas Básicas
-
-**Dificultad:** ⭐☆☆☆☆
+(ejercicio_5_6)=
+## Ejercicio 5.6 - Funciones Matemáticas Básicas ⭐☆☆☆☆
 
 Creá funciones para operaciones matemáticas: `sumar`, `restar`, `multiplicar`, `dividir`.
 
@@ -221,10 +215,8 @@ Creá funciones para operaciones matemáticas: `sumar`, `restar`, `multiplicar`,
 - En `main`, usá las funciones en una calculadora simple
 
 ---
-
-## Ejercicio 2: Función Es Primo
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_5_7)=
+## Ejercicio 5.7 - Función Es Primo ⭐⭐☆☆☆
 
 Implementá `bool es_primo(int n)` que determine si un número es primo.
 
@@ -234,10 +226,8 @@ Implementá `bool es_primo(int n)` que determine si un número es primo.
 - En `main`, mostrá primos en un rango
 
 ---
-
-## Ejercicio 3: Factorial Recursivo e Iterativo
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_5_8)=
+## Ejercicio 5.8 - Factorial Recursivo e Iterativo ⭐⭐☆☆☆
 
 Implementá dos versiones de factorial:
 - `int factorial_iterativo(int n)`
@@ -249,10 +239,8 @@ Implementá dos versiones de factorial:
 - Compará tiempos (opcional)
 
 ---
-
-## Ejercicio 4: Conversión de Temperatura
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_5_9)=
+## Ejercicio 5.9 - Conversión de Temperatura ⭐⭐☆☆☆
 
 Creá funciones para convertir temperaturas:
 - `celsius_a_fahrenheit`
@@ -265,10 +253,8 @@ Creá funciones para convertir temperaturas:
 - Mostrá un menú en `main` para elegir conversión
 
 ---
-
-## Ejercicio 5: Validación de Entrada
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_5_10)=
+## Ejercicio 5.10 - Validación de Entrada ⭐⭐⭐☆☆
 
 Implementá funciones de validación:
 - `int leer_entero(int min, int max)` - lee y valida rango
@@ -281,10 +267,8 @@ Implementá funciones de validación:
 - Usá estas funciones en `main` para varios inputs
 
 ---
-
-## Ejercicio 6: Máximo Común Divisor (MCD)
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_5_11)=
+## Ejercicio 5.11 - Máximo Común Divisor (MCD) ⭐⭐⭐☆☆
 
 Implementá el algoritmo de Euclides para calcular MCD.
 
@@ -299,10 +283,8 @@ mcd(a, 0) = a
 - Agregá función `mcm(a, b)` usando: mcm = (a * b) / mcd(a, b)
 
 ---
-
-## Ejercicio 7: Números de Fibonacci
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_5_12)=
+## Ejercicio 5.12 - Números de Fibonacci ⭐⭐⭐☆☆
 
 Implementá:
 - `int fibonacci(int n)` - retorna n-ésimo número de Fibonacci
@@ -313,10 +295,8 @@ Implementá:
 - Compará eficiencia (recursiva es muy lenta para n > 40)
 
 ---
-
-## Ejercicio 8: Operaciones con Dígitos
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_5_13)=
+## Ejercicio 5.13 - Operaciones con Dígitos ⭐⭐⭐☆☆
 
 Creá funciones para manipular dígitos de un número:
 - `int contar_digitos(int n)`
@@ -329,10 +309,8 @@ Creá funciones para manipular dígitos de un número:
 - `es_palindromo` compara el número con su inverso
 
 ---
-
-## Ejercicio 9: Conversión de Bases
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_5_14)=
+## Ejercicio 5.14 - Conversión de Bases ⭐⭐⭐⭐☆
 
 Implementá conversiones entre bases numéricas:
 - `int binario_a_decimal(long binario)`
@@ -345,10 +323,8 @@ Implementá conversiones entre bases numéricas:
 - Validá que los dígitos sean válidos para la base
 
 ---
-
-## Ejercicio 10: Cálculo de Potencia
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_5_15)=
+## Ejercicio 5.15 - Cálculo de Potencia ⭐⭐⭐⭐☆
 
 Implementá tres versiones de potencia:
 - `double potencia_simple(double base, int exp)` - O(n)
@@ -361,10 +337,8 @@ Implementá tres versiones de potencia:
 - Exponente negativo: `pow(base, -n) = 1 / pow(base, n)`
 
 ---
-
-## Ejercicio 11: Generador de Números Primos
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_5_16)=
+## Ejercicio 5.16 - Generador de Números Primos ⭐⭐⭐⭐☆
 
 Implementá:
 - `bool es_primo(int n)`
@@ -378,10 +352,8 @@ Implementá:
 - `siguiente_primo` busca el próximo primo >= desde
 
 ---
-
-## Ejercicio 12: Combinatoria
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_5_17)=
+## Ejercicio 5.17 - Combinatoria ⭐⭐⭐⭐☆
 
 Implementá funciones combinatorias:
 - `long factorial(int n)`
@@ -394,10 +366,8 @@ Implementá funciones combinatorias:
 - Validá que 0 <= k <= n
 
 ---
-
-## Ejercicio 13: Geometría Modular
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_5_18)=
+## Ejercicio 5.18 - Geometría Modular ⭐⭐⭐⭐☆
 
 Creá funciones para calcular áreas y perímetros de figuras:
 - Círculo
@@ -411,10 +381,8 @@ Creá funciones para calcular áreas y perímetros de figuras:
 - Opcionalmente, usá un menú para elegir figura
 
 ---
-
-## Ejercicio 14: Estadísticas de un Array
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_5_19)=
+## Ejercicio 5.19 - Estadísticas de un Array ⭐⭐⭐⭐☆
 
 Implementá funciones estadísticas para un array de números:
 - `double promedio(double arr[], int n)`
@@ -427,10 +395,8 @@ Implementá funciones estadísticas para un array de números:
 - Desviación: √(Σ(x - μ)² / n)
 
 ---
-
-## Ejercicio 15: Simulación de Dado
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_5_20)=
+## Ejercicio 5.20 - Simulación de Dado ⭐⭐⭐⭐☆
 
 Creá un simulador de lanzamiento de dados:
 - `int lanzar_dado(int caras)` - retorna 1 a caras
@@ -443,10 +409,8 @@ Creá un simulador de lanzamiento de dados:
 - Estadísticas: muestra frecuencia de cada número
 
 ---
-
-## Ejercicio 16: Validador de Fechas
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_5_21)=
+## Ejercicio 5.21 - Validador de Fechas ⭐⭐⭐⭐☆
 
 Implementá funciones para trabajar con fechas:
 - `bool es_fecha_valida(int dia, int mes, int anio)`
@@ -460,10 +424,8 @@ Implementá funciones para trabajar con fechas:
 - `dia_del_anio` suma días desde inicio del año
 
 ---
-
-## Ejercicio 17: Búsqueda y Ordenamiento
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_5_22)=
+## Ejercicio 5.22 - Búsqueda y Ordenamiento ⭐⭐⭐⭐⭐
 
 Implementá algoritmos básicos:
 - `int busqueda_lineal(int arr[], int n, int objetivo)`
@@ -476,10 +438,8 @@ Implementá algoritmos básicos:
 - `intercambiar` usa punteros para modificar valores
 
 ---
-
-## Ejercicio 18: Calculadora de Fechas
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_5_23)=
+## Ejercicio 5.23 - Calculadora de Fechas ⭐⭐⭐⭐⭐
 
 Calculá diferencias y sumas con fechas:
 - `int diferencia_dias(fecha_t f1, fecha_t f2)`
@@ -492,10 +452,8 @@ Calculá diferencias y sumas con fechas:
 - Usá algoritmo de Zeller para día de semana
 
 ---
-
-## Ejercicio 19: Sistema de Ecuaciones
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_5_24)=
+## Ejercicio 5.24 - Sistema de Ecuaciones ⭐⭐⭐⭐⭐
 
 Resolvé sistemas de ecuaciones 2×2:
 ```
@@ -517,10 +475,8 @@ Implementá:
 - Usá punteros para retornar x e y
 
 ---
-
-## Ejercicio 20: Biblioteca de Strings
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_5_25)=
+## Ejercicio 5.25 - Biblioteca de Strings ⭐⭐⭐⭐⭐
 
 Reimplementá funciones de `<string.h>` sin usarla:
 - `int mi_strlen(const char *str)`

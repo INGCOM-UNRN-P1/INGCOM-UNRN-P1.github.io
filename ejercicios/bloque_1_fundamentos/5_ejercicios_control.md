@@ -30,8 +30,8 @@ estructuras de repetición y el control de flujo estructurado y seguro en C.
 ---
 
 ## Estructuras Condicionales
-
-### Ejercicio 5.1 - Condición de aprobación
+(ejercicio_4_1)=
+### Ejercicio 4.1 - Condición de aprobación ⭐⭐☆☆☆
 
 :::{exercise}
 :label: entrada-2
@@ -80,8 +80,8 @@ int main(void)
 ---
 
 ## Estructuras de Repetición (Lazos)
-
-### Ejercicio 5.2 - Cuenta descendente
+(ejercicio_4_2)=
+### Ejercicio 4.2 - Cuenta descendente ⭐⭐☆☆☆
 
 :::{exercise}
 :label: lazo_while 
@@ -115,8 +115,8 @@ int main(void) {
 
 :::
 <!-- {solution} lazo_while -->
-
-### Ejercicio 5.3 - Múltiplos de 3
+(ejercicio_4_3)=
+### Ejercicio 4.3 - Múltiplos de 3 ⭐⭐☆☆☆
 
 :::{exercise}
 :label: lazo_for
@@ -148,8 +148,8 @@ int main(void) {
 
 :::
 <!-- {solution} lazo_for -->
-
-### Ejercicio 5.4 - Clave de acceso con do-while
+(ejercicio_4_4)=
+### Ejercicio 4.4 - Clave de acceso con do-while ⭐⭐☆☆☆
 
 :::{exercise}
 :label: lazo_repeat
@@ -197,8 +197,8 @@ int main(void) {
 ---
 
 ## Control de Flujo Seguro
-
-### Ejercicio 5.5 - Refactorización de break
+(ejercicio_4_5)=
+### Ejercicio 4.5 - Refactorización de break ⭐⭐☆☆☆
 
 :::{exercise}
 :label: lazo_break
@@ -257,8 +257,8 @@ int main(void) {
 
 :::
 <!-- {solution} lazo_break -->
-
-### Ejercicio 5.6 - Refactorización de continue
+(ejercicio_4_6)=
+### Ejercicio 4.6 - Refactorización de continue ⭐⭐☆☆☆
 
 :::{exercise}
 :label: lazo_continue
@@ -311,8 +311,8 @@ int main(void) {
 
 :::
 <!-- {solution} lazo_continue -->
-
-### Ejercicio 5.7 - Lazo de clave con bandera
+(ejercicio_4_7)=
+### Ejercicio 4.7 - Lazo de clave con bandera ⭐⭐☆☆☆
 
 :::{exercise}
 :label: lazo_flag_break
@@ -362,40 +362,41 @@ int main(void)
 <!-- {solution} lazo_flag_break -->
 
 ---
+(ejercicio_4_8)=
+## Ejercicio 4.8 - s de Práctica ⭐⭐☆☆☆
 
-## Ejercicios de Práctica
+(ejercicio_4_9)=
+### Ejercicio 4.9 - Mayor de dos números reales ⭐⭐☆☆☆
 
-### Ejercicio 5.8 - Mayor de dos números reales
 Escribí un programa que solicite dos números reales al usuario y muestre cuál es
 el mayor.
+(ejercicio_4_10)=
+### Ejercicio 4.10 - Números del 1 al 100 ⭐⭐☆☆☆
 
-### Ejercicio 5.9 - Números del 1 al 100
 Diseñá un programa que imprima en pantalla los números enteros del 1 al 100
 utilizando un lazo `for`.
+(ejercicio_4_11)=
+### Ejercicio 4.11 - Suma de pares del 1 al 100 ⭐⭐☆☆☆
 
-### Ejercicio 5.10 - Suma de pares del 1 al 100
 Desarrollá un algoritmo que sume los números pares comprendidos en el rango del
 1 al 100 inclusive.
+(ejercicio_4_12)=
+### Ejercicio 4.12 - Verificación de número primo ⭐⭐☆☆☆
 
-### Ejercicio 5.11 - Verificación de número primo
 Escribí un programa que solicite un número entero positivo e indique si es un
 número primo (divisible únicamente por 1 y por sí mismo).
+(ejercicio_4_13)=
+### Ejercicio 4.13 - Estado de aprobación de calificación ⭐⭐⭐☆☆
 
-### Ejercicio 5.12 - Estado de aprobación de calificación
 Escribí un programa que pida una calificación (0 a 10) e indique si el
 estudiante aprobó (calificación mayor o igual a 4).
+(ejercicio_4_14)=
+### Ejercicio 4.14 - Contraseña de caracteres iterativa ⭐⭐☆☆☆
 
-### Ejercicio 5.13 - Contraseña de caracteres iterativa
 Escribí un programa que solicite repetidamente una contraseña de caracteres al
 usuario hasta que coincida con un valor establecido de acceso seguro.
-
----
-
-## Ejercicios Adicionales (Práctica Intensiva)
-
-## Ejercicio 1: Contar del 1 al 10
-
-**Dificultad:** ⭐☆☆☆☆
+(ejercicio_4_15)=
+## Ejercicio 4.15 - Contar del 1 al 10 ⭐☆☆☆☆
 
 Mostrá los números del 1 al 10 usando un lazo `for`.
 
@@ -404,10 +405,8 @@ Mostrá los números del 1 al 10 usando un lazo `for`.
 - Imprimí cada número en una línea
 
 ---
-
-## Ejercicio 2: Suma de N Números
-
-**Dificultad:** ⭐☆☆☆☆
+(ejercicio_4_16)=
+## Ejercicio 4.16 - Suma de N Números ⭐☆☆☆☆
 
 Leé un número N y calculá la suma de los primeros N números naturales.
 
@@ -417,10 +416,8 @@ Leé un número N y calculá la suma de los primeros N números naturales.
 - Alternativa: fórmula directa suma = N × (N+1) / 2
 
 ---
-
-## Ejercicio 3: Tabla de Multiplicar
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_4_17)=
+## Ejercicio 4.17 - Tabla de Multiplicar ⭐⭐☆☆☆
 
 Mostrá la tabla de multiplicar de un número ingresado por el usuario (1 a 10).
 
@@ -429,10 +426,8 @@ Mostrá la tabla de multiplicar de un número ingresado por el usuario (1 a 10).
 - Lazo de 1 a 10: `printf("%d x %d = %d\n", num, i, num * i);`
 
 ---
-
-## Ejercicio 4: Factorial con While
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_4_18)=
+## Ejercicio 4.18 - Factorial con While ⭐⭐☆☆☆
 
 Calculá el factorial de N usando un lazo `while`.
 
@@ -442,10 +437,8 @@ Calculá el factorial de N usando un lazo `while`.
 - Manejá caso especial: 0! = 1
 
 ---
-
-## Ejercicio 5: Números Pares en Rango
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_4_19)=
+## Ejercicio 4.19 - Números Pares en Rango ⭐⭐☆☆☆
 
 Mostrá todos los números pares entre dos valores ingresados.
 
@@ -456,10 +449,8 @@ Mostrá todos los números pares entre dos valores ingresados.
 - Alternativa: `for (i = inicio; i <= fin; i += 2)` empezando en par
 
 ---
-
-## Ejercicio 6: Suma hasta Cero
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_4_20)=
+## Ejercicio 4.20 - Suma hasta Cero ⭐⭐☆☆☆
 
 Leé números enteros hasta que el usuario ingrese 0, luego mostrá la suma total.
 
@@ -470,10 +461,8 @@ Leé números enteros hasta que el usuario ingrese 0, luego mostrá la suma tota
 - Caso contrario, sumá al acumulador
 
 ---
-
-## Ejercicio 7: Validación de Entrada
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_4_21)=
+## Ejercicio 4.21 - Validación de Entrada ⭐⭐⭐☆☆
 
 Leé un número entre 1 y 100. Si está fuera de rango, pedí nuevamente hasta que sea válido.
 
@@ -483,10 +472,8 @@ Leé un número entre 1 y 100. Si está fuera de rango, pedí nuevamente hasta q
 - Mostrá mensaje de error en cada intento inválido
 
 ---
-
-## Ejercicio 8: Contar Dígitos
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_4_22)=
+## Ejercicio 4.22 - Contar Dígitos ⭐⭐⭐☆☆
 
 Contá cuántos dígitos tiene un número entero.
 
@@ -497,10 +484,8 @@ Contá cuántos dígitos tiene un número entero.
 - Caso especial: 0 tiene 1 dígito
 
 ---
-
-## Ejercicio 9: Número Primo
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_4_23)=
+## Ejercicio 4.23 - Número Primo ⭐⭐⭐☆☆
 
 Determiná si un número es primo probando divisibilidad.
 
@@ -512,10 +497,8 @@ Determiná si un número es primo probando divisibilidad.
 - Optimización: después del 2, probar solo impares
 
 ---
-
-## Ejercicio 10: Secuencia de Fibonacci
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_4_24)=
+## Ejercicio 4.24 - Secuencia de Fibonacci ⭐⭐⭐☆☆
 
 Generá los primeros N números de Fibonacci.
 
@@ -526,10 +509,8 @@ Generá los primeros N números de Fibonacci.
   - Calculá siguiente: `temp = a + b; a = b; b = temp`
 
 ---
-
-## Ejercicio 11: Búsqueda en Array
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_4_25)=
+## Ejercicio 4.25 - Búsqueda en Array ⭐⭐⭐☆☆
 
 Buscá un valor en un array. Si lo encontrás, mostrá su posición y `break`.
 
@@ -540,10 +521,8 @@ Buscá un valor en un array. Si lo encontrás, mostrá su posición y `break`.
 - Después del lazo: verificá si se encontró
 
 ---
-
-## Ejercicio 12: Menú Interactivo
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_4_26)=
+## Ejercicio 4.26 - Menú Interactivo ⭐⭐⭐☆☆
 
 Implementá un menú que se repita hasta que el usuario elija "Salir".
 
@@ -555,10 +534,8 @@ Implementá un menú que se repita hasta que el usuario elija "Salir".
 - Opción salir termina el lazo
 
 ---
-
-## Ejercicio 13: Mayor y Menor de N Números
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_4_27)=
+## Ejercicio 4.27 - Mayor y Menor de N Números ⭐⭐⭐☆☆
 
 Leé N números y encontrá el mayor y menor.
 
@@ -569,10 +546,8 @@ Leé N números y encontrá el mayor y menor.
   - Si actual < menor: actualizar menor
 
 ---
-
-## Ejercicio 14: Invertir un Número
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_4_28)=
+## Ejercicio 4.28 - Invertir un Número ⭐⭐⭐⭐☆
 
 Invertí los dígitos de un número (ej: 1234 → 4321).
 
@@ -584,10 +559,8 @@ Invertí los dígitos de un número (ej: 1234 → 4321).
   - `n /= 10`
 
 ---
-
-## Ejercicio 15: Números Perfectos
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_4_29)=
+## Ejercicio 4.29 - Números Perfectos ⭐⭐⭐⭐☆
 
 Encontrá todos los números perfectos hasta N. Un número es perfecto si la suma de sus divisores (excluyéndolo) es igual al número.
 
@@ -600,10 +573,8 @@ Encontrá todos los números perfectos hasta N. Un número es perfecto si la sum
 - Si suma == número: es perfecto
 
 ---
-
-## Ejercicio 16: Patrón de Asteriscos - Triángulo
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_4_30)=
+## Ejercicio 4.30 - Patrón de Asteriscos - Triángulo ⭐⭐⭐⭐☆
 
 Dibujá un triángulo de asteriscos de altura N.
 
@@ -623,10 +594,8 @@ Dibujá un triángulo de asteriscos de altura N.
 - Nueva línea después de cada fila
 
 ---
-
-## Ejercicio 17: Máximo Común Divisor (Euclides)
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_4_31)=
+## Ejercicio 4.31 - Máximo Común Divisor (Euclides) ⭐⭐⭐⭐☆
 
 Implementá el algoritmo de Euclides iterativo para calcular MCD.
 
@@ -645,10 +614,8 @@ retornar a
 - Intercambiá valores
 
 ---
-
-## Ejercicio 18: Número de Armstrong
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_4_32)=
+## Ejercicio 4.32 - Número de Armstrong ⭐⭐⭐⭐☆
 
 Determiná si un número es Armstrong (suma de sus dígitos elevados a la cantidad de dígitos igual al número).
 
@@ -661,10 +628,8 @@ Determiná si un número es Armstrong (suma de sus dígitos elevados a la cantid
 - Usá `pow()` de `<math.h>`
 
 ---
-
-## Ejercicio 19: Simulación de Cajero Automático
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_4_33)=
+## Ejercicio 4.33 - Simulación de Cajero Automático ⭐⭐⭐⭐⭐
 
 Simulá un cajero con saldo inicial. Menú: depositar, retirar, consultar, salir.
 
@@ -681,10 +646,8 @@ Simulá un cajero con saldo inicial. Menú: depositar, retirar, consultar, salir
 - Validaciones antes de modificar saldo
 
 ---
-
-## Ejercicio 20: Criba de Eratóstenes
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_4_34)=
+## Ejercicio 4.34 - Criba de Eratóstenes ⭐⭐⭐⭐⭐
 
 Encontrá todos los números primos hasta N usando la Criba de Eratóstenes.
 
@@ -703,12 +666,11 @@ Encontrá todos los números primos hasta N usando la Criba de Eratóstenes.
 - Mostrá todos los marcados como primos
 
 ---
+(ejercicio_4_35)=
+## Ejercicio 4.35 - s Adicionales de Patrones ⭐⭐☆☆☆
 
-## Ejercicios Adicionales de Patrones
-
-### Ejercicio 21: Pirámide Centrada
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_4_36)=
+### Ejercicio 4.36 - Pirámide Centrada ⭐⭐⭐⭐⭐
 
 Dibujá una pirámide centrada de asteriscos.
 
@@ -728,10 +690,8 @@ Dibujá una pirámide centrada de asteriscos.
   - Nueva línea
 
 ---
-
-### Ejercicio 22: Rombo
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_4_37)=
+### Ejercicio 4.37 - Rombo ⭐⭐⭐⭐⭐
 
 Dibujá un rombo de asteriscos.
 
@@ -743,10 +703,8 @@ Dibujá un rombo de asteriscos.
 ---
 
 ## Problemas de Lazos Anidados
-
-### Ejercicio 23: Tabla de Multiplicar Completa
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_4_38)=
+### Ejercicio 4.38 - Tabla de Multiplicar Completa ⭐⭐⭐⭐☆
 
 Mostrá tabla de multiplicar del 1 al 10 (todas las tablas).
 
@@ -756,10 +714,8 @@ Mostrá tabla de multiplicar del 1 al 10 (todas las tablas).
 - Formato: "3 x 4 = 12"
 
 ---
-
-### Ejercicio 24: Números Primos en Rango
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_4_39)=
+### Ejercicio 4.39 - Números Primos en Rango ⭐⭐⭐⭐☆
 
 Mostrá todos los números primos entre A y B.
 
@@ -771,10 +727,8 @@ Mostrá todos los números primos entre A y B.
 ---
 
 ## Problemas de Validación y Control
-
-### Ejercicio 25: Juego de Adivinanza Mejorado
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_4_40)=
+### Ejercicio 4.40 - Juego de Adivinanza Mejorado ⭐⭐⭐⭐⭐
 
 El programa elige un número aleatorio. El usuario tiene máximo 7 intentos.
 
@@ -874,14 +828,8 @@ for (int i = 0; i < 10; i++) {
 :::
 
 Estas consignas cubren todos los aspectos de lazos: `for`, `while`, `do-while`, lazos anidados, control de flujo y validación con repetición.
-
----
-
-## Ejercicios de Línea de Comandos (Argumentos)
-
-## Ejercicio 1: Mostrar Argumentos
-
-**Dificultad:** ⭐☆☆☆☆
+(ejercicio_4_41)=
+## Ejercicio 4.41 - Mostrar Argumentos ⭐☆☆☆☆
 
 Mostrá todos los argumentos recibidos.
 
@@ -897,10 +845,8 @@ int main(int argc, char *argv[]) {
 - `argv[0]` es el nombre del programa
 
 ---
-
-## Ejercicio 2: Saludo Personalizado
-
-**Dificultad:** ⭐☆☆☆☆
+(ejercicio_4_42)=
+## Ejercicio 4.42 - Saludo Personalizado ⭐☆☆☆☆
 
 Lee un nombre desde argv y saludá.
 
@@ -911,10 +857,8 @@ Lee un nombre desde argv y saludá.
 - Usá: `printf("Hola, %s!\n", argv[1]);`
 
 ---
-
-## Ejercicio 3: Suma de Dos Números
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_4_43)=
+## Ejercicio 4.43 - Suma de Dos Números ⭐⭐☆☆☆
 
 Sumá dos números pasados como argumentos.
 
@@ -926,10 +870,8 @@ Sumá dos números pasados como argumentos.
 - O mejor: `strtol(argv[1], NULL, 10)` para validación
 
 ---
-
-## Ejercicio 4: Calculadora Simple
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_4_44)=
+## Ejercicio 4.44 - Calculadora Simple ⭐⭐⭐☆☆
 
 Implementá calculadora: `./calc <num1> <operador> <num2>`
 
@@ -942,10 +884,8 @@ Implementá calculadora: `./calc <num1> <operador> <num2>`
 - Validá división por cero
 
 ---
-
-## Ejercicio 5: Flags Booleanos
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_4_45)=
+## Ejercicio 4.45 - Flags Booleanos ⭐⭐⭐☆☆
 
 Procesá flags opcionales `-v` (verbose) y `-h` (help).
 
@@ -957,10 +897,8 @@ Procesá flags opcionales `-v` (verbose) y `-h` (help).
 - Argumentos no-flag son archivos u otros datos
 
 ---
-
-## Ejercicio 6: Concatenar Argumentos
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_4_46)=
+## Ejercicio 4.46 - Concatenar Argumentos ⭐⭐☆☆☆
 
 Concatená todos los argumentos (excepto argv[0]) en un string.
 
@@ -973,10 +911,8 @@ Concatená todos los argumentos (excepto argv[0]) en un string.
 - Usá `strcat` o manualmente con índices
 
 ---
-
-## Ejercicio 7: Conversor de Temperatura
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_4_47)=
+## Ejercicio 4.47 - Conversor de Temperatura ⭐⭐⭐☆☆
 
 Convertí temperatura según flags.
 
@@ -989,10 +925,8 @@ Convertí temperatura según flags.
 - Mostrá resultado formateado
 
 ---
-
-## Ejercicio 8: Procesar Archivo(s)
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_4_48)=
+## Ejercicio 4.48 - Procesar Archivo(s) ⭐⭐⭐☆☆
 
 Lee uno o más archivos pasados como argumentos y mostrá su contenido.
 
@@ -1004,10 +938,8 @@ Lee uno o más archivos pasados como argumentos y mostrá su contenido.
 - Si falla abrir: mostrar error, continuar con siguiente
 
 ---
-
-## Ejercicio 9: Flag con Valor
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_4_49)=
+## Ejercicio 4.49 - Flag con Valor ⭐⭐⭐⭐☆
 
 Procesá flag que requiere un valor: `-n <cantidad>`
 
@@ -1027,10 +959,8 @@ for (int i = 1; i < argc; i++) {
 ```
 
 ---
-
-## Ejercicio 10: Múltiples Flags
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_4_50)=
+## Ejercicio 4.50 - Múltiples Flags ⭐⭐⭐⭐☆
 
 Implementá programa con varios flags: `-v` (verbose), `-o <salida>`, `-n <num>`
 
@@ -1043,10 +973,8 @@ Implementá programa con varios flags: `-v` (verbose), `-o <salida>`, `-n <num>`
 - Argumentos sin `-` son archivos de entrada
 
 ---
-
-## Ejercicio 11: Validación de Argumentos
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_4_51)=
+## Ejercicio 4.51 - Validación de Argumentos ⭐⭐⭐☆☆
 
 Validá que números sean realmente números.
 
@@ -1063,10 +991,8 @@ if (*endptr != '\0') {
 - Si `*endptr != '\0'`, hay caracteres inválidos
 
 ---
-
-## Ejercicio 12: Ayuda Automática
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_4_52)=
+## Ejercicio 4.52 - Ayuda Automática ⭐⭐⭐☆☆
 
 Mostrá ayuda si se pasa `-h` o `--help`, o si argumentos son incorrectos.
 
@@ -1088,10 +1014,8 @@ if (argc < 2 || strcmp(argv[1], "-h") == 0 ||
 ```
 
 ---
-
-## Ejercicio 13: Grep Simplificado
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_4_53)=
+## Ejercicio 4.53 - Grep Simplificado ⭐⭐⭐⭐☆
 
 Buscá patrón en archivo(s).
 
@@ -1104,10 +1028,8 @@ Buscá patrón en archivo(s).
 - Si línea contiene patrón (`strstr`), mostrala
 
 ---
-
-## Ejercicio 14: Wc (Word Count) Simplificado
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_4_54)=
+## Ejercicio 4.54 - Wc (Word Count) Simplificado ⭐⭐⭐⭐☆
 
 Contá líneas, palabras y caracteres de archivos.
 
@@ -1125,10 +1047,8 @@ Contá líneas, palabras y caracteres de archivos.
 - Mostrá según flags activos
 
 ---
-
-## Ejercicio 15: Sort con Opciones
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_4_55)=
+## Ejercicio 4.55 - Sort con Opciones ⭐⭐⭐⭐⭐
 
 Ordená líneas de archivo con opciones.
 
@@ -1144,10 +1064,8 @@ Ordená líneas de archivo con opciones.
 - Usá `qsort` con función comparadora apropiada
 
 ---
-
-## Ejercicio 16: Procesamiento de Lote
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_4_56)=
+## Ejercicio 4.56 - Procesamiento de Lote ⭐⭐⭐⭐⭐
 
 Aplicá operación a múltiples archivos.
 
@@ -1161,10 +1079,8 @@ Aplicá operación a múltiples archivos.
 - Escribí resultado en archivo.out para cada uno
 
 ---
-
-## Ejercicio 17: Configuración desde Archivo y Args
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_4_57)=
+## Ejercicio 4.57 - Configuración desde Archivo y Args ⭐⭐⭐⭐⭐
 
 Leé configuración de archivo, permitiendo override por línea de comandos.
 
@@ -1176,10 +1092,8 @@ Leé configuración de archivo, permitiendo override por línea de comandos.
 - Precedencia: defaults < archivo < args
 
 ---
-
-## Ejercicio 18: Pipeline Simulado
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_4_58)=
+## Ejercicio 4.58 - Pipeline Simulado ⭐⭐⭐⭐⭐
 
 Implementá programa que puede leer de stdin o archivo.
 
@@ -1199,10 +1113,8 @@ if (argc > 1) {
 - Permite composición estilo Unix
 
 ---
-
-## Ejercicio 19: Getopt Simplificado
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_4_59)=
+## Ejercicio 4.59 - Getopt Simplificado ⭐⭐⭐⭐⭐
 
 Implementá tu propia versión simplificada de `getopt` para parsear flags.
 
@@ -1215,10 +1127,8 @@ int getopt_simple(int argc, char *argv[], const char *optstring);
 - Variable global `optarg` con valor del flag
 
 ---
-
-## Ejercicio 20: Sistema de Comandos
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_4_60)=
+## Ejercicio 4.60 - Sistema de Comandos ⭐⭐⭐⭐⭐
 
 Implementá programa con subcomandos estilo Git.
 

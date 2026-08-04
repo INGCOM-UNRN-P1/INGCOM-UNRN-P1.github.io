@@ -23,8 +23,8 @@ direccionamiento de memoria.
 ---
 
 ## Identificación de Roles de Variables
-
-### Ejercicio 5.17 - Análisis de promedio
+(ejercicio_31_1)=
+### Ejercicio 31.1 - Análisis de promedio ⭐⭐☆☆☆
 
 :::{exercise} rol_promedio
 :label: rol_promedio
@@ -88,8 +88,8 @@ double promedio_positivos(const int arreglo[], size_t n, bool *exito) {
     
 :::
 <!-- {solution} rol_promedio -->
-
-### Ejercicio 5.18 - Análisis de Función de Búsqueda
+(ejercicio_31_2)=
+### Ejercicio 31.2 - Análisis de Función de Búsqueda ⭐⭐☆☆☆
 
 :::{exercise} rol_busqueda
 :label: rol_busqueda
@@ -130,7 +130,6 @@ int encontrar_maximo(const int arr[], size_t tam, bool *encontrado) {
 :::
 <!-- {exercise} rol_busqueda -->
 
-
 :::{solution} rol_busqueda
 :class: dropdown
 
@@ -145,8 +144,8 @@ int encontrar_maximo(const int arr[], size_t tam, bool *encontrado) {
 
 :::
 <!-- {solution} rol_busqueda -->
-
-### Ejercicio 5.19 - Análisis de Función con Múltiples Roles
+(ejercicio_31_3)=
+### Ejercicio 31.3 - Análisis de Función con Múltiples Roles ⭐⭐☆☆☆
 
 :::{exercise} roles_multiples
 :label: roles_multiples
@@ -228,8 +227,8 @@ reporte_ventas_t procesar_ventas(const double ventas[], int dias) {
 <!-- {solution} roles_multiples -->
 
 ## 2: Descripción del Estado de un Programa
-
-### Ejercicio 5.20 - Fotografía de la Memoria
+(ejercicio_31_4)=
+### Ejercicio 31.4 - Fotografía de la Memoria ⭐⭐☆☆☆
 
 :::{exercise} estado_1
 :label: estado_1
@@ -319,12 +318,11 @@ variables en cada marco de la pila y el estado del montículo.
 
 :::
 <!-- {solution} estado_1 -->
-
-### Ejercicio 5.21 - Análisis de Memoria con Estructuras
+(ejercicio_31_5)=
+### Ejercicio 31.5 - Análisis de Memoria con Estructuras ⭐⭐⭐☆☆
 
 :::{exercise} estado_struct
 :label: estado_struct
-
 
 Analizá el estado de memoria del siguiente programa en el punto marcado:
 
@@ -399,8 +397,8 @@ int main() {
 
 :::
 <!-- {solution} estado_struct -->
-
-### Ejercicio 5.22 - Trazado de Ejecución con Arrays Dinámicos
+(ejercicio_31_6)=
+### Ejercicio 31.6 - Trazado de Ejecución con Arrays Dinámicos ⭐⭐⭐☆☆
 
 :::{exercise} traza_ejecucion
 :label: traza_ejecucion
@@ -488,8 +486,8 @@ int main() {
 <!-- {solution} traza_ejecucion -->
 
 ## 3: Análisis de Bugs y Problemas
-
-### Ejercicio 5.23 - Identificación de Errores de Lógica
+(ejercicio_31_7)=
+### Ejercicio 31.7 - Identificación de Errores de Lógica ⭐⭐☆☆☆
 
 :::{exercise} debugging_1
 :label: debugging_1
@@ -586,8 +584,8 @@ int segundo_maximo_corregido(int arr[], int tam) {
 
 :::
 <!-- {solution} debugging_1 -->
-
-### Ejercicio 5.24 - Análisis de Memory Leaks
+(ejercicio_31_8)=
+### Ejercicio 31.8 - Análisis de Memory Leaks ⭐⭐☆☆☆
 
 :::{exercise} fugas_1
 :label: fugas_1
@@ -712,8 +710,8 @@ int main() {
 <!-- {solution} fugas_1 -->
 
 ## 4: Análisis de Eficiencia y Optimización
-
-### Ejercicio 5.25 - Análisis de Complejidad Temporal
+(ejercicio_31_9)=
+### Ejercicio 31.9 - Análisis de Complejidad Temporal ⭐⭐⭐☆☆
 
 :::{exercise} eficiencia_1
 :label: eficiencia_1
@@ -796,8 +794,8 @@ bool buscar_par_suma_optimizado(int arr[], int tam, int objetivo) {
 
 :::
 <!-- {solution} eficiencia_1 -->
-
-### Ejercicio 5.26 - Análisis de Uso de Memoria
+(ejercicio_31_10)=
+### Ejercicio 31.10 - Análisis de Uso de Memoria ⭐⭐☆☆☆
 
 :::{exercise} eficiencia_2
 :label: eficiencia_2
@@ -910,8 +908,8 @@ long factorial_memoizado(int n) {
 <!-- {solution} eficiencia_2 -->
 
 ## 5: Ejercicios de Síntesis
-
-### Ejercicio 5.27 - Análisis Integral de Sistema
+(ejercicio_31_11)=
+### Ejercicio 31.11 - Análisis Integral de Sistema ⭐⭐☆☆☆
 
 :::{exercise} analisis_1
 :label: analisis_1
@@ -1093,8 +1091,8 @@ Este ejercicio integra todos los conceptos de análisis de código, roles de
 variables, manejo de memoria y buenas prácticas de programación en C.
 
 ## 11: Análisis Avanzado de Punteros
-
-### Ejercicio 5.28 - Punteros y Aliasing
+(ejercicio_31_12)=
+### Ejercicio 31.12 - Punteros y Aliasing ⭐⭐⭐☆☆
 
 :::{exercise} analisis_aliasing
 :label: analisis_aliasing
@@ -1228,8 +1226,8 @@ void procesar_datos(int *p1, int *p2, int valor);
 
 :::
 <!-- {solution} analisis_aliasing -->
-
-### Ejercicio 5.29 - Punteros Colgantes (Dangling Pointers)
+(ejercicio_31_13)=
+### Ejercicio 31.13 - Punteros Colgantes (Dangling Pointers) ⭐⭐⭐☆☆
 
 :::{exercise} analisis_dangling
 :label: analisis_dangling
@@ -1461,8 +1459,8 @@ if (arr3 != NULL) {  // Esto ahora es false
 
 :::
 <!-- {solution} analisis_dangling -->
-
-### Ejercicio 5.30 - Aritmética de Punteros y Límites de Arreglos
+(ejercicio_31_14)=
+### Ejercicio 31.14 - Aritmética de Punteros y Límites de Arreglos ⭐⭐⭐☆☆
 
 :::{exercise} analisis_aritmetica
 :label: analisis_aritmetica
@@ -1768,8 +1766,8 @@ void funcion_a(int *arr, size_t n) {
 
 :::
 <!-- {solution} analisis_aritmetica -->
-
-### Ejercicio 5.31 - Punteros a Funciones y Callbacks
+(ejercicio_31_15)=
+### Ejercicio 31.15 - Punteros a Funciones y Callbacks ⭐⭐⭐☆☆
 
 :::{exercise} analisis_callbacks
 :label: analisis_callbacks
@@ -2111,8 +2109,8 @@ positivos = len(list(filter(lambda x: x > 0, numeros)))
 
 :::
 <!-- {solution} analisis_callbacks -->
-
-### Ejercicio 5.32 - Análisis Integral - Sistema de Gestión con Punteros
+(ejercicio_31_16)=
+### Ejercicio 31.16 - Análisis Integral - Sistema de Gestión con Punteros ⭐⭐⭐☆☆
 
 :::{exercise} analisis_integral_punteros
 :label: analisis_integral_punteros

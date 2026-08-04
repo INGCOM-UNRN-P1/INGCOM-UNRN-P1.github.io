@@ -19,8 +19,8 @@ Memoria
 Dinámica](../../apunte/bloque_4_dinamica_indireccion/1_memoria_dinamica.md) del
 apunte. Asegurate de seguir la regla de estilo {ref}`0x3002h` para la liberación
 adecuada de recursos y prevención de punteros colgantes.
-
-## Ejercicios Resueltos
+(ejercicio_16_1)=
+## Ejercicio 16.1 - s Resueltos ⭐⭐☆☆☆
 
 :::{exercise} Ejercicio 1c.1 - Asignación Básica
 :label: ej-memoria-basico
@@ -1388,8 +1388,6 @@ problema.
 
 :::
 <!-- {important} Desarrollo Profesional -->
-
-
 
 La segunda versión puede ser 10-100 veces más rápida.
 

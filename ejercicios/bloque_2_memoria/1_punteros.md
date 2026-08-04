@@ -25,26 +25,26 @@ simulado en el lenguaje C.
 ---
 
 ## Referencias y Aritmética
-
-### Ejercicio 4.1 - Duplicar valor
+(ejercicio_8_1)=
+### Ejercicio 8.1 - Duplicar valor ⭐⭐☆☆☆
 
 Implementar `void duplicar(int *numero)` que modifique el valor de la variable
 original.
-
-### Ejercicio 4.2 - División Lenta II
+(ejercicio_8_2)=
+### Ejercicio 8.2 - División Lenta II ⭐⭐☆☆☆
 
 Implementar `int division_lenta(int dividendo, int divisor, int *cociente, int
 *resto)`. Los resultados se devuelven modificando las variables a las que
 apuntan `cociente` y `resto`.
 
 Utilicen el retorno para indicar si la división fue correcta o no.
-
-### Ejercicio 4.3 - Estadísticas de Arreglo
+(ejercicio_8_3)=
+### Ejercicio 8.3 - Estadísticas de Arreglo ⭐⭐⭐☆☆
 
 Implementar `void estadisticas(int arr[], size_t n, int *min, int *max, double
 *prom)`.
-
-### Ejercicio 4.4 - Largo seguro con punteros
+(ejercicio_8_4)=
+### Ejercicio 8.4 - Largo seguro con punteros ⭐⭐⭐☆☆
 
 Implementar `size_t largo_seguro(const char *str, size_t capacidad)`.
 
@@ -55,19 +55,19 @@ Implementar `size_t largo_seguro(const char *str, size_t capacidad)`.
 ---
 
 ## Manipulación con Punteros
-
-### Ejercicio 4.5 - Ordenamiento con intercambia
+(ejercicio_8_5)=
+### Ejercicio 8.5 - Ordenamiento con intercambia ⭐⭐☆☆☆
 
 Implementar un algoritmo de ordenamiento (ej. Burbuja) que para intercambiar
 elementos llame a `void intercambia(int *a, int *b)`.
-
-### Ejercicio 4.6 - Búsqueda de subcadena
+(ejercicio_8_6)=
+### Ejercicio 8.6 - Búsqueda de subcadena ⭐⭐⭐☆☆
 
 Implementar `char* busqueda(const char *cadena, const char *buscado)`. Se debe
 retornar un puntero al inicio de la primera ocurrencia de `buscado` dentro de
 `cadena`, o `NULL`.
-
-### Ejercicio 4.7 - Inversión de arreglo
+(ejercicio_8_7)=
+### Ejercicio 8.7 - Inversión de arreglo ⭐⭐⭐☆☆
 
 Implementar `void invertir(int *inicio, int *fin)`. Se intercambia `*inicio` con
 `*fin` y se avanza `inicio` y retrocede `fin` hasta que se crucen.
@@ -75,8 +75,8 @@ Implementar `void invertir(int *inicio, int *fin)`. Se intercambia `*inicio` con
 ---
 
 ## Punteros a Punteros
-
-### Ejercicio 4.8 - Modificar Puntero
+(ejercicio_8_8)=
+### Ejercicio 8.8 - Modificar Puntero ⭐⭐⭐☆☆
 
 Implementar `void asignar_memoria(int **ptr, int valor)` que reserve memoria
 para un entero, le asigne el `valor` y modifique el puntero original para que
@@ -89,8 +89,8 @@ asignar_memoria(&p, 42);
 // Ahora *p contiene 42
 ```
 <!-- c -->
-
-### Ejercicio 4.9 - Matriz como Puntero a Puntero
+(ejercicio_8_9)=
+### Ejercicio 8.9 - Matriz como Puntero a Puntero ⭐⭐⭐☆☆
 
 Implementar `int** crear_matriz(int filas, int columnas)` que reserve memoria
 para una matriz dinámica usando un puntero a punteros. Cada fila debe ser un
@@ -98,8 +98,8 @@ arreglo independiente.
 
 **Recordatorio:** También implementar `void liberar_matriz(int **matriz, int
 filas)`.
-
-### Ejercicio 4.10 - Arreglo de Cadenas
+(ejercicio_8_10)=
+### Ejercicio 8.10 - Arreglo de Cadenas ⭐⭐⭐☆☆
 
 Implementar `void ordenar_cadenas(char **cadenas, int n)` que ordene un arreglo
 de punteros a cadenas lexicográficamente usando `strcmp`.
@@ -115,28 +115,28 @@ ordenar_cadenas(palabras, 4);
 ---
 
 ## Aritmética de Punteros Avanzada
-
-### Ejercicio 4.11 - Recorrido con Punteros
+(ejercicio_8_11)=
+### Ejercicio 8.11 - Recorrido con Punteros ⭐⭐⭐☆☆
 
 Implementar `int suma_arreglo_ptr(int *inicio, int *fin)` que sume todos los
 elementos entre `inicio` (inclusive) y `fin` (exclusive) usando solo aritmética
 de punteros, sin índices.
 
 **Restricción:** No usar `[]`, solo `*`, `++`, `--`.
-
-### Ejercicio 4.12 - Copiar Arreglos
+(ejercicio_8_12)=
+### Ejercicio 8.12 - Copiar Arreglos ⭐⭐⭐☆☆
 
 Implementar `void copiar(int *destino, const int *origen, size_t n)` que copie
 `n` elementos de `origen` a `destino` usando solo punteros.
 
 **Estrategia:** `while (n--) { *destino++ = *origen++; }`
-
-### Ejercicio 4.13 - Buscar Elemento
+(ejercicio_8_13)=
+### Ejercicio 8.13 - Buscar Elemento ⭐⭐☆☆☆
 
 Implementar `int* buscar_elemento(int *inicio, int *fin, int valor)` que retorne
 un puntero al primer elemento igual a `valor`, o `NULL` si no se encuentra.
-
-### Ejercicio 4.14 - Distancia entre Punteros
+(ejercicio_8_14)=
+### Ejercicio 8.14 - Distancia entre Punteros ⭐⭐⭐☆☆
 
 Implementar `size_t distancia(const int *p1, const int *p2)` que calcule cuántos
 elementos hay entre dos punteros del mismo arreglo.
@@ -147,8 +147,8 @@ elementos entre ellos.
 ---
 
 ## Punteros Constantes
-
-### Ejercicio 4.15 - Puntero a Constante vs Puntero Constante
+(ejercicio_8_15)=
+### Ejercicio 8.15 - Puntero a Constante vs Puntero Constante ⭐⭐⭐☆☆
 
 Explicar y ejemplificar la diferencia entre:
 - `const int *p` - puntero a entero constante (no se puede modificar `*p`)
@@ -156,16 +156,16 @@ Explicar y ejemplificar la diferencia entre:
 - `const int * const p` - puntero constante a entero constante
 
 Implementar funciones que demuestren cada caso.
-
-### Ejercicio 4.16 - Función con Parámetros Constantes
+(ejercicio_8_16)=
+### Ejercicio 8.16 - Función con Parámetros Constantes ⭐⭐☆☆☆
 
 Implementar `int maximo_arreglo(const int *arr, size_t n)` que encuentre el
 máximo sin modificar el arreglo original.
 
 **Ventaja:** El `const` documenta que la función no modifica el arreglo y
 permite que el compilador detecte modificaciones accidentales.
-
-### Ejercicio 4.17 - Cadenas de Solo Lectura
+(ejercicio_8_17)=
+### Ejercicio 8.17 - Cadenas de Solo Lectura ⭐⭐⭐☆☆
 
 Implementar `size_t contar_vocales(const char *str)` que cuente vocales sin
 modificar la cadena.
@@ -173,8 +173,8 @@ modificar la cadena.
 ---
 
 ## Punteros y Estructuras
-
-### Ejercicio 4.18 - Acceso a Miembros
+(ejercicio_8_18)=
+### Ejercicio 8.18 - Acceso a Miembros ⭐⭐☆☆☆
 
 Dada una estructura:
 ``` c
@@ -189,13 +189,13 @@ Implementar `void trasladar(punto_t *p, int dx, int dy)` que modifique las
 coordenadas del punto sumando `dx` y `dy`.
 
 **Notación:** Usar el operador `->` para acceder a miembros: `p->x += dx;`
-
-### Ejercicio 4.19 - Arreglo de Estructuras
+(ejercicio_8_19)=
+### Ejercicio 8.19 - Arreglo de Estructuras ⭐⭐⭐☆☆
 
 Implementar `void ordenar_puntos_por_x(punto_t *puntos, int n)` que ordene un
 arreglo de puntos según su coordenada `x`.
-
-### Ejercicio 4.20 - Estructura con Punteros
+(ejercicio_8_20)=
+### Ejercicio 8.20 - Estructura con Punteros ⭐⭐⭐☆☆
 
 Dada:
 ``` c
@@ -216,8 +216,8 @@ libere la memoria del nombre.
 ---
 
 ## Punteros a Funciones
-
-### Ejercicio 4.21 - Callback Simple
+(ejercicio_8_21)=
+### Ejercicio 8.21 - Callback Simple ⭐☆☆☆☆
 
 Implementar `void aplicar(int *arr, size_t n, void (*func)(int *))` que aplique
 una función a cada elemento del arreglo.
@@ -231,8 +231,8 @@ aplicar(arr, 5, duplicar_elemento);
 // arr ahora es {2, 4, 6, 8, 10}
 ```
 <!-- c -->
-
-### Ejercicio 4.22 - Ordenamiento Genérico
+(ejercicio_8_22)=
+### Ejercicio 8.22 - Ordenamiento Genérico ⭐⭐☆☆☆
 
 Implementar `void ordenar_generico(void *arr, size_t n, size_t tam_elemento, int
 (*comparar)(const void*, const void*))` que ordene un arreglo de cualquier tipo
@@ -240,8 +240,8 @@ usando una función de comparación personalizada.
 
 **Pista:** Similar a `qsort` de la biblioteca estándar. Usar `memcpy` para
 intercambiar elementos.
-
-### Ejercicio 4.23 - Tabla de Funciones
+(ejercicio_8_23)=
+### Ejercicio 8.23 - Tabla de Funciones ⭐⭐☆☆☆
 
 Crear un arreglo de punteros a funciones para una calculadora:
 ```{code-block} c
@@ -264,22 +264,22 @@ arreglo.
 ---
 
 ## Punteros Nulos y Validación
-
-### Ejercicio 4.24 - Validación de Punteros
+(ejercicio_8_24)=
+### Ejercicio 8.24 - Validación de Punteros ⭐⭐⭐☆☆
 
 Implementar `int acceso_seguro(int *ptr, int *resultado)` que verifique si `ptr`
 es `NULL` antes de acceder. Si es válido, copiar `*ptr` a `*resultado` y
 retornar 1. Si es `NULL`, retornar 0.
 
 **Buena práctica:** Siempre verificar punteros antes de desreferenciarlos.
-
-### Ejercicio 4.25 - Retorno Seguro
+(ejercicio_8_25)=
+### Ejercicio 8.25 - Retorno Seguro ⭐⭐☆☆☆
 
 Implementar `int* buscar_max(int *arr, size_t n)` que retorne un puntero al
 elemento máximo del arreglo, o `NULL` si el arreglo está vacío o el puntero es
 `NULL`.
-
-### Ejercicio 4.26 - Inicialización de Punteros
+(ejercicio_8_26)=
+### Ejercicio 8.26 - Inicialización de Punteros ⭐☆☆☆☆
 
 Demostrar el problema de punteros sin inicializar y cómo evitarlo siempre
 inicializando en `NULL`:
@@ -289,14 +289,8 @@ int *p = NULL;  // Buena práctica
 int *p;         // Peligroso: contiene basura
 ```
 <!-- c -->
-
----
-
-## Ejercicios Adicionales (Práctica Intensiva)
-
-## Ejercicio 1: Intercambio con Punteros
-
-**Dificultad:** ⭐☆☆☆☆
+(ejercicio_8_27)=
+## Ejercicio 8.27 - Intercambio con Punteros ⭐☆☆☆☆
 
 Implementá `void intercambiar(int *a, int *b)` que intercambie dos valores.
 
@@ -306,10 +300,8 @@ Implementá `void intercambiar(int *a, int *b)` que intercambie dos valores.
 - En `main`, mostrá valores antes y después
 
 ---
-
-## Ejercicio 2: Encontrar Mayor con Puntero
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_8_28)=
+## Ejercicio 8.28 - Encontrar Mayor con Puntero ⭐⭐☆☆☆
 
 Implementá `int *mayor(int *a, int *b)` que retorne puntero al mayor de dos números.
 
@@ -319,10 +311,8 @@ Implementá `int *mayor(int *a, int *b)` que retorne puntero al mayor de dos nú
 - En `main`, desreferenciá el resultado para mostrar el valor
 
 ---
-
-## Ejercicio 3: División con Resto
-
-**Dificultad:** ⭐⭐☆☆☆
+(ejercicio_8_29)=
+## Ejercicio 8.29 - División con Resto ⭐⭐☆☆☆
 
 Implementá `void dividir(int dividendo, int divisor, int *cociente, int *resto)`.
 
@@ -333,10 +323,8 @@ Implementá `void dividir(int dividendo, int divisor, int *cociente, int *resto)
 - Verificá que divisor != 0
 
 ---
-
-## Ejercicio 4: Estadísticas de Array
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_8_30)=
+## Ejercicio 8.30 - Estadísticas de Array ⭐⭐⭐☆☆
 
 Implementá `void estadisticas(int arr[], int n, int *min, int *max, double *prom)`.
 
@@ -346,10 +334,8 @@ Implementá `void estadisticas(int arr[], int n, int *min, int *max, double *pro
 - Almacená resultados en las direcciones apuntadas
 
 ---
-
-## Ejercicio 5: Puntero al Medio
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_8_31)=
+## Ejercicio 8.31 - Puntero al Medio ⭐⭐⭐☆☆
 
 Implementá `int *elemento_medio(int arr[], int n)` que retorne puntero al elemento del medio.
 
@@ -359,10 +345,8 @@ Implementá `int *elemento_medio(int arr[], int n)` que retorne puntero al eleme
 - En `main`, modificá el elemento usando el puntero retornado
 
 ---
-
-## Ejercicio 6: Recorrer Array con Punteros
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_8_32)=
+## Ejercicio 8.32 - Recorrer Array con Punteros ⭐⭐⭐☆☆
 
 Implementá `int suma_array(int *arr, int n)` usando **aritmética de punteros**.
 
@@ -373,10 +357,8 @@ Implementá `int suma_array(int *arr, int n)` usando **aritmética de punteros**
 - Recorré: `for (int *p = arr; p < arr + n; p++)`
 
 ---
-
-## Ejercicio 7: Invertir Array In-Place
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_8_33)=
+## Ejercicio 8.33 - Invertir Array In-Place ⭐⭐⭐☆☆
 
 Implementá `void invertir(int *arr, int n)` usando dos punteros.
 
@@ -387,10 +369,8 @@ Implementá `void invertir(int *arr, int n)` usando dos punteros.
 - Detené cuando `inicio >= fin`
 
 ---
-
-## Ejercicio 8: Buscar Valor en Array
-
-**Dificultad:** ⭐⭐⭐☆☆
+(ejercicio_8_34)=
+## Ejercicio 8.34 - Buscar Valor en Array ⭐⭐⭐☆☆
 
 Implementá `int *buscar(int *arr, int n, int valor)` que retorne puntero al elemento encontrado o NULL.
 
@@ -401,10 +381,8 @@ Implementá `int *buscar(int *arr, int n, int valor)` que retorne puntero al ele
 - En `main`, verificá NULL antes de desreferenciar
 
 ---
-
-## Ejercicio 9: Copiar String
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_8_35)=
+## Ejercicio 8.35 - Copiar String ⭐⭐⭐⭐☆
 
 Implementá `void copiar_string(char *dest, const char *src)` usando punteros.
 
@@ -415,10 +393,8 @@ Implementá `void copiar_string(char *dest, const char *src)` usando punteros.
 - **Cuidado:** asumí que dest tiene espacio suficiente
 
 ---
-
-## Ejercicio 10: Longitud de String
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_8_36)=
+## Ejercicio 8.36 - Longitud de String ⭐⭐⭐⭐☆
 
 Implementá `int longitud_string(const char *str)` usando punteros.
 
@@ -428,10 +404,8 @@ Implementá `int longitud_string(const char *str)` usando punteros.
 - Versión 2: `return str_fin - str_inicio;` (aritmética de punteros)
 
 ---
-
-## Ejercicio 11: Concatenar Strings
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_8_37)=
+## Ejercicio 8.37 - Concatenar Strings ⭐⭐⭐⭐☆
 
 Implementá `void concatenar(char *dest, const char *src)` usando punteros.
 
@@ -441,10 +415,8 @@ Implementá `void concatenar(char *dest, const char *src)` usando punteros.
 - Asegurate de copiar el '\0' final
 
 ---
-
-## Ejercicio 12: Comparar Strings
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_8_38)=
+## Ejercicio 8.38 - Comparar Strings ⭐⭐⭐⭐☆
 
 Implementá `int comparar_strings(const char *s1, const char *s2)` usando punteros.
 
@@ -455,10 +427,8 @@ Implementá `int comparar_strings(const char *s1, const char *s2)` usando punter
 - Retorná `*s1 - *s2` en el primer carácter diferente
 
 ---
-
-## Ejercicio 13: Buscar Subcadena
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_8_39)=
+## Ejercicio 8.39 - Buscar Subcadena ⭐⭐⭐⭐☆
 
 Implementá `char *buscar_subcadena(const char *texto, const char *patron)`.
 
@@ -468,10 +438,8 @@ Implementá `char *buscar_subcadena(const char *texto, const char *patron)`.
 - Compará subcadenas en cada posición
 
 ---
-
-## Ejercicio 14: Eliminar Espacios
-
-**Dificultad:** ⭐⭐⭐⭐☆
+(ejercicio_8_40)=
+## Ejercicio 8.40 - Eliminar Espacios ⭐⭐⭐⭐☆
 
 Implementá `void eliminar_espacios(char *str)` que elimine espacios in-place.
 
@@ -481,10 +449,8 @@ Implementá `void eliminar_espacios(char *str)` que elimine espacios in-place.
 - Terminá con '\0'
 
 ---
-
-## Ejercicio 15: Matriz como Puntero a Puntero
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_8_41)=
+## Ejercicio 8.41 - Matriz como Puntero a Puntero ⭐⭐⭐⭐⭐
 
 Implementá funciones para trabajar con matriz dinámica (`int **matriz`):
 - `int **crear_matriz(int filas, int cols)`
@@ -497,10 +463,8 @@ Implementá funciones para trabajar con matriz dinámica (`int **matriz`):
 - `liberar_matriz`: libera filas primero, luego el array de punteros
 
 ---
-
-## Ejercicio 16: Rotación de Array
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_8_42)=
+## Ejercicio 8.42 - Rotación de Array ⭐⭐⭐⭐⭐
 
 Implementá `void rotar_izquierda(int *arr, int n, int k)` usando punteros.
 
@@ -512,10 +476,8 @@ Implementá `void rotar_izquierda(int *arr, int n, int k)` usando punteros.
 - Optimización: `k = k % n`
 
 ---
-
-## Ejercicio 17: Transponer Matriz
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_8_43)=
+## Ejercicio 8.43 - Transponer Matriz ⭐⭐⭐⭐⭐
 
 Implementá `void transponer(int **matriz, int filas, int cols, int ***resultado)`.
 
@@ -525,10 +487,8 @@ Implementá `void transponer(int **matriz, int filas, int cols, int ***resultado
 - Usá triple puntero para modificar puntero en función llamadora
 
 ---
-
-## Ejercicio 18: Ordenamiento con Función Comparadora
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_8_44)=
+## Ejercicio 8.44 - Ordenamiento con Función Comparadora ⭐⭐⭐⭐⭐
 
 Implementá `void ordenar(int *arr, int n, int (*comparar)(int, int))`.
 
@@ -539,10 +499,8 @@ Implementá `void ordenar(int *arr, int n, int (*comparar)(int, int))`.
 - En `main`, pasá funciones para orden ascendente/descendente
 
 ---
-
-## Ejercicio 19: Lista Enlazada Simple
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_8_45)=
+## Ejercicio 8.45 - Lista Enlazada Simple ⭐⭐⭐⭐⭐
 
 Implementá una lista enlazada con:
 - `struct nodo { int dato; struct nodo *siguiente; };`
@@ -556,10 +514,8 @@ Implementá una lista enlazada con:
 - `liberar_lista` recorre y libera cada nodo
 
 ---
-
-## Ejercicio 20: Parser de Argumentos
-
-**Dificultad:** ⭐⭐⭐⭐⭐
+(ejercicio_8_46)=
+## Ejercicio 8.46 - Parser de Argumentos ⭐⭐⭐⭐⭐
 
 Implementá un parser que procese argumentos de línea de comandos con flags:
 ```

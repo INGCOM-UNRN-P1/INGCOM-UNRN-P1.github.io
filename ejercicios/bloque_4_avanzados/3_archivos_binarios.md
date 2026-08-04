@@ -41,8 +41,8 @@ typedef struct {
 
 ```
 <!-- {code-block} c -->
-
-### Ejercicio 5.8 - Guardar Inventario
+(ejercicio_28_1)=
+### Ejercicio 28.1 - Guardar Inventario ⭐⭐☆☆☆
 
 Escribir una función que reciba un arreglo de `producto_t` y su tamaño, y guarde
 todos los productos en un archivo binario llamado `inventario.dat`.
@@ -58,8 +58,8 @@ todos los productos en un archivo binario llamado `inventario.dat`.
 ---
 
 ## Lectura de Registros
-
-### Ejercicio 5.9 - Cargar Inventario
+(ejercicio_28_2)=
+### Ejercicio 28.2 - Cargar Inventario ⭐⭐☆☆☆
 
 Escribir una función que lea todos los registros de `inventario.dat` y los
 muestre por pantalla.
@@ -78,8 +78,8 @@ muestre por pantalla.
 ---
 
 ## Acceso Aleatorio
-
-### Ejercicio 5.10 - Leer Registro Específico
+(ejercicio_28_3)=
+### Ejercicio 28.3 - Leer Registro Específico ⭐⭐☆☆☆
 
 Implementar una función `producto_t leer_registro(int n)` que lea y devuelva el
 `n`-ésimo registro del archivo `inventario.dat` sin leer los registros
@@ -92,8 +92,8 @@ anteriores.
 - **Origen**: El desplazamiento debe hacerse desde el inicio del archivo
   (`SEEK_SET`).
 - **Lectura**: Una vez posicionado, usar `fread` para leer un solo registro.
-
-### Ejercicio 5.11 - Actualizar Registro
+(ejercicio_28_4)=
+### Ejercicio 28.4 - Actualizar Registro ⭐⭐☆☆☆
 
 Implementar una función `void actualizar_stock(int n, int nuevo_stock)` que
 modifique únicamente el stock del `n`-ésimo registro en el archivo.
