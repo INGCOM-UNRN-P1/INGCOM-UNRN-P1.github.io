@@ -22,6 +22,12 @@ limpio, robusto y conforme a los estándares.
     compilación de proyectos modulares utilizando `make` y archivos `Makefile`.
 *   **[](guide-printf.md)**: Manual de uso y especificadores de formato para las
     funciones de entrada y salida estándar con formato (`printf` y `scanf`).
+*   **[](guide-gdb.md)**: Guía práctica de depuración con GDB, inspección de
+    pila (*stack frames*), puntos de interrupción y evaluación de variables.
+*   **[](guide-valgrind-asan.md)**: Manual de lectura de reportes de fugas de
+    memoria y accesos inválidos con Valgrind y AddressSanitizer.
+*   **[](guide-preprocesador.md)**: Documentación del preprocesador de C,
+    inclusión condicional, macros defensivas y prevención de colisiones.
 
 ## Guías de Refactorización de Código
 
