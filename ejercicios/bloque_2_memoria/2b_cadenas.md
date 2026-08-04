@@ -32,8 +32,10 @@ minúsculas.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -90,8 +92,10 @@ aparecen al menos una vez.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -153,8 +157,10 @@ específicas.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -226,8 +232,10 @@ alfabéticos (de la 'a' a la 'z', mayúsculas o minúsculas).
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -278,8 +286,10 @@ mayúsculas/minúsculas.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -348,8 +358,10 @@ mayúsculas/minúsculas y espacios.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -414,8 +426,10 @@ mayúsculas/minúsculas.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -474,8 +488,10 @@ carácter delimitador. La función `strtok` de C es un ejemplo clásico de esto.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -541,8 +557,10 @@ idénticos por el número de repeticiones seguido del carácter.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -597,8 +615,10 @@ puede ser _in-place_.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -663,8 +683,10 @@ separadores de miles (puntos o comas) para mejorar la legibilidad.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
+    garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
+    leaks*) mediante Valgrind o AddressSanitizer.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -724,8 +746,10 @@ reimplementación de la función `strstr`.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -786,8 +810,10 @@ Convertir una cadena que representa un número en formato binario (compuesta de
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -831,8 +857,10 @@ Convertir una cadena que representa un número en formato hexadecimal (dígitos
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -884,8 +912,10 @@ binaria.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -937,8 +967,10 @@ hexadecimal.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -991,8 +1023,10 @@ mantenga intacto.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1053,8 +1087,10 @@ ejemplo, "Hola Mundo desde C" se convertiría en "C desde Mundo Hola".
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1099,8 +1135,10 @@ palabra están en minúscula.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1148,8 +1186,10 @@ considerar que las palabras están separadas por uno o más espacios.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1208,8 +1248,10 @@ solo un espacio entre cada palabra.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1269,8 +1311,10 @@ saltos de línea) que se encuentren al principio y al final de la misma.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1335,8 +1379,10 @@ longitud de la cadena, lo que usualmente requiere memoria dinámica.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
+    garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
+    leaks*) mediante Valgrind o AddressSanitizer.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1395,8 +1441,10 @@ validar una estructura mínima.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1452,8 +1500,10 @@ posiciones más adelante en el alfabeto, de forma circular.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1510,8 +1560,10 @@ ejercicio anterior.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1550,8 +1602,10 @@ frecuentes.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1604,8 +1658,10 @@ cadenas sin diferenciar entre mayúsculas y minúsculas.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1656,8 +1712,10 @@ una nueva cadena con la subcadena extraída.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
+    garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
+    leaks*) mediante Valgrind o AddressSanitizer.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1705,8 +1763,10 @@ posible.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1755,8 +1815,10 @@ primera letra de cada palabra.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1814,8 +1876,10 @@ caracteres correspondientes son diferentes.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1866,8 +1930,10 @@ larga (LCS) entre dos cadenas. Una subsecuencia no tiene por qué ser contigua.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
+    garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
+    leaks*) mediante Valgrind o AddressSanitizer.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1915,8 +1981,10 @@ válida. Debe consistir en cuatro números entre 0 y 255, separados por puntos.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1970,8 +2038,10 @@ y convertir toda la cadena a minúsculas.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2021,8 +2091,10 @@ seguía.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2079,8 +2151,10 @@ cadena `s1`.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2130,8 +2204,10 @@ línea y `/*...*/` incluyendo el contenido).
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2188,8 +2264,10 @@ extraiga sus componentes principales: protocolo, host y ruta.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2233,8 +2311,10 @@ alfanuméricos.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2286,8 +2366,10 @@ cadena que no se repite en el resto de la cadena.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->

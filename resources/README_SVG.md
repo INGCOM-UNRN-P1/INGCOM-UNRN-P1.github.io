@@ -1,6 +1,7 @@
 # CSS Compartido para Diagramas SVG
 
-Este documento explica cómo usar el archivo `svg.css` para crear diagramas técnicos consistentes con la identidad visual de la UNRN.
+Este documento explica cómo usar el archivo `svg.css` para crear diagramas
+técnicos consistentes con la identidad visual de la UNRN.
 
 ## 📋 Tabla de Contenidos
 
@@ -13,7 +14,8 @@ Este documento explica cómo usar el archivo `svg.css` para crear diagramas téc
 
 ## 🚀 Instalación
 
-El archivo `svg.css` ya está ubicado en `resources/svg.css`. No requiere instalación adicional.
+El archivo `svg.css` ya está ubicado en `resources/svg.css`. No requiere
+instalación adicional.
 
 ## 📖 Uso Básico
 
@@ -21,13 +23,14 @@ El archivo `svg.css` ya está ubicado en `resources/svg.css`. No requiere instal
 
 Agregá esta línea después de la declaración XML:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?xml-stylesheet href="../resources/svg.css" type="text/css"?>
 <svg width="600" height="450" viewBox="0 0 600 450" xmlns="http://www.w3.org/2000/svg">
   <!-- Tu contenido aquí -->
 </svg>
 ```
+<!-- xml -->
 
 **Nota:** Ajustá la ruta `../resources/svg.css` según la ubicación de tu SVG:
 - Desde `apunte/13/diagrama.svg` → `../../resources/svg.css`
@@ -35,13 +38,14 @@ Agregá esta línea después de la declaración XML:
 
 ### Definir Marcadores de Flechas
 
-```xml
+``` xml
 <defs>
   <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
     <polygon points="0 0, 10 3, 0 6" fill="var(--unrn-red)"/>
   </marker>
 </defs>
 ```
+<!-- xml -->
 
 ##  Paleta de Colores
 
@@ -68,115 +72,130 @@ Agregá esta línea después de la declaración XML:
 
 ### Texto y Etiquetas
 
-```xml
+```{code-block} xml
+:linenos:
 <text class="title">Título Principal</text>
 <text class="subtitle">Subtítulo</text>
 <text class="label">Etiqueta normal</text>
 <text class="label-bold">Etiqueta en negrita</text>
 <text class="label-small">Etiqueta pequeña</text>
 <text class="index">Índice numérico</text>
+
 ```
+<!-- {code-block} xml -->
 
 ### Código
 
-```xml
+``` xml
 <text class="code">int x = 42;</text>
 <text class="code-comment">// comentario</text>
 <text class="code-keyword">return</text>
 ```
+<!-- xml -->
 
 ### Nodos (Genéricos)
 
-```xml
+``` xml
 <rect class="node"/>              <!-- Nodo básico -->
 <rect class="node-data"/>         <!-- Campo de datos -->
 <rect class="node-pointer"/>      <!-- Campo de puntero -->
 <rect class="node-null"/>         <!-- Puntero NULL -->
 <rect class="node-highlight"/>    <!-- Nodo resaltado -->
 ```
+<!-- xml -->
 
 ### Nodos por Estructura
 
 #### Pilas
-```xml
+``` xml
 <rect class="stack-node"/>
 <rect class="stack-data"/>
 <rect class="stack-pointer"/>
 <path class="stack-arrow" marker-end="url(#arrowhead)"/>
 <text class="stack-label">TOPE</text>
 ```
+<!-- xml -->
 
 #### Colas
-```xml
+``` xml
 <rect class="queue-node"/>
 <rect class="queue-data"/>
 <rect class="queue-pointer"/>
 <path class="queue-arrow" marker-end="url(#arrowhead)"/>
 <text class="queue-label">FRENTE</text>
 ```
+<!-- xml -->
 
 #### Deques
-```xml
+``` xml
 <rect class="deque-node"/>
 <rect class="deque-data"/>
 <path class="deque-arrow" marker-end="url(#arrowhead)"/>
 <path class="deque-arrow-secondary"/>
 ```
+<!-- xml -->
 
 #### Listas
-```xml
+``` xml
 <rect class="list-node"/>
 <rect class="list-data"/>
 <rect class="list-pointer"/>
 <path class="list-arrow" marker-end="url(#arrowhead)"/>
 ```
+<!-- xml -->
 
 #### Árboles
-```xml
+``` xml
 <rect class="tree-node"/>
 <rect class="tree-data"/>
 <path class="tree-arrow" marker-end="url(#arrowhead)"/>
 ```
+<!-- xml -->
 
 ### Flechas
 
-```xml
+``` xml
 <path class="arrow"/>                    <!-- Flecha genérica -->
 <path class="arrow-primary"/>            <!-- Flecha rojo UNRN -->
 <path class="arrow-secondary"/>          <!-- Flecha azul UNRN -->
 <path class="arrow-dashed"/>             <!-- Flecha punteada -->
 <path class="arrow-bidirectional"/>      <!-- Flecha doble -->
 ```
+<!-- xml -->
 
 ### Contenedores
 
-```xml
+``` xml
 <rect class="code-block"/>       <!-- Fondo para código -->
 <rect class="highlight-box"/>    <!-- Caja resaltada -->
 <rect class="info-box"/>         <!-- Caja informativa -->
 <rect class="memory-cell"/>      <!-- Celda de memoria -->
 ```
+<!-- xml -->
 
 ### Estados
 
-```xml
+``` xml
 <rect class="valid"/>            <!-- Estado válido (verde) -->
 <rect class="invalid"/>          <!-- Estado inválido (rojo) -->
 <rect class="warning"/>          <!-- Advertencia (naranja) -->
 ```
+<!-- xml -->
 
 ### Líneas
 
-```xml
+``` xml
 <line class="divider"/>          <!-- Línea divisoria fina -->
 <line class="divider-bold"/>     <!-- Línea divisoria gruesa -->
 ```
+<!-- xml -->
 
 ## 💡 Ejemplos
 
 ### Ejemplo 1: Pila Simple
 
-```xml
+```{code-block} xml
+:linenos:
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?xml-stylesheet href="../../resources/svg.css" type="text/css"?>
 <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
@@ -207,11 +226,14 @@ Agregá esta línea después de la declaración XML:
   
   <text x="290" y="87" class="stack-label">← TOPE</text>
 </svg>
+
 ```
+<!-- {code-block} xml -->
 
 ### Ejemplo 2: Cola con Código
 
-```xml
+```{code-block} xml
+:linenos:
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?xml-stylesheet href="../../resources/svg.css" type="text/css"?>
 <svg width="500" height="400" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
@@ -235,7 +257,9 @@ Agregá esta línea después de la declaración XML:
   <text x="40" y="335" class="code">    cola->final->siguiente = nuevo;</text>
   <text x="40" y="355" class="code">}</text>
 </svg>
+
 ```
+<!-- {code-block} xml -->
 
 ## 🔤 Tipografías
 
@@ -259,14 +283,17 @@ El CSS incluye tres familias tipográficas:
 ## Mejores Prácticas
 
 1. **Consistencia:** Usá siempre las clases CSS en lugar de estilos inline
-2. **Colores semánticos:** Elegí el esquema de color apropiado para cada estructura
+2. **Colores semánticos:** Elegí el esquema de color apropiado para cada
+   estructura
 3. **Tipografía:** Respetá la jerarquía tipográfica (title → subtitle → label)
-4. **Dimensiones:** Mantené proporciones consistentes (viewBox recomendado: 600-800px ancho)
+4. **Dimensiones:** Mantené proporciones consistentes (viewBox recomendado:
+   600-800px ancho)
 5. **Accesibilidad:** Incluí títulos descriptivos y etiquetas claras
 
 ## 📝 Notas Adicionales
 
-- Las variables CSS (`:root`) permiten personalización sin modificar todo el archivo
+- Las variables CSS (`:root`) permiten personalización sin modificar todo el
+  archivo
 - Los marcadores de flechas deben definirse en `<defs>` de cada SVG
 - Para más ejemplos, consultá `svg_example.svg`
 

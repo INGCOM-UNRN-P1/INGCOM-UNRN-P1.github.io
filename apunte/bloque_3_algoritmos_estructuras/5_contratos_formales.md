@@ -130,12 +130,23 @@ typedef struct {
 
 #### Verificación Práctica: `assert.h` y la Regla `0x2003h`
 
-Aunque lenguajes de especificación formal como ACSL son valiosos para verificación estática matemática, en el desarrollo práctico de C (y cumpliendo con las directivas de la cátedra) se utiliza un enfoque pragmático basado en la verificación dinámica con la biblioteca `<assert.h>` y la documentación estructurada de la **Regla {ref}`0x2003h`**.
+Aunque lenguajes de especificación formal como ACSL son valiosos para
+verificación estática matemática, en el desarrollo práctico de C (y cumpliendo
+con las directivas de la cátedra) se utiliza un enfoque pragmático basado en la
+verificación dinámica con la biblioteca `<assert.h>` y la documentación
+estructurada de la **Regla {ref}`0x2003h`**.
 
 Bajo esta regla, los contratos se establecen de la siguiente manera:
-1. **Documentación estructurada (`@pre` y `@post`):** En la cabecera de la función (`.h`), declarando explícitamente qué asunciones se hacen y qué se garantiza.
-2. **Verificación dinámica de precondiciones (`assert`):** Al inicio de la implementación de la función (`.c`), para abortar inmediatamente la ejecución si el cliente viola el contrato en modo desarrollo, evitando que un estado inválido corrompa la memoria.
-3. **Funciones de validación de invariantes:** Implementar una función interna del módulo (ej: `bool pila_es_valida(const pila_t *p)`) que evalúe y retorne verdadero si todas las invariantes de la estructura de datos se cumplen.
+1. **Documentación estructurada (`@pre` y `@post`):** En la cabecera de la
+   función (`.h`), declarando explícitamente qué asunciones se hacen y qué se
+   garantiza.
+2. **Verificación dinámica de precondiciones (`assert`):** Al inicio de la
+   implementación de la función (`.c`), para abortar inmediatamente la ejecución
+   si el cliente viola el contrato en modo desarrollo, evitando que un estado
+   inválido corrompa la memoria.
+3. **Funciones de validación de invariantes:** Implementar una función interna
+   del módulo (ej: `bool pila_es_valida(const pila_t *p)`) que evalúe y retorne
+   verdadero si todas las invariantes de la estructura de datos se cumplen.
 
 ##### Ejemplo Práctico de Contrato Seguro
 
@@ -159,6 +170,7 @@ typedef struct pila pila_t;
 void pila_push(pila_t *p, int dato);
 
 :::
+<!-- {code-block}c -->
 
 **Archivo de Implementación (`pila.c`):**
 
@@ -198,7 +210,9 @@ void pila_push(pila_t *p, int dato) {
     // Verificación de postcondición/invariante
     assert(pila_es_valida(p));
 }
+
 :::
+<!-- {code-block}c -->
 
 #### El Frame Problem y la directiva `assigns`
 
@@ -365,14 +379,18 @@ que simplifica drásticamente el cálculo de las condiciones de verificación.
 
 :::{exercise}
 :label: ej-contrato-assert-valido
-Escribí la firma documentada según la Regla {ref}`0x2003h` y la implementación con aserciones de `<assert.h>` para una función `void resetear(int *ptr)` que requiera que el puntero no sea `NULL` y garantice que el valor apuntado tras la llamada es `0`.
+Escribí la firma documentada según la Regla {ref}`0x2003h` y la implementación
+con aserciones de `<assert.h>` para una función `void resetear(int *ptr)` que
+requiera que el puntero no sea `NULL` y garantice que el valor apuntado tras la
+llamada es `0`.
 
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-contrato-assert-valido
 :class: dropdown
-``` c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stddef.h>
 
@@ -393,10 +411,13 @@ void resetear(int *ptr) {
     // Verificación de la postcondición
     assert(*ptr == 0);
 }
+
 ```
+<!-- {code-block} c -->
 <!-- c -->
 
 :::
+<!-- {solution} ej-contrato-assert-valido -->
 <!-- {solution} ej-contrato-acsl-valid -->
 
 :::{exercise}
@@ -427,20 +448,25 @@ tipo `Cuadrado`.
 ## Glosario
 
 :::{glossary}
+
 Precondición
 : Condición que debe cumplirse antes de invocar una función.
 
 Postcondición
-: Garantía que ofrece una función al finalizar si se cumplieron sus precondiciones.
+: Garantía que ofrece una función al finalizar si se cumplieron sus
+precondiciones.
 
 Invariante
-: Propiedad que debe permanecer verdadera durante el ciclo de vida de un objeto o ejecución.
+: Propiedad que debe permanecer verdadera durante el ciclo de vida de un objeto
+o ejecución.
 
 Invariante de lazo (Loop Invariant)
 : Condición o propiedad lógica asociada a una estructura iterativa que permanece
 verdadera antes de ingresar al lazo, antes y después de cada vuelta, y al salir
 de este.
+
 :::
+<!-- {glossary} -->
 
 ## Síntesis y Resumen
 
@@ -450,8 +476,14 @@ En este apunte se han presentado los conceptos fundamentales del tema.
 ## Referencias y Lecturas Complementarias
 
 - **Meyer, B.** [@meyer1988]. *Design by Contract*. Prentice Hall.
-  - El ensayo original que define e introduce la metodología de Diseño por Contrato en la construcción de software robusto.
+  - El ensayo original que define e introduce la metodología de Diseño por
+    Contrato en la construcción de software robusto.
 - **Meyer, B.** [@meyer1992]. *Applying "Design by Contract"*. IEEE Computer.
-  - Artículo clásico que analiza de forma compacta y pragmática el uso de precondiciones, postcondiciones e invariantes para el control de errores en tiempo de ejecución.
-- **Meyer, B.** [@meyer_object_1997]. *Object-Oriented Software Construction* (2.ª edición). Prentice Hall.
-  - Consultá los capítulos dedicados a la teoría de contratos, herencia y correctitud de algoritmos, que sientan las bases formales del modelado de invariantes de representación.
+  - Artículo clásico que analiza de forma compacta y pragmática el uso de
+    precondiciones, postcondiciones e invariantes para el control de errores en
+    tiempo de ejecución.
+- **Meyer, B.** [@meyer_object_1997]. *Object-Oriented Software Construction*
+  (2.ª edición). Prentice Hall.
+  - Consultá los capítulos dedicados a la teoría de contratos, herencia y
+    correctitud de algoritmos, que sientan las bases formales del modelado de
+    invariantes de representación.

@@ -45,8 +45,10 @@ día siguiente a `DOMINGO` es `LUNES`.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -63,8 +65,10 @@ Implementar una función que determine si un día es laboral (lunes a viernes).
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -82,8 +86,10 @@ función ilustra el patrón de conversión enum-a-string.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -120,8 +126,10 @@ reglas de transición.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
+    definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
+    para copiar la estructura de forma segura.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -155,8 +163,10 @@ válido de la enumeración. Usar el patrón del valor centinela.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -203,8 +213,10 @@ permiso específico.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -221,8 +233,10 @@ Implementar funciones para modificar el conjunto de permisos.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -241,8 +255,10 @@ permisos.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -287,8 +303,10 @@ RGB.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -311,8 +329,10 @@ Implementar una función que mezcle dos colores RGB usando promedio aritmético.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -369,8 +389,10 @@ Implementar funciones para configurar cada tipo de dispositivo de forma segura.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -390,8 +412,10 @@ tipo. Este ejercicio demuestra el uso correcto de uniones etiquetadas.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
+    garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
+    leaks*) mediante Valgrind o AddressSanitizer.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -429,8 +453,10 @@ error.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -448,8 +474,10 @@ de error usando unión etiquetada.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -508,8 +536,10 @@ Implementar una estructura que encapsule el estado completo del reproductor.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -533,8 +563,10 @@ Implementar funciones para controlar el reproductor.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
+    definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
+    para copiar la estructura de forma segura.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -575,8 +607,10 @@ nivel mínimo configurado.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -594,8 +628,10 @@ prefijo.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -637,8 +673,10 @@ Implementar funciones para construir y extraer información de la cabecera.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -660,8 +698,10 @@ de los rangos permitidos.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
+    definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
+    para copiar la estructura de forma segura.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -697,8 +737,10 @@ correspondientes a los flags activos.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -718,8 +760,10 @@ Implementar una función que detecte combinaciones incompatibles de opciones.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -758,8 +802,10 @@ menú.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -777,8 +823,10 @@ menú.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -801,8 +849,10 @@ figuras geométricas.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -850,8 +900,10 @@ datos.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -875,8 +927,10 @@ Implementar funciones para crear cada tipo de figura de forma segura.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -898,8 +952,10 @@ usando tablas de conversión.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -929,8 +985,10 @@ Implementar funciones genéricas que usen la tabla para realizar conversiones.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -981,8 +1039,10 @@ especificada.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
+    definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
+    para copiar la estructura de forma segura.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1001,8 +1061,10 @@ Implementar funciones para transiciones de estado comunes.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1054,8 +1116,10 @@ heurísticas.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1078,8 +1142,10 @@ paquetes.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1107,8 +1173,10 @@ Modelar permisos de archivo estilo UNIX usando flags.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1146,8 +1214,10 @@ Modelar diferentes tipos de archivo en un sistema de archivos.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1183,8 +1253,10 @@ Modelar eventos de interfaz de usuario.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1223,8 +1295,10 @@ Implementar un procesador que maneje diferentes tipos de eventos.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
+    definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
+    para copiar la estructura de forma segura.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1243,8 +1317,10 @@ Modelar el ciclo de vida de un proceso en un sistema operativo.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1283,8 +1359,10 @@ Implementar funciones de transición de estado para un planificador.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
+    definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
+    para copiar la estructura de forma segura.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1304,8 +1382,10 @@ Modelar métodos y códigos de estado HTTP.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
+    definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
+    para copiar la estructura de forma segura.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1346,8 +1426,10 @@ Implementar funciones para trabajar con HTTP.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1370,8 +1452,10 @@ Modelar un sistema de semáforo de tráfico.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1407,8 +1491,10 @@ Implementar la lógica de transición de un semáforo.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
+    definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
+    para copiar la estructura de forma segura.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1429,8 +1515,10 @@ Modelar el ciclo de vida de una transacción.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1469,8 +1557,10 @@ Implementar funciones para gestionar transacciones.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1492,8 +1582,10 @@ Modelar tipos de datos SQL y sus propiedades.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1539,8 +1631,10 @@ Implementar funciones para validar definiciones de columnas.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1562,8 +1656,10 @@ Modelar diferentes formatos de imagen y sus propiedades.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1608,8 +1704,10 @@ Implementar funciones para analizar propiedades de formatos.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1631,8 +1729,10 @@ Modelar un sistema de notificaciones con prioridades.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1673,8 +1773,10 @@ Implementar funciones para filtrar y enviar notificaciones.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1695,8 +1797,10 @@ Modelar diferentes algoritmos de compresión y sus niveles.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1738,8 +1842,10 @@ Implementar funciones para analizar rendimiento de compresión.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1761,8 +1867,10 @@ Implementar un framework genérico para máquinas de estados finitas.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1811,8 +1919,10 @@ Implementar el motor que procesa eventos y ejecuta transiciones.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
+    definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
+    para copiar la estructura de forma segura.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1835,8 +1945,10 @@ Analizar diferentes formas de implementar el mismo concepto:
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1874,8 +1986,10 @@ Investigar y documentar:
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
+    garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
+    leaks*) mediante Valgrind o AddressSanitizer.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1888,8 +2002,10 @@ Definí una enumeración para días de la semana y mostrá el nombre según el v
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1914,8 +2030,10 @@ puntos.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1939,8 +2057,10 @@ Creá estructura para fecha y función de validación.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1965,8 +2085,10 @@ Definí estructura persona y función para mostrar información.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1991,8 +2113,10 @@ Creá array de estudiantes y función para encontrar el de mayor promedio.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2018,8 +2142,10 @@ Definí enumeración para códigos de error HTTP.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2047,8 +2173,10 @@ Creá estructura para dirección y persona que incluya dirección.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2079,8 +2207,10 @@ Definí estructura nodo para lista enlazada.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2104,8 +2234,10 @@ Usá union para almacenar valor que puede ser int, float o char.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2137,8 +2269,10 @@ Practicá diferentes formas de inicializar estructuras.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2168,8 +2302,10 @@ Definí rectángulo con dos puntos (esquinas opuestas) y calcula área/perímetr
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2194,8 +2330,10 @@ Sistema con estructuras para libro, autor, editorial.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2228,8 +2366,10 @@ Usá enum para permisos de archivo estilo Unix.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
+    errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
+    archivo en todos los caminos de ejecución.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2261,8 +2401,10 @@ Explorá alineación de memoria en estructuras.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
+    garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
+    leaks*) mediante Valgrind o AddressSanitizer.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2295,8 +2437,10 @@ Implementá estructura de árbol binario y recorridos.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2321,8 +2465,10 @@ Creá sistema de figuras geométricas con union.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2363,8 +2509,10 @@ Implementá cola FIFO con estructura.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2393,8 +2541,10 @@ Representá grafo con estructuras.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2425,8 +2575,10 @@ Sistema CRUD para empleados.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2460,8 +2612,10 @@ Implementá máquina de estados finitos.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->

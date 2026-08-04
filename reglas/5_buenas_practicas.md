@@ -10,33 +10,39 @@ subtitle: Reglas de estilo para la compilación robusta y buenas prácticas de i
 (0x5001h)=
 ## Regla `0x5001h`: Los arreglos estáticos deben ser creados con un tamaño fijo en tiempo de compilación
 
-Los Arreglos de Longitud Variable (ALV / VLA) están prohibidos debido a los riesgos de desbordamiento incontrolado de la pila. Deben definirse con una constante en tiempo de compilación.
+Los Arreglos de Longitud Variable (ALV / VLA) están prohibidos debido a los
+riesgos de desbordamiento incontrolado de la pila. Deben definirse con una
+constante en tiempo de compilación.
 
-```diff
+``` diff
 - int n = 10;
 - int numeros[n]; // ALV prohibido
 + #define TAMANO_NUMEROS 10
 + int numeros[TAMANO_NUMEROS];
 ```
+<!-- diff -->
 
 (0x5002h)=
 ## Regla `0x5002h`: Desarrollá y compilá siempre con todas las advertencias del compilador activadas
 
-Debés activar las advertencias de compilación para la detección temprana de errores lógicos. Usá al menos las siguientes banderas con `gcc` o `clang`:
+Debés activar las advertencias de compilación para la detección temprana de
+errores lógicos. Usá al menos las siguientes banderas con `gcc` o `clang`:
 
-```make
+``` make
 CFLAGS += -Wall -Wextra -Wpedantic \
           -Wformat=2 -Wno-unused-parameter -Wshadow \
           -Wwrite-strings -Wstrict-prototypes -Wold-style-definition \
           -Wredundant-decls -Wnested-externs -Wmissing-include-dirs
 ```
+<!-- make -->
 
 (0x5003h)=
 ## Regla `0x5003h`: Utilizá guardas de inclusión en todos los archivos de cabecera
 
-Todos los archivos de cabecera (`.h`) deben incluir guardas de preprocesador para evitar problemas de redefinición múltiple.
+Todos los archivos de cabecera (`.h`) deben incluir guardas de preprocesador
+para evitar problemas de redefinición múltiple.
 
-```c
+``` c
 #ifndef MI_MODULO_H
 #define MI_MODULO_H
 
@@ -44,13 +50,17 @@ Todos los archivos de cabecera (`.h`) deben incluir guardas de preprocesador par
 
 #endif // MI_MODULO_H
 ```
+<!-- c -->
 
-Añadí comentarios en las directivas `#include` de cabeceras de terceros o del proyecto para documentar la provisión de símbolos, y evitá cabeceras unificadas que importen todo un módulo innecesariamente.
+Añadí comentarios en las directivas `#include` de cabeceras de terceros o del
+proyecto para documentar la provisión de símbolos, y evitá cabeceras unificadas
+que importen todo un módulo innecesariamente.
 
 (0x5004h)=
 ## Regla `0x5004h`: Todas las operaciones con cadenas deben ser seguras
 
-Utilizá funciones que controlen los límites de tamaño máximo del buffer de destino (`strncpy`, `snprintf`, `strncat`) para prevenir desbordamientos.
+Utilizá funciones que controlen los límites de tamaño máximo del buffer de
+destino (`strncpy`, `snprintf`, `strncat`) para prevenir desbordamientos.
 
 - **Incorrecto (inseguro):**
   ```c
@@ -61,7 +71,8 @@ Utilizá funciones que controlen los límites de tamaño máximo del buffer de d
   ```
 - **Correcto (seguro):**
   ```c
-  void concatenar_saludo_seguro(char *destino, size_t tam_destino, const char *nombre) {
+  void concatenar_saludo_seguro(char *destino, size_t tam_destino, const char
+  *nombre) {
       snprintf(destino, tam_destino, "Hola, %s", nombre);
   }
   ```
@@ -69,7 +80,8 @@ Utilizá funciones que controlen los límites de tamaño máximo del buffer de d
 (0x5005h)=
 ## Regla `0x5005h`: Organizá la estructura de tus archivos `.c` de forma estándar
 
-Mantené la estructura de archivo ordenada en secciones progresivas para mejorar su predictibilidad:
+Mantené la estructura de archivo ordenada en secciones progresivas para mejorar
+su predictibilidad:
 
 1.  Inclusiones de bibliotecas estándar (`<stdio.h>`).
 2.  Inclusiones de bibliotecas de terceros.
@@ -84,7 +96,8 @@ Mantené la estructura de archivo ordenada en secciones progresivas para mejorar
 (0x5006h)=
 ## Regla `0x5006h`: Preferí `fgets` sobre `gets` y `scanf` para leer cadenas
 
-`fgets` previene el desbordamiento de búfer de entrada de forma automática mediante la validación de tamaño del buffer de entrada.
+`fgets` previene el desbordamiento de búfer de entrada de forma automática
+mediante la validación de tamaño del buffer de entrada.
 
 - **Incorrecto:**
   ```c

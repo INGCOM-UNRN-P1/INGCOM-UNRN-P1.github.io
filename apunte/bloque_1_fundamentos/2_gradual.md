@@ -37,7 +37,12 @@ programa no funcione. Por ello, es necesario aprender a **pensar como una
 máquina**, pero también a **estructurar el pensamiento como un ser humano
 inteligente**.
 
-El lenguaje C es minimalista y provee acceso directo al hardware. Si bien promueve un estilo de programación explícito y prolijo para evitar bugs, C ofrece numerosos atajos sintácticos (tales como operadores de incremento `++`, asignaciones compactas `+=` y el operador condicional ternario `?:`). La recomendación de evitarlos al principio responde a una decisión didáctica y no a una limitación técnica del lenguaje.
+El lenguaje C es minimalista y provee acceso directo al hardware. Si bien
+promueve un estilo de programación explícito y prolijo para evitar bugs, C
+ofrece numerosos atajos sintácticos (tales como operadores de incremento `++`,
+asignaciones compactas `+=` y el operador condicional ternario `?:`). La
+recomendación de evitarlos al principio responde a una decisión didáctica y no a
+una limitación técnica del lenguaje.
 
 ---
 
@@ -223,6 +228,7 @@ máquina puede ejecutar directamente.
 <!-- {figure} 2/compilation_process.svg -->
 
 ````{code-block} text
+:linenos:
 :label: salidamundo
 :caption: La salida por la terminal.
 
@@ -377,7 +383,8 @@ su función y la cantidad de operandos que requieren:
         (ej: `contador++`).
     *   Negación aritmética (`-`): Cambia el signo de un valor.
 * **Relacionales o de Comparación:** Comparan dos operandos y devuelven un
-    valor entero (`int`) `0` o `1` representando valores lógicos falso y  verdadero.
+    valor entero (`int`) `0` o `1` representando valores lógicos falso y
+    verdadero.
     * Mayor que (`>`)
     * Menor que (`<`)
     * Mayor o igual (`>=`) 
@@ -1100,6 +1107,7 @@ caracteres.
 ## Glosario
 
 :::{glossary}
+
 Compilador
 : Herramienta de software que traduce un programa escrito en código fuente de
 alto nivel a instrucciones de código máquina nativo.
@@ -1123,7 +1131,9 @@ física de almacenamiento direccionable.
 Buffer de entrada
 : Área de almacenamiento temporal de memoria donde se retienen las entradas del
 usuario hasta ser consumidas por funciones como `scanf`.
+
 :::
+<!-- {glossary} -->
 
 ---
 

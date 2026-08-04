@@ -32,8 +32,11 @@ bit en la posición `n` de un número (0 o 1).
   máscara. Si el resultado no es cero, el bit estaba encendido.
 - `(numero & (1 << n)) != 0`
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
+    definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
+    para copiar la estructura de forma segura.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 (ejercicio_27_2)=
@@ -48,8 +51,11 @@ el bit en la posición `n` sin alterar los demás.
   entre el número y la máscara.
 - `numero = numero | (1 << n);`
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 (ejercicio_27_3)=
@@ -65,8 +71,11 @@ el bit en la posición `n`.
   ceros solo en la posición `n`.
 - `numero = numero & ~(1 << n);`
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 (ejercicio_27_4)=
@@ -81,8 +90,11 @@ del bit en la posición `n` (de 0 a 1, o de 1 a 0).
   XOR con 1 invierte un bit, mientras que el XOR con 0 lo deja igual.
 - `numero = numero ^ (1 << n);`
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -100,8 +112,11 @@ representación binaria de un número.
   menos significativo en cada iteración. El número de iteraciones es el número
   de bits encendidos.
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 (ejercicio_27_6)=
@@ -118,8 +133,11 @@ de dos (ej. 2, 4, 8, 16...).
   cero.
 - **Condición**: `n > 0 && (n & (n - 1)) == 0`
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 (ejercicio_27_7)=
@@ -136,8 +154,11 @@ operador XOR.
   2. `*b = *a ^ *b;` // Ahora `b` tiene el valor original de `a`
   3. `*a = *a ^ *b;` // Ahora `a` tiene el valor original de `b`
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 (ejercicio_27_8)=
@@ -154,7 +175,10 @@ una sola variable `unsigned char`.
 - **Quitar Permiso**: `permisos = permisos & ~EJECUCION;`
 - **Verificar Permiso**: `if (permisos & LECTURA) { ... }`
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->

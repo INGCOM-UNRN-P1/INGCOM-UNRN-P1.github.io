@@ -25,6 +25,7 @@ recordar modificar todas sus copias. Como establece {ref}`0x0000h`, la claridad
 y mantenibilidad son fundamentales.
 
 :::
+<!-- {important} Principio DRY -->
 
 ## Tipos de Duplicación
 
@@ -32,7 +33,8 @@ y mantenibilidad son fundamentales.
 
 Código idéntico copiado y pegado.
 
-```c
+```{code-block} c
+:linenos:
 // Problemático: mismo código en múltiples lugares
 void procesar_usuario_web(usuario_t* u) {
     if (u == NULL) {
@@ -65,13 +67,16 @@ void procesar_usuario_api(usuario_t* u) {
     }
     // procesar...
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 2. Duplicación Estructural
 
 Código con estructura similar pero diferentes detalles.
 
-```c
+```{code-block} c
+:linenos:
 // Problemático: estructura duplicada
 double calcular_precio_estudiante(int cantidad) {
     const double PRECIO_BASE = 10.0;
@@ -96,13 +101,16 @@ double calcular_precio_senior(int cantidad) {
     double descuento = subtotal * DESCUENTO;
     return subtotal - descuento;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 3. Duplicación Semántica
 
 Código que hace lo mismo de diferentes maneras.
 
-```c
+```{code-block} c
+:linenos:
 // Problemático: mismo concepto implementado diferente
 bool es_mayor_de_edad_1(int edad) {
     return edad >= 18;
@@ -118,13 +126,16 @@ bool validar_edad_legal(int edad) {
 bool puede_votar(int edad) {
     return edad >= 18 ? true : false;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 4. Duplicación de Datos
 
 Misma información almacenada en múltiples lugares.
 
-```c
+```{code-block} c
+:linenos:
 // Problemático: datos redundantes
 typedef struct {
     char* nombre;
@@ -137,7 +148,9 @@ typedef struct {
     int cantidad;
     double total;  // Derivado de precio * cantidad
 } item_pedido_t;
+
 ```
+<!-- {code-block} c -->
 
 ## Técnicas de Eliminación de Duplicación
 
@@ -147,7 +160,8 @@ La técnica más básica: extraer código común a una función.
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 void registrar_compra(usuario_t* usuario, producto_t* producto) {
     // Validación duplicada
     if (usuario == NULL) {
@@ -175,11 +189,14 @@ void registrar_venta(usuario_t* usuario, producto_t* producto) {
 
     // Lógica de venta...
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 bool validar_usuario(const usuario_t* usuario) {
     if (usuario == NULL) {
         fprintf(stderr, "Error: usuario NULL\n");
@@ -207,7 +224,9 @@ void registrar_venta(usuario_t* usuario, producto_t* producto) {
     }
     // Lógica de venta...
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 2. Parametrización
 
@@ -215,7 +234,8 @@ Convertir valores fijos en parámetros.
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 double calcular_precio_estudiante(int cantidad) {
     return cantidad * 10.0 * 0.80;  // 20% descuento
 }
@@ -227,11 +247,14 @@ double calcular_precio_adulto(int cantidad) {
 double calcular_precio_senior(int cantidad) {
     return cantidad * 12.0 * 0.70;  // 30% descuento
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 typedef enum {
     CATEGORIA_ESTUDIANTE,
     CATEGORIA_ADULTO,
@@ -258,7 +281,9 @@ double calcular_precio(int cantidad, categoria_cliente_t categoria) {
     double subtotal = cantidad * tarifa.precio_base;
     return subtotal * (1.0 - tarifa.descuento);
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 3. Uso de Estructuras de Datos
 
@@ -266,7 +291,8 @@ Reemplazar código repetitivo con datos.
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 char* obtener_nombre_mes(int mes) {
     if (mes == 1) return "Enero";
     if (mes == 2) return "Febrero";
@@ -282,11 +308,14 @@ char* obtener_nombre_mes(int mes) {
     if (mes == 12) return "Diciembre";
     return "Inválido";
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 const char* obtener_nombre_mes(int mes) {
     static const char* NOMBRES_MESES[] = {
         "Inválido",  // índice 0
@@ -303,7 +332,9 @@ const char* obtener_nombre_mes(int mes) {
 
     return NOMBRES_MESES[mes];
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 4. Template Method Pattern (Simulado)
 
@@ -311,7 +342,8 @@ Extraer la estructura común, parametrizar las partes variables.
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 void procesar_archivo_texto(const char* ruta) {
     FILE* f = fopen(ruta, "r");
     if (!f) return;
@@ -341,11 +373,14 @@ void procesar_archivo_csv(const char* ruta) {
 
     fclose(f);
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 typedef void (*procesador_linea_fn)(char* linea);
 
 void procesar_archivo_generico(const char* ruta,
@@ -384,13 +419,16 @@ void procesar_archivo_texto(const char* ruta) {
 void procesar_archivo_csv(const char* ruta) {
     procesar_archivo_generico(ruta, procesar_linea_csv);
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 5. Extracción a Constantes/Configuración
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 void configurar_servidor_web() {
     iniciar_en_puerto(8080);
     establecer_timeout(30);
@@ -402,11 +440,14 @@ void configurar_servidor_api() {
     establecer_timeout(60);
     establecer_max_conexiones(100);  // Duplicado
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     int puerto;
     int timeout_segundos;
@@ -434,7 +475,9 @@ void configurar_servidor(const configuracion_servidor_t* config) {
 // Uso
 configurar_servidor(&CONFIG_WEB);
 configurar_servidor(&CONFIG_API);
+
 ```
+<!-- {code-block} c -->
 
 ## Casos Prácticos Completos
 
@@ -442,7 +485,8 @@ configurar_servidor(&CONFIG_API);
 
 **Código Original:**
 
-```c
+```{code-block} c
+:linenos:
 bool validar_email(const char* email) {
     if (email == NULL) return false;
     if (strlen(email) == 0) return false;
@@ -464,11 +508,14 @@ bool validar_telefono(const char* telefono) {
     if (strlen(telefono) != 10) return false;
     return true;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Código Refactorizado:**
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     size_t longitud_minima;
     size_t longitud_maxima;
@@ -524,13 +571,16 @@ bool validar_telefono(const char* telefono) {
     };
     return validar_cadena_con_criterios(telefono, &criterios);
 }
+
 ```
+<!-- {code-block} c -->
 
 ### Caso 2: Operaciones CRUD Repetitivas
 
 **Código Original:**
 
-```c
+```{code-block} c
+:linenos:
 // Usuarios
 usuario_t* crear_usuario(const char* nombre) {
     usuario_t* u = malloc(sizeof(usuario_t));
@@ -575,11 +625,14 @@ void destruir_categoria(categoria_t* c) {
     free(c->nombre);
     free(c);
 }
+
 ```
+<!-- {code-block} c -->
 
 **Código Refactorizado:**
 
-```c
+```{code-block} c
+:linenos:
 // Interfaz común para entidades
 typedef struct {
     int id;
@@ -612,11 +665,14 @@ IMPLEMENTAR_DESTRUIR(producto_t, producto)
 
 IMPLEMENTAR_CREAR(categoria_t, categoria)
 IMPLEMENTAR_DESTRUIR(categoria_t, categoria)
+
 ```
+<!-- {code-block} c -->
 
 **Alternativa sin macros (más explícita):**
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     void* (*crear)(const char* nombre);
     void (*destruir)(void* entidad);
@@ -647,13 +703,16 @@ usuario_t* crear_usuario(const char* nombre) {
 void destruir_usuario(usuario_t* usuario) {
     destruir_entidad_generica(usuario);
 }
+
 ```
+<!-- {code-block} c -->
 
 ### Caso 3: Procesamiento Similar de Diferentes Tipos
 
 **Código Original:**
 
-```c
+```{code-block} c
+:linenos:
 void procesar_usuarios(usuario_t* usuarios, int n) {
     printf("=== Procesando Usuarios ===\n");
     for (int i = 0; i < n; i++) {
@@ -677,11 +736,14 @@ void procesar_productos(producto_t* productos, int n) {
     }
     printf("Total procesados: %d\n", n);
 }
+
 ```
+<!-- {code-block} c -->
 
 **Código Refactorizado:**
 
-```c
+```{code-block} c
+:linenos:
 typedef bool (*filtro_fn)(const void* elemento);
 typedef void (*mostrar_fn)(const void* elemento);
 
@@ -738,13 +800,16 @@ void procesar_productos(producto_t* productos, int n) {
     procesar_elementos(productos, n, sizeof(producto_t),
                        "Productos", producto_disponible, mostrar_producto);
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Cuándo NO Eliminar Duplicación
 
 ### 1. Duplicación Accidental
 
-```c
+```{code-block} c
+:linenos:
 // Similar pero semánticamente diferente
 int contar_usuarios_activos() {
     int contador = 0;
@@ -757,14 +822,17 @@ int contar_productos_en_stock() {
     // ...
     return contador;
 }
+
 ```
+<!-- {code-block} c -->
 
 Aunque la estructura es similar, representan conceptos diferentes que pueden
 evolucionar independientemente.
 
 ### 2. Duplicación que Aumenta Complejidad
 
-```c
+```{code-block} c
+:linenos:
 // A veces la abstracción es peor que la duplicación
 void validar_formato_simple(const char* str) {
     // Validación directa y clara
@@ -775,11 +843,14 @@ void validar_formato_simple(const char* str) {
 }
 
 // No vale la pena crear un framework complejo para esto
+
 ```
+<!-- {code-block} c -->
 
 ### 3. Duplicación en Tests
 
-```c
+```{code-block} c
+:linenos:
 // En tests, cierta duplicación es aceptable para claridad
 void test_usuario_valido() {
     usuario_t u = {.nombre = "Juan", .edad = 25};
@@ -790,7 +861,9 @@ void test_usuario_invalido() {
     usuario_t u = {.nombre = "Ana", .edad = 15};
     assert(!validar_usuario(&u));
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Estrategia de Refactorización
 
@@ -815,23 +888,25 @@ Esperar hasta ver la duplicación al menos tres veces antes de abstraer:
 
 ### Búsqueda Manual
 
-```bash
+``` bash
 # Buscar funciones similares
 grep -n "^void procesar_" *.c
 
 # Encontrar patrones repetidos
 grep -r "if (.*== NULL)" .
 ```
+<!-- bash -->
 
 ### Análisis Estático
 
-```bash
+``` bash
 # CPD (Copy/Paste Detector) de PMD
 pmd cpd --minimum-tokens 50 --files .
 
 # SonarQube
 # Puede detectar bloques duplicados
 ```
+<!-- bash -->
 
 ## Resumen
 

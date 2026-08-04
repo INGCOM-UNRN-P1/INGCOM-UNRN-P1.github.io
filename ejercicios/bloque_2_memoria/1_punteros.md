@@ -34,8 +34,10 @@ original.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -51,8 +53,10 @@ Utilicen el retorno para indicar si la división fue correcta o no.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
+    definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
+    para copiar la estructura de forma segura.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -65,8 +69,10 @@ Implementar `void estadisticas(int arr[], size_t n, int *min, int *max, double
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -82,8 +88,10 @@ Implementar `size_t largo_seguro(const char *str, size_t capacidad)`.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -100,8 +108,10 @@ elementos llame a `void intercambia(int *a, int *b)`.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -115,8 +125,10 @@ retornar un puntero al inicio de la primera ocurrencia de `buscado` dentro de
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -129,8 +141,10 @@ Implementar `void invertir(int *inicio, int *fin)`. Se intercambia `*inicio` con
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -149,8 +163,10 @@ apunte a esa memoria.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -174,8 +190,10 @@ filas)`.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -189,8 +207,10 @@ de punteros a cadenas lexicográficamente usando `strcmp`.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -217,8 +237,10 @@ de punteros, sin índices.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -233,8 +255,10 @@ Implementar `void copiar(int *destino, const int *origen, size_t n)` que copie
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -247,8 +271,10 @@ un puntero al primer elemento igual a `valor`, o `NULL` si no se encuentra.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -264,8 +290,10 @@ elementos entre ellos.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -286,8 +314,10 @@ Implementar funciones que demuestren cada caso.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -303,8 +333,10 @@ permite que el compilador detecte modificaciones accidentales.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -317,8 +349,10 @@ modificar la cadena.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -333,8 +367,10 @@ Dada una estructura:
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -360,8 +396,10 @@ arreglo de puntos según su coordenada `x`.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -372,8 +410,10 @@ Dada:
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -406,8 +446,10 @@ una función a cada elemento del arreglo.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -433,8 +475,10 @@ intercambiar elementos.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -445,8 +489,10 @@ Crear un arreglo de punteros a funciones para una calculadora:
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -483,8 +529,10 @@ retornar 1. Si es `NULL`, retornar 0.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -498,8 +546,10 @@ elemento máximo del arreglo, o `NULL` si el arreglo está vacío o el puntero e
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -511,8 +561,10 @@ inicializando en `NULL`:
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -536,8 +588,10 @@ Implementá `void intercambiar(int *a, int *b)` que intercambie dos valores.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -557,8 +611,10 @@ números.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -579,8 +635,10 @@ Implementá `void dividir(int dividendo, int divisor, int *cociente, int
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -600,8 +658,10 @@ Implementá `void estadisticas(int arr[], int n, int *min, int *max, double
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -621,8 +681,10 @@ elemento del medio.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -642,8 +704,10 @@ Implementá `int suma_array(int *arr, int n)` usando **aritmética de punteros**
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -663,8 +727,10 @@ Implementá `void invertir(int *arr, int n)` usando dos punteros.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -685,8 +751,10 @@ elemento encontrado o NULL.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -706,8 +774,10 @@ Implementá `void copiar_string(char *dest, const char *src)` usando punteros.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -726,8 +796,10 @@ Implementá `int longitud_string(const char *str)` usando punteros.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -746,8 +818,10 @@ Implementá `void concatenar(char *dest, const char *src)` usando punteros.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -768,8 +842,10 @@ punteros.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -788,8 +864,10 @@ Implementá `char *buscar_subcadena(const char *texto, const char *patron)`.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -808,8 +886,10 @@ Implementá `void eliminar_espacios(char *str)` que elimine espacios in-place.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -831,8 +911,10 @@ Implementá funciones para trabajar con matriz dinámica (`int **matriz`):
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -853,8 +935,10 @@ Implementá `void rotar_izquierda(int *arr, int n, int k)` usando punteros.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -874,8 +958,10 @@ Implementá `void transponer(int **matriz, int filas, int cols, int
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -895,8 +981,10 @@ Implementá `void ordenar(int *arr, int n, int (*comparar)(int, int))`.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -919,8 +1007,10 @@ Implementá una lista enlazada con:
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -933,8 +1023,10 @@ Implementá un parser que procese argumentos de línea de comandos con flags:
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->

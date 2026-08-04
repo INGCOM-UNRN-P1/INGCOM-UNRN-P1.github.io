@@ -46,8 +46,10 @@ $$
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
+    definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
+    para copiar la estructura de forma segura.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -68,8 +70,10 @@ $$
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -89,8 +93,10 @@ $$
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de cola (*tail recursion*) para reducir el consumo de pila.
--   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas realizadas para analizar la complejidad empírica.
+-   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de
+    cola (*tail recursion*) para reducir el consumo de pila.
+-   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas
+    realizadas para analizar la complejidad empírica.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -110,8 +116,10 @@ $$
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de cola (*tail recursion*) para reducir el consumo de pila.
--   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas realizadas para analizar la complejidad empírica.
+-   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de
+    cola (*tail recursion*) para reducir el consumo de pila.
+-   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas
+    realizadas para analizar la complejidad empírica.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -137,8 +145,10 @@ $$
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -155,8 +165,10 @@ arreglo.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -169,8 +181,10 @@ elemento.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -183,8 +197,10 @@ del arreglo.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -210,8 +226,10 @@ Un palíndromo se lee igual en ambos sentidos.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -228,8 +246,10 @@ Implementá factorial de forma recursiva.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de cola (*tail recursion*) para reducir el consumo de pila.
--   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas realizadas para analizar la complejidad empírica.
+-   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de
+    cola (*tail recursion*) para reducir el consumo de pila.
+-   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas
+    realizadas para analizar la complejidad empírica.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -248,8 +268,10 @@ Calculá base^exponente recursivamente.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de cola (*tail recursion*) para reducir el consumo de pila.
--   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas realizadas para analizar la complejidad empírica.
+-   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de
+    cola (*tail recursion*) para reducir el consumo de pila.
+-   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas
+    realizadas para analizar la complejidad empírica.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -271,8 +293,10 @@ Optimizá potencia usando divide y conquista.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -290,8 +314,10 @@ Sumá los dígitos de un número recursivamente.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de cola (*tail recursion*) para reducir el consumo de pila.
--   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas realizadas para analizar la complejidad empírica.
+-   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de
+    cola (*tail recursion*) para reducir el consumo de pila.
+-   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas
+    realizadas para analizar la complejidad empírica.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -310,8 +336,10 @@ Invertí un string recursivamente.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -330,8 +358,10 @@ Calculá el n-ésimo número de Fibonacci.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de cola (*tail recursion*) para reducir el consumo de pila.
--   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas realizadas para analizar la complejidad empírica.
+-   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de
+    cola (*tail recursion*) para reducir el consumo de pila.
+-   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas
+    realizadas para analizar la complejidad empírica.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -351,8 +381,10 @@ Optimizá Fibonacci usando memoización (caché de resultados).
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -371,8 +403,10 @@ Sumá elementos de un array recursivamente.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -393,8 +427,10 @@ Implementá búsqueda binaria de forma recursiva.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
+    definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
+    para copiar la estructura de forma segura.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -413,8 +449,10 @@ Encontrá el máximo de un array recursivamente.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -434,8 +472,10 @@ Verificá si un string es palíndromo recursivamente.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -455,8 +495,10 @@ Resolvé el problema de la Torre de Hanoi.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -491,8 +533,10 @@ Generá todas las permutaciones de un string.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -512,8 +556,10 @@ Generá todos los subconjuntos de un conjunto.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -537,8 +583,10 @@ Implementá ordenamiento MergeSort.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -562,8 +610,10 @@ Implementá ordenamiento QuickSort.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -585,8 +635,10 @@ ataquen).
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -607,8 +659,10 @@ Encontrá camino en un laberinto desde inicio a fin.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -628,8 +682,10 @@ Generá todas las combinaciones de k elementos de un conjunto de n.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -651,8 +707,10 @@ Resolvé un Sudoku usando backtracking.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de cola (*tail recursion*) para reducir el consumo de pila.
--   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas realizadas para analizar la complejidad empírica.
+-   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de
+    cola (*tail recursion*) para reducir el consumo de pila.
+-   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas
+    realizadas para analizar la complejidad empírica.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -665,8 +723,10 @@ Resolvé un Sudoku usando backtracking.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -682,8 +742,10 @@ Calculá C(n,k) = n! / (k! × (n-k)!) recursivamente.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -701,8 +763,10 @@ Implementá algoritmo de Euclides recursivamente.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de cola (*tail recursion*) para reducir el consumo de pila.
--   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas realizadas para analizar la complejidad empírica.
+-   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de
+    cola (*tail recursion*) para reducir el consumo de pila.
+-   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas
+    realizadas para analizar la complejidad empírica.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -721,8 +785,10 @@ Evaluá una expresión matemática representada como árbol binario.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
+    garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
+    leaks*) mediante Valgrind o AddressSanitizer.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->

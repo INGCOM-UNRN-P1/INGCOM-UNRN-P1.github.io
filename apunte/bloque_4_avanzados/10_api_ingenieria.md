@@ -82,6 +82,7 @@ void dibujar_rectangulo_ex(int x, int y, int ancho, int alto, color_t color);
    opcionales, se puede usar una estructura de configuración.
 
 ```{code-block} c
+:linenos:
 typedef struct {
     int ancho;
     int alto;
@@ -980,6 +981,7 @@ En estos casos, las APIs pueden exponer versiones "unsafe" optimizadas junto a
 versiones "safe" con verificaciones completas:
 
 ```{code-block} c
+:linenos:
 // Versión con verificaciones completas: segura pero más lenta
 bool lista_insertar(lista_t *lista, size_t pos, void *elem);
 
@@ -1025,6 +1027,7 @@ que el código de producción, sirviendo como especificación ejecutable.
    modo debug, no un crash silencioso.
 
 ```{code-block} c
+:linenos:
 // Ejemplo de test de contrato
 void test_lista_agregar_retorna_true_en_exito(void) {
     lista_t *lista = lista_crear();
@@ -1083,6 +1086,7 @@ C/C++. Usa comentarios especialmente formateados que pueden ser procesados para
 generar HTML, PDF, y man pages.
 
 ```{code-block} c
+:linenos:
 /**
  * @brief Busca un elemento en una lista ordenada usando búsqueda binaria.
  *

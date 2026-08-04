@@ -279,7 +279,7 @@ función que use el operador `&` para determinar si un número es par.
 :::
 <!-- {exercise} espar -->
 
-:::{solution} espar
+::::{solution} espar
 :class: dropdown
 
 :::{code-block}c
@@ -295,7 +295,7 @@ bool es_par(int numero) {
 :::
 <!-- {code-block}c -->
 
-:::
+::::
 <!-- {solution} espar -->
 
 (2-or-a-nivel-de-bits)=

@@ -36,8 +36,10 @@ e) $T(n) = n! + 2^n + n^{10}$
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -51,8 +53,10 @@ $$\log n, \quad n^2, \quad 2^n, \quad n!, \quad n \log n, \quad \sqrt{n}, \quad 
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -72,8 +76,10 @@ h) $n^2 = \Omega(n \log n)$
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -86,8 +92,10 @@ constantes $c$ y $n_0$ que satisfagan la definición.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -102,8 +110,10 @@ Analizar la complejidad temporal de este código:
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -122,8 +132,10 @@ Analizar la complejidad de:
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -142,8 +154,10 @@ Analizar la complejidad de:
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
+    definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
+    para copiar la estructura de forma segura.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -162,8 +176,10 @@ Analizar la complejidad de:
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
+    definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
+    para copiar la estructura de forma segura.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -183,8 +199,10 @@ Contá cuántas operaciones ejecuta este código:
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -214,8 +232,10 @@ for (int i = 0; i < n; i++) {
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -251,8 +271,10 @@ Compará la complejidad de buscar un elemento en:
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -267,8 +289,10 @@ Determiná la complejidad de cada fragmento:
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -316,8 +340,10 @@ Analizá la complejidad de sumar todos los elementos de una matriz n×m.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -372,8 +398,10 @@ Compará complejidad de Fibonacci recursivo vs iterativo.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de cola (*tail recursion*) para reducir el consumo de pila.
--   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas realizadas para analizar la complejidad empírica.
+-   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de
+    cola (*tail recursion*) para reducir el consumo de pila.
+-   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas
+    realizadas para analizar la complejidad empírica.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -389,8 +417,10 @@ complejidad.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -421,8 +451,10 @@ Compará dos formas de encontrar duplicados:
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -470,8 +502,10 @@ Analizá complejidad del ordenamiento burbuja.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -504,8 +538,10 @@ Analizá memoria usada por MergeSort.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
+    garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
+    leaks*) mediante Valgrind o AddressSanitizer.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -537,8 +573,10 @@ Encontrá dos números en array que sumen un objetivo.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -589,8 +627,10 @@ Compará verificar primos uno por uno vs Criba de Eratóstenes.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
+    garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
+    leaks*) mediante Valgrind o AddressSanitizer.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -636,8 +676,10 @@ Analizá complejidad de LCS con programación dinámica.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
+    garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
+    leaks*) mediante Valgrind o AddressSanitizer.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -675,8 +717,10 @@ Analizá complejidad de multiplicar dos matrices n×n.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -710,8 +754,10 @@ Analizá complejidad de Torres de Hanoi.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -745,8 +791,10 @@ Analizá costo amortizado de inserción en vector dinámico con duplicación.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -789,8 +837,10 @@ Compará complejidad de operaciones en diferentes estructuras:
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -805,8 +855,10 @@ Analizá complejidad de soluciones al TSP.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
+    garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
+    leaks*) mediante Valgrind o AddressSanitizer.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -841,8 +893,10 @@ Compará estos dos códigos para sumar matriz:
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -880,8 +934,10 @@ Implementá framework para medir tiempos y validar análisis teórico.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->

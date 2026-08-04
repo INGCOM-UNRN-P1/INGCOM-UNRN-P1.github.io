@@ -67,7 +67,8 @@ desreferenciar `ptr` (usando `*ptr`), accedemos al valor `42`.
 :label: fig-concepto-puntero
 :align: center
 
-Concepto básico de un puntero. La variable `ptr` almacena la dirección física de `numero` en la RAM.
+Concepto básico de un puntero. La variable `ptr` almacena la dirección física de
+`numero` en la RAM.
 
 :::
 <!-- {figure} 2/concepto_puntero.svg -->
@@ -167,11 +168,20 @@ vulnerabilidades de seguridad.
 :::
 <!-- {danger} Peligro: Punteros No Inicializados (Punteros Salvajes) -->
 
-**Regla de oro:** Siempre inicializá tus punteros, ya sea con la dirección de una variable válida o con `NULL`.
+**Regla de oro:** Siempre inicializá tus punteros, ya sea con la dirección de
+una variable válida o con `NULL`.
 
 :::{important} Aniquilación Post-Free (Evitando Punteros Colgantes)
-Al trabajar con memoria asignada de forma dinámica, la llamada a `free(ptr)` libera el bloque en el heap, pero la variable `ptr` sigue reteniendo la dirección de memoria de la celda liberada. Para evitar desreferenciar accidentalmente esta dirección física inválida (punteros colgantes o *dangling pointers*), se debe aniquilar el puntero asignándolo inmediatamente a `NULL` (ej: `free(ptr); ptr = NULL;`).
+
+Al trabajar con memoria asignada de forma dinámica, la llamada a `free(ptr)`
+libera el bloque en el heap, pero la variable `ptr` sigue reteniendo la
+dirección de memoria de la celda liberada. Para evitar desreferenciar
+accidentalmente esta dirección física inválida (punteros colgantes o *dangling
+pointers*), se debe aniquilar el puntero asignándolo inmediatamente a `NULL`
+(ej: `free(ptr); ptr = NULL;`).
+
 :::
+<!-- {important} Aniquilación Post-Free (Evitando Punteros Colgantes) -->
 
 
 (variable-de-referencia-o-puntero)=
@@ -280,7 +290,9 @@ indirecta.
 
 El nombre de un arreglo no es un puntero, sino el identificador de un bloque de
 memoria contiguo. Sin embargo, como se analizó en
-el capítulo de [Secuencias](2_secuencias.md) (ver [decaimiento de arreglos](#el-mecanismo-de-paso-a-funciones-paso-por-referencia-simulado)), al evaluarse en la mayoría de las expresiones
+el capítulo de [Secuencias](2_secuencias.md) (ver [decaimiento de
+arreglos](#el-mecanismo-de-paso-a-funciones-paso-por-referencia-simulado)), al
+evaluarse en la mayoría de las expresiones
 de C este decae (se degrada) automáticamente a un puntero al primer elemento de
 la secuencia (`&arreglo[0]`).
 
@@ -309,14 +321,16 @@ Si tenés un puntero `ptr` a un tipo de dato `T` que ocupa `sizeof(T)` bytes, al
 hacer `ptr + 1`, la dirección de memoria física no se incrementa en 1, sino en
 `sizeof(T)`. Este mecanismo es el fundamento del acceso indexado y el cálculo de
 desplazamientos bidimensionales en memoria contigua que estudiamos en
-{ref}`calculo-de-desplazamiento-de-memoria`. Esto permite "saltar" de un elemento a otro
+{ref}`calculo-de-desplazamiento-de-memoria`. Esto permite "saltar" de un
+elemento a otro
 en un arreglo de forma eficiente.
 
 :::{figure} 2/aritmetica_punteros.svg
 :label: fig-aritmetica-punteros
 :align: center
 
-Aritmética de punteros: el incremento de un puntero depende del tamaño en bytes del tipo de dato apuntado.
+Aritmética de punteros: el incremento de un puntero depende del tamaño en bytes
+del tipo de dato apuntado.
 
 :::
 <!-- {figure} 2/aritmetica_punteros.svg -->
@@ -424,15 +438,29 @@ correctamente con `printf`, se utiliza el especificador de formato `%td`.
 ### Punteros en funciones y efectos secundarios
 
 :::{important} Pasaje por Valor de Punteros
-C no dispone de pasaje por referencia nativo. Cuando pasas un puntero a una función (por ejemplo, `void duplicar(int *ptr)`), el compilador realiza una copia por valor de la dirección de memoria almacenada. Como la dirección de copia sigue apuntando a la misma celda de memoria RAM del llamador, cualquier acceso mediante el operador de desreferencia `*ptr` modificará el valor original.
-:::
 
-Esta simulación de pasaje por referencia también se aplica a los arreglos (ver {ref}`el-mecanismo-de-paso-a-funciones-paso-por-referencia-simulado`). Al pasar la dirección de memoria de una variable por valor, aunque la dirección en sí se copia en el registro de activación (*stack frame*), la desreferencia de este puntero permite interactuar directamente con la celda de memoria original del invocador (efecto secundario).
+C no dispone de pasaje por referencia nativo. Cuando pasas un puntero a una
+función (por ejemplo, `void duplicar(int *ptr)`), el compilador realiza una
+copia por valor de la dirección de memoria almacenada. Como la dirección de
+copia sigue apuntando a la misma celda de memoria RAM del llamador, cualquier
+acceso mediante el operador de desreferencia `*ptr` modificará el valor
+original.
+
+:::
+<!-- {important} Pasaje por Valor de Punteros -->
+
+Esta simulación de pasaje por referencia también se aplica a los arreglos (ver
+{ref}`el-mecanismo-de-paso-a-funciones-paso-por-referencia-simulado`). Al pasar
+la dirección de memoria de una variable por valor, aunque la dirección en sí se
+copia en el registro de activación (*stack frame*), la desreferencia de este
+puntero permite interactuar directamente con la celda de memoria original del
+invocador (efecto secundario).
 
 (justificacion-de-diseno-eficiencia-y-rendimiento-en-sistemas)=
 #### Justificación de Diseño: Eficiencia y Rendimiento en Sistemas
 
-La simulación de referencia mediante indirección no es únicamente una herramienta para permitir la
+La simulación de referencia mediante indirección no es únicamente una
+herramienta para permitir la
 modificación de variables (efectos secundarios). En el desarrollo de software de
 sistemas, es un mecanismo indispensable por razones de rendimiento.
 
@@ -465,7 +493,8 @@ la inmutabilidad del paso por valor clásico.
 :label: fig-paso-por-referencia
 :align: center
 
-Diferencia entre el paso por valor y la simulación de referencia mediante punteros.
+Diferencia entre el paso por valor y la simulación de referencia mediante
+punteros.
 
 :::
 <!-- {figure} 2/paso_por_referencia.svg -->
@@ -502,7 +531,8 @@ int main() {
 #### Parámetro de Salida (a través de Punteros)
 
 *(Este rol extiende el pasaje de datos entre ámbitos; para más contexto
-conceptual, podés revisar la sección {ref}`roles-de-las-variables` de [el capítulo del lenguaje C](../bloque_1_fundamentos/2_gradual.md))*.
+conceptual, podés revisar la sección {ref}`roles-de-las-variables` de [el
+capítulo del lenguaje C](../bloque_1_fundamentos/2_gradual.md))*.
 
 Dado que en C todo pasaje de argumentos es estrictamente por valor (la función
 trabaja sobre copias en su propio stack frame), para permitir que una función
@@ -554,7 +584,8 @@ los resultados de la división.
 #### Parámetro de Entrada/Salida (a través de Punteros)
 
 *(Esta especialización semántica complementa los roles analizados en la sección
-{ref}`roles-de-las-variables` de [el capítulo del lenguaje C](../bloque_1_fundamentos/2_gradual.md))*.
+{ref}`roles-de-las-variables` de [el capítulo del lenguaje
+C](../bloque_1_fundamentos/2_gradual.md))*.
 
 Similar al parámetro de salida, un **parámetro de entrada/salida** utiliza un
 puntero para permitir que la función lea un valor inicial proporcionado por el
@@ -622,7 +653,8 @@ limitando los efectos secundarios productos de pasar el puntero a la función.
 :label: fig-const-punteros
 :align: center
 
-Modificador const aplicado a punteros: diferencia entre puntero constante y datos apuntados constantes.
+Modificador const aplicado a punteros: diferencia entre puntero constante y
+datos apuntados constantes.
 
 :::
 <!-- {figure} 2/const_punteros.svg -->

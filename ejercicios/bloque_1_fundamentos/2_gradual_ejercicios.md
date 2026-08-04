@@ -35,8 +35,11 @@ inicialización correcta de variables con tipos primitivos básicos.
 Escribí un programa en C que declare e inicialice variables para tu edad, tu
 altura en metros y tu inicial de nombre, y muestre sus valores en la consola.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
+
 :::
 <!-- {exercise} -->
 
@@ -73,8 +76,11 @@ int main(void) {
 Pedí al usuario que ingrese su inicial de nombre, edad y calificación promedio,
 y mostralos formateados en pantalla.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
+
 :::
 <!-- {exercise} -->
 
@@ -130,8 +136,10 @@ Determiná si un número entero es par o impar.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -150,8 +158,10 @@ Leé tres números y determiná cuál es el mayor.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -174,8 +184,10 @@ Determiná si un año es bisiesto.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -201,8 +213,10 @@ Convertí una calificación numérica (0-100) a letra (A, B, C, D, F).
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -217,8 +231,10 @@ Implementá una calculadora que muestre un menú y ejecute la operación elegida
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -252,8 +268,10 @@ Dados tres lados, determiná si forman un triángulo válido y qué tipo es
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -272,8 +290,10 @@ Dado un número de mes (1-12), mostrá su nombre y cantidad de días.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -292,8 +312,10 @@ Dados día y mes de nacimiento, determiná el signo zodiacal.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -313,8 +335,10 @@ Leé tres números y mostralos ordenados de menor a mayor.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -334,8 +358,10 @@ Leé un carácter y determiná si es vocal, consonante, dígito u otro símbolo.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -358,8 +384,10 @@ Resolvé ecuaciones de la forma ax + b = 0.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -386,8 +414,10 @@ Calculá el IMC y clasificá según la categoría.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -407,8 +437,10 @@ Convertí entre diferentes sistemas de calificación: numérica (0-10), letra
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -427,8 +459,10 @@ Dadas dos fechas (día, mes, año), determiná cuál es anterior.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -453,8 +487,10 @@ Calculá impuesto a las ganancias según tramos.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -479,8 +515,10 @@ Implementá el algoritmo de Luhn para validar números de tarjeta.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -501,8 +539,10 @@ pistas ("muy alto", "muy bajo").
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -523,8 +563,10 @@ Convertí un número decimal (1-3999) a números romanos.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -549,8 +591,10 @@ Realizá operaciones con tiempos en formato HH:MM:SS (sumar, restar, comparar).
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -565,8 +609,10 @@ Implementá un sistema de menús con submenús.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->

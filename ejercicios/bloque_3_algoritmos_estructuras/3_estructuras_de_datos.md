@@ -47,8 +47,10 @@ typedef struct nodo {
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -64,8 +66,10 @@ typedef struct nodo {
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -82,8 +86,10 @@ typedef struct nodo {
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -107,8 +113,10 @@ eficientemente usando una lista enlazada como estructura subyacente.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -139,8 +147,10 @@ typedef struct {
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -163,8 +173,10 @@ menores) y un puntero a un sub-árbol derecho (con valores mayores).
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -177,8 +189,10 @@ almacenando los elementos en una lista enlazada en esa posición del arreglo.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->

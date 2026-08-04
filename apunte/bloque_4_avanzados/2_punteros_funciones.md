@@ -15,7 +15,8 @@ description: 'Punteros a funciones, genericidad básica en C utilizando void* y 
 En capítulos anteriores, exploramos cómo los punteros nos permiten referenciar y
 manipular datos en el heap de manera dinámica. Sin embargo, en C, las
 instrucciones ejecutables de una función también residen en la memoria virtual
-(en el segmento de código o de texto del espacio de direcciones virtual del proceso).
+(en el segmento de código o de texto del espacio de direcciones virtual del
+proceso).
 
 Un **puntero a función** almacena la dirección de memoria de una función
 ejecutable, lo que nos permite invocarla dinámicamente y pasar comportamiento
@@ -62,7 +63,8 @@ int
 #### Asignación e Invocación
 
 Asignar una función a un puntero es directo: solo se utiliza el nombre de la
-función (que decae en su dirección de instrucción en el segmento de código virtual del proceso).
+función (que decae en su dirección de instrucción en el segmento de código
+virtual del proceso).
 
 :::{code-block}c
 :linenos:
@@ -425,7 +427,8 @@ Las dos formas de invocación soportadas son:
    int res2 = operacion(10, 20);
    ```
 Ambas son funcionalmente idénticas debido a que el compilador de C promociona
-automáticamente el identificador de la función a su dirección de instrucción en el segmento de código virtual del proceso. La cátedra
+automáticamente el identificador de la función a su dirección de instrucción en
+el segmento de código virtual del proceso. La cátedra
 prefiere y recomienda la **segunda variante** (invocación directa) por
 asemejarse a una llamada de función estándar, mejorando la claridad de lectura
 del código.
@@ -667,6 +670,7 @@ void intercambiar_bloques(void *a, void *b, size_t size) {
 ## Glosario
 
 :::{glossary}
+
 Puntero a Función
 : Puntero que almacena la dirección de código ejecutable.
 
@@ -674,8 +678,11 @@ Callback
 : Función pasada como argumento a otra función para ser invocada posteriormente.
 
 Genericidad
-: Técnica de programación que permite escribir algoritmos independientes del tipo de datos.
+: Técnica de programación que permite escribir algoritmos independientes del
+tipo de datos.
+
 :::
+<!-- {glossary} -->
 
 ## Síntesis y Resumen
 

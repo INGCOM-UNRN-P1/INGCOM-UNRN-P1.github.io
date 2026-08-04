@@ -234,7 +234,8 @@ para evitar el uso accidental de punteros colgantes (regla {ref}`0x0036h`).
 (patron-destruccion-seguro)=
 ##### Patrón de Destrucción Seguro: Puntero Simple vs. Doble Puntero
 
-En el diseño de destructores para tipos opacos y TADs en C, existen dos aproximaciones clásicas:
+En el diseño de destructores para tipos opacos y TADs en C, existen dos
+aproximaciones clásicas:
 
 1. **Destructor Simple (Puntero Simple):**
    ```c
@@ -243,7 +244,13 @@ En el diseño de destructores para tipos opacos y TADs en C, existen dos aproxim
        free(p);
    }
    ```
-   *Funcionamiento:* Se libera la memoria en el Heap, pero la variable puntero en el ámbito del cliente (el llamador) continúa almacenando la dirección de memoria liberada. Esto genera un **puntero colgante** (*dangling pointer*). Es responsabilidad exclusiva del programador cliente asignar de forma manual `p = NULL;` inmediatamente después de la llamada. Si el cliente olvida este paso, cualquier desreferencia posterior resultará en comportamiento indefinido o fallas de seguridad de tipo *Use-After-Free* (UAF).
+   *Funcionamiento:* Se libera la memoria en el Heap, pero la variable puntero
+   en el ámbito del cliente (el llamador) continúa almacenando la dirección de
+   memoria liberada. Esto genera un **puntero colgante** (*dangling pointer*).
+   Es responsabilidad exclusiva del programador cliente asignar de forma manual
+   `p = NULL;` inmediatamente después de la llamada. Si el cliente olvida este
+   paso, cualquier desreferencia posterior resultará en comportamiento
+   indefinido o fallas de seguridad de tipo *Use-After-Free* (UAF).
 
 2. **Destructor Seguro (Doble Puntero - Recomendado y Unificado):**
    ```c
@@ -253,9 +260,14 @@ En el diseño de destructores para tipos opacos y TADs en C, existen dos aproxim
        *p = NULL; // Aniquilación automática del puntero del cliente
    }
    ```
-   *Funcionamiento:* Al pasar la dirección del puntero del cliente (`&p`), el destructor no solo libera la memoria en el Heap, sino que también **pone a `NULL` la variable del cliente en su propio ámbito**. Esto mitiga por completo el riesgo de punteros colgantes de forma automática y transparente.
+   *Funcionamiento:* Al pasar la dirección del puntero del cliente (`&p`), el
+   destructor no solo libera la memoria en el Heap, sino que también **pone a
+   `NULL` la variable del cliente en su propio ámbito**. Esto mitiga por
+   completo el riesgo de punteros colgantes de forma automática y transparente.
 
-Por cuestiones de consistencia, robustez y seguridad de memoria, **la cátedra exige unificar todos los destructores de tipos opacos y TADs bajo la firma de doble puntero (`**self`)** y anular la referencia en el cliente.
+Por cuestiones de consistencia, robustez y seguridad de memoria, **la cátedra
+exige unificar todos los destructores de tipos opacos y TADs bajo la firma de
+doble puntero (`**self`)** y anular la referencia en el cliente.
 <!-- {warning} Gestión de Recursos y Robustez (regla {ref}`0x0003h` y {ref}`0x0036h`) -->
 
 ---
@@ -411,14 +423,21 @@ p->x = 100.0;  // ERROR en tiempo de compilación
 
 ::{warning} Límites del Encapsulamiento en C (Convenio vs Compilación)
 
-Es fundamental comprender que en C el encapsulamiento no está garantizado a nivel de hardware o de forma inviolable por el compilador (como en lenguajes con modificadores de acceso como `private` en Java o C++). Se trata de un **convenio de diseño o contrato**.
+Es fundamental comprender que en C el encapsulamiento no está garantizado a
+nivel de hardware o de forma inviolable por el compilador (como en lenguajes con
+modificadores de acceso como `private` en Java o C++). Se trata de un **convenio
+de diseño o contrato**.
 
 Un programador cliente malintencionado o descuidado podría:
-1. Re-declarar la estructura `struct punto` de forma idéntica en su propio código.
-2. Realizar un casteo explícito del puntero opaco `punto_t *` a un tipo de estructura que exponga sus miembros.
+1. Re-declarar la estructura `struct punto` de forma idéntica en su propio
+   código.
+2. Realizar un casteo explícito del puntero opaco `punto_t *` a un tipo de
+   estructura que exponga sus miembros.
 
-Por lo tanto, la opacidad en C protege contra errores accidentales y acoplamientos indeseados, pero no constituye una barrera de seguridad informática infranqueable.
-:::
+Por lo tanto, la opacidad en C protege contra errores accidentales y
+acoplamientos indeseados, pero no constituye una barrera de seguridad
+informática infranqueable.
+:::::
 <!-- {code-block}c -->
 
 **2. Flexibilidad de Implementación**
@@ -1674,7 +1693,8 @@ siguientes puntos:
 
 Tipo opaco 
 : Un tipo de dato cuya implementación interna está oculta al código
-cliente. Generalmente, como un puntero a una estructura cuya estructura no se expone
+cliente. Generalmente, como un puntero a una estructura cuya estructura no se
+expone
 fuera de la librería. Se dice que esta está "Encapsulada".
 
 API (Interfaz de Programación de Aplicaciones)
@@ -1682,7 +1702,9 @@ API (Interfaz de Programación de Aplicaciones)
 
 Encapsulamiento
 : Principio que oculta los detalles de implementación interna.
+
 :::
+<!-- {glossary} -->
 
 ## Síntesis y Resumen
 

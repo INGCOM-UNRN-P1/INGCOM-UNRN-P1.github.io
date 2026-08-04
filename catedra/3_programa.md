@@ -36,7 +36,8 @@ el área de la programación.
 - Estudio extra clase recomendado: 20 h  
 
 **Profesor responsable:** Martín René Vilugrón  
-**Equipo docente:** Miguel Mariguin, Mauro Alejandro Fermín, Daniel Eduardo Teira  
+**Equipo docente:** Miguel Mariguin, Mauro Alejandro Fermín, Daniel Eduardo
+Teira
 
 ### Ubicación en el Plan de Estudios y Correlatividades
 
@@ -103,7 +104,7 @@ robusto.
 
 - Desarrollar competencias en **programación estructurada**.  
 - Aplicar **métodos modernos** en informática.  
-- Dominar el manejo de **estructuras de datos** en memoria estática y dinámica.  
+- Dominar el manejo de **estructuras de datos** en memoria estática y dinámica.
 - Fomentar la **capacidad analítica y técnica** para el diseño de algoritmos.  
 - Comprender y aplicar **recursión y depuración** de programas.  
 
@@ -126,9 +127,11 @@ Que los/as estudiantes:
 
 ### Tópicos principales
 
-- Estructuras de control: secuencia, condiciones, iteradores, funciones y parámetros.  
+- Estructuras de control: secuencia, condiciones, iteradores, funciones y
+  parámetros.
 - Entrada y salida estándar.  
-- Tipos definidos por el usuario: registros, vectores, matrices, arreglos n-dimensionales.  
+- Tipos definidos por el usuario: registros, vectores, matrices, arreglos
+  n-dimensionales.
 - Punteros y referencias.  
 - Memoria estática y dinámica.  
 - Recursión.  
@@ -161,14 +164,16 @@ manera asíncrona.
 Para facilitar el cursado de los alumnos, se grabaran todas las clases para que
 estas puedan ser seguidas en cualquier momento.
 
-- **Clases teóricas:** desarrollo de contenidos con ejemplos, fomentando la participación activa.  
+- **Clases teóricas:** desarrollo de contenidos con ejemplos, fomentando la
+  participación activa.
 - **Clases prácticas:** ejercicios guiados y revisión mediante Git/GitHub.  
 - Grabación de todas las clases para acceso asincrónico.  
 - Espacio de discusión virtual.  
 
 ### Accesibilidad
 
-La UNRN implementa políticas de accesibilidad académica, incluyendo acompañamiento docente y configuraciones de apoyo específicas.
+La UNRN implementa políticas de accesibilidad académica, incluyendo
+acompañamiento docente y configuraciones de apoyo específicas.
 
 ---
 
@@ -176,19 +181,22 @@ La UNRN implementa políticas de accesibilidad académica, incluyendo acompañam
 
 ### Unidad 1: Lenguaje C base  
 **Semanas:** 1–2  
-**Contenidos:** Introducción al lenguaje C, compilación, tipos de datos, control de flujo, funciones y documentación.  
+**Contenidos:** Introducción al lenguaje C, compilación, tipos de datos, control
+de flujo, funciones y documentación.
 **Prácticas:** Repositorios 1 y 2.  
 **Bibliografía:** Kernighan & Ritchie (1991).  
 
 ### Unidad 2: Arreglos y cadenas  
 **Semanas:** 3  
-**Contenidos:** Arreglos unidimensionales, cadenas, modelo de memoria y uso en funciones.  
+**Contenidos:** Arreglos unidimensionales, cadenas, modelo de memoria y uso en
+funciones.
 **Práctica:** Repositorio 3.  
 **Bibliografía:** Kernighan & Ritchie (1991); Schildt (2004).  
 
 ### Unidad 3: Punteros  
 **Semanas:** 4  
-**Contenidos:** Concepto, aritmética de punteros, relación con arreglos, punteros a función.  
+**Contenidos:** Concepto, aritmética de punteros, relación con arreglos,
+punteros a función.
 **Práctica:** Repositorio 4.  
 **Bibliografía:** Kernighan & Ritchie (1991); Schildt (2004).  
 
@@ -199,17 +207,20 @@ La UNRN implementa políticas de accesibilidad académica, incluyendo acompañam
 
 ### Unidad 5: Matrices y estructuras  
 **Semana:** 6  
-**Contenidos:** Declaración, inicialización y operaciones con matrices. Estructuras (`struct`, `typedef`).  
+**Contenidos:** Declaración, inicialización y operaciones con matrices.
+Estructuras (`struct`, `typedef`).
 **Práctica:** Repositorio 5.  
 
 ### Unidad 6: Archivos  
 **Semana:** 7  
-**Contenidos:** Archivos de texto, lectura, escritura, errores, argumentos del programa.  
+**Contenidos:** Archivos de texto, lectura, escritura, errores, argumentos del
+programa.
 **Práctica:** Repositorio 6.  
 
 ### Unidad 7: Memoria dinámica  
 **Semana:** 8  
-**Contenidos:** Regiones de memoria, `malloc`, `realloc`, `free`, punteros `void*`, ALV.  
+**Contenidos:** Regiones de memoria, `malloc`, `realloc`, `free`, punteros
+`void*`, ALV.
 **Práctica:** Repositorio 7.  
 
 ### Unidad 8: Repaso general #2  
@@ -234,7 +245,8 @@ La UNRN implementa políticas de accesibilidad académica, incluyendo acompañam
 
 ### Unidad 12: Algoritmos de búsqueda y ordenamiento  
 **Semanas:** 14–15  
-**Contenidos:** Búsqueda secuencial y binaria, ordenamientos clásicos (burbuja, inserción, selección, merge, quick, bogosort).  
+**Contenidos:** Búsqueda secuencial y binaria, ordenamientos clásicos (burbuja,
+inserción, selección, merge, quick, bogosort).
 **Práctica:** Trabajo integrador final.  
 
 ### Unidad 13: Recuperatorios y cierre  
@@ -277,7 +289,8 @@ La UNRN implementa políticas de accesibilidad académica, incluyendo acompañam
 ## Bibliografía General
 
 - **Obligatoria:**  
-  - *El lenguaje de programación C*, 2ª Ed. – B. W. Kernighan, D. M. Ritchie (1991).  
+  - *El lenguaje de programación C*, 2ª Ed. – B. W. Kernighan, D. M. Ritchie
+    (1991).
   - *C Manual de referencia*, 4ª Ed. – H. Schildt (2004).  
 
 - **Complementaria:** No aplica.  

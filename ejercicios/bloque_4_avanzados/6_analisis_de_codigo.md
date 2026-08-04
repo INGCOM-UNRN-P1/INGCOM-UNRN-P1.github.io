@@ -68,8 +68,11 @@ double promedio_positivos(const int arreglo[], size_t n, bool *exito) {
 4.  `i`
 5.  El valor de retorno de la función.
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
+
 :::
 <!-- {exercise} rol_promedio -->
 
@@ -129,8 +132,11 @@ int encontrar_maximo(const int arr[], size_t tam, bool *encontrado) {
 3. `encontrado` (valor apuntado)
 4. `indice`
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {exercise} rol_busqueda -->
 
@@ -209,8 +215,11 @@ reporte_ventas_t procesar_ventas(const double ventas[], int dias) {
 5. `venta_maxima`
 6. `dia`
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
+
 :::
 <!-- {exercise} roles_multiples -->
 
@@ -294,8 +303,11 @@ variables en cada marco de la pila y el estado del montículo.
 - **Segmento de Datos (Solo Lectura)**:
   - ?
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
+
 :::
 <!-- {exercise} estado_1 -->
 
@@ -374,8 +386,11 @@ int main() {
 
 **Tarea**: Describí el estado de memoria en el punto de análisis:
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
+
 :::
 <!-- {exercise} estado_struct -->
 
@@ -456,8 +471,11 @@ int main() {
 2. Estado del montículo
 3. Valores de las variables relevantes
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
+    garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
+    leaks*) mediante Valgrind o AddressSanitizer.
+
 :::
 <!-- {exercise} traza_ejecucion -->
 
@@ -536,8 +554,11 @@ int segundo_maximo(int arr[], int tam) {
 2. ¿En qué casos fallaría?
 3. ¿Cómo lo corregirías?
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {exercise} debugging_1 -->
 
@@ -655,8 +676,11 @@ int main() {
 
 **Tarea**: Identificá todos los memory leaks y problemas de manejo de memoria.
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
+    garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
+    leaks*) mediante Valgrind o AddressSanitizer.
+
 :::
 <!-- {exercise} fugas_1 -->
 
@@ -776,8 +800,11 @@ bool buscar_par_suma_optimizado(int arr[], int tam, int objetivo) {
 2. ¿Cuáles son las variables de control y qué roles cumplen?
 3. ¿En qué escenarios cada algoritmo sería más apropiado?
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
+
 :::
 <!-- {exercise} eficiencia_1 -->
 
@@ -882,8 +909,11 @@ long factorial_memoizado(int n) {
 3. Variables y sus roles
 4. Trade-offs entre tiempo y espacio
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
+    garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
+    leaks*) mediante Valgrind o AddressSanitizer.
+
 :::
 <!-- {exercise} eficiencia_2 -->
 
@@ -1026,8 +1056,11 @@ void liberar_sistema(sistema_estudiantes_t* sistema) {
 3. **Identificación de patrones**: ¿Qué patrones de diseño reconocés?
 4. **Análisis de robustez**: ¿Qué validaciones faltan? ¿Qué podría fallar?
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
+
 :::
 <!-- {exercise} analisis_1 -->
 
@@ -1163,8 +1196,11 @@ int main(void) {
 4. **Roles de variables**: Identificá el rol de `p1`, `p2` y `valor`
 5. **Mejoras**: ¿Cómo modificarías la función para prevenir este problema?
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
+
 :::
 <!-- {exercise} analisis_aliasing -->
 
@@ -1324,8 +1360,11 @@ int main(void) {
 4. **Comportamiento**: ¿Qué podría pasar al ejecutar este código?
 5. **Correcciones**: Proponé soluciones para cada problema identificado
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
+
 :::
 <!-- {exercise} analisis_dangling -->
 
@@ -1570,8 +1609,11 @@ int main(void) {
 6. **Comparación**: Compará las funciones con versiones equivalentes usando
    índices
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
+
 :::
 <!-- {exercise} analisis_aritmetica -->
 
@@ -1887,8 +1929,11 @@ int main(void) {
 6. **Extensión**: ¿Cómo agregarías una función que encuentre el primer elemento
    que cumple una condición?
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
+
 :::
 <!-- {exercise} analisis_callbacks -->
 
@@ -2324,8 +2369,11 @@ int main(void) {
    cuáles faltan?
 7. **Complejidad**: Analizá la complejidad temporal y espacial de cada función
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
+
 :::
 <!-- {exercise} analisis_integral_punteros -->
 

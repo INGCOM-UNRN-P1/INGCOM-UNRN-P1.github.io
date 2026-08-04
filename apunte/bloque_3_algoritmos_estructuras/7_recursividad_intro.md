@@ -78,7 +78,8 @@ int main(void) {
     int numero = 5;
     long int resultado = factorial(numero);
     if (resultado == -1) {
-        printf("Error: no se puede calcular el factorial de un número negativo.\n");
+        printf("Error: no se puede calcular el factorial de un número
+        negativo.\n");
     } else {
         printf("El factorial de %d es %ld\n", numero, resultado);
     }
@@ -87,7 +88,8 @@ int main(void) {
 
 // Definición de la función recursiva
 long int factorial(int n) {
-    // Validación de precondición (robustez ante valores inválidos, regla {ref}`0x2001h`)
+    // Validación de precondición (robustez ante valores inválidos, regla
+    {ref}`0x2001h`)
     if (n < 0) {
         return -1;
     }
@@ -136,17 +138,29 @@ resolución y retorno ("desapilado") en orden inverso al de la llamada (LIFO:
 :::
 <!-- {important} Pila de llamadas (Call Stack) y Anatomía del Stack Frame -->
 
-A continuación se muestra de forma gráfica y formal la distribución física en memoria del *Call Stack* durante el cálculo recursivo de `factorial(3)` hasta alcanzar el caso base, ilustrando las direcciones físicas de memoria en la pila y las direcciones lógicas de retorno de código:
+A continuación se muestra de forma gráfica y formal la distribución física en
+memoria del *Call Stack* durante el cálculo recursivo de `factorial(3)` hasta
+alcanzar el caso base, ilustrando las direcciones físicas de memoria en la pila
+y las direcciones lógicas de retorno de código:
 
-```{figure} 6/pila_factorial.svg
+:::{figure} 6/pila_factorial.svg
 :label: fig-pila-factorial-stack
 :align: center
 :width: 85%
 
-Crecimiento y colapso de los marcos de pila en la recursión de `factorial(3)`. Cada llamada apila un nuevo marco temporal consumiendo espacio físico de memoria RAM.
-```
+Crecimiento y colapso de los marcos de pila en la recursión de `factorial(3)`.
+Cada llamada apila un nuevo marco temporal consumiendo espacio físico de memoria
+RAM.
 
-Como se observa en el diagrama, cada llamada suspendida (`factorial(3)` y `factorial(2)`) mantiene su estado completo en una dirección de memoria diferente de la RAM. Solo cuando `factorial(1)` retorna su valor constante $1$ a la dirección de retorno de su llamador, el marco superior se destruye (se desplaza el puntero de pila `rsp`) y se reanuda la evaluación aritmética en el marco inmediatamente inferior.
+:::
+<!-- {figure} 6/pila_factorial.svg -->
+
+Como se observa en el diagrama, cada llamada suspendida (`factorial(3)` y
+`factorial(2)`) mantiene su estado completo en una dirección de memoria
+diferente de la RAM. Solo cuando `factorial(1)` retorna su valor constante $1$ a
+la dirección de retorno de su llamador, el marco superior se destruye (se
+desplaza el puntero de pila `rsp`) y se reanuda la evaluación aritmética en el
+marco inmediatamente inferior.
 
 (el-peligro-de-la-recursividad-stack-overflow-y-la-paradoja-del-factorial)=
 ### El Peligro de la Recursividad: Stack Overflow y la Paradoja del Factorial

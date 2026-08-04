@@ -1,6 +1,7 @@
 # Ejemplos de Código para Programación 1
 
-Este directorio contiene ejemplos de código organizados por tema, siguiendo la numeración de los apuntes.
+Este directorio contiene ejemplos de código organizados por tema, siguiendo la
+numeración de los apuntes.
 
 ## Organización
 
@@ -26,18 +27,21 @@ Cada subdirectorio corresponde a un apunte:
 
 Para compilar cualquier ejemplo:
 
-```bash
+``` bash
 gcc -Wall -Wextra -std=c11 -pedantic archivo.c -o programa
 ./programa
 ```
+<!-- bash -->
 
-Para ejemplos con múltiples archivos (como `5_compilacion/modular/`), usá el `Makefile` provisto:
+Para ejemplos con múltiples archivos (como `5_compilacion/modular/`), usá el
+`Makefile` provisto:
 
-```bash
+``` bash
 cd 5_compilacion/modular
 make
 ./programa
 ```
+<!-- bash -->
 
 ## Contribuir
 

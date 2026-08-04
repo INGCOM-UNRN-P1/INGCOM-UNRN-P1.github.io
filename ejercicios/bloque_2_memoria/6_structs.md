@@ -52,8 +52,10 @@ operación.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
+    definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
+    para copiar la estructura de forma segura.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -67,8 +69,10 @@ su **Máximo Común Divisor (MCD)**.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
+    error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
+    especificando precondiciones y postcondiciones.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -88,8 +92,10 @@ $$dividendo = divisor \times cociente + resto, \quad \text{donde } 0 \le resto <
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -136,8 +142,10 @@ normalizado para que los segundos y minutos no excedan 59.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
+    definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
+    para copiar la estructura de forma segura.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -154,8 +162,10 @@ $$t_{en\_segundos} = horas \times 3600 + minutos \times 60 + segundos$$
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -173,8 +183,10 @@ de búfer y simplifica pasar la información del arreglo a funciones.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
+    garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
+    leaks*) mediante Valgrind o AddressSanitizer.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -200,8 +212,10 @@ peligros asociados a las cadenas de C estándar.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->

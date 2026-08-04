@@ -352,7 +352,8 @@ if (a > b) {
 :::{admonition} Relación con las reglas de estilo
 :class: tip
 
-El operador ternario **está estrictamente prohibido por la regla** {ref}`0x1007h`
+El operador ternario **está estrictamente prohibido por la regla**
+{ref}`0x1007h`
 en esta cátedra. Su uso en los laboratorios está penalizado, debiendo
 preferirse la estructura de control `if-else` tradicional.
 
@@ -370,14 +371,19 @@ preferirse la estructura de control `if-else` tradicional.
 ```{code-block} c
 :linenos:
 const char *mensaje = (usuario_conectado) ? "Bienvenido" : "Inicia sesión";
+
 ```
+<!-- {code-block} c -->
 
 **Ejemplo inapropiado (anidado):**
 ```{code-block} c
 :linenos:
 // NO hacer esto - viola la claridad
 int resultado = (x > 0) ? ((y > 0) ? 1 : 2) : ((y > 0) ? 3 : 4);
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {admonition} Relación con las reglas de estilo -->
 
@@ -393,6 +399,7 @@ designados de C99, indicando por qué esta última previene la lectura de basura
 en memoria.
 
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-idio-init-designada
 :class: dropdown
@@ -415,6 +422,7 @@ El uso de inicializadores designados previene lecturas accidentales de basura de
 forma automática e implícita en la declaración.
 
 :::
+<!-- {solution} ej-idio-init-designada -->
 
 :::{exercise}
 :label: ej-idio-early-return
@@ -594,7 +602,9 @@ bool agregar_elemento(lista_t *lista, int valor) {
     // ... lógica
     return true;
 }
+
 ```
+<!-- {code-block} c -->
 
 **2. Enfoque por contrato (aceptable para funciones privadas):**
 ```{code-block} c
@@ -604,10 +614,13 @@ static void insertar_nodo(lista_t *lista, nodo_t *nodo) {
     assert(lista != NULL);  // Solo en debug
     // ... lógica sin validación en producción
 }
+
 ```
+<!-- {code-block} c -->
 
 En este curso, **preferimos el enfoque defensivo** para todas las funciones,
 especialmente durante el aprendizaje.
+
 :::
 <!-- {admonition} Relación con las reglas de estilo -->
 
@@ -622,6 +635,7 @@ struct lista lista_t;` en el archivo de cabecera `.h` y la estructura real en el
 `.c`) contribuye a la encapsulación de datos en proyectos de C de gran escala.
 
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-idio-tipo-opaco-ventaja
 :class: dropdown
@@ -636,6 +650,7 @@ interna (por ejemplo, pasar de una lista enlazada a un array dinámico) sin
 romper la compatibilidad con el código cliente.
 
 :::
+<!-- {solution} ej-idio-tipo-opaco-ventaja -->
 
 :::{exercise}
 :label: ej-idio-validar-null
@@ -849,7 +864,7 @@ if (ptr) { ... }
 :::
 <!-- {code-block}c -->
 
-:::{admonition} Relación con las reglas de estilo
+::::{admonition} Relación con las reglas de estilo
 :class: warning
 
 **Esta es una área de debate en la comunidad de C** y este curso adopta una
@@ -895,7 +910,7 @@ aceptable si el contexto es claro.
 
 Ver {ref}`0x3008h <0x3008h>` para más sobre validación de punteros.
 
-:::
+::::
 <!-- {admonition} Relación con las reglas de estilo -->
 
 Nota: Esta es una cuestión de preferencia. Algunos equipos prefieren la forma
@@ -923,7 +938,7 @@ void funcion(void) {
 :::
 <!-- {code-block}c -->
 
-:::{admonition} Relación con las reglas de estilo
+::::{admonition} Relación con las reglas de estilo
 :class: tip
 
 **El uso de `goto` está estrictamente prohibido por la regla** {ref}`0x1006h`
@@ -983,7 +998,7 @@ limpieza se duplica.
 
 Ver {ref}`0x1006h` para el análisis completo.
 
-:::
+::::
 <!-- {admonition} Relación con las reglas de estilo -->
 
 Excepción: `goto` para limpieza de recursos en caso de error es un patrón

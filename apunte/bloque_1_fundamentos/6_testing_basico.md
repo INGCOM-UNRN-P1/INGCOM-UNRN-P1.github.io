@@ -14,17 +14,29 @@ funcionar; es necesario someterlo a pruebas sistemáticas que validen su
 comportamiento y su estado ante múltiples escenarios de entrada.
 
 :::{important} Validación Manual vs. Test Automatizado
-Es común que se verifiquen los programas ejecutándolos manualmente e ingresando valores por teclado repetidamente en la consola para observar la salida. Este enfoque manual interactivo consume tiempo valioso, es propenso a descuidos y requiere repetir todo el proceso ante cada pequeño cambio.
 
-En contraste, un **test automatizado** escrito directamente en código se ejecuta en milisegundos sin intervención del usuario. Por ejemplo, en lugar de ingresar números por consola para verificar una función `duplicar`, se escriben aserciones en el código de prueba:
+Es común que se verifiquen los programas ejecutándolos manualmente e ingresando
+valores por teclado repetidamente en la consola para observar la salida. Este
+enfoque manual interactivo consume tiempo valioso, es propenso a descuidos y
+requiere repetir todo el proceso ante cada pequeño cambio.
 
-```c
+En contraste, un **test automatizado** escrito directamente en código se ejecuta
+en milisegundos sin intervención del usuario. Por ejemplo, en lugar de ingresar
+números por consola para verificar una función `duplicar`, se escriben
+aserciones en el código de prueba:
+
+``` c
 assert(duplicar(2) == 4);
 assert(duplicar(-3) == -6);
 ```
+<!-- c -->
 
-Esto garantiza que la función se comporte correctamente y permite volver a correr las pruebas de forma instantánea y confiable tras cualquier modificación física del código.
+Esto garantiza que la función se comporte correctamente y permite volver a
+correr las pruebas de forma instantánea y confiable tras cualquier modificación
+física del código.
+
 :::
+<!-- {important} Validación Manual vs. Test Automatizado -->
 
 ### ¿Para qué probar?
 
@@ -218,7 +230,7 @@ void test_invertir_cadena_palabra_simple(void) {
 ::::
 <!-- {solution} ej-test-aaa-structure -->
 
-:::{exercise} 
+:::{exercise}
 :label: ej-test-boundary-cases
 Dada la firma de función `int buscar_elemento(const int *arr, size_t n, int
 elem);`, enumerá al menos tres casos límite (*boundary cases*) y un caso de
@@ -282,6 +294,7 @@ bool es_bisiesto(int anio) {
     if (anio % 4 == 0) return true;
     return false;
 }
+
 :::
 <!-- {code-block}c -->
 Escribí un conjunto de pruebas unitarias mínimo que garantice el 100% de
@@ -301,10 +314,14 @@ condicional tome caminos verdaderos y falsos
 #include <assert.h>
 
 void test_es_bisiesto_ramas(void) {
-    assert(es_bisiesto(2000) == true);  // Evalúa VERDADERO la rama 1 (divisible por 400)
-    assert(es_bisiesto(1900) == false); // Evalúa FALSO la rama 1 y VERDADERO la rama 2 (divisible  por 100)
-    assert(es_bisiesto(2024) == true);  // Evalúa FALSAS rama 1 y 2, y VERDADERO la rama 3 divisible por 4)
-    assert(es_bisiesto(2023) == false); // Evalúa FALSAS todas las ramas (camino por defecto final)
+    assert(es_bisiesto(2000) == true);  // Evalúa VERDADERO la rama 1 (divisible
+    por 400)
+    assert(es_bisiesto(1900) == false); // Evalúa FALSO la rama 1 y VERDADERO la
+    rama 2 (divisible  por 100)
+    assert(es_bisiesto(2024) == true);  // Evalúa FALSAS rama 1 y 2, y VERDADERO
+    la rama 3 divisible por 4)
+    assert(es_bisiesto(2023) == false); // Evalúa FALSAS todas las ramas (camino
+    por defecto final)
 }
 
 :::
@@ -318,6 +335,7 @@ void test_es_bisiesto_ramas(void) {
 ## Glosario
 
 :::{glossary}
+
 Prueba unitaria (Unit Test)
 : Método de verificación que examina de forma aislada el comportamiento de
 bloques individuales de código fuente (habitualmente funciones).
@@ -337,7 +355,9 @@ condiciones o factores límite del sistema.
 Cobertura de ramas (Branch Coverage)
 : Métrica que mide el porcentaje de bifurcaciones condicionales que han sido
 evaluadas en caminos verdaderos y falsos durante la ejecución de las pruebas.
+
 :::
+<!-- {glossary} -->
 
 ---
 

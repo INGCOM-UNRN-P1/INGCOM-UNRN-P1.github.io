@@ -26,8 +26,11 @@ Definí una enumeración para representar los días de la semana.
 Escribí una función que reciba un día y retorne si es día laboral
 o fin de semana. Incluí validación para valores inválidos.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
+
 :::
 <!-- {exercise} -->
 

@@ -6,19 +6,32 @@ subtitle: "Optimización del alcance, inicialización y gestión de variables"
 
 ## Introducción
 
-La gestión apropiada de variables es fundamental para escribir código claro, seguro y mantenible. Este apunte cubre técnicas de refactorización enfocadas en mejorar el uso de variables: reducir su alcance, mejorar la inicialización, eliminar variables temporales innecesarias, y aplicar el principio de inmutabilidad cuando sea posible.
+La gestión apropiada de variables es fundamental para escribir código claro,
+seguro y mantenible. Este apunte cubre técnicas de refactorización enfocadas en
+mejorar el uso de variables: reducir su alcance, mejorar la inicialización,
+eliminar variables temporales innecesarias, y aplicar el principio de
+inmutabilidad cuando sea posible.
 
-Un buen manejo de variables no solo hace el código más legible, sino que también previene errores sutiles relacionados con el estado mutable y reduce la carga cognitiva al leer el código.
+Un buen manejo de variables no solo hace el código más legible, sino que también
+previene errores sutiles relacionados con el estado mutable y reduce la carga
+cognitiva al leer el código.
 
 :::{important} Principio de Mínimo Alcance
-Como establece {ref}`0x0003h`, las variables deben inicializarse siempre con un valor conocido. Además, el alcance de una variable debe ser el mínimo necesario para su función, reduciendo la posibilidad de errores y facilitando el razonamiento sobre el código.
+
+Como establece {ref}`0x0003h`, las variables deben inicializarse siempre con un
+valor conocido. Además, el alcance de una variable debe ser el mínimo necesario
+para su función, reduciendo la posibilidad de errores y facilitando el
+razonamiento sobre el código.
+
 :::
+<!-- {important} Principio de Mínimo Alcance -->
 
 ## Problemas Comunes con Variables
 
 ### 1. Alcance Innecesariamente Amplio
 
-```c
+```{code-block} c
+:linenos:
 // Problemático: variables declaradas al inicio de funciones largas
 void procesar_datos() {
     int i, j, k;
@@ -38,11 +51,14 @@ void procesar_datos() {
     // temporal solo se usa aquí
     temporal = calcular_algo();
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 2. Variables sin Inicializar
 
-```c
+```{code-block} c
+:linenos:
 // Peligroso: variables no inicializadas
 int calcular_suma(int* arr, int n) {
     int suma;  // ¡Valor indeterminado!
@@ -56,11 +72,14 @@ int calcular_suma(int* arr, int n) {
     
     return suma;  // Puede retornar basura si n <= 0
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 3. Variables Temporales Innecesarias
 
-```c
+```{code-block} c
+:linenos:
 // Verboso: temporales que no agregan claridad
 int obtener_edad() {
     int edad_temporal = 25;
@@ -72,11 +91,14 @@ double calcular_precio(double base, double descuento) {
     double precio_final = precio_con_descuento;
     return precio_final;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 4. Reutilización Inapropiada de Variables
 
-```c
+```{code-block} c
+:linenos:
 // Confuso: misma variable para propósitos diferentes
 void procesar() {
     int temp;
@@ -92,7 +114,9 @@ void procesar() {
     temp = contar_elementos();
     mostrar(temp);
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Técnicas de Refactorización
 
@@ -102,7 +126,8 @@ Declarar variables en el punto más cercano a su primer uso.
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 void procesar_archivo(const char* ruta) {
     FILE* archivo;
     char linea[256];
@@ -128,11 +153,14 @@ void procesar_archivo(const char* ruta) {
         printf("%d\n", i);
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 void procesar_archivo(const char* ruta) {
     FILE* archivo = fopen(ruta, "r");
     if (archivo == NULL) {
@@ -154,7 +182,9 @@ void procesar_archivo(const char* ruta) {
         printf("%d\n", i);
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 **Beneficios:**
 - Más claro dónde se usa cada variable
@@ -167,7 +197,8 @@ Siempre inicializar variables en el punto de declaración.
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 int procesar_datos(int* arr, int n) {
     int suma;
     int maximo;
@@ -189,11 +220,14 @@ int procesar_datos(int* arr, int n) {
     
     return suma;  // ¡Peligro!
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 int procesar_datos(const int* arr, int n) {
     int suma = 0;
     int maximo = 0;
@@ -213,11 +247,14 @@ int procesar_datos(const int* arr, int n) {
     
     return suma;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Mejor aún (con validación temprana):**
 
-```c
+```{code-block} c
+:linenos:
 int procesar_datos(const int* arr, int n) {
     if (n <= 0) {
         return 0;
@@ -235,13 +272,16 @@ int procesar_datos(const int* arr, int n) {
     
     return suma;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 3. Eliminar Variables Temporales Innecesarias
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 double calcular_total(double precio, double cantidad, double impuesto) {
     double subtotal = precio * cantidad;
     double monto_impuesto = subtotal * impuesto;
@@ -254,11 +294,14 @@ int es_par(int n) {
     int resultado = (resto == 0);
     return resultado;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 double calcular_total(double precio, double cantidad, double impuesto) {
     double subtotal = precio * cantidad;
     return subtotal * (1 + impuesto);
@@ -267,11 +310,14 @@ double calcular_total(double precio, double cantidad, double impuesto) {
 int es_par(int n) {
     return n % 2 == 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Cuando las temporales SÍ agregan valor:**
 
-```c
+```{code-block} c
+:linenos:
 // Temporales útiles para claridad
 double calcular_factura(const item_t* items, int n, double tasa_iva) {
     double subtotal = calcular_subtotal(items, n);
@@ -282,7 +328,9 @@ double calcular_factura(const item_t* items, int n, double tasa_iva) {
     
     return total;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 4. Separar Variables con Propósitos Diferentes
 
@@ -290,7 +338,8 @@ No reutilizar variables para diferentes propósitos.
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 void procesar() {
     int valor;
     
@@ -312,11 +361,14 @@ void procesar() {
     
     printf("Contados: %d\n", valor);
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 void procesar() {
     int entrada = leer_entrada();
     validar(entrada);
@@ -333,7 +385,9 @@ void procesar() {
     
     printf("Contados: %d\n", elementos_contados);
 }
+
 ```
+<!-- {code-block} c -->
 
 **Beneficios:**
 - Cada variable tiene un propósito claro
@@ -346,7 +400,8 @@ Aplicar `const` a variables que no deben cambiar.
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 void procesar_pedido(pedido_t* pedido) {
     double tasa_iva = 0.21;
     double descuento_vip = 0.15;
@@ -356,11 +411,14 @@ void procesar_pedido(pedido_t* pedido) {
     
     tasa_iva = 0.10;  // ¡Bug! Cambio accidental
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 void procesar_pedido(pedido_t* pedido) {
     const double TASA_IVA = 0.21;
     const double DESCUENTO_VIP = 0.15;
@@ -370,11 +428,14 @@ void procesar_pedido(pedido_t* pedido) {
     
     // TASA_IVA = 0.10;  // Error de compilación: assignment of read-only variable
 }
+
 ```
+<!-- {code-block} c -->
 
 **Aplicar `const` a parámetros que no se modifican:**
 
-```c
+```{code-block} c
+:linenos:
 // Antes
 void procesar_datos(int* arr, int n, configuracion_t* config) {
     // ...
@@ -384,7 +445,9 @@ void procesar_datos(int* arr, int n, configuracion_t* config) {
 void procesar_datos(const int* arr, int n, const configuracion_t* config) {
     // Garantiza que no modificamos arr ni config
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 6. Extracción a Variables con Nombre
 
@@ -392,7 +455,8 @@ Dar nombres significativos a expresiones complejas.
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 if ((usuario->edad >= 18 && usuario->edad <= 65) &&
     (usuario->saldo > 1000 || usuario->credito > 500) &&
     !usuario->bloqueado) {
@@ -401,11 +465,14 @@ if ((usuario->edad >= 18 && usuario->edad <= 65) &&
 
 // Cálculo complejo sin contexto
 double total = precio * cantidad * (1 - (cantidad > 10 ? 0.15 : 0.05)) * 1.21;
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 bool es_edad_valida = usuario->edad >= 18 && usuario->edad <= 65;
 bool tiene_fondos = usuario->saldo > 1000 || usuario->credito > 500;
 bool puede_operar = es_edad_valida && tiene_fondos && !usuario->bloqueado;
@@ -420,13 +487,16 @@ double descuento = (cantidad > 10) ? 0.15 : 0.05;
 double subtotal = precio * cantidad;
 double subtotal_con_descuento = subtotal * (1 - descuento);
 double total = subtotal_con_descuento * (1 + TASA_IVA);
+
 ```
+<!-- {code-block} c -->
 
 ### 7. Variables de Lazo en el Alcance Mínimo
 
 **Antes (estilo C89):**
 
-```c
+```{code-block} c
+:linenos:
 void procesar() {
     int i, j;
     
@@ -442,11 +512,14 @@ void procesar() {
         }
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después (C99+):**
 
-```c
+```{code-block} c
+:linenos:
 void procesar() {
     for (int i = 0; i < 10; i++) {
         printf("%d\n", i);
@@ -460,7 +533,9 @@ void procesar() {
         }
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Casos Prácticos Completos
 
@@ -468,7 +543,8 @@ void procesar() {
 
 **Código Original:**
 
-```c
+```{code-block} c
+:linenos:
 void analizar_texto(const char* texto) {
     int i, j, k;
     int longitud, palabras, lineas, caracteres_especiales;
@@ -507,11 +583,14 @@ void analizar_texto(const char* texto) {
     printf("Líneas: %d\n", lineas);
     printf("Caracteres especiales: %d\n", caracteres_especiales);
 }
+
 ```
+<!-- {code-block} c -->
 
 **Código Refactorizado:**
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     int palabras;
     int lineas;
@@ -559,7 +638,9 @@ void mostrar_estadisticas(estadisticas_texto_t stats) {
     printf("Líneas: %d\n", stats.lineas);
     printf("Caracteres especiales: %d\n", stats.caracteres_especiales);
 }
+
 ```
+<!-- {code-block} c -->
 
 **Mejoras aplicadas:**
 - Variables declaradas cerca de su uso
@@ -573,7 +654,8 @@ void mostrar_estadisticas(estadisticas_texto_t stats) {
 
 **Código Original:**
 
-```c
+```{code-block} c
+:linenos:
 int procesar_transacciones(transaccion_t* trans, int n) {
     int i, j;
     double total, subtotal, impuesto, descuento;
@@ -627,11 +709,14 @@ int procesar_transacciones(transaccion_t* trans, int n) {
     resultado = (rechazadas == 0) ? 0 : -1;
     return resultado;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Código Refactorizado:**
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     int aprobadas;
     int rechazadas;
@@ -689,7 +774,9 @@ resumen_procesamiento_t procesar_transacciones(transaccion_t* trans, int n) {
     
     return resumen;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Mejoras aplicadas:**
 - Extracción de funciones para cálculos
@@ -705,7 +792,8 @@ resumen_procesamiento_t procesar_transacciones(transaccion_t* trans, int n) {
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 void mostrar_info_usuario(usuario_t* u) {
     printf("Nombre: %s %s\n", u->nombre, u->apellido);
     printf("Edad: %d\n", calcular_edad(u->fecha_nacimiento));
@@ -714,11 +802,14 @@ void mostrar_info_usuario(usuario_t* u) {
     printf("Estado: %s\n", 
            u->activo && !u->bloqueado ? "Activo" : "Inactivo");
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 void mostrar_info_usuario(const usuario_t* u) {
     const char* nombre_completo = formatear_nombre(u->nombre, u->apellido);
     const int edad = calcular_edad(u->fecha_nacimiento);
@@ -731,13 +822,16 @@ void mostrar_info_usuario(const usuario_t* u) {
     printf("Categoría: %s\n", categoria);
     printf("Estado: %s\n", estado);
 }
+
 ```
+<!-- {code-block} c -->
 
 ### Patrón: Replacement of Temp with Query
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 double calcular_precio(item_t* item) {
     double precio_base = item->precio * item->cantidad;
     if (precio_base > 1000) {
@@ -746,11 +840,14 @@ double calcular_precio(item_t* item) {
         return precio_base * 0.98;
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 double obtener_precio_base(const item_t* item) {
     return item->precio * item->cantidad;
 }
@@ -761,13 +858,16 @@ double calcular_precio(const item_t* item) {
     
     return precio_base * descuento;
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Antipatrones a Evitar
 
 ### 1. Variables Globales Innecesarias
 
-```c
+```{code-block} c
+:linenos:
 // Problemático
 int contador_global = 0;
 
@@ -775,11 +875,14 @@ void procesar_item(item_t* item) {
     contador_global++;
     // ...
 }
+
 ```
+<!-- {code-block} c -->
 
 **Mejor:**
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     int items_procesados;
     // ... otros datos de contexto
@@ -789,11 +892,14 @@ void procesar_item(item_t* item, contexto_procesamiento_t* ctx) {
     ctx->items_procesados++;
     // ...
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 2. Variables "God" (Demasiado Propósito)
 
-```c
+```{code-block} c
+:linenos:
 // Problemático
 int datos;  // Usado para todo
 
@@ -801,16 +907,19 @@ datos = leer_archivo();
 datos = procesar(datos);
 datos = validar(datos);
 datos = contar_elementos(datos);
+
 ```
+<!-- {code-block} c -->
 
 ### 3. Variables con Nombres No Descriptivos
 
-```c
+``` c
 // Problemático
 int d;  // días? dinero? datos?
 int tmp;
 int x, y, z;
 ```
+<!-- c -->
 
 ## Resumen
 
@@ -831,4 +940,5 @@ Técnicas para mejorar el manejo de variables:
 - Nombres descriptivos son documentación
 - Cada variable debe tener un propósito claro y único
 
-El manejo apropiado de variables es fundamental para código seguro, claro y mantenible.
+El manejo apropiado de variables es fundamental para código seguro, claro y
+mantenible.

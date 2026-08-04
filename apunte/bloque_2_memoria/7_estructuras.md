@@ -98,19 +98,35 @@ para simplificar este uso.
 (estructuras-y-memoria-alineacion-y-relleno-padding)=
 #### Estructuras y Memoria: Alineación y Relleno (Padding)
 
-El compilador de C inserta bytes de relleno invisibles (denominados **padding**) entre los miembros de un `struct` para que cada uno quede alineado en direcciones de memoria que sean múltiplos de su respectivo tamaño (por ejemplo, los enteros `int` en direcciones múltiplos de 4, los enteros `short` en múltiplos de 2, etc.).
+El compilador de C inserta bytes de relleno invisibles (denominados **padding**)
+entre los miembros de un `struct` para que cada uno quede alineado en
+direcciones de memoria que sean múltiplos de su respectivo tamaño (por ejemplo,
+los enteros `int` en direcciones múltiplos de 4, los enteros `short` en
+múltiplos de 2, etc.).
 
-La razón detrás de este comportamiento radica en la eficiencia del hardware: la CPU no accede a la RAM física byte a byte, sino en **palabras de memoria** de 32 o 64 bits a través de su bus de datos. Si un entero de 4 bytes se encuentra en una dirección desalineada (por ejemplo, una dirección impar como `0x01`), la CPU se vería obligada a realizar dos transferencias físicas por el bus de datos y operaciones lógicas de shift para rearmar el valor, degradando la performance del sistema.
+La razón detrás de este comportamiento radica en la eficiencia del hardware: la
+CPU no accede a la RAM física byte a byte, sino en **palabras de memoria** de 32
+o 64 bits a través de su bus de datos. Si un entero de 4 bytes se encuentra en
+una dirección desalineada (por ejemplo, una dirección impar como `0x01`), la CPU
+se vería obligada a realizar dos transferencias físicas por el bus de datos y
+operaciones lógicas de shift para rearmar el valor, degradando la performance
+del sistema.
 
-```{figure} 4/alineamiento_struct.svg
+:::{figure} 4/alineamiento_struct.svg
 :label: fig-alineamiento-struct
 :align: center
 :width: 90%
 
-Disposición física de una estructura mixta en RAM. El compilador inserta bytes de relleno (*pad*) para garantizar que el entero `b` inicie en una dirección múltiplo de 4, incrementando el `sizeof` total de 7 a 12 bytes.
-```
+Disposición física de una estructura mixta en RAM. El compilador inserta bytes
+de relleno (*pad*) para garantizar que el entero `b` inicie en una dirección
+múltiplo de 4, incrementando el `sizeof` total de 7 a 12 bytes.
 
-El problema con esto es que en algunos casos (como en protocolos de red o controladores de hardware) necesitamos un control exacto de los bits y de la disposición exacta en memoria de cada byte de la estructura.
+:::
+<!-- {figure} 4/alineamiento_struct.svg -->
+
+El problema con esto es que en algunos casos (como en protocolos de red o
+controladores de hardware) necesitamos un control exacto de los bits y de la
+disposición exacta en memoria de cada byte de la estructura.
 
 ##### El "operador" `offsetof`
 

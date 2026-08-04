@@ -71,11 +71,18 @@ int raiz_entera(int radicando) {
 
 ### Verificación Dinámica de Contratos en C
 
-En el lenguaje C, el contrato se documenta formalmente en la cabecera de la función de acuerdo con la regla {ref}`0x2003h` (que exige documentar precondiciones y postcondiciones de manera estructurada). Sin embargo, además de documentarse de forma textual, es una excelente práctica de diseño defensivo verificar dinámicamente las precondiciones usando la macro `assert()` de `<assert.h>`.
+En el lenguaje C, el contrato se documenta formalmente en la cabecera de la
+función de acuerdo con la regla {ref}`0x2003h` (que exige documentar
+precondiciones y postcondiciones de manera estructurada). Sin embargo, además de
+documentarse de forma textual, es una excelente práctica de diseño defensivo
+verificar dinámicamente las precondiciones usando la macro `assert()` de
+`<assert.h>`.
 
-Por ejemplo, la función `raiz_entera` puede implementarse validando su precondición:
+Por ejemplo, la función `raiz_entera` puede implementarse validando su
+precondición:
 
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 /**
@@ -93,11 +100,21 @@ int raiz_entera(int radicando) {
     }
     return r;
 }
+
 ```
+<!-- {code-block} c -->
 
 :::{note} Compilación y la macro NDEBUG
-Las aserciones se utilizan exclusivamente durante la fase de desarrollo y depuración para atrapar errores lógicos del programador (el cliente que invoca mal la función). En producción, para evitar el impacto en la velocidad de ejecución provocado por estas validaciones continuas, se define la macro `NDEBUG` al compilar (ej: `gcc -DNDEBUG -O2 main.c`), lo cual remueve físicamente todas las líneas de `assert()` del ejecutable de forma automática.
+
+Las aserciones se utilizan exclusivamente durante la fase de desarrollo y
+depuración para atrapar errores lógicos del programador (el cliente que invoca
+mal la función). En producción, para evitar el impacto en la velocidad de
+ejecución provocado por estas validaciones continuas, se define la macro
+`NDEBUG` al compilar (ej: `gcc -DNDEBUG -O2 main.c`), lo cual remueve
+físicamente todas las líneas de `assert()` del ejecutable de forma automática.
+
 :::
+<!-- {note} Compilación y la macro NDEBUG -->
 
 ### Invariantes Elementales e Invariantes de Lazo
 
@@ -239,11 +256,13 @@ forma inductiva que `elem` no se encuentra en ninguna posición del arreglo.
 ## Glosario
 
 :::{glossary}
+
 Diseño por Contrato (DbC)
 : Metodología de diseño de software que formaliza las interfaces entre
 componentes mediante derechos y obligaciones mutuas (contratos lógicos).
 
 :::
+<!-- {glossary} -->
 
 ---
 

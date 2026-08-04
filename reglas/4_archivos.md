@@ -10,9 +10,11 @@ subtitle: Reglas de estilo para el manejo de archivos y diagnóstico de errores 
 (0x4001h)=
 ## Regla `0x4001h`: Manejá correctamente la apertura y cierre de archivos
 
-Siempre validá que el puntero devuelto por `fopen` no sea `NULL` antes de operar sobre él, y cerrá el recurso mediante `fclose`.
+Siempre validá que el puntero devuelto por `fopen` no sea `NULL` antes de operar
+sobre él, y cerrá el recurso mediante `fclose`.
 
-```c
+```{code-block} c
+:linenos:
 FILE *archivo = fopen("datos.txt", "r");
 if (archivo == NULL)
 {
@@ -21,12 +23,17 @@ if (archivo == NULL)
 }
 // ...
 fclose(archivo);
+
 ```
+<!-- {code-block} c -->
 
 (0x4002h)=
 ## Regla `0x4002h`: Validá los retornos de las operaciones de lectura y escritura de archivos
 
-Funciones como `fread`, `fwrite`, `fgetc`, `fgets`, `fprintf` y `fscanf` devuelven valores de control. Es obligatorio verificar dichos retornos para asegurar transferencias completas e identificar fallos o el fin de archivo (EOF).
+Funciones como `fread`, `fwrite`, `fgetc`, `fgets`, `fprintf` y `fscanf`
+devuelven valores de control. Es obligatorio verificar dichos retornos para
+asegurar transferencias completas e identificar fallos o el fin de archivo
+(EOF).
 
 - **Incorrecto (escritura ciega):**
   ```c
@@ -53,9 +60,13 @@ Funciones como `fread`, `fwrite`, `fgetc`, `fgets`, `fprintf` y `fscanf` devuelv
 (0x4003h)=
 ## Regla `0x4003h`: Utilizá `errno`, `perror` y `strerror` para reportar fallos del sistema operativo de manera precisa
 
-Cualquier fallo en llamadas de sistema de archivos (como fallos en `fopen`, `fread` o `fwrite`) establece un código de error global en la variable `errno` de `<errno.h>`. Debés usar `perror` o `strerror` de `<string.h>` para imprimir o formatear mensajes legibles de diagnóstico.
+Cualquier fallo en llamadas de sistema de archivos (como fallos en `fopen`,
+`fread` o `fwrite`) establece un código de error global en la variable `errno`
+de `<errno.h>`. Debés usar `perror` o `strerror` de `<string.h>` para imprimir o
+formatear mensajes legibles de diagnóstico.
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
@@ -69,14 +80,20 @@ if (archivo == NULL)
     // O podés usar strerror para obtener la cadena correspondiente
     fprintf(stderr, "Detalle técnico: %s (código %d)\n", strerror(errno), errno);
 }
+
 ```
+<!-- {code-block} c -->
 
 (0x4004h)=
 ## Regla `0x4004h`: Asegurá la simetría de recursos al abrir y cerrar archivos en el mismo nivel de abstracción
 
-La función que abre un archivo debe ser la misma responsable de cerrarlo, o bien se debe delegar formalmente su propiedad a una estructura/módulo administrador simétrico. Esto evita descriptores de archivo huérfanos que agoten el límite del sistema operativo.
+La función que abre un archivo debe ser la misma responsable de cerrarlo, o bien
+se debe delegar formalmente su propiedad a una estructura/módulo administrador
+simétrico. Esto evita descriptores de archivo huérfanos que agoten el límite del
+sistema operativo.
 
-- **Incorrecto (el llamador abre, pero el archivo queda abierto si no recuerda cerrarlo):**
+- **Incorrecto (el llamador abre, pero el archivo queda abierto si no recuerda
+  cerrarlo):**
   ```c
   void leer_datos(FILE *f) {
       // Procesa...
@@ -96,9 +113,13 @@ La función que abre un archivo debe ser la misma responsable de cerrarlo, o bie
 (0x4005h)=
 ## Regla `0x4005h`: Evitá el uso de offsets y posiciones fijas codificadas a mano en archivos binarios sin validar sus dimensiones
 
-Cuando leés o escribís en una posición específica de un archivo binario mediante `fseek`, debés validar que la posición de destino sea válida y no exceda las dimensiones físicas del archivo. Calculá el tamaño del archivo usando `fseek` y `ftell` antes de realizar saltos aleatorios.
+Cuando leés o escribís en una posición específica de un archivo binario mediante
+`fseek`, debés validar que la posición de destino sea válida y no exceda las
+dimensiones físicas del archivo. Calculá el tamaño del archivo usando `fseek` y
+`ftell` antes de realizar saltos aleatorios.
 
-```c
+```{code-block} c
+:linenos:
 FILE *archivo = fopen("datos.bin", "rb");
 if (archivo != NULL)
 {
@@ -115,5 +136,7 @@ if (archivo != NULL)
     }
     fclose(archivo);
 }
+
 ```
+<!-- {code-block} c -->
 

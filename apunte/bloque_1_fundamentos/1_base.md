@@ -149,18 +149,28 @@ Cuando programamos, debemos considerar:
 
 #### Especificación Formal: Máquina de Transición de Estados
 
-En lugar de analogías informales, en ciencias de la computación modelamos los algoritmos como un sistema formal que transforma un conjunto de entradas ($I$) en un conjunto de salidas ($O$) a través de una secuencia finita de transiciones de estado ($S$).
+En lugar de analogías informales, en ciencias de la computación modelamos los
+algoritmos como un sistema formal que transforma un conjunto de entradas ($I$)
+en un conjunto de salidas ($O$) a través de una secuencia finita de transiciones
+de estado ($S$).
 
-Consideremos el algoritmo de control de un **sistema de autenticación de sensor industrial**. El algoritmo debe procesar una señal física (una secuencia de caracteres ASCII que ingresa de a un byte por vez) y determinar si se ha recibido la clave de activación exacta `ON`.
+Consideremos el algoritmo de control de un **sistema de autenticación de sensor
+industrial**. El algoritmo debe procesar una señal física (una secuencia de
+caracteres ASCII que ingresa de a un byte por vez) y determinar si se ha
+recibido la clave de activación exacta `ON`.
 
-*   **Entradas ($I$)**: Caracteres individuales recibidos secuencialmente desde el puerto serial: $i_k \in \text{ASCII}$.
-*   **Salidas ($O$)**: Señal de estado de activación: $o_k \in \{\text{BLOQUEADO}, \text{ACTIVO}\}$.
-*   **Estados del Algoritmo ($S$)**: El estado interno cambia según el avance de la coincidencia detectada:
+*   **Entradas ($I$)**: Caracteres individuales recibidos secuencialmente desde
+    el puerto serial: $i_k \in \text{ASCII}$.
+*   **Salidas ($O$)**: Señal de estado de activación: $o_k \in
+    \{\text{BLOQUEADO}, \text{ACTIVO}\}$.
+*   **Estados del Algoritmo ($S$)**: El estado interno cambia según el avance de
+    la coincidencia detectada:
     *   $S_0$: Estado de reposo (esperando primer carácter `O`).
     *   $S_1$: Primer carácter correcto recibido (esperando `N`).
     *   $S_2$: Secuencia completada (emitiendo señal `ACTIVO`).
 
-A continuación se detalla la tabla de transición que define formalmente el comportamiento unívoco de este algoritmo:
+A continuación se detalla la tabla de transición que define formalmente el
+comportamiento unívoco de este algoritmo:
 
 :::{table} Tabla de Transición de Estados del Algoritmo
 :label: tbl-transicion-estados
@@ -173,9 +183,14 @@ A continuación se detalla la tabla de transición que define formalmente el com
 | **$S_1$ (Parcial)** | `'O'` | $S_1$ (Coincidencia parcial) | `BLOQUEADO` |
 | **$S_1$ (Parcial)** | Cualquier otro carácter | $S_0$ (Reposo) | `BLOQUEADO` |
 | **$S_2$ (Activado)**| Cualquier carácter | $S_0$ (Reposo) | `BLOQUEADO` |
-:::
 
-Este modelo formal demuestra que un algoritmo no es una receta subjetiva, sino una definición determinista de comportamiento donde cada combinación de estado interno y datos de entrada produce una transición y una salida perfectamente predecibles.
+:::
+<!-- {table} Tabla de Transición de Estados del Algoritmo -->
+
+Este modelo formal demuestra que un algoritmo no es una receta subjetiva, sino
+una definición determinista de comportamiento donde cada combinación de estado
+interno y datos de entrada produce una transición y una salida perfectamente
+predecibles.
 
 La computadora necesita instrucciones de este segundo tipo: específicas,
 ordenadas, sin ambigüedades y detalladas al extremo.
@@ -415,15 +430,25 @@ y valores lógicos.
 
 1.  **Enteros (`entero` / `int`):** Números sin parte fraccionaria (ej. `5`,
     `-20`, `0`). Se utilizan para conteos, índices de lazos y posiciones.
-2.  **Decimales / Punto Flotante (`float` / `double`)**: Representan aproximaciones numéricas finitas de números racionales bajo el estándar internacional IEEE 754.
+2.  **Decimales / Punto Flotante (`float` / `double`)**: Representan
+    aproximaciones numéricas finitas de números racionales bajo el estándar
+    internacional IEEE 754.
   
     :::{warning} Limitación Física
-    Un tipo `float` no representa números reales matemáticos con precisión infinita. Es un modelo con precisión limitada por el hardware. Dos operaciones decimales idénticas pueden dar resultados ligeramente diferentes debido al redondeo de representación binaria, por lo que nunca deben compararse de forma directa con el operador de igualdad `==`.
+    Un tipo `float` no representa números reales matemáticos con precisión
+    infinita. Es un modelo con precisión limitada por el hardware. Dos
+    operaciones decimales idénticas pueden dar resultados ligeramente diferentes
+    debido al redondeo de representación binaria, por lo que nunca deben
+    compararse de forma directa con el operador de igualdad `==`.
     :::
-3.  **Carácter (`char`)**: Representa un único símbolo físico (letra, dígito, signo de puntuación) que ocupa exactamente 1 byte de memoria RAM.
+3.  **Carácter (`char`)**: Representa un único símbolo físico (letra, dígito,
+    signo de puntuación) que ocupa exactamente 1 byte de memoria RAM.
   
     :::{important} Cadenas en C
-    En el lenguaje C, las secuencias de texto (cadenas de caracteres) se representan mediante arreglos de caracteres contiguos que finalizan con un carácter nulo especial (`'\0'`). Este tema se estudia en detalle más adelante.
+    En el lenguaje C, las secuencias de texto (cadenas de caracteres) se
+    representan mediante arreglos de caracteres contiguos que finalizan con un
+    carácter nulo especial (`'\0'`). Este tema se estudia en detalle más
+    adelante.
     :::
 4.  **Lógicos / Booleanos (`logico` / `bool`):** Solo admiten dos estados
     lógicos: `verdadero` (`true`) o `falso` (`false`).
@@ -975,7 +1000,7 @@ Sino
 (ejercicio-3-integradores)=
 ### Ejercicio 4: Integradores
 
-:::{exercise}
+::::{exercise}
 :label: ex-integrador-1 
 
 Analizá el siguiente pseudocódigo estructurado y respondé las consignas:
@@ -1071,6 +1096,7 @@ Diagrama de flujo
 algoritmo. 
 
 :::
+<!-- {glossary} -->
 
 ---
 
@@ -1159,5 +1185,7 @@ forma más explícita.
 :width: 60%
 
 Diagrama de flujo humorístico de un algoritmo según xkcd.
+
 :::
+<!-- {figure} 1/xkcd-algorithms.png -->
 

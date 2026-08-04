@@ -6,13 +6,24 @@ subtitle: "Convertir literales en constantes con nombre significativo"
 
 ## Introducción
 
-Un **número mágico** (magic number) es un valor literal numérico que aparece directamente en el código sin explicación de su significado o propósito. Estos valores dificultan la comprensión del código, su mantenimiento y aumentan la probabilidad de errores cuando se necesita modificar el valor en múltiples lugares.
+Un **número mágico** (magic number) es un valor literal numérico que aparece
+directamente en el código sin explicación de su significado o propósito. Estos
+valores dificultan la comprensión del código, su mantenimiento y aumentan la
+probabilidad de errores cuando se necesita modificar el valor en múltiples
+lugares.
 
-La refactorización para eliminar números mágicos consiste en reemplazarlos por constantes con nombres descriptivos que expresen claramente su propósito y significado en el contexto del programa.
+La refactorización para eliminar números mágicos consiste en reemplazarlos por
+constantes con nombres descriptivos que expresen claramente su propósito y
+significado en el contexto del programa.
 
 :::{important} Principio de Autodocumentación
-Como establece {ref}`0x0001h`, los identificadores deben ser descriptivos. Las constantes con nombre no solo evitan errores, sino que también documentan el código, haciendo explícito el significado de cada valor.
+
+Como establece {ref}`0x0001h`, los identificadores deben ser descriptivos. Las
+constantes con nombre no solo evitan errores, sino que también documentan el
+código, haciendo explícito el significado de cada valor.
+
 :::
+<!-- {important} Principio de Autodocumentación -->
 
 ## ¿Por Qué Son Problemáticos los Números Mágicos?
 
@@ -20,11 +31,12 @@ Como establece {ref}`0x0001h`, los identificadores deben ser descriptivos. Las c
 
 **Código con números mágicos:**
 
-```c
+``` c
 if (edad >= 18 && edad < 65) {
     aplicar_descuento(precio * 0.85);
 }
 ```
+<!-- c -->
 
 **Preguntas que surgen:**
 - ¿Por qué 18? ¿Mayoría de edad? ¿Edad mínima para conducir?
@@ -41,7 +53,8 @@ Si el descuento cambia de 15% a 20%, debés:
 
 ### 3. Propensión a Errores
 
-```c
+```{code-block} c
+:linenos:
 // Archivo 1
 if (intentos >= 3) {
     bloquear_cuenta();
@@ -51,19 +64,23 @@ if (intentos >= 3) {
 if (intentos > 3) {  // ¿Error? ¿Inconsistencia?
     notificar_administrador();
 }
+
 ```
+<!-- {code-block} c -->
 
 ¿El límite es 3 o 4? La inconsistencia genera bugs sutiles.
 
 ### 4. Duplicación Oculta
 
-```c
+``` c
 char buffer[256];
 char nombre[256];
 char direccion[256];
 ```
+<!-- c -->
 
-Si `256` se repite porque representa el mismo concepto (por ejemplo, longitud máxima de entrada), debería ser una constante compartida.
+Si `256` se repite porque representa el mismo concepto (por ejemplo, longitud
+máxima de entrada), debería ser una constante compartida.
 
 ## Tipos de Números Mágicos
 
@@ -71,7 +88,8 @@ Si `256` se repite porque representa el mismo concepto (por ejemplo, longitud m�
 
 Los más comunes y evidentes:
 
-```c
+```{code-block} c
+:linenos:
 // Malo
 if (temperatura > 100) {
     activar_alarma();
@@ -83,11 +101,14 @@ const int TEMPERATURA_EBULLICION_AGUA = 100;
 if (temperatura > TEMPERATURA_EBULLICION_AGUA) {
     activar_alarma();
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 2. Factores de Conversión
 
-```c
+```{code-block} c
+:linenos:
 // Malo
 double metros = pies * 0.3048;
 double kilogramos = libras * 0.453592;
@@ -98,11 +119,14 @@ const double KG_POR_LIBRA = 0.453592;
 
 double metros = pies * METROS_POR_PIE;
 double kilogramos = libras * KG_POR_LIBRA;
+
 ```
+<!-- {code-block} c -->
 
 ### 3. Tamaños de Buffer
 
-```c
+```{code-block} c
+:linenos:
 // Malo
 char nombre[50];
 char apellido[50];
@@ -114,11 +138,14 @@ fgets(nombre, 50, stdin);
 char nombre[MAX_NOMBRE];
 char apellido[MAX_NOMBRE];
 fgets(nombre, MAX_NOMBRE, stdin);
+
 ```
+<!-- {code-block} c -->
 
 ### 4. Códigos de Estado o Error
 
-```c
+```{code-block} c
+:linenos:
 // Malo
 if (resultado == -1) {
     printf("Error\n");
@@ -142,11 +169,14 @@ if (resultado == RESULTADO_ERROR) {
 } else if (resultado == RESULTADO_ADVERTENCIA) {
     printf("Advertencia\n");
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 5. Límites y Umbrales
 
-```c
+```{code-block} c
+:linenos:
 // Malo
 if (calificacion >= 60) {
     printf("Aprobado\n");
@@ -158,7 +188,9 @@ const int CALIFICACION_MINIMA_APROBACION = 60;
 if (calificacion >= CALIFICACION_MINIMA_APROBACION) {
     printf("Aprobado\n");
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Técnicas de Refactorización
 
@@ -169,15 +201,17 @@ if (calificacion >= CALIFICACION_MINIMA_APROBACION) {
 - Scope controlado (puede ser local, global, o estática)
 - Compatible con debuggers modernos
 
-```c
+``` c
 const int INTENTOS_MAXIMOS = 3;
 const double PI = 3.14159265358979323846;
 const char* MENSAJE_BIENVENIDA = "Hola, usuario";
 ```
+<!-- c -->
 
 **Scope local:**
 
-```c
+```{code-block} c
+:linenos:
 void procesar_pedido(double precio) {
     const double IMPUESTO = 0.21;  // IVA en Argentina
     const double DESCUENTO_MAYORISTA = 0.15;
@@ -188,7 +222,9 @@ void procesar_pedido(double precio) {
     }
     // ...
 }
+
 ```
+<!-- {code-block} c -->
 
 ### Método 2: Macros con `#define`
 
@@ -202,7 +238,8 @@ void procesar_pedido(double precio) {
 - Puede causar problemas si se redefine
 - No tiene scope
 
-```c
+```{code-block} c
+:linenos:
 #define MAX_USUARIOS 100
 #define LONGITUD_NOMBRE 50
 #define VERSION "1.0.3"
@@ -213,13 +250,16 @@ typedef struct {
 } usuario_t;
 
 usuario_t usuarios[MAX_USUARIOS];
+
 ```
+<!-- {code-block} c -->
 
 ### Método 3: Enumeraciones
 
 **Ideal para conjuntos de valores relacionados:**
 
-```c
+```{code-block} c
+:linenos:
 enum dias_semana {
     LUNES = 1,
     MARTES = 2,
@@ -236,18 +276,21 @@ enum prioridad_tarea {
     PRIORIDAD_ALTA,
     PRIORIDAD_CRITICA
 };
+
 ```
+<!-- {code-block} c -->
 
 ### Método 4: Variables Static Const en Funciones
 
 Para constantes que solo se usan en una función específica:
 
-```c
+``` c
 double calcular_area_circulo(double radio) {
     static const double PI = 3.14159265358979323846;
     return PI * radio * radio;
 }
 ```
+<!-- c -->
 
 ## Casos Prácticos de Refactorización
 
@@ -255,7 +298,8 @@ double calcular_area_circulo(double radio) {
 
 **Código Original:**
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
@@ -284,11 +328,14 @@ bool autenticar_usuario(const char* usuario, const char* password) {
     printf("Cuenta bloqueada por 300 segundos\n");
     return false;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Código Refactorizado:**
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
@@ -328,7 +375,9 @@ bool autenticar_usuario(const char* usuario, const char* password) {
            TIEMPO_BLOQUEO_SEGUNDOS);
     return false;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Beneficios:**
 - Fácil ajustar la política de seguridad (cambiar 3 intentos a 5, etc.)
@@ -339,7 +388,8 @@ bool autenticar_usuario(const char* usuario, const char* password) {
 
 **Código Original:**
 
-```c
+```{code-block} c
+:linenos:
 void procesar_temperatura(double temp_fahrenheit) {
     double temp_celsius = (temp_fahrenheit - 32) * 5 / 9;
     
@@ -358,11 +408,14 @@ void procesar_temperatura(double temp_fahrenheit) {
         activar_alarma();
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 **Código Refactorizado:**
 
-```c
+```{code-block} c
+:linenos:
 // Constantes de conversión
 const double FAHRENHEIT_OFFSET = 32.0;
 const double CELSIUS_A_FAHRENHEIT_FACTOR = 9.0 / 5.0;
@@ -395,13 +448,16 @@ void procesar_temperatura(double temp_fahrenheit) {
         activar_alarma();
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 ### Caso 3: Gestión de Archivos
 
 **Código Original:**
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 void procesar_archivo(const char* ruta) {
@@ -423,11 +479,14 @@ void procesar_archivo(const char* ruta) {
     
     fclose(archivo);
 }
+
 ```
+<!-- {code-block} c -->
 
 **Código Refactorizado:**
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 #include <string.h>
 
@@ -460,13 +519,16 @@ void procesar_archivo(const char* ruta) {
     
     fclose(archivo);
 }
+
 ```
+<!-- {code-block} c -->
 
 ### Caso 4: Validación de Datos
 
 **Código Original:**
 
-```c
+```{code-block} c
+:linenos:
 bool validar_usuario(const char* nombre, int edad, double salario) {
     if (strlen(nombre) < 3 || strlen(nombre) > 50) {
         return false;
@@ -482,11 +544,14 @@ bool validar_usuario(const char* nombre, int edad, double salario) {
     
     return true;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Código Refactorizado:**
 
-```c
+```{code-block} c
+:linenos:
 // Límites de validación
 const int LONGITUD_MINIMA_NOMBRE = 3;
 const int LONGITUD_MAXIMA_NOMBRE = 50;
@@ -514,7 +579,9 @@ bool validar_usuario(const char* nombre, int edad, double salario) {
            validar_edad(edad) &&
            validar_salario(salario);
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Números Mágicos Aceptables
 
@@ -522,29 +589,32 @@ bool validar_usuario(const char* nombre, int edad, double salario) {
 
 En contextos obvios, `0` y `1` generalmente no necesitan ser constantes:
 
-```c
+``` c
 // Aceptable
 int contador = 0;
 int resultado = funcion() + 1;
 ```
+<!-- c -->
 
 ### Potencias de 2 Comunes
 
 En algunos contextos de bajo nivel:
 
-```c
+``` c
 // Generalmente aceptable en contextos de bits
 int mascara = valor & 0xFF;
 int desplazamiento = numero << 8;
 ```
+<!-- c -->
 
 ### Índices de Arrays
 
-```c
+``` c
 // Aceptable
 char primer_caracter = cadena[0];
 char ultimo_caracter = cadena[strlen(cadena) - 1];
 ```
+<!-- c -->
 
 ## Patrón de Organización de Constantes
 
@@ -552,7 +622,8 @@ char ultimo_caracter = cadena[strlen(cadena) - 1];
 
 **config.h:**
 
-```c
+```{code-block} c
+:linenos:
 #ifndef CONFIG_H
 #define CONFIG_H
 
@@ -577,13 +648,16 @@ const int EDAD_MINIMA_CONDUCTOR = 18;
 const int PUNTOS_LICENCIA_INICIAL = 0;
 
 #endif // CONFIG_H
+
 ```
+<!-- {code-block} c -->
 
 ### Opción 2: Constantes por Módulo
 
 Cada módulo define sus propias constantes en su archivo .c:
 
-```c
+```{code-block} c
+:linenos:
 // usuario.c
 static const int LONGITUD_MINIMA_PASSWORD = 8;
 static const int MAX_INTENTOS_LOGIN = 3;
@@ -591,11 +665,14 @@ static const int MAX_INTENTOS_LOGIN = 3;
 // archivo.c  
 static const int TAMANO_BUFFER = 4096;
 static const char* EXTENSION_TEMPORAL = ".tmp";
+
 ```
+<!-- {code-block} c -->
 
 ### Opción 3: Enumeraciones Agrupadas
 
-```c
+```{code-block} c
+:linenos:
 // Códigos de error del sistema
 enum codigos_error {
     ERROR_EXITO = 0,
@@ -613,7 +690,9 @@ enum nivel_log {
     LOG_ERROR = 3,
     LOG_FATAL = 4
 };
+
 ```
+<!-- {code-block} c -->
 
 ## Proceso de Refactorización Paso a Paso
 
@@ -621,12 +700,13 @@ enum nivel_log {
 
 Buscar literales numéricos en el código:
 
-```bash
+``` bash
 # Con grep
 grep -n "[^a-zA-Z][0-9]\+[^a-zA-Z]" archivo.c
 
 # Revisar manualmente cada ocurrencia
 ```
+<!-- bash -->
 
 ### 2. Analizar Contexto
 
@@ -643,7 +723,8 @@ El nombre debe ser:
 - En mayúsculas para constantes
 - Prefijo del módulo si es global
 
-```c
+```{code-block} c
+:linenos:
 // Malo
 const int MAX = 100;
 
@@ -652,7 +733,9 @@ const int MAX_USUARIOS = 100;
 
 // Mejor aún
 const int MAX_USUARIOS_SISTEMA = 100;
+
 ```
+<!-- {code-block} c -->
 
 ### 4. Determinar Scope
 
@@ -664,10 +747,11 @@ const int MAX_USUARIOS_SISTEMA = 100;
 
 Usar búsqueda y reemplazo con cuidado:
 
-```c
+``` c
 // Buscar: \b100\b (expresión regular)
 // Reemplazar caso por caso, verificando contexto
 ```
+<!-- c -->
 
 ### 6. Verificar con Tests
 
@@ -687,7 +771,8 @@ No intentar refactorizar todo a la vez:
 
 **Iteración 1: Identificar candidatos**
 
-```c
+```{code-block} c
+:linenos:
 // Marcar con comentarios
 if (temperatura > 100) {  // MAGIC: punto de ebullición
     alarma();
@@ -696,11 +781,14 @@ if (temperatura > 100) {  // MAGIC: punto de ebullición
 if (intentos >= 3) {  // MAGIC: máximo de intentos
     bloquear();
 }
+
 ```
+<!-- {code-block} c -->
 
 **Iteración 2: Extraer constantes locales**
 
-```c
+```{code-block} c
+:linenos:
 const int PUNTO_EBULLICION = 100;
 if (temperatura > PUNTO_EBULLICION) {
     alarma();
@@ -710,7 +798,9 @@ const int MAX_INTENTOS = 3;
 if (intentos >= MAX_INTENTOS) {
     bloquear();
 }
+
 ```
+<!-- {code-block} c -->
 
 **Iteración 3: Centralizar si es necesario**
 
@@ -720,7 +810,8 @@ Mover a archivo de configuración si se repite.
 
 ### 1. Sobre-Constantes
 
-```c
+```{code-block} c
+:linenos:
 // Excesivo
 const int UNO = 1;
 const int CERO = 0;
@@ -730,11 +821,13 @@ const int VERDADERO = 1;
 for (int i = CERO; i < MAX; i = i + UNO) {
     // ...
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 2. Constantes Obvias
 
-```c
+``` c
 // Obvio, no mejora la claridad
 const int DIAS_EN_SEMANA = 7;
 const int MESES_EN_ANIO = 12;
@@ -742,10 +835,12 @@ const int MESES_EN_ANIO = 12;
 // Pero en contexto específico puede ser útil:
 const int DIAS_LABORABLES_SEMANA = 5;
 ```
+<!-- c -->
 
 ### 3. Nombres Vagos
 
-```c
+```{code-block} c
+:linenos:
 // Malo
 const int LIMITE = 100;
 const int MAX = 50;
@@ -753,7 +848,9 @@ const int MAX = 50;
 // Bueno
 const int LIMITE_VELOCIDAD_KMH = 100;
 const int MAX_CARACTERES_COMENTARIO = 50;
+
 ```
+<!-- {code-block} c -->
 
 ## Resumen
 
@@ -771,4 +868,5 @@ La eliminación de números mágicos es una refactorización fundamental que:
 - Nombres descriptivos y auto-explicativos
 - Scope apropiado (local cuando sea posible)
 
-El tiempo invertido en esta refactorización se recupera rápidamente en mantenimiento y prevención de bugs.
+El tiempo invertido en esta refactorización se recupera rápidamente en
+mantenimiento y prevención de bugs.

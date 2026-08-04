@@ -257,7 +257,8 @@ int funcion_dos() {
 ### Roles en Funciones
 
 *(Para una introducción teórica y conceptual sobre la asignación de roles
-semánticos a las variables, consultá la sección {ref}`roles-de-las-variables` del
+semánticos a las variables, consultá la sección {ref}`roles-de-las-variables`
+del
 capítulo [](2_gradual))*.
 
 Al estructurar modularmente un programa mediante funciones, las variables
@@ -307,7 +308,8 @@ suma.
 #### Variable Local Temporal (en funciones)
 
 *(Este rol es una especialización aplicada del **Rol de variable Auxiliar o
-Temporal** descripto en {ref}`roles-de-las-variables` del capítulo [](2_gradual))*.
+Temporal** descripto en {ref}`roles-de-las-variables` del capítulo
+[](2_gradual))*.
 
 En el cuerpo de una función, las variables locales adoptan a menudo el rol de
 almacenamiento temporal. Su tiempo de vida y ámbito quedan limitados
@@ -418,8 +420,16 @@ Estas son las variables que se declaran en la definición de una función. Su
 alcance está limitado exclusivamente a esa función.
 
 :::{important} Pasaje por Valor
-En C, **todas** las funciones reciben sus argumentos copiados por valor. Cuando se invoca una función, la CPU copia los datos del llamador y los asigna en el espacio de memoria (Stack Frame) de la función llamada. Las modificaciones locales de los argumentos no afectan de ningún modo las variables del ámbito llamador. Consultá {ref}`anatomia-de-un-stack-frame` en el modelo de memoria para más detalles de esta mecánica física.
+
+En C, **todas** las funciones reciben sus argumentos copiados por valor. Cuando
+se invoca una función, la CPU copia los datos del llamador y los asigna en el
+espacio de memoria (Stack Frame) de la función llamada. Las modificaciones
+locales de los argumentos no afectan de ningún modo las variables del ámbito
+llamador. Consultá {ref}`anatomia-de-un-stack-frame` en el modelo de memoria
+para más detalles de esta mecánica física.
+
 :::
+<!-- {important} Pasaje por Valor -->
 
 :::{code-block}c
 :linenos:
@@ -564,13 +574,24 @@ Contador Normal: 1
 Contador Static: 2
 ```
 
-En este fragmento, `contador_normal` se reinicia a `0` en cada invocación porque reside en el **Stack Frame** (marco de pila) de la función, liberándose físicamente cuando finaliza su bloque. 
+En este fragmento, `contador_normal` se reinicia a `0` en cada invocación porque
+reside en el **Stack Frame** (marco de pila) de la función, liberándose
+físicamente cuando finaliza su bloque.
 
-En contraste, `contador_static` retiene su valor anterior entre ejecuciones porque **no se almacena en el Stack**. El compilador y el linker le asignan una dirección de memoria fija en los segmentos de datos estáticos de la memoria RAM (el segmento `.data` para variables estáticas inicializadas o `.bss` para las no inicializadas). Como estos segmentos se cargan al inicio del programa y persisten durante toda su ejecución, la variable posee un tiempo de vida estático, aunque su ámbito de visibilidad léxica siga estando restringido al cuerpo de `contador_static`.
+En contraste, `contador_static` retiene su valor anterior entre ejecuciones
+porque **no se almacena en el Stack**. El compilador y el linker le asignan una
+dirección de memoria fija en los segmentos de datos estáticos de la memoria RAM
+(el segmento `.data` para variables estáticas inicializadas o `.bss` para las no
+inicializadas). Como estos segmentos se cargan al inicio del programa y
+persisten durante toda su ejecución, la variable posee un tiempo de vida
+estático, aunque su ámbito de visibilidad léxica siga estando restringido al
+cuerpo de `contador_static`.
 
-Visualmente, la distribución en la memoria RAM separa la pila dinámica del área estática de datos:
+Visualmente, la distribución en la memoria RAM separa la pila dinámica del área
+estática de datos:
 
-```text
+```{code-block} text
+:linenos:
 +-------------------------------------------------------+
 |  Memoria RAM física                                    |
 +---------------------------+---------------------------+
@@ -579,9 +600,13 @@ Visualmente, la distribución en la memoria RAM separa la pila dinámica del ár
 | (Persistente en ejecuc.)  | (Volátil, se libera al    |
 |                           |  retornar de la función)  |
 +---------------------------+---------------------------+
-```
 
-Para una explicación pormenorizada de la organización y división de la memoria RAM física en segmentos, consultá {ref}`segmentacion-de-la-memoria` en el modelo de memoria.
+```
+<!-- {code-block} text -->
+
+Para una explicación pormenorizada de la organización y división de la memoria
+RAM física en segmentos, consultá {ref}`segmentacion-de-la-memoria` en el modelo
+de memoria.
 
 :::{warning} Efecto Secundario y Pureza
 

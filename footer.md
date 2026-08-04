@@ -16,16 +16,22 @@
 
 # Universidad Nacional de Río Negro - Sede Andina
 
-```{image} ./images/footer_logo_unrn.svg
+:::{image} ./images/footer_logo_unrn.svg
 :width: 200px
 :align: left
-```
+
+:::
+<!-- {image} ./images/footer_logo_unrn.svg -->
+
 ::::
+<!-- {div} -->
 
 <!-- Spacer between project description and links columns -->
 
 ::::{div}
+
 ::::
+<!-- {div} -->
 
 <!-- Link columns -->
 
@@ -34,12 +40,15 @@
 % and fan out into three columns on wide screens. However, it always remains within
 % its parent grid column.
 
-::::{div} 
+::::{div}
+
 - [Sitio oficial](https://www.unrn.edu.ar).
 - [Acerca de](https://mystmd.org/overview/ecosystem)
 - [Github](hhttps://github.com/INGCOM-UNRN/)
 
 ::::
+<!-- {div} -->
 
 :::::
+<!-- {grid} 1 1 2 3 -->
 

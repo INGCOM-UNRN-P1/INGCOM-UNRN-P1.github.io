@@ -55,8 +55,10 @@ comparar la cuenta real con la esperada.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -72,8 +74,10 @@ descendente o desordenada.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -94,8 +98,10 @@ formato.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
+    garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
+    leaks*) mediante Valgrind o AddressSanitizer.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -108,8 +114,10 @@ Implementar `generar_lineal(ruta, cantidad, inicio, paso)`.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
+    errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
+    archivo en todos los caminos de ejecución.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -136,8 +144,10 @@ Implementar `generar_aleatorio(ruta, cantidad, min, max)`.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -155,8 +165,10 @@ caracteres que contiene.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
+    errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
+    archivo en todos los caminos de ejecución.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -170,8 +182,10 @@ leyendo y escribiendo línea por línea o en bloques de bytes.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
+    errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
+    archivo en todos los caminos de ejecución.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -185,8 +199,10 @@ salida.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -200,8 +216,10 @@ columna donde difieren.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
+    errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
+    archivo en todos los caminos de ejecución.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -215,8 +233,10 @@ contenido del primero.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
+    errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
+    archivo en todos los caminos de ejecución.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -230,8 +250,10 @@ archivos de salida pueden ser `parte_1.txt`, `parte_2.txt`, etc.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
+    errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
+    archivo en todos los caminos de ejecución.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -245,8 +267,10 @@ numérica específica (ej. la segunda columna de notas) e imprimir el resultado.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
+    errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
+    archivo en todos los caminos de ejecución.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -264,8 +288,10 @@ Creá un archivo de texto y escribí "Hola, archivo!" en él.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
+    errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
+    archivo en todos los caminos de ejecución.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -285,8 +311,10 @@ Leé y mostrá todo el contenido de un archivo de texto.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -305,8 +333,10 @@ Contá cuántas líneas tiene un archivo de texto.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
+    errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
+    archivo en todos los caminos de ejecución.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -327,8 +357,10 @@ Copiá el contenido de un archivo a otro.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
+    errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
+    archivo en todos los caminos de ejecución.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -348,8 +380,10 @@ Contá la cantidad de palabras en un archivo de texto.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
+    errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
+    archivo en todos los caminos de ejecución.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -369,8 +403,10 @@ Agregá texto al final de un archivo existente sin sobrescribir.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
+    errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
+    archivo en todos los caminos de ejecución.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -390,8 +426,10 @@ Buscá si una palabra específica existe en un archivo y mostrá la línea.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -411,8 +449,10 @@ Calculá: líneas, palabras, caracteres y bytes de un archivo.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
+    errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
+    archivo en todos los caminos de ejecución.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -431,8 +471,10 @@ Leé un archivo y escribí sus líneas en orden inverso en otro archivo.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
+    garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
+    leaks*) mediante Valgrind o AddressSanitizer.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -447,8 +489,10 @@ Leé un archivo CSV con datos de personas y cargá en array de estructuras.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -482,8 +526,10 @@ ordenados.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
+    errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
+    archivo en todos los caminos de ejecución.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -504,8 +550,10 @@ Reemplazá todas las ocurrencias de una palabra por otra en un archivo.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
+    garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
+    leaks*) mediante Valgrind o AddressSanitizer.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -524,8 +572,10 @@ Escribí un array de enteros en un archivo binario.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -544,8 +594,10 @@ Leé enteros de un archivo binario y mostralos.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -565,8 +617,10 @@ Guardá y leé array de estructuras en archivo binario.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -587,8 +641,10 @@ registros.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -609,8 +665,10 @@ Implementá sistema de logging que agregue eventos con timestamp a un archivo.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -633,8 +691,10 @@ como `<contador><carácter>`.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
+    definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
+    para copiar la estructura de forma segura.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -654,8 +714,10 @@ Creá un índice de palabras con sus posiciones (número de línea) en el archiv
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
+    errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
+    archivo en todos los caminos de ejecución.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -677,8 +739,10 @@ archivos.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -691,8 +755,10 @@ archivos.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
+    valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
+    un lazo hasta que el usuario elija finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -710,8 +776,10 @@ alfabeto).
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
+    errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
+    archivo en todos los caminos de ejecución.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -726,8 +794,10 @@ Leé archivo de configuración estilo `clave=valor`.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -759,8 +829,10 @@ Escribí y leé una estructura simple en formato JSON.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
+    garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
+    leaks*) mediante Valgrind o AddressSanitizer.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->

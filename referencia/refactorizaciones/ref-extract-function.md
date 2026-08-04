@@ -22,6 +22,7 @@ bien definida. La extracción de funciones es la herramienta principal para
 lograr este objetivo.
 
 :::
+<!-- {important} Principio de Responsabilidad Única -->
 
 ## ¿Cuándo Extraer una Función?
 
@@ -39,7 +40,8 @@ lograr este objetivo.
 
 ### Ejemplo: Comentario que Señala Necesidad de Extracción
 
-```c
+```{code-block} c
+:linenos:
 void procesar_pedido(pedido_t* pedido) {
     // Validar datos del cliente
     if (pedido->cliente.nombre == NULL ||
@@ -62,7 +64,9 @@ void procesar_pedido(pedido_t* pedido) {
     // Guardar en base de datos
     // ...
 }
+
 ```
+<!-- {code-block} c -->
 
 Los comentarios son indicadores claros: cada bloque debería ser una función.
 
@@ -106,7 +110,8 @@ Verificar que el comportamiento no cambió.
 
 **Código Original:**
 
-```c
+```{code-block} c
+:linenos:
 int procesar_usuario(const char* nombre, const char* email, int edad) {
     // Validación embebida en la función principal
     if (nombre == NULL || strlen(nombre) < 3) {
@@ -128,11 +133,14 @@ int procesar_usuario(const char* nombre, const char* email, int edad) {
     printf("Usuario %s registrado\n", nombre);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Código Refactorizado:**
 
-```c
+```{code-block} c
+:linenos:
 bool validar_nombre(const char* nombre) {
     if (nombre == NULL || strlen(nombre) < 3) {
         printf("Nombre inválido\n");
@@ -166,7 +174,9 @@ int procesar_usuario(const char* nombre, const char* email, int edad) {
     printf("Usuario %s registrado\n", nombre);
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Beneficios:**
 
@@ -179,7 +189,8 @@ int procesar_usuario(const char* nombre, const char* email, int edad) {
 
 **Código Original:**
 
-```c
+```{code-block} c
+:linenos:
 void analizar_ventas(double ventas[], int n) {
     // Calcular estadísticas
     double total = 0;
@@ -199,11 +210,14 @@ void analizar_ventas(double ventas[], int n) {
     printf("Máximo: %.2f\n", maximo);
     printf("Mínimo: %.2f\n", minimo);
 }
+
 ```
+<!-- {code-block} c -->
 
 **Código Refactorizado:**
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     double total;
     double promedio;
@@ -240,7 +254,9 @@ void analizar_ventas(const double ventas[], int n) {
     estadisticas_t stats = calcular_estadisticas(ventas, n);
     mostrar_estadisticas(stats);
 }
+
 ```
+<!-- {code-block} c -->
 
 **Beneficios:**
 
@@ -252,7 +268,8 @@ void analizar_ventas(const double ventas[], int n) {
 
 **Código Original:**
 
-```c
+```{code-block} c
+:linenos:
 void procesar_archivo(const char* ruta) {
     FILE* f = fopen(ruta, "r");
     char linea[256];
@@ -293,11 +310,14 @@ void procesar_archivo(const char* ruta) {
     printf("Procesadas: %d, Errores: %d\n",
            lineas_procesadas, lineas_con_error);
 }
+
 ```
+<!-- {code-block} c -->
 
 **Código Refactorizado:**
 
-```c
+```{code-block} c
+:linenos:
 bool es_linea_valida(const char* linea) {
     return strlen(linea) > 0 && linea[0] != '#';
 }
@@ -358,7 +378,9 @@ void procesar_archivo(const char* ruta) {
     printf("Procesadas: %d, Errores: %d\n",
            lineas_procesadas, lineas_con_error);
 }
+
 ```
+<!-- {code-block} c -->
 
 **Beneficios:**
 
@@ -371,7 +393,8 @@ void procesar_archivo(const char* ruta) {
 
 **Código Original:**
 
-```c
+```{code-block} c
+:linenos:
 double calcular_precio_final(double precio_base,
                               int cantidad,
                               bool es_mayorista,
@@ -411,11 +434,14 @@ double calcular_precio_final(double precio_base,
 
     return subtotal * (1 + impuesto) + envio;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Código Refactorizado:**
 
-```c
+```{code-block} c
+:linenos:
 double calcular_descuento_por_cantidad(int cantidad) {
     if (cantidad >= 100) return 0.20;
     if (cantidad >= 50) return 0.15;
@@ -468,7 +494,9 @@ double calcular_precio_final(double precio_base,
 
     return total_con_impuesto + envio;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Beneficios:**
 
@@ -483,7 +511,8 @@ double calcular_precio_final(double precio_base,
 
 Construir funciones complejas componiendo funciones simples:
 
-```c
+```{code-block} c
+:linenos:
 // Funciones atómicas
 bool es_letra(char c) {
     return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
@@ -514,11 +543,14 @@ bool es_identificador_valido(const char* str) {
 
     return true;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### Extracción con Parámetros de Configuración
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     double descuento_mayorista;
     double impuesto_estandar;
@@ -539,13 +571,16 @@ double calcular_precio_con_config(double precio_base,
 
     return subtotal;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### Extracción con Callbacks
 
 Para lógica parametrizable:
 
-```c
+```{code-block} c
+:linenos:
 typedef bool (*criterio_filtro_t)(int valor);
 
 bool es_par(int valor) {
@@ -571,13 +606,16 @@ int contar_elementos_que_cumplen(const int* arr,
 // Uso
 int pares = contar_elementos_que_cumplen(arr, n, es_par);
 int positivos = contar_elementos_que_cumplen(arr, n, es_positivo);
+
 ```
+<!-- {code-block} c -->
 
 ## Antipatrones a Evitar
 
 ### 1. Sobre-Extracción
 
-```c
+```{code-block} c
+:linenos:
 // Excesivo - funciones triviales que no agregan valor
 int incrementar(int x) {
     return x + 1;
@@ -591,11 +629,14 @@ int decrementar(int x) {
 for (int i = 0; i < n; i = incrementar(i)) {
     // ...
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 2. Funciones con Demasiados Parámetros
 
-```c
+```{code-block} c
+:linenos:
 // Problemático
 void procesar(int a, int b, int c, int d, int e, int f, int g) {
     // Difícil de usar y mantener
@@ -612,11 +653,14 @@ typedef struct {
 void procesar(const parametros_procesamiento_t* params) {
     // Más claro
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 3. Funciones con Efectos Secundarios Ocultos
 
-```c
+```{code-block} c
+:linenos:
 // Problemático
 int calcular_total(int* contador_global) {
     (*contador_global)++;  // Efecto secundario oculto
@@ -627,7 +671,9 @@ int calcular_total(int* contador_global) {
 int calcular_total_puro(int contador) {
     return contador * 100;
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Guía de Decisión
 
@@ -653,7 +699,8 @@ int calcular_total_puro(int contador) {
 
 Una función bien diseñada mantiene un nivel de abstracción consistente:
 
-```c
+```{code-block} c
+:linenos:
 // Mal: mezcla niveles de abstracción
 void procesar_pedido(pedido_t* pedido) {
     // Alto nivel
@@ -676,7 +723,9 @@ void procesar_pedido(pedido_t* pedido) {
     if (!validar_items(pedido)) return;
     guardar_pedido(pedido);
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Resumen
 

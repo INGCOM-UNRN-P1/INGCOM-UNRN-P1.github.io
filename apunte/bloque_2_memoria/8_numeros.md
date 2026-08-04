@@ -114,7 +114,8 @@ vulnerabilidades graves de seguridad en ejecución.
 
 void demo_overflow_signed(void) {
     int8_t numero = 127;  // Valor máximo en 8 bits con signo
-    numero = numero + 1;  // ¡COMPORTAMIENTO INDEFINIDO! No asumas que dará -128.
+    numero = numero + 1;  // ¡COMPORTAMIENTO INDEFINIDO! No asumas que dará
+    -128.
 }
 
 :::
@@ -144,7 +145,8 @@ cast)
 <!-- {code-block}c -->
 
 Para mayor detalle de cómo el compilador convierte implícitamente estos tipos
-durante operaciones aritméticas, consultá el capítulo de {ref}`capitulo-conversiones-casts`.
+durante operaciones aritméticas, consultá el capítulo de
+{ref}`capitulo-conversiones-casts`.
 
 ### Imprecisión de Reales (IEEE 754)
 
@@ -210,6 +212,7 @@ variable tras ejecutar la instrucción `x = x + 2;` en C? Justificá tu respuest
 en base al estándar.
 
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-num-overflow-unsigned
 :class: dropdown
@@ -225,6 +228,7 @@ Por lo tanto, la variable `x` almacenará el valor `1` de manera completamente
 segura y predecible.
 
 :::
+<!-- {solution} ej-num-overflow-unsigned -->
 
 :::{exercise}
 :label: ej-num-division-truncation
@@ -238,8 +242,12 @@ int total_puntos = 15;
 int partidas = 4;
 float promedio = total_puntos / partidas;
 printf("Promedio: %.2f\n", promedio);
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-num-division-truncation
 :class: dropdown
@@ -257,8 +265,12 @@ operandos a `float` antes de operar:
 ```{code-block} c
 :linenos:
 float promedio = (float)total_puntos / partidas; // Produce 3.75f
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} ej-num-division-truncation -->
 
 :::{exercise}
 :label: ej-num-epsilon-compare
@@ -267,6 +279,7 @@ un sistema informático real? Escribí la estructura lógica condicional en C qu
 permita realizar dicha comparación de forma robusta y segura.
 
 :::
+<!-- {exercise} -->
 
 :::{solution} ej-num-epsilon-compare
 :class: dropdown
@@ -291,14 +304,19 @@ void comparar(float a, float b) {
         printf("Son equivalentes dentro del margen de error.\n");
     }
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
+<!-- {solution} ej-num-epsilon-compare -->
 
 ---
 
 ## Glosario
 
 :::{glossary}
+
 IEEE 754
 : Estándar técnico para la representación por hardware de números de punto
 flotante.
@@ -315,7 +333,9 @@ Comportamiento Indefinido (Undefined Behavior)
 : Situación descrita en el estándar de un lenguaje de programación donde no se
 especifica ninguna restricción sobre lo que el compilador y el entorno pueden
 hacer.
+
 :::
+<!-- {glossary} -->
 
 ---
 

@@ -147,15 +147,30 @@ lectura corta, debés usar `feof(stream)` y `ferror(stream)`.
 
 ### Prohibición del Volcado Directo de Estructuras
 
-En la programación profesional y académica robusta, **está estrictamente prohibido** volcar estructuras de datos directamente a un archivo en disco mediante instrucciones del tipo:
-```c
+En la programación profesional y académica robusta, **está estrictamente
+prohibido** volcar estructuras de datos directamente a un archivo en disco
+mediante instrucciones del tipo:
+``` c
 // ¡CÓDIGO NO PORTABLE E INSEGURO!
 fwrite(&mi_struct, sizeof(mi_struct), 1, fp);
 ```
-Aunque esta línea parece compacta y atractiva, presenta graves deficiencias de portabilidad física debido a:
-1. **Padding (Bytes de Relleno):** El compilador inserta bytes ocultos de relleno para alinear los campos en múltiplos de la palabra de memoria (e.g., 4 u 8 bytes). El tamaño y disposición del padding cambian según el compilador, la arquitectura (32 vs 64 bits) y los flags de optimización. Un archivo guardado de esta forma no podrá ser leído de manera consistente si cambian estas variables.
-2. **Endianness:** El orden físico de representación de tipos numéricos multibyte (`int`, `float`, `double`) cambia entre plataformas (Little-Endian vs Big-Endian).
-3. **Punteros Internos:** Si la estructura contiene punteros a datos alocados en el Heap (e.g., `char *nombre`), se escribirá la dirección de memoria virtual (un puntero numérico) a disco en lugar del contenido real de los datos. Esta dirección no tendrá validez alguna al recargar el archivo en otra ejecución del proceso.
+<!-- c -->
+Aunque esta línea parece compacta y atractiva, presenta graves deficiencias de
+portabilidad física debido a:
+1. **Padding (Bytes de Relleno):** El compilador inserta bytes ocultos de
+   relleno para alinear los campos en múltiplos de la palabra de memoria (e.g.,
+   4 u 8 bytes). El tamaño y disposición del padding cambian según el
+   compilador, la arquitectura (32 vs 64 bits) y los flags de optimización. Un
+   archivo guardado de esta forma no podrá ser leído de manera consistente si
+   cambian estas variables.
+2. **Endianness:** El orden físico de representación de tipos numéricos
+   multibyte (`int`, `float`, `double`) cambia entre plataformas (Little-Endian
+   vs Big-Endian).
+3. **Punteros Internos:** Si la estructura contiene punteros a datos alocados en
+   el Heap (e.g., `char *nombre`), se escribirá la dirección de memoria virtual
+   (un puntero numérico) a disco en lugar del contenido real de los datos. Esta
+   dirección no tendrá validez alguna al recargar el archivo en otra ejecución
+   del proceso.
 
 Para subsanar esto, es mandatorio **serializar explícitamente campo a campo**.
 
@@ -216,12 +231,14 @@ int main(void) {
     fclose(archivo_salida);
     return EXIT_SUCCESS;
 }
+
 ```
 <!-- {code-block} c -->
 
 ## Leyendo Datos Binarios (`fread`)
 
-La lectura es el espejo de la escritura. Debemos deserializar los campos en el mismo orden y con los mismos tamaños en que fueron escritos.
+La lectura es el espejo de la escritura. Debemos deserializar los campos en el
+mismo orden y con los mismos tamaños en que fueron escritos.
 
 ```{code-block} c
 :linenos:
@@ -283,16 +300,22 @@ int main(void) {
     fclose(archivo_entrada);
     return EXIT_SUCCESS;
 }
+
 ```
 <!-- {code-block} c -->
 
 ## Posicionamiento: El Poder de `fseek` en Modo Binario
 
-En archivos binarios serializados de manera estricta, cada registro guardado posee un tamaño físico exacto en disco (la suma de los tamaños de sus campos individuales), libre de padding del compilador. Para la estructura `Producto`, el tamaño de un registro guardado es:
+En archivos binarios serializados de manera estricta, cada registro guardado
+posee un tamaño físico exacto en disco (la suma de los tamaños de sus campos
+individuales), libre de padding del compilador. Para la estructura `Producto`,
+el tamaño de un registro guardado es:
 
 $$\text{Tamaño Lógico} = 20 \times \text{sizeof(char)} + 50 \times \text{sizeof(char)} + \text{sizeof(int)} + \text{sizeof(float)}$$
 
-Esto permite calcular con precisión matemática la posición física del registro $N$ mediante un offset constante, posibilitando el acceso directo a cualquier registro en disco sin necesidad de recorrer secuencialmente los anteriores.
+Esto permite calcular con precisión matemática la posición física del registro
+$N$ mediante un offset constante, posibilitando el acceso directo a cualquier
+registro en disco sin necesidad de recorrer secuencialmente los anteriores.
 
 ```{code-block} c
 :linenos:
@@ -367,6 +390,7 @@ int main(void) {
     fclose(archivo);
     return EXIT_SUCCESS;
 }
+
 ```
 <!-- {code-block} c -->
 

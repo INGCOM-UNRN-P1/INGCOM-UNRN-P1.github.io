@@ -2040,7 +2040,9 @@ Dangling Pointer (Puntero colgante)
 
 Double Free (Doble liberación)
 : Intento de liberar la misma dirección de memoria más de una vez.
+
 :::
+<!-- {glossary} -->
 
 ## Síntesis y Resumen
 

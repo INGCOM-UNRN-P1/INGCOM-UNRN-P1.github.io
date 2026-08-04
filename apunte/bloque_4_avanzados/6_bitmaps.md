@@ -165,14 +165,26 @@ Los datos de los píxeles se escriben en el archivo de una manera muy específic
     izquierda a derecha.
 3.  **Orden de Colores:** Cada píxel se almacena en formato **BGR** (Azul,
     Verde, Rojo), no en el más común RGB.
-4.  **Relleno (Padding):** Debido a restricciones de alineación del hardware histórico y optimización de los accesos a memoria, el formato BMP especifica que cada fila de píxeles en el archivo debe ocupar un número de bytes que sea múltiplo de 4. 
-    Dado que cada píxel en modo de 24 bits ocupa exactamente 3 bytes (Azul, Verde, Rojo), el tamaño neto de una fila es $\text{ancho} \times 3$ bytes. Si este valor no es múltiplo de 4, se deben inyectar entre 1 y 3 bytes de relleno (*padding*) con valor cero al final de la fila antes de comenzar a escribir la fila siguiente.
+4.  **Relleno (Padding):** Debido a restricciones de alineación del hardware
+    histórico y optimización de los accesos a memoria, el formato BMP especifica
+    que cada fila de píxeles en el archivo debe ocupar un número de bytes que
+    sea múltiplo de 4.
+    Dado que cada píxel en modo de 24 bits ocupa exactamente 3 bytes (Azul,
+    Verde, Rojo), el tamaño neto de una fila es $\text{ancho} \times 3$ bytes.
+    Si este valor no es múltiplo de 4, se deben inyectar entre 1 y 3 bytes de
+    relleno (*padding*) con valor cero al final de la fila antes de comenzar a
+    escribir la fila siguiente.
     
-    La fórmula matemática física para calcular dinámicamente este padding para cada fila del bitmap es:
+    La fórmula matemática física para calcular dinámicamente este padding para
+    cada fila del bitmap es:
     
     $$\text{padding} = (4 - (\text{ancho} \times 3) \bmod 4) \bmod 4$$
     
-    Al leer un archivo BMP, es fundamental calcular dinámicamente este padding y omitir esos bytes de relleno (por ejemplo, usando `fseek` o leyendo bytes vacíos) al final de cada fila para no corromper la lectura del primer píxel de la fila superior. Al escribir, se debe calcular y rellenar con ceros para cumplir con la especificación.
+    Al leer un archivo BMP, es fundamental calcular dinámicamente este padding y
+    omitir esos bytes de relleno (por ejemplo, usando `fseek` o leyendo bytes
+    vacíos) al final de cada fila para no corromper la lectura del primer píxel
+    de la fila superior. Al escribir, se debe calcular y rellenar con ceros para
+    cumplir con la especificación.
 
 ### Código de Ejemplo
 

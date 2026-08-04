@@ -822,6 +822,7 @@ Cuando el usuario provee la memoria (por ejemplo, una variable en el stack), se
 utiliza un par de funciones de inicialización y finalización.
 
 ```{code-block} c
+:linenos:
 typedef struct buffer {
     char datos[1024];
     size_t usado;
@@ -932,6 +933,7 @@ archivo_abrir("datos.txt", 1);
 <!-- {code-block} c -->
 
 ```{code-block} c
+:linenos:
 // BUENO: Usar constantes o enumerados
 typedef enum {
     ARCHIVO_LECTURA = 0,
@@ -1013,6 +1015,7 @@ hay múltiples parámetros booleanos consecutivos, ya que es fácil confundir su
 orden.
 
 ```{code-block} c
+:linenos:
 // BUENO: Usar enums con nombres descriptivos
 typedef enum { VENTANA_OCULTA, VENTANA_VISIBLE } ventana_visibilidad_t;
 typedef enum { VENTANA_NO_MODAL, VENTANA_MODAL } ventana_modalidad_t;
@@ -1036,6 +1039,7 @@ argumentos.
 ### Antipatrón 4: Abuso de Parámetros de Salida
 
 ```{code-block} c
+:linenos:
 // MALO: Demasiados parámetros de salida
 void parsear_fecha(const char *cadena, int *dia, int *mes, int *anio, bool *valida);
 
@@ -1048,6 +1052,7 @@ parsear_fecha("2024-03-15", &d, &m, &a, &ok);
 <!-- {code-block} c -->
 
 ```{code-block} c
+:linenos:
 // BUENO: Retornar una estructura
 typedef struct {
     int dia;

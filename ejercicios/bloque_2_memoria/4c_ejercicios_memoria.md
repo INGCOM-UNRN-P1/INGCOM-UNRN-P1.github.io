@@ -1097,8 +1097,11 @@ for (int i = 0; i < rows; i++)
 La segunda versión puede ser 10-50 veces más rápida para matrices grandes,
 simplemente porque usa mejor el caché.
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
+
 :::
 <!-- {note} Optimización -->
 

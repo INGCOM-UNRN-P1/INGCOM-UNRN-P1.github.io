@@ -10,15 +10,23 @@ subtitle: Reglas de estilo para el diseño y documentación de funciones en C
 (0x2001h)=
 ## Regla `0x2001h`: Las funciones deben usar cláusulas de guarda y retornos anticipados para evitar la anidación profunda
 
-Se admite el uso de retornos anticipados (`early returns`) al inicio de la función en forma de cláusulas de guarda (`guard clauses`) para validar parámetros o comprobar condiciones de error iniciales inmediatas. Esto previene la anidación profunda de bloques `if` (código en flecha) y mejora la comprensión visual del camino feliz del algoritmo.
+Se admite el uso de retornos anticipados (`early returns`) al inicio de la
+función en forma de cláusulas de guarda (`guard clauses`) para validar
+parámetros o comprobar condiciones de error iniciales inmediatas. Esto previene
+la anidación profunda de bloques `if` (código en flecha) y mejora la comprensión
+visual del camino feliz del algoritmo.
 
-Sin embargo, en funciones más complejas donde se asignen recursos locales (memoria dinámica, archivos abiertos, sockets), se prefiere centralizar la limpieza al final de la función para evitar fugas de recursos por puntos de salida prematuros alternativos.
+Sin embargo, en funciones más complejas donde se asignen recursos locales
+(memoria dinámica, archivos abiertos, sockets), se prefiere centralizar la
+limpieza al final de la función para evitar fugas de recursos por puntos de
+salida prematuros alternativos.
 
 - **Incorrecto:**
 
 Anidación profunda por único retorno estricto.
 
-```c
+```{code-block} c
+:linenos:
 int procesar_sensor(sensor_t *s)
 {
     int resultado = -1;
@@ -34,13 +42,16 @@ int procesar_sensor(sensor_t *s)
     }
     return resultado;
 }
+
 ```
+<!-- {code-block} c -->
 
 - **Correcto:**
 
 Cláusulas de guarda didácticas para salida rápida
 
-```c
+```{code-block} c
+:linenos:
 int procesar_sensor(sensor_t *s)
 {
     if (s == NULL || s->activo == false)
@@ -53,10 +64,13 @@ int procesar_sensor(sensor_t *s)
     }
     return s->lectura * 2;
 }
+
 ```
+<!-- {code-block} c -->
 
 - **Correcto (gestión de recursos compleja centralizada al final):**
-```c
+```{code-block} c
+:linenos:
 int procesar_archivo_con_un_retorno(const char *nombre_archivo)
 {
     int valor_retorno = 0;
@@ -87,12 +101,17 @@ int procesar_archivo_con_un_retorno(const char *nombre_archivo)
     fclose(archivo);
     return valor_retorno;
 }
+
 ```
+<!-- {code-block} c -->
 
 (0x2002h)=
 ## Regla `0x2002h`: Las funciones no deben contener `printf` o `scanf`, a menos que ese sea su propósito explícito
 
-Las funciones deben desacoplarse de las operaciones de entrada y salida (I/O) para maximizar su reutilización y facilitar las pruebas unitarias. Si el propósito de una función no es realizar I/O, dichas llamadas deben ser delegadas a otras funciones especializadas del llamador.
+Las funciones deben desacoplarse de las operaciones de entrada y salida (I/O)
+para maximizar su reutilización y facilitar las pruebas unitarias. Si el
+propósito de una función no es realizar I/O, dichas llamadas deben ser delegadas
+a otras funciones especializadas del llamador.
 
 - **Incorrecto:**
   ```c
@@ -111,9 +130,12 @@ Las funciones deben desacoplarse de las operaciones de entrada y salida (I/O) pa
 (0x2003h)=
 ## Regla `0x2003h`: Todas las funciones deben incluir documentación completa y estructurada
 
-Una documentación adecuada define la especificación conceptual y formal del comportamiento de la función mediante etiquetas como `@param`, `@pre`, `@returns`, `@post`, e invariantes mediante `@invariant`.
+Una documentación adecuada define la especificación conceptual y formal del
+comportamiento de la función mediante etiquetas como `@param`, `@pre`,
+`@returns`, `@post`, e invariantes mediante `@invariant`.
 
-```c
+```{code-block} c
+:linenos:
 /**
  * Computa la suma de dos números enteros mediante incrementos sucesivos.
  *
@@ -127,12 +149,16 @@ Una documentación adecuada define la especificación conceptual y formal del co
  * @post El valor retornado es equivalente a 'sumando + sumador'.
  */
 int suma_lenta(int sumando, int sumador);
+
 ```
+<!-- {code-block} c -->
 
 (0x2004h)=
 ## Regla `0x2004h`: No se permite el uso de variables globales
 
-Las variables globales pueden ser modificadas desde cualquier parte del programa, lo que causa efectos secundarios impredecibles y dificulta el rastreo de errores. **Su uso está estrictamente prohibido**.
+Las variables globales pueden ser modificadas desde cualquier parte del
+programa, lo que causa efectos secundarios impredecibles y dificulta el rastreo
+de errores. **Su uso está estrictamente prohibido**.
 
 - **Incorrecto:**
   ```c
@@ -151,7 +177,9 @@ Las variables globales pueden ser modificadas desde cualquier parte del programa
 (0x2005h)=
 ## Regla `0x2005h`: Cada función debe tener una única responsabilidad (Principio de Responsabilidad Única)
 
-Cada función debe encargarse de una sola tarea. Esto mejora la legibilidad, la reutilización y el mantenimiento del código. Las funciones pequeñas y especializadas son más fáciles de probar y depurar.
+Cada función debe encargarse de una sola tarea. Esto mejora la legibilidad, la
+reutilización y el mantenimiento del código. Las funciones pequeñas y
+especializadas son más fáciles de probar y depurar.
 
 - **Incorrecto:**
   ```c
@@ -193,7 +221,9 @@ Cada función debe encargarse de una sola tarea. Esto mejora la legibilidad, la 
 (0x2006h)=
 ## Regla `0x2006h`: Una aserción por cada función de prueba
 
-Podés lograr esto creando una función de prueba parametrizada que reciba los argumentos y el resultado esperado, o bien dedicando una función de prueba para cada caso específico de aserción.
+Podés lograr esto creando una función de prueba parametrizada que reciba los
+argumentos y el resultado esperado, o bien dedicando una función de prueba para
+cada caso específico de aserción.
 
 - **Incorrecto:**
   ```c
@@ -215,7 +245,8 @@ Podés lograr esto creando una función de prueba parametrizada que reciba los a
 (0x2007h)=
 ## Regla `0x2007h`: Mantené el alcance de las variables al mínimo posible
 
-Declarar las variables con el alcance más restringido posible ayuda a reducir errores y mejora la claridad de la vida útil de cada dato.
+Declarar las variables con el alcance más restringido posible ayuda a reducir
+errores y mejora la claridad de la vida útil de cada dato.
 
 - **Incorrecto:**
   ```c
@@ -236,17 +267,20 @@ Declarar las variables con el alcance más restringido posible ayuda a reducir e
 (0x2008h)=
 ## Regla `0x2008h`: Los valores de retorno numéricos deben definirse como constantes de preprocesador o `enum`s
 
-El uso de nombres descriptivos para los valores de retorno numéricos facilita la comprensión de su significado semántico.
+El uso de nombres descriptivos para los valores de retorno numéricos facilita la
+comprensión de su significado semántico.
 
-```diff
+``` diff
 -return -1;
 +return ERROR_APERTURA_ARCHIVO;
 ```
+<!-- diff -->
 
 (0x2009h)=
 ## Regla `0x2009h`: Los ejercicios deben ser resueltos mediante funciones
 
-Esta práctica fomenta la modularización, facilita las pruebas unitarias y promueve la reutilización de código.
+Esta práctica fomenta la modularización, facilita las pruebas unitarias y
+promueve la reutilización de código.
 
 - **Incorrecto:**
   ```c
@@ -273,7 +307,8 @@ Esta práctica fomenta la modularización, facilita las pruebas unitarias y prom
 (0x200Ah)=
 ## Regla `0x200Ah`: Los nombres de funciones y procedimientos deben usar `snake_case` en minúsculas
 
-Mejora la consistencia y legibilidad, distinguiendo funciones de tipos y constantes.
+Mejora la consistencia y legibilidad, distinguiendo funciones de tipos y
+constantes.
 
 - **Incorrecto:**
   ```c

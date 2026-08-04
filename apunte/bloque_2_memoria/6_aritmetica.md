@@ -18,7 +18,8 @@ description: 'Indirecciones múltiples, punteros a arrays, aritmética pura y ma
 
 
 Este apunte explora conceptos avanzados de memoria dinámica en C, construyendo
-sobre las bases presentadas en {ref}`capitulo-modelo-memoria` y {ref}`capitulo-punteros`. Aquí
+sobre las bases presentadas en {ref}`capitulo-modelo-memoria` y
+{ref}`capitulo-punteros`. Aquí
 profundizamos en el manejo de {ref}`capitulo-estructuras` que
 contienen punteros, problemas comunes de gestión de memoria, y técnicas para
 trabajar con matrices dinámicas.
@@ -117,7 +118,8 @@ nuevo->edad = edad;
 #### Operador Flecha (`->`)
 
 El operador `->` es un **atajo sintáctico** para acceder a miembros de una
-estructura a través de un puntero. Como se explica en {ref}`capitulo-punteros`, este operador combina la desreferencia y el acceso a
+estructura a través de un puntero. Como se explica en {ref}`capitulo-punteros`,
+este operador combina la desreferencia y el acceso a
 miembro en una sola operación.
 
 **Equivalencia:**
@@ -1939,6 +1941,7 @@ int obtener_celda(const int *matriz, int columnas, int f, int c) {
 ## Glosario
 
 :::{glossary}
+
 Aritmética de Punteros
 : Operaciones matemáticas realizadas sobre direcciones de memoria.
 
@@ -1949,8 +1952,11 @@ Matriz Dinámica
 : Arreglo bidimensional asignado en tiempo de ejecución en el heap.
 
 VLA (Arreglo de Largo Variable)
-: Arreglo cuyo tamaño se determina en tiempo de ejecución en el stack (no recomendado).
+: Arreglo cuyo tamaño se determina en tiempo de ejecución en el stack (no
+recomendado).
+
 :::
+<!-- {glossary} -->
 
 ## Síntesis y Resumen
 

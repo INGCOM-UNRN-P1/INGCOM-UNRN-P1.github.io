@@ -156,9 +156,14 @@ operacion_t operacion_actual = OPERACION_SUMA;
 
 ### 4. Representación Interna, Promoción Entera y Switch Defensivo
 
-Desde el punto de vista de la arquitectura subyacente, **los tipos enumerativos en C no constituyen un sistema de tipos fuertes**. El estándar de C establece que los miembros de un `enum` son constantes de tipo `int`. Por lo tanto, el compilador realiza una promoción entera automática y permite la coerción implícita sin generar advertencias (*warnings*):
+Desde el punto de vista de la arquitectura subyacente, **los tipos enumerativos
+en C no constituyen un sistema de tipos fuertes**. El estándar de C establece
+que los miembros de un `enum` son constantes de tipo `int`. Por lo tanto, el
+compilador realiza una promoción entera automática y permite la coerción
+implícita sin generar advertencias (*warnings*):
 
-```c
+```{code-block} c
+:linenos:
 typedef enum {
     MODO_LECTURA,
     MODO_ESCRITURA
@@ -167,9 +172,13 @@ typedef enum {
 modo_t modo = MODO_LECTURA;
 modo = 100; // Compila sin advertencias, a pesar de que 100 no está en la enumeración
 int valor_entero = MODO_ESCRITURA; // Promoción implícita: valor_entero = 1
-```
 
-Este comportamiento expone al sistema a fallos si un dato externo (leído de un archivo, sensor o red) es mapeado directamente a un enum sin validar su rango físico. Por ello, es mandatorio aplicar programación defensiva.
+```
+<!-- {code-block} c -->
+
+Este comportamiento expone al sistema a fallos si un dato externo (leído de un
+archivo, sensor o red) es mapeado directamente a un enum sin validar su rango
+físico. Por ello, es mandatorio aplicar programación defensiva.
 
 #### Patrón de Validación Centinela
 Podés agregar una constante centinela (típicamente al final) para validar que un

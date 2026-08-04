@@ -1242,11 +1242,16 @@ git commit --amend         # corregir último commit
 
 ## 🐙 GitHub y Colaboración
 
-Una vez dominados los fundamentos locales de Git, el siguiente paso es conectar tu trabajo con plataformas de alojamiento remoto para colaborar con otros desarrolladores y realizar las entregas de la cátedra.
+Una vez dominados los fundamentos locales de Git, el siguiente paso es conectar
+tu trabajo con plataformas de alojamiento remoto para colaborar con otros
+desarrolladores y realizar las entregas de la cátedra.
 
-En esta materia hacemos uso intensivo de **GitHub** y de la herramienta oficial de terminal **GitHub CLI (`gh`)**.
+En esta materia hacemos uso intensivo de **GitHub** y de la herramienta oficial
+de terminal **GitHub CLI (`gh`)**.
 
-Para profundizar en la configuración de cuentas, autenticación por SSH/PAT, flujos de trabajo con Pull Requests y el uso de la línea de comandos de GitHub, consultá nuestra guía especializada:
+Para profundizar en la configuración de cuentas, autenticación por SSH/PAT,
+flujos de trabajo con Pull Requests y el uso de la línea de comandos de GitHub,
+consultá nuestra guía especializada:
 
 👉 **[Uso de GitHub en la Cátedra](github.md)**
 
@@ -1255,21 +1260,33 @@ Para profundizar en la configuración de cuentas, autenticación por SSH/PAT, fl
 
 ## Epílogo
 
-Git puede parecer de entrada intimidante, pero con la práctica se convertirá en una herramienta indispensable en tu día a día. Los comandos esenciales vistos en esta guía cubren el 90% de los escenarios del desarrollo cotidiano. Dominando el flujo de trabajo básico y el manejo de repositorios remotos, disponés de una base sólida para colaborar profesionalmente.
+Git puede parecer de entrada intimidante, pero con la práctica se convertirá en
+una herramienta indispensable en tu día a día. Los comandos esenciales vistos en
+esta guía cubren el 90% de los escenarios del desarrollo cotidiano. Dominando el
+flujo de trabajo básico y el manejo de repositorios remotos, disponés de una
+base sólida para colaborar profesionalmente.
 
 :::{tip} Práctica constante
-La mejor forma de aprender Git es usándolo en proyectos reales. Empezá con proyectos pequeños e individuales para ganar confianza antes de sumarte a desarrollos colaborativos de gran envergadura.
+
+La mejor forma de aprender Git es usándolo en proyectos reales. Empezá con
+proyectos pequeños e individuales para ganar confianza antes de sumarte a
+desarrollos colaborativos de gran envergadura.
+
 :::
+<!-- {tip} Práctica constante -->
 
-¡Felicitaciones! Ya contás con el conocimiento necesario para utilizar Git de forma efectiva en tu trabajo diario.
+¡Felicitaciones! Ya contás con el conocimiento necesario para utilizar Git de
+forma efectiva en tu trabajo diario.
 
-```bash
+``` bash
 $ git log --oneline
 a1b2c3d (HEAD -> main) docs: completar guía de Git para principiantes
 4d5e6f7 feat: agregar conceptos fundamentales y flujo básico
 8g9h0i1 init: crear estructura inicial de la guía
 ```
+<!-- bash -->
 
 ---
 
-_"El control de versiones no es solo sobre código, es sobre la evolución de las ideas."_
+_"El control de versiones no es solo sobre código, es sobre la evolución de las
+ideas."_

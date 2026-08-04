@@ -72,26 +72,38 @@ método de autenticación.
 
 ### Opción A: Autenticación por Github CLI (recomendada)
 
-Esta opción es la más sencilla y recomendada, ya que la herramienta oficial de GitHub se encarga de automatizar todo el proceso, incluyendo la generación y registro de claves criptográficas si no contás con ellas.
+Esta opción es la más sencilla y recomendada, ya que la herramienta oficial de
+GitHub se encarga de automatizar todo el proceso, incluyendo la generación y
+registro de claves criptográficas si no contás con ellas.
 
-1.  **Instalar GitHub CLI**: Si aún no lo tenés en tu sistema, seguí las instrucciones de la sección de {ref}`instalacion-github-cli`.
+1.  **Instalar GitHub CLI**: Si aún no lo tenés en tu sistema, seguí las
+    instrucciones de la sección de {ref}`instalacion-github-cli`.
 2.  **Iniciar el proceso de autenticación** ejecutando en tu terminal:
     ```bash
     gh auth login
     ```
 3.  **Seguir el flujo interactivo en la terminal**:
     *   **What account do you want to log into?** Seleccioná `GitHub.com`.
-    *   **What is your preferred protocol for Git operations?** Elegí `SSH` (recomendado) o `HTTPS`.
+    *   **What is your preferred protocol for Git operations?** Elegí `SSH`
+        (recomendado) o `HTTPS`.
     *   *Si seleccionaste SSH*:
-        *   **Generate a new SSH key to upload to your GitHub account?** Seleccioná `Yes` (si no tenés una clave previa) o elegí una existente de la lista para subirla automáticamente.
-        *   **Enter a passphrase for your new SSH key (optional)**: Presioná Enter para dejarla sin contraseña o ingresá una de tu preferencia.
-        *   **Title for your SSH key**: Ingresá un título descriptivo (ej. `Notebook UNRN`).
-    *   **How would you like to authenticate GitHub CLI?** Seleccioná `Login with a web browser`.
+        *   **Generate a new SSH key to upload to your GitHub account?**
+            Seleccioná `Yes` (si no tenés una clave previa) o elegí una
+            existente de la lista para subirla automáticamente.
+        *   **Enter a passphrase for your new SSH key (optional)**: Presioná
+            Enter para dejarla sin contraseña o ingresá una de tu preferencia.
+        *   **Title for your SSH key**: Ingresá un título descriptivo (ej.
+            `Notebook UNRN`).
+    *   **How would you like to authenticate GitHub CLI?** Seleccioná `Login
+        with a web browser`.
 4.  **Completar la autenticación en el navegador**:
-    *   La terminal te mostrará un código único de 8 caracteres (ej: `WDAS-12A4`) y te pedirá presionar Enter para abrir tu navegador web.
-    *   Pegá el código en la página de GitHub que se abrirá automáticamente e iniciá sesión con tus credenciales.
+    *   La terminal te mostrará un código único de 8 caracteres (ej:
+        `WDAS-12A4`) y te pedirá presionar Enter para abrir tu navegador web.
+    *   Pegá el código en la página de GitHub que se abrirá automáticamente e
+        iniciá sesión con tus credenciales.
 5.  **Verificar el estado**:
-    Una vez autorizado, regresá a la terminal y verificá que la conexión es correcta con:
+    Una vez autorizado, regresá a la terminal y verificá que la conexión es
+    correcta con:
     ```bash
     gh auth status
     ```
@@ -316,21 +328,30 @@ Para reportar un error del apunte:
 (github-intro)=
 ## 8. GitHub CLI (`gh`)
 
-GitHub CLI (`gh`) es la herramienta oficial de línea de comandos que te permite interactuar directamente con GitHub desde tu terminal local. Esto acelera significativamente el flujo de trabajo al evitar tener que abrir el navegador web para realizar tareas administrativas comunes.
+GitHub CLI (`gh`) es la herramienta oficial de línea de comandos que te permite
+interactuar directamente con GitHub desde tu terminal local. Esto acelera
+significativamente el flujo de trabajo al evitar tener que abrir el navegador
+web para realizar tareas administrativas comunes.
 
 ### Explorando repositorios en GitHub
 
-Antes de pasar a la terminal, recordá que la interfaz web de GitHub ofrece pestañas esenciales como:
+Antes de pasar a la terminal, recordá que la interfaz web de GitHub ofrece
+pestañas esenciales como:
 - **Code**: Para navegar archivos, directorios y ver el historial de commits.
 - **Issues**: Para reportar bugs o gestionar tareas pendientes.
 - **Pull Requests**: Para revisar, discutir y fusionar contribuciones.
-- **Actions**: Para monitorear el estado de los flujos de integración continua (CI/CD).
-- **Settings**: Para administrar la configuración del repositorio, colaboradores y claves de acceso.
+- **Actions**: Para monitorear el estado de los flujos de integración continua
+  (CI/CD).
+- **Settings**: Para administrar la configuración del repositorio, colaboradores
+  y claves de acceso.
 
 (github-cli-intro)=
 ### ¿Qué es GitHub CLI?
 
-`gh` te permite realizar casi cualquier acción que harías en la interfaz web de GitHub, pero directamente desde la terminal, como clonar repositorios de la cátedra, crear pull requests, listar issues o verificar el estado de tus entregas.
+`gh` te permite realizar casi cualquier acción que harías en la interfaz web de
+GitHub, pero directamente desde la terminal, como clonar repositorios de la
+cátedra, crear pull requests, listar issues o verificar el estado de tus
+entregas.
 
 
 

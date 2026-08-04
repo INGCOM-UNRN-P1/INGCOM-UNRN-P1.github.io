@@ -6,19 +6,30 @@ subtitle: "Técnicas para clarificar y simplificar lógica condicional compleja"
 
 ## Introducción
 
-Los condicionales son una parte fundamental de la programación, pero también son una fuente común de complejidad y errores. Un código con lógica condicional compleja es difícil de leer, mantener y testear. La refactorización de condicionales busca hacer la lógica más clara, expresiva y mantenible.
+Los condicionales son una parte fundamental de la programación, pero también son
+una fuente común de complejidad y errores. Un código con lógica condicional
+compleja es difícil de leer, mantener y testear. La refactorización de
+condicionales busca hacer la lógica más clara, expresiva y mantenible.
 
-Este apunte presenta técnicas sistemáticas para simplificar expresiones booleanas, reducir anidamiento, y hacer que las condiciones sean auto-explicativas.
+Este apunte presenta técnicas sistemáticas para simplificar expresiones
+booleanas, reducir anidamiento, y hacer que las condiciones sean
+auto-explicativas.
 
 :::{important} Claridad en las Condiciones
-Como establece {ref}`0x0000h`, la claridad es fundamental. Una condición debe ser inmediatamente comprensible para cualquier lector, revelando su intención sin necesidad de análisis mental elaborado.
+
+Como establece {ref}`0x0000h`, la claridad es fundamental. Una condición debe
+ser inmediatamente comprensible para cualquier lector, revelando su intención
+sin necesidad de análisis mental elaborado.
+
 :::
+<!-- {important} Claridad en las Condiciones -->
 
 ## Problemas Comunes con Condicionales
 
 ### 1. Anidamiento Excesivo
 
-```c
+```{code-block} c
+:linenos:
 // Problemático: pirámide de la perdición
 if (usuario != NULL) {
     if (usuario->activo) {
@@ -37,11 +48,14 @@ if (usuario != NULL) {
 } else {
     printf("Usuario inválido\n");
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 2. Condiciones Complejas
 
-```c
+```{code-block} c
+:linenos:
 // Difícil de entender de un vistazo
 if ((estado == ACTIVO || estado == PENDIENTE) && 
     (tipo != TEMPORAL && tipo != PRUEBA) &&
@@ -50,11 +64,14 @@ if ((estado == ACTIVO || estado == PENDIENTE) &&
 {
     // ...
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 3. Lógica Duplicada
 
-```c
+```{code-block} c
+:linenos:
 if (edad >= 18 && edad <= 65 && !jubilado) {
     precio = PRECIO_ADULTO;
 }
@@ -63,11 +80,14 @@ if (edad >= 18 && edad <= 65 && !jubilado) {
 if (edad >= 18 && edad <= 65 && !jubilado) {
     aplicar_descuento();
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 4. Booleanos Implícitos
 
-```c
+```{code-block} c
+:linenos:
 // Redundante
 if (es_valido() == true) {
     // ...
@@ -78,17 +98,21 @@ if (contador > 0) {
 } else {
     return false;
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Técnicas de Refactorización
 
 ### 1. Guardia de Cláusulas (Guard Clauses)
 
-Invertir condiciones para manejar casos especiales temprano y reducir anidamiento.
+Invertir condiciones para manejar casos especiales temprano y reducir
+anidamiento.
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 void procesar_pedido(pedido_t* pedido) {
     if (pedido != NULL) {
         if (pedido->items_count > 0) {
@@ -111,11 +135,14 @@ void procesar_pedido(pedido_t* pedido) {
         printf("Pedido nulo\n");
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 void procesar_pedido(pedido_t* pedido) {
     // Guardia de cláusulas - validaciones tempranas
     if (pedido == NULL) {
@@ -143,29 +170,34 @@ void procesar_pedido(pedido_t* pedido) {
     actualizar_inventario(pedido);
     enviar_confirmacion(pedido);
 }
+
 ```
+<!-- {code-block} c -->
 
 **Beneficios:**
 - Código más plano y fácil de leer
 - Casos de error manejados temprano
 - Lógica principal clara y sin anidamiento
-- Siguiendo el patrón de {ref}`único retorno <ref-unico-retorno>`, podríamos usar `goto` para cleanup centralizado
+- Siguiendo el patrón de {ref}`único retorno <ref-unico-retorno>`, podríamos
+  usar `goto` para cleanup centralizado
 
 ### 2. Extracción de Condiciones a Variables Booleanas
 
 **Antes:**
 
-```c
+``` c
 if (usuario->edad >= 18 && usuario->edad <= 65 && 
     !usuario->jubilado && usuario->activo &&
     (usuario->tipo == REGULAR || usuario->tipo == PREMIUM)) {
     aplicar_beneficio(usuario);
 }
 ```
+<!-- c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 bool es_adulto_en_edad_laboral = usuario->edad >= 18 && 
                                   usuario->edad <= 65 && 
                                   !usuario->jubilado;
@@ -177,7 +209,9 @@ bool es_usuario_activo_valido = usuario->activo &&
 if (es_adulto_en_edad_laboral && es_usuario_activo_valido) {
     aplicar_beneficio(usuario);
 }
+
 ```
+<!-- {code-block} c -->
 
 **Beneficios:**
 - Condiciones autodocumentadas
@@ -190,7 +224,8 @@ Para lógica compleja o reutilizable:
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 void procesar_descuento(cliente_t* cliente, double total) {
     if ((cliente->compras_totales > 10000 && cliente->antiguedad > 365) ||
         (cliente->referidos >= 5) ||
@@ -198,11 +233,14 @@ void procesar_descuento(cliente_t* cliente, double total) {
         aplicar_descuento_premium(total);
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 bool es_cliente_fiel(const cliente_t* cliente) {
     return cliente->compras_totales > 10000 && 
            cliente->antiguedad > 365;
@@ -227,7 +265,9 @@ void procesar_descuento(cliente_t* cliente, double total) {
         aplicar_descuento_premium(total);
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 **Beneficios:**
 - Nombres descriptivos documentan la lógica de negocio
@@ -239,7 +279,8 @@ void procesar_descuento(cliente_t* cliente, double total) {
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 bool es_valido(int valor) {
     if (valor > 0 && valor < 100) {
         return true;
@@ -256,11 +297,14 @@ if (esta_activo() == true) {
 if (contador > 0 == false) {
     // ...
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 bool es_valido(int valor) {
     return valor > 0 && valor < 100;
 }
@@ -277,7 +321,9 @@ if (!esta_activo()) {
 if (contador == 0) {
     // ...
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 5. Reemplazo de Condicionales con Polimorfismo (simulado en C)
 
@@ -285,7 +331,8 @@ Para casos donde múltiples `if-else` determinan comportamiento:
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 double calcular_area(figura_t* figura) {
     if (figura->tipo == CIRCULO) {
         return PI * figura->datos.circulo.radio * 
@@ -299,11 +346,14 @@ double calcular_area(figura_t* figura) {
     }
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después (con punteros a función):**
 
-```c
+```{code-block} c
+:linenos:
 typedef double (*calcular_area_fn)(const void* datos);
 
 typedef struct {
@@ -330,7 +380,9 @@ double calcular_area_triangulo(const void* datos) {
 double calcular_area(const figura_t* figura) {
     return figura->calcular_area(figura->datos);
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 6. Tabla de Decisión
 
@@ -338,7 +390,8 @@ Para lógica compleja con múltiples combinaciones:
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 char* obtener_categoria(int edad, bool estudiante, bool empleado) {
     if (edad < 18 && estudiante) {
         return "ESTUDIANTE_MENOR";
@@ -356,11 +409,14 @@ char* obtener_categoria(int edad, bool estudiante, bool empleado) {
         return "JUBILADO";
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después (con tabla):**
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     bool (*condicion)(int edad, bool estudiante, bool empleado);
     const char* categoria;
@@ -414,7 +470,9 @@ const char* obtener_categoria(int edad, bool estudiante, bool empleado) {
     }
     return "DESCONOCIDO";
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 7. Uso de `switch` en lugar de `if-else` en cadena
 
@@ -422,7 +480,8 @@ Para comparaciones de igualdad con un valor:
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 void procesar_comando(char comando) {
     if (comando == 'A') {
         avanzar();
@@ -438,11 +497,14 @@ void procesar_comando(char comando) {
         printf("Comando inválido\n");
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 void procesar_comando(char comando) {
     switch (comando) {
         case 'A':
@@ -465,7 +527,9 @@ void procesar_comando(char comando) {
             break;
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Casos Prácticos Completos
 
@@ -473,7 +537,8 @@ void procesar_comando(char comando) {
 
 **Código Original:**
 
-```c
+```{code-block} c
+:linenos:
 bool validar_formulario(const char* nombre, 
                          const char* email,
                          const char* telefono,
@@ -517,11 +582,14 @@ bool validar_formulario(const char* nombre,
     }
     return false;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Código Refactorizado:**
 
-```c
+```{code-block} c
+:linenos:
 bool validar_nombre(const char* nombre) {
     if (nombre == NULL) {
         printf("Nombre nulo\n");
@@ -592,13 +660,16 @@ bool validar_formulario(const char* nombre,
            validar_telefono(telefono) &&
            validar_edad(edad);
 }
+
 ```
+<!-- {code-block} c -->
 
 ### Caso 2: Cálculo de Descuento Complejo
 
 **Código Original:**
 
-```c
+```{code-block} c
+:linenos:
 double calcular_descuento(double monto, 
                            int cantidad,
                            bool es_miembro,
@@ -640,11 +711,14 @@ double calcular_descuento(double monto,
     
     return descuento;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Código Refactorizado:**
 
-```c
+```{code-block} c
+:linenos:
 bool es_compra_grande(double monto, int cantidad) {
     return cantidad > 10 && monto > 1000;
 }
@@ -688,7 +762,9 @@ double calcular_descuento(double monto,
     
     return es_primera_compra ? 0.10 : 0.0;
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Leyes de De Morgan
 
@@ -700,7 +776,8 @@ double calcular_descuento(double monto,
 
 **Ejemplo:**
 
-```c
+```{code-block} c
+:linenos:
 // Antes
 if (!(activo && validado)) {
     return;
@@ -710,9 +787,12 @@ if (!(activo && validado)) {
 if (!activo || !validado) {
     return;
 }
-```
 
-```c
+```
+<!-- {code-block} c -->
+
+```{code-block} c
+:linenos:
 // Antes
 if (!(edad < 18 || edad > 65)) {
     aplicar_tarifa_regular();
@@ -722,18 +802,23 @@ if (!(edad < 18 || edad > 65)) {
 if (edad >= 18 && edad <= 65) {
     aplicar_tarifa_regular();
 }
+
 ```
+<!-- {code-block} c -->
 
 (ref-unico-retorno)=
 ## Combinación con el Patrón de Único Retorno
 
-Cuando se aplica el patrón de único retorno (ver {ref}`ref-unico-retorno`), las técnicas de simplificación de condicionales deben adaptarse para mantener un solo punto de salida.
+Cuando se aplica el patrón de único retorno (ver {ref}`ref-unico-retorno`), las
+técnicas de simplificación de condicionales deben adaptarse para mantener un
+solo punto de salida.
 
 ### Guardia de Cláusulas con Único Retorno
 
 **Guard Clauses tradicionales (múltiples returns):**
 
-```c
+```{code-block} c
+:linenos:
 int procesar_pago(usuario_t* usuario, double monto) {
     if (usuario == NULL) {
         return ERROR_USUARIO_NULL;
@@ -751,11 +836,14 @@ int procesar_pago(usuario_t* usuario, double monto) {
     usuario->saldo -= monto;
     return EXITO;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Adaptado a único retorno:**
 
-```c
+```{code-block} c
+:linenos:
 int procesar_pago(usuario_t* usuario, double monto) {
     int resultado = ERROR_DESCONOCIDO;
     
@@ -773,15 +861,19 @@ int procesar_pago(usuario_t* usuario, double monto) {
     
     return resultado;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### Variables de Estado para Control de Flujo
 
-Cuando se combina único retorno con condicionales complejos, usar variables de estado explícitas mejora la claridad.
+Cuando se combina único retorno con condicionales complejos, usar variables de
+estado explícitas mejora la claridad.
 
 **Antes (múltiples returns):**
 
-```c
+```{code-block} c
+:linenos:
 bool validar_transaccion(transaccion_t* trans) {
     if (trans->monto <= 0) {
         return false;
@@ -801,11 +893,14 @@ bool validar_transaccion(transaccion_t* trans) {
     
     return true;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después (único retorno con variable de estado):**
 
-```c
+```{code-block} c
+:linenos:
 bool validar_transaccion(const transaccion_t* trans) {
     bool es_valida = true;
     
@@ -821,24 +916,30 @@ bool validar_transaccion(const transaccion_t* trans) {
     
     return es_valida;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### Combinando Predicados y Único Retorno
 
 **Con múltiples returns:**
 
-```c
+```{code-block} c
+:linenos:
 bool puede_realizar_compra(const usuario_t* u, double monto) {
     if (!es_usuario_valido(u)) return false;
     if (!tiene_saldo_suficiente(u, monto)) return false;
     if (!esta_dentro_limite_diario(u, monto)) return false;
     return true;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Con único retorno:**
 
-```c
+```{code-block} c
+:linenos:
 bool puede_realizar_compra(const usuario_t* u, double monto) {
     bool puede = false;
     
@@ -850,23 +951,27 @@ bool puede_realizar_compra(const usuario_t* u, double monto) {
     
     return puede;
 }
+
 ```
+<!-- {code-block} c -->
 
 **O de manera más concisa:**
 
-```c
+``` c
 bool puede_realizar_compra(const usuario_t* u, double monto) {
     return es_usuario_valido(u) &&
            tiene_saldo_suficiente(u, monto) &&
            esta_dentro_limite_diario(u, monto);
 }
 ```
+<!-- c -->
 
 ### Caso Práctico: Autenticación con Único Retorno
 
 **Antes (múltiples returns):**
 
-```c
+```{code-block} c
+:linenos:
 int autenticar(const char* usuario, const char* password) {
     if (usuario == NULL || password == NULL) {
         return AUTH_ERROR_PARAMETROS;
@@ -890,11 +995,14 @@ int autenticar(const char* usuario, const char* password) {
     u->ultimo_acceso = time(NULL);
     return AUTH_EXITO;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después (único retorno con flujo claro):**
 
-```c
+```{code-block} c
+:linenos:
 int autenticar(const char* usuario, const char* password) {
     int resultado = AUTH_ERROR_DESCONOCIDO;
     usuario_t* u = NULL;
@@ -922,15 +1030,19 @@ int autenticar(const char* usuario, const char* password) {
     
     return resultado;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### Manejo de Recursos con Único Retorno
 
-El patrón de único retorno es especialmente útil cuando se manejan recursos que deben liberarse.
+El patrón de único retorno es especialmente útil cuando se manejan recursos que
+deben liberarse.
 
 **Antes (múltiples returns, riesgo de fugas):**
 
-```c
+```{code-block} c
+:linenos:
 char* leer_archivo(const char* ruta) {
     FILE* f = fopen(ruta, "r");
     if (f == NULL) {
@@ -962,11 +1074,14 @@ char* leer_archivo(const char* ruta) {
     fclose(f);
     return buffer;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después (único retorno, liberación garantizada):**
 
-```c
+```{code-block} c
+:linenos:
 char* leer_archivo(const char* ruta) {
     char* resultado = NULL;
     FILE* f = NULL;
@@ -1003,7 +1118,9 @@ char* leer_archivo(const char* ruta) {
     
     return resultado;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### Variables de Control para Lazos
 
@@ -1011,7 +1128,8 @@ El patrón de único retorno se combina bien con variables de control en lazos.
 
 **Antes (con break/return):**
 
-```c
+```{code-block} c
+:linenos:
 int buscar_elemento(const int* arr, int n, int valor) {
     for (int i = 0; i < n; i++) {
         if (arr[i] == valor) {
@@ -1020,11 +1138,14 @@ int buscar_elemento(const int* arr, int n, int valor) {
     }
     return -1;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después (único retorno):**
 
-```c
+```{code-block} c
+:linenos:
 int buscar_elemento(const int* arr, int n, int valor) {
     int indice = -1;
     
@@ -1036,21 +1157,28 @@ int buscar_elemento(const int* arr, int n, int valor) {
     
     return indice;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### Balance entre Claridad y Único Retorno
 
 :::{tip} Pragmatismo
-En funciones muy simples, los múltiples returns pueden ser más claros. El patrón de único retorno es más valioso en:
+
+En funciones muy simples, los múltiples returns pueden ser más claros. El patrón
+de único retorno es más valioso en:
 - Funciones que manejan recursos
 - Funciones con lógica compleja
 - Código que requiere depuración frecuente
 - Proyectos con estándares estrictos
+
 :::
+<!-- {tip} Pragmatismo -->
 
 **Funciones simples - múltiples returns aceptables:**
 
-```c
+```{code-block} c
+:linenos:
 bool es_par(int n) {
     return n % 2 == 0;
 }
@@ -1058,11 +1186,14 @@ bool es_par(int n) {
 int maximo(int a, int b) {
     return (a > b) ? a : b;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Funciones complejas - único retorno preferible:**
 
-```c
+```{code-block} c
+:linenos:
 int procesar_pedido_complejo(pedido_t* pedido, contexto_t* ctx) {
     int resultado = ERROR_DESCONOCIDO;
     recurso_t* recurso = NULL;
@@ -1091,7 +1222,9 @@ int procesar_pedido_complejo(pedido_t* pedido, contexto_t* ctx) {
     
     return resultado;
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Resumen
 
@@ -1115,4 +1248,5 @@ Técnicas para simplificar condicionales:
 - El único retorno facilita manejo de recursos y depuración
 - Balance entre claridad y consistencia según el contexto
 
-La claridad en los condicionales es esencial para código mantenible y libre de bugs.
+La claridad en los condicionales es esencial para código mantenible y libre de
+bugs.

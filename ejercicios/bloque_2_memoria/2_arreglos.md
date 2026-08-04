@@ -38,8 +38,11 @@ arreglo de una forma clara y legible.
     -   **Salida:** Imprimir los elementos de una forma legible, por ejemplo,
         entre corchetes y separados por comas.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -87,8 +90,11 @@ Calcular la suma de todos los elementos contenidos en un arreglo de números.
     el elemento actual al `acumulador`.
 -   **Salida:** La función debe devolver el valor final del `acumulador`.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -130,8 +136,11 @@ Calcular el valor promedio (media aritmética) de los elementos de un arreglo.
     ser entera. Para un promedio preciso, es importante convertir al menos uno
     de los operandos a un tipo de punto flotante antes de la división.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -169,8 +178,11 @@ Calcular el producto de todos los elementos de un arreglo.
     multiplicar el `acumulador` por el elemento actual.
 -   **Caso Especial:** Si el arreglo contiene un 0, el producto final será 0.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -217,8 +229,11 @@ arreglo de números.
 -   **Salida:** Devolver los valores de `maximo` y `minimo` (por ejemplo, usando
     punteros).
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -269,8 +284,11 @@ un seguimiento más cuidadoso que simplemente encontrar el máximo.
     3.  Si no, si `x` es mayor que `segundo_maximo` y diferente de `maximo`, se
         actualiza `segundo_maximo` a `x`.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -320,8 +338,11 @@ elemento específico dentro de un arreglo. Si se encuentra, se debe devolver su
     actual. Si el lazo termina sin encontrar el elemento, se debe devolver un
     valor especial que indique que no se encontró, como `-1`.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -358,8 +379,11 @@ Contar cuántas veces aparece un número específico en un arreglo.
     elemento actual es igual al elemento buscado, incrementar el `contador`.
 -   **Salida:** Devolver el valor final del `contador`.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -405,8 +429,11 @@ que tiene la menor diferencia absoluta con dicho valor.
     3.  Si `diferencia_actual` es menor que `menor_diferencia`, actualizar
         `menor_diferencia` y `elemento_mas_cercano`.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -455,8 +482,11 @@ un segundo arreglo para almacenar el resultado temporalmente.
     2.  Incrementar `inicio` y decrementar `fin` para moverse hacia el centro
         del arreglo.
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -501,8 +531,11 @@ Copiar todos los elementos de un arreglo de origen a un arreglo de destino.
     iteración, asignar el elemento de origen al elemento correspondiente en el
     arreglo de destino: `destino[i] = origen[i]`.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -541,8 +574,11 @@ devolver el nuevo tamaño lógico.
     datos auxiliar (como un hash set) para llevar un registro de los elementos
     ya vistos.
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -591,8 +627,11 @@ Verificar si un arreglo está ordenado de forma ascendente.
 -   **Salida:** Si el lazo termina sin encontrar ninguna inversión de orden,
     significa que el arreglo está ordenado y la función devuelve `verdadero`.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -632,8 +671,11 @@ que cero).
 -   **Salida:** Si el lazo se completa sin encontrar ningún número no positivo,
     devolver `verdadero`.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -683,8 +725,11 @@ derecha.
 -   **Módulo:** Es útil calcular `k = k % n` al principio, por si `k` es mayor
     que `n`.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -734,8 +779,11 @@ ordenados, el resultado también debería estarlo (ver Merge Sort).
     `a1[i]` y `a2[j]`, copiar el menor al resultado y avanzar el puntero
     correspondiente.
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -798,8 +846,11 @@ el resultado.
     duplicados en el resultado, se puede usar una estructura de datos auxiliar
     (hash set) o verificar si el elemento ya fue añadido.
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -848,8 +899,11 @@ los elementos de ambos, sin duplicados.
 -   **Optimización:** Usar una tabla hash para llevar un registro de los
     elementos ya añadidos mejora la eficiencia de la búsqueda.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -899,8 +953,11 @@ números pares o entre los impares no necesita conservarse.
         c. Si `izquierda < derecha`, intercambiar los elementos en esas
         posiciones.
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -953,8 +1010,11 @@ negativos.
     1.  `max_actual = MAXIMO(arreglo[i], max_actual + arreglo[i])`
     2.  `max_global = MAXIMO(max_global, max_actual)`
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -999,8 +1059,11 @@ simple usando asteriscos, donde cada número `n` se representa con una línea de
         actual, imprimiendo un asterisco en cada una de sus iteraciones.
     3.  Después del lazo interior, se imprime un salto de línea.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1042,8 +1105,11 @@ aleatoriamente) los elementos de un arreglo _in-place_.
         posición `j`.
 -   **Aleatoriedad:** Requiere `srand()` y `rand()`.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1083,8 +1149,11 @@ encontrar el único número que falta.
 -   **Proceso (XOR):** El XOR de todos los números del rango con todos los
     números del arreglo dará como resultado el número faltante.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1127,8 +1196,11 @@ elementos en el arreglo cuya suma sea exactamente `X`.
         d. Si `s > X`, se necesita una suma menor, así que se mueve `derecha` a
         la izquierda.
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1178,8 +1250,11 @@ elementos, la mediana es el promedio de los dos elementos centrales.
     4.  Si el tamaño es par, la mediana es `(arreglo[medio - 1] +
         arreglo[medio]) / 2.0`.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1218,8 +1293,11 @@ frecuencia.
     3.  Llevar un registro del elemento con la frecuencia más alta encontrada
         hasta el momento.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1267,8 +1345,11 @@ constante entre términos).
 -   **Proceso:** Recorrer el arreglo con un lazo `for`. Para cada índice `i`, el
     valor a asignar es `inicio + (i * paso)`.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1306,8 +1387,11 @@ no en ambos.
 -   **Optimización:** Usar tablas hash para las búsquedas puede hacer el proceso
     mucho más eficiente.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1353,8 +1437,11 @@ ordenado tiene 0 inversiones.
 -   **Complejidad:** La solución de fuerza bruta es O(n^2). Existen algoritmos
     más eficientes basados en Merge Sort.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1399,8 +1486,11 @@ siguiente). Los elementos en los extremos no pueden ser picos.
 -   **Condición:** En cada posición `i`, verificar si `arreglo[i] >
     arreglo[i-1]` Y `arreglo[i] > arreglo[i+1]`.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
+    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
+    líneas de manera robusta.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1439,8 +1529,11 @@ subarreglo contiguo más largo cuya suma de elementos sea cero.
         subarreglo desde `j+1` hasta la posición actual tiene suma cero.
         Calcular su longitud y actualizar la longitud máxima.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1487,8 +1580,11 @@ números del mismo signo no es importante.
     positivo y `derecha` hasta encontrar uno negativo. Luego, intercambiarlos y
     continuar hasta que los punteros se crucen.
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1539,8 +1635,11 @@ pero sin usar el operador de división.
         Mantener un acumulador `derecha_prod`. Multiplicar `resultado[i]` por
         `derecha_prod` para incorporar los productos de la derecha.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1590,8 +1689,11 @@ aparece cada número.
         en el arreglo de frecuencias e incrementar la cuenta:
         `frecuencias[x]++`.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1633,8 +1735,11 @@ presentes en `B`.
         B[j]`, significa que `A[i]` no está en `B`, por lo que no es
         subconjunto.
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
+    evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
+    punteros en lugar de indexación directa.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1683,8 +1788,11 @@ manteniendo el orden relativo de los elementos no nulos.
     3.  Después del primer lazo, todos los elementos no nulos están al principio
         en su orden original. Llenar el resto del arreglo con ceros.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1731,8 +1839,11 @@ derecha siempre es un líder.
     3.  Si el elemento actual es mayor que `maximo_derecha`, es un nuevo líder.
         Imprimirlo y actualizar `maximo_derecha`.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1778,8 +1889,11 @@ de que el índice `j` sea mayor que el índice `i`.
         mayor.
         b. Actualizar `min_elemento` si `elemento_actual` es menor.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1828,8 +1942,11 @@ derecha. Si no existe, devolver -1.
         b. Si `suma_izquierda == suma_derecha`, se encontró el punto.
         c. Actualizar `suma_izquierda = suma_izquierda + arreglo[i]`.
 
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
+    filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
+    estrictamente dentro de los límites del contenedor.
+
 :::
 <!-- {hint} Lógica y Consideraciones -->
 

@@ -145,7 +145,9 @@ Al utilizar `switch` debés tener en cuenta dos detalles clave:
     }
     ```
 
-    Este uso de `assert` detiene inmediatamente el programa ante un estado inconsistente en la fase de desarrollo. Para más detalles sobre las aserciones, consultá {ref}`capitulo-testing-verificacion`.
+    Este uso de `assert` detiene inmediatamente el programa ante un estado
+    inconsistente en la fase de desarrollo. Para más detalles sobre las
+    aserciones, consultá {ref}`capitulo-testing-verificacion`.
 
 (estructuras-de-repeticion-lazos)=
 ### Estructuras de Repetición (Lazos)
@@ -320,14 +322,16 @@ do {
 :::
 <!-- {code-block}c -->
 
-```{mermaid}
+:::{mermaid}
+
 flowchart TD
     Inicio --> Ejecutar[Ejecutar bloque de código]
     Ejecutar --> Cond{¿Se cumple la condición?}
     Cond -- Sí --> Ejecutar
     Cond -- No --> Fin
-```
-<!-- mermaid -->
+
+:::
+<!-- {mermaid} -->
 
 (rol-bandera-o-flag)=
 ### Rol Bandera (o Flag)
@@ -562,7 +566,8 @@ explicación teórica y los ejemplos detallados de implementación estructurada.
 :::{tip} Ejercicio Práctico Resuelto
 
 Podés consultar la resolución del **Ejercicio 9 (ingreso de clave con bandera)**
-en el documento de [ejercicios](../../ejercicios/bloque_1_fundamentos/5_ejercicios_control.md).
+en el documento de
+[ejercicios](../../ejercicios/bloque_1_fundamentos/5_ejercicios_control.md).
 
 :::
 <!-- {tip} Ejercicio Práctico Resuelto -->

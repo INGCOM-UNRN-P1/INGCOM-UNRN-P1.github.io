@@ -16,22 +16,27 @@ la cátedra.
 
     - Comprendo que la materia es de modalidad **sincrónica**.
     - Me comprometo a mantener una participación activa y a cumplir con un
-      **mínimo de 80% de asistencia** a las clases para regularizar la materia y las 
+      **mínimo de 80% de asistencia** a las clases para regularizar la materia y
+      las
       excepciones a la asistencia se gestionan antes de las clases.
 
 2.  **Trabajos Prácticos:**
 
-    - Entiendo que los Trabajos Prácticos son el eje central de la materia y que debo resolver
+    - Entiendo que los Trabajos Prácticos son el eje central de la materia y que
+      debo resolver
       las guías de ejercicios principalmente fuera del horario de clase.
-    - Soy consciente de que las **fechas de entrega de los Trabajos Prácticos son
-      inamovibles**. Un Trabajo Práctico entregado fuera de término se considerará
+    - Soy consciente de que las **fechas de entrega de los Trabajos Prácticos
+      son
+      inamovibles**. Un Trabajo Práctico entregado fuera de término se
+      considerará
       «incompleto».
     - Entregaré todos los trabajos prácticos obligatorios para poder
       regularizar.
 
 3.  **Uso de Inteligencia Artificial (IA):**
 
-    - Reconozco que el objetivo de los Trabajos Prácticos es mi propia práctica y aprendizaje.
+    - Reconozco que el objetivo de los Trabajos Prácticos es mi propia práctica
+      y aprendizaje.
 
 4.  **Evaluaciones (Parciales):**
     - Estoy al tanto de que los parciales constan de una parte teórica y una

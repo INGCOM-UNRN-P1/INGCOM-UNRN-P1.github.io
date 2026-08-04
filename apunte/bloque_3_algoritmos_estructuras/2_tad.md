@@ -38,7 +38,9 @@ código que utiliza el TAD, siempre que mantenga la misma interfaz pública.
 :align: center
 :width: 80%
 
-Concepto de Tipo de Dato Abstracto (TAD) como barrera de abstracción. El cliente opera únicamente a través de la interfaz pública, desconociendo la representación física.
+Concepto de Tipo de Dato Abstracto (TAD) como barrera de abstracción. El cliente
+opera únicamente a través de la interfaz pública, desconociendo la
+representación física.
 
 :::
 <!-- {figure} 3/tad_concepto.svg -->
@@ -981,7 +983,8 @@ bidireccional de la lista.
 :align: center
 :width: 85%
 
-Estructura física de una Lista Doblemente Enlazada. Cada nodo almacena punteros a su predecesor y a su sucesor.
+Estructura física de una Lista Doblemente Enlazada. Cada nodo almacena punteros
+a su predecesor y a su sucesor.
 
 :::
 <!-- {figure} 3/lista_enlazada_doble.svg -->
@@ -1878,7 +1881,9 @@ bool punto_modificar(punto_t *punto, double nuevo_x, double nuevo_y);
 void punto_destruir(punto_t **punto);
 
 #endif /* PUNTO_H */
+
 ```
+<!-- {code-block} c -->
 <!-- c -->
 
 :::
@@ -2878,8 +2883,10 @@ int comparar_alumnos(const void *a, const void *b)
 ## Glosario
 
 :::{glossary}
+
 TAD (Tipo Abstracto de Datos)
-: Modelo matemático para tipos de datos definidos por su comportamiento y operaciones.
+: Modelo matemático para tipos de datos definidos por su comportamiento y
+operaciones.
 
 Pila (Stack)
 : Estructura de datos LIFO.
@@ -2889,7 +2896,9 @@ Cola (Queue)
 
 Encapsulación
 : Ocultamiento de la representación de datos del cliente.
+
 :::
+<!-- {glossary} -->
 
 ## Síntesis y Resumen
 
@@ -2911,11 +2920,22 @@ Para continuar con estructuras lineales de acceso restringido, consultá
 (referencias-lecturas-tad)=
 ## Referencias y Lecturas Complementarias
 
-- **King, K. N.** [@king_c_2008]. *C Programming: A Modern Approach* (2.ª edición). W. W. Norton & Company.
-  - Revisá el **Capítulo 19: Program Design**, que introduce el concepto de encapsulamiento, ocultamiento de información y la distinción entre interfaz y TAD en C.
-- **Sedgewick, R. y Wayne, K.** [@sedgewick_algorithms_2011]. *Algorithms* (4.ª edición). Addison-Wesley.
-  - Consultá el **Capítulo 1: Fundamentals**, sección de APIs y tipos de datos abstractos, para una perspectiva sobre cómo estructurar colecciones genéricas mediante listas enlazadas.
-- **Cormen, T. H. y otros** [@cormen_introduction_2009]. *Introduction to Algorithms* (3.ª edición). MIT Press.
-  - Estudiá el **Capítulo 10: Elementary Data Structures**, donde se explica en detalle el funcionamiento lógico de listas enlazadas y estructuras lineales elementales.
-- **Hanson, D. R.** [@hanson_c_1996]. *C Interfaces and Implementations*. Addison-Wesley.
-  - Consultá los capítulos iniciales para comprender el diseño de APIs abstractas basadas en punteros opacos de forma profesional.
+- **King, K. N.** [@king_c_2008]. *C Programming: A Modern Approach* (2.ª
+  edición). W. W. Norton & Company.
+  - Revisá el **Capítulo 19: Program Design**, que introduce el concepto de
+    encapsulamiento, ocultamiento de información y la distinción entre interfaz
+    y TAD en C.
+- **Sedgewick, R. y Wayne, K.** [@sedgewick_algorithms_2011]. *Algorithms* (4.ª
+  edición). Addison-Wesley.
+  - Consultá el **Capítulo 1: Fundamentals**, sección de APIs y tipos de datos
+    abstractos, para una perspectiva sobre cómo estructurar colecciones
+    genéricas mediante listas enlazadas.
+- **Cormen, T. H. y otros** [@cormen_introduction_2009]. *Introduction to
+  Algorithms* (3.ª edición). MIT Press.
+  - Estudiá el **Capítulo 10: Elementary Data Structures**, donde se explica en
+    detalle el funcionamiento lógico de listas enlazadas y estructuras lineales
+    elementales.
+- **Hanson, D. R.** [@hanson_c_1996]. *C Interfaces and Implementations*.
+  Addison-Wesley.
+  - Consultá los capítulos iniciales para comprender el diseño de APIs
+    abstractas basadas en punteros opacos de forma profesional.

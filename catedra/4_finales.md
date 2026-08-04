@@ -31,6 +31,7 @@ va pasando la cátedra. Estos arreglos incluyen principalmente lo referido a sol
 defender el TPI.
 
 :::
+<!-- {important} Importante -->
 
 #### Regular por nota
 

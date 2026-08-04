@@ -768,7 +768,7 @@ que almacena un puntero, el tamaño actual y la capacidad máxima de
 almacenamiento. Cuando el arreglo alcanza su capacidad límite, duplicamos su
 tamaño utilizando `realloc`:
 
-:::{code-block} c
+```{code-block} c
 :linenos:
 typedef struct {
     int *datos;
@@ -791,7 +791,8 @@ bool insertar_arreglo(arreglo_dinamico_t *arr, int valor) {
     return true;
 }
 
-:::
+```
+<!-- {code-block} c -->
 <!-- {code-block}c -->
 
 Analicemos el costo de una secuencia de $n$ inserciones consecutivas en el lazo
@@ -1001,7 +1002,9 @@ caso.
 6. Demostramos la cota inferior de $\log_2(n!)$ expandiendo la sumatoria y
    acotándola inferiormente desde su término medio:
    $$
-   \log_2(n!) = \sum_{i=1}^n \log_2 i \geq \sum_{i=n/2}^n \log_2 i \geq \sum_{i=n/2}^n \log_2(n/2) = \frac{n}{2} \log_2(n/2) = \frac{n}{2} (\log_2 n - 1) \in \Omega(n \log n)
+   \log_2(n!) = \sum_{i=1}^n \log_2 i \geq \sum_{i=n/2}^n \log_2 i \geq
+   \sum_{i=n/2}^n \log_2(n/2) = \frac{n}{2} \log_2(n/2) = \frac{n}{2} (\log_2 n
+   - 1) \in \Omega(n \log n)
    $$
 
 **Conclusión**: Cualquier algoritmo basado en comparaciones requiere al menos
@@ -1763,15 +1766,21 @@ $O(n)$, el problema pertenece a la clase NP.
 ## Glosario
 
 :::{glossary}
+
 Complejidad Algorítmica
-: Medida del crecimiento de recursos (tiempo/espacio) respecto al tamaño de entrada.
+: Medida del crecimiento de recursos (tiempo/espacio) respecto al tamaño de
+entrada.
 
 Notación Big-O
-: Notación matemática que describe el límite superior del crecimiento de una función.
+: Notación matemática que describe el límite superior del crecimiento de una
+función.
 
 Análisis Asintótico
-: Método para describir el comportamiento de algoritmos cuando la entrada tiende a infinito.
+: Método para describir el comportamiento de algoritmos cuando la entrada tiende
+a infinito.
+
 :::
+<!-- {glossary} -->
 
 ## Síntesis y Resumen
 

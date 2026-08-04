@@ -1156,21 +1156,33 @@ FIN FUNCIÓN
 
 ### Matrices Dinámicas en el Heap
 
-Cuando las dimensiones de una matriz no se conocen en tiempo de compilación y no querés incurrir en el riesgo de usar Arreglos de Longitud Variable (ALV/VLA) en la pila (violando la regla {ref}`0x5001h`), debés recurrir a la asignación de memoria dinámica en el Heap.
+Cuando las dimensiones de una matriz no se conocen en tiempo de compilación y no
+querés incurrir en el riesgo de usar Arreglos de Longitud Variable (ALV/VLA) en
+la pila (violando la regla {ref}`0x5001h`), debés recurrir a la asignación de
+memoria dinámica en el Heap.
 
 En C, existen dos formas de modelar matrices dinámicas:
 
 #### 1. Modelo de Bloque Único Contiguo (Recomendado para rendimiento)
 
-Consiste en alocar un único bloque unidimensional continuo en el Heap que contenga todos los elementos de la matriz ($F \times C$). Luego, se calcula el desplazamiento manualmente para indexar los elementos: `matriz[i * columnas + j]`.
+Consiste en alocar un único bloque unidimensional continuo en el Heap que
+contenga todos los elementos de la matriz ($F \times C$). Luego, se calcula el
+desplazamiento manualmente para indexar los elementos: `matriz[i * columnas +
+j]`.
 
 **Ventajas:**
-- **Localidad espacial máxima:** Todos los elementos son físicamente contiguos en memoria, lo que optimiza el uso de la memoria caché y reduce drásticamente los fallos de caché (*cache misses*).
-- **Menor sobrecarga (overhead):** Solo realizás una llamada a `malloc`/`calloc`, lo que reduce el costo de metadatos en el Heap y acelera la liberación.
-- **Evita la fragmentación:** No fragmenta el Heap con múltiples pequeñas asignaciones.
+- **Localidad espacial máxima:** Todos los elementos son físicamente contiguos
+  en memoria, lo que optimiza el uso de la memoria caché y reduce drásticamente
+  los fallos de caché (*cache misses*).
+- **Menor sobrecarga (overhead):** Solo realizás una llamada a
+  `malloc`/`calloc`, lo que reduce el costo de metadatos en el Heap y acelera la
+  liberación.
+- **Evita la fragmentación:** No fragmenta el Heap con múltiples pequeñas
+  asignaciones.
 
 **Desventajas:**
-- La sintaxis de indexación es manual (`matriz[i * columnas + j]`) y puede ser menos intuitiva que `matriz[i][j]`.
+- La sintaxis de indexación es manual (`matriz[i * columnas + j]`) y puede ser
+  menos intuitiva que `matriz[i][j]`.
 
 Ejemplo de implementación:
 
@@ -1206,19 +1218,27 @@ void destruir_matriz_contigua(int **matriz) {
     free(*matriz);
     *matriz = NULL; // Aniquilación del puntero post-free
 }
+
 :::
+<!-- {code-block}c -->
 
 #### 2. Modelo de Arreglo de Punteros (Matriz Deshilachada o *Jagged Matrix*)
 
-Consiste en alocar un arreglo de punteros (de tamaño $F$) donde cada elemento del arreglo apunta a una fila alocada de forma independiente en el Heap (de tamaño $C$). Esto permite la sintaxis nativa `matriz[i][j]`.
+Consiste en alocar un arreglo de punteros (de tamaño $F$) donde cada elemento
+del arreglo apunta a una fila alocada de forma independiente en el Heap (de
+tamaño $C$). Esto permite la sintaxis nativa `matriz[i][j]`.
 
 **Ventajas:**
 - Sintaxis intuitiva idéntica a las matrices estáticas: `matriz[i][j]`.
 
 **Desventajas:**
-- **Pérdida de localidad espacial:** Cada fila puede estar alocada en cualquier parte del Heap, lo que rompe la contigüidad física e incrementa los fallos de caché.
-- **Fragmentación física:** Se realizan $F + 1$ llamadas a alocadores, lo que introduce un alto overhead de metadatos en el Heap.
-- **Complejidad de liberación:** Se requiere un lazo para liberar cada fila individualmente antes de liberar el arreglo de punteros.
+- **Pérdida de localidad espacial:** Cada fila puede estar alocada en cualquier
+  parte del Heap, lo que rompe la contigüidad física e incrementa los fallos de
+  caché.
+- **Fragmentación física:** Se realizan $F + 1$ llamadas a alocadores, lo que
+  introduce un alto overhead de metadatos en el Heap.
+- **Complejidad de liberación:** Se requiere un lazo para liberar cada fila
+  individualmente antes de liberar el arreglo de punteros.
 
 Ejemplo de implementación:
 
@@ -1272,7 +1292,9 @@ void destruir_matriz_punteros(int ***matriz, size_t filas) {
     free(m);
     *matriz = NULL; // Aniquilación del puntero a nivel de cliente
 }
+
 :::
+<!-- {code-block}c -->
 
 ## Ejercicios de Autoevaluación
 

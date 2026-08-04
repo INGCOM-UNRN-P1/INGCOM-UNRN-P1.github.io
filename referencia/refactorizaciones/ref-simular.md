@@ -19,11 +19,13 @@ una comprensión más profunda de cómo funcionan internamente los lazos y las
 estructuras de control.
 
 :::{important} Filosofía de diseñ o Aunque estas técnicas son valiosas de
+
 conocer, siempre preferí usar las estructuras de control nativas cuando estén
 disponibles. La simulación debe ser una herramienta de último recurso o para
 casos muy específicos donde aporta claridad al código ({ref}`0x0000h`).
 
 :::
+<!-- {important} Filosofía de diseñ o Aunque estas técnicas son valiosas de -->
 
 ## Simulación de `do...while` con `while`
 
@@ -32,7 +34,7 @@ casos muy específicos donde aporta claridad al código ({ref}`0x0000h`).
 La técnica más directa para simular un `do...while` es usar un lazo `while(1)`
 con una condición de salida explícita:
 
-```{code-block}c
+:::{code-block}c
 :caption: Simulación básica de do...while
 :linenos:
 
@@ -49,11 +51,13 @@ while (1) {
         break;
     }
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ### Ejemplo Práctico: Validación de Entrada
 
-```{code-block}c
+:::{code-block}c
 :caption: Validación de entrada con simulación de do...while
 :linenos:
 
@@ -81,14 +85,16 @@ int main() {
     printf("Acceso concedido.\n");
     return 0;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ### Método 2: Variable de Control Booleana
 
 Una alternativa más explícita es usar una variable booleana para controlar la
 continuación del lazo:
 
-```{code-block}c
+:::{code-block}c
 :caption: Simulación con variable de control
 :linenos:
 
@@ -112,14 +118,16 @@ int validar_entrada() {
 
     return numero;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ### Método 3: Función con Retorno Temprano
 
 Para casos más complejos, podés encapsular la lógica en una función y usar
 `return` para salir:
 
-```{code-block}c
+:::{code-block}c
 :caption: Simulación con función y return
 :linenos:
 
@@ -152,7 +160,9 @@ void procesar_comandos() {
         }
     }
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ## Simulación de Otras Estructuras de Control
 
@@ -161,7 +171,7 @@ void procesar_comandos() {
 En algunos contextos educativos o de depuración, puede ser útil convertir lazos
 `for` a `while`:
 
-```{code-block}c
+:::{code-block}c
 :caption: Conversión de for a while
 :linenos:
 
@@ -178,13 +188,15 @@ En algunos contextos educativos o de depuración, puede ser útil convertir lazo
         i++;                   // Incremento
     }
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ### Simulación de `switch` con `if-else`
 
 Para casos donde `switch` no está disponible o es preferible evitarlo:
 
-```{code-block}c
+:::{code-block}c
 :caption: Simulación de switch con if-else encadenados
 :linenos:
 
@@ -208,7 +220,9 @@ void procesar_opcion_menu(opcion_menu_t opcion) {
         printf("Opción inválida: %d\n", opcion);
     }
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ## Patrones Avanzados de Simulación
 
@@ -216,7 +230,7 @@ void procesar_opcion_menu(opcion_menu_t opcion) {
 
 Para sistemas complejos que requieren máquinas de estado:
 
-```{code-block}c
+:::{code-block}c
 :caption: Máquina de estados con tabla de funciones
 :linenos:
 
@@ -255,7 +269,8 @@ static funcion_estado_t tabla_estados[ESTADO_MAX] = {
 
 void ejecutar_maquina_estados(contexto_juego_t *ctx) {
     while (ctx->estado_actual != ESTADO_SALIR) {
-        if (ctx->estado_actual < ESTADO_MAX && tabla_estados[ctx->estado_actual]) {
+        if (ctx->estado_actual < ESTADO_MAX &&
+        tabla_estados[ctx->estado_actual]) {
             tabla_estados[ctx->estado_actual](ctx);
         } else {
             fprintf(stderr, "Estado inválido: %d\n", ctx->estado_actual);
@@ -314,13 +329,15 @@ void manejar_estado_game_over(contexto_juego_t *ctx) {
     printf("Puntuación final: %d\n", ctx->puntuacion);
     ctx->estado_actual = ESTADO_MENU;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ### Simulación de lazos Anidados con Funciones
 
 Para evitar lazos anidados complejos que violan la regla de claridad:
 
-```{code-block}c
+:::{code-block}c
 :caption: Desensamblado de lazos anidados
 :linenos:
 
@@ -336,7 +353,8 @@ void procesar_matriz_compleja_anidado(int matriz[FILAS][COLUMNAS]) {
             if (matriz[i][j] > 0) {
                 for (int k = 0; k < matriz[i][j]; k++) {
                     // Lógica compleja aquí...
-                    printf("Procesando elemento [%d][%d], iteración %d\n", i, j, k);
+                    printf("Procesando elemento [%d][%d], iteración %d\n", i, j,
+                    k);
                 }
             }
         }
@@ -348,7 +366,8 @@ void procesar_elemento(int fila, int columna, int valor) {
     if (valor <= 0) return;
 
     for (int k = 0; k < valor; k++) {
-        printf("Procesando elemento [%d][%d], iteración %d\n", fila, columna, k);
+        printf("Procesando elemento [%d][%d], iteración %d\n", fila, columna,
+        k);
     }
 }
 
@@ -363,7 +382,9 @@ void procesar_matriz_compleja_funcional(int matriz[FILAS][COLUMNAS]) {
         procesar_fila(matriz[i], i);
     }
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ## Técnicas para Evitar `goto`
 
@@ -372,7 +393,7 @@ flujo del programa:
 
 ### Método 1: Funciones de Limpieza
 
-```{code-block}c
+:::{code-block}c
 :caption: Evitar goto con funciones de limpieza
 :linenos:
 
@@ -441,11 +462,13 @@ int procesar_archivo_sin_goto(const char *nombre) {
     limpiar_recursos(&recursos);
     return recursos.resultado;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ### Método 2: Banderas de Estado
 
-```{code-block}c
+:::{code-block}c
 :caption: Uso de banderas en lugar de goto
 :linenos:
 
@@ -488,7 +511,9 @@ int procesar_datos_complejos() {
 
     return resultado;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ## Consideraciones de Rendimiento
 
@@ -496,7 +521,7 @@ int procesar_datos_complejos() {
 
 Las simulaciones pueden afectar las optimizaciones automáticas del compilador:
 
-```{code-block}c
+:::{code-block}c
 :caption: Consideraciones de rendimiento
 :linenos:
 
@@ -532,11 +557,13 @@ void lazo_simulado_optimizable(int n) {
         i++;
     }
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ### Medición de Rendimiento
 
-```{code-block}c
+:::{code-block}c
 :caption: Comparación de rendimiento entre técnicas
 :linenos:
 
@@ -572,7 +599,9 @@ void benchmark_lazos(int iteraciones) {
     printf("  Diferencia:    %.2f%%\n",
            ((tiempo_while - tiempo_for) / tiempo_for) * 100);
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ## Mejores Prácticas para Simulación
 
@@ -580,7 +609,7 @@ void benchmark_lazos(int iteraciones) {
 
 Siempre preferí la construcción más clara y natural del lenguaje:
 
-```{code-block}c
+:::{code-block}c
 :caption: Priorizar claridad sobre simulación
 :linenos:
 
@@ -600,13 +629,15 @@ void ejemplo_bueno() {
         printf("%d\n", i);
     }
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ### 2. Documentación de Intención
 
 Cuando uses simulación, documentá el porqué:
 
-```{code-block}c
+:::{code-block}c
 :caption: Documentación de intención en simulaciones
 :linenos:
 
@@ -630,13 +661,15 @@ void validar_entrada_compatible() {
         }
     }
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ### 3. Pruebas de Equivalencia
 
 Verificá que la simulación sea equivalente al comportamiento original:
 
-```{code-block}c
+:::{code-block}c
 :caption: Verificación de equivalencia
 :linenos:
 
@@ -667,13 +700,15 @@ void test_equivalencia_do_while() {
     printf("Simulación verificada: %d == %d iteraciones\n",
            contador_original, contador_simulado);
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ## Casos de Uso Específicos
 
 ### 1. Menús Interactivos
 
-```{code-block}c
+:::{code-block}c
 :caption: Menú interactivo robusto
 :linenos:
 
@@ -721,11 +756,13 @@ void ejecutar_menu_principal() {
         }
     }
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ### 2. Procesamiento de Archivos con Manejo de Errores
 
-```{code-block}c
+:::{code-block}c
 :caption: Procesamiento robusto de archivos
 :linenos:
 
@@ -799,21 +836,28 @@ resultado_procesamiento_t procesar_archivo_robusto(const char *ruta) {
 
     return resultado;
 }
-```
+
+:::
+<!-- {code-block}c -->
 
 ## Ejercicios
 
-```{exercise}
+:::{exercise}
 :label: simular_menu_calculadora
 :enumerator: simulacion-1
 
-Implementá una calculadora simple que use simulación de `do...while` para mostrar un menú repetitivo. La calculadora debe soportar operaciones básicas (+, -, *, /) y continuar ejecutándose hasta que el usuario elija salir. Incluí validación de entrada y manejo de errores (como división por cero).
-```
+Implementá una calculadora simple que use simulación de `do...while` para
+mostrar un menú repetitivo. La calculadora debe soportar operaciones básicas (+,
+-, *, /) y continuar ejecutándose hasta que el usuario elija salir. Incluí
+validación de entrada y manejo de errores (como división por cero).
 
-````{solution} simular_menu_calculadora
+:::
+<!-- {exercise} -->
+
+::::{solution} simular_menu_calculadora
 :class: dropdown
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 #include <stdbool.h>
@@ -918,20 +962,29 @@ int main() {
     ejecutar_calculadora();
     return 0;
 }
-```
-````
 
-```{exercise}
+:::
+<!-- {code-block}c -->
+
+::::
+<!-- {solution} simular_menu_calculadora -->
+
+:::{exercise}
 :label: maquina_estados_sin_switch
 :enumerator: simulacion-2
 
-Diseñá una máquina de estados para simular el comportamiento de un cajero automático sin usar `switch`. El sistema debe manejar estados como: inicio, PIN, selección de operación, consulta de saldo, retiro de dinero y finalización. Usá una tabla de funciones o if-else encadenados para manejar las transiciones.
-```
+Diseñá una máquina de estados para simular el comportamiento de un cajero
+automático sin usar `switch`. El sistema debe manejar estados como: inicio, PIN,
+selección de operación, consulta de saldo, retiro de dinero y finalización. Usá
+una tabla de funciones o if-else encadenados para manejar las transiciones.
 
-````{solution} maquina_estados_sin_switch
+:::
+<!-- {exercise} -->
+
+::::{solution} maquina_estados_sin_switch
 :class: dropdown
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 #include <stdbool.h>
@@ -1141,20 +1194,30 @@ int main() {
 
     return 0;
 }
-```
-````
 
-```{exercise}
+:::
+<!-- {code-block}c -->
+
+::::
+<!-- {solution} maquina_estados_sin_switch -->
+
+:::{exercise}
 :label: validacion_entrada_robusta
 :enumerator: simulacion-3
 
-Creá un sistema de validación de entrada de datos robusto que simule un `do...while` para solicitar información de usuario. El sistema debe validar: nombre (solo letras y espacios), edad (18-99 años), email (formato básico), y teléfono (solo números). Implementá diferentes técnicas de simulación para cada tipo de validación.
-```
+Creá un sistema de validación de entrada de datos robusto que simule un
+`do...while` para solicitar información de usuario. El sistema debe validar:
+nombre (solo letras y espacios), edad (18-99 años), email (formato básico), y
+teléfono (solo números). Implementá diferentes técnicas de simulación para cada
+tipo de validación.
 
-````{solution} validacion_entrada_robusta
+:::
+<!-- {exercise} -->
+
+::::{solution} validacion_entrada_robusta
 :class: dropdown
 
-```{code-block}c
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
@@ -1456,5 +1519,9 @@ int main() {
 
     return 0;
 }
-```
-````
+
+:::
+<!-- {code-block}c -->
+
+::::
+<!-- {solution} validacion_entrada_robusta -->

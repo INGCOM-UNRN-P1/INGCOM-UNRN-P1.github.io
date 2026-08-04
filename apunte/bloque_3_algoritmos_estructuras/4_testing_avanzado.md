@@ -226,15 +226,20 @@ void test_propiedad_asociativa_multiplicacion(void) {
 ## Glosario
 
 :::{glossary}
+
 Pruebas Unitarias (Unit Testing)
 : Pruebas que validan el comportamiento de componentes individuales.
 
 Mock
-: Objeto simulado para imitar el comportamiento de componentes reales en pruebas.
+: Objeto simulado para imitar el comportamiento de componentes reales en
+pruebas.
 
 Assert (Aseveración)
-: Expresión lógica utilizada en pruebas para comprobar que se cumple una condición.
+: Expresión lógica utilizada en pruebas para comprobar que se cumple una
+condición.
+
 :::
+<!-- {glossary} -->
 
 ## Síntesis y Resumen
 
@@ -246,11 +251,19 @@ aisladas y automatizadas.
 (referencias-lecturas-testing-avanzado)=
 ## Referencias y Lecturas Complementarias
 
-- **Beck, K.** [@beck2002]. *Test Driven Development: By Example*. Addison-Wesley.
-  - El texto seminal para comprender la filosofía de diseño guiado por pruebas unitarias (TDD) y su aplicación sistemática.
-- **McConnell, S.** [@mcconnell_code_2004]. *Code Complete* (2.ª edición). Microsoft Press.
-  - Consultá el **Capítulo 22: Developer Testing** para un desglose exhaustivo de cómo estructurar pruebas efectivas y evaluar la cobertura de código.
-- **Claessen, K. y Hughes, J.** [@claessen2000]. *QuickCheck: A Lightweight Tool for Random Testing of Haskell Programs*.
-  - El artículo fundacional del testing basado en propiedades (*property-based testing*), que introduce los conceptos de generación aleatoria de entradas e invariantes de datos.
+- **Beck, K.** [@beck2002]. *Test Driven Development: By Example*.
+  Addison-Wesley.
+  - El texto seminal para comprender la filosofía de diseño guiado por pruebas
+    unitarias (TDD) y su aplicación sistemática.
+- **McConnell, S.** [@mcconnell_code_2004]. *Code Complete* (2.ª edición).
+  Microsoft Press.
+  - Consultá el **Capítulo 22: Developer Testing** para un desglose exhaustivo
+    de cómo estructurar pruebas efectivas y evaluar la cobertura de código.
+- **Claessen, K. y Hughes, J.** [@claessen2000]. *QuickCheck: A Lightweight Tool
+  for Random Testing of Haskell Programs*.
+  - El artículo fundacional del testing basado en propiedades (*property-based
+    testing*), que introduce los conceptos de generación aleatoria de entradas e
+    invariantes de datos.
 - **Sommers, J.** [@sommers_jsommers/cbook_2025]. *jsommers/cbook*.
-  - Consultá los capítulos de testing para ejemplos reales de frameworks mínimos a medida implementados en C.
+  - Consultá los capítulos de testing para ejemplos reales de frameworks mínimos
+    a medida implementados en C.

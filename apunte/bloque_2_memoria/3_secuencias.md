@@ -51,7 +51,8 @@ disposición en memoria es contigua:
 :label: fig-array-memory-layout
 :align: center
 
-Mapeo de un arreglo en la memoria física RAM. Los elementos se ordenan en bloques contiguos.
+Mapeo de un arreglo en la memoria física RAM. Los elementos se ordenan en
+bloques contiguos.
 
 :::
 <!-- {figure} 3/array_memory_layout.svg -->
@@ -79,7 +80,8 @@ Formas de inicialización explícita:
 :label: fig-array-initialization
 :align: center
 
-Inicialización de arreglos en C. Si se omiten elementos, el compilador los rellena con ceros.
+Inicialización de arreglos en C. Si se omiten elementos, el compilador los
+rellena con ceros.
 
 :::
 <!-- {figure} 3/array_initialization.svg -->
@@ -364,29 +366,49 @@ De todas formas y como se imaginarán, hay una regla de estilo {ref}`0x5001h`.
 (el-mecanismo-de-paso-a-funciones-paso-por-referencia-simulado)=
 #### El Mecanismo de Paso a Funciones: Decaimiento de Arreglos
 
-En C, **todo pasaje de parámetros se realiza estrictamente por valor** (copia física en el Stack Frame). Sin embargo, los arreglos poseen un comportamiento físico particular al ser transmitidos a una función: el compilador no realiza una copia de todos los elementos del arreglo en el registro de activación de la función receptora.
+En C, **todo pasaje de parámetros se realiza estrictamente por valor** (copia
+física en el Stack Frame). Sin embargo, los arreglos poseen un comportamiento
+físico particular al ser transmitidos a una función: el compilador no realiza
+una copia de todos los elementos del arreglo en el registro de activación de la
+función receptora.
 
-En su lugar, el nombre del arreglo **decae implícitamente a un puntero** que almacena la dirección de memoria de su primer elemento (es decir, `arr` se evalúa como `&arr[0]`). Lo que recibe la función en su Stack Frame es una copia por valor de ese puntero (dirección física).
+En su lugar, el nombre del arreglo **decae implícitamente a un puntero** que
+almacena la dirección de memoria de su primer elemento (es decir, `arr` se
+evalúa como `&arr[0]`). Lo que recibe la función en su Stack Frame es una copia
+por valor de ese puntero (dirección física).
 
-Como consecuencia, cualquier lectura o modificación que la función realice sobre los elementos utilizando el operador de indexación (`[]`) afectará de forma directa e inmediata a los datos originales en la memoria del programa, logrando una **simulación de pasaje por referencia mediante indirección**.
+Como consecuencia, cualquier lectura o modificación que la función realice sobre
+los elementos utilizando el operador de indexación (`[]`) afectará de forma
+directa e inmediata a los datos originales en la memoria del programa, logrando
+una **simulación de pasaje por referencia mediante indirección**.
 
 :::{note} El concepto subyacente: Aritmética de Punteros
-Este mecanismo requiere comprender cómo se organizan las direcciones de memoria físicas y el operador de indirección `*`. Para profundizar en estos conceptos, consultá el capítulo de {ref}`capitulo-punteros` en [](2_punteros.md).
-:::
 
-```{figure} 3/degradacion_puntero.svg
+Este mecanismo requiere comprender cómo se organizan las direcciones de memoria
+físicas y el operador de indirección `*`. Para profundizar en estos conceptos,
+consultá el capítulo de {ref}`capitulo-punteros` en [](2_punteros.md).
+
+:::
+<!-- {note} El concepto subyacente: Aritmética de Punteros -->
+
+:::{figure} 3/degradacion_puntero.svg
 :label: fig-degradacion-puntero
 :align: center
 :width: 90%
 
-Decaimiento físico de un arreglo a puntero al ser pasado a una función. El parámetro `ptr` en el Stack Frame de la función `mostrar` recibe una copia del valor de la dirección física del inicio del arreglo `0x7FFEE100`.
-```
+Decaimiento físico de un arreglo a puntero al ser pasado a una función. El
+parámetro `ptr` en el Stack Frame de la función `mostrar` recibe una copia del
+valor de la dirección física del inicio del arreglo `0x7FFEE100`.
+
+:::
+<!-- {figure} 3/degradacion_puntero.svg -->
 
 (funciones-puras-y-con-efectos-secundarios)=
 #### Funciones Puras y con Efectos Secundarios
 
 Al trabajar con secuencias, la distinción entre funciones puras y aquellas con
-efectos secundarios (ver {ref}`funciones-puras-y-con-efectos-secundarios`) adquiere una relevancia
+efectos secundarios (ver {ref}`funciones-puras-y-con-efectos-secundarios`)
+adquiere una relevancia
 crítica debido al mecanismo de pasaje de parámetros en C. Como los arreglos se
 transmiten mediante su dirección de memoria (paso por referencia simulado), las
 funciones pueden modificar su contenido directamente en el invocador.
@@ -816,13 +838,25 @@ Esta es la base para las cadenas seguras.
 (lectura-segura-de-cadenas)=
 #### Lectura Segura de Cadenas
 
-El uso de `scanf("%s", buffer)` y `gets()` constituye una de las mayores vulnerabilidades de seguridad en lenguaje C. La alternativa segura y exigida es `fgets`, de acuerdo con la regla de estilo {ref}`0x5006h`.
+El uso de `scanf("%s", buffer)` y `gets()` constituye una de las mayores
+vulnerabilidades de seguridad en lenguaje C. La alternativa segura y exigida es
+`fgets`, de acuerdo con la regla de estilo {ref}`0x5006h`.
 
 :::{warning} Vulnerabilidad Crítica: Desbordamiento de Búfer
-La función estándar `gets()` fue removida de forma definitiva en el estándar C11 debido a que **no verifica el límite de almacenamiento del búfer de destino**. Similarmente, `scanf("%s", ...)` lee datos de la entrada estándar y los escribe en memoria de forma descontrolada hasta encontrar un espacio en blanco o una nueva línea. Si el usuario ingresa una cadena de longitud mayor al tamaño reservado, se produce un **desbordamiento de búfer** (*buffer overflow*), sobrescribiendo celdas de variables contiguas o alterando la dirección de retorno en el Stack Frame.
-:::
 
-```{code-block}c
+La función estándar `gets()` fue removida de forma definitiva en el estándar C11
+debido a que **no verifica el límite de almacenamiento del búfer de destino**.
+Similarmente, `scanf("%s", ...)` lee datos de la entrada estándar y los escribe
+en memoria de forma descontrolada hasta encontrar un espacio en blanco o una
+nueva línea. Si el usuario ingresa una cadena de longitud mayor al tamaño
+reservado, se produce un **desbordamiento de búfer** (*buffer overflow*),
+sobrescribiendo celdas de variables contiguas o alterando la dirección de
+retorno en el Stack Frame.
+
+:::
+<!-- {warning} Vulnerabilidad Crítica: Desbordamiento de Búfer -->
+
+:::{code-block}c
 :linenos:
 #include <stdio.h>
 #include <string.h>
@@ -843,7 +877,8 @@ void leer_entrada(void) {
         printf("Nombre ingresado: %s\n", buffer);
     }
 }
-```
+
+:::
 <!-- {code-block}c -->
 
 (biblioteca-estandar-string-h-un-vistazo-rapido)=
@@ -1086,8 +1121,10 @@ manipula la memoria:
 
 - Los **punteros** ([Punteros](2_punteros.md)) como variables que almacenan
   direcciones
-- Las **matrices** ([Matrices](../bloque_4_dinamica_indireccion/3_matrices.md)) como arreglos multidimensionales
-- La **gestión de memoria** ([Memoria Dinámica](../bloque_4_dinamica_indireccion/1_memoria_dinamica.md)) para
+- Las **matrices** ([Matrices](../bloque_4_dinamica_indireccion/3_matrices.md))
+  como arreglos multidimensionales
+- La **gestión de memoria** ([Memoria
+  Dinámica](../bloque_4_dinamica_indireccion/1_memoria_dinamica.md)) para
   estructuras dinámicas
 
 Los punteros son el concepto más poderoso y peligroso de C. Dominando punteros y

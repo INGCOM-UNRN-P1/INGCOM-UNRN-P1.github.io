@@ -1769,7 +1769,7 @@ Compilar con: `gcc -fopenmp programa.c`
 - `man pthread_create`, `man pthread_mutex_lock`, etc.
 - [POSIX Threads Programming (LLNL)](https://hpc-tutorials.llnl.gov/posix/)
 - [GNU C Library Manual - POSIX
-  Threads](https://www.gnu.org/software/libc/manual/html_node/POSIX-Threads.html)
+Threads](https://www.gnu.org/software/libc/manual/html_node/POSIX-Threads.html)
 
 ### Herramientas
 

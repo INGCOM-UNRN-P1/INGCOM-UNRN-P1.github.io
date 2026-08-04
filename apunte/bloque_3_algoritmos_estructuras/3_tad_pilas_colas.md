@@ -46,7 +46,8 @@ Operaciones de apilado (push) and desapilado (pop) en una Pila.
 :label: fig-pila-lista-enlazada
 :align: center
 
-Estructura de una Pila implementada dinámicamente mediante nodos enlazados en el heap.
+Estructura de una Pila implementada dinámicamente mediante nodos enlazados en el
+heap.
 
 :::
 <!-- {figure} 4/pila_lista_enlazada.svg -->
@@ -239,7 +240,8 @@ Una alternativa es implementar la pila usando un arreglo, donde el tope es el
 :label: fig-pila-arreglo
 :align: center
 
-Estructura de una Pila implementada estáticamente mediante un arreglo y un índice de tope.
+Estructura de una Pila implementada estáticamente mediante un arreglo y un
+índice de tope.
 
 :::
 <!-- {figure} 4/pila_arreglo.svg -->
@@ -478,7 +480,8 @@ análogo a una fila de personas donde quien llega primero es atendido primero.
 :label: fig-cola-lista-enlazada
 :align: center
 
-Estructura de una Cola implementada dinámicamente mediante nodos enlazados en el heap con punteros a inicio y fin.
+Estructura de una Cola implementada dinámicamente mediante nodos enlazados en el
+heap con punteros a inicio y fin.
 
 :::
 <!-- {figure} 4/cola_lista_enlazada.svg -->
@@ -688,7 +691,8 @@ circular**, donde los índices "dan la vuelta" al final del arreglo.
 :label: fig-cola-circular
 :align: center
 
-Implementación eficiente de Cola sobre un arreglo circular para evitar el desplazamiento costoso de elementos.
+Implementación eficiente de Cola sobre un arreglo circular para evitar el
+desplazamiento costoso de elementos.
 
 :::
 <!-- {figure} 4/cola_circular.svg -->
@@ -916,7 +920,8 @@ extraer elementos en ambos extremos.
 :label: fig-deque
 :align: center
 
-Representación de una Cola de Doble Extremo (Deque), permitiendo inserciones y eliminaciones por ambos extremos.
+Representación de una Cola de Doble Extremo (Deque), permitiendo inserciones y
+eliminaciones por ambos extremos.
 
 :::
 <!-- {figure} 4/deque.svg -->
@@ -1958,8 +1963,10 @@ dentro del deque.
 ## Glosario
 
 :::{glossary}
+
 TAD (Tipo Abstracto de Datos)
-: Modelo matemático para tipos de datos definidos por su comportamiento y operaciones.
+: Modelo matemático para tipos de datos definidos por su comportamiento y
+operaciones.
 
 Pila (Stack)
 : Estructura de datos LIFO.
@@ -1969,7 +1976,9 @@ Cola (Queue)
 
 Encapsulación
 : Ocultamiento de la representación de datos del cliente.
+
 :::
+<!-- {glossary} -->
 
 ## Síntesis y Resumen
 

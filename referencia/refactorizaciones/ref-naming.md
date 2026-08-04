@@ -6,19 +6,30 @@ subtitle: "Técnicas para elegir nombres que revelen intenciones y mejoren la co
 
 ## Introducción
 
-Los nombres son la forma más básica y fundamental de documentación en el código. Un buen nombre comunica propósito, tipo, alcance y restricciones sin necesidad de comentarios adicionales. Por el contrario, nombres pobres oscurecen la intención, aumentan la carga cognitiva y conducen a errores.
+Los nombres son la forma más básica y fundamental de documentación en el código.
+Un buen nombre comunica propósito, tipo, alcance y restricciones sin necesidad
+de comentarios adicionales. Por el contrario, nombres pobres oscurecen la
+intención, aumentan la carga cognitiva y conducen a errores.
 
-Este apunte presenta técnicas sistemáticas para mejorar los nombres en el código, desde variables y funciones hasta tipos y constantes, con el objetivo de hacer el código auto-explicativo y mantener la coherencia en todo el proyecto.
+Este apunte presenta técnicas sistemáticas para mejorar los nombres en el
+código, desde variables y funciones hasta tipos y constantes, con el objetivo de
+hacer el código auto-explicativo y mantener la coherencia en todo el proyecto.
 
 :::{important} Nombres Reveladores de Intención
-Como establece {ref}`0x0001h`, los identificadores deben ser descriptivos y reflejar con precisión su propósito. Un nombre bien elegido es una forma de documentación que nunca queda desactualizada.
+
+Como establece {ref}`0x0001h`, los identificadores deben ser descriptivos y
+reflejar con precisión su propósito. Un nombre bien elegido es una forma de
+documentación que nunca queda desactualizada.
+
 :::
+<!-- {important} Nombres Reveladores de Intención -->
 
 ## Problemas Comunes con Nombres
 
 ### 1. Nombres Crípticos o Abreviados
 
-```c
+```{code-block} c
+:linenos:
 // Problemático: nombres sin significado claro
 int d;        // ¿días? ¿dinero? ¿distancia?
 int tmp;      // temporal... ¿para qué?
@@ -28,11 +39,14 @@ char buf[256]; // ¿buffer de qué?
 void proc(int n) {  // ¿procesar qué?
     // ...
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 2. Nombres Engañosos
 
-```c
+```{code-block} c
+:linenos:
 // Problemático: nombres que no reflejan el contenido real
 int dias_del_mes;  // Contiene el número del mes, no los días
 char* get_usuario(); // Retorna NULL si no existe, no "obtiene"
@@ -40,11 +54,14 @@ bool validar_email(char* e); // Solo verifica formato, no valida existencia
 
 // Array que NO contiene elementos de ese tipo
 usuario_t usuarios_activos[100]; // Puede tener usuarios inactivos
+
 ```
+<!-- {code-block} c -->
 
 ### 3. Inconsistencia en Nomenclatura
 
-```c
+```{code-block} c
+:linenos:
 // Problemático: diferentes convenciones mezcladas
 int obtener_edad();
 int getAltura();
@@ -56,11 +73,14 @@ typedef struct {
     char* nombre;     // minúsculas
     int EdadPersona;  // PascalCase
 } usuario_t;
+
 ```
+<!-- {code-block} c -->
 
 ### 4. Nombres Genéricos Sin Contexto
 
-```c
+```{code-block} c
+:linenos:
 // Problemático: nombres demasiado genéricos
 void procesar(void* datos);
 int calcular(int a, int b);
@@ -72,11 +92,14 @@ typedef struct {
     char* dato;
     void* info;
 } elemento_t;
+
 ```
+<!-- {code-block} c -->
 
 ### 5. Información de Tipo en el Nombre
 
-```c
+```{code-block} c
+:linenos:
 // Problemático: notación húngara o prefijos de tipo
 int iContador;
 char* strNombre;
@@ -86,7 +109,9 @@ float fPrecio;
 // Redundante
 char nombre_string[50];
 int edad_entero;
+
 ```
+<!-- {code-block} c -->
 
 ## Principios para Buenos Nombres
 
@@ -96,17 +121,19 @@ El nombre debe responder: ¿qué es? ¿qué hace? ¿por qué existe?
 
 **Antes:**
 
-```c
+``` c
 int d;  // días transcurridos
 int elapsed;  // mejor, pero ¿elapsed desde cuándo?
 ```
+<!-- c -->
 
 **Después:**
 
-```c
+``` c
 int dias_desde_ultima_modificacion;
 int tiempo_transcurrido_en_milisegundos;
 ```
+<!-- c -->
 
 ### 2. Evitar Desinformación
 
@@ -114,7 +141,8 @@ No usar nombres que contradigan el contenido o comportamiento.
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 // Engañoso: no es una lista
 usuario_t lista_usuarios[100];
 
@@ -123,11 +151,14 @@ usuario_t* get_usuario_by_id(int id);
 
 // Confuso: ¿incluye o excluye el IVA?
 double calcular_precio(double base);
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 usuario_t usuarios[100];
 int cantidad_usuarios;
 
@@ -137,7 +168,9 @@ usuario_t* buscar_usuario_por_id(int id);
 // Explícito sobre lo que incluye
 double calcular_precio_sin_iva(double base);
 double calcular_precio_con_iva(double base);
+
 ```
+<!-- {code-block} c -->
 
 ### 3. Hacer Distinciones Significativas
 
@@ -145,7 +178,8 @@ Evitar variaciones arbitrarias que no comunican diferencias reales.
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 void copiar_cadena(char* a1, char* a2);
 void procesar_datos1(int* datos);
 void procesar_datos2(int* datos);
@@ -156,11 +190,14 @@ typedef struct {
     char* data;
     char* contenido;
 } registro_t;
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 void copiar_cadena(const char* origen, char* destino);
 void validar_datos(int* datos);
 void transformar_datos(int* datos);
@@ -171,7 +208,9 @@ typedef struct {
     char* descripcion;
     char* cuerpo;
 } documento_t;
+
 ```
+<!-- {code-block} c -->
 
 ### 4. Usar Nombres Pronunciables
 
@@ -179,7 +218,8 @@ Facilita la comunicación verbal sobre el código.
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 struct usrmgr {
     int nusrs;
     char* usrnm[100];
@@ -187,11 +227,14 @@ struct usrmgr {
 };
 
 int gnymdhms(void);  // generation year, month, day, hour, minute, second
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     int cantidad_usuarios;
     char* nombres_usuario[100];
@@ -208,7 +251,9 @@ typedef struct {
 } marca_temporal_t;
 
 marca_temporal_t obtener_marca_temporal_actual(void);
+
 ```
+<!-- {code-block} c -->
 
 ### 5. Usar Nombres Buscables
 
@@ -216,7 +261,8 @@ Evitar nombres de una sola letra excepto en contextos muy locales.
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 // Difícil de buscar
 for (int i = 0; i < 7; i++) {
     double s = 0;
@@ -225,11 +271,14 @@ for (int i = 0; i < 7; i++) {
     }
     r[i] = s;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 const int DIAS_SEMANA = 7;
 
 for (int dia = 0; dia < DIAS_SEMANA; dia++) {
@@ -241,7 +290,9 @@ for (int dia = 0; dia < DIAS_SEMANA; dia++) {
     
     resultados[dia] = suma_diaria;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 6. Evitar Codificación de Tipo
 
@@ -249,7 +300,8 @@ No usar notación húngara ni prefijos de tipo.
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 int iEdad;
 char* strNombre;
 bool bActivo;
@@ -257,11 +309,14 @@ float fPrecio;
 struct user_struct {
     int iId;
 };
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 int edad;
 char* nombre;
 bool activo;
@@ -270,7 +325,9 @@ float precio;
 typedef struct {
     int id;
 } usuario_t;
+
 ```
+<!-- {code-block} c -->
 
 ### 7. Nombres de Clases y Estructuras
 
@@ -278,7 +335,8 @@ Usar sustantivos o frases nominales.
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     // ...
 } procesar_t;
@@ -290,11 +348,14 @@ typedef struct {
 typedef struct {
     // ...
 } data_t;
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     // ...
 } procesador_pedidos_t;
@@ -306,7 +367,9 @@ typedef struct {
 typedef struct {
     // ...
 } configuracion_sistema_t;
+
 ```
+<!-- {code-block} c -->
 
 ### 8. Nombres de Funciones
 
@@ -314,19 +377,21 @@ Usar verbos o frases verbales.
 
 **Antes:**
 
-```c
+``` c
 int cuenta();
 void nombre(char* n);
 bool estado();
 ```
+<!-- c -->
 
 **Después:**
 
-```c
+``` c
 int contar_elementos();
 void establecer_nombre(const char* nombre);
 bool esta_activo();
 ```
+<!-- c -->
 
 ## Técnicas de Refactorización de Nombres
 
@@ -334,7 +399,8 @@ bool esta_activo();
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 void calcular() {
     int n = obtener_cantidad();
     double p = obtener_precio();
@@ -343,11 +409,14 @@ void calcular() {
     
     printf("Total: %.2f\n", r);
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 void calcular_total_con_descuento() {
     int cantidad_items = obtener_cantidad();
     double precio_unitario = obtener_precio();
@@ -356,13 +425,16 @@ void calcular_total_con_descuento() {
     
     printf("Total: %.2f\n", total);
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 2. Renombrado de Funciones por Intención
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 bool chequear(usuario_t* u) {
     return u->edad >= 18 && !u->bloqueado;
 }
@@ -374,11 +446,14 @@ void hacer(pedido_t* p) {
 int get(int id) {
     // busca y retorna
 }
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 bool puede_realizar_compra(const usuario_t* usuario) {
     return usuario->edad >= 18 && !usuario->bloqueado;
 }
@@ -391,13 +466,16 @@ void procesar_pedido_completo(pedido_t* pedido) {
 int buscar_indice_por_id(int id) {
     // busca y retorna índice, -1 si no encuentra
 }
+
 ```
+<!-- {code-block} c -->
 
 ### 3. Contexto en Nombres de Estructuras
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     char* calle;
     char* numero;
@@ -414,11 +492,14 @@ typedef struct {
     char* direccion_calle;
     char* direccion_numero;
 } cliente_t;
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     char* calle;
     char* numero;
@@ -434,22 +515,26 @@ typedef struct {
 
 // Uso
 printf("Calle: %s\n", cliente.domicilio.calle);  // Claro por contexto
+
 ```
+<!-- {code-block} c -->
 
 ### 4. Nombres Consistentes para Conceptos Similares
 
 **Antes:**
 
-```c
+``` c
 usuario_t* obtener_usuario(int id);
 producto_t* fetch_producto(int id);
 pedido_t* recuperar_pedido(int id);
 factura_t* get_factura(int id);
 ```
+<!-- c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 usuario_t* buscar_usuario(int id);
 producto_t* buscar_producto(int id);
 pedido_t* buscar_pedido(int id);
@@ -460,13 +545,16 @@ usuario_t* obtener_usuario_por_id(int id);
 producto_t* obtener_producto_por_id(int id);
 pedido_t* obtener_pedido_por_id(int id);
 factura_t* obtener_factura_por_id(int id);
+
 ```
+<!-- {code-block} c -->
 
 ### 5. Agregar Contexto Significativo
 
 **Antes:**
 
-```c
+```{code-block} c
+:linenos:
 void imprimir_direccion() {
     char* calle;
     char* numero;
@@ -481,11 +569,14 @@ void imprimir_direccion() {
 char* calle;     // ¿De qué?
 char* numero;    // ¿De qué?
 char* ciudad;    // ¿De qué?
+
 ```
+<!-- {code-block} c -->
 
 **Después:**
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     char* calle;
     char* numero;
@@ -500,7 +591,9 @@ void imprimir_direccion(const direccion_t* direccion) {
            direccion->numero, 
            direccion->ciudad);
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Casos Prácticos Completos
 
@@ -508,7 +601,8 @@ void imprimir_direccion(const direccion_t* direccion) {
 
 **Código Original:**
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     int id;
     char* n;
@@ -536,11 +630,14 @@ int proc(item_t* items, int n) {
     }
     return c;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Código Refactorizado:**
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     int codigo_producto;
     char* nombre;
@@ -570,13 +667,16 @@ int contar_productos_con_stock_bajo(const producto_t* productos, int cantidad_pr
     
     return productos_con_stock_bajo;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### Caso 2: Procesamiento de Datos de Sensores
 
 **Código Original:**
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     double v;
     long t;
@@ -600,11 +700,14 @@ double calc(reading_t* r, int n) {
 bool val(reading_t* r) {
     return r->v >= 0 && r->v <= 100 && r->s == 1;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Código Refactorizado:**
 
-```c
+```{code-block} c
+:linenos:
 typedef enum {
     SENSOR_ERROR = 0,
     SENSOR_OK = 1,
@@ -640,13 +743,16 @@ bool es_lectura_valida(const lectura_sensor_t* lectura) {
            lectura->temperatura_celsius <= TEMPERATURA_MAXIMA &&
            lectura->estado == SENSOR_OK;
 }
+
 ```
+<!-- {code-block} c -->
 
 ### Caso 3: Sistema de Autenticación
 
 **Código Original:**
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     char* u;
     char* p;
@@ -674,11 +780,14 @@ bool chk_t(usr_t* u) {
     long now = time(NULL);
     return (now - u->lt) < 3600;
 }
+
 ```
+<!-- {code-block} c -->
 
 **Código Refactorizado:**
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     char* nombre_usuario;
     char* hash_password;
@@ -724,7 +833,9 @@ bool sesion_esta_vigente(const usuario_t* usuario) {
     
     return tiempo_transcurrido < DURACION_SESION_SEGUNDOS;
 }
+
 ```
+<!-- {code-block} c -->
 
 ## Convenciones de Nomenclatura
 
@@ -732,7 +843,8 @@ bool sesion_esta_vigente(const usuario_t* usuario) {
 
 **Verbos que indican acción:**
 
-```c
+```{code-block} c
+:linenos:
 // Acciones
 void crear_usuario();
 void eliminar_producto();
@@ -749,13 +861,16 @@ bool es_valido();
 bool tiene_permiso();
 bool esta_vacio();
 bool puede_procesar();
+
 ```
+<!-- {code-block} c -->
 
 ### Variables
 
 **Sustantivos o frases nominales:**
 
-```c
+```{code-block} c
+:linenos:
 // Buenos nombres de variables
 int edad_usuario;
 double precio_total;
@@ -770,24 +885,28 @@ double suma_acumulada;
 // Índices y posiciones
 int indice_actual;
 int posicion_cursor;
+
 ```
+<!-- {code-block} c -->
 
 ### Constantes
 
 **Mayúsculas con guiones bajos:**
 
-```c
+``` c
 const int MAX_USUARIOS = 100;
 const double TASA_IVA = 0.21;
 const char* RUTA_CONFIGURACION = "/etc/app/config.ini";
 const int TIMEOUT_CONEXION_SEGUNDOS = 30;
 ```
+<!-- c -->
 
 ### Tipos (Estructuras y Enumeraciones)
 
 **Sufijo `_t` para tipos:**
 
-```c
+```{code-block} c
+:linenos:
 typedef struct {
     // ...
 } usuario_t;
@@ -799,55 +918,62 @@ typedef enum {
 } estado_usuario_t;
 
 typedef int (*funcion_comparacion_t)(const void*, const void*);
+
 ```
+<!-- {code-block} c -->
 
 ## Patrones de Nombres Específicos
 
 ### Pares Get/Set
 
-```c
+``` c
 int obtener_edad(const usuario_t* usuario);
 void establecer_edad(usuario_t* usuario, int edad);
 
 char* obtener_nombre(const usuario_t* usuario);
 void establecer_nombre(usuario_t* usuario, const char* nombre);
 ```
+<!-- c -->
 
 ### Pares Create/Destroy
 
-```c
+``` c
 usuario_t* crear_usuario(const char* nombre);
 void destruir_usuario(usuario_t* usuario);
 
 lista_t* crear_lista(void);
 void destruir_lista(lista_t* lista);
 ```
+<!-- c -->
 
 ### Pares Open/Close
 
-```c
+``` c
 archivo_t* abrir_archivo(const char* ruta);
 void cerrar_archivo(archivo_t* archivo);
 
 conexion_t* abrir_conexion(const char* host);
 void cerrar_conexion(conexion_t* conexion);
 ```
+<!-- c -->
 
 ### Pares Begin/End
 
-```c
+``` c
 void iniciar_transaccion(void);
 void finalizar_transaccion(void);
 
 void comenzar_procesamiento(void);
 void terminar_procesamiento(void);
 ```
+<!-- c -->
 
 ## Antipatrones a Evitar
 
 ### 1. Ruido en Nombres
 
-```c
+```{code-block} c
+:linenos:
 // Problemático: palabras que no agregan información
 int the_numero;
 char* a_nombre;
@@ -857,11 +983,13 @@ typedef struct {
     int dato_numero;
     char* info_cadena;
 } objeto_data_t;
+
 ```
+<!-- {code-block} c -->
 
 ### 2. Diferencias Sutiles
 
-```c
+``` c
 // Problemático: demasiado similar, fácil confundir
 void procesar_cliente_activo();
 void procesar_clientes_activos();
@@ -869,10 +997,12 @@ void procesar_clientes_activos();
 usuario_t usuario;
 usuario_t usuarios;  // Plural solo difiere en 's'
 ```
+<!-- c -->
 
 ### 3. Nombres Dependientes del Contexto
 
-```c
+```{code-block} c
+:linenos:
 // Problemático en diferentes archivos
 // archivo1.c
 int contador;  // Cuenta usuarios
@@ -883,7 +1013,9 @@ int contador;  // Cuenta productos
 // Mejor: específico
 int contador_usuarios;
 int contador_productos;
+
 ```
+<!-- {code-block} c -->
 
 ## Resumen
 
@@ -907,4 +1039,5 @@ Principios para buenos nombres:
 - Reduce errores por confusión
 - Facilita colaboración
 
-Los buenos nombres son inversión, no gasto. El tiempo dedicado a elegir nombres apropiados se recupera ampliamente en mantenimiento y comprensión.
+Los buenos nombres son inversión, no gasto. El tiempo dedicado a elegir nombres
+apropiados se recupera ampliamente en mantenimiento y comprensión.

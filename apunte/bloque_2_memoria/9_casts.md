@@ -102,7 +102,7 @@ específico.
 La sintaxis del operador cast antepone el tipo de destino entre paréntesis a la
 expresión a convertir:
 
-```c
+``` c
 (tipo_destino) expresion
 ```
 <!-- c -->
@@ -312,6 +312,7 @@ segura a un tipo común que pueda contener a ambos.
 ## Glosario
 
 :::{glossary}
+
 Cast (Casteo)
 : Operación explícita para forzar al compilador a convertir una expresión a un
 tipo de dato específico.
@@ -327,7 +328,9 @@ Promoción Entera
 Democión de Tipos (Truncamiento)
 : Conversión de un tipo de mayor jerarquía o rango de representación a uno
 menor, usualmente acompañada de pérdida de datos o precisión.
+
 :::
+<!-- {glossary} -->
 
 ---
 

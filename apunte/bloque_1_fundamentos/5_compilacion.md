@@ -24,8 +24,10 @@ archivo ejecutable que la máquina puede interpretar directamente.
 :::{note} Prerequisitos
 
 Este capítulo asume que ya escribiste y ejecutaste programas básicos en C como
-los presentados en el [](../bloque_1_fundamentos/2_gradual.md). También es útil tener familiaridad con
-el concepto de funciones ([](../bloque_1_fundamentos/4_funciones.md)) ya que se mencionan prototipos y
+los presentados en el [](../bloque_1_fundamentos/2_gradual.md). También es útil
+tener familiaridad con
+el concepto de funciones ([](../bloque_1_fundamentos/4_funciones.md)) ya que se
+mencionan prototipos y
 definiciones en el contexto de compilación de múltiples archivos.
 
 :::
@@ -55,13 +57,17 @@ El flujo de transformación desde tu código fuente hasta un programa ejecutable
 se puede visualizar de la siguiente manera:
 
 
-```{figure} 1/proceso_compilacion.svg
+:::{figure} 1/proceso_compilacion.svg
 :label: fig-proceso-compilacion
 :align: center
 :width: 90%
 
-Fases físicas del proceso de compilación separada. Se muestra la transformación desde archivos fuente independientes `.c` y cabeceras `.h` hacia código objeto `.o` y su posterior unión en el binario ejecutable final por el Linker.
-```
+Fases físicas del proceso de compilación separada. Se muestra la transformación
+desde archivos fuente independientes `.c` y cabeceras `.h` hacia código objeto
+`.o` y su posterior unión en el binario ejecutable final por el Linker.
+
+:::
+<!-- {figure} 1/proceso_compilacion.svg -->
 
 (fase-1-preprocesado-preprocessing)=
 #### Etapa 1: Preprocesado (Preprocessing)
@@ -74,8 +80,15 @@ directivas, que son instrucciones especiales identificadas por el carácter
 inicial `#`.
 
 :::{important} Desmitificación de `#include`
-La directiva `#include` no realiza una importación lógica en tiempo de ejecución (como el `import` de Java o Python). Su comportamiento consiste simplemente en realizar una copia textual del contenido íntegro del archivo de cabecera en el punto de inclusión física de la directiva, generando una única unidad de traducción expandida.
+
+La directiva `#include` no realiza una importación lógica en tiempo de ejecución
+(como el `import` de Java o Python). Su comportamiento consiste simplemente en
+realizar una copia textual del contenido íntegro del archivo de cabecera en el
+punto de inclusión física de la directiva, generando una única unidad de
+traducción expandida.
+
 :::
+<!-- {important} Desmitificación de `#include` -->
 
 Podés pensar en el preprocesador como un asistente que prepara y limpia el
 código, resolviendo inclusiones de archivos, expandiendo abreviaturas (macros) y
@@ -181,13 +194,19 @@ macro mal definida o en una inclusión de archivo incorrecta.
 (etapa-2-compilacion)=
 #### Etapa 2: Compilación a Código Objeto (Compilation to Object Code)
 
-En esta etapa, el compilador toma el código fuente C preprocesado y lo traduce a instrucciones binarias de código máquina específicas para la arquitectura de la CPU, empaquetándolas en un **archivo objeto** (con extensión `.o`). Físicamente, esta etapa engloba el análisis del compilador (que produce código ensamblador simbólico `.s`) y la posterior traducción del ensamblador al formato binario.
+En esta etapa, el compilador toma el código fuente C preprocesado y lo traduce a
+instrucciones binarias de código máquina específicas para la arquitectura de la
+CPU, empaquetándolas en un **archivo objeto** (con extensión `.o`). Físicamente,
+esta etapa engloba el análisis del compilador (que produce código ensamblador
+simbólico `.s`) y la posterior traducción del ensamblador al formato binario.
 
-Para detener el proceso en esta etapa y generar el archivo objeto sin realizar el enlazado, se utiliza la opción `-c`:
+Para detener el proceso en esta etapa y generar el archivo objeto sin realizar
+el enlazado, se utiliza la opción `-c`:
 
-```sh
+``` sh
 gcc -c programa.c
 ```
+<!-- sh -->
 
 Esto generará el archivo objeto `programa.o`.
 
@@ -247,6 +266,7 @@ el código ensamblador correspondiente.
 Si partimos de un archivo `programa.c` simple:
 
 ```{code-block} c
+:linenos:
 
 // programa.c
 int suma(int a, int b) {
@@ -276,6 +296,7 @@ este (puede
 variar según el compilador y la arquitectura):
 
 ```{code-block} assembler
+:linenos:
 
 ; programa.s (ejemplo para x86-64)
 suma:
@@ -400,6 +421,7 @@ sea utilizada. Una buena documentación, como la que pide la regla
 {ref}`0x000Ah`, es fundamental.
 
 ```{code-block} c
+:linenos:
 :caption: Documentación de prototipos con estilo Doxygen
 /**
  * @brief Calcula la suma de dos números enteros.
@@ -440,6 +462,7 @@ sufijo `_t` para los tipos definidos con `typedef` sigue la regla
 _(Estos conceptos serán tratados más adelante en la cátedra.)_
 
 ```{code-block} c
+:linenos:
 :caption: Declaración de un nuevo tipo de dato
 
 // Define una estructura para representar un punto en 2D.
@@ -490,15 +513,25 @@ de estilo {ref}`0x5003h`.
 
 :::{warning} Prohibición de Definiciones en Cabeceras
 
-El archivo de cabecera `.h` actúa como un **contrato de interfaz pública** y solo debe contener declaraciones (firmas de funciones, prototipos, macros y definiciones de tipos). Está estrictamente prohibido definir variables (por ejemplo, `int mi_global = 10;`) o cuerpos de funciones ejecutables en una cabecera. Si violás esta directiva, cuando múltiples archivos `.c` incluyan ese `.h`, el compilador generará múltiples copias físicas de la función o variable en cada archivo objeto `.o`. Al final, el enlazador (Linker) fallará con un error del tipo `multiple definition of...` debido a la violación de la regla de definición única (*One Definition Rule*).
+El archivo de cabecera `.h` actúa como un **contrato de interfaz pública** y
+solo debe contener declaraciones (firmas de funciones, prototipos, macros y
+definiciones de tipos). Está estrictamente prohibido definir variables (por
+ejemplo, `int mi_global = 10;`) o cuerpos de funciones ejecutables en una
+cabecera. Si violás esta directiva, cuando múltiples archivos `.c` incluyan ese
+`.h`, el compilador generará múltiples copias físicas de la función o variable
+en cada archivo objeto `.o`. Al final, el enlazador (Linker) fallará con un
+error del tipo `multiple definition of...` debido a la violación de la regla de
+definición única (*One Definition Rule*).
 
 :::
+<!-- {warning} Prohibición de Definiciones en Cabeceras -->
 
 La técnica estándar utiliza directivas del preprocesador para verificar si un
 símbolo único ya fue definido. Si no lo fue, define el símbolo e incluye el
 contenido del archivo.
 
 ```{code-block} c
+:linenos:
 :caption: Estructura de una guarda de inclusión
 :label: inclusion-guard
 
@@ -547,7 +580,12 @@ prolijidad y previene errores futuros si el contenido del archivo cambia.
 (fase-3-ensamblado-assembly)=
 ##### Detrás de escena: El Ensamblado
 
-Esta sub-fase actúa como el traductor final entre el lenguaje ensamblador simbólico y el lenguaje nativo binario de la máquina. El **ensamblador** toma el código C previamente traducido a ensamblador (que todavía utiliza mnemónicos legibles por humanos como `mov`, `add`, `jmp`) y lo convierte en **código máquina**: las instrucciones binarias puras que el procesador de la CPU puede ejecutar directamente.
+Esta sub-fase actúa como el traductor final entre el lenguaje ensamblador
+simbólico y el lenguaje nativo binario de la máquina. El **ensamblador** toma el
+código C previamente traducido a ensamblador (que todavía utiliza mnemónicos
+legibles por humanos como `mov`, `add`, `jmp`) y lo convierte en **código
+máquina**: las instrucciones binarias puras que el procesador de la CPU puede
+ejecutar directamente.
 
 Cada arquitectura de procesador (como x86-64, ARM, MIPS) tiene su propio y único
 conjunto de instrucciones de máquina. Por lo tanto, el código ensamblador
@@ -646,7 +684,10 @@ en proyectos grandes.
 (fase-4-enlazado-linking)=
 #### Etapa 3: Enlazado (Linking)
 
-Esta es la etapa final de la compilación, donde todas las piezas de código máquina, previamente compiladas de forma aislada, se ensamblan para formar un único archivo ejecutable. El programa responsable de esta tarea es el **enlazador** (o _linker_), invocado por `gcc` bajo el nombre de `ld`.
+Esta es la etapa final de la compilación, donde todas las piezas de código
+máquina, previamente compiladas de forma aislada, se ensamblan para formar un
+único archivo ejecutable. El programa responsable de esta tarea es el
+**enlazador** (o _linker_), invocado por `gcc` bajo el nombre de `ld`.
 
 El enlazador toma uno o más archivos objeto (`.o`) y las bibliotecas de código
 necesarias, y los combina para producir el archivo final que el sistema
@@ -816,6 +857,7 @@ En este ejemplo, para crear el programa ejecutable `programa`, son necesarios
 `main.c` y `funciones.c`.
 
 ```{code-block} makefile
+:linenos:
 
 # Variables para el compilador, flags y archivos
 CC = gcc
@@ -1995,6 +2037,7 @@ regla de compilación para reconstruir el objeto. Si el objeto es más nuevo que
 sus dependencias, `make` omite su compilación.
 
 :::
+<!-- {solution} 1_compilacion-ej-make-incremental -->
 <!-- {solution} ej-make-incremental -->
 
 :::{exercise}
@@ -2018,6 +2061,7 @@ actualizado (`make: 'clean' is up to date`) y se negaría a ejecutar el bloque d
 comandos para limpiar el proyecto.
 
 :::
+<!-- {solution} 1_compilacion-ej-make-clean-phony -->
 <!-- {solution} ej-make-clean-phony -->
 
 :::{exercise}
@@ -2041,6 +2085,7 @@ usuario.o: usuario.c usuario.h
 por un carácter de tabulación (Tab).*
 
 :::
+<!-- {solution} 1_compilacion-ej-make-escritura -->
 <!-- {solution} ej-make-escritura -->
 
 

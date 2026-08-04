@@ -35,6 +35,7 @@ Usá el foro de discusiones del repositorio de GitHub:
 [INGCOM-UNRN-P1/discussions](https://github.com/orgs/INGCOM-UNRN-P1/discussions/)
 
 :::
+<!-- {tip} Para consultas generales sobre la materia -->
 
 Para dudas específicas sobre la corrección de un trabajo práctico, realiza un
 comentario directamente en el hilo de la corrección en GitHub. (Consulten el
@@ -69,6 +70,7 @@ Esto no significa que es necesario estar si o si el 80% de las clases, pero las
 excepciones se tratan antes y no después.
 
 :::
+<!-- {note} -->
 
 ## La parte práctica
 
@@ -99,10 +101,12 @@ aceptada.
 su uso**
 
 :::
+<!-- {important} Aclaración sobre el uso de IA's -->
 
 Y siguiendo en línea con lo referido a la práctica, la cantidad de ejercicios
 disponibles será elevada, pero no todos son de entrega obligatoria, se elegirán
-ejercicios representativos para ir viendo como vienen y que cuestiones es necesario
+ejercicios representativos para ir viendo como vienen y que cuestiones es
+necesario
 reforzar.
 
 ### Fase I
@@ -123,17 +127,20 @@ en sus casas fuera del horario de clases.
 El uso de Git será optativo _al principio_.
 
 :::
+<!-- {note}Sobre el uso de Git/Github -->
 
 ### Fase II
 
 Esta comenzará luego del primer parcial y las prácticas se desarrollarán sobre
 repositorios Git alojados en GitHub.
 
-Los ejercicios de esta parte, también tendrán una parte opcional, pero recomendada.
+Los ejercicios de esta parte, también tendrán una parte opcional, pero
+recomendada.
 
 ### Fase III
 
-La última fase consiste en la utilización de proyectos alojados en Git y utilizando
+La última fase consiste en la utilización de proyectos alojados en Git y
+utilizando
 `Makefiles` (no se preocupen _porque son_, ya que lo veremos en clases).
 
 Así como requerirán la creación de casos de prueba y unidades de compilación.
@@ -147,8 +154,10 @@ la fecha de entrega o «fecha límite» el TP no será recibido y quedará como
 incompleto.
 
 :::
+<!-- {warning} -->
 
-Las entregas obligatorias se tendrán en cuenta en la corrección del examen parcial.
+Las entregas obligatorias se tendrán en cuenta en la corrección del examen
+parcial.
 
 ## Parciales
 
@@ -161,6 +170,7 @@ programación en papel.
 Las notas de los parciales no se promedia.
 
 :::
+<!-- {warning} -->
 
 ### Recuperatorio
 
@@ -174,6 +184,7 @@ Al final del cuatrimestre habrá **una** fecha de recuperatorio en donde podrán
 Es necesario rendir el parcial.
 
 :::
+<!-- {warning} Para acceder al recuperatorio -->
 
 ## Criterios de evaluación del código entregado
 
@@ -217,13 +228,14 @@ centralizado en este sitio y también en el repositorio de la cursada:
 aquí se ha habilitado el wiki, por si quieren hacer algún aporte a la cátedra, 
 de forma rápida [wiki](https://github.com/INGCOM-UNRN-P1/cursada-2025/wiki).
 
-:::{note} 
+:::{note}
 
 Se sugiere «observar» (_Watch_) el repositorio y activar la opción
 _All Activity_. De esta forma, recibirás notificaciones por email cada vez que
 se suba o modifique material, manteniéndote siempre al día.
 
 :::
+<!-- {note} -->
 
 El cronograma y el calendario con todas las fechas importantes están disponibles
 en el campus virtual de la universidad.
@@ -237,9 +249,10 @@ Las IA no necesitan practicar programación, son ustedes los que tienen que
 aprender, además, los ejercicios que les planteamos ya han sido resueltos de
 miles de formas diferentes.
 
-:::{warning} 
+:::{warning}
 
 La utilización de alguna IA para la resolución de parciales es una
 falta grave y provocará la expulsión directa.
 
 :::
+<!-- {warning} -->
