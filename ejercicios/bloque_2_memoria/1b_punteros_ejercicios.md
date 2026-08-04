@@ -27,6 +27,15 @@ aritmética básica de indirección de memoria en C.
 ## Ejercicio 9.1 - s ⭐⭐☆☆☆
 
 (ejercicio_9_2)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 9.2 - b.1 - Intercambiar valores ⭐⭐☆☆☆
 
 :::{exercise}
@@ -37,6 +46,8 @@ Implementá un procedimiento `void intercambiar(int *a, int *b)` que reciba dos
 punteros a enteros. La función debe intercambiar los valores de las variables
 originales a las que apuntan estos punteros.
 
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
 :::
 <!-- {exercise} -->
 
@@ -74,6 +85,8 @@ reciba un puntero al inicio de un arreglo de enteros (marcado como `const` para
 no modificarlo) y su tamaño. La función debe recorrer el arreglo usando el
 puntero y devolver el valor del elemento más grande.
 
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
 :::
 <!-- {exercise} -->
 
@@ -121,6 +134,8 @@ Implementá un procedimiento `void copiar_cadena(char *destino, const char
 `destino`, incluyendo el carácter nulo final (`\0`). Debés resolverlo
 recorriendo las cadenas exclusivamente con punteros.
 
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
 :::
 <!-- {exercise} -->
 
@@ -163,6 +178,8 @@ de memoria inmediatamente posterior al último elemento. La función debe sumar
 los elementos del arreglo iterando con un puntero desde `inicio` hasta que
 alcance a `fin`.
 
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
 :::
 <!-- {exercise} -->
 
@@ -204,6 +221,8 @@ auxiliar). Utilizá dos punteros: uno que apunte al inicio del arreglo y otro qu
 apunte al final. Intercambiá los valores a los que apuntan y mové los punteros
 hacia el centro hasta que se crucen.
 
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
 :::
 <!-- {exercise} -->
 

@@ -56,6 +56,15 @@ original en `main` apunte a esta nueva memoria.
   3. Asignar la nueva dirección de memoria al puntero desreferenciado:
      `*puntero_a_cadena = nueva_cadena;`.
 (ejercicio_26_2)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 26.2 - Devolución de un Arreglo de Cadenas (Tokenizer) ⭐⭐⭐☆☆
 
 Reimplementar el ejercicio de "Tokenización" para que la función devuelva un
@@ -70,6 +79,15 @@ función debe ser `char** dividir_cadena(const char *s, const char
 - **Liberación**: Se debe crear una función `void liberar_tokens(char **tokens)`
   que recorra el arreglo y libere cada cadena, y finalmente libere el arreglo de
   punteros.
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 
@@ -91,6 +109,15 @@ un puntero a una función que toma dos enteros y devuelve un entero.
 - `(int, int)`: El puntero apunta a una función que toma dos `int` como
   parámetros.
 (ejercicio_26_4)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 26.4 - Función de Orden Superior (Calculadora) ⭐⭐☆☆☆
 
 Escribir una función `int calculadora(int a, int b, operacion_aritmetica_t
@@ -106,6 +133,15 @@ su resultado.
   - `calculadora(10, 5, sumar);` // Devuelve 15
   - `calculadora(10, 5, restar);` // Devuelve 5
 (ejercicio_26_5)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 26.5 - Tabla de Despacho (Dispatch Table) ⭐⭐☆☆☆
 
 Crear una "tabla de despacho" para la calculadora. Esto consiste en un arreglo
@@ -119,3 +155,12 @@ correcta desde el arreglo.
 - **Llamada**: `int resultado = operaciones[opcion](a, b);`
 - **Ventaja**: Reemplaza una estructura `switch` o `if-else` larga por una
   simple indexación de arreglo, lo que hace el código más compacto y extensible.
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+

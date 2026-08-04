@@ -30,6 +30,15 @@ defensivo de errores en tiempo de ejecución.
 
 Implementar un constructor para la estructura `persona_t`:
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 typedef struct {
@@ -53,6 +62,15 @@ persona_t* persona_crear(const char* nombre, const char* apellido, int edad);
 
 Implementar el destructor correspondiente:
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ``` c
 void persona_destruir(persona_t** ptr_persona);
 ```
@@ -69,6 +87,15 @@ void persona_destruir(persona_t** ptr_persona);
 Implementar una función que cree una copia completamente independiente de una
 persona:
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ``` c
 persona_t* persona_clonar(const persona_t* original);
 ```
@@ -80,6 +107,15 @@ compartir punteros con el original.
 ### Ejercicio 17.4 - Estructura con Múltiples Niveles ⭐⭐⭐☆☆
 
 Implementar constructor y destructor para esta estructura anidada:
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -117,6 +153,15 @@ principal, la dirección anidada, y el array dinámico de cadenas.
 Escribir una función que asigne memoria para una estructura de estudiante con
 cursos:
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 typedef struct {
@@ -139,6 +184,15 @@ Implementar la función del ejercicio anterior estructurando la liberación de
 recursos en una sección de limpieza al final de la función mediante `goto`, como
 se describe en las buenas prácticas de la cátedra.
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 
 ## Matrices Dinámicas
@@ -147,6 +201,15 @@ se describe en las buenas prácticas de la cátedra.
 
 Implementar funciones para crear y liberar una matriz dentada donde cada fila se
 aloja como un bloque independiente.
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 int** crear_matriz_dentada(size_t filas, size_t columnas);
@@ -160,6 +223,15 @@ Implementar funciones para crear y liberar una matriz contigua en memoria,
 reservando un único bloque para todos los datos y configurando el array de
 punteros a filas.
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ``` c
 int** crear_matriz_contigua(size_t filas, size_t columnas);
 void liberar_matriz_contigua(int*** ptr_matriz);
@@ -172,6 +244,15 @@ Implementar una función que reciba un arreglo plano (`int*`) de tamaño $N \tim
 M$ y retorne una estructura de punteros a filas (`int**`) que permita acceder al
 mismo usando la notación `matriz[i][j]`.
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 
 ## Optimización y Casos Prácticos
@@ -182,26 +263,71 @@ Implementar un vector dinámico de enteros que duplique su capacidad
 automáticamente al llenarse, asegurando un manejo correcto del valor de retorno
 de `realloc` mediante un puntero intermedio temporal.
 (ejercicio_17_11)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 17.11 - Reducción Dinámica de Capacidad (Shrinking) ⭐⭐⭐☆☆
 
 Modificar el vector del ejercicio anterior para reducir su capacidad a la mitad
 si la cantidad de elementos en uso cae por debajo de 1/4 de su capacidad máxima.
 (ejercicio_17_12)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 17.12 - Gestión de Memoria en el Parser JSON ⭐⭐☆☆☆
 
 Diseñar las funciones de reserva y liberación para un nodo AST de un parser JSON
 que representa objetos y arreglos anidados mediante punteros dinámicos.
 (ejercicio_17_13)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 17.13 - Heap Buffer Overflow ⭐⭐☆☆☆
 
 Escribir un fragmento de código que produzca un desbordamiento de búfer en el
 Heap y explicar cómo AddressSanitizer reporta dicho error.
 (ejercicio_17_14)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ## Ejercicio 17.14 - Matriz Dinámica Dentada ⭐⭐☆☆☆
 
 Creá matriz donde cada fila tiene diferente cantidad de columnas.
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 int filas = 3;
@@ -223,6 +349,15 @@ for (int i = 0; i < filas; i++) {
 Creá matriz contigua en memoria (un solo `malloc` para datos).
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 int **crear_matriz(int filas, int cols) {
@@ -247,6 +382,15 @@ int **crear_matriz(int filas, int cols) {
 Implementá acceso a matriz unidimensional como bidimensional.
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ``` c
 int *matriz = malloc(filas * cols * sizeof(int));
 // Acceso: matriz[i * cols + j]
@@ -266,6 +410,15 @@ MAT(matriz, 2, 3, cols) = 42;
 Implementá función para redimensionar array preservando datos.
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 int *redimensionar(int *arr, int tam_actual, int tam_nuevo) {
@@ -288,6 +441,15 @@ int *redimensionar(int *arr, int tam_actual, int tam_nuevo) {
 Creá array dinámico de strings donde cada string también es dinámico.
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 char **strings = malloc(n * sizeof(char*));
@@ -312,6 +474,15 @@ free(strings);
 Creá estructura que contenga arrays dinámicos.
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 typedef struct {
@@ -343,6 +514,15 @@ void destruir_vector(vector_t *v) {
 Implementá lista donde cada nodo contiene un string dinámico.
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 typedef struct nodo {
@@ -373,6 +553,15 @@ void liberar_nodo(nodo_t *nodo) {
 Implementá árbol binario donde cada nodo tiene string dinámico.
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 typedef struct nodo_arbol {
@@ -401,6 +590,15 @@ Implementá matriz triangular inferior (solo almacená elementos <= diagonal).
 **Orientación:**
 - Fila i tiene i+1 elementos
 - Total elementos: n(n+1)/2
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ``` c
 int **matriz = malloc(n * sizeof(int*));
 for (int i = 0; i < n; i++) {
@@ -416,6 +614,15 @@ for (int i = 0; i < n; i++) {
 Implementá copia profunda de estructura con punteros.
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 typedef struct {
@@ -444,6 +651,15 @@ estudiante_t *copiar(const estudiante_t *orig) {
 Creá grafo con matriz de adyacencia dinámica.
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 typedef struct {
@@ -471,6 +687,15 @@ grafo_t *crear_grafo(int n) {
 Creá array dinámico de estructuras que contienen punteros.
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 typedef struct {
@@ -498,6 +723,15 @@ free(libros);
 Implementá tabla hash con encadenamiento y redimensionamiento.
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 typedef struct entrada {
@@ -529,6 +763,15 @@ void redimensionar(hash_t *h) {
 Implementá matriz dispersa con lista de triplas (fila, col, valor).
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 typedef struct {
@@ -555,6 +798,15 @@ typedef struct {
 Implementá buffer circular con redimensionamiento.
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 typedef struct {
@@ -592,6 +844,15 @@ void redimensionar_buffer(buffer_circular_t *b) {
 Implementá función que modifica puntero pasado como argumento.
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 void insertar_inicio(nodo_t **cabeza, int valor) {
@@ -615,6 +876,15 @@ insertar_inicio(&lista, 42);  // Pasa dirección del puntero
 Creá array tridimensional dinámico.
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 int ***crear_array_3d(int x, int y, int z) {
@@ -648,6 +918,15 @@ void liberar_array_3d(int ***arr, int x, int y) {
 Implementá pool de objetos para evitar malloc/free frecuentes.
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 typedef struct {
@@ -677,6 +956,15 @@ void pool_free(pool_t *p, void *obj) {
 Implementá sistema de conteo de referencias para compartir datos.
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 typedef struct {
@@ -712,6 +1000,15 @@ void decrementar_ref(ref_counted_t *r, void (*destruir)(void*)) {
 Implementá wrapper de malloc/free que registre asignaciones.
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 typedef struct {

@@ -31,6 +31,15 @@ simulado en el lenguaje C.
 Implementar `void duplicar(int *numero)` que modifique el valor de la variable
 original.
 (ejercicio_8_2)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 8.2 - División Lenta II ⭐⭐☆☆☆
 
 Implementar `int division_lenta(int dividendo, int divisor, int *cociente, int
@@ -39,11 +48,29 @@ apuntan `cociente` y `resto`.
 
 Utilicen el retorno para indicar si la división fue correcta o no.
 (ejercicio_8_3)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 8.3 - Estadísticas de Arreglo ⭐⭐⭐☆☆
 
 Implementar `void estadisticas(int arr[], size_t n, int *min, int *max, double
 *prom)`.
 (ejercicio_8_4)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 8.4 - Largo seguro con punteros ⭐⭐⭐☆☆
 
 Implementar `size_t largo_seguro(const char *str, size_t capacidad)`.
@@ -51,6 +78,15 @@ Implementar `size_t largo_seguro(const char *str, size_t capacidad)`.
 **Lógica**: Inicializar un puntero `const char *fin = str;`. Iterar con `while
 (*fin != '\0' && (size_t)(fin - str) < capacidad) { fin++; }`. El largo es `fin
 - str`.
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 
@@ -61,16 +97,43 @@ Implementar `size_t largo_seguro(const char *str, size_t capacidad)`.
 Implementar un algoritmo de ordenamiento (ej. Burbuja) que para intercambiar
 elementos llame a `void intercambia(int *a, int *b)`.
 (ejercicio_8_6)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 8.6 - Búsqueda de subcadena ⭐⭐⭐☆☆
 
 Implementar `char* busqueda(const char *cadena, const char *buscado)`. Se debe
 retornar un puntero al inicio de la primera ocurrencia de `buscado` dentro de
 `cadena`, o `NULL`.
 (ejercicio_8_7)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 8.7 - Inversión de arreglo ⭐⭐⭐☆☆
 
 Implementar `void invertir(int *inicio, int *fin)`. Se intercambia `*inicio` con
 `*fin` y se avanza `inicio` y retrocede `fin` hasta que se crucen.
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 
@@ -83,6 +146,15 @@ para un entero, le asigne el `valor` y modifique el puntero original para que
 apunte a esa memoria.
 
 **Uso esperado:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ``` c
 int *p = NULL;
 asignar_memoria(&p, 42);
@@ -99,12 +171,30 @@ arreglo independiente.
 **Recordatorio:** También implementar `void liberar_matriz(int **matriz, int
 filas)`.
 (ejercicio_8_10)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 8.10 - Arreglo de Cadenas ⭐⭐⭐☆☆
 
 Implementar `void ordenar_cadenas(char **cadenas, int n)` que ordene un arreglo
 de punteros a cadenas lexicográficamente usando `strcmp`.
 
 **Ejemplo:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ``` c
 char *palabras[] = {"hola", "adios", "casa", "barco"};
 ordenar_cadenas(palabras, 4);
@@ -124,6 +214,15 @@ de punteros, sin índices.
 
 **Restricción:** No usar `[]`, solo `*`, `++`, `--`.
 (ejercicio_8_12)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 8.12 - Copiar Arreglos ⭐⭐⭐☆☆
 
 Implementar `void copiar(int *destino, const int *origen, size_t n)` que copie
@@ -131,11 +230,29 @@ Implementar `void copiar(int *destino, const int *origen, size_t n)` que copie
 
 **Estrategia:** `while (n--) { *destino++ = *origen++; }`
 (ejercicio_8_13)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 8.13 - Buscar Elemento ⭐⭐☆☆☆
 
 Implementar `int* buscar_elemento(int *inicio, int *fin, int valor)` que retorne
 un puntero al primer elemento igual a `valor`, o `NULL` si no se encuentra.
 (ejercicio_8_14)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 8.14 - Distancia entre Punteros ⭐⭐⭐☆☆
 
 Implementar `size_t distancia(const int *p1, const int *p2)` que calcule cuántos
@@ -143,6 +260,15 @@ elementos hay entre dos punteros del mismo arreglo.
 
 **Recordatorio:** La diferencia entre punteros del mismo arreglo da el número de
 elementos entre ellos.
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 
@@ -157,6 +283,15 @@ Explicar y ejemplificar la diferencia entre:
 
 Implementar funciones que demuestren cada caso.
 (ejercicio_8_16)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 8.16 - Función con Parámetros Constantes ⭐⭐☆☆☆
 
 Implementar `int maximo_arreglo(const int *arr, size_t n)` que encuentre el
@@ -165,10 +300,28 @@ máximo sin modificar el arreglo original.
 **Ventaja:** El `const` documenta que la función no modifica el arreglo y
 permite que el compilador detecte modificaciones accidentales.
 (ejercicio_8_17)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 8.17 - Cadenas de Solo Lectura ⭐⭐⭐☆☆
 
 Implementar `size_t contar_vocales(const char *str)` que cuente vocales sin
 modificar la cadena.
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 
@@ -177,6 +330,15 @@ modificar la cadena.
 ### Ejercicio 8.18 - Acceso a Miembros ⭐⭐☆☆☆
 
 Dada una estructura:
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ``` c
 typedef struct {
     int x;
@@ -195,9 +357,27 @@ coordenadas del punto sumando `dx` y `dy`.
 Implementar `void ordenar_puntos_por_x(punto_t *puntos, int n)` que ordene un
 arreglo de puntos según su coordenada `x`.
 (ejercicio_8_20)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 8.20 - Estructura con Punteros ⭐⭐⭐☆☆
 
 Dada:
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ``` c
 typedef struct {
     char *nombre;
@@ -223,6 +403,15 @@ Implementar `void aplicar(int *arr, size_t n, void (*func)(int *))` que aplique
 una función a cada elemento del arreglo.
 
 **Ejemplo de uso:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ``` c
 void duplicar_elemento(int *x) { *x *= 2; }
 
@@ -241,9 +430,27 @@ usando una función de comparación personalizada.
 **Pista:** Similar a `qsort` de la biblioteca estándar. Usar `memcpy` para
 intercambiar elementos.
 (ejercicio_8_23)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 8.23 - Tabla de Funciones ⭐⭐☆☆☆
 
 Crear un arreglo de punteros a funciones para una calculadora:
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 typedef double (*operacion_t)(double, double);
@@ -273,16 +480,43 @@ retornar 1. Si es `NULL`, retornar 0.
 
 **Buena práctica:** Siempre verificar punteros antes de desreferenciarlos.
 (ejercicio_8_25)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 8.25 - Retorno Seguro ⭐⭐☆☆☆
 
 Implementar `int* buscar_max(int *arr, size_t n)` que retorne un puntero al
 elemento máximo del arreglo, o `NULL` si el arreglo está vacío o el puntero es
 `NULL`.
 (ejercicio_8_26)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 8.26 - Inicialización de Punteros ⭐☆☆☆☆
 
 Demostrar el problema de punteros sin inicializar y cómo evitarlo siempre
 inicializando en `NULL`:
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ``` c
 int *p = NULL;  // Buena práctica
 // vs
@@ -299,6 +533,15 @@ Implementá `void intercambiar(int *a, int *b)` que intercambie dos valores.
 - Desreferenciá con `*a` para acceder al valor
 - En `main`, mostrá valores antes y después
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_8_28)=
 ## Ejercicio 8.28 - Encontrar Mayor con Puntero ⭐⭐☆☆☆
@@ -310,6 +553,15 @@ números.
 - Compará `*a` y `*b`
 - Retorná el puntero apropiado
 - En `main`, desreferenciá el resultado para mostrar el valor
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_8_29)=
@@ -324,6 +576,15 @@ Implementá `void dividir(int dividendo, int divisor, int *cociente, int
 - `*resto = dividendo % divisor;`
 - Verificá que divisor != 0
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_8_30)=
 ## Ejercicio 8.30 - Estadísticas de Array ⭐⭐⭐☆☆
@@ -335,6 +596,15 @@ Implementá `void estadisticas(int arr[], int n, int *min, int *max, double
 - Recorré el array para encontrar mínimo y máximo
 - Calculá promedio
 - Almacená resultados en las direcciones apuntadas
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_8_31)=
@@ -348,6 +618,15 @@ elemento del medio.
 - Si n es par: retorna `&arr[n/2 - 1]` (o el que prefieras)
 - En `main`, modificá el elemento usando el puntero retornado
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_8_32)=
 ## Ejercicio 8.32 - Recorrer Array con Punteros ⭐⭐⭐☆☆
@@ -360,6 +639,15 @@ Implementá `int suma_array(int *arr, int n)` usando **aritmética de punteros**
 - Incrementá el puntero: `arr++` para avanzar
 - Recorré: `for (int *p = arr; p < arr + n; p++)`
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_8_33)=
 ## Ejercicio 8.33 - Invertir Array In-Place ⭐⭐⭐☆☆
@@ -371,6 +659,15 @@ Implementá `void invertir(int *arr, int n)` usando dos punteros.
 - Puntero `fin` apunta al último
 - Intercambiá valores y mové punteros hacia el centro
 - Detené cuando `inicio >= fin`
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_8_34)=
@@ -385,6 +682,15 @@ elemento encontrado o NULL.
 - Si no lo encontrás, retorná NULL
 - En `main`, verificá NULL antes de desreferenciar
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_8_35)=
 ## Ejercicio 8.35 - Copiar String ⭐⭐⭐⭐☆
@@ -397,6 +703,15 @@ Implementá `void copiar_string(char *dest, const char *src)` usando punteros.
 - Usá `const` para src (no debe modificarse)
 - **Cuidado:** asumí que dest tiene espacio suficiente
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_8_36)=
 ## Ejercicio 8.36 - Longitud de String ⭐⭐⭐⭐☆
@@ -408,6 +723,15 @@ Implementá `int longitud_string(const char *str)` usando punteros.
 - Versión 1: `while (*str++) count++;`
 - Versión 2: `return str_fin - str_inicio;` (aritmética de punteros)
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_8_37)=
 ## Ejercicio 8.37 - Concatenar Strings ⭐⭐⭐⭐☆
@@ -418,6 +742,15 @@ Implementá `void concatenar(char *dest, const char *src)` usando punteros.
 - Avanzá `dest` hasta '\0'
 - Copiá `src` desde esa posición
 - Asegurate de copiar el '\0' final
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_8_38)=
@@ -432,6 +765,15 @@ punteros.
 - Detené al encontrar diferencia o '\0'
 - Retorná `*s1 - *s2` en el primer carácter diferente
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_8_39)=
 ## Ejercicio 8.39 - Buscar Subcadena ⭐⭐⭐⭐☆
@@ -443,6 +785,15 @@ Implementá `char *buscar_subcadena(const char *texto, const char *patron)`.
 - Retorná NULL si no se encuentra
 - Compará subcadenas en cada posición
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_8_40)=
 ## Ejercicio 8.40 - Eliminar Espacios ⭐⭐⭐⭐☆
@@ -453,6 +804,15 @@ Implementá `void eliminar_espacios(char *str)` que elimine espacios in-place.
 - Usá dos punteros: uno para leer, otro para escribir
 - Copiá solo caracteres no-espacio
 - Terminá con '\0'
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_8_41)=
@@ -468,6 +828,15 @@ Implementá funciones para trabajar con matriz dinámica (`int **matriz`):
 - Verificá cada `malloc`
 - `liberar_matriz`: libera filas primero, luego el array de punteros
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_8_42)=
 ## Ejercicio 8.42 - Rotación de Array ⭐⭐⭐⭐⭐
@@ -481,6 +850,15 @@ Implementá `void rotar_izquierda(int *arr, int n, int k)` usando punteros.
 - Colocá los guardados al final
 - Optimización: `k = k % n`
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_8_43)=
 ## Ejercicio 8.43 - Transponer Matriz ⭐⭐⭐⭐⭐
@@ -493,6 +871,15 @@ Implementá `void transponer(int **matriz, int filas, int cols, int
 - `resultado[j][i] = matriz[i][j]`
 - Usá triple puntero para modificar puntero en función llamadora
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_8_44)=
 ## Ejercicio 8.44 - Ordenamiento con Función Comparadora ⭐⭐⭐⭐⭐
@@ -504,6 +891,15 @@ Implementá `void ordenar(int *arr, int n, int (*comparar)(int, int))`.
 - La función comparadora retorna: <0 si a<b, 0 si iguales, >0 si a>b
 - Implementá bubble sort usando la función comparadora
 - En `main`, pasá funciones para orden ascendente/descendente
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_8_45)=
@@ -520,11 +916,29 @@ Implementá una lista enlazada con:
 - Nuevo nodo apunta a cabeza actual, luego actualiza cabeza
 - `liberar_lista` recorre y libera cada nodo
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_8_46)=
 ## Ejercicio 8.46 - Parser de Argumentos ⭐⭐⭐⭐⭐
 
 Implementá un parser que procese argumentos de línea de comandos con flags:
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```
 ./programa -n 100 -s "texto" -v
 ```

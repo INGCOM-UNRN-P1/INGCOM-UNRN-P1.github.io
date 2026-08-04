@@ -42,6 +42,8 @@ Pedí al usuario que ingrese su nota final (entera) e imprimí su condición:
 - "Aprueba" si la nota es mayor o igual a 4 pero menor a 6.
 - "Desaprueba" si la nota es menor a 4.
 
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
 :::
 <!-- {exercise} -->
 
@@ -90,6 +92,8 @@ int main(void)
 Escribí un programa en C que imprima los números del 10 al 1 de forma
 descendente usando un lazo `while`.
 
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
 :::
 <!-- {exercise} -->
 
@@ -124,6 +128,8 @@ int main(void) {
 Usá un lazo `for` para mostrar los números múltiplos de 3 comprendidos en el
 rango de 0 a 30 inclusive.
 
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
 :::
 <!-- {exercise} -->
 
@@ -158,6 +164,8 @@ int main(void) {
 Diseñá un programa con un lazo `do...while` que solicite repetidamente una clave
 de acceso numérica al usuario hasta que ingrese el valor correcto `1234`.
 
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
 :::
 <!-- {exercise} -->
 
@@ -224,6 +232,8 @@ int main() {
 ```
 <!-- {code-block} c -->
 
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
 :::
 <!-- {exercise} -->
 
@@ -283,6 +293,8 @@ int main()
 ```
 <!-- {code-block} c -->
 
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
 :::
 <!-- {exercise} -->
 
@@ -321,6 +333,8 @@ int main(void) {
 Reescribí el ingreso de clave de acceso del Ejercicio 5.4 utilizando un lazo
 controlado por una bandera booleana (`bool`) en lugar de `do...while`.
 
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
 :::
 <!-- {exercise} -->
 
@@ -366,36 +380,99 @@ int main(void)
 ## Ejercicio 4.8 - s de Práctica ⭐⭐☆☆☆
 
 (ejercicio_4_9)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 4.9 - Mayor de dos números reales ⭐⭐☆☆☆
 
 Escribí un programa que solicite dos números reales al usuario y muestre cuál es
 el mayor.
 (ejercicio_4_10)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 4.10 - Números del 1 al 100 ⭐⭐☆☆☆
 
 Diseñá un programa que imprima en pantalla los números enteros del 1 al 100
 utilizando un lazo `for`.
 (ejercicio_4_11)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 4.11 - Suma de pares del 1 al 100 ⭐⭐☆☆☆
 
 Desarrollá un algoritmo que sume los números pares comprendidos en el rango del
 1 al 100 inclusive.
 (ejercicio_4_12)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 4.12 - Verificación de número primo ⭐⭐☆☆☆
 
 Escribí un programa que solicite un número entero positivo e indique si es un
 número primo (divisible únicamente por 1 y por sí mismo).
 (ejercicio_4_13)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 4.13 - Estado de aprobación de calificación ⭐⭐⭐☆☆
 
 Escribí un programa que pida una calificación (0 a 10) e indique si el
 estudiante aprobó (calificación mayor o igual a 4).
 (ejercicio_4_14)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 4.14 - Contraseña de caracteres iterativa ⭐⭐☆☆☆
 
 Escribí un programa que solicite repetidamente una contraseña de caracteres al
 usuario hasta que coincida con un valor establecido de acceso seguro.
 (ejercicio_4_15)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ## Ejercicio 4.15 - Contar del 1 al 10 ⭐☆☆☆☆
 
 Mostrá los números del 1 al 10 usando un lazo `for`.
@@ -403,6 +480,15 @@ Mostrá los números del 1 al 10 usando un lazo `for`.
 **Orientación:**
 - `for (int i = 1; i <= 10; i++)`
 - Imprimí cada número en una línea
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_4_16)=
@@ -415,6 +501,15 @@ Leé un número N y calculá la suma de los primeros N números naturales.
 - Acumulá la suma en una variable
 - Alternativa: fórmula directa suma = N × (N+1) / 2
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_4_17)=
 ## Ejercicio 4.17 - Tabla de Multiplicar ⭐⭐☆☆☆
@@ -424,6 +519,15 @@ Mostrá la tabla de multiplicar de un número ingresado por el usuario (1 a 10).
 **Orientación:**
 - Leé el número
 - Lazo de 1 a 10: `printf("%d x %d = %d\n", num, i, num * i);`
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_4_18)=
@@ -435,6 +539,15 @@ Calculá el factorial de N usando un lazo `while`.
 - Inicializá resultado = 1, contador = N
 - Mientras contador > 0: resultado *= contador, contador--
 - Manejá caso especial: 0! = 1
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_4_19)=
@@ -448,6 +561,15 @@ Mostrá todos los números pares entre dos valores ingresados.
 - Usá `if (i % 2 == 0)` para detectar pares
 - Alternativa: `for (i = inicio; i <= fin; i += 2)` empezando en par
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_4_20)=
 ## Ejercicio 4.20 - Suma hasta Cero ⭐⭐☆☆☆
@@ -459,6 +581,15 @@ Leé números enteros hasta que el usuario ingrese 0, luego mostrá la suma tota
 - Leé número
 - Si es 0, `break`
 - Caso contrario, sumá al acumulador
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_4_21)=
@@ -472,6 +603,15 @@ sea válido.
 - `do { leer numero } while (numero < 1 || numero > 100);`
 - Mostrá mensaje de error en cada intento inválido
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_4_22)=
 ## Ejercicio 4.22 - Contar Dígitos ⭐⭐⭐☆☆
@@ -483,6 +623,15 @@ Contá cuántos dígitos tiene un número entero.
 - Dividí por 10 en cada iteración: `n /= 10`
 - Incrementá contador
 - Caso especial: 0 tiene 1 dígito
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_4_23)=
@@ -497,6 +646,15 @@ Determiná si un número es primo probando divisibilidad.
 - Si alguno divide exacto: no primo
 - Optimización: después del 2, probar solo impares
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_4_24)=
 ## Ejercicio 4.24 - Secuencia de Fibonacci ⭐⭐⭐☆☆
@@ -509,6 +667,15 @@ Generá los primeros N números de Fibonacci.
   - Mostrá `a`
   - Calculá siguiente: `temp = a + b; a = b; b = temp`
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_4_25)=
 ## Ejercicio 4.25 - Búsqueda en Array ⭐⭐⭐☆☆
@@ -520,6 +687,15 @@ Buscá un valor en un array. Si lo encontrás, mostrá su posición y `break`.
 - Compará cada elemento con el buscado
 - Si coincide: guardá índice, `break`
 - Después del lazo: verificá si se encontró
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_4_26)=
@@ -534,6 +710,15 @@ Implementá un menú que se repita hasta que el usuario elija "Salir".
 - `switch` para ejecutar acción
 - Opción salir termina el lazo
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_4_27)=
 ## Ejercicio 4.27 - Mayor y Menor de N Números ⭐⭐⭐☆☆
@@ -545,6 +730,15 @@ Leé N números y encontrá el mayor y menor.
 - Lazo desde el segundo número:
   - Si actual > mayor: actualizar mayor
   - Si actual < menor: actualizar menor
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_4_28)=
@@ -558,6 +752,15 @@ Invertí los dígitos de un número (ej: 1234 → 4321).
   - `digito = n % 10`
   - `invertido = invertido * 10 + digito`
   - `n /= 10`
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_4_29)=
@@ -574,6 +777,15 @@ de sus divisores (excluyéndolo) es igual al número.
 - Sumá divisores
 - Si suma == número: es perfecto
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_4_30)=
 ## Ejercicio 4.30 - Patrón de Asteriscos - Triángulo ⭐⭐⭐⭐☆
@@ -581,6 +793,15 @@ de sus divisores (excluyéndolo) es igual al número.
 Dibujá un triángulo de asteriscos de altura N.
 
 **Ejemplo (N=5):**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```
 *
 **
@@ -602,6 +823,15 @@ Dibujá un triángulo de asteriscos de altura N.
 Implementá el algoritmo de Euclides iterativo para calcular MCD.
 
 **Algoritmo:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```
 mientras b != 0:
     temp = b
@@ -630,6 +860,15 @@ de dígitos igual al número).
 - Comparar suma con número original
 - Usá `pow()` de `<math.h>`
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_4_33)=
 ## Ejercicio 4.33 - Simulación de Cajero Automático ⭐⭐⭐⭐⭐
@@ -647,6 +886,15 @@ Simulá un cajero con saldo inicial. Menú: depositar, retirar, consultar, salir
 - Lazo principal con menú
 - `switch` para operaciones
 - Validaciones antes de modificar saldo
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_4_34)=
@@ -668,16 +916,43 @@ Encontrá todos los números primos hasta N usando la Criba de Eratóstenes.
 - Lazo interno: múltiplos de `i` (desde i², incrementando de i en i)
 - Mostrá todos los marcados como primos
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_4_35)=
 ## Ejercicio 4.35 - s Adicionales de Patrones ⭐⭐☆☆☆
 
 (ejercicio_4_36)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 4.36 - Pirámide Centrada ⭐⭐⭐⭐⭐
 
 Dibujá una pirámide centrada de asteriscos.
 
 **Ejemplo (N=5):**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```
     *
    ***
@@ -703,6 +978,15 @@ Dibujá un rombo de asteriscos.
 - Mitad inferior: pirámide decreciente
 - Mismo principio de espacios y asteriscos
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 
 ## Problemas de Lazos Anidados
@@ -716,6 +1000,15 @@ Mostrá tabla de multiplicar del 1 al 10 (todas las tablas).
 - Lazo interno: multiplicadores del 1 al 10
 - Formato: "3 x 4 = 12"
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_4_39)=
 ### Ejercicio 4.39 - Números Primos en Rango ⭐⭐⭐⭐☆
@@ -726,6 +1019,15 @@ Mostrá todos los números primos entre A y B.
 - Lazo externo: números de A a B
 - Lazo interno: verificar si es primo (función del ejercicio 9)
 - Imprimí solo los primos
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 
@@ -741,6 +1043,15 @@ El programa elige un número aleatorio. El usuario tiene máximo 7 intentos.
 - Dar pistas ("muy alto", "muy bajo")
 - `break` si adivina
 - Después del lazo: verificar si ganó o perdió
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 
@@ -851,6 +1162,15 @@ lazos anidados, control de flujo y validación con repetición.
 Mostrá todos los argumentos recibidos.
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 int main(int argc, char *argv[]) {
@@ -877,6 +1197,15 @@ Lee un nombre desde argv y saludá.
   return 1; }`
 - Usá: `printf("Hola, %s!\n", argv[1]);`
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_4_43)=
 ## Ejercicio 4.43 - Suma de Dos Números ⭐⭐☆☆☆
@@ -889,6 +1218,15 @@ Sumá dos números pasados como argumentos.
 - Verificá `argc == 3`
 - Convertí con `atoi`: `int a = atoi(argv[1]);`
 - O mejor: `strtol(argv[1], NULL, 10)` para validación
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_4_44)=
@@ -904,6 +1242,15 @@ Implementá calculadora: `./calc <num1> <operador> <num2>`
 - Usá `switch` o `if-else` para operación
 - Validá división por cero
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_4_45)=
 ## Ejercicio 4.45 - Flags Booleanos ⭐⭐⭐☆☆
@@ -916,6 +1263,15 @@ Procesá flags opcionales `-v` (verbose) y `-h` (help).
 - Recorré `argv` buscando strings que empiecen con `-`
 - `if (strcmp(argv[i], "-v") == 0) verbose = true;`
 - Argumentos no-flag son archivos u otros datos
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_4_46)=
@@ -931,6 +1287,15 @@ Concatená todos los argumentos (excepto argv[0]) en un string.
 - Concatená con espacios intermedios
 - Usá `strcat` o manualmente con índices
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_4_47)=
 ## Ejercicio 4.47 - Conversor de Temperatura ⭐⭐⭐☆☆
@@ -945,6 +1310,15 @@ Convertí temperatura según flags.
 - Valor viene después del flag
 - Mostrá resultado formateado
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_4_48)=
 ## Ejercicio 4.48 - Procesar Archivo(s) ⭐⭐⭐☆☆
@@ -958,6 +1332,15 @@ Lee uno o más archivos pasados como argumentos y mostrá su contenido.
 - Abrí cada uno, leé y mostrá
 - Si falla abrir: mostrar error, continuar con siguiente
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_4_49)=
 ## Ejercicio 4.49 - Flag con Valor ⭐⭐⭐⭐☆
@@ -967,6 +1350,15 @@ Procesá flag que requiere un valor: `-n <cantidad>`
 **Uso:** `./programa -n 10 archivo.txt`
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 for (int i = 1; i < argc; i++) {
@@ -996,6 +1388,15 @@ Implementá programa con varios flags: `-v` (verbose), `-o <salida>`, `-n <num>`
 - Flags pueden estar en cualquier orden
 - Argumentos sin `-` son archivos de entrada
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_4_51)=
 ## Ejercicio 4.51 - Validación de Argumentos ⭐⭐⭐☆☆
@@ -1003,6 +1404,15 @@ Implementá programa con varios flags: `-v` (verbose), `-o <salida>`, `-n <num>`
 Validá que números sean realmente números.
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 char *endptr;
@@ -1024,6 +1434,15 @@ if (*endptr != '\0') {
 Mostrá ayuda si se pasa `-h` o `--help`, o si argumentos son incorrectos.
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 void mostrar_ayuda(const char *programa) {
@@ -1057,6 +1476,15 @@ Buscá patrón en archivo(s).
 - Leé cada archivo línea por línea
 - Si línea contiene patrón (`strstr`), mostrala
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_4_54)=
 ## Ejercicio 4.54 - Wc (Word Count) Simplificado ⭐⭐⭐⭐☆
@@ -1076,6 +1504,15 @@ Contá líneas, palabras y caracteres de archivos.
 - Para cada archivo, calculá métricas
 - Mostrá según flags activos
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_4_55)=
 ## Ejercicio 4.55 - Sort con Opciones ⭐⭐⭐⭐⭐
@@ -1093,6 +1530,15 @@ Ordená líneas de archivo con opciones.
 - Ordená según flags
 - Usá `qsort` con función comparadora apropiada
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_4_56)=
 ## Ejercicio 4.56 - Procesamiento de Lote ⭐⭐⭐⭐⭐
@@ -1108,6 +1554,15 @@ Aplicá operación a múltiples archivos.
 - Aplicá a todos los archivos siguientes
 - Escribí resultado en archivo.out para cada uno
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_4_57)=
 ## Ejercicio 4.57 - Configuración desde Archivo y Args ⭐⭐⭐⭐⭐
@@ -1121,6 +1576,15 @@ Leé configuración de archivo, permitiendo override por línea de comandos.
 - Argumentos de línea de comandos sobrescriben config
 - Precedencia: defaults < archivo < args
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_4_58)=
 ## Ejercicio 4.58 - Pipeline Simulado ⭐⭐⭐⭐⭐
@@ -1132,6 +1596,15 @@ Implementá programa que puede leer de stdin o archivo.
 - `cat archivo.txt | ./proceso`
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 FILE *entrada;
@@ -1152,6 +1625,15 @@ if (argc > 1) {
 Implementá tu propia versión simplificada de `getopt` para parsear flags.
 
 **Orientación:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ``` c
 int getopt_simple(int argc, char *argv[], const char *optstring);
 ```
@@ -1176,6 +1658,15 @@ Implementá programa con subcomandos estilo Git.
 - `argv[2...]` son argumentos del subcomando
 - Cada subcomando tiene su propia lógica
 - `switch` o tabla de funciones para dispatch
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 

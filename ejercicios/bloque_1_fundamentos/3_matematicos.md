@@ -48,6 +48,8 @@ como una serie de incrementos o decrementos sucesivos.
 -   Dentro del lazo, se verifica el signo de `m`. Si `m > 0`, se incrementa el
     resultado. Si `m < 0`, se decrementa.
 
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -96,6 +98,8 @@ realizar una división de forma manual o en hardware muy simple.
 -   **Salida:** El valor final del contador es el cociente, y el valor final del
     `dividendo` (lo que sobra) es el resto.
 
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -142,6 +146,8 @@ duplicación correspondientes.
 -   **Salida:** El `cociente` acumulado y el `dividendo` final (que es el
     resto).
 
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -198,6 +204,8 @@ Determinar si un número entero `a` es divisible de forma exacta por otro entero
 -   **Caso Especial:** Asegurarse de que `b` no sea cero para evitar un error de
     división por cero.
 
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -240,6 +248,8 @@ El factorial es el producto de todos los enteros positivos desde 1 hasta `n`.
 -   **Desbordamiento:** Los factoriales crecen muy rápido. Usar un tipo de dato
     grande como `unsigned long long` es crucial.
 
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -285,6 +295,8 @@ Común Múltiplo (MCM) de dos números enteros.
 -   **MCM:** Se puede calcular fácilmente una vez que se tiene el MCD, usando la
     fórmula: $MCM(a, b) = \frac{|a \cdot b|}{MCD(a, b)}$.
 
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -327,6 +339,8 @@ Calcular la suma de los dígitos individuales de un número entero positivo.
     2.  **Sumar dígito:** `suma = suma + digito`.
     3.  **Eliminar último dígito:** `n = n / 10` (división entera).
 
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -367,6 +381,8 @@ Tomar un número entero y devolver otro número con sus dígitos en orden invers
         a. `invertido = (invertido * 10) + (n % 10)`.
         b. `n = n / 10`.
 
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -405,6 +421,8 @@ izquierda a derecha que de derecha a izquierda.
     anterior para invertir el número y luego comparar el número invertido con el
     original.
 
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -443,6 +461,8 @@ si solo es divisible por 1 y por sí mismo.
     ($\sqrt{n}$). Si se encuentra un divisor en ese rango, el número no es
     primo.
 
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -484,6 +504,8 @@ divisores excepto él mismo).
         0`), se suma `i` a un acumulador.
     3.  Finalmente, comparar la suma obtenida con el número original `n`.
 
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -534,6 +556,8 @@ viceversa.
     número perfecto es amigo de sí mismo, lo que a veces se excluye de la
     definición de números amigos).
 
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -581,6 +605,8 @@ divisores propios es mayor que el propio número.
     suma de los divisores propios y, en lugar de comparar si es igual a `n`, se
     compara si es mayor que `n`.
 
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -622,6 +648,8 @@ probada) es que esta secuencia siempre llega a 1.
     de 1. Dentro del lazo, aplicar la regla correspondiente y actualizar el
     valor de `n`. Imprimir el valor de `n` en cada paso para ver la secuencia.
 
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -665,6 +693,8 @@ elevados a la potencia `k`.
         calcular `digito^k` y añadirlo a la `suma`.
     4.  Comparar la `suma` final con el número original `n`.
 
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -714,6 +744,8 @@ feliz.
     detectar ciclos, se puede guardar los números ya vistos en un arreglo o
     simplemente detectar si se llega al número 4.
 
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -771,6 +803,8 @@ encontrar todos los números primos hasta un límite superior `N` especificado.
 -   **Salida:** Al final, se recorre el arreglo `es_primo` y se imprimen todos
     los índices `i` para los cuales `es_primo[i]` es verdadero.
 
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -831,6 +865,8 @@ Por ejemplo, para 360, la salida sería `2^3 * 3^2 * 5`.
     4.  Si al final del lazo `n` es mayor que 1, ese `n` restante es también un
         factor primo.
 
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -894,6 +930,8 @@ problemas de conteo en combinatoria.
     2.  La función `numero_catalan(n)` llamará a `coeficiente_binomial(2*n, n)`
         y dividirá el resultado por `n+1`.
 
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -951,6 +989,8 @@ conjunto de `n` elementos sin importar el orden.
     el valor más pequeño entre `k` y `n-k` para reducir el número de
     iteraciones.
 
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -999,6 +1039,8 @@ iterativo eficiente.
         = (x + n / x) / 2`.
 -   **Salida:** El resultado es la parte entera de la estimación final `x`.
 
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1046,6 +1088,8 @@ función que determine si un número entero dado es un número triangular.
         cuadrado perfecto. Se puede calcular $8x+1$, obtener su raíz cuadrada, y
         verificar si es un entero.
 
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1091,6 +1135,8 @@ que, dado un número par, encuentre un par de números primos que lo sumen.
     3.  En cada iteración, si `p` es primo, verificar si `n-p` también es primo.
     4.  Si ambos lo son, se ha encontrado un par y se puede terminar.
 
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1128,6 +1174,8 @@ encontrar todos los pares de primos gemelos hasta un límite `N`.
     2.  En cada iteración, verificar si tanto `p` como `p+2` son primos.
     3.  Si ambos lo son, se ha encontrado un par de primos gemelos.
 
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1166,6 +1214,8 @@ Bézout: $ax + by = mcd(a, b)$.
     recursiva devuelve el MCD y los coeficientes para los números más pequeños,
     y la llamada actual los ajusta para los números originales.
 
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1213,6 +1263,8 @@ recibir el número de términos a utilizar para la aproximación.
         a `suma`.
     4.  El resultado final es `4 * suma`.
 
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1250,6 +1302,8 @@ similar a la de Fibonacci, pero comienza con 2 y 1.
 -   **Proceso:** La implementación es casi idéntica a la de Fibonacci, solo
     cambian los valores iniciales.
 
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1293,6 +1347,8 @@ su vez primos (primos de Mersenne).
     2.  Para cada primo `p`, calcular $M_p = 2^p - 1$.
     3.  Verificar si el $M_p$ resultante es también primo.
 
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1338,6 +1394,8 @@ eficiente para números grandes.
 -   **Nota:** La implementación completa es avanzada. Un ejercicio más simple
     puede ser implementarlo para una sola base fija.
 
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1382,6 +1440,8 @@ concatenados, son una permutación de los dígitos del número original.
     4.  Verificar si los dos conjuntos de dígitos son permutaciones el uno del
         otro (ej. ordenándolos y comparando).
 
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1431,6 +1491,8 @@ columna y ambas diagonales principales es la misma ("constante mágica").
         compararlas.
 -   Si todas las sumas son iguales, es un cuadrado mágico.
 
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1487,6 +1549,8 @@ número dado es un número de Smith.
         individuales (1+3).
     5.  Comparar las dos sumas.
 
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1531,6 +1595,8 @@ hasta un límite `N`.
         primo.
     4.  Si ambos son primos, `p` es un primo de Sophie Germain.
 
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1568,6 +1634,8 @@ decir, `mcd(k, n) = 1` para `1 <= k <= n`).
 -   **Proceso (eficiente):** Usar la fórmula basada en los factores primos de
     `n`: $\phi(n) = n \prod_{p|n, p \text{ es primo}} (1 - \frac{1}{p})$.
 
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1616,6 +1684,8 @@ de sus factores primos distintos.
     de contar potencias, simplemente se multiplica cada factor primo distinto
     encontrado a una variable `resultado`.
 
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1652,6 +1722,8 @@ diferentes formas, una común es `0, 1, 1, 2, 4, 7, 13, ...`
 -   **Proceso:** Similar a Fibonacci, pero se necesitan tres variables para
     guardar los tres términos anteriores.
 
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1696,6 +1768,8 @@ fracciones unitarias distintas (fracciones con numerador 1).
     4.  Actualizar la fracción restante: `num/den = num/den - 1/d`.
     5.  Repetir hasta que `num` sea 0.
 
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1738,6 +1812,8 @@ fórmula de Euclides.
 -   **Proceso:** Iterar con `m` y `n` bajo las condiciones dadas y generar `a`,
     `b` y `c`.
 
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1783,6 +1859,8 @@ función que verifique si un número es un número de Carmichael.
     4.  Si se encuentra un `b` que no cumple la condición, `n` no es de
         Carmichael. Si se prueban todos y la cumplen, sí lo es.
 
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1823,6 +1901,8 @@ Calcular el logaritmo entero en base `b` de un número `n`. Es el mayor entero
     2.  Mientras `n >= b`, dividir `n` por `b` e incrementar `k`.
     3.  El valor final de `k` es el resultado.
 
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1863,6 +1943,8 @@ Escribir una función que convierta un número `n` de una base `b1` a una base
     2.  **Convertir de base 10:** Convertir el número de base 10 a la base de
         destino `b2` usando divisiones sucesivas y guardando los restos.
 
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 

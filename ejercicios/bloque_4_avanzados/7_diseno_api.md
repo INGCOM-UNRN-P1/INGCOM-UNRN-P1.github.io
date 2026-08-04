@@ -31,6 +31,15 @@ seguras y extensibles en el lenguaje C.
 Analizar estos nombres de funciones y proponer mejoras siguiendo las reglas de
 estilo:
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 // Biblioteca de procesamiento de imágenes
@@ -72,6 +81,15 @@ Para cada una:
 - Justificar la elección del prefijo
 
 **Ejemplo:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ``` c
 // Librería de parseo JSON - prefijo: json_
 json_parser_t* json_parser_crear(void);
@@ -83,6 +101,15 @@ bool json_value_es_objeto(const json_value_t* value);
 ### Ejercicio 32.3 - Consistencia en Familias de Funciones ⭐⭐☆☆☆
 
 Completar estas familias de funciones con nombres consistentes:
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -101,6 +128,15 @@ void config_destruir(config_t** ptr_config);
 ### Ejercicio 32.4 - Nombres que Reflejan Comportamiento ⭐⭐☆☆☆
 
 Renombrar estas funciones para reflejar mejor su comportamiento real:
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -128,6 +164,15 @@ void agregar_elemento(lista_t* lista, int elemento);
 Implementar un stack usando tipo opaco completo:
 
 **`stack.h`** (interfaz pública):
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```{code-block} c
 :linenos:
 #ifndef STACK_H

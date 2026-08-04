@@ -39,6 +39,8 @@ correspondientes para los parámetros y valores de retorno.
 Escribí una función que reciba un número entero y devuelva su doble. Probala
 desde `main()` con distintos valores.
 
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
 :::
 <!-- {exercise} -->
 
@@ -73,6 +75,8 @@ int main(void) {
 
 Programá una función que reciba dos números enteros y retorne el mayor de ellos.
 
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
 :::
 <!-- {exercise} -->
 
@@ -111,6 +115,8 @@ int main(void) {
 Definí una función que indique si un número es par o impar. Mostrá el resultado
 llamando a la función desde `main()`.
 
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
 :::
 <!-- {exercise} -->
 
@@ -149,6 +155,8 @@ int main(void) {
 Escribí una función que reciba tres notas enteras y devuelva el promedio en
 punto flotante. Mostrá el resultado en `main()`.
 
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
 :::
 <!-- {exercise} -->
 
@@ -180,6 +188,8 @@ int main(void) {
 Implementá una función `area_rectangulo` que reciba base y altura, y devuelva el
 área.
 
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
 :::
 <!-- {exercise} -->
 
@@ -215,6 +225,15 @@ Creá funciones para operaciones matemáticas: `sumar`, `restar`, `multiplicar`,
 - `dividir` debe verificar divisor != 0
 - En `main`, usá las funciones en una calculadora simple
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_5_7)=
 ## Ejercicio 5.7 - Función Es Primo ⭐⭐☆☆☆
@@ -225,6 +244,15 @@ Implementá `bool es_primo(int n)` que determine si un número es primo.
 - Probá divisibilidad desde 2 hasta √n
 - Optimización: solo verificar impares después del 2
 - En `main`, mostrá primos en un rango
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_5_8)=
@@ -238,6 +266,15 @@ Implementá dos versiones de factorial:
 - Iterativo: usá lazo
 - Recursivo: `n * factorial(n-1)`, caso base: `n <= 1` retorna 1
 - Compará tiempos (opcional)
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de cola (*tail recursion*) para reducir el consumo de pila.
+-   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas realizadas para analizar la complejidad empírica.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_5_9)=
@@ -253,6 +290,15 @@ Creá funciones para convertir temperaturas:
 - Cada función recibe y retorna `double`
 - Mostrá un menú en `main` para elegir conversión
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_5_10)=
 ## Ejercicio 5.10 - Validación de Entrada ⭐⭐⭐☆☆
@@ -267,6 +313,15 @@ Implementá funciones de validación:
 - Mostrá mensajes de error descriptivos
 - Usá estas funciones en `main` para varios inputs
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_5_11)=
 ## Ejercicio 5.11 - Máximo Común Divisor (MCD) ⭐⭐⭐☆☆
@@ -274,6 +329,15 @@ Implementá funciones de validación:
 Implementá el algoritmo de Euclides para calcular MCD.
 
 **Algoritmo:**
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```
 mcd(a, b) = mcd(b, a % b)  si b != 0
 mcd(a, 0) = a
@@ -295,6 +359,15 @@ Implementá:
 - Implementá versión recursiva e iterativa
 - Compará eficiencia (recursiva es muy lenta para n > 40)
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_5_13)=
 ## Ejercicio 5.13 - Operaciones con Dígitos ⭐⭐⭐☆☆
@@ -308,6 +381,15 @@ Creá funciones para manipular dígitos de un número:
 **Orientación:**
 - Usá división y módulo para extraer dígitos
 - `es_palindromo` compara el número con su inverso
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_5_14)=
@@ -323,6 +405,15 @@ Implementá conversiones entre bases numéricas:
 - Para convertir desde decimal: divisiones sucesivas
 - Validá que los dígitos sean válidos para la base
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar errores de E/S con `ferror` y `feof`.
+-   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del archivo en todos los caminos de ejecución.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_5_15)=
 ## Ejercicio 5.15 - Cálculo de Potencia ⭐⭐⭐⭐☆
@@ -336,6 +427,15 @@ Implementá tres versiones de potencia:
 - Simple: multiplica base n veces
 - Rápida: si exp es par, `pow(base, exp) = pow(base*base, exp/2)`
 - Exponente negativo: `pow(base, -n) = 1 / pow(base, n)`
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar valores fuera de rango o tipos inválidos.
+-   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante un lazo hasta que el usuario elija finalizar.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_5_16)=
@@ -352,6 +452,15 @@ Implementá:
 - Reutilizá funciones entre sí
 - `siguiente_primo` busca el próximo primo >= desde
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_5_17)=
 ## Ejercicio 5.17 - Combinatoria ⭐⭐⭐⭐☆
@@ -365,6 +474,15 @@ Implementá funciones combinatorias:
 - Optimizá evitando calcular factoriales completos
 - Maneja overflow (usa `long` o `long long`)
 - Validá que 0 <= k <= n
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_5_18)=
@@ -381,6 +499,15 @@ Creá funciones para calcular áreas y perímetros de figuras:
 - Validá dimensiones positivas
 - Opcionalmente, usá un menú para elegir figura
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_5_19)=
 ## Ejercicio 5.19 - Estadísticas de un Array ⭐⭐⭐⭐☆
@@ -395,6 +522,15 @@ Implementá funciones estadísticas para un array de números:
 - Mediana: ordenar y tomar el del medio
 - Desviación: √(Σ(x - μ)² / n)
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por filas (*row-major order*) para mejorar el uso de caché.
+-   **[*plus ultra*]:** Validar que los índices ingresados se encuentren estrictamente dentro de los límites del contenedor.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_5_20)=
 ## Ejercicio 5.20 - Simulación de Dado ⭐⭐⭐⭐☆
@@ -408,6 +544,15 @@ Creá un simulador de lanzamiento de dados:
 - Usá `rand() % caras + 1`
 - Inicializá semilla con `srand(time(NULL))` una sola vez
 - Estadísticas: muestra frecuencia de cada número
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_5_21)=
@@ -424,6 +569,15 @@ Implementá funciones para trabajar con fechas:
 - Validá rangos apropiados
 - `dia_del_anio` suma días desde inicio del año
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de error e informar el resultado mediante parámetros de salida.
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen especificando precondiciones y postcondiciones.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_5_22)=
 ## Ejercicio 5.22 - Búsqueda y Ordenamiento ⭐⭐⭐⭐⭐
@@ -437,6 +591,15 @@ Implementá algoritmos básicos:
 - Búsqueda lineal: O(n), retorna índice o -1
 - Burbuja: compara adyacentes e intercambia
 - `intercambiar` usa punteros para modificar valores
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_5_23)=
@@ -452,11 +615,29 @@ Calculá diferencias y sumas con fechas:
 - Convertí fechas a "número de días desde época"
 - Usá algoritmo de Zeller para día de semana
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_5_24)=
 ## Ejercicio 5.24 - Sistema de Ecuaciones ⭐⭐⭐⭐⭐
 
 Resolvé sistemas de ecuaciones 2×2:
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ```
 a₁x + b₁y = c₁
 a₂x + b₂y = c₂
@@ -493,6 +674,15 @@ Reimplementá funciones de `<string.h>` sin usarla:
 - `strcat`: copiá src al final de dest
 - `strchr`: retorna puntero a primera aparición de c
 - Verificá límites de destino para evitar buffer overflow
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 

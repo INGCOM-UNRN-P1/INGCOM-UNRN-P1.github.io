@@ -69,6 +69,14 @@ Todos los ejercicios se encuentran clasificados con la etiqueta
 - ⭐⭐⭐⭐⭐ - **Experto:** Problemas complejos de arquitectura o algoritmos
   avanzados.
 
+### Consignas Plus Ultra
+
+Cada ejercicio incluye consignas opcionales marcadas como **`[*plus ultra*]`** (frase en latín que significa «más allá»). Estas consignas están diseñadas para ir más allá de la consigna base y profundizar el aprendizaje mediante:
+
+- **Validación y Casos de Borde:** Manejo robusto de errores, valores límite y prevención de comportamientos indefinidos.
+- **Optimización y Rendimiento:** Mejora en el uso de memoria, tiempo de ejecución y eficiencia algorítmica.
+- **Extensión y Abstracción:** Generalización de soluciones, diseño de interfaces reutilizables o soporte para nuevas funcionalidades.
+
 ---
 
 ## Estructura de Ejercicios por Bloques

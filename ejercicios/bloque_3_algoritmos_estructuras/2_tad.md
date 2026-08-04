@@ -47,6 +47,15 @@ size_t lista_longitud(const lista_t* lista);
 Implementar la operación de insertar un elemento al principio de la lista. Esta
 operación debe tener complejidad $O(1)$.
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ``` c
 bool insertar_al_inicio(lista_t* lista, int dato);
 ```
@@ -56,6 +65,15 @@ bool insertar_al_inicio(lista_t* lista, int dato);
 
 Implementar la operación de insertar un elemento al final de la lista. Analizar
 la complejidad: $O(n)$ sin puntero al último, $O(1)$ con puntero al último.
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 bool insertar_al_final(lista_t* lista, int dato);
@@ -67,6 +85,15 @@ bool insertar_al_final(lista_t* lista, int dato);
 Implementar operaciones para obtener el primer y último elemento sin modificar
 la lista.
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ``` c
 bool ver_primero(const lista_t* lista, int* dato);
 bool ver_ultimo(const lista_t* lista, int* dato);
@@ -77,6 +104,15 @@ bool ver_ultimo(const lista_t* lista, int* dato);
 
 Implementar la operación de eliminar el primer elemento y retornar su valor.
 Complejidad: $O(1)$.
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 bool borrar_primero(lista_t* lista, int* dato);
@@ -92,6 +128,15 @@ bool borrar_primero(lista_t* lista, int* dato);
 Implementar una función que determine si un elemento está presente en la lista.
 Retornar `true` si lo encuentra.
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ``` c
 bool lista_pertenece(const lista_t* lista, int dato);
 ```
@@ -103,6 +148,15 @@ bool lista_pertenece(const lista_t* lista, int dato);
 
 Implementar una función que retorne el elemento en una posición específica
 (índice basado en 0).
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 bool lista_obtener(const lista_t* lista, size_t posicion, int* dato);
@@ -116,6 +170,15 @@ Retornar `false` si la posición es inválida.
 Implementar una función que cuente cuántas veces aparece un elemento en la
 lista.
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ``` c
 size_t lista_contar(const lista_t* lista, int dato);
 ```
@@ -128,6 +191,15 @@ size_t lista_contar(const lista_t* lista, int dato);
 ### Ejercicio 22.8 - Insertar en Posición ⭐⭐☆☆☆
 
 Implementar una función que inserte un elemento en una posición específica.
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 bool lista_insertar_en(lista_t* lista, size_t posicion, int dato);
@@ -144,6 +216,15 @@ bool lista_insertar_en(lista_t* lista, size_t posicion, int dato);
 Implementar la operación de eliminar todas las ocurrencias de un elemento y
 liberar sus nodos correspondientes en memoria.
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ``` c
 bool lista_eliminar(lista_t* lista, int dato);
 ```
@@ -154,6 +235,15 @@ bool lista_eliminar(lista_t* lista, int dato);
 Reorganizar los enlaces de los nodos de la lista para invertir su orden de
 manera destructiva (in-place, $O(n)$ tiempo, $O(1)$ memoria).
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ``` c
 void lista_invertir(lista_t* lista);
 ```
@@ -163,6 +253,15 @@ void lista_invertir(lista_t* lista);
 
 Desarrollar una función que anexe de forma destructiva todos los elementos de la
 segunda lista al final de la primera.
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 void lista_concatenar(lista_t* destino, lista_t* origen);
@@ -183,6 +282,15 @@ Implementá un contador simple con:
 - `contador.c`: definición completa `struct contador { int valor; };`
 - Mantené valor privado, solo accesible por funciones
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_22_13)=
 ## Ejercicio 22.13 - TAD Pila (Stack) ⭐⭐☆☆☆
@@ -199,6 +307,15 @@ Implementá pila con array estático de tamaño fijo:
 - Estructura interna: `int *datos; int tope; int capacidad;`
 - `apilar` verifica que no esté llena
 - `desapilar` y `ver_tope` retornan `false` si está vacía
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_22_14)=
@@ -218,6 +335,15 @@ Implementá cola FIFO con lista enlazada:
 - `encolar` agrega al final
 - `desencolar` quita del frente
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_22_15)=
 ## Ejercicio 22.15 - TAD Lista Enlazada ⭐⭐⭐☆☆
@@ -234,6 +360,15 @@ Implementá lista enlazada simple:
 **Orientación:**
 - Mantené puntero a primero y último para inserción eficiente
 - Mantené contador de tamaño
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_22_16)=
@@ -254,6 +389,15 @@ Implementá conjunto sin elementos repetidos:
 - `agregar` solo inserta si no existe
 - Operaciones de conjuntos crean nuevos conjuntos
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_22_17)=
 ## Ejercicio 22.17 - TAD Diccionario (Map) ⭐⭐⭐⭐☆
@@ -272,6 +416,15 @@ Implementá diccionario clave-valor (strings a enteros):
 - Duplicá claves con `strdup` (o `malloc + strcpy`)
 - Liberá claves al eliminar/destruir
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_22_18)=
 ## Ejercicio 22.18 - TAD Pila Genérica ⭐⭐⭐⭐☆
@@ -287,6 +440,15 @@ Pila que almacena `void *` (cualquier tipo):
 - Usuario pasa callback para destruir datos si son dinámicos
 - Usuario responsable de castear datos al tipo correcto
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_22_19)=
 ## Ejercicio 22.19 - TAD Cola de Prioridad ⭐⭐⭐⭐⭐
@@ -301,6 +463,15 @@ Cola donde elementos con mayor prioridad salen primero:
 - Implementá con heap binario (array)
 - Mantené invariante de heap al insertar/extraer
 - Prioridad mayor = sube en el heap
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_22_20)=
@@ -320,6 +491,15 @@ ABB con operaciones estándar:
 - Eliminación: 3 casos (sin hijos, 1 hijo, 2 hijos)
 - Recorrido inorden: izquierdo, raíz, derecho
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_22_21)=
 ## Ejercicio 22.21 - TAD Grafo ⭐⭐⭐⭐⭐
@@ -336,6 +516,15 @@ Grafo dirigido con listas de adyacencia:
 - Validá índices de vértices
 - `obtener_vecinos` retorna array dinámico (caller libera)
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_22_22)=
 ## Ejercicio 22.22 - TAD Matriz Dispersa ⭐⭐⭐⭐⭐
@@ -350,6 +539,15 @@ Matriz que solo almacena elementos no cero:
 - Usá hash o lista de triplas `(fila, col, valor)`
 - Solo almacená valores != 0
 - `obtener` retorna 0 si no está almacenado
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_22_23)=
@@ -368,6 +566,15 @@ String que crece automáticamente:
 - Internamente: `char *datos; size_t longitud; size_t capacidad;`
 - Redimensioná automáticamente con `realloc`
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_22_24)=
 ## Ejercicio 22.24 - TAD Tabla Hash ⭐⭐⭐⭐⭐
@@ -383,6 +590,15 @@ Hash table con manejo de colisiones:
 - Encadenamiento para colisiones
 - Redimensioná cuando factor de carga > 0.75
 - Función hash: suma de caracteres módulo tamaño
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_22_25)=
@@ -401,6 +617,15 @@ Buffer circular para comunicación productor-consumidor:
 - Cuando `fin` alcanza `capacidad`, vuelve a 0
 - Lleno cuando `(fin + 1) % capacidad == inicio`
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_22_26)=
 ## Ejercicio 22.26 - TAD Iterador ⭐⭐⭐⭐⭐
@@ -417,6 +642,15 @@ Iterador externo para lista:
 - `siguiente` avanza y retorna valor
 - Permite recorrer sin exponer estructura interna
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_22_27)=
 ## Ejercicio 22.27 - TAD Árbol AVL ⭐⭐⭐⭐⭐
@@ -430,6 +664,15 @@ Iterador externo para lista:
 - Factor de balance = altura(izq) - altura(der)
 - Balance en rango [-1, 1]
 - 4 tipos de rotación: LL, RR, LR, RL
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*) para copiar la estructura de forma segura.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_22_28)=
@@ -447,6 +690,15 @@ Heap binario genérico:
 - `insertar`: añadir al final, subir (heapify-up)
 - `extraer`: quitar raíz, poner último, bajar (heapify-down)
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_22_29)=
 ## Ejercicio 22.29 - TAD Cache LRU ⭐⭐⭐⭐⭐
@@ -462,6 +714,15 @@ Cache con política Least Recently Used:
 - `obtener` mueve elemento al frente (más reciente)
 - Al insertar con capacidad llena, elimina último (menos reciente)
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 (ejercicio_22_30)=
 ## Ejercicio 22.30 - TAD Multi-Conjunto (Bag) ⭐⭐⭐⭐⭐
@@ -476,6 +737,15 @@ Permite elementos repetidos con conteo:
 **Orientación:**
 - Hash de elemento a contador
 - Permite múltiples copias del mismo elemento
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_22_31)=
@@ -499,6 +769,15 @@ Operaciones:
 - TADs se componen entre sí
 - `sistema_t` orquesta todas las operaciones
 - Manejo robusto de errores
+
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
 
 ---
 

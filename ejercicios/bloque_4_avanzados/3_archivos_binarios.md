@@ -55,6 +55,15 @@ todos los productos en un archivo binario llamado `inventario.dat`.
 - **Verificación**: Es crucial verificar que el valor devuelto por `fwrite` sea
   igual a la `cantidad` de productos que se intentaron escribir.
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 
 ## Lectura de Registros
@@ -75,6 +84,15 @@ muestre por pantalla.
   asegurarse de que la lectura terminó porque se llegó al final del archivo y no
   por un error.
 
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples líneas de manera robusta.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ---
 
 ## Acceso Aleatorio
@@ -93,6 +111,15 @@ anteriores.
   (`SEEK_SET`).
 - **Lectura**: Una vez posicionado, usar `fread` para leer un solo registro.
 (ejercicio_28_4)=
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
 ### Ejercicio 28.4 - Actualizar Registro ⭐⭐☆☆☆
 
 Implementar una función `void actualizar_stock(int n, int nuevo_stock)` que
@@ -109,3 +136,12 @@ modifique únicamente el stock del `n`-ésimo registro en el archivo.
      la lectura movió el puntero).
   5. Usar `fwrite` para sobrescribir el registro en el archivo con la estructura
      ya modificada.
+
+:::{hint} Lógica y Consideraciones
+
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+
+:::
+<!-- {hint} Lógica y Consideraciones -->
+
