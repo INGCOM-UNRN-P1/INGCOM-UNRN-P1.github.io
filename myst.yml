@@ -108,10 +108,12 @@ project:
             - file: ejercicios/bloque_1_fundamentos/1_basicos_y_secuencias.md
             - file: ejercicios/bloque_1_fundamentos/2_gradual_ejercicios.md
             - file: ejercicios/bloque_1_fundamentos/3_matematicos.md
+            - file: ejercicios/bloque_1_fundamentos/4_testing_y_estructura.md
             - file: ejercicios/bloque_1_fundamentos/5_ejercicios_control.md
             - file: ejercicios/bloque_1_fundamentos/6_funciones_ejercicios.md
-            - file: ejercicios/bloque_1_fundamentos/8_compilacion_y_makefiles.md
             - file: ejercicios/bloque_1_fundamentos/7_librerias_ejercicios.md
+            - file: ejercicios/bloque_1_fundamentos/8_compilacion_y_makefiles.md
+            - file: ejercicios/bloque_1_fundamentos/9_refactorizacion_codigo_ofuscado.md
         - title: "Bloque 2: Memoria"
           children:
             - file: ejercicios/bloque_2_memoria/1_punteros.md

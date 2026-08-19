@@ -100,6 +100,8 @@ recursividad introductoria y compilación con Makefiles.
 *   [**3. Algoritmos Matemáticos**](./bloque_1_fundamentos/3_matematicos.md):
     Problemas centrados en teoría de números (primos, MCD, potencias y
     secuencias lógicas).
+*   [**4. Testing y Estructura de Código**](./bloque_1_fundamentos/4_testing_y_estructura.md):
+    Pruebas unitarias con `assert`, eliminación de variables globales, análisis de flujo de control y reglas de estilo.
 *   [**5. Control de Flujo y
     Lazos**](./bloque_1_fundamentos/5_ejercicios_control.md): Ejercicios de
     bifurcaciones condicionales y estructuras de repetición seguras.
@@ -114,6 +116,8 @@ recursividad introductoria y compilación con Makefiles.
     Makefiles**](./bloque_1_fundamentos/8_compilacion_y_makefiles.md):
     Ejercicios sobre las etapas de compilación, enlazado físico y automatización
     de la construcción con `make`.
+*   [**9. Refactorización de Código Ofuscado**](./bloque_1_fundamentos/9_refactorizacion_codigo_ofuscado.md):
+    Deconstrucción, análisis y transformación de código críptico a C limpio, idiomático y modular.
 
 ### Bloque 2: Memoria
 
