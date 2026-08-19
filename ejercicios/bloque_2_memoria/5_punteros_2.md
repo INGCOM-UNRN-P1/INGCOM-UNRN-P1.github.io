@@ -583,9 +583,9 @@ void liberar_nodo(nodo_t *nodo)
 
 ---
 (ejercicio_17_21)=
-## Ejercicio 17.21 - Árbol con Datos Dinámicos ⭐⭐⭐⭐⭐
+## Ejercicio 17.21 - Estructura Jerárquica de Categorías con Memoria Dinámica ⭐⭐⭐⭐⭐
 
-Implementá árbol binario donde cada nodo tiene string dinámico.
+Implementá una estructura de categorías donde cada categoría contiene un arreglo dinámico de subcategorías y un nombre dinámico:
 
 **Orientación:**
 
@@ -601,20 +601,35 @@ Implementá árbol binario donde cada nodo tiene string dinámico.
 
 ```{code-block} c
 :linenos:
-typedef struct nodo_arbol
+typedef struct categoria
 {
-    char *clave; // Dinámico
-    int valor;
-    struct nodo_arbol *izq, *der;
-} nodo_arbol_t;
-void liberar_arbol(nodo_arbol_t *raiz)
+    char *nombre;
+    struct categoria **hijos;
+    size_t num_hijos;
+} categoria_t;
+
+categoria_t *crear_categoria(const char *nombre)
 {
-    if (raiz == NULL)
+    categoria_t *c = malloc(sizeof(categoria_t));
+    c->nombre = strdup(nombre);
+    c->hijos = NULL;
+    c->num_hijos = 0;
+    return c;
+}
+
+void liberar_categoria(categoria_t *c)
+{
+    if (c == NULL)
+    {
         return;
-    liberar_arbol(raiz->izq); // Postorden
-    liberar_arbol(raiz->der);
-    free(raiz->clave);
-    free(raiz);
+    }
+    for (size_t i = 0; i < c->num_hijos; i++)
+    {
+        liberar_categoria(c->hijos[i]);
+    }
+    free(c->hijos);
+    free(c->nombre);
+    free(c);
 }
 ```
 <!-- {code-block} c -->
@@ -689,9 +704,9 @@ estudiante_t *copiar(const estudiante_t *orig)
 
 ---
 (ejercicio_17_24)=
-## Ejercicio 17.24 - Grafo con Matriz de Adyacencia Dinámica ⭐⭐⭐⭐⭐
+## Ejercicio 17.24 - Matriz Dinámica de Conectividad NxN ⭐⭐⭐⭐⭐
 
-Creá grafo con matriz de adyacencia dinámica.
+Creá una matriz bidimensional dinámica booleana/entera para registrar conexiones entre $N$ elementos.
 
 **Orientación:**
 
@@ -709,19 +724,30 @@ Creá grafo con matriz de adyacencia dinámica.
 :linenos:
 typedef struct
 {
-    int **adj; // Matriz NxN
-    int vertices;
-} grafo_t;
-grafo_t *crear_grafo(int n)
+    int **matriz; // Matriz NxN
+    int dimension;
+} red_conexiones_t;
+
+red_conexiones_t *crear_red(int n)
 {
-    grafo_t *g = malloc(sizeof(grafo_t));
-    g->vertices = n;
-    g->adj = malloc(n * sizeof(int *));
+    red_conexiones_t *r = malloc(sizeof(red_conexiones_t));
+    r->dimension = n;
+    r->matriz = malloc(n * sizeof(int *));
     for (int i = 0; i < n; i++)
     {
-        g->adj[i] = calloc(n, sizeof(int)); // Inicializado a 0
+        r->matriz[i] = calloc(n, sizeof(int)); // Inicializado a 0
     }
-    return g;
+    return r;
+}
+
+void liberar_red(red_conexiones_t *r)
+{
+    for (int i = 0; i < r->dimension; i++)
+    {
+        free(r->matriz[i]);
+    }
+    free(r->matriz);
+    free(r);
 }
 ```
 <!-- {code-block} c -->
@@ -765,9 +791,9 @@ free(libros);
 
 ---
 (ejercicio_17_26)=
-## Ejercicio 17.26 - Tabla Hash Dinámica ⭐⭐⭐⭐⭐
+## Ejercicio 17.26 - Tabla de Registros con Redimensionamiento Dinámico ⭐⭐⭐⭐⭐
 
-Implementá tabla hash con encadenamiento y redimensionamiento.
+Implementá un contenedor indexado de punteros a estructuras con redimensionamiento dinámico cuando la capacidad se agote.
 
 **Orientación:**
 
@@ -783,24 +809,28 @@ Implementá tabla hash con encadenamiento y redimensionamiento.
 
 ```{code-block} c
 :linenos:
-typedef struct entrada
-{
-    char *clave;
-    void *valor;
-    struct entrada *siguiente;
-} entrada_t;
 typedef struct
 {
-    entrada_t **tabla;
-    size_t tamanio;
-    size_t num_elementos;
-} hash_t;
-void redimensionar(hash_t *h)
+    char *clave;
+    int valor;
+} registro_t;
+
+typedef struct
 {
-    size_t nuevo_tam = h->tamanio * 2;
-    entrada_t **nueva_tabla = calloc(nuevo_tam, sizeof(entrada_t *));
-    // Rehash: mover elementos de tabla vieja a nueva
-    // Liberar tabla vieja
+    registro_t **items;
+    size_t capacidad;
+    size_t num_elementos;
+} tabla_registros_t;
+
+void redimensionar_tabla(tabla_registros_t *t)
+{
+    size_t nueva_cap = t->capacidad * 2;
+    registro_t **nuevos = realloc(t->items, nueva_cap * sizeof(registro_t *));
+    if (nuevos != NULL)
+    {
+        t->items = nuevos;
+        t->capacidad = nueva_cap;
+    }
 }
 ```
 <!-- {code-block} c -->

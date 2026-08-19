@@ -992,26 +992,22 @@ Implementá `void ordenar(int *arr, int n, int (*comparar)(int, int))`.
 
 ---
 (ejercicio_8_45)=
-## Ejercicio 8.45 - Lista Enlazada Simple ⭐⭐⭐⭐⭐
+## Ejercicio 8.45 - Rotación e Inversión con Aritmética de Punteros ⭐⭐⭐⭐⭐
 
-Implementá una lista enlazada con:
-- `struct nodo { int dato; struct nodo *siguiente; };`
-- `void insertar_inicio(struct nodo **cabeza, int valor)`
-- `void mostrar_lista(struct nodo *cabeza)`
-- `void liberar_lista(struct nodo **cabeza)`
+Implementá funciones para manipular secuencias de enteros usando exclusivamente aritmética de punteros:
+- `void invertir_rango(int *inicio, int *fin)`: invierte los elementos entre los punteros `inicio` y `fin`.
+- `void rotar_derecha(int *arr, size_t n, size_t k)`: rota el arreglo `k` posiciones a la derecha reutilizando la función de inversión.
+- `void particionar(int *inicio, int *fin, int pivote, int **pos_pivote)`: reorganiza los elementos menores al pivote a la izquierda y mayores a la derecha.
 
 **Orientación:**
-- `insertar_inicio` modifica puntero cabeza (necesita `**`)
-- Nuevo nodo apunta a cabeza actual, luego actualiza cabeza
-- `liberar_lista` recorre y libera cada nodo
-
+- Usá punteros para avanzar (`ptr++`) y retroceder (`ptr--`) hasta que se crucen
+- No uses corchetes `[]` dentro de las funciones de manipulación
+- Actualizá `*pos_pivote` con la dirección final de división
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
+-   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
+-   **[*plus ultra*]:** Escribir aserciones con `assert()` verificando casos con arreglos de tamaño par, impar y de un solo elemento.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->

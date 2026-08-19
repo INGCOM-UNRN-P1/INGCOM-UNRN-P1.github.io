@@ -1149,46 +1149,40 @@ Leé un archivo CSV y almacená datos en estructura dinámica.
 
 ---
 (ejercicio_14_52)=
-## Ejercicio 14.52 - Cache LRU ⭐⭐⭐⭐⭐
+## Ejercicio 14.52 - Búfer Circular Dinámico ⭐⭐⭐⭐⭐
 
-Implementá un cache LRU (Least Recently Used) con tamaño fijo.
+Implementá un búfer circular continuo en memoria dinámica:
 
 **Orientación:**
-- Usá lista doblemente enlazada + hash para O(1)
-- Al acceder, mové nodo al frente
-- Si está llena, eliminá el último
-- Liberá al destruir cache
-
+- Asigná un arreglo continuo dinámico de enteros con `malloc`
+- Mantené los índices `inicio`, `fin` y la cantidad de elementos
+- Si el búfer se llena, duplicá su capacidad reubicando los elementos en orden contiguo
+- Liberá toda la memoria al destruir el búfer
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que las operaciones de inserción y extracción mantengan la consistencia de los índices circulares.
+-   **[*plus ultra*]:** Comprobar la liberación sin pérdidas de memoria con Valgrind.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_14_53)=
-## Ejercicio 14.53 - Grafo con Listas de Adyacencia ⭐⭐⭐⭐⭐
+## Ejercicio 14.53 - Arreglo Dinámico de Cadenas de Texto ⭐⭐⭐⭐⭐
 
-Implementá grafo dirigido con listas de adyacencia dinámicas.
+Implementá un arreglo dinámico de cadenas de texto (`char **`):
 
 **Orientación:**
-- Array dinámico de listas (una por vértice)
-- Cada lista contiene vecinos dinámicamente
-- Función para agregar arista
-- Liberación: cada lista, luego array
-
+- Asigná dinámicamente un arreglo de punteros `char **lineas`
+- Cada línea individual debe alojarse dinámicamente según su longitud exacta
+- Permití agregar nuevas líneas redimensionando el arreglo de punteros con `realloc`
+- En la función de destrucción, liberá cada cadena antes de liberar el arreglo de punteros
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->

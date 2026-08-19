@@ -901,7 +901,7 @@ cleanup:
 ```
 <!-- {code-block} c -->
 (ejercicio_15_25)=
-## Ejercicio 15.25 - s Integradores ⭐⭐☆☆☆
+## Ejercicios Integradores de Memoria Dinámica
 
 (ejercicio_15_26)=
 
@@ -915,32 +915,28 @@ cleanup:
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
-### Ejercicio 15.26 - b.25 - Tabla Hash Dinámica ⭐⭐⭐☆☆
+### Ejercicio 15.26 - b.25 - Diccionario Dinámico Clave-Valor ⭐⭐⭐☆☆
 
-Implementar una tabla hash simple con resolución de colisiones por
-encadenamiento. La tabla debe:
-- Usar un arreglo dinámico de listas enlazadas
-- Crecer automáticamente cuando el factor de carga supere 0.75
-- Liberar toda la memoria correctamente al destruirse
-(ejercicio_15_27)=
+Implementar una estructura de diccionario asociativo en memoria dinámica basada en un arreglo de pares `(clave, valor)`:
+- Crecer automáticamente mediante `realloc` duplicando su capacidad cuando el arreglo se llene
+- Duplicar dinámicamente las cadenas de texto correspondientes a las claves
+- Liberar cada cadena individual y el arreglo principal al destruir la estructura
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
+-   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
+-   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
-### Ejercicio 15.27 - b.26 - Árbol Binario con Memoria Dinámica ⭐⭐⭐⭐☆
+(ejercicio_15_27)=
+### Ejercicio 15.27 - b.26 - Matriz Tridimensional Dinámica ⭐⭐⭐⭐☆
 
-Implementar un árbol binario de búsqueda donde cada nodo se aloja dinámicamente.
-Incluir funciones para:
-- Inserción
-- Búsqueda
-- Liberación recursiva (postorder traversal)
+Implementar la asignación, manipulación y liberación de un volumen tridimensional de enteros (`int ***`) de dimensiones $X 	imes Y 	imes Z$:
+- Asignar el arreglo de punteros a matrices 2D, luego los punteros a filas, y finalmente cada fila
+- Implementar la función de liberación que destruya simétricamente cada dimensión en orden inverso
+- Asegurar que ante cualquier fallo parcial de asignación durante la creación, se liberen todos los bloques previamente reservados sin dejar fugas
 (ejercicio_15_28)=
 
 :::{hint} Lógica y Consideraciones

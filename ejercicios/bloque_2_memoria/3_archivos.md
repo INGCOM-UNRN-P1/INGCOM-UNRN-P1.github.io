@@ -244,7 +244,7 @@ contenido del primero.
 ### Ejercicio 12.11 - Dividir Archivo Grande ⭐⭐☆☆☆
 
 Escribir un programa que divida un archivo de texto grande en varios archivos
-más pequeños, cada uno con un número máximo de `N` líneas. Los nombres de los
+más pequeños, cada uno con un número máximo de $N$ líneas. Los nombres de los
 archivos de salida pueden ser `parte_1.txt`, `parte_2.txt`, etc.
 (ejercicio_12_12)=
 

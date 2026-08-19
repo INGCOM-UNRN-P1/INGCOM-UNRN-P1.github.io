@@ -40,7 +40,7 @@ secuencias numéricas.
 
 
 Este ejercicio consiste en implementar un programa que realice una cuenta
-regresiva desde un número entero positivo `N` hasta 1, para finalmente imprimir
+regresiva desde un número entero positivo $N$ hasta $1$, para finalmente imprimir
 un mensaje de "¡Lanzamiento!". El objetivo es practicar el uso de lazos y la
 gestión de tiempos de ejecución simples.
 
@@ -48,22 +48,13 @@ Para que la cuenta no sea instantánea y se pueda percibir en tiempo real, se
 debe introducir una pausa de 1 segundo entre cada número impreso.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** El programa debe solicitar al usuario un número entero positivo
-    `N` que servirá como punto de inicio de la cuenta regresiva.
--   **Proceso:** Se debe utilizar un lazo que itere desde `N` hacia abajo, hasta
-    llegar a 1. En cada iteración, el programa imprimirá el número actual.
+-   **Proceso:** Se debe utilizar un lazo que itere desde $N$ hacia abajo, hasta
 -   **Pausa:** Dentro del lazo, después de imprimir cada número, el programa
-    debe detener su ejecución durante 1 segundo. En C, esto se puede lograr con
-    la función `sleep(1)`, que se encuentra en la cabecera `<unistd.h>` en
-    sistemas POSIX (Linux, macOS).
 -   **Salida:** Tras finalizar el lazo, se debe imprimir el mensaje final
-    "¡Lanzamiento!".
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
-    error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
-    especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Validar que el número inicial N sea estrictamente positivo antes de comenzar la cuenta.
+-   **[*plus ultra*]:** Permitir al usuario configurar el tiempo de pausa entre cada número.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -99,18 +90,12 @@ que produzca una salida visible en la pantalla, confirmando que el compilador y
 el entorno de desarrollo están configurados y funcionando correctamente.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Este programa no requiere ninguna entrada del usuario.
 -   **Proceso:** Se utiliza una función de la biblioteca estándar para enviar
-    texto a la salida estándar (la consola). En C, la función más común para
-    esto es `printf()`.
 -   **Salida:** El programa debe imprimir la cadena de texto "Hola, mundo!"
-    seguida de un salto de línea para asegurar que el cursor de la terminal se
-    mueva a la siguiente línea.
--   **[*plus ultra*]:** Imprimir la salida utilizando tipografías en ASCII Art.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Imprimir un marco decorativo alrededor del saludo usando caracteres ASCII estándar.
+-   **[*plus ultra*]:** Modularizar la impresión dentro de una función con una firma clara.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -139,24 +124,13 @@ usuario. Debe solicitarle su nombre y luego mostrar un saludo personalizado que
 lo incluya. Sirve para practicar la lectura de datos desde la entrada estándar.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Variables:** Se necesita una variable para almacenar el nombre del
-    usuario. En C, esto se hace comúnmente con un arreglo de caracteres
-    (`char`).
 -   **Entrada:** El programa debe primero mostrar un mensaje pidiendo al usuario
-    que ingrese su nombre. Luego, debe leer la entrada del teclado y almacenarla
-    en la variable.
 -   **Funciones de Lectura:** Se puede usar `scanf()` para leer la entrada, pero
-    hay que tener en cuenta que `scanf("%s", ...)` dejará de leer al encontrar
-    un espacio. Una alternativa más robusta es `fgets()`, que puede leer líneas
-    completas.
 -   **Salida:** Finalmente, el programa debe imprimir el saludo personalizado,
-    combinando una cadena de texto fija con el nombre almacenado.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que el nombre ingresado no sea una cadena vacía ni contenga solo espacios.
+-   **[*plus ultra*]:** Personalizar el saludo según la hora del día ingresada por el usuario.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -195,21 +169,13 @@ existen dentro de un intervalo cerrado `[n, m]`, donde los límites `n` y `m` so
 proporcionados por el usuario.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Se deben leer dos números enteros, `n` (inicio del rango) y `m`
-    (fin del rango).
 -   **Proceso:** Se utiliza un lazo `for` que recorra cada número `i` desde `n`
-    hasta `m`.
 -   **Condición de Paridad:** Dentro del lazo, para cada número `i`, se debe
-    verificar si es par. Un número es par si el resto de su división por 2 es
-    igual a 0. Esta operación se realiza con el operador módulo (`%`).
 -   **Salida:** Si la condición de paridad se cumple, el número `i` se imprime
-    en la pantalla.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Permitir que el usuario ingrese el intervalo en cualquier orden (si n > m, intercambiar automáticamente los límites).
+-   **[*plus ultra*]:** Contar la cantidad total de pares encontrados y mostrar el resultado al finalizar.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -240,26 +206,16 @@ FIN
 
 
 Este ejercicio consiste en generar una secuencia de números impares, comenzando
-desde 1, hasta alcanzar un total de `N` términos, donde `N` es un número
+desde 1, hasta alcanzar un total de $N$ términos, donde $N$ es un número
 proporcionado por el usuario.
 
 :::{hint} Lógica y Consideraciones
-
--   **Entrada:** Se debe leer un número entero `N` que representa la cantidad de
-    números impares a mostrar.
+-   **Entrada:** Se debe leer un número entero $N$ que representa la cantidad de
 -   **Proceso:** Se puede abordar de dos maneras:
-    1.  **Iterando y contando:** Usar un lazo que genere números (1, 2, 3, ...)
-        y, para cada uno, verificar si es impar. Si lo es, se imprime y se
-        incrementa un contador hasta llegar a `N`.
-    2.  **Fórmula matemática:** Los números impares siguen la fórmula `2*k - 1`
-        para `k = 1, 2, 3, ...`. Se puede usar un lazo que itere `N` veces (de
-        `k=1` a `N`) y en cada paso calcule e imprima `2*k - 1`.
--   **Salida:** Se imprime la secuencia de los primeros `N` números impares.
+-   **Salida:** Se imprime la secuencia de los primeros $N$ números impares.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que N sea un entero mayor a cero; de lo contrario, volver a solicitarlo.
+-   **[*plus ultra*]:** Mostrar la suma acumulada de los primeros N impares y verificar que sea igual a N².
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -297,17 +253,12 @@ número `n` y termina justo antes de un número `m`. Esto corresponde al interva
 matemático `[n, m)`.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Leer los enteros `n` (inclusive) y `m` (exclusive).
 -   **Proceso:** Utilizar un lazo `for` que se inicialice en `n` y continúe
-    mientras el contador sea menor que `m`.
 -   **Salida:** En cada iteración del lazo, imprimir el valor actual del
-    contador.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Manejar el caso donde n >= m informando al usuario que el rango es vacío.
+-   **[*plus ultra*]:** Permitir al usuario ingresar un paso de incremento distinto de 1.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -340,17 +291,12 @@ parte de un número `n` y se retrocede hasta un número `m`, sin incluirlo. Esto
 corresponde al intervalo `(m, n]`.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Leer los enteros `n` (inclusive) y `m` (exclusive).
 -   **Proceso:** Utilizar un lazo `for` que se inicialice en `n` y continúe
-    mientras el contador sea mayor que `m`, decrementando el contador en cada
-    paso.
 -   **Salida:** Imprimir el valor del contador en cada iteración.
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
-    definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
-    para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Validar que n > m para que la secuencia descendente tenga al menos un elemento.
+-   **[*plus ultra*]:** Permitir al usuario ingresar un paso de decremento personalizado.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -382,19 +328,13 @@ Calcular la suma de todos los números enteros en un rango cerrado `[n, m]`. Est
 es equivalente a la operación matemática $\sum_{i=n}^{m} i$.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Variables:** Se necesita una variable `acumulador` (o `suma`),
-    inicializada en 0, para guardar la suma.
 -   **Entrada:** Leer los enteros `n` y `m`.
 -   **Proceso:** Usar un lazo `for` que itere desde `n` hasta `m`. En cada
-    iteración, añadir el valor del contador al `acumulador`.
 -   **Salida:** Después de que el lazo termine, imprimir el valor final del
-    `acumulador`.
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
-    definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
-    para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Validar que n <= m y calcular la sumatoria tanto mediante un lazo como con la fórmula de Gauss para comparar resultados.
+-   **[*plus ultra*]:** Usar el tipo long long para prevenir desbordamientos en rangos grandes.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -430,17 +370,13 @@ Calcular la suma de los cuadrados de todos los números enteros en un rango
 cerrado `[n, m]`. La operación es $\sum_{i=n}^{m} i^2$.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Variables:** Se necesita un `acumulador` inicializado en 0.
 -   **Entrada:** Leer los enteros `n` y `m`.
 -   **Proceso:** Usar un lazo `for` que itere de `n` a `m`. En cada iteración,
-    calcular el cuadrado del número actual (`i*i`) y añadirlo al `acumulador`.
 -   **Salida:** Al final, imprimir el valor del `acumulador`.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Usar tipos enteros amplios como long long para soportar sumas de cuadrados elevadas.
+-   **[*plus ultra*]:** Comparar el resultado del lazo con la fórmula matemática n*(n+1)*(2n+1)/6.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -481,20 +417,13 @@ solicitar un número entero al usuario y determinar si es par (divisible por 2) 
 impar.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Leer un único número entero.
 -   **Proceso:** La propiedad matemática clave es que un número entero es par si
-    el resto de su división por 2 es exactamente 0. En C, el operador módulo
-    (`%`) se usa para obtener este resto.
 -   **Condición:** Se utiliza una estructura `if-else`. Si `numero % 2 == 0`, el
-    número es par. En caso contrario, es impar.
 -   **Salida:** Imprimir un mensaje claro que indique el resultado, como "El
-    número X es Par" o "El número X es Impar".
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que el valor ingresado sea un número entero válido comprobando el retorno de scanf.
+-   **[*plus ultra*]:** Encapsular la lógica en una función bool es_par(int n) que no realice operaciones de E/S.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -529,21 +458,13 @@ El programa debe clasificar un número real (de punto flotante) ingresado por el
 usuario en una de tres categorías: positivo, negativo o cero.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Leer un número que puede tener decimales (tipo `float` o
-    `double` en C).
 -   **Proceso:** Utilizar una estructura de condicionales anidados o `if-else
-    if-else`.
 -   **Condiciones:**
-    1.  Primero, verificar si el número es igual a 0.
-    2.  Si no es cero, verificar si es mayor que 0 (positivo).
-    3.  Si no es ninguna de las anteriores, por descarte, es negativo.
 -   **Salida:** Imprimir el mensaje correspondiente a la categoría.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Encapsular la clasificación en una función que retorne 1 (positivo), -1 (negativo) o 0 (cero).
+-   **[*plus ultra*]:** Manejar valores muy cercanos a cero dentro de un margen de tolerancia (epsilon) si se usan reales.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -584,17 +505,12 @@ Calcular el área de un triángulo a partir de las longitudes de su base y su
 altura. La fórmula es $A = \frac{1}{2} b \cdot h$.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Solicitar al usuario dos valores: la base (`b`) y la altura
-    (`h`). Pueden ser números con decimales.
 -   **Proceso:** Aplicar la fórmula matemática directamente. En C, esto se
-    traduce como `(base * altura) / 2.0`.
 -   **Salida:** Mostrar el área calculada.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que tanto la base como la altura sean valores estrictamente mayores a cero.
+-   **[*plus ultra*]:** Modularizar el cálculo en una función pura double calcular_area_triangulo(double base, double altura).
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -629,20 +545,12 @@ Calcular el área de un triángulo conociendo únicamente la longitud de sus tre
 lados (`a`, `b`, `c`). Para esto se utiliza la fórmula de Herón.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Solicitar al usuario las longitudes de los tres lados.
 -   **Proceso:**
-    1.  Calcular el semiperímetro (`s`): $s = \frac{a+b+c}{2}$.
-    2.  Aplicar la fórmula de Herón: $A = \sqrt{s(s-a)(s-b)(s-c)}$. Para la raíz
-        cuadrada, se usa la función `sqrt()` de la biblioteca `math.h`.
 -   **Validación:** Antes de calcular, es importante verificar si los lados
-    pueden formar un triángulo (la suma de dos lados cualquiera debe ser mayor
-    que el tercero).
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
-    error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
-    especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Validar la desigualdad triangular (la suma de dos lados cualesquiera debe superar al tercero) antes del cálculo.
+-   **[*plus ultra*]:** Retornar un valor de error (-1.0) si los lados no pueden formar un triángulo geométrico válido.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -678,19 +586,13 @@ Calcular el área y la circunferencia (perímetro) de un círculo a partir de su
 radio.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Constantes:** Se necesita el valor de $\pi$. Se puede definir como una
-    constante (`#define M_PI` en `math.h` o `const double PI = 3.14159;`).
 -   **Entrada:** Solicitar al usuario el valor del radio (`r`).
 -   **Proceso:**
-    1.  Calcular el área: $A = \pi \cdot r^2$.
-    2.  Calcular la circunferencia: $C = 2 \cdot \pi \cdot r$.
 -   **Salida:** Mostrar ambos resultados de forma clara.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que el radio sea positivo y definir PI como una constante con precisión de double.
+-   **[*plus ultra*]:** Calcular también el área del sector circular para un ángulo ingresado por el usuario.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -729,17 +631,12 @@ Calcular el área de un trapecio dadas las longitudes de sus dos bases paralelas
 y su altura.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Solicitar al usuario tres valores: la base mayor (`B`), la base
-    menor (`b`) y la altura (`h`).
 -   **Proceso:** Aplicar la fórmula del área del trapecio: $A = \frac{B+b}{2}
-    h$.
 -   **Salida:** Mostrar el área calculada.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que ambas bases y la altura sean estrictamente positivas y que la base mayor sea mayor que la menor.
+-   **[*plus ultra*]:** Modularizar la operación en una función independiente.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -773,18 +670,12 @@ Calcular el área de un polígono regular (lados y ángulos iguales) a partir de
 número de lados, la longitud de un lado y la apotema.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Solicitar el número de lados (`n`), la longitud de un lado
-    (`l`) y la longitud de la apotema (`a`).
 -   **Proceso:**
-    1.  Calcular el perímetro (`P`): $P = n \cdot l$.
-    2.  Aplicar la fórmula del área: $A = \frac{P \cdot a}{2}$.
 -   **Salida:** Mostrar el área calculada.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que el número de lados sea al menos 3 y que las longitudes sean positivas.
+-   **[*plus ultra*]:** Calcular también el ángulo interior de cada vértice del polígono regular.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -819,17 +710,12 @@ Calcular el área y el perímetro de un rectángulo dadas las longitudes de su
 largo y su ancho.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Solicitar el largo (`l`) y el ancho (`w`).
 -   **Proceso:**
-    1.  Calcular el área: $A = l \cdot w$.
-    2.  Calcular el perímetro: $P = 2l + 2w$.
 -   **Salida:** Mostrar ambos resultados.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que ancho y alto sean positivos y determinar si la figura es un caso especial (cuadrado).
+-   **[*plus ultra*]:** Modularizar las funciones para calcular área y perímetro por separado.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -869,22 +755,15 @@ Crear un programa que pueda convertir temperaturas entre las escalas Celsius,
 Fahrenheit y Kelvin.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Solicitar al usuario el valor de la temperatura y la escala
-    original.
 -   **Proceso:** Aplicar la fórmula de conversión correspondiente:
     -   **Celsius a Fahrenheit**: $F = (C \times 9/5) + 32$
     -   **Fahrenheit a Celsius**: $C = (F - 32) \times 5/9$
     -   **Celsius a Kelvin**: $K = C + 273.15$
 -   **Precisión:** Al trabajar con divisiones como 9/5, es importante usar
-    números de punto flotante (ej. `9.0/5.0`) para evitar la división entera que
-    truncaría el resultado.
--   **[*plus ultra*]:** Modificar la implementación para realizar las
-    conversiones utilizando exclusivamente aritmética de enteros y analizar la
-    pérdida de precisión.
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
-    definición interna oculta en el archivo `.c`.
+-   **[*plus ultra*]:** Validar que la temperatura en Celsius no sea inferior al cero absoluto (-273.15 °C).
+-   **[*plus ultra*]:** Presentar una tabla comparativa de temperaturas en pasos de 10 grados dentro de un rango.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -918,19 +797,13 @@ Convertir una medida de ángulo dada en formato sexagesimal (grados, minutos y
 segundos) a su valor total equivalente en segundos.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Relaciones:** Recordar que 1 grado = 60 minutos y 1 minuto = 60 segundos.
-    Por lo tanto, 1 grado = 3600 segundos.
 -   **Entrada:** Solicitar al usuario tres valores enteros: grados, minutos y
-    segundos.
 -   **Proceso:** Aplicar la fórmula de conversión: $total = (grados \times 3600)
-    + (minutos \times 60) + segundos$.
 -   **Salida:** Mostrar el total de segundos.
--   **[*plus ultra*]:** Permitir ingresar también "vueltas" completas (donde 1
-    vuelta = 360 grados = 1.296.000 segundos).
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
+-   **[*plus ultra*]:** Validar que los minutos y segundos estén en el rango [0, 59].
+-   **[*plus ultra*]:** Implementar la operación inversa: convertir segundos totales a grados, minutos y segundos.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -968,17 +841,12 @@ El programa debe solicitar un número entero al usuario y mostrar su tabla de
 multiplicar, desde el 1 hasta el 10.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Leer un número entero, que será la base de la tabla.
 -   **Proceso:** Utilizar un lazo `for` que itere desde 1 hasta 10. En cada
-    iteración, el contador del lazo (`i`) se multiplicará por el número base.
 -   **Salida:** Dentro del lazo, imprimir la operación y su resultado en un
-    formato claro, como `base x i = resultado`.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Formatear la tabla con columnas alineadas usando especificadores de ancho en printf.
+-   **[*plus ultra*]:** Permitir al usuario elegir hasta qué múltiplo generar la tabla (por defecto 10).
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1012,20 +880,12 @@ Implementar un programa que pida un número `n` e imprima un triángulo rectáng
 de `n` filas de altura, construido con asteriscos.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Leer un entero `n` para la altura del triángulo.
 -   **Proceso:** Se necesitan dos lazos aninados.
-    1.  El lazo exterior controlará las filas, iterando desde 1 hasta `n`.
-    2.  El lazo interior controlará las columnas (los asteriscos a imprimir en
-        cada fila). Este lazo debe iterar desde 1 hasta el número de la fila
-        actual (la variable del lazo exterior).
 -   **Salida:** Después de que el lazo interior complete sus iteraciones para
-    una fila, se debe imprimir un salto de línea para pasar a la siguiente.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Parametrizar el carácter de dibujo permitiendo al usuario elegir el símbolo.
+-   **[*plus ultra*]:** Validar que la altura sea un entero positivo mayor o igual a 1.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1061,20 +921,13 @@ usuario dos números y un carácter que represente la operación aritmética a
 realizar (+, -, *, /).
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Leer dos números (pueden ser `double` para mayor flexibilidad)
-    y un carácter para el operador.
 -   **Proceso:** Utilizar una estructura `switch` (o `if-else if`) para
-    seleccionar la operación a realizar basándose en el carácter del operador.
 -   **Caso Especial:** Manejar la división por cero. Si el operador es `/` y el
-    segundo número es 0, se debe mostrar un mensaje de error en lugar de
-    realizar la operación.
 -   **Salida:** Mostrar el resultado de la operación o el mensaje de error.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Manejar adecuadamente el error de división por cero mostrando un mensaje descriptivo.
+-   **[*plus ultra*]:** Permitir la ejecución continua de operaciones dentro de un lazo hasta que el usuario elija salir.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1123,24 +976,13 @@ y el usuario debe adivinarlo. El programa proporciona pistas para guiar al
 usuario.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Generación Aleatoria:**
-    1.  Incluir la cabecera `stdlib.h` para `rand()` y `srand()`, y `time.h`
-        para `time()`.
-    2.  Inicializar la semilla del generador de números aleatorios una sola vez
-        al principio del programa: `srand(time(NULL))`.
-    3.  Generar el número secreto en un rango (ej. 1 a 100): `secreto = rand() %
-        100 + 1;`
 -   **Proceso:** Usar un lazo `do-while` o `while` que se repita hasta que el
-    número del usuario sea igual al número secreto.
 -   **Entrada:** Dentro del lazo, solicitar al usuario que ingrese su intento.
 -   **Condiciones:** Comparar el intento con el número secreto y dar una pista:
-    "Muy alto", "Muy bajo" o "¡Correcto!".
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Limitar el número máximo de intentos disponibles y mostrar un mensaje de fin de juego si se agotan.
+-   **[*plus ultra*]:** Llevar un registro del puntaje basado en la rapidez con la que se adivina el número.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1182,24 +1024,12 @@ Generar y mostrar los primeros `n` términos de la serie de Fibonacci. En esta
 serie, cada número es la suma de los dos anteriores, comenzando con 0 y 1.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Variables:** Se necesitan al menos tres variables para mantener el estado:
-    los dos números anteriores de la serie (`a` y `b`) y el término actual
-    (`siguiente`).
 -   **Casos Base:** Los primeros dos términos (para n=0 y n=1) son fijos (0 y
-    1).
 -   **Proceso:**
-    1.  Inicializar `a = 0` y `b = 1`.
-    2.  Imprimir los primeros términos según sea necesario.
-    3.  Usar un lazo que se repita `n-2` veces para calcular los términos
-        restantes.
-    4.  En cada iteración: `siguiente = a + b`, imprimir `siguiente`, y luego
-        actualizar `a = b` y `b = siguiente`.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Usar tipos enteros sin signo o long long para calcular términos más altos sin desbordamiento.
+-   **[*plus ultra*]:** Calcular el cociente entre términos consecutivos para observar la convergencia al número áureo.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1243,19 +1073,12 @@ partir de un capital inicial, una tasa de interés anual y un período de tiempo
 en años.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Solicitar tres valores: capital (`P`), tasa de interés anual
-    (`r`) y tiempo en años (`t`). La tasa de interés debe manejarse como un
-    valor decimal (ej. 5% es 0.05).
 -   **Proceso:**
-    1.  Calcular el interés ganado: $I = P \cdot r \cdot t$.
-    2.  Calcular el monto final: $A = P + I$.
 -   **Salida:** Mostrar tanto el interés ganado como el monto total acumulado.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que capital, tasa y tiempo sean valores numéricos positivos.
+-   **[*plus ultra*]:** Mostrar el desglose anual del interés acumulado en cada período.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1294,12 +1117,8 @@ Escribir un programa que calcule el Índice de Masa Corporal (IMC) de una person
 y lo clasifique según las categorías de la OMS.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Solicitar el peso en kilogramos (kg) y la altura en metros (m).
 -   **Proceso:**
-    1.  Calcular el IMC usando la fórmula: $IMC = \frac{peso}{altura^2}$.
-    2.  Usar una serie de condicionales `if-else if` para clasificar el
-        resultado.
 -   **Clasificación (ejemplo):**
     -   IMC < 18.5: Bajo peso
     -   18.5 <= IMC < 25: Normal
@@ -1307,10 +1126,8 @@ y lo clasifique según las categorías de la OMS.
     -   IMC >= 30: Obesidad
 -   **Salida:** Mostrar el valor del IMC y la categoría de peso correspondiente.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que peso y altura sean estrictamente positivos.
+-   **[*plus ultra*]:** Modularizar la clasificación en una función independiente que retorne la categoría de IMC.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1355,24 +1172,13 @@ y muestre cuántos días tiene ese mes. Este ejercicio requiere manejar el caso
 especial de febrero en los años bisiestos.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Leer el mes y el año como números enteros.
 -   **Proceso:**
-    1.  Usar una estructura `switch` o `if-else if` para determinar los días
-        según el mes.
-    2.  Meses con 31 días: 1, 3, 5, 7, 8, 10, 12.
-    3.  Meses con 30 días: 4, 6, 9, 11.
-    4.  Febrero (mes 2): requiere una lógica adicional para verificar si el año
-        es bisiesto.
 -   **Año Bisiesto:** Un año es bisiesto si es divisible por 4, excepto los años
-    que son divisibles por 100 pero no por 400. La condición es: `(anio % 4 == 0
-    && anio % 100 != 0) || (anio % 400 == 0)`.
 -   **Salida:** Imprimir el número de días.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Verificar si el año es bisiesto para determinar correctamente los días del mes de febrero.
+-   **[*plus ultra*]:** Validar que el número de mes esté estrictamente comprendido entre 1 y 12.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1423,24 +1229,15 @@ condicionales anidados o operadores lógicos para realizar comparaciones
 múltiples.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Leer tres números enteros distintos (`a`, `b`, `c`).
 -   **Proceso:** Se puede resolver de varias maneras:
-    1.  **Condicionales anidados:** Comparar `a` con `b`. Si `a` es mayor,
-        compararlo con `c`. El que resulte mayor es el máximo. Si `b` es mayor
-        que `a`, compararlo con `c` para encontrar el máximo.
-    2.  **Operadores lógicos:** Usar `if-else if-else`.
         -   `SI (a >= b Y a >= c) ENTONCES a es el máximo.`
         -   `SINO SI (b >= a Y b >= c) ENTONCES b es el máximo.`
         -   `SINO c es el máximo.`
-    3.  **Variable auxiliar:** Asumir que el primero es el máximo y luego
-        actualizar esta suposición si se encuentra uno mayor.
 -   **Salida:** Imprimir el número que resultó ser el mayor.
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Encapsular la comparación en una función int maximo_de_tres(int a, int b, int c).
+-   **[*plus ultra*]:** Extender el programa para identificar si los tres números son iguales entre sí.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1482,22 +1279,12 @@ lados iguales), isósceles (dos lados iguales) o escaleno (todos los lados
 diferentes).
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Leer las longitudes de los tres lados (`a`, `b`, `c`).
 -   **Validación (Desigualdad Triangular):** Antes de clasificar, es crucial
-    verificar si los lados pueden formar un triángulo. La suma de las longitudes
-    de dos lados cualesquiera debe ser siempre mayor que la longitud del tercer
-    lado (`a+b > c`, `a+c > b`, `b+c > a`). Si no se cumple, no es un triángulo.
 -   **Clasificación:**
-    1.  Si `a == b` y `b == c`, es **equilátero**.
-    2.  Si no es equilátero, verificar si dos lados son iguales (ej. `a == b` o
-        `b == c` o `a == c`). Si es así, es **isósceles**.
-    3.  Si ninguna de las condiciones anteriores se cumple, es **escaleno**.
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar la desigualdad triangular antes de clasificar el triángulo.
+-   **[*plus ultra*]:** Determinar además si el triángulo es rectángulo aplicando el teorema de Pitágoras.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1538,20 +1325,12 @@ Dado un monto de dinero entero, el programa debe calcular la cantidad mínima de
 billetes de distintas denominaciones para representar dicho monto.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Leer un monto entero.
 -   **Denominaciones:** Definir las denominaciones de billetes disponibles en un
-    orden descendente (ej. 1000, 500, 200, 100, 50, 20, 10).
 -   **Proceso:** Utilizar divisiones y el operador módulo para calcular cuántos
-    billetes de cada denominación se necesitan.
-    1.  Para la denominación más alta, `cantidad = monto / denominacion`.
-    2.  Actualizar el monto restante: `monto = monto % denominacion`.
-    3.  Repetir el proceso para la siguiente denominación más baja.
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar que el monto sea positivo y múltiplo de la denominación mínima.
+-   **[*plus ultra*]:** Permitir configurar las denominaciones disponibles mediante constantes.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1592,22 +1371,16 @@ Implementar el clásico juego de Piedra, Papel o Tijera para que un usuario
 juegue una partida contra la computadora.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada del Usuario:** Pedir al usuario que elija una opción (ej.
-    ingresando 1 para Piedra, 2 para Papel, 3 para Tijera).
 -   **Elección de la Computadora:** Generar un número aleatorio entre 1 y 3 para
-    simular la elección de la computadora.
 -   **Reglas del Juego:**
     -   Piedra vence a Tijera.
     -   Tijera vence a Papel.
     -   Papel vence a Piedra.
 -   **Proceso:** Comparar la elección del usuario con la de la computadora
-    usando condicionales para determinar el ganador o si hay un empate.
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
-    definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
-    para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Validar que la opción elegida por el usuario sea válida (1, 2 o 3).
+-   **[*plus ultra*]:** Llevar un marcador de victorias, derrotas y empates a lo largo de múltiples rondas.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1650,22 +1423,14 @@ Implementar un programa que pida un número `n` e imprima un triángulo de `n`
 filas de altura, construido con asteriscos, centrado como una pirámide.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Leer un entero `n` para la altura del triángulo.
 -   **Proceso:** Se necesitan dos lazos aninados.
-    1.  El lazo exterior itera `n` veces, una por cada fila.
-    2.  Se necesitan dos lazos interiores dentro del exterior:
         -   El primer lazo interior imprime los espacios en blanco necesarios
-            para centrar la pirámide. En la fila `i`, se necesitan `n-i`
-            espacios.
         -   El segundo lazo interior imprime los asteriscos. En la fila `i`, se
-            necesitan `2*i - 1` asteriscos.
 -   **Salida:** Después de cada fila, imprimir un salto de línea.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que la altura ingresada esté en un rango razonable (ej. entre 1 y 25).
+-   **[*plus ultra*]:** Permitir al usuario elegir entre pirámide sólida o hueca.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1708,22 +1473,13 @@ continuar hasta que ingrese la contraseña correcta. Este ejercicio practica el
 uso de lazos `do-while` y la comparación de cadenas.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Contraseña Secreta:** Definir una contraseña correcta como una cadena
-    constante en el programa (ej. `"password123"`).
 -   **Entrada:** Dentro de un lazo, solicitar al usuario que ingrese la
-    contraseña.
 -   **Proceso:** Usar un lazo `do-while` es ideal aquí, ya que la solicitud debe
-    hacerse al menos una vez. La condición del lazo debe ser que la cadena
-    ingresada por el usuario no sea igual a la contraseña secreta.
 -   **Comparación de Cadenas:** En C, las cadenas no se pueden comparar con
-    `==`. Se debe usar la función `strcmp()` de la biblioteca `string.h`.
-    `strcmp(s1, s2)` devuelve 0 si las cadenas son idénticas.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Limitar la cantidad de intentos fallidos antes de bloquear temporalmente el acceso.
+-   **[*plus ultra*]:** Ocultar los caracteres ingresados si la terminal lo permite.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1762,21 +1518,14 @@ una lista de opciones y ejecutar una acción simple según la elección del
 usuario, repitiendo el proceso hasta que el usuario decida salir.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Estado:** Mantener una variable para el saldo de la cuenta.
 -   **Proceso:** Usar un lazo `do-while` que se ejecute mientras la opción
-    elegida por el usuario no sea la de "Salir".
 -   **Menú:** Dentro del lazo, imprimir las opciones (1. Consultar, 2.
-    Depositar, 3. Retirar, 4. Salir).
 -   **Entrada:** Leer la opción del usuario.
 -   **Selección:** Usar una estructura `switch` para manejar las diferentes
-    opciones. Cada caso llamará a una función simple o ejecutará el código
-    correspondiente (ej. pedir un monto para depositar y sumarlo al saldo).
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Mantener el saldo actualizado entre operaciones y validar que no se extraiga más dinero del disponible.
+-   **[*plus ultra*]:** Implementar la opción de consultar los últimos movimientos o transferencias.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1831,21 +1580,12 @@ Implementar un programa que pida un número impar `n` e imprima un rombo de
 asteriscos de `n` filas de altura.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Estructura:** Un rombo puede verse como una pirámide seguida de una
-    pirámide invertida.
 -   **Entrada:** Leer un entero impar `n`.
 -   **Proceso:**
-    1.  **Parte Superior:** Usar la lógica del ejercicio de la pirámide para
-        imprimir la mitad superior del rombo, con una altura de `(n/2) + 1`.
-    2.  **Parte Inferior:** Usar un segundo conjunto de lazos aninados para
-        imprimir la pirámide invertida. El lazo exterior iterará desde `n/2`
-        hacia abajo hasta 1.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que el tamaño del rombo sea un número impar positivo.
+-   **[*plus ultra*]:** Generar el rombo con bordes decorativos personalizados.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1884,20 +1624,13 @@ Primero debe preguntar al usuario cuántos números va a ingresar y luego calcul
 el promedio de esa cantidad de números.
 
 :::{hint} Lógica y Consideraciones
-
--   **Entrada Inicial:** Leer la cantidad de números a promediar (`N`).
+-   **Entrada Inicial:** Leer la cantidad de números a promediar ($N$).
 -   **Variables:** Se necesita un `acumulador` para la suma y un contador.
 -   **Proceso:**
-    1.  Usar un lazo `for` que se repita `N` veces.
-    2.  Dentro del lazo, solicitar al usuario que ingrese un número y añadirlo
-        al `acumulador`.
-    3.  Después del lazo, calcular el promedio: `promedio = acumulador / N`.
 -   **Salida:** Mostrar el promedio calculado.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que la cantidad N de datos sea mayor a cero para evitar división por cero.
+-   **[*plus ultra*]:** Calcular en el mismo recorrido el valor máximo y mínimo del conjunto.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1942,19 +1675,12 @@ Crear una función que reciba un número entero y devuelva la cantidad de dígit
 que lo componen.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Un número entero.
 -   **Proceso:** La forma más simple es usar la división entera por 10
-    repetidamente en un lazo. Cada división elimina el último dígito del número.
-    Se cuenta cuántas divisiones se pueden hacer hasta que el número se
-    convierta en 0.
 -   **Caso Especial:** Si el número de entrada es 0, tiene 1 dígito. El lazo
-    simple no funcionaría, por lo que se debe manejar como un caso especial.
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
-    definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
-    para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Manejar correctamente números negativos y el caso especial del número 0.
+-   **[*plus ultra*]:** Modularizar el conteo en una función recursiva o iterativa pura.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1999,22 +1725,12 @@ Implementar una función que tome un número entero y devuelva otro número con 
 dígitos en orden inverso.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Un número entero.
 -   **Proceso:** Se puede construir el número invertido dígito por dígito.
-    1.  Inicializar una variable `invertido` a 0.
-    2.  En un lazo, mientras el número original no sea 0:
-        a. Obtener el último dígito: `digito = numero % 10`.
-        b. Añadir el dígito al número invertido: `invertido = (invertido * 10) +
-        digito`.
-        c. Eliminar el último dígito del número original: `numero = numero /
-        10`.
 -   **Salida:** Devolver el número `invertido`.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Manejar correctamente números que terminan en cero y valores negativos.
+-   **[*plus ultra*]:** Detectar si el número original es capicúa (palíndromo numérico).
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2052,19 +1768,13 @@ Escribir una función que calcule `base^exponente` sin usar la función `pow()` 
 la biblioteca `math.h`. Debe funcionar para exponentes enteros no negativos.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Una base y un exponente (entero no negativo).
 -   **Variables:** Se necesita una variable `resultado` inicializada en 1.
 -   **Proceso:**
-    1.  Si el exponente es 0, el resultado es 1.
-    2.  Si el exponente es mayor que 0, usar un lazo que se repita `exponente`
-        veces. En cada iteración, multiplicar `resultado` por la `base`.
 -   **Salida:** Devolver el `resultado`.
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
-    definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
-    para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Validar que el exponente sea un entero no negativo o manejar exponentes negativos retornando un double.
+-   **[*plus ultra*]:** Comparar el rendimiento contra la función pow() de math.h.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2102,18 +1812,11 @@ Libras). El programa debe repetir el menú hasta que el usuario elija la opción
 de salir.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Proceso:** Similar al ejercicio del cajero automático. Usar un lazo
-    `do-while` para el menú y una estructura `switch` para manejar la selección
-    del usuario.
 -   **Modularidad:** Es una buena práctica crear una función separada para cada
-    tipo de conversión. El `switch` simplemente llamaría a la función
-    correspondiente.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Implementar un lazo interactivo para que el usuario pueda realizar múltiples conversiones consecutivas.
+-   **[*plus ultra*]:** Validar rigurosamente las opciones del menú con un caso default.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2154,22 +1857,12 @@ Crear una función que valide si una combinación de día, mes y año correspond
 una fecha real en el calendario gregoriano.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Tres enteros: `dia`, `mes`, `anio`.
 -   **Proceso:** Realizar una serie de verificaciones en orden lógico:
-    1.  Verificar que el año sea razonable (ej. > 0).
-    2.  Verificar que el mes esté en el rango [1, 12].
-    3.  Verificar que el día esté en el rango [1, 31].
-    4.  Verificar los días para meses específicos (30 días para abril, junio,
-        etc.).
-    5.  Manejar el caso de febrero, verificando si el año es bisiesto para
-        permitir 29 días.
 -   **Salida:** Devolver un valor booleano (`true` si es válida, `false` si no).
 
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
-    error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
-    especificando precondiciones y postcondiciones.
+-   **[*plus ultra*]:** Validar años bisiestos para febrero y el número correcto de días según cada mes (1-31).
+-   **[*plus ultra*]:** Calcular el día de la semana correspondiente a la fecha ingresada.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2211,20 +1904,15 @@ Pedir al usuario un número `n` y dibujar el contorno de un cuadrado de `n x n`
 utilizando asteriscos. El interior del cuadrado debe estar vacío.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Leer un entero `n`.
 -   **Proceso:** Usar lazos aninados. El lazo exterior para las filas y el
-    interior para las columnas.
 -   **Condición:** Dentro del lazo interior, se debe decidir si imprimir un
-    asterisco o un espacio. Se imprime un asterisco si:
     -   Es la primera o la última fila (`fila == 1` o `fila == n`).
     -   Es la primera o la última columna (`columna == 1` o `columna == n`).
 -   En cualquier otro caso, se imprime un espacio.
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar que el lado del cuadrado sea mayor o igual a 2.
+-   **[*plus ultra*]:** Permitir elegir un carácter diferente para el borde y para el relleno.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2264,21 +1952,13 @@ los números pares y la suma de todos los números impares de forma independient
 y mostrar ambos resultados.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Variables:** Se necesitan dos acumuladores: `suma_pares` y `suma_impares`,
-    ambos inicializados en 0.
 -   **Entrada:** Leer los enteros `n` y `m`.
 -   **Proceso:**
-    1.  Usar un lazo `for` que itere desde `n` hasta `m`.
-    2.  Dentro del lazo, verificar si el número actual `i` es par (`i % 2 ==
-        0`).
-    3.  Si es par, añadirlo a `suma_pares`. Si no, añadirlo a `suma_impares`.
 -   **Salida:** Mostrar los valores finales de ambas sumas.
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Permitir definir los límites del rango de manera dinámica mediante entrada por consola.
+-   **[*plus ultra*]:** Calcular también la cantidad de pares e impares encontrados en el intervalo.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2321,22 +2001,11 @@ suma de los dígitos de la primera mitad es igual a la suma de los dígitos de l
 segunda mitad. El programa debe verificar si un número dado es de la suerte.
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Leer un número entero.
 -   **Proceso:**
-    1.  Primero, contar el número de dígitos (ver ejercicio 1.37). Si es impar,
-        no es un número de la suerte.
-    2.  Si es par, dividir el número en dos mitades. Esto se puede hacer
-        matemáticamente. Por ejemplo, para un número de 4 dígitos, la primera
-        mitad son los dos primeros dígitos y la segunda mitad son los dos
-        últimos.
-    3.  Calcular la suma de los dígitos de cada mitad por separado.
-    4.  Comparar las dos sumas.
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
-    definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
-    para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Validar que la fecha contenga valores válidos de día, mes y año.
+-   **[*plus ultra*]:** Modularizar la suma sucesiva de dígitos en una función auxiliar pura.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2392,10 +2061,8 @@ Escribí un programa que solicite tu nombre y te salude personalmente.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que el nombre ingresado contenga caracteres legibles y no esté vacío.
+-   **[*plus ultra*]:** Dar formato especial a la salida con marcos en la terminal.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2421,10 +2088,8 @@ producto y división.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que el segundo número no sea cero antes de calcular el cociente.
+-   **[*plus ultra*]:** Modularizar cada operación aritmética en su propia función.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2462,10 +2127,8 @@ Creá un programa que convierta temperatura de Celsius a Fahrenheit y Kelvin.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que las temperaturas no estén por debajo del cero absoluto.
+-   **[*plus ultra*]:** Modularizar las fórmulas en funciones con contratos y pruebas unitarias.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2486,10 +2149,8 @@ ancho y alto.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar que ancho y alto sean positivos antes de calcular.
+-   **[*plus ultra*]:** Modularizar el cálculo en funciones independientes para área y perímetro.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2508,10 +2169,8 @@ Calculá el promedio de tres números decimales ingresados por el usuario.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar los datos ingresados verificando el retorno de scanf.
+-   **[*plus ultra*]:** Modularizar el promedio en una función double calcular_promedio(double a, double b, double c).
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2527,10 +2186,8 @@ variable).
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Implementar una función que reciba dos variables y muestre sus valores antes y después de operar.
+-   **[*plus ultra*]:** Verificar que el intercambio funcione correctamente para números negativos y cero.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2548,7 +2205,7 @@ b = 5
   - `a = a + b;`
   - `b = a - b;`
   - `a = a - b;`
-- Alternativamente, usá operadores bitwise XOR
+- Verificá el resultado imprimiendo antes y después del intercambio
 
 ---
 (ejercicio_1_51)=
@@ -2564,10 +2221,8 @@ Convertí una distancia en metros a kilómetros, centímetros y milímetros.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Modularizar cada conversión en funciones puras independientes.
+-   **[*plus ultra*]:** Formatear las unidades en una tabla comparativa alineada.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2588,10 +2243,8 @@ Calculá el Índice de Masa Corporal (IMC) dados peso (kg) y altura (m).
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que peso y altura sean mayores a cero y clasificar según la tabla oficial de la OMS.
+-   **[*plus ultra*]:** Modularizar el cálculo en una función libre de operaciones de E/S.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2607,10 +2260,8 @@ Dado un monto en pesos, calculá cuántos billetes de cada denominación (1000,
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar que el monto sea un número entero no negativo.
+-   **[*plus ultra*]:** Permitir configurar las denominaciones de billetes en orden decreciente.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2641,10 +2292,8 @@ Convertí una cantidad de segundos a formato HH:MM:SS.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que la cantidad de segundos no sea negativa.
+-   **[*plus ultra*]:** Permitir incluir días si los segundos superan las 24 horas.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2670,10 +2319,8 @@ Leé un número de tres dígitos y mostrá cada dígito por separado.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que el número ingresado esté exactamente en el rango [100, 999].
+-   **[*plus ultra*]:** Extender el algoritmo para números de cantidad variable de dígitos usando un lazo.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2700,10 +2347,8 @@ Calculá el precio final de un producto aplicando un descuento porcentual.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que el porcentaje de descuento esté en el rango [0, 100].
+-   **[*plus ultra*]:** Mostrar el desglose del ahorro total obtenido junto con el precio final.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2721,23 +2366,20 @@ Precio final: 850.00
 
 ---
 (ejercicio_1_57)=
-## Ejercicio 1.57 - Operaciones Bitwise ⭐⭐⭐☆☆
+## Ejercicio 1.57 - División Entera y Resto ⭐⭐☆☆☆
 
-Leé dos números enteros y mostrá el resultado de todas las operaciones bitwise:
-AND, OR, XOR, NOT (del primero), shift left y shift right.
+Leé dos números enteros `dividendo` y `divisor`. Mostrá el cociente entero, el
+resto de la división (módulo) y el resultado de la división real (con decimales).
 
 **Orientación:**
-- Usá operadores: `&`, `|`, `^`, `~`, `<<`, `>>`
-- Mostrá resultados en decimal y binario (opcional)
-- Explicá qué hace cada operación
-
+- Verificá que el divisor sea distinto de cero antes de realizar la operación
+- Usá `/` para la división entera y `%` para el resto
+- Convertí uno de los operandos a `double` mediante `(double)` para obtener el cociente con decimales
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que el divisor sea distinto de cero informando un mensaje de error descriptivo por consola.
+-   **[*plus ultra*]:** Modularizar el cálculo en una función pura que retorne el cociente y verifique la validez matemática.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2756,10 +2398,8 @@ Convertí un número decimal a binario, octal y hexadecimal.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que el número decimal ingresado sea no negativo.
+-   **[*plus ultra*]:** Modularizar la conversión a binario mediante divisiones sucesivas por 2 en un lazo.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2782,10 +2422,8 @@ Calculá el área de un triángulo usando la fórmula de Herón dados los tres l
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar la desigualdad triangular antes de aplicar la raíz cuadrada.
+-   **[*plus ultra*]:** Modularizar el cálculo del semiperímetro y del área en funciones separadas.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2807,10 +2445,8 @@ existen.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Manejar los tres casos del discriminante (dos raíces reales, una raíz doble, raíces complejas).
+-   **[*plus ultra*]:** Validar que el coeficiente principal a no sea cero (en cuyo caso es una ecuación lineal).
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2837,10 +2473,8 @@ Donde:
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que el capital, tasa de interés, frecuencia y tiempo sean positivos.
+-   **[*plus ultra*]:** Mostrar una tabla período por período con la evolución del capital acumulado.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2855,10 +2489,8 @@ Convertí un color RGB (rojo, verde, azul) a su representación hexadecimal.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
+-   **[*plus ultra*]:** Validar que cada componente RGB esté en el rango [0, 255].
+-   **[*plus ultra*]:** Formatear la salida con ceros a la izquierda para asegurar siempre 6 dígitos hexadecimales (#RRGGBB).
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2891,10 +2523,8 @@ Calculá base^exponente usando solo multiplicaciones (exponente entero positivo)
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
-    definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
-    para copiar la estructura de forma segura.
+-   **[*plus ultra*]:** Manejar el caso especial de exponente 0 (resultado 1) y base 0 con exponente positivo.
+-   **[*plus ultra*]:** Extender la función para aceptar exponentes negativos retornando un double.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2918,10 +2548,8 @@ seno, coseno, tangente, logaritmo.
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar operaciones inválidas como división por cero, logaritmo de no positivos o raíz de negativos.
+-   **[*plus ultra*]:** Implementar un menú con lazo que permita realizar cálculos consecutivos hasta salir.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -2956,6 +2584,6 @@ El flag `-lm` enlaza la biblioteca matemática.
 <!-- {note} Compilación con Matemáticas -->
 
 Estas consignas cubren los conceptos fundamentales del Apunte 1: variables,
-tipos de datos, operadores aritméticos, bitwise, entrada/salida, y uso básico de
+tipos de datos, operadores aritméticos, relacionales, lógicos, entrada/salida, y uso básico de
 bibliotecas estándar.
 

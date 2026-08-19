@@ -136,8 +136,8 @@ Reimplementá funciones estándar de `<string.h>` en la librería `seguras.h` y 
 - Verificá límites de destino para evitar desbordamientos de búfer.
 
 :::{hint} Lógica y Consideraciones
-- **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para evitar fallos de segmentación.
-- **[*plus ultra*]:** Implementar una versión utilizando aritmética de punteros en lugar de indexación directa.
+- **[*plus ultra*]:** Diseñar una suite de pruebas unitarias con `assert()` en `tests/` que verifique cadenas vacías y límites exactos de búfer.
+- **[*plus ultra*]:** Documentar con etiquetas Doxygen (`@pre`, `@post`) los contratos de seguridad de cada función.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -275,15 +275,17 @@ Implementá `conjunto_arr.h` y `conjunto_arr.c`:
 ---
 
 (ejercicio_7_15)=
-### Ejercicio 7.15 - Librería de Filtro y Reducción (Map / Filter / Reduce) ⭐⭐⭐⭐☆
+### Ejercicio 7.15 - Librería de Transformación y Filtrado de Arreglos ⭐⭐⭐⭐☆
 
-Creá `array_utils.h` y `array_utils.c` aplicando punteros a funciones:
-- `size_t arr_filtrar(const int *src, size_t n, int *dest, bool (*criterio)(int))`
-- `void arr_mapear(int *v, size_t n, int (*transformacion)(int))`
-- `int arr_reducir(const int *v, size_t n, int valor_inicial, int (*acumulador)(int, int))`
+Diseñá `array_utils.h` y `array_utils.c` para procesar secuencias numéricas mediante funciones modulares:
+- `size_t arr_filtrar_pares(const int *src, size_t n, int *dest)`: copia solo los valores pares a `dest` y retorna la cantidad colocada.
+- `size_t arr_filtrar_mayores_que(const int *src, size_t n, int umbral, int *dest)`: copia solo los valores mayores que `umbral`.
+- `void arr_escalar(int *v, size_t n, int factor)`: multiplica cada elemento del arreglo por un factor escalar.
+- `long long arr_sumatoria(const int *v, size_t n)`: calcula la suma total de los elementos.
 
 :::{hint} Lógica y Consideraciones
-- Demostrá el uso de firmas con punteros a función para hacer las utilidades genéricas a nivel algorítmico.
+- Utilizá el calificador `const` en los arreglos de solo lectura y documentá precondiciones claras para cada función.
+- **[*plus ultra*]:** Escribir pruebas unitarias con `assert()` en `tests/` para verificar arreglos vacíos y con valores negativos.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -456,15 +458,16 @@ Diseñá `cripto_simple.h` y `cripto_simple.c`:
 ## 6. Librerías Avanzadas y Estructuración Compleja
 
 (ejercicio_7_26)=
-### Ejercicio 7.26 - Librería de Manejo de Colores y Espacios RGB/HSL ⭐⭐⭐☆☆
+### Ejercicio 7.26 - Librería de Manejo de Colores RGB ⭐⭐⭐☆☆
 
-Creá `color_utils.h` y `color_utils.c`:
-- `unsigned long color_rgb_a_hex(unsigned char r, unsigned char g, unsigned char b)`
-- `void color_hex_a_rgb(unsigned long hex, unsigned char *r, unsigned char *g, unsigned char *b)`
-- `void color_rgb_a_hsl(unsigned char r, unsigned char g, unsigned char b, double *h, double *s, double *l)`
+Creá `color_utils.h` y `color_utils.c` para cálculos de color mediante operaciones aritméticas y fórmulas estándar:
+- `double color_luminancia(unsigned char r, unsigned char g, unsigned char b)`: calcula la luminosidad relativa ($0.2126R + 0.7152G + 0.0722B$).
+- `unsigned char color_escala_grises(unsigned char r, unsigned char g, unsigned char b)`: calcula el promedio de intensidad.
+- `unsigned char color_mezclar_componente(unsigned char c1, unsigned char c2, double factor)`: realiza una interpolación lineal entre dos colores.
 
 :::{hint} Lógica y Consideraciones
-- Usá operadores de desplazamiento de bits (`<<`, `>>`) y máscaras binarias (`&`).
+- Validá que `factor` se encuentre en el rango $[0.0, 1.0]$.
+- **[*plus ultra*]:** Implementar pruebas unitarias con `assert()` para colores básicos (blanco, negro, primarios).
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -488,17 +491,18 @@ Diseñá `eval_logica.h` y `eval_logica.c`:
 ---
 
 (ejercicio_7_28)=
-### Ejercicio 7.28 - Librería de Gestión de Bitmask y Flags ⭐⭐⭐⭐☆
+### Ejercicio 7.28 - Librería de Gestión de Estados y Banderas Booleanas ⭐⭐⭐⭐☆
 
-Implementá `bitmask.h` y `bitmask.c`:
-- `void bit_set(unsigned int *mask, int bit)`
-- `void bit_clear(unsigned int *mask, int bit)`
-- `void bit_toggle(unsigned int *mask, int bit)`
-- `bool bit_check(unsigned int mask, int bit)`
-- `void bit_imprimir_binario(unsigned int mask)`
+Implementá `flags.h` y `flags.c` para gestionar conjuntos de opciones mediante arreglos booleanos:
+- `void flag_activar(bool banderas[], size_t n, size_t indice)`: activa la bandera en la posición indicada.
+- `void flag_desactivar(bool banderas[], size_t n, size_t indice)`: desactiva la bandera indicada.
+- `bool flag_consultar(const bool banderas[], size_t n, size_t indice)`: consulta el estado de la bandera.
+- `void flag_reiniciar_todas(bool banderas[], size_t n, bool valor_defecto)`: asigna un valor uniforme a todas las banderas.
+- `size_t flag_contar_activas(const bool banderas[], size_t n)`: cuenta cuántas banderas están en `true`.
 
 :::{hint} Lógica y Consideraciones
-- Asegurá que `bit` esté dentro del rango válido de bits del tipo entero (`0` a `31`).
+- Validá que `indice < n` antes de acceder a las posiciones del arreglo.
+- **[*plus ultra*]:** Escribir pruebas unitarias con `assert()` en `tests/` para verificar el correcto cambio de estado.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 

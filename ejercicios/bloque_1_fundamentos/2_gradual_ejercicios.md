@@ -34,11 +34,11 @@ inicialización correcta de variables con tipos primitivos básicos.
 :enumerator: Valores
 Escribí un programa en C que declare e inicialice variables para tu edad, tu
 altura en metros y tu inicial de nombre, y muestre sus valores en la consola.
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Validar que la edad y la altura sean valores positivos coherentes.
+-   **[*plus ultra*]:** Formatear la salida tabulada en columnas alineadas.
 
 :::
 <!-- {exercise} -->
@@ -71,11 +71,11 @@ int main(void)
 :label: entrada-1
 Pedí al usuario que ingrese su inicial de nombre, edad y calificación promedio,
 y mostralos formateados en pantalla.
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Validar el retorno de cada scanf para asegurar que se ingresaron los tipos esperados.
+-   **[*plus ultra*]:** Limpiar el buffer de entrada antes de leer caracteres individuales.
 
 :::
 <!-- {exercise} -->
@@ -128,11 +128,11 @@ Determiná si un número entero es par o impar.
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
     error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
     especificando precondiciones y postcondiciones.
+
+-   **[*plus ultra*]:** Encapsular la verificación en una función bool es_par(int n).
+-   **[*plus ultra*]:** Manejar correctamente el número 0 y valores enteros negativos.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -150,11 +150,11 @@ Leé tres números y determiná cuál es el mayor.
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Encapsular la comparación en una función int mayor_de_tres(int a, int b, int c).
+-   **[*plus ultra*]:** Manejar adecuadamente el caso en que dos o tres números sean iguales.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -176,11 +176,11 @@ Determiná si un año es bisiesto.
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
     valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
     un lazo hasta que el usuario elija finalizar.
+
+-   **[*plus ultra*]:** Encapsular la condición en una función bool es_bisiesto(int anio).
+-   **[*plus ultra*]:** Validar que el año ingresado sea mayor que cero.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -205,11 +205,11 @@ Convertí una calificación numérica (0-100) a letra (A, B, C, D, F).
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Validar que la calificación numérica esté en el rango [0, 100].
+-   **[*plus ultra*]:** Modularizar la conversión usando tanto if-else como una estructura switch dividiendo por 10.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -223,11 +223,11 @@ Implementá una calculadora que muestre un menú y ejecute la operación elegida
 **Menú:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Implementar un lazo que mantenga la calculadora en ejecución hasta seleccionar la opción de salida.
+-   **[*plus ultra*]:** Validar la división por cero con un mensaje de alerta.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -260,11 +260,11 @@ Dados tres lados, determiná si forman un triángulo válido y qué tipo es
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
     valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
     un lazo hasta que el usuario elija finalizar.
+
+-   **[*plus ultra*]:** Validar la desigualdad triangular y verificar si el triángulo es rectángulo mediante el teorema de Pitágoras.
+-   **[*plus ultra*]:** Encapsular la clasificación en una función que retorne un código numérico descriptivo.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -282,11 +282,11 @@ Dado un número de mes (1-12), mostrá su nombre y cantidad de días.
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Validar que el número de mes esté entre 1 y 12 mediante un caso default en switch.
+-   **[*plus ultra*]:** Informar adicionalmente la estación del año correspondiente al mes ingresado.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -304,11 +304,11 @@ Dados día y mes de nacimiento, determiná el signo zodiacal.
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
     valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
     un lazo hasta que el usuario elija finalizar.
+
+-   **[*plus ultra*]:** Validar que el día ingresado sea coherente con la cantidad de días que tiene el mes.
+-   **[*plus ultra*]:** Encapsular la determinación del signo en una función modular.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -327,11 +327,11 @@ Leé tres números y mostralos ordenados de menor a mayor.
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Implementar el ordenamiento de los tres números utilizando comparaciones e intercambios sin arreglos.
+-   **[*plus ultra*]:** Modularizar la impresión de los valores ordenados.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -350,11 +350,11 @@ Leé un carácter y determiná si es vocal, consonante, dígito u otro símbolo.
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
     valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
     un lazo hasta que el usuario elija finalizar.
+
+-   **[*plus ultra*]:** Validar que el carácter ingresado sea una letra antes de clasificar entre vocal y consonante.
+-   **[*plus ultra*]:** Tratar mayúsculas y minúsculas de forma homogénea convirtiendo con tolower().
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -376,11 +376,11 @@ Resolvé ecuaciones de la forma ax + b = 0.
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Manejar con precisión los casos especiales de indeterminación (0x = 0) e inconsistencia (0x = b).
+-   **[*plus ultra*]:** Formatear la raíz con dos cifras decimales si existe solución única.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -406,11 +406,11 @@ Calculá el IMC y clasificá según la categoría.
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
     valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
     un lazo hasta que el usuario elija finalizar.
+
+-   **[*plus ultra*]:** Validar que peso y altura sean estrictamente positivos.
+-   **[*plus ultra*]:** Modularizar la clasificación en una función pura que retorne la categoría.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -429,11 +429,11 @@ Convertí entre diferentes sistemas de calificación: numérica (0-10), letra
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Validar que los valores ingresados se encuentren dentro del rango del sistema seleccionado.
+-   **[*plus ultra*]:** Implementar un menú interactivo con lazo de repetición hasta salir.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -451,11 +451,11 @@ Dadas dos fechas (día, mes, año), determiná cuál es anterior.
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
     valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
     un lazo hasta que el usuario elija finalizar.
+
+-   **[*plus ultra*]:** Validar la validez de ambas fechas considerando meses de 28, 30 y 31 días y años bisiestos.
+-   **[*plus ultra*]:** Calcular la cantidad aproximada de días transcurridos entre ambas fechas.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -479,11 +479,11 @@ Calculá impuesto a las ganancias según tramos.
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Validar que el salario bruto ingresado sea un valor no negativo.
+-   **[*plus ultra*]:** Desglosar en pantalla el importe retenido en cada tramo impositivo.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -507,11 +507,11 @@ Implementá el algoritmo de Luhn para validar números de tarjeta.
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
     filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
     estrictamente dentro de los límites del contenedor.
+
+-   **[*plus ultra*]:** Validar que el número ingresado contenga una cantidad de dígitos permitida (entre 13 y 16 dígitos).
+-   **[*plus ultra*]:** Modularizar el cálculo de la suma ponderada en una función auxiliar pura.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -531,11 +531,11 @@ pistas ("muy alto", "muy bajo").
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
     valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
     un lazo hasta que el usuario elija finalizar.
+
+-   **[*plus ultra*]:** Limitar el número máximo de intentos a 7 y mostrar la cantidad de oportunidades restantes.
+-   **[*plus ultra*]:** Llevar un registro del mejor puntaje (menor cantidad de intentos) si se juegan varias partidas.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -555,11 +555,11 @@ Convertí un número decimal (1-3999) a números romanos.
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
     valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
     un lazo hasta que el usuario elija finalizar.
+
+-   **[*plus ultra*]:** Validar que el número decimal esté comprendido estrictamente entre 1 y 3999.
+-   **[*plus ultra*]:** Modularizar la conversión procesando millares, centenas, decenas y unidades con funciones auxiliares.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -583,11 +583,11 @@ Realizá operaciones con tiempos en formato HH:MM:SS (sumar, restar, comparar).
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
     valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
     un lazo hasta que el usuario elija finalizar.
+
+-   **[*plus ultra*]:** Validar que los segundos y minutos de entrada estén en el rango [0, 59].
+-   **[*plus ultra*]:** Manejar diferencias de tiempo negativas informando si el primer tiempo es menor que el segundo.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -601,11 +601,11 @@ Implementá un sistema de menús con submenús.
 **Estructura:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Validar rigurosamente cada opción en los submenús con manejo de opciones inválidas.
+-   **[*plus ultra*]:** Modularizar cada funcionalidad del menú en una función independiente.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -637,7 +637,7 @@ MENÚ PRINCIPAL
   esperado
 - **Mensajes claros:** Informá al usuario qué salió mal y qué se espera
 - **Casos extremos:** Probá con valores mínimos, máximos, cero y negativos
-- **Claridad:** Usá nombres de variables descriptivos (`esVocal` en lugar de
+- **Claridad:** Usá nombres de variables descriptivos (`es_vocal` en lugar de
   `v`)
 
 :::
@@ -647,7 +647,7 @@ MENÚ PRINCIPAL
 
 - **Relacionales:** `<`, `>`, `<=`, `>=`, `==`, `!=`
 - **Lógicos:** `&&` (AND), `||` (OR), `!` (NOT)
-- **Ternario:** `condicion ? valor_si_cierto : valor_si_falso`
+- **Condicionales:** `if`, `else if`, `else` para bifurcar el flujo de ejecución
 
 :::
 <!-- {note} Operadores Útiles -->

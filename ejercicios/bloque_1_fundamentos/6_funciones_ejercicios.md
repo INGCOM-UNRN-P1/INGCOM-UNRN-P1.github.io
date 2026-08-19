@@ -38,11 +38,11 @@ correspondientes para los parámetros y valores de retorno.
 :label: ej-funcion-doble
 Escribí una función que reciba un número entero y devuelva su doble. Probala
 desde `main()` con distintos valores.
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
     error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
     especificando precondiciones y postcondiciones.
+
+-   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen (`@param`, `@return`).
+-   **[*plus ultra*]:** Escribir una función de prueba con assert() que verifique casos positivos, negativos y cero.
 
 :::
 <!-- {exercise} -->
@@ -74,13 +74,12 @@ int main(void)
 :::{exercise}
 :label: ej-funcion-mayor
 :enumerator: funciones-2
-
 Programá una función que reciba dos números enteros y retorne el mayor de ellos.
-
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
     definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
     para copiar la estructura de forma segura.
+
+-   **[*plus ultra*]:** Implementar una función que calcule el mayor de tres números reutilizando la función mayor de dos.
+-   **[*plus ultra*]:** Escribir aserciones con assert() para verificar el comportamiento con números iguales.
 
 :::
 <!-- {exercise} -->
@@ -119,11 +118,11 @@ int main(void)
 :label: ej-funcion-par-impar
 Definí una función que indique si un número es par o impar. Mostrá el resultado
 llamando a la función desde `main()`.
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Hacer que la función retorne un bool en lugar de imprimir directamente en consola.
+-   **[*plus ultra*]:** Escribir pruebas unitarias que verifiquen paridad en números pares, impares y negativos.
 
 :::
 <!-- {exercise} -->
@@ -164,11 +163,11 @@ int main(void)
 :enumerator: funciones-4
 Escribí una función que reciba tres notas enteras y devuelva el promedio en
 punto flotante. Mostrá el resultado en `main()`.
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Validar que las notas se encuentren en el rango [1, 10] retornando un código de error si alguna es inválida.
+-   **[*plus ultra*]:** Escribir aserciones para verificar el cálculo del promedio con decimales.
 
 :::
 <!-- {exercise} -->
@@ -199,11 +198,11 @@ int main(void)
 :label: funcion_area
 Implementá una función `area_rectangulo` que reciba base y altura, y devuelva el
 área.
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
     error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
     especificando precondiciones y postcondiciones.
+
+-   **[*plus ultra*]:** Validar que la base y la altura sean valores positivos (`@pre base > 0 && altura > 0`).
+-   **[*plus ultra*]:** Implementar una función complementaria para calcular el perímetro.
 
 :::
 <!-- {exercise} -->
@@ -241,11 +240,11 @@ Creá funciones para operaciones matemáticas: `sumar`, `restar`, `multiplicar`,
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
     definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
     para copiar la estructura de forma segura.
+
+-   **[*plus ultra*]:** Manejar la división por cero retornando un código de error o valor centinela.
+-   **[*plus ultra*]:** Diseñar una suite de pruebas con assert() para cada una de las operaciones básicas.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -263,11 +262,11 @@ Implementá `bool es_primo(int n)` que determine si un número es primo.
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Optimizar la función probando divisores únicamente hasta sqrt(n).
+-   **[*plus ultra*]:** Documentar las precondiciones (`@pre n >= 1`) y postcondiciones con Doxygen.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -287,11 +286,11 @@ Implementá dos versiones de factorial:
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de
     cola (*tail recursion*) para reducir el consumo de pila.
--   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas
     realizadas para analizar la complejidad empírica.
+
+-   **[*plus ultra*]:** Validar que n >= 0 retornando -1 en caso de error y usar long long para el resultado.
+-   **[*plus ultra*]:** Escribir pruebas unitarias comparando que ambas versiones produzcan exactamente el mismo resultado.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -312,11 +311,11 @@ Creá funciones para convertir temperaturas:
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Modularizar las fórmulas asegurando que no haya operaciones de entrada/salida dentro de las funciones.
+-   **[*plus ultra*]:** Escribir aserciones para verificar puntos clave (ej. 0 °C == 32 °F, 100 °C == 212 °F).
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -337,11 +336,11 @@ Implementá funciones de validación:
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Modularizar la lectura para que el mensaje de error sea configurable por parámetro.
+-   **[*plus ultra*]:** Permitir un número máximo de reintentos antes de retornar un código de fallo.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -355,11 +354,11 @@ Implementá el algoritmo de Euclides para calcular MCD.
 **Algoritmo:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
     error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
     especificando precondiciones y postcondiciones.
+
+-   **[*plus ultra*]:** Implementar una función auxiliar para calcular el Mínimo Común Múltiplo (MCM).
+-   **[*plus ultra*]:** Escribir pruebas unitarias con assert() verificando propiedades como mcd(a, b) == mcd(b, a).
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -387,11 +386,11 @@ Implementá:
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Usar tipos enteros de 64 bits (long long o uint64_t) para calcular términos más altos.
+-   **[*plus ultra*]:** Escribir pruebas unitarias con assert() para los primeros 10 términos de la sucesión.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -412,11 +411,11 @@ Creá funciones para manipular dígitos de un número:
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
     error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
     especificando precondiciones y postcondiciones.
+
+-   **[*plus ultra*]:** Modularizar cada operación en una función pura con una única responsabilidad.
+-   **[*plus ultra*]:** Documentar con Doxygen las precondiciones sobre números negativos.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -437,11 +436,11 @@ Implementá conversiones entre bases numéricas:
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
     errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
     archivo en todos los caminos de ejecución.
+
+-   **[*plus ultra*]:** Validar que los dígitos de la cadena binaria sean exclusivamente 0 o 1.
+-   **[*plus ultra*]:** Escribir pruebas con assert() verificando conversiones de ida y vuelta (round-trip).
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -450,10 +449,10 @@ Implementá conversiones entre bases numéricas:
 (ejercicio_5_15)=
 ## Ejercicio 5.15 - Cálculo de Potencia ⭐⭐⭐⭐☆
 
-Implementá tres versiones de potencia:
-- `double potencia_simple(double base, int exp)` - O(n)
-- `double potencia_rapida(double base, int exp)` - O(log n)
-- Manejá exponentes negativos
+Implementá dos versiones de cálculo de potencia:
+- `double potencia_iterativa(double base, int exp)`: calculada mediante multiplicaciones sucesivas.
+- `double potencia_rapida(double base, int exp)`: calculada mediante exponenciación binaria (reduciendo a la mitad el exponente en cada paso).
+- Manejá exponentes negativos retornando `1.0 / potencia(base, -exp)`.
 
 **Orientación:**
 - Simple: multiplica base n veces
@@ -462,11 +461,11 @@ Implementá tres versiones de potencia:
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
     valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
     un lazo hasta que el usuario elija finalizar.
+
+-   **[*plus ultra*]:** Verificar que la versión iterativa y la rápida retornen el mismo resultado dentro de una tolerancia con assert.
+-   **[*plus ultra*]:** Manejar el caso especial base=0 y exp=0.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -488,11 +487,11 @@ Implementá:
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
     definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
     para copiar la estructura de forma segura.
+
+-   **[*plus ultra*]:** Modularizar la función siguiente_primo reutilizando es_primo.
+-   **[*plus ultra*]:** Escribir pruebas con assert() para verificar primos conocidos.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -513,11 +512,11 @@ Implementá funciones combinatorias:
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
     error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
     especificando precondiciones y postcondiciones.
+
+-   **[*plus ultra*]:** Prevenir desbordamientos simplificando factores comunes antes de multiplicar en C(n, k).
+-   **[*plus ultra*]:** Validar las precondiciones con assert (0 <= k && k <= n).
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -539,11 +538,11 @@ Creá funciones para calcular áreas y perímetros de figuras:
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
     error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
     especificando precondiciones y postcondiciones.
+
+-   **[*plus ultra*]:** Modularizar cada figura geométrica en una función independiente con documentación completa.
+-   **[*plus ultra*]:** Escribir pruebas unitarias validando áreas de figuras conocidas.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -564,11 +563,11 @@ Implementá funciones estadísticas para un array de números:
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
     filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
     estrictamente dentro de los límites del contenedor.
+
+-   **[*plus ultra*]:** Validar que n > 0 y usar el calificador const en los arreglos de solo lectura.
+-   **[*plus ultra*]:** Escribir pruebas con assert() para verificar el cálculo del promedio y la desviación.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -589,11 +588,11 @@ Creá un simulador de lanzamiento de dados:
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Modularizar el cálculo de frecuencias en una función independiente.
+-   **[*plus ultra*]:** Escribir pruebas unitarias verificando que los valores generados estén en el rango [1, caras].
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -615,77 +614,75 @@ Implementá funciones para trabajar con fechas:
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
     error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
     especificando precondiciones y postcondiciones.
+
+-   **[*plus ultra*]:** Modularizar la función reutilizando es_bisiesto y dias_del_mes.
+-   **[*plus ultra*]:** Escribir pruebas unitarias exhaustivas para fechas límites (ej. 29 de febrero en años bisiestos y no bisiestos).
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_5_22)=
-## Ejercicio 5.22 - Búsqueda y Ordenamiento ⭐⭐⭐⭐⭐
+## Ejercicio 5.22 - Búsqueda y Algoritmos sobre Arreglos ⭐⭐⭐⭐⭐
 
-Implementá algoritmos básicos:
-- `int busqueda_lineal(int arr[], int n, int objetivo)`
-- `void ordenar_burbuja(int arr[], int n)`
-- `void intercambiar(int *a, int *b)`
+Implementá funciones modulares para operaciones sobre arreglos de enteros:
+- `int busqueda_lineal(const int arr[], int n, int objetivo)`: retorna el índice de la primera aparición o `-1`.
+- `int encontrar_maximo(const int arr[], int n)`: retorna el valor máximo contenido en el arreglo.
+- `int contar_ocurrencias(const int arr[], int n, int valor)`: cuenta cuántas veces aparece un elemento.
 
 **Orientación:**
-- Búsqueda lineal: O(n), retorna índice o -1
-- Burbuja: compara adyacentes e intercambia
-- `intercambiar` usa punteros para modificar valores
+- Usá el calificador `const` en los arreglos para garantizar que las funciones de consulta no los modifiquen
+- Validá que `n > 0` antes de buscar el máximo
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
     evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
     punteros en lugar de indexación directa.
+
+-   **[*plus ultra*]:** Usar el calificador const en el arreglo de entrada para garantizar que la función sea de solo lectura.
+-   **[*plus ultra*]:** Escribir pruebas unitarias con assert() para elementos presentes, ausentes y arreglos vacíos.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_5_23)=
-## Ejercicio 5.23 - Calculadora de Fechas ⭐⭐⭐⭐⭐
+## Ejercicio 5.23 - Funciones de Calendario y Fechas ⭐⭐⭐⭐⭐
 
-Calculá diferencias y sumas con fechas:
-- `int diferencia_dias(fecha_t f1, fecha_t f2)`
-- `fecha_t sumar_dias(fecha_t f, int dias)`
-- `int dia_de_semana(fecha_t f)` - 0=Domingo, 6=Sábado
+Implementá funciones modulares para operaciones con fechas representadas mediante sus componentes (`dia`, `mes`, `anio`):
+- `bool es_fecha_valida(int dia, int mes, int anio)`: valida si una terna corresponde a una fecha real del calendario gregoriano.
+- `int dias_transcurridos(int d1, int m1, int a1, int d2, int m2, int a2)`: calcula la cantidad de días entre dos fechas válidas.
+- `int dia_de_semana(int dia, int mes, int anio)`: retorna el día de la semana (0=Domingo, 1=Lunes, ..., 6=Sábado) aplicando la congruencia de Zeller.
 
 **Orientación:**
-- Definí `typedef struct { int dia, mes, anio; } fecha_t;`
-- Convertí fechas a "número de días desde época"
-- Usá algoritmo de Zeller para día de semana
+- Modularizá el cálculo de año bisiesto en una función auxiliar `bool es_bisiesto(int anio)`
+- Validá las precondiciones de cada función antes de calcular
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Validar que las fechas sean válidas antes de calcular diferencias.
+-   **[*plus ultra*]:** Escribir pruebas unitarias con assert() para fechas históricas y bisiestos.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_5_24)=
-## Ejercicio 5.24 - Sistema de Ecuaciones ⭐⭐⭐⭐⭐
+## Ejercicio 5.24 - Sistema de Ecuaciones 2x2 ⭐⭐⭐⭐⭐
 
-Resolvé sistemas de ecuaciones 2×2:
+Implementá funciones modulares para resolver y verificar sistemas de ecuaciones lineales 2×2 mediante la regla de Cramer:
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
     evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
     punteros en lugar de indexación directa.
+
+-   **[*plus ultra*]:** Modularizar el cálculo del determinante en una función auxiliar pura.
+-   **[*plus ultra*]:** Escribir pruebas con assert() verificando sistemas con solución única y sistemas sin solución (det == 0).
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -706,7 +703,7 @@ Implementá:
 - Si det = 0, sistema sin solución única
 - x = (c1×b2 - c2×b1) / det
 - y = (a1×c2 - a2×c1) / det
-- Usá punteros para retornar x e y
+- Retorná un código booleano indicando si el determinante es no nulo y el sistema tiene solución única
 
 ---
 

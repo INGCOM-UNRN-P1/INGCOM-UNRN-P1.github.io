@@ -2470,32 +2470,49 @@ typedef struct
 
 ---
 (ejercicio_20_72)=
-## Ejercicio 20.72 - Árbol Binario ⭐⭐⭐⭐⭐
+## Ejercicio 20.72 - Registro de Paquetes de Red con Enums y Structs ⭐⭐⭐⭐⭐
 
-Implementá estructura de árbol binario y recorridos.
+Implementá un sistema de clasificación y manejo de paquetes de red combinando tipos enumerados y estructuras:
 
 **Orientación:**
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que los campos de puerto y tamaño se encuentren dentro de los rangos válidos del protocolo.
+-   **[*plus ultra*]:** Modularizar la función de formateo para imprimir el paquete como una cadena estructurada.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
-``` c
-typedef struct nodo_arbol
+```{code-block} c
+:linenos:
+typedef enum
 {
-    int dato;
-    struct nodo_arbol *izquierdo;
-    struct nodo_arbol *derecho;
-} nodo_arbol_t;
+    PROTO_TCP,
+    PROTO_UDP,
+    PROTO_ICMP
+} protocolo_t;
+
+typedef enum
+{
+    ESTADO_PENDIENTE,
+    ESTADO_EN_TRANSITO,
+    ESTADO_ENTREGADO,
+    ESTADO_DESCARTADO
+} estado_paquete_t;
+
+typedef struct
+{
+    unsigned int id;
+    protocolo_t protocolo;
+    estado_paquete_t estado;
+    unsigned short puerto_origen;
+    unsigned short puerto_destino;
+    size_t bytes_datos;
+} paquete_red_t;
 ```
-<!-- c -->
-- Funciones: insertar, buscar, recorridos (inorden, preorden, postorden)
+<!-- {code-block} c -->
+- Funciones: `paquete_crear`, `paquete_actualizar_estado`, `paquete_mostrar_info`
 
 ---
 (ejercicio_20_73)=
@@ -2579,37 +2596,48 @@ typedef struct
 
 ---
 (ejercicio_20_75)=
-## Ejercicio 20.75 - Grafo con Listas de Adyacencia ⭐⭐⭐⭐⭐
+## Ejercicio 20.75 - Inventario de Dispositivos de Red con Enums y Structs ⭐⭐⭐⭐⭐
 
-Representá grafo con estructuras.
+Representá un inventario de dispositivos y conexiones con tipos y estados enumerados:
 
 **Orientación:**
 
 :::{hint} Lógica y Consideraciones
 
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
+-   **[*plus ultra*]:** Validar que las direcciones IP ingresadas tengan un formato numérico coherente.
+-   **[*plus ultra*]:** Implementar una función para listar todos los dispositivos que se encuentren en un estado específico.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
-typedef struct nodo_lista
+typedef enum
 {
-    int vertice;
-    struct nodo_lista *siguiente;
-} nodo_lista_t;
+    DISP_ROUTER,
+    DISP_SWITCH,
+    DISP_SERVIDOR,
+    DISP_TERMINAL
+} tipo_dispositivo_t;
+
+typedef enum
+{
+    CONEXION_ACTIVA,
+    CONEXION_INACTIVA,
+    CONEXION_FALLA
+} estado_conexion_t;
+
 typedef struct
 {
-    int num_vertices;
-    nodo_lista_t **listas_adyacencia;
-} grafo_t;
+    unsigned int id;
+    char hostname[32];
+    tipo_dispositivo_t tipo;
+    estado_conexion_t estado;
+    unsigned int ip;
+} dispositivo_t;
 ```
 <!-- {code-block} c -->
-- Funciones: crear_grafo, agregar_arista, mostrar
+- Funciones: `dispositivo_crear`, `dispositivo_cambiar_estado`, `dispositivo_imprimir`
 
 ---
 (ejercicio_20_76)=

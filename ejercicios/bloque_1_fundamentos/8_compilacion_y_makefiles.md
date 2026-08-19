@@ -35,11 +35,11 @@ archivos:
 (ejercicio_6_2)=
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
     errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
     archivo en todos los caminos de ejecución.
+
+-   **[*plus ultra*]:** Agregar una función adicional multiplicar en calculadora.c y declararla en calculadora.h.
+-   **[*plus ultra*]:** Compilar el proyecto con -Wall y -Wextra para asegurar cero advertencias.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -50,7 +50,6 @@ archivos:
 anterior sin usar un Makefile.
 
 :::{hint} Pasos de Compilación
-
 1.  **Compilar los archivos objeto (`.o`)**: Se usa la opción `-c` de `gcc` para
     compilar cada archivo fuente por separado.
     ```bash
@@ -62,11 +61,11 @@ anterior sin usar un Makefile.
     ```bash
     gcc main.o calculadora.o -o mi_calculadora
     ```
-
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
     errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
     archivo en todos los caminos de ejecución.
+
+-   **[*plus ultra*]:** Crear un script de bash build.sh que ejecute los pasos de compilación y enlace de forma secuencial.
+-   **[*plus ultra*]:** Probar qué ocurre si se modifica solo uno de los archivos .c y se recompila solo su .o.
 
 :::
 <!-- {hint} Pasos de Compilación -->
@@ -85,11 +84,11 @@ Makefile debe tener los siguientes objetivos (`targets`):
 
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Agregar un target run que dependa de all y ejecute automáticamente el binario compilado.
+-   **[*plus ultra*]:** Configurar CFLAGS con las opciones -Wall -Wextra -std=c99.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -138,7 +137,6 @@ clean:
 impriman cuando se compile en "modo debug".
 
 :::{hint} Lógica y Consideraciones
-
 1.  **En el código**: Encerrá tus `printf` de depuración dentro de bloques de
     preprocesador:
     ```c
@@ -149,23 +147,20 @@ impriman cuando se compile en "modo debug".
 2.  **En el Makefile**: Modificá la regla de compilación para que se pueda pasar
     una bandera al compilador. La opción `-D` de `gcc` permite definir una macro
     desde la línea de comandos.
-
     ```makefile
     # Añadir una variable para las macros
     CPPFLAGS =
-
     # Modificar la regla de compilación
     %.o: %.c
     	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
     ```
-
 3.  **Uso**: Ahora podés compilar normalmente (`make`) o en modo debug (`make
     CPPFLAGS=-DDEBUG`).
-
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
     errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
     archivo en todos los caminos de ejecución.
+
+-   **[*plus ultra*]:** Agregar múltiples niveles de depuración (ej. DEBUG=1, DEBUG=2) utilizando directivas #if DEBUG >= 1.
+-   **[*plus ultra*]:** Probar la compilación tanto en modo normal como en modo depuración.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -177,11 +172,11 @@ Compilá un programa simple desde línea de comandos.
 **Orientación:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
     definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
     para copiar la estructura de forma segura.
+
+-   **[*plus ultra*]:** Compilar con el flag -o especificando un nombre descriptivo para el binario resultante.
+-   **[*plus ultra*]:** Ejecutar el programa y verificar su código de salida con echo $? en la terminal.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -203,11 +198,11 @@ Compilá con warnings completos y corregí los problemas.
 **Orientación:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Agregar los flags -Werror -Wpedantic y verificar que el código compile limpiamente sin advertencias.
+-   **[*plus ultra*]:** Identificar y corregir advertencias comunes como variables no utilizadas o conversiones implícitas.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -230,11 +225,11 @@ Separáun programa en main.c y funciones.c.
 **funciones.h:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
     errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
     archivo en todos los caminos de ejecución.
+
+-   **[*plus ultra*]:** Estructurar los archivos en subdirectorios src/ e include/ y compilar con -Iinclude.
+-   **[*plus ultra*]:** Añadir una tercera función en un módulo adicional utilidades.c y enlazar todos los objetos.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -285,11 +280,11 @@ Explicá por qué se necesitan include guards y implementalos.
 **Orientación:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
     valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
     un lazo hasta que el usuario elija finalizar.
+
+-   **[*plus ultra*]:** Explicar mediante un comentario qué problema de compilación ocurre si se omite la guarda de inclusión.
+-   **[*plus ultra*]:** Probar qué sucede al incluir dos veces el mismo header en main.c.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -313,11 +308,11 @@ Creá Makefile para compilar proyecto de ejercicio 3.
 **Makefile:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
     errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
     archivo en todos los caminos de ejecución.
+
+-   **[*plus ultra*]:** Usar variables automáticas ($@, $<) en las reglas del Makefile para simplificar los comandos.
+-   **[*plus ultra*]:** Declarar el target clean como .PHONY.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -358,11 +353,11 @@ Creá biblioteca con funciones matemáticas: factorial, potencia, fibonacci.
 **Estructura:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Compilar enlazando con la biblioteca matemática estándar usando el flag -lm.
+-   **[*plus ultra*]:** Crear un Makefile que compile y ejecute los ejemplos matemáticos automáticamente.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -389,11 +384,11 @@ Compilá con diferentes niveles de optimización y medí diferencia.
 **Orientación:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
     valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
     un lazo hasta que el usuario elija finalizar.
+
+-   **[*plus ultra*]:** Comparar el tiempo de ejecución del programa compilado con -O0 frente a -O2 o -O3.
+-   **[*plus ultra*]:** Inspeccionar el tamaño del binario resultante con cada nivel de optimización.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -419,11 +414,11 @@ Usá directivas de preprocesador para debug opcional.
 **Orientación:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
     definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
     para copiar la estructura de forma segura.
+
+-   **[*plus ultra*]:** Definir macros de preprocesador mediante el flag -D (ej. -DVERSION="1.0.0").
+-   **[*plus ultra*]:** Crear targets separados en el Makefile para compilar con distintas configuraciones.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -451,11 +446,11 @@ Creá módulo `utils` con funciones de uso general: intercambio, mínimo, máxim
 **Estructura:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Crear una suite de pruebas en test_utilidades.c que verifique cada función con assert().
+-   **[*plus ultra*]:** Agregar un target test en el Makefile que compile y corra las pruebas automáticamente.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -487,11 +482,11 @@ Mejorá Makefile usando variables y patrones.
 **Makefile:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
     errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
     archivo en todos los caminos de ejecución.
+
+-   **[*plus ultra*]:** Organizar el Makefile con variables CC, CFLAGS, LDFLAGS y OBJS.
+-   **[*plus ultra*]:** Permitir sobrescribir variables desde la línea de comandos (ej. make CC=clang).
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -529,11 +524,11 @@ Generá dependencias automáticamente con gcc.
 **Orientación:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
     errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
     archivo en todos los caminos de ejecución.
+
+-   **[*plus ultra*]:** Usar los flags de gcc -MMD -MP para generar archivos de dependencias .d automáticamente.
+-   **[*plus ultra*]:** Incluir los archivos .d en el Makefile mediante la directiva -include.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -559,11 +554,11 @@ Creá biblioteca estática (.a) y usala en programa.
 **Orientación:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
     definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
     para copiar la estructura de forma segura.
+
+-   **[*plus ultra*]:** Crear una biblioteca estática (.a) utilizando la herramienta ar rcs.
+-   **[*plus ultra*]:** Enlazar el ejecutable principal contra la biblioteca estática creada.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -594,11 +589,11 @@ Creá biblioteca compartida (.so) y usala.
 **Orientación:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
     definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
     para copiar la estructura de forma segura.
+
+-   **[*plus ultra*]:** Crear una biblioteca compartida (.so) compilando con -fPIC y enlazando con -shared.
+-   **[*plus ultra*]:** Ejecutar el programa configurando LD_LIBRARY_PATH.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -630,11 +625,11 @@ Organizá proyecto en directorios: src/, include/, obj/, bin/.
 **Estructura:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Organizar el proyecto con estructura src/, include/, obj/, bin/.
+-   **[*plus ultra*]:** Crear un Makefile que cree automáticamente los directorios obj/ y bin/ si no existen.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -685,11 +680,11 @@ Agregá targets útiles: run, test, install, uninstall.
 **Makefile:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
     errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
     archivo en todos los caminos de ejecución.
+
+-   **[*plus ultra*]:** Agregar targets adicionales como help, info y format en el Makefile.
+-   **[*plus ultra*]:** Asegurar que todos los targets auxiliares estén listados en .PHONY.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -722,11 +717,11 @@ Makefile con modo debug y release.
 **Makefile:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
     errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
     archivo en todos los caminos de ejecución.
+
+-   **[*plus ultra*]:** Definir reglas separadas en el Makefile para compilar en modo Debug (-g -O0) y Release (-O2 -DNDEBUG).
+-   **[*plus ultra*]:** Colocar los binarios de cada perfil en carpetas de salida separadas (bin/debug/ y bin/release/).
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -762,11 +757,11 @@ Integrá herramientas de análisis en Makefile.
 **Makefile:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
     errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
     archivo en todos los caminos de ejecución.
+
+-   **[*plus ultra*]:** Ejecutar herramientas de análisis como cppcheck o clang-tidy sobre los archivos fuente.
+-   **[*plus ultra*]:** Integrar un target check o lint en el Makefile para correr el análisis estático.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -796,11 +791,11 @@ Configurá cross-compilation para diferentes arquitecturas.
 **Makefile:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
     errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
     archivo en todos los caminos de ejecución.
+
+-   **[*plus ultra*]:** Configurar el Makefile para soportar compilación cruzada especificando el prefijo CROSS_COMPILE.
+-   **[*plus ultra*]:** Verificar que la arquitectura de destino sea configurable mediante una variable.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -835,11 +830,11 @@ Proyecto completo con múltiples bibliotecas y tests.
 **Estructura:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
     desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
     líneas de manera robusta.
+
+-   **[*plus ultra*]:** Diseñar un Makefile modular y completo que incluya compilación, tests, documentación y empaquetado.
+-   **[*plus ultra*]:** Asegurar que make clean limpie absolutamente todos los artefactos intermedios generados.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -876,11 +871,11 @@ Convertí proyecto a usar CMake en lugar de Makefile.
 **CMakeLists.txt:**
 
 :::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
     garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
     leaks*) mediante Valgrind o AddressSanitizer.
+
+-   **[*plus ultra*]:** Crear un archivo CMakeLists.txt básico que defina el proyecto, ejecutables y bibliotecas.
+-   **[*plus ultra*]:** Generar y compilar el proyecto en un directorio build/ separado.
 
 :::
 <!-- {hint} Lógica y Consideraciones -->
