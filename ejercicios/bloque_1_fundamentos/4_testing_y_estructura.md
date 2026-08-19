@@ -8,7 +8,8 @@ subtitle: "Pruebas unitarias, eliminación de variables globales, análisis de f
 
 ## Acerca de
 
-El testing y el diseño estructurado de código son disciplinas indispensables para
+El testing y el diseño estructurado de código son disciplinas indispensables
+para
 asegurar la confiabilidad de los programas en C. En este bloque no solo vas a
 escribir código nuevo, sino también a **leer, analizar, depurar y refactorizar**
 programas existentes.
@@ -28,7 +29,8 @@ cobertura de ramas de ejecución y aplicar las reglas de estilo institucional
   0x2004h](../../reglas/2_funciones.md#0x2004h), está estrictamente prohibido el
   uso de variables globales.
 - **Una aserción por función de prueba:** Según la [Regla
-  0x2006h](../../reglas/2_funciones.md#0x2006h), cada función de test debe validar
+  0x2006h](../../reglas/2_funciones.md#0x2006h), cada función de test debe
+  validar
   un escenario o comportamiento específico.
 - **Desacoplamiento de E/S:** En conformidad con la [Regla
   0x2002h](../../reglas/2_funciones.md#0x2002h), las funciones de cálculo deben
@@ -51,10 +53,12 @@ cobertura de ramas de ejecución y aplicar las reglas de estilo institucional
 :label: ej-test-anatomia
 Analizá el siguiente código y respondé:
 1. ¿Qué biblioteca estándar se debe incluir para utilizar la macro `assert`?
-2. ¿Qué ocurre exactamente en tiempo de ejecución si la condición evaluada resulta verdadera (`true`)?
+2. ¿Qué ocurre exactamente en tiempo de ejecución si la condición evaluada
+   resulta verdadera (`true`)?
 3. ¿Qué ocurre si la condición resulta falsa (`false`)?
 
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 int cuadrado(int n)
@@ -68,18 +72,27 @@ int main(void)
     assert(cuadrado(-3) == 9);
     return 0;
 }
-```
 
--   **[*plus ultra*]:** Explicar qué información diagnóstica imprime `assert` en la consola al fallar (archivo, línea, expresión y función).
--   **[*plus ultra*]:** Investigar qué efecto produce la macro `#define NDEBUG` colocada antes de `#include <assert.h>`.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Explicar qué información diagnóstica imprime `assert` en
+    la consola al fallar (archivo, línea, expresión y función).
+-   **[*plus ultra*]:** Investigar qué efecto produce la macro `#define NDEBUG`
+    colocada antes de `#include <assert.h>`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-anatomia
 :class: dropdown
 1. Se incluye `<assert.h>`.
-2. Si la condición es `true`, el programa continúa su ejecución normal sin ninguna interrupción ni mensaje.
-3. Si la condición es `false`, la macro `assert` aborta inmediatamente el programa con `SIGABRT` e imprime en `stderr` el nombre del archivo, el número de línea, la función y el texto exacto de la condición que falló.
+2. Si la condición es `true`, el programa continúa su ejecución normal sin
+   ninguna interrupción ni mensaje.
+3. Si la condición es `false`, la macro `assert` aborta inmediatamente el
+   programa con `SIGABRT` e imprime en `stderr` el nombre del archivo, el número
+   de línea, la función y el texto exacto de la condición que falló.
+
 :::
 <!-- {solution} ej-test-anatomia -->
 
@@ -90,9 +103,11 @@ int main(void)
 
 :::{exercise}
 :label: ej-test-patron-aaa
-Identificá y comentá las tres etapas del patrón AAA en la siguiente función de prueba unitaria:
+Identificá y comentá las tres etapas del patrón AAA en la siguiente función de
+prueba unitaria:
 
-```c
+```{code-block} c
+:linenos:
 void test_calcular_promedio_tres_notas(void)
 {
     int nota1 = 8;
@@ -104,16 +119,22 @@ void test_calcular_promedio_tres_notas(void)
 
     assert(resultado == esperado);
 }
-```
 
--   **[*plus ultra*]:** Separar explícitamente cada bloque con comentarios `// 1. Arrange`, `// 2. Act`, `// 3. Assert`.
--   **[*plus ultra*]:** Escribir una segunda función de prueba `test_calcular_promedio_con_decimales` para notas 7, 8, 8.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Separar explícitamente cada bloque con comentarios `//
+    1. Arrange`, `// 2. Act`, `// 3. Assert`.
+-   **[*plus ultra*]:** Escribir una segunda función de prueba
+    `test_calcular_promedio_con_decimales` para notas 7, 8, 8.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-patron-aaa
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 void test_calcular_promedio_tres_notas(void)
 {
     // 1. Arrange (Preparar): Definición de datos de entrada y resultado esperado
@@ -128,7 +149,10 @@ void test_calcular_promedio_tres_notas(void)
     // 3. Assert (Verificar): Comprobación de que el resultado coincide con lo esperado
     assert(resultado == esperado);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-patron-aaa -->
 
@@ -139,9 +163,12 @@ void test_calcular_promedio_tres_notas(void)
 
 :::{exercise}
 :label: ej-test-una-asercion
-El siguiente bloque de pruebas viola la [Regla 0x2006h](../../reglas/2_funciones.md#0x2006h) (una aserción o caso por función de prueba). Refactorizalo en funciones independientes con nombres descriptivos:
+El siguiente bloque de pruebas viola la [Regla
+0x2006h](../../reglas/2_funciones.md#0x2006h) (una aserción o caso por función
+de prueba). Refactorizalo en funciones independientes con nombres descriptivos:
 
-```c
+```{code-block} c
+:linenos:
 void test_todas_las_operaciones(void)
 {
     assert(sumar(2, 3) == 5);
@@ -150,16 +177,22 @@ void test_todas_las_operaciones(void)
     assert(restar(3, 8) == -5);
     assert(multiplicar(3, 4) == 12);
 }
-```
 
--   **[*plus ultra*]:** Crear una función `correr_todas_las_pruebas()` que invoque a cada función individual de test.
--   **[*plus ultra*]:** Explicar por qué acumular muchos `assert` en una sola función dificulta saber qué otros casos fallan cuando el primero aborta.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Crear una función `correr_todas_las_pruebas()` que
+    invoque a cada función individual de test.
+-   **[*plus ultra*]:** Explicar por qué acumular muchos `assert` en una sola
+    función dificulta saber qué otros casos fallan cuando el primero aborta.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-una-asercion
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 void test_sumar_positivos(void)
@@ -195,7 +228,10 @@ void correr_todas_las_pruebas(void)
     test_restar_resultado_negativo();
     test_multiplicar_positivos();
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-una-asercion -->
 
@@ -206,9 +242,11 @@ void correr_todas_las_pruebas(void)
 
 :::{exercise}
 :label: ej-test-side-effects-assert
-Analizá el siguiente código. ¿Qué error crítico ocurrirá si este programa se compila en modo Release con `-DNDEBUG`?
+Analizá el siguiente código. ¿Qué error crítico ocurrirá si este programa se
+compila en modo Release con `-DNDEBUG`?
 
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdio.h>
 
@@ -225,27 +263,36 @@ int main(void)
     printf("Índice final: %d\n", idx);
     return 0;
 }
-```
 
--   **[*plus ultra*]:** Formular la regla general: *Nunca colocar llamadas con efectos colaterales dentro de un `assert()`*.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Formular la regla general: *Nunca colocar llamadas con
+    efectos colaterales dentro de un `assert()`*.
 -   **[*plus ultra*]:** Reescribir el código separando la acción del assert.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-side-effects-assert
 :class: dropdown
-Cuando se define `NDEBUG`, el preprocesador reemplaza todas las macros `assert(x)` por nada (bloque vacío `((void)0)`).
+Cuando se define `NDEBUG`, el preprocesador reemplaza todas las macros
+`assert(x)` por nada (bloque vacío `((void)0)`).
 
-En consecuencia, las llamadas a `procesar_siguiente_item(&idx)` **desaparecen por completo del código ejecutable**, por lo que `idx` nunca se incrementa y el programa finaliza imprimiendo `Índice final: 0` en lugar de `2`.
+En consecuencia, las llamadas a `procesar_siguiente_item(&idx)` **desaparecen
+por completo del código ejecutable**, por lo que `idx` nunca se incrementa y el
+programa finaliza imprimiendo `Índice final: 0` en lugar de `2`.
 
 **Forma correcta:**
-```c
+``` c
 int idx = 0;
 int r1 = procesar_siguiente_item(&idx);
 assert(r1 == 0);
 int r2 = procesar_siguiente_item(&idx);
 assert(r2 == 1);
 ```
+<!-- c -->
+
 :::
 <!-- {solution} ej-test-side-effects-assert -->
 
@@ -264,10 +311,14 @@ Dada la siguiente especificación de la función `clasificar_edad`:
   - `3`: Adulto mayor (`edad >= 65`)
   - `-1`: Edad inválida (`edad < 0` o `edad > 130`)
 
-Diseñá el conjunto mínimo de valores de prueba para cubrir todas las **particiones de equivalencia** válidas e inválidas.
+Diseñá el conjunto mínimo de valores de prueba para cubrir todas las
+**particiones de equivalencia** válidas e inválidas.
 
--   **[*plus ultra*]:** Implementar la función `int clasificar_edad(int edad)` y su suite de tests correspondiente.
--   **[*plus ultra*]:** Documentar la función con etiquetas de contrato (`@pre`, `@returns`).
+-   **[*plus ultra*]:** Implementar la función `int clasificar_edad(int edad)` y
+    su suite de tests correspondiente.
+-   **[*plus ultra*]:** Documentar la función con etiquetas de contrato (`@pre`,
+    `@returns`).
+
 :::
 <!-- {exercise} -->
 
@@ -280,7 +331,8 @@ Las particiones de equivalencia mínimas son:
 4. **Adulto mayor:** `edad = 70` $\rightarrow$ Esperado: `3`
 5. **Inválida excesiva:** `edad = 150` $\rightarrow$ Esperado: `-1`
 
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 int clasificar_edad(int edad)
@@ -299,7 +351,10 @@ int clasificar_edad(int edad)
     }
     return 3;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-particiones-equivalencia -->
 
@@ -310,10 +365,15 @@ int clasificar_edad(int edad)
 
 :::{exercise}
 :label: ej-test-valores-borde
-Tomando la función `clasificar_edad` del ejercicio anterior, identificá los **valores de borde exactos** (límites) que deben ser testeados para asegurar que no existan errores de tipo *off-by-one* (`<` en vez de `<=`).
+Tomando la función `clasificar_edad` del ejercicio anterior, identificá los
+**valores de borde exactos** (límites) que deben ser testeados para asegurar que
+no existan errores de tipo *off-by-one* (`<` en vez de `<=`).
 
--   **[*plus ultra*]:** Escribir una función de prueba unitaria para cada valor de borde detectado.
--   **[*plus ultra*]:** Explicar por qué los límites `-1, 0, 17, 18, 64, 65, 130, 131` son los puntos más propensos a fallos en el software.
+-   **[*plus ultra*]:** Escribir una función de prueba unitaria para cada valor
+    de borde detectado.
+-   **[*plus ultra*]:** Explicar por qué los límites `-1, 0, 17, 18, 64, 65,
+    130, 131` son los puntos más propensos a fallos en el software.
+
 :::
 <!-- {exercise} -->
 
@@ -325,7 +385,8 @@ Valores de borde críticos:
 - Frontera adulto/mayor: `64` (adulto) y `65` (mayor).
 - Límite superior de validez: `130` (mayor) y `131` (inválido).
 
-```c
+```{code-block} c
+:linenos:
 void test_bordes_clasificar_edad(void)
 {
     assert(clasificar_edad(-1) == -1);
@@ -337,7 +398,10 @@ void test_bordes_clasificar_edad(void)
     assert(clasificar_edad(130) == 3);
     assert(clasificar_edad(131) == -1);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-valores-borde -->
 
@@ -348,23 +412,32 @@ void test_bordes_clasificar_edad(void)
 
 :::{exercise}
 :label: ej-test-comparacion-float
-Analizá por qué la siguiente prueba puede fallar inesperadamente en C y escribí una función auxiliar `son_cercanos(double a, double b, double epsilon)` para solucionarlo:
+Analizá por qué la siguiente prueba puede fallar inesperadamente en C y escribí
+una función auxiliar `son_cercanos(double a, double b, double epsilon)` para
+solucionarlo:
 
-```c
+``` c
 double tercio = 1.0 / 3.0;
 assert(tercio * 3.0 == 1.0); // ¡Peligro de precisión!
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Implementar `bool son_cercanos(double a, double b, double eps)` usando `fabs()` de `<math.h>`.
--   **[*plus ultra*]:** Escribir un test que verifique `0.1 + 0.2` frente a `0.3` con tolerancia $10^{-6}$.
+-   **[*plus ultra*]:** Implementar `bool son_cercanos(double a, double b,
+    double eps)` usando `fabs()` de `<math.h>`.
+-   **[*plus ultra*]:** Escribir un test que verifique `0.1 + 0.2` frente a
+    `0.3` con tolerancia $10^{-6}$.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-comparacion-float
 :class: dropdown
-En aritmética binaria de punto flotante (IEEE 754), números como `0.1` o `1.0/3.0` no tienen representación exacta finita, lo que produce pequeñas discrepancias en los últimos decimales.
+En aritmética binaria de punto flotante (IEEE 754), números como `0.1` o
+`1.0/3.0` no tienen representación exacta finita, lo que produce pequeñas
+discrepancias en los últimos decimales.
 
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <math.h>
 #include <stdbool.h>
@@ -380,7 +453,10 @@ void test_suma_decimales(void)
     double esperado = 0.3;
     assert(son_cercanos(resultado, esperado, 1e-9));
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-comparacion-float -->
 
@@ -392,18 +468,27 @@ void test_suma_decimales(void)
 :::{exercise}
 :label: ej-test-defensiva-vs-usuario
 Explicá con claridad la diferencia conceptual entre:
-1. Validar datos ingresados por el usuario por teclado con `scanf` y condicionales `if`.
+1. Validar datos ingresados por el usuario por teclado con `scanf` y
+   condicionales `if`.
 2. Validar precondiciones internas del programador con `assert()`.
 
--   **[*plus ultra*]:** Dar un ejemplo de cuándo usar `if (...) return CODIGO_ERROR;` y cuándo usar `assert(divisor != 0);`.
--   **[*plus ultra*]:** Explicar por qué un programa de producción nunca debe abortar con `assert` si el usuario escribe una letra en lugar de un número.
+-   **[*plus ultra*]:** Dar un ejemplo de cuándo usar `if (...) return
+    CODIGO_ERROR;` y cuándo usar `assert(divisor != 0);`.
+-   **[*plus ultra*]:** Explicar por qué un programa de producción nunca debe
+    abortar con `assert` si el usuario escribe una letra en lugar de un número.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-defensiva-vs-usuario
 :class: dropdown
-1. **Validación de Usuario (`if` / manejo de errores):** Es obligatoria para entradas externas incontrolables (teclado, archivos, red). El programa debe manejar el error con gracia, avisar al usuario y recuperarse.
-2. **Aserciones (`assert`):** Son herramientas de depuración para detectar bugs de lógica del programador (violaciones de contrato que "nunca deberían ocurrir" si el código estuviera bien escrito).
+1. **Validación de Usuario (`if` / manejo de errores):** Es obligatoria para
+   entradas externas incontrolables (teclado, archivos, red). El programa debe
+   manejar el error con gracia, avisar al usuario y recuperarse.
+2. **Aserciones (`assert`):** Son herramientas de depuración para detectar bugs
+   de lógica del programador (violaciones de contrato que "nunca deberían
+   ocurrir" si el código estuviera bien escrito).
+
 :::
 <!-- {solution} ej-test-defensiva-vs-usuario -->
 
@@ -414,20 +499,26 @@ Explicá con claridad la diferencia conceptual entre:
 
 :::{exercise}
 :label: ej-test-calculo-descuento
-Diseñá una función pura `double aplicar_descuento(double precio_base, double porcentaje)` que:
+Diseñá una función pura `double aplicar_descuento(double precio_base, double
+porcentaje)` que:
 - Si `precio_base < 0` o `porcentaje < 0` o `porcentaje > 100`, retorne `-1.0`.
 - De lo contrario, retorne el precio final descontado.
 
-Escribí su suite completa de pruebas unitarias cubriendo casos normales, bordes e inválidos.
+Escribí su suite completa de pruebas unitarias cubriendo casos normales, bordes
+e inválidos.
 
--   **[*plus ultra*]:** Documentar la función con `@param`, `@pre`, `@returns` y `@post`.
--   **[*plus ultra*]:** Validar que `aplicar_descuento(100.0, 0.0)` retorne `100.0` y `aplicar_descuento(100.0, 100.0)` retorne `0.0`.
+-   **[*plus ultra*]:** Documentar la función con `@param`, `@pre`, `@returns` y
+    `@post`.
+-   **[*plus ultra*]:** Validar que `aplicar_descuento(100.0, 0.0)` retorne
+    `100.0` y `aplicar_descuento(100.0, 100.0)` retorne `0.0`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-calculo-descuento
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdbool.h>
 
@@ -464,7 +555,10 @@ void test_descuento_porcentaje_invalido(void)
 {
     assert(aplicar_descuento(100.0, 150.0) == -1.0);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-calculo-descuento -->
 
@@ -475,16 +569,20 @@ void test_descuento_porcentaje_invalido(void)
 
 :::{exercise}
 :label: ej-test-runner-basico
-Implementá un pequeño ejecutor de pruebas en C con retorno de conteos en `main` para contabilizar pruebas ejecutadas y aprobadas sin usar variables globales.
+Implementá un pequeño ejecutor de pruebas en C con retorno de conteos en `main`
+para contabilizar pruebas ejecutadas y aprobadas sin usar variables globales.
 
 -   **[*plus ultra*]:** Mostrar un resumen final con el total de tests exitosos.
--   **[*plus ultra*]:** Asegurar que el código de salida del programa sea 0 si todos pasan y 1 si alguno falla.
+-   **[*plus ultra*]:** Asegurar que el código de salida del programa sea 0 si
+    todos pasan y 1 si alguno falla.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-runner-basico
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdio.h>
 
@@ -514,7 +612,10 @@ int main(void)
     printf("Resultados: %d/%d tests aprobados.\n", pasados, totales);
     return (pasados == totales) ? 0 : 1;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-runner-basico -->
 
@@ -527,9 +628,11 @@ int main(void)
 
 :::{exercise}
 :label: ej-test-misterio-orden
-Analizá el siguiente código. ¿Por qué `test_dos()` pasa exitosamente si se ejecuta primero, pero falla si se ejecuta después de `test_uno()`?
+Analizá el siguiente código. ¿Por qué `test_dos()` pasa exitosamente si se
+ejecuta primero, pero falla si se ejecuta después de `test_uno()`?
 
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 int total_acumulado = 0; // Variable global
@@ -558,19 +661,27 @@ int main(void)
     test_dos();
     return 0;
 }
-```
 
--   **[*plus ultra*]:** Identificar la violación de la [Regla 0x2004h](../../reglas/2_funciones.md#0x2004h).
--   **[*plus ultra*]:** Refactorizar `acumular` para que reciba el total actual y retorne el nuevo total de forma pura.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Identificar la violación de la [Regla
+    0x2004h](../../reglas/2_funciones.md#0x2004h).
+-   **[*plus ultra*]:** Refactorizar `acumular` para que reciba el total actual
+    y retorne el nuevo total de forma pura.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-misterio-orden
 :class: dropdown
-`total_acumulado` es una variable global mutable. Al terminar `test_uno()`, su valor queda en `15`. Cuando inicia `test_dos()`, `acumular(20)` suma 20 a 15, resultando en `35` en lugar de `20`, provocando la caída del `assert`.
+`total_acumulado` es una variable global mutable. Al terminar `test_uno()`, su
+valor queda en `15`. Cuando inicia `test_dos()`, `acumular(20)` suma 20 a 15,
+resultando en `35` en lugar de `20`, provocando la caída del `assert`.
 
 **Refactorización a función pura:**
-```c
+```{code-block} c
+:linenos:
 int acumular(int total_actual, int valor)
 {
     return total_actual + valor;
@@ -590,7 +701,10 @@ void test_dos(void)
     total = acumular(total, 20);
     assert(total == 20);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-misterio-orden -->
 
@@ -603,7 +717,8 @@ void test_dos(void)
 :label: ej-test-shadowing
 Leé el siguiente fragmento e indicá qué imprime en consola y por qué:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 int factor = 10; // Global
@@ -620,10 +735,15 @@ int main(void)
     printf("Resultado: %d, Factor: %d\n", resultado, factor);
     return 0;
 }
-```
 
--   **[*plus ultra*]:** Explicar qué advertencia emite el compilador al compilar con `-Wshadow`.
--   **[*plus ultra*]:** Eliminar la variable global para evitar confusiones de alcance (*scope*).
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Explicar qué advertencia emite el compilador al compilar
+    con `-Wshadow`.
+-   **[*plus ultra*]:** Eliminar la variable global para evitar confusiones de
+    alcance (*scope*).
+
 :::
 <!-- {exercise} -->
 
@@ -631,7 +751,11 @@ int main(void)
 :class: dropdown
 Imprime: `Resultado: 10, Factor: 10`.
 
-La variable local `factor = 2` dentro de `multiplicar` oculta ("ensombrece") a la variable global `factor = 10` durante el alcance de la función. Al salir de la función, la global permanece inalterada con valor `10`. La bandera `-Wshadow` alerta explícitamente sobre estas declaraciones ambiguas.
+La variable local `factor = 2` dentro de `multiplicar` oculta ("ensombrece") a
+la variable global `factor = 10` durante el alcance de la función. Al salir de
+la función, la global permanece inalterada con valor `10`. La bandera `-Wshadow`
+alerta explícitamente sobre estas declaraciones ambiguas.
+
 :::
 <!-- {solution} ej-test-shadowing -->
 
@@ -642,9 +766,12 @@ La variable local `factor = 2` dentro de `multiplicar` oculta ("ensombrece") a l
 
 :::{exercise}
 :label: ej-test-refactor-banco
-El siguiente código implementa operaciones bancarias usando estado global. Refactorizalo a funciones puras que reciban el saldo como parámetro y retornen el nuevo saldo:
+El siguiente código implementa operaciones bancarias usando estado global.
+Refactorizalo a funciones puras que reciban el saldo como parámetro y retornen
+el nuevo saldo:
 
-```c
+```{code-block} c
+:linenos:
 double saldo_global = 0.0;
 
 void depositar(double monto)
@@ -664,16 +791,22 @@ bool extraer(double monto)
     }
     return false;
 }
-```
 
--   **[*plus ultra*]:** Escribir tests unitarios que verifiquen depósitos y extracciones sin necesidad de reiniciar variables globales.
--   **[*plus ultra*]:** Manejar saldos negativos o montos inválidos retornando códigos de error.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Escribir tests unitarios que verifiquen depósitos y
+    extracciones sin necesidad de reiniciar variables globales.
+-   **[*plus ultra*]:** Manejar saldos negativos o montos inválidos retornando
+    códigos de error.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-refactor-banco
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdbool.h>
 
@@ -713,7 +846,10 @@ void test_operaciones_bancarias_puras(void)
     assert(ok == false);
     assert(saldo == 1300.0);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-refactor-banco -->
 
@@ -724,9 +860,11 @@ void test_operaciones_bancarias_puras(void)
 
 :::{exercise}
 :label: ej-test-puras-vs-impuras
-Clasificá cada una de las siguientes funciones en **Pura** o **Impura**, justificando en cada caso:
+Clasificá cada una de las siguientes funciones en **Pura** o **Impura**,
+justificando en cada caso:
 
-```c
+```{code-block} c
+:linenos:
 int g_contador = 0;
 
 // Función 1
@@ -749,19 +887,29 @@ int sumar_con_log(int a, int b) {
 bool es_positivo(int n) {
     return n > 0;
 }
-```
 
--   **[*plus ultra*]:** Explicar por qué las funciones puras son triviales de testear en comparación con las funciones impuras.
--   **[*plus ultra*]:** Reformular `sumar_con_log` para cumplir con la [Regla 0x2002h](../../reglas/2_funciones.md#0x2002h).
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Explicar por qué las funciones puras son triviales de
+    testear en comparación con las funciones impuras.
+-   **[*plus ultra*]:** Reformular `sumar_con_log` para cumplir con la [Regla
+    0x2002h](../../reglas/2_funciones.md#0x2002h).
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-puras-vs-impuras
 :class: dropdown
-1. **`duplicar` (Pura):** Para el mismo valor de entrada siempre devuelve el mismo resultado y no produce ningún efecto secundario.
-2. **`obtener_siguiente` (Impura):** Modifica y depende de la variable global `g_contador`. Llamadas sucesivas devuelven valores distintos.
-3. **`sumar_con_log` (Impura):** Produce un efecto secundario en la consola mediante `printf`.
-4. **`es_positivo` (Pura):** Cálculo determinístico basado únicamente en su parámetro.
+1. **`duplicar` (Pura):** Para el mismo valor de entrada siempre devuelve el
+   mismo resultado y no produce ningún efecto secundario.
+2. **`obtener_siguiente` (Impura):** Modifica y depende de la variable global
+   `g_contador`. Llamadas sucesivas devuelven valores distintos.
+3. **`sumar_con_log` (Impura):** Produce un efecto secundario en la consola
+   mediante `printf`.
+4. **`es_positivo` (Pura):** Cálculo determinístico basado únicamente en su
+   parámetro.
+
 :::
 <!-- {solution} ej-test-puras-vs-impuras -->
 
@@ -772,19 +920,27 @@ bool es_positivo(int n) {
 
 :::{exercise}
 :label: ej-test-static-local
-Analizá el siguiente código. ¿Qué valores retorna en las sucesivas llamadas? ¿Por qué una variable `static` local también genera problemas para el testing unitario independiente?
+Analizá el siguiente código. ¿Qué valores retorna en las sucesivas llamadas?
+¿Por qué una variable `static` local también genera problemas para el testing
+unitario independiente?
 
-```c
+```{code-block} c
+:linenos:
 int contador_llamadas(void)
 {
     static int veces = 0;
     veces++;
     return veces;
 }
-```
 
--   **[*plus ultra*]:** Explicar la diferencia de alcance (*scope*) y tiempo de vida (*lifetime*) entre una variable global y una variable local `static`.
--   **[*plus ultra*]:** Escribir una versión reseteable o pasar el contador por parámetro.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Explicar la diferencia de alcance (*scope*) y tiempo de
+    vida (*lifetime*) entre una variable global y una variable local `static`.
+-   **[*plus ultra*]:** Escribir una versión reseteable o pasar el contador por
+    parámetro.
+
 :::
 <!-- {exercise} -->
 
@@ -792,7 +948,11 @@ int contador_llamadas(void)
 :class: dropdown
 La primera llamada retorna `1`, la segunda `2`, la tercera `3`, etc.
 
-Aunque su alcance está restringido a la función, su tiempo de vida es durante toda la ejecución del programa. Esto retiene estado mutable entre pruebas, imposibilitando correr tests unitarios aislados y repetibles sin reiniciar el binario.
+Aunque su alcance está restringido a la función, su tiempo de vida es durante
+toda la ejecución del programa. Esto retiene estado mutable entre pruebas,
+imposibilitando correr tests unitarios aislados y repetibles sin reiniciar el
+binario.
+
 :::
 <!-- {solution} ej-test-static-local -->
 
@@ -803,9 +963,11 @@ Aunque su alcance está restringido a la función, su tiempo de vida es durante 
 
 :::{exercise}
 :label: ej-test-bandera-global
-Descubrí el bug en este programa donde dos funciones manipulan la misma variable global `hay_error`:
+Descubrí el bug en este programa donde dos funciones manipulan la misma variable
+global `hay_error`:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdbool.h>
 #include <stdio.h>
 
@@ -830,19 +992,27 @@ void validar_paridad(int x)
         hay_error = false; // ¡Peligro!
     }
 }
-```
 
--   **[*plus ultra*]:** ¿Qué ocurre si se llama `validar_rango(-5)` seguido de `validar_paridad(4)`?
--   **[*plus ultra*]:** Refactorizar ambas funciones para que retornen un `bool` independiente.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** ¿Qué ocurre si se llama `validar_rango(-5)` seguido de
+    `validar_paridad(4)`?
+-   **[*plus ultra*]:** Refactorizar ambas funciones para que retornen un `bool`
+    independiente.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-bandera-global
 :class: dropdown
-`validar_rango(-5)` detecta el error y pone `hay_error = true`. Pero luego `validar_paridad(4)` como `4` es par, ejecuta la rama `else` y pone `hay_error = false`, **borrando el error detectado previamente**.
+`validar_rango(-5)` detecta el error y pone `hay_error = true`. Pero luego
+`validar_paridad(4)` como `4` es par, ejecuta la rama `else` y pone `hay_error =
+false`, **borrando el error detectado previamente**.
 
 **Refactorización:**
-```c
+```{code-block} c
+:linenos:
 bool es_rango_valido(int x)
 {
     return (x >= 0 && x <= 100);
@@ -852,7 +1022,10 @@ bool es_par(int x)
 {
     return (x % 2 == 0);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-bandera-global -->
 
@@ -863,19 +1036,29 @@ bool es_par(int x)
 
 :::{exercise}
 :label: ej-test-acoplamiento-espurio
-Explicá por qué compartir variables globales entre diferentes archivos `.c` (usando `extern`) rompe el principio de modularidad y hace que un fallo en un módulo rompa silenciosamente a otro.
+Explicá por qué compartir variables globales entre diferentes archivos `.c`
+(usando `extern`) rompe el principio de modularidad y hace que un fallo en un
+módulo rompa silenciosamente a otro.
 
--   **[*plus ultra*]:** Proponer una solución basada en interfaces limpias de funciones en archivos de cabecera `.h`.
--   **[*plus ultra*]:** Citar la [Regla 0x2004h](../../reglas/2_funciones.md#0x2004h) y sus consecuencias de ingeniería.
+-   **[*plus ultra*]:** Proponer una solución basada en interfaces limpias de
+    funciones en archivos de cabecera `.h`.
+-   **[*plus ultra*]:** Citar la [Regla
+    0x2004h](../../reglas/2_funciones.md#0x2004h) y sus consecuencias de
+    ingeniería.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-acoplamiento-espurio
 :class: dropdown
 Cuando dos módulos acceden a una variable global compartida mediante `extern`:
-1. No existe un contrato explícito sobre quién tiene derecho a modificarla ni cuándo.
-2. Es imposible razonar sobre el estado de un módulo sin inspeccionar todo el código fuente del otro.
-3. Las pruebas unitarias de un módulo requieren simular o sincronizar el estado global del otro, eliminando el aislamiento.
+1. No existe un contrato explícito sobre quién tiene derecho a modificarla ni
+   cuándo.
+2. Es imposible razonar sobre el estado de un módulo sin inspeccionar todo el
+   código fuente del otro.
+3. Las pruebas unitarias de un módulo requieren simular o sincronizar el estado
+   global del otro, eliminando el aislamiento.
+
 :::
 <!-- {solution} ej-test-acoplamiento-espurio -->
 
@@ -886,21 +1069,27 @@ Cuando dos módulos acceden a una variable global compartida mediante `extern`:
 
 :::{exercise}
 :label: ej-test-temperatura-desacoplada
-Implementá las siguientes funciones puras de conversión sin usar variables globales ni llamadas a `printf`:
+Implementá las siguientes funciones puras de conversión sin usar variables
+globales ni llamadas a `printf`:
 - `double celsius_a_fahrenheit(double c)`
 - `double fahrenheit_a_celsius(double f)`
 - `double celsius_a_kelvin(double c)`
 
-Escribí una función de prueba para cada conversión verificando los puntos fijos conocidos ($0^\circ\text{C} = 32^\circ\text{F}$, $100^\circ\text{C} = 212^\circ\text{F}$, $0^\circ\text{C} = 273.15\text{ K}$).
+Escribí una función de prueba para cada conversión verificando los puntos fijos
+conocidos ($0^\circ\text{C} = 32^\circ\text{F}$, $100^\circ\text{C} =
+212^\circ\text{F}$, $0^\circ\text{C} = 273.15\text{ K}$).
 
--   **[*plus ultra*]:** Validar que las temperaturas no estén por debajo del cero absoluto ($-273.15^\circ\text{C}$).
+-   **[*plus ultra*]:** Validar que las temperaturas no estén por debajo del
+    cero absoluto ($-273.15^\circ\text{C}$).
 -   **[*plus ultra*]:** Usar comparación con tolerancia `son_cercanos`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-temperatura-desacoplada
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <math.h>
 #include <stdbool.h>
@@ -939,7 +1128,10 @@ void test_celsius_a_kelvin_cero(void)
 {
     assert(son_cercanos(celsius_a_kelvin(0.0), 273.15, 1e-6));
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-temperatura-desacoplada -->
 
@@ -950,7 +1142,8 @@ void test_celsius_a_kelvin_cero(void)
 
 :::{exercise}
 :label: ej-test-cronometro-puro
-Diseñá funciones para manipular el tiempo acumulado en segundos representándolo como un valor entero pasado por parámetro:
+Diseñá funciones para manipular el tiempo acumulado en segundos representándolo
+como un valor entero pasado por parámetro:
 - `int tiempo_avanzar(int tiempo_actual, int segundos_delta)`
 - `int tiempo_reiniciar(void)`
 - `int tiempo_obtener_minutos(int tiempo_total)`
@@ -960,12 +1153,14 @@ Escribí las pruebas unitarias que validen avances sucesivos.
 
 -   **[*plus ultra*]:** Validar que `segundos_delta >= 0`.
 -   **[*plus ultra*]:** Probar el avance cruzando la frontera de 60 segundos.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-cronometro-puro
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 int tiempo_avanzar(int tiempo_actual, int segundos_delta)
@@ -1001,7 +1196,10 @@ void test_cronometro_avance(void)
     assert(tiempo_obtener_minutos(t) == 1);
     assert(tiempo_obtener_segundos(t) == 15);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-cronometro-puro -->
 
@@ -1014,7 +1212,8 @@ void test_cronometro_avance(void)
 :label: ej-test-fuga-estado
 Dado el siguiente código con una variable global oculta:
 
-```c
+```{code-block} c
+:linenos:
 int ultimo_resultado = 0;
 
 int multiplicar_y_guardar(int a, int b)
@@ -1022,18 +1221,27 @@ int multiplicar_y_guardar(int a, int b)
     ultimo_resultado = a * b;
     return ultimo_resultado;
 }
-```
 
-Explicá qué problema de diseño introduce `ultimo_resultado` si dos partes del programa invocan la función en momentos intercalados.
+```
+<!-- {code-block} c -->
+
+Explicá qué problema de diseño introduce `ultimo_resultado` si dos partes del
+programa invocan la función en momentos intercalados.
 
 -   **[*plus ultra*]:** Refactorizar eliminando la variable global.
--   **[*plus ultra*]:** Explicar el concepto de función reentrante (*reentrant function*).
+-   **[*plus ultra*]:** Explicar el concepto de función reentrante (*reentrant
+    function*).
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-fuga-estado
 :class: dropdown
-Si una parte del programa llama a `multiplicar_y_guardar(3, 4)`, el resultado esperado es `12`. Pero si otra parte del programa llama a `multiplicar_y_guardar(10, 2)` antes de que la primera lea `ultimo_resultado`, el valor se sobrescribe a `20`, corrompiendo los datos del primer llamador.
+Si una parte del programa llama a `multiplicar_y_guardar(3, 4)`, el resultado
+esperado es `12`. Pero si otra parte del programa llama a
+`multiplicar_y_guardar(10, 2)` antes de que la primera lea `ultimo_resultado`,
+el valor se sobrescribe a `20`, corrompiendo los datos del primer llamador.
+
 :::
 <!-- {solution} ej-test-fuga-estado -->
 
@@ -1044,22 +1252,27 @@ Si una parte del programa llama a `multiplicar_y_guardar(3, 4)`, el resultado es
 
 :::{exercise}
 :label: ej-test-calculadora-memoria
-Implementá una calculadora donde el valor acumulado en memoria sea una variable local gestionada en `main` o en las pruebas, utilizando funciones puras:
+Implementá una calculadora donde el valor acumulado en memoria sea una variable
+local gestionada en `main` o en las pruebas, utilizando funciones puras:
 - `double calc_sumar(double acumulador, double valor)`
 - `double calc_restar(double acumulador, double valor)`
 - `double calc_multiplicar(double acumulador, double valor)`
 - `double calc_dividir(double acumulador, double valor, bool *ok)`
 
-Escribí pruebas unitarias para cada operación y una prueba para una secuencia de operaciones combinadas.
+Escribí pruebas unitarias para cada operación y una prueba para una secuencia de
+operaciones combinadas.
 
 -   **[*plus ultra*]:** Validar división por cero poniendo `*ok = false`.
--   **[*plus ultra*]:** Verificar que el acumulador original no se altere si la división falla.
+-   **[*plus ultra*]:** Verificar que el acumulador original no se altere si la
+    división falla.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-calculadora-memoria
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdbool.h>
 
@@ -1102,7 +1315,10 @@ void test_secuencia_calculadora(void)
     assert(ok == true);
     assert(acc == 20.0);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-calculadora-memoria -->
 
@@ -1113,19 +1329,26 @@ void test_secuencia_calculadora(void)
 
 :::{exercise}
 :label: ej-test-fsm-pura
-Modelá un validador de contraseña simple (estados: `0 = INICIO`, `1 = TIENE_LONGITUD`, `2 = VALIDA`, `-1 = ERROR`) mediante una función pura de transición:
+Modelá un validador de contraseña simple (estados: `0 = INICIO`, `1 =
+TIENE_LONGITUD`, `2 = VALIDA`, `-1 = ERROR`) mediante una función pura de
+transición:
 `int transicion_estado(int estado_actual, char entrada)`
 
-Escribí pruebas unitarias que simulen la secuencia de caracteres `a`, `b`, `1` para verificar la transición de estados paso a paso sin variables globales.
+Escribí pruebas unitarias que simulen la secuencia de caracteres `a`, `b`, `1`
+para verificar la transición de estados paso a paso sin variables globales.
 
--   **[*plus ultra*]:** Documentar la tabla de transiciones en un comentario formal.
--   **[*plus ultra*]:** Verificar que entradas inválidas conduzcan al estado `-1`.
+-   **[*plus ultra*]:** Documentar la tabla de transiciones en un comentario
+    formal.
+-   **[*plus ultra*]:** Verificar que entradas inválidas conduzcan al estado
+    `-1`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-fsm-pura
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <ctype.h>
 
@@ -1156,7 +1379,10 @@ void test_fsm_camino_exitoso(void)
     estado = transicion_estado(estado, '9\);
     assert(estado == 2);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-fsm-pura -->
 
@@ -1171,7 +1397,8 @@ void test_fsm_camino_exitoso(void)
 :label: ej-test-cobertura-ramas-cuadernillo
 Dada la siguiente función de aprobación:
 
-```c
+```{code-block} c
+:linenos:
 int evaluar_alumno(int parcial1, int parcial2, int asistencia_pct)
 {
     if (asistencia_pct < 75)
@@ -1188,12 +1415,19 @@ int evaluar_alumno(int parcial1, int parcial2, int asistencia_pct)
     }
     return 0; // Reprobado
 }
+
 ```
+<!-- {code-block} c -->
 
-¿Cuántas pruebas unitarias como mínimo se requieren para lograr el **100% de cobertura de ramas (Branch Coverage)**? Escribí los casos de prueba con sus valores de entrada y salida esperada.
+¿Cuántas pruebas unitarias como mínimo se requieren para lograr el **100% de
+cobertura de ramas (Branch Coverage)**? Escribí los casos de prueba con sus
+valores de entrada y salida esperada.
 
--   **[*plus ultra*]:** Identificar todas las ramas de decisión booleanas (`&&`, `||`).
--   **[*plus ultra*]:** Escribir una suite con `assert()` que ejecute exactamente todos los caminos.
+-   **[*plus ultra*]:** Identificar todas las ramas de decisión booleanas (`&&`,
+    `||`).
+-   **[*plus ultra*]:** Escribir una suite con `assert()` que ejecute
+    exactamente todos los caminos.
+
 :::
 <!-- {exercise} -->
 
@@ -1202,9 +1436,11 @@ int evaluar_alumno(int parcial1, int parcial2, int asistencia_pct)
 Se requieren al menos 5 casos de prueba para cubrir todas las ramas:
 1. `asistencia_pct < 75` (ej. 50, 80, 80) $\rightarrow$ `0`
 2. `parcial1 >= 60 && parcial2 >= 60` (ej. 80, 70, 80) $\rightarrow$ `2`
-3. `parcial1 >= 60` pero `parcial2 < 60` y `>= 40` (ej. 70, 50, 80) $\rightarrow$ `1`
+3. `parcial1 >= 60` pero `parcial2 < 60` y `>= 40` (ej. 70, 50, 80)
+   $\rightarrow$ `1`
 4. `parcial1 < 60` pero `parcial2 >= 40` (ej. 30, 50, 80) $\rightarrow$ `1`
 5. Ambos parciales `< 40` con asistencia (ej. 30, 20, 80) $\rightarrow$ `0`
+
 :::
 <!-- {solution} ej-test-cobertura-ramas -->
 
@@ -1215,9 +1451,11 @@ Se requieren al menos 5 casos de prueba para cubrir todas las ramas:
 
 :::{exercise}
 :label: ej-test-dead-code
-Analizá la siguiente función e identificá qué bloque de código es **código muerto** (nunca podrá ejecutarse bajo ninguna circunstancia):
+Analizá la siguiente función e identificá qué bloque de código es **código
+muerto** (nunca podrá ejecutarse bajo ninguna circunstancia):
 
-```c
+```{code-block} c
+:linenos:
 int calcular_tarifa(int edad)
 {
     if (edad < 0)
@@ -1235,19 +1473,27 @@ int calcular_tarifa(int edad)
     // ¿Puede ejecutarse esta línea alguna vez?
     return 0;
 }
-```
 
--   **[*plus ultra*]:** Simplificar la estructura lógica eliminando redundancias.
--   **[*plus ultra*]:** Escribir pruebas unitarias que demuestren que la versión simplificada produce los mismos resultados.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Simplificar la estructura lógica eliminando
+    redundancias.
+-   **[*plus ultra*]:** Escribir pruebas unitarias que demuestren que la versión
+    simplificada produce los mismos resultados.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-dead-code
 :class: dropdown
-La línea `return 0;` al final es **código muerto** porque los tres bloques `if` anteriores cubren exhaustivamente todos los números enteros posibles ($	ext{edad} < 0$, $0 \le 	ext{edad} \le 12$, $	ext{edad} > 12$).
+La línea `return 0;` al final es **código muerto** porque los tres bloques `if`
+anteriores cubren exhaustivamente todos los números enteros posibles ($
+ext{edad} < 0$, $0 \le  ext{edad} \le 12$, $    ext{edad} > 12$).
 
 **Versión refactorizada y limpia:**
-```c
+```{code-block} c
+:linenos:
 int calcular_tarifa(int edad)
 {
     if (edad < 0)
@@ -1260,7 +1506,10 @@ int calcular_tarifa(int edad)
     }
     return 100;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-dead-code -->
 
@@ -1271,9 +1520,12 @@ int calcular_tarifa(int edad)
 
 :::{exercise}
 :label: ej-test-cortocircuito
-Analizá el comportamiento de las operaciones con cortocircuito lógico (`&&` y `||`). ¿Qué imprime el siguiente código y por qué la función `incrementar` no siempre es invocada?
+Analizá el comportamiento de las operaciones con cortocircuito lógico (`&&` y
+`||`). ¿Qué imprime el siguiente código y por qué la función `incrementar` no
+siempre es invocada?
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 int llamadas = 0;
@@ -1301,10 +1553,15 @@ int main(void)
     printf("Llamadas tras segundo if: %d\n", llamadas);
     return 0;
 }
-```
 
--   **[*plus ultra*]:** Explicar por qué es peligroso colocar funciones con efectos secundarios dentro de condiciones compuestas.
--   **[*plus ultra*]:** Escribir aserciones que verifiquen el valor final de `llamadas`.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Explicar por qué es peligroso colocar funciones con
+    efectos secundarios dentro de condiciones compuestas.
+-   **[*plus ultra*]:** Escribir aserciones que verifiquen el valor final de
+    `llamadas`.
+
 :::
 <!-- {exercise} -->
 
@@ -1316,9 +1573,12 @@ Llamadas tras primer if: 0
 Rama 2
 Llamadas tras segundo if: 0
 ```
-- En `a != 0 && incrementar()`, como `a != 0` es falso, el operador `&&` evalúa a falso sin evaluar la segunda parte.
-- En `b == 1 || incrementar()`, como `b == 1` es verdadero, el operador `||` evalúa a verdadero sin evaluar la segunda parte.
+- En `a != 0 && incrementar()`, como `a != 0` es falso, el operador `&&` evalúa
+  a falso sin evaluar la segunda parte.
+- En `b == 1 || incrementar()`, como `b == 1` es verdadero, el operador `||`
+  evalúa a verdadero sin evaluar la segunda parte.
 En ningún caso se ejecuta `incrementar()`.
+
 :::
 <!-- {solution} ej-test-cortocircuito -->
 
@@ -1329,9 +1589,11 @@ En ningún caso se ejecuta `incrementar()`.
 
 :::{exercise}
 :label: ej-test-guardas-vs-flecha
-Refactorizá la siguiente función anidada aplicando **cláusulas de guarda** según la [Regla 0x2001h](../../reglas/2_funciones.md#0x2001h):
+Refactorizá la siguiente función anidada aplicando **cláusulas de guarda** según
+la [Regla 0x2001h](../../reglas/2_funciones.md#0x2001h):
 
-```c
+```{code-block} c
+:linenos:
 int procesar_pedido(int cantidad, double precio_unitario, bool cliente_vip)
 {
     int resultado = -1;
@@ -1351,16 +1613,22 @@ int procesar_pedido(int cantidad, double precio_unitario, bool cliente_vip)
     }
     return resultado;
 }
-```
 
--   **[*plus ultra*]:** Comprobar que la función reduzca la sangría horizontal manteniendo exactamente el mismo comportamiento.
--   **[*plus ultra*]:** Escribir pruebas unitarias con `assert()` para cada salida prematura.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Comprobar que la función reduzca la sangría horizontal
+    manteniendo exactamente el mismo comportamiento.
+-   **[*plus ultra*]:** Escribir pruebas unitarias con `assert()` para cada
+    salida prematura.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-guardas-vs-flecha
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdbool.h>
 
@@ -1396,7 +1664,10 @@ void test_pedido_vip(void)
 {
     assert(procesar_pedido(10, 10.0, true) == 85);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-guardas-vs-flecha -->
 
@@ -1407,9 +1678,11 @@ void test_pedido_vip(void)
 
 :::{exercise}
 :label: ej-test-fallthrough-switch
-Descubrí el bug en la siguiente función de cálculo de días de un mes y corregilo:
+Descubrí el bug en la siguiente función de cálculo de días de un mes y
+corregilo:
 
-```c
+```{code-block} c
+:linenos:
 int dias_del_mes(int mes)
 {
     int dias = 0;
@@ -1435,19 +1708,26 @@ int dias_del_mes(int mes)
     }
     return dias;
 }
-```
 
--   **[*plus ultra*]:** Explicar qué valor retornaría `dias_del_mes(2)` en el código original con bug.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Explicar qué valor retornaría `dias_del_mes(2)` en el
+    código original con bug.
 -   **[*plus ultra*]:** Escribir una prueba unitaria que detecte el error.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-fallthrough-switch
 :class: dropdown
-En el código original falta la instrucción `break;` al final de cada grupo de casos. Por lo tanto, para cualquier mes, la ejecución continúa cayendo (*fallthrough*) hasta el bloque `default`, retornando siempre `-1`.
+En el código original falta la instrucción `break;` al final de cada grupo de
+casos. Por lo tanto, para cualquier mes, la ejecución continúa cayendo
+(*fallthrough*) hasta el bloque `default`, retornando siempre `-1`.
 
 **Solución:**
-```c
+```{code-block} c
+:linenos:
 int dias_del_mes(int mes)
 {
     switch (mes)
@@ -1471,7 +1751,10 @@ int dias_del_mes(int mes)
             return -1;
     }
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-fallthrough-switch -->
 
@@ -1482,9 +1765,11 @@ int dias_del_mes(int mes)
 
 :::{exercise}
 :label: ej-test-off-by-one
-El siguiente algoritmo debe sumar los primeros $N$ números naturales ($1 + 2 + \dots + N$). Descubrí el error en la condición del lazo:
+El siguiente algoritmo debe sumar los primeros $N$ números naturales ($1 + 2 +
+\dots + N$). Descubrí el error en la condición del lazo:
 
-```c
+```{code-block} c
+:linenos:
 int suma_primeros_n(int n)
 {
     if (n <= 0)
@@ -1498,19 +1783,26 @@ int suma_primeros_n(int n)
     }
     return total;
 }
-```
 
--   **[*plus ultra*]:** Escribir un test unitario para `suma_primeros_n(4)` cuyo resultado esperado es `10`.
--   **[*plus ultra*]:** Corregir el lazo para que incluya al número $N$ usando `<=`.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Escribir un test unitario para `suma_primeros_n(4)` cuyo
+    resultado esperado es `10`.
+-   **[*plus ultra*]:** Corregir el lazo para que incluya al número $N$ usando
+    `<=`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-off-by-one
 :class: dropdown
-El lazo utiliza `i < n`, lo que omite sumar el último valor $N$. Para $N=4$, suma $1+2+3 = 6$ en lugar de $1+2+3+4 = 10$.
+El lazo utiliza `i < n`, lo que omite sumar el último valor $N$. Para $N=4$,
+suma $1+2+3 = 6$ en lugar de $1+2+3+4 = 10$.
 
 **Corrección:**
-```c
+```{code-block} c
+:linenos:
 int suma_primeros_n(int n)
 {
     if (n <= 0)
@@ -1524,7 +1816,10 @@ int suma_primeros_n(int n)
     }
     return total;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-off-by-one -->
 
@@ -1535,9 +1830,12 @@ int suma_primeros_n(int n)
 
 :::{exercise}
 :label: ej-test-desacople-io
-La siguiente función no se puede someter a pruebas unitarias automatizadas porque lee con `scanf` e imprime con `printf`. Refactorizala en dos funciones: una de cálculo puro y otra para la interacción con el usuario:
+La siguiente función no se puede someter a pruebas unitarias automatizadas
+porque lee con `scanf` e imprime con `printf`. Refactorizala en dos funciones:
+una de cálculo puro y otra para la interacción con el usuario:
 
-```c
+```{code-block} c
+:linenos:
 void calcular_imc_interactivo(void)
 {
     float peso = 0.0f;
@@ -1561,16 +1859,22 @@ void calcular_imc_interactivo(void)
         printf("Sobrepeso\n");
     }
 }
-```
 
--   **[*plus ultra*]:** Crear la función pura `float calcular_imc(float peso, float altura)` y `int clasificar_imc(float imc)`.
--   **[*plus ultra*]:** Escribir la suite completa de pruebas unitarias automatizadas para ambas funciones puras.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Crear la función pura `float calcular_imc(float peso,
+    float altura)` y `int clasificar_imc(float imc)`.
+-   **[*plus ultra*]:** Escribir la suite completa de pruebas unitarias
+    automatizadas para ambas funciones puras.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-desacople-io
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdbool.h>
 
@@ -1609,7 +1913,10 @@ void test_calculo_y_clasificacion_imc(void)
     assert(clasificar_imc(28.0f) == 3);
     assert(clasificar_imc(-1.0f) == -1);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-desacople-io -->
 
@@ -1620,9 +1927,11 @@ void test_calculo_y_clasificacion_imc(void)
 
 :::{exercise}
 :label: ej-test-tabla-traza
-Construí una tabla de traza paso a paso para la llamada `mcd(18, 12)` mostrando los valores de las variables en cada iteración del lazo:
+Construí una tabla de traza paso a paso para la llamada `mcd(18, 12)` mostrando
+los valores de las variables en cada iteración del lazo:
 
-```c
+```{code-block} c
+:linenos:
 int mcd(int a, int b)
 {
     while (b != 0)
@@ -1633,10 +1942,15 @@ int mcd(int a, int b)
     }
     return a;
 }
-```
 
--   **[*plus ultra*]:** Escribir una suite de tests unitarios verificando `mcd(18, 12) == 6`, `mcd(7, 5) == 1` y `mcd(20, 0) == 20`.
--   **[*plus ultra*]:** Demostrar la invariante del algoritmo: $\text{mcd}(a, b) = \text{mcd}(b, a \pmod b)$.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Escribir una suite de tests unitarios verificando
+    `mcd(18, 12) == 6`, `mcd(7, 5) == 1` y `mcd(20, 0) == 20`.
+-   **[*plus ultra*]:** Demostrar la invariante del algoritmo: $\text{mcd}(a, b)
+    = \text{mcd}(b, a \pmod b)$.
+
 :::
 <!-- {exercise} -->
 
@@ -1648,6 +1962,7 @@ int mcd(int a, int b)
 | **1** | 18 | 12 | 12 | 6 | 6 | 12 | `true` |
 | **2** | 12 | 6 | 6 | 0 | 0 | 6 | `false` |
 | **Fin** | 6 | 0 | - | - | - | - | Retorna `6` |
+
 :::
 <!-- {solution} ej-test-tabla-traza -->
 
@@ -1658,20 +1973,27 @@ int mcd(int a, int b)
 
 :::{exercise}
 :label: ej-test-srp-refactor
-La siguiente función realiza tres tareas simultáneas: calcular la suma de un arreglo, buscar el máximo y contar negativos. Refactorizala en tres funciones atómicas según la [Regla 0x2005h](../../reglas/2_funciones.md#0x2005h):
+La siguiente función realiza tres tareas simultáneas: calcular la suma de un
+arreglo, buscar el máximo y contar negativos. Refactorizala en tres funciones
+atómicas según la [Regla 0x2005h](../../reglas/2_funciones.md#0x2005h):
 
-```c
+``` c
 void procesar_todo(const int arr[], int n, int *suma, int *maximo, int *negativos);
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Escribir pruebas unitarias independientes para cada función resultante.
--   **[*plus ultra*]:** Explicar por qué es más fácil reutilizar y mantener funciones con una sola responsabilidad.
+-   **[*plus ultra*]:** Escribir pruebas unitarias independientes para cada
+    función resultante.
+-   **[*plus ultra*]:** Explicar por qué es más fácil reutilizar y mantener
+    funciones con una sola responsabilidad.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-srp-refactor
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 int calcular_suma(const int arr[], int n)
@@ -1721,7 +2043,10 @@ void test_funciones_atomicas(void)
     assert(encontrar_maximo(datos, 5) == 8);
     assert(contar_negativos(datos, 5) == 2);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-srp-refactor -->
 
@@ -1732,7 +2057,8 @@ void test_funciones_atomicas(void)
 
 :::{exercise}
 :label: ej-test-bisiesto-exhaustivo
-Implementá `bool es_bisiesto(int anio)` y diseñá una suite de pruebas que verifique las cuatro reglas del calendario gregoriano:
+Implementá `bool es_bisiesto(int anio)` y diseñá una suite de pruebas que
+verifique las cuatro reglas del calendario gregoriano:
 1. Años múltiplos de 4 no múltiplos de 100 (ej. 2024 $\rightarrow$ `true`).
 2. Años no múltiplos de 4 (ej. 2023 $\rightarrow$ `false`).
 3. Años múltiplos de 100 pero no de 400 (ej. 1900 $\rightarrow$ `false`).
@@ -1740,12 +2066,14 @@ Implementá `bool es_bisiesto(int anio)` y diseñá una suite de pruebas que ver
 
 -   **[*plus ultra*]:** Validar que años $\le 0$ retornen `false`.
 -   **[*plus ultra*]:** Escribir una función de test por cada regla evaluada.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-bisiesto-exhaustivo
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdbool.h>
 
@@ -1782,7 +2110,10 @@ void test_bisiesto_invalido(void)
 {
     assert(es_bisiesto(-400) == false);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-bisiesto-exhaustivo -->
 
@@ -1793,24 +2124,33 @@ void test_bisiesto_invalido(void)
 
 :::{exercise}
 :label: ej-test-const-arrays
-Analizá el siguiente código. ¿Por qué agregar el calificador `const` en la firma de `buscar_elemento` previene bugs accidentales de modificación en las pruebas?
+Analizá el siguiente código. ¿Por qué agregar el calificador `const` en la firma
+de `buscar_elemento` previene bugs accidentales de modificación en las pruebas?
 
-```c
+``` c
 // Incorrecto:
 int buscar_elemento(int arr[], int n, int objetivo);
 
 // Correcto (seguro):
 int buscar_elemento(const int arr[], int n, int objetivo);
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Explicar qué error genera el compilador si una función intenta modificar un elemento de un arreglo declarado `const`.
--   **[*plus ultra*]:** Escribir un test que valide que el arreglo original no sufrió modificaciones tras la búsqueda.
+-   **[*plus ultra*]:** Explicar qué error genera el compilador si una función
+    intenta modificar un elemento de un arreglo declarado `const`.
+-   **[*plus ultra*]:** Escribir un test que valide que el arreglo original no
+    sufrió modificaciones tras la búsqueda.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-const-arrays
 :class: dropdown
-El calificador `const` garantiza contractualmente que la función es de **solo lectura**. Si por error un programador escribe `arr[i] = 0;` en lugar de `if (arr[i] == 0)`, el compilador rechaza la compilación con un error inmediato (`assignment of read-only location`), evitando corromper los datos del llamador.
+El calificador `const` garantiza contractualmente que la función es de **solo
+lectura**. Si por error un programador escribe `arr[i] = 0;` en lugar de `if
+(arr[i] == 0)`, el compilador rechaza la compilación con un error inmediato
+(`assignment of read-only location`), evitando corromper los datos del llamador.
+
 :::
 <!-- {solution} ej-test-const-arrays -->
 
@@ -1821,9 +2161,12 @@ El calificador `const` garantiza contractualmente que la función es de **solo l
 
 :::{exercise}
 :label: ej-test-invariantes-lazo
-En el siguiente algoritmo para calcular la división entera por restas sucesivas, agregá una aserción al final que verifique la invariante matemática fundamental: $\text{dividendo} = \text{divisor} \times \text{cociente} + \text{resto}$.
+En el siguiente algoritmo para calcular la división entera por restas sucesivas,
+agregá una aserción al final que verifique la invariante matemática fundamental:
+$\text{dividendo} = \text{divisor} \times \text{cociente} + \text{resto}$.
 
-```c
+```{code-block} c
+:linenos:
 void division_lenta(int dividendo, int divisor, int *cociente, int *resto)
 {
     assert(divisor > 0);
@@ -1842,16 +2185,22 @@ void division_lenta(int dividendo, int divisor, int *cociente, int *resto)
     // Aserción de invariante:
     assert(dividendo == (divisor * (*cociente)) + (*resto));
 }
-```
 
--   **[*plus ultra*]:** Diseñar tests unitarios para $10 \div 3$, $20 \div 5$ y $3 \div 7$.
--   **[*plus ultra*]:** Verificar que el resto siempre cumpla $0 \le r < \text{divisor}$.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Diseñar tests unitarios para $10 \div 3$, $20 \div 5$ y
+    $3 \div 7$.
+-   **[*plus ultra*]:** Verificar que el resto siempre cumpla $0 \le r <
+    \text{divisor}$.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-invariantes-lazo
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 void test_division_con_invariante(void)
@@ -1868,7 +2217,10 @@ void test_division_con_invariante(void)
     division_lenta(3, 7, &c, &r);
     assert(c == 0 && r == 3);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-invariantes-lazo -->
 
@@ -1881,9 +2233,12 @@ void test_division_con_invariante(void)
 
 :::{exercise}
 :label: ej-test-estilo-allman
-Identificá las violaciones de la [Regla 0x000Bh](../../reglas/0_sintaxis.md#0x000bh) (Estilo Allman) en el siguiente código y reescribilo con las llaves correctamente alineadas en su propia línea:
+Identificá las violaciones de la [Regla
+0x000Bh](../../reglas/0_sintaxis.md#0x000bh) (Estilo Allman) en el siguiente
+código y reescribilo con las llaves correctamente alineadas en su propia línea:
 
-```c
+```{code-block} c
+:linenos:
 // Código mal formateado:
 int valor_absoluto(int n) {
     if (n < 0) {
@@ -1892,16 +2247,21 @@ int valor_absoluto(int n) {
         return n;
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 -   **[*plus ultra*]:** Formatear con 4 espacios de indentación.
--   **[*plus ultra*]:** Escribir una prueba unitaria para `valor_absoluto(-12)` y `valor_absoluto(0)`.
+-   **[*plus ultra*]:** Escribir una prueba unitaria para `valor_absoluto(-12)`
+    y `valor_absoluto(0)`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-estilo-allman
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 int valor_absoluto(int n)
@@ -1922,7 +2282,10 @@ void test_valor_absoluto(void)
     assert(valor_absoluto(0) == 0);
     assert(valor_absoluto(15) == 15);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-estilo-allman -->
 
@@ -1933,9 +2296,12 @@ void test_valor_absoluto(void)
 
 :::{exercise}
 :label: ej-test-numeros-magicos
-Refactorizá la siguiente función reemplazando todos los **números mágicos** por constantes simbólicas (`#define` o `const`) descriptivas según la [Regla 0x0004h](../../reglas/0_sintaxis.md#0x0004h):
+Refactorizá la siguiente función reemplazando todos los **números mágicos** por
+constantes simbólicas (`#define` o `const`) descriptivas según la [Regla
+0x0004h](../../reglas/0_sintaxis.md#0x0004h):
 
-```c
+```{code-block} c
+:linenos:
 double calcular_costo_envio(double peso)
 {
     if (peso <= 5.0)
@@ -1948,16 +2314,22 @@ double calcular_costo_envio(double peso)
     }
     return 1700.0 + (peso - 20.0) * 120.0;
 }
-```
 
--   **[*plus ultra*]:** Escribir tests unitarios para los puntos de quiebre (5.0 kg y 20.0 kg).
--   **[*plus ultra*]:** Explicar por qué los números mágicos dificultan el mantenimiento del código.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Escribir tests unitarios para los puntos de quiebre (5.0
+    kg y 20.0 kg).
+-   **[*plus ultra*]:** Explicar por qué los números mágicos dificultan el
+    mantenimiento del código.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-numeros-magicos
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 #define PESO_LIMITE_LIVIANO 5.0
@@ -1990,7 +2362,10 @@ void test_costo_envio_limites(void)
     assert(calcular_costo_envio(10.0) == 900.0);
     assert(calcular_costo_envio(20.0) == 1700.0);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-numeros-magicos -->
 
@@ -2001,9 +2376,12 @@ void test_costo_envio_limites(void)
 
 :::{exercise}
 :label: ej-test-contratos-doxygen
-Escribí el bloque de documentación estructurada con etiquetas Doxygen (`@brief`, `@param`, `@pre`, `@returns`, `@post`) para la función `calcular_potencia_entera`:
+Escribí el bloque de documentación estructurada con etiquetas Doxygen (`@brief`,
+`@param`, `@pre`, `@returns`, `@post`) para la función
+`calcular_potencia_entera`:
 
-```c
+```{code-block} c
+:linenos:
 /**
  * @brief ...
  * @param base ...
@@ -2014,16 +2392,21 @@ Escribí el bloque de documentación estructurada con etiquetas Doxygen (`@brief
  * @post ...
  */
 int calcular_potencia_entera(int base, int exponente, bool *ok);
+
 ```
+<!-- {code-block} c -->
 
 -   **[*plus ultra*]:** Implementar la función validando que `exponente >= 0`.
--   **[*plus ultra*]:** Escribir tests unitarios que verifiquen las postcondiciones.
+-   **[*plus ultra*]:** Escribir tests unitarios que verifiquen las
+    postcondiciones.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-contratos-doxygen
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdbool.h>
 
@@ -2068,7 +2451,10 @@ void test_potencia_contrato(void)
     calcular_potencia_entera(2, -1, &ok);
     assert(ok == false);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-contratos-doxygen -->
 
@@ -2079,9 +2465,12 @@ void test_potencia_contrato(void)
 
 :::{exercise}
 :label: ej-test-inicializacion-vars
-Analizá qué comportamiento indefinido (*Undefined Behavior*) ocurre en la siguiente función y corregilo aplicando la [Regla 0x0003h](../../reglas/0_sintaxis.md#0x0003h):
+Analizá qué comportamiento indefinido (*Undefined Behavior*) ocurre en la
+siguiente función y corregilo aplicando la [Regla
+0x0003h](../../reglas/0_sintaxis.md#0x0003h):
 
-```c
+```{code-block} c
+:linenos:
 int contar_multiplos(const int arr[], int n, int divisor)
 {
     int contador; // ¡Variable no inicializada!
@@ -2094,19 +2483,27 @@ int contar_multiplos(const int arr[], int n, int divisor)
     }
     return contador;
 }
-```
 
--   **[*plus ultra*]:** Explicar por qué las variables locales contienen valores basura si no se inicializan explícitamente.
--   **[*plus ultra*]:** Escribir una prueba unitaria para verificar `contar_multiplos`.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Explicar por qué las variables locales contienen valores
+    basura si no se inicializan explícitamente.
+-   **[*plus ultra*]:** Escribir una prueba unitaria para verificar
+    `contar_multiplos`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-inicializacion-vars
 :class: dropdown
-Al no inicializarse, `contador` contiene un valor residual indeterminado proveniente de la memoria de la pila. El incremento `contador++` genera comportamiento indefinido y resultados erróneos impredecibles.
+Al no inicializarse, `contador` contiene un valor residual indeterminado
+proveniente de la memoria de la pila. El incremento `contador++` genera
+comportamiento indefinido y resultados erróneos impredecibles.
 
 **Corrección:**
-```c
+```{code-block} c
+:linenos:
 int contar_multiplos(const int arr[], int n, int divisor)
 {
     if (divisor == 0)
@@ -2123,7 +2520,10 @@ int contar_multiplos(const int arr[], int n, int divisor)
     }
     return contador;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-inicializacion-vars -->
 
@@ -2134,7 +2534,8 @@ int contar_multiplos(const int arr[], int n, int divisor)
 
 :::{exercise}
 :label: ej-test-organizacion-archivo
-Ordená las siguientes secciones de un archivo `.c` según la [Regla 0x5005h](../../reglas/5_buenas_practicas.md#0x5005h):
+Ordená las siguientes secciones de un archivo `.c` según la [Regla
+0x5005h](../../reglas/5_buenas_practicas.md#0x5005h):
 - Implementación de funciones públicas
 - Inclusiones de bibliotecas estándar (`<stdio.h>`)
 - Inclusiones de cabeceras propias (`"modulo.h"`)
@@ -2143,7 +2544,9 @@ Ordená las siguientes secciones de un archivo `.c` según la [Regla 0x5005h](..
 - Prototipos de funciones privadas (`static`)
 - Implementación de funciones privadas (`static`)
 
--   **[*plus ultra*]:** Explicar por qué mantener un orden uniforme facilita la lectura por parte de otros programadores del equipo.
+-   **[*plus ultra*]:** Explicar por qué mantener un orden uniforme facilita la
+    lectura por parte de otros programadores del equipo.
+
 :::
 <!-- {exercise} -->
 
@@ -2156,6 +2559,7 @@ El orden estándar según la Regla `0x5005h` es:
 4. Prototipos de funciones privadas (`static int auxiliar(void);`).
 5. Función `main` (si es el archivo principal) o funciones públicas.
 6. Implementación de funciones privadas (`static`).
+
 :::
 <!-- {solution} ej-test-organizacion-archivo -->
 
@@ -2166,18 +2570,26 @@ El orden estándar según la Regla `0x5005h` es:
 
 :::{exercise}
 :label: ej-test-default-switch
-¿Por qué toda sentencia `switch` debe contener obligatoriamente una cláusula `default` según la [Regla 0x1003h](../../reglas/1_control.md#0x1003h), incluso si el programador cree haber cubierto todos los casos posibles?
+¿Por qué toda sentencia `switch` debe contener obligatoriamente una cláusula
+`default` según la [Regla 0x1003h](../../reglas/1_control.md#0x1003h), incluso
+si el programador cree haber cubierto todos los casos posibles?
 
--   **[*plus ultra*]:** Implementar una función `int obtener_dias_trimestre(int trimestre)` con manejo de `default` que retorne `-1`.
--   **[*plus ultra*]:** Escribir tests unitarios que verifiquen el caso `default`.
+-   **[*plus ultra*]:** Implementar una función `int obtener_dias_trimestre(int
+    trimestre)` con manejo de `default` que retorne `-1`.
+-   **[*plus ultra*]:** Escribir tests unitarios que verifiquen el caso
+    `default`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-default-switch
 :class: dropdown
-El bloque `default` actúa como una red de seguridad defensiva ante datos imprevistos, corrupción de memoria o adición futura de nuevos valores en el dominio que no fueron contemplados.
+El bloque `default` actúa como una red de seguridad defensiva ante datos
+imprevistos, corrupción de memoria o adición futura de nuevos valores en el
+dominio que no fueron contemplados.
 
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 int obtener_dias_trimestre(int trimestre)
@@ -2203,7 +2615,10 @@ void test_trimestres(void)
     assert(obtener_dias_trimestre(5) == -1);
     assert(obtener_dias_trimestre(-1) == -1);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-default-switch -->
 
@@ -2214,9 +2629,12 @@ void test_trimestres(void)
 
 :::{exercise}
 :label: ej-test-nombres-variables
-Refactorizá el siguiente código reemplazando los nombres de variables crípticos por identificadores claros en `snake_case` según la [Regla 0x0007h](../../reglas/0_sintaxis.md#0x0007h):
+Refactorizá el siguiente código reemplazando los nombres de variables crípticos
+por identificadores claros en `snake_case` según la [Regla
+0x0007h](../../reglas/0_sintaxis.md#0x0007h):
 
-```c
+```{code-block} c
+:linenos:
 // Código críptico:
 double c(double p, double d, double t)
 {
@@ -2224,15 +2642,20 @@ double c(double p, double d, double t)
     double f = r + (r * (t / 100.0));
     return f;
 }
-```
 
--   **[*plus ultra*]:** Escribir un test unitario con assert para verificar el cálculo del precio final con descuento e impuesto.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Escribir un test unitario con assert para verificar el
+    cálculo del precio final con descuento e impuesto.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-nombres-variables
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 double calcular_precio_final(double precio_base, double porcentaje_descuento, double porcentaje_impuesto)
@@ -2246,7 +2669,10 @@ void test_precio_final(void)
 {
     assert(calcular_precio_final(100.0, 10.0, 21.0) == 108.9);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-nombres-variables -->
 
@@ -2257,9 +2683,11 @@ void test_precio_final(void)
 
 :::{exercise}
 :label: ej-test-reutilizacion-variables
-Analizá qué problema de legibilidad y mantenimiento tiene el siguiente código donde la variable `aux` se usa para tres propósitos completamente distintos:
+Analizá qué problema de legibilidad y mantenimiento tiene el siguiente código
+donde la variable `aux` se usa para tres propósitos completamente distintos:
 
-```c
+```{code-block} c
+:linenos:
 int calcular_estadisticas_ventas(int ventas[], int n)
 {
     int aux = 0;
@@ -2281,16 +2709,23 @@ int calcular_estadisticas_ventas(int ventas[], int n)
     }
     return aux;
 }
-```
 
--   **[*plus ultra*]:** Refactorizar declarando variables con nombres de propósito único (`suma`, `maximo`).
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Refactorizar declarando variables con nombres de
+    propósito único (`suma`, `maximo`).
 -   **[*plus ultra*]:** Modularizar en funciones independientes.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-reutilizacion-variables
 :class: dropdown
-Reutilizar la misma variable para propósitos disímiles dificulta la lectura, impide agregar aserciones claras sobre estados intermedios y propaga errores si un bloque asume que la variable conserva su valor anterior.
+Reutilizar la misma variable para propósitos disímiles dificulta la lectura,
+impide agregar aserciones claras sobre estados intermedios y propaga errores si
+un bloque asume que la variable conserva su valor anterior.
+
 :::
 <!-- {solution} ej-test-reutilizacion-variables -->
 
@@ -2301,22 +2736,31 @@ Reutilizar la misma variable para propósitos disímiles dificulta la lectura, i
 
 :::{exercise}
 :label: ej-test-flags-compilacion
-Explicá qué detecta cada uno de los siguientes flags de `gcc` y por qué son obligatorios en las buenas prácticas de ingeniería ([Regla 0x5002h](../../reglas/5_buenas_practicas.md#0x5002h)):
+Explicá qué detecta cada uno de los siguientes flags de `gcc` y por qué son
+obligatorios en las buenas prácticas de ingeniería ([Regla
+0x5002h](../../reglas/5_buenas_practicas.md#0x5002h)):
 - `-Wall`
 - `-Wextra`
 - `-Werror`
 - `-Wpedantic`
 
--   **[*plus ultra*]:** Configurar una línea de compilación modelo en un archivo Makefile.
+-   **[*plus ultra*]:** Configurar una línea de compilación modelo en un archivo
+    Makefile.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-flags-compilacion
 :class: dropdown
-- `-Wall`: Habilita todas las advertencias comunes sobre construcciones dudosas (variables no usadas, conversiones implícitas riesgosas).
-- `-Wextra`: Habilita advertencias adicionales más rigurosas (comparaciones con signo/sin signo, parámetros no utilizados).
-- `-Werror`: Trata todas las advertencias como errores de compilación, impidiendo generar el binario si existen problemas.
-- `-Wpedantic`: Exige estricto apego al estándar ISO de C, rechazando extensiones propietarias del compilador.
+- `-Wall`: Habilita todas las advertencias comunes sobre construcciones dudosas
+  (variables no usadas, conversiones implícitas riesgosas).
+- `-Wextra`: Habilita advertencias adicionales más rigurosas (comparaciones con
+  signo/sin signo, parámetros no utilizados).
+- `-Werror`: Trata todas las advertencias como errores de compilación,
+  impidiendo generar el binario si existen problemas.
+- `-Wpedantic`: Exige estricto apego al estándar ISO de C, rechazando
+  extensiones propietarias del compilador.
+
 :::
 <!-- {solution} ej-test-flags-compilacion -->
 
@@ -2327,16 +2771,25 @@ Explicá qué detecta cada uno de los siguientes flags de `gcc` y por qué son o
 
 :::{exercise}
 :label: ej-test-funciones-static
-Explicá por qué las funciones auxiliares de un módulo `.c` que no forman parte de la interfaz pública deben declararse obligatoriamente con el calificador `static`.
+Explicá por qué las funciones auxiliares de un módulo `.c` que no forman parte
+de la interfaz pública deben declararse obligatoriamente con el calificador
+`static`.
 
--   **[*plus ultra*]:** Explicar el concepto de visibilidad de enlace (*internal linkage*).
--   **[*plus ultra*]:** Explicar cómo esto previene colisiones de nombres con funciones auxiliares de otros archivos `.c`.
+-   **[*plus ultra*]:** Explicar el concepto de visibilidad de enlace (*internal
+    linkage*).
+-   **[*plus ultra*]:** Explicar cómo esto previene colisiones de nombres con
+    funciones auxiliares de otros archivos `.c`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-funciones-static
 :class: dropdown
-El calificador `static` en una función a nivel de archivo restringe su visibilidad exclusivamente a la unidad de traducción actual (*internal linkage*). Esto encapsula los detalles de implementación internos y previene errores de símbolos duplicados en tiempo de enlace (*linker collision*).
+El calificador `static` en una función a nivel de archivo restringe su
+visibilidad exclusivamente a la unidad de traducción actual (*internal
+linkage*). Esto encapsula los detalles de implementación internos y previene
+errores de símbolos duplicados en tiempo de enlace (*linker collision*).
+
 :::
 <!-- {solution} ej-test-funciones-static -->
 
@@ -2349,22 +2802,28 @@ El calificador `static` en una función a nivel de archivo restringe su visibili
 
 :::{exercise}
 :label: ej-test-suite-fechas
-Implementá una función pura `bool es_fecha_valida(int dia, int mes, int anio)` y construí una suite completa de pruebas unitarias que cubra:
+Implementá una función pura `bool es_fecha_valida(int dia, int mes, int anio)` y
+construí una suite completa de pruebas unitarias que cubra:
 - Días válidos para meses de 31 días.
 - Días válidos para meses de 30 días.
-- Casos válidos e inválidos de febrero en año bisiesto (29/02/2024 vs 29/02/2023).
+- Casos válidos e inválidos de febrero en año bisiesto (29/02/2024 vs
+  29/02/2023).
 - Días negativos o mayores a 31.
 - Meses fuera del rango 1 a 12.
 - Años menores o iguales a cero.
 
--   **[*plus ultra*]:** Modularizar las pruebas en funciones separadas por cada categoría.
--   **[*plus ultra*]:** Crear la función `void correr_pruebas_fechas(void)` que las invoque a todas.
+-   **[*plus ultra*]:** Modularizar las pruebas en funciones separadas por cada
+    categoría.
+-   **[*plus ultra*]:** Crear la función `void correr_pruebas_fechas(void)` que
+    las invoque a todas.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-suite-fechas
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdbool.h>
 
@@ -2422,7 +2881,10 @@ void correr_pruebas_fechas(void)
     test_febrero_bisiesto();
     test_fecha_mes_invalido();
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-suite-fechas -->
 
@@ -2436,19 +2898,24 @@ void correr_pruebas_fechas(void)
 Una playa de estacionamiento cobra según las siguientes reglas:
 - Primera hora o fracción: $200 (tarifa base).
 - Cada hora adicional: $150.
-- Si el tiempo supera las 6 horas, se aplica un descuento del 10% sobre el total.
+- Si el tiempo supera las 6 horas, se aplica un descuento del 10% sobre el
+  total.
 - Máximo cobro diario: $1200.
 
-Implementá la función pura `double calcular_estacionamiento(int minutos)` y diseñá su suite de pruebas exhaustiva.
+Implementá la función pura `double calcular_estacionamiento(int minutos)` y
+diseñá su suite de pruebas exhaustiva.
 
 -   **[*plus ultra*]:** Validar que `minutos <= 0` retorne `0.0`.
--   **[*plus ultra*]:** Testear los minutos frontera: 0, 30, 60, 61, 360, 361, 1440.
+-   **[*plus ultra*]:** Testear los minutos frontera: 0, 30, 60, 61, 360, 361,
+    1440.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-suite-estacionamiento
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <math.h>
 #include <stdbool.h>
@@ -2498,7 +2965,10 @@ void test_estacionamiento_tope_maximo(void)
 {
     assert(calcular_estacionamiento(1440) == 1200.0);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-suite-estacionamiento -->
 
@@ -2518,26 +2988,33 @@ Aborted (core dumped)
 
 Analizá la causa raíz del fallo en la función `mcd(a, b)` y corregila:
 
-```c
+``` c
 int mcd(int a, int b)
 {
     if (b == 0) return a;
     return mcd(b, a % b); // ¿Qué ocurre si a=0 y b=5 en la primera llamada?
 }
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Explicar por qué `0 % 5 == 0` y la siguiente llamada es `mcd(5, 0)` retornando `5`.
--   **[*plus ultra*]:** Asegurar que la función maneje argumentos negativos convirtiéndolos a valor absoluto.
+-   **[*plus ultra*]:** Explicar por qué `0 % 5 == 0` y la siguiente llamada es
+    `mcd(5, 0)` retornando `5`.
+-   **[*plus ultra*]:** Asegurar que la función maneje argumentos negativos
+    convirtiéndolos a valor absoluto.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-diagnostico-fallo
 :class: dropdown
-Si se pasa `a = 0` y `b = 5`, la primera llamada no entra en `b == 0`. Llama a `mcd(5, 0 % 5)` que es `mcd(5, 0)`, el cual entra en `b == 0` y retorna `5`.
+Si se pasa `a = 0` y `b = 5`, la primera llamada no entra en `b == 0`. Llama a
+`mcd(5, 0 % 5)` que es `mcd(5, 0)`, el cual entra en `b == 0` y retorna `5`.
 
-Si la función original no contempla `a < 0` o `b < 0`, los módulos con signo en C pueden generar números negativos. La corrección robusta es:
+Si la función original no contempla `a < 0` o `b < 0`, los módulos con signo en
+C pueden generar números negativos. La corrección robusta es:
 
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdlib.h>
 
@@ -2553,7 +3030,10 @@ int mcd(int a, int b)
     }
     return a;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-diagnostico-fallo -->
 
@@ -2565,10 +3045,14 @@ int mcd(int a, int b)
 :::{exercise}
 :label: ej-test-regresion
 Explicá el concepto de **Test de Regresión** (*Regression Test*):
-1. ¿Cuál es el procedimiento correcto a seguir cuando un usuario o tester descubre un bug en producción?
-2. ¿Por qué se debe escribir primero la prueba automatizada que reproduzca el fallo antes de modificar el código?
+1. ¿Cuál es el procedimiento correcto a seguir cuando un usuario o tester
+   descubre un bug en producción?
+2. ¿Por qué se debe escribir primero la prueba automatizada que reproduzca el
+   fallo antes de modificar el código?
 
--   **[*plus ultra*]:** Describir cómo un test de regresión previene que futuros cambios reintroduzcan el mismo error.
+-   **[*plus ultra*]:** Describir cómo un test de regresión previene que futuros
+    cambios reintroduzcan el mismo error.
+
 :::
 <!-- {exercise} -->
 
@@ -2579,7 +3063,10 @@ Explicá el concepto de **Test de Regresión** (*Regression Test*):
    - Escribir una prueba unitaria específica que falle debido a ese bug.
    - Modificar el código fuente hasta que la prueba pase.
    - Incorporar la nueva prueba a la suite continua del proyecto.
-2. Escribir la prueba primero confirma científicamente la existencia del bug y asegura que la corrección realmente solucione la causa raíz sin depender de verificaciones manuales.
+2. Escribir la prueba primero confirma científicamente la existencia del bug y
+   asegura que la corrección realmente solucione la causa raíz sin depender de
+   verificaciones manuales.
+
 :::
 <!-- {solution} ej-test-regresion -->
 
@@ -2590,7 +3077,8 @@ Explicá el concepto de **Test de Regresión** (*Regression Test*):
 
 :::{exercise}
 :label: ej-test-suite-billetes
-Implementá una función pura que calcule la cantidad mínima de billetes de $1000, $500, $200 y $100 para un monto dado:
+Implementá una función pura que calcule la cantidad mínima de billetes de $1000,
+$500, $200 y $100 para un monto dado:
 `bool desglosar_monto(int monto, int *b1000, int *b500, int *b200, int *b100)`
 
 Diseñá la suite de pruebas unitarias cubriendo:
@@ -2600,13 +3088,16 @@ Diseñá la suite de pruebas unitarias cubriendo:
 - Montos negativos o cero.
 
 -   **[*plus ultra*]:** Validar que ningún puntero de salida sea `NULL`.
--   **[*plus ultra*]:** Verificar la invariante: $\text{monto} = 1000 \cdot b_{1000} + 500 \cdot b_{500} + 200 \cdot b_{200} + 100 \cdot b_{100}$.
+-   **[*plus ultra*]:** Verificar la invariante: $\text{monto} = 1000 \cdot
+    b_{1000} + 500 \cdot b_{500} + 200 \cdot b_{200} + 100 \cdot b_{100}$.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-suite-billetes
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdbool.h>
 
@@ -2643,7 +3134,10 @@ void test_desglose_monto_invalido(void)
     assert(desglosar_monto(350, &mil, &quin, &dosc, &cien) == false);
     assert(desglosar_monto(-100, &mil, &quin, &dosc, &cien) == false);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-suite-billetes -->
 
@@ -2654,21 +3148,26 @@ void test_desglose_monto_invalido(void)
 
 :::{exercise}
 :label: ej-test-suite-primos
-Implementá la función pura `bool es_primo(int n)` con optimización hasta $\sqrt{n}$ y diseñá su suite de pruebas con `assert()`:
+Implementá la función pura `bool es_primo(int n)` con optimización hasta
+$\sqrt{n}$ y diseñá su suite de pruebas con `assert()`:
 - Casos no primos menores o iguales a 1 ($0, 1, -7$).
 - Primer número primo ($2$).
 - Primos pares e impares pequeños ($2, 3, 5, 7, 11, 13$).
 - Compuestos impares que aparentan ser primos ($9, 15, 21, 25, 27, 49$).
 - Primos grandes conocidos ($997$).
 
--   **[*plus ultra*]:** Escribir una función de prueba específica para cada categoría.
--   **[*plus ultra*]:** Documentar las precondiciones con `@pre` y postcondiciones con `@post`.
+-   **[*plus ultra*]:** Escribir una función de prueba específica para cada
+    categoría.
+-   **[*plus ultra*]:** Documentar las precondiciones con `@pre` y
+    postcondiciones con `@post`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-suite-primos
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdbool.h>
 
@@ -2717,7 +3216,10 @@ void test_compuestos_impares(void)
     assert(es_primo(25) == false);
     assert(es_primo(49) == false);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-suite-primos -->
 
@@ -2739,13 +3241,16 @@ Códigos de retorno:
 
 Escribí pruebas unitarias para cada uno de los 4 códigos posibles.
 
--   **[*plus ultra*]:** Asegurar que ante código de error, `*velocidad` no sea modificada.
+-   **[*plus ultra*]:** Asegurar que ante código de error, `*velocidad` no sea
+    modificada.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-codigos-error
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stddef.h>
 
@@ -2796,7 +3301,10 @@ void test_velocidad_puntero_nulo(void)
     int codigo = calcular_velocidad(100.0, 2.0, NULL);
     assert(codigo == 3);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-codigos-error -->
 
@@ -2807,20 +3315,24 @@ void test_velocidad_puntero_nulo(void)
 
 :::{exercise}
 :label: ej-test-suite-palindromo
-Implementá `bool es_numero_capicua(int n)` mediante funciones auxiliares puras (`invertir_numero`) y construí su suite de pruebas:
+Implementá `bool es_numero_capicua(int n)` mediante funciones auxiliares puras
+(`invertir_numero`) y construí su suite de pruebas:
 - Números de 1 solo dígito (siempre son capicúas: `0, 1, 7`).
 - Números pares capicúas (`1221`, `44`).
 - Números impares capicúas (`12321`, `505`).
 - Números no capicúas (`123`, `100`).
 - Números negativos (por convención, retornan `false`).
 
--   **[*plus ultra*]:** Validar que no se produzca desbordamiento entero al invertir.
+-   **[*plus ultra*]:** Validar que no se produzca desbordamiento entero al
+    invertir.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-suite-palindromo
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdbool.h>
 
@@ -2861,7 +3373,10 @@ void test_capicua_multiples_digitos(void)
     assert(es_numero_capicua(123) == false);
     assert(es_numero_capicua(-121) == false);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-suite-palindromo -->
 
@@ -2878,15 +3393,19 @@ Implementá `int clasificar_triangulo(double a, double b, double c)`:
 - `2`: Isósceles (2 lados iguales).
 - `3`: Escaleno (3 lados distintos).
 
-Diseñá la suite de pruebas unitarias verificando cada clase y casos degenerados ($a + b = c$).
+Diseñá la suite de pruebas unitarias verificando cada clase y casos degenerados
+($a + b = c$).
 
--   **[*plus ultra*]:** Usar comparación con tolerancia `son_cercanos` para los lados.
+-   **[*plus ultra*]:** Usar comparación con tolerancia `son_cercanos` para los
+    lados.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-suite-triangulo
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <math.h>
 #include <stdbool.h>
@@ -2929,7 +3448,10 @@ void test_triangulo_tipos(void)
     assert(clasificar_triangulo(5.0, 5.0, 8.0) == 2);
     assert(clasificar_triangulo(3.0, 4.0, 5.0) == 3);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-suite-triangulo -->
 
@@ -2940,7 +3462,8 @@ void test_triangulo_tipos(void)
 
 :::{exercise}
 :label: ej-test-suite-segundos-tiempo
-Implementá `bool segundos_a_tiempo(int total_segundos, int *horas, int *minutos, int *segundos)` y diseñá su suite de pruebas con `assert()`:
+Implementá `bool segundos_a_tiempo(int total_segundos, int *horas, int *minutos,
+int *segundos)` y diseñá su suite de pruebas con `assert()`:
 - `total_segundos = 0` $\rightarrow$ `0h 0m 0s`.
 - `total_segundos = 59` $\rightarrow$ `0h 0m 59s`.
 - `total_segundos = 60` $\rightarrow$ `0h 1m 0s`.
@@ -2948,13 +3471,16 @@ Implementá `bool segundos_a_tiempo(int total_segundos, int *horas, int *minutos
 - `total_segundos = 86399` $\rightarrow$ `23h 59m 59s`.
 - `total_segundos = -5` $\rightarrow$ `false`.
 
--   **[*plus ultra*]:** Verificar que la función retorne `false` si cualquier puntero recibido es `NULL`.
+-   **[*plus ultra*]:** Verificar que la función retorne `false` si cualquier
+    puntero recibido es `NULL`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-suite-segundos-tiempo
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdbool.h>
 #include <stddef.h>
@@ -2994,7 +3520,10 @@ void test_segundos_a_tiempo_invalido(void)
     assert(segundos_a_tiempo(-10, &h, &m, &s) == false);
     assert(segundos_a_tiempo(100, NULL, &m, &s) == false);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-suite-segundos-tiempo -->
 
@@ -3005,25 +3534,36 @@ void test_segundos_a_tiempo_invalido(void)
 
 :::{exercise}
 :label: ej-test-suite-integradora
-Diseñá una biblioteca modular completa para la gestión de notas de un curso con las siguientes especificaciones:
+Diseñá una biblioteca modular completa para la gestión de notas de un curso con
+las siguientes especificaciones:
 1. `bool validar_nota(int nota)`: valida que la nota esté entre 1 y 10.
-2. `double calcular_promedio_curso(const int notas[], int cantidad)`: calcula el promedio de notas válidas.
-3. `int contar_aprobados(const int notas[], int cantidad, int nota_minima)`: cuenta cuántos alumnos superan o igualan la nota mínima.
+2. `double calcular_promedio_curso(const int notas[], int cantidad)`: calcula el
+   promedio de notas válidas.
+3. `int contar_aprobados(const int notas[], int cantidad, int nota_minima)`:
+   cuenta cuántos alumnos superan o igualan la nota mínima.
 4. `int estado_final_alumno(int parcial1, int parcial2, int recuperatorio)`:
-   - Si `parcial1 >= 4` y `parcial2 >= 4`, la nota final es el promedio de ambos.
-   - Si uno de los dos es $< 4$, se reemplaza la nota reprobada por la del `recuperatorio`. Si luego de esto ambas son $\ge 4$, aprueba.
-   - Retorna `-1` si algún dato es inválido, `0` si reprueba, o la nota final entera.
+   - Si `parcial1 >= 4` y `parcial2 >= 4`, la nota final es el promedio de
+     ambos.
+   - Si uno de los dos es $< 4$, se reemplaza la nota reprobada por la del
+     `recuperatorio`. Si luego de esto ambas son $\ge 4$, aprueba.
+   - Retorna `-1` si algún dato es inválido, `0` si reprueba, o la nota final
+     entera.
 
-Construí una suite integradora de pruebas unitarias automatizadas que cubra todos los caminos y bordes con un runner central.
+Construí una suite integradora de pruebas unitarias automatizadas que cubra
+todos los caminos y bordes con un runner central.
 
--   **[*plus ultra*]:** Verificar que todas las funciones sigan estrictamente el estilo Allman y no empleen variables globales.
--   **[*plus ultra*]:** Documentar cada función con etiquetas `@brief`, `@param`, `@pre`, `@returns` y `@post`.
+-   **[*plus ultra*]:** Verificar que todas las funciones sigan estrictamente el
+    estilo Allman y no empleen variables globales.
+-   **[*plus ultra*]:** Documentar cada función con etiquetas `@brief`,
+    `@param`, `@pre`, `@returns` y `@post`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-test-suite-integradora
 :class: dropdown
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -3121,7 +3661,10 @@ int main(void)
     printf("¡Suite integradora ejecutada con 100%% de éxito!\n");
     return 0;
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-test-suite-integradora -->
 
@@ -3130,9 +3673,15 @@ int main(void)
 ## Notas Finales
 
 :::{tip} Buenas Prácticas para Testing en C
-- **Funciones puras:** Diseñá funciones que dependan únicamente de sus parámetros y retornen su resultado sin alterar variables externas.
-- **Sin variables globales:** Eliminá completamente el estado global para garantizar que tus pruebas sean reproducibles y corran en cualquier orden.
-- **Aserciones específicas:** Una aserción por función de prueba para que los reportes de error identifiquen exactamente el escenario fallido.
-- **Cobertura exhaustiva:** Asegurate de contemplar casos normales, casos de borde y entradas inválidas.
+
+- **Funciones puras:** Diseñá funciones que dependan únicamente de sus
+  parámetros y retornen su resultado sin alterar variables externas.
+- **Sin variables globales:** Eliminá completamente el estado global para
+  garantizar que tus pruebas sean reproducibles y corran en cualquier orden.
+- **Aserciones específicas:** Una aserción por función de prueba para que los
+  reportes de error identifiquen exactamente el escenario fallido.
+- **Cobertura exhaustiva:** Asegurate de contemplar casos normales, casos de
+  borde y entradas inválidas.
+
 :::
 <!-- {tip} Buenas Prácticas para Testing en C -->

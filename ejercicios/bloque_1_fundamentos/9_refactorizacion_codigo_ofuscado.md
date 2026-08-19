@@ -9,9 +9,12 @@ subtitle: "Deconstrucción, análisis y transformación de código críptico a C
 ## Acerca de
 
 En el desarrollo profesional de software, la mayor parte del tiempo se destina a
-**leer, entender y mantener código existente**. Con frecuencia te encontrarás con
-código mal estructurado, con nombres crípticos de una sola letra, números mágicos
-sin explicación, anidaciones excesivas o dependencias ocultas de variables globales.
+**leer, entender y mantener código existente**. Con frecuencia te encontrarás
+con
+código mal estructurado, con nombres crípticos de una sola letra, números
+mágicos
+sin explicación, anidaciones excesivas o dependencias ocultas de variables
+globales.
 
 El objetivo de este cuadernillo es desarrollar tu agudeza analítica mediante la
 **deconstrucción y refactorización** de fragmentos de código intencionalmente
@@ -19,26 +22,38 @@ ofuscados.
 
 :::{warning} Temas de estos ejercicios
 
-Ojo que estos ejercicios contienen sintaxis que vamos a ver más adelante, en particular
+Ojo que estos ejercicios contienen sintaxis que vamos a ver más adelante, en
+particular
 matrices y arreglos.
 
 **Y están construidos con el máximo nivel de aspereza**
 
 :::
+<!-- {warning} Temas de estos ejercicios -->
 
 ### Metodología de Trabajo para Cada Ejercicio
 
 Para resolver cada ejercicio debés:
-1. **Analizar el código ofuscado:** Determinar qué hace el algoritmo, cuáles son sus datos de entrada y salida, y qué invariantes o precondiciones asume.
-2. **Identificar "olores de código" (*code smells*) y violaciones de estilo:** Nombres crípticos, operador ternario no permitido, falta de llaves Allman, variables reutilizadas, números mágicos, efectos secundarios, etc.
+1. **Analizar el código ofuscado:** Determinar qué hace el algoritmo, cuáles son
+   sus datos de entrada y salida, y qué invariantes o precondiciones asume.
+2. **Identificar "olores de código" (*code smells*) y violaciones de estilo:**
+   Nombres crípticos, operador ternario no permitido, falta de llaves Allman,
+   variables reutilizadas, números mágicos, efectos secundarios, etc.
 3. **Refactorizar a C limpio e idiomático:** Reescribir la solución aplicando:
    - Formato **Allman** ([Regla 0x000Bh](../../reglas/0_sintaxis.md#0x000bh)).
-   - Nombres autoexplicativos en `snake_case` ([Regla 0x0007h](../../reglas/0_sintaxis.md#0x0007h)).
-   - Eliminación estricta de variables globales ([Regla 0x2004h](../../reglas/2_funciones.md#0x2004h)).
-   - Cláusulas de guarda para evitar anidaciones ([Regla 0x2001h](../../reglas/2_funciones.md#0x2001h)).
-   - Constantes simbólicas para números mágicos ([Regla 0x0004h](../../reglas/0_sintaxis.md#0x0004h)).
-   - Desacople total de `printf`/`scanf` ([Regla 0x2002h](../../reglas/2_funciones.md#0x2002h)).
-4. **Diseñar una suite de pruebas con `assert()`:** Validar que la versión refactorizada preserve exactamente el comportamiento esperado ante casos normales y bordes.
+   - Nombres autoexplicativos en `snake_case` ([Regla
+     0x0007h](../../reglas/0_sintaxis.md#0x0007h)).
+   - Eliminación estricta de variables globales ([Regla
+     0x2004h](../../reglas/2_funciones.md#0x2004h)).
+   - Cláusulas de guarda para evitar anidaciones ([Regla
+     0x2001h](../../reglas/2_funciones.md#0x2001h)).
+   - Constantes simbólicas para números mágicos ([Regla
+     0x0004h](../../reglas/0_sintaxis.md#0x0004h)).
+   - Desacople total de `printf`/`scanf` ([Regla
+     0x2002h](../../reglas/2_funciones.md#0x2002h)).
+4. **Diseñar una suite de pruebas con `assert()`:** Validar que la versión
+   refactorizada preserve exactamente el comportamiento esperado ante casos
+   normales y bordes.
 
 ---
 
@@ -49,26 +64,35 @@ Para resolver cada ejercicio debés:
 
 :::{exercise}
 :label: ej-ref-maximo-comprimido
-Analizá y refactorizá la siguiente función que utiliza el operador ternario prohibido y nombres crípticos:
+Analizá y refactorizá la siguiente función que utiliza el operador ternario
+prohibido y nombres crípticos:
 
-```c
+``` c
 int f(int a,int b){return(a>b)?a:b;}
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Implementar `int obtener_mayor(int primer_numero, int segundo_numero)` con estilo Allman y `if-else`.
--   **[*plus ultra*]:** Escribir pruebas unitarias con `assert()` para números positivos, negativos e iguales.
+-   **[*plus ultra*]:** Implementar `int obtener_mayor(int primer_numero, int
+    segundo_numero)` con estilo Allman y `if-else`.
+-   **[*plus ultra*]:** Escribir pruebas unitarias con `assert()` para números
+    positivos, negativos e iguales.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-maximo-comprimido
 :class: dropdown
 **Diagnóstico:**
-- Violación de la [Regla 0x1007h](../../reglas/1_control.md#0x1007h): uso del operador ternario `?:`.
-- Violación de la [Regla 0x000Bh](../../reglas/0_sintaxis.md#0x000bh): llaves en la misma línea (no es Allman).
-- Violación de la [Regla 0x0007h](../../reglas/0_sintaxis.md#0x0007h): identificadores de una letra `f, a, b`.
+- Violación de la [Regla 0x1007h](../../reglas/1_control.md#0x1007h): uso del
+  operador ternario `?:`.
+- Violación de la [Regla 0x000Bh](../../reglas/0_sintaxis.md#0x000bh): llaves en
+  la misma línea (no es Allman).
+- Violación de la [Regla 0x0007h](../../reglas/0_sintaxis.md#0x0007h):
+  identificadores de una letra `f, a, b`.
 
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 int obtener_mayor(int primer_numero, int segundo_numero)
@@ -89,7 +113,10 @@ void test_obtener_mayor(void)
     assert(obtener_mayor(-3, -8) == -3);
     assert(obtener_mayor(7, 7) == 7);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-maximo-comprimido -->
 
@@ -102,21 +129,27 @@ void test_obtener_mayor(void)
 :label: ej-ref-area-triangulo
 Descifrá el propósito geométrico del siguiente fragmento y refactorizalo:
 
-```c
+``` c
 double x(double a,double b){return a*b/2.0;}
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Validar que las dimensiones sean estrictamente positivas retornando `-1.0` si son inválidas.
--   **[*plus ultra*]:** Documentar con etiquetas Doxygen (`@param`, `@pre`, `@returns`).
+-   **[*plus ultra*]:** Validar que las dimensiones sean estrictamente positivas
+    retornando `-1.0` si son inválidas.
+-   **[*plus ultra*]:** Documentar con etiquetas Doxygen (`@param`, `@pre`,
+    `@returns`).
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-area-triangulo
 :class: dropdown
-**Diagnóstico:** Calcula el área de un triángulo con base `a` y altura `b`. No valida dimensiones no positivas.
+**Diagnóstico:** Calcula el área de un triángulo con base `a` y altura `b`. No
+valida dimensiones no positivas.
 
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 double calcular_area_triangulo(double base, double altura)
@@ -133,7 +166,10 @@ void test_area_triangulo(void)
     assert(calcular_area_triangulo(10.0, 5.0) == 25.0);
     assert(calcular_area_triangulo(-2.0, 5.0) == -1.0);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-area-triangulo -->
 
@@ -144,23 +180,29 @@ void test_area_triangulo(void)
 
 :::{exercise}
 :label: ej-ref-suma-cuadrados
-Analizá el siguiente lazo comprimido y refactorizalo para que sea claro, robusto y testeable:
+Analizá el siguiente lazo comprimido y refactorizalo para que sea claro, robusto
+y testeable:
 
-```c
+``` c
 int p(int n){int s=0;for(int i=1;i<=n;i++)s+=i*i;return s;}
 ```
+<!-- c -->
 
 -   **[*plus ultra*]:** Validar que $n \ge 0$.
--   **[*plus ultra*]:** Comparar el resultado del lazo con la fórmula cerrada $\frac{n(n+1)(2n+1)}{6}$.
+-   **[*plus ultra*]:** Comparar el resultado del lazo con la fórmula cerrada
+    $\frac{n(n+1)(2n+1)}{6}$.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-suma-cuadrados
 :class: dropdown
-**Diagnóstico:** Calcula $\sum_{i=1}^n i^2$. Carece de espacios, llaves Allman y validación para $n < 0$.
+**Diagnóstico:** Calcula $\sum_{i=1}^n i^2$. Carece de espacios, llaves Allman y
+validación para $n < 0$.
 
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 int calcular_suma_cuadrados(int limite)
@@ -183,7 +225,10 @@ void test_suma_cuadrados(void)
     assert(calcular_suma_cuadrados(3) == 14); // 1 + 4 + 9 = 14
     assert(calcular_suma_cuadrados(-5) == -1);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-suma-cuadrados -->
 
@@ -194,23 +239,30 @@ void test_suma_cuadrados(void)
 
 :::{exercise}
 :label: ej-ref-conversion-termica
-El siguiente código intentó convertir grados Celsius a Fahrenheit, pero tiene problemas de estilo y posibles riesgos de tipos:
+El siguiente código intentó convertir grados Celsius a Fahrenheit, pero tiene
+problemas de estilo y posibles riesgos de tipos:
 
-```c
+``` c
 double k(double c){return(c*9/5)+32;}
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Reemplazar los números literales por constantes flotantes `9.0 / 5.0` y `32.0`.
--   **[*plus ultra*]:** Validar que la temperatura no sea inferior al cero absoluto ($-273.15^\circ\text{C}$).
+-   **[*plus ultra*]:** Reemplazar los números literales por constantes
+    flotantes `9.0 / 5.0` y `32.0`.
+-   **[*plus ultra*]:** Validar que la temperatura no sea inferior al cero
+    absoluto ($-273.15^\circ\text{C}$).
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-conversion-termica
 :class: dropdown
-**Diagnóstico:** Nombres opacos, falta de constantes simbólicas y sin verificación del límite físico del cero absoluto.
+**Diagnóstico:** Nombres opacos, falta de constantes simbólicas y sin
+verificación del límite físico del cero absoluto.
 
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <math.h>
 #include <stdbool.h>
@@ -241,7 +293,10 @@ void test_conversion_celsius(void)
     f = convertir_celsius_a_fahrenheit(100.0, &ok);
     assert(ok && fabs(f - 212.0) < 1e-6);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-conversion-termica -->
 
@@ -252,23 +307,30 @@ void test_conversion_celsius(void)
 
 :::{exercise}
 :label: ej-ref-suma-digitos
-Analizá el siguiente código. ¿Qué hace y cómo falla si recibe un número negativo?
+Analizá el siguiente código. ¿Qué hace y cómo falla si recibe un número
+negativo?
 
-```c
+``` c
 int d(int n){int c=0;while(n){c+=n%10;n/=10;}return c;}
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Refactorizar usando `abs()` o convirtiendo el número a positivo.
--   **[*plus ultra*]:** Escribir tests con `assert()` para números positivos, negativos y el cero.
+-   **[*plus ultra*]:** Refactorizar usando `abs()` o convirtiendo el número a
+    positivo.
+-   **[*plus ultra*]:** Escribir tests con `assert()` para números positivos,
+    negativos y el cero.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-suma-digitos
 :class: dropdown
-**Diagnóstico:** Suma los dígitos de un número. Para `-123`, `n % 10` produce restos negativos en C99+, dando una suma errónea (`-1 + -2 + -3 = -6`).
+**Diagnóstico:** Suma los dígitos de un número. Para `-123`, `n % 10` produce
+restos negativos en C99+, dando una suma errónea (`-1 + -2 + -3 = -6`).
 
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdlib.h>
 
@@ -290,7 +352,10 @@ void test_sumar_digitos(void)
     assert(sumar_digitos(-505) == 10);
     assert(sumar_digitos(0) == 0);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-suma-digitos -->
 
@@ -301,21 +366,26 @@ void test_sumar_digitos(void)
 
 :::{exercise}
 :label: ej-ref-bisiesto-criptico
-El siguiente código evalúa años bisiestos en una sola línea condensada sin validar años negativos:
+El siguiente código evalúa años bisiestos en una sola línea condensada sin
+validar años negativos:
 
-```c
+``` c
 bool b(int y){return(y%4==0&&y%100!=0)||(y%400==0);}
 ```
+<!-- c -->
 
 -   **[*plus ultra*]:** Refactorizar con cláusula de guarda para años $\le 0$.
--   **[*plus ultra*]:** Escribir una suite con tests unitarios separados para cada rama de decisión.
+-   **[*plus ultra*]:** Escribir una suite con tests unitarios separados para
+    cada rama de decisión.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-bisiesto-criptico
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdbool.h>
 
@@ -340,7 +410,10 @@ void test_es_anio_bisiesto(void)
     assert(es_anio_bisiesto(2000) == true);
     assert(es_anio_bisiesto(-4) == false);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-bisiesto-criptico -->
 
@@ -353,19 +426,23 @@ void test_es_anio_bisiesto(void)
 :label: ej-ref-gauss-inadecuado
 Refactorizá la siguiente fórmula de Gauss:
 
-```c
+``` c
 int s(int n){return n*(n+1)/2;}
 ```
+<!-- c -->
 
 -   **[*plus ultra*]:** Validar que $n \ge 0$.
--   **[*plus ultra*]:** Usar el tipo `long long` para evitar desbordamientos enteros en valores de $n > 65535$.
+-   **[*plus ultra*]:** Usar el tipo `long long` para evitar desbordamientos
+    enteros en valores de $n > 65535$.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-gauss-inadecuado
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 long long calcular_sumatoria_gauss(int limite_superior)
@@ -385,7 +462,10 @@ void test_sumatoria_gauss(void)
     assert(calcular_sumatoria_gauss(100) == 5050);
     assert(calcular_sumatoria_gauss(-5) == -1);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-gauss-inadecuado -->
 
@@ -396,21 +476,25 @@ void test_sumatoria_gauss(void)
 
 :::{exercise}
 :label: ej-ref-cilindro-magico
-Refactorizá la siguiente función que calcula el volumen de un cilindro eliminando la constante mágica y aplicando contratos:
+Refactorizá la siguiente función que calcula el volumen de un cilindro
+eliminando la constante mágica y aplicando contratos:
 
-```c
+``` c
 double v(double r,double h){return 3.14159265*r*r*h;}
 ```
+<!-- c -->
 
 -   **[*plus ultra*]:** Definir `#define CONSTANTE_PI 3.141592653589793`.
 -   **[*plus ultra*]:** Validar que radio y altura sean mayores a cero.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-cilindro-magico
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <math.h>
 
@@ -431,7 +515,10 @@ void test_volumen_cilindro(void)
     assert(fabs(vol - (CONSTANTE_PI * 10.0)) < 1e-6);
     assert(calcular_volumen_cilindro(-1.0, 5.0) == -1.0);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-cilindro-magico -->
 
@@ -444,9 +531,12 @@ void test_volumen_cilindro(void)
 
 :::{exercise}
 :label: ej-ref-arrow-code
-Refactorizá la siguiente función anidada en forma de flecha aplicando **cláusulas de guarda** según la [Regla 0x2001h](../../reglas/2_funciones.md#0x2001h):
+Refactorizá la siguiente función anidada en forma de flecha aplicando
+**cláusulas de guarda** según la [Regla
+0x2001h](../../reglas/2_funciones.md#0x2001h):
 
-```c
+```{code-block} c
+:linenos:
 int calificar(int nota, int asistencia)
 {
     int r = 0;
@@ -488,19 +578,26 @@ int calificar(int nota, int asistencia)
     }
     return r;
 }
-```
 
--   **[*plus ultra*]:** Reducir la profundidad máxima de indentación a 1 nivel dentro de la función.
--   **[*plus ultra*]:** Escribir pruebas unitarias para cada uno de los valores de retorno.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Reducir la profundidad máxima de indentación a 1 nivel
+    dentro de la función.
+-   **[*plus ultra*]:** Escribir pruebas unitarias para cada uno de los valores
+    de retorno.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-arrow-code
 :class: dropdown
-**Diagnóstico:** Anidación excesiva de 5 niveles que dificulta el seguimiento de los casos de error.
+**Diagnóstico:** Anidación excesiva de 5 niveles que dificulta el seguimiento de
+los casos de error.
 
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 #define ESTADO_NOTA_INVALIDA -1
@@ -538,7 +635,10 @@ void test_clasificar_desempenio(void)
     assert(clasificar_desempenio(80, 50) == ESTADO_LIBRE);
     assert(clasificar_desempenio(105, 80) == ESTADO_NOTA_INVALIDA);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-arrow-code -->
 
@@ -549,9 +649,11 @@ void test_clasificar_desempenio(void)
 
 :::{exercise}
 :label: ej-ref-menu-ifs
-Refactorizá la siguiente selección de opciones a una estructura `switch` clara con cláusula `default` ([Regla 0x1003h](../../reglas/1_control.md#0x1003h)):
+Refactorizá la siguiente selección de opciones a una estructura `switch` clara
+con cláusula `default` ([Regla 0x1003h](../../reglas/1_control.md#0x1003h)):
 
-```c
+```{code-block} c
+:linenos:
 double operacion(int op, double a, double b)
 {
     if (op == 1) {
@@ -567,17 +669,22 @@ double operacion(int op, double a, double b)
         return 0;
     }
 }
-```
 
--   **[*plus ultra*]:** Manejar el error de división por cero y opción inválida mediante un puntero booleano `bool *ok`.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Manejar el error de división por cero y opción inválida
+    mediante un puntero booleano `bool *ok`.
 -   **[*plus ultra*]:** Definir un `enum` con los códigos de operación.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-menu-ifs
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdbool.h>
 
@@ -625,7 +732,10 @@ void test_operaciones(void)
     calcular_operacion(OP_DIVIDIR, 10.0, 0.0, &ok);
     assert(!ok);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-menu-ifs -->
 
@@ -636,9 +746,12 @@ void test_operaciones(void)
 
 :::{exercise}
 :label: ej-ref-lazo-espagueti
-Refactorizá la siguiente función que utiliza lazos infinitos `while(1)`, variables `flag` crípticas y `break` desordenados para verificar si un número es primo:
+Refactorizá la siguiente función que utiliza lazos infinitos `while(1)`,
+variables `flag` crípticas y `break` desordenados para verificar si un número es
+primo:
 
-```c
+```{code-block} c
+:linenos:
 int check(int n)
 {
     int flag = 1;
@@ -656,10 +769,14 @@ int check(int n)
     }
     return flag;
 }
-```
 
--   **[*plus ultra*]:** Eliminar `while(1)` y `break` reemplazándolos por un lazo estructurado con condición clara.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Eliminar `while(1)` y `break` reemplazándolos por un
+    lazo estructurado con condición clara.
 -   **[*plus ultra*]:** Optimizar evaluando solo números impares después del 2.
+
 :::
 <!-- {exercise} -->
 
@@ -670,9 +787,11 @@ int check(int n)
 
 :::{exercise}
 :label: ej-ref-tarifa-taxi
-Analizá qué hace la variable `t` en el siguiente fragmento y refactorizá el cálculo declarando variables de propósito único y constantes claras:
+Analizá qué hace la variable `t` en el siguiente fragmento y refactorizá el
+cálculo declarando variables de propósito único y constantes claras:
 
-```c
+```{code-block} c
+:linenos:
 double calc(double k, int n)
 {
     double t = 150.0; // Bajada de bandera
@@ -680,17 +799,21 @@ double calc(double k, int n)
     if (n == 1) t = t * 1.20; // Recargo nocturno
     return t;
 }
+
 ```
+<!-- {code-block} c -->
 
 -   **[*plus ultra*]:** Validar que la distancia `k` no sea negativa.
 -   **[*plus ultra*]:** Documentar el cálculo con Doxygen.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-tarifa-taxi
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdbool.h>
 
@@ -720,7 +843,10 @@ void test_tarifa_taxi(void)
     assert(calcular_tarifa_taxi(10.0, true) == 1140.0);
     assert(calcular_tarifa_taxi(-5.0, false) == -1.0);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-tarifa-taxi -->
 
@@ -731,14 +857,18 @@ void test_tarifa_taxi(void)
 
 :::{exercise}
 :label: ej-ref-fecha-monolitica
-El siguiente código comprueba la validez de una fecha en una sola expresión booleana incomprensible de difícil depuración:
+El siguiente código comprueba la validez de una fecha en una sola expresión
+booleana incomprensible de difícil depuración:
 
-```c
+``` c
 bool v(int d,int m,int y){return(y>0&&m>=1&&m<=12&&d>=1)&&((m==2&&(((y%4==0&&y%100!=0)||(y%400==0))?d<=29:d<=28))||((m==4||m==6||m==9||m==11)?d<=30:d<=31));}
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Descomponer en funciones auxiliares puras `es_bisiesto` y `dias_del_mes`.
+-   **[*plus ultra*]:** Descomponer en funciones auxiliares puras `es_bisiesto`
+    y `dias_del_mes`.
 -   **[*plus ultra*]:** Escribir una suite de tests unitarios estructurada.
+
 :::
 <!-- {exercise} -->
 
@@ -751,7 +881,8 @@ bool v(int d,int m,int y){return(y>0&&m>=1&&m<=12&&d>=1)&&((m==2&&(((y%4==0&&y%1
 :label: ej-ref-descuento-solapado
 Analizá el siguiente código con condiciones redundantes y números mágicos:
 
-```c
+```{code-block} c
+:linenos:
 double desc(double m)
 {
     if (m > 0 && m < 1000) return m;
@@ -760,17 +891,22 @@ double desc(double m)
     if (m >= 10000) return m * 0.80;
     return 0;
 }
-```
 
--   **[*plus ultra*]:** Refactorizar utilizando cláusulas de guarda ordenadas sin comparaciones dobles redundantes.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Refactorizar utilizando cláusulas de guarda ordenadas
+    sin comparaciones dobles redundantes.
 -   **[*plus ultra*]:** Reemplazar los porcentajes por constantes simbólicas.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-descuento-solapado
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 #define UMBRAL_NIVEL_1 1000.0
@@ -809,7 +945,10 @@ void test_descuentos(void)
     assert(aplicar_descuento_escalonado(6000.0) == 5400.0);
     assert(aplicar_descuento_escalonado(12000.0) == 9600.0);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-descuento-solapado -->
 
@@ -820,9 +959,12 @@ void test_descuentos(void)
 
 :::{exercise}
 :label: ej-ref-contaminada-io
-La siguiente función viola la [Regla 0x2002h](../../reglas/2_funciones.md#0x2002h) porque realiza `printf` adentro del cálculo. Refactorizala para que sea una función pura y testeable:
+La siguiente función viola la [Regla
+0x2002h](../../reglas/2_funciones.md#0x2002h) porque realiza `printf` adentro
+del cálculo. Refactorizala para que sea una función pura y testeable:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 void clasificar_temperatura_ambiente(double temp)
@@ -840,17 +982,21 @@ void clasificar_temperatura_ambiente(double temp)
         printf("Caluroso\n");
     }
 }
+
 ```
+<!-- {code-block} c -->
 
 -   **[*plus ultra*]:** Retornar un `enum` o código entero descriptivo.
 -   **[*plus ultra*]:** Escribir tests unitarios con `assert()`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-contaminada-io
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 typedef enum
@@ -879,7 +1025,10 @@ void test_clasificar_clima(void)
     assert(clasificar_temperatura(18.0) == CLIMA_TEMPLADO);
     assert(clasificar_temperatura(30.0) == CLIMA_CALUROSO);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-contaminada-io -->
 
@@ -890,9 +1039,11 @@ void test_clasificar_clima(void)
 
 :::{exercise}
 :label: ej-ref-busqueda-global
-Refactorizá la siguiente función que depende de variables globales mutables para retornar la posición de un elemento en un arreglo:
+Refactorizá la siguiente función que depende de variables globales mutables para
+retornar la posición de un elemento en un arreglo:
 
-```c
+```{code-block} c
+:linenos:
 int pos_encontrada = -1;
 
 void buscar(int arr[], int n, int x)
@@ -907,17 +1058,22 @@ void buscar(int arr[], int n, int x)
         }
     }
 }
-```
 
--   **[*plus ultra*]:** Retornar el índice directamente como valor de retorno de la función pura.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Retornar el índice directamente como valor de retorno de
+    la función pura.
 -   **[*plus ultra*]:** Agregar el calificador `const` al arreglo de entrada.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-busqueda-global
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 int buscar_primera_aparicion(const int arreglo[], int cantidad_elementos, int objetivo)
@@ -942,7 +1098,10 @@ void test_buscar_aparicion(void)
     assert(buscar_primera_aparicion(datos, 4, 30) == 2);
     assert(buscar_primera_aparicion(datos, 4, 99) == -1);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-busqueda-global -->
 
@@ -955,14 +1114,18 @@ void test_buscar_aparicion(void)
 
 :::{exercise}
 :label: ej-ref-euclides-coma
-Analizá el siguiente código que usa el operador coma `,` para apretar asignaciones en un lazo:
+Analizá el siguiente código que usa el operador coma `,` para apretar
+asignaciones en un lazo:
 
-```c
+``` c
 int m(int a,int b){int t;while(b)t=b,b=a%b,a=t;return a;}
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Refactorizar en estilo Allman, con nombres claros y manejo de enteros negativos con `abs()`.
+-   **[*plus ultra*]:** Refactorizar en estilo Allman, con nombres claros y
+    manejo de enteros negativos con `abs()`.
 -   **[*plus ultra*]:** Escribir tests unitarios con `assert()`.
+
 :::
 <!-- {exercise} -->
 
@@ -975,19 +1138,23 @@ int m(int a,int b){int t;while(b)t=b,b=a%b,a=t;return a;}
 :label: ej-ref-inversor-reutilizado
 Descubrí el algoritmo y refactorizalo:
 
-```c
+``` c
 int inv(int x){int r=0;while(x>0){r=r*10+x%10;x=x/10;}return r;}
 ```
+<!-- c -->
 
 -   **[*plus ultra*]:** Manejar números negativos conservando su signo.
--   **[*plus ultra*]:** Comprobar palíndromos numéricos reutilizando esta función.
+-   **[*plus ultra*]:** Comprobar palíndromos numéricos reutilizando esta
+    función.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-inversor-reutilizado
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdlib.h>
 
@@ -1011,7 +1178,10 @@ void test_invertir_numero(void)
     assert(invertir_numero_entero(-580) == -85);
     assert(invertir_numero_entero(0) == 0);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-inversor-reutilizado -->
 
@@ -1024,19 +1194,24 @@ void test_invertir_numero(void)
 :label: ej-ref-fibonacci-micro
 Refactorizá la siguiente implementación de la secuencia de Fibonacci:
 
-```c
+``` c
 int fib(int n){int a=0,b=1,c,i;if(!n)return 0;for(i=2;i<=n;i++)c=a+b,a=b,b=c;return b;}
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Validar que $n \ge 0$ y usar `long long` para soportar términos mayores.
--   **[*plus ultra*]:** Descomponer la lógica con llaves Allman e inicialización limpia.
+-   **[*plus ultra*]:** Validar que $n \ge 0$ y usar `long long` para soportar
+    términos mayores.
+-   **[*plus ultra*]:** Descomponer la lógica con llaves Allman e inicialización
+    limpia.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-fibonacci-micro
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 long long calcular_fibonacci(int posicion)
@@ -1073,7 +1248,10 @@ void test_fibonacci(void)
     assert(calcular_fibonacci(6) == 8);
     assert(calcular_fibonacci(10) == 55);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-fibonacci-micro -->
 
@@ -1084,14 +1262,18 @@ void test_fibonacci(void)
 
 :::{exercise}
 :label: ej-ref-armstrong-desordenado
-El siguiente código verifica si un número de 3 dígitos es igual a la suma del cubo de sus dígitos, pero está escrito de forma ilegible:
+El siguiente código verifica si un número de 3 dígitos es igual a la suma del
+cubo de sus dígitos, pero está escrito de forma ilegible:
 
-```c
+``` c
 int arm(int x){int a=x/100,b=(x/10)%10,c=x%10;return(a*a*a+b*b*b+c*c*c==x)?1:0;}
 ```
+<!-- c -->
 
 -   **[*plus ultra*]:** Eliminar el ternario `?:` y retornar un `bool`.
--   **[*plus ultra*]:** Generalizar para cualquier cantidad de dígitos mediante funciones auxiliares.
+-   **[*plus ultra*]:** Generalizar para cualquier cantidad de dígitos mediante
+    funciones auxiliares.
+
 :::
 <!-- {exercise} -->
 
@@ -1104,19 +1286,23 @@ int arm(int x){int a=x/100,b=(x/10)%10,c=x%10;return(a*a*a+b*b*b+c*c*c==x)?1:0;}
 :label: ej-ref-fact-desborde
 Refactorizá la siguiente función de factorial:
 
-```c
+``` c
 long f(int n){if(n<0||n>20)return -1;long r=1;for(int i=2;i<=n;i++)r*=i;return r;}
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Reemplazar el número mágico `20` por una constante descriptiva `#define MAX_FACTORIAL_LONG 20`.
+-   **[*plus ultra*]:** Reemplazar el número mágico `20` por una constante
+    descriptiva `#define MAX_FACTORIAL_LONG 20`.
 -   **[*plus ultra*]:** Escribir tests unitarios con `assert()`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-fact-desborde
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 #define MAX_N_FACTORIAL_64BITS 20
@@ -1141,7 +1327,10 @@ void test_factorial(void)
     assert(calcular_factorial(5) == 120);
     assert(calcular_factorial(21) == -1); // Error de desbordamiento
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-fact-desborde -->
 
@@ -1152,14 +1341,17 @@ void test_factorial(void)
 
 :::{exercise}
 :label: ej-ref-perfecto-ineficiente
-Refactorizá la siguiente función que verifica números perfectos (donde la suma de divisores propios es igual al número):
+Refactorizá la siguiente función que verifica números perfectos (donde la suma
+de divisores propios es igual al número):
 
-```c
+``` c
 int perf(int n){int s=0;for(int i=1;i<n;i++){if(n%i==0)s+=i;}return s==n;}
 ```
+<!-- c -->
 
 -   **[*plus ultra*]:** Optimizar sumando divisores en pares hasta $\sqrt{n}$.
 -   **[*plus ultra*]:** Retornar un `bool` claro y documentar precondiciones.
+
 :::
 <!-- {exercise} -->
 
@@ -1172,12 +1364,16 @@ int perf(int n){int s=0;for(int i=1;i<n;i++){if(n%i==0)s+=i;}return s==n;}
 :label: ej-ref-potencia-rapida
 Descifrá el algoritmo y refactorizalo a código limpio:
 
-```c
+``` c
 double p(double b,int e){double r=1.0;int n=(e<0)?-e:e;while(n){if(n%2)r*=b;b*=b;n/=2;}return(e<0)?1.0/r:r;}
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Eliminar los operadores ternarios y usar cláusulas de guarda.
--   **[*plus ultra*]:** Escribir tests unitarios para exponentes positivos, negativos y cero.
+-   **[*plus ultra*]:** Eliminar los operadores ternarios y usar cláusulas de
+    guarda.
+-   **[*plus ultra*]:** Escribir tests unitarios para exponentes positivos,
+    negativos y cero.
+
 :::
 <!-- {exercise} -->
 
@@ -1188,22 +1384,27 @@ double p(double b,int e){double r=1.0;int n=(e<0)?-e:e;while(n){if(n%2)r*=b;b*=b
 
 :::{exercise}
 :label: ej-ref-desglose-dinero
-Refactorizá la siguiente función que calcula monedas de cambio de manera ofuscada:
+Refactorizá la siguiente función que calcula monedas de cambio de manera
+ofuscada:
 
-```c
+``` c
 int c100,c50,c10;
 void m(int x){c100=x/100;x%=100;c50=x/50;x%=50;c10=x/10;}
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Eliminar las variables globales retornando los resultados mediante parámetros o empaquetándolos en funciones atómicas.
+-   **[*plus ultra*]:** Eliminar las variables globales retornando los
+    resultados mediante parámetros o empaquetándolos en funciones atómicas.
 -   **[*plus ultra*]:** Validar que el monto no sea negativo.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-desglose-dinero
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdbool.h>
 
@@ -1229,7 +1430,10 @@ void test_desglose_cambio(void)
     bool ok = desglosar_cambio(370, &m100, &m50, &m10);
     assert(ok && m100 == 3 && m50 == 1 && m10 == 2);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-desglose-dinero -->
 
@@ -1242,9 +1446,12 @@ void test_desglose_cambio(void)
 
 :::{exercise}
 :label: ej-ref-funcion-monstruo
-La siguiente función viola el Principio de Responsabilidad Única ([Regla 0x2005h](../../reglas/2_funciones.md#0x2005h)) y mezcla E/S con cálculos. Descomponela en al menos 3 funciones atómicas puras y un `main` interactivo:
+La siguiente función viola el Principio de Responsabilidad Única ([Regla
+0x2005h](../../reglas/2_funciones.md#0x2005h)) y mezcla E/S con cálculos.
+Descomponela en al menos 3 funciones atómicas puras y un `main` interactivo:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 void facturar(double p, int cant, int tipo, double saldo)
@@ -1262,10 +1469,15 @@ void facturar(double p, int cant, int tipo, double saldo)
         printf("Saldo insuficiente\n");
     }
 }
-```
 
--   **[*plus ultra*]:** Crear `calcular_subtotal`, `calcular_descuento`, `calcular_iva` y `verificar_saldo`.
--   **[*plus ultra*]:** Escribir pruebas unitarias con `assert()` para cada función pura.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Crear `calcular_subtotal`, `calcular_descuento`,
+    `calcular_iva` y `verificar_saldo`.
+-   **[*plus ultra*]:** Escribir pruebas unitarias con `assert()` para cada
+    función pura.
+
 :::
 <!-- {exercise} -->
 
@@ -1276,9 +1488,12 @@ void facturar(double p, int cant, int tipo, double saldo)
 
 :::{exercise}
 :label: ej-ref-heron-todo-en-uno
-Refactorizá la siguiente función separando la validación geométrica, el cálculo del área por fórmula de Herón y la clasificación del triángulo en funciones independientes:
+Refactorizá la siguiente función separando la validación geométrica, el cálculo
+del área por fórmula de Herón y la clasificación del triángulo en funciones
+independientes:
 
-```c
+```{code-block} c
+:linenos:
 #include <math.h>
 
 double tri(double a, double b, double c, int *tipo)
@@ -1290,10 +1505,14 @@ double tri(double a, double b, double c, int *tipo)
     double s=(a+b+c)/2.0;
     return sqrt(s*(s-a)*(s-b)*(s-c));
 }
-```
 
--   **[*plus ultra*]:** Usar comparación con tolerancia `fabs(a - b) < 1e-6` para punto flotante.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Usar comparación con tolerancia `fabs(a - b) < 1e-6`
+    para punto flotante.
 -   **[*plus ultra*]:** Escribir tests unitarios para cada función por separado.
+
 :::
 <!-- {exercise} -->
 
@@ -1304,9 +1523,12 @@ double tri(double a, double b, double c, int *tipo)
 
 :::{exercise}
 :label: ej-ref-violacion-dry
-El siguiente programa repite tres veces la misma lógica de cálculo de segundos a HH:MM:SS en diferentes lugares. Aplicá el principio **DRY (Don't Repeat Yourself)** abstrayendo la lógica en una función reutilizable:
+El siguiente programa repite tres veces la misma lógica de cálculo de segundos a
+HH:MM:SS en diferentes lugares. Aplicá el principio **DRY (Don't Repeat
+Yourself)** abstrayendo la lógica en una función reutilizable:
 
-```c
+```{code-block} c
+:linenos:
 void imprimir_tres_horarios(int t1, int t2, int t3)
 {
     int h1 = t1 / 3600; int m1 = (t1 % 3600) / 60; int s1 = t1 % 60;
@@ -1314,17 +1536,23 @@ void imprimir_tres_horarios(int t1, int t2, int t3)
     int h3 = t3 / 3600; int m3 = (t3 % 3600) / 60; int s3 = t3 % 60;
     // ...
 }
-```
 
--   **[*plus ultra*]:** Implementar `void descomponer_segundos(int total_segundos, int *h, int *m, int *s)`.
--   **[*plus ultra*]:** Escribir pruebas unitarias para la función de descomposición.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Implementar `void descomponer_segundos(int
+    total_segundos, int *h, int *m, int *s)`.
+-   **[*plus ultra*]:** Escribir pruebas unitarias para la función de
+    descomposición.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-violacion-dry
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdbool.h>
 
@@ -1347,7 +1575,10 @@ void test_descomponer_segundos(void)
     assert(descomponer_segundos(3665, &h, &m, &s));
     assert(h == 1 && m == 1 && s == 5);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-violacion-dry -->
 
@@ -1358,9 +1589,12 @@ void test_descomponer_segundos(void)
 
 :::{exercise}
 :label: ej-ref-fsm-estados-magicos
-Refactorizá la siguiente máquina de estados que usa números enteros mágicos (`0, 1, 2, 3`) para procesar palabras, sustituyéndolos por un `enum` autoexplicativo y funciones de transición puras:
+Refactorizá la siguiente máquina de estados que usa números enteros mágicos (`0,
+1, 2, 3`) para procesar palabras, sustituyéndolos por un `enum` autoexplicativo
+y funciones de transición puras:
 
-```c
+```{code-block} c
+:linenos:
 int st = 0;
 
 void step(char c)
@@ -1370,10 +1604,13 @@ void step(char c)
     else if (st == 2 && c != ' ') st = 1;
     else if (c == '\n') st = 3;
 }
+
 ```
+<!-- {code-block} c -->
 
 -   **[*plus ultra*]:** Eliminar la variable global `st`.
 -   **[*plus ultra*]:** Escribir una suite de pruebas de transición de estados.
+
 :::
 <!-- {exercise} -->
 
@@ -1384,9 +1621,11 @@ void step(char c)
 
 :::{exercise}
 :label: ej-ref-validacion-desacoplada
-Refactorizá la siguiente función para separar la lógica de validación matemática de la lógica interactiva de reintento:
+Refactorizá la siguiente función para separar la lógica de validación matemática
+de la lógica interactiva de reintento:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 int pedir_entero_rango(int min, int max)
@@ -1403,17 +1642,22 @@ int pedir_entero_rango(int min, int max)
         while (getchar() != '\n'); // Limpia buffer
     }
 }
-```
 
--   **[*plus ultra*]:** Extraer la función pura `bool esta_en_rango(int valor, int min, int max)`.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Extraer la función pura `bool esta_en_rango(int valor,
+    int min, int max)`.
 -   **[*plus ultra*]:** Escribir tests con `assert()` para `esta_en_rango`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-validacion-desacoplada
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdbool.h>
 
@@ -1430,7 +1674,10 @@ void test_esta_en_rango(void)
     assert(esta_en_rango(0, 1, 10) == false);
     assert(esta_en_rango(11, 1, 10) == false);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-validacion-desacoplada -->
 
@@ -1441,9 +1688,11 @@ void test_esta_en_rango(void)
 
 :::{exercise}
 :label: ej-ref-tabla-multiplicar-modular
-Refactorizá la siguiente función que imprime tablas de multiplicar desacoplando la generación del producto de la salida por pantalla:
+Refactorizá la siguiente función que imprime tablas de multiplicar desacoplando
+la generación del producto de la salida por pantalla:
 
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 void tabla(int n)
@@ -1451,17 +1700,23 @@ void tabla(int n)
     for (int i = 1; i <= 10; i++)
         printf("%d x %d = %d\n", n, i, n * i);
 }
-```
 
--   **[*plus ultra*]:** Implementar `int calcular_producto(int multiplicando, int multiplicador)`.
--   **[*plus ultra*]:** Formatear las columnas en `imprimir_tabla` con ancho fijo `%2d x %2d = %4d`.
+```
+<!-- {code-block} c -->
+
+-   **[*plus ultra*]:** Implementar `int calcular_producto(int multiplicando,
+    int multiplicador)`.
+-   **[*plus ultra*]:** Formatear las columnas en `imprimir_tabla` con ancho
+    fijo `%2d x %2d = %4d`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-tabla-multiplicar-modular
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdio.h>
 
@@ -1485,7 +1740,10 @@ void test_calcular_producto(void)
     assert(calcular_producto(0, 5) == 0);
     assert(calcular_producto(-3, 4) == -12);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-tabla-multiplicar-modular -->
 
@@ -1496,22 +1754,32 @@ void test_calcular_producto(void)
 
 :::{exercise}
 :label: ej-ref-luhn-comprimido
-El siguiente código implementa el algoritmo de validación de identificación (Algoritmo de Luhn) para números enteros de longitud variable, pero fue ofuscado deliberadamente en 4 líneas densas con asignaciones dobles y operadores ternarios anidados:
+El siguiente código implementa el algoritmo de validación de identificación
+(Algoritmo de Luhn) para números enteros de longitud variable, pero fue ofuscado
+deliberadamente en 4 líneas densas con asignaciones dobles y operadores
+ternarios anidados:
 
-```c
+``` c
 int l(long long n){int s=0,c=0,d;while(n>0){d=n%10;if(c%2!=0){d*=2;if(d>9)d-=9;}s+=d;n/=10;c++;}return(s%10==0)?1:0;}
 ```
+<!-- c -->
 
 **Tu tarea:**
-1. Desentrañar cómo opera el conteo de posiciones de derecha a izquierda y la duplicación alternada.
-2. Identificar todos los code smells (nombres mudos `l, s, c, d`, ternario `?:`, falta de llaves Allman, falta de validación de entradas negativas).
+1. Desentrañar cómo opera el conteo de posiciones de derecha a izquierda y la
+   duplicación alternada.
+2. Identificar todos los code smells (nombres mudos `l, s, c, d`, ternario `?:`,
+   falta de llaves Allman, falta de validación de entradas negativas).
 3. Refactorizar el algoritmo en funciones modulares puras:
-   - `int transformar_digito_luhn(int digito)`: multiplica por 2 y resta 9 si supera 9.
-   - `bool validar_numero_luhn(long long numero_cuenta)`: calcula la suma total y verifica si es múltiplo de 10.
-4. Escribir una suite de pruebas con `assert()` que verifique números válidos e inválidos reales (ej. `49927398716` es válido).
+   - `int transformar_digito_luhn(int digito)`: multiplica por 2 y resta 9 si
+     supera 9.
+   - `bool validar_numero_luhn(long long numero_cuenta)`: calcula la suma total
+     y verifica si es múltiplo de 10.
+4. Escribir una suite de pruebas con `assert()` que verifique números válidos e
+   inválidos reales (ej. `49927398716` es válido).
 
 -   **[*plus ultra*]:** Documentar con contratos `@pre` y `@post`.
 -   **[*plus ultra*]:** Validar que números $\le 0$ retornen `false`.
+
 :::
 <!-- {exercise} -->
 
@@ -1522,24 +1790,36 @@ int l(long long n){int s=0,c=0,d;while(n>0){d=n%10;if(c%2!=0){d*=2;if(d>9)d-=9;}
 
 :::{exercise}
 :label: ej-ref-calendario-astronomico
-Analizá el siguiente bloque de código. Es un algoritmo astronómico comprimido que calcula el día de la semana (0=Domingo, 1=Lunes, ..., 6=Sábado) para cualquier fecha del calendario gregoriano utilizando la **Congruencia de Zeller** con meses ajustados (marzo=3, ..., diciembre=12, enero=13 del año anterior, febrero=14 del año anterior):
+Analizá el siguiente bloque de código. Es un algoritmo astronómico comprimido
+que calcula el día de la semana (0=Domingo, 1=Lunes, ..., 6=Sábado) para
+cualquier fecha del calendario gregoriano utilizando la **Congruencia de
+Zeller** con meses ajustados (marzo=3, ..., diciembre=12, enero=13 del año
+anterior, febrero=14 del año anterior):
 
-```c
+``` c
 int z(int d,int m,int y){if(m<3)m+=12,y--;int k=y%100,j=y/100;int h=(d+13*(m+1)/5+k+k/4+j/4+5*j)%7;return(h+6)%7;}
 ```
+<!-- c -->
 
 **Tu tarea:**
-1. Desarmar la fórmula críptica identificando qué representan `k, j, h` y la constante `13*(m+1)/5`.
-2. Validar que la fecha sea válida antes de evaluar la fórmula (usando `es_fecha_valida`).
-3. Refactorizar el cálculo en funciones puras, legibles, documentadas con Doxygen, con constantes claras y estilo Allman.
-4. Escribir una suite de pruebas con `assert()` para fechas históricas conocidas:
+1. Desarmar la fórmula críptica identificando qué representan `k, j, h` y la
+   constante `13*(m+1)/5`.
+2. Validar que la fecha sea válida antes de evaluar la fórmula (usando
+   `es_fecha_valida`).
+3. Refactorizar el cálculo en funciones puras, legibles, documentadas con
+   Doxygen, con constantes claras y estilo Allman.
+4. Escribir una suite de pruebas con `assert()` para fechas históricas
+   conocidas:
    - 25 de Mayo de 1810 $\rightarrow$ Viernes (5).
    - 9 de Julio de 1816 $\rightarrow$ Martes (2).
    - 1 de Enero de 2000 $\rightarrow$ Sábado (6).
    - 29 de Febrero de 2024 $\rightarrow$ Jueves (4).
 
--   **[*plus ultra*]:** Retornar un `enum` con los días de la semana `DIA_DOMINGO, DIA_LUNES, ...`.
--   **[*plus ultra*]:** Manejar fechas inválidas retornando `-1` o un código de error de estado.
+-   **[*plus ultra*]:** Retornar un `enum` con los días de la semana
+    `DIA_DOMINGO, DIA_LUNES, ...`.
+-   **[*plus ultra*]:** Manejar fechas inválidas retornando `-1` o un código de
+    error de estado.
+
 :::
 <!-- {exercise} -->
 
@@ -1552,21 +1832,26 @@ int z(int d,int m,int y){if(m<3)m+=12,y--;int k=y%100,j=y/100;int h=(d+13*(m+1)/
 
 :::{exercise}
 :label: ej-ref-rectangulo-asteriscos
-Analizá el siguiente código que imprime un rectángulo en consola mediante lazos anidados en una sola línea y refactorizalo:
+Analizá el siguiente código que imprime un rectángulo en consola mediante lazos
+anidados en una sola línea y refactorizalo:
 
-```c
+``` c
 void r(int w,int h){for(int i=0;i<h;i++){for(int j=0;j<w;j++)printf("*");printf("\n");}}
 ```
+<!-- c -->
 
 -   **[*plus ultra*]:** Validar que ancho y alto sean mayores a cero.
--   **[*plus ultra*]:** Modularizar la impresión de una fila de caracteres en una función auxiliar `void imprimir_fila(char c, int longitud)`.
+-   **[*plus ultra*]:** Modularizar la impresión de una fila de caracteres en
+    una función auxiliar `void imprimir_fila(char c, int longitud)`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-rectangulo-asteriscos
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <stdio.h>
 
 void imprimir_fila_caracter(char caracter, int longitud)
@@ -1589,7 +1874,10 @@ void imprimir_rectangulo(int ancho, int alto)
         imprimir_fila_caracter('*', ancho);
     }
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-rectangulo-asteriscos -->
 
@@ -1600,21 +1888,28 @@ void imprimir_rectangulo(int ancho, int alto)
 
 :::{exercise}
 :label: ej-ref-matriz-identidad
-Refactorizá la siguiente función que determina el valor de cada celda en una matriz identidad eliminando el ternario prohibido:
+Refactorizá la siguiente función que determina el valor de cada celda en una
+matriz identidad eliminando el ternario prohibido:
 
-```c
+``` c
 int id(int r,int c){return(r==c)?1:0;}
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Escribir una función pura `int obtener_valor_identidad(int fila, int columna)` con validación de índices no negativos.
--   **[*plus ultra*]:** Testear con `assert()` celdas diagonales y fuera de la diagonal.
+-   **[*plus ultra*]:** Escribir una función pura `int
+    obtener_valor_identidad(int fila, int columna)` con validación de índices no
+    negativos.
+-   **[*plus ultra*]:** Testear con `assert()` celdas diagonales y fuera de la
+    diagonal.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-matriz-identidad
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 int obtener_valor_identidad(int fila, int columna)
@@ -1637,7 +1932,10 @@ void test_valor_identidad(void)
     assert(obtener_valor_identidad(0, 3) == 0);
     assert(obtener_valor_identidad(-1, 0) == -1);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-matriz-identidad -->
 
@@ -1648,21 +1946,27 @@ void test_valor_identidad(void)
 
 :::{exercise}
 :label: ej-ref-conteo-vocales
-El siguiente código cuenta vocales en un arreglo de caracteres pero repite condiciones `if` de manera poco idiomática:
+El siguiente código cuenta vocales en un arreglo de caracteres pero repite
+condiciones `if` de manera poco idiomática:
 
-```c
+``` c
 int v(char a[], int n){int c=0;for(int i=0;i<n;i++){char x=a[i];if(x=='a'||x=='e'||x=='i'||x=='o'||x=='u'||x=='A'||x=='E'||x=='I'||x=='O'||x=='U')c++;}return c;}
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Modularizar en una función auxiliar pura `bool es_vocal(char c)` usando `switch` o `tolower()`.
--   **[*plus ultra*]:** Agregar `const` al arreglo y escribir tests con `assert()`.
+-   **[*plus ultra*]:** Modularizar en una función auxiliar pura `bool
+    es_vocal(char c)` usando `switch` o `tolower()`.
+-   **[*plus ultra*]:** Agregar `const` al arreglo y escribir tests con
+    `assert()`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-conteo-vocales
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <ctype.h>
 #include <stdbool.h>
@@ -1707,7 +2011,10 @@ void test_conteo_vocales(void)
     assert(contar_vocales_secuencia(mensaje, 9) == 4);
     assert(contar_vocales_secuencia(NULL, 0) == 0);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-conteo-vocales -->
 
@@ -1718,15 +2025,20 @@ void test_conteo_vocales(void)
 
 :::{exercise}
 :label: ej-ref-coef-binomial
-Refactorizá la siguiente función que calcula $\binom{n}{k}$ recalculando 3 factoriales completos de forma ineficiente y propensa a desbordamientos:
+Refactorizá la siguiente función que calcula $\binom{n}{k}$ recalculando 3
+factoriales completos de forma ineficiente y propensa a desbordamientos:
 
-```c
+``` c
 long long fact(int n){long long r=1;for(int i=2;i<=n;i++)r*=i;return r;}
 long long binom(int n,int k){if(k<0||k>n)return 0;return fact(n)/(fact(k)*fact(n-k));}
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Optimizar calculando $\binom{n}{k} = \prod_{i=1}^k \frac{n - k + i}{i}$ para evitar desbordamientos prematuros.
--   **[*plus ultra*]:** Escribir tests unitarios para $\binom{5}{2} = 10$, $\binom{10}{0} = 1$ y $\binom{20}{5} = 15504$.
+-   **[*plus ultra*]:** Optimizar calculando $\binom{n}{k} = \prod_{i=1}^k
+    \frac{n - k + i}{i}$ para evitar desbordamientos prematuros.
+-   **[*plus ultra*]:** Escribir tests unitarios para $\binom{5}{2} = 10$,
+    $\binom{10}{0} = 1$ y $\binom{20}{5} = 15504$.
+
 :::
 <!-- {exercise} -->
 
@@ -1737,26 +2049,33 @@ long long binom(int n,int k){if(k<0||k>n)return 0;return fact(n)/(fact(k)*fact(n
 
 :::{exercise}
 :label: ej-ref-primos-gemelos
-Refactorizá la siguiente función que utiliza variables globales para verificar si dos números son primos gemelos ($p_2 = p_1 + 2$):
+Refactorizá la siguiente función que utiliza variables globales para verificar
+si dos números son primos gemelos ($p_2 = p_1 + 2$):
 
-```c
+```{code-block} c
+:linenos:
 int g_p1, g_p2;
 int son_gem(void)
 {
     if (g_p2 != g_p1 + 2) return 0;
     // ...
 }
+
 ```
+<!-- {code-block} c -->
 
 -   **[*plus ultra*]:** Reutilizar una función pura `bool es_primo(int n)`.
--   **[*plus ultra*]:** Diseñar `bool son_primos_gemelos(int primer_numero, int segundo_numero)` sin variables globales.
+-   **[*plus ultra*]:** Diseñar `bool son_primos_gemelos(int primer_numero, int
+    segundo_numero)` sin variables globales.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-primos-gemelos
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdbool.h>
 
@@ -1800,7 +2119,10 @@ void test_primos_gemelos(void)
     assert(son_primos_gemelos(7, 9) == false);
     assert(son_primos_gemelos(4, 6) == false);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-primos-gemelos -->
 
@@ -1811,14 +2133,18 @@ void test_primos_gemelos(void)
 
 :::{exercise}
 :label: ej-ref-criba-estatica
-Refactorizá la siguiente función que llena un arreglo indicando la cantidad de divisores propios de cada número:
+Refactorizá la siguiente función que llena un arreglo indicando la cantidad de
+divisores propios de cada número:
 
-```c
+``` c
 void c(int a[],int n){for(int i=1;i<=n;i++){a[i-1]=0;for(int j=1;j<i;j++)if(i%j==0)a[i-1]++;}}
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Descomponer en `int contar_divisores_propios(int n)` y `void llenar_tabla_divisores(int tabla[], int n)`.
+-   **[*plus ultra*]:** Descomponer en `int contar_divisores_propios(int n)` y
+    `void llenar_tabla_divisores(int tabla[], int n)`.
 -   **[*plus ultra*]:** Validar que `n > 0` y puntero no nulo.
+
 :::
 <!-- {exercise} -->
 
@@ -1829,21 +2155,27 @@ void c(int a[],int n){for(int i=1;i<=n;i++){a[i-1]=0;for(int j=1;j<i;j++)if(i%j=
 
 :::{exercise}
 :label: ej-ref-suma-diagonales
-Refactorizá la siguiente función que suma la diagonal principal y secundaria de una matriz cuadrada de tamaño $N \times N$ representada en un arreglo unidimensional plano (`arr[i * n + j]`):
+Refactorizá la siguiente función que suma la diagonal principal y secundaria de
+una matriz cuadrada de tamaño $N \times N$ representada en un arreglo
+unidimensional plano (`arr[i * n + j]`):
 
-```c
+``` c
 int d(int a[],int n){int s=0;for(int i=0;i<n;i++)s+=a[i*n+i]+a[i*n+(n-1-i)];if(n%2!=0)s-=a[(n/2)*n+(n/2)];return s;}
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Explicar por qué se resta el elemento central cuando $n$ es impar.
+-   **[*plus ultra*]:** Explicar por qué se resta el elemento central cuando $n$
+    es impar.
 -   **[*plus ultra*]:** Refactorizar en estilo Allman con nombres claros.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-suma-diagonales
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stddef.h>
 
@@ -1879,7 +2211,10 @@ void test_suma_diagonales(void)
     int m3[9] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
     assert(calcular_suma_diagonales(m3, 3) == 25);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-suma-diagonales -->
 
@@ -1890,14 +2225,19 @@ void test_suma_diagonales(void)
 
 :::{exercise}
 :label: ej-ref-collatz-caotica
-Refactorizá la siguiente función que cuenta la cantidad de pasos hasta llegar a 1 en la secuencia de Collatz ($3n+1$), la cual mezcla ternarios y lazos `while(1)`:
+Refactorizá la siguiente función que cuenta la cantidad de pasos hasta llegar a
+1 en la secuencia de Collatz ($3n+1$), la cual mezcla ternarios y lazos
+`while(1)`:
 
-```c
+``` c
 int col(long long n){int c=0;if(n<=0)return -1;while(1){if(n==1)break;n=(n%2==0)?n/2:3*n+1;c++;}return c;}
 ```
+<!-- c -->
 
 -   **[*plus ultra*]:** Eliminar el ternario y el `while(1)`.
--   **[*plus ultra*]:** Escribir tests con `assert()` para `col(1) == 0`, `col(6) == 8` y `col(27) == 111`.
+-   **[*plus ultra*]:** Escribir tests con `assert()` para `col(1) == 0`,
+    `col(6) == 8` y `col(27) == 111`.
+
 :::
 <!-- {exercise} -->
 
@@ -1908,21 +2248,26 @@ int col(long long n){int c=0;if(n<=0)return -1;while(1){if(n==1)break;n=(n%2==0)
 
 :::{exercise}
 :label: ej-ref-transposicion-matriz
-Refactorizá la siguiente función que transpone una matriz $3 \times 3$ en un arreglo destino:
+Refactorizá la siguiente función que transpone una matriz $3 \times 3$ en un
+arreglo destino:
 
-```c
+``` c
 void t(int s[9],int d[9]){for(int i=0;i<3;i++)for(int j=0;j<3;j++)d[j*3+i]=s[i*3+j];}
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Definir constantes `#define MAT_FILAS 3` y `#define MAT_COLUMNAS 3`.
+-   **[*plus ultra*]:** Definir constantes `#define MAT_FILAS 3` y `#define
+    MAT_COLUMNAS 3`.
 -   **[*plus ultra*]:** Escribir una suite de tests con `assert()`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-transposicion-matriz
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stddef.h>
 
@@ -1956,7 +2301,10 @@ void test_transposicion_3x3(void)
     assert(dest[3] == 2 && dest[4] == 5 && dest[5] == 8);
     assert(dest[6] == 3 && dest[7] == 6 && dest[8] == 9);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-transposicion-matriz -->
 
@@ -1967,19 +2315,26 @@ void test_transposicion_3x3(void)
 
 :::{exercise}
 :label: ej-ref-multiplicacion-matrices
-Analizá y refactorizá la siguiente función que multiplica dos matrices cuadradas de tamaño $N \times N$ representadas en arreglos unidimensionales planos:
+Analizá y refactorizá la siguiente función que multiplica dos matrices cuadradas
+de tamaño $N \times N$ representadas en arreglos unidimensionales planos:
 
-```c
+``` c
 void mx(int a[],int b[],int c[],int n){for(int i=0;i<n;i++)for(int j=0;j<n;j++){int s=0;for(int k=0;k<n;k++)s+=a[i*n+k]*b[k*n+j];c[i*n+j]=s;}}
 ```
+<!-- c -->
 
 **Tu tarea:**
-1. Descomponer el triple lazo anidado aplicando estilo Allman riguroso y nombres autoexplicativos (`fila, columna, indice_k`).
+1. Descomponer el triple lazo anidado aplicando estilo Allman riguroso y nombres
+   autoexplicativos (`fila, columna, indice_k`).
 2. Validar que los punteros no sean nulos y que la dimensión $N > 0$.
-3. Escribir una función auxiliar para calcular el producto escalar entre una fila de $A$ y una columna de $B$.
-4. Diseñar pruebas unitarias con `assert()` multiplicando matrices identidad y matrices con números enteros conocidos.
+3. Escribir una función auxiliar para calcular el producto escalar entre una
+   fila de $A$ y una columna de $B$.
+4. Diseñar pruebas unitarias con `assert()` multiplicando matrices identidad y
+   matrices con números enteros conocidos.
 
--   **[*plus ultra*]:** Documentar con Doxygen precondiciones de no solapamiento de punteros.
+-   **[*plus ultra*]:** Documentar con Doxygen precondiciones de no solapamiento
+    de punteros.
+
 :::
 <!-- {exercise} -->
 
@@ -1994,19 +2349,23 @@ void mx(int a[],int b[],int c[],int n){for(int i=0;i<n;i++)for(int j=0;j<n;j++){
 :label: ej-ref-hora-militar
 Refactorizá la siguiente función de validación de horarios en formato 24 horas:
 
-```c
+``` c
 int ch(int h,int m,int s){return(h>=0&&h<24&&m>=0&&m<60&&s>=0&&s<60)?1:0;}
 ```
+<!-- c -->
 
 -   **[*plus ultra*]:** Retornar un `bool` y eliminar el operador ternario.
--   **[*plus ultra*]:** Usar constantes para los límites `#define MAX_HORAS 24`, `#define MAX_MINUTOS 60`.
+-   **[*plus ultra*]:** Usar constantes para los límites `#define MAX_HORAS 24`,
+    `#define MAX_MINUTOS 60`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-hora-militar
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stdbool.h>
 
@@ -2041,7 +2400,10 @@ void test_es_horario_valido(void)
     assert(es_horario_valido(24, 0, 0) == false);
     assert(es_horario_valido(12, -1, 0) == false);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-hora-militar -->
 
@@ -2052,21 +2414,26 @@ void test_es_horario_valido(void)
 
 :::{exercise}
 :label: ej-ref-atoi-casero
-Refactorizá la siguiente función que parsea una secuencia de dígitos ASCII a un entero:
+Refactorizá la siguiente función que parsea una secuencia de dígitos ASCII a un
+entero:
 
-```c
+``` c
 int parse(char s[], int n){int r=0,i=0,sg=1;if(s[0]=='-'){sg=-1;i=1;}for(;i<n;i++)r=r*10+(s[i]-'0');return r*sg;}
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Validar que todos los caracteres entre `i` y `n` sean efectivamente dígitos con `isdigit()`.
+-   **[*plus ultra*]:** Validar que todos los caracteres entre `i` y `n` sean
+    efectivamente dígitos con `isdigit()`.
 -   **[*plus ultra*]:** Retornar un código de estado booleano `bool *exito`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-atoi-casero
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <ctype.h>
 #include <stdbool.h>
@@ -2125,7 +2492,10 @@ void test_convertir_a_entero(void)
     convertir_caracteres_a_entero(inv, 4, &ok);
     assert(!ok);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-atoi-casero -->
 
@@ -2136,14 +2506,18 @@ void test_convertir_a_entero(void)
 
 :::{exercise}
 :label: ej-ref-ipv4-caotico
-Refactorizá la siguiente función que valida si 4 enteros representan una dirección IPv4 válida ($0 \le x \le 255$):
+Refactorizá la siguiente función que valida si 4 enteros representan una
+dirección IPv4 válida ($0 \le x \le 255$):
 
-```c
+``` c
 int v4(int a,int b,int c,int d){if(a<0||a>255)return 0;if(b<0||b>255)return 0;if(c<0||c>255)return 0;if(d<0||d>255)return 0;return 1;}
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Extraer la función pura `bool es_octeto_valido(int octeto)` (principio DRY).
+-   **[*plus ultra*]:** Extraer la función pura `bool es_octeto_valido(int
+    octeto)` (principio DRY).
 -   **[*plus ultra*]:** Retornar un `bool` e incluir tests unitarios.
+
 :::
 <!-- {exercise} -->
 
@@ -2154,21 +2528,25 @@ int v4(int a,int b,int c,int d){if(a<0||a>255)return 0;if(b<0||b>255)return 0;if
 
 :::{exercise}
 :label: ej-ref-cuit-modulo11
-Refactorizá el siguiente cálculo del dígito verificador de un CUIT argentino de 10 dígitos (factores: `5, 4, 3, 2, 7, 6, 5, 4, 3, 2`):
+Refactorizá el siguiente cálculo del dígito verificador de un CUIT argentino de
+10 dígitos (factores: `5, 4, 3, 2, 7, 6, 5, 4, 3, 2`):
 
-```c
+``` c
 int dv(int d[10]){int f[10]={5,4,3,2,7,6,5,4,3,2},s=0;for(int i=0;i<10;i++)s+=d[i]*f[i];int r=11-(s%11);if(r==11)return 0;if(r==10)return 9;return r;}
 ```
+<!-- c -->
 
 -   **[*plus ultra*]:** Aplicar estilo Allman y nombres descriptivos.
 -   **[*plus ultra*]:** Validar con `assert()` para CUITs conocidos.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-cuit-modulo11
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <stddef.h>
 
@@ -2212,7 +2590,10 @@ void test_cuit_verificador(void)
     int dv = calcular_digito_verificador_cuit(digitos_test);
     assert(dv >= 0 && dv <= 9);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-cuit-modulo11 -->
 
@@ -2223,14 +2604,18 @@ void test_cuit_verificador(void)
 
 :::{exercise}
 :label: ej-ref-compactar-espacios
-Refactorizá la siguiente función que copia caracteres de `orig` a `dest` colapsando múltiples espacios consecutivos en uno solo:
+Refactorizá la siguiente función que copia caracteres de `orig` a `dest`
+colapsando múltiples espacios consecutivos en uno solo:
 
-```c
+``` c
 int comp(char o[],int n,char d[]){int j=0,e=0;for(int i=0;i<n;i++){if(o[i]==' '){if(!e){d[j++]=' ';e=1;}}else{d[j++]=o[i];e=0;}}return j;}
 ```
+<!-- c -->
 
 -   **[*plus ultra*]:** Retornar la nueva longitud escrita en `d`.
--   **[*plus ultra*]:** Escribir tests con `assert()` verificando secuencias con múltiples espacios.
+-   **[*plus ultra*]:** Escribir tests con `assert()` verificando secuencias con
+    múltiples espacios.
+
 :::
 <!-- {exercise} -->
 
@@ -2241,21 +2626,25 @@ int comp(char o[],int n,char d[]){int j=0,e=0;for(int i=0;i<n;i++){if(o[i]==' ')
 
 :::{exercise}
 :label: ej-ref-fortaleza-password
-Refactorizá la siguiente función que evalúa si una contraseña en arreglo tiene al menos 8 caracteres, al menos una mayúscula y al menos un dígito:
+Refactorizá la siguiente función que evalúa si una contraseña en arreglo tiene
+al menos 8 caracteres, al menos una mayúscula y al menos un dígito:
 
-```c
+``` c
 int pass(char p[],int n){int u=0,d=0;if(n<8)return 0;for(int i=0;i<n;i++){if(p[i]>='A'&&p[i]<='Z')u=1;if(p[i]>='0'&&p[i]<='9')d=1;}return(u&&d)?1:0;}
 ```
+<!-- c -->
 
 -   **[*plus ultra*]:** Usar `isupper()` e `isdigit()` de `<ctype.h>`.
 -   **[*plus ultra*]:** Retornar un `bool` y estructurar con contratos.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-fortaleza-password
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 #include <ctype.h>
 #include <stdbool.h>
@@ -2299,7 +2688,10 @@ void test_fortaleza_clave(void)
     char c3[] = {'p', 'a', 's', 's', 'w', 'o', 'r', 'd', 's'};
     assert(validar_fortaleza_clave(c3, 9) == false);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-fortaleza-password -->
 
@@ -2310,9 +2702,11 @@ void test_fortaleza_clave(void)
 
 :::{exercise}
 :label: ej-ref-rle-numerico
-Refactorizá la siguiente función que decodifica pares `(valor, repeticiones)` en un arreglo plano:
+Refactorizá la siguiente función que decodifica pares `(valor, repeticiones)` en
+un arreglo plano:
 
-```c
+```{code-block} c
+:linenos:
 int rle_dec(int pares[], int n_pares, int sal[], int max_sal)
 {
     int k=0;
@@ -2325,10 +2719,13 @@ int rle_dec(int pares[], int n_pares, int sal[], int max_sal)
     }
     return k;
 }
+
 ```
+<!-- {code-block} c -->
 
 -   **[*plus ultra*]:** Validar que `rep >= 0` y no desborde `max_sal`.
 -   **[*plus ultra*]:** Aplicar estilo Allman estricto y nombres descriptivos.
+
 :::
 <!-- {exercise} -->
 
@@ -2339,21 +2736,27 @@ int rle_dec(int pares[], int n_pares, int sal[], int max_sal)
 
 :::{exercise}
 :label: ej-ref-romanos-basicos
-Refactorizá la siguiente función que convierte un carácter romano individual a su valor numérico:
+Refactorizá la siguiente función que convierte un carácter romano individual a
+su valor numérico:
 
-```c
+``` c
 int r2d(char c){if(c=='I')return 1;if(c=='V')return 5;if(c=='X')return 10;if(c=='L')return 50;if(c=='C')return 100;if(c=='D')return 500;if(c=='M')return 1000;return 0;}
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Refactorizar a un `switch` con cláusula `default` retornando `-1` ante error ([Regla 0x1003h](../../reglas/1_control.md#0x1003h)).
+-   **[*plus ultra*]:** Refactorizar a un `switch` con cláusula `default`
+    retornando `-1` ante error ([Regla
+    0x1003h](../../reglas/1_control.md#0x1003h)).
 -   **[*plus ultra*]:** Escribir tests unitarios con `assert()`.
+
 :::
 <!-- {exercise} -->
 
 :::{solution} ej-ref-romanos-basicos
 :class: dropdown
 **Código Refactorizado:**
-```c
+```{code-block} c
+:linenos:
 #include <assert.h>
 
 int obtener_valor_simbolo_romano(char simbolo)
@@ -2385,7 +2788,10 @@ void test_simbolos_romanos(void)
     assert(obtener_valor_simbolo_romano('M') == 1000);
     assert(obtener_valor_simbolo_romano('A') == -1);
 }
+
 ```
+<!-- {code-block} c -->
+
 :::
 <!-- {solution} ej-ref-romanos-basicos -->
 
@@ -2396,17 +2802,23 @@ void test_simbolos_romanos(void)
 
 :::{exercise}
 :label: ej-ref-checksum-paridad
-Analizá el siguiente algoritmo que calcula la suma de verificación módulo 256 con residuo ajustado sobre un bloque de datos:
+Analizá el siguiente algoritmo que calcula la suma de verificación módulo 256
+con residuo ajustado sobre un bloque de datos:
 
-```c
+``` c
 int chk(int d[],int n){int s=0;for(int i=0;i<n;i++)s=(s+d[i])%256;return(256-s)%256;}
 ```
+<!-- c -->
 
 **Tu tarea:**
-1. Determinar cómo este checksum asegura que la suma de todos los datos más el checksum sea congruente con 0 módulo 256.
-2. Refactorizar la función en estilo Allman con constantes simbólicas `#define MODULO_CHECKSUM 256`.
+1. Determinar cómo este checksum asegura que la suma de todos los datos más el
+   checksum sea congruente con 0 módulo 256.
+2. Refactorizar la función en estilo Allman con constantes simbólicas `#define
+   MODULO_CHECKSUM 256`.
 3. Validar entradas negativas o punteros nulos.
-4. Escribir tests unitarios que verifiquen la invariante $\sum \text{datos} + \text{checksum} \equiv 0 \pmod{256}$.
+4. Escribir tests unitarios que verifiquen la invariante $\sum \text{datos} +
+   \text{checksum} \equiv 0 \pmod{256}$.
+
 :::
 <!-- {exercise} -->
 
@@ -2417,17 +2829,25 @@ int chk(int d[],int n){int s=0;for(int i=0;i<n;i++)s=(s+d[i])%256;return(256-s)%
 
 :::{exercise}
 :label: ej-ref-mini-interprete
-El siguiente código implementa una máquina virtual de pila simple para evaluar expresiones en notación postfija con 4 códigos (`1=PUSH`, `2=ADD`, `3=SUB`, `4=HALT`):
+El siguiente código implementa una máquina virtual de pila simple para evaluar
+expresiones en notación postfija con 4 códigos (`1=PUSH`, `2=ADD`, `3=SUB`,
+`4=HALT`):
 
-```c
+``` c
 int vm(int prg[],int n){int st[32],top=0;for(int i=0;i<n;i++){int op=prg[i];if(op==1)st[top++]=prg[++i];else if(op==2){int b=st[--top],a=st[--top];st[top++]=a+b;}else if(op==3){int b=st[--top],a=st[--top];st[top++]=a-b;}else if(op==4)break;}return st[top-1];}
 ```
+<!-- c -->
 
 **Tu tarea:**
-1. Identificar riesgos de desbordamiento de pila (*stack overflow* y *stack underflow*).
-2. Refactorizar usando un `enum` con los opcodes `OP_PUSH, OP_ADD, OP_SUB, OP_HALT`.
-3. Extraer funciones auxiliares seguras para `push` y `pop` con verificación de límites.
-4. Escribir tests unitarios que ejecuten programas de prueba válidos y detecten programas con errores.
+1. Identificar riesgos de desbordamiento de pila (*stack overflow* y *stack
+   underflow*).
+2. Refactorizar usando un `enum` con los opcodes `OP_PUSH, OP_ADD, OP_SUB,
+   OP_HALT`.
+3. Extraer funciones auxiliares seguras para `push` y `pop` con verificación de
+   límites.
+4. Escribir tests unitarios que ejecuten programas de prueba válidos y detecten
+   programas con errores.
+
 :::
 <!-- {exercise} -->
 
@@ -2440,9 +2860,11 @@ int vm(int prg[],int n){int st[32],top=0;for(int i=0;i<n;i++){int op=prg[i];if(o
 
 :::{exercise}
 :label: ej-ref-conversor-base
-Refactorizá la siguiente función que convierte un entero positivo a sus dígitos en una base entre 2 y 16:
+Refactorizá la siguiente función que convierte un entero positivo a sus dígitos
+en una base entre 2 y 16:
 
-```c
+```{code-block} c
+:linenos:
 int base_conv(int n, int b, char out[], int max_len)
 {
     char dig[]="0123456789ABCDEF"; int len=0;
@@ -2451,10 +2873,14 @@ int base_conv(int n, int b, char out[], int max_len)
     for(int i=0;i<len/2;i++){ char t=out[i]; out[i]=out[len-1-i]; out[len-1-i]=t; }
     return len;
 }
+
 ```
+<!-- {code-block} c -->
 
 -   **[*plus ultra*]:** Validar que $2 \le b \le 16$ y $n \ge 0$.
--   **[*plus ultra*]:** Modularizar la inversión del arreglo en una función `invertir_arreglo_char`.
+-   **[*plus ultra*]:** Modularizar la inversión del arreglo en una función
+    `invertir_arreglo_char`.
+
 :::
 <!-- {exercise} -->
 
@@ -2465,14 +2891,17 @@ int base_conv(int n, int b, char out[], int max_len)
 
 :::{exercise}
 :label: ej-ref-busqueda-binaria-overflow
-El siguiente código implementa búsqueda binaria pero utiliza el cálculo riesgoso `int m = (l + r) / 2` que puede desbordar enteros grandes:
+El siguiente código implementa búsqueda binaria pero utiliza el cálculo riesgoso
+`int m = (l + r) / 2` que puede desbordar enteros grandes:
 
-```c
+``` c
 int bsearch(int a[],int n,int x){int l=0,r=n-1;while(l<=r){int m=(l+r)/2;if(a[m]==x)return m;if(a[m]<x)l=m+1;else r=m-1;}return -1;}
 ```
+<!-- c -->
 
 -   **[*plus ultra*]:** Reemplazar por `int medio = l + (r - l) / 2;`.
 -   **[*plus ultra*]:** Agregar `const` al arreglo y formatear en Allman.
+
 :::
 <!-- {exercise} -->
 
@@ -2483,16 +2912,20 @@ int bsearch(int a[],int n,int x){int l=0,r=n-1;while(l<=r){int m=(l+r)/2;if(a[m]
 
 :::{exercise}
 :label: ej-ref-burbuja-temprana
-Refactorizá la siguiente función de ordenamiento burbuja escrita en un solo lazo críptico:
+Refactorizá la siguiente función de ordenamiento burbuja escrita en un solo lazo
+críptico:
 
-```c
+``` c
 void bsort(int a[],int n){int s=1;while(s){s=0;for(int i=0;i<n-1;i++)if(a[i]>a[i+1]){int t=a[i];a[i]=a[i+1];a[i+1]=t;s=1;}}}
 ```
+<!-- c -->
 
 **Tu tarea:**
 1. Descomponer el algoritmo en dos lazos estructurados `for` en estilo Allman.
 2. Extraer la función auxiliar pura `void intercambiar_enteros(int *a, int *b)`.
-3. Escribir tests unitarios con `assert()` verificando arreglos desordenados, ordenados e invertidos.
+3. Escribir tests unitarios con `assert()` verificando arreglos desordenados,
+   ordenados e invertidos.
+
 :::
 <!-- {exercise} -->
 
@@ -2503,17 +2936,22 @@ void bsort(int a[],int n){int s=1;while(s){s=0;for(int i=0;i<n-1;i++)if(a[i]>a[i
 
 :::{exercise}
 :label: ej-ref-kadane-comprimido
-Analizá el siguiente algoritmo que calcula la suma máxima de un subarreglo contiguo (Algoritmo de Kadane) en una sola línea ofuscada:
+Analizá el siguiente algoritmo que calcula la suma máxima de un subarreglo
+contiguo (Algoritmo de Kadane) en una sola línea ofuscada:
 
-```c
+``` c
 int kad(int a[],int n){int m=a[0],c=a[0];for(int i=1;i<n;i++)c=(a[i]>c+a[i])?a[i]:c+a[i],m=(c>m)?c:m;return m;}
 ```
+<!-- c -->
 
 **Tu tarea:**
 1. Eliminar los operadores ternarios y el operador coma `,`.
-2. Escribir la lógica en estilo Allman con nombres claros (`maximo_global, maximo_actual`).
+2. Escribir la lógica en estilo Allman con nombres claros (`maximo_global,
+   maximo_actual`).
 3. Validar que $N > 0$ y puntero no nulo.
-4. Escribir tests unitarios para arreglos con números positivos, negativos y mixtos (ej. `{-2, 1, -3, 4, -1, 2, 1, -5, 4}` da `6`).
+4. Escribir tests unitarios para arreglos con números positivos, negativos y
+   mixtos (ej. `{-2, 1, -3, 4, -1, 2, 1, -5, 4}` da `6`).
+
 :::
 <!-- {exercise} -->
 
@@ -2524,14 +2962,19 @@ int kad(int a[],int n){int m=a[0],c=a[0];for(int i=1;i<n;i++)c=(a[i]>c+a[i])?a[i
 
 :::{exercise}
 :label: ej-ref-lcg-pseudoaleatorio
-Refactorizá la siguiente función que genera el siguiente número pseudoaleatorio usando la fórmula $X_{n+1} = (a X_n + c) \pmod m$:
+Refactorizá la siguiente función que genera el siguiente número pseudoaleatorio
+usando la fórmula $X_{n+1} = (a X_n + c) \pmod m$:
 
-```c
+``` c
 int lcg(int seed){return(seed*1103515245+12345)&0x7FFFFFFF;}
 ```
+<!-- c -->
 
--   **[*plus ultra*]:** Reemplazar constantes mágicas por `#define LCG_MULTIPLICADOR` y `#define LCG_INCREMENTO`.
--   **[*plus ultra*]:** Diseñar la función pura `int generar_siguiente_aleatorio(int semilla_actual)`.
+-   **[*plus ultra*]:** Reemplazar constantes mágicas por `#define
+    LCG_MULTIPLICADOR` y `#define LCG_INCREMENTO`.
+-   **[*plus ultra*]:** Diseñar la función pura `int
+    generar_siguiente_aleatorio(int semilla_actual)`.
+
 :::
 <!-- {exercise} -->
 
@@ -2544,14 +2987,17 @@ int lcg(int seed){return(seed*1103515245+12345)&0x7FFFFFFF;}
 :label: ej-ref-insercion-compacto
 Refactorizá la siguiente implementación de Insertion Sort:
 
-```c
+``` c
 void isort(int a[],int n){for(int i=1;i<n;i++){int k=a[i],j=i-1;while(j>=0&&a[j]>k){a[j+1]=a[j];j--;}a[j+1]=k;}}
 ```
+<!-- c -->
 
 **Tu tarea:**
 1. Formatear en estilo Allman con llaves explícitas en todos los bloques.
 2. Renombrar variables (`elemento_clave, indice_anterior`).
-3. Escribir tests unitarios que validen el orden no decreciente del arreglo tras la ejecución.
+3. Escribir tests unitarios que validen el orden no decreciente del arreglo tras
+   la ejecución.
+
 :::
 <!-- {exercise} -->
 
@@ -2562,16 +3008,20 @@ void isort(int a[],int n){for(int i=1;i<n;i++){int k=a[i],j=i-1;while(j>=0&&a[j]
 
 :::{exercise}
 :label: ej-ref-distancias-vectores
-Refactorizá la siguiente función que calcula distancias entre dos vectores de $N$ dimensiones según un selector de modo:
+Refactorizá la siguiente función que calcula distancias entre dos vectores de
+$N$ dimensiones según un selector de modo:
 
-```c
+``` c
 double dist(double a[],double b[],int n,int m){double s=0;for(int i=0;i<n;i++){double d=fabs(a[i]-b[i]);s+=(m==1)?d:d*d;}return(m==1)?s:sqrt(s);}
 ```
+<!-- c -->
 
 **Tu tarea:**
-1. Descomponer en dos funciones puras independientes: `calcular_distancia_manhattan` y `calcular_distancia_euclidiana`.
+1. Descomponer en dos funciones puras independientes:
+   `calcular_distancia_manhattan` y `calcular_distancia_euclidiana`.
 2. Eliminar el parámetro selector `m` y los operadores ternarios.
 3. Escribir tests unitarios con `assert()` comparando con tolerancia `1e-6`.
+
 :::
 <!-- {exercise} -->
 
@@ -2582,16 +3032,20 @@ double dist(double a[],double b[],int n,int m){double s=0;for(int i=0;i<n;i++){d
 
 :::{exercise}
 :label: ej-ref-componentes-conexas-1d
-El siguiente código cuenta cuántas secuencias continuas de números positivos existen en un arreglo:
+El siguiente código cuenta cuántas secuencias continuas de números positivos
+existen en un arreglo:
 
-```c
+``` c
 int comp1d(int a[],int n){int c=0,in=0;for(int i=0;i<n;i++){if(a[i]>0&&!in){c++;in=1;}else if(a[i]<=0){in=0;}}return c;}
 ```
+<!-- c -->
 
 **Tu tarea:**
-1. Refactorizar aplicando estilo Allman y nombres booleanos claros (`en_segmento_positivo`).
+1. Refactorizar aplicando estilo Allman y nombres booleanos claros
+   (`en_segmento_positivo`).
 2. Validar casos de borde: todo positivo, todo negativo, arreglo vacío.
 3. Escribir tests unitarios estructurados.
+
 :::
 <!-- {exercise} -->
 
@@ -2602,17 +3056,20 @@ int comp1d(int a[],int n){int c=0,in=0;for(int i=0;i<n;i++){if(a[i]>0&&!in){c++;
 
 :::{exercise}
 :label: ej-ref-conway-vecinos
-Analizá y refactorizá la siguiente función que cuenta los vecinos vivos (valor 1) alrededor de una celda $(r, c)$ en una cuadrícula $5 \times 5$:
+Analizá y refactorizá la siguiente función que cuenta los vecinos vivos (valor
+1) alrededor de una celda $(r, c)$ en una cuadrícula $5 \times 5$:
 
-```c
+``` c
 int nb(int g[25],int r,int c){int cnt=0;for(int dr=-1;dr<=1;dr++)for(int dc=-1;dc<=1;dc++){if(!dr&&!dc)continue;int nr=r+dr,nc=c+dc;if(nr>=0&&nr<5&&nc>=0&&nc<5)cnt+=g[nr*5+nc];}return cnt;}
 ```
+<!-- c -->
 
 **Tu tarea:**
 1. Formatear la doble iteración en estilo Allman.
 2. Definir constantes `#define GRILLA_DIMENSION 5`.
 3. Extraer la función `bool esta_dentro_de_grilla(int fila, int columna)`.
 4. Escribir tests con `assert()` para celdas esquinas, bordes y centrales.
+
 :::
 <!-- {exercise} -->
 
@@ -2623,16 +3080,20 @@ int nb(int g[25],int r,int c){int cnt=0;for(int dr=-1;dr<=1;dr++)for(int dc=-1;d
 
 :::{exercise}
 :label: ej-ref-parentesis-balanceados
-Refactorizá la siguiente función que verifica si los paréntesis `(` y `)` de una cadena están correctamente balanceados:
+Refactorizá la siguiente función que verifica si los paréntesis `(` y `)` de una
+cadena están correctamente balanceados:
 
-```c
+``` c
 int bal(char s[],int n){int d=0;for(int i=0;i<n;i++){if(s[i]=='(')d++;else if(s[i]==')'){d--;if(d<0)return 0;}}return(d==0)?1:0;}
 ```
+<!-- c -->
 
 **Tu tarea:**
 1. Eliminar el operador ternario y retornar un `bool`.
-2. Validar que un cierre sin apertura previa (`d < 0`) corte inmediatamente retornando `false`.
+2. Validar que un cierre sin apertura previa (`d < 0`) corte inmediatamente
+   retornando `false`.
 3. Escribir tests unitarios para `"(())"`, `"())("`, `"("` y `""`.
+
 :::
 <!-- {exercise} -->
 
@@ -2643,11 +3104,15 @@ int bal(char s[],int n){int d=0;for(int i=0;i<n;i++){if(s[i]=='(')d++;else if(s[
 
 :::{exercise}
 :label: ej-ref-cuadrado-magico-sudoku
-El siguiente código evalúa si una matriz $3 \times 3$ plana de 9 elementos contiene exactamente los dígitos del 1 al 9 sin repetir y si las sumas de todas sus filas, columnas y diagonales son iguales a 15 (Cuadrado Mágico / Mini Sudoku):
+El siguiente código evalúa si una matriz $3 \times 3$ plana de 9 elementos
+contiene exactamente los dígitos del 1 al 9 sin repetir y si las sumas de todas
+sus filas, columnas y diagonales son iguales a 15 (Cuadrado Mágico / Mini
+Sudoku):
 
-```c
+``` c
 int sm(int m[9]){int u[10]={0},s=0;for(int i=0;i<9;i++){int v=m[i];if(v<1||v>9||u[v])return 0;u[v]=1;}for(int i=0;i<3;i++){int r=m[i*3]+m[i*3+1]+m[i*3+2],c=m[i]+m[i+3]+m[i+6];if(r!=15||c!=15)return 0;}int d1=m[0]+m[4]+m[8],d2=m[2]+m[4]+m[6];return(d1==15&&d2==15)?1:0;}
 ```
+<!-- c -->
 
 **Tu tarea:**
 1. Desarmar la lógica monolítica identificando los tres pasos:
@@ -2656,12 +3121,16 @@ int sm(int m[9]){int u[10]={0},s=0;for(int i=0;i<9;i++){int v=m[i];if(v<1||v>9||
    - Verificación de las 2 diagonales igual a 15.
 2. Descomponer el algoritmo en funciones auxiliares puras y modulares:
    - `bool contiene_digitos_1_a_9_unicos(const int matriz[9])`
-   - `bool verificar_filas_y_columnas_magicas(const int matriz[9], int suma_esperada)`
+   - `bool verificar_filas_y_columnas_magicas(const int matriz[9], int
+     suma_esperada)`
    - `bool verificar_diagonales_magicas(const int matriz[9], int suma_esperada)`
    - `bool es_cuadrado_magico_3x3(const int matriz[9])`
-3. Aplicar estilo Allman riguroso, constantes `#define CONSTANTE_MAGICA_3X3 15` y contratos Doxygen.
-4. Escribir una suite de pruebas con `assert()` para el cuadrado mágico clásico de Lo Shu:
+3. Aplicar estilo Allman riguroso, constantes `#define CONSTANTE_MAGICA_3X3 15`
+   y contratos Doxygen.
+4. Escribir una suite de pruebas con `assert()` para el cuadrado mágico clásico
+   de Lo Shu:
    $$\begin{pmatrix} 4 & 9 & 2 \\ 3 & 5 & 7 \\ 8 & 1 & 6 \end{pmatrix}$$
+
 :::
 <!-- {exercise} -->
 
@@ -2672,21 +3141,32 @@ int sm(int m[9]){int u[10]={0},s=0;for(int i=0;i<9;i++){int v=m[i];if(v<1||v>9||
 
 :::{exercise}
 :label: ej-ref-vigenere-aritmetico
-Analizá el siguiente bloque de código. Aplica el cifrado de Vigenère sobre un arreglo de caracteres usando una clave alfabética repetida, ajustando las letras mayúsculas y minúsculas módulo 26, pero fue condensado en 5 líneas de expresiones confusas:
+Analizá el siguiente bloque de código. Aplica el cifrado de Vigenère sobre un
+arreglo de caracteres usando una clave alfabética repetida, ajustando las letras
+mayúsculas y minúsculas módulo 26, pero fue condensado en 5 líneas de
+expresiones confusas:
 
-```c
+``` c
 void vig(char t[],int n,char k[],int m,int dec){for(int i=0,j=0;i<n;i++){char c=t[i];if((c>='A'&&c<='Z')||(c>='a'&&c<='z')){int base=(c>='a')?'a':'A';int kbase=(k[j%m]>='a')?'a':'A';int sh=k[j%m]-kbase;if(dec)sh=26-(sh%26);t[i]=(char)(base+((c-base+sh)%26));j++;}}}
 ```
+<!-- c -->
 
 **Tu tarea:**
-1. Desentrañar la aritmética modular del desplazamiento tanto para cifrado (`dec = 0`) como para descifrado (`dec = 1`).
-2. Identificar todos los code smells (ternarios anidados, falta de llaves Allman, nombres mudos `t, n, k, m, dec, sh`).
+1. Desentrañar la aritmética modular del desplazamiento tanto para cifrado (`dec
+   = 0`) como para descifrado (`dec = 1`).
+2. Identificar todos los code smells (ternarios anidados, falta de llaves
+   Allman, nombres mudos `t, n, k, m, dec, sh`).
 3. Refactorizar el algoritmo en funciones puras y desacopladas:
    - `char desplazar_caracter(char c, int desplazamiento, bool descifrar)`
    - `int obtener_desplazamiento_clave(char c_clave)`
-   - `void cifrar_vigenere(char texto[], int long_texto, const char clave[], int long_clave)`
-   - `void descifrar_vigenere(char texto[], int long_texto, const char clave[], int long_clave)`
-4. Escribir una suite completa de pruebas unitarias con `assert()` que verifique que descifrar un texto cifrado recupere exactamente el mensaje original (propiedad de reversibilidad).
+   - `void cifrar_vigenere(char texto[], int long_texto, const char clave[], int
+     long_clave)`
+   - `void descifrar_vigenere(char texto[], int long_texto, const char clave[],
+     int long_clave)`
+4. Escribir una suite completa de pruebas unitarias con `assert()` que verifique
+   que descifrar un texto cifrado recupere exactamente el mensaje original
+   (propiedad de reversibilidad).
+
 :::
 <!-- {exercise} -->
 
@@ -2695,8 +3175,14 @@ void vig(char t[],int n,char k[],int m,int dec){for(int i=0,j=0;i<n;i++){char c=
 ## Notas Finales
 
 :::{tip} Criterios de Calidad para una Buena Refactorización
-- **Preservación del comportamiento:** Todo refactor debe garantizar que los resultados matemáticos y lógicos sean idénticos a los del código original.
-- **Auto-documentación:** La combinación de nombres descriptivos en `snake_case` y funciones con responsabilidad única hace que el código se explique por sí mismo sin necesidad de comentarios redundantes.
-- **Cobertura con pruebas:** Toda función refactorizada debe acompañarse de su respectiva función de prueba automatizada con `assert()`.
+
+- **Preservación del comportamiento:** Todo refactor debe garantizar que los
+  resultados matemáticos y lógicos sean idénticos a los del código original.
+- **Auto-documentación:** La combinación de nombres descriptivos en `snake_case`
+  y funciones con responsabilidad única hace que el código se explique por sí
+  mismo sin necesidad de comentarios redundantes.
+- **Cobertura con pruebas:** Toda función refactorizada debe acompañarse de su
+  respectiva función de prueba automatizada con `assert()`.
+
 :::
 <!-- {tip} Criterios de Calidad para una Buena Refactorización -->
