@@ -621,15 +621,15 @@ int y = 20;
 x = 50;    // VÁLIDO: 'x' es un L-value (ubicación modificable).
 y = x + 5; // VÁLIDO: 'y' es un L-value, 'x + 5' evalúa a un R-value.
 // Asignaciones inválidas que causan ERROR DE COMPILACIÓN:
-// 100 = x;      // ERROR: el literal '100' es un R-value, no podés asignarle
-nada.
-    // (x + y) = 15; // ERROR: la expresión 'x + y' es un R-value temporal sin
-    dirección física
-        .
-    // &x = &y;      // ERROR: la expresión de la izquierda no es un L-value
-    asignable.
-    // &(x + 5);     // ERROR: el operador de dirección (&) requiere un
-    // L-value.
+// 100 = x;      // ERROR: el literal '100' es un R-value, 
+                 //     no podés asignarle nada.
+    // (x + y) = 15; // ERROR: la expresión 'x + y' es un R-value temporal 
+                     //      sin dirección física
+        . 
+    // &x = &y;      // ERROR: la expresión de la izquierda 
+                     //      no es un L-value asignable.
+    // &(x + 5);     // ERROR: el operador de dirección (&) 
+                     //      requiere un L-value.
 :::
 <!-- {code-block}c -->
 
