@@ -24,7 +24,8 @@ para trabajar con ellos.
 
 ```{code-block} c
 :linenos:
-enum dia_semana {
+enum dia_semana
+{
     LUNES,
     MARTES,
     MIERCOLES,
@@ -33,7 +34,6 @@ enum dia_semana {
     SABADO,
     DOMINGO
 };
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_1)=
@@ -95,7 +95,7 @@ función ilustra el patrón de conversión enum-a-string.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-const char* nombre_dia(enum dia_semana dia);
+const char *nombre_dia(enum dia_semana dia);
 ```
 <!-- c -->
 
@@ -105,7 +105,8 @@ Modelar los estados de una conexión de red usando enumeraciones.
 
 ```{code-block} c
 :linenos:
-enum estado_red {
+enum estado_red
+{
     DESCONECTADO,
     CONECTANDO,
     CONECTADO,
@@ -113,7 +114,6 @@ enum estado_red {
     ERROR_TIMEOUT,
     ERROR_AUTH
 };
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_4)=
@@ -136,15 +136,15 @@ reglas de transición.
 
 ```{code-block} c
 :linenos:
-enum evento_red {
+enum evento_red
+{
     EVENTO_CONECTAR,
     EVENTO_DESCONECTAR,
     EVENTO_TIMEOUT,
     EVENTO_ERROR
 };
-
-enum estado_red procesar_evento(enum estado_red estado, enum evento_red evento);
-
+enum estado_red procesar_evento(enum estado_red estado,
+                                enum evento_red evento);
 ```
 <!-- {code-block} c -->
 
@@ -173,18 +173,17 @@ válido de la enumeración. Usar el patrón del valor centinela.
 
 ```{code-block} c
 :linenos:
-enum estado_red {
+enum estado_red
+{
     DESCONECTADO,
     CONECTANDO,
     CONECTADO,
     DESCONECTANDO,
     ERROR_TIMEOUT,
     ERROR_AUTH,
-    _ESTADO_MAX  // Valor centinela
+    _ESTADO_MAX // Valor centinela
 };
-
 bool estado_valido(int valor);
-
 ```
 <!-- {code-block} c -->
 
@@ -195,13 +194,13 @@ demuestra cómo combinar múltiples opciones en un único valor.
 
 ```{code-block} c
 :linenos:
-enum permisos {
-    PERMISO_LECTURA    = 1 << 0,  // 0x01
-    PERMISO_ESCRITURA  = 1 << 1,  // 0x02
-    PERMISO_EJECUCION  = 1 << 2,  // 0x04
-    PERMISO_ELIMINAR   = 1 << 3   // 0x08
+enum permisos
+{
+    PERMISO_LECTURA = 1 << 0,   // 0x01
+    PERMISO_ESCRITURA = 1 << 1, // 0x02
+    PERMISO_EJECUCION = 1 << 2, // 0x04
+    PERMISO_ELIMINAR = 1 << 3   // 0x08
 };
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_6)=
@@ -275,7 +274,8 @@ representar colores RGB personalizados.
 
 ```{code-block} c
 :linenos:
-enum color_predefinido {
+enum color_predefinido
+{
     COLOR_NEGRO,
     COLOR_BLANCO,
     COLOR_ROJO,
@@ -285,13 +285,12 @@ enum color_predefinido {
     COLOR_MAGENTA,
     COLOR_CIAN
 };
-
-typedef struct {
+typedef struct
+{
     unsigned char r;
     unsigned char g;
     unsigned char b;
 } rgb_t;
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_9)=
@@ -349,36 +348,37 @@ configuración de dispositivos.
 
 ```{code-block} c
 :linenos:
-enum tipo_dispositivo {
+enum tipo_dispositivo
+{
     DISPOSITIVO_SENSOR_TEMP,
     DISPOSITIVO_MOTOR,
     DISPOSITIVO_LED
 };
-
-typedef struct {
+typedef struct
+{
     double temperatura_min;
     double temperatura_max;
 } config_sensor_t;
-
-typedef struct {
+typedef struct
+{
     unsigned int velocidad_rpm;
     bool direccion_horaria;
 } config_motor_t;
-
-typedef struct {
+typedef struct
+{
     unsigned char intensidad;
     enum color_predefinido color;
 } config_led_t;
-
-typedef struct {
+typedef struct
+{
     enum tipo_dispositivo tipo;
-    union {
+    union
+    {
         config_sensor_t sensor;
         config_motor_t motor;
         config_led_t led;
     } config;
 } dispositivo_t;
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_11)=
@@ -400,7 +400,8 @@ Implementar funciones para configurar cada tipo de dispositivo de forma segura.
 ``` c
 dispositivo_t crear_sensor(double temp_min, double temp_max);
 dispositivo_t crear_motor(unsigned int rpm, bool horario);
-dispositivo_t crear_led(unsigned char intensidad, enum color_predefinido color);
+dispositivo_t crear_led(unsigned char intensidad,
+                        enum color_predefinido color);
 ```
 <!-- c -->
 (ejercicio_20_12)=
@@ -421,7 +422,7 @@ tipo. Este ejercicio demuestra el uso correcto de uniones etiquetadas.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-void imprimir_dispositivo(const dispositivo_t* dispositivo);
+void imprimir_dispositivo(const dispositivo_t *dispositivo);
 ```
 <!-- c -->
 
@@ -431,7 +432,8 @@ Definir una enumeración exhaustiva para códigos de error de un sistema.
 
 ```{code-block} c
 :linenos:
-enum codigo_error {
+enum codigo_error
+{
     ERROR_NINGUNO = 0,
     ERROR_MEMORIA,
     ERROR_ARCHIVO_NO_ENCONTRADO,
@@ -441,7 +443,6 @@ enum codigo_error {
     ERROR_CONEXION,
     ERROR_DESCONOCIDO
 };
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_13)=
@@ -462,7 +463,7 @@ error.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-const char* mensaje_error(enum codigo_error error);
+const char *mensaje_error(enum codigo_error error);
 ```
 <!-- c -->
 (ejercicio_20_14)=
@@ -484,15 +485,16 @@ de error usando unión etiquetada.
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     enum codigo_error error;
-    union {
+    union
+    {
         int valor_int;
         double valor_double;
-        void* valor_ptr;
+        void *valor_ptr;
     } datos;
 } resultado_t;
-
 ```
 <!-- {code-block} c -->
 
@@ -501,7 +503,7 @@ Implementar funciones auxiliares:
 ``` c
 resultado_t resultado_ok_int(int valor);
 resultado_t resultado_error(enum codigo_error error);
-bool resultado_es_error(const resultado_t* resultado);
+bool resultado_es_error(const resultado_t *resultado);
 ```
 <!-- c -->
 
@@ -511,21 +513,21 @@ Modelar un reproductor multimedia con estados y modos de reproducción.
 
 ```{code-block} c
 :linenos:
-enum estado_reproductor {
+enum estado_reproductor
+{
     ESTADO_DETENIDO,
     ESTADO_REPRODUCIENDO,
     ESTADO_PAUSADO,
     ESTADO_AVANZANDO,
     ESTADO_RETROCEDIENDO
 };
-
-enum modo_reproduccion {
+enum modo_reproduccion
+{
     MODO_NORMAL,
     MODO_REPETIR_UNO,
     MODO_REPETIR_TODOS,
     MODO_ALEATORIO
 };
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_15)=
@@ -546,13 +548,13 @@ Implementar una estructura que encapsule el estado completo del reproductor.
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     enum estado_reproductor estado;
     enum modo_reproduccion modo;
     unsigned int pista_actual;
     unsigned int total_pistas;
 } reproductor_t;
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_16)=
@@ -572,11 +574,11 @@ Implementar funciones para controlar el reproductor.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-void reproducir(reproductor_t* rep);
-void pausar(reproductor_t* rep);
-void detener(reproductor_t* rep);
-void siguiente_pista(reproductor_t* rep);
-void anterior_pista(reproductor_t* rep);
+void reproducir(reproductor_t *rep);
+void pausar(reproductor_t *rep);
+void detener(reproductor_t *rep);
+void siguiente_pista(reproductor_t *rep);
+void anterior_pista(reproductor_t *rep);
 ```
 <!-- c -->
 
@@ -588,14 +590,14 @@ Implementar un sistema de logging con niveles de prioridad.
 
 ```{code-block} c
 :linenos:
-enum nivel_log {
+enum nivel_log
+{
     LOG_DEBUG = 0,
     LOG_INFO,
     LOG_WARNING,
     LOG_ERROR,
     LOG_FATAL
 };
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_17)=
@@ -637,7 +639,7 @@ prefijo.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-void log_mensaje(enum nivel_log nivel, const char* mensaje);
+void log_mensaje(enum nivel_log nivel, const char *mensaje);
 ```
 <!-- c -->
 
@@ -650,19 +652,19 @@ bits.
 
 ```{code-block} c
 :linenos:
-enum tipo_mensaje {
+enum tipo_mensaje
+{
     MSG_DATOS = 0,
     MSG_ACK = 1,
     MSG_NACK = 2,
     MSG_RESET = 3
 };
-
-typedef struct {
-    unsigned int tipo : 2;        // 2 bits para tipo (0-3)
-    unsigned int prioridad : 2;   // 2 bits para prioridad (0-3)
-    unsigned int secuencia : 4;   // 4 bits para número de secuencia (0-15)
+typedef struct
+{
+    unsigned int tipo : 2;      // 2 bits para tipo (0-3)
+    unsigned int prioridad : 2; // 2 bits para prioridad (0-3)
+    unsigned int secuencia : 4; // 4 bits para número de secuencia (0-15)
 } cabecera_mensaje_t;
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_19)=
@@ -682,10 +684,9 @@ Implementar funciones para construir y extraer información de la cabecera.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-cabecera_mensaje_t crear_cabecera(enum tipo_mensaje tipo, 
-                                   unsigned int prioridad, 
-                                   unsigned int secuencia);
-
+cabecera_mensaje_t crear_cabecera(enum tipo_mensaje tipo,
+                                  unsigned int prioridad,
+                                  unsigned int secuencia);
 void imprimir_cabecera(cabecera_mensaje_t cabecera);
 ```
 <!-- c -->
@@ -717,15 +718,15 @@ Modelar opciones de compilación como flags combinables.
 
 ```{code-block} c
 :linenos:
-enum opcion_compilacion {
-    OPT_NINGUNA       = 0,
-    OPT_OPTIMIZAR     = 1 << 0,  // -O
-    OPT_DEBUG         = 1 << 1,  // -g
-    OPT_WARNINGS      = 1 << 2,  // -Wall
+enum opcion_compilacion
+{
+    OPT_NINGUNA = 0,
+    OPT_OPTIMIZAR = 1 << 0,      // -O
+    OPT_DEBUG = 1 << 1,          // -g
+    OPT_WARNINGS = 1 << 2,       // -Wall
     OPT_WARNINGS_EXTRA = 1 << 3, // -Wextra
-    OPT_PEDANTIC      = 1 << 4   // -pedantic
+    OPT_PEDANTIC = 1 << 4        // -pedantic
 };
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_21)=
@@ -746,7 +747,8 @@ correspondientes a los flags activos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-void generar_comando_compilacion(unsigned int opciones, char* buffer, size_t tam);
+void generar_comando_compilacion(unsigned int opciones, char *buffer,
+                                 size_t tam);
 ```
 <!-- c -->
 
@@ -782,7 +784,8 @@ Implementar un sistema de menú interactivo usando enumeraciones.
 
 ```{code-block} c
 :linenos:
-enum opcion_menu {
+enum opcion_menu
+{
     MENU_NUEVO = 1,
     MENU_ABRIR,
     MENU_GUARDAR,
@@ -790,7 +793,6 @@ enum opcion_menu {
     MENU_SALIR,
     MENU_INVALIDO = -1
 };
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_23)=
@@ -859,36 +861,37 @@ figuras geométricas.
 
 ```{code-block} c
 :linenos:
-enum tipo_figura {
+enum tipo_figura
+{
     FIGURA_CIRCULO,
     FIGURA_RECTANGULO,
     FIGURA_TRIANGULO
 };
-
-typedef struct {
+typedef struct
+{
     double radio;
 } circulo_t;
-
-typedef struct {
+typedef struct
+{
     double base;
     double altura;
 } rectangulo_t;
-
-typedef struct {
+typedef struct
+{
     double lado_a;
     double lado_b;
     double lado_c;
 } triangulo_t;
-
-typedef struct {
+typedef struct
+{
     enum tipo_figura tipo;
-    union {
+    union
+    {
         circulo_t circulo;
         rectangulo_t rectangulo;
         triangulo_t triangulo;
     } datos;
 } figura_t;
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_26)=
@@ -909,7 +912,7 @@ datos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-double calcular_area(const figura_t* figura);
+double calcular_area(const figura_t *figura);
 ```
 <!-- c -->
 
@@ -962,11 +965,11 @@ usando tablas de conversión.
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     int valor;
-    const char* nombre;
+    const char *nombre;
 } enum_string_t;
-
 // Ejemplo de uso con días de la semana
 const enum_string_t tabla_dias[] = {
     {LUNES, "Lunes"},
@@ -974,7 +977,6 @@ const enum_string_t tabla_dias[] = {
     {MIERCOLES, "Miércoles"},
     // ...
 };
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_29)=
@@ -994,8 +996,9 @@ Implementar funciones genéricas que usen la tabla para realizar conversiones.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-const char* enum_a_string(int valor, const enum_string_t* tabla, size_t tam);
-int string_a_enum(const char* nombre, const enum_string_t* tabla, size_t tam, int valor_defecto);
+const char *enum_a_string(int valor, const enum_string_t *tabla, size_t tam);
+int string_a_enum(const char *nombre, const enum_string_t *tabla, size_t tam,
+                  int valor_defecto);
 ```
 <!-- c -->
 
@@ -1005,29 +1008,29 @@ Modelar el estado de un juego simple usando múltiples enumeraciones.
 
 ```{code-block} c
 :linenos:
-enum estado_juego {
+enum estado_juego
+{
     JUEGO_MENU,
     JUEGO_JUGANDO,
     JUEGO_PAUSADO,
     JUEGO_GAME_OVER,
     JUEGO_VICTORIA
 };
-
-enum dificultad {
+enum dificultad
+{
     DIFICULTAD_FACIL,
     DIFICULTAD_NORMAL,
     DIFICULTAD_DIFICIL,
     DIFICULTAD_EXPERTO
 };
-
-typedef struct {
+typedef struct
+{
     enum estado_juego estado;
     enum dificultad dificultad;
     unsigned int puntuacion;
     unsigned int nivel;
     unsigned int vidas;
 } juego_t;
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_30)=
@@ -1070,10 +1073,10 @@ Implementar funciones para transiciones de estado comunes.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-void pausar_juego(juego_t* juego);
-void reanudar_juego(juego_t* juego);
-void perder_vida(juego_t* juego);
-void ganar_nivel(juego_t* juego);
+void pausar_juego(juego_t *juego);
+void reanudar_juego(juego_t *juego);
+void perder_vida(juego_t *juego);
+void ganar_nivel(juego_t *juego);
 ```
 <!-- c -->
 
@@ -1084,27 +1087,27 @@ clasificación.
 
 ```{code-block} c
 :linenos:
-enum protocolo {
+enum protocolo
+{
     PROTOCOLO_TCP,
     PROTOCOLO_UDP,
     PROTOCOLO_ICMP,
     PROTOCOLO_OTRO
 };
-
-enum tipo_trafico {
+enum tipo_trafico
+{
     TRAFICO_NORMAL,
     TRAFICO_SOSPECHOSO,
     TRAFICO_MALICIOSO
 };
-
-typedef struct {
+typedef struct
+{
     enum protocolo proto;
     enum tipo_trafico tipo;
     unsigned int puerto_origen;
     unsigned int puerto_destino;
     size_t bytes_transferidos;
 } paquete_red_t;
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_32)=
@@ -1125,7 +1128,7 @@ heurísticas.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-enum tipo_trafico clasificar_paquete(const paquete_red_t* paquete);
+enum tipo_trafico clasificar_paquete(const paquete_red_t *paquete);
 ```
 <!-- c -->
 
@@ -1152,15 +1155,15 @@ paquetes.
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     unsigned int tcp;
     unsigned int udp;
     unsigned int icmp;
     unsigned int otro;
 } estadisticas_protocolo_t;
-
-estadisticas_protocolo_t contar_por_protocolo(const paquete_red_t* paquetes, size_t cantidad);
-
+estadisticas_protocolo_t contar_por_protocolo(const paquete_red_t *paquetes,
+                                              size_t cantidad);
 ```
 <!-- {code-block} c -->
 
@@ -1183,18 +1186,18 @@ Modelar permisos de archivo estilo UNIX usando flags.
 
 ```{code-block} c
 :linenos:
-enum permiso_unix {
-    OWNER_READ    = 0400,  // 0100000000 en octal
-    OWNER_WRITE   = 0200,
+enum permiso_unix
+{
+    OWNER_READ = 0400, // 0100000000 en octal
+    OWNER_WRITE = 0200,
     OWNER_EXECUTE = 0100,
-    GROUP_READ    = 0040,
-    GROUP_WRITE   = 0020,
+    GROUP_READ = 0040,
+    GROUP_WRITE = 0020,
     GROUP_EXECUTE = 0010,
-    OTHER_READ    = 0004,
-    OTHER_WRITE   = 0002,
+    OTHER_READ = 0004,
+    OTHER_WRITE = 0002,
     OTHER_EXECUTE = 0001
 };
-
 ```
 <!-- {code-block} c -->
 
@@ -1202,8 +1205,9 @@ Implementar funciones para manipular permisos:
 
 ``` c
 bool tiene_permiso_unix(unsigned int permisos, enum permiso_unix permiso);
-unsigned int agregar_permiso_unix(unsigned int permisos, enum permiso_unix nuevo);
-void mostrar_permisos_unix(unsigned int permisos);  // Formato: rwxr-xr--
+unsigned int agregar_permiso_unix(unsigned int permisos,
+                                  enum permiso_unix nuevo);
+void mostrar_permisos_unix(unsigned int permisos); // Formato: rwxr-xr--
 ```
 <!-- c -->
 (ejercicio_20_35)=
@@ -1224,7 +1228,8 @@ Modelar diferentes tipos de archivo en un sistema de archivos.
 
 ```{code-block} c
 :linenos:
-enum tipo_archivo {
+enum tipo_archivo
+{
     TIPO_REGULAR,
     TIPO_DIRECTORIO,
     TIPO_ENLACE_SIMBOLICO,
@@ -1233,14 +1238,13 @@ enum tipo_archivo {
     TIPO_PIPE,
     TIPO_SOCKET
 };
-
-typedef struct {
+typedef struct
+{
     char nombre[256];
     enum tipo_archivo tipo;
     size_t tamanio;
     unsigned int permisos;
 } archivo_info_t;
-
 ```
 <!-- {code-block} c -->
 
@@ -1263,7 +1267,8 @@ Modelar eventos de interfaz de usuario.
 
 ```{code-block} c
 :linenos:
-enum tipo_evento {
+enum tipo_evento
+{
     EVENTO_CLICK,
     EVENTO_DOBLE_CLICK,
     EVENTO_PRESIONAR_TECLA,
@@ -1271,20 +1276,19 @@ enum tipo_evento {
     EVENTO_MOVER_MOUSE,
     EVENTO_SCROLL
 };
-
-enum boton_mouse {
+enum boton_mouse
+{
     BOTON_IZQUIERDO = 1,
     BOTON_DERECHO = 2,
     BOTON_MEDIO = 4
 };
-
-typedef struct {
+typedef struct
+{
     enum tipo_evento tipo;
-    int x, y;  // Coordenadas
-    unsigned int botones;  // Flags de botones presionados
+    int x, y;             // Coordenadas
+    unsigned int botones; // Flags de botones presionados
     unsigned int tecla;
 } evento_t;
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_37)=
@@ -1304,7 +1308,7 @@ Implementar un procesador que maneje diferentes tipos de eventos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-void procesar_evento(const evento_t* evento);
+void procesar_evento(const evento_t *evento);
 ```
 <!-- c -->
 
@@ -1327,28 +1331,28 @@ Modelar el ciclo de vida de un proceso en un sistema operativo.
 
 ```{code-block} c
 :linenos:
-enum estado_proceso {
+enum estado_proceso
+{
     PROCESO_NUEVO,
     PROCESO_LISTO,
     PROCESO_EJECUTANDO,
     PROCESO_BLOQUEADO,
     PROCESO_TERMINADO
 };
-
-enum razon_bloqueo {
+enum razon_bloqueo
+{
     BLOQ_IO,
     BLOQ_MUTEX,
     BLOQ_SEMAFORO,
     BLOQ_MENSAJE
 };
-
-typedef struct {
+typedef struct
+{
     int pid;
     enum estado_proceso estado;
-    enum razon_bloqueo razon;  // Solo válido si estado == BLOQUEADO
+    enum razon_bloqueo razon; // Solo válido si estado == BLOQUEADO
     int prioridad;
 } proceso_t;
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_39)=
@@ -1368,8 +1372,8 @@ Implementar funciones de transición de estado para un planificador.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-bool transicion_estado(proceso_t* proceso, enum estado_proceso nuevo_estado);
-bool puede_ejecutar(const proceso_t* proceso);
+bool transicion_estado(proceso_t *proceso, enum estado_proceso nuevo_estado);
+bool puede_ejecutar(const proceso_t *proceso);
 ```
 <!-- c -->
 
@@ -1392,7 +1396,8 @@ Modelar métodos y códigos de estado HTTP.
 
 ```{code-block} c
 :linenos:
-enum metodo_http {
+enum metodo_http
+{
     HTTP_GET,
     HTTP_POST,
     HTTP_PUT,
@@ -1401,8 +1406,8 @@ enum metodo_http {
     HTTP_HEAD,
     HTTP_OPTIONS
 };
-
-enum codigo_http {
+enum codigo_http
+{
     HTTP_200_OK = 200,
     HTTP_201_CREATED = 201,
     HTTP_204_NO_CONTENT = 204,
@@ -1415,7 +1420,6 @@ enum codigo_http {
     HTTP_500_INTERNAL_ERROR = 500,
     HTTP_503_UNAVAILABLE = 503
 };
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_41)=
@@ -1435,11 +1439,11 @@ Implementar funciones para trabajar con HTTP.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-const char* metodo_a_string(enum metodo_http metodo);
-const char* codigo_a_mensaje(enum codigo_http codigo);
-bool es_codigo_exito(enum codigo_http codigo);  // 2xx
+const char *metodo_a_string(enum metodo_http metodo);
+const char *codigo_a_mensaje(enum codigo_http codigo);
+bool es_codigo_exito(enum codigo_http codigo);          // 2xx
 bool es_codigo_error_cliente(enum codigo_http codigo);  // 4xx
-bool es_codigo_error_servidor(enum codigo_http codigo);  // 5xx
+bool es_codigo_error_servidor(enum codigo_http codigo); // 5xx
 ```
 <!-- c -->
 
@@ -1462,25 +1466,25 @@ Modelar un sistema de semáforo de tráfico.
 
 ```{code-block} c
 :linenos:
-enum estado_semaforo {
+enum estado_semaforo
+{
     SEMAFORO_ROJO,
     SEMAFORO_AMARILLO,
     SEMAFORO_VERDE,
     SEMAFORO_INTERMITENTE
 };
-
-enum direccion_trafico {
+enum direccion_trafico
+{
     DIR_NORTE_SUR,
     DIR_ESTE_OESTE,
     DIR_TODAS
 };
-
-typedef struct {
+typedef struct
+{
     enum estado_semaforo estado;
     enum direccion_trafico direccion_activa;
-    int tiempo_restante;  // Segundos
+    int tiempo_restante; // Segundos
 } semaforo_t;
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_43)=
@@ -1500,9 +1504,9 @@ Implementar la lógica de transición de un semáforo.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-void actualizar_semaforo(semaforo_t* semaforo);
+void actualizar_semaforo(semaforo_t *semaforo);
 enum estado_semaforo siguiente_estado(enum estado_semaforo actual);
-bool puede_pasar(const semaforo_t* semaforo, enum direccion_trafico direccion);
+bool puede_pasar(const semaforo_t *semaforo, enum direccion_trafico direccion);
 ```
 <!-- c -->
 
@@ -1525,28 +1529,28 @@ Modelar el ciclo de vida de una transacción.
 
 ```{code-block} c
 :linenos:
-enum estado_transaccion {
+enum estado_transaccion
+{
     TX_INICIADA,
     TX_ACTIVA,
     TX_PREPARADA,
     TX_COMPROMETIDA,
     TX_ABORTADA
 };
-
-enum tipo_aislamiento {
+enum tipo_aislamiento
+{
     AISLAMIENTO_READ_UNCOMMITTED,
     AISLAMIENTO_READ_COMMITTED,
     AISLAMIENTO_REPEATABLE_READ,
     AISLAMIENTO_SERIALIZABLE
 };
-
-typedef struct {
+typedef struct
+{
     unsigned long id;
     enum estado_transaccion estado;
     enum tipo_aislamiento aislamiento;
     int num_operaciones;
 } transaccion_t;
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_45)=
@@ -1567,9 +1571,9 @@ Implementar funciones para gestionar transacciones.
 
 ``` c
 transaccion_t iniciar_transaccion(enum tipo_aislamiento aislamiento);
-bool commit_transaccion(transaccion_t* tx);
-bool rollback_transaccion(transaccion_t* tx);
-bool puede_hacer_commit(const transaccion_t* tx);
+bool commit_transaccion(transaccion_t *tx);
+bool rollback_transaccion(transaccion_t *tx);
+bool puede_hacer_commit(const transaccion_t *tx);
 ```
 <!-- c -->
 
@@ -1592,7 +1596,8 @@ Modelar tipos de datos SQL y sus propiedades.
 
 ```{code-block} c
 :linenos:
-enum tipo_sql {
+enum tipo_sql
+{
     SQL_INT,
     SQL_BIGINT,
     SQL_FLOAT,
@@ -1604,23 +1609,22 @@ enum tipo_sql {
     SQL_BOOLEAN,
     SQL_BLOB
 };
-
-enum constraint_sql {
-    CONSTRAINT_NINGUNO     = 0,
-    CONSTRAINT_NOT_NULL    = 1 << 0,
-    CONSTRAINT_UNIQUE      = 1 << 1,
+enum constraint_sql
+{
+    CONSTRAINT_NINGUNO = 0,
+    CONSTRAINT_NOT_NULL = 1 << 0,
+    CONSTRAINT_UNIQUE = 1 << 1,
     CONSTRAINT_PRIMARY_KEY = 1 << 2,
     CONSTRAINT_FOREIGN_KEY = 1 << 3,
     CONSTRAINT_AUTO_INCREMENT = 1 << 4
 };
-
-typedef struct {
+typedef struct
+{
     char nombre[64];
     enum tipo_sql tipo;
     unsigned int constraints;
-    int longitud;  // Para VARCHAR
+    int longitud; // Para VARCHAR
 } columna_t;
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_47)=
@@ -1666,7 +1670,8 @@ Modelar diferentes formatos de imagen y sus propiedades.
 
 ```{code-block} c
 :linenos:
-enum formato_imagen {
+enum formato_imagen
+{
     FORMATO_JPEG,
     FORMATO_PNG,
     FORMATO_GIF,
@@ -1675,16 +1680,16 @@ enum formato_imagen {
     FORMATO_TIFF,
     FORMATO_SVG
 };
-
-enum modo_color {
+enum modo_color
+{
     COLOR_ESCALA_GRISES,
     COLOR_RGB,
     COLOR_RGBA,
     COLOR_CMYK,
     COLOR_INDEXADO
 };
-
-typedef struct {
+typedef struct
+{
     enum formato_imagen formato;
     enum modo_color modo;
     int ancho;
@@ -1693,7 +1698,6 @@ typedef struct {
     bool tiene_transparencia;
     bool es_animado;
 } metadata_imagen_t;
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_49)=
@@ -1716,7 +1720,7 @@ Implementar funciones para analizar propiedades de formatos.
 bool soporta_transparencia(enum formato_imagen formato);
 bool soporta_animacion(enum formato_imagen formato);
 bool es_formato_comprimido(enum formato_imagen formato);
-const char* extension_formato(enum formato_imagen formato);
+const char *extension_formato(enum formato_imagen formato);
 ```
 <!-- c -->
 
@@ -1739,30 +1743,30 @@ Modelar un sistema de notificaciones con prioridades.
 
 ```{code-block} c
 :linenos:
-enum nivel_notificacion {
+enum nivel_notificacion
+{
     NOTIF_DEBUG,
     NOTIF_INFO,
     NOTIF_ADVERTENCIA,
     NOTIF_ERROR,
     NOTIF_CRITICO
 };
-
-enum canal_notificacion {
-    CANAL_NINGUNO  = 0,
-    CANAL_CONSOLE  = 1 << 0,
-    CANAL_EMAIL    = 1 << 1,
-    CANAL_SMS      = 1 << 2,
-    CANAL_PUSH     = 1 << 3,
-    CANAL_SYSLOG   = 1 << 4
+enum canal_notificacion
+{
+    CANAL_NINGUNO = 0,
+    CANAL_CONSOLE = 1 << 0,
+    CANAL_EMAIL = 1 << 1,
+    CANAL_SMS = 1 << 2,
+    CANAL_PUSH = 1 << 3,
+    CANAL_SYSLOG = 1 << 4
 };
-
-typedef struct {
+typedef struct
+{
     enum nivel_notificacion nivel;
     unsigned int canales;
     char mensaje[256];
     time_t timestamp;
 } notificacion_t;
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_51)=
@@ -1782,8 +1786,9 @@ Implementar funciones para filtrar y enviar notificaciones.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-void enviar_notificacion(const notificacion_t* notif);
-bool debe_notificar(enum nivel_notificacion nivel, enum nivel_notificacion nivel_minimo);
+void enviar_notificacion(const notificacion_t *notif);
+bool debe_notificar(enum nivel_notificacion nivel,
+                    enum nivel_notificacion nivel_minimo);
 unsigned int canales_para_nivel(enum nivel_notificacion nivel);
 ```
 <!-- c -->
@@ -1807,7 +1812,8 @@ Modelar diferentes algoritmos de compresión y sus niveles.
 
 ```{code-block} c
 :linenos:
-enum algoritmo_compresion {
+enum algoritmo_compresion
+{
     COMP_NINGUNO,
     COMP_DEFLATE,
     COMP_GZIP,
@@ -1816,22 +1822,21 @@ enum algoritmo_compresion {
     COMP_ZSTD,
     COMP_LZ4
 };
-
-enum nivel_compresion {
+enum nivel_compresion
+{
     NIVEL_MINIMO = 1,
     NIVEL_RAPIDO = 3,
     NIVEL_NORMAL = 5,
     NIVEL_MAXIMO = 9
 };
-
-typedef struct {
+typedef struct
+{
     enum algoritmo_compresion algoritmo;
     enum nivel_compresion nivel;
     size_t tamanio_original;
     size_t tamanio_comprimido;
-    double ratio;  // tamanio_comprimido / tamanio_original
+    double ratio; // tamanio_comprimido / tamanio_original
 } resultado_compresion_t;
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_53)=
@@ -1851,10 +1856,10 @@ Implementar funciones para analizar rendimiento de compresión.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-double calcular_ratio(const resultado_compresion_t* resultado);
-double porcentaje_ahorro(const resultado_compresion_t* resultado);
+double calcular_ratio(const resultado_compresion_t *resultado);
+double porcentaje_ahorro(const resultado_compresion_t *resultado);
 bool es_algoritmo_rapido(enum algoritmo_compresion alg);
-const char* nombre_algoritmo(enum algoritmo_compresion alg);
+const char *nombre_algoritmo(enum algoritmo_compresion alg);
 ```
 <!-- c -->
 
@@ -1879,36 +1884,35 @@ Implementar un framework genérico para máquinas de estados finitas.
 :linenos:
 #define MAX_ESTADOS 32
 #define MAX_TRANSICIONES 64
-
-typedef enum {
+typedef enum
+{
     FSM_ESTADO_0,
     FSM_ESTADO_1,
     FSM_ESTADO_2,
     // ... más estados
     FSM_ESTADO_MAX
 } estado_fsm_t;
-
-typedef enum {
+typedef enum
+{
     FSM_EVENTO_0,
     FSM_EVENTO_1,
     // ... más eventos
     FSM_EVENTO_MAX
 } evento_fsm_t;
-
-typedef struct {
+typedef struct
+{
     estado_fsm_t desde;
     estado_fsm_t hasta;
     evento_fsm_t evento;
-    void (*accion)(void* contexto);
+    void (*accion)(void *contexto);
 } transicion_t;
-
-typedef struct {
+typedef struct
+{
     estado_fsm_t estado_actual;
     transicion_t transiciones[MAX_TRANSICIONES];
     int num_transiciones;
-    void* contexto;
+    void *contexto;
 } maquina_estados_t;
-
 ```
 <!-- {code-block} c -->
 (ejercicio_20_55)=
@@ -1928,10 +1932,10 @@ Implementar el motor que procesa eventos y ejecuta transiciones.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-void fsm_inicializar(maquina_estados_t* fsm, estado_fsm_t inicial);
-bool fsm_agregar_transicion(maquina_estados_t* fsm, transicion_t trans);
-bool fsm_procesar_evento(maquina_estados_t* fsm, evento_fsm_t evento);
-estado_fsm_t fsm_estado_actual(const maquina_estados_t* fsm);
+void fsm_inicializar(maquina_estados_t *fsm, estado_fsm_t inicial);
+bool fsm_agregar_transicion(maquina_estados_t *fsm, transicion_t trans);
+bool fsm_procesar_evento(maquina_estados_t *fsm, evento_fsm_t evento);
+estado_fsm_t fsm_estado_actual(const maquina_estados_t *fsm);
 ```
 <!-- c -->
 
@@ -1954,21 +1958,45 @@ Analizar diferentes formas de implementar el mismo concepto:
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-enum dia { LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO };
+enum dia
+{
+    LUNES,
+    MARTES,
+    MIERCOLES,
+    JUEVES,
+    VIERNES,
+    SABADO,
+    DOMINGO
+};
 ```
 <!-- c -->
 
 **Opción 2: Enum con valores explícitos**
 ``` c
-enum dia { LUNES=1, MARTES=2, MIERCOLES=3, JUEVES=4, VIERNES=5, SABADO=6, DOMINGO=7 };
+enum dia
+{
+    LUNES = 1,
+    MARTES = 2,
+    MIERCOLES = 3,
+    JUEVES = 4,
+    VIERNES = 5,
+    SABADO = 6,
+    DOMINGO = 7
+};
 ```
 <!-- c -->
 
 **Opción 3: Flags con potencias de 2**
 ``` c
-enum dia { 
-    LUNES=1<<0, MARTES=1<<1, MIERCOLES=1<<2, JUEVES=1<<3, 
-    VIERNES=1<<4, SABADO=1<<5, DOMINGO=1<<6 
+enum dia
+{
+    LUNES = 1 << 0,
+    MARTES = 1 << 1,
+    MIERCOLES = 1 << 2,
+    JUEVES = 1 << 3,
+    VIERNES = 1 << 4,
+    SABADO = 1 << 5,
+    DOMINGO = 1 << 6
 };
 ```
 <!-- c -->
@@ -2011,9 +2039,15 @@ Definí una enumeración para días de la semana y mostrá el nombre según el v
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-typedef enum {
-    LUNES, MARTES, MIERCOLES, JUEVES, 
-    VIERNES, SABADO, DOMINGO
+typedef enum
+{
+    LUNES,
+    MARTES,
+    MIERCOLES,
+    JUEVES,
+    VIERNES,
+    SABADO,
+    DOMINGO
 } dia_semana_t;
 ```
 <!-- c -->
@@ -2039,7 +2073,8 @@ puntos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-typedef struct {
+typedef struct
+{
     double x;
     double y;
 } punto_t;
@@ -2066,7 +2101,8 @@ Creá estructura para fecha y función de validación.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-typedef struct {
+typedef struct
+{
     int dia;
     int mes;
     int anio;
@@ -2094,7 +2130,8 @@ Definí estructura persona y función para mostrar información.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-typedef struct {
+typedef struct
+{
     char nombre[50];
     char apellido[50];
     int edad;
@@ -2122,11 +2159,11 @@ Creá array de estudiantes y función para encontrar el de mayor promedio.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-typedef struct {
+typedef struct
+{
     char nombre[50];
     float promedio;
 } estudiante_t;
-
 estudiante_t clase[30];
 ```
 <!-- c -->
@@ -2152,14 +2189,14 @@ Definí enumeración para códigos de error HTTP.
 
 ```{code-block} c
 :linenos:
-typedef enum {
+typedef enum
+{
     HTTP_OK = 200,
     HTTP_CREATED = 201,
     HTTP_BAD_REQUEST = 400,
     HTTP_NOT_FOUND = 404,
     HTTP_SERVER_ERROR = 500
 } http_status_t;
-
 ```
 <!-- {code-block} c -->
 
@@ -2183,17 +2220,17 @@ Creá estructura para dirección y persona que incluya dirección.
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     char calle[100];
     int numero;
     char ciudad[50];
 } direccion_t;
-
-typedef struct {
+typedef struct
+{
     char nombre[50];
-    direccion_t direccion;  // Estructura anidada
+    direccion_t direccion; // Estructura anidada
 } persona_t;
-
 ```
 <!-- {code-block} c -->
 
@@ -2216,9 +2253,10 @@ Definí estructura nodo para lista enlazada.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-typedef struct nodo {
+typedef struct nodo
+{
     int dato;
-    struct nodo *siguiente;  // Puntero a mismo tipo
+    struct nodo *siguiente; // Puntero a mismo tipo
 } nodo_t;
 ```
 <!-- c -->
@@ -2244,17 +2282,22 @@ Usá union para almacenar valor que puede ser int, float o char.
 
 ```{code-block} c
 :linenos:
-typedef enum { TIPO_INT, TIPO_FLOAT, TIPO_CHAR } tipo_t;
-
-typedef struct {
+typedef enum
+{
+    TIPO_INT,
+    TIPO_FLOAT,
+    TIPO_CHAR
+} tipo_t;
+typedef struct
+{
     tipo_t tipo;
-    union {
+    union
+    {
         int i;
         float f;
         char c;
     } valor;
 } variable_t;
-
 ```
 <!-- {code-block} c -->
 - El tipo indica cuál campo de la union es válido
@@ -2281,14 +2324,11 @@ Practicá diferentes formas de inicializar estructuras.
 :linenos:
 // Orden
 punto_t p1 = {3.0, 4.0};
-
 // Designadores (C99)
 punto_t p2 = {.x = 3.0, .y = 4.0};
-punto_t p3 = {.y = 4.0, .x = 3.0};  // Orden no importa
-
+punto_t p3 = {.y = 4.0, .x = 3.0}; // Orden no importa
 // Parcial (resto en 0)
 punto_t p4 = {.x = 3.0};
-
 ```
 <!-- {code-block} c -->
 
@@ -2311,7 +2351,8 @@ Definí rectángulo con dos puntos (esquinas opuestas) y calcula área/perímetr
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-typedef struct {
+typedef struct
+{
     punto_t superior_izq;
     punto_t inferior_der;
 } rectangulo_t;
@@ -2340,18 +2381,18 @@ Sistema con estructuras para libro, autor, editorial.
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     char nombre[50];
     int anio_nacimiento;
 } autor_t;
-
-typedef struct {
+typedef struct
+{
     char titulo[100];
     autor_t autor;
     int anio_publicacion;
     float precio;
 } libro_t;
-
 ```
 <!-- {code-block} c -->
 - Funciones: buscar por título, filtrar por autor, ordenar por precio
@@ -2376,18 +2417,18 @@ Usá enum para permisos de archivo estilo Unix.
 
 ```{code-block} c
 :linenos:
-typedef enum {
-    PERM_READ    = 1 << 0,  // 0001
-    PERM_WRITE   = 1 << 1,  // 0010
-    PERM_EXECUTE = 1 << 2,  // 0100
+typedef enum
+{
+    PERM_READ = 1 << 0,    // 0001
+    PERM_WRITE = 1 << 1,   // 0010
+    PERM_EXECUTE = 1 << 2, // 0100
 } permisos_t;
-
 // Combinar permisos con OR
 int permisos = PERM_READ | PERM_WRITE;
-
 // Verificar con AND
-if (permisos & PERM_READ) { /* tiene lectura */ }
-
+if (permisos & PERM_READ)
+{ /* tiene lectura */
+}
 ```
 <!-- {code-block} c -->
 
@@ -2411,18 +2452,18 @@ Explorá alineación de memoria en estructuras.
 
 ```{code-block} c
 :linenos:
-typedef struct {
-    char c;    // 1 byte + 3 padding
-    int i;     // 4 bytes
-    char d;    // 1 byte + 3 padding
-} mal_alineada_t;  // Total: 12 bytes
-
-typedef struct {
-    int i;     // 4 bytes
-    char c;    // 1 byte
-    char d;    // 1 byte + 2 padding
-} bien_alineada_t;  // Total: 8 bytes
-
+typedef struct
+{
+    char c;       // 1 byte + 3 padding
+    int i;        // 4 bytes
+    char d;       // 1 byte + 3 padding
+} mal_alineada_t; // Total: 12 bytes
+typedef struct
+{
+    int i;         // 4 bytes
+    char c;        // 1 byte
+    char d;        // 1 byte + 2 padding
+} bien_alineada_t; // Total: 8 bytes
 ```
 <!-- {code-block} c -->
 - Usá `sizeof()` para ver diferencias
@@ -2446,7 +2487,8 @@ Implementá estructura de árbol binario y recorridos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-typedef struct nodo_arbol {
+typedef struct nodo_arbol
+{
     int dato;
     struct nodo_arbol *izquierdo;
     struct nodo_arbol *derecho;
@@ -2475,27 +2517,31 @@ Creá sistema de figuras geométricas con union.
 
 ```{code-block} c
 :linenos:
-typedef enum { CIRCULO, RECTANGULO, TRIANGULO } tipo_figura_t;
-
-typedef struct {
+typedef enum
+{
+    CIRCULO,
+    RECTANGULO,
+    TRIANGULO
+} tipo_figura_t;
+typedef struct
+{
     punto_t centro;
     double radio;
 } circulo_t;
-
-typedef struct {
+typedef struct
+{
     punto_t p1, p2;
 } rectangulo_t;
-
-typedef struct {
+typedef struct
+{
     tipo_figura_t tipo;
-    union {
+    union
+    {
         circulo_t circulo;
         rectangulo_t rectangulo;
     } datos;
 } figura_t;
-
 double calcular_area(const figura_t *f);
-
 ```
 <!-- {code-block} c -->
 
@@ -2519,14 +2565,14 @@ Implementá cola FIFO con estructura.
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     int *datos;
     int frente;
     int fin;
     int capacidad;
     int tamanio;
 } cola_t;
-
 ```
 <!-- {code-block} c -->
 - Funciones: crear, encolar, desencolar, esta_llena, destruir
@@ -2551,16 +2597,16 @@ Representá grafo con estructuras.
 
 ```{code-block} c
 :linenos:
-typedef struct nodo_lista {
+typedef struct nodo_lista
+{
     int vertice;
     struct nodo_lista *siguiente;
 } nodo_lista_t;
-
-typedef struct {
+typedef struct
+{
     int num_vertices;
     nodo_lista_t **listas_adyacencia;
 } grafo_t;
-
 ```
 <!-- {code-block} c -->
 - Funciones: crear_grafo, agregar_arista, mostrar
@@ -2585,19 +2631,19 @@ Sistema CRUD para empleados.
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     int id;
     char nombre[50];
     char departamento[50];
     float salario;
 } empleado_t;
-
-typedef struct {
+typedef struct
+{
     empleado_t *empleados;
     int cantidad;
     int capacidad;
 } base_datos_t;
-
 ```
 <!-- {code-block} c -->
 - Funciones: crear, agregar, buscar, actualizar, eliminar, listar
@@ -2622,29 +2668,28 @@ Implementá máquina de estados finitos.
 
 ```{code-block} c
 :linenos:
-typedef enum {
+typedef enum
+{
     ESTADO_INICIO,
     ESTADO_PROCESANDO,
     ESTADO_PAUSA,
     ESTADO_ERROR,
     ESTADO_FIN
 } estado_t;
-
-typedef enum {
+typedef enum
+{
     EVENTO_INICIAR,
     EVENTO_PAUSAR,
     EVENTO_REANUDAR,
     EVENTO_ERROR,
     EVENTO_COMPLETAR
 } evento_t;
-
-typedef struct {
+typedef struct
+{
     estado_t estado_actual;
     // Datos del contexto
 } maquina_t;
-
 estado_t transicion(estado_t actual, evento_t evento);
-
 ```
 <!-- {code-block} c -->
 
@@ -2656,7 +2701,8 @@ estado_t transicion(estado_t actual, evento_t evento);
 
 **Enumeraciones:**
 ``` c
-typedef enum {
+typedef enum
+{
     COLOR_ROJO,
     COLOR_VERDE,
     COLOR_AZUL
@@ -2668,7 +2714,8 @@ typedef enum {
 
 **Estructuras:**
 ``` c
-typedef struct {
+typedef struct
+{
     // campos
 } nombre_t;
 ```
@@ -2705,41 +2752,61 @@ printf("Offset de campo: %zu\n", offsetof(estructura_t, campo));
 
 1. **Olvidar typedef:**
    ```c
-   struct punto { int x, y; };
-   struct punto p;  // Necesitas "struct"
-   
-   typedef struct { int x, y; } punto_t;
-   punto_t p;  // Más limpio
+   struct punto
+   {
+       int x, y;
+   };
+   struct punto p; // Necesitas "struct"
+   typedef struct
+   {
+       int x, y;
+   } punto_t;
+   punto_t p; // Más limpio
    ```
 
 2. **Union sin tipo discriminador:**
    ```c
    // MAL: no sabés qué campo es válido
-   union { int i; float f; } valor;
-   
+   union
+   {
+       int i;
+       float f;
+   } valor;
    // BIEN: con tipo
-   struct {
-       enum { INT, FLOAT } tipo;
-       union { int i; float f; } valor;
+   struct
+   {
+       enum
+       {
+           INT,
+           FLOAT
+       } tipo;
+       union
+       {
+           int i;
+           float f;
+       } valor;
    } variable;
    ```
 
 3. **Comparación de structs:**
    ```c
    // MAL: no se puede comparar directamente
-   if (p1 == p2) { }
-   
+   if (p1 == p2)
+   {
+   }
    // BIEN: comparar campo por campo
-   if (p1.x == p2.x && p1.y == p2.y) { }
+   if (p1.x == p2.x && p1.y == p2.y)
+   {
+   }
    ```
 
 4. **Copiar structs con punteros:**
    ```c
-   typedef struct {
-       char *nombre;  // Puntero
+   typedef struct
+   {
+       char *nombre; // Puntero
    } persona_t;
-   
-   persona_t p2 = p1;  // Copia shallow: ambos apuntan al mismo nombre
+   persona_t p2 = p1; // Copia shallow: ambos apuntan al mismo nombre
    // Necesitas copia profunda manual
    ```
 
@@ -2750,16 +2817,13 @@ printf("Offset de campo: %zu\n", offsetof(estructura_t, campo));
 
 **Cero:**
 ``` c
-estructura_t s = {0};  // Todo en cero
+estructura_t s = {0}; // Todo en cero
 ```
 <!-- c -->
 
 **Designadores C99:**
 ``` c
-punto_t p = {
-    .x = 10,
-    .y = 20
-};
+punto_t p = {.x = 10, .y = 20};
 ```
 <!-- c -->
 
@@ -2771,11 +2835,7 @@ punto_t p = (punto_t){.x = 10, .y = 20};
 
 **Array de structs:**
 ``` c
-punto_t puntos[] = {
-    {1, 2},
-    {3, 4},
-    {.x = 5, .y = 6}
-};
+punto_t puntos[] = {{1, 2}, {3, 4}, {.x = 5, .y = 6}};
 ```
 <!-- c -->
 
@@ -2788,15 +2848,14 @@ punto_t puntos[] = {
 ```{code-block} c
 :linenos:
 // archivo.h
-typedef struct archivo archivo_t;  // Declaración opaca
+typedef struct archivo archivo_t; // Declaración opaca
 archivo_t *abrir_archivo(const char *ruta);
-
 // archivo.c
-struct archivo {  // Definición oculta
+struct archivo
+{ // Definición oculta
     FILE *fp;
     int linea;
 };
-
 ```
 <!-- {code-block} c -->
 - Usuario solo ve puntero, no puede acceder a campos

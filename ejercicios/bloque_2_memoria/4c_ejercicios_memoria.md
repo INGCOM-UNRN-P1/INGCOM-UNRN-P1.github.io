@@ -46,23 +46,19 @@ apropiadamente.
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
 #define ERROR_MEMORIA 1
 #define ERROR_ENTRADA 2
-
 int main()
 {
     int *numeros = NULL;
     size_t cantidad = 0;
     int suma = 0;
-
     printf("¿Cuántos números deseas ingresar? ");
     if (scanf("%zu", &cantidad) != 1 || cantidad == 0)
     {
         fprintf(stderr, "Error: Entrada inválida.\n");
         return ERROR_ENTRADA;
     }
-
     // Asignar memoria
     numeros = malloc(cantidad * sizeof(*numeros));
     if (numeros == NULL)
@@ -70,7 +66,6 @@ int main()
         fprintf(stderr, "Error: No se pudo asignar memoria.\n");
         return ERROR_MEMORIA;
     }
-
     // Leer números
     printf("Ingresa %zu números:\n", cantidad);
     for (size_t i = 0; i < cantidad; i++)
@@ -85,18 +80,14 @@ int main()
         }
         suma = suma + numeros[i];
     }
-
     // Calcular promedio
     double promedio = (double)suma / (double)cantidad;
     printf("El promedio es: %.2f\n", promedio);
-
     // Liberar memoria
     free(numeros);
     numeros = NULL;
-
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -150,10 +141,10 @@ origen antes de cualquier copia.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 /**
  * Duplica una cadena en memoria dinámica.
- * @param original Cadena a duplicar (no debe ser NULL y debe estar terminada en \0).
+ * @param original Cadena a duplicar (no debe ser NULL y debe estar terminada
+ * en \0).
  * @returns Un puntero a la nueva cadena. El llamador es responsable
  *          de liberar esta memoria con free().
  *          Retorna NULL si original es NULL o no hay memoria disponible.
@@ -164,48 +155,38 @@ char *duplicar_cadena(const char *original)
     {
         return NULL;
     }
-
     size_t longitud = strlen(original);
     char *copia = malloc(longitud + 1);
     if (copia == NULL)
     {
         return NULL;
     }
-
     strcpy(copia, original);
     return copia;
 }
-
 int main()
 {
     char original[100] = {0};
-
     printf("Ingresa una cadena (máximo 99 caracteres): ");
     if (fgets(original, sizeof(original), stdin) == NULL)
     {
         fprintf(stderr, "Error: No se pudo leer la cadena.\n");
         return 1;
     }
-
     // Remover el salto de línea si existe
     original[strcspn(original, "\n")] = '\0';
-
     char *copia = duplicar_cadena(original);
     if (copia == NULL)
     {
         fprintf(stderr, "Error: No se pudo duplicar la cadena.\n");
         return 1;
     }
-
     printf("Original: \"%s\"\n", original);
     printf("Copia: \"%s\"\n", copia);
-
     free(copia);
     copia = NULL;
-
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -245,7 +226,6 @@ de valores específicos.
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
 /**
  * Crea un arreglo dinámico inicializado con un valor específico.
  * @param tamano Tamaño del arreglo (debe ser mayor que 0).
@@ -260,21 +240,17 @@ int *crear_arreglo_inicializado(size_t tamano, int valor_inicial)
     {
         return NULL;
     }
-
     int *arreglo = malloc(tamano * sizeof(*arreglo));
     if (arreglo == NULL)
     {
         return NULL;
     }
-
     for (size_t i = 0; i < tamano; i++)
     {
         arreglo[i] = valor_inicial;
     }
-
     return arreglo;
 }
-
 /**
  * Busca la primera ocurrencia de un valor en el arreglo.
  * @param arreglo Puntero al arreglo (no debe ser NULL).
@@ -288,7 +264,6 @@ int buscar_elemento(const int *arreglo, size_t tamano, int valor)
     {
         return -1;
     }
-
     for (size_t i = 0; i < tamano; i++)
     {
         if (arreglo[i] == valor)
@@ -296,10 +271,8 @@ int buscar_elemento(const int *arreglo, size_t tamano, int valor)
             return (int)i;
         }
     }
-
     return -1;
 }
-
 /**
  * Cuenta cuántas veces aparece un valor en el arreglo.
  * @param arreglo Puntero al arreglo (no debe ser NULL).
@@ -313,7 +286,6 @@ int contar_ocurrencias(const int *arreglo, size_t tamano, int valor)
     {
         return 0;
     }
-
     int contador = 0;
     for (size_t i = 0; i < tamano; i++)
     {
@@ -322,41 +294,34 @@ int contar_ocurrencias(const int *arreglo, size_t tamano, int valor)
             contador = contador + 1;
         }
     }
-
     return contador;
 }
-
 int main()
 {
     size_t tamano = 10;
     int valor_inicial = 5;
-
     int *arreglo = crear_arreglo_inicializado(tamano, valor_inicial);
     if (arreglo == NULL)
     {
         fprintf(stderr, "Error: No se pudo crear el arreglo.\n");
         return 1;
     }
-
     printf("Arreglo inicial (todos %d): ", valor_inicial);
     for (size_t i = 0; i < tamano; i++)
     {
         printf("%d ", arreglo[i]);
     }
     printf("\n");
-
     // Modificar algunos elementos
     arreglo[2] = 10;
     arreglo[5] = 10;
     arreglo[7] = 15;
-
     printf("Arreglo modificado: ");
     for (size_t i = 0; i < tamano; i++)
     {
         printf("%d ", arreglo[i]);
     }
     printf("\n");
-
     // Buscar valores
     int buscar = 10;
     int indice = buscar_elemento(arreglo, tamano, buscar);
@@ -368,20 +333,15 @@ int main()
     {
         printf("No se encontró %d en el arreglo\n", buscar);
     }
-
     // Contar ocurrencias
     int ocurrencias = contar_ocurrencias(arreglo, tamano, buscar);
     printf("El valor %d aparece %d veces\n", buscar, ocurrencias);
-
     ocurrencias = contar_ocurrencias(arreglo, tamano, valor_inicial);
     printf("El valor %d aparece %d veces\n", valor_inicial, ocurrencias);
-
     free(arreglo);
     arreglo = NULL;
-
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -417,7 +377,6 @@ Asegurate de:
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
 /**
  * Crea una matriz dinámica de enteros.
  * @param filas Número de filas.
@@ -433,7 +392,6 @@ int **crear_matriz(size_t filas, size_t columnas)
     {
         return NULL;
     }
-
     for (size_t i = 0; i < filas; i++)
     {
         matriz[i] = malloc(columnas * sizeof(*(matriz[i])));
@@ -447,17 +405,14 @@ int **crear_matriz(size_t filas, size_t columnas)
             free(matriz);
             return NULL;
         }
-
         // Inicializar la fila en 0
         for (size_t j = 0; j < columnas; j++)
         {
             matriz[i][j] = 0;
         }
     }
-
     return matriz;
 }
-
 /**
  * Libera una matriz dinámica.
  * @param matriz Puntero a la matriz. Puede ser NULL.
@@ -469,7 +424,6 @@ void liberar_matriz(int **matriz, size_t filas)
     {
         return;
     }
-
     // Liberar en orden inverso: primero las filas, luego el arreglo
     for (size_t i = 0; i < filas; i++)
     {
@@ -477,7 +431,6 @@ void liberar_matriz(int **matriz, size_t filas)
     }
     free(matriz);
 }
-
 /**
  * Imprime una matriz.
  * @param matriz Puntero a la matriz (no debe ser NULL).
@@ -491,7 +444,6 @@ void imprimir_matriz(int **matriz, size_t filas, size_t columnas)
     {
         return;
     }
-
     for (size_t i = 0; i < filas; i++)
     {
         for (size_t j = 0; j < columnas; j++)
@@ -501,19 +453,16 @@ void imprimir_matriz(int **matriz, size_t filas, size_t columnas)
         printf("\n");
     }
 }
-
 int main()
 {
     size_t filas = 3;
     size_t columnas = 4;
-
     int **matriz = crear_matriz(filas, columnas);
     if (matriz == NULL)
     {
         fprintf(stderr, "Error: No se pudo crear la matriz.\n");
         return 1;
     }
-
     // Llenar la matriz con valores
     for (size_t i = 0; i < filas; i++)
     {
@@ -522,15 +471,11 @@ int main()
             matriz[i][j] = (int)(i * columnas + j);
         }
     }
-
     printf("Matriz %zu x %zu:\n", filas, columnas);
     imprimir_matriz(matriz, filas, columnas);
-
     liberar_matriz(matriz, filas);
-
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -550,7 +495,6 @@ typedef struct
     char *apellido;
     int edad;
 } persona_t;
-
 ```
 <!-- {code-block} c -->
 
@@ -583,16 +527,15 @@ asignaciones de memoria.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 typedef struct
 {
     char *nombre;
     char *apellido;
     int edad;
 } persona_t;
-
 /**
- * Duplica una cadena en memoria dinámica verificando la precondición de terminación en nulo.
+ * Duplica una cadena en memoria dinámica verificando la precondición de
+ * terminación en nulo.
  */
 char *duplicar_cadena(const char *cadena)
 {
@@ -600,19 +543,15 @@ char *duplicar_cadena(const char *cadena)
     {
         return NULL;
     }
-
     size_t longitud = strlen(cadena);
     char *copia = malloc(longitud + 1);
-
     if (copia == NULL)
     {
         return NULL;
     }
-
     strcpy(copia, cadena);
     return copia;
 }
-
 /**
  * Crea una nueva persona.
  * @param nombre Nombre de la persona (no debe ser NULL).
@@ -628,20 +567,17 @@ persona_t *crear_persona(const char *nombre, const char *apellido, int edad)
     {
         return NULL;
     }
-
     persona_t *persona = malloc(sizeof(*persona));
     if (persona == NULL)
     {
         return NULL;
     }
-
     persona->nombre = duplicar_cadena(nombre);
     if (persona->nombre == NULL)
     {
         free(persona);
         return NULL;
     }
-
     persona->apellido = duplicar_cadena(apellido);
     if (persona->apellido == NULL)
     {
@@ -649,12 +585,9 @@ persona_t *crear_persona(const char *nombre, const char *apellido, int edad)
         free(persona);
         return NULL;
     }
-
     persona->edad = edad;
-
     return persona;
 }
-
 /**
  * Destruye una persona y libera toda su memoria.
  * @param persona Puntero a la persona a destruir. Puede ser NULL.
@@ -674,7 +607,6 @@ void destruir_persona(persona_t *persona)
         free(persona);
     }
 }
-
 /**
  * Imprime los datos de una persona.
  * @param persona Puntero a la persona (no debe ser NULL).
@@ -685,27 +617,21 @@ void imprimir_persona(const persona_t *persona)
     {
         return;
     }
-
     printf("Nombre: %s %s\n", persona->nombre, persona->apellido);
     printf("Edad: %d años\n", persona->edad);
 }
-
 int main()
 {
     persona_t *p1 = crear_persona("Juan", "Pérez", 30);
-
     if (p1 == NULL)
     {
         fprintf(stderr, "Error: No se pudo crear la persona.\n");
         return 1;
     }
-
     imprimir_persona(p1);
     destruir_persona(p1);
-
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -723,7 +649,6 @@ corregílos.
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
 int *crear_arreglo(int tamano)
 {
     int *arr = malloc(tamano * sizeof(int));
@@ -733,7 +658,6 @@ int *crear_arreglo(int tamano)
     }
     return arr;
 }
-
 void procesar_arreglo(int *arr, int tamano)
 {
     free(arr);
@@ -744,20 +668,15 @@ void procesar_arreglo(int *arr, int tamano)
     }
     printf("\n");
 }
-
 int main()
 {
     int *numeros = crear_arreglo(5);
     procesar_arreglo(numeros, 5);
-
     int valor = numeros[0];
     printf("Primer valor: %d\n", valor);
-
     free(numeros);
-
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -790,7 +709,6 @@ int main()
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
 /**
  * Crea un arreglo dinámico inicializado con valores secuenciales.
  * @param tamano Tamaño del arreglo (debe ser mayor que 0).
@@ -802,21 +720,17 @@ int *crear_arreglo(size_t tamano)
     {
         return NULL;
     }
-
     int *arr = malloc(tamano * sizeof(*arr));
     if (arr == NULL)
     {
         return NULL;
     }
-
     for (size_t i = 0; i < tamano; i++)
     {
         arr[i] = (int)i;
     }
-
     return arr;
 }
-
 /**
  * Procesa un arreglo imprimiendo sus elementos.
  * @param arr Puntero al arreglo (no debe ser NULL).
@@ -828,7 +742,6 @@ void procesar_arreglo(const int *arr, size_t tamano)
     {
         return;
     }
-
     printf("Procesando arreglo...\n");
     for (size_t i = 0; i < tamano; i++)
     {
@@ -836,29 +749,22 @@ void procesar_arreglo(const int *arr, size_t tamano)
     }
     printf("\n");
 }
-
 int main()
 {
     size_t tamano = 5;
     int *numeros = crear_arreglo(tamano);
-
     if (numeros == NULL)
     {
         fprintf(stderr, "Error: No se pudo crear el arreglo.\n");
         return 1;
     }
-
     procesar_arreglo(numeros, tamano);
-
     int valor = numeros[0];
     printf("Primer valor: %d\n", valor);
-
     free(numeros);
     numeros = NULL;
-
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -890,16 +796,13 @@ un puntero plano (`int *`):
 :linenos:
 // Crear matriz de N filas y M columnas (contígua en memoria)
 int *crear_matriz_contigua(size_t filas, size_t columnas);
-
 // Llenar la matriz con un patrón: matriz[i * columnas + j] = i * columnas + j
 void llenar_matriz(int *matriz, size_t filas, size_t columnas);
-
 // Imprimir la matriz
-void imprimir_matriz_contigua(const int *matriz, size_t filas, size_t columnas);
-
+void imprimir_matriz_contigua(const int *matriz, size_t filas,
+                              size_t columnas);
 // Transponer la matriz in-place (solo para matrices cuadradas)
 void transponer_cuadrada(int *matriz, size_t n);
-
 ````
 <!-- {code-block} c -->
 
@@ -931,7 +834,6 @@ Escribí un programa principal que:
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
 /**
  * Crea una matriz dinámica contigua usando un puntero plano.
  * @param filas Número de filas.
@@ -942,21 +844,17 @@ int *crear_matriz_contigua(size_t filas, size_t columnas)
 {
     // Asignar memoria contígua para todos los elementos (filas * columnas)
     int *matriz = malloc(filas * columnas * sizeof(*matriz));
-
     if (matriz == NULL)
     {
         return NULL;
     }
-
     // Inicializar a cero
     for (size_t i = 0; i < filas * columnas; i++)
     {
         matriz[i] = 0;
     }
-
     return matriz;
 }
-
 /**
  * Llena la matriz con el patrón: matriz[i * columnas + j] = i * columnas + j
  * @param matriz Puntero a la matriz (no debe ser NULL).
@@ -969,7 +867,6 @@ void llenar_matriz(int *matriz, size_t filas, size_t columnas)
     {
         return;
     }
-
     for (size_t i = 0; i < filas; i++)
     {
         for (size_t j = 0; j < columnas; j++)
@@ -978,7 +875,6 @@ void llenar_matriz(int *matriz, size_t filas, size_t columnas)
         }
     }
 }
-
 /**
  * Imprime la matriz.
  * @param matriz Puntero a la matriz (no debe ser NULL).
@@ -991,7 +887,6 @@ void imprimir_matriz_contigua(const int *matriz, size_t filas, size_t columnas)
     {
         return;
     }
-
     for (size_t i = 0; i < filas; i++)
     {
         for (size_t j = 0; j < columnas; j++)
@@ -1001,7 +896,6 @@ void imprimir_matriz_contigua(const int *matriz, size_t filas, size_t columnas)
         printf("\n");
     }
 }
-
 /**
  * Transpone una matriz cuadrada in-place.
  * @param matriz Puntero a la matriz cuadrada (no debe ser NULL).
@@ -1013,7 +907,6 @@ void transponer_cuadrada(int *matriz, size_t n)
     {
         return;
     }
-
     // Intercambiar matriz[i * n + j] con matriz[j * n + i]
     for (size_t i = 0; i < n; i++)
     {
@@ -1025,50 +918,40 @@ void transponer_cuadrada(int *matriz, size_t n)
         }
     }
 }
-
 int main()
 {
-    size_t n = 4;  // Matriz 4×4
-
+    size_t n = 4; // Matriz 4×4
     // Crear matriz contígua
     int *matriz = crear_matriz_contigua(n, n);
-
     if (matriz == NULL)
     {
         fprintf(stderr, "Error: No se pudo crear la matriz.\n");
         return 1;
     }
-
     // Llenar con patrón
     llenar_matriz(matriz, n, n);
-
     printf("Matriz original %zu×%zu:\n", n, n);
     imprimir_matriz_contigua(matriz, n, n);
-
     // Transponer
     transponer_cuadrada(matriz, n);
-
     printf("\nMatriz transpuesta:\n");
     imprimir_matriz_contigua(matriz, n, n);
-
     // Verificar la transposición
     printf("\nVerificación:\n");
-    printf("Elemento [0][1] (era 1, ahora debe ser 4): %d\n", matriz[0 * n + 1]);
+    printf("Elemento [0][1] (era 1, ahora debe ser 4): %d\n",
+           matriz[0 * n + 1]);
     printf("Elemento [1][0] (era 4, ahora debe ser 1): %d\n", mocesar_heap()
 {
-    int *datos = malloc(1000 * sizeof(int));  // Llamada a función
-
-    if (datos == NULL) return;
-
-    // Posiblemente más cache misses:
-    for (int i = 0; i < 1000; i++)
-    {
-        datos[i] = i * 2;  // Menos predecible para el hardware
-    }
-
-    free(datos);  // Otra llamada a función
+        int *datos = malloc(1000 * sizeof(int)); // Llamada a función
+        if (datos == NULL)
+            return;
+        // Posiblemente más cache misses:
+        for (int i = 0; i < 1000; i++)
+        {
+            datos[i] = i * 2; // Menos predecible para el hardware
+        }
+        free(datos); // Otra llamada a función
 }
-
 ````
 <!-- {code-block} c -->
 
@@ -1084,13 +967,11 @@ Práctica Comprender el caché te permite optimizar código:
 // Malo: Recorrer matriz por columnas (pobre localidad)
 for (int j = 0; j < cols; j++)
     for (int i = 0; i < rows; i++)
-        matriz[i][j] = 0;  // Saltos grandes en memoria
-
+        matriz[i][j] = 0; // Saltos grandes en memoria
 // Bueno: Recorrer por filas (buena localidad)
 for (int i = 0; i < rows; i++)
     for (int j = 0; j < cols; j++)
-        matriz[i][j] = 0;  // Acceso secuencial
-
+        matriz[i][j] = 0; // Acceso secuencial
 ````
 <!-- {code-block} c -->
 
@@ -1200,16 +1081,15 @@ El compilador inserta "padding" (bytes de relleno) para mantener la alineación:
 
 ````{code-block} c
 :linenos:
-struct ejemplo {
-    char a;      // 1 byte
+struct ejemplo
+{
+    char a; // 1 byte
     // 3 bytes de padding insertados automáticamente
-    int b;       // 4 bytes (debe estar en múltiplo de 4)
-    char c;      // 1 byte
+    int b;  // 4 bytes (debe estar en múltiplo de 4)
+    char c; // 1 byte
     // 3 bytes de padding al final para el arreglo
 };
-
 // sizeof(struct ejemplo) = 12, no 6
-
 ````
 <!-- {code-block} c -->
 
@@ -1233,20 +1113,20 @@ Podés minimizar el padding ordenando los campos de mayor a menor:
 ````{code-block} c
 :linenos:
 // Desperdicia espacio (16 bytes):
-struct ineficiente {
-    char a;      // 1 byte
-    int b;       // 4 bytes (+ 3 padding antes)
-    char c;      // 1 byte (+ 3 padding después)
+struct ineficiente
+{
+    char a; // 1 byte
+    int b;  // 4 bytes (+ 3 padding antes)
+    char c; // 1 byte (+ 3 padding después)
 };
-
 // Más eficiente (8 bytes):
-struct eficiente {
-    int b;       // 4 bytes
-    char a;      // 1 byte
-    char c;      // 1 byte
+struct eficiente
+{
+    int b;  // 4 bytes
+    char a; // 1 byte
+    char c; // 1 byte
     // 2 bytes padding al final (menos que antes)
 };
-
 ````
 <!-- {code-block} c -->
 
@@ -1254,25 +1134,22 @@ struct eficiente {
 
 ````{code-block} c
 :linenos:
-#include <stdio.h>
 #include <stddef.h>
-
-struct prueba {
+#include <stdio.h>
+struct prueba
+{
     char a;
     int b;
     char c;
 };
-
 int main()
 {
     printf("Tamaño de struct: %zu\n", sizeof(struct prueba));
     printf("Offset de 'a': %zu\n", offsetof(struct prueba, a));
     printf("Offset de 'b': %zu\n", offsetof(struct prueba, b));
     printf("Offset de 'c': %zu\n", offsetof(struct prueba, c));
-
     return 0;
 }
-
 ````
 <!-- {code-block} c -->
 
@@ -1287,14 +1164,13 @@ satisface los requisitos de todos los tipos básicos.
 :linenos:
 int *p = malloc(sizeof(int));
 // p está garantizado como alineado para 'int'
-
-struct grande {
-    double d;  // Necesita alineación de 8 bytes
+struct grande
+{
+    double d; // Necesita alineación de 8 bytes
     long l;
 };
 struct grande *s = malloc(sizeof(*s));
 // s está garantizado como alineado para todos los campos
-
 ````
 <!-- {code-block} c -->
 
@@ -1305,13 +1181,13 @@ del compilador:
 
 ````{code-block} c
 :linenos:
-struct __attribute__((packed)) sin_padding {
+struct __attribute__((packed)) sin_padding
+{
     char a;
-    int b;      // Puede estar desalineado
+    int b; // Puede estar desalineado
     char c;
 };
 // sizeof = 6, pero acceso más lento a 'b'
-
 ````
 <!-- {code-block} c -->
 
@@ -1404,15 +1280,13 @@ La segunda versión puede ser 10-100 veces más rápida.
 for (int i = 0; i < n; i++)
 {
     int idx = random_index();
-    data[idx] = process(data[idx]);  // Impredecible para el caché
+    data[idx] = process(data[idx]); // Impredecible para el caché
 }
-
 // Bueno: Acceso secuencial (cache hits)
 for (int i = 0; i < n; i++)
 {
-    data[i] = process(data[i]);  // Predecible, alta localidad
+    data[i] = process(data[i]); // Predecible, alta localidad
 }
-
 ````
 <!-- {code-block} c -->
 
@@ -1421,13 +1295,11 @@ for (int i = 0; i < n; i++)
 ````{code-block} c
 :linenos:
 // Si tu estructura cabe en caché L1 (32 KB):
-struct pequena datos[1000];  // 4 KB total, cabe en L1
+struct pequena datos[1000]; // 4 KB total, cabe en L1
 // Acceso muy rápido, todo en caché
-
 // Si excede la caché L3 (8 MB):
-struct grande datos[1000000];  // 100 MB, no cabe
+struct grande datos[1000000]; // 100 MB, no cabe
 // Muchos accesos a RAM, más lento
-
 ````
 <!-- {code-block} c -->
 
@@ -1437,16 +1309,13 @@ struct grande datos[1000000];  // 100 MB, no cabe
 :linenos:
 // Un nivel de indirección:
 int *ptr = malloc(sizeof(int));
-*ptr = 42;  // Lee ptr, luego lee *ptr (2 accesos potenciales a RAM)
-
+*ptr = 42; // Lee ptr, luego lee *ptr (2 accesos potenciales a RAM)
 // Dos niveles de indirección:
 int **ptr2 = malloc(sizeof(int *));
 *ptr2 = malloc(sizeof(int));
-**ptr2 = 42;  // Lee ptr2, luego *ptr2, luego **ptr2 (3 accesos)
-
+**ptr2 = 42; // Lee ptr2, luego *ptr2, luego **ptr2 (3 accesos)
 // Directo (sin indirección):
-int valor = 42;  // Puede estar en registro, cero accesos a memoria
-
+int valor = 42; // Puede estar en registro, cero accesos a memoria
 ````
 <!-- {code-block} c -->
 
@@ -1465,7 +1334,6 @@ for (int i = 0; i < 1000000; i++)
 // Costo: ~1 millón de escrituras secuenciales
 // Cache: Muy efectivo (prefetching automático)
 // Tiempo: ~1-2 ms en un CPU moderno
-
 // Opción B: Lista enlazada (heap)
 struct nodo *lista = crear_lista(1000000);
 struct nodo *actual = lista;
@@ -1473,13 +1341,12 @@ int i = 0;
 while (actual != NULL)
 {
     actual->valor = i * 2;
-    actual = actual->siguiente;  // Sigue puntero (indirección)
+    actual = actual->siguiente; // Sigue puntero (indirección)
     i++;
 }
 // Costo: ~1 millón de escrituras + 1 millón de lecturas de punteros
 // Cache: Malo (los nodos están dispersos)
 // Tiempo: ~5-20 ms (3-10x más lento)
-
 ````
 <!-- {code-block} c -->
 

@@ -78,23 +78,25 @@ determinado.
 ```{code-block} c
 :linenos:
 #include <assert.h>
-
-void test_suma_conmutativa(void) {
+void test_suma_conmutativa(void)
+{
     // Axioma: a + b == b + a
-    for (int i = -50; i <= 50; i++) {
-        for (int j = -50; j <= 50; j++) {
+    for (int i = -50; i <= 50; i++)
+    {
+        for (int j = -50; j <= 50; j++)
+        {
             assert(suma(i, j) == suma(j, i));
         }
     }
 }
-
-void test_suma_elemento_neutro(void) {
+void test_suma_elemento_neutro(void)
+{
     // Axioma: x + 0 == x
-    for (int i = -100; i <= 100; i++) {
+    for (int i = -100; i <= 100; i++)
+    {
         assert(suma(i, 0) == i);
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -118,46 +120,45 @@ inmediatamente el binario completo ante el primer error.
 
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <stdbool.h>
-
-typedef struct {
+#include <stdio.h>
+typedef struct
+{
     int ejecutadas;
     int exitosas;
     int fallidas;
 } stats_t;
-
 static stats_t stats = {0, 0, 0};
-
-void verificar(bool condicion, const char* descripcion) {
+void verificar(bool condicion, const char *descripcion)
+{
     stats.ejecutadas++;
-    if (condicion) {
+    if (condicion)
+    {
         stats.exitosas++;
         printf("  ✓ [OK] %s\n", descripcion);
-    } else {
+    }
+    else
+    {
         stats.fallidas++;
         printf("  ✗ [FAIL] %s\n", descripcion);
     }
 }
-
 // Ejemplo de suite
-void suite_aritmetica(void) {
+void suite_aritmetica(void)
+{
     printf("\nEjecutando Suite Aritmética:\n");
     verificar(suma(2, 2) == 4, "Suma de enteros positivos");
     verificar(resta(5, 10) == -5, "Resta con resultado negativo");
 }
-
-int main(void) {
+int main(void)
+{
     suite_aritmetica();
-    
     printf("\n==== Reporte Final ====\n");
     printf("Pruebas ejecutadas: %d\n", stats.ejecutadas);
     printf("Exitosas:          %d\n", stats.exitosas);
     printf("Fallidas:          %d\n", stats.fallidas);
-    
     return stats.fallidas > 0 ? 1 : 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -203,12 +204,15 @@ cualquier combinación de tres valores en el intervalo $[-20, 20]$.
 ```{code-block} c
 :linenos:
 #include <assert.h>
-
-void test_propiedad_asociativa_multiplicacion(void) {
+void test_propiedad_asociativa_multiplicacion(void)
+{
     // Propiedad asociativa: (a * b) * c == a * (b * c)
-    for (int a = -20; a <= 20; a++) {
-        for (int b = -20; b <= 20; b++) {
-            for (int c = -20; c <= 20; c++) {
+    for (int a = -20; a <= 20; a++)
+    {
+        for (int b = -20; b <= 20; b++)
+        {
+            for (int c = -20; c <= 20; c++)
+            {
                 int resultado1 = (a * b) * c;
                 int resultado2 = a * (b * c);
                 assert(resultado1 == resultado2);
@@ -216,7 +220,6 @@ void test_propiedad_asociativa_multiplicacion(void) {
         }
     }
 }
-
 ```
 <!-- {code-block} c -->
 

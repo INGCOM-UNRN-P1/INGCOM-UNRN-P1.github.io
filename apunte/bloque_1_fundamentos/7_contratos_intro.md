@@ -42,8 +42,10 @@ verdaderas *antes* de que una función comience su ejecución.
 
 ``` c
 // Precondición: 'b' no debe ser cero.
-int dividir(int a, int b) {
-    // Si b es cero, la división por cero provocará un fallo físico en el hardware.
+int dividir(int a, int b)
+{
+    // Si b es cero, la división por cero provocará un fallo físico en el
+    // hardware.
     return a / b;
 }
 ```
@@ -62,8 +64,10 @@ haya sido satisfecha al inicio.
 
 ``` c
 // Precondición: 'radicando' >= 0
-// Postcondición: El valor retornado es 'r' tal que r * r <= radicando y (r+1)*(r+1) > radicando
-int raiz_entera(int radicando) {
+// Postcondición: El valor retornado es 'r' tal que r * r <= radicando y
+// (r+1)*(r+1) > radicando
+int raiz_entera(int radicando)
+{
     // Implementación del algoritmo
 }
 ```
@@ -84,23 +88,22 @@ precondición:
 ```{code-block} c
 :linenos:
 #include <assert.h>
-
 /**
  * @brief Calcula la raíz cuadrada entera de un número.
  * @pre radicando >= 0 (Regla 0x2003h)
  * @post retorna 'r' tal que r * r <= radicando y (r+1)*(r+1) > radicando
  */
-int raiz_entera(int radicando) {
+int raiz_entera(int radicando)
+{
     // Verificación dinámica de la precondición
     assert(radicando >= 0);
-
     int r = 0;
-    while ((r + 1) * (r + 1) <= radicando) {
+    while ((r + 1) * (r + 1) <= radicando)
+    {
         r++;
     }
     return r;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -135,19 +138,19 @@ paso a paso.
 :linenos:
 // Precondición: arr != NULL y n >= 0
 // Postcondición: retorna la suma de todos los elementos de arr[0] a arr[n-1]
-int sumar_arreglo(const int arr[], int n) {
+int sumar_arreglo(const int arr[], int n)
+{
     int suma = 0;
     int i = 0;
-    
-    // Invariante: suma es la suma acumulada de arr[0] a arr[i-1] AND 0 <= i <= n
-    while (i < n) {
+    // Invariante: suma es la suma acumulada de arr[0] a arr[i-1] AND 0 <= i <=
+    // n
+    while (i < n)
+    {
         suma += arr[i];
         i++;
     }
-    
     return suma;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -219,14 +222,15 @@ algoritmo:
 
 ```{code-block} c
 :linenos:
-int buscar_elemento(const int arr[], int n, int elem) {
+int buscar_elemento(const int arr[], int n, int elem)
+{
     int i = 0;
-    while (i < n && arr[i] != elem) {
+    while (i < n && arr[i] != elem)
+    {
         i++;
     }
     return i < n ? i : -1;
 }
-
 ```
 <!-- {code-block} c -->
 

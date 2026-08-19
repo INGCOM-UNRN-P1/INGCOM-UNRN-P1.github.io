@@ -48,15 +48,14 @@ donde la estructura está completamente expuesta:
 :::{code-block}c
 :linenos:
 // punto_malo.h - NO USAR: Implementación expuesta
-typedef struct {
+typedef struct
+{
     double x;
     double y;
 } punto_t;
-
 // Funciones públicas
 punto_t *crear_punto(double x, double y);
 void desplazar_punto(punto_t *p, double dx, double dy);
-
 :::
 <!-- {code-block}c -->
 
@@ -66,7 +65,7 @@ void desplazar_punto(punto_t *p, double dx, double dy);
 ``` c
 punto_t *p = crear_punto(3.0, 4.0);
 // El usuario puede acceder y modificar directamente los campos internos
-p->x = -9999.0;  // Modificación directa sin control
+p->x = -9999.0; // Modificación directa sin control
 ```
 <!-- c -->
 
@@ -118,20 +117,15 @@ error mediante comentarios estructurados (regla {ref}`0x0035h`).
 // punto.h - Interfaz pública
 #ifndef PUNTO_H
 #define PUNTO_H
-
 // Declaración OPACA: el usuario solo ve que existe una estructura
 typedef struct punto punto_t;
-
 // Funciones públicas - la interfaz
 punto_t *crear_punto(double x, double y);
 void destruir_punto(punto_t **punto);
-
 double punto_obtener_x(const punto_t *punto);
 double punto_obtener_y(const punto_t *punto);
 void punto_desplazar(punto_t *punto, double dx, double dy);
-
-#endif  // PUNTO_H
-
+#endif // PUNTO_H
 :::
 <!-- {code-block}c -->
 
@@ -142,52 +136,56 @@ void punto_desplazar(punto_t *punto, double dx, double dy);
 // punto.c - Implementación privada
 #include "punto.h"
 #include <stdlib.h>
-
 // Definición COMPLETA de la estructura - solo visible aquí
-struct punto {
+struct punto
+{
     double x;
     double y;
 };
-
-punto_t *crear_punto(double x, double y) {
+punto_t *crear_punto(double x, double y)
+{
     punto_t *p = malloc(sizeof(*p));
-    if (p == NULL) {
+    if (p == NULL)
+    {
         return NULL;
     }
     p->x = x;
     p->y = y;
     return p;
 }
-
-void destruir_punto(punto_t **punto) {
-    if (punto != NULL && *punto != NULL) {
+void destruir_punto(punto_t **punto)
+{
+    if (punto != NULL && *punto != NULL)
+    {
         free(*punto);
         *punto = NULL;
     }
 }
-
-double punto_obtener_x(const punto_t *punto) {
-    if (punto == NULL) {
+double punto_obtener_x(const punto_t *punto)
+{
+    if (punto == NULL)
+    {
         return 0.0;
     }
     return punto->x;
 }
-
-double punto_obtener_y(const punto_t *punto) {
-    if (punto == NULL) {
+double punto_obtener_y(const punto_t *punto)
+{
+    if (punto == NULL)
+    {
         return 0.0;
     }
     return punto->y;
 }
-
-void punto_desplazar(punto_t *punto, double dx, double dy) {
-    if (punto == NULL) {
+void punto_desplazar(punto_t *punto, double dx, double dy)
+{
+    if (punto == NULL)
+    {
         return;
     }
     punto->x += dx;
     punto->y += dy;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -196,27 +194,24 @@ void punto_desplazar(punto_t *punto, double dx, double dy) {
 :::{code-block}c
 :linenos:
 // main.c - Usuario de la interfaz
-#include <stdio.h>
 #include "punto.h"
-
-int main(void) {
+#include <stdio.h>
+int main(void)
+{
     punto_t *p = crear_punto(3.0, 4.0);
-    if (p == NULL) {
+    if (p == NULL)
+    {
         fprintf(stderr, "Error al crear el punto\n");
         return 1;
     }
-    
     // El usuario SOLO puede usar la interfaz pública
     punto_desplazar(p, 1.5, -2.0);
     printf("Punto: (%.1f, %.1f)\n", punto_obtener_x(p), punto_obtener_y(p));
-    
     // Esto NO COMPILA: el usuario no puede acceder a los campos internos
     // p->x = 10.0;  // ERROR: incomplete type 'struct punto'
-    
     destruir_punto(&p);
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -239,8 +234,10 @@ aproximaciones clásicas:
 
 1. **Destructor Simple (Puntero Simple):**
    ```c
-   void destruir_punto(punto_t *p) {
-       if (p == NULL) return;
+   void destruir_punto(punto_t *p)
+   {
+       if (p == NULL)
+           return;
        free(p);
    }
    ```
@@ -254,8 +251,10 @@ aproximaciones clásicas:
 
 2. **Destructor Seguro (Doble Puntero - Recomendado y Unificado):**
    ```c
-   void destruir_punto(punto_t **p) {
-       if (p == NULL || *p == NULL) return;
+   void destruir_punto(punto_t **p)
+   {
+       if (p == NULL || *p == NULL)
+           return;
        free(*p);
        *p = NULL; // Aniquilación automática del puntero del cliente
    }
@@ -281,7 +280,6 @@ Cuando declarás:
 :::{code-block}c
 :linenos:
 typedef struct punto punto_t;
-
 :::
 <!-- {code-block}c -->
 
@@ -295,17 +293,20 @@ Con un tipo incompleto, el código cliente **solo puede**:
 
 1. **Declarar punteros** al tipo:
    ```{code-block}c
-   punto_t *p;  // ✅ Permitido
+   punto_t *p; // ✅ Permitido
    ```
 
 2. **Pasar punteros** a funciones:
    ```{code-block}c
-   punto_desplazar(p, 1.0, 2.0);  // ✅ Permitido
+   punto_desplazar(p, 1.0, 2.0); // ✅ Permitido
    ```
 
 3. **Usar punteros** en expresiones que no requieran el tamaño:
    ```{code-block}c
-   if (p == NULL) { ... }  // ✅ Permitido
+   if (p == NULL)
+   {
+       ...
+   } // ✅ Permitido
    ```
 
 **Operaciones Prohibidas**
@@ -314,22 +315,22 @@ El código cliente **NO puede**:
 
 1. **Declarar instancias** por valor:
    ```{code-block}c
-   punto_t p;  // ❌ ERROR: incomplete type
+   punto_t p; // ❌ ERROR: incomplete type
    ```
 
 2. **Acceder a miembros**:
    ```{code-block}c
-   p->x = 5.0;  // ❌ ERROR: incomplete type
+   p->x = 5.0; // ❌ ERROR: incomplete type
    ```
 
 3. **Usar sizeof**:
    ```{code-block}c
-   sizeof(punto_t);  // ❌ ERROR: incomplete type
+   sizeof(punto_t); // ❌ ERROR: incomplete type
    ```
 
 4. **Desreferenciar**:
    ```{code-block}c
-   punto_t copia = *p;  // ❌ ERROR: incomplete type
+   punto_t copia = *p; // ❌ ERROR: incomplete type
    ```
 
 **Compilación Separada y el Rol del Enlazador**
@@ -416,8 +417,7 @@ accidentalmente) acceder o modificar los campos internos.
 :linenos:
 // Esto NO compila - el compilador protege los detalles internos
 punto_t *p = crear_punto(3.0, 4.0);
-p->x = 100.0;  // ERROR en tiempo de compilación
-
+p->x = 100.0; // ERROR en tiempo de compilación
 :::
 <!-- {code-block}c -->
 
@@ -448,11 +448,11 @@ cliente:
 :::{code-block}c
 :linenos:
 // punto.c - Versión con coordenadas polares (cambio de implementación)
-struct punto {
+struct punto
+{
     double radio;
     double angulo; // en radianes
 };
-
 :::
 <!-- {code-block}c -->
 
@@ -470,15 +470,16 @@ que representa a un usuario del sistema:
 
 :::{code-block}c
 :linenos:
-bool usuario_establecer_edad(usuario_t *u, int nueva_edad) {
+bool usuario_establecer_edad(usuario_t *u, int nueva_edad)
+{
     // Garantiza que la edad no sea negativa
-    if (u == NULL || nueva_edad < 0) {
+    if (u == NULL || nueva_edad < 0)
+    {
         return false;
     }
     u->edad = nueva_edad;
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -508,11 +509,9 @@ Toda estructura opaca alocada dinámicamente debe proveer funciones para crear y
 destruir instancias:
 
 :::{code-block}c
-
 // Convención de nombres: tipo_accion
 tipo_t *crear_tipo(parametros);
 void destruir_tipo(tipo_t **instancia);
-
 :::
 <!-- {code-block}c -->
 
@@ -522,7 +521,6 @@ void destruir_tipo(tipo_t **instancia);
 usuario_t *usr = crear_usuario("Carlos", 35);
 // ... usar usr ...
 destruir_usuario(&usr);
-
 :::
 <!-- {code-block}c -->
 
@@ -543,21 +541,20 @@ entonces liberar la estructura contenedora.
 :::{code-block}c
 :linenos:
 #define CANT_USUARIOS 5
-
-void liberar_grupo_usuarios(usuario_t **grupo, size_t cantidad) {
-    if (grupo == NULL) {
+void liberar_grupo_usuarios(usuario_t **grupo, size_t cantidad)
+{
+    if (grupo == NULL)
+    {
         return;
     }
-    
     // Recorremos la colección destruyendo cada elemento individual con un lazo
-    for (size_t i = 0; i < cantidad; i++) {
+    for (size_t i = 0; i < cantidad; i++)
+    {
         destruir_usuario(&grupo[i]);
     }
-    
     // Finalmente, liberamos el array contenedor en sí
     free(grupo);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -570,10 +567,8 @@ Para acceder a propiedades sin exponer los campos de la estructura:
 // Getter - solo lectura
 const char *usuario_obtener_nombre(const usuario_t *u);
 int usuario_obtener_edad(const usuario_t *u);
-
 // Setter - modificación controlada
 bool usuario_establecer_edad(usuario_t *u, int nueva_edad);
-
 :::
 <!-- {code-block}c -->
 
@@ -591,15 +586,16 @@ Siempre verificá punteros nulos y condiciones de error de manera defensiva:
 
 :::{code-block}c
 :linenos:
-bool usuario_establecer_edad(usuario_t *u, int nueva_edad) {
+bool usuario_establecer_edad(usuario_t *u, int nueva_edad)
+{
     // Verificaciones defensivas
-    if (u == NULL || nueva_edad < 0) {
+    if (u == NULL || nueva_edad < 0)
+    {
         return false;
     }
     u->edad = nueva_edad;
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -632,10 +628,8 @@ bool usuario_establecer_edad(usuario_t *u, int nueva_edad) {
 // Opción 1: Puntero opaco (RECOMENDADO)
 typedef struct punto punto_t;
 double punto_obtener_x(const punto_t *p);
-
 // Opción 2: Void pointer (EVITAR)
 double punto_obtener_x(const void *p);
-
 :::
 <!-- {code-block}c -->
 
@@ -670,26 +664,19 @@ encapsulados.
 :linenos:
 #ifndef USUARIO_H
 #define USUARIO_H
-
 #include <stdbool.h>
-
 // Tipo opaco
 typedef struct usuario usuario_t;
-
 // Constructor/Destructor
 usuario_t *crear_usuario(const char *nombre, int edad);
 void destruir_usuario(usuario_t **u);
-
 // Getters y Setters con validación
 const char *usuario_obtener_nombre(const usuario_t *u);
 int usuario_obtener_edad(const usuario_t *u);
 bool usuario_establecer_edad(usuario_t *u, int nueva_edad);
-
 // Operaciones
 void usuario_imprimir(const usuario_t *u);
-
-#endif  // USUARIO_H
-
+#endif // USUARIO_H
 :::
 <!-- {code-block}c -->
 
@@ -701,76 +688,79 @@ void usuario_imprimir(const usuario_t *u);
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 // Definición completa del usuario - solo visible aquí
-struct usuario {
+struct usuario
+{
     char *nombre;
     int edad;
 };
-
-usuario_t *crear_usuario(const char *nombre, int edad) {
-    if (nombre == NULL || edad < 0) {
+usuario_t *crear_usuario(const char *nombre, int edad)
+{
+    if (nombre == NULL || edad < 0)
+    {
         return NULL;
     }
-    
     // Alocación robusta desreferenciando el puntero (regla {ref}`0x0003h`)
     usuario_t *u = malloc(sizeof(*u));
-    if (u == NULL) {
+    if (u == NULL)
+    {
         return NULL;
     }
-    
     u->nombre = malloc(strlen(nombre) + 1);
-    if (u->nombre == NULL) {
+    if (u->nombre == NULL)
+    {
         free(u);
         return NULL;
     }
     memcpy(u->nombre, nombre, strlen(nombre) + 1);
-    
     u->edad = edad;
     return u;
 }
-
-void destruir_usuario(usuario_t **u) {
-    if (u == NULL || *u == NULL) {
+void destruir_usuario(usuario_t **u)
+{
+    if (u == NULL || *u == NULL)
+    {
         return;
     }
-    
     // Primero liberamos los recursos internos
     free((*u)->nombre);
     // Luego liberamos la estructura contenedora
     free(*u);
     *u = NULL;
 }
-
-const char *usuario_obtener_nombre(const usuario_t *u) {
-    if (u == NULL) {
+const char *usuario_obtener_nombre(const usuario_t *u)
+{
+    if (u == NULL)
+    {
         return NULL;
     }
     return u->nombre;
 }
-
-int usuario_obtener_edad(const usuario_t *u) {
-    if (u == NULL) {
+int usuario_obtener_edad(const usuario_t *u)
+{
+    if (u == NULL)
+    {
         return -1;
     }
     return u->edad;
 }
-
-bool usuario_establecer_edad(usuario_t *u, int nueva_edad) {
-    if (u == NULL || nueva_edad < 0) {
+bool usuario_establecer_edad(usuario_t *u, int nueva_edad)
+{
+    if (u == NULL || nueva_edad < 0)
+    {
         return false;
     }
     u->edad = nueva_edad;
     return true;
 }
-
-void usuario_imprimir(const usuario_t *u) {
-    if (u == NULL) {
+void usuario_imprimir(const usuario_t *u)
+{
+    if (u == NULL)
+    {
         return;
     }
     printf("Usuario: %s | Edad: %d\n", u->nombre, u->edad);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -778,33 +768,30 @@ void usuario_imprimir(const usuario_t *u) {
 
 :::{code-block}c
 :linenos:
-#include <stdio.h>
 #include "usuario.h"
-
-int main(void) {
+#include <stdio.h>
+int main(void)
+{
     usuario_t *u = crear_usuario("Martín", 21);
-    if (u == NULL) {
+    if (u == NULL)
+    {
         return 1;
     }
-    
     usuario_imprimir(u);
-    
     // Intento de modificación válida
-    if (usuario_establecer_edad(u, 22)) {
+    if (usuario_establecer_edad(u, 22))
+    {
         printf("Edad actualizada con éxito.\n");
     }
-    
     // Intento de asignación inválida
-    if (!usuario_establecer_edad(u, -5)) {
+    if (!usuario_establecer_edad(u, -5))
+    {
         printf("Error: no se admiten edades negativas.\n");
     }
-    
     usuario_imprimir(u);
-    
     destruir_usuario(&u);
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -821,10 +808,8 @@ Muchas bibliotecas conocidas usan punteros opacos:
 :linenos:
 // stdio.h
 typedef struct _IO_FILE FILE;
-
 FILE *fopen(const char *filename, const char *mode);
 int fclose(FILE *stream);
-
 :::
 <!-- {code-block}c -->
 
@@ -837,10 +822,8 @@ de punteros.
 :linenos:
 typedef struct ssl_ctx_st SSL_CTX;
 typedef struct ssl_st SSL;
-
 SSL_CTX *SSL_CTX_new(const SSL_METHOD *method);
 SSL *SSL_new(SSL_CTX *ctx);
-
 :::
 <!-- {code-block}c -->
 
@@ -850,9 +833,7 @@ SSL *SSL_new(SSL_CTX *ctx);
 :linenos:
 typedef struct _GtkWidget GtkWidget;
 typedef struct _GtkWindow GtkWindow;
-
 GtkWidget *gtk_window_new(GtkWindowType type);
-
 :::
 <!-- {code-block}c -->
 
@@ -869,10 +850,8 @@ Todos estos ejemplos siguen el mismo patrón de puntero opaco.
 :linenos:
 // Patrón: tipo_t para el tipo, crear_tipo/destruir_tipo para funciones
 typedef struct usuario usuario_t;
-
 usuario_t *crear_usuario(const char *nombre, int edad);
 void destruir_usuario(usuario_t **u);
-
 :::
 <!-- {code-block}c -->
 
@@ -882,22 +861,20 @@ void destruir_usuario(usuario_t **u);
 :linenos:
 /**
  * Crea una nueva instancia de un usuario.
- * 
+ *
  * @param nombre Cadena de caracteres que representa el nombre (no debe ser
    NULL).
  * @param edad Entero no negativo que representa la edad.
- * @return Puntero al usuario creado, o NULL si falla la asignación de memoria o
-   los parámetros son inválidos.
+ * @return Puntero al usuario creado, o NULL si falla la asignación de memoria
+ o los parámetros son inválidos.
  */
 usuario_t *crear_usuario(const char *nombre, int edad);
-
 /**
  * Destruye al usuario liberando toda la memoria asociada.
- * 
+ *
  * @param u Usuario a destruir. Puede ser NULL.
  */
 void destruir_usuario(usuario_t **u);
-
 :::
 <!-- {code-block}c -->
 
@@ -906,24 +883,26 @@ void destruir_usuario(usuario_t **u);
 :::{code-block}c
 :linenos:
 // Retornar NULL en creación si falla
-tipo_t *crear_tipo(void) {
+tipo_t *crear_tipo(void)
+{
     tipo_t *t = malloc(sizeof(*t));
-    if (t == NULL) {
-        return NULL;  // Indicación clara de fallo al cliente
+    if (t == NULL)
+    {
+        return NULL; // Indicación clara de fallo al cliente
     }
     // ... inicialización ...
     return t;
 }
-
 // Retornar bool en operaciones para reportar éxito o fracaso
-bool tipo_operar(tipo_t *t, int dato) {
-    if (t == NULL) {
-        return false;  // Fallo: puntero inválido
+bool tipo_operar(tipo_t *t, int dato)
+{
+    if (t == NULL)
+    {
+        return false; // Fallo: puntero inválido
     }
     // ... operación ...
-    return true;  // Éxito
+    return true; // Éxito
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -931,16 +910,17 @@ bool tipo_operar(tipo_t *t, int dato) {
 
 :::{code-block}c
 :linenos:
-void destruir_tipo(tipo_t **t) {
+void destruir_tipo(tipo_t **t)
+{
     // Tolerante a NULL - comportamiento similar a free()
-    if (t == NULL || *t == NULL) {
+    if (t == NULL || *t == NULL)
+    {
         return;
     }
     // ... liberación ...
     free(*t);
     *t = NULL;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -950,10 +930,8 @@ void destruir_tipo(tipo_t **t) {
 :linenos:
 // Solo lectura - no modifica la estructura
 double punto_obtener_x(const punto_t *punto);
-
 // Modifica la estructura
 void punto_desplazar(punto_t *punto, double dx, double dy);
-
 :::
 <!-- {code-block}c -->
 
@@ -970,9 +948,7 @@ herramientas tradicionales:
 :::{code-block}c
 :linenos:
 // En GDB:
-(gdb) print punto->x
-Cannot access memory at address 0x0: incomplete type
-
+(gdb) print punto->x Cannot access memory at address 0x0 : incomplete type
 :::
 <!-- {code-block}c -->
 
@@ -982,7 +958,6 @@ Cannot access memory at address 0x0: incomplete type
 #ifdef DEBUG
 void punto_debug_print(const punto_t *p);
 #endif
-
 :::
 <!-- {code-block}c -->
 
@@ -991,11 +966,9 @@ void punto_debug_print(const punto_t *p);
 :::{code-block}c
 :linenos:
 // Esto NO compila con puntero opaco
-punto_t p;  // ERROR: incomplete type
-
+punto_t p; // ERROR: incomplete type
 // Debés usar el heap
 punto_t *p = crear_punto(3.0, 4.0);
-
 :::
 <!-- {code-block}c -->
 
@@ -1008,8 +981,7 @@ No podés realizar una copia superficial por asignación directa:
 
 :::{code-block}c
 :linenos:
-punto_t copia = *original;  // ERROR: incomplete type
-
+punto_t copia = *original; // ERROR: incomplete type
 :::
 <!-- {code-block}c -->
 
@@ -1017,7 +989,6 @@ punto_t copia = *original;  // ERROR: incomplete type
 :::{code-block}c
 :linenos:
 punto_t *punto_clonar(const punto_t *original);
-
 :::
 <!-- {code-block}c -->
 
@@ -1101,16 +1072,14 @@ Considerá la siguiente declaración de una estructura expuesta que representa u
 vector en $\mathbb{R}^3$ en un archivo de cabecera:
 
 :::{code-block}c
-
-typedef struct {
+typedef struct
+{
     double x;
     double y;
     double z;
 } vector3d_t;
-
 vector3d_t vector_crear(double x, double y, double z);
 vector3d_t vector_sumar(vector3d_t v1, vector3d_t v2);
-
 :::
 <!-- {code-block}c -->
 
@@ -1128,25 +1097,19 @@ El archivo de cabecera modificado (`vector3d.h`) utilizando un puntero opaco
 debe declarar el tipo de forma incompleta:
 
 :::{code-block}c
-
 #ifndef VECTOR3D_H
 #define VECTOR3D_H
-
 // Declaración opaca del tipo incompleto
 typedef struct vector3d vector3d_t;
-
 // Constructor y destructor
 vector3d_t *vector_crear(double x, double y, double z);
 void vector_destruir(vector3d_t **v);
-
 // Operaciones que manipulan el tipo a través de punteros
 vector3d_t *vector_sumar(const vector3d_t *v1, const vector3d_t *v2);
 double vector_obtener_x(const vector3d_t *v);
 double vector_obtener_y(const vector3d_t *v);
 double vector_obtener_z(const vector3d_t *v);
-
 #endif // VECTOR3D_H
-
 :::
 <!-- {code-block}c -->
 
@@ -1171,15 +1134,13 @@ Analizá el siguiente fragmento de código cliente que utiliza el TAD `punto_t`
 definido mediante punteros opacos:
 
 :::{code-block}c
-
 #include "punto.h"
 #include <stdlib.h>
-
-int main(void) {
+int main(void)
+{
     punto_t *p = malloc(sizeof(punto_t));
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1206,19 +1167,18 @@ operador `sizeof` sobre un tipo incompleto.
    provisto por la API del TAD:
 
 :::{code-block}c
-
-int main(void) {
+int main(void)
+{
     // El constructor interno en punto.c se encarga de malloc y de conocer el
-    sizeof
-    punto_t *p = crear_punto(3.0, 4.0);
-    if (p == NULL) {
+    sizeof punto_t *p = crear_punto(3.0, 4.0);
+    if (p == NULL)
+    {
         return 1;
     }
     // ...
     destruir_punto(&p);
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1254,16 +1214,14 @@ que ofrece el compilador:
 **Ejemplo problemático con `void *`:**
 
 :::{code-block}c
-
 // API mal diseñada usando void*
 void destruir_usuario(void *u);
-
 // Código cliente erróneo
 cuenta_t *mi_cuenta = crear_cuenta(12345, "Juan", 1000.0);
 // Error conceptual: pasamos un tipo cuenta_t* a un destructor de usuario_t*
-destruir_usuario(mi_cuenta); // El compilador no advierte el error y compila sin
+destruir_usuario(
+    mi_cuenta); // El compilador no advierte el error y compila sin
 quejas.
-
 :::
 <!-- {code-block}c -->
 
@@ -1300,50 +1258,46 @@ asegurate de liberar toda la memoria dinámica.
 **Interfaz Pública (`cuenta.h`):**
 
 :::{code-block}c
-
 #ifndef CUENTA_H
 #define CUENTA_H
-
 #include <stdbool.h>
-
 typedef struct cuenta cuenta_t;
-
 cuenta_t *crear_cuenta(long nro, const char *titular, double saldo_inicial);
 void destruir_cuenta(cuenta_t **c);
 bool cuenta_depositar(cuenta_t *c, double monto);
 bool cuenta_extraer(cuenta_t *c, double monto);
 double cuenta_obtener_saldo(const cuenta_t *c);
-
 #endif // CUENTA_H
-
 :::
 <!-- {code-block}c -->
 
 **Archivo de Implementación (`cuenta.c`):**
 
 :::{code-block}c
-
 #include "cuenta.h"
 #include <stdlib.h>
 #include <string.h>
-
-struct cuenta {
+struct cuenta
+{
     long nro_cuenta;
     char *titular;
     double saldo;
 };
-
-cuenta_t *crear_cuenta(long nro, const char *titular, double saldo_inicial) {
-    if (titular == NULL || saldo_inicial < 0.0) {
+cuenta_t *crear_cuenta(long nro, const char *titular, double saldo_inicial)
+{
+    if (titular == NULL || saldo_inicial < 0.0)
+    {
         return NULL;
     }
     cuenta_t *c = malloc(sizeof(*c));
-    if (c == NULL) {
+    if (c == NULL)
+    {
         return NULL;
     }
     c->nro_cuenta = nro;
     c->titular = malloc(strlen(titular) + 1);
-    if (c->titular == NULL) {
+    if (c->titular == NULL)
+    {
         free(c);
         return NULL;
     }
@@ -1351,39 +1305,42 @@ cuenta_t *crear_cuenta(long nro, const char *titular, double saldo_inicial) {
     c->saldo = saldo_inicial;
     return c;
 }
-
-void destruir_cuenta(cuenta_t **c) {
-    if (c == NULL || *c == NULL) {
+void destruir_cuenta(cuenta_t **c)
+{
+    if (c == NULL || *c == NULL)
+    {
         return;
     }
     free((*c)->titular);
     free(*c);
     *c = NULL;
 }
-
-bool cuenta_depositar(cuenta_t *c, double monto) {
-    if (c == NULL || monto <= 0.0) {
+bool cuenta_depositar(cuenta_t *c, double monto)
+{
+    if (c == NULL || monto <= 0.0)
+    {
         return false;
     }
     c->saldo += monto;
     return true;
 }
-
-bool cuenta_extraer(cuenta_t *c, double monto) {
-    if (c == NULL || monto <= 0.0 || c->saldo < monto) {
+bool cuenta_extraer(cuenta_t *c, double monto)
+{
+    if (c == NULL || monto <= 0.0 || c->saldo < monto)
+    {
         return false;
     }
     c->saldo -= monto;
     return true;
 }
-
-double cuenta_obtener_saldo(const cuenta_t *c) {
-    if (c == NULL) {
+double cuenta_obtener_saldo(const cuenta_t *c)
+{
+    if (c == NULL)
+    {
         return 0.0;
     }
     return c->saldo;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1397,9 +1354,7 @@ estructura opaca `cuenta_t` del ejercicio anterior. Escribí una función en C c
 la siguiente firma:
 
 :::{code-block}c
-
 void cartera_destruir(cuenta_t **cartera, size_t cantidad);
-
 :::
 <!-- {code-block}c -->
 
@@ -1415,23 +1370,23 @@ llamaras directamente a `free(cartera)` sin recorrer el arreglo con un lazo.
 **Implementación de la función:**
 
 :::{code-block}c
-
-#include <stdlib.h>
 #include "cuenta.h"
-
-void cartera_destruir(cuenta_t **cartera, size_t cantidad) {
-    if (cartera == NULL) {
+#include <stdlib.h>
+void cartera_destruir(cuenta_t **cartera, size_t cantidad)
+{
+    if (cartera == NULL)
+    {
         return;
     }
     // Liberamos cada cuenta individual recorriendo el arreglo con un lazo
-    for (size_t i = 0; i < cantidad; i++) {
+    for (size_t i = 0; i < cantidad; i++)
+    {
         destruir_cuenta(&cartera[i]);
         cartera[i] = NULL; // Evitamos punteros colgantes en el arreglo
     }
     // Liberamos el arreglo contenedor
     free(cartera);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1490,19 +1445,20 @@ Explicá:
    obligación de liberarlo:
 
 :::{code-block}c
-
 // Firma del getter alternativo
-char *cuenta_clonar_titular(const cuenta_t *c) {
-    if (c == NULL || c->titular == NULL) {
+char *cuenta_clonar_titular(const cuenta_t *c)
+{
+    if (c == NULL || c->titular == NULL)
+    {
         return NULL;
     }
     char *copia = malloc(strlen(c->titular) + 1);
-    if (copia != NULL) {
+    if (copia != NULL)
+    {
         strcpy(copia, c->titular);
     }
     return copia; // El cliente debe liberar esta memoria con free()
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1514,9 +1470,7 @@ char *cuenta_clonar_titular(const cuenta_t *c) {
 Para la función constructora del TAD usuario:
 
 :::{code-block}c
-
 usuario_t *crear_usuario(const char *nombre, int edad);
-
 :::
 <!-- {code-block}c -->
 
@@ -1587,16 +1541,14 @@ Si el contrato de la función exige explícitamente que el puntero sea válido,
 pasar `NULL` es un bug del cliente:
 
 :::{code-block}c
-
 #include <assert.h>
-
-int usuario_obtener_edad(const usuario_t *u) {
+int usuario_obtener_edad(const usuario_t *u)
+{
     // Si u es NULL, el cliente violó la precondición del contrato.
     // Detenemos el programa de inmediato para alertar al desarrollador.
     assert(u != NULL);
     return u->edad;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1605,14 +1557,14 @@ Si se decide que la API sea tolerante al puntero nulo y maneje el error
 devolviendo un valor centinela:
 
 :::{code-block}c
-
-int usuario_obtener_edad(const usuario_t *u) {
-    if (u == NULL) {
+int usuario_obtener_edad(const usuario_t *u)
+{
+    if (u == NULL)
+    {
         return -1; // Valor centinela que indica error sin abortar la ejecución
     }
     return u->edad;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1627,9 +1579,7 @@ la estructura `cuenta_t` del ejercicio anterior y escribí una función interna 
 verificación:
 
 :::{code-block}c
-
 static bool cuenta_validar_invariante(const cuenta_t *c);
-
 :::
 <!-- {code-block}c -->
 
@@ -1654,22 +1604,23 @@ estado estable (es decir, antes y después de cualquier operación pública).
 **Función de verificación interna (`cuenta.c`):**
 
 :::{code-block}c
-
 #include <stdbool.h>
-
-static bool cuenta_validar_invariante(const cuenta_t *c) {
-    if (c == NULL) {
+static bool cuenta_validar_invariante(const cuenta_t *c)
+{
+    if (c == NULL)
+    {
         return false;
     }
-    if (c->titular == NULL) {
+    if (c->titular == NULL)
+    {
         return false;
     }
-    if (c->saldo < 0.0) {
+    if (c->saldo < 0.0)
+    {
         return false;
     }
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1738,12 +1689,11 @@ typedef struct tipo tipo_t;
 tipo_t *crear_tipo(...);
 void destruir_tipo(tipo_t *t);
 bool tipo_operacion(tipo_t *t, ...);
-
 // tipo.c
-struct tipo {
+struct tipo
+{
     // Campos privados
 };
-
 ```
 <!-- {code-block} c -->
 

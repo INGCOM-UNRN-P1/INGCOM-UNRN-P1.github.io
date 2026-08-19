@@ -33,25 +33,22 @@ razonamiento sobre el código.
 ```{code-block} c
 :linenos:
 // Problemático: variables declaradas al inicio de funciones largas
-void procesar_datos() {
+void procesar_datos()
+{
     int i, j, k;
     int resultado;
     double temporal;
     char buffer[256];
-    
     // ... muchas líneas de código ...
-    
     // i solo se usa aquí
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < 10; i++)
+    {
         printf("%d\n", i);
     }
-    
     // ... más código ...
-    
     // temporal solo se usa aquí
     temporal = calcular_algo();
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -60,19 +57,19 @@ void procesar_datos() {
 ```{code-block} c
 :linenos:
 // Peligroso: variables no inicializadas
-int calcular_suma(int* arr, int n) {
-    int suma;  // ¡Valor indeterminado!
-    
-    if (n > 0) {
+int calcular_suma(int *arr, int n)
+{
+    int suma; // ¡Valor indeterminado!
+    if (n > 0)
+    {
         suma = 0;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++)
+        {
             suma += arr[i];
         }
     }
-    
-    return suma;  // Puede retornar basura si n <= 0
+    return suma; // Puede retornar basura si n <= 0
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -81,17 +78,17 @@ int calcular_suma(int* arr, int n) {
 ```{code-block} c
 :linenos:
 // Verboso: temporales que no agregan claridad
-int obtener_edad() {
+int obtener_edad()
+{
     int edad_temporal = 25;
     return edad_temporal;
 }
-
-double calcular_precio(double base, double descuento) {
+double calcular_precio(double base, double descuento)
+{
     double precio_con_descuento = base * (1 - descuento);
     double precio_final = precio_con_descuento;
     return precio_final;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -100,21 +97,18 @@ double calcular_precio(double base, double descuento) {
 ```{code-block} c
 :linenos:
 // Confuso: misma variable para propósitos diferentes
-void procesar() {
+void procesar()
+{
     int temp;
-    
     temp = leer_entrada();
     validar(temp);
-    
     // temp reutilizada para algo diferente
     temp = calcular_resultado();
     guardar(temp);
-    
     // temp reutilizada nuevamente
     temp = contar_elementos();
     mostrar(temp);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -128,32 +122,30 @@ Declarar variables en el punto más cercano a su primer uso.
 
 ```{code-block} c
 :linenos:
-void procesar_archivo(const char* ruta) {
-    FILE* archivo;
+void procesar_archivo(const char *ruta)
+{
+    FILE *archivo;
     char linea[256];
     int contador;
     int i;
-    
     archivo = fopen(ruta, "r");
-    if (archivo == NULL) {
+    if (archivo == NULL)
+    {
         return;
     }
-    
     contador = 0;
-    while (fgets(linea, sizeof(linea), archivo)) {
+    while (fgets(linea, sizeof(linea), archivo))
+    {
         contador++;
     }
-    
     printf("Líneas: %d\n", contador);
-    
     fclose(archivo);
-    
     // i solo se usa aquí
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < 10; i++)
+    {
         printf("%d\n", i);
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -161,28 +153,27 @@ void procesar_archivo(const char* ruta) {
 
 ```{code-block} c
 :linenos:
-void procesar_archivo(const char* ruta) {
-    FILE* archivo = fopen(ruta, "r");
-    if (archivo == NULL) {
+void procesar_archivo(const char *ruta)
+{
+    FILE *archivo = fopen(ruta, "r");
+    if (archivo == NULL)
+    {
         return;
     }
-    
     int contador = 0;
     char linea[256];
-    
-    while (fgets(linea, sizeof(linea), archivo)) {
+    while (fgets(linea, sizeof(linea), archivo))
+    {
         contador++;
     }
-    
     printf("Líneas: %d\n", contador);
     fclose(archivo);
-    
     // i declarada en el lazo
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++)
+    {
         printf("%d\n", i);
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -199,28 +190,28 @@ Siempre inicializar variables en el punto de declaración.
 
 ```{code-block} c
 :linenos:
-int procesar_datos(int* arr, int n) {
+int procesar_datos(int *arr, int n)
+{
     int suma;
     int maximo;
     int contador;
-    
-    if (n > 0) {
+    if (n > 0)
+    {
         suma = 0;
         maximo = arr[0];
         contador = 0;
-        
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++)
+        {
             suma += arr[i];
-            if (arr[i] > maximo) {
+            if (arr[i] > maximo)
+            {
                 maximo = arr[i];
             }
             contador++;
         }
     }
-    
-    return suma;  // ¡Peligro!
+    return suma; // ¡Peligro!
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -228,26 +219,26 @@ int procesar_datos(int* arr, int n) {
 
 ```{code-block} c
 :linenos:
-int procesar_datos(const int* arr, int n) {
+int procesar_datos(const int *arr, int n)
+{
     int suma = 0;
     int maximo = 0;
     int contador = 0;
-    
-    if (n > 0) {
+    if (n > 0)
+    {
         maximo = arr[0];
-        
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++)
+        {
             suma += arr[i];
-            if (arr[i] > maximo) {
+            if (arr[i] > maximo)
+            {
                 maximo = arr[i];
             }
             contador++;
         }
     }
-    
     return suma;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -255,24 +246,24 @@ int procesar_datos(const int* arr, int n) {
 
 ```{code-block} c
 :linenos:
-int procesar_datos(const int* arr, int n) {
-    if (n <= 0) {
+int procesar_datos(const int *arr, int n)
+{
+    if (n <= 0)
+    {
         return 0;
     }
-    
     int suma = 0;
     int maximo = arr[0];
-    
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
+    {
         suma += arr[i];
-        if (arr[i] > maximo) {
+        if (arr[i] > maximo)
+        {
             maximo = arr[i];
         }
     }
-    
     return suma;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -282,19 +273,19 @@ int procesar_datos(const int* arr, int n) {
 
 ```{code-block} c
 :linenos:
-double calcular_total(double precio, double cantidad, double impuesto) {
+double calcular_total(double precio, double cantidad, double impuesto)
+{
     double subtotal = precio * cantidad;
     double monto_impuesto = subtotal * impuesto;
     double total = subtotal + monto_impuesto;
     return total;
 }
-
-int es_par(int n) {
+int es_par(int n)
+{
     int resto = n % 2;
     int resultado = (resto == 0);
     return resultado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -302,15 +293,15 @@ int es_par(int n) {
 
 ```{code-block} c
 :linenos:
-double calcular_total(double precio, double cantidad, double impuesto) {
+double calcular_total(double precio, double cantidad, double impuesto)
+{
     double subtotal = precio * cantidad;
     return subtotal * (1 + impuesto);
 }
-
-int es_par(int n) {
+int es_par(int n)
+{
     return n % 2 == 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -319,16 +310,15 @@ int es_par(int n) {
 ```{code-block} c
 :linenos:
 // Temporales útiles para claridad
-double calcular_factura(const item_t* items, int n, double tasa_iva) {
+double calcular_factura(const item_t *items, int n, double tasa_iva)
+{
     double subtotal = calcular_subtotal(items, n);
     double descuento = calcular_descuento_aplicable(subtotal);
     double subtotal_con_descuento = subtotal - descuento;
     double iva = subtotal_con_descuento * tasa_iva;
     double total = subtotal_con_descuento + iva;
-    
     return total;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -340,28 +330,26 @@ No reutilizar variables para diferentes propósitos.
 
 ```{code-block} c
 :linenos:
-void procesar() {
+void procesar()
+{
     int valor;
-    
     // Primer uso: entrada
     valor = leer_entrada();
     validar(valor);
-    
     // Segundo uso: resultado intermedio (diferente significado)
     valor = calcular_resultado(valor);
     transformar(valor);
-    
     // Tercer uso: contador (totalmente diferente)
     valor = 0;
-    for (int i = 0; i < 10; i++) {
-        if (condicion(i)) {
+    for (int i = 0; i < 10; i++)
+    {
+        if (condicion(i))
+        {
             valor++;
         }
     }
-    
     printf("Contados: %d\n", valor);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -369,23 +357,22 @@ void procesar() {
 
 ```{code-block} c
 :linenos:
-void procesar() {
+void procesar()
+{
     int entrada = leer_entrada();
     validar(entrada);
-    
     int resultado = calcular_resultado(entrada);
     transformar(resultado);
-    
     int elementos_contados = 0;
-    for (int i = 0; i < 10; i++) {
-        if (condicion(i)) {
+    for (int i = 0; i < 10; i++)
+    {
+        if (condicion(i))
+        {
             elementos_contados++;
         }
     }
-    
     printf("Contados: %d\n", elementos_contados);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -402,16 +389,14 @@ Aplicar `const` a variables que no deben cambiar.
 
 ```{code-block} c
 :linenos:
-void procesar_pedido(pedido_t* pedido) {
+void procesar_pedido(pedido_t *pedido)
+{
     double tasa_iva = 0.21;
     double descuento_vip = 0.15;
     int max_intentos = 3;
-    
     // ... código que NO debería modificar estas variables
-    
-    tasa_iva = 0.10;  // ¡Bug! Cambio accidental
+    tasa_iva = 0.10; // ¡Bug! Cambio accidental
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -419,16 +404,15 @@ void procesar_pedido(pedido_t* pedido) {
 
 ```{code-block} c
 :linenos:
-void procesar_pedido(pedido_t* pedido) {
+void procesar_pedido(pedido_t *pedido)
+{
     const double TASA_IVA = 0.21;
     const double DESCUENTO_VIP = 0.15;
     const int MAX_INTENTOS = 3;
-    
     // ... código
-    
-    // TASA_IVA = 0.10;  // Error de compilación: assignment of read-only variable
+    // TASA_IVA = 0.10;  // Error de compilación: assignment of read-only
+    // variable
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -437,15 +421,15 @@ void procesar_pedido(pedido_t* pedido) {
 ```{code-block} c
 :linenos:
 // Antes
-void procesar_datos(int* arr, int n, configuracion_t* config) {
+void procesar_datos(int *arr, int n, configuracion_t *config)
+{
     // ...
 }
-
 // Después
-void procesar_datos(const int* arr, int n, const configuracion_t* config) {
+void procesar_datos(const int *arr, int n, const configuracion_t *config)
+{
     // Garantiza que no modificamos arr ni config
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -458,14 +442,12 @@ Dar nombres significativos a expresiones complejas.
 ```{code-block} c
 :linenos:
 if ((usuario->edad >= 18 && usuario->edad <= 65) &&
-    (usuario->saldo > 1000 || usuario->credito > 500) &&
-    !usuario->bloqueado) {
+    (usuario->saldo > 1000 || usuario->credito > 500) && !usuario->bloqueado)
+{
     procesar_transaccion(usuario);
 }
-
 // Cálculo complejo sin contexto
 double total = precio * cantidad * (1 - (cantidad > 10 ? 0.15 : 0.05)) * 1.21;
-
 ```
 <!-- {code-block} c -->
 
@@ -476,18 +458,16 @@ double total = precio * cantidad * (1 - (cantidad > 10 ? 0.15 : 0.05)) * 1.21;
 bool es_edad_valida = usuario->edad >= 18 && usuario->edad <= 65;
 bool tiene_fondos = usuario->saldo > 1000 || usuario->credito > 500;
 bool puede_operar = es_edad_valida && tiene_fondos && !usuario->bloqueado;
-
-if (puede_operar) {
+if (puede_operar)
+{
     procesar_transaccion(usuario);
 }
-
 // Cálculo con variables intermedias
 const double TASA_IVA = 0.21;
 double descuento = (cantidad > 10) ? 0.15 : 0.05;
 double subtotal = precio * cantidad;
 double subtotal_con_descuento = subtotal * (1 - descuento);
 double total = subtotal_con_descuento * (1 + TASA_IVA);
-
 ```
 <!-- {code-block} c -->
 
@@ -497,22 +477,22 @@ double total = subtotal_con_descuento * (1 + TASA_IVA);
 
 ```{code-block} c
 :linenos:
-void procesar() {
+void procesar()
+{
     int i, j;
-    
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < 10; i++)
+    {
         printf("%d\n", i);
     }
-    
     // i todavía existe y tiene valor 10
-    
-    for (j = 0; j < 5; j++) {
-        for (i = 0; i < 3; i++) {  // Reutiliza i
+    for (j = 0; j < 5; j++)
+    {
+        for (i = 0; i < 3; i++)
+        { // Reutiliza i
             printf("%d,%d\n", i, j);
         }
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -520,20 +500,21 @@ void procesar() {
 
 ```{code-block} c
 :linenos:
-void procesar() {
-    for (int i = 0; i < 10; i++) {
+void procesar()
+{
+    for (int i = 0; i < 10; i++)
+    {
         printf("%d\n", i);
     }
-    
     // i ya no existe aquí
-    
-    for (int j = 0; j < 5; j++) {
-        for (int i = 0; i < 3; i++) {  // Nueva i, no confusión
+    for (int j = 0; j < 5; j++)
+    {
+        for (int i = 0; i < 3; i++)
+        { // Nueva i, no confusión
             printf("%d,%d\n", i, j);
         }
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -545,45 +526,44 @@ void procesar() {
 
 ```{code-block} c
 :linenos:
-void analizar_texto(const char* texto) {
+void analizar_texto(const char *texto)
+{
     int i, j, k;
     int longitud, palabras, lineas, caracteres_especiales;
     char caracter_actual, caracter_anterior;
     int en_palabra;
-    
     longitud = strlen(texto);
     palabras = 0;
     lineas = 1;
     caracteres_especiales = 0;
     en_palabra = 0;
     caracter_anterior = ' ';
-    
-    for (i = 0; i < longitud; i++) {
+    for (i = 0; i < longitud; i++)
+    {
         caracter_actual = texto[i];
-        
-        if (caracter_actual == '\n') {
+        if (caracter_actual == '\n')
+        {
             lineas++;
         }
-        
-        if (!isalnum(caracter_actual) && !isspace(caracter_actual)) {
+        if (!isalnum(caracter_actual) && !isspace(caracter_actual))
+        {
             caracteres_especiales++;
         }
-        
-        if (isspace(caracter_actual)) {
+        if (isspace(caracter_actual))
+        {
             en_palabra = 0;
-        } else if (!en_palabra) {
+        }
+        else if (!en_palabra)
+        {
             en_palabra = 1;
             palabras++;
         }
-        
         caracter_anterior = caracter_actual;
     }
-    
     printf("Palabras: %d\n", palabras);
     printf("Líneas: %d\n", lineas);
     printf("Caracteres especiales: %d\n", caracteres_especiales);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -591,54 +571,51 @@ void analizar_texto(const char* texto) {
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     int palabras;
     int lineas;
     int caracteres_especiales;
 } estadisticas_texto_t;
-
-bool es_caracter_especial(char c) {
+bool es_caracter_especial(char c)
+{
     return !isalnum(c) && !isspace(c);
 }
-
-estadisticas_texto_t analizar_texto(const char* texto) {
+estadisticas_texto_t analizar_texto(const char *texto)
+{
     estadisticas_texto_t stats = {
-        .palabras = 0,
-        .lineas = 1,
-        .caracteres_especiales = 0
-    };
-    
+        .palabras = 0, .lineas = 1, .caracteres_especiales = 0};
     bool en_palabra = false;
     const int longitud = strlen(texto);
-    
-    for (int i = 0; i < longitud; i++) {
+    for (int i = 0; i < longitud; i++)
+    {
         const char caracter_actual = texto[i];
-        
-        if (caracter_actual == '\n') {
+        if (caracter_actual == '\n')
+        {
             stats.lineas++;
         }
-        
-        if (es_caracter_especial(caracter_actual)) {
+        if (es_caracter_especial(caracter_actual))
+        {
             stats.caracteres_especiales++;
         }
-        
-        if (isspace(caracter_actual)) {
+        if (isspace(caracter_actual))
+        {
             en_palabra = false;
-        } else if (!en_palabra) {
+        }
+        else if (!en_palabra)
+        {
             en_palabra = true;
             stats.palabras++;
         }
     }
-    
     return stats;
 }
-
-void mostrar_estadisticas(estadisticas_texto_t stats) {
+void mostrar_estadisticas(estadisticas_texto_t stats)
+{
     printf("Palabras: %d\n", stats.palabras);
     printf("Líneas: %d\n", stats.lineas);
     printf("Caracteres especiales: %d\n", stats.caracteres_especiales);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -656,60 +633,64 @@ void mostrar_estadisticas(estadisticas_texto_t stats) {
 
 ```{code-block} c
 :linenos:
-int procesar_transacciones(transaccion_t* trans, int n) {
+int procesar_transacciones(transaccion_t *trans, int n)
+{
     int i, j;
     double total, subtotal, impuesto, descuento;
     int aprobadas, rechazadas, pendientes;
     int resultado;
     char estado;
-    
     total = 0;
     aprobadas = 0;
     rechazadas = 0;
     pendientes = 0;
-    
-    for (i = 0; i < n; i++) {
+    for (i = 0; i < n; i++)
+    {
         subtotal = trans[i].monto;
-        
         // Calcular descuento
-        if (trans[i].tipo == VIP) {
+        if (trans[i].tipo == VIP)
+        {
             descuento = 0.15;
-        } else if (trans[i].tipo == REGULAR) {
+        }
+        else if (trans[i].tipo == REGULAR)
+        {
             descuento = 0.05;
-        } else {
+        }
+        else
+        {
             descuento = 0;
         }
-        
         subtotal = subtotal * (1 - descuento);
         impuesto = subtotal * 0.21;
         total = subtotal + impuesto;
-        
         trans[i].total = total;
-        
         // Validar
-        if (trans[i].cuenta_origen == NULL) {
+        if (trans[i].cuenta_origen == NULL)
+        {
             estado = 'R';
-        } else if (trans[i].cuenta_origen->saldo < total) {
+        }
+        else if (trans[i].cuenta_origen->saldo < total)
+        {
             estado = 'R';
-        } else {
+        }
+        else
+        {
             estado = 'A';
         }
-        
-        if (estado == 'A') {
+        if (estado == 'A')
+        {
             aprobadas++;
-        } else if (estado == 'R') {
+        }
+        else if (estado == 'R')
+        {
             rechazadas++;
         }
-        
         trans[i].estado = estado;
     }
-    
     printf("Aprobadas: %d, Rechazadas: %d\n", aprobadas, rechazadas);
-    
     resultado = (rechazadas == 0) ? 0 : -1;
     return resultado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -717,64 +698,65 @@ int procesar_transacciones(transaccion_t* trans, int n) {
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     int aprobadas;
     int rechazadas;
 } resumen_procesamiento_t;
-
-double calcular_descuento_tipo(tipo_cliente_t tipo) {
-    switch (tipo) {
-        case VIP:     return 0.15;
-        case REGULAR: return 0.05;
-        default:      return 0.0;
+double calcular_descuento_tipo(tipo_cliente_t tipo)
+{
+    switch (tipo)
+    {
+    case VIP:
+        return 0.15;
+    case REGULAR:
+        return 0.05;
+    default:
+        return 0.0;
     }
 }
-
-double calcular_total_transaccion(double monto, tipo_cliente_t tipo) {
+double calcular_total_transaccion(double monto, tipo_cliente_t tipo)
+{
     const double TASA_IVA = 0.21;
-    
     double descuento = calcular_descuento_tipo(tipo);
     double subtotal = monto * (1 - descuento);
     double impuesto = subtotal * TASA_IVA;
-    
     return subtotal + impuesto;
 }
-
-bool validar_transaccion(const transaccion_t* trans) {
-    if (trans->cuenta_origen == NULL) {
+bool validar_transaccion(const transaccion_t *trans)
+{
+    if (trans->cuenta_origen == NULL)
+    {
         return false;
     }
-    
-    if (trans->cuenta_origen->saldo < trans->total) {
+    if (trans->cuenta_origen->saldo < trans->total)
+    {
         return false;
     }
-    
     return true;
 }
-
-resumen_procesamiento_t procesar_transacciones(transaccion_t* trans, int n) {
+resumen_procesamiento_t procesar_transacciones(transaccion_t *trans, int n)
+{
     resumen_procesamiento_t resumen = {0};
-    
-    for (int i = 0; i < n; i++) {
-        trans[i].total = calcular_total_transaccion(trans[i].monto, 
-                                                     trans[i].tipo);
-        
+    for (int i = 0; i < n; i++)
+    {
+        trans[i].total =
+            calcular_total_transaccion(trans[i].monto, trans[i].tipo);
         bool aprobada = validar_transaccion(&trans[i]);
         trans[i].estado = aprobada ? 'A' : 'R';
-        
-        if (aprobada) {
+        if (aprobada)
+        {
             resumen.aprobadas++;
-        } else {
+        }
+        else
+        {
             resumen.rechazadas++;
         }
     }
-    
-    printf("Aprobadas: %d, Rechazadas: %d\n", 
-           resumen.aprobadas, resumen.rechazadas);
-    
+    printf("Aprobadas: %d, Rechazadas: %d\n", resumen.aprobadas,
+           resumen.rechazadas);
     return resumen;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -794,15 +776,13 @@ resumen_procesamiento_t procesar_transacciones(transaccion_t* trans, int n) {
 
 ```{code-block} c
 :linenos:
-void mostrar_info_usuario(usuario_t* u) {
+void mostrar_info_usuario(usuario_t *u)
+{
     printf("Nombre: %s %s\n", u->nombre, u->apellido);
     printf("Edad: %d\n", calcular_edad(u->fecha_nacimiento));
-    printf("Categoría: %s\n", 
-           es_premium(u) ? "Premium" : "Regular");
-    printf("Estado: %s\n", 
-           u->activo && !u->bloqueado ? "Activo" : "Inactivo");
+    printf("Categoría: %s\n", es_premium(u) ? "Premium" : "Regular");
+    printf("Estado: %s\n", u->activo && !u->bloqueado ? "Activo" : "Inactivo");
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -810,19 +790,18 @@ void mostrar_info_usuario(usuario_t* u) {
 
 ```{code-block} c
 :linenos:
-void mostrar_info_usuario(const usuario_t* u) {
-    const char* nombre_completo = formatear_nombre(u->nombre, u->apellido);
+void mostrar_info_usuario(const usuario_t *u)
+{
+    const char *nombre_completo = formatear_nombre(u->nombre, u->apellido);
     const int edad = calcular_edad(u->fecha_nacimiento);
-    const char* categoria = es_premium(u) ? "Premium" : "Regular";
+    const char *categoria = es_premium(u) ? "Premium" : "Regular";
     const bool operativo = u->activo && !u->bloqueado;
-    const char* estado = operativo ? "Activo" : "Inactivo";
-    
+    const char *estado = operativo ? "Activo" : "Inactivo";
     printf("Nombre: %s\n", nombre_completo);
     printf("Edad: %d\n", edad);
     printf("Categoría: %s\n", categoria);
     printf("Estado: %s\n", estado);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -832,15 +811,18 @@ void mostrar_info_usuario(const usuario_t* u) {
 
 ```{code-block} c
 :linenos:
-double calcular_precio(item_t* item) {
+double calcular_precio(item_t *item)
+{
     double precio_base = item->precio * item->cantidad;
-    if (precio_base > 1000) {
+    if (precio_base > 1000)
+    {
         return precio_base * 0.95;
-    } else {
+    }
+    else
+    {
         return precio_base * 0.98;
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -848,17 +830,16 @@ double calcular_precio(item_t* item) {
 
 ```{code-block} c
 :linenos:
-double obtener_precio_base(const item_t* item) {
+double obtener_precio_base(const item_t *item)
+{
     return item->precio * item->cantidad;
 }
-
-double calcular_precio(const item_t* item) {
+double calcular_precio(const item_t *item)
+{
     const double precio_base = obtener_precio_base(item);
     const double descuento = (precio_base > 1000) ? 0.95 : 0.98;
-    
     return precio_base * descuento;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -870,12 +851,11 @@ double calcular_precio(const item_t* item) {
 :linenos:
 // Problemático
 int contador_global = 0;
-
-void procesar_item(item_t* item) {
+void procesar_item(item_t *item)
+{
     contador_global++;
     // ...
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -883,16 +863,16 @@ void procesar_item(item_t* item) {
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     int items_procesados;
     // ... otros datos de contexto
 } contexto_procesamiento_t;
-
-void procesar_item(item_t* item, contexto_procesamiento_t* ctx) {
+void procesar_item(item_t *item, contexto_procesamiento_t *ctx)
+{
     ctx->items_procesados++;
     // ...
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -901,13 +881,11 @@ void procesar_item(item_t* item, contexto_procesamiento_t* ctx) {
 ```{code-block} c
 :linenos:
 // Problemático
-int datos;  // Usado para todo
-
+int datos; // Usado para todo
 datos = leer_archivo();
 datos = procesar(datos);
 datos = validar(datos);
 datos = contar_elementos(datos);
-
 ```
 <!-- {code-block} c -->
 
@@ -915,7 +893,7 @@ datos = contar_elementos(datos);
 
 ``` c
 // Problemático
-int d;  // días? dinero? datos?
+int d; // días? dinero? datos?
 int tmp;
 int x, y, z;
 ```

@@ -61,16 +61,14 @@ para crear un alias de tipo con el sufijo `_t`.
 
 :::{code-block}c
 :linenos:
-typedef struct {
+typedef struct
+{
     char inicial;
     int legajo;
     float promedio;
 } estudiante_t;
-
 // Inicialización con inicializadores designados (preferido)
-estudiante_t estudiante1 = { .inicial = 'J', .legajo = 12345, .promedio = 8.5f
-};
-
+estudiante_t estudiante1 = {.inicial = 'J', .legajo = 12345, .promedio = 8.5f};
 :::
 <!-- {code-block}c -->
 
@@ -85,10 +83,8 @@ estudiante_t estudiante1 = { .inicial = 'J', .legajo = 12345, .promedio = 8.5f
 :linenos:
 estudiante_t est;
 estudiante_t *p_est = &est;
-
-est.legajo = 54321;      // Acceso directo
-p_est->promedio = 9.0f;  // Acceso mediante puntero
-
+est.legajo = 54321;     // Acceso directo
+p_est->promedio = 9.0f; // Acceso mediante puntero
 :::
 <!-- {code-block}c -->
 
@@ -153,7 +149,6 @@ La sintaxis es la siguiente:
 :::{code-block}c
 :linenos:
 size_t offsetof(type, member);
-
 :::
 <!-- {code-block}c -->
 
@@ -173,27 +168,24 @@ Imagina que tienes la siguiente estructura:
 
 :::{code-block}c
 :linenos:
-#include <stdio.h>
 #include <stddef.h>
-
-struct Usuario {
+#include <stdio.h>
+struct Usuario
+{
     int id;
     char inicial;
     double salario;
 };
-
-int main() {
+int main()
+{
     size_t desplazamiento_id = offsetof(struct Usuario, id);
     size_t desplazamiento_inicial = offsetof(struct Usuario, inicial);
     size_t desplazamiento_salario = offsetof(struct Usuario, salario);
-
     printf("Desplazamiento de 'id': %zu bytes\n", desplazamiento_id);
     printf("Desplazamiento de 'inicial': %zu bytes\n", desplazamiento_inicial);
     printf("Desplazamiento de 'salario': %zu bytes\n", desplazamiento_salario);
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -255,25 +247,23 @@ Vamos a analizar el layout de una estructura para visualizar el padding.
 
 :::{code-block}c
 :linenos:
-#include <stdio.h>
 #include <stddef.h>
-
-typedef struct {
-    char a;     // 1 byte
-    int  b;     // 4 bytes
-    char c;     // 1 byte
+#include <stdio.h>
+typedef struct
+{
+    char a; // 1 byte
+    int b;  // 4 bytes
+    char c; // 1 byte
 } ejemplo_padding_t;
-
-int main(void) {
+int main(void)
+{
     printf("sizeof(char) = %zu, sizeof(int) = %zu\n", sizeof(char),
-    sizeof(int));
+           sizeof(int));
     printf("sizeof(ejemplo_padding_t) = %zu\n\n", sizeof(ejemplo_padding_t));
-
     printf("offsetof(a) = %zu\n", offsetof(ejemplo_padding_t, a));
     printf("offsetof(b) = %zu\n", offsetof(ejemplo_padding_t, b));
     printf("offsetof(c) = %zu\n", offsetof(ejemplo_padding_t, c));
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -322,14 +312,14 @@ char c;`.
 
 :::{code-block}c
 :linenos:
-typedef struct {
-    int  b;     // 4 bytes
-    char a;     // 1 byte
-    char c;     // 1 byte
+typedef struct
+{
+    int b;  // 4 bytes
+    char a; // 1 byte
+    char c; // 1 byte
     // 2 bytes de padding al final para alinear la estructura completa
 } ejemplo_optimizado_t;
 // sizeof será 8
-
 :::
 <!-- {code-block}c -->
 Aunque el orden `char a; char c; int b;` también reduce el tamaño a 8 bytes, la
@@ -372,22 +362,22 @@ breves.
 :linenos:
 /**
  * Representa un punto en el espacio tridimensional.
- * 
+ *
  * Esta estructura almacena las coordenadas cartesianas (x, y, z)
  * de un punto en el espacio 3D. Todas las coordenadas se expresan
  * en unidades del sistema internacional (metros).
- * 
+ *
  * Miembros:
  *   - x: Coordenada en el eje X (horizontal)
  *   - y: Coordenada en el eje Y (profundidad)
  *   - z: Coordenada en el eje Z (altura)
  */
-typedef struct {
+typedef struct
+{
     double x;
     double y;
     double z;
 } punto_3d_t;
-
 :::
 <!-- {code-block}c -->
 
@@ -411,22 +401,21 @@ requiere explicación detallada.
 :linenos:
 /**
  * Representa la configuración de una conexión de red.
- * 
+ *
  * Esta estructura almacena todos los parámetros necesarios para
  * establecer y mantener una conexión de red TCP/IP. Los valores
  * deben ser inicializados antes de llamar a conectar_red().
  */
-typedef struct {
-    char direccion_ip[16];      // Dirección IP en formato "xxx.xxx.xxx.xxx"
-    unsigned short puerto;      // Puerto de destino (1-65535)
-    int timeout_ms;             // Tiempo de espera en milisegundos para la
-    conexión
-    bool usar_tls;              // true si se requiere conexión segura (TLS/SSL)
-    unsigned int reintentos;    // Número máximo de intentos de reconexión
-    void *contexto_usuario;     // Puntero opaco para datos del usuario (puede
+typedef struct
+{
+    char direccion_ip[16];   // Dirección IP en formato "xxx.xxx.xxx.xxx"
+    unsigned short puerto;   // Puerto de destino (1-65535)
+    int timeout_ms;          // Tiempo de espera en milisegundos para la
+    conexión bool usar_tls;  // true si se requiere conexión segura (TLS/SSL)
+    unsigned int reintentos; // Número máximo de intentos de reconexión
+    void *contexto_usuario;  // Puntero opaco para datos del usuario (puede
     ser NULL)
 } configuracion_red_t;
-
 :::
 <!-- {code-block}c -->
 
@@ -449,19 +438,20 @@ distribuido suele ser más efectivo:
 :linenos:
 /**
  * Representa el estado completo de una transacción bancaria.
- * 
+ *
  * Esta estructura almacena toda la información necesaria para
  * procesar, validar y auditar una transacción financiera.
  * Todos los montos están expresados en la menor unidad de la
  * moneda (centavos para ARS, USD, etc.).
- * 
+ *
  * Invariantes:
  *   - monto debe ser > 0
  *   - numero_cuenta_origen y numero_cuenta_destino deben ser distintos
  *   - timestamp debe ser válido (verificar con validar_timestamp())
  */
-typedef struct {
-    char id_transaccion[37];        // UUID único de la transacción (formato RFC
+typedef struct
+{
+    char id_transaccion[37]; // UUID único de la transacción (formato RFC
     4122)
     long long monto;                // Monto en la menor unidad de la moneda
     char numero_cuenta_origen[21];  // Número de cuenta origen (máx. 20 dígitos
@@ -471,15 +461,12 @@ typedef struct {
     time_t timestamp;               // Momento exacto de la transacción (UNIX
     epoch)
     enum tipo_transaccion tipo;     // Tipo: TRANSFERENCIA, DEPOSITO, RETIRO,
-    etc.
-    char descripcion[256];          // Descripción proporcionada por el usuario
+    etc.char descripcion[256];      // Descripción proporcionada por el usuario
     bool procesada;                 // true si la transacción ya fue procesada
     int codigo_resultado;           // 0 = éxito, != 0 = código de error
-    específico
-    char firma_digital[65];         // Hash SHA-256 de la transacción (64
+    específico char firma_digital[65]; // Hash SHA-256 de la transacción (64
     caracteres hex + '\0')
 } transaccion_bancaria_t;
-
 :::
 <!-- {code-block}c -->
 
@@ -554,7 +541,8 @@ contiene todos los atributos de una entidad.
 
 :::{code-block}c
 :linenos:
-typedef struct {
+typedef struct
+{
     double x;
     double y;
     double z;
@@ -563,10 +551,8 @@ typedef struct {
     double velocidad_y;
     double velocidad_z;
 } particula_t;
-
 // Arreglo de 1000 partículas
 particula_t particulas[1000];
-
 :::
 <!-- {code-block}c -->
 
@@ -602,7 +588,6 @@ void actualizar_posiciones_aos(particula_t particulas[], size_t n, double dt)
         particulas[i].z += particulas[i].velocidad_z * dt;
     }
 }
-
 :::
 <!-- {code-block}c -->
 (SoA)=
@@ -613,7 +598,8 @@ contiene estos arreglos.
 
 :::{code-block}c
 :linenos:
-typedef struct {
+typedef struct
+{
     double *x;
     double *y;
     double *z;
@@ -624,7 +610,6 @@ typedef struct {
     size_t cantidad;
     size_t capacidad;
 } sistema_particulas_t;
-
 :::
 <!-- {code-block}c -->
 
@@ -659,7 +644,6 @@ void actualizar_posiciones_soa(sistema_particulas_t *sistema, double dt)
         sistema->z[i] += sistema->velocidad_z[i] * dt;
     }
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -673,14 +657,11 @@ cada lazo procesa un arreglo contiguo de un solo tipo.
 sistema_particulas_t *crear_sistema(size_t capacidad_inicial)
 {
     sistema_particulas_t *sistema = NULL;
-    
     sistema = malloc(sizeof(sistema_particulas_t));
-    
     if (sistema == NULL)
     {
         return NULL;
     }
-    
     // Asignación de cada arreglo individual
     sistema->x = malloc(capacidad_inicial * sizeof(double));
     sistema->y = malloc(capacidad_inicial * sizeof(double));
@@ -689,7 +670,6 @@ sistema_particulas_t *crear_sistema(size_t capacidad_inicial)
     sistema->velocidad_x = malloc(capacidad_inicial * sizeof(double));
     sistema->velocidad_y = malloc(capacidad_inicial * sizeof(double));
     sistema->velocidad_z = malloc(capacidad_inicial * sizeof(double));
-    
     // Verificación exhaustiva
     if (sistema->x == NULL || sistema->y == NULL || sistema->z == NULL ||
         sistema->masa == NULL || sistema->velocidad_x == NULL ||
@@ -706,20 +686,16 @@ sistema_particulas_t *crear_sistema(size_t capacidad_inicial)
         free(sistema);
         return NULL;
     }
-    
     sistema->cantidad = 0;
     sistema->capacidad = capacidad_inicial;
-    
     return sistema;
 }
-
 void destruir_sistema(sistema_particulas_t *sistema)
 {
     if (sistema == NULL)
     {
         return;
     }
-    
     // Liberar cada arreglo
     free(sistema->x);
     free(sistema->y);
@@ -728,11 +704,9 @@ void destruir_sistema(sistema_particulas_t *sistema)
     free(sistema->velocidad_x);
     free(sistema->velocidad_y);
     free(sistema->velocidad_z);
-    
     // Finalmente la estructura principal
     free(sistema);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -786,9 +760,7 @@ particula_t *encontrar_mas_masiva_aos(particula_t particulas[], size_t n)
     {
         return NULL;
     }
-    
     particula_t *mas_masiva = &particulas[0];
-    
     for (size_t i = 1; i < n; i++)
     {
         if (particulas[i].masa > mas_masiva->masa)
@@ -796,10 +768,8 @@ particula_t *encontrar_mas_masiva_aos(particula_t particulas[], size_t n)
             mas_masiva = &particulas[i];
         }
     }
-    
     return mas_masiva;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -813,10 +783,8 @@ size_t encontrar_mas_masiva_soa(const sistema_particulas_t *sistema)
     {
         return SIZE_MAX; // Indicador de error
     }
-    
     size_t indice_max = 0;
     double masa_max = sistema->masa[0];
-    
     // Acceso contiguo a memoria, ideal para vectorización
     for (size_t i = 1; i < sistema->cantidad; i++)
     {
@@ -826,10 +794,8 @@ size_t encontrar_mas_masiva_soa(const sistema_particulas_t *sistema)
             indice_max = i;
         }
     }
-    
     return indice_max;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -850,23 +816,22 @@ instancias inválidas. Esto se logra mediante:
 :linenos:
 /**
  * Representa un rectángulo con lados paralelos a los ejes.
- * 
+ *
  * Invariantes:
  *   - ancho debe ser > 0
  *   - alto debe ser > 0
  */
-typedef struct {
-    double x;        // Coordenada X de la esquina inferior izquierda
-    double y;        // Coordenada Y de la esquina inferior izquierda
-    double ancho;    // Ancho del rectángulo (debe ser > 0)
-    double alto;     // Alto del rectángulo (debe ser > 0)
+typedef struct
+{
+    double x;     // Coordenada X de la esquina inferior izquierda
+    double y;     // Coordenada Y de la esquina inferior izquierda
+    double ancho; // Ancho del rectángulo (debe ser > 0)
+    double alto;  // Alto del rectángulo (debe ser > 0)
 } rectangulo_t;
-
 // Constructor que garantiza invariantes
 rectangulo_t crear_rectangulo(double x, double y, double ancho, double alto)
 {
     rectangulo_t rect = {0};
-    
     // Validación de precondiciones
     if (ancho <= 0.0 || alto <= 0.0)
     {
@@ -882,15 +847,12 @@ rectangulo_t crear_rectangulo(double x, double y, double ancho, double alto)
         rect.ancho = ancho;
         rect.alto = alto;
     }
-    
     return rect;
 }
-
 bool es_rectangulo_valido(const rectangulo_t *rect)
 {
     return rect != NULL && rect->ancho > 0.0 && rect->alto > 0.0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -923,16 +885,15 @@ desperdicia 50% del espacio, mientras que el optimizado solo 25%.
 :linenos:
 // Diseño subóptimo (12 bytes en x86-64) - Equivalente a ejemplo_padding_t del
 Laboratorio 1
-// (Ver offsetof y padding detallados en el Laboratorio 1)
-
-// Diseño optimizado (8 bytes en x86-64) - Aplicando la regla de ordenamiento
-mayor a menor
-typedef struct {
-    int b;        // 4 bytes
-    char a;       // 1 byte
-    char c;       // 1 byte (2 bytes de padding después)
+    // (Ver offsetof y padding detallados en el Laboratorio 1)
+    // Diseño optimizado (8 bytes en x86-64) - Aplicando la regla de
+    // ordenamiento
+    mayor a menor typedef struct
+{
+    int b;  // 4 bytes
+    char a; // 1 byte
+    char c; // 1 byte (2 bytes de padding después)
 } optimizada_t;
-
 :::
 <!-- {code-block}c -->
 
@@ -953,30 +914,26 @@ jerárquica:
 
 :::{code-block}c
 :linenos:
-typedef struct {
+typedef struct
+{
     double x;
     double y;
 } punto_2d_t;
-
-typedef struct {
+typedef struct
+{
     punto_2d_t posicion;
     punto_2d_t velocidad;
     double masa;
     double radio;
 } cuerpo_2d_t;
-
 // Uso
-cuerpo_2d_t planeta = {
-    .posicion = {.x = 0.0, .y = 0.0},
-    .velocidad = {.x = 10.0, .y = 5.0},
-    .masa = 5.97e24,
-    .radio = 6.371e6
-};
-
+cuerpo_2d_t planeta = {.posicion = {.x = 0.0, .y = 0.0},
+                       .velocidad = {.x = 10.0, .y = 5.0},
+                       .masa = 5.97e24,
+                       .radio = 6.371e6};
 // Acceso
 double distancia_al_origen = sqrt(planeta.posicion.x * planeta.posicion.x +
                                   planeta.posicion.y * planeta.posicion.y);
-
 :::
 <!-- {code-block}c -->
 
@@ -993,28 +950,24 @@ Para comportamiento polimórfico en estructuras:
 :::{code-block}c
 :linenos:
 typedef struct figura figura_t;
-
 typedef double (*calcular_area_fn)(const figura_t *);
 typedef void (*dibujar_fn)(const figura_t *);
-
-struct figura {
+struct figura
+{
     calcular_area_fn calcular_area;
     dibujar_fn dibujar;
-    void *datos;  // Puntero opaco a datos específicos de cada tipo de figura
+    void *datos; // Puntero opaco a datos específicos de cada tipo de figura
 };
-
 // Implementación para círculo
 double calcular_area_circulo(const figura_t *f)
 {
     double *radio = f->datos;
     return 3.14159 * (*radio) * (*radio);
 }
-
 void dibujar_circulo(const figura_t *f)
 {
     printf("Dibujando un círculo...\n");
 }
-
 // Creación de una figura específica
 figura_t crear_figura_circulo(double radio)
 {
@@ -1023,23 +976,15 @@ figura_t crear_figura_circulo(double radio)
     {
         perror("Error al asignar memoria para la figura círculo");
         figura_t fig_nula = {
-            .calcular_area = NULL,
-            .dibujar = NULL,
-            .datos = NULL
-        };
+            .calcular_area = NULL, .dibujar = NULL, .datos = NULL};
         return fig_nula;
     }
     *radio_heap = radio;
-    
-    figura_t fig = {
-        .calcular_area = calcular_area_circulo,
-        .dibujar = dibujar_circulo,
-        .datos = radio_heap
-    };
-    
+    figura_t fig = {.calcular_area = calcular_area_circulo,
+                    .dibujar = dibujar_circulo,
+                    .datos = radio_heap};
     return fig;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1062,37 +1007,37 @@ Incluir metadatos en la estructura facilita la depuración y la serialización:
 
 :::{code-block}c
 :linenos:
-typedef enum {
+typedef enum
+{
     TIPO_ENTERO,
     TIPO_FLOTANTE,
     TIPO_CADENA
 } tipo_dato_t;
-
-typedef struct {
+typedef struct
+{
     tipo_dato_t tipo;
-    union {
+    union
+    {
         int entero;
         double flotante;
         char *cadena;
     } valor;
 } dato_generico_t;
-
 void imprimir_dato(const dato_generico_t *dato)
 {
     switch (dato->tipo)
     {
-        case TIPO_ENTERO:
-            printf("Entero: %d\n", dato->valor.entero);
-            break;
-        case TIPO_FLOTANTE:
-            printf("Flotante: %.2f\n", dato->valor.flotante);
-            break;
-        case TIPO_CADENA:
-            printf("Cadena: %s\n", dato->valor.cadena);
-            break;
+    case TIPO_ENTERO:
+        printf("Entero: %d\n", dato->valor.entero);
+        break;
+    case TIPO_FLOTANTE:
+        printf("Flotante: %.2f\n", dato->valor.flotante);
+        break;
+    case TIPO_CADENA:
+        printf("Cadena: %s\n", dato->valor.cadena);
+        break;
     }
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1141,41 +1086,47 @@ como tenemos que interpretar la información contenida, para esto, se utiliza un
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
-typedef enum {
+typedef enum
+{
     TIPO_INT,
     TIPO_FLOAT,
     TIPO_TEXTO
 } tipo_dato_t;
-
-typedef struct {
+typedef struct
+{
     tipo_dato_t tipo;
-    union {
+    union
+    {
         int i;
         float f;
         const char *s;
     } valor;
 } variante_t;
-
-void imprimir_variante(const variante_t *v) {
-    switch (v->tipo) {
-        case TIPO_INT: printf("Entero: %d\n", v->valor.i); break;
-        case TIPO_FLOAT: printf("Flotante: %.2f\n", v->valor.f); break;
-        case TIPO_TEXTO: printf("Texto: \"%s\"\n", v->valor.s); break;
+void imprimir_variante(const variante_t *v)
+{
+    switch (v->tipo)
+    {
+    case TIPO_INT:
+        printf("Entero: %d\n", v->valor.i);
+        break;
+    case TIPO_FLOAT:
+        printf("Flotante: %.2f\n", v->valor.f);
+        break;
+    case TIPO_TEXTO:
+        printf("Texto: \"%s\"\n", v->valor.s);
+        break;
     }
 }
-
-int main() {
-    variante_t v1 = { .tipo = TIPO_INT, .valor.i = 100 };
-    variante_t v2 = { .tipo = TIPO_FLOAT, .valor.f = 3.14f };
-    variante_t v3 = { .tipo = TIPO_TEXTO, .valor.s = "Hola" };
-
+int main()
+{
+    variante_t v1 = {.tipo = TIPO_INT, .valor.i = 100};
+    variante_t v2 = {.tipo = TIPO_FLOAT, .valor.f = 3.14f};
+    variante_t v3 = {.tipo = TIPO_TEXTO, .valor.s = "Hola"};
     imprimir_variante(&v1);
     imprimir_variante(&v2);
     imprimir_variante(&v3);
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1200,27 +1151,27 @@ explica claramente el propósito y las restricciones de uso.
 :linenos:
 /**
  * Permite interpretar un valor de 32 bits de múltiples formas.
- * 
+ *
  * Esta unión facilita la conversión entre representaciones enteras
  * y de punto flotante de 32 bits sin necesidad de casting explícito.
- * 
+ *
  * ADVERTENCIA: Solo el último miembro asignado contiene un valor
  * válido. Leer un miembro distinto al último escrito resulta en
  * comportamiento indefinido según el estándar C.
- * 
+ *
  * Miembros:
  *   - como_int: Interpreta los 32 bits como entero con signo
  *   - como_uint: Interpreta los 32 bits como entero sin signo
  *   - como_float: Interpreta los 32 bits como número de punto flotante
  *   - como_bytes: Acceso a los 4 bytes individuales
  */
-typedef union {
+typedef union
+{
     int32_t como_int;
     uint32_t como_uint;
     float como_float;
     uint8_t como_bytes[4];
 } valor_32bits_t;
-
 :::
 <!-- {code-block}c -->
 
@@ -1243,33 +1194,34 @@ específicas.
 :linenos:
 /**
  * Representa los datos específicos de diferentes tipos de mensajes de red.
- * 
+ *
  * Esta unión debe usarse ÚNICAMENTE dentro de una estructura que incluya
  * un campo tipo (enum tipo_mensaje_t) para identificar qué miembro es válido.
- * 
+ *
  * IMPORTANTE: El tamaño de esta unión es el del miembro más grande
  * (mensaje_archivo). Considerá las implicaciones de memoria al usarla
  * en arreglos o estructuras embebidas.
  */
-typedef union {
-    struct {                        // Válido cuando tipo == MSG_TEXTO
-        char contenido[256];        // Mensaje de texto (máx. 255 chars + '\0')
-        size_t longitud;            // Longitud real del mensaje
+typedef union
+{
+    struct
+    {                        // Válido cuando tipo == MSG_TEXTO
+        char contenido[256]; // Mensaje de texto (máx. 255 chars + '\0')
+        size_t longitud;     // Longitud real del mensaje
     } mensaje_texto;
-    
-    struct {                        // Válido cuando tipo == MSG_NUMERO
-        int64_t valor;              // Valor numérico a transmitir
-        bool es_firmado;            // true si el valor es con signo
+    struct
+    {                    // Válido cuando tipo == MSG_NUMERO
+        int64_t valor;   // Valor numérico a transmitir
+        bool es_firmado; // true si el valor es con signo
     } mensaje_numero;
-    
-    struct {                        // Válido cuando tipo == MSG_ARCHIVO
-        char nombre[128];           // Nombre del archivo
-        size_t tamano;              // Tamaño en bytes
-        uint32_t checksum;          // Checksum CRC32 para verificación
-        void *datos;                // Puntero a los datos del archivo
+    struct
+    {                      // Válido cuando tipo == MSG_ARCHIVO
+        char nombre[128];  // Nombre del archivo
+        size_t tamano;     // Tamaño en bytes
+        uint32_t checksum; // Checksum CRC32 para verificación
+        void *datos;       // Puntero a los datos del archivo
     } mensaje_archivo;
 } datos_mensaje_t;
-
 :::
 <!-- {code-block}c -->
 
@@ -1292,29 +1244,28 @@ especialmente detallada:
 /**
  * Permite manipular y acceder a un valor de 64 bits en diferentes
    granularidades.
- * 
+ *
  * Esta unión es útil para operaciones de bajo nivel que requieren acceso
  * tanto al valor completo como a sus partes individuales (mitades, bytes,
    bits).
- * 
+ *
  * NOTA DE PORTABILIDAD: El orden de los bytes (endianness) afecta cómo se
  * interpretan los campos byte[]. En sistemas little-endian, byte[0] es el
  * byte menos significativo. En big-endian, es el más significativo.
- * 
+ *
  * Uso típico: Conversión de protocolos de red, serialización, depuración.
  */
-typedef union {
-    uint64_t completo;          // Acceso al valor completo de 64 bits
-    
-    struct {                    // Acceso a mitades de 32 bits
-        uint32_t bajo;          // 32 bits inferiores
-        uint32_t alto;          // 32 bits superiores
+typedef union
+{
+    uint64_t completo; // Acceso al valor completo de 64 bits
+    struct
+    {                  // Acceso a mitades de 32 bits
+        uint32_t bajo; // 32 bits inferiores
+        uint32_t alto; // 32 bits superiores
     } mitades;
-    
-    uint16_t palabras[4];       // Acceso como 4 palabras de 16 bits
-    uint8_t bytes[8];           // Acceso individual a los 8 bytes
+    uint16_t palabras[4]; // Acceso como 4 palabras de 16 bits
+    uint8_t bytes[8];     // Acceso individual a los 8 bytes
 } registro_64bits_t;
-
 :::
 <!-- {code-block}c -->
 
@@ -1328,26 +1279,27 @@ cubrir tanto la unión como la estructura contenedora:
 :linenos:
 /**
  * Tipo de dato polimórfico que puede contener diferentes tipos de valores.
- * 
+ *
  * Este tipo implementa el patrón de unión etiquetada (tagged union),
  * permitiendo almacenar y operar con diferentes tipos de datos de forma
  * segura. El campo 'tipo' SIEMPRE indica qué miembro de la unión 'datos'
  * contiene información válida.
- * 
+ *
  * Uso correcto:
  *   valor_t v = {.tipo = TIPO_ENTERO, .datos.entero = 42};
  *   if (v.tipo == TIPO_ENTERO) {
  *       printf("%d\n", v.datos.entero);  // ¡Seguro!
  *   }
- * 
+ *
  * Uso INCORRECTO:
  *   valor_t v = {.tipo = TIPO_ENTERO, .datos.entero = 42};
  *   printf("%f\n", v.datos.flotante);  // ¡Comportamiento indefinido!
- * 
+ *
  * INVARIANTE: El campo 'tipo' debe ser siempre consistente con el
  * miembro de 'datos' que contiene información válida.
  */
-typedef struct {
+typedef struct
+{
     /**
      * Identifica qué tipo de dato está almacenado actualmente.
      * Este campo DEBE actualizarse cada vez que se modifica 'datos'.
@@ -1360,33 +1312,29 @@ typedef struct {
         dinámicamente)
         TIPO_PUNTERO     // datos.puntero es válido
     } tipo;
-    
     /**
      * Almacenamiento para el valor actual.
      * Solo el miembro correspondiente a 'tipo' contiene datos válidos.
      */
-    union {
-        int64_t entero;         // Entero de 64 bits con signo
-        double flotante;        // Número de punto flotante de precisión doble
-        char *cadena;           // Puntero a cadena (responsabilidad del usuario
+    union
+    {
+        int64_t entero;  // Entero de 64 bits con signo
+        double flotante; // Número de punto flotante de precisión doble
+        char *cadena;    // Puntero a cadena (responsabilidad del usuario
         liberar)
         void *puntero;          // Puntero genérico para tipos personalizados
     } datos;
 } valor_t;
-
 /**
  * Crea un valor de tipo entero.
- * 
+ *
  * @param entero Valor entero a almacenar
  * @return Nuevo valor_t inicializado con el entero proporcionado
  */
-valor_t crear_valor_entero(int64_t entero) {
-    return (valor_t){
-        .tipo = TIPO_ENTERO,
-        .datos.entero = entero
-    };
+valor_t crear_valor_entero(int64_t entero)
+{
+    return (valor_t){.tipo = TIPO_ENTERO, .datos.entero = entero};
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1474,12 +1422,12 @@ Laboratorio 1:
 
 :::{code-block}c
 :linenos:
-typedef struct {
-    char a;     // 1 byte
-    int  b;     // 4 bytes
-    char c;     // 1 byte
+typedef struct
+{
+    char a; // 1 byte
+    int b;  // 4 bytes
+    char c; // 1 byte
 } ejemplo_padding_t;
-
 :::
 <!-- {code-block}c -->
 
@@ -1528,13 +1476,13 @@ Reescribiendo la estructura anterior:
 
 :::{code-block}c
 :linenos:
-typedef struct {
-    int id;             // 4 bytes (offset 0-3)
-    char tipo;          // 1 byte  (offset 4)
-    char estado;        // 1 byte  (offset 5)
+typedef struct
+{
+    int id;      // 4 bytes (offset 0-3)
+    char tipo;   // 1 byte  (offset 4)
+    char estado; // 1 byte  (offset 5)
     // 2 bytes de padding al final para completar múltiplo de 4
 } sensor_optimizado_t;
-
 :::
 <!-- {code-block}c -->
 
@@ -1571,23 +1519,23 @@ estructura.
 
 :::{code-block}c
 :linenos:
-#include <stdio.h>
 #include <stddef.h>
-
-typedef struct {
+#include <stdio.h>
+typedef struct
+{
     char tipo;
     int id;
     char estado;
 } sensor_desoptimizado_t;
-
-int main(void) {
+int main(void)
+{
     printf("Tamaño total: %zu bytes\n", sizeof(sensor_desoptimizado_t));
     printf("Offset de tipo: %zu\n", offsetof(sensor_desoptimizado_t, tipo));
     printf("Offset de id: %zu\n", offsetof(sensor_desoptimizado_t, id));
-    printf("Offset de estado: %zu\n", offsetof(sensor_desoptimizado_t, estado));
+    printf("Offset de estado: %zu\n",
+           offsetof(sensor_desoptimizado_t, estado));
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1699,20 +1647,20 @@ Declarás una estructura llamada `persona_t` con un arreglo de caracteres
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-typedef struct {
+typedef struct
+{
     char nombre[50];
     int edad;
 } persona_t;
-
 // La función recibe el puntero a la estructura
-void cumplir_anos(persona_t *persona) {
-    if (persona != NULL) {
+void cumplir_anos(persona_t *persona)
+{
+    if (persona != NULL)
+    {
         // Acceso indirecto mediante el operador ->
         persona->edad++;
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1723,7 +1671,8 @@ void cumplir_anos(persona_t *persona) {
 :label: ej-struct-offsetof-manual
 Dada la estructura:
 ``` c
-struct Contenedor {
+struct Contenedor
+{
     char c;
     int i;
     char d;
@@ -1752,16 +1701,15 @@ bytes de padding al final para completar un múltiplo de 4 bytes).*
 Código para imprimir los desplazamientos:
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <stddef.h>
-
-int main() {
+#include <stdio.h>
+int main()
+{
     printf("Offset de c: %zu\n", offsetof(struct Contenedor, c)); // Imprime 0
     printf("Offset de i: %zu\n", offsetof(struct Contenedor, i)); // Imprime 4
     printf("Offset de d: %zu\n", offsetof(struct Contenedor, d)); // Imprime 8
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1782,22 +1730,18 @@ prácticas recomendadas por la cátedra).
 :class: dropdown
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     double x;
     double y;
     const char *etiqueta;
 } punto_t;
-
-int main() {
+int main()
+{
     // Inicialización explícita utilizando inicializadores designados
-    punto_t origen = {
-        .x = 0.0,
-        .y = 0.0,
-        .etiqueta = "Origen de Coordenadas"
-    };
+    punto_t origen = {.x = 0.0, .y = 0.0, .etiqueta = "Origen de Coordenadas"};
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1850,33 +1794,34 @@ asignando un valor por defecto seguro en caso contrario.
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-typedef struct {
+typedef struct
+{
     double x;
     double y;
 } punto_2d_t;
-
-typedef struct {
+typedef struct
+{
     punto_2d_t centro;
     double radio;
 } circulo_t;
-
 // Constructor con validación de invariante
-circulo_t crear_circulo(double cx, double cy, double r) {
+circulo_t crear_circulo(double cx, double cy, double r)
+{
     circulo_t circ;
     circ.centro.x = cx;
     circ.centro.y = cy;
-
-    if (r <= 0.0) {
-        fprintf(stderr, "Error: El radio debe ser mayor a cero. Asignando 1.0 por seguridad.\n");
+    if (r <= 0.0)
+    {
+        fprintf(stderr, "Error: El radio debe ser mayor a cero. Asignando 1.0 "
+                        "por seguridad.\n");
         circ.radio = 1.0;
-    } else {
+    }
+    else
+    {
         circ.radio = r;
     }
-
     return circ;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1898,34 +1843,28 @@ asignarle una función de suma e invocarla a través del puntero a función.
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
 // Definición del tipo de puntero a función
 typedef int (*operacion_fn)(int, int);
-
-typedef struct {
+typedef struct
+{
     const char *nombre;
     operacion_fn ejecutar;
 } operacion_t;
-
 // Función compatible
-int sumar(int a, int b) {
+int sumar(int a, int b)
+{
     return a + b;
 }
-
-int main() {
+int main()
+{
     // Instanciación
-    operacion_t op_suma = {
-        .nombre = "Suma Aritmética",
-        .ejecutar = sumar
-    };
-
+    operacion_t op_suma = {.nombre = "Suma Aritmética", .ejecutar = sumar};
     // Invocación indirecta a través de la estructura
     int resultado = op_suma.ejecutar(15, 25);
-    printf("Operación: %s | Resultado: %d\n", op_suma.nombre, resultado); // Imprime 40
-
+    printf("Operación: %s | Resultado: %d\n", op_suma.nombre,
+           resultado); // Imprime 40
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1938,52 +1877,52 @@ int main() {
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-typedef enum {
+typedef enum
+{
     EVENTO_TECLA_PRESIONADA,
     EVENTO_CLICK_MOUSE,
     EVENTO_SALIR
 } tipo_evento_t;
-
-typedef struct {
+typedef struct
+{
     int x;
     int y;
 } pos_mouse_t;
-
-typedef struct {
+typedef struct
+{
     tipo_evento_t tipo;
-    union {
+    union
+    {
         char tecla;
         pos_mouse_t pos;
     } datos;
 } evento_t;
-
-void procesar_evento(const evento_t *evento) {
-    switch (evento->tipo) {
-        case EVENTO_TECLA_PRESIONADA:
-            printf("Tecla presionada: '%c'\n", evento->datos.tecla);
-            break;
-        case EVENTO_CLICK_MOUSE:
-            printf("Click de mouse en (%d, %d)\n", evento->datos.pos.x,
-            evento->datos.pos.y);
-            break;
-        case EVENTO_SALIR:
-            printf("Evento de salida recibido.\n");
-            break;
+void procesar_evento(const evento_t *evento)
+{
+    switch (evento->tipo)
+    {
+    case EVENTO_TECLA_PRESIONADA:
+        printf("Tecla presionada: '%c'\n", evento->datos.tecla);
+        break;
+    case EVENTO_CLICK_MOUSE:
+        printf("Click de mouse en (%d, %d)\n", evento->datos.pos.x,
+               evento->datos.pos.y);
+        break;
+    case EVENTO_SALIR:
+        printf("Evento de salida recibido.\n");
+        break;
     }
 }
-
-int main() {
-    evento_t ev1 = { .tipo = EVENTO_TECLA_PRESIONADA, .datos.tecla = 'q' };
-    evento_t ev2 = { .tipo = EVENTO_CLICK_MOUSE, .datos.pos = {120, 80} };
-    evento_t ev3 = { .tipo = EVENTO_SALIR };
-
+int main()
+{
+    evento_t ev1 = {.tipo = EVENTO_TECLA_PRESIONADA, .datos.tecla = 'q'};
+    evento_t ev2 = {.tipo = EVENTO_CLICK_MOUSE, .datos.pos = {120, 80}};
+    evento_t ev3 = {.tipo = EVENTO_SALIR};
     procesar_evento(&ev1);
     procesar_evento(&ev2);
     procesar_evento(&ev3);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1999,16 +1938,16 @@ int main() {
 Dadas las declaraciones:
 ```{code-block} c
 :linenos:
-union A {
+union A
+{
     char c;
     int i;
 };
-
-union B {
+union B
+{
     char buffer[20];
     double d;
 };
-
 ```
 <!-- {code-block} c -->
 Calculá el tamaño exacto en bytes de cada una de estas uniones en un compilador
@@ -2050,15 +1989,15 @@ superior (`alto`) e inferior (`bajo`) utilizando una estructura anidada.
 ```{code-block} c
 :linenos:
 #include <stdint.h>
-
-typedef union {
+typedef union
+{
     uint16_t valor; // Acceso completo de 16 bits
-    struct {
-        uint8_t bajo;  // Byte menos significativo (en little-endian)
-        uint8_t alto;  // Byte más significativo (en little-endian)
+    struct
+    {
+        uint8_t bajo; // Byte menos significativo (en little-endian)
+        uint8_t alto; // Byte más significativo (en little-endian)
     } bytes;
 } registro_t;
-
 ```
 <!-- {code-block} c -->
 
@@ -2082,40 +2021,44 @@ tipo.
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-typedef enum {
+typedef enum
+{
     FIGURA_CIRCULO,
     FIGURA_RECTANGULO
 } tipo_figura_t;
-
-typedef struct {
+typedef struct
+{
     tipo_figura_t tipo;
-    union {
-        struct {
+    union
+    {
+        struct
+        {
             double radio;
         } circulo;
-        struct {
+        struct
+        {
             double ancho;
             double alto;
         } rectangulo;
     } datos;
 } figura_t;
-
-double calcular_area(const figura_t *figura) {
-    if (figura == NULL) {
+double calcular_area(const figura_t *figura)
+{
+    if (figura == NULL)
+    {
         return 0.0;
     }
-
-    switch (figura->tipo) {
-        case FIGURA_CIRCULO:
-            return 3.14159265 * figura->datos.circulo.radio * figura->datos.circulo.radio;
-        case FIGURA_RECTANGULO:
-            return figura->datos.rectangulo.ancho * figura->datos.rectangulo.alto;
-        default:
-            return 0.0;
+    switch (figura->tipo)
+    {
+    case FIGURA_CIRCULO:
+        return 3.14159265 * figura->datos.circulo.radio *
+               figura->datos.circulo.radio;
+    case FIGURA_RECTANGULO:
+        return figura->datos.rectangulo.ancho * figura->datos.rectangulo.alto;
+    default:
+        return 0.0;
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -2130,7 +2073,8 @@ double calcular_area(const figura_t *figura) {
 
 Dada la estructura:
 ``` c
-struct Suboptimo {
+struct Suboptimo
+{
     char c1;
     double d;
     char c2;
@@ -2161,13 +2105,13 @@ padding.
 La versión optimizada ordenando los miembros de mayor a menor tamaño es:
 ```{code-block} c
 :linenos:
-struct Optimizado {
-    double d;   // 8 bytes (offset 0)
-    char c1;    // 1 byte  (offset 8)
-    char c2;    // 1 byte  (offset 9)
+struct Optimizado
+{
+    double d; // 8 bytes (offset 0)
+    char c1;  // 1 byte  (offset 8)
+    char c2;  // 1 byte  (offset 9)
     // 6 bytes de padding al final para completar el múltiplo de 8
 };
-
 ```
 <!-- {code-block} c -->
 El tamaño de `struct Optimizado` se reduce a **16 bytes**.

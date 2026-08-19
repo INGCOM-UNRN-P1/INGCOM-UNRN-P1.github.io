@@ -1,10 +1,11 @@
 // Comparación de complejidades
 // Visualiza el crecimiento de diferentes complejidades
 
-#include <stdio.h>
 #include <math.h>
+#include <stdio.h>
 
-void comparar_complejidades(int n) {
+void comparar_complejidades(int n)
+{
     printf("\nPara n = %d:\n", n);
     printf("O(1):        %d operaciones\n", 1);
     printf("O(log n):    %.0f operaciones\n", log2(n));
@@ -14,16 +15,17 @@ void comparar_complejidades(int n) {
     printf("O(2^n):      %.0f operaciones\n", pow(2, n < 20 ? n : 20));
 }
 
-int main(void) {
+int main(void)
+{
     printf("Comparación de Complejidades Algorítmicas\n");
     printf("==========================================\n");
-    
+
     comparar_complejidades(10);
     comparar_complejidades(100);
     comparar_complejidades(1000);
     comparar_complejidades(10000);
-    
+
     printf("\nNota: O(2^n) limitado a n=20 para evitar overflow\n");
-    
+
     return 0;
 }

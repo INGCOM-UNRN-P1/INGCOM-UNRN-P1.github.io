@@ -48,21 +48,17 @@ altura en metros y tu inicial de nombre, y muestre sus valores en la consola.
 
 ```{code-block} c
 :linenos:
-
 #include <stdio.h>
-
-int main(void) {
+int main(void)
+{
     int edad = 20;
     float altura = 1.82f;
     char inicial = 'J';
-
     printf("Edad: %d\n", edad);
     printf("Altura: %.2f\n", altura);
     printf("Inicial: %c\n", inicial);
-
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -88,36 +84,33 @@ y mostralos formateados en pantalla.
 :class: dropdown
 ```{code-block} c
 :linenos:
-
 #include <stdio.h>
-
-int main(void) {
+int main(void)
+{
     char inicial = ' ';
     int edad = 0;
     float promedio = 0.0f;
-
     printf("Ingrese su inicial: ");
-    if (scanf(" %c", &inicial) != 1) {
+    if (scanf(" %c", &inicial) != 1)
+    {
         printf("Error al leer la inicial.\n");
         return 1;
     }
-
     printf("Ingrese su edad: ");
-    if (scanf("%d", &edad) != 1) {
+    if (scanf("%d", &edad) != 1)
+    {
         printf("Error al leer la edad.\n");
         return 1;
     }
-
     printf("Ingrese su promedio: ");
-    if (scanf("%f", &promedio) != 1) {
+    if (scanf("%f", &promedio) != 1)
+    {
         printf("Error al leer el promedio.\n");
         return 1;
     }
-
     printf("Inicial: %c, Edad: %d, Promedio: %.2f\n", inicial, edad, promedio);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 

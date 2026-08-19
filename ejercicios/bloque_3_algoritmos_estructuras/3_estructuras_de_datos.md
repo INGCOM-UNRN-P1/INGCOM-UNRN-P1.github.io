@@ -30,7 +30,8 @@ Una lista enlazada es una colección de nodos donde cada nodo contiene un dato y
 un puntero al siguiente nodo de la secuencia.
 
 ``` c
-typedef struct nodo {
+typedef struct nodo
+{
     int dato;
     struct nodo *siguiente;
 } nodo_t;
@@ -130,7 +131,8 @@ eficiente con listas enlazadas, se requiere mantener punteros tanto a la cabeza
 (`frente`) como a la cola (`final`) de la lista.
 
 ``` c
-typedef struct {
+typedef struct
+{
     nodo_t *frente;
     nodo_t *final;
 } cola_t;

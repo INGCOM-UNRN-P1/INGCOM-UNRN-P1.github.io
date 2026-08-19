@@ -181,11 +181,10 @@ reservando los recursos necesarios y configurando los invariantes básicos.
 **Ejemplos:**
 :::{code-block}c
 :linenos:
-int** crear_matriz(int filas, int col);
-int* crear_arreglo(int largo);
-pila_t* crear_pila(void);
-lista_t* crear_lista(void);
-
+int **crear_matriz(int filas, int col);
+int *crear_arreglo(int largo);
+pila_t *crear_pila(void);
+lista_t *crear_lista(void);
 :::
 <!-- {code-block}c -->
 
@@ -214,7 +213,6 @@ int valor = arreglo[i];
 int item = obtener(arreglo_t, indice);
 int dato = ver_tope(pila);
 int primero = frente(cola);
-
 :::
 <!-- {code-block}c -->
 
@@ -246,7 +244,6 @@ bool vacia = esta_vacia(pila);
 bool encontrado = contiene(lista, valor);
 int elementos = largo(lista);
 size_t capacidad_actual = capacidad(arreglo_dinamico);
-
 :::
 <!-- {code-block}c -->
 
@@ -269,17 +266,16 @@ estructuras complejas.
 **Ejemplos:**
 :::{code-block}c
 :linenos:
-iterador_t* iter = crear_iterador(lista);
-while (tiene_siguiente(iter)) {
+iterador_t *iter = crear_iterador(lista);
+while (tiene_siguiente(iter))
+{
     int actual = siguiente(iter);
     // procesar actual
 }
 destruir_iterador(iter);
-
 // Alternativamente, con callbacks (soporte genérico):
 void procesar(void *dato, void *contexto);
 recorrer(lista, procesar, contexto);
-
 :::
 <!-- {code-block}c -->
 
@@ -311,7 +307,6 @@ bool exito = apilar(pila, dato);
 bool exito = encolar(cola, dato);
 bool eliminado = remover(conjunto, elemento);
 void modificar(matriz, fila, col, nuevo_valor);
-
 :::
 <!-- {code-block}c -->
 
@@ -338,12 +333,11 @@ formatos, típicamente para interoperabilidad o presentación.
 **Ejemplos:**
 :::{code-block}c
 :linenos:
-char* cadena = a_cadena(arreglo, largo);
-int* subconjunto = rebanar(arreglo, desde, hasta);
-lista_t* sublista = copiar_sublista(lista, inicio, fin);
-arreglo_t* arr = lista_a_arreglo(lista);
-char* representacion = serializar(estructura);
-
+char *cadena = a_cadena(arreglo, largo);
+int *subconjunto = rebanar(arreglo, desde, hasta);
+lista_t *sublista = copiar_sublista(lista, inicio, fin);
+arreglo_t *arr = lista_a_arreglo(lista);
+char *representacion = serializar(estructura);
 :::
 <!-- {code-block}c -->
 
@@ -374,11 +368,10 @@ destructor es la operación final en el ciclo de vida de una instancia del TAD.
 **Ejemplos:**
 :::{code-block}c
 :linenos:
-void liberar_arreglo(int** arreglo);
-void destruir_matriz(int filas, int*** matriz);
-void destruir_pila(pila_t** pila);
-void destruir_lista(lista_t** lista, void (*destruir_dato)(void*));
-
+void liberar_arreglo(int **arreglo);
+void destruir_matriz(int filas, int ***matriz);
+void destruir_pila(pila_t **pila);
+void destruir_lista(lista_t **lista, void (*destruir_dato)(void *));
 :::
 <!-- {code-block}c -->
 
@@ -396,19 +389,23 @@ personalizada como parámetro para delegar esa responsabilidad al usuario.
 :::{code-block}c
 :linenos:
 // Destructor seguro con doble puntero (datos copiados)
-void destruir_pila_int(pila_t** pila) {
-    if (pila == NULL || *pila == NULL) return;
+void destruir_pila_int(pila_t **pila)
+{
+    if (pila == NULL || *pila == NULL)
+        return;
     free((*pila)->elementos);
     free(*pila);
     *pila = NULL;
 }
-
 // Destructor seguro con doble puntero y callback (datos por referencia)
-void destruir_lista(lista_t** lista, void (*destruir_dato)(void*)) {
-    if (lista == NULL || *lista == NULL) return;
-    nodo_t* actual = (*lista)->inicio;
-    while (actual) {
-        nodo_t* siguiente = actual->siguiente;
+void destruir_lista(lista_t **lista, void (*destruir_dato)(void *))
+{
+    if (lista == NULL || *lista == NULL)
+        return;
+    nodo_t *actual = (*lista)->inicio;
+    while (actual)
+    {
+        nodo_t *siguiente = actual->siguiente;
         if (destruir_dato != NULL && actual->dato != NULL)
             destruir_dato(actual->dato);
         free(actual);
@@ -417,7 +414,6 @@ void destruir_lista(lista_t** lista, void (*destruir_dato)(void*)) {
     free(*lista);
     *lista = NULL;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -613,13 +609,11 @@ typedef struct nodo
     int dato;
     struct nodo *siguiente;
 } nodo_t;
-
 typedef struct lista
 {
     nodo_t *inicio;
     size_t tamanio;
 } lista_t;
-
 :::
 <!-- {code-block}c -->
 
@@ -650,20 +644,15 @@ siguiendo las convenciones de C estándar.
 lista_t *crear_lista(void)
 {
     lista_t *lista = NULL;
-    
     lista = malloc(sizeof(lista_t));
-    
     if (lista == NULL)
     {
         return NULL;
     }
-    
     lista->inicio = NULL;
     lista->tamanio = 0;
-    
     return lista;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -697,28 +686,21 @@ lista.
 bool insertar_al_inicio(lista_t *lista, int dato)
 {
     nodo_t *nuevo = NULL;
-    
     if (lista == NULL)
     {
         return false;
     }
-    
     nuevo = malloc(sizeof(nodo_t));
-    
     if (nuevo == NULL)
     {
         return false;
     }
-    
     nuevo->dato = dato;
     nuevo->siguiente = lista->inicio;
-    
     lista->inicio = nuevo;
     lista->tamanio++;
-    
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -733,22 +715,17 @@ bool insertar_al_final(lista_t *lista, int dato)
 {
     nodo_t *nuevo = NULL;
     nodo_t *actual = NULL;
-    
     if (lista == NULL)
     {
         return false;
     }
-    
     nuevo = malloc(sizeof(nodo_t));
-    
     if (nuevo == NULL)
     {
         return false;
     }
-    
     nuevo->dato = dato;
     nuevo->siguiente = NULL;
-    
     if (lista->inicio == NULL)
     {
         lista->inicio = nuevo;
@@ -756,20 +733,15 @@ bool insertar_al_final(lista_t *lista, int dato)
     else
     {
         actual = lista->inicio;
-        
         while (actual->siguiente != NULL)
         {
             actual = actual->siguiente;
         }
-        
         actual->siguiente = nuevo;
     }
-    
     lista->tamanio++;
-    
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -788,27 +760,21 @@ Una optimización común es mantener un puntero adicional `fin` en la estructura
 nodo_t *buscar(const lista_t *lista, int dato)
 {
     nodo_t *actual = NULL;
-    
     if (lista == NULL)
     {
         return NULL;
     }
-    
     actual = lista->inicio;
-    
     while (actual != NULL)
     {
         if (actual->dato == dato)
         {
             return actual;
         }
-        
         actual = actual->siguiente;
     }
-    
     return NULL;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -832,26 +798,21 @@ bool eliminar(lista_t *lista, int dato)
 {
     nodo_t *actual = NULL;
     nodo_t *anterior = NULL;
-    
     if (lista == NULL || lista->inicio == NULL)
     {
         return false;
     }
-    
     actual = lista->inicio;
     anterior = NULL;
-    
     while (actual != NULL && actual->dato != dato)
     {
         anterior = actual;
         actual = actual->siguiente;
     }
-    
     if (actual == NULL)
     {
         return false;
     }
-    
     if (anterior == NULL)
     {
         lista->inicio = actual->siguiente;
@@ -860,14 +821,11 @@ bool eliminar(lista_t *lista, int dato)
     {
         anterior->siguiente = actual->siguiente;
     }
-    
     free(actual);
     actual = NULL;
     lista->tamanio--;
-    
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -887,25 +845,19 @@ su uso accidental. Aunque en este caso el puntero está a punto de salir de
 void imprimir_lista(const lista_t *lista)
 {
     nodo_t *actual = NULL;
-    
     if (lista == NULL)
     {
         return;
     }
-    
     actual = lista->inicio;
-    
     printf("Lista: ");
-    
     while (actual != NULL)
     {
         printf("%d ", actual->dato);
         actual = actual->siguiente;
     }
-    
     printf("\n");
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -919,25 +871,20 @@ void destruir_lista(lista_t *lista)
 {
     nodo_t *actual = NULL;
     nodo_t *siguiente = NULL;
-    
     if (lista == NULL)
     {
         return;
     }
-    
     actual = lista->inicio;
-    
     while (actual != NULL)
     {
         siguiente = actual->siguiente;
         free(actual);
         actual = siguiente;
     }
-    
     free(lista);
     lista = NULL;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -999,14 +946,12 @@ typedef struct nodo_doble
     struct nodo_doble *anterior;
     struct nodo_doble *siguiente;
 } nodo_doble_t;
-
 typedef struct lista_doble
 {
     nodo_doble_t *inicio;
     nodo_doble_t *fin;
     size_t tamanio;
 } lista_doble_t;
-
 :::
 <!-- {code-block}c -->
 
@@ -1030,23 +975,18 @@ typedef struct lista_doble
 bool insertar_al_inicio_doble(lista_doble_t *lista, int dato)
 {
     nodo_doble_t *nuevo = NULL;
-    
     if (lista == NULL)
     {
         return false;
     }
-    
     nuevo = malloc(sizeof(nodo_doble_t));
-    
     if (nuevo == NULL)
     {
         return false;
     }
-    
     nuevo->dato = dato;
     nuevo->anterior = NULL;
     nuevo->siguiente = lista->inicio;
-    
     if (lista->inicio != NULL)
     {
         lista->inicio->anterior = nuevo;
@@ -1055,13 +995,10 @@ bool insertar_al_inicio_doble(lista_doble_t *lista, int dato)
     {
         lista->fin = nuevo;
     }
-    
     lista->inicio = nuevo;
     lista->tamanio++;
-    
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1078,7 +1015,6 @@ bool eliminar_nodo_doble(lista_doble_t *lista, nodo_doble_t *nodo)
     {
         return false;
     }
-    
     // Actualizar el puntero siguiente del nodo anterior
     if (nodo->anterior != NULL)
     {
@@ -1089,7 +1025,6 @@ bool eliminar_nodo_doble(lista_doble_t *lista, nodo_doble_t *nodo)
         // El nodo es el primero
         lista->inicio = nodo->siguiente;
     }
-    
     // Actualizar el puntero anterior del nodo siguiente
     if (nodo->siguiente != NULL)
     {
@@ -1100,13 +1035,10 @@ bool eliminar_nodo_doble(lista_doble_t *lista, nodo_doble_t *nodo)
         // El nodo es el último
         lista->fin = nodo->anterior;
     }
-    
     free(nodo);
     lista->tamanio--;
-    
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1161,7 +1093,6 @@ typedef struct secuencia_arreglo
     size_t tamanio;
     size_t capacidad;
 } secuencia_arreglo_t;
-
 :::
 <!-- {code-block}c -->
 
@@ -1179,32 +1110,24 @@ typedef struct secuencia_arreglo
 :::{code-block}c
 :linenos:
 #define CAPACIDAD_INICIAL 10
-
 secuencia_arreglo_t *crear_secuencia_arreglo(void)
 {
     secuencia_arreglo_t *sec = NULL;
-    
     sec = malloc(sizeof(secuencia_arreglo_t));
-    
     if (sec == NULL)
     {
         return NULL;
     }
-    
     sec->elementos = malloc(CAPACIDAD_INICIAL * sizeof(int));
-    
     if (sec->elementos == NULL)
     {
         free(sec);
         return NULL;
     }
-    
     sec->tamanio = 0;
     sec->capacidad = CAPACIDAD_INICIAL;
-    
     return sec;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1219,26 +1142,20 @@ bool redimensionar(secuencia_arreglo_t *sec)
 {
     size_t nueva_capacidad = 0;
     int *nuevo_arreglo = NULL;
-    
     if (sec == NULL)
     {
         return false;
     }
-    
     nueva_capacidad = sec->capacidad * 2;
     nuevo_arreglo = realloc(sec->elementos, nueva_capacidad * sizeof(int));
-    
     if (nuevo_arreglo == NULL)
     {
         return false;
     }
-    
     sec->elementos = nuevo_arreglo;
     sec->capacidad = nueva_capacidad;
-    
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1252,7 +1169,6 @@ bool insertar_al_final_arreglo(secuencia_arreglo_t *sec, int dato)
     {
         return false;
     }
-    
     if (sec->tamanio >= sec->capacidad)
     {
         if (!redimensionar(sec))
@@ -1260,13 +1176,10 @@ bool insertar_al_final_arreglo(secuencia_arreglo_t *sec, int dato)
             return false;
         }
     }
-    
     sec->elementos[sec->tamanio] = dato;
     sec->tamanio++;
-    
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1282,12 +1195,9 @@ bool obtener_elemento(const secuencia_arreglo_t *sec, size_t indice, int *dato)
     {
         return false;
     }
-    
     *dato = sec->elementos[indice];
-    
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1297,16 +1207,14 @@ Requiere desplazar elementos, resultando en $O(n)$.
 
 :::{code-block}c
 :linenos:
-bool insertar_en_posicion_arreglo(secuencia_arreglo_t *sec, size_t pos, int
-dato)
+bool insertar_en_posicion_arreglo(secuencia_arreglo_t *sec, size_t pos,
+                                  int dato)
 {
     size_t i = 0;
-    
     if (sec == NULL || pos > sec->tamanio)
     {
         return false;
     }
-    
     if (sec->tamanio >= sec->capacidad)
     {
         if (!redimensionar(sec))
@@ -1314,18 +1222,14 @@ dato)
             return false;
         }
     }
-    
     for (i = sec->tamanio; i > pos; i--)
     {
         sec->elementos[i] = sec->elementos[i - 1];
     }
-    
     sec->elementos[pos] = dato;
     sec->tamanio++;
-    
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1339,13 +1243,11 @@ void destruir_secuencia_arreglo(secuencia_arreglo_t **sec)
     {
         return;
     }
-    
     free((*sec)->elementos);
     (*sec)->elementos = NULL;
     free(*sec);
     *sec = NULL;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1533,10 +1435,8 @@ bool operacion_segura(estructura_t *est, int dato)
         fprintf(stderr, "Error: estructura NULL en operacion_segura\n");
         return false;
     }
-    
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1614,16 +1514,14 @@ Veamos cómo se define una lista enlazada simple genérica:
 :linenos:
 typedef struct nodo_generico
 {
-    void *dato;                    /* Puntero al dato de usuario */
+    void *dato; /* Puntero al dato de usuario */
     struct nodo_generico *siguiente;
 } nodo_generico_t;
-
 typedef struct lista_generica
 {
     nodo_generico_t *inicio;
     size_t tamanio;
 } lista_generica_t;
-
 :::
 <!-- {code-block}c -->
 
@@ -1638,33 +1536,27 @@ un callback de destrucción:
 :linenos:
 /* Firma de la función callback de destrucción */
 typedef void (*destruir_dato_fn)(void *);
-
-void destruir_lista_generica(lista_generica_t **lista, destruir_dato_fn
-destruir_dato)
+void destruir_lista_generica(lista_generica_t **lista,
+                             destruir_dato_fn destruir_dato)
 {
     if (lista == NULL || *lista == NULL)
     {
         return;
     }
-    
     nodo_generico_t *actual = (*lista)->inicio;
     while (actual != NULL) /* Lazo de liberación */
     {
         nodo_generico_t *siguiente = actual->siguiente;
-        
         if (destruir_dato != NULL && actual->dato != NULL)
         {
             destruir_dato(actual->dato);
         }
-        
         free(actual);
         actual = siguiente;
     }
-    
     free(*lista);
     *lista = NULL;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1680,21 +1572,19 @@ typedef struct
     char *nombre;
     int edad;
 } persona_t;
-
 /* Callback personalizado para destruir una persona */
 void destruir_persona(void *ptr)
 {
-    if (ptr == NULL) return;
+    if (ptr == NULL)
+        return;
     persona_t *p = (persona_t *)ptr;
     free(p->nombre); /* Liberamos el recurso interno */
     free(p);         /* Liberamos el struct */
 }
-
 /* En el programa principal: */
 int main(void)
 {
     lista_generica_t *mi_lista = crear_lista_generica();
-    
     persona_t *juan = malloc(sizeof(persona_t));
     if (juan != NULL)
     {
@@ -1705,18 +1595,13 @@ int main(void)
         }
         juan->edad = 20;
     }
-    
     /* Insertamos pasándolo como void* */
     insertar_al_inicio_generico(mi_lista, juan);
-    
     /* ... procesamos la lista ... */
-    
     /* Al finalizar, destruimos la lista delegando la liberación */
     destruir_lista_generica(&mi_lista, destruir_persona);
-    
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1739,7 +1624,6 @@ la de `qsort` en `<stdlib.h>`):
 :::{code-block}c
 :linenos:
 typedef int (*comparar_fn)(const void *a, const void *b);
-
 :::
 <!-- {code-block}c -->
 
@@ -1756,23 +1640,24 @@ búsqueda secuencial, y cómo el código cliente la consume.
 :::{code-block}c
 :linenos:
 void *lista_buscar_generica(const lista_generica_t *lista, const void *clave,
-comparar_fn comparar) {
-    if (lista == NULL || comparar == NULL) {
+                            comparar_fn comparar)
+{
+    if (lista == NULL || comparar == NULL)
+    {
         return NULL;
     }
-    
     nodo_generico_t *actual = lista->inicio;
     // Recorremos la lista con un lazo buscando coincidencia
-    while (actual != NULL) {
-        if (comparar(actual->dato, clave) == 0) {
+    while (actual != NULL)
+    {
+        if (comparar(actual->dato, clave) == 0)
+        {
             return actual->dato; // Retorna el dato coincidente hallado
         }
         actual = actual->siguiente;
     }
-    
     return NULL; // No encontrado
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1780,33 +1665,30 @@ comparar_fn comparar) {
 :::{code-block}c
 :linenos:
 // Callback de comparación personalizado para el tipo persona_t
-int comparar_personas_por_nombre(const void *a, const void *b) {
+int comparar_personas_por_nombre(const void *a, const void *b)
+{
     const persona_t *p1 = (const persona_t *)a;
     const char *nombre_buscado = (const char *)b;
     return strcmp(p1->nombre, nombre_buscado);
 }
-
-int main(void) {
+int main(void)
+{
     // ... supongamos que la lista ya está creada y poblada con personas ...
-    
     const char *buscar_nombre = "Juan";
     persona_t *encontrado = (persona_t *)lista_buscar_generica(
-        mi_lista, 
-        buscar_nombre, 
-        comparar_personas_por_nombre
-    );
-    
-    if (encontrado != NULL) {
+        mi_lista, buscar_nombre, comparar_personas_por_nombre);
+    if (encontrado != NULL)
+    {
         printf("Persona hallada: %s, edad: %d\n", encontrado->nombre,
-        encontrado->edad);
-    } else {
+               encontrado->edad);
+    }
+    else
+    {
         printf("Persona '%s' no encontrada.\n", buscar_nombre);
     }
-    
     // ... destruir lista ...
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1844,44 +1726,35 @@ al código cliente:
 :linenos:
 #ifndef PUNTO_H
 #define PUNTO_H
-
 #include <stdbool.h>
-
 /* Declaración incompleta del tipo. La estructura se define en punto.c */
 typedef struct punto punto_t;
-
-/* 
+/*
  * Constructor: Crea un nuevo punto en el heap.
  * Retorna un puntero al punto creado o NULL si falla la asignación de memoria.
  */
 punto_t *punto_crear(double x, double y);
-
 /*
  * Selectores: Retornan las coordenadas del punto.
  * Precondición: el punto no debe ser NULL.
  */
 double punto_obtener_x(const punto_t *punto);
 double punto_obtener_y(const punto_t *punto);
-
 /*
  * Consultor: Calcula la distancia euclídea entre p1 y p2.
  * Precondición: ambos puntos deben ser válidos (no NULL).
  */
 double punto_distancia(const punto_t *p1, const punto_t *p2);
-
 /*
  * Mutador: Modifica las coordenadas del punto.
  * Retorna true si la operación fue exitosa, o false si el punto es NULL.
  */
 bool punto_modificar(punto_t *punto, double nuevo_x, double nuevo_y);
-
 /*
  * Destructor: Libera toda la memoria asociada al punto.
  */
 void punto_destruir(punto_t **punto);
-
 #endif /* PUNTO_H */
-
 ```
 <!-- {code-block} c -->
 <!-- c -->
@@ -1913,37 +1786,29 @@ este valor.
 :linenos:
 #ifndef FRACCION_H
 #define FRACCION_H
-
 #include <stdbool.h>
-
 /* Tipo de dato abstracto fraccion_t como puntero opaco */
 typedef struct fraccion fraccion_t;
-
-/* 
+/*
  * Constructor: Crea una fracción simplificada en el heap.
  * Precondición: el denominador no debe ser cero.
  * Retorna NULL si el denominador es cero o si falla la memoria.
  */
 fraccion_t *fraccion_crear(int numerador, int denominador);
-
 /*
  * Mutador: Suma dos fracciones y retorna una nueva fracción simplificada.
  * Retorna NULL en caso de error de memoria.
  */
 fraccion_t *fraccion_sumar(const fraccion_t *f1, const fraccion_t *f2);
-
 /*
  * Conversor: Devuelve el valor decimal equivalente de la fracción.
  */
 double fraccion_a_decimal(const fraccion_t *fraccion);
-
 /*
  * Destructor: Libera la memoria de la fracción.
  */
 void fraccion_destruir(fraccion_t **fraccion);
-
 #endif /* FRACCION_H */
-
 ```
 <!-- {code-block} c -->
 
@@ -1970,7 +1835,8 @@ verdaderas durante todo el ciclo de vida de la estructura. Para el TAD
 `fecha_t`, definido de forma interna como:
 
 ``` c
-struct fecha {
+struct fecha
+{
     int dia;
     int mes;
     int anio;
@@ -2023,7 +1889,6 @@ size_t conjunto_cardinalidad(const conjunto_t *c);
 int *conjunto_a_arreglo(const conjunto_t *c, size_t *tam);
 void conjunto_destruir(conjunto_t **c);
 conjunto_iter_t *conjunto_iter_crear(const conjunto_t *c);
-
 ```
 <!-- {code-block} c -->
 
@@ -2085,9 +1950,8 @@ pila auxiliar.
 
 ```{code-block} c
 :linenos:
-#include <stdlib.h>
 #include <stdbool.h>
-
+#include <stdlib.h>
 /* Suponemos la existencia de las funciones públicas del TAD pila_t */
 typedef struct pila pila_t;
 pila_t *pila_crear(void);
@@ -2096,37 +1960,34 @@ int pila_desapilar(pila_t *p);
 int pila_ver_tope(const pila_t *p);
 bool pila_esta_vacia(const pila_t *p);
 void pila_destruir(pila_t **p);
-
 int *pila_a_arreglo(const pila_t *pila, size_t *cantidad)
 {
     if (pila == NULL || cantidad == NULL)
     {
         return NULL;
     }
-
     /* Creamos dos pilas auxiliares para no alterar el estado final */
     pila_t *aux = pila_crear();
     if (aux == NULL)
     {
         return NULL;
     }
-
     size_t count = 0;
-    
-    /* Desapilamos de la pila (suponiendo que removemos el const para la copia interna) */
-    pila_t *pila_trabajo = (pila_t *)pila; /* Cast de conveniencia para usar la interfaz */
-    
+    /* Desapilamos de la pila (suponiendo que removemos el const para la copia
+     * interna) */
+    pila_t *pila_trabajo =
+        (pila_t *)pila; /* Cast de conveniencia para usar la interfaz */
     while (!pila_esta_vacia(pila_trabajo))
     {
         int valor = pila_desapilar(pila_trabajo);
         pila_apilar(aux, valor);
         count++;
     }
-
     int *arreglo = malloc(count * sizeof(int));
     if (arreglo == NULL)
     {
-        /* Si falla la asignación, restauramos la pila original antes de salir */
+        /* Si falla la asignación, restauramos la pila original antes de salir
+         */
         while (!pila_esta_vacia(aux))
         {
             pila_apilar(pila_trabajo, pila_desapilar(aux));
@@ -2134,7 +1995,6 @@ int *pila_a_arreglo(const pila_t *pila, size_t *cantidad)
         pila_destruir(&aux);
         return NULL;
     }
-
     /* Al reconstruir, guardamos en el arreglo.
        Los elementos en aux están invertidos.
        Para guardarlos del tope a la base en el arreglo: */
@@ -2143,15 +2003,14 @@ int *pila_a_arreglo(const pila_t *pila, size_t *cantidad)
     {
         int valor = pila_desapilar(aux);
         arreglo[i] = valor;
-        pila_apilar(pila_trabajo, valor); /* Restauramos el elemento a la pila original */
+        pila_apilar(pila_trabajo,
+                    valor); /* Restauramos el elemento a la pila original */
         i++;
     }
-
     pila_destruir(&aux);
     *cantidad = count;
     return arreglo;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -2184,62 +2043,52 @@ provista:
 ```{code-block} c
 :linenos:
 #include <stdlib.h>
-
 typedef struct nodo_hash
 {
     char *clave;
     void *valor;
     struct nodo_hash *siguiente;
 } nodo_hash_t;
-
 struct tabla_hash
 {
     nodo_hash_t **baldes;
     size_t capacidad;
     size_t cantidad;
 };
-
 void tabla_destruir(tabla_hash_t **tabla, void (*destruir_dato)(void *))
 {
     if (tabla == NULL || *tabla == NULL)
     {
         return;
     }
-
     tabla_hash_t *t = *tabla;
     /* Recorremos todos los baldes del arreglo */
     for (size_t i = 0; i < t->capacidad; i++)
     {
         nodo_hash_t *actual = t->baldes[i];
-        
         /* Lazo para recorrer y liberar la lista enlazada de colisiones */
         while (actual != NULL)
         {
             nodo_hash_t *siguiente = actual->siguiente;
-            
             /* Liberamos la clave */
             free(actual->clave);
             actual->clave = NULL;
-            
             /* Si el cliente pasó un callback, liberamos el valor genérico */
             if (destruir_dato != NULL && actual->valor != NULL)
             {
                 destruir_dato(actual->valor);
             }
-            
             /* Liberamos el nodo en sí */
             free(actual);
             actual = siguiente;
         }
     }
-
     /* Liberamos el arreglo de baldes y la estructura contenedora */
     free(t->baldes);
     t->baldes = NULL;
     free(t);
     *tabla = NULL;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -2272,27 +2121,22 @@ correspondiente.
 
 ```{code-block} c
 :linenos:
-#include <stdlib.h>
 #include <stdbool.h>
-
+#include <stdlib.h>
 /* Suponemos declaradas las estructuras lista_t y nodo_t del apunte */
-
 lista_t *fusionar_listas(const lista_t *lista1, const lista_t *lista2)
 {
     if (lista1 == NULL || lista2 == NULL)
     {
         return NULL;
     }
-
     lista_t *resultado = crear_lista();
     if (resultado == NULL)
     {
         return NULL;
     }
-
     nodo_t *n1 = lista1->inicio;
     nodo_t *n2 = lista2->inicio;
-
     /* Lazo principal de comparación */
     while (n1 != NULL && n2 != NULL)
     {
@@ -2315,7 +2159,6 @@ lista_t *fusionar_listas(const lista_t *lista1, const lista_t *lista2)
             n2 = n2->siguiente;
         }
     }
-
     /* Lazo para vaciar los elementos restantes de la lista 1, si quedan */
     while (n1 != NULL)
     {
@@ -2326,7 +2169,6 @@ lista_t *fusionar_listas(const lista_t *lista1, const lista_t *lista2)
         }
         n1 = n1->siguiente;
     }
-
     /* Lazo para vaciar los elementos restantes de la lista 2, si quedan */
     while (n2 != NULL)
     {
@@ -2337,10 +2179,8 @@ lista_t *fusionar_listas(const lista_t *lista1, const lista_t *lista2)
         }
         n2 = n2->siguiente;
     }
-
     return resultado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -2376,33 +2216,28 @@ la liebre llegará a `NULL`.
 :linenos:
 #include <stdbool.h>
 #include <stdlib.h>
-
 bool tiene_ciclo(const lista_t *lista)
 {
     if (lista == NULL || lista->inicio == NULL)
     {
         return false;
     }
-
     nodo_t *lento = lista->inicio;
     nodo_t *rapido = lista->inicio;
-
     /* Lazo de recorrido a dos velocidades */
     while (rapido != NULL && rapido->siguiente != NULL)
     {
         lento = lento->siguiente;
         rapido = rapido->siguiente->siguiente;
-
-        /* Si los punteros coinciden en la misma dirección de memoria, hay un ciclo */
+        /* Si los punteros coinciden en la misma dirección de memoria, hay un
+         * ciclo */
         if (lento == rapido)
         {
             return true;
         }
     }
-
     return false;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -2436,33 +2271,27 @@ cada iteración reorientamos el puntero `siguiente` del nodo actual hacia el nod
 ```{code-block} c
 :linenos:
 #include <stdlib.h>
-
 void invertir_lista(lista_t *lista)
 {
     if (lista == NULL || lista->inicio == NULL)
     {
         return;
     }
-
     nodo_t *anterior = NULL;
     nodo_t *actual = lista->inicio;
     nodo_t *siguiente = NULL;
-
     /* Lazo para invertir los enlaces */
     while (actual != NULL)
     {
-        siguiente = actual->siguiente;  /* Guardamos el resto de la lista */
+        siguiente = actual->siguiente; /* Guardamos el resto de la lista */
         actual->siguiente = anterior;  /* Invertimos el enlace del nodo */
-        
         /* Avanzamos los punteros de control hacia la derecha */
         anterior = actual;
         actual = siguiente;
     }
-
     /* El último nodo procesado (anterior) es el nuevo inicio de la lista */
     lista->inicio = anterior;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -2479,7 +2308,8 @@ redimensionar la capacidad del arreglo al doble utilizando la función
 `redimensionar()` si se encuentra lleno. La firma es:
 
 ``` c
-bool insertar_en_posicion_arreglo(secuencia_arreglo_t *sec, size_t pos, int dato);
+bool insertar_en_posicion_arreglo(secuencia_arreglo_t *sec, size_t pos,
+                                  int dato);
 ```
 <!-- c -->
 
@@ -2497,18 +2327,16 @@ destino, donde se almacena el nuevo elemento.
 
 ```{code-block} c
 :linenos:
-#include <stdlib.h>
 #include <stdbool.h>
-
+#include <stdlib.h>
 /* Suponemos definida la estructura secuencia_arreglo_t del apunte */
-
-bool insertar_en_posicion_arreglo(secuencia_arreglo_t *sec, size_t pos, int dato)
+bool insertar_en_posicion_arreglo(secuencia_arreglo_t *sec, size_t pos,
+                                  int dato)
 {
     if (sec == NULL || pos > sec->tamanio)
     {
         return false;
     }
-
     /* Redimensionamiento si el arreglo está lleno */
     if (sec->tamanio >= sec->capacidad)
     {
@@ -2517,20 +2345,17 @@ bool insertar_en_posicion_arreglo(secuencia_arreglo_t *sec, size_t pos, int dato
             return false;
         }
     }
-
     /* Desplazamos los elementos hacia la derecha para abrir espacio */
     for (size_t i = sec->tamanio; i > pos; i--)
     {
         sec->elementos[i] = sec->elementos[i - 1];
     }
-
-    /* Insertamos el nuevo valor en la posición libre y actualizamos el tamaño */
+    /* Insertamos el nuevo valor en la posición libre y actualizamos el tamaño
+     */
     sec->elementos[pos] = dato;
     sec->tamanio++;
-
     return true;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -2566,43 +2391,38 @@ cumple la condición de reducción de memoria ($4 \times \text{tamanio} <
 
 ```{code-block} c
 :linenos:
-#include <stdlib.h>
 #include <stdbool.h>
-
+#include <stdlib.h>
 #define CAPACIDAD_INICIAL 10
-
 bool eliminar_en_posicion_arreglo(secuencia_arreglo_t *sec, size_t pos)
 {
     if (sec == NULL || pos >= sec->tamanio)
     {
         return false;
     }
-
     /* Desplazamos los elementos siguientes hacia la izquierda */
     for (size_t i = pos; i < sec->tamanio - 1; i++)
     {
         sec->elementos[i] = sec->elementos[i + 1];
     }
-    
     sec->tamanio--;
-
     /* Verificamos si podemos encoger la capacidad para ahorrar memoria */
-    if (sec->tamanio < sec->capacidad / 4 && sec->capacidad / 2 >= CAPACIDAD_INICIAL)
+    if (sec->tamanio < sec->capacidad / 4 &&
+        sec->capacidad / 2 >= CAPACIDAD_INICIAL)
     {
         size_t nueva_capacidad = sec->capacidad / 2;
-        int *nuevo_arreglo = realloc(sec->elementos, nueva_capacidad * sizeof(int));
-        
-        /* Si falla realloc al achicar, no consideramos error fatal, mantenemos capacidad */
+        int *nuevo_arreglo =
+            realloc(sec->elementos, nueva_capacidad * sizeof(int));
+        /* Si falla realloc al achicar, no consideramos error fatal, mantenemos
+         * capacidad */
         if (nuevo_arreglo != NULL)
         {
             sec->elementos = nuevo_arreglo;
             sec->capacidad = nueva_capacidad;
         }
     }
-
     return true;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -2665,7 +2485,8 @@ clave de búsqueda, utilizando un callback de comparación provisto por el
 usuario. La firma debe ser:
 
 ``` c
-void *lista_buscar_generica(const lista_generica_t *lista, const void *clave, int (*comparar)(const void *, const void *));
+void *lista_buscar_generica(const lista_generica_t *lista, const void *clave,
+                            int (*comparar)(const void *, const void *));
 ```
 <!-- c -->
 
@@ -2685,33 +2506,28 @@ el campo `dato` almacenado en el nodo y la `clave` de búsqueda recibida.
 ```{code-block} c
 :linenos:
 #include <stdlib.h>
-
 /* Suponemos definidas las estructuras de lista genérica del apunte */
-
-void *lista_buscar_generica(const lista_generica_t *lista, const void *clave, int (*comparar)(const void *, const void *))
+void *lista_buscar_generica(const lista_generica_t *lista, const void *clave,
+                            int (*comparar)(const void *, const void *))
 {
     if (lista == NULL || comparar == NULL)
     {
         return NULL;
     }
-
     nodo_generico_t *actual = lista->inicio;
-
     /* Lazo de búsqueda lineal */
     while (actual != NULL)
     {
-        /* Invocamos al callback pasándole el dato del nodo y la clave buscada */
+        /* Invocamos al callback pasándole el dato del nodo y la clave buscada
+         */
         if (comparar(actual->dato, clave) == 0)
         {
             return actual->dato; /* Retornamos el dato original hallado */
         }
-        
         actual = actual->siguiente;
     }
-
     return NULL; /* No se encontró coincidencia en la lista */
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -2729,7 +2545,9 @@ remover el nodo de la lista, liberar la memoria del nodo y utilizar un callback
 de destrucción para liberar los recursos del dato en sí. La firma es:
 
 ``` c
-void lista_filtrar_generica(lista_generica_t *lista, bool (*predicado)(const void *), void (*destruir_dato)(void *));
+void lista_filtrar_generica(lista_generica_t *lista,
+                            bool (*predicado)(const void *),
+                            void (*destruir_dato)(void *));
 ```
 <!-- c -->
 
@@ -2746,24 +2564,22 @@ el nodo `actual` para no perder la conexión de la lista en el lazo.
 
 ```{code-block} c
 :linenos:
-#include <stdlib.h>
 #include <stdbool.h>
-
-void lista_filtrar_generica(lista_generica_t *lista, bool (*predicado)(const void *), void (*destruir_dato)(void *))
+#include <stdlib.h>
+void lista_filtrar_generica(lista_generica_t *lista,
+                            bool (*predicado)(const void *),
+                            void (*destruir_dato)(void *))
 {
     if (lista == NULL || predicado == NULL)
     {
         return;
     }
-
     nodo_generico_t *actual = lista->inicio;
     nodo_generico_t *anterior = NULL;
-
     /* Lazo de recorrido y filtrado */
     while (actual != NULL)
     {
         nodo_generico_t *siguiente = actual->siguiente;
-
         if (!predicado(actual->dato))
         {
             /* El elemento no cumple el predicado: debe eliminarse */
@@ -2777,27 +2593,25 @@ void lista_filtrar_generica(lista_generica_t *lista, bool (*predicado)(const voi
                 /* Saltamos el nodo actual en el encadenamiento */
                 anterior->siguiente = siguiente;
             }
-
-            /* Liberamos los recursos del dato de usuario si se proveyó callback */
+            /* Liberamos los recursos del dato de usuario si se proveyó
+             * callback */
             if (destruir_dato != NULL && actual->dato != NULL)
             {
                 destruir_dato(actual->dato);
             }
-
             /* Liberamos la memoria física del nodo */
             free(actual);
             lista->tamanio--;
         }
         else
         {
-            /* Si se conserva el nodo, este pasa a ser el anterior para el siguiente paso */
+            /* Si se conserva el nodo, este pasa a ser el anterior para el
+             * siguiente paso */
             anterior = actual;
         }
-
         actual = siguiente;
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -2810,7 +2624,8 @@ void lista_filtrar_generica(lista_generica_t *lista, bool (*predicado)(const voi
 Dada la estructura de un alumno de la universidad:
 
 ``` c
-typedef struct {
+typedef struct
+{
     int padron;
     char *nombre;
     double promedio;
@@ -2838,19 +2653,17 @@ de las funciones de ordenación y búsqueda.
 ```{code-block} c
 :linenos:
 #include <string.h>
-
-typedef struct {
+typedef struct
+{
     int padron;
     char *nombre;
     double promedio;
 } alumno_t;
-
 int comparar_alumnos(const void *a, const void *b)
 {
     /* Casting de punteros genéricos constantes a tipos concretos */
     const alumno_t *alumno_a = (const alumno_t *)a;
     const alumno_t *alumno_b = (const alumno_t *)b;
-
     /* Comparación por promedio en orden descendente */
     if (alumno_a->promedio > alumno_b->promedio)
     {
@@ -2858,9 +2671,8 @@ int comparar_alumnos(const void *a, const void *b)
     }
     if (alumno_a->promedio < alumno_b->promedio)
     {
-        return 1;  /* alumno_b va antes */
+        return 1; /* alumno_b va antes */
     }
-
     /* Desempate por padrón en orden ascendente */
     if (alumno_a->padron < alumno_b->padron)
     {
@@ -2870,10 +2682,8 @@ int comparar_alumnos(const void *a, const void *b)
     {
         return 1;
     }
-
     return 0; /* Alumnos equivalentes en promedio y padrón */
 }
-
 ```
 <!-- {code-block} c -->
 

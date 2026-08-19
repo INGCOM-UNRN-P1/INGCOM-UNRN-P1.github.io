@@ -5,9 +5,6 @@
 # 0 "<command-line>" 2
 # 1 "hola.c"
 
-
-
-
 int main(int argc, char *argv[])
 {
 

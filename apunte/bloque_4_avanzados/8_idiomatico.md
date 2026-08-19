@@ -49,10 +49,10 @@ reconocibles de expresar ideas comunes.
 **Idiomático:**
 :::{code-block}c
 :linenos:
-for (size_t i = 0; i < n; i++) {
+for (size_t i = 0; i < n; i++)
+{
     // Procesar elemento i
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -60,11 +60,11 @@ for (size_t i = 0; i < n; i++) {
 :::{code-block}c
 :linenos:
 size_t i = 0;
-while (i < n) {
+while (i < n)
+{
     // Procesar elemento i
     i = i + 1;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -74,10 +74,10 @@ while (i < n) {
 :::{code-block}c
 :linenos:
 int *arr = malloc(n * sizeof(int));
-if (arr == NULL) {
+if (arr == NULL)
+{
     return ERROR_MEMORIA;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -87,10 +87,10 @@ if (arr == NULL) {
 int *arr;
 arr = malloc(n * sizeof(int));
 // ... otras operaciones ...
-if (arr == NULL) {  // Validación tardía
+if (arr == NULL)
+{ // Validación tardía
     return ERROR_MEMORIA;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -101,7 +101,6 @@ if (arr == NULL) {  // Validación tardía
 :linenos:
 while (*destino++ = *origen++)
     ;
-
 :::
 <!-- {code-block}c -->
 
@@ -109,12 +108,12 @@ while (*destino++ = *origen++)
 :::{code-block}c
 :linenos:
 int i = 0;
-while (origen[i] != '\0') {
+while (origen[i] != '\0')
+{
     destino[i] = origen[i];
     i++;
 }
 destino[i] = '\0';
-
 :::
 <!-- {code-block}c -->
 
@@ -180,13 +179,12 @@ asignación, impidiendo cualquier uso del puntero si la reserva falla:
 ```{code-block} c
 :linenos:
 #include <stdlib.h>
-
 double *valores = malloc(n * sizeof(*valores));
-if (valores == NULL) {
+if (valores == NULL)
+{
     // Manejo de error inmediato (por ejemplo, abortar o retornar error)
     return;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -229,12 +227,7 @@ estudiantes novatos.
 **Idiomático:**
 :::{code-block}c
 :linenos:
-persona_t persona = {
-    .nombre = "Juan",
-    .edad = 30,
-    .activo = true
-};
-
+persona_t persona = {.nombre = "Juan", .edad = 30, .activo = true};
 :::
 <!-- {code-block}c -->
 
@@ -245,7 +238,6 @@ persona_t persona;
 persona.nombre = "Juan";
 persona.edad = 30;
 persona.activo = true;
-
 :::
 <!-- {code-block}c -->
 
@@ -272,37 +264,42 @@ asignación campo por campo porque:
 **Idiomático:**
 :::{code-block}c
 :linenos:
-int procesar_datos(const int *datos, size_t n) {
-    if (datos == NULL) {
+int procesar_datos(const int *datos, size_t n)
+{
+    if (datos == NULL)
+    {
         return -1;
     }
-    if (n == 0) {
+    if (n == 0)
+    {
         return 0;
     }
-    
     // Lógica principal sin anidamiento profundo
     return resultado;
 }
-
 :::
 <!-- {code-block}c -->
 
 **No idiomático:**
 :::{code-block}c
 :linenos:
-int procesar_datos(const int *datos, size_t n) {
+int procesar_datos(const int *datos, size_t n)
+{
     int resultado = -1;
-    if (datos != NULL) {
-        if (n > 0) {
+    if (datos != NULL)
+    {
+        if (n > 0)
+        {
             // Lógica anidada
             resultado = /* ... */;
-        } else {
+        }
+        else
+        {
             resultado = 0;
         }
     }
     return resultado;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -332,7 +329,6 @@ Al validar las condiciones de error primero y salir temprano, el "camino feliz"
 :::{code-block}c
 :linenos:
 int maximo = (a > b) ? a : b;
-
 :::
 <!-- {code-block}c -->
 
@@ -340,12 +336,14 @@ int maximo = (a > b) ? a : b;
 :::{code-block}c
 :linenos:
 int maximo;
-if (a > b) {
+if (a > b)
+{
     maximo = a;
-} else {
+}
+else
+{
     maximo = b;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -371,7 +369,6 @@ preferirse la estructura de control `if-else` tradicional.
 ```{code-block} c
 :linenos:
 const char *mensaje = (usuario_conectado) ? "Bienvenido" : "Inicia sesión";
-
 ```
 <!-- {code-block} c -->
 
@@ -380,7 +377,6 @@ const char *mensaje = (usuario_conectado) ? "Bienvenido" : "Inicia sesión";
 :linenos:
 // NO hacer esto - viola la claridad
 int resultado = (x > 0) ? ((y > 0) ? 1 : 2) : ((y > 0) ? 3 : 4);
-
 ```
 <!-- {code-block} c -->
 
@@ -412,11 +408,9 @@ en memoria.
   ```
 - **Inicializadores designados (C99)**:
   ```c
-  datos_t d = {
-      .c = "texto"
-  };
+  datos_t d = {.c = "texto"};
   // El estándar garantiza que cualquier miembro no explícitamente inicializado
-  se establece en cero (d.i = 0).
+  se establece en cero(d.i = 0).
   ```
 El uso de inicializadores designados previene lecturas accidentales de basura de
 forma automática e implícita en la declaración.
@@ -430,16 +424,18 @@ Refactorizá la siguiente función no idiomática aplicando el patrón de retorn
 anticipado (*early return*) para eliminar el anidamiento profundo:
 ```{code-block} c
 :linenos:
-int procesar_sensor(sensor_t *s) {
+int procesar_sensor(sensor_t *s)
+{
     int resultado = -1;
-    if (s != NULL) {
-        if (s->activo) {
+    if (s != NULL)
+    {
+        if (s->activo)
+        {
             resultado = leer_valores(s);
         }
     }
     return resultado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -452,17 +448,18 @@ Aplicando el retorno anticipado para validar primero las precondiciones, el
 "camino feliz" queda libre de indentación:
 ```{code-block} c
 :linenos:
-int procesar_sensor(sensor_t *s) {
-    if (s == NULL) {
+int procesar_sensor(sensor_t *s)
+{
+    if (s == NULL)
+    {
         return -1; // Validación de puntero nulo
     }
-    if (!s->activo) {
+    if (!s->activo)
+    {
         return -1; // Validación de estado
     }
-
     return leer_valores(s); // Lógica principal
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -490,12 +487,14 @@ La refactorización explícita recomendada es:
 ```{code-block} c
 :linenos:
 int x;
-if (a > b) {
+if (a > b)
+{
     x = a;
-} else {
+}
+else
+{
     x = b;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -509,30 +508,27 @@ if (a > b) {
 **Idiomático:**
 :::{code-block}c
 :linenos:
-typedef struct lista lista_t;  // Declaración adelantada
-
-struct lista {
+typedef struct lista lista_t; // Declaración adelantada
+struct lista
+{
     nodo_t *primero;
     size_t cantidad;
 };
-
-lista_t* lista_crear(void);
+lista_t *lista_crear(void);
 void lista_destruir(lista_t *lista);
-
 :::
 <!-- {code-block}c -->
 
 **No idiomático:**
 :::{code-block}c
 :linenos:
-struct lista {
+struct lista
+{
     nodo_t *primero;
     size_t cantidad;
 };
-
 // Uso directo de struct en todas partes
-struct lista* crear_lista(void);
-
+struct lista *crear_lista(void);
 :::
 <!-- {code-block}c -->
 
@@ -543,18 +539,18 @@ struct lista* crear_lista(void);
 :linenos:
 #define MAX_BUFFER 1024
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
-
 :::
 <!-- {code-block}c -->
 
 **No idiomático:**
 :::{code-block}c
 :linenos:
-const int MAX_BUFFER = 1024;  // En C89/90 no es idiomático para constantes
-globales
-int min(int a, int b) { return a < b ? a : b; }  // Overhead de función para
+const int MAX_BUFFER = 1024; // En C89/90 no es idiomático para constantes
+globales int min(int a, int b)
+{
+    return a < b ? a : b;
+} // Overhead de función para
 operación trivial
-
 :::
 <!-- {code-block}c -->
 
@@ -563,24 +559,25 @@ operación trivial
 **Idiomático:**
 :::{code-block}c
 :linenos:
-void procesar(const dato_t *dato) {
-    if (dato == NULL) {
+void procesar(const dato_t *dato)
+{
+    if (dato == NULL)
+    {
         return;
     }
     // Procesar dato
 }
-
 :::
 <!-- {code-block}c -->
 
 **No idiomático:**
 :::{code-block}c
 :linenos:
-void procesar(const dato_t *dato) {
+void procesar(const dato_t *dato)
+{
     // Asumir que dato nunca es NULL
-    printf("%d\n", dato->valor);  // Peligroso
+    printf("%d\n", dato->valor); // Peligroso
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -595,14 +592,15 @@ La validación de punteros **es obligatoria** según {ref}`0x3008h <0x3008h>`
 **1. Enfoque defensivo (preferido para funciones públicas):**
 ```{code-block} c
 :linenos:
-bool agregar_elemento(lista_t *lista, int valor) {
-    if (lista == NULL) {
-        return false;  // Validación explícita
+bool agregar_elemento(lista_t *lista, int valor)
+{
+    if (lista == NULL)
+    {
+        return false; // Validación explícita
     }
     // ... lógica
     return true;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -610,11 +608,11 @@ bool agregar_elemento(lista_t *lista, int valor) {
 ```{code-block} c
 :linenos:
 // PRECONDICIÓN: lista != NULL (documentado)
-static void insertar_nodo(lista_t *lista, nodo_t *nodo) {
-    assert(lista != NULL);  // Solo en debug
+static void insertar_nodo(lista_t *lista, nodo_t *nodo)
+{
+    assert(lista != NULL); // Solo en debug
     // ... lógica sin validación en producción
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -668,18 +666,17 @@ punteros requerida por las reglas de estilo de la cátedra para el manejo de
 :linenos:
 #include <stdbool.h>
 #include <stddef.h>
-
-bool eliminar_elemento(lista_t *lista, int valor) {
+bool eliminar_elemento(lista_t *lista, int valor)
+{
     // Validación defensiva obligatoria (Regla 0x3008h)
-    if (lista == NULL) {
-        return false; 
+    if (lista == NULL)
+    {
+        return false;
     }
-
     // Lógica de eliminación
     // ...
     return true;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -726,24 +723,26 @@ universalmente:
 :::{code-block}c
 :linenos:
 // Crear
-tipo_t* tipo_crear(void) {
+tipo_t *tipo_crear(void)
+{
     tipo_t *obj = malloc(sizeof(tipo_t));
-    if (obj == NULL) {
+    if (obj == NULL)
+    {
         return NULL;
     }
     // Inicialización
     return obj;
 }
-
 // Destruir
-void tipo_destruir(tipo_t *obj) {
-    if (obj == NULL) {
+void tipo_destruir(tipo_t *obj)
+{
+    if (obj == NULL)
+    {
         return;
     }
     // Liberar recursos internos
     free(obj);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -753,17 +752,15 @@ void tipo_destruir(tipo_t *obj) {
 :linenos:
 // En el .h (interfaz pública)
 typedef struct archivo_ctx archivo_ctx_t;
-
-archivo_ctx_t* archivo_abrir(const char *ruta);
+archivo_ctx_t *archivo_abrir(const char *ruta);
 void archivo_cerrar(archivo_ctx_t *ctx);
-
 // En el .c (implementación privada)
-struct archivo_ctx {
+struct archivo_ctx
+{
     FILE *fp;
     size_t bytes_leidos;
     // Detalles de implementación ocultos
 };
-
 :::
 <!-- {code-block}c -->
 
@@ -771,16 +768,16 @@ struct archivo_ctx {
 
 :::{code-block}c
 :linenos:
-bool operacion_compleja(const dato_t *entrada, resultado_t *salida) {
-    if (entrada == NULL || salida == NULL) {
+bool operacion_compleja(const dato_t *entrada, resultado_t *salida)
+{
+    if (entrada == NULL || salida == NULL)
+    {
         return false;
     }
-    
     // Realizar operación
     *salida = resultado;
-    return true;  // Éxito
+    return true; // Éxito
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -789,13 +786,13 @@ bool operacion_compleja(const dato_t *entrada, resultado_t *salida) {
 :::{code-block}c
 :linenos:
 typedef void (*callback_t)(void *datos, void *contexto);
-
-void iterar(lista_t *lista, callback_t callback, void *contexto) {
-    for (nodo_t *nodo = lista->primero; nodo != NULL; nodo = nodo->siguiente) {
+void iterar(lista_t *lista, callback_t callback, void *contexto)
+{
+    for (nodo_t *nodo = lista->primero; nodo != NULL; nodo = nodo->siguiente)
+    {
         callback(&nodo->dato, contexto);
     }
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -826,15 +823,15 @@ C:
 :::{code-block}c
 :linenos:
 // No idiomático
-int mi_strlen(const char *s) {
+int mi_strlen(const char *s)
+{
     int len = 0;
-    while (s[len]) len++;
+    while (s[len])
+        len++;
     return len;
 }
-
 // Idiomático: usar strlen() de <string.h>
 size_t longitud = strlen(cadena);
-
 :::
 <!-- {code-block}c -->
 
@@ -843,11 +840,15 @@ size_t longitud = strlen(cadena);
 :::{code-block}c
 :linenos:
 // No idiomático
-if (condicion == true) { ... }
-
+if (condicion == true)
+{
+    ...
+}
 // Idiomático
-if (condicion) { ... }
-
+if (condicion)
+{
+    ...
+}
 :::
 <!-- {code-block}c -->
 
@@ -856,11 +857,15 @@ if (condicion) { ... }
 :::{code-block}c
 :linenos:
 // Menos idiomático
-if (ptr != NULL) { ... }
-
+if (ptr != NULL)
+{
+    ...
+}
 // Idiomático (pero ambos son aceptables)
-if (ptr) { ... }
-
+if (ptr)
+{
+    ...
+}
 :::
 <!-- {code-block}c -->
 
@@ -885,23 +890,30 @@ las siguientes razones:
 :::{code-block}c
 :linenos:
 // PREFERIDO en este curso (explícito)
-if (ptr != NULL) {
+if (ptr != NULL)
+{
     printf("%d\n", *ptr);
 }
-
 // ACEPTABLE pero menos claro para principiantes
-if (ptr) {
+if (ptr)
+{
     printf("%d\n", *ptr);
 }
-
 // Para booleanos, usar directamente:
-if (esta_activo) { ... }  // Correcto para bool
-
+if (esta_activo)
+{
+    ...
+} // Correcto para bool
 // NO mezclar estilos:
-if (!ptr) { ... }         // Aceptable
-if (ptr == NULL) { ... }  // Aceptable
+if (!ptr)
+{
+    ...
+} // Aceptable
+if (ptr == NULL)
+{
+    ...
+} // Aceptable
 // Pero elegir uno y ser consistente
-
 :::
 <!-- {code-block}c -->
 
@@ -921,20 +933,22 @@ explícita para mayor claridad.
 :::{code-block}c
 :linenos:
 // No idiomático (salvo para limpieza de recursos)
-void funcion(void) {
+void funcion(void)
+{
     int x = 0;
 inicio:
     x++;
-    if (x < 10) goto inicio;
+    if (x < 10)
+        goto inicio;
 }
-
 // Idiomático
-void funcion(void) {
-    for (int x = 0; x < 10; x++) {
+void funcion(void)
+{
+    for (int x = 0; x < 10; x++)
+    {
         // ...
     }
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -957,32 +971,31 @@ caso de error**:
 
 :::{code-block}c
 :linenos:
-int procesar_archivo(const char *ruta) {
+int procesar_archivo(const char *ruta)
+{
     FILE *archivo = NULL;
     char *buffer = NULL;
     int resultado = -1;
-    
     archivo = fopen(ruta, "r");
-    if (archivo == NULL) {
+    if (archivo == NULL)
+    {
         goto error;
     }
-    
     buffer = malloc(1024);
-    if (buffer == NULL) {
+    if (buffer == NULL)
+    {
         goto error;
     }
-    
     // ... lógica principal ...
-    resultado = 0;  // Éxito
-    
+    resultado = 0; // Éxito
 error:
     free(buffer);
-    if (archivo != NULL) {
+    if (archivo != NULL)
+    {
         fclose(archivo);
     }
     return resultado;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1057,19 +1070,18 @@ la claridad explícita**.
 :::{code-block}c
 :linenos:
 // Idiomático profesional (denso pero correcto)
-while (*d++ = *s++);
-
+while (*d++ = *s++)
+    ;
 // Estilo pedagógico preferido en este curso
-while (*origen != '\0') {
+while (*origen != '\0')
+{
     *destino = *origen;
     destino++;
     origen++;
 }
 *destino = '\0';
-
 // O mejor aún, usar biblioteca estándar
 strcpy(destino, origen);
-
 :::
 <!-- {code-block}c -->
 
@@ -1089,23 +1101,23 @@ Las reglas de estilo estrictas funcionan como **rueditas de bicicleta**:
 :linenos:
 // Nivel principiante (muy explícito)
 int suma = 0;
-for (size_t i = 0; i < longitud_arreglo; i++) {
+for (size_t i = 0; i < longitud_arreglo; i++)
+{
     int elemento_actual = arreglo[i];
     suma = suma + elemento_actual;
 }
-
 // Nivel intermedio (más conciso pero claro)
 int suma = 0;
-for (size_t i = 0; i < n; i++) {
+for (size_t i = 0; i < n; i++)
+{
     suma += arreglo[i];
 }
-
 // Nivel avanzado (idiomático con punteros)
 int suma = 0;
-for (int *p = arreglo; p < arreglo + n; p++) {
+for (int *p = arreglo; p < arreglo + n; p++)
+{
     suma += *p;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1138,12 +1150,11 @@ experiencia y el contexto.
 // Código de sistema (Linux kernel style - muy idiomático)
 if (unlikely(!ptr))
     goto out_free;
-
 // Código pedagógico (más explícito)
-if (ptr == NULL) {
+if (ptr == NULL)
+{
     goto out_free;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1153,11 +1164,13 @@ if (ptr == NULL) {
 :linenos:
 // Idiomático optimizado (registro loop)
 register int i;
-for (i = 0; i < n; i++) { /* ... */ }
-
+for (i = 0; i < n; i++)
+{ /* ... */
+}
 // Pedagógico (deja optimización al compilador)
-for (int i = 0; i < n; i++) { /* ... */ }
-
+for (int i = 0; i < n; i++)
+{ /* ... */
+}
 :::
 <!-- {code-block}c -->
 
@@ -1169,15 +1182,15 @@ casos.
 :::{code-block}c
 :linenos:
 // Idiomático para grafos (nombres de dominio)
-for (v = g->V; v; v = v->next) { /* ... */ }
-
+for (v = g->V; v; v = v->next)
+{ /* ... */
+}
 // Pedagógico (más explícito)
-for (vertice_t *vertice = grafo->vertices; 
-     vertice != NULL; 
-     vertice = vertice->siguiente) {
+for (vertice_t *vertice = grafo->vertices; vertice != NULL;
+     vertice = vertice->siguiente)
+{
     /* ... */
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1273,35 +1286,33 @@ sistemas en C:
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-int procesar_datos_archivo(const char *ruta) {
+int procesar_datos_archivo(const char *ruta)
+{
     FILE *archivo = NULL;
     int *buffer = NULL;
     int estado = -1;
-
     archivo = fopen(ruta, "r");
-    if (archivo == NULL) {
+    if (archivo == NULL)
+    {
         goto cleanup; // Falla la apertura del archivo
     }
-
     buffer = malloc(100 * sizeof(int));
-    if (buffer == NULL) {
+    if (buffer == NULL)
+    {
         goto cleanup; // Falla la asignación de memoria
     }
-
     // Lógica de procesamiento
     // ...
     estado = 0; // Éxito
-
 cleanup:
     // Código de liberación centralizado
     free(buffer);
-    if (archivo != NULL) {
+    if (archivo != NULL)
+    {
         fclose(archivo);
     }
     return estado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1313,8 +1324,10 @@ cleanup:
 Refactorizá el siguiente bloque de código para remover las comparaciones
 redundantes no idiomáticas:
 ``` c
-if (esta_activo == true) {
-    if (ptr == NULL == false) {
+if (esta_activo == true)
+{
+    if (ptr == NULL == false)
+    {
         printf("Válido\n");
     }
 }
@@ -1329,8 +1342,10 @@ if (esta_activo == true) {
 En C, los booleanos e inicializaciones lógicas se evalúan directamente.
 Refactorización idiomática en base a las reglas de la cátedra:
 ``` c
-if (esta_activo) {
-    if (ptr != NULL) {
+if (esta_activo)
+{
+    if (ptr != NULL)
+    {
         printf("Válido\n");
     }
 }
@@ -1356,27 +1371,28 @@ el puntero del invocador en el destructor.
 ```{code-block} c
 :linenos:
 #include <stdlib.h>
-
-typedef struct {
+typedef struct
+{
     int puerto;
 } conexion_t;
-
-conexion_t *conexion_crear(int puerto) {
+conexion_t *conexion_crear(int puerto)
+{
     conexion_t *c = malloc(sizeof(conexion_t));
-    if (c == NULL) return NULL;
+    if (c == NULL)
+        return NULL;
     c->puerto = puerto;
     return c;
 }
-
 // Destructor defensivo con doble puntero para anular la referencia
-void conexion_destruir(conexion_t **c) {
-    if (c == NULL || *c == NULL) {
+void conexion_destruir(conexion_t **c)
+{
+    if (c == NULL || *c == NULL)
+    {
         return;
     }
     free(*c);
     *c = NULL; // El puntero del invocador ahora es NULL
 }
-
 ```
 <!-- {code-block} c -->
 

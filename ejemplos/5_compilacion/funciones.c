@@ -1,6 +1,7 @@
-#include <stdio.h>
 #include "funciones.h"
+#include <stdio.h>
 
-void saludar() {
+void saludar()
+{
     printf("¡Hola desde funciones.c!\n");
 }

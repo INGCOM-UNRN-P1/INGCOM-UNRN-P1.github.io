@@ -4,22 +4,27 @@
 long fibonacci(int termino)
 {
 
-    if (termino == 0) {
+    if (termino == 0)
+    {
         return 0L;
-    } else if (termino == 1) {
+    }
+    else if (termino == 1)
+    {
         return 1L;
-    } else {
+    }
+    else
+    {
         return fibonacci(termino - 1) + fibonacci(termino - 2);
     }
 }
 
-int main(int argc, char *argv[]) 
+int main(int argc, char *argv[])
 {
     if (argc == 2)
     {
         int termino = atoi(argv[1]);
         long resultado = fibonacci(termino);
-        printf("Fibonacci termino %d es %ld\n", termino, resultado);    
+        printf("Fibonacci termino %d es %ld\n", termino, resultado);
     }
     else
     {
@@ -28,4 +33,3 @@ int main(int argc, char *argv[])
     }
     return 0;
 }
-

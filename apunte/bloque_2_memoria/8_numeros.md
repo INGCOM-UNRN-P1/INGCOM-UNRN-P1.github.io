@@ -79,15 +79,14 @@ cero de manera predecible.
 
 :::{code-block}c
 :linenos:
-#include <stdio.h>
 #include <stdint.h>
-
-void demo_overflow_unsigned(void) {
-    uint8_t numero = 255;  // Valor máximo almacenable en 8 bits
-    numero = numero + 1;   // Produce 0 de forma garantizada por el estándar C
+#include <stdio.h>
+void demo_overflow_unsigned(void)
+{
+    uint8_t numero = 255; // Valor máximo almacenable en 8 bits
+    numero = numero + 1;  // Produce 0 de forma garantizada por el estándar C
     printf("Valor: %u\n", numero);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -111,13 +110,12 @@ vulnerabilidades graves de seguridad en ejecución.
 :::{code-block}c
 :linenos:
 #include <stdint.h>
-
-void demo_overflow_signed(void) {
-    int8_t numero = 127;  // Valor máximo en 8 bits con signo
-    numero = numero + 1;  // ¡COMPORTAMIENTO INDEFINIDO! No asumas que dará
+void demo_overflow_signed(void)
+{
+    int8_t numero = 127; // Valor máximo en 8 bits con signo
+    numero = numero + 1; // ¡COMPORTAMIENTO INDEFINIDO! No asumas que dará
     -128.
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -136,11 +134,9 @@ sus operandos. Esto es especialmente crítico en la división (`/`):
 :linenos:
 int a = 5;
 int b = 2;
-
-int resultado_entero = a / b;     // Produce 2 (se descarta la parte fraccional)
+int resultado_entero = a / b; // Produce 2 (se descarta la parte fraccional)
 float resultado_real = (float)a / b; // Produce 2.5 (conversión explícita o
 cast)
-
 :::
 <!-- {code-block}c -->
 
@@ -190,14 +186,12 @@ sumamente pequeño denominado **épsilon** ($\epsilon$):
 :linenos:
 #include <math.h>
 #include <stdbool.h>
-
 #define EPSILON 0.00001f
-
-bool reales_casi_iguales(float a, float b) {
+bool reales_casi_iguales(float a, float b)
+{
     // Retorna verdadero si la diferencia absoluta es menor al margen de error
     return fabsf(a - b) < EPSILON;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -242,7 +236,6 @@ int total_puntos = 15;
 int partidas = 4;
 float promedio = total_puntos / partidas;
 printf("Promedio: %.2f\n", promedio);
-
 ```
 <!-- {code-block} c -->
 
@@ -265,7 +258,6 @@ operandos a `float` antes de operar:
 ```{code-block} c
 :linenos:
 float promedio = (float)total_puntos / partidas; // Produce 3.75f
-
 ```
 <!-- {code-block} c -->
 
@@ -296,15 +288,14 @@ absoluta contra un épsilon:
 :linenos:
 #include <math.h>
 #include <stdio.h>
-
 #define EPSILON 0.00001f
-
-void comparar(float a, float b) {
-    if (fabsf(a - b) < EPSILON) {
+void comparar(float a, float b)
+{
+    if (fabsf(a - b) < EPSILON)
+    {
         printf("Son equivalentes dentro del margen de error.\n");
     }
 }
-
 ```
 <!-- {code-block} c -->
 

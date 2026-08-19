@@ -68,8 +68,8 @@ Existen dos variantes fundamentales:
 ### 2. Inclusión de Encabezados Locales
 
 ``` c
-#include "mi_modulo.h"
 #include "../includes/config.h"
+#include "mi_modulo.h"
 ```
 <!-- c -->
 * Búsqueda: El compilador busca primero en el directorio donde se encuentra el
@@ -94,16 +94,13 @@ tipos.
 :linenos:
 #ifndef MI_MODULO_H
 #define MI_MODULO_H
-
-typedef struct {
+typedef struct
+{
     int id;
     double valor;
 } elemento_t;
-
 void elemento_procesar(elemento_t *e);
-
 #endif /* MI_MODULO_H */
-
 ```
 <!-- {code-block} c -->
 
@@ -115,14 +112,12 @@ directiva no estándar pero ampliamente adoptada `#pragma once`:
 ```{code-block} c
 :linenos:
 #pragma once
-
-typedef struct {
+typedef struct
+{
     int id;
     double valor;
 } elemento_t;
-
 void elemento_procesar(elemento_t *e);
-
 ```
 <!-- {code-block} c -->
 
@@ -145,15 +140,13 @@ constantes o macros definidas.
 ```{code-block} c
 :linenos:
 #define SISTEMA_LINUX 1
-
 #if defined(SISTEMA_LINUX) && (SISTEMA_LINUX == 1)
-    #include <unistd.h>
+#include <unistd.h>
 #elif defined(SISTEMA_WINDOWS)
-    #include <windows.h>
+#include <windows.h>
 #else
-    #error "Sistema operativo no soportado."
+#error "Sistema operativo no soportado."
 #endif
-
 ```
 <!-- {code-block} c -->
 
@@ -175,7 +168,6 @@ caracteres encerrada entre comillas:
 
 ``` c
 #define IMPRIMIR_VAR(var) printf(#var " = %d\n", var)
-
 int contador = 42;
 IMPRIMIR_VAR(contador);
 /* Se expande a: printf("contador" " = %d\n", contador); */
@@ -191,14 +183,12 @@ formar un único token nuevo:
 ```{code-block} c
 :linenos:
 #define CREAR_VARIABLE(nombre, id) int nombre##_##id = id
-
 CREAR_VARIABLE(sensor, 1);
 CREAR_VARIABLE(sensor, 2);
 /* Se expande a:
    int sensor_1 = 1;
    int sensor_2 = 2;
 */
-
 ```
 <!-- {code-block} c -->
 
@@ -214,13 +204,13 @@ dentro de un condicional `if/else` puede romper la sintaxis del lenguaje.
 ```{code-block} c
 :linenos:
 /* Macro INSECURA */
-#define AUDITAR(x) registrar_log(x); incrementar_contador();
-
+#define AUDITAR(x)                                                            \
+    registrar_log(x);                                                         \
+    incrementar_contador();
 if (condicion)
     AUDITAR(val);
 else
     procesar(val);
-
 ```
 <!-- {code-block} c -->
 
@@ -229,8 +219,9 @@ Al expandirse, el código se transforma en:
 ``` c
 if (condicion)
     registrar_log(val);
-incrementar_contador(); ; /* ¡Se ejecuta SIEMPRE fuera del if! */
-else                          /* ¡Error de sintaxis: 'else' sin 'if'! */
+incrementar_contador();
+;    /* ¡Se ejecuta SIEMPRE fuera del if! */
+else /* ¡Error de sintaxis: 'else' sin 'if'! */
     procesar(val);
 ```
 <!-- c -->
@@ -244,16 +235,16 @@ sentencia compuesta:
 ```{code-block} c
 :linenos:
 /* Macro SEGURA Y DEFENSIVA */
-#define AUDITAR(x) do {          \
-    registrar_log(x);            \
-    incrementar_contador();      \
-} while (0)
-
+#define AUDITAR(x)                                                            \
+    do                                                                        \
+    {                                                                         \
+        registrar_log(x);                                                     \
+        incrementar_contador();                                               \
+    } while (0)
 if (condicion)
     AUDITAR(val);
 else
     procesar(val);
-
 ```
 <!-- {code-block} c -->
 
@@ -269,7 +260,6 @@ ejecutará múltiples veces si la macro evalúa el argumento más de una vez.
 
 ``` c
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
-
 int x = 5;
 int y = 10;
 int m = MAX(x++, y++);
@@ -294,8 +284,7 @@ La falta de paréntesis alrededor de los parámetros o de toda la macro provoca
 evaluación errónea de expresiones complejas.
 
 ``` c
-#define MULTIPLICAR(a, b) a * b
-
+#define MULTIPLICAR(a, b) a *b
 int res = MULTIPLICAR(3 + 2, 4 + 1);
 /* Expansión: 3 + 2 * 4 + 1 = 3 + 8 + 1 = 12 (Esperado: 25) */
 ```
@@ -316,7 +305,7 @@ parte del comentario y la línea siguiente se ignora por completo.
 
 ``` c
 /* Macro CON ERROR GRAVE */
-#define INICIALIZAR() \
+#define INICIALIZAR()                                                         \
     int a = 0; // Inicializar a \
     int b = 0; // Esta línea es IGNORADA porque el preprocesador la une al comentario anterior
 ```
@@ -335,15 +324,16 @@ de la unidad de traducción desde ese punto en adelante.
 
 ```{code-block} c
 :linenos:
-void funcion(void) {
-    #define BUFFER_SIZE 1024
+void funcion(void)
+{
+#define BUFFER_SIZE 1024
 }
 
-void otra_funcion(void) {
+void otra_funcion(void)
+{
     /* BUFFER_SIZE sigue estando disponible aquí */
     char buffer[BUFFER_SIZE];
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -374,14 +364,13 @@ trazabilidad y logs:
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-#define LOG_ERROR(msg) fprintf(stderr, "[ERROR] %s:%d en %s(): %s\n", \
-                                __FILE__, __LINE__, __func__, msg)
-
-void conectar(void) {
+#define LOG_ERROR(msg)                                                        \
+    fprintf(stderr, "[ERROR] %s:%d en %s(): %s\n", __FILE__, __LINE__,        \
+            __func__, msg)
+void conectar(void)
+{
     LOG_ERROR("Conexión rehusada por el servidor");
 }
-
 ```
 <!-- {code-block} c -->
 

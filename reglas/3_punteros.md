@@ -45,14 +45,15 @@ asignación. Si se encapsula la creación de una estructura con una función
 
 ```{code-block} c
 :linenos:
-recurso_t *crear_recurso() {
+recurso_t *crear_recurso()
+{
     recurso_t *r = malloc(sizeof(*r));
     return r;
 }
-void liberar_recurso(recurso_t *r) {
+void liberar_recurso(recurso_t *r)
+{
     free(r);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -63,9 +64,11 @@ Mantener las asignaciones y comparaciones en líneas separadas previene errores
 lógicos sutiles y facilita el rastreo de excepciones.
 
 ``` diff
-- if ((ptr = malloc(tamaño)) == NULL) {
+- if ((ptr = malloc(tamaño)) == NULL)
+- {
 + ptr = malloc(tamaño);
-+ if (ptr == NULL) {
++ if (ptr == NULL)
++ {
 ```
 <!-- diff -->
 
@@ -81,10 +84,10 @@ con `typedef` deben terminar obligatoriamente con el sufijo `_t`.
   ```
 - **Correcto:**
   ```c
-  typedef struct {
+  typedef struct
+  {
       int campo1;
   } mi_estructura_t;
-
   mi_estructura_t var;
   ```
 
@@ -97,11 +100,15 @@ sean estrictamente requeridos.
 
 - **Incorrecto:**
   ```c
-  void obtener_datos(int **ptr_datos, size_t *tamano) { /* ... */ }
+  void obtener_datos(int **ptr_datos, size_t *tamano)
+  { /* ... */
+  }
   ```
 - **Correcto:**
   ```c
-  int *obtener_datos(size_t *tamano_out) { /* ... */ }
+  int *obtener_datos(size_t *tamano_out)
+  { /* ... */
+  }
   ```
 
 (0x3006h)=
@@ -119,7 +126,6 @@ responsable de liberar dicha memoria (el dueño del recurso).
  *          de liberar esta memoria mediante liberar_recurso().
  */
 recurso_t *crear_recurso();
-
 ```
 <!-- {code-block} c -->
 
@@ -147,12 +153,16 @@ operaciones con punteros.
 - **Incorrecto:**
   ```c
   int *ptr = 0;
-  if (ptr == 0) { /* ... */ }
+  if (ptr == 0)
+  { /* ... */
+  }
   ```
 - **Correcto:**
   ```c
   int *ptr = NULL;
-  if (ptr == NULL) { /* ... */ }
+  if (ptr == NULL)
+  { /* ... */
+  }
   ```
 
 (0x3009h)=
@@ -178,8 +188,9 @@ fuente para mejorar la claridad de conversión de tipos de datos.
 
 ``` c
 void *mem = malloc(sizeof(int));
-if (mem != NULL) {
-    int *ptr = (int *)mem;  // Cast explícito
+if (mem != NULL)
+{
+    int *ptr = (int *)mem; // Cast explícito
 }
 ```
 <!-- c -->
@@ -208,7 +219,8 @@ Los índices deben ser explícitamente validados antes de acceder a un elemento.
 ``` c
 int arreglo[10];
 int indice = 9;
-if (indice >= 0 && indice < 10) {
+if (indice >= 0 && indice < 10)
+{
     arreglo[indice] = 5;
 }
 ```
@@ -222,19 +234,25 @@ relacionadas.
 
 - **Incorrecto (uso de enteros crudos):**
   ```c
-  void procesar_estado(int estado) {
-      if (estado == 0) { /* ... */ }
+  void procesar_estado(int estado)
+  {
+      if (estado == 0)
+      { /* ... */
+      }
   }
   ```
 - **Correcto:**
   ```c
-  typedef enum {
+  typedef enum
+  {
       ESTADO_INACTIVO,
       ESTADO_ACTIVO
   } estado_t;
-
-  void procesar_estado(estado_t estado) {
-      if (estado == ESTADO_ACTIVO) { /* ... */ }
+  void procesar_estado(estado_t estado)
+  {
+      if (estado == ESTADO_ACTIVO)
+      { /* ... */
+      }
   }
   ```
 
@@ -253,7 +271,6 @@ precondición explícita.
  * @pre datos != NULL
  */
 void procesar_datos(const datos_t *datos);
-
 ```
 <!-- {code-block} c -->
 
@@ -264,10 +281,11 @@ Esto es crítico en estructuras de datos anidadas, como matrices dinámicas 2D o
 listas enlazadas, para evitar dejar memoria inaccesible en el heap.
 
 ``` c
-for (size_t i = 0; i < filas; i++) {
+for (size_t i = 0; i < filas; i++)
+{
     free(matriz[i]); // Libera las subasignaciones primero
 }
-free(matriz);        // Libera el contenedor principal
+free(matriz); // Libera el contenedor principal
 matriz = NULL;
 ```
 <!-- c -->
@@ -303,7 +321,8 @@ es de solo lectura.
 
 - **Incorrecto:**
 ``` c
-void imprimir_bytes(void *datos, size_t tamano) {
+void imprimir_bytes(void *datos, size_t tamano)
+{
     unsigned char *ptr = (unsigned char *)datos; // Firma insegura
     // ...
 }
@@ -313,13 +332,14 @@ void imprimir_bytes(void *datos, size_t tamano) {
 - **Correcto:**
 ```{code-block} c
 :linenos:
-void imprimir_bytes(const void *datos, size_t tamano) {
+void imprimir_bytes(const void *datos, size_t tamano)
+{
     const unsigned char *ptr = (const unsigned char *)datos;
-    for (size_t i = 0; i < tamano; i++) {
+    for (size_t i = 0; i < tamano; i++)
+    {
         printf("%02x ", ptr[i]);
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -335,7 +355,6 @@ definirse en el archivo `.c` correspondiente.
 - **Cabecera Correcta (`usuario.h`):**
 ``` c
 typedef struct usuario usuario_t;
-
 usuario_t *crear_usuario(const char *nombre, int edad);
 void destruir_usuario(usuario_t *u);
 ```
@@ -343,7 +362,8 @@ void destruir_usuario(usuario_t *u);
 
 - **Implementación Correcta (`usuario.c`):**
 ``` c
-struct usuario {
+struct usuario
+{
     char *nombre;
     int edad;
 };

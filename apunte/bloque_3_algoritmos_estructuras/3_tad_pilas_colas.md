@@ -56,16 +56,16 @@ heap.
 
 :::{code-block}c
 :linenos:
-typedef struct nodo {
+typedef struct nodo
+{
     void *dato;
     struct nodo *siguiente;
 } nodo_t;
-
-struct pila {
+struct pila
+{
     nodo_t *tope;
     size_t tamanio;
 };
-
 :::
 <!-- {code-block}c -->
 
@@ -84,7 +84,6 @@ pila_t *pila_crear(void)
     pila->tamanio = 0;
     return pila;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -98,21 +97,17 @@ bool pila_push(pila_t *pila, void *dato)
     {
         return false;
     }
-    
     nodo_t *nuevo = malloc(sizeof(*nuevo));
     if (nuevo == NULL)
     {
         return false;
     }
-    
     nuevo->dato = dato;
     nuevo->siguiente = pila->tope;
     pila->tope = nuevo;
     pila->tamanio++;
-    
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -134,20 +129,16 @@ bool pila_pop(pila_t *pila, void **dato)
     {
         return false;
     }
-    
     nodo_t *nodo_a_eliminar = pila->tope;
     if (dato != NULL)
     {
         *dato = nodo_a_eliminar->dato;
     }
     pila->tope = nodo_a_eliminar->siguiente;
-    
     free(nodo_a_eliminar);
     pila->tamanio--;
-    
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -161,14 +152,12 @@ bool pila_peek(const pila_t *pila, void **dato)
     {
         return false;
     }
-    
     if (dato != NULL)
     {
         *dato = pila->tope->dato;
     }
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -180,7 +169,6 @@ bool pila_es_vacia(const pila_t *pila)
 {
     return (pila == NULL) || (pila->tope == NULL);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -194,7 +182,6 @@ void pila_destruir(pila_t *pila, destruir_dato_fn destruir_dato)
     {
         return;
     }
-    
     while (pila->tope != NULL)
     {
         nodo_t *nodo_actual = pila->tope;
@@ -205,10 +192,8 @@ void pila_destruir(pila_t *pila, destruir_dato_fn destruir_dato)
         }
         free(nodo_actual);
     }
-    
     free(pila);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -250,12 +235,12 @@ Estructura de una Pila implementada estáticamente mediante un arreglo y un
 
 :::{code-block}c
 :linenos:
-struct pila {
+struct pila
+{
     void **elementos;
-    size_t tope;       // Próximo índice libre / Cantidad de elementos
-    size_t capacidad;  // Capacidad total del arreglo
+    size_t tope;      // Próximo índice libre / Cantidad de elementos
+    size_t capacidad; // Capacidad total del arreglo
 };
-
 :::
 <!-- {code-block}c -->
 
@@ -269,26 +254,21 @@ pila_t *pila_crear_arreglo(size_t capacidad_inicial)
     {
         return NULL;
     }
-    
     pila_t *pila = malloc(sizeof(*pila));
     if (pila == NULL)
     {
         return NULL;
     }
-    
     pila->elementos = malloc(capacidad_inicial * sizeof(*(pila->elementos)));
     if (pila->elementos == NULL)
     {
         free(pila);
         return NULL;
     }
-    
     pila->tope = 0;
     pila->capacidad = capacidad_inicial;
-    
     return pila;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -299,26 +279,22 @@ pila_t *pila_crear_arreglo(size_t capacidad_inicial)
 static bool pila_redimensionar(pila_t *pila)
 {
     size_t nueva_capacidad = pila->capacidad * 2;
-    void **nuevo_arreglo = realloc(pila->elementos, nueva_capacidad *
-    sizeof(*nuevo_arreglo));
+    void **nuevo_arreglo =
+        realloc(pila->elementos, nueva_capacidad * sizeof(*nuevo_arreglo));
     if (nuevo_arreglo == NULL)
     {
         return false;
     }
-    
     pila->elementos = nuevo_arreglo;
     pila->capacidad = nueva_capacidad;
-    
     return true;
 }
-
 bool pila_push_arreglo(pila_t *pila, void *dato)
 {
     if (pila == NULL)
     {
         return false;
     }
-    
     if (pila->tope >= pila->capacidad)
     {
         if (!pila_redimensionar(pila))
@@ -326,13 +302,10 @@ bool pila_push_arreglo(pila_t *pila, void *dato)
             return false;
         }
     }
-    
     pila->elementos[pila->tope] = dato;
     pila->tope++;
-    
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -358,16 +331,13 @@ bool pila_pop_arreglo(pila_t *pila, void **dato)
     {
         return false;
     }
-    
     pila->tope--;
     if (dato != NULL)
     {
         *dato = pila->elementos[pila->tope];
     }
-    
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -416,13 +386,11 @@ bool parentesis_balanceados(const char *expresion)
     {
         return false;
     }
-    
     pila_t *pila = pila_crear();
     if (pila == NULL)
     {
         return false;
     }
-    
     for (size_t i = 0; expresion[i] != '\0'; i++)
     {
         char caracter = expresion[i];
@@ -445,12 +413,10 @@ bool parentesis_balanceados(const char *expresion)
             pila_pop(pila, &temporal);
         }
     }
-    
     bool resultado = pila_es_vacia(pila);
     pila_destruir(pila);
     return resultado;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -490,17 +456,17 @@ heap con punteros a inicio y fin.
 
 :::{code-block}c
 :linenos:
-typedef struct nodo {
+typedef struct nodo
+{
     void *dato;
     struct nodo *siguiente;
 } nodo_t;
-
-struct cola {
+struct cola
+{
     nodo_t *frente;
     nodo_t *final;
     size_t tamanio;
 };
-
 :::
 <!-- {code-block}c -->
 
@@ -523,14 +489,11 @@ cola_t *cola_crear(void)
     {
         return NULL;
     }
-    
     cola->frente = NULL;
     cola->final = NULL;
     cola->tamanio = 0;
-    
     return cola;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -544,16 +507,13 @@ bool cola_enqueue(cola_t *cola, void *dato)
     {
         return false;
     }
-    
     nodo_t *nuevo = malloc(sizeof(*nuevo));
     if (nuevo == NULL)
     {
         return false;
     }
-    
     nuevo->dato = dato;
     nuevo->siguiente = NULL;
-    
     if (cola->final == NULL)
     {
         cola->frente = nuevo;
@@ -564,11 +524,9 @@ bool cola_enqueue(cola_t *cola, void *dato)
         cola->final->siguiente = nuevo;
         cola->final = nuevo;
     }
-    
     cola->tamanio++;
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -591,25 +549,20 @@ bool cola_dequeue(cola_t *cola, void **dato)
     {
         return false;
     }
-    
     nodo_t *nodo_a_eliminar = cola->frente;
     if (dato != NULL)
     {
         *dato = nodo_a_eliminar->dato;
     }
     cola->frente = nodo_a_eliminar->siguiente;
-    
     if (cola->frente == NULL)
     {
         cola->final = NULL;
     }
-    
     free(nodo_a_eliminar);
     cola->tamanio--;
-    
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -632,14 +585,12 @@ bool cola_peek(const cola_t *cola, void **dato)
     {
         return false;
     }
-    
     if (dato != NULL)
     {
         *dato = cola->frente->dato;
     }
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -653,7 +604,6 @@ void cola_destruir(cola_t *cola, destruir_dato_fn destruir_dato)
     {
         return;
     }
-    
     while (cola->frente != NULL)
     {
         nodo_t *nodo_actual = cola->frente;
@@ -664,10 +614,8 @@ void cola_destruir(cola_t *cola, destruir_dato_fn destruir_dato)
         }
         free(nodo_actual);
     }
-    
     free(cola);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -701,14 +649,14 @@ desplazamiento costoso de elementos.
 
 :::{code-block}c
 :linenos:
-struct cola {
+struct cola
+{
     void **elementos;
     size_t frente;
     size_t final;
     size_t tamanio;
     size_t capacidad;
 };
-
 :::
 <!-- {code-block}c -->
 
@@ -731,28 +679,23 @@ cola_t *cola_crear_circular(size_t capacidad_inicial)
     {
         return NULL;
     }
-    
     cola_t *cola = malloc(sizeof(*cola));
     if (cola == NULL)
     {
         return NULL;
     }
-    
     cola->elementos = malloc(capacidad_inicial * sizeof(*(cola->elementos)));
     if (cola->elementos == NULL)
     {
         free(cola);
         return NULL;
     }
-    
     cola->frente = 0;
     cola->final = 0;
     cola->tamanio = 0;
     cola->capacidad = capacidad_inicial;
-    
     return cola;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -768,29 +711,24 @@ static bool cola_redimensionar_circular(cola_t *cola)
     {
         return false;
     }
-    
     for (size_t i = 0; i < cola->tamanio; i++)
     {
         size_t indice = (cola->frente + i) % cola->capacidad;
         nuevo_arreglo[i] = cola->elementos[indice];
     }
-    
     free(cola->elementos);
     cola->elementos = nuevo_arreglo;
     cola->frente = 0;
     cola->final = cola->tamanio;
     cola->capacidad = nueva_capacidad;
-    
     return true;
 }
-
 bool cola_enqueue_circular(cola_t *cola, void *dato)
 {
     if (cola == NULL)
     {
         return false;
     }
-    
     if (cola->tamanio == cola->capacidad)
     {
         if (!cola_redimensionar_circular(cola))
@@ -798,14 +736,11 @@ bool cola_enqueue_circular(cola_t *cola, void *dato)
             return false;
         }
     }
-    
     cola->elementos[cola->final] = dato;
     cola->final = (cola->final + 1) % cola->capacidad;
     cola->tamanio++;
-    
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -828,17 +763,14 @@ bool cola_dequeue_circular(cola_t *cola, void **dato)
     {
         return false;
     }
-    
     if (dato != NULL)
     {
         *dato = cola->elementos[cola->frente];
     }
     cola->frente = (cola->frente + 1) % cola->capacidad;
     cola->tamanio--;
-    
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1084,28 +1016,25 @@ Implementación en C:
 
 ```{code-block} c
 :linenos:
-#include <stdint.h>
 #include "pila.h"
-
+#include <stdint.h>
 void invertir_cadena(char *cadena)
 {
     if (cadena == NULL || *cadena == '\0')
     {
         return;
     }
-
     pila_t *pila = pila_crear();
     if (pila == NULL)
     {
         return;
     }
-
-    // Apilamos cada carácter. Casteamos a uintptr_t para evitar advertencias del compilador.
+    // Apilamos cada carácter. Casteamos a uintptr_t para evitar advertencias
+    // del compilador.
     for (size_t i = 0; cadena[i] != '\0'; i++)
     {
-        pila_push(pila, (void*)(uintptr_t)cadena[i]);
+        pila_push(pila, (void *)(uintptr_t)cadena[i]);
     }
-
     // Desapilamos en la cadena original usando un lazo.
     size_t i = 0;
     while (!pila_es_vacia(pila))
@@ -1115,10 +1044,8 @@ void invertir_cadena(char *cadena)
         cadena[i] = (char)(uintptr_t)dato;
         i++;
     }
-
     pila_destruir(pila, NULL);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1156,29 +1083,26 @@ Implementación en C:
 
 ```{code-block} c
 :linenos:
-#include <stdint.h>
 #include "pila.h"
-
+#include <stdint.h>
 bool delimitadores_balanceados(const char *expresion)
 {
     if (expresion == NULL)
     {
         return false;
     }
-
     pila_t *pila = pila_crear();
     if (pila == NULL)
     {
         return false;
     }
-
     bool balanceado = true;
     for (size_t i = 0; expresion[i] != '\0' && balanceado; i++)
     {
         char c = expresion[i];
         if (c == '(' || c == '[' || c == '{')
         {
-            if (!pila_push(pila, (void*)(uintptr_t)c))
+            if (!pila_push(pila, (void *)(uintptr_t)c))
             {
                 balanceado = false;
             }
@@ -1194,8 +1118,7 @@ bool delimitadores_balanceados(const char *expresion)
                 void *tope_ptr;
                 pila_pop(pila, &tope_ptr);
                 char tope = (char)(uintptr_t)tope_ptr;
-                if ((c == ')' && tope != '(') ||
-                    (c == ']' && tope != '[') ||
+                if ((c == ')' && tope != '(') || (c == ']' && tope != '[') ||
                     (c == '}' && tope != '{'))
                 {
                     balanceado = false;
@@ -1203,16 +1126,13 @@ bool delimitadores_balanceados(const char *expresion)
             }
         }
     }
-
     if (!pila_es_vacia(pila))
     {
         balanceado = false;
     }
-
     pila_destruir(pila, NULL);
     return balanceado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1256,17 +1176,16 @@ Implementación en C:
 
 ```{code-block} c
 :linenos:
-#include <stdint.h>
 #include "pila.h"
-
+#include <stdint.h>
 int evaluar_postfija(const char *expresion, bool *error)
 {
     if (expresion == NULL || error == NULL)
     {
-        if (error != NULL) *error = true;
+        if (error != NULL)
+            *error = true;
         return 0;
     }
-
     *error = false;
     pila_t *pila = pila_crear();
     if (pila == NULL)
@@ -1274,7 +1193,6 @@ int evaluar_postfija(const char *expresion, bool *error)
         *error = true;
         return 0;
     }
-
     for (size_t i = 0; expresion[i] != '\0'; i++)
     {
         char c = expresion[i];
@@ -1282,11 +1200,10 @@ int evaluar_postfija(const char *expresion, bool *error)
         {
             continue;
         }
-
         if (c >= '0' && c <= '9')
         {
             int valor = c - '0';
-            if (!pila_push(pila, (void*)(uintptr_t)valor))
+            if (!pila_push(pila, (void *)(uintptr_t)valor))
             {
                 *error = true;
                 pila_destruir(pila, NULL);
@@ -1304,7 +1221,6 @@ int evaluar_postfija(const char *expresion, bool *error)
             void *b_ptr;
             pila_pop(pila, &b_ptr);
             int b = (int)(uintptr_t)b_ptr;
-
             if (pila_es_vacia(pila))
             {
                 *error = true;
@@ -1314,11 +1230,13 @@ int evaluar_postfija(const char *expresion, bool *error)
             void *a_ptr;
             pila_pop(pila, &a_ptr);
             int a = (int)(uintptr_t)a_ptr;
-
             int resultado = 0;
-            if (c == '+') resultado = a + b;
-            else if (c == '-') resultado = a - b;
-            else if (c == '*') resultado = a * b;
+            if (c == '+')
+                resultado = a + b;
+            else if (c == '-')
+                resultado = a - b;
+            else if (c == '*')
+                resultado = a * b;
             else if (c == '/')
             {
                 if (b == 0)
@@ -1329,8 +1247,7 @@ int evaluar_postfija(const char *expresion, bool *error)
                 }
                 resultado = a / b;
             }
-
-            if (!pila_push(pila, (void*)(uintptr_t)resultado))
+            if (!pila_push(pila, (void *)(uintptr_t)resultado))
             {
                 *error = true;
                 pila_destruir(pila, NULL);
@@ -1344,27 +1261,22 @@ int evaluar_postfija(const char *expresion, bool *error)
             return 0;
         }
     }
-
     if (pila_es_vacia(pila))
     {
         *error = true;
         pila_destruir(pila, NULL);
         return 0;
     }
-
     void *resultado_final_ptr;
     pila_pop(pila, &resultado_final_ptr);
     int resultado_final = (int)(uintptr_t)resultado_final_ptr;
-
     if (!pila_es_vacia(pila))
     {
         *error = true;
     }
-
     pila_destruir(pila, NULL);
     return resultado_final;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1384,11 +1296,11 @@ páginas, asumiendo que procesar una página demora 1 segundo.
 
 Firma de la función y estructura:
 ``` c
-typedef struct {
+typedef struct
+{
     int id;
     int paginas;
 } trabajo_t;
-
 int simular_impresora(trabajo_t *trabajos, size_t n);
 ```
 <!-- c -->
@@ -1407,42 +1319,35 @@ Implementación en C:
 
 ```{code-block} c
 :linenos:
-#include <stdlib.h>
 #include "cola.h"
-
+#include <stdlib.h>
 int simular_impresora(trabajo_t *trabajos, size_t n)
 {
     if (trabajos == NULL || n == 0)
     {
         return 0;
     }
-
     cola_t *cola = cola_crear();
     if (cola == NULL)
     {
         return 0;
     }
-
     // Encolamos las referencias a los trabajos usando un lazo.
     for (size_t i = 0; i < n; i++)
     {
         cola_enqueue(cola, &trabajos[i]);
     }
-
     int tiempo_total = 0;
     void *dato;
-
     // Desencolamos y acumulamos el tiempo en un lazo.
     while (cola_dequeue(cola, &dato))
     {
-        trabajo_t *trabajo = (trabajo_t*)dato;
+        trabajo_t *trabajo = (trabajo_t *)dato;
         tiempo_total += trabajo->paginas;
     }
-
     cola_destruir(cola, NULL);
     return tiempo_total;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1463,16 +1368,15 @@ las firmas de las operaciones fundamentales.
 Firma de la estructura y de las funciones:
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     pila_t *pila_entrada;
     pila_t *pila_salida;
 } cola_pilas_t;
-
 cola_pilas_t *cola_pilas_crear(void);
 bool cola_pilas_enqueue(cola_pilas_t *cola, void *dato);
 bool cola_pilas_dequeue(cola_pilas_t *cola, void **dato);
 void cola_pilas_destruir(cola_pilas_t *cola, destruir_dato_fn destruir_dato);
-
 ```
 <!-- {code-block} c -->
 
@@ -1492,9 +1396,8 @@ Implementación en C:
 
 ```{code-block} c
 :linenos:
-#include <stdlib.h>
 #include "pila.h"
-
+#include <stdlib.h>
 cola_pilas_t *cola_pilas_crear(void)
 {
     cola_pilas_t *cola = malloc(sizeof(*cola));
@@ -1502,7 +1405,6 @@ cola_pilas_t *cola_pilas_crear(void)
     {
         return NULL;
     }
-
     cola->pila_entrada = pila_crear();
     cola->pila_salida = pila_crear();
     if (cola->pila_entrada == NULL || cola->pila_salida == NULL)
@@ -1512,10 +1414,8 @@ cola_pilas_t *cola_pilas_crear(void)
         free(cola);
         return NULL;
     }
-
     return cola;
 }
-
 bool cola_pilas_enqueue(cola_pilas_t *cola, void *dato)
 {
     if (cola == NULL)
@@ -1524,14 +1424,12 @@ bool cola_pilas_enqueue(cola_pilas_t *cola, void *dato)
     }
     return pila_push(cola->pila_entrada, dato);
 }
-
 bool cola_pilas_dequeue(cola_pilas_t *cola, void **dato)
 {
     if (cola == NULL)
     {
         return false;
     }
-
     if (pila_es_vacia(cola->pila_salida))
     {
         // Transferimos todos los elementos de entrada a salida.
@@ -1545,10 +1443,8 @@ bool cola_pilas_dequeue(cola_pilas_t *cola, void **dato)
             }
         }
     }
-
     return pila_pop(cola->pila_salida, dato);
 }
-
 void cola_pilas_destruir(cola_pilas_t *cola, destruir_dato_fn destruir_dato)
 {
     if (cola == NULL)
@@ -1559,7 +1455,6 @@ void cola_pilas_destruir(cola_pilas_t *cola, destruir_dato_fn destruir_dato)
     pila_destruir(cola->pila_salida, destruir_dato);
     free(cola);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1602,10 +1497,9 @@ Implementación en C:
 
 ```{code-block} c
 :linenos:
-#include <stdlib.h>
 #include "cola.h"
 #include "pila.h"
-
+#include <stdlib.h>
 bool invertir_primeros_k(cola_t *cola, size_t k)
 {
     // Asumimos que cola->tamanio nos da acceso a la cantidad de elementos.
@@ -1613,13 +1507,11 @@ bool invertir_primeros_k(cola_t *cola, size_t k)
     {
         return false;
     }
-
     pila_t *pila = pila_crear();
     if (pila == NULL)
     {
         return false;
     }
-
     // Desencolamos K elementos y los apilamos.
     for (size_t i = 0; i < k; i++)
     {
@@ -1627,7 +1519,6 @@ bool invertir_primeros_k(cola_t *cola, size_t k)
         cola_dequeue(cola, &dato);
         pila_push(pila, dato);
     }
-
     // Desapilamos y volvemos a encolar. Quedan al final con orden invertido.
     while (!pila_es_vacia(pila))
     {
@@ -1635,7 +1526,6 @@ bool invertir_primeros_k(cola_t *cola, size_t k)
         pila_pop(pila, &dato);
         cola_enqueue(cola, dato);
     }
-
     // Reacomodamos los elementos restantes del frente llevándolos al final.
     size_t restantes = cola->tamanio - k;
     for (size_t i = 0; i < restantes; i++)
@@ -1644,11 +1534,9 @@ bool invertir_primeros_k(cola_t *cola, size_t k)
         cola_dequeue(cola, &dato);
         cola_enqueue(cola, dato);
     }
-
     pila_destruir(pila, NULL);
     return true;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1686,35 +1574,30 @@ Implementación en C:
 
 ```{code-block} c
 :linenos:
-#include <string.h>
-#include <stdint.h>
 #include "deque.h"
-
+#include <stdint.h>
+#include <string.h>
 bool es_palindromo_deque(const char *cadena)
 {
     if (cadena == NULL)
     {
         return false;
     }
-
     size_t largo = strlen(cadena);
     if (largo <= 1)
     {
         return true;
     }
-
     deque_t *deque = deque_crear();
     if (deque == NULL)
     {
         return false;
     }
-
     // Insertamos todos los caracteres en el deque.
     for (size_t i = 0; i < largo; i++)
     {
-        deque_push_back(deque, (void*)(uintptr_t)cadena[i]);
+        deque_push_back(deque, (void *)(uintptr_t)cadena[i]);
     }
-
     bool palindromo = true;
     // Comparamos el frente y el final usando un lazo.
     while (deque_tamanio(deque) > 1 && palindromo)
@@ -1722,20 +1605,16 @@ bool es_palindromo_deque(const char *cadena)
         void *frente_ptr, *final_ptr;
         deque_pop_front(deque, &frente_ptr);
         deque_pop_back(deque, &final_ptr);
-
         char frente = (char)(uintptr_t)frente_ptr;
         char final = (char)(uintptr_t)final_ptr;
-
         if (frente != final)
         {
             palindromo = false;
         }
     }
-
     deque_destruir(deque, NULL);
     return palindromo;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1755,15 +1634,14 @@ provistas por un Deque.
 Firma de la estructura y funciones:
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     deque_t *deque;
 } pila_deque_t;
-
 pila_deque_t *pila_deque_crear(void);
 bool pila_deque_push(pila_deque_t *pila, void *dato);
 bool pila_deque_pop(pila_deque_t *pila, void **dato);
 void pila_deque_destruir(pila_deque_t *pila, destruir_dato_fn destruir_dato);
-
 ```
 <!-- {code-block} c -->
 
@@ -1781,9 +1659,8 @@ Implementación en C:
 
 ```{code-block} c
 :linenos:
-#include <stdlib.h>
 #include "deque.h"
-
+#include <stdlib.h>
 pila_deque_t *pila_deque_crear(void)
 {
     pila_deque_t *pila = malloc(sizeof(*pila));
@@ -1799,7 +1676,6 @@ pila_deque_t *pila_deque_crear(void)
     }
     return pila;
 }
-
 bool pila_deque_push(pila_deque_t *pila, void *dato)
 {
     if (pila == NULL)
@@ -1808,7 +1684,6 @@ bool pila_deque_push(pila_deque_t *pila, void *dato)
     }
     return deque_push_back(pila->deque, dato);
 }
-
 bool pila_deque_pop(pila_deque_t *pila, void **dato)
 {
     if (pila == NULL)
@@ -1817,7 +1692,6 @@ bool pila_deque_pop(pila_deque_t *pila, void **dato)
     }
     return deque_pop_back(pila->deque, dato);
 }
-
 void pila_deque_destruir(pila_deque_t *pila, destruir_dato_fn destruir_dato)
 {
     if (pila == NULL)
@@ -1827,7 +1701,6 @@ void pila_deque_destruir(pila_deque_t *pila, destruir_dato_fn destruir_dato)
     deque_destruir(pila->deque, destruir_dato);
     free(pila);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1847,7 +1720,8 @@ manera que se logre una complejidad temporal lineal óptima de $O(n)$.
 
 Firma de la función:
 ``` c
-int *maximos_ventana_deslizante(const int *arreglo, size_t n, size_t k, size_t *resultado_tamanio);
+int *maximos_ventana_deslizante(const int *arreglo, size_t n, size_t k,
+                                size_t *resultado_tamanio);
 ```
 <!-- c -->
 
@@ -1869,18 +1743,19 @@ Implementación en C:
 
 ```{code-block} c
 :linenos:
-#include <stdlib.h>
-#include <stdint.h>
 #include "deque.h"
-
-int *maximos_ventana_deslizante(const int *arreglo, size_t n, size_t k, size_t *resultado_tamanio)
+#include <stdint.h>
+#include <stdlib.h>
+int *maximos_ventana_deslizante(const int *arreglo, size_t n, size_t k,
+                                size_t *resultado_tamanio)
 {
-    if (arreglo == NULL || n == 0 || k == 0 || k > n || resultado_tamanio == NULL)
+    if (arreglo == NULL || n == 0 || k == 0 || k > n ||
+        resultado_tamanio == NULL)
     {
-        if (resultado_tamanio != NULL) *resultado_tamanio = 0;
+        if (resultado_tamanio != NULL)
+            *resultado_tamanio = 0;
         return NULL;
     }
-
     *resultado_tamanio = n - k + 1;
     int *resultado = malloc((*resultado_tamanio) * sizeof(*resultado));
     if (resultado == NULL)
@@ -1888,7 +1763,6 @@ int *maximos_ventana_deslizante(const int *arreglo, size_t n, size_t k, size_t *
         *resultado_tamanio = 0;
         return NULL;
     }
-
     deque_t *deque = deque_crear();
     if (deque == NULL)
     {
@@ -1896,10 +1770,10 @@ int *maximos_ventana_deslizante(const int *arreglo, size_t n, size_t k, size_t *
         *resultado_tamanio = 0;
         return NULL;
     }
-
     for (size_t i = 0; i < n; i++)
     {
-        // 1. Removemos del frente los índices que ya quedaron fuera de la ventana.
+        // 1. Removemos del frente los índices que ya quedaron fuera de la
+        // ventana.
         void *frente_ptr;
         while (deque_tamanio(deque) > 0)
         {
@@ -1914,8 +1788,8 @@ int *maximos_ventana_deslizante(const int *arreglo, size_t n, size_t k, size_t *
                 break;
             }
         }
-
-        // 2. Removemos del final elementos menores o iguales al elemento actual.
+        // 2. Removemos del final elementos menores o iguales al elemento
+        // actual.
         void *final_ptr;
         while (deque_tamanio(deque) > 0)
         {
@@ -1930,11 +1804,10 @@ int *maximos_ventana_deslizante(const int *arreglo, size_t n, size_t k, size_t *
                 break;
             }
         }
-
         // 3. Agregamos el índice actual.
-        deque_push_back(deque, (void*)(uintptr_t)i);
-
-        // 4. Agregamos el máximo actual a los resultados (el máximo siempre está en el frente del deque).
+        deque_push_back(deque, (void *)(uintptr_t)i);
+        // 4. Agregamos el máximo actual a los resultados (el máximo siempre
+        // está en el frente del deque).
         if (i >= k - 1)
         {
             void *max_ptr;
@@ -1943,11 +1816,9 @@ int *maximos_ventana_deslizante(const int *arreglo, size_t n, size_t k, size_t *
             resultado[i - k + 1] = arreglo[max_indice];
         }
     }
-
     deque_destruir(deque, NULL);
     return resultado;
 }
-
 ```
 <!-- {code-block} c -->
 

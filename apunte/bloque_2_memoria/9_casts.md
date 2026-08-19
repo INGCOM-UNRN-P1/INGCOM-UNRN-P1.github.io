@@ -41,7 +41,7 @@ más eficiente con el tamaño nativo de palabra del procesador.
 char a = 10;
 char b = 20;
 // 'a' y 'b' se promueven internamente a 'int' antes de realizar la suma
-int c = a + b; 
+int c = a + b;
 ```
 <!-- c -->
 
@@ -62,7 +62,7 @@ Si operás un `int` con un `double`, el `int` se convertirá automáticamente a
 int base = 5;
 double factor = 1.5;
 // 'base' se promueve a double (5.0) y la operación retorna un double (7.5)
-double resultado = base * factor; 
+double resultado = base * factor;
 ```
 <!-- c -->
 
@@ -85,9 +85,9 @@ coerción hacia abajo (democión), lo que puede provocar:
 ``` c
 double pi = 3.14159;
 int pi_entero = pi; // pi_entero tomará el valor 3 (truncamiento implícito)
-
 int grande = 300;
-char chico = grande; // Truncamiento de bits: 300 (0x012C) se reduce a 0x2C (44)
+char chico =
+    grande; // Truncamiento de bits: 300 (0x012C) se reduce a 0x2C (44)
 ```
 <!-- c -->
 
@@ -137,7 +137,8 @@ intencional, evitando que el compilador emita advertencias (*warnings*).
 
 ``` c
 double medicion = 99.987;
-int parte_entera = (int)medicion; // Claridad de diseño: descarta decimales voluntariamente
+int parte_entera =
+    (int)medicion; // Claridad de diseño: descarta decimales voluntariamente
 ```
 <!-- c -->
 
@@ -177,7 +178,8 @@ complemento a 2) como parte del valor numérico absoluto.
 
 ``` c
 int negativo = -1; // En memoria (32 bits): 0xFFFFFFFF
-unsigned int positivo = (unsigned int)negativo; // Reinterpretado como 4294967295 (0xFFFFFFFF)
+unsigned int positivo =
+    (unsigned int)negativo; // Reinterpretado como 4294967295 (0xFFFFFFFF)
 ```
 <!-- c -->
 
@@ -252,7 +254,8 @@ el efecto del cast:
 **Solución Correcta:** Aplicar el cast sobre uno de los operandos individuales
 antes de la división, permitiendo que la promoción aritmética haga el resto:
 ``` c
-double promedio = (double)total_horas / dias; // (double)5.0 / 2 -> 5.0 / 2.0 -> 2.5
+double promedio =
+    (double)total_horas / dias; // (double)5.0 / 2 -> 5.0 / 2.0 -> 2.5
 ```
 <!-- c -->
 
@@ -267,19 +270,20 @@ de "Correcto", analizando las reglas de conversión implícita:
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-int main(void) {
+int main(void)
+{
     int limite = -5;
     unsigned int cantidad = 10;
-    
-    if (limite < cantidad) {
+    if (limite < cantidad)
+    {
         printf("Correcto\n");
-    } else {
+    }
+    else
+    {
         printf("Indefinido o Inesperado\n");
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 

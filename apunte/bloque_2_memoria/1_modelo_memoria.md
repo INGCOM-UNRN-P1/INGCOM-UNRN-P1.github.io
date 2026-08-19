@@ -131,31 +131,33 @@ Analicemos el estado en un punto específico del siguiente programa en C:
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
 int accesos_totales = 0; // Segmento .data (inicializado)
-char* puntero_global;   // Segmento .bss (no inicializado, será NULL)
-
-void procesar(int factor) {
+char *puntero_global;    // Segmento .bss (no inicializado, será NULL)
+void procesar(int factor)
+{
     int i; // En la pila (stack)
-    for (i = 0; i < factor; i++) {
+    for (i = 0; i < factor; i++)
+    {
         accesos_totales++;
     }
-    char* buffer_local = malloc(10 * sizeof(char)); // Puntero 'buffer_local' en
-    la pila.
-                                                    // El bloque de 10 bytes
-                                                    está en el montículo (heap).
-    // PUNTO DE ANÁLISIS DEL ESTADO
-    sprintf(buffer_local, "Hola");
+    char *buffer_local =
+        malloc(10 * sizeof(char)); // Puntero 'buffer_local' en
+    la pila
+        .
+        // El bloque de 10 bytes
+        está en el montículo(heap)
+        .
+        // PUNTO DE ANÁLISIS DEL ESTADO
+        sprintf(buffer_local, "Hola");
     puntero_global = buffer_local;
 }
-
-int main() {
+int main()
+{
     procesar(5);
     printf("%s\n", puntero_global);
     free(puntero_global); // Liberamos la memoria del montículo.
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -409,17 +411,14 @@ compilador: "Esta variable existe en otro lugar, confía en mí. El enlazador
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
 // Definición de la variable global
 int contador_global = 42;
-
 void imprimir_contador(); // Prototipo de la función en archivo2.c
-
-int main() {
+int main()
+{
     imprimir_contador();
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -427,14 +426,12 @@ int main() {
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
 // Declaración de la variable externa
 extern int contador_global;
-
-void imprimir_contador() {
+void imprimir_contador()
+{
     printf("El contador global es: %d\n", contador_global);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -504,7 +501,6 @@ void funcion_b()
     // Stack: [x=10] [y=20] [z=30] <- cima
     // Al retornar, z desaparece automáticamente
 }
-
 void funcion_a()
 {
     int y = 20;
@@ -512,7 +508,6 @@ void funcion_a()
     funcion_b();
     // Stack: [x=10] [y=20] <- cima (z ya no existe)
 }
-
 int main()
 {
     int x = 10;
@@ -521,7 +516,6 @@ int main()
     // Stack: [x=10] <- cima (y ya no existe)
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -666,10 +660,9 @@ variables al mínimo posible.
 int *funcion_incorrecta()
 {
     int valor = 42;
-    return &valor;  // ERROR: retorna dirección de variable local
+    return &valor; // ERROR: retorna dirección de variable local
     // 'valor' desaparece al salir de la función
 }
-
 int *funcion_correcta()
 {
     int *valor = malloc(sizeof(*valor));
@@ -678,10 +671,9 @@ int *funcion_correcta()
         return NULL;
     }
     *valor = 42;
-    return valor;  // CORRECTO: la memoria persiste
+    return valor; // CORRECTO: la memoria persiste
     // El llamador debe liberar esta memoria
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -871,31 +863,26 @@ CPU → L1? (hit) → Usar dato (rápido)
 // Versión stack (rápida):
 void procesar_stack()
 {
-    int datos[1000];  // Asignación instantánea
-
+    int datos[1000]; // Asignación instantánea
     // Todos los elementos probablemente en caché:
     for (int i = 0; i < 1000; i++)
     {
-        datos[i] = i * 2;  // Acceso secuencial, alta localidad
+        datos[i] = i * 2; // Acceso secuencial, alta localidad
     }
 }
-
 // Versión heap (más lenta):
 void procesar_heap()
 {
-    int *datos = malloc(1000 * sizeof(int));  // Llamada a función
-
-    if (datos == NULL) return;
-
+    int *datos = malloc(1000 * sizeof(int)); // Llamada a función
+    if (datos == NULL)
+        return;
     // Posiblemente más cache misses:
     for (int i = 0; i < 1000; i++)
     {
-        datos[i] = i * 2;  // Menos predecible para el hardware
+        datos[i] = i * 2; // Menos predecible para el hardware
     }
-
-    free(datos);  // Otra llamada a función
+    free(datos); // Otra llamada a función
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -911,13 +898,11 @@ Comprender el caché te permite optimizar código:
 // Malo: Recorrer matriz por columnas (pobre localidad)
 for (int j = 0; j < cols; j++)
     for (int i = 0; i < rows; i++)
-        matriz[i][j] = 0;  // Saltos grandes en memoria
-
+        matriz[i][j] = 0; // Saltos grandes en memoria
 // Bueno: Recorrer por filas (buena localidad)
 for (int i = 0; i < rows; i++)
     for (int j = 0; j < cols; j++)
-        matriz[i][j] = 0;  // Acceso secuencial
-
+        matriz[i][j] = 0; // Acceso secuencial
 :::
 <!-- {code-block}c -->
 
@@ -963,20 +948,18 @@ la enorme diferencia de velocidades.
 // Ineficiente: muchas asignaciones pequeñas
 for (int i = 0; i < 1000; i++)
 {
-    char *str = malloc(10);  // 1000 llamadas a malloc
+    char *str = malloc(10); // 1000 llamadas a malloc
     // ... usar str ...
-    free(str);               // 1000 llamadas a free
+    free(str); // 1000 llamadas a free
 }
-
 // Mejor: una asignación grande
 char *buffer = malloc(10000);
 for (int i = 0; i < 1000; i++)
 {
-    char *str = buffer + (i * 10);  // Solo aritmética de punteros
+    char *str = buffer + (i * 10); // Solo aritmética de punteros
     // ... usar str ...
 }
-free(buffer);  // Una sola llamada a free
-
+free(buffer); // Una sola llamada a free
 :::
 <!-- {code-block}c -->
 
@@ -1030,10 +1013,9 @@ tipo de dato vas a almacenar:
 
 :::{code-block}c
 :linenos:
-void *memoria_generica = malloc(100);  // void *, no sabemos qué tipo
-int *enteros = memoria_generica;        // Conversión implícita a int *
-char *caracteres = memoria_generica;    // O a char *, según necesites
-
+void *memoria_generica = malloc(100); // void *, no sabemos qué tipo
+int *enteros = memoria_generica;      // Conversión implícita a int *
+char *caracteres = memoria_generica;  // O a char *, según necesites
 :::
 <!-- {code-block}c -->
 
@@ -1042,20 +1024,15 @@ char *caracteres = memoria_generica;    // O a char *, según necesites
 :::{code-block}c
 :linenos:
 void *ptr = malloc(10 * sizeof(int));
-
 // ERROR: No se puede desreferenciar void *
 // *ptr = 42;
-
 // CORRECTO: Convertir primero
 int *int_ptr = (int *)ptr;
 *int_ptr = 42;
-
 // ERROR: No se puede hacer aritmética con void *
 // ptr = ptr + 1;  // ¿Cuántos bytes avanzar?
-
 // CORRECTO: Convertir a tipo concreto primero
-int_ptr = int_ptr + 1;  // Avanza sizeof(int) bytes
-
+int_ptr = int_ptr + 1; // Avanza sizeof(int) bytes
 :::
 <!-- {code-block}c -->
 
@@ -1084,12 +1061,10 @@ El casteo más simple convierte un puntero de un tipo a otro:
 :::{code-block}c
 :linenos:
 int *int_ptr = malloc(sizeof(int));
-char *char_ptr = (char *)int_ptr;  // Cast explícito
-
+char *char_ptr = (char *)int_ptr; // Cast explícito
 // Reinterpretar los bytes:
 *int_ptr = 0x41424344;
-printf("%c\n", char_ptr[0]);  // Imprime 'D' (little-endian)
-
+printf("%c\n", char_ptr[0]); // Imprime 'D' (little-endian)
 :::
 <!-- {code-block}c -->
 
@@ -1109,12 +1084,12 @@ código máquina que se comporta de forma totalmente inesperada.
 Considerá la siguiente función:
 :::{code-block}c
 :linenos:
-float foo(float *f, int *i) {
+float foo(float *f, int *i)
+{
     *f = 1.0f;
     *i = 2;
     return *f;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1126,12 +1101,12 @@ para que retorne directamente la constante `1.0f`:
 
 :::{code-block}c
 :linenos:
-float foo(float *f, int *i) {
+float foo(float *f, int *i)
+{
     *f = 1.0f;
     *i = 2;
     return 1.0f; // Optimizado: asume que *f no cambió
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1157,18 +1132,15 @@ for (int i = 0; i < 3; i++)
 {
     matriz[i] = malloc(4 * sizeof(int));
 }
-
 // Acceso: matriz[fila][columna]
 matriz[0][0] = 10;
 matriz[2][3] = 99;
-
 // Liberar: en orden inverso
 for (int i = 0; i < 3; i++)
 {
     free(matriz[i]);
 }
 free(matriz);
-
 :::
 <!-- {code-block}c -->
 
@@ -1198,8 +1170,7 @@ Apunta a un array completo como una unidad, no a un elemento individual.
 
 :::{code-block}c
 :linenos:
-int (*ptr)[4];  // Puntero a array de 4 enteros
-
+int (*ptr)[4]; // Puntero a array de 4 enteros
 :::
 <!-- {code-block}c -->
 
@@ -1215,20 +1186,13 @@ Los paréntesis son cruciales:
 :::{code-block}c
 :linenos:
 // Declaración de array 2D tradicional
-int matriz[3][4] = {
-    {1, 2, 3, 4},
-    {5, 6, 7, 8},
-    {9, 10, 11, 12}
-};
-
+int matriz[3][4] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
 // Puntero a array de 4 enteros
 int (*ptr)[4] = matriz;
-
 // Acceso equivalente:
-printf("%d\n", matriz[1][2]);  // 7
-printf("%d\n", ptr[1][2]);     // 7
+printf("%d\n", matriz[1][2]);    // 7
+printf("%d\n", ptr[1][2]);       // 7
 printf("%d\n", (*(ptr + 1))[2]); // 7 - explícito
-
 :::
 <!-- {code-block}c -->
 
@@ -1243,13 +1207,10 @@ printf("%d\n", (*(ptr + 1))[2]); // 7 - explícito
 :::{code-block}c
 :linenos:
 int (*ptr)[4] = matriz;
-
 // ptr apunta a matriz[0] (toda la primera fila)
 // ptr + 1 apunta a matriz[1] (toda la segunda fila)
 // ptr + 2 apunta a matriz[2] (toda la tercera fila)
-
 // Cada incremento salta 4 * sizeof(int) bytes
-
 :::
 <!-- {code-block}c -->
 
@@ -1265,39 +1226,31 @@ matemática `i * columnas + j`:
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
 // Crear matriz 2D contigua: filas × columnas
 int *crear_matriz_contigua(size_t filas, size_t columnas)
 {
     // Asignar toda la memoria en un solo bloque lineal
     int *matriz = malloc(filas * columnas * sizeof(*matriz));
-
     if (matriz == NULL)
     {
         return NULL;
     }
-
     // Inicializar a cero
     for (size_t i = 0; i < filas * columnas; i++)
     {
         matriz[i] = 0;
     }
-
     return matriz;
 }
-
 int main()
 {
     size_t filas = 3;
     size_t columnas = 4;
-
     int *matriz = crear_matriz_contigua(filas, columnas);
-
     if (matriz == NULL)
     {
         return 1;
     }
-
     // Llenar la matriz con cálculo manual de índice lineal (i * columnas + j)
     for (size_t i = 0; i < filas; i++)
     {
@@ -1306,16 +1259,12 @@ int main()
             matriz[i * columnas + j] = (int)(i * columnas + j);
         }
     }
-
     // Acceso manual: matriz[i * columnas + j]
     printf("matriz[1][2] = %d\n", matriz[1 * columnas + 2]);
-
     // Liberar: una sola llamada
     free(matriz);
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1351,18 +1300,14 @@ A veces necesitás reinterpretar memoria asignada como array multidimensional:
 :linenos:
 // Asignar memoria plana
 int *memoria_plana = malloc(3 * 4 * sizeof(int));
-
 // Reinterpretar como matriz 3×4
 int (*matriz)[4] = (int (*)[4])memoria_plana;
-
 // Ahora podés usar sintaxis de array 2D:
 matriz[0][0] = 1;
 matriz[1][2] = 7;
 matriz[2][3] = 12;
-
 // El acceso matriz[i][j] se traduce a:
 // memoria_plana[i * 4 + j]
-
 :::
 <!-- {code-block}c -->
 
@@ -1371,10 +1316,7 @@ matriz[2][3] = 12;
 :::{code-block}c
 :linenos:
 // Estas tres formas son equivalentes:
-matriz[i][j]
-(*(matriz + i))[j]
-memoria_plana[i * 4 + j]
-
+matriz[i][j] (*(matriz + i))[j] memoria_plana[i * 4 + j]
 :::
 <!-- {code-block}c -->
 
@@ -1385,17 +1327,16 @@ memoria_plana[i * 4 + j]
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
 void imprimir_por_puntero_plano(int *arr, size_t filas, size_t cols)
 {
     printf("Como puntero plano:\n");
     for (size_t i = 0; i < filas * cols; i++)
     {
         printf("%2d ", arr[i]);
-        if ((i + 1) % cols == 0) printf("\n");
+        if ((i + 1) % cols == 0)
+            printf("\n");
     }
 }
-
 void imprimir_por_puntero_a_array(int (*arr)[4], size_t filas)
 {
     printf("Como puntero a array:\n");
@@ -1408,45 +1349,35 @@ void imprimir_por_puntero_a_array(int (*arr)[4], size_t filas)
         printf("\n");
     }
 }
-
 int main()
 {
     // Asignar memoria contígua para 3×4 enteros
     int *memoria = malloc(3 * 4 * sizeof(int));
-
     if (memoria == NULL)
     {
         return 1;
     }
-
     // Llenar con valores
     for (int i = 0; i < 12; i++)
     {
         memoria[i] = i + 1;
     }
-
     // Representación 1: Puntero plano
     imprimir_por_puntero_plano(memoria, 3, 4);
     printf("\n");
-
     // Representación 2: Casteo a puntero a array
     int (*matriz)[4] = (int (*)[4])memoria;
     imprimir_por_puntero_a_array(matriz, 3);
     printf("\n");
-
     // Acceso directo con ambas representaciones:
-    printf("memoria[5] = %d\n", memoria[5]);      // 6
-    printf("matriz[1][1] = %d\n", matriz[1][1]);  // 6 (mismo elemento)
-
+    printf("memoria[5] = %d\n", memoria[5]);     // 6
+    printf("matriz[1][1] = %d\n", matriz[1][1]); // 6 (mismo elemento)
     // Modificar a través de matriz
     matriz[2][3] = 99;
-    printf("memoria[11] = %d\n", memoria[11]);  // 99 (cambio reflejado)
-
+    printf("memoria[11] = %d\n", memoria[11]); // 99 (cambio reflejado)
     free(memoria);
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1462,20 +1393,16 @@ int (*crear_matriz(size_t n))[10]
 {
     return malloc(n * sizeof(int[10]));
 }
-
 // Con typedef (más claro):
-typedef int fila_t[10];  // fila_t es un array de 10 ints
-
+typedef int fila_t[10]; // fila_t es un array de 10 ints
 fila_t *crear_matriz(size_t n)
 {
     return malloc(n * sizeof(fila_t));
 }
-
 // Uso:
 fila_t *matriz = crear_matriz(5);
-matriz[0][0] = 42;  // Funciona igual
+matriz[0][0] = 42; // Funciona igual
 free(matriz);
-
 :::
 <!-- {code-block}c -->
 
@@ -1483,14 +1410,13 @@ free(matriz);
 
 :::{code-block}c
 :linenos:
-typedef struct {
+typedef struct
+{
     int datos[4];
 } fila_estructurada_t;
-
 // Más legible que int (*)[4]
 fila_estructurada_t *matriz = malloc(3 * sizeof(*matriz));
 matriz[0].datos[0] = 10;
-
 :::
 <!-- {code-block}c -->
 
@@ -1505,14 +1431,9 @@ El tamaño del array debe ser conocido en tiempo de compilación, o necesitás V
 :::{code-block}c
 :linenos:
 // OK en C99+ con VLAs:
-int (*crear(size_t cols))[cols]
-{
-    return malloc(5 * sizeof(int[cols]));
-}
-
+int (*crear(size_t cols)) [cols] { return malloc(5 * sizeof(int[cols])); }
 // NO OK en C89:
 // El compilador necesita conocer cols en compile-time
-
 :::
 <!-- {code-block}c -->
 
@@ -1529,13 +1450,11 @@ fila_fija_t *crear(size_t filas)
 {
     return malloc(filas * sizeof(fila_fija_t));
 }
-
 // O usar void * y castear:
 void *crear_generico(size_t filas, size_t cols)
 {
     return malloc(filas * cols * sizeof(int));
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1548,8 +1467,7 @@ usar puntero plano con acceso manual:
 :linenos:
 // Más fácil de debuggear:
 int *arr = malloc(filas * cols * sizeof(int));
-int elemento = arr[i * cols + j];  // Cálculo explícito
-
+int elemento = arr[i * cols + j]; // Cálculo explícito
 :::
 <!-- {code-block}c -->
 
@@ -1804,7 +1722,8 @@ presenta en relación con la estructura del *stack frame* si se introduce una
 cadena de entrada de 128 caracteres:
 
 ``` c
-void vulnerable() {
+void vulnerable()
+{
     char buffer[16];
     gets(buffer); // Lee de la entrada estándar sin validar límites
 }
@@ -1983,16 +1902,17 @@ en esa posición utilizando únicamente aritmética de punteros (sin corchetes
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-int obtener_elemento(const int *matriz, size_t cols, size_t i, size_t j) {
-    if (matriz == NULL) {
+int obtener_elemento(const int *matriz, size_t cols, size_t i, size_t j)
+{
+    if (matriz == NULL)
+    {
         return -1; // Código de control
     }
     // Calculamos el desplazamiento lineal: i * cols + j
-    // Usamos el operador de desreferencia (*) sobre la dirección base desplazada
+    // Usamos el operador de desreferencia (*) sobre la dirección base
+    // desplazada
     return *(matriz + (i * cols + j));
 }
-
 ```
 <!-- {code-block} c -->
 <!-- c -->
@@ -2053,17 +1973,18 @@ puntero simple (`char *`).
 :linenos:
 #include <stdlib.h>
 #include <string.h>
-
-void inicializar_mensaje(char **ptr) {
-    if (ptr != NULL) {
+void inicializar_mensaje(char **ptr)
+{
+    if (ptr != NULL)
+    {
         // Reservamos 5 bytes (4 para 'Hola' y 1 para el terminador nulo '\0')
         *ptr = malloc(5 * sizeof(char));
-        if (*ptr != NULL) {
+        if (*ptr != NULL)
+        {
             strcpy(*ptr, "Hola");
         }
     }
 }
-
 ```
 <!-- {code-block} c -->
 <!-- c -->

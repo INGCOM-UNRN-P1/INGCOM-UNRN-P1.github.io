@@ -32,7 +32,8 @@ fracciones. El objetivo es encapsular el numerador y el denominador en una únic
 entidad.
 
 ``` c
-typedef struct {
+typedef struct
+{
     int numerador;
     int denominador;
 } fraccion_t;
@@ -101,11 +102,11 @@ $$dividendo = divisor \times cociente + resto, \quad \text{donde } 0 \le resto <
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-typedef struct {
+typedef struct
+{
     int cociente;
     int resto;
 } division_t;
-
 division_t division_lenta(int dividendo, int divisor);
 ```
 <!-- c -->
@@ -118,7 +119,8 @@ Desarrollar una estructura `tiempo_t` para representar un instante o duración e
 horas, minutos y segundos, junto con funciones para manipularla.
 
 ``` c
-typedef struct {
+typedef struct
+{
     int horas;
     int minutos;
     int segundos;
@@ -193,7 +195,8 @@ de búfer y simplifica pasar la información del arreglo a funciones.
 
 ``` c
 #define CAPACIDAD_MAX 100
-typedef struct {
+typedef struct
+{
     int datos[CAPACIDAD_MAX];
     size_t longitud; // Elementos actualmente en uso
 } arreglo_t;
@@ -222,7 +225,8 @@ peligros asociados a las cadenas de C estándar.
 
 ``` c
 #define CAPACIDAD_MAX_CADENA 256
-typedef struct {
+typedef struct
+{
     char datos[CAPACIDAD_MAX_CADENA];
     size_t longitud;
 } cadena_segura_t;

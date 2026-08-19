@@ -4,7 +4,8 @@
 
 long factorial(long valor)
 {
-    if (valor < 1){
+    if (valor < 1)
+    {
         printf("fin!\n");
         return 1;
     }
@@ -14,7 +15,6 @@ long factorial(long valor)
         return valor * factorial(valor - 1L);
     }
 }
-
 
 int main()
 {

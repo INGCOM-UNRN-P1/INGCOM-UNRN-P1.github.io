@@ -31,24 +31,35 @@ sin necesidad de análisis mental elaborado.
 ```{code-block} c
 :linenos:
 // Problemático: pirámide de la perdición
-if (usuario != NULL) {
-    if (usuario->activo) {
-        if (usuario->edad >= 18) {
-            if (usuario->saldo > 0) {
+if (usuario != NULL)
+{
+    if (usuario->activo)
+    {
+        if (usuario->edad >= 18)
+        {
+            if (usuario->saldo > 0)
+            {
                 procesar_compra(usuario);
-            } else {
+            }
+            else
+            {
                 printf("Saldo insuficiente\n");
             }
-        } else {
+        }
+        else
+        {
             printf("Usuario menor de edad\n");
         }
-    } else {
+    }
+    else
+    {
         printf("Usuario inactivo\n");
     }
-} else {
+}
+else
+{
     printf("Usuario inválido\n");
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -57,14 +68,12 @@ if (usuario != NULL) {
 ```{code-block} c
 :linenos:
 // Difícil de entender de un vistazo
-if ((estado == ACTIVO || estado == PENDIENTE) && 
+if ((estado == ACTIVO || estado == PENDIENTE) &&
     (tipo != TEMPORAL && tipo != PRUEBA) &&
-    (saldo > 1000 || credito_disponible > 500) &&
-    !(bloqueado || suspendido))
+    (saldo > 1000 || credito_disponible > 500) && !(bloqueado || suspendido))
 {
     // ...
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -72,15 +81,15 @@ if ((estado == ACTIVO || estado == PENDIENTE) &&
 
 ```{code-block} c
 :linenos:
-if (edad >= 18 && edad <= 65 && !jubilado) {
+if (edad >= 18 && edad <= 65 && !jubilado)
+{
     precio = PRECIO_ADULTO;
 }
-
 // Más adelante en el código...
-if (edad >= 18 && edad <= 65 && !jubilado) {
+if (edad >= 18 && edad <= 65 && !jubilado)
+{
     aplicar_descuento();
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -89,16 +98,18 @@ if (edad >= 18 && edad <= 65 && !jubilado) {
 ```{code-block} c
 :linenos:
 // Redundante
-if (es_valido() == true) {
+if (es_valido() == true)
+{
     // ...
 }
-
-if (contador > 0) {
+if (contador > 0)
+{
     return true;
-} else {
+}
+else
+{
     return false;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -113,29 +124,41 @@ anidamiento.
 
 ```{code-block} c
 :linenos:
-void procesar_pedido(pedido_t* pedido) {
-    if (pedido != NULL) {
-        if (pedido->items_count > 0) {
-            if (pedido->cliente != NULL) {
-                if (pedido->cliente->saldo >= pedido->total) {
+void procesar_pedido(pedido_t *pedido)
+{
+    if (pedido != NULL)
+    {
+        if (pedido->items_count > 0)
+        {
+            if (pedido->cliente != NULL)
+            {
+                if (pedido->cliente->saldo >= pedido->total)
+                {
                     // Lógica principal de procesamiento
                     realizar_cargo(pedido);
                     actualizar_inventario(pedido);
                     enviar_confirmacion(pedido);
-                } else {
+                }
+                else
+                {
                     printf("Saldo insuficiente\n");
                 }
-            } else {
+            }
+            else
+            {
                 printf("Cliente inválido\n");
             }
-        } else {
+        }
+        else
+        {
             printf("Pedido vacío\n");
         }
-    } else {
+    }
+    else
+    {
         printf("Pedido nulo\n");
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -143,34 +166,34 @@ void procesar_pedido(pedido_t* pedido) {
 
 ```{code-block} c
 :linenos:
-void procesar_pedido(pedido_t* pedido) {
+void procesar_pedido(pedido_t *pedido)
+{
     // Guardia de cláusulas - validaciones tempranas
-    if (pedido == NULL) {
+    if (pedido == NULL)
+    {
         printf("Pedido nulo\n");
         return;
     }
-    
-    if (pedido->items_count == 0) {
+    if (pedido->items_count == 0)
+    {
         printf("Pedido vacío\n");
         return;
     }
-    
-    if (pedido->cliente == NULL) {
+    if (pedido->cliente == NULL)
+    {
         printf("Cliente inválido\n");
         return;
     }
-    
-    if (pedido->cliente->saldo < pedido->total) {
+    if (pedido->cliente->saldo < pedido->total)
+    {
         printf("Saldo insuficiente\n");
         return;
     }
-    
     // Lógica principal ahora está al mismo nivel
     realizar_cargo(pedido);
     actualizar_inventario(pedido);
     enviar_confirmacion(pedido);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -186,9 +209,9 @@ void procesar_pedido(pedido_t* pedido) {
 **Antes:**
 
 ``` c
-if (usuario->edad >= 18 && usuario->edad <= 65 && 
-    !usuario->jubilado && usuario->activo &&
-    (usuario->tipo == REGULAR || usuario->tipo == PREMIUM)) {
+if (usuario->edad >= 18 && usuario->edad <= 65 && !usuario->jubilado &&
+    usuario->activo && (usuario->tipo == REGULAR || usuario->tipo == PREMIUM))
+{
     aplicar_beneficio(usuario);
 }
 ```
@@ -198,18 +221,14 @@ if (usuario->edad >= 18 && usuario->edad <= 65 &&
 
 ```{code-block} c
 :linenos:
-bool es_adulto_en_edad_laboral = usuario->edad >= 18 && 
-                                  usuario->edad <= 65 && 
-                                  !usuario->jubilado;
-
-bool es_usuario_activo_valido = usuario->activo &&
-                                 (usuario->tipo == REGULAR || 
-                                  usuario->tipo == PREMIUM);
-
-if (es_adulto_en_edad_laboral && es_usuario_activo_valido) {
+bool es_adulto_en_edad_laboral =
+    usuario->edad >= 18 && usuario->edad <= 65 && !usuario->jubilado;
+bool es_usuario_activo_valido =
+    usuario->activo && (usuario->tipo == REGULAR || usuario->tipo == PREMIUM);
+if (es_adulto_en_edad_laboral && es_usuario_activo_valido)
+{
     aplicar_beneficio(usuario);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -226,14 +245,14 @@ Para lógica compleja o reutilizable:
 
 ```{code-block} c
 :linenos:
-void procesar_descuento(cliente_t* cliente, double total) {
+void procesar_descuento(cliente_t *cliente, double total)
+{
     if ((cliente->compras_totales > 10000 && cliente->antiguedad > 365) ||
-        (cliente->referidos >= 5) ||
-        (cliente->tipo == VIP && cliente->activo)) {
+        (cliente->referidos >= 5) || (cliente->tipo == VIP && cliente->activo))
+    {
         aplicar_descuento_premium(total);
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -241,31 +260,30 @@ void procesar_descuento(cliente_t* cliente, double total) {
 
 ```{code-block} c
 :linenos:
-bool es_cliente_fiel(const cliente_t* cliente) {
-    return cliente->compras_totales > 10000 && 
-           cliente->antiguedad > 365;
+bool es_cliente_fiel(const cliente_t *cliente)
+{
+    return cliente->compras_totales > 10000 && cliente->antiguedad > 365;
 }
-
-bool es_buen_referidor(const cliente_t* cliente) {
+bool es_buen_referidor(const cliente_t *cliente)
+{
     return cliente->referidos >= 5;
 }
-
-bool es_vip_activo(const cliente_t* cliente) {
+bool es_vip_activo(const cliente_t *cliente)
+{
     return cliente->tipo == VIP && cliente->activo;
 }
-
-bool califica_para_descuento_premium(const cliente_t* cliente) {
-    return es_cliente_fiel(cliente) ||
-           es_buen_referidor(cliente) ||
+bool califica_para_descuento_premium(const cliente_t *cliente)
+{
+    return es_cliente_fiel(cliente) || es_buen_referidor(cliente) ||
            es_vip_activo(cliente);
 }
-
-void procesar_descuento(cliente_t* cliente, double total) {
-    if (califica_para_descuento_premium(cliente)) {
+void procesar_descuento(cliente_t *cliente, double total)
+{
+    if (califica_para_descuento_premium(cliente))
+    {
         aplicar_descuento_premium(total);
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -281,23 +299,26 @@ void procesar_descuento(cliente_t* cliente, double total) {
 
 ```{code-block} c
 :linenos:
-bool es_valido(int valor) {
-    if (valor > 0 && valor < 100) {
+bool es_valido(int valor)
+{
+    if (valor > 0 && valor < 100)
+    {
         return true;
-    } else {
+    }
+    else
+    {
         return false;
     }
 }
-
 // Comparación redundante
-if (esta_activo() == true) {
+if (esta_activo() == true)
+{
     // ...
 }
-
-if (contador > 0 == false) {
+if (contador > 0 == false)
+{
     // ...
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -305,23 +326,23 @@ if (contador > 0 == false) {
 
 ```{code-block} c
 :linenos:
-bool es_valido(int valor) {
+bool es_valido(int valor)
+{
     return valor > 0 && valor < 100;
 }
-
 // Uso directo del booleano
-if (esta_activo()) {
+if (esta_activo())
+{
     // ...
 }
-
-if (!esta_activo()) {
+if (!esta_activo())
+{
     // ...
 }
-
-if (contador == 0) {
+if (contador == 0)
+{
     // ...
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -333,20 +354,23 @@ Para casos donde múltiples `if-else` determinan comportamiento:
 
 ```{code-block} c
 :linenos:
-double calcular_area(figura_t* figura) {
-    if (figura->tipo == CIRCULO) {
-        return PI * figura->datos.circulo.radio * 
-               figura->datos.circulo.radio;
-    } else if (figura->tipo == RECTANGULO) {
-        return figura->datos.rectangulo.ancho * 
-               figura->datos.rectangulo.alto;
-    } else if (figura->tipo == TRIANGULO) {
-        return 0.5 * figura->datos.triangulo.base * 
+double calcular_area(figura_t *figura)
+{
+    if (figura->tipo == CIRCULO)
+    {
+        return PI * figura->datos.circulo.radio * figura->datos.circulo.radio;
+    }
+    else if (figura->tipo == RECTANGULO)
+    {
+        return figura->datos.rectangulo.ancho * figura->datos.rectangulo.alto;
+    }
+    else if (figura->tipo == TRIANGULO)
+    {
+        return 0.5 * figura->datos.triangulo.base *
                figura->datos.triangulo.altura;
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -354,33 +378,32 @@ double calcular_area(figura_t* figura) {
 
 ```{code-block} c
 :linenos:
-typedef double (*calcular_area_fn)(const void* datos);
-
-typedef struct {
+typedef double (*calcular_area_fn)(const void *datos);
+typedef struct
+{
     int tipo;
     calcular_area_fn calcular_area;
-    void* datos;
+    void *datos;
 } figura_t;
-
-double calcular_area_circulo(const void* datos) {
-    const circulo_t* c = (const circulo_t*)datos;
+double calcular_area_circulo(const void *datos)
+{
+    const circulo_t *c = (const circulo_t *)datos;
     return PI * c->radio * c->radio;
 }
-
-double calcular_area_rectangulo(const void* datos) {
-    const rectangulo_t* r = (const rectangulo_t*)datos;
+double calcular_area_rectangulo(const void *datos)
+{
+    const rectangulo_t *r = (const rectangulo_t *)datos;
     return r->ancho * r->alto;
 }
-
-double calcular_area_triangulo(const void* datos) {
-    const triangulo_t* t = (const triangulo_t*)datos;
+double calcular_area_triangulo(const void *datos)
+{
+    const triangulo_t *t = (const triangulo_t *)datos;
     return 0.5 * t->base * t->altura;
 }
-
-double calcular_area(const figura_t* figura) {
+double calcular_area(const figura_t *figura)
+{
     return figura->calcular_area(figura->datos);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -392,24 +415,37 @@ Para lógica compleja con múltiples combinaciones:
 
 ```{code-block} c
 :linenos:
-char* obtener_categoria(int edad, bool estudiante, bool empleado) {
-    if (edad < 18 && estudiante) {
+char *obtener_categoria(int edad, bool estudiante, bool empleado)
+{
+    if (edad < 18 && estudiante)
+    {
         return "ESTUDIANTE_MENOR";
-    } else if (edad < 18 && !estudiante) {
+    }
+    else if (edad < 18 && !estudiante)
+    {
         return "MENOR";
-    } else if (edad >= 18 && edad < 65 && estudiante) {
+    }
+    else if (edad >= 18 && edad < 65 && estudiante)
+    {
         return "ESTUDIANTE_ADULTO";
-    } else if (edad >= 18 && edad < 65 && empleado) {
+    }
+    else if (edad >= 18 && edad < 65 && empleado)
+    {
         return "EMPLEADO";
-    } else if (edad >= 18 && edad < 65) {
+    }
+    else if (edad >= 18 && edad < 65)
+    {
         return "ADULTO";
-    } else if (edad >= 65 && empleado) {
+    }
+    else if (edad >= 65 && empleado)
+    {
         return "JUBILADO_ACTIVO";
-    } else {
+    }
+    else
+    {
         return "JUBILADO";
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -417,39 +453,39 @@ char* obtener_categoria(int edad, bool estudiante, bool empleado) {
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     bool (*condicion)(int edad, bool estudiante, bool empleado);
-    const char* categoria;
+    const char *categoria;
 } regla_categoria_t;
-
-bool es_estudiante_menor(int edad, bool estudiante, bool empleado) {
+bool es_estudiante_menor(int edad, bool estudiante, bool empleado)
+{
     return edad < 18 && estudiante;
 }
-
-bool es_menor(int edad, bool estudiante, bool empleado) {
+bool es_menor(int edad, bool estudiante, bool empleado)
+{
     return edad < 18 && !estudiante;
 }
-
-bool es_estudiante_adulto(int edad, bool estudiante, bool empleado) {
+bool es_estudiante_adulto(int edad, bool estudiante, bool empleado)
+{
     return edad >= 18 && edad < 65 && estudiante;
 }
-
-bool es_empleado(int edad, bool estudiante, bool empleado) {
+bool es_empleado(int edad, bool estudiante, bool empleado)
+{
     return edad >= 18 && edad < 65 && empleado;
 }
-
-bool es_adulto(int edad, bool estudiante, bool empleado) {
+bool es_adulto(int edad, bool estudiante, bool empleado)
+{
     return edad >= 18 && edad < 65 && !estudiante && !empleado;
 }
-
-bool es_jubilado_activo(int edad, bool estudiante, bool empleado) {
+bool es_jubilado_activo(int edad, bool estudiante, bool empleado)
+{
     return edad >= 65 && empleado;
 }
-
-bool es_jubilado(int edad, bool estudiante, bool empleado) {
+bool es_jubilado(int edad, bool estudiante, bool empleado)
+{
     return edad >= 65 && !empleado;
 }
-
 const regla_categoria_t REGLAS_CATEGORIA[] = {
     {es_estudiante_menor, "ESTUDIANTE_MENOR"},
     {es_menor, "MENOR"},
@@ -457,20 +493,19 @@ const regla_categoria_t REGLAS_CATEGORIA[] = {
     {es_empleado, "EMPLEADO"},
     {es_adulto, "ADULTO"},
     {es_jubilado_activo, "JUBILADO_ACTIVO"},
-    {es_jubilado, "JUBILADO"}
-};
-
+    {es_jubilado, "JUBILADO"}};
 const int NUM_REGLAS = sizeof(REGLAS_CATEGORIA) / sizeof(REGLAS_CATEGORIA[0]);
-
-const char* obtener_categoria(int edad, bool estudiante, bool empleado) {
-    for (int i = 0; i < NUM_REGLAS; i++) {
-        if (REGLAS_CATEGORIA[i].condicion(edad, estudiante, empleado)) {
+const char *obtener_categoria(int edad, bool estudiante, bool empleado)
+{
+    for (int i = 0; i < NUM_REGLAS; i++)
+    {
+        if (REGLAS_CATEGORIA[i].condicion(edad, estudiante, empleado))
+        {
             return REGLAS_CATEGORIA[i].categoria;
         }
     }
     return "DESCONOCIDO";
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -482,22 +517,33 @@ Para comparaciones de igualdad con un valor:
 
 ```{code-block} c
 :linenos:
-void procesar_comando(char comando) {
-    if (comando == 'A') {
+void procesar_comando(char comando)
+{
+    if (comando == 'A')
+    {
         avanzar();
-    } else if (comando == 'R') {
+    }
+    else if (comando == 'R')
+    {
         retroceder();
-    } else if (comando == 'I') {
+    }
+    else if (comando == 'I')
+    {
         girar_izquierda();
-    } else if (comando == 'D') {
+    }
+    else if (comando == 'D')
+    {
         girar_derecha();
-    } else if (comando == 'P') {
+    }
+    else if (comando == 'P')
+    {
         parar();
-    } else {
+    }
+    else
+    {
         printf("Comando inválido\n");
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -505,29 +551,30 @@ void procesar_comando(char comando) {
 
 ```{code-block} c
 :linenos:
-void procesar_comando(char comando) {
-    switch (comando) {
-        case 'A':
-            avanzar();
-            break;
-        case 'R':
-            retroceder();
-            break;
-        case 'I':
-            girar_izquierda();
-            break;
-        case 'D':
-            girar_derecha();
-            break;
-        case 'P':
-            parar();
-            break;
-        default:
-            printf("Comando inválido\n");
-            break;
+void procesar_comando(char comando)
+{
+    switch (comando)
+    {
+    case 'A':
+        avanzar();
+        break;
+    case 'R':
+        retroceder();
+        break;
+    case 'I':
+        girar_izquierda();
+        break;
+    case 'D':
+        girar_derecha();
+        break;
+    case 'P':
+        parar();
+        break;
+    default:
+        printf("Comando inválido\n");
+        break;
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -539,50 +586,75 @@ void procesar_comando(char comando) {
 
 ```{code-block} c
 :linenos:
-bool validar_formulario(const char* nombre, 
-                         const char* email,
-                         const char* telefono,
-                         int edad) {
-    if (nombre != NULL) {
-        if (strlen(nombre) >= 3) {
-            if (email != NULL) {
-                if (strchr(email, '@') != NULL) {
-                    if (strlen(email) >= 5) {
-                        if (telefono != NULL) {
-                            if (strlen(telefono) >= 8) {
-                                if (edad >= 18) {
-                                    if (edad <= 120) {
+bool validar_formulario(const char *nombre, const char *email,
+                        const char *telefono, int edad)
+{
+    if (nombre != NULL)
+    {
+        if (strlen(nombre) >= 3)
+        {
+            if (email != NULL)
+            {
+                if (strchr(email, '@') != NULL)
+                {
+                    if (strlen(email) >= 5)
+                    {
+                        if (telefono != NULL)
+                        {
+                            if (strlen(telefono) >= 8)
+                            {
+                                if (edad >= 18)
+                                {
+                                    if (edad <= 120)
+                                    {
                                         return true;
-                                    } else {
+                                    }
+                                    else
+                                    {
                                         printf("Edad muy alta\n");
                                     }
-                                } else {
+                                }
+                                else
+                                {
                                     printf("Debe ser mayor de edad\n");
                                 }
-                            } else {
+                            }
+                            else
+                            {
                                 printf("Teléfono muy corto\n");
                             }
-                        } else {
+                        }
+                        else
+                        {
                             printf("Teléfono nulo\n");
                         }
-                    } else {
+                    }
+                    else
+                    {
                         printf("Email muy corto\n");
                     }
-                } else {
+                }
+                else
+                {
                     printf("Email sin @\n");
                 }
-            } else {
+            }
+            else
+            {
                 printf("Email nulo\n");
             }
-        } else {
+        }
+        else
+        {
             printf("Nombre muy corto\n");
         }
-    } else {
+    }
+    else
+    {
         printf("Nombre nulo\n");
     }
     return false;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -590,77 +662,73 @@ bool validar_formulario(const char* nombre,
 
 ```{code-block} c
 :linenos:
-bool validar_nombre(const char* nombre) {
-    if (nombre == NULL) {
+bool validar_nombre(const char *nombre)
+{
+    if (nombre == NULL)
+    {
         printf("Nombre nulo\n");
         return false;
     }
-    
-    if (strlen(nombre) < 3) {
+    if (strlen(nombre) < 3)
+    {
         printf("Nombre muy corto\n");
         return false;
     }
-    
     return true;
 }
-
-bool validar_email(const char* email) {
-    if (email == NULL) {
+bool validar_email(const char *email)
+{
+    if (email == NULL)
+    {
         printf("Email nulo\n");
         return false;
     }
-    
-    if (strlen(email) < 5) {
+    if (strlen(email) < 5)
+    {
         printf("Email muy corto\n");
         return false;
     }
-    
-    if (strchr(email, '@') == NULL) {
+    if (strchr(email, '@') == NULL)
+    {
         printf("Email sin @\n");
         return false;
     }
-    
     return true;
 }
-
-bool validar_telefono(const char* telefono) {
-    if (telefono == NULL) {
+bool validar_telefono(const char *telefono)
+{
+    if (telefono == NULL)
+    {
         printf("Teléfono nulo\n");
         return false;
     }
-    
-    if (strlen(telefono) < 8) {
+    if (strlen(telefono) < 8)
+    {
         printf("Teléfono muy corto\n");
         return false;
     }
-    
     return true;
 }
-
-bool validar_edad(int edad) {
-    if (edad < 18) {
+bool validar_edad(int edad)
+{
+    if (edad < 18)
+    {
         printf("Debe ser mayor de edad\n");
         return false;
     }
-    
-    if (edad > 120) {
+    if (edad > 120)
+    {
         printf("Edad muy alta\n");
         return false;
     }
-    
     return true;
 }
-
-bool validar_formulario(const char* nombre, 
-                         const char* email,
-                         const char* telefono,
-                         int edad) {
-    return validar_nombre(nombre) &&
-           validar_email(email) &&
-           validar_telefono(telefono) &&
-           validar_edad(edad);
+bool validar_formulario(const char *nombre, const char *email,
+                        const char *telefono, int edad)
+{
+    return validar_nombre(nombre) && validar_email(email) &&
+           validar_telefono(telefono) && validar_edad(edad);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -670,48 +738,66 @@ bool validar_formulario(const char* nombre,
 
 ```{code-block} c
 :linenos:
-double calcular_descuento(double monto, 
-                           int cantidad,
-                           bool es_miembro,
-                           bool es_primera_compra,
-                           const char* codigo_promo) {
+double calcular_descuento(double monto, int cantidad, bool es_miembro,
+                          bool es_primera_compra, const char *codigo_promo)
+{
     double descuento = 0;
-    
-    if (cantidad > 10 && monto > 1000) {
-        if (es_miembro) {
-            if (strcmp(codigo_promo, "VERANO") == 0) {
+    if (cantidad > 10 && monto > 1000)
+    {
+        if (es_miembro)
+        {
+            if (strcmp(codigo_promo, "VERANO") == 0)
+            {
                 descuento = 0.30;
-            } else if (strcmp(codigo_promo, "FLASH") == 0) {
-                if (cantidad > 20) {
+            }
+            else if (strcmp(codigo_promo, "FLASH") == 0)
+            {
+                if (cantidad > 20)
+                {
                     descuento = 0.35;
-                } else {
+                }
+                else
+                {
                     descuento = 0.25;
                 }
-            } else {
+            }
+            else
+            {
                 descuento = 0.20;
             }
-        } else {
-            if (es_primera_compra) {
+        }
+        else
+        {
+            if (es_primera_compra)
+            {
                 descuento = 0.15;
-            } else {
+            }
+            else
+            {
                 descuento = 0.10;
             }
         }
-    } else if (cantidad > 5 || monto > 500) {
-        if (es_miembro) {
+    }
+    else if (cantidad > 5 || monto > 500)
+    {
+        if (es_miembro)
+        {
             descuento = 0.15;
-        } else {
+        }
+        else
+        {
             descuento = 0.05;
         }
-    } else {
-        if (es_primera_compra) {
+    }
+    else
+    {
+        if (es_primera_compra)
+        {
             descuento = 0.10;
         }
     }
-    
     return descuento;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -719,50 +805,50 @@ double calcular_descuento(double monto,
 
 ```{code-block} c
 :linenos:
-bool es_compra_grande(double monto, int cantidad) {
+bool es_compra_grande(double monto, int cantidad)
+{
     return cantidad > 10 && monto > 1000;
 }
-
-bool es_compra_mediana(double monto, int cantidad) {
+bool es_compra_mediana(double monto, int cantidad)
+{
     return cantidad > 5 || monto > 500;
 }
-
-double descuento_miembro_compra_grande(int cantidad, const char* codigo_promo) {
-    if (strcmp(codigo_promo, "VERANO") == 0) {
+double descuento_miembro_compra_grande(int cantidad, const char *codigo_promo)
+{
+    if (strcmp(codigo_promo, "VERANO") == 0)
+    {
         return 0.30;
     }
-    
-    if (strcmp(codigo_promo, "FLASH") == 0) {
+    if (strcmp(codigo_promo, "FLASH") == 0)
+    {
         return cantidad > 20 ? 0.35 : 0.25;
     }
-    
     return 0.20;
 }
-
-double descuento_no_miembro_compra_grande(bool es_primera_compra) {
+double descuento_no_miembro_compra_grande(bool es_primera_compra)
+{
     return es_primera_compra ? 0.15 : 0.10;
 }
-
-double calcular_descuento(double monto, 
-                           int cantidad,
-                           bool es_miembro,
-                           bool es_primera_compra,
-                           const char* codigo_promo) {
-    if (es_compra_grande(monto, cantidad)) {
-        if (es_miembro) {
+double calcular_descuento(double monto, int cantidad, bool es_miembro,
+                          bool es_primera_compra, const char *codigo_promo)
+{
+    if (es_compra_grande(monto, cantidad))
+    {
+        if (es_miembro)
+        {
             return descuento_miembro_compra_grande(cantidad, codigo_promo);
-        } else {
+        }
+        else
+        {
             return descuento_no_miembro_compra_grande(es_primera_compra);
         }
     }
-    
-    if (es_compra_mediana(monto, cantidad)) {
+    if (es_compra_mediana(monto, cantidad))
+    {
         return es_miembro ? 0.15 : 0.05;
     }
-    
     return es_primera_compra ? 0.10 : 0.0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -779,30 +865,30 @@ double calcular_descuento(double monto,
 ```{code-block} c
 :linenos:
 // Antes
-if (!(activo && validado)) {
+if (!(activo && validado))
+{
     return;
 }
-
 // Después (más claro en contexto de guardia)
-if (!activo || !validado) {
+if (!activo || !validado)
+{
     return;
 }
-
 ```
 <!-- {code-block} c -->
 
 ```{code-block} c
 :linenos:
 // Antes
-if (!(edad < 18 || edad > 65)) {
+if (!(edad < 18 || edad > 65))
+{
     aplicar_tarifa_regular();
 }
-
 // Después (más claro)
-if (edad >= 18 && edad <= 65) {
+if (edad >= 18 && edad <= 65)
+{
     aplicar_tarifa_regular();
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -819,24 +905,24 @@ solo punto de salida.
 
 ```{code-block} c
 :linenos:
-int procesar_pago(usuario_t* usuario, double monto) {
-    if (usuario == NULL) {
+int procesar_pago(usuario_t *usuario, double monto)
+{
+    if (usuario == NULL)
+    {
         return ERROR_USUARIO_NULL;
     }
-    
-    if (!usuario->activo) {
+    if (!usuario->activo)
+    {
         return ERROR_USUARIO_INACTIVO;
     }
-    
-    if (usuario->saldo < monto) {
+    if (usuario->saldo < monto)
+    {
         return ERROR_SALDO_INSUFICIENTE;
     }
-    
     // Procesar pago
     usuario->saldo -= monto;
     return EXITO;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -844,24 +930,29 @@ int procesar_pago(usuario_t* usuario, double monto) {
 
 ```{code-block} c
 :linenos:
-int procesar_pago(usuario_t* usuario, double monto) {
+int procesar_pago(usuario_t *usuario, double monto)
+{
     int resultado = ERROR_DESCONOCIDO;
-    
-    if (usuario == NULL) {
+    if (usuario == NULL)
+    {
         resultado = ERROR_USUARIO_NULL;
-    } else if (!usuario->activo) {
+    }
+    else if (!usuario->activo)
+    {
         resultado = ERROR_USUARIO_INACTIVO;
-    } else if (usuario->saldo < monto) {
+    }
+    else if (usuario->saldo < monto)
+    {
         resultado = ERROR_SALDO_INSUFICIENTE;
-    } else {
+    }
+    else
+    {
         // Procesar pago
         usuario->saldo -= monto;
         resultado = EXITO;
     }
-    
     return resultado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -874,26 +965,26 @@ estado explícitas mejora la claridad.
 
 ```{code-block} c
 :linenos:
-bool validar_transaccion(transaccion_t* trans) {
-    if (trans->monto <= 0) {
+bool validar_transaccion(transaccion_t *trans)
+{
+    if (trans->monto <= 0)
+    {
         return false;
     }
-    
-    if (trans->origen == NULL || trans->destino == NULL) {
+    if (trans->origen == NULL || trans->destino == NULL)
+    {
         return false;
     }
-    
-    if (trans->origen->saldo < trans->monto) {
+    if (trans->origen->saldo < trans->monto)
+    {
         return false;
     }
-    
-    if (trans->origen->bloqueada || trans->destino->bloqueada) {
+    if (trans->origen->bloqueada || trans->destino->bloqueada)
+    {
         return false;
     }
-    
     return true;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -901,22 +992,27 @@ bool validar_transaccion(transaccion_t* trans) {
 
 ```{code-block} c
 :linenos:
-bool validar_transaccion(const transaccion_t* trans) {
+bool validar_transaccion(const transaccion_t *trans)
+{
     bool es_valida = true;
-    
-    if (trans->monto <= 0) {
-        es_valida = false;
-    } else if (trans->origen == NULL || trans->destino == NULL) {
-        es_valida = false;
-    } else if (trans->origen->saldo < trans->monto) {
-        es_valida = false;
-    } else if (trans->origen->bloqueada || trans->destino->bloqueada) {
+    if (trans->monto <= 0)
+    {
         es_valida = false;
     }
-    
+    else if (trans->origen == NULL || trans->destino == NULL)
+    {
+        es_valida = false;
+    }
+    else if (trans->origen->saldo < trans->monto)
+    {
+        es_valida = false;
+    }
+    else if (trans->origen->bloqueada || trans->destino->bloqueada)
+    {
+        es_valida = false;
+    }
     return es_valida;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -926,13 +1022,16 @@ bool validar_transaccion(const transaccion_t* trans) {
 
 ```{code-block} c
 :linenos:
-bool puede_realizar_compra(const usuario_t* u, double monto) {
-    if (!es_usuario_valido(u)) return false;
-    if (!tiene_saldo_suficiente(u, monto)) return false;
-    if (!esta_dentro_limite_diario(u, monto)) return false;
+bool puede_realizar_compra(const usuario_t *u, double monto)
+{
+    if (!es_usuario_valido(u))
+        return false;
+    if (!tiene_saldo_suficiente(u, monto))
+        return false;
+    if (!esta_dentro_limite_diario(u, monto))
+        return false;
     return true;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -940,27 +1039,25 @@ bool puede_realizar_compra(const usuario_t* u, double monto) {
 
 ```{code-block} c
 :linenos:
-bool puede_realizar_compra(const usuario_t* u, double monto) {
+bool puede_realizar_compra(const usuario_t *u, double monto)
+{
     bool puede = false;
-    
-    if (es_usuario_valido(u) &&
-        tiene_saldo_suficiente(u, monto) &&
-        esta_dentro_limite_diario(u, monto)) {
+    if (es_usuario_valido(u) && tiene_saldo_suficiente(u, monto) &&
+        esta_dentro_limite_diario(u, monto))
+    {
         puede = true;
     }
-    
     return puede;
 }
-
 ```
 <!-- {code-block} c -->
 
 **O de manera más concisa:**
 
 ``` c
-bool puede_realizar_compra(const usuario_t* u, double monto) {
-    return es_usuario_valido(u) &&
-           tiene_saldo_suficiente(u, monto) &&
+bool puede_realizar_compra(const usuario_t *u, double monto)
+{
+    return es_usuario_valido(u) && tiene_saldo_suficiente(u, monto) &&
            esta_dentro_limite_diario(u, monto);
 }
 ```
@@ -972,30 +1069,30 @@ bool puede_realizar_compra(const usuario_t* u, double monto) {
 
 ```{code-block} c
 :linenos:
-int autenticar(const char* usuario, const char* password) {
-    if (usuario == NULL || password == NULL) {
+int autenticar(const char *usuario, const char *password)
+{
+    if (usuario == NULL || password == NULL)
+    {
         return AUTH_ERROR_PARAMETROS;
     }
-    
-    usuario_t* u = buscar_usuario(usuario);
-    if (u == NULL) {
+    usuario_t *u = buscar_usuario(usuario);
+    if (u == NULL)
+    {
         return AUTH_ERROR_USUARIO_NO_EXISTE;
     }
-    
-    if (u->intentos_fallidos >= MAX_INTENTOS) {
+    if (u->intentos_fallidos >= MAX_INTENTOS)
+    {
         return AUTH_ERROR_BLOQUEADO;
     }
-    
-    if (!verificar_password(u, password)) {
+    if (!verificar_password(u, password))
+    {
         u->intentos_fallidos++;
         return AUTH_ERROR_PASSWORD_INCORRECTO;
     }
-    
     u->intentos_fallidos = 0;
     u->ultimo_acceso = time(NULL);
     return AUTH_EXITO;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1003,34 +1100,41 @@ int autenticar(const char* usuario, const char* password) {
 
 ```{code-block} c
 :linenos:
-int autenticar(const char* usuario, const char* password) {
+int autenticar(const char *usuario, const char *password)
+{
     int resultado = AUTH_ERROR_DESCONOCIDO;
-    usuario_t* u = NULL;
-    
+    usuario_t *u = NULL;
     // Validación de parámetros
-    if (usuario == NULL || password == NULL) {
+    if (usuario == NULL || password == NULL)
+    {
         resultado = AUTH_ERROR_PARAMETROS;
-    } else {
+    }
+    else
+    {
         u = buscar_usuario(usuario);
-        
-        if (u == NULL) {
+        if (u == NULL)
+        {
             resultado = AUTH_ERROR_USUARIO_NO_EXISTE;
-        } else if (u->intentos_fallidos >= MAX_INTENTOS) {
+        }
+        else if (u->intentos_fallidos >= MAX_INTENTOS)
+        {
             resultado = AUTH_ERROR_BLOQUEADO;
-        } else if (!verificar_password(u, password)) {
+        }
+        else if (!verificar_password(u, password))
+        {
             u->intentos_fallidos++;
             resultado = AUTH_ERROR_PASSWORD_INCORRECTO;
-        } else {
+        }
+        else
+        {
             // Autenticación exitosa
             u->intentos_fallidos = 0;
             u->ultimo_acceso = time(NULL);
             resultado = AUTH_EXITO;
         }
     }
-    
     return resultado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1043,38 +1147,38 @@ deben liberarse.
 
 ```{code-block} c
 :linenos:
-char* leer_archivo(const char* ruta) {
-    FILE* f = fopen(ruta, "r");
-    if (f == NULL) {
+char *leer_archivo(const char *ruta)
+{
+    FILE *f = fopen(ruta, "r");
+    if (f == NULL)
+    {
         return NULL;
     }
-    
     fseek(f, 0, SEEK_END);
     long tam = ftell(f);
-    if (tam < 0) {
-        fclose(f);  // Fácil olvidar esto
+    if (tam < 0)
+    {
+        fclose(f); // Fácil olvidar esto
         return NULL;
     }
-    
-    char* buffer = malloc(tam + 1);
-    if (buffer == NULL) {
-        fclose(f);  // Y esto
+    char *buffer = malloc(tam + 1);
+    if (buffer == NULL)
+    {
+        fclose(f); // Y esto
         return NULL;
     }
-    
     fseek(f, 0, SEEK_SET);
     size_t leidos = fread(buffer, 1, tam, f);
-    if (leidos != tam) {
-        free(buffer);  // Y esto
-        fclose(f);     // Y esto
+    if (leidos != tam)
+    {
+        free(buffer); // Y esto
+        fclose(f);    // Y esto
         return NULL;
     }
-    
     buffer[tam] = '\0';
     fclose(f);
     return buffer;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1082,43 +1186,43 @@ char* leer_archivo(const char* ruta) {
 
 ```{code-block} c
 :linenos:
-char* leer_archivo(const char* ruta) {
-    char* resultado = NULL;
-    FILE* f = NULL;
-    char* buffer = NULL;
-    
+char *leer_archivo(const char *ruta)
+{
+    char *resultado = NULL;
+    FILE *f = NULL;
+    char *buffer = NULL;
     f = fopen(ruta, "r");
-    if (f != NULL) {
+    if (f != NULL)
+    {
         fseek(f, 0, SEEK_END);
         long tam = ftell(f);
-        
-        if (tam >= 0) {
+        if (tam >= 0)
+        {
             buffer = malloc(tam + 1);
-            
-            if (buffer != NULL) {
+            if (buffer != NULL)
+            {
                 fseek(f, 0, SEEK_SET);
                 size_t leidos = fread(buffer, 1, tam, f);
-                
-                if (leidos == tam) {
+                if (leidos == tam)
+                {
                     buffer[tam] = '\0';
                     resultado = buffer;
-                    buffer = NULL;  // No liberar si exitoso
+                    buffer = NULL; // No liberar si exitoso
                 }
             }
         }
     }
-    
     // Limpieza centralizada
-    if (buffer != NULL) {
+    if (buffer != NULL)
+    {
         free(buffer);
     }
-    if (f != NULL) {
+    if (f != NULL)
+    {
         fclose(f);
     }
-    
     return resultado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1130,15 +1234,17 @@ El patrón de único retorno se combina bien con variables de control en lazos.
 
 ```{code-block} c
 :linenos:
-int buscar_elemento(const int* arr, int n, int valor) {
-    for (int i = 0; i < n; i++) {
-        if (arr[i] == valor) {
-            return i;  // Retorno temprano
+int buscar_elemento(const int *arr, int n, int valor)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] == valor)
+        {
+            return i; // Retorno temprano
         }
     }
     return -1;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1146,18 +1252,18 @@ int buscar_elemento(const int* arr, int n, int valor) {
 
 ```{code-block} c
 :linenos:
-int buscar_elemento(const int* arr, int n, int valor) {
+int buscar_elemento(const int *arr, int n, int valor)
+{
     int indice = -1;
-    
-    for (int i = 0; i < n && indice == -1; i++) {
-        if (arr[i] == valor) {
+    for (int i = 0; i < n && indice == -1; i++)
+    {
+        if (arr[i] == valor)
+        {
             indice = i;
         }
     }
-    
     return indice;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1179,14 +1285,14 @@ de único retorno es más valioso en:
 
 ```{code-block} c
 :linenos:
-bool es_par(int n) {
+bool es_par(int n)
+{
     return n % 2 == 0;
 }
-
-int maximo(int a, int b) {
+int maximo(int a, int b)
+{
     return (a > b) ? a : b;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1194,35 +1300,41 @@ int maximo(int a, int b) {
 
 ```{code-block} c
 :linenos:
-int procesar_pedido_complejo(pedido_t* pedido, contexto_t* ctx) {
+int procesar_pedido_complejo(pedido_t *pedido, contexto_t *ctx)
+{
     int resultado = ERROR_DESCONOCIDO;
-    recurso_t* recurso = NULL;
-    
+    recurso_t *recurso = NULL;
     // Múltiples validaciones y manejo de recursos
-    if (validar_pedido(pedido)) {
+    if (validar_pedido(pedido))
+    {
         recurso = adquirir_recurso(ctx);
-        
-        if (recurso != NULL) {
-            if (procesar_con_recurso(pedido, recurso)) {
+        if (recurso != NULL)
+        {
+            if (procesar_con_recurso(pedido, recurso))
+            {
                 resultado = EXITO;
-            } else {
+            }
+            else
+            {
                 resultado = ERROR_PROCESAMIENTO;
             }
-        } else {
+        }
+        else
+        {
             resultado = ERROR_RECURSO;
         }
-    } else {
+    }
+    else
+    {
         resultado = ERROR_VALIDACION;
     }
-    
     // Limpieza garantizada
-    if (recurso != NULL) {
+    if (recurso != NULL)
+    {
         liberar_recurso(recurso);
     }
-    
     return resultado;
 }
-
 ```
 <!-- {code-block} c -->
 

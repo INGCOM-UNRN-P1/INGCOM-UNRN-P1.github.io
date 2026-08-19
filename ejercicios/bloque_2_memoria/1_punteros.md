@@ -376,7 +376,8 @@ Dada una estructura:
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-typedef struct {
+typedef struct
+{
     int x;
     int y;
 } punto_t;
@@ -419,7 +420,8 @@ Dada:
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-typedef struct {
+typedef struct
+{
     char *nombre;
     int edad;
 } persona_t;
@@ -455,8 +457,10 @@ una función a cada elemento del arreglo.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-void duplicar_elemento(int *x) { *x *= 2; }
-
+void duplicar_elemento(int *x)
+{
+    *x *= 2;
+}
 int arr[] = {1, 2, 3, 4, 5};
 aplicar(arr, 5, duplicar_elemento);
 // arr ahora es {2, 4, 6, 8, 10}
@@ -500,14 +504,11 @@ Crear un arreglo de punteros a funciones para una calculadora:
 ```{code-block} c
 :linenos:
 typedef double (*operacion_t)(double, double);
-
 double sumar(double a, double b);
 double restar(double a, double b);
 double multiplicar(double a, double b);
 double dividir(double a, double b);
-
 operacion_t operaciones[] = {sumar, restar, multiplicar, dividir};
-
 ```
 <!-- {code-block} c -->
 
@@ -570,9 +571,9 @@ inicializando en `NULL`:
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-int *p = NULL;  // Buena práctica
+int *p = NULL; // Buena práctica
 // vs
-int *p;         // Peligroso: contiene basura
+int *p; // Peligroso: contiene basura
 ```
 <!-- c -->
 (ejercicio_8_27)=

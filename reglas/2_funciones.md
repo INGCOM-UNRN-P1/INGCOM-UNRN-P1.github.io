@@ -42,7 +42,6 @@ int procesar_sensor(sensor_t *s)
     }
     return resultado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -64,7 +63,6 @@ int procesar_sensor(sensor_t *s)
     }
     return s->lectura * 2;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -79,14 +77,12 @@ int procesar_archivo_con_un_retorno(const char *nombre_archivo)
     {
         return -1;
     }
-
     char *buffer = (char *)malloc(100);
     if (buffer == NULL)
     {
         fclose(archivo);
         return -1;
     }
-
     if (fread(buffer, 1, 99, archivo) < 1)
     {
         valor_retorno = -1;
@@ -95,13 +91,11 @@ int procesar_archivo_con_un_retorno(const char *nombre_archivo)
     {
         printf("Archivo procesado: %s\n", buffer);
     }
-
     // Bloque de limpieza único al final de la función
     free(buffer);
     fclose(archivo);
     return valor_retorno;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -115,14 +109,16 @@ a otras funciones especializadas del llamador.
 
 - **Incorrecto:**
   ```c
-  void calcular_e_imprimir_iva(float monto) {
+  void calcular_e_imprimir_iva(float monto)
+  {
       float iva = monto * 0.21f;
       printf("El IVA es: %.2f\n", iva);
   }
   ```
 - **Correcto:**
   ```c
-  float calcular_iva(float monto) {
+  float calcular_iva(float monto)
+  {
       return monto * 0.21f;
   }
   ```
@@ -142,14 +138,14 @@ comportamiento de la función mediante etiquetas como `@param`, `@pre`,
  * @param sumando El primer término de la suma.
  * @param sumador El segundo término, que determina la cantidad de incrementos.
  *
- * @pre La suma de 'sumando' y 'sumador' no debe causar desbordamiento (overflow) de 'int'.
+ * @pre La suma de 'sumando' y 'sumador' no debe causar desbordamiento
+ * (overflow) de 'int'.
  *
  * @returns Un entero que es el resultado de la suma.
  *
  * @post El valor retornado es equivalente a 'sumando + sumador'.
  */
 int suma_lenta(int sumando, int sumador);
-
 ```
 <!-- {code-block} c -->
 
@@ -163,13 +159,15 @@ de errores. **Su uso está estrictamente prohibido**.
 - **Incorrecto:**
   ```c
   int contador_global = 0;
-  void incrementar_contador() {
+  void incrementar_contador()
+  {
       contador_global++;
   }
   ```
 - **Correcto:**
   ```c
-  int incrementar(int contador) {
+  int incrementar(int contador)
+  {
       return contador + 1;
   }
   ```
@@ -183,12 +181,15 @@ especializadas son más fáciles de probar y depurar.
 
 - **Incorrecto:**
   ```c
-  int procesar_arreglo(const int arr[], size_t n, int *maximo) {
+  int procesar_arreglo(const int arr[], size_t n, int *maximo)
+  {
       int suma = 0;
       *maximo = arr[0];
-      for (size_t i = 0; i < n; i++) {
+      for (size_t i = 0; i < n; i++)
+      {
           suma = suma + arr[i];
-          if (arr[i] > *maximo) {
+          if (arr[i] > *maximo)
+          {
               *maximo = arr[i];
           }
       }
@@ -197,18 +198,22 @@ especializadas son más fáciles de probar y depurar.
   ```
 - **Correcto:**
   ```c
-  int calcular_suma(const int arr[], size_t n) {
+  int calcular_suma(const int arr[], size_t n)
+  {
       int suma = 0;
-      for (size_t i = 0; i < n; i++) {
+      for (size_t i = 0; i < n; i++)
+      {
           suma += arr[i];
       }
       return suma;
   }
-
-  int encontrar_maximo(const int arr[], size_t n) {
+  int encontrar_maximo(const int arr[], size_t n)
+  {
       int maximo = arr[0];
-      for (size_t i = 1; i < n; i++) {
-          if (arr[i] > maximo) {
+      for (size_t i = 1; i < n; i++)
+      {
+          if (arr[i] > maximo)
+          {
               maximo = arr[i];
           }
       }
@@ -227,17 +232,20 @@ cada caso específico de aserción.
 
 - **Incorrecto:**
   ```c
-  void prueba_calculadora() {
+  void prueba_calculadora()
+  {
       ASSERT_IGUAL(sumar(2, 2), 4);
       ASSERT_IGUAL(restar(5, 3), 2);
   }
   ```
 - **Correcto:**
   ```c
-  void prueba_suma_positivos() {
+  void prueba_suma_positivos()
+  {
       ASSERT_IGUAL(sumar(2, 2), 4);
   }
-  void prueba_resta_basica() {
+  void prueba_resta_basica()
+  {
       ASSERT_IGUAL(restar(5, 3), 2);
   }
   ```
@@ -250,17 +258,23 @@ errores y mejora la claridad de la vida útil de cada dato.
 
 - **Incorrecto:**
   ```c
-  void procesar() {
+  void procesar()
+  {
       int i;
       // ... mucho código ...
-      for (i = 0; i < 10; i++) { /* ... */ }
+      for (i = 0; i < 10; i++)
+      { /* ... */
+      }
   }
   ```
 - **Correcto:**
   ```c
-  void procesar() {
+  void procesar()
+  {
       // ... mucho código ...
-      for (int i = 0; i < 10; i++) { /* 'i' solo existe en el lazo */ }
+      for (int i = 0; i < 10; i++)
+      { /* 'i' solo existe en el lazo */
+      }
   }
   ```
 
@@ -284,7 +298,8 @@ promueve la reutilización de código.
 
 - **Incorrecto:**
   ```c
-  int main() {
+  int main()
+  {
       int base = 10;
       int altura = 5;
       int area = base * altura;
@@ -294,10 +309,12 @@ promueve la reutilización de código.
   ```
 - **Correcto:**
   ```c
-  int calcular_area(int base, int altura) {
+  int calcular_area(int base, int altura)
+  {
       return base * altura;
   }
-  int main() {
+  int main()
+  {
       int area = calcular_area(10, 5);
       printf("Área: %d\n", area);
       return 0;

@@ -3,16 +3,16 @@
 
 void imprimidor(const char lacadena[], const size_t capacidad)
 {
-	int i = 0;
-	int bandera = 1;
-	while (i<capacidad && bandera)
-	{
-    	printf("%d%c, ",i, lacadena[i]);
-    	if (lacadena[i] == '\0')
-    	{
-	    	bandera = 0;
-    	}
-    	i++;
+    int i = 0;
+    int bandera = 1;
+    while (i < capacidad && bandera)
+    {
+        printf("%d%c, ", i, lacadena[i]);
+        if (lacadena[i] == '\0')
+        {
+            bandera = 0;
+        }
+        i++;
     }
     printf("\n");
 }
@@ -24,4 +24,3 @@ int main()
     imprimidor(cad, size);
     return 0;
 }
-

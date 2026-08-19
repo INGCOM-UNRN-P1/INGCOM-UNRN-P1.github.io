@@ -30,17 +30,19 @@ utilizando un acumulador:
 
 ```{code-block} c
 :linenos:
-long int factorial_tail_rec(int n, long int acumulador) {
-    if (n < 0) {
+long int factorial_tail_rec(int n, long int acumulador)
+{
+    if (n < 0)
+    {
         return -1;
     }
-    if (n == 0) {
+    if (n == 0)
+    {
         return acumulador;
     }
     // La llamada recursiva es la última operación física.
     return factorial_tail_rec(n - 1, n * acumulador);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -174,58 +176,70 @@ sus elementos (regla {ref}`0x3007h`).
 
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <stddef.h>
-
+#include <stdio.h>
 // Búsqueda binaria recursiva
-int buscar_binario_recursivo(const int arr[], size_t l, size_t r, int x, size_t *indice_encontrado) {
-    if (l <= r) {
+int buscar_binario_recursivo(const int arr[], size_t l, size_t r, int x,
+                             size_t *indice_encontrado)
+{
+    if (l <= r)
+    {
         size_t mid = l + (r - l) / 2;
-
-        if (arr[mid] == x) {
+        if (arr[mid] == x)
+        {
             *indice_encontrado = mid;
             return 1;
         }
-
-        if (arr[mid] > x) {
-            if (mid > 0) {
-                return buscar_binario_recursivo(arr, l, mid - 1, x, indice_encontrado);
+        if (arr[mid] > x)
+        {
+            if (mid > 0)
+            {
+                return buscar_binario_recursivo(arr, l, mid - 1, x,
+                                                indice_encontrado);
             }
-        } else {
-            return buscar_binario_recursivo(arr, mid + 1, r, x, indice_encontrado);
+        }
+        else
+        {
+            return buscar_binario_recursivo(arr, mid + 1, r, x,
+                                            indice_encontrado);
         }
     }
     return 0; // Caso base: no encontrado
 }
-
 // Búsqueda binaria iterativa (espacio O(1) óptimo)
-int buscar_binario_iterativo(const int arr[], size_t size, int x, size_t *indice_encontrado) {
-    if (size == 0) {
+int buscar_binario_iterativo(const int arr[], size_t size, int x,
+                             size_t *indice_encontrado)
+{
+    if (size == 0)
+    {
         return 0;
     }
     size_t l = 0;
     size_t r = size - 1;
-
-    while (l <= r) {
+    while (l <= r)
+    {
         size_t mid = l + (r - l) / 2;
-
-        if (arr[mid] == x) {
+        if (arr[mid] == x)
+        {
             *indice_encontrado = mid;
             return 1;
         }
-
-        if (arr[mid] > x) {
-            if (mid == 0) {
-                break; // Evita el desbordamiento inferior de size_t al decrementar
+        if (arr[mid] > x)
+        {
+            if (mid == 0)
+            {
+                break; // Evita el desbordamiento inferior de size_t al
+                       // decrementar
             }
             r = mid - 1;
-        } else {
+        }
+        else
+        {
             l = mid + 1;
         }
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -290,71 +304,72 @@ los tamaños e índices se definen utilizando el tipo `size_t` (regla
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-// Combina dos mitades ordenadas arr[l..m] y arr[m+1..r] utilizando el búfer auxiliar único aux[]
-void fusionar(int arr[], size_t l, size_t m, size_t r, int aux[]) {
+// Combina dos mitades ordenadas arr[l..m] y arr[m+1..r] utilizando el búfer
+// auxiliar único aux[]
+void fusionar(int arr[], size_t l, size_t m, size_t r, int aux[])
+{
     size_t i = l;
     size_t j = m + 1;
     size_t k = l;
-
-    for (size_t idx = l; idx <= r; idx++) {
+    for (size_t idx = l; idx <= r; idx++)
+    {
         aux[idx] = arr[idx];
     }
-
-    while ((i <= m) && (j <= r)) {
-        if (aux[i] <= aux[j]) {
+    while ((i <= m) && (j <= r))
+    {
+        if (aux[i] <= aux[j])
+        {
             arr[k] = aux[i];
             i++;
-        } else {
+        }
+        else
+        {
             arr[k] = aux[j];
             j++;
         }
         k++;
     }
-
-    while (i <= m) {
+    while (i <= m)
+    {
         arr[k] = aux[i];
         i++;
         k++;
     }
-
-    while (j <= r) {
+    while (j <= r)
+    {
         arr[k] = aux[j];
         j++;
         k++;
     }
 }
-
 // Función recursiva interna
-void merge_sort_recursivo(int arr[], size_t l, size_t r, int aux[]) {
-    if (l < r) {
+void merge_sort_recursivo(int arr[], size_t l, size_t r, int aux[])
+{
+    if (l < r)
+    {
         size_t m = l + (r - l) / 2;
-
         merge_sort_recursivo(arr, l, m, aux);
         merge_sort_recursivo(arr, m + 1, r, aux);
         fusionar(arr, l, m, r, aux);
     }
 }
-
 // Función envolvente que preasigna el búfer auxiliar único
-int ordenar_merge_sort(int arr[], size_t size) {
-    if (size <= 1) {
+int ordenar_merge_sort(int arr[], size_t size)
+{
+    if (size <= 1)
+    {
         return 0; // Ya ordenado
     }
-
-    int *aux = (int*) malloc(size * sizeof(*aux));
-
+    int *aux = (int *)malloc(size * sizeof(*aux));
     // Validar asignación de memoria dinámica (regla {ref}`0x3001h`)
-    if (aux == NULL) {
+    if (aux == NULL)
+    {
         return -1;
     }
-
     merge_sort_recursivo(arr, 0, size - 1, aux);
-
     free(aux);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -430,18 +445,17 @@ Siguiendo las reglas de estilo de la cátedra, el arreglo se declara como `const
 ```{code-block} c
 :linenos:
 #include <stddef.h>
-
-int sumar_arreglo_cola(const int arr[], size_t size, int acumulador) {
+int sumar_arreglo_cola(const int arr[], size_t size, int acumulador)
+{
     // Caso Base: no quedan elementos por procesar
-    if (size == 0) {
+    if (size == 0)
+    {
         return acumulador;
     }
-    
     // Paso Recursivo de cola: sumamos el primer elemento al acumulador,
     // desplazamos el puntero del arreglo y decrementamos el tamaño
     return sumar_arreglo_cola(arr + 1, size - 1, acumulador + arr[0]);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -473,23 +487,24 @@ cada llamada:
 ```{code-block} c
 :linenos:
 #include <stddef.h>
-
 // Para calcular F(n), la función debe invocarse inicialmente como:
 // fibonacci_cola(n, 0, 1)
-unsigned long fibonacci_cola(size_t n, unsigned long a, unsigned long b) {
+unsigned long fibonacci_cola(size_t n, unsigned long a, unsigned long b)
+{
     // Caso Base 1: n == 0 retorna el primer acumulador
-    if (n == 0) {
+    if (n == 0)
+    {
         return a;
     }
     // Caso Base 2: n == 1 retorna el segundo acumulador
-    if (n == 1) {
+    if (n == 1)
+    {
         return b;
     }
-    // Paso recursivo de cola: decrementamos n, el acumulador 'a' pasa a ser 'b'
-    // y el acumulador 'b' toma el valor de la suma acumulada 'a + b'
+    // Paso recursivo de cola: decrementamos n, el acumulador 'a' pasa a ser
+    // 'b' y el acumulador 'b' toma el valor de la suma acumulada 'a + b'
     return fibonacci_cola(n - 1, b, a + b);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -517,18 +532,18 @@ la cantidad de dígitos procesados en cada paso recursivo:
 ```{code-block} c
 :linenos:
 #include <stddef.h>
-
 // La función envolvente debe invocarla inicialmente con acumulador = 0
-size_t contar_digitos_cola(unsigned long n, size_t acumulador) {
-    // Caso Base: si el número es menor a 10, sumamos el último dígito y retornamos
-    if (n < 10) {
+size_t contar_digitos_cola(unsigned long n, size_t acumulador)
+{
+    // Caso Base: si el número es menor a 10, sumamos el último dígito y
+    // retornamos
+    if (n < 10)
+    {
         return acumulador + 1;
     }
-    
     // Paso Recursivo de cola: dividimos el número y sumamos 1 al acumulador
     return contar_digitos_cola(n / 10, acumulador + 1);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -552,23 +567,24 @@ De acuerdo a las reglas de estilo, el arreglo es `const` ({ref}`0x3007h`) y los
 ```{code-block} c
 :linenos:
 #include <stddef.h>
-
-int maximo_divide_y_venceras(const int arr[], size_t ini, size_t fin) {
-    if (ini == fin) {
+int maximo_divide_y_venceras(const int arr[], size_t ini, size_t fin)
+{
+    if (ini == fin)
+    {
         return arr[ini];
     }
-    
     size_t mid = ini + (fin - ini) / 2;
     int max_izq = maximo_divide_y_venceras(arr, ini, mid);
     int max_der = maximo_divide_y_venceras(arr, mid + 1, fin);
-    
-    if (max_izq > max_der) {
+    if (max_izq > max_der)
+    {
         return max_izq;
-    } else {
+    }
+    else
+    {
         return max_der;
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -592,17 +608,16 @@ individuales:
 ```{code-block} c
 :linenos:
 #include <stddef.h>
-
-long int sumar_divide_y_venceras(const int arr[], size_t ini, size_t fin) {
-    if (ini == fin) {
+long int sumar_divide_y_venceras(const int arr[], size_t ini, size_t fin)
+{
+    if (ini == fin)
+    {
         return arr[ini];
     }
-    
     size_t mid = ini + (fin - ini) / 2;
-    return sumar_divide_y_venceras(arr, ini, mid) + 
+    return sumar_divide_y_venceras(arr, ini, mid) +
            sumar_divide_y_venceras(arr, mid + 1, fin);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -628,18 +643,17 @@ acumula las cantidades en el paso de combinación:
 ```{code-block} c
 :linenos:
 #include <stddef.h>
-
-size_t contar_pares_divide_y_venceras(const int arr[], size_t ini, size_t fin) {
-    if (ini == fin) {
+size_t contar_pares_divide_y_venceras(const int arr[], size_t ini, size_t fin)
+{
+    if (ini == fin)
+    {
         return (arr[ini] % 2 == 0) ? 1 : 0;
     }
-    
     size_t mid = ini + (fin - ini) / 2;
     size_t pares_izq = contar_pares_divide_y_venceras(arr, ini, mid);
     size_t pares_der = contar_pares_divide_y_venceras(arr, mid + 1, fin);
     return pares_izq + pares_der;
 }
-
 ```
 <!-- {code-block} c -->
 

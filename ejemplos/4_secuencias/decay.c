@@ -9,7 +9,7 @@ size_t largo(int arreglo[10])
 
 void imprime(int arreglo[], size_t largo)
 {
-    for(size_t i = 0; i < largo; i++)
+    for (size_t i = 0; i < largo; i++)
     {
         printf("%d, ", arreglo[i]);
     }
@@ -18,7 +18,7 @@ void imprime(int arreglo[], size_t largo)
 
 int main()
 {
-    int arr[10] = { };
+    int arr[10] = {};
     size_t len = sizeof(arr) / sizeof(arr[0]);
     size_t calculado = largo(arr);
 

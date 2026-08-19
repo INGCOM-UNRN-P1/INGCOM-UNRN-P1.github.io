@@ -23,7 +23,6 @@ if (archivo == NULL)
 }
 // ...
 fclose(archivo);
-
 ```
 <!-- {code-block} c -->
 
@@ -67,20 +66,18 @@ formatear mensajes legibles de diagnóstico.
 
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <errno.h>
+#include <stdio.h>
 #include <string.h>
-
 FILE *archivo = fopen("config.cfg", "r");
 if (archivo == NULL)
 {
     // perror imprime automáticamente el mensaje asociado al errno actual
     perror("Fallo al cargar config.cfg");
-    
     // O podés usar strerror para obtener la cadena correspondiente
-    fprintf(stderr, "Detalle técnico: %s (código %d)\n", strerror(errno), errno);
+    fprintf(stderr, "Detalle técnico: %s (código %d)\n", strerror(errno),
+            errno);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -95,15 +92,18 @@ sistema operativo.
 - **Incorrecto (el llamador abre, pero el archivo queda abierto si no recuerda
   cerrarlo):**
   ```c
-  void leer_datos(FILE *f) {
+  void leer_datos(FILE *f)
+  {
       // Procesa...
   }
   ```
 - **Correcto (encapsulación clara y simetría):**
   ```c
-  void procesar_archivo(const char *ruta) {
+  void procesar_archivo(const char *ruta)
+  {
       FILE *f = fopen(ruta, "r");
-      if (f != NULL) {
+      if (f != NULL)
+      {
           leer_datos(f);
           fclose(f);
       }
@@ -127,7 +127,6 @@ if (archivo != NULL)
     fseek(archivo, 0, SEEK_END);
     long tamano = ftell(archivo);
     rewind(archivo);
-
     long offset = 100 * sizeof(registro_t);
     if (offset < tamano)
     {
@@ -136,7 +135,6 @@ if (archivo != NULL)
     }
     fclose(archivo);
 }
-
 ```
 <!-- {code-block} c -->
 

@@ -3,10 +3,13 @@
 #include <time.h> // Para generar números aleatorios
 
 // --- Prototipos de funciones ---
-void llenar_matriz_jagged(int filas, int **matriz, const int *tamanos_columnas);
-void imprimir_matriz_jagged(int filas, int **matriz, const int *tamanos_columnas);
+void llenar_matriz_jagged(int filas, int **matriz,
+                          const int *tamanos_columnas);
+void imprimir_matriz_jagged(int filas, int **matriz,
+                            const int *tamanos_columnas);
 
-int main() {
+int main()
+{
     int filas = 5;
     int columnas = 5;
 
@@ -15,7 +18,8 @@ int main() {
     int tamanos_columnas[5] = {3, 7, 4, 9, 5};
 
     printf("Creando una matriz jagged (irregular) de %d filas.\n", filas);
-    for (int i = 0; i < filas; i++) {
+    for (int i = 0; i < filas; i++)
+    {
         printf(" -> Fila %d tendrá %d columnas.\n", i, tamanos_columnas[i]);
     }
     printf("\n");
@@ -25,9 +29,10 @@ int main() {
      * Se crea un array que contendrá punteros a cada una de las filas.
      * `m` es un puntero a un puntero de entero (int **).
      */
-    int **m = (int **) malloc(filas * sizeof(int *));
+    int **m = (int **)malloc(filas * sizeof(int *));
 
-    if (m == NULL) {
+    if (m == NULL)
+    {
         fprintf(stderr, "Error: No se pudo asignar memoria para las filas.\n");
         return 1;
     }
@@ -37,13 +42,18 @@ int main() {
      * Se itera sobre el array de punteros y se asigna a cada uno un bloque
      * de memoria de diferente tamaño, según lo definido en `tamanos_columnas`.
      */
-    for (int i = 0; i < filas; i++) {
-        m[i] = (int *) malloc(columnas * sizeof(int));
-        if (m[i] == NULL) {
-            fprintf(stderr, "Error: No se pudo asignar memoria para la fila %d.\n", i);
-            // Si falla la asignación para una fila, debemos liberar toda la memoria
-            // que ya habíamos asignado antes de salir para evitar fugas de memoria.
-            for (int k = 0; k < i; k++) {
+    for (int i = 0; i < filas; i++)
+    {
+        m[i] = (int *)malloc(columnas * sizeof(int));
+        if (m[i] == NULL)
+        {
+            fprintf(stderr,
+                    "Error: No se pudo asignar memoria para la fila %d.\n", i);
+            // Si falla la asignación para una fila, debemos liberar toda la
+            // memoria que ya habíamos asignado antes de salir para evitar
+            // fugas de memoria.
+            for (int k = 0; k < i; k++)
+            {
                 free(m[k]);
             }
             free(m);
@@ -60,7 +70,8 @@ int main() {
      * Primero, se libera la memoria de cada fila individual.
      */
     printf("\nLiberando memoria...\n");
-    for (int i = 0; i < filas; i++) {
+    for (int i = 0; i < filas; i++)
+    {
         free(m[i]);
     }
 
@@ -70,7 +81,6 @@ int main() {
     free(m);
     printf("Memoria liberada correctamente.\n");
 
-
     return 0;
 }
 
@@ -78,13 +88,18 @@ int main() {
  * @brief Rellena la matriz jagged con valores aleatorios.
  * @param filas El número de filas de la matriz.
  * @param matriz El puntero al array de punteros de fila.
- * @param tamanos_columnas Un array que contiene el número de columnas para cada fila.
+ * @param tamanos_columnas Un array que contiene el número de columnas para
+ * cada fila.
  */
-void llenar_matriz_jagged(int filas, int **matriz, const int *tamanos_columnas) {
+void llenar_matriz_jagged(int filas, int **matriz, const int *tamanos_columnas)
+{
     srand(time(NULL)); // Inicializar la semilla para números aleatorios
-    for (int i = 0; i < filas; i++) {
-        // El lazo interno itera solo hasta el tamaño de la columna de la fila actual.
-        for (int j = 0; j < tamanos_columnas[i]; j++) {
+    for (int i = 0; i < filas; i++)
+    {
+        // El lazo interno itera solo hasta el tamaño de la columna de la fila
+        // actual.
+        for (int j = 0; j < tamanos_columnas[i]; j++)
+        {
             matriz[i][j] = rand() % 100; // Valor aleatorio entre 0 y 99
         }
     }
@@ -94,13 +109,18 @@ void llenar_matriz_jagged(int filas, int **matriz, const int *tamanos_columnas) 
  * @brief Imprime el contenido de la matriz jagged en la consola.
  * @param filas El número de filas de la matriz.
  * @param matriz El puntero al array de punteros de fila.
- * @param tamanos_columnas Un array que contiene el número de columnas para cada fila.
+ * @param tamanos_columnas Un array que contiene el número de columnas para
+ * cada fila.
  */
-void imprimir_matriz_jagged(int filas, int **matriz, const int *tamanos_columnas) {
+void imprimir_matriz_jagged(int filas, int **matriz,
+                            const int *tamanos_columnas)
+{
     printf("Contenido de la matriz jagged:\n");
-    for (int i = 0; i < filas; i++) {
+    for (int i = 0; i < filas; i++)
+    {
         printf("Fila %d: ", i);
-        for (int j = 0; j < tamanos_columnas[i]; j++) {
+        for (int j = 0; j < tamanos_columnas[i]; j++)
+        {
             printf("%-4d", matriz[i][j]);
         }
         printf("\n");

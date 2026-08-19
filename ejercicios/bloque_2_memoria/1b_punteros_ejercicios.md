@@ -64,15 +64,14 @@ originales a las que apuntan estos punteros.
 #include <assert.h>
 #include <stddef.h>
 #include <stdio.h>
-
-void intercambiar(int *a, int *b) {
-  assert(a != NULL);
-  assert(b != NULL);
-  int temporal = *a; // Guardamos el valor al que apunta 'a'
-  *a = *b;           // Asignamos al lugar de 'a' el valor al que apunta 'b'
-  *b = temporal;     // Asignamos al lugar de 'b' el valor guardado
+void intercambiar(int *a, int *b)
+{
+    assert(a != NULL);
+    assert(b != NULL);
+    int temporal = *a; // Guardamos el valor al que apunta 'a'
+    *a = *b;           // Asignamos al lugar de 'a' el valor al que apunta 'b'
+    *b = temporal;     // Asignamos al lugar de 'b' el valor guardado
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -106,25 +105,25 @@ puntero y devolver el valor del elemento más grande.
 #include <assert.h>
 #include <stddef.h>
 #include <stdio.h>
-
-int encontrar_maximo(const int *arreglo, size_t n) {
-  assert(arreglo != NULL);
-  if (n == 0) {
-    return 0; // O un valor de error apropiado
-  }
-
-  int maximo = *arreglo; // Suponemos que el primer elemento es el máximo
-
-  // Avanzamos el puntero por el resto del arreglo
-  for (size_t i = 1; i < n; i++) {
-    // Usamos aritmética de punteros para acceder al siguiente elemento
-    if (*(arreglo + i) > maximo) {
-      maximo = *(arreglo + i);
+int encontrar_maximo(const int *arreglo, size_t n)
+{
+    assert(arreglo != NULL);
+    if (n == 0)
+    {
+        return 0; // O un valor de error apropiado
     }
-  }
-  return maximo;
+    int maximo = *arreglo; // Suponemos que el primer elemento es el máximo
+    // Avanzamos el puntero por el resto del arreglo
+    for (size_t i = 1; i < n; i++)
+    {
+        // Usamos aritmética de punteros para acceder al siguiente elemento
+        if (*(arreglo + i) > maximo)
+        {
+            maximo = *(arreglo + i);
+        }
+    }
+    return maximo;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -158,19 +157,19 @@ recorriendo las cadenas exclusivamente con punteros.
 #include <assert.h>
 #include <stddef.h>
 #include <stdio.h>
-
-void copiar_cadena(char *destino, const char *origen) {
-  assert(destino != NULL);
-  assert(origen != NULL);
-  // Mientras el valor al que apunta 'origen' no sea el carácter nulo...
-  while (*origen != '\0') {
-    *destino = *origen; // Copiamos el valor
-    origen++;           // Avanzamos el puntero de origen
-    destino++;          // Avanzamos el puntero de destino
-  }
-  *destino = '\0'; // Aseguramos que la cadena destino termine con el nulo
+void copiar_cadena(char *destino, const char *origen)
+{
+    assert(destino != NULL);
+    assert(origen != NULL);
+    // Mientras el valor al que apunta 'origen' no sea el carácter nulo...
+    while (*origen != '\0')
+    {
+        *destino = *origen; // Copiamos el valor
+        origen++;           // Avanzamos el puntero de origen
+        destino++;          // Avanzamos el puntero de destino
+    }
+    *destino = '\0'; // Aseguramos que la cadena destino termine con el nulo
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -205,18 +204,18 @@ alcance a `fin`.
 #include <assert.h>
 #include <stddef.h>
 #include <stdio.h>
-
-int sumar_arreglo(const int *inicio, const int *fin) {
-  assert(inicio != NULL);
-  assert(fin != NULL);
-  int suma = 0;
-  // Iteramos mientras el puntero 'p' no haya llegado al puntero 'fin'
-  for (const int *p = inicio; p < fin; p++) {
-    suma += *p; // Sumamos el valor al que apunta 'p'
-  }
-  return suma;
+int sumar_arreglo(const int *inicio, const int *fin)
+{
+    assert(inicio != NULL);
+    assert(fin != NULL);
+    int suma = 0;
+    // Iteramos mientras el puntero 'p' no haya llegado al puntero 'fin'
+    for (const int *p = inicio; p < fin; p++)
+    {
+        suma += *p; // Sumamos el valor al que apunta 'p'
+    }
+    return suma;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -251,27 +250,26 @@ hacia el centro hasta que se crucen.
 #include <assert.h>
 #include <stddef.h>
 #include <stdio.h>
-
-void invertir_arreglo(int *arreglo, size_t n) {
-  assert(arreglo != NULL);
-  if (n < 2) {
-    return; // No hay nada que invertir
-  }
-  int *inicio = arreglo;
-  int *fin = arreglo + n - 1;
-
-  while (inicio < fin) {
-    // Intercambiamos los valores
-    int temp = *inicio;
-    *inicio = *fin;
-    *fin = temp;
-
-    // Movemos los punteros hacia el centro
-    inicio++;
-    fin--;
-  }
+void invertir_arreglo(int *arreglo, size_t n)
+{
+    assert(arreglo != NULL);
+    if (n < 2)
+    {
+        return; // No hay nada que invertir
+    }
+    int *inicio = arreglo;
+    int *fin = arreglo + n - 1;
+    while (inicio < fin)
+    {
+        // Intercambiamos los valores
+        int temp = *inicio;
+        *inicio = *fin;
+        *fin = temp;
+        // Movemos los punteros hacia el centro
+        inicio++;
+        fin--;
+    }
 }
-
 :::
 <!-- {code-block}c -->
 

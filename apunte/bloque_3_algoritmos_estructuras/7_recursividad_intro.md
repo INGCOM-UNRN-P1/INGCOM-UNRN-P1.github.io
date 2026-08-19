@@ -70,37 +70,42 @@ C.
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
 // Declaración de la función factorial
 long int factorial(int n);
-
-int main(void) {
+int main(void)
+{
     int numero = 5;
     long int resultado = factorial(numero);
-    if (resultado == -1) {
+    if (resultado == -1)
+    {
         printf("Error: no se puede calcular el factorial de un número
         negativo.\n");
-    } else {
+    }
+    else
+    {
         printf("El factorial de %d es %ld\n", numero, resultado);
     }
     return 0;
 }
-
 // Definición de la función recursiva
-long int factorial(int n) {
+long int factorial(int n)
+{
     // Validación de precondición (robustez ante valores inválidos, regla
-    {ref}`0x2001h`)
-    if (n < 0) {
+    {
+        ref
+    }`0x2001h`)
+    if (n < 0)
+    {
         return -1;
     }
     // Caso Base: si n es 0, el factorial es 1.
-    if (n == 0) {
+    if (n == 0)
+    {
         return 1;
-    } 
+    }
     // Paso Recursivo: n * factorial(n-1)
     return n * factorial(n - 1);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -322,18 +327,20 @@ de llaves:
 
 :::{code-block}c
 :linenos:
-double potencia_recursiva(double a, int b) {
-    if (b < 0) {
-        return -1.0; 
+double potencia_recursiva(double a, int b)
+{
+    if (b < 0)
+    {
+        return -1.0;
     }
     // Caso Base
-    if (b == 0) {
+    if (b == 0)
+    {
         return 1.0;
     }
     // Paso Recursivo
     return a * potencia_recursiva(a, b - 1);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -341,17 +348,19 @@ double potencia_recursiva(double a, int b) {
 
 :::{code-block}c
 :linenos:
-double potencia_iterativa(double a, int b) {
-    if (b < 0) {
+double potencia_iterativa(double a, int b)
+{
+    if (b < 0)
+    {
         return -1.0;
     }
     double resultado = 1.0;
-    for (int i = 0; i < b; i++) {
+    for (int i = 0; i < b; i++)
+    {
         resultado *= a;
     }
     return resultado;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -376,15 +385,15 @@ acuerdo a la regla {ref}`0x3010h`:
 :::{code-block}c
 :linenos:
 #include <stddef.h>
-
-size_t contar_caracter(const char *cadena, char c) {
-    if (*cadena == '\0') {
+size_t contar_caracter(const char *cadena, char c)
+{
+    if (*cadena == '\0')
+    {
         return 0;
     }
     size_t coincide = (*cadena == c) ? 1 : 0;
     return coincide + contar_caracter(cadena + 1, c);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -408,9 +417,10 @@ Para cumplir con las directivas de tipo, los índices se manejan con `size_t`
 :::{code-block}c
 :linenos:
 #include <stddef.h>
-
-void invertir_arreglo(int arr[], size_t ini, size_t fin) {
-    if (ini >= fin) {
+void invertir_arreglo(int arr[], size_t ini, size_t fin)
+{
+    if (ini >= fin)
+    {
         return;
     }
     int aux = arr[ini];
@@ -418,7 +428,6 @@ void invertir_arreglo(int arr[], size_t ini, size_t fin) {
     arr[fin] = aux;
     invertir_arreglo(arr, ini + 1, fin - 1);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -435,13 +444,14 @@ entrada enteros. ¿Cuál es el error en la condición de parada (caso base)?
 
 :::{code-block}c
 :linenos:
-int sumar_hasta_cero(int n) {
-    if (n == 0) {
+int sumar_hasta_cero(int n)
+{
+    if (n == 0)
+    {
         return 0;
     }
     return n + sumar_hasta_cero(n - 1);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -464,13 +474,14 @@ números menores o iguales a cero:
 
 :::{code-block}c
 :linenos:
-int sumar_hasta_cero_robusta(int n) {
-    if (n <= 0) {
+int sumar_hasta_cero_robusta(int n)
+{
+    if (n <= 0)
+    {
         return 0;
     }
     return n + sumar_hasta_cero_robusta(n - 1);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -483,15 +494,16 @@ Considerando la siguiente función recursiva en C:
 
 :::{code-block}c
 :linenos:
-long int calcular_suma_recursiva(int n) {
+long int calcular_suma_recursiva(int n)
+{
     long int variables_locales[4] = {0};
-    if (n <= 0) {
+    if (n <= 0)
+    {
         return 0;
     }
     variables_locales[0] = n;
     return variables_locales[0] + calcular_suma_recursiva(n - 1);
 }
-
 :::
 <!-- {code-block}c -->
 

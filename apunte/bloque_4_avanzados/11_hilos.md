@@ -85,10 +85,8 @@ preprocesador necesarias para compilación segura con hilos.
 ### Crear un Hilo: `pthread_create`
 
 ``` c
-int pthread_create(pthread_t *thread,
-                   const pthread_attr_t *attr,
-                   void *(*start_routine)(void *),
-                   void *arg);
+int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
+                   void *(*start_routine)(void *), void *arg);
 ```
 <!-- c -->
 
@@ -108,36 +106,33 @@ int pthread_create(pthread_t *thread,
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-void* saludar(void* arg) {
-    int id = *(int*)arg;
+void *saludar(void *arg)
+{
+    int id = *(int *)arg;
     printf("Hola desde el hilo %d\n", id);
     return NULL;
 }
-
-int main(void) {
+int main(void)
+{
     pthread_t hilo1, hilo2;
     int id1 = 1, id2 = 2;
-    
     // Crear dos hilos
-    if (pthread_create(&hilo1, NULL, saludar, &id1) != 0) {
+    if (pthread_create(&hilo1, NULL, saludar, &id1) != 0)
+    {
         perror("Error creando hilo 1");
         return 1;
     }
-    
-    if (pthread_create(&hilo2, NULL, saludar, &id2) != 0) {
+    if (pthread_create(&hilo2, NULL, saludar, &id2) != 0)
+    {
         perror("Error creando hilo 2");
         return 1;
     }
-    
     // Esperar a que terminen
     pthread_join(hilo1, NULL);
     pthread_join(hilo2, NULL);
-    
     printf("Ambos hilos terminaron\n");
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -172,24 +167,22 @@ int pthread_join(pthread_t thread, void **retval);
 
 ```{code-block} c
 :linenos:
-void* calcular(void* arg) {
-    int* resultado = malloc(sizeof(int));
+void *calcular(void *arg)
+{
+    int *resultado = malloc(sizeof(int));
     *resultado = 42;
     return resultado;
 }
-
-int main(void) {
+int main(void)
+{
     pthread_t hilo;
-    int* resultado;
-    
+    int *resultado;
     pthread_create(&hilo, NULL, calcular, NULL);
-    pthread_join(hilo, (void**)&resultado);
-    
+    pthread_join(hilo, (void **)&resultado);
     printf("Resultado: %d\n", *resultado);
     free(resultado);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -204,16 +197,15 @@ void pthread_exit(void *retval);
 
 ```{code-block} c
 :linenos:
-void* trabajador(void* arg) {
+void *trabajador(void *arg)
+{
     // Hacer trabajo...
-    
-    if (error) {
-        pthread_exit((void*)1);  // Retornar código de error
+    if (error)
+    {
+        pthread_exit((void *)1); // Retornar código de error
     }
-    
-    pthread_exit((void*)0);  // Éxito
+    pthread_exit((void *)0); // Éxito
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -239,23 +231,21 @@ int pthread_detach(pthread_t thread);
 
 ```{code-block} c
 :linenos:
-void* tarea_independiente(void* arg) {
+void *tarea_independiente(void *arg)
+{
     printf("Ejecutando tarea independiente\n");
     // Trabajo...
     return NULL;
 }
-
-int main(void) {
+int main(void)
+{
     pthread_t hilo;
-    
     pthread_create(&hilo, NULL, tarea_independiente, NULL);
-    pthread_detach(hilo);  // Ahora el hilo es independiente
-    
+    pthread_detach(hilo); // Ahora el hilo es independiente
     // No es necesario pthread_join
-    sleep(1);  // Dar tiempo al hilo
+    sleep(1); // Dar tiempo al hilo
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -278,7 +268,8 @@ pthread_t pthread_self(void);
 <!-- c -->
 
 ``` c
-void* funcion(void* arg) {
+void *funcion(void *arg)
+{
     pthread_t mi_id = pthread_self();
     printf("Mi ID de hilo: %lu\n", (unsigned long)mi_id);
     return NULL;
@@ -296,7 +287,8 @@ int pthread_equal(pthread_t t1, pthread_t t2);
 Retorna un valor no cero si los IDs son iguales.
 
 ``` c
-if (pthread_equal(pthread_self(), hilo_maestro)) {
+if (pthread_equal(pthread_self(), hilo_maestro))
+{
     printf("Soy el hilo maestro\n");
 }
 ```
@@ -314,29 +306,25 @@ depende del orden impredecible de ejecución.
 :linenos:
 #include <pthread.h>
 #include <stdio.h>
-
-int contador = 0;  // Variable compartida
-
-void* incrementar(void* arg) {
-    for (int i = 0; i < 100000; i++) {
-        contador++;  // ¡NO ES ATÓMICO!
+int contador = 0; // Variable compartida
+void *incrementar(void *arg)
+{
+    for (int i = 0; i < 100000; i++)
+    {
+        contador++; // ¡NO ES ATÓMICO!
     }
     return NULL;
 }
-
-int main(void) {
+int main(void)
+{
     pthread_t h1, h2;
-    
     pthread_create(&h1, NULL, incrementar, NULL);
     pthread_create(&h2, NULL, incrementar, NULL);
-    
     pthread_join(h1, NULL);
     pthread_join(h2, NULL);
-    
     printf("Contador: %d (esperado: 200000)\n", contador);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -366,7 +354,7 @@ que solo un hilo a la vez puede acceder a una sección crítica del código.
 ### Declaración e Inicialización
 
 ``` c
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;  // Inicialización estática
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER; // Inicialización estática
 ```
 <!-- c -->
 
@@ -415,34 +403,29 @@ bloqueado.
 :linenos:
 #include <pthread.h>
 #include <stdio.h>
-
 int contador = 0;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-
-void* incrementar(void* arg) {
-    for (int i = 0; i < 100000; i++) {
+void *incrementar(void *arg)
+{
+    for (int i = 0; i < 100000; i++)
+    {
         pthread_mutex_lock(&mutex);
-        contador++;  // Sección crítica protegida
+        contador++; // Sección crítica protegida
         pthread_mutex_unlock(&mutex);
     }
     return NULL;
 }
-
-int main(void) {
+int main(void)
+{
     pthread_t h1, h2;
-    
     pthread_create(&h1, NULL, incrementar, NULL);
     pthread_create(&h2, NULL, incrementar, NULL);
-    
     pthread_join(h1, NULL);
     pthread_join(h2, NULL);
-    
     printf("Contador: %d (esperado: 200000)\n", contador);
-    
     pthread_mutex_destroy(&mutex);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -481,59 +464,54 @@ esté usando.
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
-
 #define NUM_HILOS 4
 #define INCREMENTOS_POR_HILO 250000
-
-typedef struct {
+typedef struct
+{
     int id;
-    int* contador_global;
-    pthread_mutex_t* mutex;
+    int *contador_global;
+    pthread_mutex_t *mutex;
 } datos_hilo_t;
-
-void* trabajador(void* arg) {
-    datos_hilo_t* datos = (datos_hilo_t*)arg;
-    
-    for (int i = 0; i < INCREMENTOS_POR_HILO; i++) {
+void *trabajador(void *arg)
+{
+    datos_hilo_t *datos = (datos_hilo_t *)arg;
+    for (int i = 0; i < INCREMENTOS_POR_HILO; i++)
+    {
         pthread_mutex_lock(datos->mutex);
         (*datos->contador_global)++;
         pthread_mutex_unlock(datos->mutex);
     }
-    
     printf("Hilo %d terminó\n", datos->id);
     return NULL;
 }
-
-int main(void) {
+int main(void)
+{
     pthread_t hilos[NUM_HILOS];
     datos_hilo_t datos[NUM_HILOS];
     int contador = 0;
     pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-    
     // Crear hilos
-    for (int i = 0; i < NUM_HILOS; i++) {
+    for (int i = 0; i < NUM_HILOS; i++)
+    {
         datos[i].id = i;
         datos[i].contador_global = &contador;
         datos[i].mutex = &mutex;
-        
-        if (pthread_create(&hilos[i], NULL, trabajador, &datos[i]) != 0) {
+        if (pthread_create(&hilos[i], NULL, trabajador, &datos[i]) != 0)
+        {
             perror("Error creando hilo");
             return 1;
         }
     }
-    
     // Esperar terminación
-    for (int i = 0; i < NUM_HILOS; i++) {
+    for (int i = 0; i < NUM_HILOS; i++)
+    {
         pthread_join(hilos[i], NULL);
     }
-    
     printf("\nContador final: %d\n", contador);
     printf("Esperado: %d\n", NUM_HILOS * INCREMENTOS_POR_HILO);
-    
     pthread_mutex_destroy(&mutex);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -545,8 +523,7 @@ cierta condición, liberando eficientemente el CPU mientras esperan.
 ### Declaración e Inicialización
 
 ``` c
-pthread_cond_t cond = PTHREAD_COND_INITIALIZER;  // Estática
-
+pthread_cond_t cond = PTHREAD_COND_INITIALIZER; // Estática
 // O dinámica:
 pthread_cond_t cond;
 pthread_cond_init(&cond, NULL);
@@ -570,8 +547,8 @@ int pthread_cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex);
 #### Señalizar
 
 ``` c
-int pthread_cond_signal(pthread_cond_t *cond);  // Despierta UN hilo
-int pthread_cond_broadcast(pthread_cond_t *cond);  // Despierta TODOS los hilos
+int pthread_cond_signal(pthread_cond_t *cond);    // Despierta UN hilo
+int pthread_cond_broadcast(pthread_cond_t *cond); // Despierta TODOS los hilos
 ```
 <!-- c -->
 
@@ -585,10 +562,9 @@ Problema clásico: Un productor genera datos, un consumidor los procesa.
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
 #define BUFFER_SIZE 10
-
-typedef struct {
+typedef struct
+{
     int buffer[BUFFER_SIZE];
     int count;
     int in;
@@ -597,8 +573,8 @@ typedef struct {
     pthread_cond_t no_vacio;
     pthread_cond_t no_lleno;
 } buffer_t;
-
-void buffer_init(buffer_t* b) {
+void buffer_init(buffer_t *b)
+{
     b->count = 0;
     b->in = 0;
     b->out = 0;
@@ -606,94 +582,80 @@ void buffer_init(buffer_t* b) {
     pthread_cond_init(&b->no_vacio, NULL);
     pthread_cond_init(&b->no_lleno, NULL);
 }
-
-void buffer_destroy(buffer_t* b) {
+void buffer_destroy(buffer_t *b)
+{
     pthread_mutex_destroy(&b->mutex);
     pthread_cond_destroy(&b->no_vacio);
     pthread_cond_destroy(&b->no_lleno);
 }
-
-void producir(buffer_t* b, int item) {
+void producir(buffer_t *b, int item)
+{
     pthread_mutex_lock(&b->mutex);
-    
     // Esperar mientras el buffer esté lleno
-    while (b->count == BUFFER_SIZE) {
+    while (b->count == BUFFER_SIZE)
+    {
         pthread_cond_wait(&b->no_lleno, &b->mutex);
     }
-    
     // Insertar item
     b->buffer[b->in] = item;
     b->in = (b->in + 1) % BUFFER_SIZE;
     b->count++;
-    
     printf("Producido: %d (buffer: %d/%d)\n", item, b->count, BUFFER_SIZE);
-    
     // Señalizar que hay items
     pthread_cond_signal(&b->no_vacio);
     pthread_mutex_unlock(&b->mutex);
 }
-
-int consumir(buffer_t* b) {
+int consumir(buffer_t *b)
+{
     pthread_mutex_lock(&b->mutex);
-    
     // Esperar mientras el buffer esté vacío
-    while (b->count == 0) {
+    while (b->count == 0)
+    {
         pthread_cond_wait(&b->no_vacio, &b->mutex);
     }
-    
     // Extraer item
     int item = b->buffer[b->out];
     b->out = (b->out + 1) % BUFFER_SIZE;
     b->count--;
-    
     printf("Consumido: %d (buffer: %d/%d)\n", item, b->count, BUFFER_SIZE);
-    
     // Señalizar que hay espacio
     pthread_cond_signal(&b->no_lleno);
     pthread_mutex_unlock(&b->mutex);
-    
     return item;
 }
-
-void* productor(void* arg) {
-    buffer_t* b = (buffer_t*)arg;
-    
-    for (int i = 1; i <= 20; i++) {
+void *productor(void *arg)
+{
+    buffer_t *b = (buffer_t *)arg;
+    for (int i = 1; i <= 20; i++)
+    {
         producir(b, i);
-        usleep(100000);  // Simular trabajo
+        usleep(100000); // Simular trabajo
     }
-    
     return NULL;
 }
-
-void* consumidor(void* arg) {
-    buffer_t* b = (buffer_t*)arg;
-    
-    for (int i = 0; i < 20; i++) {
+void *consumidor(void *arg)
+{
+    buffer_t *b = (buffer_t *)arg;
+    for (int i = 0; i < 20; i++)
+    {
         int item = consumir(b);
-        usleep(150000);  // Simular procesamiento
+        usleep(150000); // Simular procesamiento
     }
-    
     return NULL;
 }
-
-int main(void) {
+int main(void)
+{
     buffer_t buffer;
     buffer_init(&buffer);
-    
     pthread_t hilo_prod, hilo_cons;
-    
     pthread_create(&hilo_prod, NULL, productor, &buffer);
     pthread_create(&hilo_cons, NULL, consumidor, &buffer);
-    
     pthread_join(hilo_prod, NULL);
     pthread_join(hilo_cons, NULL);
-    
     buffer_destroy(&buffer);
     printf("Programa finalizado\n");
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -706,15 +668,15 @@ wakeups*), donde el hilo puede despertar sin que nadie haya señalizado.
 ```{code-block} c
 :linenos:
 // CORRECTO
-while (condicion_no_cumplida) {
+while (condicion_no_cumplida)
+{
     pthread_cond_wait(&cond, &mutex);
 }
-
 // INCORRECTO
-if (condicion_no_cumplida) {
+if (condicion_no_cumplida)
+{
     pthread_cond_wait(&cond, &mutex);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -748,49 +710,40 @@ Bloquea hasta que `num_hilos` hilos hayan llamado a `pthread_barrier_wait`.
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
-
 #define NUM_HILOS 4
-
 pthread_barrier_t barrera;
-
-void* trabajador(void* arg) {
-    int id = *(int*)arg;
-    
+void *trabajador(void *arg)
+{
+    int id = *(int *)arg;
     // Fase 1
     printf("Hilo %d: Fase 1 iniciada\n", id);
-    sleep(id);  // Simular trabajo variable
+    sleep(id); // Simular trabajo variable
     printf("Hilo %d: Fase 1 completada\n", id);
-    
     // Sincronizar antes de fase 2
     pthread_barrier_wait(&barrera);
-    
     // Fase 2 (todos inician juntos)
     printf("Hilo %d: Fase 2 iniciada\n", id);
     sleep(1);
     printf("Hilo %d: Fase 2 completada\n", id);
-    
     return NULL;
 }
-
-int main(void) {
+int main(void)
+{
     pthread_t hilos[NUM_HILOS];
     int ids[NUM_HILOS];
-    
     pthread_barrier_init(&barrera, NULL, NUM_HILOS);
-    
-    for (int i = 0; i < NUM_HILOS; i++) {
+    for (int i = 0; i < NUM_HILOS; i++)
+    {
         ids[i] = i;
         pthread_create(&hilos[i], NULL, trabajador, &ids[i]);
     }
-    
-    for (int i = 0; i < NUM_HILOS; i++) {
+    for (int i = 0; i < NUM_HILOS; i++)
+    {
         pthread_join(hilos[i], NULL);
     }
-    
     pthread_barrier_destroy(&barrera);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -803,7 +756,6 @@ acceso exclusivo.
 
 ``` c
 pthread_rwlock_t rwlock = PTHREAD_RWLOCK_INITIALIZER;
-
 // O dinámico:
 pthread_rwlock_t rwlock;
 pthread_rwlock_init(&rwlock, NULL);
@@ -813,9 +765,9 @@ pthread_rwlock_init(&rwlock, NULL);
 ### Operaciones
 
 ``` c
-pthread_rwlock_rdlock(&rwlock);   // Bloqueo lectura
-pthread_rwlock_wrlock(&rwlock);   // Bloqueo escritura
-pthread_rwlock_unlock(&rwlock);   // Desbloquear
+pthread_rwlock_rdlock(&rwlock); // Bloqueo lectura
+pthread_rwlock_wrlock(&rwlock); // Bloqueo escritura
+pthread_rwlock_unlock(&rwlock); // Desbloquear
 ```
 <!-- c -->
 
@@ -827,79 +779,79 @@ pthread_rwlock_unlock(&rwlock);   // Desbloquear
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
-typedef struct {
+typedef struct
+{
     int datos[100];
     pthread_rwlock_t lock;
 } base_datos_t;
-
-void bd_init(base_datos_t* bd) {
-    for (int i = 0; i < 100; i++) {
+void bd_init(base_datos_t *bd)
+{
+    for (int i = 0; i < 100; i++)
+    {
         bd->datos[i] = i;
     }
     pthread_rwlock_init(&bd->lock, NULL);
 }
-
-int bd_leer(base_datos_t* bd, int indice) {
+int bd_leer(base_datos_t *bd, int indice)
+{
     pthread_rwlock_rdlock(&bd->lock);
     int valor = bd->datos[indice];
     printf("Leyendo [%d] = %d\n", indice, valor);
-    usleep(10000);  // Simular lectura
+    usleep(10000); // Simular lectura
     pthread_rwlock_unlock(&bd->lock);
     return valor;
 }
-
-void bd_escribir(base_datos_t* bd, int indice, int valor) {
+void bd_escribir(base_datos_t *bd, int indice, int valor)
+{
     pthread_rwlock_wrlock(&bd->lock);
     printf("Escribiendo [%d] = %d\n", indice, valor);
     bd->datos[indice] = valor;
-    usleep(50000);  // Simular escritura costosa
+    usleep(50000); // Simular escritura costosa
     pthread_rwlock_unlock(&bd->lock);
 }
-
-void* lector(void* arg) {
-    base_datos_t* bd = (base_datos_t*)arg;
-    for (int i = 0; i < 5; i++) {
+void *lector(void *arg)
+{
+    base_datos_t *bd = (base_datos_t *)arg;
+    for (int i = 0; i < 5; i++)
+    {
         bd_leer(bd, rand() % 100);
     }
     return NULL;
 }
-
-void* escritor(void* arg) {
-    base_datos_t* bd = (base_datos_t*)arg;
-    for (int i = 0; i < 3; i++) {
+void *escritor(void *arg)
+{
+    base_datos_t *bd = (base_datos_t *)arg;
+    for (int i = 0; i < 3; i++)
+    {
         int idx = rand() % 100;
         bd_escribir(bd, idx, rand() % 1000);
     }
     return NULL;
 }
-
-int main(void) {
+int main(void)
+{
     base_datos_t bd;
     bd_init(&bd);
-    
     pthread_t lectores[3], escritores[2];
-    
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 3; i++)
+    {
         pthread_create(&lectores[i], NULL, lector, &bd);
     }
-    
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 2; i++)
+    {
         pthread_create(&escritores[i], NULL, escritor, &bd);
     }
-    
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 3; i++)
+    {
         pthread_join(lectores[i], NULL);
     }
-    
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 2; i++)
+    {
         pthread_join(escritores[i], NULL);
     }
-    
     pthread_rwlock_destroy(&bd->lock);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -910,7 +862,7 @@ Permite que cada hilo tenga su propia copia de una variable.
 ### Declaración con `__thread`
 
 ``` c
-__thread int mi_variable = 0;  // Cada hilo tiene su propia copia
+__thread int mi_variable = 0; // Cada hilo tiene su propia copia
 ```
 <!-- c -->
 
@@ -920,35 +872,31 @@ __thread int mi_variable = 0;  // Cada hilo tiene su propia copia
 :linenos:
 #include <pthread.h>
 #include <stdio.h>
-
 __thread int contador_local = 0;
-
-void* trabajador(void* arg) {
-    int id = *(int*)arg;
-    
-    for (int i = 0; i < 10; i++) {
+void *trabajador(void *arg)
+{
+    int id = *(int *)arg;
+    for (int i = 0; i < 10; i++)
+    {
         contador_local++;
     }
-    
     printf("Hilo %d: contador_local = %d\n", id, contador_local);
     return NULL;
 }
-
-int main(void) {
+int main(void)
+{
     pthread_t hilos[3];
     int ids[3] = {1, 2, 3};
-    
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 3; i++)
+    {
         pthread_create(&hilos[i], NULL, trabajador, &ids[i]);
     }
-    
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 3; i++)
+    {
         pthread_join(hilos[i], NULL);
     }
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -972,31 +920,26 @@ mutuamente esperando recursos que el otro posee.
 :linenos:
 pthread_mutex_t mutex_a = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t mutex_b = PTHREAD_MUTEX_INITIALIZER;
-
-void* hilo1_func(void* arg) {
+void *hilo1_func(void *arg)
+{
     pthread_mutex_lock(&mutex_a);
-    sleep(1);  // Dar tiempo al otro hilo
-    pthread_mutex_lock(&mutex_b);  // ¡DEADLOCK!
-    
+    sleep(1);                     // Dar tiempo al otro hilo
+    pthread_mutex_lock(&mutex_b); // ¡DEADLOCK!
     // Trabajo...
-    
     pthread_mutex_unlock(&mutex_b);
     pthread_mutex_unlock(&mutex_a);
     return NULL;
 }
-
-void* hilo2_func(void* arg) {
+void *hilo2_func(void *arg)
+{
     pthread_mutex_lock(&mutex_b);
     sleep(1);
-    pthread_mutex_lock(&mutex_a);  // ¡DEADLOCK!
-    
+    pthread_mutex_lock(&mutex_a); // ¡DEADLOCK!
     // Trabajo...
-    
     pthread_mutex_unlock(&mutex_a);
     pthread_mutex_unlock(&mutex_b);
     return NULL;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1019,7 +962,8 @@ Todos los hilos adquieren mutexes en el **mismo orden**.
 ```{code-block} c
 :linenos:
 // CORRECTO: Ambos hilos usan el mismo orden
-void* hilo1_func(void* arg) {
+void *hilo1_func(void *arg)
+{
     pthread_mutex_lock(&mutex_a);
     pthread_mutex_lock(&mutex_b);
     // Trabajo...
@@ -1027,16 +971,15 @@ void* hilo1_func(void* arg) {
     pthread_mutex_unlock(&mutex_a);
     return NULL;
 }
-
-void* hilo2_func(void* arg) {
-    pthread_mutex_lock(&mutex_a);  // Mismo orden
+void *hilo2_func(void *arg)
+{
+    pthread_mutex_lock(&mutex_a); // Mismo orden
     pthread_mutex_lock(&mutex_b);
     // Trabajo...
     pthread_mutex_unlock(&mutex_b);
     pthread_mutex_unlock(&mutex_a);
     return NULL;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1044,25 +987,28 @@ void* hilo2_func(void* arg) {
 
 ```{code-block} c
 :linenos:
-void* hilo_seguro(void* arg) {
-    while (1) {
+void *hilo_seguro(void *arg)
+{
+    while (1)
+    {
         pthread_mutex_lock(&mutex_a);
-        
-        if (pthread_mutex_trylock(&mutex_b) == 0) {
+        if (pthread_mutex_trylock(&mutex_b) == 0)
+        {
             // Tenemos ambos mutexes
             // Trabajo...
             pthread_mutex_unlock(&mutex_b);
             pthread_mutex_unlock(&mutex_a);
             break;
-        } else {
+        }
+        else
+        {
             // No pudimos adquirir mutex_b, liberar mutex_a y reintentar
             pthread_mutex_unlock(&mutex_a);
-            usleep(1000);  // Pequeña espera antes de reintentar
+            usleep(1000); // Pequeña espera antes de reintentar
         }
     }
     return NULL;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1071,7 +1017,8 @@ void* hilo_seguro(void* arg) {
 Usar versiones con timeout (extensiones no estándar o implementaciones propias):
 
 ``` c
-if (pthread_mutex_timedlock(&mutex, &timeout) != 0) {
+if (pthread_mutex_timedlock(&mutex, &timeout) != 0)
+{
     // Timeout, liberar recursos y reintentar
 }
 ```
@@ -1086,23 +1033,20 @@ liberación:
 
 ```{code-block} c
 :linenos:
-void cleanup_mutex(void* arg) {
-    pthread_mutex_t* mutex = (pthread_mutex_t*)arg;
+void cleanup_mutex(void *arg)
+{
+    pthread_mutex_t *mutex = (pthread_mutex_t *)arg;
     pthread_mutex_unlock(mutex);
 }
-
-void* hilo_con_cleanup(void* arg) {
-    pthread_mutex_t* mutex = (pthread_mutex_t*)arg;
-    
+void *hilo_con_cleanup(void *arg)
+{
+    pthread_mutex_t *mutex = (pthread_mutex_t *)arg;
     pthread_mutex_lock(mutex);
     pthread_cleanup_push(cleanup_mutex, mutex);
-    
     // Trabajo que puede ser cancelado...
-    
-    pthread_cleanup_pop(1);  // 1 = ejecutar cleanup
+    pthread_cleanup_pop(1); // 1 = ejecutar cleanup
     return NULL;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1122,11 +1066,9 @@ pthread_mutex_unlock(&mutex_global);
 pthread_mutex_lock(&mutex_lista_A);
 // Operación en lista A
 pthread_mutex_unlock(&mutex_lista_A);
-
 pthread_mutex_lock(&mutex_lista_B);
 // Operación en lista B
 pthread_mutex_unlock(&mutex_lista_B);
-
 ```
 <!-- {code-block} c -->
 
@@ -1146,20 +1088,21 @@ Usarlo solo con barreras de memoria apropiadas:
 ```{code-block} c
 :linenos:
 // Inicialización perezosa thread-safe
-void* recurso = NULL;
+void *recurso = NULL;
 pthread_mutex_t mutex_init = PTHREAD_MUTEX_INITIALIZER;
-
-void* obtener_recurso(void) {
-    if (recurso == NULL) {  // Primera verificación sin lock
+void *obtener_recurso(void)
+{
+    if (recurso == NULL)
+    { // Primera verificación sin lock
         pthread_mutex_lock(&mutex_init);
-        if (recurso == NULL) {  // Segunda verificación con lock
+        if (recurso == NULL)
+        { // Segunda verificación con lock
             recurso = inicializar_recurso();
         }
         pthread_mutex_unlock(&mutex_init);
     }
     return recurso;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1171,17 +1114,16 @@ fences). Para casos simples, mejor usar `pthread_once`:
 ```{code-block} c
 :linenos:
 static pthread_once_t once = PTHREAD_ONCE_INIT;
-static void* recurso;
-
-void inicializar(void) {
+static void *recurso;
+void inicializar(void)
+{
     recurso = inicializar_recurso();
 }
-
-void* obtener_recurso(void) {
+void *obtener_recurso(void)
+{
     pthread_once(&once, inicializar);
     return recurso;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1195,7 +1137,7 @@ Podés cancelar un hilo desde otro:
 ``` c
 pthread_t hilo;
 // ...
-pthread_cancel(hilo);  // Solicitar cancelación
+pthread_cancel(hilo); // Solicitar cancelación
 ```
 <!-- c -->
 
@@ -1203,18 +1145,17 @@ El hilo objetivo debe estar preparado para cancelación:
 
 ```{code-block} c
 :linenos:
-void* hilo_cancelable(void* arg) {
+void *hilo_cancelable(void *arg)
+{
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
     pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
-    
-    while (1) {
-        pthread_testcancel();  // Punto de cancelación
+    while (1)
+    {
+        pthread_testcancel(); // Punto de cancelación
         // Trabajo...
     }
-    
     return NULL;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1225,39 +1166,37 @@ Un patrón común es tener un pool de hilos que procesan tareas de una cola.
 ```{code-block} c
 :linenos:
 #include <pthread.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <stdbool.h>
-
 #define NUM_WORKERS 4
 #define QUEUE_SIZE 100
-
-typedef void (*tarea_func_t)(void*);
-
-typedef struct tarea {
+typedef void (*tarea_func_t)(void *);
+typedef struct tarea
+{
     tarea_func_t funcion;
-    void* argumento;
-    struct tarea* siguiente;
+    void *argumento;
+    struct tarea *siguiente;
 } tarea_t;
-
-typedef struct {
-    tarea_t* cabeza;
-    tarea_t* cola;
+typedef struct
+{
+    tarea_t *cabeza;
+    tarea_t *cola;
     int count;
     pthread_mutex_t mutex;
     pthread_cond_t hay_trabajo;
     pthread_cond_t hay_espacio;
     bool shutdown;
 } cola_tareas_t;
-
-typedef struct {
+typedef struct
+{
     pthread_t hilos[NUM_WORKERS];
     cola_tareas_t cola;
 } thread_pool_t;
-
 // Inicializar cola
-void cola_init(cola_tareas_t* cola) {
+void cola_init(cola_tareas_t *cola)
+{
     cola->cabeza = NULL;
     cola->cola = NULL;
     cola->count = 0;
@@ -1266,162 +1205,148 @@ void cola_init(cola_tareas_t* cola) {
     pthread_cond_init(&cola->hay_trabajo, NULL);
     pthread_cond_init(&cola->hay_espacio, NULL);
 }
-
 // Agregar tarea a la cola
-void cola_push(cola_tareas_t* cola, tarea_func_t funcion, void* argumento) {
+void cola_push(cola_tareas_t *cola, tarea_func_t funcion, void *argumento)
+{
     pthread_mutex_lock(&cola->mutex);
-    
     // Esperar si la cola está llena
-    while (cola->count >= QUEUE_SIZE && !cola->shutdown) {
+    while (cola->count >= QUEUE_SIZE && !cola->shutdown)
+    {
         pthread_cond_wait(&cola->hay_espacio, &cola->mutex);
     }
-    
-    if (cola->shutdown) {
+    if (cola->shutdown)
+    {
         pthread_mutex_unlock(&cola->mutex);
         return;
     }
-    
     // Crear nueva tarea
-    tarea_t* nueva = malloc(sizeof(tarea_t));
+    tarea_t *nueva = malloc(sizeof(tarea_t));
     nueva->funcion = funcion;
     nueva->argumento = argumento;
     nueva->siguiente = NULL;
-    
     // Agregar a la cola
-    if (cola->cola == NULL) {
+    if (cola->cola == NULL)
+    {
         cola->cabeza = nueva;
         cola->cola = nueva;
-    } else {
+    }
+    else
+    {
         cola->cola->siguiente = nueva;
         cola->cola = nueva;
     }
-    
     cola->count++;
-    
     // Señalizar que hay trabajo
     pthread_cond_signal(&cola->hay_trabajo);
     pthread_mutex_unlock(&cola->mutex);
 }
-
 // Extraer tarea de la cola
-tarea_t* cola_pop(cola_tareas_t* cola) {
+tarea_t *cola_pop(cola_tareas_t *cola)
+{
     pthread_mutex_lock(&cola->mutex);
-    
     // Esperar mientras no haya trabajo
-    while (cola->count == 0 && !cola->shutdown) {
+    while (cola->count == 0 && !cola->shutdown)
+    {
         pthread_cond_wait(&cola->hay_trabajo, &cola->mutex);
     }
-    
-    if (cola->shutdown && cola->count == 0) {
+    if (cola->shutdown && cola->count == 0)
+    {
         pthread_mutex_unlock(&cola->mutex);
         return NULL;
     }
-    
     // Extraer tarea
-    tarea_t* tarea = cola->cabeza;
+    tarea_t *tarea = cola->cabeza;
     cola->cabeza = tarea->siguiente;
-    
-    if (cola->cabeza == NULL) {
+    if (cola->cabeza == NULL)
+    {
         cola->cola = NULL;
     }
-    
     cola->count--;
-    
     // Señalizar que hay espacio
     pthread_cond_signal(&cola->hay_espacio);
     pthread_mutex_unlock(&cola->mutex);
-    
     return tarea;
 }
-
 // Función del worker
-void* worker_thread(void* arg) {
-    cola_tareas_t* cola = (cola_tareas_t*)arg;
-    
-    while (1) {
-        tarea_t* tarea = cola_pop(cola);
-        
-        if (tarea == NULL) {
+void *worker_thread(void *arg)
+{
+    cola_tareas_t *cola = (cola_tareas_t *)arg;
+    while (1)
+    {
+        tarea_t *tarea = cola_pop(cola);
+        if (tarea == NULL)
+        {
             // Shutdown
             break;
         }
-        
         // Ejecutar tarea
         tarea->funcion(tarea->argumento);
         free(tarea);
     }
-    
     printf("Worker terminando\n");
     return NULL;
 }
-
 // Crear thread pool
-thread_pool_t* pool_create(void) {
-    thread_pool_t* pool = malloc(sizeof(thread_pool_t));
+thread_pool_t *pool_create(void)
+{
+    thread_pool_t *pool = malloc(sizeof(thread_pool_t));
     cola_init(&pool->cola);
-    
     // Crear workers
-    for (int i = 0; i < NUM_WORKERS; i++) {
+    for (int i = 0; i < NUM_WORKERS; i++)
+    {
         pthread_create(&pool->hilos[i], NULL, worker_thread, &pool->cola);
     }
-    
     return pool;
 }
-
 // Agregar trabajo al pool
-void pool_add_work(thread_pool_t* pool, tarea_func_t funcion, void* argumento) {
+void pool_add_work(thread_pool_t *pool, tarea_func_t funcion, void *argumento)
+{
     cola_push(&pool->cola, funcion, argumento);
 }
-
 // Destruir thread pool
-void pool_destroy(thread_pool_t* pool) {
+void pool_destroy(thread_pool_t *pool)
+{
     // Señalizar shutdown
     pthread_mutex_lock(&pool->cola.mutex);
     pool->cola.shutdown = true;
     pthread_cond_broadcast(&pool->cola.hay_trabajo);
     pthread_mutex_unlock(&pool->cola.mutex);
-    
     // Esperar a todos los workers
-    for (int i = 0; i < NUM_WORKERS; i++) {
+    for (int i = 0; i < NUM_WORKERS; i++)
+    {
         pthread_join(pool->hilos[i], NULL);
     }
-    
     // Limpiar
     pthread_mutex_destroy(&pool->cola.mutex);
     pthread_cond_destroy(&pool->cola.hay_trabajo);
     pthread_cond_destroy(&pool->cola.hay_espacio);
-    
     free(pool);
 }
-
 // Ejemplo de tarea
-void tarea_ejemplo(void* arg) {
-    int id = *(int*)arg;
+void tarea_ejemplo(void *arg)
+{
+    int id = *(int *)arg;
     printf("Ejecutando tarea %d en hilo %lu\n", id, pthread_self());
-    sleep(1);  // Simular trabajo
+    sleep(1); // Simular trabajo
     free(arg);
 }
-
-int main(void) {
-    thread_pool_t* pool = pool_create();
-    
+int main(void)
+{
+    thread_pool_t *pool = pool_create();
     // Agregar 20 tareas
-    for (int i = 0; i < 20; i++) {
-        int* id = malloc(sizeof(int));
+    for (int i = 0; i < 20; i++)
+    {
+        int *id = malloc(sizeof(int));
         *id = i;
         pool_add_work(pool, tarea_ejemplo, id);
     }
-    
     // Esperar un poco para que se procesen
     sleep(6);
-    
     // Destruir pool
     pool_destroy(pool);
     printf("Pool destruido, programa terminando\n");
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1483,7 +1408,6 @@ CPU-bound.
 
 ``` c
 #include <unistd.h>
-
 int num_nucleos = sysconf(_SC_NPROCESSORS_ONLN);
 ```
 <!-- c -->
@@ -1496,18 +1420,18 @@ Cuando múltiples hilos modifican datos en la **misma línea de caché**
 ```{code-block} c
 :linenos:
 // MAL: Contadores en la misma línea de caché
-struct {
+struct
+{
     int contador_hilo1;
     int contador_hilo2;
 } compartido;
-
 // MEJOR: Separar con padding
-struct {
+struct
+{
     int contador_hilo1;
     char padding[60];
     int contador_hilo2;
 } compartido;
-
 ```
 <!-- {code-block} c -->
 
@@ -1518,11 +1442,10 @@ lugar de mutexes:
 
 ``` c
 #include <stdatomic.h>
-
 atomic_int contador = ATOMIC_VAR_INIT(0);
-
-void incrementar(void) {
-    atomic_fetch_add(&contador, 1);  // Atómico, sin mutex
+void incrementar(void)
+{
+    atomic_fetch_add(&contador, 1); // Atómico, sin mutex
 }
 ```
 <!-- c -->
@@ -1543,42 +1466,40 @@ Dividir trabajo en subtareas paralelas y luego combinar resultados:
 
 ```{code-block} c
 :linenos:
-void* procesar_rango(void* arg) {
-    int* rango = (int*)arg;
+void *procesar_rango(void *arg)
+{
+    int *rango = (int *)arg;
     int inicio = rango[0];
     int fin = rango[1];
-    
     int suma_local = 0;
-    for (int i = inicio; i < fin; i++) {
+    for (int i = inicio; i < fin; i++)
+    {
         suma_local += array[i];
     }
-    
-    return (void*)(intptr_t)suma_local;
+    return (void *)(intptr_t)suma_local;
 }
-
-int suma_paralela(int* array, int n, int num_hilos) {
+int suma_paralela(int *array, int n, int num_hilos)
+{
     pthread_t hilos[num_hilos];
     int rangos[num_hilos][2];
     int rango_size = n / num_hilos;
-    
     // Fork: Crear hilos
-    for (int i = 0; i < num_hilos; i++) {
+    for (int i = 0; i < num_hilos; i++)
+    {
         rangos[i][0] = i * rango_size;
         rangos[i][1] = (i == num_hilos - 1) ? n : (i + 1) * rango_size;
         pthread_create(&hilos[i], NULL, procesar_rango, rangos[i]);
     }
-    
     // Join: Combinar resultados
     int suma_total = 0;
-    for (int i = 0; i < num_hilos; i++) {
-        void* resultado;
+    for (int i = 0; i < num_hilos; i++)
+    {
+        void *resultado;
         pthread_join(hilos[i], &resultado);
         suma_total += (int)(intptr_t)resultado;
     }
-    
     return suma_total;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1597,24 +1518,27 @@ Un hilo maestro distribuye trabajo a workers:
 ```{code-block} c
 :linenos:
 // Maestro
-void* maestro(void* arg) {
-    while (hay_trabajo()) {
+void *maestro(void *arg)
+{
+    while (hay_trabajo())
+    {
         tarea_t tarea = obtener_siguiente_tarea();
         agregar_a_cola(tarea);
     }
     return NULL;
 }
-
 // Worker
-void* worker(void* arg) {
-    while (1) {
+void *worker(void *arg)
+{
+    while (1)
+    {
         tarea_t tarea = extraer_de_cola();
-        if (tarea == NULL) break;
+        if (tarea == NULL)
+            break;
         procesar(tarea);
     }
     return NULL;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1626,13 +1550,11 @@ void* worker(void* arg) {
 :linenos:
 // MAL
 pthread_mutex_t mutex;
-pthread_mutex_lock(&mutex);  // ¡Comportamiento indefinido!
-
+pthread_mutex_lock(&mutex); // ¡Comportamiento indefinido!
 // BIEN
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 // o
 pthread_mutex_init(&mutex, NULL);
-
 ```
 <!-- {code-block} c -->
 
@@ -1641,7 +1563,7 @@ pthread_mutex_init(&mutex, NULL);
 ``` c
 pthread_mutex_lock(&mutex);
 // ...
-pthread_mutex_lock(&mutex);  // ¡DEADLOCK!
+pthread_mutex_lock(&mutex); // ¡DEADLOCK!
 ```
 <!-- c -->
 
@@ -1661,25 +1583,25 @@ pthread_mutex_init(&mutex, &attr);
 :linenos:
 // Compartido entre hilos
 int saldo = 1000;
-
 // MAL: Sin protección
-void retirar(int monto) {
-    if (saldo >= monto) {  // Condición de carrera
+void retirar(int monto)
+{
+    if (saldo >= monto)
+    { // Condición de carrera
         saldo -= monto;
     }
 }
-
 // BIEN: Con mutex
 pthread_mutex_t mutex_saldo = PTHREAD_MUTEX_INITIALIZER;
-
-void retirar(int monto) {
+void retirar(int monto)
+{
     pthread_mutex_lock(&mutex_saldo);
-    if (saldo >= monto) {
+    if (saldo >= monto)
+    {
         saldo -= monto;
     }
     pthread_mutex_unlock(&mutex_saldo);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1688,21 +1610,24 @@ void retirar(int monto) {
 ```{code-block} c
 :linenos:
 // MAL
-void crear_hilos(void) {
-    for (int i = 0; i < 10; i++) {
-        pthread_create(&hilos[i], NULL, trabajador, &i);  // ¡Todos ven la misma variable!
+void crear_hilos(void)
+{
+    for (int i = 0; i < 10; i++)
+    {
+        pthread_create(&hilos[i], NULL, trabajador,
+                       &i); // ¡Todos ven la misma variable!
     }
 }
-
 // BIEN
-void crear_hilos(void) {
-    int* ids = malloc(10 * sizeof(int));
-    for (int i = 0; i < 10; i++) {
+void crear_hilos(void)
+{
+    int *ids = malloc(10 * sizeof(int));
+    for (int i = 0; i < 10; i++)
+    {
         ids[i] = i;
         pthread_create(&hilos[i], NULL, trabajador, &ids[i]);
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1712,14 +1637,14 @@ void crear_hilos(void) {
 :linenos:
 // MAL
 pthread_create(&hilo, NULL, funcion, NULL);
-
-// BIEN (Las funciones de pthread no establecen errno, retornan el código de error directamente)
+// BIEN (Las funciones de pthread no establecen errno, retornan el código de
+// error directamente)
 int err = pthread_create(&hilo, NULL, funcion, NULL);
-if (err != 0) {
+if (err != 0)
+{
     fprintf(stderr, "Error creando hilo: %s\n", strerror(err));
     exit(EXIT_FAILURE);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1731,9 +1656,9 @@ Para paralelismo de datos simple, OpenMP es más sencillo:
 
 ``` c
 #include <omp.h>
-
 #pragma omp parallel for
-for (int i = 0; i < n; i++) {
+for (int i = 0; i < n; i++)
+{
     procesar(array[i]);
 }
 ```

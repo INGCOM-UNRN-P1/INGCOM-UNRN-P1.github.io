@@ -1,27 +1,32 @@
 // Enumeraciones para máquinas de estado
 
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 
-typedef enum {
+typedef enum
+{
     APAGADO,
     ENCENDIDO,
     PAUSADO,
     ERROR
 } EstadoDispositivo;
 
-typedef struct {
+typedef struct
+{
     EstadoDispositivo estado;
     int temperatura;
 } Dispositivo;
 
-void inicializar_dispositivo(Dispositivo *disp) {
+void inicializar_dispositivo(Dispositivo *disp)
+{
     disp->estado = APAGADO;
     disp->temperatura = 20;
 }
 
-bool encender(Dispositivo *disp) {
-    if (disp->estado == APAGADO) {
+bool encender(Dispositivo *disp)
+{
+    if (disp->estado == APAGADO)
+    {
         disp->estado = ENCENDIDO;
         printf("Dispositivo encendido\n");
         return true;
@@ -30,8 +35,10 @@ bool encender(Dispositivo *disp) {
     return false;
 }
 
-bool pausar(Dispositivo *disp) {
-    if (disp->estado == ENCENDIDO) {
+bool pausar(Dispositivo *disp)
+{
+    if (disp->estado == ENCENDIDO)
+    {
         disp->estado = PAUSADO;
         printf("Dispositivo pausado\n");
         return true;
@@ -40,8 +47,10 @@ bool pausar(Dispositivo *disp) {
     return false;
 }
 
-bool reanudar(Dispositivo *disp) {
-    if (disp->estado == PAUSADO) {
+bool reanudar(Dispositivo *disp)
+{
+    if (disp->estado == PAUSADO)
+    {
         disp->estado = ENCENDIDO;
         printf("Dispositivo reanudado\n");
         return true;
@@ -50,8 +59,10 @@ bool reanudar(Dispositivo *disp) {
     return false;
 }
 
-bool apagar(Dispositivo *disp) {
-    if (disp->estado != APAGADO) {
+bool apagar(Dispositivo *disp)
+{
+    if (disp->estado != APAGADO)
+    {
         disp->estado = APAGADO;
         printf("Dispositivo apagado\n");
         return true;
@@ -60,37 +71,45 @@ bool apagar(Dispositivo *disp) {
     return false;
 }
 
-const char *estado_a_cadena(EstadoDispositivo estado) {
-    switch (estado) {
-        case APAGADO:   return "APAGADO";
-        case ENCENDIDO: return "ENCENDIDO";
-        case PAUSADO:   return "PAUSADO";
-        case ERROR:     return "ERROR";
-        default:        return "DESCONOCIDO";
+const char *estado_a_cadena(EstadoDispositivo estado)
+{
+    switch (estado)
+    {
+    case APAGADO:
+        return "APAGADO";
+    case ENCENDIDO:
+        return "ENCENDIDO";
+    case PAUSADO:
+        return "PAUSADO";
+    case ERROR:
+        return "ERROR";
+    default:
+        return "DESCONOCIDO";
     }
 }
 
-int main(void) {
+int main(void)
+{
     Dispositivo dispositivo;
     inicializar_dispositivo(&dispositivo);
-    
+
     printf("Estado inicial: %s\n\n", estado_a_cadena(dispositivo.estado));
-    
+
     encender(&dispositivo);
     printf("Estado: %s\n\n", estado_a_cadena(dispositivo.estado));
-    
+
     pausar(&dispositivo);
     printf("Estado: %s\n\n", estado_a_cadena(dispositivo.estado));
-    
+
     // Intento inválido
     encender(&dispositivo);
     printf("\n");
-    
+
     reanudar(&dispositivo);
     printf("Estado: %s\n\n", estado_a_cadena(dispositivo.estado));
-    
+
     apagar(&dispositivo);
     printf("Estado: %s\n", estado_a_cadena(dispositivo.estado));
-    
+
     return 0;
 }

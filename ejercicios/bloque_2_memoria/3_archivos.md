@@ -847,35 +847,37 @@ Escribí y leé una estructura simple en formato JSON.
 ```{code-block} c
 :linenos:
 FILE *fp = fopen("archivo.txt", "r");
-if (fp == NULL) {
+if (fp == NULL)
+{
     perror("Error al abrir archivo");
     return EXIT_FAILURE;
 }
-
 // Usar archivo...
-
-if (fclose(fp) != 0) {
+if (fclose(fp) != 0)
+{
     perror("Error al cerrar archivo");
 }
-
 ```
 <!-- {code-block} c -->
 
 **Verificar operaciones:**
 ```{code-block} c
 :linenos:
-if (fprintf(fp, "texto") < 0) {
+if (fprintf(fp, "texto") < 0)
+{
     // Error al escribir
 }
-
-if (fread(buffer, size, count, fp) != count) {
-    if (feof(fp)) {
+if (fread(buffer, size, count, fp) != count)
+{
+    if (feof(fp))
+    {
         // Fin de archivo
-    } else {
+    }
+    else
+    {
         // Error de lectura
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -931,20 +933,20 @@ Agregar `b` para binario: `"rb"`, `"wb"`, `"ab"`, etc.
 1. **No verificar NULL:**
    ```c
    FILE *fp = fopen("archivo.txt", "r");
-   fprintf(fp, "texto");  // PELIGRO: si fopen falló
+   fprintf(fp, "texto"); // PELIGRO: si fopen falló
    ```
 
 2. **No cerrar archivos:**
    ```c
    // Memory leak y posible pérdida de datos
-   fopen(...);  // Sin fclose
+   fopen(...); // Sin fclose
    ```
 
 3. **Buffer overflow con fgets:**
    ```c
    char buffer[10];
-   fgets(buffer, 100, fp);  // MAL: tamaño > buffer
-   fgets(buffer, 10, fp);   // BIEN
+   fgets(buffer, 100, fp); // MAL: tamaño > buffer
+   fgets(buffer, 10, fp);  // BIEN
    ```
 
 4. **Modo binario vs texto:**
@@ -957,7 +959,7 @@ Agregar `b` para binario: `"rb"`, `"wb"`, `"ab"`, etc.
    ```c
    // En modo "r+", necesitas fflush o fseek entre read/write
    fread(...);
-   fflush(fp);  // O fseek(fp, 0, SEEK_CUR)
+   fflush(fp); // O fseek(fp, 0, SEEK_CUR)
    fwrite(...);
    ```
 
@@ -969,7 +971,8 @@ Agregar `b` para binario: `"rb"`, `"wb"`, `"ab"`, etc.
 **Leer línea por línea:**
 ``` c
 char linea[256];
-while (fgets(linea, sizeof(linea), fp) != NULL) {
+while (fgets(linea, sizeof(linea), fp) != NULL)
+{
     // Procesar linea
 }
 ```
@@ -978,7 +981,8 @@ while (fgets(linea, sizeof(linea), fp) != NULL) {
 **Leer hasta EOF:**
 ``` c
 int c;
-while ((c = fgetc(fp)) != EOF) {
+while ((c = fgetc(fp)) != EOF)
+{
     // Procesar carácter
 }
 ```
@@ -1001,7 +1005,6 @@ rewind(fp);
 char *contenido = malloc(tam + 1);
 fread(contenido, 1, tam, fp);
 contenido[tam] = '\0';
-
 ```
 <!-- {code-block} c -->
 

@@ -143,7 +143,7 @@ impriman cuando se compile en "modo debug".
     preprocesador:
     ```c
     #ifdef DEBUG
-        printf("[DEBUG] La función sumar fue llamada con a=%d, b=%d\n", a, b);
+    printf("[DEBUG] La función sumar fue llamada con a=%d, b=%d\n", a, b);
     #endif
     ```
 2.  **En el Makefile**: Modificá la regla de compilación para que se pueda pasar
@@ -242,9 +242,7 @@ Separáun programa en main.c y funciones.c.
 ``` c
 #ifndef FUNCIONES_H
 #define FUNCIONES_H
-
 int sumar(int a, int b);
-
 #endif
 ```
 <!-- c -->
@@ -252,8 +250,8 @@ int sumar(int a, int b);
 **funciones.c:**
 ``` c
 #include "funciones.h"
-
-int sumar(int a, int b) {
+int sumar(int a, int b)
+{
     return a + b;
 }
 ```
@@ -261,10 +259,10 @@ int sumar(int a, int b) {
 
 **main.c:**
 ``` c
-#include <stdio.h>
 #include "funciones.h"
-
-int main() {
+#include <stdio.h>
+int main()
+{
     printf("%d\n", sumar(3, 4));
 }
 ```
@@ -299,10 +297,8 @@ Explicá por qué se necesitan include guards y implementalos.
 ``` c
 #ifndef MI_HEADER_H
 #define MI_HEADER_H
-
 // Contenido del header
-
-#endif  // MI_HEADER_H
+#endif // MI_HEADER_H
 ```
 <!-- c -->
 - Previene inclusión múltiple
@@ -434,7 +430,7 @@ Usá directivas de preprocesador para debug opcional.
 
 ``` c
 #ifdef DEBUG
-    printf("Debug: valor = %d\n", valor);
+printf("Debug: valor = %d\n", valor);
 #endif
 ```
 <!-- c -->
@@ -469,21 +465,16 @@ Creá módulo `utils` con funciones de uso general: intercambio, mínimo, máxim
 // utils.h
 #ifndef UTILS_H
 #define UTILS_H
-
 void intercambiar(int *a, int *b);
 int minimo(int a, int b);
 int maximo(int a, int b);
-
 #endif
-
 // utils.c
 #include "utils.h"
 // Implementaciones...
-
 // main.c
 #include "utils.h"
 // Uso...
-
 ```
 <!-- {code-block} c -->
 
@@ -1024,8 +1015,8 @@ $(CC) $(CFLAGS) programa.c
 
 4. **Incluir .c en vez de .h:**
    ```c
-   #include "modulo.c"  // MAL
-   #include "modulo.h"  // BIEN
+   #include "modulo.c" // MAL
+   #include "modulo.h" // BIEN
    ```
 
 :::

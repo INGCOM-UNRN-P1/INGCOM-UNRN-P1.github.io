@@ -102,7 +102,6 @@ destino.
 
 ``` c
 size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
-
 size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream);
 ```
 <!-- c -->
@@ -178,60 +177,59 @@ Para subsanar esto, es mandatorio **serializar explícitamente campo a campo**.
 :linenos:
 :caption: Serialización explícita de registros campo por campo
 :label: fwrite-example
-
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-
-typedef struct {
+typedef struct
+{
     char sku[20];
     char nombre[50];
     int cantidad;
     float precio;
 } Producto;
-
 // Función de serialización dedicada
-bool producto_serializar(FILE *fp, const Producto *p) {
-    if (fp == NULL || p == NULL) return false;
-    
+bool producto_serializar(FILE *fp, const Producto *p)
+{
+    if (fp == NULL || p == NULL)
+        return false;
     // Escribimos cada campo de forma independiente y explícita
-    if (fwrite(p->sku, sizeof(char), 20, fp) != 20) return false;
-    if (fwrite(p->nombre, sizeof(char), 50, fp) != 50) return false;
-    if (fwrite(&p->cantidad, sizeof(p->cantidad), 1, fp) != 1) return false;
-    if (fwrite(&p->precio, sizeof(p->precio), 1, fp) != 1) return false;
-    
+    if (fwrite(p->sku, sizeof(char), 20, fp) != 20)
+        return false;
+    if (fwrite(p->nombre, sizeof(char), 50, fp) != 50)
+        return false;
+    if (fwrite(&p->cantidad, sizeof(p->cantidad), 1, fp) != 1)
+        return false;
+    if (fwrite(&p->precio, sizeof(p->precio), 1, fp) != 1)
+        return false;
     return true;
 }
-
-int main(void) {
+int main(void)
+{
     FILE *archivo_salida = fopen("inventario.dat", "wb");
-    if (!archivo_salida) {
+    if (!archivo_salida)
+    {
         perror("No se pudo crear inventario.dat");
         return EXIT_FAILURE;
     }
-
-    Producto productos[3] = {
-        {"SKU001", "Teclado Mecanico", 50, 15000.50f},
-        {"SKU002", "Mouse Gamer", 120, 8500.75f},
-        {"SKU003", "Monitor 24 pulgadas", 30, 89999.00f}
-    };
-
+    Producto productos[3] = {{"SKU001", "Teclado Mecanico", 50, 15000.50f},
+                             {"SKU002", "Mouse Gamer", 120, 8500.75f},
+                             {"SKU003", "Monitor 24 pulgadas", 30, 89999.00f}};
     size_t num_productos = sizeof(productos) / sizeof(Producto);
-
-    for (size_t i = 0; i < num_productos; i++) {
-        if (!producto_serializar(archivo_salida, &productos[i])) {
-            fprintf(stderr, "Error de escritura al serializar el producto %zu\n", i);
+    for (size_t i = 0; i < num_productos; i++)
+    {
+        if (!producto_serializar(archivo_salida, &productos[i]))
+        {
+            fprintf(stderr,
+                    "Error de escritura al serializar el producto %zu\n", i);
             fclose(archivo_salida);
             return EXIT_FAILURE;
         }
     }
-
-    printf("Se serializaron y guardaron %zu productos con éxito.\n", num_productos);
-
+    printf("Se serializaron y guardaron %zu productos con éxito.\n",
+           num_productos);
     fclose(archivo_salida);
     return EXIT_SUCCESS;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -244,63 +242,64 @@ mismo orden y con los mismos tamaños en que fueron escritos.
 :linenos:
 :caption: Lectura secuencial y deserialización robusta
 :label: fread-example
-
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-
-typedef struct {
+typedef struct
+{
     char sku[20];
     char nombre[50];
     int cantidad;
     float precio;
 } Producto;
-
 // Función de deserialización dedicada
-bool producto_deserializar(FILE *fp, Producto *p) {
-    if (fp == NULL || p == NULL) return false;
-    
+bool producto_deserializar(FILE *fp, Producto *p)
+{
+    if (fp == NULL || p == NULL)
+        return false;
     // Leemos cada campo de forma independiente y en orden exacto
-    if (fread(p->sku, sizeof(char), 20, fp) != 20) return false;
-    if (fread(p->nombre, sizeof(char), 50, fp) != 50) return false;
-    if (fread(&p->cantidad, sizeof(p->cantidad), 1, fp) != 1) return false;
-    if (fread(&p->precio, sizeof(p->precio), 1, fp) != 1) return false;
-    
+    if (fread(p->sku, sizeof(char), 20, fp) != 20)
+        return false;
+    if (fread(p->nombre, sizeof(char), 50, fp) != 50)
+        return false;
+    if (fread(&p->cantidad, sizeof(p->cantidad), 1, fp) != 1)
+        return false;
+    if (fread(&p->precio, sizeof(p->precio), 1, fp) != 1)
+        return false;
     return true;
 }
-
-void imprimir_producto(const Producto *p) {
-    printf("SKU: %s\nNombre: %s\nCantidad: %d\nPrecio: %.2f\n\n",
-           p->sku, p->nombre, p->cantidad, p->precio);
+void imprimir_producto(const Producto *p)
+{
+    printf("SKU: %s\nNombre: %s\nCantidad: %d\nPrecio: %.2f\n\n", p->sku,
+           p->nombre, p->cantidad, p->precio);
 }
-
-int main(void) {
+int main(void)
+{
     FILE *archivo_entrada = fopen("inventario.dat", "rb");
-    if (!archivo_entrada) {
+    if (!archivo_entrada)
+    {
         perror("No se pudo abrir inventario.dat");
         return EXIT_FAILURE;
     }
-
     Producto un_producto;
-
     printf("--- Contenido del Inventario (Deserializado) ---\n");
-    
     // El lazo continúa mientras la deserialización sea exitosa
-    while (producto_deserializar(archivo_entrada, &un_producto)) {
+    while (producto_deserializar(archivo_entrada, &un_producto))
+    {
         imprimir_producto(&un_producto);
     }
-
     // Verificación de fin de archivo o error
-    if (ferror(archivo_entrada)) {
+    if (ferror(archivo_entrada))
+    {
         perror("Ocurrió un error de E/S durante la lectura");
-    } else if (feof(archivo_entrada)) {
+    }
+    else if (feof(archivo_entrada))
+    {
         printf("--- Fin del archivo alcanzado con éxito ---\n");
     }
-
     fclose(archivo_entrada);
     return EXIT_SUCCESS;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -321,76 +320,74 @@ registro en disco sin necesidad de recorrer secuencialmente los anteriores.
 :linenos:
 :caption: Acceso aleatorio con serialización estricta
 :label: fseek-binary-update
-
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-
-typedef struct {
+typedef struct
+{
     char sku[20];
     char nombre[50];
     int cantidad;
     float precio;
 } Producto;
-
 // Asumimos las firmas de:
 bool producto_deserializar(FILE *fp, Producto *p);
 bool producto_serializar(FILE *fp, const Producto *p);
 void imprimir_producto(const Producto *p);
-
 // Definimos el tamaño exacto en bytes de la estructura guardada
-#define TAM_REGISTRO_DISCO (20 * sizeof(char) + 50 * sizeof(char) + sizeof(int) + sizeof(float))
-
-int main(void) {
+#define TAM_REGISTRO_DISCO                                                    \
+    (20 * sizeof(char) + 50 * sizeof(char) + sizeof(int) + sizeof(float))
+int main(void)
+{
     FILE *archivo = fopen("inventario.dat", "rb+");
-    if (!archivo) {
+    if (!archivo)
+    {
         perror("No se pudo abrir inventario.dat en modo actualización");
         return EXIT_FAILURE;
     }
-
-    int n_registro_a_modificar = 1; // Segundo producto en el archivo (índice 1)
-
+    int n_registro_a_modificar =
+        1; // Segundo producto en el archivo (índice 1)
     // 1. Nos posicionamos al inicio del registro de interés
     long offset = n_registro_a_modificar * TAM_REGISTRO_DISCO;
-    if (fseek(archivo, offset, SEEK_SET) != 0) {
+    if (fseek(archivo, offset, SEEK_SET) != 0)
+    {
         perror("Error al posicionar el puntero con fseek");
         fclose(archivo);
         return EXIT_FAILURE;
     }
-
     // 2. Deserializamos el registro
     Producto producto_a_modificar;
-    if (!producto_deserializar(archivo, &producto_a_modificar)) {
+    if (!producto_deserializar(archivo, &producto_a_modificar))
+    {
         fprintf(stderr, "No se pudo leer el registro a modificar.\n");
         fclose(archivo);
         return EXIT_FAILURE;
     }
-
     printf("Producto a modificar:\n");
     imprimir_producto(&producto_a_modificar);
-
     // 3. Modificamos los campos locales
     producto_a_modificar.cantidad = 95;
     producto_a_modificar.precio = 9100.00f;
-
-    // 4. Volvemos a posicionar el puntero (la deserialización avanzó el puntero de archivo)
-    if (fseek(archivo, offset, SEEK_SET) != 0) {
+    // 4. Volvemos a posicionar el puntero (la deserialización avanzó el
+    // puntero de archivo)
+    if (fseek(archivo, offset, SEEK_SET) != 0)
+    {
         perror("Error al reposicionar el puntero para escribir");
         fclose(archivo);
         return EXIT_FAILURE;
     }
-
     // 5. Escribimos serializado de forma explícita
-    if (!producto_serializar(archivo, &producto_a_modificar)) {
+    if (!producto_serializar(archivo, &producto_a_modificar))
+    {
         fprintf(stderr, "Error al sobrescribir el registro modificado.\n");
-    } else {
+    }
+    else
+    {
         printf("\nRegistro actualizado con éxito en disco.\n");
     }
-
     fclose(archivo);
     return EXIT_SUCCESS;
 }
-
 ```
 <!-- {code-block} c -->
 

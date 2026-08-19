@@ -64,9 +64,7 @@ de filas y columnas.
 Sintaxis
 
 :::{code-block}c
-
 tipo_dato nombre_matriz[CANTIDAD_FILAS][CANTIDAD_COLUMNAS];
-
 :::
 <!-- {code-block}c -->
 
@@ -89,9 +87,7 @@ genérica y segura.
 Ejemplo
 
 :::{code-block}c
-
 int miMatriz[3][4]; // Matriz de 3 filas y 4 columnas
-
 :::
 <!-- {code-block}c -->
 
@@ -153,10 +149,9 @@ de llaves interno corresponde a una fila de la matriz.
 :::{code-block}c
 :linenos:
 int matriz[2][3] = {
-    {1, 2, 3},  // Fila 0
-    {4, 5, 6}   // Fila 1
+    {1, 2, 3}, // Fila 0
+    {4, 5, 6}  // Fila 1
 };
-
 :::
 <!-- {code-block}c -->
 
@@ -172,10 +167,9 @@ cada "sub-arreglo" para calcular las posiciones de memoria.
 :linenos:
 // Válido: el compilador infiere 2 filas basándose en el inicializador.
 int matriz[][3] = {
-    {1, 2, 3},  // Fila 0
-    {4, 5, 6}   // Fila 1
+    {1, 2, 3}, // Fila 0
+    {4, 5, 6}  // Fila 1
 };
-
 :::
 <!-- {code-block}c -->
 
@@ -191,17 +185,16 @@ para las dimensiones ({ref}`0x3011h`) y de `size_t` para los índices
 
 :::{code-block}c
 :caption: Asignación de valores mediante lazo anidados
-
 #define FILAS 3
 #define COLUMNAS 4
-
 int matriz[FILAS][COLUMNAS];
-for (size_t i = 0; i < FILAS; i++) {
-    for (size_t j = 0; j < COLUMNAS; j++) {
+for (size_t i = 0; i < FILAS; i++)
+{
+    for (size_t j = 0; j < COLUMNAS; j++)
+    {
         matriz[i][j] = i * 10 + j;
     }
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -215,19 +208,16 @@ cero**.
 Sintaxis
 
 :::{code-block}c
-
 nombre_matriz[indice_fila][indice_columna];
-
 :::
 <!-- {code-block}c -->
 
 Ejemplo de L-Value y R-Value
 
 :::{code-block}c
-
 matriz[0][1] = 100; // Asigna 100 al elemento en la fila 0, columna 1.
-int valor = matriz[2][3]; // Toma el valor del elemento en la fila 2, columna 3.
-
+int valor =
+    matriz[2][3]; // Toma el valor del elemento en la fila 2, columna 3.
 :::
 <!-- {code-block}c -->
 
@@ -286,16 +276,16 @@ agilizando notablemente el procesamiento, respetando la regla de estilo
 :::{code-block}c
 :caption: Recorrido fila por fila (Cache-Friendly) - patrón recomendado
 :linenos:
-
 // Lazo externo: filas (i)
-for (size_t i = 0; i < FILAS; i++) {
+for (size_t i = 0; i < FILAS; i++)
+{
     // Lazo interno: columnas (j)
-    for (size_t j = 0; j < COLUMNAS; j++) {
+    for (size_t j = 0; j < COLUMNAS; j++)
+    {
         printf("%d ", matriz[i][j]); // Acceso lineal contiguo
     }
     printf("\n"); // Salto de línea al final de cada fila
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -313,16 +303,16 @@ ejecución para esperar lecturas de la lenta memoria principal (RAM).
 
 :::{code-block}c
 :caption: Recorrido columna por columna (Cache-Unfriendly)
-
 // Lazo externo: columnas (j)
-for (size_t j = 0; j < COLUMNAS; j++) {
+for (size_t j = 0; j < COLUMNAS; j++)
+{
     // Lazo interno: filas (i)
-    for (size_t i = 0; i < FILAS; i++) {
+    for (size_t i = 0; i < FILAS; i++)
+    {
         printf("%d ", matriz[i][j]); // Salto de fila en cada paso
     }
     printf("\n"); // Nueva línea al final de cada columna
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -364,24 +354,22 @@ Para matrices cuadradas, es común necesitar acceder a las diagonales.
 
 :::{code-block}c
 :caption: Acceso a diagonal principal y secundaria
-
 #define DIM 4
 int matriz_cuadrada[DIM][DIM];
-
 // Diagonal principal (i == j)
 printf("Diagonal principal: ");
-for (size_t i = 0; i < DIM; i++) {
+for (size_t i = 0; i < DIM; i++)
+{
     printf("%d ", matriz_cuadrada[i][i]);
 }
 printf("\n");
-
 // Diagonal secundaria (i + j == DIM - 1)
 printf("Diagonal secundaria: ");
-for (size_t i = 0; i < DIM; i++) {
+for (size_t i = 0; i < DIM; i++)
+{
     printf("%d ", matriz_cuadrada[i][DIM - 1 - i]);
 }
 printf("\n");
-
 :::
 <!-- {code-block}c -->
 
@@ -415,17 +403,18 @@ desplazamiento en memoria de cada elemento.
 :::{code-block}c
 :linenos:
 #define COLUMNAS 4
-
 // Es crucial pasar las dimensiones para cumplir con la regla {ref}`0x300Ch`.
-void imprimir_matriz(int mat[][COLUMNAS], size_t filas, size_t columnas) {
-    for (size_t i = 0; i < filas; i++) {
-        for (size_t j = 0; j < columnas; j++) {
-           printf("%d\t", mat[i][j]);
+void imprimir_matriz(int mat[][COLUMNAS], size_t filas, size_t columnas)
+{
+    for (size_t i = 0; i < filas; i++)
+    {
+        for (size_t j = 0; j < columnas; j++)
+        {
+            printf("%d\t", mat[i][j]);
         }
         printf("\n");
     }
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -489,18 +478,19 @@ y `cols` antes de interpretar la declaración de `matriz[filas][cols]`.
 <!-- {important} Orden de los Parámetros -->
 
 :::{code-block}c
-
 // Correcto: filas y cols se conocen antes de que el compilador procese
-matriz[filas][cols]
-void procesar_matriz(size_t filas, size_t cols, int matriz[filas][cols]) {
+matriz[filas][cols] void procesar_matriz(size_t filas, size_t cols,
+                                         int matriz[filas][cols])
+{
     printf("\nProcesando matriz de %zu x %zu\n", filas, cols);
-    for (size_t i = 0; i < filas; i++) {
-        for (size_t j = 0; j < cols; j++) {
+    for (size_t i = 0; i < filas; i++)
+    {
+        for (size_t j = 0; j < cols; j++)
+        {
             matriz[i][j] *= 2; // Ejemplo: duplicar cada valor
         }
     }
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -525,19 +515,19 @@ Representación lógica y orden de almacenamiento de una matriz tridimensional.
 :caption: Declaración y recorrido de un arreglo 3D
 // Arreglo tridimensional: 2 capas, 3 filas, y 4 columnas.
 int cubo[2][3][4];
-
 // Acceso a un elemento
 cubo[1][0][2] = 99;
-
 // Recorrido con tres lazos anidados
-for (size_t i = 0; i < 2; i++) {       // Capas
-    for (size_t j = 0; j < 3; j++) {   // Filas
-        for (size_t k = 0; k < 4; k++) { // Columnas
+for (size_t i = 0; i < 2; i++)
+{ // Capas
+    for (size_t j = 0; j < 3; j++)
+    { // Filas
+        for (size_t k = 0; k < 4; k++)
+        { // Columnas
             cubo[i][j][k] = i + j + k;
         }
     }
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -827,29 +817,26 @@ Validación de dimensiones y coherencia en operaciones con matrices.
 :::{code-block}c
 :caption: Función para validar acceso seguro a matriz
 :linenos:
-
 #include <stdbool.h>
 #include <stdio.h>
-
 #define MAX_COLUMNAS 100
-
 bool indice_valido(size_t fila, size_t columna,
-                   size_t max_filas, size_t max_columnas) {
+                   size_t max_filas, size_t max_columnas)
+{
     return (fila < max_filas && columna < max_columnas);
 }
-
-int acceso_seguro_matriz(size_t filas, size_t columnas, int
-matriz[filas][columnas],
-                        size_t fila, size_t columna) {
-    if (!indice_valido(fila, columna, filas, columnas)) {
-        fprintf(stderr, "Error: Índices fuera de límites (%zu, %zu)\n",
-                fila, columna);
+int acceso_seguro_matriz(size_t filas, size_t columnas,
+                         int matriz[filas][columnas], size_t fila,
+                         size_t columna)
+{
+    if (!indice_valido(fila, columna, filas, columnas))
+    {
+        fprintf(stderr, "Error: Índices fuera de límites (%zu, %zu)\n", fila,
+                columna);
         return -1; // Valor de error
     }
-
     return matriz[fila][columna];
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -862,30 +849,30 @@ de dimensiones antes de proceder.
 :::{code-block}c
 :caption: Validación para operaciones con matrices
 :linenos:
-
 typedef enum {
     MATRIZ_OK,
     MATRIZ_ERROR_DIMENSIONES,
     MATRIZ_ERROR_MEMORIA,
     MATRIZ_ERROR_SINGULAR
 } resultado_matriz_t;
-
 resultado_matriz_t validar_suma(size_t filas_a, size_t columnas_a,
-                               size_t filas_b, size_t columnas_b) {
-    if (filas_a != filas_b || columnas_a != columnas_b) {
+                                size_t filas_b, size_t columnas_b)
+{
+    if (filas_a != filas_b || columnas_a != columnas_b)
+    {
         return MATRIZ_ERROR_DIMENSIONES;
     }
     return MATRIZ_OK;
 }
-
 resultado_matriz_t validar_multiplicacion(size_t filas_a, size_t columnas_a,
-                                        size_t filas_b, size_t columnas_b) {
-    if (columnas_a != filas_b) {
+                                          size_t filas_b, size_t columnas_b)
+{
+    if (columnas_a != filas_b)
+    {
         return MATRIZ_ERROR_DIMENSIONES;
     }
     return MATRIZ_OK;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -913,12 +900,9 @@ modificación del código.
 
 :::{code-block}c
 :caption: Definición de dimensiones con macros
-
 #define MAX_FILAS 100
 #define MAX_COLUMNAS 100
-
 int matriz[MAX_FILAS][MAX_COLUMNAS];
-
 :::
 <!-- {code-block}c -->
 
@@ -931,38 +915,43 @@ claridad {ref}`0x0000h`:
 :::{code-block}c
 :caption: Funciones auxiliares para matrices
 :linenos:
-
 void imprimir_matriz(int matriz[][MAX_COLUMNAS], size_t filas, size_t columnas)
 {
-    for (size_t i = 0; i < filas; i++) {
-        for (size_t j = 0; j < columnas; j++) {
+    for (size_t i = 0; i < filas; i++)
+    {
+        for (size_t j = 0; j < columnas; j++)
+        {
             printf("%4d ", matriz[i][j]);
         }
         printf("\n");
     }
 }
-
-void inicializar_con_ceros(int matriz[][MAX_COLUMNAS], size_t filas, size_t
-columnas) {
-    for (size_t i = 0; i < filas; i++) {
-        for (size_t j = 0; j < columnas; j++) {
+void inicializar_con_ceros(int matriz[][MAX_COLUMNAS], size_t filas,
+                           size_t columnas)
+{
+    for (size_t i = 0; i < filas; i++)
+    {
+        for (size_t j = 0; j < columnas; j++)
+        {
             matriz[i][j] = 0;
         }
     }
 }
-
 bool son_matrices_iguales(int a[][MAX_COLUMNAS], int b[][MAX_COLUMNAS],
-                         size_t filas, size_t columnas) {
-    for (size_t i = 0; i < filas; i++) {
-        for (size_t j = 0; j < columnas; j++) {
-            if (a[i][j] != b[i][j]) {
+                          size_t filas, size_t columnas)
+{
+    for (size_t i = 0; i < filas; i++)
+    {
+        for (size_t j = 0; j < columnas; j++)
+        {
+            if (a[i][j] != b[i][j])
+            {
                 return false;
             }
         }
     }
     return true;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1190,35 +1179,35 @@ Ejemplo de implementación:
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-int *crear_matriz_contigua(size_t filas, size_t columnas) {
-    if (filas == 0 || columnas == 0) {
+int *crear_matriz_contigua(size_t filas, size_t columnas)
+{
+    if (filas == 0 || columnas == 0)
+    {
         return NULL;
     }
-
     // Alocación de un único bloque físico contiguo
     int *matriz = malloc(filas * columnas * sizeof(*matriz));
-    if (matriz == NULL) {
+    if (matriz == NULL)
+    {
         perror("Error al asignar memoria para la matriz contigua");
         return NULL;
     }
-
     // Inicialización a cero
-    for (size_t i = 0; i < filas * columnas; i++) {
+    for (size_t i = 0; i < filas * columnas; i++)
+    {
         matriz[i] = 0;
     }
-
     return matriz;
 }
-
-void destruir_matriz_contigua(int **matriz) {
-    if (matriz == NULL || *matriz == NULL) {
+void destruir_matriz_contigua(int **matriz)
+{
+    if (matriz == NULL || *matriz == NULL)
+    {
         return;
     }
     free(*matriz);
     *matriz = NULL; // Aniquilación del puntero post-free
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1246,25 +1235,28 @@ Ejemplo de implementación:
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-int **crear_matriz_punteros(size_t filas, size_t columnas) {
-    if (filas == 0 || columnas == 0) {
+int **crear_matriz_punteros(size_t filas, size_t columnas)
+{
+    if (filas == 0 || columnas == 0)
+    {
         return NULL;
     }
-
     // Asignación del arreglo de punteros a filas
     int **matriz = malloc(filas * sizeof(*matriz));
-    if (matriz == NULL) {
+    if (matriz == NULL)
+    {
         perror("Error al asignar el arreglo de filas");
         return NULL;
     }
-
     // Asignación individual de cada fila
-    for (size_t i = 0; i < filas; i++) {
+    for (size_t i = 0; i < filas; i++)
+    {
         matriz[i] = calloc(columnas, sizeof(*(matriz[i])));
-        if (matriz[i] == NULL) {
+        if (matriz[i] == NULL)
+        {
             // Lazo de liberación en caso de fallo intermedio
-            for (size_t j = 0; j < i; j++) {
+            for (size_t j = 0; j < i; j++)
+            {
                 free(matriz[j]);
                 matriz[j] = NULL;
             }
@@ -1273,18 +1265,19 @@ int **crear_matriz_punteros(size_t filas, size_t columnas) {
             return NULL;
         }
     }
-
     return matriz;
 }
-
-void destruir_matriz_punteros(int ***matriz, size_t filas) {
-    if (matriz == NULL || *matriz == NULL) {
+void destruir_matriz_punteros(int ***matriz, size_t filas)
+{
+    if (matriz == NULL || *matriz == NULL)
+    {
         return;
     }
-    
     int **m = *matriz;
-    for (size_t i = 0; i < filas; i++) {
-        if (m[i] != NULL) {
+    for (size_t i = 0; i < filas; i++)
+    {
+        if (m[i] != NULL)
+        {
             free(m[i]);
             m[i] = NULL;
         }
@@ -1292,7 +1285,6 @@ void destruir_matriz_punteros(int ***matriz, size_t filas) {
     free(m);
     *matriz = NULL; // Aniquilación del puntero a nivel de cliente
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1409,22 +1401,25 @@ principal tengan el valor `1` y el resto de los elementos tengan el valor `0`
 :linenos:
 #include <stdio.h>
 #define N 4
-
-int main() {
+int main()
+{
     int identidad[N][N];
-
-    for (size_t i = 0; i < N; i++) {
-        for (size_t j = 0; j < N; j++) {
-            if (i == j) {
+    for (size_t i = 0; i < N; i++)
+    {
+        for (size_t j = 0; j < N; j++)
+        {
+            if (i == j)
+            {
                 identidad[i][j] = 1;
-            } else {
+            }
+            else
+            {
                 identidad[i][j] = 0;
             }
         }
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1476,16 +1471,16 @@ sus índices de fila $i$ y columna $j$ es igual a $N - 1$. Por lo tanto, $j = N 
 :linenos:
 #include <stddef.h>
 #define N 4
-
-int sumar_diagonal_secundaria(const int matriz[N][N]) {
+int sumar_diagonal_secundaria(const int matriz[N][N])
+{
     int suma = 0;
-    for (size_t i = 0; i < N; i++) {
+    for (size_t i = 0; i < N; i++)
+    {
         // Acceso directo a la diagonal secundaria
         suma += matriz[i][N - 1 - i];
     }
     return suma;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1534,20 +1529,24 @@ inferior y columna izquierda).
 #define FILAS 4
 #define COLUMNAS 5
 int M[FILAS][COLUMNAS];
-
 // Recorrido de los bordes periféricos
-for (size_t i = 0; i < FILAS; i++) {
-    for (size_t j = 0; j < COLUMNAS; j++) {
-        // Si pertenece a la primera o última fila, o a la primera o última columna
-        if (i == 0 || i == FILAS - 1 || j == 0 || j == COLUMNAS - 1) {
+for (size_t i = 0; i < FILAS; i++)
+{
+    for (size_t j = 0; j < COLUMNAS; j++)
+    {
+        // Si pertenece a la primera o última fila, o a la primera o última
+        // columna
+        if (i == 0 || i == FILAS - 1 || j == 0 || j == COLUMNAS - 1)
+        {
             printf("%d\t", M[i][j]);
-        } else {
+        }
+        else
+        {
             printf("\t"); // Espacio para el interior vacío
         }
     }
     printf("\n");
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1575,19 +1574,21 @@ columnas).
 :linenos:
 #include <stdbool.h>
 #include <stddef.h>
-
-bool es_matriz_simetrica(size_t n, const int matriz[n][n]) {
-    for (size_t i = 0; i < n; i++) {
-        for (size_t j = i + 1; j < n; j++) {
+bool es_matriz_simetrica(size_t n, const int matriz[n][n])
+{
+    for (size_t i = 0; i < n; i++)
+    {
+        for (size_t j = i + 1; j < n; j++)
+        {
             // Solo verificamos el triángulo superior con el inferior
-            if (matriz[i][j] != matriz[j][i]) {
+            if (matriz[i][j] != matriz[j][i])
+            {
                 return false;
             }
         }
     }
     return true;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1637,18 +1638,18 @@ matriz `B` de dimensiones $N \times M$.
 ```{code-block} c
 :linenos:
 #include <stddef.h>
-
-void transponer_matriz(size_t filas_a, size_t cols_a, 
-                       const int A[filas_a][cols_a], 
-                       int B[cols_a][filas_a]) {
-    for (size_t i = 0; i < filas_a; i++) {
-        for (size_t j = 0; j < cols_a; j++) {
+void transponer_matriz(size_t filas_a, size_t cols_a,
+                       const int A[filas_a][cols_a], int B[cols_a][filas_a])
+{
+    for (size_t i = 0; i < filas_a; i++)
+    {
+        for (size_t j = 0; j < cols_a; j++)
+        {
             // El elemento A[i][j] se copia en B[j][i]
             B[j][i] = A[i][j];
         }
     }
 }
-
 ```
 <!-- {code-block} c -->
 

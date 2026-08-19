@@ -1,16 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h> // Necesario para 'free'
 
-int main() {
+int main()
+{
     // 1. Declaramos una variable automática (en el stack).
     // Su memoria es gestionada por el compilador. Se crea al entrar
     // a la función 'main' y se destruye automáticamente al salir.
     int numero_en_stack = 42;
 
     // 2. Creamos un puntero que apunta a la dirección de esa variable.
-    int* puntero_a_stack = &numero_en_stack;
+    int *puntero_a_stack = &numero_en_stack;
 
-    printf("El puntero apunta a la dirección: %p\n", (void*)puntero_a_stack);
+    printf("El puntero apunta a la dirección: %p\n", (void *)puntero_a_stack);
     printf("El valor al que apunta es: %d\n", *puntero_a_stack);
     printf("---\n");
     printf(" Intentando liberar memoria del stack con 'free()...'\n");

@@ -75,23 +75,19 @@ Una prueba unitaria robusta se estructura sistemáticamente siguiendo el patrón
 :::{code-block}c
 :linenos:
 #include <assert.h>
-
 // Declaración de la función a probar
 int calcular_suma(int a, int b);
-
-void test_suma_valores_positivos(void) {
+void test_suma_valores_positivos(void)
+{
     // 1. Arrange: Preparar datos
     int a = 5;
     int b = 3;
     int esperado = 8;
-    
     // 2. Act: Invocar la función
     int resultado = calcular_suma(a, b);
-    
     // 3. Assert: Verificar
     assert(resultado == esperado);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -127,13 +123,12 @@ lógica fallida, el nombre del archivo fuente y la línea física del código.
 :::{code-block}c
 :linenos:
 #include <assert.h>
-
-void procesar_indice(int *arreglo, int idx) {
+void procesar_indice(int *arreglo, int idx)
+{
     // Aserción de desarrollo para verificar precondiciones físicas
     assert(arreglo != NULL);
     assert(idx >= 0);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -153,14 +148,13 @@ void procesar_indice(int *arreglo, int idx) {
 :::{code-block}c
 :linenos:
 // ✗ ANTIPATRÓN: Si NDEBUG está activo, la validación se descarta y el programa
-fallará catastróficamente.
-assert(edad >= 0 && edad <= 150);
-
-// ✓ DISEÑO CORRECTO: Validación persistente que siempre se evalúa en ejecución.
-if (edad < 0 || edad > 150) {
+fallará catastróficamente.assert(edad >= 0 && edad <= 150);
+// ✓ DISEÑO CORRECTO: Validación persistente que siempre se evalúa en
+// ejecución.
+if (edad < 0 || edad > 150)
+{
     return ERROR_EDAD_INVALIDA;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -177,17 +171,17 @@ cada bifurcación del flujo de control.
 
 :::{code-block}c
 :linenos:
-int valor_absoluto(int x) {
-    if (x < 0) { // Bifurcación en rama 1 y rama 2
+int valor_absoluto(int x)
+{
+    if (x < 0)
+    { // Bifurcación en rama 1 y rama 2
         return -x;
     }
     return x;
 }
-
 // Para lograr 100% de cobertura de ramas debemos invocar:
 assert(valor_absoluto(-5) == 5); // Cubre la rama verdadera (x < 0)
 assert(valor_absoluto(5) == 5);  // Cubre la rama falsa (x >= 0)
-
 :::
 <!-- {code-block}c -->
 
@@ -211,19 +205,16 @@ Escribí una prueba unitaria para una función llamada `invertir_cadena(char
 :linenos:
 #include <assert.h>
 #include <string.h>
-
-void test_invertir_cadena_palabra_simple(void) {
+void test_invertir_cadena_palabra_simple(void)
+{
     // 1. Arrange: Preparar el estado y datos de entrada
     char entrada[] = "hola";
     const char *esperado = "aloh";
-
     // 2. Act: Ejecutar la función bajo prueba
     invertir_cadena(entrada);
-
     // 3. Assert: Verificar el resultado
     assert(strcmp(entrada, esperado) == 0);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -288,13 +279,16 @@ deben validarse con condicionales `if` tradicionales.
 Dada la función:
 :::{code-block}c
 :linenos:
-bool es_bisiesto(int anio) {
-    if (anio % 400 == 0) return true;
-    if (anio % 100 == 0) return false;
-    if (anio % 4 == 0) return true;
+bool es_bisiesto(int anio)
+{
+    if (anio % 400 == 0)
+        return true;
+    if (anio % 100 == 0)
+        return false;
+    if (anio % 4 == 0)
+        return true;
     return false;
 }
-
 :::
 <!-- {code-block}c -->
 Escribí un conjunto de pruebas unitarias mínimo que garantice el 100% de
@@ -312,18 +306,17 @@ condicional tome caminos verdaderos y falsos
 :::{code-block}c
 :linenos:
 #include <assert.h>
-
-void test_es_bisiesto_ramas(void) {
-    assert(es_bisiesto(2000) == true);  // Evalúa VERDADERO la rama 1 (divisible
+void test_es_bisiesto_ramas(void)
+{
+    assert(es_bisiesto(2000) == true); // Evalúa VERDADERO la rama 1 (divisible
     por 400)
     assert(es_bisiesto(1900) == false); // Evalúa FALSO la rama 1 y VERDADERO la
-    rama 2 (divisible  por 100)
-    assert(es_bisiesto(2024) == true);  // Evalúa FALSAS rama 1 y 2, y VERDADERO
+    rama 2(divisible por 100)assert(
+        es_bisiesto(2024) == true); // Evalúa FALSAS rama 1 y 2, y VERDADERO
     la rama 3 divisible por 4)
     assert(es_bisiesto(2023) == false); // Evalúa FALSAS todas las ramas (camino
     por defecto final)
 }
-
 :::
 <!-- {code-block}c -->
 

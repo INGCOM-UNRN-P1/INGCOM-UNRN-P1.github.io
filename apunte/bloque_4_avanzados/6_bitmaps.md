@@ -103,49 +103,45 @@ portabilidad y el tamaño exacto de los campos.
 
 :::{code}c
 :linenos:
-
 #include <stdint.h>
-
 // Desactiva el padding para que la estructura coincida con el formato del
 archivo.
 #pragma pack(push, 1)
-
-/**
- * @brief Cabecera de archivo BMP (14 bytes).
- * Contiene información general sobre el archivo de mapa de bits.
- */
-typedef struct {
-    uint16_t tipo;              // 'BM' (0x4D42) para identificar el formato.
-    uint32_t tamano_archivo;    // Tamaño total del archivo en bytes.
-    uint16_t reservado1;        // No se usa, debe ser 0.
-    uint16_t reservado2;        // No se usa, debe ser 0.
-    uint32_t offset_datos;      // Distancia en bytes desde el inicio del
+    /**
+     * @brief Cabecera de archivo BMP (14 bytes).
+     * Contiene información general sobre el archivo de mapa de bits.
+     */
+    typedef struct
+{
+    uint16_t tipo;           // 'BM' (0x4D42) para identificar el formato.
+    uint32_t tamano_archivo; // Tamaño total del archivo en bytes.
+    uint16_t reservado1;     // No se usa, debe ser 0.
+    uint16_t reservado2;     // No se usa, debe ser 0.
+    uint32_t offset_datos;   // Distancia en bytes desde el inicio del
     archivo hasta los datos de píxeles.
 } cabecera_archivo_bmp_t;
-
 /**
  * @brief Cabecera de información del bitmap (DIB header, 40 bytes).
  * Contiene detalles sobre la imagen.
  */
-typedef struct {
-    uint32_t tamano_cabecera;   // Tamaño de esta cabecera (40 bytes).
-    int32_t  ancho;             // Ancho de la imagen en píxeles.
-    int32_t  alto;              // Alto de la imagen en píxeles.
-    uint16_t planos;            // Número de planos de color (siempre 1).
-    uint16_t bits_por_pixel;    // Profundidad de color (ej. 1, 8, 24).
-    uint32_t compresion;        // Tipo de compresión (0 para sin compresión).
-    uint32_t tamano_imagen;     // Tamaño de los datos de píxeles en bytes
-    (incluyendo padding).
-    int32_t  resolucion_x;      // Píxeles por metro en X (generalmente 0).
-    int32_t  resolucion_y;      // Píxeles por metro en Y (generalmente 0).
-    uint32_t colores_usados;    // Número de colores en la paleta (0 para
+typedef struct
+{
+    uint32_t tamano_cabecera; // Tamaño de esta cabecera (40 bytes).
+    int32_t ancho;            // Ancho de la imagen en píxeles.
+    int32_t alto;             // Alto de la imagen en píxeles.
+    uint16_t planos;          // Número de planos de color (siempre 1).
+    uint16_t bits_por_pixel;  // Profundidad de color (ej. 1, 8, 24).
+    uint32_t compresion;      // Tipo de compresión (0 para sin compresión).
+    uint32_t tamano_imagen;   // Tamaño de los datos de píxeles en bytes
+    (incluyendo padding)
+        .int32_t resolucion_x; // Píxeles por metro en X (generalmente 0).
+    int32_t resolucion_y;      // Píxeles por metro en Y (generalmente 0).
+    uint32_t colores_usados;   // Número de colores en la paleta (0 para
     24-bit).
     uint32_t colores_importantes; // Número de colores importantes (0 = todos).
 } cabecera_info_bmp_t;
-
 // Restaura la configuración de padding original.
 #pragma pack(pop)
-
 :::
 <!-- {code}c -->
 
@@ -206,13 +202,10 @@ limpieza final. Este patrón cumple con la regla {ref}`0x0008h`.
 
 :::{code}c
 :linenos:
-
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-
 // Incluir las definiciones de las estructuras de cabecera aquí...
-
 /**
  * @brief Crea una imagen BMP de 24 bits con un degradado.
  *
@@ -229,30 +222,28 @@ bool crear_degradado_bmp_24bit(const char *nombre_archivo, int ancho, int alto)
     FILE *archivo = NULL;
     uint8_t *fila_pixeles = NULL;
     bool exito = true;
-
     archivo = fopen(nombre_archivo, "wb");
-    if (archivo == NULL) {
+    if (archivo == NULL)
+    {
         perror("No se pudo crear el archivo BMP");
         exito = false;
     }
-
-    if (exito) {
+    if (exito)
+    {
         // --- Cálculo de Tamaños y Padding ---
         int padding = (4 - (ancho * 3) % 4) % 4;
         int tamano_fila = (ancho * 3) + padding;
         uint32_t tamano_datos_pixeles = tamano_fila * alto;
-
         // --- Cabecera de Archivo ---
         cabecera_archivo_bmp_t cabecera_archivo = {
             .tipo = 0x4D42, // 'BM' en little-endian
             .tamano_archivo = sizeof(cabecera_archivo_bmp_t) +
-            sizeof(cabecera_info_bmp_t) + tamano_datos_pixeles,
+                              sizeof(cabecera_info_bmp_t) +
+                              tamano_datos_pixeles,
             .reservado1 = 0,
             .reservado2 = 0,
-            .offset_datos = sizeof(cabecera_archivo_bmp_t) +
-            sizeof(cabecera_info_bmp_t)
-        };
-
+            .offset_datos =
+                sizeof(cabecera_archivo_bmp_t) + sizeof(cabecera_info_bmp_t)};
         // --- Cabecera de Información (DIB) ---
         cabecera_info_bmp_t cabecera_info = {
             .tamano_cabecera = sizeof(cabecera_info_bmp_t),
@@ -264,60 +255,60 @@ bool crear_degradado_bmp_24bit(const char *nombre_archivo, int ancho, int alto)
             .tamano_imagen = tamano_datos_pixeles,
             .resolucion_x = 2835, // 72 DPI
             .resolucion_y = 2835, // 72 DPI
-            .colores_usados = 0, // No usa paleta
-            .colores_importantes = 0
-        };
-
+            .colores_usados = 0,  // No usa paleta
+            .colores_importantes = 0};
         // --- Escritura de Cabeceras ---
         if (fwrite(&cabecera_archivo, sizeof(cabecera_archivo_bmp_t), 1,
-        archivo) != 1 ||
+                   archivo) != 1 ||
             fwrite(&cabecera_info, sizeof(cabecera_info_bmp_t), 1, archivo) !=
-            1) {
+                1)
+        {
             exito = false;
         }
     }
-
-    if (exito) {
+    if (exito)
+    {
         // --- Escritura de Datos de Píxeles ---
         fila_pixeles = (uint8_t *)calloc(tamano_fila, 1);
-        if (fila_pixeles == NULL) {
+        if (fila_pixeles == NULL)
+        {
             exito = false;
         }
     }
-
-    if (exito) {
+    if (exito)
+    {
         // Escribimos las filas desde abajo hacia arriba (y = 0 es la fila
         inferior).
-        for (int y = 0; y < alto && exito; y++) {
-            for (int x = 0; x < ancho; x++) {
+        for (int y = 0; y < alto && exito; y++)
+        {
+            for (int x = 0; x < ancho; x++)
+            {
                 // Creamos un degradado azul que varía con la altura
                 uint8_t azul = (uint8_t)((double)y / alto * 255.0);
                 uint8_t verde = 0;
                 uint8_t rojo = 0;
-
                 // El formato es BGR
                 fila_pixeles[x * 3 + 0] = azul;
                 fila_pixeles[x * 3 + 1] = verde;
                 fila_pixeles[x * 3 + 2] = rojo;
             }
-
-            if (fwrite(fila_pixeles, 1, tamano_fila, archivo) != tamano_fila) {
+            if (fwrite(fila_pixeles, 1, tamano_fila, archivo) != tamano_fila)
+            {
                 exito = false;
             }
         }
     }
-
     // --- Bloque de Limpieza Centralizado ---
-    if (fila_pixeles != NULL) {
+    if (fila_pixeles != NULL)
+    {
         free(fila_pixeles);
     }
-    if (archivo != NULL) {
+    if (archivo != NULL)
+    {
         fclose(archivo);
     }
-
     return exito;
 }
-
 :::
 <!-- {code}c -->
 
@@ -337,17 +328,16 @@ tonos de gris.
 
 :::{code}c
 :linenos:
-
 /**
  * @brief Representa una entrada en la tabla de colores BMP (4 bytes).
  */
-typedef struct {
+typedef struct
+{
     uint8_t azul;
     uint8_t verde;
     uint8_t rojo;
     uint8_t reservado; // Debe ser 0
 } rgb_quad_t;
-
 :::
 <!-- {code}c -->
 
@@ -358,36 +348,32 @@ horizontal.
 
 :::{code}c
 :linenos:
-
 // Incluir cabeceras y estructuras...
-
-bool crear_degradado_bmp_8bit(const char *nombre_archivo, int ancho, int alto) {
+bool crear_degradado_bmp_8bit(const char *nombre_archivo, int ancho, int alto)
+{
     FILE *archivo = NULL;
     uint8_t *fila_indices = NULL;
     bool exito = true;
-
     archivo = fopen(nombre_archivo, "wb");
-    if (archivo == NULL) {
+    if (archivo == NULL)
+    {
         perror("No se pudo crear el archivo BMP");
         exito = false;
     }
-
-    if (exito) {
+    if (exito)
+    {
         int padding = (4 - ancho % 4) % 4;
         int tamano_fila = ancho + padding;
         uint32_t tamano_datos_pixeles = tamano_fila * alto;
         uint32_t tamano_paleta = 256 * sizeof(rgb_quad_t);
         uint32_t offset_datos = sizeof(cabecera_archivo_bmp_t) +
-        sizeof(cabecera_info_bmp_t) + tamano_paleta;
-
+                                sizeof(cabecera_info_bmp_t) + tamano_paleta;
         cabecera_archivo_bmp_t cabecera_archivo = {
             .tipo = 0x4D42,
             .tamano_archivo = offset_datos + tamano_datos_pixeles,
             .reservado1 = 0,
             .reservado2 = 0,
-            .offset_datos = offset_datos
-        };
-
+            .offset_datos = offset_datos};
         cabecera_info_bmp_t cabecera_info = {
             .tamano_cabecera = sizeof(cabecera_info_bmp_t),
             .ancho = ancho,
@@ -398,63 +384,69 @@ bool crear_degradado_bmp_8bit(const char *nombre_archivo, int ancho, int alto) {
             .tamano_imagen = tamano_datos_pixeles,
             .resolucion_x = 2835,
             .resolucion_y = 2835,
-            .colores_usados = 256, // Indicamos que usamos 256 colores
+            .colores_usados = 256,     // Indicamos que usamos 256 colores
             .colores_importantes = 256 // O 0 para indicar que todos son
-            importantes
-        };
-
+            importantes};
         // --- Escritura de Cabeceras y Paleta ---
         if (fwrite(&cabecera_archivo, 1, sizeof(cabecera_archivo_bmp_t),
-        archivo) != sizeof(cabecera_archivo_bmp_t) ||
+                   archivo) != sizeof(cabecera_archivo_bmp_t) ||
             fwrite(&cabecera_info, 1, sizeof(cabecera_info_bmp_t), archivo) !=
-            sizeof(cabecera_info_bmp_t)) {
+                sizeof(cabecera_info_bmp_t))
+        {
             exito = false;
-        } else {
+        }
+        else
+        {
             rgb_quad_t paleta[256];
-            for (int i = 0; i < 256; i++) {
+            for (int i = 0; i < 256; i++)
+            {
                 paleta[i].rojo = (uint8_t)i;
                 paleta[i].verde = (uint8_t)i;
                 paleta[i].azul = (uint8_t)i;
                 paleta[i].reservado = 0;
             }
-            if (fwrite(paleta, sizeof(rgb_quad_t), 256, archivo) != 256) {
+            if (fwrite(paleta, sizeof(rgb_quad_t), 256, archivo) != 256)
+            {
                 exito = false;
             }
         }
     }
-
-    if (exito) {
+    if (exito)
+    {
         fila_indices = (uint8_t *)calloc(tamano_fila, 1);
-        if (fila_indices == NULL) {
+        if (fila_indices == NULL)
+        {
             exito = false;
         }
     }
-
-    if (exito) {
-        for (int y = 0; y < alto && exito; y++) {
-            for (int x = 0; x < ancho; x++) {
+    if (exito)
+    {
+        for (int y = 0; y < alto && exito; y++)
+        {
+            for (int x = 0; x < ancho; x++)
+            {
                 // El valor del píxel es el índice en la paleta (degradado
                 horizontal)
                 uint8_t indice_gris = (uint8_t)((double)x / ancho * 255.0);
                 fila_indices[x] = indice_gris;
             }
-            if (fwrite(fila_indices, 1, tamano_fila, archivo) != tamano_fila) {
+            if (fwrite(fila_indices, 1, tamano_fila, archivo) != tamano_fila)
+            {
                 exito = false;
             }
         }
     }
-
     // --- Limpieza ---
-    if (fila_indices != NULL) {
+    if (fila_indices != NULL)
+    {
         free(fila_indices);
     }
-    if (archivo != NULL) {
+    if (archivo != NULL)
+    {
         fclose(archivo);
     }
-
     return exito;
 }
-
 :::
 <!-- {code}c -->
 
@@ -465,19 +457,18 @@ siguiente:
 
 :::{code}c
 :linenos:
-
-int main() {
-    if (crear_degradado_bmp_24bit("degradado_24bit.bmp", 256, 256)) {
+int main()
+{
+    if (crear_degradado_bmp_24bit("degradado_24bit.bmp", 256, 256))
+    {
         printf("Imagen de 24 bits creada con éxito.\n");
     }
-
-    if (crear_degradado_bmp_8bit("degradado_8bit.bmp", 256, 256)) {
+    if (crear_degradado_bmp_8bit("degradado_8bit.bmp", 256, 256))
+    {
         printf("Imagen de 8 bits creada con éxito.\n");
     }
-
     return 0;
 }
-
 :::
 <!-- {code}c -->
 

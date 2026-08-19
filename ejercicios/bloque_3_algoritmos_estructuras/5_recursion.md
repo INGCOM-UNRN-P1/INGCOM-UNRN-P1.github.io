@@ -505,16 +505,19 @@ Resolvé el problema de la Torre de Hanoi.
 
 ```{code-block} c
 :linenos:
-void hanoi(int n, char origen, char destino, char auxiliar) {
-    if (n == 1) {
+void hanoi(int n, char origen, char destino, char auxiliar)
+{
+    if (n == 1)
+    {
         mover(origen, destino);
-    } else {
-        hanoi(n-1, origen, auxiliar, destino);
+    }
+    else
+    {
+        hanoi(n - 1, origen, auxiliar, destino);
         mover(origen, destino);
-        hanoi(n-1, auxiliar, destino, origen);
+        hanoi(n - 1, auxiliar, destino, origen);
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -805,21 +808,18 @@ Evaluá una expresión matemática representada como árbol binario.
 
 ```{code-block} c
 :linenos:
-int funcion_recursiva(parametros) {
+int funcion_recursiva(parametros)
+{
     // 1. Caso base
-    if (condicion_terminacion) {
+    if (condicion_terminacion)
+    {
         return valor_base;
     }
-    
     // 2. Caso recursivo
     // Procesar actual
     // Llamada recursiva con problema reducido
-    return combinar(
-        procesar_actual,
-        funcion_recursiva(problema_mas_pequeno)
-    );
+    return combinar(procesar_actual, funcion_recursiva(problema_mas_pequeno));
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -852,27 +852,33 @@ int funcion_recursiva(parametros) {
 
 **Recursión Simple:**
 ``` c
-int suma(int n) {
-    if (n == 0) return 0;
-    return n + suma(n-1);  // Una llamada recursiva
+int suma(int n)
+{
+    if (n == 0)
+        return 0;
+    return n + suma(n - 1); // Una llamada recursiva
 }
 ```
 <!-- c -->
 
 **Recursión Múltiple:**
 ``` c
-int fibonacci(int n) {
-    if (n <= 1) return n;
-    return fibonacci(n-1) + fibonacci(n-2);  // Dos llamadas
+int fibonacci(int n)
+{
+    if (n <= 1)
+        return n;
+    return fibonacci(n - 1) + fibonacci(n - 2); // Dos llamadas
 }
 ```
 <!-- c -->
 
 **Recursión de Cola (Tail Recursion):**
 ``` c
-int suma_tail(int n, int acumulador) {
-    if (n == 0) return acumulador;
-    return suma_tail(n-1, acumulador + n);  // Llamada al final
+int suma_tail(int n, int acumulador)
+{
+    if (n == 0)
+        return acumulador;
+    return suma_tail(n - 1, acumulador + n); // Llamada al final
 }
 // Puede optimizarse a lazo por el compilador
 ```
@@ -883,17 +889,18 @@ int suma_tail(int n, int acumulador) {
 :linenos:
 bool es_par(int n);
 bool es_impar(int n);
-
-bool es_par(int n) {
-    if (n == 0) return true;
-    return es_impar(n-1);
+bool es_par(int n)
+{
+    if (n == 0)
+        return true;
+    return es_impar(n - 1);
 }
-
-bool es_impar(int n) {
-    if (n == 0) return false;
-    return es_par(n-1);
+bool es_impar(int n)
+{
+    if (n == 0)
+        return false;
+    return es_par(n - 1);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -947,20 +954,20 @@ Patrón común en recursión:
 :linenos:
 #define MAX 1000
 int memo[MAX];
-
-void inicializar() {
-    for (int i = 0; i < MAX; i++) memo[i] = -1;
+void inicializar()
+{
+    for (int i = 0; i < MAX; i++)
+        memo[i] = -1;
 }
-
-int funcion(int n) {
-    if (n <= caso_base) return valor_base;
-    
-    if (memo[n] != -1) return memo[n];  // Ya calculado
-    
-    memo[n] = calcular(n);  // Calcular y cachear
+int funcion(int n)
+{
+    if (n <= caso_base)
+        return valor_base;
+    if (memo[n] != -1)
+        return memo[n];    // Ya calculado
+    memo[n] = calcular(n); // Calcular y cachear
     return memo[n];
 }
-
 ```
 <!-- {code-block} c -->
 

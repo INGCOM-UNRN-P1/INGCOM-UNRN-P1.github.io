@@ -46,7 +46,7 @@ respetar la siguiente estructura jerárquica (donde los componentes entre
 corchetes son opcionales):
 
 ``` c
-%[parámetro][banderas][ancho][.precisión][largo]tipo
+% [parámetro][banderas][ancho][.precisión][largo] tipo
 ```
 <!-- c -->
 
@@ -148,25 +148,22 @@ que el texto se desalinee.
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-int main(void) {
+int main(void)
+{
     char *prod1 = "Manzanas";
     char *prod2 = "Pan";
     int cant1 = 15;
     int cant2 = 2;
     double precio1 = 150.50;
     double precio2 = 45.00;
-
     // Encabezado
     printf("%-15s %8s %10s\n", "Producto", "Cantidad", "Precio");
     printf("-----------------------------------------\n");
     // Filas alineadas
     printf("%-15s %8d %10.2f\n", prod1, cant1, precio1);
     printf("%-15s %8d %10.2f\n", prod2, cant2, precio2);
-
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -186,11 +183,10 @@ y `float`. Observar cómo se aplica el redondeo aritmético convencional:
 
 ``` c
 double pi = 3.1415926535;
-
-printf("Sin formato: %f\n", pi);          // Muestra 6 decimales por defecto
-printf("Dos decimales: %.2f\n", pi);       // "3.14"
-printf("Cuatro decimales: %.4f\n", pi);    // "3.1416" (Redondea el último dígito)
-printf("Notación científica: %e\n", pi);   // "3.141593e+00"
+printf("Sin formato: %f\n", pi);        // Muestra 6 decimales por defecto
+printf("Dos decimales: %.2f\n", pi);    // "3.14"
+printf("Cuatro decimales: %.4f\n", pi); // "3.1416" (Redondea el último dígito)
+printf("Notación científica: %e\n", pi); // "3.141593e+00"
 ```
 <!-- c -->
 
@@ -204,11 +200,9 @@ pasándolos como parámetros dinámicos mediante el asterisco (`*`):
 int ancho = 10;
 int precision = 3;
 double valor = 12.345678;
-
 // El primer asterisco consume 'ancho' (10) y el segundo 'precision' (3)
 printf("Dinámico: '%*.*f'\n", ancho, precision, valor);
 // Salida: '    12.346'↵
-
 ```
 <!-- {code-block} c -->
 
@@ -221,7 +215,6 @@ campo fijos:
 int dia = 9;
 int mes = 4;
 int anio = 2026;
-
 printf("Fecha: %02d/%02d/%04d\n", dia, mes, anio);
 // Salida: Fecha: 09/04/2026↵
 ```

@@ -112,7 +112,8 @@ el valor de su nodo es válido:
 
 ``` c
 // Condición compleja y redundante
-if (!(ptr != NULL && ptr->valor > 0)) {
+if (!(ptr != NULL && ptr->valor > 0))
+{
     // Manejo de error
 }
 ```
@@ -130,7 +131,8 @@ $$\text{ptr} == \text{NULL} \lor \text{ptr->valor} \le 0$$
 Refactorizando el código:
 
 ``` c
-if (ptr == NULL || ptr->valor <= 0) {
+if (ptr == NULL || ptr->valor <= 0)
+{
     // Manejo de error
 }
 ```

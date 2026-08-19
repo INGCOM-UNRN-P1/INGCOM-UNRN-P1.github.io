@@ -210,8 +210,8 @@ significativamente la legibilidad.
 :linenos:
 ````` c
 #include <stdio.h>
-
-int main() {
+int main()
+{
     printf("Hola Mundo\n");
     return 0;
 }

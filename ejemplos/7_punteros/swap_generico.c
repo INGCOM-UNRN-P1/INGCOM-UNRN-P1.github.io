@@ -8,15 +8,17 @@
 
 int x = 1;
 
-void swap(void *a, void *b, size_t size) {
-     char *temp = malloc(size);
-     memcpy(temp, a, size);
-     memcpy(a, b, size);
-     memcpy(b, temp, size);
-     free(temp);
+void swap(void *a, void *b, size_t size)
+{
+      char *temp = malloc(size);
+      memcpy(temp, a, size);
+      memcpy(a, b, size);
+      memcpy(b, temp, size);
+      free(temp);
 }
 
-int main() {
+int main()
+{
     int x = 2;
     {
         int x = 3;
@@ -24,8 +26,7 @@ int main() {
     }
     printf("%d ", x);
     {
-        printf(“%d”, x);
+        printf(“% d”, x);
     }
     return 0;
 }
-

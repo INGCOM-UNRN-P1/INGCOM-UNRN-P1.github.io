@@ -39,9 +39,7 @@ puntero para diferenciarlo de una función que retorna un puntero.
 La estructura general de una declaración es:
 
 :::{code-block}c
-
 tipo_retorno (*nombre_puntero)(tipo_parametro1, tipo_parametro2, ...);
-
 :::
 <!-- {code-block}c -->
 
@@ -50,12 +48,10 @@ tipo_retorno (*nombre_puntero)(tipo_parametro1, tipo_parametro2, ...);
     especificado.
 
 :::{code-block}c
-
-int *funcion(int, int);   // Declaración de una función que retorna un puntero a
-int (int *)
-int (*puntero)(int, int); // Declaración de un puntero a una función que retorna
+int *funcion(int, int); // Declaración de una función que retorna un puntero a
+int(int *) int (*puntero)(
+    int, int); // Declaración de un puntero a una función que retorna
 int
-
 :::
 <!-- {code-block}c -->
 
@@ -69,28 +65,23 @@ virtual del proceso).
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
-int sumar(int a, int b) {
+int sumar(int a, int b)
+{
     return a + b;
 }
-
-int main(void) {
+int main(void)
+{
     // Declaración
     int (*operacion)(int, int);
-
     // Asignación
     operacion = sumar; // O bien: operacion = &sumar;
-
     // Invocación (ambas sintaxis son válidas bajo el estándar)
-    int res1 = operacion(5, 3);   // Invocación directa (sintaxis recomendada
+    int res1 = operacion(5, 3); // Invocación directa (sintaxis recomendada
     por legibilidad)
     int res2 = (*operacion)(5, 3); // Invocación explícita desreferenciando el
-    puntero
-
-    printf("Resultados: %d, %d\n", res1, res2);
+    puntero printf("Resultados: %d, %d\n", res1, res2);
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -103,13 +94,12 @@ práctica de ingeniería de software definir alias de tipos utilizando `typedef`
 
 :::{code-block}c
 :linenos:
-// Definimos el alias 'operacion_fn' para representar punteros a funciones (int,
+// Definimos el alias 'operacion_fn' para representar punteros a funciones
+// (int,
 int) -> int
 typedef int (*operacion_fn)(int, int);
-
 // Ahora la declaración es simple:
 operacion_fn mi_operacion = sumar;
-
 :::
 <!-- {code-block}c -->
 
@@ -143,10 +133,8 @@ El ejemplo por excelencia de genericidad y callbacks es `qsort` (definida en
 de forma genérica para cualquier tipo de arreglo:
 
 :::{code-block}c
-
 void qsort(void *base, size_t nmemb, size_t size,
            int (*comparar)(const void *, const void *));
-
 :::
 <!-- {code-block}c -->
 
@@ -166,71 +154,63 @@ Para ordenar un arreglo, le proveemos a `qsort`:
 :caption: Uso de qsort con callbacks para ordenar enteros y structs en C
 :label: qsort-callback-example
 :linenos:
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-typedef struct {
+typedef struct
+{
     char nombre[30];
     int edad;
 } Persona;
-
 // Callback para ordenar enteros de menor a mayor
-int comparar_enteros(const void *a, const void *b) {
+int comparar_enteros(const void *a, const void *b)
+{
     // 1. Casteamos los punteros genéricos const void* al tipo real const int*
     const int *ptr_a = (const int *)a;
     const int *ptr_b = (const int *)b;
-
     // 2. Desreferenciamos y comparamos
-    if (*ptr_a < *ptr_b) {
+    if (*ptr_a < *ptr_b)
+    {
         return -1;
     }
-    if (*ptr_a > *ptr_b) {
+    if (*ptr_a > *ptr_b)
+    {
         return 1;
     }
     return 0;
 }
-
 // Callback para ordenar personas por edad
-int comparar_personas_edad(const void *a, const void *b) {
+int comparar_personas_edad(const void *a, const void *b)
+{
     const Persona *p1 = (const Persona *)a;
     const Persona *p2 = (const Persona *)b;
-
-    if (p1->edad < p2->edad) return -1;
-    if (p1->edad > p2->edad) return 1;
+    if (p1->edad < p2->edad)
+        return -1;
+    if (p1->edad > p2->edad)
+        return 1;
     return 0;
 }
-
-int main(void) {
+int main(void)
+{
     int numeros[] = {34, 12, 5, 90, 45};
     size_t cant_nums = sizeof(numeros) / sizeof(numeros[0]);
-
     qsort(numeros, cant_nums, sizeof(int), comparar_enteros);
-
     printf("Numeros ordenados: ");
-    for (size_t i = 0; i < cant_nums; i++) {
+    for (size_t i = 0; i < cant_nums; i++)
+    {
         printf("%d ", numeros[i]);
     }
     printf("\n");
-
-    Persona grupo[] = {
-        {"Carlos", 30},
-        {"Ana", 25},
-        {"Beatriz", 28}
-    };
+    Persona grupo[] = {{"Carlos", 30}, {"Ana", 25}, {"Beatriz", 28}};
     size_t cant_personas = sizeof(grupo) / sizeof(Persona);
-
     qsort(grupo, cant_personas, sizeof(Persona), comparar_personas_edad);
-
     printf("\nPersonas ordenadas por edad:\n");
-    for (size_t i = 0; i < cant_personas; i++) {
+    for (size_t i = 0; i < cant_personas; i++)
+    {
         printf("- %s (%d anos)\n", grupo[i].nombre, grupo[i].edad);
     }
-
     return 0;
 }
-
 ```
 <!-- {code} c -->
 
@@ -279,62 +259,64 @@ callback de comparación:
 :caption: Implementación de búsqueda lineal genérica en C usando callbacks y void*
 :label: generic-search-example
 :linenos:
-
-#include <stdio.h>
 #include <stddef.h>
+#include <stdio.h>
 #include <string.h>
-
 // Definición de tipo para el callback de comparación
 typedef int (*comparar_fn)(const void *, const void *);
-
 // Función genérica de búsqueda lineal
 // Retorna la dirección del elemento si se encuentra, o NULL si no está.
-const void *buscar_generico(const void *base, size_t nmemb, size_t size, 
-                            const void *clave, comparar_fn cmp) {
-    if (base == NULL || clave == NULL || cmp == NULL) {
+const void *buscar_generico(const void *base, size_t nmemb, size_t size,
+                            const void *clave, comparar_fn cmp)
+{
+    if (base == NULL || clave == NULL || cmp == NULL)
+    {
         return NULL;
     }
-
-    // Convertimos a const char* para poder realizar aritmética de punteros byte a byte
+    // Convertimos a const char* para poder realizar aritmética de punteros
+    // byte a byte
     const char *ptr = (const char *)base;
-
-    for (size_t i = 0; i < nmemb; i++) {
+    for (size_t i = 0; i < nmemb; i++)
+    {
         // Calculamos la dirección del elemento i-ésimo: base + i * size
         const void *elemento = ptr + (i * size);
-
         // Invocamos el callback de comparación
-        if (cmp(elemento, clave) == 0) {
+        if (cmp(elemento, clave) == 0)
+        {
             return elemento; // Encontrado
         }
     }
     return NULL; // No encontrado
 }
-
 // Callback para buscar en enteros
-int cmp_enteros(const void *a, const void *b) {
+int cmp_enteros(const void *a, const void *b)
+{
     int val_a = *(const int *)a;
     int val_b = *(const int *)b;
-    if (val_a < val_b) return -1;
-    if (val_a > val_b) return 1;
+    if (val_a < val_b)
+        return -1;
+    if (val_a > val_b)
+        return 1;
     return 0;
 }
-
-int main(void) {
+int main(void)
+{
     int arr[] = {10, 20, 30, 40, 50};
     size_t n = sizeof(arr) / sizeof(arr[0]);
     int clave = 30;
-
-    const void *resultado = buscar_generico(arr, n, sizeof(int), &clave, cmp_enteros);
-
-    if (resultado != NULL) {
-        printf("El numero %d fue encontrado en la posicion: %ld\n", 
-               clave, ((const int *)resultado - arr));
-    } else {
+    const void *resultado =
+        buscar_generico(arr, n, sizeof(int), &clave, cmp_enteros);
+    if (resultado != NULL)
+    {
+        printf("El numero %d fue encontrado en la posicion: %ld\n", clave,
+               ((const int *)resultado - arr));
+    }
+    else
+    {
         printf("El numero %d no fue encontrado.\n", clave);
     }
     return 0;
 }
-
 ```
 <!-- {code} c -->
 
@@ -390,7 +372,6 @@ retornan un entero de tipo `size_t`.
 La sintaxis correcta aplicando el sufijo de alias de tipo `_t` es:
 ``` c
 #include <stddef.h>
-
 typedef size_t (*medidor_cadena_fn_t)(const char *);
 ```
 <!-- c -->
@@ -449,22 +430,23 @@ descendente (de mayor a menor).
 :class: dropdown
 ```{code-block} c
 :linenos:
-int comparar_reversa(const void *a, const void *b) {
+int comparar_reversa(const void *a, const void *b)
+{
     // 1. Casteamos los punteros genéricos const void* al tipo real const int*
     const int *ptr_a = (const int *)a;
     const int *ptr_b = (const int *)b;
-
     // 2. Para orden descendente:
     // Retorna mayor a 0 si b > a, menor a 0 si a > b, 0 si son iguales.
-    if (*ptr_a < *ptr_b) {
+    if (*ptr_a < *ptr_b)
+    {
         return 1;
     }
-    if (*ptr_a > *ptr_b) {
+    if (*ptr_a > *ptr_b)
+    {
         return -1;
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -489,16 +471,14 @@ recibe el callback deben ser interpretados como punteros a cadenas, es decir,
 ```{code-block} c
 :linenos:
 #include <string.h>
-
-int comparar_cadenas(const void *a, const void *b) {
+int comparar_cadenas(const void *a, const void *b)
+{
     // Casteo a puntero de cadena (char**)
-    const char * const *str_a = (const char * const *)a;
-    const char * const *str_b = (const char * const *)b;
-
+    const char *const *str_a = (const char *const *)a;
+    const char *const *str_b = (const char *const *)b;
     // Comparación léxica de los contenidos apuntados
     return strcmp(*str_a, *str_b);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -509,7 +489,8 @@ int comparar_cadenas(const void *a, const void *b) {
 :label: ej-fn-ptr-qsort-struct-dos-criterios
 Dada la estructura:
 ``` c
-typedef struct {
+typedef struct
+{
     int codigo;
     double precio;
 } producto_t;
@@ -526,28 +507,30 @@ precio, se debe desempatar ordenando por `codigo` de menor a mayor.
 :class: dropdown
 ```{code-block} c
 :linenos:
-int comparar_productos(const void *a, const void *b) {
+int comparar_productos(const void *a, const void *b)
+{
     const producto_t *p1 = (const producto_t *)a;
     const producto_t *p2 = (const producto_t *)b;
-
     // Primer criterio: comparación de precios
-    if (p1->precio < p2->precio) {
+    if (p1->precio < p2->precio)
+    {
         return -1;
     }
-    if (p1->precio > p2->precio) {
+    if (p1->precio > p2->precio)
+    {
         return 1;
     }
-
     // Segundo criterio (desempate): comparación de códigos
-    if (p1->codigo < p2->codigo) {
+    if (p1->codigo < p2->codigo)
+    {
         return -1;
     }
-    if (p1->codigo > p2->codigo) {
+    if (p1->codigo > p2->codigo)
+    {
         return 1;
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -597,31 +580,29 @@ elementos que cumplan con la condición.
 :class: dropdown
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <stddef.h>
-
+#include <stdio.h>
 typedef int (*predicado_fn_t)(const void *);
 typedef void (*imprimir_fn_t)(const void *);
-
-void filtrar_arreglo(const void *base, size_t nmemb, size_t size, 
-                     predicado_fn_t predicado, imprimir_fn_t imprimir) {
-    if (base == NULL || predicado == NULL || imprimir == NULL) {
+void filtrar_arreglo(const void *base, size_t nmemb, size_t size,
+                     predicado_fn_t predicado, imprimir_fn_t imprimir)
+{
+    if (base == NULL || predicado == NULL || imprimir == NULL)
+    {
         return;
     }
-
     // Casteo a const char* para aritmética de punteros byte a byte
     const char *ptr = (const char *)base;
-
-    for (size_t i = 0; i < nmemb; i++) {
+    for (size_t i = 0; i < nmemb; i++)
+    {
         // Cálculo de dirección del elemento i-ésimo: base + i * size
         const void *elem = ptr + (i * size);
-
-        if (predicado(elem)) {
+        if (predicado(elem))
+        {
             imprimir(elem);
         }
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -643,24 +624,23 @@ byte a byte en memoria.
 ```{code-block} c
 :linenos:
 #include <stddef.h>
-
-void intercambiar_bloques(void *a, void *b, size_t size) {
-    if (a == NULL || b == NULL || size == 0) {
+void intercambiar_bloques(void *a, void *b, size_t size)
+{
+    if (a == NULL || b == NULL || size == 0)
+    {
         return;
     }
-
     // Casteo a char* para operar sobre bytes individuales de forma contigua
     char *ptr_a = (char *)a;
     char *ptr_b = (char *)b;
-
-    for (size_t i = 0; i < size; i++) {
+    for (size_t i = 0; i < size; i++)
+    {
         // Intercambio clásico byte a byte
         char temp = ptr_a[i];
         ptr_a[i] = ptr_b[i];
         ptr_b[i] = temp;
     }
 }
-
 ```
 <!-- {code-block} c -->
 

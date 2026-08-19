@@ -70,24 +70,19 @@ void assert(scalar expression);
 :linenos:
 #include <assert.h>
 #include <stdio.h>
-
 int dividir(int a, int b)
 {
-    assert(b != 0);  // Precondición: divisor no puede ser cero
+    assert(b != 0); // Precondición: divisor no puede ser cero
     return a / b;
 }
-
 int main(void)
 {
     int resultado = dividir(10, 2);
     printf("10 / 2 = %d\n", resultado);
-    
     // La siguiente línea abortará el programa en modo debug
     // resultado = dividir(10, 0);
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -143,9 +138,9 @@ de texto y validación de datos, especialmente cuando se necesita filtrar
 caracteres especiales o espacios en blanco de una cadena de entrada.
 
 ``` c
-isalnum('a');  // → no-cero (verdadero)
-isalnum('5');  // → no-cero (verdadero)
-isalnum('!');  // → 0 (falso)
+isalnum('a'); // → no-cero (verdadero)
+isalnum('5'); // → no-cero (verdadero)
+isalnum('!'); // → 0 (falso)
 ```
 <!-- c -->
 
@@ -168,9 +163,9 @@ de caracteres específicos del idioma como ñ, ç, ü, etc., dependiendo del loc
 configurado en el sistema.
 
 ``` c
-isalpha('A');  // → verdadero
-isalpha('z');  // → verdadero
-isalpha('3');  // → falso
+isalpha('A'); // → verdadero
+isalpha('z'); // → verdadero
+isalpha('3'); // → falso
 ```
 <!-- c -->
 
@@ -193,8 +188,8 @@ comportamiento es independiente del locale, garantizando consistencia en
 diferentes configuraciones regionales.
 
 ``` c
-isdigit('7');  // → verdadero
-isdigit('a');  // → falso
+isdigit('7'); // → verdadero
+isdigit('a'); // → falso
 ```
 <!-- c -->
 
@@ -216,8 +211,8 @@ requieren conversión entre bases numéricas y en el procesamiento de datos
 binarios representados como texto hexadecimal.
 
 ``` c
-isxdigit('F');  // → verdadero
-isxdigit('g');  // → falso
+isxdigit('F'); // → verdadero
+isxdigit('g'); // → falso
 ```
 <!-- c -->
 
@@ -241,9 +236,9 @@ que pueden manejar apropiadamente caracteres acentuados y específicos del
 idioma, como distinguir entre 'á' y 'Á' según el locale configurado.
 
 ``` c
-islower('a');  // → verdadero
-isupper('A');  // → verdadero
-islower('A');  // → falso
+islower('a'); // → verdadero
+isupper('A'); // → verdadero
+islower('A'); // → falso
 ```
 <!-- c -->
 
@@ -268,9 +263,9 @@ funciones que eliminan espacios en blanco (trim), y en algoritmos que procesan
 entrada de usuario donde los espacios deben ser manejados apropiadamente.
 
 ``` c
-isspace(' ');   // → verdadero
-isspace('\n');  // → verdadero
-isspace('a');   // → falso
+isspace(' ');  // → verdadero
+isspace('\n'); // → verdadero
+isspace('a');  // → falso
 ```
 <!-- c -->
 
@@ -296,9 +291,9 @@ que validan contenido textual, escapan caracteres especiales, o preparan texto
 para visualización segura en interfaces de usuario.
 
 ``` c
-isprint('A');   // → verdadero
-isprint(' ');   // → verdadero
-isgraph(' ');   // → falso
+isprint('A'); // → verdadero
+isprint(' '); // → verdadero
+isgraph(' '); // → falso
 ```
 <!-- c -->
 
@@ -348,9 +343,9 @@ depende del locale configurado, permitiendo manejo apropiado de caracteres
 internacionales.
 
 ``` c
-toupper('a');  // → 'A'
-tolower('Z');  // → 'z'
-tolower('3');  // → '3' (sin cambio)
+toupper('a'); // → 'A'
+tolower('Z'); // → 'z'
+tolower('3'); // → '3' (sin cambio)
 ```
 <!-- c -->
 
@@ -358,29 +353,28 @@ tolower('3');  // → '3' (sin cambio)
 
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <ctype.h>
-
+#include <stdio.h>
 int main(void)
 {
     char cadena[] = "Hola123!";
-    
     printf("Análisis de caracteres:\n");
-    for (size_t i = 0; cadena[i] != '\0'; i++) {
+    for (size_t i = 0; cadena[i] != '\0'; i++)
+    {
         char c = cadena[i];
         printf("'%c': ", c);
-        
-        if (isalpha(c)) printf("alfa ");
-        if (isdigit(c)) printf("dígito ");
-        if (isspace(c)) printf("espacio ");
-        if (ispunct(c)) printf("puntuación ");
-        
+        if (isalpha(c))
+            printf("alfa ");
+        if (isdigit(c))
+            printf("dígito ");
+        if (isspace(c))
+            printf("espacio ");
+        if (ispunct(c))
+            printf("puntuación ");
         printf("\n");
     }
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -424,24 +418,20 @@ y valores de retorno que podrían ser ambiguos (como cuando `malloc()` retorna
 
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <errno.h>
 #include <math.h>
+#include <stdio.h>
 #include <string.h>
-
 int main(void)
 {
-    errno = 0;  // Resetear antes de la operación
-    
+    errno = 0; // Resetear antes de la operación
     double resultado = sqrt(-1.0);
-    
-    if (errno == EDOM) {
+    if (errno == EDOM)
+    {
         fprintf(stderr, "Error de dominio: %s\n", strerror(errno));
     }
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -490,9 +480,8 @@ los tipos de punto flotante (`float`, `double`, `long double`).
 
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <float.h>
-
+#include <stdio.h>
 int main(void)
 {
     printf("Límites de float:\n");
@@ -500,14 +489,11 @@ int main(void)
     printf("  Mínimo: %e\n", FLT_MIN);
     printf("  Máximo: %e\n", FLT_MAX);
     printf("  Epsilon: %e\n", FLT_EPSILON);
-    
     printf("\nLímites de double:\n");
     printf("  Precisión: %d dígitos decimales\n", DBL_DIG);
     printf("  Epsilon: %e\n", DBL_EPSILON);
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -560,9 +546,8 @@ tipos enteros en la implementación actual.
 
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <limits.h>
-
+#include <stdio.h>
 int main(void)
 {
     printf("Límites de tipos enteros:\n");
@@ -572,10 +557,8 @@ int main(void)
     printf("UINT_MAX: %u\n", UINT_MAX);
     printf("LONG_MAX: %ld\n", LONG_MAX);
     printf("LLONG_MAX: %lld\n", LLONG_MAX);
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -599,15 +582,13 @@ gcc programa.c -o programa -lm
 
 ```{code-block} c
 :linenos:
-double sin(double x);    // Seno (x en radianes)
-double cos(double x);    // Coseno
-double tan(double x);    // Tangente
-
-double asin(double x);   // Arco seno
-double acos(double x);   // Arco coseno
-double atan(double x);   // Arco tangente
-double atan2(double y, double x);  // Arco tangente de y/x
-
+double sin(double x);             // Seno (x en radianes)
+double cos(double x);             // Coseno
+double tan(double x);             // Tangente
+double asin(double x);            // Arco seno
+double acos(double x);            // Arco coseno
+double atan(double x);            // Arco tangente
+double atan2(double y, double x); // Arco tangente de y/x
 ```
 <!-- {code-block} c -->
 
@@ -626,23 +607,18 @@ cálculos de orientación en gráficos 2D.
 
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <math.h>
-
+#include <stdio.h>
 #define PI 3.14159265358979323846
-
 int main(void)
 {
     double angulo_grados = 45.0;
     double angulo_radianes = angulo_grados * PI / 180.0;
-    
     printf("seno(45°) = %.4f\n", sin(angulo_radianes));
     printf("coseno(45°) = %.4f\n", cos(angulo_radianes));
     printf("tangente(45°) = %.4f\n", tan(angulo_radianes));
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -650,11 +626,11 @@ int main(void)
 ### Funciones Exponenciales y Logarítmicas
 
 ``` c
-double exp(double x);     // e^x
-double log(double x);     // Logaritmo natural (base e)
-double log10(double x);   // Logaritmo base 10
-double pow(double x, double y);  // x^y
-double sqrt(double x);    // Raíz cuadrada
+double exp(double x);           // e^x
+double log(double x);           // Logaritmo natural (base e)
+double log10(double x);         // Logaritmo base 10
+double pow(double x, double y); // x^y
+double sqrt(double x);          // Raíz cuadrada
 ```
 <!-- c -->
 
@@ -673,9 +649,8 @@ cálculos geométricos, algoritmos de distancia y normalización de vectores.
 
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <math.h>
-
+#include <stdio.h>
 int main(void)
 {
     printf("e^2 = %.4f\n", exp(2.0));
@@ -683,10 +658,8 @@ int main(void)
     printf("log10(100) = %.4f\n", log10(100.0));
     printf("2^8 = %.0f\n", pow(2.0, 8.0));
     printf("√16 = %.0f\n", sqrt(16.0));
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -694,10 +667,10 @@ int main(void)
 ### Funciones de Redondeo
 
 ``` c
-double ceil(double x);    // Redondea hacia arriba
-double floor(double x);   // Redondea hacia abajo
-double round(double x);   // Redondea al entero más cercano (C99)
-double trunc(double x);   // Trunca la parte decimal (C99)
+double ceil(double x);  // Redondea hacia arriba
+double floor(double x); // Redondea hacia abajo
+double round(double x); // Redondea al entero más cercano (C99)
+double trunc(double x); // Trunca la parte decimal (C99)
 ```
 <!-- c -->
 
@@ -705,21 +678,17 @@ double trunc(double x);   // Trunca la parte decimal (C99)
 
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <math.h>
-
+#include <stdio.h>
 int main(void)
 {
     double valor = 3.7;
-    
-    printf("ceil(%.1f) = %.0f\n", valor, ceil(valor));      // 4
-    printf("floor(%.1f) = %.0f\n", valor, floor(valor));    // 3
-    printf("round(%.1f) = %.0f\n", valor, round(valor));    // 4
-    printf("trunc(%.1f) = %.0f\n", valor, trunc(valor));    // 3
-    
+    printf("ceil(%.1f) = %.0f\n", valor, ceil(valor));   // 4
+    printf("floor(%.1f) = %.0f\n", valor, floor(valor)); // 3
+    printf("round(%.1f) = %.0f\n", valor, round(valor)); // 4
+    printf("trunc(%.1f) = %.0f\n", valor, trunc(valor)); // 3
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -727,8 +696,8 @@ int main(void)
 ### Valor Absoluto y Resto
 
 ``` c
-double fabs(double x);    // Valor absoluto
-double fmod(double x, double y);  // Resto de x/y
+double fabs(double x);           // Valor absoluto
+double fmod(double x, double y); // Resto de x/y
 ```
 <!-- c -->
 
@@ -738,24 +707,24 @@ calcula el resto de la división de punto flotante `x/y`.
 ```{code-block} c
 :caption: "Uso de fabs y fmod."
 :linenos:
-#include <stdio.h>
 #include <math.h>
-
-int main() {
+#include <stdio.h>
+int main()
+{
     printf("fabs(-5.5) = %.1f\n", fabs(-5.5));
-    printf("fmod(10.5, 3.0) = %.1f\n", fmod(10.5, 3.0)); // 10.5 = 3 * 3.0 + 1.5
+    printf("fmod(10.5, 3.0) = %.1f\n",
+           fmod(10.5, 3.0)); // 10.5 = 3 * 3.0 + 1.5
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
 ### Funciones Hiperbólicas
 
 ``` c
-double sinh(double x);    // Seno hiperbólico
-double cosh(double x);    // Coseno hiperbólico
-double tanh(double x);    // Tangente hiperbólica
+double sinh(double x); // Seno hiperbólico
+double cosh(double x); // Coseno hiperbólico
+double tanh(double x); // Tangente hiperbólica
 ```
 <!-- c -->
 
@@ -766,17 +735,16 @@ círculo. Son fundamentales en cálculo, física e ingeniería.
 ```{code-block} c
 :caption: "Cálculo de funciones hiperbólicas."
 :linenos:
-#include <stdio.h>
 #include <math.h>
-
-int main() {
+#include <stdio.h>
+int main()
+{
     double x = 1.0;
     printf("sinh(%.1f) = %f\n", x, sinh(x));
     printf("cosh(%.1f) = %f\n", x, cosh(x));
     printf("tanh(%.1f) = %f\n", x, tanh(x));
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -785,8 +753,8 @@ int main() {
 Aunque no están en el estándar, muchas implementaciones definen:
 
 ``` c
-#define M_PI    3.14159265358979323846   // π
-#define M_E     2.71828182845904523536   // e
+#define M_PI 3.14159265358979323846 // π
+#define M_E 2.71828182845904523536  // e
 ```
 <!-- c -->
 
@@ -810,8 +778,8 @@ expresiva.
 ### Definiciones
 
 ``` c
-#define bool  _Bool
-#define true  1
+#define bool _Bool
+#define true 1
 #define false 0
 ```
 <!-- c -->
@@ -822,30 +790,26 @@ El tipo subyacente es `_Bool`, que puede almacenar 0 o 1.
 
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <stdbool.h>
-
+#include <stdio.h>
 bool es_par(int n)
 {
     return n % 2 == 0;
 }
-
 int main(void)
 {
     bool activo = true;
     bool deshabilitado = false;
-    
-    if (activo) {
+    if (activo)
+    {
         printf("El sistema está activo.\n");
     }
-    
-    if (es_par(10)) {
+    if (es_par(10))
+    {
         printf("10 es par.\n");
     }
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -897,7 +861,7 @@ Tipo entero con signo que representa la diferencia entre dos punteros.
 int arr[10];
 int *p1 = &arr[8];
 int *p2 = &arr[3];
-ptrdiff_t diferencia = p1 - p2;  // 5
+ptrdiff_t diferencia = p1 - p2; // 5
 ```
 <!-- c -->
 
@@ -914,7 +878,7 @@ internacionalización.
 ### Macro `NULL`
 
 ``` c
-#define NULL ((void*)0)
+#define NULL ((void *)0)
 ```
 <!-- c -->
 
@@ -923,7 +887,8 @@ válido.
 
 ``` c
 int *ptr = NULL;
-if (ptr == NULL) {
+if (ptr == NULL)
+{
     printf("Puntero nulo\n");
 }
 ```
@@ -947,24 +912,21 @@ Calcula el desplazamiento en bytes de un miembro dentro de una estructura.
 
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <stddef.h>
-
-struct Datos {
+#include <stdio.h>
+struct Datos
+{
     char c;
     int i;
     double d;
 };
-
 int main(void)
 {
     printf("Desplazamiento de 'c': %zu bytes\n", offsetof(struct Datos, c));
     printf("Desplazamiento de 'i': %zu bytes\n", offsetof(struct Datos, i));
     printf("Desplazamiento de 'd': %zu bytes\n", offsetof(struct Datos, d));
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -996,8 +958,10 @@ número de bits especificado. Su uso es obligatorio si el sistema los soporta y
 tu código depende de un tamaño exacto.
 
 ``` c
-int8_t, int16_t, int32_t, int64_t       // Enteros con signo
-uint8_t, uint16_t, uint32_t, uint64_t   // Enteros sin signo
+int8_t, int16_t, int32_t,
+    int64_t // Enteros con signo
+        uint8_t,
+    uint16_t, uint32_t, uint64_t // Enteros sin signo
 ```
 <!-- c -->
 
@@ -1005,26 +969,22 @@ uint8_t, uint16_t, uint32_t, uint64_t   // Enteros sin signo
 
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <stdint.h>
-
+#include <stdio.h>
 int main(void)
 {
-    int8_t   byte = 127;            // -128 a 127
-    uint8_t  ubyte = 255;           // 0 a 255
-    int16_t  palabra = 32767;       // -32768 a 32767
+    int8_t byte = 127;       // -128 a 127
+    uint8_t ubyte = 255;     // 0 a 255
+    int16_t palabra = 32767; // -32768 a 32767
     uint32_t doble_palabra = 4000000000u;
-    int64_t  grande = 9223372036854775807LL;
-    
+    int64_t grande = 9223372036854775807LL;
     printf("int8_t: %d\n", byte);
     printf("uint8_t: %u\n", ubyte);
     printf("int16_t: %d\n", palabra);
     printf("uint32_t: %u\n", doble_palabra);
     printf("int64_t: %lld\n", grande);
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1035,8 +995,8 @@ de ancho exacto, ya que se garantiza su existencia en todas las plataformas
 conformes.
 
 ``` c
-int_least8_t, int_least16_t, int_least32_t, int_least64_t
-uint_least8_t, uint_least16_t, uint_least32_t, uint_least64_t
+int_least8_t, int_least16_t, int_least32_t, int_least64_t uint_least8_t,
+    uint_least16_t, uint_least32_t, uint_least64_t
 ```
 <!-- c -->
 **Uso:** Utilizalos cuando necesites un rango mínimo, pero no te importe si el
@@ -1048,8 +1008,8 @@ Son los tipos enteros que tienen *al menos* el ancho especificado y son los más
 rápidos de procesar en la arquitectura de destino.
 
 ``` c
-int_fast8_t, int_fast16_t, int_fast32_t, int_fast64_t
-uint_fast8_t, uint_fast16_t, uint_fast32_t, uint_fast64_t
+int_fast8_t, int_fast16_t, int_fast32_t, int_fast64_t uint_fast8_t,
+    uint_fast16_t, uint_fast32_t, uint_fast64_t
 ```
 <!-- c -->
 **Uso:** Ideales para contadores de lazos o cálculos donde el rendimiento es
@@ -1060,8 +1020,8 @@ crítico y solo se necesita un rango mínimo.
 Representan los tipos enteros más grandes que la implementación puede manejar.
 
 ``` c
-intmax_t    // Tipo entero con signo de mayor ancho
-uintmax_t   // Tipo entero sin signo de mayor ancho
+intmax_t      // Tipo entero con signo de mayor ancho
+    uintmax_t // Tipo entero sin signo de mayor ancho
 ```
 <!-- c -->
 
@@ -1071,8 +1031,8 @@ Tipos enteros garantizados para poder almacenar un puntero a `void` sin pérdida
 de información.
 
 ``` c
-intptr_t    // Entero con signo capaz de contener un puntero
-uintptr_t   // Entero sin signo capaz de contener un puntero
+intptr_t      // Entero con signo capaz de contener un puntero
+    uintptr_t // Entero sin signo capaz de contener un puntero
 ```
 <!-- c -->
 **Uso:** Útiles para aritmética de punteros de bajo nivel o para conversiones
@@ -1085,11 +1045,9 @@ Para cada tipo, hay macros que definen sus límites (`INT8_MIN`, `INT8_MAX`,
 (`INT8_C(123)`, `UINT64_C(0x123...)`).
 
 ``` c
-INT8_MIN, INT8_MAX, UINT8_MAX
-INT16_MIN, INT16_MAX, UINT16_MAX
-INT32_MIN, INT32_MAX, UINT32_MAX
-INT64_MIN, INT64_MAX, UINT64_MAX
-INTMAX_MIN, INTMAX_MAX, UINTMAX_MAX
+INT8_MIN, INT8_MAX, UINT8_MAX INT16_MIN, INT16_MAX, UINT16_MAX INT32_MIN,
+    INT32_MAX, UINT32_MAX INT64_MIN, INT64_MAX, UINT64_MAX INTMAX_MIN,
+    INTMAX_MAX, UINTMAX_MAX
 ```
 <!-- c -->
 
@@ -1101,40 +1059,34 @@ exige tamaños de campo exactos para que cualquier sistema pueda leerlo.
 ```{code-block} c
 :linenos:
 :caption: "Uso de stdint.h para portabilidad en un protocolo."
-#include <stdio.h>
-#include <stdint.h>
 #include <inttypes.h> // Para macros de formato como PRId64
-
+#include <stdint.h>
+#include <stdio.h>
 // Definimos una cabecera de paquete con tamaños fijos
-typedef struct {
-    uint16_t source_port;      // Puerto de origen (16 bits)
-    uint16_t dest_port;        // Puerto de destino (16 bits)
-    uint32_t sequence_number;  // Número de secuencia (32 bits)
-    uint8_t  flags;            // Banderas (8 bits)
-    uint8_t  protocol_version; // Versión (8 bits)
-    int64_t  timestamp_ns;     // Marca de tiempo en nanosegundos (64 bits)
+typedef struct
+{
+    uint16_t source_port;     // Puerto de origen (16 bits)
+    uint16_t dest_port;       // Puerto de destino (16 bits)
+    uint32_t sequence_number; // Número de secuencia (32 bits)
+    uint8_t flags;            // Banderas (8 bits)
+    uint8_t protocol_version; // Versión (8 bits)
+    int64_t timestamp_ns;     // Marca de tiempo en nanosegundos (64 bits)
 } PacketHeader;
-
 int main(void)
 {
-    PacketHeader header = {
-        .source_port = 49152,
-        .dest_port = 80,
-        .sequence_number = 1234567890,
-        .flags = 0x10, // SYN flag
-        .protocol_version = 4,
-        .timestamp_ns = 1665789000123456789LL
-    };
-
+    PacketHeader header = {.source_port = 49152,
+                           .dest_port = 80,
+                           .sequence_number = 1234567890,
+                           .flags = 0x10, // SYN flag
+                           .protocol_version = 4,
+                           .timestamp_ns = 1665789000123456789LL};
     // El tamaño es predecible en cualquier arquitectura
-    printf("El tamaño de la cabecera del paquete es: %zu bytes\n", sizeof(PacketHeader));
-
+    printf("El tamaño de la cabecera del paquete es: %zu bytes\n",
+           sizeof(PacketHeader));
     // Usamos macros de <inttypes.h> para imprimir de forma portable
     printf("Timestamp: %" PRId64 " ns\n", header.timestamp_ns);
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1204,21 +1156,18 @@ binario**, que evita cualquier tipo de procesamiento o conversión de los bytes
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
 int main(void)
 {
     FILE *archivo = fopen("datos.txt", "r");
-    if (archivo == NULL) {
+    if (archivo == NULL)
+    {
         perror("Error al abrir el archivo");
         return 1;
     }
-    
     // Usar el archivo...
-    
     fclose(archivo);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1288,23 +1237,19 @@ el apunte dedicado: [guía de printf](guide-printf.md).
 :linenos:
 :caption: "Uso de snprintf para construcción segura de cadenas"
 #include <stdio.h>
-
 int main(void)
 {
     char buffer[50];
     int edad = 25;
-    const char* nombre = "Ana";
-    
-    int escritos = snprintf(buffer, sizeof(buffer), 
-                            "%s tiene %d años", nombre, edad);
-    
-    if (escritos >= 0 && (size_t)escritos < sizeof(buffer)) {
+    const char *nombre = "Ana";
+    int escritos =
+        snprintf(buffer, sizeof(buffer), "%s tiene %d años", nombre, edad);
+    if (escritos >= 0 && (size_t)escritos < sizeof(buffer))
+    {
         printf("Cadena construida: %s\n", buffer);
     }
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 ### Funciones de Entrada con Formato
@@ -1336,8 +1281,8 @@ caracteres.
 #### `getchar`, `fgetc`, `fgets`
 
 ``` c
-int getchar(void); // Lee de stdin
-int fgetc(FILE *stream); // Lee de un flujo
+int getchar(void);                         // Lee de stdin
+int fgetc(FILE *stream);                   // Lee de un flujo
 char *fgets(char *s, int n, FILE *stream); // Lee una línea completa
 ```
 <!-- c -->
@@ -1357,22 +1302,18 @@ que `scanf`.
 :caption: "Lectura segura de una línea con fgets"
 #include <stdio.h>
 #include <string.h>
-
 int main(void)
 {
     char linea[100];
-    
     printf("Ingrese una línea: ");
-    if (fgets(linea, sizeof(linea), stdin) != NULL) {
+    if (fgets(linea, sizeof(linea), stdin) != NULL)
+    {
         // fgets incluye el '\n' si hay espacio, lo eliminamos.
         linea[strcspn(linea, "\n")] = '\0';
-        
         printf("Leíste: \"%s\"\n", linea);
     }
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1397,38 +1338,32 @@ lo regresa al inicio.
 :caption: "Uso de fseek, ftell y rewind para acceso aleatorio."
 :linenos:
 #include <stdio.h>
-
-int main() {
+int main()
+{
     FILE *archivo = fopen("ejemplo.txt", "w+");
-    if (archivo == NULL) {
+    if (archivo == NULL)
+    {
         perror("Error al crear archivo");
         return 1;
     }
-
     fputs("Hola Mundo", archivo);
-
     // Obtener el tamaño del archivo usando fseek y ftell
     fseek(archivo, 0, SEEK_END);
     long tamano = ftell(archivo);
     printf("El archivo tiene %ld bytes.\n", tamano);
-
     // Volver al inicio del archivo
     rewind(archivo);
-
     // Leer el primer carácter
     char c = fgetc(archivo);
     printf("Primer carácter: %c\n", c);
-
     // Moverse 5 bytes desde el inicio y leer
     fseek(archivo, 5, SEEK_SET);
     char buffer[10];
     fgets(buffer, sizeof(buffer), archivo);
     printf("Desde la posición 5: %s\n", buffer);
-
     fclose(archivo);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1462,34 +1397,33 @@ proporcionar retroalimentación significativa al usuario sobre problemas de E/O.
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-int main() {
+int main()
+{
     FILE *archivo = fopen("datos.txt", "r");
-    if (archivo == NULL) {
+    if (archivo == NULL)
+    {
         perror("Error al abrir datos.txt");
         return 1;
     }
-
     // Leemos el archivo carácter por carácter
-    while (1) {
+    while (1)
+    {
         int c = fgetc(archivo);
-
-        if (feof(archivo)) { // Verificamos si llegamos al final
+        if (feof(archivo))
+        { // Verificamos si llegamos al final
             printf("\nFin del archivo alcanzado.\n");
             break;
         }
-        if (ferror(archivo)) { // Verificamos si hubo un error de lectura
+        if (ferror(archivo))
+        { // Verificamos si hubo un error de lectura
             fprintf(stderr, "Error de lectura en el archivo.\n");
             break;
         }
-
         putchar(c); // Imprimimos el carácter leído
     }
-
     fclose(archivo);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1532,26 +1466,24 @@ funciones es fundamental para crear programas robustos y eficientes en memoria.
 ```{code-block} c
 :linenos:
 :caption: "Uso básico de malloc y free"
-#include <stdlib.h>
 #include <stdio.h>
-
+#include <stdlib.h>
 int main(void)
 {
     int *numeros = malloc(10 * sizeof(int));
-    if (numeros == NULL) {
+    if (numeros == NULL)
+    {
         fprintf(stderr, "Error: fallo al asignar memoria\n");
         return 1;
     }
-    
     // Usar la memoria...
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++)
+    {
         numeros[i] = i * 2;
     }
-    
     free(numeros);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1605,28 +1537,27 @@ error de una entrada legítima de cero.
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-int main(int argc, char *argv[]) {
-    if (argc != 2) {
+int main(int argc, char *argv[])
+{
+    if (argc != 2)
+    {
         fprintf(stderr, "Uso: %s <numero>\n", argv[0]);
         return EXIT_FAILURE;
     }
-
     char *endptr;
     long numero = strtol(argv[1], &endptr, 10);
-
     // Verificamos si hubo un error de conversión
     // 1. ¿endptr apunta al inicio? -> No se encontró ningún número
     // 2. ¿*endptr no es el final de la cadena? -> Había caracteres extra
-    if (endptr == argv[1] || *endptr != '\0') {
-        fprintf(stderr, "Error: '%s' no es un número entero válido.\n", argv[1]);
+    if (endptr == argv[1] || *endptr != '\0')
+    {
+        fprintf(stderr, "Error: '%s' no es un número entero válido.\n",
+                argv[1]);
         return EXIT_FAILURE;
     }
-
     printf("El doble del número es: %ld\n", numero * 2);
     return EXIT_SUCCESS;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1656,26 +1587,24 @@ crucial llamar a `srand()` una sola vez al inicio del programa, típicamente con
 ```{code-block} c
 :linenos:
 :caption: "Generando 5 números aleatorios entre 1 y 100."
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h> // Necesario para time()
-
 int main(void)
 {
-    // Usamos la hora actual como semilla. Esto solo se hace UNA VEZ por programa.
+    // Usamos la hora actual como semilla. Esto solo se hace UNA VEZ por
+    // programa.
     srand((unsigned)time(NULL));
-    
     printf("5 números aleatorios entre 1 y 100:\n");
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 5; i++)
+    {
         // rand() % 100 -> número entre 0 y 99
         // + 1          -> número entre 1 y 100
         int numero_aleatorio = (rand() % 100) + 1;
         printf("%d\n", numero_aleatorio);
     }
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1699,8 +1628,8 @@ constantemente, como la hora del sistema obtenida con `time(NULL)`.
 ``` c
 void qsort(void *base, size_t nmemb, size_t size,
            int (*compar)(const void *, const void *));
-void *bsearch(const void *key, const void *base, size_t nmemb,
-              size_t size, int (*compar)(const void *, const void *));
+void *bsearch(const void *key, const void *base, size_t nmemb, size_t size,
+              int (*compar)(const void *, const void *));
 ```
 <!-- c -->
 
@@ -1752,24 +1681,19 @@ operación.
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-int main() {
+int main()
+{
     int numero = -150;
     printf("El valor absoluto de %d es %d.\n", numero, abs(numero));
-
     int dividendo = 17;
     int divisor = 5;
-
     // Usamos la función div para obtener cociente y resto.
     div_t resultado = div(dividendo, divisor);
-
     printf("\nAl dividir %d entre %d:\n", dividendo, divisor);
     printf("  - Cociente: %d\n", resultado.quot); // Equivalente a 17 / 5
-    printf("  - Resto: %d\n", resultado.rem);   // Equivalente a 17 % 5
-
+    printf("  - Resto: %d\n", resultado.rem);     // Equivalente a 17 % 5
     return EXIT_SUCCESS;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1819,29 +1743,30 @@ Obtiene el valor de una variable de entorno.
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-int main() {
+int main()
+{
     // Intentamos obtener la variable de entorno 'USER' (común en Linux/macOS)
     // o 'USERNAME' (común en Windows).
     char *usuario = getenv("USER");
-    if (usuario == NULL) {
+    if (usuario == NULL)
+    {
         usuario = getenv("USERNAME");
     }
-
-    if (usuario != NULL) {
+    if (usuario != NULL)
+    {
         printf("Hola, %s!\n", usuario);
-    } else {
+    }
+    else
+    {
         printf("No se pudo determinar el nombre de usuario.\n");
     }
-
     char *path = getenv("PATH");
-    if (path != NULL) {
+    if (path != NULL)
+    {
         printf("\nLa variable PATH del sistema es:\n%s\n", path);
     }
-
     return EXIT_SUCCESS;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1872,27 +1797,26 @@ la entrada.
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-int main() {
+int main()
+{
     printf("Listando archivos del directorio actual:\n");
-    // En sistemas POSIX (Linux, macOS) se usa "ls", en Windows es "dir".
-    #ifdef _WIN32
-        system("dir");
-    #else
-        system("ls -l");
-    #endif
-
+// En sistemas POSIX (Linux, macOS) se usa "ls", en Windows es "dir".
+#ifdef _WIN32
+    system("dir");
+#else
+    system("ls -l");
+#endif
     int divisor = 0;
-    if (divisor == 0) {
-        fprintf(stderr, "Error crítico: intento de división por cero. Saliendo...\n");
+    if (divisor == 0)
+    {
+        fprintf(stderr,
+                "Error crítico: intento de división por cero. Saliendo...\n");
         exit(EXIT_FAILURE); // Termina el programa inmediatamente
     }
-
     // Este código nunca se ejecuta
     printf("Esto no se imprimirá.\n");
     return EXIT_SUCCESS;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1934,28 +1858,22 @@ manualmente la terminación nula después de usar `strncpy()`.
 :caption: "Uso seguro de `strncpy` y `strncat`."
 :linenos:
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
-
-int main() {
+#include <string.h>
+int main()
+{
     char destino[20]; // Un búfer con espacio para 19 chars + '\0'
     char origen[] = "¡Hola Mundo!";
-
     // Copia segura con strncpy
     strncpy(destino, origen, sizeof(destino) - 1);
     destino[sizeof(destino) - 1] = '\0'; // Aseguramos la terminación nula
-
     printf("Después de strncpy: %s\n", destino);
-
     // Concatenación segura con strncat
     // Dejamos espacio para 3 caracteres más y el nulo.
     strncat(destino, " Adiós.", 3); // Solo añadimos " Ad"
-
     printf("Después de strncat: %s\n", destino);
-
     return EXIT_SUCCESS;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1990,35 +1908,35 @@ texto y forman la base de sistemas de búsqueda más complejos.
 :caption: "Buscando caracteres y subcadenas."
 :linenos:
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
-
-int main() {
+#include <string.h>
+int main()
+{
     char frase[] = "El zorro marrón rápido salta sobre el perro perezoso.";
     char *subcadena;
     char letra = 'p';
-
     // Buscamos la subcadena "rápido"
     subcadena = strstr(frase, "rápido");
-    if (subcadena != NULL) {
+    if (subcadena != NULL)
+    {
         printf("Subcadena encontrada: %s\n", subcadena);
     }
-
     // Buscamos la primera 'p'
-    char* primera_p = strchr(frase, letra);
-    if(primera_p != NULL){
-        printf("La primera '%c' está en la posición: %ld\n", letra, primera_p - frase);
+    char *primera_p = strchr(frase, letra);
+    if (primera_p != NULL)
+    {
+        printf("La primera '%c' está en la posición: %ld\n", letra,
+               primera_p - frase);
     }
-
     // Buscamos la última 'p'
-    char* ultima_p = strrchr(frase, letra);
-    if(ultima_p != NULL){
-        printf("La última '%c' está en la posición: %ld\n", letra, ultima_p - frase);
+    char *ultima_p = strrchr(frase, letra);
+    if (ultima_p != NULL)
+    {
+        printf("La última '%c' está en la posición: %ld\n", letra,
+               ultima_p - frase);
     }
-
     return EXIT_SUCCESS;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -2055,36 +1973,34 @@ operaciones de bajo nivel donde se requiere control preciso sobre la memoria.
 :linenos:
 #include <stdio.h>
 #include <string.h>
-
-struct Punto { int x; int y; };
-
-int main() {
+struct Punto
+{
+    int x;
+    int y;
+};
+int main()
+{
     struct Punto p1 = {10, 20};
     struct Punto p2;
-
     // Usar memset para inicializar una estructura a cero
     memset(&p2, 0, sizeof(struct Punto));
     printf("p2 inicializada con memset: x=%d, y=%d\n", p2.x, p2.y);
-
     // Usar memcpy para copiar una estructura
     memcpy(&p2, &p1, sizeof(struct Punto));
     printf("p2 después de memcpy: x=%d, y=%d\n", p2.x, p2.y);
-
     // Usar memcmp para comparar dos bloques de memoria
-    if (memcmp(&p1, &p2, sizeof(struct Punto)) == 0) {
+    if (memcmp(&p1, &p2, sizeof(struct Punto)) == 0)
+    {
         printf("p1 y p2 son idénticas.\n");
     }
-
     // Ejemplo de memmove con solapamiento
     char buffer[] = "123456789";
     printf("\nBuffer original: %s\n", buffer);
     // Mover "12345" tres posiciones a la derecha
     memmove(buffer + 3, buffer, 5);
     printf("Buffer después de memmove: %s\n", buffer);
-
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -2101,8 +2017,10 @@ fecha.
 
 ``` c
 typedef /* ... */ time_t;
-struct tm { int tm_sec, tm_min, tm_hour, tm_mday, tm_mon, tm_year, ...; };
-
+struct tm
+{
+    int tm_sec, tm_min, tm_hour, tm_mday, tm_mon, tm_year, ...;
+};
 time_t time(time_t *tloc);
 clock_t clock(void);
 ```
@@ -2127,7 +2045,7 @@ tiempo bloqueado en I/O o esperando otros procesos.
 
 ``` c
 struct tm *localtime(const time_t *timer);
-size_t strftime(char *s, size_t maxsize, const char *format, 
+size_t strftime(char *s, size_t maxsize, const char *format,
                 const struct tm *timeptr);
 double difftime(time_t time1, time_t time0);
 ```
@@ -2153,19 +2071,15 @@ cálculos temporales.
 :linenos:
 #include <stdio.h>
 #include <time.h>
-
 int main(void)
 {
     time_t ahora = time(NULL);
     struct tm *tiempo = localtime(&ahora);
     char buffer[100];
-    
     strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", tiempo);
     printf("Fecha: %s\n", buffer);
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 

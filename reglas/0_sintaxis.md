@@ -141,7 +141,7 @@ struct Datos datos = {0};
 
 - **Incorrecto:**
   ```c
-  resultado=valor1*valor2+offset;
+  resultado = valor1 * valor2 + offset;
   ```
 - **Correcto:**
   ```c
@@ -157,32 +157,35 @@ del código.
 - **Incorrecto (indentación inconsistente):**
 ```{code-block} c
 :linenos:
-void funcion() {
+void funcion()
+{
 int x = 10;
-if (x > 5) {
+if (x > 5)
+{
         printf("Mayor");
     }
 }
-
 ```
 <!-- {code-block} c -->
 - **Correcto (indentación de 4 espacios):**
 ```{code-block} c
 :linenos:
-void funcion() {
+void funcion()
+{
     int x = 10;
-    if (x > 5) {
+    if (x > 5)
+    {
         printf("Mayor");
     }
 }
-
 ```
 <!-- {code-block} c -->
 
 Esto aplica incluso para bloques de una sola línea.
 ``` diff
 - if (condicion) accion;
-+ if (condicion) {
++ if (condicion)
++ {
 +     accion;
 + }
 ```
@@ -206,12 +209,18 @@ mejora la claridad.
 - **Incorrecto:**
   ```c
   int miVariable;
-  void miFuncion(int UnArgumento) { /* ... */ }
+  void miFuncion(int UnArgumento)
+  {
+      /* ... */
+  }
   ```
 - **Correcto:**
   ```c
   int mi_variable;
-  void mi_funcion(int un_argumento) { /* ... */ }
+  void mi_funcion(int un_argumento)
+  {
+      /* ... */
+  }
   ```
 
 (0x0008h)=
@@ -231,7 +240,8 @@ se trata de un valor inmutable.
   const int DIAS_DE_LA_SEMANA = 7;
   #define PI 3.14159f
 
-  float calcular_circunferencia(float radio) {
+  float calcular_circunferencia(float radio)
+  {
       return 2 * PI * radio;
   }
   ```
@@ -272,7 +282,51 @@ debe ser lo suficientemente claro para explicar *qué* hace.
   ```c
   // Se utiliza un índice inverso para procesar los elementos desde el final,
   // ya que el último elemento tiene un significado especial en el protocolo.
-  for (size_t i = tamano - 1; i < tamano; i--) {
+  for (size_t i = tamano - 1; i < tamano; i--)
+  {
       // ...
   }
   ```
+
+(0x000Bh)=
+## Regla `0x000Bh`: Las llaves deben ubicarse en líneas independientes según el estilo Allman
+
+El código debe estructurarse siguiendo el [estilo de indentación Allman](https://en.wikipedia.org/wiki/Indentation_style#Allman_style) (también conocido como estilo BSD).
+
+En este estilo:
+- La llave de apertura `{` asociada a una función, estructura de control o bloque de código debe ubicarse en una nueva línea, alineada en la misma columna que la sentencia contenedora.
+- Las sentencias contenidas dentro del bloque se indentan a cuatro espacios respecto a las llaves.
+- La llave de cierre `}` se coloca en una línea independiente, alineada verticalmente con su correspondiente llave de apertura.
+- Esto aplica de manera uniforme a definiciones de funciones, condicionales (`if`, `else if`, `else`), lazos (`while`, `for`, `do-while`), sentencias `switch`, estructuras (`struct`) y enumeraciones (`enum`).
+
+Para más detalles sobre los fundamentos y variantes de este estándar, consultá el artículo sobre [Allman style en Wikipedia](https://en.wikipedia.org/wiki/Indentation_style#Allman_style).
+
+- **Incorrecto (estilo K&R / 1TBS con llaves en la misma línea):**
+```{code-block} c
+:linenos:
+int calcular_total(int cantidad, int precio) {
+    if (cantidad > 0) {
+        return cantidad * precio;
+    } else {
+        return 0;
+    }
+}
+```
+<!-- {code-block} c -->
+
+- **Correcto (estilo Allman con llaves en líneas separadas y alineadas):**
+```{code-block} c
+:linenos:
+int calcular_total(int cantidad, int precio)
+{
+    if (cantidad > 0)
+    {
+        return cantidad * precio;
+    }
+    else
+    {
+        return 0;
+    }
+}
+```
+<!-- {code-block} c -->

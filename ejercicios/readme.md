@@ -46,13 +46,9 @@ Este ejercicio nos permitirá verificar que el entorno de programación funciona
 Nombre y Apellido
 Usuario Github
 */
-
 // prototipos
-
 // main
-
 // implementaciones
-
 ```
 <!-- {code-block} c -->
 

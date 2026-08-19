@@ -2,8 +2,8 @@
 #include <stdlib.h>
 
 unsigned long long factorial(int n)
-{   
-    if ( n == 1)
+{
+    if (n == 1)
     {
         return 1L;
     }
@@ -13,10 +13,9 @@ unsigned long long factorial(int n)
     }
 }
 
-
 int suma(int n)
 {
-    if ( n == 1)
+    if (n == 1)
     {
         printf("<1>");
         return 1;
@@ -51,15 +50,15 @@ int suma(int n)
     9 + 36
 55 = 10 + 45
 
-55         
+55
 */
-int main(int argc, char *argv[]) 
+int main(int argc, char *argv[])
 {
     if (argc == 2)
     {
         int termino = atoi(argv[1]);
         unsigned long long int resultado = factorial(termino);
-        printf("termino: %d = resultado:%llu\n", termino, resultado);   
+        printf("termino: %d = resultado:%llu\n", termino, resultado);
     }
     else
     {

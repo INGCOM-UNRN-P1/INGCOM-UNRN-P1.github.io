@@ -61,10 +61,8 @@ Cuando es necesario cambiar una función existente:
 // Función antigua (deprecada)
 // DEPRECADO: Usar lista_agregar_v2() en su lugar
 bool lista_agregar(lista_t *lista, int dato);
-
 // Nueva función
 bool lista_agregar_v2(lista_t *lista, int dato, size_t *indice_out);
-
 ```
 <!-- {code-block} c -->
 
@@ -74,7 +72,6 @@ bool lista_agregar_v2(lista_t *lista, int dato, size_t *indice_out);
 ```{code-block} c
 void dibujar_rectangulo(int x, int y, int ancho, int alto);
 void dibujar_rectangulo_ex(int x, int y, int ancho, int alto, color_t color);
-
 ```
 <!-- {code-block} c -->
 
@@ -83,20 +80,19 @@ void dibujar_rectangulo_ex(int x, int y, int ancho, int alto, color_t color);
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     int ancho;
     int alto;
     color_t color;
     bool borde;
     int grosor_borde;
 } rectangulo_config_t;
-
 // Configuración por defecto
 rectangulo_config_t rectangulo_config_defecto(void);
-
 // Función que acepta configuración
-void dibujar_rectangulo_config(int x, int y, const rectangulo_config_t *config);
-
+void dibujar_rectangulo_config(int x, int y,
+                               const rectangulo_config_t *config);
 ```
 <!-- {code-block} c -->
 
@@ -128,15 +124,12 @@ documentación completa con precondiciones y poscondiciones para cada función.
 :linenos:
 #ifndef PILA_H
 #define PILA_H
-
 #include <stdbool.h>
 #include <stddef.h>
-
 /**
  * Tipo opaco que representa una pila de enteros.
  */
 typedef struct pila pila_t;
-
 /**
  * Crea una nueva pila vacía.
  *
@@ -144,7 +137,6 @@ typedef struct pila pila_t;
  * @post El llamador debe liberar la memoria con pila_destruir().
  */
 pila_t *pila_crear(void);
-
 /**
  * Destruye una pila y libera toda la memoria asociada.
  *
@@ -152,7 +144,6 @@ pila_t *pila_crear(void);
  * @post Todos los elementos son liberados. El puntero pila queda inválido.
  */
 void pila_destruir(pila_t *pila);
-
 /**
  * Apila un elemento en el tope de la pila.
  *
@@ -162,7 +153,6 @@ void pila_destruir(pila_t *pila);
  * @pre pila != NULL
  */
 bool pila_apilar(pila_t *pila, int dato);
-
 /**
  * Desapila y retorna el elemento del tope de la pila.
  *
@@ -173,7 +163,6 @@ bool pila_apilar(pila_t *pila, int dato);
  * @post Si retorna true, *dato contiene el valor desapilado.
  */
 bool pila_desapilar(pila_t *pila, int *dato);
-
 /**
  * Consulta el elemento en el tope de la pila sin desapilarlo.
  *
@@ -183,7 +172,6 @@ bool pila_desapilar(pila_t *pila, int *dato);
  * @pre pila != NULL, dato != NULL
  */
 bool pila_peek(const pila_t *pila, int *dato);
-
 /**
  * Verifica si la pila está vacía.
  *
@@ -192,7 +180,6 @@ bool pila_peek(const pila_t *pila, int *dato);
  * @pre pila != NULL
  */
 bool pila_esta_vacia(const pila_t *pila);
-
 /**
  * Obtiene el número de elementos en la pila.
  *
@@ -201,9 +188,7 @@ bool pila_esta_vacia(const pila_t *pila);
  * @pre pila != NULL
  */
 size_t pila_tamano(const pila_t *pila);
-
 #endif // PILA_H
-
 ```
 <!-- {code-block} c -->
 
@@ -234,119 +219,118 @@ manejo de errores.
 ```{code-block} c
 :linenos:
 // Adiciones a matematica.h
-
-#include <limits.h>  // Para INT_MAX, INT_MIN
-
+#include <limits.h> // Para INT_MAX, INT_MIN
 /**
  * Suma dos enteros con detección de desbordamiento.
  *
  * @param a Primer sumando.
  * @param b Segundo sumando.
  * @param resultado Puntero donde almacenar el resultado.
- * @returns MAT_OK si la suma es válida, MAT_ERROR_DESBORDAMIENTO en caso contrario.
+ * @returns MAT_OK si la suma es válida, MAT_ERROR_DESBORDAMIENTO en caso
+ * contrario.
  * @pre resultado != NULL
  * @post Si retorna MAT_OK, *resultado = a + b.
  */
 mat_error_t mat_sumar(int a, int b, int *resultado);
-
 /**
  * Multiplica dos enteros con detección de desbordamiento.
  *
  * @param a Primer factor.
  * @param b Segundo factor.
  * @param resultado Puntero donde almacenar el resultado.
- * @returns MAT_OK si la multiplicación es válida, 
+ * @returns MAT_OK si la multiplicación es válida,
  *          MAT_ERROR_DESBORDAMIENTO en caso contrario.
  * @pre resultado != NULL
  */
 mat_error_t mat_multiplicar(int a, int b, int *resultado);
-
 ```
 <!-- {code-block} c -->
 
 ```{code-block} c
 :linenos:
 // Implementación en matematica.c
-
 mat_error_t mat_sumar(int a, int b, int *resultado)
 {
     // Detectar desbordamiento positivo
-    if (b > 0 && a > INT_MAX - b) {
+    if (b > 0 && a > INT_MAX - b)
+    {
         return MAT_ERROR_DESBORDAMIENTO;
     }
     // Detectar desbordamiento negativo
-    if (b < 0 && a < INT_MIN - b) {
+    if (b < 0 && a < INT_MIN - b)
+    {
         return MAT_ERROR_DESBORDAMIENTO;
     }
     *resultado = a + b;
     return MAT_OK;
 }
-
 mat_error_t mat_multiplicar(int a, int b, int *resultado)
 {
     // Casos especiales
-    if (a == 0 || b == 0) {
+    if (a == 0 || b == 0)
+    {
         *resultado = 0;
         return MAT_OK;
     }
-    
     // Detectar desbordamiento
-    if (a > 0) {
-        if (b > 0 && a > INT_MAX / b) {
+    if (a > 0)
+    {
+        if (b > 0 && a > INT_MAX / b)
+        {
             return MAT_ERROR_DESBORDAMIENTO;
         }
-        if (b < 0 && b < INT_MIN / a) {
-            return MAT_ERROR_DESBORDAMIENTO;
-        }
-    } else { // a < 0
-        if (b > 0 && a < INT_MIN / b) {
-            return MAT_ERROR_DESBORDAMIENTO;
-        }
-        if (b < 0 && a < INT_MAX / b) { // a < 0, b < 0
+        if (b < 0 && b < INT_MIN / a)
+        {
             return MAT_ERROR_DESBORDAMIENTO;
         }
     }
-    
+    else
+    { // a < 0
+        if (b > 0 && a < INT_MIN / b)
+        {
+            return MAT_ERROR_DESBORDAMIENTO;
+        }
+        if (b < 0 && a < INT_MAX / b)
+        { // a < 0, b < 0
+            return MAT_ERROR_DESBORDAMIENTO;
+        }
+    }
     *resultado = a * b;
     return MAT_OK;
 }
-
 ```
 <!-- {code-block} c -->
 
 ```{code-block} c
 :linenos:
 // Programa de prueba
-#include <stdio.h>
 #include "matematica.h"
 #include <limits.h>
-
+#include <stdio.h>
 int main(void)
 {
     int resultado = 0;
     mat_error_t error = MAT_OK;
-
     // Prueba de suma normal
     error = mat_sumar(100, 200, &resultado);
-    if (error == MAT_OK) {
+    if (error == MAT_OK)
+    {
         printf("100 + 200 = %d\n", resultado);
     }
-
     // Prueba de desbordamiento en suma
     error = mat_sumar(INT_MAX, 1, &resultado);
-    if (error != MAT_OK) {
+    if (error != MAT_OK)
+    {
         printf("Desbordamiento detectado: %s\n", mat_error_str(error));
     }
-
     // Prueba de multiplicación con desbordamiento
     error = mat_multiplicar(INT_MAX / 2, 3, &resultado);
-    if (error != MAT_OK) {
+    if (error != MAT_OK)
+    {
         printf("Desbordamiento en multiplicación: %s\n", mat_error_str(error));
     }
-
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -380,35 +364,32 @@ usuario pueda declarar el buffer en el stack.
 :linenos:
 #ifndef BUFFER_CIRCULAR_H
 #define BUFFER_CIRCULAR_H
-
-#include <stddef.h>
 #include <stdbool.h>
-
+#include <stddef.h>
 #define BUFFER_CAPACIDAD_MAXIMA 1024
-
 /**
  * Estructura de buffer circular de tamaño fijo.
  * El usuario puede declararlo en el stack.
  */
-typedef struct {
+typedef struct
+{
     unsigned char datos[BUFFER_CAPACIDAD_MAXIMA];
     size_t capacidad;
-    size_t inicio;    // Índice de lectura
-    size_t fin;       // Índice de escritura
-    size_t cantidad;  // Número de bytes almacenados
+    size_t inicio;   // Índice de lectura
+    size_t fin;      // Índice de escritura
+    size_t cantidad; // Número de bytes almacenados
 } buffer_circular_t;
-
 /**
  * Inicializa un buffer circular.
  *
  * @param buffer Puntero al buffer a inicializar.
  * @param capacidad Capacidad del buffer (máximo BUFFER_CAPACIDAD_MAXIMA).
- * @returns true si se inicializó correctamente, false si capacidad es inválida.
+ * @returns true si se inicializó correctamente, false si capacidad es
+ * inválida.
  * @pre buffer != NULL
  * @post El buffer queda vacío y listo para usar.
  */
 bool buffer_init(buffer_circular_t *buffer, size_t capacidad);
-
 /**
  * Limpia un buffer circular.
  *
@@ -417,21 +398,18 @@ bool buffer_init(buffer_circular_t *buffer, size_t capacidad);
  * @post El buffer queda vacío.
  */
 void buffer_finalize(buffer_circular_t *buffer);
-
 /**
  * Escribe datos en el buffer.
  *
  * @param buffer Buffer donde escribir.
  * @param datos Puntero a los datos a escribir.
  * @param longitud Número de bytes a escribir.
- * @returns Número de bytes efectivamente escritos (puede ser menor que longitud
- *          si el buffer está casi lleno).
+ * @returns Número de bytes efectivamente escritos (puede ser menor que
+ * longitud si el buffer está casi lleno).
  * @pre buffer != NULL, datos != NULL
  */
-size_t buffer_escribir(buffer_circular_t *buffer, 
-                       const unsigned char *datos,
+size_t buffer_escribir(buffer_circular_t *buffer, const unsigned char *datos,
                        size_t longitud);
-
 /**
  * Lee datos del buffer.
  *
@@ -442,10 +420,8 @@ size_t buffer_escribir(buffer_circular_t *buffer,
  *          si hay menos datos disponibles).
  * @pre buffer != NULL, datos != NULL
  */
-size_t buffer_leer(buffer_circular_t *buffer,
-                   unsigned char *datos,
+size_t buffer_leer(buffer_circular_t *buffer, unsigned char *datos,
                    size_t longitud);
-
 /**
  * Consulta cuántos bytes hay disponibles para leer.
  *
@@ -454,7 +430,6 @@ size_t buffer_leer(buffer_circular_t *buffer,
  * @pre buffer != NULL
  */
 size_t buffer_disponible(const buffer_circular_t *buffer);
-
 /**
  * Consulta cuánto espacio libre hay para escribir.
  *
@@ -463,19 +438,15 @@ size_t buffer_disponible(const buffer_circular_t *buffer);
  * @pre buffer != NULL
  */
 size_t buffer_espacio_libre(const buffer_circular_t *buffer);
-
 /**
  * Verifica si el buffer está vacío.
  */
 bool buffer_esta_vacio(const buffer_circular_t *buffer);
-
 /**
  * Verifica si el buffer está lleno.
  */
 bool buffer_esta_lleno(const buffer_circular_t *buffer);
-
 #endif // BUFFER_CIRCULAR_H
-
 ```
 <!-- {code-block} c -->
 
@@ -484,10 +455,10 @@ bool buffer_esta_lleno(const buffer_circular_t *buffer);
 // Implementación buffer_circular.c
 #include "buffer_circular.h"
 #include <string.h>
-
 bool buffer_init(buffer_circular_t *buffer, size_t capacidad)
 {
-    if (capacidad == 0 || capacidad > BUFFER_CAPACIDAD_MAXIMA) {
+    if (capacidad == 0 || capacidad > BUFFER_CAPACIDAD_MAXIMA)
+    {
         return false;
     }
     buffer->capacidad = capacidad;
@@ -496,65 +467,54 @@ bool buffer_init(buffer_circular_t *buffer, size_t capacidad)
     buffer->cantidad = 0;
     return true;
 }
-
 void buffer_finalize(buffer_circular_t *buffer)
 {
     buffer->inicio = 0;
     buffer->fin = 0;
     buffer->cantidad = 0;
 }
-
-size_t buffer_escribir(buffer_circular_t *buffer,
-                       const unsigned char *datos,
+size_t buffer_escribir(buffer_circular_t *buffer, const unsigned char *datos,
                        size_t longitud)
 {
     size_t espacio = buffer->capacidad - buffer->cantidad;
     size_t a_escribir = (longitud < espacio) ? longitud : espacio;
-    
-    for (size_t i = 0; i < a_escribir; i++) {
+    for (size_t i = 0; i < a_escribir; i++)
+    {
         buffer->datos[buffer->fin] = datos[i];
         buffer->fin = (buffer->fin + 1) % buffer->capacidad;
         buffer->cantidad++;
     }
-    
     return a_escribir;
 }
-
-size_t buffer_leer(buffer_circular_t *buffer,
-                   unsigned char *datos,
+size_t buffer_leer(buffer_circular_t *buffer, unsigned char *datos,
                    size_t longitud)
 {
-    size_t a_leer = (longitud < buffer->cantidad) ? longitud : buffer->cantidad;
-    
-    for (size_t i = 0; i < a_leer; i++) {
+    size_t a_leer =
+        (longitud < buffer->cantidad) ? longitud : buffer->cantidad;
+    for (size_t i = 0; i < a_leer; i++)
+    {
         datos[i] = buffer->datos[buffer->inicio];
         buffer->inicio = (buffer->inicio + 1) % buffer->capacidad;
         buffer->cantidad--;
     }
-    
     return a_leer;
 }
-
 size_t buffer_disponible(const buffer_circular_t *buffer)
 {
     return buffer->cantidad;
 }
-
 size_t buffer_espacio_libre(const buffer_circular_t *buffer)
 {
     return buffer->capacidad - buffer->cantidad;
 }
-
 bool buffer_esta_vacio(const buffer_circular_t *buffer)
 {
     return buffer->cantidad == 0;
 }
-
 bool buffer_esta_lleno(const buffer_circular_t *buffer)
 {
     return buffer->cantidad == buffer->capacidad;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -579,7 +539,6 @@ parser_agregar_opcion(parser, 'o', "output", "Archivo de salida", "stdout");
 parser_parsear(parser, argc, argv);
 bool verbose = parser_obtener_flag(parser, "verbose");
 const char *salida = parser_obtener_opcion(parser, "output");
-
 ```
 <!-- {code-block} c -->
 
@@ -593,14 +552,11 @@ const char *salida = parser_obtener_opcion(parser, "output");
 :linenos:
 #ifndef PARSER_CLI_H
 #define PARSER_CLI_H
-
 #include <stdbool.h>
-
 /**
  * Tipo opaco que representa un parseador de argumentos de línea de comandos.
  */
 typedef struct parser parser_t;
-
 /**
  * Crea un nuevo parseador de argumentos.
  *
@@ -611,7 +567,6 @@ typedef struct parser parser_t;
  * @post El llamador debe liberar con parser_destruir().
  */
 parser_t *parser_crear(const char *nombre_programa, const char *version);
-
 /**
  * Destruye un parseador y libera sus recursos.
  *
@@ -619,7 +574,6 @@ parser_t *parser_crear(const char *nombre_programa, const char *version);
  * @post El puntero parser queda inválido.
  */
 void parser_destruir(parser_t *parser);
-
 /**
  * Agrega una opción booleana (flag) al parseador.
  *
@@ -630,11 +584,8 @@ void parser_destruir(parser_t *parser);
  * @returns true si se agregó exitosamente, false en caso de error.
  * @pre parser != NULL, largo != NULL
  */
-bool parser_agregar_flag(parser_t *parser,
-                         char corto,
-                         const char *largo,
+bool parser_agregar_flag(parser_t *parser, char corto, const char *largo,
                          const char *descripcion);
-
 /**
  * Agrega una opción con valor al parseador.
  *
@@ -646,12 +597,8 @@ bool parser_agregar_flag(parser_t *parser,
  * @returns true si se agregó exitosamente, false en caso de error.
  * @pre parser != NULL, largo != NULL
  */
-bool parser_agregar_opcion(parser_t *parser,
-                           char corto,
-                           const char *largo,
-                           const char *descripcion,
-                           const char *valor_defecto);
-
+bool parser_agregar_opcion(parser_t *parser, char corto, const char *largo,
+                           const char *descripcion, const char *valor_defecto);
 /**
  * Parsea los argumentos de línea de comandos.
  *
@@ -663,7 +610,6 @@ bool parser_agregar_opcion(parser_t *parser,
  * @post Si retorna false, usar parser_obtener_error() para obtener detalles.
  */
 bool parser_parsear(parser_t *parser, int argc, char *argv[]);
-
 /**
  * Obtiene el valor de un flag booleano.
  *
@@ -674,7 +620,6 @@ bool parser_parsear(parser_t *parser, int argc, char *argv[]);
  * @pre parser_parsear() debe haber sido llamado previamente.
  */
 bool parser_obtener_flag(const parser_t *parser, const char *nombre);
-
 /**
  * Obtiene el valor de una opción.
  *
@@ -687,18 +632,17 @@ bool parser_obtener_flag(const parser_t *parser, const char *nombre);
  *       que parser_destruir() sea llamado.
  */
 const char *parser_obtener_opcion(const parser_t *parser, const char *nombre);
-
 /**
  * Obtiene los argumentos posicionales (no opciones).
  *
  * @param parser Parseador a consultar.
- * @param cantidad Puntero donde almacenar el número de argumentos posicionales.
+ * @param cantidad Puntero donde almacenar el número de argumentos
+ * posicionales.
  * @returns Vector de cadenas con los argumentos posicionales.
  * @pre parser != NULL, cantidad != NULL
  * @post El vector retornado es propiedad del parser.
  */
 const char **parser_obtener_argumentos(const parser_t *parser, int *cantidad);
-
 /**
  * Muestra el mensaje de ayuda en la salida estándar.
  *
@@ -706,7 +650,6 @@ const char **parser_obtener_argumentos(const parser_t *parser, int *cantidad);
  * @pre parser != NULL
  */
 void parser_mostrar_ayuda(const parser_t *parser);
-
 /**
  * Obtiene el mensaje de error del último parseo fallido.
  *
@@ -716,9 +659,7 @@ void parser_mostrar_ayuda(const parser_t *parser);
  * @post La cadena retornada es propiedad del parser.
  */
 const char *parser_obtener_error(const parser_t *parser);
-
 #endif // PARSER_CLI_H
-
 ```
 <!-- {code-block} c -->
 
@@ -745,23 +686,20 @@ documentación completa, y uso de `const` apropiado.
 :linenos:
 #ifndef JSON_SIMPLE_H
 #define JSON_SIMPLE_H
-
 #include <stdbool.h>
-
 /**
  * Tipo opaco que representa un objeto JSON parseado.
  */
 typedef struct json json_t;
-
 /**
  * Tipos de valores JSON soportados.
  */
-typedef enum {
+typedef enum
+{
     JSON_TIPO_CADENA,
     JSON_TIPO_NUMERO,
     JSON_TIPO_INVALIDO
 } json_tipo_t;
-
 /**
  * Carga y parsea un archivo JSON.
  *
@@ -772,7 +710,6 @@ typedef enum {
  *       Si retorna NULL, usar json_obtener_error() para detalles.
  */
 json_t *json_cargar(const char *ruta_archivo);
-
 /**
  * Parsea una cadena JSON.
  *
@@ -782,7 +719,6 @@ json_t *json_cargar(const char *ruta_archivo);
  * @post El llamador debe liberar con json_destruir().
  */
 json_t *json_parsear(const char *contenido);
-
 /**
  * Destruye un objeto JSON y libera sus recursos.
  *
@@ -790,7 +726,6 @@ json_t *json_parsear(const char *contenido);
  * @post El puntero json queda inválido.
  */
 void json_destruir(json_t *json);
-
 /**
  * Verifica si una clave existe en el objeto JSON.
  *
@@ -800,7 +735,6 @@ void json_destruir(json_t *json);
  * @pre json != NULL, clave != NULL
  */
 bool json_existe(const json_t *json, const char *clave);
-
 /**
  * Obtiene el tipo de valor asociado a una clave.
  *
@@ -810,7 +744,6 @@ bool json_existe(const json_t *json, const char *clave);
  * @pre json != NULL, clave != NULL
  */
 json_tipo_t json_obtener_tipo(const json_t *json, const char *clave);
-
 /**
  * Obtiene un valor de cadena del objeto JSON.
  *
@@ -821,10 +754,8 @@ json_tipo_t json_obtener_tipo(const json_t *json, const char *clave);
  * @pre json != NULL, clave != NULL
  * @post La cadena retornada es propiedad del objeto JSON.
  */
-const char *json_obtener_cadena(const json_t *json,
-                                const char *clave,
+const char *json_obtener_cadena(const json_t *json, const char *clave,
                                 const char *valor_defecto);
-
 /**
  * Obtiene un valor numérico del objeto JSON.
  *
@@ -834,10 +765,8 @@ const char *json_obtener_cadena(const json_t *json,
  * @returns Valor de la clave como double, o valor_defecto.
  * @pre json != NULL, clave != NULL
  */
-double json_obtener_numero(const json_t *json,
-                           const char *clave,
+double json_obtener_numero(const json_t *json, const char *clave,
                            double valor_defecto);
-
 /**
  * Obtiene el número de pares clave-valor en el objeto JSON.
  *
@@ -846,7 +775,6 @@ double json_obtener_numero(const json_t *json,
  * @pre json != NULL
  */
 size_t json_obtener_num_claves(const json_t *json);
-
 /**
  * Obtiene todas las claves del objeto JSON.
  *
@@ -856,7 +784,6 @@ size_t json_obtener_num_claves(const json_t *json);
  * @post El vector retornado es propiedad del objeto JSON.
  */
 const char **json_obtener_claves(const json_t *json);
-
 /**
  * Obtiene el mensaje del último error de parseo.
  *
@@ -865,9 +792,7 @@ const char **json_obtener_claves(const json_t *json);
  *       próxima operación que pueda generar error.
  */
 const char *json_obtener_error(void);
-
 #endif // JSON_SIMPLE_H
-
 ```
 <!-- {code-block} c -->
 
@@ -984,12 +909,10 @@ versiones "safe" con verificaciones completas:
 :linenos:
 // Versión con verificaciones completas: segura pero más lenta
 bool lista_insertar(lista_t *lista, size_t pos, void *elem);
-
 // Versión sin verificaciones para lazos críticos: rápida pero peligrosa
 // PRECONDICIÓN: pos < lista->tamanio, lista != NULL, elem != NULL
 // El incumplimiento de las precondiciones resulta en comportamiento indefinido
 void lista_insertar_unsafe(lista_t *lista, size_t pos, void *elem);
-
 ```
 <!-- {code-block} c -->
 
@@ -1029,20 +952,17 @@ que el código de producción, sirviendo como especificación ejecutable.
 ```{code-block} c
 :linenos:
 // Ejemplo de test de contrato
-void test_lista_agregar_retorna_true_en_exito(void) {
+void test_lista_agregar_retorna_true_en_exito(void)
+{
     lista_t *lista = lista_crear();
     assert(lista != NULL);
-    
     // Postcondición: agregar elemento debe retornar true
     bool resultado = lista_agregar(lista, 42);
     assert(resultado == true);
-    
     // Invariante: el tamaño debe incrementarse
     assert(lista_largo(lista) == 1);
-    
     lista_destruir(lista);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1097,23 +1017,22 @@ generar HTML, PDF, y man pages.
  * @param elemento Elemento a buscar.
  * @param[out] indice_out Si no es NULL y se encuentra el elemento,
  *                        se almacena aquí el índice donde fue encontrado.
- * 
+ *
  * @return true si el elemento fue encontrado, false en caso contrario.
- * 
+ *
  * @pre lista != NULL
  * @pre La lista debe estar ordenada en orden ascendente.
  * @post Si retorna true, *indice_out contiene el índice del elemento.
  * @post La lista no es modificada.
- * 
+ *
  * @note Complejidad: O(log n) donde n es el tamaño de la lista.
- * @note Thread-safe: Sí, siempre que no se modifique la lista concurrentemente.
- * 
+ * @note Thread-safe: Sí, siempre que no se modifique la lista
+ * concurrentemente.
+ *
  * @see lista_ordenar() para ordenar una lista antes de buscar.
  */
-bool lista_buscar_binaria(const lista_t *lista, 
-                         int elemento,
-                         size_t *indice_out);
-
+bool lista_buscar_binaria(const lista_t *lista, int elemento,
+                          size_t *indice_out);
 ```
 <!-- {code-block} c -->
 

@@ -56,26 +56,29 @@ Pedí al usuario que ingrese su nota final (entera) e imprimí su condición:
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
 int main(void)
 {
     int nota = 0;
     printf("Ingrese la nota: ");
-    if (scanf("%d", &nota) != 1) {
+    if (scanf("%d", &nota) != 1)
+    {
         printf("Error al leer la nota.\n");
         return 1;
     }
-
-    if (nota >= 6) {
+    if (nota >= 6)
+    {
         printf("Promociona\n");
-    } else if (nota >= 4) {
+    }
+    else if (nota >= 4)
+    {
         printf("Aprueba\n");
-    } else {
+    }
+    else
+    {
         printf("Desaprueba\n");
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -110,16 +113,16 @@ descendente usando un lazo `while`.
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-int main(void) {
+int main(void)
+{
     int i = 10;
-    while (i >= 1) {
+    while (i >= 1)
+    {
         printf("%d\n", i);
         i = i - 1;
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -148,16 +151,17 @@ rango de 0 a 30 inclusive.
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-int main(void) {
-    for (int i = 0; i <= 30; i = i + 1) {
-        if (i % 3 == 0) {
+int main(void)
+{
+    for (int i = 0; i <= 30; i = i + 1)
+    {
+        if (i % 3 == 0)
+        {
             printf("%d es múltiplo de 3\n", i);
         }
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -187,27 +191,26 @@ de acceso numérica al usuario hasta que ingrese el valor correcto `1234`.
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-int main(void) {
+int main(void)
+{
     int clave = 0;
     int clave_correcta = 1234;
-
-    do {
+    do
+    {
         printf("Ingrese la clave: ");
-        if (scanf("%d", &clave) != 1) {
+        if (scanf("%d", &clave) != 1)
+        {
             printf("Error al leer la clave.\n");
             return 1;
         }
-
-        if (clave != clave_correcta) {
+        if (clave != clave_correcta)
+        {
             printf("Clave incorrecta. Reintente.\n");
         }
     } while (clave != clave_correcta);
-
     printf("Acceso concedido.\n");
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -229,18 +232,19 @@ estructurando correctamente el lazo:
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-int main() {
+int main()
+{
     int i;
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < 10; i++)
+    {
         printf("valor actual: %d\n", i);
-        if (i == 4) {
+        if (i == 4)
+        {
             break;
         }
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -261,22 +265,23 @@ que se establece en `false` al alcanzar la condición de parada:
 
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <stdbool.h>
-
-int main(void) {
+#include <stdio.h>
+int main(void)
+{
     int i = 0;
     bool continuar = true;
-    while (i < 10 && continuar) {
+    while (i < 10 && continuar)
+    {
         printf("valor actual: %d\n", i);
-        if (i == 4) {
+        if (i == 4)
+        {
             continuar = false;
         }
         i++;
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -293,18 +298,18 @@ Modificá el siguiente código para eliminar la instrucción `continue` prohibid
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
 int main()
 {
-    for (int i = 0; i <= 10; i++) {
-        if (i % 2 == 0) {
+    for (int i = 0; i <= 10; i++)
+    {
+        if (i % 2 == 0)
+        {
             continue;
         }
         printf("i = %d\n", i);
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -326,16 +331,17 @@ filtra los elementos que se desean procesar (en este caso, los impares):
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-int main(void) {
-    for (int i = 0; i <= 10; i++) {
-        if (i % 2 != 0) {
+int main(void)
+{
+    for (int i = 0; i <= 10; i++)
+    {
+        if (i % 2 != 0)
+        {
             printf("i = %d\n", i);
         }
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -364,32 +370,34 @@ controlado por una bandera booleana (`bool`) en lugar de `do...while`.
 :class: dropdown
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <stdbool.h>
-
+#include <stdio.h>
 int main(void)
 {
     int clave = 0;
     int clave_correcta = 1234;
     bool clave_correcta_ingresada = false;
-
-    while (clave_correcta_ingresada == false) {
+    while (clave_correcta_ingresada == false)
+    {
         printf("Ingrese la clave de acceso: ");
-        if (scanf("%d", &clave) != 1) {
+        if (scanf("%d", &clave) != 1)
+        {
             printf("Error al leer la clave.\n");
             return 1;
         }
-
-        if (clave == clave_correcta) {
+        if (clave == clave_correcta)
+        {
             printf("Acceso concedido.\n");
-            clave_correcta_ingresada = true; // Se modifica el estado de la bandera
-        } else {
+            clave_correcta_ingresada =
+                true; // Se modifica el estado de la bandera
+        }
+        else
+        {
             printf("Clave incorrecta. Intente nuevamente.\n");
         }
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1169,7 +1177,8 @@ El programa elige un número aleatorio. El usuario tiene máximo 7 intentos.
 1. **Lazo infinito:** Olvidar incrementar/decrementar variable de control
    ```c
    // MAL
-   while (i < 10) {
+   while (i < 10)
+   {
        printf("%d\n", i);
        // Falta i++
    }
@@ -1178,27 +1187,31 @@ El programa elige un número aleatorio. El usuario tiene máximo 7 intentos.
 2. **Off-by-one:** Error en condición de parada
    ```c
    // Quiero 10 iteraciones
-   for (int i = 1; i < 10; i++)  // MAL: solo 9 iteraciones
-   for (int i = 1; i <= 10; i++) // BIEN: 10 iteraciones
-   for (int i = 0; i < 10; i++)  // BIEN: 10 iteraciones
+   for (int i = 1; i < 10; i++)         // MAL: solo 9 iteraciones
+       for (int i = 1; i <= 10; i++)    // BIEN: 10 iteraciones
+           for (int i = 0; i < 10; i++) // BIEN: 10 iteraciones
    ```
 
 3. **Modificar variable de control dentro del lazo**
    ```c
    // Confuso
-   for (int i = 0; i < 10; i++) {
-       i += 2;  // Evitar esto
+   for (int i = 0; i < 10; i++)
+   {
+       i += 2; // Evitar esto
    }
    ```
 
 4. **Condición incorrecta con `break`**
    ```c
    // Redundante
-   while (true) {
-       if (condicion) break;
+   while (true)
+   {
+       if (condicion)
+           break;
    }
    // Mejor
-   while (!condicion) {
+   while (!condicion)
+   {
        // código
    }
    ```
@@ -1210,17 +1223,21 @@ El programa elige un número aleatorio. El usuario tiene máximo 7 intentos.
 
 **`break`:** Termina el lazo inmediatamente
 ``` c
-for (int i = 0; i < 10; i++) {
-    if (condicion) break;  // Sale del lazo
+for (int i = 0; i < 10; i++)
+{
+    if (condicion)
+        break; // Sale del lazo
 }
 ```
 <!-- c -->
 
 **`continue`:** Salta a la siguiente iteración
 ``` c
-for (int i = 0; i < 10; i++) {
-    if (i % 2 == 0) continue;  // Salta pares
-    printf("%d\n", i);  // Solo imprime impares
+for (int i = 0; i < 10; i++)
+{
+    if (i % 2 == 0)
+        continue;      // Salta pares
+    printf("%d\n", i); // Solo imprime impares
 }
 ```
 <!-- c -->
@@ -1262,13 +1279,14 @@ Mostrá todos los argumentos recibidos.
 
 ```{code-block} c
 :linenos:
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     printf("Cantidad de argumentos: %d\n", argc);
-    for (int i = 0; i < argc; i++) {
+    for (int i = 0; i < argc; i++)
+    {
         printf("argv[%d] = %s\n", i, argv[i]);
     }
 }
-
 ```
 <!-- {code-block} c -->
 - `argv[0]` es el nombre del programa
@@ -1466,16 +1484,20 @@ Procesá flag que requiere un valor: `-n <cantidad>`
 
 ```{code-block} c
 :linenos:
-for (int i = 1; i < argc; i++) {
-    if (strcmp(argv[i], "-n") == 0) {
-        if (i + 1 < argc) {
-            cantidad = atoi(argv[++i]);  // Incrementa i
-        } else {
+for (int i = 1; i < argc; i++)
+{
+    if (strcmp(argv[i], "-n") == 0)
+    {
+        if (i + 1 < argc)
+        {
+            cantidad = atoi(argv[++i]); // Incrementa i
+        }
+        else
+        {
             fprintf(stderr, "Flag -n requiere valor\n");
         }
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1526,11 +1548,11 @@ Validá que números sean realmente números.
 :linenos:
 char *endptr;
 long num = strtol(argv[1], &endptr, 10);
-if (*endptr != '\0') {
+if (*endptr != '\0')
+{
     fprintf(stderr, "Error: '%s' no es un número válido\n", argv[1]);
     return 1;
 }
-
 ```
 <!-- {code-block} c -->
 - `strtol` pone en `endptr` el primer carácter no-numérico
@@ -1556,20 +1578,19 @@ Mostrá ayuda si se pasa `-h` o `--help`, o si argumentos son incorrectos.
 
 ```{code-block} c
 :linenos:
-void mostrar_ayuda(const char *programa) {
+void mostrar_ayuda(const char *programa)
+{
     printf("Uso: %s [opciones] archivo\n", programa);
     printf("Opciones:\n");
     printf("  -h, --help    Mostrar esta ayuda\n");
     printf("  -v            Modo verbose\n");
     printf("  -o <archivo>  Archivo de salida\n");
 }
-
-if (argc < 2 || strcmp(argv[1], "-h") == 0 || 
-    strcmp(argv[1], "--help") == 0) {
+if (argc < 2 || strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0)
+{
     mostrar_ayuda(argv[0]);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1731,12 +1752,14 @@ Implementá programa que puede leer de stdin o archivo.
 ```{code-block} c
 :linenos:
 FILE *entrada;
-if (argc > 1) {
+if (argc > 1)
+{
     entrada = fopen(argv[1], "r");
-} else {
-    entrada = stdin;  // Lee de stdin
 }
-
+else
+{
+    entrada = stdin; // Lee de stdin
+}
 ```
 <!-- {code-block} c -->
 - Permite composición estilo Unix
@@ -1825,10 +1848,10 @@ programa [opciones] [argumentos_posicionales]
 1. **No validar argc:**
    ```c
    // MAL
-   int n = atoi(argv[1]);  // Puede acceder fuera de límites
-   
+   int n = atoi(argv[1]); // Puede acceder fuera de límites
    // BIEN
-   if (argc < 2) {
+   if (argc < 2)
+   {
        fprintf(stderr, "Faltan argumentos\n");
        return 1;
    }
@@ -1838,28 +1861,32 @@ programa [opciones] [argumentos_posicionales]
 2. **Asumir orden de flags:**
    ```c
    // Poco robusto
-   if (strcmp(argv[1], "-v") == 0) ...
-   
-   // Mejor: recorrer buscando flags
-   for (int i = 1; i < argc; i++) {
-       if (strcmp(argv[i], "-v") == 0) verbose = true;
-   }
+   if (strcmp(argv[1], "-v") == 0)
+       ...
+           // Mejor: recorrer buscando flags
+           for (int i = 1; i < argc; i++)
+       {
+           if (strcmp(argv[i], "-v") == 0)
+               verbose = true;
+       }
    ```
 
 3. **No validar conversiones:**
    ```c
-   int n = atoi("abc");  // Retorna 0, sin error
-   
+   int n = atoi("abc"); // Retorna 0, sin error
    // Mejor:
    char *end;
    long n = strtol(argv[1], &end, 10);
-   if (*end != '\0') { /* error */ }
+   if (*end != '\0')
+   { /* error */
+   }
    ```
 
 4. **Olvidar incrementar índice con flags que tienen valor:**
    ```c
-   if (strcmp(argv[i], "-n") == 0) {
-       n = atoi(argv[i+1]);  // Usá i+1
+   if (strcmp(argv[i], "-n") == 0)
+   {
+       n = atoi(argv[i + 1]); // Usá i+1
        // FALTA: i++; para saltar el valor
    }
    ```
@@ -1889,12 +1916,13 @@ programa [opciones] [argumentos_posicionales]
 ```{code-block} c
 :linenos:
 bool verbose = false;
-for (int i = 1; i < argc; i++) {
-    if (strcmp(argv[i], "-v") == 0) {
+for (int i = 1; i < argc; i++)
+{
+    if (strcmp(argv[i], "-v") == 0)
+    {
         verbose = true;
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1902,12 +1930,13 @@ for (int i = 1; i < argc; i++) {
 ```{code-block} c
 :linenos:
 const char *output = NULL;
-for (int i = 1; i < argc; i++) {
-    if (strcmp(argv[i], "-o") == 0 && i + 1 < argc) {
+for (int i = 1; i < argc; i++)
+{
+    if (strcmp(argv[i], "-o") == 0 && i + 1 < argc)
+    {
         output = argv[++i];
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1916,15 +1945,17 @@ for (int i = 1; i < argc; i++) {
 :linenos:
 int num_archivos = 0;
 char *archivos[MAX];
-
-for (int i = 1; i < argc; i++) {
-    if (argv[i][0] == '-') {
+for (int i = 1; i < argc; i++)
+{
+    if (argv[i][0] == '-')
+    {
         // Procesar flag
-    } else {
+    }
+    else
+    {
         archivos[num_archivos++] = argv[i];
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1938,23 +1969,32 @@ La biblioteca estándar provee `getopt` para parsing robusto:
 ```{code-block} c
 :linenos:
 #include <unistd.h>
-
 int opt;
-while ((opt = getopt(argc, argv, "vhn:o:")) != -1) {
-    switch (opt) {
-        case 'v': verbose = true; break;
-        case 'h': mostrar_ayuda(); break;
-        case 'n': num = atoi(optarg); break;
-        case 'o': output = optarg; break;
-        default: return 1;
+while ((opt = getopt(argc, argv, "vhn:o:")) != -1)
+{
+    switch (opt)
+    {
+    case 'v':
+        verbose = true;
+        break;
+    case 'h':
+        mostrar_ayuda();
+        break;
+    case 'n':
+        num = atoi(optarg);
+        break;
+    case 'o':
+        output = optarg;
+        break;
+    default:
+        return 1;
     }
 }
-
 // optind es el índice del primer argumento no-flag
-for (int i = optind; i < argc; i++) {
+for (int i = optind; i < argc; i++)
+{
     // Procesar archivos
 }
-
 ```
 <!-- {code-block} c -->
 

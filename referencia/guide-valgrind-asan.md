@@ -263,22 +263,21 @@ responsabilidad de liberación claramente delimitada.
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-void procesar_datos(void) {
+void procesar_datos(void)
+{
     int *arreglo = malloc(10 * sizeof(*arreglo));
-    if (arreglo == NULL) {
+    if (arreglo == NULL)
+    {
         return; /* Manejo de error de asignación */
     }
-
     /* Uso del arreglo */
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++)
+    {
         arreglo[i] = i * 2;
     }
-
     /* Liberación garantizada antes de salir */
     free(arreglo);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -289,7 +288,8 @@ inmediatamente `NULL` a todo puntero liberado:
 
 ``` c
 free(ptr);
-ptr = NULL; /* Al asignar NULL, invocaciones posteriores a free(ptr) son inocuas */
+ptr = NULL; /* Al asignar NULL, invocaciones posteriores a free(ptr) son
+               inocuas */
 ```
 <!-- c -->
 
@@ -301,20 +301,21 @@ puntero al siguiente nodo antes de liberar el actual:
 
 ```{code-block} c
 :linenos:
-typedef struct nodo {
+typedef struct nodo
+{
     int dato;
     struct nodo *siguiente;
 } nodo_t;
-
-void lista_destruir(nodo_t *cabeza) {
+void lista_destruir(nodo_t *cabeza)
+{
     nodo_t *actual = cabeza;
-    while (actual != NULL) {
+    while (actual != NULL)
+    {
         nodo_t *siguiente = actual->siguiente; /* Resguardo del puntero */
         free(actual);
         actual = siguiente;
     }
 }
-
 ```
 <!-- {code-block} c -->
 

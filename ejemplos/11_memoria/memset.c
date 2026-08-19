@@ -1,11 +1,11 @@
-#include <string.h>
 #include <stdio.h>
+#include <string.h>
 
 int main()
 {
     char str[] = "ghghghghghghghghghghgh";
     puts(str);
-    memset(str,'a',35);
+    memset(str, 'a', 35);
     puts(str);
     return 0;
 }

@@ -116,15 +116,14 @@ o funciones públicas del TAD.
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     int *elementos;
     int tope;
     int capacidad;
 } pila_t;
-
 // Invariante de estructura Pila:
 // elementos != NULL ∧ capacidad > 0 ∧ 0 <= tope <= capacidad
-
 ```
 <!-- {code-block} c -->
 
@@ -154,21 +153,19 @@ Bajo esta regla, los contratos se establecen de la siguiente manera:
 
 :::{code-block}c
 :linenos:
-
 typedef struct pila pila_t;
-
 /**
  * Inserta un elemento en el tope de la pila.
- * 
+ *
  * @param p Puntero a la pila (debe estar inicializada y no estar llena).
  * @param dato Elemento entero a apilar.
- * 
+ *
  * @pre p != NULL (Regla 0x2003h)
  * @pre p->tope < p->capacidad (La pila no debe estar llena)
- * @post El elemento queda en el tope de la pila y el tamaño se incrementa en 1.
+ * @post El elemento queda en el tope de la pila y el tamaño se incrementa
+ * en 1.
  */
 void pila_push(pila_t *p, int dato);
-
 :::
 <!-- {code-block}c -->
 
@@ -177,40 +174,41 @@ void pila_push(pila_t *p, int dato);
 :::{code-block}c
 :linenos:
 #include "pila.h"
+#include <assert.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-#include <assert.h>
-
-struct pila {
+struct pila
+{
     int *elementos;
     size_t tope;
     size_t capacidad;
 };
-
 // Función auxiliar para verificar el invariante del TAD
-static bool pila_es_valida(const pila_t *p) {
-    if (p == NULL) return false;
-    if (p->elementos == NULL) return false;
-    if (p->capacidad == 0) return false;
-    if (p->tope > p->capacidad) return false;
+static bool pila_es_valida(const pila_t *p)
+{
+    if (p == NULL)
+        return false;
+    if (p->elementos == NULL)
+        return false;
+    if (p->capacidad == 0)
+        return false;
+    if (p->tope > p->capacidad)
+        return false;
     return true;
 }
-
-void pila_push(pila_t *p, int dato) {
+void pila_push(pila_t *p, int dato)
+{
     // Verificación defensiva y obligatoria de precondiciones en desarrollo
     assert(p != NULL);
     assert(pila_es_valida(p));
     assert(p->tope < p->capacidad);
-
     // Operación
     p->elementos[p->tope] = dato;
     p->tope++;
-
     // Verificación de postcondición/invariante
     assert(pila_es_valida(p));
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -393,25 +391,22 @@ llamada es `0`.
 :linenos:
 #include <assert.h>
 #include <stddef.h>
-
 /**
  * Resetea el valor de la variable apuntada a cero.
- * 
+ *
  * @param ptr Puntero a la variable entera a resetear.
- * 
+ *
  * @pre ptr != NULL (Regla 0x2003h)
  * @post El valor apuntado por ptr es igual a 0.
  */
-void resetear(int *ptr) {
+void resetear(int *ptr)
+{
     // Verificación dinámica de la precondición
     assert(ptr != NULL);
-
     *ptr = 0;
-
     // Verificación de la postcondición
     assert(*ptr == 0);
 }
-
 ```
 <!-- {code-block} c -->
 <!-- c -->

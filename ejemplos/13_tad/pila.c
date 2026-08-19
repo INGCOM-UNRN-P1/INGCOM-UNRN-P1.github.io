@@ -1,23 +1,27 @@
 // TAD Pila (Stack) - Implementación con lista enlazada
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
-typedef struct Nodo {
+typedef struct Nodo
+{
     int dato;
     struct Nodo *siguiente;
 } Nodo;
 
-typedef struct {
+typedef struct
+{
     Nodo *tope;
     int tamano;
 } Pila;
 
 // Crea una pila vacía
-Pila *pila_crear(void) {
+Pila *pila_crear(void)
+{
     Pila *pila = malloc(sizeof(Pila));
-    if (pila == NULL) {
+    if (pila == NULL)
+    {
         return NULL;
     }
     pila->tope = NULL;
@@ -26,22 +30,26 @@ Pila *pila_crear(void) {
 }
 
 // Verifica si la pila está vacía
-bool pila_vacia(const Pila *pila) {
+bool pila_vacia(const Pila *pila)
+{
     return pila->tope == NULL;
 }
 
 // Retorna el tamaño de la pila
-int pila_tamano(const Pila *pila) {
+int pila_tamano(const Pila *pila)
+{
     return pila->tamano;
 }
 
 // Apila un elemento (push)
-bool pila_apilar(Pila *pila, int dato) {
+bool pila_apilar(Pila *pila, int dato)
+{
     Nodo *nuevo = malloc(sizeof(Nodo));
-    if (nuevo == NULL) {
+    if (nuevo == NULL)
+    {
         return false;
     }
-    
+
     nuevo->dato = dato;
     nuevo->siguiente = pila->tope;
     pila->tope = nuevo;
@@ -50,11 +58,13 @@ bool pila_apilar(Pila *pila, int dato) {
 }
 
 // Desapila un elemento (pop)
-bool pila_desapilar(Pila *pila, int *dato) {
-    if (pila_vacia(pila)) {
+bool pila_desapilar(Pila *pila, int *dato)
+{
+    if (pila_vacia(pila))
+    {
         return false;
     }
-    
+
     Nodo *a_eliminar = pila->tope;
     *dato = a_eliminar->dato;
     pila->tope = pila->tope->siguiente;
@@ -64,8 +74,10 @@ bool pila_desapilar(Pila *pila, int *dato) {
 }
 
 // Ve el elemento en el tope sin desapilar (peek)
-bool pila_tope(const Pila *pila, int *dato) {
-    if (pila_vacia(pila)) {
+bool pila_tope(const Pila *pila, int *dato)
+{
+    if (pila_vacia(pila))
+    {
         return false;
     }
     *dato = pila->tope->dato;
@@ -73,8 +85,10 @@ bool pila_tope(const Pila *pila, int *dato) {
 }
 
 // Destruye la pila
-void pila_destruir(Pila *pila) {
-    while (!pila_vacia(pila)) {
+void pila_destruir(Pila *pila)
+{
+    while (!pila_vacia(pila))
+    {
         int dato;
         pila_desapilar(pila, &dato);
     }
@@ -82,47 +96,53 @@ void pila_destruir(Pila *pila) {
 }
 
 // Imprime la pila
-void pila_imprimir(const Pila *pila) {
+void pila_imprimir(const Pila *pila)
+{
     printf("Pila (tope -> base): ");
     Nodo *actual = pila->tope;
-    while (actual != NULL) {
+    while (actual != NULL)
+    {
         printf("%d ", actual->dato);
         actual = actual->siguiente;
     }
     printf("(tamaño: %d)\n", pila->tamano);
 }
 
-int main(void) {
+int main(void)
+{
     Pila *mi_pila = pila_crear();
-    if (mi_pila == NULL) {
+    if (mi_pila == NULL)
+    {
         fprintf(stderr, "Error al crear la pila\n");
         return 1;
     }
-    
+
     printf("Pila creada\n");
     pila_imprimir(mi_pila);
-    
+
     // Apilar elementos
     printf("\nApilando: 10, 20, 30\n");
     pila_apilar(mi_pila, 10);
     pila_apilar(mi_pila, 20);
     pila_apilar(mi_pila, 30);
     pila_imprimir(mi_pila);
-    
+
     // Ver el tope
     int tope;
-    if (pila_tope(mi_pila, &tope)) {
+    if (pila_tope(mi_pila, &tope))
+    {
         printf("\nElemento en el tope: %d\n", tope);
     }
-    
+
     // Desapilar
     int dato;
     printf("\nDesapilando elementos:\n");
-    while (pila_desapilar(mi_pila, &dato)) {
+    while (pila_desapilar(mi_pila, &dato))
+    {
         printf("Desapilado: %d\n", dato);
         pila_imprimir(mi_pila);
     }
-    
+
     pila_destruir(mi_pila);
     return 0;
 }

@@ -38,9 +38,7 @@ declararlo, el compilador reserva un bloque de memoria continuo y
 suficientemente grande para albergar todos sus elementos.
 
 :::{code-block}c
-
 int mi_arreglo[4];
-
 :::
 <!-- {code-block}c -->
 
@@ -119,12 +117,10 @@ arquitectura de la computadora (generalmente 32 o 64 bits).
 ::::{code-block}c
 :linenos:
 int numeros[10];
-
 // sizeof(int) -> Devuelve el tamaño de un entero (4 bytes)
 // sizeof(numeros[0]) -> Devuelve el tamaño de los elementos del arreglo (4
 bytes)
 // sizeof(numeros) -> Devuelve el tamaño total del arreglo (40 bytes)
-
 ::::
 <!-- {code-block}c -->
 
@@ -138,7 +134,6 @@ tamaño.
 size_t cantidad = sizeof(numeros) / sizeof(numeros[0]);
 // La cuenta es, el tamaño total del arreglo / el tamaño de un elemento.
 // Qué aplicado al arreglo anterior, nos debiera dar 10.
-
 ::::
 <!-- {code-block}c -->
 
@@ -148,8 +143,8 @@ pueden cambiar de tamaño entre compiladores.
 ::::{code-block}c
 :linenos:
 #include <stdio.h>
-
-int main(void) {
+int main(void)
+{
     printf("Tamaño de char: %zu bytes\n", sizeof(char));
     printf("Tamaño de int: %zu bytes\n", sizeof(int));
     printf("Tamaño de float: %zu bytes\n", sizeof(float));
@@ -157,7 +152,6 @@ int main(void) {
     printf("Tamaño de long long: %zu bytes\n", sizeof(long long));
     return 0;
 }
-
 ::::
 <!-- {code-block}c -->
 
@@ -219,17 +213,13 @@ acceder al valor de la cuarta posición.
 :::{code-block}c
 :linenos:
 int calificaciones[5] = {10, 8, 9, 7, 10};
-
 // Obtener el valor del primer elemento (índice 0)
 int primera = calificaciones[0];
-
 // Obtener el valor del cuarto elemento (índice 3)
 int cuarta = calificaciones[3];
-
 printf("La primera calificación es: %d\n", primera);
 printf("La cuarta calificación es: %d\n", cuarta);
 printf("Acceso directo al segundo elemento: %d\n", calificaciones[1]);
-
 :::
 <!-- {code-block}c -->
 
@@ -261,7 +251,6 @@ printf("La edad original en el índice 2 es: %d\n", edades[2]);
 edades[2] = 23;
 // 3. Mostrar el valor modificado. 'edades[2]' se evalúa como un r-value.
 printf("La nueva edad en el índice 2 es: %d\n", edades[2]);
-
 :::
 <!-- {code-block}c -->
 
@@ -289,10 +278,8 @@ es un **l-value no modificable**.
 :linenos:
 int arr1[5] = {1, 2, 3, 4, 5};
 int arr2[5] = {10, 20, 30, 40, 50};
-
 // La siguiente línea es ilegal y causará un error de compilación.
 arr1 = arr2; // Error: expression is not assignable.
-
 ::::
 <!-- {code-block}c -->
 
@@ -307,11 +294,10 @@ como lo indica la regla de estilo {ref}`0x3010h`.
 :linenos:
 int numeros[] = {10, 20, 30, 40, 50};
 size_t cantidad = sizeof(numeros) / sizeof(numeros[0]);
-
-for (size_t i = 0; i < cantidad; i++) {
+for (size_t i = 0; i < cantidad; i++)
+{
     printf("Elemento %zu: %d\n", i, numeros[i]);
 }
-
 ::::
 <!-- {code-block}c -->
 
@@ -340,12 +326,9 @@ tiempo de ejecución. Estos se conocen como {abbr}`ALV (Array Largo Variable)` o
 int cantidad = 0;
 printf("Ingrese el tamaño del arreglo:\n");
 scanf("%d", &cantidad);
-
 int arreglo[cantidad]; // Declaración de un VLA
-
 printf("El tamaño del arreglo en bytes es: %zu\n", sizeof(arreglo));
 // El resultado será sizeof(int) * cantidad
-
 ::::
 <!-- {code-block}c -->
 
@@ -424,19 +407,18 @@ el parámetro del arreglo (ver regla de estilo {ref}`0x3007h`).
 
 ```{code-block} c
 :linenos:
-int maximo(const int valores[], size_t cantidad) 
+int maximo(const int valores[], size_t cantidad)
 {
     int max = valores[0];
-    for (size_t i = 1; i < cantidad; i++) 
+    for (size_t i = 1; i < cantidad; i++)
     {
-        if (valores[i] > max) 
+        if (valores[i] > max)
         {
             max = valores[i];
         }
     }
     return max;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -452,13 +434,13 @@ En este caso, el parámetro de arreglo no debe llevar el calificador `const`.
 
 ```{code-block} c
 :linenos:
-void ordenar(int v[], size_t cantidad) 
+void ordenar(int v[], size_t cantidad)
 {
-    for (size_t i = 0; i < cantidad - 1; i++) 
+    for (size_t i = 0; i < cantidad - 1; i++)
     {
-        for (size_t j = 0; j < cantidad - i - 1; j++) 
+        for (size_t j = 0; j < cantidad - i - 1; j++)
         {
-            if (v[j] > v[j + 1]) 
+            if (v[j] > v[j + 1])
             {
                 int temp = v[j];
                 v[j] = v[j + 1];
@@ -467,7 +449,6 @@ void ordenar(int v[], size_t cantidad)
         }
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -501,12 +482,11 @@ Por ejemplo:
 :::{code-block}c
 :linenos:
 int encontrar_maximo(const int v[], int cantidad);
-void imprimir_maximo(const int v[], int cantidad) 
+void imprimir_maximo(const int v[], int cantidad)
 {
     int m = encontrar_maximo(v, cantidad);
     printf("El máximo es %d\n", m);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -527,15 +507,17 @@ Esta situación se puede dar cuando utilizamos al arreglo como una variable más
 :caption: Contraejemplo con efectos secundarios destructivos
 :emphasize-lines: 4
 :linenos:
-int maximo(int arreglo[], size_t size) {
-    for (size_t i = 1; i < size; i++) {
-        if (arreglo[i] > arreglo[0]) {
+int maximo(int arreglo[], size_t size)
+{
+    for (size_t i = 1; i < size; i++)
+    {
+        if (arreglo[i] > arreglo[0])
+        {
             arreglo[0] = arreglo[i];
         }
     }
     return arreglo[0];
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -575,15 +557,16 @@ secuencia original.
  * para cualquier arreglo que le pasemos;
  * ¡vamos a obtener el mismo valor!
  */
-size_t obtener_tamanio(int arreglo[]) {
+size_t obtener_tamanio(int arreglo[])
+{
     printf("Tamaño del arreglo: %zu\n", sizeof(arreglo));
     // El arreglo es siempre de tamaño 8 (la dirección)
     printf("Tamaño de un valor: %zu\n", sizeof(arreglo[0]));
     // El valor apuntado va a ser siempre `int` con 4 bytes.
     return sizeof(arreglo) / sizeof(arreglo[0]);
 }
-
-int main(void) {
+int main(void)
+{
     int arreglo1[] = {10, 20, 30, 40, 50};
     int arreglo2[20];
     size_t uno = obtener_tamanio(arreglo1);
@@ -592,7 +575,6 @@ int main(void) {
     printf("Tamaño de arreglo2: %zu\n", dos); // obtenemos 2
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -617,9 +599,8 @@ explícitamente ({ref}`0x300Ch`) son cruciales para la seguridad y portabilidad.
  * @post
  * - Los elementos del arreglo `arreglo` se han impreso.
  * - El `arreglo` no será modificado.
-  */
+ */
 void imprimir_arreglo(int arreglo[], size_t size);
-
 ::::
 <!-- {code-block}c -->
 
@@ -666,9 +647,7 @@ El comportamiento general de una cadena es el mismo que el de un arreglo.
 Por ejemplo, la siguiente cadena:
 
 :::{code-block}c
-
 char cadena[7] = "Hola";
-
 :::
 <!-- {code-block}c -->
 
@@ -692,9 +671,7 @@ También, si aplicamos el cálculo de tamaño usando `sizeof` que vimos antes,
 vamos a obtener el tamaño en bytes de la cadena.
 
 :::{code-block}c
-
 size_t espacio_reservado = sizeof(mi_cadena) / sizeof(mi_cadena[0]);
-
 :::
 <!-- {code-block}c -->
 
@@ -727,11 +704,15 @@ función que modifica dicha cadena.
 :::{code-block}c
 :caption: Modificando cadenas
 :linenos:
-void ordena_caracteres(char cadena[]) {
+void ordena_caracteres(char cadena[])
+{
     size_t n = strlen(cadena);
-    for (size_t i = 0; i < n - 1; i++) {
-        for (size_t j = 0; j < n - i - 1; j++) {
-            if (cadena[j] > cadena[j + 1]) {
+    for (size_t i = 0; i < n - 1; i++)
+    {
+        for (size_t j = 0; j < n - i - 1; j++)
+        {
+            if (cadena[j] > cadena[j + 1])
+            {
                 char temp = cadena[j];
                 cadena[j] = cadena[j + 1];
                 cadena[j + 1] = temp;
@@ -739,23 +720,17 @@ void ordena_caracteres(char cadena[]) {
         }
     }
 }
-
-int main(void) {
+int main(void)
+{
     char mi_cadena[] = "ejemplo de cadena desordenada";
-
     printf("Cadena original: \"%s\"\n", mi_cadena);
-
     // Llama a la función para ordenar la cadena.
     ordena_caracteres(mi_cadena);
-
     printf("Cadena ordenada: \"%s\"\n", mi_cadena);
-
     // Además, ¿en dónde modificamos la cadena?
     ordena_caracteres("ejemplo de cadena desordenada");
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -786,9 +761,7 @@ Para obtener el largo de una cadena, podemos usar `strlen`, definido en
 Esta función está definida de la siguiente forma:
 
 :::{code-block}c
-
 size_t strlen(const char str[]);
-
 :::
 <!-- {code-block}c -->
 
@@ -860,24 +833,23 @@ retorno en el Stack Frame.
 :linenos:
 #include <stdio.h>
 #include <string.h>
-
 #define BUFFER_SIZE 100
-
-void leer_entrada(void) {
+void leer_entrada(void)
+{
     char buffer[BUFFER_SIZE];
-    
     printf("Ingrese su nombre: ");
     // fgets garantiza que no se lean más bytes que el tamaño máximo del búfer
-    if (fgets(buffer, BUFFER_SIZE, stdin) != NULL) {
+    if (fgets(buffer, BUFFER_SIZE, stdin) != NULL)
+    {
         // Remover el '\n' si fue capturado
         size_t len = strlen(buffer);
-        if (len > 0 && buffer[len - 1] == '\n') {
+        if (len > 0 && buffer[len - 1] == '\n')
+        {
             buffer[len - 1] = '\0';
         }
         printf("Nombre ingresado: %s\n", buffer);
     }
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -962,18 +934,15 @@ Imagina este código:
 :linenos:
 #include <stdio.h>
 #include <string.h>
-
-void vulnerable() {
+void vulnerable()
+{
     char buffer_pequeno[10]; // Buffer con capacidad para 9 caracteres + \0
     char entrada_maliciosa[] = "AAAAAAAAAAAAAAAAAAAA"; // 20 caracteres
-
-    //strcpy no sabe que buffer_pequeno solo tiene 10 bytes.
-    //Copiará los 20 caracteres de la entrada, más el \0.
+    // strcpy no sabe que buffer_pequeno solo tiene 10 bytes.
+    // Copiará los 20 caracteres de la entrada, más el \0.
     strcpy(buffer_pequeno, entrada_maliciosa);
-
     printf("Contenido del buffer: %s\n", buffer_pequeno);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1034,17 +1003,15 @@ tamaño del búfer de destino.
 :linenos:
 // Ejemplo con strcpy_s
 char buffer[10];
-const char* origen = "Texto largo";
-
+const char *origen = "Texto largo";
 // strcpy_s verifica que el tamaño del buffer (10)
 // es suficiente para copiar el origen.
 // En este caso, devolvería un error en lugar de desbordar.
 errno_t resultado = strcpy_s(buffer, sizeof(buffer), origen);
-
-if (resultado != 0) {
+if (resultado != 0)
+{
     // Manejar el error de copia
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1068,15 +1035,11 @@ bibliotecas de alta calidad.
 :linenos:
 // Ejemplo (conceptual) de uso de SDS
 #include "sds.h"
-
-sds mi_cadena = sdsnew("Hola "); // Crea una nueva cadena SDS
-mi_cadena = sdscat(mi_cadena, "Mundo!"); // Concatena de forma segura
-
-printf("%s\n", mi_cadena); // Imprime "Hola Mundo!"
+sds mi_cadena = sdsnew("Hola ");              // Crea una nueva cadena SDS
+mi_cadena = sdscat(mi_cadena, "Mundo!");      // Concatena de forma segura
+printf("%s\n", mi_cadena);                    // Imprime "Hola Mundo!"
 printf("Longitud: %zu\n", sdslen(mi_cadena)); // Obtiene la longitud en O(1)
-
-sdsfree(mi_cadena); // Libera la memoria
-
+sdsfree(mi_cadena);                           // Libera la memoria
 :::
 <!-- {code-block}c -->
 
@@ -1297,18 +1260,19 @@ arreglo original no será alterado.
 ```{code-block} c
 :linenos:
 #include <stddef.h>
-
-int buscar_minimo(const int arreglo[], size_t size) {
+int buscar_minimo(const int arreglo[], size_t size)
+{
     // #PRE: size > 0
     int minimo = arreglo[0];
-    for (size_t i = 1; i < size; i++) {
-        if (arreglo[i] < minimo) {
+    for (size_t i = 1; i < size; i++)
+    {
+        if (arreglo[i] < minimo)
+        {
             minimo = arreglo[i];
         }
     }
     return minimo;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1331,13 +1295,13 @@ forma directa en su memoria física:
 ```{code-block} c
 :linenos:
 #include <stddef.h>
-
-void escalar_arreglo(int arreglo[], size_t size, int factor) {
-    for (size_t i = 0; i < size; i++) {
+void escalar_arreglo(int arreglo[], size_t size, int factor)
+{
+    for (size_t i = 0; i < size; i++)
+    {
         arreglo[i] = arreglo[i] * factor; // Efecto secundario
     }
 }
-
 ```
 <!-- {code-block} c -->
 <!-- c -->
@@ -1442,20 +1406,16 @@ utilizados.
 :linenos:
 #include <stdio.h>
 #include <string.h>
-
-int main(void) {
+int main(void)
+{
     char mensaje[100] = "Hola Mundo";
-    
     size_t capacidad = sizeof(mensaje);
     size_t longitud = strlen(mensaje);
-
     // Se utiliza %zu para variables de tipo size_t
     printf("Capacidad física: %zu bytes\n", capacidad);
     printf("Longitud lógica: %zu caracteres\n", longitud);
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 La salida será:
@@ -1487,22 +1447,23 @@ salto de línea `\n` residual al final si estuviera presente.
 :linenos:
 #include <stdio.h>
 #include <string.h>
-
-int main(void) {
+int main(void)
+{
     char buffer[80];
     printf("Ingresá un texto: ");
-    
-    if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
+    if (fgets(buffer, sizeof(buffer), stdin) != NULL)
+    {
         size_t len = strlen(buffer);
-        // Si el último carácter es un salto de línea, lo reemplazamos por el terminador nulo
-        if (len > 0 && buffer[len - 1] == '\n') {
+        // Si el último carácter es un salto de línea, lo reemplazamos por el
+        // terminador nulo
+        if (len > 0 && buffer[len - 1] == '\n')
+        {
             buffer[len - 1] = '\0';
         }
         printf("Leído de forma segura: \"%s\"\n", buffer);
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1524,21 +1485,21 @@ minúsculas (usando la función `tolower` de `<ctype.h>`).
 :linenos:
 #include <ctype.h>
 #include <stddef.h>
-
-int comparar_ignorar_caso(const char s1[], const char s2[]) {
+int comparar_ignorar_caso(const char s1[], const char s2[])
+{
     size_t i = 0;
-    while (s1[i] != '\0' && s2[i] != '\0') {
+    while (s1[i] != '\0' && s2[i] != '\0')
+    {
         char c1 = tolower((unsigned char)s1[i]);
         char c2 = tolower((unsigned char)s2[i]);
-        
-        if (c1 != c2) {
+        if (c1 != c2)
+        {
             return c1 - c2;
         }
         i++;
     }
     return tolower((unsigned char)s1[i]) - tolower((unsigned char)s2[i]);
 }
-
 ```
 <!-- {code-block} c -->
 

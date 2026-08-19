@@ -264,14 +264,14 @@ memoria después de cada línea:
 
 `````{code-block} c
 :linenos:
-int main(void) {
+int main(void)
+{
     int x = 5;
     int *p = &x;
     int **pp = &p;
     **pp = 10;
     return 0;
 }
-
 `````
 <!-- {code-block} c -->
 
@@ -364,7 +364,8 @@ NO hacer:
 
 ```````` c
 // Descripción breve de qué hace la función
-tipo_retorno nombre_funcion(parametros) {
+tipo_retorno nombre_funcion(parametros)
+{
     // Comentario solo si agrega valor
     codigo;
 }
@@ -487,7 +488,8 @@ Ejercicio: Implementá una función que invierte la lista..."
 modifica una lista y necesito entender por qué el tercer parámetro
 es int** en lugar de int*:
 
-void insertar(lista_t *lista, int dato, int **referencia) {
+void insertar(lista_t *lista, int dato, int **referencia)
+{
     // ...
 }
 
@@ -569,16 +571,17 @@ Dame tu recomendación justificada para un proyecto académico."
 
 ```````{code-block} c
 :linenos:
-bool contiene(lista_t *lista, int valor) {
+bool contiene(lista_t *lista, int valor)
+{
     nodo_t *actual = lista->inicio;
-    while (actual != NULL) {
+    while (actual != NULL)
+    {
         if (actual->dato == valor)
             return true;
         actual = actual->siguiente;
     }
     return false;
 }
-
 ```````
 <!-- {code-block} c -->
 
@@ -953,14 +956,12 @@ no la solución directa."
 ````````{code-block} c
 :linenos:
 // Siempre con esta estructura
-tipo_retorno nombre_funcion(parametros) {
+tipo_retorno nombre_funcion(parametros)
+{
     // Validación de entradas si aplica
-
     // Lógica principal
-
     // Limpieza y retorno
 }
-
 ````````
 <!-- {code-block} c -->
 

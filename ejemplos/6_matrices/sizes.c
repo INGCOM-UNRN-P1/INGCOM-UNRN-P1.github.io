@@ -1,11 +1,8 @@
 #include <stdio.h>
 
-int main() {
-    int matriz[3][4] = {
-        {1, 2, 3, 4},
-        {5, 6, 7, 8},
-        {9, 10, 11, 12}
-    };
+int main()
+{
+    int matriz[3][4] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
 
     // Obtenemos el tamaño de la matriz en bytes.
     size_t tamano_matriz = sizeof(matriz);
@@ -29,6 +26,6 @@ int main() {
     printf("Número de filas: %zu\n", num_filas);
     printf("Número de columnas: %zu\n", num_columnas);
     printf("Número total de elementos: %zu\n", num_elementos);
-    
+
     return 0;
 }

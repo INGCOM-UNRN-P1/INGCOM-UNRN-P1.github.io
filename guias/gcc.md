@@ -392,21 +392,17 @@ Considerá las siguientes líneas de código en un archivo llamado `ejercicio1.c
 ```{code-block} C
 :linenos:
 #include <stdio.h>
-
 /*
  *  1. Hola Mundo
  *  Desarrollar un programa que muestre por STDOUT el mensaje "Hola Mundo C!".
  *  Indicar en un comentario la instrucción de compilación con GCC
  *  por línea de comandos.
  */
-
-
 int main()
 {
     printf("Hola Mundo C!\n");
     return 0;
 }
-
 ```
 <!-- {code-block} C -->
 

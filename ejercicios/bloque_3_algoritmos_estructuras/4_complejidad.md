@@ -120,7 +120,8 @@ Analizar la complejidad temporal de este código:
 
 ``` c
 int suma = 0;
-for (int i = 0; i < n; i++) {
+for (int i = 0; i < n; i++)
+{
     suma += i;
 }
 ```
@@ -142,7 +143,8 @@ Analizar la complejidad de:
 
 ``` c
 int suma = 0;
-for (int i = 0; i < n; i += 2) {
+for (int i = 0; i < n; i += 2)
+{
     suma += i;
 }
 ```
@@ -164,7 +166,8 @@ Analizar la complejidad de:
 
 ``` c
 int contador = 0;
-for (int i = 1; i < n; i *= 2) {
+for (int i = 1; i < n; i *= 2)
+{
     contador++;
 }
 ```
@@ -186,7 +189,8 @@ Analizar la complejidad de:
 
 ``` c
 int contador = 0;
-for (int i = n; i > 1; i /= 2) {
+for (int i = n; i > 1; i /= 2)
+{
     contador++;
 }
 ```
@@ -209,7 +213,8 @@ Contá cuántas operaciones ejecuta este código:
 
 ``` c
 int suma = 0;
-for (int i = 0; i < n; i++) {
+for (int i = 0; i < n; i++)
+{
     suma += i;
 }
 ```
@@ -241,8 +246,10 @@ for (int i = 0; i < n; i++) {
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-for (int i = 0; i < n; i++) {
-    for (int j = 0; j < n; j++) {
+for (int i = 0; i < n; i++)
+{
+    for (int j = 0; j < n; j++)
+    {
         printf("%d,%d ", i, j);
     }
 }
@@ -299,7 +306,8 @@ Determiná la complejidad de cada fragmento:
 
 ``` c
 int suma = 0;
-for (int i = 0; i < 100; i++) {
+for (int i = 0; i < 100; i++)
+{
     suma += i;
 }
 ```
@@ -307,8 +315,10 @@ for (int i = 0; i < 100; i++) {
 
 **b)**
 ``` c
-for (int i = 0; i < n; i++) {
-    for (int j = 0; j < m; j++) {
+for (int i = 0; i < n; i++)
+{
+    for (int j = 0; j < m; j++)
+    {
         printf("%d ", i * j);
     }
 }
@@ -318,7 +328,8 @@ for (int i = 0; i < n; i++) {
 **c)**
 ``` c
 int i = n;
-while (i > 0) {
+while (i > 0)
+{
     printf("%d ", i);
     i = i / 2;
 }
@@ -351,12 +362,13 @@ Analizá la complejidad de sumar todos los elementos de una matriz n×m.
 ```{code-block} c
 :linenos:
 int suma = 0;
-for (int i = 0; i < n; i++) {
-    for (int j = 0; j < m; j++) {
+for (int i = 0; i < n; i++)
+{
+    for (int j = 0; j < m; j++)
+    {
         suma += matriz[i][j];
     }
 }
-
 ```
 <!-- {code-block} c -->
 - Visita cada elemento una vez
@@ -373,9 +385,11 @@ Compará complejidad de Fibonacci recursivo vs iterativo.
 **Orientación:**
 - **Recursivo:**
   ```c
-  int fib(int n) {
-      if (n <= 1) return n;
-      return fib(n-1) + fib(n-2);
+  int fib(int n)
+  {
+      if (n <= 1)
+          return n;
+      return fib(n - 1) + fib(n - 2);
   }
   ```
   - Complejidad: O(2ⁿ) - exponencial
@@ -383,9 +397,11 @@ Compará complejidad de Fibonacci recursivo vs iterativo.
 
 - **Iterativo:**
   ```c
-  int fib(int n) {
+  int fib(int n)
+  {
       int a = 0, b = 1, temp;
-      for (int i = 0; i < n; i++) {
+      for (int i = 0; i < n; i++)
+      {
           temp = a + b;
           a = b;
           b = temp;
@@ -427,14 +443,16 @@ complejidad.
 
 ```{code-block} c
 :linenos:
-int maximo(int arr[], int n) {
+int maximo(int arr[], int n)
+{
     int max = arr[0];
-    for (int i = 1; i < n; i++) {
-        if (arr[i] > max) max = arr[i];
+    for (int i = 1; i < n; i++)
+    {
+        if (arr[i] > max)
+            max = arr[i];
     }
     return max;
 }
-
 ```
 <!-- {code-block} c -->
 - Recorre array una vez
@@ -461,29 +479,34 @@ Compará dos formas de encontrar duplicados:
 
 ```{code-block} c
 :linenos:
-bool tiene_duplicados_1(int arr[], int n) {
-    for (int i = 0; i < n; i++) {
-        for (int j = i+1; j < n; j++) {
-            if (arr[i] == arr[j]) return true;
+bool tiene_duplicados_1(int arr[], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = i + 1; j < n; j++)
+        {
+            if (arr[i] == arr[j])
+                return true;
         }
     }
     return false;
 }
-
 ```
 <!-- {code-block} c -->
 
 **Método 2:** Ordenar primero
 ```{code-block} c
 :linenos:
-bool tiene_duplicados_2(int arr[], int n) {
-    qsort(arr, n, sizeof(int), comparar);  // O(n log n)
-    for (int i = 0; i < n-1; i++) {
-        if (arr[i] == arr[i+1]) return true;
+bool tiene_duplicados_2(int arr[], int n)
+{
+    qsort(arr, n, sizeof(int), comparar); // O(n log n)
+    for (int i = 0; i < n - 1; i++)
+    {
+        if (arr[i] == arr[i + 1])
+            return true;
     }
     return false;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -512,16 +535,19 @@ Analizá complejidad del ordenamiento burbuja.
 
 ```{code-block} c
 :linenos:
-void burbuja(int arr[], int n) {
-    for (int i = 0; i < n-1; i++) {
-        for (int j = 0; j < n-i-1; j++) {
-            if (arr[j] > arr[j+1]) {
-                intercambiar(&arr[j], &arr[j+1]);
+void burbuja(int arr[], int n)
+{
+    for (int i = 0; i < n - 1; i++)
+    {
+        for (int j = 0; j < n - i - 1; j++)
+        {
+            if (arr[j] > arr[j + 1])
+            {
+                intercambiar(&arr[j], &arr[j + 1]);
             }
         }
     }
 }
-
 ```
 <!-- {code-block} c -->
 - **Peor caso:** O(n²) - array invertido
@@ -548,15 +574,16 @@ Analizá memoria usada por MergeSort.
 
 ```{code-block} c
 :linenos:
-void merge_sort(int arr[], int l, int r) {
-    if (l < r) {
+void merge_sort(int arr[], int l, int r)
+{
+    if (l < r)
+    {
         int m = l + (r - l) / 2;
         merge_sort(arr, l, m);
-        merge_sort(arr, m+1, r);
-        merge(arr, l, m, r);  // Usa array temporal
+        merge_sort(arr, m + 1, r);
+        merge(arr, l, m, r); // Usa array temporal
     }
 }
-
 ```
 <!-- {code-block} c -->
 - Profundidad de recursión: O(log n)
@@ -583,32 +610,37 @@ Encontrá dos números en array que sumen un objetivo.
 
 ```{code-block} c
 :linenos:
-bool suma_objetivo_1(int arr[], int n, int objetivo) {
-    for (int i = 0; i < n; i++) {
-        for (int j = i+1; j < n; j++) {
-            if (arr[i] + arr[j] == objetivo) return true;
+bool suma_objetivo_1(int arr[], int n, int objetivo)
+{
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = i + 1; j < n; j++)
+        {
+            if (arr[i] + arr[j] == objetivo)
+                return true;
         }
     }
     return false;
 }
-
 ```
 <!-- {code-block} c -->
 
 **Método 2:** Con tabla hash
 ```{code-block} c
 :linenos:
-bool suma_objetivo_2(int arr[], int n, int objetivo) {
+bool suma_objetivo_2(int arr[], int n, int objetivo)
+{
     hash_set_t *set = crear_set();
-    for (int i = 0; i < n; i++) {
-        if (contiene(set, objetivo - arr[i])) {
+    for (int i = 0; i < n; i++)
+    {
+        if (contiene(set, objetivo - arr[i]))
+        {
             return true;
         }
         insertar(set, arr[i]);
     }
     return false;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -646,19 +678,22 @@ Compará verificar primos uno por uno vs Criba de Eratóstenes.
 **Método 2:** Criba
 ```{code-block} c
 :linenos:
-bool *criba(int n) {
-    bool *es_primo = malloc((n+1) * sizeof(bool));
+bool *criba(int n)
+{
+    bool *es_primo = malloc((n + 1) * sizeof(bool));
     // Inicializar todo en true
-    for (int i = 2; i * i <= n; i++) {
-        if (es_primo[i]) {
-            for (int j = i * i; j <= n; j += i) {
+    for (int i = 2; i * i <= n; i++)
+    {
+        if (es_primo[i])
+        {
+            for (int j = i * i; j <= n; j += i)
+            {
                 es_primo[j] = false;
             }
         }
     }
     return es_primo;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -686,21 +721,23 @@ Analizá complejidad de LCS con programación dinámica.
 
 ```{code-block} c
 :linenos:
-int lcs(char *X, char *Y, int m, int n) {
-    int dp[m+1][n+1];
-    for (int i = 0; i <= m; i++) {
-        for (int j = 0; j <= n; j++) {
+int lcs(char *X, char *Y, int m, int n)
+{
+    int dp[m + 1][n + 1];
+    for (int i = 0; i <= m; i++)
+    {
+        for (int j = 0; j <= n; j++)
+        {
             if (i == 0 || j == 0)
                 dp[i][j] = 0;
-            else if (X[i-1] == Y[j-1])
-                dp[i][j] = dp[i-1][j-1] + 1;
+            else if (X[i - 1] == Y[j - 1])
+                dp[i][j] = dp[i - 1][j - 1] + 1;
             else
-                dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
         }
     }
     return dp[m][n];
 }
-
 ```
 <!-- {code-block} c -->
 - **Tiempo:** O(m × n) - llena tabla m×n
@@ -727,17 +764,20 @@ Analizá complejidad de multiplicar dos matrices n×n.
 
 ```{code-block} c
 :linenos:
-void multiplicar(int A[N][N], int B[N][N], int C[N][N]) {
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
+void multiplicar(int A[N][N], int B[N][N], int C[N][N])
+{
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < N; j++)
+        {
             C[i][j] = 0;
-            for (int k = 0; k < N; k++) {
+            for (int k = 0; k < N; k++)
+            {
                 C[i][j] += A[i][k] * B[k][j];
             }
         }
     }
 }
-
 ```
 <!-- {code-block} c -->
 - Tres lazos anidados: n × n × n
@@ -764,16 +804,19 @@ Analizá complejidad de Torres de Hanoi.
 
 ```{code-block} c
 :linenos:
-void hanoi(int n, char origen, char destino, char auxiliar) {
-    if (n == 1) {
+void hanoi(int n, char origen, char destino, char auxiliar)
+{
+    if (n == 1)
+    {
         mover(origen, destino);
-    } else {
-        hanoi(n-1, origen, auxiliar, destino);
+    }
+    else
+    {
+        hanoi(n - 1, origen, auxiliar, destino);
         mover(origen, destino);
-        hanoi(n-1, auxiliar, destino, origen);
+        hanoi(n - 1, auxiliar, destino, origen);
     }
 }
-
 ```
 <!-- {code-block} c -->
 - Recurrencia: T(n) = 2T(n-1) + 1
@@ -801,13 +844,14 @@ Analizá costo amortizado de inserción en vector dinámico con duplicación.
 
 ```{code-block} c
 :linenos:
-void agregar(vector_t *v, int elem) {
-    if (v->tamanio == v->capacidad) {
-        redimensionar(v, v->capacidad * 2);  // O(n)
+void agregar(vector_t *v, int elem)
+{
+    if (v->tamanio == v->capacidad)
+    {
+        redimensionar(v, v->capacidad * 2); // O(n)
     }
-    v->datos[v->tamanio++] = elem;  // O(1)
+    v->datos[v->tamanio++] = elem; // O(1)
 }
-
 ```
 <!-- {code-block} c -->
 - Inserción simple: O(1)
@@ -945,20 +989,19 @@ Implementá framework para medir tiempos y validar análisis teórico.
 ```{code-block} c
 :linenos:
 #include <time.h>
-
-double medir_tiempo(void (*funcion)(int*, int), int *arr, int n) {
+double medir_tiempo(void (*funcion)(int *, int), int *arr, int n)
+{
     clock_t inicio = clock();
     funcion(arr, n);
     clock_t fin = clock();
     return (double)(fin - inicio) / CLOCKS_PER_SEC;
 }
-
 // Probar con diferentes tamaños
-for (int n = 1000; n <= 100000; n *= 2) {
+for (int n = 1000; n <= 100000; n *= 2)
+{
     double tiempo = medir_tiempo(burbuja, arr, n);
     printf("n=%d, tiempo=%.4f\n", n, tiempo);
 }
-
 ```
 <!-- {code-block} c -->
 - Graficar tiempo vs n
@@ -997,17 +1040,22 @@ De mejor a peor:
 **Sumar complejidades consecutivas:**
 ``` c
 // O(n) + O(n²) = O(n²)
-for (i...) {}      // O(n)
-for (i...)         // O(n²)
-    for (j...) {}
+for (i...)
+{
+} // O(n)
+for (i...) // O(n²)
+    for (j...)
+    {
+    }
 ```
 <!-- c -->
 
 **Multiplicar complejidades anidadas:**
 ``` c
 // O(n) × O(log n) = O(n log n)
-for (i...) {               // O(n)
-    busqueda_binaria();    // O(log n)
+for (i...)
+{                       // O(n)
+    busqueda_binaria(); // O(log n)
 }
 ```
 <!-- c -->
@@ -1030,8 +1078,9 @@ for (i...) {               // O(n)
 
 1. **Olvidar operaciones costosas dentro de lazos:**
    ```c
-   for (i...) {
-       strcpy(dest, src);  // O(longitud) no O(1)
+   for (i...)
+   {
+       strcpy(dest, src); // O(longitud) no O(1)
    }
    ```
 

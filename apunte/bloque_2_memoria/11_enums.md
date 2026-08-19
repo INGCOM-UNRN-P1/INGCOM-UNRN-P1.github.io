@@ -56,16 +56,15 @@ de C:
 
 ```{code-block} c
 :linenos:
-enum estado_conexion {
+enum estado_conexion
+{
     DESCONECTADO,
     CONECTANDO,
     CONECTADO,
     ERROR_CONEXION
 };
-
 // Uso para declarar variables
 enum estado_conexion estado_actual = DESCONECTADO;
-
 ```
 <!-- {code-block} c -->
 
@@ -99,18 +98,18 @@ Para evitar colisiones de nombres, se deben utilizar prefijos consistentes:
 
 ```{code-block} c
 :linenos:
-enum motor_estado {
+enum motor_estado
+{
     MOTOR_APAGADO,
     MOTOR_ENCENDIDO,
     MOTOR_ERROR
 };
-
-enum luz_estado {
+enum luz_estado
+{
     LUZ_APAGADA,
     LUZ_PRENDIDA,
     LUZ_PARPADEANDO
 };
-
 ```
 <!-- {code-block} c -->
 
@@ -122,15 +121,15 @@ especificados continuarán la secuencia desde el último valor asignado:
 
 ```{code-block} c
 :linenos:
-enum codigo_error {
+enum codigo_error
+{
     EXITO = 0,
     ERROR_ARCHIVO = 100,
-    ERROR_MEMORIA,          // Toma el valor 101 automáticamente
-    ERROR_PERMISOS,         // Toma el valor 102 automáticamente
+    ERROR_MEMORIA,  // Toma el valor 101 automáticamente
+    ERROR_PERMISOS, // Toma el valor 102 automáticamente
     ERROR_CRITICO = 500,
-    ERROR_FATAL             // Toma el valor 501 automáticamente
+    ERROR_FATAL // Toma el valor 501 automáticamente
 };
-
 ```
 <!-- {code-block} c -->
 
@@ -141,16 +140,15 @@ palabra clave `enum`, es una buena práctica definir alias de tipo utilizando
 
 ```{code-block} c
 :linenos:
-typedef enum {
+typedef enum
+{
     OPERACION_SUMA,
     OPERACION_RESTA,
     OPERACION_MULTIPLICACION,
     OPERACION_DIVISION
 } operacion_t;
-
 // Declaración directa
 operacion_t operacion_actual = OPERACION_SUMA;
-
 ```
 <!-- {code-block} c -->
 
@@ -164,15 +162,15 @@ implícita sin generar advertencias (*warnings*):
 
 ```{code-block} c
 :linenos:
-typedef enum {
+typedef enum
+{
     MODO_LECTURA,
     MODO_ESCRITURA
 } modo_t;
-
 modo_t modo = MODO_LECTURA;
-modo = 100; // Compila sin advertencias, a pesar de que 100 no está en la enumeración
+modo = 100; // Compila sin advertencias, a pesar de que 100 no está en la
+            // enumeración
 int valor_entero = MODO_ESCRITURA; // Promoción implícita: valor_entero = 1
-
 ```
 <!-- {code-block} c -->
 
@@ -186,17 +184,17 @@ entero externo pertenezca al rango de la enumeración:
 
 ```{code-block} c
 :linenos:
-typedef enum {
+typedef enum
+{
     ESTADO_INICIAL,
     ESTADO_PROCESANDO,
     ESTADO_COMPLETADO,
-    ESTADO_MAX          // Centinela que determina el límite del rango
+    ESTADO_MAX // Centinela que determina el límite del rango
 } estado_t;
-
-bool es_estado_valido(int valor) {
+bool es_estado_valido(int valor)
+{
     return (valor >= ESTADO_INICIAL && valor < ESTADO_MAX);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -207,19 +205,23 @@ estado (ver regla de estilo {ref}`0x1008h`):
 
 ```{code-block} c
 :linenos:
-const char *obtener_nombre_estado(estado_t estado) {
-    switch (estado) {
-        case ESTADO_INICIAL:    return "Inicial";
-        case ESTADO_PROCESANDO: return "Procesando";
-        case ESTADO_COMPLETADO: return "Completado";
-        default:
-            // Switch defensivo para atrapar desbordamientos
+const char *obtener_nombre_estado(estado_t estado)
+{
+    switch (estado)
+    {
+    case ESTADO_INICIAL:
+        return "Inicial";
+    case ESTADO_PROCESANDO:
+        return "Procesando";
+    case ESTADO_COMPLETADO:
+        return "Completado";
+    default:
+        // Switch defensivo para atrapar desbordamientos
             fprintf(stderr, "Error: estado inválido %d
 ", estado);
             return "Desconocido";
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -231,8 +233,18 @@ Explicá por qué el siguiente fragmento de código genera un error en tiempo de
 compilación y reescribilo aplicando la solución recomendada por buenas
 prácticas:
 ``` c
-enum estado_conexion { APAGADO, CONECTANDO, ACTIVO };
-enum estado_alarma { APAGADO, ALERTA, DISPARADO };
+enum estado_conexion
+{
+    APAGADO,
+    CONECTANDO,
+    ACTIVO
+};
+enum estado_alarma
+{
+    APAGADO,
+    ALERTA,
+    DISPARADO
+};
 ```
 <!-- c -->
 
@@ -249,8 +261,18 @@ símbolo.
 La solución consiste en añadir **prefijos únicos** a los miembros de cada
 enumeración para evitar colisiones:
 ``` c
-enum estado_conexion { CON_APAGADO, CON_CONECTANDO, CON_ACTIVO };
-enum estado_alarma { ALA_APAGADA, ALA_ALERTA, ALA_DISPARADA };
+enum estado_conexion
+{
+    CON_APAGADO,
+    CON_CONECTANDO,
+    CON_ACTIVO
+};
+enum estado_alarma
+{
+    ALA_APAGADA,
+    ALA_ALERTA,
+    ALA_DISPARADA
+};
 ```
 <!-- c -->
 
@@ -272,16 +294,15 @@ la constante de severidad alta.
 ```{code-block} c
 :linenos:
 // Declaración de la enumeración
-enum nivel_severidad {
+enum nivel_severidad
+{
     SEV_BAJA,
     SEV_MEDIA,
     SEV_ALTA,
     SEV_CRITICA
 };
-
 // Declaración e inicialización de la variable
 enum nivel_severidad severidad_actual = SEV_ALTA;
-
 ```
 <!-- {code-block} c -->
 
@@ -349,23 +370,23 @@ textual del estado, aplicando un diseño defensivo con un caso `default`.
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-const char *obtener_nombre_estado(estado_t estado) {
-    switch (estado) {
-        case ESTADO_INICIAL:
-            return "Inicial";
-        case ESTADO_PROCESANDO:
-            return "Procesando";
-        case ESTADO_COMPLETADO:
-            return "Completado";
-        default:
-            // Switch defensivo obligatorio (Regla 0x1008h)
+const char *obtener_nombre_estado(estado_t estado)
+{
+    switch (estado)
+    {
+    case ESTADO_INICIAL:
+        return "Inicial";
+    case ESTADO_PROCESANDO:
+        return "Procesando";
+    case ESTADO_COMPLETADO:
+        return "Completado";
+    default:
+        // Switch defensivo obligatorio (Regla 0x1008h)
             fprintf(stderr, "Error: estado inválido: %d
 ", estado);
             return "Desconocido";
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -386,16 +407,16 @@ Luego, escribí una expresión en C que combine los permisos de `LECTURA` y
 :class: dropdown
 ```{code-block} c
 :linenos:
-typedef enum {
+typedef enum
+{
     PERM_NINGUNO = 0,
-    PERM_LECTURA = 1,    // 0b0001
-    PERM_ESCRITURA = 2,  // 0b0010
-    PERM_EJECUCION = 4   // 0b0100
+    PERM_LECTURA = 1,   // 0b0001
+    PERM_ESCRITURA = 2, // 0b0010
+    PERM_EJECUCION = 4  // 0b0100
 } permisos_t;
-
 // Combinación de permisos mediante operador OR a nivel de bits (|)
-permisos_t mis_permisos = PERM_LECTURA | PERM_ESCRITURA; // Resulta en 3 (0b0011)
-
+permisos_t mis_permisos =
+    PERM_LECTURA | PERM_ESCRITURA; // Resulta en 3 (0b0011)
 ```
 <!-- {code-block} c -->
 

@@ -1,7 +1,8 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-int main() {
+int main()
+{
 
     printf("Tamaño de char: %zu bytes", sizeof(char));
     printf("Tamaño de int: %zu bytes", sizeof(int));
@@ -9,5 +10,4 @@ int main() {
     printf("Tamaño de double: %zu bytes", sizeof(double));
     printf("Tamaño de long long: %zu bytes", sizeof(long long));
     return 0;
-
 }

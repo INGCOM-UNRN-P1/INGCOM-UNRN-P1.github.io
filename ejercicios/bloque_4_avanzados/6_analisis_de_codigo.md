@@ -35,28 +35,27 @@ variables listadas.
 ```{code-block} c
 :linenos:
 #include <stdbool.h>
-
 // Encuentra el promedio de los números positivos en un arreglo.
-double promedio_positivos(const int arreglo[], size_t n, bool *exito) {
-    double suma = 0.0;       // Variable 1
-    int contador = 0;        // Variable 2
-    *exito = false;          // Variable 3 (a través del puntero)
-
-    for (size_t i = 0; i < n; i++) { // Variable 4
-        if (arreglo[i] > 0) {
+double promedio_positivos(const int arreglo[], size_t n, bool *exito)
+{
+    double suma = 0.0; // Variable 1
+    int contador = 0;  // Variable 2
+    *exito = false;    // Variable 3 (a través del puntero)
+    for (size_t i = 0; i < n; i++)
+    { // Variable 4
+        if (arreglo[i] > 0)
+        {
             suma = suma + arreglo[i];
             contador++;
         }
     }
-
-    if (contador > 0) {
+    if (contador > 0)
+    {
         *exito = true;
         return suma / contador; // Variable 5 (implícita)
     }
-
     return 0.0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -103,25 +102,24 @@ Analizá el siguiente código que busca el elemento máximo en un arreglo:
 
 ```{code-block} c
 :linenos:
-#include <stdbool.h>
 #include <limits.h>
-
-int encontrar_maximo(const int arr[], size_t tam, bool *encontrado) {
-    int maximo = INT_MIN;     // Variable A
+#include <stdbool.h>
+int encontrar_maximo(const int arr[], size_t tam, bool *encontrado)
+{
+    int maximo = INT_MIN;       // Variable A
     bool hay_elementos = false; // Variable B
-    *encontrado = false;      // Variable C
-    
-    for (size_t indice = 0; indice < tam; indice++) { // Variable D
-        if (!hay_elementos || arr[indice] > maximo) {
+    *encontrado = false;        // Variable C
+    for (size_t indice = 0; indice < tam; indice++)
+    { // Variable D
+        if (!hay_elementos || arr[indice] > maximo)
+        {
             maximo = arr[indice];
             hay_elementos = true;
         }
     }
-    
     *encontrado = hay_elementos;
     return maximo;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -165,44 +163,43 @@ Examiná esta función más compleja que procesa datos de ventas:
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-typedef struct {
+typedef struct
+{
     double total_ventas;
     int dias_con_ventas;
     double promedio_diario;
     bool hay_ventas;
 } reporte_ventas_t;
-
-reporte_ventas_t procesar_ventas(const double ventas[], int dias) {
+reporte_ventas_t procesar_ventas(const double ventas[], int dias)
+{
     reporte_ventas_t resultado = {0.0, 0, 0.0, false}; // Variable A
-    double acumulado = 0.0;        // Variable B
-    int dias_activos = 0;          // Variable C
-    bool primera_venta = true;     // Variable D
-    double venta_maxima = 0.0;     // Variable E
-    
-    for (int dia = 0; dia < dias; dia++) { // Variable F
-        if (ventas[dia] > 0) {
+    double acumulado = 0.0;                            // Variable B
+    int dias_activos = 0;                              // Variable C
+    bool primera_venta = true;                         // Variable D
+    double venta_maxima = 0.0;                         // Variable E
+    for (int dia = 0; dia < dias; dia++)
+    { // Variable F
+        if (ventas[dia] > 0)
+        {
             acumulado += ventas[dia];
             dias_activos++;
-            
-            if (primera_venta || ventas[dia] > venta_maxima) {
+            if (primera_venta || ventas[dia] > venta_maxima)
+            {
                 venta_maxima = ventas[dia];
                 primera_venta = false;
             }
         }
     }
-    
-    if (dias_activos > 0) {
+    if (dias_activos > 0)
+    {
         resultado.total_ventas = acumulado;
         resultado.dias_con_ventas = dias_activos;
         resultado.promedio_diario = acumulado / dias_activos;
         resultado.hay_ventas = true;
     }
-    
     printf("Venta máxima registrada: %.2f\n", venta_maxima);
     return resultado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -256,33 +253,29 @@ exactas, pero sí la relación entre ellas.
 ```{code-block} c
 :linenos:
 #include <stdlib.h>
-
-char* crear_copia(const char* original) {
+char *crear_copia(const char *original)
+{
     int largo = 0;
-    while (original[largo] != '\0') {
+    while (original[largo] != '\0')
+    {
         largo++;
     }
-
-    char* copia = malloc(largo + 1);
-
+    char *copia = malloc(largo + 1);
     // PUNTO DE ANÁLISIS
-
-    for (int i = 0; i <= largo; i++) {
+    for (int i = 0; i <= largo; i++)
+    {
         copia[i] = original[i];
     }
     return copia;
 }
-
-int main() {
-    char* saludo_original = "Hola";
-    char* saludo_copiado = NULL;
-
+int main()
+{
+    char *saludo_original = "Hola";
+    char *saludo_copiado = NULL;
     saludo_copiado = crear_copia(saludo_original);
-
     free(saludo_copiado);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -350,37 +343,30 @@ Analizá el estado de memoria del siguiente programa en el punto marcado:
 :linenos:
 #include <stdlib.h>
 #include <string.h>
-
-typedef struct {
-    char* nombre;
+typedef struct
+{
+    char *nombre;
     int edad;
     double salario;
 } empleado_t;
-
-empleado_t* crear_empleado(const char* nom, int edad_emp, double sal) {
-    empleado_t* nuevo = malloc(sizeof(empleado_t));
-    
+empleado_t *crear_empleado(const char *nom, int edad_emp, double sal)
+{
+    empleado_t *nuevo = malloc(sizeof(empleado_t));
     int len_nombre = strlen(nom);
     nuevo->nombre = malloc(len_nombre + 1);
     strcpy(nuevo->nombre, nom);
-    
     nuevo->edad = edad_emp;
     nuevo->salario = sal;
-    
     // PUNTO DE ANÁLISIS
-    
     return nuevo;
 }
-
-int main() {
-    empleado_t* emp1 = NULL;
-    empleado_t* emp2 = NULL;
-    
+int main()
+{
+    empleado_t *emp1 = NULL;
+    empleado_t *emp2 = NULL;
     emp1 = crear_empleado("Ana García", 28, 45000.0);
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -434,35 +420,27 @@ marcado:
 ```{code-block} c
 :linenos:
 #include <stdlib.h>
-
-int* duplicar_array(int* original, int tam) {
-    int* nuevo = malloc(tam * sizeof(int));
-    
+int *duplicar_array(int *original, int tam)
+{
+    int *nuevo = malloc(tam * sizeof(int));
     // PUNTO A
-    
-    for (int i = 0; i < tam; i++) {
+    for (int i = 0; i < tam; i++)
+    {
         nuevo[i] = original[i] * 2;
     }
-    
     // PUNTO B
-    
     return nuevo;
 }
-
-int main() {
+int main()
+{
     int numeros[3] = {5, 10, 15};
-    int* duplicados = NULL;
-    
+    int *duplicados = NULL;
     // PUNTO C
-    
     duplicados = duplicar_array(numeros, 3);
-    
     // PUNTO D
-    
     free(duplicados);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -527,25 +505,26 @@ arreglo, pero contiene errores. Identificá los problemas sin ejecutar el códig
 
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <limits.h>
-
-int segundo_maximo(int arr[], int tam) {
+#include <stdio.h>
+int segundo_maximo(int arr[], int tam)
+{
     int maximo = INT_MIN;
     int segundo = INT_MIN;
-    
-    for (int i = 0; i < tam; i++) {
-        if (arr[i] > maximo) {
+    for (int i = 0; i < tam; i++)
+    {
+        if (arr[i] > maximo)
+        {
             segundo = maximo;
             maximo = arr[i];
-        } else if (arr[i] > segundo) {
+        }
+        else if (arr[i] > segundo)
+        {
             segundo = arr[i];
         }
     }
-    
     return segundo;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -588,32 +567,34 @@ int segundo_maximo(int arr[], int tam) {
 **Corrección sugerida:**
 ```{code-block} c
 :linenos:
-int segundo_maximo_corregido(int arr[], int tam) {
-    if (tam < 2) {
+int segundo_maximo_corregido(int arr[], int tam)
+{
+    if (tam < 2)
+    {
         return INT_MIN; // o manejar error apropiadamente
     }
-    
     int maximo = INT_MIN;
     int segundo = INT_MIN;
-    
-    for (int i = 0; i < tam; i++) {
-        if (arr[i] > maximo) {
+    for (int i = 0; i < tam; i++)
+    {
+        if (arr[i] > maximo)
+        {
             segundo = maximo;
             maximo = arr[i];
-        } else if (arr[i] > segundo && arr[i] != maximo) {
+        }
+        else if (arr[i] > segundo && arr[i] != maximo)
+        {
             segundo = arr[i];
         }
     }
-    
     // Verificar si realmente hay un segundo máximo
-    if (segundo == INT_MIN) {
+    if (segundo == INT_MIN)
+    {
         // Todos los elementos eran iguales
         return INT_MIN; // o manejar apropiadamente
     }
-    
     return segundo;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -631,25 +612,25 @@ Identificá los problemas de manejo de memoria en el siguiente código:
 :linenos:
 #include <stdlib.h>
 #include <string.h>
-
-char* procesar_texto(const char* entrada) {
+char *procesar_texto(const char *entrada)
+{
     int len = strlen(entrada);
-    char* resultado = malloc(len * 2 + 1);
-    char* temp = malloc(len + 1);
-    
+    char *resultado = malloc(len * 2 + 1);
+    char *temp = malloc(len + 1);
     strcpy(temp, entrada);
-    
     // Duplicar cada carácter
-    for (int i = 0; i < len; i++) {
+    for (int i = 0; i < len; i++)
+    {
         resultado[i * 2] = temp[i];
         resultado[i * 2 + 1] = temp[i];
     }
     resultado[len * 2] = '\0';
-    
-    if (len > 10) {
-        char* resultado_largo = malloc(len * 3 + 1);
+    if (len > 10)
+    {
+        char *resultado_largo = malloc(len * 3 + 1);
         // Triplicar en lugar de duplicar
-        for (int i = 0; i < len; i++) {
+        for (int i = 0; i < len; i++)
+        {
             resultado_largo[i * 3] = temp[i];
             resultado_largo[i * 3 + 1] = temp[i];
             resultado_largo[i * 3 + 2] = temp[i];
@@ -657,20 +638,16 @@ char* procesar_texto(const char* entrada) {
         resultado_largo[len * 3] = '\0';
         return resultado_largo;
     }
-    
     return resultado;
 }
-
-int main() {
-    char* texto1 = procesar_texto("Hola");
-    char* texto2 = procesar_texto("Este es un texto muy largo");
-    
+int main()
+{
+    char *texto1 = procesar_texto("Hola");
+    char *texto2 = procesar_texto("Este es un texto muy largo");
     printf("Texto 1: %s\n", texto1);
     printf("Texto 2: %s\n", texto2);
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -705,44 +682,44 @@ int main() {
 **Código corregido:**
 ```{code-block} c
 :linenos:
-char* procesar_texto_corregido(const char* entrada) {
+char *procesar_texto_corregido(const char *entrada)
+{
     int len = strlen(entrada);
-    char* resultado;
-    
-    if (len > 10) {
+    char *resultado;
+    if (len > 10)
+    {
         resultado = malloc(len * 3 + 1);
-        for (int i = 0; i < len; i++) {
+        for (int i = 0; i < len; i++)
+        {
             resultado[i * 3] = entrada[i];
             resultado[i * 3 + 1] = entrada[i];
             resultado[i * 3 + 2] = entrada[i];
         }
         resultado[len * 3] = '\0';
-    } else {
+    }
+    else
+    {
         resultado = malloc(len * 2 + 1);
-        for (int i = 0; i < len; i++) {
+        for (int i = 0; i < len; i++)
+        {
             resultado[i * 2] = entrada[i];
             resultado[i * 2 + 1] = entrada[i];
         }
         resultado[len * 2] = '\0';
     }
-    
     return resultado;
 }
-
-int main() {
-    char* texto1 = procesar_texto_corregido("Hola");
-    char* texto2 = procesar_texto_corregido("Este es un texto muy largo");
-    
+int main()
+{
+    char *texto1 = procesar_texto_corregido("Hola");
+    char *texto2 = procesar_texto_corregido("Este es un texto muy largo");
     printf("Texto 1: %s\n", texto1);
     printf("Texto 2: %s\n", texto2);
-    
     // Liberar memoria
     free(texto1);
     free(texto2);
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -761,37 +738,44 @@ Analizá la complejidad temporal del siguiente algoritmo de búsqueda:
 ```{code-block} c
 :linenos:
 #include <stdbool.h>
-
-bool buscar_par_suma(int arr[], int tam, int objetivo) {
+bool buscar_par_suma(int arr[], int tam, int objetivo)
+{
     // Busca si existe un par de números que sumen al objetivo
-    for (int i = 0; i < tam - 1; i++) {
-        for (int j = i + 1; j < tam; j++) {
-            if (arr[i] + arr[j] == objetivo) {
+    for (int i = 0; i < tam - 1; i++)
+    {
+        for (int j = i + 1; j < tam; j++)
+        {
+            if (arr[i] + arr[j] == objetivo)
+            {
                 return true;
             }
         }
     }
     return false;
 }
-
-bool buscar_par_suma_optimizado(int arr[], int tam, int objetivo) {
+bool buscar_par_suma_optimizado(int arr[], int tam, int objetivo)
+{
     // Versión con array ordenado (asumimos que está ordenado)
     int izq = 0;
     int der = tam - 1;
-    
-    while (izq < der) {
+    while (izq < der)
+    {
         int suma_actual = arr[izq] + arr[der];
-        if (suma_actual == objetivo) {
+        if (suma_actual == objetivo)
+        {
             return true;
-        } else if (suma_actual < objetivo) {
+        }
+        else if (suma_actual < objetivo)
+        {
             izq++;
-        } else {
+        }
+        else
+        {
             der--;
         }
     }
     return false;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -851,55 +835,55 @@ factoriales:
 ```{code-block} c
 :linenos:
 // Versión recursiva
-long factorial_recursivo(int n) {
-    if (n <= 1) {
+long factorial_recursivo(int n)
+{
+    if (n <= 1)
+    {
         return 1;
     }
     return n * factorial_recursivo(n - 1);
 }
-
 // Versión iterativa
-long factorial_iterativo(int n) {
+long factorial_iterativo(int n)
+{
     long resultado = 1;
-    for (int i = 2; i <= n; i++) {
+    for (int i = 2; i <= n; i++)
+    {
         resultado *= i;
     }
     return resultado;
 }
-
 // Versión con memoización
 #include <stdlib.h>
-
-static long* cache = NULL;
+static long *cache = NULL;
 static int cache_size = 0;
-
-long factorial_memoizado(int n) {
-    if (n <= 1) {
+long factorial_memoizado(int n)
+{
+    if (n <= 1)
+    {
         return 1;
     }
-    
     // Inicializar cache si es necesario
-    if (cache == NULL || n >= cache_size) {
+    if (cache == NULL || n >= cache_size)
+    {
         int nuevo_tamaño = n + 1;
         cache = realloc(cache, nuevo_tamaño * sizeof(long));
-        
         // Inicializar nuevos elementos
-        for (int i = cache_size; i < nuevo_tamaño; i++) {
+        for (int i = cache_size; i < nuevo_tamaño; i++)
+        {
             cache[i] = -1; // Valor que indica "no calculado"
         }
         cache_size = nuevo_tamaño;
     }
-    
     // Verificar si ya está en cache
-    if (cache[n] != -1) {
+    if (cache[n] != -1)
+    {
         return cache[n];
     }
-    
     // Calcular y almacenar en cache
     cache[n] = n * factorial_memoizado(n - 1);
     return cache[n];
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -968,82 +952,77 @@ Analizá el siguiente sistema completo que gestiona una lista de estudiantes:
 
 ```{code-block} c
 :linenos:
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
-
-typedef struct {
+typedef struct
+{
     char nombre[50];
     int edad;
     float promedio;
 } estudiante_t;
-
-typedef struct {
-    estudiante_t* lista;
+typedef struct
+{
+    estudiante_t *lista;
     int cantidad;
     int capacidad;
 } sistema_estudiantes_t;
-
-sistema_estudiantes_t* inicializar_sistema(int capacidad_inicial) {
-    sistema_estudiantes_t* sistema = malloc(sizeof(sistema_estudiantes_t));
-    
+sistema_estudiantes_t *inicializar_sistema(int capacidad_inicial)
+{
+    sistema_estudiantes_t *sistema = malloc(sizeof(sistema_estudiantes_t));
     sistema->lista = malloc(capacidad_inicial * sizeof(estudiante_t));
     sistema->cantidad = 0;
     sistema->capacidad = capacidad_inicial;
-    
     return sistema;
 }
-
-bool agregar_estudiante(sistema_estudiantes_t* sistema, 
-                       const char* nombre, int edad, float promedio) {
-    
-    if (sistema->cantidad >= sistema->capacidad) {
+bool agregar_estudiante(sistema_estudiantes_t *sistema, const char *nombre,
+                        int edad, float promedio)
+{
+    if (sistema->cantidad >= sistema->capacidad)
+    {
         // Redimensionar
         int nueva_capacidad = sistema->capacidad * 2;
-        estudiante_t* nueva_lista = realloc(sistema->lista, 
-                                          nueva_capacidad * sizeof(estudiante_t));
-        
-        if (nueva_lista == NULL) {
+        estudiante_t *nueva_lista =
+            realloc(sistema->lista, nueva_capacidad * sizeof(estudiante_t));
+        if (nueva_lista == NULL)
+        {
             return false;
         }
-        
         sistema->lista = nueva_lista;
         sistema->capacidad = nueva_capacidad;
     }
-    
     // Agregar nuevo estudiante
     strcpy(sistema->lista[sistema->cantidad].nombre, nombre);
     sistema->lista[sistema->cantidad].edad = edad;
     sistema->lista[sistema->cantidad].promedio = promedio;
     sistema->cantidad++;
-    
     return true;
 }
-
-estudiante_t* buscar_mejor_estudiante(sistema_estudiantes_t* sistema) {
-    if (sistema->cantidad == 0) {
+estudiante_t *buscar_mejor_estudiante(sistema_estudiantes_t *sistema)
+{
+    if (sistema->cantidad == 0)
+    {
         return NULL;
     }
-    
-    estudiante_t* mejor = &sistema->lista[0];
-    
-    for (int i = 1; i < sistema->cantidad; i++) {
-        if (sistema->lista[i].promedio > mejor->promedio) {
+    estudiante_t *mejor = &sistema->lista[0];
+    for (int i = 1; i < sistema->cantidad; i++)
+    {
+        if (sistema->lista[i].promedio > mejor->promedio)
+        {
             mejor = &sistema->lista[i];
         }
     }
-    
     return mejor;
 }
-
-void liberar_sistema(sistema_estudiantes_t* sistema) {
-    if (sistema != NULL) {
+void liberar_sistema(sistema_estudiantes_t *sistema)
+{
+    if (sistema != NULL)
+    {
         free(sistema->lista);
         free(sistema);
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1109,19 +1088,22 @@ void liberar_sistema(sistema_estudiantes_t* sistema) {
 ```{code-block} c
 :linenos:
 // En agregar_estudiante - faltan validaciones:
-if (sistema == NULL || nombre == NULL) {
+if (sistema == NULL || nombre == NULL)
+{
     return false;
 }
-if (strlen(nombre) >= 50) { // nombre muy largo
+if (strlen(nombre) >= 50)
+{ // nombre muy largo
     return false;
 }
-if (edad < 0 || edad > 120) { // edad inválida
+if (edad < 0 || edad > 120)
+{ // edad inválida
     return false;
 }
-if (promedio < 0.0 || promedio > 10.0) { // promedio inválido
+if (promedio < 0.0 || promedio > 10.0)
+{ // promedio inválido
     return false;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1158,31 +1140,26 @@ Analizá el siguiente código que presenta un problema común con punteros:
 :linenos:
 #include <stdio.h>
 #include <string.h>
-
-void procesar_datos(int *p1, int *p2, int valor) {
+void procesar_datos(int *p1, int *p2, int valor)
+{
     *p1 = valor;
     *p2 = valor * 2;
-    
     printf("p1 apunta a: %d\n", *p1);
     printf("p2 apunta a: %d\n", *p2);
 }
-
-int main(void) {
+int main(void)
+{
     int x = 10;
-    
     // Caso 1
     procesar_datos(&x, &x, 5);
     printf("Resultado x: %d\n\n", x);
-    
     // Caso 2
     int y = 10;
     int z = 20;
     procesar_datos(&y, &z, 5);
     printf("Resultado y: %d, z: %d\n", y, z);
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1254,21 +1231,24 @@ primera, perdiendo el valor original.
 **Opción 1: Verificar aliasing**
 ```{code-block} c
 :linenos:
-void procesar_datos(int *p1, int *p2, int valor) {
-    if (p1 == p2) {
-        fprintf(stderr, "Error: p1 y p2 no pueden apuntar a la misma dirección\n");
+void procesar_datos(int *p1, int *p2, int valor)
+{
+    if (p1 == p2)
+    {
+        fprintf(stderr,
+                "Error: p1 y p2 no pueden apuntar a la misma dirección\n");
         return;
     }
     *p1 = valor;
     *p2 = valor * 2;
 }
-
 ```
 <!-- {code-block} c -->
 
 **Opción 2: Usar `restrict` (C99)**
 ``` c
-void procesar_datos(int *restrict p1, int *restrict p2, int valor) {
+void procesar_datos(int *restrict p1, int *restrict p2, int valor)
+{
     *p1 = valor;
     *p2 = valor * 2;
 }
@@ -1299,56 +1279,52 @@ punteros colgantes:
 :linenos:
 #include <stdlib.h>
 #include <string.h>
-
 // Función A
-char* obtener_saludo(void) {
+char *obtener_saludo(void)
+{
     char saludo[50] = "Hola, mundo!";
-    return saludo;  // Línea problemática 1
+    return saludo; // Línea problemática 1
 }
-
 // Función B
-int* crear_arreglo_estatico(void) {
+int *crear_arreglo_estatico(void)
+{
     static int arr[5] = {1, 2, 3, 4, 5};
     return arr;
 }
-
 // Función C
-int* crear_arreglo_dinamico(void) {
-    int* arr = malloc(5 * sizeof(int));
-    for (int i = 0; i < 5; i++) {
+int *crear_arreglo_dinamico(void)
+{
+    int *arr = malloc(5 * sizeof(int));
+    for (int i = 0; i < 5; i++)
+    {
         arr[i] = i + 1;
     }
     return arr;
 }
-
 // Función D
-void procesar_y_liberar(int** ptr) {
+void procesar_y_liberar(int **ptr)
+{
     free(*ptr);
     // Línea problemática 2: no se asigna NULL
 }
-
-int main(void) {
+int main(void)
+{
     // Escenario 1
-    char* s1 = obtener_saludo();
-    printf("%s\n", s1);  // Comportamiento indefinido
-    
+    char *s1 = obtener_saludo();
+    printf("%s\n", s1); // Comportamiento indefinido
     // Escenario 2
-    int* arr1 = crear_arreglo_estatico();
-    printf("%d\n", arr1[0]);  // OK
-    
+    int *arr1 = crear_arreglo_estatico();
+    printf("%d\n", arr1[0]); // OK
     // Escenario 3
-    int* arr2 = crear_arreglo_dinamico();
-    printf("%d\n", arr2[0]);  // OK
+    int *arr2 = crear_arreglo_dinamico();
+    printf("%d\n", arr2[0]); // OK
     free(arr2);
-    
     // Escenario 4
-    int* arr3 = crear_arreglo_dinamico();
+    int *arr3 = crear_arreglo_dinamico();
     procesar_y_liberar(&arr3);
-    printf("%d\n", arr3[0]);  // Línea problemática 3: uso después de free
-    
+    printf("%d\n", arr3[0]); // Línea problemática 3: uso después de free
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1381,9 +1357,10 @@ int main(void) {
 
 **Error 1: Retornar dirección de variable local**
 ``` c
-char* obtener_saludo(void) {
+char *obtener_saludo(void)
+{
     char saludo[50] = "Hola, mundo!";
-    return saludo;  // ¡ERROR!
+    return saludo; // ¡ERROR!
 }
 ```
 <!-- c -->
@@ -1393,7 +1370,8 @@ retornado apunta a memoria inválida.
 
 **Error 2: No anular puntero después de free**
 ``` c
-void procesar_y_liberar(int** ptr) {
+void procesar_y_liberar(int **ptr)
+{
     free(*ptr);
     // Debería: *ptr = NULL;
 }
@@ -1457,22 +1435,24 @@ printf("%d\n", arr3[0])  <- Acceso a memoria liberada
 **Corrección Función A - Opción 1: Usar malloc**
 ```{code-block} c
 :linenos:
-char* obtener_saludo(void) {
-    char* saludo = malloc(50);
-    if (saludo == NULL) return NULL;
+char *obtener_saludo(void)
+{
+    char *saludo = malloc(50);
+    if (saludo == NULL)
+        return NULL;
     strcpy(saludo, "Hola, mundo!");
-    return saludo;  // OK: memoria en heap persiste
+    return saludo; // OK: memoria en heap persiste
 }
 // El llamador debe hacer free(saludo)
-
 ```
 <!-- {code-block} c -->
 
 **Corrección Función A - Opción 2: Usar static**
 ``` c
-char* obtener_saludo(void) {
+char *obtener_saludo(void)
+{
     static char saludo[50] = "Hola, mundo!";
-    return saludo;  // OK: variable static persiste
+    return saludo; // OK: variable static persiste
 }
 // NOTA: No es thread-safe
 ```
@@ -1481,23 +1461,26 @@ char* obtener_saludo(void) {
 **Corrección Función A - Opción 3: Pasar buffer**
 ```{code-block} c
 :linenos:
-void obtener_saludo(char* buffer, size_t tam) {
-    if (buffer == NULL || tam < 14) return;
+void obtener_saludo(char *buffer, size_t tam)
+{
+    if (buffer == NULL || tam < 14)
+        return;
     strcpy(buffer, "Hola, mundo!");
 }
 // Uso:
 char saludo[50];
 obtener_saludo(saludo, sizeof(saludo));
-
 ```
 <!-- {code-block} c -->
 
 **Corrección Función D:**
 ``` c
-void procesar_y_liberar(int** ptr) {
-    if (ptr == NULL || *ptr == NULL) return;
+void procesar_y_liberar(int **ptr)
+{
+    if (ptr == NULL || *ptr == NULL)
+        return;
     free(*ptr);
-    *ptr = NULL;  // IMPORTANTE: Anular el puntero
+    *ptr = NULL; // IMPORTANTE: Anular el puntero
 }
 ```
 <!-- c -->
@@ -1505,13 +1488,13 @@ void procesar_y_liberar(int** ptr) {
 **Corrección main():**
 ```{code-block} c
 :linenos:
-int* arr3 = crear_arreglo_dinamico();
+int *arr3 = crear_arreglo_dinamico();
 procesar_y_liberar(&arr3);
 // No usar arr3 aquí
-if (arr3 != NULL) {  // Esto ahora es false
+if (arr3 != NULL)
+{ // Esto ahora es false
     printf("%d\n", arr3[0]);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1536,64 +1519,60 @@ Analizá este código que manipula arreglos usando aritmética de punteros:
 :linenos:
 #include <stdio.h>
 #include <string.h>
-
-void funcion_a(int *arr, size_t n) {
+void funcion_a(int *arr, size_t n)
+{
     int *p = arr;
     int *fin = arr + n;
-    
-    while (p < fin) {
+    while (p < fin)
+    {
         *p = *p * 2;
         p++;
     }
 }
-
-void funcion_b(int *arr, size_t n) {
-    for (int *p = arr; p < arr + n; p++) {
+void funcion_b(int *arr, size_t n)
+{
+    for (int *p = arr; p < arr + n; p++)
+    {
         printf("%d ", *p);
     }
     printf("\n");
 }
-
-void funcion_c(char *destino, const char *origen) {
-    while (*origen != '\0') {
+void funcion_c(char *destino, const char *origen)
+{
+    while (*origen != '\0')
+    {
         *destino = *origen;
         destino++;
         origen++;
     }
     *destino = '\0';
 }
-
-void funcion_d(int *arr, size_t n) {
+void funcion_d(int *arr, size_t n)
+{
     int *inicio = arr;
     int *fin = arr + n - 1;
-    
-    while (inicio < fin) {
+    while (inicio < fin)
+    {
         int temp = *inicio;
         *inicio = *fin;
         *fin = temp;
-        
         inicio++;
         fin--;
     }
 }
-
-int main(void) {
+int main(void)
+{
     int arreglo[5] = {1, 2, 3, 4, 5};
-    
     funcion_a(arreglo, 5);
     funcion_b(arreglo, 5);
-    
     char origen[] = "Hola";
     char destino[10];
     funcion_c(destino, origen);
     printf("%s\n", destino);
-    
     funcion_d(arreglo, 5);
     funcion_b(arreglo, 5);
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1632,19 +1611,20 @@ int main(void) {
 **`funcion_a`:**
 ```{code-block} c
 :linenos:
-int *p = arr;          // p apunta al primer elemento
-int *fin = arr + n;    // fin apunta una posición DESPUÉS del último elemento
-while (p < fin) {      // Itera mientras p no llegue a fin
-    *p = *p * 2;       // Desreferencia: modifica el elemento actual
-    p++;               // Avanza al siguiente elemento (p += sizeof(int))
+int *p = arr;       // p apunta al primer elemento
+int *fin = arr + n; // fin apunta una posición DESPUÉS del último elemento
+while (p < fin)
+{                // Itera mientras p no llegue a fin
+    *p = *p * 2; // Desreferencia: modifica el elemento actual
+    p++;         // Avanza al siguiente elemento (p += sizeof(int))
 }
-
 ```
 <!-- {code-block} c -->
 
 **Equivalente con índices:**
 ``` c
-for (size_t i = 0; i < n; i++) {
+for (size_t i = 0; i < n; i++)
+{
     arr[i] = arr[i] * 2;
 }
 ```
@@ -1652,7 +1632,8 @@ for (size_t i = 0; i < n; i++) {
 
 **`funcion_b`:**
 ``` c
-for (int *p = arr; p < arr + n; p++) {
+for (int *p = arr; p < arr + n; p++)
+{
     // p recorre desde arr[0] hasta arr[n-1]
     printf("%d ", *p);
 }
@@ -1662,30 +1643,30 @@ for (int *p = arr; p < arr + n; p++) {
 **`funcion_c`:**
 ```{code-block} c
 :linenos:
-while (*origen != '\0') {    // Itera hasta encontrar el terminador
-    *destino = *origen;      // Copia carácter por carácter
-    destino++;               // Avanza ambos punteros
+while (*origen != '\0')
+{                       // Itera hasta encontrar el terminador
+    *destino = *origen; // Copia carácter por carácter
+    destino++;          // Avanza ambos punteros
     origen++;
 }
-*destino = '\0';             // Agrega terminador al destino
-
+*destino = '\0'; // Agrega terminador al destino
 ```
 <!-- {code-block} c -->
 
 **`funcion_d`:**
 ```{code-block} c
 :linenos:
-int *inicio = arr;           // Apunta al primer elemento
-int *fin = arr + n - 1;      // Apunta al último elemento
-while (inicio < fin) {       // Se encuentran en el medio
+int *inicio = arr;      // Apunta al primer elemento
+int *fin = arr + n - 1; // Apunta al último elemento
+while (inicio < fin)
+{ // Se encuentran en el medio
     // Intercambia *inicio con *fin
     int temp = *inicio;
     *inicio = *fin;
     *fin = temp;
-    inicio++;                // Avanzan hacia el centro
+    inicio++; // Avanzan hacia el centro
     fin--;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1735,8 +1716,10 @@ Salida de funcion_b: "10 8 6 4 2 "
 
 **Validación sugerida:**
 ``` c
-void funcion_a(int *arr, size_t n) {
-    if (arr == NULL || n == 0) return;
+void funcion_a(int *arr, size_t n)
+{
+    if (arr == NULL || n == 0)
+        return;
     // ... resto del código
 }
 ```
@@ -1744,7 +1727,8 @@ void funcion_a(int *arr, size_t n) {
 
 **`funcion_c` - Problema crítico:**
 ``` c
-void funcion_c(char *destino, const char *origen) {
+void funcion_c(char *destino, const char *origen)
+{
     // NO verifica el tamaño de destino
     // Puede causar BUFFER OVERFLOW
 }
@@ -1754,18 +1738,20 @@ void funcion_c(char *destino, const char *origen) {
 **Escenario peligroso:**
 ``` c
 char origen[] = "Esta cadena es muy larga";
-char destino[5];  // Solo 5 bytes!
-funcion_c(destino, origen);  // BUFFER OVERFLOW
+char destino[5];            // Solo 5 bytes!
+funcion_c(destino, origen); // BUFFER OVERFLOW
 ```
 <!-- c -->
 
 **Versión segura:**
 ```{code-block} c
 :linenos:
-void funcion_c_segura(char *destino, const char *origen, size_t tam_destino) {
-    if (destino == NULL || origen == NULL || tam_destino == 0) return;
-    
-    while (*origen != '\0' && tam_destino > 1) {
+void funcion_c_segura(char *destino, const char *origen, size_t tam_destino)
+{
+    if (destino == NULL || origen == NULL || tam_destino == 0)
+        return;
+    while (*origen != '\0' && tam_destino > 1)
+    {
         *destino = *origen;
         destino++;
         origen++;
@@ -1773,7 +1759,6 @@ void funcion_c_segura(char *destino, const char *origen, size_t tam_destino) {
     }
     *destino = '\0';
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1791,8 +1776,10 @@ destino[sizeof(destino) - 1] = '\0';
 
 **Validación sugerida:**
 ``` c
-void funcion_d(int *arr, size_t n) {
-    if (arr == NULL || n <= 1) return;
+void funcion_d(int *arr, size_t n)
+{
+    if (arr == NULL || n <= 1)
+        return;
     // ... resto del código
 }
 ```
@@ -1824,13 +1811,15 @@ para ambas versiones, así que la legibilidad debería ser el factor decisivo.
 **Ejemplo de refactorización de `funcion_a` con índices:**
 ```{code-block} c
 :linenos:
-void funcion_a(int *arr, size_t n) {
-    if (arr == NULL) return;
-    for (size_t i = 0; i < n; i++) {
+void funcion_a(int *arr, size_t n)
+{
+    if (arr == NULL)
+        return;
+    for (size_t i = 0; i < n; i++)
+    {
         arr[i] *= 2;
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1846,73 +1835,71 @@ Analizá este código que implementa callbacks usando punteros a funciones:
 
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <stdbool.h>
-
+#include <stdio.h>
 typedef bool (*predicado_t)(int);
 typedef int (*operacion_t)(int);
-
-bool es_par(int n) {
+bool es_par(int n)
+{
     return n % 2 == 0;
 }
-
-bool es_positivo(int n) {
+bool es_positivo(int n)
+{
     return n > 0;
 }
-
-int duplicar(int n) {
+int duplicar(int n)
+{
     return n * 2;
 }
-
-int cuadrado(int n) {
+int cuadrado(int n)
+{
     return n * n;
 }
-
 // Función A
-int contar_si(const int *arr, size_t n, predicado_t predicado) {
+int contar_si(const int *arr, size_t n, predicado_t predicado)
+{
     int contador = 0;
-    for (size_t i = 0; i < n; i++) {
-        if (predicado(arr[i])) {
+    for (size_t i = 0; i < n; i++)
+    {
+        if (predicado(arr[i]))
+        {
             contador++;
         }
     }
     return contador;
 }
-
 // Función B
-void aplicar(int *arr, size_t n, operacion_t operacion) {
-    for (size_t i = 0; i < n; i++) {
+void aplicar(int *arr, size_t n, operacion_t operacion)
+{
+    for (size_t i = 0; i < n; i++)
+    {
         arr[i] = operacion(arr[i]);
     }
 }
-
 // Función C
-void procesar(int *arr, size_t n, 
-              predicado_t filtro, 
-              operacion_t transformacion) {
-    for (size_t i = 0; i < n; i++) {
-        if (filtro(arr[i])) {
+void procesar(int *arr, size_t n, predicado_t filtro,
+              operacion_t transformacion)
+{
+    for (size_t i = 0; i < n; i++)
+    {
+        if (filtro(arr[i]))
+        {
             arr[i] = transformacion(arr[i]);
         }
     }
 }
-
-int main(void) {
+int main(void)
+{
     int numeros[] = {-3, -2, -1, 0, 1, 2, 3, 4, 5};
     size_t n = sizeof(numeros) / sizeof(numeros[0]);
-    
     printf("Pares: %d\n", contar_si(numeros, n, es_par));
     printf("Positivos: %d\n", contar_si(numeros, n, es_positivo));
-    
     int copia1[] = {1, 2, 3, 4, 5};
     aplicar(copia1, 5, duplicar);
-    
     int copia2[] = {-2, -1, 0, 1, 2};
     procesar(copia2, 5, es_positivo, cuadrado);
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1961,10 +1948,9 @@ typedef int (*operacion_t)(int);
 **Sintaxis explicada:**
 ``` c
 // Sin typedef (más confuso):
-bool (*predicado)(int);  // Variable que es puntero a función
-
+bool (*predicado)(int); // Variable que es puntero a función
 // Con typedef (más claro):
-predicado_t predicado;   // Variable de tipo "puntero a función"
+predicado_t predicado; // Variable de tipo "puntero a función"
 ```
 <!-- c -->
 
@@ -2057,27 +2043,31 @@ Positivos: 5
 **Sin callbacks (enfoque ingenuo):**
 ```{code-block} c
 :linenos:
-int contar_pares(const int *arr, size_t n) {
+int contar_pares(const int *arr, size_t n)
+{
     int contador = 0;
-    for (size_t i = 0; i < n; i++) {
-        if (arr[i] % 2 == 0) contador++;
+    for (size_t i = 0; i < n; i++)
+    {
+        if (arr[i] % 2 == 0)
+            contador++;
     }
     return contador;
 }
-
-int contar_positivos(const int *arr, size_t n) {
+int contar_positivos(const int *arr, size_t n)
+{
     int contador = 0;
-    for (size_t i = 0; i < n; i++) {
-        if (arr[i] > 0) contador++;
+    for (size_t i = 0; i < n; i++)
+    {
+        if (arr[i] > 0)
+            contador++;
     }
     return contador;
 }
-
-int contar_negativos(const int *arr, size_t n) {
+int contar_negativos(const int *arr, size_t n)
+{
     // Otra función casi idéntica...
 }
 // ¡Mucha duplicación!
-
 ```
 <!-- {code-block} c -->
 
@@ -2086,14 +2076,12 @@ int contar_negativos(const int *arr, size_t n) {
 :linenos:
 // Una sola función, infinitas posibilidades
 int contar_si(const int *arr, size_t n, predicado_t pred);
-
 // Uso:
 contar_si(arr, n, es_par);
 contar_si(arr, n, es_positivo);
 contar_si(arr, n, es_negativo);
 contar_si(arr, n, es_multiplo_de_tres);
 // ... cualquier predicado
-
 ```
 <!-- {code-block} c -->
 
@@ -2112,25 +2100,28 @@ tiempo de ejecución
 
 ```{code-block} c
 :linenos:
-int* encontrar_si(int *arr, size_t n, predicado_t predicado) {
-    for (size_t i = 0; i < n; i++) {
-        if (predicado(arr[i])) {
-            return &arr[i];  // Retorna puntero al primer elemento que cumple
+int *encontrar_si(int *arr, size_t n, predicado_t predicado)
+{
+    for (size_t i = 0; i < n; i++)
+    {
+        if (predicado(arr[i]))
+        {
+            return &arr[i]; // Retorna puntero al primer elemento que cumple
         }
     }
-    return NULL;  // No se encontró
+    return NULL; // No se encontró
 }
-
 // Uso:
 int numeros[] = {-3, -2, -1, 0, 1, 2, 3};
 int *primer_positivo = encontrar_si(numeros, 7, es_positivo);
-
-if (primer_positivo != NULL) {
+if (primer_positivo != NULL)
+{
     printf("Primer positivo: %d\n", *primer_positivo);
-} else {
+}
+else
+{
     printf("No hay positivos\n");
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -2141,29 +2132,29 @@ puntero `void*`:
 
 ```{code-block} c
 :linenos:
-typedef bool (*predicado_ctx_t)(int, void*);
-
-int contar_si_ctx(const int *arr, size_t n, 
-                   predicado_ctx_t pred, void* contexto) {
+typedef bool (*predicado_ctx_t)(int, void *);
+int contar_si_ctx(const int *arr, size_t n, predicado_ctx_t pred,
+                  void *contexto)
+{
     int contador = 0;
-    for (size_t i = 0; i < n; i++) {
-        if (pred(arr[i], contexto)) {
+    for (size_t i = 0; i < n; i++)
+    {
+        if (pred(arr[i], contexto))
+        {
             contador++;
         }
     }
     return contador;
 }
-
 // Ejemplo: contar mayores que un umbral
-bool es_mayor_que(int valor, void* ctx) {
-    int umbral = *(int*)ctx;
+bool es_mayor_que(int valor, void *ctx)
+{
+    int umbral = *(int *)ctx;
     return valor > umbral;
 }
-
 // Uso:
 int umbral = 3;
 int cantidad = contar_si_ctx(numeros, n, es_mayor_que, &umbral);
-
 ```
 <!-- {code-block} c -->
 
@@ -2194,163 +2185,161 @@ Analizá este sistema completo que utiliza múltiples conceptos de punteros:
 
 ```{code-block} c
 :linenos:
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
-
-typedef struct nodo {
+typedef struct nodo
+{
     int dato;
-    struct nodo* siguiente;
+    struct nodo *siguiente;
 } nodo_t;
-
-typedef struct {
-    nodo_t* primero;
-    nodo_t* ultimo;
+typedef struct
+{
+    nodo_t *primero;
+    nodo_t *ultimo;
     size_t tamanio;
 } lista_t;
-
 // Función 1
-lista_t* lista_crear(void) {
-    lista_t* lista = malloc(sizeof(lista_t));
-    if (lista == NULL) return NULL;
-    
+lista_t *lista_crear(void)
+{
+    lista_t *lista = malloc(sizeof(lista_t));
+    if (lista == NULL)
+        return NULL;
     lista->primero = NULL;
     lista->ultimo = NULL;
     lista->tamanio = 0;
-    
     return lista;
 }
-
 // Función 2
-bool lista_insertar_final(lista_t* lista, int dato) {
-    if (lista == NULL) return false;
-    
-    nodo_t* nuevo = malloc(sizeof(nodo_t));
-    if (nuevo == NULL) return false;
-    
+bool lista_insertar_final(lista_t *lista, int dato)
+{
+    if (lista == NULL)
+        return false;
+    nodo_t *nuevo = malloc(sizeof(nodo_t));
+    if (nuevo == NULL)
+        return false;
     nuevo->dato = dato;
     nuevo->siguiente = NULL;
-    
-    if (lista->primero == NULL) {
+    if (lista->primero == NULL)
+    {
         lista->primero = nuevo;
         lista->ultimo = nuevo;
-    } else {
+    }
+    else
+    {
         lista->ultimo->siguiente = nuevo;
         lista->ultimo = nuevo;
     }
-    
     lista->tamanio++;
     return true;
 }
-
 // Función 3
-bool lista_eliminar_primero(lista_t* lista, int* dato) {
-    if (lista == NULL || lista->primero == NULL) return false;
-    
-    nodo_t* temp = lista->primero;
+bool lista_eliminar_primero(lista_t *lista, int *dato)
+{
+    if (lista == NULL || lista->primero == NULL)
+        return false;
+    nodo_t *temp = lista->primero;
     *dato = temp->dato;
-    
     lista->primero = temp->siguiente;
-    if (lista->primero == NULL) {
+    if (lista->primero == NULL)
+    {
         lista->ultimo = NULL;
     }
-    
     free(temp);
     lista->tamanio--;
     return true;
 }
-
 // Función 4
-void lista_destruir(lista_t* lista) {
-    if (lista == NULL) return;
-    
-    nodo_t* actual = lista->primero;
-    while (actual != NULL) {
-        nodo_t* siguiente = actual->siguiente;
+void lista_destruir(lista_t *lista)
+{
+    if (lista == NULL)
+        return;
+    nodo_t *actual = lista->primero;
+    while (actual != NULL)
+    {
+        nodo_t *siguiente = actual->siguiente;
         free(actual);
         actual = siguiente;
     }
-    
     free(lista);
 }
-
 // Función 5
-void lista_aplicar(lista_t* lista, void (*func)(int*, void*), void* extra) {
-    if (lista == NULL || func == NULL) return;
-    
-    nodo_t* actual = lista->primero;
-    while (actual != NULL) {
+void lista_aplicar(lista_t *lista, void (*func)(int *, void *), void *extra)
+{
+    if (lista == NULL || func == NULL)
+        return;
+    nodo_t *actual = lista->primero;
+    while (actual != NULL)
+    {
         func(&actual->dato, extra);
         actual = actual->siguiente;
     }
 }
-
 // Función 6
-lista_t* lista_filtrar(const lista_t* lista, bool (*pred)(int, void*), void* extra) {
-    if (lista == NULL || pred == NULL) return NULL;
-    
-    lista_t* nueva = lista_crear();
-    if (nueva == NULL) return NULL;
-    
-    nodo_t* actual = lista->primero;
-    while (actual != NULL) {
-        if (pred(actual->dato, extra)) {
-            if (!lista_insertar_final(nueva, actual->dato)) {
+lista_t *lista_filtrar(const lista_t *lista, bool (*pred)(int, void *),
+                       void *extra)
+{
+    if (lista == NULL || pred == NULL)
+        return NULL;
+    lista_t *nueva = lista_crear();
+    if (nueva == NULL)
+        return NULL;
+    nodo_t *actual = lista->primero;
+    while (actual != NULL)
+    {
+        if (pred(actual->dato, extra))
+        {
+            if (!lista_insertar_final(nueva, actual->dato))
+            {
                 lista_destruir(nueva);
                 return NULL;
             }
         }
         actual = actual->siguiente;
     }
-    
     return nueva;
 }
-
 // Callbacks de ejemplo
-void duplicar_dato(int* dato, void* extra) {
+void duplicar_dato(int *dato, void *extra)
+{
     *dato *= 2;
 }
-
-bool es_mayor_que(int dato, void* extra) {
-    int limite = *(int*)extra;
+bool es_mayor_que(int dato, void *extra)
+{
+    int limite = *(int *)extra;
     return dato > limite;
 }
-
-int main(void) {
-    lista_t* lista = lista_crear();
-    
-    for (int i = 1; i <= 5; i++) {
+int main(void)
+{
+    lista_t *lista = lista_crear();
+    for (int i = 1; i <= 5; i++)
+    {
         lista_insertar_final(lista, i);
     }
-    
     printf("Lista original (tamaño %zu): ", lista->tamanio);
-    nodo_t* actual = lista->primero;
-    while (actual != NULL) {
+    nodo_t *actual = lista->primero;
+    while (actual != NULL)
+    {
         printf("%d ", actual->dato);
         actual = actual->siguiente;
     }
     printf("\n");
-    
     lista_aplicar(lista, duplicar_dato, NULL);
-    
     int limite = 5;
-    lista_t* filtrada = lista_filtrar(lista, es_mayor_que, &limite);
-    
+    lista_t *filtrada = lista_filtrar(lista, es_mayor_que, &limite);
     printf("Lista filtrada (>5): ");
     actual = filtrada->primero;
-    while (actual != NULL) {
+    while (actual != NULL)
+    {
         printf("%d ", actual->dato);
         actual = actual->siguiente;
     }
     printf("\n");
-    
     lista_destruir(lista);
     lista_destruir(filtrada);
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -2496,9 +2485,10 @@ Heap:                  ↓
 
 **Insertar en lista vacía:**
 ``` c
-if (lista->primero == NULL) {
+if (lista->primero == NULL)
+{
     lista->primero = nuevo;
-    lista->ultimo = nuevo;  // Mantiene invariante 1
+    lista->ultimo = nuevo; // Mantiene invariante 1
 }
 ```
 <!-- c -->
@@ -2506,8 +2496,9 @@ if (lista->primero == NULL) {
 **Eliminar último elemento:**
 ``` c
 lista->primero = temp->siguiente;
-if (lista->primero == NULL) {
-    lista->ultimo = NULL;  // Mantiene invariante 1
+if (lista->primero == NULL)
+{
+    lista->ultimo = NULL; // Mantiene invariante 1
 }
 ```
 <!-- c -->
@@ -2566,8 +2557,9 @@ free(block 7)
 
 ❌ **`lista_crear` no verifica malloc de lista:**
 ``` c
-lista_t* lista = malloc(sizeof(lista_t));
-if (lista == NULL) return NULL;  // ✅ PERO...
+lista_t *lista = malloc(sizeof(lista_t));
+if (lista == NULL)
+    return NULL; // ✅ PERO...
 // No inicializa campos si malloc falla parcialmente
 ```
 <!-- c -->
@@ -2577,8 +2569,9 @@ Sí lo hace, está correcto.
 
 ❌ **Falta de manejo de errores propagado:**
 ``` c
-if (!lista_insertar_final(nueva, actual->dato)) {
-    lista_destruir(nueva);  // ✅ Buena práctica
+if (!lista_insertar_final(nueva, actual->dato))
+{
+    lista_destruir(nueva); // ✅ Buena práctica
     return NULL;
 }
 ```
@@ -2592,43 +2585,44 @@ Si el callback falla (ej. acceso inválido), no hay forma de recuperarse.
 ```{code-block} c
 :linenos:
 // 1. Agregar función de validación
-bool lista_es_valida(const lista_t* lista) {
-    if (lista == NULL) return false;
-    
+bool lista_es_valida(const lista_t *lista)
+{
+    if (lista == NULL)
+        return false;
     // Verificar invariantes
-    if (lista->primero == NULL && lista->ultimo != NULL) return false;
-    if (lista->primero != NULL && lista->ultimo == NULL) return false;
-    
+    if (lista->primero == NULL && lista->ultimo != NULL)
+        return false;
+    if (lista->primero != NULL && lista->ultimo == NULL)
+        return false;
     // Contar nodos
     size_t contador = 0;
-    nodo_t* actual = lista->primero;
-    while (actual != NULL && contador <= lista->tamanio) {
+    nodo_t *actual = lista->primero;
+    while (actual != NULL && contador <= lista->tamanio)
+    {
         contador++;
         actual = actual->siguiente;
     }
-    
     return contador == lista->tamanio;
 }
-
 // 2. Agregar códigos de error más específicos
-typedef enum {
+typedef enum
+{
     LISTA_OK = 0,
     LISTA_ERROR_MEMORIA,
     LISTA_ERROR_PARAMETRO_INVALIDO,
     LISTA_ERROR_LISTA_VACIA
 } lista_error_t;
-
 // 3. Versión robusta de insertar
-lista_error_t lista_insertar_final_v2(lista_t* lista, int dato) {
-    if (lista == NULL) return LISTA_ERROR_PARAMETRO_INVALIDO;
-    
-    nodo_t* nuevo = malloc(sizeof(nodo_t));
-    if (nuevo == NULL) return LISTA_ERROR_MEMORIA;
-    
+lista_error_t lista_insertar_final_v2(lista_t *lista, int dato)
+{
+    if (lista == NULL)
+        return LISTA_ERROR_PARAMETRO_INVALIDO;
+    nodo_t *nuevo = malloc(sizeof(nodo_t));
+    if (nuevo == NULL)
+        return LISTA_ERROR_MEMORIA;
     // ... resto de la lógica
     return LISTA_OK;
 }
-
 ```
 <!-- {code-block} c -->
 

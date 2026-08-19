@@ -43,14 +43,13 @@ Implementar un constructor para la estructura `persona_t`:
 
 ```{code-block} c
 :linenos:
-typedef struct {
-    char* nombre;
-    char* apellido;
+typedef struct
+{
+    char *nombre;
+    char *apellido;
     int edad;
 } persona_t;
-
-persona_t* persona_crear(const char* nombre, const char* apellido, int edad);
-
+persona_t *persona_crear(const char *nombre, const char *apellido, int edad);
 ```
 <!-- {code-block} c -->
 
@@ -76,7 +75,7 @@ Implementar el destructor correspondiente:
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-void persona_destruir(persona_t** ptr_persona);
+void persona_destruir(persona_t **ptr_persona);
 ```
 <!-- c -->
 
@@ -103,7 +102,7 @@ persona:
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-persona_t* persona_clonar(const persona_t* original);
+persona_t *persona_clonar(const persona_t *original);
 ```
 <!-- c -->
 
@@ -127,25 +126,22 @@ Implementar constructor y destructor para esta estructura anidada:
 
 ```{code-block} c
 :linenos:
-typedef struct {
-    char* calle;
-    char* ciudad;
+typedef struct
+{
+    char *calle;
+    char *ciudad;
     int codigo_postal;
 } direccion_t;
-
-typedef struct {
-    char* nombre;
-    direccion_t* direccion;
-    char** telefonos;  // Array de cadenas
+typedef struct
+{
+    char *nombre;
+    direccion_t *direccion;
+    char **telefonos; // Array de cadenas
     size_t n_telefonos;
 } contacto_t;
-
-contacto_t* contacto_crear(const char* nombre, 
-                           const char* calle, 
-                           const char* ciudad,
-                           int codigo_postal);
-void contacto_destruir(contacto_t** ptr_contacto);
-
+contacto_t *contacto_crear(const char *nombre, const char *calle,
+                           const char *ciudad, int codigo_postal);
+void contacto_destruir(contacto_t **ptr_contacto);
 ```
 <!-- {code-block} c -->
 
@@ -174,13 +170,13 @@ cursos:
 
 ```{code-block} c
 :linenos:
-typedef struct {
-    char* nombre;
-    char** cursos;
-    int* notas;
+typedef struct
+{
+    char *nombre;
+    char **cursos;
+    int *notas;
     size_t n_cursos;
 } estudiante_t;
-
 ```
 <!-- {code-block} c -->
 
@@ -226,8 +222,8 @@ aloja como un bloque independiente.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-int** crear_matriz_dentada(size_t filas, size_t columnas);
-void liberar_matriz_dentada(int*** ptr_matriz, size_t filas);
+int **crear_matriz_dentada(size_t filas, size_t columnas);
+void liberar_matriz_dentada(int ***ptr_matriz, size_t filas);
 ```
 <!-- c -->
 (ejercicio_17_8)=
@@ -249,8 +245,8 @@ punteros a filas.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-int** crear_matriz_contigua(size_t filas, size_t columnas);
-void liberar_matriz_contigua(int*** ptr_matriz);
+int **crear_matriz_contigua(size_t filas, size_t columnas);
+void liberar_matriz_contigua(int ***ptr_matriz);
 ```
 <!-- c -->
 (ejercicio_17_9)=
@@ -360,12 +356,11 @@ Creá matriz donde cada fila tiene diferente cantidad de columnas.
 :linenos:
 int filas = 3;
 int cols[] = {2, 4, 3};
-
-int **matriz = malloc(filas * sizeof(int*));
-for (int i = 0; i < filas; i++) {
+int **matriz = malloc(filas * sizeof(int *));
+for (int i = 0; i < filas; i++)
+{
     matriz[i] = malloc(cols[i] * sizeof(int));
 }
-
 ```
 <!-- {code-block} c -->
 - Liberación: cada fila primero, luego array de punteros
@@ -390,16 +385,16 @@ Creá matriz contigua en memoria (un solo `malloc` para datos).
 
 ```{code-block} c
 :linenos:
-int **crear_matriz(int filas, int cols) {
-    int **matriz = malloc(filas * sizeof(int*));
+int **crear_matriz(int filas, int cols)
+{
+    int **matriz = malloc(filas * sizeof(int *));
     int *datos = malloc(filas * cols * sizeof(int));
-    
-    for (int i = 0; i < filas; i++) {
+    for (int i = 0; i < filas; i++)
+    {
         matriz[i] = datos + i * cols;
     }
     return matriz;
 }
-
 ```
 <!-- {code-block} c -->
 - Ventaja: mejor localidad de caché
@@ -426,7 +421,6 @@ Implementá acceso a matriz unidimensional como bidimensional.
 ``` c
 int *matriz = malloc(filas * cols * sizeof(int));
 // Acceso: matriz[i * cols + j]
-
 // O macro:
 #define MAT(m, i, j, cols) ((m)[(i) * (cols) + (j)])
 MAT(matriz, 2, 3, cols) = 42;
@@ -455,16 +449,17 @@ Implementá función para redimensionar array preservando datos.
 
 ```{code-block} c
 :linenos:
-int *redimensionar(int *arr, int tam_actual, int tam_nuevo) {
+int *redimensionar(int *arr, int tam_actual, int tam_nuevo)
+{
     int *nuevo = realloc(arr, tam_nuevo * sizeof(int));
-    if (nuevo == NULL) {
+    if (nuevo == NULL)
+    {
         // Manejar error, NO liberar arr
         return NULL;
     }
     // Si tam_nuevo > tam_actual, nuevos elementos sin inicializar
     return nuevo;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -488,18 +483,18 @@ Creá array dinámico de strings donde cada string también es dinámico.
 
 ```{code-block} c
 :linenos:
-char **strings = malloc(n * sizeof(char*));
-for (int i = 0; i < n; i++) {
+char **strings = malloc(n * sizeof(char *));
+for (int i = 0; i < n; i++)
+{
     strings[i] = malloc((strlen(input) + 1) * sizeof(char));
     strcpy(strings[i], input);
 }
-
 // Liberación:
-for (int i = 0; i < n; i++) {
+for (int i = 0; i < n; i++)
+{
     free(strings[i]);
 }
 free(strings);
-
 ```
 <!-- {code-block} c -->
 
@@ -523,25 +518,25 @@ Creá estructura que contenga arrays dinámicos.
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     int *datos;
     size_t tamanio;
     size_t capacidad;
 } vector_t;
-
-vector_t *crear_vector(size_t cap_inicial) {
+vector_t *crear_vector(size_t cap_inicial)
+{
     vector_t *v = malloc(sizeof(vector_t));
     v->datos = malloc(cap_inicial * sizeof(int));
     v->tamanio = 0;
     v->capacidad = cap_inicial;
     return v;
 }
-
-void destruir_vector(vector_t *v) {
-    free(v->datos);  // Primero datos
-    free(v);         // Luego estructura
+void destruir_vector(vector_t *v)
+{
+    free(v->datos); // Primero datos
+    free(v);        // Luego estructura
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -565,24 +560,24 @@ Implementá lista donde cada nodo contiene un string dinámico.
 
 ```{code-block} c
 :linenos:
-typedef struct nodo {
-    char *str;  // String dinámico
+typedef struct nodo
+{
+    char *str; // String dinámico
     struct nodo *siguiente;
 } nodo_t;
-
-nodo_t *crear_nodo(const char *str) {
+nodo_t *crear_nodo(const char *str)
+{
     nodo_t *nuevo = malloc(sizeof(nodo_t));
     nuevo->str = malloc(strlen(str) + 1);
     strcpy(nuevo->str, str);
     nuevo->siguiente = NULL;
     return nuevo;
 }
-
-void liberar_nodo(nodo_t *nodo) {
-    free(nodo->str);  // Primero el string
-    free(nodo);       // Luego el nodo
+void liberar_nodo(nodo_t *nodo)
+{
+    free(nodo->str); // Primero el string
+    free(nodo);      // Luego el nodo
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -606,20 +601,21 @@ Implementá árbol binario donde cada nodo tiene string dinámico.
 
 ```{code-block} c
 :linenos:
-typedef struct nodo_arbol {
-    char *clave;  // Dinámico
+typedef struct nodo_arbol
+{
+    char *clave; // Dinámico
     int valor;
     struct nodo_arbol *izq, *der;
 } nodo_arbol_t;
-
-void liberar_arbol(nodo_arbol_t *raiz) {
-    if (raiz == NULL) return;
-    liberar_arbol(raiz->izq);    // Postorden
+void liberar_arbol(nodo_arbol_t *raiz)
+{
+    if (raiz == NULL)
+        return;
+    liberar_arbol(raiz->izq); // Postorden
     liberar_arbol(raiz->der);
     free(raiz->clave);
     free(raiz);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -644,8 +640,9 @@ Implementá matriz triangular inferior (solo almacená elementos <= diagonal).
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-int **matriz = malloc(n * sizeof(int*));
-for (int i = 0; i < n; i++) {
+int **matriz = malloc(n * sizeof(int *));
+for (int i = 0; i < n; i++)
+{
     matriz[i] = malloc((i + 1) * sizeof(int));
 }
 ```
@@ -671,22 +668,22 @@ Implementá copia profunda de estructura con punteros.
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     char *nombre;
     int *calificaciones;
     size_t num_calificaciones;
 } estudiante_t;
-
-estudiante_t *copiar(const estudiante_t *orig) {
+estudiante_t *copiar(const estudiante_t *orig)
+{
     estudiante_t *copia = malloc(sizeof(estudiante_t));
-    copia->nombre = strdup(orig->nombre);  // O malloc+strcpy
+    copia->nombre = strdup(orig->nombre); // O malloc+strcpy
     copia->num_calificaciones = orig->num_calificaciones;
     copia->calificaciones = malloc(orig->num_calificaciones * sizeof(int));
-    memcpy(copia->calificaciones, orig->calificaciones, 
+    memcpy(copia->calificaciones, orig->calificaciones,
            orig->num_calificaciones * sizeof(int));
     return copia;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -710,21 +707,22 @@ Creá grafo con matriz de adyacencia dinámica.
 
 ```{code-block} c
 :linenos:
-typedef struct {
-    int **adj;  // Matriz NxN
+typedef struct
+{
+    int **adj; // Matriz NxN
     int vertices;
 } grafo_t;
-
-grafo_t *crear_grafo(int n) {
+grafo_t *crear_grafo(int n)
+{
     grafo_t *g = malloc(sizeof(grafo_t));
     g->vertices = n;
-    g->adj = malloc(n * sizeof(int*));
-    for (int i = 0; i < n; i++) {
-        g->adj[i] = calloc(n, sizeof(int));  // Inicializado a 0
+    g->adj = malloc(n * sizeof(int *));
+    for (int i = 0; i < n; i++)
+    {
+        g->adj[i] = calloc(n, sizeof(int)); // Inicializado a 0
     }
     return g;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -748,21 +746,20 @@ Creá array dinámico de estructuras que contienen punteros.
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     char *titulo;
     int *capitulos;
     int num_caps;
 } libro_t;
-
 libro_t *libros = malloc(n * sizeof(libro_t));
-
 // Liberación compleja: cada campo de cada estructura
-for (int i = 0; i < n; i++) {
+for (int i = 0; i < n; i++)
+{
     free(libros[i].titulo);
     free(libros[i].capitulos);
 }
 free(libros);
-
 ```
 <!-- {code-block} c -->
 
@@ -786,25 +783,25 @@ Implementá tabla hash con encadenamiento y redimensionamiento.
 
 ```{code-block} c
 :linenos:
-typedef struct entrada {
+typedef struct entrada
+{
     char *clave;
     void *valor;
     struct entrada *siguiente;
 } entrada_t;
-
-typedef struct {
+typedef struct
+{
     entrada_t **tabla;
     size_t tamanio;
     size_t num_elementos;
 } hash_t;
-
-void redimensionar(hash_t *h) {
+void redimensionar(hash_t *h)
+{
     size_t nuevo_tam = h->tamanio * 2;
-    entrada_t **nueva_tabla = calloc(nuevo_tam, sizeof(entrada_t*));
+    entrada_t **nueva_tabla = calloc(nuevo_tam, sizeof(entrada_t *));
     // Rehash: mover elementos de tabla vieja a nueva
     // Liberar tabla vieja
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -828,18 +825,18 @@ Implementá matriz dispersa con lista de triplas (fila, col, valor).
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     int fila, col;
     double valor;
 } tripla_t;
-
-typedef struct {
+typedef struct
+{
     tripla_t *elementos;
     size_t num_elementos;
     size_t capacidad;
     int filas, cols;
 } matriz_dispersa_t;
-
 ```
 <!-- {code-block} c -->
 - Solo almacená elementos != 0
@@ -865,31 +862,30 @@ Implementá buffer circular con redimensionamiento.
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     void **datos;
     size_t capacidad;
     size_t inicio, fin;
     size_t tamanio;
 } buffer_circular_t;
-
-void redimensionar_buffer(buffer_circular_t *b) {
+void redimensionar_buffer(buffer_circular_t *b)
+{
     size_t nueva_cap = b->capacidad * 2;
-    void **nuevo = malloc(nueva_cap * sizeof(void*));
-    
+    void **nuevo = malloc(nueva_cap * sizeof(void *));
     // Copiar elementos en orden
     size_t idx = b->inicio;
-    for (size_t i = 0; i < b->tamanio; i++) {
+    for (size_t i = 0; i < b->tamanio; i++)
+    {
         nuevo[i] = b->datos[idx];
         idx = (idx + 1) % b->capacidad;
     }
-    
     free(b->datos);
     b->datos = nuevo;
     b->inicio = 0;
     b->fin = b->tamanio;
     b->capacidad = nueva_cap;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -913,17 +909,16 @@ Implementá función que modifica puntero pasado como argumento.
 
 ```{code-block} c
 :linenos:
-void insertar_inicio(nodo_t **cabeza, int valor) {
+void insertar_inicio(nodo_t **cabeza, int valor)
+{
     nodo_t *nuevo = malloc(sizeof(nodo_t));
     nuevo->dato = valor;
     nuevo->siguiente = *cabeza;
-    *cabeza = nuevo;  // Modifica el puntero original
+    *cabeza = nuevo; // Modifica el puntero original
 }
-
 // Uso:
 nodo_t *lista = NULL;
-insertar_inicio(&lista, 42);  // Pasa dirección del puntero
-
+insertar_inicio(&lista, 42); // Pasa dirección del puntero
 ```
 <!-- {code-block} c -->
 
@@ -947,27 +942,31 @@ Creá array tridimensional dinámico.
 
 ```{code-block} c
 :linenos:
-int ***crear_array_3d(int x, int y, int z) {
-    int ***arr = malloc(x * sizeof(int**));
-    for (int i = 0; i < x; i++) {
-        arr[i] = malloc(y * sizeof(int*));
-        for (int j = 0; j < y; j++) {
+int ***crear_array_3d(int x, int y, int z)
+{
+    int ***arr = malloc(x * sizeof(int **));
+    for (int i = 0; i < x; i++)
+    {
+        arr[i] = malloc(y * sizeof(int *));
+        for (int j = 0; j < y; j++)
+        {
             arr[i][j] = malloc(z * sizeof(int));
         }
     }
     return arr;
 }
-
-void liberar_array_3d(int ***arr, int x, int y) {
-    for (int i = 0; i < x; i++) {
-        for (int j = 0; j < y; j++) {
-            free(arr[i][j]);  // Nivel más profundo primero
+void liberar_array_3d(int ***arr, int x, int y)
+{
+    for (int i = 0; i < x; i++)
+    {
+        for (int j = 0; j < y; j++)
+        {
+            free(arr[i][j]); // Nivel más profundo primero
         }
         free(arr[i]);
     }
     free(arr);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -991,23 +990,24 @@ Implementá pool de objetos para evitar malloc/free frecuentes.
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     void *bloques;
     size_t tam_objeto;
     size_t capacidad;
-    void **libres;  // Stack de objetos libres
+    void **libres; // Stack de objetos libres
     size_t num_libres;
 } pool_t;
-
-void *pool_alloc(pool_t *p) {
-    if (p->num_libres == 0) return NULL;
+void *pool_alloc(pool_t *p)
+{
+    if (p->num_libres == 0)
+        return NULL;
     return p->libres[--p->num_libres];
 }
-
-void pool_free(pool_t *p, void *obj) {
+void pool_free(pool_t *p, void *obj)
+{
     p->libres[p->num_libres++] = obj;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1031,29 +1031,30 @@ Implementá sistema de conteo de referencias para compartir datos.
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     void *datos;
     size_t contador_refs;
 } ref_counted_t;
-
-ref_counted_t *crear_ref(void *datos) {
+ref_counted_t *crear_ref(void *datos)
+{
     ref_counted_t *r = malloc(sizeof(ref_counted_t));
     r->datos = datos;
     r->contador_refs = 1;
     return r;
 }
-
-void incrementar_ref(ref_counted_t *r) {
+void incrementar_ref(ref_counted_t *r)
+{
     r->contador_refs++;
 }
-
-void decrementar_ref(ref_counted_t *r, void (*destruir)(void*)) {
-    if (--r->contador_refs == 0) {
+void decrementar_ref(ref_counted_t *r, void (*destruir)(void *))
+{
+    if (--r->contador_refs == 0)
+    {
         destruir(r->datos);
         free(r);
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1077,26 +1078,25 @@ Implementá wrapper de malloc/free que registre asignaciones.
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     void *ptr;
     size_t tamanio;
     const char *archivo;
     int linea;
 } alloc_info_t;
-
 #define MALLOC_DEBUG(size) malloc_debug(size, __FILE__, __LINE__)
 #define FREE_DEBUG(ptr) free_debug(ptr, __FILE__, __LINE__)
-
-void *malloc_debug(size_t size, const char *file, int line) {
+void *malloc_debug(size_t size, const char *file, int line)
+{
     void *ptr = malloc(size);
     // Registrar en tabla de asignaciones
     return ptr;
 }
-
-void mostrar_leaks() {
+void mostrar_leaks()
+{
     // Mostrar asignaciones no liberadas
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1112,13 +1112,13 @@ void mostrar_leaks() {
 ```{code-block} c
 :linenos:
 // Asignación:
-int **m = malloc(filas * sizeof(int*));      // 1
-for (i...) m[i] = malloc(cols * sizeof(int)); // 2
-
+int **m = malloc(filas * sizeof(int *)); // 1
+for (i...)
+    m[i] = malloc(cols * sizeof(int)); // 2
 // Liberación:
-for (i...) free(m[i]);  // 2 primero
-free(m);                // 1 después
-
+for (i...)
+    free(m[i]); // 2 primero
+free(m);        // 1 después
 ```
 <!-- {code-block} c -->
 
@@ -1126,13 +1126,11 @@ free(m);                // 1 después
 ```{code-block} c
 :linenos:
 // Asignación:
-persona_t *p = malloc(sizeof(persona_t));    // 1
-p->nombre = malloc(100);                      // 2
-
+persona_t *p = malloc(sizeof(persona_t)); // 1
+p->nombre = malloc(100);                  // 2
 // Liberación:
-free(p->nombre);  // 2 primero
-free(p);          // 1 después
-
+free(p->nombre); // 2 primero
+free(p);         // 1 después
 ```
 <!-- {code-block} c -->
 
@@ -1162,32 +1160,36 @@ free(p);          // 1 después
 
 1. **Olvidar liberar datos internos:**
    ```c
-   typedef struct { char *str; } S;
+   typedef struct
+   {
+       char *str;
+   } S;
    S *s = malloc(sizeof(S));
    s->str = malloc(100);
-   free(s);  // MAL: leak de s->str
+   free(s); // MAL: leak de s->str
    ```
 
 2. **Orden incorrecto:**
    ```c
-   free(m);      // MAL: pierde acceso a m[i]
-   free(m[i]);   // Comportamiento indefinido
+   free(m);    // MAL: pierde acceso a m[i]
+   free(m[i]); // Comportamiento indefinido
    ```
 
 3. **Realloc mal usado:**
    ```c
-   arr = realloc(arr, nuevo_tam);  // MAL: si falla, pierde arr original
-   
+   arr = realloc(arr, nuevo_tam); // MAL: si falla, pierde arr original
    // BIEN:
    int *temp = realloc(arr, nuevo_tam);
-   if (temp == NULL) { /* manejar error */ }
+   if (temp == NULL)
+   { /* manejar error */
+   }
    arr = temp;
    ```
 
 4. **Copiar punteros en lugar de datos:**
    ```c
-   copia->nombre = orig->nombre;  // MAL: shallow copy
-   copia->nombre = strdup(orig->nombre);  // BIEN: deep copy
+   copia->nombre = orig->nombre;         // MAL: shallow copy
+   copia->nombre = strdup(orig->nombre); // BIEN: deep copy
    ```
 
 :::

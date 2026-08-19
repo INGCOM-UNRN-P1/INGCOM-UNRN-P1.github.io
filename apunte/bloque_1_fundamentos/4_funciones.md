@@ -95,7 +95,6 @@ Una función en C es un bloque de código que:
     // instrucciones
     return valor;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -112,12 +111,11 @@ y devuelve su suma:
 :::{code-block}c
 :linenos:
 // retorno de tipo int, identificador sumar y dos int como argumentos
-int sumar(int a, int b) {
-    int retorno = a + b; // instrucciones que completan el objetivo de la
-    función
-    return retorno;      // instrucción que devuelve el valor calculado
+int sumar(int a, int b)
+{
+    int retorno = a + b;    // instrucciones que completan el objetivo de la
+    función return retorno; // instrucción que devuelve el valor calculado
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -127,7 +125,6 @@ Esto se puede usar desde `main()` u otra función:
 :linenos:
 int resultado = sumar(5, 3);
 printf("Resultado: %d\n", resultado);
-
 :::
 <!-- {code-block}c -->
 
@@ -147,10 +144,10 @@ devuelve valores:
 :::{code-block}c
 :linenos:
 // sin retorno de valor, identificador saludar y sin argumentos
-void saludar() {
+void saludar()
+{
     printf("Hola Mundo!\n");
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -196,15 +193,15 @@ compilación fallará:
 
 :::{code-block}c
 :linenos:
-int main() {
+int main()
+{
     printf("%f\n", areaCirculo(10.0));
     return 0;
 }
-
-double areaCirculo(double radio) {
+double areaCirculo(double radio)
+{
     return 3.14159 * radio * radio;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -215,16 +212,15 @@ al principio del archivo:
 :linenos:
 // prototipo de la función
 double areaCirculo(double radio);
-
-int main() {
+int main()
+{
     printf("%f\n", areaCirculo(10.0));
     return 0;
 }
-
-double areaCirculo(double radio) {
+double areaCirculo(double radio)
+{
     return 3.14159 * radio * radio;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -237,19 +233,18 @@ reordenándolas:
 // Declaraciones de prototipos para resolver la mutua recursión
 int funcion_uno();
 int funcion_dos();
-
-int funcion_uno() {
+int funcion_uno()
+{
     // Lógica que requiere llamar a funcion_dos
     funcion_dos();
     return 0;
 }
-
-int funcion_dos() {
+int funcion_dos()
+{
     // Lógica que requiere llamar a funcion_uno
     funcion_uno();
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -278,25 +273,22 @@ valor, pero generalmente no lo modifica de forma que el llamador vea ese cambio
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
 // 'num1' y 'num2' son parámetros de entrada
-int sumar(int num1, int num2) {
+int sumar(int num1, int num2)
+{
     int resultado = num1 + num2;
     return resultado;
 }
-
-int main() {
+int main()
+{
     int a = 5;
     int b = 3;
     int sumaTotal;
-
     // 'a' y 'b' se pasan como argumentos a los parámetros de entrada 'num1' y
-    'num2'
-    sumaTotal = sumar(a, b);
+    'num2' sumaTotal = sumar(a, b);
     printf("La suma es: %d\n", sumaTotal);
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -320,21 +312,20 @@ simplifican el flujo lógico de cálculo antes de generar el resultado final.
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
-float calcularPromedio(int a, int b, int c) {
+float calcularPromedio(int a, int b, int c)
+{
     // 'sumaTemporal' es una variable local temporal
     int sumaTemporal = a + b + c;
-    float promedio = (float)sumaTemporal / 3.0; // 'promedio' es una variable de
-    salida local
-    return promedio;
+    float promedio =
+        (float)sumaTemporal / 3.0; // 'promedio' es una variable de
+    salida local return promedio;
 }
-
-int main() {
+int main()
+{
     float resultadoPromedio = calcularPromedio(10, 20, 30);
     printf("El promedio es: %.2f\n", resultadoPromedio);
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -386,21 +377,19 @@ modificarla.
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
 int variableGlobal = 10; // Declarada fuera de todas las funciones
-
-void miFuncion() {
+void miFuncion()
+{
     printf("Desde miFuncion: %d\n", variableGlobal); // Acceso permitido
-    variableGlobal = 20; // Modificación permitida
+    variableGlobal = 20;                             // Modificación permitida
 }
-
-int main() {
+int main()
+{
     printf("Desde main (antes): %d\n", variableGlobal);
     miFuncion();
     printf("Desde main (después): %d\n", variableGlobal);
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -434,18 +423,17 @@ para más detalles de esta mecánica física.
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
-void suma(int a, int b) { // 'a' y 'b' son argumentos
+void suma(int a, int b)
+{                          // 'a' y 'b' son argumentos
     int resultado = a + b; // 'a' y 'b' solo existen dentro de la función suma
     printf("La suma es: %d\n", resultado);
 }
-
-int main(void) {
+int main(void)
+{
     suma(5, 3);
     // printf("%d", a); // ERROR: 'a' no existe en este alcance
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -471,18 +459,17 @@ este mecanismo, consultá el apunte de [Memoria Dinámica](14_memoria_dinamica).
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
-void miFuncion() {
+void miFuncion()
+{
     int variableLocal = 5; // 'variableLocal' solo existe aquí
     printf("Variable local: %d\n", variableLocal);
 }
-
-int main() {
+int main()
+{
     miFuncion();
     // printf("%d", variableLocal); // ERROR: 'variableLocal' no existe en main
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -499,25 +486,22 @@ condicionales.
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
-int main() {
+int main()
+{
     int x = 10;
-
-    if (x == 10) {
+    if (x == 10)
+    {
         int variableBloque = 25; // Solo existe dentro de este if
         printf("Dentro del bloque if: %d\n", variableBloque);
     }
-
     // printf("%d", variableBloque); // ERROR: La variable no existe aquí
-
-    for (int i = 0; i < 3; i++) { // 'i' es una variable de bloque
+    for (int i = 0; i < 3; i++)
+    { // 'i' es una variable de bloque
         printf("Iteración: %d\n", i);
     }
     // printf("%d", i); // ERROR: 'i' ya no existe en este alcance
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -538,22 +522,20 @@ Analizá el comportamiento con este ejemplo comparativo:
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
-void contador_normal() {
+void contador_normal()
+{
     int contador = 0; // Local automática: se inicializa y destruye en cada
-    llamada
-    contador++;
+    llamada contador++;
     printf("Contador Normal: %d\n", contador);
 }
-
-void contador_static() {
+void contador_static()
+{
     static int contador = 0; // Local estática: se inicializa una sola vez y
-    persiste
-    contador++;
+    persiste contador++;
     printf("Contador Static: %d\n", contador);
 }
-
-int main(void) {
+int main(void)
+{
     contador_normal();
     contador_static();
     printf("---\n");
@@ -561,7 +543,6 @@ int main(void) {
     contador_static();
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -644,22 +625,18 @@ Visualización del ocultamiento de variables (shadowing).
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
-int main() {
-    int i = 10; // Variable local en main
-
+int main()
+{
+    int i = 10;                         // Variable local en main
     printf("En main, 'i' es: %d\n", i); // Imprime 10
-
-    for (int i = 5; i > 0; i--) { // La variable 'i' de bloque oculta la local
-    de main
-        printf("Dentro del for, 'i' es: %d\n", i); // Imprime la cuenta
+    for (int i = 5; i > 0; i--)
+    { // La variable 'i' de bloque oculta la local
+        de main printf("Dentro del for, 'i' es: %d\n", i); // Imprime la cuenta
         regresiva desde 5 hasta 1
     }
-
     printf("Fuera del for, 'i' es de nuevo: %d\n", i); // Imprime 10
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -724,30 +701,27 @@ Queremos un programa que solicite dos números (base y altura), calcule el área
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
 int leer_entero(const char *mensaje);
 int calcular_area(int base, int altura);
-
-int main() {
+int main()
+{
     int base = leer_entero("Ingrese la base: ");
     int altura = leer_entero("Ingrese la altura: ");
     int area = calcular_area(base, altura);
-
     printf("El área es: %d\n", area);
     return 0;
 }
-
-int leer_entero(const char *mensaje) {
+int leer_entero(const char *mensaje)
+{
     int valor = 0;
     printf("%s", mensaje);
     scanf("%d", &valor);
     return valor;
 }
-
-int calcular_area(int base, int altura) {
+int calcular_area(int base, int altura)
+{
     return base * altura;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -805,22 +779,21 @@ estamos factorizando de una forma aún mejor.
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
-void solicitar_datos() {
+void solicitar_datos()
+{
     printf("Por favor ingrese sus datos.\n");
 }
-
-void mostrar_saludo(const char *mensaje) {
+void mostrar_saludo(const char *mensaje)
+{
     printf("%s\n", mensaje);
     solicitar_datos();
 }
-
-int main() {
+int main()
+{
     mostrar_saludo("Bienvenido al sistema.");
     mostrar_saludo("Gracias por usar el sistema.");
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -934,7 +907,6 @@ explicación de algo que vean flojo (pero puntual)
 :linenos:
 // este es un comentario de una única linea, todo lo que esta a la derecha es
 ignorado
-
 :::
 <!-- {code-block}c -->
 
@@ -947,7 +919,6 @@ también lo pueden usar para desactivar una parte del programa:
 Este es un comentario de bloque, todo lo que esta dentro del bloque es
 ignorado, y este, a diferencia del otro, puede abarcar múltiples lineas.
 */
-
 :::
 <!-- {code-block}c -->
 
@@ -989,7 +960,6 @@ int calcular_area(int base, int altura)
 {
     return base * altura;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1109,13 +1079,13 @@ hacerlo como parte de la prosa de la documentación o indicándolo explícitamen
  *
  * @param dividendo es el numero que sera dividido.
  * @param divisor con el que se dividirá dividendo.
- *      #PRE debe ser distinto a 0, no está definida la división para este valor.
+ *      #PRE debe ser distinto a 0, no está definida la división para este
+ * valor.
  * @returns el resultado de dividir dividendo por divisor.
  *      #POST Se retornará la división entera.
  * Invariante: los argumentos no son modificados.
  */
 int dividir(int dividendo, int divisor);
-
 ```
 <!-- {code-block} c -->
 
@@ -1140,17 +1110,16 @@ declaración de prototipo adecuada.
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-int main() {
+int main()
+{
     double resultado = calcular_cubo(3.0);
     printf("El cubo es: %.2f\n", resultado);
     return 0;
 }
-
-double calcular_cubo(double x) {
+double calcular_cubo(double x)
+{
     return x * x * x;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1165,20 +1134,18 @@ debés agregar el prototipo de la función antes del punto de entrada `main`:
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
 // Prototipo de la función
 double calcular_cubo(double x);
-
-int main() {
+int main()
+{
     double resultado = calcular_cubo(3.0);
     printf("El cubo es: %.2f\n", resultado);
     return 0;
 }
-
-double calcular_cubo(double x) {
+double calcular_cubo(double x)
+{
     return x * x * x;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1191,7 +1158,8 @@ Explicá de forma conceptual si la siguiente función en C es una **función pur
 o si genera algún **efecto secundario**, y justificá tu respuesta:
 ``` c
 int contador = 0;
-int incrementar_y_sumar(int valor) {
+int incrementar_y_sumar(int valor)
+{
     contador++;
     return valor + contador;
 }
@@ -1249,17 +1217,17 @@ justificá la salida aplicando el concepto de ocultamiento de variables
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-int main() {
+int main()
+{
     int valor = 50;
-    if (valor > 10) {
+    if (valor > 10)
+    {
         int valor = 100;
         printf("Bloque interno: %d\n", valor);
     }
     printf("Bloque externo: %d\n", valor);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1298,21 +1266,20 @@ llamadas sucesivas durante la vida útil del programa, utilizando el modificador
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-int acumular_historico(int valor) {
+int acumular_historico(int valor)
+{
     // La variable estática se inicializa una sola vez en el segmento de datos
     static int acumulador = 0;
     acumulador += valor;
     return acumulador;
 }
-
-int main() {
+int main()
+{
     printf("%d\n", acumular_historico(5));  // Imprime 5
     printf("%d\n", acumular_historico(10)); // Imprime 15
     printf("%d\n", acumular_historico(3));  // Imprime 18
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1324,7 +1291,8 @@ int main() {
 Explicá por qué el siguiente fragmento de código causa un comportamiento
 indefinido o un error de segmentación grave en memoria física:
 ``` c
-int *obtener_puntero_invalido() {
+int *obtener_puntero_invalido()
+{
     int dato_local = 42;
     return &dato_local; // Retorna la dirección de la variable local
 }
@@ -1358,18 +1326,20 @@ de única responsabilidad y desacoplamiento de E/S.
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-void verificar_edad() {
+void verificar_edad()
+{
     int edad;
     printf("Ingresá tu edad: ");
     scanf("%d", &edad);
-    if (edad >= 18) {
+    if (edad >= 18)
+    {
         printf("Es mayor de edad.\n");
-    } else {
+    }
+    else
+    {
         printf("Es menor de edad.\n");
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1382,27 +1352,28 @@ Se divide la lectura del cálculo puro, permitiendo que la lógica de validació
 sea testeable y reutilizable:
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <stdbool.h>
-
+#include <stdio.h>
 // Función pura de procesamiento lógico
-bool es_mayor_de_edad(int edad) {
+bool es_mayor_de_edad(int edad)
+{
     return edad >= 18;
 }
-
 // Función con responsabilidad de E/S
-void procesar_interaccion_edad() {
+void procesar_interaccion_edad()
+{
     int edad = 0;
     printf("Ingresá tu edad: ");
     scanf("%d", &edad);
-
-    if (es_mayor_de_edad(edad) == true) {
+    if (es_mayor_de_edad(edad) == true)
+    {
         printf("Es mayor de edad.\n");
-    } else {
+    }
+    else
+    {
         printf("Es menor de edad.\n");
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1415,23 +1386,27 @@ Factorizá el código redundante de las siguientes dos funciones para evitar la
 duplicación lógica:
 ```{code-block} c
 :linenos:
-int maximo_de_dos(int a, int b) {
+int maximo_de_dos(int a, int b)
+{
     return (a > b) ? a : b;
 }
-
-int maximo_de_tres(int a, int b, int c) {
+int maximo_de_tres(int a, int b, int c)
+{
     int max;
-    if (a > b) {
+    if (a > b)
+    {
         max = a;
-    } else {
+    }
+    else
+    {
         max = b;
     }
-    if (c > max) {
+    if (c > max)
+    {
         max = c;
     }
     return max;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1444,15 +1419,15 @@ La función `maximo_de_tres` puede reutilizar directamente la lógica de
 comparación ya encapsulada en `maximo_de_dos`:
 ```{code-block} c
 :linenos:
-int maximo_de_dos(int a, int b) {
+int maximo_de_dos(int a, int b)
+{
     return (a > b) ? a : b;
 }
-
-int maximo_de_tres(int a, int b, int c) {
+int maximo_de_tres(int a, int b, int c)
+{
     // Factorización lógica mediante composición de llamadas
     return maximo_de_dos(maximo_de_dos(a, b), c);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1465,7 +1440,7 @@ Analizá las tareas que realiza la siguiente función. Proponé su descomposici�
 funcional estructurando los prototipos de las funciones resultantes de acuerdo
 con el principio de única responsabilidad.
 ``` c
-// Lee una nota del usuario, la valida en el rango [0, 10], 
+// Lee una nota del usuario, la valida en el rango [0, 10],
 // la acumula e imprime si el alumno está aprobado o no.
 void procesar_calificacion();
 ```
@@ -1483,19 +1458,14 @@ Se descompone en los siguientes módulos especializados:
 ```{code-block} c
 :linenos:
 #include <stdbool.h>
-
 // 1. Responsabilidad de lectura por consola (I/O)
 float leer_nota(const char *mensaje);
-
 // 2. Responsabilidad de validación lógica de límites (Procesamiento puro)
 bool nota_es_valida(float nota);
-
 // 3. Responsabilidad de decisión de aprobación (Procesamiento puro)
 bool nota_es_aprobada(float nota);
-
 // 4. Función de orquestación o control (I/O y control)
 void procesar_calificacion();
-
 ```
 <!-- {code-block} c -->
 
@@ -1523,22 +1493,22 @@ bool dividir_reales(float a, float b, float *resultado);
 :linenos:
 /**
  * @brief Divide dos números reales de forma segura.
- * 
+ *
  * @param a Dividendo de la operación.
  * @param b Divisor de la operación.
  * @param resultado Puntero a la variable donde se almacenará el resultado.
- * @return true si la división se realizó de forma correcta, false en caso contrario.
- * 
- * @note Si la división no puede realizarse por violación de precondiciones, 
+ * @return true si la división se realizó de forma correcta, false en caso
+ * contrario.
+ *
+ * @note Si la división no puede realizarse por violación de precondiciones,
  *       la variable apuntada por resultado no es modificada.
- * 
+ *
  * #PRE El puntero 'resultado' no debe ser nulo (resultado != NULL).
  * #PRE El divisor 'b' debe ser distinto a cero (b != 0.0f).
- * #POST Si se cumplen las precondiciones, se almacena el cociente en *resultado
- *       y la función retorna true. De lo contrario, retorna false.
+ * #POST Si se cumplen las precondiciones, se almacena el cociente en
+ * *resultado y la función retorna true. De lo contrario, retorna false.
  */
 bool dividir_reales(float a, float b, float *resultado);
-
 ```
 <!-- {code-block} c -->
 
@@ -1552,13 +1522,14 @@ ciclo que realiza una búsqueda secuencial:
 ```{code-block} c
 :linenos:
 int i = 0;
-while (i < limite && encontrado == false) {
-    if (arreglo[i] == buscado) {
+while (i < limite && encontrado == false)
+{
+    if (arreglo[i] == buscado)
+    {
         encontrado = true;
     }
     i++;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1601,13 +1572,12 @@ En C, la instrucción de aserción correspondiente es:
 ```{code-block} c
 :linenos:
 #include <assert.h>
-
-void calcular_potencia(float a, float b) {
+void calcular_potencia(float a, float b)
+{
     // La aserción valida la precondición traducida
     assert(a != 0.0f || b > 0.0f);
     // ...
 }
-
 ```
 <!-- {code-block} c -->
 

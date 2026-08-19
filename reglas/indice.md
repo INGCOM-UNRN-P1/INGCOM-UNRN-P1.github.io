@@ -89,6 +89,8 @@ bajo un esquema de máscara de bits de 16 bits (`0xXXXX`):
       caracteres](0_sintaxis.md#0x0009h)
     * [Regla `0x000Ah`: Escribí comentarios que expliquen el "porqué", no el
       "qué"](0_sintaxis.md#0x000ah)
+    * [Regla `0x000Bh`: Las llaves deben ubicarse en líneas independientes
+      según el estilo Allman](0_sintaxis.md#0x000bh)
 
 ## [](1_control)
   * [Estructuras de Control y Lazos (`0x10XX`)](1_control.md#0x10xxh)

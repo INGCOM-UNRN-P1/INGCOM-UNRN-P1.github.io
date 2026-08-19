@@ -1162,9 +1162,9 @@ Implementar funciones que calculen diferentes normas de una matriz.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-double norma_frobenius(double** matriz, int filas, int cols);
-double norma_maxima(double** matriz, int filas, int cols);
-double norma_uno(double** matriz, int filas, int cols);
+double norma_frobenius(double **matriz, int filas, int cols);
+double norma_maxima(double **matriz, int filas, int cols);
+double norma_uno(double **matriz, int filas, int cols);
 ```
 <!-- c -->
 
@@ -1192,7 +1192,7 @@ principal).
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-double traza(double** matriz, int n);
+double traza(double **matriz, int n);
 ```
 <!-- c -->
 
@@ -1215,7 +1215,7 @@ gaussiana.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-int calcular_rango(double** matriz, int filas, int cols);
+int calcular_rango(double **matriz, int filas, int cols);
 ```
 <!-- c -->
 
@@ -1237,7 +1237,7 @@ Calcular la matriz de cofactores para una matriz cuadrada.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-double** matriz_cofactores(double** matriz, int n);
+double **matriz_cofactores(double **matriz, int n);
 ```
 <!-- c -->
 
@@ -1262,7 +1262,7 @@ Gauss-Jordan.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-double** matriz_inversa(double** matriz, int n, bool* invertible);
+double **matriz_inversa(double **matriz, int n, bool *invertible);
 ```
 <!-- c -->
 
@@ -1288,7 +1288,7 @@ Calcular $A^n$ para una matriz cuadrada $A$ y un exponente entero $n$.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-double** potencia_matriz(double** matriz, int tam, int exponente);
+double **potencia_matriz(double **matriz, int tam, int exponente);
 ```
 <!-- c -->
 
@@ -1311,7 +1311,7 @@ inferior y $U$ es triangular superior.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-bool descomposicion_lu(double** A, int n, double** L, double** U);
+bool descomposicion_lu(double **A, int n, double **L, double **U);
 ```
 <!-- c -->
 
@@ -1334,7 +1334,7 @@ una matriz.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-double valor_propio_dominante(double** matriz, int n, double tolerancia);
+double valor_propio_dominante(double **matriz, int n, double tolerancia);
 ```
 <!-- c -->
 
@@ -1359,10 +1359,10 @@ Implementar funciones para crear y aplicar matrices de rotación 2D y 3D.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-double** matriz_rotacion_2d(double angulo);
-double** matriz_rotacion_3d_x(double angulo);
-double** matriz_rotacion_3d_y(double angulo);
-double** matriz_rotacion_3d_z(double angulo);
+double **matriz_rotacion_2d(double angulo);
+double **matriz_rotacion_3d_x(double angulo);
+double **matriz_rotacion_3d_y(double angulo);
+double **matriz_rotacion_3d_z(double angulo);
 ```
 <!-- c -->
 
@@ -1388,7 +1388,7 @@ Crear matriz de proyección ortogonal sobre un vector.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-double** matriz_proyeccion(double* vector, int n);
+double **matriz_proyeccion(double *vector, int n);
 ```
 <!-- c -->
 
@@ -1416,7 +1416,7 @@ umbral.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-void umbralizar(int** imagen, int filas, int cols, int umbral);
+void umbralizar(int **imagen, int filas, int cols, int umbral);
 ```
 <!-- c -->
 
@@ -1438,7 +1438,7 @@ Calcular el histograma de una imagen (frecuencia de cada nivel de intensidad).
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-void calcular_histograma(int** imagen, int filas, int cols, int* histograma);
+void calcular_histograma(int **imagen, int filas, int cols, int *histograma);
 ```
 <!-- c -->
 
@@ -1461,7 +1461,7 @@ Mejorar el contraste de una imagen mediante ecualización de histograma.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-void ecualizar_histograma(int** imagen, int filas, int cols);
+void ecualizar_histograma(int **imagen, int filas, int cols);
 ```
 <!-- c -->
 
@@ -1486,7 +1486,7 @@ Implementar un filtro gaussiano para suavizado de imagen.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-void filtro_gaussiano(double** imagen, int filas, int cols, double sigma);
+void filtro_gaussiano(double **imagen, int filas, int cols, double sigma);
 ```
 <!-- c -->
 
@@ -1509,7 +1509,8 @@ Aplicar el operador Laplaciano para detectar bordes.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-void detectar_bordes_laplaciano(int** imagen, int filas, int cols, int** resultado);
+void detectar_bordes_laplaciano(int **imagen, int filas, int cols,
+                                int **resultado);
 ```
 <!-- c -->
 
@@ -1534,7 +1535,7 @@ Generar una matriz de Vandermonde a partir de un vector.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-double** matriz_vandermonde(double* x, int n, int m);
+double **matriz_vandermonde(double *x, int n, int m);
 ```
 <!-- c -->
 
@@ -1559,7 +1560,7 @@ Generar una matriz de Hilbert de orden $n$.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-double** matriz_hilbert(int n);
+double **matriz_hilbert(int n);
 ```
 <!-- c -->
 
@@ -1585,7 +1586,7 @@ derecha tiene valores constantes).
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-bool es_toeplitz(int** matriz, int filas, int cols);
+bool es_toeplitz(int **matriz, int filas, int cols);
 ```
 <!-- c -->
 
@@ -1607,7 +1608,7 @@ Generar una matriz circulante a partir de su primera fila.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-int** matriz_circulante(int* primera_fila, int n);
+int **matriz_circulante(int *primera_fila, int n);
 ```
 <!-- c -->
 
@@ -1631,7 +1632,7 @@ abajo-izquierda son constantes).
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-double** matriz_hankel(double* c, double* r, int n);
+double **matriz_hankel(double *c, double *r, int n);
 ```
 <!-- c -->
 
@@ -1653,7 +1654,7 @@ Resolver un sistema triangular inferior $Lx = b$.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-double* sustitucion_adelante(double** L, double* b, int n);
+double *sustitucion_adelante(double **L, double *b, int n);
 ```
 <!-- c -->
 
@@ -1675,7 +1676,7 @@ Resolver un sistema triangular superior $Ux = b$.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-double* sustitucion_atras(double** U, double* b, int n);
+double *sustitucion_atras(double **U, double *b, int n);
 ```
 <!-- c -->
 
@@ -1697,7 +1698,7 @@ Implementar eliminación gaussiana con pivoteo completo para resolver $Ax = b$.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-double* resolver_sistema(double** A, double* b, int n);
+double *resolver_sistema(double **A, double *b, int n);
 ```
 <!-- c -->
 (ejercicio_21_47)=
@@ -1717,7 +1718,8 @@ Resolver $Ax = b$ iterativamente usando el método de Jacobi.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-double* metodo_jacobi(double** A, double* b, int n, double tolerancia, int max_iter);
+double *metodo_jacobi(double **A, double *b, int n, double tolerancia,
+                      int max_iter);
 ```
 <!-- c -->
 
@@ -1740,7 +1742,8 @@ Similar a Jacobi pero usa valores actualizados inmediatamente.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-double* metodo_gauss_seidel(double** A, double* b, int n, double tolerancia, int max_iter);
+double *metodo_gauss_seidel(double **A, double *b, int n, double tolerancia,
+                            int max_iter);
 ```
 <!-- c -->
 
@@ -1765,7 +1768,7 @@ eficiente para matrices grandes por mejor uso de caché).
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-double** multiplicar_bloques(double** A, double** B, int n, int tam_bloque);
+double **multiplicar_bloques(double **A, double **B, int n, int tam_bloque);
 ```
 <!-- c -->
 (ejercicio_21_50)=
@@ -1785,7 +1788,7 @@ Implementar transpuesta usando bloques para mejor localidad de caché.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-void transponer_bloques(double** matriz, int n, int tam_bloque);
+void transponer_bloques(double **matriz, int n, int tam_bloque);
 ```
 <!-- c -->
 (ejercicio_21_51)=
@@ -1806,7 +1809,7 @@ grandes.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-double** strassen(double** A, double** B, int n);
+double **strassen(double **A, double **B, int n);
 ```
 <!-- c -->
 
@@ -2392,8 +2395,10 @@ Representá una matriz dispersa (muchos ceros) eficientemente.
 
 **Por Filas (Row-Major):**
 ``` c
-for (int i = 0; i < filas; i++) {
-    for (int j = 0; j < cols; j++) {
+for (int i = 0; i < filas; i++)
+{
+    for (int j = 0; j < cols; j++)
+    {
         // procesar matriz[i][j]
     }
 }
@@ -2402,8 +2407,10 @@ for (int i = 0; i < filas; i++) {
 
 **Por Columnas (Column-Major):**
 ``` c
-for (int j = 0; j < cols; j++) {
-    for (int i = 0; i < filas; i++) {
+for (int j = 0; j < cols; j++)
+{
+    for (int i = 0; i < filas; i++)
+    {
         // procesar matriz[i][j]
     }
 }
@@ -2412,7 +2419,8 @@ for (int j = 0; j < cols; j++) {
 
 **Diagonal Principal:**
 ``` c
-for (int i = 0; i < N; i++) {
+for (int i = 0; i < N; i++)
+{
     // procesar matriz[i][i]
 }
 ```
@@ -2420,8 +2428,10 @@ for (int i = 0; i < N; i++) {
 
 **Triangular Superior:**
 ``` c
-for (int i = 0; i < N; i++) {
-    for (int j = i; j < N; j++) {
+for (int i = 0; i < N; i++)
+{
+    for (int j = i; j < N; j++)
+    {
         // procesar matriz[i][j]
     }
 }
@@ -2430,8 +2440,10 @@ for (int i = 0; i < N; i++) {
 
 **Triangular Inferior:**
 ``` c
-for (int i = 0; i < N; i++) {
-    for (int j = 0; j <= i; j++) {
+for (int i = 0; i < N; i++)
+{
+    for (int j = 0; j <= i; j++)
+    {
         // procesar matriz[i][j]
     }
 }
@@ -2448,20 +2460,20 @@ for (int i = 0; i < N; i++) {
    // MAL: intercambiado
    for (int i = 0; i < N; i++)
        for (int j = 0; j < M; j++)
-           matriz[j][i] = ...;  // Índices al revés
+           matriz[j][i] = ...; // Índices al revés
    ```
 
 2. **Límites incorrectos**
    ```c
    // MAL: <= en lugar de <
-   for (int i = 0; i <= filas; i++)  // Acceso fuera de límites
+   for (int i = 0; i <= filas; i++) // Acceso fuera de límites
    ```
 
 3. **Olvidar inicializar**
    ```c
-   int matriz[3][3];  // Sin inicializar, contiene basura
+   int matriz[3][3]; // Sin inicializar, contiene basura
    // BIEN:
-   int matriz[3][3] = {0};  // Todo en cero
+   int matriz[3][3] = {0}; // Todo en cero
    ```
 
 4. **Modificar matriz mientras se recorre para copiar**
@@ -2469,7 +2481,7 @@ for (int i = 0; i < N; i++) {
    // MAL: corrompe datos
    for (int i = 0; i < N; i++)
        for (int j = 0; j < N; j++)
-           matriz[i][j] = matriz[j][i];  // Transponer in-place mal hecho
+           matriz[i][j] = matriz[j][i]; // Transponer in-place mal hecho
    ```
 
 :::
@@ -2485,17 +2497,13 @@ int matriz[3][4] = {0};
 
 **Valores específicos:**
 ``` c
-int matriz[3][3] = {
-    {1, 2, 3},
-    {4, 5, 6},
-    {7, 8, 9}
-};
+int matriz[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 ```
 <!-- c -->
 
 **Parcial (resto en cero):**
 ``` c
-int matriz[3][3] = {{1}, {2}, {3}};  // Primera columna con valores
+int matriz[3][3] = {{1}, {2}, {3}}; // Primera columna con valores
 ```
 <!-- c -->
 
@@ -2510,10 +2518,11 @@ int matriz[3][3] = {{1}, {2}, {3}};  // Primera columna con valores
 
 ``` c
 // MÁS RÁPIDO (row-major)
-for (i...) for (j...) matriz[i][j]
-
-// MÁS LENTO (column-major)
-for (j...) for (i...) matriz[i][j]
+for (i...)
+    for (j...)
+matriz[i][j]
+    // MÁS LENTO (column-major)
+    for (j...) for (i...) matriz[i][j]
 ```
 <!-- c -->
 
@@ -2525,14 +2534,17 @@ for (j...) for (i...) matriz[i][j]
 ```{code-block} c
 :linenos:
 // Opción 1: Tamaño fijo
-void procesar(int matriz[3][4]) { }
-
+void procesar(int matriz[3][4])
+{
+}
 // Opción 2: VLA (C99)
-void procesar(int filas, int cols, int matriz[filas][cols]) { }
-
+void procesar(int filas, int cols, int matriz[filas][cols])
+{
+}
 // Opción 3: Puntero con dimensiones
-void procesar(int filas, int cols, int (*matriz)[cols]) { }
-
+void procesar(int filas, int cols, int (*matriz)[cols])
+{
+}
 ```
 <!-- {code-block} c -->
 

@@ -165,49 +165,45 @@ redefiniciones de tipos, tal como se especifica en la regla {ref}`0x5003h`.
  * @author Cátedra de Programación I
  * @date 2026
  */
-
 #ifndef PUNTO_H
 #define PUNTO_H
-
 /**
  * @struct punto_t
  * @brief Representa una coordenada bidimensional en un plano cartesiano.
  */
-typedef struct {
+typedef struct
+{
     double x; /**< Coordenada en el eje de las abscisas (horizontal). */
     double y; /**< Coordenada en el eje de las ordenadas (vertical). */
 } punto_t;
-
 /**
  * @brief Crea un nuevo punto a partir de sus coordenadas cartesianas.
- * 
+ *
  * @param x Coordenada en el eje horizontal.
  * @param y Coordenada en el eje vertical.
  * @return punto_t El punto inicializado.
- * 
+ *
  * @note Este método no realiza asignaciones de memoria dinámica en la pila
  *       de llamadas principal del sistema.
  */
 punto_t punto_crear(double x, double y);
-
 /**
  * @brief Calcula la distancia euclidiana entre dos puntos.
- * 
+ *
  * La fórmula implementada es:
  * \f[
  * d = \sqrt{(p_1.x - p_2.x)^2 + (p_1.y - p_2.y)^2}
  * \f]
- * 
+ *
  * @param p1 Primer punto de referencia.
  * @param p2 Segundo punto de referencia.
- * @return double La distancia entre ambos puntos expresada en unidades lineales.
- * @warning Si se pasan puntos con coordenadas no inicializadas, el comportamiento
- *          es indefinido.
+ * @return double La distancia entre ambos puntos expresada en unidades
+ * lineales.
+ * @warning Si se pasan puntos con coordenadas no inicializadas, el
+ * comportamiento es indefinido.
  */
 double punto_distancia(punto_t p1, punto_t p2);
-
 #endif // PUNTO_H
-
 ```
 <!-- {code-block} c -->
 

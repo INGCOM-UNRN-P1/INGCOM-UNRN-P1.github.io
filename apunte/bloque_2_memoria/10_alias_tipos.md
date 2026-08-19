@@ -31,7 +31,6 @@ metros y querés que el código exprese con claridad esa unidad:
 
 ``` c
 typedef double metros_t;
-
 // Ahora podés usar 'metros_t' como un tipo estándar
 metros_t distancia_casa = 1500.50;
 metros_t altura_edificio = 45.2;
@@ -54,10 +53,10 @@ múltiples plataformas:
 
 ``` c
 // Definiciones basadas en la arquitectura del compilador
-typedef signed char        entero8_t;
-typedef short int          entero16_t;
-typedef int                entero32_t;
-typedef long long int      entero64_t;
+typedef signed char entero8_t;
+typedef short int entero16_t;
+typedef int entero32_t;
+typedef long long int entero64_t;
 ```
 <!-- c -->
 
@@ -106,19 +105,18 @@ utilizando dichos alias.
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
 // Definición de alias con el sufijo _t obligatorio
 typedef double distancia_t;
 typedef double tiempo_t;
 typedef double velocidad_t;
-
-velocidad_t calcular_velocidad(distancia_t d, tiempo_t t) {
-    if (t <= 0.0) {
+velocidad_t calcular_velocidad(distancia_t d, tiempo_t t)
+{
+    if (t <= 0.0)
+    {
         return 0.0;
     }
     return d / t;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -138,9 +136,9 @@ bits.
 :::{solution} ej-typedef-portabilidad
 :class: dropdown
 ``` c
-typedef unsigned char      u8_t;
-typedef unsigned short     u16_t;
-typedef unsigned int       u32_t;
+typedef unsigned char u8_t;
+typedef unsigned short u16_t;
+typedef unsigned int u32_t;
 ```
 <!-- c -->
 Estas declaraciones garantizan la portabilidad porque si el código se porta a un

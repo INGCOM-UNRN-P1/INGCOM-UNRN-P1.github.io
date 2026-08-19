@@ -8,4 +8,3 @@
 int suma_lenta(int sumando, int sumador);
 
 #endif // GUARDA_H
-

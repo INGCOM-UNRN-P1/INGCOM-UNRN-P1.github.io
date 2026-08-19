@@ -90,14 +90,17 @@ mantenibilidad del código.
 
 ```{code-block} c
 :linenos:
-int ejemplo(int x) {
-    if (x > 0) {
+int ejemplo(int x)
+{
+    if (x > 0)
+    {
         return 1;
-    } else {
+    }
+    else
+    {
         return 0;
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -105,14 +108,15 @@ int ejemplo(int x) {
 
 ```{code-block} c
 :linenos:
-int ejemplo(int x) {
+int ejemplo(int x)
+{
     int resultado = 0;
-    if (x > 0) {
+    if (x > 0)
+    {
         resultado = 1;
     }
     return resultado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -132,7 +136,8 @@ booleanas, podemos aprovechar que los operadores relacionales en C dan un valor
 de tipo `int` directamente:
 
 ``` c
-int ejemplo(int x) {
+int ejemplo(int x)
+{
     return x > 0;
 }
 ```
@@ -150,16 +155,21 @@ Esta forma es más concisa y mantiene un único retorno.
 
 ```{code-block} c
 :linenos:
-int clasificar_numero(int n) {
-    if (n > 0) {
+int clasificar_numero(int n)
+{
+    if (n > 0)
+    {
         return 1;
-    } else if (n < 0) {
+    }
+    else if (n < 0)
+    {
         return -1;
-    } else {
+    }
+    else
+    {
         return 0;
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -167,16 +177,19 @@ int clasificar_numero(int n) {
 
 ```{code-block} c
 :linenos:
-int clasificar_numero(int n) {
+int clasificar_numero(int n)
+{
     int resultado = 0;
-    if (n > 0) {
+    if (n > 0)
+    {
         resultado = 1;
-    } else if (n < 0) {
+    }
+    else if (n < 0)
+    {
         resultado = -1;
     }
     return resultado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -201,15 +214,17 @@ complejos.
 
 ```{code-block} c
 :linenos:
-int encontrar_primer_par(int numeros[], int tam) {
-    for (int i = 0; i < tam; i++) {
-        if (numeros[i] % 2 == 0) {
+int encontrar_primer_par(int numeros[], int tam)
+{
+    for (int i = 0; i < tam; i++)
+    {
+        if (numeros[i] % 2 == 0)
+        {
             return numeros[i];
         }
     }
     return -1;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -217,17 +232,19 @@ int encontrar_primer_par(int numeros[], int tam) {
 
 ```{code-block} c
 :linenos:
-int encontrar_primer_par(int numeros[], int tam) {
+int encontrar_primer_par(int numeros[], int tam)
+{
     int resultado = -1;
-    for (int i = 0; i < tam; i++) {
-        if (numeros[i] % 2 == 0) {
+    for (int i = 0; i < tam; i++)
+    {
+        if (numeros[i] % 2 == 0)
+        {
             resultado = numeros[i];
             break;
         }
     }
     return resultado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -244,15 +261,17 @@ asignando el valor a `resultado` antes de hacerlo.
 
 ```{code-block} c
 :linenos:
-bool contiene_objetivo(int nums[], int tam, int objetivo) {
-    for (int i = 0; i < tam; i++) {
-        if (nums[i] == objetivo) {
+bool contiene_objetivo(int nums[], int tam, int objetivo)
+{
+    for (int i = 0; i < tam; i++)
+    {
+        if (nums[i] == objetivo)
+        {
             return true;
         }
     }
     return false;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -260,17 +279,19 @@ bool contiene_objetivo(int nums[], int tam, int objetivo) {
 
 ```{code-block} c
 :linenos:
-bool contiene_objetivo(int nums[], int tam, int objetivo) {
+bool contiene_objetivo(int nums[], int tam, int objetivo)
+{
     bool encontrado = false;
-    for (int i = 0; i < tam; i++) {
-        if (nums[i] == objetivo) {
+    for (int i = 0; i < tam; i++)
+    {
+        if (nums[i] == objetivo)
+        {
             encontrado = true;
             break;
         }
     }
     return encontrado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -284,16 +305,18 @@ En lugar de usar `break`, se puede incluir la condición directamente en el lazo
 
 ```{code-block} c
 :linenos:
-bool contiene_objetivo(int nums[], int tam, int objetivo) {
+bool contiene_objetivo(int nums[], int tam, int objetivo)
+{
     bool encontrado = false;
-    for (int i = 0; i < tam && !encontrado; i++) {
-        if (nums[i] == objetivo) {
+    for (int i = 0; i < tam && !encontrado; i++)
+    {
+        if (nums[i] == objetivo)
+        {
             encontrado = true;
         }
     }
     return encontrado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -308,18 +331,24 @@ sea más explícita.
 
 ```{code-block} c
 :linenos:
-const char* logica_compleja(int a, int b) {
-    if (a > 0) {
-        if (b > 0) {
+const char *logica_compleja(int a, int b)
+{
+    if (a > 0)
+    {
+        if (b > 0)
+        {
             return "Ambos positivos";
-        } else {
+        }
+        else
+        {
             return "A positivo, B no positivo";
         }
-    } else {
+    }
+    else
+    {
         return "A no positivo";
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -327,18 +356,22 @@ const char* logica_compleja(int a, int b) {
 
 ```{code-block} c
 :linenos:
-const char* logica_compleja(int a, int b) {
-    const char* resultado = "A no positivo";
-    if (a > 0) {
-        if (b > 0) {
+const char *logica_compleja(int a, int b)
+{
+    const char *resultado = "A no positivo";
+    if (a > 0)
+    {
+        if (b > 0)
+        {
             resultado = "Ambos positivos";
-        } else {
+        }
+        else
+        {
             resultado = "A positivo, B no positivo";
         }
     }
     return resultado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -359,22 +392,25 @@ posterior en un bloque `if`.
 
 ```{code-block} c
 :linenos:
-const char* analizar_datos(int datos[], int tam, int umbral) {
-    for (int i = 0; i < tam; i++) {
-        if (datos[i] > umbral) {
+const char *analizar_datos(int datos[], int tam, int umbral)
+{
+    for (int i = 0; i < tam; i++)
+    {
+        if (datos[i] > umbral)
+        {
             return "Valor encontrado";
         }
     }
-
-    if (tam == 0) {
+    if (tam == 0)
+    {
         return "Sin datos";
-    } else if (umbral < 0) {
+    }
+    else if (umbral < 0)
+    {
         return "Umbral inválido";
     }
-
     return "Valor no encontrado";
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -382,27 +418,30 @@ const char* analizar_datos(int datos[], int tam, int umbral) {
 
 ```{code-block} c
 :linenos:
-const char* analizar_datos(int datos[], int tam, int umbral) {
-    const char* resultado = "Valor no encontrado";
-
-    for (int i = 0; i < tam; i++) {
-        if (datos[i] > umbral) {
+const char *analizar_datos(int datos[], int tam, int umbral)
+{
+    const char *resultado = "Valor no encontrado";
+    for (int i = 0; i < tam; i++)
+    {
+        if (datos[i] > umbral)
+        {
             resultado = "Valor encontrado";
             break;
         }
     }
-
-    if (resultado == "Valor no encontrado") {
-        if (tam == 0) {
+    if (resultado == "Valor no encontrado")
+    {
+        if (tam == 0)
+        {
             resultado = "Sin datos";
-        } else if (umbral < 0) {
+        }
+        else if (umbral < 0)
+        {
             resultado = "Umbral inválido";
         }
     }
-
     return resultado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -429,17 +468,20 @@ técnicas más sofisticadas.
 
 ```{code-block} c
 :linenos:
-int buscar_en_matriz(int matriz[][10], int filas, int cols, int objetivo) {
-    for (int i = 0; i < filas; i++) {
-        for (int j = 0; j < cols; j++) {
-            if (matriz[i][j] == objetivo) {
+int buscar_en_matriz(int matriz[][10], int filas, int cols, int objetivo)
+{
+    for (int i = 0; i < filas; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            if (matriz[i][j] == objetivo)
+            {
                 return 1;
             }
         }
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -447,20 +489,21 @@ int buscar_en_matriz(int matriz[][10], int filas, int cols, int objetivo) {
 
 ```{code-block} c
 :linenos:
-int buscar_en_matriz(int matriz[][10], int filas, int cols, int objetivo) {
+int buscar_en_matriz(int matriz[][10], int filas, int cols, int objetivo)
+{
     int encontrado = 0;
-    
-    for (int i = 0; i < filas && !encontrado; i++) {
-        for (int j = 0; j < cols && !encontrado; j++) {
-            if (matriz[i][j] == objetivo) {
+    for (int i = 0; i < filas && !encontrado; i++)
+    {
+        for (int j = 0; j < cols && !encontrado; j++)
+        {
+            if (matriz[i][j] == objetivo)
+            {
                 encontrado = 1;
             }
         }
     }
-    
     return encontrado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -473,27 +516,27 @@ recursos.
 
 ```{code-block} c
 :linenos:
-int procesar_archivo(const char* nombre) {
-    FILE* archivo = fopen(nombre, "r");
-    if (archivo == NULL) {
+int procesar_archivo(const char *nombre)
+{
+    FILE *archivo = fopen(nombre, "r");
+    if (archivo == NULL)
+    {
         return -1;
     }
-    
     char buffer[100];
-    if (fgets(buffer, sizeof(buffer), archivo) == NULL) {
-        fclose(archivo);  // Repetición de limpieza
+    if (fgets(buffer, sizeof(buffer), archivo) == NULL)
+    {
+        fclose(archivo); // Repetición de limpieza
         return -2;
     }
-    
-    if (procesar_datos(buffer) != 0) {
-        fclose(archivo);  // Repetición de limpieza
+    if (procesar_datos(buffer) != 0)
+    {
+        fclose(archivo); // Repetición de limpieza
         return -3;
     }
-    
     fclose(archivo);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -501,27 +544,29 @@ int procesar_archivo(const char* nombre) {
 
 ```{code-block} c
 :linenos:
-int procesar_archivo(const char* nombre) {
+int procesar_archivo(const char *nombre)
+{
     int resultado = 0;
-    FILE* archivo = fopen(nombre, "r");
-    
-    if (archivo == NULL) {
+    FILE *archivo = fopen(nombre, "r");
+    if (archivo == NULL)
+    {
         resultado = -1;
-    } else {
+    }
+    else
+    {
         char buffer[100];
-        
-        if (fgets(buffer, sizeof(buffer), archivo) == NULL) {
+        if (fgets(buffer, sizeof(buffer), archivo) == NULL)
+        {
             resultado = -2;
-        } else if (procesar_datos(buffer) != 0) {
+        }
+        else if (procesar_datos(buffer) != 0)
+        {
             resultado = -3;
         }
-        
-        fclose(archivo);  // Limpieza en un solo lugar
+        fclose(archivo); // Limpieza en un solo lugar
     }
-    
     return resultado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -543,36 +588,37 @@ en fases claramente delimitadas mejora la legibilidad.
 
 ```{code-block} c
 :linenos:
-int procesar_datos_complejos(int* numeros, int tam, double* promedio, int* maximo) {
-    int resultado = -1;  // Valor de error por defecto
-
+int procesar_datos_complejos(int *numeros, int tam, double *promedio,
+                             int *maximo)
+{
+    int resultado = -1; // Valor de error por defecto
     // Fase 1: Validación
-    if (numeros != NULL && tam > 0) {
+    if (numeros != NULL && tam > 0)
+    {
         // Fase 2: Cálculo principal
         long suma = 0;
         int max = numeros[0];
-
-        for (int i = 0; i < tam; i++) {
+        for (int i = 0; i < tam; i++)
+        {
             suma += numeros[i];
-            if (numeros[i] > max) {
+            if (numeros[i] > max)
+            {
                 max = numeros[i];
             }
         }
-
         // Fase 3: Asignación de resultados
-        if (promedio != NULL) {
+        if (promedio != NULL)
+        {
             *promedio = (double)suma / tam;
         }
-        if (maximo != NULL) {
+        if (maximo != NULL)
+        {
             *maximo = max;
         }
-
-        resultado = 0;  // Éxito
+        resultado = 0; // Éxito
     }
-
     return resultado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -582,15 +628,17 @@ int procesar_datos_complejos(int* numeros, int tam, double* promedio, int* maxim
 
 ```{code-block} c
 :linenos:
-int buscar_indice(int* arreglo, int tam, int valor) {
-    for (int i = 0; i < tam; i++) {
-        if (arreglo[i] == valor) {
+int buscar_indice(int *arreglo, int tam, int valor)
+{
+    for (int i = 0; i < tam; i++)
+    {
+        if (arreglo[i] == valor)
+        {
             return i;
         }
     }
     return -1;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -598,18 +646,18 @@ int buscar_indice(int* arreglo, int tam, int valor) {
 
 ```{code-block} c
 :linenos:
-int buscar_indice(int* arreglo, int tam, int valor) {
+int buscar_indice(int *arreglo, int tam, int valor)
+{
     int indice = -1;
-    
-    for (int i = 0; i < tam && indice == -1; i++) {
-        if (arreglo[i] == valor) {
+    for (int i = 0; i < tam && indice == -1; i++)
+    {
+        if (arreglo[i] == valor)
+        {
             indice = i;
         }
     }
-    
     return indice;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -625,21 +673,20 @@ verboso:
 ```{code-block} c
 :linenos:
 // Función simple - múltiples retornos
-bool es_par(int numero) {
+bool es_par(int numero)
+{
     return numero % 2 == 0;
 }
-
 // Versión con único retorno (consistente pero más verbosa)
-bool es_par_consistente(int numero) {
+bool es_par_consistente(int numero)
+{
     bool resultado = false;
-    
-    if (numero % 2 == 0) {
+    if (numero % 2 == 0)
+    {
         resultado = true;
     }
-    
     return resultado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -654,16 +701,16 @@ manteniendo el único retorno:
 
 ```{code-block} c
 :linenos:
-int maximo(int a, int b) {
+int maximo(int a, int b)
+{
     int resultado = (a > b) ? a : b;
     return resultado;
 }
-
 // O más concisamente
-int maximo(int a, int b) {
+int maximo(int a, int b)
+{
     return (a > b) ? a : b;
 }
-
 ```
 <!-- {code-block} c -->
 

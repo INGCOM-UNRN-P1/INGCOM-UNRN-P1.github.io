@@ -916,7 +916,8 @@ Implementá un vector dinámico encapsulado en estructura:
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-typedef struct {
+typedef struct
+{
     int *datos;
     size_t tamanio;
     size_t capacidad;
@@ -999,7 +1000,8 @@ Implementá lista enlazada completamente dinámica:
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-typedef struct nodo {
+typedef struct nodo
+{
     int dato;
     struct nodo *siguiente;
 } nodo_t;
@@ -1035,7 +1037,8 @@ Implementá un ABB (Árbol Binario de Búsqueda):
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-typedef struct nodo_arbol {
+typedef struct nodo_arbol
+{
     int dato;
     struct nodo_arbol *izquierdo;
     struct nodo_arbol *derecho;
@@ -1071,17 +1074,17 @@ Implementá una tabla hash con encadenamiento:
 
 ```{code-block} c
 :linenos:
-typedef struct entrada {
+typedef struct entrada
+{
     char *clave;
     int valor;
     struct entrada *siguiente;
 } entrada_t;
-
-typedef struct {
+typedef struct
+{
     entrada_t **tabla;
     size_t tamanio;
 } hash_t;
-
 ```
 <!-- {code-block} c -->
 

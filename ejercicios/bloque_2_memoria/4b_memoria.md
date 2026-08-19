@@ -66,14 +66,15 @@ bajas.
 
 ```{code-block} c
 :linenos:
-void explorar_stack(int nivel) {
+void explorar_stack(int nivel)
+{
     int variable_local;
-    printf("Nivel %d: direccion = %p\n", nivel, (void*)&variable_local);
-    if (nivel < 5) {
+    printf("Nivel %d: direccion = %p\n", nivel, (void *)&variable_local);
+    if (nivel < 5)
+    {
         explorar_stack(nivel + 1);
     }
 }
-
 ```
 <!-- {code-block} c -->
 (ejercicio_15_3)=
@@ -154,17 +155,17 @@ Escribir una función que aloje múltiples estructuras anidadas:
 
 ```{code-block} c
 :linenos:
-struct persona_t {
-    char* nombre;
-    char* apellido;
-    struct direccion_t* direccion;
+struct persona_t
+{
+    char *nombre;
+    char *apellido;
+    struct direccion_t *direccion;
 };
-
-struct direccion_t {
-    char* calle;
-    char* ciudad;
+struct direccion_t
+{
+    char *calle;
+    char *ciudad;
 };
-
 ```
 <!-- {code-block} c -->
 
@@ -189,19 +190,18 @@ distribuya bloques pequeños de tamaño fijo desde él.
 
 ```{code-block} c
 :linenos:
-typedef struct {
-    void* bloque_base;
+typedef struct
+{
+    void *bloque_base;
     size_t tamano_total;
     size_t tamano_bloque;
     size_t bloques_usados;
-    bool* mapa_uso;
+    bool *mapa_uso;
 } pool_t;
-
-pool_t* pool_crear(size_t n_bloques, size_t tamano_bloque);
-void* pool_alojar(pool_t* pool);
-void pool_liberar(pool_t* pool, void* ptr);
-void pool_destruir(pool_t* pool);
-
+pool_t *pool_crear(size_t n_bloques, size_t tamano_bloque);
+void *pool_alojar(pool_t *pool);
+void pool_liberar(pool_t *pool, void *ptr);
+void pool_destruir(pool_t *pool);
 ```
 <!-- {code-block} c -->
 
@@ -226,16 +226,14 @@ Escribir un programa que deliberadamente cometa el error de double free:
 
 ```{code-block} c
 :linenos:
-int main() {
-    int* ptr = malloc(sizeof(int) * 10);
+int main()
+{
+    int *ptr = malloc(sizeof(int) * 10);
     *ptr = 42;
-    
     free(ptr);
-    free(ptr);  // ERROR: double free
-    
+    free(ptr); // ERROR: double free
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -259,17 +257,14 @@ Crear un programa que cometa use-after-free:
 
 ```{code-block} c
 :linenos:
-int main() {
-    int* arr = malloc(sizeof(int) * 5);
+int main()
+{
+    int *arr = malloc(sizeof(int) * 5);
     arr[0] = 100;
-    
     free(arr);
-    
-    printf("%d\n", arr[0]);  // ERROR: use after free
-    
+    printf("%d\n", arr[0]); // ERROR: use after free
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -292,29 +287,28 @@ Crear un programa con un leak no trivial:
 
 ```{code-block} c
 :linenos:
-struct nodo_t {
+struct nodo_t
+{
     int dato;
-    struct nodo_t* siguiente;
+    struct nodo_t *siguiente;
 };
-
-void agregar_nodo(struct nodo_t** cabeza, int valor) {
-    struct nodo_t* nuevo = malloc(sizeof(struct nodo_t));
+void agregar_nodo(struct nodo_t **cabeza, int valor)
+{
+    struct nodo_t *nuevo = malloc(sizeof(struct nodo_t));
     nuevo->dato = valor;
     nuevo->siguiente = *cabeza;
     *cabeza = nuevo;
 }
-
-int main() {
-    struct nodo_t* lista = NULL;
-    
-    for (int i = 0; i < 100; i++) {
+int main()
+{
+    struct nodo_t *lista = NULL;
+    for (int i = 0; i < 100; i++)
+    {
         agregar_nodo(&lista, i);
     }
-    
     // FALTA: liberar todos los nodos
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -338,16 +332,14 @@ Demostrar un buffer overflow en memoria dinámica:
 
 ```{code-block} c
 :linenos:
-int main() {
-    char* buffer = malloc(10);
-    strcpy(buffer, "Esta cadena es mucho más larga que 10 bytes");  // OVERFLOW
-    
+int main()
+{
+    char *buffer = malloc(10);
+    strcpy(buffer, "Esta cadena es mucho más larga que 10 bytes"); // OVERFLOW
     printf("%s\n", buffer);
     free(buffer);
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -395,18 +387,18 @@ de memoria manteniendo estabilidad.
 
 ```{code-block} c
 :linenos:
-void vector_pop(vector_t* v) {
-    if (v->size == 0) return;
-    
+void vector_pop(vector_t *v)
+{
+    if (v->size == 0)
+        return;
     v->size--;
-    
     // Si size < capacity/4 y capacity > MIN_CAPACITY, reducir a la mitad
-    if (v->size > 0 && v->size < v->capacity / 4 && v->capacity > 16) {
+    if (v->size > 0 && v->size < v->capacity / 4 && v->capacity > 16)
+    {
         v->capacity /= 2;
         v->datos = realloc(v->datos, v->capacity * sizeof(int));
     }
 }
-
 ```
 <!-- {code-block} c -->
 (ejercicio_15_13)=
@@ -427,23 +419,22 @@ Escribir una función que maneje correctamente el fallo de `realloc`:
 
 ```{code-block} c
 :linenos:
-bool vector_push(vector_t* v, int dato) {
-    if (v->size == v->capacity) {
+bool vector_push(vector_t *v, int dato)
+{
+    if (v->size == v->capacity)
+    {
         size_t nueva_capacidad = v->capacity * 2;
-        int* nuevo_bloque = realloc(v->datos, nueva_capacidad * sizeof(int));
-        
-        if (nuevo_bloque == NULL) {
-            return false;  // Fallo, pero v->datos sigue válido
+        int *nuevo_bloque = realloc(v->datos, nueva_capacidad * sizeof(int));
+        if (nuevo_bloque == NULL)
+        {
+            return false; // Fallo, pero v->datos sigue válido
         }
-        
         v->datos = nuevo_bloque;
         v->capacity = nueva_capacidad;
     }
-    
     v->datos[v->size++] = dato;
     return true;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -475,38 +466,38 @@ Escribir un programa que demuestre fragmentación externa:
 ```{code-block} c
 :linenos:
 #define N 1000
-
-int main() {
-    void* ptrs[N];
-    
+int main()
+{
+    void *ptrs[N];
     // Alojar muchos bloques pequeños
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < N; i++)
+    {
         ptrs[i] = malloc(64);
     }
-    
     // Liberar bloques alternados
-    for (int i = 0; i < N; i += 2) {
+    for (int i = 0; i < N; i += 2)
+    {
         free(ptrs[i]);
         ptrs[i] = NULL;
     }
-    
     // Intentar alojar un bloque grande
-    void* grande = malloc(64 * (N / 2));
-    if (grande == NULL) {
+    void *grande = malloc(64 * (N / 2));
+    if (grande == NULL)
+    {
         printf("No se pudo alojar bloque grande debido a fragmentación\n");
-    } else {
+    }
+    else
+    {
         printf("Bloque grande asignado exitosamente\n");
         free(grande);
     }
-    
     // Liberar bloques restantes
-    for (int i = 1; i < N; i += 2) {
+    for (int i = 1; i < N; i += 2)
+    {
         free(ptrs[i]);
     }
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 (ejercicio_15_15)=
@@ -530,23 +521,20 @@ solicitado vs. el espacio realmente consumido (usando herramientas como
 ```{code-block} c
 :linenos:
 #include <malloc.h>
-
-int main() {
+int main()
+{
     size_t tamaños[] = {1, 8, 16, 32, 64, 100, 128, 256, 512, 1024};
-    
-    for (size_t i = 0; i < sizeof(tamaños) / sizeof(tamaños[0]); i++) {
-        void* ptr = malloc(tamaños[i]);
+    for (size_t i = 0; i < sizeof(tamaños) / sizeof(tamaños[0]); i++)
+    {
+        void *ptr = malloc(tamaños[i]);
         size_t real = malloc_usable_size(ptr);
-        
-        printf("Solicitado: %5zu bytes -> Real: %5zu bytes (%.1f%% overhead)\n",
-               tamaños[i], real, 100.0 * (real - tamaños[i]) / tamaños[i]);
-        
+        printf(
+            "Solicitado: %5zu bytes -> Real: %5zu bytes (%.1f%% overhead)\n",
+            tamaños[i], real, 100.0 * (real - tamaños[i]) / tamaños[i]);
         free(ptr);
     }
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 (ejercicio_15_16)=
@@ -567,32 +555,30 @@ Comparar el rendimiento de acceso secuencial vs. aleatorio en un arreglo grande:
 
 ```{code-block} c
 :linenos:
-#define SIZE (100 * 1024 * 1024)  // 100M enteros
-
-int main() {
-    int* arr = malloc(SIZE * sizeof(int));
-    
+#define SIZE (100 * 1024 * 1024) // 100M enteros
+int main()
+{
+    int *arr = malloc(SIZE * sizeof(int));
     // Secuencial
     clock_t inicio = clock();
-    for (size_t i = 0; i < SIZE; i++) {
+    for (size_t i = 0; i < SIZE; i++)
+    {
         arr[i] = i;
     }
     clock_t fin = clock();
     printf("Secuencial: %.3f ms\n", 1000.0 * (fin - inicio) / CLOCKS_PER_SEC);
-    
     // Aleatorio
     inicio = clock();
-    for (size_t i = 0; i < SIZE; i++) {
+    for (size_t i = 0; i < SIZE; i++)
+    {
         size_t idx = rand() % SIZE;
         arr[idx] = i;
     }
     fin = clock();
     printf("Aleatorio: %.3f ms\n", 1000.0 * (fin - inicio) / CLOCKS_PER_SEC);
-    
     free(arr);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -618,34 +604,32 @@ Escribir un programa que demuestre la alineación de memoria en structs:
 
 ```{code-block} c
 :linenos:
-struct sin_padding {
-    char a;     // 1 byte
-    int b;      // 4 bytes
-    char c;     // 1 byte
-    double d;   // 8 bytes
+struct sin_padding
+{
+    char a;   // 1 byte
+    int b;    // 4 bytes
+    char c;   // 1 byte
+    double d; // 8 bytes
 };
-
-struct con_padding {
-    char a;     // 1 byte + 3 padding
-    int b;      // 4 bytes
-    char c;     // 1 byte + 7 padding
-    double d;   // 8 bytes
+struct con_padding
+{
+    char a;   // 1 byte + 3 padding
+    int b;    // 4 bytes
+    char c;   // 1 byte + 7 padding
+    double d; // 8 bytes
 };
-
-int main() {
+int main()
+{
     printf("Tamaño sin optimizar: %zu bytes\n", sizeof(struct sin_padding));
     printf("Tamaño con padding: %zu bytes\n", sizeof(struct con_padding));
-    
     // Imprimir offsets de cada campo
     struct con_padding s;
     printf("Offset de 'a': %zu\n", offsetof(struct con_padding, a));
     printf("Offset de 'b': %zu\n", offsetof(struct con_padding, b));
     printf("Offset de 'c': %zu\n", offsetof(struct con_padding, c));
     printf("Offset de 'd': %zu\n", offsetof(struct con_padding, d));
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 (ejercicio_15_18)=
@@ -667,17 +651,16 @@ Implementar una función que aloje memoria alineada a un límite específico (ej
 
 ```{code-block} c
 :linenos:
-void* malloc_alineado(size_t size, size_t alineacion) {
-    void* ptr = NULL;
-    
+void *malloc_alineado(size_t size, size_t alineacion)
+{
+    void *ptr = NULL;
     // posix_memalign requiere que alineacion sea potencia de 2
-    if (posix_memalign(&ptr, alineacion, size) != 0) {
+    if (posix_memalign(&ptr, alineacion, size) != 0)
+    {
         return NULL;
     }
-    
     return ptr;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -760,20 +743,19 @@ Implementar wrappers de las funciones de memoria que agreguen logging:
 
 ```{code-block} c
 :linenos:
-void* debug_malloc(size_t size, const char* archivo, int linea) {
-    void* ptr = malloc(size);
+void *debug_malloc(size_t size, const char *archivo, int linea)
+{
+    void *ptr = malloc(size);
     printf("[MALLOC] %zu bytes en %p (%s:%d)\n", size, ptr, archivo, linea);
     return ptr;
 }
-
-void debug_free(void* ptr, const char* archivo, int linea) {
+void debug_free(void *ptr, const char *archivo, int linea)
+{
     printf("[FREE] %p (%s:%d)\n", ptr, archivo, linea);
     free(ptr);
 }
-
 #define malloc(size) debug_malloc(size, __FILE__, __LINE__)
 #define free(ptr) debug_free(ptr, __FILE__, __LINE__)
-
 ```
 <!-- {code-block} c -->
 
@@ -798,27 +780,27 @@ documentando claramente la responsabilidad:
 ```{code-block} c
 :linenos:
 // El llamador es responsable de liberar la memoria retornada
-char* construir_mensaje(const char* usuario) {
+char *construir_mensaje(const char *usuario)
+{
     size_t len = strlen("Hola, ") + strlen(usuario) + 2;
-    char* msg = malloc(len);
-    
-    if (msg == NULL) {
+    char *msg = malloc(len);
+    if (msg == NULL)
+    {
         return NULL;
     }
-    
     snprintf(msg, len, "Hola, %s", usuario);
     return msg;
 }
-
-int main() {
-    char* mensaje = construir_mensaje("Alumno");
-    if (mensaje != NULL) {
+int main()
+{
+    char *mensaje = construir_mensaje("Alumno");
+    if (mensaje != NULL)
+    {
         printf("%s\n", mensaje);
-        free(mensaje);  // ¡El main debe liberar!
+        free(mensaje); // ¡El main debe liberar!
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -848,27 +830,26 @@ dinámica:
 
 ```{code-block} c
 :linenos:
-struct resultado_t {
-    int* datos;
+struct resultado_t
+{
+    int *datos;
     size_t tamano;
 };
-
-struct resultado_t procesar_numeros(int* entrada, size_t n) {
+struct resultado_t procesar_numeros(int *entrada, size_t n)
+{
     struct resultado_t res = {NULL, 0};
-    
     res.datos = malloc(n * sizeof(int));
-    if (res.datos == NULL) {
+    if (res.datos == NULL)
+    {
         return res;
     }
-    
-    for (size_t i = 0; i < n; i++) {
+    for (size_t i = 0; i < n; i++)
+    {
         res.datos[i] = entrada[i] * 2;
     }
     res.tamano = n;
-    
     return res;
 }
-
 ```
 <!-- {code-block} c -->
 (ejercicio_15_24)=
@@ -889,35 +870,34 @@ Demostrar el uso apropiado de `goto` para cleanup en caso de errores:
 
 ```{code-block} c
 :linenos:
-int procesar_archivo(const char* ruta) {
-    FILE* archivo = NULL;
-    char* buffer = NULL;
+int procesar_archivo(const char *ruta)
+{
+    FILE *archivo = NULL;
+    char *buffer = NULL;
     int resultado = -1;
-    
     archivo = fopen(ruta, "r");
-    if (archivo == NULL) {
+    if (archivo == NULL)
+    {
         goto cleanup;
     }
-    
     buffer = malloc(1024);
-    if (buffer == NULL) {
+    if (buffer == NULL)
+    {
         goto cleanup;
     }
-    
     // ... procesamiento ...
-    resultado = 0;  // éxito
-    
-    cleanup:
-    if (buffer != NULL) {
+    resultado = 0; // éxito
+cleanup:
+    if (buffer != NULL)
+    {
         free(buffer);
     }
-    if (archivo != NULL) {
+    if (archivo != NULL)
+    {
         fclose(archivo);
     }
-    
     return resultado;
 }
-
 ```
 <!-- {code-block} c -->
 (ejercicio_15_25)=

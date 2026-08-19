@@ -36,38 +36,44 @@ Código idéntico copiado y pegado.
 ```{code-block} c
 :linenos:
 // Problemático: mismo código en múltiples lugares
-void procesar_usuario_web(usuario_t* u) {
-    if (u == NULL) {
+void procesar_usuario_web(usuario_t *u)
+{
+    if (u == NULL)
+    {
         log_error("Usuario NULL");
         return;
     }
-    if (!u->activo) {
+    if (!u->activo)
+    {
         log_error("Usuario inactivo");
         return;
     }
-    if (u->bloqueado) {
+    if (u->bloqueado)
+    {
         log_error("Usuario bloqueado");
         return;
     }
     // procesar...
 }
-
-void procesar_usuario_api(usuario_t* u) {
-    if (u == NULL) {
+void procesar_usuario_api(usuario_t *u)
+{
+    if (u == NULL)
+    {
         log_error("Usuario NULL");
         return;
     }
-    if (!u->activo) {
+    if (!u->activo)
+    {
         log_error("Usuario inactivo");
         return;
     }
-    if (u->bloqueado) {
+    if (u->bloqueado)
+    {
         log_error("Usuario bloqueado");
         return;
     }
     // procesar...
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -78,30 +84,30 @@ Código con estructura similar pero diferentes detalles.
 ```{code-block} c
 :linenos:
 // Problemático: estructura duplicada
-double calcular_precio_estudiante(int cantidad) {
+double calcular_precio_estudiante(int cantidad)
+{
     const double PRECIO_BASE = 10.0;
     const double DESCUENTO = 0.20;
     double subtotal = cantidad * PRECIO_BASE;
     double descuento = subtotal * DESCUENTO;
     return subtotal - descuento;
 }
-
-double calcular_precio_adulto(int cantidad) {
+double calcular_precio_adulto(int cantidad)
+{
     const double PRECIO_BASE = 15.0;
     const double DESCUENTO = 0.10;
     double subtotal = cantidad * PRECIO_BASE;
     double descuento = subtotal * DESCUENTO;
     return subtotal - descuento;
 }
-
-double calcular_precio_senior(int cantidad) {
+double calcular_precio_senior(int cantidad)
+{
     const double PRECIO_BASE = 12.0;
     const double DESCUENTO = 0.30;
     double subtotal = cantidad * PRECIO_BASE;
     double descuento = subtotal * DESCUENTO;
     return subtotal - descuento;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -112,21 +118,22 @@ Código que hace lo mismo de diferentes maneras.
 ```{code-block} c
 :linenos:
 // Problemático: mismo concepto implementado diferente
-bool es_mayor_de_edad_1(int edad) {
+bool es_mayor_de_edad_1(int edad)
+{
     return edad >= 18;
 }
-
-bool validar_edad_legal(int edad) {
-    if (edad < 18) {
+bool validar_edad_legal(int edad)
+{
+    if (edad < 18)
+    {
         return false;
     }
     return true;
 }
-
-bool puede_votar(int edad) {
+bool puede_votar(int edad)
+{
     return edad >= 18 ? true : false;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -137,18 +144,18 @@ Misma información almacenada en múltiples lugares.
 ```{code-block} c
 :linenos:
 // Problemático: datos redundantes
-typedef struct {
-    char* nombre;
-    char* apellido;
-    char* nombre_completo;  // Derivado de nombre + apellido
+typedef struct
+{
+    char *nombre;
+    char *apellido;
+    char *nombre_completo; // Derivado de nombre + apellido
 } persona_t;
-
-typedef struct {
+typedef struct
+{
     double precio;
     int cantidad;
-    double total;  // Derivado de precio * cantidad
+    double total; // Derivado de precio * cantidad
 } item_pedido_t;
-
 ```
 <!-- {code-block} c -->
 
@@ -162,34 +169,36 @@ La técnica más básica: extraer código común a una función.
 
 ```{code-block} c
 :linenos:
-void registrar_compra(usuario_t* usuario, producto_t* producto) {
+void registrar_compra(usuario_t *usuario, producto_t *producto)
+{
     // Validación duplicada
-    if (usuario == NULL) {
+    if (usuario == NULL)
+    {
         fprintf(stderr, "Error: usuario NULL\n");
         return;
     }
-    if (!usuario->activo) {
+    if (!usuario->activo)
+    {
         fprintf(stderr, "Error: usuario inactivo\n");
         return;
     }
-
     // Lógica de compra...
 }
-
-void registrar_venta(usuario_t* usuario, producto_t* producto) {
+void registrar_venta(usuario_t *usuario, producto_t *producto)
+{
     // Misma validación duplicada
-    if (usuario == NULL) {
+    if (usuario == NULL)
+    {
         fprintf(stderr, "Error: usuario NULL\n");
         return;
     }
-    if (!usuario->activo) {
+    if (!usuario->activo)
+    {
         fprintf(stderr, "Error: usuario inactivo\n");
         return;
     }
-
     // Lógica de venta...
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -197,34 +206,36 @@ void registrar_venta(usuario_t* usuario, producto_t* producto) {
 
 ```{code-block} c
 :linenos:
-bool validar_usuario(const usuario_t* usuario) {
-    if (usuario == NULL) {
+bool validar_usuario(const usuario_t *usuario)
+{
+    if (usuario == NULL)
+    {
         fprintf(stderr, "Error: usuario NULL\n");
         return false;
     }
-
-    if (!usuario->activo) {
+    if (!usuario->activo)
+    {
         fprintf(stderr, "Error: usuario inactivo\n");
         return false;
     }
-
     return true;
 }
-
-void registrar_compra(usuario_t* usuario, producto_t* producto) {
-    if (!validar_usuario(usuario)) {
+void registrar_compra(usuario_t *usuario, producto_t *producto)
+{
+    if (!validar_usuario(usuario))
+    {
         return;
     }
     // Lógica de compra...
 }
-
-void registrar_venta(usuario_t* usuario, producto_t* producto) {
-    if (!validar_usuario(usuario)) {
+void registrar_venta(usuario_t *usuario, producto_t *producto)
+{
+    if (!validar_usuario(usuario))
+    {
         return;
     }
     // Lógica de venta...
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -236,18 +247,18 @@ Convertir valores fijos en parámetros.
 
 ```{code-block} c
 :linenos:
-double calcular_precio_estudiante(int cantidad) {
-    return cantidad * 10.0 * 0.80;  // 20% descuento
+double calcular_precio_estudiante(int cantidad)
+{
+    return cantidad * 10.0 * 0.80; // 20% descuento
 }
-
-double calcular_precio_adulto(int cantidad) {
-    return cantidad * 15.0 * 0.90;  // 10% descuento
+double calcular_precio_adulto(int cantidad)
+{
+    return cantidad * 15.0 * 0.90; // 10% descuento
 }
-
-double calcular_precio_senior(int cantidad) {
-    return cantidad * 12.0 * 0.70;  // 30% descuento
+double calcular_precio_senior(int cantidad)
+{
+    return cantidad * 12.0 * 0.70; // 30% descuento
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -255,33 +266,30 @@ double calcular_precio_senior(int cantidad) {
 
 ```{code-block} c
 :linenos:
-typedef enum {
+typedef enum
+{
     CATEGORIA_ESTUDIANTE,
     CATEGORIA_ADULTO,
     CATEGORIA_SENIOR
 } categoria_cliente_t;
-
-typedef struct {
+typedef struct
+{
     double precio_base;
     double descuento;
 } tarifa_t;
-
-tarifa_t obtener_tarifa(categoria_cliente_t categoria) {
-    static const tarifa_t tarifas[] = {
-        [CATEGORIA_ESTUDIANTE] = {10.0, 0.20},
-        [CATEGORIA_ADULTO] = {15.0, 0.10},
-        [CATEGORIA_SENIOR] = {12.0, 0.30}
-    };
-
+tarifa_t obtener_tarifa(categoria_cliente_t categoria)
+{
+    static const tarifa_t tarifas[] = {[CATEGORIA_ESTUDIANTE] = {10.0, 0.20},
+                                       [CATEGORIA_ADULTO] = {15.0, 0.10},
+                                       [CATEGORIA_SENIOR] = {12.0, 0.30}};
     return tarifas[categoria];
 }
-
-double calcular_precio(int cantidad, categoria_cliente_t categoria) {
+double calcular_precio(int cantidad, categoria_cliente_t categoria)
+{
     tarifa_t tarifa = obtener_tarifa(categoria);
     double subtotal = cantidad * tarifa.precio_base;
     return subtotal * (1.0 - tarifa.descuento);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -293,22 +301,34 @@ Reemplazar código repetitivo con datos.
 
 ```{code-block} c
 :linenos:
-char* obtener_nombre_mes(int mes) {
-    if (mes == 1) return "Enero";
-    if (mes == 2) return "Febrero";
-    if (mes == 3) return "Marzo";
-    if (mes == 4) return "Abril";
-    if (mes == 5) return "Mayo";
-    if (mes == 6) return "Junio";
-    if (mes == 7) return "Julio";
-    if (mes == 8) return "Agosto";
-    if (mes == 9) return "Septiembre";
-    if (mes == 10) return "Octubre";
-    if (mes == 11) return "Noviembre";
-    if (mes == 12) return "Diciembre";
+char *obtener_nombre_mes(int mes)
+{
+    if (mes == 1)
+        return "Enero";
+    if (mes == 2)
+        return "Febrero";
+    if (mes == 3)
+        return "Marzo";
+    if (mes == 4)
+        return "Abril";
+    if (mes == 5)
+        return "Mayo";
+    if (mes == 6)
+        return "Junio";
+    if (mes == 7)
+        return "Julio";
+    if (mes == 8)
+        return "Agosto";
+    if (mes == 9)
+        return "Septiembre";
+    if (mes == 10)
+        return "Octubre";
+    if (mes == 11)
+        return "Noviembre";
+    if (mes == 12)
+        return "Diciembre";
     return "Inválido";
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -316,23 +336,20 @@ char* obtener_nombre_mes(int mes) {
 
 ```{code-block} c
 :linenos:
-const char* obtener_nombre_mes(int mes) {
-    static const char* NOMBRES_MESES[] = {
-        "Inválido",  // índice 0
-        "Enero", "Febrero", "Marzo", "Abril",
-        "Mayo", "Junio", "Julio", "Agosto",
-        "Septiembre", "Octubre", "Noviembre", "Diciembre"
-    };
-
+const char *obtener_nombre_mes(int mes)
+{
+    static const char *NOMBRES_MESES[] = {
+        "Inválido", // índice 0
+        "Enero",      "Febrero", "Marzo",     "Abril",
+        "Mayo",       "Junio",   "Julio",     "Agosto",
+        "Septiembre", "Octubre", "Noviembre", "Diciembre"};
     const int NUM_MESES = sizeof(NOMBRES_MESES) / sizeof(NOMBRES_MESES[0]);
-
-    if (mes < 1 || mes >= NUM_MESES) {
+    if (mes < 1 || mes >= NUM_MESES)
+    {
         return NOMBRES_MESES[0];
     }
-
     return NOMBRES_MESES[mes];
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -344,36 +361,37 @@ Extraer la estructura común, parametrizar las partes variables.
 
 ```{code-block} c
 :linenos:
-void procesar_archivo_texto(const char* ruta) {
-    FILE* f = fopen(ruta, "r");
-    if (!f) return;
-
+void procesar_archivo_texto(const char *ruta)
+{
+    FILE *f = fopen(ruta, "r");
+    if (!f)
+        return;
     char linea[256];
-    while (fgets(linea, sizeof(linea), f)) {
+    while (fgets(linea, sizeof(linea), f))
+    {
         // Procesar como texto
         printf("Texto: %s", linea);
     }
-
     fclose(f);
 }
-
-void procesar_archivo_csv(const char* ruta) {
-    FILE* f = fopen(ruta, "r");
-    if (!f) return;
-
+void procesar_archivo_csv(const char *ruta)
+{
+    FILE *f = fopen(ruta, "r");
+    if (!f)
+        return;
     char linea[256];
-    while (fgets(linea, sizeof(linea), f)) {
+    while (fgets(linea, sizeof(linea), f))
+    {
         // Procesar como CSV
-        char* token = strtok(linea, ",");
-        while (token) {
+        char *token = strtok(linea, ",");
+        while (token)
+        {
             printf("Campo: %s\n", token);
             token = strtok(NULL, ",");
         }
     }
-
     fclose(f);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -381,45 +399,45 @@ void procesar_archivo_csv(const char* ruta) {
 
 ```{code-block} c
 :linenos:
-typedef void (*procesador_linea_fn)(char* linea);
-
-void procesar_archivo_generico(const char* ruta,
-                                procesador_linea_fn procesar_linea) {
-    FILE* f = fopen(ruta, "r");
-    if (!f) {
+typedef void (*procesador_linea_fn)(char *linea);
+void procesar_archivo_generico(const char *ruta,
+                               procesador_linea_fn procesar_linea)
+{
+    FILE *f = fopen(ruta, "r");
+    if (!f)
+    {
         fprintf(stderr, "Error abriendo: %s\n", ruta);
         return;
     }
-
     char linea[256];
-    while (fgets(linea, sizeof(linea), f)) {
+    while (fgets(linea, sizeof(linea), f))
+    {
         procesar_linea(linea);
     }
-
     fclose(f);
 }
-
-void procesar_linea_texto(char* linea) {
+void procesar_linea_texto(char *linea)
+{
     printf("Texto: %s", linea);
 }
-
-void procesar_linea_csv(char* linea) {
-    char* token = strtok(linea, ",");
-    while (token) {
+void procesar_linea_csv(char *linea)
+{
+    char *token = strtok(linea, ",");
+    while (token)
+    {
         printf("Campo: %s\n", token);
         token = strtok(NULL, ",");
     }
 }
-
 // Uso
-void procesar_archivo_texto(const char* ruta) {
+void procesar_archivo_texto(const char *ruta)
+{
     procesar_archivo_generico(ruta, procesar_linea_texto);
 }
-
-void procesar_archivo_csv(const char* ruta) {
+void procesar_archivo_csv(const char *ruta)
+{
     procesar_archivo_generico(ruta, procesar_linea_csv);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -429,18 +447,18 @@ void procesar_archivo_csv(const char* ruta) {
 
 ```{code-block} c
 :linenos:
-void configurar_servidor_web() {
+void configurar_servidor_web()
+{
     iniciar_en_puerto(8080);
     establecer_timeout(30);
     establecer_max_conexiones(100);
 }
-
-void configurar_servidor_api() {
-    iniciar_en_puerto(8080);  // Duplicado
+void configurar_servidor_api()
+{
+    iniciar_en_puerto(8080); // Duplicado
     establecer_timeout(60);
-    establecer_max_conexiones(100);  // Duplicado
+    establecer_max_conexiones(100); // Duplicado
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -448,34 +466,25 @@ void configurar_servidor_api() {
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     int puerto;
     int timeout_segundos;
     int max_conexiones;
 } configuracion_servidor_t;
-
 const configuracion_servidor_t CONFIG_WEB = {
-    .puerto = 8080,
-    .timeout_segundos = 30,
-    .max_conexiones = 100
-};
-
+    .puerto = 8080, .timeout_segundos = 30, .max_conexiones = 100};
 const configuracion_servidor_t CONFIG_API = {
-    .puerto = 8080,
-    .timeout_segundos = 60,
-    .max_conexiones = 100
-};
-
-void configurar_servidor(const configuracion_servidor_t* config) {
+    .puerto = 8080, .timeout_segundos = 60, .max_conexiones = 100};
+void configurar_servidor(const configuracion_servidor_t *config)
+{
     iniciar_en_puerto(config->puerto);
     establecer_timeout(config->timeout_segundos);
     establecer_max_conexiones(config->max_conexiones);
 }
-
 // Uso
 configurar_servidor(&CONFIG_WEB);
 configurar_servidor(&CONFIG_API);
-
 ```
 <!-- {code-block} c -->
 
@@ -487,28 +496,38 @@ configurar_servidor(&CONFIG_API);
 
 ```{code-block} c
 :linenos:
-bool validar_email(const char* email) {
-    if (email == NULL) return false;
-    if (strlen(email) == 0) return false;
-    if (strlen(email) > 100) return false;
-    if (!strchr(email, '@')) return false;
+bool validar_email(const char *email)
+{
+    if (email == NULL)
+        return false;
+    if (strlen(email) == 0)
+        return false;
+    if (strlen(email) > 100)
+        return false;
+    if (!strchr(email, '@'))
+        return false;
     return true;
 }
-
-bool validar_nombre(const char* nombre) {
-    if (nombre == NULL) return false;
-    if (strlen(nombre) == 0) return false;
-    if (strlen(nombre) > 50) return false;
+bool validar_nombre(const char *nombre)
+{
+    if (nombre == NULL)
+        return false;
+    if (strlen(nombre) == 0)
+        return false;
+    if (strlen(nombre) > 50)
+        return false;
     return true;
 }
-
-bool validar_telefono(const char* telefono) {
-    if (telefono == NULL) return false;
-    if (strlen(telefono) == 0) return false;
-    if (strlen(telefono) != 10) return false;
+bool validar_telefono(const char *telefono)
+{
+    if (telefono == NULL)
+        return false;
+    if (strlen(telefono) == 0)
+        return false;
+    if (strlen(telefono) != 10)
+        return false;
     return true;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -516,62 +535,54 @@ bool validar_telefono(const char* telefono) {
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     size_t longitud_minima;
     size_t longitud_maxima;
     bool requiere_arroba;
 } criterios_validacion_t;
-
-bool validar_cadena_con_criterios(const char* cadena,
-                                   const criterios_validacion_t* criterios) {
-    if (cadena == NULL) {
+bool validar_cadena_con_criterios(const char *cadena,
+                                  const criterios_validacion_t *criterios)
+{
+    if (cadena == NULL)
+    {
         return false;
     }
-
     size_t longitud = strlen(cadena);
-
-    if (longitud < criterios->longitud_minima) {
+    if (longitud < criterios->longitud_minima)
+    {
         return false;
     }
-
-    if (criterios->longitud_maxima > 0 && longitud > criterios->longitud_maxima) {
+    if (criterios->longitud_maxima > 0 &&
+        longitud > criterios->longitud_maxima)
+    {
         return false;
     }
-
-    if (criterios->requiere_arroba && !strchr(cadena, '@')) {
+    if (criterios->requiere_arroba && !strchr(cadena, '@'))
+    {
         return false;
     }
-
     return true;
 }
-
-bool validar_email(const char* email) {
+bool validar_email(const char *email)
+{
     const criterios_validacion_t criterios = {
-        .longitud_minima = 1,
-        .longitud_maxima = 100,
-        .requiere_arroba = true
-    };
+        .longitud_minima = 1, .longitud_maxima = 100, .requiere_arroba = true};
     return validar_cadena_con_criterios(email, &criterios);
 }
-
-bool validar_nombre(const char* nombre) {
+bool validar_nombre(const char *nombre)
+{
     const criterios_validacion_t criterios = {
-        .longitud_minima = 1,
-        .longitud_maxima = 50,
-        .requiere_arroba = false
-    };
+        .longitud_minima = 1, .longitud_maxima = 50, .requiere_arroba = false};
     return validar_cadena_con_criterios(nombre, &criterios);
 }
-
-bool validar_telefono(const char* telefono) {
-    const criterios_validacion_t criterios = {
-        .longitud_minima = 10,
-        .longitud_maxima = 10,
-        .requiere_arroba = false
-    };
+bool validar_telefono(const char *telefono)
+{
+    const criterios_validacion_t criterios = {.longitud_minima = 10,
+                                              .longitud_maxima = 10,
+                                              .requiere_arroba = false};
     return validar_cadena_con_criterios(telefono, &criterios);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -582,50 +593,56 @@ bool validar_telefono(const char* telefono) {
 ```{code-block} c
 :linenos:
 // Usuarios
-usuario_t* crear_usuario(const char* nombre) {
-    usuario_t* u = malloc(sizeof(usuario_t));
-    if (!u) return NULL;
+usuario_t *crear_usuario(const char *nombre)
+{
+    usuario_t *u = malloc(sizeof(usuario_t));
+    if (!u)
+        return NULL;
     u->nombre = strdup(nombre);
     u->id = generar_id();
     return u;
 }
-
-void destruir_usuario(usuario_t* u) {
-    if (!u) return;
+void destruir_usuario(usuario_t *u)
+{
+    if (!u)
+        return;
     free(u->nombre);
     free(u);
 }
-
 // Productos (código casi idéntico)
-producto_t* crear_producto(const char* nombre) {
-    producto_t* p = malloc(sizeof(producto_t));
-    if (!p) return NULL;
+producto_t *crear_producto(const char *nombre)
+{
+    producto_t *p = malloc(sizeof(producto_t));
+    if (!p)
+        return NULL;
     p->nombre = strdup(nombre);
     p->id = generar_id();
     return p;
 }
-
-void destruir_producto(producto_t* p) {
-    if (!p) return;
+void destruir_producto(producto_t *p)
+{
+    if (!p)
+        return;
     free(p->nombre);
     free(p);
 }
-
 // Categorías (más duplicación)
-categoria_t* crear_categoria(const char* nombre) {
-    categoria_t* c = malloc(sizeof(categoria_t));
-    if (!c) return NULL;
+categoria_t *crear_categoria(const char *nombre)
+{
+    categoria_t *c = malloc(sizeof(categoria_t));
+    if (!c)
+        return NULL;
     c->nombre = strdup(nombre);
     c->id = generar_id();
     return c;
 }
-
-void destruir_categoria(categoria_t* c) {
-    if (!c) return;
+void destruir_categoria(categoria_t *c)
+{
+    if (!c)
+        return;
     free(c->nombre);
     free(c);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -634,38 +651,37 @@ void destruir_categoria(categoria_t* c) {
 ```{code-block} c
 :linenos:
 // Interfaz común para entidades
-typedef struct {
+typedef struct
+{
     int id;
-    char* nombre;
+    char *nombre;
 } entidad_base_t;
-
 // Macros para reducir duplicación
-#define IMPLEMENTAR_CREAR(tipo, nombre_tipo) \
-    tipo* crear_##nombre_tipo(const char* nombre) { \
-        tipo* entidad = malloc(sizeof(tipo)); \
-        if (!entidad) return NULL; \
-        entidad->nombre = strdup(nombre); \
-        entidad->id = generar_id(); \
-        return entidad; \
+#define IMPLEMENTAR_CREAR(tipo, nombre_tipo)                                  \
+    tipo *crear_##nombre_tipo(const char *nombre)                             \
+    {                                                                         \
+        tipo *entidad = malloc(sizeof(tipo));                                 \
+        if (!entidad)                                                         \
+            return NULL;                                                      \
+        entidad->nombre = strdup(nombre);                                     \
+        entidad->id = generar_id();                                           \
+        return entidad;                                                       \
     }
-
-#define IMPLEMENTAR_DESTRUIR(tipo, nombre_tipo) \
-    void destruir_##nombre_tipo(tipo* entidad) { \
-        if (!entidad) return; \
-        free(entidad->nombre); \
-        free(entidad); \
+#define IMPLEMENTAR_DESTRUIR(tipo, nombre_tipo)                               \
+    void destruir_##nombre_tipo(tipo *entidad)                                \
+    {                                                                         \
+        if (!entidad)                                                         \
+            return;                                                           \
+        free(entidad->nombre);                                                \
+        free(entidad);                                                        \
     }
-
 // Implementación
 IMPLEMENTAR_CREAR(usuario_t, usuario)
 IMPLEMENTAR_DESTRUIR(usuario_t, usuario)
-
 IMPLEMENTAR_CREAR(producto_t, producto)
 IMPLEMENTAR_DESTRUIR(producto_t, producto)
-
 IMPLEMENTAR_CREAR(categoria_t, categoria)
 IMPLEMENTAR_DESTRUIR(categoria_t, categoria)
-
 ```
 <!-- {code-block} c -->
 
@@ -673,37 +689,36 @@ IMPLEMENTAR_DESTRUIR(categoria_t, categoria)
 
 ```{code-block} c
 :linenos:
-typedef struct {
-    void* (*crear)(const char* nombre);
-    void (*destruir)(void* entidad);
+typedef struct
+{
+    void *(*crear)(const char *nombre);
+    void (*destruir)(void *entidad);
 } operaciones_entidad_t;
-
-void* crear_entidad_generica(size_t tamano, const char* nombre) {
-    entidad_base_t* entidad = malloc(tamano);
-    if (!entidad) return NULL;
-
+void *crear_entidad_generica(size_t tamano, const char *nombre)
+{
+    entidad_base_t *entidad = malloc(tamano);
+    if (!entidad)
+        return NULL;
     entidad->id = generar_id();
     entidad->nombre = strdup(nombre);
-
     return entidad;
 }
-
-void destruir_entidad_generica(void* ptr) {
-    if (!ptr) return;
-
-    entidad_base_t* entidad = (entidad_base_t*)ptr;
+void destruir_entidad_generica(void *ptr)
+{
+    if (!ptr)
+        return;
+    entidad_base_t *entidad = (entidad_base_t *)ptr;
     free(entidad->nombre);
     free(entidad);
 }
-
-usuario_t* crear_usuario(const char* nombre) {
+usuario_t *crear_usuario(const char *nombre)
+{
     return crear_entidad_generica(sizeof(usuario_t), nombre);
 }
-
-void destruir_usuario(usuario_t* usuario) {
+void destruir_usuario(usuario_t *usuario)
+{
     destruir_entidad_generica(usuario);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -713,30 +728,31 @@ void destruir_usuario(usuario_t* usuario) {
 
 ```{code-block} c
 :linenos:
-void procesar_usuarios(usuario_t* usuarios, int n) {
+void procesar_usuarios(usuario_t *usuarios, int n)
+{
     printf("=== Procesando Usuarios ===\n");
-    for (int i = 0; i < n; i++) {
-        if (usuarios[i].activo) {
-            printf("ID: %d, Nombre: %s\n",
-                   usuarios[i].id,
-                   usuarios[i].nombre);
+    for (int i = 0; i < n; i++)
+    {
+        if (usuarios[i].activo)
+        {
+            printf("ID: %d, Nombre: %s\n", usuarios[i].id, usuarios[i].nombre);
         }
     }
     printf("Total procesados: %d\n", n);
 }
-
-void procesar_productos(producto_t* productos, int n) {
+void procesar_productos(producto_t *productos, int n)
+{
     printf("=== Procesando Productos ===\n");
-    for (int i = 0; i < n; i++) {
-        if (productos[i].disponible) {
-            printf("ID: %d, Nombre: %s\n",
-                   productos[i].id,
+    for (int i = 0; i < n; i++)
+    {
+        if (productos[i].disponible)
+        {
+            printf("ID: %d, Nombre: %s\n", productos[i].id,
                    productos[i].nombre);
         }
     }
     printf("Total procesados: %d\n", n);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -744,63 +760,57 @@ void procesar_productos(producto_t* productos, int n) {
 
 ```{code-block} c
 :linenos:
-typedef bool (*filtro_fn)(const void* elemento);
-typedef void (*mostrar_fn)(const void* elemento);
-
-void procesar_elementos(const void* elementos,
-                         int cantidad,
-                         size_t tamano_elemento,
-                         const char* tipo,
-                         filtro_fn filtro,
-                         mostrar_fn mostrar) {
+typedef bool (*filtro_fn)(const void *elemento);
+typedef void (*mostrar_fn)(const void *elemento);
+void procesar_elementos(const void *elementos, int cantidad,
+                        size_t tamano_elemento, const char *tipo,
+                        filtro_fn filtro, mostrar_fn mostrar)
+{
     printf("=== Procesando %s ===\n", tipo);
-
-    const unsigned char* ptr = (const unsigned char*)elementos;
-
-    for (int i = 0; i < cantidad; i++) {
-        const void* elemento = ptr + (i * tamano_elemento);
-
-        if (filtro(elemento)) {
+    const unsigned char *ptr = (const unsigned char *)elementos;
+    for (int i = 0; i < cantidad; i++)
+    {
+        const void *elemento = ptr + (i * tamano_elemento);
+        if (filtro(elemento))
+        {
             mostrar(elemento);
         }
     }
-
     printf("Total procesados: %d\n", cantidad);
 }
-
 // Funciones específicas para usuarios
-bool usuario_activo(const void* elem) {
-    const usuario_t* u = (const usuario_t*)elem;
+bool usuario_activo(const void *elem)
+{
+    const usuario_t *u = (const usuario_t *)elem;
     return u->activo;
 }
-
-void mostrar_usuario(const void* elem) {
-    const usuario_t* u = (const usuario_t*)elem;
+void mostrar_usuario(const void *elem)
+{
+    const usuario_t *u = (const usuario_t *)elem;
     printf("ID: %d, Nombre: %s\n", u->id, u->nombre);
 }
-
 // Funciones específicas para productos
-bool producto_disponible(const void* elem) {
-    const producto_t* p = (const producto_t*)elem;
+bool producto_disponible(const void *elem)
+{
+    const producto_t *p = (const producto_t *)elem;
     return p->disponible;
 }
-
-void mostrar_producto(const void* elem) {
-    const producto_t* p = (const producto_t*)elem;
+void mostrar_producto(const void *elem)
+{
+    const producto_t *p = (const producto_t *)elem;
     printf("ID: %d, Nombre: %s\n", p->id, p->nombre);
 }
-
 // Uso
-void procesar_usuarios(usuario_t* usuarios, int n) {
-    procesar_elementos(usuarios, n, sizeof(usuario_t),
-                       "Usuarios", usuario_activo, mostrar_usuario);
+void procesar_usuarios(usuario_t *usuarios, int n)
+{
+    procesar_elementos(usuarios, n, sizeof(usuario_t), "Usuarios",
+                       usuario_activo, mostrar_usuario);
 }
-
-void procesar_productos(producto_t* productos, int n) {
-    procesar_elementos(productos, n, sizeof(producto_t),
-                       "Productos", producto_disponible, mostrar_producto);
+void procesar_productos(producto_t *productos, int n)
+{
+    procesar_elementos(productos, n, sizeof(producto_t), "Productos",
+                       producto_disponible, mostrar_producto);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -811,18 +821,18 @@ void procesar_productos(producto_t* productos, int n) {
 ```{code-block} c
 :linenos:
 // Similar pero semánticamente diferente
-int contar_usuarios_activos() {
+int contar_usuarios_activos()
+{
     int contador = 0;
     // ...
     return contador;
 }
-
-int contar_productos_en_stock() {
+int contar_productos_en_stock()
+{
     int contador = 0;
     // ...
     return contador;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -834,16 +844,16 @@ evolucionar independientemente.
 ```{code-block} c
 :linenos:
 // A veces la abstracción es peor que la duplicación
-void validar_formato_simple(const char* str) {
+void validar_formato_simple(const char *str)
+{
     // Validación directa y clara
-    if (strlen(str) < 3 || strlen(str) > 10) {
+    if (strlen(str) < 3 || strlen(str) > 10)
+    {
         return false;
     }
     return true;
 }
-
 // No vale la pena crear un framework complejo para esto
-
 ```
 <!-- {code-block} c -->
 
@@ -852,16 +862,16 @@ void validar_formato_simple(const char* str) {
 ```{code-block} c
 :linenos:
 // En tests, cierta duplicación es aceptable para claridad
-void test_usuario_valido() {
+void test_usuario_valido()
+{
     usuario_t u = {.nombre = "Juan", .edad = 25};
     assert(validar_usuario(&u));
 }
-
-void test_usuario_invalido() {
+void test_usuario_invalido()
+{
     usuario_t u = {.nombre = "Ana", .edad = 15};
     assert(!validar_usuario(&u));
 }
-
 ```
 <!-- {code-block} c -->
 

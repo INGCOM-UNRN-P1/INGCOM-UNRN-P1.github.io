@@ -1,5 +1,5 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int main()
 {
@@ -9,7 +9,7 @@ int main()
         contador = contador * 2;
         printf("%llu \n", contador);
         malloc(contador);
-        malloc(1024*1024);
+        malloc(1024 * 1024);
     }
     return 0xCAFE;
 }

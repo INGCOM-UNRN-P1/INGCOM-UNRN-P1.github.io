@@ -42,29 +42,28 @@ lograr este objetivo.
 
 ```{code-block} c
 :linenos:
-void procesar_pedido(pedido_t* pedido) {
+void procesar_pedido(pedido_t *pedido)
+{
     // Validar datos del cliente
-    if (pedido->cliente.nombre == NULL ||
-        strlen(pedido->cliente.nombre) == 0) {
+    if (pedido->cliente.nombre == NULL || strlen(pedido->cliente.nombre) == 0)
+    {
         return;
     }
-    if (pedido->cliente.email == NULL ||
-        !strchr(pedido->cliente.email, '@')) {
+    if (pedido->cliente.email == NULL || !strchr(pedido->cliente.email, '@'))
+    {
         return;
     }
-
     // Calcular total con impuestos
     double subtotal = 0;
-    for (int i = 0; i < pedido->num_items; i++) {
+    for (int i = 0; i < pedido->num_items; i++)
+    {
         subtotal += pedido->items[i].precio * pedido->items[i].cantidad;
     }
     double impuestos = subtotal * 0.21;
     double total = subtotal + impuestos;
-
     // Guardar en base de datos
     // ...
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -112,28 +111,28 @@ Verificar que el comportamiento no cambió.
 
 ```{code-block} c
 :linenos:
-int procesar_usuario(const char* nombre, const char* email, int edad) {
+int procesar_usuario(const char *nombre, const char *email, int edad)
+{
     // Validación embebida en la función principal
-    if (nombre == NULL || strlen(nombre) < 3) {
+    if (nombre == NULL || strlen(nombre) < 3)
+    {
         printf("Nombre inválido\n");
         return -1;
     }
-
-    if (email == NULL || !strchr(email, '@')) {
+    if (email == NULL || !strchr(email, '@'))
+    {
         printf("Email inválido\n");
         return -1;
     }
-
-    if (edad < 18 || edad > 120) {
+    if (edad < 18 || edad > 120)
+    {
         printf("Edad inválida\n");
         return -1;
     }
-
     // Lógica principal
     printf("Usuario %s registrado\n", nombre);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -141,40 +140,45 @@ int procesar_usuario(const char* nombre, const char* email, int edad) {
 
 ```{code-block} c
 :linenos:
-bool validar_nombre(const char* nombre) {
-    if (nombre == NULL || strlen(nombre) < 3) {
+bool validar_nombre(const char *nombre)
+{
+    if (nombre == NULL || strlen(nombre) < 3)
+    {
         printf("Nombre inválido\n");
         return false;
     }
     return true;
 }
-
-bool validar_email(const char* email) {
-    if (email == NULL || !strchr(email, '@')) {
+bool validar_email(const char *email)
+{
+    if (email == NULL || !strchr(email, '@'))
+    {
         printf("Email inválido\n");
         return false;
     }
     return true;
 }
-
-bool validar_edad(int edad) {
-    if (edad < 18 || edad > 120) {
+bool validar_edad(int edad)
+{
+    if (edad < 18 || edad > 120)
+    {
         printf("Edad inválida\n");
         return false;
     }
     return true;
 }
-
-int procesar_usuario(const char* nombre, const char* email, int edad) {
-    if (!validar_nombre(nombre)) return -1;
-    if (!validar_email(email)) return -1;
-    if (!validar_edad(edad)) return -1;
-
+int procesar_usuario(const char *nombre, const char *email, int edad)
+{
+    if (!validar_nombre(nombre))
+        return -1;
+    if (!validar_email(email))
+        return -1;
+    if (!validar_edad(edad))
+        return -1;
     // Lógica principal ahora es clara
     printf("Usuario %s registrado\n", nombre);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -191,26 +195,26 @@ int procesar_usuario(const char* nombre, const char* email, int edad) {
 
 ```{code-block} c
 :linenos:
-void analizar_ventas(double ventas[], int n) {
+void analizar_ventas(double ventas[], int n)
+{
     // Calcular estadísticas
     double total = 0;
     double maximo = ventas[0];
     double minimo = ventas[0];
-
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
+    {
         total += ventas[i];
-        if (ventas[i] > maximo) maximo = ventas[i];
-        if (ventas[i] < minimo) minimo = ventas[i];
+        if (ventas[i] > maximo)
+            maximo = ventas[i];
+        if (ventas[i] < minimo)
+            minimo = ventas[i];
     }
-
     double promedio = total / n;
-
     printf("Total: %.2f\n", total);
     printf("Promedio: %.2f\n", promedio);
     printf("Máximo: %.2f\n", maximo);
     printf("Mínimo: %.2f\n", minimo);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -218,43 +222,43 @@ void analizar_ventas(double ventas[], int n) {
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     double total;
     double promedio;
     double maximo;
     double minimo;
 } estadisticas_t;
-
-estadisticas_t calcular_estadisticas(const double ventas[], int n) {
+estadisticas_t calcular_estadisticas(const double ventas[], int n)
+{
     estadisticas_t stats = {0};
-
-    if (n == 0) return stats;
-
+    if (n == 0)
+        return stats;
     stats.maximo = ventas[0];
     stats.minimo = ventas[0];
-
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
+    {
         stats.total += ventas[i];
-        if (ventas[i] > stats.maximo) stats.maximo = ventas[i];
-        if (ventas[i] < stats.minimo) stats.minimo = ventas[i];
+        if (ventas[i] > stats.maximo)
+            stats.maximo = ventas[i];
+        if (ventas[i] < stats.minimo)
+            stats.minimo = ventas[i];
     }
-
     stats.promedio = stats.total / n;
     return stats;
 }
-
-void mostrar_estadisticas(estadisticas_t stats) {
+void mostrar_estadisticas(estadisticas_t stats)
+{
     printf("Total: %.2f\n", stats.total);
     printf("Promedio: %.2f\n", stats.promedio);
     printf("Máximo: %.2f\n", stats.maximo);
     printf("Mínimo: %.2f\n", stats.minimo);
 }
-
-void analizar_ventas(const double ventas[], int n) {
+void analizar_ventas(const double ventas[], int n)
+{
     estadisticas_t stats = calcular_estadisticas(ventas, n);
     mostrar_estadisticas(stats);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -270,47 +274,45 @@ void analizar_ventas(const double ventas[], int n) {
 
 ```{code-block} c
 :linenos:
-void procesar_archivo(const char* ruta) {
-    FILE* f = fopen(ruta, "r");
+void procesar_archivo(const char *ruta)
+{
+    FILE *f = fopen(ruta, "r");
     char linea[256];
     int lineas_procesadas = 0;
     int lineas_con_error = 0;
-
-    while (fgets(linea, sizeof(linea), f)) {
+    while (fgets(linea, sizeof(linea), f))
+    {
         // Limpiar salto de línea
         linea[strcspn(linea, "\n")] = '\0';
-
         // Saltar líneas vacías
-        if (strlen(linea) == 0) continue;
-
+        if (strlen(linea) == 0)
+            continue;
         // Saltar comentarios
-        if (linea[0] == '#') continue;
-
+        if (linea[0] == '#')
+            continue;
         // Parsear línea
-        char* separador = strchr(linea, '=');
-        if (separador == NULL) {
+        char *separador = strchr(linea, '=');
+        if (separador == NULL)
+        {
             lineas_con_error++;
             continue;
         }
-
         *separador = '\0';
-        char* clave = linea;
-        char* valor = separador + 1;
-
+        char *clave = linea;
+        char *valor = separador + 1;
         // Trim whitespace
-        while (*clave == ' ') clave++;
-        while (*valor == ' ') valor++;
-
+        while (*clave == ' ')
+            clave++;
+        while (*valor == ' ')
+            valor++;
         // Procesar par clave-valor
         printf("%s -> %s\n", clave, valor);
         lineas_procesadas++;
     }
-
     fclose(f);
-    printf("Procesadas: %d, Errores: %d\n",
-           lineas_procesadas, lineas_con_error);
+    printf("Procesadas: %d, Errores: %d\n", lineas_procesadas,
+           lineas_con_error);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -318,67 +320,64 @@ void procesar_archivo(const char* ruta) {
 
 ```{code-block} c
 :linenos:
-bool es_linea_valida(const char* linea) {
+bool es_linea_valida(const char *linea)
+{
     return strlen(linea) > 0 && linea[0] != '#';
 }
-
-bool parsear_par_clave_valor(char* linea, char** clave, char** valor) {
-    char* separador = strchr(linea, '=');
-    if (separador == NULL) {
+bool parsear_par_clave_valor(char *linea, char **clave, char **valor)
+{
+    char *separador = strchr(linea, '=');
+    if (separador == NULL)
+    {
         return false;
     }
-
     *separador = '\0';
     *clave = linea;
     *valor = separador + 1;
-
     // Trim whitespace
-    while (**clave == ' ') (*clave)++;
-    while (**valor == ' ') (*valor)++;
-
+    while (**clave == ' ')
+        (*clave)++;
+    while (**valor == ' ')
+        (*valor)++;
     return true;
 }
-
-void procesar_linea_config(char* linea, int* procesadas, int* errores) {
+void procesar_linea_config(char *linea, int *procesadas, int *errores)
+{
     // Limpiar salto de línea
     linea[strcspn(linea, "\n")] = '\0';
-
-    if (!es_linea_valida(linea)) {
+    if (!es_linea_valida(linea))
+    {
         return;
     }
-
-    char* clave;
-    char* valor;
-
-    if (!parsear_par_clave_valor(linea, &clave, &valor)) {
+    char *clave;
+    char *valor;
+    if (!parsear_par_clave_valor(linea, &clave, &valor))
+    {
         (*errores)++;
         return;
     }
-
     printf("%s -> %s\n", clave, valor);
     (*procesadas)++;
 }
-
-void procesar_archivo(const char* ruta) {
-    FILE* f = fopen(ruta, "r");
-    if (f == NULL) {
+void procesar_archivo(const char *ruta)
+{
+    FILE *f = fopen(ruta, "r");
+    if (f == NULL)
+    {
         printf("Error abriendo archivo\n");
         return;
     }
-
     char linea[256];
     int lineas_procesadas = 0;
     int lineas_con_error = 0;
-
-    while (fgets(linea, sizeof(linea), f)) {
+    while (fgets(linea, sizeof(linea), f))
+    {
         procesar_linea_config(linea, &lineas_procesadas, &lineas_con_error);
     }
-
     fclose(f);
-    printf("Procesadas: %d, Errores: %d\n",
-           lineas_procesadas, lineas_con_error);
+    printf("Procesadas: %d, Errores: %d\n", lineas_procesadas,
+           lineas_con_error);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -395,46 +394,48 @@ void procesar_archivo(const char* ruta) {
 
 ```{code-block} c
 :linenos:
-double calcular_precio_final(double precio_base,
-                              int cantidad,
-                              bool es_mayorista,
-                              const char* codigo_postal) {
+double calcular_precio_final(double precio_base, int cantidad,
+                             bool es_mayorista, const char *codigo_postal)
+{
     // Descuento por cantidad
     double descuento_cantidad = 0;
-    if (cantidad >= 100) {
+    if (cantidad >= 100)
+    {
         descuento_cantidad = 0.20;
-    } else if (cantidad >= 50) {
+    }
+    else if (cantidad >= 50)
+    {
         descuento_cantidad = 0.15;
-    } else if (cantidad >= 10) {
+    }
+    else if (cantidad >= 10)
+    {
         descuento_cantidad = 0.10;
     }
-
     // Descuento mayorista
     double descuento_mayorista = es_mayorista ? 0.05 : 0;
-
     // Descuento total (no acumulativo lineal)
     double descuento_total = descuento_cantidad + descuento_mayorista;
-    if (descuento_total > 0.25) descuento_total = 0.25;
-
+    if (descuento_total > 0.25)
+        descuento_total = 0.25;
     double subtotal = precio_base * cantidad * (1 - descuento_total);
-
     // Impuesto según región
-    double impuesto = 0.21;  // IVA estándar
-    if (codigo_postal[0] == '9') {  // Patagonia
+    double impuesto = 0.21; // IVA estándar
+    if (codigo_postal[0] == '9')
+    { // Patagonia
         impuesto = 0.10;
     }
-
     // Cargo por envío
     double envio = 0;
-    if (cantidad < 5) {
+    if (cantidad < 5)
+    {
         envio = 500;
-    } else if (cantidad < 20) {
+    }
+    else if (cantidad < 20)
+    {
         envio = 300;
     }
-
     return subtotal * (1 + impuesto) + envio;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -442,59 +443,56 @@ double calcular_precio_final(double precio_base,
 
 ```{code-block} c
 :linenos:
-double calcular_descuento_por_cantidad(int cantidad) {
-    if (cantidad >= 100) return 0.20;
-    if (cantidad >= 50) return 0.15;
-    if (cantidad >= 10) return 0.10;
+double calcular_descuento_por_cantidad(int cantidad)
+{
+    if (cantidad >= 100)
+        return 0.20;
+    if (cantidad >= 50)
+        return 0.15;
+    if (cantidad >= 10)
+        return 0.10;
     return 0.0;
 }
-
-double calcular_descuento_mayorista(bool es_mayorista) {
+double calcular_descuento_mayorista(bool es_mayorista)
+{
     return es_mayorista ? 0.05 : 0.0;
 }
-
-double calcular_descuento_total(int cantidad, bool es_mayorista) {
+double calcular_descuento_total(int cantidad, bool es_mayorista)
+{
     const double DESCUENTO_MAXIMO = 0.25;
-
     double descuento = calcular_descuento_por_cantidad(cantidad) +
                        calcular_descuento_mayorista(es_mayorista);
-
     return (descuento > DESCUENTO_MAXIMO) ? DESCUENTO_MAXIMO : descuento;
 }
-
-double calcular_impuesto_regional(const char* codigo_postal) {
+double calcular_impuesto_regional(const char *codigo_postal)
+{
     const double IVA_ESTANDAR = 0.21;
     const double IVA_PATAGONIA = 0.10;
-
     // Patagonia tiene código postal que empieza con 9
-    if (codigo_postal[0] == '9') {
+    if (codigo_postal[0] == '9')
+    {
         return IVA_PATAGONIA;
     }
-
     return IVA_ESTANDAR;
 }
-
-double calcular_cargo_envio(int cantidad) {
-    if (cantidad < 5) return 500.0;
-    if (cantidad < 20) return 300.0;
+double calcular_cargo_envio(int cantidad)
+{
+    if (cantidad < 5)
+        return 500.0;
+    if (cantidad < 20)
+        return 300.0;
     return 0.0;
 }
-
-double calcular_precio_final(double precio_base,
-                              int cantidad,
-                              bool es_mayorista,
-                              const char* codigo_postal) {
+double calcular_precio_final(double precio_base, int cantidad,
+                             bool es_mayorista, const char *codigo_postal)
+{
     double descuento = calcular_descuento_total(cantidad, es_mayorista);
     double subtotal = precio_base * cantidad * (1 - descuento);
-
     double impuesto = calcular_impuesto_regional(codigo_postal);
     double total_con_impuesto = subtotal * (1 + impuesto);
-
     double envio = calcular_cargo_envio(cantidad);
-
     return total_con_impuesto + envio;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -514,36 +512,38 @@ Construir funciones complejas componiendo funciones simples:
 ```{code-block} c
 :linenos:
 // Funciones atómicas
-bool es_letra(char c) {
+bool es_letra(char c)
+{
     return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
 }
-
-bool es_digito(char c) {
+bool es_digito(char c)
+{
     return c >= '0' && c <= '9';
 }
-
-bool es_espacio(char c) {
+bool es_espacio(char c)
+{
     return c == ' ' || c == '\t' || c == '\n';
 }
-
 // Función compuesta
-bool es_alfanumerico(char c) {
+bool es_alfanumerico(char c)
+{
     return es_letra(c) || es_digito(c);
 }
-
-bool es_identificador_valido(const char* str) {
-    if (str == NULL || strlen(str) == 0) return false;
-    if (!es_letra(str[0]) && str[0] != '_') return false;
-
-    for (size_t i = 1; str[i] != '\0'; i++) {
-        if (!es_alfanumerico(str[i]) && str[i] != '_') {
+bool es_identificador_valido(const char *str)
+{
+    if (str == NULL || strlen(str) == 0)
+        return false;
+    if (!es_letra(str[0]) && str[0] != '_')
+        return false;
+    for (size_t i = 1; str[i] != '\0'; i++)
+    {
+        if (!es_alfanumerico(str[i]) && str[i] != '_')
+        {
             return false;
         }
     }
-
     return true;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -551,27 +551,24 @@ bool es_identificador_valido(const char* str) {
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     double descuento_mayorista;
     double impuesto_estandar;
     double impuesto_reducido;
     double cargo_envio_pequeno;
     double cargo_envio_mediano;
 } configuracion_precios_t;
-
-double calcular_precio_con_config(double precio_base,
-                                   int cantidad,
-                                   bool es_mayorista,
-                                   const configuracion_precios_t* config) {
+double calcular_precio_con_config(double precio_base, int cantidad,
+                                  bool es_mayorista,
+                                  const configuracion_precios_t *config)
+{
     // Uso de configuración inyectada
     double descuento = es_mayorista ? config->descuento_mayorista : 0.0;
     double subtotal = precio_base * cantidad * (1 - descuento);
-
     // ... resto del cálculo usando config
-
     return subtotal;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -582,31 +579,30 @@ Para lógica parametrizable:
 ```{code-block} c
 :linenos:
 typedef bool (*criterio_filtro_t)(int valor);
-
-bool es_par(int valor) {
+bool es_par(int valor)
+{
     return valor % 2 == 0;
 }
-
-bool es_positivo(int valor) {
+bool es_positivo(int valor)
+{
     return valor > 0;
 }
-
-int contar_elementos_que_cumplen(const int* arr,
-                                  int n,
-                                  criterio_filtro_t criterio) {
+int contar_elementos_que_cumplen(const int *arr, int n,
+                                 criterio_filtro_t criterio)
+{
     int contador = 0;
-    for (int i = 0; i < n; i++) {
-        if (criterio(arr[i])) {
+    for (int i = 0; i < n; i++)
+    {
+        if (criterio(arr[i]))
+        {
             contador++;
         }
     }
     return contador;
 }
-
 // Uso
 int pares = contar_elementos_que_cumplen(arr, n, es_par);
 int positivos = contar_elementos_que_cumplen(arr, n, es_positivo);
-
 ```
 <!-- {code-block} c -->
 
@@ -617,19 +613,19 @@ int positivos = contar_elementos_que_cumplen(arr, n, es_positivo);
 ```{code-block} c
 :linenos:
 // Excesivo - funciones triviales que no agregan valor
-int incrementar(int x) {
+int incrementar(int x)
+{
     return x + 1;
 }
-
-int decrementar(int x) {
+int decrementar(int x)
+{
     return x - 1;
 }
-
 // Uso innecesariamente verboso
-for (int i = 0; i < n; i = incrementar(i)) {
+for (int i = 0; i < n; i = incrementar(i))
+{
     // ...
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -638,22 +634,22 @@ for (int i = 0; i < n; i = incrementar(i)) {
 ```{code-block} c
 :linenos:
 // Problemático
-void procesar(int a, int b, int c, int d, int e, int f, int g) {
+void procesar(int a, int b, int c, int d, int e, int f, int g)
+{
     // Difícil de usar y mantener
 }
-
 // Mejor: usar estructura
-typedef struct {
+typedef struct
+{
     int param_a;
     int param_b;
     int param_c;
     // ...
 } parametros_procesamiento_t;
-
-void procesar(const parametros_procesamiento_t* params) {
+void procesar(const parametros_procesamiento_t *params)
+{
     // Más claro
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -662,16 +658,16 @@ void procesar(const parametros_procesamiento_t* params) {
 ```{code-block} c
 :linenos:
 // Problemático
-int calcular_total(int* contador_global) {
-    (*contador_global)++;  // Efecto secundario oculto
+int calcular_total(int *contador_global)
+{
+    (*contador_global)++; // Efecto secundario oculto
     return *contador_global * 100;
 }
-
 // Mejor: efecto secundario explícito o función pura
-int calcular_total_puro(int contador) {
+int calcular_total_puro(int contador)
+{
     return contador * 100;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -702,28 +698,31 @@ Una función bien diseñada mantiene un nivel de abstracción consistente:
 ```{code-block} c
 :linenos:
 // Mal: mezcla niveles de abstracción
-void procesar_pedido(pedido_t* pedido) {
+void procesar_pedido(pedido_t *pedido)
+{
     // Alto nivel
-    if (!validar_pedido(pedido)) return;
-
+    if (!validar_pedido(pedido))
+        return;
     // Bajo nivel - no pertenece aquí
-    for (int i = 0; i < pedido->num_items; i++) {
-        if (pedido->items[i].precio < 0) {
+    for (int i = 0; i < pedido->num_items; i++)
+    {
+        if (pedido->items[i].precio < 0)
+        {
             return;
         }
     }
-
     // Alto nivel
     guardar_pedido(pedido);
 }
-
 // Bien: nivel consistente
-void procesar_pedido(pedido_t* pedido) {
-    if (!validar_pedido(pedido)) return;
-    if (!validar_items(pedido)) return;
+void procesar_pedido(pedido_t *pedido)
+{
+    if (!validar_pedido(pedido))
+        return;
+    if (!validar_items(pedido))
+        return;
     guardar_pedido(pedido);
 }
-
 ```
 <!-- {code-block} c -->
 

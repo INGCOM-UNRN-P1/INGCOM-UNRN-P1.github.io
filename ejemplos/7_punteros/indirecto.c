@@ -11,7 +11,6 @@ int main()
     char cad[] = "HolaHola";
     char otro[] = "ChauChau";
 
-
     char *a = cad;
     char *b = otro;
 

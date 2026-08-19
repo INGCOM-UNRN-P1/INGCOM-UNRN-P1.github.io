@@ -33,7 +33,7 @@ por donde entra y sale información.
 - **Usos:** HTTP, HTTPS, SSH, FTP, correo electrónico
 
 ``` c
-socket(AF_INET, SOCK_STREAM, 0);  // TCP
+socket(AF_INET, SOCK_STREAM, 0); // TCP
 ```
 <!-- c -->
 
@@ -48,7 +48,7 @@ socket(AF_INET, SOCK_STREAM, 0);  // TCP
 - **Usos:** DNS, streaming de video, juegos en línea, VoIP
 
 ``` c
-socket(AF_INET, SOCK_DGRAM, 0);  // UDP
+socket(AF_INET, SOCK_DGRAM, 0); // UDP
 ```
 <!-- c -->
 
@@ -113,22 +113,19 @@ Las computadoras pueden almacenar números de diferentes formas:
 ```{code-block} c
 :linenos:
 #include <arpa/inet.h>
-
 // Host to Network
-uint32_t htonl(uint32_t hostlong);   // long (32 bits)
-uint16_t htons(uint16_t hostshort);  // short (16 bits)
-
+uint32_t htonl(uint32_t hostlong);  // long (32 bits)
+uint16_t htons(uint16_t hostshort); // short (16 bits)
 // Network to Host
 uint32_t ntohl(uint32_t netlong);
 uint16_t ntohs(uint16_t netshort);
-
 ```
 <!-- {code-block} c -->
 
 **Ejemplo:**
 ``` c
 uint16_t puerto_host = 8080;
-uint16_t puerto_red = htons(puerto_host);  // Convertir a orden de red
+uint16_t puerto_red = htons(puerto_host); // Convertir a orden de red
 ```
 <!-- c -->
 
@@ -147,9 +144,10 @@ en estructuras de sockets.
 Estructura genérica para direcciones:
 
 ``` c
-struct sockaddr {
-    sa_family_t sa_family;  // Familia de direcciones (AF_INET, AF_INET6, etc.)
-    char sa_data[14];       // Datos específicos de la familia
+struct sockaddr
+{
+    sa_family_t sa_family; // Familia de direcciones (AF_INET, AF_INET6, etc.)
+    char sa_data[14];      // Datos específicos de la familia
 };
 ```
 <!-- c -->
@@ -159,18 +157,17 @@ struct sockaddr {
 ```{code-block} c
 :linenos:
 #include <netinet/in.h>
-
-struct sockaddr_in {
-    sa_family_t    sin_family;  // AF_INET
-    in_port_t      sin_port;    // Puerto en orden de red
-    struct in_addr sin_addr;    // Dirección IPv4
-    char           sin_zero[8]; // Padding (debe ser cero)
+struct sockaddr_in
+{
+    sa_family_t sin_family;  // AF_INET
+    in_port_t sin_port;      // Puerto en orden de red
+    struct in_addr sin_addr; // Dirección IPv4
+    char sin_zero[8];        // Padding (debe ser cero)
 };
-
-struct in_addr {
-    uint32_t s_addr;  // Dirección en orden de red
+struct in_addr
+{
+    uint32_t s_addr; // Dirección en orden de red
 };
-
 ```
 <!-- {code-block} c -->
 
@@ -178,14 +175,14 @@ struct in_addr {
 
 ```{code-block} c
 :linenos:
-struct sockaddr_in6 {
-    sa_family_t     sin6_family;   // AF_INET6
-    in_port_t       sin6_port;     // Puerto
-    uint32_t        sin6_flowinfo; // Información de flujo IPv6
-    struct in6_addr sin6_addr;     // Dirección IPv6
-    uint32_t        sin6_scope_id; // Scope ID
+struct sockaddr_in6
+{
+    sa_family_t sin6_family;   // AF_INET6
+    in_port_t sin6_port;       // Puerto
+    uint32_t sin6_flowinfo;    // Información de flujo IPv6
+    struct in6_addr sin6_addr; // Dirección IPv6
+    uint32_t sin6_scope_id;    // Scope ID
 };
-
 ```
 <!-- {code-block} c -->
 
@@ -195,17 +192,17 @@ Usada para resolver nombres de host:
 
 ```{code-block} c
 :linenos:
-struct addrinfo {
-    int              ai_flags;
-    int              ai_family;    // AF_INET, AF_INET6, AF_UNSPEC
-    int              ai_socktype;  // SOCK_STREAM, SOCK_DGRAM
-    int              ai_protocol;
-    socklen_t        ai_addrlen;
+struct addrinfo
+{
+    int ai_flags;
+    int ai_family;   // AF_INET, AF_INET6, AF_UNSPEC
+    int ai_socktype; // SOCK_STREAM, SOCK_DGRAM
+    int ai_protocol;
+    socklen_t ai_addrlen;
     struct sockaddr *ai_addr;
-    char            *ai_canonname;
-    struct addrinfo *ai_next;      // Lista enlazada
+    char *ai_canonname;
+    struct addrinfo *ai_next; // Lista enlazada
 };
-
 ```
 <!-- {code-block} c -->
 
@@ -215,7 +212,6 @@ struct addrinfo {
 
 ``` c
 #include <sys/socket.h>
-
 int socket(int domain, int type, int protocol);
 ```
 <!-- c -->
@@ -230,7 +226,8 @@ int socket(int domain, int type, int protocol);
 **Ejemplo:**
 ``` c
 int sockfd = socket(AF_INET, SOCK_STREAM, 0);
-if (sockfd == -1) {
+if (sockfd == -1)
+{
     perror("socket");
     exit(1);
 }
@@ -253,13 +250,12 @@ struct sockaddr_in servidor;
 memset(&servidor, 0, sizeof(servidor));
 servidor.sin_family = AF_INET;
 servidor.sin_port = htons(8080);
-servidor.sin_addr.s_addr = INADDR_ANY;  // Todas las interfaces
-
-if (bind(sockfd, (struct sockaddr*)&servidor, sizeof(servidor)) == -1) {
+servidor.sin_addr.s_addr = INADDR_ANY; // Todas las interfaces
+if (bind(sockfd, (struct sockaddr *)&servidor, sizeof(servidor)) == -1)
+{
     perror("bind");
     exit(1);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -286,7 +282,8 @@ int listen(int sockfd, int backlog);
 
 **Ejemplo:**
 ``` c
-if (listen(sockfd, 10) == -1) {
+if (listen(sockfd, 10) == -1)
+{
     perror("listen");
     exit(1);
 }
@@ -309,18 +306,16 @@ int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 :linenos:
 struct sockaddr_in cliente;
 socklen_t len = sizeof(cliente);
-
-int cliente_fd = accept(sockfd, (struct sockaddr*)&cliente, &len);
-if (cliente_fd == -1) {
+int cliente_fd = accept(sockfd, (struct sockaddr *)&cliente, &len);
+if (cliente_fd == -1)
+{
     perror("accept");
     exit(1);
 }
-
 // Obtener información del cliente
 char ip_cliente[INET_ADDRSTRLEN];
 inet_ntop(AF_INET, &cliente.sin_addr, ip_cliente, sizeof(ip_cliente));
 printf("Cliente conectado desde %s:%d\n", ip_cliente, ntohs(cliente.sin_port));
-
 ```
 <!-- {code-block} c -->
 
@@ -341,14 +336,12 @@ memset(&servidor, 0, sizeof(servidor));
 servidor.sin_family = AF_INET;
 servidor.sin_port = htons(8080);
 inet_pton(AF_INET, "127.0.0.1", &servidor.sin_addr);
-
-if (connect(sockfd, (struct sockaddr*)&servidor, sizeof(servidor)) == -1) {
+if (connect(sockfd, (struct sockaddr *)&servidor, sizeof(servidor)) == -1)
+{
     perror("connect");
     exit(1);
 }
-
 printf("Conectado al servidor\n");
-
 ```
 <!-- {code-block} c -->
 
@@ -364,7 +357,8 @@ ssize_t write(int sockfd, const void *buf, size_t count);
 ``` c
 const char *mensaje = "Hola, servidor!";
 ssize_t enviados = send(sockfd, mensaje, strlen(mensaje), 0);
-if (enviados == -1) {
+if (enviados == -1)
+{
     perror("send");
 }
 ```
@@ -383,15 +377,19 @@ ssize_t read(int sockfd, void *buf, size_t count);
 :linenos:
 char buffer[1024];
 ssize_t recibidos = recv(sockfd, buffer, sizeof(buffer) - 1, 0);
-if (recibidos == -1) {
+if (recibidos == -1)
+{
     perror("recv");
-} else if (recibidos == 0) {
+}
+else if (recibidos == 0)
+{
     printf("Conexión cerrada por el otro extremo\n");
-} else {
-    buffer[recibidos] = '\0';  // Null-terminar
+}
+else
+{
+    buffer[recibidos] = '\0'; // Null-terminar
     printf("Recibido: %s\n", buffer);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -407,7 +405,6 @@ indica error.
 
 ``` c
 #include <unistd.h>
-
 int close(int sockfd);
 ```
 <!-- c -->
@@ -432,100 +429,100 @@ Un servidor que repite lo que recibe del cliente.
 
 ```{code-block} c
 :linenos:
+#include <arpa/inet.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
 #include <sys/socket.h>
-
+#include <unistd.h>
 #define PUERTO 8080
 #define BACKLOG 5
 #define BUFFER_SIZE 1024
-
-int main(void) {
+int main(void)
+{
     int servidor_fd, cliente_fd;
     struct sockaddr_in servidor, cliente;
     socklen_t cliente_len;
     char buffer[BUFFER_SIZE];
     ssize_t bytes_recibidos;
-    
     // 1. Crear socket
     servidor_fd = socket(AF_INET, SOCK_STREAM, 0);
-    if (servidor_fd == -1) {
+    if (servidor_fd == -1)
+    {
         perror("socket");
         exit(EXIT_FAILURE);
     }
-    
     // Permitir reutilizar la dirección inmediatamente
     int opt = 1;
-    if (setsockopt(servidor_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1) {
+    if (setsockopt(servidor_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) ==
+        -1)
+    {
         perror("setsockopt");
         exit(EXIT_FAILURE);
     }
-    
     // 2. Configurar dirección del servidor
     memset(&servidor, 0, sizeof(servidor));
     servidor.sin_family = AF_INET;
     servidor.sin_addr.s_addr = INADDR_ANY;
     servidor.sin_port = htons(PUERTO);
-    
     // 3. Vincular socket a la dirección
-    if (bind(servidor_fd, (struct sockaddr*)&servidor, sizeof(servidor)) == -1) {
+    if (bind(servidor_fd, (struct sockaddr *)&servidor, sizeof(servidor)) ==
+        -1)
+    {
         perror("bind");
         close(servidor_fd);
         exit(EXIT_FAILURE);
     }
-    
     // 4. Escuchar conexiones
-    if (listen(servidor_fd, BACKLOG) == -1) {
+    if (listen(servidor_fd, BACKLOG) == -1)
+    {
         perror("listen");
         close(servidor_fd);
         exit(EXIT_FAILURE);
     }
-    
     printf("Servidor escuchando en puerto %d...\n", PUERTO);
-    
     // 5. Aceptar y manejar conexiones
-    while (1) {
+    while (1)
+    {
         cliente_len = sizeof(cliente);
-        cliente_fd = accept(servidor_fd, (struct sockaddr*)&cliente, &cliente_len);
-        
-        if (cliente_fd == -1) {
+        cliente_fd =
+            accept(servidor_fd, (struct sockaddr *)&cliente, &cliente_len);
+        if (cliente_fd == -1)
+        {
             perror("accept");
             continue;
         }
-        
         // Obtener información del cliente
         char ip_cliente[INET_ADDRSTRLEN];
         inet_ntop(AF_INET, &cliente.sin_addr, ip_cliente, sizeof(ip_cliente));
-        printf("Cliente conectado: %s:%d\n", ip_cliente, ntohs(cliente.sin_port));
-        
+        printf("Cliente conectado: %s:%d\n", ip_cliente,
+               ntohs(cliente.sin_port));
         // Recibir y reenviar datos (echo)
-        while ((bytes_recibidos = recv(cliente_fd, buffer, BUFFER_SIZE - 1, 0)) > 0) {
+        while ((bytes_recibidos =
+                    recv(cliente_fd, buffer, BUFFER_SIZE - 1, 0)) > 0)
+        {
             buffer[bytes_recibidos] = '\0';
             printf("Recibido: %s", buffer);
-            
             // Enviar de vuelta al cliente
-            if (send(cliente_fd, buffer, bytes_recibidos, 0) == -1) {
+            if (send(cliente_fd, buffer, bytes_recibidos, 0) == -1)
+            {
                 perror("send");
                 break;
             }
         }
-        
-        if (bytes_recibidos == 0) {
+        if (bytes_recibidos == 0)
+        {
             printf("Cliente desconectado\n");
-        } else if (bytes_recibidos == -1) {
+        }
+        else if (bytes_recibidos == -1)
+        {
             perror("recv");
         }
-        
         close(cliente_fd);
     }
-    
     close(servidor_fd);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -540,77 +537,74 @@ gcc -Wall -Wextra servidor_echo.c -o servidor_echo
 
 ```{code-block} c
 :linenos:
+#include <arpa/inet.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
 #include <sys/socket.h>
-
+#include <unistd.h>
 #define PUERTO 8080
 #define BUFFER_SIZE 1024
-
-int main(void) {
+int main(void)
+{
     int sockfd;
     struct sockaddr_in servidor;
     char buffer[BUFFER_SIZE];
     char mensaje[BUFFER_SIZE];
     ssize_t bytes_recibidos;
-    
     // 1. Crear socket
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd == -1) {
+    if (sockfd == -1)
+    {
         perror("socket");
         exit(EXIT_FAILURE);
     }
-    
     // 2. Configurar dirección del servidor
     memset(&servidor, 0, sizeof(servidor));
     servidor.sin_family = AF_INET;
     servidor.sin_port = htons(PUERTO);
-    
     // Convertir dirección IP de texto a binario
-    if (inet_pton(AF_INET, "127.0.0.1", &servidor.sin_addr) <= 0) {
+    if (inet_pton(AF_INET, "127.0.0.1", &servidor.sin_addr) <= 0)
+    {
         perror("inet_pton");
         close(sockfd);
         exit(EXIT_FAILURE);
     }
-    
     // 3. Conectar al servidor
-    if (connect(sockfd, (struct sockaddr*)&servidor, sizeof(servidor)) == -1) {
+    if (connect(sockfd, (struct sockaddr *)&servidor, sizeof(servidor)) == -1)
+    {
         perror("connect");
         close(sockfd);
         exit(EXIT_FAILURE);
     }
-    
     printf("Conectado al servidor. Escribe mensajes (Ctrl+D para salir):\n");
-    
     // 4. Enviar y recibir mensajes
-    while (fgets(mensaje, sizeof(mensaje), stdin) != NULL) {
+    while (fgets(mensaje, sizeof(mensaje), stdin) != NULL)
+    {
         // Enviar mensaje al servidor
-        if (send(sockfd, mensaje, strlen(mensaje), 0) == -1) {
+        if (send(sockfd, mensaje, strlen(mensaje), 0) == -1)
+        {
             perror("send");
             break;
         }
-        
         // Recibir respuesta del servidor
         bytes_recibidos = recv(sockfd, buffer, BUFFER_SIZE - 1, 0);
-        if (bytes_recibidos == -1) {
+        if (bytes_recibidos == -1)
+        {
             perror("recv");
             break;
-        } else if (bytes_recibidos == 0) {
+        }
+        else if (bytes_recibidos == 0)
+        {
             printf("Servidor cerró la conexión\n");
             break;
         }
-        
         buffer[bytes_recibidos] = '\0';
         printf("Respuesta del servidor: %s", buffer);
     }
-    
     close(sockfd);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -634,73 +628,67 @@ Respuesta del servidor: Hola servidor
 
 ```{code-block} c
 :linenos:
+#include <arpa/inet.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
 #include <sys/socket.h>
-
+#include <unistd.h>
 #define PUERTO 8080
 #define BUFFER_SIZE 1024
-
-int main(void) {
+int main(void)
+{
     int sockfd;
     struct sockaddr_in servidor, cliente;
     socklen_t cliente_len;
     char buffer[BUFFER_SIZE];
     ssize_t bytes_recibidos;
-    
     // Crear socket UDP
     sockfd = socket(AF_INET, SOCK_DGRAM, 0);
-    if (sockfd == -1) {
+    if (sockfd == -1)
+    {
         perror("socket");
         exit(EXIT_FAILURE);
     }
-    
     // Configurar dirección
     memset(&servidor, 0, sizeof(servidor));
     servidor.sin_family = AF_INET;
     servidor.sin_addr.s_addr = INADDR_ANY;
     servidor.sin_port = htons(PUERTO);
-    
     // Vincular
-    if (bind(sockfd, (struct sockaddr*)&servidor, sizeof(servidor)) == -1) {
+    if (bind(sockfd, (struct sockaddr *)&servidor, sizeof(servidor)) == -1)
+    {
         perror("bind");
         close(sockfd);
         exit(EXIT_FAILURE);
     }
-    
     printf("Servidor UDP escuchando en puerto %d...\n", PUERTO);
-    
     // Recibir y responder datagramas
-    while (1) {
+    while (1)
+    {
         cliente_len = sizeof(cliente);
         bytes_recibidos = recvfrom(sockfd, buffer, BUFFER_SIZE - 1, 0,
-                                   (struct sockaddr*)&cliente, &cliente_len);
-        
-        if (bytes_recibidos == -1) {
+                                   (struct sockaddr *)&cliente, &cliente_len);
+        if (bytes_recibidos == -1)
+        {
             perror("recvfrom");
             continue;
         }
-        
         buffer[bytes_recibidos] = '\0';
-        
         char ip_cliente[INET_ADDRSTRLEN];
         inet_ntop(AF_INET, &cliente.sin_addr, ip_cliente, sizeof(ip_cliente));
-        printf("Recibido de %s:%d: %s", ip_cliente, ntohs(cliente.sin_port), buffer);
-        
+        printf("Recibido de %s:%d: %s", ip_cliente, ntohs(cliente.sin_port),
+               buffer);
         // Enviar respuesta
         if (sendto(sockfd, buffer, bytes_recibidos, 0,
-                   (struct sockaddr*)&cliente, cliente_len) == -1) {
+                   (struct sockaddr *)&cliente, cliente_len) == -1)
+        {
             perror("sendto");
         }
     }
-    
     close(sockfd);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -708,64 +696,60 @@ int main(void) {
 
 ```{code-block} c
 :linenos:
+#include <arpa/inet.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
 #include <sys/socket.h>
-
+#include <unistd.h>
 #define PUERTO 8080
 #define BUFFER_SIZE 1024
-
-int main(void) {
+int main(void)
+{
     int sockfd;
     struct sockaddr_in servidor;
     socklen_t servidor_len;
     char buffer[BUFFER_SIZE];
     char mensaje[BUFFER_SIZE];
     ssize_t bytes_recibidos;
-    
     // Crear socket UDP
     sockfd = socket(AF_INET, SOCK_DGRAM, 0);
-    if (sockfd == -1) {
+    if (sockfd == -1)
+    {
         perror("socket");
         exit(EXIT_FAILURE);
     }
-    
     // Configurar dirección del servidor
     memset(&servidor, 0, sizeof(servidor));
     servidor.sin_family = AF_INET;
     servidor.sin_port = htons(PUERTO);
     inet_pton(AF_INET, "127.0.0.1", &servidor.sin_addr);
-    
     printf("Cliente UDP. Escribe mensajes (Ctrl+D para salir):\n");
-    
-    while (fgets(mensaje, sizeof(mensaje), stdin) != NULL) {
+    while (fgets(mensaje, sizeof(mensaje), stdin) != NULL)
+    {
         // Enviar datagrama
         servidor_len = sizeof(servidor);
         if (sendto(sockfd, mensaje, strlen(mensaje), 0,
-                   (struct sockaddr*)&servidor, servidor_len) == -1) {
+                   (struct sockaddr *)&servidor, servidor_len) == -1)
+        {
             perror("sendto");
             break;
         }
-        
         // Recibir respuesta
-        bytes_recibidos = recvfrom(sockfd, buffer, BUFFER_SIZE - 1, 0,
-                                   (struct sockaddr*)&servidor, &servidor_len);
-        if (bytes_recibidos == -1) {
+        bytes_recibidos =
+            recvfrom(sockfd, buffer, BUFFER_SIZE - 1, 0,
+                     (struct sockaddr *)&servidor, &servidor_len);
+        if (bytes_recibidos == -1)
+        {
             perror("recvfrom");
             break;
         }
-        
         buffer[bytes_recibidos] = '\0';
         printf("Respuesta: %s", buffer);
     }
-    
     close(sockfd);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -775,14 +759,11 @@ En lugar de codificar IPs, usá `getaddrinfo()` para resolver nombres de host.
 
 ```{code-block} c
 :linenos:
-#include <sys/types.h>
-#include <sys/socket.h>
 #include <netdb.h>
-
+#include <sys/socket.h>
+#include <sys/types.h>
 int getaddrinfo(const char *node, const char *service,
-                const struct addrinfo *hints,
-                struct addrinfo **res);
-
+                const struct addrinfo *hints, struct addrinfo **res);
 ```
 <!-- {code-block} c -->
 
@@ -790,77 +771,70 @@ int getaddrinfo(const char *node, const char *service,
 
 ```{code-block} c
 :linenos:
+#include <netdb.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
 #include <sys/socket.h>
-#include <netdb.h>
-
-int main(int argc, char *argv[]) {
-    if (argc != 3) {
+#include <sys/types.h>
+#include <unistd.h>
+int main(int argc, char *argv[])
+{
+    if (argc != 3)
+    {
         fprintf(stderr, "Uso: %s <host> <puerto>\n", argv[0]);
         exit(EXIT_FAILURE);
     }
-    
     const char *host = argv[1];
     const char *puerto = argv[2];
-    
     struct addrinfo hints, *res, *p;
     int sockfd, status;
-    
     // Configurar hints
     memset(&hints, 0, sizeof(hints));
     hints.ai_family = AF_UNSPEC;     // IPv4 o IPv6
-    hints.ai_socktype = SOCK_STREAM;  // TCP
-    
+    hints.ai_socktype = SOCK_STREAM; // TCP
     // Resolver nombre
     status = getaddrinfo(host, puerto, &hints, &res);
-    if (status != 0) {
+    if (status != 0)
+    {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(status));
         exit(EXIT_FAILURE);
     }
-    
     // Intentar conectar con cada dirección obtenida
-    for (p = res; p != NULL; p = p->ai_next) {
+    for (p = res; p != NULL; p = p->ai_next)
+    {
         sockfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
-        if (sockfd == -1) {
+        if (sockfd == -1)
+        {
             continue;
         }
-        
-        if (connect(sockfd, p->ai_addr, p->ai_addrlen) != -1) {
-            break;  // Conectado exitosamente
+        if (connect(sockfd, p->ai_addr, p->ai_addrlen) != -1)
+        {
+            break; // Conectado exitosamente
         }
-        
         close(sockfd);
     }
-    
-    if (p == NULL) {
+    if (p == NULL)
+    {
         fprintf(stderr, "No se pudo conectar\n");
         freeaddrinfo(res);
         exit(EXIT_FAILURE);
     }
-    
     printf("Conectado a %s:%s\n", host, puerto);
-    
     // Usar el socket...
     const char *mensaje = "GET / HTTP/1.0\r\n\r\n";
     send(sockfd, mensaje, strlen(mensaje), 0);
-    
     char buffer[4096];
     ssize_t n;
-    while ((n = recv(sockfd, buffer, sizeof(buffer) - 1, 0)) > 0) {
+    while ((n = recv(sockfd, buffer, sizeof(buffer) - 1, 0)) > 0)
+    {
         buffer[n] = '\0';
         printf("%s", buffer);
     }
-    
     close(sockfd);
     freeaddrinfo(res);
-    
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -876,106 +850,103 @@ int main(int argc, char *argv[]) {
 
 ```{code-block} c
 :linenos:
+#include <arpa/inet.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
 #include <sys/socket.h>
 #include <sys/wait.h>
-#include <signal.h>
-
+#include <unistd.h>
 #define PUERTO 8080
 #define BACKLOG 10
 #define BUFFER_SIZE 1024
-
-void manejar_cliente(int cliente_fd) {
+void manejar_cliente(int cliente_fd)
+{
     char buffer[BUFFER_SIZE];
     ssize_t bytes;
-    
-    while ((bytes = recv(cliente_fd, buffer, BUFFER_SIZE - 1, 0)) > 0) {
+    while ((bytes = recv(cliente_fd, buffer, BUFFER_SIZE - 1, 0)) > 0)
+    {
         buffer[bytes] = '\0';
         printf("[PID %d] Recibido: %s", getpid(), buffer);
         send(cliente_fd, buffer, bytes, 0);
     }
-    
     close(cliente_fd);
     exit(0);
 }
-
-void manejador_sigchld(int sig) {
+void manejador_sigchld(int sig)
+{
     (void)sig;
     // Recolectar procesos hijo zombies
-    while (waitpid(-1, NULL, WNOHANG) > 0);
+    while (waitpid(-1, NULL, WNOHANG) > 0)
+        ;
 }
-
-int main(void) {
+int main(void)
+{
     int servidor_fd, cliente_fd;
     struct sockaddr_in servidor, cliente;
     socklen_t cliente_len;
-    
     // Configurar manejador de SIGCHLD
     signal(SIGCHLD, manejador_sigchld);
-    
     // Crear y configurar servidor
     servidor_fd = socket(AF_INET, SOCK_STREAM, 0);
-    if (servidor_fd == -1) {
+    if (servidor_fd == -1)
+    {
         perror("socket");
         exit(EXIT_FAILURE);
     }
-    
     int opt = 1;
     setsockopt(servidor_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
-    
     memset(&servidor, 0, sizeof(servidor));
     servidor.sin_family = AF_INET;
     servidor.sin_addr.s_addr = INADDR_ANY;
     servidor.sin_port = htons(PUERTO);
-    
-    if (bind(servidor_fd, (struct sockaddr*)&servidor, sizeof(servidor)) == -1) {
+    if (bind(servidor_fd, (struct sockaddr *)&servidor, sizeof(servidor)) ==
+        -1)
+    {
         perror("bind");
         exit(EXIT_FAILURE);
     }
-    
-    if (listen(servidor_fd, BACKLOG) == -1) {
+    if (listen(servidor_fd, BACKLOG) == -1)
+    {
         perror("listen");
         exit(EXIT_FAILURE);
     }
-    
     printf("Servidor multiproceso escuchando en puerto %d...\n", PUERTO);
-    
-    while (1) {
+    while (1)
+    {
         cliente_len = sizeof(cliente);
-        cliente_fd = accept(servidor_fd, (struct sockaddr*)&cliente, &cliente_len);
-        
-        if (cliente_fd == -1) {
+        cliente_fd =
+            accept(servidor_fd, (struct sockaddr *)&cliente, &cliente_len);
+        if (cliente_fd == -1)
+        {
             perror("accept");
             continue;
         }
-        
         char ip[INET_ADDRSTRLEN];
         inet_ntop(AF_INET, &cliente.sin_addr, ip, sizeof(ip));
         printf("Cliente conectado: %s:%d\n", ip, ntohs(cliente.sin_port));
-        
         pid_t pid = fork();
-        
-        if (pid == -1) {
+        if (pid == -1)
+        {
             perror("fork");
             close(cliente_fd);
-        } else if (pid == 0) {
+        }
+        else if (pid == 0)
+        {
             // Proceso hijo
-            close(servidor_fd);  // No necesita el socket servidor
+            close(servidor_fd); // No necesita el socket servidor
             manejar_cliente(cliente_fd);
-        } else {
+        }
+        else
+        {
             // Proceso padre
-            close(cliente_fd);  // No necesita el socket cliente
+            close(cliente_fd); // No necesita el socket cliente
         }
     }
-    
     close(servidor_fd);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -983,97 +954,89 @@ int main(void) {
 
 ```{code-block} c
 :linenos:
+#include <arpa/inet.h>
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <arpa/inet.h>
 #include <sys/socket.h>
-
+#include <unistd.h>
 #define PUERTO 8080
 #define BACKLOG 10
 #define BUFFER_SIZE 1024
-
-void* manejar_cliente(void* arg) {
-    int cliente_fd = *(int*)arg;
+void *manejar_cliente(void *arg)
+{
+    int cliente_fd = *(int *)arg;
     free(arg);
-    
-    pthread_detach(pthread_self());  // Auto-limpieza
-    
+    pthread_detach(pthread_self()); // Auto-limpieza
     char buffer[BUFFER_SIZE];
     ssize_t bytes;
-    
-    while ((bytes = recv(cliente_fd, buffer, BUFFER_SIZE - 1, 0)) > 0) {
+    while ((bytes = recv(cliente_fd, buffer, BUFFER_SIZE - 1, 0)) > 0)
+    {
         buffer[bytes] = '\0';
         printf("[Thread %lu] Recibido: %s", pthread_self(), buffer);
         send(cliente_fd, buffer, bytes, 0);
     }
-    
     close(cliente_fd);
     return NULL;
 }
-
-int main(void) {
+int main(void)
+{
     int servidor_fd, cliente_fd;
     struct sockaddr_in servidor, cliente;
     socklen_t cliente_len;
-    
     servidor_fd = socket(AF_INET, SOCK_STREAM, 0);
-    if (servidor_fd == -1) {
+    if (servidor_fd == -1)
+    {
         perror("socket");
         exit(EXIT_FAILURE);
     }
-    
     int opt = 1;
     setsockopt(servidor_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
-    
     memset(&servidor, 0, sizeof(servidor));
     servidor.sin_family = AF_INET;
     servidor.sin_addr.s_addr = INADDR_ANY;
     servidor.sin_port = htons(PUERTO);
-    
-    if (bind(servidor_fd, (struct sockaddr*)&servidor, sizeof(servidor)) == -1) {
+    if (bind(servidor_fd, (struct sockaddr *)&servidor, sizeof(servidor)) ==
+        -1)
+    {
         perror("bind");
         exit(EXIT_FAILURE);
     }
-    
-    if (listen(servidor_fd, BACKLOG) == -1) {
+    if (listen(servidor_fd, BACKLOG) == -1)
+    {
         perror("listen");
         exit(EXIT_FAILURE);
     }
-    
     printf("Servidor multihilo escuchando en puerto %d...\n", PUERTO);
-    
-    while (1) {
+    while (1)
+    {
         cliente_len = sizeof(cliente);
-        cliente_fd = accept(servidor_fd, (struct sockaddr*)&cliente, &cliente_len);
-        
-        if (cliente_fd == -1) {
+        cliente_fd =
+            accept(servidor_fd, (struct sockaddr *)&cliente, &cliente_len);
+        if (cliente_fd == -1)
+        {
             perror("accept");
             continue;
         }
-        
         char ip[INET_ADDRSTRLEN];
         inet_ntop(AF_INET, &cliente.sin_addr, ip, sizeof(ip));
         printf("Cliente conectado: %s:%d\n", ip, ntohs(cliente.sin_port));
-        
         // Crear thread para manejar cliente
         pthread_t thread_id;
-        int* cliente_fd_ptr = malloc(sizeof(int));
+        int *cliente_fd_ptr = malloc(sizeof(int));
         *cliente_fd_ptr = cliente_fd;
-        
-        if (pthread_create(&thread_id, NULL, manejar_cliente, cliente_fd_ptr) != 0) {
+        if (pthread_create(&thread_id, NULL, manejar_cliente,
+                           cliente_fd_ptr) != 0)
+        {
             perror("pthread_create");
             close(cliente_fd);
             free(cliente_fd_ptr);
         }
     }
-    
     close(servidor_fd);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1091,148 +1054,144 @@ Para manejar múltiples conexiones sin threads ni procesos.
 
 ```{code-block} c
 :linenos:
+#include <arpa/inet.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
 #include <sys/select.h>
-
+#include <sys/socket.h>
+#include <unistd.h>
 #define PUERTO 8080
 #define BACKLOG 10
 #define BUFFER_SIZE 1024
 #define MAX_CLIENTES 30
-
-int main(void) {
+int main(void)
+{
     int servidor_fd, cliente_fd, max_fd, actividad, i;
     int clientes[MAX_CLIENTES];
     struct sockaddr_in servidor, cliente;
     socklen_t cliente_len;
     char buffer[BUFFER_SIZE];
     fd_set read_fds;
-    
     // Inicializar array de clientes
-    for (i = 0; i < MAX_CLIENTES; i++) {
+    for (i = 0; i < MAX_CLIENTES; i++)
+    {
         clientes[i] = 0;
     }
-    
     // Crear servidor
     servidor_fd = socket(AF_INET, SOCK_STREAM, 0);
-    if (servidor_fd == -1) {
+    if (servidor_fd == -1)
+    {
         perror("socket");
         exit(EXIT_FAILURE);
     }
-    
     int opt = 1;
     setsockopt(servidor_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
-    
     memset(&servidor, 0, sizeof(servidor));
     servidor.sin_family = AF_INET;
     servidor.sin_addr.s_addr = INADDR_ANY;
     servidor.sin_port = htons(PUERTO);
-    
-    if (bind(servidor_fd, (struct sockaddr*)&servidor, sizeof(servidor)) == -1) {
+    if (bind(servidor_fd, (struct sockaddr *)&servidor, sizeof(servidor)) ==
+        -1)
+    {
         perror("bind");
         exit(EXIT_FAILURE);
     }
-    
-    if (listen(servidor_fd, BACKLOG) == -1) {
+    if (listen(servidor_fd, BACKLOG) == -1)
+    {
         perror("listen");
         exit(EXIT_FAILURE);
     }
-    
     printf("Servidor con select() escuchando en puerto %d...\n", PUERTO);
-    
-    while (1) {
+    while (1)
+    {
         // Limpiar el conjunto de descriptores
         FD_ZERO(&read_fds);
-        
         // Agregar socket servidor
         FD_SET(servidor_fd, &read_fds);
         max_fd = servidor_fd;
-        
         // Agregar sockets clientes
-        for (i = 0; i < MAX_CLIENTES; i++) {
+        for (i = 0; i < MAX_CLIENTES; i++)
+        {
             int sd = clientes[i];
-            
-            if (sd > 0) {
+            if (sd > 0)
+            {
                 FD_SET(sd, &read_fds);
             }
-            
-            if (sd > max_fd) {
+            if (sd > max_fd)
+            {
                 max_fd = sd;
             }
         }
-        
         // Esperar actividad en algún socket
         actividad = select(max_fd + 1, &read_fds, NULL, NULL, NULL);
-        
-        if (actividad < 0) {
+        if (actividad < 0)
+        {
             perror("select");
             continue;
         }
-        
         // Nueva conexión entrante
-        if (FD_ISSET(servidor_fd, &read_fds)) {
+        if (FD_ISSET(servidor_fd, &read_fds))
+        {
             cliente_len = sizeof(cliente);
-            cliente_fd = accept(servidor_fd, (struct sockaddr*)&cliente, &cliente_len);
-            
-            if (cliente_fd < 0) {
+            cliente_fd =
+                accept(servidor_fd, (struct sockaddr *)&cliente, &cliente_len);
+            if (cliente_fd < 0)
+            {
                 perror("accept");
                 continue;
             }
-            
             char ip[INET_ADDRSTRLEN];
             inet_ntop(AF_INET, &cliente.sin_addr, ip, sizeof(ip));
-            printf("Nueva conexión: %s:%d (socket %d)\n", 
-                   ip, ntohs(cliente.sin_port), cliente_fd);
-            
+            printf("Nueva conexión: %s:%d (socket %d)\n", ip,
+                   ntohs(cliente.sin_port), cliente_fd);
             // Agregar a array de clientes
-            for (i = 0; i < MAX_CLIENTES; i++) {
-                if (clientes[i] == 0) {
+            for (i = 0; i < MAX_CLIENTES; i++)
+            {
+                if (clientes[i] == 0)
+                {
                     clientes[i] = cliente_fd;
                     printf("Agregado a lista en posición %d\n", i);
                     break;
                 }
             }
-            
-            if (i == MAX_CLIENTES) {
+            if (i == MAX_CLIENTES)
+            {
                 printf("Máximo de clientes alcanzado. Conexión rechazada.\n");
                 close(cliente_fd);
             }
         }
-        
         // Operación de E/S en algún cliente
-        for (i = 0; i < MAX_CLIENTES; i++) {
+        for (i = 0; i < MAX_CLIENTES; i++)
+        {
             int sd = clientes[i];
-            
-            if (FD_ISSET(sd, &read_fds)) {
+            if (FD_ISSET(sd, &read_fds))
+            {
                 ssize_t bytes = recv(sd, buffer, BUFFER_SIZE - 1, 0);
-                
-                if (bytes == 0) {
+                if (bytes == 0)
+                {
                     // Cliente desconectado
-                    getpeername(sd, (struct sockaddr*)&cliente, &cliente_len);
+                    getpeername(sd, (struct sockaddr *)&cliente, &cliente_len);
                     char ip[INET_ADDRSTRLEN];
                     inet_ntop(AF_INET, &cliente.sin_addr, ip, sizeof(ip));
-                    printf("Cliente desconectado: %s:%d\n", ip, ntohs(cliente.sin_port));
-                    
+                    printf("Cliente desconectado: %s:%d\n", ip,
+                           ntohs(cliente.sin_port));
                     close(sd);
                     clientes[i] = 0;
-                } else {
+                }
+                else
+                {
                     // Datos recibidos
                     buffer[bytes] = '\0';
                     printf("Recibido: %s", buffer);
-                    send(sd, buffer, bytes, 0);  // Echo
+                    send(sd, buffer, bytes, 0); // Echo
                 }
             }
         }
     }
-    
     close(servidor_fd);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1249,8 +1208,8 @@ Para escalar mejor, usá `poll()` o `epoll()` (específico de Linux).
 Configurar comportamiento del socket.
 
 ``` c
-int setsockopt(int sockfd, int level, int optname, 
-               const void *optval, socklen_t optlen);
+int setsockopt(int sockfd, int level, int optname, const void *optval,
+               socklen_t optlen);
 ```
 <!-- c -->
 
@@ -1314,7 +1273,6 @@ Por defecto, operaciones como `accept()` y `recv()` son bloqueantes.
 
 ``` c
 #include <fcntl.h>
-
 int flags = fcntl(sockfd, F_GETFL, 0);
 fcntl(sockfd, F_SETFL, flags | O_NONBLOCK);
 ```
@@ -1328,18 +1286,19 @@ hay datos.
 ```{code-block} c
 :linenos:
 #include <errno.h>
-
 char buffer[1024];
 ssize_t n = recv(sockfd, buffer, sizeof(buffer), 0);
-
-if (n == -1) {
-    if (errno == EWOULDBLOCK || errno == EAGAIN) {
+if (n == -1)
+{
+    if (errno == EWOULDBLOCK || errno == EAGAIN)
+    {
         printf("No hay datos disponibles ahora\n");
-    } else {
+    }
+    else
+    {
         perror("recv");
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1369,7 +1328,7 @@ correcto.
 
 **Solución:** Ignorar la señal o manejarla:
 ``` c
-signal(SIGPIPE, SIG_IGN);  // Ignorar
+signal(SIGPIPE, SIG_IGN); // Ignorar
 ```
 <!-- c -->
 
@@ -1385,7 +1344,8 @@ send(sockfd, buffer, len, MSG_NOSIGNAL);
 
 **Solución:** Cerrar el socket localmente:
 ``` c
-if (recv(sockfd, buffer, sizeof(buffer), 0) == 0) {
+if (recv(sockfd, buffer, sizeof(buffer), 0) == 0)
+{
     printf("Conexión cerrada\n");
     close(sockfd);
 }
@@ -1418,59 +1378,56 @@ adoptar un esquema defensivo estricto:
 
 :::{code-block}c
 :linenos:
-
+#include <errno.h>
+#include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <errno.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
-
-void manejar_conexion(int cliente_fd) {
+#include <unistd.h>
+void manejar_conexion(int cliente_fd)
+{
     char buffer[256];
     // Recibir datos con verificación de error
     ssize_t bytes_recibidos = recv(cliente_fd, buffer, sizeof(buffer) - 1, 0);
-    if (bytes_recibidos == -1) {
+    if (bytes_recibidos == -1)
+    {
         fprintf(stderr, "Error al recibir datos: %s\n", strerror(errno));
-    } else if (bytes_recibidos > 0) {
+    }
+    else if (bytes_recibidos > 0)
+    {
         buffer[bytes_recibidos] = '\0';
         printf("Recibido: %s\n", buffer);
     }
-    
     // Garantizar el cierre simétrico del socket del cliente
     close(cliente_fd);
 }
-
-int iniciar_servidor(int puerto) {
+int iniciar_servidor(int puerto)
+{
     int servidor_fd = socket(AF_INET, SOCK_STREAM, 0);
-    if (servidor_fd == -1) {
+    if (servidor_fd == -1)
+    {
         perror("Error al crear el socket del servidor");
         return -1;
     }
-
-    struct sockaddr_in servidor = {
-        .sin_family = AF_INET,
-        .sin_port = htons(puerto),
-        .sin_addr.s_addr = INADDR_ANY
-    };
-
-    if (bind(servidor_fd, (struct sockaddr *)&servidor, sizeof(servidor)) == -1)
+    struct sockaddr_in servidor = {.sin_family = AF_INET,
+                                   .sin_port = htons(puerto),
+                                   .sin_addr.s_addr = INADDR_ANY};
+    if (bind(servidor_fd, (struct sockaddr *)&servidor, sizeof(servidor)) ==
+        -1)
     {
         perror("Error en bind del servidor");
         close(servidor_fd); // Cierre simétrico en caso de error intermedio
         return -1;
     }
-
-    if (listen(servidor_fd, 10) == -1) {
+    if (listen(servidor_fd, 10) == -1)
+    {
         perror("Error en listen");
         close(servidor_fd);
         return -1;
     }
-
     return servidor_fd;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1488,60 +1445,59 @@ Un ejemplo de protocolo personalizado para un chat.
 
 ```{code-block} c
 :linenos:
+#include <arpa/inet.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
 #include <sys/socket.h>
-
+#include <unistd.h>
 #define PUERTO 8080
 #define MAX_CLIENTES 10
 #define BUFFER_SIZE 1024
-
-typedef enum {
+typedef enum
+{
     MSG_TEXTO = 1,
     MSG_NOMBRE = 2,
     MSG_SALIR = 3
 } tipo_mensaje_t;
-
-typedef struct {
+typedef struct
+{
     int sockfd;
     char nombre[50];
 } cliente_t;
-
 cliente_t clientes[MAX_CLIENTES];
 int num_clientes = 0;
-
-void broadcast(const char* mensaje, int remitente_fd) {
-    for (int i = 0; i < num_clientes; i++) {
-        if (clientes[i].sockfd != remitente_fd) {
+void broadcast(const char *mensaje, int remitente_fd)
+{
+    for (int i = 0; i < num_clientes; i++)
+    {
+        if (clientes[i].sockfd != remitente_fd)
+        {
             send(clientes[i].sockfd, mensaje, strlen(mensaje), 0);
         }
     }
 }
-
-void manejar_mensaje(int cliente_fd, char* buffer, ssize_t len) {
+void manejar_mensaje(int cliente_fd, char *buffer, ssize_t len)
+{
     // Formato simple: tipo:contenido
     char tipo = buffer[0];
-    char* contenido = buffer + 2;  // Saltar "tipo:"
-    
-    if (tipo == MSG_TEXTO) {
+    char *contenido = buffer + 2; // Saltar "tipo:"
+    if (tipo == MSG_TEXTO)
+    {
         char mensaje[BUFFER_SIZE];
-        snprintf(mensaje, sizeof(mensaje), "%s: %s", 
+        snprintf(mensaje, sizeof(mensaje), "%s: %s",
                  clientes[cliente_fd].nombre, contenido);
         printf("%s", mensaje);
         broadcast(mensaje, cliente_fd);
     }
 }
-
-int main(void) {
+int main(void)
+{
     // Implementación completa del servidor de chat...
     printf("Servidor de chat en puerto %d\n", PUERTO);
     // ... código del servidor ...
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1601,7 +1557,8 @@ lsof -i -n -P        # Todos los sockets
 ### 1. Siempre Verificar Retornos
 
 ``` c
-if (send(sockfd, buffer, len, 0) == -1) {
+if (send(sockfd, buffer, len, 0) == -1)
+{
     perror("send");
     // Manejar error
 }
@@ -1627,7 +1584,7 @@ close(sockfd);
 ### 4. Manejar Señales
 
 ``` c
-signal(SIGPIPE, SIG_IGN);  // Ignorar broken pipe
+signal(SIGPIPE, SIG_IGN); // Ignorar broken pipe
 ```
 <!-- c -->
 
@@ -1646,11 +1603,12 @@ setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
 Nunca confiar en datos recibidos por la red:
 
 ``` c
-if (bytes_recibidos >= BUFFER_SIZE) {
+if (bytes_recibidos >= BUFFER_SIZE)
+{
     fprintf(stderr, "Mensaje demasiado largo\n");
     return;
 }
-buffer[bytes_recibidos] = '\0';  // Null-terminar
+buffer[bytes_recibidos] = '\0'; // Null-terminar
 ```
 <!-- c -->
 
@@ -1660,24 +1618,25 @@ buffer[bytes_recibidos] = '\0';  // Null-terminar
 
 ```{code-block} c
 :linenos:
-ssize_t enviar_completo(int sockfd, const void *buf, size_t len) {
+ssize_t enviar_completo(int sockfd, const void *buf, size_t len)
+{
     size_t total = 0;
     size_t restante = len;
     ssize_t n;
-    
-    while (total < len) {
+    while (total < len)
+    {
         n = send(sockfd, buf + total, restante, 0);
-        if (n == -1) {
-            if (errno == EINTR) continue;  // Interrumpido, reintentar
+        if (n == -1)
+        {
+            if (errno == EINTR)
+                continue; // Interrumpido, reintentar
             return -1;
         }
         total += n;
         restante -= n;
     }
-    
     return total;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1685,17 +1644,16 @@ ssize_t enviar_completo(int sockfd, const void *buf, size_t len) {
 
 ```{code-block} c
 :linenos:
+#include <arpa/inet.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
 #include <sys/socket.h>
-
+#include <unistd.h>
 #define PUERTO 8080
 #define BUFFER_SIZE 4096
-
-void enviar_respuesta(int cliente_fd, const char* contenido) {
+void enviar_respuesta(int cliente_fd, const char *contenido)
+{
     char encabezado[256];
     snprintf(encabezado, sizeof(encabezado),
              "HTTP/1.1 200 OK\r\n"
@@ -1704,91 +1662,80 @@ void enviar_respuesta(int cliente_fd, const char* contenido) {
              "Connection: close\r\n"
              "\r\n",
              strlen(contenido));
-    
     send(cliente_fd, encabezado, strlen(encabezado), 0);
     send(cliente_fd, contenido, strlen(contenido), 0);
 }
-
-void manejar_solicitud(int cliente_fd) {
+void manejar_solicitud(int cliente_fd)
+{
     char buffer[BUFFER_SIZE];
     ssize_t bytes = recv(cliente_fd, buffer, sizeof(buffer) - 1, 0);
-    
-    if (bytes <= 0) {
+    if (bytes <= 0)
+    {
         close(cliente_fd);
         return;
     }
-    
     buffer[bytes] = '\0';
     printf("Solicitud:\n%s\n", buffer);
-    
     // Parsear primera línea (método y ruta)
     char metodo[16], ruta[256];
     sscanf(buffer, "%s %s", metodo, ruta);
-    
-    const char* respuesta = 
-        "<!DOCTYPE html>"
-        "<html>"
-        "<head><title>Servidor HTTP en C</title></head>"
-        "<body>"
-        "<h1>¡Hola desde C!</h1>"
-        "<p>Ruta solicitada: %s</p>"
-        "</body>"
-        "</html>";
-    
+    const char *respuesta = "<!DOCTYPE html>"
+                            "<html>"
+                            "<head><title>Servidor HTTP en C</title></head>"
+                            "<body>"
+                            "<h1>¡Hola desde C!</h1>"
+                            "<p>Ruta solicitada: %s</p>"
+                            "</body>"
+                            "</html>";
     char contenido[BUFFER_SIZE];
     snprintf(contenido, sizeof(contenido), respuesta, ruta);
-    
     enviar_respuesta(cliente_fd, contenido);
     close(cliente_fd);
 }
-
-int main(void) {
+int main(void)
+{
     int servidor_fd, cliente_fd;
     struct sockaddr_in servidor, cliente;
     socklen_t cliente_len;
-    
     servidor_fd = socket(AF_INET, SOCK_STREAM, 0);
-    if (servidor_fd == -1) {
+    if (servidor_fd == -1)
+    {
         perror("socket");
         exit(EXIT_FAILURE);
     }
-    
     int opt = 1;
     setsockopt(servidor_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
-    
     memset(&servidor, 0, sizeof(servidor));
     servidor.sin_family = AF_INET;
     servidor.sin_addr.s_addr = INADDR_ANY;
     servidor.sin_port = htons(PUERTO);
-    
-    if (bind(servidor_fd, (struct sockaddr*)&servidor, sizeof(servidor)) == -1) {
+    if (bind(servidor_fd, (struct sockaddr *)&servidor, sizeof(servidor)) ==
+        -1)
+    {
         perror("bind");
         exit(EXIT_FAILURE);
     }
-    
-    if (listen(servidor_fd, 10) == -1) {
+    if (listen(servidor_fd, 10) == -1)
+    {
         perror("listen");
         exit(EXIT_FAILURE);
     }
-    
     printf("Servidor HTTP escuchando en http://localhost:%d/\n", PUERTO);
-    
-    while (1) {
+    while (1)
+    {
         cliente_len = sizeof(cliente);
-        cliente_fd = accept(servidor_fd, (struct sockaddr*)&cliente, &cliente_len);
-        
-        if (cliente_fd == -1) {
+        cliente_fd =
+            accept(servidor_fd, (struct sockaddr *)&cliente, &cliente_len);
+        if (cliente_fd == -1)
+        {
             perror("accept");
             continue;
         }
-        
         manejar_solicitud(cliente_fd);
     }
-    
     close(servidor_fd);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1805,7 +1752,8 @@ gcc servidor_http.c -o servidor_http
 ### 1. Validación de Entrada
 
 ``` c
-if (bytes_recibidos < 0 || bytes_recibidos >= BUFFER_SIZE) {
+if (bytes_recibidos < 0 || bytes_recibidos >= BUFFER_SIZE)
+{
     fprintf(stderr, "Datos inválidos\n");
     close(sockfd);
     return;
@@ -1818,13 +1766,12 @@ if (bytes_recibidos < 0 || bytes_recibidos >= BUFFER_SIZE) {
 ```{code-block} c
 :linenos:
 #define MAX_CONEXIONES 100
-
-if (num_conexiones >= MAX_CONEXIONES) {
+if (num_conexiones >= MAX_CONEXIONES)
+{
     fprintf(stderr, "Máximo de conexiones alcanzado\n");
     close(cliente_fd);
     continue;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1832,7 +1779,7 @@ if (num_conexiones >= MAX_CONEXIONES) {
 
 ``` c
 struct timeval tv;
-tv.tv_sec = 30;  // 30 segundos
+tv.tv_sec = 30; // 30 segundos
 tv.tv_usec = 0;
 setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
 ```
@@ -1844,23 +1791,22 @@ Para comunicación segura, usar OpenSSL:
 
 ```{code-block} c
 :linenos:
-#include <openssl/ssl.h>
 #include <openssl/err.h>
-
+#include <openssl/ssl.h>
 SSL_CTX *ctx = SSL_CTX_new(TLS_server_method());
 SSL *ssl = SSL_new(ctx);
 SSL_set_fd(ssl, cliente_fd);
-
-if (SSL_accept(ssl) <= 0) {
+if (SSL_accept(ssl) <= 0)
+{
     ERR_print_errors_fp(stderr);
-} else {
+}
+else
+{
     SSL_read(ssl, buffer, sizeof(buffer));
     SSL_write(ssl, respuesta, strlen(respuesta));
 }
-
 SSL_shutdown(ssl);
 SSL_free(ssl);
-
 ```
 <!-- {code-block} c -->
 
@@ -1960,18 +1906,16 @@ enviarlos por red:
 
 :::{code-block}c
 :caption: Problema: serialización frágil
-
 typedef enum {
     FORMATO_V1,
     FORMATO_V2,
     FORMATO_V3
 } version_formato_t;
-
 // Problemático: si se reordena el enum, los archivos guardados se corrompen
-void guardar_configuracion(FILE *archivo, version_formato_t version) {
-    fwrite(&version, sizeof(version), 1, archivo);  // ¡Peligroso!
+void guardar_configuracion(FILE *archivo, version_formato_t version)
+{
+    fwrite(&version, sizeof(version), 1, archivo); // ¡Peligroso!
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1980,46 +1924,54 @@ void guardar_configuracion(FILE *archivo, version_formato_t version) {
 :::{code-block}c
 :caption: Solución: serialización robusta
 :linenos:
-
 typedef enum {
     FORMATO_V1 = 100,    // Valores explícitos garantizan estabilidad
     FORMATO_V2 = 200,
     FORMATO_V3 = 300
 } version_formato_t;
-
 // Función para convertir enum a representación de protocolo estable
-uint32_t version_a_protocolo(version_formato_t version) {
-    switch (version) {
-        case FORMATO_V1: return 100;
-        case FORMATO_V2: return 200;
-        case FORMATO_V3: return 300;
-        default: return 0;  // Valor de error
+uint32_t version_a_protocolo(version_formato_t version)
+{
+    switch (version)
+    {
+    case FORMATO_V1:
+        return 100;
+    case FORMATO_V2:
+        return 200;
+    case FORMATO_V3:
+        return 300;
+    default:
+        return 0; // Valor de error
     }
 }
-
 // Función para convertir desde protocolo a enum
-version_formato_t protocolo_a_version(uint32_t valor) {
-    switch (valor) {
-        case 100: return FORMATO_V1;
-        case 200: return FORMATO_V2;
-        case 300: return FORMATO_V3;
-        default: return FORMATO_V1;  // Valor por defecto seguro
+version_formato_t protocolo_a_version(uint32_t valor)
+{
+    switch (valor)
+    {
+    case 100:
+        return FORMATO_V1;
+    case 200:
+        return FORMATO_V2;
+    case 300:
+        return FORMATO_V3;
+    default:
+        return FORMATO_V1; // Valor por defecto seguro
     }
 }
-
 // Guardar de forma segura
-void guardar_configuracion(FILE *archivo, version_formato_t version) {
+void guardar_configuracion(FILE *archivo, version_formato_t version)
+{
     uint32_t valor_protocolo = version_a_protocolo(version);
     fwrite(&valor_protocolo, sizeof(uint32_t), 1, archivo);
 }
-
 // Cargar de forma segura
-version_formato_t cargar_configuracion(FILE *archivo) {
+version_formato_t cargar_configuracion(FILE *archivo)
+{
     uint32_t valor_protocolo = 0;
     fread(&valor_protocolo, sizeof(uint32_t), 1, archivo);
     return protocolo_a_version(valor_protocolo);
 }
-
 :::
 <!-- {code-block}c -->
 

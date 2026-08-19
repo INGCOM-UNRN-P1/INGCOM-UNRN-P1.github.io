@@ -32,7 +32,8 @@ código, haciendo explícito el significado de cada valor.
 **Código con números mágicos:**
 
 ``` c
-if (edad >= 18 && edad < 65) {
+if (edad >= 18 && edad < 65)
+{
     aplicar_descuento(precio * 0.85);
 }
 ```
@@ -56,15 +57,15 @@ Si el descuento cambia de 15% a 20%, debés:
 ```{code-block} c
 :linenos:
 // Archivo 1
-if (intentos >= 3) {
+if (intentos >= 3)
+{
     bloquear_cuenta();
 }
-
 // Archivo 2
-if (intentos > 3) {  // ¿Error? ¿Inconsistencia?
+if (intentos > 3)
+{ // ¿Error? ¿Inconsistencia?
     notificar_administrador();
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -91,17 +92,16 @@ Los más comunes y evidentes:
 ```{code-block} c
 :linenos:
 // Malo
-if (temperatura > 100) {
+if (temperatura > 100)
+{
     activar_alarma();
 }
-
 // Bueno
 const int TEMPERATURA_EBULLICION_AGUA = 100;
-
-if (temperatura > TEMPERATURA_EBULLICION_AGUA) {
+if (temperatura > TEMPERATURA_EBULLICION_AGUA)
+{
     activar_alarma();
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -112,14 +112,11 @@ if (temperatura > TEMPERATURA_EBULLICION_AGUA) {
 // Malo
 double metros = pies * 0.3048;
 double kilogramos = libras * 0.453592;
-
 // Bueno
 const double METROS_POR_PIE = 0.3048;
 const double KG_POR_LIBRA = 0.453592;
-
 double metros = pies * METROS_POR_PIE;
 double kilogramos = libras * KG_POR_LIBRA;
-
 ```
 <!-- {code-block} c -->
 
@@ -131,14 +128,11 @@ double kilogramos = libras * KG_POR_LIBRA;
 char nombre[50];
 char apellido[50];
 fgets(nombre, 50, stdin);
-
 // Bueno
 #define MAX_NOMBRE 50
-
 char nombre[MAX_NOMBRE];
 char apellido[MAX_NOMBRE];
 fgets(nombre, MAX_NOMBRE, stdin);
-
 ```
 <!-- {code-block} c -->
 
@@ -147,29 +141,37 @@ fgets(nombre, MAX_NOMBRE, stdin);
 ```{code-block} c
 :linenos:
 // Malo
-if (resultado == -1) {
+if (resultado == -1)
+{
     printf("Error\n");
-} else if (resultado == 0) {
+}
+else if (resultado == 0)
+{
     printf("OK\n");
-} else if (resultado == 1) {
+}
+else if (resultado == 1)
+{
     printf("Advertencia\n");
 }
-
 // Bueno
-enum estado_resultado {
+enum estado_resultado
+{
     RESULTADO_ERROR = -1,
     RESULTADO_EXITO = 0,
     RESULTADO_ADVERTENCIA = 1
 };
-
-if (resultado == RESULTADO_ERROR) {
+if (resultado == RESULTADO_ERROR)
+{
     printf("Error\n");
-} else if (resultado == RESULTADO_EXITO) {
+}
+else if (resultado == RESULTADO_EXITO)
+{
     printf("OK\n");
-} else if (resultado == RESULTADO_ADVERTENCIA) {
+}
+else if (resultado == RESULTADO_ADVERTENCIA)
+{
     printf("Advertencia\n");
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -178,17 +180,16 @@ if (resultado == RESULTADO_ERROR) {
 ```{code-block} c
 :linenos:
 // Malo
-if (calificacion >= 60) {
+if (calificacion >= 60)
+{
     printf("Aprobado\n");
 }
-
 // Bueno
 const int CALIFICACION_MINIMA_APROBACION = 60;
-
-if (calificacion >= CALIFICACION_MINIMA_APROBACION) {
+if (calificacion >= CALIFICACION_MINIMA_APROBACION)
+{
     printf("Aprobado\n");
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -204,7 +205,7 @@ if (calificacion >= CALIFICACION_MINIMA_APROBACION) {
 ``` c
 const int INTENTOS_MAXIMOS = 3;
 const double PI = 3.14159265358979323846;
-const char* MENSAJE_BIENVENIDA = "Hola, usuario";
+const char *MENSAJE_BIENVENIDA = "Hola, usuario";
 ```
 <!-- c -->
 
@@ -212,17 +213,17 @@ const char* MENSAJE_BIENVENIDA = "Hola, usuario";
 
 ```{code-block} c
 :linenos:
-void procesar_pedido(double precio) {
-    const double IMPUESTO = 0.21;  // IVA en Argentina
+void procesar_pedido(double precio)
+{
+    const double IMPUESTO = 0.21; // IVA en Argentina
     const double DESCUENTO_MAYORISTA = 0.15;
-    
     double total = precio * (1 + IMPUESTO);
-    if (es_mayorista()) {
+    if (es_mayorista())
+    {
         total *= (1 - DESCUENTO_MAYORISTA);
     }
     // ...
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -243,14 +244,12 @@ void procesar_pedido(double precio) {
 #define MAX_USUARIOS 100
 #define LONGITUD_NOMBRE 50
 #define VERSION "1.0.3"
-
-typedef struct {
+typedef struct
+{
     char nombre[LONGITUD_NOMBRE];
     int id;
 } usuario_t;
-
 usuario_t usuarios[MAX_USUARIOS];
-
 ```
 <!-- {code-block} c -->
 
@@ -260,7 +259,8 @@ usuario_t usuarios[MAX_USUARIOS];
 
 ```{code-block} c
 :linenos:
-enum dias_semana {
+enum dias_semana
+{
     LUNES = 1,
     MARTES = 2,
     MIERCOLES = 3,
@@ -269,14 +269,13 @@ enum dias_semana {
     SABADO = 6,
     DOMINGO = 7
 };
-
-enum prioridad_tarea {
+enum prioridad_tarea
+{
     PRIORIDAD_BAJA,
     PRIORIDAD_MEDIA,
     PRIORIDAD_ALTA,
     PRIORIDAD_CRITICA
 };
-
 ```
 <!-- {code-block} c -->
 
@@ -285,7 +284,8 @@ enum prioridad_tarea {
 Para constantes que solo se usan en una función específica:
 
 ``` c
-double calcular_area_circulo(double radio) {
+double calcular_area_circulo(double radio)
+{
     static const double PI = 3.14159265358979323846;
     return PI * radio * radio;
 }
@@ -300,35 +300,33 @@ double calcular_area_circulo(double radio) {
 
 ```{code-block} c
 :linenos:
+#include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
-#include <stdbool.h>
-
-bool autenticar_usuario(const char* usuario, const char* password) {
+bool autenticar_usuario(const char *usuario, const char *password)
+{
     int intentos = 0;
-    
-    while (intentos < 3) {
-        if (strlen(password) < 8) {
+    while (intentos < 3)
+    {
+        if (strlen(password) < 8)
+        {
             printf("Password muy corta\n");
             return false;
         }
-        
-        if (strcmp(usuario, "admin") == 0 && 
-            strcmp(password, "12345678") == 0) {
+        if (strcmp(usuario, "admin") == 0 && strcmp(password, "12345678") == 0)
+        {
             return true;
         }
-        
         intentos++;
-        if (intentos < 3) {
+        if (intentos < 3)
+        {
             printf("Intento %d de 3 fallido\n", intentos);
         }
     }
-    
     // Bloquear por 300 segundos
     printf("Cuenta bloqueada por 300 segundos\n");
     return false;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -336,46 +334,41 @@ bool autenticar_usuario(const char* usuario, const char* password) {
 
 ```{code-block} c
 :linenos:
+#include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
-#include <stdbool.h>
-
 // Constantes de configuración del sistema
 const int MAX_INTENTOS_LOGIN = 3;
 const int LONGITUD_MINIMA_PASSWORD = 8;
 const int TIEMPO_BLOQUEO_SEGUNDOS = 300;
-
 // Credenciales (en producción vendrían de BD)
-const char* USUARIO_ADMIN = "admin";
-const char* PASSWORD_ADMIN = "12345678";  // Solo para demo
-
-bool autenticar_usuario(const char* usuario, const char* password) {
+const char *USUARIO_ADMIN = "admin";
+const char *PASSWORD_ADMIN = "12345678"; // Solo para demo
+bool autenticar_usuario(const char *usuario, const char *password)
+{
     int intentos = 0;
-    
-    while (intentos < MAX_INTENTOS_LOGIN) {
-        if (strlen(password) < LONGITUD_MINIMA_PASSWORD) {
-            printf("Password debe tener al menos %d caracteres\n", 
+    while (intentos < MAX_INTENTOS_LOGIN)
+    {
+        if (strlen(password) < LONGITUD_MINIMA_PASSWORD)
+        {
+            printf("Password debe tener al menos %d caracteres\n",
                    LONGITUD_MINIMA_PASSWORD);
             return false;
         }
-        
-        if (strcmp(usuario, USUARIO_ADMIN) == 0 && 
-            strcmp(password, PASSWORD_ADMIN) == 0) {
+        if (strcmp(usuario, USUARIO_ADMIN) == 0 &&
+            strcmp(password, PASSWORD_ADMIN) == 0)
+        {
             return true;
         }
-        
         intentos++;
-        if (intentos < MAX_INTENTOS_LOGIN) {
-            printf("Intento %d de %d fallido\n", 
-                   intentos, MAX_INTENTOS_LOGIN);
+        if (intentos < MAX_INTENTOS_LOGIN)
+        {
+            printf("Intento %d de %d fallido\n", intentos, MAX_INTENTOS_LOGIN);
         }
     }
-    
-    printf("Cuenta bloqueada por %d segundos\n", 
-           TIEMPO_BLOQUEO_SEGUNDOS);
+    printf("Cuenta bloqueada por %d segundos\n", TIEMPO_BLOQUEO_SEGUNDOS);
     return false;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -390,25 +383,31 @@ bool autenticar_usuario(const char* usuario, const char* password) {
 
 ```{code-block} c
 :linenos:
-void procesar_temperatura(double temp_fahrenheit) {
+void procesar_temperatura(double temp_fahrenheit)
+{
     double temp_celsius = (temp_fahrenheit - 32) * 5 / 9;
-    
-    if (temp_celsius < 0) {
+    if (temp_celsius < 0)
+    {
         printf("Congelación\n");
-    } else if (temp_celsius < 25) {
+    }
+    else if (temp_celsius < 25)
+    {
         printf("Frío\n");
-    } else if (temp_celsius < 35) {
+    }
+    else if (temp_celsius < 35)
+    {
         printf("Agradable\n");
-    } else {
+    }
+    else
+    {
         printf("Calor\n");
     }
-    
     // Alarma si supera 100°C
-    if (temp_celsius > 100) {
+    if (temp_celsius > 100)
+    {
         activar_alarma();
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -420,35 +419,39 @@ void procesar_temperatura(double temp_fahrenheit) {
 const double FAHRENHEIT_OFFSET = 32.0;
 const double CELSIUS_A_FAHRENHEIT_FACTOR = 9.0 / 5.0;
 const double FAHRENHEIT_A_CELSIUS_FACTOR = 5.0 / 9.0;
-
 // Umbrales de temperatura en Celsius
 const double TEMP_CONGELACION = 0.0;
 const double TEMP_FRIO = 25.0;
 const double TEMP_AGRADABLE = 35.0;
 const double TEMP_EBULLICION_AGUA = 100.0;
-
-double fahrenheit_a_celsius(double fahrenheit) {
+double fahrenheit_a_celsius(double fahrenheit)
+{
     return (fahrenheit - FAHRENHEIT_OFFSET) * FAHRENHEIT_A_CELSIUS_FACTOR;
 }
-
-void procesar_temperatura(double temp_fahrenheit) {
+void procesar_temperatura(double temp_fahrenheit)
+{
     double temp_celsius = fahrenheit_a_celsius(temp_fahrenheit);
-    
-    if (temp_celsius < TEMP_CONGELACION) {
+    if (temp_celsius < TEMP_CONGELACION)
+    {
         printf("Congelación\n");
-    } else if (temp_celsius < TEMP_FRIO) {
+    }
+    else if (temp_celsius < TEMP_FRIO)
+    {
         printf("Frío\n");
-    } else if (temp_celsius < TEMP_AGRADABLE) {
+    }
+    else if (temp_celsius < TEMP_AGRADABLE)
+    {
         printf("Agradable\n");
-    } else {
+    }
+    else
+    {
         printf("Calor\n");
     }
-    
-    if (temp_celsius > TEMP_EBULLICION_AGUA) {
+    if (temp_celsius > TEMP_EBULLICION_AGUA)
+    {
         activar_alarma();
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -459,27 +462,26 @@ void procesar_temperatura(double temp_fahrenheit) {
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-void procesar_archivo(const char* ruta) {
+void procesar_archivo(const char *ruta)
+{
     char buffer[1024];
-    FILE* archivo = fopen(ruta, "r");
-    
-    if (archivo == NULL) {
+    FILE *archivo = fopen(ruta, "r");
+    if (archivo == NULL)
+    {
         printf("Error abriendo archivo\n");
         return;
     }
-    
-    while (fgets(buffer, 1024, stdin) != NULL) {
+    while (fgets(buffer, 1024, stdin) != NULL)
+    {
         // Procesar línea
-        if (strlen(buffer) > 512) {
+        if (strlen(buffer) > 512)
+        {
             printf("Línea muy larga (max 512)\n");
             continue;
         }
     }
-    
     fclose(archivo);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -489,37 +491,34 @@ void procesar_archivo(const char* ruta) {
 :linenos:
 #include <stdio.h>
 #include <string.h>
-
 // Configuración de buffers
 #define TAMANO_BUFFER_LECTURA 1024
 #define LONGITUD_MAXIMA_LINEA 512
-
 // Mensajes de error
-const char* MSG_ERROR_APERTURA = "Error abriendo archivo";
-const char* MSG_LINEA_LARGA = "Línea muy larga (max %d caracteres)";
-
-void procesar_archivo(const char* ruta) {
+const char *MSG_ERROR_APERTURA = "Error abriendo archivo";
+const char *MSG_LINEA_LARGA = "Línea muy larga (max %d caracteres)";
+void procesar_archivo(const char *ruta)
+{
     char buffer[TAMANO_BUFFER_LECTURA];
-    FILE* archivo = fopen(ruta, "r");
-    
-    if (archivo == NULL) {
+    FILE *archivo = fopen(ruta, "r");
+    if (archivo == NULL)
+    {
         printf("%s\n", MSG_ERROR_APERTURA);
         return;
     }
-    
-    while (fgets(buffer, TAMANO_BUFFER_LECTURA, archivo) != NULL) {
+    while (fgets(buffer, TAMANO_BUFFER_LECTURA, archivo) != NULL)
+    {
         // Procesar línea
-        if (strlen(buffer) > LONGITUD_MAXIMA_LINEA) {
+        if (strlen(buffer) > LONGITUD_MAXIMA_LINEA)
+        {
             printf(MSG_LINEA_LARGA, LONGITUD_MAXIMA_LINEA);
             printf("\n");
             continue;
         }
         // ... más procesamiento
     }
-    
     fclose(archivo);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -529,22 +528,22 @@ void procesar_archivo(const char* ruta) {
 
 ```{code-block} c
 :linenos:
-bool validar_usuario(const char* nombre, int edad, double salario) {
-    if (strlen(nombre) < 3 || strlen(nombre) > 50) {
+bool validar_usuario(const char *nombre, int edad, double salario)
+{
+    if (strlen(nombre) < 3 || strlen(nombre) > 50)
+    {
         return false;
     }
-    
-    if (edad < 18 || edad > 120) {
+    if (edad < 18 || edad > 120)
+    {
         return false;
     }
-    
-    if (salario < 0 || salario > 1000000) {
+    if (salario < 0 || salario > 1000000)
+    {
         return false;
     }
-    
     return true;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -559,27 +558,25 @@ const int EDAD_MINIMA = 18;
 const int EDAD_MAXIMA = 120;
 const double SALARIO_MINIMO = 0.0;
 const double SALARIO_MAXIMO = 1000000.0;
-
-bool validar_nombre(const char* nombre) {
+bool validar_nombre(const char *nombre)
+{
     size_t longitud = strlen(nombre);
-    return longitud >= LONGITUD_MINIMA_NOMBRE && 
+    return longitud >= LONGITUD_MINIMA_NOMBRE &&
            longitud <= LONGITUD_MAXIMA_NOMBRE;
 }
-
-bool validar_edad(int edad) {
+bool validar_edad(int edad)
+{
     return edad >= EDAD_MINIMA && edad <= EDAD_MAXIMA;
 }
-
-bool validar_salario(double salario) {
+bool validar_salario(double salario)
+{
     return salario >= SALARIO_MINIMO && salario <= SALARIO_MAXIMO;
 }
-
-bool validar_usuario(const char* nombre, int edad, double salario) {
-    return validar_nombre(nombre) &&
-           validar_edad(edad) &&
+bool validar_usuario(const char *nombre, int edad, double salario)
+{
+    return validar_nombre(nombre) && validar_edad(edad) &&
            validar_salario(salario);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -626,29 +623,23 @@ char ultimo_caracter = cadena[strlen(cadena) - 1];
 :linenos:
 #ifndef CONFIG_H
 #define CONFIG_H
-
 // Configuración del sistema
 #define VERSION_MAYOR 1
 #define VERSION_MENOR 0
 #define VERSION_PATCH 3
-
 // Límites del sistema
 #define MAX_USUARIOS 100
 #define MAX_CONEXIONES_SIMULTANEAS 50
 #define TIMEOUT_CONEXION_SEGUNDOS 30
-
 // Tamaños de buffer
 #define TAMANO_BUFFER_GENERAL 1024
 #define LONGITUD_MAXIMA_NOMBRE 50
 #define LONGITUD_MAXIMA_EMAIL 100
-
 // Configuración de negocio
 const double IVA_ARGENTINA = 0.21;
 const int EDAD_MINIMA_CONDUCTOR = 18;
 const int PUNTOS_LICENCIA_INICIAL = 0;
-
 #endif // CONFIG_H
-
 ```
 <!-- {code-block} c -->
 
@@ -661,11 +652,9 @@ Cada módulo define sus propias constantes en su archivo .c:
 // usuario.c
 static const int LONGITUD_MINIMA_PASSWORD = 8;
 static const int MAX_INTENTOS_LOGIN = 3;
-
-// archivo.c  
+// archivo.c
 static const int TAMANO_BUFFER = 4096;
-static const char* EXTENSION_TEMPORAL = ".tmp";
-
+static const char *EXTENSION_TEMPORAL = ".tmp";
 ```
 <!-- {code-block} c -->
 
@@ -674,23 +663,23 @@ static const char* EXTENSION_TEMPORAL = ".tmp";
 ```{code-block} c
 :linenos:
 // Códigos de error del sistema
-enum codigos_error {
+enum codigos_error
+{
     ERROR_EXITO = 0,
     ERROR_MEMORIA = -1,
     ERROR_ARCHIVO_NO_ENCONTRADO = -2,
     ERROR_PERMISOS = -3,
     ERROR_FORMATO_INVALIDO = -4
 };
-
 // Niveles de log
-enum nivel_log {
+enum nivel_log
+{
     LOG_DEBUG = 0,
     LOG_INFO = 1,
     LOG_WARNING = 2,
     LOG_ERROR = 3,
     LOG_FATAL = 4
 };
-
 ```
 <!-- {code-block} c -->
 
@@ -727,13 +716,10 @@ El nombre debe ser:
 :linenos:
 // Malo
 const int MAX = 100;
-
 // Mejor
 const int MAX_USUARIOS = 100;
-
 // Mejor aún
 const int MAX_USUARIOS_SISTEMA = 100;
-
 ```
 <!-- {code-block} c -->
 
@@ -774,14 +760,14 @@ No intentar refactorizar todo a la vez:
 ```{code-block} c
 :linenos:
 // Marcar con comentarios
-if (temperatura > 100) {  // MAGIC: punto de ebullición
+if (temperatura > 100)
+{ // MAGIC: punto de ebullición
     alarma();
 }
-
-if (intentos >= 3) {  // MAGIC: máximo de intentos
+if (intentos >= 3)
+{ // MAGIC: máximo de intentos
     bloquear();
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -790,15 +776,15 @@ if (intentos >= 3) {  // MAGIC: máximo de intentos
 ```{code-block} c
 :linenos:
 const int PUNTO_EBULLICION = 100;
-if (temperatura > PUNTO_EBULLICION) {
+if (temperatura > PUNTO_EBULLICION)
+{
     alarma();
 }
-
 const int MAX_INTENTOS = 3;
-if (intentos >= MAX_INTENTOS) {
+if (intentos >= MAX_INTENTOS)
+{
     bloquear();
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -816,12 +802,11 @@ Mover a archivo de configuración si se repite.
 const int UNO = 1;
 const int CERO = 0;
 const int VERDADERO = 1;
-
 // Innecesario
-for (int i = CERO; i < MAX; i = i + UNO) {
+for (int i = CERO; i < MAX; i = i + UNO)
+{
     // ...
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -831,7 +816,6 @@ for (int i = CERO; i < MAX; i = i + UNO) {
 // Obvio, no mejora la claridad
 const int DIAS_EN_SEMANA = 7;
 const int MESES_EN_ANIO = 12;
-
 // Pero en contexto específico puede ser útil:
 const int DIAS_LABORABLES_SEMANA = 5;
 ```
@@ -844,11 +828,9 @@ const int DIAS_LABORABLES_SEMANA = 5;
 // Malo
 const int LIMITE = 100;
 const int MAX = 50;
-
 // Bueno
 const int LIMITE_VELOCIDAD_KMH = 100;
 const int MAX_CARACTERES_COMENTARIO = 50;
-
 ```
 <!-- {code-block} c -->
 

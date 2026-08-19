@@ -15,9 +15,12 @@ obligatorio para mantener la prolijidad y consistencia, y para evitar que
 futuras modificaciones introduzcan comportamientos inesperados.
 
 ``` c
-if (condicion) {
+if (condicion)
+{
     // Camino verdadero
-} else {
+}
+else
+{
     // Camino falso
 }
 ```
@@ -28,7 +31,8 @@ del bloque.
 
 - **Incorrecto:**
   ```c
-  if (x > 0) x++;
+  if (x > 0)
+      x++;
   ```
 - **Correcto:**
   ```c
@@ -54,16 +58,18 @@ dudas, consultá)
 - **Incorrecto (Uso descontrolado de `break` y `continue`):**
 ```{code-block} c
 :linenos:
-for (int i = 1; i <= 10; i++){
-    if (i == 4){
+for (int i = 1; i <= 10; i++)
+{
+    if (i == 4)
+    {
         continue;
     }
-    if (i == 8){
+    if (i == 8)
+    {
         break;
     }
     printf("Número: %d\n", i);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -72,16 +78,18 @@ for (int i = 1; i <= 10; i++){
 :linenos:
 bool seguir_ejecutando = true;
 int i = 1;
-
-while (i <= 10 && seguir_ejecutando){
-    if (i == 8)    {
+while (i <= 10 && seguir_ejecutando)
+{
+    if (i == 8)
+    {
         seguir_ejecutando = false;
-    } else if (i != 4){
+    }
+    else if (i != 4)
+    {
         printf("Número: %d\n", i);
     }
     i++;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -101,28 +109,22 @@ infinitos por olvido del incremento de control.
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
 int main()
 {
     int numero;
     int suma = 0;
-
     printf("Ejemplo con 'for' (poco legible):\n");
-
-    // Se fuerza la lectura del dato dentro de la declaración y el paso del 'for'.
-    // Esto es confuso y rompe la claridad del código.
-    for (printf("Ingrese un número (0 termina): "), scanf("%d", &numero); 
+    // Se fuerza la lectura del dato dentro de la declaración y el paso del
+    // 'for'. Esto es confuso y rompe la claridad del código.
+    for (printf("Ingrese un número (0 termina): "), scanf("%d", &numero);
          numero != 0;
          printf("Ingrese un número (0 para terminar): "), scanf("%d", &numero))
     {
         suma = suma + numero;
     }
-
     printf("La suma total es: %d\n", suma);
-
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -140,40 +142,34 @@ for (size_t i = 0; i < limite; i++)
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
 int main()
 {
     int numero;
     int suma = 0;
-
     printf("Ejemplo con 'while' (preferido y claro):\n");
     printf("Ingrese un número (0 para terminar): ");
     scanf("%d", &numero);
-
     // La condición de parada es clara y está en un solo lugar.
     while (numero != 0)
     {
         suma = suma + numero;
-
         // Se pide el siguiente dato al final del bloque.
         printf("Ingrese un número (0 para terminar): ");
         scanf("%d", &numero);
     }
-
     printf("La suma total es: %d\n", suma);
-
     return 0;
 }
-
-
-(0x1004h)=
-## Regla `0x1004h`: Las condiciones complejas deben ser simplificadas o comentadas
-
-Si una condición contiene múltiples operadores lógicos, considerá dividirla en partes más pequeñas usando variables lógicas auxiliares explicativas o funciones de validación.
-
-- **Incorrecto (difícil de leer):**
-```` c
-if ((usuario_activo && tiene_permisos) || (es_admin && !modo_mantenimiento)) {
+(0x1004h) = ##Regla `0x1004h`
+    : Las condiciones complejas deben ser simplificadas o comentadas Si una
+          condición contiene múltiples operadores lógicos,
+    considerá dividirla en partes más pequeñas usando variables lógicas
+            auxiliares explicativas o funciones de validación.-
+        **Incorrecto(difícil de leer)
+    : **
+```` c if ((usuario_activo && tiene_permisos) ||
+            (es_admin && !modo_mantenimiento))
+{
     // ...
 }
 ````
@@ -183,8 +179,8 @@ if ((usuario_activo && tiene_permisos) || (es_admin && !modo_mantenimiento)) {
 ```` c
 bool puede_acceder = usuario_activo && tiene_permisos;
 bool es_admin_con_acceso = es_admin && !modo_mantenimiento;
-
-if (puede_acceder || es_admin_con_acceso) {
+if (puede_acceder || es_admin_con_acceso)
+{
     // ...
 }
 ````
@@ -201,26 +197,32 @@ Es fundamental diferenciar de forma inequívoca la comparación de caracteres de
 - Si es una variable lógica, comparala contra `true` o `false`.
 
 ```` diff
-- if (x) {
-+ if (x != 0) {
+- if (x)
+- {
++ if (x != 0)
++ {
 ````
 <!-- diff -->
 
 - **Incorrecto (veracidad implícita y ambigua):**
 ```` c
-if (encendido);
-return !caracter;               // Si 'caracter' es un char
-return !ptr;                    // Si 'ptr' es un puntero a memoria
-while (!trabajando);
+if (encendido)
+    ;
+return !caracter; // Si 'caracter' es un char
+return !ptr;      // Si 'ptr' es un puntero a memoria
+while (!trabajando)
+    ;
 ````
 <!-- c -->
 
 - **Correcto (claridad de tipos explícita):**
 ```` c
-if (encendido == true);
-return caracter == '\0';        // Comparación correcta de tipo char
-return ptr == NULL;             // Comparación correcta de tipo puntero
-while (trabajando == false);
+if (encendido == true)
+    ;
+return caracter == '\0'; // Comparación correcta de tipo char
+return ptr == NULL;      // Comparación correcta de tipo puntero
+while (trabajando == false)
+    ;
 ````
 <!-- c -->
 
@@ -232,34 +234,39 @@ El uso de `goto` rompe el flujo de control estructurado, dificultando la lectura
 - **Incorrecto:**
 ````{code-block} c
 :linenos:
-void procesar_datos(int *datos, size_t n) {
-    for (size_t i = 0; i < n; i++) {
-        if (datos[i] < 0) {
+void procesar_datos(int *datos, size_t n)
+{
+    for (size_t i = 0; i < n; i++)
+    {
+        if (datos[i] < 0)
+        {
             goto error;
         }
     }
 error:
     printf("Error: dato negativo encontrado.\n");
 }
-
 ````
 <!-- {code-block} c -->
 - **Correcto:**
 ````{code-block} c
 :linenos:
-bool procesar_datos(int *datos, size_t n) {
+bool procesar_datos(int *datos, size_t n)
+{
     bool exito = true;
-    for (size_t i = 0; i < n && exito; i++) {
-        if (datos[i] < 0) {
+    for (size_t i = 0; i < n && exito; i++)
+    {
+        if (datos[i] < 0)
+        {
             exito = false;
         }
     }
-    if (!exito) {
+    if (!exito)
+    {
         printf("Error: dato negativo encontrado.\n");
     }
     return exito;
 }
-
 ````
 <!-- {code-block} c -->
 
@@ -275,9 +282,12 @@ Aunque compacto, el operador ternario reduce la legibilidad del código, especia
 - **Correcto:**
   ```c
   int resultado;
-  if (a > b) {
+  if (a > b)
+  {
       resultado = a;
-  } else {
+  }
+  else
+  {
       resultado = b;
   }
   ```
@@ -289,22 +299,20 @@ Para garantizar un comportamiento predecible y robusto, toda instrucción `switc
 
 ````{code-block} c
 :linenos:
-switch (opcion) {
-    case OPCION_A:
-        hacer_algo();
-        break;
-
-    case OPCION_B:
-        hacer_otra_cosa();
-        // INTENCIONAL: Cae al caso C
-    case OPCION_C:
-        hacer_algo_mas();
-        break;
-
-    default:
-        fprintf(stderr, "Error: Opción no válida.\n");
-        break;
+switch (opcion)
+{
+case OPCION_A:
+    hacer_algo();
+    break;
+case OPCION_B:
+    hacer_otra_cosa();
+    // INTENCIONAL: Cae al caso C
+case OPCION_C:
+    hacer_algo_mas();
+    break;
+default:
+    fprintf(stderr, "Error: Opción no válida.\n");
+    break;
 }
-
 ````
 <!-- {code-block} c -->

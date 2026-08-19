@@ -69,9 +69,7 @@ de funciones que reciben un puntero a esta estructura.
 Para declarar un puntero a `FILE`, la sintaxis es simple:
 
 :::{code-block}c
-
 FILE *puntero_archivo;
-
 :::
 <!-- {code-block}c -->
 
@@ -170,9 +168,7 @@ La sintaxis, definida en `<stdio.h>`, es la siguiente:
 :::{code-block}c
 :caption: Sintaxis de fopen()
 :label: fopen-syntax
-
 FILE *fopen(const char *pathname, const char *mode);
-
 :::
 <!-- {code-block}c -->
 
@@ -257,27 +253,23 @@ mostrar un mensaje de error legible por humanos, podés usar la función
 :caption: Verificación de errores al abrir un archivo
 :label: fopen-error-handling
 :linenos:
-
-#include <stdio.h>
 #include <errno.h> // Necesario para perror()
-
-int main() {
+#include <stdio.h>
+int main()
+{
     FILE *p_archivo;
     p_archivo = fopen("archivo_inexistente.txt", "r");
-
-    if (p_archivo == NULL) {
+    if (p_archivo == NULL)
+    {
         // Imprime un mensaje descriptivo del último error ocurrido
         perror("Error al intentar abrir el archivo");
         return 1; // Termina el programa con un código de error
     }
-
     printf("Archivo abierto con éxito.\n");
     // ... operaciones con el archivo ...
     fclose(p_archivo);
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -353,7 +345,6 @@ archivos a bajo nivel en C.
  *               y activa el indicador de error del flujo.
  */
 int fputc(int character, FILE *stream);
-
 :::
 <!-- {code-block}c -->
 
@@ -376,7 +367,6 @@ de error.
  *         Devuelve la constante `EOF` para indicar un error.
  */
 int fputs(const char *cadena, FILE *stream);
-
 :::
 <!-- {code-block}c -->
 
@@ -402,11 +392,9 @@ error.
  *               por cada especificador de formato en la cadena `format`.
  *
  * @return Si la operación es exitosa, devuelve el número total de caracteres
-   escritos.
- *         Si ocurre un error de escritura, devuelve un número negativo.
+ *         escritos. Si ocurre un error de escritura, devuelve un número negativo.
  */
 int fprintf(FILE *stream, const char *formato, ...);
-
 :::
 <!-- {code-block}c -->
 
@@ -417,24 +405,25 @@ int fprintf(FILE *stream, const char *formato, ...);
 :caption: Ejemplo de escritura y gestión de errores
 :label: file-writing-example-advanced
 :linenos:
-
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <errno.h>
 
-int main(void) {
+int main(void)
+{
     // 1. Abrir el archivo en modo escritura ("w").
     FILE *salida = fopen("factura_completa.txt", "w");
-    if (salida == NULL) {
+    if (salida == NULL)
+    {
         perror("Error al abrir el archivo 'factura_completa.txt'");
         return EXIT_FAILURE;
     }
 
     // 2. Escribir un encabezado usando fputs()
-    // fputs() escribe una cadena de caracteres en el archivo.
     const char *encabezado = "--- Documento de Factura ---\n\n";
-    if (fputs(encabezado, salida) == EOF) {
+    if (fputs(encabezado, salida) == EOF)
+    {
         perror("Error escribiendo el encabezado con fputs()");
         fclose(salida);
         return EXIT_FAILURE;
@@ -442,13 +431,15 @@ int main(void) {
 
     // 3. Escribir datos formateados usando fprintf()
     // fprintf() permite escribir datos con formato (como printf, pero a un
-    archivo).
+    // archivo).
     const char *item_1 = "Placa de Video RTX 4080";
     int cantidad_1 = 1;
     double precio_1 = 1200000.75;
-    int chars_escritos_1 = fprintf(salida, "Item: %s\nCantidad: %d\nPrecio: %.2f
-    ARS\n\n", item_1, cantidad_1, precio_1);
-    if (chars_escritos_1 < 0) {
+    int chars_escritos_1 =
+        fprintf(salida, "Item: %s\nCantidad: %d\nPrecio: %.2f ARS\n\n", item_1,
+                cantidad_1, precio_1);
+    if (chars_escritos_1 < 0)
+    {
         perror("Error al formatear y escribir el item 1 con fprintf()");
         fclose(salida);
         return EXIT_FAILURE;
@@ -457,14 +448,17 @@ int main(void) {
     // 4. Escribir un separador de línea usando fputc()
     // fputc() escribe un solo carácter en el archivo.
     int i;
-    for (i = 0; i < 30; i++) {
-        if (fputc('-', salida) == EOF) {
+    for (i = 0; i < 30; i++)
+    {
+        if (fputc('-', salida) == EOF)
+        {
             perror("Error escribiendo separador con fputc()");
             fclose(salida);
             return EXIT_FAILURE;
         }
     }
-    if (fputc('\n', salida) == EOF) {
+    if (fputc('\n', salida) == EOF)
+    {
         perror("Error escribiendo nueva linea con fputc()");
         fclose(salida);
         return EXIT_FAILURE;
@@ -474,39 +468,41 @@ int main(void) {
     const char *item_2 = "Memoria RAM DDR5 32GB";
     int cantidad_2 = 2;
     double precio_2 = 180000.00;
-
-    if (fputs("Detalle del Item 2:\n", salida) == EOF) {
+    if (fputs("Detalle del Item 2:\n", salida) == EOF)
+    {
         perror("Error escribiendo detalle del item 2 con fputs()");
         fclose(salida);
         return EXIT_FAILURE;
     }
-    if (fprintf(salida, "  Nombre: %s\n", item_2) < 0) {
+    if (fprintf(salida, "  Nombre: %s\n", item_2) < 0)
+    {
         perror("Error escribiendo nombre del item 2 con fprintf()");
         fclose(salida);
         return EXIT_FAILURE;
     }
-    if (fprintf(salida, "  Unidades: %d\n", cantidad_2) < 0) {
+    if (fprintf(salida, "  Unidades: %d\n", cantidad_2) < 0)
+    {
         perror("Error escribiendo unidades del item 2 con fprintf()");
         fclose(salida);
         return EXIT_FAILURE;
     }
-    if (fprintf(salida, "  Valor Unitario: %.2f ARS\n", precio_2) < 0) {
+    if (fprintf(salida, "  Valor Unitario: %.2f ARS\n", precio_2) < 0)
+    {
         perror("Error escribiendo valor unitario del item 2 con fprintf()");
         fclose(salida);
         return EXIT_FAILURE;
     }
 
     // 6. Cerrar el archivo. Es crucial para asegurar que todos los datos en el
-    búfer se guarden en el disco.
-    if (fclose(salida) != 0) {
+    // búfer se guarden en el disco.
+    if (fclose(salida) != 0)
+    {
         perror("Error al cerrar el archivo");
         return EXIT_FAILURE;
     }
-
     printf("Archivo 'factura_completa.txt' creado y cerrado exitosamente.\n");
     return EXIT_SUCCESS;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -551,7 +547,6 @@ archivo. Es la contraparte directa de `fputc`.
    `EOF`.
  */
 int fgetc(FILE *stream);
-
 :::
 <!-- {code-block}c -->
 
@@ -579,11 +574,10 @@ una práctica recomendada por la regla {ref}`0x5006h`.
  * @param stream Puntero al objeto `FILE` que identifica el flujo de entrada.
  *
  * @return En caso de éxito, devuelve el puntero `str`.
- *         Si se alcanza el final del archivo antes de leer algún carácter, 
+ *         Si se alcanza el final del archivo antes de leer algún carácter,
                 o si ocurre un error, devuelve `NULL`.
  */
 char *fgets(char *cadena, int numero, FILE *stream);
-
 :::
 <!-- {code-block}c -->
 
@@ -617,11 +611,10 @@ lugar de la entrada estándar.
    almacenarán los datos leídos.
  *
  * @return Devuelve el número de elementos de entrada asignados exitosamente.
- * @return Puede devolver `EOF` si se encuentra el final del archivo o ocurre un
-   error antes de la primera asignación.
+ * @return Puede devolver `EOF` si se encuentra el final del archivo o ocurre
+ un error antes de la primera asignación.
  */
 int fscanf(FILE *stream, const char *format, ...);
-
 :::
 <!-- {code-block}c -->
 
@@ -644,10 +637,8 @@ A continuación, se descompone el código sección por sección.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 #define MAX_LINEA 512
 #define NOMBRE_ARCHIVO "factura.txt"
-
 :::
 <!-- {code-block}c -->
 
@@ -677,11 +668,11 @@ A continuación, se descompone el código sección por sección.
 :::{code-block}c
 :linenos:
 FILE *entrada = fopen(NOMBRE_ARCHIVO, "r");
-if (!entrada) {
+if (!entrada)
+{
     perror("No se pudo abrir 'factura.txt' para lectura");
     return EXIT_FAILURE;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -711,12 +702,11 @@ if (!entrada) {
 :linenos:
 char buffer[MAX_LINEA];
 int numero_linea = 0;
-
-while (fgets(buffer, sizeof(buffer), entrada) != NULL) {
+while (fgets(buffer, sizeof(buffer), entrada) != NULL)
+{
     numero_linea++;
     // ... procesamiento de la línea ...
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -739,22 +729,25 @@ while (fgets(buffer, sizeof(buffer), entrada) != NULL) {
 
 :::{code-block}c
 :linenos:
-if (strncmp(buffer, "Item:", 5) == 0) {
+if (strncmp(buffer, "Item:", 5) == 0)
+{
     char item_nombre[100];
     int cantidad;
     double precio;
-
-    int campos_leidos = sscanf(buffer, "Item: %99[^,], Cantidad: %d, Precio: %lf
-    ARS",
-                               item_nombre, &cantidad, &precio);
-
-    if (campos_leidos == 3) {
+    int campos_leidos = sscanf(buffer,
+                               "Item: %99[^,], Cantidad: %d, Precio: %lf
+                               ARS ",
+                               item_nombre,
+                               &cantidad, &precio);
+    if (campos_leidos == 3)
+    {
         // ... éxito ...
-    } else {
+    }
+    else
+    {
         // ... fallo ...
     }
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -793,12 +786,14 @@ cadena de caracteres que ya está en memoria (el `buffer`).
 
 :::{code-block}c
 :linenos:
-if (ferror(entrada)) {
+if (ferror(entrada))
+{
     perror("Ocurrió un error de lectura en el archivo");
-} else if (feof(entrada)) {
+}
+else if (feof(entrada))
+{
     printf("\nProcesamiento completado. Se llegó al final del archivo.\n");
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -820,7 +815,6 @@ if (ferror(entrada)) {
 clearerr(entrada);
 fclose(entrada);
 return EXIT_SUCCESS;
-
 :::
 <!-- {code-block}c -->
 
@@ -878,36 +872,31 @@ correctamente es verificar el resultado del cierre.
 :caption: Verificación del cierre de un archivo
 :label: fclose-example
 :linenos:
-
 #include <stdio.h>
 #include <stdlib.h>
-
-int main(void) {
+int main(void)
+{
     FILE *log_file = fopen("app.log", "a");
-    if (log_file == NULL) {
+    if (log_file == NULL)
+    {
         perror("No se pudo abrir el log");
         return EXIT_FAILURE;
     }
-
     fprintf(log_file, "El programa inició una operación crítica.\n");
-
     // ... el resto del programa ...
-
     fprintf(log_file, "La operación crítica finalizó.\n");
-
     // Cerramos el archivo y VERIFICAMOS el resultado.
-    if (fclose(log_file) != 0) {
+    if (fclose(log_file) != 0)
+    {
         // Si fclose falla, el error queda registrado en errno.
         perror("FALLO CRÍTICO al cerrar el archivo de log");
         // En un programa real, esto podría requerir una acción de emergencia,
         // ya que los últimos datos podrían no haberse guardado.
         return EXIT_FAILURE;
     }
-
     printf("Log escrito y cerrado correctamente.\n");
     return EXIT_SUCCESS;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -975,12 +964,10 @@ donde necesitás un mensaje de error rápido, estándar y sin formato complejo. 
 menos flexible pero muy conveniente.
 
 :::{code-block}c
-
 // Si errno es 2 ("No such file or directory")
 perror("Error al leer el archivo de configuración");
 // Salida en stderr:
 // Error al leer el archivo de configuración: No such file or directory
-
 :::
 <!-- {code-block}c -->
 
@@ -1000,13 +987,11 @@ descripción del error. Vos sos responsable de cómo y dónde imprimir esa caden
   diferentes idiomas.
 
 :::{code-block}c
-
 // Si errno es 13 ("Permission denied")
 fprintf(stderr, "[FATAL] Imposible acceder al recurso. Razón: %s\n",
-strerror(errno));
+        strerror(errno));
 // Salida en stderr:
 // [FATAL] Imposible acceder al recurso. Razón: Permission denied
-
 :::
 <!-- {code-block}c -->
 
@@ -1043,7 +1028,6 @@ como un número de bytes desde el inicio del archivo.
    establece a un valor positivo.
  */
 long int ftell(FILE *stream);
-
 :::
 <!-- {code-block}c -->
 
@@ -1072,7 +1056,6 @@ desde un punto de origen (`origin`).
  *         Devuelve un valor distinto de cero en caso de error.
  */
 int fseek(FILE *stream, long int offset, int origin);
-
 :::
 <!-- {code-block}c -->
 
@@ -1094,7 +1077,6 @@ archivo. Además, limpia cualquier indicador de error que pudiera tener el flujo
  * @param stream Puntero al objeto `FILE` que identifica el flujo.
  */
 void rewind(FILE *stream);
-
 :::
 <!-- {code-block}c -->
 
@@ -1105,55 +1087,52 @@ void rewind(FILE *stream);
 :caption: Uso de fseek() y ftell() para leer el último carácter
 :label: fseek-example
 :linenos:
-
 #include <stdio.h>
 #include <stdlib.h>
-
-int main(void) {
+int main(void)
+{
     FILE *archivo = fopen("factura.txt", "r");
-    if (!archivo) {
+    if (!archivo)
+    {
         perror("No se pudo abrir el archivo");
         return EXIT_FAILURE;
     }
-
     // Moverse al final del archivo
-    if (fseek(archivo, 0, SEEK_END) != 0) {
+    if (fseek(archivo, 0, SEEK_END) != 0)
+    {
         perror("Error en fseek a SEEK_END");
         fclose(archivo);
         return EXIT_FAILURE;
     }
-
     // Obtener la posición actual, que es el tamaño del archivo
     long tamano = ftell(archivo);
-    if (tamano == -1L) {
+    if (tamano == -1L)
+    {
         perror("Error en ftell");
         fclose(archivo);
         return EXIT_FAILURE;
     }
     printf("El archivo tiene %ld bytes.\n", tamano);
-
     // Moverse a la posición ANTERIOR al último byte para leerlo.
     // Si el archivo termina con \n, esto leerá el carácter previo.
-    if (tamano > 1 && fseek(archivo, -2L, SEEK_END) != 0) {
+    if (tamano > 1 && fseek(archivo, -2L, SEEK_END) != 0)
+    {
         perror("Error en fseek para leer el último carácter");
         fclose(archivo);
         return EXIT_FAILURE;
     }
-
     int ultimo_caracter = fgetc(archivo);
-    if (ultimo_caracter != EOF) {
+    if (ultimo_caracter != EOF)
+    {
         printf("El último carácter imprimible del archivo es: \x27%c\x27\n",
-        (char)ultimo_caracter);
+               (char)ultimo_caracter);
     }
-
     // Volver al principio
     rewind(archivo);
     printf("Después de \x27rewind\x27, la posición es: %ld\n", ftell(archivo));
-
     fclose(archivo);
     return EXIT_SUCCESS;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1243,13 +1222,12 @@ de la variable `archivo`:
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-int main(void) {
+int main(void)
+{
     FILE archivo;
     archivo = fopen("datos.txt", "r");
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1316,20 +1294,18 @@ puntero devuelto (`{ref}0x4001h`):
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-int main(void) {
+int main(void)
+{
     FILE *archivo = fopen("config.json", "r");
-    if (archivo == NULL) {
+    if (archivo == NULL)
+    {
         perror("Error al intentar abrir 'config.json'");
         return EXIT_FAILURE;
     }
-    
     // Aquí irían las operaciones con el archivo...
-    
     fclose(archivo);
     return EXIT_SUCCESS;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1382,20 +1358,19 @@ La función implementa una estrategia de validación previa:
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-FILE *abrir_para_escribir_seguro(const char *nombre_archivo) {
+FILE *abrir_para_escribir_seguro(const char *nombre_archivo)
+{
     FILE *archivo_existente = fopen(nombre_archivo, "r");
-    if (archivo_existente != NULL) {
+    if (archivo_existente != NULL)
+    {
         // El archivo ya existe, lo cerramos y retornamos NULL
         fclose(archivo_existente);
         return NULL;
     }
-    
     // Si no existe, fopen("...", "r") devolvió NULL.
     // Ahora es seguro abrirlo con "w".
     return fopen(nombre_archivo, "w");
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1421,38 +1396,40 @@ a uno:
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-int main(void) {
+int main(void)
+{
     FILE *archivo = fopen("alfabeto.txt", "w");
-    if (archivo == NULL) {
+    if (archivo == NULL)
+    {
         perror("Error al crear el archivo");
         return EXIT_FAILURE;
     }
-
     // Se recorren los caracteres ASCII de la 'A' a la 'Z' usando un lazo
-    for (char c = 'A'; c <= 'Z'; c++) {
-        if (fputc(c, archivo) == EOF) {
+    for (char c = 'A'; c <= 'Z'; c++)
+    {
+        if (fputc(c, archivo) == EOF)
+        {
             perror("Error al escribir el caracter");
             fclose(archivo);
             return EXIT_FAILURE;
         }
-        if (c != 'Z') {
-            if (fputc(' ', archivo) == EOF) {
+        if (c != 'Z')
+        {
+            if (fputc(' ', archivo) == EOF)
+            {
                 perror("Error al escribir el espacio");
                 fclose(archivo);
                 return EXIT_FAILURE;
             }
         }
     }
-
-    if (fclose(archivo) != 0) {
+    if (fclose(archivo) != 0)
+    {
         perror("Error al cerrar el archivo");
         return EXIT_FAILURE;
     }
-
     return EXIT_SUCCESS;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1479,27 +1456,30 @@ la escritura fue correcta:
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-int guardar_matriz(FILE *salida, int matriz[3][3], int filas, int columnas) {
-    if (salida == NULL) {
+int guardar_matriz(FILE *salida, int matriz[3][3], int filas, int columnas)
+{
+    if (salida == NULL)
+    {
         return -1;
     }
-
-    for (int i = 0; i < filas; i++) {
-        for (int j = 0; j < columnas; j++) {
+    for (int i = 0; i < filas; i++)
+    {
+        for (int j = 0; j < columnas; j++)
+        {
             // Escribimos cada elemento formateado con un tabulador
-            if (fprintf(salida, "%d\t", matriz[i][j]) < 0) {
+            if (fprintf(salida, "%d\t", matriz[i][j]) < 0)
+            {
                 return -1; // Error en fprintf
             }
         }
         // Agregamos un salto de línea al final de cada fila
-        if (fputc('\n', salida) == EOF) {
+        if (fputc('\n', salida) == EOF)
+        {
             return -1; // Error en fputc
         }
     }
     return 0; // Éxito
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1556,26 +1536,25 @@ leer y mostrar cada carácter hasta llegar a `EOF`:
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-void mostrar_archivo(const char *nombre_archivo) {
+void mostrar_archivo(const char *nombre_archivo)
+{
     FILE *archivo = fopen(nombre_archivo, "r");
-    if (archivo == NULL) {
+    if (archivo == NULL)
+    {
         perror("No se pudo abrir el archivo para mostrar su contenido");
         return;
     }
-
     int caracter; // Debe ser int para almacenar EOF correctamente
-    while ((caracter = fgetc(archivo)) != EOF) {
+    while ((caracter = fgetc(archivo)) != EOF)
+    {
         putchar(caracter); // Imprime en la salida estándar
     }
-
-    if (ferror(archivo)) {
+    if (ferror(archivo))
+    {
         perror("Ocurrió un error de lectura en el archivo");
     }
-
     fclose(archivo);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1604,34 +1583,34 @@ y hayamos leído caracteres en la última línea:
 :linenos:
 #include <stdio.h>
 #include <string.h>
-
-int contar_lineas(FILE *archivo) {
-    if (archivo == NULL) {
+int contar_lineas(FILE *archivo)
+{
+    if (archivo == NULL)
+    {
         return -1;
     }
-
     char buffer[256];
     int lineas = 0;
     int en_linea = 0; // Flag para rastrear si estamos dentro de una línea
-
-    while (fgets(buffer, sizeof(buffer), archivo) != NULL) {
+    while (fgets(buffer, sizeof(buffer), archivo) != NULL)
+    {
         en_linea = 1;
         size_t len = strlen(buffer);
-        // Si el último carácter es un salto de línea, se completa una línea entera
-        if (len > 0 && buffer[len - 1] == '\n') {
+        // Si el último carácter es un salto de línea, se completa una línea
+        // entera
+        if (len > 0 && buffer[len - 1] == '\n')
+        {
             lineas++;
             en_linea = 0;
         }
     }
-
     // Si terminó el archivo pero la última línea no terminaba con '\n'
-    if (en_linea) {
+    if (en_linea)
+    {
         lineas++;
     }
-
     return lineas;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1658,37 +1637,36 @@ utilizando un búfer de línea y `sscanf` con validación de campos:
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
 #define MAX_L 256
-
-int main(void) {
+int main(void)
+{
     FILE *archivo = fopen("estudiantes.txt", "r");
-    if (archivo == NULL) {
+    if (archivo == NULL)
+    {
         perror("Error al abrir 'estudiantes.txt'");
         return EXIT_FAILURE;
     }
-
     char buffer[MAX_L];
-    while (fgets(buffer, sizeof(buffer), archivo) != NULL) {
+    while (fgets(buffer, sizeof(buffer), archivo) != NULL)
+    {
         char nombre[100];
         int nota1, nota2;
-        
-        // sscanf lee desde el buffer en memoria. 
+        // sscanf lee desde el buffer en memoria.
         // %99[^,] lee hasta 99 caracteres que no sean comas.
         int campos = sscanf(buffer, "%99[^,],%d,%d", nombre, &nota1, &nota2);
-        
-        if (campos == 3) {
+        if (campos == 3)
+        {
             double promedio = (nota1 + nota2) / 2.0;
             printf("Estudiante: %s | Promedio: %.2f\n", nombre, promedio);
-        } else {
+        }
+        else
+        {
             fprintf(stderr, "Advertencia: línea con formato incorrecto.\n");
         }
     }
-
     fclose(archivo);
     return EXIT_SUCCESS;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1745,29 +1723,30 @@ operativo:
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-int main(void) {
+int main(void)
+{
     FILE *archivo = fopen("critico.txt", "w");
-    if (archivo == NULL) {
+    if (archivo == NULL)
+    {
         perror("Error al abrir");
         return EXIT_FAILURE;
     }
-
-    if (fprintf(archivo, "Transaccion ID: %d, Monto: %.2f\n", 1024, 45000.50) < 0) {
+    if (fprintf(archivo, "Transaccion ID: %d, Monto: %.2f\n", 1024, 45000.50) <
+        0)
+    {
         perror("Error en escritura");
         fclose(archivo);
         return EXIT_FAILURE;
     }
-
     // Verificamos el cierre del archivo
-    if (fclose(archivo) != 0) {
-        perror("Error al cerrar el archivo. Los datos pudieron haberse perdido");
+    if (fclose(archivo) != 0)
+    {
+        perror(
+            "Error al cerrar el archivo. Los datos pudieron haberse perdido");
         return EXIT_FAILURE;
     }
-
     return EXIT_SUCCESS;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1788,20 +1767,20 @@ la ejecución de `fclose`:
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-void liberar_recursos(FILE *f) {
+void liberar_recursos(FILE *f)
+{
     fclose(f);
 }
-
-int main(void) {
+int main(void)
+{
     FILE *archivo = fopen("datos.txt", "r");
-    if (archivo) {
+    if (archivo)
+    {
         liberar_recursos(archivo);
         fclose(archivo);
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1845,17 +1824,19 @@ La función implementa la separación de flujos estándar:
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-void registrar_log(int gravedad, const char *mensaje) {
-    if (gravedad == 0) {
+void registrar_log(int gravedad, const char *mensaje)
+{
+    if (gravedad == 0)
+    {
         // Mensaje ordinario de información
         fprintf(stdout, "[INFO] %s\n", mensaje);
-    } else if (gravedad == 1) {
+    }
+    else if (gravedad == 1)
+    {
         // Mensaje de error crítico
         fprintf(stderr, "[ERROR] %s\n", mensaje);
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1887,24 +1868,27 @@ realizar el formateo del error:
 
 ```{code-block} c
 :linenos:
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <errno.h>
 #include <string.h>
-
-int main(void) {
+int main(void)
+{
     FILE *conf = fopen("/carpeta_inexistente/config.json", "r");
-    if (conf == NULL) {
-        // Obtenemos la causa textual del error a partir del código numérico en errno
+    if (conf == NULL)
+    {
+        // Obtenemos la causa textual del error a partir del código numérico en
+        // errno
         const char *causa = strerror(errno);
-        fprintf(stderr, "[LOG_ERROR] Fallo al iniciar el sistema. Causa: %s (Codigo: %d)\n", causa, errno);
+        fprintf(stderr,
+                "[LOG_ERROR] Fallo al iniciar el sistema. Causa: %s (Codigo: "
+                "%d)\n",
+                causa, errno);
         return EXIT_FAILURE;
     }
-    
     fclose(conf);
     return EXIT_SUCCESS;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1962,33 +1946,33 @@ distancia en bytes al origen:
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-long obtener_tamano(const char *nombre_archivo) {
+long obtener_tamano(const char *nombre_archivo)
+{
     FILE *archivo = fopen(nombre_archivo, "r");
-    if (archivo == NULL) {
+    if (archivo == NULL)
+    {
         perror("No se pudo abrir el archivo");
         return -1;
     }
-
     // Desplazamos el cursor 0 bytes relativos al final del archivo (SEEK_END)
-    if (fseek(archivo, 0L, SEEK_END) != 0) {
+    if (fseek(archivo, 0L, SEEK_END) != 0)
+    {
         perror("Error de posicionamiento en fseek");
         fclose(archivo);
         return -1;
     }
-
-    // ftell nos da la posición actual del cursor (que equivale al tamaño del archivo en bytes)
+    // ftell nos da la posición actual del cursor (que equivale al tamaño del
+    // archivo en bytes)
     long tamano = ftell(archivo);
-    if (tamano == -1L) {
+    if (tamano == -1L)
+    {
         perror("Error al obtener la posicion con ftell");
         fclose(archivo);
         return -1;
     }
-
     fclose(archivo);
     return tamano;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -2015,37 +1999,36 @@ simultáneas sin truncar el archivo a cero bytes:
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-int main(void) {
+int main(void)
+{
     // Abrimos el archivo en modo actualizacion (r+)
     FILE *archivo = fopen("datos.txt", "r+");
-    if (archivo == NULL) {
+    if (archivo == NULL)
+    {
         perror("Error al abrir el archivo en modo r+");
         return EXIT_FAILURE;
     }
-
     // Movemos el cursor al quinto byte (desplazamiento de 4 desde el inicio)
-    if (fseek(archivo, 4L, SEEK_SET) != 0) {
+    if (fseek(archivo, 4L, SEEK_SET) != 0)
+    {
         perror("El archivo no tiene suficientes bytes para posicionarse");
         fclose(archivo);
         return EXIT_FAILURE;
     }
-
     // Sobreescribimos el carácter
-    if (fputc('X', archivo) == EOF) {
+    if (fputc('X', archivo) == EOF)
+    {
         perror("Error al intentar sobreescribir el caracter");
         fclose(archivo);
         return EXIT_FAILURE;
     }
-
-    if (fclose(archivo) != 0) {
+    if (fclose(archivo) != 0)
+    {
         perror("Error al cerrar el archivo");
         return EXIT_FAILURE;
     }
-
     return EXIT_SUCCESS;
 }
-
 ```
 <!-- {code-block} c -->
 

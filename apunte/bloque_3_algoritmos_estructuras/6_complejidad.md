@@ -225,10 +225,10 @@ menos eficiente.
 **Código ejemplo**:
 :::{code-block}c
 :linenos:
-int obtener_primero(int arr[], int n) {
-    return arr[0];  // O(1): una operación, independiente de n
+int obtener_primero(int arr[], int n)
+{
+    return arr[0]; // O(1): una operación, independiente de n
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -266,26 +266,27 @@ detalle en el apunte sobre [TAD, Pilas y Colas](6_tad.md).
 :linenos:
 // Búsqueda binaria: O(log n)
 // Precondición: el arreglo 'arr' debe estar ordenado de menor a mayor.
-int busqueda_binaria(int arr[], int n, int clave) {
+int busqueda_binaria(int arr[], int n, int clave)
+{
     int izq = 0, der = n - 1;
-    
-    while (izq <= der) {  // Se reduce a la mitad en cada lazo
+    while (izq <= der)
+    { // Se reduce a la mitad en cada lazo
         int medio = izq + (der - izq) / 2;
-        
-        if (arr[medio] == clave) {
+        if (arr[medio] == clave)
+        {
             return medio;
         }
-        
-        if (arr[medio] < clave) {
+        if (arr[medio] < clave)
+        {
             izq = medio + 1;
-        } else {
+        }
+        else
+        {
             der = medio - 1;
         }
     }
-    
     return -1;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -317,16 +318,15 @@ algoritmo termina cuando $\frac{n}{2^k} = 1$, es decir, $k = \log_2 n$.
 :::{code-block}c
 :linenos:
 // Suma de elementos: O(n)
-int sumar_elementos(int arr[], int n) {
+int sumar_elementos(int arr[], int n)
+{
     int suma = 0;
-    
-    for (int i = 0; i < n; i++) {  // n iteraciones
-        suma += arr[i];  // O(1) por iteración
+    for (int i = 0; i < n; i++)
+    {                   // n iteraciones
+        suma += arr[i]; // O(1) por iteración
     }
-    
     return suma;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -353,16 +353,16 @@ TADs. Para comparar las complejidades de búsqueda en diferentes estructuras
 :::{code-block}c
 :linenos:
 // Merge Sort: O(n log n)
-void merge_sort(int arr[], int izq, int der) {
-    if (izq < der) {
+void merge_sort(int arr[], int izq, int der)
+{
+    if (izq < der)
+    {
         int medio = izq + (der - izq) / 2;
-        
-        merge_sort(arr, izq, medio);      // T(n/2)
-        merge_sort(arr, medio + 1, der);  // T(n/2)
-        merge(arr, izq, medio, der);      // O(n)
+        merge_sort(arr, izq, medio);     // T(n/2)
+        merge_sort(arr, medio + 1, der); // T(n/2)
+        merge(arr, izq, medio, der);     // O(n)
     }
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -382,16 +382,19 @@ O(n \log n)$ por el Teorema Maestro.
 :::{code-block}c
 :linenos:
 // Bubble Sort: O(n²)
-void bubble_sort(int arr[], int n) {
-    for (int i = 0; i < n - 1; i++) {           // n iteraciones
-        for (int j = 0; j < n - i - 1; j++) {   // n-i iteraciones
-            if (arr[j] > arr[j + 1]) {
-                intercambiar(&arr[j], &arr[j + 1]);  // O(1)
+void bubble_sort(int arr[], int n)
+{
+    for (int i = 0; i < n - 1; i++)
+    { // n iteraciones
+        for (int j = 0; j < n - i - 1; j++)
+        { // n-i iteraciones
+            if (arr[j] > arr[j + 1])
+            {
+                intercambiar(&arr[j], &arr[j + 1]); // O(1)
             }
         }
     }
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -410,17 +413,20 @@ void bubble_sort(int arr[], int n) {
 :::{code-block}c
 :linenos:
 // Multiplicación de matrices: O(n³)
-void multiplicar_matrices(int A[][N], int B[][N], int C[][N], int n) {
-    for (int i = 0; i < n; i++) {         // n iteraciones
-        for (int j = 0; j < n; j++) {     // n iteraciones
+void multiplicar_matrices(int A[][N], int B[][N], int C[][N], int n)
+{
+    for (int i = 0; i < n; i++)
+    { // n iteraciones
+        for (int j = 0; j < n; j++)
+        { // n iteraciones
             C[i][j] = 0;
-            for (int k = 0; k < n; k++) { // n iteraciones
+            for (int k = 0; k < n; k++)
+            { // n iteraciones
                 C[i][j] += A[i][k] * B[k][j];
             }
         }
     }
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -438,13 +444,14 @@ NP-completos
 :::{code-block}c
 :linenos:
 // Fibonacci recursivo ingenuo: O(2^n)
-int fibonacci(int n) {
-    if (n <= 1) {
+int fibonacci(int n)
+{
+    if (n <= 1)
+    {
         return n;
     }
-    return fibonacci(n - 1) + fibonacci(n - 2);  // Dos llamadas recursivas
+    return fibonacci(n - 1) + fibonacci(n - 2); // Dos llamadas recursivas
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -475,19 +482,20 @@ bruta)
 :::{code-block}c
 :linenos:
 // Generar permutaciones: O(n!)
-void generar_permutaciones(int arr[], int inicio, int fin) {
-    if (inicio == fin) {
+void generar_permutaciones(int arr[], int inicio, int fin)
+{
+    if (inicio == fin)
+    {
         imprimir(arr, fin + 1);
         return;
     }
-    
-    for (int i = inicio; i <= fin; i++) {
+    for (int i = inicio; i <= fin; i++)
+    {
         intercambiar(&arr[inicio], &arr[i]);
-        generar_permutaciones(arr, inicio + 1, fin);  // (n-1)! llamadas
+        generar_permutaciones(arr, inicio + 1, fin); // (n-1)! llamadas
         intercambiar(&arr[inicio], &arr[i]);
     }
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -545,10 +553,10 @@ de $n$ hasta 100.
 
 :::{code-block}c
 :linenos:
-for (int i = 0; i < n; i++) {
+for (int i = 0; i < n; i++)
+{
     // Operación O(1)
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -558,12 +566,13 @@ for (int i = 0; i < n; i++) {
 
 :::{code-block}c
 :linenos:
-for (int i = 0; i < n; i++) {       // n iteraciones
-    for (int j = 0; j < n; j++) {   // n iteraciones
+for (int i = 0; i < n; i++)
+{ // n iteraciones
+    for (int j = 0; j < n; j++)
+    { // n iteraciones
         // Operación O(1)
     }
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -574,12 +583,13 @@ O(n^2)$
 
 :::{code-block}c
 :linenos:
-for (int i = 0; i < n; i++) {
-    for (int j = i; j < n; j++) {  // Depende de i
+for (int i = 0; i < n; i++)
+{
+    for (int j = i; j < n; j++)
+    { // Depende de i
         // Operación O(1)
     }
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -593,10 +603,10 @@ $$
 
 :::{code-block}c
 :linenos:
-for (int i = 1; i < n; i *= 2) {
+for (int i = 1; i < n; i *= 2)
+{
     // Operación O(1)
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -770,17 +780,21 @@ tamaño utilizando `realloc`:
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     int *datos;
     size_t tamaño;
     size_t capacidad;
 } arreglo_dinamico_t;
-
-bool insertar_arreglo(arreglo_dinamico_t *arr, int valor) {
-    if (arr->tamaño >= arr->capacidad) {
+bool insertar_arreglo(arreglo_dinamico_t *arr, int valor)
+{
+    if (arr->tamaño >= arr->capacidad)
+    {
         size_t nueva_capacidad = arr->capacidad * 2;
-        int *nuevo_espacio = realloc(arr->datos, nueva_capacidad * sizeof(int));
-        if (nuevo_espacio == NULL) {
+        int *nuevo_espacio =
+            realloc(arr->datos, nueva_capacidad * sizeof(int));
+        if (nuevo_espacio == NULL)
+        {
             return false;
         }
         arr->datos = nuevo_espacio;
@@ -790,7 +804,6 @@ bool insertar_arreglo(arreglo_dinamico_t *arr, int valor) {
     arr->tamaño++;
     return true;
 }
-
 ```
 <!-- {code-block} c -->
 <!-- {code-block}c -->
@@ -915,13 +928,14 @@ recursión determina la complejidad espacial.
 **Ejemplo**: Fibonacci recursivo
 :::{code-block}c
 :linenos:
-int fibonacci(int n) {
-    if (n <= 1) {
+int fibonacci(int n)
+{
+    if (n <= 1)
+    {
         return n;
     }
     return fibonacci(n - 1) + fibonacci(n - 2);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -936,18 +950,19 @@ A menudo es posible reducir tiempo usando más espacio (memoización) o vicevers
 **Ejemplo**: Fibonacci con memoización
 :::{code-block}c
 :linenos:
-int fibonacci_memo(int n, int memo[]) {
-    if (n <= 1) {
+int fibonacci_memo(int n, int memo[])
+{
+    if (n <= 1)
+    {
         return n;
     }
-    if (memo[n] != -1) {
+    if (memo[n] != -1)
+    {
         return memo[n];
     }
-    
     memo[n] = fibonacci_memo(n - 1, memo) + fibonacci_memo(n - 2, memo);
     return memo[n];
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1152,18 +1167,18 @@ razonables, sabiendo que una solución óptima general y rápida no es viable.
 
 :::{code-block}c
 :linenos:
-int buscar_maximo(int arr[], int n) {
-    int max = arr[0];          // O(1)
-    
-    for (int i = 1; i < n; i++) {  // n-1 iteraciones
-        if (arr[i] > max) {    // O(1)
-            max = arr[i];      // O(1)
+int buscar_maximo(int arr[], int n)
+{
+    int max = arr[0]; // O(1)
+    for (int i = 1; i < n; i++)
+    { // n-1 iteraciones
+        if (arr[i] > max)
+        {                 // O(1)
+            max = arr[i]; // O(1)
         }
     }
-    
-    return max;  // O(1)
+    return max; // O(1)
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1180,17 +1195,20 @@ int buscar_maximo(int arr[], int n) {
 :::{code-block}c
 :linenos:
 // Versión ingenua: O(n²)
-bool tiene_duplicados_ingenuo(int arr[], int n) {
-    for (int i = 0; i < n; i++) {           // n iteraciones
-        for (int j = i + 1; j < n; j++) {   // (n-i-1) iteraciones
-            if (arr[i] == arr[j]) {
-                return true;  // O(1)
+bool tiene_duplicados_ingenuo(int arr[], int n)
+{
+    for (int i = 0; i < n; i++)
+    { // n iteraciones
+        for (int j = i + 1; j < n; j++)
+        { // (n-i-1) iteraciones
+            if (arr[i] == arr[j])
+            {
+                return true; // O(1)
             }
         }
     }
     return false;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1203,18 +1221,18 @@ $$
 :::{code-block}c
 :linenos:
 // Versión optimizada: O(n log n) con ordenamiento previo
-bool tiene_duplicados_ordenado(int arr[], int n) {
-    qsort(arr, n, sizeof(int), comparar);  // O(n log n)
-    
-    for (int i = 0; i < n - 1; i++) {      // O(n)
-        if (arr[i] == arr[i + 1]) {
+bool tiene_duplicados_ordenado(int arr[], int n)
+{
+    qsort(arr, n, sizeof(int), comparar); // O(n log n)
+    for (int i = 0; i < n - 1; i++)
+    { // O(n)
+        if (arr[i] == arr[i + 1])
+        {
             return true;
         }
     }
-    
     return false;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1225,17 +1243,17 @@ bool tiene_duplicados_ordenado(int arr[], int n) {
 
 :::{code-block}c
 :linenos:
-void hanoi(int n, char origen, char destino, char auxiliar) {
-    if (n == 1) {
+void hanoi(int n, char origen, char destino, char auxiliar)
+{
+    if (n == 1)
+    {
         printf("Mover disco 1 de %c a %c\n", origen, destino);
         return;
     }
-    
     hanoi(n - 1, origen, auxiliar, destino);
     printf("Mover disco %d de %c a %c\n", n, origen, destino);
     hanoi(n - 1, auxiliar, destino, origen);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1462,12 +1480,13 @@ la cantidad de ejecuciones del lazo interno:
 
 :::{code-block}c
 :linenos:
-for (int i = 0; i < n; i++) {
-    for (int j = 0; j < i; j++) {
+for (int i = 0; i < n; i++)
+{
+    for (int j = 0; j < i; j++)
+    {
         printf("%d ", i * j);
     }
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1496,12 +1515,13 @@ Determiná la complejidad temporal del siguiente fragmento de código:
 
 :::{code-block}c
 :linenos:
-for (int i = 1; i < n; i *= 3) {
-    for (int j = 0; j < n; j++) {
+for (int i = 1; i < n; i *= 3)
+{
+    for (int j = 0; j < n; j++)
+    {
         printf("%d ", i + j);
     }
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1531,17 +1551,19 @@ Teorema Maestro:
 
 :::{code-block}c
 :linenos:
-void misterio(int n) {
-    if (n <= 1) {
+void misterio(int n)
+{
+    if (n <= 1)
+    {
         return;
     }
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
+    {
         printf("%d ", i);
     }
     misterio(n / 3);
     misterio(n / 3);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1618,9 +1640,11 @@ recursiva. Determiná la complejidad espacial de ambas.
 :class: dropdown
 1. **Versión iterativa**:
    ```c
-   long long factorial_iterativo(int n) {
+   long long factorial_iterativo(int n)
+   {
        long long resultado = 1;
-       for (int i = 2; i <= n; i++) {
+       for (int i = 2; i <= n; i++)
+       {
            resultado *= i;
        }
        return resultado;
@@ -1632,8 +1656,10 @@ recursiva. Determiná la complejidad espacial de ambas.
 
 2. **Versión recursiva**:
    ```c
-   long long factorial_recursivo(int n) {
-       if (n <= 1) return 1;
+   long long factorial_recursivo(int n)
+   {
+       if (n <= 1)
+           return 1;
        return n * factorial_recursivo(n - 1);
    }
    ```

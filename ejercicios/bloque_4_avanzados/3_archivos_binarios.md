@@ -32,13 +32,13 @@ Para los siguientes ejercicios, utilizaremos la `struct` `producto_t`:
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     char sku[12];
     char nombre[30];
     int stock;
     float precio;
 } producto_t;
-
 ```
 <!-- {code-block} c -->
 (ejercicio_28_1)=

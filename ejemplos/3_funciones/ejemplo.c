@@ -4,7 +4,8 @@
 
 long funcion(long valor)
 {
-    if (valor < 1){
+    if (valor < 1)
+    {
         printf("fin! %ld\n", valor);
         return 1;
     }
@@ -16,7 +17,6 @@ long funcion(long valor)
         return resultado;
     }
 }
-
 
 int main()
 {

@@ -2,20 +2,21 @@
 
 #include <stdio.h>
 
-int main(void) {
+int main(void)
+{
     // Enteros
     int edad = 25;
     short temperatura = -5;
     long poblacion = 45000000L;
-    
+
     // Caracteres
     char inicial = 'M';
-    char letra = 65;  // Código ASCII de 'A'
-    
+    char letra = 65; // Código ASCII de 'A'
+
     // Punto flotante
     float pi = 3.14159f;
     double precision = 3.141592653589793;
-    
+
     // Impresión de valores
     printf("Edad: %d años\n", edad);
     printf("Temperatura: %hd°C\n", temperatura);
@@ -24,7 +25,7 @@ int main(void) {
     printf("Letra (ASCII %d): %c\n", letra, letra);
     printf("Pi (float): %.5f\n", pi);
     printf("Pi (double): %.15f\n", precision);
-    
+
     // Tamaños de los tipos
     printf("\nTamaños en bytes:\n");
     printf("int: %zu\n", sizeof(int));
@@ -33,6 +34,6 @@ int main(void) {
     printf("char: %zu\n", sizeof(char));
     printf("float: %zu\n", sizeof(float));
     printf("double: %zu\n", sizeof(double));
-    
+
     return 0;
 }

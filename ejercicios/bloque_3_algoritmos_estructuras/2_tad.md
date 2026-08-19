@@ -33,12 +33,10 @@ Implementar un TAD de lista enlazada simple con su interfaz completa.
 :linenos:
 // lista.h
 typedef struct lista lista_t;
-
-lista_t* crear_lista(void);
-void destruir_lista(lista_t* lista);
-bool lista_vacia(const lista_t* lista);
-size_t lista_longitud(const lista_t* lista);
-
+lista_t *crear_lista(void);
+void destruir_lista(lista_t *lista);
+bool lista_vacia(const lista_t *lista);
+size_t lista_longitud(const lista_t *lista);
 ```
 <!-- {code-block} c -->
 (ejercicio_22_1)=
@@ -59,7 +57,7 @@ operación debe tener complejidad $O(1)$.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-bool insertar_al_inicio(lista_t* lista, int dato);
+bool insertar_al_inicio(lista_t *lista, int dato);
 ```
 <!-- c -->
 (ejercicio_22_2)=
@@ -80,7 +78,7 @@ la complejidad: $O(n)$ sin puntero al último, $O(1)$ con puntero al último.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-bool insertar_al_final(lista_t* lista, int dato);
+bool insertar_al_final(lista_t *lista, int dato);
 ```
 <!-- c -->
 (ejercicio_22_3)=
@@ -101,8 +99,8 @@ la lista.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-bool ver_primero(const lista_t* lista, int* dato);
-bool ver_ultimo(const lista_t* lista, int* dato);
+bool ver_primero(const lista_t *lista, int *dato);
+bool ver_ultimo(const lista_t *lista, int *dato);
 ```
 <!-- c -->
 (ejercicio_22_4)=
@@ -123,7 +121,7 @@ Complejidad: $O(1)$.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-bool borrar_primero(lista_t* lista, int* dato);
+bool borrar_primero(lista_t *lista, int *dato);
 ```
 <!-- c -->
 
@@ -148,7 +146,7 @@ Retornar `true` si lo encuentra.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-bool lista_pertenece(const lista_t* lista, int dato);
+bool lista_pertenece(const lista_t *lista, int dato);
 ```
 <!-- c -->
 
@@ -171,7 +169,7 @@ Implementar una función que retorne el elemento en una posición específica
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-bool lista_obtener(const lista_t* lista, size_t posicion, int* dato);
+bool lista_obtener(const lista_t *lista, size_t posicion, int *dato);
 ```
 <!-- c -->
 
@@ -194,7 +192,7 @@ lista.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-size_t lista_contar(const lista_t* lista, int dato);
+size_t lista_contar(const lista_t *lista, int dato);
 ```
 <!-- c -->
 
@@ -218,7 +216,7 @@ Implementar una función que inserte un elemento en una posición específica.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-bool lista_insertar_en(lista_t* lista, size_t posicion, int dato);
+bool lista_insertar_en(lista_t *lista, size_t posicion, int dato);
 ```
 <!-- c -->
 
@@ -244,7 +242,7 @@ liberar sus nodos correspondientes en memoria.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-bool lista_eliminar(lista_t* lista, int dato);
+bool lista_eliminar(lista_t *lista, int dato);
 ```
 <!-- c -->
 (ejercicio_22_10)=
@@ -265,7 +263,7 @@ manera destructiva (in-place, $O(n)$ tiempo, $O(1)$ memoria).
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-void lista_invertir(lista_t* lista);
+void lista_invertir(lista_t *lista);
 ```
 <!-- c -->
 (ejercicio_22_11)=
@@ -286,7 +284,7 @@ segunda lista al final de la primera.
 <!-- {hint} Lógica y Consideraciones -->
 
 ``` c
-void lista_concatenar(lista_t* destino, lista_t* origen);
+void lista_concatenar(lista_t *destino, lista_t *origen);
 ```
 <!-- c -->
 (ejercicio_22_12)=

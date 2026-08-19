@@ -133,18 +133,16 @@ Considerá el siguiente código con errores:
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-int main() {
+int main()
+{
     int *arr = malloc(10 * sizeof(int));
-    
-    for (int i = 0; i <= 10; i++) {  // Error: acceso fuera de límites
+    for (int i = 0; i <= 10; i++)
+    { // Error: acceso fuera de límites
         arr[i] = i;
     }
-    
     // Error: no se libera la memoria
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -301,21 +299,17 @@ Código con errores de memoria:
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-int main() {
+int main()
+{
     int *arr = malloc(5 * sizeof(int));
-    
     // Error 1: Acceso fuera de límites
     arr[10] = 42;
-    
     // Error 2: Uso de variable no inicializada
     int x;
     printf("Valor: %d\n", x);
-    
     // Error 3: Memory leak (no se llama a free)
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -472,21 +466,21 @@ Considerá un programa con un bug:
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-int calcular_suma(int n) {
+int calcular_suma(int n)
+{
     int suma = 0;
-    for (int i = 1; i < n; i++) {  // Bug: debería ser i <= n
+    for (int i = 1; i < n; i++)
+    { // Bug: debería ser i <= n
         suma += i;
     }
     return suma;
 }
-
-int main() {
+int main()
+{
     int resultado = calcular_suma(5);
-    printf("Suma: %d\n", resultado);  // Esperado: 15, Obtiene: 10
+    printf("Suma: %d\n", resultado); // Esperado: 15, Obtiene: 10
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -518,7 +512,7 @@ calcular_suma (n=5) at suma.c:4
 4           int suma = 0;
 
 (gdb) next
-5           for (int i = 1; i < n; i++) {
+5           for (int i = 1; i < n; i++)
 
 (gdb) print i
 $1 = 1

@@ -3,7 +3,8 @@
 void procedimiento();
 int variable_global = 10;
 
-int main() {
+int main()
+{
     int variable_global = 20;
     {
         int variable_global = 30;
@@ -20,7 +21,8 @@ int main() {
     return 0;
 }
 
-void procedimiento(){
+void procedimiento()
+{
     static int a = 0;
     {
         static int a = 10;

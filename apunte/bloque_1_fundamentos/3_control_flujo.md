@@ -45,14 +45,18 @@ secuencial en caso contrario.
 
 :::{code-block}c
 :linenos:
-if (condicion) {
+if (condicion)
+{
     // Bloque ejecutado si la condición es verdadera
-} else if (otra_condicion) {
+}
+else if (otra_condicion)
+{
     // Bloque ejecutado si la condición anterior fue falsa y esta es verdadera
-} else {
+}
+else
+{
     // Bloque ejecutado si ninguna condición fue verdadera
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -84,12 +88,14 @@ como `5 > 3` se evalúan físicamente como el entero `1`.
 
 :::{code-block}c
 :linenos:
-if (edad >= 18) {
+if (edad >= 18)
+{
     printf("Mayor de edad\n");
-} else {
+}
+else
+{
     printf("Menor de edad\n");
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -104,18 +110,18 @@ contra múltiples constantes de tipo entero o carácter.
 
 :::{code-block}c
 :linenos:
-switch (opcion) {
-    case 1:
-        // Código para opción 1
-        break;
-    case 2:
-        // Código para opción 2
-        break;
-    default:
-        // Código si no coincide con ningún caso anterior (obligatorio)
-        break;
+switch (opcion)
+{
+case 1:
+    // Código para opción 1
+    break;
+case 2:
+    // Código para opción 2
+    break;
+default:
+    // Código si no coincide con ningún caso anterior (obligatorio)
+    break;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -131,17 +137,18 @@ Al utilizar `switch` debés tener en cuenta dos detalles clave:
     Por ejemplo, en un switch que controla los estados de un sensor:
 
     ```{code-block}c
-    switch (estado_sensor) {
-        case APAGADO:
-            apagar_sistema();
-            break;
-        case ACTIVO:
-            monitorear_sistema();
-            break;
-        default:
-            // Caso defensivo: maneja valores inesperados por corrupción o error
-            assert(false && "Estado de sensor inválido o inalcanzable");
-            break;
+    switch (estado_sensor)
+    {
+    case APAGADO:
+        apagar_sistema();
+        break;
+    case ACTIVO:
+        monitorear_sistema();
+        break;
+    default:
+        // Caso defensivo: maneja valores inesperados por corrupción o error
+        assert(false && "Estado de sensor inválido o inalcanzable");
+        break;
     }
     ```
 
@@ -170,11 +177,11 @@ verdadera.
 :::{code-block}c
 :linenos:
 int i = 0;
-while (i < 5) {
+while (i < 5)
+{
     printf("i vale %d\n", i);
     i = i + 1;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -198,7 +205,8 @@ modo que la guarda de control resulte falsa eventualmente.
 *   **Incorrecto (Falta de paso de iteración):**
     ```c
     int contador = 1;
-    while (contador <= 10) {
+    while (contador <= 10)
+    {
         printf("%d\n", contador);
         // La variable contador nunca se incrementa y se mantiene en 1.
         // El lazo se ejecutará infinitamente consumiendo recursos de CPU.
@@ -207,7 +215,8 @@ modo que la guarda de control resulte falsa eventualmente.
 *   **Correcto (Paso de iteración explícito):**
     ```c
     int contador = 1;
-    while (contador <= 10) {
+    while (contador <= 10)
+    {
         printf("%d\n", contador);
         contador = contador + 1; // Incremento explícito que asegura el corte
     }
@@ -225,7 +234,6 @@ for (inicialización; condición; incremento)
 {
     // Bloque de instrucciones
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -247,10 +255,10 @@ específicas para cada acción del lazo.
 
 :::{code-block}c
 :linenos:
-for (int i = 0; i < 5; i++) {
+for (int i = 0; i < 5; i++)
+{
     printf("i vale %d\n", i);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -283,10 +291,10 @@ En C, trasladás esta equivalencia matemática directamente a la cabecera del la
 
 :::{code-block}c
 :linenos:
-for (int i = 0; i < n; i++) {
+for (int i = 0; i < n; i++)
+{
     // Procesar x[i]
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -314,11 +322,11 @@ condición lógica de permanencia.
 :::{code-block}c
 :linenos:
 int clave = 0;
-do {
+do
+{
     printf("Ingrese la clave de acceso (1234): ");
     scanf("%d", &clave);
 } while (clave != 1234);
-
 :::
 <!-- {code-block}c -->
 
@@ -359,35 +367,35 @@ directamente como condición de corte en la cabecera del lazo:
 
 :::{code-block}c
 :linenos:
-#include <stdio.h>
 #include <stdbool.h> // Necesario para el tipo de dato bool
-
-int main() {
+#include <stdio.h>
+int main()
+{
     int numeros[] = {10, 25, 4, 30, 8, 15};
     int tamano = sizeof(numeros) / sizeof(numeros[0]);
     int numero_buscado = 8;
     bool encontrado = false; // Bandera inicializada en false
-
     int i = 0;
     // El lazo continúa si quedan elementos por revisar Y si aún no se encontró
-    el número
-    while (i < tamano && encontrado == false) {
-        if (numeros[i] == numero_buscado) {
+    el número while (i < tamano && encontrado == false)
+    {
+        if (numeros[i] == numero_buscado)
+        {
             encontrado = true; // Se enciende la bandera
         }
         i++;
     }
-
-    if (encontrado == true) {
+    if (encontrado == true)
+    {
         printf("El número %d fue encontrado en el arreglo.\n", numero_buscado);
-    } else {
-        printf("El número %d NO fue encontrado en el arreglo.\n",
-        numero_buscado);
     }
-
+    else
+    {
+        printf("El número %d NO fue encontrado en el arreglo.\n",
+               numero_buscado);
+    }
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -399,28 +407,28 @@ finaliza cuando un evento apaga la bandera:
 
 :::{code-block}c
 :linenos:
-#include <stdio.h>
 #include <stdbool.h>
-
-int main() {
+#include <stdio.h>
+int main()
+{
     bool continuar = true; // Bandera de permanencia
     int numero = 0;
-
-    while (continuar == true) {
+    while (continuar == true)
+    {
         printf("Ingresá un número (0 para salir): ");
         scanf("%d", &numero);
-
-        if (numero == 0) {
+        if (numero == 0)
+        {
             continuar = false; // Se apaga la bandera para salir en la próxima
             iteración
-        } else {
+        }
+        else
+        {
             printf("Ingresaste: %d\n", numero);
         }
     }
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -437,21 +445,19 @@ Imaginemos que queremos calcular la suma de los primeros N números enteros.
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
-int main() {
+int main()
+{
     int n = -1;
     int suma = 0; // Aquí, 'suma' es nuestro acumulador
     printf("Ingrese un numero entero N: ");
     scanf("%d", &n);
-
-    for (int i = 1; i <= n; i++) {
+    for (int i = 1; i <= n; i++)
+    {
         suma = suma + i; // Se acumulan los valores en cada iteración
     }
-
     printf("La suma de los primeros %d numeros es: %d\n", n, suma);
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -473,28 +479,26 @@ Supongamos que queremos contar cuántos números pares hay en un rango dado.
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
-int main() {
+int main()
+{
     int inicio = -1;
     int fin = -1;
     int contadorPares = 0; // Aquí, 'contadorPares' es nuestro contador
-
     printf("Ingrese el inicio del rango: ");
     scanf("%d", &inicio);
     printf("Ingrese el fin del rango: ");
     scanf("%d", &fin);
-
-    for (int i = inicio; i <= fin; i++) {
-        if (i % 2 == 0) {
+    for (int i = inicio; i <= fin; i++)
+    {
+        if (i % 2 == 0)
+        {
             contadorPares++; // Se incrementa el contador si el número es par
         }
     }
-
     printf("En el rango de %d a %d, hay %d numeros pares.\n", inicio, fin,
-    contadorPares);
+           contadorPares);
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -516,13 +520,14 @@ instrucción que se encuentre fuera del bloque del ciclo.
 
 :::{code-block}c
 :linenos:
-for (int i = 1; i <= 10; i++) {
-    if (i == 5) {
+for (int i = 1; i <= 10; i++)
+{
+    if (i == 5)
+    {
         break; // Sale inmediatamente del lazo cuando i vale 5
     }
     printf("i = %d\n", i);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -532,13 +537,14 @@ directamente a evaluar la condición para la siguiente iteración.
 
 :::{code-block}c
 :linenos:
-for (int i = 1; i <= 5; i++) {
-    if (i == 3) {
+for (int i = 1; i <= 5; i++)
+{
+    if (i == 3)
+    {
         continue; // Salta al final del bloque e inicia la iteración de i = 4
     }
     printf("i = %d\n", i);
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -600,29 +606,24 @@ dentro de un lazo `while`:
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
-int main() {
+int main()
+{
     int edad = 0;
     char inicial = ' ';
-
     printf("Ingresá tu edad: ");
     scanf("%d", &edad);
-
     // Purgado del buffer: lee y descarta caracteres hasta el salto de línea.
     // Usamos 'int' y no 'char' porque getchar() retorna un entero para
-    representar EOF (-1).
-    int c = 0;
-    while ((c = getchar()) != '\n' && c != EOF) {
+    representar EOF(-1).int c = 0;
+    while ((c = getchar()) != '\n' && c != EOF)
+    {
         // Lazo vacío: solo consume el buffer residual
     }
-
     printf("Ingresá tu inicial: ");
     scanf("%c", &inicial); // Ahora lee correctamente sin saltarse
-
     printf("Edad: %d, Inicial: %c\n", edad, inicial);
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -653,9 +654,12 @@ por 100, pero sí aquellos divisibles por 400.
 :class: dropdown
 La expresión lógica se traduce en C de la siguiente manera:
 ``` c
-if ((anio % 4 == 0 && anio % 100 != 0) || anio % 400 == 0) {
+if ((anio % 4 == 0 && anio % 100 != 0) || anio % 400 == 0)
+{
     printf("El año %d es bisiesto.\n", anio);
-} else {
+}
+else
+{
     printf("El año %d no es bisiesto.\n", anio);
 }
 ```
@@ -679,31 +683,31 @@ Aprovechando la caída (*fall-through*) controlada omitiendo el `break` en casos
 con el mismo valor resultante:
 ```{code-block} c
 :linenos:
-switch (mes) {
-    case 2:
-        dias = 28;
-        break;
-    case 4:
-    case 6:
-    case 9:
-    case 11:
-        dias = 30;
-        break;
-    case 1:
-    case 3:
-    case 5:
-    case 7:
-    case 8:
-    case 10:
-    case 12:
-        dias = 31;
-        break;
-    default:
-        printf("Error: mes inválido.\n");
-        dias = -1;
-        break;
+switch (mes)
+{
+case 2:
+    dias = 28;
+    break;
+case 4:
+case 6:
+case 9:
+case 11:
+    dias = 30;
+    break;
+case 1:
+case 3:
+case 5:
+case 7:
+case 8:
+case 10:
+case 12:
+    dias = 31;
+    break;
+default:
+    printf("Error: mes inválido.\n");
+    dias = -1;
+    break;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -717,7 +721,8 @@ por qué la regla {ref}`0x1005h` prohíbe el uso de la veracidad implícita:
 ``` c
 int estado = 0;
 // ...
-if (estado = 5) {
+if (estado = 5)
+{
     printf("El estado es activo.\n");
 }
 ```
@@ -757,19 +762,21 @@ positivo ingresado por el usuario usando un lazo `while`.
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-int main() {
+int main()
+{
     int numero = 0;
     long factorial = 1;
-
     printf("Ingresá un número entero positivo: ");
     scanf("%d", &numero);
-
-    if (numero < 0) {
+    if (numero < 0)
+    {
         printf("Error: El número debe ser positivo.\n");
-    } else {
+    }
+    else
+    {
         int i = 1;
-        while (i <= numero) {
+        while (i <= numero)
+        {
             factorial = factorial * i;
             i++;
         }
@@ -777,7 +784,6 @@ int main() {
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -797,25 +803,23 @@ comprendidos en un rango cerrado $[A, B]$ provisto por el usuario.
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-int main() {
+int main()
+{
     int a = 0;
     int b = 0;
     int suma = 0;
-
     printf("Ingresá los límites A y B: ");
     scanf("%d %d", &a, &b);
-
-    for (int i = a; i <= b; i++) {
-        if (i % 2 != 0) {
+    for (int i = a; i <= b; i++)
+    {
+        if (i % 2 != 0)
+        {
             suma += i;
         }
     }
-
     printf("La suma de impares en el rango es: %d\n", suma);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -838,7 +842,8 @@ opción.
 ```{code-block} c
 :linenos:
 int opcion = 0;
-do {
+do
+{
     printf("\n--- CONFIGURACIÓN ---\n");
     printf("1. Ajustar brillo\n");
     printf("2. Ajustar contraste\n");
@@ -846,12 +851,11 @@ do {
     printf("4. Salir\n");
     printf("Seleccioná una opción (1-4): ");
     scanf("%d", &opcion);
-
-    if (opcion < 1 || opcion > 4) {
+    if (opcion < 1 || opcion > 4)
+    {
         printf("Opción inválida. Reintentá.\n");
     }
 } while (opcion != 4);
-
 ```
 <!-- {code-block} c -->
 
@@ -874,36 +878,40 @@ las pautas de diseño estructurado.
 :class: dropdown
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <stdbool.h>
-
-int main() {
+#include <stdio.h>
+int main()
+{
     int numero = 0;
     printf("Ingresá un entero positivo: ");
     scanf("%d", &numero);
-
-    if (numero <= 1) {
+    if (numero <= 1)
+    {
         printf("No es primo.\n");
-    } else {
+    }
+    else
+    {
         bool tiene_divisor = false; // Bandera
         int divisor = 2;
-
-        while (divisor * divisor <= numero && tiene_divisor == false) {
-            if (numero % divisor == 0) {
+        while (divisor * divisor <= numero && tiene_divisor == false)
+        {
+            if (numero % divisor == 0)
+            {
                 tiene_divisor = true; // Se activa la bandera
             }
             divisor++;
         }
-
-        if (tiene_divisor == false) {
+        if (tiene_divisor == false)
+        {
             printf("El número %d es primo.\n", numero);
-        } else {
+        }
+        else
+        {
             printf("El número %d no es primo.\n", numero);
         }
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -924,35 +932,38 @@ variables utilizadas.
 :class: dropdown
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <stdbool.h>
-
-int main() {
-    float valor = 0.0f;     // Entrada
+#include <stdio.h>
+int main()
+{
+    float valor = 0.0f;      // Entrada
     float acumulador = 0.0f; // Acumulador
-    int contador = 0;       // Contador
-    bool continuar = true;  // Bandera de control de lazo
-
-    while (continuar == true) {
+    int contador = 0;        // Contador
+    bool continuar = true;   // Bandera de control de lazo
+    while (continuar == true)
+    {
         printf("Ingresá un valor (negativo para terminar): ");
         scanf("%f", &valor);
-
-        if (valor < 0.0f) {
+        if (valor < 0.0f)
+        {
             continuar = false; // Apaga la bandera
-        } else {
+        }
+        else
+        {
             acumulador += valor; // Acumula
             contador++;          // Cuenta
         }
     }
-
-    if (contador > 0) {
+    if (contador > 0)
+    {
         printf("El promedio es: %.2f\n", acumulador / (float)contador);
-    } else {
+    }
+    else
+    {
         printf("No se ingresaron valores válidos.\n");
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -975,17 +986,19 @@ correspondientes al rol de contador y de acumulador si las hubiera.
 int numero = 12345;
 int temporal = numero; // Variable auxiliar
 int digitos = 0;       // Contador
-
-if (temporal == 0) {
+if (temporal == 0)
+{
     digitos = 1;
-} else {
-    while (temporal > 0) {
+}
+else
+{
+    while (temporal > 0)
+    {
         digitos++; // Cuenta la cantidad de divisiones
         temporal = temporal / 10;
     }
 }
 printf("El número %d tiene %d dígitos.\n", numero, digitos);
-
 ```
 <!-- {code-block} c -->
 En este algoritmo:
@@ -1008,13 +1021,14 @@ utilizando una bandera booleana.
 int numeros[] = {3, 7, 2, 9, 5};
 int buscado = 9;
 int posicion = -1;
-for (int i = 0; i < 5; i++) {
-    if (numeros[i] == buscado) {
+for (int i = 0; i < 5; i++)
+{
+    if (numeros[i] == buscado)
+    {
         posicion = i;
         break; // PROHIBIDO
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1031,16 +1045,16 @@ int numeros[] = {3, 7, 2, 9, 5};
 int buscado = 9;
 int posicion = -1;
 bool encontrado = false;
-
 int i = 0;
-while (i < 5 && encontrado == false) {
-    if (numeros[i] == buscado) {
+while (i < 5 && encontrado == false)
+{
+    if (numeros[i] == buscado)
+    {
         posicion = i;
         encontrado = true; // Activa la bandera para cortar el ciclo
     }
     i++;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1085,40 +1099,40 @@ continuar ('S' o 'N'), validando que el carácter ingresado sea uno de estos dos
 :class: dropdown
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <stdbool.h>
-
-int main() {
+#include <stdio.h>
+int main()
+{
     int edad = 0;
     char respuesta = ' ';
     bool respuesta_valida = false;
-
     printf("Ingresá tu edad: ");
     scanf("%d", &edad);
-
     // Purgado del buffer stdin
     int c;
-    while ((c = getchar()) != '\n' && c != EOF);
-
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
     // Lazo de lectura segura con validación
-    while (respuesta_valida == false) {
+    while (respuesta_valida == false)
+    {
         printf("¿Deseás continuar? (S/N): ");
         scanf("%c", &respuesta);
-
         // Purgar de nuevo en caso de entradas inválidas
-        while ((c = getchar()) != '\n' && c != EOF);
-
-        if (respuesta == 'S' || respuesta == 's' || respuesta == 'N' || respuesta == 'n') {
+        while ((c = getchar()) != '\n' && c != EOF)
+            ;
+        if (respuesta == 'S' || respuesta == 's' || respuesta == 'N' ||
+            respuesta == 'n')
+        {
             respuesta_valida = true;
-        } else {
+        }
+        else
+        {
             printf("Respuesta inválida. Por favor, ingresá S o N.\n");
         }
     }
-
     printf("Edad ingresada: %d. Elección: %c\n", edad, respuesta);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 

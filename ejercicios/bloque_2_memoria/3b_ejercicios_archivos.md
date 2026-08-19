@@ -64,10 +64,8 @@ errores de apertura, escritura y cierre.
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
 #define EXITO 0
 #define ERROR -1
-
 /**
  * Agrega una entrada de texto a un archivo de diario.
  *
@@ -91,7 +89,6 @@ int agregar_entrada_diario(const char *nombre_archivo, const char *entrada)
         perror("Error al abrir el diario");
         return ERROR;
     }
-
     // 2. Escribir la entrada
     if (fputs(entrada, p_archivo) == EOF)
     {
@@ -99,7 +96,6 @@ int agregar_entrada_diario(const char *nombre_archivo, const char *entrada)
         fclose(p_archivo);
         return ERROR;
     }
-
     // 3. Escribir el salto de línea
     if (fputc('\n', p_archivo) == EOF)
     {
@@ -107,22 +103,18 @@ int agregar_entrada_diario(const char *nombre_archivo, const char *entrada)
         fclose(p_archivo);
         return ERROR;
     }
-
     // 4. Cerrar el archivo
     if (fclose(p_archivo) != 0)
     {
         perror("Error al cerrar el diario");
         return ERROR;
     }
-
     return EXITO;
 }
-
 int main(void)
 {
     const char *MI_DIARIO = "diario.txt";
     int resultado = 0;
-
     printf("Escribiendo primera entrada...\n");
     resultado = agregar_entrada_diario(MI_DIARIO, "Hoy fue un día soleado.");
     if (resultado == ERROR)
@@ -130,7 +122,6 @@ int main(void)
         fprintf(stderr, "No se pudo escribir la primera entrada.\n");
         return EXIT_FAILURE;
     }
-
     printf("Escribiendo segunda entrada...\n");
     resultado = agregar_entrada_diario(MI_DIARIO, "Aprendí a manejar archivos en
     C.");
@@ -139,12 +130,9 @@ int main(void)
         fprintf(stderr, "No se pudo escribir la segunda entrada.\n");
         return EXIT_FAILURE;
     }
-
     printf("Entradas agregadas al diario '%s' con éxito.\n", MI_DIARIO);
-
     return EXIT_SUCCESS;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -179,11 +167,9 @@ caso de error.
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
 #define MAX_LONGITUD_LINEA 1024
 #define ERROR_APERTURA -1
 #define ERROR_LECTURA -2
-
 /**
  * Cuenta el número de líneas en un archivo de texto.
  *
@@ -201,19 +187,16 @@ int contar_lineas(const char *nombre_archivo)
     int cantidad_lineas = 0;
     FILE *p_archivo = NULL;
     char buffer[MAX_LONGITUD_LINEA];
-
     p_archivo = fopen(nombre_archivo, "r");
     if (p_archivo == NULL)
     {
         perror("Error al abrir el archivo para contar líneas");
         return ERROR_APERTURA;
     }
-
     while (fgets(buffer, sizeof(buffer), p_archivo) != NULL)
     {
         cantidad_lineas++;
     }
-
     // Después del lazo, verificar si salimos por error o por fin de archivo
     if (ferror(p_archivo))
     {
@@ -221,7 +204,6 @@ int contar_lineas(const char *nombre_archivo)
         cantidad_lineas = ERROR_LECTURA; // Sobrescribimos el conteo con un
         código de error
     }
-
     if (fclose(p_archivo) != 0)
     {
         perror("Error al cerrar el archivo después de contar");
@@ -230,10 +212,8 @@ int contar_lineas(const char *nombre_archivo)
             cantidad_lineas = ERROR_APERTURA; // Reutilizamos código de error
         }
     }
-
     return cantidad_lineas;
 }
-
 int main(void)
 {
     const char *NOMBRE_ARCHIVO = "diario.txt";
@@ -246,10 +226,8 @@ int main(void)
         fputs("Tercera línea.\n", p_archivo_prueba);
         fclose(p_archivo_prueba);
     }
-
     printf("Contando líneas en el archivo '%s'...\n", NOMBRE_ARCHIVO);
     int lineas = contar_lineas(NOMBRE_ARCHIVO);
-
     if (lineas >= 0)
     {
         printf("El archivo contiene %d líneas.\n", lineas);
@@ -257,13 +235,12 @@ int main(void)
     else
     {
         fprintf(stderr, "Ocurrió un error al procesar el archivo (código:
-        %d).\n", lineas);
-        return EXIT_FAILURE;
+                            % d)
+            .\n ", lineas);
+            return EXIT_FAILURE;
     }
-
     return EXIT_SUCCESS;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -296,14 +273,12 @@ archivos (apertura, lectura, escritura y cierre).
 
 :::{code-block}c
 :linenos:
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-
 #define EXITO 0
 #define ERROR -1
 #define MAX_BUFFER 4096
-
 /**
  * Copia el contenido de un archivo de texto a otro.
  *
@@ -325,14 +300,12 @@ int copiar_archivo(const char *ruta_origen, const char *ruta_destino)
     FILE *p_destino = NULL;
     char buffer[MAX_BUFFER];
     bool continuar_lazo = true;
-
     p_origen = fopen(ruta_origen, "r");
     if (p_origen == NULL)
     {
         perror("Error al abrir el archivo de origen");
         estado_operacion = ERROR;
     }
-
     if (estado_operacion == EXITO)
     {
         p_destino = fopen(ruta_destino, "w");
@@ -342,7 +315,6 @@ int copiar_archivo(const char *ruta_origen, const char *ruta_destino)
             estado_operacion = ERROR;
         }
     }
-
     while (estado_operacion == EXITO && continuar_lazo)
     {
         if (fgets(buffer, sizeof(buffer), p_origen) != NULL)
@@ -358,14 +330,12 @@ int copiar_archivo(const char *ruta_origen, const char *ruta_destino)
             continuar_lazo = false; // Se terminó de leer o hubo un error
         }
     }
-
     // Verificar si el lazo terminó por un error de lectura
     if (p_origen != NULL && ferror(p_origen))
     {
         perror("Error de lectura en el archivo de origen");
         estado_operacion = ERROR;
     }
-
     // Cerrar ambos archivos, verificando errores en cada cierre
     if (p_origen != NULL && fclose(p_origen) != 0)
     {
@@ -377,15 +347,12 @@ int copiar_archivo(const char *ruta_origen, const char *ruta_destino)
         perror("Error al cerrar el archivo de destino");
         estado_operacion = ERROR;
     }
-
     return estado_operacion;
 }
-
 int main(void)
 {
     const char *ARCHIVO_ORIGEN = "original.txt";
     const char *ARCHIVO_COPIA = "copia.txt";
-
     // Crear archivo original de prueba
     FILE *p_temp = fopen(ARCHIVO_ORIGEN, "w");
     if (p_temp != NULL)
@@ -395,7 +362,6 @@ int main(void)
         fprintf(p_temp, "Fin del archivo original.\n");
         fclose(p_temp);
     }
-
     printf("Copiando '%s' a '%s'...\n", ARCHIVO_ORIGEN, ARCHIVO_COPIA);
     if (copiar_archivo(ARCHIVO_ORIGEN, ARCHIVO_COPIA) == EXITO)
     {
@@ -406,10 +372,8 @@ int main(void)
         fprintf(stderr, "La copia del archivo falló.\n");
         return EXIT_FAILURE;
     }
-
     return EXIT_SUCCESS;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -444,11 +408,9 @@ simplicidad, no es necesario agregar una marca de tiempo.
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
 #define EXITO 0
 #define ERROR -1
 #define ARCHIVO_LOG "eventos.log"
-
 /**
  * Registra un mensaje de evento en un archivo de log.
  *
@@ -464,7 +426,6 @@ int registrar_evento(const char *mensaje)
 {
     int resultado = EXITO;
     FILE *p_log = fopen(ARCHIVO_LOG, "a");
-
     if (p_log == NULL)
     {
         perror("Error al abrir el archivo de log");
@@ -478,7 +439,6 @@ int registrar_evento(const char *mensaje)
             perror("Error al escribir en el archivo de log");
             resultado = ERROR;
         }
-
         // Cerrar el archivo
         if (fclose(p_log) != 0)
         {
@@ -486,38 +446,30 @@ int registrar_evento(const char *mensaje)
             resultado = ERROR;
         }
     }
-
     return resultado;
 }
-
 int main(void)
 {
     printf("Registrando eventos...\n");
-
     if (registrar_evento("[INFO] El sistema ha iniciado.") != EXITO)
     {
         fprintf(stderr, "Fallo al registrar el primer evento.\n");
         return EXIT_FAILURE;
     }
-
     if (registrar_evento("[WARN] El disco está casi lleno.") != EXITO)
     {
         fprintf(stderr, "Fallo al registrar el segundo evento.\n");
         return EXIT_FAILURE;
     }
-
     if (registrar_evento("[FATAL] No se pudo conectar a la base de datos.") !=
-    EXITO)
+        EXITO)
     {
         fprintf(stderr, "Fallo al registrar el tercer evento.\n");
         return EXIT_FAILURE;
     }
-
     printf("Eventos registrados en '%s'.\n", ARCHIVO_LOG);
-
     return EXIT_SUCCESS;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -555,12 +507,10 @@ Webcam,no_es_un_precio,3
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 #define EXITO 0
 #define ERROR -1
 #define MAX_LINEA 256
 #define MAX_PRODUCTO 100
-
 /**
  * Procesa un archivo CSV de ventas, calculando e imprimiendo el total por
    línea.
@@ -568,7 +518,8 @@ Webcam,no_es_un_precio,3
  * @param nombre_archivo La ruta del archivo CSV a procesar.
  *      #PRE: No puede ser NULL.
  *
- * @returns EXITO si el archivo se procesó (incluso si algunas líneas fallaron),
+ * @returns EXITO si el archivo se procesó (incluso si algunas líneas
+ fallaron),
  *          ERROR si no se pudo abrir el archivo o hubo un error de lectura
             irrecuperable.
  *
@@ -581,63 +532,54 @@ int procesar_ventas(const char *nombre_archivo)
     FILE *p_archivo = fopen(nombre_archivo, "r");
     char buffer[MAX_LINEA];
     size_t numero_linea = 0;
-
     if (p_archivo == NULL)
     {
         perror("No se pudo abrir el archivo de ventas");
         return ERROR;
     }
-
     while (fgets(buffer, sizeof(buffer), p_archivo) != NULL)
     {
         numero_linea++;
-
-        // Ignorar líneas vacías o comentarios usando lógica positiva conforme a
-        la regla 0x1002h
-        if (buffer[0] != '\n' && buffer[0] != '#')
+        // Ignorar líneas vacías o comentarios usando lógica positiva conforme
+        // a
+        la regla 0x1002h if (buffer[0] != '\n' && buffer[0] != '#')
         {
             char nombre_producto[MAX_PRODUCTO];
             double precio = 0.0;
             int cantidad = 0;
-
             // Usar sscanf para parsear la línea. Formato:
-            string-hasta-coma,double,int
-            int campos_leidos = sscanf(buffer, "%99[^,],%lf,%d",
-            nombre_producto, &precio, &cantidad);
-
+            string - hasta - coma, double,
+                int int campos_leidos =
+                    sscanf(buffer, "%99[^,],%lf,%d", nombre_producto, &precio,
+                           &cantidad);
             if (campos_leidos == 3)
             {
                 double total_linea = precio * (double)cantidad;
                 printf("Línea %zu: Producto \x27%s\x27, Total: %.2f\n",
-                numero_linea, nombre_producto, total_linea);
+                       numero_linea, nombre_producto, total_linea);
             }
             else
             {
                 fprintf(stderr, "[Advertencia] Línea %zu mal formada: %s",
-                numero_linea, buffer);
+                        numero_linea, buffer);
             }
         }
     }
-
     if (ferror(p_archivo))
     {
         perror("Ocurrió un error de lectura");
         estado_general = ERROR;
     }
-
     if (fclose(p_archivo) != 0)
     {
         perror("Error al cerrar el archivo de ventas");
         estado_general = ERROR;
     }
-
     return estado_general;
 }
-
 int main(void)
 {
     const char *ARCHIVO_VENTAS = "ventas.csv";
-
     // Crear archivo de ventas de prueba
     FILE *p_temp = fopen(ARCHIVO_VENTAS, "w");
     if (p_temp != NULL)
@@ -650,23 +592,23 @@ int main(void)
         fprintf(p_temp, "Webcam,no_es_un_precio,3\n"); // Línea mal formada
         fclose(p_temp);
     }
-
     printf("Procesando archivo \x27%s\x27...\n", ARCHIVO_VENTAS);
     if (procesar_ventas(ARCHIVO_VENTAS) == ERROR)
     {
-        fprintf(stderr, "No se pudo completar el procesamiento del archivo.\n");
+        fprintf(stderr,
+                "No se pudo completar el procesamiento del archivo.\n");
         return EXIT_FAILURE;
     }
-
     printf("\nProcesamiento finalizado.\n");
     return EXIT_SUCCESS;
 }
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
+- * *
+        [*plus ultra *
+]:**Garantizar la terminación con `\0` y prevenir desbordamientos de búfer
+            validando la capacidad máxima.-
+    **
+     [*plus ultra * ]:**Soportar la lectura de cadenas con espacios y múltiples
+                          líneas de manera robusta.
 :::
 <!-- {code-block}c -->
 
@@ -705,12 +647,10 @@ ante fallas de apertura, posicionamiento o escritura.
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
 #define EXITO 0
 #define ERROR_APERTURA -1
 #define ERROR_POSICIONAMIENTO -2
 #define ERROR_ESCRITURA -3
-
 int invertir_archivo(const char *origen, const char *destino)
 {
     FILE *p_origen = fopen(origen, "r");
@@ -719,7 +659,6 @@ int invertir_archivo(const char *origen, const char *destino)
         perror("Error al abrir el archivo de origen");
         return ERROR_APERTURA;
     }
-
     FILE *p_destino = fopen(destino, "w");
     if (p_destino == NULL)
     {
@@ -727,7 +666,6 @@ int invertir_archivo(const char *origen, const char *destino)
         fclose(p_origen);
         return ERROR_APERTURA;
     }
-
     // Determinar el tamaño del archivo de origen usando fseek y ftell
     if (fseek(p_origen, 0L, SEEK_END) != 0)
     {
@@ -736,7 +674,6 @@ int invertir_archivo(const char *origen, const char *destino)
         fclose(p_destino);
         return ERROR_POSICIONAMIENTO;
     }
-
     long tamanio = ftell(p_origen);
     if (tamanio == -1L)
     {
@@ -745,7 +682,6 @@ int invertir_archivo(const char *origen, const char *destino)
         fclose(p_destino);
         return ERROR_POSICIONAMIENTO;
     }
-
     // Leer carácter por carácter desde el final hacia el inicio
     for (long i = tamanio - 1; i >= 0; i--)
     {
@@ -756,7 +692,6 @@ int invertir_archivo(const char *origen, const char *destino)
             fclose(p_destino);
             return ERROR_POSICIONAMIENTO;
         }
-
         int c = fgetc(p_origen);
         if (c == EOF)
         {
@@ -765,7 +700,6 @@ int invertir_archivo(const char *origen, const char *destino)
             fclose(p_destino);
             return ERROR_POSICIONAMIENTO;
         }
-
         if (fputc(c, p_destino) == EOF)
         {
             perror("Error al escribir carácter en destino");
@@ -774,22 +708,18 @@ int invertir_archivo(const char *origen, const char *destino)
             return ERROR_ESCRITURA;
         }
     }
-
     fclose(p_origen);
     if (fclose(p_destino) != 0)
     {
         perror("Error al cerrar el archivo de destino");
         return ERROR_ESCRITURA;
     }
-
     return EXITO;
 }
-
 int main(void)
 {
     const char *ORIGEN = "entrada.txt";
     const char *DESTINO = "salida_invertida.txt";
-
     // Crear un archivo de prueba
     FILE *f = fopen(ORIGEN, "w");
     if (f != NULL)
@@ -797,9 +727,8 @@ int main(void)
         fputs("Ingenieria en Computacion UNRN", f);
         fclose(f);
     }
-
     printf("Invirtiendo archivo \x27%s\x27 en \x27%s\x27...\n", ORIGEN,
-    DESTINO);
+           DESTINO);
     if (invertir_archivo(ORIGEN, DESTINO) == EXITO)
     {
         printf("Archivo invertido exitosamente.\n");
@@ -808,10 +737,8 @@ int main(void)
     {
         printf("Ocurrió un error al invertir el archivo.\n");
     }
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 

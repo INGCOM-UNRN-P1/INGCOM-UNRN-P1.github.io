@@ -768,21 +768,23 @@ Algunas extensiones específicas de GCC pueden no funcionar en Clang:
 ```{code-block} c
 :linenos:
 // Nested functions (GCC extension, NO soportado en Clang)
-void outer() {
-    void inner() {  // ❌ Error en Clang
+void outer()
+{
+    void inner()
+    { // ❌ Error en Clang
         printf("nested\n");
     }
     inner();
 }
-
 // Alternativa compatible:
-void inner_impl() {
+void inner_impl()
+{
     printf("nested\n");
 }
-void outer() {
+void outer()
+{
     inner_impl();
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -795,13 +797,11 @@ Clang soporta los atributos estándar de C11 y muchos de GCC:
 // Atributos compatibles
 __attribute__((unused)) int x;
 __attribute__((warn_unused_result)) int funcion(void);
-
 // Pragmas de Clang
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-variable"
-int x;  // No genera warning
+int x; // No genera warning
 #pragma clang diagnostic pop
-
 ```
 <!-- {code-block} c -->
 
@@ -884,13 +884,12 @@ make
 :linenos:
 // leak.c - programa con memory leak intencional
 #include <stdlib.h>
-
-int main() {
+int main()
+{
     int *ptr = malloc(100 * sizeof(int));
     // ❌ Olvidamos hacer free(ptr)
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -921,14 +920,13 @@ clang -fsanitize=address -g leak.c -o leak
 :linenos:
 // ub.c - programa con comportamiento indefinido
 #include <stdio.h>
-
-int main() {
-    int x = 2147483647;  // INT_MAX
-    int y = x + 1;       // ❌ Overflow de entero con signo
+int main()
+{
+    int x = 2147483647; // INT_MAX
+    int y = x + 1;      // ❌ Overflow de entero con signo
     printf("%d\n", y);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 

@@ -27,9 +27,7 @@ memoria del heap durante la ejecución del programa.
 ##### Sintaxis
 
 :::{code-block}c
-
 void *malloc(size_t size);
-
 :::
 <!-- {code-block}c -->
 
@@ -72,35 +70,28 @@ comparación en una sola línea.
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
 int main()
 {
     int *numeros = NULL;
     size_t cantidad = 5;
-
     // Asignación de memoria
     numeros = malloc(cantidad * sizeof(*numeros));
-
     // Verificación del resultado
     if (numeros == NULL)
     {
         fprintf(stderr, "Error: No se pudo asignar memoria.\n");
         return 1;
     }
-
     // Uso de la memoria
     for (size_t i = 0; i < cantidad; i++)
     {
         numeros[i] = (int)i * 10;
     }
-
     // Liberación de la memoria
     free(numeros);
     numeros = NULL;
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -140,9 +131,7 @@ punteros por claridad.
 ##### Sintaxis
 
 :::{code-block}c
-
 void *calloc(size_t num_elements, size_t element_size);
-
 :::
 <!-- {code-block}c -->
 
@@ -185,30 +174,24 @@ Usá `malloc` cuando:
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
 int main()
 {
     size_t cantidad = 5;
     int *arreglo = calloc(cantidad, sizeof(*arreglo));
-
     if (arreglo == NULL)
     {
         fprintf(stderr, "Error: No se pudo asignar memoria.\n");
         return 1;
     }
-
     // Todos los elementos están inicializados en 0
     for (size_t i = 0; i < cantidad; i++)
     {
         printf("arreglo[%zu] = %d\n", i, arreglo[i]);
     }
-
     free(arreglo);
     arreglo = NULL;
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -220,7 +203,6 @@ int main()
 :::{code-block}c
 :linenos:
 void *realloc(void *ptr, size_t new_size);
-
 :::
 <!-- {code-block}c -->
 
@@ -270,10 +252,10 @@ la función falla por lo que es necesario un puntero temporal para manejar
 :linenos:
 // ¡PELIGRO! Si realloc falla, se pierde el puntero original
 ptr = realloc(ptr, nuevo_tamano);
-if (ptr == NULL) {
+if (ptr == NULL)
+{
     // Fuga de memoria: el bloque original se perdió
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -282,28 +264,25 @@ if (ptr == NULL) {
 :::{code-block}c
 :linenos:
 #include <stdlib.h>
-
 int *numeros = malloc(5 * sizeof(*numeros));
-if (numeros == NULL) {
+if (numeros == NULL)
+{
     fprintf(stderr, "Error: No se pudo asignar memoria inicial.\n");
     return 1;
 }
 // ...
-
 size_t nuevo_tamano = 10;
 int *temp = realloc(numeros, nuevo_tamano * sizeof(*temp));
-
-if (temp == NULL) {
+if (temp == NULL)
+{
     // realloc falló, pero 'numeros' sigue siendo válido
     fprintf(stderr, "Error: No se pudo redimensionar la memoria.\n");
     free(numeros); // Liberar el bloque original
     numeros = NULL;
     return 1;
 }
-
 // Éxito: ahora 'numeros' puede apuntar al nuevo bloque
 numeros = temp;
-
 :::
 <!-- {code-block}c -->
 
@@ -315,7 +294,6 @@ numeros = temp;
 :::{code-block}c
 :linenos:
 void free(void *ptr);
-
 :::
 <!-- {code-block}c -->
 
@@ -337,8 +315,7 @@ Es seguro llamar a `free(NULL)`, la función simplemente no hace nada.
 :::{code-block}c
 :linenos:
 free(ptr);
-ptr = NULL;  // Previene el uso accidental del puntero colgante
-
+ptr = NULL; // Previene el uso accidental del puntero colgante
 :::
 <!-- {code-block}c -->
 
@@ -515,17 +492,13 @@ programa hasta que este termina.
 :::{code-block}c
 :linenos:
 #include <stdlib.h>
-
 void funcion_con_fuga()
 {
     int *datos = malloc(100 * sizeof(*datos));
-
     // Se realizan operaciones...
-
     // ERROR: La función termina sin liberar 'datos'
     // El bloque de memoria se pierde
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -539,18 +512,14 @@ la {ref}`0x3002h`.
 void funcion_sin_fuga()
 {
     int *datos = malloc(100 * sizeof(*datos));
-
     if (datos == NULL)
     {
         return;
     }
-
     // Operaciones...
-
     free(datos);
     datos = NULL;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -565,9 +534,8 @@ comportamiento indefinido.
 
 :::{code-block}c
 :linenos:
-#include <stdlib.h>
 #include <stdio.h>
-
+#include <stdlib.h>
 int main()
 {
     int *ptr = malloc(sizeof(*ptr));
@@ -576,15 +544,11 @@ int main()
         return 1;
     }
     *ptr = 42;
-
     free(ptr);
-    ptr = NULL;  // Previene el uso del puntero colgante
-
-    printf("%d\n", *ptr);  // Comportamiento indefinido
-
+    ptr = NULL;           // Previene el uso del puntero colgante
+    printf("%d\n", *ptr); // Comportamiento indefinido
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -599,16 +563,12 @@ int main()
 {
     int *ptr = malloc(sizeof(*ptr));
     *ptr = 42;
-
     free(ptr);
-    ptr = NULL;  // Previene el uso del puntero colgante
-
+    ptr = NULL; // Previene el uso del puntero colgante
     // Intentar desreferenciar ptr ahora causará un error inmediato
     // en lugar de comportamiento indefinido silencioso
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -623,17 +583,13 @@ indefinido y puede corromper la gestión de memoria del heap.
 :::{code-block}c
 :linenos:
 #include <stdlib.h>
-
 int main()
 {
     int *ptr = malloc(sizeof(*ptr));
-
     free(ptr);
-    free(ptr);  // ERROR: Doble liberación
-
+    free(ptr); // ERROR: Doble liberación
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -651,15 +607,11 @@ int main()
     {
         return 1;
     }
-
     free(ptr);
     ptr = NULL;
-
-    free(ptr);  // Seguro: free(NULL) no hace nada
-
+    free(ptr); // Seguro: free(NULL) no hace nada
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -674,28 +626,22 @@ datos adyacentes y causa comportamiento impredecible.
 :::{code-block}c
 :linenos:
 #include <stdlib.h>
-
 int main()
 {
     int *arreglo = malloc(5 * sizeof(*arreglo));
-
     if (arreglo == NULL)
     {
         return 1;
     }
-
     // ERROR: Acceso fuera de límites
-    for (size_t i = 0; i <= 5; i++)  // Debería ser i < 5
+    for (size_t i = 0; i <= 5; i++) // Debería ser i < 5
     {
         arreglo[i] = (int)i;
     }
-
     free(arreglo);
     arreglo = NULL;
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -711,24 +657,19 @@ int main()
 {
     size_t tamano = 5;
     int *arreglo = malloc(tamano * sizeof(*arreglo));
-
     if (arreglo == NULL)
     {
         return 1;
     }
-
     // Correcto: i < tamano previene el acceso fuera de límites
     for (size_t i = 0; i < tamano; i++)
     {
         arreglo[i] = (int)i;
     }
-
     free(arreglo);
     arreglo = NULL;
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -741,22 +682,17 @@ Acceder a memoria después de liberarla es un error similar al puntero colgante.
 
 :::{code-block}c
 :linenos:
-#include <stdlib.h>
 #include <stdio.h>
-
+#include <stdlib.h>
 int main()
 {
     int *ptr = malloc(sizeof(*ptr));
     *ptr = 100;
-
     free(ptr);
-
     // ERROR: Uso de memoria liberada
     printf("%d\n", *ptr);
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -819,27 +755,23 @@ El comportamiento indefinido existe por dos razones principales:
 :linenos:
 // UB #1: Desreferenciar puntero NULL
 int *ptr = NULL;
-*ptr = 42;  // Crash probable, pero no garantizado
-
+*ptr = 42; // Crash probable, pero no garantizado
 // UB #2: Uso después de free
 int *ptr = malloc(sizeof(int));
 free(ptr);
-*ptr = 42;  // Puede parecer funcionar, pero es UB
-
+*ptr = 42; // Puede parecer funcionar, pero es UB
 // UB #3: Doble free
 free(ptr);
-free(ptr);  // Puede corromper el heap
-
+free(ptr); // Puede corromper el heap
 // UB #4: Acceso fuera de límites
 int arr[10];
-arr[15] = 42;  // Puede sobrescribir otras variables
-
+arr[15] = 42; // Puede sobrescribir otras variables
 // UB #5: Retornar dirección de variable local
-int *funcion() {
+int *funcion()
+{
     int x = 42;
-    return &x;  // x desaparece al retornar
+    return &x; // x desaparece al retornar
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -862,10 +794,10 @@ El comportamiento indefinido no solo causa crashes. Puede:
    ```{code-block}c
 :linenos:
    // El programador escribe:
-   if (ptr != NULL) {
+   if (ptr != NULL)
+   {
        *ptr = 42;
    }
-
    // Pero si el compilador ve *ptr antes del if,
    // puede asumir que ptr nunca es NULL (porque desreferenciarlo
    // cuando es NULL sería UB), y eliminar la verificación.
@@ -888,12 +820,10 @@ void vulnerable()
 {
     char buffer[10];
     char *datos_importantes = "SECRETO";
-
     // Un atacante puede escribir más de 10 bytes:
     strcpy(buffer, datos_maliciosos_largos);
     // Ahora datos_importantes puede haber sido sobrescrito
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -920,27 +850,24 @@ críticos:
 
 :::{code-block}c
 :linenos:
-struct usuario {
+struct usuario
+{
     char nombre[50];
     int es_admin;
 };
-
 struct usuario *usr = malloc(sizeof(*usr));
-usr->es_admin = 0;  // Usuario normal
+usr->es_admin = 0; // Usuario normal
 free(usr);
-
 // ... código intermedio ...
-
 // Otro código asigna memoria que reutiliza el mismo espacio:
 char *buffer = malloc(100);
 strcpy(buffer, datos_del_atacante);
-
 // Ahora usr apunta a memoria controlada por el atacante:
-if (usr->es_admin) {  // ⚠️ UAF: usa memoria liberada
+if (usr->es_admin)
+{ // ⚠️ UAF: usa memoria liberada
     // El atacante pudo sobrescribir es_admin a 1
     dar_privilegios_admin();
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -953,13 +880,11 @@ allocator, permitiendo ataques sofisticados:
 :linenos:
 free(ptr);
 // ... código ...
-free(ptr);  // Corrompe la lista de bloques libres
-
+free(ptr); // Corrompe la lista de bloques libres
 // Asignaciones posteriores pueden retornar direcciones sobrepuestas:
 int *a = malloc(100);
 int *b = malloc(100);
 // Ahora 'a' y 'b' podrían apuntar a la misma memoria!
-
 :::
 <!-- {code-block}c -->
 
@@ -974,14 +899,17 @@ y no la mantengas asignada más tiempo del necesario.
 :::{code-block}c
 :linenos:
 // No solo verificar malloc:
-if (ptr == NULL) { /* error */ }
-
+if (ptr == NULL)
+{ /* error */
+}
 // También verificar límites:
-if (indice >= tamano) { /* error */ }
-
+if (indice >= tamano)
+{ /* error */
+}
 // Y validar punteros recibidos:
-if (ptr_entrada == NULL) { /* error */ }
-
+if (ptr_entrada == NULL)
+{ /* error */
+}
 :::
 <!-- {code-block}c -->
 
@@ -991,14 +919,11 @@ if (ptr_entrada == NULL) { /* error */ }
 :linenos:
 // Inicializar punteros:
 int *ptr = NULL;
-
 // Después de free, anular:
 free(ptr);
 ptr = NULL;
-
 // Inicializar estructuras completamente:
-struct datos d = {0};  // Todos los campos en cero
-
+struct datos d = {0}; // Todos los campos en cero
 :::
 <!-- {code-block}c -->
 
@@ -1010,9 +935,7 @@ struct datos d = {0};  // Todos los campos en cero
 recurso_t *crear_recurso(void);
 void usar_recurso(recurso_t *r);
 void destruir_recurso(recurso_t *r);
-
 // Los usuarios nunca ven malloc/free directamente
-
 :::
 <!-- {code-block}c -->
 
@@ -1021,14 +944,11 @@ void destruir_recurso(recurso_t *r);
 :::{code-block}c
 :linenos:
 // En lugar de:
-strcpy(dest, src);  // No verifica límites
-
+strcpy(dest, src); // No verifica límites
 // Usar:
 strncpy(dest, src, sizeof(dest) - 1);
 dest[sizeof(dest) - 1] = '\0';
-
 // O mejor aún, alocar dinámicamente con el tamaño correcto
-
 :::
 <!-- {code-block}c -->
 
@@ -1067,20 +987,17 @@ de tamaño fijo.
 
 :::{code-block}c
 :linenos:
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-
 #define ERROR_MEMORIA -1
 #define ERROR_INDICE -2
 #define EXITO 0
-
 typedef struct
 {
     int *datos;
     size_t tamano;
 } arreglo_t;
-
 /**
  * Crea un nuevo arreglo dinámico de tamaño fijo.
  * @param tamano El tamaño del arreglo (debe ser mayor que 0).
@@ -1095,25 +1012,20 @@ arreglo_t *crear_arreglo(size_t tamano)
     {
         return NULL;
     }
-
     arreglo_t *arreglo = malloc(sizeof(*arreglo));
     if (arreglo == NULL)
     {
         return NULL;
     }
-
     arreglo->datos = calloc(tamano, sizeof(*(arreglo->datos)));
     if (arreglo->datos == NULL)
     {
         free(arreglo);
         return NULL;
     }
-
     arreglo->tamano = tamano;
-
     return arreglo;
 }
-
 /**
  * Establece el valor de un elemento en el arreglo.
  * @param arreglo Puntero al arreglo (no debe ser NULL).
@@ -1130,16 +1042,13 @@ int establecer_elemento(arreglo_t *arreglo, size_t indice, int valor)
     {
         return ERROR_MEMORIA;
     }
-
     if (indice >= arreglo->tamano)
     {
         return ERROR_INDICE;
     }
-
     arreglo->datos[indice] = valor;
     return EXITO;
 }
-
 /**
  * Obtiene el valor de un elemento del arreglo.
  * @param arreglo Puntero al arreglo (no debe ser NULL).
@@ -1147,7 +1056,8 @@ int establecer_elemento(arreglo_t *arreglo, size_t indice, int valor)
  * @param valor_out Puntero donde se almacenará el valor (no debe ser NULL).
  * @pre arreglo y valor_out no deben ser NULL.
  * @pre indice debe ser menor que el tamaño del arreglo.
- * @returns true si se obtuvo el elemento, false si algún parámetro es inválido.
+ * @returns true si se obtuvo el elemento, false si algún parámetro es
+ * inválido.
  */
 bool obtener_elemento(const arreglo_t *arreglo, size_t indice, int *valor_out)
 {
@@ -1155,16 +1065,13 @@ bool obtener_elemento(const arreglo_t *arreglo, size_t indice, int *valor_out)
     {
         return false;
     }
-
     if (indice >= arreglo->tamano)
     {
         return false;
     }
-
     *valor_out = arreglo->datos[indice];
     return true;
 }
-
 /**
  * Calcula la suma de todos los elementos del arreglo.
  * @param arreglo Puntero al arreglo (no debe ser NULL).
@@ -1177,16 +1084,13 @@ int sumar_elementos(const arreglo_t *arreglo)
     {
         return 0;
     }
-
     int suma = 0;
     for (size_t i = 0; i < arreglo->tamano; i++)
     {
         suma = suma + arreglo->datos[i];
     }
-
     return suma;
 }
-
 /**
  * Imprime todos los elementos del arreglo.
  * @param arreglo Puntero al arreglo (no debe ser NULL).
@@ -1198,9 +1102,7 @@ void imprimir_arreglo(const arreglo_t *arreglo)
     {
         return;
     }
-
     printf("Arreglo [tamaño: %zu]: [", arreglo->tamano);
-
     for (size_t i = 0; i < arreglo->tamano; i++)
     {
         printf("%d", arreglo->datos[i]);
@@ -1209,10 +1111,8 @@ void imprimir_arreglo(const arreglo_t *arreglo)
             printf(", ");
         }
     }
-
     printf("]\n");
 }
-
 /**
  * Destruye un arreglo y libera toda la memoria asociada.
  * @param arreglo Doble puntero al arreglo a destruir.
@@ -1231,18 +1131,15 @@ void destruir_arreglo(arreglo_t **arreglo)
         *arreglo = NULL;
     }
 }
-
 int main()
 {
     size_t tamano = 8;
     arreglo_t *mi_arreglo = crear_arreglo(tamano);
-
     if (mi_arreglo == NULL)
     {
         fprintf(stderr, "Error: No se pudo crear el arreglo.\n");
         return 1;
     }
-
     // Establecer algunos valores
     for (size_t i = 0; i < tamano; i++)
     {
@@ -1253,26 +1150,20 @@ int main()
             return 1;
         }
     }
-
     imprimir_arreglo(mi_arreglo);
-
     // Obtener y mostrar un elemento específico
     int valor = 0;
     if (obtener_elemento(mi_arreglo, 3, &valor))
     {
         printf("Elemento en índice 3: %d\n", valor);
     }
-
     // Calcular la suma
     int suma = sumar_elementos(mi_arreglo);
     printf("Suma de todos los elementos: %d\n", suma);
-
     // Liberar recursos
     destruir_arreglo(&mi_arreglo);
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1398,34 +1289,35 @@ inverso (lazo de liberación) para evitar fugas de memoria:
 ```{code-block} c
 :linenos:
 #include <stdlib.h>
-
-int **crear_matriz(size_t filas, size_t columnas) {
-    if (filas == 0 || columnas == 0) {
+int **crear_matriz(size_t filas, size_t columnas)
+{
+    if (filas == 0 || columnas == 0)
+    {
         return NULL;
     }
-
     // Reservar el arreglo de punteros a filas
     int **matriz = (int **)malloc(filas * sizeof(*matriz));
-    if (matriz == NULL) {
+    if (matriz == NULL)
+    {
         return NULL;
     }
-
     // Reservar e inicializar en cero cada fila
-    for (size_t i = 0; i < filas; i++) {
+    for (size_t i = 0; i < filas; i++)
+    {
         matriz[i] = (int *)calloc(columnas, sizeof(*(matriz[i])));
-        if (matriz[i] == NULL) {
+        if (matriz[i] == NULL)
+        {
             // Lazo de liberación en caso de fallo intermedio
-            for (size_t j = 0; j < i; j++) {
+            for (size_t j = 0; j < i; j++)
+            {
                 free(matriz[j]);
             }
             free(matriz);
             return NULL;
         }
     }
-
     return matriz;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1453,26 +1345,26 @@ original, provocando una fuga de memoria. Se debe emplear un puntero temporal:
 
 ```{code-block} c
 :linenos:
-#include <stdlib.h>
 #include <stdbool.h>
-
-bool redimensionar_arreglo(int **arreglo, size_t capacidad_actual, size_t nueva_capacidad) {
-    if (arreglo == NULL || nueva_capacidad == 0) {
+#include <stdlib.h>
+bool redimensionar_arreglo(int **arreglo, size_t capacidad_actual,
+                           size_t nueva_capacidad)
+{
+    if (arreglo == NULL || nueva_capacidad == 0)
+    {
         return false;
     }
-
     // Uso de un puntero temporal para resguardar la dirección original
     int *temp = (int *)realloc(*arreglo, nueva_capacidad * sizeof(*temp));
-    if (temp == NULL) {
+    if (temp == NULL)
+    {
         // La memoria original en *arreglo sigue siendo válida
         return false;
     }
-
     // Asignación exitosa
     *arreglo = temp;
     return true;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1513,16 +1405,17 @@ dinámica en el siguiente fragmento de código C:
 
 ```{code-block} c
 :linenos:
-void procesar_valores(size_t n) {
+void procesar_valores(size_t n)
+{
     int *datos = (int *)malloc(n * sizeof(int));
-    if (n > 10) {
+    if (n > 10)
+    {
         datos[n] = 100;
         return;
     }
     free(datos);
     printf("Primer elemento: %d\n", datos[0]);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1558,7 +1451,8 @@ puntero inválido que genera comportamiento indefinido en el código del cliente
 la función?
 
 ``` c
-char *obtener_saludo(void) {
+char *obtener_saludo(void)
+{
     char saludo[] = "Hola mundo";
     return saludo;
 }
@@ -1583,18 +1477,18 @@ cadena en el heap mediante memoria dinámica:
 :linenos:
 #include <stdlib.h>
 #include <string.h>
-
-char *obtener_saludo_dinamico(void) {
+char *obtener_saludo_dinamico(void)
+{
     const char *texto = "Hola mundo";
     // Sumamos 1 para el caracter terminador nulo '\0'
     char *saludo = (char *)malloc((strlen(texto) + 1) * sizeof(*saludo));
-    if (saludo == NULL) {
+    if (saludo == NULL)
+    {
         return NULL;
     }
     strcpy(saludo, texto);
     return saludo;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1671,27 +1565,27 @@ que controle el flujo de entrada en `stdin` podría explotar el error de tipo
 
 ```{code-block} c
 :linenos:
-typedef struct {
+typedef struct
+{
     char login[16];
     int es_admin;
 } perfil_t;
-
-void procesar_sistema(void) {
+void procesar_sistema(void)
+{
     perfil_t *p = (perfil_t *)malloc(sizeof(*p));
     p->es_admin = 0;
     free(p); // Liberación prematura
-
     char *mensaje = (char *)malloc(sizeof(perfil_t));
-    if (mensaje != NULL) {
+    if (mensaje != NULL)
+    {
         fgets(mensaje, sizeof(perfil_t), stdin);
     }
-
     // Uso de la sesión después de ser liberada
-    if (p->es_admin == 1) {
+    if (p->es_admin == 1)
+    {
         ejecutar_privilegios();
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1774,37 +1668,39 @@ en orden inverso:
 :linenos:
 #include <stdlib.h>
 #include <string.h>
-
-typedef struct {
+typedef struct
+{
     char *titulo;
     int anio_publicacion;
 } libro_t;
-
-libro_t *libro_crear(const char *titulo, int anio) {
-    if (titulo == NULL) {
+libro_t *libro_crear(const char *titulo, int anio)
+{
+    if (titulo == NULL)
+    {
         return NULL;
     }
-
     libro_t *l = (libro_t *)malloc(sizeof(*l));
-    if (l == NULL) {
+    if (l == NULL)
+    {
         return NULL;
     }
-
     // Alocar memoria para copiar la cadena del título
     l->titulo = (char *)malloc((strlen(titulo) + 1) * sizeof(*(l->titulo)));
-    if (l->titulo == NULL) {
+    if (l->titulo == NULL)
+    {
         free(l);
         return NULL;
     }
-
     strcpy(l->titulo, titulo);
     l->anio_publicacion = anio;
     return l;
 }
-
-void libro_destruir(libro_t **l) {
-    if (l != NULL && *l != NULL) {
-        if ((*l)->titulo != NULL) {
+void libro_destruir(libro_t **l)
+{
+    if (l != NULL && *l != NULL)
+    {
+        if ((*l)->titulo != NULL)
+        {
             free((*l)->titulo);
             (*l)->titulo = NULL;
         }
@@ -1812,7 +1708,6 @@ void libro_destruir(libro_t **l) {
         *l = NULL;
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1838,9 +1733,8 @@ precondiciones contra punteros nulos:
 
 ```{code-block} c
 :linenos:
-#include <stdlib.h>
 #include <stdbool.h>
-
+#include <stdlib.h>
 /**
  * Copia los elementos de un arreglo de enteros a otro.
  * @param destino Arreglo donde se copiarán los datos. No debe ser NULL.
@@ -1850,17 +1744,18 @@ precondiciones contra punteros nulos:
  * @pre origen != NULL
  * @returns true si la copia fue exitosa, false si algún puntero es NULL.
  */
-bool copiar_enteros(int *destino, const int *origen, size_t n) {
-    if (destino == NULL || origen == NULL) {
+bool copiar_enteros(int *destino, const int *origen, size_t n)
+{
+    if (destino == NULL || origen == NULL)
+    {
         return false;
     }
-
-    for (size_t i = 0; i < n; i++) {
+    for (size_t i = 0; i < n; i++)
+    {
         destino[i] = origen[i];
     }
     return true;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -2063,7 +1958,6 @@ dirección válida para asignarles inmediatamente. Esto está codificado en la
 :::{code-block}c
 :linenos:
 int *ptr = NULL;
-
 :::
 <!-- {code-block}c -->
 
@@ -2082,7 +1976,6 @@ if (ptr == NULL)
     fprintf(stderr, "Error: No se pudo asignar memoria.\n");
     return ERROR_MEMORIA;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -2096,7 +1989,6 @@ obligatoria.
 :::{code-block}c
 :linenos:
 free(ptr);
-
 :::
 <!-- {code-block}c -->
 
@@ -2110,7 +2002,6 @@ punteros colgantes. La {ref}`0x3002h` lo exige.
 :linenos:
 free(ptr);
 ptr = NULL;
-
 :::
 <!-- {code-block}c -->
 
@@ -2133,7 +2024,6 @@ recurso_t *crear_recurso()
     // Inicialización...
     return r;
 }
-
 void destruir_recurso(recurso_t *r)
 {
     if (r != NULL)
@@ -2142,7 +2032,6 @@ void destruir_recurso(recurso_t *r)
         free(r);
     }
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -2163,7 +2052,6 @@ dinámica.
  *          Retorna NULL si no hay memoria disponible.
  */
 nodo_t *crear_nodo(int valor);
-
 :::
 <!-- {code-block}c -->
 
@@ -2184,7 +2072,6 @@ void imprimir_arreglo(const int *arreglo, size_t tamano)
     }
     printf("\n");
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -2198,10 +2085,8 @@ de memoria dinámica, y preferir `sizeof(*puntero)` sobre `sizeof(tipo)`.
 :linenos:
 // Preferido
 int *ptr = malloc(n * sizeof(*ptr));
-
 // Evitar
-int *ptr = malloc(n * sizeof(int));  // Si el tipo de ptr cambia, esto falla
-
+int *ptr = malloc(n * sizeof(int)); // Si el tipo de ptr cambia, esto falla
 :::
 <!-- {code-block}c -->
 
@@ -2215,12 +2100,10 @@ arreglos sean de tipo `size_t`.
 :linenos:
 size_t tamano = 10;
 int *arreglo = malloc(tamano * sizeof(*arreglo));
-
 for (size_t i = 0; i < tamano; i++)
 {
     arreglo[i] = 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -2239,7 +2122,6 @@ void establecer_elemento(int *arreglo, size_t tamano, size_t indice, int valor)
         arreglo[indice] = valor;
     }
 }
-
 ::::
 <!-- {code-block}c -->
 

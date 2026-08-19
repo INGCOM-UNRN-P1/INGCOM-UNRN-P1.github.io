@@ -50,7 +50,6 @@ int calc(img *i, int x, int y);
 void update(img *i, void *d);
 int check(img *i);
 void fix(img *i);
-
 ```
 <!-- {code-block} c -->
 
@@ -96,9 +95,9 @@ Para cada una:
 
 ``` c
 // Librería de parseo JSON - prefijo: json_
-json_parser_t* json_parser_crear(void);
-json_value_t* json_parser_parse_string(json_parser_t* parser, const char* str);
-bool json_value_es_objeto(const json_value_t* value);
+json_parser_t *json_parser_crear(void);
+json_value_t *json_parser_parse_string(json_parser_t *parser, const char *str);
+bool json_value_es_objeto(const json_value_t *value);
 ```
 <!-- c -->
 (ejercicio_32_3)=
@@ -120,14 +119,14 @@ Completar estas familias de funciones con nombres consistentes:
 ```{code-block} c
 :linenos:
 // Familia de funciones para manejo de archivos de configuración
-config_t* config_crear_vacio(void);
-config_t* config_???_desde_archivo(const char* ruta);  // Cargar
-bool config_???_a_archivo(const config_t* cfg, const char* ruta);  // Guardar
-???  // Obtener valor de clave
-???  // Establecer valor de clave
-???  // Verificar si existe una clave
-void config_destruir(config_t** ptr_config);
-
+config_t *config_crear_vacio(void);
+config_t *config_ ? ? ? _desde_archivo(const char *ruta); // Cargar
+bool config_ ? ?
+               ? _a_archivo(const config_t *cfg, const char *ruta); // Guardar
+? ?   ?   // Obtener valor de clave
+    ? ? ? // Establecer valor de clave
+    ? ? ? // Verificar si existe una clave
+    void config_destruir(config_t **ptr_config);
 ```
 <!-- {code-block} c -->
 (ejercicio_32_4)=
@@ -149,17 +148,13 @@ Renombrar estas funciones para reflejar mejor su comportamiento real:
 ```{code-block} c
 :linenos:
 // La función busca y reemplaza, no solo busca
-char* buscar_texto(char* str, const char* patron, const char* reemplazo);
-
+char *buscar_texto(char *str, const char *patron, const char *reemplazo);
 // La función no solo valida, también normaliza
-bool validar_email(char* email);
-
+bool validar_email(char *email);
 // La función no solo obtiene, calcula en tiempo real
-double obtener_promedio(const int* calificaciones, size_t n);
-
+double obtener_promedio(const int *calificaciones, size_t n);
 // La función no agrega, inserta ordenadamente
-void agregar_elemento(lista_t* lista, int elemento);
-
+void agregar_elemento(lista_t *lista, int elemento);
 ```
 <!-- {code-block} c -->
 
@@ -187,24 +182,17 @@ Implementar un stack usando tipo opaco completo:
 :linenos:
 #ifndef STACK_H
 #define STACK_H
-
 #include <stdbool.h>
 #include <stddef.h>
-
-typedef struct stack stack_t;  // Declaración adelantada
-
-stack_t* stack_crear(size_t capacidad_inicial);
-void stack_destruir(stack_t** ptr_stack);
-
-bool stack_push(stack_t* stack, int valor);
-bool stack_pop(stack_t* stack, int* valor);
-bool stack_peek(const stack_t* stack, int* valor);
-
-size_t stack_tamano(const stack_t* stack);
-bool stack_esta_vacio(const stack_t* stack);
-
+typedef struct stack stack_t; // Declaración adelantada
+stack_t *stack_crear(size_t capacidad_inicial);
+void stack_destruir(stack_t **ptr_stack);
+bool stack_push(stack_t *stack, int valor);
+bool stack_pop(stack_t *stack, int *valor);
+bool stack_peek(const stack_t *stack, int *valor);
+size_t stack_tamano(const stack_t *stack);
+bool stack_esta_vacio(const stack_t *stack);
 #endif
-
 ```
 <!-- {code-block} c -->
 
@@ -221,14 +209,13 @@ Comparar dos versiones de una estructura:
 ```{code-block} c
 :linenos:
 // vector.h
-typedef struct {
-    int* datos;
+typedef struct
+{
+    int *datos;
     size_t tamano;
     size_t capacidad;
 } vector_t;
-
-void vector_init(vector_t* vec);
-
+void vector_init(vector_t *vec);
 ```
 <!-- {code-block} c -->
 
@@ -236,8 +223,7 @@ void vector_init(vector_t* vec);
 ``` c
 // vector.h
 typedef struct vector vector_t;
-
-vector_t* vector_crear(void);
+vector_t *vector_crear(void);
 ```
 <!-- c -->
 
@@ -257,12 +243,11 @@ Implementar un tipo opaco usando el patrón handle (identificador):
 // archivo.h
 typedef int archivo_handle_t;
 #define ARCHIVO_HANDLE_INVALIDO (-1)
-
-archivo_handle_t archivo_abrir(const char* ruta, const char* modo);
-bool archivo_escribir(archivo_handle_t handle, const void* datos, size_t bytes);
-bool archivo_leer(archivo_handle_t handle, void* buffer, size_t bytes);
+archivo_handle_t archivo_abrir(const char *ruta, const char *modo);
+bool archivo_escribir(archivo_handle_t handle, const void *datos,
+                      size_t bytes);
+bool archivo_leer(archivo_handle_t handle, void *buffer, size_t bytes);
 void archivo_cerrar(archivo_handle_t handle);
-
 ```
 <!-- {code-block} c -->
 
@@ -278,16 +263,13 @@ Diseñar getters para exponer información sin romper encapsulamiento:
 ```{code-block} c
 :linenos:
 typedef struct producto producto_t;
-
 // Implementar:
-const char* producto_obtener_nombre(const producto_t* p);
-double producto_obtener_precio(const producto_t* p);
-int producto_obtener_stock(const producto_t* p);
-
+const char *producto_obtener_nombre(const producto_t *p);
+double producto_obtener_precio(const producto_t *p);
+int producto_obtener_stock(const producto_t *p);
 // ¿Cómo exponer una fecha sin exponer la implementación interna?
 // ¿Debería retornar un puntero a la estructura interna?
-??? producto_obtener_fecha_vencimiento(const producto_t* p);
-
+? ? ? producto_obtener_fecha_vencimiento(const producto_t *p);
 ```
 <!-- {code-block} c -->
 
@@ -304,18 +286,16 @@ Documentar completamente el contrato de estas funciones:
 /**
  * [COMPLETAR DOCUMENTACIÓN]
  */
-double vector_producto_punto(const double* v1, const double* v2, size_t n);
-
+double vector_producto_punto(const double *v1, const double *v2, size_t n);
 /**
  * [COMPLETAR DOCUMENTACIÓN]
  */
-int* arreglo_buscar_binario(int* arr, size_t n, int target);
-
+int *arreglo_buscar_binario(int *arr, size_t n, int target);
 /**
  * [COMPLETAR DOCUMENTACIÓN]
  */
-void cadena_dividir(const char* str, char delim, char*** resultado, size_t* count);
-
+void cadena_dividir(const char *str, char delim, char ***resultado,
+                    size_t *count);
 ```
 <!-- {code-block} c -->
 
@@ -334,24 +314,26 @@ Para cada función, decidir si debe validar precondiciones o asumirlas:
 ```{code-block} c
 :linenos:
 // Opción 1: Asumir precondiciones (más rápido, menos seguro)
-double promedio(const int* arr, size_t n) {
+double promedio(const int *arr, size_t n)
+{
     // ¿Verificar arr != NULL y n > 0?
     int suma = 0;
-    for (size_t i = 0; i < n; i++) {
+    for (size_t i = 0; i < n; i++)
+    {
         suma += arr[i];
     }
     return (double)suma / n;
 }
-
 // Opción 2: Validar precondiciones (más lento, más seguro)
-double promedio_seguro(const int* arr, size_t n, double* resultado) {
-    if (arr == NULL || n == 0) {
+double promedio_seguro(const int *arr, size_t n, double *resultado)
+{
+    if (arr == NULL || n == 0)
+    {
         return false;
     }
     // ...
     return true;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -366,12 +348,12 @@ Definir e implementar una función de verificación de invariantes:
 
 ```{code-block} c
 :linenos:
-typedef struct {
-    int* datos;
+typedef struct
+{
+    int *datos;
     size_t tamano;
     size_t capacidad;
 } vector_t;
-
 /**
  * Verifica los invariantes del vector.
  * Invariantes:
@@ -379,8 +361,7 @@ typedef struct {
  * 2. tamano <= capacidad
  * 3. [AGREGAR MÁS]
  */
-bool vector_verificar_invariantes(const vector_t* vec);
-
+bool vector_verificar_invariantes(const vector_t *vec);
 ```
 <!-- {code-block} c -->
 
@@ -402,20 +383,18 @@ Analizar problemas de aliasing en contratos:
 :linenos:
 /**
  * Copia n bytes de src a dest.
- * 
+ *
  * PRECONDICIÓN: ???
  * ¿Qué pasa si src y dest se solapan?
  */
-void mi_memcpy(void* dest, const void* src, size_t n);
-
+void mi_memcpy(void *dest, const void *src, size_t n);
 /**
  * Mueve n bytes de src a dest, manejando solapamiento.
- * 
+ *
  * PRECONDICIÓN: ???
  * ¿Cómo especificar que puede manejar solapamiento?
  */
-void mi_memmove(void* dest, const void* src, size_t n);
-
+void mi_memmove(void *dest, const void *src, size_t n);
 ```
 <!-- {code-block} c -->
 
@@ -427,7 +406,8 @@ Implementar la misma funcionalidad con tres estrategias de error:
 
 **Estrategia 1: Valor especial de retorno**
 ``` c
-int lista_buscar_indice(const lista_t* lista, int valor) {
+int lista_buscar_indice(const lista_t *lista, int valor)
+{
     // Retornar -1 si no se encuentra
     // ¿Qué pasa si la búsqueda falla por lista == NULL?
 }
@@ -437,26 +417,24 @@ int lista_buscar_indice(const lista_t* lista, int valor) {
 **Estrategia 2: Código de error + parámetro de salida**
 ```{code-block} c
 :linenos:
-typedef enum {
+typedef enum
+{
     LISTA_OK,
     LISTA_ERROR_NULL,
     LISTA_ERROR_NO_ENCONTRADO
 } lista_error_t;
-
-lista_error_t lista_buscar_indice_v2(const lista_t* lista, int valor, size_t* indice);
-
+lista_error_t lista_buscar_indice_v2(const lista_t *lista, int valor,
+                                     size_t *indice);
 ```
 <!-- {code-block} c -->
 
 **Estrategia 3: errno global**
 ``` c
 extern int lista_errno;
-
 #define LISTA_EXITO 0
 #define LISTA_EPTR 1
 #define LISTA_ENOTFOUND 2
-
-int lista_buscar_indice_v3(const lista_t* lista, int valor);
+int lista_buscar_indice_v3(const lista_t *lista, int valor);
 ```
 <!-- c -->
 
@@ -471,17 +449,16 @@ Diseñar un enum completo de códigos de error para una librería de archivos:
 
 ```{code-block} c
 :linenos:
-typedef enum {
-    ARCHIVO_OK = 0,         // Éxito siempre debe ser 0
-    ARCHIVO_ERROR_MEMORIA,  // malloc falló
+typedef enum
+{
+    ARCHIVO_OK = 0,        // Éxito siempre debe ser 0
+    ARCHIVO_ERROR_MEMORIA, // malloc falló
     // [COMPLETAR: agregar al menos 10 códigos más]
 } archivo_error_t;
-
 /**
  * Convierte código de error a cadena descriptiva.
  */
-const char* archivo_error_str(archivo_error_t error);
-
+const char *archivo_error_str(archivo_error_t error);
 ```
 <!-- {code-block} c -->
 
@@ -496,26 +473,26 @@ Implementar una función que llama a otras y debe propagar errores:
 
 ```{code-block} c
 :linenos:
-typedef enum {
+typedef enum
+{
     DB_OK = 0,
     DB_ERROR_CONEXION,
     DB_ERROR_CONSULTA,
     DB_ERROR_NO_ENCONTRADO,
     DB_ERROR_MEMORIA
 } db_error_t;
-
 /**
  * Busca un usuario por ID, actualiza su email y guarda cambios.
- * 
+ *
  * Esta función puede fallar en múltiples puntos:
  * 1. Buscar el usuario
  * 2. Validar el email
  * 3. Guardar cambios
- * 
+ *
  * ¿Cómo propagar cada error al caller?
  */
-db_error_t db_usuario_actualizar_email(db_t* db, int user_id, const char* nuevo_email);
-
+db_error_t db_usuario_actualizar_email(db_t *db, int user_id,
+                                       const char *nuevo_email);
 ```
 <!-- {code-block} c -->
 
@@ -527,17 +504,17 @@ API pública:
 ```{code-block} c
 :linenos:
 // Función interna, no expuesta en el .h
-static void log_error_interno(const char* funcion, const char* mensaje);
-
+static void log_error_interno(const char *funcion, const char *mensaje);
 // Uso:
-lista_error_t lista_agregar(lista_t* lista, int valor) {
-    if (lista == NULL) {
+lista_error_t lista_agregar(lista_t *lista, int valor)
+{
+    if (lista == NULL)
+    {
         log_error_interno(__func__, "puntero NULL recibido");
         return LISTA_ERROR_NULL;
     }
     // ...
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -553,17 +530,13 @@ Analizar y documentar la responsabilidad de memoria en estas funciones:
 ```{code-block} c
 :linenos:
 // Caso 1: ¿Quién libera el string retornado?
-char* persona_obtener_nombre_completo(const persona_t* p);
-
+char *persona_obtener_nombre_completo(const persona_t *p);
 // Caso 2: ¿Quién libera el arreglo? ¿Y los strings dentro?
-char** archivo_leer_lineas(const char* ruta, size_t* num_lineas);
-
+char **archivo_leer_lineas(const char *ruta, size_t *num_lineas);
 // Caso 3: ¿La función toma ownership del buffer?
-void logger_set_buffer(logger_t* log, char* buffer, size_t tamano);
-
+void logger_set_buffer(logger_t *log, char *buffer, size_t tamano);
 // Caso 4: ¿El caller debe pre-alojar? ¿Cuánto espacio necesita?
-bool fecha_formatear(const fecha_t* f, char* buffer, size_t buffer_size);
-
+bool fecha_formatear(const fecha_t *f, char *buffer, size_t buffer_size);
 ```
 <!-- {code-block} c -->
 
@@ -577,31 +550,28 @@ Implementar el par constructor/destructor para una estructura compleja:
 ```{code-block} c
 :linenos:
 typedef struct biblioteca biblioteca_t;
-
 /**
  * Crea una biblioteca vacía.
- * 
+ *
  * @return Puntero a biblioteca, o NULL si falla la asignación.
- * 
+ *
  * RESPONSABILIDAD: El caller debe liberar con biblioteca_destruir().
  */
-biblioteca_t* biblioteca_crear(void);
-
+biblioteca_t *biblioteca_crear(void);
 /**
  * Destruye una biblioteca y libera toda la memoria asociada.
- * 
+ *
  * Incluye:
  * - Todos los libros agregados
  * - Todas las categorías
  * - Índices internos
- * 
+ *
  * @param ptr_bib Puntero a puntero. Se pondrá en NULL después de liberar.
- * 
+ *
  * PRECONDICIÓN: ptr_bib != NULL
  * POSCONDICIÓN: *ptr_bib == NULL
  */
-void biblioteca_destruir(biblioteca_t** ptr_bib);
-
+void biblioteca_destruir(biblioteca_t **ptr_bib);
 ```
 <!-- {code-block} c -->
 
@@ -617,15 +587,14 @@ Comparar dos diseños para una función de serialización:
 :linenos:
 /**
  * Serializa un objeto a JSON en el buffer provisto.
- * 
+ *
  * @param buffer Buffer pre-alocado por el caller
  * @param buffer_size Tamaño del buffer
  * @param bytes_escritos Número de bytes escritos (puede ser NULL)
  * @return true si exitoso, false si el buffer es muy pequeño
  */
-bool objeto_a_json(const objeto_t* obj, char* buffer, size_t buffer_size, 
-                   size_t* bytes_escritos);
-
+bool objeto_a_json(const objeto_t *obj, char *buffer, size_t buffer_size,
+                   size_t *bytes_escritos);
 ```
 <!-- {code-block} c -->
 
@@ -634,13 +603,12 @@ bool objeto_a_json(const objeto_t* obj, char* buffer, size_t buffer_size,
 :linenos:
 /**
  * Serializa un objeto a JSON, asignando memoria dinámicamente.
- * 
+ *
  * @return String JSON asignado dinámicamente, o NULL si falla.
- * 
+ *
  * RESPONSABILIDAD: El caller debe liberar con free().
  */
-char* objeto_a_json_alloc(const objeto_t* obj);
-
+char *objeto_a_json_alloc(const objeto_t *obj);
 ```
 <!-- {code-block} c -->
 
@@ -656,20 +624,16 @@ Diseñar una API que use un pool de memoria personalizado:
 ```{code-block} c
 :linenos:
 typedef struct arena arena_t;
-
 // API del arena
-arena_t* arena_crear(size_t tamano_inicial);
-void* arena_alloc(arena_t* arena, size_t bytes);
-void arena_reset(arena_t* arena);  // Libera todo de golpe
-void arena_destruir(arena_t* arena);
-
+arena_t *arena_crear(size_t tamano_inicial);
+void *arena_alloc(arena_t *arena, size_t bytes);
+void arena_reset(arena_t *arena); // Libera todo de golpe
+void arena_destruir(arena_t *arena);
 // API que usa el arena
 typedef struct parser parser_t;
-
-parser_t* parser_crear_con_arena(arena_t* arena);
-nodo_ast_t* parser_parse(parser_t* p, const char* codigo);
+parser_t *parser_crear_con_arena(arena_t *arena);
+nodo_ast_t *parser_parse(parser_t *p, const char *codigo);
 // Todos los nodos del AST se alojan en el arena
-
 ```
 <!-- {code-block} c -->
 
@@ -702,13 +666,12 @@ Analizar qué cambios rompen compatibilidad binaria (ABI):
 ```{code-block} c
 :linenos:
 // Versión 1.0
-typedef struct {
+typedef struct
+{
     int x;
     int y;
 } punto_t;
-
 void punto_imprimir(punto_t p);
-
 ```
 <!-- {code-block} c -->
 
@@ -716,24 +679,22 @@ void punto_imprimir(punto_t p);
 ```{code-block} c
 :linenos:
 // Cambio A: Agregar campo al final
-typedef struct {
+typedef struct
+{
     int x;
     int y;
-    int z;  // NUEVO
+    int z; // NUEVO
 } punto_t;
-
 // Cambio B: Cambiar orden de campos
-typedef struct {
-    int y;  // Intercambiado
-    int x;  // Intercambiado
+typedef struct
+{
+    int y; // Intercambiado
+    int x; // Intercambiado
 } punto_t;
-
 // Cambio C: Cambiar firma de función
-void punto_imprimir(punto_t p, bool con_formato);  // Parámetro nuevo
-
+void punto_imprimir(punto_t p, bool con_formato); // Parámetro nuevo
 // Cambio D: Cambiar de valor a puntero
-void punto_imprimir(punto_t* p);  // Ahora puntero
-
+void punto_imprimir(punto_t *p); // Ahora puntero
 ```
 <!-- {code-block} c -->
 
@@ -746,27 +707,24 @@ Implementar la deprecación de una función antigua:
 ```{code-block} c
 :linenos:
 // viejo_api.h (versión 1.x)
-void config_load(const char* filename);  // Versión antigua
-
+void config_load(const char *filename); // Versión antigua
 // nuevo_api.h (versión 2.x)
-typedef enum {
+typedef enum
+{
     CONFIG_OK,
     CONFIG_ERROR_IO,
     CONFIG_ERROR_PARSE
 } config_error_t;
-
-config_error_t config_cargar_desde_archivo(const char* ruta);
-
+config_error_t config_cargar_desde_archivo(const char *ruta);
 // Wrapper de compatibilidad
 #ifdef CONFIG_DEPRECATION_WARNINGS
 #warning "config_load está deprecada, usar config_cargar_desde_archivo"
 #endif
-
-static inline void config_load(const char* filename) {
+static inline void config_load(const char *filename)
+{
     config_cargar_desde_archivo(filename);
     // Ignora errores para mantener comportamiento original
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -777,15 +735,13 @@ Diseñar un sistema de feature flags para habilitar funcionalidad experimental:
 ```{code-block} c
 :linenos:
 // compilar con -DCONFIG_FEATURE_X para habilitar
-
 #ifdef CONFIG_FEATURE_EXPERIMENTAL_CACHE
 /**
  * [EXPERIMENTAL] Habilita caché de resultados.
  * Esta función puede cambiar o ser removida en futuras versiones.
  */
-void lista_habilitar_cache(lista_t* lista);
+void lista_habilitar_cache(lista_t *lista);
 #endif
-
 ```
 <!-- {code-block} c -->
 
@@ -798,13 +754,14 @@ Refactorizar este código difícil de testear:
 ```{code-block} c
 :linenos:
 // Difícil de testear: lee directamente de stdin
-void procesar_comandos(void) {
+void procesar_comandos(void)
+{
     char buffer[100];
-    while (fgets(buffer, sizeof(buffer), stdin)) {
+    while (fgets(buffer, sizeof(buffer), stdin))
+    {
         ejecutar_comando(buffer);
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -812,31 +769,32 @@ void procesar_comandos(void) {
 ```{code-block} c
 :linenos:
 // Inyección de dependencia: acepta FILE*
-void procesar_comandos_desde(FILE* stream) {
+void procesar_comandos_desde(FILE *stream)
+{
     char buffer[100];
-    while (fgets(buffer, sizeof(buffer), stream)) {
+    while (fgets(buffer, sizeof(buffer), stream))
+    {
         ejecutar_comando(buffer);
     }
 }
-
 // Wrapper conveniente para el caso común
-static inline void procesar_comandos(void) {
+static inline void procesar_comandos(void)
+{
     procesar_comandos_desde(stdin);
 }
-
 ```
 <!-- {code-block} c -->
 
 **Test:**
 ```{code-block} c
 :linenos:
-void test_procesar_comandos(void) {
-    FILE* test_input = fopen("test_input.txt", "r");
+void test_procesar_comandos(void)
+{
+    FILE *test_input = fopen("test_input.txt", "r");
     procesar_comandos_desde(test_input);
     fclose(test_input);
     // Verificar resultados
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -847,23 +805,19 @@ Diseñar una interfaz que permita inyectar mocks para testing:
 ```{code-block} c
 :linenos:
 // Interfaz de operaciones de archivo
-typedef struct {
-    void* (*abrir)(const char* ruta);
-    int (*leer)(void* handle, void* buffer, size_t bytes);
-    void (*cerrar)(void* handle);
+typedef struct
+{
+    void *(*abrir)(const char *ruta);
+    int (*leer)(void *handle, void *buffer, size_t bytes);
+    void (*cerrar)(void *handle);
 } archivo_ops_t;
-
 // API principal acepta operaciones personalizadas
 typedef struct procesador procesador_t;
-
-procesador_t* procesador_crear(const archivo_ops_t* ops);
-
+procesador_t *procesador_crear(const archivo_ops_t *ops);
 // Implementación real
 extern const archivo_ops_t archivo_ops_real;
-
 // Mock para testing
 extern const archivo_ops_t archivo_ops_mock;
-
 ```
 <!-- {code-block} c -->
 
@@ -875,14 +829,13 @@ Escribir tests que verifiquen el contrato de esta función:
 :linenos:
 /**
  * Busca un elemento en un arreglo ordenado.
- * 
+ *
  * PRECONDICIÓN: arr ordenado ascendentemente
  * POSCONDICIÓN: Si retorna i >= 0, entonces arr[i] == target
- * 
+ *
  * @return Índice del elemento, o -1 si no se encuentra
  */
-int buscar_binario(const int* arr, size_t n, int target);
-
+int buscar_binario(const int *arr, size_t n, int target);
 ```
 <!-- {code-block} c -->
 
@@ -895,7 +848,6 @@ void test_buscar_binario_arreglo_vacio(void);
 void test_buscar_binario_primer_elemento(void);
 void test_buscar_binario_ultimo_elemento(void);
 // ¿Qué otros casos?
-
 ```
 <!-- {code-block} c -->
 
@@ -906,33 +858,27 @@ Definir propiedades que deben cumplirse siempre:
 ```{code-block} c
 :linenos:
 // Propiedad: ordenar es idempotente
-void property_ordenar_idempotente(void) {
+void property_ordenar_idempotente(void)
+{
     int arr[100];
     generar_arreglo_aleatorio(arr, 100);
-    
     int copia1[100], copia2[100];
     memcpy(copia1, arr, sizeof(arr));
     memcpy(copia2, arr, sizeof(arr));
-    
     ordenar(copia1, 100);
     ordenar(copia2, 100);
-    
     // Propiedad: ordenar dos veces da mismo resultado que una vez
     assert(memcmp(copia1, copia2, sizeof(arr)) == 0);
 }
-
 // Propiedad: buscar después de insertar debe encontrar el elemento
-void property_insertar_buscar(void) {
-    lista_t* lista = lista_crear();
+void property_insertar_buscar(void)
+{
+    lista_t *lista = lista_crear();
     int valor_aleatorio = rand();
-    
     lista_insertar(lista, valor_aleatorio);
-    
     assert(lista_contiene(lista, valor_aleatorio));
-    
     lista_destruir(&lista);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -946,24 +892,25 @@ Implementar el patrón builder para configuración compleja:
 :linenos:
 typedef struct http_request_builder http_request_builder_t;
 typedef struct http_request http_request_t;
-
 // API fluida (cada función retorna el builder)
-http_request_builder_t* http_request_builder_crear(void);
-http_request_builder_t* http_request_builder_metodo(http_request_builder_t* b, const char* metodo);
-http_request_builder_t* http_request_builder_url(http_request_builder_t* b, const char* url);
-http_request_builder_t* http_request_builder_header(http_request_builder_t* b, const char* clave, const char* valor);
-http_request_builder_t* http_request_builder_body(http_request_builder_t* b, const char* body);
-
+http_request_builder_t *http_request_builder_crear(void);
+http_request_builder_t *http_request_builder_metodo(http_request_builder_t *b,
+                                                    const char *metodo);
+http_request_builder_t *http_request_builder_url(http_request_builder_t *b,
+                                                 const char *url);
+http_request_builder_t *http_request_builder_header(http_request_builder_t *b,
+                                                    const char *clave,
+                                                    const char *valor);
+http_request_builder_t *http_request_builder_body(http_request_builder_t *b,
+                                                  const char *body);
 // Construir el request final
-http_request_t* http_request_builder_build(http_request_builder_t* b);
-
+http_request_t *http_request_builder_build(http_request_builder_t *b);
 // Uso:
 // http_request_t* req = http_request_builder_crear()
 //     ->metodo("POST")
 //     ->url("http://example.com")
 //     ->header("Content-Type", "application/json")
 //     ->build();
-
 ```
 <!-- {code-block} c -->
 
@@ -975,21 +922,19 @@ Diseñar un iterador genérico para una colección:
 :linenos:
 typedef struct lista lista_t;
 typedef struct lista_iter lista_iter_t;
-
 // API del iterador
-lista_iter_t* lista_iter_crear(const lista_t* lista);
-bool lista_iter_tiene_siguiente(const lista_iter_t* iter);
-int lista_iter_siguiente(lista_iter_t* iter);
-void lista_iter_destruir(lista_iter_t* iter);
-
+lista_iter_t *lista_iter_crear(const lista_t *lista);
+bool lista_iter_tiene_siguiente(const lista_iter_t *iter);
+int lista_iter_siguiente(lista_iter_t *iter);
+void lista_iter_destruir(lista_iter_t *iter);
 // Uso:
-lista_iter_t* iter = lista_iter_crear(lista);
-while (lista_iter_tiene_siguiente(iter)) {
+lista_iter_t *iter = lista_iter_crear(lista);
+while (lista_iter_tiene_siguiente(iter))
+{
     int valor = lista_iter_siguiente(iter);
     printf("%d\n", valor);
 }
 lista_iter_destruir(iter);
-
 ```
 <!-- {code-block} c -->
 
@@ -1001,22 +946,19 @@ Implementar una factory para crear diferentes tipos de objetos:
 
 ```{code-block} c
 :linenos:
-typedef enum {
+typedef enum
+{
     PARSER_JSON,
     PARSER_XML,
     PARSER_YAML
 } parser_tipo_t;
-
 typedef struct parser parser_t;
-
 // Factory
-parser_t* parser_crear(parser_tipo_t tipo);
-
+parser_t *parser_crear(parser_tipo_t tipo);
 // Interfaz común
-bool parser_parse_string(parser_t* p, const char* str);
-valor_t* parser_obtener_valor(parser_t* p, const char* clave);
-void parser_destruir(parser_t* p);
-
+bool parser_parse_string(parser_t *p, const char *str);
+valor_t *parser_obtener_valor(parser_t *p, const char *clave);
+void parser_destruir(parser_t *p);
 ```
 <!-- {code-block} c -->
 
@@ -1028,19 +970,14 @@ Diseñar una API con callbacks para procesamiento asíncrono:
 
 ```{code-block} c
 :linenos:
-typedef void (*evento_callback_t)(void* contexto, const evento_t* evento);
-
+typedef void (*evento_callback_t)(void *contexto, const evento_t *evento);
 typedef struct event_loop event_loop_t;
-
-event_loop_t* event_loop_crear(void);
-void event_loop_registrar_callback(event_loop_t* loop, 
-                                    evento_tipo_t tipo,
-                                    evento_callback_t callback,
-                                    void* contexto);
-void event_loop_ejecutar(event_loop_t* loop);
-void event_loop_detener(event_loop_t* loop);
-void event_loop_destruir(event_loop_t* loop);
-
+event_loop_t *event_loop_crear(void);
+void event_loop_registrar_callback(event_loop_t *loop, evento_tipo_t tipo,
+                                   evento_callback_t callback, void *contexto);
+void event_loop_ejecutar(event_loop_t *loop);
+void event_loop_detener(event_loop_t *loop);
+void event_loop_destruir(event_loop_t *loop);
 ```
 <!-- {code-block} c -->
 
@@ -1053,36 +990,39 @@ Analizar si estas funciones son thread-safe:
 ```{code-block} c
 :linenos:
 // Función 1: Variable estática
-int contador_global(void) {
+int contador_global(void)
+{
     static int count = 0;
     return count++;
 }
-
 // Función 2: errno global
-int archivo_leer_linea(FILE* f, char* buffer, size_t size) {
-    if (fgets(buffer, size, f) == NULL) {
+int archivo_leer_linea(FILE *f, char *buffer, size_t size)
+{
+    if (fgets(buffer, size, f) == NULL)
+    {
         archivo_errno = ARCHIVO_ERROR_IO;
         return -1;
     }
     return 0;
 }
-
 // Función 3: Solo lectura
-int arreglo_buscar(const int* arr, size_t n, int target) {
-    for (size_t i = 0; i < n; i++) {
-        if (arr[i] == target) return i;
+int arreglo_buscar(const int *arr, size_t n, int target)
+{
+    for (size_t i = 0; i < n; i++)
+    {
+        if (arr[i] == target)
+            return i;
     }
     return -1;
 }
-
 // Función 4: Mutex interno
-void log_mensaje(const char* msg) {
+void log_mensaje(const char *msg)
+{
     static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
     pthread_mutex_lock(&mutex);
     fprintf(log_file, "%s\n", msg);
     pthread_mutex_unlock(&mutex);
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1094,12 +1034,10 @@ Convertir esta API no thread-safe a thread-safe:
 :linenos:
 // Versión NO thread-safe
 typedef struct cache cache_t;
-
-cache_t* cache_crear(void);
-void cache_insertar(cache_t* c, const char* clave, const char* valor);
-const char* cache_buscar(cache_t* c, const char* clave);
-void cache_destruir(cache_t* c);
-
+cache_t *cache_crear(void);
+void cache_insertar(cache_t *c, const char *clave, const char *valor);
+const char *cache_buscar(cache_t *c, const char *clave);
+void cache_destruir(cache_t *c);
 ```
 <!-- {code-block} c -->
 
@@ -1116,19 +1054,18 @@ Usar TLS para error handling thread-safe:
 :linenos:
 // En lugar de errno global
 __thread int mi_lib_errno = 0;
-
 #define mi_lib_get_error() (mi_lib_errno)
 #define mi_lib_set_error(err) (mi_lib_errno = (err))
-
 // Uso en funciones
-int mi_funcion(void) {
-    if (error) {
+int mi_funcion(void)
+{
+    if (error)
+    {
         mi_lib_set_error(MI_LIB_ERROR_XYZ);
         return -1;
     }
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1142,20 +1079,17 @@ Documentar las garantías de thread-safety:
  * [THREAD-SAFE] Puede ser llamada concurrentemente desde múltiples threads.
  * Usa locking interno.
  */
-void logger_log(logger_t* logger, const char* mensaje);
-
+void logger_log(logger_t *logger, const char *mensaje);
 /**
  * [NOT THREAD-SAFE] El caller debe sincronizar accesos.
  * Esta función modifica estado compartido sin locking.
  */
-void cache_limpiar(cache_t* cache);
-
+void cache_limpiar(cache_t *cache);
 /**
  * [REENTRANT] Puede ser llamada recursivamente de forma segura.
  * No usa variables estáticas ni globales.
  */
 int factorial(int n);
-
 ```
 <!-- {code-block} c -->
 
@@ -1168,17 +1102,15 @@ Diseñar una API que minimice copias de datos:
 ```{code-block} c
 :linenos:
 // Malo: múltiples copias
-char* archivo_leer_todo(const char* ruta);  // Copia 1: archivo → buffer interno
-char* procesar_texto(const char* texto);    // Copia 2: buffer → nuevo buffer
-
+char *archivo_leer_todo(const char *ruta); // Copia 1: archivo → buffer interno
+char *procesar_texto(const char *texto);   // Copia 2: buffer → nuevo buffer
 // Bueno: zero-copy con buffer compartido
 typedef struct buffer buffer_t;
-
-buffer_t* buffer_desde_archivo(const char* ruta);  // Mapea archivo
-const char* buffer_obtener_datos(const buffer_t* b);  // Acceso directo, sin copia
-size_t buffer_obtener_tamano(const buffer_t* b);
-void buffer_liberar(buffer_t* b);
-
+buffer_t *buffer_desde_archivo(const char *ruta); // Mapea archivo
+const char *
+buffer_obtener_datos(const buffer_t *b); // Acceso directo, sin copia
+size_t buffer_obtener_tamano(const buffer_t *b);
+void buffer_liberar(buffer_t *b);
 ```
 <!-- {code-block} c -->
 
@@ -1189,13 +1121,12 @@ Diseñar API que permita operaciones en lote para mejor performance:
 ```{code-block} c
 :linenos:
 // Ineficiente: múltiples llamadas
-for (int i = 0; i < n; i++) {
-    db_insertar(db, &registros[i]);  // Overhead por llamada
+for (int i = 0; i < n; i++)
+{
+    db_insertar(db, &registros[i]); // Overhead por llamada
 }
-
 // Eficiente: operación batch
-db_insertar_batch(db, registros, n);  // Una sola transacción
-
+db_insertar_batch(db, registros, n); // Una sola transacción
 ```
 <!-- {code-block} c -->
 
@@ -1204,16 +1135,13 @@ Implementar:
 :linenos:
 typedef struct db db_t;
 typedef struct registro registro_t;
-
 // Operaciones individuales
-bool db_insertar(db_t* db, const registro_t* reg);
-bool db_actualizar(db_t* db, int id, const registro_t* reg);
-bool db_eliminar(db_t* db, int id);
-
+bool db_insertar(db_t *db, const registro_t *reg);
+bool db_actualizar(db_t *db, int id, const registro_t *reg);
+bool db_eliminar(db_t *db, int id);
 // Operaciones batch
-bool db_insertar_batch(db_t* db, const registro_t* registros, size_t count);
-bool db_eliminar_batch(db_t* db, const int* ids, size_t count);
-
+bool db_insertar_batch(db_t *db, const registro_t *registros, size_t count);
+bool db_eliminar_batch(db_t *db, const int *ids, size_t count);
 ```
 <!-- {code-block} c -->
 
@@ -1225,23 +1153,20 @@ Implementar evaluación perezosa en una API:
 :linenos:
 typedef struct consulta consulta_t;
 typedef struct resultado resultado_t;
-
 // Construir consulta (sin ejecutar)
-consulta_t* consulta_crear(db_t* db, const char* tabla);
-consulta_t* consulta_filtrar(consulta_t* q, const char* campo, const char* valor);
-consulta_t* consulta_ordenar(consulta_t* q, const char* campo);
-consulta_t* consulta_limitar(consulta_t* q, size_t limite);
-
+consulta_t *consulta_crear(db_t *db, const char *tabla);
+consulta_t *consulta_filtrar(consulta_t *q, const char *campo,
+                             const char *valor);
+consulta_t *consulta_ordenar(consulta_t *q, const char *campo);
+consulta_t *consulta_limitar(consulta_t *q, size_t limite);
 // Ejecutar solo cuando se necesita
-resultado_t* consulta_ejecutar(consulta_t* q);  // Aquí ocurre el trabajo real
-
+resultado_t *consulta_ejecutar(consulta_t *q); // Aquí ocurre el trabajo real
 // Uso:
-resultado_t* res = consulta_crear(db, "usuarios")
-    ->filtrar("edad", "> 18")
-    ->ordenar("nombre")
-    ->limitar(10)
-    ->ejecutar();  // Solo aquí se ejecuta la consulta
-
+resultado_t *res = consulta_crear(db, "usuarios")
+                       ->filtrar("edad", "> 18")
+                       ->ordenar("nombre")
+                       ->limitar(10)
+                       ->ejecutar(); // Solo aquí se ejecuta la consulta
 ```
 <!-- {code-block} c -->
 
@@ -1252,21 +1177,18 @@ Diseñar puntos de instrumentación en la API:
 ```{code-block} c
 :linenos:
 typedef struct stats stats_t;
-
 // API con estadísticas opcionales
-cache_t* cache_crear_con_stats(size_t capacidad, stats_t* stats);
-
+cache_t *cache_crear_con_stats(size_t capacidad, stats_t *stats);
 // Si stats != NULL, la cache registra métricas
-typedef struct {
+typedef struct
+{
     uint64_t hits;
     uint64_t misses;
     uint64_t evictions;
     double hit_rate;
 } cache_stats_t;
-
-void cache_obtener_stats(const cache_t* c, cache_stats_t* stats);
-void cache_resetear_stats(cache_t* c);
-
+void cache_obtener_stats(const cache_t *c, cache_stats_t *stats);
+void cache_resetear_stats(cache_t *c);
 ```
 <!-- {code-block} c -->
 
@@ -1278,29 +1200,27 @@ Diseñar un sistema de mensajes de error localizables:
 
 ```{code-block} c
 :linenos:
-typedef enum {
+typedef enum
+{
     MSG_ERROR_MEMORIA,
     MSG_ERROR_ARCHIVO_NO_ENCONTRADO,
     MSG_ERROR_PERMISO_DENEGADO,
     // ...
 } mensaje_id_t;
-
 // Configurar idioma
-void set_locale(const char* locale);  // "es_AR", "en_US", etc.
-
+void set_locale(const char *locale); // "es_AR", "en_US", etc.
 // Obtener mensaje traducido
-const char* obtener_mensaje(mensaje_id_t id);
-
+const char *obtener_mensaje(mensaje_id_t id);
 // Uso en API
-int archivo_abrir(const char* ruta) {
-    if (acceso_denegado) {
-        fprintf(stderr, "%s: %s\n", 
-                obtener_mensaje(MSG_ERROR_PERMISO_DENEGADO),
-                ruta);
+int archivo_abrir(const char *ruta)
+{
+    if (acceso_denegado)
+    {
+        fprintf(stderr, "%s: %s\n",
+                obtener_mensaje(MSG_ERROR_PERMISO_DENEGADO), ruta);
         return -1;
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1311,32 +1231,36 @@ Refactorizar para separar lógica de UI:
 ```{code-block} c
 :linenos:
 // Malo: mezcla lógica con presentación
-void procesar_pedido(pedido_t* p) {
-    if (validar_pedido(p)) {
-        printf("Pedido válido!\n");  // ¡Hardcoded en español!
+void procesar_pedido(pedido_t *p)
+{
+    if (validar_pedido(p))
+    {
+        printf("Pedido válido!\n"); // ¡Hardcoded en español!
         guardar_pedido(p);
-    } else {
+    }
+    else
+    {
         printf("Error: pedido inválido\n");
     }
 }
-
 // Bueno: retornar código, caller decide cómo presentar
-typedef enum {
+typedef enum
+{
     PEDIDO_OK,
     PEDIDO_ERROR_VALIDACION,
     PEDIDO_ERROR_BD
 } pedido_resultado_t;
-
-pedido_resultado_t procesar_pedido(pedido_t* p);
-
+pedido_resultado_t procesar_pedido(pedido_t *p);
 // Caller decide presentación
 pedido_resultado_t res = procesar_pedido(pedido);
-if (res == PEDIDO_OK) {
+if (res == PEDIDO_OK)
+{
     ui_mostrar_mensaje(MSG_PEDIDO_EXITOSO);
-} else {
+}
+else
+{
     ui_mostrar_error(mensaje_para_resultado(res));
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1351,43 +1275,37 @@ Escribir documentación completa para este módulo:
 /**
  * @file cola.h
  * @brief [COMPLETAR]
- * 
+ *
  * [COMPLETAR: Descripción general del módulo]
- * 
+ *
  * Ejemplo de uso:
  * @code
  * [AGREGAR EJEMPLO]
  * @endcode
- * 
+ *
  * @author [Tu nombre]
  * @version 1.0
  * @date 2024-10-24
  */
-
 #ifndef COLA_H
 #define COLA_H
-
 /**
  * @brief [COMPLETAR]
  */
 typedef struct cola cola_t;
-
 /**
  * @brief [COMPLETAR]
- * 
+ *
  * @return [COMPLETAR]
- * 
+ *
  * @pre [COMPLETAR]
  * @post [COMPLETAR]
- * 
+ *
  * @note [COMPLETAR]
  */
-cola_t* cola_crear(void);
-
+cola_t *cola_crear(void);
 // [COMPLETAR DOCUMENTACIÓN DE TODAS LAS FUNCIONES]
-
 #endif
-
 ```
 <!-- {code-block} c -->
 
@@ -1412,21 +1330,20 @@ Agregar comentarios inline útiles (no obvios):
 ```{code-block} c
 :linenos:
 // Malo: comentario obvio
-i++;  // Incrementar i
-
+i++; // Incrementar i
 // Bueno: explica decisión no obvia
-// Usamos búsqueda lineal en lugar de binaria porque 
-// el arreglo tiene < 10 elementos típicamente, y 
+// Usamos búsqueda lineal en lugar de binaria porque
+// el arreglo tiene < 10 elementos típicamente, y
 // benchmark muestra que es más rápido por overhead reducido
-for (int i = 0; i < n; i++) {
-    if (arr[i] == target) return i;
+for (int i = 0; i < n; i++)
+{
+    if (arr[i] == target)
+        return i;
 }
-
 // Bueno: advierte sobre caso especial
 // IMPORTANTE: buffer debe tener al menos MAX_PATH + 1 bytes
 // para incluir el null terminator
 obtener_ruta_absoluta(archivo, buffer);
-
 ```
 <!-- {code-block} c -->
 
@@ -1437,7 +1354,7 @@ obtener_ruta_absoluta(archivo, buffer);
 Analizar el diseño de `fopen`:
 
 ``` c
-FILE* fopen(const char* filename, const char* mode);
+FILE *fopen(const char *filename, const char *mode);
 ```
 <!-- c -->
 
@@ -1455,8 +1372,8 @@ FILE* fopen(const char* filename, const char* mode);
 Analizar el diseño de `malloc`:
 
 ``` c
-void* malloc(size_t size);
-void free(void* ptr);
+void *malloc(size_t size);
+void free(void *ptr);
 ```
 <!-- c -->
 
@@ -1474,17 +1391,16 @@ Esta API tiene varios problemas. Identificarlos y proponer mejoras:
 ```{code-block} c
 :linenos:
 // api_problematica.h
-struct datos {  // ¿Por qué no typedef?
-    int* array;
+struct datos
+{ // ¿Por qué no typedef?
+    int *array;
     int size;
     int capacity;
 };
-
-void init(struct datos* d);  // ¿Malloc o no?
-int add(struct datos* d, int x);  // ¿Qué significa el int retornado?
-void process();  // ¿Dónde están los parámetros?
-char* get_result();  // ¿Quién libera?
-
+void init(struct datos *d);      // ¿Malloc o no?
+int add(struct datos *d, int x); // ¿Qué significa el int retornado?
+void process();                  // ¿Dónde están los parámetros?
+char *get_result();              // ¿Quién libera?
 ```
 <!-- {code-block} c -->
 
@@ -1499,7 +1415,7 @@ Comparar las APIs de estas dos librerías de base de datos:
 
 **SQLite (todo en uno):**
 ``` c
-sqlite3* db;
+sqlite3 *db;
 sqlite3_open("db.sqlite", &db);
 sqlite3_exec(db, "SELECT * FROM users", callback, NULL, NULL);
 sqlite3_close(db);
@@ -1508,9 +1424,9 @@ sqlite3_close(db);
 
 **MySQL (orientada a objetos):**
 ``` c
-MYSQL* conn = mysql_init(NULL);
+MYSQL *conn = mysql_init(NULL);
 mysql_real_connect(conn, host, user, pass, db, 0, NULL, 0);
-MYSQL_RES* result = mysql_query(conn, "SELECT * FROM users");
+MYSQL_RES *result = mysql_query(conn, "SELECT * FROM users");
 mysql_free_result(result);
 mysql_close(conn);
 ```
@@ -1552,21 +1468,21 @@ Dado este código legacy, refactorizar aplicando todos los principios:
 // legacy_code.c
 int data[MAX];
 int count = 0;
-
-void add(int x) {
+void add(int x)
+{
     data[count++] = x;
 }
-
-int get(int i) {
+int get(int i)
+{
     return data[i];
 }
-
-void print() {
-    for (int i = 0; i < count; i++) {
+void print()
+{
+    for (int i = 0; i < count; i++)
+    {
         printf("%d ", data[i]);
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1586,27 +1502,26 @@ Diseñar una librería para cliente HTTP REST:
 :linenos:
 typedef struct http_client http_client_t;
 typedef struct http_response http_response_t;
-
 // Crear cliente con configuración
-http_client_t* http_client_crear(const char* base_url);
-void http_client_set_timeout(http_client_t* client, int segundos);
-void http_client_set_header(http_client_t* client, const char* clave, const char* valor);
-
+http_client_t *http_client_crear(const char *base_url);
+void http_client_set_timeout(http_client_t *client, int segundos);
+void http_client_set_header(http_client_t *client, const char *clave,
+                            const char *valor);
 // Operaciones REST
-http_response_t* http_get(http_client_t* client, const char* endpoint);
-http_response_t* http_post(http_client_t* client, const char* endpoint, const char* body);
-http_response_t* http_put(http_client_t* client, const char* endpoint, const char* body);
-http_response_t* http_delete(http_client_t* client, const char* endpoint);
-
+http_response_t *http_get(http_client_t *client, const char *endpoint);
+http_response_t *http_post(http_client_t *client, const char *endpoint,
+                           const char *body);
+http_response_t *http_put(http_client_t *client, const char *endpoint,
+                          const char *body);
+http_response_t *http_delete(http_client_t *client, const char *endpoint);
 // Acceso a respuesta
-int http_response_get_status(const http_response_t* resp);
-const char* http_response_get_body(const http_response_t* resp);
-const char* http_response_get_header(const http_response_t* resp, const char* clave);
-
+int http_response_get_status(const http_response_t *resp);
+const char *http_response_get_body(const http_response_t *resp);
+const char *http_response_get_header(const http_response_t *resp,
+                                     const char *clave);
 // Limpieza
-void http_response_destruir(http_response_t* resp);
-void http_client_destruir(http_client_t* client);
-
+void http_response_destruir(http_response_t *resp);
+void http_client_destruir(http_client_t *client);
 ```
 <!-- {code-block} c -->
 
@@ -1618,15 +1533,17 @@ void http_client_destruir(http_client_t* client);
 
 **Opción A: Simple pero menos seguro**
 ``` c
-void buffer_append(buffer_t* buf, const char* str);
+void buffer_append(buffer_t *buf, const char *str);
 // Asume que buf != NULL, undefined behavior si no
 ```
 <!-- c -->
 
 **Opción B: Seguro pero más verboso**
 ``` c
-bool buffer_append(buffer_t* buf, const char* str) {
-    if (buf == NULL || str == NULL) return false;
+bool buffer_append(buffer_t *buf, const char *str)
+{
+    if (buf == NULL || str == NULL)
+        return false;
     // ...
     return true;
 }
@@ -1682,14 +1599,12 @@ Implementar la versión más simple posible de:
 ```{code-block} c
 :linenos:
 typedef struct map map_t;
-
-map_t* map_crear(void);
-bool map_insertar(map_t* m, const char* clave, int valor);
-bool map_buscar(map_t* m, const char* clave, int* valor);
-bool map_eliminar(map_t* m, const char* clave);
-size_t map_tamano(const map_t* m);
-void map_destruir(map_t** ptr_map);
-
+map_t *map_crear(void);
+bool map_insertar(map_t *m, const char *clave, int valor);
+bool map_buscar(map_t *m, const char *clave, int *valor);
+bool map_eliminar(map_t *m, const char *clave);
+size_t map_tamano(const map_t *m);
+void map_destruir(map_t **ptr_map);
 ```
 <!-- {code-block} c -->
 
@@ -1708,12 +1623,11 @@ Convertir estas macros inseguras en funciones inline seguras:
 // Macro insegura
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 // Problema: evalúa argumentos múltiples veces
-
 // Función inline segura
-static inline int max_int(int a, int b) {
+static inline int max_int(int a, int b)
+{
     return (a > b) ? a : b;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1721,7 +1635,12 @@ static inline int max_int(int a, int b) {
 ``` c
 #define SQUARE(x) ((x) * (x))
 #define ABS(x) ((x) < 0 ? -(x) : (x))
-#define SWAP(a, b) { int tmp = a; a = b; b = tmp; }
+#define SWAP(a, b)                                                            \
+    {                                                                         \
+        int tmp = a;                                                          \
+        a = b;                                                                \
+        b = tmp;                                                              \
+    }
 ```
 <!-- c -->
 
@@ -1733,15 +1652,14 @@ Crear un sistema de wrappers automáticos para logging:
 :linenos:
 // Original
 int funcion_original(int x, int y);
-
 // Wrapper generado automáticamente
-int funcion_original_logged(int x, int y) {
+int funcion_original_logged(int x, int y)
+{
     LOG_ENTRADA("funcion_original", "x=%d, y=%d", x, y);
     int resultado = funcion_original(x, y);
     LOG_SALIDA("funcion_original", "resultado=%d", resultado);
     return resultado;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1784,25 +1702,23 @@ Para cada caso, decidir si pasar/retornar por valor o por puntero:
 ```{code-block} c
 :linenos:
 // Estructura pequeña (8 bytes)
-typedef struct {
+typedef struct
+{
     int x;
     int y;
 } punto_t;
-
 // ¿Cuál es mejor?
-void punto_trasladar_v1(punto_t p, int dx, int dy);    // Por valor
-void punto_trasladar_v2(punto_t* p, int dx, int dy);   // Por puntero
-
+void punto_trasladar_v1(punto_t p, int dx, int dy);  // Por valor
+void punto_trasladar_v2(punto_t *p, int dx, int dy); // Por puntero
 // Estructura grande (>64 bytes)
-typedef struct {
+typedef struct
+{
     char nombre[256];
     int datos[1000];
 } registro_t;
-
 // ¿Cuál es mejor?
 void procesar_v1(registro_t reg);        // Por valor
-void procesar_v2(const registro_t* reg); // Por puntero
-
+void procesar_v2(const registro_t *reg); // Por puntero
 ```
 <!-- {code-block} c -->
 
@@ -1812,19 +1728,18 @@ Diseñar API para operaciones asíncronas: ¿usar callbacks o polling?
 
 **Opción A: Callback**
 ``` c
-typedef void (*completado_callback_t)(void* contexto, int resultado);
-
-void operacion_async(int param, completado_callback_t callback, void* contexto);
+typedef void (*completado_callback_t)(void *contexto, int resultado);
+void operacion_async(int param, completado_callback_t callback,
+                     void *contexto);
 ```
 <!-- c -->
 
 **Opción B: Polling**
 ``` c
 typedef struct operacion operacion_t;
-
-operacion_t* operacion_iniciar(int param);
-bool operacion_completada(const operacion_t* op);
-int operacion_obtener_resultado(operacion_t* op);
+operacion_t *operacion_iniciar(int param);
+bool operacion_completada(const operacion_t *op);
+int operacion_obtener_resultado(operacion_t *op);
 ```
 <!-- c -->
 
@@ -1838,15 +1753,12 @@ Comparar diseños mutables vs. inmutables:
 :linenos:
 // Diseño mutable
 typedef struct string string_t;
-
-void string_append(string_t* str, const char* texto);
-void string_mayuscula(string_t* str);
-
+void string_append(string_t *str, const char *texto);
+void string_mayuscula(string_t *str);
 // Diseño inmutable
-string_t* string_append(const string_t* str, const char* texto);
-string_t* string_mayuscula(const string_t* str);
+string_t *string_append(const string_t *str, const char *texto);
+string_t *string_mayuscula(const string_t *str);
 // Cada operación retorna nueva string, original sin modificar
-
 ```
 <!-- {code-block} c -->
 
@@ -1859,21 +1771,21 @@ Simular herencia vs. composición en C:
 ```{code-block} c
 :linenos:
 // Herencia (via casting)
-typedef struct {
-    int tipo;  // "vtable" manual
+typedef struct
+{
+    int tipo; // "vtable" manual
 } figura_t;
-
-typedef struct {
+typedef struct
+{
     figura_t base;
     double radio;
 } circulo_t;
-
 // Composición
-typedef struct {
+typedef struct
+{
     punto_t centro;
     double radio;
 } circulo_v2_t;
-
 ```
 <!-- {code-block} c -->
 
@@ -1887,21 +1799,19 @@ Diseñar un sistema de plugins dinámicos:
 :linenos:
 typedef struct plugin plugin_t;
 typedef struct plugin_api plugin_api_t;
-
 // API que el plugin debe implementar
-struct plugin_api {
-    const char* nombre;
-    const char* version;
+struct plugin_api
+{
+    const char *nombre;
+    const char *version;
     bool (*inicializar)(void);
-    void (*procesar)(void* datos);
+    void (*procesar)(void *datos);
     void (*finalizar)(void);
 };
-
 // Sistema de carga de plugins
-plugin_t* plugin_cargar(const char* ruta_so);
-const plugin_api_t* plugin_get_api(plugin_t* p);
-void plugin_descargar(plugin_t* p);
-
+plugin_t *plugin_cargar(const char *ruta_so);
+const plugin_api_t *plugin_get_api(plugin_t *p);
+void plugin_descargar(plugin_t *p);
 ```
 <!-- {code-block} c -->
 
@@ -1912,30 +1822,29 @@ Implementar un sistema básico de reflexión:
 ```{code-block} c
 :linenos:
 // Metadatos de tipos
-typedef enum {
+typedef enum
+{
     TYPE_INT,
     TYPE_FLOAT,
     TYPE_STRING,
     TYPE_STRUCT
 } tipo_id_t;
-
-typedef struct {
-    const char* nombre;
+typedef struct
+{
+    const char *nombre;
     tipo_id_t tipo;
     size_t offset;
     size_t tamano;
 } campo_info_t;
-
-typedef struct {
-    const char* nombre_struct;
+typedef struct
+{
+    const char *nombre_struct;
     size_t tamano_total;
     size_t num_campos;
-    campo_info_t* campos;
+    campo_info_t *campos;
 } struct_info_t;
-
 // Usar para serialización genérica
-void serializar_struct(const void* instancia, const struct_info_t* info);
-
+void serializar_struct(const void *instancia, const struct_info_t *info);
 ```
 <!-- {code-block} c -->
 
@@ -1946,24 +1855,17 @@ Crear un DSL (Domain Specific Language) embebido para construir consultas:
 ```{code-block} c
 :linenos:
 typedef struct query query_t;
-
 // API fluida
-query_t* query_from(const char* tabla);
-query_t* query_where(query_t* q, const char* condicion);
-query_t* query_order_by(query_t* q, const char* campo);
-query_t* query_limit(query_t* q, int limite);
-
-char* query_to_sql(query_t* q);  // Genera SQL
-
+query_t *query_from(const char *tabla);
+query_t *query_where(query_t *q, const char *condicion);
+query_t *query_order_by(query_t *q, const char *campo);
+query_t *query_limit(query_t *q, int limite);
+char *query_to_sql(query_t *q); // Genera SQL
 // Uso:
-query_t* q = query_from("usuarios")
-    ->where("edad > 18")
-    ->order_by("nombre")
-    ->limit(10);
-
-char* sql = query_to_sql(q);
+query_t *q =
+    query_from("usuarios")->where("edad > 18")->order_by("nombre")->limit(10);
+char *sql = query_to_sql(q);
 // SELECT * FROM usuarios WHERE edad > 18 ORDER BY nombre LIMIT 10
-
 ```
 <!-- {code-block} c -->
 

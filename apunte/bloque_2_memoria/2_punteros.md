@@ -85,7 +85,6 @@ seguido de un asterisco (`*`) y el nombre de la variable. La regla de estilo
 int *ptr_entero;
 double *ptr_double;
 char *ptr_char;
-
 :::
 <!-- {code-block}c -->
 
@@ -103,8 +102,8 @@ cual obtiene la dirección de memoria de dicha variable.
 :::{code-block}c
 :linenos:
 int numero = 42;
-int *ptr_numero = &numero; // ptr_numero ahora almacena la dirección de 'numero'
-
+int *ptr_numero =
+    &numero; // ptr_numero ahora almacena la dirección de 'numero'
 :::
 <!-- {code-block}c -->
 
@@ -133,9 +132,7 @@ encabezado `<stddef.h>` y representa la dirección a «ningún lado».
 :::{code-block}c
 :linenos:
 #include <stddef.h> // Necesario para NULL
-
 int *puntero_seguro = NULL;
-
 :::
 <!-- {code-block}c -->
 
@@ -199,27 +196,22 @@ facilitando un acceso y una manipulación indirecta sobre la misma.
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
-int main() {
+int main()
+{
     int numero = 100;
     int *ptrNumero; // 'ptrNumero' es un puntero, su rol es referenciar a
-    'numero'
-
-    ptrNumero = &numero; // 'ptrNumero' ahora apunta a la dirección de 'numero'
-
+    'numero' ptrNumero =
+        &numero; // 'ptrNumero' ahora apunta a la dirección de 'numero'
     printf("Valor de numero: %d\n", numero);
-    printf("Direccion de numero: %p\n", (void*)&numero);
+    printf("Direccion de numero: %p\n", (void *)&numero);
     printf("Valor al que apunta ptrNumero: %d\n", *ptrNumero); // Desreferencia
-    el puntero
-    printf("Valor de ptrNumero (direccion): %p\n", (void*)ptrNumero);
-
+    el puntero printf("Valor de ptrNumero (direccion): %p\n",
+                      (void *)ptrNumero);
     // Modificando 'numero' a traves del puntero
     *ptrNumero = 200;
     printf("Nuevo valor de numero (modificado via puntero): %d\n", numero);
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -260,24 +252,20 @@ Funcionamiento de los operadores `&` (dirección de) y `*` (desreferencia).
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
-int main() {
+int main()
+{
     int numero = 99;
     int *puntero = &numero; // '&numero' obtiene la dirección de memoria de la
     variable
-
-    // Leemos el valor apuntado (lectura)
-    // La expresión *puntero accede al valor contenido en 'numero'
-    printf("El valor de 'numero' es: %d\n", *puntero); // Imprime 99
-
+        // Leemos el valor apuntado (lectura)
+        // La expresión *puntero accede al valor contenido en 'numero'
+        printf("El valor de 'numero' es: %d\n", *puntero); // Imprime 99
     // Modificamos el valor apuntado (escritura)
     // La expresión *puntero modifica el contenido en 'numero'
     *puntero = 150;
     printf("El nuevo valor de 'numero' es: %d\n", numero); // Imprime 150
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -344,23 +332,18 @@ o decrementarlo para que apunte al anterior.
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
-int main() {
+int main()
+{
     int arr[] = {10, 20, 30, 40, 50};
-    int *ptr = arr; // ptr apunta a arr[0]
-
-    ptr++; // Ahora ptr apunta a arr[1]
+    int *ptr = arr;                               // ptr apunta a arr[0]
+    ptr++;                                        // Ahora ptr apunta a arr[1]
     printf("El segundo elemento es: %d\n", *ptr); // Imprime 20
-
-    ptr++; // Ahora ptr apunta a arr[2]
-    printf("El tercer elemento es: %d\n", *ptr); // Imprime 30
-
-    ptr--; // Vuelve a apuntar a arr[1]
+    ptr++;                                        // Ahora ptr apunta a arr[2]
+    printf("El tercer elemento es: %d\n", *ptr);  // Imprime 30
+    ptr--;                                        // Vuelve a apuntar a arr[1]
     printf("El segundo elemento de nuevo: %d\n", *ptr); // Imprime 20
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -373,19 +356,16 @@ posiciones dentro de un arreglo.
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
-int main() {
+int main()
+{
     int arr[] = {10, 20, 30, 40, 50};
     int *ptr = arr; // ptr apunta a arr[0]
-
     // Acceder al cuarto elemento (índice 3)
     int *ptr_cuarto = ptr + 3;
-    printf("El cuarto elemento es: %d\n", *ptr_cuarto); // Imprime 40
+    printf("El cuarto elemento es: %d\n", *ptr_cuarto);       // Imprime 40
     printf("También se puede acceder así: %d\n", *(ptr + 3)); // Imprime 40
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -398,20 +378,17 @@ entre ellos.
 
 :::{code-block}c
 :linenos:
-#include <stdio.h>
 #include <stddef.h> // Necesario para ptrdiff_t
-
-int main() {
+#include <stdio.h>
+int main()
+{
     int arr[] = {10, 20, 30, 40, 50};
     int *ptr1 = &arr[1];
     int *ptr2 = &arr[4];
-
     ptrdiff_t diferencia = ptr2 - ptr1;
     printf("Hay %td elementos entre ptr1 y ptr2.\n", diferencia); // Imprime 3
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -502,28 +479,23 @@ punteros.
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
 // La función recibe dos punteros a enteros
-void intercambiar(int *a, int *b) {
+void intercambiar(int *a, int *b)
+{
     int temporal = *a; // Guardamos el valor al que apunta 'a'
     *a = *b;           // Asignamos al valor de 'a' el valor de 'b'
     *b = temporal;     // Asignamos al valor de 'b' el valor guardado
 }
-
-int main() {
+int main()
+{
     int x = 10;
     int y = 20;
-
     printf("Valores originales: x = %d, y = %d\n", x, y);
-
     // Pasamos las direcciones de memoria de 'x' e 'y'
     intercambiar(&x, &y);
-
     printf("Valores intercambiados: x = %d, y = %d\n", x, y);
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -542,36 +514,37 @@ debemos emplear punteros en el rol de **parámetros de salida**.
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
 // 'resultado' es un parámetro de salida (puntero)
-void dividir(int dividendo, int divisor, int *cociente, int *resto) {
-    if (divisor != 0) {
+void dividir(int dividendo, int divisor, int *cociente, int *resto)
+{
+    if (divisor != 0)
+    {
         *cociente = dividendo / divisor; // Modifica el valor apuntado por
-        'cociente'
-        *resto = dividendo % divisor;   // Modifica el valor apuntado por
+        'cociente' *resto =
+            dividendo % divisor; // Modifica el valor apuntado por
         'resto'
-    } else {
+    }
+    else
+    {
         printf("Error: Division por cero.\n");
-        // Podríamos asignar valores especiales o manejar el error de otra forma
+        // Podríamos asignar valores especiales o manejar el error de otra
+        // forma
         *cociente = 0;
         *resto = 0;
     }
 }
-
-int main() {
+int main()
+{
     int num1 = 17;
     int num2 = 5;
     int miCociente;
     int miResto;
-
     // Pasamos las direcciones de 'miCociente' y 'miResto'
     dividir(num1, num2, &miCociente, &miResto);
-
     printf("%d dividido por %d es: Cociente = %d, Resto = %d\n", num1, num2,
-    miCociente, miResto);
+           miCociente, miResto);
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -595,26 +568,22 @@ física (salida), reintegrando el valor alterado al ámbito original.
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
 // 'contador' es un parámetro de entrada/salida
-void incrementarContador(int *contador) {
+void incrementarContador(int *contador)
+{
     printf("Valor del contador al entrar a la funcion: %d\n", *contador);
     (*contador)++; // Incrementa el valor apuntado por 'contador'
     printf("Valor del contador al salir de la funcion: %d\n", *contador);
 }
-
-int main() {
+int main()
+{
     int miVariableContador = 10;
-
     printf("Valor inicial de miVariableContador: %d\n", miVariableContador);
-
     // Pasamos la dirección de 'miVariableContador'
     incrementarContador(&miVariableContador);
-
     printf("Valor final de miVariableContador: %d\n", miVariableContador);
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -672,27 +641,21 @@ cambiar su contenido a través de este puntero.
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
-void imprimir(const char *mensaje) {
+void imprimir(const char *mensaje)
+{
     // mensaje[0] = 'X'; // ERROR DE COMPILACIÓN: intentás modificar un dato
-    constante.
-    printf("El mensaje es: %s\n", mensaje);
+    constante.printf("El mensaje es: %s\n", mensaje);
 }
-
-int main() {
+int main()
+{
     char saludo[] = "Hola";
     char despedida[] = "Chau";
-
     const char *ptr = saludo;
-
     // *ptr = 'h'; // ERROR DE COMPILACIÓN: no se puede modificar el contenido.
-
     ptr = despedida; // VÁLIDO: el puntero puede apuntar a otra dirección.
-
-    imprimir(ptr); // Imprime "Chau"
+    imprimir(ptr);   // Imprime "Chau"
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -713,25 +676,19 @@ lo que podés cambiar su contenido libremente.
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
-int main() {
+int main()
+{
     int valor_a = 10;
     int valor_b = 20;
-
     // El puntero debe inicializarse en la declaración, ya que no se puede
-    cambiar después.
-    int * const ptr = &valor_a;
-
+    cambiar después.int *const ptr = &valor_a;
     *ptr = 50; // VÁLIDO: podés modificar el valor en la dirección apuntada.
                // Ahora, 'valor_a' es 50.
-
-    // ptr = &valor_b; // ERROR DE COMPILACIÓN: no se puede reasignar un puntero
-    constante.
-
-    printf("El valor de A es: %d\n", valor_a); // Imprime 50
+    // ptr = &valor_b; // ERROR DE COMPILACIÓN: no se puede reasignar un
+    // puntero
+    constante.printf("El valor de A es: %d\n", valor_a); // Imprime 50
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -751,20 +708,16 @@ ni el contenido del lugar al que apunta.
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
-int main() {
+int main()
+{
     int valor_fijo = 100;
     int otro_valor = 200;
-
-    const int * const ptr = &valor_fijo;
-
+    const int *const ptr = &valor_fijo;
     // *ptr = 150;     // ERROR DE COMPILACIÓN: el valor es constante.
     // ptr = &otro_valor; // ERROR DE COMPILACIÓN: el puntero es constante.
-
     printf("El valor fijo es: %d\n", *ptr); // Imprime 100
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -802,18 +755,16 @@ Analizá el siguiente comportamiento con este fragmento de código:
 :linenos:
 int x = 5;
 int y = 10;
-
 // Puntero a constante (el valor apuntado no se puede modificar)
 const int *p_a_const = &x;
-p_a_const = &y;       // VÁLIDO: se cambia la dirección almacenada en el
+p_a_const = &y; // VÁLIDO: se cambia la dirección almacenada en el
 puntero.
-// *p_a_const = 20;   // ERROR DE COMPILACIÓN: el contenido es de solo lectura.
-
-// Puntero constante (la dirección almacenada no se puede modificar)
-int *const p_const = &x;
-*p_const = 20;        // VÁLIDO: se modifica el entero al que apunta.
+    // *p_a_const = 20;   // ERROR DE COMPILACIÓN: el contenido es de solo
+    // lectura. Puntero constante (la dirección almacenada no se puede
+    // modificar)
+    int *const p_const = &x;
+*p_const = 20; // VÁLIDO: se modifica el entero al que apunta.
 // p_const = &y;      // ERROR DE COMPILACIÓN: el puntero es de solo lectura.
-
 :::
 <!-- {code-block}c -->
 
@@ -894,12 +845,12 @@ Aplicando estos conceptos, una documentación exhaustiva para la función
    introducirán otros valores por fuera
  * de los que estén referenciados.
  */
-void intercambiar(int *primero, int *segundo) {
+void intercambiar(int *primero, int *segundo)
+{
     int temporal = *primero;
     *primero = *segundo;
     *segundo = temporal;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -935,17 +886,12 @@ Por lo tanto, las siguientes dos líneas de código son funcionalmente idéntica
 :::{code-block}c
 :linenos:
 int numeros[5] = {10, 20, 30, 40, 50};
-
 // La "degradación" ocurre aquí: 'numeros' se convierte en la dirección de
-numeros[0]
-int *p = numeros;
-
+numeros[0] int *p = numeros;
 // Esta es la forma explícita y equivalente
 int *p_explicito = &numeros[0];
-
-printf("La dirección almacenada en p es: %p\n", (void*)p);
-printf("La dirección del primer elemento es: %p\n", (void*)&numeros[0]);
-
+printf("La dirección almacenada en p es: %p\n", (void *)p);
+printf("La dirección del primer elemento es: %p\n", (void *)&numeros[0]);
 :::
 <!-- {code-block}c -->
 
@@ -966,10 +912,9 @@ el compilador:
 :linenos:
 void procesar_datos(int arr[10]); // El 10 es ignorado por el compilador
 void procesar_datos(int arr[]);   // Notación más común para indicar que se
-espera un arreglo
-void procesar_datos(int *arr);    // La forma más honesta: la función recibe un
+espera un arreglo void
+procesar_datos(int *arr); // La forma más honesta: la función recibe un
 puntero
-
 :::
 <!-- {code-block}c -->
 
@@ -981,14 +926,13 @@ $$\text{sizeof}(\text{arreglo decaido}) = \text{sizeof}(\text{puntero})$$
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
 // La función recibe un puntero, sin importar cómo se declare el parámetro.
-void imprimir_tamano(int arr[]) {
+void imprimir_tamano(int arr[])
+{
     // ¡Peligro! Esto NO mide el tamaño del arreglo original.
     // Mide el tamaño de un puntero en tu sistema (usualmente 4 u 8 bytes).
     printf("Tamaño DENTRO de la función: %zu bytes\n", sizeof(arr));
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1002,19 +946,14 @@ $$\text{sizeof}(\text{arreglo}) = \text{elementos} \times \text{sizeof}(T)$$
 
 :::{code-block}c
 :linenos:
-
-int main() {
+int main()
+{
     int mi_arreglo[10] = {0};
-
     // Aquí 'sizeof' conoce el tamaño real del arreglo.
     printf("Tamaño FUERA de la función: %zu bytes\n", sizeof(mi_arreglo)); //
-    Imprimirá 40 (10 * 4 bytes)
-
-    imprimir_tamano(mi_arreglo); // Imprimirá 4 u 8
-
+    Imprimirá 40(10 * 4 bytes) imprimir_tamano(mi_arreglo); // Imprimirá 4 u 8
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1043,9 +982,8 @@ de **otra nota**, que a su vez tiene la dirección del cofre del tesoro.
 :::{code-block}c
 :linenos:
 int valor = 100;
-int *p = &valor;    // p apunta a 'valor'
-int **pp = &p;      // pp apunta a 'p'
-
+int *p = &valor; // p apunta a 'valor'
+int **pp = &p;   // pp apunta a 'p'
 :::
 <!-- {code-block}c -->
 
@@ -1054,7 +992,6 @@ Podemos acceder a `valor`, desreferenciando dos veces el puntero `pp`;
 :::{code-block}c
 :linenos:
 printf("%d\n", **pp);
-
 :::
 <!-- {code-block}c -->
 
@@ -1079,36 +1016,31 @@ pasar la dirección de ese puntero, es decir, un puntero doble.
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
 // Función para intercambiar el valor de dos punteros.
 // Se utilizan punteros dobles (**), ya que necesitamos modificar
 // las direcciones de memoria a las que apuntan los punteros originales.
-void intercambiar_punteros(int **puntero1, int **puntero2) {
+void intercambiar_punteros(int **puntero1, int **puntero2)
+{
     int *temp = *puntero1;
     *puntero1 = *puntero2;
     *puntero2 = temp;
 }
-
-int main() {
+int main()
+{
     int a = 10;
     int b = 20;
     int *ptr_a = &a;
     int *ptr_b = &b;
-
     printf("Antes del intercambio:\n");
-    printf("ptr_a apunta a %d (direccion: %p)\n", *ptr_a, (void*)ptr_a);
-    printf("ptr_b apunta a %d (direccion: %p)\n", *ptr_b, (void*)ptr_b);
-
+    printf("ptr_a apunta a %d (direccion: %p)\n", *ptr_a, (void *)ptr_a);
+    printf("ptr_b apunta a %d (direccion: %p)\n", *ptr_b, (void *)ptr_b);
     // Llamamos a la función pasando las direcciones de los punteros
     intercambiar_punteros(&ptr_a, &ptr_b);
-
     printf("\nDespues del intercambio:\n");
-    printf("ptr_a apunta a %d (direccion: %p)\n", *ptr_a, (void*)ptr_a);
-    printf("ptr_b apunta a %d (direccion: %p)\n", *ptr_b, (void*)ptr_b);
-
+    printf("ptr_a apunta a %d (direccion: %p)\n", *ptr_a, (void *)ptr_a);
+    printf("ptr_b apunta a %d (direccion: %p)\n", *ptr_b, (void *)ptr_b);
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1150,27 +1082,26 @@ imprimirlos. La estrategia consiste en tener un puntero que avanza y un puntero
 
 :::{code-block}c
 :linenos:
-#include <stdio.h>
 #include <stddef.h> // Para size_t
-
-void imprimir_arreglo(const int *arr, size_t tamano) {
+#include <stdio.h>
+void imprimir_arreglo(const int *arr, size_t tamano)
+{
     const int *ptr = arr;
     const int *fin = arr + tamano; // Puntero al final del arreglo + 1
-
     printf("Contenido del arreglo: ");
-    while (ptr < fin) {
+    while (ptr < fin)
+    {
         printf("%d ", *ptr); // 1. Leer el valor actual
         ptr++;               // 2. Mover el puntero al siguiente elemento
     }
     printf("\n");
 }
-
-int main() {
+int main()
+{
     int numeros[] = {10, 20, 30, 40, 50};
     imprimir_arreglo(numeros, 5);
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1194,44 +1125,43 @@ no se encuentra. La comprobación explícita contra `NULL` sigue la regla
 
 :::{code-block}c
 :linenos:
-#include <stdio.h>
 #include <stddef.h> // Para NULL y size_t
-
-// Devuelve un puntero al primer elemento que coincida con 'valor', o NULL si no
-se encuentra.
-const int* buscar_valor(const int *arr, size_t tamano, int valor) {
+#include <stdio.h>
+// Devuelve un puntero al primer elemento que coincida con 'valor', o NULL si
+// no
+se encuentra.const int *buscar_valor(const int *arr, size_t tamano, int valor)
+{
     const int *ptr = arr;
     const int *fin = arr + tamano;
     const int *resultado = NULL; // Inicializamos con NULL
-
     // El lazo continúa mientras no hayamos llegado al final
     // Y no hayamos encontrado el valor.
-    while (ptr < fin && resultado == NULL) {
-        if (*ptr == valor) {
+    while (ptr < fin && resultado == NULL)
+    {
+        if (*ptr == valor)
+        {
             resultado = ptr; // Asignamos la dirección si se encuentra
         }
         ptr++;
     }
-
     return resultado; // Devolvemos el resultado final
 }
-
-int main() {
+int main()
+{
     int numeros[] = {10, 20, 30, 40, 50};
     int valor_a_buscar = 30;
-
     const int *encontrado = buscar_valor(numeros, 5, valor_a_buscar);
-
-    if (encontrado != NULL) {
+    if (encontrado != NULL)
+    {
         printf("Valor %d encontrado en la dirección de memoria %p\n",
-        *encontrado, (void*)encontrado);
-    } else {
+               *encontrado, (void *)encontrado);
+    }
+    else
+    {
         printf("Valor %d no encontrado en el arreglo.\n", valor_a_buscar);
     }
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1250,35 +1180,30 @@ apunta el puntero.
 
 :::{code-block}c
 :linenos:
-#include <stdio.h>
 #include <stddef.h> // Para size_t
-
+#include <stdio.h>
 // Duplica el valor de cada elemento en el arreglo.
-void duplicar_valores(int *arr, size_t tamano) {
+void duplicar_valores(int *arr, size_t tamano)
+{
     int *ptr = arr;
     int *fin = arr + tamano;
-
-    while (ptr < fin) {
+    while (ptr < fin)
+    {
         *ptr = *ptr * 2; // Modifica el valor en la memoria apuntada
         ptr++;
     }
 }
-
-int main() {
+int main()
+{
     int numeros[] = {1, 2, 3, 4, 5};
-
     printf("Arreglo original: 1 2 3 4 5\n");
     // (Código para imprimirlo, podemos usar el de la primera sección)
-
     duplicar_valores(numeros, 5);
-
     printf("Arreglo modificado: %d %d %d %d %d\n", numeros[0], numeros[1],
-    numeros[2], numeros[3], numeros[4]);
+           numeros[2], numeros[3], numeros[4]);
     // Salida esperada: 2 4 6 8 10
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1300,41 +1225,36 @@ paso.
 
 :::{code-block}c
 :linenos:
-#include <stdio.h>
 #include <stddef.h> // Para size_t
-
-void copiar_arreglo(int *destino, const int *fuente, size_t tamano) {
+#include <stdio.h>
+void copiar_arreglo(int *destino, const int *fuente, size_t tamano)
+{
     const int *ptr_fuente = fuente;
     int *ptr_destino = destino;
     const int *fin_fuente = fuente + tamano;
-
     // Lazo principal de copia
-    while (ptr_fuente < fin_fuente) {
+    while (ptr_fuente < fin_fuente)
+    {
         *ptr_destino = *ptr_fuente;
         ptr_fuente++;
         ptr_destino++;
     }
-
     // Una forma más compacta pero potencialmente
     // menos legible de escribir lo de arriba:
     // while (ptr_fuente < fin_fuente) {
     //     *ptr_destino++ = *ptr_fuente++;
     // }
 }
-
-int main() {
+int main()
+{
     int arreglo_a[] = {100, 200, 300};
     int arreglo_b[3]; // Arreglo vacío para recibir la copia
-
     copiar_arreglo(arreglo_b, arreglo_a, 3);
-
     printf("Contenido del arreglo copiado: %d %d %d\n", arreglo_b[0],
-    arreglo_b[1], arreglo_b[2]);
+           arreglo_b[1], arreglo_b[2]);
     // Salida esperada: 100 200 300
-
     return 0;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1364,10 +1284,10 @@ En ese caso, lo que podemos hacer, es ir sumando al puntero del arreglo la
 
 :::{code-block}c
 :linenos:
-for (size_t i = 0; i < 5; i++) {
+for (size_t i = 0; i < 5; i++)
+{
     printf("%d ", *(p + i));
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1376,14 +1296,15 @@ de arreglos
 
 :::{code-block}c
 :linenos:
-void imprimir_arreglo(const int *ptr, size_t tamano) {
+void imprimir_arreglo(const int *ptr, size_t tamano)
+{
     printf("Contenido del arreglo: ");
-    for (size_t i = 0; i < tamano; i++) {
+    for (size_t i = 0; i < tamano; i++)
+    {
         printf("%zu:%d ", i, *(ptr + i));
     }
     printf("\n");
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1569,17 +1490,14 @@ imprimiendo `var`.
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-int main() {
+int main()
+{
     int var = 77;
     int *ptr = &var; // ptr almacena la dirección de var
-
-    *ptr = 88; // Desreferencia y asigna un nuevo valor en esa celda
-
+    *ptr = 88;       // Desreferencia y asigna un nuevo valor en esa celda
     printf("El valor de var es: %d\n", var); // Imprime 88
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1607,15 +1525,17 @@ Para evitarlo, se debe realizar una validación explícita previa:
 :linenos:
 #include <stddef.h>
 #include <stdio.h>
-
-void modificar_seguro(int *p) {
-    if (p != NULL) {
+void modificar_seguro(int *p)
+{
+    if (p != NULL)
+    {
         *p = 10;
-    } else {
+    }
+    else
+    {
         fprintf(stderr, "Error: Intento de desreferenciar un puntero NULL.\n");
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1690,21 +1610,18 @@ punteros. Mostrá cómo imprimir el resultado de forma portable.
 :class: dropdown
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include <stddef.h> // Necesario para ptrdiff_t
-
-int main() {
+#include <stdio.h>
+int main()
+{
     int arr[5] = {1, 2, 3, 4, 5};
     int *inicio = &arr[0];
     int *fin = &arr[4];
-
     // La resta de punteros devuelve la distancia en elementos de tipo int
     ptrdiff_t distancia = fin - inicio;
-
     printf("Distancia entre elementos: %td\n", distancia); // Imprime 4
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1759,18 +1676,22 @@ incrementarse con `x`, y un puntero `salida` en el que se escriba el doble de
 /**
  * @brief Procesa valores numéricos mediante punteros.
  * @param[in] x Valor entero constante a procesar.
- * @param[in, out] entrada_salida Puntero a la variable que acumulará el valor de x.
+ * @param[in, out] entrada_salida Puntero a la variable que acumulará el valor
+ * de x.
  * @param[out] salida Puntero donde se escribirá el doble del parámetro x.
- * @pre entrada_salida y salida no deben ser NULL y deben apuntar a memoria válida.
- * @post La variable apuntada por entrada_salida se incrementa en x. La variable apuntada por salida almacena x * 2.
+ * @pre entrada_salida y salida no deben ser NULL y deben apuntar a memoria
+ * válida.
+ * @post La variable apuntada por entrada_salida se incrementa en x. La
+ * variable apuntada por salida almacena x * 2.
  */
-void procesar_datos(int x, int *entrada_salida, int *salida) {
-    if (entrada_salida != NULL && salida != NULL) {
+void procesar_datos(int x, int *entrada_salida, int *salida)
+{
+    if (entrada_salida != NULL && salida != NULL)
+    {
         *entrada_salida += x;
         *salida = x * 2;
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1877,18 +1798,15 @@ resultado.
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-
-int main() {
+int main()
+{
     int numero = 500;
     int *ptr = &numero;
     int **ptr_ptr = &ptr; // Puntero doble apuntando al puntero simple
-
     **ptr_ptr = 999; // Doble desreferencia para llegar a la celda de 'numero'
-
     printf("El valor modificado es: %d\n", numero); // Imprime 999
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1910,27 +1828,25 @@ primer elemento y otro `der` inicializado al último.
 ```{code-block} c
 :linenos:
 #include <stddef.h>
-
-void invertir_arreglo(int *arr, size_t tamano) {
-    if (arr == NULL || tamano <= 1) {
+void invertir_arreglo(int *arr, size_t tamano)
+{
+    if (arr == NULL || tamano <= 1)
+    {
         return;
     }
-
     int *izq = arr;
     int *der = arr + tamano - 1; // Dirección del último elemento
-
-    while (izq < der) {
+    while (izq < der)
+    {
         // Intercambio de valores desreferenciados
         int temporal = *izq;
         *izq = *der;
         *der = temporal;
-
         // Desplazamiento de los punteros hacia el centro
         izq++;
         der--;
     }
 }
-
 ```
 <!-- {code-block} c -->
 

@@ -45,9 +45,7 @@ para evitar problemas de redefinición múltiple.
 ``` c
 #ifndef MI_MODULO_H
 #define MI_MODULO_H
-
 // Declaraciones...
-
 #endif // MI_MODULO_H
 ```
 <!-- c -->
@@ -64,15 +62,17 @@ destino (`strncpy`, `snprintf`, `strncat`) para prevenir desbordamientos.
 
 - **Incorrecto (inseguro):**
   ```c
-  void concatenar_saludo(char *destino, const char *nombre) {
+  void concatenar_saludo(char *destino, const char *nombre)
+  {
       strcpy(destino, "Hola, ");
       strcat(destino, nombre);
   }
   ```
 - **Correcto (seguro):**
   ```c
-  void concatenar_saludo_seguro(char *destino, size_t tam_destino, const char
-  *nombre) {
+  void concatenar_saludo_seguro(char *destino, size_t tam_destino,
+                                const char *nombre)
+  {
       snprintf(destino, tam_destino, "Hola, %s", nombre);
   }
   ```

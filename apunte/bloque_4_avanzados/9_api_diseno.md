@@ -81,7 +81,6 @@ que invertir en claridad es una optimización fundamental.
   :::{code-block} c
   // Malo: Nombres ambiguos y poco informativos.
   void process_list(list *l, int d);
-
   // Bueno: Nombres claros, específicos y con prefijo.
   lista_t *lista_crear(void);
   bool lista_agregar_al_final(lista_t *lista, int dato);
@@ -176,7 +175,6 @@ errores y frustraciones evitables.
   :::{code-block} c
   // El nombre deja claro que la cadena será modificada "in-place".
   void cadena_convertir_a_mayusculas(char *cadena);
-
   // Un parámetro de salida. El nombre indica qué se obtendrá.
   bool obtener_temperatura_sensor(sensor_t *sensor, double *temperatura_out);
   :::
@@ -223,12 +221,9 @@ funcionamiento interno.
   :::{code-block} c
   // 1. Declaración adelantada (forward declaration) de la estructura.
   // El compilador sabe que "struct mi_tipo" es un tipo, pero no conoce su
-  contenido.
-  struct mi_tipo;
-
+  contenido.struct mi_tipo;
   // 2. Creación de un alias de tipo para el puntero a la estructura.
   typedef struct mi_tipo mi_tipo_t;
-
   // 3. Funciones públicas que operan sobre el puntero opaco.
   mi_tipo_t *mi_tipo_crear(int valor_inicial);
   void mi_tipo_destruir(mi_tipo_t *objeto);
@@ -239,19 +234,20 @@ funcionamiento interno.
   :::{code-block} c
   #include "mi_libreria.h"
   #include <stdlib.h>
-
   // 4. Definición completa de la estructura. Esta definición es privada
   // y solo visible dentro de este archivo .c.
-  struct mi_tipo {
+  struct mi_tipo
+  {
       int valor_secreto;
       void *otro_dato_interno;
   };
-
   // 5. Implementación de las funciones.
-  mi_tipo_t *mi_tipo_crear(int valor_inicial) {
+  mi_tipo_t *mi_tipo_crear(int valor_inicial)
+  {
       // Aquí sí podemos usar sizeof, porque la definición completa es visible.
       mi_tipo_t *nuevo = malloc(sizeof(struct mi_tipo));
-      if (nuevo != NULL) {
+      if (nuevo != NULL)
+      {
           nuevo->valor_secreto = valor_inicial;
       }
       return nuevo;
@@ -376,7 +372,8 @@ reportar los errores al llamador para que este decida cómo proceder.
   error (regla {ref}`0x2005h`).
 
   :::{code-block} c
-  typedef enum {
+  typedef enum
+  {
       LISTA_OK = 0,
       LISTA_ERROR_NO_ENCONTRADO = -1,
       LISTA_ERROR_MEMORIA = -2
@@ -439,15 +436,12 @@ interfaz que oculte la complejidad interna de la gestión de nodos y memoria.
 :linenos:
 #ifndef LISTA_H
 #define LISTA_H
-
 #include <stdbool.h>
-
 /**
  * Tipo opaco que representa una lista enlazada.
  * Los detalles de implementación están ocultos al usuario.
  */
 typedef struct lista lista_t;
-
 /**
  * Crea una nueva lista vacía.
  *
@@ -455,16 +449,15 @@ typedef struct lista lista_t;
  * @post El llamador es responsable de liberar la memoria con lista_destruir().
  */
 lista_t *lista_crear(void);
-
 /**
  * Destruye una lista y libera toda la memoria asociada.
  *
  * @param lista Puntero a la lista a destruir.
  * @pre lista != NULL
- * @post Todos los nodos internos son liberados. El puntero lista queda inválido.
+ * @post Todos los nodos internos son liberados. El puntero lista queda
+ * inválido.
  */
 void lista_destruir(lista_t *lista);
-
 /**
  * Agrega un elemento al final de la lista.
  *
@@ -474,7 +467,6 @@ void lista_destruir(lista_t *lista);
  * @pre lista != NULL
  */
 bool lista_agregar(lista_t *lista, int dato);
-
 /**
  * Obtiene el número de elementos en la lista.
  *
@@ -482,7 +474,6 @@ bool lista_agregar(lista_t *lista, int dato);
  * @returns Cantidad de elementos. Si lista es NULL, devuelve 0.
  */
 size_t lista_largo(const lista_t *lista);
-
 /**
  * Busca un elemento en la lista.
  *
@@ -492,9 +483,7 @@ size_t lista_largo(const lista_t *lista);
  * @pre lista != NULL
  */
 bool lista_contiene(const lista_t *lista, int dato);
-
 #endif // LISTA_H
-
 ```
 <!-- {code-block} c -->
 
@@ -540,32 +529,30 @@ programa.
 :linenos:
 #ifndef MATEMATICA_H
 #define MATEMATICA_H
-
 #include <stdbool.h>
-
 /**
  * Códigos de error para operaciones matemáticas.
  */
-typedef enum {
+typedef enum
+{
     MAT_OK = 0,
     MAT_ERROR_DIVISION_CERO = -1,
     MAT_ERROR_RAIZ_NEGATIVA = -2,
     MAT_ERROR_DESBORDAMIENTO = -3
 } mat_error_t;
-
 /**
  * Divide dos números enteros de forma segura.
  *
  * @param dividendo Número a dividir.
  * @param divisor Número por el cual dividir.
  * @param resultado Puntero donde se almacenará el resultado.
- * @returns MAT_OK si la operación fue exitosa, MAT_ERROR_DIVISION_CERO en caso contrario.
+ * @returns MAT_OK si la operación fue exitosa, MAT_ERROR_DIVISION_CERO en caso
+ * contrario.
  * @pre resultado != NULL
  * @post Si retorna MAT_OK, *resultado contiene dividendo/divisor.
  *       Si retorna error, *resultado no es modificado.
  */
 mat_error_t mat_dividir(int dividendo, int divisor, int *resultado);
-
 /**
  * Calcula la raíz cuadrada entera de un número.
  *
@@ -576,7 +563,6 @@ mat_error_t mat_dividir(int dividendo, int divisor, int *resultado);
  * @post Si retorna MAT_OK, *resultado contiene la raíz cuadrada entera de n.
  */
 mat_error_t mat_raiz_cuadrada(int n, int *resultado);
-
 /**
  * Obtiene una descripción textual del último error.
  *
@@ -585,9 +571,7 @@ mat_error_t mat_raiz_cuadrada(int n, int *resultado);
  * @post La cadena retornada es propiedad de la librería, no debe ser liberada.
  */
 const char *mat_error_str(mat_error_t error);
-
 #endif // MATEMATICA_H
-
 ```
 <!-- {code-block} c -->
 
@@ -597,41 +581,40 @@ const char *mat_error_str(mat_error_t error);
 :linenos:
 #include "matematica.h"
 #include <math.h>
-
 mat_error_t mat_dividir(int dividendo, int divisor, int *resultado)
 {
-    if (divisor == 0) {
+    if (divisor == 0)
+    {
         return MAT_ERROR_DIVISION_CERO;
     }
     *resultado = dividendo / divisor;
     return MAT_OK;
 }
-
 mat_error_t mat_raiz_cuadrada(int n, int *resultado)
 {
-    if (n < 0) {
+    if (n < 0)
+    {
         return MAT_ERROR_RAIZ_NEGATIVA;
     }
     *resultado = (int)sqrt(n);
     return MAT_OK;
 }
-
 const char *mat_error_str(mat_error_t error)
 {
-    switch (error) {
-        case MAT_OK:
-            return "Operación exitosa";
-        case MAT_ERROR_DIVISION_CERO:
-            return "Error: División por cero";
-        case MAT_ERROR_RAIZ_NEGATIVA:
-            return "Error: Raíz cuadrada de número negativo";
-        case MAT_ERROR_DESBORDAMIENTO:
-            return "Error: Desbordamiento aritmético";
-        default:
-            return "Error desconocido";
+    switch (error)
+    {
+    case MAT_OK:
+        return "Operación exitosa";
+    case MAT_ERROR_DIVISION_CERO:
+        return "Error: División por cero";
+    case MAT_ERROR_RAIZ_NEGATIVA:
+        return "Error: Raíz cuadrada de número negativo";
+    case MAT_ERROR_DESBORDAMIENTO:
+        return "Error: Desbordamiento aritmético";
+    default:
+        return "Error desconocido";
     }
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -639,31 +622,30 @@ const char *mat_error_str(mat_error_t error)
 
 ```{code-block} c
 :linenos:
-#include <stdio.h>
 #include "matematica.h"
-
+#include <stdio.h>
 int main(void)
 {
     int resultado = 0;
     mat_error_t error = MAT_OK;
-
     // División segura
     error = mat_dividir(10, 2, &resultado);
-    if (error == MAT_OK) {
+    if (error == MAT_OK)
+    {
         printf("10 / 2 = %d\n", resultado);
-    } else {
+    }
+    else
+    {
         printf("Error: %s\n", mat_error_str(error));
     }
-
     // Intento de división por cero
     error = mat_dividir(10, 0, &resultado);
-    if (error != MAT_OK) {
+    if (error != MAT_OK)
+    {
         printf("Error detectado: %s\n", mat_error_str(error));
     }
-
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -698,17 +680,13 @@ cómo diseñar APIs que gestionan recursos del sistema de forma segura.
 :linenos:
 #ifndef CONFIG_H
 #define CONFIG_H
-
 #include <stdbool.h>
-
 #define CONFIG_MAX_CLAVE 64
 #define CONFIG_MAX_VALOR 256
-
 /**
  * Tipo opaco que representa una configuración cargada desde un archivo.
  */
 typedef struct config config_t;
-
 /**
  * Carga un archivo de configuración.
  *
@@ -718,7 +696,6 @@ typedef struct config config_t;
  * @post El llamador debe liberar la memoria con config_destruir().
  */
 config_t *config_cargar(const char *ruta_archivo);
-
 /**
  * Destruye una configuración y libera toda la memoria asociada.
  *
@@ -726,7 +703,6 @@ config_t *config_cargar(const char *ruta_archivo);
  * @post El puntero config queda inválido después de esta llamada.
  */
 void config_destruir(config_t *config);
-
 /**
  * Obtiene un valor de configuración como cadena.
  *
@@ -738,23 +714,20 @@ void config_destruir(config_t *config);
  * @post La cadena retornada es propiedad de la librería y válida hasta
  *       que config_destruir() sea llamado.
  */
-const char *config_obtener_cadena(const config_t *config,
-                                   const char *clave,
-                                   const char *valor_defecto);
-
+const char *config_obtener_cadena(const config_t *config, const char *clave,
+                                  const char *valor_defecto);
 /**
  * Obtiene un valor de configuración como entero.
  *
  * @param config Configuración a consultar.
  * @param clave Nombre de la clave a buscar.
- * @param valor_defecto Valor a retornar si la clave no existe o no es un entero válido.
+ * @param valor_defecto Valor a retornar si la clave no existe o no es un
+ * entero válido.
  * @returns El valor entero asociado a la clave, o valor_defecto.
  * @pre config != NULL, clave != NULL
  */
-int config_obtener_entero(const config_t *config,
-                          const char *clave,
+int config_obtener_entero(const config_t *config, const char *clave,
                           int valor_defecto);
-
 /**
  * Verifica si una clave existe en la configuración.
  *
@@ -764,9 +737,7 @@ int config_obtener_entero(const config_t *config,
  * @pre config != NULL, clave != NULL
  */
 bool config_existe(const config_t *config, const char *clave);
-
 #endif // CONFIG_H
-
 ```
 <!-- {code-block} c -->
 
@@ -803,10 +774,8 @@ como exige la regla {ref}`0x3002h`.
 ```{code-block} c
 // Constructor: reserva memoria y la inicializa
 recurso_t *recurso_crear(void);
-
 // Destructor: libera memoria y recursos del sistema
 void recurso_destruir(recurso_t *recurso);
-
 ```
 <!-- {code-block} c -->
 
@@ -823,27 +792,24 @@ utiliza un par de funciones de inicialización y finalización.
 
 ```{code-block} c
 :linenos:
-typedef struct buffer {
+typedef struct buffer
+{
     char datos[1024];
     size_t usado;
 } buffer_t;
-
 // Inicializa un buffer provisto por el usuario
 void buffer_init(buffer_t *buffer);
-
 // Limpia los recursos internos, pero no libera buffer
 void buffer_finalize(buffer_t *buffer);
-
 ```
 <!-- {code-block} c -->
 
 **Uso:**
 ```{code-block} c
-buffer_t mi_buffer;  // En el stack
+buffer_t mi_buffer; // En el stack
 buffer_init(&mi_buffer);
 // ... usar el buffer ...
 buffer_finalize(&mi_buffer);
-
 ```
 <!-- {code-block} c -->
 
@@ -883,10 +849,8 @@ encapsulación.
 ```{code-block} c
 // Getter: obtiene un valor (no modifica la estructura)
 int punto_obtener_x(const punto_t *punto);
-
 // Setter: modifica un valor
 void punto_establecer_x(punto_t *punto, int nuevo_x);
-
 ```
 <!-- {code-block} c -->
 
@@ -925,27 +889,23 @@ errores comunes en el diseño de APIs en C.
 ```{code-block} c
 // MALO: ¿Qué significa 0? ¿Qué significa 1?
 int archivo_abrir(const char *nombre, int modo);
-
 // Uso poco claro
 archivo_abrir("datos.txt", 1);
-
 ```
 <!-- {code-block} c -->
 
 ```{code-block} c
 :linenos:
 // BUENO: Usar constantes o enumerados
-typedef enum {
+typedef enum
+{
     ARCHIVO_LECTURA = 0,
     ARCHIVO_ESCRITURA = 1,
     ARCHIVO_LECTURA_ESCRITURA = 2
 } archivo_modo_t;
-
 int archivo_abrir(const char *nombre, archivo_modo_t modo);
-
 // Uso claro
 archivo_abrir("datos.txt", ARCHIVO_ESCRITURA);
-
 ```
 <!-- {code-block} c -->
 
@@ -958,8 +918,7 @@ simbólicas para valores especiales.
 ```{code-block} c
 // MALO: Estado interno global no visible
 void motor_inicializar(void);
-void motor_procesar(void);  // ¿Sobre qué datos opera?
-
+void motor_procesar(void); // ¿Sobre qué datos opera?
 ```
 <!-- {code-block} c -->
 
@@ -991,7 +950,6 @@ necesidad de sincronización adicional.
 motor_t *motor_crear(void);
 void motor_procesar(motor_t *motor);
 void motor_destruir(motor_t *motor);
-
 ```
 <!-- {code-block} c -->
 
@@ -1001,10 +959,8 @@ void motor_destruir(motor_t *motor);
 ```{code-block} c
 // MALO: ¿Qué significa true? ¿Qué significa false?
 void ventana_crear(int ancho, int alto, bool visible, bool modal);
-
 // Uso confuso
-ventana_crear(800, 600, true, false);  // ¿Qué hace cada bool?
-
+ventana_crear(800, 600, true, false); // ¿Qué hace cada bool?
 ```
 <!-- {code-block} c -->
 
@@ -1017,16 +973,20 @@ orden.
 ```{code-block} c
 :linenos:
 // BUENO: Usar enums con nombres descriptivos
-typedef enum { VENTANA_OCULTA, VENTANA_VISIBLE } ventana_visibilidad_t;
-typedef enum { VENTANA_NO_MODAL, VENTANA_MODAL } ventana_modalidad_t;
-
-void ventana_crear(int ancho, int alto, 
-                   ventana_visibilidad_t visibilidad,
+typedef enum
+{
+    VENTANA_OCULTA,
+    VENTANA_VISIBLE
+} ventana_visibilidad_t;
+typedef enum
+{
+    VENTANA_NO_MODAL,
+    VENTANA_MODAL
+} ventana_modalidad_t;
+void ventana_crear(int ancho, int alto, ventana_visibilidad_t visibilidad,
                    ventana_modalidad_t modalidad);
-
 // Uso claro
 ventana_crear(800, 600, VENTANA_VISIBLE, VENTANA_NO_MODAL);
-
 ```
 <!-- {code-block} c -->
 
@@ -1041,33 +1001,31 @@ argumentos.
 ```{code-block} c
 :linenos:
 // MALO: Demasiados parámetros de salida
-void parsear_fecha(const char *cadena, int *dia, int *mes, int *anio, bool *valida);
-
+void parsear_fecha(const char *cadena, int *dia, int *mes, int *anio,
+                   bool *valida);
 // Uso tedioso y propenso a errores
 int d = 0, m = 0, a = 0;
 bool ok = false;
 parsear_fecha("2024-03-15", &d, &m, &a, &ok);
-
 ```
 <!-- {code-block} c -->
 
 ```{code-block} c
 :linenos:
 // BUENO: Retornar una estructura
-typedef struct {
+typedef struct
+{
     int dia;
     int mes;
     int anio;
 } fecha_t;
-
 bool parsear_fecha(const char *cadena, fecha_t *resultado);
-
 // Uso más limpio
 fecha_t fecha = {0};
-if (parsear_fecha("2024-03-15", &fecha)) {
+if (parsear_fecha("2024-03-15", &fecha))
+{
     // usar fecha.dia, fecha.mes, fecha.anio
 }
-
 ```
 <!-- {code-block} c -->
 

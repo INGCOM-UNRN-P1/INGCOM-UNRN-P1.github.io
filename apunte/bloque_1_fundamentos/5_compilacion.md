@@ -157,9 +157,7 @@ código del archivo fuente final que se pasará al compilador. Son extremadament
   ```{code-block} c
   #ifndef MI_CABECERA_H
   #define MI_CABECERA_H
-
   // Contenido de la cabecera...
-
   #endif // MI_CABECERA_H
   ```
 
@@ -267,17 +265,16 @@ Si partimos de un archivo `programa.c` simple:
 
 ```{code-block} c
 :linenos:
-
 // programa.c
-int suma(int a, int b) {
+int suma(int a, int b)
+{
     return a + b;
 }
-
-int main(void) {
+int main(void)
+{
     int resultado = suma(5, 3);
     return 0;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -434,7 +431,6 @@ sea utilizada. Una buena documentación, como la que pide la regla
  * @return La suma de n y m.
  */
 int suma(int n, int m);
-
 ```
 <!-- {code-block} c -->
 
@@ -445,10 +441,8 @@ que se expanden durante el preprocesamiento.
 
 ```{code-block} c
 :caption: Definición de constantes y macros
-
 // Constante matemática documentada.
 #define PI 3.1415926535
-
 ```
 <!-- {code-block} c -->
 
@@ -464,15 +458,15 @@ _(Estos conceptos serán tratados más adelante en la cátedra.)_
 ```{code-block} c
 :linenos:
 :caption: Declaración de un nuevo tipo de dato
-
 // Define una estructura para representar un punto en 2D.
-typedef struct {
+typedef struct
+{
     float x;
     float y;
 } punto2D_t;
-
 // Enum para representar los días de la semana.
-typedef enum {
+typedef enum
+{
     LUNES,
     MARTES,
     MIERCOLES,
@@ -481,7 +475,6 @@ typedef enum {
     SABADO,
     DOMINGO
 } DiaDeLaSemana;
-
 ```
 <!-- {code-block} c -->
 
@@ -495,11 +488,9 @@ en _un único_ archivo `.c`. Esta práctica está desaconsejada por la regla
 ```{code-block} c
 :caption: Declaración de una variable global externa
 :emphasize-lines: 3
-
 // Declara que la variable 'errno' existe en alguna parte del programa.
 // La definición real se encuentra en la biblioteca estándar.
 extern int errno;
-
 ```
 <!-- {code-block} c -->
 
@@ -534,25 +525,18 @@ contenido del archivo.
 :linenos:
 :caption: Estructura de una guarda de inclusión
 :label: inclusion-guard
-
 // 1. Verifica si MATH_OPERATIONS_H NO ha sido definido.
 #ifndef MATH_OPERATIONS_H
 // 2. Si no fue definido, se define ahora.
 #define MATH_OPERATIONS_H
-
 // ----------------------------------------------------
 // Aquí va todo el contenido del archivo de cabecera:
 // prototipos documentados, macros, typedefs, etc.
-
 #define PI 3.14159
-
 int suma(int n, int m);
-
 // ----------------------------------------------------
-
 // 3. Fin del bloque condicional.
 #endif // MATH_OPERATIONS_H
-
 ```
 <!-- {code-block} c -->
 
@@ -959,12 +943,11 @@ La signatura estándar de la función `main` que acepta argumentos es la
 siguiente:
 
 :::{code-block}c
-
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     // Tu código aquí
     return EXIT_SUCCESS;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1018,28 +1001,28 @@ valores en `argv` e imprime cada uno de sus elementos.
 :caption: "Programa que itera e imprime sus argumentos."
 :label: "c-print-args"
 :linenos:
-
 #include <stdio.h>
 #include <stdlib.h> // Para EXIT_SUCCESS
-
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     printf("El programa se ejecutó con el nombre: %s\n", argv[0]);
     printf("Número total de argumentos: %d\n", argc);
     printf("----------------------------------------\n");
-
     // Iteramos desde el argumento 1, ya que el 0 es el nombre del programa
-    if (argc > 1) {
+    if (argc > 1)
+    {
         printf("Los argumentos proporcionados son:\n");
-        for (int i = 1; i < argc; i++) {
+        for (int i = 1; i < argc; i++)
+        {
             printf("  Argumento %d: %s\n", i, argv[i]);
         }
-    } else {
+    }
+    else
+    {
         printf("No se proporcionaron argumentos adicionales.\n");
     }
-
     return EXIT_SUCCESS;
 }
-
 ```
 <!-- {code-block} c -->
 
@@ -1102,27 +1085,24 @@ esperás. La función `strcmp` (ver {ref}`string-strcmp`) de la biblioteca
 :::{code-block}c
 :caption: "Detección de una opción `-h` para mostrar ayuda."
 :label: "c-options-help"
-
 #include <stdio.h>
-#include <string.h> // Necesario para strcmp
 #include <stdlib.h> // Para EXIT_SUCCESS
-
-int main(int argc, char *argv[]) {
+#include <string.h> // Necesario para strcmp
+int main(int argc, char *argv[])
+{
     // Verificamos si el primer argumento es -h o --help
-    if (argc == 2 && (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") ==
-    0)) {
+    if (argc == 2 &&
+        (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0))
+    {
         printf("Uso: %s [opciones] [argumentos]\n", argv[0]);
         printf("Este es un programa de ejemplo para mostrar ayuda.\n");
         return EXIT_SUCCESS; // Terminamos la ejecución después de mostrar la
         ayuda
     }
-
     printf("Programa ejecutándose normalmente.\n");
     // ... resto de la lógica del programa ...
-
     return EXIT_SUCCESS;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1149,29 +1129,26 @@ La biblioteca estándar de C (`stdlib.h`) provee funciones para esta tarea, como
 :::{code-block}c
 :caption: "Programa que suma los números pasados como argumentos."
 :label: "c-sum-numbers"
-
 #include <stdio.h>
 #include <stdlib.h> // Necesario para atoi y EXIT_SUCCESS/FAILURE
-
-int main(int argc, char *argv[]) {
-    if (argc < 2) {
+int main(int argc, char *argv[])
+{
+    if (argc < 2)
+    {
         fprintf(stderr, "Error: Proporcioná al menos un número para sumar.\n");
         fprintf(stderr, "Uso: %s num1 num2 ...\n", argv[0]);
         return EXIT_FAILURE; // Salimos un código de error
     }
-
     int suma = 0;
-    for (int i = 1; i < argc; i++) {
+    for (int i = 1; i < argc; i++)
+    {
         // atoi convierte la cadena a un entero
         int numero = atoi(argv[i]);
         suma = suma + numero;
     }
-
     printf("La suma total es: %d\n", suma);
-
     return EXIT_SUCCESS;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1295,19 +1272,18 @@ programa funcionó correctamente.
 
 :::{code-block}c
 :linenos:
-#include <stdlib.h>
 #include <stdio.h>
-
-int main(int argc, char *argv[]) {
-    if (argc < 2) {
+#include <stdlib.h>
+int main(int argc, char *argv[])
+{
+    if (argc < 2)
+    {
         fprintf(stderr, "Error: falta un argumento\n");
         return EXIT_FAILURE; // Retornamos 1 al shell
     }
-    
     printf("Procesando: %s\n", argv[1]);
     return EXIT_SUCCESS; // Retornamos 0 al shell
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1334,22 +1310,20 @@ La función {ref}`getenv <stdlib-getenv>` permite leer estas variables:
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-int main(void) {
+int main(void)
+{
     char *home = getenv("HOME");
     char *usuario = getenv("USER");
-    
-    if (home != NULL) {
+    if (home != NULL)
+    {
         printf("Directorio home: %s\n", home);
     }
-    
-    if (usuario != NULL) {
+    if (usuario != NULL)
+    {
         printf("Usuario actual: %s\n", usuario);
     }
-    
     return EXIT_SUCCESS;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1403,21 +1377,17 @@ En C, estos flujos están disponibles como:
 :::{code-block}c
 :linenos:
 #include <stdio.h>
-
 // stdin  - entrada estándar (teclado por defecto)
 // stdout - salida estándar (pantalla por defecto)
 // stderr - error estándar (pantalla por defecto)
-
-int main(void) {
+int main(void)
+{
     fprintf(stdout, "Esto es salida normal\n");
     fprintf(stderr, "Esto es un mensaje de error\n");
-    
     // printf escribe a stdout por defecto
     printf("Salida normal\n");
-    
     return EXIT_SUCCESS;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1476,18 +1446,15 @@ normalmente. El shell se encarga de la redirección.
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-int main(void) {
+int main(void)
+{
     // Esto puede ir a pantalla o a un archivo según el shell lo redirija
     printf("Línea 1 de salida\n");
     printf("Línea 2 de salida\n");
-    
     // Los errores se mantienen separados
     fprintf(stderr, "Advertencia: algo ocurrió\n");
-    
     return EXIT_SUCCESS;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1526,18 +1493,16 @@ Cualquier lectura que tu programa haga desde `stdin` (usando `scanf`, `fgets`,
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-int main(void) {
+int main(void)
+{
     char linea[256];
-    
     // Lee líneas de stdin (puede ser teclado o archivo redirigido)
-    while (fgets(linea, sizeof(linea), stdin) != NULL) {
+    while (fgets(linea, sizeof(linea), stdin) != NULL)
+    {
         printf("Leí: %s", linea);
     }
-    
     return EXIT_SUCCESS;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1602,21 +1567,20 @@ puede ser un eslabón en esta cadena.
 // filtro_pares.c
 #include <stdio.h>
 #include <stdlib.h>
-
-int main(void) {
+int main(void)
+{
     int numero;
-    
     // Lee números de stdin, uno por línea
-    while (scanf("%d", &numero) == 1) {
+    while (scanf("%d", &numero) == 1)
+    {
         // Solo imprime los pares
-        if (numero % 2 == 0) {
+        if (numero % 2 == 0)
+        {
             printf("%d\n", numero);
         }
     }
-    
     return EXIT_SUCCESS;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1681,33 +1645,32 @@ Para que tu programa funcione bien en canalizaciones:
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
-
-int main(int argc, char *argv[]) {
-    FILE *entrada = stdin;  // Por defecto, stdin
-    
+int main(int argc, char *argv[])
+{
+    FILE *entrada = stdin; // Por defecto, stdin
     // Si hay un argumento, abre ese archivo
-    if (argc > 1) {
+    if (argc > 1)
+    {
         entrada = fopen(argv[1], "r");
-        if (entrada == NULL) {
+        if (entrada == NULL)
+        {
             fprintf(stderr, "Error: no se pudo abrir %s\n", argv[1]);
             return EXIT_FAILURE;
         }
     }
-    
     char linea[256];
     // Lee líneas (de stdin o del archivo)
-    while (fgets(linea, sizeof(linea), entrada) != NULL) {
+    while (fgets(linea, sizeof(linea), entrada) != NULL)
+    {
         // Procesa y escribe a stdout
         printf("Procesado: %s", linea);
     }
-    
-    if (entrada != stdin) {
+    if (entrada != stdin)
+    {
         fclose(entrada);
     }
-    
     return EXIT_SUCCESS;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1754,68 +1717,77 @@ Veamos un ejemplo que integra todos estos conceptos:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-void mostrar_ayuda(const char *programa) {
+void mostrar_ayuda(const char *programa)
+{
     fprintf(stderr, "Uso: %s [-c|-f] [archivo]\n", programa);
     fprintf(stderr, "  -c : Convierte de Fahrenheit a Celsius\n");
     fprintf(stderr, "  -f : Convierte de Celsius a Fahrenheit\n");
     fprintf(stderr, "Si no se especifica archivo, lee de stdin\n");
 }
-
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     FILE *entrada = stdin;
-    char modo = 'c';  // Por defecto: F->C
-    
+    char modo = 'c'; // Por defecto: F->C
     // Procesa opciones
     int archivo_idx = 1;
-    if (argc > 1 && argv[1][0] == '-') {
-        if (strcmp(argv[1], "-c") == 0) {
+    if (argc > 1 && argv[1][0] == '-')
+    {
+        if (strcmp(argv[1], "-c") == 0)
+        {
             modo = 'c';
             archivo_idx = 2;
-        } else if (strcmp(argv[1], "-f") == 0) {
+        }
+        else if (strcmp(argv[1], "-f") == 0)
+        {
             modo = 'f';
             archivo_idx = 2;
-        } else if (strcmp(argv[1], "-h") == 0) {
+        }
+        else if (strcmp(argv[1], "-h") == 0)
+        {
             mostrar_ayuda(argv[0]);
             return EXIT_SUCCESS;
-        } else {
+        }
+        else
+        {
             fprintf(stderr, "Error: opción desconocida %s\n", argv[1]);
             mostrar_ayuda(argv[0]);
             return EXIT_FAILURE;
         }
     }
-    
     // Abre archivo si se especificó
-    if (argc > archivo_idx) {
+    if (argc > archivo_idx)
+    {
         entrada = fopen(argv[archivo_idx], "r");
-        if (entrada == NULL) {
+        if (entrada == NULL)
+        {
             fprintf(stderr, "Error: no se pudo abrir %s\n", argv[archivo_idx]);
             return EXIT_FAILURE;
         }
     }
-    
     // Procesa entrada línea por línea
     double temp;
-    while (fscanf(entrada, "%lf", &temp) == 1) {
+    while (fscanf(entrada, "%lf", &temp) == 1)
+    {
         double resultado;
-        if (modo == 'c') {
+        if (modo == 'c')
+        {
             // Fahrenheit a Celsius
             resultado = (temp - 32.0) * 5.0 / 9.0;
             printf("%.2f°F = %.2f°C\n", temp, resultado);
-        } else {
+        }
+        else
+        {
             // Celsius a Fahrenheit
             resultado = temp * 9.0 / 5.0 + 32.0;
             printf("%.2f°C = %.2f°F\n", temp, resultado);
         }
     }
-    
-    if (entrada != stdin) {
+    if (entrada != stdin)
+    {
         fclose(entrada);
     }
-    
     return EXIT_SUCCESS;
 }
-
 :::
 <!-- {code-block}c -->
 
@@ -1980,10 +1952,8 @@ implementar guardas de inclusión en un archivo de cabecera llamado
 ``` c
 #ifndef SENSOR_TEMPERATURA_H
 #define SENSOR_TEMPERATURA_H
-
 // Declaraciones de prototipos y tipos del módulo del sensor
 float leer_sensor_celsius(int pin);
-
 #endif // SENSOR_TEMPERATURA_H
 ```
 <!-- c -->
