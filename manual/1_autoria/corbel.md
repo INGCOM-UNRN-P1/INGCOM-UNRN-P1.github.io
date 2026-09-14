@@ -8,10 +8,9 @@ date: "2026-08-31"
 (manual-corbel)=
 # Corbel — Generador de Documentación de APIs, TDAs y Verificación de Snippets C
 
-```{admonition} Resumen Técnico del Satélite
-:class: note
+```{note} Resumen Técnico del Satélite
 **Rol en el ecosistema:** Generación de documentación técnica a partir de encabezados C y validación de que todos los ejemplos de código compilen y ejecuten sin errores.
-````
+```
 
 ---
 

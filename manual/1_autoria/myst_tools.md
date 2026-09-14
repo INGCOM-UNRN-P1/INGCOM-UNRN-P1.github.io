@@ -8,10 +8,9 @@ date: "2026-08-31"
 (manual-myst_tools)=
 # Myst-Tools — Suite de Normalización, Formateo a 80 Columnas, Anclas e Índices MyST
 
-```{admonition} Resumen Técnico del Satélite
-:class: note
+```{note} Resumen Técnico del Satélite
 **Rol en el ecosistema:** Automatización y estandarización de material didáctico en formato MyST Markdown: formateo a 80 columnas respetando directivas, anclas semánticas, generación de índices y corrector LanguageTool.
-````
+```
 
 ---
 

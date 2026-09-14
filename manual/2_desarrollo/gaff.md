@@ -8,10 +8,9 @@ date: "2026-08-31"
 (manual-gaff)=
 # Gaff — Linter Pedagógico de Estilo Arquitectónico y Convenciones Cátedra con Autofix
 
-```{admonition} Resumen Técnico del Satélite
-:class: note
+```{note} Resumen Técnico del Satélite
 **Rol en el ecosistema:** Auditoría y corrección automática de estilo en C: formato Allman, nomenclatura snake_case, espacios en palabras clave, guardas de inclusión y prohibición de variables globales.
-````
+```
 
 ---
 

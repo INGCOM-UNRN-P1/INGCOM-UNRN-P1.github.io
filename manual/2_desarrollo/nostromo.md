@@ -8,10 +8,9 @@ date: "2026-08-31"
 (manual-nostromo)=
 # Nostromo — Sandbox de Ejecución Segura en Linux con Bubblewrap y Test Runner
 
-```{admonition} Resumen Técnico del Satélite
-:class: note
+```{note} Resumen Técnico del Satélite
 **Rol en el ecosistema:** Ejecución aislada y segura de binarios de estudiantes en contenedores ligeros de kernel (Bubblewrap / setrlimit), control de tiempo de CPU, memoria máxima y evaluación de casos de prueba .in/.out.
-````
+```
 
 ---
 

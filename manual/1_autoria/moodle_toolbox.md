@@ -8,10 +8,9 @@ date: "2026-08-31"
 (manual-moodle_toolbox)=
 # Moodle-Toolbox — Suite de Mantenimiento, Normalización y Conversión de Bancos GIFT/XML
 
-```{admonition} Resumen Técnico del Satélite
-:class: note
+```{note} Resumen Técnico del Satélite
 **Rol en el ecosistema:** Herramienta integral para validación, conversión bidireccional GIFT <-> Moodle XML, reorganización de árboles de categorías y corrección ortográfica de bancos.
-````
+```
 
 ---
 

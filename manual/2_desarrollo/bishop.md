@@ -8,10 +8,9 @@ date: "2026-08-31"
 (manual-bishop)=
 # Bishop — Visualizador Pedagógico de Memoria Stack & Heap en ASCII y Mermaid
 
-```{admonition} Resumen Técnico del Satélite
-:class: note
+```{note} Resumen Técnico del Satélite
 **Rol en el ecosistema:** Inspección dinámica de memoria en C, renderizando marcos de pila (Stack Frames), variables locales, punteros y bloques del Heap.
-````
+```
 
 ---
 

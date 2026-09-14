@@ -8,10 +8,9 @@ date: "2026-08-31"
 (manual-idkfa)=
 # Idkfa — Síntesis Procedural de Código C, Cuestionarios Anti-Copia y Trazado para Moodle
 
-```{admonition} Resumen Técnico del Satélite
-:class: note
+```{note} Resumen Técnico del Satélite
 **Rol en el ecosistema:** Generación de cuestionarios Moodle XML con variantes de código C compiladas y ejecutadas con GCC en tiempo real para obtener las respuestas numéricas exactas de cada tema.
-````
+```
 
 ---
 

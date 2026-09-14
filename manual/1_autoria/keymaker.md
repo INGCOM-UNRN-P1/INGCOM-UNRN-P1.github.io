@@ -8,10 +8,9 @@ date: "2026-08-31"
 (manual-keymaker)=
 # Keymaker — Gestor de Cifrado, Integridad y Desbloqueo Temporal para Paquetes de Examen
 
-```{admonition} Resumen Técnico del Satélite
-:class: note
+```{note} Resumen Técnico del Satélite
 **Rol en el ecosistema:** Cifrado simétrico autenticado (AES-256-GCM / ChaCha20-Poly1305), firmas digitales Ed25519, Time-Lock para exámenes y división de secretos de Shamir para la cátedra.
-````
+```
 
 ---
 

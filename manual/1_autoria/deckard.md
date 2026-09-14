@@ -8,10 +8,9 @@ date: "2026-08-31"
 (manual-deckard)=
 # Deckard — Gestor de Bancos de Ejercicios, Guías de Trabajos Prácticos y Taxonomía Bloom
 
-```{admonition} Resumen Técnico del Satélite
-:class: note
+```{note} Resumen Técnico del Satélite
 **Rol en el ecosistema:** Curaduría pedagógica de ejercicios, composición de guías según carga horaria y niveles Bloom, exportación a Typst/Jupyter, starter ZIPs y control LanguageTool.
-````
+```
 
 ---
 

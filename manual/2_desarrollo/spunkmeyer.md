@@ -8,8 +8,7 @@ date: "2026-08-31"
 (manual-spunkmeyer)=
 # Spunkmeyer — Detector de Antipatrones de Programación y Vicios Didácticos en C
 
-```{admonition} Resumen Técnico del Satélite
-:class: note
+```{note} Resumen Técnico del Satélite
 **Rol en el ecosistema:** Detección estática de antipatrones típicos de estudiantes: casteo innecesario de `malloc()`, lazos `while (!feof(f))`, comparaciones redundantes `if (cond == true)`, y punteros a variables locales devueltos desde el stack.
 ````
 

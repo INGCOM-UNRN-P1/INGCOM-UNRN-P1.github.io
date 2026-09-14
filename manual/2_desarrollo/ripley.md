@@ -8,8 +8,7 @@ date: "2026-08-31"
 (manual-ripley)=
 # Ripley — Linter Pedagógico de Reglas Institucionales 0xXXXXh y Microkernel de Auditoría
 
-```{admonition} Resumen Técnico del Satélite
-:class: note
+```{note} Resumen Técnico del Satélite
 **Rol en el ecosistema:** Linter central de cátedra que ejecuta el catálogo completo de reglas pedagógicas 0xXXXXh (estilo, modularidad, seguridad, antipatrones) y orquesta plugins desacoplados.
 ````
 

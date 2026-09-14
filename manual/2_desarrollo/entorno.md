@@ -8,8 +8,7 @@ date: "2026-09-14"
 (manual-entorno)=
 # entorno — Estación de Trabajo Portátil y Toolchain Unificado de C
 
-```{admonition} Resumen Técnico del Satélite
-:class: note
+```{note} Resumen Técnico del Satélite
 **Rol en el ecosistema:** Aprovisionamiento unificado de la suite de desarrollo C (GCC, Clang, Make, GDB, Valgrind, Python/uv) y configuración multiplataforma idéntica en Linux, macOS y Windows/WSL.
 ```
 

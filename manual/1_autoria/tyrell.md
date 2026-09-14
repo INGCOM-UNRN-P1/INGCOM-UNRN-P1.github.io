@@ -8,10 +8,9 @@ date: "2026-08-31"
 (manual-tyrell)=
 # Tyrell — Generador Sintético y Determinista de Datasets y Casos de Prueba con Semillas
 
-```{admonition} Resumen Técnico del Satélite
-:class: note
+```{note} Resumen Técnico del Satélite
 **Rol en el ecosistema:** Generación determinista y reproducible de datasets masivos (números, matrices, cadenas, registros estructurados) mediante generadores pseudoaleatorios con semilla fija para pruebas de carga y benchmarking.
-````
+```
 
 ---
 

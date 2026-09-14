@@ -8,8 +8,7 @@ date: "2026-09-14"
 (manual-librerias-c)=
 # librerias-c — Bibliotecas Canónicas de Cátedra de TDAs
 
-```{admonition} Resumen Técnico del Satélite
-:class: note
+```{note} Resumen Técnico del Satélite
 **Rol en el ecosistema:** Colección de implementaciones de referencia de Tipos de Datos Abstractos (TAD) en C11 con contratos formales, encapsulamiento estricto y pruebas unitarias.
 ```
 

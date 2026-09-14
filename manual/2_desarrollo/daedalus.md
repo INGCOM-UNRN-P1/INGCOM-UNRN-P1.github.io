@@ -8,10 +8,9 @@ date: "2026-08-31"
 (manual-daedalus)=
 # Daedalus — Compilador Asistido con Cátedra Flags y Traducción de Diagnósticos GCC/Clang
 
-```{admonition} Resumen Técnico del Satélite
-:class: note
+```{note} Resumen Técnico del Satélite
 **Rol en el ecosistema:** Compilador pedagógico que aplica los flags de cátedra (-std=c11, -Wall, -Wextra, -Werror, -pedantic) y traduce mensajes crípticos del compilador a español claro con explicaciones didácticas.
-````
+```
 
 ---
 

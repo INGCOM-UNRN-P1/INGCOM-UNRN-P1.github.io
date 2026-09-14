@@ -8,10 +8,9 @@ date: "2026-08-31"
 (manual-alucard)=
 # Alucard — Generador de Exámenes Impresos, Variantes Anti-Copia y Plantillas OMR
 
-```{admonition} Resumen Técnico del Satélite
-:class: note
+```{note} Resumen Técnico del Satélite
 **Rol en el ecosistema:** Generación y maquetación de exámenes presenciales con Typst, síntesis de variantes permutadas y lectura óptica OMR.
-````
+```
 
 ---
 

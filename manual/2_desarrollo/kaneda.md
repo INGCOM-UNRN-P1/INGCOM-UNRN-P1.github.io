@@ -8,10 +8,9 @@ date: "2026-08-31"
 (manual-kaneda)=
 # Kaneda — Auditor Estático de Seguridad en C y Detección de Funciones Inseguras Prohibidas
 
-```{admonition} Resumen Técnico del Satélite
-:class: note
+```{note} Resumen Técnico del Satélite
 **Rol en el ecosistema:** Auditoría de vulnerabilidades en C: prohibición de `gets()`, `strcpy()`, `sprintf()`, detección de desbordes de buffer estáticos y vulnerabilidades de Format String.
-````
+```
 
 ---
 
