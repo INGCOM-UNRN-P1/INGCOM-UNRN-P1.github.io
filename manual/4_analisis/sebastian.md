@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-sebastian)=
 # Sebastian — Analizador de Funciones Recursivas, Caso Base y Árboles de Llamadas
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Detección estática y dinámica de funciones recursivas, verificación formal de caso base, análisis de consumo de marcos de pila (Stack Depth) y exportación de árboles de llamadas en ASCII/Mermaid.
 ````
 
@@ -231,6 +232,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`sebastian`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Detección de Recursión Infinita sin Caso Base
+:label: sebastian-desafio-1
 Analizar una función recursiva defectuosa y encontrar por qué produce Stack Overflow.
 
 **Instrucción de ejecución:**
@@ -239,7 +241,7 @@ sebastian trace src/bug_recursivo.c
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} sebastian-desafio-1
 ```bash
 sebastian trace src/bug_recursivo.c
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -247,6 +249,7 @@ sebastian trace src/bug_recursivo.c
 ````
 
 ````{exercise} Desafío 2: Renderizado de Árbol de Llamadas de Fibonacci
+:label: sebastian-desafio-2
 Visualizar el árbol de ramificación de Fibonacci en Mermaid.
 
 **Instrucción de ejecución:**
@@ -255,7 +258,7 @@ sebastian tree src/fib.c --function fib --format mermaid
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} sebastian-desafio-2
 ```bash
 sebastian tree src/fib.c --function fib --format mermaid
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -263,6 +266,7 @@ sebastian tree src/fib.c --function fib --format mermaid
 ````
 
 ````{exercise} Desafío 3: Optimización a Recursión de Cola (Tail Recursion)
+:label: sebastian-desafio-3
 Transformar una función recursiva para permitir optimización TCO por el compilador.
 
 **Instrucción de ejecución:**
@@ -271,7 +275,7 @@ sebastian trace src/tail_rec.c
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} sebastian-desafio-3
 ```bash
 sebastian trace src/tail_rec.c
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-zhora)=
 # Zhora — Linter y Auditor de Seguridad en Macros del Preprocesador #define
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Auditoría de seguridad y buenas prácticas en macros de C: detección de parámetros sin paréntesis defensivos `(x)`, efectos colaterales en argumentos (`MACRO(i++)`), macros con sentencias múltiples sin bloque `do { ... } while(0)` y sugerencia de funciones `inline` / `enum`.
 ````
 
@@ -241,6 +242,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`zhora`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Auditoría de Macros en Headers de Utilidad
+:label: zhora-desafio-1
 Escanear `include/util.h` y encontrar macros propensas a errores de precedencia.
 
 **Instrucción de ejecución:**
@@ -249,7 +251,7 @@ zhora audit include/util.h
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} zhora-desafio-1
 ```bash
 zhora audit include/util.h
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -257,6 +259,7 @@ zhora audit include/util.h
 ````
 
 ````{exercise} Desafío 2: Auto-Protección de Parámetros con Paréntesis
+:label: zhora-desafio-2
 Corregir automáticamente `#define MULT(a, b) a * b` por `((a) * (b))`.
 
 **Instrucción de ejecución:**
@@ -265,7 +268,7 @@ zhora fix include/util.h
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} zhora-desafio-2
 ```bash
 zhora fix include/util.h
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -273,6 +276,7 @@ zhora fix include/util.h
 ````
 
 ````{exercise} Desafío 3: Migración de Macros a Funciones `inline`
+:label: zhora-desafio-3
 Reemplazar macros con efectos colaterales por funciones `static inline` con chequeo de tipos.
 
 **Instrucción de ejecución:**
@@ -281,7 +285,7 @@ zhora to-inline include/matematica.h
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} zhora-desafio-3
 ```bash
 zhora to-inline include/matematica.h
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

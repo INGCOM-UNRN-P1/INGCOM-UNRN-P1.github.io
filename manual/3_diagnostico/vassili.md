@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-vassili)=
 # Vassili — Motor de Mutation Testing en C para Evaluación de Calidad de Suites de Pruebas
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Evaluación de la efectividad de los tests unitarios mediante la inyección de mutaciones deliberadas en el código fuente (cambio de operadores `+` por `-`, `<` por `<=`, constantes) para verificar si los tests fallan.
 ````
 
@@ -240,6 +241,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`vassili`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Cálculo de Mutation Score
+:label: vassili-desafio-1
 Evaluar la suite de pruebas unitarias contra mutaciones en `src/tda_cola.c`.
 
 **Instrucción de ejecución:**
@@ -248,7 +250,7 @@ vassili mutate src/tda_cola.c --tests ./bin/test_cola
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} vassili-desafio-1
 ```bash
 vassili mutate src/tda_cola.c --tests ./bin/test_cola
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -256,6 +258,7 @@ vassili mutate src/tda_cola.c --tests ./bin/test_cola
 ````
 
 ````{exercise} Desafío 2: Identificación de Mutantes Vivos
+:label: vassili-desafio-2
 Descubrir qué casos borde no están siendo testeados por la suite.
 
 **Instrucción de ejecución:**
@@ -264,7 +267,7 @@ vassili report --survived-only
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} vassili-desafio-2
 ```bash
 vassili report --survived-only
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -272,6 +275,7 @@ vassili report --survived-only
 ````
 
 ````{exercise} Desafío 3: Generación de Informe HTML de Calidad
+:label: vassili-desafio-3
 Exportar el informe gráfico con diffs de mutantes para revisión docente.
 
 **Instrucción de ejecución:**
@@ -280,7 +284,7 @@ vassili report --format html -o mutaciones.html
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} vassili-desafio-3
 ```bash
 vassili report --format html -o mutaciones.html
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

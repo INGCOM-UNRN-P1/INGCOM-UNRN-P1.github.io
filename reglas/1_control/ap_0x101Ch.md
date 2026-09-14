@@ -5,7 +5,6 @@ subtitle: "Estructuras de Control y Lazos (0x10XX)"
 ---
 
 (ap_0x101Ch)=
-(0x101Ch_ap)=
 # Antipatrón AP-0x101Ch: Bucle infinito con salida condicionada exclusivamente por exit()
 
 :::{admonition} Regla de Estilo Asociada: 0x1002h

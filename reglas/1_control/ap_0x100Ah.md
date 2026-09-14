@@ -5,7 +5,6 @@ subtitle: "Estructuras de Control y Lazos (0x10XX)"
 ---
 
 (ap_0x100Ah)=
-(0x100Ah_ap)=
 # Antipatrón AP-0x100Ah: Asignación accidental en condición lógica (if (x = 5))
 
 :::{admonition} Regla de Estilo Asociada: 0x100Ah

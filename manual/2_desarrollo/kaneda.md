@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-kaneda)=
 # Kaneda — Auditor Estático de Seguridad en C y Detección de Funciones Inseguras Prohibidas
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Auditoría de vulnerabilidades en C: prohibición de `gets()`, `strcpy()`, `sprintf()`, detección de desbordes de buffer estáticos y vulnerabilidades de Format String.
 ````
 
@@ -237,6 +238,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`kaneda`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Auditoría de Seguridad de Pre-Entrega
+:label: kaneda-desafio-1
 Escanear todo el proyecto para proveer 0 funciones inseguras.
 
 **Instrucción de ejecución:**
@@ -245,7 +247,7 @@ kaneda audit src/ include/
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} kaneda-desafio-1
 ```bash
 kaneda audit src/ include/
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -253,6 +255,7 @@ kaneda audit src/ include/
 ````
 
 ````{exercise} Desafío 2: Reemplazo de `gets` por `fgets`
+:label: kaneda-desafio-2
 Corregir lectura de teclado manteniendo el tamaño del buffer.
 
 **Instrucción de ejecución:**
@@ -261,7 +264,7 @@ kaneda scan src/login.c
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} kaneda-desafio-2
 ```bash
 kaneda scan src/login.c
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -269,6 +272,7 @@ kaneda scan src/login.c
 ````
 
 ````{exercise} Desafío 3: Protección contra Format Strings
+:label: kaneda-desafio-3
 Revisar llamadas a `printf` y `syslog` que reciben buffers de usuario.
 
 **Instrucción de ejecución:**
@@ -277,7 +281,7 @@ kaneda audit src/ --strict
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} kaneda-desafio-3
 ```bash
 kaneda audit src/ --strict
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

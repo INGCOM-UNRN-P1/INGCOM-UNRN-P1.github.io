@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-parker)=
 # Parker — Auditor de Estabilidad de ABIs, Visibilidad de Símbolos y Librerías Dinámicas
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Auditoría de binarios y librerías compartidas (`.so` / `.dylib`) para validar que solo se exporten los símbolos públicos declarados en la API y mitigar contaminación del espacio de nombres global.
 ````
 
@@ -234,6 +235,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`parker`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Auditoría de Símbolos Exportados
+:label: parker-desafio-1
 Comprobar que una librería compartida solo exporta su interfaz pública.
 
 **Instrucción de ejecución:**
@@ -242,7 +244,7 @@ parker audit-symbols ./lib/liblista.so include/lista.h
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} parker-desafio-1
 ```bash
 parker audit-symbols ./lib/liblista.so include/lista.h
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -250,6 +252,7 @@ parker audit-symbols ./lib/liblista.so include/lista.h
 ````
 
 ````{exercise} Desafío 2: Detección de Ruptura de ABI
+:label: parker-desafio-2
 Verificar si cambiar el orden de campos en un struct rompe compatibilidad binaria.
 
 **Instrucción de ejecución:**
@@ -258,7 +261,7 @@ parker check-abi --v1 lib1.so --v2 lib2.so
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} parker-desafio-2
 ```bash
 parker check-abi --v1 lib1.so --v2 lib2.so
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -266,6 +269,7 @@ parker check-abi --v1 lib1.so --v2 lib2.so
 ````
 
 ````{exercise} Desafío 3: Ocultamiento Automático de Símbolos
+:label: parker-desafio-3
 Compilar con `-fvisibility=hidden` y exportar selectivamente.
 
 **Instrucción de ejecución:**
@@ -274,7 +278,7 @@ parker hide-symbols src/ -o lib/libtda.so
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} parker-desafio-3
 ```bash
 parker hide-symbols src/ -o lib/libtda.so
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

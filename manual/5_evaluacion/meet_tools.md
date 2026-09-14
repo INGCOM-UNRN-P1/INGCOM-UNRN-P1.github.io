@@ -8,7 +8,8 @@ date: "2026-09-14"
 (manual-meet-tools)=
 # meet-tools — Sistema de Control y Telemetría para Google Meet
 
-```{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Control bidireccional de sesiones de Google Meet desde clientes externos (Android/ESP32) mediante WebExtensions y daemon local vía WebSocket.
 ```
 

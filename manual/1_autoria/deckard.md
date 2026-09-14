@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-deckard)=
 # Deckard — Gestor de Bancos de Ejercicios, Guías de Trabajos Prácticos y Taxonomía Bloom
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Curaduría pedagógica de ejercicios, composición de guías según carga horaria y niveles Bloom, exportación a Typst/Jupyter, starter ZIPs y control LanguageTool.
 ````
 
@@ -230,6 +231,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`deckard`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Composición de Guía Equilibrada
+:label: deckard-desafio-1
 Crear una guía semanal con cota de 4 horas y balance Bloom.
 
 **Instrucción de ejecución:**
@@ -238,7 +240,7 @@ deckard compose guias/tp1.yaml -o tp1.typ
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} deckard-desafio-1
 ```bash
 deckard compose guias/tp1.yaml -o tp1.typ
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -246,6 +248,7 @@ deckard compose guias/tp1.yaml -o tp1.typ
 ````
 
 ````{exercise} Desafío 2: Empaquetado de Starter Kit con Clave
+:label: deckard-desafio-2
 Generar el archivo ZIP descargable para los estudiantes.
 
 **Instrucción de ejecución:**
@@ -254,7 +257,7 @@ deckard pack-zip guias/tp1.yaml -o entregas/starter_tp1.zip
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} deckard-desafio-2
 ```bash
 deckard pack-zip guias/tp1.yaml -o entregas/starter_tp1.zip
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -262,6 +265,7 @@ deckard pack-zip guias/tp1.yaml -o entregas/starter_tp1.zip
 ````
 
 ````{exercise} Desafío 3: Auditoría de Enunciados Docentes
+:label: deckard-desafio-3
 Verificar que los ejercicios no contengan términos vagos ni falta de casos borde.
 
 **Instrucción de ejecución:**
@@ -270,7 +274,7 @@ deckard check-ambiguity --banco ./banco
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} deckard-desafio-3
 ```bash
 deckard check-ambiguity --banco ./banco
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

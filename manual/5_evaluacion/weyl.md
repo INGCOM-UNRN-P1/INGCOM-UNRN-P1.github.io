@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-weyl)=
 # Weyl — Diffing Semántico y Comparación Estructural de ASTs contra resolvé Canónicas
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Comparación estructural y semántica de código C entre la entrega del estudiante y la solución de referencia docente, ignorando cambios cosméticos de nombres de variables, espacios y comentarios.
 ````
 
@@ -239,6 +240,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`weyl`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Comparación Semántica contra Solución Docente
+:label: weyl-desafio-1
 Verificar si el algoritmo implementado coincide estructuralmente con la solución modelo.
 
 **Instrucción de ejecución:**
@@ -247,7 +249,7 @@ weyl diff src/lista.c canon/lista_canon.c
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} weyl-desafio-1
 ```bash
 weyl diff src/lista.c canon/lista_canon.c
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -255,6 +257,7 @@ weyl diff src/lista.c canon/lista_canon.c
 ````
 
 ````{exercise} Desafío 2: Inspección del Árbol AST Normalizado
+:label: weyl-desafio-2
 Examinar cómo Weyl abstrae los nombres de variables.
 
 **Instrucción de ejecución:**
@@ -263,7 +266,7 @@ weyl ast-dump src/ordenamiento.c
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} weyl-desafio-2
 ```bash
 weyl ast-dump src/ordenamiento.c
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -271,6 +274,7 @@ weyl ast-dump src/ordenamiento.c
 ````
 
 ````{exercise} Desafío 3: Detección de Funciones Faltantes
+:label: weyl-desafio-3
 Comprobar qué funciones requeridas de la API no fueron implementadas.
 
 **Instrucción de ejecución:**
@@ -279,7 +283,7 @@ weyl diff src/tda.c canon/tda.c --check-missing
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} weyl-desafio-3
 ```bash
 weyl diff src/tda.c canon/tda.c --check-missing
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

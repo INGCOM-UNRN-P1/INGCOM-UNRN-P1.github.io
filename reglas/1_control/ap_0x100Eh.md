@@ -5,7 +5,6 @@ subtitle: "Estructuras de Control y Lazos (0x10XX)"
 ---
 
 (ap_0x100Eh)=
-(0x100Eh_ap)=
 # Antipatrón AP-0x100Eh: Expresión booleana tautológica o contradictoria
 
 :::{admonition} Regla de Estilo Asociada: 0x100Eh

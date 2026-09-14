@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-moodle_toolbox)=
 # Moodle-Toolbox — Suite de Mantenimiento, Normalización y Conversión de Bancos GIFT/XML
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Herramienta integral para validación, conversión bidireccional GIFT <-> Moodle XML, reorganización de árboles de categorías y corrección ortográfica de bancos.
 ````
 
@@ -234,6 +235,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`moodle-toolbox`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Conversión Bidireccional de Banco
+:label: moodle_toolbox-desafio-1
 Convertir preguntas de GIFT a XML para importar en el aula virtual.
 
 **Instrucción de ejecución:**
@@ -242,7 +244,7 @@ questions convert preguntas.gift -o preguntas.xml
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} moodle_toolbox-desafio-1
 ```bash
 questions convert preguntas.gift -o preguntas.xml
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -250,6 +252,7 @@ questions convert preguntas.gift -o preguntas.xml
 ````
 
 ````{exercise} Desafío 2: Validación de Categorías y Pesos
+:label: moodle_toolbox-desafio-2
 Verificar que ninguna pregunta tenga respuestas que no sumen 100%.
 
 **Instrucción de ejecución:**
@@ -258,7 +261,7 @@ questions validate preguntas.xml
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} moodle_toolbox-desafio-2
 ```bash
 questions validate preguntas.xml
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -266,6 +269,7 @@ questions validate preguntas.xml
 ````
 
 ````{exercise} Desafío 3: Spellcheck con LanguageTool
+:label: moodle_toolbox-desafio-3
 Auditar ortografía en los textos de retroalimentación pedagógica.
 
 **Instrucción de ejecución:**
@@ -274,7 +278,7 @@ questions spellcheck preguntas.gift --lang es-AR
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} moodle_toolbox-desafio-3
 ```bash
 questions spellcheck preguntas.gift --lang es-AR
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

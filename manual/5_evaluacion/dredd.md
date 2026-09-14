@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-dredd)=
 # Dredd — Orquestador Docente de Evaluación Masiva, Autograding y Detección de Plagio Winnowing
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Orquestación batch de corrección de entregas de alumnos, ingesta de ZIPs de Moodle / repositorios de GitHub Classroom, caché SHA-256, diff de reentregas y reporte masivo.
 ````
 
@@ -232,6 +233,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`dredd`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Evaluación en Lote de Entregas
+:label: dredd-desafio-1
 Ejecutar la evaluación masiva del TP1 sobre todas las carpetas de alumnos.
 
 **Instrucción de ejecución:**
@@ -240,7 +242,7 @@ dredd eval tp1 --all
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} dredd-desafio-1
 ```bash
 dredd eval tp1 --all
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -248,6 +250,7 @@ dredd eval tp1 --all
 ````
 
 ````{exercise} Desafío 2: Comparativa de Reentrega (R1 vs R2)
+:label: dredd-desafio-2
 Visualizar los cambios y funciones modificadas por un alumno en su segunda versión.
 
 **Instrucción de ejecución:**
@@ -256,7 +259,7 @@ dredd diff-submission alumno_perez r1 r2 --md reporte_reentrega.md
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} dredd-desafio-2
 ```bash
 dredd diff-submission alumno_perez r1 r2 --md reporte_reentrega.md
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -264,6 +267,7 @@ dredd diff-submission alumno_perez r1 r2 --md reporte_reentrega.md
 ````
 
 ````{exercise} Desafío 3: Detección de Plagio Cruzado
+:label: dredd-desafio-3
 Auditar similitud estructural de código en el lote de entregas.
 
 **Instrucción de ejecución:**
@@ -272,7 +276,7 @@ dredd plagiarism tp1 --threshold 0.70
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} dredd-desafio-3
 ```bash
 dredd plagiarism tp1 --threshold 0.70
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

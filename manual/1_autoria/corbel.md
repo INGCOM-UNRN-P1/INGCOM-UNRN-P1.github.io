@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-corbel)=
 # Corbel — Generador de Documentación de APIs, TDAs y Verificación de Snippets C
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Generación de documentación técnica a partir de encabezados C y validación de que todos los ejemplos de código compilen y ejecuten sin errores.
 ````
 
@@ -235,6 +236,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`corbel`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Generación de Manual de TDA
+:label: corbel-desafio-1
 Generar la documentación Markdown de `include/tda_cola.h`.
 
 **Instrucción de ejecución:**
@@ -243,7 +245,7 @@ corbel build include/tda_cola.h -o docs/cola/
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} corbel-desafio-1
 ```bash
 corbel build include/tda_cola.h -o docs/cola/
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -251,6 +253,7 @@ corbel build include/tda_cola.h -o docs/cola/
 ````
 
 ````{exercise} Desafío 2: Verificación de Snippets de Código
+:label: corbel-desafio-2
 Comprobar que los ejemplos en los comentarios compilan sin warnings.
 
 **Instrucción de ejecución:**
@@ -259,7 +262,7 @@ corbel test-snippets docs/cola/
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} corbel-desafio-2
 ```bash
 corbel test-snippets docs/cola/
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -267,6 +270,7 @@ corbel test-snippets docs/cola/
 ````
 
 ````{exercise} Desafío 3: Auditoría de Cobertura de Documentación
+:label: corbel-desafio-3
 Verificar que ninguna función pública carezca de descripción de parámetros.
 
 **Instrucción de ejecución:**
@@ -275,7 +279,7 @@ corbel check-coverage include/
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} corbel-desafio-3
 ```bash
 corbel check-coverage include/
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

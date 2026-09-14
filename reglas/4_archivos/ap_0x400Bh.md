@@ -5,7 +5,6 @@ subtitle: "Gestión de Archivos y Errores (0x40XX)"
 ---
 
 (ap_0x400Bh)=
-(0x400Bh_ap)=
 # Antipatrón AP-0x400Bh: Omisión de verificación de retorno NULL en fopen()
 
 :::{admonition} Regla de Estilo Asociada: 0x4001h

@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-rachel)=
 # Rachel — Desensamblador y Verificador de Jump Tables O(1) en Sentencias Switch
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Desensamblado de código máquina y análisis de grafos de control para verificar si el compilador generó una tabla de saltos indexada O(1) (Jump Table / rodata) o una cascada ineficiente de comparaciones if-else O(N).
 ````
 
@@ -235,6 +236,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`rachel`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Verificación de Tabla de Saltos en Intérprete
+:label: rachel-desafio-1
 Comprobar que el switch del despachador de opcodes compila a Jump Table.
 
 **Instrucción de ejecución:**
@@ -243,7 +245,7 @@ rachel check src/interprete.c
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} rachel-desafio-1
 ```bash
 rachel check src/interprete.c
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -251,6 +253,7 @@ rachel check src/interprete.c
 ````
 
 ````{exercise} Desafío 2: Densificación de Casos Esparsos
+:label: rachel-desafio-2
 Transformar un switch disperso (case 1, case 1000, case 50000) en densidad contigua.
 
 **Instrucción de ejecución:**
@@ -259,7 +262,7 @@ rachel optimize-switch src/comandos.c
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} rachel-desafio-2
 ```bash
 rachel optimize-switch src/comandos.c
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -267,6 +270,7 @@ rachel optimize-switch src/comandos.c
 ````
 
 ````{exercise} Desafío 3: Inspección de Instrucciones Ensamblador
+:label: rachel-desafio-3
 Desensamblar la función despachadora y examinar la tabla en `.rodata`.
 
 **Instrucción de ejecución:**
@@ -275,7 +279,7 @@ rachel disasm src/procesador.c --function despachar_comando
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} rachel-desafio-3
 ```bash
 rachel disasm src/procesador.c --function despachar_comando
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

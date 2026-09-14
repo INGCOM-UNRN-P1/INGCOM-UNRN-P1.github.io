@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-bishop)=
 # Bishop — Visualizador Pedagógico de Memoria Stack & Heap en ASCII y Mermaid
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Inspección dinámica de memoria en C, renderizando marcos de pila (Stack Frames), variables locales, punteros y bloques del Heap.
 ````
 
@@ -245,6 +246,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`bishop`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Paso por Referencia vs Paso por Valor
+:label: bishop-desafio-1
 Escribir `swap(int *a, int *b)` y observar los marcos de pila en Bishop.
 
 **Instrucción de ejecución:**
@@ -253,7 +255,7 @@ bishop trace -- ./bin/swap_test
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} bishop-desafio-1
 ```bash
 bishop trace -- ./bin/swap_test
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -261,6 +263,7 @@ bishop trace -- ./bin/swap_test
 ````
 
 ````{exercise} Desafío 2: Detección de Dangling Pointer
+:label: bishop-desafio-2
 Inspeccionar un puntero tras llamar a free() sin asignarle NULL.
 
 **Instrucción de ejecución:**
@@ -269,7 +272,7 @@ bishop trace -- ./bin/dangling_test
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} bishop-desafio-2
 ```bash
 bishop trace -- ./bin/dangling_test
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -277,6 +280,7 @@ bishop trace -- ./bin/dangling_test
 ````
 
 ````{exercise} Desafío 3: Diagrama Mermaid de Lista Enlazada
+:label: bishop-desafio-3
 Generar diagrama de una lista de 3 nodos en el Heap.
 
 **Instrucción de ejecución:**
@@ -285,7 +289,7 @@ bishop trace --format mermaid -o memoria.md -- ./bin/test_lista
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} bishop-desafio-3
 ```bash
 bishop trace --format mermaid -o memoria.md -- ./bin/test_lista
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

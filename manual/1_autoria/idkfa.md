@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-idkfa)=
 # Idkfa — Síntesis Procedural de Código C, Cuestionarios Anti-Copia y Trazado para Moodle
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Generación de cuestionarios Moodle XML con variantes de código C compiladas y ejecutadas con GCC en tiempo real para obtener las respuestas numéricas exactas de cada tema.
 ````
 
@@ -231,6 +232,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`idkfa`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Cuestionario de Punteros y Arreglos
+:label: idkfa-desafio-1
 Sintetizar 30 variantes de seguimiento de aritmética de punteros.
 
 **Instrucción de ejecución:**
@@ -239,7 +241,7 @@ idkfa generate templates/punteros.yaml -n 30 -o moodle_ptr.xml
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} idkfa-desafio-1
 ```bash
 idkfa generate templates/punteros.yaml -n 30 -o moodle_ptr.xml
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -247,6 +249,7 @@ idkfa generate templates/punteros.yaml -n 30 -o moodle_ptr.xml
 ````
 
 ````{exercise} Desafío 2: Preguntas de Seguimiento de Lazos
+:label: idkfa-desafio-2
 Generar ejercicios de conteo de iteraciones en lazos anidados.
 
 **Instrucción de ejecución:**
@@ -255,7 +258,7 @@ idkfa generate templates/lazos.yaml -n 25 -o moodle_lazos.xml
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} idkfa-desafio-2
 ```bash
 idkfa generate templates/lazos.yaml -n 25 -o moodle_lazos.xml
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -263,6 +266,7 @@ idkfa generate templates/lazos.yaml -n 25 -o moodle_lazos.xml
 ````
 
 ````{exercise} Desafío 3: Auditoría Lingüística del Banco
+:label: idkfa-desafio-3
 Comprobar ortografía en las explicaciones paso a paso de las respuestas.
 
 **Instrucción de ejecución:**
@@ -271,7 +275,7 @@ idkfa spellcheck templates/punteros.yaml
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} idkfa-desafio-3
 ```bash
 idkfa spellcheck templates/punteros.yaml
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

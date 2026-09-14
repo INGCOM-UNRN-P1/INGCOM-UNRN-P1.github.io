@@ -5,7 +5,6 @@ subtitle: "Punteros y Gestión de Memoria (0x30XX)"
 ---
 
 (ap_0x301Bh)=
-(0x301Bh_ap)=
 # Antipatrón AP-0x301Bh: Desreferencia inmediata tras realloc
 
 :::{admonition} Regla de Estilo Asociada: 0x3001h

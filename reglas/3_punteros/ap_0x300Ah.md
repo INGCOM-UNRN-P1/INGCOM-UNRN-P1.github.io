@@ -5,7 +5,6 @@ subtitle: "Punteros y Gestión de Memoria (0x30XX)"
 ---
 
 (ap_0x300Ah)=
-(0x300Ah_ap)=
 # Antipatrón AP-0x300Ah: Casteo redundante de malloc()
 
 :::{admonition} Regla de Estilo Asociada: 0x300Ah

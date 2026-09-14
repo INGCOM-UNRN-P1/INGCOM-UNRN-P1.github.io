@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-kane)=
 # Kane — Simulador y Depurador Visual de I/O de Bajo Nivel y Perfiles Seccomp
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Inspección de descriptores de archivo, mapeo binario de estructuras en disco, auditoría de syscalls de E/S (`read`, `write`, `lseek`) y filtrado con Seccomp.
 ````
 
@@ -240,6 +241,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`kane`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Detección de Fugas de Descriptores (FD Leaks)
+:label: kane-desafio-1
 Encontrar archivos abiertos con `fopen` que no tienen `fclose`.
 
 **Instrucción de ejecución:**
@@ -248,7 +250,7 @@ kane audit-fds -- ./bin/app_archivos
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} kane-desafio-1
 ```bash
 kane audit-fds -- ./bin/app_archivos
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -256,6 +258,7 @@ kane audit-fds -- ./bin/app_archivos
 ````
 
 ````{exercise} Desafío 2: Inspección Hexadecimal de Archivo Binario
+:label: kane-desafio-2
 Mapear un archivo `.dat` con la definición de `struct Alumno`.
 
 **Instrucción de ejecución:**
@@ -264,7 +267,7 @@ kane dump-struct alumnos.dat --format include/alumno.h
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} kane-desafio-2
 ```bash
 kane dump-struct alumnos.dat --format include/alumno.h
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -272,6 +275,7 @@ kane dump-struct alumnos.dat --format include/alumno.h
 ````
 
 ````{exercise} Desafío 3: Auditoría de Llamadas al Sistema de E/S
+:label: kane-desafio-3
 Monitorear offsets y bytes transferidos en operaciones `lseek`.
 
 **Instrucción de ejecución:**
@@ -280,7 +284,7 @@ kane trace -- ./bin/lector_indices
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} kane-desafio-3
 ```bash
 kane trace -- ./bin/lector_indices
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

@@ -5,7 +5,6 @@ subtitle: "Gestión de Archivos y Errores (0x40XX)"
 ---
 
 (ap_0x400Ah)=
-(0x400Ah_ap)=
 # Antipatrón AP-0x400Ah: Lectura de cadenas con scanf() sin límite de ancho en buffer fijo
 
 :::{admonition} Regla de Estilo Asociada: 0x400Ah

@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-tyrell)=
 # Tyrell — Generador Sintético y Determinista de Datasets y Casos de Prueba con Semillas
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Generación determinista y reproducible de datasets masivos (números, matrices, cadenas, registros estructurados) mediante generadores pseudoaleatorios con semilla fija para pruebas de carga y benchmarking.
 ````
 
@@ -232,6 +233,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`tyrell`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Generación de Vector de 100,000 Elementos
+:label: tyrell-desafio-1
 Crear un archivo de entrada para pruebas de rendimiento de algoritmos de ordenamiento.
 
 **Instrucción de ejecución:**
@@ -240,7 +242,7 @@ tyrell generate --type int --count 100000 --seed 12345 -o vector_grande.in
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} tyrell-desafio-1
 ```bash
 tyrell generate --type int --count 100000 --seed 12345 -o vector_grande.in
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -248,6 +250,7 @@ tyrell generate --type int --count 100000 --seed 12345 -o vector_grande.in
 ````
 
 ````{exercise} Desafío 2: Dataset de Estructuras para TDA
+:label: tyrell-desafio-2
 Generar archivo de texto con datos de paquetes postales para pruebas del TP.
 
 **Instrucción de ejecución:**
@@ -256,7 +259,7 @@ tyrell generate --schema schemas/envios.yaml -n 500 -o envios.in
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} tyrell-desafio-2
 ```bash
 tyrell generate --schema schemas/envios.yaml -n 500 -o envios.in
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -264,6 +267,7 @@ tyrell generate --schema schemas/envios.yaml -n 500 -o envios.in
 ````
 
 ````{exercise} Desafío 3: Casos de Prueba con Caracteres Extremos
+:label: tyrell-desafio-3
 Generar cadenas con caracteres nulos, emojis y secuencias de escape.
 
 **Instrucción de ejecución:**
@@ -272,7 +276,7 @@ tyrell fuzz-strings -n 100 -o strings_extremos.in
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} tyrell-desafio-3
 ```bash
 tyrell fuzz-strings -n 100 -o strings_extremos.in
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-giger)=
 # Giger — Generador de Grafos de Control de Flujo (CFG), Grafo de Llamadas y Dead Code
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Análisis estructural de código C para generar grafos de llamadas entre funciones, grafos de flujo de control (CFG), detección de lazos infinitos y funciones muertas no invocadas.
 ````
 
@@ -242,6 +243,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`giger`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Detección de Funciones Obsoletas
+:label: giger-desafio-1
 Identificar funciones huérfanas en un TDA de gran tamaño.
 
 **Instrucción de ejecución:**
@@ -250,7 +252,7 @@ giger dead-code src/
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} giger-desafio-1
 ```bash
 giger dead-code src/
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -258,6 +260,7 @@ giger dead-code src/
 ````
 
 ````{exercise} Desafío 2: Renderizado de Call Graph a PNG
+:label: giger-desafio-2
 Convertir el grafo DOT de llamadas a imagen con Graphviz.
 
 **Instrucción de ejecución:**
@@ -266,7 +269,7 @@ giger callgraph src/ -o callgraph.dot && dot -Tpng callgraph.dot -o callgraph.pn
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} giger-desafio-2
 ```bash
 giger callgraph src/ -o callgraph.dot && dot -Tpng callgraph.dot -o callgraph.png
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -274,6 +277,7 @@ giger callgraph src/ -o callgraph.dot && dot -Tpng callgraph.dot -o callgraph.pn
 ````
 
 ````{exercise} Desafío 3: Análisis de Ciclos de Recursión Cruzada
+:label: giger-desafio-3
 Verificar si la función A llama a B y B llama a A.
 
 **Instrucción de ejecución:**
@@ -282,7 +286,7 @@ giger cycles src/
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} giger-desafio-3
 ```bash
 giger cycles src/
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

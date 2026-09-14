@@ -8,7 +8,8 @@ date: "2026-09-14"
 (manual-cyberdeck)=
 # cyberdeck — Panel Docente y Companion Hardware de Control de Aula
 
-```{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Interfaz unificada de telemetría y control táctil/físico para docentes en aula presencial o remota, integrando diapositivas, videollamadas y disparadores de autoevaluación.
 ```
 

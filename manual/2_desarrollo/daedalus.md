@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-daedalus)=
 # Daedalus — Compilador Asistido con Cátedra Flags y Traducción de Diagnósticos GCC/Clang
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Compilador pedagógico que aplica los flags de cátedra (-std=c11, -Wall, -Wextra, -Werror, -pedantic) y traduce mensajes crípticos del compilador a español claro con explicaciones didácticas.
 ````
 
@@ -235,6 +236,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`daedalus`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Corrección de Warnings Defensivos
+:label: daedalus-desafio-1
 Compilar un código con variables sin inicializar y resolver todos los warnings.
 
 **Instrucción de ejecución:**
@@ -243,7 +245,7 @@ daedalus compile src/calculadora.c -o bin/calc
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} daedalus-desafio-1
 ```bash
 daedalus compile src/calculadora.c -o bin/calc
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -251,6 +253,7 @@ daedalus compile src/calculadora.c -o bin/calc
 ````
 
 ````{exercise} Desafío 2: Traducción de Error de Enlazado (Linker / undefined reference)
+:label: daedalus-desafio-2
 Explicar didácticamente el error `undefined reference to main` o función faltante.
 
 **Instrucción de ejecución:**
@@ -259,7 +262,7 @@ daedalus explain "undefined reference to 'lista_crear'"
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} daedalus-desafio-2
 ```bash
 daedalus explain "undefined reference to 'lista_crear'"
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -267,6 +270,7 @@ daedalus explain "undefined reference to 'lista_crear'"
 ````
 
 ````{exercise} Desafío 3: Configuración de Flags de Optimización y Debug
+:label: daedalus-desafio-3
 Compilar con símbolos DWARF completos para depurar con GDB.
 
 **Instrucción de ejecución:**
@@ -275,7 +279,7 @@ daedalus compile src/main.c -g3 -o bin/debug_app
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} daedalus-desafio-3
 ```bash
 daedalus compile src/main.c -g3 -o bin/debug_app
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

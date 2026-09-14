@@ -5,7 +5,6 @@ subtitle: "Estructuras de Control y Lazos (0x10XX)"
 ---
 
 (ap_0x101Bh)=
-(0x101Bh_ap)=
 # Antipatrón AP-0x101Bh: Comparación entre tipos enteros con y sin signo en condición
 
 :::{admonition} Regla de Estilo Asociada: 0x1005h

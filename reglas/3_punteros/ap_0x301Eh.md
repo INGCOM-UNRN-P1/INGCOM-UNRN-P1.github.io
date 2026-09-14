@@ -5,7 +5,6 @@ subtitle: "Punteros y Gestión de Memoria (0x30XX)"
 ---
 
 (ap_0x301Eh)=
-(0x301Eh_ap)=
 # Antipatrón AP-0x301Eh: Reserva de buffer con malloc(strlen(s)) sin espacio para byte nulo
 
 :::{admonition} Regla de Estilo Asociada: 0x300Bh

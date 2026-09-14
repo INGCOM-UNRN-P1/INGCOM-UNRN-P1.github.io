@@ -5,7 +5,6 @@ subtitle: "Estructuras de Control y Lazos (0x10XX)"
 ---
 
 (ap_0x101Ah)=
-(0x101Ah_ap)=
 # Antipatrón AP-0x101Ah: Comparación lógica invertida con strcmp() en condicional
 
 :::{admonition} Regla de Estilo Asociada: 0x1005h

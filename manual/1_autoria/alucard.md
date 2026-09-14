@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-alucard)=
 # Alucard — Generador de Exámenes Impresos, Variantes Anti-Copia y Plantillas OMR
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Generación y maquetación de exámenes presenciales con Typst, síntesis de variantes permutadas y lectura óptica OMR.
 ````
 
@@ -229,6 +230,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`alucarD`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Generación de Parcial con 3 Temas
+:label: alucard-desafio-1
 Definir un archivo `parcial.yaml` y compilar 3 temas con opciones permutadas.
 
 **Instrucción de ejecución:**
@@ -237,7 +239,7 @@ alucard randomize parcial.yaml -n 3 -o ./pdf_temas
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} alucard-desafio-1
 ```bash
 alucard randomize parcial.yaml -n 3 -o ./pdf_temas
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -245,6 +247,7 @@ alucard randomize parcial.yaml -n 3 -o ./pdf_temas
 ````
 
 ````{exercise} Desafío 2: Auditoría de Banco GIFT
+:label: alucard-desafio-2
 Validar que `preguntas.gift` no tenga opciones correctas faltantes.
 
 **Instrucción de ejecución:**
@@ -253,7 +256,7 @@ alucard gift-lint preguntas.gift --fix
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} alucard-desafio-2
 ```bash
 alucard gift-lint preguntas.gift --fix
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -261,6 +264,7 @@ alucard gift-lint preguntas.gift --fix
 ````
 
 ````{exercise} Desafío 3: Corrección Ortográfica con LanguageTool
+:label: alucard-desafio-3
 Verificar enunciados docentes antes de imprimir el examen.
 
 **Instrucción de ejecución:**
@@ -269,7 +273,7 @@ alucard spellcheck parcial.yaml --lang es-AR
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} alucard-desafio-3
 ```bash
 alucard spellcheck parcial.yaml --lang es-AR
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

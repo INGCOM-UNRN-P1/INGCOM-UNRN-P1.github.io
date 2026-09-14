@@ -5,7 +5,6 @@ subtitle: "Compilación, Buenas Prácticas y Seguridad (0x50XX)"
 ---
 
 (ap_0x500Ah)=
-(0x500Ah_ap)=
 # Antipatrón AP-0x500Ah: Macro con argumentos evaluados múltiples veces
 
 :::{admonition} Regla de Estilo Asociada: 0x500Ah

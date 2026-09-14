@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-dietrich)=
 # Dietrich — Validador de Cobertura Lógica MC/DC (Modified Condition/Decision Coverage) en C
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Análisis formal de cobertura lógica sobre condiciones booleanas complejas en estructuras de control (if, while), manteniendo que cada condición atómica afecte independientemente el resultado.
 ````
 
@@ -237,6 +238,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`dietrich`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Auditoría de Validador de Acceso
+:label: dietrich-desafio-1
 Evaluar si la suite de tests actual cubre todas las ramas atómicas de `autorizar_acceso()`.
 
 **Instrucción de ejecución:**
@@ -245,7 +247,7 @@ dietrich analyze src/auth.c
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} dietrich-desafio-1
 ```bash
 dietrich analyze src/auth.c
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -253,6 +255,7 @@ dietrich analyze src/auth.c
 ````
 
 ````{exercise} Desafío 2: Generación de Pares de Prueba Faltantes
+:label: dietrich-desafio-2
 Obtener los casos de prueba requeridos para satisfacer 100% MC/DC en un clasificador.
 
 **Instrucción de ejecución:**
@@ -261,7 +264,7 @@ dietrich test-matrix src/clasificador.c
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} dietrich-desafio-2
 ```bash
 dietrich test-matrix src/clasificador.c
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -269,6 +272,7 @@ dietrich test-matrix src/clasificador.c
 ````
 
 ````{exercise} Desafío 3: Informe para Certificación Docente
+:label: dietrich-desafio-3
 Exportar el informe Markdown de cobertura lógica de la entrega.
 
 **Instrucción de ejecución:**
@@ -277,7 +281,7 @@ dietrich report --md reporte_mcdc.md src/
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} dietrich-desafio-3
 ```bash
 dietrich report --md reporte_mcdc.md src/
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

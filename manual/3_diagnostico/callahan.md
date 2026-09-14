@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-callahan)=
 # Callahan — Verificador Formal de Contratos ACSL y Demostración Deductiva con Frama-C
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Verificación matemática de precondiciones, postcondiciones, invariantes de lazo y ausencia de desbordes aritméticos con Frama-C WP.
 ````
 
@@ -242,6 +243,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`callahan`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Verificación de Búsqueda Binaria
+:label: callahan-desafio-1
 Demostrar que `busqueda_binaria()` no sufre desbordes al calcular `mid`.
 
 **Instrucción de ejecución:**
@@ -250,7 +252,7 @@ callahan check src/busqueda.c
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} callahan-desafio-1
 ```bash
 callahan check src/busqueda.c
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -258,6 +260,7 @@ callahan check src/busqueda.c
 ````
 
 ````{exercise} Desafío 2: Invariante de Lazo en Inversión de Vector
+:label: callahan-desafio-2
 Escribir contratos ACSL para invertir un vector.
 
 **Instrucción de ejecución:**
@@ -266,7 +269,7 @@ callahan check src/invertir.c
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} callahan-desafio-2
 ```bash
 callahan check src/invertir.c
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -274,6 +277,7 @@ callahan check src/invertir.c
 ````
 
 ````{exercise} Desafío 3: Generación Automática de Contratos
+:label: callahan-desafio-3
 Generar precondiciones de punteros válidos para `include/lista.h`.
 
 **Instrucción de ejecución:**
@@ -282,7 +286,7 @@ callahan gen-contracts include/lista.h -o include/lista_contratos.h
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} callahan-desafio-3
 ```bash
 callahan gen-contracts include/lista.h -o include/lista_contratos.h
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

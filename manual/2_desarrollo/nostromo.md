@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-nostromo)=
 # Nostromo — Sandbox de Ejecución Segura en Linux con Bubblewrap y Test Runner
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Ejecución aislada y segura de binarios de estudiantes en contenedores ligeros de kernel (Bubblewrap / setrlimit), control de tiempo de CPU, memoria máxima y evaluación de casos de prueba .in/.out.
 ````
 
@@ -234,6 +235,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`nostromo`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Evaluación de Casos de Prueba en Sandbox
+:label: nostromo-desafio-1
 Correr una suite de 10 testcases sobre el ejecutable del TP.
 
 **Instrucción de ejecución:**
@@ -242,7 +244,7 @@ nostromo run --binary ./bin/tp1 --testcases testcases/
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} nostromo-desafio-1
 ```bash
 nostromo run --binary ./bin/tp1 --testcases testcases/
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -250,6 +252,7 @@ nostromo run --binary ./bin/tp1 --testcases testcases/
 ````
 
 ````{exercise} Desafío 2: Detección de Lazos Infinitos (Timeout)
+:label: nostromo-desafio-2
 Verificar que el sandbox interrumpe procesos que superan 2 segundos.
 
 **Instrucción de ejecución:**
@@ -258,7 +261,7 @@ nostromo exec --timeout 2s -- ./bin/bucle_infinito
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} nostromo-desafio-2
 ```bash
 nostromo exec --timeout 2s -- ./bin/bucle_infinito
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -266,6 +269,7 @@ nostromo exec --timeout 2s -- ./bin/bucle_infinito
 ````
 
 ````{exercise} Desafío 3: Límite de Consumo de Memoria
+:label: nostromo-desafio-3
 Comprobar que un programa que solicita 500 MB es abortado con cuota de 32 MB.
 
 **Instrucción de ejecución:**
@@ -274,7 +278,7 @@ nostromo exec --mem 32M -- ./bin/come_memoria
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} nostromo-desafio-3
 ```bash
 nostromo exec --mem 32M -- ./bin/come_memoria
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

@@ -8,7 +8,8 @@ date: "2026-09-14"
 (manual-scorm-tools)=
 # scorm-tools — Empaquetador y Validador SCORM 1.2 / 2004 para Moodle
 
-```{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Generación, validación formal y empaquetado de módulos interactivos compatibles con el estándar SCORM (1.2 y 2004 4th Edition) listos para su despliegue en plataformas LMS como Moodle.
 ```
 

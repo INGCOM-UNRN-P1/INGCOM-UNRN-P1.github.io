@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-hal)=
 # Hal — Asistente Forense de Core Dumps y Análisis Post-Mortem de Segfaults en C
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Diagnóstico forense automático de caídas fatales (SIGSEGV, SIGABRT, SIGFPE), inspección de core dumps, extracción de stack traces con GDB y explicación didáctica en español rioplatense.
 ````
 
@@ -250,6 +251,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`hal`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Diagnóstico de Puntero Nulo
+:label: hal-desafio-1
 Ejecutar un binario con crash por NULL y revisar el stack trace pedagógico.
 
 **Instrucción de ejecución:**
@@ -258,7 +260,7 @@ hal inspect ./bin/crash_null
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} hal-desafio-1
 ```bash
 hal inspect ./bin/crash_null
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -266,6 +268,7 @@ hal inspect ./bin/crash_null
 ````
 
 ````{exercise} Desafío 2: Análisis de Core Dump Post-Mortem
+:label: hal-desafio-2
 Inspeccionar un core dump generado en un servidor sin volver a compilar.
 
 **Instrucción de ejecución:**
@@ -274,7 +277,7 @@ hal core ./bin/servidor /var/cores/core.1234
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} hal-desafio-2
 ```bash
 hal core ./bin/servidor /var/cores/core.1234
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -282,6 +285,7 @@ hal core ./bin/servidor /var/cores/core.1234
 ````
 
 ````{exercise} Desafío 3: Traducción de Acceso Fuera de Límites (Buffer Overflow)
+:label: hal-desafio-3
 Diagnosticar un segfault provocado por escribir en `vec[1000000]`.
 
 **Instrucción de ejecución:**
@@ -290,7 +294,7 @@ hal inspect ./bin/crash_bounds
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} hal-desafio-3
 ```bash
 hal inspect ./bin/crash_bounds
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

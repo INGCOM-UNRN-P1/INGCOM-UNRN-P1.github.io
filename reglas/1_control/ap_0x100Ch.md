@@ -5,7 +5,6 @@ subtitle: "Estructuras de Control y Lazos (0x10XX)"
 ---
 
 (ap_0x100Ch)=
-(0x100Ch_ap)=
 # Antipatrón AP-0x100Ch: Caso de switch sin break (Fallthrough no intencional)
 
 :::{admonition} Regla de Estilo Asociada: 0x100Ch

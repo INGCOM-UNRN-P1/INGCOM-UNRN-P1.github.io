@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-spunkmeyer)=
 # Spunkmeyer — Detector de Antipatrones de Programación y Vicios Didácticos en C
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Detección estática de antipatrones típicos de estudiantes: casteo innecesario de `malloc()`, lazos `while (!feof(f))`, comparaciones redundantes `if (cond == true)`, y punteros a variables locales devueltos desde el stack.
 ````
 
@@ -245,6 +246,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`spunkmeyer`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Limpieza de Antipatrones en Código de Alumno
+:label: spunkmeyer-desafio-1
 Escanear una entrega y remover todos los vicios de programación.
 
 **Instrucción de ejecución:**
@@ -253,7 +255,7 @@ spunkmeyer detect src/
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} spunkmeyer-desafio-1
 ```bash
 spunkmeyer detect src/
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -261,6 +263,7 @@ spunkmeyer detect src/
 ````
 
 ````{exercise} Desafío 2: Consulta de Explicación de `while (!feof)`
+:label: spunkmeyer-desafio-2
 Leer el fundamento técnico de por qué `feof` no se activa antes de intentar leer.
 
 **Instrucción de ejecución:**
@@ -269,7 +272,7 @@ spunkmeyer explain WHILE_FEOF
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} spunkmeyer-desafio-2
 ```bash
 spunkmeyer explain WHILE_FEOF
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -277,6 +280,7 @@ spunkmeyer explain WHILE_FEOF
 ````
 
 ````{exercise} Desafío 3: Auto-Corrección de Comparaciones Booleanas
+:label: spunkmeyer-desafio-3
 Corregir automáticamente expresiones redundantes con `--fix`.
 
 **Instrucción de ejecución:**
@@ -285,7 +289,7 @@ spunkmeyer fix src/ --dry-run
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} spunkmeyer-desafio-3
 ```bash
 spunkmeyer fix src/ --dry-run
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

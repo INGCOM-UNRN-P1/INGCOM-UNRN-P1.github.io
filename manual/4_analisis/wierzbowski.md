@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-wierzbowski)=
 # Wierzbowski — Auditor de Grafos de Inclusión de Headers, Dependencias Circulares y Makefiles
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Auditoría estática de dependencias entre archivos `.h` y `.c`, detección de inclusiones circulares, includes redundantes o no utilizados y validación de reglas en Makefiles.
 ````
 
@@ -227,6 +228,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`wierzbowski`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Detección de Inclusiones Circulares
+:label: wierzbowski-desafio-1
 Escanear todos los headers de un proyecto grande para resolver ciclos.
 
 **Instrucción de ejecución:**
@@ -235,7 +237,7 @@ wierzbowski audit include/
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} wierzbowski-desafio-1
 ```bash
 wierzbowski audit include/
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -243,6 +245,7 @@ wierzbowski audit include/
 ````
 
 ````{exercise} Desafío 2: Limpieza de Headers Inutilizados
+:label: wierzbowski-desafio-2
 remover includes innecesarios para acelerar el tiempo de compilación.
 
 **Instrucción de ejecución:**
@@ -251,7 +254,7 @@ wierzbowski unused-includes src/
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} wierzbowski-desafio-2
 ```bash
 wierzbowski unused-includes src/
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -259,6 +262,7 @@ wierzbowski unused-includes src/
 ````
 
 ````{exercise} Desafío 3: Validación de Dependencias en Makefile
+:label: wierzbowski-desafio-3
 Comprobar que modificar un `.h` fuerza la recompilación de los `.c` correspondientes.
 
 **Instrucción de ejecución:**
@@ -267,7 +271,7 @@ wierzbowski check-makefile Makefile
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} wierzbowski-desafio-3
 ```bash
 wierzbowski check-makefile Makefile
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

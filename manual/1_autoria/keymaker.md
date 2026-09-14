@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-keymaker)=
 # Keymaker — Gestor de Cifrado, Integridad y Desbloqueo Temporal para Paquetes de Examen
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Cifrado simétrico autenticado (AES-256-GCM / ChaCha20-Poly1305), firmas digitales Ed25519, Time-Lock para exámenes y división de secretos de Shamir para la cátedra.
 ````
 
@@ -29,26 +30,26 @@ La herramienta **`keymaker`** provee la confidencialidad, autenticidad e integri
 (manual-keymaker-instalacion)=
 ## 2. Instalación y Verificación del Entorno
 
-````{{important}}
+````{important}
 verificá contar con OpenSSL y Python >= 3.11 antes de instalar `keymaker`.
 ````
 
 ### 2.1 Requisitos Previos del Sistema
 
-````{{tab-set}}
-```{{tab-item}} Ubuntu / Debian
+````{tab-set}
+```{tab-item} Ubuntu / Debian
 sudo apt update && sudo apt install -y build-essential libssl-dev python3-pip uv
 ```
 
-```{{tab-item}} Arch Linux / Manjaro
+```{tab-item} Arch Linux / Manjaro
 sudo pacman -S --needed base-devel openssl python-pip uv
 ```
 
-```{{tab-item}} Fedora / RHEL
+```{tab-item} Fedora / RHEL
 sudo dnf install -y gcc openssl-devel python3-pip uv
 ```
 
-```{{tab-item}} macOS (Homebrew)
+```{tab-item} macOS (Homebrew)
 brew install openssl uv
 ```
 ````
@@ -57,12 +58,12 @@ brew install openssl uv
 
 ### 2.2 Métodos de Instalación
 
-````{{tab-set}}
-```{{tab-item}} uv tool (Recomendado)
+````{tab-set}
+```{tab-item} uv tool (Recomendado)
 uv tool install . --editable
 ```
 
-```{{tab-item}} pip / venv
+```{tab-item} pip / venv
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
@@ -73,7 +74,7 @@ pip install -e .
 
 ### 2.3 Verificación con `doctor`
 
-````{{code-block}} bash
+````{code-block} bash
 keymaker doctor
 ````
 
@@ -102,7 +103,7 @@ keymaker doctor
 
 ### Generación de Claves de Cátedra y Firma del Examen
 
-````{{code-block}} bash
+````{code-block} bash
 # 1. Generar par de claves Ed25519 de cátedra
 keymaker gen-keys -p parcial1 -o ./claves
 
@@ -118,7 +119,8 @@ keymaker unpack parcial1.ripkg.enc -o ./examen_listo -p "PassphraseSegura2026!" 
 (manual-keymaker-ejercicios)=
 ## 5. Ejercicios Prácticos y Desafíos
 
-````{{exercise}} Desafío 1: Auditoría de Entropía
+````{exercise} Desafío 1: Auditoría de Entropía
+:label: keymaker-desafio-1
 Auditar una contraseña docente y verificar que supere los 80 bits de entropía teórica.
 
 **Paso a seguir:**
@@ -127,13 +129,14 @@ keymaker audit-passphrase "C@tedra_P1_Segura_2026!#$"
 ```
 ````
 
-````{{solution}} Desafío 1
+````{solution} keymaker-desafio-1
 ```bash
 keymaker audit-passphrase "C@tedra_P1_Segura_2026!#$" --json
 ```
 ````
 
-````{{exercise}} Desafío 2: División de la Clave de Corrección con Shamir
+````{exercise} Desafío 2: División de la Clave de Corrección con Shamir
+:label: keymaker-desafio-2
 Dividir la clave de corrección del examen entre 5 docentes exigiendo al menos 3 presentes para abrirla.
 
 **Paso a seguir:**
@@ -142,14 +145,15 @@ keymaker split-secret "ClaveMaestraCorreccion2026" -k 3 -n 5
 ```
 ````
 
-````{{solution}} Desafío 2
+````{solution} keymaker-desafio-2
 ```bash
 # Tomar 3 partes generadas y recombinarlas:
 keymaker combine-shares "1:<share1_b64>" "3:<share3_b64>" "5:<share5_b64>"
 ```
 ````
 
-````{{exercise}} Desafío 3: Cifrado con Derivación por Legajo
+````{exercise} Desafío 3: Cifrado con Derivación por Legajo
+:label: keymaker-desafio-3
 Empaquetar un recuperatorio individualizado para el legajo `1238305`.
 
 **Paso a seguir:**
@@ -158,7 +162,7 @@ keymaker pack ./recuperatorio -o recup_1238305.ripkg.enc -p "MasterKey" -l "1238
 ```
 ````
 
-````{{solution}} Desafío 3
+````{solution} keymaker-desafio-3
 ```bash
 keymaker unpack recup_1238305.ripkg.enc -o ./recup_abierto -p "MasterKey" -l "1238305"
 ```
@@ -179,7 +183,7 @@ keymaker unpack recup_1238305.ripkg.enc -o ./recup_abierto -p "MasterKey" -l "12
 (manual-keymaker-ecosistema)=
 ## 7. Integración y Conexión con el Ecosistema
 
-````{{mermaid}}
+````{mermaid}
 graph TD
     DK[Deckard: Banco de Ejercicios] -->|Enunciados y resolvé| KM[Keymaker: Cifrado e Integridad]
     KM -->|Bundle Cifrado .ripkg.enc| CAMPUS[Campus Virtual / GitHub Classroom]

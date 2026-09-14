@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-motoko)=
 # Motoko — Verificador de Encapsulamiento Estricto, Opacidad de Structs e Invariantes de TDA
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Auditoría de modularidad en C para proveer que los tipos de datos abstractos (TDAs) mantengan sus estructuras opacas (incomplete types en .h) y ningún código cliente acceda a miembros privados.
 ````
 
@@ -234,6 +235,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`motoko`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Detección de Violaciones de Encapsulamiento
+:label: motoko-desafio-1
 Verificar que `src/cliente.c` solo interactúe mediante la API pública del TDA.
 
 **Instrucción de ejecución:**
@@ -242,7 +244,7 @@ motoko check include/ src/
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} motoko-desafio-1
 ```bash
 motoko check include/ src/
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -250,6 +252,7 @@ motoko check include/ src/
 ````
 
 ````{exercise} Desafío 2: Opacificación de Headers de Cátedra
+:label: motoko-desafio-2
 Ocultar la definición interna de nodos en `include/arbol.h`.
 
 **Instrucción de ejecución:**
@@ -258,7 +261,7 @@ motoko opacify include/arbol.h
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} motoko-desafio-2
 ```bash
 motoko opacify include/arbol.h
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -266,6 +269,7 @@ motoko opacify include/arbol.h
 ````
 
 ````{exercise} Desafío 3: Auditoría de Invariantes de Estado
+:label: motoko-desafio-3
 mantener que `pila_desapilar()` actualice siempre el tope y el contador.
 
 **Instrucción de ejecución:**
@@ -274,7 +278,7 @@ motoko invariants src/pila.c
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} motoko-desafio-3
 ```bash
 motoko invariants src/pila.c
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

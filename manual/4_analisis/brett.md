@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-brett)=
 # Brett — Auditor de Memoria, Padding y Layout Óptimo de Structs en C
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Auditoría de alineación de memoria, cálculo de bytes desperdiciados por padding y reordenamiento automático de campos.
 ````
 
@@ -237,6 +238,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`brett`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Auditoría de Header de Red
+:label: brett-desafio-1
 Auditar `include/protocolo.h` y detectar structs con más de 20% de padding.
 
 **Instrucción de ejecución:**
@@ -245,7 +247,7 @@ brett audit include/protocolo.h
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} brett-desafio-1
 ```bash
 brett audit include/protocolo.h
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -253,6 +255,7 @@ brett audit include/protocolo.h
 ````
 
 ````{exercise} Desafío 2: Optimización Automática In-Place
+:label: brett-desafio-2
 Aplicar reordenamiento óptimo sobre `include/envio.h`.
 
 **Instrucción de ejecución:**
@@ -261,7 +264,7 @@ brett optimize include/envio.h --in-place
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} brett-desafio-2
 ```bash
 brett optimize include/envio.h --in-place
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -269,6 +272,7 @@ brett optimize include/envio.h --in-place
 ````
 
 ````{exercise} Desafío 3: Comparativa Multiplataforma 32 vs 64 bits
+:label: brett-desafio-3
 Evaluar la diferencia de alineación entre x86 y ARM.
 
 **Instrucción de ejecución:**
@@ -277,7 +281,7 @@ brett audit include/nodo.h --arch 32bit --arch 64bit
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} brett-desafio-3
 ```bash
 brett audit include/nodo.h --arch 32bit --arch 64bit
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

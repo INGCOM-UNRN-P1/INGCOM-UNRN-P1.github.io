@@ -5,7 +5,6 @@ subtitle: "Punteros y Gestión de Memoria (0x30XX)"
 ---
 
 (ap_0x300Dh)=
-(0x300Dh_ap)=
 # Antipatrón AP-0x300Dh: Número mágico literal en condición lógica
 
 :::{admonition} Regla de Estilo Asociada: 0x300Dh

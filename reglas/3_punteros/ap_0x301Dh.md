@@ -5,7 +5,6 @@ subtitle: "Punteros y Gestión de Memoria (0x30XX)"
 ---
 
 (ap_0x301Dh)=
-(0x301Dh_ap)=
 # Antipatrón AP-0x301Dh: Comparación sintáctica errónea de puntero con carácter nulo '\0'
 
 :::{admonition} Regla de Estilo Asociada: 0x3008h

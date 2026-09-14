@@ -5,7 +5,6 @@ subtitle: "Punteros y Gestión de Memoria (0x30XX)"
 ---
 
 (ap_0x301Ch)=
-(0x301Ch_ap)=
 # Antipatrón AP-0x301Ch: Casteo redundante en invocación de free()
 
 :::{admonition} Regla de Estilo Asociada: 0x300Ah

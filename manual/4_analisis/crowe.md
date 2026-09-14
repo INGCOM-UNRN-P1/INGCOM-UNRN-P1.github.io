@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-crowe)=
 # Crowe — Linter de Portabilidad Multi-Arquitectura, Endianness y Tipos de Ancho Fijo
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Detección de asunciones no portables en C: tamaño de punteros, orden de bytes (Little vs Big Endian), alineación y uso de tipos primitivos no estándar.
 ````
 
@@ -237,6 +238,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`crowe`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Auditoría de Serializador Binario
+:label: crowe-desafio-1
 Detectar problemas de orden de bytes en `src/protocolo.c`.
 
 **Instrucción de ejecución:**
@@ -245,7 +247,7 @@ crowe endianness src/protocolo.c
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} crowe-desafio-1
 ```bash
 crowe endianness src/protocolo.c
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -253,6 +255,7 @@ crowe endianness src/protocolo.c
 ````
 
 ````{exercise} Desafío 2: Migración a Tipos de Ancho Fijo
+:label: crowe-desafio-2
 Reemplazar `unsigned int` y `long` por `uint32_t` y `int64_t`.
 
 **Instrucción de ejecución:**
@@ -261,7 +264,7 @@ crowe fix-types src/ -i
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} crowe-desafio-2
 ```bash
 crowe fix-types src/ -i
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -269,6 +272,7 @@ crowe fix-types src/ -i
 ````
 
 ````{exercise} Desafío 3: Simulación en Arquitectura Big Endian
+:label: crowe-desafio-3
 Verificar el comportamiento bajo emulación MIPS/PowerPC con QEMU.
 
 **Instrucción de ejecución:**
@@ -277,7 +281,7 @@ crowe audit src/ --target mips
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} crowe-desafio-3
 ```bash
 crowe audit src/ --target mips
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

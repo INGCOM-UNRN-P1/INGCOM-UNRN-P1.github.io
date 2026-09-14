@@ -5,7 +5,6 @@ subtitle: "Estructuras de Control y Lazos (0x10XX)"
 ---
 
 (ap_0x100Dh)=
-(0x100Dh_ap)=
 # Antipatrón AP-0x100Dh: Variable float o double utilizada como contador de bucle
 
 :::{admonition} Regla de Estilo Asociada: 0x100Dh

@@ -5,7 +5,6 @@ subtitle: "Punteros y Gestión de Memoria (0x30XX)"
 ---
 
 (ap_0x302Ah)=
-(0x302Ah_ap)=
 # Antipatrón AP-0x302Ah: Casteo forzado de tipos numéricos o literales enteros a punteros
 
 :::{admonition} Regla de Estilo Asociada: 0x300Ah

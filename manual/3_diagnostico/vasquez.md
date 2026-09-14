@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-vasquez)=
 # Vasquez — Inyector de Fallos en Runtime vía LD_PRELOAD sobre malloc, fopen y Syscalls
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Inyección no invasiva de fallos de hardware y sistema operativo en tiempo de ejecución interceptando llamadas a glibc mediante una librería `LD_PRELOAD` sin recompilar el código del estudiante.
 ````
 
@@ -239,6 +240,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`vasquez`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Simulación de Memoria Agotada en `malloc`
+:label: vasquez-desafio-1
 Comprobar si el programa maneja el retorno `NULL` de memoria.
 
 **Instrucción de ejecución:**
@@ -247,7 +249,7 @@ vasquez inject --target ./bin/tp1 --fail-malloc-at 1
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} vasquez-desafio-1
 ```bash
 vasquez inject --target ./bin/tp1 --fail-malloc-at 1
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -255,6 +257,7 @@ vasquez inject --target ./bin/tp1 --fail-malloc-at 1
 ````
 
 ````{exercise} Desafío 2: Inyección de Falla en Archivo de Configuración
+:label: vasquez-desafio-2
 Forzar a que `fopen()` devuelva NULL y verificar mensaje de error.
 
 **Instrucción de ejecución:**
@@ -263,7 +266,7 @@ vasquez inject --target ./bin/tp1 --faults "fopen:1"
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} vasquez-desafio-2
 ```bash
 vasquez inject --target ./bin/tp1 --faults "fopen:1"
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -271,6 +274,7 @@ vasquez inject --target ./bin/tp1 --faults "fopen:1"
 ````
 
 ````{exercise} Desafío 3: Auditoría Integrada con Diagnóstico Forense HAL
+:label: vasquez-desafio-3
 Capturar el crash ante un fallo inyectado y visualizar la línea origen.
 
 **Instrucción de ejecución:**
@@ -279,7 +283,7 @@ vasquez inject --target ./bin/tp1 --fail-malloc-at 2 --diagnose
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} vasquez-desafio-3
 ```bash
 vasquez inject --target ./bin/tp1 --fail-malloc-at 2 --diagnose
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

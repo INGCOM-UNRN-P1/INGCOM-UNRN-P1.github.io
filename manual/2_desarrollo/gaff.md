@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-gaff)=
 # Gaff — Linter Pedagógico de Estilo Arquitectónico y Convenciones Cátedra con Autofix
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Auditoría y corrección automática de estilo en C: formato Allman, nomenclatura snake_case, espacios en palabras clave, guardas de inclusión y prohibición de variables globales.
 ````
 
@@ -237,6 +238,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`gaff`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Auditoría Recursiva de Proyecto
+:label: gaff-desafio-1
 Auditar todo el árbol de carpetas con el nuevo flag `-r`.
 
 **Instrucción de ejecución:**
@@ -245,7 +247,7 @@ gaff check src/ include/ -r
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} gaff-desafio-1
 ```bash
 gaff check src/ include/ -r
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -253,6 +255,7 @@ gaff check src/ include/ -r
 ````
 
 ````{exercise} Desafío 2: Auto-Corrección Interactiva
+:label: gaff-desafio-2
 Corregir espaciados y llaves Allman previsualizando el diff.
 
 **Instrucción de ejecución:**
@@ -261,7 +264,7 @@ gaff fix --interactive src/
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} gaff-desafio-2
 ```bash
 gaff fix --interactive src/
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -269,6 +272,7 @@ gaff fix --interactive src/
 ````
 
 ````{exercise} Desafío 3: Exportación de Catálogo de Reglas
+:label: gaff-desafio-3
 Generar el manual Markdown de reglas de estilo para consulta del equipo.
 
 **Instrucción de ejecución:**
@@ -277,7 +281,7 @@ gaff export-rules -o REGLAS_ESTILO.md
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} gaff-desafio-3
 ```bash
 gaff export-rules -o REGLAS_ESTILO.md
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

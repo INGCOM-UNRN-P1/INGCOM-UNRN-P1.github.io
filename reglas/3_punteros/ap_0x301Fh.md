@@ -5,7 +5,6 @@ subtitle: "Punteros y Gestión de Memoria (0x30XX)"
 ---
 
 (ap_0x301Fh)=
-(0x301Fh_ap)=
 # Antipatrón AP-0x301Fh: Asignación de retorno de malloc() a variable no puntero
 
 :::{admonition} Regla de Estilo Asociada: 0x3001h

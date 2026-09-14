@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-ripley)=
 # Ripley — Linter Pedagógico de Reglas Institucionales 0xXXXXh y Microkernel de Auditoría
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Linter central de cátedra que ejecuta el catálogo completo de reglas pedagógicas 0xXXXXh (estilo, modularidad, seguridad, antipatrones) y orquesta plugins desacoplados.
 ````
 
@@ -233,6 +234,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`ripley`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Auditoría Integral de Código Estudiantil
+:label: ripley-desafio-1
 Escanear todo el código fuente antes de enviar al autograder.
 
 **Instrucción de ejecución:**
@@ -241,7 +243,7 @@ ripley check src/ include/
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} ripley-desafio-1
 ```bash
 ripley check src/ include/
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -249,6 +251,7 @@ ripley check src/ include/
 ````
 
 ````{exercise} Desafío 2: Consulta de Fundamentos Pedagógicos
+:label: ripley-desafio-2
 Consultar por qué está prohibida la sentencia `goto` (0x1006h).
 
 **Instrucción de ejecución:**
@@ -257,7 +260,7 @@ ripley explain 0x1006h
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} ripley-desafio-2
 ```bash
 ripley explain 0x1006h
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -265,6 +268,7 @@ ripley explain 0x1006h
 ````
 
 ````{exercise} Desafío 3: Verificación con Modo Estricto de Cátedra
+:label: ripley-desafio-3
 Correr auditoría bloqueando commits si existen violaciones institucionales.
 
 **Instrucción de ejecución:**
@@ -273,7 +277,7 @@ ripley check src/ --strict
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} ripley-desafio-3
 ```bash
 ripley check src/ --strict
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

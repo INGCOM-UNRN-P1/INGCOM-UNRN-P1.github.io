@@ -5,7 +5,6 @@ subtitle: "Compilación, Buenas Prácticas y Seguridad (0x50XX)"
 ---
 
 (ap_0x500Bh)=
-(0x500Bh_ap)=
 # Antipatrón AP-0x500Bh: Redefinición de identificadores de funciones estándar de la biblioteca C
 
 :::{admonition} Regla de Estilo Asociada: 0x500Bh

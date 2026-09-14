@@ -5,7 +5,6 @@ subtitle: "Punteros y Gestión de Memoria (0x30XX)"
 ---
 
 (ap_0x301Ah)=
-(0x301Ah_ap)=
 # Antipatrón AP-0x301Ah: Tamaño insuficiente en memset con sizeof(ptr)
 
 :::{admonition} Regla de Estilo Asociada: 0x301Ah

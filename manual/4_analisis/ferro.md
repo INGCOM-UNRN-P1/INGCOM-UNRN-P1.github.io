@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-ferro)=
 # Ferro — Perfilador de Rendimiento Algorítmico, Caché y Contadores de Hardware en C
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Medición de métricas de rendimiento en tiempo de ejecución: ciclos de CPU, instrucciones ejecutadas (IPC), aciertos y fallos de caché L1/L2/L3 y predicción de saltos.
 ````
 
@@ -243,6 +244,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`ferro`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Optimización de Recorrido de Matrices
+:label: ferro-desafio-1
 Medir la tasa de fallos de caché L1 al transponer una matriz.
 
 **Instrucción de ejecución:**
@@ -251,7 +253,7 @@ ferro profile -- ./bin/transposicion
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} ferro-desafio-1
 ```bash
 ferro profile -- ./bin/transposicion
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -259,6 +261,7 @@ ferro profile -- ./bin/transposicion
 ````
 
 ````{exercise} Desafío 2: Comparativa de Algoritmos de Ordenamiento
+:label: ferro-desafio-2
 Comparar QuickSort vs BubbleSort midiendo instrucciones y saltos mal predichos.
 
 **Instrucción de ejecución:**
@@ -267,7 +270,7 @@ ferro compare --bin1 ./bin/quicksort --bin2 ./bin/bubblesort
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} ferro-desafio-2
 ```bash
 ferro compare --bin1 ./bin/quicksort --bin2 ./bin/bubblesort
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -275,6 +278,7 @@ ferro compare --bin1 ./bin/quicksort --bin2 ./bin/bubblesort
 ````
 
 ````{exercise} Desafío 3: Simulación de Localidad Espacial
+:label: ferro-desafio-3
 Inspeccionar cómo el empaquetamiento de structs reduce accesos a memoria.
 
 **Instrucción de ejecución:**
@@ -283,7 +287,7 @@ ferro cache-sim -- ./bin/test_structs
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} ferro-desafio-3
 ```bash
 ferro cache-sim -- ./bin/test_structs
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

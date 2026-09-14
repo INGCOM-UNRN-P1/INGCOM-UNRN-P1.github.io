@@ -8,7 +8,8 @@ date: "2026-09-14"
 (manual-gestion)=
 # gestion — Automatización de Calificaciones y Sincronización
 
-```{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Sincronización bidireccional entre la base de datos de notas SQLite de Dredd, planillas de cálculo institucionales y registros académicos.
 ```
 

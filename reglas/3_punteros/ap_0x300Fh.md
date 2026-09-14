@@ -5,7 +5,6 @@ subtitle: "Punteros y Gestión de Memoria (0x30XX)"
 ---
 
 (ap_0x300Fh)=
-(0x300Fh_ap)=
 # Antipatrón AP-0x300Fh: Uso de sizeof(puntero) en reserva dinámica
 
 :::{admonition} Regla de Estilo Asociada: 0x300Fh

@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-tetsuo)=
 # Tetsuo — Traductor y Explicador Pedagógico en Español de Sanitizers ASan/UBSan
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Traducción de informes crípticos generados por AddressSanitizer (ASan) y UndefinedBehaviorSanitizer (UBSan) a explicaciones claras en español rioplatense, con diagramas de memoria y sugerencias directas.
 ````
 
@@ -241,6 +242,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`tetsuo`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Traducción de Heap-Use-After-Free
+:label: tetsuo-desafio-1
 Ejecutar un código que accede a memoria liberada y analizar la traducción de Tetsuo.
 
 **Instrucción de ejecución:**
@@ -249,7 +251,7 @@ tetsuo run -- ./bin/use_after_free
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} tetsuo-desafio-1
 ```bash
 tetsuo run -- ./bin/use_after_free
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -257,6 +259,7 @@ tetsuo run -- ./bin/use_after_free
 ````
 
 ````{exercise} Desafío 2: Diagnóstico de Stack-Buffer-Overflow
+:label: tetsuo-desafio-2
 Identificar desbordes en variables locales del stack.
 
 **Instrucción de ejecución:**
@@ -265,7 +268,7 @@ tetsuo run -- ./bin/stack_overflow
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} tetsuo-desafio-2
 ```bash
 tetsuo run -- ./bin/stack_overflow
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -273,6 +276,7 @@ tetsuo run -- ./bin/stack_overflow
 ````
 
 ````{exercise} Desafío 3: Compilación Instrumentada Rápida
+:label: tetsuo-desafio-3
 Compilar con sanitizers completos mediante el comando asistido.
 
 **Instrucción de ejecución:**
@@ -281,7 +285,7 @@ tetsuo compile src/main.c -o bin/debug_app
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} tetsuo-desafio-3
 ```bash
 tetsuo compile src/main.c -o bin/debug_app
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

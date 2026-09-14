@@ -8,7 +8,8 @@ date: "2026-09-14"
 (manual-slide-tools)=
 # slide-tools — Control Remoto y Sincronización para Google Slides
 
-```{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Transmisión remota de notas de orador, cronómetro sincronizado y pase de diapositivas mediante protocolo WebSocket y extensión de navegador.
 ```
 

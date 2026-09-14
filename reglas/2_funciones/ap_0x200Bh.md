@@ -5,7 +5,6 @@ subtitle: "Funciones y Modularización (0x20XX)"
 ---
 
 (ap_0x200Bh)=
-(0x200Bh_ap)=
 # Antipatrón AP-0x200Bh: Función con excesiva cantidad de parámetros (> 5)
 
 :::{admonition} Regla de Estilo Asociada: 0x200Bh

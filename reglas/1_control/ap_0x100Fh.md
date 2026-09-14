@@ -5,7 +5,6 @@ subtitle: "Estructuras de Control y Lazos (0x10XX)"
 ---
 
 (ap_0x100Fh)=
-(0x100Fh_ap)=
 # Antipatrón AP-0x100Fh: Posible error off-by-one en condición de parada de bucle
 
 :::{admonition} Regla de Estilo Asociada: 0x100Fh

@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-myst_tools)=
 # Myst-Tools — Suite de Normalización, Formateo a 80 Columnas, Anclas e Índices MyST
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Automatización y estandarización de material didáctico en formato MyST Markdown: formateo a 80 columnas respetando directivas, anclas semánticas, generación de índices y corrector LanguageTool.
 ````
 
@@ -236,6 +237,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`myst-tools`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Formateo Estándar de Apuntes
+:label: myst_tools-desafio-1
 Normalizar el ancho de línea de un capítulo a 80 columnas.
 
 **Instrucción de ejecución:**
@@ -244,7 +246,7 @@ myst-tools fmt apunte/capitulo1.md
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} myst_tools-desafio-1
 ```bash
 myst-tools fmt apunte/capitulo1.md
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -252,6 +254,7 @@ myst-tools fmt apunte/capitulo1.md
 ````
 
 ````{exercise} Desafío 2: Resolución de Colisión de Anclas
+:label: myst_tools-desafio-2
 Detectar y corregir encabezados con anclas repetidas.
 
 **Instrucción de ejecución:**
@@ -260,7 +263,7 @@ myst-tools fix-anchors apunte/
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} myst_tools-desafio-2
 ```bash
 myst-tools fix-anchors apunte/
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -268,6 +271,7 @@ myst-tools fix-anchors apunte/
 ````
 
 ````{exercise} Desafío 3: Corrección Ortográfica con LanguageTool
+:label: myst_tools-desafio-3
 Auditar la ortografía de la guía de trabajos prácticos.
 
 **Instrucción de ejecución:**
@@ -276,7 +280,7 @@ myst-tools spellcheck guias/ --lang es-AR
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} myst_tools-desafio-3
 ```bash
 myst-tools spellcheck guias/ --lang es-AR
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

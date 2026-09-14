@@ -8,7 +8,8 @@ date: "2026-08-31"
 (manual-drake)=
 # Drake — Fuzzer Guiado por Límites y Analizador de Robustez ante Entradas Extremas
 
-````{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Generación procedural de casos de prueba límite (valores frontera como INT_MAX, INT_MIN, cadenas sin terminador, buffers gigantes) para detectar desbordes y caídas inesperadas en C.
 ````
 
@@ -234,6 +235,7 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 Practicá el uso avanzado de **`drake`** resolviendo los siguientes ejercicios:
 
 ````{exercise} Desafío 1: Fuzzing de Parser de Números
+:label: drake-desafio-1
 Ejecutar 50 iteraciones de valores extremos contra `parsear_entero()`.
 
 **Instrucción de ejecución:**
@@ -242,7 +244,7 @@ drake fuzz --binary ./bin/parser_test --runs 50
 ```
 ````
 
-````{solution} Desafío 1
+````{solution} drake-desafio-1
 ```bash
 drake fuzz --binary ./bin/parser_test --runs 50
 # Verificá que la operación concluya exitosamente con código de salida 0.
@@ -250,6 +252,7 @@ drake fuzz --binary ./bin/parser_test --runs 50
 ````
 
 ````{exercise} Desafío 2: Detección de División por Cero
+:label: drake-desafio-2
 Inyectar denominador 0 y desbordes en calculadora aritmética.
 
 **Instrucción de ejecución:**
@@ -258,7 +261,7 @@ drake fuzz --binary ./bin/calc --type math
 ```
 ````
 
-````{solution} Desafío 2
+````{solution} drake-desafio-2
 ```bash
 drake fuzz --binary ./bin/calc --type math
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
@@ -266,6 +269,7 @@ drake fuzz --binary ./bin/calc --type math
 ````
 
 ````{exercise} Desafío 3: Validación de Desbordes de String
+:label: drake-desafio-3
 Alimentar buffers de entrada con cadenas sin byte nulo `\0`.
 
 **Instrucción de ejecución:**
@@ -274,7 +278,7 @@ drake fuzz --binary ./bin/string_app --type string
 ```
 ````
 
-````{solution} Desafío 3
+````{solution} drake-desafio-3
 ```bash
 drake fuzz --binary ./bin/string_app --type string
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.

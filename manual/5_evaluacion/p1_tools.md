@@ -8,7 +8,8 @@ date: "2026-09-14"
 (manual-p1-tools)=
 # p1-tools — Meta-Repositorio y Orquestación Global del Ecosistema
 
-```{abstract}
+```{admonition} Resumen Técnico del Satélite
+:class: note
 **Rol en el ecosistema:** Repositorio central de gobernanza arquitectónica, sincronización de submódulos git, directivas de desarrollo, skills pedagógicas y auditoría de salud.
 ```
 
