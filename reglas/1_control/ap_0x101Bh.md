@@ -1,0 +1,46 @@
+---
+title: "Antipatrón AP-0x101Bh: Comparación entre tipos enteros con y sin signo en condición"
+short_title: "AP-0x101Bh"
+subtitle: "Estructuras de Control y Lazos (0x10XX)"
+---
+
+(ap_0x101Bh)=
+(0x101Bh_ap)=
+# Antipatrón AP-0x101Bh: Comparación entre tipos enteros con y sin signo en condición
+
+:::{admonition} Regla de Estilo Asociada: 0x1005h
+:class: tip
+La transgresión descripta en este antipatrón se encuentra normada por la **[0x1005h: no uses las condiciones ambiguas basadas en la "veracidad" (truthiness) del tipo de dato](0x1005h.md)**.
+:::
+
+```{admonition} Diagnóstico de Antipatrón
+:class: warning
+Código de auditoría: `AP-0x101Bh` | Categoría: Estructuras de Control y Lazos (0x10XX)
+```
+
+
+## Diagnóstico
+En C, si un operando es con signo y el otro es sin signo del mismo o mayor rango, el valor con signo se convierte implícitamente a sin signo. Si 'i' es negativo (-1), se convierte a un número enorme mayor que cualquier límite positivo.
+
+## Justificación Pedagógica y de Estándar C
+El código de diagnóstico `0x101Bh` identifica una práctica desaconsejada en la arquitectura pedagógica de la materia.
+Esta transgresión incrementa el acoplamiento, produce comportamiento indefinido o vulnera los invariantes de memoria.
+
+## Sugerencia de Corrección
+Utilizá tipos consistentes (ambos 'size_t' o casteá de forma controlada tras verificar que i >= 0).
+
+## Ejemplos
+
+### Código con Antipatrón (Incorrecto)
+```c
+int i = -1;
+size_t n = 10;
+if (i < n) { ... }
+```
+
+### Código Idiomático Refactorizado (Correcto)
+```c
+size_t i = 0;
+size_t n = 10;
+if (i < n) { ... }
+```
