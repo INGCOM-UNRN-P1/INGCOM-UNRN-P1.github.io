@@ -1,112 +1,38 @@
 ---
-title: Compilación y Buenas Prácticas de Ingeniería
-short_title: Buenas Prácticas
-subtitle: Reglas de estilo para la compilación robusta y buenas prácticas de ingeniería en C
+title: "Compilación y Buenas Prácticas de Ingeniería (0x50XX)"
+short_title: "Buenas Prácticas"
+subtitle: "Reglas sobre directivas de preprocesador, guardas de inclusión, robustez y configuración de compilador."
 ---
 
-(0x50XXh)=
-# Compilación y Buenas Prácticas de Ingeniería (`0x50XX`)
+(5_buenas_practicas)=
+# Compilación y Buenas Prácticas de Ingeniería (0x50XX)
 
-(0x5001h)=
-## Regla `0x5001h`: Los arreglos estáticos deben ser creados con un tamaño fijo en tiempo de compilación
+Reglas sobre directivas de preprocesador, guardas de inclusión, robustez y configuración de compilador.
 
-Los Arreglos de Longitud Variable (ALV / VLA) están prohibidos debido a los
-riesgos de desbordamiento incontrolado de la pila. Deben definirse con una
-constante en tiempo de compilación.
-
-``` diff
-- int n = 10;
-- int numeros[n]; // ALV prohibido
-+ #define TAMANO_NUMEROS 10
-+ int numeros[TAMANO_NUMEROS];
+```{tableofcontents}
 ```
-<!-- diff -->
 
-(0x5002h)=
-## Regla `0x5002h`: Desarrollá y compilá siempre con todas las advertencias del compilador activadas
+## Reglas de esta Categoría
 
-Debés activar las advertencias de compilación para la detección temprana de
-errores lógicos. Usá al menos las siguientes banderas con `gcc` o `clang`:
-
-``` make
-CFLAGS += -Wall -Wextra -Wpedantic \
-          -Wformat=2 -Wno-unused-parameter -Wshadow \
-          -Wwrite-strings -Wstrict-prototypes -Wold-style-definition \
-          -Wredundant-decls -Wnested-externs -Wmissing-include-dirs
-```
-<!-- make -->
-
-(0x5003h)=
-## Regla `0x5003h`: Utilizá guardas de inclusión en todos los archivos de cabecera
-
-Todos los archivos de cabecera (`.h`) deben incluir guardas de preprocesador
-para evitar problemas de redefinición múltiple.
-
-``` c
-#ifndef MI_MODULO_H
-#define MI_MODULO_H
-// Declaraciones...
-#endif // MI_MODULO_H
-```
-<!-- c -->
-
-Añadí comentarios en las directivas `#include` de cabeceras de terceros o del
-proyecto para documentar la provisión de símbolos, y evitá cabeceras unificadas
-que importen todo un módulo innecesariamente.
-
-(0x5004h)=
-## Regla `0x5004h`: Todas las operaciones con cadenas deben ser seguras
-
-Utilizá funciones que controlen los límites de tamaño máximo del buffer de
-destino (`strncpy`, `snprintf`, `strncat`) para prevenir desbordamientos.
-
-- **Incorrecto (inseguro):**
-  ```c
-  void concatenar_saludo(char *destino, const char *nombre)
-  {
-      strcpy(destino, "Hola, ");
-      strcat(destino, nombre);
-  }
-  ```
-- **Correcto (seguro):**
-  ```c
-  void concatenar_saludo_seguro(char *destino, size_t tam_destino,
-                                const char *nombre)
-  {
-      snprintf(destino, tam_destino, "Hola, %s", nombre);
-  }
-  ```
-
-(0x5005h)=
-## Regla `0x5005h`: Organizá la estructura de tus archivos `.c` de forma estándar
-
-Mantené la estructura de archivo ordenada en secciones progresivas para mejorar
-su predictibilidad:
-
-1.  Inclusiones de bibliotecas estándar (`<stdio.h>`).
-2.  Inclusiones de bibliotecas de terceros.
-3.  Inclusiones de cabeceras del proyecto (`"modulo.h"`).
-4.  Definición de macros y constantes (`#define`).
-5.  Definiciones de tipos (`typedef`, `struct`, `enum`).
-6.  Prototipos de funciones privadas (`static`).
-7.  Función `main` (si aplica).
-8.  Implementación de funciones públicas.
-9.  Implementación de funciones privadas (`static`).
-
-(0x5006h)=
-## Regla `0x5006h`: Preferí `fgets` sobre `gets` y `scanf` para leer cadenas
-
-`fgets` previene el desbordamiento de búfer de entrada de forma automática
-mediante la validación de tamaño del buffer de entrada.
-
-- **Incorrecto:**
-  ```c
-  char buffer[50];
-  scanf("%s", buffer);
-  ```
-- **Correcto:**
-  ```c
-  char buffer[50];
-  fgets(buffer, sizeof(buffer), stdin);
-  ```
-
+| Código | Regla |
+| :--- | :--- |
+| [0x5001h](5_buenas_practicas/0x5001h.md) | Los arreglos estáticos deben ser creados con un tamaño fijo en tiempo de compilación |
+| [0x5002h](5_buenas_practicas/0x5002h.md) | Desarrollá y compilá siempre con todas las advertencias del compilador activadas |
+| [0x5003h](5_buenas_practicas/0x5003h.md) | Utilizá guardas de inclusión en todos los archivos de cabecera |
+| [0x5004h](5_buenas_practicas/0x5004h.md) | Todas las operaciones con cadenas deben ser seguras |
+| [0x5005h](5_buenas_practicas/0x5005h.md) | Organizá la estructura de tus archivos .c de forma estándar |
+| [0x5006h](5_buenas_practicas/0x5006h.md) | Preferí fgets sobre gets y scanf para leer cadenas |
+| [0x5007h](5_buenas_practicas/0x5007h.md) | Inclusiones redundantes o duplicadas de la misma cabecera #include |
+| [0x5008h](5_buenas_practicas/0x5008h.md) | Prohibición de funciones obsoletas o inseguras (gets, atoi) |
+| [0x5009h](5_buenas_practicas/0x5009h.md) | Prohibición de división entera no intencional asignada a flotantes |
+| [0x500Ah](5_buenas_practicas/0x500Ah.md) | Protección obligatoria de parámetros en macros funcionales mediante paréntesis |
+| [0x500Bh](5_buenas_practicas/0x500Bh.md) | Inclusión obligatoria de cabeceras estándar para funciones de la biblioteca C |
+| [0x500Ch](5_buenas_practicas/0x500Ch.md) | Prohibición de inclusión directa de archivos de código fuente C (.c) |
+| [0x500Dh](5_buenas_practicas/0x500Dh.md) | Prohibición de redefinir palabras clave o tipos primitivos de C con #define |
+| [0x500Eh](5_buenas_practicas/0x500Eh.md) | Prohibición de la biblioteca obsoleta y no estándar <conio.h> (getch, clrscr) |
+| [0x5011h](5_buenas_practicas/0x5011h.md) | Colisión de nombres de macroguardas entre archivos de cabecera distintos |
+| [0x5012h](5_buenas_practicas/0x5012h.md) | Prohibición de directivas #pragma no estándar o privativas |
+| [0x5013h](5_buenas_practicas/0x5013h.md) | Prohibición de declaraciones extern en archivos de implementación (.c) |
+| [0x5014h](5_buenas_practicas/0x5014h.md) | Detección de inclusiones cíclicas entre archivos de cabecera |
+| [0x5015h](5_buenas_practicas/0x5015h.md) | Protección obligatoria con paréntesis envolventes en expresiones de macroconstantes (#define) |
+| [0x5016h](5_buenas_practicas/0x5016h.md) | Inclusión explícita obligatoria de cabeceras para funciones de biblioteca estándar |

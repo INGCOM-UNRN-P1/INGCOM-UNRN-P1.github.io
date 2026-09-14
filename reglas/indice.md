@@ -1,208 +1,185 @@
 ---
-title: Cuestiones de estilo
-short_title: Índice
-subtitle: Pautas para la organización y prolijidad del código.
+title: "Reglas de Estilo de Cátedra"
+short_title: "Índice de Reglas"
+subtitle: "Directivas arquitectónicas y de estilo en C11 (Máscaras 0xXXXXh)"
 ---
 
-## Introducción
+(reglas-estilo-indice)=
+# Reglas de Estilo de Cátedra
 
-Este documento establece un conjunto de reglas de estilo, diseñadas para que su
-código en C sea más claro, legible y menos propenso a errores. La programación
-en C ofrece una gran flexibilidad, pero ello también facilita la adopción de
-malas prácticas que pueden conducir a errores de difícil detección. Por este
-motivo, la adhesión a un conjunto de reglas claras es fundamental para mantener
-el código ordenado y seguro.
+Las reglas de cátedra establecen un estándar de codificación riguroso, uniforme y pedagógico.
+Se estructuran mediante una máscara de bits hexadecimal de 16 bits (`0xXXXXh`):
 
-La idea detrás de estas reglas es que un código de calidad no solo debe ser
-funcional, sino también comprensible para cualquier profesional que deba leerlo,
-ya sea vos mismo en el futuro o un colega que se incorpore al proyecto. Un
-código limpio y bien organizará facilita la colaboración, ahorra tiempo en la
-fase de corrección y previene complicaciones durante la depuración o
-actualización del software.
+1. **Sintaxis Básica y Nomenclatura (`0x00XX`)**: Formato visual, espaciado e identificadores.
+2. **Estructuras de Control y Lazos (`0x10XX`)**: Flujo de ejecución, condicionales y llaves.
+3. **Funciones y Modularización (`0x20XX`)**: Interfaces limpias, alcance mínimo y contratos.
+4. **Punteros y Gestión de Memoria (`0x30XX`)**: Indirecciones, heap y tipos opacos.
+5. **Gestión de Archivos y Errores (`0x40XX`)**: Flujos de E/S y verificación de retorno.
+6. **Compilación y Buenas Prácticas (`0x50XX`)**: Guardas, macros y directivas del compilador.
 
-Estas reglas abarcan desde la nomenclatura de variables y funciones hasta la
-estructuración de condicionales y lazos. Su observancia no solo contribuye a la
-coherencia del proyecto, sino que también resulta en un código más robusto y
-mantenible a largo plazo.
+```{tableofcontents}
+```
 
-Al comenzar, la aplicación de reglas estrictas en un lenguaje flexible como C te
-proporciona un marco sólido. A medida que tu comprensión del lenguaje se
-profundice, podés adaptar estas reglas para desarrollar un estilo propio.
+## Índice Completo de Reglas por Categoría
 
-## Apertura a Sugerencias y Debate
+### [Sintaxis Básica y Nomenclatura (0x00XX)](0_sintaxis/index.md)
 
-Estamos abiertos a debatir todas las reglas. Para ello, solo tenés que abrir un
-hilo en Discussions o un ticket en el Issue Tracker. Aceptamos propuestas de
-nuevas reglas, clasificaciones, explicaciones y potenciales excepciones.
+* [Regla `0x0000h`: La claridad y prolijidad son de máxima importancia](0_sintaxis/0x0000h.md)
+* [Regla `0x0001h`: Los identificadores deben ser descriptivos](0_sintaxis/0x0001h.md)
+* [Regla `0x0002h`: Una declaración de variable por línea](0_sintaxis/0x0002h.md)
+* [Regla `0x0003h`: Siempre debés inicializar las variables a un valor conocido](0_sintaxis/0x0003h.md)
+* [Regla `0x0004h`: Un espacio antes y después de cada operador binario](0_sintaxis/0x0004h.md)
+* [Regla `0x0005h`: Cada bloque debe tener una indentación de cuatro espacios respecto a su contenedor y llaves](0_sintaxis/0x0005h.md)
+* [Regla `0x0006h`: El asterisco de los punteros debe declararse junto al identificador](0_sintaxis/0x0006h.md)
+* [Regla `0x0007h`: Los argumentos de función y las variables locales deben usar snake_case en minúsculas](0_sintaxis/0x0007h.md)
+* [Regla `0x0008h`: Las constantes (const o #define) deben nombrarse en MAYUSCULAS_SNAKE_CASE](0_sintaxis/0x0008h.md)
+* [Regla `0x0009h`: Las líneas de código no deben exceder los 79 caracteres](0_sintaxis/0x0009h.md)
+* [Regla `0x000Ah`: Escribí comentarios que expliquen el "porqué", no el "qué"](0_sintaxis/0x000Ah.md)
+* [Regla `0x000Bh`: Las llaves deben ubicarse en líneas independientes según el estilo Allman](0_sintaxis/0x000Bh.md)
+* [Regla `0x000Ch`: Los nombres de los archivos deben usar snake_case en minúsculas (sin espacios)](0_sintaxis/0x000Ch.md)
+* [Regla `0x000Dh`: No dejes código comentado (dead code) en los archivos fuente](0_sintaxis/0x000Dh.md)
+* [Regla `0x000Eh`: Los nombres de funciones deben usar snake_case estricto en minúsculas](0_sintaxis/0x000Eh.md)
+* [Regla `0x000Fh`: Prescindí de comentarios obvios, redundantes o vacíos](0_sintaxis/0x000Fh.md)
+* [Regla `0x0010h`: Control de longitud máxima de archivos de código (máx 500 líneas)](0_sintaxis/0x0010h.md)
+* [Regla `0x0011h`: En archivos .c la inclusión de la cabecera propia debe figurar en primer lugar](0_sintaxis/0x0011h.md)
+* [Regla `0x0012h`: Las variables globales deben ser declaradas como static o usar prefijo g_](0_sintaxis/0x0012h.md)
+* [Regla `0x0013h`: Las macros #define deben nombrarse en MAYUSCULAS_SNAKE_CASE](0_sintaxis/0x0013h.md)
+* [Regla `0x0014h`: Prohibición de identificadores con caracteres no ASCII (acentos, ñ)](0_sintaxis/0x0014h.md)
+* [Regla `0x0015h`: Alineación vertical consistente en asignaciones y declaraciones consecutivas](0_sintaxis/0x0015h.md)
+* [Regla `0x0016h`: Prohibición de identificadores que colisionen con palabras clave o tipos estándar](0_sintaxis/0x0016h.md)
+* [Regla `0x0017h`: Espaciado consistente en declaraciones de doble puntero (tipo **var)](0_sintaxis/0x0017h.md)
+* [Regla `0x0018h`: Prohibición de identificadores con prefijos reservados para el compilador (__ o _[A-Z])](0_sintaxis/0x0018h.md)
+* [Regla `0x0019h`: Prohibición de espacios en blanco antes de separadores de sintaxis (; y ,)](0_sintaxis/0x0019h.md)
+* [Regla `0x001Ah`: Prohibición de espacios en blanco alrededor de operadores de acceso a miembros (-> y .)](0_sintaxis/0x001Ah.md)
+* [Regla `0x001Bh`: Prohibición de espacios en blanco entre operadores unarios (++, --, !) y su operando](0_sintaxis/0x001Bh.md)
+* [Regla `0x001Ch`: Espacio en blanco obligatorio tras la coma separadora en listas y argumentos](0_sintaxis/0x001Ch.md)
+* [Regla `0x001Dh`: Prohibición de espacios en blanco internos inmediatamente tras '(' o antes de ')'](0_sintaxis/0x001Dh.md)
+* [Regla `0x001Eh`: Prohibición de múltiples espacios en blanco consecutivos dentro de una línea de código](0_sintaxis/0x001Eh.md)
+* [Regla `0x001Fh`: Prohibición de llaves redundantes en inicialización de tipos escalares](0_sintaxis/0x001Fh.md)
+* [Regla `0x0020h`: Proporcionalidad en longitud de identificadores según su alcance](0_sintaxis/0x0020h.md)
+* [Regla `0x0022h`: Validador de espaciado estricto en sentencias de control](0_sintaxis/0x0022h.md)
+* [Regla `0x0023h`: Detector de variables locales no inicializadas con modificador const](0_sintaxis/0x0023h.md)
+* [Regla `0x0025h`: Validador de formato canónico en firmas de punteros a función](0_sintaxis/0x0025h.md)
+* [Regla `0x0026h`: Auditor de identificadores reservados con doble guion bajo o guion bajo inicial](0_sintaxis/0x0026h.md)
+* [Regla `0x0027h`: Validador de presencia de cabecera de documentación obligatoria por archivo](0_sintaxis/0x0027h.md)
+* [Regla `0x0028h`: Detector de etiquetas de salto goto no alineadas al margen izquierdo](0_sintaxis/0x0028h.md)
+* [Regla `0x0029h`: Auditor de inicialización de arreglos unidimensionales con exceso de elementos](0_sintaxis/0x0029h.md)
+* [Regla `0x002Bh`: Validador de espaciado en listas de argumentos y llamadas a funciones](0_sintaxis/0x002Bh.md)
+* [Regla `0x002Ch`: Auditor de consistencia en nombres de constantes simbólicas](0_sintaxis/0x002Ch.md)
+* [Regla `0x002Dh`: Validador de espaciado en operadores unarios](0_sintaxis/0x002Dh.md)
+* [Regla `0x0037h`: Prescindí de identificadores genéricos con sufijo numérico o afijos (numero1, num_1, n_a, a_n)](0_sintaxis/0x0037h.md)
+* [Regla `0x0038h`: Prohibición de constantes numéricas mágicas en índices de arreglos](0_sintaxis/0x0038h.md)
 
-## Principios Clave
+### [Estructuras de Control y Lazos (0x10XX)](1_control/index.md)
 
-- **Claridad:** El código debe ser fácil de leer.
-- **Mantenibilidad:** Debe ser sencillo de modificar y extender.
-- **Consistencia:** El uso de un estilo uniforme optimiza la colaboración.
-- **Eficiencia:** Se debe optimizar el rendimiento sin sacrificar la
-  legibilidad.
+* [Regla `0x1001h`: Todas las estructuras de control deben utilizar llaves](1_control/0x1001h.md)
+* [Regla `0x1002h`: Restringí el uso de break y continue; preferí lazos con bandera de control](1_control/0x1002h.md)
+* [Regla `0x1003h`: Utilizá el lazo for para iteraciones con rango o contador definido y while para lazos controlados por condiciones lógicas](1_control/0x1003h.md)
+* [Regla `0x1004h`: Las condiciones complejas deben ser simplificadas o comentadas Si una](1_control/0x1004h.md)
+* [Regla `0x1005h`: Reemplazá las condiciones ambiguas basadas en la "veracidad" (truthiness) del tipo de dato](1_control/0x1005h.md)
+* [Regla `0x1006h`: No utilizar la instrucción goto](1_control/0x1006h.md)
+* [Regla `0x1007h`: No utilizar el operador condicional (ternario) ?:](1_control/0x1007h.md)
+* [Regla `0x1008h`: Toda instrucción switch debe incluir un caso default](1_control/0x1008h.md)
+* [Regla `0x100Ah`: Prohibición de asignaciones simples dentro de condiciones lógicas](1_control/0x100Ah.md)
+* [Regla `0x100Bh`: Prohibición de estructuras de control con cuerpo vacío (if (...);)](1_control/0x100Bh.md)
+* [Regla `0x100Ch`: No utilices comparaciones en estilo Yoda ('CONST == variable')](1_control/0x100Ch.md)
+* [Regla `0x100Dh`: Prohibición de casts de tipo innecesarios o redundantes](1_control/0x100Dh.md)
+* [Regla `0x100Eh`: Espaciado obligatorio alrededor de operadores ternarios ('? :')](1_control/0x100Eh.md)
+* [Regla `0x100Fh`: Prohibición de condiciones de parada compuestas complejas en lazos for](1_control/0x100Fh.md)
+* [Regla `0x1010h`: Delimitación obligatoria con bloque de llaves en lazos do-while](1_control/0x1010h.md)
+* [Regla `0x1011h`: Prohibición de cláusula else redundante tras sentencia de retorno anticipado](1_control/0x1011h.md)
+* [Regla `0x1012h`: Prohibición de comparaciones encadenadas no idiomáticas en C (a < b < c)](1_control/0x1012h.md)
+* [Regla `0x1013h`: Prohibición de saltos no estructurados goto fuera del patrón canónico de liberación de recursos](1_control/0x1013h.md)
+* [Regla `0x1014h`: Prohibición de expresiones de asignación dentro de estructuras de control](1_control/0x1014h.md)
+* [Regla `0x1016h`: Detector de expresiones booleanas complejas sin paréntesis aclaratorios](1_control/0x1016h.md)
+* [Regla `0x1017h`: Detector de operadores de incremento o decremento múltiples en una misma expresión](1_control/0x1017h.md)
 
----
+### [Funciones y Modularización (0x20XX)](2_funciones/index.md)
 
-## Estructura de Clasificación de Reglas (Máscara de Bits)
+* [Regla `0x2001h`: Las funciones deben usar cláusulas de guarda y retornos anticipados para reducir la anidación profunda](2_funciones/0x2001h.md)
+* [Regla `0x2002h`: Las funciones no deben contener printf o scanf, a menos que ese sea su propósito explícito](2_funciones/0x2002h.md)
+* [Regla `0x2003h`: Todas las funciones deben incluir documentación completa y estructurada](2_funciones/0x2003h.md)
+* [Regla `0x2004h`: No se permite el uso de variables globales](2_funciones/0x2004h.md)
+* [Regla `0x2005h`: Cada función debe tener una única responsabilidad (Principio de Responsabilidad Única)](2_funciones/0x2005h.md)
+* [Regla `0x2006h`: Una aserción por cada función de prueba](2_funciones/0x2006h.md)
+* [Regla `0x2007h`: Mantené el alcance de las variables al mínimo posible](2_funciones/0x2007h.md)
+* [Regla `0x2008h`: Los valores de retorno numéricos deben definirse como constantes de preprocesador o enums](2_funciones/0x2008h.md)
+* [Regla `0x2009h`: Los ejercicios deben ser resueltos mediante funciones](2_funciones/0x2009h.md)
+* [Regla `0x200Ah`: Los nombres de funciones y procedimientos deben usar snake_case en minúsculas](2_funciones/0x200Ah.md)
+* [Regla `0x200Bh`: Modularización: una función no debe exceder 4 parámetros de entrada](2_funciones/0x200Bh.md)
+* [Regla `0x200Ch`: Prohibición de retornar la dirección de una variable local de stack](2_funciones/0x200Ch.md)
+* [Regla `0x200Dh`: Cada función debe tener a lo sumo un return](2_funciones/0x200Dh.md)
+* [Regla `0x200Eh`: Comentarios de cierre explicativos en bloques de control extensos (> 25 líneas)](2_funciones/0x200Eh.md)
+* [Regla `0x200Fh`: Uso obligatorio de 'void' explícito en funciones sin parámetros](2_funciones/0x200Fh.md)
+* [Regla `0x2010h`: Prohibición de paréntesis superfluos en sentencia return](2_funciones/0x2010h.md)
+* [Regla `0x2011h`: Prohibición de reasignar o modificar parámetros recibidos por valor dentro de la función](2_funciones/0x2011h.md)
+* [Regla `0x2012h`: Prohibición de asignaciones múltiples a una variable sin lectura intermedia (dead store)](2_funciones/0x2012h.md)
+* [Regla `0x2013h`: Tipo de retorno obligatorio 'int' en la función main()](2_funciones/0x2013h.md)
+* [Regla `0x2016h`: Detector de bloques else superfluos tras sentencias terminales](2_funciones/0x2016h.md)
 
-Para facilitar la referencia cruzada y el análisis estático de las pautas de
-estilo, las reglas se encuentran organizadas en secciones temáticas progresivas
-bajo un esquema de máscara de bits de 16 bits (`0xXXXX`):
+### [Punteros y Gestión de Memoria (0x30XX)](3_punteros/index.md)
 
-1.  **Sintaxis Básica y Nomenclatura (`0x00XX`):** Reglas visuales, espaciado,
-    indentación y pautas de nombrado de variables y constantes.
-2.  **Estructuras de Control y Lazos (`0x10XX`):** Bloques condicionales,
-    estructuras de iteración y flujos de ejecución de sentencias.
-3.  **Funciones y Modularización (`0x20XX`):** Diseño de interfaces de
-    funciones, documentación de contratos, alcance y responsabilidades.
-4.  **Punteros y Gestión de Memoria (`0x30XX`):** Uso de indirecciones,
-    alocación en el heap, gestión de punteros nulos y liberación segura de
-    recursos.
-5.  **Gestión de Archivos y Errores (`0x40XX`):** Apertura/cierre de flujos de
-    archivos, validación de E/S, gestión de errno y diagnóstico del sistema.
-6.  **Compilación y Buenas Prácticas de Ingeniería (`0x50XX`):** Configuración
-    de alertas, guardas de cabeceras, robustez y estructuras de código estándar.
+* [Regla `0x0035h`: Diseñá los Tipos de Datos Abstractos utilizando punteros opacos](3_punteros/0x0035h.md)
+* [Regla `0x0036h`: Asigná NULL al puntero tras liberar un recurso opaco en el ámbito del cliente](3_punteros/0x0036h.md)
+* [Regla `0x3001h`: Siempre verificá la asignación exitosa de memoria dinámica](3_punteros/0x3001h.md)
+* [Regla `0x3002h`: Liberá siempre la memoria dinámica y asigná NULL al puntero para mitigar punteros colgantes](3_punteros/0x3002h.md)
+* [Regla `0x3003h`: No mezcles operaciones de asignación y comparación en una sola línea](3_punteros/0x3003h.md)
+* [Regla `0x3004h`: Utilizá typedef para definir tipos de estructuras con el sufijo _t](3_punteros/0x3004h.md)
+* [Regla `0x3005h`: Minimizá el uso de múltiples niveles de indirección (punteros a punteros)](3_punteros/0x3005h.md)
+* [Regla `0x3006h`: Documentá la propiedad de los recursos al utilizar punteros](3_punteros/0x3006h.md)
+* [Regla `0x3007h`: Los argumentos de tipo puntero deben ser const siempre que la función no los modifique](3_punteros/0x3007h.md)
+* [Regla `0x3008h`: Los punteros nulos deben ser inicializados y comparados con NULL, no con 0](3_punteros/0x3008h.md)
+* [Regla `0x3009h`: Documentá explícitamente los casos en que una función puede retornar NULL](3_punteros/0x3009h.md)
+* [Regla `0x300Ah`: Utilizá cast explícito al convertir tipos de punteros](3_punteros/0x300Ah.md)
+* [Regla `0x300Bh`: Usá siempre sizeof en las asignaciones de memoria dinámica, prefiriendo sizeof(*ptr)](3_punteros/0x300Bh.md)
+* [Regla `0x300Ch`: Verificá siempre los límites de los arreglos antes de acceder a sus elementos](3_punteros/0x300Ch.md)
+* [Regla `0x300Dh`: Utilizá enum en lugar de "números mágicos" para conjuntos de estados y valores constantes](3_punteros/0x300Dh.md)
+* [Regla `0x300Eh`: Documentá explícitamente el comportamiento de las funciones al manejar punteros nulos como argumentos](3_punteros/0x300Eh.md)
+* [Regla `0x300Fh`: Liberá la memoria en el orden inverso a su asignación](3_punteros/0x300Fh.md)
+* [Regla `0x3010h`: Las variables que representan tamaños o índices de arreglos deben ser de tipo size_t](3_punteros/0x3010h.md)
+* [Regla `0x3011h`: Si una función recibe un puntero genérico para operaciones de solo lectura, la firma de la función debe utilizar const void*](3_punteros/0x3011h.md)
+* [Regla `0x3012h`: Prohibición de aritmética de punteros sobre void*](3_punteros/0x3012h.md)
+* [Regla `0x3013h`: Asignación de memoria con sizeof sobre puntero en lugar del tipo apuntado](3_punteros/0x3013h.md)
+* [Regla `0x3014h`: Prohibición de doble liberación de memoria (double free) sobre el mismo puntero](3_punteros/0x3014h.md)
+* [Regla `0x3015h`: Reallocación segura: no sobreescribir el puntero original directamente](3_punteros/0x3015h.md)
+* [Regla `0x3016h`: Orden incorrecto o sospechoso de argumentos en llamadas a memset](3_punteros/0x3016h.md)
+* [Regla `0x3017h`: Orden canónico de calificadores: 'const tipo' en lugar de 'tipo const'](3_punteros/0x3017h.md)
+* [Regla `0x3018h`: Inicialización idiomática de agregados con {0} en lugar de memset inmediato](3_punteros/0x3018h.md)
+* [Regla `0x3019h`: Prohibición de comparar punteros contra constantes numéricas distintas de NULL o cero](3_punteros/0x3019h.md)
+* [Regla `0x301Ah`: Validador de uso idiomático de tipos booleanos estándar](3_punteros/0x301Ah.md)
 
-## [](0_sintaxis)
-  * [Sintaxis Básica y Nomenclatura (`0x00XX`)](0_sintaxis.md#0x00xxh)
-    * [Regla `0x0000h`: La claridad y prolijidad son de máxima
-      importancia](0_sintaxis.md#0x0000h)
-    * [Regla `0x0001h`: Los identificadores deben ser
-      descriptivos](0_sintaxis.md#0x0001h)
-    * [Regla `0x0002h`: Una declaración de variable por
-      línea](0_sintaxis.md#0x0002h)
-    * [Regla `0x0003h`: Siempre debés inicializar las variables a un valor
-      conocido](0_sintaxis.md#0x0003h)
-    * [Regla `0x0004h`: Un espacio antes y después de cada operador
-      binario](0_sintaxis.md#0x0004h)
-    * [Regla `0x0005h`: Cada bloque debe tener una indentación de cuatro
-      espacios respecto a su contenedor y llaves](0_sintaxis.md#0x0005h)
-    * [Regla `0x0006h`: El asterisco de los punteros debe declararse junto al
-      identificador](0_sintaxis.md#0x0006h)
-    * [Regla `0x0007h`: Los argumentos de función y las variables locales deben
-      usar `snake_case` en minúsculas](0_sintaxis.md#0x0007h)
-    * [Regla `0x0008h`: Las constantes (`const` o `#define`) deben nombrarse en
-      `MAYUSCULAS_SNAKE_CASE`](0_sintaxis.md#0x0008h)
-    * [Regla `0x0009h`: Las líneas de código no deben exceder los 79
-      caracteres](0_sintaxis.md#0x0009h)
-    * [Regla `0x000Ah`: Escribí comentarios que expliquen el "porqué", no el
-      "qué"](0_sintaxis.md#0x000ah)
-    * [Regla `0x000Bh`: Las llaves deben ubicarse en líneas independientes
-      según el estilo Allman](0_sintaxis.md#0x000bh)
+### [Gestión de Archivos y Errores (0x40XX)](4_archivos/index.md)
 
-## [](1_control)
-  * [Estructuras de Control y Lazos (`0x10XX`)](1_control.md#0x10xxh)
-    * [Regla `0x1001h`: Todas las estructuras de control deben utilizar
-      llaves](1_control.md#0x1001h)
-    * [Regla `0x1002h`: Evitá el uso descontrolado de `break` y `continue`;
-      preferí lazos con bandera de control](1_control.md#0x1002h)
-    * [Regla `0x1003h`: Utilizá el lazo `for` para iteraciones con rango o
-      contador definido y `while` para lazos controlados por condiciones
-      lógicas](1_control.md#0x1003h)
-    * [Regla `0x1004h`: Las condiciones complejas deben ser simplificadas o
-      comentadas](1_control.md)
-    * [Regla `0x1005h`: Evitá las condiciones ambiguas basadas en la "veracidad"
-      (truthiness) del tipo de dato](1_control.md#0x1005h)
-    * [Regla `0x1006h`: No utilizar la instrucción `goto`](1_control.md#0x1006h)
-    * [Regla `0x1007h`: No utilizar el operador condicional (ternario)
-      `?:`](1_control.md#0x1007h)
-    * [Regla `0x1008h`: Toda instrucción `switch` debe incluir un caso
-      `default`](1_control.md#0x1008h)
+* [Regla `0x4001h`: Manejá correctamente la apertura y cierre de archivos](4_archivos/0x4001h.md)
+* [Regla `0x4002h`: Validá los retornos de las operaciones de lectura y escritura de archivos](4_archivos/0x4002h.md)
+* [Regla `0x4003h`: Utilizá errno, perror y strerror para reportar fallos del sistema operativo de manera precisa](4_archivos/0x4003h.md)
+* [Regla `0x4004h`: Mantené la simetría de recursos al abrir y cerrar archivos en el mismo nivel de abstracción](4_archivos/0x4004h.md)
+* [Regla `0x4005h`: Prescindí del uso de offsets y posiciones fijas codificadas a mano en archivos binarios sin validar sus dimensiones](4_archivos/0x4005h.md)
+* [Regla `0x4006h`: Prohibición del antipatrón while (!feof(f)) para control de fin de archivo](4_archivos/0x4006h.md)
+* [Regla `0x4007h`: Prohibición de rutas absolutas hardcodeadas en llamadas de archivo](4_archivos/0x4007h.md)
+* [Regla `0x4008h`: Validación obligatoria del valor de retorno de fclose() en modo escritura](4_archivos/0x4008h.md)
+* [Regla `0x4009h`: Prohibición de anidar llamadas a fopen() directamente dentro de funciones de E/S](4_archivos/0x4009h.md)
+* [Regla `0x400Ah`: Prohibición de operar sobre flujos de archivo tras haber invocado fclose() (use-after-close)](4_archivos/0x400Ah.md)
 
-## [](2_funciones)
-  * [Funciones y Modularización (`0x20XX`)](2_funciones.md#0x20xxh)
-    * [Regla `0x2001h`: Las funciones deben usar cláusulas de guarda y retornos
-      anticipados para evitar la anidación profunda](2_funciones.md#0x2001h)
-    * [Regla `0x2002h`: Las funciones no deben contener `printf` o `scanf`, a
-      menos que ese sea su propósito explícito](2_funciones.md#0x2002h)
-    * [Regla `0x2003h`: Todas las funciones deben incluir documentación completa
-      y estructurada](2_funciones.md#0x2003h)
-    * [Regla `0x2004h`: No se permite el uso de variables
-      globales](2_funciones.md#0x2004h)
-    * [Regla `0x2005h`: Cada función debe tener una única responsabilidad
-      (Principio de Responsabilidad Única)](2_funciones.md#0x2005h)
-    * [Regla `0x2006h`: Una aserción por cada función de
-      prueba](2_funciones.md#0x2006h)
-    * [Regla `0x2007h`: Mantené el alcance de las variables al mínimo
-      posible](2_funciones.md#0x2007h)
-    * [Regla `0x2008h`: Los valores de retorno numéricos deben definirse como
-      constantes de preprocesador o `enum`s](2_funciones.md#0x2008h)
-    * [Regla `0x2009h`: Los ejercicios deben ser resueltos mediante
-      funciones](2_funciones.md#0x2009h)
-    * [Regla `0x200Ah`: Los nombres de funciones y procedimientos deben usar
-      `snake_case` en minúsculas](2_funciones.md#0x200ah)
+### [Compilación y Buenas Prácticas de Ingeniería (0x50XX)](5_buenas_practicas/index.md)
 
-## [](3_punteros)
-  * [Punteros y Gestión de Memoria (`0x30XX`)](3_punteros.md#0x30xxh)
-    * [Regla `0x3001h`: Siempre verificá la asignación exitosa de memoria
-      dinámica](3_punteros.md#0x3001h)
-    * [Regla `0x3002h`: Liberá siempre la memoria dinámica y asigná `NULL` al
-      puntero para evitar punteros colgantes](3_punteros.md#0x3002h)
-    * [Regla `0x3003h`: No mezcles operaciones de asignación y comparación en
-      una sola línea](3_punteros.md#0x3003h)
-    * [Regla `0x3004h`: Utilizá `typedef` para definir tipos de estructuras con
-      el sufijo `_t`](3_punteros.md#0x3004h)
-    * [Regla `0x3005h`: Minimizá el uso de múltiples niveles de indirección
-      (punteros a punteros)](3_punteros.md#0x3005h)
-    * [Regla `0x3006h`: Documentá la propiedad de los recursos al utilizar
-      punteros](3_punteros.md#0x3006h)
-    * [Regla `0x3007h`: Los argumentos de tipo puntero deben ser `const` siempre
-      que la función no los modifique](3_punteros.md#0x3007h)
-    * [Regla `0x3008h`: Los punteros nulos deben ser inicializados y comparados
-      con `NULL`, no con `0`](3_punteros.md#0x3008h)
-    * [Regla `0x3009h`: Documentá explícitamente los casos en que una función
-      puede retornar `NULL`](3_punteros.md#0x3009h)
-    * [Regla `0x300Ah`: Utilizá `cast` explícito al convertir tipos de
-      punteros](3_punteros.md#0x300ah)
-    * [Regla `0x300Bh`: Usá siempre `sizeof` en las asignaciones de memoria
-      dinámica, prefiriendo `sizeof(*ptr)`](3_punteros.md#0x300bh)
-    * [Regla `0x300Ch`: Verificá siempre los límites de los arreglos antes de
-      acceder a sus elementos](3_punteros.md#0x300ch)
-    * [Regla `0x300Dh`: Utilizá `enum` en lugar de "números mágicos" para
-      conjuntos de estados y valores constantes](3_punteros.md#0x300dh)
-    * [Regla `0x300Eh`: Documentá explícitamente el comportamiento de las
-      funciones al manejar punteros nulos como
-      argumentos](3_punteros.md#0x300eh)
-    * [Regla `0x300Fh`: Liberá la memoria en el orden inverso a su
-      asignación](3_punteros.md#0x300fh)
-    * [Regla `0x3010h`: Las variables que representan tamaños o índices de
-      arreglos deben ser de tipo `size_t`](3_punteros.md#0x3010h)
-    * [Regla `0x3011h`: Si una función recibe un puntero genérico para
-      operaciones de solo lectura, la firma de la función debe utilizar `const
-      void*`](3_punteros.md#0x3011h)
-    * [Regla `0x0035h`: Diseñá los Tipos de Datos Abstractos utilizando punteros
-      opacos](3_punteros.md#0x0035h)
-    * [Regla `0x0036h`: Asigná `NULL` al puntero tras liberar un recurso opaco
-      en el ámbito del cliente](3_punteros.md#0x0036h)
-
-## [](4_archivos)
-  * [Gestión de Archivos y Errores (`0x40XX`)](4_archivos.md#0x40xxh)
-    * [Regla `0x4001h`: Manejá correctamente la apertura y cierre de
-      archivos](4_archivos.md#0x4001h)
-    * [Regla `0x4002h`: Validá los retornos de las operaciones de lectura y
-      escritura de archivos](4_archivos.md#0x4002h)
-    * [Regla `0x4003h`: Utilizá `errno`, `perror` y `strerror` para reportar
-      fallos del sistema operativo de manera precisa](4_archivos.md#0x4003h)
-    * [Regla `0x4004h`: Asegurá la simetría de recursos al abrir y cerrar
-      archivos en el mismo nivel de abstracción](4_archivos.md#0x4004h)
-    * [Regla `0x4005h`: Evitá el uso de offsets y posiciones fijas codificadas a
-      mano en archivos binarios sin validar sus
-      dimensiones](4_archivos.md#0x4005h)
-
-## [](5_buenas_practicas)
-  * [Compilación y Buenas Prácticas de Ingeniería
-    (`0x50XX`)](5_buenas_practicas.md#0x50xxh)
-    * [Regla `0x5001h`: Los arreglos estáticos deben ser creados con un tamaño
-      fijo en tiempo de compilación](5_buenas_practicas.md#0x5001h)
-    * [Regla `0x5002h`: Desarrollá y compilá siempre con todas las advertencias
-      del compilador activadas](5_buenas_practicas.md#0x5002h)
-    * [Regla `0x5003h`: Utilizá guardas de inclusión en todos los archivos de
-      cabecera](5_buenas_practicas.md#0x5003h)
-    * [Regla `0x5004h`: Todas las operaciones con cadenas deben ser
-      seguras](5_buenas_practicas.md#0x5004h)
-    * [Regla `0x5005h`: Organizá la estructura de tus archivos `.c` de forma
-      estándar](5_buenas_practicas.md#0x5005h)
-    * [Regla `0x5006h`: Preferí `fgets` sobre `gets` y `scanf` para leer
-      cadenas](5_buenas_practicas.md#0x5006h)
+* [Regla `0x5001h`: Los arreglos estáticos deben ser creados con un tamaño fijo en tiempo de compilación](5_buenas_practicas/0x5001h.md)
+* [Regla `0x5002h`: Desarrollá y compilá siempre con todas las advertencias del compilador activadas](5_buenas_practicas/0x5002h.md)
+* [Regla `0x5003h`: Utilizá guardas de inclusión en todos los archivos de cabecera](5_buenas_practicas/0x5003h.md)
+* [Regla `0x5004h`: Todas las operaciones con cadenas deben ser seguras](5_buenas_practicas/0x5004h.md)
+* [Regla `0x5005h`: Organizá la estructura de tus archivos .c de forma estándar](5_buenas_practicas/0x5005h.md)
+* [Regla `0x5006h`: Preferí fgets sobre gets y scanf para leer cadenas](5_buenas_practicas/0x5006h.md)
+* [Regla `0x5007h`: Inclusiones redundantes o duplicadas de la misma cabecera #include](5_buenas_practicas/0x5007h.md)
+* [Regla `0x5008h`: Prohibición de funciones obsoletas o inseguras (gets, atoi)](5_buenas_practicas/0x5008h.md)
+* [Regla `0x5009h`: Prohibición de división entera no intencional asignada a flotantes](5_buenas_practicas/0x5009h.md)
+* [Regla `0x500Ah`: Protección obligatoria de parámetros en macros funcionales mediante paréntesis](5_buenas_practicas/0x500Ah.md)
+* [Regla `0x500Bh`: Inclusión obligatoria de cabeceras estándar para funciones de la biblioteca C](5_buenas_practicas/0x500Bh.md)
+* [Regla `0x500Ch`: Prohibición de inclusión directa de archivos de código fuente C (.c)](5_buenas_practicas/0x500Ch.md)
+* [Regla `0x500Dh`: Prohibición de redefinir palabras clave o tipos primitivos de C con #define](5_buenas_practicas/0x500Dh.md)
+* [Regla `0x500Eh`: Prohibición de la biblioteca obsoleta y no estándar <conio.h> (getch, clrscr)](5_buenas_practicas/0x500Eh.md)
+* [Regla `0x5011h`: Colisión de nombres de macroguardas entre archivos de cabecera distintos](5_buenas_practicas/0x5011h.md)
+* [Regla `0x5012h`: Prohibición de directivas #pragma no estándar o privativas](5_buenas_practicas/0x5012h.md)
+* [Regla `0x5013h`: Prohibición de declaraciones extern en archivos de implementación (.c)](5_buenas_practicas/0x5013h.md)
+* [Regla `0x5014h`: Detección de inclusiones cíclicas entre archivos de cabecera](5_buenas_practicas/0x5014h.md)
+* [Regla `0x5015h`: Protección obligatoria con paréntesis envolventes en expresiones de macroconstantes (#define)](5_buenas_practicas/0x5015h.md)
+* [Regla `0x5016h`: Inclusión explícita obligatoria de cabeceras para funciones de biblioteca estándar](5_buenas_practicas/0x5016h.md)
