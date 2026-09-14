@@ -348,6 +348,35 @@ project:
                 - file: reglas/5_buenas_practicas/ap_0x500Bh.md
                 - file: reglas/5_buenas_practicas/ap_0x5014h.md
                 - file: reglas/5_buenas_practicas/ap_0x5016h.md
+        - title: "Propuestas: Disciplina de Construcción Sistemática (0x60XX)"
+          children:
+            - file: reglas/6_propuestas/index.md
+            - title: "Reglas Propuestas (0x60XX)"
+              children:
+                - file: reglas/6_propuestas/0x6001h.md
+                - file: reglas/6_propuestas/0x6002h.md
+                - file: reglas/6_propuestas/0x6003h.md
+                - file: reglas/6_propuestas/0x6004h.md
+                - file: reglas/6_propuestas/0x6005h.md
+                - file: reglas/6_propuestas/0x6006h.md
+                - file: reglas/6_propuestas/0x6007h.md
+                - file: reglas/6_propuestas/0x6008h.md
+                - file: reglas/6_propuestas/0x6009h.md
+                - file: reglas/6_propuestas/0x600Ah.md
+                - file: reglas/6_propuestas/0x600Bh.md
+                - file: reglas/6_propuestas/0x600Ch.md
+                - file: reglas/6_propuestas/0x600Dh.md
+                - file: reglas/6_propuestas/0x600Eh.md
+                - file: reglas/6_propuestas/0x600Fh.md
+                - file: reglas/6_propuestas/0x6010h.md
+                - file: reglas/6_propuestas/0x6011h.md
+                - file: reglas/6_propuestas/0x6012h.md
+                - file: reglas/6_propuestas/0x6013h.md
+                - file: reglas/6_propuestas/0x6014h.md
+                - file: reglas/6_propuestas/0x6015h.md
+                - file: reglas/6_propuestas/0x6016h.md
+                - file: reglas/6_propuestas/0x6017h.md
+                - file: reglas/6_propuestas/0x6018h.md
     - title: Manual del Ecosistema de Herramientas
       children:
         - file: manual/index.md

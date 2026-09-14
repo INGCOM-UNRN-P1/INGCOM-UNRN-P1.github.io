@@ -17,7 +17,7 @@ La tabla siguiente unifica las directivas prescriptivas de estilo y los antipatr
 
 | Regla de Estilo | Título de la Norma | Antipatrón Didáctico | Código Antipatrón |
 | :--- | :--- | :--- | :--- |
-| [0x2001h](0x2001h.md) | Las funciones deben usar cláusulas de guarda y retornos anticipados para mitigar la anidación profunda | *(Sin antipatrón específico)* | — |
+| [0x2001h](0x2001h.md) | Las funciones deben usar cláusulas de guarda y retornos anticipados para reducir la anidación profunda | *(Sin antipatrón específico)* | — |
 | [0x2002h](0x2002h.md) | Las funciones no deben contener printf o scanf, a menos que ese sea su propósito explícito | *(Sin antipatrón específico)* | — |
 | [0x2003h](0x2003h.md) | Todas las funciones deben incluir documentación completa y estructurada | *(Sin antipatrón específico)* | — |
 | [0x2004h](0x2004h.md) | No se permite el uso de variables globales | *(Sin antipatrón específico)* | — |

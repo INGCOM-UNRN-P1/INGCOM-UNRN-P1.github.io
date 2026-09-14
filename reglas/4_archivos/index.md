@@ -21,7 +21,7 @@ La tabla siguiente unifica las directivas prescriptivas de estilo y los antipatr
 | [0x4002h](0x4002h.md) | Validá los retornos de las operaciones de lectura y escritura de archivos | [Control de lectura con while(!feof())](ap_0x4002h.md) | `AP-0x4002h` |
 | [0x4003h](0x4003h.md) | Utilizá errno, perror y strerror para reportar fallos del sistema operativo de manera precisa | *(Sin antipatrón específico)* | — |
 | [0x4004h](0x4004h.md) | mantené la simetría de recursos al abrir y cerrar archivos en el mismo nivel de abstracción | *(Sin antipatrón específico)* | — |
-| [0x4005h](0x4005h.md) | desaconseja el uso de offsets y posiciones fijas codificadas a mano en archivos binarios sin validar sus dimensiones | *(Sin antipatrón específico)* | — |
+| [0x4005h](0x4005h.md) | Prescindí del uso de offsets y posiciones fijas codificadas a mano en archivos binarios sin validar sus dimensiones | *(Sin antipatrón específico)* | — |
 | [0x4006h](0x4006h.md) | Prohibición del antipatrón while (!feof(f)) para control de fin de archivo | [Uso de fflush(stdin) para limpiar buffer](ap_0x4006h.md) | `AP-0x4006h` |
 | [0x4007h](0x4007h.md) | Prohibición de rutas absolutas hardcodeadas en llamadas de archivo | *(Sin antipatrón específico)* | — |
 | [0x4008h](0x4008h.md) | Validación obligatoria del valor de retorno de fclose() en modo escritura | [Desajuste de especificadores de formato en printf/scanf](ap_0x4008h.md) | `AP-0x4008h` |

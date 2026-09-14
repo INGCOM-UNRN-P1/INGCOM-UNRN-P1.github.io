@@ -45,3 +45,12 @@ Cada regla define el estándar obligatorio exigido, y cada antipatrón documenta
 *20 reglas de estilo prescriptivas y 9 antipatrones didácticos catalogados.*
 
 * **[Acceder a la tabla comparativa de Buenas Prácticas y Seguridad](5_buenas_practicas/index.md)**
+
+### [Propuestas: Disciplina de Construcción Sistemática (0x60XX)](6_propuestas/index.md)
+*24 reglas propuestas para que un principiante construya código de alta calidad de forma metódica (diseño, legibilidad, robustez y verificación).*
+
+* **[Acceder al cuadro general de propuestas](6_propuestas/index.md)**
+
+Las reglas `0x60XX` no describen *cómo debe verse* el código, sino **el orden
+de decisiones y controles** con que se llega a un código de calidad. Son
+complementarias de las categorías anteriores y están en estado de propuesta.

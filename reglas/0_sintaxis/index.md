@@ -32,7 +32,7 @@ La tabla siguiente unifica las directivas prescriptivas de estilo y los antipatr
 | [0x000Ch](0x000Ch.md) | Los nombres de los archivos deben usar snake_case en minúsculas (sin espacios) | *(Sin antipatrón específico)* | — |
 | [0x000Dh](0x000Dh.md) | No dejes código comentado (dead code) en los archivos fuente | *(Sin antipatrón específico)* | — |
 | [0x000Eh](0x000Eh.md) | Los nombres de funciones deben usar snake_case estricto en minúsculas | *(Sin antipatrón específico)* | — |
-| [0x000Fh](0x000Fh.md) | no uses comentarios obvios, redundantes o vacíos | *(Sin antipatrón específico)* | — |
+| [0x000Fh](0x000Fh.md) | Prescindí de comentarios obvios, redundantes o vacíos | *(Sin antipatrón específico)* | — |
 | [0x0010h](0x0010h.md) | Control de longitud máxima de archivos de código (máx 500 líneas) | *(Sin antipatrón específico)* | — |
 | [0x0011h](0x0011h.md) | En archivos .c la inclusión de la cabecera propia debe figurar en primer lugar | *(Sin antipatrón específico)* | — |
 | [0x0012h](0x0012h.md) | Las variables globales deben ser declaradas como static o usar prefijo g_ | *(Sin antipatrón específico)* | — |
@@ -60,5 +60,5 @@ La tabla siguiente unifica las directivas prescriptivas de estilo y los antipatr
 | [0x002Bh](0x002Bh.md) | Validador de espaciado en listas de argumentos y llamadas a funciones | *(Sin antipatrón específico)* | — |
 | [0x002Ch](0x002Ch.md) | Auditor de consistencia en nombres de constantes simbólicas | *(Sin antipatrón específico)* | — |
 | [0x002Dh](0x002Dh.md) | Validador de espaciado en operadores unarios | *(Sin antipatrón específico)* | — |
-| [0x0037h](0x0037h.md) | no uses identificadores genéricos con sufijo numérico o afijos (numero1, num_1, n_a, a_n) | *(Sin antipatrón específico)* | — |
+| [0x0037h](0x0037h.md) | Prescindí de identificadores genéricos con sufijo numérico o afijos (numero1, num_1, n_a, a_n) | *(Sin antipatrón específico)* | — |
 | [0x0038h](0x0038h.md) | Prohibición de constantes numéricas mágicas en índices de arreglos | *(Sin antipatrón específico)* | — |
