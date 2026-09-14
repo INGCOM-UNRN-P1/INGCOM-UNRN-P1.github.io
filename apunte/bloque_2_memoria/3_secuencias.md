@@ -68,7 +68,7 @@ distinguir entre arreglos locales (dentro de una función) y los globales o
 estáticos:
 
 - **Arreglos locales no inicializados**: Contienen valores indeterminados
-  ("basura"), lo cual viola la regla de estilo {ref}`0x0003h`.
+  ("basura"), lo cual viola la regla de estilo {ref}`0x7001h`.
 - **Arreglos globales o estáticos no inicializados**: Sus elementos se
   inicializan a cero por defecto.
 

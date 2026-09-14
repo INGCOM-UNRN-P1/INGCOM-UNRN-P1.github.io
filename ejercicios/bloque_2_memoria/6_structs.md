@@ -17,7 +17,7 @@ en C.
 ### Cuestiones de Estilo Aplicables
 - **Inicialización de structs:** Inicializá siempre las estructuras utilizando
   llaves en su declaración (ej. `fraccion_t f = {0, 1};`) para evitar basura en
-  sus miembros (ver {ref}`0x0003h`).
+  sus miembros (ver {ref}`0x7001h`).
 - **Paso de estructuras:** Para evitar el overhead de copiar estructuras por
   valor en el stack frame de la llamada, pasá punteros a estructuras
   (`fraccion_t *`) junto con la constante de solo lectura `const` cuando

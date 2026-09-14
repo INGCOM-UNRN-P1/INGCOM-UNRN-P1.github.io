@@ -122,7 +122,7 @@ software.
 
 Un buen estilo eleva la calidad del código no solo en su funcionalidad, sino
 también en su claridad. Para más detalles, pueden consultar la regla sobre la
-claridad y prolijidad ({ref}`0x0000h`).
+claridad y prolijidad ({ref}`0x0001h`).
 
 ## Ejercicios Complejos y Proyectos Multiarquivo
 

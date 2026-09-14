@@ -647,7 +647,7 @@ La pila almacena:
 Tené presente que las variables declaradas en la pila dejan de existir al
 finalizar la función. Intentar retornar la dirección de una variable local es un
 error grave que produce comportamiento indefinido. Esta cuestión está
-relacionada con la {ref}`0x2007h`, que enfatiza mantener el alcance de las
+relacionada con la {ref}`0x2006h`, que enfatiza mantener el alcance de las
 variables al mínimo posible.
 
 :::

@@ -4,6 +4,8 @@ short_title: "Optimización de variables"
 subtitle: "Optimización del alcance, inicialización y gestión de variables"
 ---
 
+(refactorizacion-variables)=
+
 ## Introducción
 
 La gestión apropiada de variables es fundamental para escribir código claro,
@@ -18,13 +20,35 @@ cognitiva al leer el código.
 
 :::{important} Principio de Mínimo Alcance
 
-Como establece {ref}`0x0003h`, las variables deben inicializarse siempre con un
+Como establece {ref}`0x7001h`, las variables deben inicializarse siempre con un
 valor conocido. Además, el alcance de una variable debe ser el mínimo necesario
 para su función, reduciendo la posibilidad de errores y facilitando el
 razonamiento sobre el código.
 
 :::
 <!-- {important} Principio de Mínimo Alcance -->
+
+## Reglas de estilo que resuelve
+
+Esta refactorización ataca, de manera conjunta, los problemas que modelan varias
+reglas de la cátedra: declaraciones lejanas a su uso, variables sin inicializar,
+reutilización de un mismo nombre para propósitos distintos, bloques de
+declaraciones y asignaciones desalineados, y operaciones que conviene separar.
+Cada técnica de las que siguen resuelve uno o más de esos problemas; la tabla
+los mapea de forma explícita para que puedas ir de la regla a la técnica.
+
+| Regla | Problema que modela | Cómo lo resuelve esta refactorización |
+|-------|---------------------|----------------------------------------|
+| {ref}`0x7001h` | Variables locales que se leen antes de recibir un valor conocido. | Se inicializan en el punto de declaración o se valida y retorna temprano antes de usarlas. |
+| {ref}`0x6003h` | Declaraciones agrupadas al inicio, lejos de donde se usan. | Se mueve cada declaración al punto más cercano a su primer uso. |
+| {ref}`0x2006h` | Variables con un alcance más amplio que el necesario. | Se limita el alcance con bloques, variables de lazo y extracción de funciones. |
+| {ref}`0x6004h` | Una misma variable usada para propósitos distintos. | Se separa en variables independientes con nombres descriptivos. |
+| {ref}`0x301Ch` | Variables locales declaradas con `const` y sin inicializar. | Se les asigna un valor inmediato que el compilador puede verificar. |
+| {ref}`0x7005h` | Campos de estructuras o arreglos que quedan sin inicializar. | Se usa inicialización designada (`{0}` o `.campo = valor`) para cubrir todos los campos. |
+| {ref}`0x3003h` | Asignación y comparación mezcladas en una sola línea. | Se parte la expresión en pasos separados y legibles. |
+| {ref}`0x2011h` | Asignaciones múltiples sin lectura intermedia (dead store). | Se elimina el temporal o se escribe directamente el resultado calculado. |
+| {ref}`0x0002h` | Varias declaraciones en una misma línea (`int i, j, k;`). | Se declara una variable por línea. |
+| {ref}`0x0008h` | Declaraciones y asignaciones consecutivas sin alinear. | Se alinean verticalmente para que el bloque se lea de un vistazo. |
 
 ## Problemas Comunes con Variables
 
@@ -116,7 +140,8 @@ void procesar()
 
 ### 1. Reducir Alcance de Variables
 
-Declarar variables en el punto más cercano a su primer uso.
+Declarar variables en el punto más cercano a su primer uso, tal como piden
+{ref}`0x6003h` y {ref}`0x2006h`.
 
 **Antes:**
 
@@ -184,7 +209,9 @@ void procesar_archivo(const char *ruta)
 
 ### 2. Inicialización Segura
 
-Siempre inicializar variables en el punto de declaración.
+Siempre inicializar variables en el punto de declaración, como exige
+{ref}`0x7001h`. Cuando el valor depende del flujo, conviene validar y retornar
+temprano antes que arrastrar una variable sin inicializar.
 
 **Antes:**
 
@@ -269,6 +296,11 @@ int procesar_datos(const int *arr, int n)
 
 ### 3. Eliminar Variables Temporales Innecesarias
 
+Una temporal que solo se copia una vez suele ser un *dead store* encubierto: se
+asigna y nunca se lee con un propósito propio. Eliminarla resuelve lo que modela
+{ref}`0x2011h` y, de paso, mantiene la inicialización en la declaración
+({ref}`0x7001h`).
+
 **Antes:**
 
 ```{code-block} c
@@ -324,7 +356,9 @@ double calcular_factura(const item_t *items, int n, double tasa_iva)
 
 ### 4. Separar Variables con Propósitos Diferentes
 
-No reutilizar variables para diferentes propósitos.
+No reutilizar variables para diferentes propósitos ({ref}`0x6004h`): cada
+variable nueva se declara en su propia línea, una por línea ({ref}`0x0002h`), en
+lugar de agruparlas al inicio.
 
 **Antes:**
 
@@ -383,7 +417,9 @@ void procesar()
 
 ### 5. Usar `const` para Valores Inmutables
 
-Aplicar `const` a variables que no deben cambiar.
+Aplicar `const` a variables que no deben cambiar. Recordá que el detector de
+{ref}`0x301Ch` exige que esas variables locales con `const` estén inicializadas:
+el valor debe quedar fijo en la misma declaración.
 
 **Antes:**
 
@@ -435,7 +471,9 @@ void procesar_datos(const int *arr, int n, const configuracion_t *config)
 
 ### 6. Extracción a Variables con Nombre
 
-Dar nombres significativos a expresiones complejas.
+Dar nombres significativos a expresiones complejas. Al extraer, declarás una
+variable por línea ({ref}`0x0002h`) y podés alinear el bloque de asignaciones
+consecutivas para facilitar el escaneo ({ref}`0x0008h`).
 
 **Antes:**
 
@@ -569,6 +607,9 @@ void analizar_texto(const char *texto)
 
 **Código Refactorizado:**
 
+La estructura `stats` se inicializa de forma designada, cubriendo todos los
+campos aunque algunos arranquen en cero ({ref}`0x7005h`).
+
 ```{code-block} c
 :linenos:
 typedef struct
@@ -695,6 +736,9 @@ int procesar_transacciones(transaccion_t *trans, int n)
 <!-- {code-block} c -->
 
 **Código Refactorizado:**
+
+El resumen se inicializa con `{0}` para no dejar ningún campo con basura
+({ref}`0x7005h`).
 
 ```{code-block} c
 :linenos:
@@ -878,6 +922,10 @@ void procesar_item(item_t *item, contexto_procesamiento_t *ctx)
 
 ### 2. Variables "God" (Demasiado Propósito)
 
+Además de violar {ref}`0x6004h`, esta variable encadena asignaciones que nunca se
+leen antes de la siguiente: cada línea pisa el valor anterior, un *dead store*
+que modela {ref}`0x2011h`.
+
 ```{code-block} c
 :linenos:
 // Problemático
@@ -898,6 +946,130 @@ int tmp;
 int x, y, z;
 ```
 <!-- c -->
+
+### 4. Asignación y Comparación Mezcladas
+
+Mezclar una asignación con una comparación dentro de una misma expresión produce
+errores difíciles de ver, como el clásico `if (estado = 'A')`. La regla
+{ref}`0x3003h` pide no combinar ambas operaciones en una sola línea.
+
+```{code-block} c
+:linenos:
+// Problemático: asigna 'A' en lugar de comparar
+char estado = leer_estado();
+if (estado = 'A')
+{
+    procesar();
+}
+```
+
+**Mejor:**
+
+```{code-block} c
+:linenos:
+char estado = leer_estado();
+if (estado == 'A')
+{
+    procesar();
+}
+```
+
+## Ejemplo integrador
+
+En este ejemplo resolvemos varias reglas a la vez. El código original declara
+todo al inicio ({ref}`0x0002h`, {ref}`0x6003h`), deja variables sin inicializar
+({ref}`0x7001h`), mezcla asignación con comparación ({ref}`0x3003h`), reutiliza
+`total` para la suma y para el promedio ({ref}`0x6004h`, {ref}`0x2011h`) y
+mantiene un alcance amplio para `i` y `j` ({ref}`0x2006h`).
+
+**❌ Antes:**
+
+```{code-block} c
+:linenos:
+double promedio_activos(pedido_t *pedidos, int n)
+{
+    int i, j;
+    double total;
+    int cantidad;
+    total = 0;
+    cantidad = 0;
+    for (i = 0; i < n; i++)
+    {
+        if (pedidos[i].estado = 'A')
+        {
+            total = total + pedidos[i].monto;
+            cantidad = cantidad + 1;
+        }
+    }
+    if (cantidad > 0)
+    {
+        total = total / cantidad; // total cambia de significado
+    }
+    return total;
+}
+```
+
+**✅ Después:**
+
+```{code-block} c
+:linenos:
+typedef struct
+{
+    double suma;
+    int cantidad;
+} acumulado_t;
+
+acumulado_t acumular_activos(const pedido_t *pedidos, int n)
+{
+    acumulado_t acc = {.suma = 0.0, .cantidad = 0};
+    for (int i = 0; i < n; i++)
+    {
+        const bool activo = pedidos[i].estado == 'A';
+        if (activo)
+        {
+            acc.suma += pedidos[i].monto;
+            acc.cantidad++;
+        }
+    }
+    return acc;
+}
+
+double promedio_activos(const pedido_t *pedidos, int n)
+{
+    const acumulado_t acc = acumular_activos(pedidos, n);
+    if (acc.cantidad == 0)
+    {
+        return 0.0;
+    }
+    return acc.suma / acc.cantidad;
+}
+```
+
+Cada variable nace cerca de su uso ({ref}`0x6003h`), arranca con un valor
+conocido ({ref}`0x7001h`) y la estructura se inicializa campo a campo cubriendo
+todos sus miembros ({ref}`0x7005h`). El resultado de la comparación se guarda en
+un `const bool` ({ref}`0x301Ch`), el acumulador tiene un único propósito
+({ref}`0x6004h`) y su alcance queda acotado a cada función ({ref}`0x2006h`). Las
+declaraciones consecutivas se declaran una por línea ({ref}`0x0002h`) y se
+alinean ({ref}`0x0008h`).
+
+## Diagnóstico y refactorización
+
+Usá esta tabla como guía rápida: ubicá el síntoma en tu código y saltá a la
+técnica de esta guía que lo resuelve.
+
+| Regla | Síntoma en el código | Técnica de esta guía |
+|-------|----------------------|----------------------|
+| {ref}`0x7001h` | Una variable local se lee sin haber recibido nunca un valor. | Inicialización Segura |
+| {ref}`0x6003h` | Las declaraciones están amontonadas al inicio y el uso queda lejos. | Reducir Alcance de Variables |
+| {ref}`0x2006h` | Un índice o acumulador vive más allá del bloque que lo necesita. | Reducir Alcance de Variables / Variables de Lazo en el Alcance Mínimo |
+| {ref}`0x6004h` | El mismo nombre guarda primero una entrada y luego un contador. | Separar Variables con Propósitos Diferentes |
+| {ref}`0x301Ch` | Hay `const` locales sin inicializar o inicializados tarde. | Usar `const` para Valores Inmutables |
+| {ref}`0x7005h` | Una estructura o arreglo se declara y solo se llenan algunos campos. | Ejemplo integrador / Casos Prácticos Completos |
+| {ref}`0x3003h` | Aparece `if (x = y)` donde se quería comparar. | Antipatrón 4: Asignación y Comparación Mezcladas |
+| {ref}`0x2011h` | Se asigna dos veces a la misma variable sin leer la primera. | Eliminar Variables Temporales Innecesarias |
+| {ref}`0x0002h` | Una línea declara `int i, j, k;`. | Separar Variables con Propósitos Diferentes / Ejemplo integrador |
+| {ref}`0x0008h` | Declaraciones o asignaciones consecutivas quedan desalineadas. | Extracción a Variables con Nombre / Ejemplo integrador |
 
 ## Resumen
 
@@ -920,3 +1092,18 @@ Técnicas para mejorar el manejo de variables:
 
 El manejo apropiado de variables es fundamental para código seguro, claro y
 mantenible.
+
+## Checklist de verificación
+
+Pasá esta lista antes de dar por cerrada una refactorización de variables:
+
+- [ ] Toda variable local arranca con un valor conocido ({ref}`0x7001h`).
+- [ ] Cada variable se declara lo más cerca posible de su primer uso ({ref}`0x6003h`).
+- [ ] El alcance de cada variable es el mínimo necesario ({ref}`0x2006h`).
+- [ ] Ninguna variable se reutiliza para propósitos distintos ({ref}`0x6004h`).
+- [ ] Las variables `const` locales están inicializadas en su declaración ({ref}`0x301Ch`).
+- [ ] Los campos de estructuras y los arreglos quedan todos inicializados ({ref}`0x7005h`).
+- [ ] No queda ninguna asignación mezclada con una comparación ({ref}`0x3003h`).
+- [ ] No hay asignaciones múltiples sin lectura intermedia ({ref}`0x2011h`).
+- [ ] Hay una sola declaración por línea ({ref}`0x0002h`).
+- [ ] Las declaraciones y asignaciones consecutivas están alineadas ({ref}`0x0008h`).

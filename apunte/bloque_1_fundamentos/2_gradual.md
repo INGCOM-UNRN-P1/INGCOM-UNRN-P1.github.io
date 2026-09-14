@@ -331,7 +331,7 @@ int main(void)
 El uso de reglas de estilo es fundamental para garantizar la consistencia y
 legibilidad del código. Al adherirse a normas uniformes (como nomenclatura,
 indentación y posición de llaves), se facilita la colaboración y el
-mantenimiento del software. Para más detalles, consultá la regla {ref}`0x0000h`.
+mantenimiento del software. Para más detalles, consultá la regla {ref}`0x0001h`.
 
 Y cuando nos referimos a colaboración, esto incluye al profesor que tiene que
 leer su código.
@@ -359,7 +359,7 @@ significado sintáctico especial predefinido y no pueden ser utilizadas como
 identificadores (ej: `int`, `float`, `char`, `if`, `else`, `while`, `return`).
 
 Nuestros identificadores deben respetar las pautas de estilo (ver
-{ref}`0x0001h`).
+{ref}`0x0101h`).
 
 (tipos-de-operadores)=
 #### Tipos de operadores
@@ -489,7 +489,7 @@ bool activo = true;
 
 Si declarás una variable sin inicializarla, su contenido inicial en memoria
 física es indeterminado ("basura"). **Siempre inicializá tus variables** a un
-valor conocido antes de utilizarlas (ver regla de estilo {ref}`0x0003h`).
+valor conocido antes de utilizarlas (ver regla de estilo {ref}`0x7001h`).
 
 (1-secuencia-incorrecta-de-asignaciones)=
 ##### Secuencia incorrecta de asignaciones
@@ -547,7 +547,7 @@ int main(void)
 {
     int a = 10;
     int b = 20;
-    int auxiliar = 0; // Inicialización explícita según la regla {ref}`0x0003h`
+    int auxiliar = 0; // Inicialización explícita según la regla {ref}`0x7001h`
     printf("Antes del intercambio: a = %d, b = %d\n", a, b);
     auxiliar = a; // Guarda el valor de 'a'
     a = b;        // 'a' toma el valor de 'b'

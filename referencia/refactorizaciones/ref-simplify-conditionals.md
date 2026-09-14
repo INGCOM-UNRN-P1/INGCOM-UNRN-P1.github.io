@@ -4,6 +4,7 @@ short_title: "Simplificación de condicionales"
 subtitle: "Técnicas para clarificar y simplificar lógica condicional compleja"
 ---
 
+(refactorizacion-simplify-conditionals)=
 ## Introducción
 
 Los condicionales son una parte fundamental de la programación, pero también son
@@ -17,12 +18,35 @@ auto-explicativas.
 
 :::{important} Claridad en las Condiciones
 
-Como establece {ref}`0x0000h`, la claridad es fundamental. Una condición debe
+Como establece {ref}`0x0001h`, la claridad es fundamental. Una condición debe
 ser inmediatamente comprensible para cualquier lector, revelando su intención
 sin necesidad de análisis mental elaborado.
 
 :::
 <!-- {important} Claridad en las Condiciones -->
+
+## Reglas de estilo que resuelve
+
+Las técnicas de este apunte no son recetas aisladas: cada una responde a un
+problema concreto que la cátedra modeló como regla. Detectar el antipatrón y
+saber qué reescritura lo elimina es lo que conecta la teoría con el código que
+revisás. La siguiente tabla mapea cada regla con el problema que modela y la
+técnica de esta guía que lo resuelve.
+
+| Regla | Problema que modela | Cómo lo resuelve esta refactorización |
+| --- | --- | --- |
+| {ref}`0x1004h` | Condiciones que combinan varios operadores lógicos sin descomponerse | Se extraen a variables booleanas y funciones predicado con nombre significativo |
+| {ref}`0x1013h` | Expresiones que mezclan `&&` y `||` y dejan la agrupación librada a la precedencia | Se agregan paréntesis aclaratorios en cada combinación lógica |
+| {ref}`0x1005h` | Condiciones que dependen de la "veracidad" implícita de enteros, punteros o `char` | Se comparan de forma explícita contra `NULL`, `0`, `'\0'` o `true`/`false` |
+| {ref}`0x100Bh` | Comparaciones en estilo Yoda (`CONST == variable`) | Se escribe siempre `variable == CONSTANTE`, con la variable a la izquierda |
+| {ref}`0x1012h` | Asignaciones embebidas dentro de una estructura de control | La asignación se separa en su propia sentencia antes del `if`, `while` o `for` |
+| {ref}`0x1009h` | Uso del operador `=` simple dentro de una condición lógica | La condición se limita a comparar (`==`) y la asignación se mueve afuera |
+| {ref}`0x1010h` | Comparaciones encadenadas no idiomáticas (`a < b < c`) | Se reescriben de forma explícita como `a < b && b < c` |
+| {ref}`0x1017h` | Condiciones negativas indirectas (`!(...)`) difíciles de leer | Se afirma el caso directo o se aísla la negación en una variable positiva |
+| {ref}`0x1015h` | Anidación de más de tres niveles | Guard clauses, retornos anticipados y extracción de funciones |
+| {ref}`0x2001h` | Funciones sin validar precondiciones y con el camino feliz anidado | Cláusulas de guarda al inicio y liberación centralizada de recursos |
+| {ref}`0x100Fh` | `else` después de una rama que termina con `return` o abandona | La rama alterna se desanida al mismo nivel del `if` |
+| {ref}`0x2013h` | Bloques `else` superfluos tras `return`, `exit`, `break`, `continue` o `goto` | Se elimina el `else` y el flujo continúa al mismo nivel |
 
 ## Problemas Comunes con Condicionales
 
@@ -63,6 +87,11 @@ else
 ```
 <!-- {code-block} c -->
 
+La "pirámide de la perdición" es el síntoma clásico de {ref}`0x1015h`: cada
+nivel adicional de `if` aleja el camino feliz del borde izquierdo y multiplica
+los casos que hay que sostener mentalmente. La respuesta de esta guía es
+invertir las condiciones con guard clauses, tal como prescribe {ref}`0x2001h`.
+
 ### 2. Condiciones Complejas
 
 ```{code-block} c
@@ -76,6 +105,11 @@ if ((estado == ACTIVO || estado == PENDIENTE) &&
 }
 ```
 <!-- {code-block} c -->
+
+Esta condición viola {ref}`0x1004h` porque mezcla demasiadas subexpresiones en
+un solo lugar, y agrava {ref}`0x1013h` al combinar `&&` y `||` sin paréntesis
+que expliciten la agrupación deseada. Extraer cada grupo a una variable con
+nombre es la solución directa.
 
 ### 3. Lógica Duplicada
 
@@ -112,6 +146,12 @@ else
 }
 ```
 <!-- {code-block} c -->
+
+Comparar un booleano contra `true` o `false` no aporta información y depende de
+la "veracidad" del tipo; reescribilo de forma explícita como pide
+{ref}`0x1005h`. Tampoco inviertas el orden a la manera de Yoda
+(`true == es_valido`): la variable va siempre a la izquierda, según
+{ref}`0x100Bh`.
 
 ## Técnicas de Refactorización
 
@@ -204,6 +244,11 @@ void procesar_pedido(pedido_t *pedido)
 - Siguiendo el patrón de {ref}`único retorno <ref-unico-retorno>`, podríamos
   usar `goto` para cleanup centralizado
 
+Invertir la condición para abandonar temprano es exactamente lo que prescriben
+{ref}`0x2001h` y {ref}`0x1015h`. Además, cuando una rama termina en `return`, el
+`else` que la sigue sobra: hay que desanidarlo según {ref}`0x100Fh` y
+{ref}`0x2013h`.
+
 ### 2. Extracción de Condiciones a Variables Booleanas
 
 **Antes:**
@@ -236,6 +281,9 @@ if (es_adulto_en_edad_laboral && es_usuario_activo_valido)
 - Condiciones autodocumentadas
 - Reutilizables
 - Más fáciles de testear individualmente
+
+Dar nombre a cada subexpresión es la técnica que responde a {ref}`0x1004h` y,
+de paso, deja explícita la agrupación que reclama {ref}`0x1013h`.
 
 ### 3. Extracción de Condiciones a Funciones
 
@@ -293,6 +341,10 @@ void procesar_descuento(cliente_t *cliente, double total)
 - Reutilizables en otros contextos
 - Fácil modificar criterios de elegibilidad
 
+Cada predicado encapsula una porción de la condición original, que es la forma
+más robusta de cumplir {ref}`0x1004h`: en lugar de comentar una expresión
+enredada, la partimos en funciones cuyo nombre ya documenta la intención.
+
 ### 4. Simplificación de Booleanos
 
 **Antes:**
@@ -345,6 +397,13 @@ if (contador == 0)
 }
 ```
 <!-- {code-block} c -->
+
+El uso directo del booleano elimina la dependencia de la veracidad implícita
+({ref}`0x1005h`) y las comparaciones redundantes contra `true`/`false`. El rango
+`valor > 0 && valor < 100` se escribe con `&&` explícito, nunca como
+`0 < valor < 100`, tal como exige {ref}`0x1010h`. Y cuando la condición original
+está negada, conviene afirmarla o aislarla en una variable con nombre positivo,
+según {ref}`0x1017h`.
 
 ### 5. Reemplazo de Condicionales con Polimorfismo (simulado en C)
 
@@ -892,6 +951,150 @@ if (edad >= 18 && edad <= 65)
 ```
 <!-- {code-block} c -->
 
+Negar una disyunción y reescribirla como conjunción afirmativa es una
+aplicación directa de {ref}`0x1017h`: la condición queda en forma positiva y
+directa. Además, el rango se expresa como `edad >= 18 && edad <= 65` con `&&`
+explícito, nunca como `18 <= edad <= 65`, tal como prohíbe {ref}`0x1010h`.
+
+## Ejemplo Integrador: Varias Reglas en una Sola Función
+
+Hasta acá vimos las técnicas por separado. En el código real suelen aparecer
+varias violaciones a la vez, y la refactorización consiste en aplicarlas todas
+sobre la misma función. El siguiente ejemplo reúne la mayoría de las reglas de
+la tabla inicial.
+
+**Antes (❌):**
+
+```c
+int procesar_envio(pedido_t *pedido)
+{
+    if (pedido != NULL)
+    {
+        if (pedido->items > 0)
+        {
+            if (pedido->peso < 50)
+            {
+                if (pedido->cliente != NULL)
+                {
+                    int zona;
+                    if ((zona = calcular_zona(pedido)) == ZONA_NACIONAL)
+                    {
+                        if (pedido->prioridad && 0 < pedido->distancia < 1000 || pedido->cliente->vip)
+                        {
+                            return ENVIO_EXPRESS;
+                        }
+                        else
+                        {
+                            return ENVIO_ESTANDAR;
+                        }
+                    }
+                    else
+                    {
+                        return ENVIO_INTERNACIONAL;
+                    }
+                }
+                else
+                {
+                    return SIN_CLIENTE;
+                }
+            }
+            else
+            {
+                return PESO_EXCEDIDO;
+            }
+        }
+        else
+        {
+            return SIN_ITEMS;
+        }
+    }
+    else
+    {
+        return PEDIDO_NULO;
+    }
+}
+```
+
+Este código viola, al mismo tiempo:
+
+- {ref}`0x1015h`: hay cuatro niveles de anidación; el camino feliz queda
+  sepultado.
+- {ref}`0x2001h`: no hay validación temprana de precondiciones; cada error
+  aparece al final de una pirámide.
+- {ref}`0x1012h` y {ref}`0x1009h`: la asignación `zona = calcular_zona(pedido)`
+  está embebida en la condición del `if`.
+- {ref}`0x100Bh`: la comparación `0 < pedido->distancia` invierte el orden y
+  deja la constante a la izquierda.
+- {ref}`0x1010h`: `0 < pedido->distancia < 1000` es una comparación encadenada
+  que en C no significa lo que parece.
+- {ref}`0x1005h`: `pedido->prioridad` depende de la veracidad implícita del
+  campo en lugar de comparar contra `true`/`false`.
+- {ref}`0x1004h`: la condición combina demasiadas subexpresiones en una sola
+  línea, sin nombrar ninguna.
+- {ref}`0x1013h`: dentro de esa misma condición conviven `&&` y `||` sin
+  paréntesis que expliciten la agrupación deseada, que queda librada a la
+  precedencia.
+- {ref}`0x100Fh` y {ref}`0x2013h`: cada rama que termina en `return` arrastra un
+  `else` perfectamente evitable.
+
+**Después (✅):**
+
+```c
+bool es_envio_nacional(int zona)
+{
+    return zona == ZONA_NACIONAL;
+}
+
+bool es_envio_corto(const pedido_t *pedido)
+{
+    return pedido->distancia > 0 && pedido->distancia < 1000;
+}
+
+int procesar_envio(const pedido_t *pedido)
+{
+    // Guardas: el camino de error sale primero (0x2001h, 0x1015h)
+    if (pedido == NULL)
+    {
+        return PEDIDO_NULO;
+    }
+    if (pedido->items == 0)
+    {
+        return SIN_ITEMS;
+    }
+    if (pedido->peso >= 50)
+    {
+        return PESO_EXCEDIDO;
+    }
+    if (pedido->cliente == NULL)
+    {
+        return SIN_CLIENTE;
+    }
+
+    // La asignación va en su propia sentencia (0x1012h, 0x1009h)
+    int zona = calcular_zona(pedido);
+
+    // Variable a la izquierda, condición afirmativa (0x100Bh, 0x1017h)
+    if (!es_envio_nacional(zona))
+    {
+        return ENVIO_INTERNACIONAL;
+    }
+
+    // Rango explícito con && y comparación de bool directa (0x1010h, 0x1005h)
+    if (pedido->prioridad == true &&
+        (es_envio_corto(pedido) || pedido->cliente->vip))
+    {
+        return ENVIO_EXPRESS;
+    }
+    return ENVIO_ESTANDAR;
+}
+```
+
+Después de la refactorización no queda ningún `else` tras un `return`, no hay
+más de dos niveles de anidación, y cada subexpresión tiene nombre o comparación
+explícita. La lógica que antes dependía de la precedencia y del orden de
+evaluación ahora se lee tal cual se ejecuta; lo que cambió es cuánto esfuerzo
+cuesta leerla y auditarla.
+
 (ref-unico-retorno)=
 ## Combinación con el Patrón de Único Retorno
 
@@ -1338,6 +1541,27 @@ int procesar_pedido_complejo(pedido_t *pedido, contexto_t *ctx)
 ```
 <!-- {code-block} c -->
 
+## Diagnóstico y refactorización
+
+Para auditar código existente, conviene recorrer los síntomas de izquierda a
+derecha y aplicar la técnica correspondiente. La siguiente tabla funciona como
+guía rápida de diagnóstico.
+
+| Regla | Síntoma en el código | Técnica de esta guía |
+| --- | --- | --- |
+| {ref}`0x1004h` | Condición larga con varios `&&` y `||` sin partir | Extracción de condiciones a variables booleanas y funciones predicado |
+| {ref}`0x1013h` | Mezcla de `&&` y `||` sin paréntesis que marquen la agrupación | Paréntesis aclaratorios en cada combinación lógica |
+| {ref}`0x1005h` | `if (puntero)`, `if (entero)` o `if (es_valido() == true)` | Comparación explícita contra `NULL`, `0` o `true`/`false` |
+| {ref}`0x100Bh` | `if (NULL == puntero)`, `while (0 == i)` | Reordenar a `variable == CONSTANTE` |
+| {ref}`0x1012h` | `if ((x = f()) != 0)` | Extraer la asignación a una sentencia propia |
+| {ref}`0x1009h` | `while (c = getchar())` con `=` simple | Separar asignación y comparar con `==` en la condición |
+| {ref}`0x1010h` | `0 <= x <= 10`, `a < b < c` | Reescribir como `a < b && b < c` |
+| {ref}`0x1017h` | `if (!(activo && validado))` | Forma afirmativa o variable con nombre positivo |
+| {ref}`0x1015h` | Pirámide de `if` con más de tres niveles | Guard clauses, inversión de condición y extracción de función |
+| {ref}`0x2001h` | Validaciones al final del camino feliz | Cláusulas de guarda al inicio con retornos anticipados |
+| {ref}`0x100Fh` | `else` después de una rama que retorna | Desanidar la rama alterna al nivel del `if` |
+| {ref}`0x2013h` | `else` tras `return`, `break`, `continue` o `goto` | Eliminar el `else` y continuar el flujo |
+
 ## Resumen
 
 Técnicas para simplificar condicionales:
@@ -1362,3 +1586,26 @@ Técnicas para simplificar condicionales:
 
 La claridad en los condicionales es esencial para código mantenible y libre de
 bugs.
+
+## Checklist de verificación
+
+Antes de dar por cerrada una refactorización de condicionales, verificá:
+
+- [ ] Ninguna condición mezcla `&&` y `||` sin paréntesis aclaratorios
+  ({ref}`0x1013h`).
+- [ ] Toda condición compleja está partida en variables o funciones con nombre
+  ({ref}`0x1004h`).
+- [ ] Las comparaciones usan el tipo explícito (`NULL`, `0`, `'\0'`,
+  `true`/`false`) y no la veracidad implícita ({ref}`0x1005h`).
+- [ ] La variable o expresión está a la izquierda y la constante a la derecha,
+  sin estilo Yoda ({ref}`0x100Bh`).
+- [ ] No queda ninguna asignación embebida en un `if`, `while` o `for`
+  ({ref}`0x1012h`, {ref}`0x1009h`).
+- [ ] No hay comparaciones encadenadas del tipo `a < b < c`
+  ({ref}`0x1010h`).
+- [ ] Las condiciones se leen en forma afirmativa y directa ({ref}`0x1017h`).
+- [ ] La anidación no supera los tres niveles ({ref}`0x1015h`).
+- [ ] Las precondiciones se validan con guard clauses y retornos anticipados
+  ({ref}`0x2001h`).
+- [ ] No queda ningún `else` redundante después de una sentencia terminal
+  ({ref}`0x100Fh`, {ref}`0x2013h`).

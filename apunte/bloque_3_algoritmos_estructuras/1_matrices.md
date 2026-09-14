@@ -271,7 +271,7 @@ columnas `j`), el orden de acceso del programa coincide exactamente con la
 disposición lineal en el hardware. Los elementos contiguos ya se encontrarán
 precargados en la caché, generando un **acierto de caché (cache hit)** y
 agilizando notablemente el procesamiento, respetando la regla de estilo
-{ref}`0x0000h`.
+{ref}`0x0001h`.
 
 :::{code-block}c
 :caption: Recorrido fila por fila (Cache-Friendly) - patrón recomendado
@@ -881,7 +881,7 @@ resultado_matriz_t validar_multiplicacion(size_t filas_a, size_t columnas_a,
 En C, la validación de límites es responsabilidad del programador. El lenguaje 
 no proporciona verificaciones automáticas, por lo que debés implementar estas 
 validaciones de forma explícita. El no hacerlo puede resultar en comportamiento 
-indefinido, violando la regla de estilo {ref}`0x0000h` sobre claridad y
+indefinido, violando la regla de estilo {ref}`0x0001h` sobre claridad y
 prolijidad
 del código. 
 
@@ -910,7 +910,7 @@ int matriz[MAX_FILAS][MAX_COLUMNAS];
 #### Funciones Auxiliares
 
 Creá funciones auxiliares para operaciones comunes, siguiendo la regla de
-claridad {ref}`0x0000h`:
+claridad {ref}`0x0001h`:
 
 :::{code-block}c
 :caption: Funciones auxiliares para matrices

@@ -97,16 +97,16 @@ Exponer la definición completa de una estructura en el archivo de cabecera es u
 La técnica de punteros opacos consiste en **declarar la estructura en el archivo
 de cabecera pero definirla en el archivo de implementación**.
 
-:::{tip} Directivas de Estilo para TADs (regla {ref}`0x0035h`)
+:::{tip} Directivas de Estilo para TADs (regla {ref}`0x301Dh`)
 
 Las directivas de diseño de la cátedra establecen que todos los Tipos de Datos
 Abstractos deben diseñarse utilizando punteros opacos. La interfaz expuesta en
 el archivo `.h` debe ser lo más limpia posible, documentando de manera
 exhaustiva sus precondiciones, poscondiciones y el comportamiento ante casos de
-error mediante comentarios estructurados (regla {ref}`0x0035h`).
+error mediante comentarios estructurados (regla {ref}`0x301Dh`).
 
 :::
-<!-- {tip} Directivas de Estilo para TADs (regla {ref}`0x0035h`) -->
+<!-- {tip} Directivas de Estilo para TADs (regla {ref}`0x301Dh`) -->
 
 #### Estructura del Patrón
 
@@ -215,16 +215,16 @@ int main(void)
 :::
 <!-- {code-block}c -->
 
-:::{warning} Gestión de Recursos y Robustez (regla {ref}`0x0003h` y {ref}`0x0036h`)
+:::{warning} Gestión de Recursos y Robustez (regla {ref}`0x7001h` y {ref}`0x301Eh`)
 
 Dado que las instancias de tipos opacos se alocan dinámicamente en el heap, es
 mandatorio que el constructor inicialice todos sus campos a valores seguros o
-`NULL` (regla {ref}`0x0003h`). Asimismo, al destruir la estructura mediante su
+`NULL` (regla {ref}`0x7001h`). Asimismo, al destruir la estructura mediante su
 función liberadora, debe asignarse `NULL` al puntero en el ámbito del cliente
-para evitar el uso accidental de punteros colgantes (regla {ref}`0x0036h`).
+para evitar el uso accidental de punteros colgantes (regla {ref}`0x301Eh`).
 
 :::
-<!-- {warning} Gestión de Recursos y Robustez (regla {ref}`0x0003h` y {ref}`0x0036h`) -->
+<!-- {warning} Gestión de Recursos y Robustez (regla {ref}`0x7001h` y {ref}`0x301Eh`) -->
 
 (patron-destruccion-seguro)=
 ##### Patrón de Destrucción Seguro: Puntero Simple vs. Doble Puntero
@@ -267,7 +267,7 @@ aproximaciones clásicas:
 Por cuestiones de consistencia, robustez y seguridad de memoria, **la cátedra
 exige unificar todos los destructores de tipos opacos y TADs bajo la firma de
 doble puntero (`**self`)** y anular la referencia en el cliente.
-<!-- {warning} Gestión de Recursos y Robustez (regla {ref}`0x0003h` y {ref}`0x0036h`) -->
+<!-- {warning} Gestión de Recursos y Robustez (regla {ref}`0x7001h` y {ref}`0x301Eh`) -->
 
 ---
 
@@ -700,7 +700,7 @@ usuario_t *crear_usuario(const char *nombre, int edad)
     {
         return NULL;
     }
-    // Alocación robusta desreferenciando el puntero (regla {ref}`0x0003h`)
+    // Alocación robusta desreferenciando el puntero (regla {ref}`0x7001h`)
     usuario_t *u = malloc(sizeof(*u));
     if (u == NULL)
     {

@@ -20,7 +20,7 @@ pilas, colas) y no lineales (árboles binarios, tablas hash) en C.
   de perder la referencia a la cabeza.
 - **Punteros dobles:** Empleá punteros dobles (`nodo_t **`) para modificar de
   forma directa la dirección física a la que apunta la cabeza de una estructura
-  lineal sin retornar el nuevo puntero (ver reglas en {ref}`0x2009h`).
+  lineal sin retornar el nuevo puntero (ver reglas en {ref}`0x2008h`).
 
 ---
 

@@ -1001,7 +1001,7 @@ void recurso_destruir(recurso_t **recurso_out)
 
 Declarar los asteriscos junto al identificador de la variable (por ejemplo,
 `recurso_t **recurso_out`) y verificar siempre los retornos de asignación de
-memoria dinámica para cumplir con la regla {ref}`0x0006h` y las directivas de
+memoria dinámica para cumplir con la regla {ref}`0x0005h` y las directivas de
 robustez del apunte.
 
 :::

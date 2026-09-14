@@ -813,13 +813,13 @@ int main(void)
 ```
 <!-- {code-block} c -->
 
-:::{tip} Regla {ref}`0x2007h`
+:::{tip} Regla {ref}`0x2006h`
 
 Aunque `bool` simplifica el código, evitá comparaciones ambiguas basadas en
 "veracidad". Sé explícito: `if (puntero != NULL)` en lugar de `if (puntero)`.
 
 :::
-<!-- {tip} Regla {ref}`0x2007h` -->
+<!-- {tip} Regla {ref}`0x2006h` -->
 
 ---
 

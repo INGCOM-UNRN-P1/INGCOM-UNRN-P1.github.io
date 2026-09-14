@@ -1193,7 +1193,7 @@ dominio específico.
 ### Principios Clave a Recordar
 
 1. **Claridad sobre Cleverness**: Un código claro y simple es superior a uno
-   "inteligente" pero difícil de entender. Como dice la regla {ref}`0x0000h`, la
+   "inteligente" pero difícil de entender. Como dice la regla {ref}`0x0001h`, la
    claridad y prolijidad son fundamentales.
 
 2. **Contratos Explícitos**: Las precondiciones y poscondiciones no son
@@ -1244,8 +1244,8 @@ Para profundizar en los temas tratados, se recomiendan las siguientes lecturas:
 :::{tip} Estilo
 
 En este apunte se aplicaron los principios de diseño de APIs descriptos en las
-reglas {ref}`0x0000h` (claridad y prolijidad), {ref}`0x0001h` (nomenclatura),
-{ref}`0x000Ah` (documentación), y {ref}`0x3002h` (gestión de memoria),
+reglas {ref}`0x0001h` (claridad y prolijidad), {ref}`0x0101h` (nomenclatura),
+{ref}`0x0201h` (documentación), y {ref}`0x3002h` (gestión de memoria),
 demostrando su aplicación práctica en el diseño de interfaces profesionales.
 
 :::

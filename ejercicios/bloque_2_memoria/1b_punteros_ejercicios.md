@@ -16,7 +16,7 @@ aritmética básica de indirección de memoria en C.
 ### Cuestiones de Estilo Aplicables
 - **Uso de aserciones:** Es mandatorio validar mediante `assert` de la cabecera
   `<assert.h>` que los punteros recibidos por parámetros en las funciones no
-  sean `NULL` (ver {ref}`0x2009h`).
+  sean `NULL` (ver {ref}`0x2008h`).
 - **Aritmética de punteros:** Recorré los arreglos operando de manera directa
   sobre los punteros de control y evitando índices lógicos temporales,
   incrementando o decrementando las direcciones físicas de memoria de forma

@@ -19,7 +19,7 @@ binaria) y ordenamiento (burbuja, selección, inserción, fusión, rápido) en C
 - **Genericidad y modularidad:** Separar los algoritmos en funciones modulares
   con firmas estandarizadas e implementar funciones auxiliares de intercambio
   (`void intercambia(int *a, int *b)`) reutilizables (ver reglas en
-  {ref}`0x2009h`).
+  {ref}`0x2008h`).
 
 ---
 

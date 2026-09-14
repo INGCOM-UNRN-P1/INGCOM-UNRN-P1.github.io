@@ -4,6 +4,8 @@ short_title: "Números mágicos"
 subtitle: "Convertir literales en constantes con nombre significativo"
 ---
 
+(refactorizacion-magic-numbers)=
+
 ## Introducción
 
 Un **número mágico** (magic number) es un valor literal numérico que aparece
@@ -14,16 +16,36 @@ lugares.
 
 La refactorización para eliminar números mágicos consiste en reemplazarlos por
 constantes con nombres descriptivos que expresen claramente su propósito y
-significado en el contexto del programa.
+significado en el contexto del programa. Es, en esencia, la aplicación directa
+de {ref}`0x0112h`.
 
 :::{important} Principio de Autodocumentación
 
-Como establece {ref}`0x0001h`, los identificadores deben ser descriptivos. Las
+Como establece {ref}`0x0101h`, los identificadores deben ser descriptivos. Las
 constantes con nombre no solo evitan errores, sino que también documentan el
 código, haciendo explícito el significado de cada valor.
 
 :::
 <!-- {important} Principio de Autodocumentación -->
+
+## Reglas de estilo que resuelve
+
+Esta refactorización no es una técnica aislada: resuelve de forma directa varios
+problemas que la cátedra modela como reglas de estilo. Cada regla captura un
+síntoma distinto del mismo vicio de fondo —dejar valores literales sueltos en el
+código— y esta guía ofrece la técnica concreta para eliminarlo. La tabla
+siguiente mapea cada regla con el problema que modela y con la forma en que la
+refactorización lo resuelve.
+
+| Regla | Problema que modela | Cómo lo resuelve esta refactorización |
+| :--- | :--- | :--- |
+| {ref}`0x0112h` | Todo literal con significado queda suelto en la expresión y obliga a inferir su propósito del contexto. | Reemplaza cada literal por una constante simbólica (`const`, `#define` o `enum`) con nombre de dominio. |
+| {ref}`0x010Fh` | Los índices fijos de arreglo escritos como literales (por ejemplo `vec[7]`) esconden qué campo representan y se desalinean si cambia la estructura. | Nombra cada posición con una constante simbólica o de `enum`, de modo que el índice también se autodocumente. |
+| {ref}`0x0103h` | Una constante `const` en minúsculas o `camelCase` se confunde con una variable mutable. | Declara las constantes `const` en `MAYUSCULAS_SNAKE_CASE` como parte del propio reemplazo del literal. |
+| {ref}`0x0107h` | Una macro escrita en minúsculas parece una función o variable y oculta su expansión textual. | Nombra las macros de `#define` en `MAYUSCULAS_SNAKE_CASE` al extraer un literal. |
+| {ref}`0x300Dh` | Conjuntos de estados o valores relacionados aparecen como literales dispersos (`estado == 2`) que se confunden entre sí. | Agrupa esos valores en un `enum` con nombres de dominio que comparten semántica. |
+| {ref}`0x2007h` | Valores de retorno y códigos de error numéricos (`return -1`) no comunican su causa al lector. | Define los valores de retorno como constantes simbólicas o `enum` al extraer el literal. |
+| {ref}`0x5001h` | Un arreglo dimensionado con un valor calculado en runtime (VLA) puede desbordar la pila o no compilar. | Extrae el tamaño a una constante de tiempo de compilación (`#define`, `enum` o literal) y dimensiónalo con ella. |
 
 ## ¿Por Qué Son Problemáticos los Números Mágicos?
 
@@ -87,7 +109,7 @@ máxima de entrada), debería ser una constante compartida.
 
 ### 1. Literales Numéricos
 
-Los más comunes y evidentes:
+Los más comunes y evidentes. Esta es la forma canónica que ataca {ref}`0x0112h`:
 
 ```{code-block} c
 :linenos:
@@ -107,6 +129,8 @@ if (temperatura > TEMPERATURA_EBULLICION_AGUA)
 
 ### 2. Factores de Conversión
 
+Los factores son literales con significado: también les aplica {ref}`0x0112h`.
+
 ```{code-block} c
 :linenos:
 // Malo
@@ -121,6 +145,10 @@ double kilogramos = libras * KG_POR_LIBRA;
 <!-- {code-block} c -->
 
 ### 3. Tamaños de Buffer
+
+El tamaño de un arreglo debe ser una constante de tiempo de compilación, tal
+como exige {ref}`0x5001h`; cuando se extrae con `#define`, además rige
+{ref}`0x0107h` para nombrarla en `MAYUSCULAS_SNAKE_CASE`.
 
 ```{code-block} c
 :linenos:
@@ -137,6 +165,10 @@ fgets(nombre, MAX_NOMBRE, stdin);
 <!-- {code-block} c -->
 
 ### 4. Códigos de Estado o Error
+
+Los conjuntos de estados relacionados piden un `enum` según {ref}`0x300Dh`, y
+los valores de retorno con significado propio deben nombrarse como indica
+{ref}`0x2007h`.
 
 ```{code-block} c
 :linenos:
@@ -197,6 +229,9 @@ if (calificacion >= CALIFICACION_MINIMA_APROBACION)
 
 ### Método 1: Constantes con `const`
 
+Al usar `const`, el nombre resultante debe ir en `MAYUSCULAS_SNAKE_CASE`, como
+manda {ref}`0x0103h`.
+
 **Ventajas:**
 - Type-safe (tiene tipo específico)
 - Scope controlado (puede ser local, global, o estática)
@@ -229,6 +264,9 @@ void procesar_pedido(double precio)
 
 ### Método 2: Macros con `#define`
 
+Las macros son el caso explícito de {ref}`0x0107h`: van siempre en
+`MAYUSCULAS_SNAKE_CASE`.
+
 **Ventajas:**
 - Disponible en todo el archivo (o globalmente si está en .h)
 - Puede usarse para definir tamaños de arrays
@@ -255,7 +293,8 @@ usuario_t usuarios[MAX_USUARIOS];
 
 ### Método 3: Enumeraciones
 
-**Ideal para conjuntos de valores relacionados:**
+**Ideal para conjuntos de valores relacionados**, exactamente lo que pide
+{ref}`0x300Dh`:
 
 ```{code-block} c
 :linenos:
@@ -580,6 +619,109 @@ bool validar_usuario(const char *nombre, int edad, double salario)
 ```
 <!-- {code-block} c -->
 
+### Caso 5: Ejemplo Integrador
+
+Los casos anteriores atacaban una regla por vez. En el código real los vicios
+aparecen juntos, así que conviene ver una refactorización que resuelve varias
+reglas a la vez sobre el mismo fragmento.
+
+**❌ Código original:**
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+double promediar(double notas[])
+{
+    double suma = 0;
+    for (int i = 0; i < 5; i++) // 5: cantidad de notas
+    {
+        suma += notas[i];
+    }
+    return suma / 5;
+}
+int estado_alumno(double promedio, int asistencias)
+{
+    if (promedio < 60) // umbral de aprobación
+    {
+        return -1; // ¿desaprobado? ¿error?
+    }
+    if (asistencias < 3) // mínimo de asistencias
+    {
+        return -2; // ¿libre? ¿otro error?
+    }
+    return 0;
+}
+void imprimir_total(double matriz[][8])
+{
+    printf("%.2f\n", matriz[0][7]); // ¿qué es la columna 7?
+}
+```
+<!-- {code-block} c -->
+
+En este fragmento conviven un umbral literal (`60`), una cantidad repetida
+(`5`), códigos de retorno sin nombre (`-1`, `-2`, `0`), un índice de arreglo
+críptico (`7`) y un tamaño de columna fijo (`8`).
+
+**✅ Código refactorizado:**
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+// Tamaños y políticas (tiempo de compilación)
+#define CANTIDAD_NOTAS 5
+#define MINIMO_ASISTENCIAS 3
+#define COLUMNAS_MATRIZ 8
+// Umbral como constante `const` en MAYUSCULAS_SNAKE_CASE
+const double PROMEDIO_APROBACION = 60.0;
+// Estados y posiciones con nombre de dominio
+enum estado_alumno
+{
+    ESTADO_APROBADO = 0,
+    ESTADO_DESAPROBADO = -1,
+    ESTADO_LIBRE = -2
+};
+enum columna_totales
+{
+    COLUMNA_PARCIALES = 0,
+    COLUMNA_TOTAL = 7
+};
+double promediar(const double notas[])
+{
+    double suma = 0.0;
+    for (int i = 0; i < CANTIDAD_NOTAS; i++)
+    {
+        suma += notas[i];
+    }
+    return suma / CANTIDAD_NOTAS;
+}
+enum estado_alumno evaluar_alumno(double promedio, int asistencias)
+{
+    if (promedio < PROMEDIO_APROBACION)
+    {
+        return ESTADO_DESAPROBADO;
+    }
+    if (asistencias < MINIMO_ASISTENCIAS)
+    {
+        return ESTADO_LIBRE;
+    }
+    return ESTADO_APROBADO;
+}
+void imprimir_total(const double matriz[][COLUMNAS_MATRIZ])
+{
+    printf("%.2f\n", matriz[0][COLUMNA_TOTAL]);
+}
+```
+<!-- {code-block} c -->
+
+Reglas resueltas de un solo golpe: {ref}`0x0112h` (constantes simbólicas para
+todo literal con significado), {ref}`0x010Fh` (el índice `7` pasó a
+`COLUMNA_TOTAL`), {ref}`0x0103h` (`PROMEDIO_APROBACION` en
+`MAYUSCULAS_SNAKE_CASE`), {ref}`0x0107h` (las macros `CANTIDAD_NOTAS`,
+`MINIMO_ASISTENCIAS` y `COLUMNAS_MATRIZ`), {ref}`0x300Dh` (`enum` para los
+estados), {ref}`0x2007h` (los códigos de retorno `-1`, `-2` y `0` ahora tienen
+nombre) y {ref}`0x5001h` (el arreglo se dimensiona con la constante
+`COLUMNAS_MATRIZ`).
+
 ## Números Mágicos Aceptables
 
 ### El Número 0 y 1
@@ -606,12 +748,31 @@ int desplazamiento = numero << 8;
 
 ### Índices de Arrays
 
+Los índices `0`, `1` y `2` y las variables de iteración quedan exceptuados por
+su uso idiomático, pero un índice fijo mayor que 2 es un número mágico y cae
+bajo {ref}`0x010Fh`: hay que nombrarlo con una constante simbólica o de `enum`.
+
 ``` c
 // Aceptable
 char primer_caracter = cadena[0];
 char ultimo_caracter = cadena[strlen(cadena) - 1];
 ```
-<!-- c -->
+
+```{code-block} c
+:linenos:
+// Malo: ¿qué campo es la posición 7?
+total = registro[7];
+// Bueno: el índice también se autodocumenta
+enum campo_registro
+{
+    CAMPO_LEGAJO = 0,
+    CAMPO_NOMBRE = 1,
+    CAMPO_SUELDO = 2,
+    CAMPO_TOTAL = 7
+};
+total = registro[CAMPO_TOTAL];
+```
+<!-- {code-block} c -->
 
 ## Patrón de Organización de Constantes
 
@@ -834,6 +995,22 @@ const int MAX_CARACTERES_COMENTARIO = 50;
 ```
 <!-- {code-block} c -->
 
+## Diagnóstico y refactorización
+
+Antes de tocar el código, conviene reconocer el síntoma. La tabla siguiente
+relaciona cada regla con la señal concreta que la delata y con la técnica de
+esta guía que la remedia.
+
+| Regla | Síntoma en el código | Técnica de esta guía |
+| :--- | :--- | :--- |
+| {ref}`0x0112h` | Un literal con significado aparece suelto (`if (edad > 120)`, `precio * 0.85`). | Extraer una constante simbólica con nombre de dominio (`const`, `#define` o `enum`). |
+| {ref}`0x010Fh` | Se accede a posiciones fijas con literales mayores que 2 (`registro[7]`). | Nombrar cada posición con una constante simbólica o de `enum` (sección «Índices de Arrays»). |
+| {ref}`0x0103h` | Una constante `const` está en minúsculas o `camelCase` (`const int maxUsuarios`). | Renombrarla en `MAYUSCULAS_SNAKE_CASE` al extraer el literal. |
+| {ref}`0x0107h` | Una macro `#define` está en minúsculas (`#define maxBuffer 50`). | Renombrarla en `MAYUSCULAS_SNAKE_CASE` (Método 2). |
+| {ref}`0x300Dh` | Estados o categorías comparados contra literales (`if (estado == 2)`). | Agrupar los valores en un `enum` con nombres de dominio (Método 3). |
+| {ref}`0x2007h` | Valores de retorno literales (`return -1;`) sin causa comunicada. | Definir el valor de retorno con un `enum` o constante simbólica (Caso 5). |
+| {ref}`0x5001h` | Arreglos dimensionados con un valor calculado en runtime (VLA) o con un literal repetido. | Extraer el tamaño a una constante de tiempo de compilación y usarla para dimensionar. |
+
 ## Resumen
 
 La eliminación de números mágicos es una refactorización fundamental que:
@@ -852,3 +1029,19 @@ La eliminación de números mágicos es una refactorización fundamental que:
 
 El tiempo invertido en esta refactorización se recupera rápidamente en
 mantenimiento y prevención de bugs.
+
+## Checklist de verificación
+
+- [ ] Todo literal con significado del fragmento quedó reemplazado por una
+      constante simbólica, conforme a {ref}`0x0112h`.
+- [ ] Ningún arreglo se indexa con literales mayores que 2; cada posición fija
+      tiene nombre propio, según {ref}`0x010Fh`.
+- [ ] Las constantes `const` están en `MAYUSCULAS_SNAKE_CASE` ({ref}`0x0103h`).
+- [ ] Las macros `#define` están en `MAYUSCULAS_SNAKE_CASE` ({ref}`0x0107h`).
+- [ ] Los estados y conjuntos de valores relacionados se declararon con `enum`
+      ({ref}`0x300Dh`).
+- [ ] Los valores de retorno y códigos de error numéricos tienen nombre
+      simbólico ({ref}`0x2007h`).
+- [ ] Los arreglos estáticos se dimensionan con una constante de tiempo de
+      compilación y no con un VLA ({ref}`0x5001h`).
+- [ ] El comportamiento del código no cambió: los tests siguen pasando.

@@ -93,290 +93,238 @@ project:
     - title: Reglas de Estilo y Antipatrones
       children:
         - file: reglas/indice.md
-        - title: "Sintaxis Básica y Nomenclatura (0x00XX)"
+        - file: reglas/renumeracion.md
+        - title: "Sintaxis y formato visual (0x00XX)"
           children:
-            - file: reglas/0_sintaxis/index.md
-            - title: "Reglas de Estilo (Sintaxis y Nomenclatura)"
+            - file: reglas/00_formato/index.md
+            - title: "Reglas (0x00XX)"
               children:
-                - file: reglas/0_sintaxis/0x0000h.md
-                - file: reglas/0_sintaxis/0x0001h.md
-                - file: reglas/0_sintaxis/0x0002h.md
-                - file: reglas/0_sintaxis/0x0003h.md
-                - file: reglas/0_sintaxis/0x0004h.md
-                - file: reglas/0_sintaxis/0x0005h.md
-                - file: reglas/0_sintaxis/0x0006h.md
-                - file: reglas/0_sintaxis/0x0007h.md
-                - file: reglas/0_sintaxis/0x0008h.md
-                - file: reglas/0_sintaxis/0x0009h.md
-                - file: reglas/0_sintaxis/0x000Ah.md
-                - file: reglas/0_sintaxis/0x000Bh.md
-                - file: reglas/0_sintaxis/0x000Ch.md
-                - file: reglas/0_sintaxis/0x000Dh.md
-                - file: reglas/0_sintaxis/0x000Eh.md
-                - file: reglas/0_sintaxis/0x000Fh.md
-                - file: reglas/0_sintaxis/0x0010h.md
-                - file: reglas/0_sintaxis/0x0011h.md
-                - file: reglas/0_sintaxis/0x0012h.md
-                - file: reglas/0_sintaxis/0x0013h.md
-                - file: reglas/0_sintaxis/0x0014h.md
-                - file: reglas/0_sintaxis/0x0015h.md
-                - file: reglas/0_sintaxis/0x0016h.md
-                - file: reglas/0_sintaxis/0x0017h.md
-                - file: reglas/0_sintaxis/0x0018h.md
-                - file: reglas/0_sintaxis/0x0019h.md
-                - file: reglas/0_sintaxis/0x001Ah.md
-                - file: reglas/0_sintaxis/0x001Bh.md
-                - file: reglas/0_sintaxis/0x001Ch.md
-                - file: reglas/0_sintaxis/0x001Dh.md
-                - file: reglas/0_sintaxis/0x001Eh.md
-                - file: reglas/0_sintaxis/0x001Fh.md
-                - file: reglas/0_sintaxis/0x0020h.md
-                - file: reglas/0_sintaxis/0x0022h.md
-                - file: reglas/0_sintaxis/0x0023h.md
-                - file: reglas/0_sintaxis/0x0025h.md
-                - file: reglas/0_sintaxis/0x0026h.md
-                - file: reglas/0_sintaxis/0x0027h.md
-                - file: reglas/0_sintaxis/0x0028h.md
-                - file: reglas/0_sintaxis/0x0029h.md
-                - file: reglas/0_sintaxis/0x002Bh.md
-                - file: reglas/0_sintaxis/0x002Ch.md
-                - file: reglas/0_sintaxis/0x002Dh.md
-                - file: reglas/0_sintaxis/0x0037h.md
-                - file: reglas/0_sintaxis/0x0038h.md
-            - title: "Antipatrones Didácticos (Sintaxis y Nomenclatura)"
-              children:
-                - file: reglas/0_sintaxis/ap_0x0003b.md
-                - file: reglas/0_sintaxis/ap_0x0004b.md
-                - file: reglas/0_sintaxis/ap_0x0039h.md
-        - title: "Estructuras de Control y Lazos (0x10XX)"
+                - file: reglas/00_formato/0x0001h.md
+                - file: reglas/00_formato/0x0002h.md
+                - file: reglas/00_formato/0x0003h.md
+                - file: reglas/00_formato/0x0004h.md
+                - file: reglas/00_formato/0x0005h.md
+                - file: reglas/00_formato/0x0006h.md
+                - file: reglas/00_formato/0x0007h.md
+                - file: reglas/00_formato/0x0008h.md
+                - file: reglas/00_formato/0x0009h.md
+                - file: reglas/00_formato/0x000Ah.md
+                - file: reglas/00_formato/0x000Bh.md
+                - file: reglas/00_formato/0x000Ch.md
+                - file: reglas/00_formato/0x000Dh.md
+                - file: reglas/00_formato/0x000Eh.md
+                - file: reglas/00_formato/0x000Fh.md
+                - file: reglas/00_formato/0x0010h.md
+                - file: reglas/00_formato/0x0011h.md
+                - file: reglas/00_formato/0x0012h.md
+                - file: reglas/00_formato/0x0013h.md
+                - file: reglas/00_formato/0x0014h.md
+                - file: reglas/00_formato/0x0015h.md
+                - file: reglas/00_formato/0x0016h.md
+                - file: reglas/00_formato/0x0017h.md
+        - title: "Nomenclatura e identificadores (0x01XX)"
           children:
-            - file: reglas/1_control/index.md
-            - title: "Reglas de Estilo (Control de Flujo)"
+            - file: reglas/01_nomenclatura/index.md
+            - title: "Reglas (0x01XX)"
               children:
-                - file: reglas/1_control/0x1001h.md
-                - file: reglas/1_control/0x1002h.md
-                - file: reglas/1_control/0x1003h.md
-                - file: reglas/1_control/0x1004h.md
-                - file: reglas/1_control/0x1005h.md
-                - file: reglas/1_control/0x1006h.md
-                - file: reglas/1_control/0x1007h.md
-                - file: reglas/1_control/0x1008h.md
-                - file: reglas/1_control/0x100Ah.md
-                - file: reglas/1_control/0x100Bh.md
-                - file: reglas/1_control/0x100Ch.md
-                - file: reglas/1_control/0x100Dh.md
-                - file: reglas/1_control/0x100Eh.md
-                - file: reglas/1_control/0x100Fh.md
-                - file: reglas/1_control/0x1010h.md
-                - file: reglas/1_control/0x1011h.md
-                - file: reglas/1_control/0x1012h.md
-                - file: reglas/1_control/0x1013h.md
-                - file: reglas/1_control/0x1014h.md
-                - file: reglas/1_control/0x1016h.md
-                - file: reglas/1_control/0x1017h.md
-            - title: "Antipatrones Didácticos (Control de Flujo)"
-              children:
-                - file: reglas/1_control/ap_0x1001h.md
-                - file: reglas/1_control/ap_0x1005h.md
-                - file: reglas/1_control/ap_0x100Ah.md
-                - file: reglas/1_control/ap_0x100Ch.md
-                - file: reglas/1_control/ap_0x100Dh.md
-                - file: reglas/1_control/ap_0x100Eh.md
-                - file: reglas/1_control/ap_0x100Fh.md
-                - file: reglas/1_control/ap_0x1010h.md
-                - file: reglas/1_control/ap_0x1011h.md
-                - file: reglas/1_control/ap_0x1014h.md
-                - file: reglas/1_control/ap_0x1015h.md
-                - file: reglas/1_control/ap_0x1016h.md
-                - file: reglas/1_control/ap_0x1017h.md
-                - file: reglas/1_control/ap_0x1018h.md
-                - file: reglas/1_control/ap_0x1019h.md
-                - file: reglas/1_control/ap_0x101Ah.md
-                - file: reglas/1_control/ap_0x101Bh.md
-                - file: reglas/1_control/ap_0x101Ch.md
-        - title: "Funciones y Modularización (0x20XX)"
+                - file: reglas/01_nomenclatura/0x0101h.md
+                - file: reglas/01_nomenclatura/0x0102h.md
+                - file: reglas/01_nomenclatura/0x0103h.md
+                - file: reglas/01_nomenclatura/0x0104h.md
+                - file: reglas/01_nomenclatura/0x0105h.md
+                - file: reglas/01_nomenclatura/0x0106h.md
+                - file: reglas/01_nomenclatura/0x0107h.md
+                - file: reglas/01_nomenclatura/0x0108h.md
+                - file: reglas/01_nomenclatura/0x0109h.md
+                - file: reglas/01_nomenclatura/0x010Ah.md
+                - file: reglas/01_nomenclatura/0x010Bh.md
+                - file: reglas/01_nomenclatura/0x010Ch.md
+                - file: reglas/01_nomenclatura/0x010Dh.md
+                - file: reglas/01_nomenclatura/0x010Eh.md
+                - file: reglas/01_nomenclatura/0x010Fh.md
+                - file: reglas/01_nomenclatura/0x0110h.md
+                - file: reglas/01_nomenclatura/0x0111h.md
+                - file: reglas/01_nomenclatura/0x0112h.md
+        - title: "Comentarios, documentacion y organizacion de archivos (0x02XX)"
           children:
-            - file: reglas/2_funciones/index.md
-            - title: "Reglas de Estilo (Funciones y Modularización)"
+            - file: reglas/02_documentacion/index.md
+            - title: "Reglas (0x02XX)"
               children:
-                - file: reglas/2_funciones/0x2001h.md
-                - file: reglas/2_funciones/0x2002h.md
-                - file: reglas/2_funciones/0x2003h.md
-                - file: reglas/2_funciones/0x2004h.md
-                - file: reglas/2_funciones/0x2005h.md
-                - file: reglas/2_funciones/0x2006h.md
-                - file: reglas/2_funciones/0x2007h.md
-                - file: reglas/2_funciones/0x2008h.md
-                - file: reglas/2_funciones/0x2009h.md
-                - file: reglas/2_funciones/0x200Ah.md
-                - file: reglas/2_funciones/0x200Bh.md
-                - file: reglas/2_funciones/0x200Ch.md
-                - file: reglas/2_funciones/0x200Dh.md
-                - file: reglas/2_funciones/0x200Eh.md
-                - file: reglas/2_funciones/0x200Fh.md
-                - file: reglas/2_funciones/0x2010h.md
-                - file: reglas/2_funciones/0x2011h.md
-                - file: reglas/2_funciones/0x2012h.md
-                - file: reglas/2_funciones/0x2013h.md
-                - file: reglas/2_funciones/0x2016h.md
-            - title: "Antipatrones Didácticos (Funciones y Modularización)"
-              children:
-                - file: reglas/2_funciones/ap_0x2007h.md
-                - file: reglas/2_funciones/ap_0x2009h.md
-                - file: reglas/2_funciones/ap_0x200Bh.md
-                - file: reglas/2_funciones/ap_0x2011h.md
-                - file: reglas/2_funciones/ap_0x2012h.md
-                - file: reglas/2_funciones/ap_0x2013h.md
-        - title: "Punteros y Gestión de Memoria (0x30XX)"
+                - file: reglas/02_documentacion/0x0201h.md
+                - file: reglas/02_documentacion/0x0202h.md
+                - file: reglas/02_documentacion/0x0203h.md
+                - file: reglas/02_documentacion/0x0204h.md
+                - file: reglas/02_documentacion/0x0205h.md
+                - file: reglas/02_documentacion/0x0206h.md
+        - title: "Estructuras de control y flujo (0x10XX)"
           children:
-            - file: reglas/3_punteros/index.md
-            - title: "Reglas de Estilo (Punteros y Memoria)"
+            - file: reglas/10_control/index.md
+            - title: "Reglas (0x10XX)"
               children:
-                - file: reglas/3_punteros/0x0035h.md
-                - file: reglas/3_punteros/0x0036h.md
-                - file: reglas/3_punteros/0x3001h.md
-                - file: reglas/3_punteros/0x3002h.md
-                - file: reglas/3_punteros/0x3003h.md
-                - file: reglas/3_punteros/0x3004h.md
-                - file: reglas/3_punteros/0x3005h.md
-                - file: reglas/3_punteros/0x3006h.md
-                - file: reglas/3_punteros/0x3007h.md
-                - file: reglas/3_punteros/0x3008h.md
-                - file: reglas/3_punteros/0x3009h.md
-                - file: reglas/3_punteros/0x300Ah.md
-                - file: reglas/3_punteros/0x300Bh.md
-                - file: reglas/3_punteros/0x300Ch.md
-                - file: reglas/3_punteros/0x300Dh.md
-                - file: reglas/3_punteros/0x300Eh.md
-                - file: reglas/3_punteros/0x300Fh.md
-                - file: reglas/3_punteros/0x3010h.md
-                - file: reglas/3_punteros/0x3011h.md
-                - file: reglas/3_punteros/0x3012h.md
-                - file: reglas/3_punteros/0x3013h.md
-                - file: reglas/3_punteros/0x3014h.md
-                - file: reglas/3_punteros/0x3015h.md
-                - file: reglas/3_punteros/0x3016h.md
-                - file: reglas/3_punteros/0x3017h.md
-                - file: reglas/3_punteros/0x3018h.md
-                - file: reglas/3_punteros/0x3019h.md
-                - file: reglas/3_punteros/0x301Ah.md
-            - title: "Antipatrones Didácticos (Punteros y Memoria)"
-              children:
-                - file: reglas/3_punteros/ap_0x3001h.md
-                - file: reglas/3_punteros/ap_0x3002b.md
-                - file: reglas/3_punteros/ap_0x3002h.md
-                - file: reglas/3_punteros/ap_0x3008h.md
-                - file: reglas/3_punteros/ap_0x300Ah.md
-                - file: reglas/3_punteros/ap_0x300Dh.md
-                - file: reglas/3_punteros/ap_0x300Fh.md
-                - file: reglas/3_punteros/ap_0x3015h.md
-                - file: reglas/3_punteros/ap_0x3019h.md
-                - file: reglas/3_punteros/ap_0x301Ah.md
-                - file: reglas/3_punteros/ap_0x301Bh.md
-                - file: reglas/3_punteros/ap_0x301Ch.md
-                - file: reglas/3_punteros/ap_0x301Dh.md
-                - file: reglas/3_punteros/ap_0x301Eh.md
-                - file: reglas/3_punteros/ap_0x301Fh.md
-                - file: reglas/3_punteros/ap_0x3020h.md
-                - file: reglas/3_punteros/ap_0x3021h.md
-                - file: reglas/3_punteros/ap_0x3022h.md
-                - file: reglas/3_punteros/ap_0x3023h.md
-                - file: reglas/3_punteros/ap_0x3024h.md
-                - file: reglas/3_punteros/ap_0x3025h.md
-                - file: reglas/3_punteros/ap_0x3026h.md
-                - file: reglas/3_punteros/ap_0x3027h.md
-                - file: reglas/3_punteros/ap_0x3028h.md
-                - file: reglas/3_punteros/ap_0x3029h.md
-                - file: reglas/3_punteros/ap_0x302Ah.md
-        - title: "Gestión de Archivos y Errores (0x40XX)"
+                - file: reglas/10_control/0x1001h.md
+                - file: reglas/10_control/0x1002h.md
+                - file: reglas/10_control/0x1003h.md
+                - file: reglas/10_control/0x1004h.md
+                - file: reglas/10_control/0x1005h.md
+                - file: reglas/10_control/0x1006h.md
+                - file: reglas/10_control/0x1007h.md
+                - file: reglas/10_control/0x1008h.md
+                - file: reglas/10_control/0x1009h.md
+                - file: reglas/10_control/0x100Ah.md
+                - file: reglas/10_control/0x100Bh.md
+                - file: reglas/10_control/0x100Ch.md
+                - file: reglas/10_control/0x100Dh.md
+                - file: reglas/10_control/0x100Eh.md
+                - file: reglas/10_control/0x100Fh.md
+                - file: reglas/10_control/0x1010h.md
+                - file: reglas/10_control/0x1011h.md
+                - file: reglas/10_control/0x1012h.md
+                - file: reglas/10_control/0x1013h.md
+                - file: reglas/10_control/0x1014h.md
+                - file: reglas/10_control/0x1015h.md
+                - file: reglas/10_control/0x1016h.md
+                - file: reglas/10_control/0x1017h.md
+                - file: reglas/10_control/0x1018h.md
+        - title: "Funciones, contratos y modularizacion (0x20XX)"
           children:
-            - file: reglas/4_archivos/index.md
-            - title: "Reglas de Estilo (Archivos y E/S)"
+            - file: reglas/20_funciones/index.md
+            - title: "Reglas (0x20XX)"
               children:
-                - file: reglas/4_archivos/0x4001h.md
-                - file: reglas/4_archivos/0x4002h.md
-                - file: reglas/4_archivos/0x4003h.md
-                - file: reglas/4_archivos/0x4004h.md
-                - file: reglas/4_archivos/0x4005h.md
-                - file: reglas/4_archivos/0x4006h.md
-                - file: reglas/4_archivos/0x4007h.md
-                - file: reglas/4_archivos/0x4008h.md
-                - file: reglas/4_archivos/0x4009h.md
-                - file: reglas/4_archivos/0x400Ah.md
-            - title: "Antipatrones Didácticos (Archivos y E/S)"
-              children:
-                - file: reglas/4_archivos/ap_0x4002h.md
-                - file: reglas/4_archivos/ap_0x4006h.md
-                - file: reglas/4_archivos/ap_0x4008b.md
-                - file: reglas/4_archivos/ap_0x4008h.md
-                - file: reglas/4_archivos/ap_0x4009h.md
-                - file: reglas/4_archivos/ap_0x400Ah.md
-                - file: reglas/4_archivos/ap_0x400Bh.md
-        - title: "Compilación, Buenas Prácticas y Seguridad (0x50XX)"
+                - file: reglas/20_funciones/0x2001h.md
+                - file: reglas/20_funciones/0x2002h.md
+                - file: reglas/20_funciones/0x2003h.md
+                - file: reglas/20_funciones/0x2004h.md
+                - file: reglas/20_funciones/0x2005h.md
+                - file: reglas/20_funciones/0x2006h.md
+                - file: reglas/20_funciones/0x2007h.md
+                - file: reglas/20_funciones/0x2008h.md
+                - file: reglas/20_funciones/0x2009h.md
+                - file: reglas/20_funciones/0x200Ah.md
+                - file: reglas/20_funciones/0x200Bh.md
+                - file: reglas/20_funciones/0x200Ch.md
+                - file: reglas/20_funciones/0x200Dh.md
+                - file: reglas/20_funciones/0x200Eh.md
+                - file: reglas/20_funciones/0x200Fh.md
+                - file: reglas/20_funciones/0x2010h.md
+                - file: reglas/20_funciones/0x2011h.md
+                - file: reglas/20_funciones/0x2012h.md
+                - file: reglas/20_funciones/0x2013h.md
+                - file: reglas/20_funciones/0x2014h.md
+                - file: reglas/20_funciones/0x2015h.md
+                - file: reglas/20_funciones/0x2016h.md
+                - file: reglas/20_funciones/0x2017h.md
+                - file: reglas/20_funciones/0x2018h.md
+        - title: "Memoria, punteros y tipos (0x30XX)"
           children:
-            - file: reglas/5_buenas_practicas/index.md
-            - title: "Reglas de Estilo (Buenas Prácticas y Seguridad)"
+            - file: reglas/30_memoria/index.md
+            - title: "Reglas (0x30XX)"
               children:
-                - file: reglas/5_buenas_practicas/0x5001h.md
-                - file: reglas/5_buenas_practicas/0x5002h.md
-                - file: reglas/5_buenas_practicas/0x5003h.md
-                - file: reglas/5_buenas_practicas/0x5004h.md
-                - file: reglas/5_buenas_practicas/0x5005h.md
-                - file: reglas/5_buenas_practicas/0x5006h.md
-                - file: reglas/5_buenas_practicas/0x5007h.md
-                - file: reglas/5_buenas_practicas/0x5008h.md
-                - file: reglas/5_buenas_practicas/0x5009h.md
-                - file: reglas/5_buenas_practicas/0x500Ah.md
-                - file: reglas/5_buenas_practicas/0x500Bh.md
-                - file: reglas/5_buenas_practicas/0x500Ch.md
-                - file: reglas/5_buenas_practicas/0x500Dh.md
-                - file: reglas/5_buenas_practicas/0x500Eh.md
-                - file: reglas/5_buenas_practicas/0x5011h.md
-                - file: reglas/5_buenas_practicas/0x5012h.md
-                - file: reglas/5_buenas_practicas/0x5013h.md
-                - file: reglas/5_buenas_practicas/0x5014h.md
-                - file: reglas/5_buenas_practicas/0x5015h.md
-                - file: reglas/5_buenas_practicas/0x5016h.md
-            - title: "Antipatrones Didácticos (Buenas Prácticas y Seguridad)"
-              children:
-                - file: reglas/5_buenas_practicas/ap_0x5004b.md
-                - file: reglas/5_buenas_practicas/ap_0x5004c.md
-                - file: reglas/5_buenas_practicas/ap_0x5004h.md
-                - file: reglas/5_buenas_practicas/ap_0x5008h.md
-                - file: reglas/5_buenas_practicas/ap_0x5009h.md
-                - file: reglas/5_buenas_practicas/ap_0x500Ah.md
-                - file: reglas/5_buenas_practicas/ap_0x500Bh.md
-                - file: reglas/5_buenas_practicas/ap_0x5014h.md
-                - file: reglas/5_buenas_practicas/ap_0x5016h.md
-        - title: "Propuestas: Disciplina de Construcción Sistemática (0x60XX)"
+                - file: reglas/30_memoria/0x3001h.md
+                - file: reglas/30_memoria/0x3002h.md
+                - file: reglas/30_memoria/0x3003h.md
+                - file: reglas/30_memoria/0x3004h.md
+                - file: reglas/30_memoria/0x3005h.md
+                - file: reglas/30_memoria/0x3006h.md
+                - file: reglas/30_memoria/0x3007h.md
+                - file: reglas/30_memoria/0x3008h.md
+                - file: reglas/30_memoria/0x3009h.md
+                - file: reglas/30_memoria/0x300Ah.md
+                - file: reglas/30_memoria/0x300Bh.md
+                - file: reglas/30_memoria/0x300Ch.md
+                - file: reglas/30_memoria/0x300Dh.md
+                - file: reglas/30_memoria/0x300Eh.md
+                - file: reglas/30_memoria/0x300Fh.md
+                - file: reglas/30_memoria/0x3010h.md
+                - file: reglas/30_memoria/0x3011h.md
+                - file: reglas/30_memoria/0x3012h.md
+                - file: reglas/30_memoria/0x3013h.md
+                - file: reglas/30_memoria/0x3014h.md
+                - file: reglas/30_memoria/0x3015h.md
+                - file: reglas/30_memoria/0x3016h.md
+                - file: reglas/30_memoria/0x3017h.md
+                - file: reglas/30_memoria/0x3018h.md
+                - file: reglas/30_memoria/0x3019h.md
+                - file: reglas/30_memoria/0x301Ah.md
+                - file: reglas/30_memoria/0x301Bh.md
+                - file: reglas/30_memoria/0x301Ch.md
+                - file: reglas/30_memoria/0x301Dh.md
+                - file: reglas/30_memoria/0x301Eh.md
+                - file: reglas/30_memoria/0x301Fh.md
+        - title: "Archivos y E/S (0x40XX)"
           children:
-            - file: reglas/6_propuestas/index.md
-            - title: "Reglas Propuestas (0x60XX)"
+            - file: reglas/40_archivos/index.md
+            - title: "Reglas (0x40XX)"
               children:
-                - file: reglas/6_propuestas/0x6001h.md
-                - file: reglas/6_propuestas/0x6002h.md
-                - file: reglas/6_propuestas/0x6003h.md
-                - file: reglas/6_propuestas/0x6004h.md
-                - file: reglas/6_propuestas/0x6005h.md
-                - file: reglas/6_propuestas/0x6006h.md
-                - file: reglas/6_propuestas/0x6007h.md
-                - file: reglas/6_propuestas/0x6008h.md
-                - file: reglas/6_propuestas/0x6009h.md
-                - file: reglas/6_propuestas/0x600Ah.md
-                - file: reglas/6_propuestas/0x600Bh.md
-                - file: reglas/6_propuestas/0x600Ch.md
-                - file: reglas/6_propuestas/0x600Dh.md
-                - file: reglas/6_propuestas/0x600Eh.md
-                - file: reglas/6_propuestas/0x600Fh.md
-                - file: reglas/6_propuestas/0x6010h.md
-                - file: reglas/6_propuestas/0x6011h.md
-                - file: reglas/6_propuestas/0x6012h.md
-                - file: reglas/6_propuestas/0x6013h.md
-                - file: reglas/6_propuestas/0x6014h.md
-                - file: reglas/6_propuestas/0x6015h.md
-                - file: reglas/6_propuestas/0x6016h.md
-                - file: reglas/6_propuestas/0x6017h.md
-                - file: reglas/6_propuestas/0x6018h.md
+                - file: reglas/40_archivos/0x4001h.md
+                - file: reglas/40_archivos/0x4002h.md
+                - file: reglas/40_archivos/0x4003h.md
+                - file: reglas/40_archivos/0x4004h.md
+                - file: reglas/40_archivos/0x4005h.md
+                - file: reglas/40_archivos/0x4006h.md
+                - file: reglas/40_archivos/0x4007h.md
+                - file: reglas/40_archivos/0x4008h.md
+                - file: reglas/40_archivos/0x4009h.md
+                - file: reglas/40_archivos/0x400Ah.md
+                - file: reglas/40_archivos/0x400Bh.md
+                - file: reglas/40_archivos/0x400Ch.md
+        - title: "Compilacion, preprocesador y seguridad (0x50XX)"
+          children:
+            - file: reglas/50_seguridad/index.md
+            - title: "Reglas (0x50XX)"
+              children:
+                - file: reglas/50_seguridad/0x5001h.md
+                - file: reglas/50_seguridad/0x5002h.md
+                - file: reglas/50_seguridad/0x5003h.md
+                - file: reglas/50_seguridad/0x5004h.md
+                - file: reglas/50_seguridad/0x5005h.md
+                - file: reglas/50_seguridad/0x5006h.md
+                - file: reglas/50_seguridad/0x5007h.md
+                - file: reglas/50_seguridad/0x5008h.md
+                - file: reglas/50_seguridad/0x5009h.md
+                - file: reglas/50_seguridad/0x500Ah.md
+                - file: reglas/50_seguridad/0x500Bh.md
+                - file: reglas/50_seguridad/0x500Ch.md
+                - file: reglas/50_seguridad/0x500Dh.md
+                - file: reglas/50_seguridad/0x500Eh.md
+                - file: reglas/50_seguridad/0x500Fh.md
+                - file: reglas/50_seguridad/0x5010h.md
+                - file: reglas/50_seguridad/0x5011h.md
+                - file: reglas/50_seguridad/0x5012h.md
+                - file: reglas/50_seguridad/0x5013h.md
+                - file: reglas/50_seguridad/0x5014h.md
+                - file: reglas/50_seguridad/0x5015h.md
+        - title: "Proceso, diseno y construccion sistematica (0x60XX)"
+          children:
+            - file: reglas/60_proceso/index.md
+            - title: "Reglas (0x60XX)"
+              children:
+                - file: reglas/60_proceso/0x6001h.md
+                - file: reglas/60_proceso/0x6002h.md
+                - file: reglas/60_proceso/0x6003h.md
+                - file: reglas/60_proceso/0x6004h.md
+                - file: reglas/60_proceso/0x6005h.md
+        - title: "Robustez y manejo de errores (0x70XX)"
+          children:
+            - file: reglas/70_robustez/index.md
+            - title: "Reglas (0x70XX)"
+              children:
+                - file: reglas/70_robustez/0x7001h.md
+                - file: reglas/70_robustez/0x7002h.md
+                - file: reglas/70_robustez/0x7003h.md
+                - file: reglas/70_robustez/0x7004h.md
+                - file: reglas/70_robustez/0x7005h.md
+                - file: reglas/70_robustez/0x7006h.md
+                - file: reglas/70_robustez/0x7007h.md
+        - title: "Verificacion, testing y depuracion (0x80XX)"
+          children:
+            - file: reglas/80_verificacion/index.md
+            - title: "Reglas (0x80XX)"
+              children:
+                - file: reglas/80_verificacion/0x8001h.md
+                - file: reglas/80_verificacion/0x8002h.md
+                - file: reglas/80_verificacion/0x8003h.md
+                - file: reglas/80_verificacion/0x8004h.md
+
     - title: Manual del Ecosistema de Herramientas
       children:
         - file: manual/index.md

@@ -1171,12 +1171,12 @@ int main()
 
 Este ejemplo integra múltiples buenas prácticas:
 
-- Inicialización de punteros a `NULL` ({ref}`0x0003h`)
+- Inicialización de punteros a `NULL` ({ref}`0x7001h`)
 - Verificación de todas las asignaciones de memoria ({ref}`0x3001h`)
 - Uso de `calloc` para inicialización automática a cero
 - Uso de `sizeof(*puntero)` ({ref}`0x300Bh`)
 - Simetría con `crear_arreglo()` y `destruir_arreglo()` ({ref}`0x3002h`)
-- Documentación completa de funciones ({ref}`0x000Ah`)
+- Documentación completa de funciones ({ref}`0x0201h`)
 - Uso de `const` para parámetros no modificados ({ref}`0x3007h`)
 - Uso de `size_t` para tamaños e índices ({ref}`0x3010h`)
 - Verificación de límites antes de acceder a elementos ({ref}`0x300Ch`) 
@@ -1953,7 +1953,7 @@ conjunto de prácticas probadas. Este resumen consolida las reglas fundamentales
 
 Siempre inicializá los punteros a `NULL` al declararlos si no tenés una
 dirección válida para asignarles inmediatamente. Esto está codificado en la
-{ref}`0x0003h` y la {ref}`0x3008h`.
+{ref}`0x7001h` y la {ref}`0x3008h`.
 
 :::{code-block}c
 :linenos:
@@ -2205,5 +2205,5 @@ Para profundizar en la gestión de memoria, consultá:
 - Modern C, Jens Gustedt (Nivel 2: Cognición)
 - [Valgrind Documentation](https://valgrind.org/docs/manual/manual.html)
 
-Para las reglas de estilo, consultá el documento {ref}`0x0000h` donde se
+Para las reglas de estilo, consultá el documento {ref}`0x0001h` donde se
 detallan todas las convenciones utilizadas en este curso.

@@ -4,6 +4,8 @@ short_title: "Estructuras de control"
 subtitle: "Alternativas y patrones para simular comportamientos de lazos"
 ---
 
+(refactorizacion-simular)=
+
 ## Introducción
 
 En ciertas situaciones de programación, podés encontrarte con la necesidad de
@@ -22,17 +24,41 @@ estructuras de control.
 
 conocer, siempre preferí usar las estructuras de control nativas cuando estén
 disponibles. La simulación debe ser una herramienta de último recurso o para
-casos muy específicos donde aporta claridad al código ({ref}`0x0000h`).
+casos muy específicos donde aporta claridad al código ({ref}`0x0001h`).
 
 :::
 <!-- {important} Filosofía de diseñ o Aunque estas técnicas son valiosas de -->
+
+## Reglas de estilo que resuelve
+
+Esta refactorización no es un ejercicio abstracto de estilo: cada técnica que
+sigue existe para resolver, en el código concreto, los problemas que modelan las
+reglas de la cátedra. Cuando reemplazás un `goto` por una función de limpieza,
+cuando cambiás un `while` de conteo por un `for` o cuando preferís una bandera
+de control en lugar de un `continue`, estás aplicando exactamente las reglas de
+la tabla. Por eso conviene leer el apunte como un catálogo de refactorizaciones
+guiadas por reglas: cada patrón que sigue tiene una regla detrás que explica por
+qué conviene y qué bug evita.
+
+| Regla | Problema que modela | Cómo lo resuelve esta refactorización |
+| :--- | :--- | :--- |
+| {ref}`0x1001h` | Cuerpos de control sin llaves que aceptan en silencio una sentencia de más fuera del bloque. | Los patrones estructurados delimitan cada `if`, `for`, `while` y `do-while` con llaves, de modo que el cuerpo es un bloque explícito y no una única sentencia gobernada por posición. |
+| {ref}`0x1002h` | `break` y `continue` como único mecanismo de corte: la condición del lazo deja de reflejar la causa real de salida. | El Método 2 traslada el motivo de salida a una bandera booleana en la condición del `while`, y los ejemplos evitan `continue` reescribiendo la lógica con `if/else`. |
+| {ref}`0x1003h` | `while` usados para contar iteraciones, con el incremento escondido en el cuerpo y riesgo de lazo infinito. | La conversión de `for` a `while` y los ejemplos de claridad muestran cuándo corresponde cada lazo: `for` para rango o contador, `while` para condición lógica. |
+| {ref}`0x1006h` | `goto` que convierte el flujo en un grafo: para seguir el programa hay que rastrear todas las etiquetas. | Las técnicas de la sección de `goto` reemplazan el salto por funciones de limpieza, banderas de estado y retornos tempranos dentro de estructuras estándar. |
+| {ref}`0x1011h` | `goto` hacia atrás, saltos a etiquetas intermedias y dobles liberaciones de recursos. | El patrón canónico de limpieza concentra la liberación en un único bloque terminal, y la versión estructurada reemplaza el salto por una función `limpiar_recursos` invocada en cada ruta de error. |
+| {ref}`0x100Eh` | `do ... while` sin llaves, donde el `while` final parece un lazo aparte y el cuerpo pierde su delimitación. | La verificación de equivalencia usa el `do ... while` nativo con llaves explícitas, y todas las simulaciones delimitan el cuerpo con bloque. |
+| {ref}`0x0013h` | Etiquetas de salto indentadas que se confunden con sentencias o llamadas dentro del cuerpo. | Los ejemplos comentados de `goto` muestran la etiqueta de limpieza en la columna 1, alineada al margen izquierdo como destino de salto reconocible. |
 
 ## Simulación de `do...while` con `while`
 
 ### Método 1: lazo Infinito con `break`
 
 La técnica más directa para simular un `do...while` es usar un lazo `while(1)`
-con una condición de salida explícita:
+con una condición de salida explícita. Ojo: el `break` que aparece acá es una
+salida anticipada legítima, pero como mecanismo único de corte está restringido
+por {ref}`0x1002h`, así que reservalo para el caso en que la condición de salida
+sea realmente lateral:
 
 :::{code-block}c
 :caption: Simulación básica de do...while
@@ -88,7 +114,9 @@ int main()
 ### Método 2: Variable de Control Booleana
 
 Una alternativa más explícita es usar una variable booleana para controlar la
-continuación del lazo:
+continuación del lazo. Esta es la forma preferida por {ref}`0x1002h`: el motivo
+de salida viaja en la condición y el lector no necesita recordar una puerta
+lateral dentro del cuerpo:
 
 :::{code-block}c
 :caption: Simulación con variable de control
@@ -164,7 +192,10 @@ void procesar_comandos()
 ### Simulación de `for` con `while`
 
 En algunos contextos educativos o de depuración, puede ser útil convertir lazos
-`for` a `while`:
+`for` a `while`. La conversión es también un recordatorio de {ref}`0x1003h`:
+cuando hay un contador y una cota conocida, el `for` comunica la intención en
+una sola línea, y el `while` solo debería aparecer cuando la condición es
+puramente lógica:
 
 :::{code-block}c
 :caption: Conversión de for a while
@@ -334,7 +365,9 @@ void manejar_estado_game_over(contexto_juego_t *ctx)
 
 ### Simulación de lazos Anidados con Funciones
 
-Para evitar lazos anidados complejos que violan la regla de claridad:
+Para evitar lazos anidados complejos que violan la regla de claridad. Fijate que
+cada lazo de rango se escribe con `for` y no con un contador manual, en línea con
+{ref}`0x1003h`:
 
 :::{code-block}c
 :caption: Desensamblado de lazos anidados
@@ -392,9 +425,15 @@ void procesar_matriz_compleja_funcional(int matriz[FILAS][COLUMNAS])
 ## Técnicas para Evitar `goto`
 
 Aunque `goto` puede ser útil en casos específicos, su uso puede complicar el
-flujo del programa:
+flujo del programa y por eso {ref}`0x1006h` lo prohíbe. Las alternativas de esta
+sección muestran cómo estructurar la salida y la limpieza sin saltos:
 
 ### Método 1: Funciones de Limpieza
+
+El ejemplo comentado usa el patrón de `goto cleanup`. Ese salto hacia adelante a
+un único bloque terminal es la excepción tolerada por {ref}`0x1011h`, y su
+etiqueta debe ir en la columna 1 según {ref}`0x0013h`. La versión estructurada
+que sigue evita el salto con una función de limpieza reutilizable:
 
 :::{code-block}c
 :caption: Evitar goto con funciones de limpieza
@@ -602,7 +641,10 @@ void benchmark_lazos(int iteraciones)
 
 ### 1. Prioridad de Claridad
 
-Siempre preferí la construcción más clara y natural del lenguaje:
+Siempre preferí la construcción más clara y natural del lenguaje. En la versión
+"compleja", el `if` sin llaves viola {ref}`0x1001h`, el `break` como único corte
+viola el espíritu de {ref}`0x1002h`, y el `while` que en realidad cuenta
+iteraciones desaprovecha el `for` que pide {ref}`0x1003h`:
 
 :::{code-block}c
 :caption: Priorizar claridad sobre simulación
@@ -663,7 +705,9 @@ void validar_entrada_compatible()
 
 ### 3. Pruebas de Equivalencia
 
-Verificá que la simulación sea equivalente al comportamiento original:
+Verificá que la simulación sea equivalente al comportamiento original. El
+`do ... while` de referencia escribe su cuerpo entre llaves, como exige
+{ref}`0x100Eh` (aplicación particular de {ref}`0x1001h` al `do-while`):
 
 :::{code-block}c
 :caption: Verificación de equivalencia
@@ -701,6 +745,12 @@ void test_equivalencia_do_while()
 ## Casos de Uso Específicos
 
 ### 1. Menús Interactivos
+
+El menú combina una bandera `salir` en la condición con un `continue` acotado
+para la entrada inválida. Ese `continue` es el uso restringido que admite
+{ref}`0x1002h`; cuando la salida es la causa principal, conviene que viaje en la
+bandera y no en un `break` suelto. Todos los cuerpos van entre llaves
+({ref}`0x1001h`):
 
 :::{code-block}c
 :caption: Menú interactivo robusto
@@ -834,6 +884,167 @@ resultado_procesamiento_t procesar_archivo_robusto(const char *ruta)
 }
 :::
 <!-- {code-block}c -->
+
+## Ejemplo integrador: de saltos sueltos a control estructurado
+
+Hasta acá viste cada técnica por separado. Este ejemplo las combina en una sola
+refactorización. La función recorre hasta `max` líneas de un archivo, cuenta las
+válidas y corta si se acumulan demasiados errores; en todos los casos debe
+cerrar el archivo.
+
+La versión ❌ mezcla las violaciones: un `goto` hacia atrás ({ref}`0x1006h` y
+{ref}`0x1011h`), una etiqueta con sangría que el detector de {ref}`0x0013h`
+marcaría, un `if` sin llaves ({ref}`0x1001h`), `break` y `continue` como únicos
+mecanismos de corte ({ref}`0x1002h`) y un `while` que en realidad cuenta
+iteraciones ({ref}`0x1003h`).
+
+:::{code-block}c
+:caption: ❌ Versión con múltiples violaciones de estilo
+:linenos:
+#include <stdbool.h>
+#include <stdio.h>
+
+int procesar(const char *ruta, int max)
+{
+    int leidas = 0;
+    int errores = 0;
+    char linea[128];
+    FILE *archivo = fopen(ruta, "r");
+    if (!archivo)
+        return -1;
+
+    reintentar:
+    while (leidas < max)
+    {
+        if (fgets(linea, sizeof(linea), archivo) == NULL)
+            break;
+        if (linea[0] == '#')
+            continue;
+        if (!validar(linea))
+            errores++;
+        leidas++;
+        if (errores > 3)
+            goto reintentar;
+    }
+    if (archivo)
+        fclose(archivo);
+    return leidas;
+}
+:::
+
+La versión ✅ reescribe la función sin un solo salto no estructurado. El `for`
+agrupa contador y cota ({ref}`0x1003h`); las banderas `tope_errores` y
+`fin_archivo` llevan las causas de salida a la condición ({ref}`0x1002h`); cada
+cuerpo va entre llaves ({ref}`0x1001h`); y la limpieza se delega a
+`cerrar_archivo`, de modo que no hace falta ningún `goto` ({ref}`0x1006h`).
+
+:::{code-block}c
+:caption: ✅ Versión estructurada equivalente
+:linenos:
+#include <stdbool.h>
+#include <stdio.h>
+
+static void cerrar_archivo(FILE **archivo)
+{
+    if (*archivo)
+    {
+        fclose(*archivo);
+        *archivo = NULL;
+    }
+}
+
+int procesar(const char *ruta, int max)
+{
+    bool tope_errores = false;
+    bool fin_archivo = false;
+    int leidas = 0;
+    int errores = 0;
+    char linea[128];
+    FILE *archivo = fopen(ruta, "r");
+    if (!archivo)
+    {
+        return -1;
+    }
+    for (int i = 0; i < max && !tope_errores && !fin_archivo; i++)
+    {
+        if (fgets(linea, sizeof(linea), archivo) == NULL)
+        {
+            fin_archivo = true;
+        }
+        else if (linea[0] != '#')
+        {
+            if (!validar(linea))
+            {
+                errores++;
+            }
+            leidas++;
+            if (errores > 3)
+            {
+                tope_errores = true;
+            }
+        }
+    }
+    cerrar_archivo(&archivo);
+    return leidas;
+}
+:::
+
+Cuando el patrón canónico de limpieza con `goto` sea inevitable, recordá que
+{ref}`0x1011h` solo tolera un salto hacia adelante a un bloque terminal único, y
+{ref}`0x0013h` exige que esa etiqueta vaya en la columna 1:
+
+:::{code-block}c
+:caption: Patrón de limpieza tolerado con etiqueta al margen
+:linenos:
+int leer_con_limpieza(const char *ruta)
+{
+    FILE *archivo = fopen(ruta, "r");
+    if (!archivo)
+    {
+        goto limpieza;
+    }
+    // ... uso del archivo ...
+limpieza:
+    if (archivo)
+    {
+        fclose(archivo);
+    }
+    return 0;
+}
+:::
+
+Si usás un `do ... while` nativo, el cuerpo también va entre llaves para cumplir
+{ref}`0x100Eh`:
+
+:::{code-block}c
+:caption: do-while con cuerpo delimitado
+:linenos:
+int leer_confirmacion(void)
+{
+    int respuesta;
+    do
+    {
+        printf("¿Continuar? (1 = sí, 0 = no): ");
+        scanf("%d", &respuesta);
+    } while (respuesta != 0 && respuesta != 1);
+    return respuesta;
+}
+:::
+
+## Diagnóstico y refactorización
+
+Usá esta tabla como guía de lectura: identificá el síntoma en tu código, ubicá
+la regla que lo modela y aplicá la técnica de esta guía.
+
+| Regla | Síntoma en el código | Técnica de esta guía |
+| :--- | :--- | :--- |
+| {ref}`0x1001h` | Un `if`, `for` o `while` con una sola sentencia sin llaves; al agregar una línea, queda fuera del control. | Delimitar todo cuerpo con bloque, como en la versión ✅ del ejemplo integrador. |
+| {ref}`0x1002h` | `while` cuya condición no refleja la causa real de salida porque un `break` o un `continue` corta antes. | Variable de control booleana (Método 2) y banderas `tope_errores`/`fin_archivo`. |
+| {ref}`0x1003h` | `while` con `i++` escondido en el cuerpo para recorrer un rango o un contador. | Conversión de `for` a `while` y uso de `for` en los recorridos de rango. |
+| {ref}`0x1006h` | Etiquetas y saltos que obligan a reconstruir el flujo como un grafo. | Funciones de limpieza, banderas de estado y retornos tempranos. |
+| {ref}`0x1011h` | `goto` hacia atrás, a etiquetas intermedias, o que puede liberar dos veces un recurso. | Patrón canónico de limpieza con un único bloque terminal y `cerrar_archivo`. |
+| {ref}`0x100Eh` | `do sentencia while (condicion);` donde el `while` final parece un lazo aparte. | `do ... while` nativo con llaves explícitas en la verificación de equivalencia. |
+| {ref}`0x0013h` | Etiqueta de `goto` indentada, indistinguible de una sentencia del cuerpo. | Etiqueta `limpieza:` en la columna 1 en el ejemplo integrador. |
 
 ## Ejercicios
 
@@ -1533,3 +1744,23 @@ int main()
 
 ::::
 <!-- {solution} validacion_entrada_robusta -->
+
+## Checklist de verificación
+
+Antes de dar por cerrada la refactorización, verificá:
+
+- [ ] ¿Cada `if`, `for`, `while` y `do-while` tiene su cuerpo entre llaves
+  explícitas, como pide {ref}`0x1001h`?
+- [ ] ¿Evitaste `continue` y reservaste el `break` solo para salidas
+  anticipadas justificadas, trasladando el resto a una bandera de control
+  ({ref}`0x1002h`)?
+- [ ] ¿Usás `for` cuando hay contador o rango y `while` solo para condiciones
+  lógicas ({ref}`0x1003h`)?
+- [ ] ¿Eliminaste todo `goto` no estructurado ({ref}`0x1006h`)?
+- [ ] Si conservaste un `goto` de limpieza, ¿es un único salto hacia adelante a
+  un bloque terminal, según {ref}`0x1011h`?
+- [ ] ¿La etiqueta del `goto` tolerado está en la columna 1, sin sangría
+  ({ref}`0x0013h`)?
+- [ ] ¿Todo `do ... while` delimita su cuerpo con llaves ({ref}`0x100Eh`)?
+- [ ] ¿Verificaste con pruebas de equivalencia que la simulación se comporta
+  igual que la estructura original?

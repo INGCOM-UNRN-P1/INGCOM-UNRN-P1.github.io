@@ -78,7 +78,7 @@ Concepto básico de un puntero. La variable `ptr` almacena la dirección física
 
 Para declarar un puntero, debés especificar el tipo de dato al que va a apuntar,
 seguido de un asterisco (`*`) y el nombre de la variable. La regla de estilo
-{ref}`0x0006h` indica que el asterisco debe ir junto al nombre de la variable.
+{ref}`0x0005h` indica que el asterisco debe ir junto al nombre de la variable.
 
 :::{code-block}c
 :linenos:
@@ -116,7 +116,7 @@ Para esto se utiliza la macro `NULL`.
 
 :::{tip} Estilo: Inicialización Segura
 
-La regla {ref}`0x0003h` (siempre inicializar variables) es especialmente crítica
+La regla {ref}`0x7001h` (siempre inicializar variables) es especialmente crítica
 para los punteros. Un puntero no inicializado es un "puntero salvaje" que apunta
 a una dirección de memoria aleatoria. Adicionalmente, la regla {ref}`0x3008h`
 indica que se debe usar `NULL` en lugar de `0` para esta inicialización, ya que
@@ -1111,7 +1111,7 @@ int main()
 Para buscar un valor, recorremos el arreglo y nos detenemos si encontramos una
 coincidencia. La función devolverá un puntero al elemento encontrado o `NULL` si
 no se encuentra. La comprobación explícita contra `NULL` sigue la regla
-{ref}`0x2007h`.
+{ref}`0x2006h`.
 
 **Método:**
 
@@ -1545,7 +1545,7 @@ void modificar_seguro(int *p)
 :::{exercise}
 :label: ej-ptr-wild-pointer
 Definí el concepto de "puntero salvaje" (*wild pointer*), cómo se introduce en
-un programa de C y de qué manera la regla de estilo de la cátedra {ref}`0x0003h`
+un programa de C y de qué manera la regla de estilo de la cátedra {ref}`0x7001h`
 mitiga este riesgo de seguridad.
 
 :::
@@ -1559,7 +1559,7 @@ contendrá un valor residual aleatorio (basura) que se interprete como una
 dirección de memoria arbitraria. Intentar desreferenciarlo para leer o escribir
 puede corromper datos de otras variables en el stack o hacer que el programa
 falle de forma impredecible.
-La regla de la cátedra {ref}`0x0003h` exige la inicialización obligatoria de
+La regla de la cátedra {ref}`0x7001h` exige la inicialización obligatoria de
 todas las variables en su punto de declaración (asignando una dirección válida o
 `NULL`), erradicando la existencia de punteros salvajes.
 

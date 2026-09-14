@@ -415,7 +415,7 @@ prototipos de funciones o variables con el calificador `extern`), y el archivo
 Es el contenido más común. Se declara la firma de la función (tipo de retorno,
 nombre y parámetros) para que el compilador conozca su existencia antes de que
 sea utilizada. Una buena documentación, como la que pide la regla
-{ref}`0x000Ah`, es fundamental.
+{ref}`0x0201h`, es fundamental.
 
 ```{code-block} c
 :linenos:

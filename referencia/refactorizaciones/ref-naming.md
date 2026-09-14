@@ -3,6 +3,7 @@ title: "Mejora de Nombres y Comunicación de Intenciones"
 short_title: "Cambios de nombres"
 subtitle: "Técnicas para elegir nombres que revelen intenciones y mejoren la comprensión"
 ---
+(refactorizacion-naming)=
 
 ## Introducción
 
@@ -17,16 +18,48 @@ hacer el código auto-explicativo y mantener la coherencia en todo el proyecto.
 
 :::{important} Nombres Reveladores de Intención
 
-Como establece {ref}`0x0001h`, los identificadores deben ser descriptivos y
+Como establece {ref}`0x0101h`, los identificadores deben ser descriptivos y
 reflejar con precisión su propósito. Un nombre bien elegido es una forma de
 documentación que nunca queda desactualizada.
 
 :::
 <!-- {important} Nombres Reveladores de Intención -->
 
+## Reglas de estilo que resuelve
+
+Esta refactorización no depende del gusto personal: responde a los problemas
+concretos que modelan las reglas de nomenclatura de la cátedra. Cuando un nombre
+es críptico, inconsistente, engañoso o está mal formado, hay una regla que
+explica por qué y una técnica de esta guía que lo corrige. La tabla siguiente
+mapea cada regla con el problema que modela y con la técnica que lo resuelve.
+
+| Regla | Problema que modela | Cómo lo resuelve esta refactorización |
+| :--- | :--- | :--- |
+| {ref}`0x0101h` | Identificadores sin propósito claro | Reemplaza nombres crípticos por otros que revelan intención. |
+| {ref}`0x0102h` | Variables y parámetros en otras convenciones | Unifica variables locales y argumentos en snake_case. |
+| {ref}`0x0103h` | Constantes en minúsculas o camelCase | Pasa los `const` a MAYUSCULAS_SNAKE_CASE. |
+| {ref}`0x0104h` | Archivos con mayúsculas, espacios o guiones | Renombra los archivos a snake_case en minúsculas. |
+| {ref}`0x0105h` | Funciones en PascalCase, camelCase o abreviaturas | Estandariza los nombres de función en snake_case estricto. |
+| {ref}`0x0106h` | Globales sin `static` ni prefijo | Marca las globales como `static` o las prefija con `g_`. |
+| {ref}`0x0107h` | Macros `#define` en minúsculas o camelCase | Renombra las macros a MAYUSCULAS_SNAKE_CASE. |
+| {ref}`0x0108h` | Identificadores con acentos o `ñ` | Elimina todo carácter no ASCII de los nombres. |
+| {ref}`0x0109h` | Nombres que chocan con palabras clave o tipos estándar | Renombra para evitar colisiones con el lenguaje y la biblioteca. |
+| {ref}`0x010Ah` | Prefijos `_` y `__` reservados al compilador | Elimina los prefijos reservados del identificador. |
+| {ref}`0x010Bh` | Nombres de una letra en alcance amplio o kilométricos | Ajusta la longitud del nombre a su alcance real. |
+| {ref}`0x010Ch` | `__` o guion bajo inicial detectados sin auditoría | Aplica el auditor de identificadores reservados. |
+| {ref}`0x010Dh` | Constantes simbólicas con convenciones mezcladas | Homogeneiza el estilo de todas las constantes. |
+| {ref}`0x010Eh` | Sufijos numéricos (`datos1`, `datos2`) o afijos de tipo | Reemplaza los genéricos numerados por nombres con contexto. |
+| {ref}`0x0110h` | Booleanos llamados `flag`, `activo` o `estado` | Renombra con prefijo interrogativo (`es_`, `tiene_`, `puede_`). |
+| {ref}`0x0111h` | Nombres negados que se combinan con `!` | Formula los nombres en positivo y evita dobles negaciones. |
+| {ref}`0x3004h` | `struct` sin `typedef` ni sufijo `_t` | Define los tipos de estructura con `typedef` y sufijo `_t`. |
+
 ## Problemas Comunes con Nombres
 
 ### 1. Nombres Crípticos o Abreviados
+
+Los nombres de una o dos letras solo son tolerables en alcances muy locales;
+fuera de ahí violan la proporcionalidad que pide {ref}`0x010Bh` y sacrifican la
+intención que exige {ref}`0x0101h`.
 
 ```{code-block} c
 :linenos:
@@ -44,6 +77,10 @@ void proc(int n)
 
 ### 2. Nombres Engañosos
 
+Un booleano que en realidad verifica una sola condición es un nombre engañoso;
+para los booleanos, {ref}`0x0110h` pide un prefijo interrogativo (`es_`, `tiene_`,
+`puede_`).
+
 ```{code-block} c
 :linenos:
 // Problemático: nombres que no reflejan el contenido real
@@ -56,6 +93,10 @@ usuario_t usuarios_activos[100]; // Puede tener usuarios inactivos
 <!-- {code-block} c -->
 
 ### 3. Inconsistencia en Nomenclatura
+
+Mezclar `obtener_edad`, `getAltura` y `fetch_peso` viola a la vez
+{ref}`0x0105h` y {ref}`0x010Dh`: el mismo concepto debería nombrarse con una
+única convención.
 
 ```{code-block} c
 :linenos:
@@ -75,6 +116,10 @@ typedef struct
 
 ### 4. Nombres Genéricos Sin Contexto
 
+`calcular(int a, int b)` no dice nada ni sobre la operación ni sobre los
+argumentos; renombrarlos es también un deber de {ref}`0x0102h`, y los afijos
+numerados como `datos1`/`datos2` caen bajo {ref}`0x010Eh`.
+
 ```{code-block} c
 :linenos:
 // Problemático: nombres demasiado genéricos
@@ -93,6 +138,9 @@ typedef struct
 
 ### 5. Información de Tipo en el Nombre
 
+La notación húngara y los sufijos de tipo (`nombre_string`, `edad_entero`) son
+afijos redundantes que {ref}`0x010Eh` desaconseja.
+
 ```{code-block} c
 :linenos:
 // Problemático: notación húngara o prefijos de tipo
@@ -105,6 +153,52 @@ char nombre_string[50];
 int edad_entero;
 ```
 <!-- {code-block} c -->
+
+### 6. Colisiones y Prefijos Reservados
+
+```{code-block} c
+:linenos:
+// Problemático: choca con palabras clave y tipos estándar
+int free;        // función de <stdlib.h>
+int malloc;      // función de <stdlib.h>
+struct open {};  // nombre de función estándar
+// Problemático: prefijos reservados al compilador
+int _contador;
+int __interno;
+double __atributo_x;
+```
+<!-- {code-block} c -->
+
+Estos nombres colisionan con lo que prohíbe {ref}`0x0109h` y usan los prefijos
+que {ref}`0x010Ah` y {ref}`0x010Ch` reservan a la implementación. El guion bajo
+inicial y el doble guion bajo son territorio del compilador o del sistema:
+evitalos siempre.
+
+### 7. Constantes y Macros Inconsistentes
+
+```{code-block} c
+:linenos:
+// Problemático: las constantes no siguen una única convención
+#define maxItems 100
+#define TIMEOUT 30
+const double tasa_iva = 0.21;
+const int MAX_CONEXIONES = 5;
+```
+<!-- {code-block} c -->
+
+Los `#define` deben ir en MAYUSCULAS_SNAKE_CASE ({ref}`0x0107h`) y las
+constantes de cualquier tipo deben ser consistentes entre sí
+({ref}`0x0103h`, {ref}`0x010Dh`).
+
+### 8. Archivos y Variables Globales
+
+Un archivo `GestionUsuarios.C` viola {ref}`0x0104h`: los nombres de archivo van
+en snake_case y minúsculas (`gestion_usuarios.c`). Una global como
+`int contador;` definida sin `static` queda expuesta a todo el programa;
+{ref}`0x0106h` exige marcarla `static` o prefijarla con `g_`
+(`static int contador;` o `int g_contador;`). Además, nada justifica un
+identificador con acentos o `ñ` (`año`, `dirección`): {ref}`0x0108h` los
+prohíbe aunque parezcan descriptivos.
 
 ## Principios para Buenos Nombres
 
@@ -199,7 +293,9 @@ typedef struct
 
 ### 4. Usar Nombres Pronunciables
 
-Facilita la comunicación verbal sobre el código.
+Facilita la comunicación verbal sobre el código; para eso hay que evitar
+caracteres no ASCII ({ref}`0x0108h`) y elegir una longitud acorde al alcance
+({ref}`0x010Bh`).
 
 **Antes:**
 
@@ -240,7 +336,9 @@ marca_temporal_t obtener_marca_temporal_actual(void);
 
 ### 5. Usar Nombres Buscables
 
-Evitar nombres de una sola letra excepto en contextos muy locales.
+Evitar nombres de una sola letra excepto en contextos muy locales
+({ref}`0x010Bh`); además, los valores fijos deben extraerse a constantes con
+nombre en MAYUSCULAS_SNAKE_CASE ({ref}`0x0103h`).
 
 **Antes:**
 
@@ -279,7 +377,9 @@ for (int dia = 0; dia < DIAS_SEMANA; dia++)
 
 ### 6. Evitar Codificación de Tipo
 
-No usar notación húngara ni prefijos de tipo.
+No usar notación húngara ni prefijos de tipo: son afijos redundantes que rechaza
+{ref}`0x010Eh`. La estructura debe declararse con `typedef` y sufijo `_t` según
+{ref}`0x3004h`.
 
 **Antes:**
 
@@ -313,7 +413,8 @@ typedef struct
 
 ### 7. Nombres de Clases y Estructuras
 
-Usar sustantivos o frases nominales.
+Usar sustantivos o frases nominales y, en C, definir cada tipo con `typedef` y
+sufijo `_t` ({ref}`0x3004h`).
 
 **Antes:**
 
@@ -355,7 +456,8 @@ typedef struct
 
 ### 8. Nombres de Funciones
 
-Usar verbos o frases verbales.
+Usar verbos o frases verbales, en snake_case estricto ({ref}`0x0105h`) y con
+prefijo interrogativo cuando retornan un booleano ({ref}`0x0110h`).
 
 **Antes:**
 
@@ -378,6 +480,11 @@ bool esta_activo();
 ## Técnicas de Refactorización de Nombres
 
 ### 1. Renombrado de Variables
+
+Las locales y los parámetros van en snake_case ({ref}`0x0102h`); los valores
+fijos que aparecen en el cuerpo se elevan a constantes en MAYUSCULAS_SNAKE_CASE
+({ref}`0x0103h`) y las variables de poco uso no deben quedar en una sola letra
+({ref}`0x010Bh`).
 
 **Antes:**
 
@@ -411,6 +518,10 @@ void calcular_total_con_descuento()
 <!-- {code-block} c -->
 
 ### 2. Renombrado de Funciones por Intención
+
+Los nombres de función siguen snake_case estricto ({ref}`0x0105h`); los
+predicados booleanos usan prefijo interrogativo ({ref}`0x0110h`) y se formulan
+en positivo para no arrastrar dobles negaciones ({ref}`0x0111h`).
 
 **Antes:**
 
@@ -452,6 +563,10 @@ int buscar_indice_por_id(int id)
 <!-- {code-block} c -->
 
 ### 3. Contexto en Nombres de Estructuras
+
+El tipo se define con `typedef` y sufijo `_t` ({ref}`0x3004h`), y sus campos
+evitan repetir el contexto del tipo o llevar prefijos innecesarios
+({ref}`0x010Bh`).
 
 **Antes:**
 
@@ -500,6 +615,9 @@ printf("Calle: %s\n", cliente.domicilio.calle); // Claro por contexto
 
 ### 4. Nombres Consistentes para Conceptos Similares
 
+Un mismo concepto debe usar un mismo verbo y una misma convención
+({ref}`0x010Dh`, {ref}`0x0105h`).
+
 **Antes:**
 
 ``` c
@@ -527,6 +645,10 @@ factura_t *obtener_factura_por_id(int id);
 <!-- {code-block} c -->
 
 ### 5. Agregar Contexto Significativo
+
+Agrupar los datos en un tipo con `typedef` y sufijo `_t` ({ref}`0x3004h`) evita
+variables sueltas con nombres ambiguos y da contexto a cada campo
+({ref}`0x0102h`).
 
 **Antes:**
 
@@ -568,6 +690,12 @@ void imprimir_direccion(const direccion_t *direccion)
 <!-- {code-block} c -->
 
 ## Casos Prácticos Completos
+
+Cada caso muestra un módulo completo antes y después. En todos ellos se resuelven
+la intención de los nombres ({ref}`0x0101h`), la convención snake_case de
+variables y funciones ({ref}`0x0102h`, {ref}`0x0105h`), las constantes
+simbólicas ({ref}`0x0103h`, {ref}`0x010Dh`) y la definición de tipos con sufijo
+`_t` ({ref}`0x3004h`).
 
 ### Caso 1: Sistema de Gestión de Inventario
 
@@ -812,6 +940,9 @@ bool sesion_esta_vigente(const usuario_t *usuario)
 
 ### Funciones
 
+Los nombres de función van en snake_case estricto ({ref}`0x0105h`) y los
+predicados booleanos llevan prefijo interrogativo ({ref}`0x0110h`).
+
 **Verbos que indican acción:**
 
 ```{code-block} c
@@ -835,6 +966,9 @@ bool puede_procesar();
 
 ### Variables
 
+Variables locales y parámetros en snake_case ({ref}`0x0102h`), con nombres que
+revelan su intención ({ref}`0x0101h`).
+
 **Sustantivos o frases nominales:**
 
 ```{code-block} c
@@ -856,6 +990,10 @@ int posicion_cursor;
 
 ### Constantes
 
+Las constantes usan MAYUSCULAS_SNAKE_CASE ({ref}`0x0103h`) de forma consistente
+({ref}`0x010Dh`), y las macros `#define` siguen la misma convención
+({ref}`0x0107h`).
+
 **Mayúsculas con guiones bajos:**
 
 ``` c
@@ -867,6 +1005,9 @@ const int TIMEOUT_CONEXION_SEGUNDOS = 30;
 <!-- c -->
 
 ### Tipos (Estructuras y Enumeraciones)
+
+Cada estructura, enumeración o puntero a función se define con `typedef` y sufijo
+`_t` ({ref}`0x3004h`).
 
 **Sufijo `_t` para tipos:**
 
@@ -932,6 +1073,9 @@ void terminar_procesamiento(void);
 
 ### 1. Ruido en Nombres
 
+Palabras como "the", "do" o afijos de tipo no agregan información; son los
+afijos genéricos que {ref}`0x010Eh` manda eliminar.
+
 ```{code-block} c
 :linenos:
 // Problemático: palabras que no agregan información
@@ -948,6 +1092,10 @@ typedef struct
 
 ### 2. Diferencias Sutiles
 
+Variantes que solo cambian por un sufijo numérico o una letra son exactamente lo
+que {ref}`0x010Eh` y {ref}`0x010Bh` desaconsejan: no comunican diferencias
+reales.
+
 ``` c
 // Problemático: demasiado similar, fácil confundir
 void procesar_cliente_activo();
@@ -958,6 +1106,10 @@ usuario_t usuarios; // Plural solo difiere en 's'
 <!-- c -->
 
 ### 3. Nombres Dependientes del Contexto
+
+Las globales con nombres genéricos exponen su significado al archivo donde se
+leen; esto lo atacan {ref}`0x0106h` (marcarlas `static` o prefijarlas) y
+{ref}`0x010Bh` (darles alcance y longitud coherentes).
 
 ```{code-block} c
 :linenos:
@@ -971,6 +1123,125 @@ int contador_usuarios;
 int contador_productos;
 ```
 <!-- {code-block} c -->
+
+## Ejemplo Integrador
+
+Un mismo fragmento puede violar varias reglas a la vez. El módulo siguiente
+comete errores de intención, convención, prefijos reservados, codificación de
+tipo, booleanos y tipos. La versión refactorizada los resuelve en conjunto.
+
+**❌ Antes:**
+
+```{code-block} c
+:linenos:
+#define maxUsers 50
+int userCount; // global sin static ni prefijo g_
+
+typedef struct
+{
+    int idUsuario;      // camelCase en campo
+    char *nombreCompleto;
+    int __estado;       // prefijo reservado y nombre opaco
+    int añoAlta;        // carácter no ASCII
+} User;                 // sin typedef ni sufijo _t
+
+int CheckUser(User u, int idx) // PascalCase y parámetros pobres
+{
+    if (!u.__estado)           // doble negación
+    {
+        return 0;
+    }
+    return 1;
+}
+
+void ProcessAll(User users[], int n)
+{
+    int i;
+    for (i = 0; i < n; i++)
+    {
+        if (CheckUser(users[i], i))
+        {
+            printf("%d\n", users[i].idUsuario);
+        }
+    }
+}
+```
+<!-- {code-block} c -->
+
+**✅ Después:**
+
+```{code-block} c
+:linenos:
+#define MAX_USUARIOS 50
+
+static int g_usuarios_activos;
+
+typedef struct
+{
+    int id_usuario;
+    char *nombre_completo;
+    bool esta_activo;
+    int anio_alta;
+} usuario_t;
+
+bool usuario_esta_activo(const usuario_t *usuario)
+{
+    return usuario->esta_activo;
+}
+
+void procesar_usuarios(const usuario_t *usuarios, int cantidad_usuarios)
+{
+    for (int indice = 0; indice < cantidad_usuarios; indice++)
+    {
+        if (usuario_esta_activo(&usuarios[indice]))
+        {
+            printf("%d\n", usuarios[indice].id_usuario);
+        }
+    }
+}
+```
+<!-- {code-block} c -->
+
+Qué resolvió cada cambio:
+
+- La macro pasó de `maxUsers` a `MAX_USUARIOS` ({ref}`0x0107h`) y la global
+  `userCount` se reemplazó por `g_usuarios_activos` con `static`
+  ({ref}`0x0106h`).
+- El tipo `User` se convirtió en `usuario_t` con `typedef` y sufijo `_t`
+  ({ref}`0x3004h`); los campos `idUsuario`, `nombreCompleto` y `añoAlta` ahora
+  son `id_usuario`, `nombre_completo` y `anio_alta`, sin caracteres no ASCII
+  ({ref}`0x0102h`, {ref}`0x0108h`).
+- El campo reservado `__estado` desapareció y se reemplazó por el booleano
+  positivo `esta_activo` ({ref}`0x010Ah`, {ref}`0x010Ch`, {ref}`0x0110h`,
+  {ref}`0x0111h`).
+- Las funciones `CheckUser` y `ProcessAll` se volvieron
+  `usuario_esta_activo` y `procesar_usuarios` ({ref}`0x0105h`), y el índice
+  genérico `idx` se convirtió en `indice` ({ref}`0x010Eh`).
+
+## Diagnóstico y refactorización
+
+Usá esta tabla para ir del síntoma observado en el código hasta la técnica de
+esta guía que lo corrige.
+
+| Regla | Síntoma en el código | Técnica de esta guía |
+| :--- | :--- | :--- |
+| {ref}`0x0101h` | `int d;`, `void proc(int n)` sin significado | Renombrar revelando intención (secciones 1 a 8 de principios). |
+| {ref}`0x0102h` | Campos o parámetros en `camelCase` (`idUsuario`) | Unificar variables locales y parámetros en snake_case. |
+| {ref}`0x0103h` | `const double tasa_iva = 0.21;` en minúsculas | Elevar a `TASA_IVA` en MAYUSCULAS_SNAKE_CASE. |
+| {ref}`0x0104h` | `GestionUsuarios.C` con mayúsculas | Renombrar el archivo a `gestion_usuarios.c`. |
+| {ref}`0x0105h` | `CheckUser`, `getAltura`, `ProcessAll` | Unificar en snake_case estricto (`usuario_esta_activo`). |
+| {ref}`0x0106h` | `int userCount;` global visible en todo el programa | Marcar `static` o prefijar con `g_`. |
+| {ref}`0x0107h` | `#define maxItems 100` | Renombrar a `MAX_ITEMS`. |
+| {ref}`0x0108h` | `int añoAlta;` con `ñ` | Sustituir por `anio_alta`. |
+| {ref}`0x0109h` | `int free;`, `struct open {};` | Renombrar para evitar palabras clave y funciones estándar. |
+| {ref}`0x010Ah` | `int __interno;`, `int _contador;` | Quitar los prefijos reservados al compilador. |
+| {ref}`0x010Bh` | `int i` en función larga o nombre kilométrico | Ajustar la longitud del nombre a su alcance. |
+| {ref}`0x010Ch` | Auditoría de `__` o guion bajo inicial | Pasar el auditor de identificadores reservados. |
+| {ref}`0x010Dh` | `tasa_iva` junto a `MAX_CONEXIONES` | Homogeneizar la convención de constantes. |
+| {ref}`0x010Eh` | `datos1`, `datos2`, `strNombre`, `idx` | Eliminar sufijos numéricos y afijos de tipo. |
+| {ref}`0x0110h` | `bool activo;` o `bool flag;` | Renombrar a `esta_activo` con prefijo interrogativo. |
+| {ref}`0x0111h` | `if (!no_hay_error)` | Formular en positivo y evitar dobles negaciones. |
+| {ref}`0x3004h` | `struct user_struct { ... };` sin `typedef` | Definir `usuario_t` con `typedef` y sufijo `_t`. |
 
 ## Resumen
 
@@ -996,3 +1267,25 @@ Principios para buenos nombres:
 
 Los buenos nombres son inversión, no gasto. El tiempo dedicado a elegir nombres
 apropiados se recupera ampliamente en mantenimiento y comprensión.
+
+## Checklist de verificación
+
+- [ ] ¿Cada identificador revela su intención ({ref}`0x0101h`) y tiene una
+      longitud proporcional a su alcance ({ref}`0x010Bh`)?
+- [ ] ¿Variables locales y parámetros están en snake_case ({ref}`0x0102h`) y las
+      funciones en snake_case estricto ({ref}`0x0105h`)?
+- [ ] ¿Las constantes `const` ({ref}`0x0103h`) y las macros `#define`
+      ({ref}`0x0107h`) usan MAYUSCULAS_SNAKE_CASE de forma consistente
+      ({ref}`0x010Dh`)?
+- [ ] ¿Los nombres de archivo están en snake_case y minúsculas
+      ({ref}`0x0104h`)?
+- [ ] ¿Toda variable global es `static` o lleva prefijo `g_` ({ref}`0x0106h`)?
+- [ ] ¿Evitaste acentos y `ñ` en identificadores ({ref}`0x0108h`) y colisiones
+      con palabras clave o tipos estándar ({ref}`0x0109h`)?
+- [ ] ¿Ningún nombre usa prefijos reservados con `_` o `__`
+      ({ref}`0x010Ah`, {ref}`0x010Ch`)?
+- [ ] ¿Evitaste identificadores genéricos con sufijos numéricos o afijos de tipo
+      ({ref}`0x010Eh`)?
+- [ ] ¿Los booleanos llevan prefijo interrogativo ({ref}`0x0110h`) y los nombres
+      están en positivo, sin dobles negaciones ({ref}`0x0111h`)?
+- [ ] ¿Los tipos de estructura usan `typedef` y sufijo `_t` ({ref}`0x3004h`)?

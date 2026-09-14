@@ -63,7 +63,7 @@ else
 Las condiciones evaluadas deben ser expresiones de comparación explícitas (ver
 regla de estilo {ref}`0x1005h`). Recuerde que en esta cátedra **es obligatorio
 el uso de llaves** para delimitar el bloque de toda estructura de control (ver
-regla {ref}`0x0005h`).
+regla {ref}`0x0004h`).
 
 :::{note} «Veracidad»
 

@@ -490,7 +490,7 @@ typedef struct
    relaciones claramente.
 
 Para más detalles sobre el estilo de comentarios y documentación, consultá la
-regla {ref}`0x000Ah` sobre cómo escribir comentarios que expliquen el
+regla {ref}`0x0201h` sobre cómo escribir comentarios que expliquen el
 "porqué" y no el "qué".
 
 ---
@@ -1362,7 +1362,7 @@ valor_t crear_valor_entero(int64_t entero)
    cuándo debería (o no) usarse.
 
 Para más detalles sobre el estilo de comentarios, consultá la regla
-{ref}`0x000Ah` sobre cómo escribir comentarios que expliquen el "porqué" y
+{ref}`0x0201h` sobre cómo escribir comentarios que expliquen el "porqué" y
 no el "qué".
 
 (ejercicio)=
@@ -1542,7 +1542,7 @@ int main(void)
 :::{tip} Estilo
 
 Al declarar variables o tipos estructurados, recordá seguir la regla
-{ref}`0x0001h` que exige identificadores descriptivos, y usá el sufijo `_t` para
+{ref}`0x0101h` que exige identificadores descriptivos, y usá el sufijo `_t` para
 los alias definidos con `typedef` de acuerdo a la buena práctica del proyecto.
 
 :::

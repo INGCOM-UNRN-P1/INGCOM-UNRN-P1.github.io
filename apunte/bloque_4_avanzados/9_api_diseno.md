@@ -76,7 +76,7 @@ que invertir en claridad es una optimización fundamental.
 
 - **Nombres Descriptivos**: Los nombres de las funciones deben ser verbos que
   describan la acción que realizan. Los nombres de los tipos y parámetros deben
-  ser sustantivos claros. Esto sigue la regla {ref}`0x0001h`.
+  ser sustantivos claros. Esto sigue la regla {ref}`0x0101h`.
 
   :::{code-block} c
   // Malo: Nombres ambiguos y poco informativos.
@@ -105,7 +105,7 @@ que invertir en claridad es una optimización fundamental.
   `sqlite3_`).
 
 - **Documentación Rigurosa**: Cada función pública debe estar documentada
-  siguiendo la regla {ref}`0x000Ah`. El contrato, definido por las
+  siguiendo la regla {ref}`0x0201h`. El contrato, definido por las
   precondiciones y poscondiciones, debe ser explícito. Esto no es mera
   formalidad; es una especificación del comportamiento esperado, crucial para la
   depuración y la verificación formal.

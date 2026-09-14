@@ -1,56 +1,49 @@
 ---
 title: "Reglas de Estilo y Antipatrones de Cátedra"
-short_title: "Índice de Reglas y Antipatrones"
-subtitle: "Directivas arquitectónicas y catálogo de defectos en C11 (Máscaras 0xXXXXh)"
+short_title: "Índice de Reglas"
+subtitle: "Catálogo unificado de reglas de estilo, buenas prácticas y errores frecuentes en C11"
 ---
 
 (reglas-estilo-indice)=
-# Reglas de Estilo y Catálogo de Antipatrones de Cátedra
+# Reglas de Estilo y Antipatrones de Cátedra
 
-El estándar de desarrollo en C de la materia unifica las **reglas de estilo prescriptivas** (GAFF) y los **antipatrones didácticos** (Spunkmeyer y Kaneda) bajo un mismo sistema taxonómico de 16 bits (`0xXXXXh`).
+El catálogo unificado de la materia reúne **175 reglas** agrupadas en **11 categorías**.
+Cada regla integra en una única ficha su enunciado normativo, su fundamentación,
+sus ejemplos exhaustivos y los **antipatrones didácticos** que la violan.
 
-Cada regla define el estándar obligatorio exigido, y cada antipatrón documenta el defecto común detectado en estudiantes, el diagnóstico de compilación y la refactorización conforme.
+Los antipatrones ya no tienen código propio: se identifican por el código de la regla
+que los norman. El registro de la renumeración está en
+[`renumeracion.md`](renumeracion.md) y [`renumeracion.json`](renumeracion.json).
 
 ```{tableofcontents}
 ```
 
-## Categorías Unificadas del Estándar C
+## Categorías
 
-### [Sintaxis Básica y Nomenclatura (0x00XX)](0_sintaxis/index.md)
-*45 reglas de estilo prescriptivas y 3 antipatrones didácticos catalogados.*
+- **[Sintaxis y formato visual (0x00XX)](00_formato/index.md)** — 23 reglas. Reglas de estilo visual, espaciado, indentacion, llaves y formato en C.
+- **[Nomenclatura e identificadores (0x01XX)](01_nomenclatura/index.md)** — 18 reglas. Reglas de nombrado de identificadores, constantes, archivos y simbolos.
+- **[Comentarios, documentacion y organizacion de archivos (0x02XX)](02_documentacion/index.md)** — 6 reglas. Reglas de comentarios, documentacion de archivos y organizacion del codigo.
+- **[Estructuras de control y flujo (0x10XX)](10_control/index.md)** — 24 reglas. Reglas sobre condicionales, lazos, bifurcaciones y flujo de ejecucion.
+- **[Funciones, contratos y modularizacion (0x20XX)](20_funciones/index.md)** — 24 reglas. Reglas sobre firmas, contratos, responsabilidad unica y modularizacion.
+- **[Memoria, punteros y tipos (0x30XX)](30_memoria/index.md)** — 31 reglas. Reglas sobre punteros, memoria dinamica, tipos, const y TADs.
+- **[Archivos y E/S (0x40XX)](40_archivos/index.md)** — 12 reglas. Reglas sobre flujos de archivo, lectura/escritura y reporte de errores.
+- **[Compilacion, preprocesador y seguridad (0x50XX)](50_seguridad/index.md)** — 21 reglas. Reglas sobre compilacion, preprocesador, cabeceras y seguridad estatica.
+- **[Proceso, diseno y construccion sistematica (0x60XX)](60_proceso/index.md)** — 5 reglas. Reglas de metodo: como disenar y construir codigo de calidad paso a paso.
+- **[Robustez y manejo de errores (0x70XX)](70_robustez/index.md)** — 7 reglas. Reglas de robustez, validacion e inicializacion defensiva.
+- **[Verificacion, testing y depuracion (0x80XX)](80_verificacion/index.md)** — 4 reglas. Reglas de verificacion, testing y depuracion antes de la entrega.
 
-* **[Acceder a la tabla comparativa de Sintaxis y Nomenclatura](0_sintaxis/index.md)**
+## Categorías y prefijos de código
 
-### [Estructuras de Control y Lazos (0x10XX)](1_control/index.md)
-*21 reglas de estilo prescriptivas y 18 antipatrones didácticos catalogados.*
-
-* **[Acceder a la tabla comparativa de Control de Flujo](1_control/index.md)**
-
-### [Funciones y Modularización (0x20XX)](2_funciones/index.md)
-*20 reglas de estilo prescriptivas y 6 antipatrones didácticos catalogados.*
-
-* **[Acceder a la tabla comparativa de Funciones y Modularización](2_funciones/index.md)**
-
-### [Punteros y Gestión de Memoria (0x30XX)](3_punteros/index.md)
-*28 reglas de estilo prescriptivas y 26 antipatrones didácticos catalogados.*
-
-* **[Acceder a la tabla comparativa de Punteros y Memoria](3_punteros/index.md)**
-
-### [Gestión de Archivos y Errores (0x40XX)](4_archivos/index.md)
-*10 reglas de estilo prescriptivas y 7 antipatrones didácticos catalogados.*
-
-* **[Acceder a la tabla comparativa de Archivos y E/S](4_archivos/index.md)**
-
-### [Compilación, Buenas Prácticas y Seguridad (0x50XX)](5_buenas_practicas/index.md)
-*20 reglas de estilo prescriptivas y 9 antipatrones didácticos catalogados.*
-
-* **[Acceder a la tabla comparativa de Buenas Prácticas y Seguridad](5_buenas_practicas/index.md)**
-
-### [Propuestas: Disciplina de Construcción Sistemática (0x60XX)](6_propuestas/index.md)
-*24 reglas propuestas para que un principiante construya código de alta calidad de forma metódica (diseño, legibilidad, robustez y verificación).*
-
-* **[Acceder al cuadro general de propuestas](6_propuestas/index.md)**
-
-Las reglas `0x60XX` no describen *cómo debe verse* el código, sino **el orden
-de decisiones y controles** con que se llega a un código de calidad. Son
-complementarias de las categorías anteriores y están en estado de propuesta.
+| Prefijo | Categoría | Directorio | Reglas |
+| :--- | :--- | :--- | :--- |
+| `0x00XX` | Sintaxis y formato visual | `reglas/00_formato/` | 23 |
+| `0x01XX` | Nomenclatura e identificadores | `reglas/01_nomenclatura/` | 18 |
+| `0x02XX` | Comentarios, documentacion y organizacion de archivos | `reglas/02_documentacion/` | 6 |
+| `0x10XX` | Estructuras de control y flujo | `reglas/10_control/` | 24 |
+| `0x20XX` | Funciones, contratos y modularizacion | `reglas/20_funciones/` | 24 |
+| `0x30XX` | Memoria, punteros y tipos | `reglas/30_memoria/` | 31 |
+| `0x40XX` | Archivos y E/S | `reglas/40_archivos/` | 12 |
+| `0x50XX` | Compilacion, preprocesador y seguridad | `reglas/50_seguridad/` | 21 |
+| `0x60XX` | Proceso, diseno y construccion sistematica | `reglas/60_proceso/` | 5 |
+| `0x70XX` | Robustez y manejo de errores | `reglas/70_robustez/` | 7 |
+| `0x80XX` | Verificacion, testing y depuracion | `reglas/80_verificacion/` | 4 |

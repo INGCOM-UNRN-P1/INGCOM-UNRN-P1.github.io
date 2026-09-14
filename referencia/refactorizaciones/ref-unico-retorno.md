@@ -3,6 +3,8 @@ title: Único Retorno
 short_title: Único retorno
 ---
 
+(refactorizacion-unico-retorno)=
+
 ## Motivación
 
 Con el objetivo de mejorar la legibilidad del código en C que desarrollamos, es
@@ -49,7 +51,35 @@ Hay casos donde múltiples `return` pueden parecer más naturales o eficientes,
 especialmente en funciones muy cortas o en situaciones donde un error se detecta
 tempranamente. Sin embargo, en esos casos, es importante evaluar si la
 simplicidad del código justifica romper la regla general y asegurarse de que no
-afectará la mantenibilidad a largo plazo.
+afectará la mantenibilidad a largo plazo. Este es el punto donde la regla
+{ref}`0x2001h` (retornos anticipados) se cruza con la regla {ref}`0x200Ch`
+(único retorno) que sostiene esta guía.
+
+## Reglas de estilo que resuelve
+
+Esta refactorización existe para resolver, en un solo movimiento, los problemas
+que modelan varias reglas de estilo de la cátedra. Cada regla describe un síntoma
+distinto —retornos dispersos, cláusulas de guarda ausentes, `else` redundantes,
+anidación profunda— y el patrón de único retorno ofrece una técnica concreta para
+cada uno.
+
+Hay, sin embargo, una **tensión pedagógica** que conviene explicitar: {ref}`0x200Ch`
+pide que cada función tenga a lo sumo un `return`, mientras que {ref}`0x2001h`
+recomienda usar cláusulas de guarda con retornos anticipados para bajar la
+anidación. Ambas reglas persiguen lo mismo —legibilidad y previsibilidad— pero
+tiran en direcciones opuestas: una concentra la salida, la otra la adelanta. La
+manera de conciliarlas es entender el **alcance** de cada una: las guardas de
+validación autorizadas por {ref}`0x2001h` son la excepción sancionada del único
+retorno ({ref}`0x200Ch`), y se aplican cuando validar temprano evita anidar todo
+el cuerpo. En el resto de la función, el flujo converge a un único `return`.
+
+| Regla | Problema que modela | Cómo lo resuelve esta refactorización |
+| --- | --- | --- |
+| {ref}`0x200Ch` | Múltiples `return` dispersan el flujo y duplican la limpieza | Concentra la salida en una variable de resultado con un único `return` final |
+| {ref}`0x2001h` | Anidación profunda por falta de validación temprana | Admite guardas de validación al inicio y organiza el cuerpo en fases |
+| {ref}`0x100Fh` | `else` redundante después de un `return` anticipado | Reemplaza la rama `else` por asignaciones condicionales secuenciales |
+| {ref}`0x2013h` | Bloques `else` superfluos tras sentencias terminales | Elimina la rama muerta al no haber retornos intermedios seguidos de `else` |
+| {ref}`0x1015h` | Más de tres niveles de anidación | Desanida con guardas y aplana la lógica en asignaciones sucesivas |
 
 ## Refactorización
 
@@ -124,7 +154,8 @@ int ejemplo(int x)
 
 La técnica fundamental consiste en declarar una variable auxiliar `resultado` al
 inicio de la función, inicializándola con el valor por defecto o más común, y
-luego asignar valores según las condiciones evaluadas.
+luego asignar valores según las condiciones evaluadas. Este es el mecanismo
+canónico para cumplir {ref}`0x200Ch` sin romper el flujo lógico.
 
 :::
 <!-- {note} -->
@@ -194,7 +225,9 @@ int clasificar_numero(int n)
 <!-- {code-block} c -->
 
 En este caso, se puede inicializar `resultado` con el valor más común o por
-defecto, y luego asignar el valor dentro de cada rama condicional.
+defecto, y luego asignar el valor dentro de cada rama condicional. Al desaparecer
+el `return` dentro del `if`, también desaparece el `else` que colgaba de él: es
+exactamente lo que prohíben {ref}`0x100Fh` y {ref}`0x2013h`.
 
 :::{tip}
 
@@ -376,7 +409,9 @@ const char *logica_compleja(int a, int b)
 <!-- {code-block} c -->
 
 En condiciones anidadas, se inicializa `resultado` con el caso más general y se
-refina dentro de cada bloque condicional.
+refina dentro de cada bloque condicional. Este aplanamiento es el que permite
+respetar el límite de anidación de {ref}`0x1015h` sin recurrir a retornos
+anticipados.
 
 ---
 
@@ -579,6 +614,110 @@ olvidar liberar recursos en alguna de las salidas.
 :::
 <!-- {tip} -->
 
+### Tensión entre Único Retorno y Retornos Anticipados
+
+Acá se ve de forma concreta el choque entre {ref}`0x200Ch` y {ref}`0x2001h`.
+Supongamos que hay que validar varios parámetros de entrada y recién después
+hacer el cálculo. Si aplicamos el único retorno a rajatabla, anidamos todas las
+validaciones; si aplicamos retornos anticipados sin criterio, dispersamos la
+salida. La resolución pedagógica es usar **solo guardas** para validar y un único
+`return` para el resultado.
+
+**❌ Versión con validaciones anidadas (viola {ref}`0x2001h` y {ref}`0x1015h`):**
+
+```{code-block} c
+:linenos:
+int dividir_promedio(int *datos, int tam, int divisor, double *salida)
+{
+    if (datos != NULL)
+    {
+        if (tam > 0)
+        {
+            if (divisor != 0)
+            {
+                long suma = 0;
+                for (int i = 0; i < tam; i++)
+                {
+                    suma += datos[i];
+                }
+                *salida = (double)suma / tam / divisor;
+                return 0;
+            }
+            else
+            {
+                return -3;
+            }
+        }
+        else
+        {
+            return -2;
+        }
+    }
+    else
+    {
+        return -1;
+    }
+}
+```
+<!-- {code-block} c -->
+
+**❌ Versión con retornos anticipados para todo (viola el espíritu de {ref}`0x200Ch`):**
+
+```{code-block} c
+:linenos:
+int dividir_promedio(int *datos, int tam, int divisor, double *salida)
+{
+    if (datos == NULL)
+    {
+        return -1;
+    }
+    if (tam <= 0)
+    {
+        return -2;
+    }
+    if (divisor == 0)
+    {
+        return -3;
+    }
+    long suma = 0;
+    for (int i = 0; i < tam; i++)
+    {
+        suma += datos[i];
+    }
+    *salida = (double)suma / tam / divisor;
+    return 0;
+}
+```
+<!-- {code-block} c -->
+
+**✅ Versión conciliada (guardas de {ref}`0x2001h` + único retorno de {ref}`0x200Ch`):**
+
+```{code-block} c
+:linenos:
+int dividir_promedio(int *datos, int tam, int divisor, double *salida)
+{
+    int resultado = -1;
+    if (datos != NULL && tam > 0 && divisor != 0)
+    {
+        long suma = 0;
+        for (int i = 0; i < tam; i++)
+        {
+            suma += datos[i];
+        }
+        *salida = (double)suma / tam / divisor;
+        resultado = 0;
+    }
+    return resultado;
+}
+```
+<!-- {code-block} c -->
+
+La versión conciliada conserva la validación temprana en una sola condición de
+guarda —que es lo que pide {ref}`0x2001h` y lo que mantiene la función en un solo
+nivel de anidación ({ref}`0x1015h`)— pero deja la salida en un único `return`
+final ({ref}`0x200Ch`). Fijate que ya no hay ningún `else`: la técnica del
+resultado hace innecesario el bloque y satisface {ref}`0x100Fh` y {ref}`0x2013h`.
+
 ### Procesamiento por Fases
 
 Para funciones complejas que realizan múltiples operaciones, organizar el código
@@ -716,6 +855,19 @@ int maximo(int a, int b)
 
 ---
 
+## Diagnóstico y refactorización
+
+Antes de tocar el código, ubicá el síntoma y la regla que lo modela. Esta tabla
+conecta lo que ves en pantalla con la técnica concreta de esta guía.
+
+| Regla | Síntoma en el código | Técnica de esta guía |
+| --- | --- | --- |
+| {ref}`0x200Ch` | Varios `return` repartidos y limpieza duplicada | Variable `resultado` + un único `return` final |
+| {ref}`0x2001h` | Precondiciones validadas dentro de ramas anidadas | Guardas al inicio del cuerpo |
+| {ref}`0x100Fh` | `if (error) return; else { ... }` | Asignación condicional sin `else` |
+| {ref}`0x2013h` | Bloque `else` que nunca se alcanza tras un retorno | Eliminación de la rama muerta |
+| {ref}`0x1015h` | Flecha de `if` anidados de más de tres niveles | Aplanado con guardas y fases |
+
 ## Resumen
 
 El patrón de único retorno se implementa mediante:
@@ -736,4 +888,15 @@ El patrón de único retorno se implementa mediante:
 La refactorización hacia este patrón mejora la mantenibilidad, facilita la
 depuración y reduce errores relacionados con la gestión de recursos,
 especialmente en código complejo o de larga duración.
+
+## Checklist de verificación
+
+- [ ] La función tiene a lo sumo un `return` ({ref}`0x200Ch`).
+- [ ] Las validaciones de entrada usan guardas, no ramas anidadas ({ref}`0x2001h`).
+- [ ] No queda ningún `else` después de un `return` anticipado ({ref}`0x100Fh`).
+- [ ] No hay bloques `else` muertos tras una sentencia terminal ({ref}`0x2013h`).
+- [ ] La profundidad de anidación no supera los tres niveles ({ref}`0x1015h`).
+- [ ] La variable de resultado se inicializa con un valor por defecto o de error.
+- [ ] Los recursos adquiridos se liberan en un único punto antes del `return`.
+- [ ] Las guardas de {ref}`0x2001h` son la única excepción al único retorno ({ref}`0x200Ch`).
 

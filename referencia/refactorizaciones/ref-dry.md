@@ -4,6 +4,8 @@ short_title: "Don't Repeat Yourself [DRY]"
 subtitle: "Eliminación de duplicación mediante extracción y abstracción"
 ---
 
+(refactorizacion-dry)=
+
 ## Introducción
 
 La duplicación de código es uno de los problemas más comunes y perjudiciales en
@@ -21,11 +23,30 @@ código.
 
 La duplicación de código multiplica el esfuerzo de mantenimiento y aumenta la
 probabilidad de inconsistencias. Cada vez que modificás código duplicado, debés
-recordar modificar todas sus copias. Como establece {ref}`0x0000h`, la claridad
+recordar modificar todas sus copias. Como establece {ref}`0x0001h`, la claridad
 y mantenibilidad son fundamentales.
 
 :::
 <!-- {important} Principio DRY -->
+
+## Reglas de estilo que resuelve
+
+Las técnicas de este apunte no son un conjunto de recetas sueltas: son la forma
+práctica de resolver los problemas que modelan las reglas de estilo de la
+cátedra. Cuando el código duplica lógica, mezcla responsabilidades o arrastra
+firmas ilegibles, no hace falta inventar un criterio nuevo; basta con aplicar la
+refactorización correspondiente y verificar contra la regla que la origina. La
+tabla siguiente mapea cada regla con el defecto que describe y con la técnica
+que lo elimina.
+
+| Regla | Problema que modela | Cómo lo resuelve esta refactorización |
+| :--- | :--- | :--- |
+| {ref}`0x2015h` | El mismo bloque de lógica aparece dos o más veces. | Extracción de función: el bloque pasa a una función con nombre propio que se invoca desde cada lugar. |
+| {ref}`0x2008h` | El ejercicio se resuelve en `main` o en un bloque monolítico. | Cada paso del procesamiento se aísla en funciones con responsabilidad propia y `main` solo orquesta. |
+| {ref}`0x2005h` | Una función acumula validación, cálculo e impresión. | Las técnicas separan cada responsabilidad para que toda función se describa con una sola frase, sin "y". |
+| {ref}`0x200Ah` | Firmas con más de cuatro parámetros que viajan juntos. | Parametrización con `struct`: los datos relacionados se empaquetan y cruzan la frontera en un único puntero. |
+| {ref}`0x7007h` | Un parámetro `bool` selecciona entre dos comportamientos. | Se reemplaza la bandera por funciones específicas o por un `enum` de dominio con nombres de intención. |
+| {ref}`0x0001h` | El código ofuscado o repetido obliga a retener demasiado contexto. | La abstracción con nombres claros baja la carga cognitiva y deja visible la intención de cada paso. |
 
 ## Tipos de Duplicación
 
@@ -163,7 +184,9 @@ typedef struct
 
 ### 1. Extracción de Función
 
-La técnica más básica: extraer código común a una función.
+La técnica más básica: extraer código común a una función. Es la respuesta
+directa a {ref}`0x2015h`, que prohíbe copiar y pegar el mismo bloque de lógica
+dos o más veces.
 
 **Antes:**
 
@@ -355,7 +378,11 @@ const char *obtener_nombre_mes(int mes)
 
 ### 4. Template Method Pattern (Simulado)
 
-Extraer la estructura común, parametrizar las partes variables.
+Extraer la estructura común, parametrizar las partes variables. El resultado
+deja el esqueleto en una función y las variantes en funciones separadas, que es
+la forma de resolver el ejercicio mediante funciones que exige {ref}`0x2008h`.
+Además, reemplazar el `bool` que elegía entre texto y CSV por un puntero a
+función evita el parámetro bandera que prohíbe {ref}`0x7007h`.
 
 **Antes:**
 
@@ -586,6 +613,11 @@ bool validar_telefono(const char *telefono)
 ```
 <!-- {code-block} c -->
 
+Cada validador conserva una única responsabilidad —describir sus criterios y
+delegar la comprobación—, lo que cumple {ref}`0x2005h`. Al empaquetar los
+criterios en un `struct`, la función de validación deja de recibir una lista
+larga de parámetros sueltos y pasa a recibir dos, en la línea de {ref}`0x200Ah`.
+
 ### Caso 2: Operaciones CRUD Repetitivas
 
 **Código Original:**
@@ -814,6 +846,104 @@ void procesar_productos(producto_t *productos, int n)
 ```
 <!-- {code-block} c -->
 
+### Caso 4: Ejemplo integrador — Validación, cálculo y notificación
+
+Este caso reúne varias reglas a la vez. La función original valida al cliente,
+calcula el total, imprime y notifica, todo en un mismo cuerpo con parámetros
+sueltos y banderas booleanas.
+
+**❌ Código original:**
+
+```c
+void registrar_pedido(const char *cliente, int producto_id, int cantidad,
+                      double precio_unitario, bool aplicar_descuento,
+                      bool enviar_correo)
+{
+    if (cliente == NULL || strlen(cliente) == 0) {
+        return;
+    }
+    if (cantidad <= 0 || precio_unitario <= 0.0) {
+        return;
+    }
+    double subtotal = cantidad * precio_unitario;
+    double total = aplicar_descuento ? subtotal * 0.90 : subtotal;
+    printf("Cliente: %s | Total: %.2f\n", cliente, total);
+    if (enviar_correo) {
+        printf("Correo a %s\n", cliente);
+    }
+}
+```
+
+La firma tiene seis parámetros ({ref}`0x200Ah`), dos de ellos `bool` que
+seleccionan comportamiento ({ref}`0x7007h`), y la función hace validación,
+cálculo, impresión y notificación ({ref}`0x2005h`). Si la validación del cliente
+se repite en otro punto del programa, además se duplica la lógica
+({ref}`0x2015h`).
+
+**✅ Código refactorizado:**
+
+```c
+typedef struct
+{
+    const char *cliente;
+    int producto_id;
+    int cantidad;
+    double precio_unitario;
+    double descuento;
+} pedido_t;
+
+typedef enum
+{
+    SIN_NOTIFICACION,
+    NOTIFICAR_CORREO
+} notificacion_t;
+
+static bool pedido_valido(const pedido_t *pedido)
+{
+    if (pedido == NULL || pedido->cliente == NULL) {
+        return false;
+    }
+    return pedido->cantidad > 0 && pedido->precio_unitario > 0.0;
+}
+
+static double calcular_total(const pedido_t *pedido)
+{
+    double subtotal = pedido->cantidad * pedido->precio_unitario;
+    return subtotal * (1.0 - pedido->descuento);
+}
+
+static void mostrar_pedido(const pedido_t *pedido, double total)
+{
+    printf("Cliente: %s | Total: %.2f\n", pedido->cliente, total);
+}
+
+static void notificar_correo(const pedido_t *pedido)
+{
+    printf("Correo a %s\n", pedido->cliente);
+}
+
+void registrar_pedido(const pedido_t *pedido, notificacion_t notificacion)
+{
+    if (!pedido_valido(pedido)) {
+        return;
+    }
+    double total = calcular_total(pedido);
+    mostrar_pedido(pedido, total);
+    if (notificacion == NOTIFICAR_CORREO) {
+        notificar_correo(pedido);
+    }
+}
+```
+
+El `struct pedido_t` agrupa los datos que siempre viajan juntos y reduce la
+firma a dos parámetros, cumpliendo {ref}`0x200Ah`. El descuento pasa a ser un
+dato y la notificación se modela con el `enum` `notificacion_t`, de modo que
+desaparecen las banderas `bool` de {ref}`0x7007h`. Cada paso se extrae a su
+propia función ({ref}`0x2015h`) y `registrar_pedido` solo orquesta, como pide
+{ref}`0x2008h`. La validación, el cálculo y la salida quedan en funciones de una
+sola responsabilidad ({ref}`0x2005h`), con nombres que describen la intención
+sin abreviaturas crípticas ({ref}`0x0001h`).
+
 ## Cuándo NO Eliminar Duplicación
 
 ### 1. Duplicación Accidental
@@ -918,6 +1048,20 @@ pmd cpd --minimum-tokens 50 --files .
 ```
 <!-- bash -->
 
+## Diagnóstico y refactorización
+
+Usá esta tabla como guía rápida: identificá el síntoma en tu código, mirá la
+regla que lo modela y aplicá la técnica correspondiente de la guía.
+
+| Regla | Síntoma en el código | Técnica de esta guía |
+| :--- | :--- | :--- |
+| {ref}`0x2015h` | El mismo `if`, la misma fórmula o el mismo bloque repegados en dos lugares. | Extracción de función y Template Method. |
+| {ref}`0x2008h` | Toda la lógica vive en `main` o en un bloque monolítico. | Descomposición en funciones con `main` como orquestador. |
+| {ref}`0x2005h` | Una función "valida, calcula e imprime" y su nombre necesita un "y". | Separación de responsabilidades en funciones distintas. |
+| {ref}`0x200Ah` | Firma de cinco o más parámetros, varios del mismo tipo. | Parametrización con `struct` y paso por puntero `const`. |
+| {ref}`0x7007h` | `procesar(x, true, false)` sin significado evidente en la llamada. | Funciones específicas o `enum` de dominio en lugar de `bool`. |
+| {ref}`0x0001h` | Nombres crípticos y sentencias densas que obligan a retener contexto. | Abstracción con nombres de dominio y código paso a paso. |
+
 ## Resumen
 
 Técnicas para eliminar duplicación:
@@ -945,3 +1089,13 @@ Técnicas para eliminar duplicación:
 
 La eliminación de duplicación debe balancearse con la claridad. No toda
 similitud requiere abstracción inmediata.
+
+## Checklist de verificación
+
+- [ ] ¿Extraje a una función todo bloque de lógica repetido dos o más veces, en línea con {ref}`0x2015h`?
+- [ ] ¿Cada paso del ejercicio quedó resuelto mediante funciones y `main` solo orquesta, como pide {ref}`0x2008h`?
+- [ ] ¿Puedo describir cada función con una sola frase, sin "y", según {ref}`0x2005h`?
+- [ ] ¿Ninguna función supera los cuatro parámetros de entrada ({ref}`0x200Ah`)?
+- [ ] ¿Eliminé los parámetros bandera de tipo `bool` en favor de funciones con nombre o de un `enum` ({ref}`0x7007h`)?
+- [ ] ¿Los nombres de funciones, variables y tipos son claros y sin abreviaturas crípticas ({ref}`0x0001h`)?
+- [ ] ¿Verifiqué que el comportamiento no cambió después de refactorizar, ejecutando las pruebas?

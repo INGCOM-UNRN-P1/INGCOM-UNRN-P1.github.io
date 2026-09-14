@@ -20,7 +20,7 @@ seguras y extensibles en el lenguaje C.
   interfaz `.h` (ver {ref}`0x3002h`).
 - **Nomenclatura consistente:** Seguí siempre la convención de prefijos para
   evitar colisiones de símbolos globales en el espacio de nombres (ver reglas en
-  {ref}`0x0001h`).
+  {ref}`0x0101h`).
 
 ---
 

@@ -17,7 +17,7 @@ simulado en el lenguaje C.
 ### Cuestiones de Estilo Aplicables
 - **Inicialización de punteros:** Todo puntero que no apunte a un objeto en
   memoria válido debe inicializarse en `NULL` (ver regla de estilo
-  {ref}`0x0003h`).
+  {ref}`0x7001h`).
 - **Verificación de punteros:** Antes de realizar cualquier desreferencia con
   los operadores `*` o `->`, es obligatorio verificar que el puntero no sea
   `NULL`.

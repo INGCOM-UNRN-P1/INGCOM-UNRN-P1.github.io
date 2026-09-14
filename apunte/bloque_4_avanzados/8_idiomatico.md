@@ -120,7 +120,7 @@ destino[i] = '\0';
 :::{admonition} Relación con las reglas de estilo
 :class: tip
 
-Este patrón idiomático **parece contradecir** las reglas {ref}`0x0000h`
+Este patrón idiomático **parece contradecir** las reglas {ref}`0x0001h`
 (claridad) y {ref}`0x3003h` (operaciones múltiples), pero
 es una **excepción reconocida** en C por ser un modismo tan común que los
 programadores experimentados lo reconocen instantáneamente.
@@ -245,7 +245,7 @@ persona.activo = true;
 :class: tip
 
 Este patrón **cumple perfectamente** con:
-- {ref}`0x0003h <0x0003h>`: Inicializar variables a valor conocido
+- {ref}`0x7001h <0x7001h>`: Inicializar variables a valor conocido
 - {ref}`0x3004h <0x3004h>`: Inicialización de estructuras con inicializadores
   designados (C99)
 
@@ -585,7 +585,7 @@ void procesar(const dato_t *dato)
 :class: tip
 
 La validación de punteros **es obligatoria** según {ref}`0x3008h <0x3008h>`
-(validación de precondiciones) y {ref}`0x0036h <0x0036h>` (manejo de NULL).
+(validación de precondiciones) y {ref}`0x301Eh <0x301Eh>` (manejo de NULL).
 
 **Dos enfoques válidos:**
 
@@ -1128,7 +1128,7 @@ experiencia y el contexto.
 
 | Patrón Idiomático | Regla de Estilo Relacionada | Postura del Curso | Cuándo Usar |
 |-------------------|------------------------------|-------------------|-------------|
-| `while (*d++ = *s++)` | {ref}`0x0000h` (claridad) | **Preferir claridad** | Código muy idiomático de bajo nivel |
+| `while (*d++ = *s++)` | {ref}`0x0001h` (claridad) | **Preferir claridad** | Código muy idiomático de bajo nivel |
 | Inicializadores designados | {ref}`0x3004h` | **Totalmente alineado** | Siempre |
 | Early return | {ref}`0x2001h`, {ref}`0x3008h` | **Totalmente alineado** | Siempre |
 | Operador ternario simple | {ref}`0x1007h` | **Totalmente alineado** | Asignaciones simples |
@@ -1137,9 +1137,9 @@ experiencia y el contexto.
 | `if (ptr != NULL)` | {ref}`0x3008h` | **Recomendado** | Siempre, especialmente al aprender |
 | `goto` para limpieza | {ref}`0x1006h` | **Permitido específicamente** | Manejo de errores con recursos |
 | `goto` para lazos | {ref}`0x1006h` | **Prohibido** | Nunca |
-| Macros vs funciones | {ref}`0x2008h` | **Caso por caso** | Constantes: macro; Lógica: función |
-| Nombres cortos (`i`, `j`) | {ref}`0x0001h` | **Permitido con restricciones** | Lazos simples, ámbito reducido |
-| Punteros vs índices | {ref}`0x0000h` | **Preferir índices** | Índices por defecto; punteros cuando clarifica |
+| Macros vs funciones | {ref}`0x2007h` | **Caso por caso** | Constantes: macro; Lógica: función |
+| Nombres cortos (`i`, `j`) | {ref}`0x0101h` | **Permitido con restricciones** | Lazos simples, ámbito reducido |
+| Punteros vs índices | {ref}`0x0001h` | **Preferir índices** | Índices por defecto; punteros cuando clarifica |
 
 #### Contextos donde divergen idiomaticidad y reglas pedagógicas
 

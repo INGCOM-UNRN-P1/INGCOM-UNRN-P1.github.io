@@ -17,9 +17,9 @@ implementar callbacks y genericidad en C.
 ### Cuestiones de Estilo Aplicables
 - **Uso de aserciones en punteros:** Validá siempre que los punteros dobles y de
   función no sean `NULL` antes de desreferenciarlos o invocarlos (ver
-  {ref}`0x2009h`).
+  {ref}`0x2008h`).
 - **Definición de alias:** Empleá `typedef` para declarar firmas de punteros a
-  funciones legibles en tus programas (ver reglas en {ref}`0x0001h`).
+  funciones legibles en tus programas (ver reglas en {ref}`0x0101h`).
 
 ---
 

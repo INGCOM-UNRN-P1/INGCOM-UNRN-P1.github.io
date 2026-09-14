@@ -141,7 +141,7 @@ En este apunte se utiliza prioritariamente la asignación dinámica de memoria e
 el heap para permitir que las estructuras de datos tengan un tamaño variable y
 flexible en tiempo de ejecución. Recordá aplicar siempre las buenas prácticas de
 inicialización y liberación de punteros documentadas en
-{ref}`resumen-de-buenas-practicas` (reglas {ref}`0x0003h` y {ref}`0x0036h`).
+{ref}`resumen-de-buenas-practicas` (reglas {ref}`0x7001h` y {ref}`0x301Eh`).
 
 :::
 <!-- {important} -->
@@ -626,16 +626,16 @@ cuyo tamaño es conocido independientemente del tipo completo de `nodo`.
 :::
 <!-- {note} -->
 
-:::{tip} Aplicación de {ref}`0x0004h`
+:::{tip} Aplicación de {ref}`0x0003h`
 
 Notá el uso de espacios alrededor del operador `*` en las declaraciones de
-punteros. Según la regla {ref}`0x0004h`, debe haber un espacio antes y después
+punteros. Según la regla {ref}`0x0003h`, debe haber un espacio antes y después
 de cada operador, lo que incluye el asterisco en declaraciones de punteros.
 Además, usamos el sufijo `_t` para todos los tipos definidos mediante `typedef`,
 siguiendo las convenciones de C estándar.
 
 :::
-<!-- {tip} Aplicación de {ref}`0x0004h` -->
+<!-- {tip} Aplicación de {ref}`0x0003h` -->
 
 ##### Creación de una Lista Vacía
 
@@ -656,15 +656,15 @@ lista_t *crear_lista(void)
 :::
 <!-- {code-block}c -->
 
-:::{tip} Aplicación de {ref}`0x0001h` y {ref}`0x0003h`
+:::{tip} Aplicación de {ref}`0x0101h` y {ref}`0x7001h`
 
 El nombre `crear_lista` es descriptivo y refleja claramente la operación que
-realiza (regla {ref}`0x0001h`). Evitar nombres genéricos como `crear` o `nueva`.
+realiza (regla {ref}`0x0101h`). Evitar nombres genéricos como `crear` o `nueva`.
 Además, inicializamos el puntero `lista` a `NULL` antes de asignarle memoria
-(regla {ref}`0x0003h`).
+(regla {ref}`0x7001h`).
 
 :::
-<!-- {tip} Aplicación de {ref}`0x0001h` y {ref}`0x0003h` -->
+<!-- {tip} Aplicación de {ref}`0x0101h` y {ref}`0x7001h` -->
 
 :::{note} Verificación de Asignación
 
@@ -778,14 +778,14 @@ nodo_t *buscar(const lista_t *lista, int dato)
 :::
 <!-- {code-block}c -->
 
-:::{tip} Aplicación de {ref}`0x0000h` y {ref}`0x0035h`
+:::{tip} Aplicación de {ref}`0x0001h` y {ref}`0x301Dh`
 
 El uso de `const lista_t *` indica que la función no modifica la lista,
-mejorando la claridad del código (regla {ref}`0x0000h`). Además, seguimos la
-convención de espaciado de la regla {ref}`0x0004h` con el operador `*`.
+mejorando la claridad del código (regla {ref}`0x0001h`). Además, seguimos la
+convención de espaciado de la regla {ref}`0x0003h` con el operador `*`.
 
 :::
-<!-- {tip} Aplicación de {ref}`0x0000h` y {ref}`0x0035h` -->
+<!-- {tip} Aplicación de {ref}`0x0001h` y {ref}`0x301Dh` -->
 
 ##### Eliminación
 
@@ -829,14 +829,14 @@ bool eliminar(lista_t *lista, int dato)
 :::
 <!-- {code-block}c -->
 
-:::{tip} Aplicación de {ref}`0x0036h`
+:::{tip} Aplicación de {ref}`0x301Eh`
 
 Observá que después de `free(actual)`, asignamos `NULL` al puntero para prevenir
 su uso accidental. Aunque en este caso el puntero está a punto de salir de
 ámbito, es una buena práctica que previene errores.
 
 :::
-<!-- {tip} Aplicación de {ref}`0x0036h` -->
+<!-- {tip} Aplicación de {ref}`0x301Eh` -->
 
 ##### Recorrido
 
@@ -1042,14 +1042,14 @@ bool eliminar_nodo_doble(lista_doble_t *lista, nodo_doble_t *nodo)
 :::
 <!-- {code-block}c -->
 
-:::{tip} Aplicación de {ref}`0x0000h`
+:::{tip} Aplicación de {ref}`0x0001h`
 
 Observá cómo la estructura del código refleja claramente la lógica: primero se
 actualizan los punteros de los nodos adyacentes, luego se libera el nodo. Esta
 organización facilita la comprensión.
 
 :::
-<!-- {tip} Aplicación de {ref}`0x0000h` -->
+<!-- {tip} Aplicación de {ref}`0x0001h` -->
 
 (lista-circular)=
 #### Lista Circular
@@ -1402,14 +1402,14 @@ comunes incluyen:
 - Usar parámetros de salida para retornar datos cuando el valor de retorno se
   usa para el estado.
 
-:::{tip} Aplicación de {ref}`0x0035h` y {ref}`0x0036h`
+:::{tip} Aplicación de {ref}`0x301Dh` y {ref}`0x301Eh`
 
 Documentá exhaustivamente la interfaz pública de tu TAD, especificando el
 comportamiento ante casos de error, condiciones previas y posteriores de cada
 función.
 
 :::
-<!-- {tip} Aplicación de {ref}`0x0035h` y {ref}`0x0036h` -->
+<!-- {tip} Aplicación de {ref}`0x301Dh` y {ref}`0x301Eh` -->
 
 (invariantes)=
 #### Invariantes

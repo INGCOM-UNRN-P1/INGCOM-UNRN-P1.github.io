@@ -19,7 +19,7 @@ en una excelente herramienta de aprendizaje.
 
 En este apunte, exploraremos cómo crear un archivo BMP desde cero en C,
 manejando directamente la escritura de las cabeceras y los datos de los píxeles
-en el archivo. Seguiremos las pautas de estilo de {ref}`0x0000h` para asegurar
+en el archivo. Seguiremos las pautas de estilo de {ref}`0x0001h` para asegurar
 que nuestro código sea claro y mantenible.
 
 :::{note} Antes de seguir
@@ -190,12 +190,12 @@ negro.
 :::{tip} Estilo
 
 Observá cómo las variables tienen nombres descriptivos (`ancho`,
-`alto`, `tamano_fila`, etc.), como dicta la regla {ref}`0x0001h`. Además, la
+`alto`, `tamano_fila`, etc.), como dicta la regla {ref}`0x0101h`. Además, la
 función tiene un único punto de salida. Para lograrlo sin `goto`, utilizamos una
 variable de estado (`exito`) y anidamos las operaciones en bloques `if`. Si un
 paso falla, la variable `exito` se establece en `false` y los bloques
 posteriores no se ejecutan, llevando el control directamente al bloque de
-limpieza final. Este patrón cumple con la regla {ref}`0x0008h`.
+limpieza final. Este patrón cumple con la regla {ref}`0x0103h`.
 
 :::
 <!-- {tip} Estilo -->

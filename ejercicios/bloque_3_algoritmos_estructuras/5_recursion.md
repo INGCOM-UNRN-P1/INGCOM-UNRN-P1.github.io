@@ -20,7 +20,7 @@ reducido, hasta converger en un caso base.
   corte en la primera instrucción de la función recursiva.
 - **Punteros y arreglos:** Al pasar arreglos a funciones recursivas, utilizá la
   aritmética de punteros para desplazar la dirección base del sub-arreglo en
-  cada llamada (ver reglas de estilo en {ref}`0x2009h`).
+  cada llamada (ver reglas de estilo en {ref}`0x2008h`).
 
 ---
 

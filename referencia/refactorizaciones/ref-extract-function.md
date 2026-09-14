@@ -4,6 +4,8 @@ short_title: "Extraer Función"
 subtitle: "Descomponer código complejo en funciones cohesivas y reutilizables"
 ---
 
+(refactorizacion-extract-function)=
+
 ## Introducción
 
 La **extracción de funciones** es una de las refactorizaciones más poderosas y
@@ -17,26 +19,51 @@ de abstracción consistente.
 
 :::{important} Principio de Responsabilidad Única
 
-Como establece {ref}`0x000Ah`, cada función debe tener una única responsabilidad
+Como establece {ref}`0x0201h`, cada función debe tener una única responsabilidad
 bien definida. La extracción de funciones es la herramienta principal para
 lograr este objetivo.
 
 :::
 <!-- {important} Principio de Responsabilidad Única -->
 
+En el marco de la cátedra, esta es la técnica que permite que los ejercicios se
+resuelvan descomponiéndolos en funciones y no dentro de `main` ({ref}`0x2008h`).
+
+## Reglas de estilo que resuelve
+
+La extracción de funciones no es una preferencia estética: es la herramienta
+que corrige, de forma verificable, los problemas que modelan las reglas de
+estilo de la materia. Cada fragmento extraído ataca un síntoma concreto y deja
+el código alineado con la regla correspondiente. La tabla siguiente vincula cada
+regla con el problema que modela y la manera en que esta refactorización lo
+resuelve.
+
+| Regla | Problema que modela | Cómo lo resuelve esta refactorización |
+| :--- | :--- | :--- |
+| {ref}`0x2014h` | Funciones que crecen hasta no caber en una sola idea ni en 25 líneas. | Extraer cada bloque cohesivo en una función corta mantiene el cuerpo por debajo del umbral. |
+| {ref}`0x2005h` | Una función que acumula validación, cálculo y presentación. | Cada nueva función recibe exactamente una responsabilidad y un nombre que la declara. |
+| {ref}`0x2016h` | Implementar sin haber decidido antes precondiciones y postcondiciones. | Al definir la firma se redacta el contrato —qué recibe, qué garantiza— antes del cuerpo. |
+| {ref}`0x200Ah` | Firmas con demasiados parámetros sueltos que el llamador confunde. | Los datos que viajan juntos se empaquetan en un `struct` y se pasan mediante un único puntero. |
+| {ref}`0x1015h` | Anidación de cuatro o más niveles que sepulta el camino feliz. | Cada nivel profundo se convierte en una función invocada desde el nivel superior. |
+| {ref}`0x2001h` | Validaciones enterradas dentro del flujo principal. | Las validaciones extraídas se invocan como cláusulas de guarda al inicio. |
+| {ref}`0x2003h` | Funciones sin propósito, precondición ni postcondición documentados. | Cada función extraída se documenta con su bloque estructurado (`@brief`, `@param`, `@pre`, `@post`, `@returns`). |
+| {ref}`0x2008h` | Lógica escrita en un único bloque monolítico dentro de `main`. | El ejercicio se descompone en funciones y `main` queda como orquestador. |
+| {ref}`0x0017h` | Muros de sentencias donde no se distinguen las etapas. | Los párrafos lógicos que sobreviven a la extracción quedan separados por líneas en blanco. |
+| {ref}`0x7007h` | Parámetros bandera `bool` que eligen entre dos comportamientos. | Los dos comportamientos se separan en dos funciones con nombres explícitos. |
+
 ## ¿Cuándo Extraer una Función?
 
 ### Señales de que Necesitás Extraer
 
 1. **Código duplicado:** El mismo fragmento aparece en múltiples lugares
-2. **Función larga:** Más de 30-50 líneas (depende del contexto)
+2. **Función larga:** Más de 30-50 líneas (depende del contexto) ({ref}`0x2014h`)
 3. **Niveles de abstracción mezclados:** Lógica de alto nivel con detalles de
    implementación
 4. **Comentario explicativo:** Si necesitás un comentario para explicar un
    bloque, ese bloque debería ser una función
 5. **Dificultad para nombrar:** Si no podés describir qué hace la función en una
    frase corta
-6. **Anidamiento profundo:** Más de 2-3 niveles de indentación
+6. **Anidamiento profundo:** Más de 2-3 niveles de indentación ({ref}`0x1015h`)
 
 ### Ejemplo: Comentario que Señala Necesidad de Extracción
 
@@ -94,6 +121,8 @@ El nombre debe describir **qué** hace, no **cómo** lo hace:
 ### Paso 4: Determinar Firma
 
 Decidir parámetros y tipo de retorno basándose en el análisis de dependencias.
+Es el momento de escribir el contrato de la función —qué recibe, qué garantiza,
+qué devuelve y qué casos no admite— antes de tocar su cuerpo ({ref}`0x2016h`).
 
 ### Paso 5: Extraer y Reemplazar
 
@@ -187,7 +216,7 @@ int procesar_usuario(const char *nombre, const char *email, int edad)
 - Funciones reutilizables
 - Testing independiente de cada validación
 - `procesar_usuario` ahora es más legible
-- Cada función tiene una única responsabilidad
+- Cada función tiene una única responsabilidad ({ref}`0x2005h`)
 
 ### Caso 2: Extracción con Múltiples Valores de Retorno
 
@@ -386,6 +415,8 @@ void procesar_archivo(const char *ruta)
 - Cada función tiene una responsabilidad clara
 - Fácil agregar nuevas validaciones
 - Testing unitario de parseo sin I/O
+- El error de `fopen` se resuelve con una cláusula de guarda y retorno
+  anticipado ({ref}`0x2001h`)
 - Lazo principal ahora es simple y legible
 
 ### Caso 4: Extracción de Cálculo Complejo
@@ -503,6 +534,163 @@ double calcular_precio_final(double precio_base, int cantidad,
 - Testing unitario de cada componente
 - Función principal muestra el flujo claramente
 
+### Caso 5: Ejemplo Integrador — Varias Reglas a la Vez
+
+Este caso reúne los síntomas anteriores en una sola función. El código ❌
+acumula cuatro niveles de anidación, una bandera `bool`, cálculo y presentación
+mezclados y ningún contrato documentado. La versión ✅ reparte la lógica en
+funciones pequeñas con responsabilidad única y contrato explícito.
+
+**Código Original (❌):**
+
+```{code-block} c
+:linenos:
+typedef enum
+{
+    ESTADO_PENDIENTE,
+    ESTADO_ENVIADO
+} estado_t;
+
+typedef struct
+{
+    const char *cliente;
+    double precio;
+    int cantidad;
+    estado_t estado;
+} item_t;
+
+double procesar_pedido(item_t items[], int n, bool aplicar_iva)
+{
+    double total = 0.0;
+    for (int i = 0; i < n; i++)
+    {
+        if (items[i].cantidad > 0)
+        {
+            if (items[i].precio > 0)
+            {
+                if (items[i].estado == ESTADO_PENDIENTE)
+                {
+                    if (items[i].cantidad >= 10)
+                    {
+                        total += items[i].precio * items[i].cantidad * 0.80;
+                    }
+                    else
+                    {
+                        total += items[i].precio * items[i].cantidad;
+                    }
+                }
+            }
+        }
+    }
+    if (aplicar_iva)
+    {
+        total *= 1.21;
+    }
+    printf("Total: %.2f\n", total);
+    return total;
+}
+```
+<!-- {code-block} c -->
+
+**Código Refactorizado (✅):**
+
+```{code-block} c
+:linenos:
+/** @brief Indica si un ítem participa del total.
+ *  @param item Ítem a evaluar.
+ *  @pre item no es NULL.
+ *  @post Devuelve true solo si cantidad y precio son positivos y el estado
+ *        es pendiente.
+ *  @returns true si el ítem es facturable.
+ */
+static bool item_facturable(const item_t *item)
+{
+    return item != NULL && item->cantidad > 0 && item->precio > 0 &&
+           item->estado == ESTADO_PENDIENTE;
+}
+
+/** @brief Aplica el descuento por volumen.
+ *  @param subtotal Importe bruto del ítem.
+ *  @param cantidad Unidades vendidas.
+ *  @pre subtotal es mayor o igual que cero.
+ *  @post Devuelve el importe con el descuento por volumen.
+ *  @returns Importe neto del ítem.
+ */
+static double descontar_por_volumen(double subtotal, int cantidad)
+{
+    if (cantidad >= 10)
+    {
+        return subtotal * 0.80;
+    }
+
+    return subtotal;
+}
+
+/** @brief Suma los ítems facturables sin impuestos.
+ *  @param items Arreglo de ítems.
+ *  @param n Cantidad de ítems.
+ *  @pre items tiene al menos n elementos.
+ *  @post Devuelve la suma neta de los ítems facturables.
+ *  @returns Total sin impuestos.
+ */
+static double total_sin_impuestos(const item_t *items, int n)
+{
+    double total = 0.0;
+    for (int i = 0; i < n; i++)
+    {
+        if (!item_facturable(&items[i]))
+        {
+            continue;
+        }
+
+        double subtotal = items[i].precio * items[i].cantidad;
+        total += descontar_por_volumen(subtotal, items[i].cantidad);
+    }
+
+    return total;
+}
+
+/** @brief Agrega el IVA a un total neto.
+ *  @param neto Total sin impuestos.
+ *  @pre neto es mayor o igual que cero.
+ *  @post Devuelve neto multiplicado por 1.21.
+ *  @returns Total con IVA.
+ */
+static double con_iva(double neto)
+{
+    return neto * 1.21;
+}
+
+int main(void)
+{
+    item_t items[] = {
+        {"Ana", 1000.0, 12, ESTADO_PENDIENTE},
+        {"Beto", 500.0, 3, ESTADO_ENVIADO},
+    };
+    int n = (int)(sizeof(items) / sizeof(items[0]));
+
+    double total = con_iva(total_sin_impuestos(items, n));
+    printf("Total: %.2f\n", total);
+
+    return 0;
+}
+```
+<!-- {code-block} c -->
+
+**Reglas que resuelve este ejemplo:**
+
+- Cada función responde a una sola idea y entra en pocas líneas
+  ({ref}`0x2014h`, {ref}`0x2005h`).
+- `item_facturable` valida la precondición y el lazo descarta con `continue` en
+  lugar de anidar cuatro `if` ({ref}`0x1015h`, {ref}`0x2001h`).
+- La bandera `bool aplicar_iva` se reemplaza por `con_iva()`, que declara su
+  comportamiento en el nombre ({ref}`0x7007h`).
+- El contrato de cada función se escribe con `@brief`, `@param`, `@pre`, `@post`
+  y `@returns` antes del cuerpo ({ref}`0x2003h`, {ref}`0x2016h`).
+- Las etapas de cálculo y de presentación se separan con líneas en blanco
+  ({ref}`0x0017h`).
+- `main` queda como orquestador que encadena funciones ({ref}`0x2008h`).
+
 ## Técnicas Avanzadas
 
 ### Composición de Funciones
@@ -571,6 +759,10 @@ double calcular_precio_con_config(double precio_base, int cantidad,
 }
 ```
 <!-- {code-block} c -->
+
+Conviene vigilar el `bool es_mayorista`: si el valor de la bandera cambia por
+completo el comportamiento, la regla de parámetros bandera pide separar cada
+caso en una función con nombre propio ({ref}`0x7007h`).
 
 ### Extracción con Callbacks
 
@@ -653,6 +845,10 @@ void procesar(const parametros_procesamiento_t *params)
 ```
 <!-- {code-block} c -->
 
+El empaquetado en un `struct` es justamente lo que exige la regla de
+modularización: una función no debe superar los cuatro parámetros de entrada
+({ref}`0x200Ah`).
+
 ### 3. Funciones con Efectos Secundarios Ocultos
 
 ```{code-block} c
@@ -726,6 +922,28 @@ void procesar_pedido(pedido_t *pedido)
 ```
 <!-- {code-block} c -->
 
+Además del nivel de abstracción, la extracción deja naturalmente párrafos
+separados por líneas en blanco: las sentencias que colaboran en una misma etapa
+quedan agrupadas y los bloques lógicos, separados ({ref}`0x0017h`).
+
+## Diagnóstico y refactorización
+
+Usá esta tabla para reconocer el síntoma en el código propio y elegir la
+técnica de extracción que corresponde.
+
+| Regla | Síntoma en el código | Técnica de esta guía |
+| :--- | :--- | :--- |
+| {ref}`0x2014h` | Cuerpo que supera las 25 líneas y mezcla etapas. | Extraer cada etapa en una función corta de una sola idea. |
+| {ref}`0x2005h` | La función "hace y además": leer, validar y calcular. | Aislar cada responsabilidad en su propia función. |
+| {ref}`0x2016h` | Decisiones de borde tomadas a mitad de la implementación. | Redactar el contrato al definir la firma. |
+| {ref}`0x200Ah` | Firma con cinco o más parámetros sueltos. | Empaquetar los datos que viajan juntos en un `struct` y pasar un puntero. |
+| {ref}`0x1015h` | Cuarto nivel de `if`/`for` anidado. | Extraer el bloque interno a una función. |
+| {ref}`0x2001h` | Validaciones enterradas en ramas profundas. | Mover las precondiciones a guardas al inicio. |
+| {ref}`0x2003h` | Función sin propósito, precondición ni postcondición escritas. | Documentar con `@brief`, `@param`, `@pre`, `@post` y `@returns`. |
+| {ref}`0x2008h` | Toda la solución dentro de `main`. | Descomponer en funciones y dejar `main` como orquestador. |
+| {ref}`0x0017h` | Muro de sentencias sin etapas visibles. | Agrupar por etapa y separar con una línea en blanco. |
+| {ref}`0x7007h` | Llamada `imprimir(lista, true)` sin saber qué hace el `true`. | Separar en dos funciones con nombres explícitos. |
+
 ## Resumen
 
 La extracción de funciones es fundamental para:
@@ -756,3 +974,14 @@ La extracción de funciones es fundamental para:
 La extracción de funciones es una habilidad que se desarrolla con práctica. Al
 principio puede parecer tedioso, pero con el tiempo se vuelve una segunda
 naturaleza que mejora dramáticamente la calidad del código.
+
+## Checklist de verificación
+
+- [ ] ¿Cada función cabe en una sola idea y en 25 líneas? ({ref}`0x2014h`)
+- [ ] ¿Puedo describir cada función con una frase sin "y"? ({ref}`0x2005h`)
+- [ ] ¿Escribí el contrato de cada función antes de implementarla? ({ref}`0x2016h`)
+- [ ] ¿Ninguna función supera los cuatro parámetros de entrada? ({ref}`0x200Ah`)
+- [ ] ¿La anidación se mantiene en tres niveles o menos? ({ref}`0x1015h`)
+- [ ] ¿Las precondiciones se validan con guardas y retornos anticipados al inicio? ({ref}`0x2001h`)
+- [ ] ¿Cada función tiene su bloque de documentación estructurada? ({ref}`0x2003h`)
+- [ ] ¿Separé las etapas con líneas en blanco, eliminé los parámetros bandera `bool` y dejé `main` como orquestador? ({ref}`0x0017h`, {ref}`0x7007h`, {ref}`0x2008h`)
