@@ -93,12 +93,322 @@ project:
     - title: Reglas de estilo
       children:
         - file: reglas/indice.md
-        - file: reglas/0_sintaxis.md
-        - file: reglas/1_control.md
-        - file: reglas/2_funciones.md
-        - file: reglas/3_punteros.md
-        - file: reglas/4_archivos.md
-        - file: reglas/5_buenas_practicas.md
+        - title: "Sintaxis Básica y Nomenclatura (0x00XX)"
+          children:
+            - file: reglas/0_sintaxis/index.md
+            - file: reglas/0_sintaxis/0x0000h.md
+            - file: reglas/0_sintaxis/0x0001h.md
+            - file: reglas/0_sintaxis/0x0002h.md
+            - file: reglas/0_sintaxis/0x0003h.md
+            - file: reglas/0_sintaxis/0x0004h.md
+            - file: reglas/0_sintaxis/0x0005h.md
+            - file: reglas/0_sintaxis/0x0006h.md
+            - file: reglas/0_sintaxis/0x0007h.md
+            - file: reglas/0_sintaxis/0x0008h.md
+            - file: reglas/0_sintaxis/0x0009h.md
+            - file: reglas/0_sintaxis/0x000Ah.md
+            - file: reglas/0_sintaxis/0x000Bh.md
+            - file: reglas/0_sintaxis/0x000Ch.md
+            - file: reglas/0_sintaxis/0x000Dh.md
+            - file: reglas/0_sintaxis/0x000Eh.md
+            - file: reglas/0_sintaxis/0x000Fh.md
+            - file: reglas/0_sintaxis/0x0010h.md
+            - file: reglas/0_sintaxis/0x0011h.md
+            - file: reglas/0_sintaxis/0x0012h.md
+            - file: reglas/0_sintaxis/0x0013h.md
+            - file: reglas/0_sintaxis/0x0014h.md
+            - file: reglas/0_sintaxis/0x0015h.md
+            - file: reglas/0_sintaxis/0x0016h.md
+            - file: reglas/0_sintaxis/0x0017h.md
+            - file: reglas/0_sintaxis/0x0018h.md
+            - file: reglas/0_sintaxis/0x0019h.md
+            - file: reglas/0_sintaxis/0x001Ah.md
+            - file: reglas/0_sintaxis/0x001Bh.md
+            - file: reglas/0_sintaxis/0x001Ch.md
+            - file: reglas/0_sintaxis/0x001Dh.md
+            - file: reglas/0_sintaxis/0x001Eh.md
+            - file: reglas/0_sintaxis/0x001Fh.md
+            - file: reglas/0_sintaxis/0x0020h.md
+            - file: reglas/0_sintaxis/0x0022h.md
+            - file: reglas/0_sintaxis/0x0023h.md
+            - file: reglas/0_sintaxis/0x0025h.md
+            - file: reglas/0_sintaxis/0x0026h.md
+            - file: reglas/0_sintaxis/0x0027h.md
+            - file: reglas/0_sintaxis/0x0028h.md
+            - file: reglas/0_sintaxis/0x0029h.md
+            - file: reglas/0_sintaxis/0x002Bh.md
+            - file: reglas/0_sintaxis/0x002Ch.md
+            - file: reglas/0_sintaxis/0x002Dh.md
+            - file: reglas/0_sintaxis/0x0037h.md
+            - file: reglas/0_sintaxis/0x0038h.md
+        - title: "Estructuras de Control y Lazos (0x10XX)"
+          children:
+            - file: reglas/1_control/index.md
+            - file: reglas/1_control/0x1001h.md
+            - file: reglas/1_control/0x1002h.md
+            - file: reglas/1_control/0x1003h.md
+            - file: reglas/1_control/0x1004h.md
+            - file: reglas/1_control/0x1005h.md
+            - file: reglas/1_control/0x1006h.md
+            - file: reglas/1_control/0x1007h.md
+            - file: reglas/1_control/0x1008h.md
+            - file: reglas/1_control/0x100Ah.md
+            - file: reglas/1_control/0x100Bh.md
+            - file: reglas/1_control/0x100Ch.md
+            - file: reglas/1_control/0x100Dh.md
+            - file: reglas/1_control/0x100Eh.md
+            - file: reglas/1_control/0x100Fh.md
+            - file: reglas/1_control/0x1010h.md
+            - file: reglas/1_control/0x1011h.md
+            - file: reglas/1_control/0x1012h.md
+            - file: reglas/1_control/0x1013h.md
+            - file: reglas/1_control/0x1014h.md
+            - file: reglas/1_control/0x1016h.md
+            - file: reglas/1_control/0x1017h.md
+        - title: "Funciones y Modularización (0x20XX)"
+          children:
+            - file: reglas/2_funciones/index.md
+            - file: reglas/2_funciones/0x2001h.md
+            - file: reglas/2_funciones/0x2002h.md
+            - file: reglas/2_funciones/0x2003h.md
+            - file: reglas/2_funciones/0x2004h.md
+            - file: reglas/2_funciones/0x2005h.md
+            - file: reglas/2_funciones/0x2006h.md
+            - file: reglas/2_funciones/0x2007h.md
+            - file: reglas/2_funciones/0x2008h.md
+            - file: reglas/2_funciones/0x2009h.md
+            - file: reglas/2_funciones/0x200Ah.md
+            - file: reglas/2_funciones/0x200Bh.md
+            - file: reglas/2_funciones/0x200Ch.md
+            - file: reglas/2_funciones/0x200Dh.md
+            - file: reglas/2_funciones/0x200Eh.md
+            - file: reglas/2_funciones/0x200Fh.md
+            - file: reglas/2_funciones/0x2010h.md
+            - file: reglas/2_funciones/0x2011h.md
+            - file: reglas/2_funciones/0x2012h.md
+            - file: reglas/2_funciones/0x2013h.md
+            - file: reglas/2_funciones/0x2016h.md
+        - title: "Punteros y Gestión de Memoria (0x30XX)"
+          children:
+            - file: reglas/3_punteros/index.md
+            - file: reglas/3_punteros/0x0035h.md
+            - file: reglas/3_punteros/0x0036h.md
+            - file: reglas/3_punteros/0x3001h.md
+            - file: reglas/3_punteros/0x3002h.md
+            - file: reglas/3_punteros/0x3003h.md
+            - file: reglas/3_punteros/0x3004h.md
+            - file: reglas/3_punteros/0x3005h.md
+            - file: reglas/3_punteros/0x3006h.md
+            - file: reglas/3_punteros/0x3007h.md
+            - file: reglas/3_punteros/0x3008h.md
+            - file: reglas/3_punteros/0x3009h.md
+            - file: reglas/3_punteros/0x300Ah.md
+            - file: reglas/3_punteros/0x300Bh.md
+            - file: reglas/3_punteros/0x300Ch.md
+            - file: reglas/3_punteros/0x300Dh.md
+            - file: reglas/3_punteros/0x300Eh.md
+            - file: reglas/3_punteros/0x300Fh.md
+            - file: reglas/3_punteros/0x3010h.md
+            - file: reglas/3_punteros/0x3011h.md
+            - file: reglas/3_punteros/0x3012h.md
+            - file: reglas/3_punteros/0x3013h.md
+            - file: reglas/3_punteros/0x3014h.md
+            - file: reglas/3_punteros/0x3015h.md
+            - file: reglas/3_punteros/0x3016h.md
+            - file: reglas/3_punteros/0x3017h.md
+            - file: reglas/3_punteros/0x3018h.md
+            - file: reglas/3_punteros/0x3019h.md
+            - file: reglas/3_punteros/0x301Ah.md
+        - title: "Gestión de Archivos y Errores (0x40XX)"
+          children:
+            - file: reglas/4_archivos/index.md
+            - file: reglas/4_archivos/0x4001h.md
+            - file: reglas/4_archivos/0x4002h.md
+            - file: reglas/4_archivos/0x4003h.md
+            - file: reglas/4_archivos/0x4004h.md
+            - file: reglas/4_archivos/0x4005h.md
+            - file: reglas/4_archivos/0x4006h.md
+            - file: reglas/4_archivos/0x4007h.md
+            - file: reglas/4_archivos/0x4008h.md
+            - file: reglas/4_archivos/0x4009h.md
+            - file: reglas/4_archivos/0x400Ah.md
+        - title: "Compilación y Buenas Prácticas (0x50XX)"
+          children:
+            - file: reglas/5_buenas_practicas/index.md
+            - file: reglas/5_buenas_practicas/0x5001h.md
+            - file: reglas/5_buenas_practicas/0x5002h.md
+            - file: reglas/5_buenas_practicas/0x5003h.md
+            - file: reglas/5_buenas_practicas/0x5004h.md
+            - file: reglas/5_buenas_practicas/0x5005h.md
+            - file: reglas/5_buenas_practicas/0x5006h.md
+            - file: reglas/5_buenas_practicas/0x5007h.md
+            - file: reglas/5_buenas_practicas/0x5008h.md
+            - file: reglas/5_buenas_practicas/0x5009h.md
+            - file: reglas/5_buenas_practicas/0x500Ah.md
+            - file: reglas/5_buenas_practicas/0x500Bh.md
+            - file: reglas/5_buenas_practicas/0x500Ch.md
+            - file: reglas/5_buenas_practicas/0x500Dh.md
+            - file: reglas/5_buenas_practicas/0x500Eh.md
+            - file: reglas/5_buenas_practicas/0x5011h.md
+            - file: reglas/5_buenas_practicas/0x5012h.md
+            - file: reglas/5_buenas_practicas/0x5013h.md
+            - file: reglas/5_buenas_practicas/0x5014h.md
+            - file: reglas/5_buenas_practicas/0x5015h.md
+            - file: reglas/5_buenas_practicas/0x5016h.md
+    - title: Antipatrones Didácticos y Seguridad
+      children:
+        - file: antipatrones/indice.md
+        - title: "Memoria y Punteros"
+          children:
+            - file: antipatrones/1_memoria/index.md
+            - file: antipatrones/1_memoria/ap001_300A.md
+            - file: antipatrones/1_memoria/ap003_3002.md
+            - file: antipatrones/1_memoria/ap004_3008.md
+            - file: antipatrones/1_memoria/ap008_300F.md
+            - file: antipatrones/1_memoria/ap010_3001.md
+            - file: antipatrones/1_memoria/ap011_3002.md
+            - file: antipatrones/1_memoria/ap014_300D.md
+            - file: antipatrones/1_memoria/ap024_3015.md
+            - file: antipatrones/1_memoria/ap026_3019.md
+            - file: antipatrones/1_memoria/ap036_301A.md
+            - file: antipatrones/1_memoria/ap037_301B.md
+            - file: antipatrones/1_memoria/ap038_301C.md
+            - file: antipatrones/1_memoria/ap041_301D.md
+            - file: antipatrones/1_memoria/ap042_301E.md
+            - file: antipatrones/1_memoria/ap046_301F.md
+            - file: antipatrones/1_memoria/ap047_3020.md
+            - file: antipatrones/1_memoria/ap053_3021.md
+            - file: antipatrones/1_memoria/ap055_3022.md
+            - file: antipatrones/1_memoria/ap056_3023.md
+            - file: antipatrones/1_memoria/ap057_3024.md
+            - file: antipatrones/1_memoria/ap058_3025.md
+            - file: antipatrones/1_memoria/ap060_3026.md
+            - file: antipatrones/1_memoria/ap061_3027.md
+            - file: antipatrones/1_memoria/ap063_3028.md
+            - file: antipatrones/1_memoria/ap070_3029.md
+            - file: antipatrones/1_memoria/ap073_302A.md
+        - title: "Control y Lazos"
+          children:
+            - file: antipatrones/2_control/index.md
+            - file: antipatrones/2_control/ap005_1005.md
+            - file: antipatrones/2_control/ap006_1001.md
+            - file: antipatrones/2_control/ap009_100D.md
+            - file: antipatrones/2_control/ap016_100A.md
+            - file: antipatrones/2_control/ap021_100C.md
+            - file: antipatrones/2_control/ap023_100E.md
+            - file: antipatrones/2_control/ap027_100F.md
+            - file: antipatrones/2_control/ap029_1010.md
+            - file: antipatrones/2_control/ap031_1011.md
+            - file: antipatrones/2_control/ap039_1014.md
+            - file: antipatrones/2_control/ap040_1015.md
+            - file: antipatrones/2_control/ap043_1016.md
+            - file: antipatrones/2_control/ap044_1017.md
+            - file: antipatrones/2_control/ap045_1018.md
+            - file: antipatrones/2_control/ap048_1019.md
+            - file: antipatrones/2_control/ap050_101A.md
+            - file: antipatrones/2_control/ap052_101B.md
+            - file: antipatrones/2_control/ap062_101C.md
+        - title: "Funciones y Alcance"
+          children:
+            - file: antipatrones/3_funciones/index.md
+            - file: antipatrones/3_funciones/ap012_2007.md
+            - file: antipatrones/3_funciones/ap015_200B.md
+            - file: antipatrones/3_funciones/ap018_2009.md
+            - file: antipatrones/3_funciones/ap033_2011.md
+            - file: antipatrones/3_funciones/ap035_2012.md
+            - file: antipatrones/3_funciones/ap051_2013.md
+        - title: "Entrada y Salida"
+          children:
+            - file: antipatrones/4_archivos/index.md
+            - file: antipatrones/4_archivos/ap002_4002.md
+            - file: antipatrones/4_archivos/ap007_4006.md
+            - file: antipatrones/4_archivos/ap025_4008.md
+            - file: antipatrones/4_archivos/ap032_4009.md
+            - file: antipatrones/4_archivos/ap049_400A.md
+            - file: antipatrones/4_archivos/ap059_400B.md
+        - title: "Seguridad y Syscalls"
+          children:
+            - file: antipatrones/5_seguridad/index.md
+            - file: antipatrones/5_seguridad/kan001_gets.md
+            - file: antipatrones/5_seguridad/kan002_strcpy.md
+            - file: antipatrones/5_seguridad/kan003_sprintf.md
+            - file: antipatrones/5_seguridad/kan004_scanf.md
+            - file: antipatrones/5_seguridad/kan005_format_string.md
+            - file: antipatrones/5_seguridad/kan006_system.md
+            - file: antipatrones/5_seguridad/kan007_syscalls.md
+        - title: "Buenas Prácticas y Preprocesador"
+          children:
+            - file: antipatrones/6_practicas/index.md
+            - file: antipatrones/6_practicas/ap013_5004.md
+            - file: antipatrones/6_practicas/ap017_500A.md
+            - file: antipatrones/6_practicas/ap019_5008.md
+            - file: antipatrones/6_practicas/ap020_5004.md
+            - file: antipatrones/6_practicas/ap022_0003.md
+            - file: antipatrones/6_practicas/ap028_5009.md
+            - file: antipatrones/6_practicas/ap030_0004.md
+            - file: antipatrones/6_practicas/ap034_0039.md
+            - file: antipatrones/6_practicas/ap054_500B.md
+    - title: Manual del Ecosistema de Herramientas
+      children:
+        - file: manual/index.md
+        - title: "1. Autoría y Curaduría Pedagógica"
+          children:
+            - file: manual/1_autoria/index.md
+            - file: manual/1_autoria/alucard.md
+            - file: manual/1_autoria/corbel.md
+            - file: manual/1_autoria/deckard.md
+            - file: manual/1_autoria/idkfa.md
+            - file: manual/1_autoria/keymaker.md
+            - file: manual/1_autoria/moodle_toolbox.md
+            - file: manual/1_autoria/myst_tools.md
+            - file: manual/1_autoria/scorm_tools.md
+            - file: manual/1_autoria/tyrell.md
+        - title: "2. Desarrollo y Verificación"
+          children:
+            - file: manual/2_desarrollo/index.md
+            - file: manual/2_desarrollo/bishop.md
+            - file: manual/2_desarrollo/daedalus.md
+            - file: manual/2_desarrollo/entorno.md
+            - file: manual/2_desarrollo/gaff.md
+            - file: manual/2_desarrollo/kaneda.md
+            - file: manual/2_desarrollo/librerias_c.md
+            - file: manual/2_desarrollo/nostromo.md
+            - file: manual/2_desarrollo/ripley.md
+            - file: manual/2_desarrollo/spunkmeyer.md
+        - title: "3. Diagnóstico Forense y Runtime"
+          children:
+            - file: manual/3_diagnostico/index.md
+            - file: manual/3_diagnostico/callahan.md
+            - file: manual/3_diagnostico/dietrich.md
+            - file: manual/3_diagnostico/hal.md
+            - file: manual/3_diagnostico/tetsuo.md
+            - file: manual/3_diagnostico/vasquez.md
+            - file: manual/3_diagnostico/vassili.md
+        - title: "4. Análisis Estático Especializado"
+          children:
+            - file: manual/4_analisis/index.md
+            - file: manual/4_analisis/brett.md
+            - file: manual/4_analisis/crowe.md
+            - file: manual/4_analisis/drake.md
+            - file: manual/4_analisis/ferro.md
+            - file: manual/4_analisis/giger.md
+            - file: manual/4_analisis/kane.md
+            - file: manual/4_analisis/motoko.md
+            - file: manual/4_analisis/parker.md
+            - file: manual/4_analisis/rachel.md
+            - file: manual/4_analisis/sebastian.md
+            - file: manual/4_analisis/wierzbowski.md
+            - file: manual/4_analisis/zhora.md
+        - title: "5. Evaluación y Gestión Docente"
+          children:
+            - file: manual/5_evaluacion/index.md
+            - file: manual/5_evaluacion/cyberdeck.md
+            - file: manual/5_evaluacion/dredd.md
+            - file: manual/5_evaluacion/gestion.md
+            - file: manual/5_evaluacion/meet_tools.md
+            - file: manual/5_evaluacion/p1_tools.md
+            - file: manual/5_evaluacion/slide_tools.md
+            - file: manual/5_evaluacion/weyl.md
 
     - title: Ejercicios
       file: ejercicios/readme.md
