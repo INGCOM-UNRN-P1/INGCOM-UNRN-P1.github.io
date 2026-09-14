@@ -612,7 +612,7 @@ Language: Cpp
 BasedOnStyle: LLVM
 IndentWidth: 4
 UseTab: Never
-ColumnLimit: 100
+ColumnLimit: 80
 BreakBeforeBraces: Linux
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: Never
