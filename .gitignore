@@ -6,3 +6,8 @@ criticas
 GEMINI.md
 .vscode
 copilot_*
+__pycache__/
+
+*.py[cod]
+
+.pytest_cache/
