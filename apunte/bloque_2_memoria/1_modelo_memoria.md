@@ -4,14 +4,17 @@ short_title: La memoria
 description: 'Mapeo de memoria virtual, segmento de código, datos, stack, heap y la jerarquía de memoria física.'
 ---
 
-(capitulo-modelo-memoria)=
-# Modelo de memoria y pila
-
 > **Prerrequisitos**: variables, funciones y punteros básicos. Necesitás GCC y
 > la utilidad `size` (incluida habitualmente en binutils).
 >
 > **Objetivo**: ubicar código y objetos de duración estática, automática y
 > dinámica en las regiones habituales de un proceso.
+>
+> **Comprobación de salida**: clasificá una variable global, una local y un bloque de `malloc` en el segmento y duración que les correspondan.
+
+(capitulo-modelo-memoria)=
+# Modelo de memoria y pila
+
 
 ## Mapa mínimo de segmentos
 

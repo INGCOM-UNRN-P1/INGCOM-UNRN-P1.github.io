@@ -12,6 +12,8 @@ subtitle: 'Versionado semántico, estabilidad de ABI y performance de interfaces
 >
 > **Objetivo**: clasificar un cambio como compatible o incompatible tanto para
 > la API de código fuente como para la ABI de una biblioteca compilada.
+>
+> **Comprobación de salida**: clasificá un cambio de firma y un cambio de layout de `struct` según su impacto en API y ABI.
 
 Un aspecto crítico del diseño de APIs profesionales es la gestión de versiones y
 la compatibilidad hacia atrás (_backwards compatibility_).

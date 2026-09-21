@@ -1,6 +1,14 @@
+---
 title: Automatización de Compilación con Makefiles
 short_title: 'Makefiles'
 subtitle: 'Estructura de Makefiles, dependencias y compilación incremental en C'
+---
+
+> **Prerrequisitos**: compilación de más de un archivo `.c`, cabeceras `.h` y terminal Unix/WSL2.
+>
+> **Objetivos**: 1. Leer una regla de Make y sus dependencias. 2. Crear un objetivo que compile un proyecto sin recompilar lo intacto.
+>
+> **Comprobación de salida**: explicá qué archivos se reconstruyen tras modificar una cabecera y verificá la predicción con `make`.
 
 (capitulo-makefiles-basico)=
 ## Introducción

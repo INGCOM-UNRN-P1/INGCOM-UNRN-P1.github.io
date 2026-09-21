@@ -5,6 +5,12 @@ subtitle: 'Promoción, coerción implícita y conversión explícita de tipos de
 ---
 
 (capitulo-conversiones-casts)=
+> **Prerrequisitos**: tipos numéricos, expresiones y rangos de representación.
+>
+> **Objetivos**: 1. Identificar una conversión implícita en una expresión. 2. Justificar un cast explícito o rechazarlo por pérdida de información.
+>
+> **Comprobación de salida**: compilá una conversión con `-Wconversion` y explicá el warning obtenido.
+
 ## Introducción
 
 En C, las variables poseen un tipo estático y rígido asignado en su declaración.

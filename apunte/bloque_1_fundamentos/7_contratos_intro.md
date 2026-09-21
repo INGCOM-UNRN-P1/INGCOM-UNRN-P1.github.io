@@ -4,6 +4,12 @@ short_title: 'Intro contratos'
 subtitle: 'Documentación estructurada, precondiciones, postcondiciones e invariantes informales'
 ---
 
+> **Prerrequisitos**: funciones, `assert`, condicionales y lectura de firmas en C.
+>
+> **Objetivos**: 1. Diferenciar precondición, postcondición e invariante. 2. Documentar el contrato de una función pequeña.
+>
+> **Comprobación de salida**: señalá qué obligación corresponde al llamador y cuál a la función en un contrato propuesto.
+
 (capitulo-contratos-invariantes)=
 ## Introducción
 
@@ -19,10 +25,9 @@ funciones, los componentes clave de este acuerdo son las **precondiciones**,
 
 ---
 
-## Desarrollo
-
 (contratos-intro-capitulo)=
 ### Precondiciones y Postcondiciones Informales
+<!--TODO: Completar con una minima introduccion-->
 
 #### Precondiciones (El Derecho del Proveedor, Obligación del Cliente)
 

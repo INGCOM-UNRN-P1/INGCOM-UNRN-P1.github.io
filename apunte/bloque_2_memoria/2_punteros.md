@@ -4,6 +4,12 @@ short_title: Punteros
 subtitle: "Control directo de memoria en sistemas integrados"
 ---
 
+> **Prerrequisitos**: variables, funciones y modelo básico de memoria.
+>
+> **Objetivos**: 1. Declarar e inicializar un puntero válido. 2. Explicar la diferencia entre dirección, puntero y valor apuntado.
+>
+> **Comprobación de salida**: trazá el efecto de una función que modifica una variable mediante `int *`.
+
 (capitulo-punteros)=
 ## Introducción
 

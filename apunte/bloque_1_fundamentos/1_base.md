@@ -5,6 +5,12 @@ subtitle: Conceptos básicos antes de programar en C
 ---
 
 (capitulo-fundamentos-computacion)=
+> **Prerrequisitos**: manejo básico de archivos y terminal; no se requiere experiencia previa en C.
+>
+> **Objetivos**: 1. Descomponer un problema en entradas, proceso y salida. 2. Representar un algoritmo breve con pseudocódigo y trazarlo.
+>
+> **Comprobación de salida**: escribí y trazá un algoritmo que determine el mayor de dos números.
+
 ## Introducción
 
 Antes de escribir tu primera línea de código en C, es fundamental repasar (y
@@ -1188,4 +1194,3 @@ Diagrama de flujo humorístico de un algoritmo según xkcd.
 
 :::
 <!-- {figure} 1/xkcd-algorithms.png -->
-

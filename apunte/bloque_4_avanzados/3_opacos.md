@@ -13,6 +13,8 @@ subtitle: Técnicas de ocultamiento de información y diseño modular
 >
 > **Objetivo**: publicar una interfaz que oculte la representación y conserve
 > la responsabilidad de creación y destrucción dentro del módulo.
+>
+> **Comprobación de salida**: separá qué declaraciones pertenecen al `.h` público y cuáles deben quedar en el `.c` privado.
 
 ## Introducción
 

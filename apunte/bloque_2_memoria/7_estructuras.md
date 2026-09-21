@@ -4,6 +4,12 @@ short_title: Estructuras
 subtitle: 'struct, union y campos de bits en C'
 ---
 
+> **Prerrequisitos**: tipos básicos, arreglos, punteros y modelo de memoria.
+>
+> **Objetivos**: 1. Definir y acceder a campos de `struct` y `union`. 2. Explicar cómo el padding puede afectar tamaño y portabilidad.
+>
+> **Comprobación de salida**: predecí qué campos comparten almacenamiento en una `union` y verificá el tamaño con `sizeof`.
+
 (capitulo-estructuras)=
 ## Introducción
 

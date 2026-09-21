@@ -12,6 +12,8 @@ description: 'Punteros a funciones, genericidad básica en C utilizando void* y 
 >
 > **Objetivo**: leer una firma de callback y verificar que sus parámetros y
 > retorno coinciden con la función que se asigna.
+>
+> **Comprobación de salida**: compará una firma de callback con dos funciones y determiná cuál puede asignarse sin conversión.
 
 ## Introducción
 

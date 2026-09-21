@@ -5,6 +5,12 @@ subtitle: 'Declaración de constantes nombradas, espacios de nombres y validaci�
 ---
 
 (capitulo-enums)=
+> **Prerrequisitos**: constantes, tipos enteros y `switch`.
+>
+> **Objetivos**: 1. Declarar un `enum` para representar estados finitos. 2. Validar un valor antes de usarlo en una decisión.
+>
+> **Comprobación de salida**: implementá un `switch` exhaustivo para un estado y definí el comportamiento de `default`.
+
 ## Introducción
 
 Las **enumeraciones** (`enum`) constituyen un mecanismo fundamental en el

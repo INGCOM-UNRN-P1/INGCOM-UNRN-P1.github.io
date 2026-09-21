@@ -4,6 +4,13 @@ short_title: Control de Flujo
 subtitle: 'Decisiones condicionales, lazos y control seguro en C'
 ---
 
+
+> **Prerrequisitos**: variables, expresiones relacionales y programas C elementales.
+>
+> **Objetivos**: 1. Elegir entre `if`, `switch`, `while` y `for`. 2. Trazar una iteración e identificar su condición de salida.
+>
+> **Comprobación de salida**: justificá qué estructura usarías para validar una entrada y repetila hasta que sea válida.
+
 (capitulo-control-flujo)=
 ## Introducción al Control de Flujo
 
@@ -43,7 +50,7 @@ son **opcionales**; podés utilizar una instrucción `if` simple para ejecutar u
 bloque de código únicamente si se cumple la condición, continuando de forma
 secuencial en caso contrario.
 
-:::{code-block}c
+```{code-block} c
 :linenos:
 if (condicion)
 {
@@ -58,8 +65,8 @@ else
     // Bloque ejecutado si ninguna condición fue verdadera
 }
 
-:::
-<!-- {code-block}c -->
+```
+<!-- {code-block} c -->
 
 Las condiciones evaluadas deben ser expresiones de comparación explícitas (ver
 regla de estilo {ref}`0x1005h`). Recuerde que en esta cátedra **es obligatorio
@@ -87,7 +94,7 @@ booleano nativo, sino que **devuelven un valor entero (`int`)**: `1` para
 representar verdadero y `0` para representar falso. Es por esto que expresiones
 como `5 > 3` se evalúan físicamente como el entero `1`.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 if (edad >= 18)
 {
@@ -99,7 +106,7 @@ else
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (bifurcacion-multiple-con-switch)=
 #### Bifurcación Múltiple con `switch`
@@ -110,7 +117,7 @@ transfiere el control directamente a ese punto. Es una alternativa más limpia y
 eficiente a múltiples `if-else if` anidados cuando se compara una misma variable
 contra múltiples constantes de tipo entero o carácter.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 switch (opcion)
 {
@@ -126,7 +133,7 @@ default:
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Al utilizar `switch` debés tener en cuenta dos detalles clave:
 *   **La sentencia `break`:** Es fundamental colocar `break` al final de cada
@@ -137,9 +144,9 @@ Al utilizar `switch` debés tener en cuenta dos detalles clave:
     técnicamente es opcional en el estándar C, la regla {ref}`0x1008h` de la
     cátedra **exige que siempre esté presente** como medida de diseño defensivo.
 
-    Por ejemplo, en un switch que controla los estados de un sensor:
+    Por ejemplo, en un `switch` que controla los estados de un sensor:
 
-    ```{code-block}c
+    ```{code-block} c
     switch (estado_sensor)
     {
     case APAGADO:
@@ -177,7 +184,7 @@ Hay tres construcciones principales de lazos en C:
 El bloque de código interno se ejecuta mientras la condición lógica sea
 verdadera.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 int i = 0;
 while (i < 5)
@@ -187,7 +194,7 @@ while (i < 5)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{figure} 2/while_loop_flow.svg
 :name: fig-while-flow
@@ -232,7 +239,7 @@ modo que la guarda de control resulte falsa eventualmente.
 Es la estructura recomendada para repeticiones de rango conocido. Su sintaxis
 concentra el control de la iteración:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 for (inicialización; condición; incremento)
 {
@@ -240,7 +247,7 @@ for (inicialización; condición; incremento)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{admonition} Las partes del `for`
 
@@ -258,7 +265,7 @@ Este tipo de lazo es ideal cuando se sabe cuántas veces se quiere repetir.
 Aunque hace lo mismo que el `while`, este es más estructurado con secciones
 específicas para cada acción del lazo.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 for (int i = 0; i < 5; i++)
 {
@@ -266,7 +273,7 @@ for (int i = 0; i < 5; i++)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Rol de variable: Control de lazo (o Iterador)
 
@@ -295,7 +302,7 @@ variable de control:
 En C, trasladás esta equivalencia matemática directamente a la cabecera del lazo
 `for`:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 for (int i = 0; i < n; i++)
 {
@@ -303,7 +310,7 @@ for (int i = 0; i < n; i++)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{note}
 
@@ -326,7 +333,7 @@ condición lógica de permanencia.
 :::
 <!-- {image} ./2/lazos.jpg -->
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 int clave = 0;
 do
@@ -336,7 +343,7 @@ do
 } while (clave != 1234);
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{mermaid}
 
@@ -373,7 +380,7 @@ Para cumplir con la regla de diseño estructurado (que prohíbe el uso de
 interrupciones abruptas como `break` en lazos), la bandera se integra
 directamente como condición de corte en la cabecera del lazo:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdbool.h> // Necesario para el tipo de dato bool
 #include <stdio.h>
@@ -406,7 +413,7 @@ int main()
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 #### 2. Control de permanencia en lazos interactivos
 Se utiliza para gobernar la repetición de un lazo cuando no se conoce de
@@ -414,7 +421,7 @@ antemano la cantidad de iteraciones (por ejemplo, entrada de datos interactiva
 del usuario). El lazo se ejecuta mientras la bandera se mantenga activa y
 finaliza cuando un evento apaga la bandera:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdbool.h>
 #include <stdio.h>
@@ -440,7 +447,7 @@ int main()
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 #### Rol acumulador
 
@@ -452,7 +459,7 @@ que comience el proceso de acumulación.
 
 Imaginemos que queremos calcular la suma de los primeros N números enteros.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 int main()
@@ -470,7 +477,7 @@ int main()
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 En este ejemplo, la variable `suma` tiene el rol de **acumulador**. En cada
 iteración del lazo `for`, se le suma el valor actual de `i`, acumulando así la
@@ -487,7 +494,7 @@ ocurre.
 
 Supongamos que queremos contar cuántos números pares hay en un rango dado.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 int main()
@@ -512,7 +519,7 @@ int main()
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 En este caso, `contadorPares` tiene el rol de **contador**. Cada vez que
 encontramos un número par, incrementamos su valor en 1.
@@ -530,7 +537,7 @@ de los lazos:
 Finaliza la ejecución del lazo de forma inmediata, saltando a la primera
 instrucción que se encuentre fuera del bloque del ciclo.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 for (int i = 1; i <= 10; i++)
 {
@@ -542,13 +549,13 @@ for (int i = 1; i <= 10; i++)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### `continue` (Salto de iteración)
 Omite el resto del bloque de instrucciones del ciclo actual y avanza
 directamente a evaluar la condición para la siguiente iteración.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 for (int i = 1; i <= 5; i++)
 {
@@ -560,7 +567,7 @@ for (int i = 1; i <= 5; i++)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (prohibicion-de-break-y-continue)=
 #### Prohibición de `break` y `continue`
@@ -617,7 +624,7 @@ lazo simple de lectura de caracteres.
 El siguiente ejemplo demuestra el problema y su solución utilizando `getchar()`
 dentro de un lazo `while`:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 int main()
@@ -640,7 +647,7 @@ int main()
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 La condición `(c = getchar()) != '\n' && c != EOF` realiza tres acciones: lee un
 carácter de `stdin`, lo asigna a `c`, y continúa la iteración del lazo mientras

@@ -14,6 +14,8 @@ numbering:
 >
 > **Objetivo**: validar cabeceras y recorrer píxeles respetando el padding de
 > cada fila, sin asumir que un `struct` coincide automáticamente con el archivo.
+>
+> **Comprobación de salida**: calculá el padding de una fila BMP y verificá en qué posición comienza la fila siguiente.
 
 El formato de archivo de mapa de bits (BMP, de _Bitmap_), también conocido como
 mapa de bits independiente del dispositivo (DIB), es un formato de imagen

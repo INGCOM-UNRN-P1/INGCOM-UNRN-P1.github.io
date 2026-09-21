@@ -7,6 +7,12 @@ subtitle: 'Estructuras de pruebas, frameworks y testing basado en propiedades en
 (capitulo-testing-avanzado)=
 # Testing Avanzado y Automatización
 
+> **Prerrequisitos**: `assert`, funciones, Makefiles y pruebas unitarias básicas.
+>
+> **Objetivos**: 1. Organizar una suite de pruebas separada del código de producción. 2. Diseñar casos que ejerciten una propiedad y casos borde.
+>
+> **Comprobación de salida**: proponé una propiedad verificable de un TAD e indicá tres entradas que intenten refutarla.
+
 ## Introducción
 
 A medida que el tamaño y complejidad de los proyectos de software se incrementa

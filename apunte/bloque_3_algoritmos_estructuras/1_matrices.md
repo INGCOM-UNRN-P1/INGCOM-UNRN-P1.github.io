@@ -5,6 +5,12 @@ subtitle: "The matrix has you..."
 ---
 
 (capitulo-matrices)=
+> **Prerrequisitos**: arreglos unidimensionales, lazos anidados, `sizeof` y paso de parámetros a funciones.
+>
+> **Objetivos**: 1. Declarar y recorrer una matriz respetando filas y columnas. 2. Explicar el orden row-major y su efecto en el acceso.
+>
+> **Comprobación de salida**: trazá los índices visitados por dos lazos anidados y determiná cuál recorre una fila completa.
+
 ## Introducción
 
 En el ámbito de la programación, una **matriz** se define como una estructura de

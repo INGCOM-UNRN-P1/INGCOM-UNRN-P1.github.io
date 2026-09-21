@@ -4,10 +4,11 @@ short_title: Archivos (de texto)
 description: 'Apertura, lectura, escritura y control de errores al trabajar con archivos de texto.'
 ---
 
-(capitulo-archivos-texto)=
-# Glosario
-
-## Introducción
+> **Prerrequisitos**: cadenas, funciones, control de errores y terminal.
+>
+> **Objetivos**: 1. Abrir, leer o escribir un archivo de texto comprobando errores. 2. Cerrar cada `FILE *` adquirido.
+>
+> **Comprobación de salida**: enumerá los caminos de salida de un programa y verificá que todos cierren el archivo abierto.
 
 (trabajando-con-archivos-de-texto-en-c)=
 # Trabajando con archivos (de texto) en C

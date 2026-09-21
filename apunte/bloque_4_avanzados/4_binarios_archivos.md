@@ -14,6 +14,8 @@ description: 'Persistencia eficiente de estructuras físicas mediante fread, fwr
 >
 > **Objetivo**: leer y escribir un formato definido sin confundir los bytes del
 > archivo con la representación portátil de una estructura en memoria.
+>
+> **Comprobación de salida**: identificá qué datos de un `struct` no serían portables al escribir sus bytes directamente.
 
 Mientras que los archivos de texto son legibles por humanos y excelentes para
 configuraciones o logs, los **archivos binarios** representan el siguiente nivel

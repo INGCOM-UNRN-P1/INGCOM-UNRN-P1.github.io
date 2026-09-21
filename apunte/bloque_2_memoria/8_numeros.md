@@ -5,6 +5,12 @@ subtitle: 'Tipos de datos numéricos en C, límites físicos, desbordamientos e 
 ---
 
 (capitulo-aritmetica-numeros)=
+> **Prerrequisitos**: operadores aritméticos, bits básicos y compilación con warnings.
+>
+> **Objetivos**: 1. Consultar los límites de un tipo con la biblioteca estándar. 2. Distinguir desbordamiento entero de imprecisión de punto flotante.
+>
+> **Comprobación de salida**: predecí si una conversión pierde información y justificá el resultado con el rango de los tipos.
+
 ## Introducción
 
 En el lenguaje C, a diferencia de la matemática pura donde los conjuntos

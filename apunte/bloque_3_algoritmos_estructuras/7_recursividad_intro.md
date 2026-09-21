@@ -13,6 +13,8 @@ description: Conceptos básicos de recursión, casos base, pasos recursivos y el
 >
 > **Objetivo**: diseñar un caso base alcanzable y demostrar que cada llamada se
 > acerca a él.
+>
+> **Comprobación de salida**: señalá el caso base y la medida que decrece en una función recursiva propuesta.
 
 ## Introducción
 

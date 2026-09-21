@@ -4,6 +4,10 @@
 > **Prerrequisitos**: haber completado los bloques 1 a 3: funciones, punteros,
 > memoria dinámica, archivos de texto, TAD, contratos y complejidad. Se trabaja
 > con GCC 11+ en Linux/WSL2 y los flags `-Wall -Wextra -std=c11 -pedantic`.
+>
+> **Objetivos**: 1. Elegir una ruta de estudio del bloque según sus dependencias. 2. Verificar que se domina un prerrequisito antes de avanzar.
+>
+> **Comprobación de salida**: seleccioná un módulo final y enumerá los conceptos previos que necesitás para abordarlo.
 
 Este bloque no es una colección de temas independientes: propone una ruta para
 pasar de escribir programas correctos a diseñar componentes de C reutilizables,

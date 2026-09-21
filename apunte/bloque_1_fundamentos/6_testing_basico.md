@@ -4,6 +4,12 @@ short_title: 'Testing Básico'
 subtitle: 'Pruebas unitarias, aserciones con assert y cobertura de ramas'
 ---
 
+> **Prerrequisitos**: funciones, condicionales y compilación con GCC.
+>
+> **Objetivos**: 1. Formular un caso de prueba con entrada y resultado esperado. 2. Usar `assert` para verificar una propiedad de una función.
+>
+> **Comprobación de salida**: escribí tres aserciones que cubran un caso normal, un borde y una entrada inválida documentada.
+
 (capitulo-testing-verificacion)=
 ## Introducción
 

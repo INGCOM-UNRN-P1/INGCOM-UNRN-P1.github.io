@@ -4,6 +4,12 @@ short_title: Compilación
 subtitle: Haciendonos entender por la computadora.
 ---
 
+> **Prerrequisitos**: programa C elemental, terminal y editor de texto; GCC instalado.
+>
+> **Objetivos**: 1. Distinguir preprocesado, compilación, ensamblado y enlazado. 2. Compilar un archivo con `-Wall -Wextra -std=c11 -pedantic`.
+>
+> **Comprobación de salida**: clasificá un error dado como de compilación o enlazado e indicá el comando para reproducirlo.
+
 (capitulo-compilacion)=
 ## Introducción
 

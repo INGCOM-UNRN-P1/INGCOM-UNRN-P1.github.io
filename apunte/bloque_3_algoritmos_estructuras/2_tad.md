@@ -12,6 +12,8 @@ subtitle: Estructuras de datos dinámicas y especializadas
 >
 > **Objetivo**: distinguir interfaz de implementación y verificar una operación
 > de un TAD sin acceder a su representación interna.
+>
+> **Comprobación de salida**: proponé una prueba de caja negra que siga siendo válida al cambiar la representación interna.
 
 ## Primero la interfaz y la prueba
 

@@ -4,14 +4,14 @@ short_title: 'Punteros II - aritmética'
 description: 'Indirecciones múltiples, punteros a arrays, aritmética pura y matrices en memoria dinámica.'
 ---
 
-(capitulo-aritmetica-punteros)=
-# Referencias y Lecturas Complementarias
+> **Prerrequisitos**: punteros, arreglos, `sizeof` y memoria dinámica básica.
+>
+> **Objetivos**: 1. Calcular el desplazamiento válido de un puntero dentro de un arreglo. 2. Representar una matriz dinámica con su estrategia de liberación.
+>
+> **Comprobación de salida**: justificá por qué sumar uno a `int *` no equivale a sumar un byte.
 
-## Introducción
 
-
-
-## Desarrollo
+<!-- TODO: Analizar apunte; lo de estructuras debe de ir en estructuras ya que es un tema posterior -->
 
 (introduccion_aritmetica_punteros)=
 ### Introducción
@@ -242,7 +242,7 @@ void estudiante_destruir(estudiante_t *est)
 #### Ejercicios de Autoevaluación (Punteros a Estructuras)
 
 
-
+<!-- COMPLETAR -->
 
 
 

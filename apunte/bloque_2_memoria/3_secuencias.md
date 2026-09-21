@@ -4,6 +4,12 @@ short_title: Secuencias
 subtitle: "Colecciones de datos homogéneos y texto."
 ---
 
+> **Prerrequisitos**: variables, lazos, punteros básicos y límites de arreglos.
+>
+> **Objetivos**: 1. Recorrer un arreglo sin salir de sus límites. 2. Distinguir un arreglo de una cadena terminada en `\0`.
+>
+> **Comprobación de salida**: predecí el resultado de recorrer una cadena y justificá dónde termina.
+
 (capitulo-secuencias)=
 ## Introducción
 

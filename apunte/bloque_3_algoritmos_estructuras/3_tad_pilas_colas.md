@@ -10,8 +10,10 @@ subtitle: 'TAD Pila, Cola y Deque'
 > **Prerrequisitos**: TAD e interfaces `.h`, structs, punteros, `malloc`/`free`
 > y complejidad básica. Compilá con `gcc -Wall -Wextra -std=c11 -pedantic`.
 >
-> **Antes de avanzar**: debés poder explicar qué operación modifica el tope o el
-> frente, y quién es responsable de liberar cada nodo.
+> **Objetivos**: 1. Comparar las operaciones de pila, cola y deque. 2. Trazar la
+> propiedad y liberación de los nodos que manipula cada operación.
+>
+> **Comprobación de salida**: elegí una operación `push` o `dequeue`, formulá su invariante y trazá qué nodo debe liberar o conservar.
 
 ## Introducción
 

@@ -13,6 +13,8 @@ numbering:
 >
 > **Objetivo**: definir una interfaz pequeña con propiedad de recursos,
 > precondiciones y errores documentados antes de implementar sus detalles.
+>
+> **Comprobación de salida**: redactá el contrato de una función pública indicando propiedad, error y responsabilidad de liberación.
 
 Para el marco formal de contratos que sustenta el diseño de interfaces, ver
 {ref}`capitulo-contratos-formales`. Para el patrón de punteros opacos que

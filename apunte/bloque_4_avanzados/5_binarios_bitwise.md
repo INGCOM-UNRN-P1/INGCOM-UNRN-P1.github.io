@@ -5,6 +5,13 @@ subtitle: 'Operadores a nivel de bits y máscaras en C'
 ---
 
 (bitwise-capitulo)=
+
+> **Prerrequisitos**: representación binaria de enteros, operadores lógicos, `uint32_t` y máscaras.
+>
+> **Objetivos**: 1. Construir una máscara para consultar o modificar un bit. 2. Diferenciar campos de bits de una representación binaria portable.
+>
+> **Comprobación de salida**: calculá una máscara, aplicala a un valor y justificá qué bits cambian.
+
 ---
 
 (campos-de-bits-bit-fields-ahorro-extremo-de-memoria)=
@@ -1513,4 +1520,3 @@ resultado_operacion_t realizar_operacion(const datos_t *entrada)
 Los códigos de error con bitmasks son una herramienta poderosa para mejorar la
 usabilidad de APIs y aplicaciones, permitiendo comunicar de forma eficiente y
 completa todas las causas de un problema.
-

@@ -6,18 +6,26 @@ subtitle: Índice estructurado del material didáctico por bloques conceptuales
 
 # Índice Temático del Apunte
 
+> **Prerrequisitos**: Una computadora con Windows o GNU/Linux y disposición para compilar ejemplos en Linux/WSL2.
+>
+> **Objetivos**: 1. Ubicar el capítulo previo necesario para un tema nuevo. 2. Planificar una ruta de estudio por bloques y dependencias.
+>
+> **Comprobación de salida**: elegí un tema del Bloque 4 e identificá los capítulos que debés dominar antes de estudiarlo.
+
 El material de estudio de la cátedra está organizado físicamente en cuatro
 bloques didácticos secuenciales. Esta estructura proporciona un andamiaje
 progresivo para el desarrollo de tus habilidades de programación.
 
-## Prerrequisitos de entorno
+## El entorno
 
-Para Windows, la cátedra ha creado un conjunto de scripts que se encargan de la
+Para Windows y Linux, la cátedra ha creado un conjunto de scripts que se encargan de la
 creación del espacio de trabajo, que además, está separado de la configuración
 de lo que esté en la cátedra. [INGCOM-UNRN-P1/entorno](https://github.com/INGCOM-UNRN-P1/entorno)
 
-Para compilar los ejemplos instalá GCC 11 o posterior, `make`, un editor de
-texto y una terminal Linux o WSL2. Verificá la instalación con:
+Este se encarga de descargar todas las herramientas necesarias para trabajar,
+compilar, editar y ejecutar el código que desarrollaras.
+
+Podés verificar la instalación con:
 
 ```bash
 gcc --version

@@ -12,6 +12,8 @@ subtitle: 'Lógica de primer orden, tripletas de Hoare, invariantes de TADs y c�
 >
 > **Objetivo**: expresar precondiciones, poscondiciones e invariantes y usarlas
 > para justificar una operación sobre una estructura de datos.
+>
+> **Comprobación de salida**: escribí una precondición y una postcondición para una operación de pila y verificá que no se contradigan.
 
 ## Introducción
 

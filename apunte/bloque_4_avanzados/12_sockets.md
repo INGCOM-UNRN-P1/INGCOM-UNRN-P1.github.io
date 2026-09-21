@@ -13,6 +13,8 @@ subtitle: Comunicación de red en sistemas Unix/Linux
 >
 > **Objetivo**: crear un socket, comprobar los errores de cada llamada y cerrar
 > el descriptor en todos los caminos de salida.
+>
+> **Comprobación de salida**: trazá los descriptores adquiridos por un cliente y verificá dónde se cierran si falla `connect`.
 
 Los **sockets** son el mecanismo fundamental para la comunicación entre procesos
 a través de una red (o en la misma máquina). Proporcionan una abstracción que

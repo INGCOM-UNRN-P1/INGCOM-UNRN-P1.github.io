@@ -12,6 +12,8 @@ subtitle: 'TCO, optimización de la pila y algoritmos de división recursiva en 
 >
 > **Objetivo**: distinguir recursión de cola de divide y vencerás y no depender
 > de una optimización del compilador para garantizar la terminación.
+>
+> **Comprobación de salida**: justificá si una llamada es de cola y describí el costo de stack sin asumir TCO.
 
 ## Introducción
 

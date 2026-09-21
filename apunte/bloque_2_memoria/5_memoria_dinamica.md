@@ -4,18 +4,19 @@ short_title: 'Memoria Dinámica'
 description: 'Gestión y alocación en el Heap utilizando malloc, calloc, realloc y free.'
 ---
 
+> **Prerrequisitos**: punteros, structs básicos, duración de variables y `<stdlib.h>`.
+>
+> **Objetivos**: 1. Reservar memoria y comprobar el resultado de `malloc`. 2. Asociar cada reserva exitosa con una única liberación.
+>
+> **Comprobación de salida**: trazá la propiedad de un bloque desde `malloc` hasta `free` e identificá una fuga posible.
+
 (capitulo-memoria-dinamica)=
-# Referencias y Lecturas Adicionales
-
-## Introducción
-
-
-
-## Desarrollo
+# Memória Dinámica
+<!--TODO: COMPLETAR SECCIONES INTRODUCTORIAS -->
+<!--TODO: analizar estructura del documento -->
 
 (funciones-de-gestion-de-memoria-stdlib-h)=
 ### Funciones de Gestión de Memoria (`<stdlib.h>`)
-
 
 Las funciones de gestión de memoria dinámica están declaradas en el archivo de
 cabecera `<stdlib.h>`. Estas funciones permiten solicitar y liberar bloques de

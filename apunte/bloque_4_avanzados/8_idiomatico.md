@@ -12,6 +12,8 @@ description: 'Convenciones, patrones y anti-patrones del C idiomático. Cómo es
 >
 > **Objetivo**: reconocer una convención de C que reduce ambigüedad y justificar
 > su uso mediante legibilidad, seguridad o mantenimiento.
+>
+> **Comprobación de salida**: refactorizá un fragmento no idiomático y explicá qué riesgo o ambigüedad eliminaste.
 
 (que-es-el-codigo-idiomatico)=
 ### ¿Qué es el código idiomático?

@@ -5,6 +5,12 @@ subtitle: 'Typedef y su aplicación en la abstracción de tipos en C'
 ---
 
 (capitulo-alias-tipos)=
+> **Prerrequisitos**: declaraciones de variables, punteros, `struct` y archivos de cabecera.
+>
+> **Objetivos**: 1. Crear un alias con `typedef`. 2. Distinguir un alias de la creación de un tipo nuevo.
+>
+> **Comprobación de salida**: reescribí una declaración de puntero usando un alias y explicá qué tipo sigue representando.
+
 ## Introducción
 
 En C, el mecanismo nativo para crear nombres alternativos o **alias** de tipos

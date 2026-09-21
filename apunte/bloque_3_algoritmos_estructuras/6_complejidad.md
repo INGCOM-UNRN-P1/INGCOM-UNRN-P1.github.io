@@ -12,6 +12,8 @@ subtitle: Fundamentos matemáticos del análisis asintótico
 >
 > **Objetivo**: separar una medición concreta de la tasa de crecimiento y
 > comparar alternativas mediante notación asintótica.
+>
+> **Comprobación de salida**: duplicá el tamaño de entrada, registrá dos mediciones y explicá por qué no constituyen por sí solas una prueba de Big-O.
 
 ## Introducción
 

@@ -4,6 +4,12 @@ short_title: Sintaxis base
 subtitle: La sintaxis y programas básicos.
 ---
 
+> **Prerrequisitos**: algoritmos, variables y decisiones elementales del capítulo anterior; GCC disponible.
+>
+> **Objetivos**: 1. Escribir un programa C con `main`. 2. Compilarlo sin warnings y predecir su salida.
+>
+> **Comprobación de salida**: modificá un ejemplo para leer un valor, compilalo con los flags de cátedra y explicá su salida.
+
 (capitulo-introduccion-c)=
 
 ## Introducción
@@ -121,6 +127,7 @@ en tiempo de ejecución.
 
 (fortalezas-del-lenguaje-c)=
 #### Fortalezas del Lenguaje C
+<!--TODO: completar-->
 
 ##### Acceso a conceptos de bajo nivel
 C provee acceso a conceptos directamente relacionados con el hardware. Conceptos
@@ -140,6 +147,7 @@ del compilador, para bien y para mal.
 
 (debitades-del-lenguaje-c)=
 #### Debilidades del Lenguaje C
+<!--TODO: completar-->
 
 ##### Los programas en C pueden ser propensos a errores
 La gran flexibilidad y permisividad de C facilitan la introducción de fallas de
@@ -162,7 +170,7 @@ estructuración de archivos del desarrollador.
 
 (la-caja-de-herramientas)=
 ### La caja de herramientas
-
+<!--TODO: completar-->
 (preparacion-del-entorno)=
 #### Preparación del entorno
 
@@ -225,7 +233,7 @@ máquina puede ejecutar directamente.
 :::
 <!-- {figure} 2/compilation_process.svg -->
 
-````{code-block} text
+````{code-block} sh
 :linenos:
 :label: salidamundo
 :caption: La salida por la terminal.
@@ -240,7 +248,7 @@ Hola mundo C.
 $>
 
 ````
-<!-- {code-block} text -->
+<!-- {code-block} sh -->
 
 En la función `printf`, el carácter especial `\n` es una secuencia de control
 que indica un salto de línea en la consola de salida.
@@ -309,7 +317,7 @@ Diseño algorítmico:
 3. Calcular la suma y asignarla a un destino.
 4. Mostrar el resultado de la suma por pantalla.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 int main(void)
@@ -325,7 +333,7 @@ int main(void)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (sobre-las-reglas-de-estilo)=
 ### Sobre las reglas de estilo
@@ -420,6 +428,8 @@ uno de los errores semánticos más comunes en C.
 (variables-y-tipos-de-datos)=
 ### Variables y Tipos de Datos
 
+<!--TODO: completar-->
+
 (que-es-una-variable)=
 #### ¿Qué es una variable?
 
@@ -479,7 +489,7 @@ proporciona tipos con tamaños fijos y explícitos en bits, como `int8_t`,
 
 Toda variable debe declararse antes de ser usada, indicando su tipo y su nombre:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdbool.h>
 int edad = 42;
@@ -488,7 +498,7 @@ char inicial = 'A';
 bool activo = true;
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Si declarás una variable sin inicializarla, su contenido inicial en memoria
 física es indeterminado ("basura"). **Siempre inicializá tus variables** a un
@@ -500,7 +510,7 @@ Las variables deben poseer datos válidos antes de ser leídas o manipuladas en
 expresiones o asignaciones.
 
 *   **Incorrecto (Lectura de variables sin inicializar):**
-    ```{code-block}c
+    ```{code-block} c
     :linenos:
     int a;
     int b;
@@ -511,7 +521,7 @@ expresiones o asignaciones.
     scanf("%d", &b);
     ```
 *   **Correcto (Orden lineal lógico y seguro):**
-    ```{code-block}c
+    ```{code-block} c
     :linenos:
     int a = 0;
     int b = 0;
@@ -543,7 +553,7 @@ transitoria, generalmente para facilitar una operación que requiere conservar u
 dato mientras se manipulan otros. El caso más común es el intercambio de valores
 entre dos variables sin perder ninguno.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 int main(void)
@@ -560,7 +570,7 @@ int main(void)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Acá, `auxiliar` es crucial para no perder el valor original de `a` cuando se lo
 asignamos a `b`.
@@ -618,7 +628,7 @@ transitorio.
 Intentar realizar asignaciones sobre un R-value producirá un error inmediato en
 tiempo de compilación.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 int x = 10;
 int y = 20;
@@ -636,7 +646,7 @@ y = x + 5; // VÁLIDO: 'y' es un L-value, 'x + 5' evalúa a un R-value.
                      //      requiere un L-value.
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (entrada-y-salida-basica)=
 ### Entrada y Salida Básica
@@ -648,12 +658,12 @@ Se utiliza para imprimir texto y valores de variables formateados en la salida
 estándar de consola.
 Podés consultar el [apunte más detallado del tema](../extras/printf).
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 printf("Tiene %d años\n", edad);
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 El par de símbolos `\n` se usan para indicar el 'salto de línea', para que no
 quede todo junto en una sola. Específicamente, cada vez que se ve una `\`, se
@@ -673,7 +683,7 @@ Las **variables de salida** se utilizan para almacenar los resultados finales de
 un cálculo o proceso, los cuales serán mostrados al usuario o guardados en algún
 medio (como un archivo).
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 int main(void)
@@ -687,7 +697,7 @@ int main(void)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Aquí, `area` guarda el resultado del cálculo y luego se imprime.
 
@@ -699,14 +709,14 @@ Permite leer datos de entrada ingresados por teclado en la entrada estándar
 Requiere pasar la dirección de la variable de destino anteponiendo el operador
 de dirección `&`.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 int edad = 0;
 printf("Ingrese su edad: ");
 scanf("%d", &edad);
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Rol de variable de Entrada
 
@@ -714,7 +724,7 @@ Una **variable de entrada** es aquella que se utiliza para almacenar datos que
 provienen de una fuente externa al programa, como la entrada del usuario a
 través del teclado, la lectura de un archivo o datos recibidos de una red.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 int main(void)
@@ -727,7 +737,7 @@ int main(void)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 En este ejemplo, `edad` toma el valor que el usuario introduce.
 
@@ -740,14 +750,14 @@ la entrada esperada. Para evitar esto, se debe anteponer un espacio en blanco en
 el especificador (`" %c"`), lo cual instruye a `scanf` a descartar los espacios
 en blanco y saltos de línea residuales del buffer.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 char inicial = ' ';
 printf("Ingrese su inicial: ");
 scanf(" %c", &inicial); // El espacio antes de %c limpia el buffer de stdin
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ---
 

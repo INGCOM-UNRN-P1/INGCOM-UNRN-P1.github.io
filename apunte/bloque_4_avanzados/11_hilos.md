@@ -6,6 +6,12 @@ subtitle: Multithreading en sistemas Unix/Linux
 
 ## Introducción a la Programación Concurrente
 
+> **Prerrequisitos**: funciones, punteros, memoria compartida, manejo de errores y terminal Linux/WSL2.
+>
+> **Objetivos**: 1. Crear y esperar un hilo POSIX con `pthread_create` y `pthread_join`. 2. Identificar una sección crítica y protegerla.
+>
+> **Comprobación de salida**: señalá una carrera de datos en un ejemplo y describí la sincronización necesaria para evitarla.
+
 La **programación concurrente** permite que múltiples secuencias de
 instrucciones se ejecuten simultáneamente dentro de un mismo proceso. En
 sistemas Unix/Linux, esto se logra mediante **hilos** (*threads*), unidades de
