@@ -7,6 +7,12 @@ description: 'Punteros a funciones, genericidad básica en C utilizando void* y 
 (capitulo-punteros-funciones)=
 # Lecturas Recomendadas
 
+> **Prerrequisitos**: punteros, prototipos de función, alcance de variables y
+> `void *`. Compilá con `gcc -Wall -Wextra -std=c11 -pedantic`.
+>
+> **Objetivo**: leer una firma de callback y verificar que sus parámetros y
+> retorno coinciden con la función que se asigna.
+
 ## Introducción
 
 (genericidad-y-callbacks-punteros-a-funciones)=

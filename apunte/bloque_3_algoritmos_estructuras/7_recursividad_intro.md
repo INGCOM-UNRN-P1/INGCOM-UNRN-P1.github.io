@@ -5,6 +5,15 @@ description: Conceptos básicos de recursión, casos base, pasos recursivos y el
 ---
 
 (capitulo-recursividad-basica)=
+# Introducción a la recursividad
+
+> **Prerrequisitos**: funciones, condicionales, parámetros por valor y stack
+> frame. Debés poder trazar una llamada y reconocer cuándo una variable local
+> deja de existir.
+>
+> **Objetivo**: diseñar un caso base alcanzable y demostrar que cada llamada se
+> acerca a él.
+
 ## Introducción
 
 La recursividad es una técnica de programación fundamental en la que una función

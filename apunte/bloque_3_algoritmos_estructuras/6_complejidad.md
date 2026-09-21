@@ -7,7 +7,42 @@ subtitle: Fundamentos matemáticos del análisis asintótico
 (capitulo-complejidad)=
 # Referencias y Lecturas Complementarias
 
+> **Prerrequisitos**: lazos, funciones, arreglos y noción de TAD. Para medir
+> ejemplos en Linux/WSL2 se usa `clock_gettime` de `<time.h>`.
+>
+> **Objetivo**: separar una medición concreta de la tasa de crecimiento y
+> comparar alternativas mediante notación asintótica.
+
 ## Introducción
+
+## Medición mínima reproducible
+
+La complejidad predice tendencias; una medición controla qué ocurre en una
+máquina concreta. Este ejemplo mide una suma lineal y debe compilarse con
+`gcc -Wall -Wextra -std=c11 -pedantic medicion.c -o medicion`:
+
+```c
+#define _POSIX_C_SOURCE 200809L
+#include <stdio.h>
+#include <time.h>
+
+int main(void)
+{
+    const long limite = 1000000L;
+    volatile long suma = 0;
+    struct timespec inicio, fin;
+    clock_gettime(CLOCK_MONOTONIC, &inicio);
+    for (long i = 0; i < limite; i++) suma += i;
+    clock_gettime(CLOCK_MONOTONIC, &fin);
+    long ns = (fin.tv_sec - inicio.tv_sec) * 1000000000L +
+              (fin.tv_nsec - inicio.tv_nsec);
+    printf("suma=%ld, tiempo=%ld ns\\n", suma, ns);
+    return 0;
+}
+```
+
+Duplicá `limite` varias veces y compará la tendencia; una única medición no
+demuestra Big-O, pero conecta el modelo con evidencia observable.
 
 
 

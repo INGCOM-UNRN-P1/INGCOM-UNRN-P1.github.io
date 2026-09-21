@@ -7,6 +7,13 @@ subtitle: Técnicas de ocultamiento de información y diseño modular
 (capitulo-tipos-opacos)=
 # Referencias y Lecturas Complementarias
 
+> **Prerrequisitos**: structs, punteros, archivos `.h`/`.c`, TAD y compilación
+> modular. Antes de seguir, distinguí una declaración incompleta de la
+> definición de una estructura.
+>
+> **Objetivo**: publicar una interfaz que oculte la representación y conserve
+> la responsabilidad de creación y destrucción dentro del módulo.
+
 ## Introducción
 
 

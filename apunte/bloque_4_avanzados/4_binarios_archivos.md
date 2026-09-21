@@ -8,6 +8,13 @@ description: 'Persistencia eficiente de estructuras físicas mediante fread, fwr
 
 # Trabajo con Archivos Binarios en C: Una Mirada Profunda
 
+> **Prerrequisitos**: `FILE *`, structs, arreglos de bytes, `sizeof` y manejo
+> de errores. Usá `gcc -Wall -Wextra -std=c11 -pedantic`; no requiere flags
+> extra, salvo los que imponga la biblioteca que integres.
+>
+> **Objetivo**: leer y escribir un formato definido sin confundir los bytes del
+> archivo con la representación portátil de una estructura en memoria.
+
 Mientras que los archivos de texto son legibles por humanos y excelentes para
 configuraciones o logs, los **archivos binarios** representan el siguiente nivel
 en persistencia de datos. Almacenan información en su representación cruda, byte

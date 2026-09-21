@@ -6,6 +6,14 @@ subtitle: Comunicación de red en sistemas Unix/Linux
 
 ## Introducción a la Programación de Red
 
+> **Prerrequisitos**: punteros, arrays de bytes, archivos/descriptores, manejo
+> de errores y modelo cliente-servidor. En Linux/WSL2 compilá con
+> `gcc -Wall -Wextra -std=c11 -pedantic servidor.c -o servidor`; agregá
+> `-pthread` cuando combines sockets con hilos POSIX.
+>
+> **Objetivo**: crear un socket, comprobar los errores de cada llamada y cerrar
+> el descriptor en todos los caminos de salida.
+
 Los **sockets** son el mecanismo fundamental para la comunicación entre procesos
 a través de una red (o en la misma máquina). Proporcionan una abstracción que
 permite que programas intercambien datos usando protocolos como TCP e UDP,

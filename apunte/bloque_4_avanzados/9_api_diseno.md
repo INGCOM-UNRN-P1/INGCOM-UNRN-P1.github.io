@@ -8,6 +8,12 @@ numbering:
 
 (diseno-api-capitulo)=
 
+> **Prerrequisitos**: TAD, contratos, punteros opacos, manejo de errores y
+> compilación modular con `.h` y `.c`.
+>
+> **Objetivo**: definir una interfaz pequeña con propiedad de recursos,
+> precondiciones y errores documentados antes de implementar sus detalles.
+
 Para el marco formal de contratos que sustenta el diseño de interfaces, ver
 {ref}`capitulo-contratos-formales`. Para el patrón de punteros opacos que
 implementa

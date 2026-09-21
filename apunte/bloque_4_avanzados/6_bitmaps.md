@@ -8,6 +8,13 @@ numbering:
 
 ## Introducción
 
+> **Prerrequisitos**: structs y padding, archivos binarios, operaciones de bits
+> y enteros de `<stdint.h>`. Compilá con `gcc -Wall -Wextra -std=c11 -pedantic`;
+> si el procesamiento incorpora funciones matemáticas, agregá `-lm` al final.
+>
+> **Objetivo**: validar cabeceras y recorrer píxeles respetando el padding de
+> cada fila, sin asumir que un `struct` coincide automáticamente con el archivo.
+
 El formato de archivo de mapa de bits (BMP, de _Bitmap_), también conocido como
 mapa de bits independiente del dispositivo (DIB), es un formato de imagen
 rasterizada desarrollado por Microsoft. Su principal característica, en su

@@ -7,6 +7,12 @@ subtitle: 'TCO, optimización de la pila y algoritmos de división recursiva en 
 (capitulo-recursividad-avanzada)=
 # Ventajas y Desventajas
 
+> **Prerrequisitos**: caso base, paso recursivo, stack frame y complejidad
+> temporal/espacial. Este capítulo extiende la recursividad introductoria.
+>
+> **Objetivo**: distinguir recursión de cola de divide y vencerás y no depender
+> de una optimización del compilador para garantizar la terminación.
+
 ## Introducción
 
 (recursividad-avanzada-capitulo)=

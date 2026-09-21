@@ -7,6 +7,12 @@ description: 'Convenciones, patrones y anti-patrones del C idiomático. Cómo es
 (idiomatico-capitulo)=
 ## Código Idiomático
 
+> **Prerrequisitos**: control de flujo, funciones, punteros, memoria dinámica y
+> warnings de GCC. Compilá los ejemplos con `-Wall -Wextra -std=c11 -pedantic`.
+>
+> **Objetivo**: reconocer una convención de C que reduce ambigüedad y justificar
+> su uso mediante legibilidad, seguridad o mantenimiento.
+
 (que-es-el-codigo-idiomatico)=
 ### ¿Qué es el código idiomático?
 

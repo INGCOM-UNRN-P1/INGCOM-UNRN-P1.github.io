@@ -12,6 +12,10 @@ progresivo para el desarrollo de tus habilidades de programación.
 
 ## Prerrequisitos de entorno
 
+Para Windows, la cátedra ha creado un conjunto de scripts que se encargan de la
+creación del espacio de trabajo, que además, está separado de la configuración
+de lo que esté en la cátedra. [INGCOM-UNRN-P1/entorno](https://github.com/INGCOM-UNRN-P1/entorno)
+
 Para compilar los ejemplos instalá GCC 11 o posterior, `make`, un editor de
 texto y una terminal Linux o WSL2. Verificá la instalación con:
 
@@ -87,18 +91,15 @@ definidos por el usuario.
 *   **[2. Indirección Física y Punteros](bloque_2_memoria/2_punteros.md)**:
     Punteros físicos, operador de dirección `&` e indirección `*`, y simulación
     de pasaje por referencia.
-*   **[3. Arreglos Unidimensionales y
-    Strings](bloque_2_memoria/3_secuencias.md)**: Secuencias de datos estáticas,
-    decaimiento a puntero y gestión segura de cadenas de caracteres.
-*   **[4. Persistencia y Archivos de
-    Texto](bloque_2_memoria/4_archivos_texto.md)**: Manejo físico de archivos de
-    texto empleando streams de caracteres (`FILE *`).
-*   **[5. Memoria Dinámica en el
-    Heap](bloque_2_memoria/5_memoria_dinamica.md)**: Alocación con
-    `malloc`/`free`, punteros colgantes y detección de fugas de memoria.
-*   **[6. Aritmética de Direcciones y Doble
-    Indirección](bloque_2_memoria/6_aritmetica.md)**: Aritmética de punteros,
-    redimensionamiento con `realloc` y matrices dinámicas (`int **`).
+*   **[3. Arreglos Unidimensionales y Strings](bloque_2_memoria/3_secuencias.md)**:
+    Secuencias de datos estáticas, decaimiento a puntero y gestión segura de cadenas 
+    de caracteres.
+*   **[4. Persistencia y Archivos de Texto](bloque_2_memoria/4_archivos_texto.md)**: 
+    Manejo físico de archivos de texto empleando streams de caracteres (`FILE *`).
+*   **[5. Memoria Dinámica en el Heap](bloque_2_memoria/5_memoria_dinamica.md)**: 
+    Alocación con `malloc`/`free`, punteros colgantes y detección de fugas de memoria.
+*   **[6. Aritmética de Direcciones y Doble Indirección](bloque_2_memoria/6_aritmetica.md)**:
+    Aritmética de punteros, redimensionamiento con `realloc` y matrices dinámicas (`int **`).
 *   **[7. Estructuras y Tipos Compuestos](bloque_2_memoria/7_estructuras.md)**:
     Registros compuestos (`struct`, `union`) y alineación en memoria
     (*padding*).
@@ -120,12 +121,10 @@ Uso de matrices multidimensionales, Tipos de Datos Abstractos (TADs),
 estructuras lineales con contratos informales y formales, análisis asintótico de
 complejidad e introducción a la recursividad.
 
-*   **[1. Matrices
-    Multidimensionales](bloque_3_algoritmos_estructuras/1_matrices.md)**:
+*   **[1. Matrices Multidimensionales](bloque_3_algoritmos_estructuras/1_matrices.md)**:
     Disposición *Row-Major* en RAM y optimización de localidad espacial para
     evitar fallos de caché.
-*   **[2. Tipos de Datos Abstractos
-    (TAD)](bloque_3_algoritmos_estructuras/2_tad.md)**: Definición de TAD,
+*   **[2. Tipos de Datos Abstractos (TAD)](bloque_3_algoritmos_estructuras/2_tad.md)**: Definición de TAD,
     interfaces y contratos aplicados a la estructura Secuencia (listas
     enlazadas).
 *   **[3. Pilas, Colas y
@@ -153,11 +152,9 @@ complejidad e introducción a la recursividad.
 Tópicos de optimización a bajo nivel, encapsulamiento, manipulación de bits,
 recursividad avanzada y diseño arquitectónico de APIs robustas en C.
 
-*   **[1. Índice de Temas
-    Avanzados](bloque_4_avanzados/1_indice_avanzados.md)**: Resumen y guía
+*   **[1. Índice de Temas Avanzados](bloque_4_avanzados/1_indice_avanzados.md)**: Resumen y guía
     didáctica de contenidos avanzados.
-*   **[2. Callbacks y
-    Genericidad](bloque_4_avanzados/2_punteros_funciones.md)**: Punteros a
+*   **[2. Callbacks y Genericidad](bloque_4_avanzados/2_punteros_funciones.md)**: Punteros a
     funciones y diseño paramétrico empleando punteros genéricos `void*`.
 *   **[3. Encapsulamiento y Tipos Opacos](bloque_4_avanzados/3_opacos.md)**:
     Ocultamiento estricto de información mediante tipos de datos incompletos en
@@ -168,8 +165,7 @@ recursividad avanzada y diseño arquitectónico de APIs robustas en C.
     Álgebra de Boole a nivel de bit y máscaras.
 *   **[6. Manipulación de Bitmaps (BMP)](bloque_4_avanzados/6_bitmaps.md)**:
     Lectura, edición y escritura de imágenes rasterizadas BMP.
-*   **[7. Recursividad
-    Avanzada](bloque_4_avanzados/7_recursividad_avanzada.md)**: Backtracking y
+*   **[7. Recursividad Avanzada](bloque_4_avanzados/7_recursividad_avanzada.md)**: Backtracking y
     optimización cualitativa.
 *   **[8. C Idiomático y Patrones](bloque_4_avanzados/8_idiomatico.md)**:
     Modismos del lenguaje C y refactorización orientada a seguridad.

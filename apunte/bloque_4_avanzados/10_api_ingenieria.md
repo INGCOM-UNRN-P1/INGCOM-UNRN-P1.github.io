@@ -7,6 +7,12 @@ subtitle: 'Versionado semántico, estabilidad de ABI y performance de interfaces
 (versionado-y-compatibilidad)=
 ## Versionado y Compatibilidad
 
+> **Prerrequisitos**: diseño de APIs, punteros opacos, archivos de cabecera,
+> enlazado y contratos de compatibilidad.
+>
+> **Objetivo**: clasificar un cambio como compatible o incompatible tanto para
+> la API de código fuente como para la ABI de una biblioteca compilada.
+
 Un aspecto crítico del diseño de APIs profesionales es la gestión de versiones y
 la compatibilidad hacia atrás (_backwards compatibility_).
 

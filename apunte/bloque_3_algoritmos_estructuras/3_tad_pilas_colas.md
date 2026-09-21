@@ -7,6 +7,12 @@ subtitle: 'TAD Pila, Cola y Deque'
 (capitulo-tad-pilas-colas)=
 # Referencias y Lecturas Complementarias
 
+> **Prerrequisitos**: TAD e interfaces `.h`, structs, punteros, `malloc`/`free`
+> y complejidad básica. Compilá con `gcc -Wall -Wextra -std=c11 -pedantic`.
+>
+> **Antes de avanzar**: debés poder explicar qué operación modifica el tope o el
+> frente, y quién es responsable de liberar cada nodo.
+
 ## Introducción
 
 
