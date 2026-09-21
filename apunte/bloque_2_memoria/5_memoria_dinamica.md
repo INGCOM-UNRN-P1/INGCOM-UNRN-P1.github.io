@@ -11,9 +11,39 @@ description: 'Gestión y alocación en el Heap utilizando malloc, calloc, reallo
 > **Comprobación de salida**: trazá la propiedad de un bloque desde `malloc` hasta `free` e identificá una fuga posible.
 
 (capitulo-memoria-dinamica)=
-# Memória Dinámica
-<!--TODO: COMPLETAR SECCIONES INTRODUCTORIAS -->
-<!--TODO: analizar estructura del documento -->
+# Memoria dinámica: propiedad y ciclo de vida
+
+:::{important} Antes de reservar
+
+La memoria dinámica no es “una variable más”: crea un recurso cuya propiedad
+debés poder responder en cada paso. Antes de usar `malloc`, identificá quién
+adquiere el bloque, quién puede usarlo y quién lo libera. Este capítulo sigue a
+estructuras y tipos porque esas herramientas permiten expresar esa propiedad con
+claridad.
+
+:::
+
+## Ejemplo mínimo: reservar, usar y liberar
+
+```c
+#include <stdlib.h>
+
+int main(void)
+{
+    int *valor = malloc(sizeof *valor);
+    if (valor == NULL)
+        return 1;
+    *valor = 42;
+    free(valor);
+    return 0;
+}
+```
+
+Compilá con `gcc -Wall -Wextra -std=c11 -pedantic memoria.c -o memoria`.
+La secuencia no se puede reordenar: desreferenciar antes de comprobar `NULL` o
+usar `valor` después de `free` rompe el contrato de propiedad.
+
+## Desarrollo
 
 (funciones-de-gestion-de-memoria-stdlib-h)=
 ### Funciones de Gestión de Memoria (`<stdlib.h>`)
@@ -471,7 +501,7 @@ varios fenómenos:
 #### Ejercicios de Autoevaluación (Funciones de Gestión)
 
 
-
+<!--TODO: Completar -->
 
 
 
@@ -738,7 +768,7 @@ es altamente recomendable durante el desarrollo.
 #### Ejercicios de Autoevaluación (Errores Comunes y Peligros)
 
 
-
+<!--TODO: Completar -->
 
 
 
@@ -1004,7 +1034,7 @@ debe ser parte del diseño desde el principio, no un añadido posterior.
 #### Ejercicios de Autoevaluación (Seguridad de Memoria)
 
 
-
+<!--TODO: Completar -->
 
 
 
@@ -1259,7 +1289,7 @@ funcion:
 #### Ejercicios de Autoevaluación (Conceptos Avanzados y Bajo Nivel)
 
 
-
+<!--TODO: Completar -->
 
 
 

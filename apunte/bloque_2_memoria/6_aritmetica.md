@@ -10,11 +10,8 @@ description: 'Indirecciones múltiples, punteros a arrays, aritmética pura y ma
 >
 > **Comprobación de salida**: justificá por qué sumar uno a `int *` no equivale a sumar un byte.
 
-
-<!-- TODO: Analizar apunte; lo de estructuras debe de ir en estructuras ya que es un tema posterior -->
-
 (introduccion_aritmetica_punteros)=
-### Introducción
+## Introducción
 
 
 Este apunte explora conceptos avanzados de memoria dinámica en C, construyendo
@@ -24,230 +21,6 @@ profundizamos en el manejo de {ref}`capitulo-estructuras` que
 contienen punteros, problemas comunes de gestión de memoria, y técnicas para
 trabajar con matrices dinámicas.
 
-
-(punteros-a-estructuras)=
-### Punteros a Estructuras
-
-
-Cuando una estructura (`struct`) contiene punteros a otros datos, debemos
-gestionar la memoria en **múltiples niveles**. Como vimos en
-{ref}`el-monton-heap`, cada llamada a `malloc` reserva memoria en el heap que
-debe ser liberada explícitamente. Con estructuras anidadas, este principio se
-aplica recursivamente.
-
-(creacion-de-estructuras-dinamicas)=
-#### Creación de Estructuras Dinámicas
-
-Para crear una instancia de una estructura que contiene punteros (como `char*
-nombre`), se requieren múltiples asignaciones de memoria. Consideremos una
-estructura `persona_t`:
-
-:::{code-block} c
-
-typedef struct
-{
-    char *nombre;
-    int edad;
-} persona_t;
-
-:::
-<!-- {code-block} c -->
-
-El proceso de creación involucra **tres pasos fundamentales**:
-
-##### Paso 1: Asignar la Estructura Contenedora
-
-Primero, reservamos memoria para la estructura en sí:
-
-:::{code-block} c
-:linenos:
-persona_t *nuevo = malloc(sizeof(persona_t));
-if (nuevo == NULL)
-{
-    // Manejar error de asignación
-    return NULL;
-}
-
-:::
-<!-- {code-block} c -->
-
-:::{tip} Buena Práctica: Siempre Verificar `malloc`
-
-Como se detalla en {ref}`verificar-asignaciones`, **nunca** asumas que `malloc`
-tiene éxito. Siempre verificá que el puntero retornado no sea `NULL` antes de
-usarlo.
-
-:::
-<!-- {tip} Buena Práctica: Siempre Verificar `malloc` -->
-
-##### Paso 2: Asignar Miembros Internos
-
-Luego, reservamos memoria para cada puntero dentro de la estructura:
-
-:::{code-block} c
-:linenos:
-// +1 para el carácter nulo '\0'
-nuevo->nombre = malloc(sizeof(char) * (strlen(nombre) + 1));
-if (nuevo->nombre == NULL)
-{
-    free(nuevo); // Liberar lo ya asignado
-    return NULL;
-}
-
-:::
-<!-- {code-block} c -->
-
-:::{warning} Cuidado con el Orden de Liberación
-
-Si la segunda asignación falla, debemos liberar la primera antes de retornar. De
-lo contrario, causamos un **memory leak** (fuga de memoria).
-
-:::
-<!-- {warning} Cuidado con el Orden de Liberación -->
-
-##### Paso 3: Copiar Datos
-
-Finalmente, copiamos los datos a la memoria recién asignada:
-
-:::{code-block} c
-:linenos:
-strcpy(nuevo->nombre, nombre);
-nuevo->edad = edad;
-
-:::
-<!-- {code-block} c -->
-
-(operador-flecha)=
-#### Operador Flecha (`->`)
-
-El operador `->` es un **atajo sintáctico** para acceder a miembros de una
-estructura a través de un puntero. Como se explica en {ref}`capitulo-punteros`,
-este operador combina la desreferencia y el acceso a
-miembro en una sola operación.
-
-**Equivalencia:**
-:::{code-block} c
-:linenos:
-puntero->miembro  ≡ (*puntero).miembro
-
-:::
-<!-- {code-block} c -->
-
-**Ejemplo comparativo:**
-
-:::{code-block} c
-:linenos:
-persona_t *p = /* ... */;
-// Usando ->
-p->edad = 30;
-p->nombre[0] = 'J';
-// Equivalente sin ->
-(*p).edad = 30;
-(*p).nombre[0] = 'J';
-
-:::
-<!-- {code-block} c -->
-
-La notación con `->` es más legible y es la **forma idiomática** en C para
-trabajar con punteros a estructuras.
-
-(destruccion-de-estructuras-dinamicas)=
-#### Destrucción de Estructuras Dinámicas
-
-La liberación de memoria debe seguir el **orden inverso** al de la creación.
-Este patrón se conoce como **"de adentro hacia afuera"** o **LIFO** (Last In,
-First Out).
-
-##### Orden Correcto de Liberación
-
-:::{code-block} c
-:linenos:
-void persona_destruir(persona_t *persona)
-{
-    if (persona == NULL)
-    {
-        return; // Nada que hacer
-    }
-    // 1. Liberar miembros internos primero
-    free(persona->nombre);
-    // 2. Liberar la estructura contenedora
-    free(persona);
-}
-
-:::
-<!-- {code-block} c -->
-
-##### ¿Por Qué Este Orden?
-
-Si liberás `persona` primero, **perdés el puntero** a `persona->nombre`. Una vez
-que `free(persona)` se ejecuta, acceder a `persona->nombre` es **comportamiento
-indefinido** (ver {ref}`dangling-pointer-puntero-colgante`). Esto resulta en un
-**memory leak** porque la memoria de `nombre` queda asignada pero inaccesible.
-
-:::{figure} 6/destruccion_orden.svg
-:label: fig-destruccion-orden
-:align: center
-:width: 85%
-
-Orden correcto vs incorrecto de liberación de memoria en estructuras anidadas.
-
-:::
-<!-- {figure} 6/destruccion_orden.svg -->
-<!-- {figure} 2/destruccion_orden.svg -->
-
-::::{danger} Error Común: Orden Incorrecto
-
-:::{code-block} c
-:linenos:
-// INCORRECTO
-free(persona);         // Ahora persona->nombre es inaccesible
-free(persona->nombre); // ¡Comportamiento indefinido!
-
-:::
-<!-- {code-block} c -->
-
-Una vez que `persona` se libera, acceder a cualquiera de sus miembros
-(incluyendo `nombre`) invoca **undefined behavior**.
-
-::::
-<!-- {danger} Error Común: Orden Incorrecto -->
-
-##### Generalización: Estructuras con Múltiples Punteros
-
-Para estructuras con varios niveles de punteros, aplicá el mismo principio
-recursivamente:
-
-:::{code-block} c
-:linenos:
-typedef struct
-{
-    char *nombre;
-    char *apellido;
-    int *calificaciones; // Array dinámico
-} estudiante_t;
-void estudiante_destruir(estudiante_t *est)
-{
-    if (est == NULL)
-        return;
-    free(est->calificaciones); // Nivel más profundo primero
-    free(est->apellido);
-    free(est->nombre);
-    free(est); // Contenedor al final
-}
-
-:::
-<!-- {code-block} c -->
-
-(ejercicios-de-autoevaluacion-punteros-a-estructuras)=
-#### Ejercicios de Autoevaluación (Punteros a Estructuras)
-
-
-<!-- COMPLETAR -->
-
-
-
-
----
 
 
 (problemas-comunes-de-memoria-dinamica)=
@@ -464,6 +237,7 @@ void funcion()
 #### Ejercicios de Autoevaluación (Problemas de Memoria)
 
 
+<!--TODO: Completar -->
 
 
 
@@ -706,6 +480,7 @@ memcpy(&arr[3], &arr[0], 7 * sizeof(int));  // Indefinido
 <!-- {danger} Solapamiento -->
 
 
+
 (arreglos-de-largo-variable-vla)=
 ### Arreglos de Largo Variable (VLA)
 
@@ -815,7 +590,7 @@ void funcion(int cantidad)
 (ejercicios-de-autoevaluacion-funciones-de-gestion-y-vlas)=
 #### Ejercicios de Autoevaluación (Funciones de Gestión y VLAs)
 
-
+<!--TODO: Completar -->
 
 
 
@@ -1076,7 +851,6 @@ Representación de una matriz dentada: array de punteros a arrays.
 
 :::
 <!-- {figure} 6/matriz_dentada.svg -->
-<!-- {figure} 2/matriz_dentada.svg -->
 
 ##### Asignación
 
@@ -1476,8 +1250,7 @@ int (*matriz)[COLUMNAS] = malloc(sizeof(int) * COLUMNAS * filas);
 
 (ejercicios-de-autoevaluacion-doble-indireccion-y-matrices)=
 #### Ejercicios de Autoevaluación (Doble Indirección y Matrices)
-
-
+<!--TODO: Completar -->
 
 
 

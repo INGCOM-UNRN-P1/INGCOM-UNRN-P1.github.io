@@ -89,9 +89,17 @@ automatizada de proyectos y las bases lógicas de la verificación de software.
 
 ## Bloque 2: Memoria
 
-Análisis del modelo de memoria, punteros, cadenas de caracteres, archivos de
-texto, alocación dinámica, registros compuestos, representación numérica y tipos
-definidos por el usuario.
+Este bloque avanza desde la ubicación y representación de un valor hasta la
+administración explícita de recursos. No es una lista de técnicas
+intercambiables: cada etapa activa un conocimiento necesario para la siguiente.
+
+:::{important} Ruta recomendada
+
+Completá los capítulos en este orden. Los nombres de archivo conservan su
+numeración histórica, pero la navegación y la secuencia didáctica siguen las
+dependencias conceptuales.
+
+:::
 
 *   **[1. Modelo Físico de Memoria](bloque_2_memoria/1_modelo_memoria.md)**:
     Organización de RAM (Stack vs Heap) y hardware de memoria caché del
@@ -102,24 +110,24 @@ definidos por el usuario.
 *   **[3. Arreglos Unidimensionales y Strings](bloque_2_memoria/3_secuencias.md)**:
     Secuencias de datos estáticas, decaimiento a puntero y gestión segura de cadenas 
     de caracteres.
-*   **[4. Persistencia y Archivos de Texto](bloque_2_memoria/4_archivos_texto.md)**: 
-    Manejo físico de archivos de texto empleando streams de caracteres (`FILE *`).
-*   **[5. Memoria Dinámica en el Heap](bloque_2_memoria/5_memoria_dinamica.md)**: 
-    Alocación con `malloc`/`free`, punteros colgantes y detección de fugas de memoria.
-*   **[6. Aritmética de Direcciones y Doble Indirección](bloque_2_memoria/6_aritmetica.md)**:
-    Aritmética de punteros, redimensionamiento con `realloc` y matrices dinámicas (`int **`).
-*   **[7. Estructuras y Tipos Compuestos](bloque_2_memoria/7_estructuras.md)**:
+*   **[4. Representación de Números](bloque_2_memoria/8_numeros.md)**: Límites
+    de representación física, desbordamientos e imprecisión de punto flotante.
+*   **[5. Conversión de Tipos (Casts)](bloque_2_memoria/9_casts.md)**: Promoción
+    entera, coerción aritmética implícita y conversión explícita.
+*   **[6. Estructuras y Tipos Compuestos](bloque_2_memoria/7_estructuras.md)**:
     Registros compuestos (`struct`, `union`) y alineación en memoria
     (*padding*).
-*   **[8. Representación de Números](bloque_2_memoria/8_numeros.md)**: Límites
-    de representación física, desbordamientos e imprecisión de punto flotante.
-*   **[9. Conversión de Tipos (Casts)](bloque_2_memoria/9_casts.md)**: Promoción
-    entera, coerción aritmética implícita y conversión explícita.
-*   **[10. Alias de Tipos (typedef)](bloque_2_memoria/10_alias_tipos.md)**:
+*   **[7. Alias de Tipos (typedef)](bloque_2_memoria/10_alias_tipos.md)**:
     Creación de alias de tipos personalizados y reglas de estilo.
-*   **[11. Tipos Enumerativos (enum)](bloque_2_memoria/11_enums.md)**:
+*   **[8. Tipos Enumerativos (enum)](bloque_2_memoria/11_enums.md)**:
     Declaración de constantes nombradas, colisiones en espacios de nombres y
     switch defensivo.
+*   **[9. Memoria Dinámica en el Heap](bloque_2_memoria/5_memoria_dinamica.md)**:
+    Alocación con `malloc`/`free`, propiedad de recursos y detección de fugas.
+*   **[10. Aritmética de Direcciones y Matrices Dinámicas](bloque_2_memoria/6_aritmetica.md)**:
+    Aritmética de punteros, doble indirección y estrategias de matrices dinámicas.
+*   **[11. Persistencia y Archivos de Texto](bloque_2_memoria/4_archivos_texto.md)**:
+    Aplicación integradora de punteros, cadenas y ciclo de vida de recursos con `FILE *`.
 
 ---
 
