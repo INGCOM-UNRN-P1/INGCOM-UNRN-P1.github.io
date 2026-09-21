@@ -8,22 +8,28 @@ date: "2026-09-14"
 (manual-gestion)=
 # gestion — Automatización de Calificaciones y Sincronización
 
-```{admonition} Resumen Técnico del Satélite
+:::{admonition} Resumen Técnico del Satélite
 :class: note
-**Rol en el ecosistema:** Sincronización bidireccional entre la base de datos de notas SQLite de Dredd, planillas de cálculo institucionales y registros académicos.
-```
+**Rol en el ecosistema:** Sincronización bidireccional entre la base de datos de
+notas SQLite de Dredd, planillas de cálculo institucionales y registros
+académicos.
+
+:::
+<!-- {admonition} Resumen Técnico del Satélite -->
 
 ---
 
 ## 1. Propósito y Alcance
 
-Automatiza la consolidación de notas, seguimiento de entregas y generación de reportes de cursada sin intervención manual.
+Automatiza la consolidación de notas, seguimiento de entregas y generación de
+reportes de cursada sin intervención manual.
 
 ---
 
 ## 2. Uso Básico
 
-```bash
+``` bash
 # Sincronizar calificaciones locales con planilla docente
 gestion sync --db notas.db --sheet "P1-2026"
 ```
+<!-- bash -->

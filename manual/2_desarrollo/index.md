@@ -6,7 +6,11 @@ subtitle: "Herramientas de cabecera para el estudiante y el desarrollador C. Com
 
 # Desarrollo y Verificación
 
-Herramientas de cabecera para el estudiante y el desarrollador C. Compilación pedagógica, linters de estilo, análisis de antipatrones, seguridad estática y ejecución contenida.
+Herramientas de cabecera para el estudiante y el desarrollador C. Compilación
+pedagógica, linters de estilo, análisis de antipatrones, seguridad estática y
+ejecución contenida.
 
-```{tableofcontents}
-```
+:::{tableofcontents}
+
+:::
+<!-- {tableofcontents} -->

@@ -8,37 +8,54 @@ date: "2026-08-31"
 (manual-daedalus)=
 # Daedalus — Compilador Asistido con Cátedra Flags y Traducción de Diagnósticos GCC/Clang
 
-```{note} Resumen Técnico del Satélite
-**Rol en el ecosistema:** Compilador pedagógico que aplica los flags de cátedra (-std=c11, -Wall, -Wextra, -Werror, -pedantic) y traduce mensajes crípticos del compilador a español claro con explicaciones didácticas.
-```
+:::{note} Resumen Técnico del Satélite
+
+**Rol en el ecosistema:** Compilador pedagógico que aplica los flags de cátedra
+(-std=c11, -Wall, -Wextra, -Werror, -pedantic) y traduce mensajes crípticos del
+compilador a español claro con explicaciones didácticas.
+
+:::
+<!-- {note} Resumen Técnico del Satélite -->
 
 ---
 
 (manual-daedalus-proposito)=
 ## 1. Propósito y Filosofía Pedagógica
 
-La herramienta **`daedalus`** forma parte del ecosistema oficial de software de la cátedra. Su diseño sigue principios pedagógicos rigurosos:
+La herramienta **`daedalus`** forma parte del ecosistema oficial de software de
+la cátedra. Su diseño sigue principios pedagógicos rigurosos:
 
-1. **Evidencia Técnica Directa**: Todo diagnóstico se fundamenta en la norma ISO C (C11/C23), en el modelo de memoria del sistema o en convenciones arquitectónicas formales.
-2. **Acción Correctiva Concreta**: Cada advertencia incluye la prescripción técnica inmediata para resolver el defecto sin recurrir a conjeturas.
-3. **Autonomía del Estudiante**: Facilita la autoevaluación local antes de la entrega final del trabajo práctico.
-4. **Objetividad Docente**: Estandariza la corrección automática removiendo discrepancias subjetivas en la evaluación.
+1. **Evidencia Técnica Directa**: Todo diagnóstico se fundamenta en la norma ISO
+   C (C11/C23), en el modelo de memoria del sistema o en convenciones
+   arquitectónicas formales.
+2. **Acción Correctiva Concreta**: Cada advertencia incluye la prescripción
+   técnica inmediata para resolver el defecto sin recurrir a conjeturas.
+3. **Autonomía del Estudiante**: Facilita la autoevaluación local antes de la
+   entrega final del trabajo práctico.
+4. **Objetividad Docente**: Estandariza la corrección automática removiendo
+   discrepancias subjetivas en la evaluación.
 
 ---
 
 (manual-daedalus-instalacion)=
 ## 2. Instalación y Verificación del Entorno
 
-````{important}
-Para proveer la reproducibilidad técnica de la cátedra, verificá instalar las dependencias nativas del sistema operativo antes de instalar el paquete Python.
-````
+::::{important}
+
+Para proveer la reproducibilidad técnica de la cátedra, verificá instalar las
+dependencias nativas del sistema operativo antes de instalar el paquete Python.
+
+::::
+<!-- {important} -->
 
 ### 2.1 Requisitos Previos del Sistema
 
 Instalá los paquetes del sistema requeridos según tu distribución o entorno:
 
-````{tab-set}
-```{tab-item} Ubuntu / Debian
+::::{tab-set}
+
+:::{tab-item} Ubuntu / Debian
+
 sudo apt update && sudo apt install -y \
     build-essential \
     gcc \
@@ -51,9 +68,12 @@ sudo apt update && sudo apt install -y \
     graphviz \
     python3-pip \
     python3-venv
-```
 
-```{tab-item} Arch Linux / Manjaro
+:::
+<!-- {tab-item} Ubuntu / Debian -->
+
+:::{tab-item} Arch Linux / Manjaro
+
 sudo pacman -S --needed \
     base-devel \
     gcc \
@@ -65,9 +85,12 @@ sudo pacman -S --needed \
     graphviz \
     python-pip \
     uv
-```
 
-```{tab-item} Fedora / RHEL
+:::
+<!-- {tab-item} Arch Linux / Manjaro -->
+
+:::{tab-item} Fedora / RHEL
+
 sudo dnf install -y \
     gcc \
     gcc-c++ \
@@ -78,57 +101,81 @@ sudo dnf install -y \
     typst \
     graphviz \
     python3-pip
-```
 
-```{tab-item} macOS (Homebrew)
+:::
+<!-- {tab-item} Fedora / RHEL -->
+
+:::{tab-item} macOS (Homebrew)
+
 brew install gcc gdb clang-format typst graphviz uv
-```
 
-```{tab-item} Windows (MSYS2 / WSL2)
+:::
+<!-- {tab-item} macOS (Homebrew) -->
+
+:::{tab-item} Windows (MSYS2 / WSL2)
+
 # En WSL2 (Ubuntu): utilizar los paquetes de Ubuntu/Debian arriba.
 # En MSYS2 MINGW64:
 pacman -S --needed \
     mingw-w64-x86_64-gcc \
     mingw-w64-x86_64-gdb \
     mingw-w64-x86_64-clang-tools-extra
-```
-````
+
+:::
+<!-- {tab-item} Windows (MSYS2 / WSL2) -->
+
+::::
+<!-- {tab-set} -->
 
 ---
 
 ### 2.2 Métodos de Instalación de `daedalus`
 
-Podés instalar `daedalus` mediante cualquiera de los siguientes métodos estándar:
+Podés instalar `daedalus` mediante cualquiera de los siguientes métodos
+estándar:
 
-````{tab-set}
-```{tab-item} uv tool (Recomendado)
+::::{tab-set}
+
+:::{tab-item} uv tool (Recomendado)
+
 # Instalación aislada de alta velocidad con uv
 uv tool install . --editable
 
 # O instalar todo el ecosistema de herramientas de la cátedra en lote:
 source ./install_tools.sh
-```
 
-```{tab-item} pip / venv
+:::
+<!-- {tab-item} uv tool (Recomendado) -->
+
+:::{tab-item} pip / venv
+
 # Crear y activar un entorno virtual
 python3 -m venv .venv
 source .venv/bin/activate
 
 # Instalar en modo editable para desarrollo
 pip install -e .
-```
 
-```{tab-item} pipx
+:::
+<!-- {tab-item} pip / venv -->
+
+:::{tab-item} pipx
+
 # Instalación global aislada en tu PATH
 pipx install --editable .
-```
-````
+
+:::
+<!-- {tab-item} pipx -->
+
+::::
+<!-- {tab-set} -->
 
 ---
 
 ### 2.3 Autocompletado en la Shell
 
-La interfaz CLI de `daedalus` cuenta con autocompletado nativo para comandos, flags y archivos. Para configurarlo permanentemente en tu shell:
+La interfaz CLI de `daedalus` cuenta con autocompletado nativo para comandos,
+flags y archivos. Para configurarlo permanentemente en tu shell:
 
 ````{code-block} bash
 # Configuración automática en Bash / Zsh / Fish
@@ -136,25 +183,35 @@ daedalus --install-completion
 
 # Para cargar el autocompletado en la sesión actual de inmediato:
 source ./install_tools.sh
+
 ````
+<!-- {code-block} bash -->
 
 ---
 
 ### 2.4 Verificación del Entorno con `doctor`
 
-Toda herramienta del ecosistema cuenta con el subcomando unificado `doctor`. Ejecutalo para auditar el estado del entorno:
+Toda herramienta del ecosistema cuenta con el subcomando unificado `doctor`.
+Ejecutalo para auditar el estado del entorno:
 
 ````{code-block} bash
 daedalus doctor
+
 ````
+<!-- {code-block} bash -->
 
 #### Comprobaciones Ejecutadas por el Diagnóstico:
-- **Compilador C**: Verifica disponibilidad de `gcc` o `clang` con soporte de estándares C11 y C23.
-- **Depurador y Core Dumps**: Comprueba que `gdb` esté instalado y que `ulimit -c` permita generación de core dumps.
-- **Herramientas de Memoria**: Valida la presencia de `valgrind` y librerías `libasan`/`libubsan`.
+- **Compilador C**: Verifica disponibilidad de `gcc` o `clang` con soporte de
+  estándares C11 y C23.
+- **Depurador y Core Dumps**: Comprueba que `gdb` esté instalado y que `ulimit
+  -c` permita generación de core dumps.
+- **Herramientas de Memoria**: Valida la presencia de `valgrind` y librerías
+  `libasan`/`libubsan`.
 - **Formateo y Estilo**: Verifica el binario `clang-format` (versión 16+).
-- **Sandboxing de Kernel**: Audita permisos no privilegiados de `bwrap` (Bubblewrap namespaces).
-- **Generador de Tipografía y Documentos**: Comprueba `typst` ($\ge 0.11$) y `dot` (Graphviz).
+- **Sandboxing de Kernel**: Audita permisos no privilegiados de `bwrap`
+  (Bubblewrap namespaces).
+- **Generador de Tipografía y Documentos**: Comprueba `typst` ($\ge 0.11$) y
+  `dot` (Graphviz).
 
 #### Matriz de Resolución de Problemas:
 
@@ -168,7 +225,8 @@ daedalus doctor
 (manual-daedalus-comandos)=
 ## 3. Referencia Completa de Comandos CLI
 
-A continuación se detallan los subcomandos principales disponibles en `daedalus`:
+A continuación se detallan los subcomandos principales disponibles en
+`daedalus`:
 
 | Sintaxis del Comando | Descripción y Efecto |
 | :--- | :--- |
@@ -177,9 +235,14 @@ A continuación se detallan los subcomandos principales disponibles en `daedalus
 | `daedalus suggest-flags` | Sugiere los flags defensivos adecuados según el estándar fijado. |
 | `daedalus doctor` | Verifica compiladores GCC y Clang instalados en el sistema. |
 
-````{tip}
-Podés agregar el flag `--json` a la mayoría de los comandos para exportar resultados en formato estructurado o `--md` para generar reportes Markdown para el informe de entrega.
-````
+::::{tip}
+
+Podés agregar el flag `--json` a la mayoría de los comandos para exportar
+resultados en formato estructurado o `--md` para generar reportes Markdown para
+el informe de entrega.
+
+::::
+<!-- {tip} -->
 
 ---
 
@@ -201,7 +264,9 @@ int main(void) {
     }
     return 0;
 }
+
 ````
+<!-- {code-block} c -->
 
 ### Ejecución de la Herramienta
 
@@ -209,11 +274,14 @@ Ejecutá el análisis desde tu terminal:
 
 ````{code-block} bash
 daedalus compile src/*.c -o ./bin/programa
+
 ````
+<!-- {code-block} bash -->
 
 ### Salida Obtenida en Consola
 
 ````{code-block} text
+:linenos:
 [!] ERROR PEDAGÓGICO DAEDALUS en main.c:5:9:
     Advertencia: sugerencia de paréntesis alrededor de la asignación usada como condición de verdad [-Wparentheses]
 
@@ -221,76 +289,107 @@ daedalus compile src/*.c -o ./bin/programa
     Escribiste 'x = 5' con un solo '=', lo cual ASIGNA el valor 5 a 'x' y siempre evalúa como verdadero.
     Si querías verificar igualdad, debés usar '==': 'if (x == 5)'.
     Si realmente deseabas una asignación dentro de la condición, encerrala entre paréntesis: 'if ((x = 5))'.
-````
 
-````{note}
-Prestá atención a la explicación pedagógica generada: la herramienta no solo señala la línea del problema, sino que explica la causa raíz y el impacto en memoria o arquitectura.
 ````
+<!-- {code-block} text -->
+
+::::{note}
+
+Prestá atención a la explicación pedagógica generada: la herramienta no solo
+señala la línea del problema, sino que explica la causa raíz y el impacto en
+memoria o arquitectura.
+
+::::
+<!-- {note} -->
 
 ---
 
 (manual-daedalus-ejercicios)=
 ## 5. Ejercicios Prácticos y Desafíos
 
-Practicá el uso avanzado de **`daedalus`** resolviendo los siguientes ejercicios:
+Practicá el uso avanzado de **`daedalus`** resolviendo los siguientes
+ejercicios:
 
-````{exercise} Desafío 1: Corrección de Warnings Defensivos
+::::{exercise} Desafío 1: Corrección de Warnings Defensivos
 :label: daedalus-desafio-1
 Compilar un código con variables sin inicializar y resolver todos los warnings.
 
 **Instrucción de ejecución:**
-```bash
+``` bash
 daedalus compile src/calculadora.c -o bin/calc
 ```
-````
+<!-- bash -->
 
-````{solution} daedalus-desafio-1
-```bash
+::::
+<!-- {exercise} Desafío 1: Corrección de Warnings Defensivos -->
+
+::::{solution} daedalus-desafio-1
+
+``` bash
 daedalus compile src/calculadora.c -o bin/calc
 # Verificá que la operación concluya exitosamente con código de salida 0.
 ```
-````
+<!-- bash -->
 
-````{exercise} Desafío 2: Traducción de Error de Enlazado (Linker / undefined reference)
+::::
+<!-- {solution} daedalus-desafio-1 -->
+
+::::{exercise} Desafío 2: Traducción de Error de Enlazado (Linker / undefined reference)
 :label: daedalus-desafio-2
-Explicar didácticamente el error `undefined reference to main` o función faltante.
+Explicar didácticamente el error `undefined reference to main` o función
+faltante.
 
 **Instrucción de ejecución:**
-```bash
+``` bash
 daedalus explain "undefined reference to 'lista_crear'"
 ```
-````
+<!-- bash -->
 
-````{solution} daedalus-desafio-2
-```bash
+::::
+<!-- {exercise} Desafío 2: Traducción de Error de Enlazado (Linker / undefined reference) -->
+
+::::{solution} daedalus-desafio-2
+
+``` bash
 daedalus explain "undefined reference to 'lista_crear'"
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
 ```
-````
+<!-- bash -->
 
-````{exercise} Desafío 3: Configuración de Flags de Optimización y Debug
+::::
+<!-- {solution} daedalus-desafio-2 -->
+
+::::{exercise} Desafío 3: Configuración de Flags de Optimización y Debug
 :label: daedalus-desafio-3
 Compilar con símbolos DWARF completos para depurar con GDB.
 
 **Instrucción de ejecución:**
-```bash
+``` bash
 daedalus compile src/main.c -g3 -o bin/debug_app
 ```
-````
+<!-- bash -->
 
-````{solution} daedalus-desafio-3
-```bash
+::::
+<!-- {exercise} Desafío 3: Configuración de Flags de Optimización y Debug -->
+
+::::{solution} daedalus-desafio-3
+
+``` bash
 daedalus compile src/main.c -g3 -o bin/debug_app
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.
 ```
-````
+<!-- bash -->
+
+::::
+<!-- {solution} daedalus-desafio-3 -->
 
 ---
 
 (manual-daedalus-makefile)=
 ## 6. Integración en el Flujo de Trabajo y Makefile
 
-Para incorporar `daedalus` de forma automática a tu flujo de desarrollo, agregá la siguiente regla en el `Makefile` de tu proyecto:
+Para incorporar `daedalus` de forma automática a tu flujo de desarrollo, agregá
+la siguiente regla en el `Makefile` de tu proyecto:
 
 ````{code-block} makefile
 check-daedalus:
@@ -298,9 +397,12 @@ check-daedalus:
 	daedalus check src/ include/
 
 .PHONY: check-daedalus
-````
 
-Ejecutá `make check-daedalus` antes de cada commit para mantener que tu código conserve el estado de aprobación.
+````
+<!-- {code-block} makefile -->
+
+Ejecutá `make check-daedalus` antes de cada commit para mantener que tu código
+conserve el estado de aprobación.
 
 ---
 
@@ -309,29 +411,41 @@ Ejecutá `make check-daedalus` antes de cada commit para mantener que tu código
 
 La herramienta **`daedalus`** implementa un motor de alta precisión basado en:
 
-- **Tecnología Núcleo:** `GCC 13/14 + Clang 18 + Regex Pedagogical Diagnostics Matcher + Cátedra Flags Engine`.
-- **Aislamiento y Determinismo:** Diseñada para operar sin efectos colaterales en entornos de integración continua (CI), terminales de estudiantes y servidores docentes headless.
-- **Manejo de Errores Pedagógico:** Todo fallo de sintaxis, memoria o lógica se traduce en una acción prescriptiva concreta con su respectiva justificación técnica.
+- **Tecnología Núcleo:** `GCC 13/14 + Clang 18 + Regex Pedagogical Diagnostics
+  Matcher + Cátedra Flags Engine`.
+- **Aislamiento y Determinismo:** Diseñada para operar sin efectos colaterales
+  en entornos de integración continua (CI), terminales de estudiantes y
+  servidores docentes headless.
+- **Manejo de Errores Pedagógico:** Todo fallo de sintaxis, memoria o lógica se
+  traduce en una acción prescriptiva concreta con su respectiva justificación
+  técnica.
 
 ---
 
 (manual-daedalus-ecosistema)=
 ## 8. Integración y Conexión con el Ecosistema
 
-````{note}
-Ninguna herramienta opera de forma aislada. **`daedalus`** forma parte del pipeline integral de evaluación, verificación y enseñanza de la cátedra.
-````
+::::{note}
+
+Ninguna herramienta opera de forma aislada. **`daedalus`** forma parte del
+pipeline integral de evaluación, verificación y enseñanza de la cátedra.
+
+::::
+<!-- {note} -->
 
 ### Diagrama de Flujo e Interoperabilidad
 
-````{mermaid}
+::::{mermaid}
+
 graph TD
     SRC[Código C del Estudiante] --> DAE[Daedalus: Compilador Pedagógico]
     DAE -->|Traducción de Warnings| TERM[Terminal Estudiante]
     DAE -->|Citas Normativas| ESP[Esper: Estándar ISO C11/C23]
     DAE -->|Binario con ASan/UBSan| TET[Tetsuo: Explicador Sanitizers]
     DAE -->|Binario Listo| NOS[Nostromo: Sandbox y Tests]
-````
+
+::::
+<!-- {mermaid} -->
 
 ### Matriz de Intercambio de Datos
 
@@ -345,18 +459,23 @@ graph TD
 
 ### Pipeline de Integración Recomendado
 
-Podés encadenar `daedalus` con otras herramientas del ecosistema en una única línea de comando:
+Podés encadenar `daedalus` con otras herramientas del ecosistema en una única
+línea de comando:
 
 ````{code-block} bash
 # Pipeline de integración típico
 daedalus compile src/*.c -o bin/app && nostromo run --binary ./bin/app
+
 ````
+<!-- {code-block} bash -->
 
 ---
 
 (manual-daedalus-seccion-plugins)=
 ## 9. Extensión, Desarrollo de Plugins y API Python
 
-Para crear tus propias reglas, conectores de evaluación o integrar `daedalus` programáticamente en pipelines de CI/CD:
+Para crear tus propias reglas, conectores de evaluación o integrar `daedalus`
+programáticamente en pipelines de CI/CD:
 
-- 👉 **Consultá la guía completa:** [Guía de Extensión y Creación de Plugins](plugins.md)
+- 👉 **Consultá la guía completa:** [Guía de Extensión y Creación de
+  Plugins](plugins.md)

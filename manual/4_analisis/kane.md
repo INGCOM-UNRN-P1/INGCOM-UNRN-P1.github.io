@@ -8,38 +8,54 @@ date: "2026-08-31"
 (manual-kane)=
 # Kane — Simulador y Depurador Visual de I/O de Bajo Nivel y Perfiles Seccomp
 
-```{admonition} Resumen Técnico del Satélite
+:::{admonition} Resumen Técnico del Satélite
 :class: note
-**Rol en el ecosistema:** Inspección de descriptores de archivo, mapeo binario de estructuras en disco, auditoría de syscalls de E/S (`read`, `write`, `lseek`) y filtrado con Seccomp.
-````
+**Rol en el ecosistema:** Inspección de descriptores de archivo, mapeo binario
+de estructuras en disco, auditoría de syscalls de E/S (`read`, `write`, `lseek`)
+y filtrado con Seccomp.
+
+:::
+<!-- {admonition} Resumen Técnico del Satélite -->
 
 ---
 
 (manual-kane-proposito)=
 ## 1. Propósito y Filosofía Pedagógica
 
-La herramienta **`kane`** forma parte del ecosistema oficial de software de la cátedra. Su diseño sigue principios pedagógicos rigurosos:
+La herramienta **`kane`** forma parte del ecosistema oficial de software de la
+cátedra. Su diseño sigue principios pedagógicos rigurosos:
 
-1. **Evidencia Técnica Directa**: Todo diagnóstico se fundamenta en la norma ISO C (C11/C23), en el modelo de memoria del sistema o en convenciones arquitectónicas formales.
-2. **Acción Correctiva Concreta**: Cada advertencia incluye la prescripción técnica inmediata para resolver el defecto sin recurrir a conjeturas.
-3. **Autonomía del Estudiante**: Facilita la autoevaluación local antes de la entrega final del trabajo práctico.
-4. **Objetividad Docente**: Estandariza la corrección automática removiendo discrepancias subjetivas en la evaluación.
+1. **Evidencia Técnica Directa**: Todo diagnóstico se fundamenta en la norma ISO
+   C (C11/C23), en el modelo de memoria del sistema o en convenciones
+   arquitectónicas formales.
+2. **Acción Correctiva Concreta**: Cada advertencia incluye la prescripción
+   técnica inmediata para resolver el defecto sin recurrir a conjeturas.
+3. **Autonomía del Estudiante**: Facilita la autoevaluación local antes de la
+   entrega final del trabajo práctico.
+4. **Objetividad Docente**: Estandariza la corrección automática removiendo
+   discrepancias subjetivas en la evaluación.
 
 ---
 
 (manual-kane-instalacion)=
 ## 2. Instalación y Verificación del Entorno
 
-````{important}
-Para proveer la reproducibilidad técnica de la cátedra, verificá instalar las dependencias nativas del sistema operativo antes de instalar el paquete Python.
-````
+::::{important}
+
+Para proveer la reproducibilidad técnica de la cátedra, verificá instalar las
+dependencias nativas del sistema operativo antes de instalar el paquete Python.
+
+::::
+<!-- {important} -->
 
 ### 2.1 Requisitos Previos del Sistema
 
 Instalá los paquetes del sistema requeridos según tu distribución o entorno:
 
-````{tab-set}
-```{tab-item} Ubuntu / Debian
+::::{tab-set}
+
+:::{tab-item} Ubuntu / Debian
+
 sudo apt update && sudo apt install -y \
     build-essential \
     gcc \
@@ -52,9 +68,12 @@ sudo apt update && sudo apt install -y \
     graphviz \
     python3-pip \
     python3-venv
-```
 
-```{tab-item} Arch Linux / Manjaro
+:::
+<!-- {tab-item} Ubuntu / Debian -->
+
+:::{tab-item} Arch Linux / Manjaro
+
 sudo pacman -S --needed \
     base-devel \
     gcc \
@@ -66,9 +85,12 @@ sudo pacman -S --needed \
     graphviz \
     python-pip \
     uv
-```
 
-```{tab-item} Fedora / RHEL
+:::
+<!-- {tab-item} Arch Linux / Manjaro -->
+
+:::{tab-item} Fedora / RHEL
+
 sudo dnf install -y \
     gcc \
     gcc-c++ \
@@ -79,21 +101,31 @@ sudo dnf install -y \
     typst \
     graphviz \
     python3-pip
-```
 
-```{tab-item} macOS (Homebrew)
+:::
+<!-- {tab-item} Fedora / RHEL -->
+
+:::{tab-item} macOS (Homebrew)
+
 brew install gcc gdb clang-format typst graphviz uv
-```
 
-```{tab-item} Windows (MSYS2 / WSL2)
+:::
+<!-- {tab-item} macOS (Homebrew) -->
+
+:::{tab-item} Windows (MSYS2 / WSL2)
+
 # En WSL2 (Ubuntu): utilizar los paquetes de Ubuntu/Debian arriba.
 # En MSYS2 MINGW64:
 pacman -S --needed \
     mingw-w64-x86_64-gcc \
     mingw-w64-x86_64-gdb \
     mingw-w64-x86_64-clang-tools-extra
-```
-````
+
+:::
+<!-- {tab-item} Windows (MSYS2 / WSL2) -->
+
+::::
+<!-- {tab-set} -->
 
 ---
 
@@ -101,35 +133,48 @@ pacman -S --needed \
 
 Podés instalar `kane` mediante cualquiera de los siguientes métodos estándar:
 
-````{tab-set}
-```{tab-item} uv tool (Recomendado)
+::::{tab-set}
+
+:::{tab-item} uv tool (Recomendado)
+
 # Instalación aislada de alta velocidad con uv
 uv tool install . --editable
 
 # O instalar todo el ecosistema de herramientas de la cátedra en lote:
 source ./install_tools.sh
-```
 
-```{tab-item} pip / venv
+:::
+<!-- {tab-item} uv tool (Recomendado) -->
+
+:::{tab-item} pip / venv
+
 # Crear y activar un entorno virtual
 python3 -m venv .venv
 source .venv/bin/activate
 
 # Instalar en modo editable para desarrollo
 pip install -e .
-```
 
-```{tab-item} pipx
+:::
+<!-- {tab-item} pip / venv -->
+
+:::{tab-item} pipx
+
 # Instalación global aislada en tu PATH
 pipx install --editable .
-```
-````
+
+:::
+<!-- {tab-item} pipx -->
+
+::::
+<!-- {tab-set} -->
 
 ---
 
 ### 2.3 Autocompletado en la Shell
 
-La interfaz CLI de `kane` cuenta con autocompletado nativo para comandos, flags y archivos. Para configurarlo permanentemente en tu shell:
+La interfaz CLI de `kane` cuenta con autocompletado nativo para comandos, flags
+y archivos. Para configurarlo permanentemente en tu shell:
 
 ````{code-block} bash
 # Configuración automática en Bash / Zsh / Fish
@@ -137,25 +182,35 @@ kane --install-completion
 
 # Para cargar el autocompletado en la sesión actual de inmediato:
 source ./install_tools.sh
+
 ````
+<!-- {code-block} bash -->
 
 ---
 
 ### 2.4 Verificación del Entorno con `doctor`
 
-Toda herramienta del ecosistema cuenta con el subcomando unificado `doctor`. Ejecutalo para auditar el estado del entorno:
+Toda herramienta del ecosistema cuenta con el subcomando unificado `doctor`.
+Ejecutalo para auditar el estado del entorno:
 
 ````{code-block} bash
 kane doctor
+
 ````
+<!-- {code-block} bash -->
 
 #### Comprobaciones Ejecutadas por el Diagnóstico:
-- **Compilador C**: Verifica disponibilidad de `gcc` o `clang` con soporte de estándares C11 y C23.
-- **Depurador y Core Dumps**: Comprueba que `gdb` esté instalado y que `ulimit -c` permita generación de core dumps.
-- **Herramientas de Memoria**: Valida la presencia de `valgrind` y librerías `libasan`/`libubsan`.
+- **Compilador C**: Verifica disponibilidad de `gcc` o `clang` con soporte de
+  estándares C11 y C23.
+- **Depurador y Core Dumps**: Comprueba que `gdb` esté instalado y que `ulimit
+  -c` permita generación de core dumps.
+- **Herramientas de Memoria**: Valida la presencia de `valgrind` y librerías
+  `libasan`/`libubsan`.
 - **Formateo y Estilo**: Verifica el binario `clang-format` (versión 16+).
-- **Sandboxing de Kernel**: Audita permisos no privilegiados de `bwrap` (Bubblewrap namespaces).
-- **Generador de Tipografía y Documentos**: Comprueba `typst` ($\ge 0.11$) y `dot` (Graphviz).
+- **Sandboxing de Kernel**: Audita permisos no privilegiados de `bwrap`
+  (Bubblewrap namespaces).
+- **Generador de Tipografía y Documentos**: Comprueba `typst` ($\ge 0.11$) y
+  `dot` (Graphviz).
 
 #### Matriz de Resolución de Problemas:
 
@@ -178,9 +233,14 @@ A continuación se detallan los subcomandos principales disponibles en `kane`:
 | `kane audit-fds -- ./bin/servidor` | Detecta descriptores de archivo abiertos que no fueron cerrados con close/fclose. |
 | `kane doctor` | Verifica el soporte de ptrace y seccomp en el kernel Linux. |
 
-````{tip}
-Podés agregar el flag `--json` a la mayoría de los comandos para exportar resultados en formato estructurado o `--md` para generar reportes Markdown para el informe de entrega.
-````
+::::{tip}
+
+Podés agregar el flag `--json` a la mayoría de los comandos para exportar
+resultados en formato estructurado o `--md` para generar reportes Markdown para
+el informe de entrega.
+
+::::
+<!-- {tip} -->
 
 ---
 
@@ -208,7 +268,9 @@ void guardar(const char *path) {
     write(fd, &r, sizeof(r));
     // Falta close(fd) -> Kane alertará fuga de FD
 }
+
 ````
+<!-- {code-block} c -->
 
 ### Ejecución de la Herramienta
 
@@ -216,7 +278,9 @@ Ejecutá el análisis desde tu terminal:
 
 ````{code-block} bash
 kane trace -- ./bin/programa
+
 ````
+<!-- {code-block} bash -->
 
 ### Salida Obtenida en Consola
 
@@ -227,11 +291,18 @@ kane trace -- ./bin/programa
 [✓] Mapeo de Struct en datos.bin (8 bytes):
     ├─ legajo: 12345 (0x00003039)
     └─ nota: 9.500000 (0x41180000)
-````
 
-````{note}
-Prestá atención a la explicación pedagógica generada: la herramienta no solo señala la línea del problema, sino que explica la causa raíz y el impacto en memoria o arquitectura.
 ````
+<!-- {code-block} text -->
+
+::::{note}
+
+Prestá atención a la explicación pedagógica generada: la herramienta no solo
+señala la línea del problema, sino que explica la causa raíz y el impacto en
+memoria o arquitectura.
+
+::::
+<!-- {note} -->
 
 ---
 
@@ -240,63 +311,85 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 
 Practicá el uso avanzado de **`kane`** resolviendo los siguientes ejercicios:
 
-````{exercise} Desafío 1: Detección de Fugas de Descriptores (FD Leaks)
+::::{exercise} Desafío 1: Detección de Fugas de Descriptores (FD Leaks)
 :label: kane-desafio-1
 Encontrar archivos abiertos con `fopen` que no tienen `fclose`.
 
 **Instrucción de ejecución:**
-```bash
+``` bash
 kane audit-fds -- ./bin/app_archivos
 ```
-````
+<!-- bash -->
 
-````{solution} kane-desafio-1
-```bash
+::::
+<!-- {exercise} Desafío 1: Detección de Fugas de Descriptores (FD Leaks) -->
+
+::::{solution} kane-desafio-1
+
+``` bash
 kane audit-fds -- ./bin/app_archivos
 # Verificá que la operación concluya exitosamente con código de salida 0.
 ```
-````
+<!-- bash -->
 
-````{exercise} Desafío 2: Inspección Hexadecimal de Archivo Binario
+::::
+<!-- {solution} kane-desafio-1 -->
+
+::::{exercise} Desafío 2: Inspección Hexadecimal de Archivo Binario
 :label: kane-desafio-2
 Mapear un archivo `.dat` con la definición de `struct Alumno`.
 
 **Instrucción de ejecución:**
-```bash
+``` bash
 kane dump-struct alumnos.dat --format include/alumno.h
 ```
-````
+<!-- bash -->
 
-````{solution} kane-desafio-2
-```bash
+::::
+<!-- {exercise} Desafío 2: Inspección Hexadecimal de Archivo Binario -->
+
+::::{solution} kane-desafio-2
+
+``` bash
 kane dump-struct alumnos.dat --format include/alumno.h
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
 ```
-````
+<!-- bash -->
 
-````{exercise} Desafío 3: Auditoría de Llamadas al Sistema de E/S
+::::
+<!-- {solution} kane-desafio-2 -->
+
+::::{exercise} Desafío 3: Auditoría de Llamadas al Sistema de E/S
 :label: kane-desafio-3
 Monitorear offsets y bytes transferidos en operaciones `lseek`.
 
 **Instrucción de ejecución:**
-```bash
+``` bash
 kane trace -- ./bin/lector_indices
 ```
-````
+<!-- bash -->
 
-````{solution} kane-desafio-3
-```bash
+::::
+<!-- {exercise} Desafío 3: Auditoría de Llamadas al Sistema de E/S -->
+
+::::{solution} kane-desafio-3
+
+``` bash
 kane trace -- ./bin/lector_indices
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.
 ```
-````
+<!-- bash -->
+
+::::
+<!-- {solution} kane-desafio-3 -->
 
 ---
 
 (manual-kane-makefile)=
 ## 6. Integración en el Flujo de Trabajo y Makefile
 
-Para incorporar `kane` de forma automática a tu flujo de desarrollo, agregá la siguiente regla en el `Makefile` de tu proyecto:
+Para incorporar `kane` de forma automática a tu flujo de desarrollo, agregá la
+siguiente regla en el `Makefile` de tu proyecto:
 
 ````{code-block} makefile
 check-kane:
@@ -304,9 +397,12 @@ check-kane:
 	kane check src/ include/
 
 .PHONY: check-kane
-````
 
-Ejecutá `make check-kane` antes de cada commit para mantener que tu código conserve el estado de aprobación.
+````
+<!-- {code-block} makefile -->
+
+Ejecutá `make check-kane` antes de cada commit para mantener que tu código
+conserve el estado de aprobación.
 
 ---
 
@@ -315,29 +411,41 @@ Ejecutá `make check-kane` antes de cada commit para mantener que tu código con
 
 La herramienta **`kane`** implementa un motor de alta precisión basado en:
 
-- **Tecnología Núcleo:** `Linux ptrace Syscall Interceptor + Struct Memory Binary Unpacker + Seccomp BPF Filter`.
-- **Aislamiento y Determinismo:** Diseñada para operar sin efectos colaterales en entornos de integración continua (CI), terminales de estudiantes y servidores docentes headless.
-- **Manejo de Errores Pedagógico:** Todo fallo de sintaxis, memoria o lógica se traduce en una acción prescriptiva concreta con su respectiva justificación técnica.
+- **Tecnología Núcleo:** `Linux ptrace Syscall Interceptor + Struct Memory
+  Binary Unpacker + Seccomp BPF Filter`.
+- **Aislamiento y Determinismo:** Diseñada para operar sin efectos colaterales
+  en entornos de integración continua (CI), terminales de estudiantes y
+  servidores docentes headless.
+- **Manejo de Errores Pedagógico:** Todo fallo de sintaxis, memoria o lógica se
+  traduce en una acción prescriptiva concreta con su respectiva justificación
+  técnica.
 
 ---
 
 (manual-kane-ecosistema)=
 ## 8. Integración y Conexión con el Ecosistema
 
-````{note}
-Ninguna herramienta opera de forma aislada. **`kane`** forma parte del pipeline integral de evaluación, verificación y enseñanza de la cátedra.
-````
+::::{note}
+
+Ninguna herramienta opera de forma aislada. **`kane`** forma parte del pipeline
+integral de evaluación, verificación y enseñanza de la cátedra.
+
+::::
+<!-- {note} -->
 
 ### Diagrama de Flujo e Interoperabilidad
 
-````{mermaid}
+::::{mermaid}
+
 graph TD
     DAT[Archivos Binarios .dat/.bin] --> KAN[Kane: Depurador de E/S]
     HDR[Headers C: Structs] --> KAN
     KAN -->|Auditoría de Descriptores| PTRACE[Linux ptrace Engine]
     KAN -->|Layout en Disco| BRT[Brett: Auditor de Structs]
     KAN -->|Perfiles Seccomp BPF| NOS[Nostromo: Sandbox Seguro]
-````
+
+::::
+<!-- {mermaid} -->
 
 ### Matriz de Intercambio de Datos
 
@@ -345,23 +453,29 @@ graph TD
 | :--- | :--- | :--- |
 | **Entradas (Inputs)** | - `Binarios C y archivos de datos en disco (.bin, .dat)` | Código fuente, AST, binarios, testcases, contratos |
 | **Salidas (Outputs)** | - `brett (verificación de layout en disco)`
-- `nostromo (perfiles seccomp)` | Informes Markdown, diagnósticos Rich, JSON, actas |
+- `nostromo (perfiles seccomp)` | Informes Markdown, diagnósticos Rich, JSON,
+  actas |
 | **Sincronización** | `brett`, `nostromo`, `crowe` | Validación cruzada, flags compartidos y autofix |
 
 ### Pipeline de Integración Recomendado
 
-Podés encadenar `kane` con otras herramientas del ecosistema en una única línea de comando:
+Podés encadenar `kane` con otras herramientas del ecosistema en una única línea
+de comando:
 
 ````{code-block} bash
 # Pipeline de integración típico
 kane dump-struct alumnos.dat --format include/alumno.h
+
 ````
+<!-- {code-block} bash -->
 
 ---
 
 (manual-kane-seccion-plugins)=
 ## 9. Extensión, Desarrollo de Plugins y API Python
 
-Para crear tus propias reglas, conectores de evaluación o integrar `kane` programáticamente en pipelines de CI/CD:
+Para crear tus propias reglas, conectores de evaluación o integrar `kane`
+programáticamente en pipelines de CI/CD:
 
-- 👉 **Consultá la guía completa:** [Guía de Extensión y Creación de Plugins](plugins.md)
+- 👉 **Consultá la guía completa:** [Guía de Extensión y Creación de
+  Plugins](plugins.md)

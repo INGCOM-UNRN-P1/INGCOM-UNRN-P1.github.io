@@ -8,38 +8,55 @@ date: "2026-08-31"
 (manual-rachel)=
 # Rachel — Desensamblador y Verificador de Jump Tables O(1) en Sentencias Switch
 
-```{admonition} Resumen Técnico del Satélite
+:::{admonition} Resumen Técnico del Satélite
 :class: note
-**Rol en el ecosistema:** Desensamblado de código máquina y análisis de grafos de control para verificar si el compilador generó una tabla de saltos indexada O(1) (Jump Table / rodata) o una cascada ineficiente de comparaciones if-else O(N).
-````
+**Rol en el ecosistema:** Desensamblado de código máquina y análisis de grafos
+de control para verificar si el compilador generó una tabla de saltos indexada
+O(1) (Jump Table / rodata) o una cascada ineficiente de comparaciones if-else
+O(N).
+
+:::
+<!-- {admonition} Resumen Técnico del Satélite -->
 
 ---
 
 (manual-rachel-proposito)=
 ## 1. Propósito y Filosofía Pedagógica
 
-La herramienta **`rachel`** forma parte del ecosistema oficial de software de la cátedra. Su diseño sigue principios pedagógicos rigurosos:
+La herramienta **`rachel`** forma parte del ecosistema oficial de software de la
+cátedra. Su diseño sigue principios pedagógicos rigurosos:
 
-1. **Evidencia Técnica Directa**: Todo diagnóstico se fundamenta en la norma ISO C (C11/C23), en el modelo de memoria del sistema o en convenciones arquitectónicas formales.
-2. **Acción Correctiva Concreta**: Cada advertencia incluye la prescripción técnica inmediata para resolver el defecto sin recurrir a conjeturas.
-3. **Autonomía del Estudiante**: Facilita la autoevaluación local antes de la entrega final del trabajo práctico.
-4. **Objetividad Docente**: Estandariza la corrección automática removiendo discrepancias subjetivas en la evaluación.
+1. **Evidencia Técnica Directa**: Todo diagnóstico se fundamenta en la norma ISO
+   C (C11/C23), en el modelo de memoria del sistema o en convenciones
+   arquitectónicas formales.
+2. **Acción Correctiva Concreta**: Cada advertencia incluye la prescripción
+   técnica inmediata para resolver el defecto sin recurrir a conjeturas.
+3. **Autonomía del Estudiante**: Facilita la autoevaluación local antes de la
+   entrega final del trabajo práctico.
+4. **Objetividad Docente**: Estandariza la corrección automática removiendo
+   discrepancias subjetivas en la evaluación.
 
 ---
 
 (manual-rachel-instalacion)=
 ## 2. Instalación y Verificación del Entorno
 
-````{important}
-Para proveer la reproducibilidad técnica de la cátedra, verificá instalar las dependencias nativas del sistema operativo antes de instalar el paquete Python.
-````
+::::{important}
+
+Para proveer la reproducibilidad técnica de la cátedra, verificá instalar las
+dependencias nativas del sistema operativo antes de instalar el paquete Python.
+
+::::
+<!-- {important} -->
 
 ### 2.1 Requisitos Previos del Sistema
 
 Instalá los paquetes del sistema requeridos según tu distribución o entorno:
 
-````{tab-set}
-```{tab-item} Ubuntu / Debian
+::::{tab-set}
+
+:::{tab-item} Ubuntu / Debian
+
 sudo apt update && sudo apt install -y \
     build-essential \
     gcc \
@@ -52,9 +69,12 @@ sudo apt update && sudo apt install -y \
     graphviz \
     python3-pip \
     python3-venv
-```
 
-```{tab-item} Arch Linux / Manjaro
+:::
+<!-- {tab-item} Ubuntu / Debian -->
+
+:::{tab-item} Arch Linux / Manjaro
+
 sudo pacman -S --needed \
     base-devel \
     gcc \
@@ -66,9 +86,12 @@ sudo pacman -S --needed \
     graphviz \
     python-pip \
     uv
-```
 
-```{tab-item} Fedora / RHEL
+:::
+<!-- {tab-item} Arch Linux / Manjaro -->
+
+:::{tab-item} Fedora / RHEL
+
 sudo dnf install -y \
     gcc \
     gcc-c++ \
@@ -79,21 +102,31 @@ sudo dnf install -y \
     typst \
     graphviz \
     python3-pip
-```
 
-```{tab-item} macOS (Homebrew)
+:::
+<!-- {tab-item} Fedora / RHEL -->
+
+:::{tab-item} macOS (Homebrew)
+
 brew install gcc gdb clang-format typst graphviz uv
-```
 
-```{tab-item} Windows (MSYS2 / WSL2)
+:::
+<!-- {tab-item} macOS (Homebrew) -->
+
+:::{tab-item} Windows (MSYS2 / WSL2)
+
 # En WSL2 (Ubuntu): utilizar los paquetes de Ubuntu/Debian arriba.
 # En MSYS2 MINGW64:
 pacman -S --needed \
     mingw-w64-x86_64-gcc \
     mingw-w64-x86_64-gdb \
     mingw-w64-x86_64-clang-tools-extra
-```
-````
+
+:::
+<!-- {tab-item} Windows (MSYS2 / WSL2) -->
+
+::::
+<!-- {tab-set} -->
 
 ---
 
@@ -101,35 +134,48 @@ pacman -S --needed \
 
 Podés instalar `rachel` mediante cualquiera de los siguientes métodos estándar:
 
-````{tab-set}
-```{tab-item} uv tool (Recomendado)
+::::{tab-set}
+
+:::{tab-item} uv tool (Recomendado)
+
 # Instalación aislada de alta velocidad con uv
 uv tool install . --editable
 
 # O instalar todo el ecosistema de herramientas de la cátedra en lote:
 source ./install_tools.sh
-```
 
-```{tab-item} pip / venv
+:::
+<!-- {tab-item} uv tool (Recomendado) -->
+
+:::{tab-item} pip / venv
+
 # Crear y activar un entorno virtual
 python3 -m venv .venv
 source .venv/bin/activate
 
 # Instalar en modo editable para desarrollo
 pip install -e .
-```
 
-```{tab-item} pipx
+:::
+<!-- {tab-item} pip / venv -->
+
+:::{tab-item} pipx
+
 # Instalación global aislada en tu PATH
 pipx install --editable .
-```
-````
+
+:::
+<!-- {tab-item} pipx -->
+
+::::
+<!-- {tab-set} -->
 
 ---
 
 ### 2.3 Autocompletado en la Shell
 
-La interfaz CLI de `rachel` cuenta con autocompletado nativo para comandos, flags y archivos. Para configurarlo permanentemente en tu shell:
+La interfaz CLI de `rachel` cuenta con autocompletado nativo para comandos,
+flags y archivos. Para configurarlo permanentemente en tu shell:
 
 ````{code-block} bash
 # Configuración automática en Bash / Zsh / Fish
@@ -137,25 +183,35 @@ rachel --install-completion
 
 # Para cargar el autocompletado en la sesión actual de inmediato:
 source ./install_tools.sh
+
 ````
+<!-- {code-block} bash -->
 
 ---
 
 ### 2.4 Verificación del Entorno con `doctor`
 
-Toda herramienta del ecosistema cuenta con el subcomando unificado `doctor`. Ejecutalo para auditar el estado del entorno:
+Toda herramienta del ecosistema cuenta con el subcomando unificado `doctor`.
+Ejecutalo para auditar el estado del entorno:
 
 ````{code-block} bash
 rachel doctor
+
 ````
+<!-- {code-block} bash -->
 
 #### Comprobaciones Ejecutadas por el Diagnóstico:
-- **Compilador C**: Verifica disponibilidad de `gcc` o `clang` con soporte de estándares C11 y C23.
-- **Depurador y Core Dumps**: Comprueba que `gdb` esté instalado y que `ulimit -c` permita generación de core dumps.
-- **Herramientas de Memoria**: Valida la presencia de `valgrind` y librerías `libasan`/`libubsan`.
+- **Compilador C**: Verifica disponibilidad de `gcc` o `clang` con soporte de
+  estándares C11 y C23.
+- **Depurador y Core Dumps**: Comprueba que `gdb` esté instalado y que `ulimit
+  -c` permita generación de core dumps.
+- **Herramientas de Memoria**: Valida la presencia de `valgrind` y librerías
+  `libasan`/`libubsan`.
 - **Formateo y Estilo**: Verifica el binario `clang-format` (versión 16+).
-- **Sandboxing de Kernel**: Audita permisos no privilegiados de `bwrap` (Bubblewrap namespaces).
-- **Generador de Tipografía y Documentos**: Comprueba `typst` ($\ge 0.11$) y `dot` (Graphviz).
+- **Sandboxing de Kernel**: Audita permisos no privilegiados de `bwrap`
+  (Bubblewrap namespaces).
+- **Generador de Tipografía y Documentos**: Comprueba `typst` ($\ge 0.11$) y
+  `dot` (Graphviz).
 
 #### Matriz de Resolución de Problemas:
 
@@ -178,9 +234,14 @@ A continuación se detallan los subcomandos principales disponibles en `rachel`:
 | `rachel optimize-switch src/despachador.c` | Sugiere densificación de etiquetas case para forzar Jump Table. |
 | `rachel doctor` | Verifica la disponibilidad de objdump, GDB y compiladores. |
 
-````{tip}
-Podés agregar el flag `--json` a la mayoría de los comandos para exportar resultados en formato estructurado o `--md` para generar reportes Markdown para el informe de entrega.
-````
+::::{tip}
+
+Podés agregar el flag `--json` a la mayoría de los comandos para exportar
+resultados en formato estructurado o `--md` para generar reportes Markdown para
+el informe de entrega.
+
+::::
+<!-- {tip} -->
 
 ---
 
@@ -205,7 +266,9 @@ void despachar_comando(int cmd) {
         default: printf("Invalido\n"); break;
     }
 }
+
 ````
+<!-- {code-block} c -->
 
 ### Ejecución de la Herramienta
 
@@ -213,7 +276,9 @@ Ejecutá el análisis desde tu terminal:
 
 ````{code-block} bash
 rachel check src/procesador.c
+
 ````
+<!-- {code-block} bash -->
 
 ### Salida Obtenida en Consola
 
@@ -222,11 +287,18 @@ rachel check src/procesador.c
     • Patrón detectado: Jump Table O(1) indexada en .rodata (4 entradas contiguas).
     • Instrucción de despacho: 'jmpq *0x402060(,%rdi,8)'
     • Complejidad temporal: O(1) constante (independiente de la cantidad de cases).
-````
 
-````{note}
-Prestá atención a la explicación pedagógica generada: la herramienta no solo señala la línea del problema, sino que explica la causa raíz y el impacto en memoria o arquitectura.
 ````
+<!-- {code-block} text -->
+
+::::{note}
+
+Prestá atención a la explicación pedagógica generada: la herramienta no solo
+señala la línea del problema, sino que explica la causa raíz y el impacto en
+memoria o arquitectura.
+
+::::
+<!-- {note} -->
 
 ---
 
@@ -235,63 +307,86 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 
 Practicá el uso avanzado de **`rachel`** resolviendo los siguientes ejercicios:
 
-````{exercise} Desafío 1: Verificación de Tabla de Saltos en Intérprete
+::::{exercise} Desafío 1: Verificación de Tabla de Saltos en Intérprete
 :label: rachel-desafio-1
 Comprobar que el switch del despachador de opcodes compila a Jump Table.
 
 **Instrucción de ejecución:**
-```bash
+``` bash
 rachel check src/interprete.c
 ```
-````
+<!-- bash -->
 
-````{solution} rachel-desafio-1
-```bash
+::::
+<!-- {exercise} Desafío 1: Verificación de Tabla de Saltos en Intérprete -->
+
+::::{solution} rachel-desafio-1
+
+``` bash
 rachel check src/interprete.c
 # Verificá que la operación concluya exitosamente con código de salida 0.
 ```
-````
+<!-- bash -->
 
-````{exercise} Desafío 2: Densificación de Casos Esparsos
+::::
+<!-- {solution} rachel-desafio-1 -->
+
+::::{exercise} Desafío 2: Densificación de Casos Esparsos
 :label: rachel-desafio-2
-Transformar un switch disperso (case 1, case 1000, case 50000) en densidad contigua.
+Transformar un switch disperso (case 1, case 1000, case 50000) en densidad
+contigua.
 
 **Instrucción de ejecución:**
-```bash
+``` bash
 rachel optimize-switch src/comandos.c
 ```
-````
+<!-- bash -->
 
-````{solution} rachel-desafio-2
-```bash
+::::
+<!-- {exercise} Desafío 2: Densificación de Casos Esparsos -->
+
+::::{solution} rachel-desafio-2
+
+``` bash
 rachel optimize-switch src/comandos.c
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
 ```
-````
+<!-- bash -->
 
-````{exercise} Desafío 3: Inspección de Instrucciones Ensamblador
+::::
+<!-- {solution} rachel-desafio-2 -->
+
+::::{exercise} Desafío 3: Inspección de Instrucciones Ensamblador
 :label: rachel-desafio-3
 Desensamblar la función despachadora y examinar la tabla en `.rodata`.
 
 **Instrucción de ejecución:**
-```bash
+``` bash
 rachel disasm src/procesador.c --function despachar_comando
 ```
-````
+<!-- bash -->
 
-````{solution} rachel-desafio-3
-```bash
+::::
+<!-- {exercise} Desafío 3: Inspección de Instrucciones Ensamblador -->
+
+::::{solution} rachel-desafio-3
+
+``` bash
 rachel disasm src/procesador.c --function despachar_comando
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.
 ```
-````
+<!-- bash -->
+
+::::
+<!-- {solution} rachel-desafio-3 -->
 
 ---
 
 (manual-rachel-makefile)=
 ## 6. Integración en el Flujo de Trabajo y Makefile
 
-Para incorporar `rachel` de forma automática a tu flujo de desarrollo, agregá la siguiente regla en el `Makefile` de tu proyecto:
+Para incorporar `rachel` de forma automática a tu flujo de desarrollo, agregá la
+siguiente regla en el `Makefile` de tu proyecto:
 
 ````{code-block} makefile
 check-rachel:
@@ -299,9 +394,12 @@ check-rachel:
 	rachel check src/ include/
 
 .PHONY: check-rachel
-````
 
-Ejecutá `make check-rachel` antes de cada commit para mantener que tu código conserve el estado de aprobación.
+````
+<!-- {code-block} makefile -->
+
+Ejecutá `make check-rachel` antes de cada commit para mantener que tu código
+conserve el estado de aprobación.
 
 ---
 
@@ -310,28 +408,40 @@ Ejecutá `make check-rachel` antes de cada commit para mantener que tu código c
 
 La herramienta **`rachel`** implementa un motor de alta precisión basado en:
 
-- **Tecnología Núcleo:** `GNU objdump / GDB Disassembler + Jump Table .rodata Extractor + Control Flow Branch Predictor`.
-- **Aislamiento y Determinismo:** Diseñada para operar sin efectos colaterales en entornos de integración continua (CI), terminales de estudiantes y servidores docentes headless.
-- **Manejo de Errores Pedagógico:** Todo fallo de sintaxis, memoria o lógica se traduce en una acción prescriptiva concreta con su respectiva justificación técnica.
+- **Tecnología Núcleo:** `GNU objdump / GDB Disassembler + Jump Table .rodata
+  Extractor + Control Flow Branch Predictor`.
+- **Aislamiento y Determinismo:** Diseñada para operar sin efectos colaterales
+  en entornos de integración continua (CI), terminales de estudiantes y
+  servidores docentes headless.
+- **Manejo de Errores Pedagógico:** Todo fallo de sintaxis, memoria o lógica se
+  traduce en una acción prescriptiva concreta con su respectiva justificación
+  técnica.
 
 ---
 
 (manual-rachel-ecosistema)=
 ## 8. Integración y Conexión con el Ecosistema
 
-````{note}
-Ninguna herramienta opera de forma aislada. **`rachel`** forma parte del pipeline integral de evaluación, verificación y enseñanza de la cátedra.
-````
+::::{note}
+
+Ninguna herramienta opera de forma aislada. **`rachel`** forma parte del
+pipeline integral de evaluación, verificación y enseñanza de la cátedra.
+
+::::
+<!-- {note} -->
 
 ### Diagrama de Flujo e Interoperabilidad
 
-````{mermaid}
+::::{mermaid}
+
 graph TD
     SRC[Código C: Sentencias switch] --> DAE[Daedalus: Compilador GCC]
     DAE -->|Binario Compilado| RCH[Rachel: Desensamblador O(1)]
     RCH -->|Inspección .rodata| OBJDUMP[GNU objdump Disassembler]
     RCH -->|Verificación O(1) vs O(N)| FRR[Ferro: Perfilador de Rendimiento]
-````
+
+::::
+<!-- {mermaid} -->
 
 ### Matriz de Intercambio de Datos
 
@@ -339,23 +449,29 @@ graph TD
 | :--- | :--- | :--- |
 | **Entradas (Inputs)** | - `Binarios compilados con sentencias switch` | Código fuente, AST, binarios, testcases, contratos |
 | **Salidas (Outputs)** | - `ferro (análisis de saltos)`
-- `deckard (ejercicios de bajo nivel)` | Informes Markdown, diagnósticos Rich, JSON, actas |
+- `deckard (ejercicios de bajo nivel)` | Informes Markdown, diagnósticos Rich,
+  JSON, actas |
 | **Sincronización** | `daedalus`, `ferro`, `bishop` | Validación cruzada, flags compartidos y autofix |
 
 ### Pipeline de Integración Recomendado
 
-Podés encadenar `rachel` con otras herramientas del ecosistema en una única línea de comando:
+Podés encadenar `rachel` con otras herramientas del ecosistema en una única
+línea de comando:
 
 ````{code-block} bash
 # Pipeline de integración típico
 rachel check src/despachador.c --disasm
+
 ````
+<!-- {code-block} bash -->
 
 ---
 
 (manual-rachel-seccion-plugins)=
 ## 9. Extensión, Desarrollo de Plugins y API Python
 
-Para crear tus propias reglas, conectores de evaluación o integrar `rachel` programáticamente en pipelines de CI/CD:
+Para crear tus propias reglas, conectores de evaluación o integrar `rachel`
+programáticamente en pipelines de CI/CD:
 
-- 👉 **Consultá la guía completa:** [Guía de Extensión y Creación de Plugins](plugins.md)
+- 👉 **Consultá la guía completa:** [Guía de Extensión y Creación de
+  Plugins](plugins.md)

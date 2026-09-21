@@ -6,7 +6,11 @@ subtitle: "Auditorías de bajo nivel: empaquetado de memoria en structs, portabi
 
 # Análisis Estático Especializado
 
-Auditorías de bajo nivel: empaquetado de memoria en structs, portabilidad y endianness, grafos de llamadas y recursividad, desensamblado de saltos, macros y encabezados.
+Auditorías de bajo nivel: empaquetado de memoria en structs, portabilidad y
+endianness, grafos de llamadas y recursividad, desensamblado de saltos, macros y
+encabezados.
 
-```{tableofcontents}
-```
+:::{tableofcontents}
+
+:::
+<!-- {tableofcontents} -->

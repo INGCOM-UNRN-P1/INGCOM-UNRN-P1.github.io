@@ -8,37 +8,54 @@ date: "2026-08-31"
 (manual-myst_tools)=
 # Myst-Tools — Suite de Normalización, Formateo a 80 Columnas, Anclas e Índices MyST
 
-```{note} Resumen Técnico del Satélite
-**Rol en el ecosistema:** Automatización y estandarización de material didáctico en formato MyST Markdown: formateo a 80 columnas respetando directivas, anclas semánticas, generación de índices y corrector LanguageTool.
-```
+:::{note} Resumen Técnico del Satélite
+
+**Rol en el ecosistema:** Automatización y estandarización de material didáctico
+en formato MyST Markdown: formateo a 80 columnas respetando directivas, anclas
+semánticas, generación de índices y corrector LanguageTool.
+
+:::
+<!-- {note} Resumen Técnico del Satélite -->
 
 ---
 
 (manual-myst_tools-proposito)=
 ## 1. Propósito y Filosofía Pedagógica
 
-La herramienta **`myst-tools`** forma parte del ecosistema oficial de software de la cátedra. Su diseño sigue principios pedagógicos rigurosos:
+La herramienta **`myst-tools`** forma parte del ecosistema oficial de software
+de la cátedra. Su diseño sigue principios pedagógicos rigurosos:
 
-1. **Evidencia Técnica Directa**: Todo diagnóstico se fundamenta en la norma ISO C (C11/C23), en el modelo de memoria del sistema o en convenciones arquitectónicas formales.
-2. **Acción Correctiva Concreta**: Cada advertencia incluye la prescripción técnica inmediata para resolver el defecto sin recurrir a conjeturas.
-3. **Autonomía del Estudiante**: Facilita la autoevaluación local antes de la entrega final del trabajo práctico.
-4. **Objetividad Docente**: Estandariza la corrección automática removiendo discrepancias subjetivas en la evaluación.
+1. **Evidencia Técnica Directa**: Todo diagnóstico se fundamenta en la norma ISO
+   C (C11/C23), en el modelo de memoria del sistema o en convenciones
+   arquitectónicas formales.
+2. **Acción Correctiva Concreta**: Cada advertencia incluye la prescripción
+   técnica inmediata para resolver el defecto sin recurrir a conjeturas.
+3. **Autonomía del Estudiante**: Facilita la autoevaluación local antes de la
+   entrega final del trabajo práctico.
+4. **Objetividad Docente**: Estandariza la corrección automática removiendo
+   discrepancias subjetivas en la evaluación.
 
 ---
 
 (manual-myst_tools-instalacion)=
 ## 2. Instalación y Verificación del Entorno
 
-````{important}
-Para proveer la reproducibilidad técnica de la cátedra, verificá instalar las dependencias nativas del sistema operativo antes de instalar el paquete Python.
-````
+::::{important}
+
+Para proveer la reproducibilidad técnica de la cátedra, verificá instalar las
+dependencias nativas del sistema operativo antes de instalar el paquete Python.
+
+::::
+<!-- {important} -->
 
 ### 2.1 Requisitos Previos del Sistema
 
 Instalá los paquetes del sistema requeridos según tu distribución o entorno:
 
-````{tab-set}
-```{tab-item} Ubuntu / Debian
+::::{tab-set}
+
+:::{tab-item} Ubuntu / Debian
+
 sudo apt update && sudo apt install -y \
     build-essential \
     gcc \
@@ -51,9 +68,12 @@ sudo apt update && sudo apt install -y \
     graphviz \
     python3-pip \
     python3-venv
-```
 
-```{tab-item} Arch Linux / Manjaro
+:::
+<!-- {tab-item} Ubuntu / Debian -->
+
+:::{tab-item} Arch Linux / Manjaro
+
 sudo pacman -S --needed \
     base-devel \
     gcc \
@@ -65,9 +85,12 @@ sudo pacman -S --needed \
     graphviz \
     python-pip \
     uv
-```
 
-```{tab-item} Fedora / RHEL
+:::
+<!-- {tab-item} Arch Linux / Manjaro -->
+
+:::{tab-item} Fedora / RHEL
+
 sudo dnf install -y \
     gcc \
     gcc-c++ \
@@ -78,57 +101,81 @@ sudo dnf install -y \
     typst \
     graphviz \
     python3-pip
-```
 
-```{tab-item} macOS (Homebrew)
+:::
+<!-- {tab-item} Fedora / RHEL -->
+
+:::{tab-item} macOS (Homebrew)
+
 brew install gcc gdb clang-format typst graphviz uv
-```
 
-```{tab-item} Windows (MSYS2 / WSL2)
+:::
+<!-- {tab-item} macOS (Homebrew) -->
+
+:::{tab-item} Windows (MSYS2 / WSL2)
+
 # En WSL2 (Ubuntu): utilizar los paquetes de Ubuntu/Debian arriba.
 # En MSYS2 MINGW64:
 pacman -S --needed \
     mingw-w64-x86_64-gcc \
     mingw-w64-x86_64-gdb \
     mingw-w64-x86_64-clang-tools-extra
-```
-````
+
+:::
+<!-- {tab-item} Windows (MSYS2 / WSL2) -->
+
+::::
+<!-- {tab-set} -->
 
 ---
 
 ### 2.2 Métodos de Instalación de `myst-tools`
 
-Podés instalar `myst-tools` mediante cualquiera de los siguientes métodos estándar:
+Podés instalar `myst-tools` mediante cualquiera de los siguientes métodos
+estándar:
 
-````{tab-set}
-```{tab-item} uv tool (Recomendado)
+::::{tab-set}
+
+:::{tab-item} uv tool (Recomendado)
+
 # Instalación aislada de alta velocidad con uv
 uv tool install . --editable
 
 # O instalar todo el ecosistema de herramientas de la cátedra en lote:
 source ./install_tools.sh
-```
 
-```{tab-item} pip / venv
+:::
+<!-- {tab-item} uv tool (Recomendado) -->
+
+:::{tab-item} pip / venv
+
 # Crear y activar un entorno virtual
 python3 -m venv .venv
 source .venv/bin/activate
 
 # Instalar en modo editable para desarrollo
 pip install -e .
-```
 
-```{tab-item} pipx
+:::
+<!-- {tab-item} pip / venv -->
+
+:::{tab-item} pipx
+
 # Instalación global aislada en tu PATH
 pipx install --editable .
-```
-````
+
+:::
+<!-- {tab-item} pipx -->
+
+::::
+<!-- {tab-set} -->
 
 ---
 
 ### 2.3 Autocompletado en la Shell
 
-La interfaz CLI de `myst_tools` cuenta con autocompletado nativo para comandos, flags y archivos. Para configurarlo permanentemente en tu shell:
+La interfaz CLI de `myst_tools` cuenta con autocompletado nativo para comandos,
+flags y archivos. Para configurarlo permanentemente en tu shell:
 
 ````{code-block} bash
 # Configuración automática en Bash / Zsh / Fish
@@ -136,25 +183,35 @@ myst_tools --install-completion
 
 # Para cargar el autocompletado en la sesión actual de inmediato:
 source ./install_tools.sh
+
 ````
+<!-- {code-block} bash -->
 
 ---
 
 ### 2.4 Verificación del Entorno con `doctor`
 
-Toda herramienta del ecosistema cuenta con el subcomando unificado `doctor`. Ejecutalo para auditar el estado del entorno:
+Toda herramienta del ecosistema cuenta con el subcomando unificado `doctor`.
+Ejecutalo para auditar el estado del entorno:
 
 ````{code-block} bash
 myst_tools doctor
+
 ````
+<!-- {code-block} bash -->
 
 #### Comprobaciones Ejecutadas por el Diagnóstico:
-- **Compilador C**: Verifica disponibilidad de `gcc` o `clang` con soporte de estándares C11 y C23.
-- **Depurador y Core Dumps**: Comprueba que `gdb` esté instalado y que `ulimit -c` permita generación de core dumps.
-- **Herramientas de Memoria**: Valida la presencia de `valgrind` y librerías `libasan`/`libubsan`.
+- **Compilador C**: Verifica disponibilidad de `gcc` o `clang` con soporte de
+  estándares C11 y C23.
+- **Depurador y Core Dumps**: Comprueba que `gdb` esté instalado y que `ulimit
+  -c` permita generación de core dumps.
+- **Herramientas de Memoria**: Valida la presencia de `valgrind` y librerías
+  `libasan`/`libubsan`.
 - **Formateo y Estilo**: Verifica el binario `clang-format` (versión 16+).
-- **Sandboxing de Kernel**: Audita permisos no privilegiados de `bwrap` (Bubblewrap namespaces).
-- **Generador de Tipografía y Documentos**: Comprueba `typst` ($\ge 0.11$) y `dot` (Graphviz).
+- **Sandboxing de Kernel**: Audita permisos no privilegiados de `bwrap`
+  (Bubblewrap namespaces).
+- **Generador de Tipografía y Documentos**: Comprueba `typst` ($\ge 0.11$) y
+  `dot` (Graphviz).
 
 #### Matriz de Resolución de Problemas:
 
@@ -168,7 +225,8 @@ myst_tools doctor
 (manual-myst_tools-comandos)=
 ## 3. Referencia Completa de Comandos CLI
 
-A continuación se detallan los subcomandos principales disponibles en `myst-tools`:
+A continuación se detallan los subcomandos principales disponibles en
+`myst-tools`:
 
 | Sintaxis del Comando | Descripción y Efecto |
 | :--- | :--- |
@@ -178,9 +236,14 @@ A continuación se detallan los subcomandos principales disponibles en `myst-too
 | `myst-tools gen-apunte apunte/` | Genera el índice temático general `indice.md`. |
 | `myst-tools spellcheck apunte/ --premium` | Audita ortografía y estilo con LanguageTool (local o cloud). |
 
-````{tip}
-Podés agregar el flag `--json` a la mayoría de los comandos para exportar resultados en formato estructurado o `--md` para generar reportes Markdown para el informe de entrega.
-````
+::::{tip}
+
+Podés agregar el flag `--json` a la mayoría de los comandos para exportar
+resultados en formato estructurado o `--md` para generar reportes Markdown para
+el informe de entrega.
+
+::::
+<!-- {tip} -->
 
 ---
 
@@ -197,16 +260,23 @@ Considerá el siguiente fragmento de código representativo:
 (seccion-punteros)=
 # Punteros y Gestión de Memoria
 
-```{note}
-Un puntero en C almacena la dirección de memoria de otra variable.
-```
+:::{note}
 
-```{code-block} c
+Un puntero en C almacena la dirección de memoria de otra variable.
+
+:::
+<!-- {note} -->
+
+`````{code-block} c
 :linenos:
 int x = 10;
 int *p = &x;
-```
+
+`````
+<!-- {code-block} c -->
+
 ````
+<!-- {code-block} c -->
 
 ### Ejecución de la Herramienta
 
@@ -214,7 +284,9 @@ Ejecutá el análisis desde tu terminal:
 
 ````{code-block} bash
 myst-tools fmt apunte/ [-w 80]
+
 ````
+<!-- {code-block} bash -->
 
 ### Salida Obtenida en Consola
 
@@ -222,76 +294,106 @@ myst-tools fmt apunte/ [-w 80]
 [✓] 18 archivos formateados a 80 columnas respetando bloques MyST.
 [✓] 0 colisiones de anclas duplicadas detectadas.
 [✓] Índice general generado en apunte/indice.md.
-````
 
-````{note}
-Prestá atención a la explicación pedagógica generada: la herramienta no solo señala la línea del problema, sino que explica la causa raíz y el impacto en memoria o arquitectura.
 ````
+<!-- {code-block} text -->
+
+::::{note}
+
+Prestá atención a la explicación pedagógica generada: la herramienta no solo
+señala la línea del problema, sino que explica la causa raíz y el impacto en
+memoria o arquitectura.
+
+::::
+<!-- {note} -->
 
 ---
 
 (manual-myst_tools-ejercicios)=
 ## 5. Ejercicios Prácticos y Desafíos
 
-Practicá el uso avanzado de **`myst-tools`** resolviendo los siguientes ejercicios:
+Practicá el uso avanzado de **`myst-tools`** resolviendo los siguientes
+ejercicios:
 
-````{exercise} Desafío 1: Formateo Estándar de Apuntes
+::::{exercise} Desafío 1: Formateo Estándar de Apuntes
 :label: myst_tools-desafio-1
 Normalizar el ancho de línea de un capítulo a 80 columnas.
 
 **Instrucción de ejecución:**
-```bash
+``` bash
 myst-tools fmt apunte/capitulo1.md
 ```
-````
+<!-- bash -->
 
-````{solution} myst_tools-desafio-1
-```bash
+::::
+<!-- {exercise} Desafío 1: Formateo Estándar de Apuntes -->
+
+::::{solution} myst_tools-desafio-1
+
+``` bash
 myst-tools fmt apunte/capitulo1.md
 # Verificá que la operación concluya exitosamente con código de salida 0.
 ```
-````
+<!-- bash -->
 
-````{exercise} Desafío 2: Resolución de Colisión de Anclas
+::::
+<!-- {solution} myst_tools-desafio-1 -->
+
+::::{exercise} Desafío 2: Resolución de Colisión de Anclas
 :label: myst_tools-desafio-2
 Detectar y corregir encabezados con anclas repetidas.
 
 **Instrucción de ejecución:**
-```bash
+``` bash
 myst-tools fix-anchors apunte/
 ```
-````
+<!-- bash -->
 
-````{solution} myst_tools-desafio-2
-```bash
+::::
+<!-- {exercise} Desafío 2: Resolución de Colisión de Anclas -->
+
+::::{solution} myst_tools-desafio-2
+
+``` bash
 myst-tools fix-anchors apunte/
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
 ```
-````
+<!-- bash -->
 
-````{exercise} Desafío 3: Corrección Ortográfica con LanguageTool
+::::
+<!-- {solution} myst_tools-desafio-2 -->
+
+::::{exercise} Desafío 3: Corrección Ortográfica con LanguageTool
 :label: myst_tools-desafio-3
 Auditar la ortografía de la guía de trabajos prácticos.
 
 **Instrucción de ejecución:**
-```bash
+``` bash
 myst-tools spellcheck guias/ --lang es-AR
 ```
-````
+<!-- bash -->
 
-````{solution} myst_tools-desafio-3
-```bash
+::::
+<!-- {exercise} Desafío 3: Corrección Ortográfica con LanguageTool -->
+
+::::{solution} myst_tools-desafio-3
+
+``` bash
 myst-tools spellcheck guias/ --lang es-AR
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.
 ```
-````
+<!-- bash -->
+
+::::
+<!-- {solution} myst_tools-desafio-3 -->
 
 ---
 
 (manual-myst_tools-makefile)=
 ## 6. Integración en el Flujo de Trabajo y Makefile
 
-Para incorporar `myst-tools` de forma automática a tu flujo de desarrollo, agregá la siguiente regla en el `Makefile` de tu proyecto:
+Para incorporar `myst-tools` de forma automática a tu flujo de desarrollo,
+agregá la siguiente regla en el `Makefile` de tu proyecto:
 
 ````{code-block} makefile
 check-myst_tools:
@@ -299,9 +401,12 @@ check-myst_tools:
 	myst-tools check src/ include/
 
 .PHONY: check-myst_tools
-````
 
-Ejecutá `make check-myst_tools` antes de cada commit para mantener que tu código conserve el estado de aprobación.
+````
+<!-- {code-block} makefile -->
+
+Ejecutá `make check-myst_tools` antes de cada commit para mantener que tu código
+conserve el estado de aprobación.
 
 ---
 
@@ -310,22 +415,32 @@ Ejecutá `make check-myst_tools` antes de cada commit para mantener que tu códi
 
 La herramienta **`myst-tools`** implementa un motor de alta precisión basado en:
 
-- **Tecnología Núcleo:** `MyST Markdown AST Parser + 80-Col Prosa Formatter + LanguageTool Spellchecker + Slug Index Generator`.
-- **Aislamiento y Determinismo:** Diseñada para operar sin efectos colaterales en entornos de integración continua (CI), terminales de estudiantes y servidores docentes headless.
-- **Manejo de Errores Pedagógico:** Todo fallo de sintaxis, memoria o lógica se traduce en una acción prescriptiva concreta con su respectiva justificación técnica.
+- **Tecnología Núcleo:** `MyST Markdown AST Parser + 80-Col Prosa Formatter +
+  LanguageTool Spellchecker + Slug Index Generator`.
+- **Aislamiento y Determinismo:** Diseñada para operar sin efectos colaterales
+  en entornos de integración continua (CI), terminales de estudiantes y
+  servidores docentes headless.
+- **Manejo de Errores Pedagógico:** Todo fallo de sintaxis, memoria o lógica se
+  traduce en una acción prescriptiva concreta con su respectiva justificación
+  técnica.
 
 ---
 
 (manual-myst_tools-ecosistema)=
 ## 8. Integración y Conexión con el Ecosistema
 
-````{note}
-Ninguna herramienta opera de forma aislada. **`myst-tools`** forma parte del pipeline integral de evaluación, verificación y enseñanza de la cátedra.
-````
+::::{note}
+
+Ninguna herramienta opera de forma aislada. **`myst-tools`** forma parte del
+pipeline integral de evaluación, verificación y enseñanza de la cátedra.
+
+::::
+<!-- {note} -->
 
 ### Diagrama de Flujo e Interoperabilidad
 
-````{mermaid}
+::::{mermaid}
+
 graph TD
     DKD[Deckard: Guías de Ejercicios] --> MYST[Myst-Tools: Suite MyST]
     CRB[Corbel: Documentación TDAs] --> MYST
@@ -333,7 +448,9 @@ graph TD
     MYST -->|Formateo a 80 Columnas| FMT[Prosa Normalizada]
     MYST -->|Auditoría Lingüística| LT[LanguageTool API]
     MYST -->|Sitio Web de Cátedra| HTML[Jupyter Book / MyST HTML]
-````
+
+::::
+<!-- {mermaid} -->
 
 ### Matriz de Intercambio de Datos
 
@@ -345,18 +462,23 @@ graph TD
 
 ### Pipeline de Integración Recomendado
 
-Podés encadenar `myst-tools` con otras herramientas del ecosistema en una única línea de comando:
+Podés encadenar `myst-tools` con otras herramientas del ecosistema en una única
+línea de comando:
 
 ````{code-block} bash
 # Pipeline de integración típico
 myst-tools fmt apunte/ && myst-tools fix-anchors apunte/ && myst-tools spellcheck apunte/
+
 ````
+<!-- {code-block} bash -->
 
 ---
 
 (manual-myst_tools-seccion-plugins)=
 ## 9. Extensión, Desarrollo de Plugins y API Python
 
-Para crear tus propias reglas, conectores de evaluación o integrar `myst-tools` programáticamente en pipelines de CI/CD:
+Para crear tus propias reglas, conectores de evaluación o integrar `myst-tools`
+programáticamente en pipelines de CI/CD:
 
-- 👉 **Consultá la guía completa:** [Guía de Extensión y Creación de Plugins](plugins.md)
+- 👉 **Consultá la guía completa:** [Guía de Extensión y Creación de
+  Plugins](plugins.md)

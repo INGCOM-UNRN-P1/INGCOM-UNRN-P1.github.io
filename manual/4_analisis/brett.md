@@ -8,38 +8,53 @@ date: "2026-08-31"
 (manual-brett)=
 # Brett — Auditor de Memoria, Padding y Layout Óptimo de Structs en C
 
-```{admonition} Resumen Técnico del Satélite
+:::{admonition} Resumen Técnico del Satélite
 :class: note
-**Rol en el ecosistema:** Auditoría de alineación de memoria, cálculo de bytes desperdiciados por padding y reordenamiento automático de campos.
-````
+**Rol en el ecosistema:** Auditoría de alineación de memoria, cálculo de bytes
+desperdiciados por padding y reordenamiento automático de campos.
+
+:::
+<!-- {admonition} Resumen Técnico del Satélite -->
 
 ---
 
 (manual-brett-proposito)=
 ## 1. Propósito y Filosofía Pedagógica
 
-La herramienta **`brett`** forma parte del ecosistema oficial de software de la cátedra. Su diseño sigue principios pedagógicos rigurosos:
+La herramienta **`brett`** forma parte del ecosistema oficial de software de la
+cátedra. Su diseño sigue principios pedagógicos rigurosos:
 
-1. **Evidencia Técnica Directa**: Todo diagnóstico se fundamenta en la norma ISO C (C11/C23), en el modelo de memoria del sistema o en convenciones arquitectónicas formales.
-2. **Acción Correctiva Concreta**: Cada advertencia incluye la prescripción técnica inmediata para resolver el defecto sin recurrir a conjeturas.
-3. **Autonomía del Estudiante**: Facilita la autoevaluación local antes de la entrega final del trabajo práctico.
-4. **Objetividad Docente**: Estandariza la corrección automática removiendo discrepancias subjetivas en la evaluación.
+1. **Evidencia Técnica Directa**: Todo diagnóstico se fundamenta en la norma ISO
+   C (C11/C23), en el modelo de memoria del sistema o en convenciones
+   arquitectónicas formales.
+2. **Acción Correctiva Concreta**: Cada advertencia incluye la prescripción
+   técnica inmediata para resolver el defecto sin recurrir a conjeturas.
+3. **Autonomía del Estudiante**: Facilita la autoevaluación local antes de la
+   entrega final del trabajo práctico.
+4. **Objetividad Docente**: Estandariza la corrección automática removiendo
+   discrepancias subjetivas en la evaluación.
 
 ---
 
 (manual-brett-instalacion)=
 ## 2. Instalación y Verificación del Entorno
 
-````{important}
-Para proveer la reproducibilidad técnica de la cátedra, verificá instalar las dependencias nativas del sistema operativo antes de instalar el paquete Python.
-````
+::::{important}
+
+Para proveer la reproducibilidad técnica de la cátedra, verificá instalar las
+dependencias nativas del sistema operativo antes de instalar el paquete Python.
+
+::::
+<!-- {important} -->
 
 ### 2.1 Requisitos Previos del Sistema
 
 Instalá los paquetes del sistema requeridos según tu distribución o entorno:
 
-````{tab-set}
-```{tab-item} Ubuntu / Debian
+::::{tab-set}
+
+:::{tab-item} Ubuntu / Debian
+
 sudo apt update && sudo apt install -y \
     build-essential \
     gcc \
@@ -52,9 +67,12 @@ sudo apt update && sudo apt install -y \
     graphviz \
     python3-pip \
     python3-venv
-```
 
-```{tab-item} Arch Linux / Manjaro
+:::
+<!-- {tab-item} Ubuntu / Debian -->
+
+:::{tab-item} Arch Linux / Manjaro
+
 sudo pacman -S --needed \
     base-devel \
     gcc \
@@ -66,9 +84,12 @@ sudo pacman -S --needed \
     graphviz \
     python-pip \
     uv
-```
 
-```{tab-item} Fedora / RHEL
+:::
+<!-- {tab-item} Arch Linux / Manjaro -->
+
+:::{tab-item} Fedora / RHEL
+
 sudo dnf install -y \
     gcc \
     gcc-c++ \
@@ -79,21 +100,31 @@ sudo dnf install -y \
     typst \
     graphviz \
     python3-pip
-```
 
-```{tab-item} macOS (Homebrew)
+:::
+<!-- {tab-item} Fedora / RHEL -->
+
+:::{tab-item} macOS (Homebrew)
+
 brew install gcc gdb clang-format typst graphviz uv
-```
 
-```{tab-item} Windows (MSYS2 / WSL2)
+:::
+<!-- {tab-item} macOS (Homebrew) -->
+
+:::{tab-item} Windows (MSYS2 / WSL2)
+
 # En WSL2 (Ubuntu): utilizar los paquetes de Ubuntu/Debian arriba.
 # En MSYS2 MINGW64:
 pacman -S --needed \
     mingw-w64-x86_64-gcc \
     mingw-w64-x86_64-gdb \
     mingw-w64-x86_64-clang-tools-extra
-```
-````
+
+:::
+<!-- {tab-item} Windows (MSYS2 / WSL2) -->
+
+::::
+<!-- {tab-set} -->
 
 ---
 
@@ -101,35 +132,48 @@ pacman -S --needed \
 
 Podés instalar `brett` mediante cualquiera de los siguientes métodos estándar:
 
-````{tab-set}
-```{tab-item} uv tool (Recomendado)
+::::{tab-set}
+
+:::{tab-item} uv tool (Recomendado)
+
 # Instalación aislada de alta velocidad con uv
 uv tool install . --editable
 
 # O instalar todo el ecosistema de herramientas de la cátedra en lote:
 source ./install_tools.sh
-```
 
-```{tab-item} pip / venv
+:::
+<!-- {tab-item} uv tool (Recomendado) -->
+
+:::{tab-item} pip / venv
+
 # Crear y activar un entorno virtual
 python3 -m venv .venv
 source .venv/bin/activate
 
 # Instalar en modo editable para desarrollo
 pip install -e .
-```
 
-```{tab-item} pipx
+:::
+<!-- {tab-item} pip / venv -->
+
+:::{tab-item} pipx
+
 # Instalación global aislada en tu PATH
 pipx install --editable .
-```
-````
+
+:::
+<!-- {tab-item} pipx -->
+
+::::
+<!-- {tab-set} -->
 
 ---
 
 ### 2.3 Autocompletado en la Shell
 
-La interfaz CLI de `brett` cuenta con autocompletado nativo para comandos, flags y archivos. Para configurarlo permanentemente en tu shell:
+La interfaz CLI de `brett` cuenta con autocompletado nativo para comandos, flags
+y archivos. Para configurarlo permanentemente en tu shell:
 
 ````{code-block} bash
 # Configuración automática en Bash / Zsh / Fish
@@ -137,25 +181,35 @@ brett --install-completion
 
 # Para cargar el autocompletado en la sesión actual de inmediato:
 source ./install_tools.sh
+
 ````
+<!-- {code-block} bash -->
 
 ---
 
 ### 2.4 Verificación del Entorno con `doctor`
 
-Toda herramienta del ecosistema cuenta con el subcomando unificado `doctor`. Ejecutalo para auditar el estado del entorno:
+Toda herramienta del ecosistema cuenta con el subcomando unificado `doctor`.
+Ejecutalo para auditar el estado del entorno:
 
 ````{code-block} bash
 brett doctor
+
 ````
+<!-- {code-block} bash -->
 
 #### Comprobaciones Ejecutadas por el Diagnóstico:
-- **Compilador C**: Verifica disponibilidad de `gcc` o `clang` con soporte de estándares C11 y C23.
-- **Depurador y Core Dumps**: Comprueba que `gdb` esté instalado y que `ulimit -c` permita generación de core dumps.
-- **Herramientas de Memoria**: Valida la presencia de `valgrind` y librerías `libasan`/`libubsan`.
+- **Compilador C**: Verifica disponibilidad de `gcc` o `clang` con soporte de
+  estándares C11 y C23.
+- **Depurador y Core Dumps**: Comprueba que `gdb` esté instalado y que `ulimit
+  -c` permita generación de core dumps.
+- **Herramientas de Memoria**: Valida la presencia de `valgrind` y librerías
+  `libasan`/`libubsan`.
 - **Formateo y Estilo**: Verifica el binario `clang-format` (versión 16+).
-- **Sandboxing de Kernel**: Audita permisos no privilegiados de `bwrap` (Bubblewrap namespaces).
-- **Generador de Tipografía y Documentos**: Comprueba `typst` ($\ge 0.11$) y `dot` (Graphviz).
+- **Sandboxing de Kernel**: Audita permisos no privilegiados de `bwrap`
+  (Bubblewrap namespaces).
+- **Generador de Tipografía y Documentos**: Comprueba `typst` ($\ge 0.11$) y
+  `dot` (Graphviz).
 
 #### Matriz de Resolución de Problemas:
 
@@ -178,9 +232,14 @@ A continuación se detallan los subcomandos principales disponibles en `brett`:
 | `brett diff <archivo.h>` | Muestra la comparativa de tamaño antes y después en terminal. |
 | `brett diagram <struct_name> -f <archivo.h>` | Dibuja el mapa de bytes y huecos de padding en ASCII. |
 
-````{tip}
-Podés agregar el flag `--json` a la mayoría de los comandos para exportar resultados en formato estructurado o `--md` para generar reportes Markdown para el informe de entrega.
-````
+::::{tip}
+
+Podés agregar el flag `--json` a la mayoría de los comandos para exportar
+resultados en formato estructurado o `--md` para generar reportes Markdown para
+el informe de entrega.
+
+::::
+<!-- {tip} -->
 
 ---
 
@@ -200,7 +259,9 @@ struct PaqueteDesalineado {
     char estado;       // 1 byte (+ 7 padding)
     double timestamp;  // 8 bytes
 }; // Total: 24 bytes (desperdicio: 41.6%)
+
 ````
+<!-- {code-block} c -->
 
 ### Ejecución de la Herramienta
 
@@ -208,11 +269,14 @@ Ejecutá el análisis desde tu terminal:
 
 ````{code-block} bash
 brett audit <archivo.h>
+
 ````
+<!-- {code-block} bash -->
 
 ### Salida Obtenida en Consola
 
 ````{code-block} text
+:linenos:
 Struct: struct PaqueteDesalineado (Tamaño: 24 bytes | Padding: 10 bytes)
 Layout en memoria (64-bit):
 [ tipo (1B) ][ PAD (3B) ][    id (4B)    ]
@@ -224,11 +288,18 @@ Propuesta de optimización (Tamaño: 16 bytes | Ahorro: 33.3%):
 2. int id;           (4 bytes)
 3. char tipo;        (1 byte)
 4. char estado;      (1 byte + 2B pad final)
-````
 
-````{note}
-Prestá atención a la explicación pedagógica generada: la herramienta no solo señala la línea del problema, sino que explica la causa raíz y el impacto en memoria o arquitectura.
 ````
+<!-- {code-block} text -->
+
+::::{note}
+
+Prestá atención a la explicación pedagógica generada: la herramienta no solo
+señala la línea del problema, sino que explica la causa raíz y el impacto en
+memoria o arquitectura.
+
+::::
+<!-- {note} -->
 
 ---
 
@@ -237,63 +308,85 @@ Prestá atención a la explicación pedagógica generada: la herramienta no solo
 
 Practicá el uso avanzado de **`brett`** resolviendo los siguientes ejercicios:
 
-````{exercise} Desafío 1: Auditoría de Header de Red
+::::{exercise} Desafío 1: Auditoría de Header de Red
 :label: brett-desafio-1
 Auditar `include/protocolo.h` y detectar structs con más de 20% de padding.
 
 **Instrucción de ejecución:**
-```bash
+``` bash
 brett audit include/protocolo.h
 ```
-````
+<!-- bash -->
 
-````{solution} brett-desafio-1
-```bash
+::::
+<!-- {exercise} Desafío 1: Auditoría de Header de Red -->
+
+::::{solution} brett-desafio-1
+
+``` bash
 brett audit include/protocolo.h
 # Verificá que la operación concluya exitosamente con código de salida 0.
 ```
-````
+<!-- bash -->
 
-````{exercise} Desafío 2: Optimización Automática In-Place
+::::
+<!-- {solution} brett-desafio-1 -->
+
+::::{exercise} Desafío 2: Optimización Automática In-Place
 :label: brett-desafio-2
 Aplicar reordenamiento óptimo sobre `include/envio.h`.
 
 **Instrucción de ejecución:**
-```bash
+``` bash
 brett optimize include/envio.h --in-place
 ```
-````
+<!-- bash -->
 
-````{solution} brett-desafio-2
-```bash
+::::
+<!-- {exercise} Desafío 2: Optimización Automática In-Place -->
+
+::::{solution} brett-desafio-2
+
+``` bash
 brett optimize include/envio.h --in-place
 # Revisá el archivo generado o el informe en terminal para confirmar la resolución del problema.
 ```
-````
+<!-- bash -->
 
-````{exercise} Desafío 3: Comparativa Multiplataforma 32 vs 64 bits
+::::
+<!-- {solution} brett-desafio-2 -->
+
+::::{exercise} Desafío 3: Comparativa Multiplataforma 32 vs 64 bits
 :label: brett-desafio-3
 Evaluar la diferencia de alineación entre x86 y ARM.
 
 **Instrucción de ejecución:**
-```bash
+``` bash
 brett audit include/nodo.h --arch 32bit --arch 64bit
 ```
-````
+<!-- bash -->
 
-````{solution} brett-desafio-3
-```bash
+::::
+<!-- {exercise} Desafío 3: Comparativa Multiplataforma 32 vs 64 bits -->
+
+::::{solution} brett-desafio-3
+
+``` bash
 brett audit include/nodo.h --arch 32bit --arch 64bit
 # Comprobá que la salida confirme la ausencia de advertencias o errores pendientes.
 ```
-````
+<!-- bash -->
+
+::::
+<!-- {solution} brett-desafio-3 -->
 
 ---
 
 (manual-brett-makefile)=
 ## 6. Integración en el Flujo de Trabajo y Makefile
 
-Para incorporar `brett` de forma automática a tu flujo de desarrollo, agregá la siguiente regla en el `Makefile` de tu proyecto:
+Para incorporar `brett` de forma automática a tu flujo de desarrollo, agregá la
+siguiente regla en el `Makefile` de tu proyecto:
 
 ````{code-block} makefile
 check-brett:
@@ -301,9 +394,12 @@ check-brett:
 	brett check src/ include/
 
 .PHONY: check-brett
-````
 
-Ejecutá `make check-brett` antes de cada commit para mantener que tu código conserve el estado de aprobación.
+````
+<!-- {code-block} makefile -->
+
+Ejecutá `make check-brett` antes de cada commit para mantener que tu código
+conserve el estado de aprobación.
 
 ---
 
@@ -312,29 +408,41 @@ Ejecutá `make check-brett` antes de cada commit para mantener que tu código co
 
 La herramienta **`brett`** implementa un motor de alta precisión basado en:
 
-- **Tecnología Núcleo:** `libclang / C-Parser AST + ABI Memory Layout Calculator (x86_64 / ARM64 / ILP32)`.
-- **Aislamiento y Determinismo:** Diseñada para operar sin efectos colaterales en entornos de integración continua (CI), terminales de estudiantes y servidores docentes headless.
-- **Manejo de Errores Pedagógico:** Todo fallo de sintaxis, memoria o lógica se traduce en una acción prescriptiva concreta con su respectiva justificación técnica.
+- **Tecnología Núcleo:** `libclang / C-Parser AST + ABI Memory Layout Calculator
+  (x86_64 / ARM64 / ILP32)`.
+- **Aislamiento y Determinismo:** Diseñada para operar sin efectos colaterales
+  en entornos de integración continua (CI), terminales de estudiantes y
+  servidores docentes headless.
+- **Manejo de Errores Pedagógico:** Todo fallo de sintaxis, memoria o lógica se
+  traduce en una acción prescriptiva concreta con su respectiva justificación
+  técnica.
 
 ---
 
 (manual-brett-ecosistema)=
 ## 8. Integración y Conexión con el Ecosistema
 
-````{note}
-Ninguna herramienta opera de forma aislada. **`brett`** forma parte del pipeline integral de evaluación, verificación y enseñanza de la cátedra.
-````
+::::{note}
+
+Ninguna herramienta opera de forma aislada. **`brett`** forma parte del pipeline
+integral de evaluación, verificación y enseñanza de la cátedra.
+
+::::
+<!-- {note} -->
 
 ### Diagrama de Flujo e Interoperabilidad
 
-````{mermaid}
+::::{mermaid}
+
 graph TD
     SRC[Headers C: Structs] --> BRT[Brett: Auditor de Padding]
     BRT -->|Cálculo de Desperdicio| ABI[Modelo de Memoria 64/32-bit]
     BRT -->|Struct Reordenada| GAFF[Gaff: Formateo y Estilo]
     BRT -->|Layout Optimizado| FERRO[Ferro: Perfilador de Caché]
     BRT -->|Esquema de Bytes| KANE[Kane: Mapeo de Archivos Binarios]
-````
+
+::::
+<!-- {mermaid} -->
 
 ### Matriz de Intercambio de Datos
 
@@ -343,23 +451,29 @@ graph TD
 | **Entradas (Inputs)** | - `Headers C (.h) desarrollados por estudiantes o cátedra` | Código fuente, AST, binarios, testcases, contratos |
 | **Salidas (Outputs)** | - `gaff (formato Allman)`
 - `kane (mapeo de archivos binarios)`
-- `bishop (mapa de memoria)` | Informes Markdown, diagnósticos Rich, JSON, actas |
+- `bishop (mapa de memoria)` | Informes Markdown, diagnósticos Rich, JSON, actas
+  |
 | **Sincronización** | `ferro`, `crowe`, `kane` | Validación cruzada, flags compartidos y autofix |
 
 ### Pipeline de Integración Recomendado
 
-Podés encadenar `brett` con otras herramientas del ecosistema en una única línea de comando:
+Podés encadenar `brett` con otras herramientas del ecosistema en una única línea
+de comando:
 
 ````{code-block} bash
 # Pipeline de integración típico
 brett optimize include/tda.h --in-place && gaff format include/tda.h
+
 ````
+<!-- {code-block} bash -->
 
 ---
 
 (manual-brett-seccion-plugins)=
 ## 9. Extensión, Desarrollo de Plugins y API Python
 
-Para crear tus propias reglas, conectores de evaluación o integrar `brett` programáticamente en pipelines de CI/CD:
+Para crear tus propias reglas, conectores de evaluación o integrar `brett`
+programáticamente en pipelines de CI/CD:
 
-- 👉 **Consultá la guía completa:** [Guía de Extensión y Creación de Plugins](plugins.md)
+- 👉 **Consultá la guía completa:** [Guía de Extensión y Creación de
+  Plugins](plugins.md)

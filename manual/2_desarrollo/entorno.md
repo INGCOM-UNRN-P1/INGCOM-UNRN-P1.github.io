@@ -8,35 +8,45 @@ date: "2026-09-14"
 (manual-entorno)=
 # entorno — Estación de Trabajo Portátil y Toolchain Unificado de C
 
-```{note} Resumen Técnico del Satélite
-**Rol en el ecosistema:** Aprovisionamiento unificado de la suite de desarrollo C (GCC, Clang, Make, GDB, Valgrind, Python/uv) y configuración multiplataforma idéntica en Linux, macOS y Windows/WSL.
-```
+:::{note} Resumen Técnico del Satélite
+
+**Rol en el ecosistema:** Aprovisionamiento unificado de la suite de desarrollo
+C (GCC, Clang, Make, GDB, Valgrind, Python/uv) y configuración multiplataforma
+idéntica en Linux, macOS y Windows/WSL.
+
+:::
+<!-- {note} Resumen Técnico del Satélite -->
 
 ---
 
 ## 1. Propósito y Alcance
 
-`entorno` centraliza los scripts de bootstrap, configuración de terminales, perfiles de shell y dependencias nativas del sistema requeridas por todos los satélites de la materia.
+`entorno` centraliza los scripts de bootstrap, configuración de terminales,
+perfiles de shell y dependencias nativas del sistema requeridas por todos los
+satélites de la materia.
 
 ---
 
 ## 2. Instalación y Puesta a Punto
 
 ### En sistemas Linux/macOS
-```bash
+``` bash
 ./setup-personal.sh
 ```
+<!-- bash -->
 
 ### Verificación de Salud (Smoke Test)
-```bash
+``` bash
 entorno smoke
 ```
+<!-- bash -->
 
 ---
 
 ## 3. Comandos CLI Principales
 
-```bash
+```{code-block} bash
+:linenos:
 # Ejecutar verificación diagnóstica de herramientas instaladas
 smoke.sh
 
@@ -45,4 +55,6 @@ entorno update
 
 # Limpiar artefactos temporales y cachés
 entorno clean
+
 ```
+<!-- {code-block} bash -->

@@ -6,7 +6,7 @@ subtitle: "Infraestructura para calificación por lotes, diffing semántico AST,
 
 # Evaluación y Gestión Docente Masiva
 
-Infraestructura para calificación por lotes, diffing semántico AST, integración con Moodle y GitHub Classroom, telemetría de presentaciones y orquestación del repositorio docente.
+Infraestructura para calificación por lotes, diffing semántico AST, integración
+con Moodle y GitHub Classroom, telemetría de presentaciones y orquestación del
+repositorio docente.
 
-```{tableofcontents}
-```
