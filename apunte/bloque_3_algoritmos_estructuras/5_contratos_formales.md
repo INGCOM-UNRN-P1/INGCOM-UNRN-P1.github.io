@@ -124,6 +124,7 @@ typedef struct
 } pila_t;
 // Invariante de estructura Pila:
 // elementos != NULL ∧ capacidad > 0 ∧ 0 <= tope <= capacidad
+
 ```
 <!-- {code-block} c -->
 
@@ -166,6 +167,7 @@ typedef struct pila pila_t;
  * en 1.
  */
 void pila_push(pila_t *p, int dato);
+
 :::
 <!-- {code-block}c -->
 
@@ -209,6 +211,7 @@ void pila_push(pila_t *p, int dato)
     // Verificación de postcondición/invariante
     assert(pila_es_valida(p));
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -407,6 +410,7 @@ void resetear(int *ptr)
     // Verificación de la postcondición
     assert(*ptr == 0);
 }
+
 ```
 <!-- {code-block} c -->
 <!-- c -->

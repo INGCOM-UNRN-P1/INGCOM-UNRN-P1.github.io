@@ -205,6 +205,7 @@ int main(void)                  // punto de entrada del programa
     printf("Hola mundo C.\n");  // llamada a función de biblioteca para salida
     return 0;                   // finalización del programa
 } // fin del bloque de código
+
 ```
 <!-- {code-block} c -->
 
@@ -322,6 +323,7 @@ int main(void)
     printf("La suma es: %d\n", resultado);
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -484,6 +486,7 @@ int edad = 42;
 float pi = 3.14f;
 char inicial = 'A';
 bool activo = true;
+
 :::
 <!-- {code-block}c -->
 
@@ -555,6 +558,7 @@ int main(void)
     printf("Despues del intercambio: a = %d, b = %d\n", a, b);
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -630,6 +634,7 @@ y = x + 5; // VÁLIDO: 'y' es un L-value, 'x + 5' evalúa a un R-value.
                      //      no es un L-value asignable.
     // &(x + 5);     // ERROR: el operador de dirección (&) 
                      //      requiere un L-value.
+
 :::
 <!-- {code-block}c -->
 
@@ -646,6 +651,7 @@ Podés consultar el [apunte más detallado del tema](../extras/printf).
 :::{code-block}c
 :linenos:
 printf("Tiene %d años\n", edad);
+
 :::
 <!-- {code-block}c -->
 
@@ -679,6 +685,7 @@ int main(void)
     printf("El area del circulo con radio %.2f es: %.2f\n", radio, area); // Se
     muestra el valor de 'area' return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -697,6 +704,7 @@ de dirección `&`.
 int edad = 0;
 printf("Ingrese su edad: ");
 scanf("%d", &edad);
+
 :::
 <!-- {code-block}c -->
 
@@ -717,6 +725,7 @@ int main(void)
     printf("Tu edad es: %d años.\n", edad);
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -736,6 +745,7 @@ en blanco y saltos de línea residuales del buffer.
 char inicial = ' ';
 printf("Ingrese su inicial: ");
 scanf(" %c", &inicial); // El espacio antes de %c limpia el buffer de stdin
+
 :::
 <!-- {code-block}c -->
 
@@ -868,6 +878,7 @@ int main(void)
     printf("El área del rectángulo es: %.2f\n", area);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -901,6 +912,7 @@ int main(void)
     printf("Después del intercambio: x = %d, y = %d\n", x, y);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 

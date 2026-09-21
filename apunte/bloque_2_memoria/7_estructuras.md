@@ -51,7 +51,7 @@ Las estructuras agrupan datos relacionados en memoria. El compilador puede
 añadir padding entre campos para optimizar el acceso.
 
 :::
-<!-- {figure} 4/struct_memory_layout.svg -->
+<!-- {figure} 7/struct_memory_layout.svg -->
 
 (declaracion-y-typedef)=
 #### Declaración y `typedef`
@@ -59,7 +59,7 @@ añadir padding entre campos para optimizar el acceso.
 La práctica estándar, como indica la regla {ref}`0x3004h`, es usar `typedef`
 para crear un alias de tipo con el sufijo `_t`.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 typedef struct
 {
@@ -69,8 +69,9 @@ typedef struct
 } estudiante_t;
 // Inicialización con inicializadores designados (preferido)
 estudiante_t estudiante1 = {.inicial = 'J', .legajo = 12345, .promedio = 8.5f};
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (acceso-a-miembros-vs)=
 #### Acceso a Miembros: `.` vs `->`
@@ -79,14 +80,15 @@ estudiante_t estudiante1 = {.inicial = 'J', .legajo = 12345, .promedio = 8.5f};
 - **Operador Flecha (`->`):** Para acceder a miembros a través de un **puntero**
   a una `struct`.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 estudiante_t est;
 estudiante_t *p_est = &est;
 est.legajo = 54321;     // Acceso directo
 p_est->promedio = 9.0f; // Acceso mediante puntero
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 El acceso `->` es equivalente a usar `(*p_est).promedio`, se prefiere la flecha
 para simplificar este uso.
@@ -118,7 +120,7 @@ de relleno (*pad*) para garantizar que el entero `b` inicie en una dirección
 múltiplo de 4, incrementando el `sizeof` total de 7 a 12 bytes.
 
 :::
-<!-- {figure} 4/alineamiento_struct.svg -->
+<!-- {figure} 7/alineamiento_struct.svg -->
 
 El problema con esto es que en algunos casos (como en protocolos de red o
 controladores de hardware) necesitamos un control exacto de los bits y de la
@@ -146,11 +148,12 @@ de datos y al trabajar con _buffers_ de memoria genéricos.
 
 La sintaxis es la siguiente:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 size_t offsetof(type, member);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 - `type`: Es el nombre del tipo de la estructura (ej. `struct MiEstructura`).
 - `member`: Es el nombre del miembro de la estructura del cual querés saber el
@@ -166,7 +169,7 @@ capaz de representar el tamaño de cualquier objeto en memoria.
 
 Imagina que tienes la siguiente estructura:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stddef.h>
 #include <stdio.h>
@@ -186,8 +189,9 @@ int main()
     printf("Desplazamiento de 'salario': %zu bytes\n", desplazamiento_salario);
     return 0;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (posible-salida)=
 #### Posible Salida
@@ -245,7 +249,7 @@ Vamos a analizar el layout de una estructura para visualizar el padding.
 
 **`layout_inspect.c`**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stddef.h>
 #include <stdio.h>
@@ -264,8 +268,9 @@ int main(void)
     printf("offsetof(b) = %zu\n", offsetof(ejemplo_padding_t, b));
     printf("offsetof(c) = %zu\n", offsetof(ejemplo_padding_t, c));
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Compilación y Ejecución:**
 
@@ -310,7 +315,7 @@ Verificá tu resultado con `sizeof`. ¿Cuál es el orden óptimo y por qué?
 El orden óptimo es ordenar los miembros de mayor a menor tamaño: `int b; char a;
 char c;`.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 typedef struct
 {
@@ -320,8 +325,9 @@ typedef struct
     // 2 bytes de padding al final para alinear la estructura completa
 } ejemplo_optimizado_t;
 // sizeof será 8
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 Aunque el orden `char a; char c; int b;` también reduce el tamaño a 8 bytes, la
 regla generalizable y recomendada para estructuras con múltiples tipos complejos
 es ordenar los miembros siempre **de mayor a menor tamaño**. Esto minimiza el
@@ -330,15 +336,6 @@ los datos adicionales, como se detalla en la Regla de Oro.
 
 ::::
 <!-- {solution} ejer-layout-1 -->
-
----
-
-
-
-
-
-
-
 
 ---
 
@@ -358,7 +355,7 @@ estructura para describir su propósito general y documentar todos sus miembros.
 Es ideal para estructuras simples o cuando los miembros requieren explicaciones
 breves.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 /**
  * Representa un punto en el espacio tridimensional.
@@ -378,8 +375,9 @@ typedef struct
     double y;
     double z;
 } punto_3d_t;
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Ventajas:**
 - Proporciona una visión general cohesiva de la estructura.
@@ -397,7 +395,7 @@ de la estructura con comentarios de línea individuales para cada miembro. Es
 preferible para estructuras complejas con muchos campos o cuando cada miembro
 requiere explicación detallada.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 /**
  * Representa la configuración de una conexión de red.
@@ -416,8 +414,9 @@ typedef struct
     void *contexto_usuario;  // Puntero opaco para datos del usuario (puede
     ser NULL)
 } configuracion_red_t;
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Ventajas:**
 - Cada campo tiene su documentación adyacente, facilitando actualizaciones.
@@ -434,7 +433,7 @@ typedef struct
 Para estructuras complejas que involucran múltiples conceptos, el enfoque
 distribuido suele ser más efectivo:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 /**
  * Representa el estado completo de una transacción bancaria.
@@ -467,8 +466,9 @@ typedef struct
     específico char firma_digital[65]; // Hash SHA-256 de la transacción (64
     caracteres hex + '\0')
 } transaccion_bancaria_t;
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (recomendaciones-generales)=
 #### Recomendaciones Generales
@@ -532,6 +532,7 @@ Comparación visual entre AoS y SoA mostrando cómo se organizan los datos en
 memoria y el impacto en el uso de caché.
 
 :::
+<!-- {figure} 7/aos_vs_soa.svg -->
 <!-- {figure} 4/aos_vs_soa.svg -->
 (AoS)=
 ###### Arreglo de Estructuras (Array of Structures - AoS)
@@ -539,7 +540,7 @@ memoria y el impacto en el uso de caché.
 En este enfoque, cada elemento del arreglo es una estructura completa que
 contiene todos los atributos de una entidad.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 typedef struct
 {
@@ -553,8 +554,9 @@ typedef struct
 } particula_t;
 // Arreglo de 1000 partículas
 particula_t particulas[1000];
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Ventajas:**
 - **Claridad conceptual:** Cada elemento del arreglo representa una entidad
@@ -576,7 +578,7 @@ particula_t particulas[1000];
 
 **Ejemplo de Uso:**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 void actualizar_posiciones_aos(particula_t particulas[], size_t n, double dt)
 {
@@ -588,15 +590,16 @@ void actualizar_posiciones_aos(particula_t particulas[], size_t n, double dt)
         particulas[i].z += particulas[i].velocidad_z * dt;
     }
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 (SoA)=
 ###### Estructura de Arreglos (Structure of Arrays - SoA)
 
 En este enfoque, cada atributo se almacena en su propio arreglo, y la estructura
 contiene estos arreglos.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 typedef struct
 {
@@ -610,8 +613,9 @@ typedef struct
     size_t cantidad;
     size_t capacidad;
 } sistema_particulas_t;
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Ventajas:**
 - **Eficiencia de caché:** Al procesar un solo atributo (ej: todas las
@@ -632,7 +636,7 @@ typedef struct
 
 **Ejemplo de Uso:**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 void actualizar_posiciones_soa(sistema_particulas_t *sistema, double dt)
 {
@@ -644,15 +648,16 @@ void actualizar_posiciones_soa(sistema_particulas_t *sistema, double dt)
         sistema->z[i] += sistema->velocidad_z[i] * dt;
     }
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Este código es más fácil de vectorizar automáticamente por el compilador, ya que
 cada lazo procesa un arreglo contiguo de un solo tipo.
 
 ###### Implementación Completa: Gestión de Memoria en SoA
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 sistema_particulas_t *crear_sistema(size_t capacidad_inicial)
 {
@@ -707,8 +712,9 @@ void destruir_sistema(sistema_particulas_t *sistema)
     // Finalmente la estructura principal
     free(sistema);
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{important} Gestión de Errores en SoA
 
@@ -751,7 +757,7 @@ correcto primero, optimizá después si es necesario.
 ###### Ejemplo Comparativo: Búsqueda de Máximo
 
 **AoS:**
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Encontrar la partícula con mayor masa
 particula_t *encontrar_mas_masiva_aos(particula_t particulas[], size_t n)
@@ -770,11 +776,12 @@ particula_t *encontrar_mas_masiva_aos(particula_t particulas[], size_t n)
     }
     return mas_masiva;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **SoA:**
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Encontrar el índice de la partícula con mayor masa
 size_t encontrar_mas_masiva_soa(const sistema_particulas_t *sistema)
@@ -796,8 +803,9 @@ size_t encontrar_mas_masiva_soa(const sistema_particulas_t *sistema)
     }
     return indice_max;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 En el caso de SoA, el lazo accede únicamente al arreglo `masa`, lo cual es
 óptimo para el caché. Sin embargo, notá que la función retorna un índice, no un
@@ -812,7 +820,7 @@ instancias inválidas. Esto se logra mediante:
 2. **Validadores:** Funciones que verifican invariantes.
 3. **Punteros opacos:** Ocultar la implementación interna.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 /**
  * Representa un rectángulo con lados paralelos a los ejes.
@@ -853,8 +861,9 @@ bool es_rectangulo_valido(const rectangulo_t *rect)
 {
     return rect != NULL && rect->ancho > 0.0 && rect->alto > 0.0;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{note} Defensa contra Uso Incorrecto
 
@@ -879,9 +888,10 @@ Optimización de estructuras ordenando miembros por tamaño. El diseño subópti
 desperdicia 50% del espacio, mientras que el optimizado solo 25%.
 
 :::
+<!-- {figure} 7/padding_optimization.svg -->
 <!-- {figure} 4/padding_optimization.svg -->
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Diseño subóptimo (12 bytes en x86-64) - Equivalente a ejemplo_padding_t del
 Laboratorio 1
@@ -894,8 +904,9 @@ Laboratorio 1
     char a; // 1 byte
     char c; // 1 byte (2 bytes de padding después)
 } optimizada_t;
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{tip} Regla de Oro: Mayor a Menor
 
@@ -912,7 +923,7 @@ automático insertado por el compilador.
 Las estructuras anidadas permiten organizar conceptos complejos de forma
 jerárquica:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 typedef struct
 {
@@ -934,8 +945,9 @@ cuerpo_2d_t planeta = {.posicion = {.x = 0.0, .y = 0.0},
 // Acceso
 double distancia_al_origen = sqrt(planeta.posicion.x * planeta.posicion.x +
                                   planeta.posicion.y * planeta.posicion.y);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Ventajas:**
 - Reutilización de tipos comunes (`punto_2d_t` usado para posición y velocidad)
@@ -947,7 +959,7 @@ double distancia_al_origen = sqrt(planeta.posicion.x * planeta.posicion.x +
 
 Para comportamiento polimórfico en estructuras:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 typedef struct figura figura_t;
 typedef double (*calcular_area_fn)(const figura_t *);
@@ -985,8 +997,9 @@ figura_t crear_figura_circulo(double radio)
                     .datos = radio_heap};
     return fig;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Este patrón permite un estilo de programación orientada a objetos rudimentario
 en C, donde diferentes "tipos" de figuras comparten la misma interfaz pero
@@ -1005,7 +1018,7 @@ funciones destructoras adecuadas.
 
 Incluir metadatos en la estructura facilita la depuración y la serialización:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 typedef enum
 {
@@ -1038,8 +1051,9 @@ void imprimir_dato(const dato_generico_t *dato)
         break;
     }
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Este patrón (estructura con un `enum` que indica el tipo y un `union` que
 contiene los datos) se llama **tagged union** y es fundamental para representar
@@ -1072,6 +1086,7 @@ Comparación visual entre estructuras (todos los miembros en memoria separada) y
 uniones (todos comparten el mismo espacio de memoria).
 
 :::
+<!-- {figure} 7/union_vs_struct.svg -->
 <!-- {figure} 4/union_vs_struct.svg -->
 
 ##### El Patrón de Unión Etiquetada (Tagged Union)
@@ -1083,7 +1098,7 @@ como tenemos que interpretar la información contenida, para esto, se utiliza un
 
 **`tagged_union.c`**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 typedef enum
@@ -1127,8 +1142,9 @@ int main()
     imprimir_variante(&v3);
     return 0;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Este patrón es la base para implementar tipos de datos polimórficos en C.
 
@@ -1147,7 +1163,7 @@ comportamiento indefinido.
 Para uniones simples, un único bloque de comentario puede ser suficiente si se
 explica claramente el propósito y las restricciones de uso.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 /**
  * Permite interpretar un valor de 32 bits de múltiples formas.
@@ -1172,8 +1188,9 @@ typedef union
     float como_float;
     uint8_t como_bytes[4];
 } valor_32bits_t;
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Ventajas:**
 - Proporciona una visión completa del propósito de la unión.
@@ -1190,7 +1207,7 @@ Para uniones más complejas o uniones etiquetadas, el enfoque distribuido es
 preferible, especialmente cuando cada miembro tiene propósitos o restricciones
 específicas.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 /**
  * Representa los datos específicos de diferentes tipos de mensajes de red.
@@ -1222,8 +1239,9 @@ typedef union
         void *datos;       // Puntero a los datos del archivo
     } mensaje_archivo;
 } datos_mensaje_t;
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Ventajas:**
 - Cada miembro tiene su documentación adyacente.
@@ -1239,7 +1257,7 @@ typedef union
 Para uniones usadas en programación de bajo nivel, la documentación debe ser
 especialmente detallada:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 /**
  * Permite manipular y acceder a un valor de 64 bits en diferentes
@@ -1266,8 +1284,9 @@ typedef union
     uint16_t palabras[4]; // Acceso como 4 palabras de 16 bits
     uint8_t bytes[8];     // Acceso individual a los 8 bytes
 } registro_64bits_t;
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (ejemplo-completo-union-etiquetada-con-documentacion-exhaustiva)=
 #### Ejemplo Completo: Unión Etiquetada con Documentación Exhaustiva
@@ -1275,7 +1294,7 @@ typedef union
 Para uniones etiquetadas (el patrón más común y seguro), la documentación debe
 cubrir tanto la unión como la estructura contenedora:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 /**
  * Tipo de dato polimórfico que puede contener diferentes tipos de valores.
@@ -1335,8 +1354,9 @@ valor_t crear_valor_entero(int64_t entero)
 {
     return (valor_t){.tipo = TIPO_ENTERO, .datos.entero = entero};
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (recomendaciones-generales-para-uniones)=
 #### Recomendaciones Generales para Uniones
@@ -1420,7 +1440,7 @@ entre los miembros de una estructura.
 Considerá la estructura `ejemplo_padding_t` presentada y analizada en el
 Laboratorio 1:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 typedef struct
 {
@@ -1428,8 +1448,9 @@ typedef struct
     int b;  // 4 bytes
     char c; // 1 byte
 } ejemplo_padding_t;
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 A primera vista, se podría calcular que el tamaño físico de esta estructura es
 la suma de sus partes: $1 \text{ byte} + 4 \text{ bytes} + 1 \text{ byte} = 6
@@ -1474,7 +1495,7 @@ más grandes.
 
 Reescribiendo la estructura anterior:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 typedef struct
 {
@@ -1483,8 +1504,9 @@ typedef struct
     char estado; // 1 byte  (offset 5)
     // 2 bytes de padding al final para completar múltiplo de 4
 } sensor_optimizado_t;
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 El tamaño físico de `sensor_optimizado_t` es de **8 bytes**. Se logró reducir el
 consumo de memoria en un $33\%$ simplemente alterando el orden de declaración.
@@ -1517,7 +1539,7 @@ La biblioteca estándar `<stddef.h>` proporciona la macro `offsetof`, que permit
 obtener el desplazamiento en bytes de un miembro respecto al inicio de la
 estructura.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stddef.h>
 #include <stdio.h>
@@ -1536,8 +1558,9 @@ int main(void)
            offsetof(sensor_desoptimizado_t, estado));
     return 0;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{tip} Estilo
 
@@ -1661,6 +1684,7 @@ void cumplir_anos(persona_t *persona)
         persona->edad++;
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1670,14 +1694,17 @@ void cumplir_anos(persona_t *persona)
 :::{exercise}
 :label: ej-struct-offsetof-manual
 Dada la estructura:
-``` c
+```{code-block} c
+:linenos:
 struct Contenedor
 {
     char c;
     int i;
     char d;
 };
+
 ```
+<!-- {code-block} c -->
 <!-- c -->
 Calculá de forma matemática los desplazamientos (*offsets*) en bytes de los
 miembros `c`, `i` y `d` en un sistema de 32 bits con alineación natural de 4
@@ -1710,6 +1737,7 @@ int main()
     printf("Offset de d: %zu\n", offsetof(struct Contenedor, d)); // Imprime 8
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1742,6 +1770,7 @@ int main()
     punto_t origen = {.x = 0.0, .y = 0.0, .etiqueta = "Origen de Coordenadas"};
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1822,6 +1851,7 @@ circulo_t crear_circulo(double cx, double cy, double r)
     }
     return circ;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1865,6 +1895,7 @@ int main()
            resultado); // Imprime 40
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1923,6 +1954,7 @@ int main()
     procesar_evento(&ev3);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1948,6 +1980,7 @@ union B
     char buffer[20];
     double d;
 };
+
 ```
 <!-- {code-block} c -->
 Calculá el tamaño exacto en bytes de cada una de estas uniones en un compilador
@@ -1998,6 +2031,7 @@ typedef union
         uint8_t alto; // Byte más significativo (en little-endian)
     } bytes;
 } registro_t;
+
 ```
 <!-- {code-block} c -->
 
@@ -2059,6 +2093,7 @@ double calcular_area(const figura_t *figura)
         return 0.0;
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -2072,14 +2107,17 @@ double calcular_area(const figura_t *figura)
 :label: ej-struct-padding-waste
 
 Dada la estructura:
-``` c
+```{code-block} c
+:linenos:
 struct Suboptimo
 {
     char c1;
     double d;
     char c2;
 };
+
 ```
+<!-- {code-block} c -->
 <!-- c -->
 Calculá el tamaño total en bytes de esta estructura en una arquitectura x86_64 y
 reescribila reordenando sus miembros para minimizar el consumo de memoria física
@@ -2112,6 +2150,7 @@ struct Optimizado
     char c2;  // 1 byte  (offset 9)
     // 6 bytes de padding al final para completar el múltiplo de 8
 };
+
 ```
 <!-- {code-block} c -->
 El tamaño de `struct Optimizado` se reduce a **16 bytes**.

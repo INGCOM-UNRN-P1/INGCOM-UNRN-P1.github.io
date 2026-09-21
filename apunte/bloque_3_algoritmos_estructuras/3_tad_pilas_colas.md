@@ -29,7 +29,7 @@ parte superior.
 Operaciones de apilado (push) and desapilado (pop) en una Pila.
 
 :::
-<!-- {figure} 4/pila_stack.svg -->
+<!-- {figure} 3/pila_stack.svg -->
 
 (operaciones-fundamentales)=
 #### Operaciones Fundamentales
@@ -50,11 +50,11 @@ Estructura de una Pila implementada dinámicamente mediante nodos enlazados en e
 heap.
 
 :::
-<!-- {figure} 4/pila_lista_enlazada.svg -->
+<!-- {figure} 3/pila_lista_enlazada.svg -->
 
 ##### Estructura de Datos
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 typedef struct nodo
 {
@@ -66,12 +66,13 @@ struct pila
     nodo_t *tope;
     size_t tamanio;
 };
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Creación de una Pila
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 pila_t *pila_crear(void)
 {
@@ -84,12 +85,13 @@ pila_t *pila_crear(void)
     pila->tamanio = 0;
     return pila;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Apilar (Push)
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool pila_push(pila_t *pila, void *dato)
 {
@@ -108,8 +110,9 @@ bool pila_push(pila_t *pila, void *dato)
     pila->tamanio++;
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{note}
 
@@ -121,7 +124,7 @@ una lista enlazada, siendo el tope de la pila el primer elemento de la lista.
 
 ##### Desapilar (Pop)
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool pila_pop(pila_t *pila, void **dato)
 {
@@ -139,12 +142,13 @@ bool pila_pop(pila_t *pila, void **dato)
     pila->tamanio--;
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Ver Tope (Peek)
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool pila_peek(const pila_t *pila, void **dato)
 {
@@ -158,23 +162,25 @@ bool pila_peek(const pila_t *pila, void **dato)
     }
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Verificar si está Vacía
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool pila_es_vacia(const pila_t *pila)
 {
     return (pila == NULL) || (pila->tope == NULL);
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Destruir Pila
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 void pila_destruir(pila_t *pila, destruir_dato_fn destruir_dato)
 {
@@ -194,8 +200,9 @@ void pila_destruir(pila_t *pila, destruir_dato_fn destruir_dato)
     }
     free(pila);
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{important}
 
@@ -229,11 +236,12 @@ Estructura de una Pila implementada estáticamente mediante un arreglo y un
 índice de tope.
 
 :::
+<!-- {figure} 3/pila_arreglo.svg -->
 <!-- {figure} 4/pila_arreglo.svg -->
 
 ##### Estructura de Datos
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 struct pila
 {
@@ -241,12 +249,13 @@ struct pila
     size_t tope;      // Próximo índice libre / Cantidad de elementos
     size_t capacidad; // Capacidad total del arreglo
 };
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Creación con Capacidad Inicial
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 pila_t *pila_crear_arreglo(size_t capacidad_inicial)
 {
@@ -269,12 +278,13 @@ pila_t *pila_crear_arreglo(size_t capacidad_inicial)
     pila->capacidad = capacidad_inicial;
     return pila;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Apilar con Redimensionamiento
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 static bool pila_redimensionar(pila_t *pila)
 {
@@ -306,8 +316,9 @@ bool pila_push_arreglo(pila_t *pila, void *dato)
     pila->tope++;
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{tip}
 
@@ -323,7 +334,7 @@ amortizado en {ref}`capitulo-complejidad`.
 
 ##### Desapilar (Arreglo)
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool pila_pop_arreglo(pila_t *pila, void **dato)
 {
@@ -338,8 +349,9 @@ bool pila_pop_arreglo(pila_t *pila, void **dato)
     }
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (analisis-de-complejidad-arreglo)=
 #### Análisis de Complejidad (Arreglo)
@@ -378,7 +390,7 @@ Las pilas aparecen naturalmente en numerosos contextos de programación:
 
 ##### Ejemplo: Verificación de Paréntesis Balanceados
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool parentesis_balanceados(const char *expresion)
 {
@@ -417,8 +429,9 @@ bool parentesis_balanceados(const char *expresion)
     pila_destruir(pila);
     return resultado;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (ejercicios-de-pilas)=
 #### Ejercicios de Pilas
@@ -450,11 +463,12 @@ Estructura de una Cola implementada dinámicamente mediante nodos enlazados en e
 heap con punteros a inicio y fin.
 
 :::
+<!-- {figure} 3/cola_lista_enlazada.svg -->
 <!-- {figure} 4/cola_lista_enlazada.svg -->
 
 ##### Estructura de Datos
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 typedef struct nodo
 {
@@ -467,8 +481,9 @@ struct cola
     nodo_t *final;
     size_t tamanio;
 };
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::::{note}
 
@@ -480,7 +495,7 @@ constante $O(1)$.
 
 ##### Creación de una Cola
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 cola_t *cola_crear(void)
 {
@@ -494,12 +509,13 @@ cola_t *cola_crear(void)
     cola->tamanio = 0;
     return cola;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Encolar (Enqueue)
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool cola_enqueue(cola_t *cola, void *dato)
 {
@@ -527,8 +543,9 @@ bool cola_enqueue(cola_t *cola, void *dato)
     cola->tamanio++;
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{important}
 
@@ -541,7 +558,7 @@ al nuevo nodo creado.
 
 ##### Desencolar (Dequeue)
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool cola_dequeue(cola_t *cola, void **dato)
 {
@@ -563,8 +580,9 @@ bool cola_dequeue(cola_t *cola, void **dato)
     cola->tamanio--;
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{important}
 
@@ -577,7 +595,7 @@ puntero `final` en `NULL`.
 
 ##### Ver Frente (Peek)
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool cola_peek(const cola_t *cola, void **dato)
 {
@@ -591,12 +609,13 @@ bool cola_peek(const cola_t *cola, void **dato)
     }
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Destruir Cola
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 void cola_destruir(cola_t *cola, destruir_dato_fn destruir_dato)
 {
@@ -616,8 +635,9 @@ void cola_destruir(cola_t *cola, destruir_dato_fn destruir_dato)
     }
     free(cola);
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (analisis-de-complejidad-cola-lista-enlazada)=
 #### Análisis de Complejidad de la Cola (Lista Enlazada)
@@ -643,11 +663,12 @@ Implementación eficiente de Cola sobre un arreglo circular para evitar el
 desplazamiento costoso de elementos.
 
 :::
+<!-- {figure} 3/cola_circular.svg -->
 <!-- {figure} 4/cola_circular.svg -->
 
 ##### Estructura de Datos
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 struct cola
 {
@@ -657,8 +678,9 @@ struct cola
     size_t tamanio;
     size_t capacidad;
 };
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{note}
 
@@ -671,7 +693,7 @@ de cola vacía o llena.
 
 ##### Creación de Cola Circular
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 cola_t *cola_crear_circular(size_t capacidad_inicial)
 {
@@ -696,12 +718,13 @@ cola_t *cola_crear_circular(size_t capacidad_inicial)
     cola->capacidad = capacidad_inicial;
     return cola;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Encolar en Arreglo Circular
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 static bool cola_redimensionar_circular(cola_t *cola)
 {
@@ -741,8 +764,9 @@ bool cola_enqueue_circular(cola_t *cola, void *dato)
     cola->tamanio++;
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{tip}
 
@@ -755,7 +779,7 @@ del arreglo.
 
 ##### Desencolar en Arreglo Circular
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool cola_dequeue_circular(cola_t *cola, void **dato)
 {
@@ -771,8 +795,9 @@ bool cola_dequeue_circular(cola_t *cola, void **dato)
     cola->tamanio--;
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{important}
 
@@ -856,6 +881,7 @@ Representación de una Cola de Doble Extremo (Deque), permitiendo inserciones y
 eliminaciones por ambos extremos.
 
 :::
+<!-- {figure} 3/deque.svg -->
 <!-- {figure} 4/deque.svg -->
 
 (operaciones)=
@@ -1046,6 +1072,7 @@ void invertir_cadena(char *cadena)
     }
     pila_destruir(pila, NULL);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1133,6 +1160,7 @@ bool delimitadores_balanceados(const char *expresion)
     pila_destruir(pila, NULL);
     return balanceado;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1277,6 +1305,7 @@ int evaluar_postfija(const char *expresion, bool *error)
     pila_destruir(pila, NULL);
     return resultado_final;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1295,15 +1324,17 @@ impresión se define mediante una estructura con su identificador y cantidad de
 páginas, asumiendo que procesar una página demora 1 segundo.
 
 Firma de la función y estructura:
-``` c
+```{code-block} c
+:linenos:
 typedef struct
 {
     int id;
     int paginas;
 } trabajo_t;
 int simular_impresora(trabajo_t *trabajos, size_t n);
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {exercise} -->
@@ -1348,6 +1379,7 @@ int simular_impresora(trabajo_t *trabajos, size_t n)
     cola_destruir(cola, NULL);
     return tiempo_total;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1377,6 +1409,7 @@ cola_pilas_t *cola_pilas_crear(void);
 bool cola_pilas_enqueue(cola_pilas_t *cola, void *dato);
 bool cola_pilas_dequeue(cola_pilas_t *cola, void **dato);
 void cola_pilas_destruir(cola_pilas_t *cola, destruir_dato_fn destruir_dato);
+
 ```
 <!-- {code-block} c -->
 
@@ -1455,6 +1488,7 @@ void cola_pilas_destruir(cola_pilas_t *cola, destruir_dato_fn destruir_dato)
     pila_destruir(cola->pila_salida, destruir_dato);
     free(cola);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1537,6 +1571,7 @@ bool invertir_primeros_k(cola_t *cola, size_t k)
     pila_destruir(pila, NULL);
     return true;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1615,6 +1650,7 @@ bool es_palindromo_deque(const char *cadena)
     deque_destruir(deque, NULL);
     return palindromo;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1642,6 +1678,7 @@ pila_deque_t *pila_deque_crear(void);
 bool pila_deque_push(pila_deque_t *pila, void *dato);
 bool pila_deque_pop(pila_deque_t *pila, void **dato);
 void pila_deque_destruir(pila_deque_t *pila, destruir_dato_fn destruir_dato);
+
 ```
 <!-- {code-block} c -->
 
@@ -1701,6 +1738,7 @@ void pila_deque_destruir(pila_deque_t *pila, destruir_dato_fn destruir_dato)
     deque_destruir(pila->deque, destruir_dato);
     free(pila);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1819,6 +1857,7 @@ int *maximos_ventana_deslizante(const int *arreglo, size_t n, size_t k,
     deque_destruir(deque, NULL);
     return resultado;
 }
+
 ```
 <!-- {code-block} c -->
 

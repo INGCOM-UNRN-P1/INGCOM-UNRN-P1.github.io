@@ -53,6 +53,7 @@ for (size_t i = 0; i < n; i++)
 {
     // Procesar elemento i
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -65,6 +66,7 @@ while (i < n)
     // Procesar elemento i
     i = i + 1;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -78,6 +80,7 @@ if (arr == NULL)
 {
     return ERROR_MEMORIA;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -91,6 +94,7 @@ if (arr == NULL)
 { // Validación tardía
     return ERROR_MEMORIA;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -101,6 +105,7 @@ if (arr == NULL)
 :linenos:
 while (*destino++ = *origen++)
     ;
+
 :::
 <!-- {code-block}c -->
 
@@ -114,6 +119,7 @@ while (origen[i] != '\0')
     i++;
 }
 destino[i] = '\0';
+
 :::
 <!-- {code-block}c -->
 
@@ -185,6 +191,7 @@ if (valores == NULL)
     // Manejo de error inmediato (por ejemplo, abortar o retornar error)
     return;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -228,6 +235,7 @@ estudiantes novatos.
 :::{code-block}c
 :linenos:
 persona_t persona = {.nombre = "Juan", .edad = 30, .activo = true};
+
 :::
 <!-- {code-block}c -->
 
@@ -238,6 +246,7 @@ persona_t persona;
 persona.nombre = "Juan";
 persona.edad = 30;
 persona.activo = true;
+
 :::
 <!-- {code-block}c -->
 
@@ -277,6 +286,7 @@ int procesar_datos(const int *datos, size_t n)
     // Lógica principal sin anidamiento profundo
     return resultado;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -300,6 +310,7 @@ int procesar_datos(const int *datos, size_t n)
     }
     return resultado;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -329,6 +340,7 @@ Al validar las condiciones de error primero y salir temprano, el "camino feliz"
 :::{code-block}c
 :linenos:
 int maximo = (a > b) ? a : b;
+
 :::
 <!-- {code-block}c -->
 
@@ -344,6 +356,7 @@ else
 {
     maximo = b;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -369,6 +382,7 @@ preferirse la estructura de control `if-else` tradicional.
 ```{code-block} c
 :linenos:
 const char *mensaje = (usuario_conectado) ? "Bienvenido" : "Inicia sesión";
+
 ```
 <!-- {code-block} c -->
 
@@ -377,6 +391,7 @@ const char *mensaje = (usuario_conectado) ? "Bienvenido" : "Inicia sesión";
 :linenos:
 // NO hacer esto - viola la claridad
 int resultado = (x > 0) ? ((y > 0) ? 1 : 2) : ((y > 0) ? 3 : 4);
+
 ```
 <!-- {code-block} c -->
 
@@ -436,6 +451,7 @@ int procesar_sensor(sensor_t *s)
     }
     return resultado;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -460,6 +476,7 @@ int procesar_sensor(sensor_t *s)
     }
     return leer_valores(s); // Lógica principal
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -495,6 +512,7 @@ else
 {
     x = b;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -516,6 +534,7 @@ struct lista
 };
 lista_t *lista_crear(void);
 void lista_destruir(lista_t *lista);
+
 :::
 <!-- {code-block}c -->
 
@@ -529,6 +548,7 @@ struct lista
 };
 // Uso directo de struct en todas partes
 struct lista *crear_lista(void);
+
 :::
 <!-- {code-block}c -->
 
@@ -539,6 +559,7 @@ struct lista *crear_lista(void);
 :linenos:
 #define MAX_BUFFER 1024
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
+
 :::
 <!-- {code-block}c -->
 
@@ -551,6 +572,7 @@ globales int min(int a, int b)
     return a < b ? a : b;
 } // Overhead de función para
 operación trivial
+
 :::
 <!-- {code-block}c -->
 
@@ -567,6 +589,7 @@ void procesar(const dato_t *dato)
     }
     // Procesar dato
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -578,6 +601,7 @@ void procesar(const dato_t *dato)
     // Asumir que dato nunca es NULL
     printf("%d\n", dato->valor); // Peligroso
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -601,6 +625,7 @@ bool agregar_elemento(lista_t *lista, int valor)
     // ... lógica
     return true;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -613,6 +638,7 @@ static void insertar_nodo(lista_t *lista, nodo_t *nodo)
     assert(lista != NULL); // Solo en debug
     // ... lógica sin validación en producción
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -677,6 +703,7 @@ bool eliminar_elemento(lista_t *lista, int valor)
     // ...
     return true;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -743,6 +770,7 @@ void tipo_destruir(tipo_t *obj)
     // Liberar recursos internos
     free(obj);
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -761,6 +789,7 @@ struct archivo_ctx
     size_t bytes_leidos;
     // Detalles de implementación ocultos
 };
+
 :::
 <!-- {code-block}c -->
 
@@ -778,6 +807,7 @@ bool operacion_compleja(const dato_t *entrada, resultado_t *salida)
     *salida = resultado;
     return true; // Éxito
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -793,6 +823,7 @@ void iterar(lista_t *lista, callback_t callback, void *contexto)
         callback(&nodo->dato, contexto);
     }
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -832,6 +863,7 @@ int mi_strlen(const char *s)
 }
 // Idiomático: usar strlen() de <string.h>
 size_t longitud = strlen(cadena);
+
 :::
 <!-- {code-block}c -->
 
@@ -849,6 +881,7 @@ if (condicion)
 {
     ...
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -866,6 +899,7 @@ if (ptr)
 {
     ...
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -914,6 +948,7 @@ if (ptr == NULL)
     ...
 } // Aceptable
 // Pero elegir uno y ser consistente
+
 :::
 <!-- {code-block}c -->
 
@@ -949,6 +984,7 @@ void funcion(void)
         // ...
     }
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -996,6 +1032,7 @@ error:
     }
     return resultado;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1082,6 +1119,7 @@ while (*origen != '\0')
 *destino = '\0';
 // O mejor aún, usar biblioteca estándar
 strcpy(destino, origen);
+
 :::
 <!-- {code-block}c -->
 
@@ -1118,6 +1156,7 @@ for (int *p = arreglo; p < arreglo + n; p++)
 {
     suma += *p;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1155,6 +1194,7 @@ if (ptr == NULL)
 {
     goto out_free;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1171,6 +1211,7 @@ for (i = 0; i < n; i++)
 for (int i = 0; i < n; i++)
 { /* ... */
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1191,6 +1232,7 @@ for (vertice_t *vertice = grafo->vertices; vertice != NULL;
 {
     /* ... */
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1313,6 +1355,7 @@ cleanup:
     }
     return estado;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1323,7 +1366,8 @@ cleanup:
 :label: ej-idio-antipatron-bool
 Refactorizá el siguiente bloque de código para remover las comparaciones
 redundantes no idiomáticas:
-``` c
+```{code-block} c
+:linenos:
 if (esta_activo == true)
 {
     if (ptr == NULL == false)
@@ -1331,7 +1375,9 @@ if (esta_activo == true)
         printf("Válido\n");
     }
 }
+
 ```
+<!-- {code-block} c -->
 <!-- c -->
 
 :::
@@ -1341,7 +1387,8 @@ if (esta_activo == true)
 :class: dropdown
 En C, los booleanos e inicializaciones lógicas se evalúan directamente.
 Refactorización idiomática en base a las reglas de la cátedra:
-``` c
+```{code-block} c
+:linenos:
 if (esta_activo)
 {
     if (ptr != NULL)
@@ -1349,7 +1396,9 @@ if (esta_activo)
         printf("Válido\n");
     }
 }
+
 ```
+<!-- {code-block} c -->
 <!-- c -->
 
 :::
@@ -1393,6 +1442,7 @@ void conexion_destruir(conexion_t **c)
     free(*c);
     *c = NULL; // El puntero del invocador ahora es NULL
 }
+
 ```
 <!-- {code-block} c -->
 

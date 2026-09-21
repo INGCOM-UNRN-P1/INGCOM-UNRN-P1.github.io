@@ -40,7 +40,8 @@ verdaderas *antes* de que una función comience su ejecución.
     programa puede fallar catastróficamente, corromper memoria o retornar
     resultados absurdos.
 
-``` c
+```{code-block} c
+:linenos:
 // Precondición: 'b' no debe ser cero.
 int dividir(int a, int b)
 {
@@ -48,8 +49,9 @@ int dividir(int a, int b)
     // hardware.
     return a / b;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 #### Postcondiciones (El Derecho del Cliente, Obligación del Proveedor)
 
@@ -62,7 +64,8 @@ haya sido satisfecha al inicio.
 *   **Derecho del Cliente:** El código llamador puede asumir con total certeza
     que el resultado es válido y proceder en consecuencia.
 
-``` c
+```{code-block} c
+:linenos:
 // Precondición: 'radicando' >= 0
 // Postcondición: El valor retornado es 'r' tal que r * r <= radicando y
 // (r+1)*(r+1) > radicando
@@ -70,8 +73,9 @@ int raiz_entera(int radicando)
 {
     // Implementación del algoritmo
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 ### Verificación Dinámica de Contratos en C
 
@@ -104,6 +108,7 @@ int raiz_entera(int radicando)
     }
     return r;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -151,6 +156,7 @@ int sumar_arreglo(const int arr[], int n)
     }
     return suma;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -231,6 +237,7 @@ int buscar_elemento(const int arr[], int n, int elem)
     }
     return i < n ? i : -1;
 }
+
 ```
 <!-- {code-block} c -->
 

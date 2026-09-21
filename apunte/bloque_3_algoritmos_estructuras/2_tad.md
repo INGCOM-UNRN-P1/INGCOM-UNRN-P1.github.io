@@ -43,7 +43,7 @@ opera únicamente a través de la interfaz pública, desconociendo la
 representación física.
 
 :::
-<!-- {figure} 3/tad_concepto.svg -->
+<!-- {figure} 2/tad_concepto.svg -->
 
 (caracteristicas-de-un-tad)=
 #### Características de un TAD
@@ -179,14 +179,15 @@ estructura. El constructor establece el estado inicial válido del TAD,
 reservando los recursos necesarios y configurando los invariantes básicos.
 
 **Ejemplos:**
-:::{code-block}c
+:::{code-block} c
 :linenos:
 int **crear_matriz(int filas, int col);
 int *crear_arreglo(int largo);
 pila_t *crear_pila(void);
 lista_t *crear_lista(void);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{note}
 
@@ -207,14 +208,15 @@ estructura. Los selectores permiten **acceder** al contenido almacenado sin
 modificarlo. Son operaciones de solo lectura sobre los datos del usuario.
 
 **Ejemplos:**
-:::{code-block}c
+:::{code-block} c
 :linenos:
 int valor = arreglo[i];
 int item = obtener(arreglo_t, indice);
 int dato = ver_tope(pila);
 int primero = frente(cola);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{important}
 
@@ -237,15 +239,16 @@ características de la estructura misma. Los consultores responden preguntas
 sobre la configuración, capacidad o estado actual del TAD.
 
 **Ejemplos:**
-:::{code-block}c
+:::{code-block} c
 :linenos:
 size_t tamanio = sizeof(arreglo);
 bool vacia = esta_vacia(pila);
 bool encontrado = contiene(lista, valor);
 int elementos = largo(lista);
 size_t capacidad_actual = capacidad(arreglo_dinamico);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Diferencia con Selectores:**
 - **Selector:** Devuelve un dato del usuario almacenado → `ver_tope(pila)`
@@ -264,7 +267,7 @@ interna. Los iteradores son fundamentales para abstraer el recorrido de
 estructuras complejas.
 
 **Ejemplos:**
-:::{code-block}c
+:::{code-block} c
 :linenos:
 iterador_t *iter = crear_iterador(lista);
 while (tiene_siguiente(iter))
@@ -276,8 +279,9 @@ destruir_iterador(iter);
 // Alternativamente, con callbacks (soporte genérico):
 void procesar(void *dato, void *contexto);
 recorrer(lista, procesar, contexto);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{tip}
 
@@ -299,7 +303,7 @@ mutadores son las operaciones de escritura que alteran el contenido gestionado
 por el TAD. Deben mantener los invariantes de la estructura.
 
 **Ejemplos:**
-:::{code-block}c
+:::{code-block} c
 :linenos:
 arreglo[i] = valor;
 bool exito = insertar(lista, val, pos);
@@ -307,8 +311,9 @@ bool exito = apilar(pila, dato);
 bool exito = encolar(cola, dato);
 bool eliminado = remover(conjunto, elemento);
 void modificar(matriz, fila, col, nuevo_valor);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{important}
 
@@ -331,15 +336,16 @@ contenido de la estructura actual. Los conversores transforman el TAD en otro
 formatos, típicamente para interoperabilidad o presentación.
 
 **Ejemplos:**
-:::{code-block}c
+:::{code-block} c
 :linenos:
 char *cadena = a_cadena(arreglo, largo);
 int *subconjunto = rebanar(arreglo, desde, hasta);
 lista_t *sublista = copiar_sublista(lista, inicio, fin);
 arreglo_t *arr = lista_a_arreglo(lista);
 char *representacion = serializar(estructura);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{note}
 
@@ -366,14 +372,15 @@ externos (archivos, conexiones, etc.) para evitar fugas (*memory leaks*). El
 destructor es la operación final en el ciclo de vida de una instancia del TAD.
 
 **Ejemplos:**
-:::{code-block}c
+:::{code-block} c
 :linenos:
 void liberar_arreglo(int **arreglo);
 void destruir_matriz(int filas, int ***matriz);
 void destruir_pila(pila_t **pila);
 void destruir_lista(lista_t **lista, void (*destruir_dato)(void *));
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{warning} Responsabilidad del Destructor
 
@@ -386,7 +393,7 @@ personalizada como parámetro para delegar esa responsabilidad al usuario.
 <!-- {warning} Responsabilidad del Destructor -->
 
 **Patrones comunes:**
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Destructor seguro con doble puntero (datos copiados)
 void destruir_pila_int(pila_t **pila)
@@ -414,8 +421,9 @@ void destruir_lista(lista_t **lista, void (*destruir_dato)(void *))
     free(*lista);
     *lista = NULL;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (resumen-de-tipificacion)=
 #### Resumen de Tipificación
@@ -598,11 +606,12 @@ la secuencia. El último nodo apunta a `NULL`, indicando el final de la lista.
 Estructura física de una Lista Enlazada Simple en el heap.
 
 :::
+<!-- {figure} 2/lista_enlazada_simple.svg -->
 <!-- {figure} 3/lista_enlazada_simple.svg -->
 
 ##### Estructura de un Nodo
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 typedef struct nodo
 {
@@ -614,8 +623,9 @@ typedef struct lista
     nodo_t *inicio;
     size_t tamanio;
 } lista_t;
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{note}
 
@@ -639,7 +649,7 @@ siguiendo las convenciones de C estándar.
 
 ##### Creación de una Lista Vacía
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 lista_t *crear_lista(void)
 {
@@ -653,8 +663,9 @@ lista_t *crear_lista(void)
     lista->tamanio = 0;
     return lista;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{tip} Aplicación de {ref}`0x0101h` y {ref}`0x7001h`
 
@@ -681,7 +692,7 @@ detalles sobre manejo de errores en asignación dinámica, consultá
 La inserción al inicio es una operación $O(1)$ porque no requiere recorrer la
 lista.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool insertar_al_inicio(lista_t *lista, int dato)
 {
@@ -701,15 +712,16 @@ bool insertar_al_inicio(lista_t *lista, int dato)
     lista->tamanio++;
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Inserción al Final
 
 La inserción al final requiere recorrer toda la lista para encontrar el último
 nodo ($O(n)$).
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool insertar_al_final(lista_t *lista, int dato)
 {
@@ -742,8 +754,9 @@ bool insertar_al_final(lista_t *lista, int dato)
     lista->tamanio++;
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{important}
 
@@ -755,7 +768,7 @@ Una optimización común es mantener un puntero adicional `fin` en la estructura
 
 ##### Búsqueda
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 nodo_t *buscar(const lista_t *lista, int dato)
 {
@@ -775,8 +788,9 @@ nodo_t *buscar(const lista_t *lista, int dato)
     }
     return NULL;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{tip} Aplicación de {ref}`0x0001h` y {ref}`0x301Dh`
 
@@ -792,7 +806,7 @@ convención de espaciado de la regla {ref}`0x0003h` con el operador `*`.
 La eliminación de un nodo requiere mantener una referencia al nodo anterior para
 poder actualizar su puntero `siguiente`.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool eliminar(lista_t *lista, int dato)
 {
@@ -826,8 +840,9 @@ bool eliminar(lista_t *lista, int dato)
     lista->tamanio--;
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{tip} Aplicación de {ref}`0x301Eh`
 
@@ -840,7 +855,7 @@ su uso accidental. Aunque en este caso el puntero está a punto de salir de
 
 ##### Recorrido
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 void imprimir_lista(const lista_t *lista)
 {
@@ -858,14 +873,15 @@ void imprimir_lista(const lista_t *lista)
     }
     printf("\n");
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Destrucción de la Lista
 
 Es fundamental liberar toda la memoria asignada para evitar fugas.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 void destruir_lista(lista_t *lista)
 {
@@ -885,8 +901,9 @@ void destruir_lista(lista_t *lista)
     free(lista);
     lista = NULL;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{warning}
 
@@ -916,6 +933,7 @@ de liberación y técnicas avanzadas, consultá {ref}`capitulo-memoria-dinamica`
 Operaciones lógicas de inserción y remoción de nodos en una Lista Enlazada.
 
 :::
+<!-- {figure} 2/lista_operaciones.svg -->
 <!-- {figure} 3/lista_operaciones.svg -->
 
 (lista-doblemente-enlazada)=
@@ -934,11 +952,12 @@ Estructura física de una Lista Doblemente Enlazada. Cada nodo almacena punteros
 a su predecesor y a su sucesor.
 
 :::
+<!-- {figure} 2/lista_enlazada_doble.svg -->
 <!-- {figure} 3/lista_enlazada_doble.svg -->
 
 ##### Estructura
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 typedef struct nodo_doble
 {
@@ -952,8 +971,9 @@ typedef struct lista_doble
     nodo_doble_t *fin;
     size_t tamanio;
 } lista_doble_t;
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Ventajas sobre la Lista Simple
 
@@ -970,7 +990,7 @@ typedef struct lista_doble
 
 ##### Inserción al Inicio
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool insertar_al_inicio_doble(lista_doble_t *lista, int dato)
 {
@@ -999,15 +1019,16 @@ bool insertar_al_inicio_doble(lista_doble_t *lista, int dato)
     lista->tamanio++;
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Eliminación de un Nodo
 
 La ventaja principal es que si tenemos un puntero al nodo a eliminar, podemos
 hacerlo sin buscar el nodo anterior.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool eliminar_nodo_doble(lista_doble_t *lista, nodo_doble_t *nodo)
 {
@@ -1039,8 +1060,9 @@ bool eliminar_nodo_doble(lista_doble_t *lista, nodo_doble_t *nodo)
     lista->tamanio--;
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{tip} Aplicación de {ref}`0x0001h`
 
@@ -1085,7 +1107,7 @@ rendimiento, pero mantiene la misma interfaz conceptual.
 Un arreglo dinámico combina las ventajas del acceso aleatorio de los arreglos
 con la flexibilidad de tamaño de las estructuras dinámicas.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 typedef struct secuencia_arreglo
 {
@@ -1093,8 +1115,9 @@ typedef struct secuencia_arreglo
     size_t tamanio;
     size_t capacidad;
 } secuencia_arreglo_t;
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{note} Campos de la Estructura
 
@@ -1107,7 +1130,7 @@ typedef struct secuencia_arreglo
 
 ##### Creación de una Secuencia con Arreglo
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #define CAPACIDAD_INICIAL 10
 secuencia_arreglo_t *crear_secuencia_arreglo(void)
@@ -1128,15 +1151,16 @@ secuencia_arreglo_t *crear_secuencia_arreglo(void)
     sec->capacidad = CAPACIDAD_INICIAL;
     return sec;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Redimensionamiento Automático
 
 Cuando la capacidad se agota, el arreglo debe redimensionarse. Una estrategia
 común es duplicar la capacidad:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool redimensionar(secuencia_arreglo_t *sec)
 {
@@ -1156,12 +1180,13 @@ bool redimensionar(secuencia_arreglo_t *sec)
     sec->capacidad = nueva_capacidad;
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Insertar al Final
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool insertar_al_final_arreglo(secuencia_arreglo_t *sec, int dato)
 {
@@ -1180,14 +1205,15 @@ bool insertar_al_final_arreglo(secuencia_arreglo_t *sec, int dato)
     sec->tamanio++;
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Acceso por Índice
 
 Esta es la operación donde los arreglos brillan: acceso $O(1)$.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool obtener_elemento(const secuencia_arreglo_t *sec, size_t indice, int *dato)
 {
@@ -1198,14 +1224,15 @@ bool obtener_elemento(const secuencia_arreglo_t *sec, size_t indice, int *dato)
     *dato = sec->elementos[indice];
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Insertar en Posición Específica
 
 Requiere desplazar elementos, resultando en $O(n)$.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool insertar_en_posicion_arreglo(secuencia_arreglo_t *sec, size_t pos,
                                   int dato)
@@ -1230,12 +1257,13 @@ bool insertar_en_posicion_arreglo(secuencia_arreglo_t *sec, size_t pos,
     sec->tamanio++;
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Destruir la Secuencia
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 void destruir_secuencia_arreglo(secuencia_arreglo_t **sec)
 {
@@ -1248,8 +1276,9 @@ void destruir_secuencia_arreglo(secuencia_arreglo_t **sec)
     free(*sec);
     *sec = NULL;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (comparacion-arreglo-vs-lista-enlazada-como-secuencia)=
 #### Comparación: Arreglo vs Lista Enlazada como Secuencia
@@ -1426,7 +1455,7 @@ del TAD.
 (seguridad-y-robustez)=
 #### Seguridad y Robustez
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool operacion_segura(estructura_t *est, int dato)
 {
@@ -1437,8 +1466,9 @@ bool operacion_segura(estructura_t *est, int dato)
     }
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{warning}
 
@@ -1510,7 +1540,7 @@ destructor o al buscar un elemento).
 
 Veamos cómo se define una lista enlazada simple genérica:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 typedef struct nodo_generico
 {
@@ -1522,8 +1552,9 @@ typedef struct lista_generica
     nodo_generico_t *inicio;
     size_t tamanio;
 } lista_generica_t;
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Implementación del Destructor Genérico con Callback
 
@@ -1532,7 +1563,7 @@ simplemente invocar `free(nodo->dato)`, porque el dato podría ser una estructur
 compleja que requiera liberar sus propios campos internos. Por ende, recibimos
 un callback de destrucción:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 /* Firma de la función callback de destrucción */
 typedef void (*destruir_dato_fn)(void *);
@@ -1557,15 +1588,16 @@ void destruir_lista_generica(lista_generica_t **lista,
     free(*lista);
     *lista = NULL;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Ejemplo de Uso del Cliente
 
 Imaginemos que queremos almacenar una estructura `persona_t` en nuestra lista
 genérica:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 typedef struct
 {
@@ -1602,8 +1634,9 @@ int main(void)
     destruir_lista_generica(&mi_lista, destruir_persona);
     return 0;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (callbacks-de-comparacion)=
 #### Callbacks de Comparación
@@ -1621,11 +1654,12 @@ Para resolver esto, delegamos la lógica de comparación al cliente a través de
 El callback sigue la firma estándar de funciones de comparación (como `strcmp` o
 la de `qsort` en `<stdlib.h>`):
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 typedef int (*comparar_fn)(const void *a, const void *b);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Esta función debe recibir dos punteros genéricos constantes y retornar:
 * Un valor **menor a cero** si el primer elemento es menor que el segundo.
@@ -1637,7 +1671,7 @@ A continuación se presenta cómo el módulo de la lista genérica implementa la
 búsqueda secuencial, y cómo el código cliente la consume.
 
 **En la biblioteca (`lista_generica.c`):**
-:::{code-block}c
+:::{code-block} c
 :linenos:
 void *lista_buscar_generica(const lista_generica_t *lista, const void *clave,
                             comparar_fn comparar)
@@ -1658,11 +1692,12 @@ void *lista_buscar_generica(const lista_generica_t *lista, const void *clave,
     }
     return NULL; // No encontrado
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **En el programa cliente (`main.c`):**
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Callback de comparación personalizado para el tipo persona_t
 int comparar_personas_por_nombre(const void *a, const void *b)
@@ -1689,8 +1724,9 @@ int main(void)
     // ... destruir lista ...
     return 0;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (ejercicios-de-genericidad-y-callbacks)=
 #### Ejercicios de Genericidad y Callbacks
@@ -1755,6 +1791,7 @@ bool punto_modificar(punto_t *punto, double nuevo_x, double nuevo_y);
  */
 void punto_destruir(punto_t **punto);
 #endif /* PUNTO_H */
+
 ```
 <!-- {code-block} c -->
 <!-- c -->
@@ -1809,6 +1846,7 @@ double fraccion_a_decimal(const fraccion_t *fraccion);
  */
 void fraccion_destruir(fraccion_t **fraccion);
 #endif /* FRACCION_H */
+
 ```
 <!-- {code-block} c -->
 
@@ -1834,15 +1872,17 @@ Los invariantes de representación son propiedades lógicas que deben mantenerse
 verdaderas durante todo el ciclo de vida de la estructura. Para el TAD
 `fecha_t`, definido de forma interna como:
 
-``` c
+```{code-block} c
+:linenos:
 struct fecha
 {
     int dia;
     int mes;
     int anio;
 };
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 Los invariantes formales son:
 1. $1 \le \text{mes} \le 12$.
@@ -1889,6 +1929,7 @@ size_t conjunto_cardinalidad(const conjunto_t *c);
 int *conjunto_a_arreglo(const conjunto_t *c, size_t *tam);
 void conjunto_destruir(conjunto_t **c);
 conjunto_iter_t *conjunto_iter_crear(const conjunto_t *c);
+
 ```
 <!-- {code-block} c -->
 
@@ -2011,6 +2052,7 @@ int *pila_a_arreglo(const pila_t *pila, size_t *cantidad)
     *cantidad = count;
     return arreglo;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -2089,6 +2131,7 @@ void tabla_destruir(tabla_hash_t **tabla, void (*destruir_dato)(void *))
     free(t);
     *tabla = NULL;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -2181,6 +2224,7 @@ lista_t *fusionar_listas(const lista_t *lista1, const lista_t *lista2)
     }
     return resultado;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -2238,6 +2282,7 @@ bool tiene_ciclo(const lista_t *lista)
     }
     return false;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -2292,6 +2337,7 @@ void invertir_lista(lista_t *lista)
     /* El último nodo procesado (anterior) es el nuevo inicio de la lista */
     lista->inicio = anterior;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -2356,6 +2402,7 @@ bool insertar_en_posicion_arreglo(secuencia_arreglo_t *sec, size_t pos,
     sec->tamanio++;
     return true;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -2423,6 +2470,7 @@ bool eliminar_en_posicion_arreglo(secuencia_arreglo_t *sec, size_t pos)
     }
     return true;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -2528,6 +2576,7 @@ void *lista_buscar_generica(const lista_generica_t *lista, const void *clave,
     }
     return NULL; /* No se encontró coincidencia en la lista */
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -2612,6 +2661,7 @@ void lista_filtrar_generica(lista_generica_t *lista,
         actual = siguiente;
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -2623,15 +2673,17 @@ void lista_filtrar_generica(lista_generica_t *lista,
 
 Dada la estructura de un alumno de la universidad:
 
-``` c
+```{code-block} c
+:linenos:
 typedef struct
 {
     int padron;
     char *nombre;
     double promedio;
 } alumno_t;
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 Escribí una función callback de comparación compatible con la firma estándar
 `int (*comparar)(const void *, const void *)`. La función debe comparar dos
@@ -2684,6 +2736,7 @@ int comparar_alumnos(const void *a, const void *b)
     }
     return 0; /* Alumnos equivalentes en promedio y padrón */
 }
+
 ```
 <!-- {code-block} c -->
 

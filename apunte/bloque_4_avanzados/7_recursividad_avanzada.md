@@ -43,6 +43,7 @@ long int factorial_tail_rec(int n, long int acumulador)
     // La llamada recursiva es la última operación física.
     return factorial_tail_rec(n - 1, n * acumulador);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -134,6 +135,7 @@ Paradigma de Divide y Vencerás aplicado a la ordenación del arreglo [12, 11, 1
 5] mediante Merge Sort.
 
 :::
+<!-- {figure} ../bloque_3_algoritmos_estructuras/7/divide_conquista_merge.svg -->
 <!-- {figure} ../bloque_1_fundamentos/6/divide_conquista_merge.svg -->
 
 #### Ejemplo 1: Búsqueda Binaria
@@ -240,6 +242,7 @@ int buscar_binario_iterativo(const int arr[], size_t size, int x,
     }
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -269,6 +272,7 @@ arreglo inicial [5, 2, 7, 3]. Los números en los círculos indican el orden
 cronológico de ejecución (DFS).
 
 :::
+<!-- {figure} ../bloque_3_algoritmos_estructuras/7/traza_merge_sort.svg -->
 <!-- {figure} ../bloque_1_fundamentos/6/traza_merge_sort.svg -->
 
 ##### Deficiencia del malloc en recursión profunda y optimización de buffer único
@@ -370,6 +374,7 @@ int ordenar_merge_sort(int arr[], size_t size)
     free(aux);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -456,6 +461,7 @@ int sumar_arreglo_cola(const int arr[], size_t size, int acumulador)
     // desplazamos el puntero del arreglo y decrementamos el tamaño
     return sumar_arreglo_cola(arr + 1, size - 1, acumulador + arr[0]);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -505,6 +511,7 @@ unsigned long fibonacci_cola(size_t n, unsigned long a, unsigned long b)
     // 'b' y el acumulador 'b' toma el valor de la suma acumulada 'a + b'
     return fibonacci_cola(n - 1, b, a + b);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -544,6 +551,7 @@ size_t contar_digitos_cola(unsigned long n, size_t acumulador)
     // Paso Recursivo de cola: dividimos el número y sumamos 1 al acumulador
     return contar_digitos_cola(n / 10, acumulador + 1);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -585,6 +593,7 @@ int maximo_divide_y_venceras(const int arr[], size_t ini, size_t fin)
         return max_der;
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -618,6 +627,7 @@ long int sumar_divide_y_venceras(const int arr[], size_t ini, size_t fin)
     return sumar_divide_y_venceras(arr, ini, mid) +
            sumar_divide_y_venceras(arr, mid + 1, fin);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -654,6 +664,7 @@ size_t contar_pares_divide_y_venceras(const int arr[], size_t ini, size_t fin)
     size_t pares_der = contar_pares_divide_y_venceras(arr, mid + 1, fin);
     return pares_izq + pares_der;
 }
+
 ```
 <!-- {code-block} c -->
 

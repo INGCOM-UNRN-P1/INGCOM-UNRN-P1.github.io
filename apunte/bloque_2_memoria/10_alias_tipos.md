@@ -117,6 +117,7 @@ velocidad_t calcular_velocidad(distancia_t d, tiempo_t t)
     }
     return d / t;
 }
+
 ```
 <!-- {code-block} c -->
 

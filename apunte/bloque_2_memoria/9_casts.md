@@ -284,6 +284,7 @@ int main(void)
     }
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 

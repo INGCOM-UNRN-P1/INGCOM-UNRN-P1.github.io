@@ -100,7 +100,7 @@ Representación gráfica de la cota superior asintótica $f(n) \in O(g(n))$. A
 partir de $n_0$, la función $c \cdot g(n)$ es siempre mayor o igual a $f(n)$.
 
 :::
-<!-- {figure} 7/big_o_definition.svg -->
+<!-- {figure} 6/big_o_definition.svg -->
 
 :::{note} Pertenencia vs. Igualdad
 
@@ -151,6 +151,7 @@ La función $f(n)$ queda atrapada entre las cotas $c_1 \cdot g(n)$ y $c_2 \cdot
 g(n)$ para todo $n \ge n_0$.
 
 :::
+<!-- {figure} 6/big_theta_definition.svg -->
 <!-- {figure} 7/big_theta_definition.svg -->
 
 (notaciones-menos-comunes)=
@@ -210,6 +211,7 @@ Jerarquía de las clases de complejidad más comunes, ordenadas de más eficient
 menos eficiente.
 
 :::
+<!-- {figure} 6/complexity_hierarchy.svg -->
 <!-- {figure} 7/complexity_hierarchy.svg -->
 
 (clasificacion-detallada)=
@@ -223,14 +225,15 @@ menos eficiente.
 - Ejemplo: acceso a un elemento de arreglo, operaciones aritméticas
 
 **Código ejemplo**:
-:::{code-block}c
+:::{code-block} c
 :linenos:
 int obtener_primero(int arr[], int n)
 {
     return arr[0]; // O(1): una operación, independiente de n
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{note} Estructuras de Datos con Acceso $O(1)$
 
@@ -262,7 +265,7 @@ detalle en el apunte sobre [TAD, Pilas y Colas](6_tad.md).
 **Ejemplos**: búsqueda binaria, operaciones en árboles balanceados
 
 **Código ejemplo**:
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Búsqueda binaria: O(log n)
 // Precondición: el arreglo 'arr' debe estar ordenado de menor a mayor.
@@ -287,8 +290,9 @@ int busqueda_binaria(int arr[], int n, int clave)
     }
     return -1;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Análisis**:
 :::{important}
@@ -315,7 +319,7 @@ algoritmo termina cuando $\frac{n}{2^k} = 1$, es decir, $k = \log_2 n$.
 **Ejemplos**: búsqueda secuencial, recorrer un arreglo, suma de elementos
 
 **Código ejemplo**:
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Suma de elementos: O(n)
 int sumar_elementos(int arr[], int n)
@@ -327,8 +331,9 @@ int sumar_elementos(int arr[], int n)
     }
     return suma;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{note} Búsqueda en Estructuras de Datos
 
@@ -350,7 +355,7 @@ TADs. Para comparar las complejidades de búsqueda en diferentes estructuras
 **Ejemplos**: Merge Sort, Heap Sort, Quick Sort (promedio)
 
 **Código ejemplo (Merge Sort)**:
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Merge Sort: O(n log n)
 void merge_sort(int arr[], int izq, int der)
@@ -363,8 +368,9 @@ void merge_sort(int arr[], int izq, int der)
         merge(arr, izq, medio, der);     // O(n)
     }
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Análisis**: La recurrencia es $T(n) = 2T(n/2) + O(n)$, que resuelve a $T(n) =
 O(n \log n)$ por el Teorema Maestro.
@@ -379,7 +385,7 @@ O(n \log n)$ por el Teorema Maestro.
 **Ejemplos**: Bubble Sort, Selection Sort, Insertion Sort
 
 **Código ejemplo**:
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Bubble Sort: O(n²)
 void bubble_sort(int arr[], int n)
@@ -395,8 +401,9 @@ void bubble_sort(int arr[], int n)
         }
     }
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Análisis**: Total de comparaciones = $\sum_{i=0}^{n-1} (n-i) =
 \frac{n(n-1)}{2} \in \Theta(n^2)$
@@ -410,7 +417,7 @@ void bubble_sort(int arr[], int n)
 **Ejemplos**: multiplicación ingenua de matrices, algunos algoritmos de grafos
 
 **Código ejemplo**:
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Multiplicación de matrices: O(n³)
 void multiplicar_matrices(int A[][N], int B[][N], int C[][N], int n)
@@ -427,8 +434,9 @@ void multiplicar_matrices(int A[][N], int B[][N], int C[][N], int n)
         }
     }
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Exponencial: $O(2^n)$
 
@@ -441,7 +449,7 @@ void multiplicar_matrices(int A[][N], int B[][N], int C[][N], int n)
 NP-completos
 
 **Código ejemplo**:
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Fibonacci recursivo ingenuo: O(2^n)
 int fibonacci(int n)
@@ -452,8 +460,9 @@ int fibonacci(int n)
     }
     return fibonacci(n - 1) + fibonacci(n - 2); // Dos llamadas recursivas
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Análisis**: La relación de recurrencia para el tiempo de ejecución es $T(n) =
 T(n-1) + T(n-2) + O(1)$. Para resolver la parte homogénea de esta ecuación de
@@ -479,7 +488,7 @@ asintóticamente por la raíz de mayor magnitud, por lo que $T(n) \in
 bruta)
 
 **Código ejemplo**:
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Generar permutaciones: O(n!)
 void generar_permutaciones(int arr[], int inicio, int fin)
@@ -496,8 +505,9 @@ void generar_permutaciones(int arr[], int inicio, int fin)
         intercambiar(&arr[inicio], &arr[i]);
     }
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{figure} 6/growth_comparison.svg
 :label: fig-growth
@@ -508,6 +518,7 @@ Comparación del crecimiento de diferentes funciones de complejidad para valores
 de $n$ hasta 100.
 
 :::
+<!-- {figure} 6/growth_comparison.svg -->
 <!-- {figure} 7/growth_comparison.svg -->
 
 (tabla-comparativa-de-crecimiento)=
@@ -551,20 +562,21 @@ de $n$ hasta 100.
 
 ##### Lazo Simple
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 for (int i = 0; i < n; i++)
 {
     // Operación O(1)
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Análisis**: $\sum_{i=0}^{n-1} O(1) = O(n)$
 
 ##### Lazos Anidados
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 for (int i = 0; i < n; i++)
 { // n iteraciones
@@ -573,15 +585,16 @@ for (int i = 0; i < n; i++)
         // Operación O(1)
     }
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Análisis**: $\sum_{i=0}^{n-1} \sum_{j=0}^{n-1} O(1) = n \cdot n \cdot O(1) =
 O(n^2)$
 
 ##### Lazos con Dependencia
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 for (int i = 0; i < n; i++)
 {
@@ -590,8 +603,9 @@ for (int i = 0; i < n; i++)
         // Operación O(1)
     }
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Análisis**:
 $$
@@ -601,14 +615,15 @@ $$
 
 ##### Lazo Logarítmico
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 for (int i = 1; i < n; i *= 2)
 {
     // Operación O(1)
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Análisis**: Si $i$ comienza en 1 y se duplica cada iteración, el lazo ejecuta
 $k$ veces donde $2^k = n$, es decir, $k = \log_2 n$. Por tanto, $O(\log n)$.
@@ -674,6 +689,7 @@ distribuye el trabajo en un algoritmo recursivo de tipo divide y vencerás. El
 en cada nivel del árbol.
 
 :::
+<!-- {figure} 6/master_theorem.svg -->
 <!-- {figure} 7/master_theorem.svg -->
 
 **Ejemplo de análisis con árbol**: Consideremos la recurrencia $T(n) = 2T(n/2) +
@@ -804,9 +820,10 @@ bool insertar_arreglo(arreglo_dinamico_t *arr, int valor)
     arr->tamaño++;
     return true;
 }
+
 ```
 <!-- {code-block} c -->
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Analicemos el costo de una secuencia de $n$ inserciones consecutivas en el lazo
 de carga, comenzando con una capacidad inicial de 1:
@@ -926,7 +943,7 @@ Cada llamada recursiva ocupa espacio en la pila. La profundidad máxima de
 recursión determina la complejidad espacial.
 
 **Ejemplo**: Fibonacci recursivo
-:::{code-block}c
+:::{code-block} c
 :linenos:
 int fibonacci(int n)
 {
@@ -936,8 +953,9 @@ int fibonacci(int n)
     }
     return fibonacci(n - 1) + fibonacci(n - 2);
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 - **Complejidad temporal**: $O(2^n)$
 - **Complejidad espacial**: $O(n)$ (profundidad máxima de la pila)
@@ -948,7 +966,7 @@ int fibonacci(int n)
 A menudo es posible reducir tiempo usando más espacio (memoización) o viceversa.
 
 **Ejemplo**: Fibonacci con memoización
-:::{code-block}c
+:::{code-block} c
 :linenos:
 int fibonacci_memo(int n, int memo[])
 {
@@ -963,8 +981,9 @@ int fibonacci_memo(int n, int memo[])
     memo[n] = fibonacci_memo(n - 1, memo) + fibonacci_memo(n - 2, memo);
     return memo[n];
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 - **Complejidad temporal**: $O(n)$ (cada valor se calcula una vez)
 - **Complejidad espacial**: $O(n)$ (arreglo de memoización + pila)
@@ -976,6 +995,7 @@ int fibonacci_memo(int n, int memo[])
 Ilustración del trade-off entre tiempo y espacio en el problema de Fibonacci.
 
 :::
+<!-- {figure} 6/time_space_tradeoff.svg -->
 <!-- {figure} 7/time_space_tradeoff.svg -->
 
 (ejercicios-de-complejidad-espacial)=
@@ -1165,7 +1185,7 @@ razonables, sabiendo que una solución óptima general y rápida no es viable.
 (ejemplo-1-busqueda-del-maximo)=
 #### Ejemplo 1: Búsqueda del Máximo
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 int buscar_maximo(int arr[], int n)
 {
@@ -1179,8 +1199,9 @@ int buscar_maximo(int arr[], int n)
     }
     return max; // O(1)
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Análisis**:
 - Inicialización: $O(1)$
@@ -1192,7 +1213,7 @@ int buscar_maximo(int arr[], int n)
 (ejemplo-2-busqueda-de-duplicados)=
 #### Ejemplo 2: Búsqueda de Duplicados
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Versión ingenua: O(n²)
 bool tiene_duplicados_ingenuo(int arr[], int n)
@@ -1209,8 +1230,9 @@ bool tiene_duplicados_ingenuo(int arr[], int n)
     }
     return false;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Análisis**:
 $$
@@ -1218,7 +1240,7 @@ T(n) = \sum_{i=0}^{n-1} \sum_{j=i+1}^{n-1} O(1) = \sum_{i=0}^{n-1} (n-i-1) =
 \frac{n(n-1)}{2} \in O(n^2)
 $$
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Versión optimizada: O(n log n) con ordenamiento previo
 bool tiene_duplicados_ordenado(int arr[], int n)
@@ -1233,15 +1255,16 @@ bool tiene_duplicados_ordenado(int arr[], int n)
     }
     return false;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Análisis**: $T(n) = O(n \log n) + O(n) = O(n \log n)$
 
 (ejemplo-3-torres-de-hanoi)=
 #### Ejemplo 3: Torres de Hanoi
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 void hanoi(int n, char origen, char destino, char auxiliar)
 {
@@ -1254,8 +1277,9 @@ void hanoi(int n, char origen, char destino, char auxiliar)
     printf("Mover disco %d de %c a %c\n", n, origen, destino);
     hanoi(n - 1, auxiliar, destino, origen);
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Análisis mediante recurrencia**:
 $$
@@ -1478,7 +1502,7 @@ complejidad exponencial.
 Determiná la complejidad temporal del siguiente fragmento de código analizando
 la cantidad de ejecuciones del lazo interno:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 for (int i = 0; i < n; i++)
 {
@@ -1487,8 +1511,9 @@ for (int i = 0; i < n; i++)
         printf("%d ", i * j);
     }
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ::::
 <!-- {exercise} -->
@@ -1513,7 +1538,7 @@ $$\sum_{i=0}^{n-1} i = 0 + 1 + 2 + \dots + (n-1) = \frac{(n-1)n}{2} = \frac{n^2
 :label: ejer-tecnicas-lazo-multiplicativo
 Determiná la complejidad temporal del siguiente fragmento de código:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 for (int i = 1; i < n; i *= 3)
 {
@@ -1522,8 +1547,9 @@ for (int i = 1; i < n; i *= 3)
         printf("%d ", i + j);
     }
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ::::
 <!-- {exercise} -->
@@ -1549,7 +1575,7 @@ $$T(n) = \log_3 n \cdot n \in O(n \log n)$$
 Determiná la complejidad temporal de la siguiente función recursiva aplicando el
 Teorema Maestro:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 void misterio(int n)
 {
@@ -1564,8 +1590,9 @@ void misterio(int n)
     misterio(n / 3);
     misterio(n / 3);
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ::::
 <!-- {exercise} -->

@@ -16,15 +16,17 @@ exacto, ideal para empaquetar flags o valores pequeños.
 (sintaxis-y-ejemplo)=
 ### Sintaxis y Ejemplo
 
-``` c
+```{code-block} c
+:linenos:
 typedef struct
 {
     unsigned int activo : 1;    // 1 bit
     unsigned int modo_op : 3;   // 3 bits (valores 0-7)
     unsigned int prioridad : 4; // 4 bits (valores 0-15)
 } config_t;
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 El compilador empaquetará estos 8 bits en un solo byte (si es posible).
 
@@ -89,6 +91,7 @@ int main()
     printf("Byte resultante: 0x%02X\n", data.valor_raw);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -159,6 +162,7 @@ int main()
     imprimir_estado_paquete(paquete);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -250,6 +254,7 @@ int main(void)
     }
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -279,7 +284,8 @@ función que use el operador `&` para determinar si un número es par.
 ::::{solution} espar
 :class: dropdown
 
-:::{code-block}c
+:::{code-block} c
+
 #include <stdbool.h>
 bool es_par(int numero)
 {
@@ -287,8 +293,9 @@ bool es_par(int numero)
     // Si el resultado de (numero & 1) es 0, el bit era 0.
     return (numero & 1) == 0;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ::::
 <!-- {solution} espar -->
@@ -310,12 +317,14 @@ posición 3) sin modificar los demás. :::
 :class: dropdown
 
 ```{code-block} c
+:linenos:
 void activar_flag_4(unsigned char *estado)
 {
     // La máscara (1 << 3) es 8 (00001000).
     // El OR encenderá ese bit sin tocar los otros.
     *estado = *estado | (1 << 3);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -349,6 +358,7 @@ void swap_xor(int *a, int *b)
         *a = *a ^ *b; // *a se convierte en el valor original de *b
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -385,6 +395,7 @@ demás.
 // Máscara para el 2do bit: (1 << 1) -> 00000010
 // Máscara invertida: ~(1 << 1) -> 11111101
 unsigned char mascara_apagado = ~(1 << 1);
+
 ```
 <!-- {code-block} c -->
 
@@ -424,6 +435,7 @@ realizar las operaciones. :::
 ```{code-block} c
 #define MULT_POR_8(x) ((x) << 3) // 2^3 = 8
 #define DIV_POR_4(x) ((x) >> 2)  // 2^2 = 4
+
 ```
 <!-- {code-block} c -->
 
@@ -451,6 +463,7 @@ int get_bit(int numero, int n)
     // Desplaza el bit n a la posición 0 y usa AND con 1 para aislarlo.
     return (numero >> n) & 1;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -474,6 +487,7 @@ void set_bit(int *numero, int n)
     // Crea una máscara con el bit n encendido (ej: 00001000) y aplica OR.
     *numero |= (1 << n);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -498,6 +512,7 @@ void clear_bit(int *numero, int n)
     // Crea una máscara con el bit n en 0 y el resto en 1, y aplica AND.
     *numero &= ~(1 << n);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -537,6 +552,7 @@ int contar_bits_encendidos(int n)
     }
     return contador;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -569,6 +585,7 @@ bool es_potencia_de_dos(int n)
     // (n & (n - 1)) == 0 verifica que solo haya un bit encendido.
     return (n > 0) && ((n & (n - 1)) == 0);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -662,6 +679,7 @@ error_validacion_t validar_usuario(const usuario_t *usuario)
     }
     return ERROR_NINGUNO;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -693,6 +711,7 @@ typedef enum
 } errores_validacion_t;
 // Tipo para almacenar combinaciones
 typedef unsigned int errores_t;
+
 ```
 <!-- {code-block} c -->
 
@@ -727,6 +746,7 @@ errores_t validar_usuario(const usuario_t *usuario)
     }
     return errores;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -762,6 +782,7 @@ if (hay_errores(resultado))
         printf("Error: La edad debe estar entre 18 y 120\n");
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -824,6 +845,7 @@ if (tiene_alguno(resultado, ERROR_EDAD_FUERA_RANGO | ERROR_DNI_INVALIDO))
 {
     printf("Problema con edad o DNI\n");
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -848,6 +870,7 @@ int contar_errores_rapido(errores_t errores)
 {
     return __builtin_popcount(errores);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -932,6 +955,7 @@ void mostrar_errores_formulario(errores_t errores)
         printf("  - Debe aceptar los términos y condiciones\n");
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -986,6 +1010,7 @@ else
 mis_permisos = otorgar_permiso(mis_permisos, PERMISO_EJECUTAR);
 // Revocar permiso de escritura
 mis_permisos = revocar_permiso(mis_permisos, PERMISO_ESCRIBIR);
+
 ```
 <!-- {code-block} c -->
 
@@ -1080,6 +1105,7 @@ void diagnosticar_conexion(const resultado_conexion_t *resultado)
         printf("\nSugerencia: Verifica la fecha del sistema\n");
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1147,6 +1173,7 @@ bool es_error_recuperable(errores_t errores)
         DOC_METADATOS_FALTANTES | DOC_VERSION_NO_SOPORTADA;
     return (errores & ERRORES_RECUPERABLES) != 0 && !es_error_critico(errores);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1188,6 +1215,7 @@ void imprimir_errores(errores_t errores)
         }
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1223,6 +1251,7 @@ char *errores_a_json(errores_t errores)
     strcat(buffer, "]}");
     return strdup(buffer);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1246,6 +1275,7 @@ typedef enum
     // ...
     ERROR_64 = 1ULL << 63
 } errores_64_t;
+
 ```
 <!-- {code-block} c -->
 
@@ -1281,6 +1311,7 @@ bool tiene_error_multiples(const errores_multiples_t *errores,
     }
     return false;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1306,6 +1337,7 @@ typedef enum
     ERROR_EMAIL_INVALIDO = 1 << 1,  ///< Formato email inválido
     ERROR_EDAD_FUERA_RANGO = 1 << 2 ///< Edad < 18 o > 120
 } errores_validacion_t;
+
 ```
 <!-- {code-block} c -->
 
@@ -1321,6 +1353,7 @@ ERROR_EMAIL_INVALIDO
 ERR_1
 ERR_NOM
 E_MAIL
+
 ```
 <!-- {code-block} c -->
 
@@ -1339,6 +1372,7 @@ if (errores & ERRORES_ENTRADA)
 {
     printf("Hay problemas con los datos de entrada\n");
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1363,6 +1397,7 @@ bool solo_advertencias(validacion_t resultado)
     return (resultado & MASCARA_ERRORES) == 0 &&
            (resultado & MASCARA_ADVERTENCIAS) != 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1422,6 +1457,7 @@ errores_t procesar_formulario(const formulario_t *form)
     // Único retorno con todos los errores acumulados
     return resultado;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1448,6 +1484,7 @@ resultado_operacion_t realizar_operacion(const datos_t *entrada)
     }
     return resultado;
 }
+
 ```
 <!-- {code-block} c -->
 

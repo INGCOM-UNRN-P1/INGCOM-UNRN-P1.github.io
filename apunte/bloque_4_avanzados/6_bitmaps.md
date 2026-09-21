@@ -101,7 +101,7 @@ portabilidad y el tamaño exacto de los campos.
 :::
 <!-- {tip} Estilo -->
 
-:::{code}c
+:::{code-block} c
 :linenos:
 #include <stdint.h>
 // Desactiva el padding para que la estructura coincida con el formato del
@@ -142,8 +142,9 @@ typedef struct
 } cabecera_info_bmp_t;
 // Restaura la configuración de padding original.
 #pragma pack(pop)
+
 :::
-<!-- {code}c -->
+<!-- {code-block}c -->
 
 ## Ejemplo 1: Crear una imagen de 24 bits (True Color)
 
@@ -200,7 +201,7 @@ limpieza final. Este patrón cumple con la regla {ref}`0x0103h`.
 :::
 <!-- {tip} Estilo -->
 
-:::{code}c
+:::{code-block} c
 :linenos:
 #include <stdbool.h>
 #include <stdio.h>
@@ -309,8 +310,9 @@ bool crear_degradado_bmp_24bit(const char *nombre_archivo, int ancho, int alto)
     }
     return exito;
 }
+
 :::
-<!-- {code}c -->
+<!-- {code-block} c -->
 
 ## Ejemplo 2: Crear una imagen de 8 bits (Escala de Grises)
 
@@ -326,7 +328,7 @@ imagen en escala de grises, crearemos una paleta donde cada entrada tiene el
 mismo valor para R, G y B (ej. R=G=B=128 para un gris medio), creando así 256
 tonos de gris.
 
-:::{code}c
+:::{code-block} c
 :linenos:
 /**
  * @brief Representa una entrada en la tabla de colores BMP (4 bytes).
@@ -338,15 +340,16 @@ typedef struct
     uint8_t rojo;
     uint8_t reservado; // Debe ser 0
 } rgb_quad_t;
+
 :::
-<!-- {code}c -->
+<!-- {code-block} c -->
 
 ### Código de Ejemplo
 
 Esta función crea una imagen en escala de grises de 8 bits con un degradado
 horizontal.
 
-:::{code}c
+:::{code-block} c
 :linenos:
 // Incluir cabeceras y estructuras...
 bool crear_degradado_bmp_8bit(const char *nombre_archivo, int ancho, int alto)
@@ -447,15 +450,16 @@ bool crear_degradado_bmp_8bit(const char *nombre_archivo, int ancho, int alto)
     }
     return exito;
 }
+
 :::
-<!-- {code}c -->
+<!-- {code-block} c -->
 
 ## Poniéndolo todo junto
 
 Para compilar y ejecutar los ejemplos, podemos usar una función `main` como la
 siguiente:
 
-:::{code}c
+:::{code-block} c
 :linenos:
 int main()
 {
@@ -469,8 +473,9 @@ int main()
     }
     return 0;
 }
+
 :::
-<!-- {code}c -->
+<!-- {code-block} c -->
 
 ## Conclusión
 

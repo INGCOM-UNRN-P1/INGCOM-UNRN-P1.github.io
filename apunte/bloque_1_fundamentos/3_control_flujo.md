@@ -57,6 +57,7 @@ else
 {
     // Bloque ejecutado si ninguna condición fue verdadera
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -96,6 +97,7 @@ else
 {
     printf("Menor de edad\n");
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -122,6 +124,7 @@ default:
     // Código si no coincide con ningún caso anterior (obligatorio)
     break;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -182,6 +185,7 @@ while (i < 5)
     printf("i vale %d\n", i);
     i = i + 1;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -234,6 +238,7 @@ for (inicialización; condición; incremento)
 {
     // Bloque de instrucciones
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -259,6 +264,7 @@ for (int i = 0; i < 5; i++)
 {
     printf("i vale %d\n", i);
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -295,6 +301,7 @@ for (int i = 0; i < n; i++)
 {
     // Procesar x[i]
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -327,6 +334,7 @@ do
     printf("Ingrese la clave de acceso (1234): ");
     scanf("%d", &clave);
 } while (clave != 1234);
+
 :::
 <!-- {code-block}c -->
 
@@ -396,6 +404,7 @@ int main()
     }
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -429,6 +438,7 @@ int main()
     }
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -458,6 +468,7 @@ int main()
     printf("La suma de los primeros %d numeros es: %d\n", n, suma);
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -499,6 +510,7 @@ int main()
            contadorPares);
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -528,6 +540,7 @@ for (int i = 1; i <= 10; i++)
     }
     printf("i = %d\n", i);
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -545,6 +558,7 @@ for (int i = 1; i <= 5; i++)
     }
     printf("i = %d\n", i);
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -624,6 +638,7 @@ int main()
     printf("Edad: %d, Inicial: %c\n", edad, inicial);
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -653,7 +668,8 @@ por 100, pero sí aquellos divisibles por 400.
 :::{solution} ej-cond-bisiesto
 :class: dropdown
 La expresión lógica se traduce en C de la siguiente manera:
-``` c
+```{code-block} c
+:linenos:
 if ((anio % 4 == 0 && anio % 100 != 0) || anio % 400 == 0)
 {
     printf("El año %d es bisiesto.\n", anio);
@@ -662,8 +678,9 @@ else
 {
     printf("El año %d no es bisiesto.\n", anio);
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-cond-bisiesto -->
@@ -708,6 +725,7 @@ default:
     dias = -1;
     break;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -718,15 +736,17 @@ default:
 :label: ej-cond-veracidad
 Explicá detalladamente qué error semántico ocurre en el siguiente fragmento y
 por qué la regla {ref}`0x1005h` prohíbe el uso de la veracidad implícita:
-``` c
+```{code-block} c
+:linenos:
 int estado = 0;
 // ...
 if (estado = 5)
 {
     printf("El estado es activo.\n");
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {exercise} -->
@@ -784,6 +804,7 @@ int main()
     }
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -820,6 +841,7 @@ int main()
     printf("La suma de impares en el rango es: %d\n", suma);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -856,6 +878,7 @@ do
         printf("Opción inválida. Reintentá.\n");
     }
 } while (opcion != 4);
+
 ```
 <!-- {code-block} c -->
 
@@ -912,6 +935,7 @@ int main()
     }
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -964,6 +988,7 @@ int main()
     }
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -999,6 +1024,7 @@ else
     }
 }
 printf("El número %d tiene %d dígitos.\n", numero, digitos);
+
 ```
 <!-- {code-block} c -->
 En este algoritmo:
@@ -1029,6 +1055,7 @@ for (int i = 0; i < 5; i++)
         break; // PROHIBIDO
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1055,6 +1082,7 @@ while (i < 5 && encontrado == false)
     }
     i++;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1133,6 +1161,7 @@ int main()
     printf("Edad ingresada: %d. Elección: %c\n", edad, respuesta);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 

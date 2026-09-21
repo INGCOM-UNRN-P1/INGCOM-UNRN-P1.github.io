@@ -47,7 +47,7 @@ Las enumeraciones proporcionan nombres simbólicos a valores enteros,
 transformando números mágicos en código legible y mantenible.
 
 :::
-<!-- {figure} 4/enum_concept.svg -->
+<!-- {figure} 11/enum_concept.svg -->
 
 ### 2. Sintaxis y Espacios de Nombres (Namespaces)
 
@@ -65,6 +65,7 @@ enum estado_conexion
 };
 // Uso para declarar variables
 enum estado_conexion estado_actual = DESCONECTADO;
+
 ```
 <!-- {code-block} c -->
 
@@ -110,6 +111,7 @@ enum luz_estado
     LUZ_PRENDIDA,
     LUZ_PARPADEANDO
 };
+
 ```
 <!-- {code-block} c -->
 
@@ -130,6 +132,7 @@ enum codigo_error
     ERROR_CRITICO = 500,
     ERROR_FATAL // Toma el valor 501 automáticamente
 };
+
 ```
 <!-- {code-block} c -->
 
@@ -149,6 +152,7 @@ typedef enum
 } operacion_t;
 // Declaración directa
 operacion_t operacion_actual = OPERACION_SUMA;
+
 ```
 <!-- {code-block} c -->
 
@@ -171,6 +175,7 @@ modo_t modo = MODO_LECTURA;
 modo = 100; // Compila sin advertencias, a pesar de que 100 no está en la
             // enumeración
 int valor_entero = MODO_ESCRITURA; // Promoción implícita: valor_entero = 1
+
 ```
 <!-- {code-block} c -->
 
@@ -195,6 +200,7 @@ bool es_estado_valido(int valor)
 {
     return (valor >= ESTADO_INICIAL && valor < ESTADO_MAX);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -222,6 +228,7 @@ const char *obtener_nombre_estado(estado_t estado)
             return "Desconocido";
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -232,7 +239,8 @@ const char *obtener_nombre_estado(estado_t estado)
 Explicá por qué el siguiente fragmento de código genera un error en tiempo de
 compilación y reescribilo aplicando la solución recomendada por buenas
 prácticas:
-``` c
+```{code-block} c
+:linenos:
 enum estado_conexion
 {
     APAGADO,
@@ -245,8 +253,9 @@ enum estado_alarma
     ALERTA,
     DISPARADO
 };
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {exercise} -->
@@ -260,7 +269,8 @@ símbolo.
 
 La solución consiste en añadir **prefijos únicos** a los miembros de cada
 enumeración para evitar colisiones:
-``` c
+```{code-block} c
+:linenos:
 enum estado_conexion
 {
     CON_APAGADO,
@@ -273,8 +283,9 @@ enum estado_alarma
     ALA_ALERTA,
     ALA_DISPARADA
 };
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {solution} ej-enum-namespace-colision -->
@@ -303,6 +314,7 @@ enum nivel_severidad
 };
 // Declaración e inicialización de la variable
 enum nivel_severidad severidad_actual = SEV_ALTA;
+
 ```
 <!-- {code-block} c -->
 
@@ -387,6 +399,7 @@ const char *obtener_nombre_estado(estado_t estado)
             return "Desconocido";
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -417,6 +430,7 @@ typedef enum
 // Combinación de permisos mediante operador OR a nivel de bits (|)
 permisos_t mis_permisos =
     PERM_LECTURA | PERM_ESCRITURA; // Resulta en 3 (0b0011)
+
 ```
 <!-- {code-block} c -->
 

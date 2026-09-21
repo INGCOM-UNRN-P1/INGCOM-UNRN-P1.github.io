@@ -77,7 +77,7 @@ El estándar C especifica de forma estricta que los enteros sin signo operan baj
 supera el límite superior, el valor "da la vuelta" y comienza cíclicamente desde
 cero de manera predecible.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdint.h>
 #include <stdio.h>
@@ -87,8 +87,9 @@ void demo_overflow_unsigned(void)
     numero = numero + 1;  // Produce 0 de forma garantizada por el estándar C
     printf("Valor: %u\n", numero);
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 #### Enteros Con Signo: Comportamiento Indefinido (UB)
 
@@ -107,7 +108,7 @@ vulnerabilidades graves de seguridad en ejecución.
 :::
 <!-- {important} ¿Qué implica el Comportamiento Indefinido? -->
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdint.h>
 void demo_overflow_signed(void)
@@ -116,8 +117,9 @@ void demo_overflow_signed(void)
     numero = numero + 1; // ¡COMPORTAMIENTO INDEFINIDO! No asumas que dará
     -128.
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ### División de Enteros vs. División Real
 
@@ -130,15 +132,16 @@ sus operandos. Esto es especialmente crítico en la división (`/`):
 *   **División Real:** Si al menos uno de los operandos es un tipo flotante
     (`float` o `double`), C realiza una división real conservando los decimales.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 int a = 5;
 int b = 2;
 int resultado_entero = a / b; // Produce 2 (se descarta la parte fraccional)
 float resultado_real = (float)a / b; // Produce 2.5 (conversión explícita o
 cast)
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Para mayor detalle de cómo el compilador convierte implícitamente estos tipos
 durante operaciones aritméticas, consultá el capítulo de
@@ -182,7 +185,7 @@ utilizando el operador de igualdad directa `==`. En su lugar, debés verificar
 que la diferencia absoluta entre ambos sea menor que un margen de tolerancia
 sumamente pequeño denominado **épsilon** ($\epsilon$):
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <math.h>
 #include <stdbool.h>
@@ -192,8 +195,9 @@ bool reales_casi_iguales(float a, float b)
     // Retorna verdadero si la diferencia absoluta es menor al margen de error
     return fabsf(a - b) < EPSILON;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ---
 
@@ -236,6 +240,7 @@ int total_puntos = 15;
 int partidas = 4;
 float promedio = total_puntos / partidas;
 printf("Promedio: %.2f\n", promedio);
+
 ```
 <!-- {code-block} c -->
 
@@ -258,6 +263,7 @@ operandos a `float` antes de operar:
 ```{code-block} c
 :linenos:
 float promedio = (float)total_puntos / partidas; // Produce 3.75f
+
 ```
 <!-- {code-block} c -->
 
@@ -296,6 +302,7 @@ void comparar(float a, float b)
         printf("Son equivalentes dentro del margen de error.\n");
     }
 }
+
 ```
 <!-- {code-block} c -->
 

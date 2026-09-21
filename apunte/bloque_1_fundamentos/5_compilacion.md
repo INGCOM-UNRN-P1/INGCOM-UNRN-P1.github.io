@@ -67,6 +67,7 @@ desde archivos fuente independientes `.c` y cabeceras `.h` hacia código objeto
 `.o` y su posterior unión en el binario ejecutable final por el Linker.
 
 :::
+<!-- {figure} 5/proceso_compilacion.svg -->
 <!-- {figure} 1/proceso_compilacion.svg -->
 
 (fase-1-preprocesado-preprocessing)=
@@ -219,6 +220,7 @@ semántico) y Backend (generación de código intermedio, optimización y códig
 ensamblador).
 
 :::
+<!-- {figure} 5/fases_compilador.svg -->
 <!-- {figure} 1/fases_compilador.svg -->
 
 ##### Análisis Léxico y Sintáctico
@@ -275,6 +277,7 @@ int main(void)
     int resultado = suma(5, 3);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -431,6 +434,7 @@ sea utilizada. Una buena documentación, como la que pide la regla
  * @return La suma de n y m.
  */
 int suma(int n, int m);
+
 ```
 <!-- {code-block} c -->
 
@@ -443,6 +447,7 @@ que se expanden durante el preprocesamiento.
 :caption: Definición de constantes y macros
 // Constante matemática documentada.
 #define PI 3.1415926535
+
 ```
 <!-- {code-block} c -->
 
@@ -475,6 +480,7 @@ typedef enum
     SABADO,
     DOMINGO
 } DiaDeLaSemana;
+
 ```
 <!-- {code-block} c -->
 
@@ -491,6 +497,7 @@ en _un único_ archivo `.c`. Esta práctica está desaconsejada por la regla
 // Declara que la variable 'errno' existe en alguna parte del programa.
 // La definición real se encuentra en la biblioteca estándar.
 extern int errno;
+
 ```
 <!-- {code-block} c -->
 
@@ -537,6 +544,7 @@ int suma(int n, int m);
 // ----------------------------------------------------
 // 3. Fin del bloque condicional.
 #endif // MATH_OPERATIONS_H
+
 ```
 <!-- {code-block} c -->
 
@@ -943,11 +951,13 @@ La signatura estándar de la función `main` que acepta argumentos es la
 siguiente:
 
 :::{code-block}c
+
 int main(int argc, char *argv[])
 {
     // Tu código aquí
     return EXIT_SUCCESS;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -989,6 +999,7 @@ a cadenas de caracteres (strings), cada una representando un argumento pasado al
 programa.
 
 :::
+<!-- {figure} 5/argc_argv_estructura.svg -->
 <!-- {figure} 1/argc_argv_estructura.svg -->
 
 (ejemplo-basico-imprimir-todos-los-argumentos)=
@@ -1023,6 +1034,7 @@ int main(int argc, char *argv[])
     }
     return EXIT_SUCCESS;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1103,6 +1115,7 @@ int main(int argc, char *argv[])
     // ... resto de la lógica del programa ...
     return EXIT_SUCCESS;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1149,6 +1162,7 @@ int main(int argc, char *argv[])
     printf("La suma total es: %d\n", suma);
     return EXIT_SUCCESS;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1284,6 +1298,7 @@ int main(int argc, char *argv[])
     printf("Procesando: %s\n", argv[1]);
     return EXIT_SUCCESS; // Retornamos 0 al shell
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1324,6 +1339,7 @@ int main(void)
     }
     return EXIT_SUCCESS;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1339,6 +1355,7 @@ Códigos de salida en programas C. El shell usa estos códigos para determinar s
 la ejecución fue exitosa (`0`) o falló (distinto de `0`).
 
 :::
+<!-- {figure} 5/codigos_salida.svg -->
 <!-- {figure} 1/codigos_salida.svg -->
 
 (redirecciones)=
@@ -1370,6 +1387,7 @@ Los tres flujos de datos estándar en un programa C: `stdin`, `stdout` y
 escriben a la pantalla.
 
 :::
+<!-- {figure} 5/flujos_estandar.svg -->
 <!-- {figure} 1/flujos_estandar.svg -->
 
 En C, estos flujos están disponibles como:
@@ -1388,6 +1406,7 @@ int main(void)
     printf("Salida normal\n");
     return EXIT_SUCCESS;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1436,6 +1455,7 @@ Distintas formas de redirección en el shell. El programa no necesita
 modificarse, el shell conecta automáticamente los flujos a archivos.
 
 :::
+<!-- {figure} 5/redirecciones.svg -->
 <!-- {figure} 1/redirecciones.svg -->
 
 Desde el punto de vista del programa en C, no necesitás hacer nada especial:
@@ -1455,6 +1475,7 @@ int main(void)
     fprintf(stderr, "Advertencia: algo ocurrió\n");
     return EXIT_SUCCESS;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1503,6 +1524,7 @@ int main(void)
     }
     return EXIT_SUCCESS;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1551,6 +1573,7 @@ la entrada estándar del siguiente, permitiendo construir cadenas de
 procesamiento.
 
 :::
+<!-- {figure} 5/pipes_canalizaciones.svg -->
 <!-- {figure} 1/pipes_canalizaciones.svg -->
 
 (filosofia-unix-hacer-una-cosa-bien)=
@@ -1581,6 +1604,7 @@ int main(void)
     }
     return EXIT_SUCCESS;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1609,6 +1633,7 @@ Flujo de datos en una canalización que genera números, filtra solo los pares y
 toma los primeros 5 resultados.
 
 :::
+<!-- {figure} 5/ejemplo_filtro.svg -->
 <!-- {figure} 1/ejemplo_filtro.svg -->
 
 (canalizaciones-complejas)=
@@ -1671,6 +1696,7 @@ int main(int argc, char *argv[])
     }
     return EXIT_SUCCESS;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1788,6 +1814,7 @@ int main(int argc, char *argv[])
     }
     return EXIT_SUCCESS;
 }
+
 :::
 <!-- {code-block}c -->
 

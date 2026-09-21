@@ -49,7 +49,7 @@ volver a generar el ejecutable `programa`, pero se omite la recompilación de
 `comun.c`.
 
 :::
-<!-- {figure} 2/dag_compilacion.svg -->
+<!-- {figure} 8/dag_compilacion.svg -->
 
 ### 2. Anatomía de una Regla en un Makefile
 

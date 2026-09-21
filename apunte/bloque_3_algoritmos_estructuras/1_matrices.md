@@ -63,10 +63,12 @@ de filas y columnas.
 
 Sintaxis
 
-:::{code-block}c
+:::{code-block} c
+
 tipo_dato nombre_matriz[CANTIDAD_FILAS][CANTIDAD_COLUMNAS];
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{warning} Uso de ALV/VLA
 
@@ -86,10 +88,12 @@ genérica y segura.
 
 Ejemplo
 
-:::{code-block}c
+:::{code-block} c
+
 int miMatriz[3][4]; // Matriz de 3 filas y 4 columnas
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{note} Almacenamiento en memoria
 
@@ -113,13 +117,7 @@ secuencia, como un arreglo: `[f0c0, f0c1, f0c2, f0c3, f1c0, f1c1, ...]`.
 Disposición física contigua de una matriz 2D en memoria RAM (*Row-Major order*).
 
 :::
-<!-- {figure} 3/matriz_2d_memoria.svg -->
-
-
-
-
-
-
+<!-- {figure} 1/matriz_2d_memoria.svg -->
 
 
 ---
@@ -138,7 +136,7 @@ con un inicializador como con los arreglos, o con código.
 Inicialización por filas de una matriz bidimensional.
 
 :::
-<!-- {figure} 3/inicializacion_matriz.svg -->
+<!-- {figure} 1/inicializacion_matriz.svg -->
 
 (inicializacion-completa)=
 #### Inicialización completa
@@ -146,14 +144,15 @@ Inicialización por filas de una matriz bidimensional.
 Este proceso se realiza mediante el uso de llaves anidadas, donde cada conjunto
 de llaves interno corresponde a una fila de la matriz.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 int matriz[2][3] = {
     {1, 2, 3}, // Fila 0
     {4, 5, 6}  // Fila 1
 };
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (inicializacion-con-declaracion-implicita)=
 #### Inicialización con declaración implícita
@@ -163,15 +162,16 @@ pero **todas las dimensiones subsecuentes deben ser especificadas
 explícitamente**. Esto se debe a que el compilador necesita conocer el tamaño de
 cada "sub-arreglo" para calcular las posiciones de memoria.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Válido: el compilador infiere 2 filas basándose en el inicializador.
 int matriz[][3] = {
     {1, 2, 3}, // Fila 0
     {4, 5, 6}  // Fila 1
 };
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 La forma `int matriz[][]` es **inválida** y no compilará, ya que el compilador
 no tendría forma de saber dónde termina una fila y empieza la siguiente.
@@ -183,7 +183,7 @@ Constituye un método más flexible y programático. El uso de macros en mayúsc
 para las dimensiones ({ref}`0x3011h`) y de `size_t` para los índices
 ({ref}`0x3010h`) son buenas prácticas que mejoran la legibilidad y portabilidad.
 
-:::{code-block}c
+:::{code-block} c
 :caption: Asignación de valores mediante lazo anidados
 #define FILAS 3
 #define COLUMNAS 4
@@ -195,8 +195,9 @@ for (size_t i = 0; i < FILAS; i++)
         matriz[i][j] = i * 10 + j;
     }
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (acceso-a-los-elementos)=
 ### Acceso a los Elementos
@@ -207,19 +208,23 @@ cero**.
 
 Sintaxis
 
-:::{code-block}c
+:::{code-block} c
+
 nombre_matriz[indice_fila][indice_columna];
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Ejemplo de L-Value y R-Value
 
-:::{code-block}c
+:::{code-block} c
+
 matriz[0][1] = 100; // Asigna 100 al elemento en la fila 0, columna 1.
 int valor =
     matriz[2][3]; // Toma el valor del elemento en la fila 2, columna 3.
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{danger} Comportamiento no definido
 
@@ -230,13 +235,6 @@ corrupción de datos, violando la regla de estilo {ref}`0x300Ch`.
 
 :::
 <!-- {danger} Comportamiento no definido -->
-
-
-
-
-
-
-
 
 ---
 
@@ -273,7 +271,7 @@ precargados en la caché, generando un **acierto de caché (cache hit)** y
 agilizando notablemente el procesamiento, respetando la regla de estilo
 {ref}`0x0001h`.
 
-:::{code-block}c
+:::{code-block} c
 :caption: Recorrido fila por fila (Cache-Friendly) - patrón recomendado
 :linenos:
 // Lazo externo: filas (i)
@@ -286,8 +284,9 @@ for (size_t i = 0; i < FILAS; i++)
     }
     printf("\n"); // Salto de línea al final de cada fila
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (recorrido-por-columnas-column-major-bajo-rendimiento)=
 #### Recorrido por Columnas (Column-Major): Bajo Rendimiento
@@ -301,7 +300,7 @@ Esto invalida la caché constantemente, produciendo un **fallo de caché (cache
 miss)** en cada paso, obligando a la CPU a suspender momentáneamente la
 ejecución para esperar lecturas de la lenta memoria principal (RAM).
 
-:::{code-block}c
+:::{code-block} c
 :caption: Recorrido columna por columna (Cache-Unfriendly)
 // Lazo externo: columnas (j)
 for (size_t j = 0; j < COLUMNAS; j++)
@@ -313,8 +312,9 @@ for (size_t j = 0; j < COLUMNAS; j++)
     }
     printf("\n"); // Nueva línea al final de cada columna
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{figure} 1/recorrido_filas_columnas.svg
 :label: fig-recorrido-filas-columnas
@@ -324,6 +324,7 @@ for (size_t j = 0; j < COLUMNAS; j++)
 Recorrido por filas vs. recorrido por columnas.
 
 :::
+<!-- {figure} 1/recorrido_filas_columnas.svg -->
 <!-- {figure} 3/recorrido_filas_columnas.svg -->
 
 :::{figure} 1/cache_localidad.svg
@@ -334,7 +335,7 @@ Recorrido por filas vs. recorrido por columnas.
 Acceso a memoria y fallos de caché según el orden del lazo.
 
 :::
-<!-- {figure} 3/cache_localidad.svg -->
+<!-- {figure} 1/cache_localidad.svg -->
 
 :::{important} Impacto en la Práctica
 
@@ -352,7 +353,7 @@ columnas, en el caso de C).
 
 Para matrices cuadradas, es común necesitar acceder a las diagonales.
 
-:::{code-block}c
+:::{code-block} c
 :caption: Acceso a diagonal principal y secundaria
 #define DIM 4
 int matriz_cuadrada[DIM][DIM];
@@ -370,8 +371,9 @@ for (size_t i = 0; i < DIM; i++)
     printf("%d ", matriz_cuadrada[i][DIM - 1 - i]);
 }
 printf("\n");
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{figure} 1/diagonales_matriz.svg
 :label: fig-diagonales-matriz
@@ -381,13 +383,7 @@ printf("\n");
 Diagonal principal e inversa en una matriz cuadrada.
 
 :::
-<!-- {figure} 3/diagonales_matriz.svg -->
-
-
-
-
-
-
+<!-- {figure} 1/diagonales_matriz.svg -->
 
 
 ---
@@ -400,7 +396,7 @@ se especifiquen explícitamente **todas las dimensiones, a excepción de la
 primera**. Esto es necesario para que el compilador pueda calcular el
 desplazamiento en memoria de cada elemento.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #define COLUMNAS 4
 // Es crucial pasar las dimensiones para cumplir con la regla {ref}`0x300Ch`.
@@ -415,8 +411,9 @@ void imprimir_matriz(int mat[][COLUMNAS], size_t filas, size_t columnas)
         printf("\n");
     }
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ¿Acaso las `columnas` _no están ya en el macro_ `COLUMNAS`? Para garantizar la
 consistencia y minimizar los efectos secundarios en las funciones que operan con
@@ -477,7 +474,8 @@ y `cols` antes de interpretar la declaración de `matriz[filas][cols]`.
 :::
 <!-- {important} Orden de los Parámetros -->
 
-:::{code-block}c
+:::{code-block} c
+
 // Correcto: filas y cols se conocen antes de que el compilador procese
 matriz[filas][cols] void procesar_matriz(size_t filas, size_t cols,
                                          int matriz[filas][cols])
@@ -491,8 +489,9 @@ matriz[filas][cols] void procesar_matriz(size_t filas, size_t cols,
         }
     }
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (matrices-multidimensionales)=
 ### Matrices Multidimensionales
@@ -509,9 +508,9 @@ ejemplo, puede conceptualizarse como un cubo de datos.
 Representación lógica y orden de almacenamiento de una matriz tridimensional.
 
 :::
-<!-- {figure} 3/matriz_3d.svg -->
+<!-- {figure} 1/matriz_3d.svg -->
 
-:::{code-block}c
+:::{code-block} c
 :caption: Declaración y recorrido de un arreglo 3D
 // Arreglo tridimensional: 2 capas, 3 filas, y 4 columnas.
 int cubo[2][3][4];
@@ -528,8 +527,9 @@ for (size_t i = 0; i < 2; i++)
         }
     }
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 
 
@@ -548,7 +548,7 @@ expresiones matemáticas para las operaciones básicas entre matrices.
 Suma y transposición lógica de matrices.
 
 :::
-<!-- {figure} 3/operaciones_basicas.svg -->
+<!-- {figure} 1/operaciones_basicas.svg -->
 
 (suma-de-matrices)=
 ### Suma de Matrices
@@ -681,7 +681,7 @@ número de columnas de A sea igual al número de filas de B.
 Proceso físico de multiplicación de matrices (fila por columna).
 
 :::
-<!-- {figure} 3/multiplicacion_matrices.svg -->
+<!-- {figure} 1/multiplicacion_matrices.svg -->
 
 (expresion-matematica-multiplicacion-matrices)=
 #### Expresión de Multiplicación de Matrices
@@ -809,12 +809,12 @@ en C, donde no existe verificación automática de límites ({ref}`0x300Ch`).
 Validación de dimensiones y coherencia en operaciones con matrices.
 
 :::
-<!-- {figure} 3/validacion_dimensiones.svg -->
+<!-- {figure} 1/validacion_dimensiones.svg -->
 
 (validacion-de-indices)=
 #### Validación de Índices
 
-:::{code-block}c
+:::{code-block} c
 :caption: Función para validar acceso seguro a matriz
 :linenos:
 #include <stdbool.h>
@@ -837,8 +837,9 @@ int acceso_seguro_matriz(size_t filas, size_t columnas,
     }
     return matriz[fila][columna];
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (validacion-de-operaciones)=
 #### Validación de Operaciones
@@ -846,7 +847,7 @@ int acceso_seguro_matriz(size_t filas, size_t columnas,
 Para operaciones matemáticas entre matrices, debemos verificar la compatibilidad
 de dimensiones antes de proceder.
 
-:::{code-block}c
+:::{code-block} c
 :caption: Validación para operaciones con matrices
 :linenos:
 typedef enum {
@@ -873,8 +874,9 @@ resultado_matriz_t validar_multiplicacion(size_t filas_a, size_t columnas_a,
     }
     return MATRIZ_OK;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{warning} Responsabilidad del programador
 
@@ -898,13 +900,14 @@ Utilizá siempre macros para definir las dimensiones de tus matrices, siguiendo
 la regla de estilo {ref}`0x3011h`. Esto facilita el mantenimiento y la
 modificación del código.
 
-:::{code-block}c
+:::{code-block} c
 :caption: Definición de dimensiones con macros
 #define MAX_FILAS 100
 #define MAX_COLUMNAS 100
 int matriz[MAX_FILAS][MAX_COLUMNAS];
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (funciones-auxiliares)=
 #### Funciones Auxiliares
@@ -912,7 +915,7 @@ int matriz[MAX_FILAS][MAX_COLUMNAS];
 Creá funciones auxiliares para operaciones comunes, siguiendo la regla de
 claridad {ref}`0x0001h`:
 
-:::{code-block}c
+:::{code-block} c
 :caption: Funciones auxiliares para matrices
 :linenos:
 void imprimir_matriz(int matriz[][MAX_COLUMNAS], size_t filas, size_t columnas)
@@ -952,8 +955,9 @@ bool son_matrices_iguales(int a[][MAX_COLUMNAS], int b[][MAX_COLUMNAS],
     }
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (apendice-avanzado-operaciones-matriciales-de-algebra-lineal)=
 ### Apéndice Avanzado: Operaciones Matriciales de Álgebra Lineal
@@ -1175,7 +1179,7 @@ j]`.
 
 Ejemplo de implementación:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
@@ -1208,8 +1212,9 @@ void destruir_matriz_contigua(int **matriz)
     free(*matriz);
     *matriz = NULL; // Aniquilación del puntero post-free
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 #### 2. Modelo de Arreglo de Punteros (Matriz Deshilachada o *Jagged Matrix*)
 
@@ -1231,7 +1236,7 @@ tamaño $C$). Esto permite la sintaxis nativa `matriz[i][j]`.
 
 Ejemplo de implementación:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
@@ -1285,8 +1290,9 @@ void destruir_matriz_punteros(int ***matriz, size_t filas)
     free(m);
     *matriz = NULL; // Aniquilación del puntero a nivel de cliente
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ## Ejercicios de Autoevaluación
 
@@ -1420,6 +1426,7 @@ int main()
     }
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1481,6 +1488,7 @@ int sumar_diagonal_secundaria(const int matriz[N][N])
     }
     return suma;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1547,6 +1555,7 @@ for (size_t i = 0; i < FILAS; i++)
     }
     printf("\n");
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1589,6 +1598,7 @@ bool es_matriz_simetrica(size_t n, const int matriz[n][n])
     }
     return true;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1650,6 +1660,7 @@ void transponer_matriz(size_t filas_a, size_t cols_a,
         }
     }
 }
+
 ```
 <!-- {code-block} c -->
 

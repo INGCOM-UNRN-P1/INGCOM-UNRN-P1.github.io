@@ -158,6 +158,7 @@ int main()
     free(puntero_global); // Liberamos la memoria del montículo.
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -419,6 +420,7 @@ int main()
     imprimir_contador();
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -432,6 +434,7 @@ void imprimir_contador()
 {
     printf("El contador global es: %d\n", contador_global);
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -516,6 +519,7 @@ int main()
     // Stack: [x=10] <- cima (y ya no existe)
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -674,6 +678,7 @@ int *funcion_correcta()
     return valor; // CORRECTO: la memoria persiste
     // El llamador debe liberar esta memoria
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -883,6 +888,7 @@ void procesar_heap()
     }
     free(datos); // Otra llamada a función
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -903,6 +909,7 @@ for (int j = 0; j < cols; j++)
 for (int i = 0; i < rows; i++)
     for (int j = 0; j < cols; j++)
         matriz[i][j] = 0; // Acceso secuencial
+
 :::
 <!-- {code-block}c -->
 
@@ -960,6 +967,7 @@ for (int i = 0; i < 1000; i++)
     // ... usar str ...
 }
 free(buffer); // Una sola llamada a free
+
 :::
 <!-- {code-block}c -->
 
@@ -1016,6 +1024,7 @@ tipo de dato vas a almacenar:
 void *memoria_generica = malloc(100); // void *, no sabemos qué tipo
 int *enteros = memoria_generica;      // Conversión implícita a int *
 char *caracteres = memoria_generica;  // O a char *, según necesites
+
 :::
 <!-- {code-block}c -->
 
@@ -1033,6 +1042,7 @@ int *int_ptr = (int *)ptr;
 // ptr = ptr + 1;  // ¿Cuántos bytes avanzar?
 // CORRECTO: Convertir a tipo concreto primero
 int_ptr = int_ptr + 1; // Avanza sizeof(int) bytes
+
 :::
 <!-- {code-block}c -->
 
@@ -1065,6 +1075,7 @@ char *char_ptr = (char *)int_ptr; // Cast explícito
 // Reinterpretar los bytes:
 *int_ptr = 0x41424344;
 printf("%c\n", char_ptr[0]); // Imprime 'D' (little-endian)
+
 :::
 <!-- {code-block}c -->
 
@@ -1090,6 +1101,7 @@ float foo(float *f, int *i)
     *i = 2;
     return *f;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1107,6 +1119,7 @@ float foo(float *f, int *i)
     *i = 2;
     return 1.0f; // Optimizado: asume que *f no cambió
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1141,6 +1154,7 @@ for (int i = 0; i < 3; i++)
     free(matriz[i]);
 }
 free(matriz);
+
 :::
 <!-- {code-block}c -->
 
@@ -1171,6 +1185,7 @@ Apunta a un array completo como una unidad, no a un elemento individual.
 :::{code-block}c
 :linenos:
 int (*ptr)[4]; // Puntero a array de 4 enteros
+
 :::
 <!-- {code-block}c -->
 
@@ -1193,6 +1208,7 @@ int (*ptr)[4] = matriz;
 printf("%d\n", matriz[1][2]);    // 7
 printf("%d\n", ptr[1][2]);       // 7
 printf("%d\n", (*(ptr + 1))[2]); // 7 - explícito
+
 :::
 <!-- {code-block}c -->
 
@@ -1211,6 +1227,7 @@ int (*ptr)[4] = matriz;
 // ptr + 1 apunta a matriz[1] (toda la segunda fila)
 // ptr + 2 apunta a matriz[2] (toda la tercera fila)
 // Cada incremento salta 4 * sizeof(int) bytes
+
 :::
 <!-- {code-block}c -->
 
@@ -1265,6 +1282,7 @@ int main()
     free(matriz);
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1308,6 +1326,7 @@ matriz[1][2] = 7;
 matriz[2][3] = 12;
 // El acceso matriz[i][j] se traduce a:
 // memoria_plana[i * 4 + j]
+
 :::
 <!-- {code-block}c -->
 
@@ -1317,6 +1336,7 @@ matriz[2][3] = 12;
 :linenos:
 // Estas tres formas son equivalentes:
 matriz[i][j] (*(matriz + i))[j] memoria_plana[i * 4 + j]
+
 :::
 <!-- {code-block}c -->
 
@@ -1378,6 +1398,7 @@ int main()
     free(memoria);
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1403,6 +1424,7 @@ fila_t *crear_matriz(size_t n)
 fila_t *matriz = crear_matriz(5);
 matriz[0][0] = 42; // Funciona igual
 free(matriz);
+
 :::
 <!-- {code-block}c -->
 
@@ -1417,6 +1439,7 @@ typedef struct
 // Más legible que int (*)[4]
 fila_estructurada_t *matriz = malloc(3 * sizeof(*matriz));
 matriz[0].datos[0] = 10;
+
 :::
 <!-- {code-block}c -->
 
@@ -1434,6 +1457,7 @@ El tamaño del array debe ser conocido en tiempo de compilación, o necesitás V
 int (*crear(size_t cols)) [cols] { return malloc(5 * sizeof(int[cols])); }
 // NO OK en C89:
 // El compilador necesita conocer cols en compile-time
+
 :::
 <!-- {code-block}c -->
 
@@ -1455,6 +1479,7 @@ void *crear_generico(size_t filas, size_t cols)
 {
     return malloc(filas * cols * sizeof(int));
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1468,6 +1493,7 @@ usar puntero plano con acceso manual:
 // Más fácil de debuggear:
 int *arr = malloc(filas * cols * sizeof(int));
 int elemento = arr[i * cols + j]; // Cálculo explícito
+
 :::
 <!-- {code-block}c -->
 
@@ -1913,6 +1939,7 @@ int obtener_elemento(const int *matriz, size_t cols, size_t i, size_t j)
     // desplazada
     return *(matriz + (i * cols + j));
 }
+
 ```
 <!-- {code-block} c -->
 <!-- c -->
@@ -1985,6 +2012,7 @@ void inicializar_mensaje(char **ptr)
         }
     }
 }
+
 ```
 <!-- {code-block} c -->
 <!-- c -->

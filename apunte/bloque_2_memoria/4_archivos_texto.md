@@ -69,7 +69,9 @@ de funciones que reciben un puntero a esta estructura.
 Para declarar un puntero a `FILE`, la sintaxis es simple:
 
 :::{code-block}c
+
 FILE *puntero_archivo;
+
 :::
 <!-- {code-block}c -->
 
@@ -169,6 +171,7 @@ La sintaxis, definida en `<stdio.h>`, es la siguiente:
 :caption: Sintaxis de fopen()
 :label: fopen-syntax
 FILE *fopen(const char *pathname, const char *mode);
+
 :::
 <!-- {code-block}c -->
 
@@ -270,6 +273,7 @@ int main()
     fclose(p_archivo);
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -345,6 +349,7 @@ archivos a bajo nivel en C.
  *               y activa el indicador de error del flujo.
  */
 int fputc(int character, FILE *stream);
+
 :::
 <!-- {code-block}c -->
 
@@ -367,6 +372,7 @@ de error.
  *         Devuelve la constante `EOF` para indicar un error.
  */
 int fputs(const char *cadena, FILE *stream);
+
 :::
 <!-- {code-block}c -->
 
@@ -392,9 +398,11 @@ error.
  *               por cada especificador de formato en la cadena `format`.
  *
  * @return Si la operación es exitosa, devuelve el número total de caracteres
- *         escritos. Si ocurre un error de escritura, devuelve un número negativo.
+ *         escritos. Si ocurre un error de escritura, devuelve un número
+           negativo.
  */
 int fprintf(FILE *stream, const char *formato, ...);
+
 :::
 <!-- {code-block}c -->
 
@@ -503,6 +511,7 @@ int main(void)
     printf("Archivo 'factura_completa.txt' creado y cerrado exitosamente.\n");
     return EXIT_SUCCESS;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -547,6 +556,7 @@ archivo. Es la contraparte directa de `fputc`.
    `EOF`.
  */
 int fgetc(FILE *stream);
+
 :::
 <!-- {code-block}c -->
 
@@ -578,6 +588,7 @@ una práctica recomendada por la regla {ref}`0x5006h`.
                 o si ocurre un error, devuelve `NULL`.
  */
 char *fgets(char *cadena, int numero, FILE *stream);
+
 :::
 <!-- {code-block}c -->
 
@@ -615,6 +626,7 @@ lugar de la entrada estándar.
  un error antes de la primera asignación.
  */
 int fscanf(FILE *stream, const char *format, ...);
+
 :::
 <!-- {code-block}c -->
 
@@ -639,6 +651,7 @@ A continuación, se descompone el código sección por sección.
 #include <string.h>
 #define MAX_LINEA 512
 #define NOMBRE_ARCHIVO "factura.txt"
+
 :::
 <!-- {code-block}c -->
 
@@ -673,6 +686,7 @@ if (!entrada)
     perror("No se pudo abrir 'factura.txt' para lectura");
     return EXIT_FAILURE;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -707,6 +721,7 @@ while (fgets(buffer, sizeof(buffer), entrada) != NULL)
     numero_linea++;
     // ... procesamiento de la línea ...
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -748,6 +763,7 @@ if (strncmp(buffer, "Item:", 5) == 0)
         // ... fallo ...
     }
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -794,6 +810,7 @@ else if (feof(entrada))
 {
     printf("\nProcesamiento completado. Se llegó al final del archivo.\n");
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -815,6 +832,7 @@ else if (feof(entrada))
 clearerr(entrada);
 fclose(entrada);
 return EXIT_SUCCESS;
+
 :::
 <!-- {code-block}c -->
 
@@ -897,6 +915,7 @@ int main(void)
     printf("Log escrito y cerrado correctamente.\n");
     return EXIT_SUCCESS;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -964,10 +983,12 @@ donde necesitás un mensaje de error rápido, estándar y sin formato complejo. 
 menos flexible pero muy conveniente.
 
 :::{code-block}c
+
 // Si errno es 2 ("No such file or directory")
 perror("Error al leer el archivo de configuración");
 // Salida en stderr:
 // Error al leer el archivo de configuración: No such file or directory
+
 :::
 <!-- {code-block}c -->
 
@@ -987,11 +1008,13 @@ descripción del error. Vos sos responsable de cómo y dónde imprimir esa caden
   diferentes idiomas.
 
 :::{code-block}c
+
 // Si errno es 13 ("Permission denied")
 fprintf(stderr, "[FATAL] Imposible acceder al recurso. Razón: %s\n",
         strerror(errno));
 // Salida en stderr:
 // [FATAL] Imposible acceder al recurso. Razón: Permission denied
+
 :::
 <!-- {code-block}c -->
 
@@ -1028,6 +1051,7 @@ como un número de bytes desde el inicio del archivo.
    establece a un valor positivo.
  */
 long int ftell(FILE *stream);
+
 :::
 <!-- {code-block}c -->
 
@@ -1056,6 +1080,7 @@ desde un punto de origen (`origin`).
  *         Devuelve un valor distinto de cero en caso de error.
  */
 int fseek(FILE *stream, long int offset, int origin);
+
 :::
 <!-- {code-block}c -->
 
@@ -1077,6 +1102,7 @@ archivo. Además, limpia cualquier indicador de error que pudiera tener el flujo
  * @param stream Puntero al objeto `FILE` que identifica el flujo.
  */
 void rewind(FILE *stream);
+
 :::
 <!-- {code-block}c -->
 
@@ -1133,6 +1159,7 @@ int main(void)
     fclose(archivo);
     return EXIT_SUCCESS;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1228,6 +1255,7 @@ int main(void)
     archivo = fopen("datos.txt", "r");
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1306,6 +1334,7 @@ int main(void)
     fclose(archivo);
     return EXIT_SUCCESS;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1371,6 +1400,7 @@ FILE *abrir_para_escribir_seguro(const char *nombre_archivo)
     // Ahora es seguro abrirlo con "w".
     return fopen(nombre_archivo, "w");
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1430,6 +1460,7 @@ int main(void)
     }
     return EXIT_SUCCESS;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1480,6 +1511,7 @@ int guardar_matriz(FILE *salida, int matriz[3][3], int filas, int columnas)
     }
     return 0; // Éxito
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1555,6 +1587,7 @@ void mostrar_archivo(const char *nombre_archivo)
     }
     fclose(archivo);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1611,6 +1644,7 @@ int contar_lineas(FILE *archivo)
     }
     return lineas;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1667,6 +1701,7 @@ int main(void)
     fclose(archivo);
     return EXIT_SUCCESS;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1747,6 +1782,7 @@ int main(void)
     }
     return EXIT_SUCCESS;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1781,6 +1817,7 @@ int main(void)
     }
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1837,6 +1874,7 @@ void registrar_log(int gravedad, const char *mensaje)
         fprintf(stderr, "[ERROR] %s\n", mensaje);
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1889,6 +1927,7 @@ int main(void)
     fclose(conf);
     return EXIT_SUCCESS;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1973,6 +2012,7 @@ long obtener_tamano(const char *nombre_archivo)
     fclose(archivo);
     return tamano;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -2029,6 +2069,7 @@ int main(void)
     }
     return EXIT_SUCCESS;
 }
+
 ```
 <!-- {code-block} c -->
 

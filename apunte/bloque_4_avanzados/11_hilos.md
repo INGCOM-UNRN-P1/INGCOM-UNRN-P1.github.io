@@ -133,6 +133,7 @@ int main(void)
     printf("Ambos hilos terminaron\n");
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -183,6 +184,7 @@ int main(void)
     free(resultado);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -206,6 +208,7 @@ void *trabajador(void *arg)
     }
     pthread_exit((void *)0); // Éxito
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -246,6 +249,7 @@ int main(void)
     sleep(1); // Dar tiempo al hilo
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -267,14 +271,17 @@ pthread_t pthread_self(void);
 ```
 <!-- c -->
 
-``` c
+```{code-block} c
+:linenos:
 void *funcion(void *arg)
 {
     pthread_t mi_id = pthread_self();
     printf("Mi ID de hilo: %lu\n", (unsigned long)mi_id);
     return NULL;
 }
+
 ```
+<!-- {code-block} c -->
 <!-- c -->
 
 ### Comparar IDs de Hilos
@@ -325,6 +332,7 @@ int main(void)
     printf("Contador: %d (esperado: 200000)\n", contador);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -426,6 +434,7 @@ int main(void)
     pthread_mutex_destroy(&mutex);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -512,6 +521,7 @@ int main(void)
     pthread_mutex_destroy(&mutex);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -656,6 +666,7 @@ int main(void)
     printf("Programa finalizado\n");
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -677,6 +688,7 @@ if (condicion_no_cumplida)
 {
     pthread_cond_wait(&cond, &mutex);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -744,6 +756,7 @@ int main(void)
     pthread_barrier_destroy(&barrera);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -852,6 +865,7 @@ int main(void)
     pthread_rwlock_destroy(&bd->lock);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -897,6 +911,7 @@ int main(void)
     }
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -940,6 +955,7 @@ void *hilo2_func(void *arg)
     pthread_mutex_unlock(&mutex_b);
     return NULL;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -980,6 +996,7 @@ void *hilo2_func(void *arg)
     pthread_mutex_unlock(&mutex_a);
     return NULL;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1009,6 +1026,7 @@ void *hilo_seguro(void *arg)
     }
     return NULL;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1047,6 +1065,7 @@ void *hilo_con_cleanup(void *arg)
     pthread_cleanup_pop(1); // 1 = ejecutar cleanup
     return NULL;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1069,6 +1088,7 @@ pthread_mutex_unlock(&mutex_lista_A);
 pthread_mutex_lock(&mutex_lista_B);
 // Operación en lista B
 pthread_mutex_unlock(&mutex_lista_B);
+
 ```
 <!-- {code-block} c -->
 
@@ -1103,6 +1123,7 @@ void *obtener_recurso(void)
     }
     return recurso;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1124,6 +1145,7 @@ void *obtener_recurso(void)
     pthread_once(&once, inicializar);
     return recurso;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1156,6 +1178,7 @@ void *hilo_cancelable(void *arg)
     }
     return NULL;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1347,6 +1370,7 @@ int main(void)
     printf("Pool destruido, programa terminando\n");
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1432,6 +1456,7 @@ struct
     char padding[60];
     int contador_hilo2;
 } compartido;
+
 ```
 <!-- {code-block} c -->
 
@@ -1440,14 +1465,17 @@ struct
 Para operaciones simples como incrementos, considerar operaciones atómicas en
 lugar de mutexes:
 
-``` c
+```{code-block} c
+:linenos:
 #include <stdatomic.h>
 atomic_int contador = ATOMIC_VAR_INIT(0);
 void incrementar(void)
 {
     atomic_fetch_add(&contador, 1); // Atómico, sin mutex
 }
+
 ```
+<!-- {code-block} c -->
 <!-- c -->
 
 :::{note}
@@ -1500,6 +1528,7 @@ int suma_paralela(int *array, int n, int num_hilos)
     }
     return suma_total;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1539,6 +1568,7 @@ void *worker(void *arg)
     }
     return NULL;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1555,6 +1585,7 @@ pthread_mutex_lock(&mutex); // ¡Comportamiento indefinido!
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 // o
 pthread_mutex_init(&mutex, NULL);
+
 ```
 <!-- {code-block} c -->
 
@@ -1602,6 +1633,7 @@ void retirar(int monto)
     }
     pthread_mutex_unlock(&mutex_saldo);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1628,6 +1660,7 @@ void crear_hilos(void)
         pthread_create(&hilos[i], NULL, trabajador, &ids[i]);
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1645,6 +1678,7 @@ if (err != 0)
     fprintf(stderr, "Error creando hilo: %s\n", strerror(err));
     exit(EXIT_FAILURE);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1654,14 +1688,17 @@ if (err != 0)
 
 Para paralelismo de datos simple, OpenMP es más sencillo:
 
-``` c
+```{code-block} c
+:linenos:
 #include <omp.h>
 #pragma omp parallel for
 for (int i = 0; i < n; i++)
 {
     procesar(array[i]);
 }
+
 ```
+<!-- {code-block} c -->
 <!-- c -->
 
 Compilar con: `gcc -fopenmp programa.c`

@@ -95,6 +95,7 @@ Una función en C es un bloque de código que:
     // instrucciones
     return valor;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -116,6 +117,7 @@ int sumar(int a, int b)
     int retorno = a + b;    // instrucciones que completan el objetivo de la
     función return retorno; // instrucción que devuelve el valor calculado
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -125,6 +127,7 @@ Esto se puede usar desde `main()` u otra función:
 :linenos:
 int resultado = sumar(5, 3);
 printf("Resultado: %d\n", resultado);
+
 :::
 <!-- {code-block}c -->
 
@@ -148,6 +151,7 @@ void saludar()
 {
     printf("Hola Mundo!\n");
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -202,6 +206,7 @@ double areaCirculo(double radio)
 {
     return 3.14159 * radio * radio;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -221,6 +226,7 @@ double areaCirculo(double radio)
 {
     return 3.14159 * radio * radio;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -245,6 +251,7 @@ int funcion_dos()
     funcion_uno();
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -289,6 +296,7 @@ int main()
     printf("La suma es: %d\n", sumaTotal);
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -326,6 +334,7 @@ int main()
     printf("El promedio es: %.2f\n", resultadoPromedio);
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -390,6 +399,7 @@ int main()
     printf("Desde main (después): %d\n", variableGlobal);
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -434,6 +444,7 @@ int main(void)
     // printf("%d", a); // ERROR: 'a' no existe en este alcance
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -470,6 +481,7 @@ int main()
     // printf("%d", variableLocal); // ERROR: 'variableLocal' no existe en main
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -502,6 +514,7 @@ int main()
     // printf("%d", i); // ERROR: 'i' ya no existe en este alcance
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -543,6 +556,7 @@ int main(void)
     contador_static();
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -637,6 +651,7 @@ int main()
     printf("Fuera del for, 'i' es de nuevo: %d\n", i); // Imprime 10
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -722,6 +737,7 @@ int calcular_area(int base, int altura)
 {
     return base * altura;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -794,6 +810,7 @@ int main()
     mostrar_saludo("Gracias por usar el sistema.");
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -907,6 +924,7 @@ explicación de algo que vean flojo (pero puntual)
 :linenos:
 // este es un comentario de una única linea, todo lo que esta a la derecha es
 ignorado
+
 :::
 <!-- {code-block}c -->
 
@@ -919,6 +937,7 @@ también lo pueden usar para desactivar una parte del programa:
 Este es un comentario de bloque, todo lo que esta dentro del bloque es
 ignorado, y este, a diferencia del otro, puede abarcar múltiples lineas.
 */
+
 :::
 <!-- {code-block}c -->
 
@@ -960,6 +979,7 @@ int calcular_area(int base, int altura)
 {
     return base * altura;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1086,6 +1106,7 @@ hacerlo como parte de la prosa de la documentación o indicándolo explícitamen
  * Invariante: los argumentos no son modificados.
  */
 int dividir(int dividendo, int divisor);
+
 ```
 <!-- {code-block} c -->
 
@@ -1120,6 +1141,7 @@ double calcular_cubo(double x)
 {
     return x * x * x;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1146,6 +1168,7 @@ double calcular_cubo(double x)
 {
     return x * x * x;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1156,15 +1179,17 @@ double calcular_cubo(double x)
 :label: ej-func-puro-efectosec
 Explicá de forma conceptual si la siguiente función en C es una **función pura**
 o si genera algún **efecto secundario**, y justificá tu respuesta:
-``` c
+```{code-block} c
+:linenos:
 int contador = 0;
 int incrementar_y_sumar(int valor)
 {
     contador++;
     return valor + contador;
 }
+
 ```
-<!-- c -->
+<!-- {code-block} c -->
 
 :::
 <!-- {exercise} -->
@@ -1228,6 +1253,7 @@ int main()
     printf("Bloque externo: %d\n", valor);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1280,6 +1306,7 @@ int main()
     printf("%d\n", acumular_historico(3));  // Imprime 18
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1340,6 +1367,7 @@ void verificar_edad()
         printf("Es menor de edad.\n");
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1374,6 +1402,7 @@ void procesar_interaccion_edad()
         printf("Es menor de edad.\n");
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1407,6 +1436,7 @@ int maximo_de_tres(int a, int b, int c)
     }
     return max;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1428,6 +1458,7 @@ int maximo_de_tres(int a, int b, int c)
     // Factorización lógica mediante composición de llamadas
     return maximo_de_dos(maximo_de_dos(a, b), c);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1466,6 +1497,7 @@ bool nota_es_valida(float nota);
 bool nota_es_aprobada(float nota);
 // 4. Función de orquestación o control (I/O y control)
 void procesar_calificacion();
+
 ```
 <!-- {code-block} c -->
 
@@ -1509,6 +1541,7 @@ bool dividir_reales(float a, float b, float *resultado);
  * *resultado y la función retorna true. De lo contrario, retorna false.
  */
 bool dividir_reales(float a, float b, float *resultado);
+
 ```
 <!-- {code-block} c -->
 
@@ -1530,6 +1563,7 @@ while (i < limite && encontrado == false)
     }
     i++;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1578,6 +1612,7 @@ void calcular_potencia(float a, float b)
     assert(a != 0.0f || b > 0.0f);
     // ...
 }
+
 ```
 <!-- {code-block} c -->
 

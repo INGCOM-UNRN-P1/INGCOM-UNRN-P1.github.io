@@ -119,6 +119,7 @@ uint16_t htons(uint16_t hostshort); // short (16 bits)
 // Network to Host
 uint32_t ntohl(uint32_t netlong);
 uint16_t ntohs(uint16_t netshort);
+
 ```
 <!-- {code-block} c -->
 
@@ -168,6 +169,7 @@ struct in_addr
 {
     uint32_t s_addr; // Dirección en orden de red
 };
+
 ```
 <!-- {code-block} c -->
 
@@ -183,6 +185,7 @@ struct sockaddr_in6
     struct in6_addr sin6_addr; // Dirección IPv6
     uint32_t sin6_scope_id;    // Scope ID
 };
+
 ```
 <!-- {code-block} c -->
 
@@ -203,6 +206,7 @@ struct addrinfo
     char *ai_canonname;
     struct addrinfo *ai_next; // Lista enlazada
 };
+
 ```
 <!-- {code-block} c -->
 
@@ -224,14 +228,17 @@ int socket(int domain, int type, int protocol);
 **Retorna:** Descriptor de archivo del socket, o -1 en error.
 
 **Ejemplo:**
-``` c
+```{code-block} c
+:linenos:
 int sockfd = socket(AF_INET, SOCK_STREAM, 0);
 if (sockfd == -1)
 {
     perror("socket");
     exit(1);
 }
+
 ```
+<!-- {code-block} c -->
 <!-- c -->
 
 ### 2. Vincular a una Dirección: `bind()`
@@ -256,6 +263,7 @@ if (bind(sockfd, (struct sockaddr *)&servidor, sizeof(servidor)) == -1)
     perror("bind");
     exit(1);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -316,6 +324,7 @@ if (cliente_fd == -1)
 char ip_cliente[INET_ADDRSTRLEN];
 inet_ntop(AF_INET, &cliente.sin_addr, ip_cliente, sizeof(ip_cliente));
 printf("Cliente conectado desde %s:%d\n", ip_cliente, ntohs(cliente.sin_port));
+
 ```
 <!-- {code-block} c -->
 
@@ -342,6 +351,7 @@ if (connect(sockfd, (struct sockaddr *)&servidor, sizeof(servidor)) == -1)
     exit(1);
 }
 printf("Conectado al servidor\n");
+
 ```
 <!-- {code-block} c -->
 
@@ -354,14 +364,17 @@ ssize_t write(int sockfd, const void *buf, size_t count);
 <!-- c -->
 
 **Ejemplo:**
-``` c
+```{code-block} c
+:linenos:
 const char *mensaje = "Hola, servidor!";
 ssize_t enviados = send(sockfd, mensaje, strlen(mensaje), 0);
 if (enviados == -1)
 {
     perror("send");
 }
+
 ```
+<!-- {code-block} c -->
 <!-- c -->
 
 ### 7. Recibir Datos: `recv()` / `read()`
@@ -390,6 +403,7 @@ else
     buffer[recibidos] = '\0'; // Null-terminar
     printf("Recibido: %s\n", buffer);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -523,6 +537,7 @@ int main(void)
     close(servidor_fd);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -605,6 +620,7 @@ int main(void)
     close(sockfd);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -689,6 +705,7 @@ int main(void)
     close(sockfd);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -750,6 +767,7 @@ int main(void)
     close(sockfd);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -764,6 +782,7 @@ En lugar de codificar IPs, usá `getaddrinfo()` para resolver nombres de host.
 #include <sys/types.h>
 int getaddrinfo(const char *node, const char *service,
                 const struct addrinfo *hints, struct addrinfo **res);
+
 ```
 <!-- {code-block} c -->
 
@@ -835,6 +854,7 @@ int main(int argc, char *argv[])
     freeaddrinfo(res);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -947,6 +967,7 @@ int main(void)
     close(servidor_fd);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1037,6 +1058,7 @@ int main(void)
     close(servidor_fd);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1192,6 +1214,7 @@ int main(void)
     close(servidor_fd);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1299,6 +1322,7 @@ if (n == -1)
         perror("recv");
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1428,6 +1452,7 @@ int iniciar_servidor(int puerto)
     }
     return servidor_fd;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1498,6 +1523,7 @@ int main(void)
     // ... código del servidor ...
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1602,14 +1628,17 @@ setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
 
 Nunca confiar en datos recibidos por la red:
 
-``` c
+```{code-block} c
+:linenos:
 if (bytes_recibidos >= BUFFER_SIZE)
 {
     fprintf(stderr, "Mensaje demasiado largo\n");
     return;
 }
 buffer[bytes_recibidos] = '\0'; // Null-terminar
+
 ```
+<!-- {code-block} c -->
 <!-- c -->
 
 ### 7. Manejo de Envío Parcial
@@ -1637,6 +1666,7 @@ ssize_t enviar_completo(int sockfd, const void *buf, size_t len)
     }
     return total;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1736,6 +1766,7 @@ int main(void)
     close(servidor_fd);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1751,14 +1782,17 @@ gcc servidor_http.c -o servidor_http
 
 ### 1. Validación de Entrada
 
-``` c
+```{code-block} c
+:linenos:
 if (bytes_recibidos < 0 || bytes_recibidos >= BUFFER_SIZE)
 {
     fprintf(stderr, "Datos inválidos\n");
     close(sockfd);
     return;
 }
+
 ```
+<!-- {code-block} c -->
 <!-- c -->
 
 ### 2. Límites de Conexiones
@@ -1772,6 +1806,7 @@ if (num_conexiones >= MAX_CONEXIONES)
     close(cliente_fd);
     continue;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1807,6 +1842,7 @@ else
 }
 SSL_shutdown(ssl);
 SSL_free(ssl);
+
 ```
 <!-- {code-block} c -->
 
@@ -1916,6 +1952,7 @@ void guardar_configuracion(FILE *archivo, version_formato_t version)
 {
     fwrite(&version, sizeof(version), 1, archivo); // ¡Peligroso!
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1972,6 +2009,7 @@ version_formato_t cargar_configuracion(FILE *archivo)
     fread(&valor_protocolo, sizeof(uint32_t), 1, archivo);
     return protocolo_a_version(valor_protocolo);
 }
+
 :::
 <!-- {code-block}c -->
 

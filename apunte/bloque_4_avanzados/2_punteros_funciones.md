@@ -38,22 +38,26 @@ puntero para diferenciarlo de una función que retorna un puntero.
 
 La estructura general de una declaración es:
 
-:::{code-block}c
+:::{code-block} c
+
 tipo_retorno (*nombre_puntero)(tipo_parametro1, tipo_parametro2, ...);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 *   El paréntesis alrededor de `*nombre_puntero` es **obligatorio**. Si se
     omite, se declara una función normal que retorna un puntero del tipo
     especificado.
 
-:::{code-block}c
+:::{code-block} c
+
 int *funcion(int, int); // Declaración de una función que retorna un puntero a
 int(int *) int (*puntero)(
     int, int); // Declaración de un puntero a una función que retorna
 int
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (asignacion-e-invocacion)=
 #### Asignación e Invocación
@@ -62,7 +66,7 @@ Asignar una función a un puntero es directo: solo se utiliza el nombre de la
 función (que decae en su dirección de instrucción en el segmento de código
 virtual del proceso).
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 int sumar(int a, int b)
@@ -82,8 +86,9 @@ int main(void)
     puntero printf("Resultados: %d, %d\n", res1, res2);
     return 0;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (simplificacion-con-typedef)=
 #### Simplificación con `typedef`
@@ -92,7 +97,7 @@ Para evitar declarar firmas de punteros complejas repetidamente, es una buena
 práctica de ingeniería de software definir alias de tipos utilizando `typedef`
 (regla {ref}`0x3004h`):
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Definimos el alias 'operacion_fn' para representar punteros a funciones
 // (int,
@@ -100,8 +105,9 @@ int) -> int
 typedef int (*operacion_fn)(int, int);
 // Ahora la declaración es simple:
 operacion_fn mi_operacion = sumar;
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ---
 
@@ -132,11 +138,13 @@ El ejemplo por excelencia de genericidad y callbacks es `qsort` (definida en
 `<stdlib.h>`), la cual implementa el algoritmo de ordenamiento rápido QuickSort
 de forma genérica para cualquier tipo de arreglo:
 
-:::{code-block}c
+:::{code-block} c
+
 void qsort(void *base, size_t nmemb, size_t size,
            int (*comparar)(const void *, const void *));
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Para ordenar un arreglo, le proveemos a `qsort`:
 1. `void *base`: Dirección del primer elemento.
@@ -150,7 +158,7 @@ Para ordenar un arreglo, le proveemos a `qsort`:
 
 ##### Implementación Completa con qsort()
 
-```{code} c
+```{code-block} c
 :caption: Uso de qsort con callbacks para ordenar enteros y structs en C
 :label: qsort-callback-example
 :linenos:
@@ -211,8 +219,9 @@ int main(void)
     }
     return 0;
 }
+
 ```
-<!-- {code} c -->
+<!-- {code-block} c -->
 
 ---
 
@@ -255,7 +264,7 @@ Para consolidar estos conceptos, implementemos nuestro propio algoritmo genéric
 de búsqueda lineal, capaz de buscar en cualquier tipo de arreglo utilizando un
 callback de comparación:
 
-```{code} c
+```{code-block} c
 :caption: Implementación de búsqueda lineal genérica en C usando callbacks y void*
 :label: generic-search-example
 :linenos:
@@ -317,8 +326,9 @@ int main(void)
     }
     return 0;
 }
+
 ```
-<!-- {code} c -->
+<!-- {code-block} c -->
 
 (ejercicios-de-autoevaluacion-genericidad-y-void)=
 #### Ejercicios de Autoevaluación (Genericidad y void*)
@@ -447,6 +457,7 @@ int comparar_reversa(const void *a, const void *b)
     }
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -479,6 +490,7 @@ int comparar_cadenas(const void *a, const void *b)
     // Comparación léxica de los contenidos apuntados
     return strcmp(*str_a, *str_b);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -531,6 +543,7 @@ int comparar_productos(const void *a, const void *b)
     }
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -603,6 +616,7 @@ void filtrar_arreglo(const void *base, size_t nmemb, size_t size,
         }
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -641,6 +655,7 @@ void intercambiar_bloques(void *a, void *b, size_t size)
         ptr_b[i] = temp;
     }
 }
+
 ```
 <!-- {code-block} c -->
 

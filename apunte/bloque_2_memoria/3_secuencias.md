@@ -38,7 +38,9 @@ declararlo, el compilador reserva un bloque de memoria continuo y
 suficientemente grande para albergar todos sus elementos.
 
 :::{code-block}c
+
 int mi_arreglo[4];
+
 :::
 <!-- {code-block}c -->
 
@@ -121,6 +123,7 @@ int numeros[10];
 // sizeof(numeros[0]) -> Devuelve el tamaño de los elementos del arreglo (4
 bytes)
 // sizeof(numeros) -> Devuelve el tamaño total del arreglo (40 bytes)
+
 ::::
 <!-- {code-block}c -->
 
@@ -134,6 +137,7 @@ tamaño.
 size_t cantidad = sizeof(numeros) / sizeof(numeros[0]);
 // La cuenta es, el tamaño total del arreglo / el tamaño de un elemento.
 // Qué aplicado al arreglo anterior, nos debiera dar 10.
+
 ::::
 <!-- {code-block}c -->
 
@@ -152,6 +156,7 @@ int main(void)
     printf("Tamaño de long long: %zu bytes\n", sizeof(long long));
     return 0;
 }
+
 ::::
 <!-- {code-block}c -->
 
@@ -220,6 +225,7 @@ int cuarta = calificaciones[3];
 printf("La primera calificación es: %d\n", primera);
 printf("La cuarta calificación es: %d\n", cuarta);
 printf("Acceso directo al segundo elemento: %d\n", calificaciones[1]);
+
 :::
 <!-- {code-block}c -->
 
@@ -251,6 +257,7 @@ printf("La edad original en el índice 2 es: %d\n", edades[2]);
 edades[2] = 23;
 // 3. Mostrar el valor modificado. 'edades[2]' se evalúa como un r-value.
 printf("La nueva edad en el índice 2 es: %d\n", edades[2]);
+
 :::
 <!-- {code-block}c -->
 
@@ -280,6 +287,7 @@ int arr1[5] = {1, 2, 3, 4, 5};
 int arr2[5] = {10, 20, 30, 40, 50};
 // La siguiente línea es ilegal y causará un error de compilación.
 arr1 = arr2; // Error: expression is not assignable.
+
 ::::
 <!-- {code-block}c -->
 
@@ -298,6 +306,7 @@ for (size_t i = 0; i < cantidad; i++)
 {
     printf("Elemento %zu: %d\n", i, numeros[i]);
 }
+
 ::::
 <!-- {code-block}c -->
 
@@ -329,6 +338,7 @@ scanf("%d", &cantidad);
 int arreglo[cantidad]; // Declaración de un VLA
 printf("El tamaño del arreglo en bytes es: %zu\n", sizeof(arreglo));
 // El resultado será sizeof(int) * cantidad
+
 ::::
 <!-- {code-block}c -->
 
@@ -419,6 +429,7 @@ int maximo(const int valores[], size_t cantidad)
     }
     return max;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -449,6 +460,7 @@ void ordenar(int v[], size_t cantidad)
         }
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -487,6 +499,7 @@ void imprimir_maximo(const int v[], int cantidad)
     int m = encontrar_maximo(v, cantidad);
     printf("El máximo es %d\n", m);
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -518,6 +531,7 @@ int maximo(int arreglo[], size_t size)
     }
     return arreglo[0];
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -575,6 +589,7 @@ int main(void)
     printf("Tamaño de arreglo2: %zu\n", dos); // obtenemos 2
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -601,6 +616,7 @@ explícitamente ({ref}`0x300Ch`) son cruciales para la seguridad y portabilidad.
  * - El `arreglo` no será modificado.
  */
 void imprimir_arreglo(int arreglo[], size_t size);
+
 ::::
 <!-- {code-block}c -->
 
@@ -647,7 +663,9 @@ El comportamiento general de una cadena es el mismo que el de un arreglo.
 Por ejemplo, la siguiente cadena:
 
 :::{code-block}c
+
 char cadena[7] = "Hola";
+
 :::
 <!-- {code-block}c -->
 
@@ -671,7 +689,9 @@ También, si aplicamos el cálculo de tamaño usando `sizeof` que vimos antes,
 vamos a obtener el tamaño en bytes de la cadena.
 
 :::{code-block}c
+
 size_t espacio_reservado = sizeof(mi_cadena) / sizeof(mi_cadena[0]);
+
 :::
 <!-- {code-block}c -->
 
@@ -731,6 +751,7 @@ int main(void)
     ordena_caracteres("ejemplo de cadena desordenada");
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -761,7 +782,9 @@ Para obtener el largo de una cadena, podemos usar `strlen`, definido en
 Esta función está definida de la siguiente forma:
 
 :::{code-block}c
+
 size_t strlen(const char str[]);
+
 :::
 <!-- {code-block}c -->
 
@@ -850,6 +873,7 @@ void leer_entrada(void)
         printf("Nombre ingresado: %s\n", buffer);
     }
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -943,6 +967,7 @@ void vulnerable()
     strcpy(buffer_pequeno, entrada_maliciosa);
     printf("Contenido del buffer: %s\n", buffer_pequeno);
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1012,6 +1037,7 @@ if (resultado != 0)
 {
     // Manejar el error de copia
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1040,6 +1066,7 @@ mi_cadena = sdscat(mi_cadena, "Mundo!");      // Concatena de forma segura
 printf("%s\n", mi_cadena);                    // Imprime "Hola Mundo!"
 printf("Longitud: %zu\n", sdslen(mi_cadena)); // Obtiene la longitud en O(1)
 sdsfree(mi_cadena);                           // Libera la memoria
+
 :::
 <!-- {code-block}c -->
 
@@ -1273,6 +1300,7 @@ int buscar_minimo(const int arreglo[], size_t size)
     }
     return minimo;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1302,6 +1330,7 @@ void escalar_arreglo(int arreglo[], size_t size, int factor)
         arreglo[i] = arreglo[i] * factor; // Efecto secundario
     }
 }
+
 ```
 <!-- {code-block} c -->
 <!-- c -->
@@ -1416,6 +1445,7 @@ int main(void)
     printf("Longitud lógica: %zu caracteres\n", longitud);
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 La salida será:
@@ -1464,6 +1494,7 @@ int main(void)
     }
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1500,6 +1531,7 @@ int comparar_ignorar_caso(const char s1[], const char s2[])
     }
     return tolower((unsigned char)s1[i]) - tolower((unsigned char)s2[i]);
 }
+
 ```
 <!-- {code-block} c -->
 

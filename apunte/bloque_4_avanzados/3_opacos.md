@@ -45,7 +45,7 @@ detalle en el capítulo de [Tipos Abstractos de Datos](../bloque_3_algoritmos_es
 Considerá una implementación ingenua de un punto geométrico en dos dimensiones
 donde la estructura está completamente expuesta:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // punto_malo.h - NO USAR: Implementación expuesta
 typedef struct
@@ -56,8 +56,9 @@ typedef struct
 // Funciones públicas
 punto_t *crear_punto(double x, double y);
 void desplazar_punto(punto_t *p, double dx, double dy);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 #### Problemas de Esta Aproximación
 
@@ -112,7 +113,7 @@ error mediante comentarios estructurados (regla {ref}`0x301Dh`).
 
 **Archivo de Cabecera (`.h`) - Interfaz Pública**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // punto.h - Interfaz pública
 #ifndef PUNTO_H
@@ -126,12 +127,13 @@ double punto_obtener_x(const punto_t *punto);
 double punto_obtener_y(const punto_t *punto);
 void punto_desplazar(punto_t *punto, double dx, double dy);
 #endif // PUNTO_H
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Archivo de Implementación (`.c`) - Detalles Privados**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // punto.c - Implementación privada
 #include "punto.h"
@@ -186,12 +188,13 @@ void punto_desplazar(punto_t *punto, double dx, double dy)
     punto->x += dx;
     punto->y += dy;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Código Cliente**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // main.c - Usuario de la interfaz
 #include "punto.h"
@@ -212,8 +215,9 @@ int main(void)
     destruir_punto(&p);
     return 0;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{warning} Gestión de Recursos y Robustez (regla {ref}`0x7001h` y {ref}`0x301Eh`)
 
@@ -277,11 +281,12 @@ doble puntero (`**self`)** y anular la referencia en el cliente.
 **Tipo Incompleto (Incomplete Type)**
 
 Cuando declarás:
-:::{code-block}c
+:::{code-block} c
 :linenos:
 typedef struct punto punto_t;
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Sin dar la definición completa, creás un **tipo incompleto** (*incomplete
 type*). El compilador sabe que existe una estructura llamada `punto`, pero no
@@ -292,17 +297,17 @@ conoce su contenido ni tamaño.
 Con un tipo incompleto, el código cliente **solo puede**:
 
 1. **Declarar punteros** al tipo:
-   ```{code-block}c
+   ```{code-block} c
    punto_t *p; // ✅ Permitido
    ```
 
 2. **Pasar punteros** a funciones:
-   ```{code-block}c
+   ```{code-block} c
    punto_desplazar(p, 1.0, 2.0); // ✅ Permitido
    ```
 
 3. **Usar punteros** en expresiones que no requieran el tamaño:
-   ```{code-block}c
+   ```{code-block} c
    if (p == NULL)
    {
        ...
@@ -314,22 +319,22 @@ Con un tipo incompleto, el código cliente **solo puede**:
 El código cliente **NO puede**:
 
 1. **Declarar instancias** por valor:
-   ```{code-block}c
+   ```{code-block} c
    punto_t p; // ❌ ERROR: incomplete type
    ```
 
 2. **Acceder a miembros**:
-   ```{code-block}c
+   ```{code-block} c
    p->x = 5.0; // ❌ ERROR: incomplete type
    ```
 
 3. **Usar sizeof**:
-   ```{code-block}c
+   ```{code-block} c
    sizeof(punto_t); // ❌ ERROR: incomplete type
    ```
 
 4. **Desreferenciar**:
-   ```{code-block}c
+   ```{code-block} c
    punto_t copia = *p; // ❌ ERROR: incomplete type
    ```
 
@@ -374,6 +379,7 @@ almacena la dirección del puntero, mientras que la estructura interna reside en
 el heap y solo es visible en el ámbito de la implementación (usuario.c).
 
 :::
+<!-- {figure} 3/opacidad_memoria.svg -->
 <!-- {figure} 2/opacidad_memoria.svg -->
 
 :::{note} El Tamaño del Puntero es Constante
@@ -413,13 +419,14 @@ hardware específica.
 La implementación está **completamente oculta**. El código cliente no puede (ni
 accidentalmente) acceder o modificar los campos internos.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Esto NO compila - el compilador protege los detalles internos
 punto_t *p = crear_punto(3.0, 4.0);
 p->x = 100.0; // ERROR en tiempo de compilación
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ::{warning} Límites del Encapsulamiento en C (Convenio vs Compilación)
 
@@ -438,14 +445,14 @@ Por lo tanto, la opacidad en C protege contra errores accidentales y
 acoplamientos indeseados, pero no constituye una barrera de seguridad
 informática infranqueable.
 :::::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **2. Flexibilidad de Implementación**
 
 Podés cambiar completamente la implementación interna sin afectar al código
 cliente:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // punto.c - Versión con coordenadas polares (cambio de implementación)
 struct punto
@@ -453,8 +460,9 @@ struct punto
     double radio;
     double angulo; // en radianes
 };
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Si cambiás la implementación a coordenadas polares, las funciones públicas en
 `punto.c` realizarán la conversión matemática necesaria para retornar la
@@ -468,7 +476,7 @@ Solo las funciones del módulo pueden modificar la estructura, garantizando que
 los invariantes se cumplan siempre. Por ejemplo, si tenés un tipo `usuario_t`
 que representa a un usuario del sistema:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool usuario_establecer_edad(usuario_t *u, int nueva_edad)
 {
@@ -480,8 +488,9 @@ bool usuario_establecer_edad(usuario_t *u, int nueva_edad)
     u->edad = nueva_edad;
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 El código cliente no puede burlar esta validación modificando el campo
 directamente.
@@ -508,21 +517,24 @@ trigonométricas), reduciendo tiempos de compilación y acoplamiento.
 Toda estructura opaca alocada dinámicamente debe proveer funciones para crear y
 destruir instancias:
 
-:::{code-block}c
+:::{code-block} c
+
 // Convención de nombres: tipo_accion
 tipo_t *crear_tipo(parametros);
 void destruir_tipo(tipo_t **instancia);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Ejemplo:**
-:::{code-block}c
+:::{code-block} c
 :linenos:
 usuario_t *usr = crear_usuario("Carlos", 35);
 // ... usar usr ...
 destruir_usuario(&usr);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Destrucción de Colecciones de Punteros Opacos**
 
@@ -538,7 +550,7 @@ entonces liberar la estructura contenedora.
 
 **Ejemplo práctico de destrucción de un array de usuarios:**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #define CANT_USUARIOS 5
 void liberar_grupo_usuarios(usuario_t **grupo, size_t cantidad)
@@ -555,22 +567,24 @@ void liberar_grupo_usuarios(usuario_t **grupo, size_t cantidad)
     // Finalmente, liberamos el array contenedor en sí
     free(grupo);
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Patrón Getter/Setter**
 
 Para acceder a propiedades sin exponer los campos de la estructura:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Getter - solo lectura
 const char *usuario_obtener_nombre(const usuario_t *u);
 int usuario_obtener_edad(const usuario_t *u);
 // Setter - modificación controlada
 bool usuario_establecer_edad(usuario_t *u, int nueva_edad);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{tip} Uso de `const`
 
@@ -584,7 +598,7 @@ intención y permite al compilador optimizar el código.
 
 Siempre verificá punteros nulos y condiciones de error de manera defensiva:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 bool usuario_establecer_edad(usuario_t *u, int nueva_edad)
 {
@@ -596,8 +610,9 @@ bool usuario_establecer_edad(usuario_t *u, int nueva_edad)
     u->edad = nueva_edad;
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ---
 
@@ -623,15 +638,16 @@ bool usuario_establecer_edad(usuario_t *u, int nueva_edad)
 
 **vs. Void Pointers**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Opción 1: Puntero opaco (RECOMENDADO)
 typedef struct punto punto_t;
 double punto_obtener_x(const punto_t *p);
 // Opción 2: Void pointer (EVITAR)
 double punto_obtener_x(const void *p);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Problemas de void pointers:**
 - Pérdida de type safety (se puede pasar accidentalmente cualquier puntero sin
@@ -660,7 +676,7 @@ encapsulados.
 
 **Interfaz Pública (`usuario.h`)**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #ifndef USUARIO_H
 #define USUARIO_H
@@ -677,12 +693,13 @@ bool usuario_establecer_edad(usuario_t *u, int nueva_edad);
 // Operaciones
 void usuario_imprimir(const usuario_t *u);
 #endif // USUARIO_H
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Implementación (`usuario.c`)**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include "usuario.h"
 #include <stdio.h>
@@ -761,12 +778,13 @@ void usuario_imprimir(const usuario_t *u)
     }
     printf("Usuario: %s | Edad: %d\n", u->nombre, u->edad);
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Uso del Cliente**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include "usuario.h"
 #include <stdio.h>
@@ -792,8 +810,9 @@ int main(void)
     destruir_usuario(&u);
     return 0;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ---
 
@@ -804,38 +823,41 @@ Muchas bibliotecas conocidas usan punteros opacos:
 
 **POSIX: FILE**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // stdio.h
 typedef struct _IO_FILE FILE;
 FILE *fopen(const char *filename, const char *mode);
 int fclose(FILE *stream);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 No sabés cómo está implementado `FILE` internamente, pero podés usarlo a través
 de punteros.
 
 **OpenSSL**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 typedef struct ssl_ctx_st SSL_CTX;
 typedef struct ssl_st SSL;
 SSL_CTX *SSL_CTX_new(const SSL_METHOD *method);
 SSL *SSL_new(SSL_CTX *ctx);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **GTK+ (GUI)**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 typedef struct _GtkWidget GtkWidget;
 typedef struct _GtkWindow GtkWindow;
 GtkWidget *gtk_window_new(GtkWindowType type);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Todos estos ejemplos siguen el mismo patrón de puntero opaco.
 
@@ -846,18 +868,19 @@ Todos estos ejemplos siguen el mismo patrón de puntero opaco.
 
 **1. Convenciones de Nombres**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Patrón: tipo_t para el tipo, crear_tipo/destruir_tipo para funciones
 typedef struct usuario usuario_t;
 usuario_t *crear_usuario(const char *nombre, int edad);
 void destruir_usuario(usuario_t **u);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **2. Documentación Clara**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 /**
  * Crea una nueva instancia de un usuario.
@@ -875,12 +898,13 @@ usuario_t *crear_usuario(const char *nombre, int edad);
  * @param u Usuario a destruir. Puede ser NULL.
  */
 void destruir_usuario(usuario_t **u);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **3. Manejo de Errores Consistente**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Retornar NULL en creación si falla
 tipo_t *crear_tipo(void)
@@ -903,12 +927,13 @@ bool tipo_operar(tipo_t *t, int dato)
     // ... operación ...
     return true; // Éxito
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **4. Tolerancia a NULL**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 void destruir_tipo(tipo_t **t)
 {
@@ -921,19 +946,21 @@ void destruir_tipo(tipo_t **t)
     free(*t);
     *t = NULL;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **5. Uso de `const` para Intenciones**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Solo lectura - no modifica la estructura
 double punto_obtener_x(const punto_t *punto);
 // Modifica la estructura
 void punto_desplazar(punto_t *punto, double dx, double dy);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ---
 
@@ -945,32 +972,35 @@ void punto_desplazar(punto_t *punto, double dx, double dy);
 No podés acceder directamente a los campos para debugging o inspección rápida en
 herramientas tradicionales:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // En GDB:
 (gdb) print punto->x Cannot access memory at address 0x0 : incomplete type
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Solución:** Proveer funciones de inspección para debugging si es necesario:
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #ifdef DEBUG
 void punto_debug_print(const punto_t *p);
 #endif
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **2. No se Puede Alocar en el Stack**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Esto NO compila con puntero opaco
 punto_t p; // ERROR: incomplete type
 // Debés usar el heap
 punto_t *p = crear_punto(3.0, 4.0);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Implicación:** Siempre hay un costo asociado a la alocación dinámica de
 memoria mediante `malloc` y `free`.
@@ -979,18 +1009,20 @@ memoria mediante `malloc` y `free`.
 
 No podés realizar una copia superficial por asignación directa:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 punto_t copia = *original; // ERROR: incomplete type
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Solución:** Proveer una función de copia explícita (clonación):
-:::{code-block}c
+:::{code-block} c
 :linenos:
 punto_t *punto_clonar(const punto_t *original);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **4. Compatibilidad con Análisis Estático**
 
@@ -1071,7 +1103,8 @@ de programas.
 Considerá la siguiente declaración de una estructura expuesta que representa un
 vector en $\mathbb{R}^3$ en un archivo de cabecera:
 
-:::{code-block}c
+:::{code-block} c
+
 typedef struct
 {
     double x;
@@ -1080,8 +1113,9 @@ typedef struct
 } vector3d_t;
 vector3d_t vector_crear(double x, double y, double z);
 vector3d_t vector_sumar(vector3d_t v1, vector3d_t v2);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Modificá este diseño aplicando el patrón de puntero opaco. Escribí el nuevo
 archivo de cabecera (`vector3d.h`) y explicá qué restricciones de compilación
@@ -1096,7 +1130,8 @@ experimentará el código cliente si intenta declarar una variable local
 El archivo de cabecera modificado (`vector3d.h`) utilizando un puntero opaco
 debe declarar el tipo de forma incompleta:
 
-:::{code-block}c
+:::{code-block} c
+
 #ifndef VECTOR3D_H
 #define VECTOR3D_H
 // Declaración opaca del tipo incompleto
@@ -1110,8 +1145,9 @@ double vector_obtener_x(const vector3d_t *v);
 double vector_obtener_y(const vector3d_t *v);
 double vector_obtener_z(const vector3d_t *v);
 #endif // VECTOR3D_H
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Restricciones de compilación para el cliente:**
 Si el cliente intenta declarar `vector3d_t vec;` en su archivo (por ejemplo, en
@@ -1133,7 +1169,8 @@ impidiendo la declaración por valor.
 Analizá el siguiente fragmento de código cliente que utiliza el TAD `punto_t`
 definido mediante punteros opacos:
 
-:::{code-block}c
+:::{code-block} c
+
 #include "punto.h"
 #include <stdlib.h>
 int main(void)
@@ -1141,8 +1178,9 @@ int main(void)
     punto_t *p = malloc(sizeof(punto_t));
     return 0;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Explicá detalladamente por qué este código falla en tiempo de compilación y cuál
 es la forma correcta de resolver la alocación de memoria dinámica desde la
@@ -1166,7 +1204,8 @@ operador `sizeof` sobre un tipo incompleto.
    `malloc` directamente para instanciar el objeto. Debe invocar al constructor
    provisto por la API del TAD:
 
-:::{code-block}c
+:::{code-block} c
+
 int main(void)
 {
     // El constructor interno en punto.c se encarga de malloc y de conocer el
@@ -1179,8 +1218,9 @@ int main(void)
     destruir_punto(&p);
     return 0;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ::::
 <!-- {solution} ejercicio-opaco-2-mecanismo -->
@@ -1213,7 +1253,8 @@ que ofrece el compilador:
 
 **Ejemplo problemático con `void *`:**
 
-:::{code-block}c
+:::{code-block} c
+
 // API mal diseñada usando void*
 void destruir_usuario(void *u);
 // Código cliente erróneo
@@ -1222,8 +1263,9 @@ cuenta_t *mi_cuenta = crear_cuenta(12345, "Juan", 1000.0);
 destruir_usuario(
     mi_cuenta); // El compilador no advierte el error y compila sin
 quejas.
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Si hubiésemos definido `destruir_usuario(usuario_t *u)` con un tipo opaco, el
 compilador habría detectado que `mi_cuenta` (de tipo `cuenta_t *`) no coincide
@@ -1257,7 +1299,8 @@ asegurate de liberar toda la memoria dinámica.
 :class: dropdown
 **Interfaz Pública (`cuenta.h`):**
 
-:::{code-block}c
+:::{code-block} c
+
 #ifndef CUENTA_H
 #define CUENTA_H
 #include <stdbool.h>
@@ -1268,12 +1311,14 @@ bool cuenta_depositar(cuenta_t *c, double monto);
 bool cuenta_extraer(cuenta_t *c, double monto);
 double cuenta_obtener_saldo(const cuenta_t *c);
 #endif // CUENTA_H
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Archivo de Implementación (`cuenta.c`):**
 
-:::{code-block}c
+:::{code-block} c
+
 #include "cuenta.h"
 #include <stdlib.h>
 #include <string.h>
@@ -1341,8 +1386,9 @@ double cuenta_obtener_saldo(const cuenta_t *c)
     }
     return c->saldo;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ::::
 <!-- {solution} ejercicio-opaco-1-patrones -->
@@ -1353,10 +1399,12 @@ Considerá que disponés de un arreglo dinámico que contiene punteros a la
 estructura opaca `cuenta_t` del ejercicio anterior. Escribí una función en C con
 la siguiente firma:
 
-:::{code-block}c
+:::{code-block} c
+
 void cartera_destruir(cuenta_t **cartera, size_t cantidad);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Esta función debe liberar de forma completa tanto cada cuenta individual como el
 arreglo que las contiene. Explicá qué ocurriría con la memoria del heap si
@@ -1369,7 +1417,8 @@ llamaras directamente a `free(cartera)` sin recorrer el arreglo con un lazo.
 :class: dropdown
 **Implementación de la función:**
 
-:::{code-block}c
+:::{code-block} c
+
 #include "cuenta.h"
 #include <stdlib.h>
 void cartera_destruir(cuenta_t **cartera, size_t cantidad)
@@ -1387,8 +1436,9 @@ void cartera_destruir(cuenta_t **cartera, size_t cantidad)
     // Liberamos el arreglo contenedor
     free(cartera);
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Explicación:**
 Si llamaras directamente a `free(cartera)` sin recorrer el arreglo, liberarías
@@ -1444,7 +1494,8 @@ Explicá:
    caso, el cliente pasa a ser el propietario del recurso devuelto y asume la
    obligación de liberarlo:
 
-:::{code-block}c
+:::{code-block} c
+
 // Firma del getter alternativo
 char *cuenta_clonar_titular(const cuenta_t *c)
 {
@@ -1459,8 +1510,9 @@ char *cuenta_clonar_titular(const cuenta_t *c)
     }
     return copia; // El cliente debe liberar esta memoria con free()
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ::::
 <!-- {solution} ejercicio-opaco-3-patrones -->
@@ -1469,10 +1521,12 @@ char *cuenta_clonar_titular(const cuenta_t *c)
 :label: ejercicio-opaco-1-contratos
 Para la función constructora del TAD usuario:
 
-:::{code-block}c
+:::{code-block} c
+
 usuario_t *crear_usuario(const char *nombre, int edad);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 1. Escribí las precondiciones y poscondiciones formales en lenguaje natural
    técnico y utilizando expresiones lógicas para representar el contrato.
@@ -1540,7 +1594,8 @@ desreferencia como `usuario_obtener_edad`.
 Si el contrato de la función exige explícitamente que el puntero sea válido,
 pasar `NULL` es un bug del cliente:
 
-:::{code-block}c
+:::{code-block} c
+
 #include <assert.h>
 int usuario_obtener_edad(const usuario_t *u)
 {
@@ -1549,14 +1604,16 @@ int usuario_obtener_edad(const usuario_t *u)
     assert(u != NULL);
     return u->edad;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Ejemplo de verificación defensiva (Enfoque tolerante):**
 Si se decide que la API sea tolerante al puntero nulo y maneje el error
 devolviendo un valor centinela:
 
-:::{code-block}c
+:::{code-block} c
+
 int usuario_obtener_edad(const usuario_t *u)
 {
     if (u == NULL)
@@ -1565,8 +1622,9 @@ int usuario_obtener_edad(const usuario_t *u)
     }
     return u->edad;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ::::
 <!-- {solution} ejercicio-opaco-2-contratos -->
@@ -1578,10 +1636,12 @@ implementado con punteros opacos. Proponé las invariantes de representación pa
 la estructura `cuenta_t` del ejercicio anterior y escribí una función interna de
 verificación:
 
-:::{code-block}c
+:::{code-block} c
+
 static bool cuenta_validar_invariante(const cuenta_t *c);
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Explicá en qué partes de la implementación del módulo deberías invocar este
 validador para asegurar el cumplimiento del contrato.
@@ -1603,7 +1663,8 @@ estado estable (es decir, antes y después de cualquier operación pública).
 
 **Función de verificación interna (`cuenta.c`):**
 
-:::{code-block}c
+:::{code-block} c
+
 #include <stdbool.h>
 static bool cuenta_validar_invariante(const cuenta_t *c)
 {
@@ -1621,8 +1682,9 @@ static bool cuenta_validar_invariante(const cuenta_t *c)
     }
     return true;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Ubicación de las invocaciones:**
 Para garantizar la integridad del TAD, esta función debe invocarse en los
@@ -1694,6 +1756,7 @@ struct tipo
 {
     // Campos privados
 };
+
 ```
 <!-- {code-block} c -->
 

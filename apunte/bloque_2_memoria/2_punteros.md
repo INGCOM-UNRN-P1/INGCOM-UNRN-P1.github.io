@@ -85,6 +85,7 @@ seguido de un asterisco (`*`) y el nombre de la variable. La regla de estilo
 int *ptr_entero;
 double *ptr_double;
 char *ptr_char;
+
 :::
 <!-- {code-block}c -->
 
@@ -104,6 +105,7 @@ cual obtiene la dirección de memoria de dicha variable.
 int numero = 42;
 int *ptr_numero =
     &numero; // ptr_numero ahora almacena la dirección de 'numero'
+
 :::
 <!-- {code-block}c -->
 
@@ -133,6 +135,7 @@ encabezado `<stddef.h>` y representa la dirección a «ningún lado».
 :linenos:
 #include <stddef.h> // Necesario para NULL
 int *puntero_seguro = NULL;
+
 :::
 <!-- {code-block}c -->
 
@@ -212,6 +215,7 @@ int main()
     printf("Nuevo valor de numero (modificado via puntero): %d\n", numero);
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -266,6 +270,7 @@ int main()
     printf("El nuevo valor de 'numero' es: %d\n", numero); // Imprime 150
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -344,6 +349,7 @@ int main()
     printf("El segundo elemento de nuevo: %d\n", *ptr); // Imprime 20
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -366,6 +372,7 @@ int main()
     printf("También se puede acceder así: %d\n", *(ptr + 3)); // Imprime 40
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -389,6 +396,7 @@ int main()
     printf("Hay %td elementos entre ptr1 y ptr2.\n", diferencia); // Imprime 3
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -496,6 +504,7 @@ int main()
     printf("Valores intercambiados: x = %d, y = %d\n", x, y);
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -545,6 +554,7 @@ int main()
            miCociente, miResto);
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -584,6 +594,7 @@ int main()
     printf("Valor final de miVariableContador: %d\n", miVariableContador);
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -656,6 +667,7 @@ int main()
     imprimir(ptr);   // Imprime "Chau"
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -689,6 +701,7 @@ int main()
     constante.printf("El valor de A es: %d\n", valor_a); // Imprime 50
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -718,6 +731,7 @@ int main()
     printf("El valor fijo es: %d\n", *ptr); // Imprime 100
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -765,6 +779,7 @@ puntero.
     int *const p_const = &x;
 *p_const = 20; // VÁLIDO: se modifica el entero al que apunta.
 // p_const = &y;      // ERROR DE COMPILACIÓN: el puntero es de solo lectura.
+
 :::
 <!-- {code-block}c -->
 
@@ -851,6 +866,7 @@ void intercambiar(int *primero, int *segundo)
     *primero = *segundo;
     *segundo = temporal;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -892,6 +908,7 @@ numeros[0] int *p = numeros;
 int *p_explicito = &numeros[0];
 printf("La dirección almacenada en p es: %p\n", (void *)p);
 printf("La dirección del primer elemento es: %p\n", (void *)&numeros[0]);
+
 :::
 <!-- {code-block}c -->
 
@@ -915,6 +932,7 @@ void procesar_datos(int arr[]);   // Notación más común para indicar que se
 espera un arreglo void
 procesar_datos(int *arr); // La forma más honesta: la función recibe un
 puntero
+
 :::
 <!-- {code-block}c -->
 
@@ -933,6 +951,7 @@ void imprimir_tamano(int arr[])
     // Mide el tamaño de un puntero en tu sistema (usualmente 4 u 8 bytes).
     printf("Tamaño DENTRO de la función: %zu bytes\n", sizeof(arr));
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -954,6 +973,7 @@ int main()
     Imprimirá 40(10 * 4 bytes) imprimir_tamano(mi_arreglo); // Imprimirá 4 u 8
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -984,6 +1004,7 @@ de **otra nota**, que a su vez tiene la dirección del cofre del tesoro.
 int valor = 100;
 int *p = &valor; // p apunta a 'valor'
 int **pp = &p;   // pp apunta a 'p'
+
 :::
 <!-- {code-block}c -->
 
@@ -992,6 +1013,7 @@ Podemos acceder a `valor`, desreferenciando dos veces el puntero `pp`;
 :::{code-block}c
 :linenos:
 printf("%d\n", **pp);
+
 :::
 <!-- {code-block}c -->
 
@@ -1041,6 +1063,7 @@ int main()
     printf("ptr_b apunta a %d (direccion: %p)\n", *ptr_b, (void *)ptr_b);
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1102,6 +1125,7 @@ int main()
     imprimir_arreglo(numeros, 5);
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1162,6 +1186,7 @@ int main()
     }
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1204,6 +1229,7 @@ int main()
     // Salida esperada: 2 4 6 8 10
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1255,6 +1281,7 @@ int main()
     // Salida esperada: 100 200 300
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1288,6 +1315,7 @@ for (size_t i = 0; i < 5; i++)
 {
     printf("%d ", *(p + i));
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1305,6 +1333,7 @@ void imprimir_arreglo(const int *ptr, size_t tamano)
     }
     printf("\n");
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1498,6 +1527,7 @@ int main()
     printf("El valor de var es: %d\n", var); // Imprime 88
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1536,6 +1566,7 @@ void modificar_seguro(int *p)
         fprintf(stderr, "Error: Intento de desreferenciar un puntero NULL.\n");
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1622,6 +1653,7 @@ int main()
     printf("Distancia entre elementos: %td\n", distancia); // Imprime 4
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1692,6 +1724,7 @@ void procesar_datos(int x, int *entrada_salida, int *salida)
         *salida = x * 2;
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1807,6 +1840,7 @@ int main()
     printf("El valor modificado es: %d\n", numero); // Imprime 999
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1847,6 +1881,7 @@ void invertir_arreglo(int *arr, size_t tamano)
         der--;
     }
 }
+
 ```
 <!-- {code-block} c -->
 

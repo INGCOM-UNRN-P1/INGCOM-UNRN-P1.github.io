@@ -230,6 +230,7 @@ int main(void)
     fclose(archivo_salida);
     return EXIT_SUCCESS;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -300,6 +301,7 @@ int main(void)
     fclose(archivo_entrada);
     return EXIT_SUCCESS;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -388,6 +390,7 @@ int main(void)
     fclose(archivo);
     return EXIT_SUCCESS;
 }
+
 ```
 <!-- {code-block} c -->
 

@@ -27,7 +27,9 @@ memoria del heap durante la ejecución del programa.
 ##### Sintaxis
 
 :::{code-block}c
+
 void *malloc(size_t size);
+
 :::
 <!-- {code-block}c -->
 
@@ -92,6 +94,7 @@ int main()
     numeros = NULL;
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -131,7 +134,9 @@ punteros por claridad.
 ##### Sintaxis
 
 :::{code-block}c
+
 void *calloc(size_t num_elements, size_t element_size);
+
 :::
 <!-- {code-block}c -->
 
@@ -192,6 +197,7 @@ int main()
     arreglo = NULL;
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -203,6 +209,7 @@ int main()
 :::{code-block}c
 :linenos:
 void *realloc(void *ptr, size_t new_size);
+
 :::
 <!-- {code-block}c -->
 
@@ -256,6 +263,7 @@ if (ptr == NULL)
 {
     // Fuga de memoria: el bloque original se perdió
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -283,6 +291,7 @@ if (temp == NULL)
 }
 // Éxito: ahora 'numeros' puede apuntar al nuevo bloque
 numeros = temp;
+
 :::
 <!-- {code-block}c -->
 
@@ -294,6 +303,7 @@ numeros = temp;
 :::{code-block}c
 :linenos:
 void free(void *ptr);
+
 :::
 <!-- {code-block}c -->
 
@@ -316,6 +326,7 @@ Es seguro llamar a `free(NULL)`, la función simplemente no hace nada.
 :linenos:
 free(ptr);
 ptr = NULL; // Previene el uso accidental del puntero colgante
+
 :::
 <!-- {code-block}c -->
 
@@ -357,6 +368,7 @@ Estructura de un bloque de memoria en el heap, mostrando el header con metadata,
 el área de datos del usuario, y el footer opcional.
 
 :::
+<!-- {figure} 5/heap_allocator.svg -->
 <!-- {figure} 1/heap_allocator.svg -->
 
 El header típicamente contiene:
@@ -416,6 +428,7 @@ Flujo de interacción entre el programa, las funciones de memoria
 ocasionalmente el sistema operativo que proporciona acceso a la RAM física.
 
 :::
+<!-- {figure} 5/allocator_flow.svg -->
 <!-- {figure} 1/allocator_flow.svg -->
 
 **Coalescing (Fusión de bloques):**
@@ -432,6 +445,7 @@ Proceso de coalescing (fusión) donde bloques libres adyacentes (LIBRE-B y
 LIBRE-C) se combinan en un único bloque más grande (LIBRE-BC fusionado).
 
 :::
+<!-- {figure} 5/coalescing.svg -->
 <!-- {figure} 1/coalescing.svg -->
 
 :::{tip} Implicaciones para el Programador
@@ -499,6 +513,7 @@ void funcion_con_fuga()
     // ERROR: La función termina sin liberar 'datos'
     // El bloque de memoria se pierde
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -520,6 +535,7 @@ void funcion_sin_fuga()
     free(datos);
     datos = NULL;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -549,6 +565,7 @@ int main()
     printf("%d\n", *ptr); // Comportamiento indefinido
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -569,6 +586,7 @@ int main()
     // en lugar de comportamiento indefinido silencioso
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -590,6 +608,7 @@ int main()
     free(ptr); // ERROR: Doble liberación
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -612,6 +631,7 @@ int main()
     free(ptr); // Seguro: free(NULL) no hace nada
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -642,6 +662,7 @@ int main()
     arreglo = NULL;
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -670,6 +691,7 @@ int main()
     arreglo = NULL;
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -693,6 +715,7 @@ int main()
     printf("%d\n", *ptr);
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -772,6 +795,7 @@ int *funcion()
     int x = 42;
     return &x; // x desaparece al retornar
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -824,6 +848,7 @@ void vulnerable()
     strcpy(buffer, datos_maliciosos_largos);
     // Ahora datos_importantes puede haber sido sobrescrito
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -841,6 +866,7 @@ datos intermedios, y finalmente corrompen la dirección de retorno, permitiendo
 potencialmente la ejecución de código malicioso.
 
 :::
+<!-- {figure} 5/buffer_overflow.svg -->
 <!-- {figure} 1/buffer_overflow.svg -->
 
 **Use-After-Free (UAF):**
@@ -868,6 +894,7 @@ if (usr->es_admin)
     // El atacante pudo sobrescribir es_admin a 1
     dar_privilegios_admin();
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -885,6 +912,7 @@ free(ptr); // Corrompe la lista de bloques libres
 int *a = malloc(100);
 int *b = malloc(100);
 // Ahora 'a' y 'b' podrían apuntar a la misma memoria!
+
 :::
 <!-- {code-block}c -->
 
@@ -910,6 +938,7 @@ if (indice >= tamano)
 if (ptr_entrada == NULL)
 { /* error */
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -924,6 +953,7 @@ free(ptr);
 ptr = NULL;
 // Inicializar estructuras completamente:
 struct datos d = {0}; // Todos los campos en cero
+
 :::
 <!-- {code-block}c -->
 
@@ -936,6 +966,7 @@ recurso_t *crear_recurso(void);
 void usar_recurso(recurso_t *r);
 void destruir_recurso(recurso_t *r);
 // Los usuarios nunca ven malloc/free directamente
+
 :::
 <!-- {code-block}c -->
 
@@ -949,6 +980,7 @@ strcpy(dest, src); // No verifica límites
 strncpy(dest, src, sizeof(dest) - 1);
 dest[sizeof(dest) - 1] = '\0';
 // O mejor aún, alocar dinámicamente con el tamaño correcto
+
 :::
 <!-- {code-block}c -->
 
@@ -1164,6 +1196,7 @@ int main()
     destruir_arreglo(&mi_arreglo);
     return 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1318,6 +1351,7 @@ int **crear_matriz(size_t filas, size_t columnas)
     }
     return matriz;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1365,6 +1399,7 @@ bool redimensionar_arreglo(int **arreglo, size_t capacidad_actual,
     *arreglo = temp;
     return true;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1416,6 +1451,7 @@ void procesar_valores(size_t n)
     free(datos);
     printf("Primer elemento: %d\n", datos[0]);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1489,6 +1525,7 @@ char *obtener_saludo_dinamico(void)
     strcpy(saludo, texto);
     return saludo;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1586,6 +1623,7 @@ void procesar_sistema(void)
         ejecutar_privilegios();
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1708,6 +1746,7 @@ void libro_destruir(libro_t **l)
         *l = NULL;
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1756,6 +1795,7 @@ bool copiar_enteros(int *destino, const int *origen, size_t n)
     }
     return true;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1958,6 +1998,7 @@ dirección válida para asignarles inmediatamente. Esto está codificado en la
 :::{code-block}c
 :linenos:
 int *ptr = NULL;
+
 :::
 <!-- {code-block}c -->
 
@@ -1976,6 +2017,7 @@ if (ptr == NULL)
     fprintf(stderr, "Error: No se pudo asignar memoria.\n");
     return ERROR_MEMORIA;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -1989,6 +2031,7 @@ obligatoria.
 :::{code-block}c
 :linenos:
 free(ptr);
+
 :::
 <!-- {code-block}c -->
 
@@ -2002,6 +2045,7 @@ punteros colgantes. La {ref}`0x3002h` lo exige.
 :linenos:
 free(ptr);
 ptr = NULL;
+
 :::
 <!-- {code-block}c -->
 
@@ -2032,6 +2076,7 @@ void destruir_recurso(recurso_t *r)
         free(r);
     }
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -2052,6 +2097,7 @@ dinámica.
  *          Retorna NULL si no hay memoria disponible.
  */
 nodo_t *crear_nodo(int valor);
+
 :::
 <!-- {code-block}c -->
 
@@ -2072,6 +2118,7 @@ void imprimir_arreglo(const int *arreglo, size_t tamano)
     }
     printf("\n");
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -2087,6 +2134,7 @@ de memoria dinámica, y preferir `sizeof(*puntero)` sobre `sizeof(tipo)`.
 int *ptr = malloc(n * sizeof(*ptr));
 // Evitar
 int *ptr = malloc(n * sizeof(int)); // Si el tipo de ptr cambia, esto falla
+
 :::
 <!-- {code-block}c -->
 
@@ -2104,6 +2152,7 @@ for (size_t i = 0; i < tamano; i++)
 {
     arreglo[i] = 0;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -2122,6 +2171,7 @@ void establecer_elemento(int *arreglo, size_t tamano, size_t indice, int valor)
         arreglo[indice] = valor;
     }
 }
+
 ::::
 <!-- {code-block}c -->
 

@@ -88,6 +88,7 @@ void test_suma_valores_positivos(void)
     // 3. Assert: Verificar
     assert(resultado == esperado);
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -129,6 +130,7 @@ void procesar_indice(int *arreglo, int idx)
     assert(arreglo != NULL);
     assert(idx >= 0);
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -155,6 +157,7 @@ if (edad < 0 || edad > 150)
 {
     return ERROR_EDAD_INVALIDA;
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -182,6 +185,7 @@ int valor_absoluto(int x)
 // Para lograr 100% de cobertura de ramas debemos invocar:
 assert(valor_absoluto(-5) == 5); // Cubre la rama verdadera (x < 0)
 assert(valor_absoluto(5) == 5);  // Cubre la rama falsa (x >= 0)
+
 :::
 <!-- {code-block}c -->
 
@@ -215,6 +219,7 @@ void test_invertir_cadena_palabra_simple(void)
     // 3. Assert: Verificar el resultado
     assert(strcmp(entrada, esperado) == 0);
 }
+
 :::
 <!-- {code-block}c -->
 
@@ -289,6 +294,7 @@ bool es_bisiesto(int anio)
         return true;
     return false;
 }
+
 :::
 <!-- {code-block}c -->
 Escribí un conjunto de pruebas unitarias mínimo que garantice el 100% de
@@ -317,6 +323,7 @@ void test_es_bisiesto_ramas(void)
     assert(es_bisiesto(2023) == false); // Evalúa FALSAS todas las ramas (camino
     por defecto final)
 }
+
 :::
 <!-- {code-block}c -->
 

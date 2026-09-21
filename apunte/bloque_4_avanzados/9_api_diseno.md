@@ -484,6 +484,7 @@ size_t lista_largo(const lista_t *lista);
  */
 bool lista_contiene(const lista_t *lista, int dato);
 #endif // LISTA_H
+
 ```
 <!-- {code-block} c -->
 
@@ -572,6 +573,7 @@ mat_error_t mat_raiz_cuadrada(int n, int *resultado);
  */
 const char *mat_error_str(mat_error_t error);
 #endif // MATEMATICA_H
+
 ```
 <!-- {code-block} c -->
 
@@ -615,6 +617,7 @@ const char *mat_error_str(mat_error_t error)
         return "Error desconocido";
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -646,6 +649,7 @@ int main(void)
     }
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -738,6 +742,7 @@ int config_obtener_entero(const config_t *config, const char *clave,
  */
 bool config_existe(const config_t *config, const char *clave);
 #endif // CONFIG_H
+
 ```
 <!-- {code-block} c -->
 
@@ -776,6 +781,7 @@ como exige la regla {ref}`0x3002h`.
 recurso_t *recurso_crear(void);
 // Destructor: libera memoria y recursos del sistema
 void recurso_destruir(recurso_t *recurso);
+
 ```
 <!-- {code-block} c -->
 
@@ -801,6 +807,7 @@ typedef struct buffer
 void buffer_init(buffer_t *buffer);
 // Limpia los recursos internos, pero no libera buffer
 void buffer_finalize(buffer_t *buffer);
+
 ```
 <!-- {code-block} c -->
 
@@ -810,6 +817,7 @@ buffer_t mi_buffer; // En el stack
 buffer_init(&mi_buffer);
 // ... usar el buffer ...
 buffer_finalize(&mi_buffer);
+
 ```
 <!-- {code-block} c -->
 
@@ -851,6 +859,7 @@ encapsulación.
 int punto_obtener_x(const punto_t *punto);
 // Setter: modifica un valor
 void punto_establecer_x(punto_t *punto, int nuevo_x);
+
 ```
 <!-- {code-block} c -->
 
@@ -891,6 +900,7 @@ errores comunes en el diseño de APIs en C.
 int archivo_abrir(const char *nombre, int modo);
 // Uso poco claro
 archivo_abrir("datos.txt", 1);
+
 ```
 <!-- {code-block} c -->
 
@@ -906,6 +916,7 @@ typedef enum
 int archivo_abrir(const char *nombre, archivo_modo_t modo);
 // Uso claro
 archivo_abrir("datos.txt", ARCHIVO_ESCRITURA);
+
 ```
 <!-- {code-block} c -->
 
@@ -919,6 +930,7 @@ simbólicas para valores especiales.
 // MALO: Estado interno global no visible
 void motor_inicializar(void);
 void motor_procesar(void); // ¿Sobre qué datos opera?
+
 ```
 <!-- {code-block} c -->
 
@@ -950,6 +962,7 @@ necesidad de sincronización adicional.
 motor_t *motor_crear(void);
 void motor_procesar(motor_t *motor);
 void motor_destruir(motor_t *motor);
+
 ```
 <!-- {code-block} c -->
 
@@ -961,6 +974,7 @@ void motor_destruir(motor_t *motor);
 void ventana_crear(int ancho, int alto, bool visible, bool modal);
 // Uso confuso
 ventana_crear(800, 600, true, false); // ¿Qué hace cada bool?
+
 ```
 <!-- {code-block} c -->
 
@@ -987,6 +1001,7 @@ void ventana_crear(int ancho, int alto, ventana_visibilidad_t visibilidad,
                    ventana_modalidad_t modalidad);
 // Uso claro
 ventana_crear(800, 600, VENTANA_VISIBLE, VENTANA_NO_MODAL);
+
 ```
 <!-- {code-block} c -->
 
@@ -1007,6 +1022,7 @@ void parsear_fecha(const char *cadena, int *dia, int *mes, int *anio,
 int d = 0, m = 0, a = 0;
 bool ok = false;
 parsear_fecha("2024-03-15", &d, &m, &a, &ok);
+
 ```
 <!-- {code-block} c -->
 
@@ -1026,6 +1042,7 @@ if (parsear_fecha("2024-03-15", &fecha))
 {
     // usar fecha.dia, fecha.mes, fecha.anio
 }
+
 ```
 <!-- {code-block} c -->
 

@@ -97,6 +97,7 @@ void test_suma_elemento_neutro(void)
         assert(suma(i, 0) == i);
     }
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -159,6 +160,7 @@ int main(void)
     printf("Fallidas:          %d\n", stats.fallidas);
     return stats.fallidas > 0 ? 1 : 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -220,6 +222,7 @@ void test_propiedad_asociativa_multiplicacion(void)
         }
     }
 }
+
 ```
 <!-- {code-block} c -->
 

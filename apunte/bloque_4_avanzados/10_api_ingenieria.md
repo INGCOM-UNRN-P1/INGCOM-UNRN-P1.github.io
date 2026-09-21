@@ -63,6 +63,7 @@ Cuando es necesario cambiar una función existente:
 bool lista_agregar(lista_t *lista, int dato);
 // Nueva función
 bool lista_agregar_v2(lista_t *lista, int dato, size_t *indice_out);
+
 ```
 <!-- {code-block} c -->
 
@@ -72,6 +73,7 @@ bool lista_agregar_v2(lista_t *lista, int dato, size_t *indice_out);
 ```{code-block} c
 void dibujar_rectangulo(int x, int y, int ancho, int alto);
 void dibujar_rectangulo_ex(int x, int y, int ancho, int alto, color_t color);
+
 ```
 <!-- {code-block} c -->
 
@@ -93,6 +95,7 @@ rectangulo_config_t rectangulo_config_defecto(void);
 // Función que acepta configuración
 void dibujar_rectangulo_config(int x, int y,
                                const rectangulo_config_t *config);
+
 ```
 <!-- {code-block} c -->
 
@@ -189,6 +192,7 @@ bool pila_esta_vacia(const pila_t *pila);
  */
 size_t pila_tamano(const pila_t *pila);
 #endif // PILA_H
+
 ```
 <!-- {code-block} c -->
 
@@ -243,6 +247,7 @@ mat_error_t mat_sumar(int a, int b, int *resultado);
  * @pre resultado != NULL
  */
 mat_error_t mat_multiplicar(int a, int b, int *resultado);
+
 ```
 <!-- {code-block} c -->
 
@@ -298,6 +303,7 @@ mat_error_t mat_multiplicar(int a, int b, int *resultado)
     *resultado = a * b;
     return MAT_OK;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -331,6 +337,7 @@ int main(void)
     }
     return 0;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -447,6 +454,7 @@ bool buffer_esta_vacio(const buffer_circular_t *buffer);
  */
 bool buffer_esta_lleno(const buffer_circular_t *buffer);
 #endif // BUFFER_CIRCULAR_H
+
 ```
 <!-- {code-block} c -->
 
@@ -515,6 +523,7 @@ bool buffer_esta_lleno(const buffer_circular_t *buffer)
 {
     return buffer->cantidad == buffer->capacidad;
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -539,6 +548,7 @@ parser_agregar_opcion(parser, 'o', "output", "Archivo de salida", "stdout");
 parser_parsear(parser, argc, argv);
 bool verbose = parser_obtener_flag(parser, "verbose");
 const char *salida = parser_obtener_opcion(parser, "output");
+
 ```
 <!-- {code-block} c -->
 
@@ -660,6 +670,7 @@ void parser_mostrar_ayuda(const parser_t *parser);
  */
 const char *parser_obtener_error(const parser_t *parser);
 #endif // PARSER_CLI_H
+
 ```
 <!-- {code-block} c -->
 
@@ -793,6 +804,7 @@ const char **json_obtener_claves(const json_t *json);
  */
 const char *json_obtener_error(void);
 #endif // JSON_SIMPLE_H
+
 ```
 <!-- {code-block} c -->
 
@@ -913,6 +925,7 @@ bool lista_insertar(lista_t *lista, size_t pos, void *elem);
 // PRECONDICIÓN: pos < lista->tamanio, lista != NULL, elem != NULL
 // El incumplimiento de las precondiciones resulta en comportamiento indefinido
 void lista_insertar_unsafe(lista_t *lista, size_t pos, void *elem);
+
 ```
 <!-- {code-block} c -->
 
@@ -963,6 +976,7 @@ void test_lista_agregar_retorna_true_en_exito(void)
     assert(lista_largo(lista) == 1);
     lista_destruir(lista);
 }
+
 ```
 <!-- {code-block} c -->
 
@@ -1033,6 +1047,7 @@ generar HTML, PDF, y man pages.
  */
 bool lista_buscar_binaria(const lista_t *lista, int elemento,
                           size_t *indice_out);
+
 ```
 <!-- {code-block} c -->
 

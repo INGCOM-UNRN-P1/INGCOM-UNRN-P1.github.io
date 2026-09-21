@@ -67,7 +67,7 @@ Un algoritmo recursivo siempre debe tener:
 Veamos cómo se traduce la definición matemática del factorial a una función en
 C.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 // Declaración de la función factorial
@@ -106,8 +106,9 @@ long int factorial(int n)
     // Paso Recursivo: n * factorial(n-1)
     return n * factorial(n - 1);
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ##### Análisis del Código
 
@@ -158,6 +159,7 @@ Cada llamada apila un nuevo marco temporal consumiendo espacio físico de memori
 RAM.
 
 :::
+<!-- {figure} 7/pila_factorial.svg -->
 <!-- {figure} 6/pila_factorial.svg -->
 
 Como se observa en el diagrama, cada llamada suspendida (`factorial(3)` y
@@ -325,7 +327,7 @@ utilizando lazos de control (`while` o `for`).
 Aplica la regla de robustez {ref}`0x2001h` para validar precondiciones y el uso
 de llaves:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 double potencia_recursiva(double a, int b)
 {
@@ -341,12 +343,13 @@ double potencia_recursiva(double a, int b)
     // Paso Recursivo
     return a * potencia_recursiva(a, b - 1);
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 **Versión Iterativa (con lazo for):**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 double potencia_iterativa(double a, int b)
 {
@@ -361,8 +364,9 @@ double potencia_iterativa(double a, int b)
     }
     return resultado;
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ::::
 <!-- {solution} ej-alg-c-potencia -->
@@ -382,7 +386,7 @@ Siguiendo las buenas prácticas, la cadena de entrada se declara como constante
 (`const char *`) según la regla {ref}`0x3007h` y se retorna el tipo `size_t` de
 acuerdo a la regla {ref}`0x3010h`:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stddef.h>
 size_t contar_caracter(const char *cadena, char c)
@@ -394,8 +398,9 @@ size_t contar_caracter(const char *cadena, char c)
     size_t coincide = (*cadena == c) ? 1 : 0;
     return coincide + contar_caracter(cadena + 1, c);
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ::::
 <!-- {solution} ej-alg-c-conteo-caracteres -->
@@ -414,7 +419,7 @@ firma: `void invertir_arreglo(int arr[], size_t ini, size_t fin)`.
 Para cumplir con las directivas de tipo, los índices se manejan con `size_t`
 (regla {ref}`0x3010h`):
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stddef.h>
 void invertir_arreglo(int arr[], size_t ini, size_t fin)
@@ -428,8 +433,9 @@ void invertir_arreglo(int arr[], size_t ini, size_t fin)
     arr[fin] = aux;
     invertir_arreglo(arr, ini + 1, fin - 1);
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ::::
 <!-- {solution} ej-alg-c-invertir-arreglo -->
@@ -442,7 +448,7 @@ Analizá la siguiente función recursiva en C y determiná por qué se produce u
 error de desbordamiento de pila (*stack overflow*) para ciertos valores de
 entrada enteros. ¿Cuál es el error en la condición de parada (caso base)?
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 int sumar_hasta_cero(int n)
 {
@@ -452,8 +458,9 @@ int sumar_hasta_cero(int n)
     }
     return n + sumar_hasta_cero(n - 1);
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ::::
 <!-- {exercise} -->
@@ -472,7 +479,7 @@ Para resolver esta vulnerabilidad de parada, de acuerdo a la regla de robustez
 {ref}`0x2001h`, la guarda del caso base debe generalizarse para cubrir todos los
 números menores o iguales a cero:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 int sumar_hasta_cero_robusta(int n)
 {
@@ -482,8 +489,9 @@ int sumar_hasta_cero_robusta(int n)
     }
     return n + sumar_hasta_cero_robusta(n - 1);
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ::::
 <!-- {solution} ej-peligro-parada -->
@@ -492,7 +500,7 @@ int sumar_hasta_cero_robusta(int n)
 :label: ej-peligro-stackframe
 Considerando la siguiente función recursiva en C:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 long int calcular_suma_recursiva(int n)
 {
@@ -504,8 +512,9 @@ long int calcular_suma_recursiva(int n)
     variables_locales[0] = n;
     return variables_locales[0] + calcular_suma_recursiva(n - 1);
 }
+
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Estimá el tamaño mínimo teórico de su marco de pila (*stack frame*) en una
 arquitectura típica de 64 bits (donde `sizeof(int) == 4` y `sizeof(long int) ==
