@@ -10,7 +10,3 @@ Herramientas de cabecera para el estudiante y el desarrollador C. Compilación
 pedagógica, linters de estilo, análisis de antipatrones, seguridad estática y
 ejecución contenida.
 
-:::{tableofcontents}
-
-:::
-<!-- {tableofcontents} -->

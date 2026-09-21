@@ -9,7 +9,3 @@ subtitle: "Herramientas destinadas al diseño, composición, validación y empaq
 Herramientas destinadas al diseño, composición, validación y empaquetado de
 ejercicios, guías de trabajos prácticos, exámenes y materiales de lectura.
 
-:::{tableofcontents}
-
-:::
-<!-- {tableofcontents} -->

@@ -10,7 +10,3 @@ Auditorías de bajo nivel: empaquetado de memoria en structs, portabilidad y
 endianness, grafos de llamadas y recursividad, desensamblado de saltos, macros y
 encabezados.
 
-:::{tableofcontents}
-
-:::
-<!-- {tableofcontents} -->
