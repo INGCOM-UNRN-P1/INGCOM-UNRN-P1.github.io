@@ -4,7 +4,7 @@ short_title: La memoria
 description: 'Mapeo de memoria virtual, segmento de código, datos, stack, heap y la jerarquía de memoria física.'
 ---
 
-> **Prerrequisitos**: variables, funciones y punteros básicos. Necesitás GCC y
+> **Prerrequisitos**: variables, funciones y compilación básica. Necesitás GCC y
 > la utilidad `size` (incluida habitualmente en binutils).
 >
 > **Objetivo**: ubicar código y objetos de duración estática, automática y
@@ -55,7 +55,7 @@ size segmentos
 `size` informa los tamaños agregados de `text`, `data` y `bss`; no mide el uso
 instantáneo de stack o heap, que cambia durante la ejecución.
 
-## Introducción
+## Del mapa al modelo
 
 Todas las variables y el código de un programa residen en la memoria. Cuando un
 programa se ejecuta, el sistema operativo le asigna un espacio de direcciones
