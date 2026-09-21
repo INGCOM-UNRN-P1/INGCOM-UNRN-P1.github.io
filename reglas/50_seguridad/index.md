@@ -8,9 +8,6 @@ subtitle: "Reglas sobre compilacion, preprocesador, cabeceras y seguridad estati
 
 Reglas sobre compilacion, preprocesador, cabeceras y seguridad estatica.
 
-```{tableofcontents}
-```
-
 ## Tabla de reglas
 
 | Regla | Título | Antipatrones integrados |

@@ -8,9 +8,6 @@ subtitle: "Reglas de metodo: como disenar y construir codigo de calidad paso a p
 
 Reglas de metodo: como disenar y construir codigo de calidad paso a paso.
 
-```{tableofcontents}
-```
-
 ## Tabla de reglas
 
 | Regla | Título | Antipatrones integrados |

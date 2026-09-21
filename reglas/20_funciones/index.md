@@ -8,9 +8,6 @@ subtitle: "Reglas sobre firmas, contratos, responsabilidad unica y modularizacio
 
 Reglas sobre firmas, contratos, responsabilidad unica y modularizacion.
 
-```{tableofcontents}
-```
-
 ## Tabla de reglas
 
 | Regla | Título | Antipatrones integrados |

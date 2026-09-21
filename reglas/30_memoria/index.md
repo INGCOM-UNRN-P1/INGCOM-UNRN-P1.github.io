@@ -8,9 +8,6 @@ subtitle: "Reglas sobre punteros, memoria dinamica, tipos, const y TADs."
 
 Reglas sobre punteros, memoria dinamica, tipos, const y TADs.
 
-```{tableofcontents}
-```
-
 ## Tabla de reglas
 
 | Regla | Título | Antipatrones integrados |

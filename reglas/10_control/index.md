@@ -8,9 +8,6 @@ subtitle: "Reglas sobre condicionales, lazos, bifurcaciones y flujo de ejecucion
 
 Reglas sobre condicionales, lazos, bifurcaciones y flujo de ejecucion.
 
-```{tableofcontents}
-```
-
 ## Tabla de reglas
 
 | Regla | Título | Antipatrones integrados |

@@ -8,9 +8,6 @@ subtitle: "Reglas de comentarios, documentacion de archivos y organizacion del c
 
 Reglas de comentarios, documentacion de archivos y organizacion del codigo.
 
-```{tableofcontents}
-```
-
 ## Tabla de reglas
 
 | Regla | Título | Antipatrones integrados |

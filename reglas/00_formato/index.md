@@ -8,9 +8,6 @@ subtitle: "Reglas de estilo visual, espaciado, indentacion, llaves y formato en 
 
 Reglas de estilo visual, espaciado, indentacion, llaves y formato en C.
 
-```{tableofcontents}
-```
-
 ## Tabla de reglas
 
 | Regla | Título | Antipatrones integrados |

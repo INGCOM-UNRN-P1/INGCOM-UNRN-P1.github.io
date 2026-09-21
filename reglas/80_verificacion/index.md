@@ -6,10 +6,7 @@ subtitle: "Reglas de verificacion, testing y depuracion antes de la entrega."
 
 # Verificacion, testing y depuracion (0x80XX)
 
-Reglas de verificacion, testing y depuracion antes de la entrega.
-
-```{tableofcontents}
-```
+Reglas de verificación, testing y depuración antes de la entrega.
 
 ## Tabla de reglas
 

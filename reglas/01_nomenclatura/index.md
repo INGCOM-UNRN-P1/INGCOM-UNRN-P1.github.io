@@ -8,9 +8,6 @@ subtitle: "Reglas de nombrado de identificadores, constantes, archivos y simbolo
 
 Reglas de nombrado de identificadores, constantes, archivos y simbolos.
 
-```{tableofcontents}
-```
-
 ## Tabla de reglas
 
 | Regla | Título | Antipatrones integrados |

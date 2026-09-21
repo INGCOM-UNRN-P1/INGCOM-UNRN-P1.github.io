@@ -8,9 +8,6 @@ subtitle: "Reglas sobre flujos de archivo, lectura/escritura y reporte de errore
 
 Reglas sobre flujos de archivo, lectura/escritura y reporte de errores.
 
-```{tableofcontents}
-```
-
 ## Tabla de reglas
 
 | Regla | Título | Antipatrones integrados |
