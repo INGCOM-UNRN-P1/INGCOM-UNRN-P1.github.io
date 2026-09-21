@@ -5,6 +5,53 @@ description: 'Mapeo de memoria virtual, segmento de código, datos, stack, heap 
 ---
 
 (capitulo-modelo-memoria)=
+# Modelo de memoria y pila
+
+> **Prerrequisitos**: variables, funciones y punteros básicos. Necesitás GCC y
+> la utilidad `size` (incluida habitualmente en binutils).
+>
+> **Objetivo**: ubicar código y objetos de duración estática, automática y
+> dinámica en las regiones habituales de un proceso.
+
+## Mapa mínimo de segmentos
+
+La disposición exacta depende del sistema, compilador y ASLR, pero este modelo
+es útil para razonar sobre la duración y propiedad de los datos:
+
+```text
+Direcciones altas
++---------------------------+
+| Stack: llamadas, locales  |  crece habitualmente hacia abajo
++---------------------------+
+| ... espacio no mapeado ...|
++---------------------------+
+| Heap: malloc/calloc       |  crece habitualmente hacia arriba
++---------------------------+
+| BSS: globales sin valor   |  int contador;
++---------------------------+
+| Data: globales con valor  |  int limite = 10;
++---------------------------+
+| Text: instrucciones       |  código ejecutable (normalmente lectura)
++---------------------------+
+Direcciones bajas
+```
+
+Probá el tamaño de las secciones con este archivo y comando:
+
+```c
+int inicializada = 10;
+int sin_inicializar;
+int main(void) { return inicializada + sin_inicializar; }
+```
+
+```bash
+gcc -Wall -Wextra -std=c11 -pedantic segmentos.c -o segmentos
+size segmentos
+```
+
+`size` informa los tamaños agregados de `text`, `data` y `bss`; no mide el uso
+instantáneo de stack o heap, que cambia durante la ejecución.
+
 ## Introducción
 
 Todas las variables y el código de un programa residen en la memoria. Cuando un

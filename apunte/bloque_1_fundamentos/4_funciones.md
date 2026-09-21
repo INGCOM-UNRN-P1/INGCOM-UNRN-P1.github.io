@@ -5,6 +5,56 @@ subtitle: Dividiendo problemas en partes más chicas.
 ---
 
 (capitulo-funciones-descomposicion)=
+# Funciones y descomposición funcional
+
+> **Prerrequisitos**: variables, expresiones, `if` y la compilación de un
+> archivo C. Compilá los ejemplos con `gcc -Wall -Wextra -std=c11 -pedantic`.
+>
+> **Objetivo**: declarar, invocar y explicar el marco de pila de una función.
+
+## Una función antes de la teoría
+
+```c
+#include <stdio.h>
+
+int sumar(int izquierda, int derecha)
+{
+    return izquierda + derecha;
+}
+
+int main(void)
+{
+    int resultado = sumar(2, 3);
+    printf("%d\\n", resultado);
+    return 0;
+}
+```
+
+Ejecutá `gcc -Wall -Wextra -std=c11 -pedantic sumar.c -o sumar && ./sumar`.
+La llamada `sumar(2, 3)` copia sus argumentos en los parámetros y devuelve `5`.
+
+### Traza del stack frame
+
+En el instante anterior a `return`, una visualización estilo `bishop trace`
+del ejemplo es:
+
+```text
+Tope de pila
++---------------------------+
+| sumar                     |
+| izquierda = 2             |
+| derecha   = 3             |
+| retorno: volver a main    |
++---------------------------+
+| main                      |
+| resultado: esperando valor|
++---------------------------+
+Base de pila
+```
+
+Al retornar, el marco de `sumar` deja de existir y `resultado` recibe el valor
+devuelto. Podés inspeccionar una traza real con `bishop trace sumar.c --json`.
+
 ## Introducción
 
 Ya vimos cómo darle instrucciones en C a la computadora, pero ahora vamos a

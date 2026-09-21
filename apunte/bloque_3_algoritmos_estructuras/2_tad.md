@@ -7,6 +7,55 @@ subtitle: Estructuras de datos dinámicas y especializadas
 (capitulo-tad)=
 # Resumen de la Unidad
 
+> **Prerrequisitos**: funciones, punteros, `malloc`/`free`, archivos `.h` y
+> compilación de más de un archivo con GCC.
+>
+> **Objetivo**: distinguir interfaz de implementación y verificar una operación
+> de un TAD sin acceder a su representación interna.
+
+## Primero la interfaz y la prueba
+
+Un cliente de un TAD solo necesita su contrato público. Esta cabecera describe
+una secuencia de enteros sin revelar si se implementa con un arreglo o una lista:
+
+```c
+/* secuencia.h */
+#ifndef SECUENCIA_H
+#define SECUENCIA_H
+
+#include <stdbool.h>
+#include <stddef.h>
+
+typedef struct Secuencia Secuencia;
+Secuencia *secuencia_crear(void);
+bool secuencia_agregar(Secuencia *secuencia, int valor);
+size_t secuencia_largo(const Secuencia *secuencia);
+void secuencia_destruir(Secuencia *secuencia);
+#endif
+```
+
+La siguiente prueba es de **caja negra**: usa exclusivamente la interfaz y
+comprueba el comportamiento observable. No conoce campos de `struct Secuencia`.
+
+```c
+/* test_secuencia.c */
+#include "secuencia.h"
+#include <assert.h>
+
+int main(void) {
+    Secuencia *s = secuencia_crear();
+    assert(s != NULL);
+    assert(secuencia_largo(s) == 0U);
+    assert(secuencia_agregar(s, 42));
+    assert(secuencia_largo(s) == 1U);
+    secuencia_destruir(s);
+    return 0;
+}
+```
+
+Al cambiar la lista interna por un arreglo, esta prueba debe seguir compilando y
+pasando. Esa independencia es la razón práctica de definir primero la interfaz.
+
 ## Introducción
 
 

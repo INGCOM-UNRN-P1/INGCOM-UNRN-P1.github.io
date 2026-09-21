@@ -10,6 +10,39 @@ El material de estudio de la cátedra está organizado físicamente en cuatro
 bloques didácticos secuenciales. Esta estructura proporciona un andamiaje
 progresivo para el desarrollo de tus habilidades de programación.
 
+## Prerrequisitos de entorno
+
+Para compilar los ejemplos instalá GCC 11 o posterior, `make`, un editor de
+texto y una terminal Linux o WSL2. Verificá la instalación con:
+
+```bash
+gcc --version
+make --version
+```
+
+Los ejemplos se compilan, salvo indicación contraria, con:
+
+```bash
+gcc -Wall -Wextra -std=c11 -pedantic archivo.c -o programa
+```
+
+## Metodología de estudio
+
+En cada capítulo seguí este ciclo: leé el objetivo, ejecutá el ejemplo mínimo,
+modificá una sola condición para observar su efecto y recién entonces resolvé
+los ejercicios. Conservá los warnings del compilador: son parte de la
+retroalimentación, no texto para ignorar. Si un capítulo depende de otro,
+volvé al concepto previo antes de memorizar una solución.
+
+## Matriz de dependencias conceptuales
+
+| Para estudiar | Antes dominá | Resultado esperado |
+| --- | --- | --- |
+| Bloque 1 | lógica elemental y uso de terminal | programas C pequeños compilables |
+| Bloque 2 | variables, control y funciones | explicar direcciones, vida útil y recursos |
+| Bloque 3 | punteros, memoria dinámica y testing básico | diseñar y probar TADs |
+| Bloque 4 | bloques 1–3, contratos y compilación modular | integrar APIs y recursos de sistema |
+
 ---
 
 ## Bloque 1: Fundamentos del Control de Flujo y Modularización
@@ -148,4 +181,3 @@ recursividad avanzada y diseño arquitectónico de APIs robustas en C.
     (`pthreads`) y primitivas de sincronización.
 *   **[12. Programación con Sockets](bloque_4_avanzados/12_sockets.md)**:
     Comunicación en red mediante sockets UNIX.
-
