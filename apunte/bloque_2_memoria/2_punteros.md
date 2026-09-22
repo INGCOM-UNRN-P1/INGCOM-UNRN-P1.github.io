@@ -11,6 +11,8 @@ subtitle: "Control directo de memoria en sistemas integrados"
 > **Comprobación de salida**: trazá el efecto de una función que modifica una variable mediante `int *`.
 
 (capitulo-punteros)=
+# Punteros
+
 ## Introducción
 
 Para profundizar en cómo funcionan estructuras como los arreglos y para ganar un
@@ -25,7 +27,7 @@ sus _ubicaciones_ en la memoria.
 Introducción a los Punteros y la Memoria
 
 (que-es-una-direccion-de-memoria-y-un-puntero)=
-#### ¿Qué es una Dirección de Memoria y un Puntero?
+### ¿Qué es una Dirección de Memoria y un Puntero?
 
 Cada vez que declarás una variable, el entorno de ejecución y el sistema
 operativo le asignan un bloque de espacio en la memoria del programa. En los

@@ -2462,10 +2462,8 @@ naturaleza. Inicialmente pueden parecer restrictivas, pero con el tiempo
 reconocerás que son liberadoras: te permiten escribir código complejo con
 confianza, sabiendo que has evitado las trampas más comunes.
 
-## Referencias y Lecturas Complementarias
-
 (referencias-y-lecturas-adicionales)=
-### Referencias y Lecturas Adicionales
+## Referencias y Lecturas Complementarias
 
 
 Para profundizar en la gestión de memoria, consultá:

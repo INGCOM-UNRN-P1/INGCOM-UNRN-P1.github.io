@@ -11,6 +11,8 @@ subtitle: "Colecciones de datos homogéneos y texto."
 > **Comprobación de salida**: predecí el resultado de recorrer una cadena y justificá dónde termina.
 
 (capitulo-secuencias)=
+# Secuencias: Arreglos y Cadenas
+
 ## Introducción
 
 En C, una **secuencia** es una colección de elementos de datos del mismo tipo,

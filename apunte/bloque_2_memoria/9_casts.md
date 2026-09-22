@@ -11,6 +11,8 @@ subtitle: 'Promoción, coerción implícita y conversión explícita de tipos de
 >
 > **Comprobación de salida**: compilá una conversión con `-Wconversion` y explicá el warning obtenido.
 
+# Conversión de Tipos (Casts) en C
+
 ## Introducción
 
 En C, las variables poseen un tipo estático y rígido asignado en su declaración.

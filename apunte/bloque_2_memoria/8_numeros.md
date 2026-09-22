@@ -11,6 +11,8 @@ subtitle: 'Tipos de datos numéricos en C, límites físicos, desbordamientos e 
 >
 > **Comprobación de salida**: predecí si una conversión pierde información y justificá el resultado con el rango de los tipos.
 
+# Representación de Números y Aritmética
+
 ## Introducción
 
 En el lenguaje C, a diferencia de la matemática pura donde los conjuntos

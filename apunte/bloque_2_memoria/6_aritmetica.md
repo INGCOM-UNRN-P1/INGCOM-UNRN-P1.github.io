@@ -11,6 +11,8 @@ description: 'Indirecciones múltiples, punteros a arrays, aritmética pura y ma
 > **Comprobación de salida**: justificá por qué sumar uno a `int *` no equivale a sumar un byte.
 
 (introduccion_aritmetica_punteros)=
+# Aritmética de punteros y matrices dinámicas
+
 ## Introducción
 
 
@@ -1888,14 +1890,12 @@ sobre los fundamentos de {ref}`capitulo-modelo-memoria` y
 :::
 <!-- {important} Ideas Centrales -->
 
-## Referencias y Lecturas de Aritmética de Punteros
-
 (referencias-lecturas-aritmetica)=
-### Referencias y Lecturas de Aritmética de Punteros
+## Referencias y Lecturas de Aritmética de Punteros
 
 
 (textos-fundamentales-sobre-memoria-dinamica)=
-#### Textos Fundamentales sobre Memoria Dinámica
+### Textos Fundamentales sobre Memoria Dinámica
 
 - {cite:t}`kernighan_c_2014`. Capítulo 8: The UNIX System Interface. Gestión de
   memoria y estructuras complejas.

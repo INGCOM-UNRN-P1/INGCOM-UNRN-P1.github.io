@@ -11,6 +11,8 @@ subtitle: 'Typedef y su aplicación en la abstracción de tipos en C'
 >
 > **Comprobación de salida**: reescribí una declaración de puntero usando un alias y explicá qué tipo sigue representando.
 
+# Definición de Tipos y Alias
+
 ## Introducción
 
 En C, el mecanismo nativo para crear nombres alternativos o **alias** de tipos

@@ -11,6 +11,8 @@ subtitle: 'Declaración de constantes nombradas, espacios de nombres y validaci�
 >
 > **Comprobación de salida**: implementá un `switch` exhaustivo para un estado y definí el comportamiento de `default`.
 
+# Tipos Enumerativos (enum)
+
 ## Introducción
 
 Las **enumeraciones** (`enum`) constituyen un mecanismo fundamental en el

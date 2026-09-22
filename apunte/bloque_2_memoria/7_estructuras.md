@@ -11,6 +11,8 @@ subtitle: 'struct, union y campos de bits en C'
 > **Comprobación de salida**: predecí qué campos comparten almacenamiento en una `union` y verificá el tamaño con `sizeof`.
 
 (capitulo-estructuras)=
+# Estructuras y Tipos Compuestos
+
 ## Introducción
 
 En C, las **estructuras (`struct`)**, **uniones (`union`)** y **campos de bits
@@ -37,8 +39,6 @@ común (x86_64, little-endian), pero siempre debés verificar en tu plataforma.
 :::
 <!-- {warning} -->
 
-(estructuras-struct-agrupando-datos)=
-
 :::{note} Recorrido principal y ampliaciones
 
 El camino principal cubre `struct`, acceso con `.` y `->`, estructuras con
@@ -52,6 +52,7 @@ Uniones, bitfields, serialización, estructuras opacas y la comparación AoS/SoA
 
 Los Ladrillos de la memoria
 
+(estructuras-struct-agrupando-datos)=
 ### Estructuras (`struct`): Agrupando Datos
 
 Una `struct` es una colección de variables (miembros) de diferentes tipos,
@@ -1375,7 +1376,7 @@ uniones (todos comparten el mismo espacio de memoria).
 <!-- {figure} 7/union_vs_struct.svg -->
 <!-- {figure} 4/union_vs_struct.svg -->
 
-##### El Patrón de Unión Etiquetada (Tagged Union)
+#### El Patrón de Unión Etiquetada (Tagged Union)
 
 Por sí mismas, las `union` tienen usos muy limitados ya que no es posible saber
 como tenemos que interpretar la información contenida, para esto, se utiliza una

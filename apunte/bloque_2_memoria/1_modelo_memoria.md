@@ -279,8 +279,8 @@ Dominar el concepto de estado es pasar de "escribir código que funciona" a
 "entender por qué y cómo funciona", lo cual es indispensable para la
 programación de sistemas de bajo nivel.
 
-De acuerdo. A continuación, una ampliación del concepto que generaliza la idea
-de estado más allá de su implementación técnica en C, enfocándose en su rol como
+A continuación, una ampliación del concepto que generaliza la idea de estado
+más allá de su implementación técnica en C, enfocándose en su rol como
 información unificada.
 
 (ampliacion-el-estado-como-informacion-y-potencialidad)=
