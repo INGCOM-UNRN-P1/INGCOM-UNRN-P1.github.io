@@ -98,7 +98,6 @@ project:
     - title: Reglas de Estilo y Antipatrones
       children:
         - file: reglas/indice.md
-        - file: reglas/renumeracion.md
         - title: "Sintaxis y formato visual (0x00XX)"
           children:
             - file: reglas/00_formato/index.md
