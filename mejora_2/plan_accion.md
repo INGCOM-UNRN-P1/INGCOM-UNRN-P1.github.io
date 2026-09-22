@@ -110,7 +110,11 @@ descuido/calidad baja en la primera impresión de 6 capítulos distintos.
 La auditoría inicial (una pasada por bloque con subagentes) no revisó
 exhaustivamente cada archivo; al corregir la Fase 1 y verificar con un script
 propio (H1 ausente/duplicado, saltos de nivel de heading, balance de fences)
-aparecieron estos 4 puntos nuevos:
+aparecieron 4 puntos nuevos. Los tres mecánicos (35, 36, 38) ya están
+corregidos; el cuarto (37, contenido mal ubicado) también se resolvió — ver
+detalle más abajo, en la Fase 3, donde estaba documentado junto al punto 21.
+
+**Estado: ✅ Los 4 hallazgos adicionales de la Fase 1 quedaron resueltos.**
 
 35. **6 capítulos más sin H1 en bloque 2**, no detectados por la auditoría
     original: `3_secuencias.md`, `6_aritmetica.md`, `8_numeros.md`,
@@ -342,13 +346,10 @@ find/replace dedicada, no urgente.
       `7F_estructuras_opacas.md` de bloque 3 (punto 20): si el tema vive en
       bloque 4, eliminar los de bloque 3 y dejar solo un enlace cruzado; si
       vive en bloque 3, eliminar los de bloque 4.
-    - (Hallazgo 37) El bloque huérfano "PARA INTEGRAR" sobre serialización de
-      `enum` al final de `12_sockets.md:1948-2037` es contenido ya escrito y
-      completo (código + tip) que encaja naturalmente en
-      `14A_enums_avanzados.md` si se elige la opción (a): resolvería de paso
-      que ese archivo hoy sea el más débil de la familia (un párrafo + 4
-      líneas de código). Moverlo implica quitar el marcador `PARA INTEGRAR`
-      y las líneas en blanco sobrantes de `12_sockets.md`.
+    - (Hallazgo 37) ~~El bloque huérfano "PARA INTEGRAR"...~~ **ya resuelto**,
+      ver el punto 37 más abajo — se movió sin esperar la decisión (a)/(b)
+      de esta familia, porque el contenido en sí no dependía de esa
+      decisión.
 23. **Decisión editorial sobre alcance de `11_hilos.md` y `12_sockets.md`**:
     ¿pertenecen al programa de "Programación 1"? Si sí, marcarlos
     explícitamente como ampliación optativa/de nivelación (con un admonition
@@ -356,17 +357,22 @@ find/replace dedicada, no urgente.
     moverlos a un apunte de nivel posterior. En cualquier caso, el bloque de
     TLS/OpenSSL en `12_sockets.md` (líneas 1839-1840) es el punto más alejado
     del temario típico y merece la decisión más explícita.
-37. **Contenido huérfano sin integrar en `bloque_4_avanzados/12_sockets.md`,
-    líneas 1948-2037** (~90 líneas): al final del capítulo, después de la
-    sección "Resumen", aparece un bloque delimitado literalmente con
-    `PARA INTEGRAR` que desarrolla **serialización de `enum`** — un tema sin
-    ninguna relación con sockets. Es casi con certeza contenido que pertenece
-    a `14A_enums_avanzados.md` o a `11_enums.md` y quedó pegado al final del
-    archivo equivocado. **No se tocó**: es una decisión de ubicación de
-    contenido, no una corrección mecánica de heading. Agregar a la Fase 3:
-    mover este bloque a donde corresponda (evaluar junto con el punto 21,
-    familia 13/14 de bloque 4) y, si el destino es `14A_enums_avanzados.md`,
-    aprovecharlo como el desarrollo real que ese archivo hoy no tiene.
+37. **✅ Resuelto — Contenido huérfano sin integrar en
+    `bloque_4_avanzados/12_sockets.md`, líneas 1948-2037** (~90 líneas): al
+    final del capítulo, después de la sección "Resumen", había un bloque
+    delimitado literalmente con `PARA INTEGRAR` que desarrollaba
+    **serialización de `enum`** — sin ninguna relación con sockets. Se movió
+    íntegro a `14A_enums_avanzados.md` (nueva sección "## Serialización de
+    enumeraciones"), que hoy pasa de un párrafo + 4 líneas de código a tener
+    un desarrollo real con ejemplo problemático, solución y `:::{tip}`. Se
+    aprovechó para normalizar `{code-block}c` → `` ```c `` (sin el problema
+    de colon-depth que tenía el original) y agregar una frase que explica
+    *por qué* falla la serialización frágil (no solo mostrar el código). Se
+    quitó el marcador `PARA INTEGRAR` y las líneas en blanco sobrantes de
+    `12_sockets.md`, que ahora termina limpiamente en su sección "Resumen".
+    Nota: esto no prejuzga la decisión (a)/(b) del punto 21 sobre el resto de
+    la familia 13/14 — `14A_enums_avanzados.md` sigue fuera de `myst.yml`
+    hasta que se resuelva esa decisión más amplia.
 
 ---
 
