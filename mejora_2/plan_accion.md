@@ -241,19 +241,7 @@ una sola sesión de trabajo mirando ambos bloques a la vez, porque hay
 solapamiento directo entre bloque 3 y bloque 4 (serialización y estructuras
 opacas aparecen en ambos).
 
-20. **Bloque 3 — ampliaciones**:
-    - Integrar a `myst.yml` y enlazar desde su capítulo principal:
-      `1E_rendimiento_memoria.md` y `1F_seguridad_memoria.md` (tienen
-      contenido real).
-    - Eliminar por redundancia pura con `bloque_2/6_aritmetica.md`:
-      `1B_matrices_vla.md`, `1D_fragmentacion_matrices.md`,
-      `6D_fragmentacion_matrices.md` (este último además duplica casi
-      palabra por palabra a `1D`).
-    - `1C_matrices3d.md`: decidir si se fusiona su fórmula de indexación
-      dentro de `1A_matrices_dinamicas.md` (mismo tema, mayor cohesión) o se
-      elimina por ser un placeholder de una fórmula sin desarrollo.
-    - `7E_serializacion.md` y `7F_estructuras_opacas.md`: ver punto 21 antes
-      de decidir (dependen de qué se haga con bloque 4).
+
 22. **Reconciliar `reporte.md`** (sin commitear, raíz del repo): una vez
     tomadas las decisiones de 20-21, actualizar ese documento para que
     refleje el estado real, o archivarlo/eliminarlo si ya cumplió su
@@ -322,8 +310,23 @@ find/replace dedicada, no urgente.
 
 **Costo estimado**: 1-2 horas.
 
+## Fase 6 - Ampliaciones y consolidacion del bloque 3
 
-## Fase 6 - Mejoras y correcciones en bloque 4
+20. **Bloque 3 — ampliaciones**:
+    - Integrar a `myst.yml` y enlazar desde su capítulo principal:
+      `1E_rendimiento_memoria.md` y `1F_seguridad_memoria.md` (tienen
+      contenido real).
+    - Eliminar por redundancia pura con `bloque_2/6_aritmetica.md`:
+      `1B_matrices_vla.md`, `1D_fragmentacion_matrices.md`,
+      `6D_fragmentacion_matrices.md` (este último además duplica casi
+      palabra por palabra a `1D`).
+    - `1C_matrices3d.md`: decidir si se fusiona su fórmula de indexación
+      dentro de `1A_matrices_dinamicas.md` (mismo tema, mayor cohesión) o se
+      elimina por ser un placeholder de una fórmula sin desarrollo.
+    - `7E_serializacion.md` y `7F_estructuras_opacas.md`: ver punto 21 antes
+      de decidir (dependen de qué se haga con bloque 4).
+
+## Fase 7 - Mejoras y correcciones en bloque 4
 
 21. **Bloque 4 — familia 13/14**: decidir entre dos caminos, no dejarlo como
     está:
