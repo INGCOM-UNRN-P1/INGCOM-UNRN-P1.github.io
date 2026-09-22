@@ -150,13 +150,19 @@ aparecieron estos 4 puntos nuevos:
 
 ---
 
-## Fase 2 — Barrido de enlaces rotos
+## Fase 2 — Barrido de enlaces rotos en `apunte/` — ✅ Completada
 
 Puramente mecánico una vez que se conoce el mapeo correcto (ya está en la
 tabla T1 de `informe_calidad.md`). Se puede hacer con `grep`/`sed` dirigido,
 archivo por archivo, y verificar después con el mismo script de detección
 usado en la auditoría (recorrer todos los `.md`, extraer `]($ruta)`, resolver
 contra el sistema de archivos).
+
+**Estado**: resuelta íntegramente (items 13-19, 19b). Verificado con el script
+de barrido: `apunte/` tiene **0 enlaces `.md` rotos y 0 referencias `{ref}`
+rotas** después de esta fase. Al re-ejecutar el mismo barrido sobre
+`ejercicios/` (fuera del alcance original) aparecieron 59 enlaces rotos más —
+ver hallazgo T8 en `informe_calidad.md` y la Fase 2b más abajo.
 
 13. Bloque 1: 4 enlaces en `3_control_flujo.md:1251-1258` + 1 en
     `5_compilacion.md:1217`.
@@ -168,11 +174,16 @@ contra el sistema de archivos).
 17. Fence malformado (no un link, pero mismo barrido): `bloque_2/
     3_secuencias.md:272-275` — reemplazar la valla `:::`/`:::` vacía por
     ` ```text `.
-18. Referencia `{ref}` rota: `bloque_4/7_recursividad_avanzada.md:536` —
-    localizar si el ejercicio `ej-def-mat-cantidad-digitos` existía en una
-    versión anterior (buscar en historial de git) y restaurar el `:label:`,
-    o si no existió nunca, quitar la referencia o reescribir la frase sin el
-    `{ref}`.
+18. ~~Referencia `{ref}` rota: `bloque_4/7_recursividad_avanzada.md:536`~~ —
+    **falso positivo, no requiere acción**. El ejercicio
+    `ej-def-mat-cantidad-digitos` sí existe como `:label:` de un
+    `:::{exercise}` en `bloque_3_algoritmos_estructuras/7_recursividad_intro.md:305`.
+    El script de detección de anclas rotas solo buscaba el patrón
+    `(id)=`, no los `:label:` de directivas `exercise`/`solution`
+    (sphinx-exercise), por eso lo marcó como roto. Es la única referencia
+    `{ref}` del apunte que apunta a un label de ejercicio en vez de a un
+    ancla de sección; si el build de MyST la resuelve sin warning, no hace
+    falta tocarla.
 19. Agregar `ejercicios/bloque_3_algoritmos_estructuras/5_recursion.md` a
     `myst.yml` (falta en la sección "Bloque 3" de ejercicios).
 19b. (Hallazgo 38) Corregir o quitar las 2 referencias `{ref}` rotas en
@@ -188,6 +199,45 @@ contra el sistema de archivos).
 **Costo estimado**: 1-2 horas. **Riesgo si no se hace**: navegación rota
 silenciosa — el lector hace clic y llega a un 404 o a MyST resolviendo mal la
 ruta.
+
+---
+
+## Fase 2b — Barrido de enlaces rotos en `ejercicios/` (hallazgo T8, fuera del alcance original)
+
+`ejercicios/` no estaba en el alcance de la auditoría inicial (que cubrió los
+4 bloques de `apunte/`). Al reutilizar el script de detección de la Fase 2
+sobre este directorio aparecieron 59 enlaces rotos (detalle completo en T8 de
+`informe_calidad.md`). Se separa de la Fase 2 porque una parte no es un
+simple problema de ruta:
+
+39. **33 enlaces a nombres de bloque viejos** (`bloque_2_proyectos`,
+    `bloque_3_memoria_estatica`, `bloque_4_dinamica_interfaces`,
+    `bloque_4_dinamica_indireccion`) — mismo mapeo mecánico que la Fase 2,
+    aplicado a `ejercicios/bloque_1_fundamentos/{7_librerias_ejercicios,
+    8_compilacion_y_makefiles}.md`, `ejercicios/bloque_2_memoria/{2_arreglos,
+    2b_cadenas,4_memoria_dinamica,4b_memoria,4c_ejercicios_memoria,
+    7_alias_tipos_ejercicios,8_enums}.md`,
+    `ejercicios/bloque_3_algoritmos_estructuras/1_matrices.md` y
+    `ejercicios/bloque_4_avanzados/2_operaciones_de_bits.md`.
+40. **1 enlace** en `ejercicios/readme.md` a `../apunte/0_estilo.md` (mismo
+    archivo inexistente que el hallazgo de `4_funciones.md` en la Fase 2;
+    reemplazar por referencias `{ref}` a los códigos `0xXXXXh` puntuales, no
+    por un único archivo).
+41. **47 enlaces a una numeración plana vieja de `reglas/`**
+    (`0_sintaxis.md`, `1_control.md`, `2_funciones.md`,
+    `5_buenas_practicas.md`), concentrados en
+    `bloque_1_fundamentos/4_testing_y_estructura.md` (18) y
+    `9_refactorizacion_codigo_ofuscado.md` (14). A diferencia de los puntos
+    39-40, esto **no es un simple rename**: cada mención genérica a
+    "`reglas/2_funciones.md`" hay que resolverla a la regla `0x2XXXh`
+    concreta que el texto está citando, usando `reglas/renumeracion.md` como
+    mapa, y convertirla a `{ref}`0xXXXXh`` (el patrón que ya usa el resto del
+    apunte). Requiere leer cada cita en contexto, no admite `sed` masivo.
+
+**Costo estimado**: 1 hora para 39-40 (mecánico); 3-4 horas para 41 (requiere
+lectura caso por caso). **Riesgo si no se hace**: los enlaces desde los
+ejercicios hacia las reglas de estilo citadas —justamente el material que un
+estudiante consulta al resolver un ejercicio— no llevan a ningún lado.
 
 ---
 
@@ -337,11 +387,12 @@ find/replace dedicada, no urgente.
 | --- | --- | --- | --- |
 | 0 | Bugs de render bloqueantes | 30-45 min | ✅ Completada |
 | 1 | H1/headings/anclas | 3-4 h | ✅ Completada |
-| 2 | Enlaces rotos (13-19, 19b) | 1-2 h | En curso |
+| 2 | Enlaces rotos en `apunte/` (13-19, 19b) | 1-2 h | ✅ Completada |
+| 2b | Enlaces rotos en `ejercicios/` (39-41) | 4-5 h | Pendiente |
 | 3 | Decisiones de contenido + desarrollo | 5-8 h | Pendiente |
 | 4 | Calidad técnica/pedagógica | 4-6 h | Pendiente |
 | 5 | Cosmético | 1-2 h | Pendiente |
-| **Total** | | **~15-23 h** | |
+| **Total** | | **~19-28 h** | |
 
 Las fases 0 y 1 dejaron 4 hallazgos nuevos (ver sección "Hallazgos
 adicionales" entre Fase 1 y Fase 2), ya incorporados a las fases 2 y 3

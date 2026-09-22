@@ -120,15 +120,57 @@ disco pero no está en `myst.yml`** — el único bloque cuya sección de
 ejercicios en el TOC no incluye recursividad, pese a que `apunte/bloque_3/
 7_recursividad_intro.md` sí es un capítulo del recorrido principal.
 
-**T6. Referencia cruzada rota**: `bloque_4_avanzados/7_recursividad_avanzada.md:536`
-usa `{ref}`ej-def-mat-cantidad-digitos`` — esa etiqueta de ejercicio no está
-definida en ningún archivo del repositorio.
+**T6. ~~Referencia cruzada rota~~ — descartado, falso positivo.**
+`bloque_4_avanzados/7_recursividad_avanzada.md:536` usa
+`{ref}`ej-def-mat-cantidad-digitos``. El script de detección de anclas solo
+reconocía el patrón `(id)=` y no los `:label:` de directivas
+`exercise`/`solution`; esa etiqueta sí existe, como `:label:` del ejercicio
+en `bloque_3_algoritmos_estructuras/7_recursividad_intro.md:305`. No requiere
+corrección.
 
 **T7. `reporte.md` (sin commitear, raíz del repo) documenta un plan de
 reorganización con nomenclatura `NA_tema.md`/`NB_tema.md` que ya no coincide
 con el estado real de los archivos** (algunos bloques usan letras hasta la
 `F`, no solo `A`/`B`). Mantenerlo sin reconciliar invita a que se repita el
 patrón de archivos huérfanos cada vez que alguien lo use como referencia.
+
+**T8. `ejercicios/` tiene 59 enlaces Markdown rotos, fuera del alcance de la
+auditoría original** (que se limitó a `apunte/`). Detectados al re-ejecutar el
+script de barrido de enlaces después de cerrar la Fase 2. Se concentran en:
+
+| Archivo | Rotos | Patrón |
+| --- | --- | --- |
+| `bloque_1_fundamentos/4_testing_y_estructura.md` | 18 | `../../reglas/{0_sintaxis,1_control,2_funciones,5_buenas_practicas}.md` |
+| `bloque_1_fundamentos/9_refactorizacion_codigo_ofuscado.md` | 14 | ídem |
+| `bloque_1_fundamentos/1_basicos_y_secuencias.md` | 4 | ídem |
+| `bloque_1_fundamentos/6_funciones_ejercicios.md` | 4 | ídem |
+| `bloque_1_fundamentos/5_ejercicios_control.md` | 3 | ídem |
+| `bloque_1_fundamentos/2_gradual_ejercicios.md` | 2 | ídem |
+| `bloque_1_fundamentos/8_compilacion_y_makefiles.md` | 2 | `../../apunte/bloque_2_proyectos/{1_compilacion,2_makefiles}.md` |
+| `bloque_2_memoria/4b_memoria.md` | 2 | `../../apunte/bloque_{3_memoria_estatica,4_dinamica_interfaces}/...` |
+| `bloque_1_fundamentos/7_librerias_ejercicios.md` | 1 | `../../apunte/bloque_2_proyectos/1_compilacion.md` |
+| `bloque_2_memoria/{2_arreglos,2b_cadenas}.md` | 1 c/u | `../../apunte/bloque_3_memoria_estatica/3_secuencias.md` |
+| `bloque_2_memoria/4_memoria_dinamica.md` | 1 | `../../apunte/bloque_4_dinamica_interfaces/1_memoria_dinamica.md` |
+| `bloque_2_memoria/4c_ejercicios_memoria.md` | 1 | `../../apunte/bloque_4_dinamica_indireccion/1_memoria_dinamica.md` |
+| `bloque_2_memoria/7_alias_tipos_ejercicios.md` | 1 | `../../apunte/bloque_2_proyectos/3_alias_tipos.md` |
+| `bloque_2_memoria/8_enums.md` | 1 | `../../apunte/bloque_2_proyectos/4_enums.md` |
+| `bloque_3_algoritmos_estructuras/1_matrices.md` | 1 | `../../apunte/bloque_4_dinamica_indireccion/3_matrices.md` |
+| `bloque_4_avanzados/2_operaciones_de_bits.md` | 1 | `../../apunte/bloque_3_memoria_estatica/1_modelo_memoria.md` |
+| `readme.md` | 1 | `../apunte/0_estilo.md` |
+
+Dos familias de causa raíz, ambas ya vistas en `apunte/`: (a) nombres viejos
+de bloque (`bloque_2_proyectos`, `bloque_3_memoria_estatica`,
+`bloque_4_dinamica_interfaces`, `bloque_4_dinamica_indireccion`) de la misma
+reorganización que generó T1; y (b) una numeración plana vieja de `reglas/`
+(`0_sintaxis.md`, `1_control.md`, `2_funciones.md`, `5_buenas_practicas.md`)
+anterior a la estructura actual por categorías (`00_formato/`,
+`10_control/`, `20_funciones/`, etc.) — 47 de los 59 enlaces rotos son de
+este segundo tipo, concentrados en 2 archivos
+(`4_testing_y_estructura.md` y `9_refactorizacion_codigo_ofuscado.md`, 32
+entre los dos). Corregirlos requiere mapear cada mención genérica
+("`reglas/2_funciones.md`") a una regla concreta (`0x20XXh`) usando
+`reglas/renumeracion.md`, no un simple reemplazo de ruta — por eso se separa
+como fase propia en el plan de acción en vez de sumarse a la Fase 2.
 
 ### Fortalezas confirmadas (no exhaustivo, pero verificado)
 
@@ -427,7 +469,8 @@ trabajo en progreso de la misma sesión de edición que nunca se integró.
 - Archivos `.md` en `apunte/`: 71 (excluyendo `_build/`).
 - Enlaces `.md` rotos detectados: 33.
 - Referencias `{ref}` rotas detectadas (excluyendo `_build/` y plantillas de
-  `reglas/_guia_editorial.md`): 1 (`ej-def-mat-cantidad-digitos`).
+  `reglas/_guia_editorial.md`): 0 (el único candidato,
+  `ej-def-mat-cantidad-digitos`, resultó falso positivo — ver T6).
 - Archivos de ampliación (`NA_tema.md`) huérfanos de `myst.yml`: 18 de 27
   (67%).
 - Archivos vacíos: 1 (`13_struct_avanzado.md`).
