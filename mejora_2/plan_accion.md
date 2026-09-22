@@ -11,7 +11,14 @@ editorial (no solo mecánica) antes de tocarla.
 
 ---
 
-## Fase 0 — Bugs de render (bloqueantes, arreglar primero)
+## Fase 0 — Bugs de render (bloqueantes, arreglar primero) — ✅ Completada
+
+**Estado**: resuelta íntegramente. Los tres puntos de esta fase se corrigieron
+tal como estaban planteados, y de paso aparecieron 5 ejercicios más con la
+misma corrupción de fences en `5_binarios_bitwise.md` (`multiplicacion`,
+`get_bit`, `set_bit`, `clear_bit`, `potencia`) que no estaban en el rango
+316-396 originalmente auditado — se repararon también. Ver commits
+`d3fd0d8`..`da387fb`.
 
 Estos tres afectan directamente lo que ve un lector del sitio publicado.
 
@@ -36,9 +43,15 @@ muestra contenido mal anidado o un enlace de navegación roto.
 
 ---
 
-## Fase 1 — Integridad estructural (H1, headings, anclas)
+## Fase 1 — Integridad estructural (H1, headings, anclas) — ✅ Completada
 
 Mecánico en su mayoría, alto impacto en percepción de calidad.
+
+**Estado**: resuelta íntegramente, incluyendo los 12 puntos originales. Ver
+commits `0d9b272`, `534bc38`, `10b03f5`, `880884e`. Al verificar el resultado
+con un script propio (H1 ausente/duplicado, saltos de nivel de heading,
+balance de fences `:::`) aparecieron 4 hallazgos que no estaban en el informe
+original — están documentados en la sección siguiente.
 
 4. **H1 equivocado en bloque 3** (el hallazgo más visible de todo el apunte):
    - `2_tad.md:8`: cambiar `# Resumen de la Unidad` por el título real del
@@ -92,6 +105,51 @@ descuido/calidad baja en la primera impresión de 6 capítulos distintos.
 
 ---
 
+## Hallazgos adicionales (detectados al ejecutar la Fase 1, no estaban en el informe original)
+
+La auditoría inicial (una pasada por bloque con subagentes) no revisó
+exhaustivamente cada archivo; al corregir la Fase 1 y verificar con un script
+propio (H1 ausente/duplicado, saltos de nivel de heading, balance de fences)
+aparecieron estos 4 puntos nuevos:
+
+35. **6 capítulos más sin H1 en bloque 2**, no detectados por la auditoría
+    original: `3_secuencias.md`, `6_aritmetica.md`, `8_numeros.md`,
+    `9_casts.md`, `10_alias_tipos.md`, `11_enums.md`. El problema de H1
+    faltante en bloque 2 era más extendido de lo reportado (7 de 11 capítulos
+    del bloque, no solo los mencionados originalmente). **Ya corregido** en
+    el commit `534bc38`.
+36. **2 fences de MyST corruptos adicionales**, mismo patrón que la Fase 0
+    pero en archivos no cubiertos por ese rango:
+    - `bloque_4_avanzados/3_opacos.md:436-452` — un `{warning}` abría con
+      `::{warning}` (2 colons, por debajo del mínimo de 3) y cerraba con
+      `:::::` (5 colons) bajo un comentario de control que decía
+      `<!-- {code-block} c -->` en vez de `{warning}`.
+    - `bloque_3_algoritmos_estructuras/3_tad_pilas_colas.md:494-500` — un
+      `{note}` abría con 5 colons y cerraba con 4.
+    **Ya corregido** en los commits `10b03f5` y `880884e`.
+37. **Contenido huérfano sin integrar en `bloque_4_avanzados/12_sockets.md`,
+    líneas 1948-2037** (~90 líneas): al final del capítulo, después de la
+    sección "Resumen", aparece un bloque delimitado literalmente con
+    `PARA INTEGRAR` que desarrolla **serialización de `enum`** — un tema sin
+    ninguna relación con sockets. Es casi con certeza contenido que pertenece
+    a `14A_enums_avanzados.md` o a `11_enums.md` y quedó pegado al final del
+    archivo equivocado. **No se tocó**: es una decisión de ubicación de
+    contenido, no una corrección mecánica de heading. Agregar a la Fase 3:
+    mover este bloque a donde corresponda (evaluar junto con el punto 21,
+    familia 13/14 de bloque 4) y, si el destino es `14A_enums_avanzados.md`,
+    aprovecharlo como el desarrollo real que ese archivo hoy no tiene.
+38. **2 referencias `{ref}` rotas preexistentes en `ejercicios/bloque_2_memoria/`**,
+    no relacionadas con ningún cambio de esta sesión: `3_archivos.md` y
+    `3b_ejercicios_archivos.md` referencian `{ref}`capitulo-archivos-texto``,
+    y `5_punteros_2.md` referencia `{ref}`capitulo-aritmetica-punteros``.
+    Ninguna de las dos anclas existe ni existió nunca en `apunte/` (no es un
+    problema de renombrado, el nombre nunca se definió). Se agrega a la Fase
+    2 como ítem 19b — el directorio `ejercicios/` no estaba dentro del
+    alcance de la auditoría original y probablemente tenga más casos
+    similares sin relevar.
+
+---
+
 ## Fase 2 — Barrido de enlaces rotos
 
 Puramente mecánico una vez que se conoce el mapeo correcto (ya está en la
@@ -117,6 +175,15 @@ contra el sistema de archivos).
     `{ref}`.
 19. Agregar `ejercicios/bloque_3_algoritmos_estructuras/5_recursion.md` a
     `myst.yml` (falta en la sección "Bloque 3" de ejercicios).
+19b. (Hallazgo 38) Corregir o quitar las 2 referencias `{ref}` rotas en
+    `ejercicios/bloque_2_memoria/3_archivos.md`,
+    `3b_ejercicios_archivos.md` (`capitulo-archivos-texto`) y
+    `5_punteros_2.md` (`capitulo-aritmetica-punteros`) — apuntar a las
+    anclas reales `capitulo-archivos-texto` → no existe, usar
+    `{ref}`capitulo-modelo-memoria`` o el ancla correcta de
+    `4_archivos_texto.md`; y `capitulo-aritmetica-punteros` → probablemente
+    `introduccion_aritmetica_punteros` en `6_aritmetica.md`. Verificar caso
+    por caso antes de reemplazar.
 
 **Costo estimado**: 1-2 horas. **Riesgo si no se hace**: navegación rota
 silenciosa — el lector hace clic y llega a un 404 o a MyST resolviendo mal la
@@ -144,7 +211,7 @@ opacas aparecen en ambos).
       elimina por ser un placeholder de una fórmula sin desarrollo.
     - `7E_serializacion.md` y `7F_estructuras_opacas.md`: ver punto 21 antes
       de decidir (dependen de qué se haga con bloque 4).
-7. **Bloque 4 — familia 13/14**: decidir entre dos caminos, no dejarlo como
+21. **Bloque 4 — familia 13/14**: decidir entre dos caminos, no dejarlo como
     está:
     - **(a) Desarrollar el capítulo 13 real**: escribir
       `13_struct_avanzado.md` como capítulo índice/introductorio, fusionar
@@ -165,6 +232,13 @@ opacas aparecen en ambos).
       `7F_estructuras_opacas.md` de bloque 3 (punto 20): si el tema vive en
       bloque 4, eliminar los de bloque 3 y dejar solo un enlace cruzado; si
       vive en bloque 3, eliminar los de bloque 4.
+    - (Hallazgo 37) El bloque huérfano "PARA INTEGRAR" sobre serialización de
+      `enum` al final de `12_sockets.md:1948-2037` es contenido ya escrito y
+      completo (código + tip) que encaja naturalmente en
+      `14A_enums_avanzados.md` si se elige la opción (a): resolvería de paso
+      que ese archivo hoy sea el más débil de la familia (un párrafo + 4
+      líneas de código). Moverlo implica quitar el marcador `PARA INTEGRAR`
+      y las líneas en blanco sobrantes de `12_sockets.md`.
 22. **Reconciliar `reporte.md`** (sin commitear, raíz del repo): una vez
     tomadas las decisiones de 20-21, actualizar ese documento para que
     refleje el estado real, o archivarlo/eliminarlo si ya cumplió su
@@ -259,15 +333,16 @@ find/replace dedicada, no urgente.
 
 ## Resumen de esfuerzo total estimado
 
-| Fase | Foco | Estimado |
-| --- | --- | --- |
-| 0 | Bugs de render bloqueantes | 30-45 min |
-| 1 | H1/headings/anclas | 3-4 h |
-| 2 | Enlaces rotos | 1-2 h |
-| 3 | Decisiones de contenido + desarrollo | 5-8 h |
-| 4 | Calidad técnica/pedagógica | 4-6 h |
-| 5 | Cosmético | 1-2 h |
-| **Total** | | **~15-23 h** |
+| Fase | Foco | Estimado | Estado |
+| --- | --- | --- | --- |
+| 0 | Bugs de render bloqueantes | 30-45 min | ✅ Completada |
+| 1 | H1/headings/anclas | 3-4 h | ✅ Completada |
+| 2 | Enlaces rotos (13-19, 19b) | 1-2 h | En curso |
+| 3 | Decisiones de contenido + desarrollo | 5-8 h | Pendiente |
+| 4 | Calidad técnica/pedagógica | 4-6 h | Pendiente |
+| 5 | Cosmético | 1-2 h | Pendiente |
+| **Total** | | **~15-23 h** | |
 
-La Fase 0 es la única que yo recomendaría hacer *antes* de cualquier otra
-tarea sobre el repo, independientemente de qué se decida para el resto.
+Las fases 0 y 1 dejaron 4 hallazgos nuevos (ver sección "Hallazgos
+adicionales" entre Fase 1 y Fase 2), ya incorporados a las fases 2 y 3
+correspondientes.
