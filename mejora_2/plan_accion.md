@@ -245,58 +245,69 @@ estudiante consulta al resolver un ejercicio— no llevan a ningún lado.
 
 ---
 
-## Fase 3 — Decisiones de contenido (huérfanos y placeholders)
+## Fase 3 — Reconciliación de `reporte.md` — ✅ Completada
 
-Estas tareas requieren decidir, no solo ejecutar. Recomiendo resolverlas en
-una sola sesión de trabajo mirando ambos bloques a la vez, porque hay
-solapamiento directo entre bloque 3 y bloque 4 (serialización y estructuras
-opacas aparecen en ambos).
+Las decisiones de contenido sobre archivos huérfanos de bloque 3 y bloque 4
+que originalmente vivían acá se reorganizaron en las fases 6 y 7. Esta fase
+quedó reducida al punto 22.
 
+**Estado**: resuelta. Ver commit `27a3633`.
 
-22. **Reconciliar `reporte.md`** (sin commitear, raíz del repo): una vez
-    tomadas las decisiones de 20-21, actualizar ese documento para que
-    refleje el estado real, o archivarlo/eliminarlo si ya cumplió su
-    propósito. Evita que quede como fuente de verdad falsa para futuras
-    ediciones.
-
-
-**Costo estimado**: 2-3 horas de decisión + 3-5 horas de escritura según lo
-que se elija desarrollar. **Riesgo si no se hace**: el repo sigue
-acumulando contenido fantasma que ningún lector ve y que confunde a quien
-edite después (ya pasó dos veces: bloque 2 tenía el mismo patrón antes de la
-fusión de esta sesión).
+22. ✅ **Reconciliar `reporte.md`** (raíz del repo, ahora commiteado): se
+    agregó un banner inicial que remite a `informe_calidad.md` y
+    `plan_accion.md` como fuente de verdad vigente, se reescribió su sección
+    "Estado de implementación" con lo que realmente ocurrió (qué archivos
+    `NA_tema.md` llegaron a existir y cuáles no, y que los 8 que sí existían
+    se fusionaron dentro de sus capítulos en vez de completarse como familia
+    `A`-`D`), y se corrigieron las referencias a archivos inexistentes
+    (`6A_matrices3d.md`, `7D_aos_soa.md`, `5D_ensamblador_stack.md`) en la
+    sección de transferencias al Bloque 3. Las secciones 1-9 (diagnóstico
+    original) se conservaron intactas como registro histórico.
 
 ---
 
-## Fase 4 — Calidad técnica y pedagógica
+## Fase 4 — Calidad técnica y pedagógica — ✅ Completada
 
-24. **Quitar los casts de `malloc`/`calloc`/`realloc`** en las 12 soluciones
-    de ejercicios de `bloque_2/5_memoria_dinamica.md` (líneas listadas en el
-    informe, hallazgo bloque 2 #6) para que no contradigan la regla `0x300Ah`
-    citada en el mismo apunte.
-25. **Agregar llaves** a los tres `if` de `es_bisiedo` en
-    `bloque_1/6_testing_basico.md:293-301` (viola `0x1001h`).
-26. **Eliminar la duplicación de ejercicios de Makefiles** entre
-    `bloque_1/5_compilacion.md` (~2022-2164) y `8_makefiles.md` (~246-315):
-    dejarlos solo en `8_makefiles.md` y, si hace falta continuidad narrativa
-    en `5_compilacion.md`, referenciarlos con `{ref}` en vez de repetir el
-    texto completo.
-27. **Resolver los 5 `<!--TODO: completar-->`** en `2_gradual.md` (130, 150,
-    173, 431) y `7_contratos_intro.md:30` — son secciones tituladas y
-    vacías, visibles en el sitio.
-28. **Agregar ejercicios con solución** a los capítulos que hoy tienen cero:
-    `bloque_3/4_testing_avanzado.md`, `bloque_3/5_contratos_formales.md`,
-    `bloque_4/9_api_diseno.md`, `bloque_4/11_hilos.md`,
-    `bloque_4/12_sockets.md`. Priorizar los dos de bloque 3 primero (son
-    capítulos del recorrido principal, no ampliaciones).
-29. **Ampliar `bloque_2/10_alias_tipos.md`** con dos secciones nuevas:
-    `typedef` de punteros a función y `typedef` de structs/arrays anónimos —
-    el patrón `typedef struct {...} nombre_t;` se usa en todo el libro
-    (empezando por `7_estructuras.md`) pero nunca se explica formalmente acá.
+**Estado**: resuelta íntegramente. El punto 28 resultó de alcance menor al
+estimado: al ir a agregar ejercicios se descubrió que `4_testing_avanzado.md`
+(2 ejercicios) y `5_contratos_formales.md` (9 ejercicios) ya los tenían — la
+auditoría original no los detectó (falso negativo, corregido en
+`informe_calidad.md`). Solo `9_api_diseno.md`, `11_hilos.md` y
+`12_sockets.md` estaban realmente en cero.
 
-**Costo estimado**: 4-6 horas. **Riesgo si no se hace**: el material
-contradice sus propias reglas de estilo (24, 25) y dos capítulos completos
-del recorrido principal quedan sin forma de autoevaluación (28).
+24. ✅ **Quitar los casts de `malloc`/`calloc`/`realloc`** en las 12
+    soluciones de ejercicios de `bloque_2/5_memoria_dinamica.md` (líneas
+    1553, 1561, 1613, 1666, 1741, 1836, 1947, 2047, 2053, 2064 — 12 casts en
+    10 líneas) para que no contradigan la regla `0x300Ah` citada en el mismo
+    apunte.
+25. ✅ **Agregar llaves** a los tres `if` de `es_bisiesto` en
+    `bloque_1/6_testing_basico.md:293-301` (violaba `0x1001h`).
+26. ✅ **Eliminar la duplicación de ejercicios de Makefiles** entre
+    `bloque_1/5_compilacion.md` y `8_makefiles.md`: se reemplazaron los 3
+    ejercicios duplicados en `5_compilacion.md` por un párrafo que remite a
+    `8_makefiles.md` vía `{ref}`makefiles-ejercicios-de-autoevaluacion``
+    (ancla nueva, agregada en `8_makefiles.md`).
+27. ✅ **Resueltos los 5 `<!--TODO: completar-->`**: los 4 de `2_gradual.md`
+    (130, 150, 173, 431) eran marcadores huérfanos sobre secciones que ya
+    tenían contenido completo debajo — se quitó el comentario sin tocar el
+    contenido. El de `7_contratos_intro.md:30` sí estaba vacío — se agregó un
+    párrafo de introducción de 2 oraciones antes de las subsecciones de
+    Precondiciones/Postcondiciones.
+28. ✅ **Agregados ejercicios con solución** a los 3 capítulos que
+    realmente tenían cero: `bloque_4/9_api_diseno.md` (contrato implícito en
+    una firma mal diseñada), `bloque_4/11_hilos.md` (carrera de datos en un
+    contador compartido sin mutex) y `bloque_4/12_sockets.md` (fuga de
+    descriptor en un camino de error, violando `0x4004h`). Cada uno con un
+    ejercicio + solución en el estilo del resto del libro.
+29. ✅ **Ampliado `bloque_2/10_alias_tipos.md`** (pasó de 209 a ~390 líneas,
+    resolviendo también el hallazgo de longitud desproporcionada del bloque
+    2) con dos secciones nuevas — "Typedef de Structs y Arreglos" y "Typedef
+    de Punteros a Función" — cada una con su propio ejercicio y entrada de
+    glosario, y una mención actualizada en la síntesis final.
+
+**Riesgo si no se hacía**: el material contradecía sus propias reglas de
+estilo (24, 25) y capítulos completos quedaban sin forma de autoevaluación
+(28) — ya mitigado.
 
 ---
 
@@ -414,11 +425,13 @@ find/replace dedicada, no urgente.
 | 1 | H1/headings/anclas | 3-4 h | ✅ Completada |
 | 2 | Enlaces rotos en `apunte/` (13-19, 19b) | 1-2 h | ✅ Completada |
 | 2b | Enlaces rotos en `ejercicios/` (39-41) | 4-5 h | ✅ Completada |
-| 3 | Decisiones de contenido + desarrollo | 5-8 h | Pendiente |
-| 4 | Calidad técnica/pedagógica | 4-6 h | Pendiente |
-| 5 | Cosmético | 1-2 h | Pendiente |
-| **Total** | | **~19-28 h** | |
+| 3 | Reconciliación de `reporte.md` (22) | 1 h | ✅ Completada |
+| 4 | Calidad técnica/pedagógica | 4-6 h | ✅ Completada |
+| 5 | Cosmético (30-34) | 1-2 h | Parcial (30, 31 hechos) |
+| 6 | Ampliaciones y consolidación de bloque 3 (20) | 2-3 h | Pendiente |
+| 7 | Mejoras y correcciones de bloque 4 (21, 23, 37) | 3-5 h | Parcial (37 hecho) |
+| **Total** | | **~19-27 h** | |
 
 Las fases 0 y 1 dejaron 4 hallazgos nuevos (ver sección "Hallazgos
-adicionales" entre Fase 1 y Fase 2), ya incorporados a las fases 2 y 3
+adicionales" entre Fase 1 y Fase 2), ya incorporados a las fases 2 y 7
 correspondientes.

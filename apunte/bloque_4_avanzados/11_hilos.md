@@ -1749,6 +1749,86 @@ Threads](https://www.gnu.org/software/libc/manual/html_node/POSIX-Threads.html)
 - **perf**: Análisis de rendimiento en Linux
 - **htop**: Visualizar hilos en ejecución
 
+(ejercicios-de-autoevaluacion-hilos)=
+## Ejercicios de Autoevaluación
+
+:::{exercise}
+:label: ej-hilos-carrera-de-datos
+El siguiente programa crea 4 hilos que incrementan un contador compartido
+1000 veces cada uno:
+
+```{code-block} c
+:linenos:
+#include <pthread.h>
+#include <stdio.h>
+int contador = 0;
+void *incrementar(void *arg)
+{
+    for (int i = 0; i < 1000; i++)
+    {
+        contador++;
+    }
+    return NULL;
+}
+int main(void)
+{
+    pthread_t hilos[4];
+    for (int i = 0; i < 4; i++)
+    {
+        pthread_create(&hilos[i], NULL, incrementar, NULL);
+    }
+    for (int i = 0; i < 4; i++)
+    {
+        pthread_join(hilos[i], NULL);
+    }
+    printf("Contador final: %d\n", contador);
+    return 0;
+}
+```
+
+Explicá por qué el valor final impreso casi nunca es 4000, identificá la
+sección crítica, y corregí el programa con la primitiva de sincronización
+adecuada.
+
+:::
+<!-- {exercise} -->
+
+:::{solution} ej-hilos-carrera-de-datos
+:class: dropdown
+`contador++` no es una operación atómica: internamente implica leer el valor
+de `contador`, sumarle uno y escribir el resultado. Si dos hilos ejecutan
+esa secuencia de forma entrelazada, ambos pueden leer el mismo valor antes de
+que el otro escriba su incremento, y uno de los dos incrementos se pierde.
+Esa lectura-modificación-escritura sin protección es la **sección crítica**
+del programa: cualquier hilo que la ejecute concurrentemente con otro puede
+producir una **carrera de datos** (*data race*).
+
+La corrección agrega un mutex que serializa el acceso a `contador`:
+
+```{code-block} c
+:linenos:
+#include <pthread.h>
+#include <stdio.h>
+int contador = 0;
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+void *incrementar(void *arg)
+{
+    for (int i = 0; i < 1000; i++)
+    {
+        pthread_mutex_lock(&mutex);
+        contador++;
+        pthread_mutex_unlock(&mutex);
+    }
+    return NULL;
+}
+```
+
+Con el mutex, solo un hilo a la vez puede ejecutar `contador++`, garantizando
+que los 4000 incrementos se apliquen sin perderse.
+
+:::
+<!-- {solution} ej-hilos-carrera-de-datos -->
+
 ## Resumen
 
 La programación con hilos en C mediante pthreads permite aprovechar el

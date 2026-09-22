@@ -95,6 +95,95 @@ valores, las colisiones en espacios de nombres y las validaciones de rango con
 switch defensivo, consultá el capítulo específico de
 {ref}`capitulo-enums`.
 
+(typedef-de-structs-y-arreglos)=
+### Typedef de Structs y Arreglos
+
+El patrón más frecuente en C no aplica `typedef` a un tipo ya declarado, sino
+que combina la declaración de una `struct` (o un arreglo) con su alias en una
+única sentencia:
+
+``` c
+typedef struct
+{
+    double x;
+    double y;
+} punto_t;
+
+punto_t origen = {0.0, 0.0};
+```
+<!-- c -->
+
+Acá `typedef` no le da nombre a la `struct` en sí (que queda anónima), sino al
+tipo resultante de esa declaración. Es equivalente, aunque menos común, dar un
+nombre de etiqueta (*tag*) a la `struct` y asignarle el alias por separado:
+
+``` c
+struct punto { double x; double y; };
+typedef struct punto punto_t;
+```
+<!-- c -->
+
+La primera forma es la que vas a ver a lo largo de todo este apunte
+(empezando por `7_estructuras.md`): evita repetir la palabra `struct` en cada
+declaración de variable y es la forma idiomática recomendada por la cátedra.
+
+`typedef` también puede nombrar un tipo arreglo completo, incluyendo su
+tamaño:
+
+``` c
+typedef int vector3_t[3];
+
+vector3_t velocidad = {1, 0, -1};   // equivale a: int velocidad[3]
+```
+<!-- c -->
+
+:::{warning} El tamaño queda fijo en el alias
+
+A diferencia de un `typedef` de `struct`, un `typedef` de arreglo esconde el
+tamaño dentro del tipo. Si necesitás arreglos de tamaños distintos, no podés
+reutilizar el mismo alias con otro tamaño: `vector3_t` siempre representa
+`int[3]`. Esto hace que los `typedef` de arreglos se usen mucho menos que los
+de `struct` en código real.
+
+:::
+
+(typedef-de-punteros-a-funcion)=
+### Typedef de Punteros a Función
+
+La sintaxis de un puntero a función es una de las más difíciles de leer en C.
+Comparalos:
+
+``` c
+// Sin alias: hay que leer "de adentro hacia afuera"
+int (*operacion)(int, int);
+
+// Con alias: el tipo se lee como cualquier otra declaración
+typedef int (*operacion_t)(int, int);
+operacion_t operacion;
+```
+<!-- c -->
+
+`operacion_t` es un alias para "puntero a función que recibe dos `int` y
+retorna `int`". Una vez declarado, se usa como cualquier otro tipo: como
+parámetro de función (para recibir un *callback*), como campo de una
+`struct`, o como tipo de una variable local.
+
+``` c
+typedef int (*comparador_t)(const void *a, const void *b);
+
+void ordenar(void *base, size_t n, size_t tam, comparador_t comparar)
+{
+    qsort(base, n, tam, comparar);
+}
+```
+<!-- c -->
+
+Sin el alias, la misma firma de `ordenar` se escribiría
+`void ordenar(void *base, size_t n, size_t tam, int (*comparar)(const void *, const void *))`
+— válida, pero mucho más difícil de leer y de repetir consistentemente en
+`.h` y `.c`. El uso de punteros a función como parámetro se retoma en
+profundidad en el Bloque 4, al estudiar callbacks y genericidad.
+
 ## Ejercicios de Autoevaluación
 
 :::{exercise}
@@ -181,6 +270,88 @@ alguna.
 :::
 <!-- {solution} ej-typedef-alias-redundante -->
 
+:::{exercise}
+:label: ej-typedef-struct-anonima
+Declará, en una única sentencia `typedef`, un alias `rectangulo_t` para una
+`struct` anónima con dos campos `double` (`ancho` y `alto`). Escribí una
+función `double area(rectangulo_t r)` que calcule su área.
+
+:::
+<!-- {exercise} -->
+
+:::{solution} ej-typedef-struct-anonima
+:class: dropdown
+```{code-block} c
+:linenos:
+typedef struct
+{
+    double ancho;
+    double alto;
+} rectangulo_t;
+
+double area(rectangulo_t r)
+{
+    return r.ancho * r.alto;
+}
+
+```
+<!-- {code-block} c -->
+
+La `struct` no necesita un nombre de etiqueta propio porque nunca se la
+referencia como `struct algo`: todo el código posterior usa el alias
+`rectangulo_t`.
+
+:::
+<!-- {solution} ej-typedef-struct-anonima -->
+
+:::{exercise}
+:label: ej-typedef-puntero-funcion
+Declará un alias `validador_t` para un puntero a función que reciba un `int`
+y retorne `bool`. Luego escribí una función `bool es_par(int n)` compatible
+con ese alias, y una función `contar_que_cumplen` que reciba un arreglo de
+enteros, su tamaño, y un `validador_t`, y retorne cuántos elementos cumplen
+la condición.
+
+:::
+<!-- {exercise} -->
+
+:::{solution} ej-typedef-puntero-funcion
+:class: dropdown
+```{code-block} c
+:linenos:
+#include <stdbool.h>
+#include <stddef.h>
+typedef bool (*validador_t)(int);
+
+bool es_par(int n)
+{
+    return n % 2 == 0;
+}
+
+size_t contar_que_cumplen(const int *arreglo, size_t n, validador_t validar)
+{
+    size_t contador = 0;
+    for (size_t i = 0; i < n; i++)
+    {
+        if (validar(arreglo[i]))
+        {
+            contador++;
+        }
+    }
+    return contador;
+}
+
+```
+<!-- {code-block} c -->
+
+`contar_que_cumplen` no conoce de antemano qué condición va a evaluar: recibe
+esa lógica como un parámetro más, mediante `validador_t`. Esto le permite
+reutilizarse con cualquier función que cumpla la firma `bool (*)(int)`, sin
+modificar su propio código.
+
+:::
+<!-- {solution} ej-typedef-puntero-funcion -->
+
 ## Glosario
 
 :::{glossary}
@@ -193,6 +364,11 @@ Portabilidad
 : Capacidad de un código para compilar y ejecutarse correctamente en diferentes
 arquitecturas de CPU sin cambios mayores.
 
+Puntero a función
+: Variable que almacena la dirección de una función, con un tipo que
+codifica su firma (parámetros y retorno). Permite pasar comportamiento como
+parámetro (*callback*).
+
 :::
 <!-- {glossary} -->
 
@@ -200,9 +376,10 @@ arquitecturas de CPU sin cambios mayores.
 
 La directiva `typedef` se emplea para crear alias de tipos en C sin generar
 nuevos tipos físicos. Su uso facilita la abstracción y la portabilidad del
-código entre arquitecturas con diferentes tamaños de datos. Por normas de la
-cátedra, todo alias definido con `typedef` debe utilizar obligatoriamente el
-sufijo `_t`.
+código entre arquitecturas con diferentes tamaños de datos, y es el mecanismo
+estándar para nombrar `struct` anónimas y punteros a función, dos patrones
+que aparecen en todo el resto del libro. Por normas de la cátedra, todo alias
+definido con `typedef` debe utilizar obligatoriamente el sufijo `_t`.
 
 ## Referencias y Lecturas Complementarias
 

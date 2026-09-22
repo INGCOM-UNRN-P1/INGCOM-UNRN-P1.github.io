@@ -1057,6 +1057,50 @@ if (parsear_fecha("2024-03-15", &fecha))
 
 
 
+(ejercicios-de-autoevaluacion-diseno-de-apis)=
+## Ejercicios de Autoevaluación
+
+:::{exercise}
+:label: ej-api-diseno-contrato-implicito
+La siguiente firma pertenece a una API publicada en un archivo `.h`:
+
+```{code-block} c
+:linenos:
+int buscar_usuario(const char *nombre, char *buffer);
+```
+
+No hay documentación adjunta. Enumerá al menos cuatro preguntas que un
+cliente de esta función no puede responder solo leyendo la firma, y que
+violan los principios de claridad y mínima sorpresa vistos en este capítulo.
+
+:::
+<!-- {exercise} -->
+
+:::{solution} ej-api-diseno-contrato-implicito
+:class: dropdown
+La firma deja sin especificar, entre otras cosas:
+
+1. **Tamaño del buffer:** `buffer` no lleva una capacidad asociada; el
+   llamador no sabe cuántos bytes debe reservar ni la función puede validar
+   que no se produzca un desborde.
+2. **Propiedad y ciclo de vida:** no queda claro si `buffer` es provisto por
+   el llamador (out-parameter) o si la función reserva memoria que el
+   llamador debe liberar después.
+3. **Significado del valor de retorno:** un `int` puede representar un
+   código de error, un booleano de éxito, o la cantidad de caracteres
+   escritos — la firma no lo distingue.
+4. **Comportamiento ante `nombre == NULL` o usuario inexistente:** no se
+   documenta si eso es un error, una precondición violada, o un caso válido
+   que deja `buffer` sin modificar.
+
+Una interfaz idiomática expondría la capacidad explícitamente y separaría el
+código de error del dato de salida, por ejemplo:
+`bool buscar_usuario(const char *nombre, char *buffer, size_t capacidad);`,
+con su contrato documentado (quién reserva `buffer`, qué significa `false`).
+
+:::
+<!-- {solution} ej-api-diseno-contrato-implicito -->
+
 (resumen-del-diseno-de-interfaces)=
 ## Resumen del Diseño de Interfaces
 

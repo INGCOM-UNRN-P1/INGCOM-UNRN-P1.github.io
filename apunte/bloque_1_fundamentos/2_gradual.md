@@ -128,7 +128,6 @@ en tiempo de ejecución.
 
 (fortalezas-del-lenguaje-c)=
 #### Fortalezas del Lenguaje C
-<!--TODO: completar-->
 
 ##### Acceso a conceptos de bajo nivel
 C provee acceso a conceptos directamente relacionados con el hardware. Conceptos
@@ -148,7 +147,6 @@ del compilador, para bien y para mal.
 
 (debitades-del-lenguaje-c)=
 #### Debilidades del Lenguaje C
-<!--TODO: completar-->
 
 ##### Los programas en C pueden ser propensos a errores
 La gran flexibilidad y permisividad de C facilitan la introducción de fallas de
@@ -171,7 +169,6 @@ estructuración de archivos del desarrollador.
 
 (la-caja-de-herramientas)=
 ### La caja de herramientas
-<!--TODO: completar-->
 (preparacion-del-entorno)=
 #### Preparación del entorno
 
@@ -429,7 +426,6 @@ uno de los errores semánticos más comunes en C.
 (variables-y-tipos-de-datos)=
 ### Variables y Tipos de Datos
 
-<!--TODO: completar-->
 
 (que-es-una-variable)=
 #### ¿Qué es una variable?

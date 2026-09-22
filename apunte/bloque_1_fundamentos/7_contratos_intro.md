@@ -29,7 +29,10 @@ funciones, los componentes clave de este acuerdo son las **precondiciones**,
 
 (contratos-intro-capitulo)=
 ### Precondiciones y Postcondiciones Informales
-<!--TODO: Completar con una minima introduccion-->
+
+Precondiciones y postcondiciones son las dos caras de una misma obligación:
+qué debe garantizar quien llama a una función antes de invocarla, y qué debe
+garantizar la función a cambio, si esa condición de entrada se cumplió.
 
 #### Precondiciones (El Derecho del Proveedor, Obligación del Cliente)
 

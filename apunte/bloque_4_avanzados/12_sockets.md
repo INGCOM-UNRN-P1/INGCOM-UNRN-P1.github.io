@@ -1900,6 +1900,84 @@ man 7 udp
 - [Beej's Guide](https://beej.us/guide/bgnet/)
 - [The Linux Programming Interface](http://man7.org/tlpi/)
 
+(ejercicios-de-autoevaluacion-sockets)=
+## Ejercicios de Autoevaluación
+
+:::{exercise}
+:label: ej-sockets-fuga-descriptor
+La siguiente función intenta conectar un socket cliente a un servidor:
+
+```{code-block} c
+:linenos:
+int conectar_a_servidor(const char *ip, int puerto)
+{
+    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd == -1)
+    {
+        return -1;
+    }
+    struct sockaddr_in direccion;
+    direccion.sin_family = AF_INET;
+    direccion.sin_port = htons(puerto);
+    if (inet_pton(AF_INET, ip, &direccion.sin_addr) <= 0)
+    {
+        return -1;
+    }
+    if (connect(sockfd, (struct sockaddr *)&direccion, sizeof(direccion)) == -1)
+    {
+        return -1;
+    }
+    return sockfd;
+}
+```
+
+Identificá la violación a la regla de simetría de descriptores
+({ref}`0x4004h`) y corregí la función.
+
+:::
+<!-- {exercise} -->
+
+:::{solution} ej-sockets-fuga-descriptor
+:class: dropdown
+Si `inet_pton` falla, la función retorna `-1` **sin cerrar `sockfd`**, que ya
+fue adquirido exitosamente por la llamada previa a `socket()`. Cada llamada
+exitosa a `socket()` debe tener una `close()` correspondiente en **todos**
+los caminos de salida, incluidos los de error — no solo en el camino feliz.
+Con múltiples intentos de conexión fallidos, el proceso agota su tabla de
+descriptores de archivo.
+
+La corrección cierra el descriptor antes de retornar en cada camino de
+error posterior a su adquisición:
+
+```{code-block} c
+:linenos:
+int conectar_a_servidor(const char *ip, int puerto)
+{
+    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd == -1)
+    {
+        return -1;
+    }
+    struct sockaddr_in direccion;
+    direccion.sin_family = AF_INET;
+    direccion.sin_port = htons(puerto);
+    if (inet_pton(AF_INET, ip, &direccion.sin_addr) <= 0)
+    {
+        close(sockfd);
+        return -1;
+    }
+    if (connect(sockfd, (struct sockaddr *)&direccion, sizeof(direccion)) == -1)
+    {
+        close(sockfd);
+        return -1;
+    }
+    return sockfd;
+}
+```
+
+:::
+<!-- {solution} ej-sockets-fuga-descriptor -->
+
 ## Resumen
 
 La programación de sockets permite crear aplicaciones de red en C:

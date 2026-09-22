@@ -1550,7 +1550,7 @@ int **crear_matriz(size_t filas, size_t columnas)
         return NULL;
     }
     // Reservar el arreglo de punteros a filas
-    int **matriz = (int **)malloc(filas * sizeof(*matriz));
+    int **matriz = malloc(filas * sizeof(*matriz));
     if (matriz == NULL)
     {
         return NULL;
@@ -1558,7 +1558,7 @@ int **crear_matriz(size_t filas, size_t columnas)
     // Reservar e inicializar en cero cada fila
     for (size_t i = 0; i < filas; i++)
     {
-        matriz[i] = (int *)calloc(columnas, sizeof(*(matriz[i])));
+        matriz[i] = calloc(columnas, sizeof(*(matriz[i])));
         if (matriz[i] == NULL)
         {
             // Lazo de liberación en caso de fallo intermedio
@@ -1610,7 +1610,7 @@ bool redimensionar_arreglo(int **arreglo, size_t capacidad_actual,
         return false;
     }
     // Uso de un puntero temporal para resguardar la dirección original
-    int *temp = (int *)realloc(*arreglo, nueva_capacidad * sizeof(*temp));
+    int *temp = realloc(*arreglo, nueva_capacidad * sizeof(*temp));
     if (temp == NULL)
     {
         // La memoria original en *arreglo sigue siendo válida
@@ -1663,7 +1663,7 @@ dinámica en el siguiente fragmento de código C:
 :linenos:
 void procesar_valores(size_t n)
 {
-    int *datos = (int *)malloc(n * sizeof(int));
+    int *datos = malloc(n * sizeof(int));
     if (n > 10)
     {
         datos[n] = 100;
@@ -1738,7 +1738,7 @@ char *obtener_saludo_dinamico(void)
 {
     const char *texto = "Hola mundo";
     // Sumamos 1 para el caracter terminador nulo '\0'
-    char *saludo = (char *)malloc((strlen(texto) + 1) * sizeof(*saludo));
+    char *saludo = malloc((strlen(texto) + 1) * sizeof(*saludo));
     if (saludo == NULL)
     {
         return NULL;
@@ -1830,10 +1830,10 @@ typedef struct
 } perfil_t;
 void procesar_sistema(void)
 {
-    perfil_t *p = (perfil_t *)malloc(sizeof(*p));
+    perfil_t *p = malloc(sizeof(*p));
     p->es_admin = 0;
     free(p); // Liberación prematura
-    char *mensaje = (char *)malloc(sizeof(perfil_t));
+    char *mensaje = malloc(sizeof(perfil_t));
     if (mensaje != NULL)
     {
         fgets(mensaje, sizeof(perfil_t), stdin);
@@ -1938,13 +1938,13 @@ libro_t *libro_crear(const char *titulo, int anio)
     {
         return NULL;
     }
-    libro_t *l = (libro_t *)malloc(sizeof(*l));
+    libro_t *l = malloc(sizeof(*l));
     if (l == NULL)
     {
         return NULL;
     }
     // Alocar memoria para copiar la cadena del título
-    l->titulo = (char *)malloc((strlen(titulo) + 1) * sizeof(*(l->titulo)));
+    l->titulo = malloc((strlen(titulo) + 1) * sizeof(*(l->titulo)));
     if (l->titulo == NULL)
     {
         free(l);
@@ -2044,13 +2044,13 @@ manualmente, lo que causa una asignación de tamaño erróneo.
 **Ejemplo de bug de refactorización:**
 ``` c
 // Inicialmente el puntero era float
-float *valores = (float *)malloc(100 * sizeof(float));
+float *valores = malloc(100 * sizeof(float));
 ```
 <!-- c -->
 Si el programa se refactoriza para usar mayor precisión (`double`) y solo se
 edita el tipo de la variable:
 ``` c
-double *valores = (double *)malloc(100 * sizeof(float)); // ¡BUG SILENCIOSO!
+double *valores = malloc(100 * sizeof(float)); // ¡BUG SILENCIOSO!
 ```
 <!-- c -->
 En un sistema de 64 bits, `sizeof(double) == 8` and `sizeof(float) == 4`. Se
@@ -2061,7 +2061,7 @@ memoria en el heap.
 Si se hubiera usado la regla recomendada, la asignación se adapta
 automáticamente sin inducir errores:
 ``` c
-double *valores = (double *)malloc(100 * sizeof(*valores));
+double *valores = malloc(100 * sizeof(*valores));
 ```
 <!-- c -->
 

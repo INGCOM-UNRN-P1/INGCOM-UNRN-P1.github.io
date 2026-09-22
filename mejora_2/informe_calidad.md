@@ -364,9 +364,10 @@ navegación.
 10. **2 huérfanos parciales** (solo autoenlazados entre ampliaciones, nunca
     desde un capítulo principal): `1C_matrices3d.md`, `7F_estructuras_opacas.md`.
 11. `4_testing_avanzado.md` (8.4K) y `5_contratos_formales.md` (16K) son
-    órdenes de magnitud más cortos que sus pares (50-84K) y **no tienen
-    ningún bloque `:::{exercise}`**, a diferencia de `2_tad.md` (15) y
-    `3_tad_pilas_colas.md` (9).
+    órdenes de magnitud más cortos que sus pares (50-84K), aunque sí
+    tienen ejercicios propios (2 y 9 bloques `:::{exercise}` respectivamente
+    — **corrección**: la auditoría original no los detectó; sí existen,
+    ver Fase 4 de `mejora_2/plan_accion.md`).
 
 ### MENOR
 

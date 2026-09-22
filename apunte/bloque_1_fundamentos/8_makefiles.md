@@ -243,6 +243,7 @@ clean:
 <!-- makefile -->
 
 
+(makefiles-ejercicios-de-autoevaluacion)=
 ## Ejercicios de Autoevaluación
 
 :::{exercise}
