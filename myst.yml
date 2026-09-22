@@ -76,6 +76,11 @@ project:
             - file: apunte/bloque_3_algoritmos_estructuras/5_contratos_formales.md
             - file: apunte/bloque_3_algoritmos_estructuras/6_complejidad.md
             - file: apunte/bloque_3_algoritmos_estructuras/7_recursividad_intro.md
+        - title: "Bloque 3: Puentes y ampliaciones"
+          children:
+            - file: apunte/bloque_3_algoritmos_estructuras/1A_matrices_dinamicas.md
+            - file: apunte/bloque_3_algoritmos_estructuras/2A_ownership_tads.md
+            - file: apunte/bloque_3_algoritmos_estructuras/6A_localidad_representacion.md
         - title: "Bloque 4: Temas Avanzados"
           children:
             - file: apunte/bloque_4_avanzados/1_indice_avanzados.md

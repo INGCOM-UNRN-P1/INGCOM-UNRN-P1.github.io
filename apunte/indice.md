@@ -101,33 +101,35 @@ dependencias conceptuales.
 
 :::
 
-*   **[1. Modelo Físico de Memoria](bloque_2_memoria/1_modelo_memoria.md)**:
-    Organización de RAM (Stack vs Heap) y hardware de memoria caché del
-    procesador.
-*   **[2. Indirección Física y Punteros](bloque_2_memoria/2_punteros.md)**:
-    Punteros físicos, operador de dirección `&` e indirección `*`, y simulación
-    de pasaje por referencia.
-*   **[3. Arreglos Unidimensionales y Strings](bloque_2_memoria/3_secuencias.md)**:
-    Secuencias de datos estáticas, decaimiento a puntero y gestión segura de cadenas 
-    de caracteres.
-*   **[4. Representación de Números](bloque_2_memoria/8_numeros.md)**: Límites
-    de representación física, desbordamientos e imprecisión de punto flotante.
-*   **[5. Conversión de Tipos (Casts)](bloque_2_memoria/9_casts.md)**: Promoción
+*   **[1. Modelo de Memoria](bloque_2_memoria/1_modelo_memoria.md)**:
+    Objetos, duración y modelo práctico de stack/heap. MMU, TLB y cachés se
+    tratan como ampliación dentro del mismo capítulo.
+*   **[2. Números, tamaños y representación](bloque_2_memoria/8_numeros.md)**:
+    Límites de representación, `sizeof`, `size_t` y desbordamientos.
+*   **[3. Conversión de Tipos (Casts)](bloque_2_memoria/9_casts.md)**: Promoción
     entera, coerción aritmética implícita y conversión explícita.
-*   **[6. Estructuras y Tipos Compuestos](bloque_2_memoria/7_estructuras.md)**:
-    Registros compuestos (`struct`, `union`) y alineación en memoria
-    (*padding*).
-*   **[7. Alias de Tipos (typedef)](bloque_2_memoria/10_alias_tipos.md)**:
-    Creación de alias de tipos personalizados y reglas de estilo.
-*   **[8. Tipos Enumerativos (enum)](bloque_2_memoria/11_enums.md)**:
-    Declaración de constantes nombradas, colisiones en espacios de nombres y
-    switch defensivo.
-*   **[9. Memoria Dinámica en el Heap](bloque_2_memoria/5_memoria_dinamica.md)**:
+*   **[4. Indirección Física y Punteros](bloque_2_memoria/2_punteros.md)**:
+    Punteros, operador de dirección `&`, indirección `*` y pasaje por dirección.
+*   **[5. Arreglos Unidimensionales y Strings](bloque_2_memoria/3_secuencias.md)**:
+    Secuencias, decaimiento a puntero y gestión segura de cadenas de caracteres.
+*   **[6. Memoria Dinámica en el Heap](bloque_2_memoria/5_memoria_dinamica.md)**:
     Alocación con `malloc`/`free`, propiedad de recursos y detección de fugas.
-*   **[10. Aritmética de Direcciones y Matrices Dinámicas](bloque_2_memoria/6_aritmetica.md)**:
-    Aritmética de punteros, doble indirección y estrategias de matrices dinámicas.
+*   **[7. Aritmética de Direcciones y Matrices Dinámicas](bloque_2_memoria/6_aritmetica.md)**:
+    Aritmética de punteros, doble indirección y matrices dinámicas básicas.
+*   **[8. Estructuras y Tipos Compuestos](bloque_2_memoria/7_estructuras.md)**:
+    `struct`, punteros a estructuras y layout básico verificable.
+*   **[9. Alias de Tipos (typedef)](bloque_2_memoria/10_alias_tipos.md)**:
+    Creación de alias de tipos personalizados y reglas de estilo.
+*   **[10. Tipos Enumerativos (enum)](bloque_2_memoria/11_enums.md)**:
+    Constantes nombradas, namespaces y switch defensivo.
 *   **[11. Persistencia y Archivos de Texto](bloque_2_memoria/4_archivos_texto.md)**:
-    Aplicación integradora de punteros, cadenas y ciclo de vida de recursos con `FILE *`.
+    Punteros, cadenas y ciclo de vida de recursos con `FILE *`.
+
+Las ampliaciones de allocator, stack frames en ensamblador, hardware de
+memoria, `memcpy`/aliasing, AoS/SoA y punto flotante están integradas como
+secciones opcionales dentro de cada capítulo principal (marcadas como
+"Lectura avanzada" o "Alcance") y no son prerrequisitos del recorrido
+anterior.
 
 ---
 
@@ -160,6 +162,16 @@ complejidad e introducción a la recursividad.
 *   **[7. Introducción a la
     Recursividad](bloque_3_algoritmos_estructuras/7_recursividad_intro.md)**:
     Fundamentos de recursión simple y anatomía cualitativa del Stack Frame.
+
+Las transferencias desde el Bloque 2 se concentran en tres puentes opcionales:
+
+*   [Matrices dinámicas para algoritmos](bloque_3_algoritmos_estructuras/1A_matrices_dinamicas.md)
+*   [Ownership, estructuras opacas y TADs](bloque_3_algoritmos_estructuras/2A_ownership_tads.md)
+*   [Localidad, AoS/SoA y representación](bloque_3_algoritmos_estructuras/6A_localidad_representacion.md)
+
+El análisis de stack frames en ensamblador x86-64 vive en el Bloque 2
+(`bloque_2_memoria/1_modelo_memoria.md`, sección "Anatomía de un Stack
+Frame").
 
 ---
 

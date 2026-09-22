@@ -16,6 +16,15 @@ description: Conceptos básicos de recursión, casos base, pasos recursivos y el
 >
 > **Comprobación de salida**: señalá el caso base y la medida que decrece en una función recursiva propuesta.
 
+:::{note} Ampliación de stack frames
+
+La anatomía de `rsp`, `rbp` y una ABI concreta está separada en
+{ref}`funcionamiento-de-la-pila-en-ensamblador-x86-64`, dentro de
+`bloque_2_memoria/5_memoria_dinamica.md`. El recorrido principal solo exige
+trazar profundidad, variables locales y retorno.
+
+:::
+
 ## Introducción
 
 La recursividad es una técnica de programación fundamental en la que una función
