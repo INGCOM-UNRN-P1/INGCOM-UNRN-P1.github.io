@@ -23,7 +23,7 @@ aplica al diseño de un TAD y a sus implementaciones.
 
 :::
 
-## Primero la interfaz y la prueba
+## Primer recorrido verificable: interfaz, implementación y prueba
 
 Un cliente de un TAD solo necesita su contrato público. Esta cabecera describe
 una secuencia de enteros sin revelar si se implementa con un arreglo o una lista:
@@ -65,6 +65,35 @@ int main(void) {
 
 Al cambiar la lista interna por un arreglo, esta prueba debe seguir compilando y
 pasando. Esa independencia es la razón práctica de definir primero la interfaz.
+
+Para ejecutar la prueba necesitás una implementación mínima. Esta versión usa un
+arreglo fijo solo como demostración; el resto del capítulo reemplaza esa decisión
+por representaciones dinámicas:
+
+```c
+/* secuencia.c */
+#include "secuencia.h"
+#include <stdlib.h>
+
+struct Secuencia { int datos[16]; size_t largo; };
+Secuencia *secuencia_crear(void) { return calloc(1, sizeof(Secuencia)); }
+bool secuencia_agregar(Secuencia *s, int v)
+{
+    if (s == NULL || s->largo == 16) return false;
+    s->datos[s->largo++] = v;
+    return true;
+}
+size_t secuencia_largo(const Secuencia *s) { return s == NULL ? 0 : s->largo; }
+void secuencia_destruir(Secuencia *s) { free(s); }
+```
+
+```bash
+gcc -std=c11 -Wall -Wextra -pedantic secuencia.c test_secuencia.c -o test_secuencia
+./test_secuencia
+```
+
+Si la implementación cambia y el test sigue pasando, comprobaste la propiedad
+central de un TAD: el cliente depende del contrato observable, no del layout.
 
 ## Desarrollo
 

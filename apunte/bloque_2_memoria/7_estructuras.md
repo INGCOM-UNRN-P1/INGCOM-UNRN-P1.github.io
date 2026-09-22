@@ -13,22 +13,44 @@ subtitle: 'struct, union y campos de bits en C'
 (capitulo-estructuras)=
 # Estructuras y Tipos Compuestos
 
-## Introducción
-
 En C, las **estructuras (`struct`)**, **uniones (`union`)** y **campos de bits
 (bit-fields)** son las herramientas fundamentales que nos permiten ir más allá
 de los tipos de datos básicos. Nos dan el poder de modelar entidades complejas
 del mundo real, optimizar el uso de la memoria hasta el nivel del bit y
 construir cualquier otra estructura de datos imaginable.
 
-Dominar estos conceptos es crucial. Implica entender no solo la sintaxis, sino
-cómo C organiza los datos en la memoria, un conocimiento que separa a un
-programador novato de uno que puede escribir código eficiente, portable y
-robusto.
+## Primer recorrido verificable
 
-Este apunte es un laboratorio práctico. No solo explica la teoría, sino que
-proporciona ejemplos completos y los comandos para que puedas compilar, ejecutar
-e inspeccionar el comportamiento de la memoria en tu propio sistema.
+Una estructura agrupa campos relacionados y permite acceder a ellos con `.`.
+Antes de continuar, compilá y ejecutá este ejemplo mínimo:
+
+:::{code-block} c
+:linenos:
+#include <stdio.h>
+
+typedef struct {
+    char inicial;
+    int legajo;
+} estudiante_t;
+
+int main(void)
+{
+    estudiante_t estudiante = {.inicial = 'J', .legajo = 12345};
+    printf("%c %d\\n", estudiante.inicial, estudiante.legajo);
+    return 0;
+}
+:::
+<!-- {code-block} c -->
+
+```bash
+gcc -std=c11 -Wall -Wextra -pedantic estudiante.c -o estudiante
+./estudiante
+```
+
+La salida muestra dos ideas que usaremos durante todo el capítulo: cada campo
+conserva su tipo y la estructura se copia como un valor. Después agregaremos
+punteros, miembros dinámicos y padding; esos detalles se introducen solo cuando
+el ejemplo básico ya funciona.
 
 :::{warning}
 

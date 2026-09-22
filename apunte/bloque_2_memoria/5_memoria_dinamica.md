@@ -17,9 +17,9 @@ description: 'Gestión y alocación en el Heap utilizando malloc, calloc, reallo
 
 La memoria dinámica no es “una variable más”: crea un recurso cuya propiedad
 debés poder responder en cada paso. Antes de usar `malloc`, identificá quién
-adquiere el bloque, quién puede usarlo y quién lo libera. Este capítulo sigue a
-estructuras y tipos porque esas herramientas permiten expresar esa propiedad con
-claridad.
+adquiere el bloque, quién puede usarlo y quién lo libera. Este capítulo parte de
+punteros, arreglos y tamaños; las estructuras dinámicas se retoman más adelante
+como una aplicación de este mismo contrato.
 
 :::
 

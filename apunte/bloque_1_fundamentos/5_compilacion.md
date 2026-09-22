@@ -13,45 +13,42 @@ subtitle: Haciendonos entender por la computadora.
 (capitulo-compilacion)=
 # Compilación
 
-## Introducción
+## Primer recorrido verificable
 
-Cuando ejecutás en tu terminal el comando:
+La compilación convierte un archivo fuente en un ejecutable mediante varias
+etapas. Empezá con un programa mínimo y observá el comando completo:
 
-```{code-block} sh
+```c
+/* saludo.c */
+#include <stdio.h>
 
-$> gcc -o mi_programa programa.c
+int main(void) { puts("Hola"); return 0; }
+```
+
+```sh
+
+$ gcc -std=c11 -Wall -Wextra -pedantic saludo.c -o saludo
+$ ./saludo
+Hola
 
 ```
-<!-- {code-block} sh -->
+<!-- sh -->
 
-No solo estás invocando un programa, sino que desencadenás un sofisticado
-proceso de transformación. A simple vista, es una única instrucción que
-convierte tu código fuente, escrito en un lenguaje comprensible para vos, en un
-archivo ejecutable que la máquina puede interpretar directamente.
+En este primer paso solo necesitás reconocer tres artefactos: `saludo.c` (fuente),
+`saludo` (ejecutable) y los diagnósticos de GCC. Más adelante separarás
+preprocesado, compilación, ensamblado y enlazado con `-E`, `-S`, `-c` y la etapa
+final. Si el comando falla, conservá el mensaje: clasificarlo es parte del
+objetivo del capítulo.
 
-:::{note} Prerequisitos
+:::{note} Ruta de lectura
 
-Este capítulo asume que ya escribiste y ejecutaste programas básicos en C como
-los presentados en el [](../bloque_1_fundamentos/2_gradual.md). También es útil
-tener familiaridad con
-el concepto de funciones ([](../bloque_1_fundamentos/4_funciones.md)) ya que se
-mencionan prototipos y
-definiciones en el contexto de compilación de múltiples archivos.
+Después del ejemplo mínimo, seguí el flujo de una sola unidad de traducción,
+repetílo con dos archivos y recién entonces estudiá cabeceras, enlazado y
+Makefiles. El capítulo supone manejo elemental de variables, funciones y
+terminal; no requiere conocer todavía el ABI ni el enlazador en profundidad.
 
 :::
-<!-- {note} Prerequisitos -->
-
-Sin embargo, detrás de esa aparente simplicidad, el compilador `gcc` (GNU
-Compiler Collection) actúa como un director de orquesta, coordinando una
-secuencia de herramientas especializadas que trabajan en conjunto. Cada una de
-estas herramientas se encarga de una fase específica, traduciendo
-progresivamente el código hasta su forma final.
-
-Comprender esta transformación del código, desde `programa.c` hasta
-`mi_programa`, es una habilidad fundamental para cualquier desarrollador de C.
-Te proporciona las bases para diagnosticar errores de compilación complejos,
-optimizar el rendimiento de tus aplicaciones y gestionar eficientemente
-proyectos que se componen de múltiples archivos fuente.
+<!-- {note} Ruta de lectura -->
 
 (diagrama-del-proceso)=
 
