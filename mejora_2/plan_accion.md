@@ -195,15 +195,19 @@ ruta.
 
 ---
 
-## Fase 2b — Barrido de enlaces rotos en `ejercicios/` (hallazgo T8, fuera del alcance original)
+## Fase 2b — Barrido de enlaces rotos en `ejercicios/` (hallazgo T8, fuera del alcance original) — ✅ Completada
 
 `ejercicios/` no estaba en el alcance de la auditoría inicial (que cubrió los
 4 bloques de `apunte/`). Al reutilizar el script de detección de la Fase 2
 sobre este directorio aparecieron 59 enlaces rotos (detalle completo en T8 de
-`informe_calidad.md`). Se separa de la Fase 2 porque una parte no es un
-simple problema de ruta:
+`informe_calidad.md`). Se separó de la Fase 2 porque una parte no era un
+simple problema de ruta.
 
-39. **33 enlaces a nombres de bloque viejos** (`bloque_2_proyectos`,
+**Estado**: resuelta íntegramente. Verificado con el script de barrido:
+`ejercicios/` tiene **0 enlaces `.md` rotos** después de esta fase, y las 45
+referencias `{ref}` nuevas (punto 41) resuelven contra anclas reales.
+
+39. ✅ **33 enlaces a nombres de bloque viejos** (`bloque_2_proyectos`,
     `bloque_3_memoria_estatica`, `bloque_4_dinamica_interfaces`,
     `bloque_4_dinamica_indireccion`) — mismo mapeo mecánico que la Fase 2,
     aplicado a `ejercicios/bloque_1_fundamentos/{7_librerias_ejercicios,
@@ -211,24 +215,31 @@ simple problema de ruta:
     2b_cadenas,4_memoria_dinamica,4b_memoria,4c_ejercicios_memoria,
     7_alias_tipos_ejercicios,8_enums}.md`,
     `ejercicios/bloque_3_algoritmos_estructuras/1_matrices.md` y
-    `ejercicios/bloque_4_avanzados/2_operaciones_de_bits.md`.
-40. **1 enlace** en `ejercicios/readme.md` a `../apunte/0_estilo.md` (mismo
-    archivo inexistente que el hallazgo de `4_funciones.md` en la Fase 2;
-    reemplazar por referencias `{ref}` a los códigos `0xXXXXh` puntuales, no
-    por un único archivo).
-41. **47 enlaces a una numeración plana vieja de `reglas/`**
-    (`0_sintaxis.md`, `1_control.md`, `2_funciones.md`,
-    `5_buenas_practicas.md`), concentrados en
+    `ejercicios/bloque_4_avanzados/2_operaciones_de_bits.md`. De paso se
+    corrigieron 3 comentarios de cierre `<!-- {figure} ... -->` en
+    `4c_ejercicios_memoria.md` que citaban la misma ruta vieja (invisibles en
+    el render, pero mismo defecto).
+40. ✅ **1 enlace** en `ejercicios/readme.md` a `../apunte/0_estilo.md` —
+    reemplazado por `[catálogo de reglas de estilo](../reglas/indice.md)`,
+    que sí está en `myst.yml`, en vez de apuntar a un archivo puntual.
+41. ✅ **45 enlaces a una numeración plana vieja de `reglas/`** (47 estimados
+    originalmente; 2 de los 47 eran el mismo enlace citado dos veces en una
+    línea que ya contaba doble), concentrados en
     `bloque_1_fundamentos/4_testing_y_estructura.md` (18) y
-    `9_refactorizacion_codigo_ofuscado.md` (14). A diferencia de los puntos
-    39-40, esto **no es un simple rename**: cada mención genérica a
-    "`reglas/2_funciones.md`" hay que resolverla a la regla `0x2XXXh`
-    concreta que el texto está citando, usando `reglas/renumeracion.md` como
-    mapa, y convertirla a `{ref}`0xXXXXh`` (el patrón que ya usa el resto del
-    apunte). Requiere leer cada cita en contexto, no admite `sed` masivo.
+    `9_refactorizacion_codigo_ofuscado.md` (14), más 13 repartidos en
+    `1_basicos_y_secuencias.md` (4), `6_funciones_ejercicios.md` (4),
+    `5_ejercicios_control.md` (3) y `2_gradual_ejercicios.md` (2). Cada
+    enlace citaba el código de regla explícitamente en el propio texto y en
+    el fragmento de ancla (`#0x2004h`), así que no hizo falta interpretar
+    contexto: se extrajeron los 18 códigos únicos citados, se resolvió cada
+    uno contra `reglas/renumeracion.md` (dos de ellos cambiaron de número:
+    `0x0003h`→`0x7001h` y `0x2006h`→`0x8001h`; el resto se mantuvo igual o
+    solo cambió de categoría, como `0x0007h`→`0x0102h` y
+    `0x000Bh`→`0x0007h`) y se reemplazó cada `[texto](../../reglas/ARCHIVO.md#codigo)`
+    por `{ref}`código-nuevo`` con un script, verificando después que las 45
+    referencias resultantes resuelven contra anclas reales del catálogo.
 
-**Costo estimado**: 1 hora para 39-40 (mecánico); 3-4 horas para 41 (requiere
-lectura caso por caso). **Riesgo si no se hace**: los enlaces desde los
+**Riesgo si no se hace**: los enlaces desde los
 ejercicios hacia las reglas de estilo citadas —justamente el material que un
 estudiante consulta al resolver un ejercicio— no llevan a ningún lado.
 
@@ -402,7 +413,7 @@ find/replace dedicada, no urgente.
 | 0 | Bugs de render bloqueantes | 30-45 min | ✅ Completada |
 | 1 | H1/headings/anclas | 3-4 h | ✅ Completada |
 | 2 | Enlaces rotos en `apunte/` (13-19, 19b) | 1-2 h | ✅ Completada |
-| 2b | Enlaces rotos en `ejercicios/` (39-41) | 4-5 h | Pendiente |
+| 2b | Enlaces rotos en `ejercicios/` (39-41) | 4-5 h | ✅ Completada |
 | 3 | Decisiones de contenido + desarrollo | 5-8 h | Pendiente |
 | 4 | Calidad técnica/pedagógica | 4-6 h | Pendiente |
 | 5 | Cosmético | 1-2 h | Pendiente |
