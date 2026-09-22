@@ -4,6 +4,9 @@ short_title: 'Hilos POSIX'
 subtitle: Multithreading en sistemas Unix/Linux
 ---
 
+(capitulo-hilos)=
+# Programación Concurrente con Hilos en C
+
 ## Introducción a la Programación Concurrente
 
 > **Prerrequisitos**: funciones, punteros, memoria compartida, manejo de errores y terminal Linux/WSL2.

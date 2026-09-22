@@ -1,3 +1,9 @@
+---
+title: 'Bloque 4: Ruta de aprendizaje avanzada'
+short_title: 'Índice de avanzados'
+subtitle: 'Guía de dependencias y orden de estudio de los temas avanzados'
+---
+
 (capitulo-indice-avanzados)=
 # Bloque 4: Ruta de aprendizaje avanzada
 

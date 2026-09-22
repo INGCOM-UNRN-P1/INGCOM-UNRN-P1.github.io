@@ -5,6 +5,8 @@ subtitle: 'Versionado semántico, estabilidad de ABI y performance de interfaces
 ---
 
 (versionado-y-compatibilidad)=
+# Ingeniería de APIs y Gestión de Compatibilidad
+
 ## Versionado y Compatibilidad
 
 > **Prerrequisitos**: diseño de APIs, punteros opacos, archivos de cabecera,

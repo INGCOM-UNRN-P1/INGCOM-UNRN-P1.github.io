@@ -5,7 +5,7 @@ subtitle: Técnicas de ocultamiento de información y diseño modular
 ---
 
 (capitulo-tipos-opacos)=
-# Referencias y Lecturas Complementarias
+# Punteros Opacos y Encapsulamiento en C
 
 > **Prerrequisitos**: structs, punteros, archivos `.h`/`.c`, TAD y compilación
 > modular. Antes de seguir, distinguí una declaración incompleta de la
@@ -15,10 +15,6 @@ subtitle: Técnicas de ocultamiento de información y diseño modular
 > la responsabilidad de creación y destrucción dentro del módulo.
 >
 > **Comprobación de salida**: separá qué declaraciones pertenecen al `.h` público y cuáles deben quedar en el `.c` privado.
-
-## Introducción
-
-
 
 ## Desarrollo
 
@@ -437,7 +433,7 @@ p->x = 100.0; // ERROR en tiempo de compilación
 :::
 <!-- {code-block} c -->
 
-::{warning} Límites del Encapsulamiento en C (Convenio vs Compilación)
+:::{warning} Límites del Encapsulamiento en C (Convenio vs Compilación)
 
 Es fundamental comprender que en C el encapsulamiento no está garantizado a
 nivel de hardware o de forma inviolable por el compilador (como en lenguajes con
@@ -453,8 +449,9 @@ Un programador cliente malintencionado o descuidado podría:
 Por lo tanto, la opacidad en C protege contra errores accidentales y
 acoplamientos indeseados, pero no constituye una barrera de seguridad
 informática infranqueable.
-:::::
-<!-- {code-block} c -->
+
+:::
+<!-- {warning} Límites del Encapsulamiento en C (Convenio vs Compilación) -->
 
 **2. Flexibilidad de Implementación**
 

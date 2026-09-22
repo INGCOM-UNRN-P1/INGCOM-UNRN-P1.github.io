@@ -5,6 +5,7 @@ subtitle: 'Operadores a nivel de bits y máscaras en C'
 ---
 
 (bitwise-capitulo)=
+# Campos de Bits y Operaciones Bitwise
 
 > **Prerrequisitos**: representación binaria de enteros, operadores lógicos, `uint32_t` y máscaras.
 >

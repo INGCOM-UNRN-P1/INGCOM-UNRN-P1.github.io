@@ -7,6 +7,7 @@ numbering:
 ---
 
 (diseno-api-capitulo)=
+# Diseño de Interfaces y APIs en C
 
 > **Prerrequisitos**: TAD, contratos, punteros opacos, manejo de errores y
 > compilación modular con `.h` y `.c`.

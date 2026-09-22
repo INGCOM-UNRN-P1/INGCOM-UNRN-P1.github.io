@@ -5,7 +5,7 @@ description: 'Punteros a funciones, genericidad básica en C utilizando void* y 
 ---
 
 (capitulo-punteros-funciones)=
-# Lecturas Recomendadas
+# Punteros a Funciones
 
 > **Prerrequisitos**: punteros, prototipos de función, alcance de variables y
 > `void *`. Compilá con `gcc -Wall -Wextra -std=c11 -pedantic`.
@@ -16,9 +16,6 @@ description: 'Punteros a funciones, genericidad básica en C utilizando void* y 
 > **Comprobación de salida**: compará una firma de callback con dos funciones y determiná cuál puede asignarse sin conversión.
 
 ## Introducción
-
-(genericidad-y-callbacks-punteros-a-funciones)=
-# Genericidad y Callbacks (Punteros a Funciones)
 
 En capítulos anteriores, exploramos cómo los punteros nos permiten referenciar y
 manipular datos en el heap de manera dinámica. Sin embargo, en C, las

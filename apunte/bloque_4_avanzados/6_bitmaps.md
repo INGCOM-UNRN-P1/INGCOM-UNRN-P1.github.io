@@ -6,7 +6,8 @@ numbering:
   code: true
 ---
 
-## Introducción
+(capitulo-bitmaps)=
+# Creación de Imágenes de Mapa de Bits
 
 > **Prerrequisitos**: structs y padding, archivos binarios, operaciones de bits
 > y enteros de `<stdint.h>`. Compilá con `gcc -Wall -Wextra -std=c11 -pedantic`;

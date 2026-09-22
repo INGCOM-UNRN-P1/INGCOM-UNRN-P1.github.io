@@ -4,6 +4,9 @@ short_title: 'Sockets POSIX'
 subtitle: Comunicación de red en sistemas Unix/Linux
 ---
 
+(capitulo-sockets)=
+# Programación de Sockets en C
+
 ## Introducción a la Programación de Red
 
 > **Prerrequisitos**: punteros, arrays de bytes, archivos/descriptores, manejo
@@ -1408,7 +1411,7 @@ adoptar un esquema defensivo estricto:
    descriptores (*descriptor leak*), lo que eventualmente colgará el servidor al
    impedirle aceptar nuevas conexiones (regla {ref}`0x4004h`).
 
-##### Ejemplo de Validación y Cierre Simétrico
+#### Ejemplo de Validación y Cierre Simétrico
 
 :::{code-block}c
 :linenos:
