@@ -5,7 +5,7 @@ subtitle: Estructuras de datos dinámicas y especializadas
 ---
 
 (capitulo-tad)=
-# Resumen de la Unidad
+# Tipos de Datos Abstractos, Pilas y Colas
 
 > **Prerrequisitos**: funciones, punteros, `malloc`/`free`, archivos `.h` y
 > compilación de más de un archivo con GCC.
@@ -14,6 +14,14 @@ subtitle: Estructuras de datos dinámicas y especializadas
 > de un TAD sin acceder a su representación interna.
 >
 > **Comprobación de salida**: proponé una prueba de caja negra que siga siendo válida al cambiar la representación interna.
+
+:::{note} Puente con memoria dinámica
+
+Los patrones de ownership, destructor con doble puntero y estructuras opacas se
+concentran en [`2A_ownership_tads.md`](2A_ownership_tads.md). Este capítulo los
+aplica al diseño de un TAD y a sus implementaciones.
+
+:::
 
 ## Primero la interfaz y la prueba
 
@@ -57,10 +65,6 @@ int main(void) {
 
 Al cambiar la lista interna por un arreglo, esta prueba debe seguir compilando y
 pasando. Esa independencia es la razón práctica de definir primero la interfaz.
-
-## Introducción
-
-
 
 ## Desarrollo
 

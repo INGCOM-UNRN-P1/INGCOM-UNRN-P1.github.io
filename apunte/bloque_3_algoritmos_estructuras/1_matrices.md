@@ -5,11 +5,21 @@ subtitle: "The matrix has you..."
 ---
 
 (capitulo-matrices)=
+# Matrices
+
 > **Prerrequisitos**: arreglos unidimensionales, lazos anidados, `sizeof` y paso de parámetros a funciones.
 >
 > **Objetivos**: 1. Declarar y recorrer una matriz respetando filas y columnas. 2. Explicar el orden row-major y su efecto en el acceso.
 >
 > **Comprobación de salida**: trazá los índices visitados por dos lazos anidados y determiná cuál recorre una fila completa.
+
+:::{note} Puente con memoria dinámica
+
+La representación y liberación de matrices dinámicas se introduce en
+[`1A_matrices_dinamicas.md`](1A_matrices_dinamicas.md). Este capítulo se enfoca
+en declaración, recorridos, operaciones y localidad.
+
+:::
 
 ## Introducción
 
@@ -44,7 +54,7 @@ software eficiente y estructurado.
 Matrices (Arreglos Bidimensionales)
 
 (relacion-con-el-algebra-lineal)=
-#### Relación con el álgebra lineal
+### Relación con el álgebra lineal
 Las matrices en programación están íntimamente relacionadas con el concepto
 matemático de matriz del álgebra lineal. Esto permite aplicar directamente
 teoremas y algoritmos matemáticos en implementaciones de software, especialmente
@@ -53,7 +63,7 @@ científicas.
 
 
 (extension-a-multiples-dimensiones)=
-#### Extensión a múltiples dimensiones
+### Extensión a múltiples dimensiones
 Técnicamente, no están limitadas a dos dimensiones. Podés tener arreglos
 tridimensionales (`int cubo[3][4][5]`) o de mayor dimensionalidad. Sin embargo,
 las aplicaciones prácticas se vuelven menos claras y la complejidad de manejo

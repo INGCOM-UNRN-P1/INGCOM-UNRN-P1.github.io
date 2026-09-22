@@ -5,7 +5,7 @@ subtitle: 'Lógica de primer orden, tripletas de Hoare, invariantes de TADs y c�
 ---
 
 (capitulo-contratos-formales)=
-# 3. Contratos de Estructuras de Datos e Invariantes de Clase
+# Diseño por Contratos Formal y Verificación
 
 > **Prerrequisitos**: lógica proposicional, funciones, `assert.h`, TAD y sus
 > invariantes. Este capítulo formaliza los contratos informales del bloque 1.
@@ -14,10 +14,6 @@ subtitle: 'Lógica de primer orden, tripletas de Hoare, invariantes de TADs y c�
 > para justificar una operación sobre una estructura de datos.
 >
 > **Comprobación de salida**: escribí una precondición y una postcondición para una operación de pila y verificá que no se contradigan.
-
-## Introducción
-
-(contratos-formales-capitulo)=
 
 ## Desarrollo
 

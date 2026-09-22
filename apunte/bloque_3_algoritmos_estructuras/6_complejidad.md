@@ -5,7 +5,7 @@ subtitle: Fundamentos matemáticos del análisis asintótico
 ---
 
 (capitulo-complejidad)=
-# Referencias y Lecturas Complementarias
+# Análisis de Complejidad Algorítmica
 
 > **Prerrequisitos**: lazos, funciones, arreglos y noción de TAD. Para medir
 > ejemplos en Linux/WSL2 se usa `clock_gettime` de `<time.h>`.
@@ -15,7 +15,12 @@ subtitle: Fundamentos matemáticos del análisis asintótico
 >
 > **Comprobación de salida**: duplicá el tamaño de entrada, registrá dos mediciones y explicá por qué no constituyen por sí solas una prueba de Big-O.
 
-## Introducción
+:::{note} Representación y localidad
+
+La comparación AoS/SoA, caché y trade-offs de representación se desarrolla en
+[`6A_localidad_representacion.md`](6A_localidad_representacion.md).
+
+:::
 
 ## Medición mínima reproducible
 

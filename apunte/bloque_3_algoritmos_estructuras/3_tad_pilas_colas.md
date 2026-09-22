@@ -5,7 +5,7 @@ subtitle: 'TAD Pila, Cola y Deque'
 ---
 
 (capitulo-tad-pilas-colas)=
-# Referencias y Lecturas Complementarias
+# Pilas, Colas y Estructuras Lineales Restringidas
 
 > **Prerrequisitos**: TAD e interfaces `.h`, structs, punteros, `malloc`/`free`
 > y complejidad básica. Compilá con `gcc -Wall -Wextra -std=c11 -pedantic`.
@@ -14,10 +14,6 @@ subtitle: 'TAD Pila, Cola y Deque'
 > propiedad y liberación de los nodos que manipula cada operación.
 >
 > **Comprobación de salida**: elegí una operación `push` o `dequeue`, formulá su invariante y trazá qué nodo debe liberar o conservar.
-
-## Introducción
-
-
 
 ## Desarrollo
 
@@ -474,6 +470,8 @@ heap con punteros a inicio y fin.
 <!-- {figure} 3/cola_lista_enlazada.svg -->
 <!-- {figure} 4/cola_lista_enlazada.svg -->
 
+#### Implementación con Lista Enlazada
+
 ##### Estructura de Datos
 
 :::{code-block} c
@@ -493,13 +491,14 @@ struct cola
 :::
 <!-- {code-block} c -->
 
-:::::{note}
+:::{note}
 
 A diferencia de la pila que solo requiere de un puntero al tope, la cola utiliza
 dos punteros: uno al frente (para `cola_dequeue`) y otro al final (para
 `cola_enqueue`). Esto garantiza que ambas operaciones se ejecuten en tiempo
 constante $O(1)$.
-::::
+
+:::
 
 ##### Creación de una Cola
 
