@@ -1877,26 +1877,6 @@ dentro del deque.
 :::
 <!-- {solution} ejercicio-deque-ventana-deslizante -->
 
-## Glosario
-
-:::{glossary}
-
-TAD (Tipo Abstracto de Datos)
-: Modelo matemático para tipos de datos definidos por su comportamiento y
-operaciones.
-
-Pila (Stack)
-: Estructura de datos LIFO.
-
-Cola (Queue)
-: Estructura de datos FIFO.
-
-Encapsulación
-: Ocultamiento de la representación de datos del cliente.
-
-:::
-<!-- {glossary} -->
-
 ## Síntesis y Resumen
 
 (7_tad_pilas_colas-resumen)=

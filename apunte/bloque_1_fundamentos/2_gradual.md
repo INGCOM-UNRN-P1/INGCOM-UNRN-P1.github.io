@@ -179,7 +179,7 @@ y ejecutar los programas.
 [INGCOM-UNRN-P1/entorno](https://github.com/INGCOM-UNRN-P1/entorno)
 
 Esencialmente, instala `gcc`, `VSCode`, `git` y una terminal, también podés
-instalar manualmente todo siguiendo la guía: [compilador](../guias/compilador).
+instalar manualmente todo siguiendo la guía: [compilador](../../guias/compilador.md).
 
 En sistemas basados en Debian/Ubuntu:
 
@@ -653,7 +653,7 @@ y = x + 5; // VÁLIDO: 'y' es un L-value, 'x + 5' evalúa a un R-value.
 
 Se utiliza para imprimir texto y valores de variables formateados en la salida
 estándar de consola.
-Podés consultar el [apunte más detallado del tema](../extras/printf).
+Podés consultar el [apunte más detallado del tema](../../referencia/guide-printf.md).
 
 :::{code-block} c
 :linenos:
@@ -665,7 +665,7 @@ printf("Tiene %d años\n", edad);
 El par de símbolos `\n` se usan para indicar el 'salto de línea', para que no
 quede todo junto en una sola. Específicamente, cada vez que se ve una `\`, se
 indica que el siguiente carácter tiene un significado diferente del que se ve;
-esto se llama [secuencias de escape](../extras/printf#escape).
+esto se llama [secuencias de escape](../../referencia/guide-printf.md).
 
 ##### Especificadores de formato de tipos básicos
 

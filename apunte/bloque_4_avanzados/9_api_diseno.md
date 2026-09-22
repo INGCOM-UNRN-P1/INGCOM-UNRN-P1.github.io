@@ -19,8 +19,8 @@ numbering:
 
 Para el marco formal de contratos que sustenta el diseño de interfaces, ver
 {ref}`capitulo-contratos-formales`. Para el patrón de punteros opacos que
-implementa
-el encapsulamiento, ver el capítulo [17_opacos](17_opacos).
+implementa el encapsulamiento, ver el capítulo [Encapsulamiento y Tipos
+Opacos](3_opacos.md).
 
 (introduccion-el-arte-de-disenar-contratos)=
 ## Introducción: El Arte de Diseñar Contratos

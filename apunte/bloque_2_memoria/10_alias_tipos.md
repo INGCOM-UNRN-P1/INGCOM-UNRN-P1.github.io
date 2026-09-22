@@ -364,11 +364,6 @@ Portabilidad
 : Capacidad de un código para compilar y ejecutarse correctamente en diferentes
 arquitecturas de CPU sin cambios mayores.
 
-Puntero a función
-: Variable que almacena la dirección de una función, con un tipo que
-codifica su firma (parámetros y retorno). Permite pasar comportamiento como
-parámetro (*callback*).
-
 :::
 <!-- {glossary} -->
 

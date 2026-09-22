@@ -143,7 +143,7 @@ principales:
 :::
 <!-- {warning} Efectos Colaterales en Macros -->
 
-###### Compilación Condicional **Directivas:** `#if`, `#ifdef`,
+##### Compilación Condicional **Directivas:** `#if`, `#ifdef`,
 
 `#ifndef`, `#else`, `#elif`, `#endif`
 
@@ -166,7 +166,7 @@ código del archivo fuente final que se pasará al compilador. Son extremadament
   #endif // MI_CABECERA_H
   ```
 
-###### Eliminación de Comentarios
+##### Eliminación de Comentarios
 
 El preprocesador también se encarga de una tarea de limpieza fundamental:
 eliminar todo el texto que se encuentre dentro de los bloques de comentarios
@@ -824,7 +824,7 @@ sobre todas las opciones y el funcionamiento del compilador.
 ### Makefiles
 
 Hay una guia mucho más detallada para quienes quieran entender cómo funcionan
-los [makefiles](../extras/makefiles).
+los [makefiles](../../referencia/guide-makefiles.md).
 
 (que-es-un-makefile)=
 #### ¿Qué es un Makefile?

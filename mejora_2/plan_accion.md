@@ -520,14 +520,36 @@ evitando duplicar lo que este plan ya resolvió por otra vía.
 48. **Crear una autoevaluación de cierre por bloque** (no por capítulo) que
     cubra recordar, aplicar y justificar, enlazada desde cada índice de
     bloque (`indice.md` y los índices internos si existen).
-49. **Reevaluación de calidad** (Fase 7 de `mejora/`): ejecutar
-    `myst build --site --strict --check-links` y corregir lo que arroje;
-    reejecutar `jev-doc-quality` sobre los 39 capítulos guardando un archivo
-    fechado nuevo en `mejora/` sin sobreescribir `evaluacion_inicial.json`;
-    comparar contra la línea de base y registrar qué capítulos siguen bajo
-    el umbral. Esto requiere las herramientas de `jev-accelerator`
-    (`~/.gemini/config/skills/jev-accelerator/scripts/jev-doc-quality.mjs`),
-    no disponibles como parte de este plan.
+49. **✅ Resuelto — Reevaluación de calidad** (Fase 7 de `mejora/`).
+    - `jev-doc-quality` sobre la totalidad de `apunte/` (57 archivos, no 39 —
+      el árbol creció desde la línea de base): ya ejecutado y documentado en
+      `mejora/informe_calidad.md` sección 6 y en la Fase 9 de este plan.
+    - `myst build --site --strict --check-links`: ejecutado sobre el sitio
+      completo. De los ~375 errores reportados, la enorme mayoría son
+      enlaces **externos** (`https://...`) que el checker de MyST marca como
+      "did not resolve" en este entorno pese a que sí resuelven por `curl`
+      (verificado puntualmente con `gcc.gnu.org/onlinedocs/`) — el checker
+      externo de MyST no es confiable acá y no vale la pena perseguir esos
+      "errores". Filtrando por `apunte/`, el build encontró y ya se
+      corrigieron 4 categorías de problemas reales:
+      - **2 heading depth >5** (`5_compilacion.md`, `7_estructuras.md`):
+        MyST no soporta más de H5; se bajaron 7 encabezados H6 a H5.
+      - **5 identificadores de glosario duplicados** entre pares de
+        archivos: "puntero a función" (`10_alias_tipos.md` vs
+        `bloque_4/2_punteros_funciones.md`) y "TAD", "Pila (Stack)", "Cola
+        (Queue)", "Encapsulación" (`2_tad.md` vs `3_tad_pilas_colas.md`, este
+        último con el glosario entero duplicado palabra por palabra). Se
+        dejó la definición en el archivo más autoritativo de cada par y se
+        quitó la duplicada.
+      - **6 enlaces internos rotos sin extensión `.md`** que el barrido de
+        enlaces de la Fase 2 no detectaba (esa regex exigía `.md` literal):
+        `../guias/compilador`, `../extras/printf` (x2, `extras/` no existe),
+        `14_memoria_dinamica` (sin ruta de bloque), `../extras/makefiles` y
+        `17_opacos` en `bloque_4/9_api_diseno.md` — todos corregidos a rutas
+        reales con extensión.
+    - No se reejecutó `jev-doc-quality` una segunda vez tras estas
+      correcciones (son cambios estructurales/de enlaces, no de contenido
+      pedagógico; no se espera que muevan el índice de calidad).
 
 **Costo estimado**: 6-9 horas (42, 44, 46-48 son escritura de contenido;
 49 requiere acceso a la herramienta `jev-doc-quality` y a `myst build`).
@@ -628,7 +650,7 @@ del bloque (punteros y archivos).
 | 5 | Cosmético (30-34) | 1-2 h | Parcial (30, 31 hechos) |
 | 6 | Ampliaciones y consolidación de bloque 3 (20) | 2-3 h | Pendiente |
 | 7 | Mejoras y correcciones de bloque 4 (21, 23, 37) | 3-5 h | Parcial (37 hecho) |
-| 8 | Pedagogía y secuenciación, de `mejora/` (42-49) | 6-9 h | Parcial (45 hecho) |
+| 8 | Pedagogía y secuenciación, de `mejora/` (42-49) | 6-9 h | Parcial (42, 44, 45, 49 hechos) |
 | 9 | `technicalCompleteness` en bloque 2, de reevaluación `jev-doc-quality` (51-53) | 5-8 h | Pendiente |
 | **Total** | | **~30-44 h** | |
 

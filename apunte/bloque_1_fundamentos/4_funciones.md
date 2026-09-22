@@ -471,7 +471,7 @@ Las variables locales se almacenan en el **stack** (pila), una región de memori
 gestionada automáticamente por el sistema. Cuando una función se llama, se crea
 un marco de pila (stack frame) con todas sus variables locales; cuando termina,
 ese marco se libera automáticamente. Para entender en profundidad cómo funciona
-este mecanismo, consultá el apunte de [Memoria Dinámica](14_memoria_dinamica).
+este mecanismo, consultá el apunte de [Memoria Dinámica](../bloque_2_memoria/5_memoria_dinamica.md).
 
 :::
 <!-- {tip} Gestión Automática de Memoria -->
