@@ -205,6 +205,54 @@ bool reales_casi_iguales(float a, float b)
 :::
 <!-- {code-block} c -->
 
+Un epsilon fijo como `0.00001f` no sirve para cualquier escala: hay que
+elegirlo según la magnitud de los valores comparados y el error acumulado del
+problema, no como constante universal. Una comparación más robusta combina
+tolerancia absoluta y relativa:
+
+```c
+#include <math.h>
+#include <stdbool.h>
+
+bool cerca(double a, double b, double abs_tol, double rel_tol)
+{
+    double d = fabs(a - b);
+    return d <= abs_tol || d <= rel_tol * fmax(fabs(a), fabs(b));
+}
+```
+
+#### `NaN` e infinitos
+
+IEEE 754 reserva patrones de bits especiales para representar resultados que
+no son un número real: `NaN` (*Not a Number*, resultado de operaciones como
+`0.0 / 0.0`) e infinitos (`1.0 / 0.0`). `NaN` tiene una propiedad inusual: **no
+es igual a sí mismo**. Comparar `x == NAN` es siempre falso, incluso si `x` es
+`NaN`; hay que usar `isnan(x)` para detectarlo.
+
+```c
+#include <math.h>
+
+double a = 0.0 / 0.0;   /* NaN */
+double b = 1.0 / 0.0;   /* +Inf */
+
+isnan(a);  /* verdadero */
+isinf(b);  /* verdadero */
+a == a;    /* falso: NaN nunca es igual a sí mismo */
+```
+
+No serialices la representación binaria de un `double` (por ejemplo,
+escribiendo sus bytes crudos a un archivo) como si fuera un formato portable:
+el layout exacto de signo, exponente y mantisa es una propiedad de la
+plataforma, no una garantía del lenguaje.
+
+:::{dropdown} Mini-ejercicio
+
+Usá `isnan` para detectar el resultado de `0.0 / 0.0` y `isinf` para el de
+`1.0 / 0.0`. ¿Qué devuelve comparar `NAN == NAN` con `==`? Escribí la forma
+correcta de verificar si un `double` es `NaN`.
+
+:::
+
 ---
 
 ## Ejercicios de Autoevaluación

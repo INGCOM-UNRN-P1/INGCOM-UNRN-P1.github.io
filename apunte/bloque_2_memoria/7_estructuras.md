@@ -39,6 +39,15 @@ común (x86_64, little-endian), pero siempre debés verificar en tu plataforma.
 
 (estructuras-struct-agrupando-datos)=
 
+:::{note} Recorrido principal y ampliaciones
+
+El camino principal cubre `struct`, acceso con `.` y `->`, estructuras con
+punteros, destrucción y una introducción verificable a padding y `offsetof`.
+Uniones, bitfields, serialización, estructuras opacas y la comparación AoS/SoA
+({ref}`AoS`) se tratan más abajo en este mismo apunte, como ampliaciones.
+
+:::
+
 ## Desarrollo
 
 Los Ladrillos de la memoria
@@ -102,19 +111,15 @@ para simplificar este uso.
 (estructuras-y-memoria-alineacion-y-relleno-padding)=
 #### Estructuras y Memoria: Alineación y Relleno (Padding)
 
-El compilador de C inserta bytes de relleno invisibles (denominados **padding**)
-entre los miembros de un `struct` para que cada uno quede alineado en
-direcciones de memoria que sean múltiplos de su respectivo tamaño (por ejemplo,
-los enteros `int` en direcciones múltiplos de 4, los enteros `short` en
-múltiplos de 2, etc.).
+El compilador de C puede insertar bytes de relleno invisibles (denominados
+**padding**) entre los miembros de un `struct` para cumplir las restricciones de
+alineación de la implementación. La alineación no está definida universalmente
+como “múltiplo del tamaño”: depende del tipo, la plataforma y el ABI.
 
-La razón detrás de este comportamiento radica en la eficiencia del hardware: la
-CPU no accede a la RAM física byte a byte, sino en **palabras de memoria** de 32
-o 64 bits a través de su bus de datos. Si un entero de 4 bytes se encuentra en
-una dirección desalineada (por ejemplo, una dirección impar como `0x01`), la CPU
-se vería obligada a realizar dos transferencias físicas por el bus de datos y
-operaciones lógicas de shift para rearmar el valor, degradando la performance
-del sistema.
+La razón habitual es permitir accesos eficientes en una arquitectura concreta.
+El costo de un acceso desalineado depende de la CPU: puede ser más lento, estar
+permitido sin costo apreciable o generar una excepción. No debe deducirse una
+cantidad fija de transferencias de memoria solamente a partir de C.
 
 :::{figure} 7/alineamiento_struct.svg
 :label: fig-alineamiento-struct
@@ -156,7 +161,7 @@ La sintaxis es la siguiente:
 
 :::{code-block} c
 :linenos:
-size_t offsetof(type, member);
+offsetof(type, member)
 
 :::
 <!-- {code-block} c -->
@@ -403,6 +408,16 @@ requiere explicación detallada.
 
 :::{code-block} c
 :linenos:
+#include <stdbool.h>
+#include <time.h>
+
+enum tipo_transaccion
+{
+    TRANSFERENCIA,
+    DEPOSITO,
+    RETIRO
+};
+
 /**
  * Representa la configuración de una conexión de red.
  *
@@ -415,10 +430,9 @@ typedef struct
     char direccion_ip[16];   // Dirección IP en formato "xxx.xxx.xxx.xxx"
     unsigned short puerto;   // Puerto de destino (1-65535)
     int timeout_ms;          // Tiempo de espera en milisegundos para la
-    conexión bool usar_tls;  // true si se requiere conexión segura (TLS/SSL)
+    bool usar_tls;           // true si se requiere conexión segura (TLS/SSL)
     unsigned int reintentos; // Número máximo de intentos de reconexión
-    void *contexto_usuario;  // Puntero opaco para datos del usuario (puede
-    ser NULL)
+    void *contexto_usuario;  // Puntero opaco para datos del usuario; puede ser NULL
 } configuracion_red_t;
 
 :::
@@ -456,21 +470,16 @@ distribuido suele ser más efectivo:
  */
 typedef struct
 {
-    char id_transaccion[37]; // UUID único de la transacción (formato RFC
-    4122)
+    char id_transaccion[37]; // UUID único de la transacción (formato RFC 4122)
     long long monto;                // Monto en la menor unidad de la moneda
-    char numero_cuenta_origen[21];  // Número de cuenta origen (máx. 20 dígitos
-    + '\0')
-    char numero_cuenta_destino[21]; // Número de cuenta destino (máx. 20 dígitos
-    + '\0')
-    time_t timestamp;               // Momento exacto de la transacción (UNIX
-    epoch)
-    enum tipo_transaccion tipo;     // Tipo: TRANSFERENCIA, DEPOSITO, RETIRO,
-    etc.char descripcion[256];      // Descripción proporcionada por el usuario
+    char numero_cuenta_origen[21];  // Máx. 20 dígitos + '\0'
+    char numero_cuenta_destino[21]; // Máx. 20 dígitos + '\0'
+    time_t timestamp;               // Momento de la transacción
+    enum tipo_transaccion tipo;     // Tipo de operación
+    char descripcion[256];          // Descripción proporcionada por el usuario
     bool procesada;                 // true si la transacción ya fue procesada
     int codigo_resultado;           // 0 = éxito, != 0 = código de error
-    específico char firma_digital[65]; // Hash SHA-256 de la transacción (64
-    caracteres hex + '\0')
+    char firma_digital[65];         // Hash SHA-256 en hexadecimal + '\0'
 } transaccion_bancaria_t;
 
 :::
@@ -523,6 +532,9 @@ estructura `persona_t`:
 
 :::{code-block} c
 
+#include <stdlib.h>
+#include <string.h>
+
 typedef struct
 {
     char *nombre;
@@ -540,7 +552,7 @@ Primero, reservamos memoria para la estructura en sí:
 
 :::{code-block} c
 :linenos:
-persona_t *nuevo = malloc(sizeof(persona_t));
+persona_t *nuevo = malloc(sizeof *nuevo);
 if (nuevo == NULL)
 {
     // Manejar error de asignación
@@ -641,16 +653,17 @@ First Out).
 
 :::{code-block} c
 :linenos:
-void persona_destruir(persona_t *persona)
+void persona_destruir(persona_t **persona_out)
 {
-    if (persona == NULL)
+    if (persona_out == NULL || *persona_out == NULL)
     {
         return; // Nada que hacer
     }
     // 1. Liberar miembros internos primero
-    free(persona->nombre);
+    free((*persona_out)->nombre);
     // 2. Liberar la estructura contenedora
-    free(persona);
+    free(*persona_out);
+    *persona_out = NULL;
 }
 
 :::
@@ -720,8 +733,29 @@ void estudiante_destruir(estudiante_t *est)
 (ejercicios-de-autoevaluacion-punteros-a-estructuras)=
 #### Ejercicios de Autoevaluación (punteros en Estructuras)
 
+Diseñá `persona_crear` y `persona_destruir` para una estructura que contiene
+`char *nombre` reservado dinámicamente. La destrucción debe ser segura si la
+creación falla a mitad de camino.
 
-<!-- COMPLETAR -->
+:::{dropdown} Solución orientativa
+
+```c
+typedef struct { char *nombre; } persona_t;
+
+void persona_destruir(persona_t **pp)
+{
+    if (pp == NULL || *pp == NULL) return;
+    free((*pp)->nombre);
+    free(*pp);
+    *pp = NULL;
+}
+```
+
+La creación reserva primero el contenedor y luego una copia del nombre; ante
+cualquier error llama a `persona_destruir` y no deja una propiedad parcial. El
+parámetro doble permite invalidar también el puntero del llamador.
+
+:::
 
 
 
@@ -732,23 +766,20 @@ void estudiante_destruir(estudiante_t *est)
 (consideraciones-de-uso-y-diseno-new)=
 #### Consideraciones de Uso y Diseño
 
+:::{note} Alcance
+
+AoS, SoA, caché y SIMD no son necesarios para aprender `struct`: son una
+ampliación de diseño y rendimiento. El camino principal solo requiere
+reconocer la representación de un arreglo de estructuras; la comparación
+completa continúa a partir de acá.
+
+:::
+
 El diseño de estructuras va más allá de simplemente agrupar datos relacionados.
 Las decisiones sobre cómo organizar los miembros impactan directamente en la
 claridad del código, el rendimiento, la mantenibilidad y la corrección del
 programa. Esta sección explora principios y patrones de diseño fundamentales
 para crear estructuras efectivas.
-
-:::{warning} ¿Entra en el parcial?
-
-Este tema salió de una pregunta de discussions y aunque es importante ver por
-que y los efectos que tiene
-_no entra_ en el parcial.
-
-Lo que sí entra, es el hecho de utilizar, _la sintaxis intuitiva_ {ref}`AoS`, en
-lugar de {ref}`SoA`.
-
-:::
-<!-- {warning} ¿Entra en el parcial? -->
 
 ##### Arreglo de Estructuras vs Estructura de Arreglos
 
@@ -888,6 +919,22 @@ void actualizar_posiciones_soa(sistema_particulas_t *sistema, double dt)
 
 Este código es más fácil de vectorizar automáticamente por el compilador, ya que
 cada lazo procesa un arreglo contiguo de un solo tipo.
+
+Ninguna representación es universalmente superior: la elección debe basarse en
+el patrón de acceso dominante y un perfilado reproducible, no en la intuición.
+Si el acceso típico actualiza la partícula completa, AoS gana en localidad; si
+el acceso típico recorre un solo atributo de todas las partículas (por ejemplo,
+sumar todas las `x`), SoA evita traer a caché campos que no se usan.
+
+:::{dropdown} Mini-ejercicio
+
+Implementá una operación que sume una única componente (por ejemplo `x`) de
+`N` partículas, una vez en AoS y otra en SoA, y medí el tiempo con el
+compilador optimizando (`-O2`) para `N` grande. ¿La diferencia observada es
+consistente con la localidad esperada? Documentá CPU, compilador y `N` antes
+de generalizar.
+
+:::
 
 ###### Implementación Completa: Gestión de Memoria en SoA
 
@@ -1307,9 +1354,14 @@ datos heterogéneos de forma segura.
 (uniones-union-un-espacio-para-multiples-propositos)=
 ### Uniones (`union`): Un Espacio para Múltiples Propósitos
 
-Una `union` permite que varios miembros compartan la **misma ubicación de
-memoria**. Su tamaño es el de su miembro más grande. Solo un miembro puede estar
-"activo" a la vez.
+La introducción breve puede leerse después de `struct`; los casos de tagged
+unions y reinterpretación de bytes se relacionan con
+{ref}`cast-aritmetico-vs-cast-de-reinterpretacion` en `9_casts.md`.
+
+Una `union` permite que varios miembros compartan la **misma región de
+almacenamiento**. Su tamaño es, como mínimo, el del miembro más grande y puede
+incluir padding para cumplir la alineación. En el diseño habitual se mantiene
+una etiqueta que indica qué interpretación debe usar el programa.
 
 :::{figure} 7/union_vs_struct.svg
 :name: fig-union-vs-struct
@@ -1388,9 +1440,10 @@ Este patrón es la base para implementar tipos de datos polimórficos en C.
 #### Documentación de Uniones
 
 Las uniones (`union`) requieren documentación particularmente cuidadosa debido a
-que múltiples miembros comparten la misma ubicación de memoria. Es fundamental
-documentar cuándo y cómo debe accederse a cada miembro para evitar
-comportamiento indefinido.
+que múltiples miembros comparten la misma región de almacenamiento. El acceso a
+un miembro distinto del que representa el estado actual puede ser dependiente de
+la implementación o producir una representación no válida; una unión etiquetada
+debe validar siempre la etiqueta antes de leer el valor.
 
 ##### Enfoque 1: Bloque de Documentación Único
 
@@ -1405,9 +1458,9 @@ explica claramente el propósito y las restricciones de uso.
  * Esta unión facilita la conversión entre representaciones enteras
  * y de punto flotante de 32 bits sin necesidad de casting explícito.
  *
- * ADVERTENCIA: Solo el último miembro asignado contiene un valor
- * válido. Leer un miembro distinto al último escrito resulta en
- * comportamiento indefinido según el estándar C.
+ * ADVERTENCIA: La etiqueta y el miembro leído deben mantenerse consistentes.
+ * La interpretación de otro miembro puede depender de la implementación y no
+ * debe usarse como conversión portable entre representaciones.
  *
  * Miembros:
  *   - como_int: Interpreta los 32 bits como entero con signo
@@ -1658,11 +1711,10 @@ o 64 bits, es decir, 4 u 8 bytes). Para optimizar el rendimiento de las
 operaciones de lectura y escritura en el bus de datos, el hardware impone
 restricciones de alineación.
 
-La **alineación natural** establece que una variable de tamaño $T$ bytes debe
-almacenarse en una dirección de memoria que sea múltiplo de $T$. Si un dato no
-se encuentra alineado, el procesador requerirá múltiples accesos a memoria para
-leer un único valor, degradando el rendimiento del sistema o, en ciertas
-arquitecturas, provocando una excepción de hardware (*bus error*).
+En una implementación concreta, cada tipo tiene una restricción de alineación.
+No es correcto deducirla siempre del tamaño `T`. Si un dato no se encuentra
+alineado, el costo depende de la arquitectura: puede degradar el rendimiento o,
+en ciertas arquitecturas, provocar una excepción de hardware.
 
 Para cumplir con estas restricciones sin intervención del programador, el
 compilador introduce automáticamente bytes de relleno denominados **padding**
@@ -1694,9 +1746,9 @@ empíricamente en el Laboratorio 1.
 
 El compilador reorganiza el espacio aplicando las siguientes reglas:
 
-1. **Alineación de miembros**: Cada miembro debe alinearse a una dirección
-   múltiplo de su propio tamaño. `tipo` se ubica en el desplazamiento (*offset*)
-   0. `id` requiere un offset múltiplo de 4; por ende, se añaden 3 bytes de
+1. **Alineación de miembros**: Cada miembro se ubica según la restricción de
+   alineación de la implementación. En el ABI supuesto, `tipo` se ubica en el
+   desplazamiento (*offset*) 0 e `id` requiere un offset múltiplo de 4; por ende, se añaden 3 bytes de
    relleno (*padding*) en los desplazamientos 1, 2 y 3, ubicando a `id` en el
    offset 4 (ocupando los bytes 4, 5, 6 y 7). `estado` se coloca en el offset 8.
 2. **Alineación de la estructura completa**: El tamaño total de la estructura

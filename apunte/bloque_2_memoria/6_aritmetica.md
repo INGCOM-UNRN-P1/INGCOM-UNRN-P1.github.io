@@ -21,10 +21,31 @@ profundizamos en el manejo de {ref}`capitulo-estructuras` que
 contienen punteros, problemas comunes de gestión de memoria, y técnicas para
 trabajar con matrices dinámicas.
 
+:::{note} Recorrido principal y ampliaciones
+
+El recorrido obligatorio comienza con aritmética sobre arreglos unidimensionales,
+continúa con doble indirección y termina con matrices dinámicas básicas. La
+copia de objetos con {ref}`memcpy-copia-de-memoria` y sus riesgos de aliasing
+son una ampliación dentro de este mismo capítulo.
+
+:::
+
 
 
 (problemas-comunes-de-memoria-dinamica)=
 ### Problemas Comunes de Memoria Dinámica
+
+:::::{admonition} Repaso opcional completo
+:class: dropdown
+
+:::{admonition} Repaso opcional
+:class: dropdown
+
+La explicación normativa de fugas, `free` y `realloc` pertenece a
+`5_memoria_dinamica.md`. Esta sección solo sirve como repaso breve; no agrega un
+prerrequisito nuevo a la aritmética de punteros.
+
+:::
 
 
 Esta sección detalla errores frecuentes en la gestión de memoria dinámica y sus
@@ -236,14 +257,33 @@ void funcion()
 (ejercicios-de-autoevaluacion-problemas-de-memoria)=
 #### Ejercicios de Autoevaluación (Problemas de Memoria)
 
+Indicá cuáles de estas llamadas a `free` son válidas:
 
-<!--TODO: Completar -->
+```c
+int v[3];
+int *a = malloc(3 * sizeof *a);
+int *b = a + 1;
+free(v);       /* A */
+free(b);       /* B */
+free(a);       /* C */
+```
+
+:::{dropdown} Solución
+
+Ni A ni B son válidas: `v` tiene duración automática y `b` no es la dirección
+devuelta por el allocator. C es la única liberación correcta. Si se pierde `a`
+antes de liberar el bloque hay una fuga; por eso no se debe sobrescribir el
+puntero propietario con una dirección interior.
+
+:::
 
 
 
 
 
 ---
+
+:::::
 
 
 (funciones-adicionales-de-gestion-de-memoria)=
@@ -476,6 +516,31 @@ memcpy(&arr[3], &arr[0], 7 * sizeof(int));  // Indefinido
 :::
 <!-- {code-block} c -->
 
+`memcpy` puede asumir que las regiones no se solapan y optimizar en
+consecuencia (por ejemplo, copiando de a bloques grandes en cualquier orden).
+`memmove` no hace esa suposición: siempre produce el resultado correcto, a
+costa de una posible copia auxiliar o de recorrer en el orden adecuado.
+Ninguna de las dos funciones sustituye una copia semántica de estructuras con
+ownership interno: copiar punteros por bytes puede producir doble liberación.
+
+```bash
+gcc -std=c11 -Wall -Wextra -fsanitize=address programa.c -o programa
+```
+
+Compilar con AddressSanitizer no detecta un `memcpy` con solapamiento por sí
+solo (es comportamiento indefinido, no necesariamente un acceso inválido),
+pero sí ayuda a encontrar los desbordes de las regiones involucradas.
+
+:::{dropdown} Mini-ejercicio
+
+Escribí un `memcpy` propio ingenuo (copiando byte a byte de menor a mayor
+dirección) y usalo para desplazar un arreglo un lugar a la derecha sobre sí
+mismo (`memcpy(a + 1, a, (n - 1) * sizeof *a)`). Ejecutalo y explicá por qué
+el resultado es incorrecto, y qué cambiaría si copiaras de mayor a menor
+dirección.
+
+:::
+
 ::::
 <!-- {danger} Solapamiento -->
 
@@ -498,16 +563,17 @@ void funcion(int cantidad)
 :::
 <!-- {code-block} c -->
 
-:::{danger} VLAs Prohibidos en Esta Materia
+:::{danger} VLAs no incluidos en el camino principal
 
-Los VLAs están **explícitamente prohibidos** en este curso. Usá memoria dinámica
-(`malloc`) en su lugar.
+La cátedra no incluye VLA en el camino principal por razones de portabilidad y
+control del stack. El estándar C99 sí define VLA en las implementaciones que los
+soportan. Para los ejercicios de este bloque, usá memoria dinámica (`malloc`).
 
 :::
 <!-- {danger} VLAs Prohibidos en Esta Materia -->
 
 (por-que-prohibimos-vlas)=
-#### ¿Por Qué Prohibimos VLAs?
+#### ¿Por Qué No Son Parte del Camino Principal?
 
 ##### 1. Asignación en el Stack
 
@@ -590,7 +656,23 @@ void funcion(int cantidad)
 (ejercicios-de-autoevaluacion-funciones-de-gestion-y-vlas)=
 #### Ejercicios de Autoevaluación (Funciones de Gestión y VLAs)
 
-<!--TODO: Completar -->
+Compará estas dos funciones y explicá cuándo preferirías cada una:
+
+```c
+void suma_vla(size_t n, const int a[n], int *r);
+int *suma_heap(size_t n, const int *a);
+```
+
+:::{dropdown} Solución
+
+La primera recibe almacenamiento cuyo ciclo de vida pertenece al llamador; el
+VLA puede vivir en la pila y su tamaño está limitado por la implementación. La
+segunda reserva el resultado en el heap, devuelve `NULL` ante un fallo y
+transfiere al llamador la responsabilidad de `free`. En material portable se
+debe tratar el soporte de VLA como una decisión de implementación, no como una
+garantía universal del estándar C moderno.
+
+:::
 
 
 
@@ -702,12 +784,10 @@ void inicializar_correcto(int **ptr)
 {
     if (ptr == NULL || *ptr != NULL)
     {
-        return; // Cláusula de guarda para evitar desreferenciar un puntero
-                // nulo
-        o reasignar memoria
+        return; // Evita desreferenciar un puntero nulo o reasignar memoria
     }
-    *ptr = malloc(sizeof(int)); // Desreferencia para modificar el puntero
-    original if (*ptr != NULL)
+    *ptr = malloc(sizeof **ptr); // Modifica el puntero del llamador
+    if (*ptr != NULL)
     {
         **ptr = 42; // Modifica el valor entero apuntado
     }
@@ -778,8 +858,7 @@ recurso_status_t recurso_crear(recurso_t **recurso_out, const char *nombre,
     }
     if (*recurso_out != NULL)
     {
-        return RECURSO_ERR_PRECONDICION; // Evita fugas de memoria si ya tiene
-        memoria asignada
+        return RECURSO_ERR_PRECONDICION; // Ya tiene memoria asignada
     }
     recurso_t *nuevo = malloc(sizeof(recurso_t));
     if (nuevo == NULL)
@@ -825,6 +904,9 @@ robustez del apunte.
 
 (matrices-dinamicas)=
 ### Matrices Dinámicas
+
+Las variantes tridimensionales, VLA y las técnicas de representación
+especializadas quedan fuera del camino principal de este apunte.
 
 
 Una **matriz** (arreglo bidimensional) puede implementarse de varias formas en
@@ -1045,11 +1127,11 @@ int val = matriz_get(matriz, i, j, columnas);
 - Fácil cometer errores en el cálculo de índices
 
 (enfoque-3-bloque-unico-con-cast-avanzado)=
-#### Enfoque 3: Bloque Único con Cast Avanzado
+#### Enfoque 3: Bloque Único con Puntero a Array
 
 Este enfoque combina lo mejor de ambos mundos: **memoria contigua** del Enfoque
-2 con la **sintaxis natural** del Enfoque 1, mediante un cast especial del
-puntero constante. Es fundamental aclarar que, para evitar la definición de
+2 con la **sintaxis natural** del Enfoque 1, mediante un puntero a un array. Es
+fundamental aclarar que, para evitar la definición de
 tipos modificados dinámicamente en tiempo de ejecución (que constituyen una
 forma de VLA prohibida), las dimensiones de las columnas deben ser constantes
 conocidas en tiempo de compilación.
@@ -1154,24 +1236,24 @@ int (*matriz3)[COLUMNAS]; // Puntero a array de COLUMNAS ints
 :::
 <!-- {code-block} c -->
 
-##### El Enfoque 3 y la Prohibición de VLAs
+##### El Enfoque 3 y los Tipos Modificados
 
-:::{important} Prohibición Absoluta de VLAs
+:::{important} Restricción del camino principal
 
 Cuando se declara `int (*matriz)[columnas]` con `columnas` como una variable
 evaluada en tiempo de ejecución, se define un **puntero a un tipo modificado de
 forma variable** (puntero a VLA). Aunque esta asignación se realice en el heap,
 la sintaxis involucra un tipo VLA en runtime.
 
-En esta cátedra, **los VLAs están estrictamente prohibidos en todas sus
-formas**, incluyendo punteros a arrays de tamaño variable en tiempo de
-ejecución. Por lo tanto, el Enfoque 3 solo es admisible si las dimensiones son
-constantes conocidas en tiempo de compilación (como `#define COLUMNAS 4`).
+En esta cátedra, los VLA y los punteros a arrays de tamaño variable quedan fuera
+del camino principal. El Enfoque 3 de este capítulo solo se muestra con
+dimensiones constantes conocidas en tiempo de compilación (como
+`#define COLUMNAS 4`).
 
 :::
-<!-- {important} Prohibición Absoluta de VLAs -->
+<!-- {important} Uso de VLAs condicionado por la implementación -->
 
-Para C89 y para cumplir las directivas de la materia se utiliza:
+Para mantener una dimensión de columnas fija y evitar tipos modificados se utiliza:
 
 :::{code-block} c
 :linenos:
@@ -1250,7 +1332,34 @@ int (*matriz)[COLUMNAS] = malloc(sizeof(int) * COLUMNAS * filas);
 
 (ejercicios-de-autoevaluacion-doble-indireccion-y-matrices)=
 #### Ejercicios de Autoevaluación (Doble Indirección y Matrices)
-<!--TODO: Completar -->
+Implementá `crear_matriz` para reservar un bloque contiguo de `filas * columnas`
+enteros y dejar `*salida` en `NULL` si la operación falla. ¿Qué overflow debés
+evitar?
+
+:::{dropdown} Solución
+
+```c
+#include <stdint.h>
+#include <stdlib.h>
+
+int crear_matriz(size_t filas, size_t columnas, int **salida)
+{
+    if (salida == NULL || filas == 0 || columnas == 0 ||
+        filas > SIZE_MAX / columnas ||
+        filas * columnas > SIZE_MAX / sizeof **salida)
+        return 0;
+    int *p = malloc(filas * columnas * sizeof *p);
+    if (p == NULL) return 0;
+    *salida = p;
+    return 1;
+}
+```
+
+La doble indirección permite modificar el puntero del llamador. El producto se
+valida antes de calcular el tamaño en bytes; al finalizar se libera con
+`free(*salida)`.
+
+:::
 
 
 

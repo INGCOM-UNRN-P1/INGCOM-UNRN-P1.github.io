@@ -428,6 +428,38 @@ casos, tiene implicaciones importantes:
 :::
 <!-- {note} Implicaciones Prácticas -->
 
+**TLB y caché:** la MMU no traduce cada dirección desde cero. La **TLB**
+(*Translation Lookaside Buffer*) guarda traducciones de página recientes, y una
+falta de página puede requerir intervención del sistema operativo. La caché de
+la CPU agrega una capa adicional: dos objetos próximos en memoria favorecen el
+rendimiento, pero eso no cambia su validez ni su duración según el estándar.
+
+:::{warning} No confundas hardware con garantías del lenguaje
+
+El tamaño de página, la política de reemplazo de la TLB y la jerarquía de
+caché son propiedades de una plataforma concreta, no del lenguaje C. Para
+estudiar rendimiento hay que registrar CPU, compilador, optimizaciones y
+tamaño de entrada; una dirección impresa en una corrida no es prueba de que
+una operación sea portable.
+
+:::
+
+Podés observar estos parámetros de tu propia plataforma sin escribir código:
+
+```bash
+getconf PAGESIZE                         # tamaño de página del sistema
+cat /proc/cpuinfo | grep "cache size"    # jerarquía de caché (Linux)
+cat /proc/self/maps                       # mapeo de segmentos del proceso en ejecución
+```
+
+:::{dropdown} Mini-ejercicio
+
+¿Por qué dos punteros con direcciones numéricamente cercanas no garantizan
+mejor rendimiento por sí solos? Pensá en alineación, línea de caché y patrón
+de acceso, y explicá qué medición confirmaría (o refutaría) una mejora.
+
+:::
+
 (segmentacion-de-la-memoria)=
 #### Segmentación de la Memoria
 
@@ -643,9 +675,45 @@ accesos a memoria.
 5. **Limpieza (caller):**
    - Se limpia el espacio usado para argumentos (según la convención)
 
-*(El funcionamiento detallado en código ensamblador y a nivel de registros se
-explica en la sección de la sección de ensamblador al final de este capítulo al
-final de este capítulo).*
+*(El funcionamiento detallado en código ensamblador, con el prólogo y epílogo
+completos, se desarrolla en {ref}`funcionamiento-de-la-pila-en-ensamblador-x86-64`,
+dentro de `5_memoria_dinamica.md`).*
+
+:::{dropdown} Mini-ejercicio: prólogo y epílogo en la práctica
+
+Compilá una función recursiva simple con `-O0` y con `-O2` y comparé la
+salida de `objdump -d`. ¿El prólogo sigue guardando `rbp`? ¿Se ve alguna
+transformación de la recursión en un lazo (*tail call*)? Documentá versión de
+gcc y flags usados antes de sacar conclusiones: el resultado depende de la
+implementación, no del estándar.
+
+:::
+
+**Contar marcos durante una recursión.** Cada llamada agrega un marco nuevo;
+cada `return` lo destruye antes de volver al llamador. Alcanza con trazar la
+profundidad para estimar cuántos marcos coexisten en el punto de mayor
+recursión, sin depender de direcciones concretas:
+
+```text
+factorial(3)
+  └─ factorial(2)
+       └─ factorial(1)
+            └─ factorial(0)   ← caso base, no agrega marco nuevo
+```
+
+La variable `n` de cada llamada vive en su propio marco: `factorial(3)` y
+`factorial(2)` tienen cada una su `n`, y ninguna se pisa con la otra. El
+desarrollo completo de este razonamiento continúa en la introducción a
+recursividad del Bloque 3
+([`7_recursividad_intro.md`](../bloque_3_algoritmos_estructuras/7_recursividad_intro.md)).
+
+:::{dropdown} Mini-ejercicio
+
+Para una recursión de profundidad `n`, ¿cuántos marcos coexisten en el punto
+de mayor profundidad? ¿Qué le pasa a esa cantidad si la función hace dos
+llamadas recursivas en vez de una (como en Fibonacci ingenuo)?
+
+:::
 
 :::{important} Implicaciones de la Estructura del Stack
 

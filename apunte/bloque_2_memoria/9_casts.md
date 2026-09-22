@@ -158,6 +158,7 @@ dirección física de la memoria.
 Las conversiones de tipos no son meramente lógicas; tienen un impacto físico
 directo en cómo la CPU manipula los bits de las variables en la memoria RAM.
 
+(cast-aritmetico-vs-cast-de-reinterpretacion)=
 #### Cast Aritmético vs. Cast de Reinterpretación
 
 Es fundamental diferenciar conceptualmente entre dos tipos de transformaciones:
@@ -174,6 +175,40 @@ Es fundamental diferenciar conceptualmente entre dos tipos de transformaciones:
     memoria física bajo las reglas de otro tipo de dato. Esto se realiza
     únicamente a través del casteo de punteros (lo que se analizará en detalle
     en el capítulo de Aritmética de Punteros).
+
+```c
+float f = 3.14f;
+
+int i = (int) f;               /* conversión de valor: trunca a 3 */
+
+int j;
+memcpy(&j, &f, sizeof j);      /* reinterpretación de bytes: patrón IEEE 754 de f */
+```
+
+`(int) f` produce el número `3`: es una conversión de valor definida por el
+lenguaje. `memcpy(&j, &f, sizeof j)` copia los mismos bytes que forman `f` y
+los deja en `j` como si fueran un `int`; el resultado es un número grande y
+sin relación aritmética con `3.14`, porque son los bits del formato de punto
+flotante leídos como enteros. El error típico es escribir
+`int j = *(int *) &f;`, que reinterpreta el objeto en el lugar y viola el
+**tipo efectivo** (*effective type*) de `f`: es comportamiento indefinido por
+**aliasing estricto**, aunque compile y a veces "funcione".
+
+Leer un objeto mediante `unsigned char *` sí permite inspeccionar sus bytes
+sin violar el tipo efectivo: es la única excepción que hace el estándar. Eso
+no habilita a tratar esos bytes como un `double *` arbitrario: la alineación,
+el tipo efectivo y el tamaño siguen siendo requisitos al escribir de vuelta.
+Para copiar una representación, usá `memcpy`; para convertir un valor, usá una
+conversión de C.
+
+:::{dropdown} Mini-ejercicio
+
+Compilá con optimizaciones (`-O2`) una función que reinterprete un `float`
+como `int` con un cast de puntero (`*(int *) &f`) en vez de `memcpy`, y
+compará el resultado con y sin la opción `-fno-strict-aliasing`. ¿Por qué el
+resultado puede diferir aunque el código fuente no haya cambiado?
+
+:::
 
 #### Conversión entre Signed y Unsigned (Complemento a 2)
 

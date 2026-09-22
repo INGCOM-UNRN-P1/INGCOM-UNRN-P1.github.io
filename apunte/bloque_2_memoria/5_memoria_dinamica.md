@@ -4,7 +4,7 @@ short_title: 'Memoria Dinámica'
 description: 'Gestión y alocación en el Heap utilizando malloc, calloc, realloc y free.'
 ---
 
-> **Prerrequisitos**: punteros, structs básicos, duración de variables y `<stdlib.h>`.
+> **Prerrequisitos**: punteros, arreglos, `sizeof`, `size_t` y duración de variables.
 >
 > **Objetivos**: 1. Reservar memoria y comprobar el resultado de `malloc`. 2. Asociar cada reserva exitosa con una única liberación.
 >
@@ -20,6 +20,17 @@ debés poder responder en cada paso. Antes de usar `malloc`, identificá quién
 adquiere el bloque, quién puede usarlo y quién lo libera. Este capítulo sigue a
 estructuras y tipos porque esas herramientas permiten expresar esa propiedad con
 claridad.
+
+:::
+
+:::{note} Recorrido principal
+
+Este capítulo cubre el ciclo de vida y la propiedad de bloques dinámicos. Los
+detalles de implementación del allocator ({ref}`el-allocator-gestion-interna-del-heap`)
+y de seguridad ofensiva ({ref}`seguridad-de-memoria-una-perspectiva-profunda`)
+son ampliaciones dentro del mismo capítulo y no son necesarios para dominar
+`malloc`/`free`. El análisis en ensamblador de la pila está en
+{ref}`funcionamiento-de-la-pila-en-ensamblador-x86-64`.
 
 :::
 
@@ -79,8 +90,9 @@ usar `malloc` para asignar memoria para cualquier tipo de dato.
 
 - Un puntero de tipo `void *` a la primera dirección del bloque reservado si la
   operación es exitosa.
-- `NULL` si no hay suficiente memoria disponible o si `size` es 0
-  (comportamiento dependiente de la implementación).
+- `NULL` si no hay suficiente memoria disponible. Para `size == 0`, el resultado
+  puede ser `NULL` o un puntero que no debe desreferenciarse; no debe usarse para
+  representar un bloque de elementos.
 
 ##### ¿Por qué la memoria no está inicializada?
 
@@ -148,13 +160,29 @@ Verificar el retorno de `malloc` permite que tu programa:
 :::
 <!-- {tip} ¿Por qué verificar si `malloc` retorna `NULL`? -->
 
+:::{warning} Overflow al calcular tamaños
+
+La multiplicación del número de elementos por el tamaño de cada elemento también
+puede desbordar `size_t`. Comprobá el límite antes de multiplicar:
+
+```c
+#include <stdint.h>
+
+if (cantidad > SIZE_MAX / sizeof(*numeros))
+{
+    return 1; /* el tamaño solicitado no es representable */
+}
+```
+
+:::
+
 :::{note} Cast Explícito
 
-En C, no es necesario hacer cast del puntero `void *` retornado por `malloc` a
-otro tipo de puntero, ya que la conversión es implícita. Sin embargo, algunos
-programadores prefieren el cast explícito por claridad o para compatibilidad con
-C++. La {ref}`0x300Ah` recomienda usar cast explícito al convertir tipos de
-punteros por claridad.
+En C, no es necesario ni recomendable hacer cast del puntero `void *` retornado
+por `malloc`: la conversión a otro tipo de puntero es implícita. El cast puede
+ocultar la ausencia de `<stdlib.h>` y producir warnings menos útiles. La
+compatibilidad con C++ requiere una decisión de lenguaje distinta, no un cast
+añadido a código C.
 
 :::
 <!-- {note} Cast Explícito -->
@@ -197,8 +225,9 @@ Usá `calloc` cuando:
 
 - Necesitás que la memoria esté inicializada a cero.
 - Estás creando un arreglo y querés que tu código sea más claro.
-- Trabajás con estructuras que contienen punteros que deben ser `NULL`
-  inicialmente.
+- Necesitás que los bytes comiencen en cero. Eso no garantiza por sí solo que
+  todos los campos puntero tengan la representación de `NULL`; inicializá esos
+  campos explícitamente cuando sea necesario.
 
 Usá `malloc` cuando:
 
@@ -265,10 +294,9 @@ Cambia el tamaño de un bloque de memoria previamente asignado.
     -   El bloque se trunca. Los datos al final se pierden.
 
 3.  **Si `new_size` es 0:**
-    -   **¡Evitar!** En estándares modernos (C17/C23), llamar a `realloc(ptr,
-        0)` está formalmente declarado como comportamiento indefinido u
-        obsoleto. No debe usarse bajo ninguna circunstancia como sustituto de
-        `free()`. Para liberar memoria, utilizá siempre la función `free()`.
+    -   **¡Evitar!** El tratamiento de `realloc(ptr, 0)` cambió entre versiones
+        del estándar y puede ser dependiente de la implementación. No lo uses
+        como sustituto de `free()`; liberá con `free(ptr)` y asigná `NULL`.
 
 ##### Valor de Retorno
 
@@ -340,16 +368,17 @@ void free(void *ptr);
 
 ##### Propósito
 
-Libera un bloque de memoria previamente reservado, devolviéndolo al sistema
-operativo para que pueda ser reutilizado.
+Libera un bloque de memoria previamente reservado y lo devuelve al allocator del
+proceso para que pueda ser reutilizado. El allocator puede, o no, devolver
+eventualmente páginas al sistema operativo.
 
 ##### Reglas Fundamentales
 
 Según la {ref}`0x3002h`, debés:
 
 1. Liberar siempre la memoria dinámica que asignaste.
-2. Asignar `NULL` al puntero inmediatamente después de liberarlo para prevenir
-   punteros colgantes.
+2. Asignar `NULL` a la variable puntero inmediatamente después de liberarlo
+   para evitar reutilizar esa variable. Esto no invalida otros aliases.
 
 Es seguro llamar a `free(NULL)`, la función simplemente no hace nada.
 
@@ -373,6 +402,16 @@ de abstracción consistente y facilita el mantenimiento.
 
 (el-allocator-gestion-interna-del-heap)=
 #### El Allocator: Gestión Interna del Heap
+
+:::{note} Alcance
+
+Esta sección no es necesaria para dominar `malloc` y `free`; es una ampliación
+sobre la implementación interna del heap. `malloc`, `calloc`, `realloc` y
+`free` son la interfaz del lenguaje: el allocator concreto pertenece a la
+biblioteca de ejecución y puede variar entre plataformas. No hay que inferir
+tamaños de headers ni estrategias concretas a partir del estándar C.
+
+:::
 
 Cuando llamás a `malloc` o `calloc`, no estás interactuando directamente con el
 sistema operativo en cada llamada. En cambio, estas funciones son parte de un
@@ -460,7 +499,6 @@ ocasionalmente el sistema operativo que proporciona acceso a la RAM física.
 
 :::
 <!-- {figure} 5/allocator_flow.svg -->
-<!-- {figure} 1/allocator_flow.svg -->
 
 **Coalescing (Fusión de bloques):**
 
@@ -477,7 +515,6 @@ LIBRE-C) se combinan en un único bloque más grande (LIBRE-BC fusionado).
 
 :::
 <!-- {figure} 5/coalescing.svg -->
-<!-- {figure} 1/coalescing.svg -->
 
 :::{tip} Implicaciones para el Programador
 
@@ -497,11 +534,65 @@ varios fenómenos:
 :::
 <!-- {tip} Implicaciones para el Programador -->
 
+**Un pool como alternativa al patrón de asignación:** un programa que crea
+miles de objetos pequeños paga una llamada y metadatos por objeto. Si el
+tamaño es conocido de antemano, un bloque contiguo o un *pool* puede reducir
+esa sobrecarga. Un pool no reemplaza `free`: sus elementos se devuelven al
+pool y el bloque completo se libera una sola vez al destruirlo. Mezclar
+punteros de un pool con `free()` directo es un error.
+
+Para comparar estrategias medí tiempo, memoria residente y fallos de caché; una
+implementación puede cambiar entre versiones de la libc. Documentá libc,
+sistema operativo, arquitectura y flags antes de generalizar resultados:
+
+```bash
+valgrind --tool=massif ./programa   # perfil de uso de heap en el tiempo
+malloc_stats();                      # glibc: resumen por stderr en tiempo de ejecución
+```
+
+`malloc_stats` y `mallinfo` son extensiones de glibc, no funciones de C
+estándar: usarlas ata el código a esa biblioteca.
+
+:::{dropdown} Mini-ejercicio
+
+Reservá 100&nbsp;000 bloques de 8 bytes con `malloc` y medí el tiempo total.
+Repetí reservando un único bloque de 800&nbsp;000 bytes e indexando
+manualmente. ¿A qué atribuís la diferencia: al algoritmo, a la metadata por
+bloque, o a ambos? Proponé una medición que los distinga.
+
+:::
+
 (ejercicios-de-autoevaluacion-funciones-de-gestion)=
 #### Ejercicios de Autoevaluación (Funciones de Gestión)
 
+1. Reservá espacio para `n` enteros, inicializalos en cero y liberá el arreglo.
+   ¿Qué validaciones son necesarias antes de multiplicar `n * sizeof(int)`?
 
-<!--TODO: Completar -->
+2. Ampliá un arreglo existente sin perder el puntero original si `realloc` falla.
+
+:::{dropdown} Solución orientativa
+
+```c
+#include <stdint.h>
+#include <stdlib.h>
+
+size_t bytes;
+if (n == 0 || n > SIZE_MAX / sizeof(int))
+    return NULL;
+bytes = n * sizeof(int);
+
+int *tmp = realloc(*datos, bytes);
+if (tmp == NULL)
+    return NULL;                 /* *datos sigue siendo válido */
+*datos = tmp;
+return tmp;
+```
+
+La variable temporal evita perder la dirección original. `calloc` puede usarse
+cuando se requiere inicialización a cero, pero nunca reemplaza la comprobación
+de overflow ni la de `NULL`.
+
+:::
 
 
 
@@ -767,8 +858,36 @@ es altamente recomendable durante el desarrollo.
 (ejercicios-de-autoevaluacion-errores-comunes-y-peligros)=
 #### Ejercicios de Autoevaluación (Errores Comunes y Peligros)
 
+Clasificá cada caso como fuga, uso después de liberar, doble liberación o acceso
+fuera de límites, y proponé una corrección:
 
-<!--TODO: Completar -->
+```c
+int *p = malloc(4 * sizeof *p);
+p[4] = 10;
+free(p);
+printf("%d\n", p[0]);
+free(p);
+```
+
+:::{dropdown} Solución
+
+`p[4]` escribe fuera del arreglo (los índices válidos son `0..3`); el `printf`
+usa un puntero colgante y el segundo `free` es una doble liberación. La versión
+segura comprueba la capacidad, libera una sola vez y evita volver a usar el
+puntero:
+
+```c
+if (p != NULL) {
+    p[3] = 10;
+    free(p);
+    p = NULL;
+}
+```
+
+Poner `p` en `NULL` no repara copias del puntero que existan en otras variables;
+la propiedad del bloque debe estar clara en el diseño.
+
+:::
 
 
 
@@ -776,6 +895,14 @@ es altamente recomendable durante el desarrollo.
 
 (seguridad-de-memoria-una-perspectiva-profunda)=
 ### Seguridad de Memoria: Una Perspectiva Profunda
+
+:::{admonition} Lectura avanzada
+:class: dropdown
+
+La gestión básica termina en la sección anterior. Esta sección se conserva como
+material de ampliación sobre buffer overflow, use-after-free y double free.
+
+:::
 
 
 La seguridad de memoria (memory safety) es uno de los desafíos más importantes
@@ -871,13 +998,14 @@ contener, sobrescribiendo memoria adyacente.
 
 :::{code-block}c
 :linenos:
-void vulnerable()
+#include <string.h>
+
+/* Ejemplo deliberadamente vulnerable: no usar en producción. */
+void vulnerable(const char *entrada)
 {
     char buffer[10];
-    char *datos_importantes = "SECRETO";
-    // Un atacante puede escribir más de 10 bytes:
-    strcpy(buffer, datos_maliciosos_largos);
-    // Ahora datos_importantes puede haber sido sobrescrito
+    // Solo como demostración de un error: entrada puede superar la capacidad.
+    strcpy(buffer, entrada);
 }
 
 :::
@@ -907,6 +1035,8 @@ críticos:
 
 :::{code-block}c
 :linenos:
+/* Pseudocódigo de una UAF: los identificadores representan datos externos. */
+const char *datos_del_atacante = "entrada externa";
 struct usuario
 {
     char nombre[50];
@@ -1005,12 +1135,16 @@ void destruir_recurso(recurso_t *r);
 
 :::{code-block}c
 :linenos:
-// En lugar de:
-strcpy(dest, src); // No verifica límites
-// Usar:
-strncpy(dest, src, sizeof(dest) - 1);
-dest[sizeof(dest) - 1] = '\0';
-// O mejor aún, alocar dinámicamente con el tamaño correcto
+#include <stdio.h>
+
+/* La capacidad debe viajar junto con el buffer. */
+int copiar_texto(char *destino, size_t capacidad, const char *origen)
+{
+    if (destino == NULL || origen == NULL || capacidad == 0)
+        return 0;
+    int escrito = snprintf(destino, capacidad, "%s", origen);
+    return escrito >= 0 && (size_t)escrito < capacidad;
+}
 
 :::
 <!-- {code-block}c -->
@@ -1033,8 +1167,37 @@ debe ser parte del diseño desde el principio, no un añadido posterior.
 (ejercicios-de-autoevaluacion-seguridad-de-memoria)=
 #### Ejercicios de Autoevaluación (Seguridad de Memoria)
 
+El siguiente código procesa una entrada externa. Señalá dos riesgos y
+reescribilo suponiendo que `dest` tiene capacidad `cap`:
 
-<!--TODO: Completar -->
+```c
+void copiar(const char *entrada, char *dest, size_t cap)
+{
+    strcpy(dest, entrada);
+}
+```
+
+:::{dropdown} Solución
+
+El riesgo principal es el desbordamiento de `dest`; además, la entrada puede no
+ser un puntero válido o puede no contener un `\\0`. La interfaz debe documentar
+la precondición sobre ambos punteros y limitar la operación:
+
+```c
+int copiar(const char *entrada, char *dest, size_t cap)
+{
+    int escritos;
+    if (entrada == NULL || dest == NULL || cap == 0)
+        return 0;
+    escritos = snprintf(dest, cap, "%s", entrada);
+    return escritos >= 0 && (size_t)escritos < cap;
+}
+```
+
+En código real conviene validar también el origen antes de copiar; ninguna
+función puede hacer segura una dirección ya inválida.
+
+:::
 
 
 
@@ -1288,8 +1451,35 @@ funcion:
 (ejercicios-de-autoevaluacion-conceptos-avanzados-y-bajo-nivel)=
 #### Ejercicios de Autoevaluación (Conceptos Avanzados y Bajo Nivel)
 
+Observá:
 
-<!--TODO: Completar -->
+```c
+int *crear(void)
+{
+    int local = 42;
+    return &local;
+}
+```
+
+Explicá qué ocurre al usar el resultado y proponé dos alternativas válidas.
+
+:::{dropdown} Solución
+
+Al retornar termina la duración de `local`; el puntero queda colgante y
+desreferenciarlo produce comportamiento indefinido. Se puede devolver un valor
+por copia (`int crear(void) { return 42; }`) o reservar almacenamiento dinámico
+y transferir explícitamente su propiedad:
+
+```c
+int *crear(void)
+{
+    int *p = malloc(sizeof *p);
+    if (p != NULL) *p = 42;
+    return p;                    /* quien recibe debe llamar a free */
+}
+```
+
+:::
 
 
 
