@@ -9,6 +9,11 @@ contenido (fusionar/eliminar/desarrollar), y por último lo cosmético.
 Cada tarea indica: archivo(s), acción concreta, y si requiere una decisión
 editorial (no solo mecánica) antes de tocarla.
 
+La Fase 8 integra las tareas pendientes de `mejora/plan_de_accion.md`, un
+plan de acción independiente basado en una evaluación de calidad pedagógica
+con otra herramienta (`jev-doc-quality`); ver esa fase para el detalle y las
+tareas de ese plan que este documento ya resolvió por otra vía.
+
 ---
 
 ## Fase 0 — Bugs de render (bloqueantes, arreglar primero) — ✅ Completada
@@ -401,6 +406,82 @@ find/replace dedicada, no urgente.
 
 ---
 
+## Fase 8 — Pedagogía y secuenciación (integrado de `mejora/plan_de_accion.md`)
+
+`mejora/` contiene una evaluación de calidad independiente, hecha con otra
+herramienta (TypeSafe Jev / `jev-doc-quality`, ver `mejora/informe_calidad.md`)
+que puntúa cada capítulo en completitud técnica y claridad pedagógica
+(0-100). Su plan de acción (`mejora/plan_de_accion.md`) tiene 7 fases; las
+Fases 1-4 (scaffolding de prerrequisitos/objetivos, estandarización en
+bloque 3/4, verificación de ejemplos ejecutables) están marcadas `[x]`
+completas ahí. Las Fases 5-7 seguían pendientes (`[ ]`) y se integran acá,
+evitando duplicar lo que este plan ya resolvió por otra vía.
+
+42. **Reescribir la apertura de capítulos con carga cognitiva alta antes del
+    primer ejemplo verificable** (Fase 5 de `mejora/`): `5_memoria_dinamica.md`
+    y reubicación de `4_archivos_texto.md` al cierre integrador de bloque 2
+    ya están marcados como hechos ahí; quedan pendientes `7_estructuras.md`,
+    `5_compilacion.md` y `2_tad.md`.
+43. **✅ Parcialmente resuelto — Renombrar encabezados de apertura genéricos**
+    ("Referencias y Lecturas Complementarias", "Lecturas Recomendadas",
+    "Ventajas y Desventajas"). La Fase 1 de este plan ya corrigió los casos
+    donde ese texto genérico había quedado como **H1** por error de edición
+    (`2_tad.md`, `3_tad_pilas_colas.md`, `6_complejidad.md`,
+    `3_opacos.md`, `2_punteros_funciones.md` — commits `10b03f5`,
+    `880884e`). Lo que sigue pendiente es el objetivo más amplio de
+    `mejora/`: revisar los encabezados de **sección** (no H1) con títulos
+    genéricos a lo largo de todo el libro y, donde corresponda, trasladar
+    las lecturas de referencia al cierre del capítulo en vez de dejarlas
+    como primera sección.
+44. **Insertar microactividades con respuesta o criterio de corrección**
+    después de los conceptos de mayor carga cognitiva: punteros, heap, TAD,
+    complejidad y concurrencia. Distinto de los ejercicios de autoevaluación
+    de cierre de capítulo (que ya existen): son chequeos cortos intercalados
+    en medio de la explicación, no al final.
+45. **✅ Ya resuelto — Enlaces rotos en `6_bitmaps.md` y `6_complejidad.md`**
+    citados en la Fase 6 de `mejora/` ("corregir en `6_bitmaps.md` los
+    enlaces a Archivos Binarios y Operaciones Bitwise, y en
+    `6_complejidad.md` las referencias a Pilas y Colas"): son exactamente
+    los mismos enlaces que la Fase 2 de este plan corrigió (`6_bitmaps.md:37`
+    → `4_binarios_archivos.md`/`5_binarios_bitwise.md`; 4 enlaces en
+    `6_complejidad.md` → `3_tad_pilas_colas.md`), commit `b07758d`. No
+    requiere trabajo adicional; verificar igual con
+    `myst build --site --strict --check-links` (punto 47) por si el build
+    real encuentra algo que el script de barrido de enlaces no detecta.
+46. **En `bloque_4_avanzados/4_binarios_archivos.md`, diferenciar
+    explícitamente la representación nativa de un `struct` de un formato
+    portable**: documentar padding, endianness, tamaños dependientes de
+    plataforma y la prohibición de persistir punteros directamente a disco
+    o red.
+47. **En `12_sockets.md`, acotar la analogía de "archivo especial"** (los
+    sockets comparten la interfaz de descriptor de archivo, pero no todas
+    las operaciones de archivo aplican igual) **y agregar un ejemplo de
+    framing y E/S parcial para TCP** — TCP es un flujo de bytes sin límites
+    de mensaje; un `recv()` puede devolver menos bytes de los pedidos y el
+    programa debe loopear o definir un protocolo de framing propio. El
+    ejercicio de fuga de descriptor agregado en la Fase 4 de este plan
+    (`ej-sockets-fuga-descriptor`) no cubre este punto; es un tema
+    complementario.
+48. **Crear una autoevaluación de cierre por bloque** (no por capítulo) que
+    cubra recordar, aplicar y justificar, enlazada desde cada índice de
+    bloque (`indice.md` y los índices internos si existen).
+49. **Reevaluación de calidad** (Fase 7 de `mejora/`): ejecutar
+    `myst build --site --strict --check-links` y corregir lo que arroje;
+    reejecutar `jev-doc-quality` sobre los 39 capítulos guardando un archivo
+    fechado nuevo en `mejora/` sin sobreescribir `evaluacion_inicial.json`;
+    comparar contra la línea de base y registrar qué capítulos siguen bajo
+    el umbral. Esto requiere las herramientas de `jev-accelerator`
+    (`~/.gemini/config/skills/jev-accelerator/scripts/jev-doc-quality.mjs`),
+    no disponibles como parte de este plan.
+
+**Costo estimado**: 6-9 horas (42, 44, 46-48 son escritura de contenido;
+49 requiere acceso a la herramienta `jev-doc-quality` y a `myst build`).
+**Riesgo si no se hace**: el apunte queda técnicamente correcto pero sin la
+mejora de secuenciación pedagógica y carga cognitiva que motivó la
+evaluación original de `mejora/`.
+
+---
+
 ## Higiene de repositorio (transversal, hacer en paralelo)
 
 - El `git status` actual tiene **17 archivos sin commitear** (6 modificados
@@ -430,7 +511,8 @@ find/replace dedicada, no urgente.
 | 5 | Cosmético (30-34) | 1-2 h | Parcial (30, 31 hechos) |
 | 6 | Ampliaciones y consolidación de bloque 3 (20) | 2-3 h | Pendiente |
 | 7 | Mejoras y correcciones de bloque 4 (21, 23, 37) | 3-5 h | Parcial (37 hecho) |
-| **Total** | | **~19-27 h** | |
+| 8 | Pedagogía y secuenciación, de `mejora/` (42-49) | 6-9 h | Parcial (45 hecho) |
+| **Total** | | **~25-36 h** | |
 
 Las fases 0 y 1 dejaron 4 hallazgos nuevos (ver sección "Hallazgos
 adicionales" entre Fase 1 y Fase 2), ya incorporados a las fases 2 y 7
