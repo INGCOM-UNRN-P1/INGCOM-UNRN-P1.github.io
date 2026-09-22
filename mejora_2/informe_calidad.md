@@ -128,11 +128,18 @@ reconocía el patrón `(id)=` y no los `:label:` de directivas
 en `bloque_3_algoritmos_estructuras/7_recursividad_intro.md:305`. No requiere
 corrección.
 
-**T7. `reporte.md` (sin commitear, raíz del repo) documenta un plan de
-reorganización con nomenclatura `NA_tema.md`/`NB_tema.md` que ya no coincide
-con el estado real de los archivos** (algunos bloques usan letras hasta la
-`F`, no solo `A`/`B`). Mantenerlo sin reconciliar invita a que se repita el
-patrón de archivos huérfanos cada vez que alguien lo use como referencia.
+**T7. ✅ Resuelto — `reporte.md`** (raíz del repo) documentaba un plan de
+reorganización con nomenclatura `NA_tema.md`/`NB_tema.md` que ya no coincidía
+con el estado real de los archivos (afirmaba que se habían creado archivos
+que nunca se escribieron, y no reflejaba que los 8 que sí existían se
+fusionaron dentro de sus capítulos principales en esta sesión). Se
+reconcilió: se agregó un banner al inicio que remite a este informe y al
+plan de acción como fuente de verdad vigente, se reescribió la sección
+"Estado de implementación" con el estado real (qué archivos llegaron a
+existir, cuáles no, y qué pasó con los que sí), y se corrigieron las
+referencias a archivos inexistentes en la sección de transferencias al
+Bloque 3. Las secciones 1-9 (diagnóstico y plan original) se conservan sin
+modificar como registro histórico.
 
 **T8. `ejercicios/` tiene 59 enlaces Markdown rotos, fuera del alcance de la
 auditoría original** (que se limitó a `apunte/`). Detectados al re-ejecutar el
