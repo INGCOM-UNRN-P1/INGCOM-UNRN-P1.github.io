@@ -170,7 +170,7 @@ misma.
 En otras palabras, te dice cuántos bytes hay entre el comienzo de la estructura
 y el comienzo de uno de sus miembros.
 
-###### ¿Para qué sirve?
+##### ¿Para qué sirve?
 
 Su principal utilidad reside en situaciones donde necesitas conocer la posición
 exacta de un miembro dentro de una estructura sin tener una instancia de esa
@@ -823,7 +823,7 @@ memoria y el impacto en el uso de caché.
 <!-- {figure} 7/aos_vs_soa.svg -->
 <!-- {figure} 4/aos_vs_soa.svg -->
 (AoS)=
-###### Arreglo de Estructuras (Array of Structures - AoS)
+##### Arreglo de Estructuras (Array of Structures - AoS)
 
 En este enfoque, cada elemento del arreglo es una estructura completa que
 contiene todos los atributos de una entidad.
@@ -882,7 +882,7 @@ void actualizar_posiciones_aos(particula_t particulas[], size_t n, double dt)
 :::
 <!-- {code-block} c -->
 (SoA)=
-###### Estructura de Arreglos (Structure of Arrays - SoA)
+##### Estructura de Arreglos (Structure of Arrays - SoA)
 
 En este enfoque, cada atributo se almacena en su propio arreglo, y la estructura
 contiene estos arreglos.
@@ -959,7 +959,7 @@ de generalizar.
 
 :::
 
-###### Implementación Completa: Gestión de Memoria en SoA
+##### Implementación Completa: Gestión de Memoria en SoA
 
 :::{code-block} c
 :linenos:
@@ -1029,7 +1029,7 @@ retornar. Esto añade complejidad pero es esencial para evitar fugas de memoria.
 :::
 <!-- {important} Gestión de Errores en SoA -->
 
-###### ¿Cuándo Usar Cada Enfoque?
+##### ¿Cuándo Usar Cada Enfoque?
 
 **Usá Arreglo de Estructuras (AoS) cuando:**
 - La claridad y simplicidad del código es prioritaria
@@ -1058,7 +1058,7 @@ correcto primero, optimizá después si es necesario.
 :::
 <!-- {tip} Principio de Diseño -->
 
-###### Ejemplo Comparativo: Búsqueda de Máximo
+##### Ejemplo Comparativo: Búsqueda de Máximo
 
 **AoS:**
 :::{code-block} c
@@ -1258,65 +1258,6 @@ double distancia_al_origen = sqrt(planeta.posicion.x * planeta.posicion.x +
 - Organización lógica clara
 - Facilita la creación de funciones genéricas (ej: `calcular_distancia` que
   opera sobre `punto_2d_t`)
-
-##### Punteros a Funciones como Miembros
-
-Para comportamiento polimórfico en estructuras:
-
-:::{code-block} c
-:linenos:
-typedef struct figura figura_t;
-typedef double (*calcular_area_fn)(const figura_t *);
-typedef void (*dibujar_fn)(const figura_t *);
-struct figura
-{
-    calcular_area_fn calcular_area;
-    dibujar_fn dibujar;
-    void *datos; // Puntero opaco a datos específicos de cada tipo de figura
-};
-// Implementación para círculo
-double calcular_area_circulo(const figura_t *f)
-{
-    double *radio = f->datos;
-    return 3.14159 * (*radio) * (*radio);
-}
-void dibujar_circulo(const figura_t *f)
-{
-    printf("Dibujando un círculo...\n");
-}
-// Creación de una figura específica
-figura_t crear_figura_circulo(double radio)
-{
-    double *radio_heap = malloc(sizeof(double));
-    if (radio_heap == NULL)
-    {
-        perror("Error al asignar memoria para la figura círculo");
-        figura_t fig_nula = {
-            .calcular_area = NULL, .dibujar = NULL, .datos = NULL};
-        return fig_nula;
-    }
-    *radio_heap = radio;
-    figura_t fig = {.calcular_area = calcular_area_circulo,
-                    .dibujar = dibujar_circulo,
-                    .datos = radio_heap};
-    return fig;
-}
-
-:::
-<!-- {code-block} c -->
-
-Este patrón permite un estilo de programación orientada a objetos rudimentario
-en C, donde diferentes "tipos" de figuras comparten la misma interfaz pero
-tienen comportamientos distintos.
-
-:::{warning} Gestión de Memoria con Punteros Opacos
-
-Cuando usás `void *datos` para almacenar información específica del tipo, debés
-documentar claramente quién es responsable de liberar esa memoria y proporcionar
-funciones destructoras adecuadas.
-
-:::
-<!-- {warning} Gestión de Memoria con Punteros Opacos -->
 
 ##### Estructuras Auto-descriptivas
 
@@ -2166,50 +2107,6 @@ circulo_t crear_circulo(double cx, double cy, double r)
 
 :::
 <!-- {solution} ej-struct-invariante-rectangulo -->
-
-:::{exercise}
-:label: ej-struct-funcion-miembro
-Implementá una estructura en C llamada `operacion_t` que contenga una constante
-de caracteres `nombre` y un miembro de tipo puntero a función capaz de recibir
-dos números enteros y retornar un entero. Mostrá cómo instanciar la estructura,
-asignarle una función de suma e invocarla a través del puntero a función.
-
-:::
-<!-- {exercise} -->
-
-:::{solution} ej-struct-funcion-miembro
-:class: dropdown
-```{code-block} c
-:linenos:
-#include <stdio.h>
-// Definición del tipo de puntero a función
-typedef int (*operacion_fn)(int, int);
-typedef struct
-{
-    const char *nombre;
-    operacion_fn ejecutar;
-} operacion_t;
-// Función compatible
-int sumar(int a, int b)
-{
-    return a + b;
-}
-int main()
-{
-    // Instanciación
-    operacion_t op_suma = {.nombre = "Suma Aritmética", .ejecutar = sumar};
-    // Invocación indirecta a través de la estructura
-    int resultado = op_suma.ejecutar(15, 25);
-    printf("Operación: %s | Resultado: %d\n", op_suma.nombre,
-           resultado); // Imprime 40
-    return 0;
-}
-
-```
-<!-- {code-block} c -->
-
-:::
-<!-- {solution} ej-struct-funcion-miembro -->
 
 :::{solution} ejer-tagged-union-2
 :class: dropdown
