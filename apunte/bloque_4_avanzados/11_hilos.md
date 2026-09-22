@@ -363,6 +363,26 @@ instrucciones, causando que incrementos se pierdan.
 :::
 <!-- {important} ¿Por Qué Falla? -->
 
+::::{admonition} Microactividad
+:class: tip
+
+Antes de seguir leyendo: ¿qué tendría que garantizar un mecanismo de
+sincronización para que `contador++` en el ejemplo anterior siempre dé
+200000? Pensalo en términos de las tres instrucciones (leer, incrementar,
+escribir) antes de ver la solución con mutex.
+
+:::{dropdown} Respuesta
+Tendría que garantizar que, mientras un hilo ejecuta las tres instrucciones
+de `contador++`, ningún otro hilo pueda leer ni escribir `contador` — es
+decir, que esas tres instrucciones se ejecuten como si fueran una sola
+operación indivisible (atómica) para el resto del programa. Eso es
+exactamente lo que provee un **mutex**: solo un hilo a la vez puede estar
+"dentro" de la sección protegida.
+:::
+
+::::
+<!-- {admonition} Microactividad -->
+
 ## Mutexes: Exclusión Mutua
 
 Un **mutex** (mutual exclusion) es un mecanismo de sincronización que garantiza

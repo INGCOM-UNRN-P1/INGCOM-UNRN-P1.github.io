@@ -400,6 +400,27 @@ de abstracción consistente y facilita el mantenimiento.
 :::
 <!-- {important} Simetría en la Gestión de Recursos -->
 
+::::{admonition} Microactividad
+:class: tip
+
+Un compañero escribe `free(ptr);` y se olvida de la línea `ptr = NULL;`.
+Diez líneas después, el código hace `if (ptr != NULL) { usar(ptr); }`. ¿Por
+qué esa validación NO evita el problema, aunque parezca una comprobación
+razonable?
+
+:::{dropdown} Respuesta
+`free(ptr)` no borra el valor guardado en `ptr`: la variable sigue
+"apuntando" a la misma dirección, que ahora es memoria liberada (un puntero
+colgante). Como `ptr` sigue siendo distinto de `NULL`, la condición
+`ptr != NULL` da verdadero y el código entra a `usar(ptr)`, desreferenciando
+memoria que ya no le pertenece al programa — comportamiento indefinido. Por
+eso la regla es anular el puntero *inmediatamente después* de liberar
+(`ptr = NULL;`), no confiar en que "si no es NULL, es válido".
+:::
+
+::::
+<!-- {admonition} Microactividad -->
+
 (el-allocator-gestion-interna-del-heap)=
 #### El Allocator: Gestión Interna del Heap
 

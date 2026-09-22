@@ -155,6 +155,32 @@ notación de conjuntos por su rigor conceptual.
 :::
 <!-- {note} Pertenencia vs. Igualdad -->
 
+::::{admonition} Microactividad
+:class: tip
+
+```c
+for (int i = 0; i < n; i++)
+{
+    for (int j = 0; j < n; j++)
+    {
+        printf("%d\n", i * j);
+    }
+}
+```
+
+¿Cuál es la complejidad Big O de este fragmento en función de `n`? Justificá
+sin solo nombrar la notación.
+
+:::{dropdown} Respuesta
+$O(n^2)$. El lazo externo se ejecuta $n$ veces; por cada una de esas
+ejecuciones, el lazo interno se ejecuta otras $n$ veces completas (no
+depende de `i`, así que no se acorta). El cuerpo (`printf`) es $O(1)$, así
+que el total es $n \times n \times O(1) = O(n^2)$.
+:::
+
+::::
+<!-- {admonition} Microactividad -->
+
 (2-notacion-omega-cota-inferior-mejor-caso)=
 #### 2. Notación Omega (Ω) - Cota Inferior (Mejor Caso)
 

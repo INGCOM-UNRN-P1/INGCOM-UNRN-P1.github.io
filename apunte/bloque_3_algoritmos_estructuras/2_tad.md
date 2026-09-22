@@ -171,6 +171,24 @@ permita su uso de manera intuitiva y segura.
 - **Estructura de Datos**: Es una implementación concreta, una **organización**
   de datos en memoria (el "cómo").
 
+::::{admonition} Microactividad
+:class: tip
+
+El TAD Pila define `push`, `pop` y `es_vacia`. ¿Es correcto decir que un
+`arreglo dinámico` **es** el TAD Pila? Si no, ¿cuál es la relación correcta
+entre ambos?
+
+:::{dropdown} Respuesta
+No: un arreglo dinámico es una posible **implementación** del TAD Pila, no
+el TAD en sí. El TAD Pila es la especificación de comportamiento LIFO —
+podría implementarse igual de válidamente con una lista enlazada. Un cliente
+que solo usa `push`/`pop`/`es_vacia` no puede (ni debe) notar la diferencia
+entre ambas implementaciones; si pudiera, el encapsulamiento estaría roto.
+:::
+
+::::
+<!-- {admonition} Microactividad -->
+
 ---
 
 (ejemplos-clasicos-de-tipos-de-datos-abstractos)=

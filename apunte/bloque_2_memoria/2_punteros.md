@@ -286,6 +286,24 @@ Esta dualidad del operador de desreferencia es lo que hace a los punteros tan
 poderosos, ya que nos permiten tanto leer como modificar datos de forma
 indirecta.
 
+::::{admonition} Microactividad
+:class: tip
+
+Con `int x = 5; int *p = &x;`, ¿qué imprime `printf("%d", *p + 1);`? ¿Y qué
+imprime después de ejecutar `*p = *p + 1;` seguido de `printf("%d", x);`?
+
+:::{dropdown} Respuesta
+El primer `printf` imprime `6`: `*p` lee el valor de `x` (5) y le suma 1 en
+la expresión, sin modificar nada en memoria. El segundo `printf` imprime `6`
+también, pero por una razón distinta: `*p = *p + 1;` sí escribe a través del
+puntero, así que ahora `x` vale 6 físicamente. La diferencia es sutil pero
+central: `*p` del lado derecho de una asignación *lee*; `*p` del lado
+izquierdo *escribe*.
+:::
+
+::::
+<!-- {admonition} Microactividad -->
+
 (punteros-y-arreglos)=
 #### Punteros y arreglos
 

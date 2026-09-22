@@ -488,11 +488,24 @@ evitando duplicar lo que este plan ya resolvió por otra vía.
     genéricos a lo largo de todo el libro y, donde corresponda, trasladar
     las lecturas de referencia al cierre del capítulo en vez de dejarlas
     como primera sección.
-44. **Insertar microactividades con respuesta o criterio de corrección**
-    después de los conceptos de mayor carga cognitiva: punteros, heap, TAD,
-    complejidad y concurrencia. Distinto de los ejercicios de autoevaluación
-    de cierre de capítulo (que ya existen): son chequeos cortos intercalados
-    en medio de la explicación, no al final.
+44. **✅ Resuelto — Insertadas microactividades con respuesta o criterio de
+    corrección** después de los 5 conceptos de mayor carga cognitiva
+    señalados, cada una como un `:::{admonition} Microactividad` con la
+    respuesta en un `:::{dropdown}` anidado (visualmente distinto de los
+    `:::{exercise}`/`:::{solution}` de cierre de capítulo):
+    - `bloque_2/2_punteros.md`, tras explicar la desreferencia con `*`:
+      predecir la salida de leer vs. escribir a través de un puntero.
+    - `bloque_2/5_memoria_dinamica.md`, tras `free()`: por qué
+      `if (ptr != NULL)` no protege contra un puntero colgante si falta
+      `ptr = NULL;`.
+    - `bloque_3/2_tad.md`, tras "TAD vs. Estructura de Datos": si un arreglo
+      dinámico *es* el TAD Pila o solo una implementación posible.
+    - `bloque_3/6_complejidad.md`, tras la definición de Big O: clasificar la
+      complejidad de un lazo anidado simple, con justificación.
+    - `bloque_4/11_hilos.md`, tras el ejemplo de condición de carrera:
+      predecir qué debe garantizar un mecanismo de sincronización, antes de
+      que el texto revele el mutex como solución (fuerza recuperación activa
+      en vez de reconocimiento pasivo).
 45. **✅ Ya resuelto — Enlaces rotos en `6_bitmaps.md` y `6_complejidad.md`**
     citados en la Fase 6 de `mejora/` ("corregir en `6_bitmaps.md` los
     enlaces a Archivos Binarios y Operaciones Bitwise, y en
