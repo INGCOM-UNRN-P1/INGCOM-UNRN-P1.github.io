@@ -418,8 +418,8 @@ argumentos y devuelve valor en el retorno. Cualquier función puede modificar un
 variable global, lo que crea dependencias ocultas y hace el código muy difícil
 de depurar y mantener.
 
-Por estas razones, la cátedra prohíbe el uso de variables globales (ver [Regla
-0x2004h](0_estilo.md#0x2004h)).
+Por estas razones, la cátedra prohíbe el uso de variables globales (ver
+{ref}`0x2004h`).
 
 (argumentos-de-funcion-parametros)=
 #### Argumentos de Función (Parámetros)

@@ -1974,7 +1974,7 @@ implementación de TADs, consultá:
 - {ref}`capitulo-memoria-dinamica` para entender el modelo de memoria completo.
 - {ref}`resumen-de-buenas-practicas` para patrones seguros de manejo de memoria
   dinámica.
-- [Capítulo: Memoria Dinámica — sección Valgrind](1_memoria_dinamica.md) para
+- [Capítulo: Memoria Dinámica — sección Valgrind](../bloque_2_memoria/5_memoria_dinamica.md) para
   técnicas de depuración de estructuras dinámicas.
 
 :::{tip}

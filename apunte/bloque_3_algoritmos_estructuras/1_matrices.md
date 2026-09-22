@@ -33,7 +33,7 @@ arreglos cuyos elementos son, a su vez, otros arreglos.
 :::{note} Prerequisitos
 
 Este capítulo asume que ya dominás los conceptos de arreglos unidimensionales
-presentados en el [Secuencias y arreglos](2_secuencias.md). Si necesitás repasar
+presentados en el [Secuencias y arreglos](../bloque_2_memoria/3_secuencias.md). Si necesitás repasar
 cómo funcionan los arreglos básicos, su declaración, inicialización y recorrido,
 consultá ese capítulo primero.
 

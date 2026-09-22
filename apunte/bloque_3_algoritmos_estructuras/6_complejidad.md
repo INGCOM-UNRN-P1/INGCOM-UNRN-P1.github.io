@@ -86,7 +86,7 @@ de Tipos de Datos Abstractos. Por ejemplo, ¿cuándo conviene usar una lista
 enlazada vs. un arreglo? ¿Una pila con arreglo o con nodos? Estas decisiones se
 fundamentan en análisis de complejidad. Para ver aplicaciones concretas de estos
 conceptos a estructuras de datos fundamentales, consultá el apunte sobre [TAD,
-Pilas y Colas](6_tad.md).
+Pilas y Colas](3_tad_pilas_colas.md).
 
 :::
 <!-- {tip} Aplicación a Estructuras de Datos -->
@@ -282,7 +282,7 @@ int obtener_primero(int arr[], int n)
 Los arreglos proporcionan acceso por índice en tiempo constante, una de sus
 ventajas principales. En contraste, las listas enlazadas requieren $O(n)$ para
 acceder a un elemento arbitrario. Esta diferencia fundamental se analiza en
-detalle en el apunte sobre [TAD, Pilas y Colas](6_tad.md).
+detalle en el apunte sobre [TAD, Pilas y Colas](3_tad_pilas_colas.md).
 
 :::
 <!-- {note} Estructuras de Datos con Acceso $O(1)$ -->
@@ -382,7 +382,7 @@ int sumar_elementos(int arr[], int n)
 La búsqueda lineal $O(n)$ es necesaria en estructuras sin orden, como listas
 enlazadas o arreglos no ordenados. Esta es una operación fundamental en muchos
 TADs. Para comparar las complejidades de búsqueda en diferentes estructuras
-(pilas, colas, listas), consultá [TAD, Pilas y Colas](6_tad.md).
+(pilas, colas, listas), consultá [TAD, Pilas y Colas](3_tad_pilas_colas.md).
 
 :::
 <!-- {note} Búsqueda en Estructuras de Datos -->
@@ -889,7 +889,7 @@ obtenemos $\frac{3n}{n} = O(1)$ por cada inserción individual.
 Este mismo análisis se aplica a las pilas implementadas con arreglos dinámicos.
 Para ver ejemplos concretos de cómo el análisis amortizado justifica la
 eficiencia de las operaciones `push` en pilas con arreglos, consultá la sección
-sobre pilas en el apunte de [TAD, Pilas y Colas](6_tad.md).
+sobre pilas en el apunte de [TAD, Pilas y Colas](3_tad_pilas_colas.md).
 
 :::
 <!-- {tip} Análisis Amortizado en Pilas y Colas -->

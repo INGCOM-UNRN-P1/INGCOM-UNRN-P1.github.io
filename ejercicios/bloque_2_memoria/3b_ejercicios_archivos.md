@@ -13,7 +13,7 @@ datos usando streams de entrada/salida estándar y archivos de texto formateados
 en C.
 
 ### Capítulos de Apunte Correspondientes
-- {ref}`capitulo-archivos-texto`
+- {ref}`trabajando-con-archivos-de-texto-en-c`
 
 ### Cuestiones de Estilo Aplicables
 - **Manejo defensivo de archivos:** Asegurá siempre la validación del puntero

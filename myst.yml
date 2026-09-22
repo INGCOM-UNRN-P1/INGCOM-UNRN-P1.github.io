@@ -427,6 +427,7 @@ project:
             - file: ejercicios/bloque_3_algoritmos_estructuras/2_tad.md
             - file: ejercicios/bloque_3_algoritmos_estructuras/3_estructuras_de_datos.md
             - file: ejercicios/bloque_3_algoritmos_estructuras/4_complejidad.md
+            - file: ejercicios/bloque_3_algoritmos_estructuras/5_recursion.md
         - title: "Bloque 4: Temas Avanzados"
           children:
             - file: ejercicios/bloque_4_avanzados/1_punteros_avanzados.md

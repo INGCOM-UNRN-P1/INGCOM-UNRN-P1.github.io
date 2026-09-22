@@ -35,8 +35,9 @@ que nuestro código sea claro y mantenible.
 :::{note} Antes de seguir
 
 Es importante que, antes de encarar esta guía, ya hayas leído los apuntes sobre
-estructuras, [archivos binarios](binarios.md) y [manipulación de bits](bits.md)
-para entender todo sin dificultad.
+estructuras, [archivos binarios](4_binarios_archivos.md) y
+[manipulación de bits](5_binarios_bitwise.md) para entender todo sin
+dificultad.
 
 :::
 <!-- {note} Antes de seguir -->

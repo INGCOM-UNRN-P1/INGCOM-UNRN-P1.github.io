@@ -1767,7 +1767,8 @@ struct tipo
 <!-- {code-block} c -->
 
 **Conexiones:**
-- Fundamental para implementar TADs (ver [](3_tad.md)).
+- Fundamental para implementar TADs (ver
+  [`2_tad.md`](../bloque_3_algoritmos_estructuras/2_tad.md)).
 - Requiere memoria dinámica (ver {ref}`capitulo-memoria-dinamica`).
 - Usado extensivamente en bibliotecas del sistema y APIs públicas.
 

@@ -271,10 +271,11 @@ printf("La nueva edad en el índice 2 es: %d\n", edades[2]);
 
 Salida:
 
-:::
+``` text
 La edad original en el índice 2 es: 22
 La nueva edad en el índice 2 es: 23
-:::
+```
+<!-- text -->
 
 ##### Identidad
 
@@ -360,7 +361,7 @@ error: variable-sized object may not be initialized
 
 Las implicaciones y el uso correcto de la memoria dinámica, que es la
 alternativa recomendada a los ALV, se abordarán en [Memoria
-Dinámica](../bloque_4_dinamica_interfaces/1_memoria_dinamica.md).
+Dinámica](5_memoria_dinamica.md).
 
 De todas formas y como se imaginarán, hay una regla de estilo {ref}`0x5001h`.
 
@@ -1119,10 +1120,10 @@ manipula la memoria:
 
 - Los **punteros** ([Punteros](2_punteros.md)) como variables que almacenan
   direcciones
-- Las **matrices** ([Matrices](../bloque_4_dinamica_indireccion/3_matrices.md))
+- Las **matrices** ([Matrices](../bloque_3_algoritmos_estructuras/1_matrices.md))
   como arreglos multidimensionales
 - La **gestión de memoria** ([Memoria
-  Dinámica](../bloque_4_dinamica_indireccion/1_memoria_dinamica.md)) para
+  Dinámica](5_memoria_dinamica.md)) para
   estructuras dinámicas
 
 Los punteros son el concepto más poderoso y peligroso de C. Dominando punteros y

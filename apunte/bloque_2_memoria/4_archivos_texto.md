@@ -310,8 +310,9 @@ binario para archivos no textuales.
 
 Trabajar con archivos binarios es importante, pero complejo y requiere de un par
 de cosas más que no hemos visto del lenguaje. Para quienes deseen chusmear como
-se hace, en la sección extra, hay un [apunte](../extras/binarios.md) referido a
-como trabajar de esta forma los archivos.
+se hace, en la sección de temas avanzados, hay un
+[apunte](../bloque_4_avanzados/4_binarios_archivos.md) referido a como
+trabajar de esta forma los archivos.
 
 
 

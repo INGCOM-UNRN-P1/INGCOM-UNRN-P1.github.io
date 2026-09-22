@@ -291,7 +291,7 @@ indirecta.
 
 El nombre de un arreglo no es un puntero, sino el identificador de un bloque de
 memoria contiguo. Sin embargo, como se analizó en
-el capítulo de [Secuencias](2_secuencias.md) (ver [decaimiento de
+el capítulo de [Secuencias](3_secuencias.md) (ver [decaimiento de
 arreglos](#el-mecanismo-de-paso-a-funciones-paso-por-referencia-simulado)), al
 evaluarse en la mayoría de las expresiones
 de C este decae (se degrada) automáticamente a un puntero al primer elemento de
@@ -616,7 +616,7 @@ entrada/salida**. La función lee el valor inicial de `miVariableContador`
 
 Esta capacidad para modificar variables externas al ámbito de la función
 constituye un efecto secundario (side effect) análogo al que estudiamos con la
-modificación de arreglos en [el capítulo de Secuencias](2_secuencias.md).
+modificación de arreglos en [el capítulo de Secuencias](3_secuencias.md).
 
 Si bien los efectos secundarios son indispensables para la eficiencia y para
 permitir la salida de múltiples resultados, incrementan la complejidad del flujo
@@ -1380,7 +1380,7 @@ solo trabajaste con memoria que el compilador gestiona automáticamente
 cuando aprendés a gestionar memoria **dinámicamente** durante la ejecución del
 programa.
 
-En el [Memoria Dinámica](../bloque_4_dinamica_interfaces/1_memoria_dinamica.md),
+En el [Memoria Dinámica](5_memoria_dinamica.md),
 vas a aprender sobre:
 
 - **El heap (montón):** Una región de memoria que podés solicitar y liberar bajo
@@ -1411,7 +1411,7 @@ dinámica**: la capacidad de solicitar y liberar memoria durante la ejecución
 según las necesidades del programa.
 
 El apunte **[Memoria
-Dinámica](../bloque_4_dinamica_interfaces/1_memoria_dinamica.md)** introduce la
+Dinámica](5_memoria_dinamica.md)** introduce la
 gestión explícita de memoria mediante:
 
 - **`malloc()`**: solicitar memoria del heap

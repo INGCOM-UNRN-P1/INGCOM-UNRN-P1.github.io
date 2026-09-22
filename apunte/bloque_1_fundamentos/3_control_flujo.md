@@ -1250,13 +1250,13 @@ En los siguientes capítulos avanzaremos en la construcción de software modular
 en C:
 - [](4_funciones.md) — Modularización y diseño de subprogramas mediante
   funciones con contratos y parámetros.
-- [Secuencias y arreglos](../bloque_3_memoria_estatica/3_secuencias.md) —
+- [Compilación separada](5_compilacion.md) — Proceso de compilación
+  multi-etapa y Makefile.
+- [Secuencias y arreglos](../bloque_2_memoria/3_secuencias.md) —
   Arreglos de memoria estáticos y cadenas de caracteres.
-- [Compilación separada](../bloque_2_proyectos/1_compilacion.md) — Proceso de
-  compilación multi-etapa y Makefile.
-- [Punteros](../bloque_3_memoria_estatica/2_punteros.md) — Punteros y
+- [Punteros](../bloque_2_memoria/2_punteros.md) — Punteros y
   manipulación de memoria.
-- [Archivos de texto](../bloque_4_dinamica_interfaces/3_archivos_texto.md) —
+- [Archivos de texto](../bloque_2_memoria/4_archivos_texto.md) —
   Entrada y salida persistente con archivos.
 
 ---

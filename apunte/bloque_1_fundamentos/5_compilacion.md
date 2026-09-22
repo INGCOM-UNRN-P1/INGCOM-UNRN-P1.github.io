@@ -1216,7 +1216,7 @@ contexto.
 
 Este es solo un resumen. Para una descripción detallada de todas las funciones,
 sus parámetros, valores de retorno y ejemplos de uso, consultá el apunte de
-referencia: [A_stdlib](../../referencia/A_stdlib.md).
+referencia: [stdlib](../../referencia/stdlib.md).
 
 :::
 <!-- {important} Referencia Completa -->

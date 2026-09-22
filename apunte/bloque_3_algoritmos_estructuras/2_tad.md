@@ -1538,7 +1538,7 @@ precondiciones.
 
 Para técnicas avanzadas de validación y depuración de errores relacionados con
 memoria en estructuras dinámicas, consultá [Capítulo: Memoria Dinámica — sección
-Valgrind](1_memoria_dinamica.md). Herramientas como Valgrind son invaluables
+Valgrind](../bloque_2_memoria/5_memoria_dinamica.md). Herramientas como Valgrind son invaluables
 para detectar fugas de memoria y accesos inválidos en TADs complejos.
 
 :::

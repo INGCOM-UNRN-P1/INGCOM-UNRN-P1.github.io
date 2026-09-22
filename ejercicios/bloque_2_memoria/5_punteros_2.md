@@ -12,7 +12,7 @@ estructuras anidadas, matrices dinámicas (dentadas y contiguas) y el tratamient
 defensivo de errores en tiempo de ejecución.
 
 ### Capítulos de Apunte Correspondientes
-- {ref}`capitulo-aritmetica-punteros`
+- {ref}`introduccion_aritmetica_punteros`
 
 ### Cuestiones de Estilo Aplicables
 - **Manejo seguro de punteros:** Es mandatorio liberar en el orden inverso a la
