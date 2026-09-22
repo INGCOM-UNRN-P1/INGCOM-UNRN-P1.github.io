@@ -14,7 +14,7 @@ memoria contiguas.
 Para profundizar en los conceptos teóricos, podés consultar el siguiente
 capítulo del apunte:
 - [Secuencias y
-  Arreglos](../../apunte/bloque_3_memoria_estatica/3_secuencias.md)
+  Arreglos](../../apunte/bloque_2_memoria/3_secuencias.md)
 
 ## Operaciones Básicas
 (ejercicio_10_1)=

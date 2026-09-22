@@ -27,8 +27,8 @@ A seguir siempre y cuando no esté indicada otra cosa:
     completando con sus datos.
 5.  Lo que "resuelve" el enunciado debe estar encapsulado en una función,
     incluso si no está indicado explícitamente.
-6.  El código debe seguir estrictamente la [guía de
-    estilo](../apunte/0_estilo.md).
+6.  El código debe seguir estrictamente el [catálogo de reglas de
+    estilo](../reglas/indice.md) de la cátedra.
 7.  Los ejercicios marcados como \[_plus ultra_\] son variaciones del ejercicio
     para ir «más allá» de la consigna original.
 

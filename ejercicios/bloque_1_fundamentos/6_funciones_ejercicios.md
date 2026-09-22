@@ -16,15 +16,13 @@ correspondientes para los parámetros y valores de retorno.
 - {ref}`capitulo-funciones-descomposicion`
 
 ### Cuestiones de Estilo Aplicables
-- **Resolución mediante funciones:** Según la [Regla
-  0x2009h](../../reglas/2_funciones.md#0x2009h), la lógica debe ser encapsulada
+- **Resolución mediante funciones:** Según la {ref}`0x2008h`, la lógica debe ser encapsulada
   en funciones independientes.
 - **Nomenclatura en funciones:** Los nombres de funciones y variables locales
   deben seguir la convención `snake_case` en minúsculas, de acuerdo con las
-  reglas [0x200Ah](../../reglas/2_funciones.md#0x200ah) y
-  [0x0007h](../../reglas/0_sintaxis.md#0x0007h).
-- **Separación de entrada/salida:** En concordancia con la [Regla
-  0x2002h](../../reglas/2_funciones.md#0x2002h), se debe evitar que las
+  reglas {ref}`0x2009h` y
+  {ref}`0x0102h`.
+- **Separación de entrada/salida:** En concordancia con la {ref}`0x2002h`, se debe evitar que las
   funciones realicen entrada/salida (I/O) a menos que ese sea su propósito
   explícito.
 

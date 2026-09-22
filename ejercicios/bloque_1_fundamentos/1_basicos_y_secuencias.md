@@ -18,17 +18,15 @@ secuencias numéricas.
 - {ref}`capitulo-introduccion-c`
 
 ### Cuestiones de Estilo Aplicables
-- **Resolución mediante funciones:** Según la [Regla
-  0x2009h](../../reglas/2_funciones.md#0x2009h), la lógica principal que
+- **Resolución mediante funciones:** Según la {ref}`0x2008h`, la lógica principal que
   resuelve cada enunciado debe estar contenida en una función, incluso si no se
   especifica de forma explícitamente.
-- **Separación de entrada/salida:** De acuerdo con la [Regla
-  0x2002h](../../reglas/2_funciones.md#0x2002h), las funciones no deben contener
+- **Separación de entrada/salida:** De acuerdo con la {ref}`0x2002h`, las funciones no deben contener
   `printf` o `scanf`, a menos que su propósito explícito sea interactuar con el
   usuario.
 - **Uso de llaves:** Toda estructura de control debe utilizar llaves (`{}`)
-  según la [Regla 0x1001h](../../reglas/1_control.md#0x1001h).
-- **Lazos:** Según la [Regla 0x1003h](../../reglas/1_control.md#0x1003h), se
+  según la {ref}`0x1001h`.
+- **Lazos:** Según la {ref}`0x1003h`, se
   debe preferir el uso de lazos `for` para iteraciones con rango o contador
   definido, y `while` para lazos controlados por condiciones lógicas.
 

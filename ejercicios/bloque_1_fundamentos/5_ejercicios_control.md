@@ -16,14 +16,12 @@ estructuras de repetición y el control de flujo estructurado y seguro en C.
 - {ref}`capitulo-control-flujo`
 
 ### Cuestiones de Estilo Aplicables
-- **Estructuras de control y llaves:** De acuerdo con la [Regla
-  0x1001h](../../reglas/1_control.md#0x1001h), todas las estructuras de control
+- **Estructuras de control y llaves:** De acuerdo con la {ref}`0x1001h`, todas las estructuras de control
   deben utilizar llaves (`{}`).
-- **Prohibición de `break` y `continue`:** Según la [Regla
-  0x1002h](../../reglas/1_control.md#0x1002h), se encuentra prohibido el uso
+- **Prohibición de `break` y `continue`:** Según la {ref}`0x1002h`, se encuentra prohibido el uso
   descontrolado de `break` y `continue`. En su lugar, se deben estructurar lazos
   controlados mediante banderas lógicas booleanas.
-- **Lazos:** Según la [Regla 0x1003h](../../reglas/1_control.md#0x1003h),
+- **Lazos:** Según la {ref}`0x1003h`,
   utilizá el lazo `for` para iteraciones con rango o contador definido y `while`
   para lazos controlados por condiciones lógicas.
 

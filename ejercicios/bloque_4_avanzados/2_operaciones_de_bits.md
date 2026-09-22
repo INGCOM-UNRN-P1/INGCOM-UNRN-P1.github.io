@@ -16,7 +16,7 @@ datos de forma directa y eficiente.
 Para profundizar en los conceptos teóricos, podés consultar el siguiente
 capítulo del apunte:
 - [Modelo de
-  Memoria](../../apunte/bloque_3_memoria_estatica/1_modelo_memoria.md)
+  Memoria](../../apunte/bloque_2_memoria/1_modelo_memoria.md)
 
 ## Manipulación de Bits Individuales
 (ejercicio_27_1)=

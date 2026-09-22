@@ -14,9 +14,9 @@ herramientas de análisis.
 
 Para más detalles teóricos sobre estos conceptos, podés consultar [el capítulo
 de Modelo de
-Memoria](../../apunte/bloque_3_memoria_estatica/1_modelo_memoria.md) y el de
+Memoria](../../apunte/bloque_2_memoria/1_modelo_memoria.md) y el de
 [Memoria
-Dinámica](../../apunte/bloque_4_dinamica_interfaces/1_memoria_dinamica.md) del
+Dinámica](../../apunte/bloque_2_memoria/5_memoria_dinamica.md) del
 apunte. Asegurate de seguir la regla de estilo {ref}`0x3002h` para la liberación
 adecuada de recursos y prevención de punteros colgantes.
 

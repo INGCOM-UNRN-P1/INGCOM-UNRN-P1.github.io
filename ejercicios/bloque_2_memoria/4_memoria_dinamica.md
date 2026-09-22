@@ -15,7 +15,7 @@ ciclo de vida de arreglos, cadenas y matrices.
 
 Para más detalles teóricos sobre la gestión de memoria dinámica, consultá [el
 capítulo de Memoria
-Dinámica](../../apunte/bloque_4_dinamica_interfaces/1_memoria_dinamica.md) del
+Dinámica](../../apunte/bloque_2_memoria/5_memoria_dinamica.md) del
 apunte. Recordá aplicar la regla de estilo de la cátedra {ref}`0x3002h` para
 asegurar la liberación correcta de recursos y evitar punteros colgantes.
 

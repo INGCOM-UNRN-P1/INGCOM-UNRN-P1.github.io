@@ -15,13 +15,11 @@ inicialización correcta de variables con tipos primitivos básicos.
 - {ref}`capitulo-introduccion-c`
 
 ### Cuestiones de Estilo Aplicables
-- **Inicialización de Variables:** De acuerdo con la [Regla
-  0x0003h](../../reglas/0_sintaxis.md#0x0003h), siempre se deben inicializar las
+- **Inicialización de Variables:** De acuerdo con la {ref}`0x7001h`, siempre se deben inicializar las
   variables a un valor conocido en su declaración.
 - **Robustez en Entrada de Datos:** Al utilizar `scanf`, se debe validar su
   valor de retorno y realizar el purgado del buffer de entrada cuando sea
-  necesario para evitar comportamientos indefinidos (ver [Regla
-  0x1005h](../../reglas/1_control.md#0x1005h)).
+  necesario para evitar comportamientos indefinidos (ver {ref}`0x1005h`).
 
 ---
 

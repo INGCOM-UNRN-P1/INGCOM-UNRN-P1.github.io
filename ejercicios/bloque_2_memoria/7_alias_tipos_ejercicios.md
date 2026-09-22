@@ -12,7 +12,7 @@ C para estructurar mejor tu código y mejorar su legibilidad.
 
 Para profundizar en los conceptos teóricos, podés consultar el siguiente
 capítulo del apunte:
-- [Alias de tipos](../../apunte/bloque_2_proyectos/3_alias_tipos.md)
+- [Alias de tipos](../../apunte/bloque_2_memoria/10_alias_tipos.md)
 
 ## Definición de Alias de Tipos
 (ejercicio_19_1)=

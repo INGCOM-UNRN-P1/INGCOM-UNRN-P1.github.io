@@ -15,8 +15,8 @@ forma eficiente.
 
 Para profundizar en los conceptos teóricos, podés consultar los siguientes
 capítulos del apunte:
-- [Compilación](../../apunte/bloque_2_proyectos/1_compilacion.md)
-- [Makefiles](../../apunte/bloque_2_proyectos/2_makefiles.md)
+- [Compilación](../../apunte/bloque_1_fundamentos/5_compilacion.md)
+- [Makefiles](../../apunte/bloque_1_fundamentos/8_makefiles.md)
 
 ## Proyecto Multi-archivo Manual
 (ejercicio_6_1)=

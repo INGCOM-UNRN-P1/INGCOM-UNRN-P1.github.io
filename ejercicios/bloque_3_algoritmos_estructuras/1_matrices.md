@@ -12,7 +12,7 @@ estáticas como dinámicas.
 
 Para profundizar en los conceptos teóricos, podés consultar el siguiente
 capítulo del apunte:
-- [Matrices](../../apunte/bloque_4_dinamica_indireccion/3_matrices.md)
+- [Matrices](../../apunte/bloque_3_algoritmos_estructuras/1_matrices.md)
 
 ## Operaciones Básicas
 (ejercicio_21_1)=

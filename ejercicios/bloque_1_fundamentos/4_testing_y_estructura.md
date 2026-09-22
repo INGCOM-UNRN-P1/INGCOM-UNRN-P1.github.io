@@ -25,21 +25,16 @@ cobertura de ramas de ejecución y aplicar las reglas de estilo institucional
 - {ref}`capitulo-control-flujo`
 
 ### Cuestiones de Estilo Aplicables
-- **Variables Globales Prohibidas:** Según la [Regla
-  0x2004h](../../reglas/2_funciones.md#0x2004h), está estrictamente prohibido el
+- **Variables Globales Prohibidas:** Según la {ref}`0x2004h`, está estrictamente prohibido el
   uso de variables globales.
-- **Una aserción por función de prueba:** Según la [Regla
-  0x2006h](../../reglas/2_funciones.md#0x2006h), cada función de test debe
+- **Una aserción por función de prueba:** Según la {ref}`0x8001h`, cada función de test debe
   validar
   un escenario o comportamiento específico.
-- **Desacoplamiento de E/S:** En conformidad con la [Regla
-  0x2002h](../../reglas/2_funciones.md#0x2002h), las funciones de cálculo deben
+- **Desacoplamiento de E/S:** En conformidad con la {ref}`0x2002h`, las funciones de cálculo deben
   ser puras y no contener `printf` ni `scanf`.
-- **Cláusulas de Guarda:** Según la [Regla
-  0x2001h](../../reglas/2_funciones.md#0x2001h), se deben usar retornos
+- **Cláusulas de Guarda:** Según la {ref}`0x2001h`, se deben usar retornos
   anticipados para evitar anidaciones profundas.
-- **Estilo Allman:** Según la [Regla
-  0x000Bh](../../reglas/0_sintaxis.md#0x000bh), las llaves deben colocarse en su
+- **Estilo Allman:** Según la {ref}`0x0007h`, las llaves deben colocarse en su
   propia línea alineadas con el bloque.
 
 ---
@@ -163,8 +158,7 @@ void test_calcular_promedio_tres_notas(void)
 
 :::{exercise}
 :label: ej-test-una-asercion
-El siguiente bloque de pruebas viola la [Regla
-0x2006h](../../reglas/2_funciones.md#0x2006h) (una aserción o caso por función
+El siguiente bloque de pruebas viola la {ref}`0x8001h` (una aserción o caso por función
 de prueba). Refactorizalo en funciones independientes con nombres descriptivos:
 
 ```{code-block} c
@@ -665,8 +659,7 @@ int main(void)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Identificar la violación de la [Regla
-    0x2004h](../../reglas/2_funciones.md#0x2004h).
+-   **[*plus ultra*]:** Identificar la violación de la {ref}`0x2004h`.
 -   **[*plus ultra*]:** Refactorizar `acumular` para que reciba el total actual
     y retorne el nuevo total de forma pura.
 
@@ -893,8 +886,7 @@ bool es_positivo(int n) {
 
 -   **[*plus ultra*]:** Explicar por qué las funciones puras son triviales de
     testear en comparación con las funciones impuras.
--   **[*plus ultra*]:** Reformular `sumar_con_log` para cumplir con la [Regla
-    0x2002h](../../reglas/2_funciones.md#0x2002h).
+-   **[*plus ultra*]:** Reformular `sumar_con_log` para cumplir con la {ref}`0x2002h`.
 
 :::
 <!-- {exercise} -->
@@ -1042,8 +1034,7 @@ módulo rompa silenciosamente a otro.
 
 -   **[*plus ultra*]:** Proponer una solución basada en interfaces limpias de
     funciones en archivos de cabecera `.h`.
--   **[*plus ultra*]:** Citar la [Regla
-    0x2004h](../../reglas/2_funciones.md#0x2004h) y sus consecuencias de
+-   **[*plus ultra*]:** Citar la {ref}`0x2004h` y sus consecuencias de
     ingeniería.
 
 :::
@@ -1590,7 +1581,7 @@ En ningún caso se ejecuta `incrementar()`.
 :::{exercise}
 :label: ej-test-guardas-vs-flecha
 Refactorizá la siguiente función anidada aplicando **cláusulas de guarda** según
-la [Regla 0x2001h](../../reglas/2_funciones.md#0x2001h):
+la {ref}`0x2001h`:
 
 ```{code-block} c
 :linenos:
@@ -1975,7 +1966,7 @@ int mcd(int a, int b)
 :label: ej-test-srp-refactor
 La siguiente función realiza tres tareas simultáneas: calcular la suma de un
 arreglo, buscar el máximo y contar negativos. Refactorizala en tres funciones
-atómicas según la [Regla 0x2005h](../../reglas/2_funciones.md#0x2005h):
+atómicas según la {ref}`0x2005h`:
 
 ``` c
 void procesar_todo(const int arr[], int n, int *suma, int *maximo, int *negativos);
@@ -2233,8 +2224,7 @@ void test_division_con_invariante(void)
 
 :::{exercise}
 :label: ej-test-estilo-allman
-Identificá las violaciones de la [Regla
-0x000Bh](../../reglas/0_sintaxis.md#0x000bh) (Estilo Allman) en el siguiente
+Identificá las violaciones de la {ref}`0x0007h` (Estilo Allman) en el siguiente
 código y reescribilo con las llaves correctamente alineadas en su propia línea:
 
 ```{code-block} c
@@ -2297,8 +2287,7 @@ void test_valor_absoluto(void)
 :::{exercise}
 :label: ej-test-numeros-magicos
 Refactorizá la siguiente función reemplazando todos los **números mágicos** por
-constantes simbólicas (`#define` o `const`) descriptivas según la [Regla
-0x0004h](../../reglas/0_sintaxis.md#0x0004h):
+constantes simbólicas (`#define` o `const`) descriptivas según la {ref}`0x0003h`:
 
 ```{code-block} c
 :linenos:
@@ -2466,8 +2455,7 @@ void test_potencia_contrato(void)
 :::{exercise}
 :label: ej-test-inicializacion-vars
 Analizá qué comportamiento indefinido (*Undefined Behavior*) ocurre en la
-siguiente función y corregilo aplicando la [Regla
-0x0003h](../../reglas/0_sintaxis.md#0x0003h):
+siguiente función y corregilo aplicando la {ref}`0x7001h`:
 
 ```{code-block} c
 :linenos:
@@ -2534,8 +2522,7 @@ int contar_multiplos(const int arr[], int n, int divisor)
 
 :::{exercise}
 :label: ej-test-organizacion-archivo
-Ordená las siguientes secciones de un archivo `.c` según la [Regla
-0x5005h](../../reglas/5_buenas_practicas.md#0x5005h):
+Ordená las siguientes secciones de un archivo `.c` según la {ref}`0x5005h`:
 - Implementación de funciones públicas
 - Inclusiones de bibliotecas estándar (`<stdio.h>`)
 - Inclusiones de cabeceras propias (`"modulo.h"`)
@@ -2571,7 +2558,7 @@ El orden estándar según la Regla `0x5005h` es:
 :::{exercise}
 :label: ej-test-default-switch
 ¿Por qué toda sentencia `switch` debe contener obligatoriamente una cláusula
-`default` según la [Regla 0x1003h](../../reglas/1_control.md#0x1003h), incluso
+`default` según la {ref}`0x1003h`, incluso
 si el programador cree haber cubierto todos los casos posibles?
 
 -   **[*plus ultra*]:** Implementar una función `int obtener_dias_trimestre(int
@@ -2630,8 +2617,7 @@ void test_trimestres(void)
 :::{exercise}
 :label: ej-test-nombres-variables
 Refactorizá el siguiente código reemplazando los nombres de variables crípticos
-por identificadores claros en `snake_case` según la [Regla
-0x0007h](../../reglas/0_sintaxis.md#0x0007h):
+por identificadores claros en `snake_case` según la {ref}`0x0102h`:
 
 ```{code-block} c
 :linenos:
@@ -2737,8 +2723,7 @@ un bloque asume que la variable conserva su valor anterior.
 :::{exercise}
 :label: ej-test-flags-compilacion
 Explicá qué detecta cada uno de los siguientes flags de `gcc` y por qué son
-obligatorios en las buenas prácticas de ingeniería ([Regla
-0x5002h](../../reglas/5_buenas_practicas.md#0x5002h)):
+obligatorios en las buenas prácticas de ingeniería ({ref}`0x5002h`):
 - `-Wall`
 - `-Wextra`
 - `-Werror`

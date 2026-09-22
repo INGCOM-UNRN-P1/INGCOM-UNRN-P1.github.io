@@ -25,7 +25,7 @@ En este bloque de ejercicios vas a diseñar módulos temáticos independientes, 
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-funciones-descomposicion`
-- [Compilación](../../apunte/bloque_2_proyectos/1_compilacion.md)
+- [Compilación](../../apunte/bloque_1_fundamentos/5_compilacion.md)
 
 ---
 

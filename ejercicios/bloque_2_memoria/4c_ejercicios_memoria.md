@@ -16,7 +16,7 @@ memoria dinámica en C, con foco en el uso de `malloc`, `calloc`, `realloc` y
 
 Para más detalles teóricos sobre estos conceptos, consultá [el capítulo de
 Memoria
-Dinámica](../../apunte/bloque_4_dinamica_indireccion/1_memoria_dinamica.md) del
+Dinámica](../../apunte/bloque_2_memoria/5_memoria_dinamica.md) del
 apunte. Asegurate de seguir la regla de estilo {ref}`0x3002h` para la liberación
 adecuada de recursos y prevención de punteros colgantes.
 (ejercicio_16_1)=
@@ -1014,7 +1014,7 @@ libera B dejando un hueco. Ahora hay dos bloques libres separados, pero ninguno
 puede satisfacer una solicitud del tamaño de A+B.
 
 :::
-<!-- {figure} ../../apunte/bloque_4_dinamica_indireccion/1/fragmentacion_externa.svg -->
+<!-- {figure} ../../apunte/bloque_2_memoria/5/fragmentacion_externa.svg -->
 
 Ahora hay dos bloques libres, pero si necesitás un bloque del tamaño de A+B, no
 podés usar el espacio libre entre A y C.
@@ -1057,7 +1057,7 @@ requiere una sola lectura del CPU, mientras que el desalineado requiere
 múltiples lecturas y manipulación de bits.
 
 :::
-<!-- {figure} ../../apunte/bloque_4_dinamica_indireccion/1/memory_alignment.svg -->
+<!-- {figure} ../../apunte/bloque_2_memoria/5/memory_alignment.svg -->
 
 **¿Por qué importa la alineación?**
 
@@ -1104,7 +1104,7 @@ con padding (correcta con alineación apropiada). El compilador inserta bytes de
 relleno para mantener la alineación de los campos.
 
 :::
-<!-- {figure} ../../apunte/bloque_4_dinamica_indireccion/1/struct_padding.svg -->
+<!-- {figure} ../../apunte/bloque_2_memoria/5/struct_padding.svg -->
 
 **Optimizar estructuras:**
 

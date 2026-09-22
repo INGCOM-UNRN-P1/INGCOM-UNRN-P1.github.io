@@ -15,7 +15,7 @@ configuración de sistemas.
 Para profundizar en los conceptos teóricos, podés consultar el siguiente
 capítulo del apunte:
 - [Enumeraciones y Estructuras de
-  Datos](../../apunte/bloque_2_proyectos/4_enums.md)
+  Datos](../../apunte/bloque_2_memoria/11_enums.md)
 
 ## Días de la Semana
 

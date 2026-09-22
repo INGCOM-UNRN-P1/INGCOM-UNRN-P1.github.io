@@ -40,17 +40,12 @@ Para resolver cada ejercicio debés:
    Nombres crípticos, operador ternario no permitido, falta de llaves Allman,
    variables reutilizadas, números mágicos, efectos secundarios, etc.
 3. **Refactorizar a C limpio e idiomático:** Reescribir la solución aplicando:
-   - Formato **Allman** ([Regla 0x000Bh](../../reglas/0_sintaxis.md#0x000bh)).
-   - Nombres autoexplicativos en `snake_case` ([Regla
-     0x0007h](../../reglas/0_sintaxis.md#0x0007h)).
-   - Eliminación estricta de variables globales ([Regla
-     0x2004h](../../reglas/2_funciones.md#0x2004h)).
-   - Cláusulas de guarda para evitar anidaciones ([Regla
-     0x2001h](../../reglas/2_funciones.md#0x2001h)).
-   - Constantes simbólicas para números mágicos ([Regla
-     0x0004h](../../reglas/0_sintaxis.md#0x0004h)).
-   - Desacople total de `printf`/`scanf` ([Regla
-     0x2002h](../../reglas/2_funciones.md#0x2002h)).
+   - Formato **Allman** ({ref}`0x0007h`).
+   - Nombres autoexplicativos en `snake_case` ({ref}`0x0102h`).
+   - Eliminación estricta de variables globales ({ref}`0x2004h`).
+   - Cláusulas de guarda para evitar anidaciones ({ref}`0x2001h`).
+   - Constantes simbólicas para números mágicos ({ref}`0x0003h`).
+   - Desacople total de `printf`/`scanf` ({ref}`0x2002h`).
 4. **Diseñar una suite de pruebas con `assert()`:** Validar que la versión
    refactorizada preserve exactamente el comportamiento esperado ante casos
    normales y bordes.
@@ -83,11 +78,11 @@ int f(int a,int b){return(a>b)?a:b;}
 :::{solution} ej-ref-maximo-comprimido
 :class: dropdown
 **Diagnóstico:**
-- Violación de la [Regla 0x1007h](../../reglas/1_control.md#0x1007h): uso del
+- Violación de la {ref}`0x1007h`: uso del
   operador ternario `?:`.
-- Violación de la [Regla 0x000Bh](../../reglas/0_sintaxis.md#0x000bh): llaves en
+- Violación de la {ref}`0x0007h`: llaves en
   la misma línea (no es Allman).
-- Violación de la [Regla 0x0007h](../../reglas/0_sintaxis.md#0x0007h):
+- Violación de la {ref}`0x0102h`:
   identificadores de una letra `f, a, b`.
 
 **Código Refactorizado:**
@@ -532,8 +527,7 @@ void test_volumen_cilindro(void)
 :::{exercise}
 :label: ej-ref-arrow-code
 Refactorizá la siguiente función anidada en forma de flecha aplicando
-**cláusulas de guarda** según la [Regla
-0x2001h](../../reglas/2_funciones.md#0x2001h):
+**cláusulas de guarda** según la {ref}`0x2001h`:
 
 ```{code-block} c
 :linenos:
@@ -650,7 +644,7 @@ void test_clasificar_desempenio(void)
 :::{exercise}
 :label: ej-ref-menu-ifs
 Refactorizá la siguiente selección de opciones a una estructura `switch` clara
-con cláusula `default` ([Regla 0x1003h](../../reglas/1_control.md#0x1003h)):
+con cláusula `default` ({ref}`0x1003h`):
 
 ```{code-block} c
 :linenos:
@@ -959,8 +953,7 @@ void test_descuentos(void)
 
 :::{exercise}
 :label: ej-ref-contaminada-io
-La siguiente función viola la [Regla
-0x2002h](../../reglas/2_funciones.md#0x2002h) porque realiza `printf` adentro
+La siguiente función viola la {ref}`0x2002h` porque realiza `printf` adentro
 del cálculo. Refactorizala para que sea una función pura y testeable:
 
 ```{code-block} c
@@ -1446,8 +1439,7 @@ void test_desglose_cambio(void)
 
 :::{exercise}
 :label: ej-ref-funcion-monstruo
-La siguiente función viola el Principio de Responsabilidad Única ([Regla
-0x2005h](../../reglas/2_funciones.md#0x2005h)) y mezcla E/S con cálculos.
+La siguiente función viola el Principio de Responsabilidad Única ({ref}`0x2005h`) y mezcla E/S con cálculos.
 Descomponela en al menos 3 funciones atómicas puras y un `main` interactivo:
 
 ```{code-block} c
@@ -2745,8 +2737,7 @@ int r2d(char c){if(c=='I')return 1;if(c=='V')return 5;if(c=='X')return 10;if(c==
 <!-- c -->
 
 -   **[*plus ultra*]:** Refactorizar a un `switch` con cláusula `default`
-    retornando `-1` ante error ([Regla
-    0x1003h](../../reglas/1_control.md#0x1003h)).
+    retornando `-1` ante error ({ref}`0x1003h`).
 -   **[*plus ultra*]:** Escribir tests unitarios con `assert()`.
 
 :::
