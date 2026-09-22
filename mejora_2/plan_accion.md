@@ -334,6 +334,7 @@ find/replace dedicada, no urgente.
 34. Envolver los forward-references suaves a anclas de bloque 2 desde
     `bloque_1/4_funciones.md:436,612` en un admonition `{seealso}` explícito
     en vez de un `{ref}` inline suelto.
+50. Elimina las secciones "Desarrollo" para simplificar la estructura de los documentos y reducir en un nivel su anidamiento.
 
 **Costo estimado**: 1-2 horas.
 
@@ -404,6 +405,21 @@ find/replace dedicada, no urgente.
     la familia 13/14 — `14A_enums_avanzados.md` sigue fuera de `myst.yml`
     hasta que se resuelva esa decisión más amplia.
 
+46. **En `bloque_4_avanzados/4_binarios_archivos.md`, diferenciar
+    explícitamente la representación nativa de un `struct` de un formato
+    portable**: documentar padding, endianness, tamaños dependientes de
+    plataforma y la prohibición de persistir punteros directamente a disco
+    o red.
+47. **En `12_sockets.md`, acotar la analogía de "archivo especial"** (los
+    sockets comparten la interfaz de descriptor de archivo, pero no todas
+    las operaciones de archivo aplican igual) **y agregar un ejemplo de
+    framing y E/S parcial para TCP** — TCP es un flujo de bytes sin límites
+    de mensaje; un `recv()` puede devolver menos bytes de los pedidos y el
+    programa debe loopear o definir un protocolo de framing propio. El
+    ejercicio de fuga de descriptor agregado en la Fase 4 de este plan
+    (`ej-sockets-fuga-descriptor`) no cubre este punto; es un tema
+    complementario.
+
 ---
 
 ## Fase 8 — Pedagogía y secuenciación (integrado de `mejora/plan_de_accion.md`)
@@ -417,11 +433,12 @@ bloque 3/4, verificación de ejemplos ejecutables) están marcadas `[x]`
 completas ahí. Las Fases 5-7 seguían pendientes (`[ ]`) y se integran acá,
 evitando duplicar lo que este plan ya resolvió por otra vía.
 
-42. **Reescribir la apertura de capítulos con carga cognitiva alta antes del
-    primer ejemplo verificable** (Fase 5 de `mejora/`): `5_memoria_dinamica.md`
-    y reubicación de `4_archivos_texto.md` al cierre integrador de bloque 2
-    ya están marcados como hechos ahí; quedan pendientes `7_estructuras.md`,
-    `5_compilacion.md` y `2_tad.md`.
+42. **✅ Resuelto — Reescribir la apertura de capítulos con carga cognitiva
+    alta antes del primer ejemplo verificable**: `5_memoria_dinamica.md`,
+    `7_estructuras.md`, `5_compilacion.md` y `2_tad.md` comienzan ahora con una
+    acción o ejemplo ejecutable, seguido por la explicación conceptual. La
+    reubicación de `4_archivos_texto.md` al cierre integrador del bloque 2 se
+    conserva como decisión de secuenciación.
 43. **✅ Parcialmente resuelto — Renombrar encabezados de apertura genéricos**
     ("Referencias y Lecturas Complementarias", "Lecturas Recomendadas",
     "Ventajas y Desventajas"). La Fase 1 de este plan ya corrigió los casos
@@ -448,20 +465,7 @@ evitando duplicar lo que este plan ya resolvió por otra vía.
     requiere trabajo adicional; verificar igual con
     `myst build --site --strict --check-links` (punto 47) por si el build
     real encuentra algo que el script de barrido de enlaces no detecta.
-46. **En `bloque_4_avanzados/4_binarios_archivos.md`, diferenciar
-    explícitamente la representación nativa de un `struct` de un formato
-    portable**: documentar padding, endianness, tamaños dependientes de
-    plataforma y la prohibición de persistir punteros directamente a disco
-    o red.
-47. **En `12_sockets.md`, acotar la analogía de "archivo especial"** (los
-    sockets comparten la interfaz de descriptor de archivo, pero no todas
-    las operaciones de archivo aplican igual) **y agregar un ejemplo de
-    framing y E/S parcial para TCP** — TCP es un flujo de bytes sin límites
-    de mensaje; un `recv()` puede devolver menos bytes de los pedidos y el
-    programa debe loopear o definir un protocolo de framing propio. El
-    ejercicio de fuga de descriptor agregado en la Fase 4 de este plan
-    (`ej-sockets-fuga-descriptor`) no cubre este punto; es un tema
-    complementario.
+
 48. **Crear una autoevaluación de cierre por bloque** (no por capítulo) que
     cubra recordar, aplicar y justificar, enlazada desde cada índice de
     bloque (`indice.md` y los índices internos si existen).
@@ -479,6 +483,68 @@ evitando duplicar lo que este plan ya resolvió por otra vía.
 **Riesgo si no se hace**: el apunte queda técnicamente correcto pero sin la
 mejora de secuenciación pedagógica y carga cognitiva que motivó la
 evaluación original de `mejora/`.
+
+---
+
+## Fase 9 — Remediación de `technicalCompleteness` en bloque 2 (reevaluación `jev-doc-quality`)
+
+Se ejecutó `mejora/evaluar_lote.mjs` (con `jev-doc-quality.mjs`) sobre los 11
+capítulos de `apunte/bloque_2_memoria/` para medir el efecto de las Fases 0-4
+de este plan con una herramienta independiente de la auditoría original.
+Resultado completo en `mejora/informe_calidad.md`, sección 5; datos crudos en
+`mejora/evaluacion_bloque2.json`.
+
+**Resultado**: el índice promedio del bloque subió de 57.4 (línea de base) a
+**70.3** — 10 capítulos BUENO y 1 EXCELENTE, cero DEFICIENTE.
+`1_modelo_memoria.md`, el único DEFICIENTE (38/100) de la línea de base, pasó
+a 76/100. `hasClearPrerequisites` da `true` en los 11 archivos (era el
+83.4% de fallo a nivel de todo el apunte en la línea de base). Esto confirma
+que las Fases 0-4 tuvieron el efecto pedagógico buscado.
+
+Pero la reevaluación encontró un eje que esas fases **no tocaron**:
+`technicalCompleteness` puntúa 1.15-1.89 sobre 3 en los 11 archivos —
+sistemáticamente más bajo que `pedagogicalClarity` (2.21-2.76). El modelo
+evalúa esto sobre los primeros 4000 caracteres de cada archivo, así que el
+diagnóstico es específicamente sobre la calidad técnica de **la apertura**
+de cada capítulo, no del capítulo completo.
+
+51. **`bloque_2/2_punteros.md` no tiene ejemplo ejecutable en su apertura**
+    (`hasRunnableExamples: false`, probabilidad 0.0 según el detalle
+    completo). El único código en los primeros 4000 caracteres es una
+    declaración aislada sin programa completo:
+    ```c
+    int *ptr_entero;
+    double *ptr_double;
+    char *ptr_char;
+    ```
+    sin `#include`, sin `main()`, sin comando de compilación. Agregar antes
+    (o en reemplazo) un ejemplo mínimo compilable: declarar una variable,
+    tomar su dirección con `&`, imprimirla con `%p`, desreferenciarla y
+    modificarla, con su `#include <stdio.h>`, `main()` y el comando
+    `gcc -Wall -Wextra -std=c11 -pedantic`.
+52. **`bloque_2/4_archivos_texto.md` tiene el mismo problema**
+    (`hasRunnableExamples: false`). El único código en la apertura es
+    `FILE *puntero_archivo;` sin `fopen`/`fclose` ni programa completo.
+    Agregar temprano un ejemplo mínimo: abrir un archivo con `fopen`,
+    verificar `NULL`, y cerrarlo con `fclose`, antes de profundizar en la
+    analogía con arreglos y punteros que hoy ocupa la apertura.
+53. **Revisar la apertura del resto del bloque (`1_modelo_memoria.md`,
+    `3_secuencias.md`, `5_memoria_dinamica.md`, `6_aritmetica.md`,
+    `7_estructuras.md`, `8_numeros.md`, `9_casts.md`, `10_alias_tipos.md`,
+    `11_enums.md`) para subir `technicalCompleteness`** aunque ya puntúen
+    `hasRunnableExamples: true`: el score técnico bajo en todos sugiere que
+    falta, cerca del primer ejemplo, alguna combinación de comando de
+    compilación explícito, resultado esperado de la ejecución, o mención de
+    casos borde — no solo la presencia de un bloque de código. Priorizar
+    `2_punteros.md` (0.61, el más bajo del bloque) y `3_secuencias.md`
+    (0.62) después de resolver 51-52.
+
+**Costo estimado**: 2-3 horas para 51-52 (ejemplos concretos y acotados);
+3-5 horas para 53 (revisar 9 aperturas). **Riesgo si no se hace**: el bloque
+2 quedó estructuralmente sano (H1, anclas, enlaces) pero sigue sin resolver
+el patrón de "código sin scaffolding inmediato" que motivó la evaluación
+original de `mejora/`, específicamente en los dos capítulos más consultados
+del bloque (punteros y archivos).
 
 ---
 
@@ -512,7 +578,8 @@ evaluación original de `mejora/`.
 | 6 | Ampliaciones y consolidación de bloque 3 (20) | 2-3 h | Pendiente |
 | 7 | Mejoras y correcciones de bloque 4 (21, 23, 37) | 3-5 h | Parcial (37 hecho) |
 | 8 | Pedagogía y secuenciación, de `mejora/` (42-49) | 6-9 h | Parcial (45 hecho) |
-| **Total** | | **~25-36 h** | |
+| 9 | `technicalCompleteness` en bloque 2, de reevaluación `jev-doc-quality` (51-53) | 5-8 h | Pendiente |
+| **Total** | | **~30-44 h** | |
 
 Las fases 0 y 1 dejaron 4 hallazgos nuevos (ver sección "Hallazgos
 adicionales" entre Fase 1 y Fase 2), ya incorporados a las fases 2 y 7

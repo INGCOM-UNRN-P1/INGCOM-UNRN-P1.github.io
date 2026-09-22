@@ -1,0 +1,299 @@
+[
+  {
+    "file": "apunte/bloque_2_memoria/1_modelo_memoria.md",
+    "overallQualityIndex": 76,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.28,
+        "max": 3,
+        "confidence": 0.71
+      },
+      "technicalCompleteness": {
+        "score": 1.78,
+        "max": 3,
+        "confidence": 0.78
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.98,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.96
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.82
+    }
+  },
+  {
+    "file": "apunte/bloque_2_memoria/2_punteros.md",
+    "overallQualityIndex": 61,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.27,
+        "max": 3,
+        "confidence": 0.72
+      },
+      "technicalCompleteness": {
+        "score": 1.15,
+        "max": 3,
+        "confidence": 0.73
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": false,
+      "hasRunnableExamplesProbability": 0.53,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.88
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.43
+    }
+  },
+  {
+    "file": "apunte/bloque_2_memoria/3_secuencias.md",
+    "overallQualityIndex": 62,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.21,
+        "max": 3,
+        "confidence": 0.78
+      },
+      "technicalCompleteness": {
+        "score": 1.24,
+        "max": 3,
+        "confidence": 0.63
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.67,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.77
+    },
+    "targetAudience": {
+      "level": "beginner",
+      "confidence": 0.53
+    }
+  },
+  {
+    "file": "apunte/bloque_2_memoria/4_archivos_texto.md",
+    "overallQualityIndex": 66,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.68,
+        "max": 3,
+        "confidence": 0.68
+      },
+      "technicalCompleteness": {
+        "score": 1.3,
+        "max": 3,
+        "confidence": 0.45
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": false,
+      "hasRunnableExamplesProbability": 0.38,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.9
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.62
+    }
+  },
+  {
+    "file": "apunte/bloque_2_memoria/5_memoria_dinamica.md",
+    "overallQualityIndex": 78,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.51,
+        "max": 3,
+        "confidence": 0.51
+      },
+      "technicalCompleteness": {
+        "score": 1.86,
+        "max": 3,
+        "confidence": 0.8
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.98,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.81
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.87
+    }
+  },
+  {
+    "file": "apunte/bloque_2_memoria/6_aritmetica.md",
+    "overallQualityIndex": 67,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.28,
+        "max": 3,
+        "confidence": 0.67
+      },
+      "technicalCompleteness": {
+        "score": 1.42,
+        "max": 3,
+        "confidence": 0.48
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.75,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.83
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.97
+    }
+  },
+  {
+    "file": "apunte/bloque_2_memoria/7_estructuras.md",
+    "overallQualityIndex": 83,
+    "qualityLevel": "EXCELENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.76,
+        "max": 3,
+        "confidence": 0.76
+      },
+      "technicalCompleteness": {
+        "score": 1.89,
+        "max": 3,
+        "confidence": 0.88
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.9
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.95
+    }
+  },
+  {
+    "file": "apunte/bloque_2_memoria/8_numeros.md",
+    "overallQualityIndex": 71,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.4,
+        "max": 3,
+        "confidence": 0.6
+      },
+      "technicalCompleteness": {
+        "score": 1.5,
+        "max": 3,
+        "confidence": 0.48
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.95,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.77
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.56
+    }
+  },
+  {
+    "file": "apunte/bloque_2_memoria/9_casts.md",
+    "overallQualityIndex": 71,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.44,
+        "max": 3,
+        "confidence": 0.56
+      },
+      "technicalCompleteness": {
+        "score": 1.47,
+        "max": 3,
+        "confidence": 0.49
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.92,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.76
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.8
+    }
+  },
+  {
+    "file": "apunte/bloque_2_memoria/10_alias_tipos.md",
+    "overallQualityIndex": 72,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.55,
+        "max": 3,
+        "confidence": 0.55
+      },
+      "technicalCompleteness": {
+        "score": 1.5,
+        "max": 3,
+        "confidence": 0.49
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.95,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.72
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.37
+    }
+  },
+  {
+    "file": "apunte/bloque_2_memoria/11_enums.md",
+    "overallQualityIndex": 66,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.3,
+        "max": 3,
+        "confidence": 0.68
+      },
+      "technicalCompleteness": {
+        "score": 1.37,
+        "max": 3,
+        "confidence": 0.56
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.82,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.74
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.77
+    }
+  }
+]
