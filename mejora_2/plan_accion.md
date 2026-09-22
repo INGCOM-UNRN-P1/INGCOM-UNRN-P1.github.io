@@ -127,17 +127,6 @@ aparecieron estos 4 puntos nuevos:
     - `bloque_3_algoritmos_estructuras/3_tad_pilas_colas.md:494-500` — un
       `{note}` abría con 5 colons y cerraba con 4.
     **Ya corregido** en los commits `10b03f5` y `880884e`.
-37. **Contenido huérfano sin integrar en `bloque_4_avanzados/12_sockets.md`,
-    líneas 1948-2037** (~90 líneas): al final del capítulo, después de la
-    sección "Resumen", aparece un bloque delimitado literalmente con
-    `PARA INTEGRAR` que desarrolla **serialización de `enum`** — un tema sin
-    ninguna relación con sockets. Es casi con certeza contenido que pertenece
-    a `14A_enums_avanzados.md` o a `11_enums.md` y quedó pegado al final del
-    archivo equivocado. **No se tocó**: es una decisión de ubicación de
-    contenido, no una corrección mecánica de heading. Agregar a la Fase 3:
-    mover este bloque a donde corresponda (evaluar junto con el punto 21,
-    familia 13/14 de bloque 4) y, si el destino es `14A_enums_avanzados.md`,
-    aprovecharlo como el desarrollo real que ese archivo hoy no tiene.
 38. **2 referencias `{ref}` rotas preexistentes en `ejercicios/bloque_2_memoria/`**,
     no relacionadas con ningún cambio de esta sesión: `3_archivos.md` y
     `3b_ejercicios_archivos.md` referencian `{ref}`capitulo-archivos-texto``,
@@ -261,46 +250,12 @@ opacas aparecen en ambos).
       elimina por ser un placeholder de una fórmula sin desarrollo.
     - `7E_serializacion.md` y `7F_estructuras_opacas.md`: ver punto 21 antes
       de decidir (dependen de qué se haga con bloque 4).
-21. **Bloque 4 — familia 13/14**: decidir entre dos caminos, no dejarlo como
-    está:
-    - **(a) Desarrollar el capítulo 13 real**: escribir
-      `13_struct_avanzado.md` como capítulo índice/introductorio, fusionar
-      `13D_union.md` (el único con código completo) y `13E_padding_abi.md`
-      como sus secciones, agregar a `myst.yml`, y decidir el destino de
-      `13C_estructuras_opacas.md` (candidato claro a **eliminar**: es
-      puramente redundante con `3_opacos.md`, que ya cubre el tema con 52K y
-      9 ejercicios) y `13F_bitfields.md` (candidato a fusionar como nota
-      breve dentro de `5_binarios_bitwise.md`, que ya cubre bitfields con
-      ejemplos).
-    - **(b) Eliminar toda la familia** si no hay planes reales de
-      desarrollarla en el corto plazo — mantenerla vacía/huérfana no aporta
-      valor y ensucia el repo.
-    - En cualquier caso, `13B_serializacion.md` y `14A_enums_avanzados.md`
-      son los más aprovechables si se elige (a): tienen frontmatter correcto
-      y al menos una idea desarrollable.
-    - Esta decisión determina qué pasa con `7E_serializacion.md`/
-      `7F_estructuras_opacas.md` de bloque 3 (punto 20): si el tema vive en
-      bloque 4, eliminar los de bloque 3 y dejar solo un enlace cruzado; si
-      vive en bloque 3, eliminar los de bloque 4.
-    - (Hallazgo 37) El bloque huérfano "PARA INTEGRAR" sobre serialización de
-      `enum` al final de `12_sockets.md:1948-2037` es contenido ya escrito y
-      completo (código + tip) que encaja naturalmente en
-      `14A_enums_avanzados.md` si se elige la opción (a): resolvería de paso
-      que ese archivo hoy sea el más débil de la familia (un párrafo + 4
-      líneas de código). Moverlo implica quitar el marcador `PARA INTEGRAR`
-      y las líneas en blanco sobrantes de `12_sockets.md`.
 22. **Reconciliar `reporte.md`** (sin commitear, raíz del repo): una vez
     tomadas las decisiones de 20-21, actualizar ese documento para que
     refleje el estado real, o archivarlo/eliminarlo si ya cumplió su
     propósito. Evita que quede como fuente de verdad falsa para futuras
     ediciones.
-23. **Decisión editorial sobre alcance de `11_hilos.md` y `12_sockets.md`**:
-    ¿pertenecen al programa de "Programación 1"? Si sí, marcarlos
-    explícitamente como ampliación optativa/de nivelación (con un admonition
-    al inicio) y agregarles ejercicios acordes a su tamaño. Si no, evaluar
-    moverlos a un apunte de nivel posterior. En cualquier caso, el bloque de
-    TLS/OpenSSL en `12_sockets.md` (líneas 1839-1840) es el punto más alejado
-    del temario típico y merece la decisión más explícita.
+
 
 **Costo estimado**: 2-3 horas de decisión + 3-5 horas de escritura según lo
 que se elija desarrollar. **Riesgo si no se hace**: el repo sigue
@@ -362,6 +317,56 @@ find/replace dedicada, no urgente.
     en vez de un `{ref}` inline suelto.
 
 **Costo estimado**: 1-2 horas.
+
+
+## Fase 6 - Mejoras y correcciones en bloque 4
+
+21. **Bloque 4 — familia 13/14**: decidir entre dos caminos, no dejarlo como
+    está:
+    - **(a) Desarrollar el capítulo 13 real**: escribir
+      `13_struct_avanzado.md` como capítulo índice/introductorio, fusionar
+      `13D_union.md` (el único con código completo) y `13E_padding_abi.md`
+      como sus secciones, agregar a `myst.yml`, y decidir el destino de
+      `13C_estructuras_opacas.md` (candidato claro a **eliminar**: es
+      puramente redundante con `3_opacos.md`, que ya cubre el tema con 52K y
+      9 ejercicios) y `13F_bitfields.md` (candidato a fusionar como nota
+      breve dentro de `5_binarios_bitwise.md`, que ya cubre bitfields con
+      ejemplos).
+    - **(b) Eliminar toda la familia** si no hay planes reales de
+      desarrollarla en el corto plazo — mantenerla vacía/huérfana no aporta
+      valor y ensucia el repo.
+    - En cualquier caso, `13B_serializacion.md` y `14A_enums_avanzados.md`
+      son los más aprovechables si se elige (a): tienen frontmatter correcto
+      y al menos una idea desarrollable.
+    - Esta decisión determina qué pasa con `7E_serializacion.md`/
+      `7F_estructuras_opacas.md` de bloque 3 (punto 20): si el tema vive en
+      bloque 4, eliminar los de bloque 3 y dejar solo un enlace cruzado; si
+      vive en bloque 3, eliminar los de bloque 4.
+    - (Hallazgo 37) El bloque huérfano "PARA INTEGRAR" sobre serialización de
+      `enum` al final de `12_sockets.md:1948-2037` es contenido ya escrito y
+      completo (código + tip) que encaja naturalmente en
+      `14A_enums_avanzados.md` si se elige la opción (a): resolvería de paso
+      que ese archivo hoy sea el más débil de la familia (un párrafo + 4
+      líneas de código). Moverlo implica quitar el marcador `PARA INTEGRAR`
+      y las líneas en blanco sobrantes de `12_sockets.md`.
+23. **Decisión editorial sobre alcance de `11_hilos.md` y `12_sockets.md`**:
+    ¿pertenecen al programa de "Programación 1"? Si sí, marcarlos
+    explícitamente como ampliación optativa/de nivelación (con un admonition
+    al inicio) y agregarles ejercicios acordes a su tamaño. Si no, evaluar
+    moverlos a un apunte de nivel posterior. En cualquier caso, el bloque de
+    TLS/OpenSSL en `12_sockets.md` (líneas 1839-1840) es el punto más alejado
+    del temario típico y merece la decisión más explícita.
+37. **Contenido huérfano sin integrar en `bloque_4_avanzados/12_sockets.md`,
+    líneas 1948-2037** (~90 líneas): al final del capítulo, después de la
+    sección "Resumen", aparece un bloque delimitado literalmente con
+    `PARA INTEGRAR` que desarrolla **serialización de `enum`** — un tema sin
+    ninguna relación con sockets. Es casi con certeza contenido que pertenece
+    a `14A_enums_avanzados.md` o a `11_enums.md` y quedó pegado al final del
+    archivo equivocado. **No se tocó**: es una decisión de ubicación de
+    contenido, no una corrección mecánica de heading. Agregar a la Fase 3:
+    mover este bloque a donde corresponda (evaluar junto con el punto 21,
+    familia 13/14 de bloque 4) y, si el destino es `14A_enums_avanzados.md`,
+    aprovecharlo como el desarrollo real que ese archivo hoy no tiene.
 
 ---
 
