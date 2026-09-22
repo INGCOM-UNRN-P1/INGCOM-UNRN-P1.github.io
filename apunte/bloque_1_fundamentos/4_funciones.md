@@ -98,7 +98,7 @@ Una función en C es un bloque de código que:
 
 **Sintaxis básica**
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 <tipo> <nombre>(<tipo parámetro1> <nombre parámetro1>, <tipo parámetro2> <nombre parámetro2>, ...) {
     // instrucciones
@@ -106,7 +106,7 @@ Una función en C es un bloque de código que:
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 De esta sintaxis básica, es posible crear una función que no reciba argumentos;
 solo tenemos que dejar vacía la lista de parámetros.
@@ -118,7 +118,7 @@ palabra reservada `void` (vacío en inglés).
 En este ejemplo comentado, podemos ver una función que recibe un par de números
 y devuelve su suma:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // retorno de tipo int, identificador sumar y dos int como argumentos
 int sumar(int a, int b)
@@ -128,17 +128,17 @@ int sumar(int a, int b)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Esto se puede usar desde `main()` u otra función:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 int resultado = sumar(5, 3);
 printf("Resultado: %d\n", resultado);
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{figure} 4/function_call_flow.svg
 :name: fig-function-call-flow
@@ -153,7 +153,7 @@ cambios internos no afectan las variables originales.
 Y también un ejemplo de función que no recibe argumentos y simultáneamente no
 devuelve valores:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // sin retorno de valor, identificador saludar y sin argumentos
 void saludar()
@@ -162,7 +162,7 @@ void saludar()
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{note} Procedimiento
 
@@ -204,7 +204,7 @@ Podés ver esto si ubicás la definición de las funciones debajo del `main`. Co
 el compilador ve una llamada a la función antes de su declaración, la
 compilación fallará:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 int main()
 {
@@ -217,12 +217,12 @@ double areaCirculo(double radio)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Para que este código funcione, se necesita declarar el prototipo de la función
 al principio del archivo:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // prototipo de la función
 double areaCirculo(double radio);
@@ -237,13 +237,13 @@ double areaCirculo(double radio)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Los prototipos de función se utilizan obligatoriamente cuando dos funciones se
 llaman mutuamente (mutua recursión), y no podemos organizarlas simplemente
 reordenándolas:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // Declaraciones de prototipos para resolver la mutua recursión
 int funcion_uno();
@@ -262,7 +262,7 @@ int funcion_dos()
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (roles-en-funciones)=
 ### Roles en Funciones
@@ -286,7 +286,7 @@ función los datos necesarios** para que realice su tarea. La función usa este
 valor, pero generalmente no lo modifica de forma que el llamador vea ese cambio
 (a menos que se pase por referencia).
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 // 'num1' y 'num2' son parámetros de entrada
@@ -307,7 +307,7 @@ int main()
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 En la función `sumar`, `num1` y `num2` son **parámetros de entrada**. Reciben
 los valores `5` y `3` respectivamente, y la función los usa para realizar la
@@ -326,7 +326,7 @@ exclusivamente al registro de activación de la llamada. Su propósito principal
 es **servir como espacio de trabajo transitorio para cómputos intermedios** que
 simplifican el flujo lógico de cálculo antes de generar el resultado final.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 float calcularPromedio(int a, int b, int c)
@@ -345,7 +345,7 @@ int main()
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Aquí, `sumaTemporal` es una **variable local temporal** dentro de
 `calcularPromedio`. Su único propósito es almacenar la suma intermedia antes de
@@ -392,7 +392,7 @@ característica es que son accesibles desde cualquier función en todo el
 programa. Una vez declarada, cualquier parte de tu código puede leerla y
 modificarla.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 int variableGlobal = 10; // Declarada fuera de todas las funciones
@@ -410,7 +410,7 @@ int main()
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Aunque las variables globales pueden parecer una forma fácil de compartir datos,
 su uso rompe con la expectativa de que una función recibe su contexto de los
@@ -439,7 +439,7 @@ para más detalles de esta mecánica física.
 :::
 <!-- {important} Pasaje por Valor -->
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 void suma(int a, int b)
@@ -455,7 +455,7 @@ int main(void)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (variables-locales-automaticas)=
 #### Variables Locales (Automáticas)
@@ -476,7 +476,7 @@ este mecanismo, consultá el apunte de [Memoria Dinámica](14_memoria_dinamica).
 :::
 <!-- {tip} Gestión Automática de Memoria -->
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 void miFuncion()
@@ -492,7 +492,7 @@ int main()
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 La `variableLocal` solo es accesible desde `miFuncion`.
 
@@ -504,7 +504,7 @@ delimita por llaves `{}`. Su alcance es aún más restringido: solo existen desd
 el punto de su declaración hasta el final de ese bloque. Son comunes en lazos y
 condicionales.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 int main()
@@ -525,7 +525,7 @@ int main()
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 La `variableBloque` solo es accesible dentro de las llaves del `if`, y la
 variable `i` solo existe dentro del lazo `for`.
@@ -541,7 +541,7 @@ segmento de datos durante toda la ejecución del programa, inicializándose una
 
 Analizá el comportamiento con este ejemplo comparativo:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 void contador_normal()
@@ -567,7 +567,7 @@ int main(void)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Salida del programa:
 ```
@@ -645,7 +645,7 @@ Visualización del ocultamiento de variables (shadowing).
 :::
 <!-- {figure} 4/shadowing.svg -->
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 int main()
@@ -662,7 +662,7 @@ int main()
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Y la salida, queda como:
 
@@ -722,7 +722,7 @@ Queremos un programa que solicite dos números (base y altura), calcule el área
 2.  Calcular el área de forma pura.
 3.  Mostrar el resultado en la salida estándar.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 int leer_entero(const char *mensaje);
@@ -748,7 +748,7 @@ int calcular_area(int base, int altura)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 > Fijate que `main()` se lee como una receta; eso es lo que buscamos.
 
@@ -801,7 +801,7 @@ estamos factorizando de una forma aún mejor.
 
 #### Ejemplo de factorización:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 void solicitar_datos()
@@ -821,7 +821,7 @@ int main()
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 #### ¿Por qué esto es importante?
 
@@ -929,18 +929,18 @@ propias palabras.
 Este es un comentario de una sola línea, que pueden usar para reforzar alguna
 explicación de algo que vean flojo (pero puntual)
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // este es un comentario de una única linea, todo lo que esta a la derecha es
 ignorado
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 And este es un comentario de bloque, que se usa para documentar funciones, pero
 también lo pueden usar para desactivar una parte del programa:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 /*
 Este es un comentario de bloque, todo lo que esta dentro del bloque es
@@ -948,7 +948,7 @@ ignorado, y este, a diferencia del otro, puede abarcar múltiples lineas.
 */
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 #### ¿Por qué documentar funciones?
 
@@ -975,7 +975,7 @@ Los comentarios de documentación que les pediremos que completen tienen esta
 forma. Está pensada para una herramienta que toma estos comentarios y construye
 un manual del código automáticamente: [Doxygen](https://doxygen.nl/).
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 /**
  * Calcula el área de un rectángulo dado su base y altura.
@@ -990,7 +990,7 @@ int calcular_area(int base, int altura)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 #### Contratos de Función: Precondiciones, Poscondiciones e Invariantes
 

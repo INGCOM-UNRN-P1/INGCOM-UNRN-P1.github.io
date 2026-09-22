@@ -76,7 +76,6 @@ desde archivos fuente independientes `.c` y cabeceras `.h` hacia código objeto
 
 :::
 <!-- {figure} 5/proceso_compilacion.svg -->
-<!-- {figure} 1/proceso_compilacion.svg -->
 
 (fase-1-preprocesado-preprocessing)=
 #### Etapa 1: Preprocesado (Preprocessing)
@@ -229,7 +228,6 @@ ensamblador).
 
 :::
 <!-- {figure} 5/fases_compilador.svg -->
-<!-- {figure} 1/fases_compilador.svg -->
 
 ##### Análisis Léxico y Sintáctico
 
@@ -566,13 +564,6 @@ prolijidad y previene errores futuros si el contenido del archivo cambia.
 
 :::
 <!-- {important} Cuestión de estilo -->
-
-
-
-
-
-
-
 
 
 ---
@@ -958,7 +949,7 @@ programas se integren a la perfección.
 La signatura estándar de la función `main` que acepta argumentos es la
 siguiente:
 
-:::{code-block}c
+:::{code-block} c
 
 int main(int argc, char *argv[])
 {
@@ -967,7 +958,7 @@ int main(int argc, char *argv[])
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Estos dos parámetros contienen toda la información que se pasa al programa en el
 momento de su ejecución.
@@ -1008,7 +999,6 @@ programa.
 
 :::
 <!-- {figure} 5/argc_argv_estructura.svg -->
-<!-- {figure} 1/argc_argv_estructura.svg -->
 
 (ejemplo-basico-imprimir-todos-los-argumentos)=
 ### Ejemplo Básico: Imprimir Todos los Argumentos
@@ -1102,7 +1092,7 @@ Para detectarlas, necesitás comparar las cadenas de `argv` con los valores que
 esperás. La función `strcmp` (ver {ref}`string-strcmp`) de la biblioteca
 `string.h` es ideal para esto.
 
-:::{code-block}c
+:::{code-block} c
 :caption: "Detección de una opción `-h` para mostrar ayuda."
 :label: "c-options-help"
 #include <stdio.h>
@@ -1125,7 +1115,7 @@ int main(int argc, char *argv[])
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{tip} Bibliotecas para el Análisis de Argumentos
 
@@ -1147,7 +1137,7 @@ operaciones matemáticas con ellos, debés convertirlos a un tipo numérico (com
 La biblioteca estándar de C (`stdlib.h`) provee funciones para esta tarea, como
 `atoi` y, de forma más robusta, {ref}`strtol <stdlib-strtol>`.
 
-:::{code-block}c
+:::{code-block} c
 :caption: "Programa que suma los números pasados como argumentos."
 :label: "c-sum-numbers"
 #include <stdio.h>
@@ -1172,7 +1162,7 @@ int main(int argc, char *argv[])
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 (compilacion-y-ejecucion-del-sumador)=
 #### Compilación y Ejecución del Sumador
@@ -1292,7 +1282,7 @@ termina su ejecución. Por convención en Unix y Linux:
 Este código es fundamental para que el shell y otros programas sepan si tu
 programa funcionó correctamente.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
@@ -1308,7 +1298,7 @@ int main(int argc, char *argv[])
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Desde el shell, podés inspeccionar el código de salida del último programa
 ejecutado:
@@ -1329,7 +1319,7 @@ etc.
 
 La función {ref}`getenv <stdlib-getenv>` permite leer estas variables:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
@@ -1349,7 +1339,7 @@ int main(void)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Variables comunes incluyen `PATH` (rutas de búsqueda de ejecutables), `HOME`
 (directorio del usuario), `USER` (nombre del usuario), y `LANG` (configuración
@@ -1364,7 +1354,6 @@ la ejecución fue exitosa (`0`) o falló (distinto de `0`).
 
 :::
 <!-- {figure} 5/codigos_salida.svg -->
-<!-- {figure} 1/codigos_salida.svg -->
 
 (redirecciones)=
 ### Redirecciones
@@ -1396,11 +1385,10 @@ escriben a la pantalla.
 
 :::
 <!-- {figure} 5/flujos_estandar.svg -->
-<!-- {figure} 1/flujos_estandar.svg -->
 
 En C, estos flujos están disponibles como:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 // stdin  - entrada estándar (teclado por defecto)
@@ -1416,7 +1404,7 @@ int main(void)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 :::{important} Separación de Salida y Error
 
@@ -1464,13 +1452,12 @@ modificarse, el shell conecta automáticamente los flujos a archivos.
 
 :::
 <!-- {figure} 5/redirecciones.svg -->
-<!-- {figure} 1/redirecciones.svg -->
 
 Desde el punto de vista del programa en C, no necesitás hacer nada especial:
 simplemente usá `printf` (para stdout) y `fprintf(stderr, ...)` (para stderr)
 normalmente. El shell se encarga de la redirección.
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
@@ -1485,7 +1472,7 @@ int main(void)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ```{code-block} bash
 :linenos:
@@ -1518,7 +1505,7 @@ usando el operador `<`:
 Cualquier lectura que tu programa haga desde `stdin` (usando `scanf`, `fgets`,
 `getchar`, etc.) leerá del archivo especificado:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
@@ -1534,7 +1521,7 @@ int main(void)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 ```{code-block} bash
 :linenos:
@@ -1582,7 +1569,6 @@ procesamiento.
 
 :::
 <!-- {figure} 5/pipes_canalizaciones.svg -->
-<!-- {figure} 1/pipes_canalizaciones.svg -->
 
 (filosofia-unix-hacer-una-cosa-bien)=
 #### Filosofía Unix: Hacer Una Cosa Bien
@@ -1593,7 +1579,7 @@ puede ser un eslabón en esta cadena.
 
 ##### Ejemplo: Filtro de Números Pares
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // filtro_pares.c
 #include <stdio.h>
@@ -1614,7 +1600,7 @@ int main(void)
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Este programa se convierte en un filtro reutilizable:
 
@@ -1642,7 +1628,6 @@ toma los primeros 5 resultados.
 
 :::
 <!-- {figure} 5/ejemplo_filtro.svg -->
-<!-- {figure} 1/ejemplo_filtro.svg -->
 
 (canalizaciones-complejas)=
 #### Canalizaciones Complejas
@@ -1674,7 +1659,7 @@ Para que tu programa funcione bien en canalizaciones:
 4. **Maneja EOF correctamente**: Detectá cuando la entrada termina (`fgets`
    retorna `NULL`, `scanf` retorna `EOF`)
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 #include <stdio.h>
 #include <stdlib.h>
@@ -1706,7 +1691,7 @@ int main(int argc, char *argv[])
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Este diseño permite flexibilidad total:
 
@@ -1745,7 +1730,7 @@ construir sistemas complejos. Esta composibilidad es la esencia del diseño Unix
 
 Veamos un ejemplo que integra todos estos conceptos:
 
-:::{code-block}c
+:::{code-block} c
 :linenos:
 // temp_converter.c
 #include <stdio.h>
@@ -1824,7 +1809,7 @@ int main(int argc, char *argv[])
 }
 
 :::
-<!-- {code-block}c -->
+<!-- {code-block} c -->
 
 Este programa puede usarse de múltiples formas:
 
@@ -2021,78 +2006,10 @@ contador;` en un archivo `.h` y definirla como `int contador = 0;` en un archivo
 
 ### Automatización con Makefiles
 
-:::{exercise}
-:label: 1_compilacion-ej-make-incremental
-Describí el criterio físico que utiliza la herramienta `make` para decidir si es
-necesario reconstruir un archivo objeto (por ejemplo, `funciones.o`) a partir de
-su archivo fuente `funciones.c`.
-
-:::
-<!-- {exercise} -->
-
-:::{solution} 1_compilacion-ej-make-incremental
-:class: dropdown
-`make` examina las **marcas de tiempo de modificación (timestamps)** de los
-archivos en el disco físico.
-Si la fecha de última modificación del archivo de entrada (`funciones.c` o
-alguna de sus cabeceras declaradas como dependencias, ej: `funciones.h`) es
-**más reciente** que la fecha de última modificación del archivo objeto de
-salida (`funciones.o`), `make` deduce que el código fuente cambió y ejecuta la
-regla de compilación para reconstruir el objeto. Si el objeto es más nuevo que
-sus dependencias, `make` omite su compilación.
-
-:::
-<!-- {solution} 1_compilacion-ej-make-incremental -->
-<!-- {solution} ej-make-incremental -->
-
-:::{exercise}
-:label: 1_compilacion-ej-make-clean-phony
-Explicá detalladamente para qué sirve la regla `.PHONY: clean` en un Makefile y
-qué problema se produciría si se omitiera esta declaración y existiera en el
-directorio un archivo físico llamado `clean`.
-
-:::
-<!-- {exercise} -->
-
-:::{solution} 1_compilacion-ej-make-clean-phony
-:class: dropdown
-La directiva `.PHONY` le indica a `make` que el objetivo indicado no corresponde
-a un archivo real que deba ser generado.
-Si se omitiera `.PHONY: clean` y en el mismo directorio existiera un archivo
-llamado `clean`, al ejecutar `make clean`, la herramienta buscaría dependencias
-para el objetivo `clean`. Al no tener dependencias y ver que el archivo `clean`
-ya existe físicamente en el disco, `make` reportaría que el objetivo está
-actualizado (`make: 'clean' is up to date`) y se negaría a ejecutar el bloque de
-comandos para limpiar el proyecto.
-
-:::
-<!-- {solution} 1_compilacion-ej-make-clean-phony -->
-<!-- {solution} ej-make-clean-phony -->
-
-:::{exercise}
-:label: 1_compilacion-ej-make-escritura
-Escribí una regla de Makefile para compilar el archivo objeto `usuario.o` a
-partir de sus dependencias `usuario.c` y `usuario.h`. Utilizá variables para el
-compilador (`$(CC)`) y banderas (`$(CFLAGS)`), recordando el requisito de
-indentación de Makefiles.
-
-:::
-<!-- {exercise} -->
-
-:::{solution} 1_compilacion-ej-make-escritura
-:class: dropdown
-``` makefile
-usuario.o: usuario.c usuario.h
-	$(CC) $(CFLAGS) -c usuario.c -o usuario.o
-```
-<!-- makefile -->
-*Nota: La línea de comandos de la acción debe estar precedida obligatoriamente
-por un carácter de tabulación (Tab).*
-
-:::
-<!-- {solution} 1_compilacion-ej-make-escritura -->
-<!-- {solution} ej-make-escritura -->
-
+La automatización de la compilación con `make` se desarrolla en profundidad
+en `8_makefiles.md`, incluidos los ejercicios sobre reconstrucción
+incremental, objetivos `.PHONY` y escritura de reglas
+({ref}`makefiles-ejercicios-de-autoevaluacion`).
 
 ### Argumentos e Interacción
 

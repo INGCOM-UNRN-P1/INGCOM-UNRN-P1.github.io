@@ -305,9 +305,9 @@ del recorrido principal quedan sin forma de autoevaluación (28).
 Bajo impacto individual, pero acumulativo. Bueno para una pasada de
 find/replace dedicada, no urgente.
 
-30. `{code-block}c` → `{code-block} c` (con espacio) en `4_funciones.md`,
-    `5_compilacion.md`, `6_testing_basico.md` (decenas de instancias).
-31. Corregir 7 comentarios de cierre de figura con ruta `1/` en
+30. ✅ `{code-block}c` → `{code-block} c` (con espacio) en `4_funciones.md`,
+    `5_compilacion.md`, `6_testing_basico.md` (decenas de instancias). 
+31. ✅ Corregir 7 comentarios de cierre de figura con ruta `1/` en
     `5_compilacion.md` (deberían decir `5/`).
 32. Frontmatter: cambiar `description` por `subtitle` en
     `1_modelo_memoria.md`, `4_archivos_texto.md`, `5_memoria_dinamica.md`.
