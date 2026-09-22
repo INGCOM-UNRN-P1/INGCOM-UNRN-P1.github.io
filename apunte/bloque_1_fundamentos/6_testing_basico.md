@@ -11,6 +11,8 @@ subtitle: 'Pruebas unitarias, aserciones con assert y cobertura de ramas'
 > **Comprobación de salida**: escribí tres aserciones que cubran un caso normal, un borde y una entrada inválida documentada.
 
 (capitulo-testing-verificacion)=
+# Testing y Verificación Básica
+
 ## Introducción
 
 El **testing** o prueba de software es una práctica de ingeniería fundamental

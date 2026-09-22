@@ -11,6 +11,8 @@ subtitle: 'Estructura de Makefiles, dependencias y compilación incremental en C
 > **Comprobación de salida**: explicá qué archivos se reconstruyen tras modificar una cabecera y verificá la predicción con `make`.
 
 (capitulo-makefiles-basico)=
+# Automatización de Compilación con Makefiles
+
 ## Introducción
 
 A medida que los proyectos escritos en C crecen y se modularizan en múltiples

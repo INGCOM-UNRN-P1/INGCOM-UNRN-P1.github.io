@@ -11,6 +11,8 @@ subtitle: Conceptos básicos antes de programar en C
 >
 > **Comprobación de salida**: escribí y trazá un algoritmo que determine el mayor de dos números.
 
+# Fundamentos de Computación y Algoritmos
+
 ## Introducción
 
 Antes de escribir tu primera línea de código en C, es fundamental repasar (y

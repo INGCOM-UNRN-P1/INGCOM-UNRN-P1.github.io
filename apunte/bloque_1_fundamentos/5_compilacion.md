@@ -11,6 +11,8 @@ subtitle: Haciendonos entender por la computadora.
 > **Comprobación de salida**: clasificá un error dado como de compilación o enlazado e indicá el comando para reproducirlo.
 
 (capitulo-compilacion)=
+# Compilación
+
 ## Introducción
 
 Cuando ejecutás en tu terminal el comando:

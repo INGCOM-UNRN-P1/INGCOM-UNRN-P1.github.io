@@ -11,6 +11,7 @@ subtitle: La sintaxis y programas básicos.
 > **Comprobación de salida**: modificá un ejemplo para leer un valor, compilalo con los flags de cátedra y explicá su salida.
 
 (capitulo-introduccion-c)=
+# Introducción a la programación en C
 
 ## Introducción
 

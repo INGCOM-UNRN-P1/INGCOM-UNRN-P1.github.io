@@ -12,6 +12,8 @@ subtitle: 'Decisiones condicionales, lazos y control seguro en C'
 > **Comprobación de salida**: justificá qué estructura usarías para validar una entrada y repetila hasta que sea válida.
 
 (capitulo-control-flujo)=
+# Control de Flujo Gradual
+
 ## Introducción al Control de Flujo
 
 Hasta ahora, los programas que hemos escrito se ejecutan de manera estrictamente

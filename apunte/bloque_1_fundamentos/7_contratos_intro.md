@@ -11,6 +11,8 @@ subtitle: 'Documentación estructurada, precondiciones, postcondiciones e invari
 > **Comprobación de salida**: señalá qué obligación corresponde al llamador y cuál a la función en un contrato propuesto.
 
 (capitulo-contratos-invariantes)=
+# Introducción al Diseño por Contrato
+
 ## Introducción
 
 El **Diseño por Contrato** (*Design by Contract*, DbC) es una metodología de
