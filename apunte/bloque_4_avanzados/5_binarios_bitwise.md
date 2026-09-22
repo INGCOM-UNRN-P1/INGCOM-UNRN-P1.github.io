@@ -313,12 +313,15 @@ bool es_par(int numero)
 El bit del resultado es `1` si al menos uno de los bits correspondientes es `1`.
 Su uso principal es para **encender** bits.
 
-:::::::::{exercise} activar
+:::{exercise} activar
 :label: activar
 
 Encender un Flag Dado un `unsigned char` que representa un
 conjunto de 8 flags, escribí una función que encienda el 4to bit (bit en la
-posición 3) sin modificar los demás. :::
+posición 3) sin modificar los demás.
+
+:::
+<!-- {exercise} activar -->
 
 :::{solution} activar
 :class: dropdown
@@ -344,12 +347,15 @@ void activar_flag_4(unsigned char *estado)
 El bit del resultado es `1` solo si los bits correspondientes son
 **diferentes**. Su uso principal es para **alternar (toggle)** bits.
 
-::::{exercise} intercambio
+:::{exercise} intercambio
 :label: intercambio
 
 Intercambio con XOR Escribí una función que intercambie los
 valores de dos variables enteras **sin usar una variable temporal**, utilizando
-únicamente el operador XOR. :::
+únicamente el operador XOR.
+
+:::
+<!-- {exercise} intercambio -->
 
 :::{solution} intercambio
 :class: dropdown
@@ -388,13 +394,6 @@ demás.
 :::
 <!-- {exercise} mask -->
 
-Crear una Máscara para Apagar Escribí una expresión que cree una
-máscara para apagar el 2do bit (posición 1) de un `char`, sin afectar a los
-demás. 
-
-::::
-<!-- {exercise} intercambio -->
-
 :::{solution} mask
 :class: dropdown
 
@@ -429,12 +428,15 @@ unsigned char mascara_apagado = ~(1 << 1);
   00010100 (20) >> 2  -->  00000101 (5)
   ```
 
-::::::::{exercise} multiplicacion
+:::{exercise} multiplicacion
 :label: multiplicacion
 
 Multiplicación y División Rápida Escribí dos macros,
 `MULT_POR_8(x)` y `DIV_POR_4(x)`, que usen operadores de desplazamiento para
-realizar las operaciones. :::
+realizar las operaciones.
+
+:::
+<!-- {exercise} multiplicacion -->
 
 :::{solution} multiplicacion
 :class: dropdown
@@ -455,11 +457,14 @@ realizar las operaciones. :::
 (1-obtener-el-n-esimo-bit)=
 ### 1. Obtener el N-ésimo Bit
 
-:::::::{exercise} get_bit
+:::{exercise} get_bit
 :label: get_bit
 
 Escribí una función `int get_bit(int numero, int n)` que devuelva
-el valor (0 o 1) del bit en la posición `n`. :::
+el valor (0 o 1) del bit en la posición `n`.
+
+:::
+<!-- {exercise} get_bit -->
 
 :::{solution} get_bit
 :class: dropdown
@@ -480,10 +485,14 @@ int get_bit(int numero, int n)
 (2-establecer-el-n-esimo-bit)=
 ### 2. Establecer el N-ésimo Bit
 
-::::::{exercise} set_bit
+:::{exercise} set_bit
 :label: set_bit
+
 Escribí una función `void set_bit(int *numero, int n)` que
-encienda el bit en la posición `n`. :::
+encienda el bit en la posición `n`.
+
+:::
+<!-- {exercise} set_bit -->
 
 :::{solution} set_bit
 :class: dropdown
@@ -504,11 +513,14 @@ void set_bit(int *numero, int n)
 (3-limpiar-el-n-esimo-bit)=
 ### 3. Limpiar el N-ésimo Bit
 
-:::::{exercise} clear_bit
+:::{exercise} clear_bit
 :label: clear_bit
 
 Escribí una función `void clear_bit(int *numero, int n)` que
-apague el bit en la posición `n`. :::
+apague el bit en la posición `n`.
+
+:::
+<!-- {exercise} clear_bit -->
 
 :::{solution} clear_bit
 :class: dropdown
@@ -569,11 +581,14 @@ int contar_bits_encendidos(int n)
 (5-verificar-si-es-potencia-de-dos)=
 ### 5. Verificar si es Potencia de Dos
 
-::::{exercise} potencia
+:::{exercise} potencia
 :label: potencia
 
 Escribí una función que determine si un número entero positivo es
-una potencia de dos (2, 4, 8, 16...). :::
+una potencia de dos (2, 4, 8, 16...).
+
+:::
+<!-- {exercise} potencia -->
 
 :::{solution} potencia
 :class: dropdown

@@ -1035,7 +1035,10 @@ Escribir("Resultado: ", suma);
 
 1. ¿Qué hace este algoritmo?
 2. Si `n` ingresado es 10, ¿cuál es la salida final?
-3. Modificalo para que realice la suma exclusiva de números impares. :::
+3. Modificalo para que realice la suma exclusiva de números impares.
+
+::::
+<!-- {exercise} ex-integrador-1 -->
 
 :::{solution} ex-integrador-1
 :class: dropdown
