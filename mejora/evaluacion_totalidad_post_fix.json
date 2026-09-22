@@ -1,0 +1,1940 @@
+[
+  {
+    "file": "apunte/bloque_1_fundamentos/1_base.md",
+    "overallQualityIndex": 72,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.27,
+        "max": 3,
+        "confidence": 0.66
+      },
+      "technicalCompleteness": {
+        "score": 1.62,
+        "max": 3,
+        "confidence": 0.58
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.93,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.86
+    },
+    "targetAudience": {
+      "level": "beginner",
+      "confidence": 1
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 36244,
+      "analyzedLength": 8047,
+      "codeBlocksIncluded": 10,
+      "codeBlocksTotal": 19
+    }
+  },
+  {
+    "file": "apunte/bloque_1_fundamentos/2_gradual.md",
+    "overallQualityIndex": 82,
+    "qualityLevel": "EXCELENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.45,
+        "max": 3,
+        "confidence": 0.45
+      },
+      "technicalCompleteness": {
+        "score": 2.04,
+        "max": 3,
+        "confidence": 0.83
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.96
+    },
+    "targetAudience": {
+      "level": "beginner",
+      "confidence": 1
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 41736,
+      "analyzedLength": 8118,
+      "codeBlocksIncluded": 20,
+      "codeBlocksTotal": 38
+    }
+  },
+  {
+    "file": "apunte/bloque_1_fundamentos/3_control_flujo.md",
+    "overallQualityIndex": 79,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.49,
+        "max": 3,
+        "confidence": 0.49
+      },
+      "technicalCompleteness": {
+        "score": 1.94,
+        "max": 3,
+        "confidence": 0.79
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.85
+    },
+    "targetAudience": {
+      "level": "beginner",
+      "confidence": 0.96
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 35660,
+      "analyzedLength": 8132,
+      "codeBlocksIncluded": 22,
+      "codeBlocksTotal": 42
+    }
+  },
+  {
+    "file": "apunte/bloque_1_fundamentos/4_funciones.md",
+    "overallQualityIndex": 83,
+    "qualityLevel": "EXCELENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.6,
+        "max": 3,
+        "confidence": 0.6
+      },
+      "technicalCompleteness": {
+        "score": 2.04,
+        "max": 3,
+        "confidence": 0.85
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.95
+    },
+    "targetAudience": {
+      "level": "beginner",
+      "confidence": 0.96
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 53121,
+      "analyzedLength": 8111,
+      "codeBlocksIncluded": 19,
+      "codeBlocksTotal": 48
+    }
+  },
+  {
+    "file": "apunte/bloque_1_fundamentos/5_compilacion.md",
+    "overallQualityIndex": 84,
+    "qualityLevel": "EXCELENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.56,
+        "max": 3,
+        "confidence": 0.56
+      },
+      "technicalCompleteness": {
+        "score": 2.15,
+        "max": 3,
+        "confidence": 0.8
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.96
+    },
+    "targetAudience": {
+      "level": "beginner",
+      "confidence": 0.78
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 71070,
+      "analyzedLength": 8132,
+      "codeBlocksIncluded": 22,
+      "codeBlocksTotal": 62
+    }
+  },
+  {
+    "file": "apunte/bloque_1_fundamentos/6_testing_basico.md",
+    "overallQualityIndex": 82,
+    "qualityLevel": "EXCELENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.65,
+        "max": 3,
+        "confidence": 0.65
+      },
+      "technicalCompleteness": {
+        "score": 1.95,
+        "max": 3,
+        "confidence": 0.8
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.89
+    },
+    "targetAudience": {
+      "level": "beginner",
+      "confidence": 0.51
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 13303,
+      "analyzedLength": 6700,
+      "codeBlocksIncluded": 13,
+      "codeBlocksTotal": 13
+    }
+  },
+  {
+    "file": "apunte/bloque_1_fundamentos/7_contratos_intro.md",
+    "overallQualityIndex": 76,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.5,
+        "max": 3,
+        "confidence": 0.5
+      },
+      "technicalCompleteness": {
+        "score": 1.72,
+        "max": 3,
+        "confidence": 0.68
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.98,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.82
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.37
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 10482,
+      "analyzedLength": 5283,
+      "codeBlocksIncluded": 10,
+      "codeBlocksTotal": 10
+    }
+  },
+  {
+    "file": "apunte/bloque_1_fundamentos/8_makefiles.md",
+    "overallQualityIndex": 85,
+    "qualityLevel": "EXCELENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.69,
+        "max": 3,
+        "confidence": 0.69
+      },
+      "technicalCompleteness": {
+        "score": 2.04,
+        "max": 3,
+        "confidence": 0.89
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.97
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.64
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 11375,
+      "analyzedLength": 6004,
+      "codeBlocksIncluded": 12,
+      "codeBlocksTotal": 12
+    }
+  },
+  {
+    "file": "apunte/bloque_2_memoria/10_alias_tipos.md",
+    "overallQualityIndex": 81,
+    "qualityLevel": "EXCELENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.8,
+        "max": 3,
+        "confidence": 0.8
+      },
+      "technicalCompleteness": {
+        "score": 1.93,
+        "max": 3,
+        "confidence": 0.78
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.73
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.63
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 11943,
+      "analyzedLength": 6683,
+      "codeBlocksIncluded": 16,
+      "codeBlocksTotal": 18
+    }
+  },
+  {
+    "file": "apunte/bloque_2_memoria/11_enums.md",
+    "overallQualityIndex": 83,
+    "qualityLevel": "EXCELENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.64,
+        "max": 3,
+        "confidence": 0.64
+      },
+      "technicalCompleteness": {
+        "score": 2.18,
+        "max": 3,
+        "confidence": 0.69
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.79
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.67
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 13846,
+      "analyzedLength": 8103,
+      "codeBlocksIncluded": 18,
+      "codeBlocksTotal": 19
+    }
+  },
+  {
+    "file": "apunte/bloque_2_memoria/1_modelo_memoria.md",
+    "overallQualityIndex": 80,
+    "qualityLevel": "EXCELENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.24,
+        "max": 3,
+        "confidence": 0.61
+      },
+      "technicalCompleteness": {
+        "score": 2.12,
+        "max": 3,
+        "confidence": 0.81
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.96
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.95
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 75975,
+      "analyzedLength": 8125,
+      "codeBlocksIncluded": 21,
+      "codeBlocksTotal": 62
+    }
+  },
+  {
+    "file": "apunte/bloque_2_memoria/2_punteros.md",
+    "overallQualityIndex": 77,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.27,
+        "max": 3,
+        "confidence": 0.66
+      },
+      "technicalCompleteness": {
+        "score": 1.94,
+        "max": 3,
+        "confidence": 0.71
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.87
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.35
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 68882,
+      "analyzedLength": 8076,
+      "codeBlocksIncluded": 14,
+      "codeBlocksTotal": 53
+    }
+  },
+  {
+    "file": "apunte/bloque_2_memoria/3_secuencias.md",
+    "overallQualityIndex": 75,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.34,
+        "max": 3,
+        "confidence": 0.63
+      },
+      "technicalCompleteness": {
+        "score": 1.9,
+        "max": 3,
+        "confidence": 0.77
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.73
+    },
+    "targetAudience": {
+      "level": "beginner",
+      "confidence": 0.55
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 58044,
+      "analyzedLength": 8146,
+      "codeBlocksIncluded": 24,
+      "codeBlocksTotal": 53
+    }
+  },
+  {
+    "file": "apunte/bloque_2_memoria/4_archivos_texto.md",
+    "overallQualityIndex": 85,
+    "qualityLevel": "EXCELENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.47,
+        "max": 3,
+        "confidence": 0.51
+      },
+      "technicalCompleteness": {
+        "score": 2.36,
+        "max": 3,
+        "confidence": 0.55
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.9
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.76
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 70458,
+      "analyzedLength": 8048,
+      "codeBlocksIncluded": 10,
+      "codeBlocksTotal": 67
+    }
+  },
+  {
+    "file": "apunte/bloque_2_memoria/5_memoria_dinamica.md",
+    "overallQualityIndex": 85,
+    "qualityLevel": "EXCELENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.5,
+        "max": 3,
+        "confidence": 0.5
+      },
+      "technicalCompleteness": {
+        "score": 2.47,
+        "max": 3,
+        "confidence": 0.5
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.79
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.93
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 75384,
+      "analyzedLength": 8153,
+      "codeBlocksIncluded": 25,
+      "codeBlocksTotal": 79
+    }
+  },
+  {
+    "file": "apunte/bloque_2_memoria/6_aritmetica.md",
+    "overallQualityIndex": 73,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 1.87,
+        "max": 3,
+        "confidence": 0.6
+      },
+      "technicalCompleteness": {
+        "score": 2.21,
+        "max": 3,
+        "confidence": 0.66
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.72
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.97
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 53892,
+      "analyzedLength": 8181,
+      "codeBlocksIncluded": 29,
+      "codeBlocksTotal": 66
+    }
+  },
+  {
+    "file": "apunte/bloque_2_memoria/7_estructuras.md",
+    "overallQualityIndex": 81,
+    "qualityLevel": "EXCELENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.59,
+        "max": 3,
+        "confidence": 0.59
+      },
+      "technicalCompleteness": {
+        "score": 2.17,
+        "max": 3,
+        "confidence": 0.74
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.73
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.96
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 77373,
+      "analyzedLength": 8111,
+      "codeBlocksIncluded": 19,
+      "codeBlocksTotal": 71
+    }
+  },
+  {
+    "file": "apunte/bloque_2_memoria/8_numeros.md",
+    "overallQualityIndex": 77,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.45,
+        "max": 3,
+        "confidence": 0.54
+      },
+      "technicalCompleteness": {
+        "score": 1.89,
+        "max": 3,
+        "confidence": 0.76
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.78
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.63
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 14337,
+      "analyzedLength": 6007,
+      "codeBlocksIncluded": 12,
+      "codeBlocksTotal": 12
+    }
+  },
+  {
+    "file": "apunte/bloque_2_memoria/9_casts.md",
+    "overallQualityIndex": 79,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.69,
+        "max": 3,
+        "confidence": 0.69
+      },
+      "technicalCompleteness": {
+        "score": 1.85,
+        "max": 3,
+        "confidence": 0.71
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.77
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.91
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 14621,
+      "analyzedLength": 6577,
+      "codeBlocksIncluded": 14,
+      "codeBlocksTotal": 14
+    }
+  },
+  {
+    "file": "apunte/bloque_3_algoritmos_estructuras/1A_matrices_dinamicas.md",
+    "overallQualityIndex": 36,
+    "qualityLevel": "DEFICIENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 1.52,
+        "max": 3,
+        "confidence": 0.51
+      },
+      "technicalCompleteness": {
+        "score": 0.4,
+        "max": 3,
+        "confidence": 0.6
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": false,
+      "hasRunnableExamplesProbability": 0.07,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.84
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.94
+    },
+    "analysis": {
+      "mode": "full",
+      "originalLength": 1371,
+      "analyzedLength": 1371,
+      "codeBlocksIncluded": 0,
+      "codeBlocksTotal": 0
+    }
+  },
+  {
+    "file": "apunte/bloque_3_algoritmos_estructuras/1B_matrices_vla.md",
+    "overallQualityIndex": 26,
+    "qualityLevel": "DEFICIENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 0.84,
+        "max": 3,
+        "confidence": 0.8
+      },
+      "technicalCompleteness": {
+        "score": 0.13,
+        "max": 3,
+        "confidence": 0.87
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": false,
+      "hasRunnableExamplesProbability": 0.03,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.92
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.78
+    },
+    "analysis": {
+      "mode": "full",
+      "originalLength": 595,
+      "analyzedLength": 595,
+      "codeBlocksIncluded": 0,
+      "codeBlocksTotal": 0
+    }
+  },
+  {
+    "file": "apunte/bloque_3_algoritmos_estructuras/1C_matrices3d.md",
+    "overallQualityIndex": 31,
+    "qualityLevel": "DEFICIENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 1.02,
+        "max": 3,
+        "confidence": 0.86
+      },
+      "technicalCompleteness": {
+        "score": 0.47,
+        "max": 3,
+        "confidence": 0.53
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": false,
+      "hasRunnableExamplesProbability": 0.05,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.83
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.57
+    },
+    "analysis": {
+      "mode": "full",
+      "originalLength": 777,
+      "analyzedLength": 777,
+      "codeBlocksIncluded": 0,
+      "codeBlocksTotal": 0
+    }
+  },
+  {
+    "file": "apunte/bloque_3_algoritmos_estructuras/1D_fragmentacion_matrices.md",
+    "overallQualityIndex": 17,
+    "qualityLevel": "DEFICIENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 0.39,
+        "max": 3,
+        "confidence": 0.61
+      },
+      "technicalCompleteness": {
+        "score": 0.01,
+        "max": 3,
+        "confidence": 0.99
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": false,
+      "hasRunnableExamplesProbability": 0.04,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.77
+    },
+    "targetAudience": {
+      "level": "advanced",
+      "confidence": 0.43
+    },
+    "analysis": {
+      "mode": "full",
+      "originalLength": 400,
+      "analyzedLength": 400,
+      "codeBlocksIncluded": 0,
+      "codeBlocksTotal": 0
+    }
+  },
+  {
+    "file": "apunte/bloque_3_algoritmos_estructuras/1E_rendimiento_memoria.md",
+    "overallQualityIndex": 36,
+    "qualityLevel": "DEFICIENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 1.49,
+        "max": 3,
+        "confidence": 0.45
+      },
+      "technicalCompleteness": {
+        "score": 0.41,
+        "max": 3,
+        "confidence": 0.59
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": false,
+      "hasRunnableExamplesProbability": 0.09,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.8
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.78
+    },
+    "analysis": {
+      "mode": "full",
+      "originalLength": 1240,
+      "analyzedLength": 1240,
+      "codeBlocksIncluded": 0,
+      "codeBlocksTotal": 0
+    }
+  },
+  {
+    "file": "apunte/bloque_3_algoritmos_estructuras/1F_seguridad_memoria.md",
+    "overallQualityIndex": 70,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 1.89,
+        "max": 3,
+        "confidence": 0.8
+      },
+      "technicalCompleteness": {
+        "score": 1.69,
+        "max": 3,
+        "confidence": 0.69
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.96,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.95
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.81
+    },
+    "analysis": {
+      "mode": "full",
+      "originalLength": 1407,
+      "analyzedLength": 1407,
+      "codeBlocksIncluded": 1,
+      "codeBlocksTotal": 1
+    }
+  },
+  {
+    "file": "apunte/bloque_3_algoritmos_estructuras/1_matrices.md",
+    "overallQualityIndex": 82,
+    "qualityLevel": "EXCELENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.53,
+        "max": 3,
+        "confidence": 0.53
+      },
+      "technicalCompleteness": {
+        "score": 2.12,
+        "max": 3,
+        "confidence": 0.7
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.86
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.41
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 54731,
+      "analyzedLength": 8104,
+      "codeBlocksIncluded": 18,
+      "codeBlocksTotal": 48
+    }
+  },
+  {
+    "file": "apunte/bloque_3_algoritmos_estructuras/2A_ownership_tads.md",
+    "overallQualityIndex": 43,
+    "qualityLevel": "MEJORABLE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 1.62,
+        "max": 3,
+        "confidence": 0.62
+      },
+      "technicalCompleteness": {
+        "score": 0.61,
+        "max": 3,
+        "confidence": 0.58
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": false,
+      "hasRunnableExamplesProbability": 0.28,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.84
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.89
+    },
+    "analysis": {
+      "mode": "full",
+      "originalLength": 1158,
+      "analyzedLength": 1158,
+      "codeBlocksIncluded": 1,
+      "codeBlocksTotal": 1
+    }
+  },
+  {
+    "file": "apunte/bloque_3_algoritmos_estructuras/2_tad.md",
+    "overallQualityIndex": 78,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.11,
+        "max": 3,
+        "confidence": 0.64
+      },
+      "technicalCompleteness": {
+        "score": 2.09,
+        "max": 3,
+        "confidence": 0.78
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.92
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.98
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 85929,
+      "analyzedLength": 8111,
+      "codeBlocksIncluded": 19,
+      "codeBlocksTotal": 67
+    }
+  },
+  {
+    "file": "apunte/bloque_3_algoritmos_estructuras/3_tad_pilas_colas.md",
+    "overallQualityIndex": 78,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.09,
+        "max": 3,
+        "confidence": 0.8
+      },
+      "technicalCompleteness": {
+        "score": 2.05,
+        "max": 3,
+        "confidence": 0.83
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.97
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.95
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 50543,
+      "analyzedLength": 8104,
+      "codeBlocksIncluded": 18,
+      "codeBlocksTotal": 40
+    }
+  },
+  {
+    "file": "apunte/bloque_3_algoritmos_estructuras/4_testing_avanzado.md",
+    "overallQualityIndex": 75,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.28,
+        "max": 3,
+        "confidence": 0.71
+      },
+      "technicalCompleteness": {
+        "score": 1.84,
+        "max": 3,
+        "confidence": 0.83
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.82
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.91
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 8473,
+      "analyzedLength": 5397,
+      "codeBlocksIncluded": 7,
+      "codeBlocksTotal": 8
+    }
+  },
+  {
+    "file": "apunte/bloque_3_algoritmos_estructuras/5_contratos_formales.md",
+    "overallQualityIndex": 76,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.32,
+        "max": 3,
+        "confidence": 0.63
+      },
+      "technicalCompleteness": {
+        "score": 1.88,
+        "max": 3,
+        "confidence": 0.63
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.98,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.85
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.52
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 16283,
+      "analyzedLength": 8103,
+      "codeBlocksIncluded": 18,
+      "codeBlocksTotal": 21
+    }
+  },
+  {
+    "file": "apunte/bloque_3_algoritmos_estructuras/6A_localidad_representacion.md",
+    "overallQualityIndex": 29,
+    "qualityLevel": "DEFICIENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 1.24,
+        "max": 3,
+        "confidence": 0.71
+      },
+      "technicalCompleteness": {
+        "score": 0.14,
+        "max": 3,
+        "confidence": 0.86
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": false,
+      "hasRunnableExamplesProbability": 0.05,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.82
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.84
+    },
+    "analysis": {
+      "mode": "full",
+      "originalLength": 866,
+      "analyzedLength": 866,
+      "codeBlocksIncluded": 0,
+      "codeBlocksTotal": 0
+    }
+  },
+  {
+    "file": "apunte/bloque_3_algoritmos_estructuras/6D_fragmentacion_matrices.md",
+    "overallQualityIndex": 24,
+    "qualityLevel": "DEFICIENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 0.71,
+        "max": 3,
+        "confidence": 0.62
+      },
+      "technicalCompleteness": {
+        "score": 0.14,
+        "max": 3,
+        "confidence": 0.86
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": false,
+      "hasRunnableExamplesProbability": 0.1,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.81
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.9
+    },
+    "analysis": {
+      "mode": "full",
+      "originalLength": 526,
+      "analyzedLength": 526,
+      "codeBlocksIncluded": 0,
+      "codeBlocksTotal": 0
+    }
+  },
+  {
+    "file": "apunte/bloque_3_algoritmos_estructuras/6_complejidad.md",
+    "overallQualityIndex": 79,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.24,
+        "max": 3,
+        "confidence": 0.63
+      },
+      "technicalCompleteness": {
+        "score": 2.03,
+        "max": 3,
+        "confidence": 0.78
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.97
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.91
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 62685,
+      "analyzedLength": 8132,
+      "codeBlocksIncluded": 22,
+      "codeBlocksTotal": 51
+    }
+  },
+  {
+    "file": "apunte/bloque_3_algoritmos_estructuras/7E_serializacion.md",
+    "overallQualityIndex": 25,
+    "qualityLevel": "DEFICIENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 1.02,
+        "max": 3,
+        "confidence": 0.88
+      },
+      "technicalCompleteness": {
+        "score": 0.04,
+        "max": 3,
+        "confidence": 0.96
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": false,
+      "hasRunnableExamplesProbability": 0.03,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.78
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.97
+    },
+    "analysis": {
+      "mode": "full",
+      "originalLength": 374,
+      "analyzedLength": 374,
+      "codeBlocksIncluded": 0,
+      "codeBlocksTotal": 0
+    }
+  },
+  {
+    "file": "apunte/bloque_3_algoritmos_estructuras/7F_estructuras_opacas.md",
+    "overallQualityIndex": 23,
+    "qualityLevel": "DEFICIENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 0.83,
+        "max": 3,
+        "confidence": 0.8
+      },
+      "technicalCompleteness": {
+        "score": 0.1,
+        "max": 3,
+        "confidence": 0.9
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": false,
+      "hasRunnableExamplesProbability": 0.04,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.8
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.56
+    },
+    "analysis": {
+      "mode": "full",
+      "originalLength": 678,
+      "analyzedLength": 678,
+      "codeBlocksIncluded": 0,
+      "codeBlocksTotal": 0
+    }
+  },
+  {
+    "file": "apunte/bloque_3_algoritmos_estructuras/7_recursividad_intro.md",
+    "overallQualityIndex": 81,
+    "qualityLevel": "EXCELENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.65,
+        "max": 3,
+        "confidence": 0.65
+      },
+      "technicalCompleteness": {
+        "score": 1.89,
+        "max": 3,
+        "confidence": 0.77
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.86
+    },
+    "targetAudience": {
+      "level": "beginner",
+      "confidence": 0.67
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 22019,
+      "analyzedLength": 8082,
+      "codeBlocksIncluded": 15,
+      "codeBlocksTotal": 19
+    }
+  },
+  {
+    "file": "apunte/bloque_4_avanzados/10_api_ingenieria.md",
+    "overallQualityIndex": 76,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.37,
+        "max": 3,
+        "confidence": 0.61
+      },
+      "technicalCompleteness": {
+        "score": 1.92,
+        "max": 3,
+        "confidence": 0.65
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.98,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.72
+    },
+    "targetAudience": {
+      "level": "advanced",
+      "confidence": 0.93
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 45093,
+      "analyzedLength": 8026,
+      "codeBlocksIncluded": 7,
+      "codeBlocksTotal": 16
+    }
+  },
+  {
+    "file": "apunte/bloque_4_avanzados/11_hilos.md",
+    "overallQualityIndex": 81,
+    "qualityLevel": "EXCELENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.27,
+        "max": 3,
+        "confidence": 0.7
+      },
+      "technicalCompleteness": {
+        "score": 2.14,
+        "max": 3,
+        "confidence": 0.8
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.97
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.69
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 43179,
+      "analyzedLength": 8195,
+      "codeBlocksIncluded": 31,
+      "codeBlocksTotal": 71
+    }
+  },
+  {
+    "file": "apunte/bloque_4_avanzados/12_sockets.md",
+    "overallQualityIndex": 83,
+    "qualityLevel": "EXCELENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.39,
+        "max": 3,
+        "confidence": 0.56
+      },
+      "technicalCompleteness": {
+        "score": 2.2,
+        "max": 3,
+        "confidence": 0.74
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.97
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.63
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 48897,
+      "analyzedLength": 8167,
+      "codeBlocksIncluded": 27,
+      "codeBlocksTotal": 75
+    }
+  },
+  {
+    "file": "apunte/bloque_4_avanzados/13B_serializacion.md",
+    "overallQualityIndex": 29,
+    "qualityLevel": "DEFICIENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 1.09,
+        "max": 3,
+        "confidence": 0.83
+      },
+      "technicalCompleteness": {
+        "score": 0.21,
+        "max": 3,
+        "confidence": 0.79
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": false,
+      "hasRunnableExamplesProbability": 0.04,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.85
+    },
+    "targetAudience": {
+      "level": "advanced",
+      "confidence": 0.85
+    },
+    "analysis": {
+      "mode": "full",
+      "originalLength": 442,
+      "analyzedLength": 442,
+      "codeBlocksIncluded": 0,
+      "codeBlocksTotal": 0
+    }
+  },
+  {
+    "file": "apunte/bloque_4_avanzados/13C_estructuras_opacas.md",
+    "overallQualityIndex": 34,
+    "qualityLevel": "DEFICIENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 1.19,
+        "max": 3,
+        "confidence": 0.78
+      },
+      "technicalCompleteness": {
+        "score": 0.46,
+        "max": 3,
+        "confidence": 0.54
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": false,
+      "hasRunnableExamplesProbability": 0.12,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.84
+    },
+    "targetAudience": {
+      "level": "advanced",
+      "confidence": 0.91
+    },
+    "analysis": {
+      "mode": "full",
+      "originalLength": 510,
+      "analyzedLength": 510,
+      "codeBlocksIncluded": 0,
+      "codeBlocksTotal": 0
+    }
+  },
+  {
+    "file": "apunte/bloque_4_avanzados/13D_union.md",
+    "overallQualityIndex": 60,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 1.72,
+        "max": 3,
+        "confidence": 0.71
+      },
+      "technicalCompleteness": {
+        "score": 1.13,
+        "max": 3,
+        "confidence": 0.84
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.95,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.84
+    },
+    "targetAudience": {
+      "level": "advanced",
+      "confidence": 0.66
+    },
+    "analysis": {
+      "mode": "full",
+      "originalLength": 869,
+      "analyzedLength": 869,
+      "codeBlocksIncluded": 1,
+      "codeBlocksTotal": 1
+    }
+  },
+  {
+    "file": "apunte/bloque_4_avanzados/13E_padding_abi.md",
+    "overallQualityIndex": 30,
+    "qualityLevel": "DEFICIENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 1.12,
+        "max": 3,
+        "confidence": 0.79
+      },
+      "technicalCompleteness": {
+        "score": 0.28,
+        "max": 3,
+        "confidence": 0.72
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": false,
+      "hasRunnableExamplesProbability": 0.05,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.86
+    },
+    "targetAudience": {
+      "level": "advanced",
+      "confidence": 0.89
+    },
+    "analysis": {
+      "mode": "full",
+      "originalLength": 468,
+      "analyzedLength": 468,
+      "codeBlocksIncluded": 0,
+      "codeBlocksTotal": 0
+    }
+  },
+  {
+    "file": "apunte/bloque_4_avanzados/13F_bitfields.md",
+    "overallQualityIndex": 25,
+    "qualityLevel": "DEFICIENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 0.89,
+        "max": 3,
+        "confidence": 0.83
+      },
+      "technicalCompleteness": {
+        "score": 0.13,
+        "max": 3,
+        "confidence": 0.87
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": false,
+      "hasRunnableExamplesProbability": 0.03,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.85
+    },
+    "targetAudience": {
+      "level": "advanced",
+      "confidence": 0.86
+    },
+    "analysis": {
+      "mode": "full",
+      "originalLength": 445,
+      "analyzedLength": 445,
+      "codeBlocksIncluded": 0,
+      "codeBlocksTotal": 0
+    }
+  },
+  {
+    "file": "apunte/bloque_4_avanzados/13_struct_avanzado.md",
+    "overallQualityIndex": 1,
+    "qualityLevel": "DEFICIENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 0.01,
+        "max": 3,
+        "confidence": 0.99
+      },
+      "technicalCompleteness": {
+        "score": 0,
+        "max": 3,
+        "confidence": 1
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": false,
+      "hasRunnableExamplesProbability": 0.02,
+      "hasClearPrerequisites": false,
+      "hasClearPrerequisitesProbability": 0.03
+    },
+    "targetAudience": {
+      "level": "advanced",
+      "confidence": 0.82
+    },
+    "analysis": {
+      "mode": "full",
+      "originalLength": 0,
+      "analyzedLength": 0,
+      "codeBlocksIncluded": 0,
+      "codeBlocksTotal": 0
+    }
+  },
+  {
+    "file": "apunte/bloque_4_avanzados/14A_enums_avanzados.md",
+    "overallQualityIndex": 74,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.38,
+        "max": 3,
+        "confidence": 0.61
+      },
+      "technicalCompleteness": {
+        "score": 1.7,
+        "max": 3,
+        "confidence": 0.67
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.97,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.79
+    },
+    "targetAudience": {
+      "level": "advanced",
+      "confidence": 0.66
+    },
+    "analysis": {
+      "mode": "full",
+      "originalLength": 3339,
+      "analyzedLength": 3339,
+      "codeBlocksIncluded": 3,
+      "codeBlocksTotal": 3
+    }
+  },
+  {
+    "file": "apunte/bloque_4_avanzados/1_indice_avanzados.md",
+    "overallQualityIndex": 60,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.63,
+        "max": 3,
+        "confidence": 0.63
+      },
+      "technicalCompleteness": {
+        "score": 1.05,
+        "max": 3,
+        "confidence": 0.6
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": false,
+      "hasRunnableExamplesProbability": 0.18,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.99
+    },
+    "targetAudience": {
+      "level": "advanced",
+      "confidence": 0.83
+    },
+    "analysis": {
+      "mode": "full",
+      "originalLength": 3104,
+      "analyzedLength": 3104,
+      "codeBlocksIncluded": 0,
+      "codeBlocksTotal": 0
+    }
+  },
+  {
+    "file": "apunte/bloque_4_avanzados/2_punteros_funciones.md",
+    "overallQualityIndex": 83,
+    "qualityLevel": "EXCELENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.56,
+        "max": 3,
+        "confidence": 0.56
+      },
+      "technicalCompleteness": {
+        "score": 2.02,
+        "max": 3,
+        "confidence": 0.84
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.96
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.77
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 20142,
+      "analyzedLength": 8055,
+      "codeBlocksIncluded": 11,
+      "codeBlocksTotal": 25
+    }
+  },
+  {
+    "file": "apunte/bloque_4_avanzados/3_opacos.md",
+    "overallQualityIndex": 82,
+    "qualityLevel": "EXCELENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.56,
+        "max": 3,
+        "confidence": 0.56
+      },
+      "technicalCompleteness": {
+        "score": 2.21,
+        "max": 3,
+        "confidence": 0.64
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.79
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.41
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 52235,
+      "analyzedLength": 8160,
+      "codeBlocksIncluded": 26,
+      "codeBlocksTotal": 59
+    }
+  },
+  {
+    "file": "apunte/bloque_4_avanzados/4_binarios_archivos.md",
+    "overallQualityIndex": 82,
+    "qualityLevel": "EXCELENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.43,
+        "max": 3,
+        "confidence": 0.54
+      },
+      "technicalCompleteness": {
+        "score": 2.1,
+        "max": 3,
+        "confidence": 0.82
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.95
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.36
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 17130,
+      "analyzedLength": 7792,
+      "codeBlocksIncluded": 5,
+      "codeBlocksTotal": 5
+    }
+  },
+  {
+    "file": "apunte/bloque_4_avanzados/5_binarios_bitwise.md",
+    "overallQualityIndex": 77,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.35,
+        "max": 3,
+        "confidence": 0.57
+      },
+      "technicalCompleteness": {
+        "score": 1.97,
+        "max": 3,
+        "confidence": 0.79
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.75
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.5
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 38823,
+      "analyzedLength": 8153,
+      "codeBlocksIncluded": 25,
+      "codeBlocksTotal": 55
+    }
+  },
+  {
+    "file": "apunte/bloque_4_avanzados/6_bitmaps.md",
+    "overallQualityIndex": 77,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.18,
+        "max": 3,
+        "confidence": 0.74
+      },
+      "technicalCompleteness": {
+        "score": 1.89,
+        "max": 3,
+        "confidence": 0.84
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.96
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.64
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 18413,
+      "analyzedLength": 8005,
+      "codeBlocksIncluded": 4,
+      "codeBlocksTotal": 5
+    }
+  },
+  {
+    "file": "apunte/bloque_4_avanzados/7_recursividad_avanzada.md",
+    "overallQualityIndex": 79,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.54,
+        "max": 3,
+        "confidence": 0.54
+      },
+      "technicalCompleteness": {
+        "score": 1.9,
+        "max": 3,
+        "confidence": 0.71
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.82
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.54
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 21690,
+      "analyzedLength": 8033,
+      "codeBlocksIncluded": 8,
+      "codeBlocksTotal": 15
+    }
+  },
+  {
+    "file": "apunte/bloque_4_avanzados/8_idiomatico.md",
+    "overallQualityIndex": 85,
+    "qualityLevel": "EXCELENTE",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.71,
+        "max": 3,
+        "confidence": 0.71
+      },
+      "technicalCompleteness": {
+        "score": 2.06,
+        "max": 3,
+        "confidence": 0.78
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.96
+    },
+    "targetAudience": {
+      "level": "intermediate",
+      "confidence": 0.72
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 37640,
+      "analyzedLength": 8153,
+      "codeBlocksIncluded": 25,
+      "codeBlocksTotal": 61
+    }
+  },
+  {
+    "file": "apunte/bloque_4_avanzados/9_api_diseno.md",
+    "overallQualityIndex": 78,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 2.33,
+        "max": 3,
+        "confidence": 0.61
+      },
+      "technicalCompleteness": {
+        "score": 2,
+        "max": 3,
+        "confidence": 0.68
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.99,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.82
+    },
+    "targetAudience": {
+      "level": "advanced",
+      "confidence": 0.71
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 43145,
+      "analyzedLength": 8013,
+      "codeBlocksIncluded": 5,
+      "codeBlocksTotal": 19
+    }
+  },
+  {
+    "file": "apunte/indice.md",
+    "overallQualityIndex": 65,
+    "qualityLevel": "BUENO",
+    "scores": {
+      "pedagogicalClarity": {
+        "score": 1.99,
+        "max": 3,
+        "confidence": 0.77
+      },
+      "technicalCompleteness": {
+        "score": 1.07,
+        "max": 3,
+        "confidence": 0.63
+      }
+    },
+    "checks": {
+      "hasRunnableExamples": true,
+      "hasRunnableExamplesProbability": 0.96,
+      "hasClearPrerequisites": true,
+      "hasClearPrerequisitesProbability": 0.97
+    },
+    "targetAudience": {
+      "level": "beginner",
+      "confidence": 0.98
+    },
+    "analysis": {
+      "mode": "digest",
+      "originalLength": 10252,
+      "analyzedLength": 1611,
+      "codeBlocksIncluded": 0,
+      "codeBlocksTotal": 2
+    }
+  }
+]

@@ -209,3 +209,102 @@ ni comandos directos de inspección").
    reescribir la apertura de los capítulos largos como
    "problema → ejemplo mínimo compilable → explicación", en vez de agregar
    solo el contrato de prerrequisitos/objetivos.
+
+---
+
+## 6. Reevaluación completa de `apunte/` (57 archivos, post-fix de digest)
+
+**Fecha de ejecución**: 22 de septiembre de 2026
+**Herramienta**: `jev-doc-quality.mjs` **modificada** (ver más abajo) vía
+`node mejora/evaluar_lote.mjs apunte --out evaluacion_totalidad_post_fix.json`
+**Alcance**: los 57 archivos `.md` que hoy existen bajo `apunte/` (39 en la
+línea de base original + 18 archivos nuevos, sobre todo ampliaciones de
+bloque 3 y la familia 13/14 de bloque 4)
+**Datos crudos**: [`mejora/evaluacion_totalidad_post_fix.json`](file:///home/mrtin/dev/tools/apunte/mejora/evaluacion_totalidad_post_fix.json)
+
+Antes de esta corrida se modificó `jev-doc-quality.mjs` (herramienta global en
+`~/.gemini/config/skills/jev-accelerator/`, no versionada en este repo): el
+truncamiento ingenuo a los primeros 4000 caracteres de cada documento —que
+subestimaba `hasRunnableExamples` y `technicalCompleteness` en cualquier
+capítulo cuyo primer ejemplo apareciera después del carácter 4000— se
+reemplazó por un **digest de todo el documento** (apertura + todo bloque de
+código/ejercicio encontrado en cualquier parte del archivo, hasta un
+presupuesto de caracteres). El JSON de salida ahora informa `analysis.mode`
+(`full`/`digest`) para saber qué se le mostró efectivamente al modelo.
+
+### Resultado agregado
+
+| Métrica | Línea de base (sección 1, 39 docs, truncamiento a 4000) | Esta corrida (57 docs, digest completo) |
+| --- | --- | --- |
+| Índice promedio global | 54.2 | **64.7** |
+| Distribución | 10 BUENO, 24 MEJORABLE, 5 DEFICIENTE | **19 EXCELENTE, 23 BUENO, 1 MEJORABLE, 14 DEFICIENTE** |
+
+La comparación no es 1:1 (esta corrida tiene 18 archivos más que la línea de
+base, casi todos ampliaciones nuevas de baja calidad que bajan el promedio
+global), pero el patrón por bloque es contundente:
+
+| Bloque | n | Índice promedio | Mín | Máx |
+| --- | --- | --- | --- | --- |
+| Bloque 1: Fundamentos | 8 | **80.4** | 72 | 85 |
+| Bloque 2: Memoria | 11 | **79.6** | 73 | 85 |
+| Bloque 3: Algoritmos y Estructuras | 18 | 50.5 | 17 | 82 |
+| Bloque 4: Tópicos Avanzados | 19 | 62.9 | 1 | 85 |
+| `indice.md` | 1 | 65.0 | — | — |
+
+Bloque 1 y bloque 2 —los dos bloques donde `mejora_2/plan_accion.md` completó
+sus Fases 0-4 íntegramente— promedian arriba de 79 y **ningún archivo es
+DEFICIENTE**. Bloque 3 y bloque 4 quedan muy por debajo, pero no por sus
+capítulos principales:
+
+### Los 14 DEFICIENTE (<40) son, sin excepción, archivos de ampliación
+
+| Índice | Archivo | Diagnóstico ya conocido (`mejora_2/plan_accion.md`) |
+| --- | --- | --- |
+| 1 | `bloque_4_avanzados/13_struct_avanzado.md` | Archivo vacío (0 bytes) — Fase 7, punto 21 |
+| 17 | `bloque_3/1D_fragmentacion_matrices.md` | Placeholder, redundante con `6_aritmetica.md` — Fase 6, punto 20 |
+| 23 | `bloque_3/7F_estructuras_opacas.md` | Placeholder — Fase 6, punto 20 |
+| 24 | `bloque_3/6D_fragmentacion_matrices.md` | Placeholder, duplica `1D` casi palabra por palabra — Fase 6, punto 20 |
+| 25 | `bloque_3/7E_serializacion.md` | Placeholder — Fase 6, punto 20 |
+| 25 | `bloque_4/13F_bitfields.md` | Candidato a fusionar en `5_binarios_bitwise.md` — Fase 7, punto 21 |
+| 26 | `bloque_3/1B_matrices_vla.md` | Placeholder, redundante con `6_aritmetica.md` — Fase 6, punto 20 |
+| 29 | `bloque_3/6A_localidad_representacion.md` | En `myst.yml`, pero igual puntúa bajo — ver hallazgo nuevo abajo |
+| 29 | `bloque_4/13B_serializacion.md` | Candidato a integrar si se desarrolla el capítulo 13 — Fase 7, punto 21 |
+| 30 | `bloque_4/13E_padding_abi.md` | Candidato a integrar — Fase 7, punto 21 |
+| 31 | `bloque_3/1C_matrices3d.md` | Placeholder — Fase 6, punto 20 |
+| 34 | `bloque_4/13C_estructuras_opacas.md` | Candidato claro a **eliminar**, redundante con `3_opacos.md` — Fase 7, punto 21 |
+| 36 | `bloque_3/1A_matrices_dinamicas.md` | En `myst.yml` y enlazado — ver hallazgo nuevo abajo |
+| 36 | `bloque_3/1E_rendimiento_memoria.md` | Contenido real, pero corto — ver hallazgo nuevo abajo |
+
+Y el único MEJORABLE (40-59) es también una ampliación:
+`bloque_3/2A_ownership_tads.md` (43/100).
+
+**Ningún capítulo principal (numerado sin letra) del recorrido obligatorio
+quedó DEFICIENTE ni MEJORABLE.** Esto es una confirmación cuantitativa e
+independiente del diagnóstico central de `mejora_2/informe_calidad.md`: el
+problema del apunte no es la calidad del contenido troncal, sino el volumen
+de archivos de ampliación sin desarrollar o sin integrar a la navegación.
+
+### Hallazgo nuevo: dos archivos de ampliación "buenos" en `myst.yml` puntúan mal igual
+
+`1A_matrices_dinamicas.md` (36) y `6A_localidad_representacion.md` (29) están
+en `myst.yml` y enlazados desde su capítulo principal (según el relevamiento
+de la Fase 6), pero puntúan DEFICIENTE de todas formas — a diferencia de
+`1F_seguridad_memoria.md` (70, BUENO), que no está en `myst.yml` pero sí tiene
+contenido sustancial. Esto sugiere que **estar en la navegación no alcanza**:
+`1A` y `6A` son cortos y conceptuales (una fórmula, unos bullets) sin ejemplo
+compilable propio ni ejercicio, mientras que `1F` tiene bloque de código y un
+mini-ejercicio. Al desarrollar estas ampliaciones (Fase 6, punto 20), agregar
+al menos un ejemplo compilable no es opcional: es lo que más pesa en el
+índice de estos archivos cortos.
+
+### Confirmación del fix de digest a escala completa
+
+De los 57 archivos, 25 se evaluaron en modo `"digest"` (documento más largo
+que el presupuesto, se armó el resumen con apertura + bloques de código de
+todo el archivo) y 32 en modo `"full"` (documento completo enviado tal cual,
+mayormente las ampliaciones cortas). Ningún archivo se evaluó con el
+truncamiento viejo. Bloque 2 (el bloque ya medido antes del fix, sección 5)
+subió de 70.3 a **79.6** de promedio al pasar del truncamiento a 4000
+caracteres al digest completo — una mejora adicional de +9.3 puntos
+atribuible pura y exclusivamente al fix de la herramienta, no a cambios en el
+contenido del apunte entre una corrida y la otra.

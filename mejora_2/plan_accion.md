@@ -12,7 +12,11 @@ editorial (no solo mecánica) antes de tocarla.
 La Fase 8 integra las tareas pendientes de `mejora/plan_de_accion.md`, un
 plan de acción independiente basado en una evaluación de calidad pedagógica
 con otra herramienta (`jev-doc-quality`); ver esa fase para el detalle y las
-tareas de ese plan que este documento ya resolvió por otra vía.
+tareas de ese plan que este documento ya resolvió por otra vía. La Fase 9 y
+las notas de "Evidencia cuantitativa" en las Fases 6 y 7 se basan en la
+reevaluación completa de los 57 archivos de `apunte/` con esa misma
+herramienta, ya corregida para analizar el documento completo en vez de solo
+su apertura (`mejora/informe_calidad.md`, sección 6).
 
 ---
 
@@ -340,33 +344,67 @@ find/replace dedicada, no urgente.
 
 ## Fase 6 - Ampliaciones y consolidacion del bloque 3
 
+**Evidencia cuantitativa (`mejora/informe_calidad.md`, sección 6)**: se
+reevaluaron los 57 archivos de `apunte/` con `jev-doc-quality` corregido
+(digest de documento completo, no solo la apertura). Bloque 3 promedia 50.5,
+muy por debajo de bloque 1 y 2 (80.4 y 79.6) — pero **ninguno de los 7
+capítulos principales quedó DEFICIENTE ni MEJORABLE** (van de 75 a 82). Los 9
+archivos de ampliación de este bloque explican toda la diferencia: 8 de 9
+puntuaron DEFICIENTE (17-43/100), incluidos `1A_matrices_dinamicas.md` (36) y
+`6A_localidad_representacion.md` (29) **pese a estar en `myst.yml` y
+enlazados** — estar en la navegación no basta si el archivo no tiene un
+ejemplo compilable propio. Solo `1F_seguridad_memoria.md` (70, BUENO) se
+salva, precisamente porque tiene un bloque de código y un mini-ejercicio.
+Esto refuerza que, al ejecutar el punto 20, cualquier archivo que se decida
+conservar necesita al menos un ejemplo compilable — no alcanza con prosa
+conceptual y una fórmula.
+
 20. **Bloque 3 — ampliaciones**:
     - Integrar a `myst.yml` y enlazar desde su capítulo principal:
-      `1E_rendimiento_memoria.md` y `1F_seguridad_memoria.md` (tienen
-      contenido real).
+      `1E_rendimiento_memoria.md` (36/100 — palabras pero sin ejemplo
+      compilable propio, agregar uno al integrarlo) y
+      `1F_seguridad_memoria.md` (70/100, ya tiene código y ejercicio).
     - Eliminar por redundancia pura con `bloque_2/6_aritmetica.md`:
-      `1B_matrices_vla.md`, `1D_fragmentacion_matrices.md`,
-      `6D_fragmentacion_matrices.md` (este último además duplica casi
-      palabra por palabra a `1D`).
-    - `1C_matrices3d.md`: decidir si se fusiona su fórmula de indexación
-      dentro de `1A_matrices_dinamicas.md` (mismo tema, mayor cohesión) o se
+      `1B_matrices_vla.md` (26/100), `1D_fragmentacion_matrices.md`
+      (17/100, el más bajo de los redundantes), `6D_fragmentacion_matrices.md`
+      (24/100, este último además duplica casi palabra por palabra a `1D`).
+    - `1C_matrices3d.md` (31/100): decidir si se fusiona su fórmula de
+      indexación dentro de `1A_matrices_dinamicas.md` (36/100, mismo tema,
+      mayor cohesión — y ninguno de los dos sube de DEFICIENTE aislado) o se
       elimina por ser un placeholder de una fórmula sin desarrollo.
-    - `7E_serializacion.md` y `7F_estructuras_opacas.md`: ver punto 21 antes
-      de decidir (dependen de qué se haga con bloque 4).
+    - `2A_ownership_tads.md` (43/100, MEJORABLE): el mejor puntuado de las
+      ampliaciones no redundantes; agregarle un ejemplo compilable propio
+      podría subirlo a BUENO con poco esfuerzo.
+    - `7E_serializacion.md` (25/100) y `7F_estructuras_opacas.md` (23/100):
+      ver punto 21 antes de decidir (dependen de qué se haga con bloque 4).
 
 ## Fase 7 - Mejoras y correcciones en bloque 4
+
+**Evidencia cuantitativa (`mejora/informe_calidad.md`, sección 6)**: bloque 4
+promedia 62.9, pero sus 12 capítulos principales van de 76 a 85 (BUENO/
+EXCELENTE) — la familia 13/14 es, otra vez, el problema completo:
+`13_struct_avanzado.md` puntuó **1/100** (archivo vacío), y
+`13B/13C/13E/13F` puntúan 25-34/100. La única excepción es `13D_union.md`
+(60/100, BUENO) — el único de la familia con código compilable completo,
+confirmando por qué el plan ya lo señalaba como "el único con código
+completo" antes de tener el dato cuantitativo. `14A_enums_avanzados.md`
+(74/100, BUENO) también confirma el criterio: subió de un párrafo con 4
+líneas de código a BUENO al recibir la sección de serialización movida desde
+`12_sockets.md` (Fase 1, hallazgo 37) — la misma receta (contenido real +
+ejemplo compilable) funciona acá también.
 
 21. **Bloque 4 — familia 13/14**: decidir entre dos caminos, no dejarlo como
     está:
     - **(a) Desarrollar el capítulo 13 real**: escribir
-      `13_struct_avanzado.md` como capítulo índice/introductorio, fusionar
-      `13D_union.md` (el único con código completo) y `13E_padding_abi.md`
-      como sus secciones, agregar a `myst.yml`, y decidir el destino de
-      `13C_estructuras_opacas.md` (candidato claro a **eliminar**: es
-      puramente redundante con `3_opacos.md`, que ya cubre el tema con 52K y
-      9 ejercicios) y `13F_bitfields.md` (candidato a fusionar como nota
-      breve dentro de `5_binarios_bitwise.md`, que ya cubre bitfields con
-      ejemplos).
+      `13_struct_avanzado.md` (1/100, vacío) como capítulo
+      índice/introductorio, fusionar `13D_union.md` (60/100, el único con
+      código completo) y `13E_padding_abi.md` (30/100) como sus secciones,
+      agregar a `myst.yml`, y decidir el destino de `13C_estructuras_opacas.md`
+      (34/100, candidato claro a **eliminar**: es puramente redundante con
+      `3_opacos.md`, que ya cubre el tema con 52K, 9 ejercicios y puntuó
+      82/100 en esta misma reevaluación) y `13F_bitfields.md` (25/100,
+      candidato a fusionar como nota breve dentro de `5_binarios_bitwise.md`,
+      que ya cubre bitfields con ejemplos y puntuó 77/100).
     - **(b) Eliminar toda la familia** si no hay planes reales de
       desarrollarla en el corto plazo — mantenerla vacía/huérfana no aporta
       valor y ensucia el repo.
