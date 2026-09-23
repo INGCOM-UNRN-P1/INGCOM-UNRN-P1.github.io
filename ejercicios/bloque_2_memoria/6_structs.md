@@ -157,3 +157,49 @@ typedef struct
 } cadena_segura_t;
 ```
 <!-- c -->
+
+---
+
+## Punteros a Estructuras
+
+(ejercicio_18_8)=
+### Ejercicio 18.8 - Acceso a Miembros con Operador Flecha ⭐⭐☆☆☆
+
+Dada una estructura de punto cartesiano:
+
+``` c
+typedef struct
+{
+    int x;
+    int y;
+} punto_t;
+```
+
+Implementar `void trasladar(punto_t *p, int dx, int dy)` que modifique las
+coordenadas del punto sumando `dx` y `dy`. Usar el operador `->` para acceder a
+los miembros: `p->x += dx;`.
+
+(ejercicio_18_9)=
+### Ejercicio 18.9 - Arreglo de Estructuras ⭐⭐⭐☆☆
+
+Implementar `void ordenar_puntos_por_x(punto_t *puntos, size_t n)` que ordene un
+arreglo de puntos según su coordenada `x` en orden ascendente.
+
+(ejercicio_18_10)=
+### Ejercicio 18.10 - Estructura con Punteros Dinámicos ⭐⭐⭐☆☆
+
+Dada:
+
+``` c
+typedef struct
+{
+    char *nombre;
+    int edad;
+} persona_t;
+```
+
+Implementar `void crear_persona(persona_t *p, const char *nombre, int edad)` que
+inicialice la estructura reservando memoria dinámica para el nombre con `malloc` y
+`strcpy`. Implementar también `void liberar_persona(persona_t *p)` que libere la
+memoria asignada.
+

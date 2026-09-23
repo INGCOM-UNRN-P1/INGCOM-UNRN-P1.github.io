@@ -123,3 +123,17 @@ correcta desde el arreglo.
 - **Ventaja**: Reemplaza una estructura `switch` o `if-else` larga por una
   simple indexación de arreglo, lo que hace el código más compacto y extensible.
 
+(ejercicio_26_6)=
+### Ejercicio 26.6 - Callback de Transformación In-Place ⭐⭐☆☆☆
+
+Implementar `void aplicar(int *arr, size_t n, void (*func)(int *))` que aplique
+una función transformadora a cada elemento de un arreglo por referencia.
+
+(ejercicio_26_7)=
+### Ejercicio 26.7 - Ordenamiento Genérico con Comparador (Tipo qsort) ⭐⭐⭐☆☆
+
+Implementar `void ordenar_generico(void *arr, size_t n, size_t tam_elemento, int (*comparar)(const void*, const void*))`
+que ordene un arreglo de cualquier tipo utilizando una función de comparación provista por el llamador
+y copias en memoria mediante `memcpy`.
+
+
