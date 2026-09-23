@@ -71,11 +71,6 @@ int main(void)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Explicar qué información diagnóstica imprime `assert` en
-    la consola al fallar (archivo, línea, expresión y función).
--   **[*plus ultra*]:** Investigar qué efecto produce la macro `#define NDEBUG`
-    colocada antes de `#include <assert.h>`.
-
 :::
 <!-- {exercise} -->
 
@@ -117,11 +112,6 @@ void test_calcular_promedio_tres_notas(void)
 
 ```
 <!-- {code-block} c -->
-
--   **[*plus ultra*]:** Separar explícitamente cada bloque con comentarios `//
-    1. Arrange`, `// 2. Act`, `// 3. Assert`.
--   **[*plus ultra*]:** Escribir una segunda función de prueba
-    `test_calcular_promedio_con_decimales` para notas 7, 8, 8.
 
 :::
 <!-- {exercise} -->
@@ -174,11 +164,6 @@ void test_todas_las_operaciones(void)
 
 ```
 <!-- {code-block} c -->
-
--   **[*plus ultra*]:** Crear una función `correr_todas_las_pruebas()` que
-    invoque a cada función individual de test.
--   **[*plus ultra*]:** Explicar por qué acumular muchos `assert` en una sola
-    función dificulta saber qué otros casos fallan cuando el primero aborta.
 
 :::
 <!-- {exercise} -->
@@ -261,10 +246,6 @@ int main(void)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Formular la regla general: *Nunca colocar llamadas con
-    efectos colaterales dentro de un `assert()`*.
--   **[*plus ultra*]:** Reescribir el código separando la acción del assert.
-
 :::
 <!-- {exercise} -->
 
@@ -307,11 +288,6 @@ Dada la siguiente especificación de la función `clasificar_edad`:
 
 Diseñá el conjunto mínimo de valores de prueba para cubrir todas las
 **particiones de equivalencia** válidas e inválidas.
-
--   **[*plus ultra*]:** Implementar la función `int clasificar_edad(int edad)` y
-    su suite de tests correspondiente.
--   **[*plus ultra*]:** Documentar la función con etiquetas de contrato (`@pre`,
-    `@returns`).
 
 :::
 <!-- {exercise} -->
@@ -363,11 +339,6 @@ Tomando la función `clasificar_edad` del ejercicio anterior, identificá los
 **valores de borde exactos** (límites) que deben ser testeados para asegurar que
 no existan errores de tipo *off-by-one* (`<` en vez de `<=`).
 
--   **[*plus ultra*]:** Escribir una función de prueba unitaria para cada valor
-    de borde detectado.
--   **[*plus ultra*]:** Explicar por qué los límites `-1, 0, 17, 18, 64, 65,
-    130, 131` son los puntos más propensos a fallos en el software.
-
 :::
 <!-- {exercise} -->
 
@@ -416,11 +387,6 @@ assert(tercio * 3.0 == 1.0); // ¡Peligro de precisión!
 ```
 <!-- c -->
 
--   **[*plus ultra*]:** Implementar `bool son_cercanos(double a, double b,
-    double eps)` usando `fabs()` de `<math.h>`.
--   **[*plus ultra*]:** Escribir un test que verifique `0.1 + 0.2` frente a
-    `0.3` con tolerancia $10^{-6}$.
-
 :::
 <!-- {exercise} -->
 
@@ -466,11 +432,6 @@ Explicá con claridad la diferencia conceptual entre:
    condicionales `if`.
 2. Validar precondiciones internas del programador con `assert()`.
 
--   **[*plus ultra*]:** Dar un ejemplo de cuándo usar `if (...) return
-    CODIGO_ERROR;` y cuándo usar `assert(divisor != 0);`.
--   **[*plus ultra*]:** Explicar por qué un programa de producción nunca debe
-    abortar con `assert` si el usuario escribe una letra en lugar de un número.
-
 :::
 <!-- {exercise} -->
 
@@ -500,11 +461,6 @@ porcentaje)` que:
 
 Escribí su suite completa de pruebas unitarias cubriendo casos normales, bordes
 e inválidos.
-
--   **[*plus ultra*]:** Documentar la función con `@param`, `@pre`, `@returns` y
-    `@post`.
--   **[*plus ultra*]:** Validar que `aplicar_descuento(100.0, 0.0)` retorne
-    `100.0` y `aplicar_descuento(100.0, 100.0)` retorne `0.0`.
 
 :::
 <!-- {exercise} -->
@@ -565,10 +521,6 @@ void test_descuento_porcentaje_invalido(void)
 :label: ej-test-runner-basico
 Implementá un pequeño ejecutor de pruebas en C con retorno de conteos en `main`
 para contabilizar pruebas ejecutadas y aprobadas sin usar variables globales.
-
--   **[*plus ultra*]:** Mostrar un resumen final con el total de tests exitosos.
--   **[*plus ultra*]:** Asegurar que el código de salida del programa sea 0 si
-    todos pasan y 1 si alguno falla.
 
 :::
 <!-- {exercise} -->
@@ -659,10 +611,6 @@ int main(void)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Identificar la violación de la {ref}`0x2004h`.
--   **[*plus ultra*]:** Refactorizar `acumular` para que reciba el total actual
-    y retorne el nuevo total de forma pura.
-
 :::
 <!-- {exercise} -->
 
@@ -732,11 +680,6 @@ int main(void)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Explicar qué advertencia emite el compilador al compilar
-    con `-Wshadow`.
--   **[*plus ultra*]:** Eliminar la variable global para evitar confusiones de
-    alcance (*scope*).
-
 :::
 <!-- {exercise} -->
 
@@ -787,11 +730,6 @@ bool extraer(double monto)
 
 ```
 <!-- {code-block} c -->
-
--   **[*plus ultra*]:** Escribir tests unitarios que verifiquen depósitos y
-    extracciones sin necesidad de reiniciar variables globales.
--   **[*plus ultra*]:** Manejar saldos negativos o montos inválidos retornando
-    códigos de error.
 
 :::
 <!-- {exercise} -->
@@ -884,10 +822,6 @@ bool es_positivo(int n) {
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Explicar por qué las funciones puras son triviales de
-    testear en comparación con las funciones impuras.
--   **[*plus ultra*]:** Reformular `sumar_con_log` para cumplir con la {ref}`0x2002h`.
-
 :::
 <!-- {exercise} -->
 
@@ -927,11 +861,6 @@ int contador_llamadas(void)
 
 ```
 <!-- {code-block} c -->
-
--   **[*plus ultra*]:** Explicar la diferencia de alcance (*scope*) y tiempo de
-    vida (*lifetime*) entre una variable global y una variable local `static`.
--   **[*plus ultra*]:** Escribir una versión reseteable o pasar el contador por
-    parámetro.
 
 :::
 <!-- {exercise} -->
@@ -988,11 +917,6 @@ void validar_paridad(int x)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** ¿Qué ocurre si se llama `validar_rango(-5)` seguido de
-    `validar_paridad(4)`?
--   **[*plus ultra*]:** Refactorizar ambas funciones para que retornen un `bool`
-    independiente.
-
 :::
 <!-- {exercise} -->
 
@@ -1032,11 +956,6 @@ Explicá por qué compartir variables globales entre diferentes archivos `.c`
 (usando `extern`) rompe el principio de modularidad y hace que un fallo en un
 módulo rompa silenciosamente a otro.
 
--   **[*plus ultra*]:** Proponer una solución basada en interfaces limpias de
-    funciones en archivos de cabecera `.h`.
--   **[*plus ultra*]:** Citar la {ref}`0x2004h` y sus consecuencias de
-    ingeniería.
-
 :::
 <!-- {exercise} -->
 
@@ -1069,10 +988,6 @@ globales ni llamadas a `printf`:
 Escribí una función de prueba para cada conversión verificando los puntos fijos
 conocidos ($0^\circ\text{C} = 32^\circ\text{F}$, $100^\circ\text{C} =
 212^\circ\text{F}$, $0^\circ\text{C} = 273.15\text{ K}$).
-
--   **[*plus ultra*]:** Validar que las temperaturas no estén por debajo del
-    cero absoluto ($-273.15^\circ\text{C}$).
--   **[*plus ultra*]:** Usar comparación con tolerancia `son_cercanos`.
 
 :::
 <!-- {exercise} -->
@@ -1141,9 +1056,6 @@ como un valor entero pasado por parámetro:
 - `int tiempo_obtener_segundos(int tiempo_total)`
 
 Escribí las pruebas unitarias que validen avances sucesivos.
-
--   **[*plus ultra*]:** Validar que `segundos_delta >= 0`.
--   **[*plus ultra*]:** Probar el avance cruzando la frontera de 60 segundos.
 
 :::
 <!-- {exercise} -->
@@ -1219,10 +1131,6 @@ int multiplicar_y_guardar(int a, int b)
 Explicá qué problema de diseño introduce `ultimo_resultado` si dos partes del
 programa invocan la función en momentos intercalados.
 
--   **[*plus ultra*]:** Refactorizar eliminando la variable global.
--   **[*plus ultra*]:** Explicar el concepto de función reentrante (*reentrant
-    function*).
-
 :::
 <!-- {exercise} -->
 
@@ -1252,10 +1160,6 @@ local gestionada en `main` o en las pruebas, utilizando funciones puras:
 
 Escribí pruebas unitarias para cada operación y una prueba para una secuencia de
 operaciones combinadas.
-
--   **[*plus ultra*]:** Validar división por cero poniendo `*ok = false`.
--   **[*plus ultra*]:** Verificar que el acumulador original no se altere si la
-    división falla.
 
 :::
 <!-- {exercise} -->
@@ -1327,11 +1231,6 @@ transición:
 
 Escribí pruebas unitarias que simulen la secuencia de caracteres `a`, `b`, `1`
 para verificar la transición de estados paso a paso sin variables globales.
-
--   **[*plus ultra*]:** Documentar la tabla de transiciones en un comentario
-    formal.
--   **[*plus ultra*]:** Verificar que entradas inválidas conduzcan al estado
-    `-1`.
 
 :::
 <!-- {exercise} -->
@@ -1414,11 +1313,6 @@ int evaluar_alumno(int parcial1, int parcial2, int asistencia_pct)
 cobertura de ramas (Branch Coverage)**? Escribí los casos de prueba con sus
 valores de entrada y salida esperada.
 
--   **[*plus ultra*]:** Identificar todas las ramas de decisión booleanas (`&&`,
-    `||`).
--   **[*plus ultra*]:** Escribir una suite con `assert()` que ejecute
-    exactamente todos los caminos.
-
 :::
 <!-- {exercise} -->
 
@@ -1467,11 +1361,6 @@ int calcular_tarifa(int edad)
 
 ```
 <!-- {code-block} c -->
-
--   **[*plus ultra*]:** Simplificar la estructura lógica eliminando
-    redundancias.
--   **[*plus ultra*]:** Escribir pruebas unitarias que demuestren que la versión
-    simplificada produce los mismos resultados.
 
 :::
 <!-- {exercise} -->
@@ -1548,11 +1437,6 @@ int main(void)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Explicar por qué es peligroso colocar funciones con
-    efectos secundarios dentro de condiciones compuestas.
--   **[*plus ultra*]:** Escribir aserciones que verifiquen el valor final de
-    `llamadas`.
-
 :::
 <!-- {exercise} -->
 
@@ -1607,11 +1491,6 @@ int procesar_pedido(int cantidad, double precio_unitario, bool cliente_vip)
 
 ```
 <!-- {code-block} c -->
-
--   **[*plus ultra*]:** Comprobar que la función reduzca la sangría horizontal
-    manteniendo exactamente el mismo comportamiento.
--   **[*plus ultra*]:** Escribir pruebas unitarias con `assert()` para cada
-    salida prematura.
 
 :::
 <!-- {exercise} -->
@@ -1703,10 +1582,6 @@ int dias_del_mes(int mes)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Explicar qué valor retornaría `dias_del_mes(2)` en el
-    código original con bug.
--   **[*plus ultra*]:** Escribir una prueba unitaria que detecte el error.
-
 :::
 <!-- {exercise} -->
 
@@ -1778,11 +1653,6 @@ int suma_primeros_n(int n)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Escribir un test unitario para `suma_primeros_n(4)` cuyo
-    resultado esperado es `10`.
--   **[*plus ultra*]:** Corregir el lazo para que incluya al número $N$ usando
-    `<=`.
-
 :::
 <!-- {exercise} -->
 
@@ -1853,11 +1723,6 @@ void calcular_imc_interactivo(void)
 
 ```
 <!-- {code-block} c -->
-
--   **[*plus ultra*]:** Crear la función pura `float calcular_imc(float peso,
-    float altura)` y `int clasificar_imc(float imc)`.
--   **[*plus ultra*]:** Escribir la suite completa de pruebas unitarias
-    automatizadas para ambas funciones puras.
 
 :::
 <!-- {exercise} -->
@@ -1937,11 +1802,6 @@ int mcd(int a, int b)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Escribir una suite de tests unitarios verificando
-    `mcd(18, 12) == 6`, `mcd(7, 5) == 1` y `mcd(20, 0) == 20`.
--   **[*plus ultra*]:** Demostrar la invariante del algoritmo: $\text{mcd}(a, b)
-    = \text{mcd}(b, a \pmod b)$.
-
 :::
 <!-- {exercise} -->
 
@@ -1972,11 +1832,6 @@ atómicas según la {ref}`0x2005h`:
 void procesar_todo(const int arr[], int n, int *suma, int *maximo, int *negativos);
 ```
 <!-- c -->
-
--   **[*plus ultra*]:** Escribir pruebas unitarias independientes para cada
-    función resultante.
--   **[*plus ultra*]:** Explicar por qué es más fácil reutilizar y mantener
-    funciones con una sola responsabilidad.
 
 :::
 <!-- {exercise} -->
@@ -2055,9 +1910,6 @@ verifique las cuatro reglas del calendario gregoriano:
 3. Años múltiplos de 100 pero no de 400 (ej. 1900 $\rightarrow$ `false`).
 4. Años múltiplos de 400 (ej. 2000 $\rightarrow$ `true`).
 
--   **[*plus ultra*]:** Validar que años $\le 0$ retornen `false`.
--   **[*plus ultra*]:** Escribir una función de test por cada regla evaluada.
-
 :::
 <!-- {exercise} -->
 
@@ -2127,11 +1979,6 @@ int buscar_elemento(const int arr[], int n, int objetivo);
 ```
 <!-- c -->
 
--   **[*plus ultra*]:** Explicar qué error genera el compilador si una función
-    intenta modificar un elemento de un arreglo declarado `const`.
--   **[*plus ultra*]:** Escribir un test que valide que el arreglo original no
-    sufrió modificaciones tras la búsqueda.
-
 :::
 <!-- {exercise} -->
 
@@ -2179,11 +2026,6 @@ void division_lenta(int dividendo, int divisor, int *cociente, int *resto)
 
 ```
 <!-- {code-block} c -->
-
--   **[*plus ultra*]:** Diseñar tests unitarios para $10 \div 3$, $20 \div 5$ y
-    $3 \div 7$.
--   **[*plus ultra*]:** Verificar que el resto siempre cumpla $0 \le r <
-    \text{divisor}$.
 
 :::
 <!-- {exercise} -->
@@ -2240,10 +2082,6 @@ int valor_absoluto(int n) {
 
 ```
 <!-- {code-block} c -->
-
--   **[*plus ultra*]:** Formatear con 4 espacios de indentación.
--   **[*plus ultra*]:** Escribir una prueba unitaria para `valor_absoluto(-12)`
-    y `valor_absoluto(0)`.
 
 :::
 <!-- {exercise} -->
@@ -2306,11 +2144,6 @@ double calcular_costo_envio(double peso)
 
 ```
 <!-- {code-block} c -->
-
--   **[*plus ultra*]:** Escribir tests unitarios para los puntos de quiebre (5.0
-    kg y 20.0 kg).
--   **[*plus ultra*]:** Explicar por qué los números mágicos dificultan el
-    mantenimiento del código.
 
 :::
 <!-- {exercise} -->
@@ -2384,10 +2217,6 @@ int calcular_potencia_entera(int base, int exponente, bool *ok);
 
 ```
 <!-- {code-block} c -->
-
--   **[*plus ultra*]:** Implementar la función validando que `exponente >= 0`.
--   **[*plus ultra*]:** Escribir tests unitarios que verifiquen las
-    postcondiciones.
 
 :::
 <!-- {exercise} -->
@@ -2475,11 +2304,6 @@ int contar_multiplos(const int arr[], int n, int divisor)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Explicar por qué las variables locales contienen valores
-    basura si no se inicializan explícitamente.
--   **[*plus ultra*]:** Escribir una prueba unitaria para verificar
-    `contar_multiplos`.
-
 :::
 <!-- {exercise} -->
 
@@ -2531,9 +2355,6 @@ Ordená las siguientes secciones de un archivo `.c` según la {ref}`0x5005h`:
 - Prototipos de funciones privadas (`static`)
 - Implementación de funciones privadas (`static`)
 
--   **[*plus ultra*]:** Explicar por qué mantener un orden uniforme facilita la
-    lectura por parte de otros programadores del equipo.
-
 :::
 <!-- {exercise} -->
 
@@ -2560,11 +2381,6 @@ El orden estándar según la Regla `0x5005h` es:
 ¿Por qué toda sentencia `switch` debe contener obligatoriamente una cláusula
 `default` según la {ref}`0x1003h`, incluso
 si el programador cree haber cubierto todos los casos posibles?
-
--   **[*plus ultra*]:** Implementar una función `int obtener_dias_trimestre(int
-    trimestre)` con manejo de `default` que retorne `-1`.
--   **[*plus ultra*]:** Escribir tests unitarios que verifiquen el caso
-    `default`.
 
 :::
 <!-- {exercise} -->
@@ -2632,9 +2448,6 @@ double c(double p, double d, double t)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Escribir un test unitario con assert para verificar el
-    cálculo del precio final con descuento e impuesto.
-
 :::
 <!-- {exercise} -->
 
@@ -2699,10 +2512,6 @@ int calcular_estadisticas_ventas(int ventas[], int n)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Refactorizar declarando variables con nombres de
-    propósito único (`suma`, `maximo`).
--   **[*plus ultra*]:** Modularizar en funciones independientes.
-
 :::
 <!-- {exercise} -->
 
@@ -2728,9 +2537,6 @@ obligatorios en las buenas prácticas de ingeniería ({ref}`0x5002h`):
 - `-Wextra`
 - `-Werror`
 - `-Wpedantic`
-
--   **[*plus ultra*]:** Configurar una línea de compilación modelo en un archivo
-    Makefile.
 
 :::
 <!-- {exercise} -->
@@ -2759,11 +2565,6 @@ obligatorios en las buenas prácticas de ingeniería ({ref}`0x5002h`):
 Explicá por qué las funciones auxiliares de un módulo `.c` que no forman parte
 de la interfaz pública deben declararse obligatoriamente con el calificador
 `static`.
-
--   **[*plus ultra*]:** Explicar el concepto de visibilidad de enlace (*internal
-    linkage*).
--   **[*plus ultra*]:** Explicar cómo esto previene colisiones de nombres con
-    funciones auxiliares de otros archivos `.c`.
 
 :::
 <!-- {exercise} -->
@@ -2796,11 +2597,6 @@ construí una suite completa de pruebas unitarias que cubra:
 - Días negativos o mayores a 31.
 - Meses fuera del rango 1 a 12.
 - Años menores o iguales a cero.
-
--   **[*plus ultra*]:** Modularizar las pruebas en funciones separadas por cada
-    categoría.
--   **[*plus ultra*]:** Crear la función `void correr_pruebas_fechas(void)` que
-    las invoque a todas.
 
 :::
 <!-- {exercise} -->
@@ -2890,10 +2686,6 @@ Una playa de estacionamiento cobra según las siguientes reglas:
 Implementá la función pura `double calcular_estacionamiento(int minutos)` y
 diseñá su suite de pruebas exhaustiva.
 
--   **[*plus ultra*]:** Validar que `minutos <= 0` retorne `0.0`.
--   **[*plus ultra*]:** Testear los minutos frontera: 0, 30, 60, 61, 360, 361,
-    1440.
-
 :::
 <!-- {exercise} -->
 
@@ -2982,11 +2774,6 @@ int mcd(int a, int b)
 ```
 <!-- c -->
 
--   **[*plus ultra*]:** Explicar por qué `0 % 5 == 0` y la siguiente llamada es
-    `mcd(5, 0)` retornando `5`.
--   **[*plus ultra*]:** Asegurar que la función maneje argumentos negativos
-    convirtiéndolos a valor absoluto.
-
 :::
 <!-- {exercise} -->
 
@@ -3035,9 +2822,6 @@ Explicá el concepto de **Test de Regresión** (*Regression Test*):
 2. ¿Por qué se debe escribir primero la prueba automatizada que reproduzca el
    fallo antes de modificar el código?
 
--   **[*plus ultra*]:** Describir cómo un test de regresión previene que futuros
-    cambios reintroduzcan el mismo error.
-
 :::
 <!-- {exercise} -->
 
@@ -3071,10 +2855,6 @@ Diseñá la suite de pruebas unitarias cubriendo:
 - Montos combinados (ej. $3800 $\rightarrow$ 3x1000, 1x500, 1x200, 1x100).
 - Montos no múltiplos de 100 (debe retornar `false`).
 - Montos negativos o cero.
-
--   **[*plus ultra*]:** Validar que ningún puntero de salida sea `NULL`.
--   **[*plus ultra*]:** Verificar la invariante: $\text{monto} = 1000 \cdot
-    b_{1000} + 500 \cdot b_{500} + 200 \cdot b_{200} + 100 \cdot b_{100}$.
 
 :::
 <!-- {exercise} -->
@@ -3140,11 +2920,6 @@ $\sqrt{n}$ y diseñá su suite de pruebas con `assert()`:
 - Primos pares e impares pequeños ($2, 3, 5, 7, 11, 13$).
 - Compuestos impares que aparentan ser primos ($9, 15, 21, 25, 27, 49$).
 - Primos grandes conocidos ($997$).
-
--   **[*plus ultra*]:** Escribir una función de prueba específica para cada
-    categoría.
--   **[*plus ultra*]:** Documentar las precondiciones con `@pre` y
-    postcondiciones con `@post`.
 
 :::
 <!-- {exercise} -->
@@ -3226,9 +3001,6 @@ Códigos de retorno:
 
 Escribí pruebas unitarias para cada uno de los 4 códigos posibles.
 
--   **[*plus ultra*]:** Asegurar que ante código de error, `*velocidad` no sea
-    modificada.
-
 :::
 <!-- {exercise} -->
 
@@ -3308,9 +3080,6 @@ Implementá `bool es_numero_capicua(int n)` mediante funciones auxiliares puras
 - Números no capicúas (`123`, `100`).
 - Números negativos (por convención, retornan `false`).
 
--   **[*plus ultra*]:** Validar que no se produzca desbordamiento entero al
-    invertir.
-
 :::
 <!-- {exercise} -->
 
@@ -3380,9 +3149,6 @@ Implementá `int clasificar_triangulo(double a, double b, double c)`:
 
 Diseñá la suite de pruebas unitarias verificando cada clase y casos degenerados
 ($a + b = c$).
-
--   **[*plus ultra*]:** Usar comparación con tolerancia `son_cercanos` para los
-    lados.
 
 :::
 <!-- {exercise} -->
@@ -3455,9 +3221,6 @@ int *segundos)` y diseñá su suite de pruebas con `assert()`:
 - `total_segundos = 3661` $\rightarrow$ `1h 1m 1s`.
 - `total_segundos = 86399` $\rightarrow$ `23h 59m 59s`.
 - `total_segundos = -5` $\rightarrow$ `false`.
-
--   **[*plus ultra*]:** Verificar que la función retorne `false` si cualquier
-    puntero recibido es `NULL`.
 
 :::
 <!-- {exercise} -->
@@ -3536,11 +3299,6 @@ las siguientes especificaciones:
 
 Construí una suite integradora de pruebas unitarias automatizadas que cubra
 todos los caminos y bordes con un runner central.
-
--   **[*plus ultra*]:** Verificar que todas las funciones sigan estrictamente el
-    estilo Allman y no empleen variables globales.
--   **[*plus ultra*]:** Documentar cada función con etiquetas `@brief`,
-    `@param`, `@pre`, `@returns` y `@post`.
 
 :::
 <!-- {exercise} -->

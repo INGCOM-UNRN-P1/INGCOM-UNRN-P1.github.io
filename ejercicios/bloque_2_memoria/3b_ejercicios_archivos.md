@@ -24,17 +24,6 @@ en C.
 (ejercicio_13_1)=
 ## Ejercicio 13.1 - s Propuestos ⭐⭐☆☆☆
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_13_2)=
 ### Ejercicio 13.2 - b.1 - Escribir un diario personal ⭐⭐☆☆☆
 
@@ -48,11 +37,6 @@ Creá una función que reciba el nombre de un archivo y una cadena de texto. La
 función debe abrir el archivo en modo "append" (añadir) y escribir la cadena de
 texto seguida de un salto de línea. Asegurate de manejar todos los posibles
 errores de apertura, escritura y cierre.
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
 
 :::
 <!-- {exercise} -->
@@ -151,11 +135,6 @@ Escribí una función que reciba el nombre de un archivo, lo lea y devuelva la
 cantidad de líneas que contiene. Una línea se define como una secuencia de
 caracteres terminada por un `\n`. La función debe devolver un número negativo en
 caso de error.
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
 
 :::
 <!-- {exercise} -->
@@ -259,11 +238,6 @@ Implementá una función que copie el contenido de un archivo de origen a un
 archivo de destino. La función debe leer el archivo de origen línea por línea y
 escribir cada línea en el archivo de destino. Debe manejar errores para ambos
 archivos (apertura, lectura, escritura y cierre).
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
 
 :::
 <!-- {exercise} -->
@@ -392,11 +366,6 @@ Crea una función `registrar_evento` que reciba un mensaje y lo añada a un
 archivo llamado `eventos.log`. La función debe asegurarse de que cada mensaje
 nuevo se agregue al final del archivo, sin borrar el contenido anterior. Por
 simplicidad, no es necesario agregar una marca de tiempo.
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
 
 :::
 <!-- {exercise} -->
@@ -631,11 +600,6 @@ el primero del nuevo, y así sucesivamente). La función debe usar `fseek` y
 `ftell` para determinar el tamaño del archivo y leer los caracteres desde el
 final hacia el principio. Debe retornar `0` en caso de éxito y un valor negativo
 ante fallas de apertura, posicionamiento o escritura.
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
 
 :::
 <!-- {exercise} -->

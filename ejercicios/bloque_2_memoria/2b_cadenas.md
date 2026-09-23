@@ -29,17 +29,6 @@ Escribir una función que cuente el número total de vocales (a, e, i, o, u) en
 una cadena de texto. La función no debe distinguir entre mayúsculas y
 minúsculas.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 :::{tip} Lógica y Consideraciones
 
 -   **Entrada:** Una cadena de caracteres.
@@ -88,17 +77,6 @@ FIN FUNCION
 Implementar una función que calcule la frecuencia de aparición de cada carácter
 dentro de una cadena y muestre el resultado para aquellos caracteres que
 aparecen al menos una vez.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Lógica y Consideraciones
 
@@ -153,17 +131,6 @@ FIN PROCEDIMIENTO
 Desarrollar una función que verifique si una cadena de texto representa un
 número de punto flotante válido. La validación debe seguir un conjunto de reglas
 específicas.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Lógica y Consideraciones
 
@@ -229,17 +196,6 @@ FIN FUNCION
 Crear una función que determine si una cadena contiene únicamente caracteres
 alfabéticos (de la 'a' a la 'z', mayúsculas o minúsculas).
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 :::{tip} Lógica y Consideraciones
 
 -   **Proceso:** Recorrer la cadena. Para cada carácter, verificar si está
@@ -282,17 +238,6 @@ Implementar una función que verifique si una cadena es un palíndromo, es decir
 si se lee igual de izquierda a derecha que de derecha a izquierda. La
 verificación debe ignorar espacios en blanco y no debe ser sensible a
 mayúsculas/minúsculas.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Lógica y Consideraciones
 
@@ -355,17 +300,6 @@ Escribir una función que determine si una cadena es un anagrama de otra (es
 decir, si ambas tienen los mismos caracteres con la misma frecuencia), ignorando
 mayúsculas/minúsculas y espacios.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 :::{tip} Lógica y Consideraciones
 
 -   **Proceso (Arreglo de Frecuencias):**
@@ -423,17 +357,6 @@ Verificar si una cadena es un pangrama, es decir, si contiene todas las letras
 del alfabeto inglés al menos una vez. La verificación debe ser insensible a
 mayúsculas/minúsculas.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 :::{tip} Lógica y Consideraciones
 
 -   **Estructura de Datos:** Un arreglo booleano de 26 posiciones
@@ -484,17 +407,6 @@ FIN FUNCION
 #### Descripción
 Dividir una cadena en una secuencia de "tokens" (subcadenas) basándose en un
 carácter delimitador. La función `strtok` de C es un ejemplo clásico de esto.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Lógica y Consideraciones
 
@@ -554,17 +466,6 @@ Implementar una forma simple de compresión de cadenas llamada Run-Length
 Encoding. Esta técnica compacta una cadena reemplazando secuencias de caracteres
 idénticos por el número de repeticiones seguido del carácter.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 :::{tip} Lógica y Consideraciones
 
 -   **Proceso:**
@@ -611,17 +512,6 @@ FIN FUNCION
 Escribir una función que elimine los caracteres duplicados de una cadena,
 conservando únicamente la primera aparición de cada carácter. La modificación
 puede ser _in-place_.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Lógica y Consideraciones
 
@@ -680,17 +570,6 @@ FIN PROCEDIMIENTO
 Transformar un número entero largo en una cadena de texto, insertando
 separadores de miles (puntos o comas) para mejorar la legibilidad.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 :::{tip} Lógica y Consideraciones
 
 -   **Proceso:**
@@ -742,17 +621,6 @@ FIN FUNCION
 Implementar una función que busque la primera ocurrencia de una subcadena
 (`needle` o aguja) dentro de una cadena principal (`haystack` o pajar). Es una
 reimplementación de la función `strstr`.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Lógica y Consideraciones
 
@@ -807,17 +675,6 @@ FIN FUNCION
 Convertir una cadena que representa un número en formato binario (compuesta de
 '0's y '1's) a su valor entero decimal correspondiente.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 :::{tip} Lógica y Consideraciones
 
 -   **Proceso:** Recorrer la cadena binaria. Para cada dígito, multiplicar el
@@ -853,17 +710,6 @@ FIN FUNCION
 #### Descripción
 Convertir una cadena que representa un número en formato hexadecimal (dígitos
 0-9 y letras A-F, insensibles a mayúsculas) a su valor entero decimal.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Lógica y Consideraciones
 
@@ -909,17 +755,6 @@ FIN FUNCION
 Convertir un número entero decimal a su representación en una cadena de texto
 binaria.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 :::{tip} Lógica y Consideraciones
 
 -   **Proceso:**
@@ -963,17 +798,6 @@ FIN FUNCION
 #### Descripción
 Convertir un número entero decimal a su representación en una cadena de texto
 hexadecimal.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Lógica y Consideraciones
 
@@ -1019,17 +843,6 @@ FIN FUNCION
 Escribir una función que tome una frase y la modifique de tal manera que cada
 palabra individual quede invertida, pero el orden de las palabras en la frase se
 mantenga intacto.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Lógica y Consideraciones
 
@@ -1084,17 +897,6 @@ FIN PROCEDIMIENTO
 Escribir una función que invierta el orden de las palabras en una frase. Por
 ejemplo, "Hola Mundo desde C" se convertiría en "C desde Mundo Hola".
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 :::{tip} Lógica y Consideraciones
 
 -   **Proceso (dos pasos):**
@@ -1131,17 +933,6 @@ FIN PROCEDIMIENTO
 Implementar una función que convierta una cadena a "Title Case", donde la
 primera letra de cada palabra está en mayúscula y el resto de las letras de la
 palabra están en minúscula.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Lógica y Consideraciones
 
@@ -1182,17 +973,6 @@ FIN PROCEDIMIENTO
 #### Descripción
 Desarrollar una función que cuente el número de palabras en una cadena. Se puede
 considerar que las palabras están separadas por uno o más espacios.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Lógica y Consideraciones
 
@@ -1245,17 +1025,6 @@ Crear una función que elimine los espacios en blanco redundantes de una cadena:
 espacios al principio, al final y múltiples espacios entre palabras, dejando
 solo un espacio entre cada palabra.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 :::{tip} Lógica y Consideraciones
 
 -   **Proceso (in-place con dos punteros):**
@@ -1307,17 +1076,6 @@ FIN PROCEDIMIENTO
 Implementar una función `trim` que modifique una cadena para eliminar todos los
 espacios en blanco (o cualquier otro carácter de espaciado como tabuladores o
 saltos de línea) que se encuentren al principio y al final de la misma.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Lógica y Consideraciones
 
@@ -1376,17 +1134,6 @@ Escribir una función que reemplace todas las ocurrencias de una subcadena por
 otra dentro de una cadena principal. La función debe manejar cambios en la
 longitud de la cadena, lo que usualmente requiere memoria dinámica.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 :::{tip} Lógica y Consideraciones
 
 -   **Proceso:**
@@ -1438,17 +1185,6 @@ Crear una función que verifique si una cadena tiene un formato de correo
 electrónico básico. No busca ser exhaustiva (lo cual es muy complejo), sino
 validar una estructura mínima.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 :::{tip} Lógica y Consideraciones
 
 -   **Reglas Mínimas:**
@@ -1496,17 +1232,6 @@ FIN FUNCION
 Implementar el Cifrado César, un tipo de cifrado por sustitución en el que cada
 letra en el texto original es reemplazada por una letra un número fijo de
 posiciones más adelante en el alfabeto, de forma circular.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Lógica y Consideraciones
 
@@ -1557,17 +1282,6 @@ Escribir la función complementaria que descifre un mensaje cifrado con el
 Cifrado César, conociendo el desplazamiento. Es la operación inversa al
 ejercicio anterior.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 :::{tip} Lógica y Consideraciones
 
 -   **Proceso:** Es idéntico al cifrado, pero en lugar de sumar el
@@ -1598,17 +1312,6 @@ FIN FUNCION
 Desarrollar una función que encuentre y devuelva el carácter que aparece con más
 frecuencia en una cadena. Si hay empates, puede devolver cualquiera de los más
 frecuentes.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Lógica y Consideraciones
 
@@ -1655,17 +1358,6 @@ FIN FUNCION
 Implementar su propia versión de la función `strcasecmp`, que compara dos
 cadenas sin diferenciar entre mayúsculas y minúsculas.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 :::{tip} Lógica y Consideraciones
 
 -   **Proceso:**
@@ -1709,17 +1401,6 @@ Crear una función que extraiga una porción de una cadena. La función debe
 recibir la cadena original, una posición de inicio y una longitud, y devolver
 una nueva cadena con la subcadena extraída.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 :::{tip} Lógica y Consideraciones
 
 -   **Memoria:** La función debe reservar memoria para la nueva cadena.
@@ -1759,17 +1440,6 @@ FIN FUNCION
 Implementar una función que justifique una línea de texto a un ancho específico,
 insertando espacios adicionales entre las palabras de la manera más uniforme
 posible.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Lógica y Consideraciones
 
@@ -1811,17 +1481,6 @@ FIN FUNCION
 #### Descripción
 Escribir una función que genere un acrónimo a partir de una frase, tomando la
 primera letra de cada palabra.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Lógica y Consideraciones
 
@@ -1873,17 +1532,6 @@ Implementar una función que calcule la distancia de Hamming entre dos cadenas d
 igual longitud. Esta distancia es el número de posiciones en las que los
 caracteres correspondientes son diferentes.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 :::{tip} Lógica y Consideraciones
 
 -   **Precondición:** Las cadenas deben tener la misma longitud.
@@ -1927,17 +1575,6 @@ FIN FUNCION
 Escribir una función que encuentre la longitud de la subsecuencia común más
 larga (LCS) entre dos cadenas. Una subsecuencia no tiene por qué ser contigua.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 :::{tip} Lógica y Consideraciones
 
 -   **Algoritmo:** Este es un problema clásico de programación dinámica.
@@ -1977,17 +1614,6 @@ FIN FUNCION
 #### Descripción
 Crear una función que verifique si una cadena representa una dirección IPv4
 válida. Debe consistir en cuatro números entre 0 y 255, separados por puntos.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Lógica y Consideraciones
 
@@ -2035,17 +1661,6 @@ Implementar una función que convierta una cadena en `camelCase` o `PascalCase` 
 `snake_case`. Esto implica insertar un guion bajo antes de cada letra mayúscula
 y convertir toda la cadena a minúsculas.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 :::{tip} Lógica y Consideraciones
 
 -   **Proceso:**
@@ -2087,17 +1702,6 @@ FIN FUNCION
 Implementar una función que convierta una cadena en `snake_case` a `camelCase`.
 Esto implica eliminar los guiones bajos y poner en mayúscula la letra que les
 seguía.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Lógica y Consideraciones
 
@@ -2148,17 +1752,6 @@ FIN FUNCION
 Escribir una función que determine si una cadena `s2` es una rotación de otra
 cadena `s1`.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 :::{tip} Lógica y Consideraciones
 
 -   **Propiedad Clave:** `s2` es una rotación de `s1` si y solo si `s2` es una
@@ -2200,17 +1793,6 @@ INICIO
 Crear una función que reciba una cadena (que puede representar una o más líneas
 de código) y elimine los comentarios de estilo C (`//...` hasta el final de la
 línea y `/*...*/` incluyendo el contenido).
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Lógica y Consideraciones
 
@@ -2261,17 +1843,6 @@ FIN FUNCION
 Dada una URL en formato de cadena, escribir una función que la analice y
 extraiga sus componentes principales: protocolo, host y ruta.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 :::{tip} Lógica y Consideraciones
 
 -   **Proceso:** Usar funciones de búsqueda de caracteres (`:`, `/`) para
@@ -2307,17 +1878,6 @@ Un "slug" es una versión de una cadena amigable para URLs. Escribir una funció
 que convierta un título en un slug: debe estar en minúsculas, los espacios deben
 ser reemplazados por guiones y se deben eliminar todos los caracteres no
 alfanuméricos.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Lógica y Consideraciones
 
@@ -2362,17 +1922,6 @@ FIN FUNCION
 #### Descripción
 Implementar una función que encuentre y devuelva el primer carácter en una
 cadena que no se repite en el resto de la cadena.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Lógica y Consideraciones
 

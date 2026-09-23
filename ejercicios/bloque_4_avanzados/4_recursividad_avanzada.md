@@ -30,17 +30,6 @@ paradigma de diseño "Divide y Vencerás" en C.
 Implementar la función factorial de forma recursiva siguiendo la definición
 matemática.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
-    error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
-    especificando precondiciones y postcondiciones.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 long int factorial(int n);
 ```
@@ -65,17 +54,6 @@ $$
 Implementar suma de dos enteros positivos usando solo recursividad (sin operador
 `+` en el paso recursivo).
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 int suma_recursiva(int a, int b);
 ```
@@ -94,17 +72,6 @@ $$
 
 Implementar multiplicación usando solo sumas recursivas.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de
-    cola (*tail recursion*) para reducir el consumo de pila.
--   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas
-    realizadas para analizar la complejidad empírica.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 int producto_recursivo(int a, int b);
 ```
@@ -122,17 +89,6 @@ $$
 ### Ejercicio 29.4 - Potencia ⭐⭐☆☆☆
 
 Implementar $base^{exponente}$ de forma recursiva.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 long int potencia(int base, int exponente);
@@ -166,17 +122,6 @@ $$
 ### Ejercicio 29.5 - Fibonacci Básico ⭐☆☆☆☆
 
 Implementar la secuencia de Fibonacci recursivamente.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 long int fibonacci(int n);

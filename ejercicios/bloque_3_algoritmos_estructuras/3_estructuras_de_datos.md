@@ -45,16 +45,6 @@ typedef struct nodo
 - **`void liberar_lista(nodo_t *cabeza)`**: Recorre la lista y libera la memoria
   de cada nodo uno por uno para evitar fugas de memoria.
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_23_2)=
 ### Ejercicio 23.2 - Inserción ⭐⭐☆☆☆
 
@@ -63,16 +53,6 @@ typedef struct nodo
   para modificar el puntero `cabeza` original.
 - **`void insertar_al_final(nodo_t *cabeza, int dato)`**: Recorre la lista hasta
   el último nodo y enlaza el nuevo nodo al final.
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 (ejercicio_23_3)=
 ### Ejercicio 23.3 - Eliminación y Búsqueda ⭐⭐☆☆☆
@@ -83,17 +63,6 @@ typedef struct nodo
 - **`void eliminar_por_valor(nodo_t **cabeza, int dato)`**: Busca un nodo con el
   dato especificado y lo elimina de la lista, re-enlazando el nodo anterior con
   el siguiente.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 
@@ -110,17 +79,6 @@ eficientemente usando una lista enlazada como estructura subyacente.
   devuelve su dato y actualiza la cabeza de la lista.
 - **`int peek(nodo_t *cabeza)`**: Devuelve el dato del primer nodo sin modificar
   la pila.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 
@@ -146,17 +104,6 @@ typedef struct
 - **`int desencolar(cola_t *cola)`**: Elimina el nodo del frente de la lista,
   devuelve su dato y actualiza el puntero `frente`.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 
 ## Estructuras de Datos Avanzadas (Opcional)
@@ -172,30 +119,10 @@ menores) y un puntero a un sub-árbol derecho (con valores mayores).
 - **`void imprimir_en_orden(nodo_arbol_t *raiz)`**: Recorrido recursivo
   (izquierdo, raíz, derecho) que imprime los elementos de forma ordenada.
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_23_7)=
 ### Ejercicio 23.7 - Tabla Hash (Encadenamiento Separado) ⭐⭐⭐☆☆
 
 Una tabla hash utiliza una función para convertir una clave en un índice de un
 arreglo. Las colisiones (cuando dos claves mapean al mismo índice) se manejan
 almacenando los elementos en una lista enlazada en esa posición del arreglo.
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 

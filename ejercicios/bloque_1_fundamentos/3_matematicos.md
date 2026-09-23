@@ -48,10 +48,6 @@ como una serie de incrementos o decrementos sucesivos.
     resultado. Si `m < 0`, se decrementa.
     definición interna oculta en el archivo `.c`.
     para copiar la estructura de forma segura.
-
--   **[*plus ultra*]:** Validar que los operandos sean enteros no negativos antes de iniciar las sumas sucesivas.
--   **[*plus ultra*]:** Contar la cantidad total de incrementos realizados para verificar el costo de la operación.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -100,10 +96,6 @@ realizar una división de forma manual o en hardware muy simple.
     `dividendo` (lo que sobra) es el resto.
     definición interna oculta en el archivo `.c`.
     para copiar la estructura de forma segura.
-
--   **[*plus ultra*]:** Validar que el divisor sea estrictamente mayor que cero retornando un código de error si es cero.
--   **[*plus ultra*]:** Calcular simultáneamente el cociente y el resto sin usar los operadores / ni %.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -150,10 +142,6 @@ duplicación correspondientes.
     resto).
     filas (*row-major order*) para mejorar el uso de caché.
     estrictamente dentro de los límites del contenedor.
-
--   **[*plus ultra*]:** Validar que el divisor sea distinto de cero e imprimir el paso a paso de las duplicaciones sucesivas.
--   **[*plus ultra*]:** Comparar la cantidad de operaciones requeridas por la división egipcia frente a la división por restas.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -210,10 +198,6 @@ Determinar si un número entero `a` es divisible de forma exacta por otro entero
     división por cero.
     error e informar el resultado mediante parámetros de salida.
     especificando precondiciones y postcondiciones.
-
--   **[*plus ultra*]:** Manejar el caso especial de divisor cero informando error.
--   **[*plus ultra*]:** Implementar la verificación de divisibilidad por 2, 3, 5 y 10 usando reglas de dígitos.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -256,10 +240,6 @@ El factorial es el producto de todos los enteros positivos desde 1 hasta `n`.
     grande como `unsigned long long` es crucial.
     definición interna oculta en el archivo `.c`.
     para copiar la estructura de forma segura.
-
--   **[*plus ultra*]:** Validar que n >= 0 y usar long long para retrasar el desbordamiento numérico.
--   **[*plus ultra*]:** Informar el valor máximo de n para el cual no se produce desbordamiento con el tipo empleado.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -305,10 +285,6 @@ Común Múltiplo (MCM) de dos números enteros.
     fórmula: $MCM(a, b) = \frac{|a \cdot b|}{MCD(a, b)}$.
     error e informar el resultado mediante parámetros de salida.
     especificando precondiciones y postcondiciones.
-
--   **[*plus ultra*]:** Validar que al menos uno de los números sea distinto de cero.
--   **[*plus ultra*]:** Implementar el algoritmo de Euclides de forma iterativa y verificar que mcd(a,b)*mcm(a,b) == a*b.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -351,10 +327,6 @@ Calcular la suma de los dígitos individuales de un número entero positivo.
     3.  **Eliminar último dígito:** `n = n / 10` (división entera).
     error e informar el resultado mediante parámetros de salida.
     especificando precondiciones y postcondiciones.
-
--   **[*plus ultra*]:** Manejar números negativos considerando sus dígitos como positivos.
--   **[*plus ultra*]:** Repetir la suma de dígitos hasta obtener un valor de un solo dígito (raíz digital).
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -395,10 +367,6 @@ Tomar un número entero y devolver otro número con sus dígitos en orden invers
         b. `n = n / 10`.
     desbordamientos de búfer validando la capacidad máxima.
     líneas de manera robusta.
-
--   **[*plus ultra*]:** Manejar adecuadamente números terminados en ceros.
--   **[*plus ultra*]:** Validar si el número invertido excede el rango máximo de un entero int.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -437,10 +405,6 @@ izquierda a derecha que de derecha a izquierda.
     original.
     error e informar el resultado mediante parámetros de salida.
     especificando precondiciones y postcondiciones.
-
--   **[*plus ultra*]:** Modularizar la verificación en una función bool es_capicua(long n).
--   **[*plus ultra*]:** Generar y mostrar todos los números capicúas dentro de un intervalo [a, b].
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -479,10 +443,6 @@ si solo es divisible por 1 y por sí mismo.
     primo.
     error e informar el resultado mediante parámetros de salida.
     especificando precondiciones y postcondiciones.
-
--   **[*plus ultra*]:** Optimizar el lazo comprobando divisores solo hasta sqrt(n).
--   **[*plus ultra*]:** Contar la cantidad de números primos dentro de un rango dado por el usuario.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -524,10 +484,6 @@ divisores excepto él mismo).
     3.  Finalmente, comparar la suma obtenida con el número original `n`.
     error e informar el resultado mediante parámetros de salida.
     especificando precondiciones y postcondiciones.
-
--   **[*plus ultra*]:** Validar que el número sea entero positivo mayor a 1.
--   **[*plus ultra*]:** Determinar si el número es abundante, deficiente o perfecto.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -578,10 +534,6 @@ viceversa.
     definición de números amigos).
     error e informar el resultado mediante parámetros de salida.
     especificando precondiciones y postcondiciones.
-
--   **[*plus ultra*]:** Validar que n sea positivo y mostrar los divisores de ambos números para verificar la suma.
--   **[*plus ultra*]:** Encontrar todos los pares de números amigos menores a un límite dado.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -629,10 +581,6 @@ divisores propios es mayor que el propio número.
     compara si es mayor que `n`.
     error e informar el resultado mediante parámetros de salida.
     especificando precondiciones y postcondiciones.
-
--   **[*plus ultra*]:** Validar que la base y el exponente sean coherentes y manejar exponentes negativos con double.
--   **[*plus ultra*]:** Implementar la exponenciación rápida por duplicaciones sucesivas.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -674,10 +622,6 @@ probada) es que esta secuencia siempre llega a 1.
     valor de `n`. Imprimir el valor de `n` en cada paso para ver la secuencia.
     valores fuera de rango o tipos inválidos.
     un lazo hasta que el usuario elija finalizar.
-
--   **[*plus ultra*]:** Contar y mostrar la longitud de la secuencia (número de pasos hasta llegar a 1).
--   **[*plus ultra*]:** Encontrar el número inicial menor a 1000 que genera la secuencia de Collatz más larga.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -721,10 +665,6 @@ elevados a la potencia `k`.
     4.  Comparar la `suma` final con el número original `n`.
     desbordamientos de búfer validando la capacidad máxima.
     líneas de manera robusta.
-
--   **[*plus ultra*]:** Determinar automáticamente la cantidad de dígitos del número antes de calcular las potencias.
--   **[*plus ultra*]:** Encontrar todos los números de Armstrong de 3 y 4 dígitos.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -774,10 +714,6 @@ feliz.
     simplemente detectar si se llega al número 4.
     filas (*row-major order*) para mejorar el uso de caché.
     estrictamente dentro de los límites del contenedor.
-
--   **[*plus ultra*]:** Detectar ciclos usando un límite de iteraciones para números que no son felices.
--   **[*plus ultra*]:** Listar todos los números felices comprendidos entre 1 y 100.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -835,10 +771,6 @@ encontrar todos los números primos hasta un límite superior $N$ especificado.
     los índices `i` para los cuales `es_primo[i]` es verdadero.
     desbordamientos de búfer validando la capacidad máxima.
     líneas de manera robusta.
-
--   **[*plus ultra*]:** Validar que el límite superior sea mayor a 1 y usar un arreglo de tamaño fijo para marcar primos.
--   **[*plus ultra*]:** Mostrar la cantidad total de primos encontrados y el porcentaje que representan en el rango.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -899,10 +831,6 @@ Por ejemplo, para 360, la salida sería `2^3 * 3^2 * 5`.
         factor primo.
     desbordamientos de búfer validando la capacidad máxima.
     líneas de manera robusta.
-
--   **[*plus ultra*]:** Mostrar los factores primos en formato canónico con exponentes (ej. 2^3 * 3^2).
--   **[*plus ultra*]:** Validar que el número a factorizar sea mayor que 1.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -966,10 +894,6 @@ problemas de conteo en combinatoria.
         y dividirá el resultado por `n+1`.
     definición interna oculta en el archivo `.c`.
     para copiar la estructura de forma segura.
-
--   **[*plus ultra*]:** Calcular el n-ésimo número de Catalan simplificando factores para evitar desbordamiento temprano.
--   **[*plus ultra*]:** Mostrar los primeros N términos de la secuencia de Catalan.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1027,10 +951,6 @@ conjunto de `n` elementos sin importar el orden.
     iteraciones.
     definición interna oculta en el archivo `.c`.
     para copiar la estructura de forma segura.
-
--   **[*plus ultra*]:** Optimizar el cálculo de C(n, k) usando la propiedad C(n, k) = C(n, n-k).
--   **[*plus ultra*]:** Validar que 0 <= k <= n.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1079,10 +999,6 @@ iterativo eficiente.
 -   **Salida:** El resultado es la parte entera de la estimación final `x`.
     definición interna oculta en el archivo `.c`.
     para copiar la estructura de forma segura.
-
--   **[*plus ultra*]:** Mostrar la cantidad de iteraciones requeridas hasta alcanzar la convergencia.
--   **[*plus ultra*]:** Validar que el número sea no negativo.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1130,10 +1046,6 @@ función que determine si un número entero dado es un número triangular.
         verificar si es un entero.
     error e informar el resultado mediante parámetros de salida.
     especificando precondiciones y postcondiciones.
-
--   **[*plus ultra*]:** Verificar si un número dado es triangular resolviendo la ecuación cuadrática asociada.
--   **[*plus ultra*]:** Generar y mostrar los primeros N números triangulares.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1179,10 +1091,6 @@ que, dado un número par, encuentre un par de números primos que lo sumen.
     4.  Si ambos lo son, se ha encontrado un par y se puede terminar.
     error e informar el resultado mediante parámetros de salida.
     especificando precondiciones y postcondiciones.
-
--   **[*plus ultra*]:** Validar que el número ingresado sea un entero par mayor que 2.
--   **[*plus ultra*]:** Encontrar todas las descomposiciones en suma de dos primos para el número dado.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1220,10 +1128,6 @@ encontrar todos los pares de primos gemelos hasta un límite $N$.
     3.  Si ambos lo son, se ha encontrado un par de primos gemelos.
     valores fuera de rango o tipos inválidos.
     un lazo hasta que el usuario elija finalizar.
-
--   **[*plus ultra*]:** Validar que el rango [a, b] sea válido y positivo.
--   **[*plus ultra*]:** Contar la cantidad total de pares de primos gemelos en el rango.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1262,10 +1166,6 @@ Bézout: $ax + by = mcd(a, b)$.
     y la llamada actual los ajusta para los números originales.
     desbordamientos de búfer validando la capacidad máxima.
     líneas de manera robusta.
-
--   **[*plus ultra*]:** Validar que los coeficientes satisfagan la igualdad a*x + b*y == mcd(a, b).
--   **[*plus ultra*]:** Modularizar la versión extendida del algoritmo de Euclides.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1313,10 +1213,6 @@ recibir el número de términos a utilizar para la aproximación.
     4.  El resultado final es `4 * suma`.
     definición interna oculta en el archivo `.c`.
     para copiar la estructura de forma segura.
-
--   **[*plus ultra*]:** Permitir al usuario ingresar la cantidad de términos o la precisión deseada.
--   **[*plus ultra*]:** Comparar el valor aproximado con M_PI de math.h y mostrar el error relativo.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1354,10 +1250,6 @@ similar a la de Fibonacci, pero comienza con 2 y 1.
     cambian los valores iniciales.
     valores fuera de rango o tipos inválidos.
     un lazo hasta que el usuario elija finalizar.
-
--   **[*plus ultra*]:** Generar los primeros N términos de la secuencia de Lucas usando tipos enteros amplios.
--   **[*plus ultra*]:** Verificar la relación entre los números de Lucas y los números de Fibonacci.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1401,10 +1293,6 @@ su vez primos (primos de Mersenne).
     3.  Verificar si el $M_p$ resultante es también primo.
     error e informar el resultado mediante parámetros de salida.
     especificando precondiciones y postcondiciones.
-
--   **[*plus ultra*]:** Validar si el exponente p es primo antes de calcular 2^p - 1.
--   **[*plus ultra*]:** Verificar si el número de Mersenne obtenido es primo para valores pequeños de p.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1450,10 +1338,6 @@ eficiente para números grandes.
     puede ser implementarlo para una sola base fija.
     error e informar el resultado mediante parámetros de salida.
     especificando precondiciones y postcondiciones.
-
--   **[*plus ultra*]:** Modularizar la exponenciación modular (base^exp % mod) en una función pura.
--   **[*plus ultra*]:** Probar la primalidad con varias bases distintas para aumentar la certeza.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1498,10 +1382,6 @@ concatenados, son una permutación de los dígitos del número original.
         otro (ej. ordenándolos y comparando).
     error e informar el resultado mediante parámetros de salida.
     especificando precondiciones y postcondiciones.
-
--   **[*plus ultra*]:** Validar que el número tenga una cantidad par de dígitos.
--   **[*plus ultra*]:** Verificar que los colmillos no terminen ambos en cero simultáneamente.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1551,10 +1431,6 @@ columna y ambas diagonales principales es la misma ("constante mágica").
 -   Si todas las sumas son iguales, es un cuadrado mágico.
     filas (*row-major order*) para mejorar el uso de caché.
     estrictamente dentro de los límites del contenedor.
-
--   **[*plus ultra*]:** Validar que la dimensión sea un entero impar positivo mayor o igual a 3.
--   **[*plus ultra*]:** Verificar que la constante mágica calculada sea igual a n*(n^2 + 1)/2.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1611,10 +1487,6 @@ número dado es un número de Smith.
     5.  Comparar las dos sumas.
     error e informar el resultado mediante parámetros de salida.
     especificando precondiciones y postcondiciones.
-
--   **[*plus ultra*]:** Validar que el número sea compuesto (los primos no se consideran números de Smith).
--   **[*plus ultra*]:** Encontrar todos los números de Smith menores a 500.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1659,10 +1531,6 @@ hasta un límite $N$.
     4.  Si ambos son primos, `p` es un primo de Sophie Germain.
     valores fuera de rango o tipos inválidos.
     un lazo hasta que el usuario elija finalizar.
-
--   **[*plus ultra*]:** Validar que tanto p como 2p + 1 sean números primos.
--   **[*plus ultra*]:** Listar todos los primos de Sophie Germain menores a un límite dado.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1700,10 +1568,6 @@ decir, `mcd(k, n) = 1` para `1 <= k <= n`).
     `n`: $\phi(n) = n \prod_{p|n, p \text{ es primo}} (1 - \frac{1}{p})$.
     definición interna oculta en el archivo `.c`.
     para copiar la estructura de forma segura.
-
--   **[*plus ultra*]:** Modularizar la descomposición en factores primos para calcular phi(n) mediante la fórmula de Euler.
--   **[*plus ultra*]:** Verificar que para un número primo p, phi(p) sea exactamente p - 1.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1752,10 +1616,6 @@ de sus factores primos distintos.
     encontrado a una variable `resultado`.
     definición interna oculta en el archivo `.c`.
     para copiar la estructura de forma segura.
-
--   **[*plus ultra*]:** Calcular el radical como el producto de los factores primos distintos del número.
--   **[*plus ultra*]:** Validar que n sea mayor que 1.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1792,10 +1652,6 @@ diferentes formas, una común es `0, 1, 1, 2, 4, 7, 13, ...`
     guardar los tres términos anteriores.
     valores fuera de rango o tipos inválidos.
     un lazo hasta que el usuario elija finalizar.
-
--   **[*plus ultra*]:** Usar un lazo iterativo manteniendo tres variables de estado para los términos previos.
--   **[*plus ultra*]:** Generar los primeros N términos de la secuencia de Tribonacci.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1840,10 +1696,6 @@ fracciones unitarias distintas (fracciones con numerador 1).
     5.  Repetir hasta que `num` sea 0.
     error e informar el resultado mediante parámetros de salida.
     especificando precondiciones y postcondiciones.
-
--   **[*plus ultra*]:** Validar que el numerador sea menor que el denominador (fracción propia positiva).
--   **[*plus ultra*]:** Implementar el algoritmo voraz (greedy) de Fibonacci-Sylvester.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1886,10 +1738,6 @@ fórmula de Euclides.
     `b` y `c`.
     valores fuera de rango o tipos inválidos.
     un lazo hasta que el usuario elija finalizar.
-
--   **[*plus ultra*]:** Encontrar todas las ternas pitagóricas primitivas con hipotenusa menor a un valor dado.
--   **[*plus ultra*]:** Verificar que a² + b² == c² para cada terna encontrada.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1935,10 +1783,6 @@ función que verifique si un número es un número de Carmichael.
         Carmichael. Si se prueban todos y la cumplen, sí lo es.
     error e informar el resultado mediante parámetros de salida.
     especificando precondiciones y postcondiciones.
-
--   **[*plus ultra*]:** Validar que el número sea compuesto y satisfaga a^(n-1) ≡ 1 (mod n) para todo a coprimo con n.
--   **[*plus ultra*]:** Comprobar el criterio de Korselt para verificar números de Carmichael.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1979,10 +1823,6 @@ Calcular el logaritmo entero en base `b` de un número `n`. Es el mayor entero
     3.  El valor final de `k` es el resultado.
     definición interna oculta en el archivo `.c`.
     para copiar la estructura de forma segura.
-
--   **[*plus ultra*]:** Validar que el argumento sea estrictamente positivo y la base mayor que 1.
--   **[*plus ultra*]:** Calcular el logaritmo entero mediante divisiones sucesivas en un lazo.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -2023,10 +1863,6 @@ Escribir una función que convierta un número `n` de una base `b1` a una base
         destino `b2` usando divisiones sucesivas y guardando los restos.
     filas (*row-major order*) para mejorar el uso de caché.
     estrictamente dentro de los límites del contenedor.
-
--   **[*plus ultra*]:** Validar que la base de destino esté entre 2 y 16.
--   **[*plus ultra*]:** Formatear la salida con dígitos alfanuméricos apropiados (0-9, A-F).
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 

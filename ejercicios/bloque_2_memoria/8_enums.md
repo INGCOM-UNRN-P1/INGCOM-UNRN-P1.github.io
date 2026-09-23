@@ -42,17 +42,6 @@ enum dia_semana
 Implementar una función que retorne el día siguiente al día proporcionado. El
 día siguiente a `DOMINGO` es `LUNES`.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
-    error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
-    especificando precondiciones y postcondiciones.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 enum dia_semana dia_siguiente(enum dia_semana dia_actual);
 ```
@@ -61,17 +50,6 @@ enum dia_semana dia_siguiente(enum dia_semana dia_actual);
 ### Ejercicio 20.2 - Es día laboral ⭐⭐☆☆☆
 
 Implementar una función que determine si un día es laboral (lunes a viernes).
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
-    error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
-    especificando precondiciones y postcondiciones.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 bool es_dia_laboral(enum dia_semana dia);
@@ -82,17 +60,6 @@ bool es_dia_laboral(enum dia_semana dia);
 
 Implementar una función que retorne el nombre del día como cadena de texto. Esta
 función ilustra el patrón de conversión enum-a-string.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 const char *nombre_dia(enum dia_semana dia);
@@ -123,17 +90,6 @@ Implementar una función que procese transiciones de estado. La función debe
 recibir el estado actual y un evento, y retornar el nuevo estado según las
 reglas de transición.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
-    definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
-    para copiar la estructura de forma segura.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ```{code-block} c
 :linenos:
 enum evento_red
@@ -159,17 +115,6 @@ enum estado_red procesar_evento(enum estado_red estado,
 
 Implementar una función que valide si un valor numérico corresponde a un estado
 válido de la enumeración. Usar el patrón del valor centinela.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -209,17 +154,6 @@ enum permisos
 Implementar una función que verifique si un conjunto de permisos incluye un
 permiso específico.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
-    error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
-    especificando precondiciones y postcondiciones.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 bool tiene_permiso(unsigned int permisos_actuales, enum permisos permiso);
 ```
@@ -228,17 +162,6 @@ bool tiene_permiso(unsigned int permisos_actuales, enum permisos permiso);
 ### Ejercicio 20.7 - Agregar y quitar permisos ⭐⭐☆☆☆
 
 Implementar funciones para modificar el conjunto de permisos.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
-    error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
-    especificando precondiciones y postcondiciones.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 unsigned int agregar_permiso(unsigned int permisos, enum permisos nuevo);
@@ -250,17 +173,6 @@ unsigned int quitar_permiso(unsigned int permisos, enum permisos remover);
 
 Implementar una función que imprima todos los permisos activos en un conjunto de
 permisos.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 void mostrar_permisos(unsigned int permisos);
@@ -299,17 +211,6 @@ typedef struct
 Implementar una función que convierta un color predefinido a sus componentes
 RGB.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
-    error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
-    especificando precondiciones y postcondiciones.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 rgb_t color_a_rgb(enum color_predefinido color);
 ```
@@ -324,17 +225,6 @@ rgb_t color_a_rgb(enum color_predefinido color);
 ### Ejercicio 20.10 - Mezcla de colores ⭐⭐☆☆☆
 
 Implementar una función que mezcle dos colores RGB usando promedio aritmético.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 rgb_t mezclar_colores(rgb_t c1, rgb_t c2);
@@ -386,17 +276,6 @@ typedef struct
 
 Implementar funciones para configurar cada tipo de dispositivo de forma segura.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 dispositivo_t crear_sensor(double temp_min, double temp_max);
 dispositivo_t crear_motor(unsigned int rpm, bool horario);
@@ -409,17 +288,6 @@ dispositivo_t crear_led(unsigned char intensidad,
 
 Implementar una función que imprima la configuración de un dispositivo según su
 tipo. Este ejercicio demuestra el uso correcto de uniones etiquetadas.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 void imprimir_dispositivo(const dispositivo_t *dispositivo);
@@ -451,17 +319,6 @@ enum codigo_error
 Implementar una función que retorne un mensaje descriptivo para cada código de
 error.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 const char *mensaje_error(enum codigo_error error);
 ```
@@ -471,17 +328,6 @@ const char *mensaje_error(enum codigo_error error);
 
 Implementar un tipo `resultado_t` que encapsule un valor de retorno o un código
 de error usando unión etiquetada.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -535,17 +381,6 @@ enum modo_reproduccion
 
 Implementar una estructura que encapsule el estado completo del reproductor.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ```{code-block} c
 :linenos:
 typedef struct
@@ -561,17 +396,6 @@ typedef struct
 ### Ejercicio 20.16 - Comandos de control ⭐⭐☆☆☆
 
 Implementar funciones para controlar el reproductor.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
-    definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
-    para copiar la estructura de forma segura.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 void reproducir(reproductor_t *rep);
@@ -606,17 +430,6 @@ enum nivel_log
 Implementar una función que determine si un mensaje debe ser registrado según el
 nivel mínimo configurado.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 bool debe_registrar(enum nivel_log nivel_mensaje, enum nivel_log nivel_minimo);
 ```
@@ -626,17 +439,6 @@ bool debe_registrar(enum nivel_log nivel_mensaje, enum nivel_log nivel_minimo);
 
 Implementar una función que formatee un mensaje de log incluyendo el nivel como
 prefijo.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 void log_mensaje(enum nivel_log nivel, const char *mensaje);
@@ -672,17 +474,6 @@ typedef struct
 
 Implementar funciones para construir y extraer información de la cabecera.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 cabecera_mensaje_t crear_cabecera(enum tipo_mensaje tipo,
                                   unsigned int prioridad,
@@ -695,17 +486,6 @@ void imprimir_cabecera(cabecera_mensaje_t cabecera);
 
 Implementar una función que valide que los valores de una cabecera están dentro
 de los rangos permitidos.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
-    definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
-    para copiar la estructura de forma segura.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 bool cabecera_valida(cabecera_mensaje_t cabecera);
@@ -735,17 +515,6 @@ enum opcion_compilacion
 Implementar una función que genere una cadena con las opciones de compilación
 correspondientes a los flags activos.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 void generar_comando_compilacion(unsigned int opciones, char *buffer,
                                  size_t tam);
@@ -758,17 +527,6 @@ Ejemplo: Si `opciones` tiene `OPT_DEBUG | OPT_WARNINGS`, el buffer debe contener
 ### Ejercicio 20.22 - Detectar conflictos ⭐⭐☆☆☆
 
 Implementar una función que detecte combinaciones incompatibles de opciones.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
-    error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
-    especificando precondiciones y postcondiciones.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 bool opciones_compatibles(unsigned int opciones);
@@ -801,17 +559,6 @@ enum opcion_menu
 Implementar una función que convierta la entrada del usuario en una opción del
 menú.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
-    error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
-    especificando precondiciones y postcondiciones.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 enum opcion_menu parsear_opcion(int entrada);
 ```
@@ -821,17 +568,6 @@ enum opcion_menu parsear_opcion(int entrada);
 
 Implementar una función que ejecute la acción correspondiente a cada opción del
 menú.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
-    error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
-    especificando precondiciones y postcondiciones.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 void ejecutar_opcion(enum opcion_menu opcion);
@@ -847,17 +583,6 @@ ejecute la acción hasta que el usuario seleccione `MENU_SALIR`.
 
 Combinar enumeraciones, estructuras y uniones para representar diferentes
 figuras geométricas.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -900,17 +625,6 @@ typedef struct
 Implementar una función que calcule el área de cualquier figura usando su tipo y
 datos.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
-    error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
-    especificando precondiciones y postcondiciones.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 double calcular_area(const figura_t *figura);
 ```
@@ -927,17 +641,6 @@ double calcular_area(const figura_t *figura);
 
 Implementar funciones para crear cada tipo de figura de forma segura.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 figura_t crear_circulo(double radio);
 figura_t crear_rectangulo(double base, double altura);
@@ -951,17 +654,6 @@ figura_t crear_triangulo(double a, double b, double c);
 
 Implementar un sistema genérico para convertir entre valores enum y strings
 usando tablas de conversión.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -983,17 +675,6 @@ const enum_string_t tabla_dias[] = {
 ### Ejercicio 20.29 - Funciones de conversión genéricas ⭐⭐☆☆☆
 
 Implementar funciones genéricas que usen la tabla para realizar conversiones.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 const char *enum_a_string(int valor, const enum_string_t *tabla, size_t tam);
@@ -1039,17 +720,6 @@ typedef struct
 Implementar una función que inicialice un juego nuevo con la dificultad
 especificada.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
-    definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
-    para copiar la estructura de forma segura.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 juego_t inicializar_juego(enum dificultad dif);
 ```
@@ -1060,17 +730,6 @@ La dificultad debe afectar el número inicial de vidas y otros parámetros.
 ### Ejercicio 20.31 - Gestión de estado ⭐⭐⭐☆☆
 
 Implementar funciones para transiciones de estado comunes.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 void pausar_juego(juego_t *juego);
@@ -1116,17 +775,6 @@ typedef struct
 Implementar una función que clasifique un paquete basándose en reglas
 heurísticas.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
-    error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
-    especificando precondiciones y postcondiciones.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 enum tipo_trafico clasificar_paquete(const paquete_red_t *paquete);
 ```
@@ -1141,17 +789,6 @@ enum tipo_trafico clasificar_paquete(const paquete_red_t *paquete);
 
 Implementar una función que cuente paquetes por protocolo en un arreglo de
 paquetes.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -1172,17 +809,6 @@ estadisticas_protocolo_t contar_por_protocolo(const paquete_red_t *paquetes,
 ### Ejercicio 20.34 - Permisos de archivo (UNIX) ⭐⭐☆☆☆
 
 Modelar permisos de archivo estilo UNIX usando flags.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -1215,17 +841,6 @@ void mostrar_permisos_unix(unsigned int permisos); // Formato: rwxr-xr--
 
 Modelar diferentes tipos de archivo en un sistema de archivos.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ```{code-block} c
 :linenos:
 enum tipo_archivo
@@ -1253,17 +868,6 @@ typedef struct
 ### Ejercicio 20.36 - Tipos de eventos de UI ⭐⭐☆☆☆
 
 Modelar eventos de interfaz de usuario.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -1296,17 +900,6 @@ typedef struct
 
 Implementar un procesador que maneje diferentes tipos de eventos.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
-    definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
-    para copiar la estructura de forma segura.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 void procesar_evento(const evento_t *evento);
 ```
@@ -1317,17 +910,6 @@ void procesar_evento(const evento_t *evento);
 ### Ejercicio 20.38 - Modelo de estados ⭐⭐⭐☆☆
 
 Modelar el ciclo de vida de un proceso en un sistema operativo.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -1360,17 +942,6 @@ typedef struct
 
 Implementar funciones de transición de estado para un planificador.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
-    definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
-    para copiar la estructura de forma segura.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 bool transicion_estado(proceso_t *proceso, enum estado_proceso nuevo_estado);
 bool puede_ejecutar(const proceso_t *proceso);
@@ -1382,17 +953,6 @@ bool puede_ejecutar(const proceso_t *proceso);
 ### Ejercicio 20.40 - Métodos y códigos HTTP ⭐⭐☆☆☆
 
 Modelar métodos y códigos de estado HTTP.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
-    definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
-    para copiar la estructura de forma segura.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -1427,17 +987,6 @@ enum codigo_http
 
 Implementar funciones para trabajar con HTTP.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 const char *metodo_a_string(enum metodo_http metodo);
 const char *codigo_a_mensaje(enum codigo_http codigo);
@@ -1452,17 +1001,6 @@ bool es_codigo_error_servidor(enum codigo_http codigo); // 5xx
 ### Ejercicio 20.42 - Estados de semáforo ⭐⭐⭐☆☆
 
 Modelar un sistema de semáforo de tráfico.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -1492,17 +1030,6 @@ typedef struct
 
 Implementar la lógica de transición de un semáforo.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
-    definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
-    para copiar la estructura de forma segura.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 void actualizar_semaforo(semaforo_t *semaforo);
 enum estado_semaforo siguiente_estado(enum estado_semaforo actual);
@@ -1515,17 +1042,6 @@ bool puede_pasar(const semaforo_t *semaforo, enum direccion_trafico direccion);
 ### Ejercicio 20.44 - Estados de transacción ⭐⭐⭐☆☆
 
 Modelar el ciclo de vida de una transacción.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -1558,17 +1074,6 @@ typedef struct
 
 Implementar funciones para gestionar transacciones.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
-    error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
-    especificando precondiciones y postcondiciones.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 transaccion_t iniciar_transaccion(enum tipo_aislamiento aislamiento);
 bool commit_transaccion(transaccion_t *tx);
@@ -1582,17 +1087,6 @@ bool puede_hacer_commit(const transaccion_t *tx);
 ### Ejercicio 20.46 - Tipos de columna ⭐⭐☆☆☆
 
 Modelar tipos de datos SQL y sus propiedades.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -1632,17 +1126,6 @@ typedef struct
 
 Implementar funciones para validar definiciones de columnas.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 bool es_tipo_numerico(enum tipo_sql tipo);
 bool es_tipo_texto(enum tipo_sql tipo);
@@ -1656,17 +1139,6 @@ size_t tamanio_tipo(enum tipo_sql tipo);
 ### Ejercicio 20.48 - Tipos y formatos ⭐⭐☆☆☆
 
 Modelar diferentes formatos de imagen y sus propiedades.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -1705,17 +1177,6 @@ typedef struct
 
 Implementar funciones para analizar propiedades de formatos.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 bool soporta_transparencia(enum formato_imagen formato);
 bool soporta_animacion(enum formato_imagen formato);
@@ -1729,17 +1190,6 @@ const char *extension_formato(enum formato_imagen formato);
 ### Ejercicio 20.50 - Niveles de notificación ⭐⭐☆☆☆
 
 Modelar un sistema de notificaciones con prioridades.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -1774,17 +1224,6 @@ typedef struct
 
 Implementar funciones para filtrar y enviar notificaciones.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
-    error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
-    especificando precondiciones y postcondiciones.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 void enviar_notificacion(const notificacion_t *notif);
 bool debe_notificar(enum nivel_notificacion nivel,
@@ -1798,17 +1237,6 @@ unsigned int canales_para_nivel(enum nivel_notificacion nivel);
 ### Ejercicio 20.52 - Algoritmos de compresión ⭐⭐☆☆☆
 
 Modelar diferentes algoritmos de compresión y sus niveles.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -1844,17 +1272,6 @@ typedef struct
 
 Implementar funciones para analizar rendimiento de compresión.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 double calcular_ratio(const resultado_compresion_t *resultado);
 double porcentaje_ahorro(const resultado_compresion_t *resultado);
@@ -1868,17 +1285,6 @@ const char *nombre_algoritmo(enum algoritmo_compresion alg);
 ### Ejercicio 20.54 - Framework de FSM ⭐⭐☆☆☆
 
 Implementar un framework genérico para máquinas de estados finitas.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -1920,17 +1326,6 @@ typedef struct
 
 Implementar el motor que procesa eventos y ejecuta transiciones.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
-    definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
-    para copiar la estructura de forma segura.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 void fsm_inicializar(maquina_estados_t *fsm, estado_fsm_t inicial);
 bool fsm_agregar_transicion(maquina_estados_t *fsm, transicion_t trans);
@@ -1946,16 +1341,6 @@ estado_fsm_t fsm_estado_actual(const maquina_estados_t *fsm);
 Analizar diferentes formas de implementar el mismo concepto:
 
 **Opción 1: Enum simple**
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 enum dia
@@ -2011,32 +1396,12 @@ Investigar y documentar:
 - Optimizaciones del compilador con enums
 - Diferencias entre C y C++ en el manejo de enums
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_20_58)=
 ## Ejercicio 20.58 - Enumeración de Días ⭐☆☆☆☆
 
 Definí una enumeración para días de la semana y mostrá el nombre según el valor.
 
 **Orientación:**
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 typedef enum
@@ -2062,16 +1427,6 @@ puntos.
 
 **Orientación:**
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 typedef struct
 {
@@ -2089,16 +1444,6 @@ typedef struct
 Creá estructura para fecha y función de validación.
 
 **Orientación:**
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 typedef struct
@@ -2119,16 +1464,6 @@ Definí estructura persona y función para mostrar información.
 
 **Orientación:**
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 typedef struct
 {
@@ -2148,16 +1483,6 @@ Creá array de estudiantes y función para encontrar el de mayor promedio.
 
 **Orientación:**
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 typedef struct
 {
@@ -2176,16 +1501,6 @@ estudiante_t clase[30];
 Definí enumeración para códigos de error HTTP.
 
 **Orientación:**
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -2207,16 +1522,6 @@ typedef enum
 Creá estructura para dirección y persona que incluya dirección.
 
 **Orientación:**
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -2242,16 +1547,6 @@ Definí estructura nodo para lista enlazada.
 
 **Orientación:**
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 typedef struct nodo
 {
@@ -2269,16 +1564,6 @@ typedef struct nodo
 Usá union para almacenar valor que puede ser int, float o char.
 
 **Orientación:**
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -2310,16 +1595,6 @@ Practicá diferentes formas de inicializar estructuras.
 
 **Orientación:**
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ```{code-block} c
 :linenos:
 // Orden
@@ -2340,16 +1615,6 @@ Definí rectángulo con dos puntos (esquinas opuestas) y calcula área/perímetr
 
 **Orientación:**
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 typedef struct
 {
@@ -2368,16 +1633,6 @@ typedef struct
 Sistema con estructuras para libro, autor, editorial.
 
 **Orientación:**
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -2405,16 +1660,6 @@ Usá enum para permisos de archivo estilo Unix.
 
 **Orientación:**
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
-    errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
-    archivo en todos los caminos de ejecución.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ```{code-block} c
 :linenos:
 typedef enum
@@ -2439,16 +1684,6 @@ if (permisos & PERM_READ)
 Explorá alineación de memoria en estructuras.
 
 **Orientación:**
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -2475,14 +1710,6 @@ typedef struct
 Implementá un sistema de clasificación y manejo de paquetes de red combinando tipos enumerados y estructuras:
 
 **Orientación:**
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar que los campos de puerto y tamaño se encuentren dentro de los rangos válidos del protocolo.
--   **[*plus ultra*]:** Modularizar la función de formateo para imprimir el paquete como una cadena estructurada.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -2522,16 +1749,6 @@ Creá sistema de figuras geométricas con union.
 
 **Orientación:**
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ```{code-block} c
 :linenos:
 typedef enum
@@ -2570,16 +1787,6 @@ Implementá cola FIFO con estructura.
 
 **Orientación:**
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ```{code-block} c
 :linenos:
 typedef struct
@@ -2601,14 +1808,6 @@ typedef struct
 Representá un inventario de dispositivos y conexiones con tipos y estados enumerados:
 
 **Orientación:**
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar que las direcciones IP ingresadas tengan un formato numérico coherente.
--   **[*plus ultra*]:** Implementar una función para listar todos los dispositivos que se encuentren en un estado específico.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -2647,16 +1846,6 @@ Sistema CRUD para empleados.
 
 **Orientación:**
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ```{code-block} c
 :linenos:
 typedef struct
@@ -2683,16 +1872,6 @@ typedef struct
 Implementá máquina de estados finitos.
 
 **Orientación:**
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:

@@ -36,33 +36,12 @@ Escribir un programa que imprima las direcciones de memoria de:
 layout típico: stack (altas direcciones) → heap (bajas direcciones) → data/bss →
 text.
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_15_2)=
 ### Ejercicio 15.2 - b.2 - Dirección de Crecimiento del Stack ⭐⭐☆☆☆
 
 Escribir una función recursiva que imprima la dirección de una variable local en
 cada llamada. Observar si el stack crece hacia direcciones más altas o más
 bajas.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
-    error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
-    especificando precondiciones y postcondiciones.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -83,17 +62,6 @@ void explorar_stack(int nivel)
 Escribir un programa que use `sysconf(_SC_PAGESIZE)` (en sistemas POSIX) para
 obtener el tamaño de página del sistema. Luego, alojar varios bloques de memoria
 de diferentes tamaños y analizar cuánta memoria física se está usando realmente.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{note} Memoria Virtual
 
@@ -119,17 +87,6 @@ double precio)` que:
 Implementar también `void destruir_producto(struct producto_t** ptr_producto)`
 que libere toda la memoria y ponga el puntero en `NULL`.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 :::{tip} Buena Práctica
 
 Aquí aplica la regla de {ref}`0x3002h`: siempre poner punteros en `NULL` después
@@ -141,17 +98,6 @@ de liberar para evitar dangling pointers.
 ### Ejercicio 15.5 - b.5 - Manejo de Errores en Cadena ⭐⭐⭐☆☆
 
 Escribir una función que aloje múltiples estructuras anidadas:
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -176,17 +122,6 @@ liberando todo lo previamente asignado antes de retornar `NULL`.
 
 Implementar un pool de memoria básico que preasigne un bloque grande y
 distribuya bloques pequeños de tamaño fijo desde él.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -213,17 +148,6 @@ void pool_destruir(pool_t *pool);
 
 Escribir un programa que deliberadamente cometa el error de double free:
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ```{code-block} c
 :linenos:
 int main()
@@ -244,17 +168,6 @@ detectado.
 
 Crear un programa que cometa use-after-free:
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ```{code-block} c
 :linenos:
 int main()
@@ -273,17 +186,6 @@ Ejecutar con Valgrind: `valgrind --leak-check=full ./programa`
 ### Ejercicio 15.9 - b.9 - Memory Leak Complejo ⭐⭐⭐⭐☆
 
 Crear un programa con un leak no trivial:
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -319,17 +221,6 @@ Detectar con Valgrind el leak de 100 nodos. Luego implementar una función
 
 Demostrar un buffer overflow en memoria dinámica:
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ```{code-block} c
 :linenos:
 int main()
@@ -357,33 +248,12 @@ Implementar un vector dinámico con diferentes estrategias de crecimiento:
 
 Comparar el número de `realloc` realizados al insertar 10,000 elementos.
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_15_12)=
 ### Ejercicio 15.12 - b.12 - Shrinking Inteligente ⭐⭐☆☆☆
 
 Implementar un vector que no solo crece, sino que también reduce su capacidad
 cuando el tamaño cae por debajo de 1/4 de la capacidad. Esto evita el overhead
 de memoria manteniendo estabilidad.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -405,17 +275,6 @@ void vector_pop(vector_t *v)
 ### Ejercicio 15.13 - b.13 - Realloc Fallido ⭐⭐☆☆☆
 
 Escribir una función que maneje correctamente el fallo de `realloc`:
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -451,17 +310,6 @@ puntero original y tenés un leak. Usá un puntero temporal como en el ejemplo.
 ### Ejercicio 15.14 - b.14 - Fragmentación Externa ⭐⭐☆☆☆
 
 Escribir un programa que demuestre fragmentación externa:
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -507,17 +355,6 @@ Escribir un programa que mida el overhead de `malloc` comparando el tamaño
 solicitado vs. el espacio realmente consumido (usando herramientas como
 `malloc_usable_size` en glibc):
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ```{code-block} c
 :linenos:
 #include <malloc.h>
@@ -541,17 +378,6 @@ int main()
 ### Ejercicio 15.16 - b.16 - Cache Locality ⭐⭐☆☆☆
 
 Comparar el rendimiento de acceso secuencial vs. aleatorio en un arreglo grande:
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -591,17 +417,6 @@ rápido debido a mejor locality y uso del caché.
 
 Escribir un programa que demuestre la alineación de memoria en structs:
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ```{code-block} c
 :linenos:
 struct sin_padding
@@ -638,17 +453,6 @@ int main()
 Implementar una función que aloje memoria alineada a un límite específico (ej.
 64 bytes para optimización de caché):
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ```{code-block} c
 :linenos:
 void *malloc_alineado(size_t size, size_t alineacion)
@@ -669,17 +473,6 @@ void *malloc_alineado(size_t size, size_t alineacion)
 ### Ejercicio 15.19 - b.19 - Script de Análisis con Valgrind ⭐⭐☆☆☆
 
 Crear un Makefile que incluya targets para análisis automático:
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
-    errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
-    archivo en todos los caminos de ejecución.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} makefile
 :linenos:
@@ -704,17 +497,6 @@ asan:
 Crear un archivo de supresión para Valgrind que ignore leaks conocidos de
 bibliotecas del sistema:
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar la correcta apertura del archivo y controlar
-    errores de E/S con `ferror` y `feof`.
--   **[*plus ultra*]:** Soportar rutas complejas y asegurar el cierre del
-    archivo en todos los caminos de ejecución.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ```
 {
    leak_ignorado_libc
@@ -729,17 +511,6 @@ Usar con: `valgrind --suppressions=mi_supresion.supp ./programa`
 ### Ejercicio 15.21 - b.21 - Wrapper de malloc para Debugging ⭐⭐☆☆☆
 
 Implementar wrappers de las funciones de memoria que agreguen logging:
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -765,17 +536,6 @@ void debug_free(void *ptr, const char *archivo, int linea)
 
 Implementar un patrón donde una función asigna memoria y otra la libera,
 documentando claramente la responsabilidad:
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -817,17 +577,6 @@ comentarios como "Caller must free" o "Takes ownership".
 Implementar una función que retorne un struct que contiene punteros a memoria
 dinámica:
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ```{code-block} c
 :linenos:
 struct resultado_t
@@ -856,17 +605,6 @@ struct resultado_t procesar_numeros(int *entrada, size_t n)
 ### Ejercicio 15.24 - b.24 - Gestión de Recursos con goto ⭐⭐☆☆☆
 
 Demostrar el uso apropiado de `goto` para cleanup en caso de errores:
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -903,17 +641,6 @@ cleanup:
 (ejercicio_15_25)=
 ## Ejercicios Integradores de Memoria Dinámica
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_15_26)=
 ### Ejercicio 15.26 - b.25 - Diccionario Dinámico Clave-Valor ⭐⭐⭐☆☆
 
@@ -921,14 +648,6 @@ Implementar una estructura de diccionario asociativo en memoria dinámica basada
 - Crecer automáticamente mediante `realloc` duplicando su capacidad cuando el arreglo se llene
 - Duplicar dinámicamente las cadenas de texto correspondientes a las claves
 - Liberar cada cadena individual y el arreglo principal al destruir la estructura
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 (ejercicio_15_27)=
 ### Ejercicio 15.27 - b.26 - Matriz Tridimensional Dinámica ⭐⭐⭐⭐☆
@@ -938,32 +657,12 @@ Implementar la asignación, manipulación y liberación de un volumen tridimensi
 - Implementar la función de liberación que destruya simétricamente cada dimensión en orden inverso
 - Asegurar que ante cualquier fallo parcial de asignación durante la creación, se liberen todos los bloques previamente reservados sin dejar fugas
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_15_28)=
 ### Ejercicio 15.28 - b.27 - Parser de JSON Simplificado ⭐⭐☆☆☆
 
 Crear un parser básico de JSON que construya una estructura de datos en memoria
 dinámica representando el objeto JSON. Manejar cadenas, números, arreglos y
 objetos anidados.
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 (ejercicio_15_29)=
 ### Ejercicio 15.29 - b.28 - Sistema de Gestión de Tareas ⭐⭐☆☆☆
@@ -978,16 +677,6 @@ memoria correctamente.
 
 ## Preguntas Conceptuales
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_15_30)=
 ### Ejercicio 15.30 - b.29 - Stack vs Heap ⭐⭐☆☆☆
 
@@ -998,16 +687,6 @@ asignaciones de memoria? ¿Qué limitaciones tiene?
 crece automáticamente en cada llamada a función, y su memoria tiene scope
 limitado al bloque actual. El heap permite asignaciones grandes, persistencia
 más allá del scope, y tamaño determinado en runtime.
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 (ejercicio_15_31)=
 ### Ejercicio 15.31 - b.30 - Fragmentación Interna vs Externa ⭐⭐☆☆☆
@@ -1021,16 +700,6 @@ ejemplos de cada una.
 **Fragmentación externa:** Espacio libre total suficiente pero dividido en
 bloques no contiguos (ej. después de liberar bloques alternados).
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_15_32)=
 ### Ejercicio 15.32 - b.31 - Costos Ocultos de malloc ⭐⭐☆☆☆
 
@@ -1041,16 +710,6 @@ guardar el allocator?
 estado (libre/ocupado), punteros a bloques vecinos para coalescing, información
 de alineación. Típicamente 8-16 bytes por bloque.
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_15_33)=
 ### Ejercicio 15.33 - b.32 - free(NULL) ⭐⭐☆☆☆
 
@@ -1060,16 +719,6 @@ de alineación. Típicamente 8-16 bytes por bloque.
 **Respuesta esperada:** `free(NULL)` no hace nada y es completamente seguro
 según el estándar C. Esto permite código más simple sin necesidad de verificar
 `if (ptr != NULL) free(ptr)`.
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 (ejercicio_15_34)=
 ### Ejercicio 15.34 - b.33 - Tiempo de Vida de Memoria ⭐⭐☆☆☆
@@ -1085,14 +734,4 @@ según el estándar C. Esto permite código más simple sin necesidad de verific
 - Variable `static` local: toda la ejecución del programa (inicializada una vez)
 - Variable global: toda la ejecución del programa
 - Memoria de `malloc`: hasta el `free` correspondiente
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 

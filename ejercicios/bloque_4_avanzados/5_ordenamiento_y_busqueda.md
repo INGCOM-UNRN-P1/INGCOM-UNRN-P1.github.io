@@ -38,16 +38,6 @@ búsqueda más simple y no requiere que el arreglo esté ordenado.
   termina sin encontrarlo, devolver `-1`.
 - **Complejidad Temporal**: $O(n)$.
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_30_2)=
 ### Ejercicio 30.2 - Búsqueda Binaria ⭐⭐☆☆☆
 
@@ -66,17 +56,6 @@ repetidamente el intervalo de búsqueda por la mitad.
 - **Salida**: Devolver el índice si se encuentra, o `-1` si el intervalo de
   búsqueda se vacía.
 - **Complejidad Temporal**: $O(\log n)$.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 
@@ -97,16 +76,6 @@ necesiten más intercambios.
   completa no se realizó ningún intercambio, en cuyo caso el arreglo ya está
   ordenado y el algoritmo puede terminar antes.
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_30_4)=
 ### Ejercicio 30.4 - Ordenamiento por Selección (Selection Sort) ⭐⭐☆☆☆
 
@@ -121,16 +90,6 @@ esta, moviendo así el límite entre ambas partes.
   elemento mínimo en el resto del arreglo. Finalmente, se intercambia el
   elemento en `i` con el mínimo encontrado.
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_30_5)=
 ### Ejercicio 30.5 - Ordenamiento por Inserción (Insertion Sort) ⭐⭐☆☆☆
 
@@ -144,17 +103,6 @@ que ya están casi ordenados.
   su izquierda. Desplazar los elementos mayores que la `clave` una posición
   hacia la derecha para hacer espacio e insertar la `clave` en su posición
   correcta.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 
@@ -174,16 +122,6 @@ Vencerás".
      ordenadas y las fusione en un único arreglo ordenado. Este paso requiere un
      arreglo auxiliar.
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_30_7)=
 ### Ejercicio 30.7 - Ordenamiento Rápido (Quick Sort) ⭐⭐☆☆☆
 
@@ -200,14 +138,4 @@ práctica.
      partición devuelve el índice del pivote.
   3. **Vencer**: Llamar recursivamente a `quick_sort` para los sub-arreglos a la
      izquierda y a la derecha del pivote.
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 

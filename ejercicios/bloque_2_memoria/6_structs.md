@@ -50,33 +50,12 @@ operación.
 - **Multiplicación**: $$\frac{a}{b} \times \frac{c}{d} = \frac{ac}{bd}$$
 - **División**: $$\frac{a}{b} \div \frac{c}{d} = \frac{ad}{bc}$$
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
-    definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
-    para copiar la estructura de forma segura.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_18_2)=
 ### Ejercicio 18.2 - Simplificación ⭐⭐☆☆☆
 
 Implementar una función que modifique una fracción para llevarla a su mínima
 expresión. La simplificación se realiza dividiendo numerador y denominador por
 su **Máximo Común Divisor (MCD)**.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Diseñar la función para devolver un código de estado de
-    error e informar el resultado mediante parámetros de salida.
--   **[*plus ultra*]:** Documentar la función con etiquetas Doxygen
-    especificando precondiciones y postcondiciones.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 
@@ -89,17 +68,6 @@ unificar estas operaciones en una única función que retorne una `struct` con e
 cociente y el resto, basándose en el algoritmo de la división.
 
 $$dividendo = divisor \times cociente + resto, \quad \text{donde } 0 \le resto < |divisor|$$
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 typedef struct
@@ -141,16 +109,6 @@ normalizado para que los segundos y minutos no excedan 59.
 - $M_{resultado} = M_{total} \% 60$
 - $H_{resultado} = t_1.horas + t_2.horas + H_{acarreo}$
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
-    definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
-    para copiar la estructura de forma segura.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_18_5)=
 ### Ejercicio 18.5 - Comparación de Tiempos ⭐⭐☆☆☆
 
@@ -161,17 +119,6 @@ facilitar la comparación.
 
 $$t_{en\_segundos} = horas \times 3600 + minutos \times 60 + segundos$$
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 
 ## Tipos de Datos Compuestos
@@ -181,17 +128,6 @@ $$t_{en\_segundos} = horas \times 3600 + minutos \times 60 + segundos$$
 Encapsular un arreglo en una estructura para agrupar el contenedor de datos, su
 longitud actual y su capacidad máxima. Esto previene errores de desbordamiento
 de búfer y simplifica pasar la información del arreglo a funciones.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 #define CAPACIDAD_MAX 100
@@ -211,17 +147,6 @@ necesario agregar un atributo más con el tamaño en memoria pedido para `datos`
 Aplicar el mismo principio a las cadenas de caracteres para crear un tipo
 `cadena_segura_t` que gestione su propia capacidad y longitud, evitando los
 peligros asociados a las cadenas de C estándar.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 #define CAPACIDAD_MAX_CADENA 256

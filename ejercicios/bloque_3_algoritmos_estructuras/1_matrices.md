@@ -51,7 +51,6 @@ Matriz (2x3):
 <!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
-
 -   **Proceso:** Se necesitan dos lazos `for` anidados para recorrer la matriz.
 -   El lazo exterior itera sobre las filas (desde `0` hasta `filas-1`).
 -   El lazo interior itera sobre las columnas de la fila actual (desde `0` hasta
@@ -59,14 +58,13 @@ Matriz (2x3):
 -   Dentro del lazo interior, se imprime cada elemento `matriz[fila][columna]`.
 -   Después de que el lazo interior termina (al final de cada fila), se debe
     imprimir un carácter de nueva línea (`\n`) para pasar a la siguiente fila.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
-::::{hint} Diagrama
+::::{hint} Lógica y Consideraciones
 :class: dropdown
-
-:::{mermaid}
+:::
+<!-- {hint} Lógica y Consideraciones -->{mermaid}
 
 flowchart TD
     A["Inicio"] --> B["fila = 0"]
@@ -88,9 +86,8 @@ flowchart TD
 ::::
 <!-- {hint} Diagrama -->
 
-:::{hint} Ayuda (Pseudocódigo)
+:::{hint} Lógica y Consideraciones
 :class: dropdown
-
 ```{code-block} pseudocode
 :linenos:
 PROCEDIMIENTO mostrar_matriz(matriz, filas, columnas)
@@ -106,17 +103,10 @@ INICIO
         ESCRIBIR " ]" CON SALTO DE LÍNEA
     FIN PARA
 FIN PROCEDIMIENTO
-
 ```
 <!-- {code-block} pseudocode -->
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
 :::
-<!-- {hint} Ayuda (Pseudocódigo) -->
+<!-- {hint} Lógica y Consideraciones -->
 (ejercicio_21_2)=
 ### Ejercicio 21.2 - Multiplicación por un escalar ⭐⭐☆☆☆
 
@@ -150,7 +140,6 @@ Matriz modificada: [[5, 10], [15, 20]]
 <!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
-
 -   **Fórmula:** Para cada elemento $a_{ij}$ de la matriz $A$, el nuevo elemento
     es $b_{ij} = k \cdot a_{ij}$.
 -   **Proceso:** Se utilizan dos lazos anidados para recorrer cada elemento de
@@ -158,13 +147,11 @@ Matriz modificada: [[5, 10], [15, 20]]
 -   En el cuerpo del lazo interior, se multiplica el elemento
     `matriz[fila][columna]` por el escalar y se guarda el resultado en la misma
     posición.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
-:::{hint} Ayuda (Pseudocódigo)
+:::{hint} Lógica y Consideraciones
 :class: dropdown
-
 ```{code-block} pseudocode
 :linenos:
 PROCEDIMIENTO multiplicar_por_escalar(REF matriz, filas, columnas, escalar)
@@ -175,17 +162,10 @@ INICIO
         FIN PARA
     FIN PARA
 FIN PROCEDIMIENTO
-
 ```
 <!-- {code-block} pseudocode -->
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
 :::
-<!-- {hint} Ayuda (Pseudocódigo) -->
+<!-- {hint} Lógica y Consideraciones -->
 
 ## Aritmética Matricial
 (ejercicio_21_3)=
@@ -222,20 +202,17 @@ Matriz C: [[6, 8], [10, 12]]
 <!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
-
 -   **Fórmula:** La suma se realiza elemento a elemento: $c_{ij} = a_{ij} +
     b_{ij}$.
 -   **Precondición:** Las dimensiones de la Matriz A y la Matriz B deben ser
     idénticas.
 -   **Proceso:** Recorrer las matrices con lazos anidados. En cada posición `(f,
     c)`, calcular `C[f][c] = A[f][c] + B[f][c]`.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
-:::{hint} Ayuda (Pseudocódigo)
+:::{hint} Lógica y Consideraciones
 :class: dropdown
-
 ```{code-block} pseudocode
 :linenos:
 PROCEDIMIENTO sumar_matrices(A, B, REF C, filas, columnas)
@@ -246,17 +223,10 @@ INICIO
         FIN PARA
     FIN PARA
 FIN PROCEDIMIENTO
-
 ```
 <!-- {code-block} pseudocode -->
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
 :::
-<!-- {hint} Ayuda (Pseudocódigo) -->
+<!-- {hint} Lógica y Consideraciones -->
 (ejercicio_21_4)=
 ### Ejercicio 21.4 - Multiplicación de matrices ⭐⭐⭐☆☆
 
@@ -290,7 +260,6 @@ Matriz C (2x2): [[58, 64], [139, 154]]
 <!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
-
 -   **Precondición:** El número de columnas de la matriz `A` debe ser igual al
     número de filas de la matriz `B`.
 -   **Fórmula:** Cada elemento $c_{ij}$ de la matriz resultado se calcula como
@@ -300,14 +269,13 @@ Matriz C (2x2): [[58, 64], [139, 154]]
     1.  Lazo para las filas de `C` (y `A`), de `i=0` a `m-1`.
     2.  Lazo para las columnas de `C` (y `B`), de `j=0` a `p-1`.
     3.  Lazo para la suma del producto punto, de `k=0` a `n-1`.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
-::::{hint} Diagrama
+::::{hint} Lógica y Consideraciones
 :class: dropdown
-
-:::{mermaid}
+:::
+<!-- {hint} Lógica y Consideraciones -->{mermaid}
 
 flowchart TD
     A["Inicio"] --> B["i = 0..m-1"]
@@ -327,9 +295,8 @@ flowchart TD
 ::::
 <!-- {hint} Diagrama -->
 
-:::{hint} Ayuda (Pseudocódigo)
+:::{hint} Lógica y Consideraciones
 :class: dropdown
-
 ```{code-block} pseudocode
 :linenos:
 PROCEDIMIENTO multiplicar_matrices(A, m, n, B, p, REF C)
@@ -345,17 +312,10 @@ INICIO
         FIN PARA
     FIN PARA
 FIN PROCEDIMIENTO
-
 ```
 <!-- {code-block} pseudocode -->
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
 :::
-<!-- {hint} Ayuda (Pseudocódigo) -->
+<!-- {hint} Lógica y Consideraciones -->
 
 ## Manipulación
 (ejercicio_21_5)=
@@ -393,20 +353,17 @@ Matriz $A^T$ (3x2):
 <!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
-
 -   **Fórmula:** $(A^T)_{ij} = A_{ji}$.
 -   **Dimensiones:** Si la matriz original es $m \times n$, su transpuesta será
     $n \times m$.
 -   **Proceso:** Recorrer la matriz original `A` con lazos anidados. En cada
     posición `(i, j)`, copiar el elemento `A[i][j]` a la posición `(j, i)` de la
     nueva matriz transpuesta.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
-:::{hint} Ayuda (Pseudocódigo)
+:::{hint} Lógica y Consideraciones
 :class: dropdown
-
 ```{code-block} pseudocode
 :linenos:
 PROCEDIMIENTO transponer_matriz(A, filas, columnas, REF A_T)
@@ -417,17 +374,10 @@ INICIO
         FIN PARA
     FIN PARA
 FIN PROCEDIMIENTO
-
 ```
 <!-- {code-block} pseudocode -->
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
 :::
-<!-- {hint} Ayuda (Pseudocódigo) -->
+<!-- {hint} Lógica y Consideraciones -->
 (ejercicio_21_6)=
 ### Ejercicio 21.6 - Suma de diagonales ⭐⭐☆☆☆
 
@@ -464,7 +414,6 @@ Suma Diagonal Secundaria: `3 + 5 + 7 = 15`
 <!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
-
 -   **Diagonal Principal:** Los elementos de la diagonal principal son aquellos
     donde el índice de fila es igual al índice de columna (`i == j`).
 -   **Diagonal Secundaria:** Los elementos de la diagonal secundaria en una
@@ -472,13 +421,11 @@ Suma Diagonal Secundaria: `3 + 5 + 7 = 15`
 -   **Proceso:** Usar un solo lazo de `i=0` a `n-1`. En cada iteración, sumar
     `matriz[i][i]` a la suma principal y `matriz[i][n-1-i]` a la suma
     secundaria.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
-:::{hint} Ayuda (Pseudocódigo)
+:::{hint} Lógica y Consideraciones
 :class: dropdown
-
 ```{code-block} pseudocode
 :linenos:
 PROCEDIMIENTO sumar_diagonales(matriz, n, REF suma_princ, REF suma_sec)
@@ -490,17 +437,10 @@ INICIO
         suma_sec = suma_sec + matriz[i][n-1-i]
     FIN PARA
 FIN PROCEDIMIENTO
-
 ```
 <!-- {code-block} pseudocode -->
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
 :::
-<!-- {hint} Ayuda (Pseudocódigo) -->
+<!-- {hint} Lógica y Consideraciones -->
 
 ## Generación
 (ejercicio_21_7)=
@@ -538,18 +478,15 @@ Tamaño n = 3
 <!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
-
 -   **Proceso:** Recorrer la matriz `n x n` con lazos anidados.
 -   **Condición:** Para cada elemento en la posición `(i, j)`:
     -   Si `i == j`, el valor es 1.
     -   Si `i != j`, el valor es 0.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
-:::{hint} Ayuda (Pseudocódigo)
+:::{hint} Lógica y Consideraciones
 :class: dropdown
-
 ```{code-block} pseudocode
 :linenos:
 PROCEDIMIENTO generar_identidad(REF matriz, n)
@@ -564,30 +501,12 @@ INICIO
         FIN PARA
     FIN PARA
 FIN PROCEDIMIENTO
-
 ```
 <!-- {code-block} pseudocode -->
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Ayuda (Pseudocódigo) -->
-(ejercicio_21_8)=
-## Ejercicio 21.8 - s Adicionales de Matrices ⭐⭐⭐☆☆
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
+(ejercicio_21_8)=
+## Ejercicio 21.8 - s Adicionales de Matrices ⭐⭐⭐☆☆
 
 (ejercicio_21_9)=
 ### Ejercicio 21.9 - Matriz simétrica ⭐⭐⭐☆☆
@@ -626,7 +545,6 @@ La matriz es simétrica.
 <!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
-
 -   **Fórmula:** Una matriz `A` es simétrica si $A_{ij} = A_{ji}$ para todos los
     `i`, `j`.
 -   **Proceso:**
@@ -638,16 +556,15 @@ La matriz es simétrica.
         función puede devolver `falso` inmediatamente.
 -   **Salida:** Si los lazos se completan sin encontrar diferencias, la matriz
     es simétrica.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
-::::{hint} Diagrama
+::::{hint} Lógica y Consideraciones
 :class: dropdown
 El diagrama muestra los pares de elementos que deben ser iguales. Solo es
 necesario verificar una mitad del triángulo (excluyendo la diagonal).
-
-:::{mermaid}
+:::
+<!-- {hint} Lógica y Consideraciones -->{mermaid}
 
 flowchart TD
     subgraph Matriz
@@ -671,9 +588,8 @@ flowchart TD
 ::::
 <!-- {hint} Diagrama -->
 
-:::{hint} Ayuda (Pseudocódigo)
+:::{hint} Lógica y Consideraciones
 :class: dropdown
-
 ```{code-block} pseudocode
 :linenos:
 FUNCION es_simetrica(matriz, n)
@@ -687,17 +603,10 @@ INICIO
     FIN PARA
     RETORNAR VERDADERO
 FIN FUNCION
-
 ```
 <!-- {code-block} pseudocode -->
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
 :::
-<!-- {hint} Ayuda (Pseudocódigo) -->
+<!-- {hint} Lógica y Consideraciones -->
 (ejercicio_21_10)=
 ### Ejercicio 21.10 - Suma por Filas y Columnas ⭐⭐☆☆☆
 
@@ -734,7 +643,6 @@ Suma de columnas: [5, 7, 9]
 <!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
-
 -   **Suma de Filas:**
     -   Recorrer cada fila con un lazo exterior.
     -   Para cada fila, inicializar una `suma_fila` en 0.
@@ -747,11 +655,10 @@ Suma de columnas: [5, 7, 9]
 -   **Eficiencia:** Se pueden calcular ambas sumas en un solo par de lazos
     anidados. Al procesar el elemento `matriz[i][j]`, se añade a `suma_filas[i]`
     y a `suma_columnas[j]`.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
-:::{hint} Ayuda (Pseudocódigo Eficiente)
+:::{hint} Lógica y Consideraciones
 :class: dropdown
 ```{code-block} pseudocode
 :linenos:
@@ -764,7 +671,6 @@ INICIO
     PARA j DESDE 0 HASTA cols-1 HACER
         sumas_cols[j] = 0
     FIN PARA
-
     // Calcular ambas sumas en una sola pasada
     PARA i DESDE 0 HASTA filas-1 HACER
         PARA j DESDE 0 HASTA cols-1 HACER
@@ -773,17 +679,10 @@ INICIO
         FIN PARA
     FIN PARA
 FIN PROCEDIMIENTO
-
 ```
 <!-- {code-block} pseudocode -->
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
 :::
-<!-- {hint} Ayuda (Pseudocódigo Eficiente) -->
+<!-- {hint} Lógica y Consideraciones -->
 (ejercicio_21_11)=
 ### Ejercicio 21.11 - Elemento "Silla" ⭐⭐☆☆☆
 
@@ -820,7 +719,6 @@ Punto de silla encontrado en (2, 0) con valor 7.
 <!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
-
 -   **Proceso:**
     1.  Iterar a través de cada fila `i` de la matriz.
     2.  En cada fila, encontrar el valor mínimo y su índice de columna
@@ -831,11 +729,10 @@ Punto de silla encontrado en (2, 0) con valor 7.
         candidato con todos los demás elementos de esa columna.
     5.  Si el candidato es el mayor de su columna, se ha encontrado un punto de
         silla.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
-:::{hint} Ayuda (Pseudocódigo)
+:::{hint} Lógica y Consideraciones
 :class: dropdown
 ```{code-block} pseudocode
 :linenos:
@@ -851,7 +748,6 @@ INICIO
                 min_col_idx = j
             FIN SI
         FIN PARA
-
         // Verificar si es el máximo en su columna
         es_max_columna = VERDADERO
         PARA k DESDE 0 HASTA filas-1 HACER
@@ -860,7 +756,6 @@ INICIO
                 SALIR DEL LAZO // break
             FIN SI
         FIN PARA
-
         SI es_max_columna ENTONCES
             ESCRIBIR "Punto de silla en (", i, ", ", min_col_idx, ") con valor ", min_fila
             RETORNAR
@@ -868,30 +763,12 @@ INICIO
     FIN PARA
     ESCRIBIR "No se encontraron puntos de silla."
 FIN PROCEDIMIENTO
-
 ```
 <!-- {code-block} pseudocode -->
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Ayuda (Pseudocódigo) -->
-(ejercicio_21_12)=
-## Ejercicio 21.12 - s de Matrices Dinámicas ⭐⭐⭐☆☆
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
+(ejercicio_21_12)=
+## Ejercicio 21.12 - s de Matrices Dinámicas ⭐⭐⭐☆☆
 
 (ejercicio_21_13)=
 ### Ejercicio 21.13 - Crear y llenar matriz dinámica ⭐⭐⭐☆☆
@@ -920,7 +797,6 @@ La matriz ingresada por el usuario, impresa de forma ordenada.
 <!-- {tab-set} -->
 
 :::{hint} Lógica y Consideraciones
-
 -   **Entrada:** Se debe usar una función para leer la entrada del usuario para
     las dimensiones y los elementos.
 -   **Proceso:**
@@ -931,13 +807,11 @@ La matriz ingresada por el usuario, impresa de forma ordenada.
         elemento al usuario, asignándolo a la posición correspondiente.
     5.  Finalmente, llamar a la función `mostrar_matriz` (del ejercicio 1.1)
         para imprimir la matriz creada.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
-:::{hint} Ayuda (Pseudocódigo)
+:::{hint} Lógica y Consideraciones
 :class: dropdown
-
 ```{code-block} pseudocode
 :linenos:
 PROCEDIMIENTO crear_y_llenar_matriz_dinamica()
@@ -946,10 +820,8 @@ INICIO
     LEER filas
     ESCRIBIR "Ingrese el número de columnas: " SIN SALTO DE LÍNEA
     LEER columnas
-
     // Crear una matriz de 'filas' x 'columnas'
     CREAR matriz[filas][columnas]
-
     ESCRIBIR "Ingrese los elementos de la matriz:"
     PARA i DESDE 0 HASTA filas-1 HACER
         PARA j DESDE 0 HASTA columnas-1 HACER
@@ -957,21 +829,13 @@ INICIO
             LEER matriz[i][j]
         FIN PARA
     FIN PARA
-
     // Asumiendo que la función mostrar_matriz está definida
     mostrar_matriz(matriz, filas, columnas)
 FIN PROCEDIMIENTO
-
 ```
 <!-- {code-block} pseudocode -->
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
 :::
-<!-- {hint} Ayuda (Pseudocódigo) -->
+<!-- {hint} Lógica y Consideraciones -->
 
 ## Más Algoritmos con Matrices
 (ejercicio_21_14)=
@@ -981,32 +845,12 @@ Implementar dos funciones: una que refleje una matriz horizontalmente (la
 primera fila se intercambia con la última, la segunda con la penúltima, etc.) y
 otra que la refleje verticalmente (la primera columna con la última, etc.).
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_21_15)=
 ### Ejercicio 21.15 - Intercambiar filas o columnas ⭐⭐☆☆☆
 
 Crear funciones `intercambiar_filas(mat, f1, f2)` e `intercambiar_columnas(mat,
 c1, c2)` que modifiquen la matriz intercambiando los elementos de las filas o
 columnas especificadas.
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 (ejercicio_21_16)=
 ### Ejercicio 21.16 - Búsqueda de submatriz ⭐⭐⭐☆☆
@@ -1016,30 +860,10 @@ encuentra dentro de una matriz más grande `A` (de `m x n`). La función debe
 devolver las coordenadas de la esquina superior izquierda de la primera
 ocurrencia, o `(-1, -1)` si no se encuentra.
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_21_17)=
 ### Ejercicio 21.17 - Determinante de matriz 3x3 ⭐⭐⭐☆☆
 
 Calcular el determinante de una matriz 3x3 utilizando la Regla de Sarrus.
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 (ejercicio_21_18)=
 ### Ejercicio 21.18 - Suavizado de matriz (Filtro de caja) ⭐⭐⭐☆☆
@@ -1048,32 +872,12 @@ Implementar un filtro de "suavizado" o "blur". Para cada elemento de la matriz,
 su nuevo valor será el promedio de sus 8 vecinos y él mismo. Los elementos en
 los bordes requerirán un manejo especial.
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_21_19)=
 ### Ejercicio 21.19 - Detección de bordes (Operador de Sobel) ⭐⭐☆☆☆
 
 Aplicar un operador de Sobel simple para la detección de bordes. Esto implica
 "convolucionar" la matriz con un `kernel` (otra matriz pequeña, ej. 3x3) para
 resaltar las diferencias de intensidad, como los bordes.
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 (ejercicio_21_20)=
 ### Ejercicio 21.20 - Matriz de permutación ⭐⭐⭐☆☆
@@ -1082,16 +886,6 @@ Verificar si una matriz cuadrada es una matriz de permutación. Esta es una
 matriz binaria (solo 0s y 1s) que tiene exactamente un `1` en cada fila y en
 cada columna.
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_21_21)=
 ### Ejercicio 21.21 - Producto de Hadamard ⭐⭐☆☆☆
 
@@ -1099,31 +893,11 @@ Implementar el producto de Hadamard (o producto elemento a elemento) de dos
 matrices `A` y `B` de las mismas dimensiones. La matriz resultante `C` se define
 como $c_{ij} = a_{ij} \cdot b_{ij}$.
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_21_22)=
 ### Ejercicio 21.22 - Rellenar con triángulo de Pascal ⭐⭐☆☆☆
 
 Escribir una función que llene una matriz `N x N` con los valores del Triángulo
 de Pascal. El elemento `(i, j)` debe ser $\binom{i}{j}$.
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 (ejercicio_21_23)=
 ### Ejercicio 21.23 - Matriz antisimétrica ⭐⭐⭐☆☆
@@ -1135,31 +909,10 @@ principal deben ser cero.
 
 ## Operaciones Avanzadas con Matrices
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_21_24)=
 ### Ejercicio 21.24 - Norma de matriz ⭐⭐⭐☆☆
 
 Implementar funciones que calculen diferentes normas de una matriz.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 double norma_frobenius(double **matriz, int filas, int cols);
@@ -1180,17 +933,6 @@ fila)
 Calcular la traza de una matriz cuadrada (suma de elementos de la diagonal
 principal).
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 double traza(double **matriz, int n);
 ```
@@ -1203,17 +945,6 @@ $$\text{tr}(A) = \sum_{i=1}^n a_{ii}$$
 Implementar un algoritmo para calcular el rango de una matriz usando eliminación
 gaussiana.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 int calcular_rango(double **matriz, int filas, int cols);
 ```
@@ -1224,17 +955,6 @@ int calcular_rango(double **matriz, int filas, int cols);
 ### Ejercicio 21.27 - Matriz de cofactores ⭐⭐⭐☆☆
 
 Calcular la matriz de cofactores para una matriz cuadrada.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 double **matriz_cofactores(double **matriz, int n);
@@ -1249,17 +969,6 @@ eliminando fila $i$ y columna $j$).
 
 Implementar el cálculo de la inversa de una matriz usando el método de
 Gauss-Jordan.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 double **matriz_inversa(double **matriz, int n, bool *invertible);
@@ -1276,17 +985,6 @@ double **matriz_inversa(double **matriz, int n, bool *invertible);
 
 Calcular $A^n$ para una matriz cuadrada $A$ y un exponente entero $n$.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 double **potencia_matriz(double **matriz, int tam, int exponente);
 ```
@@ -1299,17 +997,6 @@ double **potencia_matriz(double **matriz, int tam, int exponente);
 Implementar la descomposición LU de una matriz: $A = LU$ donde $L$ es triangular
 inferior y $U$ es triangular superior.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 bool descomposicion_lu(double **A, int n, double **L, double **U);
 ```
@@ -1321,17 +1008,6 @@ bool descomposicion_lu(double **A, int n, double **L, double **U);
 
 Implementar el método de la potencia para calcular el valor propio dominante de
 una matriz.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 double valor_propio_dominante(double **matriz, int n, double tolerancia);
@@ -1346,17 +1022,6 @@ double valor_propio_dominante(double **matriz, int n, double tolerancia);
 ### Ejercicio 21.32 - Matriz de rotación ⭐⭐⭐☆☆
 
 Implementar funciones para crear y aplicar matrices de rotación 2D y 3D.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 double **matriz_rotacion_2d(double angulo);
@@ -1376,17 +1041,6 @@ $$
 
 Crear matriz de proyección ortogonal sobre un vector.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 double **matriz_proyeccion(double *vector, int n);
 ```
@@ -1404,17 +1058,6 @@ representa la intensidad de un píxel.
 Convertir una imagen en escala de grises a binaria (solo 0 y 255) usando un
 umbral.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 void umbralizar(int **imagen, int filas, int cols, int umbral);
 ```
@@ -1425,17 +1068,6 @@ void umbralizar(int **imagen, int filas, int cols, int umbral);
 ### Ejercicio 21.35 - Histograma de Imagen ⭐⭐☆☆☆
 
 Calcular el histograma de una imagen (frecuencia de cada nivel de intensidad).
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 void calcular_histograma(int **imagen, int filas, int cols, int *histograma);
@@ -1448,17 +1080,6 @@ intensidad.
 ### Ejercicio 21.36 - Ecualización de Histograma ⭐⭐☆☆☆
 
 Mejorar el contraste de una imagen mediante ecualización de histograma.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 void ecualizar_histograma(int **imagen, int filas, int cols);
@@ -1474,17 +1095,6 @@ void ecualizar_histograma(int **imagen, int filas, int cols);
 
 Implementar un filtro gaussiano para suavizado de imagen.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 void filtro_gaussiano(double **imagen, int filas, int cols, double sigma);
 ```
@@ -1496,17 +1106,6 @@ $$K = \frac{1}{16}\begin{pmatrix} 1 & 2 & 1 \\ 2 & 4 & 2 \\ 1 & 2 & 1 \end{pmatr
 ### Ejercicio 21.38 - Detección de bordes (Laplaciano) ⭐⭐☆☆☆
 
 Aplicar el operador Laplaciano para detectar bordes.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 void detectar_bordes_laplaciano(int **imagen, int filas, int cols,
@@ -1523,17 +1122,6 @@ $$K = \begin{pmatrix} 0 & 1 & 0 \\ 1 & -4 & 1 \\ 0 & 1 & 0 \end{pmatrix}$$
 
 Generar una matriz de Vandermonde a partir de un vector.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 double **matriz_vandermonde(double *x, int n, int m);
 ```
@@ -1547,17 +1135,6 @@ $$V = \begin{pmatrix} 1 & 1 & 1 & 1 \\ 1 & 2 & 4 & 8 \\ 1 & 3 & 9 & 27 \end{pmat
 ### Ejercicio 21.40 - Matriz de Hilbert ⭐⭐⭐☆☆
 
 Generar una matriz de Hilbert de orden $n$.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 double **matriz_hilbert(int n);
@@ -1574,17 +1151,6 @@ inversión.
 Verificar si una matriz es de Toeplitz (cada diagonal descendente de izquierda a
 derecha tiene valores constantes).
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 bool es_toeplitz(int **matriz, int filas, int cols);
 ```
@@ -1595,17 +1161,6 @@ bool es_toeplitz(int **matriz, int filas, int cols);
 ### Ejercicio 21.42 - Matriz circulante ⭐⭐⭐☆☆
 
 Generar una matriz circulante a partir de su primera fila.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 int **matriz_circulante(int *primera_fila, int n);
@@ -1620,17 +1175,6 @@ $$C = \begin{pmatrix} 1 & 2 & 3 & 4 \\ 4 & 1 & 2 & 3 \\ 3 & 4 & 1 & 2 \\ 2 & 3 &
 Generar una matriz de Hankel (opuesta a Toeplitz: diagonales de arriba-derecha a
 abajo-izquierda son constantes).
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 double **matriz_hankel(double *c, double *r, int n);
 ```
@@ -1641,17 +1185,6 @@ double **matriz_hankel(double *c, double *r, int n);
 ### Ejercicio 21.44 - Sustitución hacia adelante ⭐⭐☆☆☆
 
 Resolver un sistema triangular inferior $Lx = b$.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 double *sustitucion_adelante(double **L, double *b, int n);
@@ -1664,17 +1197,6 @@ double *sustitucion_adelante(double **L, double *b, int n);
 
 Resolver un sistema triangular superior $Ux = b$.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 double *sustitucion_atras(double **U, double *b, int n);
 ```
@@ -1686,17 +1208,6 @@ double *sustitucion_atras(double **U, double *b, int n);
 
 Implementar eliminación gaussiana con pivoteo completo para resolver $Ax = b$.
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 double *resolver_sistema(double **A, double *b, int n);
 ```
@@ -1705,17 +1216,6 @@ double *resolver_sistema(double **A, double *b, int n);
 ### Ejercicio 21.47 - Método de Jacobi ⭐⭐☆☆☆
 
 Resolver $Ax = b$ iterativamente usando el método de Jacobi.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 double *metodo_jacobi(double **A, double *b, int n, double tolerancia,
@@ -1729,17 +1229,6 @@ $$x_i^{(k+1)} = \frac{1}{a_{ii}}\left(b_i - \sum_{j \neq i} a_{ij}x_j^{(k)}\righ
 ### Ejercicio 21.48 - Método de Gauss-Seidel ⭐⭐☆☆☆
 
 Similar a Jacobi pero usa valores actualizados inmediatamente.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 double *metodo_gauss_seidel(double **A, double *b, int n, double tolerancia,
@@ -1756,17 +1245,6 @@ double *metodo_gauss_seidel(double **A, double *b, int n, double tolerancia,
 Implementar multiplicación de matrices usando el algoritmo por bloques (más
 eficiente para matrices grandes por mejor uso de caché).
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ``` c
 double **multiplicar_bloques(double **A, double **B, int n, int tam_bloque);
 ```
@@ -1775,17 +1253,6 @@ double **multiplicar_bloques(double **A, double **B, int n, int tam_bloque);
 ### Ejercicio 21.50 - Transpuesta por bloques ⭐⭐☆☆☆
 
 Implementar transpuesta usando bloques para mejor localidad de caché.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 void transponer_bloques(double **matriz, int n, int tam_bloque);
@@ -1796,17 +1263,6 @@ void transponer_bloques(double **matriz, int n, int tam_bloque);
 
 Implementar el algoritmo de Strassen para multiplicación rápida de matrices
 grandes.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ``` c
 double **strassen(double **A, double **B, int n);
@@ -1824,17 +1280,6 @@ Creá una matriz 3×3, inicializala con valores del 1 al 9, y mostrala.
 - Lazos anidados para llenar: `matriz[i][j] = contador++`
 - Lazos anidados para mostrar con formato
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_21_53)=
 ## Ejercicio 21.53 - Suma de Elementos ⭐☆☆☆☆
@@ -1845,17 +1290,6 @@ Calculá la suma de todos los elementos de una matriz.
 - Recorré con lazos anidados
 - Acumulá suma en variable
 - `suma += matriz[i][j]`
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_21_54)=
@@ -1868,17 +1302,6 @@ Encontrá el elemento mayor y menor de una matriz, junto con sus posiciones.
 - Recorré comparando
 - Guardá posiciones (i, j) cuando actualizás max/min
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_21_55)=
 ## Ejercicio 21.55 - Matriz Identidad ⭐⭐☆☆☆
@@ -1888,17 +1311,6 @@ Generá una matriz identidad de tamaño N×N (1s en diagonal, 0s en el resto).
 **Orientación:**
 - `matriz[i][j] = (i == j) ? 1 : 0;`
 - O con `if`: `matriz[i][j] = 1` si `i == j`, sino 0
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_21_56)=
@@ -1912,17 +1324,6 @@ Calculá la transpuesta de una matriz (intercambiar filas por columnas).
 - `transpuesta[j][i] = original[i][j]`
 - Creá nueva matriz para el resultado
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_21_57)=
 ## Ejercicio 21.57 - Diagonal Principal ⭐⭐☆☆☆
@@ -1933,17 +1334,6 @@ Mostrá y sumá los elementos de la diagonal principal de una matriz cuadrada.
 - Diagonal principal: elementos donde `i == j`
 - Lazo de 0 a N-1: `suma += matriz[i][i]`
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_21_58)=
 ## Ejercicio 21.58 - Diagonal Secundaria ⭐⭐☆☆☆
@@ -1953,17 +1343,6 @@ Mostrá y sumá los elementos de la diagonal secundaria.
 **Orientación:**
 - Diagonal secundaria: elementos donde `i + j == N - 1`
 - O directamente: `matriz[i][N-1-i]` para i de 0 a N-1
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_21_59)=
@@ -1976,17 +1355,6 @@ Verificá si una matriz es simétrica (igual a su transpuesta).
 - Solo necesitás verificar una mitad (triángulo superior vs inferior)
 - Si encontrás diferencia, `return false` inmediatamente
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_21_60)=
 ## Ejercicio 21.60 - Suma de Matrices ⭐⭐⭐☆☆
@@ -1998,17 +1366,6 @@ Sumá dos matrices del mismo tamaño.
 - `resultado[i][j] = A[i][j] + B[i][j]`
 - Creá matriz resultado
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_21_61)=
 ## Ejercicio 21.61 - Multiplicación por Escalar ⭐⭐⭐☆☆
@@ -2019,17 +1376,6 @@ Multiplicá todos los elementos de una matriz por un escalar.
 - Leé el escalar
 - `resultado[i][j] = matriz[i][j] * escalar`
 - Podés modificar in-place o crear nueva matriz
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_21_62)=
@@ -2043,17 +1389,6 @@ columna).
 - Al encontrar: guardá posición, `break` del lazo interno
 - Usá flag para `break` del lazo externo también
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_21_63)=
 ## Ejercicio 21.63 - Suma por Filas y Columnas ⭐⭐⭐☆☆
@@ -2065,17 +1400,6 @@ Calculá la suma de cada fila y la suma de cada columna.
 - Array para sumas de columnas: `suma_cols[N]`
 - Lazo por filas: suma cada fila
 - Lazo por columnas: suma cada columna
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_21_64)=
@@ -2090,17 +1414,6 @@ Mostrá solo los elementos del borde de una matriz.
 - Última columna: `j == N-1`
 - Usá condición: `if (i == 0 || i == M-1 || j == 0 || j == N-1)`
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_21_65)=
 ## Ejercicio 21.65 - Rotar Matriz 90 Grados ⭐⭐⭐⭐☆
@@ -2113,17 +1426,6 @@ Rotá una matriz cuadrada 90° en sentido horario.
 - Luego invertir cada fila: `resultado[i][j] = temp[i][N-1-j]`
 - O directamente: `resultado[j][N-1-i] = matriz[i][j]`
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_21_66)=
 ## Ejercicio 21.66 - Multiplicación de Matrices ⭐⭐⭐⭐⭐
@@ -2131,16 +1433,6 @@ Rotá una matriz cuadrada 90° en sentido horario.
 Multiplicá dos matrices (A de M×N y B de N×P, resultado M×P).
 
 **Algoritmo:**
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```
 C[i][j] = suma de A[i][k] * B[k][j] para k = 0..N-1
@@ -2160,16 +1452,6 @@ C[i][j] = suma de A[i][k] * B[k][j] para k = 0..N-1
 Llenó una matriz en forma de espiral (desde afuera hacia adentro).
 
 **Ejemplo 4×4:**
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```
  1  2  3  4
@@ -2197,17 +1479,6 @@ Verificá si una fila de un Sudoku es válida (números 1-9 sin repetir).
 - Marca `visto[numero] = true`
 - Al final, todos los 1-9 deben estar vistos
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_21_69)=
 ## Ejercicio 21.69 - Matriz Traspuesta In-Place ⭐⭐⭐⭐☆
@@ -2219,17 +1490,6 @@ Transponé una matriz cuadrada sin usar matriz auxiliar completa.
 - `for (i = 0; i < N; i++)`
   - `for (j = i+1; j < N; j++)`
     - Intercambiá `matriz[i][j]` con `matriz[j][i]`
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_21_70)=
@@ -2243,17 +1503,6 @@ todas.
 - Distancia euclidiana: `sqrt((x2-x1)² + (y2-y1)²)`
 - Diagonal es 0 (distancia de ciudad a sí misma)
 - Matriz es simétrica: `D[i][j] = D[j][i]`
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_21_71)=
@@ -2275,31 +1524,9 @@ Implementá una generación del Juego de la Vida de Conway.
   (i+1,j+1)
 - Cuidado con bordes
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_21_72)=
 ## Ejercicio 21.72 - s Adicionales ⭐⭐☆☆☆
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 (ejercicio_21_73)=
 ### Ejercicio 21.73 - Matriz Pascal (Triángulo de Pascal) ⭐⭐⭐⭐☆
@@ -2311,17 +1538,6 @@ Generá el triángulo de Pascal como matriz.
 - `matriz[i][i] = 1` (diagonal)
 - `matriz[i][j] = matriz[i-1][j-1] + matriz[i-1][j]` (resto)
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_21_74)=
 ### Ejercicio 21.74 - Matriz Antisimétrica ⭐⭐⭐⭐☆
@@ -2331,17 +1547,6 @@ Verificá si una matriz es antisimétrica (`A[i][j] = -A[j][i]`).
 **Orientación:**
 - Diagonal debe ser cero: `A[i][i] = 0`
 - Verificá: `matriz[i][j] == -matriz[j][i]`
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_21_75)=
@@ -2354,17 +1559,6 @@ Encontrá la submatriz 2×2 con mayor suma dentro de una matriz más grande.
 - Para cada posición, sumá los 4 elementos
 - Guardá máximo y posición
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_21_76)=
 ### Ejercicio 21.76 - Matriz Dispersa (Sparse) ⭐⭐⭐⭐⭐
@@ -2375,17 +1569,6 @@ Representá una matriz dispersa (muchos ceros) eficientemente.
 - Estructura: `{fila, columna, valor}` solo para elementos != 0
 - Array de estructuras
 - Funciones: `asignar(f, c, val)`, `obtener(f, c)`, `mostrar()`
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar punteros `NULL` recibidos como parámetro para
-    evitar fallos de segmentación.
--   **[*plus ultra*]:** Implementar una versión utilizando aritmética de
-    punteros en lugar de indexación directa.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 

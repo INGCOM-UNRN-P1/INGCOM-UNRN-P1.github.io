@@ -36,7 +36,6 @@ secuencias numéricas.
 (ejercicio_1_1)=
 ### Ejercicio 1.1 - Cuenta regresiva ⭐⭐☆☆☆
 
-
 Este ejercicio consiste en implementar un programa que realice una cuenta
 regresiva desde un número entero positivo $N$ hasta $1$, para finalmente imprimir
 un mensaje de "¡Lanzamiento!". El objetivo es practicar el uso de lazos y la
@@ -50,10 +49,6 @@ debe introducir una pausa de 1 segundo entre cada número impreso.
 -   **Proceso:** Se debe utilizar un lazo que itere desde $N$ hacia abajo, hasta
 -   **Pausa:** Dentro del lazo, después de imprimir cada número, el programa
 -   **Salida:** Tras finalizar el lazo, se debe imprimir el mensaje final
-
--   **[*plus ultra*]:** Validar que el número inicial N sea estrictamente positivo antes de comenzar la cuenta.
--   **[*plus ultra*]:** Permitir al usuario configurar el tiempo de pausa entre cada número.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -81,7 +76,6 @@ FIN
 (ejercicio_1_2)=
 ### Ejercicio 1.2 - ¡Hola mundo! ⭐⭐☆☆☆
 
-
 El "Hola, mundo!" es el primer paso tradicional en el aprendizaje de un nuevo
 lenguaje de programación. El objetivo es escribir el programa más simple posible
 que produzca una salida visible en la pantalla, confirmando que el compilador y
@@ -91,10 +85,6 @@ el entorno de desarrollo están configurados y funcionando correctamente.
 -   **Entrada:** Este programa no requiere ninguna entrada del usuario.
 -   **Proceso:** Se utiliza una función de la biblioteca estándar para enviar
 -   **Salida:** El programa debe imprimir la cadena de texto "Hola, mundo!"
-
--   **[*plus ultra*]:** Imprimir un marco decorativo alrededor del saludo usando caracteres ASCII estándar.
--   **[*plus ultra*]:** Modularizar la impresión dentro de una función con una firma clara.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -116,7 +106,6 @@ FIN
 (ejercicio_1_3)=
 ### Ejercicio 1.3 - Saludador ⭐⭐☆☆☆
 
-
 Este ejercicio amplía el "Hola, mundo!" para que el programa interactúe con el
 usuario. Debe solicitarle su nombre y luego mostrar un saludo personalizado que
 lo incluya. Sirve para practicar la lectura de datos desde la entrada estándar.
@@ -126,10 +115,6 @@ lo incluya. Sirve para practicar la lectura de datos desde la entrada estándar.
 -   **Entrada:** El programa debe primero mostrar un mensaje pidiendo al usuario
 -   **Funciones de Lectura:** Se puede usar `scanf()` para leer la entrada, pero
 -   **Salida:** Finalmente, el programa debe imprimir el saludo personalizado,
-
--   **[*plus ultra*]:** Validar que el nombre ingresado no sea una cadena vacía ni contenga solo espacios.
--   **[*plus ultra*]:** Personalizar el saludo según la hora del día ingresada por el usuario.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -161,7 +146,6 @@ FIN
 (ejercicio_1_4)=
 ### Ejercicio 1.4 - Pares en un rango ⭐⭐⭐☆☆
 
-
 El programa debe ser capaz de identificar y mostrar todos los números pares que
 existen dentro de un intervalo cerrado `[n, m]`, donde los límites `n` y `m` son
 proporcionados por el usuario.
@@ -171,10 +155,6 @@ proporcionados por el usuario.
 -   **Proceso:** Se utiliza un lazo `for` que recorra cada número `i` desde `n`
 -   **Condición de Paridad:** Dentro del lazo, para cada número `i`, se debe
 -   **Salida:** Si la condición de paridad se cumple, el número `i` se imprime
-
--   **[*plus ultra*]:** Permitir que el usuario ingrese el intervalo en cualquier orden (si n > m, intercambiar automáticamente los límites).
--   **[*plus ultra*]:** Contar la cantidad total de pares encontrados y mostrar el resultado al finalizar.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -202,7 +182,6 @@ FIN
 (ejercicio_1_5)=
 ### Ejercicio 1.5 - Primeros N Impares ⭐⭐☆☆☆
 
-
 Este ejercicio consiste en generar una secuencia de números impares, comenzando
 desde 1, hasta alcanzar un total de $N$ términos, donde $N$ es un número
 proporcionado por el usuario.
@@ -211,10 +190,6 @@ proporcionado por el usuario.
 -   **Entrada:** Se debe leer un número entero $N$ que representa la cantidad de
 -   **Proceso:** Se puede abordar de dos maneras:
 -   **Salida:** Se imprime la secuencia de los primeros $N$ números impares.
-
--   **[*plus ultra*]:** Validar que N sea un entero mayor a cero; de lo contrario, volver a solicitarlo.
--   **[*plus ultra*]:** Mostrar la suma acumulada de los primeros N impares y verificar que sea igual a N².
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -245,7 +220,6 @@ FIN
 (ejercicio_1_6)=
 ### Ejercicio 1.6 - Secuencia Ascendente ⭐⭐☆☆☆
 
-
 El objetivo es mostrar una secuencia de números enteros que comienza en un
 número `n` y termina justo antes de un número `m`. Esto corresponde al intervalo
 matemático `[n, m)`.
@@ -254,10 +228,6 @@ matemático `[n, m)`.
 -   **Entrada:** Leer los enteros `n` (inclusive) y `m` (exclusive).
 -   **Proceso:** Utilizar un lazo `for` que se inicialice en `n` y continúe
 -   **Salida:** En cada iteración del lazo, imprimir el valor actual del
-
--   **[*plus ultra*]:** Manejar el caso donde n >= m informando al usuario que el rango es vacío.
--   **[*plus ultra*]:** Permitir al usuario ingresar un paso de incremento distinto de 1.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -283,7 +253,6 @@ FIN
 (ejercicio_1_7)=
 ### Ejercicio 1.7 - Secuencia Descendente ⭐⭐☆☆☆
 
-
 Similar al anterior, pero esta vez la secuencia debe ir en orden descendente. Se
 parte de un número `n` y se retrocede hasta un número `m`, sin incluirlo. Esto
 corresponde al intervalo `(m, n]`.
@@ -292,10 +261,6 @@ corresponde al intervalo `(m, n]`.
 -   **Entrada:** Leer los enteros `n` (inclusive) y `m` (exclusive).
 -   **Proceso:** Utilizar un lazo `for` que se inicialice en `n` y continúe
 -   **Salida:** Imprimir el valor del contador en cada iteración.
-
--   **[*plus ultra*]:** Validar que n > m para que la secuencia descendente tenga al menos un elemento.
--   **[*plus ultra*]:** Permitir al usuario ingresar un paso de decremento personalizado.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -321,7 +286,6 @@ FIN
 (ejercicio_1_8)=
 ### Ejercicio 1.8 - Sumatoria ⭐⭐☆☆☆
 
-
 Calcular la suma de todos los números enteros en un rango cerrado `[n, m]`. Esto
 es equivalente a la operación matemática $\sum_{i=n}^{m} i$.
 
@@ -330,10 +294,6 @@ es equivalente a la operación matemática $\sum_{i=n}^{m} i$.
 -   **Entrada:** Leer los enteros `n` y `m`.
 -   **Proceso:** Usar un lazo `for` que itere desde `n` hasta `m`. En cada
 -   **Salida:** Después de que el lazo termine, imprimir el valor final del
-
--   **[*plus ultra*]:** Validar que n <= m y calcular la sumatoria tanto mediante un lazo como con la fórmula de Gauss para comparar resultados.
--   **[*plus ultra*]:** Usar el tipo long long para prevenir desbordamientos en rangos grandes.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -363,7 +323,6 @@ FIN
 (ejercicio_1_9)=
 ### Ejercicio 1.9 - Suma de Cuadrados ⭐⭐☆☆☆
 
-
 Calcular la suma de los cuadrados de todos los números enteros en un rango
 cerrado `[n, m]`. La operación es $\sum_{i=n}^{m} i^2$.
 
@@ -372,10 +331,6 @@ cerrado `[n, m]`. La operación es $\sum_{i=n}^{m} i^2$.
 -   **Entrada:** Leer los enteros `n` y `m`.
 -   **Proceso:** Usar un lazo `for` que itere de `n` a `m`. En cada iteración,
 -   **Salida:** Al final, imprimir el valor del `acumulador`.
-
--   **[*plus ultra*]:** Usar tipos enteros amplios como long long para soportar sumas de cuadrados elevadas.
--   **[*plus ultra*]:** Comparar el resultado del lazo con la fórmula matemática n*(n+1)*(2n+1)/6.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -409,7 +364,6 @@ FIN
 (ejercicio_1_10)=
 ### Ejercicio 1.10 - Par o Impar ⭐⭐☆☆☆
 
-
 Este es un ejercicio fundamental de lógica condicional. El programa debe
 solicitar un número entero al usuario y determinar si es par (divisible por 2) o
 impar.
@@ -419,10 +373,6 @@ impar.
 -   **Proceso:** La propiedad matemática clave es que un número entero es par si
 -   **Condición:** Se utiliza una estructura `if-else`. Si `numero % 2 == 0`, el
 -   **Salida:** Imprimir un mensaje claro que indique el resultado, como "El
-
--   **[*plus ultra*]:** Validar que el valor ingresado sea un número entero válido comprobando el retorno de scanf.
--   **[*plus ultra*]:** Encapsular la lógica en una función bool es_par(int n) que no realice operaciones de E/S.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -451,7 +401,6 @@ FIN
 (ejercicio_1_11)=
 ### Ejercicio 1.11 - Signo de un Número ⭐⭐☆☆☆
 
-
 El programa debe clasificar un número real (de punto flotante) ingresado por el
 usuario en una de tres categorías: positivo, negativo o cero.
 
@@ -460,10 +409,6 @@ usuario en una de tres categorías: positivo, negativo o cero.
 -   **Proceso:** Utilizar una estructura de condicionales anidados o `if-else
 -   **Condiciones:**
 -   **Salida:** Imprimir el mensaje correspondiente a la categoría.
-
--   **[*plus ultra*]:** Encapsular la clasificación en una función que retorne 1 (positivo), -1 (negativo) o 0 (cero).
--   **[*plus ultra*]:** Manejar valores muy cercanos a cero dentro de un margen de tolerancia (epsilon) si se usan reales.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -498,7 +443,6 @@ FIN
 (ejercicio_1_12)=
 ### Ejercicio 1.12 - Área de Triángulo (Base y Altura) ⭐⭐☆☆☆
 
-
 Calcular el área de un triángulo a partir de las longitudes de su base y su
 altura. La fórmula es $A = \frac{1}{2} b \cdot h$.
 
@@ -506,10 +450,6 @@ altura. La fórmula es $A = \frac{1}{2} b \cdot h$.
 -   **Entrada:** Solicitar al usuario dos valores: la base (`b`) y la altura
 -   **Proceso:** Aplicar la fórmula matemática directamente. En C, esto se
 -   **Salida:** Mostrar el área calculada.
-
--   **[*plus ultra*]:** Validar que tanto la base como la altura sean valores estrictamente mayores a cero.
--   **[*plus ultra*]:** Modularizar el cálculo en una función pura double calcular_area_triangulo(double base, double altura).
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -538,7 +478,6 @@ FIN
 (ejercicio_1_13)=
 ### Ejercicio 1.13 - Área de Triángulo (Fórmula de Herón) ⭐⭐☆☆☆
 
-
 Calcular el área de un triángulo conociendo únicamente la longitud de sus tres
 lados (`a`, `b`, `c`). Para esto se utiliza la fórmula de Herón.
 
@@ -546,10 +485,6 @@ lados (`a`, `b`, `c`). Para esto se utiliza la fórmula de Herón.
 -   **Entrada:** Solicitar al usuario las longitudes de los tres lados.
 -   **Proceso:**
 -   **Validación:** Antes de calcular, es importante verificar si los lados
-
--   **[*plus ultra*]:** Validar la desigualdad triangular (la suma de dos lados cualesquiera debe superar al tercero) antes del cálculo.
--   **[*plus ultra*]:** Retornar un valor de error (-1.0) si los lados no pueden formar un triángulo geométrico válido.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -579,7 +514,6 @@ FIN
 (ejercicio_1_14)=
 ### Ejercicio 1.14 - Círculo ⭐⭐☆☆☆
 
-
 Calcular el área y la circunferencia (perímetro) de un círculo a partir de su
 radio.
 
@@ -588,10 +522,6 @@ radio.
 -   **Entrada:** Solicitar al usuario el valor del radio (`r`).
 -   **Proceso:**
 -   **Salida:** Mostrar ambos resultados de forma clara.
-
--   **[*plus ultra*]:** Validar que el radio sea positivo y definir PI como una constante con precisión de double.
--   **[*plus ultra*]:** Calcular también el área del sector circular para un ángulo ingresado por el usuario.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -624,7 +554,6 @@ FIN
 (ejercicio_1_15)=
 ### Ejercicio 1.15 - Trapecio ⭐⭐☆☆☆
 
-
 Calcular el área de un trapecio dadas las longitudes de sus dos bases paralelas
 y su altura.
 
@@ -632,10 +561,6 @@ y su altura.
 -   **Entrada:** Solicitar al usuario tres valores: la base mayor (`B`), la base
 -   **Proceso:** Aplicar la fórmula del área del trapecio: $A = \frac{B+b}{2}
 -   **Salida:** Mostrar el área calculada.
-
--   **[*plus ultra*]:** Validar que ambas bases y la altura sean estrictamente positivas y que la base mayor sea mayor que la menor.
--   **[*plus ultra*]:** Modularizar la operación en una función independiente.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -663,7 +588,6 @@ FIN
 (ejercicio_1_16)=
 ### Ejercicio 1.16 - Polígono Regular ⭐⭐☆☆☆
 
-
 Calcular el área de un polígono regular (lados y ángulos iguales) a partir del
 número de lados, la longitud de un lado y la apotema.
 
@@ -671,10 +595,6 @@ número de lados, la longitud de un lado y la apotema.
 -   **Entrada:** Solicitar el número de lados (`n`), la longitud de un lado
 -   **Proceso:**
 -   **Salida:** Mostrar el área calculada.
-
--   **[*plus ultra*]:** Validar que el número de lados sea al menos 3 y que las longitudes sean positivas.
--   **[*plus ultra*]:** Calcular también el ángulo interior de cada vértice del polígono regular.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -703,7 +623,6 @@ FIN
 (ejercicio_1_17)=
 ### Ejercicio 1.17 - Rectángulo ⭐⭐☆☆☆
 
-
 Calcular el área y el perímetro de un rectángulo dadas las longitudes de su
 largo y su ancho.
 
@@ -711,10 +630,6 @@ largo y su ancho.
 -   **Entrada:** Solicitar el largo (`l`) y el ancho (`w`).
 -   **Proceso:**
 -   **Salida:** Mostrar ambos resultados.
-
--   **[*plus ultra*]:** Validar que ancho y alto sean positivos y determinar si la figura es un caso especial (cuadrado).
--   **[*plus ultra*]:** Modularizar las funciones para calcular área y perímetro por separado.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -748,7 +663,6 @@ FIN
 (ejercicio_1_18)=
 ### Ejercicio 1.18 - Temperaturas ⭐⭐☆☆☆
 
-
 Crear un programa que pueda convertir temperaturas entre las escalas Celsius,
 Fahrenheit y Kelvin.
 
@@ -759,10 +673,6 @@ Fahrenheit y Kelvin.
     -   **Fahrenheit a Celsius**: $C = (F - 32) \times 5/9$
     -   **Celsius a Kelvin**: $K = C + 273.15$
 -   **Precisión:** Al trabajar con divisiones como 9/5, es importante usar
-
--   **[*plus ultra*]:** Validar que la temperatura en Celsius no sea inferior al cero absoluto (-273.15 °C).
--   **[*plus ultra*]:** Presentar una tabla comparativa de temperaturas en pasos de 10 grados dentro de un rango.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -790,7 +700,6 @@ FIN
 (ejercicio_1_19)=
 ### Ejercicio 1.19 - Ángulos a Segundos ⭐⭐☆☆☆
 
-
 Convertir una medida de ángulo dada en formato sexagesimal (grados, minutos y
 segundos) a su valor total equivalente en segundos.
 
@@ -799,10 +708,6 @@ segundos) a su valor total equivalente en segundos.
 -   **Entrada:** Solicitar al usuario tres valores enteros: grados, minutos y
 -   **Proceso:** Aplicar la fórmula de conversión: $total = (grados \times 3600)
 -   **Salida:** Mostrar el total de segundos.
-
--   **[*plus ultra*]:** Validar que los minutos y segundos estén en el rango [0, 59].
--   **[*plus ultra*]:** Implementar la operación inversa: convertir segundos totales a grados, minutos y segundos.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -834,7 +739,6 @@ FIN
 (ejercicio_1_20)=
 ### Ejercicio 1.20 - Tabla de Multiplicar ⭐⭐☆☆☆
 
-
 El programa debe solicitar un número entero al usuario y mostrar su tabla de
 multiplicar, desde el 1 hasta el 10.
 
@@ -842,10 +746,6 @@ multiplicar, desde el 1 hasta el 10.
 -   **Entrada:** Leer un número entero, que será la base de la tabla.
 -   **Proceso:** Utilizar un lazo `for` que itere desde 1 hasta 10. En cada
 -   **Salida:** Dentro del lazo, imprimir la operación y su resultado en un
-
--   **[*plus ultra*]:** Formatear la tabla con columnas alineadas usando especificadores de ancho en printf.
--   **[*plus ultra*]:** Permitir al usuario elegir hasta qué múltiplo generar la tabla (por defecto 10).
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -873,7 +773,6 @@ FIN
 (ejercicio_1_21)=
 ### Ejercicio 1.21 - Patrón de Asteriscos (Triángulo) ⭐⭐☆☆☆
 
-
 Implementar un programa que pida un número `n` e imprima un triángulo rectángulo
 de `n` filas de altura, construido con asteriscos.
 
@@ -881,10 +780,6 @@ de `n` filas de altura, construido con asteriscos.
 -   **Entrada:** Leer un entero `n` para la altura del triángulo.
 -   **Proceso:** Se necesitan dos lazos aninados.
 -   **Salida:** Después de que el lazo interior complete sus iteraciones para
-
--   **[*plus ultra*]:** Parametrizar el carácter de dibujo permitiendo al usuario elegir el símbolo.
--   **[*plus ultra*]:** Validar que la altura sea un entero positivo mayor o igual a 1.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -913,7 +808,6 @@ FIN
 (ejercicio_1_22)=
 ### Ejercicio 1.22 - Calculadora Básica ⭐⭐☆☆☆
 
-
 Crear un programa que funcione como una calculadora simple. Debe solicitar al
 usuario dos números y un carácter que represente la operación aritmética a
 realizar (+, -, *, /).
@@ -923,10 +817,6 @@ realizar (+, -, *, /).
 -   **Proceso:** Utilizar una estructura `switch` (o `if-else if`) para
 -   **Caso Especial:** Manejar la división por cero. Si el operador es `/` y el
 -   **Salida:** Mostrar el resultado de la operación o el mensaje de error.
-
--   **[*plus ultra*]:** Manejar adecuadamente el error de división por cero mostrando un mensaje descriptivo.
--   **[*plus ultra*]:** Permitir la ejecución continua de operaciones dentro de un lazo hasta que el usuario elija salir.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -968,7 +858,6 @@ FIN
 (ejercicio_1_23)=
 ### Ejercicio 1.23 - Adivina el Número ⭐⭐☆☆☆
 
-
 Desarrollar un juego simple donde el programa genera un número secreto aleatorio
 y el usuario debe adivinarlo. El programa proporciona pistas para guiar al
 usuario.
@@ -978,10 +867,6 @@ usuario.
 -   **Proceso:** Usar un lazo `do-while` o `while` que se repita hasta que el
 -   **Entrada:** Dentro del lazo, solicitar al usuario que ingrese su intento.
 -   **Condiciones:** Comparar el intento con el número secreto y dar una pista:
-
--   **[*plus ultra*]:** Limitar el número máximo de intentos disponibles y mostrar un mensaje de fin de juego si se agotan.
--   **[*plus ultra*]:** Llevar un registro del puntaje basado en la rapidez con la que se adivina el número.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1017,7 +902,6 @@ FIN
 (ejercicio_1_24)=
 ### Ejercicio 1.24 - Serie de Fibonacci (Iterativa) ⭐⭐☆☆☆
 
-
 Generar y mostrar los primeros `n` términos de la serie de Fibonacci. En esta
 serie, cada número es la suma de los dos anteriores, comenzando con 0 y 1.
 
@@ -1025,10 +909,6 @@ serie, cada número es la suma de los dos anteriores, comenzando con 0 y 1.
 -   **Variables:** Se necesitan al menos tres variables para mantener el estado:
 -   **Casos Base:** Los primeros dos términos (para n=0 y n=1) son fijos (0 y
 -   **Proceso:**
-
--   **[*plus ultra*]:** Usar tipos enteros sin signo o long long para calcular términos más altos sin desbordamiento.
--   **[*plus ultra*]:** Calcular el cociente entre términos consecutivos para observar la convergencia al número áureo.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1065,7 +945,6 @@ FIN
 (ejercicio_1_25)=
 ### Ejercicio 1.25 - Cálculo de Interés Simple ⭐☆☆☆☆
 
-
 Implementar una función que calcule el monto final y el interés simple ganado a
 partir de un capital inicial, una tasa de interés anual y un período de tiempo
 en años.
@@ -1074,10 +953,6 @@ en años.
 -   **Entrada:** Solicitar tres valores: capital (`P`), tasa de interés anual
 -   **Proceso:**
 -   **Salida:** Mostrar tanto el interés ganado como el monto total acumulado.
-
--   **[*plus ultra*]:** Validar que capital, tasa y tiempo sean valores numéricos positivos.
--   **[*plus ultra*]:** Mostrar el desglose anual del interés acumulado en cada período.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1110,7 +985,6 @@ FIN
 (ejercicio_1_26)=
 ### Ejercicio 1.26 - Índice de Masa Corporal (IMC) ⭐⭐☆☆☆
 
-
 Escribir un programa que calcule el Índice de Masa Corporal (IMC) de una persona
 y lo clasifique según las categorías de la OMS.
 
@@ -1123,10 +997,6 @@ y lo clasifique según las categorías de la OMS.
     -   25 <= IMC < 30: Sobrepeso
     -   IMC >= 30: Obesidad
 -   **Salida:** Mostrar el valor del IMC y la categoría de peso correspondiente.
-
--   **[*plus ultra*]:** Validar que peso y altura sean estrictamente positivos.
--   **[*plus ultra*]:** Modularizar la clasificación en una función independiente que retorne la categoría de IMC.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1164,7 +1034,6 @@ FIN
 (ejercicio_1_27)=
 ### Ejercicio 1.27 - Días del Mes ⭐⭐☆☆☆
 
-
 Crear un programa que, dado un mes (como número del 1 al 12) y un año, determine
 y muestre cuántos días tiene ese mes. Este ejercicio requiere manejar el caso
 especial de febrero en los años bisiestos.
@@ -1174,10 +1043,6 @@ especial de febrero en los años bisiestos.
 -   **Proceso:**
 -   **Año Bisiesto:** Un año es bisiesto si es divisible por 4, excepto los años
 -   **Salida:** Imprimir el número de días.
-
--   **[*plus ultra*]:** Verificar si el año es bisiesto para determinar correctamente los días del mes de febrero.
--   **[*plus ultra*]:** Validar que el número de mes esté estrictamente comprendido entre 1 y 12.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1220,7 +1085,6 @@ FIN
 (ejercicio_1_28)=
 ### Ejercicio 1.28 - Máximo de Tres Números ⭐⭐☆☆☆
 
-
 El objetivo es encontrar el valor más grande entre tres números enteros
 proporcionados por el usuario. Este ejercicio se centra en el uso de
 condicionales anidados o operadores lógicos para realizar comparaciones
@@ -1233,10 +1097,6 @@ múltiples.
         -   `SINO SI (b >= a Y b >= c) ENTONCES b es el máximo.`
         -   `SINO c es el máximo.`
 -   **Salida:** Imprimir el número que resultó ser el mayor.
-
--   **[*plus ultra*]:** Encapsular la comparación en una función int maximo_de_tres(int a, int b, int c).
--   **[*plus ultra*]:** Extender el programa para identificar si los tres números son iguales entre sí.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1270,7 +1130,6 @@ FIN
 (ejercicio_1_29)=
 ### Ejercicio 1.29 - Clasificación de Triángulo ⭐⭐☆☆☆
 
-
 Dados los largos de tres lados, el programa debe determinar si pueden formar un
 triángulo válido y, en caso afirmativo, clasificarlo como equilátero (todos los
 lados iguales), isósceles (dos lados iguales) o escaleno (todos los lados
@@ -1280,10 +1139,6 @@ diferentes).
 -   **Entrada:** Leer las longitudes de los tres lados (`a`, `b`, `c`).
 -   **Validación (Desigualdad Triangular):** Antes de clasificar, es crucial
 -   **Clasificación:**
-
--   **[*plus ultra*]:** Validar la desigualdad triangular antes de clasificar el triángulo.
--   **[*plus ultra*]:** Determinar además si el triángulo es rectángulo aplicando el teorema de Pitágoras.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1318,7 +1173,6 @@ FIN
 (ejercicio_1_30)=
 ### Ejercicio 1.30 - Desglose de Billetes ⭐⭐☆☆☆
 
-
 Dado un monto de dinero entero, el programa debe calcular la cantidad mínima de
 billetes de distintas denominaciones para representar dicho monto.
 
@@ -1326,10 +1180,6 @@ billetes de distintas denominaciones para representar dicho monto.
 -   **Entrada:** Leer un monto entero.
 -   **Denominaciones:** Definir las denominaciones de billetes disponibles en un
 -   **Proceso:** Utilizar divisiones y el operador módulo para calcular cuántos
-
--   **[*plus ultra*]:** Validar que el monto sea positivo y múltiplo de la denominación mínima.
--   **[*plus ultra*]:** Permitir configurar las denominaciones disponibles mediante constantes.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1364,7 +1214,6 @@ FIN
 (ejercicio_1_31)=
 ### Ejercicio 1.31 - Piedra, Papel o Tijera ⭐⭐☆☆☆
 
-
 Implementar el clásico juego de Piedra, Papel o Tijera para que un usuario
 juegue una partida contra la computadora.
 
@@ -1376,10 +1225,6 @@ juegue una partida contra la computadora.
     -   Tijera vence a Papel.
     -   Papel vence a Piedra.
 -   **Proceso:** Comparar la elección del usuario con la de la computadora
-
--   **[*plus ultra*]:** Validar que la opción elegida por el usuario sea válida (1, 2 o 3).
--   **[*plus ultra*]:** Llevar un marcador de victorias, derrotas y empates a lo largo de múltiples rondas.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1416,7 +1261,6 @@ FIN
 (ejercicio_1_32)=
 ### Ejercicio 1.32 - Patrón de Pirámide ⭐⭐☆☆☆
 
-
 Implementar un programa que pida un número `n` e imprima un triángulo de `n`
 filas de altura, construido con asteriscos, centrado como una pirámide.
 
@@ -1426,10 +1270,6 @@ filas de altura, construido con asteriscos, centrado como una pirámide.
         -   El primer lazo interior imprime los espacios en blanco necesarios
         -   El segundo lazo interior imprime los asteriscos. En la fila `i`, se
 -   **Salida:** Después de cada fila, imprimir un salto de línea.
-
--   **[*plus ultra*]:** Validar que la altura ingresada esté en un rango razonable (ej. entre 1 y 25).
--   **[*plus ultra*]:** Permitir al usuario elegir entre pirámide sólida o hueca.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1465,7 +1305,6 @@ FIN
 (ejercicio_1_33)=
 ### Ejercicio 1.33 - Validación de Contraseña Simple ⭐☆☆☆☆
 
-
 Crear un programa que solicite una contraseña al usuario y no le permita
 continuar hasta que ingrese la contraseña correcta. Este ejercicio practica el
 uso de lazos `do-while` y la comparación de cadenas.
@@ -1475,10 +1314,6 @@ uso de lazos `do-while` y la comparación de cadenas.
 -   **Entrada:** Dentro de un lazo, solicitar al usuario que ingrese la
 -   **Proceso:** Usar un lazo `do-while` es ideal aquí, ya que la solicitud debe
 -   **Comparación de Cadenas:** En C, las cadenas no se pueden comparar con
-
--   **[*plus ultra*]:** Limitar la cantidad de intentos fallidos antes de bloquear temporalmente el acceso.
--   **[*plus ultra*]:** Ocultar los caracteres ingresados si la terminal lo permite.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1510,7 +1345,6 @@ FIN
 (ejercicio_1_34)=
 ### Ejercicio 1.34 - Cajero Automático (Menú) ⭐⭐☆☆☆
 
-
 Simular la interfaz de un menú de cajero automático. El programa debe mostrar
 una lista de opciones y ejecutar una acción simple según la elección del
 usuario, repitiendo el proceso hasta que el usuario decida salir.
@@ -1521,10 +1355,6 @@ usuario, repitiendo el proceso hasta que el usuario decida salir.
 -   **Menú:** Dentro del lazo, imprimir las opciones (1. Consultar, 2.
 -   **Entrada:** Leer la opción del usuario.
 -   **Selección:** Usar una estructura `switch` para manejar las diferentes
-
--   **[*plus ultra*]:** Mantener el saldo actualizado entre operaciones y validar que no se extraiga más dinero del disponible.
--   **[*plus ultra*]:** Implementar la opción de consultar los últimos movimientos o transferencias.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1573,7 +1403,6 @@ FIN
 (ejercicio_1_35)=
 ### Ejercicio 1.35 - Patrón de Rombo ⭐⭐☆☆☆
 
-
 Implementar un programa que pida un número impar `n` e imprima un rombo de
 asteriscos de `n` filas de altura.
 
@@ -1581,10 +1410,6 @@ asteriscos de `n` filas de altura.
 -   **Estructura:** Un rombo puede verse como una pirámide seguida de una
 -   **Entrada:** Leer un entero impar `n`.
 -   **Proceso:**
-
--   **[*plus ultra*]:** Validar que el tamaño del rombo sea un número impar positivo.
--   **[*plus ultra*]:** Generar el rombo con bordes decorativos personalizados.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1616,7 +1441,6 @@ FIN
 (ejercicio_1_36)=
 ### Ejercicio 1.36 - Promedio de N Números ⭐⭐☆☆☆
 
-
 Escribir un programa que sea flexible en la cantidad de números a promediar.
 Primero debe preguntar al usuario cuántos números va a ingresar y luego calcular
 el promedio de esa cantidad de números.
@@ -1626,10 +1450,6 @@ el promedio de esa cantidad de números.
 -   **Variables:** Se necesita un `acumulador` para la suma y un contador.
 -   **Proceso:**
 -   **Salida:** Mostrar el promedio calculado.
-
--   **[*plus ultra*]:** Validar que la cantidad N de datos sea mayor a cero para evitar división por cero.
--   **[*plus ultra*]:** Calcular en el mismo recorrido el valor máximo y mínimo del conjunto.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1668,7 +1488,6 @@ FIN
 (ejercicio_1_37)=
 ### Ejercicio 1.37 - Contador de Dígitos ⭐⭐⭐☆☆
 
-
 Crear una función que reciba un número entero y devuelva la cantidad de dígitos
 que lo componen.
 
@@ -1676,10 +1495,6 @@ que lo componen.
 -   **Entrada:** Un número entero.
 -   **Proceso:** La forma más simple es usar la división entera por 10
 -   **Caso Especial:** Si el número de entrada es 0, tiene 1 dígito. El lazo
-
--   **[*plus ultra*]:** Manejar correctamente números negativos y el caso especial del número 0.
--   **[*plus ultra*]:** Modularizar el conteo en una función recursiva o iterativa pura.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1718,7 +1533,6 @@ FIN
 (ejercicio_1_38)=
 ### Ejercicio 1.38 - Invertir un Número Entero ⭐⭐☆☆☆
 
-
 Implementar una función que tome un número entero y devuelva otro número con los
 dígitos en orden inverso.
 
@@ -1726,10 +1540,6 @@ dígitos en orden inverso.
 -   **Entrada:** Un número entero.
 -   **Proceso:** Se puede construir el número invertido dígito por dígito.
 -   **Salida:** Devolver el número `invertido`.
-
--   **[*plus ultra*]:** Manejar correctamente números que terminan en cero y valores negativos.
--   **[*plus ultra*]:** Detectar si el número original es capicúa (palíndromo numérico).
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1761,7 +1571,6 @@ FIN
 (ejercicio_1_39)=
 ### Ejercicio 1.39 - Potencia con Lazos ⭐⭐☆☆☆
 
-
 Escribir una función que calcule `base^exponente` sin usar la función `pow()` de
 la biblioteca `math.h`. Debe funcionar para exponentes enteros no negativos.
 
@@ -1770,10 +1579,6 @@ la biblioteca `math.h`. Debe funcionar para exponentes enteros no negativos.
 -   **Variables:** Se necesita una variable `resultado` inicializada en 1.
 -   **Proceso:**
 -   **Salida:** Devolver el `resultado`.
-
--   **[*plus ultra*]:** Validar que el exponente sea un entero no negativo o manejar exponentes negativos retornando un double.
--   **[*plus ultra*]:** Comparar el rendimiento contra la función pow() de math.h.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1803,7 +1608,6 @@ FIN
 (ejercicio_1_40)=
 ### Ejercicio 1.40 - Menú de Conversiones ⭐⭐☆☆☆
 
-
 Crear un programa robusto que presente al usuario un menú con varias opciones de
 conversión de unidades (ej. Celsius a Fahrenheit, Metros a Pies, Kilogramos a
 Libras). El programa debe repetir el menú hasta que el usuario elija la opción
@@ -1812,10 +1616,6 @@ de salir.
 :::{hint} Lógica y Consideraciones
 -   **Proceso:** Similar al ejercicio del cajero automático. Usar un lazo
 -   **Modularidad:** Es una buena práctica crear una función separada para cada
-
--   **[*plus ultra*]:** Implementar un lazo interactivo para que el usuario pueda realizar múltiples conversiones consecutivas.
--   **[*plus ultra*]:** Validar rigurosamente las opciones del menú con un caso default.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1850,7 +1650,6 @@ FIN
 (ejercicio_1_41)=
 ### Ejercicio 1.41 - Validación de Fecha ⭐⭐☆☆☆
 
-
 Crear una función que valide si una combinación de día, mes y año corresponde a
 una fecha real en el calendario gregoriano.
 
@@ -1858,10 +1657,6 @@ una fecha real en el calendario gregoriano.
 -   **Entrada:** Tres enteros: `dia`, `mes`, `anio`.
 -   **Proceso:** Realizar una serie de verificaciones en orden lógico:
 -   **Salida:** Devolver un valor booleano (`true` si es válida, `false` si no).
-
--   **[*plus ultra*]:** Validar años bisiestos para febrero y el número correcto de días según cada mes (1-31).
--   **[*plus ultra*]:** Calcular el día de la semana correspondiente a la fecha ingresada.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1897,7 +1692,6 @@ FIN FUNCION
 (ejercicio_1_42)=
 ### Ejercicio 1.42 - Dibujar un Cuadrado Hueco ⭐⭐☆☆☆
 
-
 Pedir al usuario un número `n` y dibujar el contorno de un cuadrado de `n x n`
 utilizando asteriscos. El interior del cuadrado debe estar vacío.
 
@@ -1908,10 +1702,6 @@ utilizando asteriscos. El interior del cuadrado debe estar vacío.
     -   Es la primera o la última fila (`fila == 1` o `fila == n`).
     -   Es la primera o la última columna (`columna == 1` o `columna == n`).
 -   En cualquier otro caso, se imprime un espacio.
-
--   **[*plus ultra*]:** Validar que el lado del cuadrado sea mayor o igual a 2.
--   **[*plus ultra*]:** Permitir elegir un carácter diferente para el borde y para el relleno.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1944,7 +1734,6 @@ FIN
 (ejercicio_1_43)=
 ### Ejercicio 1.43 - Suma Separada de Pares e Impares ⭐⭐☆☆☆
 
-
 Dado un rango de números `[n, m]`, el programa debe calcular la suma de todos
 los números pares y la suma de todos los números impares de forma independiente
 y mostrar ambos resultados.
@@ -1954,10 +1743,6 @@ y mostrar ambos resultados.
 -   **Entrada:** Leer los enteros `n` y `m`.
 -   **Proceso:**
 -   **Salida:** Mostrar los valores finales de ambas sumas.
-
--   **[*plus ultra*]:** Permitir definir los límites del rango de manera dinámica mediante entrada por consola.
--   **[*plus ultra*]:** Calcular también la cantidad de pares e impares encontrados en el intervalo.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1993,7 +1778,6 @@ FIN
 (ejercicio_1_44)=
 ### Ejercicio 1.44 - Número de la Suerte ⭐⭐☆☆☆
 
-
 Un número de la suerte es un entero con una cantidad par de dígitos, donde la
 suma de los dígitos de la primera mitad es igual a la suma de los dígitos de la
 segunda mitad. El programa debe verificar si un número dado es de la suerte.
@@ -2001,10 +1785,6 @@ segunda mitad. El programa debe verificar si un número dado es de la suerte.
 :::{hint} Lógica y Consideraciones
 -   **Entrada:** Leer un número entero.
 -   **Proceso:**
-
--   **[*plus ultra*]:** Validar que la fecha contenga valores válidos de día, mes y año.
--   **[*plus ultra*]:** Modularizar la suma sucesiva de dígitos en una función auxiliar pura.
-
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -2057,14 +1837,6 @@ Escribí un programa que solicite tu nombre y te salude personalmente.
 
 **Ejemplo de ejecución:**
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar que el nombre ingresado contenga caracteres legibles y no esté vacío.
--   **[*plus ultra*]:** Dar formato especial a la salida con marcos en la terminal.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ```
 Ingresá tu nombre: Juan
 ¡Hola, Juan! Bienvenido a la programación en C.
@@ -2083,14 +1855,6 @@ Escribí un programa que lea dos números enteros y muestre su suma, resta,
 producto y división.
 
 **Ejemplo de ejecución:**
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar que el segundo número no sea cero antes de calcular el cociente.
--   **[*plus ultra*]:** Modularizar cada operación aritmética en su propia función.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```
 Primer número: 10
@@ -2122,15 +1886,6 @@ Creá un programa que convierta temperatura de Celsius a Fahrenheit y Kelvin.
 - Aplicá las fórmulas de conversión
 - Mostrá resultados con dos decimales
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar que las temperaturas no estén por debajo del cero absoluto.
--   **[*plus ultra*]:** Modularizar las fórmulas en funciones con contratos y pruebas unitarias.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_1_48)=
 ## Ejercicio 1.48 - Área y Perímetro ⭐⭐☆☆☆
@@ -2144,15 +1899,6 @@ ancho y alto.
 - Usá `double` para las medidas
 - Verificá que ancho y alto sean positivos
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar que ancho y alto sean positivos antes de calcular.
--   **[*plus ultra*]:** Modularizar el cálculo en funciones independientes para área y perímetro.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_1_49)=
 ## Ejercicio 1.49 - Promedio de Tres Números ⭐⭐☆☆☆
@@ -2164,15 +1910,6 @@ Calculá el promedio de tres números decimales ingresados por el usuario.
 - Promedio = (a + b + c) / 3.0
 - Mostrá el resultado con dos decimales
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar los datos ingresados verificando el retorno de scanf.
--   **[*plus ultra*]:** Modularizar el promedio en una función double calcular_promedio(double a, double b, double c).
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_1_50)=
 ## Ejercicio 1.50 - Intercambio de Variables ⭐⭐☆☆☆
@@ -2181,14 +1918,6 @@ Leé dos números enteros y mostralos intercambiados (sin usar una tercera
 variable).
 
 **Ejemplo:**
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Implementar una función que reciba dos variables y muestre sus valores antes y después de operar.
--   **[*plus ultra*]:** Verificar que el intercambio funcione correctamente para números negativos y cero.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```
 Ingresá a: 5
@@ -2216,15 +1945,6 @@ Convertí una distancia en metros a kilómetros, centímetros y milímetros.
 - Usá constantes para los factores de conversión
 - Mostrá todas las conversiones
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Modularizar cada conversión en funciones puras independientes.
--   **[*plus ultra*]:** Formatear las unidades en una tabla comparativa alineada.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_1_52)=
 ## Ejercicio 1.52 - Cálculo de IMC ⭐⭐⭐☆☆
@@ -2238,15 +1958,6 @@ Calculá el Índice de Masa Corporal (IMC) dados peso (kg) y altura (m).
 - Mostrá el IMC con dos decimales
 - Opcionalmente, mostrá la categoría (bajo peso, normal, sobrepeso)
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar que peso y altura sean mayores a cero y clasificar según la tabla oficial de la OMS.
--   **[*plus ultra*]:** Modularizar el cálculo en una función libre de operaciones de E/S.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_1_53)=
 ## Ejercicio 1.53 - Cantidad de Billetes ⭐⭐⭐☆☆
@@ -2255,14 +1966,6 @@ Dado un monto en pesos, calculá cuántos billetes de cada denominación (1000,
 500, 200, 100, 50, 20, 10) se necesitan.
 
 **Ejemplo:**
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar que el monto sea un número entero no negativo.
--   **[*plus ultra*]:** Permitir configurar las denominaciones de billetes en orden decreciente.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```
 Monto: 1780
@@ -2288,14 +1991,6 @@ Convertí una cantidad de segundos a formato HH:MM:SS.
 
 **Ejemplo:**
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar que la cantidad de segundos no sea negativa.
--   **[*plus ultra*]:** Permitir incluir días si los segundos superan las 24 horas.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ```
 Segundos: 3665
 Resultado: 1:01:05
@@ -2314,14 +2009,6 @@ Resultado: 1:01:05
 Leé un número de tres dígitos y mostrá cada dígito por separado.
 
 **Ejemplo:**
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar que el número ingresado esté exactamente en el rango [100, 999].
--   **[*plus ultra*]:** Extender el algoritmo para números de cantidad variable de dígitos usando un lazo.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```
 Número: 457
@@ -2342,14 +2029,6 @@ Unidades: 7
 Calculá el precio final de un producto aplicando un descuento porcentual.
 
 **Ejemplo:**
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar que el porcentaje de descuento esté en el rango [0, 100].
--   **[*plus ultra*]:** Mostrar el desglose del ahorro total obtenido junto con el precio final.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```
 Precio original: 1000
@@ -2374,14 +2053,6 @@ resto de la división (módulo) y el resultado de la división real (con decimal
 - Usá `/` para la división entera y `%` para el resto
 - Convertí uno de los operandos a `double` mediante `(double)` para obtener el cociente con decimales
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar que el divisor sea distinto de cero informando un mensaje de error descriptivo por consola.
--   **[*plus ultra*]:** Modularizar el cálculo en una función pura que retorne el cociente y verifique la validez matemática.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_1_58)=
 ## Ejercicio 1.58 - Conversión de Base ⭐⭐⭐⭐☆
@@ -2392,15 +2063,6 @@ Convertí un número decimal a binario, octal y hexadecimal.
 - Usá especificadores de formato: `%d`, `%o`, `%x`
 - Mostrá el número en las cuatro bases
 - Opcionalmente, implementá conversión manual con divisiones sucesivas
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar que el número decimal ingresado sea no negativo.
--   **[*plus ultra*]:** Modularizar la conversión a binario mediante divisiones sucesivas por 2 en un lazo.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_1_59)=
@@ -2417,15 +2079,6 @@ Calculá el área de un triángulo usando la fórmula de Herón dados los tres l
 - Usá `sqrt()` de `<math.h>`
 - Compilá con `-lm` para enlazar la biblioteca matemática
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar la desigualdad triangular antes de aplicar la raíz cuadrada.
--   **[*plus ultra*]:** Modularizar el cálculo del semiperímetro y del área en funciones separadas.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_1_60)=
 ## Ejercicio 1.60 - Ecuación Cuadrática ⭐⭐⭐⭐☆
@@ -2439,15 +2092,6 @@ existen.
 - Si Δ = 0: una raíz: x = -b / (2a)
 - Si Δ > 0: dos raíces: x = (-b ± √Δ) / (2a)
 - Usá `sqrt()` de `<math.h>`
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Manejar los tres casos del discriminante (dos raíces reales, una raíz doble, raíces complejas).
--   **[*plus ultra*]:** Validar que el coeficiente principal a no sea cero (en cuyo caso es una ecuación lineal).
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_1_61)=
@@ -2468,15 +2112,6 @@ Donde:
 - Mostrá el monto inicial, final y la ganancia
 - Compilá con `-lm`
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar que el capital, tasa de interés, frecuencia y tiempo sean positivos.
--   **[*plus ultra*]:** Mostrar una tabla período por período con la evolución del capital acumulado.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_1_62)=
 ## Ejercicio 1.62 - Conversión RGB a Hexadecimal ⭐⭐⭐⭐☆
@@ -2484,14 +2119,6 @@ Donde:
 Convertí un color RGB (rojo, verde, azul) a su representación hexadecimal.
 
 **Ejemplo:**
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar que cada componente RGB esté en el rango [0, 255].
--   **[*plus ultra*]:** Formatear la salida con ceros a la izquierda para asegurar siempre 6 dígitos hexadecimales (#RRGGBB).
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```
 Rojo (0-255): 255
@@ -2518,15 +2145,6 @@ Calculá base^exponente usando solo multiplicaciones (exponente entero positivo)
 - **Spoiler:** Este ejercicio requiere lazos, pero podés usar multiplicaciones
   repetidas en línea
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Manejar el caso especial de exponente 0 (resultado 1) y base 0 con exponente positivo.
--   **[*plus ultra*]:** Extender la función para aceptar exponentes negativos retornando un double.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_1_64)=
 ## Ejercicio 1.64 - Calculadora Científica Básica ⭐⭐⭐⭐⭐
@@ -2542,15 +2160,6 @@ seno, coseno, tangente, logaritmo.
 - Recordá que funciones trigonométricas usan radianes
 - Verificá casos especiales (raíz de negativo, log de 0 o negativo, etc.)
 - Compilá con `-lm`
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar operaciones inválidas como división por cero, logaritmo de no positivos o raíz de negativos.
--   **[*plus ultra*]:** Implementar un menú con lazo que permita realizar cálculos consecutivos hasta salir.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 

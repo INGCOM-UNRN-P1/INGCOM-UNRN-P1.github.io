@@ -67,11 +67,6 @@ int f(int a,int b){return(a>b)?a:b;}
 ```
 <!-- c -->
 
--   **[*plus ultra*]:** Implementar `int obtener_mayor(int primer_numero, int
-    segundo_numero)` con estilo Allman y `if-else`.
--   **[*plus ultra*]:** Escribir pruebas unitarias con `assert()` para números
-    positivos, negativos e iguales.
-
 :::
 <!-- {exercise} -->
 
@@ -129,11 +124,6 @@ double x(double a,double b){return a*b/2.0;}
 ```
 <!-- c -->
 
--   **[*plus ultra*]:** Validar que las dimensiones sean estrictamente positivas
-    retornando `-1.0` si son inválidas.
--   **[*plus ultra*]:** Documentar con etiquetas Doxygen (`@param`, `@pre`,
-    `@returns`).
-
 :::
 <!-- {exercise} -->
 
@@ -182,10 +172,6 @@ y testeable:
 int p(int n){int s=0;for(int i=1;i<=n;i++)s+=i*i;return s;}
 ```
 <!-- c -->
-
--   **[*plus ultra*]:** Validar que $n \ge 0$.
--   **[*plus ultra*]:** Comparar el resultado del lazo con la fórmula cerrada
-    $\frac{n(n+1)(2n+1)}{6}$.
 
 :::
 <!-- {exercise} -->
@@ -241,11 +227,6 @@ problemas de estilo y posibles riesgos de tipos:
 double k(double c){return(c*9/5)+32;}
 ```
 <!-- c -->
-
--   **[*plus ultra*]:** Reemplazar los números literales por constantes
-    flotantes `9.0 / 5.0` y `32.0`.
--   **[*plus ultra*]:** Validar que la temperatura no sea inferior al cero
-    absoluto ($-273.15^\circ\text{C}$).
 
 :::
 <!-- {exercise} -->
@@ -310,11 +291,6 @@ int d(int n){int c=0;while(n){c+=n%10;n/=10;}return c;}
 ```
 <!-- c -->
 
--   **[*plus ultra*]:** Refactorizar usando `abs()` o convirtiendo el número a
-    positivo.
--   **[*plus ultra*]:** Escribir tests con `assert()` para números positivos,
-    negativos y el cero.
-
 :::
 <!-- {exercise} -->
 
@@ -369,10 +345,6 @@ bool b(int y){return(y%4==0&&y%100!=0)||(y%400==0);}
 ```
 <!-- c -->
 
--   **[*plus ultra*]:** Refactorizar con cláusula de guarda para años $\le 0$.
--   **[*plus ultra*]:** Escribir una suite con tests unitarios separados para
-    cada rama de decisión.
-
 :::
 <!-- {exercise} -->
 
@@ -426,10 +398,6 @@ int s(int n){return n*(n+1)/2;}
 ```
 <!-- c -->
 
--   **[*plus ultra*]:** Validar que $n \ge 0$.
--   **[*plus ultra*]:** Usar el tipo `long long` para evitar desbordamientos
-    enteros en valores de $n > 65535$.
-
 :::
 <!-- {exercise} -->
 
@@ -478,9 +446,6 @@ eliminando la constante mágica y aplicando contratos:
 double v(double r,double h){return 3.14159265*r*r*h;}
 ```
 <!-- c -->
-
--   **[*plus ultra*]:** Definir `#define CONSTANTE_PI 3.141592653589793`.
--   **[*plus ultra*]:** Validar que radio y altura sean mayores a cero.
 
 :::
 <!-- {exercise} -->
@@ -576,11 +541,6 @@ int calificar(int nota, int asistencia)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Reducir la profundidad máxima de indentación a 1 nivel
-    dentro de la función.
--   **[*plus ultra*]:** Escribir pruebas unitarias para cada uno de los valores
-    de retorno.
-
 :::
 <!-- {exercise} -->
 
@@ -666,10 +626,6 @@ double operacion(int op, double a, double b)
 
 ```
 <!-- {code-block} c -->
-
--   **[*plus ultra*]:** Manejar el error de división por cero y opción inválida
-    mediante un puntero booleano `bool *ok`.
--   **[*plus ultra*]:** Definir un `enum` con los códigos de operación.
 
 :::
 <!-- {exercise} -->
@@ -767,10 +723,6 @@ int check(int n)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Eliminar `while(1)` y `break` reemplazándolos por un
-    lazo estructurado con condición clara.
--   **[*plus ultra*]:** Optimizar evaluando solo números impares después del 2.
-
 :::
 <!-- {exercise} -->
 
@@ -796,9 +748,6 @@ double calc(double k, int n)
 
 ```
 <!-- {code-block} c -->
-
--   **[*plus ultra*]:** Validar que la distancia `k` no sea negativa.
--   **[*plus ultra*]:** Documentar el cálculo con Doxygen.
 
 :::
 <!-- {exercise} -->
@@ -859,10 +808,6 @@ bool v(int d,int m,int y){return(y>0&&m>=1&&m<=12&&d>=1)&&((m==2&&(((y%4==0&&y%1
 ```
 <!-- c -->
 
--   **[*plus ultra*]:** Descomponer en funciones auxiliares puras `es_bisiesto`
-    y `dias_del_mes`.
--   **[*plus ultra*]:** Escribir una suite de tests unitarios estructurada.
-
 :::
 <!-- {exercise} -->
 
@@ -888,10 +833,6 @@ double desc(double m)
 
 ```
 <!-- {code-block} c -->
-
--   **[*plus ultra*]:** Refactorizar utilizando cláusulas de guarda ordenadas
-    sin comparaciones dobles redundantes.
--   **[*plus ultra*]:** Reemplazar los porcentajes por constantes simbólicas.
 
 :::
 <!-- {exercise} -->
@@ -979,9 +920,6 @@ void clasificar_temperatura_ambiente(double temp)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Retornar un `enum` o código entero descriptivo.
--   **[*plus ultra*]:** Escribir tests unitarios con `assert()`.
-
 :::
 <!-- {exercise} -->
 
@@ -1055,10 +993,6 @@ void buscar(int arr[], int n, int x)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Retornar el índice directamente como valor de retorno de
-    la función pura.
--   **[*plus ultra*]:** Agregar el calificador `const` al arreglo de entrada.
-
 :::
 <!-- {exercise} -->
 
@@ -1115,10 +1049,6 @@ int m(int a,int b){int t;while(b)t=b,b=a%b,a=t;return a;}
 ```
 <!-- c -->
 
--   **[*plus ultra*]:** Refactorizar en estilo Allman, con nombres claros y
-    manejo de enteros negativos con `abs()`.
--   **[*plus ultra*]:** Escribir tests unitarios con `assert()`.
-
 :::
 <!-- {exercise} -->
 
@@ -1135,10 +1065,6 @@ Descubrí el algoritmo y refactorizalo:
 int inv(int x){int r=0;while(x>0){r=r*10+x%10;x=x/10;}return r;}
 ```
 <!-- c -->
-
--   **[*plus ultra*]:** Manejar números negativos conservando su signo.
--   **[*plus ultra*]:** Comprobar palíndromos numéricos reutilizando esta
-    función.
 
 :::
 <!-- {exercise} -->
@@ -1191,11 +1117,6 @@ Refactorizá la siguiente implementación de la secuencia de Fibonacci:
 int fib(int n){int a=0,b=1,c,i;if(!n)return 0;for(i=2;i<=n;i++)c=a+b,a=b,b=c;return b;}
 ```
 <!-- c -->
-
--   **[*plus ultra*]:** Validar que $n \ge 0$ y usar `long long` para soportar
-    términos mayores.
--   **[*plus ultra*]:** Descomponer la lógica con llaves Allman e inicialización
-    limpia.
 
 :::
 <!-- {exercise} -->
@@ -1263,10 +1184,6 @@ int arm(int x){int a=x/100,b=(x/10)%10,c=x%10;return(a*a*a+b*b*b+c*c*c==x)?1:0;}
 ```
 <!-- c -->
 
--   **[*plus ultra*]:** Eliminar el ternario `?:` y retornar un `bool`.
--   **[*plus ultra*]:** Generalizar para cualquier cantidad de dígitos mediante
-    funciones auxiliares.
-
 :::
 <!-- {exercise} -->
 
@@ -1283,10 +1200,6 @@ Refactorizá la siguiente función de factorial:
 long f(int n){if(n<0||n>20)return -1;long r=1;for(int i=2;i<=n;i++)r*=i;return r;}
 ```
 <!-- c -->
-
--   **[*plus ultra*]:** Reemplazar el número mágico `20` por una constante
-    descriptiva `#define MAX_FACTORIAL_LONG 20`.
--   **[*plus ultra*]:** Escribir tests unitarios con `assert()`.
 
 :::
 <!-- {exercise} -->
@@ -1342,9 +1255,6 @@ int perf(int n){int s=0;for(int i=1;i<n;i++){if(n%i==0)s+=i;}return s==n;}
 ```
 <!-- c -->
 
--   **[*plus ultra*]:** Optimizar sumando divisores en pares hasta $\sqrt{n}$.
--   **[*plus ultra*]:** Retornar un `bool` claro y documentar precondiciones.
-
 :::
 <!-- {exercise} -->
 
@@ -1361,11 +1271,6 @@ Descifrá el algoritmo y refactorizalo a código limpio:
 double p(double b,int e){double r=1.0;int n=(e<0)?-e:e;while(n){if(n%2)r*=b;b*=b;n/=2;}return(e<0)?1.0/r:r;}
 ```
 <!-- c -->
-
--   **[*plus ultra*]:** Eliminar los operadores ternarios y usar cláusulas de
-    guarda.
--   **[*plus ultra*]:** Escribir tests unitarios para exponentes positivos,
-    negativos y cero.
 
 :::
 <!-- {exercise} -->
@@ -1385,10 +1290,6 @@ int c100,c50,c10;
 void m(int x){c100=x/100;x%=100;c50=x/50;x%=50;c10=x/10;}
 ```
 <!-- c -->
-
--   **[*plus ultra*]:** Eliminar las variables globales retornando los
-    resultados mediante parámetros o empaquetándolos en funciones atómicas.
--   **[*plus ultra*]:** Validar que el monto no sea negativo.
 
 :::
 <!-- {exercise} -->
@@ -1465,11 +1366,6 @@ void facturar(double p, int cant, int tipo, double saldo)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Crear `calcular_subtotal`, `calcular_descuento`,
-    `calcular_iva` y `verificar_saldo`.
--   **[*plus ultra*]:** Escribir pruebas unitarias con `assert()` para cada
-    función pura.
-
 :::
 <!-- {exercise} -->
 
@@ -1501,10 +1397,6 @@ double tri(double a, double b, double c, int *tipo)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Usar comparación con tolerancia `fabs(a - b) < 1e-6`
-    para punto flotante.
--   **[*plus ultra*]:** Escribir tests unitarios para cada función por separado.
-
 :::
 <!-- {exercise} -->
 
@@ -1531,11 +1423,6 @@ void imprimir_tres_horarios(int t1, int t2, int t3)
 
 ```
 <!-- {code-block} c -->
-
--   **[*plus ultra*]:** Implementar `void descomponer_segundos(int
-    total_segundos, int *h, int *m, int *s)`.
--   **[*plus ultra*]:** Escribir pruebas unitarias para la función de
-    descomposición.
 
 :::
 <!-- {exercise} -->
@@ -1600,9 +1487,6 @@ void step(char c)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Eliminar la variable global `st`.
--   **[*plus ultra*]:** Escribir una suite de pruebas de transición de estados.
-
 :::
 <!-- {exercise} -->
 
@@ -1637,10 +1521,6 @@ int pedir_entero_rango(int min, int max)
 
 ```
 <!-- {code-block} c -->
-
--   **[*plus ultra*]:** Extraer la función pura `bool esta_en_rango(int valor,
-    int min, int max)`.
--   **[*plus ultra*]:** Escribir tests con `assert()` para `esta_en_rango`.
 
 :::
 <!-- {exercise} -->
@@ -1695,11 +1575,6 @@ void tabla(int n)
 
 ```
 <!-- {code-block} c -->
-
--   **[*plus ultra*]:** Implementar `int calcular_producto(int multiplicando,
-    int multiplicador)`.
--   **[*plus ultra*]:** Formatear las columnas en `imprimir_tabla` con ancho
-    fijo `%2d x %2d = %4d`.
 
 :::
 <!-- {exercise} -->
@@ -1769,9 +1644,6 @@ int l(long long n){int s=0,c=0,d;while(n>0){d=n%10;if(c%2!=0){d*=2;if(d>9)d-=9;}
 4. Escribir una suite de pruebas con `assert()` que verifique números válidos e
    inválidos reales (ej. `49927398716` es válido).
 
--   **[*plus ultra*]:** Documentar con contratos `@pre` y `@post`.
--   **[*plus ultra*]:** Validar que números $\le 0$ retornen `false`.
-
 :::
 <!-- {exercise} -->
 
@@ -1807,11 +1679,6 @@ int z(int d,int m,int y){if(m<3)m+=12,y--;int k=y%100,j=y/100;int h=(d+13*(m+1)/
    - 1 de Enero de 2000 $\rightarrow$ Sábado (6).
    - 29 de Febrero de 2024 $\rightarrow$ Jueves (4).
 
--   **[*plus ultra*]:** Retornar un `enum` con los días de la semana
-    `DIA_DOMINGO, DIA_LUNES, ...`.
--   **[*plus ultra*]:** Manejar fechas inválidas retornando `-1` o un código de
-    error de estado.
-
 :::
 <!-- {exercise} -->
 
@@ -1831,10 +1698,6 @@ anidados en una sola línea y refactorizalo:
 void r(int w,int h){for(int i=0;i<h;i++){for(int j=0;j<w;j++)printf("*");printf("\n");}}
 ```
 <!-- c -->
-
--   **[*plus ultra*]:** Validar que ancho y alto sean mayores a cero.
--   **[*plus ultra*]:** Modularizar la impresión de una fila de caracteres en
-    una función auxiliar `void imprimir_fila(char c, int longitud)`.
 
 :::
 <!-- {exercise} -->
@@ -1888,12 +1751,6 @@ int id(int r,int c){return(r==c)?1:0;}
 ```
 <!-- c -->
 
--   **[*plus ultra*]:** Escribir una función pura `int
-    obtener_valor_identidad(int fila, int columna)` con validación de índices no
-    negativos.
--   **[*plus ultra*]:** Testear con `assert()` celdas diagonales y fuera de la
-    diagonal.
-
 :::
 <!-- {exercise} -->
 
@@ -1945,11 +1802,6 @@ condiciones `if` de manera poco idiomática:
 int v(char a[], int n){int c=0;for(int i=0;i<n;i++){char x=a[i];if(x=='a'||x=='e'||x=='i'||x=='o'||x=='u'||x=='A'||x=='E'||x=='I'||x=='O'||x=='U')c++;}return c;}
 ```
 <!-- c -->
-
--   **[*plus ultra*]:** Modularizar en una función auxiliar pura `bool
-    es_vocal(char c)` usando `switch` o `tolower()`.
--   **[*plus ultra*]:** Agregar `const` al arreglo y escribir tests con
-    `assert()`.
 
 :::
 <!-- {exercise} -->
@@ -2026,11 +1878,6 @@ long long binom(int n,int k){if(k<0||k>n)return 0;return fact(n)/(fact(k)*fact(n
 ```
 <!-- c -->
 
--   **[*plus ultra*]:** Optimizar calculando $\binom{n}{k} = \prod_{i=1}^k
-    \frac{n - k + i}{i}$ para evitar desbordamientos prematuros.
--   **[*plus ultra*]:** Escribir tests unitarios para $\binom{5}{2} = 10$,
-    $\binom{10}{0} = 1$ y $\binom{20}{5} = 15504$.
-
 :::
 <!-- {exercise} -->
 
@@ -2055,10 +1902,6 @@ int son_gem(void)
 
 ```
 <!-- {code-block} c -->
-
--   **[*plus ultra*]:** Reutilizar una función pura `bool es_primo(int n)`.
--   **[*plus ultra*]:** Diseñar `bool son_primos_gemelos(int primer_numero, int
-    segundo_numero)` sin variables globales.
 
 :::
 <!-- {exercise} -->
@@ -2133,10 +1976,6 @@ void c(int a[],int n){for(int i=1;i<=n;i++){a[i-1]=0;for(int j=1;j<i;j++)if(i%j=
 ```
 <!-- c -->
 
--   **[*plus ultra*]:** Descomponer en `int contar_divisores_propios(int n)` y
-    `void llenar_tabla_divisores(int tabla[], int n)`.
--   **[*plus ultra*]:** Validar que `n > 0` y puntero no nulo.
-
 :::
 <!-- {exercise} -->
 
@@ -2155,10 +1994,6 @@ unidimensional plano (`arr[i * n + j]`):
 int d(int a[],int n){int s=0;for(int i=0;i<n;i++)s+=a[i*n+i]+a[i*n+(n-1-i)];if(n%2!=0)s-=a[(n/2)*n+(n/2)];return s;}
 ```
 <!-- c -->
-
--   **[*plus ultra*]:** Explicar por qué se resta el elemento central cuando $n$
-    es impar.
--   **[*plus ultra*]:** Refactorizar en estilo Allman con nombres claros.
 
 :::
 <!-- {exercise} -->
@@ -2226,10 +2061,6 @@ int col(long long n){int c=0;if(n<=0)return -1;while(1){if(n==1)break;n=(n%2==0)
 ```
 <!-- c -->
 
--   **[*plus ultra*]:** Eliminar el ternario y el `while(1)`.
--   **[*plus ultra*]:** Escribir tests con `assert()` para `col(1) == 0`,
-    `col(6) == 8` y `col(27) == 111`.
-
 :::
 <!-- {exercise} -->
 
@@ -2247,10 +2078,6 @@ arreglo destino:
 void t(int s[9],int d[9]){for(int i=0;i<3;i++)for(int j=0;j<3;j++)d[j*3+i]=s[i*3+j];}
 ```
 <!-- c -->
-
--   **[*plus ultra*]:** Definir constantes `#define MAT_FILAS 3` y `#define
-    MAT_COLUMNAS 3`.
--   **[*plus ultra*]:** Escribir una suite de tests con `assert()`.
 
 :::
 <!-- {exercise} -->
@@ -2324,9 +2151,6 @@ void mx(int a[],int b[],int c[],int n){for(int i=0;i<n;i++)for(int j=0;j<n;j++){
 4. Diseñar pruebas unitarias con `assert()` multiplicando matrices identidad y
    matrices con números enteros conocidos.
 
--   **[*plus ultra*]:** Documentar con Doxygen precondiciones de no solapamiento
-    de punteros.
-
 :::
 <!-- {exercise} -->
 
@@ -2345,10 +2169,6 @@ Refactorizá la siguiente función de validación de horarios en formato 24 hora
 int ch(int h,int m,int s){return(h>=0&&h<24&&m>=0&&m<60&&s>=0&&s<60)?1:0;}
 ```
 <!-- c -->
-
--   **[*plus ultra*]:** Retornar un `bool` y eliminar el operador ternario.
--   **[*plus ultra*]:** Usar constantes para los límites `#define MAX_HORAS 24`,
-    `#define MAX_MINUTOS 60`.
 
 :::
 <!-- {exercise} -->
@@ -2413,10 +2233,6 @@ entero:
 int parse(char s[], int n){int r=0,i=0,sg=1;if(s[0]=='-'){sg=-1;i=1;}for(;i<n;i++)r=r*10+(s[i]-'0');return r*sg;}
 ```
 <!-- c -->
-
--   **[*plus ultra*]:** Validar que todos los caracteres entre `i` y `n` sean
-    efectivamente dígitos con `isdigit()`.
--   **[*plus ultra*]:** Retornar un código de estado booleano `bool *exito`.
 
 :::
 <!-- {exercise} -->
@@ -2506,10 +2322,6 @@ int v4(int a,int b,int c,int d){if(a<0||a>255)return 0;if(b<0||b>255)return 0;if
 ```
 <!-- c -->
 
--   **[*plus ultra*]:** Extraer la función pura `bool es_octeto_valido(int
-    octeto)` (principio DRY).
--   **[*plus ultra*]:** Retornar un `bool` e incluir tests unitarios.
-
 :::
 <!-- {exercise} -->
 
@@ -2527,9 +2339,6 @@ Refactorizá el siguiente cálculo del dígito verificador de un CUIT argentino 
 int dv(int d[10]){int f[10]={5,4,3,2,7,6,5,4,3,2},s=0;for(int i=0;i<10;i++)s+=d[i]*f[i];int r=11-(s%11);if(r==11)return 0;if(r==10)return 9;return r;}
 ```
 <!-- c -->
-
--   **[*plus ultra*]:** Aplicar estilo Allman y nombres descriptivos.
--   **[*plus ultra*]:** Validar con `assert()` para CUITs conocidos.
 
 :::
 <!-- {exercise} -->
@@ -2604,10 +2413,6 @@ int comp(char o[],int n,char d[]){int j=0,e=0;for(int i=0;i<n;i++){if(o[i]==' ')
 ```
 <!-- c -->
 
--   **[*plus ultra*]:** Retornar la nueva longitud escrita en `d`.
--   **[*plus ultra*]:** Escribir tests con `assert()` verificando secuencias con
-    múltiples espacios.
-
 :::
 <!-- {exercise} -->
 
@@ -2625,9 +2430,6 @@ al menos 8 caracteres, al menos una mayúscula y al menos un dígito:
 int pass(char p[],int n){int u=0,d=0;if(n<8)return 0;for(int i=0;i<n;i++){if(p[i]>='A'&&p[i]<='Z')u=1;if(p[i]>='0'&&p[i]<='9')d=1;}return(u&&d)?1:0;}
 ```
 <!-- c -->
-
--   **[*plus ultra*]:** Usar `isupper()` e `isdigit()` de `<ctype.h>`.
--   **[*plus ultra*]:** Retornar un `bool` y estructurar con contratos.
 
 :::
 <!-- {exercise} -->
@@ -2715,9 +2517,6 @@ int rle_dec(int pares[], int n_pares, int sal[], int max_sal)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Validar que `rep >= 0` y no desborde `max_sal`.
--   **[*plus ultra*]:** Aplicar estilo Allman estricto y nombres descriptivos.
-
 :::
 <!-- {exercise} -->
 
@@ -2735,10 +2534,6 @@ su valor numérico:
 int r2d(char c){if(c=='I')return 1;if(c=='V')return 5;if(c=='X')return 10;if(c=='L')return 50;if(c=='C')return 100;if(c=='D')return 500;if(c=='M')return 1000;return 0;}
 ```
 <!-- c -->
-
--   **[*plus ultra*]:** Refactorizar a un `switch` con cláusula `default`
-    retornando `-1` ante error ({ref}`0x1003h`).
--   **[*plus ultra*]:** Escribir tests unitarios con `assert()`.
 
 :::
 <!-- {exercise} -->
@@ -2868,10 +2663,6 @@ int base_conv(int n, int b, char out[], int max_len)
 ```
 <!-- {code-block} c -->
 
--   **[*plus ultra*]:** Validar que $2 \le b \le 16$ y $n \ge 0$.
--   **[*plus ultra*]:** Modularizar la inversión del arreglo en una función
-    `invertir_arreglo_char`.
-
 :::
 <!-- {exercise} -->
 
@@ -2889,9 +2680,6 @@ El siguiente código implementa búsqueda binaria pero utiliza el cálculo riesg
 int bsearch(int a[],int n,int x){int l=0,r=n-1;while(l<=r){int m=(l+r)/2;if(a[m]==x)return m;if(a[m]<x)l=m+1;else r=m-1;}return -1;}
 ```
 <!-- c -->
-
--   **[*plus ultra*]:** Reemplazar por `int medio = l + (r - l) / 2;`.
--   **[*plus ultra*]:** Agregar `const` al arreglo y formatear en Allman.
 
 :::
 <!-- {exercise} -->
@@ -2960,11 +2748,6 @@ usando la fórmula $X_{n+1} = (a X_n + c) \pmod m$:
 int lcg(int seed){return(seed*1103515245+12345)&0x7FFFFFFF;}
 ```
 <!-- c -->
-
--   **[*plus ultra*]:** Reemplazar constantes mágicas por `#define
-    LCG_MULTIPLICADOR` y `#define LCG_INCREMENTO`.
--   **[*plus ultra*]:** Diseñar la función pura `int
-    generar_siguiente_aleatorio(int semilla_actual)`.
 
 :::
 <!-- {exercise} -->

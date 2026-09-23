@@ -43,16 +43,6 @@ n \times factorial(n-1) & \text{si } n > 0
 \end{cases}
 $$ 
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
-    definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
-    para copiar la estructura de forma segura.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_25_2)=
 ### Ejercicio 25.2 - Suma ⭐⭐☆☆☆
 
@@ -67,16 +57,6 @@ suma(a+1, b-1) & \text{si } b > 0
 \end{cases}
 $$ 
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_25_3)=
 ### Ejercicio 25.3 - Producto ⭐⭐☆☆☆
 
@@ -90,16 +70,6 @@ a + producto(a, b-1) & \text{si } b > 0
 \end{cases}
 $$ 
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de
-    cola (*tail recursion*) para reducir el consumo de pila.
--   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas
-    realizadas para analizar la complejidad empírica.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_25_4)=
 ### Ejercicio 25.4 - Potencia ⭐⭐☆☆☆
 
@@ -112,17 +82,6 @@ potencia(base, exp) =
 base \times potencia(base, exp-1) & \text{si } exp > 0
 \end{cases}
 $$ 
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de
-    cola (*tail recursion*) para reducir el consumo de pila.
--   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas
-    realizadas para analizar la complejidad empírica.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 
@@ -142,17 +101,6 @@ fib(n-1) + fib(n-2) & \text{si } n > 1
 \end{cases}
 $$ 
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 
 ## Arreglos Recursivos
@@ -162,48 +110,17 @@ $$
 Imprimir el primer elemento y luego llamar a la función con el resto del
 arreglo.
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_25_7)=
 ### Ejercicio 25.7 - Mostrar arreglo invertido ⭐⭐⭐☆☆
 
 Llamar a la función con el resto del arreglo y luego imprimir el primer
 elemento.
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_25_8)=
 ### Ejercicio 25.8 - Suma de valores ⭐⭐☆☆☆
 
 Sumar el primer elemento con el resultado de llamar a la función sobre el resto
 del arreglo.
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 
@@ -223,16 +140,6 @@ Un palíndromo se lee igual en ambos sentidos.
 **Ejemplo:** `neuquen`
 - `es_palindromo("neuquen")` es verdadero.
 
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 (ejercicio_25_10)=
 ## Ejercicio 25.10 - Factorial Recursivo ⭐☆☆☆☆
 
@@ -242,17 +149,6 @@ Implementá factorial de forma recursiva.
 - Caso base: `n <= 1` retorna 1
 - Caso recursivo: `n * factorial(n-1)`
 - Limitación: rápido overflow para n grande
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de
-    cola (*tail recursion*) para reducir el consumo de pila.
--   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas
-    realizadas para analizar la complejidad empírica.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_25_11)=
@@ -264,17 +160,6 @@ Calculá base^exponente recursivamente.
 - Caso base: `exp == 0` retorna 1
 - Caso recursivo: `base * potencia(base, exp-1)`
 - Versión mejorada (siguiente ejercicio)
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de
-    cola (*tail recursion*) para reducir el consumo de pila.
--   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas
-    realizadas para analizar la complejidad empírica.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_25_12)=
@@ -290,17 +175,6 @@ Optimizá potencia usando divide y conquista.
 - Complejidad: O(log n) en lugar de O(n)
 - Mucho más eficiente para exponentes grandes
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_25_13)=
 ## Ejercicio 25.13 - Suma de Dígitos ⭐⭐☆☆☆
@@ -310,17 +184,6 @@ Sumá los dígitos de un número recursivamente.
 **Orientación:**
 - Caso base: `n < 10` retorna n
 - Caso recursivo: `(n % 10) + suma_digitos(n / 10)`
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de
-    cola (*tail recursion*) para reducir el consumo de pila.
--   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas
-    realizadas para analizar la complejidad empírica.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_25_14)=
@@ -333,17 +196,6 @@ Invertí un string recursivamente.
 - Caso recursivo: último carácter + invertir(resto)
 - Pensá en índices: `invertir(str, inicio, fin)`
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_25_15)=
 ## Ejercicio 25.15 - Fibonacci Recursivo ⭐⭐⭐☆☆
@@ -354,17 +206,6 @@ Calculá el n-ésimo número de Fibonacci.
 - Caso base: `n <= 1` retorna n
 - Caso recursivo: `fib(n-1) + fib(n-2)`
 - **Advertencia:** Muy ineficiente (exponencial) para n grande
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de
-    cola (*tail recursion*) para reducir el consumo de pila.
--   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas
-    realizadas para analizar la complejidad empírica.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_25_16)=
@@ -378,17 +219,6 @@ Optimizá Fibonacci usando memoización (caché de resultados).
 - Después de calcular: `memo[n] = resultado`
 - Complejidad: de O(2^n) a O(n)
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_25_17)=
 ## Ejercicio 25.17 - Suma de Array ⭐⭐☆☆☆
@@ -399,17 +229,6 @@ Sumá elementos de un array recursivamente.
 - Caso base: array vacío (`n == 0`) retorna 0
 - Caso recursivo: `arr[0] + suma(arr+1, n-1)`
 - O con índices: `arr[i] + suma(arr, i+1, n)`
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_25_18)=
@@ -424,17 +243,6 @@ Implementá búsqueda binaria de forma recursiva.
 - Si `arr[medio] > objetivo`: buscar en mitad izquierda
 - Si `arr[medio] < objetivo`: buscar en mitad derecha
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Implementar encapsulamiento completo manteniendo la
-    definición interna oculta en el archivo `.c`.
--   **[*plus ultra*]:** Añadir una función de duplicación profunda (*deep copy*)
-    para copiar la estructura de forma segura.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_25_19)=
 ## Ejercicio 25.19 - Máximo en Array ⭐⭐⭐☆☆
@@ -445,17 +253,6 @@ Encontrá el máximo de un array recursivamente.
 - Caso base: array de 1 elemento retorna ese elemento
 - Caso recursivo: `max(arr[0], maximo(arr+1, n-1))`
 - Divide y conquista: dividir en mitades y comparar máximos
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_25_20)=
@@ -469,17 +266,6 @@ Verificá si un string es palíndromo recursivamente.
 - Si iguales: recursión en substring sin extremos
 - Si diferentes: false
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_25_21)=
 ## Ejercicio 25.21 - Torre de Hanoi ⭐⭐⭐⭐☆
@@ -492,16 +278,6 @@ Resolvé el problema de la Torre de Hanoi.
 - Nunca poner disco grande sobre uno pequeño
 
 **Orientación:**
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ```{code-block} c
 :linenos:
@@ -533,17 +309,6 @@ Generá todas las permutaciones de un string.
 - Recursión en resto del string
 - Al retornar, deshacé el intercambio (backtracking)
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Garantizar la terminación con `\0` y prevenir
-    desbordamientos de búfer validando la capacidad máxima.
--   **[*plus ultra*]:** Soportar la lectura de cadenas con espacios y múltiples
-    líneas de manera robusta.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_25_23)=
 ## Ejercicio 25.23 - Subconjuntos (Power Set) ⭐⭐⭐⭐⭐
@@ -555,17 +320,6 @@ Generá todos los subconjuntos de un conjunto.
 - Dos llamadas recursivas: con elemento y sin elemento
 - Caso base: conjunto vacío
 - Total: 2^n subconjuntos
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_25_24)=
@@ -583,17 +337,6 @@ Implementá ordenamiento MergeSort.
 - Función auxiliar `merge` para fusionar
 - Complejidad: O(n log n)
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_25_25)=
 ## Ejercicio 25.25 - QuickSort ⭐⭐⭐⭐⭐
@@ -610,17 +353,6 @@ Implementá ordenamiento QuickSort.
 - Función `particionar` retorna posición del pivote
 - Complejidad promedio: O(n log n)
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_25_26)=
 ## Ejercicio 25.26 - N Reinas ⭐⭐⭐⭐⭐
@@ -635,17 +367,6 @@ ataquen).
 - Si llegás a la última fila: solución encontrada
 - Backtracking si no hay posición válida
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_25_27)=
 ## Ejercicio 25.27 - Laberinto (Path Finding) ⭐⭐⭐⭐⭐
@@ -659,17 +380,6 @@ Encontrá camino en un laberinto desde inicio a fin.
 - Si llegás a destino: true
 - Backtracking: desmarcá visitado al retornar
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Optimizar el acceso a memoria respetando el orden por
-    filas (*row-major order*) para mejorar el uso de caché.
--   **[*plus ultra*]:** Validar que los índices ingresados se encuentren
-    estrictamente dentro de los límites del contenedor.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_25_28)=
 ## Ejercicio 25.28 - Combinaciones (n choose k) ⭐⭐⭐⭐⭐
@@ -681,17 +391,6 @@ Generá todas las combinaciones de k elementos de un conjunto de n.
 - Si elegís: k-1 elementos restantes
 - Si no elegís: k elementos de n-1 restantes
 - Caso base: k==0 (solución completa) o n<k (imposible)
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_25_29)=
@@ -707,31 +406,9 @@ Resolvé un Sudoku usando backtracking.
 - Si recursión falla: deshacé (backtracking), probá siguiente número
 - Caso base: no hay celdas vacías (solución encontrada)
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de
-    cola (*tail recursion*) para reducir el consumo de pila.
--   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas
-    realizadas para analizar la complejidad empírica.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_25_30)=
 ## Ejercicio 25.30 - s Adicionales ⭐⭐☆☆☆
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 (ejercicio_25_31)=
 ### Ejercicio 25.31 - Coeficiente Binomial ⭐⭐⭐☆☆
@@ -741,17 +418,6 @@ Calculá C(n,k) = n! / (k! × (n-k)!) recursivamente.
 **Orientación:**
 - Identidad de Pascal: `C(n,k) = C(n-1,k-1) + C(n-1,k)`
 - Casos base: `C(n,0) = 1`, `C(n,n) = 1`
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Validar estrictamente los datos de entrada para manejar
-    valores fuera de rango o tipos inválidos.
--   **[*plus ultra*]:** Permitir el procesamiento interactivo continuo mediante
-    un lazo hasta que el usuario elija finalizar.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 (ejercicio_25_32)=
@@ -763,17 +429,6 @@ Implementá algoritmo de Euclides recursivamente.
 - Caso base: `b == 0` retorna a
 - Caso recursivo: `gcd(b, a % b)`
 
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Transformar el algoritmo a una versión con recursión de
-    cola (*tail recursion*) para reducir el consumo de pila.
--   **[*plus ultra*]:** Añadir un contador del número de llamadas recursivas
-    realizadas para analizar la complejidad empírica.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 (ejercicio_25_33)=
 ### Ejercicio 25.33 - Árbol de Expresión ⭐⭐⭐⭐⭐
@@ -784,17 +439,6 @@ Evaluá una expresión matemática representada como árbol binario.
 - Nodos hoja: números
 - Nodos internos: operadores (+, -, *, /)
 - Evaluación postorden: evaluar izquierdo, derecho, aplicar operador
-
-
-:::{hint} Lógica y Consideraciones
-
--   **[*plus ultra*]:** Verificar el retorno de asignación de memoria y
-    garantizar la liberación total de recursos en caso de error.
--   **[*plus ultra*]:** Verificar la ausencia de fugas de memoria (*memory
-    leaks*) mediante Valgrind o AddressSanitizer.
-
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 

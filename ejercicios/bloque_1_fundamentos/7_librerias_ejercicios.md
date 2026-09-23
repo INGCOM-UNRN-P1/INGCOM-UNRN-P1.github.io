@@ -42,7 +42,6 @@ Diseñá e implementá la librería `geometria2d.h` y `geometria2d.c` para cálc
 - `double geo_perimetro_circulo(double radio)`: perímetro de un círculo.
 
 :::{hint} Lógica y Consideraciones
-- **[*plus ultra*]:** Validar que dimensiones como radio, ancho y alto no sean negativas (retornar `-1.0` en caso de error).
 - Usá la constante `M_PI` definida en `<math.h>`.
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -77,11 +76,6 @@ Diseñá `estadistica.h` y `estadistica.c` operando sobre arreglos de `double`:
 - `double est_maximo(const double *datos, size_t n)`
 - `double est_minimo(const double *datos, size_t n)`
 
-:::{hint} Lógica y Consideraciones
-- **[*plus ultra*]:** Validar puntero `NULL` o `n == 0` retornando `NAN` (`math.h`).
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
 ---
 
 (ejercicio_7_4)=
@@ -92,11 +86,6 @@ Implementá la librería `primos.h` y `primos.c`:
 - `unsigned long primo_siguiente(unsigned long n)`
 - `size_t primo_contar_en_rango(unsigned long inicio, unsigned long fin)`
 - `void primo_factores_primos(unsigned long n, unsigned long *factores, size_t *cant)`
-
-:::{hint} Lógica y Consideraciones
-- **[*plus ultra*]:** Optimizar el chequeo de primalidad probando divisores hasta `sqrt(n)`.
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 
@@ -134,12 +123,6 @@ Reimplementá funciones estándar de `<string.h>` en la librería `seguras.h` y 
 - `strcat`: copiá `src` al final de `dest` sin sobrepasar `len_dest`
 - `strchr`: retorna puntero a la primera aparición de `c` dentro del límite indicado
 - Verificá límites de destino para evitar desbordamientos de búfer.
-
-:::{hint} Lógica y Consideraciones
-- **[*plus ultra*]:** Diseñar una suite de pruebas unitarias con `assert()` en `tests/` que verifique cadenas vacías y límites exactos de búfer.
-- **[*plus ultra*]:** Documentar con etiquetas Doxygen (`@pre`, `@post`) los contratos de seguridad de cada función.
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 
@@ -285,7 +268,6 @@ Diseñá `array_utils.h` y `array_utils.c` para procesar secuencias numéricas m
 
 :::{hint} Lógica y Consideraciones
 - Utilizá el calificador `const` en los arreglos de solo lectura y documentá precondiciones claras para cada función.
-- **[*plus ultra*]:** Escribir pruebas unitarias con `assert()` en `tests/` para verificar arreglos vacíos y con valores negativos.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -467,7 +449,6 @@ Creá `color_utils.h` y `color_utils.c` para cálculos de color mediante operaci
 
 :::{hint} Lógica y Consideraciones
 - Validá que `factor` se encuentre en el rango $[0.0, 1.0]$.
-- **[*plus ultra*]:** Implementar pruebas unitarias con `assert()` para colores básicos (blanco, negro, primarios).
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -502,7 +483,6 @@ Implementá `flags.h` y `flags.c` para gestionar conjuntos de opciones mediante 
 
 :::{hint} Lógica y Consideraciones
 - Validá que `indice < n` antes de acceder a las posiciones del arreglo.
-- **[*plus ultra*]:** Escribir pruebas unitarias con `assert()` en `tests/` para verificar el correcto cambio de estado.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -531,11 +511,6 @@ Creá `checksum.h` y `checksum.c`:
 - `bool chk_luhn_validar(const char *digitos, size_t len_digitos)`
 - `unsigned char chk_suma_paridad(const unsigned char *datos, size_t len)`
 - `uint16_t chk_fletcher16(const unsigned char *datos, size_t len)`
-
-:::{hint} Lógica y Consideraciones
-- **[*plus ultra*]:** Validar que `datos` no sea `NULL` y manejar adecuadamente los desbordamientos intermedios.
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 
