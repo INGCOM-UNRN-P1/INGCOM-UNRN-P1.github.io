@@ -534,7 +534,7 @@ typedef struct
     int edad;
 } persona_t;
 /**
- * Duplica una cadena en memoria dinámica verificando la precondición de
+ * Duplica una cadena en memoria dinámica verificando la precondición de que el puntero origen no sea NULL.
  * terminación en nulo.
  */
 char *duplicar_cadena(const char *cadena)

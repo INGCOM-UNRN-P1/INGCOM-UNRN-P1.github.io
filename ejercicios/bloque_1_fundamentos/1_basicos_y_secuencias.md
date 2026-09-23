@@ -46,9 +46,9 @@ debe introducir una pausa de 1 segundo entre cada número impreso.
 
 :::{hint} Lógica y Consideraciones
 -   **Entrada:** El programa debe solicitar al usuario un número entero positivo
--   **Proceso:** Se debe utilizar un lazo que itere desde $N$ hacia abajo, hasta
--   **Pausa:** Dentro del lazo, después de imprimir cada número, el programa
--   **Salida:** Tras finalizar el lazo, se debe imprimir el mensaje final
+-   **Proceso:** Se debe utilizar un lazo que itere desde $N$ hacia abajo, hasta llegar a 1.
+-   **Pausa:** Dentro del lazo, después de imprimir cada número, el programa debe pausar la ejecución durante 1 segundo.
+-   **Salida:** Tras finalizar el lazo, se debe imprimir el mensaje final de "¡Lanzamiento!".
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -111,10 +111,10 @@ usuario. Debe solicitarle su nombre y luego mostrar un saludo personalizado que
 lo incluya. Sirve para practicar la lectura de datos desde la entrada estándar.
 
 :::{hint} Lógica y Consideraciones
--   **Variables:** Se necesita una variable para almacenar el nombre del
--   **Entrada:** El programa debe primero mostrar un mensaje pidiendo al usuario
--   **Funciones de Lectura:** Se puede usar `scanf()` para leer la entrada, pero
--   **Salida:** Finalmente, el programa debe imprimir el saludo personalizado,
+-   **Variables:** Se necesita una variable para almacenar el nombre del usuario.
+-   **Entrada:** El programa debe primero mostrar un mensaje pidiendo al usuario su nombre.
+-   **Funciones de Lectura:** Se puede usar `scanf()` o `fgets()` para leer la entrada del usuario.
+-   **Salida:** Finalmente, el programa debe imprimir el saludo personalizado incluyendo el nombre.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -153,7 +153,7 @@ proporcionados por el usuario.
 :::{hint} Lógica y Consideraciones
 -   **Entrada:** Se deben leer dos números enteros, `n` (inicio del rango) y `m`
 -   **Proceso:** Se utiliza un lazo `for` que recorra cada número `i` desde `n`
--   **Condición de Paridad:** Dentro del lazo, para cada número `i`, se debe
+-   **Condición de Paridad:** Dentro del lazo, para cada número `i`, se debe verificar si `i % 2 == 0`.
 -   **Salida:** Si la condición de paridad se cumple, el número `i` se imprime
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -187,7 +187,7 @@ desde 1, hasta alcanzar un total de $N$ términos, donde $N$ es un número
 proporcionado por el usuario.
 
 :::{hint} Lógica y Consideraciones
--   **Entrada:** Se debe leer un número entero $N$ que representa la cantidad de
+-   **Entrada:** Se debe leer un número entero $N$ que representa la cantidad de números impares a generar.
 -   **Proceso:** Se puede abordar de dos maneras:
 -   **Salida:** Se imprime la secuencia de los primeros $N$ números impares.
 :::
@@ -227,7 +227,7 @@ matemático `[n, m)`.
 :::{hint} Lógica y Consideraciones
 -   **Entrada:** Leer los enteros `n` (inclusive) y `m` (exclusive).
 -   **Proceso:** Utilizar un lazo `for` que se inicialice en `n` y continúe
--   **Salida:** En cada iteración del lazo, imprimir el valor actual del
+-   **Salida:** En cada iteración del lazo, imprimir el valor actual del contador de la secuencia.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -290,10 +290,10 @@ Calcular la suma de todos los números enteros en un rango cerrado `[n, m]`. Est
 es equivalente a la operación matemática $\sum_{i=n}^{m} i$.
 
 :::{hint} Lógica y Consideraciones
--   **Variables:** Se necesita una variable `acumulador` (o `suma`),
+-   **Variables:** Se necesita una variable `acumulador` (o `suma`), inicializada en 0.
 -   **Entrada:** Leer los enteros `n` y `m`.
 -   **Proceso:** Usar un lazo `for` que itere desde `n` hasta `m`. En cada
--   **Salida:** Después de que el lazo termine, imprimir el valor final del
+-   **Salida:** Después de que el lazo termine, imprimir el valor final del acumulador.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -329,7 +329,7 @@ cerrado `[n, m]`. La operación es $\sum_{i=n}^{m} i^2$.
 :::{hint} Lógica y Consideraciones
 -   **Variables:** Se necesita un `acumulador` inicializado en 0.
 -   **Entrada:** Leer los enteros `n` y `m`.
--   **Proceso:** Usar un lazo `for` que itere de `n` a `m`. En cada iteración,
+-   **Proceso:** Usar un lazo `for` que itere de `n` a `m`. En cada iteración, sumar `i * i` al acumulador.
 -   **Salida:** Al final, imprimir el valor del `acumulador`.
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -371,8 +371,8 @@ impar.
 :::{hint} Lógica y Consideraciones
 -   **Entrada:** Leer un único número entero.
 -   **Proceso:** La propiedad matemática clave es que un número entero es par si
--   **Condición:** Se utiliza una estructura `if-else`. Si `numero % 2 == 0`, el
--   **Salida:** Imprimir un mensaje claro que indique el resultado, como "El
+-   **Condición:** Se utiliza una estructura `if-else`. Si `numero % 2 == 0`, el número es par; de lo contrario, es impar.
+-   **Salida:** Imprimir un mensaje claro que indique el resultado, como "El número es par" o "El número es impar".
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -405,7 +405,7 @@ El programa debe clasificar un número real (de punto flotante) ingresado por el
 usuario en una de tres categorías: positivo, negativo o cero.
 
 :::{hint} Lógica y Consideraciones
--   **Entrada:** Leer un número que puede tener decimales (tipo `float` o
+-   **Entrada:** Leer un número que puede tener decimales (tipo `float` o `double`).
 -   **Proceso:** Utilizar una estructura de condicionales anidados o `if-else
 -   **Condiciones:**
 -   **Salida:** Imprimir el mensaje correspondiente a la categoría.
@@ -448,7 +448,7 @@ altura. La fórmula es $A = \frac{1}{2} b \cdot h$.
 
 :::{hint} Lógica y Consideraciones
 -   **Entrada:** Solicitar al usuario dos valores: la base (`b`) y la altura
--   **Proceso:** Aplicar la fórmula matemática directamente. En C, esto se
+-   **Proceso:** Aplicar la fórmula matemática directamente. En C, esto se calcula como `(base * altura) / 2.0`.
 -   **Salida:** Mostrar el área calculada.
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -518,7 +518,7 @@ Calcular el área y la circunferencia (perímetro) de un círculo a partir de su
 radio.
 
 :::{hint} Lógica y Consideraciones
--   **Constantes:** Se necesita el valor de $\pi$. Se puede definir como una
+-   **Constantes:** Se necesita el valor de $\pi$. Se puede definir como una macro con `#define PI 3.14159265` o `const double`.
 -   **Entrada:** Solicitar al usuario el valor del radio (`r`).
 -   **Proceso:**
 -   **Salida:** Mostrar ambos resultados de forma clara.
@@ -705,7 +705,7 @@ segundos) a su valor total equivalente en segundos.
 
 :::{hint} Lógica y Consideraciones
 -   **Relaciones:** Recordar que 1 grado = 60 minutos y 1 minuto = 60 segundos.
--   **Entrada:** Solicitar al usuario tres valores enteros: grados, minutos y
+-   **Entrada:** Solicitar al usuario tres valores enteros: grados, minutos y segundos.
 -   **Proceso:** Aplicar la fórmula de conversión: $total = (grados \times 3600)
 -   **Salida:** Mostrar el total de segundos.
 :::
@@ -745,7 +745,7 @@ multiplicar, desde el 1 hasta el 10.
 :::{hint} Lógica y Consideraciones
 -   **Entrada:** Leer un número entero, que será la base de la tabla.
 -   **Proceso:** Utilizar un lazo `for` que itere desde 1 hasta 10. En cada
--   **Salida:** Dentro del lazo, imprimir la operación y su resultado en un
+-   **Salida:** Dentro del lazo, imprimir la operación y su resultado en una línea por iteración.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -779,7 +779,7 @@ de `n` filas de altura, construido con asteriscos.
 :::{hint} Lógica y Consideraciones
 -   **Entrada:** Leer un entero `n` para la altura del triángulo.
 -   **Proceso:** Se necesitan dos lazos aninados.
--   **Salida:** Después de que el lazo interior complete sus iteraciones para
+-   **Salida:** Después de que el lazo interior complete sus iteraciones para la fila actual, imprimir un salto de línea.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -814,8 +814,8 @@ realizar (+, -, *, /).
 
 :::{hint} Lógica y Consideraciones
 -   **Entrada:** Leer dos números (pueden ser `double` para mayor flexibilidad)
--   **Proceso:** Utilizar una estructura `switch` (o `if-else if`) para
--   **Caso Especial:** Manejar la división por cero. Si el operador es `/` y el
+-   **Proceso:** Utilizar una estructura `switch` (o `if-else if`) para seleccionar la operación según el operador ingresado.
+-   **Caso Especial:** Manejar la división por cero. Si el operador es `/` y el divisor es 0, informar error al usuario.
 -   **Salida:** Mostrar el resultado de la operación o el mensaje de error.
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -864,7 +864,7 @@ usuario.
 
 :::{hint} Lógica y Consideraciones
 -   **Generación Aleatoria:**
--   **Proceso:** Usar un lazo `do-while` o `while` que se repita hasta que el
+-   **Proceso:** Usar un lazo `do-while` o `while` que se repita hasta que el usuario adivine el número secreto.
 -   **Entrada:** Dentro del lazo, solicitar al usuario que ingrese su intento.
 -   **Condiciones:** Comparar el intento con el número secreto y dar una pista:
 :::
@@ -907,7 +907,7 @@ serie, cada número es la suma de los dos anteriores, comenzando con 0 y 1.
 
 :::{hint} Lógica y Consideraciones
 -   **Variables:** Se necesitan al menos tres variables para mantener el estado:
--   **Casos Base:** Los primeros dos términos (para n=0 y n=1) son fijos (0 y
+-   **Casos Base:** Los primeros dos términos (para n=0 y n=1) son fijos (0 y 1 respectivamente).
 -   **Proceso:**
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1178,7 +1178,7 @@ billetes de distintas denominaciones para representar dicho monto.
 
 :::{hint} Lógica y Consideraciones
 -   **Entrada:** Leer un monto entero.
--   **Denominaciones:** Definir las denominaciones de billetes disponibles en un
+-   **Denominaciones:** Definir las denominaciones de billetes disponibles en un arreglo o mediante divisiones enteras sucesivas.
 -   **Proceso:** Utilizar divisiones y el operador módulo para calcular cuántos
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1219,7 +1219,7 @@ juegue una partida contra la computadora.
 
 :::{hint} Lógica y Consideraciones
 -   **Entrada del Usuario:** Pedir al usuario que elija una opción (ej.
--   **Elección de la Computadora:** Generar un número aleatorio entre 1 y 3 para
+-   **Elección de la Computadora:** Generar un número aleatorio entre 1 y 3 para representar la jugada de la máquina.
 -   **Reglas del Juego:**
     -   Piedra vence a Tijera.
     -   Tijera vence a Papel.
@@ -1268,7 +1268,7 @@ filas de altura, construido con asteriscos, centrado como una pirámide.
 -   **Entrada:** Leer un entero `n` para la altura del triángulo.
 -   **Proceso:** Se necesitan dos lazos aninados.
         -   El primer lazo interior imprime los espacios en blanco necesarios
-        -   El segundo lazo interior imprime los asteriscos. En la fila `i`, se
+        -   El segundo lazo interior imprime los asteriscos. En la fila `i`, se imprimen `2 * i - 1` asteriscos.
 -   **Salida:** Después de cada fila, imprimir un salto de línea.
 :::
 <!-- {hint} Lógica y Consideraciones -->
@@ -1311,9 +1311,9 @@ uso de lazos `do-while` y la comparación de cadenas.
 
 :::{hint} Lógica y Consideraciones
 -   **Contraseña Secreta:** Definir una contraseña correcta como una cadena
--   **Entrada:** Dentro de un lazo, solicitar al usuario que ingrese la
+-   **Entrada:** Dentro de un lazo, solicitar al usuario que ingrese la contraseña por consola.
 -   **Proceso:** Usar un lazo `do-while` es ideal aquí, ya que la solicitud debe
--   **Comparación de Cadenas:** En C, las cadenas no se pueden comparar con
+-   **Comparación de Cadenas:** En C, las cadenas no se pueden comparar con `==`; se debe utilizar la función `strcmp()`.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1407,7 +1407,7 @@ Implementar un programa que pida un número impar `n` e imprima un rombo de
 asteriscos de `n` filas de altura.
 
 :::{hint} Lógica y Consideraciones
--   **Estructura:** Un rombo puede verse como una pirámide seguida de una
+-   **Estructura:** Un rombo puede verse como una pirámide seguida de una pirámide invertida.
 -   **Entrada:** Leer un entero impar `n`.
 -   **Proceso:**
 :::
@@ -1697,8 +1697,8 @@ utilizando asteriscos. El interior del cuadrado debe estar vacío.
 
 :::{hint} Lógica y Consideraciones
 -   **Entrada:** Leer un entero `n`.
--   **Proceso:** Usar lazos aninados. El lazo exterior para las filas y el
--   **Condición:** Dentro del lazo interior, se debe decidir si imprimir un
+-   **Proceso:** Usar lazos aninados. El lazo exterior para las filas y el lazo interior para las columnas.
+-   **Condición:** Dentro del lazo interior, se debe decidir si imprimir un asterisco en los bordes o un espacio en el interior.
     -   Es la primera o la última fila (`fila == 1` o `fila == n`).
     -   Es la primera o la última columna (`columna == 1` o `columna == n`).
 -   En cualquier otro caso, se imprime un espacio.
@@ -1739,7 +1739,7 @@ los números pares y la suma de todos los números impares de forma independient
 y mostrar ambos resultados.
 
 :::{hint} Lógica y Consideraciones
--   **Variables:** Se necesitan dos acumuladores: `suma_pares` y `suma_impares`,
+-   **Variables:** Se necesitan dos acumuladores: `suma_pares` y `suma_impares`, ambos inicializados en 0.
 -   **Entrada:** Leer los enteros `n` y `m`.
 -   **Proceso:**
 -   **Salida:** Mostrar los valores finales de ambas sumas.
