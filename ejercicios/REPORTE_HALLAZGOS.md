@@ -296,3 +296,38 @@ Evaluación generada mediante Jev System One (`askJev`) y conteo determinista:
    - Creación del script de auditoría estática `ejercicios/verificar_calidad.mjs` (0 boilerplate residual, 0 anclas desfasadas toleradas).
    - Pipeline de GitHub Actions configurado en `.github/workflows/ci-ejercicios.yml` con ejecución dual de compuerta sintáctica y verificación estricta de compilación C11 en cada push y pull request.
 
+---
+
+### Re-Evaluación Global Sistemática con TypeSafe Jev (Fases 1 a 6)
+
+- **Archivos auditados:** 34
+- **Promedio general de calidad Jev:** **55.44** (elevado desde 22.49 original)
+- **Distribución de niveles:**
+  - **EXCELENTE (80-100):** 1 archivo (`1_punteros.md` con 85)
+  - **BUENO (60-79):** 8 archivos (`3_archivos_binarios.md`: 78, `1b_punteros_ejercicios.md`: 72, `6_structs.md`: 71, `7_alias_tipos_ejercicios.md`: 69, `4_testing_y_estructura.md`: 68, `8_compilacion_y_makefiles.md`: 65, `3b_ejercicios_archivos.md`: 64, `4c_ejercicios_memoria.md`: 64, `9_refactorizacion_codigo_ofuscado.md`: 62)
+  - **MEJORABLE (40-59):** 25 archivos
+  - **DEFICIENTE (0-39):** **0 archivos** (eliminación del 100% de archivos deficientes)
+
+---
+
+### Siguientes Fases de Mejora Hacia la Calificación Máxima
+
+7. **Fase 7: Elevación a EXCELENTE del Bloque de Memoria Fundamental (`bloque_2_memoria`) (En ejecución):**
+   - Editorializar `2_arreglos.md` (39 ej), `2b_cadenas.md` (41 ej), `3_archivos.md` (15 ej) y `4_memoria_dinamica.md` (34 ej).
+   - Implementar contratos de límites, centinelas nulos, desreferenciación segura y suites unitarias con `assert()`.
+   - Meta: Llevar el bloque a índice Jev $\ge 80$.
+
+8. **Fase 8: Elevación a EXCELENTE del Bloque de Fundamentos (`bloque_1_fundamentos`):**
+   - Editorializar `1_basicos_y_secuencias.md`, `3_matematicos.md`, `5_ejercicios_control.md` y `6_funciones_ejercicios.md`.
+   - Incorporar tablas de vectores para tipos primitivos (`int`, `float`, `char`), overflow/underflow, aserciones y modularización.
+   - Meta: Índice Jev $\ge 80$ en fundamentos.
+
+9. **Fase 9: Elevación a EXCELENTE de Algoritmos, Estructuras y Avanzados (`bloque_3` y `bloque_4`):**
+   - Editorializar matrices (`1_matrices.md`), TADs (`2_tad.md`), estructuras de datos (`3_estructuras_de_datos.md`), recursión (`5_recursion.md`), punteros a funciones (`1_punteros_avanzados.md`) y bitwise (`2_operaciones_de_bits.md`).
+   - Meta: Índice Jev $\ge 80$ en estructuras de datos y temas avanzados.
+
+10. **Fase 10: Certificación Global del Repositorio e Invariantes de Compilación:**
+    - Expansión de la lista de archivos certificados en `verificar_calidad.mjs` y CI al 100% de los 34 archivos.
+    - 0 advertencias bajo `-Wall -Wextra -Werror -pedantic -std=c11`.
+    - Índice de calidad ponderado del repositorio $\ge 85$ (Rango EXCELENTE institucional).
+
