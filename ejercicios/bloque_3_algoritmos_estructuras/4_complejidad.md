@@ -32,7 +32,6 @@ b) $T(n) = 3n \log n + 2n + 50$
 c) $T(n) = 2^n + n^3 + 1000n$  
 d) $T(n) = \log(n^2) + \sqrt{n}$  
 e) $T(n) = n! + 2^n + n^{10}$
-(ejercicio_24_2)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -44,12 +43,12 @@ e) $T(n) = n! + 2^n + n^{10}$
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_24_2)=
 ### Ejercicio 24.2 - Comparación de Funciones ⭐⭐☆☆☆
 
 Ordenar las siguientes funciones de menor a mayor tasa de crecimiento
 asintótico:
 $$\log n, \quad n^2, \quad 2^n, \quad n!, \quad n \log n, \quad \sqrt{n}, \quad n^3, \quad 1, \quad n \log^2 n, \quad 2^{2n}$$
-(ejercicio_24_3)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -61,6 +60,7 @@ $$\log n, \quad n^2, \quad 2^n, \quad n!, \quad n \log n, \quad \sqrt{n}, \quad 
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_24_3)=
 ### Ejercicio 24.3 - Verdadero o Falso ⭐⭐☆☆☆
 
 Determinar si las siguientes afirmaciones son verdaderas o falsas. Justificar.
@@ -72,7 +72,6 @@ e) $3^n = O(2^n)$
 f) $\log_2 n = O(\log_{10} n)$  
 g) $n \log n = O(n^2)$  
 h) $n^2 = \Omega(n \log n)$
-(ejercicio_24_4)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -84,6 +83,7 @@ h) $n^2 = \Omega(n \log n)$
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_24_4)=
 ### Ejercicio 24.4 - Demostración Formal de Big-O ⭐⭐☆☆☆
 
 Demostrar formalmente que $f(n) = 3n^2 + 5n + 2$ es $O(n^2)$ encontrando

@@ -32,7 +32,6 @@ Implementar un par de funciones para crear y destruir un arreglo dinámico.
 - `void liberar_arreglo(int *arr)`: Debe llamar a `free(arr)` para devolver la
   memoria al sistema. Después de liberar, es una buena práctica asignar `NULL`
   al puntero para evitar su uso accidental (puntero colgante).
-(ejercicio_14_2)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -44,6 +43,7 @@ Implementar un par de funciones para crear y destruir un arreglo dinámico.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_2)=
 ### Ejercicio 14.2 - Duplicadora ⭐⭐☆☆☆
 
 Implementar `int* duplicar_arreglo(const int *origen, size_t tamano)`.
@@ -53,7 +53,6 @@ Implementar `int* duplicar_arreglo(const int *origen, size_t tamano)`.
 2.  Verificar que la reserva de memoria fue exitosa.
 3.  Recorrer el arreglo de origen y copiar cada elemento al nuevo arreglo.
 4.  Retornar el puntero al nuevo arreglo.
-(ejercicio_14_3)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -65,6 +64,7 @@ Implementar `int* duplicar_arreglo(const int *origen, size_t tamano)`.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_3)=
 ### Ejercicio 14.3 - Fusión de Arreglos Ordenados ⭐⭐⭐☆☆
 
 Implementar `int* fusionar(const int *a1, size_t n1, const int *a2, size_t n2)`.
@@ -77,7 +77,6 @@ Implementar `int* fusionar(const int *a1, size_t n1, const int *a2, size_t n2)`.
     al nuevo arreglo, incrementando el contador correspondiente y `k`.
 4.  Al salir del lazo, copiar los elementos restantes del arreglo que no se haya
     completado.
-(ejercicio_14_4)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -89,6 +88,7 @@ Implementar `int* fusionar(const int *a1, size_t n1, const int *a2, size_t n2)`.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_4)=
 ### Ejercicio 14.4 - Inserción y Eliminación ⭐⭐☆☆☆
 
 Crear funciones que modifiquen un arreglo dinámico. Estas operaciones son
@@ -102,7 +102,6 @@ costosas porque pueden requerir realojar toda la estructura.
   reducir el tamaño del bloque de memoria.
 
 ## Cadenas Dinámicas
-(ejercicio_14_5)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -114,6 +113,7 @@ costosas porque pueden requerir realojar toda la estructura.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_5)=
 ### Ejercicio 14.5 - Concatenación dinámica ⭐⭐⭐☆☆
 
 Implementar `char* concatenar(const char *s1, const char *s2)`. **Algoritmo:**
@@ -123,7 +123,6 @@ Implementar `char* concatenar(const char *s1, const char *s2)`. **Algoritmo:**
 2.  Reservar memoria con `malloc` para este tamaño.
 3.  Copiar la primera cadena (`s1`) al nuevo bloque.
 4.  Concatenar la segunda cadena (`s2`) al final.
-(ejercicio_14_6)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -135,6 +134,7 @@ Implementar `char* concatenar(const char *s1, const char *s2)`. **Algoritmo:**
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_6)=
 ### Ejercicio 14.6 - Deduplicador ⭐⭐☆☆☆
 
 Implementar `char* deduplicar(const char *s)`. Como el tamaño final es
@@ -145,7 +145,6 @@ desconocido, una estrategia de dos pasadas es robusta:
     el tamaño de la cadena resultante.
 2.  **Segunda pasada**: Reservar memoria del tamaño exacto y construir la nueva
     cadena solo con los caracteres únicos.
-(ejercicio_14_7)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -157,6 +156,7 @@ desconocido, una estrategia de dos pasadas es robusta:
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_7)=
 ### Ejercicio 14.7 - Fraccionador (Tokenizer) ⭐⭐☆☆☆
 
 Implementar `char** dividir_cadena(const char *s, int *n_palabras)`. Esta
@@ -217,7 +217,6 @@ arreglo de punteros.
 - **Liberación**: Debe seguir el orden inverso. Primero, en un lazo, se libera
   la memoria de cada fila, y finalmente se libera el arreglo que contenía los
   punteros a las filas.
-(ejercicio_14_9)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -229,6 +228,7 @@ arreglo de punteros.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_9)=
 ### Ejercicio 14.9 - Multiplicación ⭐⭐☆☆☆
 
 Implementar `int** multiplicar(int **A, int m, int n, int **B, int p, int q)`.
@@ -240,7 +240,6 @@ Implementar `int** multiplicar(int **A, int m, int n, int **B, int p, int q)`.
     elemento $c_{ij}$ y almacenarlo en la nueva matriz. $$ c_{ij} =
     \sum_{k=1}^{n} a_{ik} \cdot b_{kj} $$
 4.  Retornar el puntero a la matriz `C`.
-(ejercicio_14_10)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -252,9 +251,9 @@ Implementar `int** multiplicar(int **A, int m, int n, int **B, int p, int q)`.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_10)=
 ## Ejercicio 14.10 - s Adicionales ⭐⭐☆☆☆
 
-(ejercicio_14_11)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -266,13 +265,13 @@ Implementar `int** multiplicar(int **A, int m, int n, int **B, int p, int q)`.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_11)=
 ### Ejercicio 14.11 - Redimensionar Arreglo ⭐⭐⭐☆☆
 
 Implementar una función `int* redimensionar_arreglo(int* arr, size_t
 nuevo_tamano)` que utilice `realloc` para cambiar el tamaño de un arreglo
 dinámico. La función debe manejar tanto la expansión como la contracción del
 arreglo y gestionar posibles fallos de `realloc`.
-(ejercicio_14_12)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -284,6 +283,7 @@ arreglo y gestionar posibles fallos de `realloc`.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_12)=
 ### Ejercicio 14.12 - Vector de Crecimiento Dinámico ⭐⭐⭐☆☆
 
 Implementar una estructura `vector_t` que simule un `std::vector` de C++. Debe
@@ -293,7 +293,6 @@ contener un puntero a los datos, un tamaño (`size`) y una capacidad
 - `vector_push_back(vector_t* v, int dato)`: Añade un elemento al final. Si
   `size == capacity`, debe duplicar la capacidad usando `realloc`.
 - `vector_destruir(vector_t* v)`: Libera toda la memoria.
-(ejercicio_14_13)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -305,12 +304,12 @@ contener un puntero a los datos, un tamaño (`size`) y una capacidad
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_13)=
 ### Ejercicio 14.13 - Leer Archivo a Cadena Dinámica ⭐⭐⭐☆☆
 
 Escribir una función `char* leer_archivo_completo(const char* ruta)` que lea
 todo el contenido de un archivo de texto y lo devuelva en una única cadena
 alojada dinámicamente. El tamaño del archivo no se conoce de antemano.
-(ejercicio_14_14)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -322,12 +321,12 @@ alojada dinámicamente. El tamaño del archivo no se conoce de antemano.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_14)=
 ### Ejercicio 14.14 - Matriz Triangular Dinámica ⭐⭐⭐☆☆
 
 Crear una función que reserve memoria para una matriz triangular inferior. Cada
 fila `i` debe tener `i+1` columnas. La función debe devolver un `int**` y se
 debe implementar su correspondiente función de liberación.
-(ejercicio_14_15)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -339,6 +338,7 @@ debe implementar su correspondiente función de liberación.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_15)=
 ### Ejercicio 14.15 - strdup Propio ⭐⭐☆☆☆
 
 Implementar su propia versión de la función no estándar `strdup`, que recibe una
@@ -346,7 +346,6 @@ cadena y devuelve un puntero a una nueva cadena en memoria dinámica con el mism
 contenido.
 
 `char* mi_strdup(const char* s);`
-(ejercicio_14_16)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -358,13 +357,13 @@ contenido.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_16)=
 ### Ejercicio 14.16 - calloc vs. malloc ⭐⭐☆☆☆
 
 Escribir un programa que reserve dos arreglos de enteros del mismo tamaño, uno
 con `malloc` y otro con `calloc`. Imprimir el contenido de ambos arreglos
 inmediatamente después de la reserva para demostrar que `calloc` inicializa la
 memoria a cero.
-(ejercicio_14_17)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -376,12 +375,12 @@ memoria a cero.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_17)=
 ### Ejercicio 14.17 - Concatenar Múltiples Cadenas ⭐⭐⭐☆☆
 
 Escribir una función `char* concatenar_muchas(char** cadenas, int n_cadenas)`
 que reciba un arreglo de cadenas y las una todas en una sola cadena dinámica,
 separadas por un espacio.
-(ejercicio_14_18)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -393,13 +392,13 @@ separadas por un espacio.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_18)=
 ### Ejercicio 14.18 - Clonación Profunda de Struct ⭐⭐⭐☆☆
 
 Definir una `struct` que contenga miembros de tipo puntero (ej. `char* nombre`,
 `int* notas`). Escribir una función de "clonación profunda" que cree una copia
 completamente nueva e independiente de la `struct`, incluyendo la reserva de
 nueva memoria para los datos a los que apuntan los punteros.
-(ejercicio_14_19)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -411,13 +410,13 @@ nueva memoria para los datos a los que apuntan los punteros.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_19)=
 ### Ejercicio 14.19 - Particionar Arreglo Dinámicamente ⭐⭐⭐☆☆
 
 Escribir una función que reciba un arreglo dinámico y lo divida en dos nuevos
 arreglos dinámicos: uno con los números pares y otro con los impares. La función
 debe devolver estos dos nuevos arreglos (por ejemplo, a través de punteros por
 referencia).
-(ejercicio_14_20)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -429,12 +428,12 @@ referencia).
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_20)=
 ### Ejercicio 14.20 - Historial de Comandos ⭐⭐☆☆☆
 
 Crear un programa que lea líneas de texto desde la entrada estándar y las
 almacene en un "historial" (un arreglo dinámico de cadenas `char**`). El
 historial debe crecer dinámicamente a medida que se añaden comandos.
-(ejercicio_14_21)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -446,12 +445,12 @@ historial debe crecer dinámicamente a medida que se añaden comandos.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_21)=
 ### Ejercicio 14.21 - Matriz Irregular (Ragged Array) ⭐⭐⭐☆☆
 
 Reservar memoria para una matriz dinámica donde cada fila puede tener un número
 diferente de columnas. Las dimensiones (número de columnas de cada fila) se
 deben leer de un arreglo de configuración.
-(ejercicio_14_22)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -463,13 +462,13 @@ deben leer de un arreglo de configuración.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_22)=
 ### Ejercicio 14.22 - Liberación Profunda ⭐⭐☆☆☆
 
 Escribir una función `void liberar_historial(char** historial, int n_comandos)`
 que libere correctamente toda la memoria utilizada por la estructura del
 ejercicio 1.19: primero la memoria de cada cadena individual y luego la memoria
 del arreglo de punteros.
-(ejercicio_14_23)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -481,13 +480,13 @@ del arreglo de punteros.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_23)=
 ### Ejercicio 14.23 - Buffer de Lectura Dinámico ⭐⭐⭐☆☆
 
 Crear una función que lea una línea completa desde `stdin` (hasta el salto de
 línea), alojando dinámicamente la memoria necesaria para la línea sin imponer un
 límite de tamaño predefinido. La función podría empezar con un buffer pequeño y
 usar `realloc` para agrandarlo según sea necesario.
-(ejercicio_14_24)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -499,6 +498,7 @@ usar `realloc` para agrandarlo según sea necesario.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_24)=
 ### Ejercicio 14.24 - Lista de Compras Dinámica ⭐⭐⭐☆☆
 
 Crear un programa interactivo que permita al usuario gestionar una lista de
@@ -507,7 +507,6 @@ compras. Las opciones deben ser:
 2. Eliminar producto.
 3. Mostrar lista.
 La lista debe ser un arreglo de `char*` que se ajuste dinámicamente.
-(ejercicio_14_25)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -519,6 +518,7 @@ La lista debe ser un arreglo de `char*` que se ajuste dinámicamente.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_25)=
 ### Ejercicio 14.25 - Manejo de Errores de malloc ⭐⭐☆☆☆
 
 Modificar uno de los ejercicios anteriores (ej. 1.2, Duplicadora) para que, si
@@ -527,7 +527,6 @@ de error claro a `stderr` y termine de forma controlada (ej.
 `exit(EXIT_FAILURE)`), en lugar de fallar por desreferenciar un puntero nulo.
 
 ## Más Ejercicios de Memoria Dinámica
-(ejercicio_14_26)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -539,13 +538,13 @@ de error claro a `stderr` y termine de forma controlada (ej.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_26)=
 ### Ejercicio 14.26 - Filtro de Arreglo Dinámico ⭐⭐⭐☆☆
 
 Crear una función que reciba un arreglo dinámico, su tamaño y un puntero a una
 función "predicado" (`bool (*pred)(int)`). La función debe devolver un **nuevo**
 arreglo dinámico que contenga únicamente los elementos del arreglo original para
 los cuales el predicado devuelve `true`.
-(ejercicio_14_27)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -557,13 +556,13 @@ los cuales el predicado devuelve `true`.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_27)=
 ### Ejercicio 14.27 - Mapa Simple (Clave-Valor) ⭐☆☆☆☆
 
 Implementar una estructura para un mapa simple (diccionario) que almacene pares
 clave-valor (`char*`-`int`). El mapa debe usar un arreglo dinámico de `struct
 par {char* clave; int valor;}`. La tabla debe crecer usando `realloc` cuando se
 quede sin espacio.
-(ejercicio_14_28)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -575,13 +574,13 @@ quede sin espacio.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_28)=
 ### Ejercicio 14.28 - Unir Líneas de Archivo ⭐⭐☆☆☆
 
 Escribir un programa que lea todas las líneas de un archivo y las almacene en un
 arreglo dinámico de cadenas (`char**`). Luego, crear una función que una todas
 estas cadenas en una sola, separadas por un espacio, y la devuelva como una
 nueva cadena dinámica.
-(ejercicio_14_29)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -593,12 +592,12 @@ nueva cadena dinámica.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_29)=
 ### Ejercicio 14.29 - Sub-arreglo Dinámico ⭐⭐⭐☆☆
 
 Crear una función `int* sub_arreglo(const int* arr, size_t inicio, size_t fin)`
 que devuelva un nuevo arreglo dinámico conteniendo una copia de los elementos
 del arreglo original desde el índice `inicio` hasta `fin-1`.
-(ejercicio_14_30)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -610,6 +609,7 @@ del arreglo original desde el índice `inicio` hasta `fin-1`.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_30)=
 ### Ejercicio 14.30 - Matriz Dinámica en Bloque Contiguo ⭐⭐⭐☆☆
 
 Implementar la creación y liberación de una matriz `M x N` de dos formas:
@@ -618,7 +618,6 @@ Implementar la creación y liberación de una matriz `M x N` de dos formas:
     punteros `int**` donde cada puntero `[i]` se calcula para que apunte a la
     fila `i` dentro del bloque contiguo. Comparar la complejidad de liberación
     de ambas.
-(ejercicio_14_31)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -630,11 +629,11 @@ Implementar la creación y liberación de una matriz `M x N` de dos formas:
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_31)=
 ### Ejercicio 14.31 - realloc con NULL ⭐⭐☆☆☆
 
 Escribir un pequeño programa que demuestre que `realloc(NULL, n)` se comporta de
 manera idéntica a `malloc(n)`. Verificar que la memoria se asigna correctamente.
-(ejercicio_14_32)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -646,12 +645,12 @@ manera idéntica a `malloc(n)`. Verificar que la memoria se asigna correctamente
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_32)=
 ### Ejercicio 14.32 - realloc con Tamaño Cero ⭐⭐☆☆☆
 
 Escribir un pequeño programa que demuestre que `realloc(ptr, 0)` se comporta de
 manera idéntica a `free(ptr)`. Verificar que el puntero original ya no es válido
 después de la operación.
-(ejercicio_14_33)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -663,12 +662,12 @@ después de la operación.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_33)=
 ### Ejercicio 14.33 - Arreglo Dinámico de Structs ⭐⭐⭐☆☆
 
 Alojar dinámicamente un arreglo de `structs` (ej. `producto_t` de un ejercicio
 anterior). Implementar funciones para añadir y buscar elementos en este arreglo,
 usando `realloc` para expandir el arreglo cuando sea necesario.
-(ejercicio_14_34)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -680,13 +679,13 @@ usando `realloc` para expandir el arreglo cuando sea necesario.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_34)=
 ### Ejercicio 14.34 - Implementar getline ⭐⭐☆☆☆
 
 Implementar una versión simplificada de la función `getline` de POSIX. La
 función `ssize_t mi_getline(char **lineptr, size_t *n, FILE *stream)` debe leer
 una línea de `stream`, almacenarla en un buffer apuntado por `*lineptr` y
 expandir dicho buffer con `realloc` si es necesario.
-(ejercicio_14_35)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -698,13 +697,13 @@ expandir dicho buffer con `realloc` si es necesario.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_35)=
 ### Ejercicio 14.35 - Pila (Stack) Dinámica ⭐⭐⭐☆☆
 
 Implementar una Pila (Stack) usando un arreglo dinámico. La estructura debe
 tener capacidad y tamaño. Cuando la pila se llena, su capacidad debe duplicarse.
 Cuando el tamaño es un cuarto de la capacidad, esta debe reducirse a la mitad.
 Implementar `push`, `pop` y `peek`.
-(ejercicio_14_36)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -716,6 +715,7 @@ Implementar `push`, `pop` y `peek`.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_14_36)=
 ## Ejercicio 14.36 - Array Dinámico Simple ⭐☆☆☆☆
 
 Leé un tamaño `n`, creá un array dinámico de `n` enteros, llenalo, mostralo y

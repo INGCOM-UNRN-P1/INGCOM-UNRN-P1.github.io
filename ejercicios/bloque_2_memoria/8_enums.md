@@ -2010,7 +2010,6 @@ Investigar y documentar:
 - Rendimiento de operaciones con enums vs constantes
 - Optimizaciones del compilador con enums
 - Diferencias entre C y C++ en el manejo de enums
-(ejercicio_20_58)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -2022,6 +2021,7 @@ Investigar y documentar:
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_20_58)=
 ## Ejercicio 20.58 - Enumeración de Días ⭐☆☆☆☆
 
 Definí una enumeración para días de la semana y mostrá el nombre según el valor.

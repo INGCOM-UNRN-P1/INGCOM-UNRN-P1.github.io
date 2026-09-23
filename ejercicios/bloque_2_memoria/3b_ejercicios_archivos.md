@@ -24,7 +24,6 @@ en C.
 (ejercicio_13_1)=
 ## Ejercicio 13.1 - s Propuestos ⭐⭐☆☆☆
 
-(ejercicio_13_2)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -36,6 +35,7 @@ en C.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_13_2)=
 ### Ejercicio 13.2 - b.1 - Escribir un diario personal ⭐⭐☆☆☆
 
 :::{exercise}

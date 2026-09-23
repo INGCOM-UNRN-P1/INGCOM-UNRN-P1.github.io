@@ -578,7 +578,6 @@ FIN PROCEDIMIENTO
 (ejercicio_21_8)=
 ## Ejercicio 21.8 - s Adicionales de Matrices ⭐⭐⭐☆☆
 
-(ejercicio_21_9)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -590,6 +589,7 @@ FIN PROCEDIMIENTO
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_21_9)=
 ### Ejercicio 21.9 - Matriz simétrica ⭐⭐⭐☆☆
 
 #### Descripción
@@ -882,7 +882,6 @@ FIN PROCEDIMIENTO
 (ejercicio_21_12)=
 ## Ejercicio 21.12 - s de Matrices Dinámicas ⭐⭐⭐☆☆
 
-(ejercicio_21_13)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -894,6 +893,7 @@ FIN PROCEDIMIENTO
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_21_13)=
 ### Ejercicio 21.13 - Crear y llenar matriz dinámica ⭐⭐⭐☆☆
 
 #### Descripción
@@ -980,7 +980,6 @@ FIN PROCEDIMIENTO
 Implementar dos funciones: una que refleje una matriz horizontalmente (la
 primera fila se intercambia con la última, la segunda con la penúltima, etc.) y
 otra que la refleje verticalmente (la primera columna con la última, etc.).
-(ejercicio_21_15)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -992,12 +991,12 @@ otra que la refleje verticalmente (la primera columna con la última, etc.).
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_21_15)=
 ### Ejercicio 21.15 - Intercambiar filas o columnas ⭐⭐☆☆☆
 
 Crear funciones `intercambiar_filas(mat, f1, f2)` e `intercambiar_columnas(mat,
 c1, c2)` que modifiquen la matriz intercambiando los elementos de las filas o
 columnas especificadas.
-(ejercicio_21_16)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -1009,13 +1008,13 @@ columnas especificadas.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_21_16)=
 ### Ejercicio 21.16 - Búsqueda de submatriz ⭐⭐⭐☆☆
 
 Escribir una función que determine si una matriz pequeña `B` (de `k x l`) se
 encuentra dentro de una matriz más grande `A` (de `m x n`). La función debe
 devolver las coordenadas de la esquina superior izquierda de la primera
 ocurrencia, o `(-1, -1)` si no se encuentra.
-(ejercicio_21_17)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -1027,10 +1026,10 @@ ocurrencia, o `(-1, -1)` si no se encuentra.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_21_17)=
 ### Ejercicio 21.17 - Determinante de matriz 3x3 ⭐⭐⭐☆☆
 
 Calcular el determinante de una matriz 3x3 utilizando la Regla de Sarrus.
-(ejercicio_21_18)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -1042,12 +1041,12 @@ Calcular el determinante de una matriz 3x3 utilizando la Regla de Sarrus.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_21_18)=
 ### Ejercicio 21.18 - Suavizado de matriz (Filtro de caja) ⭐⭐⭐☆☆
 
 Implementar un filtro de "suavizado" o "blur". Para cada elemento de la matriz,
 su nuevo valor será el promedio de sus 8 vecinos y él mismo. Los elementos en
 los bordes requerirán un manejo especial.
-(ejercicio_21_19)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -1059,12 +1058,12 @@ los bordes requerirán un manejo especial.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_21_19)=
 ### Ejercicio 21.19 - Detección de bordes (Operador de Sobel) ⭐⭐☆☆☆
 
 Aplicar un operador de Sobel simple para la detección de bordes. Esto implica
 "convolucionar" la matriz con un `kernel` (otra matriz pequeña, ej. 3x3) para
 resaltar las diferencias de intensidad, como los bordes.
-(ejercicio_21_20)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -1076,12 +1075,12 @@ resaltar las diferencias de intensidad, como los bordes.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_21_20)=
 ### Ejercicio 21.20 - Matriz de permutación ⭐⭐⭐☆☆
 
 Verificar si una matriz cuadrada es una matriz de permutación. Esta es una
 matriz binaria (solo 0s y 1s) que tiene exactamente un `1` en cada fila y en
 cada columna.
-(ejercicio_21_21)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -1093,12 +1092,12 @@ cada columna.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_21_21)=
 ### Ejercicio 21.21 - Producto de Hadamard ⭐⭐☆☆☆
 
 Implementar el producto de Hadamard (o producto elemento a elemento) de dos
 matrices `A` y `B` de las mismas dimensiones. La matriz resultante `C` se define
 como $c_{ij} = a_{ij} \cdot b_{ij}$.
-(ejercicio_21_22)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -1110,11 +1109,11 @@ como $c_{ij} = a_{ij} \cdot b_{ij}$.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_21_22)=
 ### Ejercicio 21.22 - Rellenar con triángulo de Pascal ⭐⭐☆☆☆
 
 Escribir una función que llene una matriz `N x N` con los valores del Triángulo
 de Pascal. El elemento `(i, j)` debe ser $\binom{i}{j}$.
-(ejercicio_21_23)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -1126,6 +1125,7 @@ de Pascal. El elemento `(i, j)` debe ser $\binom{i}{j}$.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_21_23)=
 ### Ejercicio 21.23 - Matriz antisimétrica ⭐⭐⭐☆☆
 
 Verificar si una matriz cuadrada es antisimétrica. Una matriz `A` es
@@ -1134,7 +1134,6 @@ Esto implica que $a_{ij} = -a_{ji}$ y que todos los elementos de la diagonal
 principal deben ser cero.
 
 ## Operaciones Avanzadas con Matrices
-(ejercicio_21_24)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -1146,6 +1145,7 @@ principal deben ser cero.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_21_24)=
 ### Ejercicio 21.24 - Norma de matriz ⭐⭐⭐☆☆
 
 Implementar funciones que calculen diferentes normas de una matriz.
@@ -2290,7 +2290,6 @@ Implementá una generación del Juego de la Vida de Conway.
 (ejercicio_21_72)=
 ## Ejercicio 21.72 - s Adicionales ⭐⭐☆☆☆
 
-(ejercicio_21_73)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -2302,6 +2301,7 @@ Implementá una generación del Juego de la Vida de Conway.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_21_73)=
 ### Ejercicio 21.73 - Matriz Pascal (Triángulo de Pascal) ⭐⭐⭐⭐☆
 
 Generá el triángulo de Pascal como matriz.

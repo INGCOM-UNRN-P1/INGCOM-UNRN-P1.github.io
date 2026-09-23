@@ -26,7 +26,6 @@ aritmética básica de indirección de memoria en C.
 (ejercicio_9_1)=
 ## Ejercicio 9.1 - s ⭐⭐☆☆☆
 
-(ejercicio_9_2)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -38,6 +37,7 @@ aritmética básica de indirección de memoria en C.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_9_2)=
 ### Ejercicio 9.2 - b.1 - Intercambiar valores ⭐⭐☆☆☆
 
 :::{exercise}

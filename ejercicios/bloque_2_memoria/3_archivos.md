@@ -51,7 +51,6 @@ Desarrollar una función `bool es_formato_correcto(const char *ruta)`.
 **Lógica**: Abrir el archivo, leer el primer número (la cuenta esperada). Luego,
 iterar con `fgets` o `fscanf` contando las líneas restantes. Finalmente,
 comparar la cuenta real con la esperada.
-(ejercicio_12_2)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -63,6 +62,7 @@ comparar la cuenta real con la esperada.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_12_2)=
 ### Ejercicio 12.2 - ¿Está ordenado? ⭐⭐☆☆☆
 
 Implementar `int verificar_orden(const char *ruta)`.
@@ -94,7 +94,6 @@ formato.
 
 **Ejemplo de uso:**
 `./ordena_archivo entrada.txt salida_ordenada.txt asc`
-(ejercicio_12_4)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -106,6 +105,7 @@ formato.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_12_4)=
 ### Ejercicio 12.4 - Generador lineal ⭐⭐☆☆☆
 
 Implementar `generar_lineal(ruta, cantidad, inicio, paso)`.
@@ -161,7 +161,6 @@ Implementar `generar_aleatorio(ruta, cantidad, min, max)`.
 Implementar una versión simple del comando `wc` de Unix. El programa debe
 recibir una ruta de archivo y reportar el número total de líneas, palabras y
 caracteres que contiene.
-(ejercicio_12_7)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -173,12 +172,12 @@ caracteres que contiene.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_12_7)=
 ### Ejercicio 12.7 - Copiar Archivo ⭐⭐☆☆☆
 
 Crear un programa que copie el contenido de un archivo de origen a un archivo de
 destino. El programa debe recibir ambas rutas como argumentos. Se puede hacer
 leyendo y escribiendo línea por línea o en bloques de bytes.
-(ejercicio_12_8)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -190,12 +189,12 @@ leyendo y escribiendo línea por línea o en bloques de bytes.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_12_8)=
 ### Ejercicio 12.8 - Buscar y Reemplazar en Archivo ⭐⭐☆☆☆
 
 Escribir un programa que busque todas las ocurrencias de una cadena en un
 archivo y las reemplace por otra, guardando el resultado en un nuevo archivo de
 salida.
-(ejercicio_12_9)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -207,12 +206,12 @@ salida.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_12_9)=
 ### Ejercicio 12.9 - Comparar Archivos ⭐⭐⭐☆☆
 
 Implementar un programa que compare dos archivos de texto e indique si son
 idénticos o no. Opcionalmente, puede reportar la primera línea y número de
 columna donde difieren.
-(ejercicio_12_10)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -224,12 +223,12 @@ columna donde difieren.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_12_10)=
 ### Ejercicio 12.10 - Fusionar Archivos ⭐⭐⭐☆☆
 
 Crear un programa que reciba dos rutas de archivo y fusione su contenido en un
 tercer archivo. El contenido del segundo archivo debe aparecer después del
 contenido del primero.
-(ejercicio_12_11)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -241,12 +240,12 @@ contenido del primero.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_12_11)=
 ### Ejercicio 12.11 - Dividir Archivo Grande ⭐⭐☆☆☆
 
 Escribir un programa que divida un archivo de texto grande en varios archivos
 más pequeños, cada uno con un número máximo de $N$ líneas. Los nombres de los
 archivos de salida pueden ser `parte_1.txt`, `parte_2.txt`, etc.
-(ejercicio_12_12)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -258,12 +257,12 @@ archivos de salida pueden ser `parte_1.txt`, `parte_2.txt`, etc.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_12_12)=
 ### Ejercicio 12.12 - Archivos CSV - Promedio de Columna ⭐⭐⭐☆☆
 
 Leer un archivo en formato CSV (valores separados por comas) que contiene datos
 de estudiantes (ej. `nombre,nota1,nota2`). Calcular el promedio de una columna
 numérica específica (ej. la segunda columna de notas) e imprimir el resultado.
-(ejercicio_12_13)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -275,6 +274,7 @@ numérica específica (ej. la segunda columna de notas) e imprimir el resultado.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_12_13)=
 ## Ejercicio 12.13 - Crear Archivo de Texto ⭐☆☆☆☆
 
 Creá un archivo de texto y escribí "Hola, archivo!" en él.
@@ -751,7 +751,6 @@ archivos.
 (ejercicio_12_33)=
 ## Ejercicio 12.33 - s Adicionales ⭐⭐☆☆☆
 
-(ejercicio_12_34)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -763,6 +762,7 @@ archivos.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_12_34)=
 ### Ejercicio 12.34 - Cifrado César ⭐⭐⭐⭐☆
 
 Cifrá/descifrá un archivo usando cifrado César (rotación de N posiciones en

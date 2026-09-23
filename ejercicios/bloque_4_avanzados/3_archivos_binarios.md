@@ -114,7 +114,6 @@ anteriores.
 - **Origen**: El desplazamiento debe hacerse desde el inicio del archivo
   (`SEEK_SET`).
 - **Lectura**: Una vez posicionado, usar `fread` para leer un solo registro.
-(ejercicio_28_4)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -126,6 +125,7 @@ anteriores.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_28_4)=
 ### Ejercicio 28.4 - Actualizar Registro ⭐⭐☆☆☆
 
 Implementar una función `void actualizar_stock(int n, int nuevo_stock)` que

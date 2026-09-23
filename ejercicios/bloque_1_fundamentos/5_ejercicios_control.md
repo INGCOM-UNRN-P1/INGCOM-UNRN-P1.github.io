@@ -400,7 +400,6 @@ int main(void)
 (ejercicio_4_8)=
 ## Ejercicios de Práctica de Control
 
-(ejercicio_4_9)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -412,11 +411,11 @@ int main(void)
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_4_9)=
 ### Ejercicio 4.9 - Mayor de dos números reales ⭐⭐☆☆☆
 
 Escribí un programa que solicite dos números reales al usuario y muestre cuál es
 el mayor.
-(ejercicio_4_10)=
 
 :::{hint} Lógica y Consideraciones
     desbordamientos de búfer validando la capacidad máxima.
@@ -428,11 +427,11 @@ el mayor.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_4_10)=
 ### Ejercicio 4.10 - Números del 1 al 100 ⭐⭐☆☆☆
 
 Diseñá un programa que imprima en pantalla los números enteros del 1 al 100
 utilizando un lazo `for`.
-(ejercicio_4_11)=
 
 :::{hint} Lógica y Consideraciones
     valores fuera de rango o tipos inválidos.
@@ -444,11 +443,11 @@ utilizando un lazo `for`.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_4_11)=
 ### Ejercicio 4.11 - Suma de pares del 1 al 100 ⭐⭐☆☆☆
 
 Desarrollá un algoritmo que sume los números pares comprendidos en el rango del
 1 al 100 inclusive.
-(ejercicio_4_12)=
 
 :::{hint} Lógica y Consideraciones
     valores fuera de rango o tipos inválidos.
@@ -460,11 +459,11 @@ Desarrollá un algoritmo que sume los números pares comprendidos en el rango de
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_4_12)=
 ### Ejercicio 4.12 - Verificación de número primo ⭐⭐☆☆☆
 
 Escribí un programa que solicite un número entero positivo e indique si es un
 número primo (divisible únicamente por 1 y por sí mismo).
-(ejercicio_4_13)=
 
 :::{hint} Lógica y Consideraciones
     valores fuera de rango o tipos inválidos.
@@ -476,11 +475,11 @@ número primo (divisible únicamente por 1 y por sí mismo).
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_4_13)=
 ### Ejercicio 4.13 - Estado de aprobación de calificación ⭐⭐⭐☆☆
 
 Escribí un programa que pida una calificación (0 a 10) e indique si el
 estudiante aprobó (calificación mayor o igual a 4).
-(ejercicio_4_14)=
 
 :::{hint} Lógica y Consideraciones
     definición interna oculta en el archivo `.c`.
@@ -492,11 +491,11 @@ estudiante aprobó (calificación mayor o igual a 4).
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_4_14)=
 ### Ejercicio 4.14 - Contraseña de caracteres iterativa ⭐⭐☆☆☆
 
 Escribí un programa que solicite repetidamente una contraseña de caracteres al
 usuario hasta que coincida con un valor establecido de acceso seguro.
-(ejercicio_4_15)=
 
 :::{hint} Lógica y Consideraciones
     valores fuera de rango o tipos inválidos.
@@ -508,6 +507,7 @@ usuario hasta que coincida con un valor establecido de acceso seguro.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_4_15)=
 ## Ejercicio 4.15 - Contar del 1 al 10 ⭐☆☆☆☆
 
 Mostrá los números del 1 al 10 usando un lazo `for`.
@@ -1004,7 +1004,6 @@ Encontrá todos los números primos hasta N usando la Criba de Eratóstenes.
 (ejercicio_4_35)=
 ## Ejercicios Adicionales de Patrones
 
-(ejercicio_4_36)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -1016,6 +1015,7 @@ Encontrá todos los números primos hasta N usando la Criba de Eratóstenes.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_4_36)=
 ### Ejercicio 4.36 - Pirámide Centrada ⭐⭐⭐⭐⭐
 
 Dibujá una pirámide centrada de asteriscos.

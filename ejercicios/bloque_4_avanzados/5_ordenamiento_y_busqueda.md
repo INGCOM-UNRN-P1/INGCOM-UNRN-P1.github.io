@@ -37,7 +37,6 @@ búsqueda más simple y no requiere que el arreglo esté ordenado.
 - **Salida**: Si se encuentra el elemento, devolver su índice `i`. Si el lazo
   termina sin encontrarlo, devolver `-1`.
 - **Complejidad Temporal**: $O(n)$.
-(ejercicio_30_2)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -49,6 +48,7 @@ búsqueda más simple y no requiere que el arreglo esté ordenado.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_30_2)=
 ### Ejercicio 30.2 - Búsqueda Binaria ⭐⭐☆☆☆
 
 Implementar una función de búsqueda binaria, un algoritmo mucho más eficiente
@@ -96,7 +96,6 @@ necesiten más intercambios.
 - **Optimización**: Se puede agregar una bandera para detectar si en una pasada
   completa no se realizó ningún intercambio, en cuyo caso el arreglo ya está
   ordenado y el algoritmo puede terminar antes.
-(ejercicio_30_4)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -108,6 +107,7 @@ necesiten más intercambios.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_30_4)=
 ### Ejercicio 30.4 - Ordenamiento por Selección (Selection Sort) ⭐⭐☆☆☆
 
 Implementar el ordenamiento por selección. Este algoritmo divide el arreglo en
@@ -120,7 +120,6 @@ esta, moviendo así el límite entre ambas partes.
   iteración, el lazo interior (de `j = i+1` a `n-1`) busca el índice del
   elemento mínimo en el resto del arreglo. Finalmente, se intercambia el
   elemento en `i` con el mínimo encontrado.
-(ejercicio_30_5)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -132,6 +131,7 @@ esta, moviendo así el límite entre ambas partes.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_30_5)=
 ### Ejercicio 30.5 - Ordenamiento por Inserción (Insertion Sort) ⭐⭐☆☆☆
 
 Implementar el ordenamiento por inserción. Este método construye el arreglo
@@ -173,7 +173,6 @@ Vencerás".
   3. **Combinar**: Implementar una función `merge` que tome las dos mitades ya
      ordenadas y las fusione en un único arreglo ordenado. Este paso requiere un
      arreglo auxiliar.
-(ejercicio_30_7)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -185,6 +184,7 @@ Vencerás".
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_30_7)=
 ### Ejercicio 30.7 - Ordenamiento Rápido (Quick Sort) ⭐⭐☆☆☆
 
 Implementar Quick Sort, otro algoritmo "Divide y Vencerás" muy eficiente en la

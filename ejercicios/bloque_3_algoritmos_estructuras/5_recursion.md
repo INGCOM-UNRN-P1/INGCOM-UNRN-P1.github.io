@@ -42,7 +42,6 @@ factorial(n) =
 n \times factorial(n-1) & \text{si } n > 0
 \end{cases}
 $$ 
-(ejercicio_25_2)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -54,6 +53,7 @@ $$
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_25_2)=
 ### Ejercicio 25.2 - Suma ⭐⭐☆☆☆
 
 Definir la suma de $a+b$ de forma recursiva. La idea es decrementar uno de los
@@ -66,7 +66,6 @@ a & \text{si } b = 0 \\
 suma(a+1, b-1) & \text{si } b > 0
 \end{cases}
 $$ 
-(ejercicio_25_3)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -78,6 +77,7 @@ $$
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_25_3)=
 ### Ejercicio 25.3 - Producto ⭐⭐☆☆☆
 
 Definir el producto $a \times b$ usando sumas y recursividad.
@@ -89,7 +89,6 @@ producto(a, b) =
 a + producto(a, b-1) & \text{si } b > 0
 \end{cases}
 $$ 
-(ejercicio_25_4)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -101,6 +100,7 @@ $$
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_25_4)=
 ### Ejercicio 25.4 - Potencia ⭐⭐☆☆☆
 
 Definir la potencia $base^{exp}$ usando productos y recursividad.
@@ -161,7 +161,6 @@ $$
 
 Imprimir el primer elemento y luego llamar a la función con el resto del
 arreglo.
-(ejercicio_25_7)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -173,11 +172,11 @@ arreglo.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_25_7)=
 ### Ejercicio 25.7 - Mostrar arreglo invertido ⭐⭐⭐☆☆
 
 Llamar a la función con el resto del arreglo y luego imprimir el primer
 elemento.
-(ejercicio_25_8)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -189,6 +188,7 @@ elemento.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_25_8)=
 ### Ejercicio 25.8 - Suma de valores ⭐⭐☆☆☆
 
 Sumar el primer elemento con el resultado de llamar a la función sobre el resto
@@ -222,7 +222,6 @@ Un palíndromo se lee igual en ambos sentidos.
 
 **Ejemplo:** `neuquen`
 - `es_palindromo("neuquen")` es verdadero.
-(ejercicio_25_10)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -234,6 +233,7 @@ Un palíndromo se lee igual en ambos sentidos.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_25_10)=
 ## Ejercicio 25.10 - Factorial Recursivo ⭐☆☆☆☆
 
 Implementá factorial de forma recursiva.
@@ -722,7 +722,6 @@ Resolvé un Sudoku usando backtracking.
 (ejercicio_25_30)=
 ## Ejercicio 25.30 - s Adicionales ⭐⭐☆☆☆
 
-(ejercicio_25_31)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -734,6 +733,7 @@ Resolvé un Sudoku usando backtracking.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_25_31)=
 ### Ejercicio 25.31 - Coeficiente Binomial ⭐⭐⭐☆☆
 
 Calculá C(n,k) = n! / (k! × (n-k)!) recursivamente.

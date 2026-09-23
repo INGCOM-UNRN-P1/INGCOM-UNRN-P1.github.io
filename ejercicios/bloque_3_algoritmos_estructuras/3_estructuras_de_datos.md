@@ -44,7 +44,6 @@ typedef struct nodo
   asigna el dato y establece su puntero `siguiente` a `NULL`.
 - **`void liberar_lista(nodo_t *cabeza)`**: Recorre la lista y libera la memoria
   de cada nodo uno por uno para evitar fugas de memoria.
-(ejercicio_23_2)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -56,6 +55,7 @@ typedef struct nodo
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_23_2)=
 ### Ejercicio 23.2 - Inserción ⭐⭐☆☆☆
 
 - **`void insertar_al_principio(nodo_t **cabeza, int dato)`**: Crea un nuevo
@@ -63,7 +63,6 @@ typedef struct nodo
   para modificar el puntero `cabeza` original.
 - **`void insertar_al_final(nodo_t *cabeza, int dato)`**: Recorre la lista hasta
   el último nodo y enlaza el nuevo nodo al final.
-(ejercicio_23_3)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -75,6 +74,7 @@ typedef struct nodo
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_23_3)=
 ### Ejercicio 23.3 - Eliminación y Búsqueda ⭐⭐☆☆☆
 
 - **`nodo_t* buscar_nodo(nodo_t *cabeza, int dato)`**: Recorre la lista y
@@ -171,7 +171,6 @@ menores) y un puntero a un sub-árbol derecho (con valores mayores).
   recursiva que encuentra la posición correcta e inserta un nuevo nodo.
 - **`void imprimir_en_orden(nodo_arbol_t *raiz)`**: Recorrido recursivo
   (izquierdo, raíz, derecho) que imprime los elementos de forma ordenada.
-(ejercicio_23_7)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -183,6 +182,7 @@ menores) y un puntero a un sub-árbol derecho (con valores mayores).
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_23_7)=
 ### Ejercicio 23.7 - Tabla Hash (Encadenamiento Separado) ⭐⭐⭐☆☆
 
 Una tabla hash utiliza una función para convertir una clave en un índice de un

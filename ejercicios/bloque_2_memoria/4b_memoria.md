@@ -35,7 +35,6 @@ Escribir un programa que imprima las direcciones de memoria de:
 **Objetivo:** Visualizar las diferentes regiones de memoria y confirmar el
 layout típico: stack (altas direcciones) → heap (bajas direcciones) → data/bss →
 text.
-(ejercicio_15_2)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -47,6 +46,7 @@ text.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_15_2)=
 ### Ejercicio 15.2 - b.2 - Dirección de Crecimiento del Stack ⭐⭐☆☆☆
 
 Escribir una función recursiva que imprima la dirección de una variable local en
@@ -356,7 +356,6 @@ Implementar un vector dinámico con diferentes estrategias de crecimiento:
 - **Fibonacci**: crecer según la secuencia de Fibonacci
 
 Comparar el número de `realloc` realizados al insertar 10,000 elementos.
-(ejercicio_15_12)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -368,6 +367,7 @@ Comparar el número de `realloc` realizados al insertar 10,000 elementos.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_15_12)=
 ### Ejercicio 15.12 - b.12 - Shrinking Inteligente ⭐⭐☆☆☆
 
 Implementar un vector que no solo crece, sino que también reduce su capacidad
@@ -903,7 +903,6 @@ cleanup:
 (ejercicio_15_25)=
 ## Ejercicios Integradores de Memoria Dinámica
 
-(ejercicio_15_26)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -915,6 +914,7 @@ cleanup:
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_15_26)=
 ### Ejercicio 15.26 - b.25 - Diccionario Dinámico Clave-Valor ⭐⭐⭐☆☆
 
 Implementar una estructura de diccionario asociativo en memoria dinámica basada en un arreglo de pares `(clave, valor)`:
@@ -937,7 +937,6 @@ Implementar la asignación, manipulación y liberación de un volumen tridimensi
 - Asignar el arreglo de punteros a matrices 2D, luego los punteros a filas, y finalmente cada fila
 - Implementar la función de liberación que destruya simétricamente cada dimensión en orden inverso
 - Asegurar que ante cualquier fallo parcial de asignación durante la creación, se liberen todos los bloques previamente reservados sin dejar fugas
-(ejercicio_15_28)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -949,12 +948,12 @@ Implementar la asignación, manipulación y liberación de un volumen tridimensi
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_15_28)=
 ### Ejercicio 15.28 - b.27 - Parser de JSON Simplificado ⭐⭐☆☆☆
 
 Crear un parser básico de JSON que construya una estructura de datos en memoria
 dinámica representando el objeto JSON. Manejar cadenas, números, arreglos y
 objetos anidados.
-(ejercicio_15_29)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -966,6 +965,7 @@ objetos anidados.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_15_29)=
 ### Ejercicio 15.29 - b.28 - Sistema de Gestión de Tareas ⭐⭐☆☆☆
 
 Implementar un sistema que mantenga una lista de tareas donde cada tarea tiene:
@@ -977,7 +977,6 @@ El sistema debe permitir agregar, eliminar y buscar tareas, manejando toda la
 memoria correctamente.
 
 ## Preguntas Conceptuales
-(ejercicio_15_30)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -989,6 +988,7 @@ memoria correctamente.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_15_30)=
 ### Ejercicio 15.30 - b.29 - Stack vs Heap ⭐⭐☆☆☆
 
 **Pregunta:** ¿Por qué no podemos simplemente usar el stack para todas las
@@ -998,7 +998,6 @@ asignaciones de memoria? ¿Qué limitaciones tiene?
 crece automáticamente en cada llamada a función, y su memoria tiene scope
 limitado al bloque actual. El heap permite asignaciones grandes, persistencia
 más allá del scope, y tamaño determinado en runtime.
-(ejercicio_15_31)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -1010,6 +1009,7 @@ más allá del scope, y tamaño determinado en runtime.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_15_31)=
 ### Ejercicio 15.31 - b.30 - Fragmentación Interna vs Externa ⭐⭐☆☆☆
 
 **Pregunta:** Explicar la diferencia entre fragmentación interna y externa. Dar
@@ -1020,7 +1020,6 @@ ejemplos de cada una.
 
 **Fragmentación externa:** Espacio libre total suficiente pero dividido en
 bloques no contiguos (ej. después de liberar bloques alternados).
-(ejercicio_15_32)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -1032,6 +1031,7 @@ bloques no contiguos (ej. después de liberar bloques alternados).
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_15_32)=
 ### Ejercicio 15.32 - b.31 - Costos Ocultos de malloc ⭐⭐☆☆☆
 
 **Pregunta:** ¿Por qué `malloc` tiene overhead? ¿Qué información necesita
@@ -1040,7 +1040,6 @@ guardar el allocator?
 **Respuesta esperada:** El allocator guarda metadatos como tamaño del bloque,
 estado (libre/ocupado), punteros a bloques vecinos para coalescing, información
 de alineación. Típicamente 8-16 bytes por bloque.
-(ejercicio_15_33)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -1052,6 +1051,7 @@ de alineación. Típicamente 8-16 bytes por bloque.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_15_33)=
 ### Ejercicio 15.33 - b.32 - free(NULL) ⭐⭐☆☆☆
 
 **Pregunta:** ¿Qué hace `free(NULL)`? ¿Es seguro? ¿Por qué esta semántica es
@@ -1060,7 +1060,6 @@ de alineación. Típicamente 8-16 bytes por bloque.
 **Respuesta esperada:** `free(NULL)` no hace nada y es completamente seguro
 según el estándar C. Esto permite código más simple sin necesidad de verificar
 `if (ptr != NULL) free(ptr)`.
-(ejercicio_15_34)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -1072,6 +1071,7 @@ según el estándar C. Esto permite código más simple sin necesidad de verific
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_15_34)=
 ### Ejercicio 15.34 - b.33 - Tiempo de Vida de Memoria ⭐⭐☆☆☆
 
 **Pregunta:** Clasificar las siguientes asignaciones según su tiempo de vida:

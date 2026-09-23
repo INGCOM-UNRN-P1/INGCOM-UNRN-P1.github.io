@@ -32,7 +32,6 @@ archivos:
   contener el código de las funciones `sumar` y `restar`.
 - **`main.c`**: El programa principal. Debe incluir `calculadora.h` y llamar a
   las funciones para usarlas.
-(ejercicio_6_2)=
 
 :::{hint} Lógica y Consideraciones
     errores de E/S con `ferror` y `feof`.
@@ -44,6 +43,7 @@ archivos:
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_6_2)=
 ### Ejercicio 6.2 - Compilación manual ⭐⭐☆☆☆
 
 **Tarea**: Usando la terminal, compilá y enlazá los archivos del ejercicio

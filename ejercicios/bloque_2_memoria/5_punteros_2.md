@@ -276,7 +276,6 @@ mismo usando la notación `matriz[i][j]`.
 Implementar un vector dinámico de enteros que duplique su capacidad
 automáticamente al llenarse, asegurando un manejo correcto del valor de retorno
 de `realloc` mediante un puntero intermedio temporal.
-(ejercicio_17_11)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -288,11 +287,11 @@ de `realloc` mediante un puntero intermedio temporal.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_17_11)=
 ### Ejercicio 17.11 - Reducción Dinámica de Capacidad (Shrinking) ⭐⭐⭐☆☆
 
 Modificar el vector del ejercicio anterior para reducir su capacidad a la mitad
 si la cantidad de elementos en uso cae por debajo de 1/4 de su capacidad máxima.
-(ejercicio_17_12)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -304,11 +303,11 @@ si la cantidad de elementos en uso cae por debajo de 1/4 de su capacidad máxima
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_17_12)=
 ### Ejercicio 17.12 - Gestión de Memoria en el Parser JSON ⭐⭐☆☆☆
 
 Diseñar las funciones de reserva y liberación para un nodo AST de un parser JSON
 que representa objetos y arreglos anidados mediante punteros dinámicos.
-(ejercicio_17_13)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -320,11 +319,11 @@ que representa objetos y arreglos anidados mediante punteros dinámicos.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_17_13)=
 ### Ejercicio 17.13 - Heap Buffer Overflow ⭐⭐☆☆☆
 
 Escribir un fragmento de código que produzca un desbordamiento de búfer en el
 Heap y explicar cómo AddressSanitizer reporta dicho error.
-(ejercicio_17_14)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -336,6 +335,7 @@ Heap y explicar cómo AddressSanitizer reporta dicho error.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_17_14)=
 ## Ejercicio 17.14 - Matriz Dinámica Dentada ⭐⭐☆☆☆
 
 Creá matriz donde cada fila tiene diferente cantidad de columnas.

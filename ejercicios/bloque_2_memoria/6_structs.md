@@ -49,7 +49,6 @@ operación.
 - **Resta**: $$\frac{a}{b} - \frac{c}{d} = \frac{ad - bc}{bd}$$
 - **Multiplicación**: $$\frac{a}{b} \times \frac{c}{d} = \frac{ac}{bd}$$
 - **División**: $$\frac{a}{b} \div \frac{c}{d} = \frac{ad}{bc}$$
-(ejercicio_18_2)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -61,6 +60,7 @@ operación.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_18_2)=
 ### Ejercicio 18.2 - Simplificación ⭐⭐☆☆☆
 
 Implementar una función que modifique una fracción para llevarla a su mínima
@@ -140,7 +140,6 @@ normalizado para que los segundos y minutos no excedan 59.
 - $H_{acarreo} = M_{total} / 60$
 - $M_{resultado} = M_{total} \% 60$
 - $H_{resultado} = t_1.horas + t_2.horas + H_{acarreo}$
-(ejercicio_18_5)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -152,6 +151,7 @@ normalizado para que los segundos y minutos no excedan 59.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_18_5)=
 ### Ejercicio 18.5 - Comparación de Tiempos ⭐⭐☆☆☆
 
 Implementar una función que compare dos `tiempo_t` y devuelva un valor que

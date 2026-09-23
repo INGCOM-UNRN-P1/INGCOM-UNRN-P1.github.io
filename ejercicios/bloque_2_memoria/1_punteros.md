@@ -30,7 +30,6 @@ simulado en el lenguaje C.
 
 Implementar `void duplicar(int *numero)` que modifique el valor de la variable
 original.
-(ejercicio_8_2)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -42,6 +41,7 @@ original.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_8_2)=
 ### Ejercicio 8.2 - División Lenta II ⭐⭐☆☆☆
 
 Implementar `int division_lenta(int dividendo, int divisor, int *cociente, int
@@ -49,7 +49,6 @@ Implementar `int division_lenta(int dividendo, int divisor, int *cociente, int
 apuntan `cociente` y `resto`.
 
 Utilicen el retorno para indicar si la división fue correcta o no.
-(ejercicio_8_3)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -61,11 +60,11 @@ Utilicen el retorno para indicar si la división fue correcta o no.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_8_3)=
 ### Ejercicio 8.3 - Estadísticas de Arreglo ⭐⭐⭐☆☆
 
 Implementar `void estadisticas(int arr[], size_t n, int *min, int *max, double
 *prom)`.
-(ejercicio_8_4)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -77,6 +76,7 @@ Implementar `void estadisticas(int arr[], size_t n, int *min, int *max, double
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_8_4)=
 ### Ejercicio 8.4 - Largo seguro con punteros ⭐⭐⭐☆☆
 
 Implementar `size_t largo_seguro(const char *str, size_t capacidad)`.
@@ -104,7 +104,6 @@ Implementar `size_t largo_seguro(const char *str, size_t capacidad)`.
 
 Implementar un algoritmo de ordenamiento (ej. Burbuja) que para intercambiar
 elementos llame a `void intercambia(int *a, int *b)`.
-(ejercicio_8_6)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -116,12 +115,12 @@ elementos llame a `void intercambia(int *a, int *b)`.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_8_6)=
 ### Ejercicio 8.6 - Búsqueda de subcadena ⭐⭐⭐☆☆
 
 Implementar `char* busqueda(const char *cadena, const char *buscado)`. Se debe
 retornar un puntero al inicio de la primera ocurrencia de `buscado` dentro de
 `cadena`, o `NULL`.
-(ejercicio_8_7)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -133,6 +132,7 @@ retornar un puntero al inicio de la primera ocurrencia de `buscado` dentro de
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_8_7)=
 ### Ejercicio 8.7 - Inversión de arreglo ⭐⭐⭐☆☆
 
 Implementar `void invertir(int *inicio, int *fin)`. Se intercambia `*inicio` con
@@ -186,7 +186,6 @@ arreglo independiente.
 
 **Recordatorio:** También implementar `void liberar_matriz(int **matriz, int
 filas)`.
-(ejercicio_8_10)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -198,6 +197,7 @@ filas)`.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_8_10)=
 ### Ejercicio 8.10 - Arreglo de Cadenas ⭐⭐⭐☆☆
 
 Implementar `void ordenar_cadenas(char **cadenas, int n)` que ordene un arreglo
@@ -233,7 +233,6 @@ elementos entre `inicio` (inclusive) y `fin` (exclusive) usando solo aritmética
 de punteros, sin índices.
 
 **Restricción:** No usar `[]`, solo `*`, `++`, `--`.
-(ejercicio_8_12)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -245,13 +244,13 @@ de punteros, sin índices.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_8_12)=
 ### Ejercicio 8.12 - Copiar Arreglos ⭐⭐⭐☆☆
 
 Implementar `void copiar(int *destino, const int *origen, size_t n)` que copie
 `n` elementos de `origen` a `destino` usando solo punteros.
 
 **Estrategia:** `while (n--) { *destino++ = *origen++; }`
-(ejercicio_8_13)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -263,11 +262,11 @@ Implementar `void copiar(int *destino, const int *origen, size_t n)` que copie
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_8_13)=
 ### Ejercicio 8.13 - Buscar Elemento ⭐⭐☆☆☆
 
 Implementar `int* buscar_elemento(int *inicio, int *fin, int valor)` que retorne
 un puntero al primer elemento igual a `valor`, o `NULL` si no se encuentra.
-(ejercicio_8_14)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -279,6 +278,7 @@ un puntero al primer elemento igual a `valor`, o `NULL` si no se encuentra.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_8_14)=
 ### Ejercicio 8.14 - Distancia entre Punteros ⭐⭐⭐☆☆
 
 Implementar `size_t distancia(const int *p1, const int *p2)` que calcule cuántos
@@ -310,7 +310,6 @@ Explicar y ejemplificar la diferencia entre:
 - `const int * const p` - puntero constante a entero constante
 
 Implementar funciones que demuestren cada caso.
-(ejercicio_8_16)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -322,6 +321,7 @@ Implementar funciones que demuestren cada caso.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_8_16)=
 ### Ejercicio 8.16 - Función con Parámetros Constantes ⭐⭐☆☆☆
 
 Implementar `int maximo_arreglo(const int *arr, size_t n)` que encuentre el
@@ -329,7 +329,6 @@ máximo sin modificar el arreglo original.
 
 **Ventaja:** El `const` documenta que la función no modifica el arreglo y
 permite que el compilador detecte modificaciones accidentales.
-(ejercicio_8_17)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -341,6 +340,7 @@ permite que el compilador detecte modificaciones accidentales.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_8_17)=
 ### Ejercicio 8.17 - Cadenas de Solo Lectura ⭐⭐⭐☆☆
 
 Implementar `size_t contar_vocales(const char *str)` que cuente vocales sin
@@ -393,7 +393,6 @@ coordenadas del punto sumando `dx` y `dy`.
 
 Implementar `void ordenar_puntos_por_x(punto_t *puntos, int n)` que ordene un
 arreglo de puntos según su coordenada `x`.
-(ejercicio_8_20)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -405,6 +404,7 @@ arreglo de puntos según su coordenada `x`.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_8_20)=
 ### Ejercicio 8.20 - Estructura con Punteros ⭐⭐⭐☆☆
 
 Dada:
@@ -475,7 +475,6 @@ usando una función de comparación personalizada.
 
 **Pista:** Similar a `qsort` de la biblioteca estándar. Usar `memcpy` para
 intercambiar elementos.
-(ejercicio_8_23)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -487,6 +486,7 @@ intercambiar elementos.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_8_23)=
 ### Ejercicio 8.23 - Tabla de Funciones ⭐⭐☆☆☆
 
 Crear un arreglo de punteros a funciones para una calculadora:
@@ -526,7 +526,6 @@ es `NULL` antes de acceder. Si es válido, copiar `*ptr` a `*resultado` y
 retornar 1. Si es `NULL`, retornar 0.
 
 **Buena práctica:** Siempre verificar punteros antes de desreferenciarlos.
-(ejercicio_8_25)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -538,12 +537,12 @@ retornar 1. Si es `NULL`, retornar 0.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_8_25)=
 ### Ejercicio 8.25 - Retorno Seguro ⭐⭐☆☆☆
 
 Implementar `int* buscar_max(int *arr, size_t n)` que retorne un puntero al
 elemento máximo del arreglo, o `NULL` si el arreglo está vacío o el puntero es
 `NULL`.
-(ejercicio_8_26)=
 
 :::{hint} Lógica y Consideraciones
 
@@ -555,6 +554,7 @@ elemento máximo del arreglo, o `NULL` si el arreglo está vacío o el puntero e
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
+(ejercicio_8_26)=
 ### Ejercicio 8.26 - Inicialización de Punteros ⭐☆☆☆☆
 
 Demostrar el problema de punteros sin inicializar y cómo evitarlo siempre
