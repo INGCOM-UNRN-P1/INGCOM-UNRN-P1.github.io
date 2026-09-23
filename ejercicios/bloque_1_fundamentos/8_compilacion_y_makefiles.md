@@ -19,8 +19,9 @@ capítulos del apunte:
 - [Makefiles](../../apunte/bloque_1_fundamentos/8_makefiles.md)
 
 ## Proyecto Multi-archivo Manual
-(ejercicio_6_1)=
-### Ejercicio 6.1 - Separar un programa ⭐⭐☆☆☆
+
+(ej_b1_c08_01)=
+### Ejercicio 1.08.01 - Separar un programa ⭐⭐☆☆☆
 
 **Tarea**: Tomá un programa simple que tengas en un solo archivo `.c` (por
 ejemplo, una calculadora con funciones `sumar` y `restar`) y dividilo en tres
@@ -39,8 +40,8 @@ errores de E/S con `ferror` y `feof`.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
-(ejercicio_6_2)=
-### Ejercicio 6.2 - Compilación manual ⭐⭐☆☆☆
+(ej_b1_c08_02)=
+### Ejercicio 1.08.02 - Compilación manual ⭐⭐☆☆☆
 
 **Tarea**: Usando la terminal, compilá y enlazá los archivos del ejercicio
 anterior sin usar un Makefile.
@@ -63,8 +64,9 @@ anterior sin usar un Makefile.
 <!-- {hint} Lógica y Consideraciones -->
 
 ## Automatización con Makefile
-(ejercicio_6_3)=
-### Ejercicio 6.3 - Makefile básico ⭐☆☆☆☆
+
+(ej_b1_c08_03)=
+### Ejercicio 1.08.03 - Makefile básico ⭐☆☆☆☆
 
 **Tarea**: Crear un `Makefile` para el proyecto del ejercicio anterior. El
 Makefile debe tener los siguientes objetivos (`targets`):
@@ -117,8 +119,9 @@ clean:
 <!-- {tip} Estructura del Makefile -->
 
 ## Compilación Condicional
-(ejercicio_6_4)=
-### Ejercicio 6.4 - Mensajes de depuración ⭐⭐☆☆☆
+
+(ej_b1_c08_04)=
+### Ejercicio 1.08.04 - Mensajes de depuración ⭐⭐☆☆☆
 
 **Tarea**: Modificá tu proyecto para incluir mensajes de depuración que solo se
 impriman cuando se compile en "modo debug".
@@ -147,8 +150,9 @@ impriman cuando se compile en "modo debug".
     archivo en todos los caminos de ejecución.
 :::
 <!-- {hint} Lógica y Consideraciones -->
-(ejercicio_6_5)=
-## Ejercicio 6.5 - Compilación Básica ⭐☆☆☆☆
+
+(ej_b1_c08_05)=
+## Ejercicio 1.08.05 - Compilación Básica ⭐☆☆☆☆
 
 Compilá un programa simple desde línea de comandos.
 
@@ -169,8 +173,9 @@ gcc -o programa programa.c
 - Sin `-o`, crea `a.out` por defecto
 
 ---
-(ejercicio_6_6)=
-## Ejercicio 6.6 - Warnings Habilitados ⭐☆☆☆☆
+
+(ej_b1_c08_06)=
+## Ejercicio 1.08.06 - Warnings Habilitados ⭐☆☆☆☆
 
 Compilá con warnings completos y corregí los problemas.
 
@@ -192,8 +197,9 @@ gcc -Wall -Wextra -std=c99 -pedantic programa.c -o programa
 - `-pedantic`: estricto con estándar
 
 ---
-(ejercicio_6_7)=
-## Ejercicio 6.7 - Dos Archivos Separados ⭐⭐☆☆☆
+
+(ej_b1_c08_07)=
+## Ejercicio 1.08.07 - Dos Archivos Separados ⭐⭐☆☆☆
 
 Separáun programa en main.c y funciones.c.
 
@@ -243,8 +249,9 @@ gcc funciones.o main.o -o programa
 <!-- bash -->
 
 ---
-(ejercicio_6_8)=
-## Ejercicio 6.8 - Include Guards ⭐⭐☆☆☆
+
+(ej_b1_c08_08)=
+## Ejercicio 1.08.08 - Include Guards ⭐⭐☆☆☆
 
 Explicá por qué se necesitan include guards y implementalos.
 
@@ -267,8 +274,9 @@ valores fuera de rango o tipos inválidos.
 - Evita errores de redefinición
 
 ---
-(ejercicio_6_9)=
-## Ejercicio 6.9 - Makefile Básico ⭐⭐⭐☆☆
+
+(ej_b1_c08_09)=
+## Ejercicio 1.08.09 - Makefile Básico ⭐⭐⭐☆☆
 
 Creá Makefile para compilar proyecto de ejercicio 3.
 
@@ -308,8 +316,9 @@ make clean     # Limpia
 <!-- bash -->
 
 ---
-(ejercicio_6_10)=
-## Ejercicio 6.10 - Biblioteca Matemática ⭐⭐⭐☆☆
+
+(ej_b1_c08_10)=
+## Ejercicio 1.08.10 - Biblioteca Matemática ⭐⭐⭐☆☆
 
 Creá biblioteca con funciones matemáticas: factorial, potencia, fibonacci.
 
@@ -335,8 +344,9 @@ proyecto/
 - `test.c`: programa que usa la biblioteca
 
 ---
-(ejercicio_6_11)=
-## Ejercicio 6.11 - Flags de Optimización ⭐⭐⭐☆☆
+
+(ej_b1_c08_11)=
+## Ejercicio 1.08.11 - Flags de Optimización ⭐⭐⭐☆☆
 
 Compilá con diferentes niveles de optimización y medí diferencia.
 
@@ -361,8 +371,9 @@ gcc -O3 programa.c -o prog_O3  # Agresiva
 - `-O3` máxima optimización
 
 ---
-(ejercicio_6_12)=
-## Ejercicio 6.12 - Compilación Condicional ⭐⭐⭐☆☆
+
+(ej_b1_c08_12)=
+## Ejercicio 1.08.12 - Compilación Condicional ⭐⭐⭐☆☆
 
 Usá directivas de preprocesador para debug opcional.
 
@@ -389,8 +400,9 @@ gcc programa.c -o programa           # Sin debug
 <!-- bash -->
 
 ---
-(ejercicio_6_13)=
-## Ejercicio 6.13 - Módulo de Utilidades ⭐⭐⭐⭐☆
+
+(ej_b1_c08_13)=
+## Ejercicio 1.08.13 - Módulo de Utilidades ⭐⭐⭐⭐☆
 
 Creá módulo `utils` con funciones de uso general: intercambio, mínimo, máximo.
 
@@ -421,8 +433,9 @@ int maximo(int a, int b);
 <!-- {code-block} c -->
 
 ---
-(ejercicio_6_14)=
-## Ejercicio 6.14 - Makefile con Variables ⭐⭐⭐⭐☆
+
+(ej_b1_c08_14)=
+## Ejercicio 1.08.14 - Makefile con Variables ⭐⭐⭐⭐☆
 
 Mejorá Makefile usando variables y patrones.
 
@@ -459,8 +472,9 @@ clean:
 <!-- {code-block} makefile -->
 
 ---
-(ejercicio_6_15)=
-## Ejercicio 6.15 - Dependencias Automáticas ⭐⭐⭐⭐☆
+
+(ej_b1_c08_15)=
+## Ejercicio 1.08.15 - Dependencias Automáticas ⭐⭐⭐⭐☆
 
 Generá dependencias automáticamente con gcc.
 
@@ -485,8 +499,9 @@ DEPS = $(OBJS:.o=.d)
 - `-MP`: crea targets phony para headers
 
 ---
-(ejercicio_6_16)=
-## Ejercicio 6.16 - Biblioteca Estática ⭐⭐⭐⭐⭐
+
+(ej_b1_c08_16)=
+## Ejercicio 1.08.16 - Biblioteca Estática ⭐⭐⭐⭐⭐
 
 Creá biblioteca estática (.a) y usala en programa.
 
@@ -516,8 +531,9 @@ gcc main.c -L. -lmibiblioteca -o programa
 - `-lmibiblioteca`: enlazar con libmibiblioteca.a
 
 ---
-(ejercicio_6_17)=
-## Ejercicio 6.17 - Biblioteca Compartida ⭐⭐⭐⭐⭐
+
+(ej_b1_c08_17)=
+## Ejercicio 1.08.17 - Biblioteca Compartida ⭐⭐⭐⭐⭐
 
 Creá biblioteca compartida (.so) y usala.
 
@@ -548,8 +564,9 @@ export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH
 <!-- {code-block} bash -->
 
 ---
-(ejercicio_6_18)=
-## Ejercicio 6.18 - Proyecto Multi-Directorio ⭐⭐⭐⭐⭐
+
+(ej_b1_c08_18)=
+## Ejercicio 1.08.18 - Proyecto Multi-Directorio ⭐⭐⭐⭐⭐
 
 Organizá proyecto en directorios: src/, include/, obj/, bin/.
 
@@ -599,8 +616,9 @@ $(OBJDIR) $(BINDIR):
 <!-- {code-block} makefile -->
 
 ---
-(ejercicio_6_19)=
-## Ejercicio 6.19 - Targets Adicionales ⭐⭐⭐⭐☆
+
+(ej_b1_c08_19)=
+## Ejercicio 1.08.19 - Targets Adicionales ⭐⭐⭐⭐☆
 
 Agregá targets útiles: run, test, install, uninstall.
 
@@ -632,8 +650,9 @@ uninstall:
 <!-- {code-block} makefile -->
 
 ---
-(ejercicio_6_20)=
-## Ejercicio 6.20 - Compilación Debug/Release ⭐⭐⭐⭐⭐
+
+(ej_b1_c08_20)=
+## Ejercicio 1.08.20 - Compilación Debug/Release ⭐⭐⭐⭐⭐
 
 Makefile con modo debug y release.
 
@@ -668,8 +687,9 @@ all: $(TARGET)
 <!-- {code-block} makefile -->
 
 ---
-(ejercicio_6_21)=
-## Ejercicio 6.21 - Análisis Estático ⭐⭐⭐⭐☆
+
+(ej_b1_c08_21)=
+## Ejercicio 1.08.21 - Análisis Estático ⭐⭐⭐⭐☆
 
 Integrá herramientas de análisis en Makefile.
 
@@ -698,8 +718,9 @@ valgrind: $(TARGET)
 <!-- {code-block} makefile -->
 
 ---
-(ejercicio_6_22)=
-## Ejercicio 6.22 - Cross-Compilation ⭐⭐⭐⭐⭐
+
+(ej_b1_c08_22)=
+## Ejercicio 1.08.22 - Cross-Compilation ⭐⭐⭐⭐⭐
 
 Configurá cross-compilation para diferentes arquitecturas.
 
@@ -733,8 +754,9 @@ native: $(TARGET)
 <!-- {code-block} makefile -->
 
 ---
-(ejercicio_6_23)=
-## Ejercicio 6.23 - Sistema de Build Completo ⭐⭐⭐⭐⭐
+
+(ej_b1_c08_23)=
+## Ejercicio 1.08.23 - Sistema de Build Completo ⭐⭐⭐⭐⭐
 
 Proyecto completo con múltiples bibliotecas y tests.
 
@@ -770,8 +792,9 @@ proyecto/
 - Target para todo (all)
 
 ---
-(ejercicio_6_24)=
-## Ejercicio 6.24 - CMake Básico ⭐⭐⭐⭐⭐
+
+(ej_b1_c08_24)=
+## Ejercicio 1.08.24 - CMake Básico ⭐⭐⭐⭐⭐
 
 Convertí proyecto a usar CMake en lugar de Makefile.
 

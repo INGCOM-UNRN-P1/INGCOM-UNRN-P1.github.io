@@ -25,8 +25,9 @@ reducido, hasta converger en un caso base.
 ---
 
 ## Matemática Recursiva
-(ejercicio_25_1)=
-### Ejercicio 25.1 - Factorial ⭐⭐☆☆☆
+
+(ej_b3_c07_01)=
+### Ejercicio 3.07.01 - Factorial ⭐⭐☆☆☆
 
 El factorial de un entero no negativo $n$, denotado como $n!$, es el producto de
 todos los enteros positivos menores o iguales a $n$.
@@ -43,8 +44,8 @@ n \times factorial(n-1) & \text{si } n > 0
 \end{cases}
 $$ 
 
-(ejercicio_25_2)=
-### Ejercicio 25.2 - Suma ⭐⭐☆☆☆
+(ej_b3_c07_02)=
+### Ejercicio 3.07.02 - Suma ⭐⭐☆☆☆
 
 Definir la suma de $a+b$ de forma recursiva. La idea es decrementar uno de los
 operandos hasta llegar a un caso base.
@@ -57,8 +58,8 @@ suma(a+1, b-1) & \text{si } b > 0
 \end{cases}
 $$ 
 
-(ejercicio_25_3)=
-### Ejercicio 25.3 - Producto ⭐⭐☆☆☆
+(ej_b3_c07_03)=
+### Ejercicio 3.07.03 - Producto ⭐⭐☆☆☆
 
 Definir el producto $a \times b$ usando sumas y recursividad.
 
@@ -70,8 +71,8 @@ a + producto(a, b-1) & \text{si } b > 0
 \end{cases}
 $$ 
 
-(ejercicio_25_4)=
-### Ejercicio 25.4 - Potencia ⭐⭐☆☆☆
+(ej_b3_c07_04)=
+### Ejercicio 3.07.04 - Potencia ⭐⭐☆☆☆
 
 Definir la potencia $base^{exp}$ usando productos y recursividad.
 
@@ -86,8 +87,9 @@ $$
 ---
 
 ## Series Recursivas
-(ejercicio_25_5)=
-### Ejercicio 25.5 - Fibonacci ⭐⭐☆☆☆
+
+(ej_b3_c07_05)=
+### Ejercicio 3.07.05 - Fibonacci ⭐⭐☆☆☆
 
 Implementar una función que calcule el n-ésimo término de la serie de Fibonacci,
 definida por la relación de recurrencia:
@@ -104,20 +106,21 @@ $$
 ---
 
 ## Arreglos Recursivos
-(ejercicio_25_6)=
-### Ejercicio 25.6 - Mostrar arreglo ⭐⭐⭐☆☆
+
+(ej_b3_c07_06)=
+### Ejercicio 3.07.06 - Mostrar arreglo ⭐⭐⭐☆☆
 
 Imprimir el primer elemento y luego llamar a la función con el resto del
 arreglo.
 
-(ejercicio_25_7)=
-### Ejercicio 25.7 - Mostrar arreglo invertido ⭐⭐⭐☆☆
+(ej_b3_c07_07)=
+### Ejercicio 3.07.07 - Mostrar arreglo invertido ⭐⭐⭐☆☆
 
 Llamar a la función con el resto del arreglo y luego imprimir el primer
 elemento.
 
-(ejercicio_25_8)=
-### Ejercicio 25.8 - Suma de valores ⭐⭐☆☆☆
+(ej_b3_c07_08)=
+### Ejercicio 3.07.08 - Suma de valores ⭐⭐☆☆☆
 
 Sumar el primer elemento con el resultado de llamar a la función sobre el resto
 del arreglo.
@@ -125,8 +128,9 @@ del arreglo.
 ---
 
 ## Cadenas Recursivas
-(ejercicio_25_9)=
-### Ejercicio 25.9 - Palíndromo ⭐⭐☆☆☆
+
+(ej_b3_c07_09)=
+### Ejercicio 3.07.09 - Palíndromo ⭐⭐☆☆☆
 
 Implementar una función recursiva que determine si una cadena es un palíndromo.
 Un palíndromo se lee igual en ambos sentidos.
@@ -140,8 +144,8 @@ Un palíndromo se lee igual en ambos sentidos.
 **Ejemplo:** `neuquen`
 - `es_palindromo("neuquen")` es verdadero.
 
-(ejercicio_25_10)=
-## Ejercicio 25.10 - Factorial Recursivo ⭐☆☆☆☆
+(ej_b3_c07_10)=
+## Ejercicio 3.07.10 - Factorial Recursivo ⭐☆☆☆☆
 
 Implementá factorial de forma recursiva.
 
@@ -151,8 +155,9 @@ Implementá factorial de forma recursiva.
 - Limitación: rápido overflow para n grande
 
 ---
-(ejercicio_25_11)=
-## Ejercicio 25.11 - Potencia Recursiva ⭐⭐☆☆☆
+
+(ej_b3_c07_11)=
+## Ejercicio 3.07.11 - Potencia Recursiva ⭐⭐☆☆☆
 
 Calculá base^exponente recursivamente.
 
@@ -162,8 +167,9 @@ Calculá base^exponente recursivamente.
 - Versión mejorada (siguiente ejercicio)
 
 ---
-(ejercicio_25_12)=
-## Ejercicio 25.12 - Potencia Rápida ⭐⭐⭐☆☆
+
+(ej_b3_c07_12)=
+## Ejercicio 3.07.12 - Potencia Rápida ⭐⭐⭐☆☆
 
 Optimizá potencia usando divide y conquista.
 
@@ -176,8 +182,9 @@ Optimizá potencia usando divide y conquista.
 - Mucho más eficiente para exponentes grandes
 
 ---
-(ejercicio_25_13)=
-## Ejercicio 25.13 - Suma de Dígitos ⭐⭐☆☆☆
+
+(ej_b3_c07_13)=
+## Ejercicio 3.07.13 - Suma de Dígitos ⭐⭐☆☆☆
 
 Sumá los dígitos de un número recursivamente.
 
@@ -186,8 +193,9 @@ Sumá los dígitos de un número recursivamente.
 - Caso recursivo: `(n % 10) + suma_digitos(n / 10)`
 
 ---
-(ejercicio_25_14)=
-## Ejercicio 25.14 - Invertir String ⭐⭐☆☆☆
+
+(ej_b3_c07_14)=
+## Ejercicio 3.07.14 - Invertir String ⭐⭐☆☆☆
 
 Invertí un string recursivamente.
 
@@ -197,8 +205,9 @@ Invertí un string recursivamente.
 - Pensá en índices: `invertir(str, inicio, fin)`
 
 ---
-(ejercicio_25_15)=
-## Ejercicio 25.15 - Fibonacci Recursivo ⭐⭐⭐☆☆
+
+(ej_b3_c07_15)=
+## Ejercicio 3.07.15 - Fibonacci Recursivo ⭐⭐⭐☆☆
 
 Calculá el n-ésimo número de Fibonacci.
 
@@ -208,8 +217,9 @@ Calculá el n-ésimo número de Fibonacci.
 - **Advertencia:** Muy ineficiente (exponencial) para n grande
 
 ---
-(ejercicio_25_16)=
-## Ejercicio 25.16 - Fibonacci con Memoización ⭐⭐⭐⭐☆
+
+(ej_b3_c07_16)=
+## Ejercicio 3.07.16 - Fibonacci con Memoización ⭐⭐⭐⭐☆
 
 Optimizá Fibonacci usando memoización (caché de resultados).
 
@@ -220,8 +230,9 @@ Optimizá Fibonacci usando memoización (caché de resultados).
 - Complejidad: de O(2^n) a O(n)
 
 ---
-(ejercicio_25_17)=
-## Ejercicio 25.17 - Suma de Array ⭐⭐☆☆☆
+
+(ej_b3_c07_17)=
+## Ejercicio 3.07.17 - Suma de Array ⭐⭐☆☆☆
 
 Sumá elementos de un array recursivamente.
 
@@ -231,8 +242,9 @@ Sumá elementos de un array recursivamente.
 - O con índices: `arr[i] + suma(arr, i+1, n)`
 
 ---
-(ejercicio_25_18)=
-## Ejercicio 25.18 - Búsqueda Binaria Recursiva ⭐⭐⭐☆☆
+
+(ej_b3_c07_18)=
+## Ejercicio 3.07.18 - Búsqueda Binaria Recursiva ⭐⭐⭐☆☆
 
 Implementá búsqueda binaria de forma recursiva.
 
@@ -244,8 +256,9 @@ Implementá búsqueda binaria de forma recursiva.
 - Si `arr[medio] < objetivo`: buscar en mitad derecha
 
 ---
-(ejercicio_25_19)=
-## Ejercicio 25.19 - Máximo en Array ⭐⭐⭐☆☆
+
+(ej_b3_c07_19)=
+## Ejercicio 3.07.19 - Máximo en Array ⭐⭐⭐☆☆
 
 Encontrá el máximo de un array recursivamente.
 
@@ -255,8 +268,9 @@ Encontrá el máximo de un array recursivamente.
 - Divide y conquista: dividir en mitades y comparar máximos
 
 ---
-(ejercicio_25_20)=
-## Ejercicio 25.20 - Palíndromo Recursivo ⭐⭐⭐☆☆
+
+(ej_b3_c07_20)=
+## Ejercicio 3.07.20 - Palíndromo Recursivo ⭐⭐⭐☆☆
 
 Verificá si un string es palíndromo recursivamente.
 
@@ -267,8 +281,9 @@ Verificá si un string es palíndromo recursivamente.
 - Si diferentes: false
 
 ---
-(ejercicio_25_21)=
-## Ejercicio 25.21 - Torre de Hanoi ⭐⭐⭐⭐☆
+
+(ej_b3_c07_21)=
+## Ejercicio 3.07.21 - Torre de Hanoi ⭐⭐⭐⭐☆
 
 Resolvé el problema de la Torre de Hanoi.
 
@@ -298,8 +313,9 @@ void hanoi(int n, char origen, char destino, char auxiliar)
 <!-- {code-block} c -->
 
 ---
-(ejercicio_25_22)=
-## Ejercicio 25.22 - Permutaciones ⭐⭐⭐⭐⭐
+
+(ej_b3_c07_22)=
+## Ejercicio 3.07.22 - Permutaciones ⭐⭐⭐⭐⭐
 
 Generá todas las permutaciones de un string.
 
@@ -310,8 +326,9 @@ Generá todas las permutaciones de un string.
 - Al retornar, deshacé el intercambio (backtracking)
 
 ---
-(ejercicio_25_23)=
-## Ejercicio 25.23 - Subconjuntos (Power Set) ⭐⭐⭐⭐⭐
+
+(ej_b3_c07_23)=
+## Ejercicio 3.07.23 - Subconjuntos (Power Set) ⭐⭐⭐⭐⭐
 
 Generá todos los subconjuntos de un conjunto.
 
@@ -322,8 +339,9 @@ Generá todos los subconjuntos de un conjunto.
 - Total: 2^n subconjuntos
 
 ---
-(ejercicio_25_24)=
-## Ejercicio 25.24 - MergeSort ⭐⭐⭐⭐⭐
+
+(ej_b3_c07_24)=
+## Ejercicio 3.07.24 - MergeSort ⭐⭐⭐⭐⭐
 
 Implementá ordenamiento MergeSort.
 
@@ -338,8 +356,9 @@ Implementá ordenamiento MergeSort.
 - Complejidad: O(n log n)
 
 ---
-(ejercicio_25_25)=
-## Ejercicio 25.25 - QuickSort ⭐⭐⭐⭐⭐
+
+(ej_b3_c07_25)=
+## Ejercicio 3.07.25 - QuickSort ⭐⭐⭐⭐⭐
 
 Implementá ordenamiento QuickSort.
 
@@ -354,8 +373,9 @@ Implementá ordenamiento QuickSort.
 - Complejidad promedio: O(n log n)
 
 ---
-(ejercicio_25_26)=
-## Ejercicio 25.26 - N Reinas ⭐⭐⭐⭐⭐
+
+(ej_b3_c07_26)=
+## Ejercicio 3.07.26 - N Reinas ⭐⭐⭐⭐⭐
 
 Resolvé el problema de las N reinas (colocar N reinas en tablero N×N sin que se
 ataquen).
@@ -368,8 +388,9 @@ ataquen).
 - Backtracking si no hay posición válida
 
 ---
-(ejercicio_25_27)=
-## Ejercicio 25.27 - Laberinto (Path Finding) ⭐⭐⭐⭐⭐
+
+(ej_b3_c07_27)=
+## Ejercicio 3.07.27 - Laberinto (Path Finding) ⭐⭐⭐⭐⭐
 
 Encontrá camino en un laberinto desde inicio a fin.
 
@@ -381,8 +402,9 @@ Encontrá camino en un laberinto desde inicio a fin.
 - Backtracking: desmarcá visitado al retornar
 
 ---
-(ejercicio_25_28)=
-## Ejercicio 25.28 - Combinaciones (n choose k) ⭐⭐⭐⭐⭐
+
+(ej_b3_c07_28)=
+## Ejercicio 3.07.28 - Combinaciones (n choose k) ⭐⭐⭐⭐⭐
 
 Generá todas las combinaciones de k elementos de un conjunto de n.
 
@@ -393,8 +415,9 @@ Generá todas las combinaciones de k elementos de un conjunto de n.
 - Caso base: k==0 (solución completa) o n<k (imposible)
 
 ---
-(ejercicio_25_29)=
-## Ejercicio 25.29 - Sudoku Solver ⭐⭐⭐⭐⭐
+
+(ej_b3_c07_29)=
+## Ejercicio 3.07.29 - Sudoku Solver ⭐⭐⭐⭐⭐
 
 Resolvé un Sudoku usando backtracking.
 
@@ -407,11 +430,12 @@ Resolvé un Sudoku usando backtracking.
 - Caso base: no hay celdas vacías (solución encontrada)
 
 ---
-(ejercicio_25_30)=
-## Ejercicio 25.30 - s Adicionales ⭐⭐☆☆☆
 
-(ejercicio_25_31)=
-### Ejercicio 25.31 - Coeficiente Binomial ⭐⭐⭐☆☆
+(ej_b3_c07_30)=
+## Ejercicio 3.07.30 - s Adicionales ⭐⭐☆☆☆
+
+(ej_b3_c07_31)=
+### Ejercicio 3.07.31 - Coeficiente Binomial ⭐⭐⭐☆☆
 
 Calculá C(n,k) = n! / (k! × (n-k)!) recursivamente.
 
@@ -420,8 +444,9 @@ Calculá C(n,k) = n! / (k! × (n-k)!) recursivamente.
 - Casos base: `C(n,0) = 1`, `C(n,n) = 1`
 
 ---
-(ejercicio_25_32)=
-### Ejercicio 25.32 - GCD (MCD) Recursivo ⭐⭐☆☆☆
+
+(ej_b3_c07_32)=
+### Ejercicio 3.07.32 - GCD (MCD) Recursivo ⭐⭐☆☆☆
 
 Implementá algoritmo de Euclides recursivamente.
 
@@ -430,8 +455,9 @@ Implementá algoritmo de Euclides recursivamente.
 - Caso recursivo: `gcd(b, a % b)`
 
 ---
-(ejercicio_25_33)=
-### Ejercicio 25.33 - Árbol de Expresión ⭐⭐⭐⭐⭐
+
+(ej_b3_c07_33)=
+### Ejercicio 3.07.33 - Árbol de Expresión ⭐⭐⭐⭐⭐
 
 Evaluá una expresión matemática representada como árbol binario.
 

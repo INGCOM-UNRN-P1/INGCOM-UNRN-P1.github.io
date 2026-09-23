@@ -25,8 +25,9 @@ seguras y extensibles en el lenguaje C.
 ---
 
 ## Principios de Nomenclatura y Claridad
-(ejercicio_32_1)=
-### Ejercicio 32.1 - Crítica de Nombres ⭐⭐☆☆☆
+
+(ej_b4_c10_01)=
+### Ejercicio 4.10.01 - Crítica de Nombres ⭐⭐☆☆☆
 
 Analizar estos nombres de funciones y proponer mejoras siguiendo las reglas de
 estilo:
@@ -55,8 +56,9 @@ específicos en lugar de genéricos como "process" o "update".
 
 :::
 <!-- {tip} Nombres Descriptivos -->
-(ejercicio_32_2)=
-### Ejercicio 32.2 - Diseño de Prefijos ⭐⭐☆☆☆
+
+(ej_b4_c10_02)=
+### Ejercicio 4.10.02 - Diseño de Prefijos ⭐⭐☆☆☆
 
 Diseñar esquemas de prefijos para estas librerías:
 
@@ -79,8 +81,9 @@ json_value_t *json_parser_parse_string(json_parser_t *parser, const char *str);
 bool json_value_es_objeto(const json_value_t *value);
 ```
 <!-- c -->
-(ejercicio_32_3)=
-### Ejercicio 32.3 - Consistencia en Familias de Funciones ⭐⭐☆☆☆
+
+(ej_b4_c10_03)=
+### Ejercicio 4.10.03 - Consistencia en Familias de Funciones ⭐⭐☆☆☆
 
 Completar estas familias de funciones con nombres consistentes:
 
@@ -97,8 +100,9 @@ bool config_ ? ?
     void config_destruir(config_t **ptr_config);
 ```
 <!-- {code-block} c -->
-(ejercicio_32_4)=
-### Ejercicio 32.4 - Nombres que Reflejan Comportamiento ⭐⭐☆☆☆
+
+(ej_b4_c10_04)=
+### Ejercicio 4.10.04 - Nombres que Reflejan Comportamiento ⭐⭐☆☆☆
 
 Renombrar estas funciones para reflejar mejor su comportamiento real:
 
@@ -118,8 +122,9 @@ void agregar_elemento(lista_t *lista, int elemento);
 ---
 
 ## Tipos Opacos y Encapsulamiento
-(ejercicio_32_5)=
-### Ejercicio 32.5 - Implementación de Tipo Opaco Básico ⭐☆☆☆☆
+
+(ej_b4_c10_05)=
+### Ejercicio 4.10.05 - Implementación de Tipo Opaco Básico ⭐☆☆☆☆
 
 Implementar un stack usando tipo opaco completo:
 

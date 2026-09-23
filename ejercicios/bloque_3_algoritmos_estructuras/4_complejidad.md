@@ -22,8 +22,9 @@ del costo temporal y espacial de subprogramas iterativos y recursivos en C.
 ---
 
 ## Fundamentos de Notación Asintótica
-(ejercicio_24_1)=
-### Ejercicio 24.1 - Simplificación de Funciones ⭐⭐☆☆☆
+
+(ej_b3_c06_01)=
+### Ejercicio 3.06.01 - Simplificación de Funciones ⭐⭐☆☆☆
 
 Para cada función de costo, determinar su clasificación en notación Big-O
 (ignorando constantes y términos de menor orden):
@@ -33,15 +34,15 @@ c) $T(n) = 2^n + n^3 + 1000n$
 d) $T(n) = \log(n^2) + \sqrt{n}$  
 e) $T(n) = n! + 2^n + n^{10}$
 
-(ejercicio_24_2)=
-### Ejercicio 24.2 - Comparación de Funciones ⭐⭐☆☆☆
+(ej_b3_c06_02)=
+### Ejercicio 3.06.02 - Comparación de Funciones ⭐⭐☆☆☆
 
 Ordenar las siguientes funciones de menor a mayor tasa de crecimiento
 asintótico:
 $$\log n, \quad n^2, \quad 2^n, \quad n!, \quad n \log n, \quad \sqrt{n}, \quad n^3, \quad 1, \quad n \log^2 n, \quad 2^{2n}$$
 
-(ejercicio_24_3)=
-### Ejercicio 24.3 - Verdadero o Falso ⭐⭐☆☆☆
+(ej_b3_c06_03)=
+### Ejercicio 3.06.03 - Verdadero o Falso ⭐⭐☆☆☆
 
 Determinar si las siguientes afirmaciones son verdaderas o falsas. Justificar.
 a) $n^2 + n = O(n^2)$  
@@ -53,8 +54,8 @@ f) $\log_2 n = O(\log_{10} n)$
 g) $n \log n = O(n^2)$  
 h) $n^2 = \Omega(n \log n)$
 
-(ejercicio_24_4)=
-### Ejercicio 24.4 - Demostración Formal de Big-O ⭐⭐☆☆☆
+(ej_b3_c06_04)=
+### Ejercicio 3.06.04 - Demostración Formal de Big-O ⭐⭐☆☆☆
 
 Demostrar formalmente que $f(n) = 3n^2 + 5n + 2$ es $O(n^2)$ encontrando
 constantes $c$ y $n_0$ que satisfagan la definición.
@@ -62,8 +63,9 @@ constantes $c$ y $n_0$ que satisfagan la definición.
 ---
 
 ## Análisis de Lazos Simples
-(ejercicio_24_5)=
-### Ejercicio 24.5 - Lazo Simple ⭐☆☆☆☆
+
+(ej_b3_c06_05)=
+### Ejercicio 3.06.05 - Lazo Simple ⭐☆☆☆☆
 
 Analizar la complejidad temporal de este código:
 
@@ -75,8 +77,9 @@ for (int i = 0; i < n; i++)
 }
 ```
 <!-- c -->
-(ejercicio_24_6)=
-### Ejercicio 24.6 - Lazo con Incremento Variable ⭐⭐☆☆☆
+
+(ej_b3_c06_06)=
+### Ejercicio 3.06.06 - Lazo con Incremento Variable ⭐⭐☆☆☆
 
 Analizar la complejidad de:
 
@@ -88,8 +91,9 @@ for (int i = 0; i < n; i += 2)
 }
 ```
 <!-- c -->
-(ejercicio_24_7)=
-### Ejercicio 24.7 - Lazo con Multiplicación ⭐⭐☆☆☆
+
+(ej_b3_c06_07)=
+### Ejercicio 3.06.07 - Lazo con Multiplicación ⭐⭐☆☆☆
 
 Analizar la complejidad de:
 
@@ -101,8 +105,9 @@ for (int i = 1; i < n; i *= 2)
 }
 ```
 <!-- c -->
-(ejercicio_24_8)=
-### Ejercicio 24.8 - Lazo con División ⭐⭐☆☆☆
+
+(ej_b3_c06_08)=
+### Ejercicio 3.06.08 - Lazo con División ⭐⭐☆☆☆
 
 Analizar la complejidad de:
 
@@ -114,8 +119,9 @@ for (int i = n; i > 1; i /= 2)
 }
 ```
 <!-- c -->
-(ejercicio_24_9)=
-## Ejercicio 24.9 - Contar Operaciones ⭐☆☆☆☆
+
+(ej_b3_c06_09)=
+## Ejercicio 3.06.09 - Contar Operaciones ⭐☆☆☆☆
 
 Contá cuántas operaciones ejecuta este código:
 
@@ -137,8 +143,9 @@ for (int i = 0; i < n; i++)
 - **Complejidad:** O(n)
 
 ---
-(ejercicio_24_10)=
-## Ejercicio 24.10 - Analizar Lazo Anidado ⭐⭐☆☆☆
+
+(ej_b3_c06_10)=
+## Ejercicio 3.06.10 - Analizar Lazo Anidado ⭐⭐☆☆☆
 
 ¿Cuál es la complejidad de este código?
 
@@ -160,8 +167,9 @@ for (int i = 0; i < n; i++)
 - **Complejidad:** O(n²)
 
 ---
-(ejercicio_24_11)=
-## Ejercicio 24.11 - Comparar Algoritmos ⭐⭐☆☆☆
+
+(ej_b3_c06_11)=
+## Ejercicio 3.06.11 - Comparar Algoritmos ⭐⭐☆☆☆
 
 Compará la complejidad de buscar un elemento en:
 - Array no ordenado (búsqueda lineal)
@@ -173,8 +181,9 @@ Compará la complejidad de buscar un elemento en:
 - Para n=1,000,000: lineal hace ~1M comparaciones, binaria ~20
 
 ---
-(ejercicio_24_12)=
-## Ejercicio 24.12 - Identificar Complejidad ⭐⭐☆☆☆
+
+(ej_b3_c06_12)=
+## Ejercicio 3.06.12 - Identificar Complejidad ⭐⭐☆☆☆
 
 Determiná la complejidad de cada fragmento:
 
@@ -218,8 +227,9 @@ while (i > 0)
 - **c)** O(log n) - divide por 2 cada vez
 
 ---
-(ejercicio_24_13)=
-## Ejercicio 24.13 - Suma de Matriz ⭐⭐⭐☆☆
+
+(ej_b3_c06_13)=
+## Ejercicio 3.06.13 - Suma de Matriz ⭐⭐⭐☆☆
 
 Analizá la complejidad de sumar todos los elementos de una matriz n×m.
 
@@ -243,8 +253,9 @@ for (int i = 0; i < n; i++)
 - Si n = m: O(n²)
 
 ---
-(ejercicio_24_14)=
-## Ejercicio 24.14 - Fibonacci Naive vs Optimizado ⭐⭐⭐☆☆
+
+(ej_b3_c06_14)=
+## Ejercicio 3.06.14 - Fibonacci Naive vs Optimizado ⭐⭐⭐☆☆
 
 Compará complejidad de Fibonacci recursivo vs iterativo.
 
@@ -278,8 +289,9 @@ Compará complejidad de Fibonacci recursivo vs iterativo.
   - Complejidad: O(n) - lineal
 
 ---
-(ejercicio_24_15)=
-## Ejercicio 24.15 - Búsqueda del Máximo ⭐⭐☆☆☆
+
+(ej_b3_c06_15)=
+## Ejercicio 3.06.15 - Búsqueda del Máximo ⭐⭐☆☆☆
 
 Implementá función para encontrar el máximo de un array y analizá su
 complejidad.
@@ -305,8 +317,9 @@ int maximo(int arr[], int n)
 - **Espacio:** O(1) - solo una variable
 
 ---
-(ejercicio_24_16)=
-## Ejercicio 24.16 - Duplicados en Array ⭐⭐⭐☆☆
+
+(ej_b3_c06_16)=
+## Ejercicio 3.06.16 - Duplicados en Array ⭐⭐⭐☆☆
 
 Compará dos formas de encontrar duplicados:
 
@@ -351,8 +364,9 @@ bool tiene_duplicados_2(int arr[], int n)
 - Para n grande, método 2 es mucho más rápido
 
 ---
-(ejercicio_24_17)=
-## Ejercicio 24.17 - Ordenamiento Burbuja ⭐⭐⭐☆☆
+
+(ej_b3_c06_17)=
+## Ejercicio 3.06.17 - Ordenamiento Burbuja ⭐⭐⭐☆☆
 
 Analizá complejidad del ordenamiento burbuja.
 
@@ -380,8 +394,9 @@ void burbuja(int arr[], int n)
 - **Optimización:** Agregar flag para detectar si hubo swaps
 
 ---
-(ejercicio_24_18)=
-## Ejercicio 24.18 - Complejidad Espacial ⭐⭐⭐☆☆
+
+(ej_b3_c06_18)=
+## Ejercicio 3.06.18 - Complejidad Espacial ⭐⭐⭐☆☆
 
 Analizá memoria usada por MergeSort.
 
@@ -406,8 +421,9 @@ void merge_sort(int arr[], int l, int r)
 - **Espacio:** O(n) para array + O(log n) para stack de recursión = O(n)
 
 ---
-(ejercicio_24_19)=
-## Ejercicio 24.19 - Suma de Pares ⭐⭐⭐⭐☆
+
+(ej_b3_c06_19)=
+## Ejercicio 3.06.19 - Suma de Pares ⭐⭐⭐⭐☆
 
 Encontrá dos números en array que sumen un objetivo.
 
@@ -455,8 +471,9 @@ bool suma_objetivo_2(int arr[], int n, int objetivo)
 - Trade-off: tiempo por espacio
 
 ---
-(ejercicio_24_20)=
-## Ejercicio 24.20 - Números Primos hasta N ⭐⭐⭐⭐☆
+
+(ej_b3_c06_20)=
+## Ejercicio 3.06.20 - Números Primos hasta N ⭐⭐⭐⭐☆
 
 Compará verificar primos uno por uno vs Criba de Eratóstenes.
 
@@ -497,8 +514,9 @@ bool *criba(int n)
 - Mucho más eficiente para rangos grandes
 
 ---
-(ejercicio_24_21)=
-## Ejercicio 24.21 - Subsecuencia Común Más Larga (LCS) ⭐⭐⭐⭐⭐
+
+(ej_b3_c06_21)=
+## Ejercicio 3.06.21 - Subsecuencia Común Más Larga (LCS) ⭐⭐⭐⭐⭐
 
 Analizá complejidad de LCS con programación dinámica.
 
@@ -530,8 +548,9 @@ int lcs(char *X, char *Y, int m, int n)
 - Optimización espacial: O(min(m, n)) con dos filas
 
 ---
-(ejercicio_24_22)=
-## Ejercicio 24.22 - Multiplicación de Matrices ⭐⭐⭐⭐☆
+
+(ej_b3_c06_22)=
+## Ejercicio 3.06.22 - Multiplicación de Matrices ⭐⭐⭐⭐☆
 
 Analizá complejidad de multiplicar dos matrices n×n.
 
@@ -560,8 +579,9 @@ void multiplicar(int A[N][N], int B[N][N], int C[N][N])
 - Algoritmos más eficientes existen (Strassen: O(n^2.807))
 
 ---
-(ejercicio_24_23)=
-## Ejercicio 24.23 - Torres de Hanoi ⭐⭐⭐⭐☆
+
+(ej_b3_c06_23)=
+## Ejercicio 3.06.23 - Torres de Hanoi ⭐⭐⭐⭐☆
 
 Analizá complejidad de Torres de Hanoi.
 
@@ -590,8 +610,9 @@ void hanoi(int n, char origen, char destino, char auxiliar)
 - Cantidad mínima de movimientos
 
 ---
-(ejercicio_24_24)=
-## Ejercicio 24.24 - Análisis Amortizado ⭐⭐⭐⭐⭐
+
+(ej_b3_c06_24)=
+## Ejercicio 3.06.24 - Análisis Amortizado ⭐⭐⭐⭐⭐
 
 Analizá costo amortizado de inserción en vector dinámico con duplicación.
 
@@ -616,8 +637,9 @@ void agregar(vector_t *v, int elem)
 - **Costo amortizado:** O(1) por inserción
 
 ---
-(ejercicio_24_25)=
-## Ejercicio 24.25 - Comparar Estructuras de Datos ⭐⭐⭐⭐☆
+
+(ej_b3_c06_25)=
+## Ejercicio 3.06.25 - Comparar Estructuras de Datos ⭐⭐⭐⭐☆
 
 Compará complejidad de operaciones en diferentes estructuras:
 
@@ -634,8 +656,9 @@ Compará complejidad de operaciones en diferentes estructuras:
 - Trade-offs entre tiempo y espacio
 
 ---
-(ejercicio_24_26)=
-## Ejercicio 24.26 - Problema del Viajante (TSP) ⭐⭐⭐⭐⭐
+
+(ej_b3_c06_26)=
+## Ejercicio 3.06.26 - Problema del Viajante (TSP) ⭐⭐⭐⭐⭐
 
 Analizá complejidad de soluciones al TSP.
 
@@ -662,8 +685,9 @@ Analizá complejidad de soluciones al TSP.
 - Para n=20: 20! ≈ 10¹⁸, 20²·2²⁰ ≈ 10⁹
 
 ---
-(ejercicio_24_27)=
-## Ejercicio 24.27 - Optimización de Caché ⭐⭐⭐⭐⭐
+
+(ej_b3_c06_27)=
+## Ejercicio 3.06.27 - Optimización de Caché ⭐⭐⭐⭐⭐
 
 Compará estos dos códigos para sumar matriz:
 
@@ -693,8 +717,9 @@ for (j = 0; j < N; j++)
 - L = tamaño de línea de caché
 
 ---
-(ejercicio_24_28)=
-## Ejercicio 24.28 - Medir Empíricamente ⭐⭐⭐⭐⭐
+
+(ej_b3_c06_28)=
+## Ejercicio 3.06.28 - Medir Empíricamente ⭐⭐⭐⭐⭐
 
 Implementá framework para medir tiempos y validar análisis teórico.
 

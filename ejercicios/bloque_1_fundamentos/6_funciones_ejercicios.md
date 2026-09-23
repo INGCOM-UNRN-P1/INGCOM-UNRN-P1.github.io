@@ -29,8 +29,9 @@ correspondientes para los parámetros y valores de retorno.
 ---
 
 ## Definición y Llamada de Funciones
-(ejercicio_5_1)=
-### Ejercicio 5.1 - Doble de un número ⭐⭐☆☆☆
+
+(ej_b1_c04_01)=
+### Ejercicio 1.04.01 - Doble de un número ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-funcion-doble
@@ -63,8 +64,9 @@ int main(void)
 
 :::
 <!-- {solution} ej-funcion-doble -->
-(ejercicio_5_2)=
-### Ejercicio 5.2 - Mayor de dos números ⭐⭐☆☆☆
+
+(ej_b1_c04_02)=
+### Ejercicio 1.04.02 - Mayor de dos números ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-funcion-mayor
@@ -103,8 +105,9 @@ int main(void)
 
 :::
 <!-- {solution} ej-funcion-mayor -->
-(ejercicio_5_3)=
-### Ejercicio 5.3 - Paridad de un número ⭐⭐☆☆☆
+
+(ej_b1_c04_03)=
+### Ejercicio 1.04.03 - Paridad de un número ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-funcion-par-impar
@@ -144,8 +147,9 @@ int main(void)
 
 :::
 <!-- {solution} ej-funcion-par-impar -->
-(ejercicio_5_4)=
-### Ejercicio 5.4 - Promedio de notas ⭐⭐☆☆☆
+
+(ej_b1_c04_04)=
+### Ejercicio 1.04.04 - Promedio de notas ⭐⭐☆☆☆
 
 :::{exercise}
 :label: funcion_promedio
@@ -177,8 +181,9 @@ int main(void)
 
 :::
 <!-- {solution} funcion_promedio -->
-(ejercicio_5_5)=
-### Ejercicio 5.5 - Área de rectángulo ⭐⭐☆☆☆
+
+(ej_b1_c04_05)=
+### Ejercicio 1.04.05 - Área de rectángulo ⭐⭐☆☆☆
 
 :::{exercise}
 :label: funcion_area
@@ -210,8 +215,9 @@ int main(void)
 
 :::
 <!-- {solution} funcion_area -->
-(ejercicio_5_6)=
-## Ejercicio 5.6 - Funciones Matemáticas Básicas ⭐☆☆☆☆
+
+(ej_b1_c04_06)=
+## Ejercicio 1.04.06 - Funciones Matemáticas Básicas ⭐☆☆☆☆
 
 Creá funciones para operaciones matemáticas: `sumar`, `restar`, `multiplicar`,
 `dividir`.
@@ -228,8 +234,9 @@ definición interna oculta en el archivo `.c`.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_5_7)=
-## Ejercicio 5.7 - Función Es Primo ⭐⭐☆☆☆
+
+(ej_b1_c04_07)=
+## Ejercicio 1.04.07 - Función Es Primo ⭐⭐☆☆☆
 
 Implementá `bool es_primo(int n)` que determine si un número es primo.
 
@@ -245,8 +252,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_5_8)=
-## Ejercicio 5.8 - Factorial Recursivo e Iterativo ⭐⭐☆☆☆
+
+(ej_b1_c04_08)=
+## Ejercicio 1.04.08 - Factorial Recursivo e Iterativo ⭐⭐☆☆☆
 
 Implementá dos versiones de factorial:
 - `int factorial_iterativo(int n)`
@@ -264,8 +272,9 @@ cola (*tail recursion*) para reducir el consumo de pila.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_5_9)=
-## Ejercicio 5.9 - Conversión de Temperatura ⭐⭐☆☆☆
+
+(ej_b1_c04_09)=
+## Ejercicio 1.04.09 - Conversión de Temperatura ⭐⭐☆☆☆
 
 Creá funciones para convertir temperaturas:
 - `celsius_a_fahrenheit`
@@ -284,8 +293,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_5_10)=
-## Ejercicio 5.10 - Validación de Entrada ⭐⭐⭐☆☆
+
+(ej_b1_c04_10)=
+## Ejercicio 1.04.10 - Validación de Entrada ⭐⭐⭐☆☆
 
 Implementá funciones de validación:
 - `int leer_entero(int min, int max)` - lee y valida rango
@@ -304,8 +314,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_5_11)=
-## Ejercicio 5.11 - Máximo Común Divisor (MCD) ⭐⭐⭐☆☆
+
+(ej_b1_c04_11)=
+## Ejercicio 1.04.11 - Máximo Común Divisor (MCD) ⭐⭐⭐☆☆
 
 Implementá el algoritmo de Euclides para calcular MCD.
 
@@ -327,8 +338,9 @@ mcd(a, 0) = a
 - Agregá función `mcm(a, b)` usando: mcm = (a * b) / mcd(a, b)
 
 ---
-(ejercicio_5_12)=
-## Ejercicio 5.12 - Números de Fibonacci ⭐⭐⭐☆☆
+
+(ej_b1_c04_12)=
+## Ejercicio 1.04.12 - Números de Fibonacci ⭐⭐⭐☆☆
 
 Implementá:
 - `int fibonacci(int n)` - retorna n-ésimo número de Fibonacci
@@ -345,8 +357,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_5_13)=
-## Ejercicio 5.13 - Operaciones con Dígitos ⭐⭐⭐☆☆
+
+(ej_b1_c04_13)=
+## Ejercicio 1.04.13 - Operaciones con Dígitos ⭐⭐⭐☆☆
 
 Creá funciones para manipular dígitos de un número:
 - `int contar_digitos(int n)`
@@ -365,8 +378,9 @@ error e informar el resultado mediante parámetros de salida.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_5_14)=
-## Ejercicio 5.14 - Conversión de Bases ⭐⭐⭐⭐☆
+
+(ej_b1_c04_14)=
+## Ejercicio 1.04.14 - Conversión de Bases ⭐⭐⭐⭐☆
 
 Implementá conversiones entre bases numéricas:
 - `int binario_a_decimal(long binario)`
@@ -385,8 +399,9 @@ errores de E/S con `ferror` y `feof`.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_5_15)=
-## Ejercicio 5.15 - Cálculo de Potencia ⭐⭐⭐⭐☆
+
+(ej_b1_c04_15)=
+## Ejercicio 1.04.15 - Cálculo de Potencia ⭐⭐⭐⭐☆
 
 Implementá dos versiones de cálculo de potencia:
 - `double potencia_iterativa(double base, int exp)`: calculada mediante multiplicaciones sucesivas.
@@ -405,8 +420,9 @@ valores fuera de rango o tipos inválidos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_5_16)=
-## Ejercicio 5.16 - Generador de Números Primos ⭐⭐⭐⭐☆
+
+(ej_b1_c04_16)=
+## Ejercicio 1.04.16 - Generador de Números Primos ⭐⭐⭐⭐☆
 
 Implementá:
 - `bool es_primo(int n)`
@@ -426,8 +442,9 @@ definición interna oculta en el archivo `.c`.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_5_17)=
-## Ejercicio 5.17 - Combinatoria ⭐⭐⭐⭐☆
+
+(ej_b1_c04_17)=
+## Ejercicio 1.04.17 - Combinatoria ⭐⭐⭐⭐☆
 
 Implementá funciones combinatorias:
 - `long factorial(int n)`
@@ -446,8 +463,9 @@ error e informar el resultado mediante parámetros de salida.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_5_18)=
-## Ejercicio 5.18 - Geometría Modular ⭐⭐⭐⭐☆
+
+(ej_b1_c04_18)=
+## Ejercicio 1.04.18 - Geometría Modular ⭐⭐⭐⭐☆
 
 Creá funciones para calcular áreas y perímetros de figuras:
 - Círculo
@@ -467,8 +485,9 @@ error e informar el resultado mediante parámetros de salida.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_5_19)=
-## Ejercicio 5.19 - Estadísticas de un Array ⭐⭐⭐⭐☆
+
+(ej_b1_c04_19)=
+## Ejercicio 1.04.19 - Estadísticas de un Array ⭐⭐⭐⭐☆
 
 Implementá funciones estadísticas para un array de números:
 - `double promedio(double arr[], int n)`
@@ -487,8 +506,9 @@ filas (*row-major order*) para mejorar el uso de caché.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_5_20)=
-## Ejercicio 5.20 - Simulación de Dado ⭐⭐⭐⭐☆
+
+(ej_b1_c04_20)=
+## Ejercicio 1.04.20 - Simulación de Dado ⭐⭐⭐⭐☆
 
 Creá un simulador de lanzamiento de dados:
 - `int lanzar_dado(int caras)` - retorna 1 a caras
@@ -507,8 +527,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_5_21)=
-## Ejercicio 5.21 - Validador de Fechas ⭐⭐⭐⭐☆
+
+(ej_b1_c04_21)=
+## Ejercicio 1.04.21 - Validador de Fechas ⭐⭐⭐⭐☆
 
 Implementá funciones para trabajar con fechas:
 - `bool es_fecha_valida(int dia, int mes, int anio)`
@@ -528,8 +549,9 @@ error e informar el resultado mediante parámetros de salida.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_5_22)=
-## Ejercicio 5.22 - Búsqueda y Algoritmos sobre Arreglos ⭐⭐⭐⭐⭐
+
+(ej_b1_c04_22)=
+## Ejercicio 1.04.22 - Búsqueda y Algoritmos sobre Arreglos ⭐⭐⭐⭐⭐
 
 Implementá funciones modulares para operaciones sobre arreglos de enteros:
 - `int busqueda_lineal(const int arr[], int n, int objetivo)`: retorna el índice de la primera aparición o `-1`.
@@ -547,8 +569,9 @@ evitar fallos de segmentación.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_5_23)=
-## Ejercicio 5.23 - Funciones de Calendario y Fechas ⭐⭐⭐⭐⭐
+
+(ej_b1_c04_23)=
+## Ejercicio 1.04.23 - Funciones de Calendario y Fechas ⭐⭐⭐⭐⭐
 
 Implementá funciones modulares para operaciones con fechas representadas mediante sus componentes (`dia`, `mes`, `anio`):
 - `bool es_fecha_valida(int dia, int mes, int anio)`: valida si una terna corresponde a una fecha real del calendario gregoriano.
@@ -566,8 +589,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_5_24)=
-## Ejercicio 5.24 - Sistema de Ecuaciones 2x2 ⭐⭐⭐⭐⭐
+
+(ej_b1_c04_24)=
+## Ejercicio 1.04.24 - Sistema de Ecuaciones 2x2 ⭐⭐⭐⭐⭐
 
 Implementá funciones modulares para resolver y verificar sistemas de ecuaciones lineales 2×2 mediante la regla de Cramer:
 

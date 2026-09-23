@@ -39,8 +39,9 @@ flowchart TD
 
 :::
 <!-- {mermaid} -->
-(ejercicio_26_1)=
-### Ejercicio 26.1 - Asignación de Memoria en una Función ⭐⭐☆☆☆
+
+(ej_b4_c02_01)=
+### Ejercicio 4.02.01 - Asignación de Memoria en una Función ⭐⭐☆☆☆
 
 Escribir una función `void alocar_cadena(char **puntero_a_cadena, const char
 *valor_inicial)` que reciba un puntero doble. La función debe reservar memoria
@@ -56,8 +57,8 @@ original en `main` apunte a esta nueva memoria.
   3. Asignar la nueva dirección de memoria al puntero desreferenciado:
      `*puntero_a_cadena = nueva_cadena;`.
 
-(ejercicio_26_2)=
-### Ejercicio 26.2 - Devolución de un Arreglo de Cadenas (Tokenizer) ⭐⭐⭐☆☆
+(ej_b4_c02_02)=
+### Ejercicio 4.02.02 - Devolución de un Arreglo de Cadenas (Tokenizer) ⭐⭐⭐☆☆
 
 Reimplementar el ejercicio de "Tokenización" para que la función devuelva un
 `char**` (un arreglo de cadenas terminado en `NULL`) alojado dinámicamente. La
@@ -79,8 +80,9 @@ función debe ser `char** dividir_cadena(const char *s, const char
 Un puntero a función almacena la dirección de memoria de una función ejecutable.
 Permite pasar funciones como argumentos a otras funciones, creando código más
 genérico y extensible.
-(ejercicio_26_3)=
-### Ejercicio 26.3 - Typedef para un Puntero a Función ⭐⭐⭐☆☆
+
+(ej_b4_c02_03)=
+### Ejercicio 4.02.03 - Typedef para un Puntero a Función ⭐⭐⭐☆☆
 
 Definir un tipo llamado `operacion_aritmetica_t` usando `typedef` que represente
 un puntero a una función que toma dos enteros y devuelve un entero.
@@ -92,8 +94,8 @@ un puntero a una función que toma dos enteros y devuelve un entero.
 - `(int, int)`: El puntero apunta a una función que toma dos `int` como
   parámetros.
 
-(ejercicio_26_4)=
-### Ejercicio 26.4 - Función de Orden Superior (Calculadora) ⭐⭐☆☆☆
+(ej_b4_c02_04)=
+### Ejercicio 4.02.04 - Función de Orden Superior (Calculadora) ⭐⭐☆☆☆
 
 Escribir una función `int calculadora(int a, int b, operacion_aritmetica_t
 operacion)` que reciba dos números y un puntero a una función de operación. La
@@ -108,8 +110,8 @@ su resultado.
   - `calculadora(10, 5, sumar);` // Devuelve 15
   - `calculadora(10, 5, restar);` // Devuelve 5
 
-(ejercicio_26_5)=
-### Ejercicio 26.5 - Tabla de Despacho (Dispatch Table) ⭐⭐☆☆☆
+(ej_b4_c02_05)=
+### Ejercicio 4.02.05 - Tabla de Despacho (Dispatch Table) ⭐⭐☆☆☆
 
 Crear una "tabla de despacho" para la calculadora. Esto consiste en un arreglo
 de punteros a función. El programa debe permitir al usuario elegir una operación
@@ -123,14 +125,14 @@ correcta desde el arreglo.
 - **Ventaja**: Reemplaza una estructura `switch` o `if-else` larga por una
   simple indexación de arreglo, lo que hace el código más compacto y extensible.
 
-(ejercicio_26_6)=
-### Ejercicio 26.6 - Callback de Transformación In-Place ⭐⭐☆☆☆
+(ej_b4_c02_06)=
+### Ejercicio 4.02.06 - Callback de Transformación In-Place ⭐⭐☆☆☆
 
 Implementar `void aplicar(int *arr, size_t n, void (*func)(int *))` que aplique
 una función transformadora a cada elemento de un arreglo por referencia.
 
-(ejercicio_26_7)=
-### Ejercicio 26.7 - Ordenamiento Genérico con Comparador (Tipo qsort) ⭐⭐⭐☆☆
+(ej_b4_c02_07)=
+### Ejercicio 4.02.07 - Ordenamiento Genérico con Comparador (Tipo qsort) ⭐⭐⭐☆☆
 
 Implementar `void ordenar_generico(void *arr, size_t n, size_t tam_elemento, int (*comparar)(const void*, const void*))`
 que ordene un arreglo de cualquier tipo utilizando una función de comparación provista por el llamador

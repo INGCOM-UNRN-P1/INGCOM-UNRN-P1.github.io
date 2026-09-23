@@ -178,6 +178,9 @@ complejidad.
     Complejidad**](./bloque_3_algoritmos_estructuras/4_complejidad.md):
     Ejercicios teóricos y empíricos sobre notación asintótica Big-O, límites de
     hardware y Teorema Maestro.
+*   [**5. Recursividad**](./bloque_3_algoritmos_estructuras/5_recursion.md):
+    Diseño de casos base explícitos, árboles de llamadas recursivas y algoritmos
+    sobre secuencias.
 
 ### Bloque 4: Temas Avanzados
 

@@ -19,8 +19,9 @@ capítulo del apunte:
   Memoria](../../apunte/bloque_2_memoria/1_modelo_memoria.md)
 
 ## Manipulación de Bits Individuales
-(ejercicio_27_1)=
-### Ejercicio 27.1 - b.1 - Obtener el n-ésimo bit ⭐⭐⭐⭐☆
+
+(ej_b4_c05_01)=
+### Ejercicio 4.05.01 - b.1 - Obtener el n-ésimo bit ⭐⭐⭐⭐☆
 
 Escribir una función `int get_bit(int numero, int n)` que devuelva el valor del
 bit en la posición `n` de un número (0 o 1).
@@ -32,8 +33,9 @@ bit en la posición `n` de un número (0 o 1).
 - `(numero & (1 << n)) != 0`
 :::
 <!-- {hint} Lógica y Consideraciones -->
-(ejercicio_27_2)=
-### Ejercicio 27.2 - b.2 - Establecer el n-ésimo bit (Set) ⭐⭐⭐⭐☆
+
+(ej_b4_c05_02)=
+### Ejercicio 4.05.02 - b.2 - Establecer el n-ésimo bit (Set) ⭐⭐⭐⭐☆
 
 Escribir una función `int set_bit(int numero, int n)` que encienda (ponga en 1)
 el bit en la posición `n` sin alterar los demás.
@@ -44,8 +46,9 @@ el bit en la posición `n` sin alterar los demás.
 - `numero = numero | (1 << n);`
 :::
 <!-- {hint} Lógica y Consideraciones -->
-(ejercicio_27_3)=
-### Ejercicio 27.3 - b.3 - Limpiar el n-ésimo bit (Clear) ⭐⭐⭐⭐☆
+
+(ej_b4_c05_03)=
+### Ejercicio 4.05.03 - b.3 - Limpiar el n-ésimo bit (Clear) ⭐⭐⭐⭐☆
 
 Escribir una función `int clear_bit(int numero, int n)` que apague (ponga en 0)
 el bit en la posición `n`.
@@ -57,8 +60,9 @@ el bit en la posición `n`.
 - `numero = numero & ~(1 << n);`
 :::
 <!-- {hint} Lógica y Consideraciones -->
-(ejercicio_27_4)=
-### Ejercicio 27.4 - b.4 - Alternar el n-ésimo bit (Toggle) ⭐⭐⭐⭐☆
+
+(ej_b4_c05_04)=
+### Ejercicio 4.05.04 - b.4 - Alternar el n-ésimo bit (Toggle) ⭐⭐⭐⭐☆
 
 Escribir una función `int toggle_bit(int numero, int n)` que invierta el valor
 del bit en la posición `n` (de 0 a 1, o de 1 a 0).
@@ -71,8 +75,9 @@ del bit en la posición `n` (de 0 a 1, o de 1 a 0).
 <!-- {hint} Lógica y Consideraciones -->
 
 ## Algoritmos con Bits
-(ejercicio_27_5)=
-### Ejercicio 27.5 - b.5 - Contar bits encendidos (Hamming Weight) ⭐⭐⭐⭐☆
+
+(ej_b4_c05_05)=
+### Ejercicio 4.05.05 - b.5 - Contar bits encendidos (Hamming Weight) ⭐⭐⭐⭐☆
 
 Implementar una función que cuente el número de bits que están en 1 en la
 representación binaria de un número.
@@ -84,8 +89,9 @@ representación binaria de un número.
   de bits encendidos.
 :::
 <!-- {hint} Lógica y Consideraciones -->
-(ejercicio_27_6)=
-### Ejercicio 27.6 - b.6 - Verificar si es potencia de dos ⭐⭐☆☆☆
+
+(ej_b4_c05_06)=
+### Ejercicio 4.05.06 - b.6 - Verificar si es potencia de dos ⭐⭐☆☆☆
 
 Escribir una función que determine si un número entero positivo es una potencia
 de dos (ej. 2, 4, 8, 16...).
@@ -98,8 +104,9 @@ de dos (ej. 2, 4, 8, 16...).
 - **Condición**: `n > 0 && (n & (n - 1)) == 0`
 :::
 <!-- {hint} Lógica y Consideraciones -->
-(ejercicio_27_7)=
-### Ejercicio 27.7 - b.7 - Intercambio con XOR ⭐⭐☆☆☆
+
+(ej_b4_c05_07)=
+### Ejercicio 4.05.07 - b.7 - Intercambio con XOR ⭐⭐☆☆☆
 
 Implementar una función `void swap(int *a, int *b)` que intercambie los valores
 de dos variables sin usar una variable temporal, utilizando únicamente el
@@ -112,8 +119,9 @@ operador XOR.
   3. `*a = *a ^ *b;` // Ahora `a` tiene el valor original de `b`
 :::
 <!-- {hint} Lógica y Consideraciones -->
-(ejercicio_27_8)=
-### Ejercicio 27.8 - b.8 - Uso de máscaras de bits para permisos ⭐⭐⭐⭐☆
+
+(ej_b4_c05_08)=
+### Ejercicio 4.05.08 - b.8 - Uso de máscaras de bits para permisos ⭐⭐⭐⭐☆
 
 Simular un sistema de permisos de archivo (Lectura, Escritura, Ejecución) usando
 una sola variable `unsigned char`.

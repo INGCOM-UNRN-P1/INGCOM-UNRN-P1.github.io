@@ -24,8 +24,9 @@ paradigma de diseño "Divide y Vencerás" en C.
 ---
 
 ## Fundamentos de Recursividad
-(ejercicio_29_1)=
-### Ejercicio 29.1 - Factorial ⭐⭐☆☆☆
+
+(ej_b4_c07_01)=
+### Ejercicio 4.07.01 - Factorial ⭐⭐☆☆☆
 
 Implementar la función factorial de forma recursiva siguiendo la definición
 matemática.
@@ -48,8 +49,9 @@ $$
 - `factorial(0)` → 1
 - `factorial(5)` → 120
 - `factorial(10)` → 3628800
-(ejercicio_29_2)=
-### Ejercicio 29.2 - Suma de Enteros ⭐⭐☆☆☆
+
+(ej_b4_c07_02)=
+### Ejercicio 4.07.02 - Suma de Enteros ⭐⭐☆☆☆
 
 Implementar suma de dos enteros positivos usando solo recursividad (sin operador
 `+` en el paso recursivo).
@@ -67,8 +69,9 @@ a & \text{si } b = 0 \\
 suma(a + 1, b - 1) & \text{si } b > 0
 \end{cases}
 $$
-(ejercicio_29_3)=
-### Ejercicio 29.3 - Producto por Sumas Recursivas ⭐⭐☆☆☆
+
+(ej_b4_c07_03)=
+### Ejercicio 4.07.03 - Producto por Sumas Recursivas ⭐⭐☆☆☆
 
 Implementar multiplicación usando solo sumas recursivas.
 
@@ -85,8 +88,9 @@ a + producto(a, b - 1) & \text{si } b > 0
 $$
 
 **Complejidad:** $O(b)$ en tiempo.
-(ejercicio_29_4)=
-### Ejercicio 29.4 - Potencia ⭐⭐☆☆☆
+
+(ej_b4_c07_04)=
+### Ejercicio 4.07.04 - Potencia ⭐⭐☆☆☆
 
 Implementar $base^{exponente}$ de forma recursiva.
 
@@ -118,8 +122,9 @@ $$
 ---
 
 ## Series Numéricas Recursivas
-(ejercicio_29_5)=
-### Ejercicio 29.5 - Fibonacci Básico ⭐☆☆☆☆
+
+(ej_b4_c07_05)=
+### Ejercicio 4.07.05 - Fibonacci Básico ⭐☆☆☆☆
 
 Implementar la secuencia de Fibonacci recursivamente.
 

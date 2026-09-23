@@ -54,8 +54,8 @@ Para resolver cada ejercicio debés:
 
 ## 1. Expresiones Aritméticas, Asignaciones y Nombres Crípticos
 
-(ejercicio_9_ref_1)=
-### Ejercicio 9.1 - El Máximo Comprimido ⭐☆☆☆☆
+(ej_b1_c07_01)=
+### Ejercicio 1.07.01 - El Máximo Comprimido ⭐☆☆☆☆
 
 :::{exercise}
 :label: ej-ref-maximo-comprimido
@@ -112,8 +112,8 @@ void test_obtener_mayor(void)
 
 ---
 
-(ejercicio_9_ref_2)=
-### Ejercicio 9.2 - Geometría sin Nombres ⭐☆☆☆☆
+(ej_b1_c07_02)=
+### Ejercicio 1.07.02 - Geometría sin Nombres ⭐☆☆☆☆
 
 :::{exercise}
 :label: ej-ref-area-triangulo
@@ -160,8 +160,8 @@ void test_area_triangulo(void)
 
 ---
 
-(ejercicio_9_ref_3)=
-### Ejercicio 9.3 - Suma de Cuadrados en Una Línea ⭐⭐☆☆☆
+(ej_b1_c07_03)=
+### Ejercicio 1.07.03 - Suma de Cuadrados en Una Línea ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-suma-cuadrados
@@ -215,8 +215,8 @@ void test_suma_cuadrados(void)
 
 ---
 
-(ejercicio_9_ref_4)=
-### Ejercicio 9.4 - Conversión Térmica con División Entera Peligrosa ⭐⭐☆☆☆
+(ej_b1_c07_04)=
+### Ejercicio 1.07.04 - Conversión Térmica con División Entera Peligrosa ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-conversion-termica
@@ -278,8 +278,8 @@ void test_conversion_celsius(void)
 
 ---
 
-(ejercicio_9_ref_5)=
-### Ejercicio 9.5 - Suma de Dígitos Ofuscada ⭐⭐☆☆☆
+(ej_b1_c07_05)=
+### Ejercicio 1.07.05 - Suma de Dígitos Ofuscada ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-suma-digitos
@@ -332,8 +332,8 @@ void test_sumar_digitos(void)
 
 ---
 
-(ejercicio_9_ref_6)=
-### Ejercicio 9.6 - Año Bisiesto Críptico ⭐☆☆☆☆
+(ej_b1_c07_06)=
+### Ejercicio 1.07.06 - Año Bisiesto Críptico ⭐☆☆☆☆
 
 :::{exercise}
 :label: ej-ref-bisiesto-criptico
@@ -386,8 +386,8 @@ void test_es_anio_bisiesto(void)
 
 ---
 
-(ejercicio_9_ref_7)=
-### Ejercicio 9.7 - Sumatoria de Gauss con Nombres Inadecuados ⭐☆☆☆☆
+(ej_b1_c07_07)=
+### Ejercicio 1.07.07 - Sumatoria de Gauss con Nombres Inadecuados ⭐☆☆☆☆
 
 :::{exercise}
 :label: ej-ref-gauss-inadecuado
@@ -434,8 +434,8 @@ void test_sumatoria_gauss(void)
 
 ---
 
-(ejercicio_9_ref_8)=
-### Ejercicio 9.8 - Cilindro con Número Mágico ⭐⭐☆☆☆
+(ej_b1_c07_08)=
+### Ejercicio 1.07.08 - Cilindro con Número Mágico ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-cilindro-magico
@@ -486,8 +486,8 @@ void test_volumen_cilindro(void)
 
 ## 2. Control de Flujo Espagueti y Anidaciones Profundas
 
-(ejercicio_9_ref_9)=
-### Ejercicio 9.9 - El Monstruo de la Flecha (Arrow Code) ⭐⭐⭐☆☆
+(ej_b1_c07_09)=
+### Ejercicio 1.07.09 - El Monstruo de la Flecha (Arrow Code) ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-ref-arrow-code
@@ -598,8 +598,8 @@ void test_clasificar_desempenio(void)
 
 ---
 
-(ejercicio_9_ref_10)=
-### Ejercicio 9.10 - Menú con Ifs Caóticos ⭐⭐☆☆☆
+(ej_b1_c07_10)=
+### Ejercicio 1.07.10 - Menú con Ifs Caóticos ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-menu-ifs
@@ -691,8 +691,8 @@ void test_operaciones(void)
 
 ---
 
-(ejercicio_9_ref_11)=
-### Ejercicio 9.11 - Lazo Espagueti con Banderas Confusas ⭐⭐⭐☆☆
+(ej_b1_c07_11)=
+### Ejercicio 1.07.11 - Lazo Espagueti con Banderas Confusas ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-ref-lazo-espagueti
@@ -728,8 +728,8 @@ int check(int n)
 
 ---
 
-(ejercicio_9_ref_12)=
-### Ejercicio 9.12 - Tarifa de Taxi con Variables Reutilizadas ⭐⭐☆☆☆
+(ej_b1_c07_12)=
+### Ejercicio 1.07.12 - Tarifa de Taxi con Variables Reutilizadas ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-tarifa-taxi
@@ -795,8 +795,8 @@ void test_tarifa_taxi(void)
 
 ---
 
-(ejercicio_9_ref_13)=
-### Ejercicio 9.13 - Expresión Booleana Monolítica de Validación de Fecha ⭐⭐⭐☆☆
+(ej_b1_c07_13)=
+### Ejercicio 1.07.13 - Expresión Booleana Monolítica de Validación de Fecha ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-ref-fecha-monolitica
@@ -813,8 +813,8 @@ bool v(int d,int m,int y){return(y>0&&m>=1&&m<=12&&d>=1)&&((m==2&&(((y%4==0&&y%1
 
 ---
 
-(ejercicio_9_ref_14)=
-### Ejercicio 9.14 - Descuento Escalonado con Condiciones Solapadas ⭐⭐☆☆☆
+(ej_b1_c07_14)=
+### Ejercicio 1.07.14 - Descuento Escalonado con Condiciones Solapadas ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-descuento-solapado
@@ -889,8 +889,8 @@ void test_descuentos(void)
 
 ---
 
-(ejercicio_9_ref_15)=
-### Ejercicio 9.15 - Función Contaminada con Entrada/Salida ⭐⭐☆☆☆
+(ej_b1_c07_15)=
+### Ejercicio 1.07.15 - Función Contaminada con Entrada/Salida ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-contaminada-io
@@ -965,8 +965,8 @@ void test_clasificar_clima(void)
 
 ---
 
-(ejercicio_9_ref_16)=
-### Ejercicio 9.16 - Búsqueda Lineal con Variables Globales ⭐⭐☆☆☆
+(ej_b1_c07_16)=
+### Ejercicio 1.07.16 - Búsqueda Lineal con Variables Globales ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-busqueda-global
@@ -1036,8 +1036,8 @@ void test_buscar_aparicion(void)
 
 ## 3. Algoritmos Comprimidos y Lazos Crípticos
 
-(ejercicio_9_ref_17)=
-### Ejercicio 9.17 - Euclides con Operador Coma y Asignaciones Crípticas ⭐⭐⭐☆☆
+(ej_b1_c07_17)=
+### Ejercicio 1.07.17 - Euclides con Operador Coma y Asignaciones Crípticas ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-ref-euclides-coma
@@ -1054,8 +1054,8 @@ int m(int a,int b){int t;while(b)t=b,b=a%b,a=t;return a;}
 
 ---
 
-(ejercicio_9_ref_18)=
-### Ejercicio 9.18 - Inversor de Números con Variables Reutilizadas ⭐⭐☆☆☆
+(ej_b1_c07_18)=
+### Ejercicio 1.07.18 - Inversor de Números con Variables Reutilizadas ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-inversor-reutilizado
@@ -1106,8 +1106,8 @@ void test_invertir_numero(void)
 
 ---
 
-(ejercicio_9_ref_19)=
-### Ejercicio 9.19 - Fibonacci Iterativo Micro-comprimido ⭐⭐☆☆☆
+(ej_b1_c07_19)=
+### Ejercicio 1.07.19 - Fibonacci Iterativo Micro-comprimido ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-fibonacci-micro
@@ -1171,8 +1171,8 @@ void test_fibonacci(void)
 
 ---
 
-(ejercicio_9_ref_20)=
-### Ejercicio 9.20 - Conteo de Números Armstrong Desordenado ⭐⭐⭐☆☆
+(ej_b1_c07_20)=
+### Ejercicio 1.07.20 - Conteo de Números Armstrong Desordenado ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-ref-armstrong-desordenado
@@ -1189,8 +1189,8 @@ int arm(int x){int a=x/100,b=(x/10)%10,c=x%10;return(a*a*a+b*b*b+c*c*c==x)?1:0;}
 
 ---
 
-(ejercicio_9_ref_21)=
-### Ejercicio 9.21 - Factorial con Detección de Desbordamiento Oculto ⭐⭐☆☆☆
+(ej_b1_c07_21)=
+### Ejercicio 1.07.21 - Factorial con Detección de Desbordamiento Oculto ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-fact-desborde
@@ -1242,8 +1242,8 @@ void test_factorial(void)
 
 ---
 
-(ejercicio_9_ref_22)=
-### Ejercicio 9.22 - Números Perfectos con Lazo Ineficiente ⭐⭐⭐☆☆
+(ej_b1_c07_22)=
+### Ejercicio 1.07.22 - Números Perfectos con Lazo Ineficiente ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-ref-perfecto-ineficiente
@@ -1260,8 +1260,8 @@ int perf(int n){int s=0;for(int i=1;i<n;i++){if(n%i==0)s+=i;}return s==n;}
 
 ---
 
-(ejercicio_9_ref_23)=
-### Ejercicio 9.23 - Cálculo de Potencia Rápida Oculto ⭐⭐⭐☆☆
+(ej_b1_c07_23)=
+### Ejercicio 1.07.23 - Cálculo de Potencia Rápida Oculto ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-ref-potencia-rapida
@@ -1277,8 +1277,8 @@ double p(double b,int e){double r=1.0;int n=(e<0)?-e:e;while(n){if(n%2)r*=b;b*=b
 
 ---
 
-(ejercicio_9_ref_24)=
-### Ejercicio 9.24 - Desglose de Dinero con Lazos Confusos ⭐⭐☆☆☆
+(ej_b1_c07_24)=
+### Ejercicio 1.07.24 - Desglose de Dinero con Lazos Confusos ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-desglose-dinero
@@ -1335,8 +1335,8 @@ void test_desglose_cambio(void)
 
 ## 4. Descomposición Modular y Funciones Reutilizables
 
-(ejercicio_9_ref_25)=
-### Ejercicio 9.25 - La Función Monstruo de Facturación ⭐⭐⭐☆☆
+(ej_b1_c07_25)=
+### Ejercicio 1.07.25 - La Función Monstruo de Facturación ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-ref-funcion-monstruo
@@ -1371,8 +1371,8 @@ void facturar(double p, int cant, int tipo, double saldo)
 
 ---
 
-(ejercicio_9_ref_26)=
-### Ejercicio 9.26 - Herón y Clasificación de Triángulos Todo-en-Uno ⭐⭐⭐☆☆
+(ej_b1_c07_26)=
+### Ejercicio 1.07.26 - Herón y Clasificación de Triángulos Todo-en-Uno ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-ref-heron-todo-en-uno
@@ -1402,8 +1402,8 @@ double tri(double a, double b, double c, int *tipo)
 
 ---
 
-(ejercicio_9_ref_27)=
-### Ejercicio 9.27 - Duplicación de Código de Tiempo (Violación DRY) ⭐⭐☆☆☆
+(ej_b1_c07_27)=
+### Ejercicio 1.07.27 - Duplicación de Código de Tiempo (Violación DRY) ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-violacion-dry
@@ -1463,8 +1463,8 @@ void test_descomponer_segundos(void)
 
 ---
 
-(ejercicio_9_ref_28)=
-### Ejercicio 9.28 - Máquina de Estados con Estados Mágicos ⭐⭐⭐☆☆
+(ej_b1_c07_28)=
+### Ejercicio 1.07.28 - Máquina de Estados con Estados Mágicos ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-ref-fsm-estados-magicos
@@ -1492,8 +1492,8 @@ void step(char c)
 
 ---
 
-(ejercicio_9_ref_29)=
-### Ejercicio 9.29 - Validación de Entrada con Lazos Desacoplados ⭐⭐☆☆☆
+(ej_b1_c07_29)=
+### Ejercicio 1.07.29 - Validación de Entrada con Lazos Desacoplados ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-validacion-desacoplada
@@ -1555,8 +1555,8 @@ void test_esta_en_rango(void)
 
 ---
 
-(ejercicio_9_ref_30)=
-### Ejercicio 9.30 - Tabla de Multiplicar Formateada y Modularizada ⭐⭐☆☆☆
+(ej_b1_c07_30)=
+### Ejercicio 1.07.30 - Tabla de Multiplicar Formateada y Modularizada ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-tabla-multiplicar-modular
@@ -1616,8 +1616,8 @@ void test_calcular_producto(void)
 
 ---
 
-(ejercicio_9_ref_31)=
-### Ejercicio 9.31 - Algoritmo de Luhn Comprimido ⭐⭐⭐⭐⭐
+(ej_b1_c07_31)=
+### Ejercicio 1.07.31 - Algoritmo de Luhn Comprimido ⭐⭐⭐⭐⭐
 
 :::{exercise}
 :label: ej-ref-luhn-comprimido
@@ -1649,8 +1649,8 @@ int l(long long n){int s=0,c=0,d;while(n>0){d=n%10;if(c%2!=0){d*=2;if(d>9)d-=9;}
 
 ---
 
-(ejercicio_9_ref_32)=
-### Ejercicio 9.32 - Congruencia de Zeller Astronómica ⭐⭐⭐⭐⭐
+(ej_b1_c07_32)=
+### Ejercicio 1.07.32 - Congruencia de Zeller Astronómica ⭐⭐⭐⭐⭐
 
 :::{exercise}
 :label: ej-ref-calendario-astronomico
@@ -1686,8 +1686,8 @@ int z(int d,int m,int y){if(m<3)m+=12,y--;int k=y%100,j=y/100;int h=(d+13*(m+1)/
 
 ## 5. Lazos Anidados, Matrices y Patrones Numéricos
 
-(ejercicio_9_ref_33)=
-### Ejercicio 9.33 - Rectángulo de Asteriscos Comprimido ⭐☆☆☆☆
+(ej_b1_c07_33)=
+### Ejercicio 1.07.33 - Rectángulo de Asteriscos Comprimido ⭐☆☆☆☆
 
 :::{exercise}
 :label: ej-ref-rectangulo-asteriscos
@@ -1738,8 +1738,8 @@ void imprimir_rectangulo(int ancho, int alto)
 
 ---
 
-(ejercicio_9_ref_34)=
-### Ejercicio 9.34 - Matriz Identidad con Ternario Críptico ⭐⭐☆☆☆
+(ej_b1_c07_34)=
+### Ejercicio 1.07.34 - Matriz Identidad con Ternario Críptico ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-matriz-identidad
@@ -1790,8 +1790,8 @@ void test_valor_identidad(void)
 
 ---
 
-(ejercicio_9_ref_35)=
-### Ejercicio 9.35 - Conteo de Vocales con Cascada Repetitiva ⭐⭐☆☆☆
+(ej_b1_c07_35)=
+### Ejercicio 1.07.35 - Conteo de Vocales con Cascada Repetitiva ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-conteo-vocales
@@ -1864,8 +1864,8 @@ void test_conteo_vocales(void)
 
 ---
 
-(ejercicio_9_ref_36)=
-### Ejercicio 9.36 - Coeficiente Binomial Redundante ⭐⭐⭐☆☆
+(ej_b1_c07_36)=
+### Ejercicio 1.07.36 - Coeficiente Binomial Redundante ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-ref-coef-binomial
@@ -1883,8 +1883,8 @@ long long binom(int n,int k){if(k<0||k>n)return 0;return fact(n)/(fact(k)*fact(n
 
 ---
 
-(ejercicio_9_ref_37)=
-### Ejercicio 9.37 - Primos Gemelos con Variables Globales ⭐⭐☆☆☆
+(ej_b1_c07_37)=
+### Ejercicio 1.07.37 - Primos Gemelos con Variables Globales ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-primos-gemelos
@@ -1963,8 +1963,8 @@ void test_primos_gemelos(void)
 
 ---
 
-(ejercicio_9_ref_38)=
-### Ejercicio 9.38 - Criba de Divisores Estática ⭐⭐⭐☆☆
+(ej_b1_c07_38)=
+### Ejercicio 1.07.38 - Criba de Divisores Estática ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-ref-criba-estatica
@@ -1981,8 +1981,8 @@ void c(int a[],int n){for(int i=1;i<=n;i++){a[i-1]=0;for(int j=1;j<i;j++)if(i%j=
 
 ---
 
-(ejercicio_9_ref_39)=
-### Ejercicio 9.39 - Suma de Diagonales en Arreglo 2D Plano ⭐⭐☆☆☆
+(ej_b1_c07_39)=
+### Ejercicio 1.07.39 - Suma de Diagonales en Arreglo 2D Plano ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-suma-diagonales
@@ -2047,8 +2047,8 @@ void test_suma_diagonales(void)
 
 ---
 
-(ejercicio_9_ref_40)=
-### Ejercicio 9.40 - Conjetura de Collatz Caótica ⭐⭐⭐☆☆
+(ej_b1_c07_40)=
+### Ejercicio 1.07.40 - Conjetura de Collatz Caótica ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-ref-collatz-caotica
@@ -2066,8 +2066,8 @@ int col(long long n){int c=0;if(n<=0)return -1;while(1){if(n==1)break;n=(n%2==0)
 
 ---
 
-(ejercicio_9_ref_41)=
-### Ejercicio 9.41 - Transposición de Matriz $3 \times 3$ ⭐⭐☆☆☆
+(ej_b1_c07_41)=
+### Ejercicio 1.07.41 - Transposición de Matriz $3 \times 3$ ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-transposicion-matriz
@@ -2129,8 +2129,8 @@ void test_transposicion_3x3(void)
 
 ---
 
-(ejercicio_9_ref_42)=
-### Ejercicio 9.42 - Multiplicación de Matrices Cuadradas Comprimida ⭐⭐⭐⭐☆
+(ej_b1_c07_42)=
+### Ejercicio 1.07.42 - Multiplicación de Matrices Cuadradas Comprimida ⭐⭐⭐⭐☆
 
 :::{exercise}
 :label: ej-ref-multiplicacion-matrices
@@ -2158,8 +2158,8 @@ void mx(int a[],int b[],int c[],int n){for(int i=0;i<n;i++)for(int j=0;j<n;j++){
 
 ## 6. Validación de Formatos, Parsing y Protocolos Simples
 
-(ejercicio_9_ref_43)=
-### Ejercicio 9.43 - Validador de Hora Militar Comprimido ⭐☆☆☆☆
+(ej_b1_c07_43)=
+### Ejercicio 1.07.43 - Validador de Hora Militar Comprimido ⭐☆☆☆☆
 
 :::{exercise}
 :label: ej-ref-hora-militar
@@ -2221,8 +2221,8 @@ void test_es_horario_valido(void)
 
 ---
 
-(ejercicio_9_ref_44)=
-### Ejercicio 9.44 - Conversor de Caracteres a Entero (`atoi` Casero) ⭐⭐☆☆☆
+(ej_b1_c07_44)=
+### Ejercicio 1.07.44 - Conversor de Caracteres a Entero (`atoi` Casero) ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-atoi-casero
@@ -2309,8 +2309,8 @@ void test_convertir_a_entero(void)
 
 ---
 
-(ejercicio_9_ref_45)=
-### Ejercicio 9.45 - Validador de Octetos IPv4 Caótico ⭐⭐⭐☆☆
+(ej_b1_c07_45)=
+### Ejercicio 1.07.45 - Validador de Octetos IPv4 Caótico ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-ref-ipv4-caotico
@@ -2327,8 +2327,8 @@ int v4(int a,int b,int c,int d){if(a<0||a>255)return 0;if(b<0||b>255)return 0;if
 
 ---
 
-(ejercicio_9_ref_46)=
-### Ejercicio 9.46 - Verificador de CUIT/CUIL con Módulo 11 ⭐⭐☆☆☆
+(ej_b1_c07_46)=
+### Ejercicio 1.07.46 - Verificador de CUIT/CUIL con Módulo 11 ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-cuit-modulo11
@@ -2400,8 +2400,8 @@ void test_cuit_verificador(void)
 
 ---
 
-(ejercicio_9_ref_47)=
-### Ejercicio 9.47 - Compactador de Espacios Repetidos ⭐⭐⭐☆☆
+(ej_b1_c07_47)=
+### Ejercicio 1.07.47 - Compactador de Espacios Repetidos ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-ref-compactar-espacios
@@ -2418,8 +2418,8 @@ int comp(char o[],int n,char d[]){int j=0,e=0;for(int i=0;i<n;i++){if(o[i]==' ')
 
 ---
 
-(ejercicio_9_ref_48)=
-### Ejercicio 9.48 - Validador de Fortaleza de Contraseña ⭐⭐☆☆☆
+(ej_b1_c07_48)=
+### Ejercicio 1.07.48 - Validador de Fortaleza de Contraseña ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-fortaleza-password
@@ -2491,8 +2491,8 @@ void test_fortaleza_clave(void)
 
 ---
 
-(ejercicio_9_ref_49)=
-### Ejercicio 9.49 - Decodificador Run-Length (RLE) Numérico ⭐⭐⭐☆☆
+(ej_b1_c07_49)=
+### Ejercicio 1.07.49 - Decodificador Run-Length (RLE) Numérico ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-ref-rle-numerico
@@ -2522,8 +2522,8 @@ int rle_dec(int pares[], int n_pares, int sal[], int max_sal)
 
 ---
 
-(ejercicio_9_ref_50)=
-### Ejercicio 9.50 - Conversor de Números Romanos Básicos ⭐⭐☆☆☆
+(ej_b1_c07_50)=
+### Ejercicio 1.07.50 - Conversor de Números Romanos Básicos ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-ref-romanos-basicos
@@ -2583,8 +2583,8 @@ void test_simbolos_romanos(void)
 
 ---
 
-(ejercicio_9_ref_51)=
-### Ejercicio 9.51 - Checksum de Paridad Longitudinal ⭐⭐⭐⭐☆
+(ej_b1_c07_51)=
+### Ejercicio 1.07.51 - Checksum de Paridad Longitudinal ⭐⭐⭐⭐☆
 
 :::{exercise}
 :label: ej-ref-checksum-paridad
@@ -2610,8 +2610,8 @@ int chk(int d[],int n){int s=0;for(int i=0;i<n;i++)s=(s+d[i])%256;return(256-s)%
 
 ---
 
-(ejercicio_9_ref_52)=
-### Ejercicio 9.52 - Mini Intérprete de Pila de 4 Instrucciones ⭐⭐⭐⭐☆
+(ej_b1_c07_52)=
+### Ejercicio 1.07.52 - Mini Intérprete de Pila de 4 Instrucciones ⭐⭐⭐⭐☆
 
 :::{exercise}
 :label: ej-ref-mini-interprete
@@ -2641,8 +2641,8 @@ int vm(int prg[],int n){int st[32],top=0;for(int i=0;i<n;i++){int op=prg[i];if(o
 
 ## 7. Desafíos Avanzados y Extra Difíciles
 
-(ejercicio_9_ref_53)=
-### Ejercicio 9.53 - Conversor de Base Numérica a Arreglo ⭐⭐⭐☆☆
+(ej_b1_c07_53)=
+### Ejercicio 1.07.53 - Conversor de Base Numérica a Arreglo ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-ref-conversor-base
@@ -2668,8 +2668,8 @@ int base_conv(int n, int b, char out[], int max_len)
 
 ---
 
-(ejercicio_9_ref_54)=
-### Ejercicio 9.54 - Búsqueda Binaria con Riesgo de Desbordamiento ⭐⭐⭐☆☆
+(ej_b1_c07_54)=
+### Ejercicio 1.07.54 - Búsqueda Binaria con Riesgo de Desbordamiento ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-ref-busqueda-binaria-overflow
@@ -2686,8 +2686,8 @@ int bsearch(int a[],int n,int x){int l=0,r=n-1;while(l<=r){int m=(l+r)/2;if(a[m]
 
 ---
 
-(ejercicio_9_ref_55)=
-### Ejercicio 9.55 - Ordenamiento Burbuja con Salida Temprana ⭐⭐⭐⭐☆
+(ej_b1_c07_55)=
+### Ejercicio 1.07.55 - Ordenamiento Burbuja con Salida Temprana ⭐⭐⭐⭐☆
 
 :::{exercise}
 :label: ej-ref-burbuja-temprana
@@ -2710,8 +2710,8 @@ void bsort(int a[],int n){int s=1;while(s){s=0;for(int i=0;i<n-1;i++)if(a[i]>a[i
 
 ---
 
-(ejercicio_9_ref_56)=
-### Ejercicio 9.56 - Algoritmo de Kadane Comprimido ⭐⭐⭐⭐☆
+(ej_b1_c07_56)=
+### Ejercicio 1.07.56 - Algoritmo de Kadane Comprimido ⭐⭐⭐⭐☆
 
 :::{exercise}
 :label: ej-ref-kadane-comprimido
@@ -2736,8 +2736,8 @@ int kad(int a[],int n){int m=a[0],c=a[0];for(int i=1;i<n;i++)c=(a[i]>c+a[i])?a[i
 
 ---
 
-(ejercicio_9_ref_57)=
-### Ejercicio 9.57 - Generador Pseudoaleatorio Congruencial (LCG) ⭐⭐⭐☆☆
+(ej_b1_c07_57)=
+### Ejercicio 1.07.57 - Generador Pseudoaleatorio Congruencial (LCG) ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-ref-lcg-pseudoaleatorio
@@ -2754,8 +2754,8 @@ int lcg(int seed){return(seed*1103515245+12345)&0x7FFFFFFF;}
 
 ---
 
-(ejercicio_9_ref_58)=
-### Ejercicio 9.58 - Ordenamiento por Inserción Compacto ⭐⭐⭐⭐☆
+(ej_b1_c07_58)=
+### Ejercicio 1.07.58 - Ordenamiento por Inserción Compacto ⭐⭐⭐⭐☆
 
 :::{exercise}
 :label: ej-ref-insercion-compacto
@@ -2777,8 +2777,8 @@ void isort(int a[],int n){for(int i=1;i<n;i++){int k=a[i],j=i-1;while(j>=0&&a[j]
 
 ---
 
-(ejercicio_9_ref_59)=
-### Ejercicio 9.59 - Distancias Manhattan y Euclidiana Todo-en-Uno ⭐⭐⭐⭐☆
+(ej_b1_c07_59)=
+### Ejercicio 1.07.59 - Distancias Manhattan y Euclidiana Todo-en-Uno ⭐⭐⭐⭐☆
 
 :::{exercise}
 :label: ej-ref-distancias-vectores
@@ -2801,8 +2801,8 @@ double dist(double a[],double b[],int n,int m){double s=0;for(int i=0;i<n;i++){d
 
 ---
 
-(ejercicio_9_ref_60)=
-### Ejercicio 9.60 - Conteo de Componentes Conexas 1D ⭐⭐⭐⭐☆
+(ej_b1_c07_60)=
+### Ejercicio 1.07.60 - Conteo de Componentes Conexas 1D ⭐⭐⭐⭐☆
 
 :::{exercise}
 :label: ej-ref-componentes-conexas-1d
@@ -2825,8 +2825,8 @@ int comp1d(int a[],int n){int c=0,in=0;for(int i=0;i<n;i++){if(a[i]>0&&!in){c++;
 
 ---
 
-(ejercicio_9_ref_61)=
-### Ejercicio 9.61 - Vecinos de Conway en Cuadrícula $5 \times 5$ ⭐⭐⭐⭐☆
+(ej_b1_c07_61)=
+### Ejercicio 1.07.61 - Vecinos de Conway en Cuadrícula $5 \times 5$ ⭐⭐⭐⭐☆
 
 :::{exercise}
 :label: ej-ref-conway-vecinos
@@ -2849,8 +2849,8 @@ int nb(int g[25],int r,int c){int cnt=0;for(int dr=-1;dr<=1;dr++)for(int dc=-1;d
 
 ---
 
-(ejercicio_9_ref_62)=
-### Ejercicio 9.62 - Balanceador de Paréntesis Lineal ⭐⭐⭐⭐☆
+(ej_b1_c07_62)=
+### Ejercicio 1.07.62 - Balanceador de Paréntesis Lineal ⭐⭐⭐⭐☆
 
 :::{exercise}
 :label: ej-ref-parentesis-balanceados
@@ -2873,8 +2873,8 @@ int bal(char s[],int n){int d=0;for(int i=0;i<n;i++){if(s[i]=='(')d++;else if(s[
 
 ---
 
-(ejercicio_9_ref_63)=
-### Ejercicio 9.63 - [EXTRA DIFÍCIL] El Cuadrado Mágico y Verificador de Sudoku $3 \times 3$ ⭐⭐⭐⭐⭐
+(ej_b1_c07_63)=
+### Ejercicio 1.07.63 - [EXTRA DIFÍCIL] El Cuadrado Mágico y Verificador de Sudoku $3 \times 3$ ⭐⭐⭐⭐⭐
 
 :::{exercise}
 :label: ej-ref-cuadrado-magico-sudoku
@@ -2910,8 +2910,8 @@ int sm(int m[9]){int u[10]={0},s=0;for(int i=0;i<9;i++){int v=m[i];if(v<1||v>9||
 
 ---
 
-(ejercicio_9_ref_64)=
-### Ejercicio 9.64 - [EXTRA DIFÍCIL] El Cifrador Vigenère Aritmético Cripto-Comprimido ⭐⭐⭐⭐⭐
+(ej_b1_c07_64)=
+### Ejercicio 1.07.64 - [EXTRA DIFÍCIL] El Cifrador Vigenère Aritmético Cripto-Comprimido ⭐⭐⭐⭐⭐
 
 :::{exercise}
 :label: ej-ref-vigenere-aritmetico

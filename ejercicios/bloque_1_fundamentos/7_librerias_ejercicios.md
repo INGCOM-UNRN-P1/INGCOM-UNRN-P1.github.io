@@ -31,8 +31,8 @@ En este bloque de ejercicios vas a diseñar módulos temáticos independientes, 
 
 ## 1. Librerías Matemáticas y Numéricas
 
-(ejercicio_7_1)=
-### Ejercicio 7.1 - Librería de Operaciones Geométricas 2D ⭐⭐☆☆☆
+(ej_b1_c04b_01)=
+### Ejercicio 1.04b.01 - Librería de Operaciones Geométricas 2D ⭐⭐☆☆☆
 
 Diseñá e implementá la librería `geometria2d.h` y `geometria2d.c` para cálculos en el plano 2D:
 - `double geo_distancia(double x1, double y1, double x2, double y2)`: distancia euclídea.
@@ -48,8 +48,8 @@ Diseñá e implementá la librería `geometria2d.h` y `geometria2d.c` para cálc
 
 ---
 
-(ejercicio_7_2)=
-### Ejercicio 7.2 - Librería de Conversión de Unidades ⭐⭐☆☆☆
+(ej_b1_c04b_02)=
+### Ejercicio 1.04b.02 - Librería de Conversión de Unidades ⭐⭐☆☆☆
 
 Creá el módulo `conversiones.h` y `conversiones.c` para realizar transformaciones de unidades:
 - `double conv_celsius_a_fahrenheit(double c)`
@@ -66,8 +66,8 @@ Creá el módulo `conversiones.h` y `conversiones.c` para realizar transformacio
 
 ---
 
-(ejercicio_7_3)=
-### Ejercicio 7.3 - Librería de Estadística Básica ⭐⭐⭐☆☆
+(ej_b1_c04b_03)=
+### Ejercicio 1.04b.03 - Librería de Estadística Básica ⭐⭐⭐☆☆
 
 Diseñá `estadistica.h` y `estadistica.c` operando sobre arreglos de `double`:
 - `double est_media(const double *datos, size_t n)`
@@ -78,8 +78,8 @@ Diseñá `estadistica.h` y `estadistica.c` operando sobre arreglos de `double`:
 
 ---
 
-(ejercicio_7_4)=
-### Ejercicio 7.4 - Librería de Números Primos y Factorización ⭐⭐⭐☆☆
+(ej_b1_c04b_04)=
+### Ejercicio 1.04b.04 - Librería de Números Primos y Factorización ⭐⭐⭐☆☆
 
 Implementá la librería `primos.h` y `primos.c`:
 - `bool primo_es_primo(unsigned long n)`
@@ -89,8 +89,8 @@ Implementá la librería `primos.h` y `primos.c`:
 
 ---
 
-(ejercicio_7_5)=
-### Ejercicio 7.5 - Librería de Trigonometría Compleja ⭐⭐⭐☆☆
+(ej_b1_c04b_05)=
+### Ejercicio 1.04b.05 - Librería de Trigonometría Compleja ⭐⭐⭐☆☆
 
 Diseñá `trigonometria.h` y `trigonometria.c`:
 - `double trigo_hipotenusa(double cateto1, double cateto2)`
@@ -106,8 +106,8 @@ Diseñá `trigonometria.h` y `trigonometria.c`:
 
 ## 2. Librerías de Manipulación de Texto y Cadenas
 
-(ejercicio_7_6)=
-### Ejercicio 7.6 - Biblioteca de Strings seguros ⭐⭐⭐⭐⭐
+(ej_b1_c04b_06)=
+### Ejercicio 1.04b.06 - Biblioteca de Strings seguros ⭐⭐⭐⭐⭐
 
 Reimplementá funciones estándar de `<string.h>` en la librería `seguras.h` y `seguras.c`:
 - `int mi_strlen(const char *str, size_t len_str)`
@@ -126,8 +126,8 @@ Reimplementá funciones estándar de `<string.h>` en la librería `seguras.h` y 
 
 ---
 
-(ejercicio_7_7)=
-### Ejercicio 7.7 - Librería de Transformación de Cadenas Seguras ⭐⭐⭐☆☆
+(ej_b1_c04b_07)=
+### Ejercicio 1.04b.07 - Librería de Transformación de Cadenas Seguras ⭐⭐⭐☆☆
 
 Diseñá `str_transform.h` y `str_transform.c`:
 - `void str_a_mayusculas(char *str, size_t len_str)`
@@ -143,8 +143,8 @@ Diseñá `str_transform.h` y `str_transform.c`:
 
 ---
 
-(ejercicio_7_8)=
-### Ejercicio 7.8 - Librería de Búsqueda y Conteo en Texto ⭐⭐⭐☆☆
+(ej_b1_c04b_08)=
+### Ejercicio 1.04b.08 - Librería de Búsqueda y Conteo en Texto ⭐⭐⭐☆☆
 
 Implementá la librería `text_search.h` y `text_search.c`:
 - `size_t text_contar_palabras(const char *texto, size_t len_texto)`
@@ -159,8 +159,8 @@ Implementá la librería `text_search.h` y `text_search.c`:
 
 ---
 
-(ejercicio_7_9)=
-### Ejercicio 7.9 - Librería de Formateo y Padding de Texto ⭐⭐⭐☆☆
+(ej_b1_c04b_09)=
+### Ejercicio 1.04b.09 - Librería de Formateo y Padding de Texto ⭐⭐⭐☆☆
 
 Diseñá `str_format.h` y `str_format.c`:
 - `bool str_pad_left(const char *src, size_t len_src, char *dest, size_t dest_size, size_t total_len, char pad_char)`
@@ -174,8 +174,8 @@ Diseñá `str_format.h` y `str_format.c`:
 
 ---
 
-(ejercicio_7_10)=
-### Ejercicio 7.10 - Librería de Sanitización e Inspección de Entradas ⭐⭐⭐☆☆
+(ej_b1_c04b_10)=
+### Ejercicio 1.04b.10 - Librería de Sanitización e Inspección de Entradas ⭐⭐⭐☆☆
 
 Creá `sanitizer.h` y `sanitizer.c`:
 - `bool san_es_entero_valido(const char *str, size_t len_str)`
@@ -192,8 +192,8 @@ Creá `sanitizer.h` y `sanitizer.c`:
 
 ## 3. Librerías de Manejo de Arreglos y Matrices
 
-(ejercicio_7_11)=
-### Ejercicio 7.11 - Librería de Vectores de Enteros ⭐⭐⭐☆☆
+(ej_b1_c04b_11)=
+### Ejercicio 1.04b.11 - Librería de Vectores de Enteros ⭐⭐⭐☆☆
 
 Diseñá la librería `vec_int.h` y `vec_int.c` para operar sobre arreglos estáticos de enteros:
 - `void vec_int_imprimir(const int *v, size_t n)`
@@ -209,8 +209,8 @@ Diseñá la librería `vec_int.h` y `vec_int.c` para operar sobre arreglos está
 
 ---
 
-(ejercicio_7_12)=
-### Ejercicio 7.12 - Librería de Ordenamiento y Búsqueda ⭐⭐⭐⭐☆
+(ej_b1_c04b_12)=
+### Ejercicio 1.04b.12 - Librería de Ordenamiento y Búsqueda ⭐⭐⭐⭐☆
 
 Creá `sort_search.h` y `sort_search.c`:
 - `void sort_burbuja(int *v, size_t n)`
@@ -225,8 +225,8 @@ Creá `sort_search.h` y `sort_search.c`:
 
 ---
 
-(ejercicio_7_13)=
-### Ejercicio 7.13 - Librería de Operaciones sobre Matrices 2D ⭐⭐⭐⭐☆
+(ej_b1_c04b_13)=
+### Ejercicio 1.04b.13 - Librería de Operaciones sobre Matrices 2D ⭐⭐⭐⭐☆
 
 Diseñá `matriz2d.h` y `matriz2d.c` para matrices con dimensiones fijas o pasadas linealmente:
 - `void mat_sumar(size_t filas, size_t cols, const double A[filas][cols], const double B[filas][cols], double C[filas][cols])`
@@ -241,8 +241,8 @@ Diseñá `matriz2d.h` y `matriz2d.c` para matrices con dimensiones fijas o pasad
 
 ---
 
-(ejercicio_7_14)=
-### Ejercicio 7.14 - Librería de Manipulación de Conjuntos sobre Arreglos ⭐⭐⭐⭐☆
+(ej_b1_c04b_14)=
+### Ejercicio 1.04b.14 - Librería de Manipulación de Conjuntos sobre Arreglos ⭐⭐⭐⭐☆
 
 Implementá `conjunto_arr.h` y `conjunto_arr.c`:
 - `size_t conj_union(const int *A, size_t nA, const int *B, size_t nB, int *C)`
@@ -257,8 +257,8 @@ Implementá `conjunto_arr.h` y `conjunto_arr.c`:
 
 ---
 
-(ejercicio_7_15)=
-### Ejercicio 7.15 - Librería de Transformación y Filtrado de Arreglos ⭐⭐⭐⭐☆
+(ej_b1_c04b_15)=
+### Ejercicio 1.04b.15 - Librería de Transformación y Filtrado de Arreglos ⭐⭐⭐⭐☆
 
 Diseñá `array_utils.h` y `array_utils.c` para procesar secuencias numéricas mediante funciones modulares:
 - `size_t arr_filtrar_pares(const int *src, size_t n, int *dest)`: copia solo los valores pares a `dest` y retorna la cantidad colocada.
@@ -275,8 +275,8 @@ Diseñá `array_utils.h` y `array_utils.c` para procesar secuencias numéricas m
 
 ## 4. Librerías de Utilidades del Sistema y E/S
 
-(ejercicio_7_16)=
-### Ejercicio 7.16 - Librería de Validación de Entradas de Usuario ⭐⭐☆☆☆
+(ej_b1_c04b_16)=
+### Ejercicio 1.04b.16 - Librería de Validación de Entradas de Usuario ⭐⭐☆☆☆
 
 Diseñá `input_val.h` y `input_val.c` para simplificar la lectura segura desde `stdin`:
 - `int leer_entero_rango(const char *mensaje, size_t len_msg, int min, int max)`
@@ -291,8 +291,8 @@ Diseñá `input_val.h` y `input_val.c` para simplificar la lectura segura desde 
 
 ---
 
-(ejercicio_7_17)=
-### Ejercicio 7.17 - Librería de Fechas y Calendario ⭐⭐⭐☆☆
+(ej_b1_c04b_17)=
+### Ejercicio 1.04b.17 - Librería de Fechas y Calendario ⭐⭐⭐☆☆
 
 Creá `fechas.h` y `fechas.c`:
 - `bool fecha_es_bisiesto(int anio)`
@@ -307,8 +307,8 @@ Creá `fechas.h` y `fechas.c`:
 
 ---
 
-(ejercicio_7_18)=
-### Ejercicio 7.18 - Librería de Consola y Formato de Salida ⭐⭐☆☆☆
+(ej_b1_c04b_18)=
+### Ejercicio 1.04b.18 - Librería de Consola y Formato de Salida ⭐⭐☆☆☆
 
 Diseñá `console_ui.h` y `console_ui.c`:
 - `void ui_limpiar_pantalla(void)`
@@ -323,8 +323,8 @@ Diseñá `console_ui.h` y `console_ui.c`:
 
 ---
 
-(ejercicio_7_19)=
-### Ejercicio 7.19 - Librería de Medición de Tiempos de Ejecución ⭐⭐⭐☆☆
+(ej_b1_c04b_19)=
+### Ejercicio 1.04b.19 - Librería de Medición de Tiempos de Ejecución ⭐⭐⭐☆☆
 
 Implementá `cronometro.h` y `cronometro.c`:
 - `void crono_iniciar(void)`
@@ -338,8 +338,8 @@ Implementá `cronometro.h` y `cronometro.c`:
 
 ---
 
-(ejercicio_7_20)=
-### Ejercicio 7.20 - Librería de Generación Numérica Pseudoaleatoria ⭐⭐⭐☆☆
+(ej_b1_c04b_20)=
+### Ejercicio 1.04b.20 - Librería de Generación Numérica Pseudoaleatoria ⭐⭐⭐☆☆
 
 Creá `azar.h` y `azar.c`:
 - `void azar_inicializar(unsigned int semilla)`
@@ -357,8 +357,8 @@ Creá `azar.h` y `azar.c`:
 
 ## 5. Librerías de Simulación y Dominios Específicos
 
-(ejercicio_7_21)=
-### Ejercicio 7.21 - Librería de Física: Cinemática ⭐⭐☆☆☆
+(ej_b1_c04b_21)=
+### Ejercicio 1.04b.21 - Librería de Física: Cinemática ⭐⭐☆☆☆
 
 Diseñá `fisica_cinematica.h` y `fisica_cinematica.c`:
 - `double fis_posicion_mru(double x0, double v, double t)`
@@ -373,8 +373,8 @@ Diseñá `fisica_cinematica.h` y `fisica_cinematica.c`:
 
 ---
 
-(ejercicio_7_22)=
-### Ejercicio 7.22 - Librería de Finanzas Básicas ⭐⭐☆☆☆
+(ej_b1_c04b_22)=
+### Ejercicio 1.04b.22 - Librería de Finanzas Básicas ⭐⭐☆☆☆
 
 Creá `finanzas.h` y `finanzas.c`:
 - `double fin_interes_simple(double capital, double tasa, double tiempo)`
@@ -389,8 +389,8 @@ Creá `finanzas.h` y `finanzas.c`:
 
 ---
 
-(ejercicio_7_23)=
-### Ejercicio 7.23 - Librería de Geometría 3D ⭐⭐⭐☆☆
+(ej_b1_c04b_23)=
+### Ejercicio 1.04b.23 - Librería de Geometría 3D ⭐⭐⭐☆☆
 
 Diseñá `geometria3d.h` y `geometria3d.c`:
 - `double geo3d_volumen_esfera(double radio)`
@@ -406,8 +406,8 @@ Diseñá `geometria3d.h` y `geometria3d.c`:
 
 ---
 
-(ejercicio_7_24)=
-### Ejercicio 7.24 - Librería de Conversión de Bases Numéricas ⭐⭐⭐☆☆
+(ej_b1_c04b_24)=
+### Ejercicio 1.04b.24 - Librería de Conversión de Bases Numéricas ⭐⭐⭐☆☆
 
 Implementá `bases.h` y `bases.c`:
 - `bool base_dec_a_binario(unsigned int dec, char *buf, size_t buf_size)`
@@ -422,8 +422,8 @@ Implementá `bases.h` y `bases.c`:
 
 ---
 
-(ejercicio_7_25)=
-### Ejercicio 7.25 - Librería de Criptografía Clásica ⭐⭐⭐☆☆
+(ej_b1_c04b_25)=
+### Ejercicio 1.04b.25 - Librería de Criptografía Clásica ⭐⭐⭐☆☆
 
 Diseñá `cripto_simple.h` y `cripto_simple.c`:
 - `void cripto_cesar_cifrar(char *texto, size_t len_texto, int desplazamiento)`
@@ -439,8 +439,8 @@ Diseñá `cripto_simple.h` y `cripto_simple.c`:
 
 ## 6. Librerías Avanzadas y Estructuración Compleja
 
-(ejercicio_7_26)=
-### Ejercicio 7.26 - Librería de Manejo de Colores RGB ⭐⭐⭐☆☆
+(ej_b1_c04b_26)=
+### Ejercicio 1.04b.26 - Librería de Manejo de Colores RGB ⭐⭐⭐☆☆
 
 Creá `color_utils.h` y `color_utils.c` para cálculos de color mediante operaciones aritméticas y fórmulas estándar:
 - `double color_luminancia(unsigned char r, unsigned char g, unsigned char b)`: calcula la luminosidad relativa ($0.2126R + 0.7152G + 0.0722B$).
@@ -454,8 +454,8 @@ Creá `color_utils.h` y `color_utils.c` para cálculos de color mediante operaci
 
 ---
 
-(ejercicio_7_27)=
-### Ejercicio 7.27 - Librería de Evaluación de Expresiones lógicas ⭐⭐⭐⭐☆
+(ej_b1_c04b_27)=
+### Ejercicio 1.04b.27 - Librería de Evaluación de Expresiones lógicas ⭐⭐⭐⭐☆
 
 Diseñá `eval_logica.h` y `eval_logica.c`:
 - `bool eval_and_3(bool a, bool b, bool c)`
@@ -471,8 +471,8 @@ Diseñá `eval_logica.h` y `eval_logica.c`:
 
 ---
 
-(ejercicio_7_28)=
-### Ejercicio 7.28 - Librería de Gestión de Estados y Banderas Booleanas ⭐⭐⭐⭐☆
+(ej_b1_c04b_28)=
+### Ejercicio 1.04b.28 - Librería de Gestión de Estados y Banderas Booleanas ⭐⭐⭐⭐☆
 
 Implementá `flags.h` y `flags.c` para gestionar conjuntos de opciones mediante arreglos booleanos:
 - `void flag_activar(bool banderas[], size_t n, size_t indice)`: activa la bandera en la posición indicada.
@@ -488,8 +488,8 @@ Implementá `flags.h` y `flags.c` para gestionar conjuntos de opciones mediante 
 
 ---
 
-(ejercicio_7_29)=
-### Ejercicio 7.29 - Librería de Manejo de Registro de Logs ⭐⭐⭐⭐☆
+(ej_b1_c04b_29)=
+### Ejercicio 1.04b.29 - Librería de Manejo de Registro de Logs ⭐⭐⭐⭐☆
 
 Diseñá `logger.h` y `logger.c`:
 - `typedef enum { LOG_DEBUG, LOG_INFO, LOG_WARN, LOG_ERROR } log_nivel_t`
@@ -503,8 +503,8 @@ Diseñá `logger.h` y `logger.c`:
 
 ---
 
-(ejercicio_7_30)=
-### Ejercicio 7.30 - Librería de Verificación de Integridad (Checksum) ⭐⭐⭐⭐⭐
+(ej_b1_c04b_30)=
+### Ejercicio 1.04b.30 - Librería de Verificación de Integridad (Checksum) ⭐⭐⭐⭐⭐
 
 Creá `checksum.h` y `checksum.c`:
 - `unsigned char chk_luhn_calcular(const char *digitos, size_t len_digitos)`: algoritmo de Luhn para números de tarjeta/identificación.

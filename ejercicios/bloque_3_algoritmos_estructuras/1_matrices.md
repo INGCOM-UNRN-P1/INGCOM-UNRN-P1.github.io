@@ -15,8 +15,9 @@ capítulo del apunte:
 - [Matrices](../../apunte/bloque_3_algoritmos_estructuras/1_matrices.md)
 
 ## Operaciones Básicas
-(ejercicio_21_1)=
-### Ejercicio 21.1 - Mostrar matriz ⭐⭐⭐☆☆
+
+(ej_b3_c01_01)=
+### Ejercicio 3.01.01 - Mostrar matriz ⭐⭐⭐☆☆
 
 #### Descripción
 Escribir una función que reciba una matriz (un arreglo 2D), sus dimensiones
@@ -107,8 +108,9 @@ FIN PROCEDIMIENTO
 <!-- {code-block} pseudocode -->
 :::
 <!-- {hint} Lógica y Consideraciones -->
-(ejercicio_21_2)=
-### Ejercicio 21.2 - Multiplicación por un escalar ⭐⭐☆☆☆
+
+(ej_b3_c01_02)=
+### Ejercicio 3.01.02 - Multiplicación por un escalar ⭐⭐☆☆☆
 
 #### Descripción
 Implementar una función que multiplique cada elemento de una matriz por un
@@ -168,8 +170,9 @@ FIN PROCEDIMIENTO
 <!-- {hint} Lógica y Consideraciones -->
 
 ## Aritmética Matricial
-(ejercicio_21_3)=
-### Ejercicio 21.3 - Suma de matrices ⭐⭐⭐☆☆
+
+(ej_b3_c01_03)=
+### Ejercicio 3.01.03 - Suma de matrices ⭐⭐⭐☆☆
 
 #### Descripción
 Implementar una función que sume dos matrices, `A` y `B`, y almacene el
@@ -227,8 +230,9 @@ FIN PROCEDIMIENTO
 <!-- {code-block} pseudocode -->
 :::
 <!-- {hint} Lógica y Consideraciones -->
-(ejercicio_21_4)=
-### Ejercicio 21.4 - Multiplicación de matrices ⭐⭐⭐☆☆
+
+(ej_b3_c01_04)=
+### Ejercicio 3.01.04 - Multiplicación de matrices ⭐⭐⭐☆☆
 
 #### Descripción
 Implementar la multiplicación de dos matrices, `A` (de $m \times n$) y `B` (de
@@ -318,8 +322,9 @@ FIN PROCEDIMIENTO
 <!-- {hint} Lógica y Consideraciones -->
 
 ## Manipulación
-(ejercicio_21_5)=
-### Ejercicio 21.5 - Transposición ⭐⭐☆☆☆
+
+(ej_b3_c01_05)=
+### Ejercicio 3.01.05 - Transposición ⭐⭐☆☆☆
 
 #### Descripción
 Calcular la transpuesta $A^T$ de una matriz $A$. La transposición se obtiene
@@ -378,8 +383,9 @@ FIN PROCEDIMIENTO
 <!-- {code-block} pseudocode -->
 :::
 <!-- {hint} Lógica y Consideraciones -->
-(ejercicio_21_6)=
-### Ejercicio 21.6 - Suma de diagonales ⭐⭐☆☆☆
+
+(ej_b3_c01_06)=
+### Ejercicio 3.01.06 - Suma de diagonales ⭐⭐☆☆☆
 
 #### Descripción
 Para una matriz cuadrada, calcular la suma de los elementos de sus dos
@@ -443,8 +449,9 @@ FIN PROCEDIMIENTO
 <!-- {hint} Lógica y Consideraciones -->
 
 ## Generación
-(ejercicio_21_7)=
-### Ejercicio 21.7 - Matriz identidad ⭐⭐⭐☆☆
+
+(ej_b3_c01_07)=
+### Ejercicio 3.01.07 - Matriz identidad ⭐⭐⭐☆☆
 
 #### Descripción
 Generar una matriz identidad de tamaño `n x n`. La matriz identidad es una
@@ -505,11 +512,12 @@ FIN PROCEDIMIENTO
 <!-- {code-block} pseudocode -->
 :::
 <!-- {hint} Lógica y Consideraciones -->
-(ejercicio_21_8)=
-## Ejercicio 21.8 - s Adicionales de Matrices ⭐⭐⭐☆☆
 
-(ejercicio_21_9)=
-### Ejercicio 21.9 - Matriz simétrica ⭐⭐⭐☆☆
+(ej_b3_c01_08)=
+## Ejercicio 3.01.08 - s Adicionales de Matrices ⭐⭐⭐☆☆
+
+(ej_b3_c01_09)=
+### Ejercicio 3.01.09 - Matriz simétrica ⭐⭐⭐☆☆
 
 #### Descripción
 Escribir una función que verifique si una matriz cuadrada es simétrica. Una
@@ -607,8 +615,9 @@ FIN FUNCION
 <!-- {code-block} pseudocode -->
 :::
 <!-- {hint} Lógica y Consideraciones -->
-(ejercicio_21_10)=
-### Ejercicio 21.10 - Suma por Filas y Columnas ⭐⭐☆☆☆
+
+(ej_b3_c01_10)=
+### Ejercicio 3.01.10 - Suma por Filas y Columnas ⭐⭐☆☆☆
 
 #### Descripción
 Crear un programa que, dada una matriz, calcule dos arreglos: uno que contenga
@@ -683,8 +692,9 @@ FIN PROCEDIMIENTO
 <!-- {code-block} pseudocode -->
 :::
 <!-- {hint} Lógica y Consideraciones -->
-(ejercicio_21_11)=
-### Ejercicio 21.11 - Elemento "Silla" ⭐⭐☆☆☆
+
+(ej_b3_c01_11)=
+### Ejercicio 3.01.11 - Elemento "Silla" ⭐⭐☆☆☆
 
 #### Descripción
 Encontrar un "punto de silla" en una matriz. Un punto de silla es un elemento
@@ -767,11 +777,12 @@ FIN PROCEDIMIENTO
 <!-- {code-block} pseudocode -->
 :::
 <!-- {hint} Lógica y Consideraciones -->
-(ejercicio_21_12)=
-## Ejercicio 21.12 - s de Matrices Dinámicas ⭐⭐⭐☆☆
 
-(ejercicio_21_13)=
-### Ejercicio 21.13 - Crear y llenar matriz dinámica ⭐⭐⭐☆☆
+(ej_b3_c01_12)=
+## Ejercicio 3.01.12 - s de Matrices Dinámicas ⭐⭐⭐☆☆
+
+(ej_b3_c01_13)=
+### Ejercicio 3.01.13 - Crear y llenar matriz dinámica ⭐⭐⭐☆☆
 
 #### Descripción
 Escribir una función que solicite al usuario las dimensiones (filas y columnas)
@@ -838,69 +849,70 @@ FIN PROCEDIMIENTO
 <!-- {hint} Lógica y Consideraciones -->
 
 ## Más Algoritmos con Matrices
-(ejercicio_21_14)=
-### Ejercicio 21.14 - Reflejar matriz ⭐⭐⭐☆☆
+
+(ej_b3_c01_14)=
+### Ejercicio 3.01.14 - Reflejar matriz ⭐⭐⭐☆☆
 
 Implementar dos funciones: una que refleje una matriz horizontalmente (la
 primera fila se intercambia con la última, la segunda con la penúltima, etc.) y
 otra que la refleje verticalmente (la primera columna con la última, etc.).
 
-(ejercicio_21_15)=
-### Ejercicio 21.15 - Intercambiar filas o columnas ⭐⭐☆☆☆
+(ej_b3_c01_15)=
+### Ejercicio 3.01.15 - Intercambiar filas o columnas ⭐⭐☆☆☆
 
 Crear funciones `intercambiar_filas(mat, f1, f2)` e `intercambiar_columnas(mat,
 c1, c2)` que modifiquen la matriz intercambiando los elementos de las filas o
 columnas especificadas.
 
-(ejercicio_21_16)=
-### Ejercicio 21.16 - Búsqueda de submatriz ⭐⭐⭐☆☆
+(ej_b3_c01_16)=
+### Ejercicio 3.01.16 - Búsqueda de submatriz ⭐⭐⭐☆☆
 
 Escribir una función que determine si una matriz pequeña `B` (de `k x l`) se
 encuentra dentro de una matriz más grande `A` (de `m x n`). La función debe
 devolver las coordenadas de la esquina superior izquierda de la primera
 ocurrencia, o `(-1, -1)` si no se encuentra.
 
-(ejercicio_21_17)=
-### Ejercicio 21.17 - Determinante de matriz 3x3 ⭐⭐⭐☆☆
+(ej_b3_c01_17)=
+### Ejercicio 3.01.17 - Determinante de matriz 3x3 ⭐⭐⭐☆☆
 
 Calcular el determinante de una matriz 3x3 utilizando la Regla de Sarrus.
 
-(ejercicio_21_18)=
-### Ejercicio 21.18 - Suavizado de matriz (Filtro de caja) ⭐⭐⭐☆☆
+(ej_b3_c01_18)=
+### Ejercicio 3.01.18 - Suavizado de matriz (Filtro de caja) ⭐⭐⭐☆☆
 
 Implementar un filtro de "suavizado" o "blur". Para cada elemento de la matriz,
 su nuevo valor será el promedio de sus 8 vecinos y él mismo. Los elementos en
 los bordes requerirán un manejo especial.
 
-(ejercicio_21_19)=
-### Ejercicio 21.19 - Detección de bordes (Operador de Sobel) ⭐⭐☆☆☆
+(ej_b3_c01_19)=
+### Ejercicio 3.01.19 - Detección de bordes (Operador de Sobel) ⭐⭐☆☆☆
 
 Aplicar un operador de Sobel simple para la detección de bordes. Esto implica
 "convolucionar" la matriz con un `kernel` (otra matriz pequeña, ej. 3x3) para
 resaltar las diferencias de intensidad, como los bordes.
 
-(ejercicio_21_20)=
-### Ejercicio 21.20 - Matriz de permutación ⭐⭐⭐☆☆
+(ej_b3_c01_20)=
+### Ejercicio 3.01.20 - Matriz de permutación ⭐⭐⭐☆☆
 
 Verificar si una matriz cuadrada es una matriz de permutación. Esta es una
 matriz binaria (solo 0s y 1s) que tiene exactamente un `1` en cada fila y en
 cada columna.
 
-(ejercicio_21_21)=
-### Ejercicio 21.21 - Producto de Hadamard ⭐⭐☆☆☆
+(ej_b3_c01_21)=
+### Ejercicio 3.01.21 - Producto de Hadamard ⭐⭐☆☆☆
 
 Implementar el producto de Hadamard (o producto elemento a elemento) de dos
 matrices `A` y `B` de las mismas dimensiones. La matriz resultante `C` se define
 como $c_{ij} = a_{ij} \cdot b_{ij}$.
 
-(ejercicio_21_22)=
-### Ejercicio 21.22 - Rellenar con triángulo de Pascal ⭐⭐☆☆☆
+(ej_b3_c01_22)=
+### Ejercicio 3.01.22 - Rellenar con triángulo de Pascal ⭐⭐☆☆☆
 
 Escribir una función que llene una matriz `N x N` con los valores del Triángulo
 de Pascal. El elemento `(i, j)` debe ser $\binom{i}{j}$.
 
-(ejercicio_21_23)=
-### Ejercicio 21.23 - Matriz antisimétrica ⭐⭐⭐☆☆
+(ej_b3_c01_23)=
+### Ejercicio 3.01.23 - Matriz antisimétrica ⭐⭐⭐☆☆
 
 Verificar si una matriz cuadrada es antisimétrica. Una matriz `A` es
 antisimétrica si su transpuesta es igual a su negativa, es decir, $A^T = -A$.
@@ -909,8 +921,8 @@ principal deben ser cero.
 
 ## Operaciones Avanzadas con Matrices
 
-(ejercicio_21_24)=
-### Ejercicio 21.24 - Norma de matriz ⭐⭐⭐☆☆
+(ej_b3_c01_24)=
+### Ejercicio 3.01.24 - Norma de matriz ⭐⭐⭐☆☆
 
 Implementar funciones que calculen diferentes normas de una matriz.
 
@@ -927,8 +939,9 @@ double norma_uno(double **matriz, int filas, int cols);
 fila)
 
 **Norma uno:** $||A||_1 = \max_j \sum_i |a_{ij}|$ (máxima suma de columna)
-(ejercicio_21_25)=
-### Ejercicio 21.25 - Traza de matriz ⭐⭐⭐☆☆
+
+(ej_b3_c01_25)=
+### Ejercicio 3.01.25 - Traza de matriz ⭐⭐⭐☆☆
 
 Calcular la traza de una matriz cuadrada (suma de elementos de la diagonal
 principal).
@@ -939,8 +952,9 @@ double traza(double **matriz, int n);
 <!-- c -->
 
 $$\text{tr}(A) = \sum_{i=1}^n a_{ii}$$
-(ejercicio_21_26)=
-### Ejercicio 21.26 - Rango de matriz ⭐⭐⭐☆☆
+
+(ej_b3_c01_26)=
+### Ejercicio 3.01.26 - Rango de matriz ⭐⭐⭐☆☆
 
 Implementar un algoritmo para calcular el rango de una matriz usando eliminación
 gaussiana.
@@ -951,8 +965,9 @@ int calcular_rango(double **matriz, int filas, int cols);
 <!-- c -->
 
 **Estrategia:** Reducir la matriz a forma escalonada y contar filas no nulas.
-(ejercicio_21_27)=
-### Ejercicio 21.27 - Matriz de cofactores ⭐⭐⭐☆☆
+
+(ej_b3_c01_27)=
+### Ejercicio 3.01.27 - Matriz de cofactores ⭐⭐⭐☆☆
 
 Calcular la matriz de cofactores para una matriz cuadrada.
 
@@ -964,8 +979,9 @@ double **matriz_cofactores(double **matriz, int n);
 El cofactor $C_{ij}$ se calcula como: $C_{ij} = (-1)^{i+j} M_{ij}$ donde
 $M_{ij}$ es el menor de la matriz (determinante de la submatriz obtenida
 eliminando fila $i$ y columna $j$).
-(ejercicio_21_28)=
-### Ejercicio 21.28 - Matriz inversa ⭐⭐⭐☆☆
+
+(ej_b3_c01_28)=
+### Ejercicio 3.01.28 - Matriz inversa ⭐⭐⭐☆☆
 
 Implementar el cálculo de la inversa de una matriz usando el método de
 Gauss-Jordan.
@@ -980,8 +996,9 @@ double **matriz_inversa(double **matriz, int n, bool *invertible);
 2. Aplicar eliminación Gauss-Jordan
 3. Si se obtiene $[I | A^{-1}]$, retornar $A^{-1}$
 4. Si no es posible, la matriz no es invertible
-(ejercicio_21_29)=
-### Ejercicio 21.29 - Potencia de matriz ⭐⭐⭐☆☆
+
+(ej_b3_c01_29)=
+### Ejercicio 3.01.29 - Potencia de matriz ⭐⭐⭐☆☆
 
 Calcular $A^n$ para una matriz cuadrada $A$ y un exponente entero $n$.
 
@@ -991,8 +1008,9 @@ double **potencia_matriz(double **matriz, int tam, int exponente);
 <!-- c -->
 
 **Optimización:** Usar exponenciación rápida para $O(\log n)$ multiplicaciones.
-(ejercicio_21_30)=
-### Ejercicio 21.30 - Descomposición LU ⭐⭐☆☆☆
+
+(ej_b3_c01_30)=
+### Ejercicio 3.01.30 - Descomposición LU ⭐⭐☆☆☆
 
 Implementar la descomposición LU de una matriz: $A = LU$ donde $L$ es triangular
 inferior y $U$ es triangular superior.
@@ -1003,8 +1021,9 @@ bool descomposicion_lu(double **A, int n, double **L, double **U);
 <!-- c -->
 
 **Aplicación:** Resolver sistemas de ecuaciones lineales eficientemente.
-(ejercicio_21_31)=
-### Ejercicio 21.31 - Valores propios (Power Method) ⭐⭐☆☆☆
+
+(ej_b3_c01_31)=
+### Ejercicio 3.01.31 - Valores propios (Power Method) ⭐⭐☆☆☆
 
 Implementar el método de la potencia para calcular el valor propio dominante de
 una matriz.
@@ -1018,8 +1037,9 @@ double valor_propio_dominante(double **matriz, int n, double tolerancia);
 1. Comenzar con vector aleatorio $v$
 2. Iterar: $v_{k+1} = \frac{Av_k}{||Av_k||}$
 3. El valor propio es $\lambda = v^T A v$
-(ejercicio_21_32)=
-### Ejercicio 21.32 - Matriz de rotación ⭐⭐⭐☆☆
+
+(ej_b3_c01_32)=
+### Ejercicio 3.01.32 - Matriz de rotación ⭐⭐⭐☆☆
 
 Implementar funciones para crear y aplicar matrices de rotación 2D y 3D.
 
@@ -1036,8 +1056,9 @@ double **matriz_rotacion_3d_z(double angulo);
 $$
 R(\theta) = \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}
 $$
-(ejercicio_21_33)=
-### Ejercicio 21.33 - Matriz de proyección ⭐⭐⭐☆☆
+
+(ej_b3_c01_33)=
+### Ejercicio 3.01.33 - Matriz de proyección ⭐⭐⭐☆☆
 
 Crear matriz de proyección ortogonal sobre un vector.
 
@@ -1052,8 +1073,9 @@ double **matriz_proyeccion(double *vector, int n);
 
 Considerar una matriz como una imagen en escala de grises donde cada elemento
 representa la intensidad de un píxel.
-(ejercicio_21_34)=
-### Ejercicio 21.34 - Umbralización (Thresholding) ⭐⭐☆☆☆
+
+(ej_b3_c01_34)=
+### Ejercicio 3.01.34 - Umbralización (Thresholding) ⭐⭐☆☆☆
 
 Convertir una imagen en escala de grises a binaria (solo 0 y 255) usando un
 umbral.
@@ -1064,8 +1086,9 @@ void umbralizar(int **imagen, int filas, int cols, int umbral);
 <!-- c -->
 
 **Algoritmo:** Si `pixel >= umbral`, asignar 255, sino asignar 0.
-(ejercicio_21_35)=
-### Ejercicio 21.35 - Histograma de Imagen ⭐⭐☆☆☆
+
+(ej_b3_c01_35)=
+### Ejercicio 3.01.35 - Histograma de Imagen ⭐⭐☆☆☆
 
 Calcular el histograma de una imagen (frecuencia de cada nivel de intensidad).
 
@@ -1076,8 +1099,9 @@ void calcular_histograma(int **imagen, int filas, int cols, int *histograma);
 
 El histograma tiene 256 posiciones (0-255) que cuentan la frecuencia de cada
 intensidad.
-(ejercicio_21_36)=
-### Ejercicio 21.36 - Ecualización de Histograma ⭐⭐☆☆☆
+
+(ej_b3_c01_36)=
+### Ejercicio 3.01.36 - Ecualización de Histograma ⭐⭐☆☆☆
 
 Mejorar el contraste de una imagen mediante ecualización de histograma.
 
@@ -1090,8 +1114,9 @@ void ecualizar_histograma(int **imagen, int filas, int cols);
 1. Calcular histograma
 2. Calcular función de distribución acumulativa (CDF)
 3. Normalizar CDF y aplicar transformación a cada píxel
-(ejercicio_21_37)=
-### Ejercicio 21.37 - Filtro gaussiano ⭐⭐☆☆☆
+
+(ej_b3_c01_37)=
+### Ejercicio 3.01.37 - Filtro gaussiano ⭐⭐☆☆☆
 
 Implementar un filtro gaussiano para suavizado de imagen.
 
@@ -1102,8 +1127,9 @@ void filtro_gaussiano(double **imagen, int filas, int cols, double sigma);
 
 **Kernel gaussiano 3x3:**
 $$K = \frac{1}{16}\begin{pmatrix} 1 & 2 & 1 \\ 2 & 4 & 2 \\ 1 & 2 & 1 \end{pmatrix}$$
-(ejercicio_21_38)=
-### Ejercicio 21.38 - Detección de bordes (Laplaciano) ⭐⭐☆☆☆
+
+(ej_b3_c01_38)=
+### Ejercicio 3.01.38 - Detección de bordes (Laplaciano) ⭐⭐☆☆☆
 
 Aplicar el operador Laplaciano para detectar bordes.
 
@@ -1117,8 +1143,9 @@ void detectar_bordes_laplaciano(int **imagen, int filas, int cols,
 $$K = \begin{pmatrix} 0 & 1 & 0 \\ 1 & -4 & 1 \\ 0 & 1 & 0 \end{pmatrix}$$
 
 ## Matrices Especiales
-(ejercicio_21_39)=
-### Ejercicio 21.39 - Matriz de Vandermonde ⭐⭐⭐☆☆
+
+(ej_b3_c01_39)=
+### Ejercicio 3.01.39 - Matriz de Vandermonde ⭐⭐⭐☆☆
 
 Generar una matriz de Vandermonde a partir de un vector.
 
@@ -1131,8 +1158,9 @@ double **matriz_vandermonde(double *x, int n, int m);
 
 **Ejemplo con $x = [1, 2, 3]$ y $m = 4$:**
 $$V = \begin{pmatrix} 1 & 1 & 1 & 1 \\ 1 & 2 & 4 & 8 \\ 1 & 3 & 9 & 27 \end{pmatrix}$$
-(ejercicio_21_40)=
-### Ejercicio 21.40 - Matriz de Hilbert ⭐⭐⭐☆☆
+
+(ej_b3_c01_40)=
+### Ejercicio 3.01.40 - Matriz de Hilbert ⭐⭐⭐☆☆
 
 Generar una matriz de Hilbert de orden $n$.
 
@@ -1145,8 +1173,9 @@ double **matriz_hilbert(int n);
 
 **Nota:** Las matrices de Hilbert son notoriamente mal condicionadas para
 inversión.
-(ejercicio_21_41)=
-### Ejercicio 21.41 - Matriz de Toeplitz ⭐⭐⭐☆☆
+
+(ej_b3_c01_41)=
+### Ejercicio 3.01.41 - Matriz de Toeplitz ⭐⭐⭐☆☆
 
 Verificar si una matriz es de Toeplitz (cada diagonal descendente de izquierda a
 derecha tiene valores constantes).
@@ -1157,8 +1186,9 @@ bool es_toeplitz(int **matriz, int filas, int cols);
 <!-- c -->
 
 **Propiedad:** $a_{i,j} = a_{i+1,j+1}$
-(ejercicio_21_42)=
-### Ejercicio 21.42 - Matriz circulante ⭐⭐⭐☆☆
+
+(ej_b3_c01_42)=
+### Ejercicio 3.01.42 - Matriz circulante ⭐⭐⭐☆☆
 
 Generar una matriz circulante a partir de su primera fila.
 
@@ -1169,8 +1199,9 @@ int **matriz_circulante(int *primera_fila, int n);
 
 **Ejemplo con primera fila $[1, 2, 3, 4]$:**
 $$C = \begin{pmatrix} 1 & 2 & 3 & 4 \\ 4 & 1 & 2 & 3 \\ 3 & 4 & 1 & 2 \\ 2 & 3 & 4 & 1 \end{pmatrix}$$
-(ejercicio_21_43)=
-### Ejercicio 21.43 - Matriz de Hankel ⭐⭐⭐☆☆
+
+(ej_b3_c01_43)=
+### Ejercicio 3.01.43 - Matriz de Hankel ⭐⭐⭐☆☆
 
 Generar una matriz de Hankel (opuesta a Toeplitz: diagonales de arriba-derecha a
 abajo-izquierda son constantes).
@@ -1181,8 +1212,9 @@ double **matriz_hankel(double *c, double *r, int n);
 <!-- c -->
 
 ## Resolución de Sistemas de Ecuaciones
-(ejercicio_21_44)=
-### Ejercicio 21.44 - Sustitución hacia adelante ⭐⭐☆☆☆
+
+(ej_b3_c01_44)=
+### Ejercicio 3.01.44 - Sustitución hacia adelante ⭐⭐☆☆☆
 
 Resolver un sistema triangular inferior $Lx = b$.
 
@@ -1192,8 +1224,9 @@ double *sustitucion_adelante(double **L, double *b, int n);
 <!-- c -->
 
 **Algoritmo:** Resolver de arriba hacia abajo.
-(ejercicio_21_45)=
-### Ejercicio 21.45 - Sustitución hacia atrás ⭐⭐☆☆☆
+
+(ej_b3_c01_45)=
+### Ejercicio 3.01.45 - Sustitución hacia atrás ⭐⭐☆☆☆
 
 Resolver un sistema triangular superior $Ux = b$.
 
@@ -1203,8 +1236,9 @@ double *sustitucion_atras(double **U, double *b, int n);
 <!-- c -->
 
 **Algoritmo:** Resolver de abajo hacia arriba.
-(ejercicio_21_46)=
-### Ejercicio 21.46 - Eliminación gaussiana completa ⭐⭐☆☆☆
+
+(ej_b3_c01_46)=
+### Ejercicio 3.01.46 - Eliminación gaussiana completa ⭐⭐☆☆☆
 
 Implementar eliminación gaussiana con pivoteo completo para resolver $Ax = b$.
 
@@ -1212,8 +1246,9 @@ Implementar eliminación gaussiana con pivoteo completo para resolver $Ax = b$.
 double *resolver_sistema(double **A, double *b, int n);
 ```
 <!-- c -->
-(ejercicio_21_47)=
-### Ejercicio 21.47 - Método de Jacobi ⭐⭐☆☆☆
+
+(ej_b3_c01_47)=
+### Ejercicio 3.01.47 - Método de Jacobi ⭐⭐☆☆☆
 
 Resolver $Ax = b$ iterativamente usando el método de Jacobi.
 
@@ -1225,8 +1260,9 @@ double *metodo_jacobi(double **A, double *b, int n, double tolerancia,
 
 **Fórmula de iteración:**
 $$x_i^{(k+1)} = \frac{1}{a_{ii}}\left(b_i - \sum_{j \neq i} a_{ij}x_j^{(k)}\right)$$
-(ejercicio_21_48)=
-### Ejercicio 21.48 - Método de Gauss-Seidel ⭐⭐☆☆☆
+
+(ej_b3_c01_48)=
+### Ejercicio 3.01.48 - Método de Gauss-Seidel ⭐⭐☆☆☆
 
 Similar a Jacobi pero usa valores actualizados inmediatamente.
 
@@ -1239,8 +1275,9 @@ double *metodo_gauss_seidel(double **A, double *b, int n, double tolerancia,
 **Converge más rápido que Jacobi** para matrices con diagonal dominante.
 
 ## Operaciones Matriciales con Bloques
-(ejercicio_21_49)=
-### Ejercicio 21.49 - Multiplicación por bloques ⭐⭐☆☆☆
+
+(ej_b3_c01_49)=
+### Ejercicio 3.01.49 - Multiplicación por bloques ⭐⭐☆☆☆
 
 Implementar multiplicación de matrices usando el algoritmo por bloques (más
 eficiente para matrices grandes por mejor uso de caché).
@@ -1249,8 +1286,9 @@ eficiente para matrices grandes por mejor uso de caché).
 double **multiplicar_bloques(double **A, double **B, int n, int tam_bloque);
 ```
 <!-- c -->
-(ejercicio_21_50)=
-### Ejercicio 21.50 - Transpuesta por bloques ⭐⭐☆☆☆
+
+(ej_b3_c01_50)=
+### Ejercicio 3.01.50 - Transpuesta por bloques ⭐⭐☆☆☆
 
 Implementar transpuesta usando bloques para mejor localidad de caché.
 
@@ -1258,8 +1296,9 @@ Implementar transpuesta usando bloques para mejor localidad de caché.
 void transponer_bloques(double **matriz, int n, int tam_bloque);
 ```
 <!-- c -->
-(ejercicio_21_51)=
-### Ejercicio 21.51 - Strassen para matrices grandes ⭐⭐⭐☆☆
+
+(ej_b3_c01_51)=
+### Ejercicio 3.01.51 - Strassen para matrices grandes ⭐⭐⭐☆☆
 
 Implementar el algoritmo de Strassen para multiplicación rápida de matrices
 grandes.
@@ -1270,8 +1309,9 @@ double **strassen(double **A, double **B, int n);
 <!-- c -->
 
 **Complejidad:** $O(n^{2.807})$ vs $O(n^3)$ del método tradicional.
-(ejercicio_21_52)=
-## Ejercicio 21.52 - Inicializar y Mostrar Matriz ⭐☆☆☆☆
+
+(ej_b3_c01_52)=
+## Ejercicio 3.01.52 - Inicializar y Mostrar Matriz ⭐☆☆☆☆
 
 Creá una matriz 3×3, inicializala con valores del 1 al 9, y mostrala.
 
@@ -1281,8 +1321,9 @@ Creá una matriz 3×3, inicializala con valores del 1 al 9, y mostrala.
 - Lazos anidados para mostrar con formato
 
 ---
-(ejercicio_21_53)=
-## Ejercicio 21.53 - Suma de Elementos ⭐☆☆☆☆
+
+(ej_b3_c01_53)=
+## Ejercicio 3.01.53 - Suma de Elementos ⭐☆☆☆☆
 
 Calculá la suma de todos los elementos de una matriz.
 
@@ -1292,8 +1333,9 @@ Calculá la suma de todos los elementos de una matriz.
 - `suma += matriz[i][j]`
 
 ---
-(ejercicio_21_54)=
-## Ejercicio 21.54 - Máximo y Mínimo ⭐⭐☆☆☆
+
+(ej_b3_c01_54)=
+## Ejercicio 3.01.54 - Máximo y Mínimo ⭐⭐☆☆☆
 
 Encontrá el elemento mayor y menor de una matriz, junto con sus posiciones.
 
@@ -1303,8 +1345,9 @@ Encontrá el elemento mayor y menor de una matriz, junto con sus posiciones.
 - Guardá posiciones (i, j) cuando actualizás max/min
 
 ---
-(ejercicio_21_55)=
-## Ejercicio 21.55 - Matriz Identidad ⭐⭐☆☆☆
+
+(ej_b3_c01_55)=
+## Ejercicio 3.01.55 - Matriz Identidad ⭐⭐☆☆☆
 
 Generá una matriz identidad de tamaño N×N (1s en diagonal, 0s en el resto).
 
@@ -1313,8 +1356,9 @@ Generá una matriz identidad de tamaño N×N (1s en diagonal, 0s en el resto).
 - O con `if`: `matriz[i][j] = 1` si `i == j`, sino 0
 
 ---
-(ejercicio_21_56)=
-## Ejercicio 21.56 - Transpuesta ⭐⭐⭐☆☆
+
+(ej_b3_c01_56)=
+## Ejercicio 3.01.56 - Transpuesta ⭐⭐⭐☆☆
 
 Calculá la transpuesta de una matriz (intercambiar filas por columnas).
 
@@ -1325,8 +1369,9 @@ Calculá la transpuesta de una matriz (intercambiar filas por columnas).
 - Creá nueva matriz para el resultado
 
 ---
-(ejercicio_21_57)=
-## Ejercicio 21.57 - Diagonal Principal ⭐⭐☆☆☆
+
+(ej_b3_c01_57)=
+## Ejercicio 3.01.57 - Diagonal Principal ⭐⭐☆☆☆
 
 Mostrá y sumá los elementos de la diagonal principal de una matriz cuadrada.
 
@@ -1335,8 +1380,9 @@ Mostrá y sumá los elementos de la diagonal principal de una matriz cuadrada.
 - Lazo de 0 a N-1: `suma += matriz[i][i]`
 
 ---
-(ejercicio_21_58)=
-## Ejercicio 21.58 - Diagonal Secundaria ⭐⭐☆☆☆
+
+(ej_b3_c01_58)=
+## Ejercicio 3.01.58 - Diagonal Secundaria ⭐⭐☆☆☆
 
 Mostrá y sumá los elementos de la diagonal secundaria.
 
@@ -1345,8 +1391,9 @@ Mostrá y sumá los elementos de la diagonal secundaria.
 - O directamente: `matriz[i][N-1-i]` para i de 0 a N-1
 
 ---
-(ejercicio_21_59)=
-## Ejercicio 21.59 - Matriz Simétrica ⭐⭐⭐☆☆
+
+(ej_b3_c01_59)=
+## Ejercicio 3.01.59 - Matriz Simétrica ⭐⭐⭐☆☆
 
 Verificá si una matriz es simétrica (igual a su transpuesta).
 
@@ -1356,8 +1403,9 @@ Verificá si una matriz es simétrica (igual a su transpuesta).
 - Si encontrás diferencia, `return false` inmediatamente
 
 ---
-(ejercicio_21_60)=
-## Ejercicio 21.60 - Suma de Matrices ⭐⭐⭐☆☆
+
+(ej_b3_c01_60)=
+## Ejercicio 3.01.60 - Suma de Matrices ⭐⭐⭐☆☆
 
 Sumá dos matrices del mismo tamaño.
 
@@ -1367,8 +1415,9 @@ Sumá dos matrices del mismo tamaño.
 - Creá matriz resultado
 
 ---
-(ejercicio_21_61)=
-## Ejercicio 21.61 - Multiplicación por Escalar ⭐⭐⭐☆☆
+
+(ej_b3_c01_61)=
+## Ejercicio 3.01.61 - Multiplicación por Escalar ⭐⭐⭐☆☆
 
 Multiplicá todos los elementos de una matriz por un escalar.
 
@@ -1378,8 +1427,9 @@ Multiplicá todos los elementos de una matriz por un escalar.
 - Podés modificar in-place o crear nueva matriz
 
 ---
-(ejercicio_21_62)=
-## Ejercicio 21.62 - Buscar Elemento ⭐⭐⭐☆☆
+
+(ej_b3_c01_62)=
+## Ejercicio 3.01.62 - Buscar Elemento ⭐⭐⭐☆☆
 
 Buscá un valor en la matriz. Si lo encontrás, mostrá su posición (fila,
 columna).
@@ -1390,8 +1440,9 @@ columna).
 - Usá flag para `break` del lazo externo también
 
 ---
-(ejercicio_21_63)=
-## Ejercicio 21.63 - Suma por Filas y Columnas ⭐⭐⭐☆☆
+
+(ej_b3_c01_63)=
+## Ejercicio 3.01.63 - Suma por Filas y Columnas ⭐⭐⭐☆☆
 
 Calculá la suma de cada fila y la suma de cada columna.
 
@@ -1402,8 +1453,9 @@ Calculá la suma de cada fila y la suma de cada columna.
 - Lazo por columnas: suma cada columna
 
 ---
-(ejercicio_21_64)=
-## Ejercicio 21.64 - Borde de la Matriz ⭐⭐⭐☆☆
+
+(ej_b3_c01_64)=
+## Ejercicio 3.01.64 - Borde de la Matriz ⭐⭐⭐☆☆
 
 Mostrá solo los elementos del borde de una matriz.
 
@@ -1415,8 +1467,9 @@ Mostrá solo los elementos del borde de una matriz.
 - Usá condición: `if (i == 0 || i == M-1 || j == 0 || j == N-1)`
 
 ---
-(ejercicio_21_65)=
-## Ejercicio 21.65 - Rotar Matriz 90 Grados ⭐⭐⭐⭐☆
+
+(ej_b3_c01_65)=
+## Ejercicio 3.01.65 - Rotar Matriz 90 Grados ⭐⭐⭐⭐☆
 
 Rotá una matriz cuadrada 90° en sentido horario.
 
@@ -1427,8 +1480,9 @@ Rotá una matriz cuadrada 90° en sentido horario.
 - O directamente: `resultado[j][N-1-i] = matriz[i][j]`
 
 ---
-(ejercicio_21_66)=
-## Ejercicio 21.66 - Multiplicación de Matrices ⭐⭐⭐⭐⭐
+
+(ej_b3_c01_66)=
+## Ejercicio 3.01.66 - Multiplicación de Matrices ⭐⭐⭐⭐⭐
 
 Multiplicá dos matrices (A de M×N y B de N×P, resultado M×P).
 
@@ -1446,8 +1500,9 @@ C[i][j] = suma de A[i][k] * B[k][j] para k = 0..N-1
 - Verificá dimensiones compatibles (columnas de A = filas de B)
 
 ---
-(ejercicio_21_67)=
-## Ejercicio 21.67 - Matriz en Espiral ⭐⭐⭐⭐⭐
+
+(ej_b3_c01_67)=
+## Ejercicio 3.01.67 - Matriz en Espiral ⭐⭐⭐⭐⭐
 
 Llenó una matriz en forma de espiral (desde afuera hacia adentro).
 
@@ -1467,8 +1522,9 @@ Llenó una matriz en forma de espiral (desde afuera hacia adentro).
 - Repetí hasta llenar todos los elementos
 
 ---
-(ejercicio_21_68)=
-## Ejercicio 21.68 - Sudoku - Validador de Fila ⭐⭐⭐⭐☆
+
+(ej_b3_c01_68)=
+## Ejercicio 3.01.68 - Sudoku - Validador de Fila ⭐⭐⭐⭐☆
 
 Verificá si una fila de un Sudoku es válida (números 1-9 sin repetir).
 
@@ -1480,8 +1536,9 @@ Verificá si una fila de un Sudoku es válida (números 1-9 sin repetir).
 - Al final, todos los 1-9 deben estar vistos
 
 ---
-(ejercicio_21_69)=
-## Ejercicio 21.69 - Matriz Traspuesta In-Place ⭐⭐⭐⭐☆
+
+(ej_b3_c01_69)=
+## Ejercicio 3.01.69 - Matriz Traspuesta In-Place ⭐⭐⭐⭐☆
 
 Transponé una matriz cuadrada sin usar matriz auxiliar completa.
 
@@ -1492,8 +1549,9 @@ Transponé una matriz cuadrada sin usar matriz auxiliar completa.
     - Intercambiá `matriz[i][j]` con `matriz[j][i]`
 
 ---
-(ejercicio_21_70)=
-## Ejercicio 21.70 - Matriz de Distancias ⭐⭐⭐⭐⭐
+
+(ej_b3_c01_70)=
+## Ejercicio 3.01.70 - Matriz de Distancias ⭐⭐⭐⭐⭐
 
 Dadas N ciudades con coordenadas (x, y), calculá matriz de distancias entre
 todas.
@@ -1505,8 +1563,9 @@ todas.
 - Matriz es simétrica: `D[i][j] = D[j][i]`
 
 ---
-(ejercicio_21_71)=
-## Ejercicio 21.71 - Juego de la Vida (Conway) ⭐⭐⭐⭐⭐
+
+(ej_b3_c01_71)=
+## Ejercicio 3.01.71 - Juego de la Vida (Conway) ⭐⭐⭐⭐⭐
 
 Implementá una generación del Juego de la Vida de Conway.
 
@@ -1525,11 +1584,12 @@ Implementá una generación del Juego de la Vida de Conway.
 - Cuidado con bordes
 
 ---
-(ejercicio_21_72)=
-## Ejercicio 21.72 - s Adicionales ⭐⭐☆☆☆
 
-(ejercicio_21_73)=
-### Ejercicio 21.73 - Matriz Pascal (Triángulo de Pascal) ⭐⭐⭐⭐☆
+(ej_b3_c01_72)=
+## Ejercicio 3.01.72 - s Adicionales ⭐⭐☆☆☆
+
+(ej_b3_c01_73)=
+### Ejercicio 3.01.73 - Matriz Pascal (Triángulo de Pascal) ⭐⭐⭐⭐☆
 
 Generá el triángulo de Pascal como matriz.
 
@@ -1539,8 +1599,9 @@ Generá el triángulo de Pascal como matriz.
 - `matriz[i][j] = matriz[i-1][j-1] + matriz[i-1][j]` (resto)
 
 ---
-(ejercicio_21_74)=
-### Ejercicio 21.74 - Matriz Antisimétrica ⭐⭐⭐⭐☆
+
+(ej_b3_c01_74)=
+### Ejercicio 3.01.74 - Matriz Antisimétrica ⭐⭐⭐⭐☆
 
 Verificá si una matriz es antisimétrica (`A[i][j] = -A[j][i]`).
 
@@ -1549,8 +1610,9 @@ Verificá si una matriz es antisimétrica (`A[i][j] = -A[j][i]`).
 - Verificá: `matriz[i][j] == -matriz[j][i]`
 
 ---
-(ejercicio_21_75)=
-### Ejercicio 21.75 - Submatriz Mayor Suma ⭐⭐⭐⭐⭐
+
+(ej_b3_c01_75)=
+### Ejercicio 3.01.75 - Submatriz Mayor Suma ⭐⭐⭐⭐⭐
 
 Encontrá la submatriz 2×2 con mayor suma dentro de una matriz más grande.
 
@@ -1560,8 +1622,9 @@ Encontrá la submatriz 2×2 con mayor suma dentro de una matriz más grande.
 - Guardá máximo y posición
 
 ---
-(ejercicio_21_76)=
-### Ejercicio 21.76 - Matriz Dispersa (Sparse) ⭐⭐⭐⭐⭐
+
+(ej_b3_c01_76)=
+### Ejercicio 3.01.76 - Matriz Dispersa (Sparse) ⭐⭐⭐⭐⭐
 
 Representá una matriz dispersa (muchos ceros) eficientemente.
 

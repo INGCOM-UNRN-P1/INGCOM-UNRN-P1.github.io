@@ -28,8 +28,9 @@ estructuras de repetición y el control de flujo estructurado y seguro en C.
 ---
 
 ## Estructuras Condicionales
-(ejercicio_4_1)=
-### Ejercicio 4.1 - Condición de aprobación ⭐⭐☆☆☆
+
+(ej_b1_c03b_01)=
+### Ejercicio 1.03b.01 - Condición de aprobación ⭐⭐☆☆☆
 
 :::{exercise}
 :label: entrada-2
@@ -82,8 +83,9 @@ int main(void)
 ---
 
 ## Estructuras de Repetición (Lazos)
-(ejercicio_4_2)=
-### Ejercicio 4.2 - Cuenta descendente ⭐⭐☆☆☆
+
+(ej_b1_c03b_02)=
+### Ejercicio 1.03b.02 - Cuenta descendente ⭐⭐☆☆☆
 
 :::{exercise}
 :label: lazo_while 
@@ -118,8 +120,9 @@ int main(void)
 
 :::
 <!-- {solution} lazo_while -->
-(ejercicio_4_3)=
-### Ejercicio 4.3 - Múltiplos de 3 ⭐⭐☆☆☆
+
+(ej_b1_c03b_03)=
+### Ejercicio 1.03b.03 - Múltiplos de 3 ⭐⭐☆☆☆
 
 :::{exercise}
 :label: lazo_for
@@ -154,8 +157,9 @@ int main(void)
 
 :::
 <!-- {solution} lazo_for -->
-(ejercicio_4_4)=
-### Ejercicio 4.4 - Clave de acceso con do-while ⭐⭐☆☆☆
+
+(ej_b1_c03b_04)=
+### Ejercicio 1.03b.04 - Clave de acceso con do-while ⭐⭐☆☆☆
 
 :::{exercise}
 :label: lazo_repeat
@@ -203,8 +207,9 @@ int main(void)
 ---
 
 ## Control de Flujo Seguro
-(ejercicio_4_5)=
-### Ejercicio 4.5 - Refactorización de break ⭐⭐☆☆☆
+
+(ej_b1_c03b_05)=
+### Ejercicio 1.03b.05 - Refactorización de break ⭐⭐☆☆☆
 
 :::{exercise}
 :label: lazo_break
@@ -266,8 +271,9 @@ int main(void)
 
 :::
 <!-- {solution} lazo_break -->
-(ejercicio_4_6)=
-### Ejercicio 4.6 - Refactorización de continue ⭐⭐☆☆☆
+
+(ej_b1_c03b_06)=
+### Ejercicio 1.03b.06 - Refactorización de continue ⭐⭐☆☆☆
 
 :::{exercise}
 :label: lazo_continue
@@ -322,8 +328,9 @@ int main(void)
 
 :::
 <!-- {solution} lazo_continue -->
-(ejercicio_4_7)=
-### Ejercicio 4.7 - Lazo de clave con bandera ⭐⭐☆☆☆
+
+(ej_b1_c03b_07)=
+### Ejercicio 1.03b.07 - Lazo de clave con bandera ⭐⭐☆☆☆
 
 :::{exercise}
 :label: lazo_flag_break
@@ -379,8 +386,8 @@ int main(void)
 (ejercicio_4_8)=
 ## Ejercicios de Práctica de Control
 
-(ejercicio_4_9)=
-### Ejercicio 4.9 - Mayor de dos números reales ⭐⭐☆☆☆
+(ej_b1_c03b_08)=
+### Ejercicio 1.03b.08 - Mayor de dos números reales ⭐⭐☆☆☆
 
 Escribí un programa que solicite dos números reales al usuario y muestre cuál es
 el mayor.
@@ -391,8 +398,8 @@ desbordamientos de búfer validando la capacidad máxima.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
-(ejercicio_4_10)=
-### Ejercicio 4.10 - Números del 1 al 100 ⭐⭐☆☆☆
+(ej_b1_c03b_09)=
+### Ejercicio 1.03b.09 - Números del 1 al 100 ⭐⭐☆☆☆
 
 Diseñá un programa que imprima en pantalla los números enteros del 1 al 100
 utilizando un lazo `for`.
@@ -403,8 +410,8 @@ valores fuera de rango o tipos inválidos.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
-(ejercicio_4_11)=
-### Ejercicio 4.11 - Suma de pares del 1 al 100 ⭐⭐☆☆☆
+(ej_b1_c03b_10)=
+### Ejercicio 1.03b.10 - Suma de pares del 1 al 100 ⭐⭐☆☆☆
 
 Desarrollá un algoritmo que sume los números pares comprendidos en el rango del
 1 al 100 inclusive.
@@ -415,8 +422,8 @@ valores fuera de rango o tipos inválidos.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
-(ejercicio_4_12)=
-### Ejercicio 4.12 - Verificación de número primo ⭐⭐☆☆☆
+(ej_b1_c03b_11)=
+### Ejercicio 1.03b.11 - Verificación de número primo ⭐⭐☆☆☆
 
 Escribí un programa que solicite un número entero positivo e indique si es un
 número primo (divisible únicamente por 1 y por sí mismo).
@@ -427,8 +434,8 @@ valores fuera de rango o tipos inválidos.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
-(ejercicio_4_13)=
-### Ejercicio 4.13 - Estado de aprobación de calificación ⭐⭐⭐☆☆
+(ej_b1_c03b_12)=
+### Ejercicio 1.03b.12 - Estado de aprobación de calificación ⭐⭐⭐☆☆
 
 Escribí un programa que pida una calificación (0 a 10) e indique si el
 estudiante aprobó (calificación mayor o igual a 4).
@@ -439,8 +446,8 @@ definición interna oculta en el archivo `.c`.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
-(ejercicio_4_14)=
-### Ejercicio 4.14 - Contraseña de caracteres iterativa ⭐⭐☆☆☆
+(ej_b1_c03b_13)=
+### Ejercicio 1.03b.13 - Contraseña de caracteres iterativa ⭐⭐☆☆☆
 
 Escribí un programa que solicite repetidamente una contraseña de caracteres al
 usuario hasta que coincida con un valor establecido de acceso seguro.
@@ -451,8 +458,8 @@ valores fuera de rango o tipos inválidos.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
-(ejercicio_4_15)=
-## Ejercicio 4.15 - Contar del 1 al 10 ⭐☆☆☆☆
+(ej_b1_c03b_14)=
+## Ejercicio 1.03b.14 - Contar del 1 al 10 ⭐☆☆☆☆
 
 Mostrá los números del 1 al 10 usando un lazo `for`.
 
@@ -467,8 +474,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_16)=
-## Ejercicio 4.16 - Suma de N Números ⭐☆☆☆☆
+
+(ej_b1_c03b_15)=
+## Ejercicio 1.03b.15 - Suma de N Números ⭐☆☆☆☆
 
 Leé un número N y calculá la suma de los primeros N números naturales.
 
@@ -484,8 +492,9 @@ valores fuera de rango o tipos inválidos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_17)=
-## Ejercicio 4.17 - Tabla de Multiplicar ⭐⭐☆☆☆
+
+(ej_b1_c03b_16)=
+## Ejercicio 1.03b.16 - Tabla de Multiplicar ⭐⭐☆☆☆
 
 Mostrá la tabla de multiplicar de un número ingresado por el usuario (1 a 10).
 
@@ -500,8 +509,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_18)=
-## Ejercicio 4.18 - Factorial con While ⭐⭐☆☆☆
+
+(ej_b1_c03b_17)=
+## Ejercicio 1.03b.17 - Factorial con While ⭐⭐☆☆☆
 
 Calculá el factorial de N usando un lazo `while`.
 
@@ -517,8 +527,9 @@ definición interna oculta en el archivo `.c`.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_19)=
-## Ejercicio 4.19 - Números Pares en Rango ⭐⭐☆☆☆
+
+(ej_b1_c03b_18)=
+## Ejercicio 1.03b.18 - Números Pares en Rango ⭐⭐☆☆☆
 
 Mostrá todos los números pares entre dos valores ingresados.
 
@@ -535,8 +546,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_20)=
-## Ejercicio 4.20 - Suma hasta Cero ⭐⭐☆☆☆
+
+(ej_b1_c03b_19)=
+## Ejercicio 1.03b.19 - Suma hasta Cero ⭐⭐☆☆☆
 
 Leé números enteros hasta que el usuario ingrese 0, luego mostrá la suma total.
 
@@ -553,8 +565,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_21)=
-## Ejercicio 4.21 - Validación de Entrada ⭐⭐⭐☆☆
+
+(ej_b1_c03b_20)=
+## Ejercicio 1.03b.20 - Validación de Entrada ⭐⭐⭐☆☆
 
 Leé un número entre 1 y 100. Si está fuera de rango, pedí nuevamente hasta que
 sea válido.
@@ -571,8 +584,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_22)=
-## Ejercicio 4.22 - Contar Dígitos ⭐⭐⭐☆☆
+
+(ej_b1_c03b_21)=
+## Ejercicio 1.03b.21 - Contar Dígitos ⭐⭐⭐☆☆
 
 Contá cuántos dígitos tiene un número entero.
 
@@ -589,8 +603,9 @@ definición interna oculta en el archivo `.c`.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_23)=
-## Ejercicio 4.23 - Número Primo ⭐⭐⭐☆☆
+
+(ej_b1_c03b_22)=
+## Ejercicio 1.03b.22 - Número Primo ⭐⭐⭐☆☆
 
 Determiná si un número es primo probando divisibilidad.
 
@@ -608,8 +623,9 @@ valores fuera de rango o tipos inválidos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_24)=
-## Ejercicio 4.24 - Secuencia de Fibonacci ⭐⭐⭐☆☆
+
+(ej_b1_c03b_23)=
+## Ejercicio 1.03b.23 - Secuencia de Fibonacci ⭐⭐⭐☆☆
 
 Generá los primeros N números de Fibonacci.
 
@@ -626,8 +642,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_25)=
-## Ejercicio 4.25 - Búsqueda en Array ⭐⭐⭐☆☆
+
+(ej_b1_c03b_24)=
+## Ejercicio 1.03b.24 - Búsqueda en Array ⭐⭐⭐☆☆
 
 Buscá un valor en un array. Si lo encontrás, mostrá su posición y `break`.
 
@@ -644,8 +661,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_26)=
-## Ejercicio 4.26 - Menú Interactivo ⭐⭐⭐☆☆
+
+(ej_b1_c03b_25)=
+## Ejercicio 1.03b.25 - Menú Interactivo ⭐⭐⭐☆☆
 
 Implementá un menú que se repita hasta que el usuario elija "Salir".
 
@@ -663,8 +681,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_27)=
-## Ejercicio 4.27 - Mayor y Menor de N Números ⭐⭐⭐☆☆
+
+(ej_b1_c03b_26)=
+## Ejercicio 1.03b.26 - Mayor y Menor de N Números ⭐⭐⭐☆☆
 
 Leé N números y encontrá el mayor y menor.
 
@@ -681,8 +700,9 @@ valores fuera de rango o tipos inválidos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_28)=
-## Ejercicio 4.28 - Invertir un Número ⭐⭐⭐⭐☆
+
+(ej_b1_c03b_27)=
+## Ejercicio 1.03b.27 - Invertir un Número ⭐⭐⭐⭐☆
 
 Invertí los dígitos de un número (ej: 1234 → 4321).
 
@@ -700,8 +720,9 @@ valores fuera de rango o tipos inválidos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_29)=
-## Ejercicio 4.29 - Números Perfectos ⭐⭐⭐⭐☆
+
+(ej_b1_c03b_28)=
+## Ejercicio 1.03b.28 - Números Perfectos ⭐⭐⭐⭐☆
 
 Encontrá todos los números perfectos hasta N. Un número es perfecto si la suma
 de sus divisores (excluyéndolo) es igual al número.
@@ -721,8 +742,9 @@ valores fuera de rango o tipos inválidos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_30)=
-## Ejercicio 4.30 - Patrón de Asteriscos - Triángulo ⭐⭐⭐⭐☆
+
+(ej_b1_c03b_29)=
+## Ejercicio 1.03b.29 - Patrón de Asteriscos - Triángulo ⭐⭐⭐⭐☆
 
 Dibujá un triángulo de asteriscos de altura N.
 
@@ -749,8 +771,9 @@ valores fuera de rango o tipos inválidos.
 - Nueva línea después de cada fila
 
 ---
-(ejercicio_4_31)=
-## Ejercicio 4.31 - Máximo Común Divisor (Euclides) ⭐⭐⭐⭐☆
+
+(ej_b1_c03b_30)=
+## Ejercicio 1.03b.30 - Máximo Común Divisor (Euclides) ⭐⭐⭐⭐☆
 
 Implementá el algoritmo de Euclides iterativo para calcular MCD.
 
@@ -776,8 +799,9 @@ retornar a
 - Intercambiá valores
 
 ---
-(ejercicio_4_32)=
-## Ejercicio 4.32 - Número de Armstrong ⭐⭐⭐⭐☆
+
+(ej_b1_c03b_31)=
+## Ejercicio 1.03b.31 - Número de Armstrong ⭐⭐⭐⭐☆
 
 Determiná si un número es Armstrong (suma de sus dígitos elevados a la cantidad
 de dígitos igual al número).
@@ -797,8 +821,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_33)=
-## Ejercicio 4.33 - Simulación de Cajero Automático ⭐⭐⭐⭐⭐
+
+(ej_b1_c03b_32)=
+## Ejercicio 1.03b.32 - Simulación de Cajero Automático ⭐⭐⭐⭐⭐
 
 Simulá un cajero con saldo inicial. Menú: depositar, retirar, consultar, salir.
 
@@ -821,8 +846,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_34)=
-## Ejercicio 4.34 - Criba de Eratóstenes ⭐⭐⭐⭐⭐
+
+(ej_b1_c03b_33)=
+## Ejercicio 1.03b.33 - Criba de Eratóstenes ⭐⭐⭐⭐⭐
 
 Encontrá todos los números primos hasta N usando la Criba de Eratóstenes.
 
@@ -850,8 +876,8 @@ desbordamientos de búfer validando la capacidad máxima.
 (ejercicio_4_35)=
 ## Ejercicios Adicionales de Patrones
 
-(ejercicio_4_36)=
-### Ejercicio 4.36 - Pirámide Centrada ⭐⭐⭐⭐⭐
+(ej_b1_c03b_34)=
+### Ejercicio 1.03b.34 - Pirámide Centrada ⭐⭐⭐⭐⭐
 
 Dibujá una pirámide centrada de asteriscos.
 
@@ -878,8 +904,9 @@ valores fuera de rango o tipos inválidos.
   - Nueva línea
 
 ---
-(ejercicio_4_37)=
-### Ejercicio 4.37 - Rombo ⭐⭐⭐⭐⭐
+
+(ej_b1_c03b_35)=
+### Ejercicio 1.03b.35 - Rombo ⭐⭐⭐⭐⭐
 
 Dibujá un rombo de asteriscos.
 
@@ -897,8 +924,9 @@ definición interna oculta en el archivo `.c`.
 ---
 
 ## Problemas de Lazos Anidados
-(ejercicio_4_38)=
-### Ejercicio 4.38 - Tabla de Multiplicar Completa ⭐⭐⭐⭐☆
+
+(ej_b1_c03b_36)=
+### Ejercicio 1.03b.36 - Tabla de Multiplicar Completa ⭐⭐⭐⭐☆
 
 Mostrá tabla de multiplicar del 1 al 10 (todas las tablas).
 
@@ -914,8 +942,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_39)=
-### Ejercicio 4.39 - Números Primos en Rango ⭐⭐⭐⭐☆
+
+(ej_b1_c03b_37)=
+### Ejercicio 1.03b.37 - Números Primos en Rango ⭐⭐⭐⭐☆
 
 Mostrá todos los números primos entre A y B.
 
@@ -933,8 +962,9 @@ desbordamientos de búfer validando la capacidad máxima.
 ---
 
 ## Problemas de Validación y Control
-(ejercicio_4_40)=
-### Ejercicio 4.40 - Juego de Adivinanza Mejorado ⭐⭐⭐⭐⭐
+
+(ej_b1_c03b_38)=
+### Ejercicio 1.03b.38 - Juego de Adivinanza Mejorado ⭐⭐⭐⭐⭐
 
 El programa elige un número aleatorio. El usuario tiene máximo 7 intentos.
 
@@ -1063,8 +1093,9 @@ claras.
 
 Estas consignas cubren todos los aspectos de lazos: `for`, `while`, `do-while`,
 lazos anidados, control de flujo y validación con repetición.
-(ejercicio_4_41)=
-## Ejercicio 4.41 - Mostrar Argumentos ⭐☆☆☆☆
+
+(ej_b1_c03b_39)=
+## Ejercicio 1.03b.39 - Mostrar Argumentos ⭐☆☆☆☆
 
 Mostrá todos los argumentos recibidos.
 
@@ -1091,8 +1122,9 @@ int main(int argc, char *argv[])
 - `argv[0]` es el nombre del programa
 
 ---
-(ejercicio_4_42)=
-## Ejercicio 4.42 - Saludo Personalizado ⭐☆☆☆☆
+
+(ej_b1_c03b_40)=
+## Ejercicio 1.03b.40 - Saludo Personalizado ⭐☆☆☆☆
 
 Lee un nombre desde argv y saludá.
 
@@ -1110,8 +1142,9 @@ valores fuera de rango o tipos inválidos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_43)=
-## Ejercicio 4.43 - Suma de Dos Números ⭐⭐☆☆☆
+
+(ej_b1_c03b_41)=
+## Ejercicio 1.03b.41 - Suma de Dos Números ⭐⭐☆☆☆
 
 Sumá dos números pasados como argumentos.
 
@@ -1129,8 +1162,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_44)=
-## Ejercicio 4.44 - Calculadora Simple ⭐⭐⭐☆☆
+
+(ej_b1_c03b_42)=
+## Ejercicio 1.03b.42 - Calculadora Simple ⭐⭐⭐☆☆
 
 Implementá calculadora: `./calc <num1> <operador> <num2>`
 
@@ -1149,8 +1183,9 @@ valores fuera de rango o tipos inválidos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_45)=
-## Ejercicio 4.45 - Flags Booleanos ⭐⭐⭐☆☆
+
+(ej_b1_c03b_43)=
+## Ejercicio 1.03b.43 - Flags Booleanos ⭐⭐⭐☆☆
 
 Procesá flags opcionales `-v` (verbose) y `-h` (help).
 
@@ -1168,8 +1203,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_46)=
-## Ejercicio 4.46 - Concatenar Argumentos ⭐⭐☆☆☆
+
+(ej_b1_c03b_44)=
+## Ejercicio 1.03b.44 - Concatenar Argumentos ⭐⭐☆☆☆
 
 Concatená todos los argumentos (excepto argv[0]) en un string.
 
@@ -1188,8 +1224,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_47)=
-## Ejercicio 4.47 - Conversor de Temperatura ⭐⭐⭐☆☆
+
+(ej_b1_c03b_45)=
+## Ejercicio 1.03b.45 - Conversor de Temperatura ⭐⭐⭐☆☆
 
 Convertí temperatura según flags.
 
@@ -1208,8 +1245,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_48)=
-## Ejercicio 4.48 - Procesamiento de Texto desde Consola ⭐⭐⭐☆☆
+
+(ej_b1_c03b_46)=
+## Ejercicio 1.03b.46 - Procesamiento de Texto desde Consola ⭐⭐⭐☆☆
 
 Leé texto carácter por carácter desde la entrada estándar (`stdin`) hasta encontrar `EOF` y mostralo en mayúsculas.
 
@@ -1225,8 +1263,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_49)=
-## Ejercicio 4.49 - Flag con Valor ⭐⭐⭐⭐☆
+
+(ej_b1_c03b_47)=
+## Ejercicio 1.03b.47 - Flag con Valor ⭐⭐⭐⭐☆
 
 Procesá flag que requiere un valor: `-n <cantidad>`
 
@@ -1260,8 +1299,9 @@ for (int i = 1; i < argc; i++)
 <!-- {code-block} c -->
 
 ---
-(ejercicio_4_50)=
-## Ejercicio 4.50 - Múltiples Flags ⭐⭐⭐⭐☆
+
+(ej_b1_c03b_48)=
+## Ejercicio 1.03b.48 - Múltiples Flags ⭐⭐⭐⭐☆
 
 Implementá programa con varios flags: `-v` (verbose), `-o <salida>`, `-n <num>`
 
@@ -1280,8 +1320,9 @@ errores de E/S con `ferror` y `feof`.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_51)=
-## Ejercicio 4.51 - Validación de Argumentos ⭐⭐⭐☆☆
+
+(ej_b1_c03b_49)=
+## Ejercicio 1.03b.49 - Validación de Argumentos ⭐⭐⭐☆☆
 
 Validá que números sean realmente números.
 
@@ -1308,8 +1349,9 @@ if (*endptr != '\0')
 - Si `*endptr != '\0'`, hay caracteres inválidos
 
 ---
-(ejercicio_4_52)=
-## Ejercicio 4.52 - Ayuda Automática ⭐⭐⭐☆☆
+
+(ej_b1_c03b_50)=
+## Ejercicio 1.03b.50 - Ayuda Automática ⭐⭐⭐☆☆
 
 Mostrá ayuda si se pasa `-h` o `--help`, o si argumentos son incorrectos.
 
@@ -1340,8 +1382,9 @@ if (argc < 2 || strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0)
 <!-- {code-block} c -->
 
 ---
-(ejercicio_4_53)=
-## Ejercicio 4.53 - Grep Simplificado ⭐⭐⭐⭐☆
+
+(ej_b1_c03b_51)=
+## Ejercicio 1.03b.51 - Grep Simplificado ⭐⭐⭐⭐☆
 
 Buscá patrón en archivo(s).
 
@@ -1360,8 +1403,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_54)=
-## Ejercicio 4.54 - Wc (Word Count) Simplificado ⭐⭐⭐⭐☆
+
+(ej_b1_c03b_52)=
+## Ejercicio 1.03b.52 - Wc (Word Count) Simplificado ⭐⭐⭐⭐☆
 
 Contá líneas, palabras y caracteres de archivos.
 
@@ -1385,8 +1429,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_55)=
-## Ejercicio 4.55 - Sort con Opciones ⭐⭐⭐⭐⭐
+
+(ej_b1_c03b_53)=
+## Ejercicio 1.03b.53 - Sort con Opciones ⭐⭐⭐⭐⭐
 
 Ordená líneas de archivo con opciones.
 
@@ -1408,8 +1453,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_56)=
-## Ejercicio 4.56 - Procesamiento de Lote ⭐⭐⭐⭐⭐
+
+(ej_b1_c03b_54)=
+## Ejercicio 1.03b.54 - Procesamiento de Lote ⭐⭐⭐⭐⭐
 
 Aplicá operación a múltiples archivos.
 
@@ -1429,8 +1475,9 @@ errores de E/S con `ferror` y `feof`.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_57)=
-## Ejercicio 4.57 - Configuración desde Archivo y Args ⭐⭐⭐⭐⭐
+
+(ej_b1_c03b_55)=
+## Ejercicio 1.03b.55 - Configuración desde Archivo y Args ⭐⭐⭐⭐⭐
 
 Leé configuración de archivo, permitiendo override por línea de comandos.
 
@@ -1448,8 +1495,9 @@ errores de E/S con `ferror` y `feof`.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_4_58)=
-## Ejercicio 4.58 - Pipeline Simulado ⭐⭐⭐⭐⭐
+
+(ej_b1_c03b_56)=
+## Ejercicio 1.03b.56 - Pipeline Simulado ⭐⭐⭐⭐⭐
 
 Implementá programa que puede leer de stdin o archivo.
 
@@ -1481,8 +1529,9 @@ else
 - Permite composición estilo Unix
 
 ---
-(ejercicio_4_59)=
-## Ejercicio 4.59 - Getopt Simplificado ⭐⭐⭐⭐⭐
+
+(ej_b1_c03b_57)=
+## Ejercicio 1.03b.57 - Getopt Simplificado ⭐⭐⭐⭐⭐
 
 Implementá tu propia versión simplificada de `getopt` para parsear flags.
 
@@ -1503,8 +1552,9 @@ int getopt_simple(int argc, char *argv[], const char *optstring);
 - Variable global `optarg` con valor del flag
 
 ---
-(ejercicio_4_60)=
-## Ejercicio 4.60 - Sistema de Comandos ⭐⭐⭐⭐⭐
+
+(ej_b1_c03b_58)=
+## Ejercicio 1.03b.58 - Sistema de Comandos ⭐⭐⭐⭐⭐
 
 Implementá programa con subcomandos estilo Git.
 

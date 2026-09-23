@@ -24,8 +24,9 @@ inicialización correcta de variables con tipos primitivos básicos.
 ---
 
 ## Lectura y Escritura Básica
-(ejercicio_2_1)=
-### Ejercicio 2.1 - Mostrando valores ⭐⭐☆☆☆
+
+(ej_b1_c02_01)=
+### Ejercicio 1.02.01 - Mostrando valores ⭐⭐☆☆☆
 
 :::{exercise}
 :label: Mostrando valores
@@ -59,8 +60,9 @@ int main(void)
 
 :::
 <!-- {solution} Mostrando valores -->
-(ejercicio_2_2)=
-### Ejercicio 2.2 - Formateo de entrada y salida ⭐⭐☆☆☆
+
+(ej_b1_c02_02)=
+### Ejercicio 1.02.02 - Formateo de entrada y salida ⭐⭐☆☆☆
 
 :::{exercise}
 :label: entrada-1
@@ -108,8 +110,9 @@ int main(void)
 
 :::
 <!-- {solution} entrada-1 -->
-(ejercicio_2_3)=
-## Ejercicio 2.3 - Par o Impar ⭐☆☆☆☆
+
+(ej_b1_c02_03)=
+## Ejercicio 1.02.03 - Par o Impar ⭐☆☆☆☆
 
 Determiná si un número entero es par o impar.
 
@@ -125,8 +128,9 @@ error e informar el resultado mediante parámetros de salida.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_2_4)=
-## Ejercicio 2.4 - Mayor de Tres Números ⭐⭐☆☆☆
+
+(ej_b1_c02_04)=
+## Ejercicio 1.02.04 - Mayor de Tres Números ⭐⭐☆☆☆
 
 Leé tres números y determiná cuál es el mayor.
 
@@ -142,8 +146,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_2_5)=
-## Ejercicio 2.5 - Año Bisiesto ⭐⭐☆☆☆
+
+(ej_b1_c02_05)=
+## Ejercicio 1.02.05 - Año Bisiesto ⭐⭐☆☆☆
 
 Determiná si un año es bisiesto.
 
@@ -163,8 +168,9 @@ valores fuera de rango o tipos inválidos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_2_6)=
-## Ejercicio 2.6 - Calificación a Letra ⭐⭐☆☆☆
+
+(ej_b1_c02_06)=
+## Ejercicio 1.02.06 - Calificación a Letra ⭐⭐☆☆☆
 
 Convertí una calificación numérica (0-100) a letra (A, B, C, D, F).
 
@@ -187,8 +193,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_2_7)=
-## Ejercicio 2.7 - Calculadora con Menú ⭐⭐⭐☆☆
+
+(ej_b1_c02_07)=
+## Ejercicio 1.02.07 - Calculadora con Menú ⭐⭐⭐☆☆
 
 Implementá una calculadora que muestre un menú y ejecute la operación elegida.
 
@@ -214,8 +221,9 @@ desbordamientos de búfer validando la capacidad máxima.
 - Permití múltiples operaciones (lazo)
 
 ---
-(ejercicio_2_8)=
-## Ejercicio 2.8 - Triángulo Válido ⭐⭐⭐☆☆
+
+(ej_b1_c02_08)=
+## Ejercicio 1.02.08 - Triángulo Válido ⭐⭐⭐☆☆
 
 Dados tres lados, determiná si forman un triángulo válido y qué tipo es
 (equilátero, isósceles, escaleno).
@@ -233,8 +241,9 @@ valores fuera de rango o tipos inválidos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_2_9)=
-## Ejercicio 2.9 - Mes del Año ⭐⭐⭐☆☆
+
+(ej_b1_c02_09)=
+## Ejercicio 1.02.09 - Mes del Año ⭐⭐⭐☆☆
 
 Dado un número de mes (1-12), mostrá su nombre y cantidad de días.
 
@@ -250,8 +259,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_2_10)=
-## Ejercicio 2.10 - Signo Zodiacal ⭐⭐⭐☆☆
+
+(ej_b1_c02_10)=
+## Ejercicio 1.02.10 - Signo Zodiacal ⭐⭐⭐☆☆
 
 Dados día y mes de nacimiento, determiná el signo zodiacal.
 
@@ -267,8 +277,9 @@ valores fuera de rango o tipos inválidos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_2_11)=
-## Ejercicio 2.11 - Ordenar Tres Números ⭐⭐⭐☆☆
+
+(ej_b1_c02_11)=
+## Ejercicio 1.02.11 - Ordenar Tres Números ⭐⭐⭐☆☆
 
 Leé tres números y mostralos ordenados de menor a mayor.
 
@@ -285,8 +296,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_2_12)=
-## Ejercicio 2.12 - Vocales y Consonantes ⭐⭐⭐☆☆
+
+(ej_b1_c02_12)=
+## Ejercicio 1.02.12 - Vocales y Consonantes ⭐⭐⭐☆☆
 
 Leé un carácter y determiná si es vocal, consonante, dígito u otro símbolo.
 
@@ -303,8 +315,9 @@ valores fuera de rango o tipos inválidos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_2_13)=
-## Ejercicio 2.13 - Ecuación de Primer Grado ⭐⭐⭐☆☆
+
+(ej_b1_c02_13)=
+## Ejercicio 1.02.13 - Ecuación de Primer Grado ⭐⭐⭐☆☆
 
 Resolvé ecuaciones de la forma ax + b = 0.
 
@@ -324,8 +337,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_2_14)=
-## Ejercicio 2.14 - Clasificación de IMC ⭐⭐⭐☆☆
+
+(ej_b1_c02_14)=
+## Ejercicio 1.02.14 - Clasificación de IMC ⭐⭐⭐☆☆
 
 Calculá el IMC y clasificá según la categoría.
 
@@ -349,8 +363,9 @@ valores fuera de rango o tipos inválidos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_2_15)=
-## Ejercicio 2.15 - Conversor de Calificaciones ⭐⭐⭐⭐☆
+
+(ej_b1_c02_15)=
+## Ejercicio 1.02.15 - Conversor de Calificaciones ⭐⭐⭐⭐☆
 
 Convertí entre diferentes sistemas de calificación: numérica (0-10), letra
 (A-F), porcentaje (0-100).
@@ -367,8 +382,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_2_16)=
-## Ejercicio 2.16 - Operaciones con Fechas ⭐⭐⭐⭐☆
+
+(ej_b1_c02_16)=
+## Ejercicio 1.02.16 - Operaciones con Fechas ⭐⭐⭐⭐☆
 
 Dadas dos fechas (día, mes, año), determiná cuál es anterior.
 
@@ -384,8 +400,9 @@ valores fuera de rango o tipos inválidos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_2_17)=
-## Ejercicio 2.17 - Calculadora de Impuestos ⭐⭐⭐⭐☆
+
+(ej_b1_c02_17)=
+## Ejercicio 1.02.17 - Calculadora de Impuestos ⭐⭐⭐⭐☆
 
 Calculá impuesto a las ganancias según tramos.
 
@@ -407,8 +424,9 @@ desbordamientos de búfer validando la capacidad máxima.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_2_18)=
-## Ejercicio 2.18 - Validador de Tarjeta de Crédito ⭐⭐⭐⭐☆
+
+(ej_b1_c02_18)=
+## Ejercicio 1.02.18 - Validador de Tarjeta de Crédito ⭐⭐⭐⭐☆
 
 Implementá el algoritmo de Luhn para validar números de tarjeta.
 
@@ -430,8 +448,9 @@ filas (*row-major order*) para mejorar el uso de caché.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_2_19)=
-## Ejercicio 2.19 - Juego de Adivinanza ⭐⭐⭐⭐☆
+
+(ej_b1_c02_19)=
+## Ejercicio 1.02.19 - Juego de Adivinanza ⭐⭐⭐⭐☆
 
 El programa elige un número aleatorio entre 1 y 100. El usuario adivina y recibe
 pistas ("muy alto", "muy bajo").
@@ -449,8 +468,9 @@ valores fuera de rango o tipos inválidos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_2_20)=
-## Ejercicio 2.20 - Conversor de Números Romanos ⭐⭐⭐⭐⭐
+
+(ej_b1_c02_20)=
+## Ejercicio 1.02.20 - Conversor de Números Romanos ⭐⭐⭐⭐⭐
 
 Convertí un número decimal (1-3999) a números romanos.
 
@@ -468,8 +488,9 @@ valores fuera de rango o tipos inválidos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_2_21)=
-## Ejercicio 2.21 - Calculadora de Tiempo ⭐⭐⭐⭐⭐
+
+(ej_b1_c02_21)=
+## Ejercicio 1.02.21 - Calculadora de Tiempo ⭐⭐⭐⭐⭐
 
 Realizá operaciones con tiempos en formato HH:MM:SS (sumar, restar, comparar).
 
@@ -491,8 +512,9 @@ valores fuera de rango o tipos inválidos.
 <!-- {hint} Lógica y Consideraciones -->
 
 ---
-(ejercicio_2_22)=
-## Ejercicio 2.22 - Sistema de Menú Multinivel ⭐⭐⭐⭐⭐
+
+(ej_b1_c02_22)=
+## Ejercicio 1.02.22 - Sistema de Menú Multinivel ⭐⭐⭐⭐⭐
 
 Implementá un sistema de menús con submenús.
 

@@ -41,8 +41,8 @@ cobertura de ramas de ejecución y aplicar las reglas de estilo institucional
 
 ## 1. Conceptos Fundamentales de Testing y Aserciones
 
-(ejercicio_4_test_1)=
-### Ejercicio 4.1 - Anatomía de una aserción ⭐☆☆☆☆
+(ej_b1_c06_01)=
+### Ejercicio 1.06.01 - Anatomía de una aserción ⭐☆☆☆☆
 
 :::{exercise}
 :label: ej-test-anatomia
@@ -88,8 +88,8 @@ int main(void)
 
 ---
 
-(ejercicio_4_test_2)=
-### Ejercicio 4.2 - Patrón AAA (Arrange - Act - Assert) ⭐☆☆☆☆
+(ej_b1_c06_02)=
+### Ejercicio 1.06.02 - Patrón AAA (Arrange - Act - Assert) ⭐☆☆☆☆
 
 :::{exercise}
 :label: ej-test-patron-aaa
@@ -143,8 +143,8 @@ void test_calcular_promedio_tres_notas(void)
 
 ---
 
-(ejercicio_4_test_3)=
-### Ejercicio 4.3 - Refactorización de pruebas acumuladas ⭐⭐☆☆☆
+(ej_b1_c06_03)=
+### Ejercicio 1.06.03 - Refactorización de pruebas acumuladas ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-una-asercion
@@ -216,8 +216,8 @@ void correr_todas_las_pruebas(void)
 
 ---
 
-(ejercicio_4_test_4)=
-### Ejercicio 4.4 - Efectos colaterales prohibidos dentro de assert ⭐⭐☆☆☆
+(ej_b1_c06_04)=
+### Ejercicio 1.06.04 - Efectos colaterales prohibidos dentro de assert ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-side-effects-assert
@@ -273,8 +273,8 @@ assert(r2 == 1);
 
 ---
 
-(ejercicio_4_test_5)=
-### Ejercicio 4.5 - Particiones de Equivalencia ⭐⭐☆☆☆
+(ej_b1_c06_05)=
+### Ejercicio 1.06.05 - Particiones de Equivalencia ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-particiones-equivalencia
@@ -330,8 +330,8 @@ int clasificar_edad(int edad)
 
 ---
 
-(ejercicio_4_test_6)=
-### Ejercicio 4.6 - Análisis de Valores de Borde (Boundary Values) ⭐⭐☆☆☆
+(ej_b1_c06_06)=
+### Ejercicio 1.06.06 - Análisis de Valores de Borde (Boundary Values) ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-valores-borde
@@ -372,8 +372,8 @@ void test_bordes_clasificar_edad(void)
 
 ---
 
-(ejercicio_4_test_7)=
-### Ejercicio 4.7 - Comparación de punto flotante en testing ⭐⭐☆☆☆
+(ej_b1_c06_07)=
+### Ejercicio 1.06.07 - Comparación de punto flotante en testing ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-comparacion-float
@@ -422,8 +422,8 @@ void test_suma_decimales(void)
 
 ---
 
-(ejercicio_4_test_8)=
-### Ejercicio 4.8 - Aserciones defensivas vs Validación de Usuario ⭐☆☆☆☆
+(ej_b1_c06_08)=
+### Ejercicio 1.06.08 - Aserciones defensivas vs Validación de Usuario ⭐☆☆☆☆
 
 :::{exercise}
 :label: ej-test-defensiva-vs-usuario
@@ -449,8 +449,8 @@ Explicá con claridad la diferencia conceptual entre:
 
 ---
 
-(ejercicio_4_test_9)=
-### Ejercicio 4.9 - Función pura para cálculo de descuento ⭐⭐☆☆☆
+(ej_b1_c06_09)=
+### Ejercicio 1.06.09 - Función pura para cálculo de descuento ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-calculo-descuento
@@ -514,8 +514,8 @@ void test_descuento_porcentaje_invalido(void)
 
 ---
 
-(ejercicio_4_test_10)=
-### Ejercicio 4.10 - Estructura de Runner de Tests sin bibliotecas ⭐⭐☆☆☆
+(ej_b1_c06_10)=
+### Ejercicio 1.06.10 - Estructura de Runner de Tests sin bibliotecas ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-runner-basico
@@ -569,8 +569,8 @@ int main(void)
 
 ## 2. Variables Globales y Efectos Colaterales
 
-(ejercicio_4_test_11)=
-### Ejercicio 4.11 - El misterio del test que falla según el orden ⭐⭐⭐☆☆
+(ej_b1_c06_11)=
+### Ejercicio 1.06.11 - El misterio del test que falla según el orden ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-test-misterio-orden
@@ -651,8 +651,8 @@ void test_dos(void)
 
 ---
 
-(ejercicio_4_test_12)=
-### Ejercicio 4.12 - Sombreado de Variables (Shadowing) ⭐⭐☆☆☆
+(ej_b1_c06_12)=
+### Ejercicio 1.06.12 - Sombreado de Variables (Shadowing) ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-shadowing
@@ -697,8 +697,8 @@ alerta explícitamente sobre estas declaraciones ambiguas.
 
 ---
 
-(ejercicio_4_test_13)=
-### Ejercicio 4.13 - Refactorización de Cuenta Bancaria con Estado Global ⭐⭐⭐☆☆
+(ej_b1_c06_13)=
+### Ejercicio 1.06.13 - Refactorización de Cuenta Bancaria con Estado Global ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-test-refactor-banco
@@ -786,8 +786,8 @@ void test_operaciones_bancarias_puras(void)
 
 ---
 
-(ejercicio_4_test_14)=
-### Ejercicio 4.14 - Clasificación de funciones: Puras vs Impuras ⭐⭐☆☆☆
+(ej_b1_c06_14)=
+### Ejercicio 1.06.14 - Clasificación de funciones: Puras vs Impuras ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-puras-vs-impuras
@@ -841,8 +841,8 @@ bool es_positivo(int n) {
 
 ---
 
-(ejercicio_4_test_15)=
-### Ejercicio 4.15 - Variable `static` local vs Variable Global ⭐⭐⭐☆☆
+(ej_b1_c06_15)=
+### Ejercicio 1.06.15 - Variable `static` local vs Variable Global ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-test-static-local
@@ -879,8 +879,8 @@ binario.
 
 ---
 
-(ejercicio_4_test_16)=
-### Ejercicio 4.16 - Modificación inadvertida de bandera global ⭐⭐☆☆☆
+(ej_b1_c06_16)=
+### Ejercicio 1.06.16 - Modificación inadvertida de bandera global ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-bandera-global
@@ -947,8 +947,8 @@ bool es_par(int x)
 
 ---
 
-(ejercicio_4_test_17)=
-### Ejercicio 4.17 - Acoplamiento espurio entre módulos ⭐⭐⭐☆☆
+(ej_b1_c06_17)=
+### Ejercicio 1.06.17 - Acoplamiento espurio entre módulos ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-test-acoplamiento-espurio
@@ -974,8 +974,8 @@ Cuando dos módulos acceden a una variable global compartida mediante `extern`:
 
 ---
 
-(ejercicio_4_test_18)=
-### Ejercicio 4.18 - Conversor de Temperaturas desacoplado de estado ⭐⭐☆☆☆
+(ej_b1_c06_18)=
+### Ejercicio 1.06.18 - Conversor de Temperaturas desacoplado de estado ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-temperatura-desacoplada
@@ -1043,8 +1043,8 @@ void test_celsius_a_kelvin_cero(void)
 
 ---
 
-(ejercicio_4_test_19)=
-### Ejercicio 4.19 - Simulación de cronómetro sin estado global ⭐⭐⭐☆☆
+(ej_b1_c06_19)=
+### Ejercicio 1.06.19 - Simulación de cronómetro sin estado global ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-test-cronometro-puro
@@ -1108,8 +1108,8 @@ void test_cronometro_avance(void)
 
 ---
 
-(ejercicio_4_test_20)=
-### Ejercicio 4.20 - Detección de fugas de estado entre funciones ⭐⭐☆☆☆
+(ej_b1_c06_20)=
+### Ejercicio 1.06.20 - Detección de fugas de estado entre funciones ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-fuga-estado
@@ -1146,8 +1146,8 @@ el valor se sobrescribe a `20`, corrompiendo los datos del primer llamador.
 
 ---
 
-(ejercicio_4_test_21)=
-### Ejercicio 4.21 - Calculadora con memoria local vs global ⭐⭐⭐☆☆
+(ej_b1_c06_21)=
+### Ejercicio 1.06.21 - Calculadora con memoria local vs global ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-test-calculadora-memoria
@@ -1219,8 +1219,8 @@ void test_secuencia_calculadora(void)
 
 ---
 
-(ejercicio_4_test_22)=
-### Ejercicio 4.22 - Máquina de Estados Finita Pura ⭐⭐⭐☆☆
+(ej_b1_c06_22)=
+### Ejercicio 1.06.22 - Máquina de Estados Finita Pura ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-test-fsm-pura
@@ -1280,8 +1280,8 @@ void test_fsm_camino_exitoso(void)
 
 ## 3. Lectura, Análisis y Flujo de Control
 
-(ejercicio_4_test_23)=
-### Ejercicio 4.23 - Cobertura de Ramas (Branch Coverage) ⭐⭐☆☆☆
+(ej_b1_c06_23)=
+### Ejercicio 1.06.23 - Cobertura de Ramas (Branch Coverage) ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-cobertura-ramas-cuadernillo
@@ -1331,8 +1331,8 @@ Se requieren al menos 5 casos de prueba para cubrir todas las ramas:
 
 ---
 
-(ejercicio_4_test_24)=
-### Ejercicio 4.24 - Detección de Código Muerto (Dead Code) ⭐⭐☆☆☆
+(ej_b1_c06_24)=
+### Ejercicio 1.06.24 - Detección de Código Muerto (Dead Code) ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-dead-code
@@ -1395,8 +1395,8 @@ int calcular_tarifa(int edad)
 
 ---
 
-(ejercicio_4_test_25)=
-### Ejercicio 4.25 - Cortocircuito Lógico y Orden de Evaluación ⭐⭐☆☆☆
+(ej_b1_c06_25)=
+### Ejercicio 1.06.25 - Cortocircuito Lógico y Orden de Evaluación ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-cortocircuito
@@ -1459,8 +1459,8 @@ En ningún caso se ejecuta `incrementar()`.
 
 ---
 
-(ejercicio_4_test_26)=
-### Ejercicio 4.26 - Cláusulas de Guarda vs Código en Flecha ⭐⭐☆☆☆
+(ej_b1_c06_26)=
+### Ejercicio 1.06.26 - Cláusulas de Guarda vs Código en Flecha ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-guardas-vs-flecha
@@ -1543,8 +1543,8 @@ void test_pedido_vip(void)
 
 ---
 
-(ejercicio_4_test_27)=
-### Ejercicio 4.27 - Detección de Fallthrough accidental en switch ⭐⭐☆☆☆
+(ej_b1_c06_27)=
+### Ejercicio 1.06.27 - Detección de Fallthrough accidental en switch ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-fallthrough-switch
@@ -1626,8 +1626,8 @@ int dias_del_mes(int mes)
 
 ---
 
-(ejercicio_4_test_28)=
-### Ejercicio 4.28 - Detección de Error Off-by-one en Lazos ⭐⭐☆☆☆
+(ej_b1_c06_28)=
+### Ejercicio 1.06.28 - Detección de Error Off-by-one en Lazos ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-off-by-one
@@ -1686,8 +1686,8 @@ int suma_primeros_n(int n)
 
 ---
 
-(ejercicio_4_test_29)=
-### Ejercicio 4.29 - Desacople de Entrada/Salida para Testabilidad ⭐⭐⭐☆☆
+(ej_b1_c06_29)=
+### Ejercicio 1.06.29 - Desacople de Entrada/Salida para Testabilidad ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-test-desacople-io
@@ -1778,8 +1778,8 @@ void test_calculo_y_clasificacion_imc(void)
 
 ---
 
-(ejercicio_4_test_30)=
-### Ejercicio 4.30 - Tabla de Traza de Ejecución (Trace Table) ⭐⭐☆☆☆
+(ej_b1_c06_30)=
+### Ejercicio 1.06.30 - Tabla de Traza de Ejecución (Trace Table) ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-tabla-traza
@@ -1819,8 +1819,8 @@ int mcd(int a, int b)
 
 ---
 
-(ejercicio_4_test_31)=
-### Ejercicio 4.31 - Principio de Responsabilidad Única (SRP) ⭐⭐☆☆☆
+(ej_b1_c06_31)=
+### Ejercicio 1.06.31 - Principio de Responsabilidad Única (SRP) ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-srp-refactor
@@ -1898,8 +1898,8 @@ void test_funciones_atomicas(void)
 
 ---
 
-(ejercicio_4_test_32)=
-### Ejercicio 4.32 - Testeo de Año Bisiesto Exhaustivo ⭐⭐☆☆☆
+(ej_b1_c06_32)=
+### Ejercicio 1.06.32 - Testeo de Año Bisiesto Exhaustivo ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-bisiesto-exhaustivo
@@ -1962,8 +1962,8 @@ void test_bisiesto_invalido(void)
 
 ---
 
-(ejercicio_4_test_33)=
-### Ejercicio 4.33 - Detección de mutación en arreglos de solo lectura ⭐⭐☆☆☆
+(ej_b1_c06_33)=
+### Ejercicio 1.06.33 - Detección de mutación en arreglos de solo lectura ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-const-arrays
@@ -1994,8 +1994,8 @@ lectura**. Si por error un programador escribe `arr[i] = 0;` en lugar de `if
 
 ---
 
-(ejercicio_4_test_34)=
-### Ejercicio 4.34 - Búsqueda de errores lógicos con aserciones de invariante ⭐⭐⭐☆☆
+(ej_b1_c06_34)=
+### Ejercicio 1.06.34 - Búsqueda de errores lógicos con aserciones de invariante ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-test-invariantes-lazo
@@ -2061,8 +2061,8 @@ void test_division_con_invariante(void)
 
 ## 4. Estilo, Estructura y Contratos
 
-(ejercicio_4_test_35)=
-### Ejercicio 4.35 - Verificación de Estilo Allman ⭐☆☆☆☆
+(ej_b1_c06_35)=
+### Ejercicio 1.06.35 - Verificación de Estilo Allman ⭐☆☆☆☆
 
 :::{exercise}
 :label: ej-test-estilo-allman
@@ -2119,8 +2119,8 @@ void test_valor_absoluto(void)
 
 ---
 
-(ejercicio_4_test_36)=
-### Ejercicio 4.36 - Eliminación de Números Mágicos ⭐⭐☆☆☆
+(ej_b1_c06_36)=
+### Ejercicio 1.06.36 - Eliminación de Números Mágicos ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-numeros-magicos
@@ -2193,8 +2193,8 @@ void test_costo_envio_limites(void)
 
 ---
 
-(ejercicio_4_test_37)=
-### Ejercicio 4.37 - Documentación de Contratos con Doxygen ⭐⭐☆☆☆
+(ej_b1_c06_37)=
+### Ejercicio 1.06.37 - Documentación de Contratos con Doxygen ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-contratos-doxygen
@@ -2278,8 +2278,8 @@ void test_potencia_contrato(void)
 
 ---
 
-(ejercicio_4_test_38)=
-### Ejercicio 4.38 - Inicialización obligatoria de variables ⭐☆☆☆☆
+(ej_b1_c06_38)=
+### Ejercicio 1.06.38 - Inicialización obligatoria de variables ⭐☆☆☆☆
 
 :::{exercise}
 :label: ej-test-inicializacion-vars
@@ -2341,8 +2341,8 @@ int contar_multiplos(const int arr[], int n, int divisor)
 
 ---
 
-(ejercicio_4_test_39)=
-### Ejercicio 4.39 - Organización de Archivo `.c` Estándar ⭐☆☆☆☆
+(ej_b1_c06_39)=
+### Ejercicio 1.06.39 - Organización de Archivo `.c` Estándar ⭐☆☆☆☆
 
 :::{exercise}
 :label: ej-test-organizacion-archivo
@@ -2373,8 +2373,8 @@ El orden estándar según la Regla `0x5005h` es:
 
 ---
 
-(ejercicio_4_test_40)=
-### Ejercicio 4.40 - Red de Seguridad: Default en Switch ⭐⭐☆☆☆
+(ej_b1_c06_40)=
+### Ejercicio 1.06.40 - Red de Seguridad: Default en Switch ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-default-switch
@@ -2427,8 +2427,8 @@ void test_trimestres(void)
 
 ---
 
-(ejercicio_4_test_41)=
-### Ejercicio 4.41 - Nombres de Variables Autoexplicativos ⭐☆☆☆☆
+(ej_b1_c06_41)=
+### Ejercicio 1.06.41 - Nombres de Variables Autoexplicativos ⭐☆☆☆☆
 
 :::{exercise}
 :label: ej-test-nombres-variables
@@ -2477,8 +2477,8 @@ void test_precio_final(void)
 
 ---
 
-(ejercicio_4_test_42)=
-### Ejercicio 4.42 - Prohibición de Reutilización de Variables ⭐⭐☆☆☆
+(ej_b1_c06_42)=
+### Ejercicio 1.06.42 - Prohibición de Reutilización de Variables ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-reutilizacion-variables
@@ -2526,8 +2526,8 @@ un bloque asume que la variable conserva su valor anterior.
 
 ---
 
-(ejercicio_4_test_43)=
-### Ejercicio 4.43 - Flags de Compilación Obligatorios ⭐☆☆☆☆
+(ej_b1_c06_43)=
+### Ejercicio 1.06.43 - Flags de Compilación Obligatorios ⭐☆☆☆☆
 
 :::{exercise}
 :label: ej-test-flags-compilacion
@@ -2557,8 +2557,8 @@ obligatorios en las buenas prácticas de ingeniería ({ref}`0x5002h`):
 
 ---
 
-(ejercicio_4_test_44)=
-### Ejercicio 4.44 - Funciones Auxiliares Privadas `static` ⭐⭐☆☆☆
+(ej_b1_c06_44)=
+### Ejercicio 1.06.44 - Funciones Auxiliares Privadas `static` ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-funciones-static
@@ -2583,8 +2583,8 @@ errores de símbolos duplicados en tiempo de enlace (*linker collision*).
 
 ## 5. Suites de Pruebas Integradoras y Diagnóstico
 
-(ejercicio_4_test_45)=
-### Ejercicio 4.45 - Suite de Pruebas: Validador de Fecha ⭐⭐⭐☆☆
+(ej_b1_c06_45)=
+### Ejercicio 1.06.45 - Suite de Pruebas: Validador de Fecha ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-test-suite-fechas
@@ -2671,8 +2671,8 @@ void correr_pruebas_fechas(void)
 
 ---
 
-(ejercicio_4_test_46)=
-### Ejercicio 4.46 - Suite de Pruebas: Tarifa de Estacionamiento ⭐⭐⭐☆☆
+(ej_b1_c06_46)=
+### Ejercicio 1.06.46 - Suite de Pruebas: Tarifa de Estacionamiento ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-test-suite-estacionamiento
@@ -2751,8 +2751,8 @@ void test_estacionamiento_tope_maximo(void)
 
 ---
 
-(ejercicio_4_test_47)=
-### Ejercicio 4.47 - Diagnóstico de Aserción Fallida ⭐⭐☆☆☆
+(ej_b1_c06_47)=
+### Ejercicio 1.06.47 - Diagnóstico de Aserción Fallida ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-diagnostico-fallo
@@ -2811,8 +2811,8 @@ int mcd(int a, int b)
 
 ---
 
-(ejercicio_4_test_48)=
-### Ejercicio 4.48 - Test de Regresión ⭐⭐☆☆☆
+(ej_b1_c06_48)=
+### Ejercicio 1.06.48 - Test de Regresión ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-regresion
@@ -2841,8 +2841,8 @@ Explicá el concepto de **Test de Regresión** (*Regression Test*):
 
 ---
 
-(ejercicio_4_test_49)=
-### Ejercicio 4.49 - Suite de Pruebas: Desglose de Billetes ⭐⭐⭐☆☆
+(ej_b1_c06_49)=
+### Ejercicio 1.06.49 - Suite de Pruebas: Desglose de Billetes ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-test-suite-billetes
@@ -2908,8 +2908,8 @@ void test_desglose_monto_invalido(void)
 
 ---
 
-(ejercicio_4_test_50)=
-### Ejercicio 4.50 - Suite de Pruebas: Validador de Números Primos ⭐⭐⭐☆☆
+(ej_b1_c06_50)=
+### Ejercicio 1.06.50 - Suite de Pruebas: Validador de Números Primos ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-test-suite-primos
@@ -2985,8 +2985,8 @@ void test_compuestos_impares(void)
 
 ---
 
-(ejercicio_4_test_51)=
-### Ejercicio 4.51 - Testeo de Funciones con Códigos de Error ⭐⭐⭐☆☆
+(ej_b1_c06_51)=
+### Ejercicio 1.06.51 - Testeo de Funciones con Códigos de Error ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-test-codigos-error
@@ -3067,8 +3067,8 @@ void test_velocidad_puntero_nulo(void)
 
 ---
 
-(ejercicio_4_test_52)=
-### Ejercicio 4.52 - Suite de Pruebas: Palíndromo Numérico ⭐⭐☆☆☆
+(ej_b1_c06_52)=
+### Ejercicio 1.06.52 - Suite de Pruebas: Palíndromo Numérico ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-suite-palindromo
@@ -3136,8 +3136,8 @@ void test_capicua_multiples_digitos(void)
 
 ---
 
-(ejercicio_4_test_53)=
-### Ejercicio 4.53 - Suite de Pruebas: Validador de Triángulo ⭐⭐⭐☆☆
+(ej_b1_c06_53)=
+### Ejercicio 1.06.53 - Suite de Pruebas: Validador de Triángulo ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-test-suite-triangulo
@@ -3208,8 +3208,8 @@ void test_triangulo_tipos(void)
 
 ---
 
-(ejercicio_4_test_54)=
-### Ejercicio 4.54 - Suite de Pruebas: Conversión de Segundos a Tiempo ⭐⭐☆☆☆
+(ej_b1_c06_54)=
+### Ejercicio 1.06.54 - Suite de Pruebas: Conversión de Segundos a Tiempo ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej-test-suite-segundos-tiempo
@@ -3277,8 +3277,8 @@ void test_segundos_a_tiempo_invalido(void)
 
 ---
 
-(ejercicio_4_test_55)=
-### Ejercicio 4.55 - Suite Integradora de Evaluación de Sistema de Calificaciones ⭐⭐⭐☆☆
+(ej_b1_c06_55)=
+### Ejercicio 1.06.55 - Suite Integradora de Evaluación de Sistema de Calificaciones ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej-test-suite-integradora

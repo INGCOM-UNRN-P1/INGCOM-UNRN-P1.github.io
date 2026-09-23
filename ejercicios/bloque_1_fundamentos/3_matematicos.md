@@ -28,8 +28,9 @@ limitaciones de precisión de las variables.
 ---
 
 ## Aritmética Lenta
-(ejercicio_3_1)=
-### Ejercicio 3.1 - Suma lenta ⭐⭐☆☆☆
+
+(ej_b1_c03_01)=
+### Ejercicio 1.03.01 - Suma lenta ⭐⭐☆☆☆
 
 #### Descripción
 Implementar una función que simule la adición de dos números enteros, `n` y `m`,
@@ -77,8 +78,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_2)=
-### Ejercicio 3.2 - División lenta ⭐⭐☆☆☆
+
+(ej_b1_c03_02)=
+### Ejercicio 1.03.02 - División lenta ⭐⭐☆☆☆
 
 #### Descripción
 Implementar la división entera para obtener el cociente y el resto de `a / b`
@@ -118,8 +120,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_3)=
-### Ejercicio 3.3 - División egipcia ⭐⭐☆☆☆
+
+(ej_b1_c03_03)=
+### Ejercicio 1.03.03 - División egipcia ⭐⭐☆☆☆
 
 #### Descripción
 Implementar el antiguo método de división egipcio, que no requiere tablas de
@@ -183,8 +186,9 @@ FIN PROCEDIMIENTO
 ---
 
 ## Divisibilidad y Factores
-(ejercicio_3_4)=
-### Ejercicio 3.4 - Divisibilidad ⭐⭐☆☆☆
+
+(ej_b1_c03_04)=
+### Ejercicio 1.03.04 - Divisibilidad ⭐⭐☆☆☆
 
 #### Descripción
 Determinar si un número entero `a` es divisible de forma exacta por otro entero
@@ -222,8 +226,9 @@ END FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_5)=
-### Ejercicio 3.5 - Factorial ⭐⭐☆☆☆
+
+(ej_b1_c03_05)=
+### Ejercicio 1.03.05 - Factorial ⭐⭐☆☆☆
 
 #### Descripción
 Calcular el factorial de un número entero no negativo `n`, denotado como `n!`.
@@ -270,8 +275,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_6)=
-### Ejercicio 3.6 - MCD y MCM ⭐⭐☆☆☆
+
+(ej_b1_c03_06)=
+### Ejercicio 1.03.06 - MCD y MCM ⭐⭐☆☆☆
 
 #### Descripción
 Implementar funciones para calcular el Máximo Común Divisor (MCD) y el Mínimo
@@ -313,8 +319,9 @@ FIN FUNCION
 ---
 
 ## Propiedades de los Números
-(ejercicio_3_7)=
-### Ejercicio 3.7 - Suma de dígitos ⭐⭐☆☆☆
+
+(ej_b1_c03_07)=
+### Ejercicio 1.03.07 - Suma de dígitos ⭐⭐☆☆☆
 
 #### Descripción
 Calcular la suma de los dígitos individuales de un número entero positivo.
@@ -351,8 +358,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_8)=
-### Ejercicio 3.8 - Invertir un número ⭐⭐☆☆☆
+
+(ej_b1_c03_08)=
+### Ejercicio 1.03.08 - Invertir un número ⭐⭐☆☆☆
 
 #### Descripción
 Tomar un número entero y devolver otro número con sus dígitos en orden inverso.
@@ -391,8 +399,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_9)=
-### Ejercicio 3.9 - Capicúas ⭐⭐⭐⭐☆
+
+(ej_b1_c03_09)=
+### Ejercicio 1.03.09 - Capicúas ⭐⭐⭐⭐☆
 
 #### Descripción
 Verificar si un número es capicúa (o palíndromo), es decir, si se lee igual de
@@ -426,8 +435,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_10)=
-### Ejercicio 3.10 - Números Primos ⭐⭐☆☆☆
+
+(ej_b1_c03_10)=
+### Ejercicio 1.03.10 - Números Primos ⭐⭐☆☆☆
 
 #### Descripción
 Verificar si un número entero mayor que 1 es un número primo. Un número es primo
@@ -466,8 +476,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_11)=
-### Ejercicio 3.11 - Números Perfectos ⭐⭐☆☆☆
+
+(ej_b1_c03_11)=
+### Ejercicio 1.03.11 - Números Perfectos ⭐⭐☆☆☆
 
 #### Descripción
 Determinar si un número es un "número perfecto". Un número perfecto es un entero
@@ -509,8 +520,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_12)=
-### Ejercicio 3.12 - Números Amigos ⭐⭐☆☆☆
+
+(ej_b1_c03_12)=
+### Ejercicio 1.03.12 - Números Amigos ⭐⭐☆☆☆
 
 #### Descripción
 Verificar si dos números enteros positivos, `a` y `b`, son "números amigos". Dos
@@ -567,8 +579,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_13)=
-### Ejercicio 3.13 - Números Abundantes ⭐⭐☆☆☆
+
+(ej_b1_c03_13)=
+### Ejercicio 1.03.13 - Números Abundantes ⭐⭐☆☆☆
 
 #### Descripción
 Determinar si un número es "abundante". Un número es abundante si la suma de sus
@@ -606,8 +619,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_14)=
-### Ejercicio 3.14 - Conjetura de Collatz ⭐⭐☆☆☆
+
+(ej_b1_c03_14)=
+### Ejercicio 1.03.14 - Conjetura de Collatz ⭐⭐☆☆☆
 
 #### Descripción
 Implementar la secuencia de Collatz para un número inicial `n`. La secuencia se
@@ -647,8 +661,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_15)=
-### Ejercicio 3.15 - Números de Armstrong ⭐⭐☆☆☆
+
+(ej_b1_c03_15)=
+### Ejercicio 1.03.15 - Números de Armstrong ⭐⭐☆☆☆
 
 #### Descripción
 Verificar si un número es un número de Armstrong (o narcisista). Un número de
@@ -695,8 +710,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_16)=
-### Ejercicio 3.16 - Números Felices ⭐⭐☆☆☆
+
+(ej_b1_c03_16)=
+### Ejercicio 1.03.16 - Números Felices ⭐⭐☆☆☆
 
 #### Descripción
 Determinar si un número es un "número feliz". El proceso consiste en reemplazar
@@ -746,8 +762,9 @@ FIN FUNCION
 ---
 
 ## Algoritmos Numéricos Avanzados
-(ejercicio_3_17)=
-### Ejercicio 3.17 - Criba de Eratóstenes ⭐⭐☆☆☆
+
+(ej_b1_c03_17)=
+### Ejercicio 1.03.17 - Criba de Eratóstenes ⭐⭐☆☆☆
 
 #### Descripción
 Implementar la Criba de Eratóstenes, un algoritmo altamente eficiente para
@@ -812,8 +829,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_18)=
-### Ejercicio 3.18 - Descomposición en Factores Primos ⭐⭐☆☆☆
+
+(ej_b1_c03_18)=
+### Ejercicio 1.03.18 - Descomposición en Factores Primos ⭐⭐☆☆☆
 
 #### Descripción
 Dado un número entero, encontrar y mostrar su descomposición en factores primos.
@@ -871,8 +889,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_19)=
-### Ejercicio 3.19 - Números de Catalan ⭐⭐☆☆☆
+
+(ej_b1_c03_19)=
+### Ejercicio 1.03.19 - Números de Catalan ⭐⭐☆☆☆
 
 #### Descripción
 Implementar una función que calcule el n-ésimo número de Catalan, $C_n$. Estos
@@ -931,8 +950,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_20)=
-### Ejercicio 3.20 - Coeficiente Binomial ⭐⭐☆☆☆
+
+(ej_b1_c03_20)=
+### Ejercicio 1.03.20 - Coeficiente Binomial ⭐⭐☆☆☆
 
 #### Descripción
 Calcular el coeficiente binomial "n en k", denotado como $C(n, k)$ o
@@ -982,8 +1002,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_21)=
-### Ejercicio 3.21 - Raíz Cuadrada Entera (Método Babilónico) ⭐⭐☆☆☆
+
+(ej_b1_c03_21)=
+### Ejercicio 1.03.21 - Raíz Cuadrada Entera (Método Babilónico) ⭐⭐☆☆☆
 
 #### Descripción
 Implementar un algoritmo para calcular la parte entera de la raíz cuadrada de un
@@ -1027,8 +1048,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_22)=
-### Ejercicio 3.22 - Números Triangulares ⭐⭐☆☆☆
+
+(ej_b1_c03_22)=
+### Ejercicio 1.03.22 - Números Triangulares ⭐⭐☆☆☆
 
 #### Descripción
 Un número triangular es la suma de los `n` primeros números naturales. Por
@@ -1074,8 +1096,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_23)=
-### Ejercicio 3.23 - Conjetura de Goldbach ⭐⭐☆☆☆
+
+(ej_b1_c03_23)=
+### Ejercicio 1.03.23 - Conjetura de Goldbach ⭐⭐☆☆☆
 
 #### Descripción
 La conjetura de Goldbach (aún no probada) establece que todo número par mayor
@@ -1113,8 +1136,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_24)=
-### Ejercicio 3.24 - Primos Gemelos ⭐⭐☆☆☆
+
+(ej_b1_c03_24)=
+### Ejercicio 1.03.24 - Primos Gemelos ⭐⭐☆☆☆
 
 #### Descripción
 Dos números primos `p` y `q` son gemelos si `q = p + 2`. El programa debe
@@ -1149,8 +1173,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_25)=
-### Ejercicio 3.25 - Identidad de Bézout ⭐⭐☆☆☆
+
+(ej_b1_c03_25)=
+### Ejercicio 1.03.25 - Identidad de Bézout ⭐⭐☆☆☆
 
 #### Descripción
 Extender el Algoritmo de Euclides para encontrar no solo el MCD de dos enteros
@@ -1195,8 +1220,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_26)=
-### Ejercicio 3.26 - Cálculo de Pi (Serie de Leibniz) ⭐⭐☆☆☆
+
+(ej_b1_c03_26)=
+### Ejercicio 1.03.26 - Cálculo de Pi (Serie de Leibniz) ⭐⭐☆☆☆
 
 #### Descripción
 Aproximar el valor de $\pi$ utilizando la serie de Leibniz. La función debe
@@ -1237,8 +1263,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_27)=
-### Ejercicio 3.27 - Números de Lucas ⭐⭐☆☆☆
+
+(ej_b1_c03_27)=
+### Ejercicio 1.03.27 - Números de Lucas ⭐⭐☆☆☆
 
 #### Descripción
 Generar los primeros `n` términos de la secuencia de Lucas. Es una secuencia
@@ -1278,8 +1305,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_28)=
-### Ejercicio 3.28 - Números de Mersenne ⭐⭐☆☆☆
+
+(ej_b1_c03_28)=
+### Ejercicio 1.03.28 - Números de Mersenne ⭐⭐☆☆☆
 
 #### Descripción
 Un número de Mersenne es un número de la forma $M_p = 2^p - 1$, donde `p` es un
@@ -1317,8 +1345,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_29)=
-### Ejercicio 3.29 - Test de Primalidad de Miller-Rabin ⭐⭐☆☆☆
+
+(ej_b1_c03_29)=
+### Ejercicio 1.03.29 - Test de Primalidad de Miller-Rabin ⭐⭐☆☆☆
 
 #### Descripción
 Implementar una versión simplificada del test de primalidad de Miller-Rabin. Es
@@ -1363,8 +1392,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_30)=
-### Ejercicio 3.30 - Números Vampiro ⭐⭐☆☆☆
+
+(ej_b1_c03_30)=
+### Ejercicio 1.03.30 - Números Vampiro ⭐⭐☆☆☆
 
 #### Descripción
 Un número vampiro es un número de `2k` dígitos que puede ser factorizado en dos
@@ -1410,8 +1440,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_31)=
-### Ejercicio 3.31 - Cuadrado Mágico ⭐⭐☆☆☆
+
+(ej_b1_c03_31)=
+### Ejercicio 1.03.31 - Cuadrado Mágico ⭐⭐☆☆☆
 
 #### Descripción
 Verificar si una matriz cuadrada `n x n` de números es un cuadrado mágico. Un
@@ -1467,8 +1498,9 @@ FIN FUNCION
 ---
 
 ## Más Teoría de Números y Algoritmos
-(ejercicio_3_32)=
-### Ejercicio 3.32 - Números de Smith ⭐⭐☆☆☆
+
+(ej_b1_c03_32)=
+### Ejercicio 1.03.32 - Números de Smith ⭐⭐☆☆☆
 
 #### Descripción
 Un número de Smith es un número compuesto cuya suma de dígitos es igual a la
@@ -1513,8 +1545,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_33)=
-### Ejercicio 3.33 - Primos de Sophie Germain ⭐⭐☆☆☆
+
+(ej_b1_c03_33)=
+### Ejercicio 1.03.33 - Primos de Sophie Germain ⭐⭐☆☆☆
 
 #### Descripción
 Un número primo `p` es un primo de Sophie Germain si `2p + 1` también es un
@@ -1552,8 +1585,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_34)=
-### Ejercicio 3.34 - Función φ de Euler (Totient) ⭐⭐☆☆☆
+
+(ej_b1_c03_34)=
+### Ejercicio 1.03.34 - Función φ de Euler (Totient) ⭐⭐☆☆☆
 
 #### Descripción
 Implementar una función que calcule el Totient de Euler, `φ(n)`. Esta función
@@ -1602,8 +1636,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_35)=
-### Ejercicio 3.35 - Radical de un Número ⭐⭐☆☆☆
+
+(ej_b1_c03_35)=
+### Ejercicio 1.03.35 - Radical de un Número ⭐⭐☆☆☆
 
 #### Descripción
 Calcular el radical de un número `n`, denotado como `rad(n)`, que es el producto
@@ -1638,8 +1673,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_36)=
-### Ejercicio 3.36 - Secuencia de Tribonacci ⭐⭐☆☆☆
+
+(ej_b1_c03_36)=
+### Ejercicio 1.03.36 - Secuencia de Tribonacci ⭐⭐☆☆☆
 
 #### Descripción
 Generar los primeros `n` términos de la secuencia de Tribonacci, donde cada
@@ -1677,8 +1713,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_37)=
-### Ejercicio 3.37 - Fracciones Egipcias ⭐⭐☆☆☆
+
+(ej_b1_c03_37)=
+### Ejercicio 1.03.37 - Fracciones Egipcias ⭐⭐☆☆☆
 
 #### Descripción
 Escribir una función que descomponga una fracción propia `a/b` en una suma de
@@ -1719,8 +1756,9 @@ INICIO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_38)=
-### Ejercicio 3.38 - Ternas Pitagóricas ⭐⭐☆☆☆
+
+(ej_b1_c03_38)=
+### Ejercicio 1.03.38 - Ternas Pitagóricas ⭐⭐☆☆☆
 
 #### Descripción
 Implementar un programa que genere todas las ternas pitagóricas primitivas (`a^2
@@ -1766,8 +1804,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_39)=
-### Ejercicio 3.39 - Números de Carmichael ⭐⭐☆☆☆
+
+(ej_b1_c03_39)=
+### Ejercicio 1.03.39 - Números de Carmichael ⭐⭐☆☆☆
 
 #### Descripción
 Un número de Carmichael es un número que satisface la congruencia $b^{n-1}
@@ -1809,8 +1848,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_40)=
-### Ejercicio 3.40 - Logaritmo Entero ⭐⭐☆☆☆
+
+(ej_b1_c03_40)=
+### Ejercicio 1.03.40 - Logaritmo Entero ⭐⭐☆☆☆
 
 #### Descripción
 Calcular el logaritmo entero en base `b` de un número `n`. Es el mayor entero
@@ -1847,8 +1887,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_3_41)=
-### Ejercicio 3.41 - Conversión de Base Numérica ⭐⭐☆☆☆
+
+(ej_b1_c03_41)=
+### Ejercicio 1.03.41 - Conversión de Base Numérica ⭐⭐☆☆☆
 
 #### Descripción
 Escribir una función que convierta un número `n` de una base `b1` a una base
