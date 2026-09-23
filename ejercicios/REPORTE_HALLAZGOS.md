@@ -263,21 +263,39 @@ Evaluación generada mediante Jev System One (`askJev`) y conteo determinista:
 
 ---
 
-## 6. Hoja de Ruta para Remediación Integral
+## 6. Estado de Avance de la Hoja de Ruta y Fases Siguientes
 
-1. **Adopción del Marco Editorial (`MARCO_EDITORIAL.md`):** Establecer la
-   plantilla canónica con campos obligatorios para contratos, casos límite y
-   pruebas unitarias mínimas.
-2. **Fase 1: Sanitización sintáctica y purga de boilerplate:**
-   - Corregir el posicionamiento de las anclas `(ejercicio_X_Y)=` pegándolas a
-     su encabezado correspondiente.
-   - Purgar el 100% de los bloques `[*plus ultra*]` clonados/irrelevantes.
-   - Reconstruir o reescribir las 864 líneas truncadas.
-3. **Fase 2: Alineación y numeración estricta con `apunte/`:**
-   - Renumerar y renombrar archivos para que coincidan con la secuencia de
-     capítulos de `apunte/`.
-   - Auditar con Jev ($P_{leak} < 0.05$) para verificar que ningún ejercicio
-     demande conceptos posteriores al capítulo en curso.
-4. **Fase 3: Editorialización pedagógica y contratos:**
-   - Dotar a cada ejercicio de: Prototipo C11 formal, Precondiciones,
-     Postcondiciones y tabla de vectores de prueba (Test Suite mínima).
+### Fases Completadas
+
+1. **Fase 1: Sanitización sintáctica y purga de boilerplate (Completada):**
+   - Reubicación de las 121 anclas MyST desfasadas (Commit `ff53bf1`).
+   - Purga de 1.900 ocurrencias de bloques `[*plus ultra*]` clonados (Commit `1b9a6f9`).
+   - Reconstrucción gramatical y cierre de viñetas truncadas (Commit `f1bdd0b`).
+
+2. **Fase 2: Alineación curricular y numeración canónica (Completada):**
+   - Migración de ejercicios con fuga conceptual prematura en punteros básicos (`structs`, `callbacks`, `malloc`) hacia sus capítulos correspondientes (Commit `e4b37b6`).
+   - Renumeración jerárquica unificada `Ejercicio B.CC.NN` y anclas `(ej_b<B>_c<CC>_<NN>)=` en Bloque 2 (Commit `19631bb`) y Bloques 1, 3 y 4 (Commit `de7b192`).
+   - Reparación de títulos corrompidos y sincronización del índice general.
+
+3. **Fase 3: Editorialización pedagógica y contratos canónicos (Completada en modelo de referencia):**
+   - Rediseño canónico completo de `bloque_2_memoria/1_punteros.md` (Commit `d10e166`), dotando a todos los ejercicios de firmas formales C11, pre/post condiciones, tablas de vectores de prueba y suites ejecutables `assert()`.
+   - **Impacto empírico Jev:** Índice de calidad de `1_punteros.md` elevado de **23 (DEFICIENTE)** a **86 (EXCELENTE)**, con 100% de suites compiladas y verificadas bajo GCC C11.
+
+---
+
+### Fases Siguientes de Mejora Continua
+
+4. **Fase 4: Verificación y Rigor de Compilación (Automated C11 Compiler & Test Harness):**
+   - Implementar un runner automatizado (`ejercicios/verificar_ejercicios.mjs`) que extraiga dinámicamente cada solución en C embebida en los documentos Markdown.
+   - Compilar cada ejercicio en un entorno de sandbox con flags estrictos de cátedra:
+     `gcc -Wall -Wextra -Werror -pedantic -std=c11 -fsanitize=address,undefined`
+   - Ejecutar los binarios y verificar aserciones unitarias, asegurando ausencia de fugas de memoria y errores de segmentación.
+
+5. **Fase 5: Cobertura Masiva de Vectores de Prueba y Casos Límite:**
+   - Escalar la plantilla canónica de `MARCO_EDITORIAL.md` a las 34 guías de ejercicios restantes en Bloques 1, 2, 3 y 4.
+   - Dotar a cada consigna de su tabla de vectores de prueba obligatorios (normales, bordes `NULL`/`0`/desbordamientos y errores).
+
+6. **Fase 6: Integración Continua (CI) y Compuerta Automática de Calidad Jev:**
+   - Configurar pipeline automatizado (GitHub Actions / pre-commit hook) que ejecute `verificar_ejercicios.mjs` y `jev-doc-quality.mjs`.
+   - Bloquear cualquier fusión o commit que introduzca texto truncado, anclas desfasadas, o filtración conceptual prematura ($P_{leak} > 0.05$).
+
