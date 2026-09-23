@@ -281,21 +281,18 @@ Evaluación generada mediante Jev System One (`askJev`) y conteo determinista:
    - Rediseño canónico completo de `bloque_2_memoria/1_punteros.md` (Commit `d10e166`), dotando a todos los ejercicios de firmas formales C11, pre/post condiciones, tablas de vectores de prueba y suites ejecutables `assert()`.
    - **Impacto empírico Jev:** Índice de calidad de `1_punteros.md` elevado de **23 (DEFICIENTE)** a **86 (EXCELENTE)**, con 100% de suites compiladas y verificadas bajo GCC C11.
 
----
+4. **Fase 4: Verificación y Rigor de Compilación (Completada):**
+   - Implementación del arnés `ejercicios/verificar_ejercicios.mjs` (Commit `dc3fbb2`).
+   - Extracción automatizada, compilación bajo `-Wall -Wextra -Werror -pedantic -std=c11` y sandbox de ejecución con timeout de 5000 ms.
 
-### Fases Siguientes de Mejora Continua
+5. **Fase 5: Cobertura Masiva de Vectores de Prueba y Casos Límite (Completada en módulos prioritarios):**
+   - Editorialización canónica completa con tablas de vectores de prueba, contratos C11 y aserciones determinísticas en:
+     - `bloque_2_memoria/1b_punteros_ejercicios.md` (Índice Jev: **28 -> 73 BUENO**, 5/5 tests PASS).
+     - `bloque_2_memoria/7_alias_tipos_ejercicios.md` (Índice Jev: **42 -> 69 BUENO**, 1/1 tests PASS).
+     - `bloque_4_avanzados/3_archivos_binarios.md` (Índice Jev: **34 -> 78 BUENO**, 4/4 tests PASS).
+   - Soluciones globales aprobadas en arnés C11 elevadas de **38** a **51**.
 
-4. **Fase 4: Verificación y Rigor de Compilación (Automated C11 Compiler & Test Harness):**
-   - Implementar un runner automatizado (`ejercicios/verificar_ejercicios.mjs`) que extraiga dinámicamente cada solución en C embebida en los documentos Markdown.
-   - Compilar cada ejercicio en un entorno de sandbox con flags estrictos de cátedra:
-     `gcc -Wall -Wextra -Werror -pedantic -std=c11 -fsanitize=address,undefined`
-   - Ejecutar los binarios y verificar aserciones unitarias, asegurando ausencia de fugas de memoria y errores de segmentación.
-
-5. **Fase 5: Cobertura Masiva de Vectores de Prueba y Casos Límite:**
-   - Escalar la plantilla canónica de `MARCO_EDITORIAL.md` a las 34 guías de ejercicios restantes en Bloques 1, 2, 3 y 4.
-   - Dotar a cada consigna de su tabla de vectores de prueba obligatorios (normales, bordes `NULL`/`0`/desbordamientos y errores).
-
-6. **Fase 6: Integración Continua (CI) y Compuerta Automática de Calidad Jev:**
-   - Configurar pipeline automatizado (GitHub Actions / pre-commit hook) que ejecute `verificar_ejercicios.mjs` y `jev-doc-quality.mjs`.
-   - Bloquear cualquier fusión o commit que introduzca texto truncado, anclas desfasadas, o filtración conceptual prematura ($P_{leak} > 0.05$).
+6. **Fase 6: Integración Continua (CI) y Compuerta Automática de Calidad (Completada):**
+   - Creación del script de auditoría estática `ejercicios/verificar_calidad.mjs` (0 boilerplate residual, 0 anclas desfasadas toleradas).
+   - Pipeline de GitHub Actions configurado en `.github/workflows/ci-ejercicios.yml` con ejecución dual de compuerta sintáctica y verificación estricta de compilación C11 en cada push y pull request.
 

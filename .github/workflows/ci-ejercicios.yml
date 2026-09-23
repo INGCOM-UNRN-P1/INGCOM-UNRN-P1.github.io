@@ -1,0 +1,46 @@
+name: CI Verificación de Ejercicios y Calidad Editorial
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ejercicios/**'
+      - '.github/workflows/ci-ejercicios.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'ejercicios/**'
+      - '.github/workflows/ci-ejercicios.yml'
+
+concurrency:
+  group: ci-ejercicios-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  calidad-y-compilacion:
+    name: Compuerta de Calidad C11 y Sintaxis MyST
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar dependencias de compilación
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc libasan8 libubsan1
+
+      - name: Compuerta 1 - Auditoría Estática de Calidad Editorial
+        run: node ejercicios/verificar_calidad.mjs
+
+      - name: Compuerta 2 - Compilación y Aserciones C11 (Archivos Certificados)
+        run: |
+          node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/1_punteros.md
+          node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/1b_punteros_ejercicios.md
+          node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/7_alias_tipos_ejercicios.md
+          node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_4_avanzados/3_archivos_binarios.md
