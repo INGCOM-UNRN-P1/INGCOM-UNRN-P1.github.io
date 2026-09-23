@@ -19,8 +19,9 @@ Memoria
 Dinámica](../../apunte/bloque_2_memoria/5_memoria_dinamica.md) del
 apunte. Asegurate de seguir la regla de estilo {ref}`0x3002h` para la liberación
 adecuada de recursos y prevención de punteros colgantes.
-(ejercicio_16_1)=
-## Ejercicio 16.1 - s Resueltos ⭐⭐☆☆☆
+
+(ej_b2_c05c_01)=
+### Ejercicio 2.05c.01 - Asignación Básica en Heap ⭐⭐☆☆☆
 
 :::{exercise} Ejercicio 1c.1 - Asignación Básica
 :label: ej-memoria-basico

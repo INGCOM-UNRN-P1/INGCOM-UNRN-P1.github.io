@@ -39,8 +39,9 @@ typedef struct
 } fraccion_t;
 ```
 <!-- c -->
-(ejercicio_18_1)=
-### Ejercicio 18.1 - Operaciones Aritméticas ⭐⭐☆☆☆
+
+(ej_b2_c07_01)=
+### Ejercicio 2.07.01 - Operaciones Aritméticas ⭐⭐☆☆☆
 
 Implementar funciones que tomen dos fracciones y retornen el resultado de la
 operación.
@@ -50,8 +51,8 @@ operación.
 - **Multiplicación**: $$\frac{a}{b} \times \frac{c}{d} = \frac{ac}{bd}$$
 - **División**: $$\frac{a}{b} \div \frac{c}{d} = \frac{ad}{bc}$$
 
-(ejercicio_18_2)=
-### Ejercicio 18.2 - Simplificación ⭐⭐☆☆☆
+(ej_b2_c07_02)=
+### Ejercicio 2.07.02 - Simplificación ⭐⭐☆☆☆
 
 Implementar una función que modifique una fracción para llevarla a su mínima
 expresión. La simplificación se realiza dividiendo numerador y denominador por
@@ -60,8 +61,9 @@ su **Máximo Común Divisor (MCD)**.
 ---
 
 ## División con Resto
-(ejercicio_18_3)=
-### Ejercicio 18.3 - Estructura de división ⭐⭐⭐☆☆
+
+(ej_b2_c07_03)=
+### Ejercicio 2.07.03 - Estructura de división ⭐⭐⭐☆☆
 
 La división entera en C (`/` y `%`) produce dos resultados. El objetivo es
 unificar estas operaciones en una única función que retorne una `struct` con el
@@ -95,8 +97,9 @@ typedef struct
 } tiempo_t;
 ```
 <!-- c -->
-(ejercicio_18_4)=
-### Ejercicio 18.4 - Suma de Tiempos ⭐⭐☆☆☆
+
+(ej_b2_c07_04)=
+### Ejercicio 2.07.04 - Suma de Tiempos ⭐⭐☆☆☆
 
 Implementar una función que sume dos `tiempo_t`. El resultado debe ser
 normalizado para que los segundos y minutos no excedan 59.
@@ -109,8 +112,8 @@ normalizado para que los segundos y minutos no excedan 59.
 - $M_{resultado} = M_{total} \% 60$
 - $H_{resultado} = t_1.horas + t_2.horas + H_{acarreo}$
 
-(ejercicio_18_5)=
-### Ejercicio 18.5 - Comparación de Tiempos ⭐⭐☆☆☆
+(ej_b2_c07_05)=
+### Ejercicio 2.07.05 - Comparación de Tiempos ⭐⭐☆☆☆
 
 Implementar una función que compare dos `tiempo_t` y devuelva un valor que
 indique si el primero es anterior, igual o posterior al segundo. Una estrategia
@@ -122,8 +125,9 @@ $$t_{en\_segundos} = horas \times 3600 + minutos \times 60 + segundos$$
 ---
 
 ## Tipos de Datos Compuestos
-(ejercicio_18_6)=
-### Ejercicio 18.6 - Arreglos con Capacidad ⭐⭐⭐☆☆
+
+(ej_b2_c07_06)=
+### Ejercicio 2.07.06 - Arreglos con Capacidad ⭐⭐⭐☆☆
 
 Encapsular un arreglo en una estructura para agrupar el contenedor de datos, su
 longitud actual y su capacidad máxima. Esto previene errores de desbordamiento
@@ -141,8 +145,9 @@ typedef struct
 
 Este ejercicio puede ser mejorado con memoria dinámica, para lo cual es
 necesario agregar un atributo más con el tamaño en memoria pedido para `datos`.
-(ejercicio_18_7)=
-### Ejercicio 18.7 - Cadenas Seguras II ⭐⭐⭐☆☆
+
+(ej_b2_c07_07)=
+### Ejercicio 2.07.07 - Cadenas Seguras II ⭐⭐⭐☆☆
 
 Aplicar el mismo principio a las cadenas de caracteres para crear un tipo
 `cadena_segura_t` que gestione su propia capacidad y longitud, evitando los
@@ -162,8 +167,8 @@ typedef struct
 
 ## Punteros a Estructuras
 
-(ejercicio_18_8)=
-### Ejercicio 18.8 - Acceso a Miembros con Operador Flecha ⭐⭐☆☆☆
+(ej_b2_c07_08)=
+### Ejercicio 2.07.08 - Acceso a Miembros con Operador Flecha ⭐⭐☆☆☆
 
 Dada una estructura de punto cartesiano:
 
@@ -179,14 +184,14 @@ Implementar `void trasladar(punto_t *p, int dx, int dy)` que modifique las
 coordenadas del punto sumando `dx` y `dy`. Usar el operador `->` para acceder a
 los miembros: `p->x += dx;`.
 
-(ejercicio_18_9)=
-### Ejercicio 18.9 - Arreglo de Estructuras ⭐⭐⭐☆☆
+(ej_b2_c07_09)=
+### Ejercicio 2.07.09 - Arreglo de Estructuras ⭐⭐⭐☆☆
 
 Implementar `void ordenar_puntos_por_x(punto_t *puntos, size_t n)` que ordene un
 arreglo de puntos según su coordenada `x` en orden ascendente.
 
-(ejercicio_18_10)=
-### Ejercicio 18.10 - Estructura con Punteros Dinámicos ⭐⭐⭐☆☆
+(ej_b2_c07_10)=
+### Ejercicio 2.07.10 - Estructura con Punteros Dinámicos ⭐⭐⭐☆☆
 
 Dada:
 

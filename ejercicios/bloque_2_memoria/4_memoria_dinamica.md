@@ -20,8 +20,9 @@ apunte. Recordá aplicar la regla de estilo de la cátedra {ref}`0x3002h` para
 asegurar la liberación correcta de recursos y evitar punteros colgantes.
 
 ## Arreglos Dinámicos
-(ejercicio_14_1)=
-### Ejercicio 14.1 - Ciclo de vida ⭐⭐☆☆☆
+
+(ej_b2_c05_01)=
+### Ejercicio 2.05.01 - Ciclo de vida ⭐⭐☆☆☆
 
 Implementar un par de funciones para crear y destruir un arreglo dinámico.
 
@@ -33,8 +34,8 @@ Implementar un par de funciones para crear y destruir un arreglo dinámico.
   memoria al sistema. Después de liberar, es una buena práctica asignar `NULL`
   al puntero para evitar su uso accidental (puntero colgante).
 
-(ejercicio_14_2)=
-### Ejercicio 14.2 - Duplicadora ⭐⭐☆☆☆
+(ej_b2_c05_02)=
+### Ejercicio 2.05.02 - Duplicadora ⭐⭐☆☆☆
 
 Implementar `int* duplicar_arreglo(const int *origen, size_t tamano)`.
 **Algoritmo:**
@@ -44,8 +45,8 @@ Implementar `int* duplicar_arreglo(const int *origen, size_t tamano)`.
 3.  Recorrer el arreglo de origen y copiar cada elemento al nuevo arreglo.
 4.  Retornar el puntero al nuevo arreglo.
 
-(ejercicio_14_3)=
-### Ejercicio 14.3 - Fusión de Arreglos Ordenados ⭐⭐⭐☆☆
+(ej_b2_c05_03)=
+### Ejercicio 2.05.03 - Fusión de Arreglos Ordenados ⭐⭐⭐☆☆
 
 Implementar `int* fusionar(const int *a1, size_t n1, const int *a2, size_t n2)`.
 **Algoritmo:**
@@ -58,8 +59,8 @@ Implementar `int* fusionar(const int *a1, size_t n1, const int *a2, size_t n2)`.
 4.  Al salir del lazo, copiar los elementos restantes del arreglo que no se haya
     completado.
 
-(ejercicio_14_4)=
-### Ejercicio 14.4 - Inserción y Eliminación ⭐⭐☆☆☆
+(ej_b2_c05_04)=
+### Ejercicio 2.05.04 - Inserción y Eliminación ⭐⭐☆☆☆
 
 Crear funciones que modifiquen un arreglo dinámico. Estas operaciones son
 costosas porque pueden requerir realojar toda la estructura.
@@ -73,8 +74,8 @@ costosas porque pueden requerir realojar toda la estructura.
 
 ## Cadenas Dinámicas
 
-(ejercicio_14_5)=
-### Ejercicio 14.5 - Concatenación dinámica ⭐⭐⭐☆☆
+(ej_b2_c05_05)=
+### Ejercicio 2.05.05 - Concatenación dinámica ⭐⭐⭐☆☆
 
 Implementar `char* concatenar(const char *s1, const char *s2)`. **Algoritmo:**
 
@@ -84,8 +85,8 @@ Implementar `char* concatenar(const char *s1, const char *s2)`. **Algoritmo:**
 3.  Copiar la primera cadena (`s1`) al nuevo bloque.
 4.  Concatenar la segunda cadena (`s2`) al final.
 
-(ejercicio_14_6)=
-### Ejercicio 14.6 - Deduplicador ⭐⭐☆☆☆
+(ej_b2_c05_06)=
+### Ejercicio 2.05.06 - Deduplicador ⭐⭐☆☆☆
 
 Implementar `char* deduplicar(const char *s)`. Como el tamaño final es
 desconocido, una estrategia de dos pasadas es robusta:
@@ -96,8 +97,8 @@ desconocido, una estrategia de dos pasadas es robusta:
 2.  **Segunda pasada**: Reservar memoria del tamaño exacto y construir la nueva
     cadena solo con los caracteres únicos.
 
-(ejercicio_14_7)=
-### Ejercicio 14.7 - Fraccionador (Tokenizer) ⭐⭐☆☆☆
+(ej_b2_c05_07)=
+### Ejercicio 2.05.07 - Fraccionador (Tokenizer) ⭐⭐☆☆☆
 
 Implementar `char** dividir_cadena(const char *s, int *n_palabras)`. Esta
 función devuelve un arreglo de punteros, donde cada puntero apunta a una palabra
@@ -134,8 +135,9 @@ flowchart TD
 4.  Terminar el arreglo de punteros con un `NULL` para facilitar su recorrido.
 
 ## Matrices Dinámicas
-(ejercicio_14_8)=
-### Ejercicio 14.8 - Ciclo de vida ⭐⭐☆☆☆
+
+(ej_b2_c05_08)=
+### Ejercicio 2.05.08 - Ciclo de vida ⭐⭐☆☆☆
 
 Implementar funciones para reservar y liberar una matriz `m x n` usando un
 arreglo de punteros.
@@ -147,8 +149,8 @@ arreglo de punteros.
   la memoria de cada fila, y finalmente se libera el arreglo que contenía los
   punteros a las filas.
 
-(ejercicio_14_9)=
-### Ejercicio 14.9 - Multiplicación ⭐⭐☆☆☆
+(ej_b2_c05_09)=
+### Ejercicio 2.05.09 - Multiplicación ⭐⭐☆☆☆
 
 Implementar `int** multiplicar(int **A, int m, int n, int **B, int p, int q)`.
 **Algoritmo:**
@@ -160,19 +162,19 @@ Implementar `int** multiplicar(int **A, int m, int n, int **B, int p, int q)`.
     \sum_{k=1}^{n} a_{ik} \cdot b_{kj} $$
 4.  Retornar el puntero a la matriz `C`.
 
-(ejercicio_14_10)=
-## Ejercicio 14.10 - s Adicionales ⭐⭐☆☆☆
+(ej_b2_c05_10)=
+## Ejercicio 2.05.10 - s Adicionales ⭐⭐☆☆☆
 
-(ejercicio_14_11)=
-### Ejercicio 14.11 - Redimensionar Arreglo ⭐⭐⭐☆☆
+(ej_b2_c05_11)=
+### Ejercicio 2.05.11 - Redimensionar Arreglo ⭐⭐⭐☆☆
 
 Implementar una función `int* redimensionar_arreglo(int* arr, size_t
 nuevo_tamano)` que utilice `realloc` para cambiar el tamaño de un arreglo
 dinámico. La función debe manejar tanto la expansión como la contracción del
 arreglo y gestionar posibles fallos de `realloc`.
 
-(ejercicio_14_12)=
-### Ejercicio 14.12 - Vector de Crecimiento Dinámico ⭐⭐⭐☆☆
+(ej_b2_c05_12)=
+### Ejercicio 2.05.12 - Vector de Crecimiento Dinámico ⭐⭐⭐☆☆
 
 Implementar una estructura `vector_t` que simule un `std::vector` de C++. Debe
 contener un puntero a los datos, un tamaño (`size`) y una capacidad
@@ -182,22 +184,22 @@ contener un puntero a los datos, un tamaño (`size`) y una capacidad
   `size == capacity`, debe duplicar la capacidad usando `realloc`.
 - `vector_destruir(vector_t* v)`: Libera toda la memoria.
 
-(ejercicio_14_13)=
-### Ejercicio 14.13 - Leer Archivo a Cadena Dinámica ⭐⭐⭐☆☆
+(ej_b2_c05_13)=
+### Ejercicio 2.05.13 - Leer Archivo a Cadena Dinámica ⭐⭐⭐☆☆
 
 Escribir una función `char* leer_archivo_completo(const char* ruta)` que lea
 todo el contenido de un archivo de texto y lo devuelva en una única cadena
 alojada dinámicamente. El tamaño del archivo no se conoce de antemano.
 
-(ejercicio_14_14)=
-### Ejercicio 14.14 - Matriz Triangular Dinámica ⭐⭐⭐☆☆
+(ej_b2_c05_14)=
+### Ejercicio 2.05.14 - Matriz Triangular Dinámica ⭐⭐⭐☆☆
 
 Crear una función que reserve memoria para una matriz triangular inferior. Cada
 fila `i` debe tener `i+1` columnas. La función debe devolver un `int**` y se
 debe implementar su correspondiente función de liberación.
 
-(ejercicio_14_15)=
-### Ejercicio 14.15 - strdup Propio ⭐⭐☆☆☆
+(ej_b2_c05_15)=
+### Ejercicio 2.05.15 - strdup Propio ⭐⭐☆☆☆
 
 Implementar su propia versión de la función no estándar `strdup`, que recibe una
 cadena y devuelve un puntero a una nueva cadena en memoria dinámica con el mismo
@@ -205,69 +207,69 @@ contenido.
 
 `char* mi_strdup(const char* s);`
 
-(ejercicio_14_16)=
-### Ejercicio 14.16 - calloc vs. malloc ⭐⭐☆☆☆
+(ej_b2_c05_16)=
+### Ejercicio 2.05.16 - calloc vs. malloc ⭐⭐☆☆☆
 
 Escribir un programa que reserve dos arreglos de enteros del mismo tamaño, uno
 con `malloc` y otro con `calloc`. Imprimir el contenido de ambos arreglos
 inmediatamente después de la reserva para demostrar que `calloc` inicializa la
 memoria a cero.
 
-(ejercicio_14_17)=
-### Ejercicio 14.17 - Concatenar Múltiples Cadenas ⭐⭐⭐☆☆
+(ej_b2_c05_17)=
+### Ejercicio 2.05.17 - Concatenar Múltiples Cadenas ⭐⭐⭐☆☆
 
 Escribir una función `char* concatenar_muchas(char** cadenas, int n_cadenas)`
 que reciba un arreglo de cadenas y las una todas en una sola cadena dinámica,
 separadas por un espacio.
 
-(ejercicio_14_18)=
-### Ejercicio 14.18 - Clonación Profunda de Struct ⭐⭐⭐☆☆
+(ej_b2_c05_18)=
+### Ejercicio 2.05.18 - Clonación Profunda de Struct ⭐⭐⭐☆☆
 
 Definir una `struct` que contenga miembros de tipo puntero (ej. `char* nombre`,
 `int* notas`). Escribir una función de "clonación profunda" que cree una copia
 completamente nueva e independiente de la `struct`, incluyendo la reserva de
 nueva memoria para los datos a los que apuntan los punteros.
 
-(ejercicio_14_19)=
-### Ejercicio 14.19 - Particionar Arreglo Dinámicamente ⭐⭐⭐☆☆
+(ej_b2_c05_19)=
+### Ejercicio 2.05.19 - Particionar Arreglo Dinámicamente ⭐⭐⭐☆☆
 
 Escribir una función que reciba un arreglo dinámico y lo divida en dos nuevos
 arreglos dinámicos: uno con los números pares y otro con los impares. La función
 debe devolver estos dos nuevos arreglos (por ejemplo, a través de punteros por
 referencia).
 
-(ejercicio_14_20)=
-### Ejercicio 14.20 - Historial de Comandos ⭐⭐☆☆☆
+(ej_b2_c05_20)=
+### Ejercicio 2.05.20 - Historial de Comandos ⭐⭐☆☆☆
 
 Crear un programa que lea líneas de texto desde la entrada estándar y las
 almacene en un "historial" (un arreglo dinámico de cadenas `char**`). El
 historial debe crecer dinámicamente a medida que se añaden comandos.
 
-(ejercicio_14_21)=
-### Ejercicio 14.21 - Matriz Irregular (Ragged Array) ⭐⭐⭐☆☆
+(ej_b2_c05_21)=
+### Ejercicio 2.05.21 - Matriz Irregular (Ragged Array) ⭐⭐⭐☆☆
 
 Reservar memoria para una matriz dinámica donde cada fila puede tener un número
 diferente de columnas. Las dimensiones (número de columnas de cada fila) se
 deben leer de un arreglo de configuración.
 
-(ejercicio_14_22)=
-### Ejercicio 14.22 - Liberación Profunda ⭐⭐☆☆☆
+(ej_b2_c05_22)=
+### Ejercicio 2.05.22 - Liberación Profunda ⭐⭐☆☆☆
 
 Escribir una función `void liberar_historial(char** historial, int n_comandos)`
 que libere correctamente toda la memoria utilizada por la estructura del
 ejercicio 1.19: primero la memoria de cada cadena individual y luego la memoria
 del arreglo de punteros.
 
-(ejercicio_14_23)=
-### Ejercicio 14.23 - Buffer de Lectura Dinámico ⭐⭐⭐☆☆
+(ej_b2_c05_23)=
+### Ejercicio 2.05.23 - Buffer de Lectura Dinámico ⭐⭐⭐☆☆
 
 Crear una función que lea una línea completa desde `stdin` (hasta el salto de
 línea), alojando dinámicamente la memoria necesaria para la línea sin imponer un
 límite de tamaño predefinido. La función podría empezar con un buffer pequeño y
 usar `realloc` para agrandarlo según sea necesario.
 
-(ejercicio_14_24)=
-### Ejercicio 14.24 - Lista de Compras Dinámica ⭐⭐⭐☆☆
+(ej_b2_c05_24)=
+### Ejercicio 2.05.24 - Lista de Compras Dinámica ⭐⭐⭐☆☆
 
 Crear un programa interactivo que permita al usuario gestionar una lista de
 compras. Las opciones deben ser:
@@ -276,8 +278,8 @@ compras. Las opciones deben ser:
 3. Mostrar lista.
 La lista debe ser un arreglo de `char*` que se ajuste dinámicamente.
 
-(ejercicio_14_25)=
-### Ejercicio 14.25 - Manejo de Errores de malloc ⭐⭐☆☆☆
+(ej_b2_c05_25)=
+### Ejercicio 2.05.25 - Manejo de Errores de malloc ⭐⭐☆☆☆
 
 Modificar uno de los ejercicios anteriores (ej. 1.2, Duplicadora) para que, si
 `malloc` o `realloc` devuelven `NULL`, el programa lo notifique con un mensaje
@@ -286,39 +288,39 @@ de error claro a `stderr` y termine de forma controlada (ej.
 
 ## Más Ejercicios de Memoria Dinámica
 
-(ejercicio_14_26)=
-### Ejercicio 14.26 - Filtro de Arreglo Dinámico ⭐⭐⭐☆☆
+(ej_b2_c05_26)=
+### Ejercicio 2.05.26 - Filtro de Arreglo Dinámico ⭐⭐⭐☆☆
 
 Crear una función que reciba un arreglo dinámico, su tamaño y un puntero a una
 función "predicado" (`bool (*pred)(int)`). La función debe devolver un **nuevo**
 arreglo dinámico que contenga únicamente los elementos del arreglo original para
 los cuales el predicado devuelve `true`.
 
-(ejercicio_14_27)=
-### Ejercicio 14.27 - Mapa Simple (Clave-Valor) ⭐☆☆☆☆
+(ej_b2_c05_27)=
+### Ejercicio 2.05.27 - Mapa Simple (Clave-Valor) ⭐☆☆☆☆
 
 Implementar una estructura para un mapa simple (diccionario) que almacene pares
 clave-valor (`char*`-`int`). El mapa debe usar un arreglo dinámico de `struct
 par {char* clave; int valor;}`. La tabla debe crecer usando `realloc` cuando se
 quede sin espacio.
 
-(ejercicio_14_28)=
-### Ejercicio 14.28 - Unir Líneas de Archivo ⭐⭐☆☆☆
+(ej_b2_c05_28)=
+### Ejercicio 2.05.28 - Unir Líneas de Archivo ⭐⭐☆☆☆
 
 Escribir un programa que lea todas las líneas de un archivo y las almacene en un
 arreglo dinámico de cadenas (`char**`). Luego, crear una función que una todas
 estas cadenas en una sola, separadas por un espacio, y la devuelva como una
 nueva cadena dinámica.
 
-(ejercicio_14_29)=
-### Ejercicio 14.29 - Sub-arreglo Dinámico ⭐⭐⭐☆☆
+(ej_b2_c05_29)=
+### Ejercicio 2.05.29 - Sub-arreglo Dinámico ⭐⭐⭐☆☆
 
 Crear una función `int* sub_arreglo(const int* arr, size_t inicio, size_t fin)`
 que devuelva un nuevo arreglo dinámico conteniendo una copia de los elementos
 del arreglo original desde el índice `inicio` hasta `fin-1`.
 
-(ejercicio_14_30)=
-### Ejercicio 14.30 - Matriz Dinámica en Bloque Contiguo ⭐⭐⭐☆☆
+(ej_b2_c05_30)=
+### Ejercicio 2.05.30 - Matriz Dinámica en Bloque Contiguo ⭐⭐⭐☆☆
 
 Implementar la creación y liberación de una matriz `M x N` de dos formas:
 1.  Como un arreglo de punteros a filas (el método tradicional).
@@ -327,44 +329,44 @@ Implementar la creación y liberación de una matriz `M x N` de dos formas:
     fila `i` dentro del bloque contiguo. Comparar la complejidad de liberación
     de ambas.
 
-(ejercicio_14_31)=
-### Ejercicio 14.31 - realloc con NULL ⭐⭐☆☆☆
+(ej_b2_c05_31)=
+### Ejercicio 2.05.31 - realloc con NULL ⭐⭐☆☆☆
 
 Escribir un pequeño programa que demuestre que `realloc(NULL, n)` se comporta de
 manera idéntica a `malloc(n)`. Verificar que la memoria se asigna correctamente.
 
-(ejercicio_14_32)=
-### Ejercicio 14.32 - realloc con Tamaño Cero ⭐⭐☆☆☆
+(ej_b2_c05_32)=
+### Ejercicio 2.05.32 - realloc con Tamaño Cero ⭐⭐☆☆☆
 
 Escribir un pequeño programa que demuestre que `realloc(ptr, 0)` se comporta de
 manera idéntica a `free(ptr)`. Verificar que el puntero original ya no es válido
 después de la operación.
 
-(ejercicio_14_33)=
-### Ejercicio 14.33 - Arreglo Dinámico de Structs ⭐⭐⭐☆☆
+(ej_b2_c05_33)=
+### Ejercicio 2.05.33 - Arreglo Dinámico de Structs ⭐⭐⭐☆☆
 
 Alojar dinámicamente un arreglo de `structs` (ej. `producto_t` de un ejercicio
 anterior). Implementar funciones para añadir y buscar elementos en este arreglo,
 usando `realloc` para expandir el arreglo cuando sea necesario.
 
-(ejercicio_14_34)=
-### Ejercicio 14.34 - Implementar getline ⭐⭐☆☆☆
+(ej_b2_c05_34)=
+### Ejercicio 2.05.34 - Implementar getline ⭐⭐☆☆☆
 
 Implementar una versión simplificada de la función `getline` de POSIX. La
 función `ssize_t mi_getline(char **lineptr, size_t *n, FILE *stream)` debe leer
 una línea de `stream`, almacenarla en un buffer apuntado por `*lineptr` y
 expandir dicho buffer con `realloc` si es necesario.
 
-(ejercicio_14_35)=
-### Ejercicio 14.35 - Pila (Stack) Dinámica ⭐⭐⭐☆☆
+(ej_b2_c05_35)=
+### Ejercicio 2.05.35 - Pila (Stack) Dinámica ⭐⭐⭐☆☆
 
 Implementar una Pila (Stack) usando un arreglo dinámico. La estructura debe
 tener capacidad y tamaño. Cuando la pila se llena, su capacidad debe duplicarse.
 Cuando el tamaño es un cuarto de la capacidad, esta debe reducirse a la mitad.
 Implementar `push`, `pop` y `peek`.
 
-(ejercicio_14_36)=
-## Ejercicio 14.36 - Array Dinámico Simple ⭐☆☆☆☆
+(ej_b2_c05_36)=
+## Ejercicio 2.05.36 - Array Dinámico Simple ⭐☆☆☆☆
 
 Leé un tamaño `n`, creá un array dinámico de `n` enteros, llenalo, mostralo y
 liberalo.
@@ -375,8 +377,9 @@ liberalo.
 - Al final: `free(arr);`
 
 ---
-(ejercicio_14_37)=
-## Ejercicio 14.37 - String Dinámico ⭐⭐☆☆☆
+
+(ej_b2_c05_37)=
+## Ejercicio 2.05.37 - String Dinámico ⭐⭐☆☆☆
 
 Leé un string de tamaño arbitrario (hasta 1000 caracteres), almacenalo
 dinámicamente con el tamaño exacto.
@@ -388,8 +391,9 @@ dinámicamente con el tamaño exacto.
 - Liberá al final
 
 ---
-(ejercicio_14_38)=
-## Ejercicio 14.38 - Redimensionar Array ⭐⭐⭐☆☆
+
+(ej_b2_c05_38)=
+## Ejercicio 2.05.38 - Redimensionar Array ⭐⭐⭐☆☆
 
 Implementá un programa que permita agregar elementos dinámicamente a un array,
 redimensionándolo cuando se llene.
@@ -401,8 +405,9 @@ redimensionándolo cuando se llene.
 - Verificá que `realloc` no retorne NULL
 
 ---
-(ejercicio_14_39)=
-## Ejercicio 14.39 - Copiar String Dinámicamente ⭐⭐⭐☆☆
+
+(ej_b2_c05_39)=
+## Ejercicio 2.05.39 - Copiar String Dinámicamente ⭐⭐⭐☆☆
 
 Implementá `char *duplicar_string(const char *src)` que retorne una copia
 dinámica.
@@ -414,8 +419,9 @@ dinámica.
 - El llamador es responsable de liberar
 
 ---
-(ejercicio_14_40)=
-## Ejercicio 14.40 - Concatenar Strings Dinámicamente ⭐⭐⭐☆☆
+
+(ej_b2_c05_40)=
+## Ejercicio 2.05.40 - Concatenar Strings Dinámicamente ⭐⭐⭐☆☆
 
 Implementá `char *concatenar(const char *s1, const char *s2)` que retorne
 concatenación en memoria dinámica.
@@ -426,8 +432,9 @@ concatenación en memoria dinámica.
 - Retorná el nuevo string
 
 ---
-(ejercicio_14_41)=
-## Ejercicio 14.41 - Matriz Dentada ⭐⭐⭐⭐☆
+
+(ej_b2_c05_41)=
+## Ejercicio 2.05.41 - Matriz Dentada ⭐⭐⭐⭐☆
 
 Creá una matriz donde cada fila tiene diferente cantidad de columnas.
 
@@ -437,8 +444,9 @@ Creá una matriz donde cada fila tiene diferente cantidad de columnas.
 - Liberá en orden inverso: filas primero, luego array de punteros
 
 ---
-(ejercicio_14_42)=
-## Ejercicio 14.42 - Lista de Strings ⭐⭐⭐⭐☆
+
+(ej_b2_c05_42)=
+## Ejercicio 2.05.42 - Lista de Strings ⭐⭐⭐⭐☆
 
 Leé N strings y almacenalos en un array dinámico de strings.
 
@@ -448,8 +456,9 @@ Leé N strings y almacenalos en un array dinámico de strings.
 - Liberá cada string individualmente, luego el array
 
 ---
-(ejercicio_14_43)=
-## Ejercicio 14.43 - Histograma Dinámico ⭐⭐⭐⭐☆
+
+(ej_b2_c05_43)=
+## Ejercicio 2.05.43 - Histograma Dinámico ⭐⭐⭐⭐☆
 
 Leé números hasta EOF y creá un histograma de frecuencias (0-9).
 
@@ -460,8 +469,9 @@ Leé números hasta EOF y creá un histograma de frecuencias (0-9).
 - Mostrá histograma visual con asteriscos
 
 ---
-(ejercicio_14_44)=
-## Ejercicio 14.44 - Vector Dinámico (Estructura) ⭐⭐⭐⭐☆
+
+(ej_b2_c05_44)=
+## Ejercicio 2.05.44 - Vector Dinámico (Estructura) ⭐⭐⭐⭐☆
 
 Implementá un vector dinámico encapsulado en estructura:
 
@@ -486,8 +496,9 @@ Funciones:
 - `destruir_vector` libera datos y luego estructura
 
 ---
-(ejercicio_14_45)=
-## Ejercicio 14.45 - Leer Archivo Completo en Memoria ⭐⭐⭐⭐☆
+
+(ej_b2_c05_45)=
+## Ejercicio 2.05.45 - Leer Archivo Completo en Memoria ⭐⭐⭐⭐☆
 
 Leé un archivo de texto completo en memoria dinámica.
 
@@ -499,8 +510,9 @@ Leé un archivo de texto completo en memoria dinámica.
 - Liberá memoria al terminar
 
 ---
-(ejercicio_14_46)=
-## Ejercicio 14.46 - Merge de Arrays ⭐⭐⭐⭐☆
+
+(ej_b2_c05_46)=
+## Ejercicio 2.05.46 - Merge de Arrays ⭐⭐⭐⭐☆
 
 Implementá `int *merge(int *arr1, int n1, int *arr2, int n2)` que retorne un
 nuevo array con ambos ordenados.
@@ -512,8 +524,9 @@ nuevo array con ambos ordenados.
 - Liberá los arrays originales si ya no se usan
 
 ---
-(ejercicio_14_47)=
-## Ejercicio 14.47 - Lista Enlazada con Memoria Dinámica ⭐⭐⭐⭐⭐
+
+(ej_b2_c05_47)=
+## Ejercicio 2.05.47 - Lista Enlazada con Memoria Dinámica ⭐⭐⭐⭐⭐
 
 Implementá lista enlazada completamente dinámica:
 
@@ -539,8 +552,9 @@ Funciones:
 - `liberar_lista` recorre y libera todos los nodos
 
 ---
-(ejercicio_14_48)=
-## Ejercicio 14.48 - Árbol Binario de Búsqueda ⭐⭐⭐⭐⭐
+
+(ej_b2_c05_48)=
+## Ejercicio 2.05.48 - Árbol Binario de Búsqueda ⭐⭐⭐⭐⭐
 
 Implementá un ABB (Árbol Binario de Búsqueda):
 
@@ -565,8 +579,9 @@ Funciones:
 - Liberación: postorden (izquierdo, derecho, raíz)
 
 ---
-(ejercicio_14_49)=
-## Ejercicio 14.49 - Tabla Hash Simple ⭐⭐⭐⭐⭐
+
+(ej_b2_c05_49)=
+## Ejercicio 2.05.49 - Tabla Hash Simple ⭐⭐⭐⭐⭐
 
 Implementá una tabla hash con encadenamiento:
 
@@ -598,8 +613,9 @@ Funciones:
 - Destruir: libera cadenas, claves, y tabla
 
 ---
-(ejercicio_14_50)=
-## Ejercicio 14.50 - Pool de Memoria ⭐⭐⭐⭐⭐
+
+(ej_b2_c05_50)=
+## Ejercicio 2.05.50 - Pool de Memoria ⭐⭐⭐⭐⭐
 
 Implementá un allocator simple que asigna de un pool preasignado.
 
@@ -611,8 +627,9 @@ Implementá un allocator simple que asigna de un pool preasignado.
 - No soporta liberación individual
 
 ---
-(ejercicio_14_51)=
-## Ejercicio 14.51 - Parser de CSV Dinámico ⭐⭐⭐⭐⭐
+
+(ej_b2_c05_51)=
+## Ejercicio 2.05.51 - Parser de CSV Dinámico ⭐⭐⭐⭐⭐
 
 Leé un archivo CSV y almacená datos en estructura dinámica.
 
@@ -624,8 +641,9 @@ Leé un archivo CSV y almacená datos en estructura dinámica.
 - Liberá todo al terminar
 
 ---
-(ejercicio_14_52)=
-## Ejercicio 14.52 - Búfer Circular Dinámico ⭐⭐⭐⭐⭐
+
+(ej_b2_c05_52)=
+## Ejercicio 2.05.52 - Búfer Circular Dinámico ⭐⭐⭐⭐⭐
 
 Implementá un búfer circular continuo en memoria dinámica:
 
@@ -636,8 +654,9 @@ Implementá un búfer circular continuo en memoria dinámica:
 - Liberá toda la memoria al destruir el búfer
 
 ---
-(ejercicio_14_53)=
-## Ejercicio 14.53 - Arreglo Dinámico de Cadenas de Texto ⭐⭐⭐⭐⭐
+
+(ej_b2_c05_53)=
+## Ejercicio 2.05.53 - Arreglo Dinámico de Cadenas de Texto ⭐⭐⭐⭐⭐
 
 Implementá un arreglo dinámico de cadenas de texto (`char **`):
 
@@ -648,8 +667,9 @@ Implementá un arreglo dinámico de cadenas de texto (`char **`):
 - En la función de destrucción, liberá cada cadena antes de liberar el arreglo de punteros
 
 ---
-(ejercicio_14_54)=
-## Ejercicio 14.54 - Simulador de Memoria ⭐⭐⭐⭐⭐
+
+(ej_b2_c05_54)=
+## Ejercicio 2.05.54 - Simulador de Memoria ⭐⭐⭐⭐⭐
 
 Implementá un simulador que registre todas las asignaciones/liberaciones.
 
@@ -660,8 +680,9 @@ Implementá un simulador que registre todas las asignaciones/liberaciones.
 - Mostrá estadísticas al final
 
 ---
-(ejercicio_14_55)=
-## Ejercicio 14.55 - Sistema de Gestión de Memoria Personalizado ⭐⭐⭐⭐⭐
+
+(ej_b2_c05_55)=
+## Ejercicio 2.05.55 - Sistema de Gestión de Memoria Personalizado ⭐⭐⭐⭐⭐
 
 Implementá tu propio `malloc` y `free` usando `sbrk` o un buffer grande.
 

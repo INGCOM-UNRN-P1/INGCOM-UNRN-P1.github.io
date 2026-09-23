@@ -17,8 +17,9 @@ capítulo del apunte:
   Arreglos](../../apunte/bloque_2_memoria/3_secuencias.md)
 
 ## Operaciones Básicas
-(ejercicio_10_1)=
-### Ejercicio 10.1 - Carga y muestra ⭐⭐☆☆☆
+
+(ej_b2_c03_01)=
+### Ejercicio 2.03.01 - Carga y muestra ⭐⭐☆☆☆
 
 Crear dos funciones complementarias para manejar arreglos: una para que el
 usuario ingrese datos y llene un arreglo, y otra para mostrar el contenido del
@@ -67,8 +68,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_2)=
-### Ejercicio 10.2 - Suma ⭐⭐☆☆☆
+
+(ej_b2_c03_02)=
+### Ejercicio 2.03.02 - Suma ⭐⭐☆☆☆
 
 Calcular la suma de todos los elementos contenidos en un arreglo de números.
 
@@ -102,8 +104,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_3)=
-### Ejercicio 10.3 - Promedio ⭐⭐☆☆☆
+
+(ej_b2_c03_03)=
+### Ejercicio 2.03.03 - Promedio ⭐⭐☆☆☆
 
 Calcular el valor promedio (media aritmética) de los elementos de un arreglo.
 
@@ -139,8 +142,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_4)=
-### Ejercicio 10.4 - Productoria ⭐⭐☆☆☆
+
+(ej_b2_c03_04)=
+### Ejercicio 2.03.04 - Productoria ⭐⭐☆☆☆
 
 Calcular el producto de todos los elementos de un arreglo.
 
@@ -176,8 +180,9 @@ FIN FUNCION
 <!-- {tip} Ayuda (pseudocódigo) -->
 
 ## Búsqueda y Estadísticas
-(ejercicio_10_5)=
-### Ejercicio 10.5 - Máximo y mínimo ⭐⭐☆☆☆
+
+(ej_b2_c03_05)=
+### Ejercicio 2.03.05 - Máximo y mínimo ⭐⭐☆☆☆
 
 Encontrar los valores más grande (máximo) y más pequeño (mínimo) dentro de un
 arreglo de números.
@@ -223,8 +228,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_6)=
-### Ejercicio 10.6 - Casi máximo ⭐⭐☆☆☆
+
+(ej_b2_c03_06)=
+### Ejercicio 2.03.06 - Casi máximo ⭐⭐☆☆☆
 
 Encontrar el segundo elemento más grande en un arreglo. Este ejercicio requiere
 un seguimiento más cuidadoso que simplemente encontrar el máximo.
@@ -272,8 +278,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_7)=
-### Ejercicio 10.7 - Búsqueda de elemento ⭐⭐☆☆☆
+
+(ej_b2_c03_07)=
+### Ejercicio 2.03.07 - Búsqueda de elemento ⭐⭐☆☆☆
 
 Implementar una búsqueda lineal para encontrar la primera ocurrencia de un
 elemento específico dentro de un arreglo. Si se encuentra, se debe devolver su
@@ -309,8 +316,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_8)=
-### Ejercicio 10.8 - Contar repeticiones ⭐⭐☆☆☆
+
+(ej_b2_c03_08)=
+### Ejercicio 2.03.08 - Contar repeticiones ⭐⭐☆☆☆
 
 Contar cuántas veces aparece un número específico en un arreglo.
 
@@ -345,8 +353,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_9)=
-### Ejercicio 10.9 - Elemento más cercano ⭐⭐☆☆☆
+
+(ej_b2_c03_09)=
+### Ejercicio 2.03.09 - Elemento más cercano ⭐⭐☆☆☆
 
 Dado un arreglo y un valor de referencia, encontrar el elemento en el arreglo
 que tiene la menor diferencia absoluta con dicho valor.
@@ -392,8 +401,9 @@ FIN FUNCION
 <!-- {tip} Ayuda (pseudocódigo) -->
 
 ## Manipulación de Arreglos
-(ejercicio_10_10)=
-### Ejercicio 10.10 - Inversión ⭐⭐☆☆☆
+
+(ej_b2_c03_10)=
+### Ejercicio 2.03.10 - Inversión ⭐⭐☆☆☆
 
 Invertir el orden de los elementos de un arreglo _in-place_, es decir, sin usar
 un segundo arreglo para almacenar el resultado temporalmente.
@@ -436,8 +446,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_11)=
-### Ejercicio 10.11 - Copia ⭐⭐☆☆☆
+
+(ej_b2_c03_11)=
+### Ejercicio 2.03.11 - Copia ⭐⭐☆☆☆
 
 Copiar todos los elementos de un arreglo de origen a un arreglo de destino.
 
@@ -467,8 +478,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_12)=
-### Ejercicio 10.12 - Deduplicación ⭐⭐☆☆☆
+
+(ej_b2_c03_12)=
+### Ejercicio 2.03.12 - Deduplicación ⭐⭐☆☆☆
 
 Eliminar los elementos duplicados de un arreglo, conservando solo la primera
 aparición de cada elemento. La función debe modificar el arreglo _in-place_ y
@@ -513,8 +525,9 @@ FIN FUNCION
 <!-- {tip} Ayuda (pseudocódigo) -->
 
 ## Verificación
-(ejercicio_10_13)=
-### Ejercicio 10.13 - ¿Está ordenado? ⭐⭐☆☆☆
+
+(ej_b2_c03_13)=
+### Ejercicio 2.03.13 - ¿Está ordenado? ⭐⭐☆☆☆
 
 Verificar si un arreglo está ordenado de forma ascendente.
 
@@ -550,8 +563,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_14)=
-### Ejercicio 10.14 - Solo positivos ⭐⭐☆☆☆
+
+(ej_b2_c03_14)=
+### Ejercicio 2.03.14 - Solo positivos ⭐⭐☆☆☆
 
 Verificar si todos los elementos de un arreglo son números positivos (mayores
 que cero).
@@ -588,8 +602,9 @@ FIN FUNCION
 <!-- {tip} Ayuda (pseudocódigo) -->
 
 ## Operaciones Avanzadas con Arreglos
-(ejercicio_10_15)=
-### Ejercicio 10.15 - Rotación de arreglo ⭐⭐⭐☆☆
+
+(ej_b2_c03_15)=
+### Ejercicio 2.03.15 - Rotación de arreglo ⭐⭐⭐☆☆
 
 Implementar una función que rote los elementos de un arreglo `k` posiciones
 hacia la derecha. Esto significa que los últimos `k` elementos se moverán al
@@ -639,8 +654,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_16)=
-### Ejercicio 10.16 - Fusión de arreglos ⭐⭐⭐☆☆
+
+(ej_b2_c03_16)=
+### Ejercicio 2.03.16 - Fusión de arreglos ⭐⭐⭐☆☆
 
 Escribir una función que fusione dos arreglos en un tercer arreglo que contenga
 todos los elementos de los dos primeros. Si los arreglos originales están
@@ -698,8 +714,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_17)=
-### Ejercicio 10.17 - Intersección de arreglos ⭐⭐⭐☆☆
+
+(ej_b2_c03_17)=
+### Ejercicio 2.03.17 - Intersección de arreglos ⭐⭐⭐☆☆
 
 Crear una función que reciba dos arreglos y devuelva un nuevo arreglo con los
 elementos que son comunes a ambos. Cada elemento debe aparecer solo una vez en
@@ -746,8 +763,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_18)=
-### Ejercicio 10.18 - Unión de arreglos ⭐⭐⭐☆☆
+
+(ej_b2_c03_18)=
+### Ejercicio 2.03.18 - Unión de arreglos ⭐⭐⭐☆☆
 
 Crear una función que reciba dos arreglos y devuelva un nuevo arreglo con todos
 los elementos de ambos, sin duplicados.
@@ -791,8 +809,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_19)=
-### Ejercicio 10.19 - Separar pares e impares ⭐⭐☆☆☆
+
+(ej_b2_c03_19)=
+### Ejercicio 2.03.19 - Separar pares e impares ⭐⭐☆☆☆
 
 Reorganizar un arreglo _in-place_ de tal manera que todos los números pares
 queden al principio y todos los impares al final. El orden relativo entre los
@@ -839,8 +858,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_20)=
-### Ejercicio 10.20 - Algoritmo de Kadane (Suma máxima de subarreglo) ⭐⭐⭐☆☆
+
+(ej_b2_c03_20)=
+### Ejercicio 2.03.20 - Algoritmo de Kadane (Suma máxima de subarreglo) ⭐⭐⭐☆☆
 
 Implementar el algoritmo de Kadane para encontrar la suma del subarreglo
 contiguo que tenga la suma más grande. El arreglo puede contener números
@@ -883,8 +903,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_21)=
-### Ejercicio 10.21 - Histograma ⭐⭐☆☆☆
+
+(ej_b2_c03_21)=
+### Ejercicio 2.03.21 - Histograma ⭐⭐☆☆☆
 
 Dado un arreglo de enteros no negativos, el programa debe imprimir un histograma
 simple usando asteriscos, donde cada número `n` se representa con una línea de
@@ -919,8 +940,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_22)=
-### Ejercicio 10.22 - Barajar arreglo (Fisher-Yates) ⭐⭐⭐☆☆
+
+(ej_b2_c03_22)=
+### Ejercicio 2.03.22 - Barajar arreglo (Fisher-Yates) ⭐⭐⭐☆☆
 
 Implementar el algoritmo de Fisher-Yates para barajar (desordenar
 aleatoriamente) los elementos de un arreglo _in-place_.
@@ -956,8 +978,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_23)=
-### Ejercicio 10.23 - Encontrar elemento faltante ⭐⭐☆☆☆
+
+(ej_b2_c03_23)=
+### Ejercicio 2.03.23 - Encontrar elemento faltante ⭐⭐☆☆☆
 
 Dado un arreglo que contiene `n-1` números distintos en el rango de 1 a `n`,
 encontrar el único número que falta.
@@ -992,8 +1015,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_24)=
-### Ejercicio 10.24 - Encontrar par con suma X ⭐⭐☆☆☆
+
+(ej_b2_c03_24)=
+### Ejercicio 2.03.24 - Encontrar par con suma X ⭐⭐☆☆☆
 
 Dado un arreglo de números y un valor `X`, determinar si existe un par de
 elementos en el arreglo cuya suma sea exactamente `X`.
@@ -1041,8 +1065,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_25)=
-### Ejercicio 10.25 - Mediana de un arreglo ⭐⭐⭐☆☆
+
+(ej_b2_c03_25)=
+### Ejercicio 2.03.25 - Mediana de un arreglo ⭐⭐⭐☆☆
 
 Calcular la mediana de un arreglo. La mediana es el valor que se encuentra en la
 posición central de un arreglo ordenado. Si el arreglo tiene un número par de
@@ -1077,8 +1102,9 @@ INICIO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_26)=
-### Ejercicio 10.26 - Moda de un arreglo ⭐⭐⭐☆☆
+
+(ej_b2_c03_26)=
+### Ejercicio 2.03.26 - Moda de un arreglo ⭐⭐⭐☆☆
 
 Encontrar la moda de un arreglo, que es el elemento que aparece con mayor
 frecuencia.
@@ -1123,8 +1149,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_27)=
-### Ejercicio 10.27 - Rellenar con secuencia aritmética ⭐⭐☆☆☆
+
+(ej_b2_c03_27)=
+### Ejercicio 2.03.27 - Rellenar con secuencia aritmética ⭐⭐☆☆☆
 
 Escribir una función que llene un arreglo con los términos de una secuencia
 aritmética, dados un valor de inicio, un tamaño y un paso (la diferencia
@@ -1153,8 +1180,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_28)=
-### Ejercicio 10.28 - Diferencia simétrica ⭐⭐☆☆☆
+
+(ej_b2_c03_28)=
+### Ejercicio 2.03.28 - Diferencia simétrica ⭐⭐☆☆☆
 
 Calcular la diferencia simétrica entre dos arreglos. El resultado debe ser un
 nuevo arreglo que contenga los elementos que están en uno de los arreglos, pero
@@ -1197,8 +1225,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_29)=
-### Ejercicio 10.29 - Conteo de inversiones ⭐⭐☆☆☆
+
+(ej_b2_c03_29)=
+### Ejercicio 2.03.29 - Conteo de inversiones ⭐⭐☆☆☆
 
 Contar el número de "inversiones" en un arreglo. Una inversión es un par de
 índices `(i, j)` tales que `i < j` y `arr[i] > arr[j]`. Un arreglo perfectamente
@@ -1239,8 +1268,9 @@ FIN FUNCION
 <!-- {tip} Ayuda (pseudocódigo) -->
 
 ## Más Manipulación de Arreglos
-(ejercicio_10_30)=
-### Ejercicio 10.30 - Picos y valles ⭐⭐☆☆☆
+
+(ej_b2_c03_30)=
+### Ejercicio 2.03.30 - Picos y valles ⭐⭐☆☆☆
 
 Escribir una función que encuentre todos los "picos" en un arreglo. Un pico es
 un elemento que es estrictamente mayor que sus dos vecinos (el anterior y el
@@ -1272,8 +1302,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_31)=
-### Ejercicio 10.31 - Subarreglo más largo con suma cero ⭐⭐⭐☆☆
+
+(ej_b2_c03_31)=
+### Ejercicio 2.03.31 - Subarreglo más largo con suma cero ⭐⭐⭐☆☆
 
 Dado un arreglo de enteros (positivos y negativos), encontrar la longitud del
 subarreglo contiguo más largo cuya suma de elementos sea cero.
@@ -1317,8 +1348,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_32)=
-### Ejercicio 10.32 - Reorganizar positivos y negativos ⭐⭐☆☆☆
+
+(ej_b2_c03_32)=
+### Ejercicio 2.03.32 - Reorganizar positivos y negativos ⭐⭐☆☆☆
 
 Reorganizar un arreglo _in-place_ de tal manera que todos los números negativos
 aparezcan antes que todos los números positivos. El orden relativo entre los
@@ -1360,8 +1392,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_33)=
-### Ejercicio 10.33 - Producto de los demás elementos ⭐⭐☆☆☆
+
+(ej_b2_c03_33)=
+### Ejercicio 2.03.33 - Producto de los demás elementos ⭐⭐☆☆☆
 
 Dado un arreglo de números, crear un nuevo arreglo donde cada elemento en la
 posición `i` sea el producto de todos los demás números del arreglo original,
@@ -1408,8 +1441,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_34)=
-### Ejercicio 10.34 - Arreglo de frecuencias ⭐⭐⭐☆☆
+
+(ej_b2_c03_34)=
+### Ejercicio 2.03.34 - Arreglo de frecuencias ⭐⭐⭐☆☆
 
 Dado un arreglo de enteros que contiene números en un rango conocido (por
 ejemplo, de 0 a 99), crear un "arreglo de frecuencias" que cuente cuántas veces
@@ -1445,8 +1479,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_35)=
-### Ejercicio 10.35 - ¿Es subconjunto? ⭐⭐☆☆☆
+
+(ej_b2_c03_35)=
+### Ejercicio 2.03.35 - ¿Es subconjunto? ⭐⭐☆☆☆
 
 Implementar una función que determine si un arreglo `A` es un subconjunto de
 otro arreglo `B`. Esto significa que todos los elementos de `A` deben estar
@@ -1492,8 +1527,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_36)=
-### Ejercicio 10.36 - Mover ceros al final ⭐⭐☆☆☆
+
+(ej_b2_c03_36)=
+### Ejercicio 2.03.36 - Mover ceros al final ⭐⭐☆☆☆
 
 Escribir una función que mueva todos los ceros de un arreglo al final del mismo,
 manteniendo el orden relativo de los elementos no nulos.
@@ -1534,8 +1570,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_37)=
-### Ejercicio 10.37 - Líderes en un arreglo ⭐⭐⭐☆☆
+
+(ej_b2_c03_37)=
+### Ejercicio 2.03.37 - Líderes en un arreglo ⭐⭐⭐☆☆
 
 Encontrar todos los "líderes" en un arreglo. Un elemento es un líder si es mayor
 que todos los elementos que se encuentran a su derecha. El elemento más a la
@@ -1575,8 +1612,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_38)=
-### Ejercicio 10.38 - Máxima diferencia ⭐⭐☆☆☆
+
+(ej_b2_c03_38)=
+### Ejercicio 2.03.38 - Máxima diferencia ⭐⭐☆☆☆
 
 Encontrar la máxima diferencia `arr[j] - arr[i]` en un arreglo, con la condición
 de que el índice `j` sea mayor que el índice `i`.
@@ -1620,8 +1658,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_10_39)=
-### Ejercicio 10.39 - Punto de equilibrio ⭐⭐☆☆☆
+
+(ej_b2_c03_39)=
+### Ejercicio 2.03.39 - Punto de equilibrio ⭐⭐☆☆☆
 
 Encontrar un "punto de equilibrio" en un arreglo. Es un índice tal que la suma
 de los elementos a su izquierda es igual a la suma de los elementos a su

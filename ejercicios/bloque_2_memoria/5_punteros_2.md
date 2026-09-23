@@ -25,8 +25,9 @@ defensivo de errores en tiempo de ejecución.
 ---
 
 ## Estructuras con Punteros
-(ejercicio_17_1)=
-### Ejercicio 17.1 - Creación de Persona ⭐⭐☆☆☆
+
+(ej_b2_c06_01)=
+### Ejercicio 2.06.01 - Creación de Persona ⭐⭐☆☆☆
 
 Implementar un constructor para la estructura `persona_t`:
 
@@ -47,8 +48,9 @@ persona_t *persona_crear(const char *nombre, const char *apellido, int edad);
 - Manejar fallos de `malloc` en cualquier etapa, liberando memoria ya asignada.
 - Retornar `NULL` si alguna asignación falla.
 - Inicializar todos los campos correctamente.
-(ejercicio_17_2)=
-### Ejercicio 17.2 - Destrucción de Persona ⭐⭐☆☆☆
+
+(ej_b2_c06_02)=
+### Ejercicio 2.06.02 - Destrucción de Persona ⭐⭐☆☆☆
 
 Implementar el destructor correspondiente:
 
@@ -62,8 +64,9 @@ void persona_destruir(persona_t **ptr_persona);
 - Verificar que el puntero no sea `NULL`.
 - Poner el puntero en `NULL` después de liberar.
 - Manejar correctamente el doble puntero.
-(ejercicio_17_3)=
-### Ejercicio 17.3 - Clonación Profunda ⭐⭐☆☆☆
+
+(ej_b2_c06_03)=
+### Ejercicio 2.06.03 - Clonación Profunda ⭐⭐☆☆☆
 
 Implementar una función que cree una copia completamente independiente de una
 persona:
@@ -75,8 +78,9 @@ persona_t *persona_clonar(const persona_t *original);
 
 La copia debe tener su propia memoria asignada para `nombre` y `apellido`, no
 compartir punteros con el original.
-(ejercicio_17_4)=
-### Ejercicio 17.4 - Estructura con Múltiples Niveles ⭐⭐⭐☆☆
+
+(ej_b2_c06_04)=
+### Ejercicio 2.06.04 - Estructura con Múltiples Niveles ⭐⭐⭐☆☆
 
 Implementar constructor y destructor para esta estructura anidada:
 
@@ -107,8 +111,9 @@ principal, la dirección anidada, y el array dinámico de cadenas.
 ---
 
 ## Manejo de Errores en Cadena
-(ejercicio_17_5)=
-### Ejercicio 17.5 - Rollback Completo ⭐⭐☆☆☆
+
+(ej_b2_c06_05)=
+### Ejercicio 2.06.05 - Rollback Completo ⭐⭐☆☆☆
 
 Escribir una función que asigne memoria para una estructura de estudiante con
 cursos:
@@ -128,8 +133,9 @@ typedef struct
 Si la asignación de `notas` falla después de haber asignado `nombre` y `cursos`,
 la función debe liberar `nombre` y `cursos` antes de retornar `NULL` para evitar
 fugas de memoria.
-(ejercicio_17_6)=
-### Ejercicio 17.6 - Alternativa con Goto ⭐⭐☆☆☆
+
+(ej_b2_c06_06)=
+### Ejercicio 2.06.06 - Alternativa con Goto ⭐⭐☆☆☆
 
 Implementar la función del ejercicio anterior estructurando la liberación de
 recursos en una sección de limpieza al final de la función mediante `goto`, como
@@ -138,8 +144,9 @@ se describe en las buenas prácticas de la cátedra.
 ---
 
 ## Matrices Dinámicas
-(ejercicio_17_7)=
-### Ejercicio 17.7 - Matriz Dentada (Array de Punteros) ⭐⭐⭐☆☆
+
+(ej_b2_c06_07)=
+### Ejercicio 2.06.07 - Matriz Dentada (Array de Punteros) ⭐⭐⭐☆☆
 
 Implementar funciones para crear y liberar una matriz dentada donde cada fila se
 aloja como un bloque independiente.
@@ -149,8 +156,9 @@ int **crear_matriz_dentada(size_t filas, size_t columnas);
 void liberar_matriz_dentada(int ***ptr_matriz, size_t filas);
 ```
 <!-- c -->
-(ejercicio_17_8)=
-### Ejercicio 17.8 - Matriz de Bloque Único (Contigua) ⭐⭐⭐☆☆
+
+(ej_b2_c06_08)=
+### Ejercicio 2.06.08 - Matriz de Bloque Único (Contigua) ⭐⭐⭐☆☆
 
 Implementar funciones para crear y liberar una matriz contigua en memoria,
 reservando un único bloque para todos los datos y configurando el array de
@@ -161,8 +169,9 @@ int **crear_matriz_contigua(size_t filas, size_t columnas);
 void liberar_matriz_contigua(int ***ptr_matriz);
 ```
 <!-- c -->
-(ejercicio_17_9)=
-### Ejercicio 17.9 - Conversión de Array Plano a Matriz ⭐⭐⭐☆☆
+
+(ej_b2_c06_09)=
+### Ejercicio 2.06.09 - Conversión de Array Plano a Matriz ⭐⭐⭐☆☆
 
 Implementar una función que reciba un arreglo plano (`int*`) de tamaño $N \times
 M$ y retorne una estructura de punteros a filas (`int**`) que permita acceder al
@@ -171,33 +180,34 @@ mismo usando la notación `matriz[i][j]`.
 ---
 
 ## Optimización y Casos Prácticos
-(ejercicio_17_10)=
-### Ejercicio 17.10 - Vector Redimensionable con Crecimiento ⭐⭐☆☆☆
+
+(ej_b2_c06_10)=
+### Ejercicio 2.06.10 - Vector Redimensionable con Crecimiento ⭐⭐☆☆☆
 
 Implementar un vector dinámico de enteros que duplique su capacidad
 automáticamente al llenarse, asegurando un manejo correcto del valor de retorno
 de `realloc` mediante un puntero intermedio temporal.
 
-(ejercicio_17_11)=
-### Ejercicio 17.11 - Reducción Dinámica de Capacidad (Shrinking) ⭐⭐⭐☆☆
+(ej_b2_c06_11)=
+### Ejercicio 2.06.11 - Reducción Dinámica de Capacidad (Shrinking) ⭐⭐⭐☆☆
 
 Modificar el vector del ejercicio anterior para reducir su capacidad a la mitad
 si la cantidad de elementos en uso cae por debajo de 1/4 de su capacidad máxima.
 
-(ejercicio_17_12)=
-### Ejercicio 17.12 - Gestión de Memoria en el Parser JSON ⭐⭐☆☆☆
+(ej_b2_c06_12)=
+### Ejercicio 2.06.12 - Gestión de Memoria en el Parser JSON ⭐⭐☆☆☆
 
 Diseñar las funciones de reserva y liberación para un nodo AST de un parser JSON
 que representa objetos y arreglos anidados mediante punteros dinámicos.
 
-(ejercicio_17_13)=
-### Ejercicio 17.13 - Heap Buffer Overflow ⭐⭐☆☆☆
+(ej_b2_c06_13)=
+### Ejercicio 2.06.13 - Heap Buffer Overflow ⭐⭐☆☆☆
 
 Escribir un fragmento de código que produzca un desbordamiento de búfer en el
 Heap y explicar cómo AddressSanitizer reporta dicho error.
 
-(ejercicio_17_14)=
-## Ejercicio 17.14 - Matriz Dinámica Dentada ⭐⭐☆☆☆
+(ej_b2_c06_14)=
+## Ejercicio 2.06.14 - Matriz Dinámica Dentada ⭐⭐☆☆☆
 
 Creá matriz donde cada fila tiene diferente cantidad de columnas.
 
@@ -217,8 +227,9 @@ for (int i = 0; i < filas; i++)
 - Liberación: cada fila primero, luego array de punteros
 
 ---
-(ejercicio_17_15)=
-## Ejercicio 17.15 - Matriz Dinámica en Bloque ⭐⭐⭐☆☆
+
+(ej_b2_c06_15)=
+## Ejercicio 2.06.15 - Matriz Dinámica en Bloque ⭐⭐⭐☆☆
 
 Creá matriz contigua en memoria (un solo `malloc` para datos).
 
@@ -242,8 +253,9 @@ int **crear_matriz(int filas, int cols)
 - Liberación: liberar datos, luego array de punteros
 
 ---
-(ejercicio_17_16)=
-## Ejercicio 17.16 - Matriz con Cast (ALV) ⭐⭐⭐☆☆
+
+(ej_b2_c06_16)=
+## Ejercicio 2.06.16 - Matriz con Cast (ALV) ⭐⭐⭐☆☆
 
 Implementá acceso a matriz unidimensional como bidimensional.
 
@@ -261,8 +273,9 @@ MAT(matriz, 2, 3, cols) = 42;
 - Menos flexible pero más eficiente
 
 ---
-(ejercicio_17_17)=
-## Ejercicio 17.17 - Redimensionar Array Dinámico ⭐⭐⭐☆☆
+
+(ej_b2_c06_17)=
+## Ejercicio 2.06.17 - Redimensionar Array Dinámico ⭐⭐⭐☆☆
 
 Implementá función para redimensionar array preservando datos.
 
@@ -285,8 +298,9 @@ int *redimensionar(int *arr, int tam_actual, int tam_nuevo)
 <!-- {code-block} c -->
 
 ---
-(ejercicio_17_18)=
-## Ejercicio 17.18 - Array de Strings Dinámico ⭐⭐⭐☆☆
+
+(ej_b2_c06_18)=
+## Ejercicio 2.06.18 - Array de Strings Dinámico ⭐⭐⭐☆☆
 
 Creá array dinámico de strings donde cada string también es dinámico.
 
@@ -310,8 +324,9 @@ free(strings);
 <!-- {code-block} c -->
 
 ---
-(ejercicio_17_19)=
-## Ejercicio 17.19 - Estructura con Arrays Dinámicos ⭐⭐⭐☆☆
+
+(ej_b2_c06_19)=
+## Ejercicio 2.06.19 - Estructura con Arrays Dinámicos ⭐⭐⭐☆☆
 
 Creá estructura que contenga arrays dinámicos.
 
@@ -342,8 +357,9 @@ void destruir_vector(vector_t *v)
 <!-- {code-block} c -->
 
 ---
-(ejercicio_17_20)=
-## Ejercicio 17.20 - Lista Enlazada con Strings ⭐⭐⭐⭐☆
+
+(ej_b2_c06_20)=
+## Ejercicio 2.06.20 - Lista Enlazada con Strings ⭐⭐⭐⭐☆
 
 Implementá lista donde cada nodo contiene un string dinámico.
 
@@ -373,8 +389,9 @@ void liberar_nodo(nodo_t *nodo)
 <!-- {code-block} c -->
 
 ---
-(ejercicio_17_21)=
-## Ejercicio 17.21 - Estructura Jerárquica de Categorías con Memoria Dinámica ⭐⭐⭐⭐⭐
+
+(ej_b2_c06_21)=
+## Ejercicio 2.06.21 - Estructura Jerárquica de Categorías con Memoria Dinámica ⭐⭐⭐⭐⭐
 
 Implementá una estructura de categorías donde cada categoría contiene un arreglo dinámico de subcategorías y un nombre dinámico:
 
@@ -416,8 +433,9 @@ void liberar_categoria(categoria_t *c)
 <!-- {code-block} c -->
 
 ---
-(ejercicio_17_22)=
-## Ejercicio 17.22 - Matriz Triangular ⭐⭐⭐⭐☆
+
+(ej_b2_c06_22)=
+## Ejercicio 2.06.22 - Matriz Triangular ⭐⭐⭐⭐☆
 
 Implementá matriz triangular inferior (solo almacená elementos <= diagonal).
 
@@ -435,8 +453,9 @@ for (int i = 0; i < n; i++)
 <!-- c -->
 
 ---
-(ejercicio_17_23)=
-## Ejercicio 17.23 - Copiar Estructura Profunda ⭐⭐⭐⭐☆
+
+(ej_b2_c06_23)=
+## Ejercicio 2.06.23 - Copiar Estructura Profunda ⭐⭐⭐⭐☆
 
 Implementá copia profunda de estructura con punteros.
 
@@ -464,8 +483,9 @@ estudiante_t *copiar(const estudiante_t *orig)
 <!-- {code-block} c -->
 
 ---
-(ejercicio_17_24)=
-## Ejercicio 17.24 - Matriz Dinámica de Conectividad NxN ⭐⭐⭐⭐⭐
+
+(ej_b2_c06_24)=
+## Ejercicio 2.06.24 - Matriz Dinámica de Conectividad NxN ⭐⭐⭐⭐⭐
 
 Creá una matriz bidimensional dinámica booleana/entera para registrar conexiones entre $N$ elementos.
 
@@ -504,8 +524,9 @@ void liberar_red(red_conexiones_t *r)
 <!-- {code-block} c -->
 
 ---
-(ejercicio_17_25)=
-## Ejercicio 17.25 - Array de Estructuras con Punteros ⭐⭐⭐⭐☆
+
+(ej_b2_c06_25)=
+## Ejercicio 2.06.25 - Array de Estructuras con Punteros ⭐⭐⭐⭐☆
 
 Creá array dinámico de estructuras que contienen punteros.
 
@@ -531,8 +552,9 @@ free(libros);
 <!-- {code-block} c -->
 
 ---
-(ejercicio_17_26)=
-## Ejercicio 17.26 - Tabla de Registros con Redimensionamiento Dinámico ⭐⭐⭐⭐⭐
+
+(ej_b2_c06_26)=
+## Ejercicio 2.06.26 - Tabla de Registros con Redimensionamiento Dinámico ⭐⭐⭐⭐⭐
 
 Implementá un contenedor indexado de punteros a estructuras con redimensionamiento dinámico cuando la capacidad se agote.
 
@@ -567,8 +589,9 @@ void redimensionar_tabla(tabla_registros_t *t)
 <!-- {code-block} c -->
 
 ---
-(ejercicio_17_27)=
-## Ejercicio 17.27 - Matriz Dispersa (Sparse Matrix) ⭐⭐⭐⭐⭐
+
+(ej_b2_c06_27)=
+## Ejercicio 2.06.27 - Matriz Dispersa (Sparse Matrix) ⭐⭐⭐⭐⭐
 
 Implementá matriz dispersa con lista de triplas (fila, col, valor).
 
@@ -594,8 +617,9 @@ typedef struct
 - Búsqueda lineal o binaria para acceso
 
 ---
-(ejercicio_17_28)=
-## Ejercicio 17.28 - Buffer Circular Dinámico ⭐⭐⭐⭐⭐
+
+(ej_b2_c06_28)=
+## Ejercicio 2.06.28 - Buffer Circular Dinámico ⭐⭐⭐⭐⭐
 
 Implementá buffer circular con redimensionamiento.
 
@@ -631,8 +655,9 @@ void redimensionar_buffer(buffer_circular_t *b)
 <!-- {code-block} c -->
 
 ---
-(ejercicio_17_29)=
-## Ejercicio 17.29 - Punteros a Punteros para Modificar ⭐⭐⭐⭐☆
+
+(ej_b2_c06_29)=
+## Ejercicio 2.06.29 - Punteros a Punteros para Modificar ⭐⭐⭐⭐☆
 
 Implementá función que modifica puntero pasado como argumento.
 
@@ -654,8 +679,9 @@ insertar_inicio(&lista, 42); // Pasa dirección del puntero
 <!-- {code-block} c -->
 
 ---
-(ejercicio_17_30)=
-## Ejercicio 17.30 - Array 3D Dinámico ⭐⭐⭐⭐⭐
+
+(ej_b2_c06_30)=
+## Ejercicio 2.06.30 - Array 3D Dinámico ⭐⭐⭐⭐⭐
 
 Creá array tridimensional dinámico.
 
@@ -692,8 +718,9 @@ void liberar_array_3d(int ***arr, int x, int y)
 <!-- {code-block} c -->
 
 ---
-(ejercicio_17_31)=
-## Ejercicio 17.31 - Pool de Objetos ⭐⭐⭐⭐⭐
+
+(ej_b2_c06_31)=
+## Ejercicio 2.06.31 - Pool de Objetos ⭐⭐⭐⭐⭐
 
 Implementá pool de objetos para evitar malloc/free frecuentes.
 
@@ -723,8 +750,9 @@ void pool_free(pool_t *p, void *obj)
 <!-- {code-block} c -->
 
 ---
-(ejercicio_17_32)=
-## Ejercicio 17.32 - Reference Counting ⭐⭐⭐⭐⭐
+
+(ej_b2_c06_32)=
+## Ejercicio 2.06.32 - Reference Counting ⭐⭐⭐⭐⭐
 
 Implementá sistema de conteo de referencias para compartir datos.
 
@@ -760,8 +788,9 @@ void decrementar_ref(ref_counted_t *r, void (*destruir)(void *))
 <!-- {code-block} c -->
 
 ---
-(ejercicio_17_33)=
-## Ejercicio 17.33 - Sistema de Memoria con Debug ⭐⭐⭐⭐⭐
+
+(ej_b2_c06_33)=
+## Ejercicio 2.06.33 - Sistema de Memoria con Debug ⭐⭐⭐⭐⭐
 
 Implementá wrapper de malloc/free que registre asignaciones.
 

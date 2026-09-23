@@ -21,11 +21,12 @@ en C.
   todas las ramas de control de errores.
 - **Validación de buffer:** Evitá desbordamientos de buffer pasando siempre la
   capacidad límite al leer flujos con `fgets`.
-(ejercicio_13_1)=
-## Ejercicio 13.1 - s Propuestos ⭐⭐☆☆☆
 
-(ejercicio_13_2)=
-### Ejercicio 13.2 - b.1 - Escribir un diario personal ⭐⭐☆☆☆
+(ej_b2_c04b_01)=
+## Ejercicio 2.04b.01 - s Propuestos ⭐⭐☆☆☆
+
+(ej_b2_c04b_02)=
+### Ejercicio 2.04b.02 - b.1 - Escribir un diario personal ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ejercicio_archivos_1
@@ -122,8 +123,9 @@ int main(void)
 
 ::::
 <!-- {solution} ejercicio_archivos_1 -->
-(ejercicio_13_3)=
-### Ejercicio 13.3 - b.2 - Contador de líneas ⭐⭐⭐☆☆
+
+(ej_b2_c04b_03)=
+### Ejercicio 2.04b.03 - b.2 - Contador de líneas ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ejercicio_archivos_2
@@ -225,8 +227,9 @@ int main(void)
 
 ::::
 <!-- {solution} ejercicio_archivos_2 -->
-(ejercicio_13_4)=
-### Ejercicio 13.4 - b.3 - Copiar un archivo de texto ⭐⭐☆☆☆
+
+(ej_b2_c04b_04)=
+### Ejercicio 2.04b.04 - b.3 - Copiar un archivo de texto ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ejercicio_archivos_3
@@ -353,8 +356,9 @@ int main(void)
 
 ::::
 <!-- {solution} ejercicio_archivos_3 -->
-(ejercicio_13_5)=
-### Ejercicio 13.5 - b.4 - Registrar eventos en un log ⭐⭐☆☆☆
+
+(ej_b2_c04b_05)=
+### Ejercicio 2.04b.05 - b.4 - Registrar eventos en un log ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ejercicio_archivos_4
@@ -444,8 +448,9 @@ int main(void)
 
 ::::
 <!-- {solution} ejercicio_archivos_4 -->
-(ejercicio_13_6)=
-### Ejercicio 13.6 - b.5 - Procesar un archivo CSV de ventas ⭐⭐☆☆☆
+
+(ej_b2_c04b_06)=
+### Ejercicio 2.04b.06 - b.5 - Procesar un archivo CSV de ventas ⭐⭐☆☆☆
 
 :::::{exercise}
 :label: ejercicio_archivos_5
@@ -583,8 +588,9 @@ int main(void)
 
 ::::
 <!-- {solution} ejercicio_archivos_5 -->
-(ejercicio_13_7)=
-### Ejercicio 13.7 - b.6 - Inversión de archivo ⭐⭐☆☆☆
+
+(ej_b2_c04b_07)=
+### Ejercicio 2.04b.07 - b.6 - Inversión de archivo ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ejercicio_archivos_6

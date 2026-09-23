@@ -15,8 +15,9 @@ capítulo del apunte:
 - [Alias de tipos](../../apunte/bloque_2_memoria/10_alias_tipos.md)
 
 ## Definición de Alias de Tipos
-(ejercicio_19_1)=
-### Ejercicio 19.1 - Días de la semana ⭐⭐☆☆☆
+
+(ej_b2_c10_01)=
+### Ejercicio 2.10.01 - Días de la semana ⭐⭐☆☆☆
 
 :::{exercise}
 :label: enum_basico

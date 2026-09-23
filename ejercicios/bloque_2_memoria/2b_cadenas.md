@@ -21,8 +21,9 @@ capítulo del apunte:
   Arreglos](../../apunte/bloque_2_memoria/3_secuencias.md)
 
 ## Análisis de Cadenas
-(ejercicio_11_1)=
-### Ejercicio 11.1 - b.1 - Contar vocales ⭐⭐☆☆☆
+
+(ej_b2_c03b_01)=
+### Ejercicio 2.03b.01 - b.1 - Contar vocales ⭐⭐☆☆☆
 
 #### Descripción
 Escribir una función que cuente el número total de vocales (a, e, i, o, u) en
@@ -70,8 +71,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_2)=
-### Ejercicio 11.2 - b.2 - Contabilizador de caracteres ⭐⭐☆☆☆
+
+(ej_b2_c03b_02)=
+### Ejercicio 2.03b.02 - b.2 - Contabilizador de caracteres ⭐⭐☆☆☆
 
 #### Descripción
 Implementar una función que calcule la frecuencia de aparición de cada carácter
@@ -124,8 +126,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_3)=
-### Ejercicio 11.3 - b.3 - ¿Es un número válido? ⭐⭐☆☆☆
+
+(ej_b2_c03b_03)=
+### Ejercicio 2.03b.03 - b.3 - ¿Es un número válido? ⭐⭐☆☆☆
 
 #### Descripción
 Desarrollar una función que verifique si una cadena de texto representa un
@@ -189,8 +192,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_4)=
-### Ejercicio 11.4 - b.4 - ¿Es alfabética? ⭐⭐☆☆☆
+
+(ej_b2_c03b_04)=
+### Ejercicio 2.03b.04 - b.4 - ¿Es alfabética? ⭐⭐☆☆☆
 
 #### Descripción
 Crear una función que determine si una cadena contiene únicamente caracteres
@@ -230,8 +234,9 @@ FIN FUNCION
 <!-- {tip} Ayuda (pseudocódigo) -->
 
 ## Propiedades de Cadenas
-(ejercicio_11_5)=
-### Ejercicio 11.5 - b.5 - Palíndromo ⭐⭐☆☆☆
+
+(ej_b2_c03b_05)=
+### Ejercicio 2.03b.05 - b.5 - Palíndromo ⭐⭐☆☆☆
 
 #### Descripción
 Implementar una función que verifique si una cadena es un palíndromo, es decir,
@@ -292,8 +297,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_6)=
-### Ejercicio 11.6 - b.6 - Anagrama ⭐⭐☆☆☆
+
+(ej_b2_c03b_06)=
+### Ejercicio 2.03b.06 - b.6 - Anagrama ⭐⭐☆☆☆
 
 #### Descripción
 Escribir una función que determine si una cadena es un anagrama de otra (es
@@ -349,8 +355,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_7)=
-### Ejercicio 11.7 - b.7 - Pangrama ⭐⭐☆☆☆
+
+(ej_b2_c03b_07)=
+### Ejercicio 2.03b.07 - b.7 - Pangrama ⭐⭐☆☆☆
 
 #### Descripción
 Verificar si una cadena es un pangrama, es decir, si contiene todas las letras
@@ -401,8 +408,9 @@ FIN FUNCION
 <!-- {tip} Ayuda (pseudocódigo) -->
 
 ## Manipulación y Transformación
-(ejercicio_11_8)=
-### Ejercicio 11.8 - b.8 - Tokenización ⭐⭐☆☆☆
+
+(ej_b2_c03b_08)=
+### Ejercicio 2.03b.08 - b.8 - Tokenización ⭐⭐☆☆☆
 
 #### Descripción
 Dividir una cadena en una secuencia de "tokens" (subcadenas) basándose en un
@@ -458,8 +466,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_9)=
-### Ejercicio 11.9 - b.9 - Compresión RLE (Run-Length Encoding) ⭐⭐☆☆☆
+
+(ej_b2_c03b_09)=
+### Ejercicio 2.03b.09 - b.9 - Compresión RLE (Run-Length Encoding) ⭐⭐☆☆☆
 
 #### Descripción
 Implementar una forma simple de compresión de cadenas llamada Run-Length
@@ -505,8 +514,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_10)=
-### Ejercicio 11.10 - b.10 - Desduplicador ⭐⭐☆☆☆
+
+(ej_b2_c03b_10)=
+### Ejercicio 2.03b.10 - b.10 - Desduplicador ⭐⭐☆☆☆
 
 #### Descripción
 Escribir una función que elimine los caracteres duplicados de una cadena,
@@ -563,8 +573,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_11)=
-### Ejercicio 11.11 - b.11 - Número a cadena con formato ⭐⭐⭐☆☆
+
+(ej_b2_c03b_11)=
+### Ejercicio 2.03b.11 - b.11 - Número a cadena con formato ⭐⭐⭐☆☆
 
 #### Descripción
 Transformar un número entero largo en una cadena de texto, insertando
@@ -614,8 +625,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_12)=
-### Ejercicio 11.12 - b.12 - Búsqueda de subcadena ⭐⭐⭐☆☆
+
+(ej_b2_c03b_12)=
+### Ejercicio 2.03b.12 - b.12 - Búsqueda de subcadena ⭐⭐⭐☆☆
 
 #### Descripción
 Implementar una función que busque la primera ocurrencia de una subcadena
@@ -668,8 +680,9 @@ FIN FUNCION
 <!-- {tip} Ayuda (pseudocódigo) -->
 
 ## Conversión de Base Numérica
-(ejercicio_11_13)=
-### Ejercicio 11.13 - b.13 - Binario a decimal ⭐⭐⭐⭐☆
+
+(ej_b2_c03b_13)=
+### Ejercicio 2.03b.13 - b.13 - Binario a decimal ⭐⭐⭐⭐☆
 
 #### Descripción
 Convertir una cadena que representa un número en formato binario (compuesta de
@@ -704,8 +717,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_14)=
-### Ejercicio 11.14 - b.14 - Hexadecimal a decimal ⭐⭐☆☆☆
+
+(ej_b2_c03b_14)=
+### Ejercicio 2.03b.14 - b.14 - Hexadecimal a decimal ⭐⭐☆☆☆
 
 #### Descripción
 Convertir una cadena que representa un número en formato hexadecimal (dígitos
@@ -748,8 +762,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_15)=
-### Ejercicio 11.15 - b.15 - Decimal a binario ⭐⭐⭐⭐☆
+
+(ej_b2_c03b_15)=
+### Ejercicio 2.03b.15 - b.15 - Decimal a binario ⭐⭐⭐⭐☆
 
 #### Descripción
 Convertir un número entero decimal a su representación en una cadena de texto
@@ -792,8 +807,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_16)=
-### Ejercicio 11.16 - b.16 - Decimal a hexadecimal ⭐⭐☆☆☆
+
+(ej_b2_c03b_16)=
+### Ejercicio 2.03b.16 - b.16 - Decimal a hexadecimal ⭐⭐☆☆☆
 
 #### Descripción
 Convertir un número entero decimal a su representación en una cadena de texto
@@ -836,8 +852,9 @@ FIN FUNCION
 <!-- {tip} Ayuda (pseudocódigo) -->
 
 ## Más Ejercicios de Cadenas
-(ejercicio_11_17)=
-### Ejercicio 11.17 - b.17 - Invertir palabras en una frase ⭐⭐☆☆☆
+
+(ej_b2_c03b_17)=
+### Ejercicio 2.03b.17 - b.17 - Invertir palabras en una frase ⭐⭐☆☆☆
 
 #### Descripción
 Escribir una función que tome una frase y la modifique de tal manera que cada
@@ -890,8 +907,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_18)=
-### Ejercicio 11.18 - b.18 - Invertir orden de las palabras ⭐⭐☆☆☆
+
+(ej_b2_c03b_18)=
+### Ejercicio 2.03b.18 - b.18 - Invertir orden de las palabras ⭐⭐☆☆☆
 
 #### Descripción
 Escribir una función que invierta el orden de las palabras en una frase. Por
@@ -926,8 +944,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_19)=
-### Ejercicio 11.19 - b.19 - Capitalización (Title Case) ⭐⭐⭐⭐☆
+
+(ej_b2_c03b_19)=
+### Ejercicio 2.03b.19 - b.19 - Capitalización (Title Case) ⭐⭐⭐⭐☆
 
 #### Descripción
 Implementar una función que convierta una cadena a "Title Case", donde la
@@ -967,8 +986,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_20)=
-### Ejercicio 11.20 - b.20 - Contar palabras ⭐⭐☆☆☆
+
+(ej_b2_c03b_20)=
+### Ejercicio 2.03b.20 - b.20 - Contar palabras ⭐⭐☆☆☆
 
 #### Descripción
 Desarrollar una función que cuente el número de palabras en una cadena. Se puede
@@ -1017,8 +1037,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_21)=
-### Ejercicio 11.21 - b.21 - Eliminar espacios extra ⭐⭐☆☆☆
+
+(ej_b2_c03b_21)=
+### Ejercicio 2.03b.21 - b.21 - Eliminar espacios extra ⭐⭐☆☆☆
 
 #### Descripción
 Crear una función que elimine los espacios en blanco redundantes de una cadena:
@@ -1069,8 +1090,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_22)=
-### Ejercicio 11.22 - b.22 - Recorte de cadena (Trim) ⭐⭐⭐☆☆
+
+(ej_b2_c03b_22)=
+### Ejercicio 2.03b.22 - b.22 - Recorte de cadena (Trim) ⭐⭐⭐☆☆
 
 #### Descripción
 Implementar una función `trim` que modifique una cadena para eliminar todos los
@@ -1126,8 +1148,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_23)=
-### Ejercicio 11.23 - b.23 - Reemplazar subcadena ⭐⭐⭐☆☆
+
+(ej_b2_c03b_23)=
+### Ejercicio 2.03b.23 - b.23 - Reemplazar subcadena ⭐⭐⭐☆☆
 
 #### Descripción
 Escribir una función que reemplace todas las ocurrencias de una subcadena por
@@ -1177,8 +1200,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_24)=
-### Ejercicio 11.24 - b.24 - Validación de email (Simple) ⭐☆☆☆☆
+
+(ej_b2_c03b_24)=
+### Ejercicio 2.03b.24 - b.24 - Validación de email (Simple) ⭐☆☆☆☆
 
 #### Descripción
 Crear una función que verifique si una cadena tiene un formato de correo
@@ -1225,8 +1249,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_25)=
-### Ejercicio 11.25 - b.25 - Cifrado César ⭐⭐☆☆☆
+
+(ej_b2_c03b_25)=
+### Ejercicio 2.03b.25 - b.25 - Cifrado César ⭐⭐☆☆☆
 
 #### Descripción
 Implementar el Cifrado César, un tipo de cifrado por sustitución en el que cada
@@ -1274,8 +1299,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_26)=
-### Ejercicio 11.26 - b.26 - Descifrado César ⭐⭐☆☆☆
+
+(ej_b2_c03b_26)=
+### Ejercicio 2.03b.26 - b.26 - Descifrado César ⭐⭐☆☆☆
 
 #### Descripción
 Escribir la función complementaria que descifre un mensaje cifrado con el
@@ -1305,8 +1331,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_27)=
-### Ejercicio 11.27 - b.27 - Encontrar el carácter más frecuente ⭐⭐☆☆☆
+
+(ej_b2_c03b_27)=
+### Ejercicio 2.03b.27 - b.27 - Encontrar el carácter más frecuente ⭐⭐☆☆☆
 
 #### Descripción
 Desarrollar una función que encuentre y devuelva el carácter que aparece con más
@@ -1351,8 +1378,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_28)=
-### Ejercicio 11.28 - b.28 - Comparación de cadenas (Ignorando mayúsculas) ⭐⭐⭐☆☆
+
+(ej_b2_c03b_28)=
+### Ejercicio 2.03b.28 - b.28 - Comparación de cadenas (Ignorando mayúsculas) ⭐⭐⭐☆☆
 
 #### Descripción
 Implementar su propia versión de la función `strcasecmp`, que compara dos
@@ -1393,8 +1421,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_29)=
-### Ejercicio 11.29 - b.29 - Extraer subcadena ⭐⭐⭐☆☆
+
+(ej_b2_c03b_29)=
+### Ejercicio 2.03b.29 - b.29 - Extraer subcadena ⭐⭐⭐☆☆
 
 #### Descripción
 Crear una función que extraiga una porción de una cadena. La función debe
@@ -1433,8 +1462,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_30)=
-### Ejercicio 11.30 - b.30 - Justificar texto (Simple) ⭐☆☆☆☆
+
+(ej_b2_c03b_30)=
+### Ejercicio 2.03b.30 - b.30 - Justificar texto (Simple) ⭐☆☆☆☆
 
 #### Descripción
 Implementar una función que justifique una línea de texto a un ancho específico,
@@ -1475,8 +1505,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_31)=
-### Ejercicio 11.31 - b.31 - Acrónimo ⭐⭐☆☆☆
+
+(ej_b2_c03b_31)=
+### Ejercicio 2.03b.31 - b.31 - Acrónimo ⭐⭐☆☆☆
 
 #### Descripción
 Escribir una función que genere un acrónimo a partir de una frase, tomando la
@@ -1524,8 +1555,9 @@ FIN FUNCION
 <!-- {tip} Ayuda (pseudocódigo) -->
 
 ## Cadenas y Algoritmos
-(ejercicio_11_32)=
-### Ejercicio 11.32 - b.32 - Distancia de Hamming ⭐⭐☆☆☆
+
+(ej_b2_c03b_32)=
+### Ejercicio 2.03b.32 - b.32 - Distancia de Hamming ⭐⭐☆☆☆
 
 #### Descripción
 Implementar una función que calcule la distancia de Hamming entre dos cadenas de
@@ -1568,8 +1600,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_33)=
-### Ejercicio 11.33 - b.33 - Subsecuencia común más larga (LCS) ⭐⭐☆☆☆
+
+(ej_b2_c03b_33)=
+### Ejercicio 2.03b.33 - b.33 - Subsecuencia común más larga (LCS) ⭐⭐☆☆☆
 
 #### Descripción
 Escribir una función que encuentre la longitud de la subsecuencia común más
@@ -1608,8 +1641,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_34)=
-### Ejercicio 11.34 - b.34 - Validación de IP simple ⭐☆☆☆☆
+
+(ej_b2_c03b_34)=
+### Ejercicio 2.03b.34 - b.34 - Validación de IP simple ⭐☆☆☆☆
 
 #### Descripción
 Crear una función que verifique si una cadena representa una dirección IPv4
@@ -1653,8 +1687,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_35)=
-### Ejercicio 11.35 - b.35 - Convertir a `snake_case` ⭐⭐☆☆☆
+
+(ej_b2_c03b_35)=
+### Ejercicio 2.03b.35 - b.35 - Convertir a `snake_case` ⭐⭐☆☆☆
 
 #### Descripción
 Implementar una función que convierta una cadena en `camelCase` o `PascalCase` a
@@ -1695,8 +1730,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_36)=
-### Ejercicio 11.36 - b.36 - Convertir a `camelCase` ⭐⭐☆☆☆
+
+(ej_b2_c03b_36)=
+### Ejercicio 2.03b.36 - b.36 - Convertir a `camelCase` ⭐⭐☆☆☆
 
 #### Descripción
 Implementar una función que convierta una cadena en `snake_case` a `camelCase`.
@@ -1745,8 +1781,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_37)=
-### Ejercicio 11.37 - b.37 - Rotación de cadena ⭐⭐⭐☆☆
+
+(ej_b2_c03b_37)=
+### Ejercicio 2.03b.37 - b.37 - Rotación de cadena ⭐⭐⭐☆☆
 
 #### Descripción
 Escribir una función que determine si una cadena `s2` es una rotación de otra
@@ -1786,8 +1823,9 @@ INICIO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_38)=
-### Ejercicio 11.38 - b.38 - Eliminar comentarios ⭐⭐☆☆☆
+
+(ej_b2_c03b_38)=
+### Ejercicio 2.03b.38 - b.38 - Eliminar comentarios ⭐⭐☆☆☆
 
 #### Descripción
 Crear una función que reciba una cadena (que puede representar una o más líneas
@@ -1836,8 +1874,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_39)=
-### Ejercicio 11.39 - b.39 - Análisis de URL simple ⭐☆☆☆☆
+
+(ej_b2_c03b_39)=
+### Ejercicio 2.03b.39 - b.39 - Análisis de URL simple ⭐☆☆☆☆
 
 #### Descripción
 Dada una URL en formato de cadena, escribir una función que la analice y
@@ -1870,8 +1909,9 @@ FIN PROCEDIMIENTO
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_40)=
-### Ejercicio 11.40 - b.40 - Generador de "Slugs" ⭐⭐☆☆☆
+
+(ej_b2_c03b_40)=
+### Ejercicio 2.03b.40 - b.40 - Generador de "Slugs" ⭐⭐☆☆☆
 
 #### Descripción
 Un "slug" es una versión de una cadena amigable para URLs. Escribir una función
@@ -1916,8 +1956,9 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
-(ejercicio_11_41)=
-### Ejercicio 11.41 - b.41 - Primer carácter no repetido ⭐⭐☆☆☆
+
+(ej_b2_c03b_41)=
+### Ejercicio 2.03b.41 - b.41 - Primer carácter no repetido ⭐⭐☆☆☆
 
 #### Descripción
 Implementar una función que encuentre y devuelva el primer carácter en una

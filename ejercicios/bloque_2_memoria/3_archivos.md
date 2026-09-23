@@ -43,8 +43,9 @@ total de números que le siguen.
 ```
 <!-- {code-block} text -->
 En este ejemplo, el `5` inicial indica que hay 5 números a continuación.
-(ejercicio_12_1)=
-### Ejercicio 12.1 - ¿Es correcto el formato? ⭐⭐☆☆☆
+
+(ej_b2_c04_01)=
+### Ejercicio 2.04.01 - ¿Es correcto el formato? ⭐⭐☆☆☆
 
 Desarrollar una función `bool es_formato_correcto(const char *ruta)`.
 
@@ -52,8 +53,8 @@ Desarrollar una función `bool es_formato_correcto(const char *ruta)`.
 iterar con `fgets` o `fscanf` contando las líneas restantes. Finalmente,
 comparar la cuenta real con la esperada.
 
-(ejercicio_12_2)=
-### Ejercicio 12.2 - ¿Está ordenado? ⭐⭐☆☆☆
+(ej_b2_c04_02)=
+### Ejercicio 2.04.02 - ¿Está ordenado? ⭐⭐☆☆☆
 
 Implementar `int verificar_orden(const char *ruta)`.
 
@@ -64,8 +65,9 @@ descendente o desordenada.
 ---
 
 ## Manipulación de Archivos
-(ejercicio_12_3)=
-### Ejercicio 12.3 - Ordenar archivo ⭐⭐☆☆☆
+
+(ej_b2_c04_03)=
+### Ejercicio 2.04.03 - Ordenar archivo ⭐⭐☆☆☆
 
 Un programa que lea los números de un archivo a un arreglo, ordene el arreglo en
 memoria y luego escriba el contenido ordenado a un nuevo archivo, respetando el
@@ -74,8 +76,8 @@ formato.
 **Ejemplo de uso:**
 `./ordena_archivo entrada.txt salida_ordenada.txt asc`
 
-(ejercicio_12_4)=
-### Ejercicio 12.4 - Generador lineal ⭐⭐☆☆☆
+(ej_b2_c04_04)=
+### Ejercicio 2.04.04 - Generador lineal ⭐⭐☆☆☆
 
 Implementar `generar_lineal(ruta, cantidad, inicio, paso)`.
 
@@ -92,8 +94,9 @@ Implementar `generar_lineal(ruta, cantidad, inicio, paso)`.
 
 ```
 <!-- {code-block} text -->
-(ejercicio_12_5)=
-### Ejercicio 12.5 - Generador aleatorio ⭐⭐☆☆☆
+
+(ej_b2_c04_05)=
+### Ejercicio 2.04.05 - Generador aleatorio ⭐⭐☆☆☆
 
 Implementar `generar_aleatorio(ruta, cantidad, min, max)`.
 
@@ -103,57 +106,58 @@ Implementar `generar_aleatorio(ruta, cantidad, min, max)`.
 ---
 
 ## Operaciones Avanzadas
-(ejercicio_12_6)=
-### Ejercicio 12.6 - Contar Líneas, Palabras y Caracteres ⭐⭐☆☆☆
+
+(ej_b2_c04_06)=
+### Ejercicio 2.04.06 - Contar Líneas, Palabras y Caracteres ⭐⭐☆☆☆
 
 Implementar una versión simple del comando `wc` de Unix. El programa debe
 recibir una ruta de archivo y reportar el número total de líneas, palabras y
 caracteres que contiene.
 
-(ejercicio_12_7)=
-### Ejercicio 12.7 - Copiar Archivo ⭐⭐☆☆☆
+(ej_b2_c04_07)=
+### Ejercicio 2.04.07 - Copiar Archivo ⭐⭐☆☆☆
 
 Crear un programa que copie el contenido de un archivo de origen a un archivo de
 destino. El programa debe recibir ambas rutas como argumentos. Se puede hacer
 leyendo y escribiendo línea por línea o en bloques de bytes.
 
-(ejercicio_12_8)=
-### Ejercicio 12.8 - Buscar y Reemplazar en Archivo ⭐⭐☆☆☆
+(ej_b2_c04_08)=
+### Ejercicio 2.04.08 - Buscar y Reemplazar en Archivo ⭐⭐☆☆☆
 
 Escribir un programa que busque todas las ocurrencias de una cadena en un
 archivo y las reemplace por otra, guardando el resultado en un nuevo archivo de
 salida.
 
-(ejercicio_12_9)=
-### Ejercicio 12.9 - Comparar Archivos ⭐⭐⭐☆☆
+(ej_b2_c04_09)=
+### Ejercicio 2.04.09 - Comparar Archivos ⭐⭐⭐☆☆
 
 Implementar un programa que compare dos archivos de texto e indique si son
 idénticos o no. Opcionalmente, puede reportar la primera línea y número de
 columna donde difieren.
 
-(ejercicio_12_10)=
-### Ejercicio 12.10 - Fusionar Archivos ⭐⭐⭐☆☆
+(ej_b2_c04_10)=
+### Ejercicio 2.04.10 - Fusionar Archivos ⭐⭐⭐☆☆
 
 Crear un programa que reciba dos rutas de archivo y fusione su contenido en un
 tercer archivo. El contenido del segundo archivo debe aparecer después del
 contenido del primero.
 
-(ejercicio_12_11)=
-### Ejercicio 12.11 - Dividir Archivo Grande ⭐⭐☆☆☆
+(ej_b2_c04_11)=
+### Ejercicio 2.04.11 - Dividir Archivo Grande ⭐⭐☆☆☆
 
 Escribir un programa que divida un archivo de texto grande en varios archivos
 más pequeños, cada uno con un número máximo de $N$ líneas. Los nombres de los
 archivos de salida pueden ser `parte_1.txt`, `parte_2.txt`, etc.
 
-(ejercicio_12_12)=
-### Ejercicio 12.12 - Archivos CSV - Promedio de Columna ⭐⭐⭐☆☆
+(ej_b2_c04_12)=
+### Ejercicio 2.04.12 - Archivos CSV - Promedio de Columna ⭐⭐⭐☆☆
 
 Leer un archivo en formato CSV (valores separados por comas) que contiene datos
 de estudiantes (ej. `nombre,nota1,nota2`). Calcular el promedio de una columna
 numérica específica (ej. la segunda columna de notas) e imprimir el resultado.
 
-(ejercicio_12_13)=
-## Ejercicio 12.13 - Crear Archivo de Texto ⭐☆☆☆☆
+(ej_b2_c04_13)=
+## Ejercicio 2.04.13 - Crear Archivo de Texto ⭐☆☆☆☆
 
 Creá un archivo de texto y escribí "Hola, archivo!" en él.
 
@@ -164,8 +168,9 @@ Creá un archivo de texto y escribí "Hola, archivo!" en él.
 - Cerrá: `fclose(fp);`
 
 ---
-(ejercicio_12_14)=
-## Ejercicio 12.14 - Leer Archivo Completo ⭐☆☆☆☆
+
+(ej_b2_c04_14)=
+## Ejercicio 2.04.14 - Leer Archivo Completo ⭐☆☆☆☆
 
 Leé y mostrá todo el contenido de un archivo de texto.
 
@@ -176,8 +181,9 @@ Leé y mostrá todo el contenido de un archivo de texto.
 - Mostrá cada línea en stdout
 
 ---
-(ejercicio_12_15)=
-## Ejercicio 12.15 - Contar Líneas ⭐⭐☆☆☆
+
+(ej_b2_c04_15)=
+## Ejercicio 2.04.15 - Contar Líneas ⭐⭐☆☆☆
 
 Contá cuántas líneas tiene un archivo de texto.
 
@@ -187,8 +193,9 @@ Contá cuántas líneas tiene un archivo de texto.
 - Considerá última línea sin '\n' al final
 
 ---
-(ejercicio_12_16)=
-## Ejercicio 12.16 - Copiar Archivo ⭐⭐☆☆☆
+
+(ej_b2_c04_16)=
+## Ejercicio 2.04.16 - Copiar Archivo ⭐⭐☆☆☆
 
 Copiá el contenido de un archivo a otro.
 
@@ -200,8 +207,9 @@ Copiá el contenido de un archivo a otro.
 - Cerrá ambos archivos
 
 ---
-(ejercicio_12_17)=
-## Ejercicio 12.17 - Contar Palabras ⭐⭐⭐☆☆
+
+(ej_b2_c04_17)=
+## Ejercicio 2.04.17 - Contar Palabras ⭐⭐⭐☆☆
 
 Contá la cantidad de palabras en un archivo de texto.
 
@@ -212,8 +220,9 @@ Contá la cantidad de palabras en un archivo de texto.
 - Usá `isspace()` de `<ctype.h>`
 
 ---
-(ejercicio_12_18)=
-## Ejercicio 12.18 - Agregar al Final ⭐⭐☆☆☆
+
+(ej_b2_c04_18)=
+## Ejercicio 2.04.18 - Agregar al Final ⭐⭐☆☆☆
 
 Agregá texto al final de un archivo existente sin sobrescribir.
 
@@ -224,8 +233,9 @@ Agregá texto al final de un archivo existente sin sobrescribir.
 - Si el archivo no existe, se crea
 
 ---
-(ejercicio_12_19)=
-## Ejercicio 12.19 - Buscar Palabra ⭐⭐⭐☆☆
+
+(ej_b2_c04_19)=
+## Ejercicio 2.04.19 - Buscar Palabra ⭐⭐⭐☆☆
 
 Buscá si una palabra específica existe en un archivo y mostrá la línea.
 
@@ -236,8 +246,9 @@ Buscá si una palabra específica existe en un archivo y mostrá la línea.
 - Mostrá número de línea y contenido
 
 ---
-(ejercicio_12_20)=
-## Ejercicio 12.20 - Estadísticas de Archivo ⭐⭐⭐☆☆
+
+(ej_b2_c04_20)=
+## Ejercicio 2.04.20 - Estadísticas de Archivo ⭐⭐⭐☆☆
 
 Calculá: líneas, palabras, caracteres y bytes de un archivo.
 
@@ -248,8 +259,9 @@ Calculá: líneas, palabras, caracteres y bytes de un archivo.
 - Para bytes: `ftell(fp)` al final, o contar en lectura
 
 ---
-(ejercicio_12_21)=
-## Ejercicio 12.21 - Invertir Líneas ⭐⭐⭐⭐☆
+
+(ej_b2_c04_21)=
+## Ejercicio 2.04.21 - Invertir Líneas ⭐⭐⭐⭐☆
 
 Leé un archivo y escribí sus líneas en orden inverso en otro archivo.
 
@@ -259,8 +271,9 @@ Leé un archivo y escribí sus líneas en orden inverso en otro archivo.
 - Recordá liberar memoria dinámica
 
 ---
-(ejercicio_12_22)=
-## Ejercicio 12.22 - Archivo CSV a Struct ⭐⭐⭐⭐☆
+
+(ej_b2_c04_22)=
+## Ejercicio 2.04.22 - Archivo CSV a Struct ⭐⭐⭐⭐☆
 
 Leé un archivo CSV con datos de personas y cargá en array de estructuras.
 
@@ -279,8 +292,9 @@ Maria,Gomez,30
 - Almacená en array
 
 ---
-(ejercicio_12_23)=
-## Ejercicio 12.23 - Merge de Archivos Ordenados ⭐⭐⭐⭐☆
+
+(ej_b2_c04_23)=
+## Ejercicio 2.04.23 - Merge de Archivos Ordenados ⭐⭐⭐⭐☆
 
 Dados dos archivos con números ordenados, generá un tercer archivo con todos
 ordenados.
@@ -293,8 +307,9 @@ ordenados.
 - Cuando uno se acabe, copiá el resto del otro
 
 ---
-(ejercicio_12_24)=
-## Ejercicio 12.24 - Reemplazar Palabra ⭐⭐⭐⭐☆
+
+(ej_b2_c04_24)=
+## Ejercicio 2.04.24 - Reemplazar Palabra ⭐⭐⭐⭐☆
 
 Reemplazá todas las ocurrencias de una palabra por otra en un archivo.
 
@@ -306,8 +321,9 @@ Reemplazá todas las ocurrencias de una palabra por otra en un archivo.
 - Al final: renombrá temporal al original
 
 ---
-(ejercicio_12_25)=
-## Ejercicio 12.25 - Archivo Binario - Escribir Enteros ⭐⭐⭐☆☆
+
+(ej_b2_c04_25)=
+## Ejercicio 2.04.25 - Archivo Binario - Escribir Enteros ⭐⭐⭐☆☆
 
 Escribí un array de enteros en un archivo binario.
 
@@ -317,8 +333,9 @@ Escribí un array de enteros en un archivo binario.
 - Verificá cantidad escrita: `size_t escritos = fwrite(...)`
 
 ---
-(ejercicio_12_26)=
-## Ejercicio 12.26 - Archivo Binario - Leer Enteros ⭐⭐⭐☆☆
+
+(ej_b2_c04_26)=
+## Ejercicio 2.04.26 - Archivo Binario - Leer Enteros ⭐⭐⭐☆☆
 
 Leé enteros de un archivo binario y mostralos.
 
@@ -328,8 +345,9 @@ Leé enteros de un archivo binario y mostralos.
 - Leé hasta EOF: `while (fread(&num, sizeof(int), 1, fp) == 1)`
 
 ---
-(ejercicio_12_27)=
-## Ejercicio 12.27 - Archivo Binario de Estructuras ⭐⭐⭐⭐☆
+
+(ej_b2_c04_27)=
+## Ejercicio 2.04.27 - Archivo Binario de Estructuras ⭐⭐⭐⭐☆
 
 Guardá y leé array de estructuras en archivo binario.
 
@@ -340,8 +358,9 @@ Guardá y leé array de estructuras en archivo binario.
 - **Cuidado:** Punteros dentro de structs no se serializan bien
 
 ---
-(ejercicio_12_28)=
-## Ejercicio 12.28 - Acceso Aleatorio ⭐⭐⭐⭐☆
+
+(ej_b2_c04_28)=
+## Ejercicio 2.04.28 - Acceso Aleatorio ⭐⭐⭐⭐☆
 
 Implementá CRUD (Create, Read, Update, Delete) sobre archivo binario de
 registros.
@@ -353,8 +372,9 @@ registros.
 - Marcá registros eliminados con flag en lugar de borrar físicamente
 
 ---
-(ejercicio_12_29)=
-## Ejercicio 12.29 - Log de Eventos ⭐⭐⭐⭐☆
+
+(ej_b2_c04_29)=
+## Ejercicio 2.04.29 - Log de Eventos ⭐⭐⭐⭐☆
 
 Implementá sistema de logging que agregue eventos con timestamp a un archivo.
 
@@ -366,8 +386,9 @@ Implementá sistema de logging que agregue eventos con timestamp a un archivo.
 - Función: `void log_evento(const char *nivel, const char *msg)`
 
 ---
-(ejercicio_12_30)=
-## Ejercicio 12.30 - Compresión RLE Simple ⭐⭐⭐⭐⭐
+
+(ej_b2_c04_30)=
+## Ejercicio 2.04.30 - Compresión RLE Simple ⭐⭐⭐⭐⭐
 
 Implementá compresión Run-Length Encoding: caracteres repetidos se almacenan
 como `<contador><carácter>`.
@@ -381,8 +402,9 @@ como `<contador><carácter>`.
 - Descompresión: leé contador, repetí carácter esas veces
 
 ---
-(ejercicio_12_31)=
-## Ejercicio 12.31 - Índice de Archivo ⭐⭐⭐⭐⭐
+
+(ej_b2_c04_31)=
+## Ejercicio 2.04.31 - Índice de Archivo ⭐⭐⭐⭐⭐
 
 Creá un índice de palabras con sus posiciones (número de línea) en el archivo.
 
@@ -393,8 +415,9 @@ Creá un índice de palabras con sus posiciones (número de línea) en el archiv
 - Escribí índice ordenado en archivo de salida
 
 ---
-(ejercicio_12_32)=
-## Ejercicio 12.32 - Diferencia Entre Archivos (diff simple) ⭐⭐⭐⭐⭐
+
+(ej_b2_c04_32)=
+## Ejercicio 2.04.32 - Diferencia Entre Archivos (diff simple) ⭐⭐⭐⭐⭐
 
 Implementá versión simple de `diff`: mostrá líneas diferentes entre dos
 archivos.
@@ -407,11 +430,12 @@ archivos.
 - Manejá archivos de diferente longitud
 
 ---
-(ejercicio_12_33)=
-## Ejercicio 12.33 - s Adicionales ⭐⭐☆☆☆
 
-(ejercicio_12_34)=
-### Ejercicio 12.34 - Cifrado César ⭐⭐⭐⭐☆
+(ej_b2_c04_33)=
+## Ejercicio 2.04.33 - s Adicionales ⭐⭐☆☆☆
+
+(ej_b2_c04_34)=
+### Ejercicio 2.04.34 - Cifrado César ⭐⭐⭐⭐☆
 
 Cifrá/descifrá un archivo usando cifrado César (rotación de N posiciones en
 alfabeto).
@@ -422,8 +446,9 @@ alfabeto).
 - Mantené espacios y puntuación sin cambios
 
 ---
-(ejercicio_12_35)=
-### Ejercicio 12.35 - Archivo de Configuración ⭐⭐⭐⭐☆
+
+(ej_b2_c04_35)=
+### Ejercicio 2.04.35 - Archivo de Configuración ⭐⭐⭐⭐☆
 
 Leé archivo de configuración estilo `clave=valor`.
 
@@ -442,8 +467,9 @@ timeout=30
 - Ignorá líneas vacías y comentarios (empiezan con #)
 
 ---
-(ejercicio_12_36)=
-### Ejercicio 12.36 - Serialización JSON Simple ⭐⭐⭐⭐⭐
+
+(ej_b2_c04_36)=
+### Ejercicio 2.04.36 - Serialización JSON Simple ⭐⭐⭐⭐⭐
 
 Escribí y leé una estructura simple en formato JSON.
 
