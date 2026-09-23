@@ -100,6 +100,9 @@ function extractSolutions(filePath) {
   let codeBuffer = [];
   let codeLang = null;
 
+  let codeFenceChar = null;
+  let codeFenceLength = 0;
+
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
@@ -119,42 +122,62 @@ function extractSolutions(filePath) {
     }
 
     // Delimitador de solución
-    if (line.match(/^:::\s*\{\s*solution\s*\}/) || line.match(/^::::\s*\{\s*solution\s*\}/)) {
+    if (line.match(/^:{3,}\s*\{\s*solution\s*\}/)) {
       inSolution = true;
       continue;
     }
-    if (inSolution && (line.match(/^:::\s*$/) || line.match(/^::::\s*$/))) {
-      inSolution = false;
-      continue;
-    }
 
-    // Bloques de código
-    const codeBlockStart = line.match(/^```+(?:\{code-block\}\s+)?([a-zA-Z0-9_-]+)?/);
-    if (codeBlockStart && !inCodeBlock) {
+    // Bloques de código: ``` o ::: {code-block}
+    const isBacktickFence = line.match(/^`{3,}([a-zA-Z0-9_-]+)?/);
+    const isColonFence = line.match(/^:{3,}\s*\{code-block\}\s*([a-zA-Z0-9_-]+)?/);
+
+    if ((isBacktickFence || isColonFence) && !inCodeBlock) {
       inCodeBlock = true;
-      codeLang = codeBlockStart[1] ? codeBlockStart[1].toLowerCase() : '';
-      codeBuffer = [];
-      continue;
-    }
-
-    if (line.match(/^```+$/) && inCodeBlock) {
-      inCodeBlock = false;
-      const code = codeBuffer.join('\n');
-      
-      // Consideramos solución si está dentro del bloque solution y es C, o si contiene main()
-      const isC = codeLang === 'c' || codeLang === 'cpp' || code.includes('#include <');
-      const hasMain = code.includes('int main(') || code.includes('int main (');
-
-      if ((inSolution && isC && hasMain) || (hasMain && isC)) {
-        solutions.push({
-          anchor: currentAnchor || `unknown_${solutions.length + 1}`,
-          title: currentTitle || 'Sin título',
-          code,
-          lineStart: i - codeBuffer.length
-        });
+      if (isBacktickFence) {
+        codeFenceChar = '`';
+        codeFenceLength = line.match(/^`+/)[0].length;
+        codeLang = isBacktickFence[1] ? isBacktickFence[1].toLowerCase() : '';
+      } else {
+        codeFenceChar = ':';
+        codeFenceLength = line.match(/^:+/)[0].length;
+        codeLang = isColonFence[1] ? isColonFence[1].toLowerCase() : '';
       }
       codeBuffer = [];
-      codeLang = null;
+      continue;
+    }
+
+    // Cierre de bloque de código
+    if (inCodeBlock) {
+      const isFenceClose = line.trim().startsWith(codeFenceChar.repeat(codeFenceLength)) &&
+                           line.trim().length <= codeFenceLength + 1;
+      const isHtmlCommentClose = line.trim().startsWith('<!-- {code-block');
+
+      if (isFenceClose || isHtmlCommentClose) {
+        inCodeBlock = false;
+        codeFenceChar = null;
+        codeFenceLength = 0;
+        const code = codeBuffer.join('\n');
+        
+        const isC = codeLang === 'c' || codeLang === 'cpp' || code.includes('#include <');
+        const hasMain = code.includes('int main(') || code.includes('int main (');
+
+        if ((inSolution && isC && hasMain) || (hasMain && isC)) {
+          solutions.push({
+            anchor: currentAnchor || `unknown_${solutions.length + 1}`,
+            title: currentTitle || 'Sin título',
+            code,
+            lineStart: i - codeBuffer.length
+          });
+        }
+        codeBuffer = [];
+        codeLang = null;
+        continue;
+      }
+    }
+
+    // Cierre de solución
+    if (!inCodeBlock && inSolution && line.match(/^:{3,}\s*$/)) {
+      inSolution = false;
       continue;
     }
 
@@ -193,8 +216,9 @@ function verifySolution(solution, tempDir) {
     };
   }
 
-  // Ejecución
+  // Ejecución aislada en directorio temporal
   const runResult = spawnSync(binFile, [], {
+    cwd: tempDir,
     encoding: 'utf8',
     timeout: 5000
   });
