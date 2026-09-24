@@ -27,6 +27,13 @@ En este bloque de ejercicios vas a diseñar módulos temáticos independientes, 
 - {ref}`capitulo-funciones-descomposicion`
 - [Compilación](../../apunte/bloque_1_fundamentos/5_compilacion.md)
 
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Declaración de prototipos en archivos de cabecera (`.h`) y definiciones en código fuente (`.c`) ({ref}`capitulo-funciones-descomposicion`).
+2. Guardas de inclusión múltiple del preprocesador (`#ifndef`, `#define`, `#endif`).
+3. Encapsulamiento de funciones auxiliares privadas mediante el especificador `static`.
+4. Vinculación de bibliotecas matemáticas estándar con `-lm` y uso de tolerancias epsilon (`fabs(a - b) < 1e-6`) para pruebas con punto flotante.
+
 ---
 
 ## 1. Librerías Matemáticas y Numéricas
@@ -34,35 +41,128 @@ En este bloque de ejercicios vas a diseñar módulos temáticos independientes, 
 (ej_b1_c04b_01)=
 ### Ejercicio 1.04b.01 - Librería de Operaciones Geométricas 2D ⭐⭐☆☆☆
 
-Diseñá e implementá la librería `geometria2d.h` y `geometria2d.c` para cálculos en el plano 2D:
-- `double geo_distancia(double x1, double y1, double x2, double y2)`: distancia euclídea.
-- `double geo_area_rectangulo(double ancho, double alto)`: área de un rectángulo.
-- `double geo_perimetro_rectangulo(double ancho, double alto)`: perímetro de un rectángulo.
-- `double geo_area_circulo(double radio)`: área de un círculo.
-- `double geo_perimetro_circulo(double radio)`: perímetro de un círculo.
+:::{exercise}
+:label: ej_b1_c04b_01_geometria2d
 
-:::{hint} Lógica y Consideraciones
-- Usá la constante `M_PI` definida en `<math.h>`.
+Diseñá e implementá un módulo para cálculos geométricos en 2D:
+- `double geo_distancia(double x1, double y1, double x2, double y2)`: distancia euclídea.
+- `double geo_area_rectangulo(double ancho, double alto)`: área de un rectángulo (retorna `-1.0` si alguna dimensión es negativa).
+- `double geo_perimetro_rectangulo(double ancho, double alto)`: perímetro de un rectángulo (retorna `-1.0` si alguna dimensión es negativa).
+
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Parámetros Entrada | Función Invocada | Resultado Esperado |
+| :--- | :--- | :--- | :--- |
+| Distancia origen a (3,4) | `(0, 0, 3, 4)` | `geo_distancia` | `5.0` |
+| Rectángulo 4x5 | `(4.0, 5.0)` | `geo_area_rectangulo` | `20.0` |
+| Rectángulo 4x5 | `(4.0, 5.0)` | `geo_perimetro_rectangulo` | `18.0` |
+| Dimensión inválida | `(-2.0, 5.0)` | `geo_area_rectangulo` | `-1.0` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <math.h>
+#include <assert.h>
+
+#define EPSILON 1e-7
+
+static int casi_igual(double a, double b) {
+    return fabs(a - b) < EPSILON;
+}
+
+double geo_distancia(double x1, double y1, double x2, double y2) {
+    double dx = x2 - x1;
+    double dy = y2 - y1;
+    return sqrt(dx * dx + dy * dy);
+}
+
+double geo_area_rectangulo(double ancho, double alto) {
+    if (ancho < 0.0 || alto < 0.0) {
+        return -1.0;
+    }
+    return ancho * alto;
+}
+
+double geo_perimetro_rectangulo(double ancho, double alto) {
+    if (ancho < 0.0 || alto < 0.0) {
+        return -1.0;
+    }
+    return 2.0 * (ancho + alto);
+}
+
+int main(void) {
+    assert(casi_igual(geo_distancia(0.0, 0.0, 3.0, 4.0), 5.0));
+    assert(casi_igual(geo_distancia(1.0, 1.0, 1.0, 1.0), 0.0));
+
+    assert(casi_igual(geo_area_rectangulo(4.0, 5.0), 20.0));
+    assert(casi_igual(geo_perimetro_rectangulo(4.0, 5.0), 18.0));
+
+    /* Casos defensivos */
+    assert(casi_igual(geo_area_rectangulo(-1.0, 5.0), -1.0));
+    assert(casi_igual(geo_perimetro_rectangulo(4.0, -2.0), -1.0));
+
+    return 0;
+}
+```
+::::
 :::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 
 (ej_b1_c04b_02)=
 ### Ejercicio 1.04b.02 - Librería de Conversión de Unidades ⭐⭐☆☆☆
 
-Creá el módulo `conversiones.h` y `conversiones.c` para realizar transformaciones de unidades:
+:::{exercise}
+:label: ej_b1_c04b_02_conversiones
+
+Creá un módulo de conversión de unidades termodinámicas y cinemáticas:
 - `double conv_celsius_a_fahrenheit(double c)`
 - `double conv_fahrenheit_a_celsius(double f)`
 - `double conv_kmh_a_ms(double kmh)`
 - `double conv_ms_a_kmh(double ms)`
-- `double conv_grados_a_radianes(double deg)`
-- `double conv_radianes_a_grados(double rad)`
 
-:::{hint} Lógica y Consideraciones
-- Mantendré firmas limpias e independientes de I/O.
+::::{solution}
+```c
+#include <stdio.h>
+#include <math.h>
+#include <assert.h>
+
+#define EPSILON 1e-6
+
+static int casi_igual(double a, double b) {
+    return fabs(a - b) < EPSILON;
+}
+
+double conv_celsius_a_fahrenheit(double c) {
+    return (c * 9.0 / 5.0) + 32.0;
+}
+
+double conv_fahrenheit_a_celsius(double f) {
+    return (f - 32.0) * 5.0 / 9.0;
+}
+
+double conv_kmh_a_ms(double kmh) {
+    return kmh / 3.6;
+}
+
+double conv_ms_a_kmh(double ms) {
+    return ms * 3.6;
+}
+
+int main(void) {
+    assert(casi_igual(conv_celsius_a_fahrenheit(0.0), 32.0));
+    assert(casi_igual(conv_celsius_a_fahrenheit(100.0), 212.0));
+    assert(casi_igual(conv_fahrenheit_a_celsius(32.0), 0.0));
+    assert(casi_igual(conv_fahrenheit_a_celsius(212.0), 100.0));
+
+    assert(casi_igual(conv_kmh_a_ms(36.0), 10.0));
+    assert(casi_igual(conv_ms_a_kmh(10.0), 36.0));
+
+    return 0;
+}
+```
+::::
 :::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 

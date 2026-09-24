@@ -14,9 +14,16 @@ del costo temporal y espacial de subprogramas iterativos y recursivos en C.
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-complejidad`
 
+### Prerrequisitos Conceptuales
+Antes de abordar estos ejercicios, el estudiante debe dominar:
+1. Definición formal y reglas asintóticas de Big-O, $\Omega$ y $\Theta$ ({ref}`capitulo-complejidad`).
+2. Conteo de operaciones elementales en lazos deterministas ($O(1)$, $O(n)$, $O(n^2)$).
+3. Lazos con progresión geométrica y complejidad logarítmica ($O(\log n)$).
+4. Instrumentación empírica mediante contadores de pasos en C11 para validación analítica.
+
 ### Cuestiones de Estilo Aplicables
 - **Medición e instrumentación:** Al implementar análisis empíricos, utilizá la
-  biblioteca `<time.h>` para medir tiempos físicos reales sin alterar la
+  biblioteca `<time.h>` o contadores enteros explícitos para auditar iteraciones sin alterar la
   estructura algorítmica principal del código evaluado.
 
 ---
@@ -65,46 +72,67 @@ constantes $c$ y $n_0$ que satisfagan la definición.
 ## Análisis de Lazos Simples
 
 (ej_b3_c06_05)=
-### Ejercicio 3.06.05 - Lazo Simple ⭐☆☆☆☆
+### Ejercicio 3.06.05 - Instrumentación de Lazo Lineal y Logarítmico ⭐☆☆☆☆
 
-Analizar la complejidad temporal de este código:
+:::{exercise}
+:label: ej_b3_c06_05_instrumentacion_lazos
 
-``` c
-int suma = 0;
-for (int i = 0; i < n; i++)
-{
-    suma += i;
+Implementá funciones instrumentadas que midan exactamente el número de iteraciones ejecutadas:
+1. `size_t iteraciones_lazo_lineal(size_t n)`: ejecuta un lazo `for (size_t i = 0; i < n; i++)` y retorna el conteo ($O(n)$).
+2. `size_t iteraciones_lazo_logaritmico(size_t n)`: ejecuta un lazo `for (size_t i = 1; i < n; i *= 2)` y retorna el conteo ($O(\log n)$).
+
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Valor $n$ | `iteraciones_lazo_lineal` | `iteraciones_lazo_logaritmico` |
+| :--- | :--- | :--- | :--- |
+| Nulo | `0` | `0` | `0` |
+| Unitario | `1` | `1` | `0` |
+| Potencia de 2 | `8` | `8` | `3` (i=1,2,4) |
+| Potencia de 2 | `16` | `16` | `4` (i=1,2,4,8) |
+| Escalar 1000 | `1000` | `1000` | `10` ($2^9 < 1000 \le 2^{10}$) |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stddef.h>
+#include <assert.h>
+
+size_t iteraciones_lazo_lineal(size_t n) {
+    size_t contador = 0;
+    for (size_t i = 0; i < n; ++i) {
+        contador++;
+    }
+    return contador;
+}
+
+size_t iteraciones_lazo_logaritmico(size_t n) {
+    if (n <= 1) {
+        return 0;
+    }
+    size_t contador = 0;
+    for (size_t i = 1; i < n; i *= 2) {
+        contador++;
+    }
+    return contador;
+}
+
+int main(void) {
+    assert(iteraciones_lazo_lineal(0) == 0);
+    assert(iteraciones_lazo_lineal(1) == 1);
+    assert(iteraciones_lazo_lineal(8) == 8);
+    assert(iteraciones_lazo_lineal(1000) == 1000);
+
+    assert(iteraciones_lazo_logaritmico(0) == 0);
+    assert(iteraciones_lazo_logaritmico(1) == 0);
+    assert(iteraciones_lazo_logaritmico(8) == 3);
+    assert(iteraciones_lazo_logaritmico(16) == 4);
+    assert(iteraciones_lazo_logaritmico(1000) == 10);
+
+    return 0;
 }
 ```
-<!-- c -->
-
-(ej_b3_c06_06)=
-### Ejercicio 3.06.06 - Lazo con Incremento Variable ⭐⭐☆☆☆
-
-Analizar la complejidad de:
-
-``` c
-int suma = 0;
-for (int i = 0; i < n; i += 2)
-{
-    suma += i;
-}
-```
-<!-- c -->
-
-(ej_b3_c06_07)=
-### Ejercicio 3.06.07 - Lazo con Multiplicación ⭐⭐☆☆☆
-
-Analizar la complejidad de:
-
-``` c
-int contador = 0;
-for (int i = 1; i < n; i *= 2)
-{
-    contador++;
-}
-```
-<!-- c -->
+::::
+:::
 
 (ej_b3_c06_08)=
 ### Ejercicio 3.06.08 - Lazo con División ⭐⭐☆☆☆

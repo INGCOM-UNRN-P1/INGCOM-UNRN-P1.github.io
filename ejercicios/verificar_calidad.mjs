@@ -12,6 +12,7 @@ const CANONICAL_FILES = [
   'bloque_1_fundamentos/3_matematicos.md',
   'bloque_1_fundamentos/5_ejercicios_control.md',
   'bloque_1_fundamentos/6_funciones_ejercicios.md',
+  'bloque_1_fundamentos/7_librerias_ejercicios.md',
   'bloque_2_memoria/1_punteros.md',
   'bloque_2_memoria/1b_punteros_ejercicios.md',
   'bloque_2_memoria/2_arreglos.md',
@@ -24,15 +25,18 @@ const CANONICAL_FILES = [
   'bloque_2_memoria/5_punteros_2.md',
   'bloque_2_memoria/6_structs.md',
   'bloque_2_memoria/7_alias_tipos_ejercicios.md',
+  'bloque_2_memoria/8_enums.md',
   'bloque_3_algoritmos_estructuras/1_matrices.md',
   'bloque_3_algoritmos_estructuras/2_tad.md',
   'bloque_3_algoritmos_estructuras/3_estructuras_de_datos.md',
+  'bloque_3_algoritmos_estructuras/4_complejidad.md',
   'bloque_3_algoritmos_estructuras/5_recursion.md',
   'bloque_4_avanzados/1_punteros_avanzados.md',
   'bloque_4_avanzados/2_operaciones_de_bits.md',
   'bloque_4_avanzados/3_archivos_binarios.md',
   'bloque_4_avanzados/4_recursividad_avanzada.md',
-  'bloque_4_avanzados/5_ordenamiento_y_busqueda.md'
+  'bloque_4_avanzados/5_ordenamiento_y_busqueda.md',
+  'bloque_4_avanzados/7_diseno_api.md'
 ];
 
 function findMarkdownFiles(dir) {

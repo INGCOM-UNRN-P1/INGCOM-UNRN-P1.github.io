@@ -14,13 +14,21 @@ configuración de sistemas.
 
 Para profundizar en los conceptos teóricos, podés consultar el siguiente
 capítulo del apunte:
-- [Enumeraciones y Estructuras de
-  Datos](../../apunte/bloque_2_memoria/11_enums.md)
+- [Enumeraciones y Estructuras de Datos](../../apunte/bloque_2_memoria/11_enums.md)
+
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Sintaxis de `enum` en C11 y mapeo subyacente a enteros contiguos o explícitos ({ref}`capitulo-enums`).
+2. Uso de tipos enumerados para aumentar la seguridad tipográfica frente a enteros "mágicos".
+3. Sentencia `switch` con control exhaustivo de casos sin cláusula `default` accidental.
+4. Mapeo bidireccional enum-a-cadena (*stringification*) para registro y depuración.
+
+---
 
 ## Días de la Semana
 
 Crear un tipo `enum` para representar los días de la semana y funciones básicas
-para trabajar con ellos.
+para trabajar con ellos:
 
 ```{code-block} c
 :linenos:
@@ -38,36 +46,98 @@ enum dia_semana
 <!-- {code-block} c -->
 
 (ej_b2_c11_01)=
-### Ejercicio 2.11.01 - Día siguiente ⭐⭐☆☆☆
+### Ejercicio 2.11.01 - Operaciones con Días de la Semana ⭐⭐☆☆☆
 
-Implementar una función que retorne el día siguiente al día proporcionado. El
-día siguiente a `DOMINGO` es `LUNES`.
+:::{exercise}
+:label: ej_b2_c11_01_dias_semana
 
-``` c
-enum dia_semana dia_siguiente(enum dia_semana dia_actual);
+Implementá tres funciones para manipular el enumerado `enum dia_semana`:
+1. `enum dia_semana dia_siguiente(enum dia_semana dia_actual)`: retorna el día sucesor en ciclo (de `DOMINGO` pasa a `LUNES`).
+2. `bool es_dia_laboral(enum dia_semana dia)`: retorna `true` para `LUNES` a `VIERNES`, `false` para sábado o domingo.
+3. `const char *nombre_dia(enum dia_semana dia)`: retorna el nombre textual ("Lunes", etc.) o "Desconocido".
+
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Día Entrada | `dia_siguiente` | `es_dia_laboral` | `nombre_dia` |
+| :--- | :--- | :--- | :--- | :--- |
+| Lunes | `LUNES` | `MARTES` | `true` | `"Lunes"` |
+| Viernes | `VIERNES` | `SABADO` | `true` | `"Viernes"` |
+| Domingo | `DOMINGO` | `LUNES` | `false` | `"Domingo"` |
+| Fuera de rango | `99` | `LUNES` | `false` | `"Desconocido"` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+#include <assert.h>
+
+enum dia_semana {
+    LUNES = 0,
+    MARTES,
+    MIERCOLES,
+    JUEVES,
+    VIERNES,
+    SABADO,
+    DOMINGO
+};
+
+enum dia_semana dia_siguiente(enum dia_semana dia_actual) {
+    if (dia_actual < LUNES || dia_actual > DOMINGO) {
+        return LUNES;
+    }
+    return (enum dia_semana)((dia_actual + 1) % 7);
+}
+
+bool es_dia_laboral(enum dia_semana dia) {
+    switch (dia) {
+        case LUNES:
+        case MARTES:
+        case MIERCOLES:
+        case JUEVES:
+        case VIERNES:
+            return true;
+        case SABADO:
+        case DOMINGO:
+        default:
+            return false;
+    }
+}
+
+const char *nombre_dia(enum dia_semana dia) {
+    switch (dia) {
+        case LUNES:     return "Lunes";
+        case MARTES:    return "Martes";
+        case MIERCOLES: return "Miercoles";
+        case JUEVES:    return "Jueves";
+        case VIERNES:   return "Viernes";
+        case SABADO:    return "Sabado";
+        case DOMINGO:   return "Domingo";
+        default:        return "Desconocido";
+    }
+}
+
+int main(void) {
+    assert(dia_siguiente(LUNES) == MARTES);
+    assert(dia_siguiente(SABADO) == DOMINGO);
+    assert(dia_siguiente(DOMINGO) == LUNES);
+    assert(dia_siguiente((enum dia_semana)99) == LUNES);
+
+    assert(es_dia_laboral(LUNES) == true);
+    assert(es_dia_laboral(VIERNES) == true);
+    assert(es_dia_laboral(SABADO) == false);
+    assert(es_dia_laboral(DOMINGO) == false);
+    assert(es_dia_laboral((enum dia_semana)99) == false);
+
+    assert(strcmp(nombre_dia(LUNES), "Lunes") == 0);
+    assert(strcmp(nombre_dia(DOMINGO), "Domingo") == 0);
+    assert(strcmp(nombre_dia((enum dia_semana)99), "Desconocido") == 0);
+
+    return 0;
+}
 ```
-<!-- c -->
-
-(ej_b2_c11_02)=
-### Ejercicio 2.11.02 - Es día laboral ⭐⭐☆☆☆
-
-Implementar una función que determine si un día es laboral (lunes a viernes).
-
-``` c
-bool es_dia_laboral(enum dia_semana dia);
-```
-<!-- c -->
-
-(ej_b2_c11_03)=
-### Ejercicio 2.11.03 - Nombre del día ⭐⭐☆☆☆
-
-Implementar una función que retorne el nombre del día como cadena de texto. Esta
-función ilustra el patrón de conversión enum-a-string.
-
-``` c
-const char *nombre_dia(enum dia_semana dia);
-```
-<!-- c -->
+::::
+:::
 
 ## Estados de Conexión
 

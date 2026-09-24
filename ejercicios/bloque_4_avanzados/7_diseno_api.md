@@ -14,6 +14,13 @@ seguras y extensibles en el lenguaje C.
 ### Capítulos de Apunte Correspondientes
 - [Capítulo de TAD](#capitulo-tad)
 
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Punteros opacos y tipos incompletos (`typedef struct tipo tipo_t;`) para encapsulamiento estricto ({ref}`capitulo-tad`).
+2. Convenciones de nomenclatura ortogonal con prefijos unificados (`modulo_accion_objeto`) para evitar colisiones de símbolos globales ({ref}`0x0101h`).
+3. Gestión del ciclo de vida simétrico (`modulo_crear` y `modulo_destruir`) con anulación de punteros ({ref}`0x3002h`).
+4. Retorno de estados y parámetros de salida para manejo defensivo de fallas de memoria y desbordes.
+
 ### Cuestiones de Estilo Aplicables
 - **Encapsulamiento opaco:** Exponé únicamente los tipos incompletos (`typedef
   struct stack stack_t;`) y los prototipos de funciones en los archivos de
@@ -126,32 +133,125 @@ void agregar_elemento(lista_t *lista, int elemento);
 (ej_b4_c10_05)=
 ### Ejercicio 4.10.05 - Implementación de Tipo Opaco Básico ⭐☆☆☆☆
 
-Implementar un stack usando tipo opaco completo:
+:::{exercise}
+:label: ej_b4_c10_05_tipo_opaco
 
-**`stack.h`** (interfaz pública):
+Implementá una pila de enteros basada en un tipo opaco (`stack_t`) con gestión dinámica y ciclo de vida simétrico:
+- `stack_t *stack_crear(size_t capacidad_inicial)`: reserva la estructura y su búfer dinámico interno.
+- `void stack_destruir(stack_t **ptr_stack)`: libera los recursos y anula el puntero original.
+- `bool stack_push(stack_t *s, int valor)`: inserta un elemento si hay espacio disponible.
+- `bool stack_pop(stack_t *s, int *valor)`: extrae el elemento superior si la pila no está vacía.
+- `size_t stack_tamano(const stack_t *s)`: retorna la cantidad actual de elementos.
 
-```{code-block} c
-:linenos:
-#ifndef STACK_H
-#define STACK_H
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Secuencia de Operaciones | Resultado Operación | Estado Pila |
+| :--- | :--- | :--- | :--- |
+| Creación | `stack_crear(4)` | Puntero no nulo | `stack_tamano == 0` |
+| Inserción válida | `push(10), push(20)` | `true, true` | `stack_tamano == 2` |
+| Desapilado | `pop(&val)` | `true (val == 20)` | `stack_tamano == 1` |
+| Desborde capacidad | Capacidad 2, push 3 veces | Tercer push retorna `false` | Pila intacta con 2 elementos |
+| Destrucción | `stack_destruir(&s)` | Puntero anulado | `s == NULL` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
-#include <stddef.h>
-typedef struct stack stack_t; // Declaración adelantada
-stack_t *stack_crear(size_t capacidad_inicial);
-void stack_destruir(stack_t **ptr_stack);
-bool stack_push(stack_t *stack, int valor);
-bool stack_pop(stack_t *stack, int *valor);
-bool stack_peek(const stack_t *stack, int *valor);
-size_t stack_tamano(const stack_t *stack);
-bool stack_esta_vacio(const stack_t *stack);
-#endif
-```
-<!-- {code-block} c -->
+#include <assert.h>
 
-**Tareas:**
-1. Implementar `stack.c` con la estructura completa
-2. Garantizar que el usuario no pueda acceder a campos internos
-3. Manejar correctamente los errores (stack vacío, memoria agotada)
+struct stack {
+    int *datos;
+    size_t capacidad;
+    size_t tope;
+};
+
+typedef struct stack stack_t;
+
+stack_t *stack_crear(size_t capacidad_inicial) {
+    if (capacidad_inicial == 0) {
+        return NULL;
+    }
+    stack_t *s = (stack_t *)malloc(sizeof(stack_t));
+    if (s == NULL) {
+        return NULL;
+    }
+    s->datos = (int *)malloc(capacidad_inicial * sizeof(int));
+    if (s->datos == NULL) {
+        free(s);
+        return NULL;
+    }
+    s->capacidad = capacidad_inicial;
+    s->tope = 0;
+    return s;
+}
+
+void stack_destruir(stack_t **ptr_stack) {
+    if (ptr_stack == NULL || *ptr_stack == NULL) {
+        return;
+    }
+    free((*ptr_stack)->datos);
+    free(*ptr_stack);
+    *ptr_stack = NULL;
+}
+
+bool stack_push(stack_t *s, int valor) {
+    if (s == NULL || s->tope >= s->capacidad) {
+        return false;
+    }
+    s->datos[s->tope++] = valor;
+    return true;
+}
+
+bool stack_pop(stack_t *s, int *valor) {
+    if (s == NULL || valor == NULL || s->tope == 0) {
+        return false;
+    }
+    *valor = s->datos[--s->tope];
+    return true;
+}
+
+size_t stack_tamano(const stack_t *s) {
+    return (s != NULL) ? s->tope : 0;
+}
+
+int main(void) {
+    stack_t *s = stack_crear(2);
+    assert(s != NULL);
+    assert(stack_tamano(s) == 0);
+
+    assert(stack_push(s, 10) == true);
+    assert(stack_push(s, 20) == true);
+    assert(stack_tamano(s) == 2);
+
+    /* Desborde */
+    assert(stack_push(s, 30) == false);
+
+    int val = 0;
+    assert(stack_pop(s, &val) == true);
+    assert(val == 20);
+    assert(stack_tamano(s) == 1);
+
+    assert(stack_pop(s, &val) == true);
+    assert(val == 10);
+    assert(stack_tamano(s) == 0);
+
+    /* Subflujo (underflow) */
+    assert(stack_pop(s, &val) == false);
+
+    stack_destruir(&s);
+    assert(s == NULL);
+
+    /* Casos defensivos */
+    assert(stack_crear(0) == NULL);
+    stack_destruir(&s);
+    stack_destruir(NULL);
+
+    return 0;
+}
+```
+::::
+:::
 
 ### 2.2: Ventajas del Tipo Opaco
 

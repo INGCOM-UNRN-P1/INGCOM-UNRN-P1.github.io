@@ -203,7 +203,7 @@ function verifySolution(solution, tempDir) {
   fs.writeFileSync(cFile, solution.code, 'utf8');
 
   // Compilación
-  const compileResult = spawnSync('gcc', [...GCC_FLAGS, '-o', binFile, cFile], {
+  const compileResult = spawnSync('gcc', [...GCC_FLAGS, '-o', binFile, cFile, '-lm'], {
     encoding: 'utf8',
     timeout: 10000
   });
