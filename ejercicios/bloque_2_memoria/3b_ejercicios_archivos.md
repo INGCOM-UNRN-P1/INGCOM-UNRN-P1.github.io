@@ -8,9 +8,8 @@ subtitle: 'Problemas y soluciones detalladas sobre streams y persistencia en C'
 
 ## Acerca de
 
-Estos ejercicios resueltos profundizan en la manipulación y persistencia de
-datos usando streams de entrada/salida estándar y archivos de texto formateados
-en C.
+Estos ejercicios profundizan en la manipulación, lectura formateada, escritura y
+persistencia de datos usando streams estándar de E/S (`FILE *`) en C11.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`trabajando-con-archivos-de-texto-en-c`
@@ -21,23 +20,40 @@ en C.
   todas las ramas de control de errores.
 - **Validación de buffer:** Evitá desbordamientos de buffer pasando siempre la
   capacidad límite al leer flujos con `fgets`.
+- **Limpieza de recursos:** Si se generan archivos temporales durante la ejecución de
+  pruebas, deben eliminarse sistemáticamente con `remove()` al concluir.
+
+---
 
 (ej_b2_c04b_01)=
-## Ejercicio 2.04b.01 - s Propuestos ⭐⭐☆☆☆
-
-(ej_b2_c04b_02)=
-### Ejercicio 2.04b.02 - b.1 - Escribir un diario personal ⭐⭐☆☆☆
+### Ejercicio 2.04b.01 - Escritura de Entradas en un Diario Personal ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ejercicio_archivos_1
 :enumerator: 1
 
-**Escribir un diario personal**
+Implementá una función `int agregar_entrada_diario(const char *nombre_archivo, const char *entrada)`
+que abra el archivo especificado en modo adición (*append*, `"a"`) y escriba la cadena de
+texto seguida de un salto de línea (`\n`). La función debe manejar defensivamente los errores
+de apertura, escritura y cierre.
 
-Creá una función que reciba el nombre de un archivo y una cadena de texto. La
-función debe abrir el archivo en modo "append" (añadir) y escribir la cadena de
-texto seguida de un salto de línea. Asegurate de manejar todos los posibles
-errores de apertura, escritura y cierre.
+**Nivel de Bloom:** Nivel 3 (Aplicación).  
+**Conceptos requeridos:** `fopen` con modo `"a"`, `fputs`, `fputc`, `fclose`.  
+**Techo conceptual:** Prohibido el uso de memoria dinámica.
+
+#### Contrato de la Función
+- **Firma:** `int agregar_entrada_diario(const char *nombre_archivo, const char *entrada);`
+- **Precondiciones:** `nombre_archivo != NULL`, `entrada != NULL`.
+- **Postcondiciones:** Retorna `0` en caso de éxito. Retorna `-1` si falla la apertura, escritura o cierre. El archivo contiene la cadena agregada al final con un `\n`.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Tipo de Caso | Entrada (`nombre_archivo`, `entrada`) | Retorno Esperado | Justificación Técnica |
+| :--- | :--- | :--- | :--- |
+| **Normal** | Archivo accesible, `"Primer registro"` | `0` | Escritura correcta en modo append |
+| **Normal (Múltiple)** | Mismo archivo, `"Segundo registro"` | `0` | Adición consecutiva sin truncar |
+| **Borde (Vacía)** | Archivo accesible, `""` | `0` | Escribe solo salto de línea |
+| **Error (Ruta Nula)**| `NULL`, `"Texto"` | `-1` | Validación defensiva de precondición |
 
 :::
 <!-- {exercise} -->
@@ -45,98 +61,119 @@ errores de apertura, escritura y cierre.
 ::::{solution} ejercicio_archivos_1
 :class: dropdown
 
-:::{code-block}c
+```{code-block} c
 :linenos:
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 #define EXITO 0
 #define ERROR -1
-/**
- * Agrega una entrada de texto a un archivo de diario.
- *
- * @param nombre_archivo La ruta del archivo de diario.
- *      #PRE: No puede ser NULL.
- * @param entrada El texto a agregar en el diario.
- *      #PRE: No puede ser NULL.
- *
- * @returns EXITO si la entrada se escribió correctamente, ERROR en caso
-   contrario.
- *
- * @post El archivo especificado por nombre_archivo contendrá la nueva entrada
- *       al final del mismo, seguida de un salto de línea.
- */
+
 int agregar_entrada_diario(const char *nombre_archivo, const char *entrada)
 {
-    // 1. Abrir el archivo en modo "append" (añadir)
+    if (nombre_archivo == NULL || entrada == NULL)
+    {
+        return ERROR;
+    }
+
     FILE *p_archivo = fopen(nombre_archivo, "a");
     if (p_archivo == NULL)
     {
-        perror("Error al abrir el diario");
         return ERROR;
     }
-    // 2. Escribir la entrada
+
     if (fputs(entrada, p_archivo) == EOF)
     {
-        perror("Error al escribir la entrada en el diario");
         fclose(p_archivo);
         return ERROR;
     }
-    // 3. Escribir el salto de línea
+
     if (fputc('\n', p_archivo) == EOF)
     {
-        perror("Error al escribir el salto de línea");
         fclose(p_archivo);
         return ERROR;
     }
-    // 4. Cerrar el archivo
+
     if (fclose(p_archivo) != 0)
     {
-        perror("Error al cerrar el diario");
         return ERROR;
     }
+
     return EXITO;
 }
+
 int main(void)
 {
-    const char *MI_DIARIO = "diario.txt";
-    int resultado = 0;
-    printf("Escribiendo primera entrada...\n");
-    resultado = agregar_entrada_diario(MI_DIARIO, "Hoy fue un día soleado.");
-    if (resultado == ERROR)
-    {
-        fprintf(stderr, "No se pudo escribir la primera entrada.\n");
-        return EXIT_FAILURE;
-    }
-    printf("Escribiendo segunda entrada...\n");
-    resultado = agregar_entrada_diario(MI_DIARIO, "Aprendí a manejar archivos en
-    C.");
-    if (resultado == ERROR)
-    {
-        fprintf(stderr, "No se pudo escribir la segunda entrada.\n");
-        return EXIT_FAILURE;
-    }
-    printf("Entradas agregadas al diario '%s' con éxito.\n", MI_DIARIO);
-    return EXIT_SUCCESS;
+    const char *test_file = "test_diario_tmp.txt";
+    remove(test_file);
+
+    // Caso normal
+    assert(agregar_entrada_diario(test_file, "Primera entrada") == EXITO);
+
+    // Caso múltiple
+    assert(agregar_entrada_diario(test_file, "Segunda entrada") == EXITO);
+
+    // Caso cadena vacía
+    assert(agregar_entrada_diario(test_file, "") == EXITO);
+
+    // Caso punteros nulos
+    assert(agregar_entrada_diario(NULL, "Texto") == ERROR);
+    assert(agregar_entrada_diario(test_file, NULL) == ERROR);
+
+    // Verificar contenido persistido
+    FILE *f = fopen(test_file, "r");
+    assert(f != NULL);
+    char buf[128];
+    assert(fgets(buf, sizeof(buf), f) != NULL);
+    assert(strcmp(buf, "Primera entrada\n") == 0);
+    assert(fgets(buf, sizeof(buf), f) != NULL);
+    assert(strcmp(buf, "Segunda entrada\n") == 0);
+    assert(fgets(buf, sizeof(buf), f) != NULL);
+    assert(strcmp(buf, "\n") == 0);
+    fclose(f);
+
+    remove(test_file);
+    return 0;
 }
-:::
-<!-- {code-block}c -->
+```
 
 ::::
 <!-- {solution} ejercicio_archivos_1 -->
 
-(ej_b2_c04b_03)=
-### Ejercicio 2.04b.03 - b.2 - Contador de líneas ⭐⭐⭐☆☆
+---
+
+(ej_b2_c04b_02)=
+### Ejercicio 2.04b.02 - Conteo Seguro de Líneas en Archivo de Texto ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ejercicio_archivos_2
 :enumerator: 2
 
-**Contador de líneas**
+Escribí una función `int contar_lineas(const char *nombre_archivo)` que lea un archivo
+de texto y retorne la cantidad de líneas que contiene. Una línea se define como cada bloque
+delimitado por un carácter `\n`. En caso de que el archivo no termine con `\n` pero contenga
+caracteres residuales antes de EOF, debe contabilizarse como línea final.
+Si ocurre un error de apertura o lectura, la función debe devolver un valor negativo.
 
-Escribí una función que reciba el nombre de un archivo, lo lea y devuelva la
-cantidad de líneas que contiene. Una línea se define como una secuencia de
-caracteres terminada por un `\n`. La función debe devolver un número negativo en
-caso de error.
+**Nivel de Bloom:** Nivel 3 (Aplicación).  
+**Conceptos requeridos:** `fopen`, `fgets`, `ferror`, detección de EOF.  
+**Techo conceptual:** Prohibido el uso de memoria dinámica.
+
+#### Contrato de la Función
+- **Firma:** `int contar_lineas(const char *nombre_archivo);`
+- **Precondiciones:** `nombre_archivo != NULL`.
+- **Postcondiciones:** Retorna el total de líneas $\ge 0$. Retorna `-1` si no puede abrirse y `-2` si ocurre error de lectura.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Tipo de Caso | Entrada (`nombre_archivo`) | Retorno Esperado | Justificación Técnica |
+| :--- | :--- | :--- | :--- |
+| **Normal** | Archivo con 3 líneas con `\n` | `3` | Conteo exacto estándar |
+| **Borde (Vacío)** | Archivo de 0 bytes | `0` | Archivo vacío sin líneas |
+| **Borde (1 Línea)** | 1 línea con `\n` | `1` | Archivo mínimo unitario |
+| **Error (Inexistente)**| Ruta inexistente | `-1` | Fallo controlado de apertura |
 
 :::
 <!-- {exercise} -->
@@ -144,103 +181,114 @@ caso de error.
 ::::{solution} ejercicio_archivos_2
 :class: dropdown
 
-:::{code-block}c
+```{code-block} c
 :linenos:
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 #define MAX_LONGITUD_LINEA 1024
 #define ERROR_APERTURA -1
 #define ERROR_LECTURA -2
-/**
- * Cuenta el número de líneas en un archivo de texto.
- *
- * @param nombre_archivo La ruta del archivo a leer.
- *      #PRE: No puede ser NULL.
- *
- * @returns El número de líneas contadas si la operación es exitosa.
- *          Retorna ERROR_APERTURA si el archivo no puede abrirse.
- *          Retorna ERROR_LECTURA si ocurre un error durante la lectura.
- *
- * @post El archivo no es modificado.
- */
+
 int contar_lineas(const char *nombre_archivo)
 {
-    int cantidad_lineas = 0;
-    FILE *p_archivo = NULL;
-    char buffer[MAX_LONGITUD_LINEA];
-    p_archivo = fopen(nombre_archivo, "r");
-    if (p_archivo == NULL)
+    if (nombre_archivo == NULL)
     {
-        perror("Error al abrir el archivo para contar líneas");
         return ERROR_APERTURA;
     }
+
+    FILE *p_archivo = fopen(nombre_archivo, "r");
+    if (p_archivo == NULL)
+    {
+        return ERROR_APERTURA;
+    }
+
+    int cantidad_lineas = 0;
+    char buffer[MAX_LONGITUD_LINEA];
+
     while (fgets(buffer, sizeof(buffer), p_archivo) != NULL)
     {
         cantidad_lineas++;
     }
-    // Después del lazo, verificar si salimos por error o por fin de archivo
+
     if (ferror(p_archivo))
     {
-        perror("Error de lectura mientras se contaban las líneas");
-        cantidad_lineas = ERROR_LECTURA; // Sobrescribimos el conteo con un
-        código de error
+        fclose(p_archivo);
+        return ERROR_LECTURA;
     }
-    if (fclose(p_archivo) != 0)
-    {
-        perror("Error al cerrar el archivo después de contar");
-        if (cantidad_lineas >= 0) // No sobrescribir un error de lectura previo
-        {
-            cantidad_lineas = ERROR_APERTURA; // Reutilizamos código de error
-        }
-    }
+
+    fclose(p_archivo);
     return cantidad_lineas;
 }
+
 int main(void)
 {
-    const char *NOMBRE_ARCHIVO = "diario.txt";
-    // Crear un archivo de prueba primero
-    FILE *p_archivo_prueba = fopen(NOMBRE_ARCHIVO, "w");
-    if (p_archivo_prueba != NULL)
-    {
-        fputs("Primera línea.\n", p_archivo_prueba);
-        fputs("Segunda línea.\n", p_archivo_prueba);
-        fputs("Tercera línea.\n", p_archivo_prueba);
-        fclose(p_archivo_prueba);
-    }
-    printf("Contando líneas en el archivo '%s'...\n", NOMBRE_ARCHIVO);
-    int lineas = contar_lineas(NOMBRE_ARCHIVO);
-    if (lineas >= 0)
-    {
-        printf("El archivo contiene %d líneas.\n", lineas);
-    }
-    else
-    {
-        fprintf(stderr, "Ocurrió un error al procesar el archivo (código:
-                            % d)
-            .\n ", lineas);
-            return EXIT_FAILURE;
-    }
-    return EXIT_SUCCESS;
+    const char *test_file = "test_contar_tmp.txt";
+
+    // Caso 3 líneas
+    FILE *f = fopen(test_file, "w");
+    assert(f != NULL);
+    fputs("Linea 1\nLinea 2\nLinea 3\n", f);
+    fclose(f);
+    assert(contar_lineas(test_file) == 3);
+
+    // Caso archivo vacío
+    f = fopen(test_file, "w");
+    assert(f != NULL);
+    fclose(f);
+    assert(contar_lineas(test_file) == 0);
+
+    // Caso 1 línea
+    f = fopen(test_file, "w");
+    assert(f != NULL);
+    fputs("Unica linea\n", f);
+    fclose(f);
+    assert(contar_lineas(test_file) == 1);
+
+    // Caso archivo inexistente
+    assert(contar_lineas("archivo_inexistente_999.txt") == ERROR_APERTURA);
+
+    remove(test_file);
+    return 0;
 }
-:::
-<!-- {code-block}c -->
+```
 
 ::::
 <!-- {solution} ejercicio_archivos_2 -->
 
-(ej_b2_c04b_04)=
-### Ejercicio 2.04b.04 - b.3 - Copiar un archivo de texto ⭐⭐☆☆☆
+---
+
+(ej_b2_c04b_03)=
+### Ejercicio 2.04b.03 - Copia Robusta de Archivo de Texto ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ejercicio_archivos_3
 :enumerator: 3
 
-**Copiar un archivo de texto**
+Implementá una función `int copiar_archivo(const char *origen, const char *destino)`
+que clone el contenido de un archivo de texto en otro nuevo, leyendo y escribiendo bloque a bloque
+mediante un búfer de tamaño acotado. La función debe garantizar que todos los descriptores abiertos
+sean cerrados de forma limpia, incluso ante fallas intermedias de escritura.
 
-Implementá una función que copie el contenido de un archivo de origen a un
-archivo de destino. La función debe leer el archivo de origen línea por línea y
-escribir cada línea en el archivo de destino. Debe manejar errores para ambos
-archivos (apertura, lectura, escritura y cierre).
+**Nivel de Bloom:** Nivel 3 (Aplicación).  
+**Conceptos requeridos:** `fopen` (`"r"` y `"w"`), `fgets`, `fputs`, manejo simultáneo de dos archivos.  
+**Techo conceptual:** Prohibido el uso de memoria dinámica.
+
+#### Contrato de la Función
+- **Firma:** `int copiar_archivo(const char *origen, const char *destino);`
+- **Precondiciones:** `origen != NULL`, `destino != NULL`, `strcmp(origen, destino) != 0`.
+- **Postcondiciones:** Retorna `0` en caso de éxito. Retorna `-1` si falla la apertura o copia. El archivo destino contiene exactamente los mismos caracteres que el origen.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Tipo de Caso | Entrada (`origen`, `destino`) | Retorno Esperado | Justificación Técnica |
+| :--- | :--- | :--- | :--- |
+| **Normal** | Archivo de origen con texto | `0` | Copia fiel y completa |
+| **Borde (Vacío)** | Archivo origen de 0 bytes | `0` | Destino creado con 0 bytes |
+| **Error (Origen Inexistente)**| Origen inexistente | `-1` | Fallo de apertura de origen |
+| **Error (Mismo Archivo)**| Mismo nombre en ambos | `-1` | Prevención de truncamiento accidental |
 
 :::
 <!-- {exercise} -->
@@ -248,128 +296,130 @@ archivos (apertura, lectura, escritura y cierre).
 ::::{solution} ejercicio_archivos_3
 :class: dropdown
 
-:::{code-block}c
+```{code-block} c
 :linenos:
-#include <stdbool.h>
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 #define EXITO 0
 #define ERROR -1
-#define MAX_BUFFER 4096
-/**
- * Copia el contenido de un archivo de texto a otro.
- *
- * @param ruta_origen La ruta del archivo a leer.
- *      #PRE: No puede ser NULL.
- * @param ruta_destino La ruta del archivo donde se escribirá el contenido.
- *      #PRE: No puede ser NULL.
- *
- * @returns EXITO si la copia fue completamente exitosa, ERROR si ocurrió algún
-   fallo.
- *
- * @post Si la operación es exitosa, el archivo en ruta_destino tendrá el mismo
- *       contenido que el de ruta_origen.
- */
-int copiar_archivo(const char *ruta_origen, const char *ruta_destino)
+#define MAX_BUFFER 1024
+
+int copiar_archivo(const char *origen, const char *destino)
 {
-    int estado_operacion = EXITO;
-    FILE *p_origen = NULL;
-    FILE *p_destino = NULL;
+    if (origen == NULL || destino == NULL || strcmp(origen, destino) == 0)
+    {
+        return ERROR;
+    }
+
+    FILE *f_orig = fopen(origen, "r");
+    if (f_orig == NULL)
+    {
+        return ERROR;
+    }
+
+    FILE *f_dest = fopen(destino, "w");
+    if (f_dest == NULL)
+    {
+        fclose(f_orig);
+        return ERROR;
+    }
+
     char buffer[MAX_BUFFER];
-    bool continuar_lazo = true;
-    p_origen = fopen(ruta_origen, "r");
-    if (p_origen == NULL)
+    int estado = EXITO;
+
+    while (fgets(buffer, sizeof(buffer), f_orig) != NULL)
     {
-        perror("Error al abrir el archivo de origen");
-        estado_operacion = ERROR;
-    }
-    if (estado_operacion == EXITO)
-    {
-        p_destino = fopen(ruta_destino, "w");
-        if (p_destino == NULL)
+        if (fputs(buffer, f_dest) == EOF)
         {
-            perror("Error al abrir el archivo de destino");
-            estado_operacion = ERROR;
+            estado = ERROR;
+            break;
         }
     }
-    while (estado_operacion == EXITO && continuar_lazo)
+
+    if (ferror(f_orig))
     {
-        if (fgets(buffer, sizeof(buffer), p_origen) != NULL)
-        {
-            if (fputs(buffer, p_destino) == EOF)
-            {
-                perror("Error al escribir en el archivo de destino");
-                estado_operacion = ERROR;
-            }
-        }
-        else
-        {
-            continuar_lazo = false; // Se terminó de leer o hubo un error
-        }
+        estado = ERROR;
     }
-    // Verificar si el lazo terminó por un error de lectura
-    if (p_origen != NULL && ferror(p_origen))
+
+    fclose(f_orig);
+    if (fclose(f_dest) != 0)
     {
-        perror("Error de lectura en el archivo de origen");
-        estado_operacion = ERROR;
+        estado = ERROR;
     }
-    // Cerrar ambos archivos, verificando errores en cada cierre
-    if (p_origen != NULL && fclose(p_origen) != 0)
-    {
-        perror("Error al cerrar el archivo de origen");
-        estado_operacion = ERROR;
-    }
-    if (p_destino != NULL && fclose(p_destino) != 0)
-    {
-        perror("Error al cerrar el archivo de destino");
-        estado_operacion = ERROR;
-    }
-    return estado_operacion;
+
+    return estado;
 }
+
 int main(void)
 {
-    const char *ARCHIVO_ORIGEN = "original.txt";
-    const char *ARCHIVO_COPIA = "copia.txt";
-    // Crear archivo original de prueba
-    FILE *p_temp = fopen(ARCHIVO_ORIGEN, "w");
-    if (p_temp != NULL)
-    {
-        fprintf(p_temp, "Línea 1 del original.\n");
-        fprintf(p_temp, "Línea 2 con algunos caracteres especiales: áéíóú.\n");
-        fprintf(p_temp, "Fin del archivo original.\n");
-        fclose(p_temp);
-    }
-    printf("Copiando '%s' a '%s'...\n", ARCHIVO_ORIGEN, ARCHIVO_COPIA);
-    if (copiar_archivo(ARCHIVO_ORIGEN, ARCHIVO_COPIA) == EXITO)
-    {
-        printf("Archivo copiado con éxito.\n");
-    }
-    else
-    {
-        fprintf(stderr, "La copia del archivo falló.\n");
-        return EXIT_FAILURE;
-    }
-    return EXIT_SUCCESS;
+    const char *orig = "test_copia_orig.txt";
+    const char *dest = "test_copia_dest.txt";
+
+    // Caso normal
+    FILE *f = fopen(orig, "w");
+    assert(f != NULL);
+    fputs("Línea uno de prueba.\nLínea dos.\n", f);
+    fclose(f);
+
+    assert(copiar_archivo(orig, dest) == EXITO);
+
+    FILE *fd = fopen(dest, "r");
+    assert(fd != NULL);
+    char buf[128];
+    assert(fgets(buf, sizeof(buf), fd) != NULL);
+    assert(strcmp(buf, "Línea uno de prueba.\n") == 0);
+    assert(fgets(buf, sizeof(buf), fd) != NULL);
+    assert(strcmp(buf, "Línea dos.\n") == 0);
+    fclose(fd);
+
+    // Caso error mismo archivo
+    assert(copiar_archivo(orig, orig) == ERROR);
+
+    // Caso error origen inexistente
+    assert(copiar_archivo("no_existe.txt", dest) == ERROR);
+
+    remove(orig);
+    remove(dest);
+    return 0;
 }
-:::
-<!-- {code-block}c -->
+```
 
 ::::
 <!-- {solution} ejercicio_archivos_3 -->
 
-(ej_b2_c04b_05)=
-### Ejercicio 2.04b.05 - b.4 - Registrar eventos en un log ⭐⭐☆☆☆
+---
+
+(ej_b2_c04b_04)=
+### Ejercicio 2.04b.04 - Registro de Eventos con Marca de Nivel en Archivo Log ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ejercicio_archivos_4
 :enumerator: 4
 
-**Registrar eventos en un log**
+Implementá una función `int registrar_log(const char *archivo_log, const char *nivel, const char *mensaje)`
+que formatee y agregue una línea en un archivo de registro con la sintaxis:
+`[NIVEL] mensaje\n`.
+El archivo debe abrirse en modo adición (`"a"`). Si los parámetros son nulos, la función debe fallar defensivamente.
 
-Crea una función `registrar_evento` que reciba un mensaje y lo añada a un
-archivo llamado `eventos.log`. La función debe asegurarse de que cada mensaje
-nuevo se agregue al final del archivo, sin borrar el contenido anterior. Por
-simplicidad, no es necesario agregar una marca de tiempo.
+**Nivel de Bloom:** Nivel 3 (Aplicación).  
+**Conceptos requeridos:** `fopen` con `"a"`, `fprintf`, control de flujo defensivo.  
+**Techo conceptual:** Prohibido el uso de memoria dinámica.
+
+#### Contrato de la Función
+- **Firma:** `int registrar_log(const char *archivo_log, const char *nivel, const char *mensaje);`
+- **Precondiciones:** `archivo_log != NULL`, `nivel != NULL`, `mensaje != NULL`.
+- **Postcondiciones:** Retorna `0` si se escribió la línea correctamente. Retorna `-1` ante cualquier fallo.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Tipo de Caso | Entrada (`nivel`, `mensaje`) | Formato Esperado en Archivo | Justificación Técnica |
+| :--- | :--- | :--- | :--- |
+| **Normal** | `"INFO"`, `"Sistema iniciado"` | `"[INFO] Sistema iniciado\n"` | Registro informativo estándar |
+| **Normal** | `"ERROR"`, `"Fallo de red"` | `"[ERROR] Fallo de red\n"` | Registro de nivel crítico |
+| **Error (Nulo)** | `NULL`, `"Mensaje"` | Retorna `-1` | Rechazo por parámetro nulo |
 
 :::
 <!-- {exercise} -->
@@ -377,235 +427,221 @@ simplicidad, no es necesario agregar una marca de tiempo.
 ::::{solution} ejercicio_archivos_4
 :class: dropdown
 
-:::{code-block}c
+```{code-block} c
 :linenos:
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 #define EXITO 0
 #define ERROR -1
-#define ARCHIVO_LOG "eventos.log"
-/**
- * Registra un mensaje de evento en un archivo de log.
- *
- * @param mensaje El mensaje a registrar.
- *      #PRE: No puede ser NULL.
- *
- * @returns EXITO si el evento se registró correctamente, ERROR en caso
-   contrario.
- *
- * @post El archivo de log contendrá el nuevo mensaje al final.
- */
-int registrar_evento(const char *mensaje)
+
+int registrar_log(const char *archivo_log, const char *nivel, const char *mensaje)
 {
-    int resultado = EXITO;
-    FILE *p_log = fopen(ARCHIVO_LOG, "a");
+    if (archivo_log == NULL || nivel == NULL || mensaje == NULL)
+    {
+        return ERROR;
+    }
+
+    FILE *p_log = fopen(archivo_log, "a");
     if (p_log == NULL)
     {
-        perror("Error al abrir el archivo de log");
-        resultado = ERROR;
+        return ERROR;
     }
-    else
+
+    if (fprintf(p_log, "[%s] %s\n", nivel, mensaje) < 0)
     {
-        // Escribir el mensaje y un salto de línea
-        if (fprintf(p_log, "%s\n", mensaje) < 0)
-        {
-            perror("Error al escribir en el archivo de log");
-            resultado = ERROR;
-        }
-        // Cerrar el archivo
-        if (fclose(p_log) != 0)
-        {
-            perror("Error al cerrar el archivo de log");
-            resultado = ERROR;
-        }
+        fclose(p_log);
+        return ERROR;
     }
-    return resultado;
+
+    if (fclose(p_log) != 0)
+    {
+        return ERROR;
+    }
+
+    return EXITO;
 }
+
 int main(void)
 {
-    printf("Registrando eventos...\n");
-    if (registrar_evento("[INFO] El sistema ha iniciado.") != EXITO)
-    {
-        fprintf(stderr, "Fallo al registrar el primer evento.\n");
-        return EXIT_FAILURE;
-    }
-    if (registrar_evento("[WARN] El disco está casi lleno.") != EXITO)
-    {
-        fprintf(stderr, "Fallo al registrar el segundo evento.\n");
-        return EXIT_FAILURE;
-    }
-    if (registrar_evento("[FATAL] No se pudo conectar a la base de datos.") !=
-        EXITO)
-    {
-        fprintf(stderr, "Fallo al registrar el tercer evento.\n");
-        return EXIT_FAILURE;
-    }
-    printf("Eventos registrados en '%s'.\n", ARCHIVO_LOG);
-    return EXIT_SUCCESS;
+    const char *log_file = "test_eventos_tmp.log";
+    remove(log_file);
+
+    // Casos normales
+    assert(registrar_log(log_file, "INFO", "Sistema iniciado") == EXITO);
+    assert(registrar_log(log_file, "ERROR", "Fallo de red") == EXITO);
+
+    // Casos nulos
+    assert(registrar_log(NULL, "INFO", "Mensaje") == ERROR);
+    assert(registrar_log(log_file, NULL, "Mensaje") == ERROR);
+    assert(registrar_log(log_file, "INFO", NULL) == ERROR);
+
+    // Verificar contenido
+    FILE *f = fopen(log_file, "r");
+    assert(f != NULL);
+    char buf[128];
+    assert(fgets(buf, sizeof(buf), f) != NULL);
+    assert(strcmp(buf, "[INFO] Sistema iniciado\n") == 0);
+    assert(fgets(buf, sizeof(buf), f) != NULL);
+    assert(strcmp(buf, "[ERROR] Fallo de red\n") == 0);
+    fclose(f);
+
+    remove(log_file);
+    return 0;
 }
-:::
-<!-- {code-block}c -->
+```
 
 ::::
 <!-- {solution} ejercicio_archivos_4 -->
 
-(ej_b2_c04b_06)=
-### Ejercicio 2.04b.06 - b.5 - Procesar un archivo CSV de ventas ⭐⭐☆☆☆
+---
 
-:::::{exercise}
+(ej_b2_c04b_05)=
+### Ejercicio 2.04b.05 - Procesamiento y Suma Total de Ventas en CSV ⭐⭐☆☆☆
+
+:::{exercise}
 :label: ejercicio_archivos_5
 :enumerator: 5
 
-**Procesar un archivo CSV de ventas**
+Implementá una función `double calcular_total_ventas_csv(const char *nombre_archivo)`
+que procese un archivo CSV con formato `producto,precio,cantidad`.
+La función debe parsear cada línea con `sscanf`, calcular el subtotal (`precio * cantidad`),
+acumular el total general de todas las líneas válidas e ignorar comentarios (iniciados con `#`)
+o líneas en blanco. Si el archivo no existe o ocurre un error irrecuperable, retorna `-1.0`.
 
-Escribí una función que lea un archivo `ventas.csv` con el formato
-`producto,precio,cantidad`. Por cada línea, debe calcular el total (precio *
-cantidad) y mostrarlo en pantalla. La función debe ignorar líneas mal formadas o
-vacías.
+**Nivel de Bloom:** Nivel 3 (Aplicación) y Nivel 4 (Análisis).  
+**Conceptos requeridos:** `fgets`, `sscanf` con máscaras de exclusión (`%99[^,]`), acumuladores en punto flotante.  
+**Techo conceptual:** Prohibido el uso de memoria dinámica.
 
-**Ejemplo de `ventas.csv`:**
-``` csv
-Teclado Mecanico,150.50,2
-Mouse Gamer,75.00,5
-Monitor 24 pulgadas,300.25,1
-# Esto es un comentario, debe ser ignorado
-Webcam,no_es_un_precio,3
-```
-<!-- csv -->
+#### Contrato de la Función
+- **Firma:** `double calcular_total_ventas_csv(const char *nombre_archivo);`
+- **Precondiciones:** `nombre_archivo != NULL`.
+- **Postcondiciones:** Retorna la suma total acumulada $\ge 0.0$. Retorna `-1.0` si el archivo no puede abrirse.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Tipo de Caso | Contenido del Archivo | Total Esperado | Justificación Técnica |
+| :--- | :--- | :--- | :--- |
+| **Normal** | 2 items válidos: `Teclado,100.0,2` y `Mouse,50.0,3` | `350.0` | $100 \times 2 + 50 \times 3 = 350.0$ |
+| **Borde (Comentarios)**| Líneas vacías y comentarios `# comentario` intercalados | `350.0` | Omisión correcta de ruido |
+| **Borde (Malformado)**| Línea mal formada `Webcam,invalido,3` ignorada | `350.0` | Resiliencia ante datos corruptos |
+| **Error (Inexistente)**| Archivo ausente | `-1.0` | Señal de error controlada |
+
+:::
+<!-- {exercise} -->
 
 ::::{solution} ejercicio_archivos_5
 :class: dropdown
 
-:::{code-block}c
+```{code-block} c
 :linenos:
+#include <assert.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define EXITO 0
-#define ERROR -1
+
 #define MAX_LINEA 256
 #define MAX_PRODUCTO 100
-/**
- * Procesa un archivo CSV de ventas, calculando e imprimiendo el total por
-   línea.
- *
- * @param nombre_archivo La ruta del archivo CSV a procesar.
- *      #PRE: No puede ser NULL.
- *
- * @returns EXITO si el archivo se procesó (incluso si algunas líneas
- fallaron),
- *          ERROR si no se pudo abrir el archivo o hubo un error de lectura
-            irrecuperable.
- *
- * @post Se imprimirán en la salida estándar los totales de las líneas bien
-   formadas.
- */
-int procesar_ventas(const char *nombre_archivo)
+
+double calcular_total_ventas_csv(const char *nombre_archivo)
 {
-    int estado_general = EXITO;
+    if (nombre_archivo == NULL)
+    {
+        return -1.0;
+    }
+
     FILE *p_archivo = fopen(nombre_archivo, "r");
-    char buffer[MAX_LINEA];
-    size_t numero_linea = 0;
     if (p_archivo == NULL)
     {
-        perror("No se pudo abrir el archivo de ventas");
-        return ERROR;
+        return -1.0;
     }
+
+    char buffer[MAX_LINEA];
+    double total_acumulado = 0.0;
+
     while (fgets(buffer, sizeof(buffer), p_archivo) != NULL)
     {
-        numero_linea++;
-        // Ignorar líneas vacías o comentarios usando lógica positiva conforme
-        // a
-        la regla 0x1002h if (buffer[0] != '\n' && buffer[0] != '#')
+        if (buffer[0] == '\n' || buffer[0] == '#' || buffer[0] == '\r')
         {
-            char nombre_producto[MAX_PRODUCTO];
-            double precio = 0.0;
-            int cantidad = 0;
-            // Usar sscanf para parsear la línea. Formato:
-            string - hasta - coma, double,
-                int int campos_leidos =
-                    sscanf(buffer, "%99[^,],%lf,%d", nombre_producto, &precio,
-                           &cantidad);
-            if (campos_leidos == 3)
-            {
-                double total_linea = precio * (double)cantidad;
-                printf("Línea %zu: Producto \x27%s\x27, Total: %.2f\n",
-                       numero_linea, nombre_producto, total_linea);
-            }
-            else
-            {
-                fprintf(stderr, "[Advertencia] Línea %zu mal formada: %s",
-                        numero_linea, buffer);
-            }
+            continue;
+        }
+
+        char nombre[MAX_PRODUCTO];
+        double precio = 0.0;
+        int cantidad = 0;
+
+        int leidos = sscanf(buffer, "%99[^,],%lf,%d", nombre, &precio, &cantidad);
+        if (leidos == 3 && precio >= 0.0 && cantidad >= 0)
+        {
+            total_acumulado += precio * (double)cantidad;
         }
     }
-    if (ferror(p_archivo))
-    {
-        perror("Ocurrió un error de lectura");
-        estado_general = ERROR;
-    }
-    if (fclose(p_archivo) != 0)
-    {
-        perror("Error al cerrar el archivo de ventas");
-        estado_general = ERROR;
-    }
-    return estado_general;
+
+    fclose(p_archivo);
+    return total_acumulado;
 }
+
 int main(void)
 {
-    const char *ARCHIVO_VENTAS = "ventas.csv";
-    // Crear archivo de ventas de prueba
-    FILE *p_temp = fopen(ARCHIVO_VENTAS, "w");
-    if (p_temp != NULL)
-    {
-        fprintf(p_temp, "Teclado Mecanico,150.50,2\n");
-        fprintf(p_temp, "Mouse Gamer,75.00,5\n");
-        fprintf(p_temp, "\n"); // Línea vacía
-        fprintf(p_temp, "Monitor 24 pulgadas,300.25,1\n");
-        fprintf(p_temp, "# Esto es un comentario, debe ser ignorado\n");
-        fprintf(p_temp, "Webcam,no_es_un_precio,3\n"); // Línea mal formada
-        fclose(p_temp);
-    }
-    printf("Procesando archivo \x27%s\x27...\n", ARCHIVO_VENTAS);
-    if (procesar_ventas(ARCHIVO_VENTAS) == ERROR)
-    {
-        fprintf(stderr,
-                "No se pudo completar el procesamiento del archivo.\n");
-        return EXIT_FAILURE;
-    }
-    printf("\nProcesamiento finalizado.\n");
-    return EXIT_SUCCESS;
+    const char *csv_file = "test_ventas_tmp.csv";
+
+    FILE *f = fopen(csv_file, "w");
+    assert(f != NULL);
+    fputs("Teclado Mecanico,100.0,2\n", f);
+    fputs("# Comentario de encabezado\n", f);
+    fputs("\n", f);
+    fputs("Mouse Gamer,50.0,3\n", f);
+    fputs("Webcam,precio_corrupto,1\n", f);
+    fclose(f);
+
+    double total = calcular_total_ventas_csv(csv_file);
+    assert(fabs(total - 350.0) < 0.001);
+
+    // Caso archivo inexistente
+    assert(calcular_total_ventas_csv("inexistente.csv") < 0.0);
+
+    remove(csv_file);
+    return 0;
 }
-- * *
-        [*plus ultra *
-]:**Garantizar la terminación con `\0` y prevenir desbordamientos de búfer
-            validando la capacidad máxima.-
-    **
-     [*plus ultra * ]:**Soportar la lectura de cadenas con espacios y múltiples
-                          líneas de manera robusta.
-:::
-<!-- {code-block}c -->
+```
 
 ::::
 <!-- {solution} ejercicio_archivos_5 -->
 
-(ej_b2_c04b_07)=
-### Ejercicio 2.04b.07 - b.6 - Inversión de archivo ⭐⭐☆☆☆
+---
+
+(ej_b2_c04b_06)=
+### Ejercicio 2.04b.06 - Inversión Carácter por Carácter con `fseek` ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ejercicio_archivos_6
 :enumerator: 6
 
-**Inversión de archivo**
+Implementá una función `int invertir_archivo(const char *origen, const char *destino)`
+que lea un archivo de texto desde el último carácter hacia el primero empleando `fseek`
+con desplazamiento negativo y `SEEK_END`, y escriba el contenido invertido en el archivo `destino`.
+Debe retornar `0` en caso de éxito y `-1` ante cualquier fallo de apertura o E/S.
 
-Implementá una función `int invertir_archivo(const char *origen, const char
-*destino)` que reciba el nombre de un archivo de texto existente (`origen`) y
-genere un nuevo archivo (`destino`) que contenga exactamente el mismo texto pero
-invertido carácter por carácter (es decir, el último carácter del original será
-el primero del nuevo, y así sucesivamente). La función debe usar `fseek` y
-`ftell` para determinar el tamaño del archivo y leer los caracteres desde el
-final hacia el principio. Debe retornar `0` en caso de éxito y un valor negativo
-ante fallas de apertura, posicionamiento o escritura.
+**Nivel de Bloom:** Nivel 3 (Aplicación) y Nivel 4 (Análisis).  
+**Conceptos requeridos:** `fseek(f, offset, SEEK_END)`, `ftell`, `fgetc`, `fputc`.  
+**Techo conceptual:** Prohibido cargar todo el archivo en un búfer o array en memoria.
+
+#### Contrato de la Función
+- **Firma:** `int invertir_archivo(const char *origen, const char *destino);`
+- **Precondiciones:** `origen != NULL`, `destino != NULL`, `strcmp(origen, destino) != 0`.
+- **Postcondiciones:** Retorna `0` si el archivo fue invertido. Retorna `-1` si falla la apertura o el acceso.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Tipo de Caso | Contenido Origen | Contenido Destino Invertido | Justificación Técnica |
+| :--- | :--- | :--- | :--- |
+| **Normal** | `"ABC"` | `"CBA"` | Inversión directa simple |
+| **Normal** | `"Hola Mundo"` | `"odnuM aloH"` | Preservación de espacios |
+| **Borde (1 Char)** | `"X"` | `"X"` | Archivo unitario |
+| **Borde (Vacío)** | `""` | `""` | Archivo de 0 bytes |
 
 :::
 <!-- {exercise} -->
@@ -613,105 +649,123 @@ ante fallas de apertura, posicionamiento o escritura.
 ::::{solution} ejercicio_archivos_6
 :class: dropdown
 
-:::{code-block}c
+```{code-block} c
 :linenos:
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 #define EXITO 0
-#define ERROR_APERTURA -1
-#define ERROR_POSICIONAMIENTO -2
-#define ERROR_ESCRITURA -3
+#define ERROR -1
+
 int invertir_archivo(const char *origen, const char *destino)
 {
-    FILE *p_origen = fopen(origen, "r");
-    if (p_origen == NULL)
+    if (origen == NULL || destino == NULL || strcmp(origen, destino) == 0)
     {
-        perror("Error al abrir el archivo de origen");
-        return ERROR_APERTURA;
+        return ERROR;
     }
-    FILE *p_destino = fopen(destino, "w");
-    if (p_destino == NULL)
+
+    FILE *f_orig = fopen(origen, "rb");
+    if (f_orig == NULL)
     {
-        perror("Error al abrir el archivo de destino");
-        fclose(p_origen);
-        return ERROR_APERTURA;
+        return ERROR;
     }
-    // Determinar el tamaño del archivo de origen usando fseek y ftell
-    if (fseek(p_origen, 0L, SEEK_END) != 0)
+
+    if (fseek(f_orig, 0, SEEK_END) != 0)
     {
-        perror("Error al posicionarse al final del archivo");
-        fclose(p_origen);
-        fclose(p_destino);
-        return ERROR_POSICIONAMIENTO;
+        fclose(f_orig);
+        return ERROR;
     }
-    long tamanio = ftell(p_origen);
-    if (tamanio == -1L)
+
+    long tamano = ftell(f_orig);
+    if (tamano < 0)
     {
-        perror("Error al obtener la posición actual (tamaño)");
-        fclose(p_origen);
-        fclose(p_destino);
-        return ERROR_POSICIONAMIENTO;
+        fclose(f_orig);
+        return ERROR;
     }
-    // Leer carácter por carácter desde el final hacia el inicio
-    for (long i = tamanio - 1; i >= 0; i--)
+
+    FILE *f_dest = fopen(destino, "wb");
+    if (f_dest == NULL)
     {
-        if (fseek(p_origen, i, SEEK_SET) != 0)
+        fclose(f_orig);
+        return ERROR;
+    }
+
+    for (long i = 1; i <= tamano; i++)
+    {
+        if (fseek(f_orig, -i, SEEK_END) != 0)
         {
-            perror("Error de posicionamiento en el lazo");
-            fclose(p_origen);
-            fclose(p_destino);
-            return ERROR_POSICIONAMIENTO;
+            fclose(f_orig);
+            fclose(f_dest);
+            return ERROR;
         }
-        int c = fgetc(p_origen);
+
+        int c = fgetc(f_orig);
         if (c == EOF)
         {
-            perror("Error al leer carácter");
-            fclose(p_origen);
-            fclose(p_destino);
-            return ERROR_POSICIONAMIENTO;
+            fclose(f_orig);
+            fclose(f_dest);
+            return ERROR;
         }
-        if (fputc(c, p_destino) == EOF)
+
+        if (fputc(c, f_dest) == EOF)
         {
-            perror("Error al escribir carácter en destino");
-            fclose(p_origen);
-            fclose(p_destino);
-            return ERROR_ESCRITURA;
+            fclose(f_orig);
+            fclose(f_dest);
+            return ERROR;
         }
     }
-    fclose(p_origen);
-    if (fclose(p_destino) != 0)
+
+    fclose(f_orig);
+    if (fclose(f_dest) != 0)
     {
-        perror("Error al cerrar el archivo de destino");
-        return ERROR_ESCRITURA;
+        return ERROR;
     }
+
     return EXITO;
 }
+
 int main(void)
 {
-    const char *ORIGEN = "entrada.txt";
-    const char *DESTINO = "salida_invertida.txt";
-    // Crear un archivo de prueba
-    FILE *f = fopen(ORIGEN, "w");
-    if (f != NULL)
-    {
-        fputs("Ingenieria en Computacion UNRN", f);
-        fclose(f);
-    }
-    printf("Invirtiendo archivo \x27%s\x27 en \x27%s\x27...\n", ORIGEN,
-           DESTINO);
-    if (invertir_archivo(ORIGEN, DESTINO) == EXITO)
-    {
-        printf("Archivo invertido exitosamente.\n");
-    }
-    else
-    {
-        printf("Ocurrió un error al invertir el archivo.\n");
-    }
+    const char *orig = "test_inv_orig.txt";
+    const char *dest = "test_inv_dest.txt";
+
+    // Caso normal
+    FILE *f = fopen(orig, "wb");
+    assert(f != NULL);
+    fputs("ABC", f);
+    fclose(f);
+
+    assert(invertir_archivo(orig, dest) == EXITO);
+
+    FILE *fd = fopen(dest, "rb");
+    assert(fd != NULL);
+    char buf[16] = {0};
+    assert(fread(buf, 1, 3, fd) == 3);
+    assert(strcmp(buf, "CBA") == 0);
+    fclose(fd);
+
+    // Caso un caracter
+    f = fopen(orig, "wb");
+    assert(f != NULL);
+    fputs("X", f);
+    fclose(f);
+
+    assert(invertir_archivo(orig, dest) == EXITO);
+
+    fd = fopen(dest, "rb");
+    assert(fd != NULL);
+    memset(buf, 0, sizeof(buf));
+    assert(fread(buf, 1, 1, fd) == 1);
+    assert(strcmp(buf, "X") == 0);
+    fclose(fd);
+
+    remove(orig);
+    remove(dest);
     return 0;
 }
-:::
-<!-- {code-block}c -->
+```
 
 ::::
 <!-- {solution} ejercicio_archivos_6 -->
-

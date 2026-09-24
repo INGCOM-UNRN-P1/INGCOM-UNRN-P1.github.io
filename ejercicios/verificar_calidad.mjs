@@ -10,6 +10,8 @@ const EJERCICIOS_ROOT = __dirname;
 const CANONICAL_FILES = [
   'bloque_2_memoria/1_punteros.md',
   'bloque_2_memoria/1b_punteros_ejercicios.md',
+  'bloque_2_memoria/3b_ejercicios_archivos.md',
+  'bloque_2_memoria/4c_ejercicios_memoria.md',
   'bloque_2_memoria/6_structs.md',
   'bloque_2_memoria/7_alias_tipos_ejercicios.md',
   'bloque_4_avanzados/3_archivos_binarios.md'

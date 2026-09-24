@@ -161,7 +161,7 @@ function extractSolutions(filePath) {
         const isC = codeLang === 'c' || codeLang === 'cpp' || code.includes('#include <');
         const hasMain = code.includes('int main(') || code.includes('int main (');
 
-        if ((inSolution && isC && hasMain) || (hasMain && isC)) {
+        if (inSolution && isC && hasMain) {
           solutions.push({
             anchor: currentAnchor || `unknown_${solutions.length + 1}`,
             title: currentTitle || 'Sin título',

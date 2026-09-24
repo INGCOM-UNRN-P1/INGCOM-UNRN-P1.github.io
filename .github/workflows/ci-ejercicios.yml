@@ -42,6 +42,8 @@ jobs:
         run: |
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/1_punteros.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/1b_punteros_ejercicios.md
+          node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/3b_ejercicios_archivos.md
+          node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/4c_ejercicios_memoria.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/6_structs.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/7_alias_tipos_ejercicios.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_4_avanzados/3_archivos_binarios.md
