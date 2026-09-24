@@ -40,11 +40,15 @@ jobs:
 
       - name: Compuerta 2 - Compilación y Aserciones C11 (Archivos Certificados)
         run: |
+          node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_1_fundamentos/1_basicos_y_secuencias.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_1_fundamentos/2_gradual_ejercicios.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_1_fundamentos/3_matematicos.md
+          node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_1_fundamentos/4_testing_y_estructura.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_1_fundamentos/5_ejercicios_control.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_1_fundamentos/6_funciones_ejercicios.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_1_fundamentos/7_librerias_ejercicios.md
+          node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_1_fundamentos/8_compilacion_y_makefiles.md
+          node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_1_fundamentos/9_refactorizacion_codigo_ofuscado.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/1_punteros.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/1b_punteros_ejercicios.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/2_arreglos.md
@@ -68,4 +72,5 @@ jobs:
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_4_avanzados/3_archivos_binarios.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_4_avanzados/4_recursividad_avanzada.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_4_avanzados/5_ordenamiento_y_busqueda.md
+          node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_4_avanzados/6_analisis_de_codigo.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_4_avanzados/7_diseno_api.md

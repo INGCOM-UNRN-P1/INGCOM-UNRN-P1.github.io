@@ -24,6 +24,13 @@ cobertura de ramas de ejecución y aplicar las reglas de estilo institucional
 - {ref}`capitulo-funciones-descomposicion`
 - {ref}`capitulo-control-flujo`
 
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Pruebas unitarias basadas en aserciones (`assert`) y patrón Arrange-Act-Assert (AAA) ({ref}`capitulo-testing-verificacion`).
+2. Regla institucional de funciones puras desacopladas de E/S ({ref}`0x2002h`).
+3. Prohibición estricta de variables globales mutables y paso explícito de contexto ({ref}`0x2004h`).
+4. Estructuración de runners y métricas de prueba mediante códigos de retorno en `main`.
+
 ### Cuestiones de Estilo Aplicables
 - **Variables Globales Prohibidas:** Según la {ref}`0x2004h`, está estrictamente prohibido el
   uso de variables globales.
@@ -521,6 +528,14 @@ void test_descuento_porcentaje_invalido(void)
 :label: ej-test-runner-basico
 Implementá un pequeño ejecutor de pruebas en C con retorno de conteos en `main`
 para contabilizar pruebas ejecutadas y aprobadas sin usar variables globales.
+
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Entrada | Función Evaluada | Retorno Esperado |
+| :--- | :--- | :--- | :--- |
+| Cuadrado positivo | `4` | `cuadrado(4)` | `16` |
+| Cuadrado cero | `0` | `cuadrado(0)` | `0` |
+| Cuadrado negativo | `-3` | `cuadrado(-3)` | `9` |
 
 :::
 <!-- {exercise} -->

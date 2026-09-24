@@ -15,6 +15,13 @@ direccionamiento de memoria.
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-control-flujo`
 
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Clasificación conceptual de roles de variables: acumulador, contador, bandera de estado e índice de lazo ({ref}`capitulo-control-flujo`).
+2. Paso de parámetros de salida por referencia con punteros (`bool *exito`).
+3. Lectura analítica de flujos de control y cálculo de condiciones de parada.
+4. Validación empírica con suites de pruebas bajo el estándar C11.
+
 ### Cuestiones de Estilo Aplicables
 - **Razonamiento sobre invariantes:** Analizá el estado de las variables y
   punteros en puntos clave del código para deducir condiciones lógicas
@@ -31,7 +38,7 @@ direccionamiento de memoria.
 :label: rol_promedio
 
 Dado el siguiente código, identificá el "rol" principal de cada una de las
-variables listadas.
+variables listadas:
 
 ```{code-block} c
 :linenos:
@@ -60,13 +67,13 @@ double promedio_positivos(const int arreglo[], size_t n, bool *exito)
 ```
 <!-- {code-block} c -->
 
-**Tarea**: Para cada una de las siguientes variables, describí su rol principal:
+**Tabla de Vectores de Prueba:**
 
-1.  `suma`
-2.  `contador`
-3.  `exito` (el valor al que apunta)
-4.  `i`
-5.  El valor de retorno de la función.
+| Caso de Prueba | Arreglo Entrada | Cantidad `n` | `*exito` | Retorno Promedio |
+| :--- | :--- | :--- | :--- | :--- |
+| Mixto con positivos | `[-2, 10, -5, 20]` | `4` | `true` | `15.0` |
+| Sin positivos | `[-4, -8, 0]` | `3` | `false` | `0.0` |
+| Arreglo vacío | `{}` | `0` | `false` | `0.0` |
 
 :::
 <!-- {exercise} rol_promedio -->
@@ -74,18 +81,71 @@ double promedio_positivos(const int arreglo[], size_t n, bool *exito)
 :::{solution} rol_promedio
 :class: dropdown
 
-1.  **`suma`**: **Acumulador**. Su propósito es acumular la suma de los valores
-    positivos encontrados.
-2.  **`contador`**: **Contador**. Su rol es contar cuántos números positivos se
-    han encontrado.
-3.  **`exito`**: **Bandera (Flag)**. Se utiliza para señalizar al código que
-    llama a la función si la operación fue exitosa (es decir, si se encontró al
-    menos un número positivo).
-4.  **`i`**: **Variable de Control de lazo (Iterador)**. Su único propósito es
-    controlar las iteraciones del lazo `for`.
-5.  **Valor de retorno**: **Variable de Salida**. Contiene el resultado
-    principal del cálculo de la función. 
-    
+**Roles de las variables:**
+1. **`suma`**: **Acumulador**. Su propósito es acumular la suma de los valores positivos encontrados.
+2. **`contador`**: **Contador**. Su rol es contar cuántos números positivos se han encontrado.
+3. **`exito`**: **Bandera (Flag)**. Se utiliza para señalizar al llamador si se encontró al menos un número positivo.
+4. **`i`**: **Variable de Control de lazo (Iterador)**. Controla las iteraciones del lazo `for`.
+5. **Valor de retorno**: **Variable de Salida**. Contiene el resultado del promedio o `0.0` en caso de falla.
+
+**Implementación y Suite de Verificación C11:**
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <stdbool.h>
+#include <math.h>
+#include <assert.h>
+
+#define EPSILON 1e-6
+
+double promedio_positivos(const int arreglo[], size_t n, bool *exito) {
+    if (exito == NULL) {
+        return 0.0;
+    }
+    *exito = false;
+    if (arreglo == NULL || n == 0) {
+        return 0.0;
+    }
+
+    double suma = 0.0;
+    int contador = 0;
+
+    for (size_t i = 0; i < n; i++) {
+        if (arreglo[i] > 0) {
+            suma += arreglo[i];
+            contador++;
+        }
+    }
+
+    if (contador > 0) {
+        *exito = true;
+        return suma / (double)contador;
+    }
+    return 0.0;
+}
+
+int main(void) {
+    int arr1[] = {-2, 10, -5, 20};
+    bool exito = false;
+    double p1 = promedio_positivos(arr1, 4, &exito);
+    assert(exito == true);
+    assert(fabs(p1 - 15.0) < EPSILON);
+
+    int arr2[] = {-4, -8, 0};
+    double p2 = promedio_positivos(arr2, 3, &exito);
+    assert(exito == false);
+    assert(fabs(p2 - 0.0) < EPSILON);
+
+    double p3 = promedio_positivos(NULL, 0, &exito);
+    assert(exito == false);
+    assert(fabs(p3 - 0.0) < EPSILON);
+
+    assert(promedio_positivos(arr1, 4, NULL) == 0.0);
+
+    return 0;
+}
+```
+<!-- {code-block} c -->
 :::
 <!-- {solution} rol_promedio -->
 

@@ -31,6 +31,13 @@ matrices y arreglos.
 :::
 <!-- {warning} Temas de estos ejercicios -->
 
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Estilo y formato institucional de la cátedra: indentación Allman ({ref}`0x0007h`) y nombres autoexplicativos ({ref}`0x0102h`).
+2. Eliminación de estructuras no recomendadas: reemplazo de operador ternario por bifurcaciones explícitas ({ref}`0x1007h`).
+3. Desacople estricto de E/S (`printf`/`scanf`) respecto a la lógica de cálculo ({ref}`0x2002h`).
+4. Verificación de equivalencia funcional mediante suites de pruebas con `assert()` en C11.
+
 ### Metodología de Trabajo para Cada Ejercicio
 
 Para resolver cada ejercicio debés:
@@ -66,6 +73,14 @@ prohibido y nombres crípticos:
 int f(int a,int b){return(a>b)?a:b;}
 ```
 <!-- c -->
+
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Primer Número | Segundo Número | Retorno Esperado |
+| :--- | :--- | :--- | :--- |
+| Primero mayor | `10` | `5` | `10` |
+| Negativos | `-3` | `-8` | `-3` |
+| Iguales | `7` | `7` | `7` |
 
 :::
 <!-- {exercise} -->
@@ -104,6 +119,11 @@ void test_obtener_mayor(void)
     assert(obtener_mayor(7, 7) == 7);
 }
 
+int main(void)
+{
+    test_obtener_mayor();
+    return 0;
+}
 ```
 <!-- {code-block} c -->
 

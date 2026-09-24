@@ -17,6 +17,13 @@ secuencias numéricas.
 - {ref}`capitulo-fundamentos-computacion`
 - {ref}`capitulo-introduccion-c`
 
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Estructura básica de un programa en C11: función `main(void)` y valor de retorno ({ref}`capitulo-introduccion-c`).
+2. Declaración, inicialización y ámbito de variables de tipos primitivos escalares (`int`, `double`).
+3. Estructuras de control iterativas: sintaxis y semántica de lazos `for` y `while`.
+4. Salida por consola formateada mediante `printf` y pruebas unitarias con aserciones (`assert`).
+
 ### Cuestiones de Estilo Aplicables
 - **Resolución mediante funciones:** Según la {ref}`0x2008h`, la lógica principal que
   resuelve cada enunciado debe estar contenida en una función, incluso si no se
@@ -37,21 +44,65 @@ secuencias numéricas.
 (ej_b1_c01_01)=
 ### Ejercicio 1.01.01 - Cuenta regresiva ⭐⭐☆☆☆
 
-Este ejercicio consiste en implementar un programa que realice una cuenta
-regresiva desde un número entero positivo $N$ hasta $1$, para finalmente imprimir
-un mensaje de "¡Lanzamiento!". El objetivo es practicar el uso de lazos y la
-gestión de tiempos de ejecución simples.
+:::{exercise}
+:label: ej_b1_c01_01_cuenta_regresiva
 
-Para que la cuenta no sea instantánea y se pueda percibir en tiempo real, se
-debe introducir una pausa de 1 segundo entre cada número impreso.
+Implementá una función pura que calcule la cantidad de pasos de una cuenta regresiva desde $N$ hasta $1$ y la suma acumulada de los valores emitidos:
+- `int calcular_pasos_regresiva(int n)`: retorna la cantidad de números emitidos si $n \ge 1$, o `0` si $n \le 0$.
+- `long long suma_cuenta_regresiva(int n)`: retorna la suma de los enteros de $1$ a $n$, o `0` si $n \le 0$.
 
-:::{hint} Lógica y Consideraciones
--   **Entrada:** El programa debe solicitar al usuario un número entero positivo
--   **Proceso:** Se debe utilizar un lazo que itere desde $N$ hacia abajo, hasta llegar a 1.
--   **Pausa:** Dentro del lazo, después de imprimir cada número, el programa debe pausar la ejecución durante 1 segundo.
--   **Salida:** Tras finalizar el lazo, se debe imprimir el mensaje final de "¡Lanzamiento!".
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Valor $N$ | Pasos Retornados | Suma Acumulada |
+| :--- | :--- | :--- | :--- |
+| Escalar 5 | `5` | `5` | `15` ($5+4+3+2+1$) |
+| Unitario | `1` | `1` | `1` |
+| Nulo | `0` | `0` | `0` |
+| Negativo | `-4` | `0` | `0` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <assert.h>
+
+int calcular_pasos_regresiva(int n) {
+    if (n <= 0) {
+        return 0;
+    }
+    int pasos = 0;
+    for (int i = n; i >= 1; --i) {
+        pasos++;
+    }
+    return pasos;
+}
+
+long long suma_cuenta_regresiva(int n) {
+    if (n <= 0) {
+        return 0;
+    }
+    long long suma = 0;
+    for (int i = n; i >= 1; --i) {
+        suma += i;
+    }
+    return suma;
+}
+
+int main(void) {
+    assert(calcular_pasos_regresiva(5) == 5);
+    assert(calcular_pasos_regresiva(1) == 1);
+    assert(calcular_pasos_regresiva(0) == 0);
+    assert(calcular_pasos_regresiva(-4) == 0);
+
+    assert(suma_cuenta_regresiva(5) == 15);
+    assert(suma_cuenta_regresiva(1) == 1);
+    assert(suma_cuenta_regresiva(0) == 0);
+    assert(suma_cuenta_regresiva(-10) == 0);
+
+    return 0;
+}
+```
+::::
 :::
-<!-- {hint} Lógica y Consideraciones -->
 
 :::{tip} Ayuda (pseudocódigo)
 :class: dropdown

@@ -28,24 +28,70 @@ Antes de resolver esta guía, el estudiante debe dominar:
 ## Proyecto Multi-archivo Manual
 
 (ej_b1_c08_01)=
-### Ejercicio 1.08.01 - Separar un programa ⭐⭐☆☆☆
+### Ejercicio 1.08.01 - Separar un programa en módulos ⭐⭐☆☆☆
 
-**Tarea**: Tomá un programa simple que tengas en un solo archivo `.c` (por
-ejemplo, una calculadora con funciones `sumar` y `restar`) y dividilo en tres
-archivos:
+:::{exercise}
+:label: ej_b1_c08_01_modular
 
-- **`calculadora.h`**: El archivo de cabecera. Debe contener solo los prototipos
-  de las funciones `sumar` y `restar` y las guardas de inclusión.
-- **`calculadora.c`**: La implementación. Debe incluir `calculadora.h` y
-  contener el código de las funciones `sumar` y `restar`.
-- **`main.c`**: El programa principal. Debe incluir `calculadora.h` y llamar a
-  las funciones para usarlas.
+Implementá las operaciones aritméticas básicas de un módulo de calculadora con tipado estricto y aserciones de prueba:
+- `int calc_sumar(int a, int b)`
+- `int calc_restar(int a, int b)`
+- `int calc_multiplicar(int a, int b)`
+- `bool calc_dividir(int dividendo, int divisor, int *cociente)`: retorna `false` ante división por cero.
 
-:::{hint} Lógica y Consideraciones
-errores de E/S con `ferror` y `feof`.
-    archivo en todos los caminos de ejecución.
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Operación | Entradas | Retorno Esperado |
+| :--- | :--- | :--- | :--- |
+| Suma positiva | `calc_sumar` | `10, 5` | `15` |
+| Resta con negativo | `calc_restar` | `5, 12` | `-7` |
+| Multiplicación | `calc_multiplicar` | `4, -3` | `-12` |
+| División válida | `calc_dividir` | `20, 4` | `true (*cociente == 5)` |
+| División por cero | `calc_dividir` | `10, 0` | `false` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdbool.h>
+#include <assert.h>
+
+int calc_sumar(int a, int b) {
+    return a + b;
+}
+
+int calc_restar(int a, int b) {
+    return a - b;
+}
+
+int calc_multiplicar(int a, int b) {
+    return a * b;
+}
+
+bool calc_dividir(int dividendo, int divisor, int *cociente) {
+    if (divisor == 0 || cociente == NULL) {
+        return false;
+    }
+    *cociente = dividendo / divisor;
+    return true;
+}
+
+int main(void) {
+    assert(calc_sumar(10, 5) == 15);
+    assert(calc_restar(5, 12) == -7);
+    assert(calc_multiplicar(4, -3) == -12);
+
+    int cociente = 0;
+    assert(calc_dividir(20, 4, &cociente) == true);
+    assert(cociente == 5);
+
+    assert(calc_dividir(10, 0, &cociente) == false);
+    assert(calc_dividir(10, 2, NULL) == false);
+
+    return 0;
+}
+```
+::::
 :::
-<!-- {hint} Lógica y Consideraciones -->
 
 (ej_b1_c08_02)=
 ### Ejercicio 1.08.02 - Compilación manual ⭐⭐☆☆☆

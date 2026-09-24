@@ -8,11 +8,15 @@ const __dirname = path.dirname(__filename);
 const EJERCICIOS_ROOT = __dirname;
 
 const CANONICAL_FILES = [
+  'bloque_1_fundamentos/1_basicos_y_secuencias.md',
   'bloque_1_fundamentos/2_gradual_ejercicios.md',
   'bloque_1_fundamentos/3_matematicos.md',
+  'bloque_1_fundamentos/4_testing_y_estructura.md',
   'bloque_1_fundamentos/5_ejercicios_control.md',
   'bloque_1_fundamentos/6_funciones_ejercicios.md',
   'bloque_1_fundamentos/7_librerias_ejercicios.md',
+  'bloque_1_fundamentos/8_compilacion_y_makefiles.md',
+  'bloque_1_fundamentos/9_refactorizacion_codigo_ofuscado.md',
   'bloque_2_memoria/1_punteros.md',
   'bloque_2_memoria/1b_punteros_ejercicios.md',
   'bloque_2_memoria/2_arreglos.md',
@@ -36,6 +40,7 @@ const CANONICAL_FILES = [
   'bloque_4_avanzados/3_archivos_binarios.md',
   'bloque_4_avanzados/4_recursividad_avanzada.md',
   'bloque_4_avanzados/5_ordenamiento_y_busqueda.md',
+  'bloque_4_avanzados/6_analisis_de_codigo.md',
   'bloque_4_avanzados/7_diseno_api.md'
 ];
 
