@@ -5,31 +5,28 @@ short_title: 5. Structs
 
 # Ejercicios de Estructuras
 
-## Acerca de
+## Prerrequisitos y Entorno de Ejecución Requerido
 
-Estos ejercicios tienen como propósito ejercitar el agrupamiento de tipos
-heterogéneos bajo una misma entidad de datos empleando la palabra clave `struct`
-en C11, así como el paso eficiente por puntero y el acceso a miembros con el operador flecha (`->`).
+Para compilar y verificar las soluciones de este módulo bajo el estándar C11 estricto de cátedra, se requiere:
+- **Compilador C11:** GCC 9+ o Clang 11+ configurado con flags `-Wall -Wextra -Werror -pedantic -std=c11`.
+- **Entorno POSIX:** Linux o WSL con utilidades estándar y análisis de memoria.
+- **Herramientas de Verificación:** Valgrind (memcheck) y AddressSanitizer (`-fsanitize=address,undefined`) para garantizar la correcta alineación y ausencia de lectura de memoria no inicializada.
+- **Conocimientos Previos:** Tipos heterogéneos, palabra clave `struct`, alias `typedef`, operadores punto (`.`) y flecha (`->`), y paso por puntero constante (`const tipo_t *`).
+
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+
+- **Nivel 2 (Comprensión):** Analizar el empaquetado de memoria en estructuras heterogéneas, padding y alineación de bytes.
+- **Nivel 3 (Aplicación):** Implementar modelos de datos compuestos, inicialización segura con llaves y pasaje eficiente por referencia.
+- **Nivel 4 (Análisis):** Evaluar el costo de copia de estructuras en la pila frente a la indirección por puntero.
+- **Andamiaje Progresivo:** Ejercicios andamiados con contratos formales (precondiciones/postcondiciones), tablas de vectores de prueba y suites ejecutables con `assert()`.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-estructuras`
 
-### Prerrequisitos Conceptuales
-Antes de resolver esta guía, el estudiante debe dominar:
-1. Agrupamiento heterogéneo de datos en C11 mediante la palabra clave `struct` ({ref}`capitulo-estructuras`).
-2. Definición de alias limpios mediante `typedef struct nombre nombre_t;`.
-3. Paso por valor vs paso por referencia mediante punteros a estructuras (`const nombre_t *`).
-4. Operadores de acceso: operador punto (`.`) para variables directas y operador flecha (`->`) para punteros.
-
 ### Cuestiones de Estilo Aplicables
-- **Inicialización de structs:** Inicializá siempre las estructuras utilizando
-  llaves en su declaración (ej. `fraccion_t f = {0, 1};`) para evitar basura en
-  sus miembros (ver {ref}`0x7001h`).
-- **Paso por puntero constante:** Para evitar el overhead de copiar estructuras por
-  valor en la pila de llamadas, pasá punteros a estructuras constantes
-  (`const tipo_t *`) cuando la función solo lea los campos.
-- **Acceso a miembros:** Utilizá la sintaxis de operador flecha (`p->campo`) cuando se
-  opere sobre punteros a estructuras, evitando la indirección parentizada `(*p).campo`.
+- **Inicialización de structs:** Inicializá siempre las estructuras utilizando llaves en su declaración (ej. `fraccion_t f = {0, 1};`) para evitar basura en sus miembros (ver {ref}`0x7001h`).
+- **Paso por puntero constante:** Para evitar el overhead de copiar estructuras por valor en la pila de llamadas, pasá punteros a estructuras constantes (`const tipo_t *`) cuando la función solo lea los campos.
+- **Acceso a miembros:** Utilizá la sintaxis de operador flecha (`p->campo`) cuando se opere sobre punteros a estructuras, evitando la indirección parentizada `(*p).campo`.
 
 ---
 

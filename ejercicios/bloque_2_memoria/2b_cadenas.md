@@ -5,33 +5,28 @@ short_title: "4. Cadenas"
 
 # Ejercicios de Cadenas
 
-## Acerca de
+## Prerrequisitos y Entorno de Ejecución Requerido
 
-La manipulación de cadenas es una de las tareas más comunes y, en C, una de las
-más propensas a errores. Estos ejercicios están diseñados para construir una
-base sólida en el manejo de cadenas de caracteres (estilo C, terminadas en
-nulo `\0`), enfocándose en la implementación de algoritmos comunes desde cero. Es
-crucial que al resolverlos, se apliquen los principios de manejo de "cadenas
-seguras" ({ref}`0x5003h`), pasando siempre la capacidad del búfer para evitar
-desbordamientos.
+Para compilar y verificar las soluciones de este módulo bajo el estándar C11 estricto de cátedra, se requiere:
+- **Compilador C11:** GCC 9+ o Clang 11+ configurado con flags `-Wall -Wextra -Werror -pedantic -std=c11`.
+- **Entorno POSIX:** Linux o WSL con utilidades estándar y verificación de límites de memoria.
+- **Herramientas de Verificación:** Valgrind (memcheck) y AddressSanitizer (`-fsanitize=address,undefined`) para garantizar la ausencia de desbordamientos de búfer (*buffer overflow*) y lectura pasada el byte nulo (`\0`).
+- **Conocimientos Previos:** Cadenas estilo C terminadas en nulo (`\0`), calificador `const char *`, capacidad física de búfer vs longitud (`strlen`), y clasificación de caracteres (`<ctype.h>`).
+
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+
+- **Nivel 2 (Comprensión):** Comprender la estructura de cadenas como arreglos continuos terminados en centinela nulo y el riesgo de off-by-one.
+- **Nivel 3 (Aplicación):** Implementar algoritmos seguros de copia, concatenación, tokenización, búsqueda y formateo en C11.
+- **Nivel 4 (Análisis):** Evaluar interfaces seguras que reciben explícitamente la capacidad máxima del búfer destino y previenen truncamiento no controlado.
+- **Andamiaje Progresivo:** Ejercicios andamiados con contratos formales (precondiciones/postcondiciones), tablas de vectores de prueba y suites ejecutables con `assert()`.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-cadenas`
 - {ref}`capitulo-arreglos`
 
-### Prerrequisitos Conceptuales
-Antes de resolver esta guía, el estudiante debe dominar:
-1. Representación contigua en memoria de cadenas terminadas en byte nulo (`'\0'`).
-2. Calificador `const char *` para cadenas de solo lectura y prevención de mutación de literales.
-3. Diferencia entre longitud de texto (`strlen`) y capacidad física del búfer receptor.
-4. Funciones de clasificación y conversión de caracteres (`<ctype.h>`: `tolower`, `isalpha`).
-
 ### Cuestiones de Estilo Aplicables
-- **Seguridad en Búferes:** Al escribir sobre una cadena de destino, la función
-  debe recibir explícitamente el parámetro `size_t capacidad_maxima` y garantizar
-  la terminación en `\0` bajo cualquier circunstancia ({ref}`0x5003h`).
-- **Punteros de lectura const:** Toda cadena fuente que no deba modificarse debe
-  ser calificada como `const char *str`.
+- **Seguridad en Búferes:** Al escribir sobre una cadena de destino, la función debe recibir explícitamente el parámetro `size_t capacidad_maxima` y garantizar la terminación en `\0` bajo cualquier circunstancia ({ref}`0x5003h`).
+- **Punteros de lectura const:** Toda cadena fuente que no deba modificarse debe ser calificada como `const char *str`.
 
 ---
 

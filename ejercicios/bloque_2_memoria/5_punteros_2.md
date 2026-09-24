@@ -5,30 +5,27 @@ short_title: 2. Punteros II
 
 # Ejercicios de Memoria Dinámica Avanzada
 
-## Acerca de
+## Prerrequisitos y Entorno de Ejecución Requerido
 
-Estos ejercicios abordan la gestión avanzada de recursos en el Heap, abarcando
-estructuras anidadas, matrices dinámicas (dentadas y contiguas) y el tratamiento
-defensivo de errores en tiempo de ejecución.
+Para compilar y verificar las soluciones de este módulo bajo el estándar C11 estricto de cátedra, se requiere:
+- **Compilador C11:** GCC 9+ o Clang 11+ configurado con flags `-Wall -Wextra -Werror -pedantic -std=c11`.
+- **Entorno POSIX:** Linux o WSL con utilidades estándar y análisis dinámico de memoria.
+- **Herramientas de Verificación:** Valgrind (memcheck) y AddressSanitizer (`-fsanitize=address,undefined`) para auditar la liberación simétrica, evitar *memory leaks* y detectar punteros colgantes (*dangling pointers*).
+- **Conocimientos Previos:** Ciclo de vida en Heap (`malloc`, `calloc`, `realloc`, `free`), punteros dobles (`T **`), estructuras heterogéneas, copia profunda y patrones de rollback.
+
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+
+- **Nivel 2 (Comprensión):** Diferenciar memoria dinámica simple de estructuras jerárquicas y matrices dentadas.
+- **Nivel 3 (Aplicación):** Implementar constructores y destructores defensivos simétricos con limpieza total ante fallos.
+- **Nivel 4 (Análisis):** Evaluar esquemas de asignación (contigua vs vector de punteros) y protocolos de anulación de punteros dobles.
+- **Andamiaje Progresivo:** Ejercicios andamiados con contratos formales (precondiciones/postcondiciones), tablas de vectores de prueba y suites ejecutables con `assert()`.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`introduccion_aritmetica_punteros`
 
-### Prerrequisitos Conceptuales
-Antes de abordar estos ejercicios, el estudiante debe dominar:
-1. Ciclo de vida dinámico en Heap (`malloc`, `calloc`, `realloc`, `free`) ({ref}`capitulo-memoria-dinamica`).
-2. Punteros simples y dobles (`T *`, `T **`) para pasaje por referencia y modificación de punteros ({ref}`capitulo-punteros`).
-3. Estructuras de datos heterogéneas (`struct`, `typedef`) ({ref}`capitulo-estructuras`).
-4. Duplicación profunda (*deep copy*) versus copia superficial (*shallow copy*).
-5. Protocolos de limpieza simétrica y prevención de fugas ante fallas de asignación intermedia (*rollback*).
-
 ### Cuestiones de Estilo Aplicables
-- **Manejo seguro de punteros:** Es mandatorio liberar en el orden inverso a la
-  asignación (de adentro hacia afuera) y establecer los punteros en `NULL` tras
-  su liberación para prevenir dangling pointers (ver {ref}`0x3002h`).
-- **Verificación de malloc:** Siempre se debe validar el resultado de las
-  llamadas a `malloc`, `calloc` y `realloc` antes de realizar operaciones de
-  lectura o escritura.
+- **Manejo seguro de punteros:** Es mandatorio liberar en el orden inverso a la asignación (de adentro hacia afuera) y establecer los punteros en `NULL` tras su liberación para prevenir dangling pointers (ver {ref}`0x3002h`).
+- **Verificación de malloc:** Siempre se debe validar el resultado de las llamadas a `malloc`, `calloc` y `realloc` antes de realizar operaciones de lectura o escritura.
 
 ---
 

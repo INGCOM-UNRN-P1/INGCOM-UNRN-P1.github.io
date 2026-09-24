@@ -5,17 +5,20 @@ short_title: 11. Memoria Dinámica
 
 # Ejercicios de Gestión de Memoria Dinámica
 
-## Prerrequisitos y Entorno Requerido
-Para abordar y verificar las soluciones de este módulo, se requiere:
-1. **Entorno de Compilación:** Compilador GCC 9+ o Clang bajo estándar estricto **ISO C11** (`-std=c11 -Wall -Wextra -Werror -pedantic`).
-2. **Modelo de Memoria de Procesos:** Arquitectura de segmentos (Stack, Heap, BSS, Data, Text), conversión de punteros a `uintptr_t` (`stdint.h`) para contrastación espacial de direcciones.
-3. **Gestión Dinámica y Sanitizers:** Asignación segura con `malloc`/`calloc`/`realloc`, liberación estricta con `free` y verificación con AddressSanitizer (`-fsanitize=address,undefined`) para garantizar 0 fugas de memoria.
+## Prerrequisitos y Entorno de Ejecución Requerido
 
-## Acerca de
+Para compilar y verificar las soluciones de este módulo bajo el estándar C11 estricto de cátedra, se requiere:
+- **Compilador C11:** GCC 9+ o Clang 11+ configurado con flags `-Wall -Wextra -Werror -pedantic -std=c11`.
+- **Entorno POSIX:** Linux o WSL con utilidades estándar y herramientas de análisis dinámico.
+- **Herramientas de Verificación:** Valgrind (memcheck) y AddressSanitizer (`-fsanitize=address,undefined`) para garantizar cero fugas de memoria y detectar punteros dangling o doble liberación (*double free*).
+- **Conocimientos Previos:** Arquitectura de memoria de procesos (Stack, Heap, BSS, Data, Text), enteros de puntero `uintptr_t`, funciones `malloc`/`calloc`/`realloc`/`free` y patrones de diseño seguro.
 
-Estos ejercicios profundizan en la gestión de memoria dinámica en C11, cubriendo temas
-como la relación stack-heap, el modelo de memoria de procesos en sistemas POSIX/Linux,
-patrones de gestión de memoria, y la prevención sistemática de fugas.
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+
+- **Nivel 2 (Comprensión):** Comprender la topología de memoria virtual, la dirección de crecimiento de Stack y Heap, y el ciclo de vida de variables.
+- **Nivel 3 (Aplicación):** Implementar reservas dinámicas, redimensionamiento defensivo con `realloc` y liberación simétrica en C11.
+- **Nivel 4 (Análisis):** Diagnosticar fragmentación, fugas de memoria, punteros dangling y mitigar errores mediante sanitizers y aserciones.
+- **Andamiaje Progresivo:** Ejercicios andamiados con contratos formales (precondiciones/postcondiciones), tablas de vectores de prueba y suites ejecutables con `assert()`.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-modelo-memoria`
@@ -30,21 +33,28 @@ patrones de gestión de memoria, y la prevención sistemática de fugas.
 
 :::{exercise}
 :label: ej_b2_c05b_01_layout
+:enumerator: mem-layout-1
 
-Escribí un programa en C11 que verifique la relación espacial típica de segmentos
-en arquitecturas modernas de 64 bits: las variables locales del Stack residen en
-direcciones significativamente mayores que los bloques asignados en el Heap.
+Escribí un programa en C11 que verifique la relación espacial típica de segmentos en arquitecturas modernas de 64 bits: las variables locales del Stack residen en direcciones numéricamente mayores que los bloques asignados en el Heap.
 
-```c
-bool verificar_layout_stack_heap(void);
-```
+**Nivel de Bloom:** Nivel 3 (Aplicación) y Nivel 4 (Análisis).  
+**Conceptos requeridos:** Arquitectura de memoria virtual POSIX, conversión de punteros a enteros de ancho suficiente (`uintptr_t`), asignación con `malloc` y liberación estricta con `free`.  
+**Techo conceptual:** Prohibido el uso de variables globales.
 
-**Tabla de Vectores de Prueba:**
+#### Contrato de la Función
+- **Firma:** `bool verificar_layout_stack_heap(void);`
+- **Precondiciones:** Ninguna.
+- **Postcondiciones:** Retorna `true` si la dirección de la variable de stack es estrictamente mayor que el puntero devuelto por `malloc` en heap; libera el bloque asignado antes de retornar.
 
-| Caso de Prueba | Comportamiento Esperado | Retorno |
-| :--- | :--- | :--- |
-| Verificación de jerarquía | `&var_stack > (uintptr_t)ptr_heap` | `true` |
-| Liberación limpia | Bloque en Heap liberado sin fuga | `free` ejecutado |
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Comportamiento Esperado | Retorno | Justificación Técnica |
+| :--- | :--- | :--- | :--- |
+| **Jerarquía Virtual** | `(uintptr_t)&var_stack > (uintptr_t)ptr_heap` | `true` | En arquitecturas de 64 bits el stack crece hacia abajo desde el techo |
+| **Liberación Simétrica**| Bloque en heap liberado antes del retorno | `free` ejecutado | Verificación con sanitizers sin fugas |
+
+:::
+<!-- {exercise} -->
 
 ::::{solution}
 ```c
@@ -85,19 +95,27 @@ int main(void) {
 
 :::{exercise}
 :label: ej_b2_c05b_02_crecimiento_stack
+:enumerator: mem-layout-2
 
-Implementá una función que detecte empíricamente si la pila (*stack*) crece hacia
-direcciones descendentes o ascendentes mediante dos marcos de llamada anidados.
+Implementá una función que detecte empíricamente si la pila (*stack*) crece hacia direcciones descendentes o ascendentes mediante dos marcos de llamada anidados.
 
-```c
-bool stack_crece_hacia_abajo(void);
-```
+**Nivel de Bloom:** Nivel 3 (Aplicación) y Nivel 4 (Análisis).  
+**Conceptos requeridos:** Pila de llamadas en memoria (*call stack*), paso por referencia, comparación de punteros y marcos de activación.  
+**Techo conceptual:** Prohibido el uso de optimizaciones de compilador agresivas que eliminen el marco de pila (*tail call optimization*).
 
-**Tabla de Vectores de Prueba:**
+#### Contrato de la Función
+- **Firma:** `bool stack_crece_hacia_abajo(void);`
+- **Precondiciones:** Ninguna.
+- **Postcondiciones:** Retorna `true` si la variable local del marco anidado reside en una dirección menor que la del marco llamador.
 
-| Arquitectura Típica | Comportamiento | Retorno Esperado |
-| :--- | :--- | :--- |
-| x86 / x86_64 / ARM64 estándar | Marco anidado en dirección menor que marco padre | `true` |
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Arquitectura Típica | Comportamiento | Retorno Esperado | Justificación Técnica |
+| :--- | :--- | :--- | :--- |
+| **x86 / x86_64 / ARM64** | Marco anidado en dirección menor | `true` | Modelo de stack descendente estándar |
+
+:::
+<!-- {exercise} -->
 
 ::::{solution}
 ```c

@@ -5,18 +5,20 @@ short_title: "10. enum/struct/union"
 
 # Ejercicios de enumeraciones
 
-## Prerrequisitos y Entorno Requerido
-Para abordar y verificar las soluciones de este módulo, se requiere:
-1. **Entorno de Compilación:** Compilador GCC 9+ o Clang bajo estándar estricto **ISO C11** (`-std=c11 -Wall -Wextra -Werror -pedantic`).
-2. **Tipos Enumerados y Seguridad Tipográfica:** Sintaxis de `enum`, asignación de valores discretos, representación como constantes con nombre frente a enteros "mágicos".
-3. **Manejo Exhaustivo en Control de Flujo:** Despacho seguro de variantes con `switch-case` exhaustivo y funciones bidireccionales de conversión a cadena (*stringification*).
+## Prerrequisitos y Entorno de Ejecución Requerido
 
-## Acerca de
+Para compilar y verificar las soluciones de este módulo bajo el estándar C11 estricto de cátedra, se requiere:
+- **Compilador C11:** GCC 9+ o Clang 11+ configurado con flags `-Wall -Wextra -Werror -pedantic -std=c11`.
+- **Entorno POSIX:** Linux o WSL con utilidades estándar y verificación estática.
+- **Herramientas de Verificación:** Valgrind (memcheck) y AddressSanitizer (`-fsanitize=address,undefined`) para garantizar la ausencia de lecturas fuera de límites en mapeos de variantes.
+- **Conocimientos Previos:** Sintaxis de `enum`, constantes discretas con nombre, dispatched con `switch-case` exhaustivo y conversión de estados a texto (*stringification*).
 
-Estos ejercicios te permitirán practicar y consolidar el uso de enumeraciones
-(`enum`), estructuras (`struct`) y uniones (`union`) en C, desde conceptos
-básicos hasta aplicaciones avanzadas en el modelado de estados y la
-configuración de sistemas.
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+
+- **Nivel 2 (Comprensión):** Analizar el valor de tipos enumerados frente a enteros mágicos y optimización de representación de memoria.
+- **Nivel 3 (Aplicación):** Implementar máquinas de estado discretas, validadores de opciones y funciones de traducción bidireccional en C11.
+- **Nivel 4 (Análisis):** Evaluar uniones etiquetadas (*tagged unions*) y composición heterogénea estructurada con seguridad de tipos.
+- **Andamiaje Progresivo:** Ejercicios andamiados con contratos formales (precondiciones/postcondiciones), tablas de vectores de prueba y suites ejecutables con `assert()`.
 
 ### Capítulos de Apunte Correspondientes
 - [Enumeraciones y Estructuras de Datos](../../apunte/bloque_2_memoria/11_enums.md)
@@ -48,20 +50,33 @@ enum dia_semana
 
 :::{exercise}
 :label: ej_b2_c11_01_dias_semana
+:enumerator: enums-op-1
 
 Implementá tres funciones para manipular el enumerado `enum dia_semana`:
 1. `enum dia_semana dia_siguiente(enum dia_semana dia_actual)`: retorna el día sucesor en ciclo (de `DOMINGO` pasa a `LUNES`).
 2. `bool es_dia_laboral(enum dia_semana dia)`: retorna `true` para `LUNES` a `VIERNES`, `false` para sábado o domingo.
-3. `const char *nombre_dia(enum dia_semana dia)`: retorna el nombre textual ("Lunes", etc.) o "Desconocido".
+3. `const char *nombre_dia(enum dia_semana dia)`: retorna el nombre textual inmutable ("Lunes", etc.) o "Desconocido".
 
-**Tabla de Vectores de Prueba:**
+**Nivel de Bloom:** Nivel 2 (Comprensión) y Nivel 3 (Aplicación).  
+**Conceptos requeridos:** Tipos discretos `enum`, aritmética modular sobre enumeraciones, `switch-case` exhaustivo y literales de cadena inmutables (`const char *`).  
+**Techo conceptual:** Prohibido el uso de memoria dinámica.
 
-| Caso de Prueba | Día Entrada | `dia_siguiente` | `es_dia_laboral` | `nombre_dia` |
-| :--- | :--- | :--- | :--- | :--- |
-| Lunes | `LUNES` | `MARTES` | `true` | `"Lunes"` |
-| Viernes | `VIERNES` | `SABADO` | `true` | `"Viernes"` |
-| Domingo | `DOMINGO` | `LUNES` | `false` | `"Domingo"` |
-| Fuera de rango | `99` | `LUNES` | `false` | `"Desconocido"` |
+#### Contrato de las Funciones
+- **Firma:** `enum dia_semana dia_siguiente(enum dia_semana dia_actual);`
+- **Firma:** `bool es_dia_laboral(enum dia_semana dia);`
+- **Firma:** `const char *nombre_dia(enum dia_semana dia);`
+- **Postcondiciones:** `dia_siguiente` avanza cíclicamente en el rango `[LUNES, DOMINGO]`; `es_dia_laboral` retorna `true` si $0 \le \text{dia} \le 4$; `nombre_dia` retorna siempre un puntero a cadena estática no nulo.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Día Entrada | `dia_siguiente` | `es_dia_laboral` | `nombre_dia` | Justificación Técnica |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Inicio Semana** | `LUNES` | `MARTES` | `true` | `"Lunes"` | Caso base laboral |
+| **Fin de Semana** | `SABADO` | `DOMINGO` | `false` | `"Sábado"` | Identificación no laboral |
+| **Cierre de Ciclo**| `DOMINGO` | `LUNES` | `false` | `"Domingo"` | Envoltura modular del ciclo |
+
+:::
+<!-- {exercise} -->
 
 ::::{solution}
 ```c

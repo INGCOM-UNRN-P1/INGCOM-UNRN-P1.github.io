@@ -5,20 +5,23 @@ short_title: "15. Alias de Tipos"
 
 # Ejercicios: Alias de Tipos
 
-## Acerca de
+## Prerrequisitos y Entorno de Ejecución Requerido
 
-Estos ejercicios permiten consolidar el uso de alias de tipos (`typedef`) y enumeraciones (`enum`) en
-C11 para modelar dominios semánticos claros, legibles y robustos contra valores fuera de rango.
+Para compilar y verificar las soluciones de este módulo bajo el estándar C11 estricto de cátedra, se requiere:
+- **Compilador C11:** GCC 9+ o Clang 11+ configurado con flags `-Wall -Wextra -Werror -pedantic -std=c11`.
+- **Entorno POSIX:** Linux o WSL con utilidades estándar y verificación estática.
+- **Herramientas de Verificación:** Valgrind (memcheck) y AddressSanitizer (`-fsanitize=address,undefined`) para garantizar la ausencia de lecturas fuera de rango en tablas de enumeración.
+- **Conocimientos Previos:** Creación de alias mediante `typedef`, enumeraciones (`enum`), convención institucional del sufijo `_t` y sentencias `switch` exhaustivas con `default`.
+
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+
+- **Nivel 2 (Comprensión):** Diferenciar tipos primitivos de alias semánticos de dominio y mapeo entero de enums.
+- **Nivel 3 (Aplicación):** Implementar tipos de datos legibles, traductores enum a cadena inmutable y clasificadores de estado en C11.
+- **Nivel 4 (Análisis):** Evaluar el tratamiento defensivo de valores fuera de rango y la seguridad de tipos.
+- **Andamiaje Progresivo:** Ejercicios andamiados con contratos formales (precondiciones/postcondiciones), tablas de vectores de prueba y suites ejecutables con `assert()`.
 
 ### Capítulos de Apunte Correspondientes
 - [Alias de tipos](../../apunte/bloque_2_memoria/10_alias_tipos.md)
-
-### Prerrequisitos Conceptuales
-Antes de resolver esta guía, el estudiante debe dominar:
-1. Creación de alias semánticos para tipos primitivos y enumerados mediante `typedef` ({ref}`capitulo-alias-tipos`).
-2. Regla institucional del sufijo obligatorio `_t` para tipos de usuario ({ref}`0x2001h`).
-3. Sentencias `switch` exhaustivas con tratamiento defensivo del caso `default`.
-4. Inmutabilidad de retornos constantes (`const char *`) y verificación con aserciones.
 
 ### Cuestiones de Estilo Aplicables
 - **Nombres de tipos:** Por convención de cátedra ({ref}`0x2001h`), todo tipo definido con `typedef` debe llevar el sufijo `_t` (ej. `dia_semana_t`).

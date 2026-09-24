@@ -5,17 +5,20 @@ short_title: "3. Arreglos"
 
 # Ejercicios de Arreglos (Estáticos)
 
-## Prerrequisitos y Entorno Requerido
-Para abordar y verificar las soluciones de este módulo, se requiere:
-1. **Entorno de Compilación:** Compilador GCC 9+ o Clang bajo estándar estricto **ISO C11** (`-std=c11 -Wall -Wextra -Werror -pedantic`).
-2. **Conceptos de Arreglos Contiguos:** Declaración e inicialización estática (`int arr[N]`), indexación base-cero, verificación rigurosa de cotas (`0 <= i < n`) para prevenir accesos fuera de rango.
-3. **Punteros Decaídos y Const-Correctness:** Paso de arreglos a funciones como puntero decaído y longitud (`const int *arr, size_t n`), preservando inmutabilidad en lecturas y usando `size_t` para índices y dimensiones.
+## Prerrequisitos y Entorno de Ejecución Requerido
 
-## Acerca de
+Para compilar y verificar las soluciones de este módulo bajo el estándar C11 estricto de cátedra, se requiere:
+- **Compilador C11:** GCC 9+ o Clang 11+ configurado con flags `-Wall -Wextra -Werror -pedantic -std=c11`.
+- **Entorno POSIX:** Linux o WSL con utilidades estándar y verificación de límites de memoria.
+- **Herramientas de Verificación:** Valgrind (memcheck) y AddressSanitizer (`-fsanitize=address,undefined`) para garantizar la ausencia de lecturas o escrituras fuera de los límites del arreglo.
+- **Conocimientos Previos:** Declaración e inicialización estática (`int arr[N]`), indexación base-cero, paso de arreglos por referencia y calificador `const int *arr`.
 
-Ejercicios para practicar la manipulación de arreglos de tamaño fijo en C11. Un arreglo
-es una colección de elementos del mismo tipo almacenados en ubicaciones de
-memoria contiguas.
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+
+- **Nivel 2 (Comprensión):** Analizar el decaimiento de arreglos a punteros (*array decay*) y el cálculo de direcciones contiguas.
+- **Nivel 3 (Aplicación):** Implementar algoritmos de recorrido, búsqueda, inversión in-situ, rotación y filtrado en C11.
+- **Nivel 4 (Análisis):** Evaluar cotas de memoria (`0 <= i < n`), invariantes de partición y complejidad temporal $O(n)$ en operaciones secuenciales.
+- **Andamiaje Progresivo:** Ejercicios andamiados con contratos formales (precondiciones/postcondiciones), tablas de vectores de prueba y suites ejecutables con `assert()`.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-arreglos`
