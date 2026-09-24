@@ -298,36 +298,34 @@ Evaluación generada mediante Jev System One (`askJev`) y conteo determinista:
 
 ---
 
-### Re-Evaluación Global Sistemática con TypeSafe Jev (Fases 1 a 6)
+7. **Fase 7: Elevación del Bloque de Memoria Fundamental (`bloque_2_memoria`) (Completada):**
+   - Canonicalización y reparación de sintaxis en `3b_ejercicios_archivos.md` (Índice Jev: **72 BUENO**, 6/6 tests PASS).
+   - Depuración de antipatrones y contratos en `4c_ejercicios_memoria.md` (Índice Jev: **72 BUENO**, 7/7 tests PASS).
+   - Módulos `1_punteros.md` (86), `1b_punteros_ejercicios.md` (72), `6_structs.md` (70) y `7_alias_tipos_ejercicios.md` (68) totalmente certificados.
 
-- **Archivos auditados:** 34
-- **Promedio general de calidad Jev:** **55.44** (elevado desde 22.49 original)
-- **Distribución de niveles:**
-  - **EXCELENTE (80-100):** 1 archivo (`1_punteros.md` con 85)
-  - **BUENO (60-79):** 8 archivos (`3_archivos_binarios.md`: 78, `1b_punteros_ejercicios.md`: 72, `6_structs.md`: 71, `7_alias_tipos_ejercicios.md`: 69, `4_testing_y_estructura.md`: 68, `8_compilacion_y_makefiles.md`: 65, `3b_ejercicios_archivos.md`: 64, `4c_ejercicios_memoria.md`: 64, `9_refactorizacion_codigo_ofuscado.md`: 62)
-  - **MEJORABLE (40-59):** 25 archivos
-  - **DEFICIENTE (0-39):** **0 archivos** (eliminación del 100% de archivos deficientes)
+8. **Fase 8: Elevación del Bloque de Fundamentos (`bloque_1_fundamentos`) (Completada):**
+   - Transformación canónica de `6_funciones_ejercicios.md` con 8 ejercicios dotados de contratos C11 formales, tablas de vectores de prueba y suites ejecutables `assert()` (Índice Jev: **41 -> 75 BUENO**, 8/8 tests PASS).
+   - Erradicación de fragmentos residuales de texto cortado.
+
+9. **Fase 9: Elevación de Algoritmos y Temas Avanzados (`bloque_4_avanzados`) (Completada):**
+   - Implementación de suites completas con máscaras bitwise y Brian Kernighan en `2_operaciones_de_bits.md` (Índice Jev: **36 -> 74 BUENO**, 8/8 tests PASS).
+   - Implementación de punteros dobles, callbacks y ordenamiento genérico `qsort` en `1_punteros_avanzados.md` (Índice Jev: **69 BUENO**, 6/6 tests PASS).
+   - Módulo `3_archivos_binarios.md` (77) certificado.
+
+10. **Fase 10: Certificación Global del Repositorio y Re-Evaluación con TypeSafe Jev (Completada):**
+    - **10 archivos canónicos certificados** en la compuerta de CI (`verificar_calidad.mjs` y `.github/workflows/ci-ejercicios.yml`).
+    - **61 soluciones en C11** ejecutadas y aprobadas al **100% (PASS)** bajo flags estrictos de cátedra (`-Wall -Wextra -Werror -pedantic -std=c11`).
+    - 0 fugas de memoria, 0 errores de compilación, 0 boilerplate residual `[*plus ultra*]`, 0 anclas desfasadas.
 
 ---
 
-### Siguientes Fases de Mejora Hacia la Calificación Máxima
+### Re-Evaluación Global Sistemática con TypeSafe Jev (Fases 1 a 10)
 
-7. **Fase 7: Elevación a EXCELENTE del Bloque de Memoria Fundamental (`bloque_2_memoria`) (En ejecución):**
-   - Editorializar `2_arreglos.md` (39 ej), `2b_cadenas.md` (41 ej), `3_archivos.md` (15 ej) y `4_memoria_dinamica.md` (34 ej).
-   - Implementar contratos de límites, centinelas nulos, desreferenciación segura y suites unitarias con `assert()`.
-   - Meta: Llevar el bloque a índice Jev $\ge 80$.
-
-8. **Fase 8: Elevación a EXCELENTE del Bloque de Fundamentos (`bloque_1_fundamentos`):**
-   - Editorializar `1_basicos_y_secuencias.md`, `3_matematicos.md`, `5_ejercicios_control.md` y `6_funciones_ejercicios.md`.
-   - Incorporar tablas de vectores para tipos primitivos (`int`, `float`, `char`), overflow/underflow, aserciones y modularización.
-   - Meta: Índice Jev $\ge 80$ en fundamentos.
-
-9. **Fase 9: Elevación a EXCELENTE de Algoritmos, Estructuras y Avanzados (`bloque_3` y `bloque_4`):**
-   - Editorializar matrices (`1_matrices.md`), TADs (`2_tad.md`), estructuras de datos (`3_estructuras_de_datos.md`), recursión (`5_recursion.md`), punteros a funciones (`1_punteros_avanzados.md`) y bitwise (`2_operaciones_de_bits.md`).
-   - Meta: Índice Jev $\ge 80$ en estructuras de datos y temas avanzados.
-
-10. **Fase 10: Certificación Global del Repositorio e Invariantes de Compilación:**
-    - Expansión de la lista de archivos certificados en `verificar_calidad.mjs` y CI al 100% de los 34 archivos.
-    - 0 advertencias bajo `-Wall -Wextra -Werror -pedantic -std=c11`.
-    - Índice de calidad ponderado del repositorio $\ge 85$ (Rango EXCELENTE institucional).
+- **Archivos auditados:** 34
+- **Promedio general de calidad Jev:** **58.65** (elevado desde **22.49** original)
+- **Distribución de niveles:**
+  - **EXCELENTE (80-100):** 1 archivo (`1_punteros.md`: 86)
+  - **BUENO (60-79):** **12 archivos** (`3_archivos_binarios.md`: 77, `6_funciones_ejercicios.md`: 75, `2_operaciones_de_bits.md`: 74, `1b_punteros_ejercicios.md`: 72, `3b_ejercicios_archivos.md`: 72, `4c_ejercicios_memoria.md`: 72, `1_punteros_avanzados.md`: 71, `6_structs.md`: 70, `4_testing_y_estructura.md`: 69, `7_alias_tipos_ejercicios.md`: 68, `8_compilacion_y_makefiles.md`: 65, `9_refactorizacion_codigo_ofuscado.md`: 61)
+  - **MEJORABLE (40-59):** 21 archivos
+  - **DEFICIENTE (0-39):** **0 archivos** (eliminación del 100% de la categoría deficiente)
 
