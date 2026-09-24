@@ -958,21 +958,97 @@ int main(void) {
 :::
 
 (ej_b3_c02_12)=
-## Ejercicio 3.02.12 - TAD Contador ⭐☆☆☆☆
+### Ejercicio 3.02.12 - TAD Contador Encapsulado ⭐☆☆☆☆
 
-Implementá un contador simple con:
-- `contador_t *crear_contador()`
-- `void incrementar(contador_t *c)`
-- `void decrementar(contador_t *c)`
-- `int obtener_valor(const contador_t *c)`
-- `void destruir_contador(contador_t *c)`
+:::{exercise}
+:label: ej_b3_c02_12_tad_contador
 
-**Orientación:**
-- `contador.h`: declaración opaca `typedef struct contador contador_t;`
-- `contador.c`: definición completa `struct contador { int valor; };`
-- Mantené valor privado, solo accesible por funciones
+Implementá un Tipo de Dato Abstracto (TAD) de un contador entero con encapsulamiento estricto:
+- `contador_t *contador_crear(int valor_inicial)`: asigna dinámicamente un contador en el Heap o retorna `NULL` si falla.
+- `void contador_incrementar(contador_t *c)`: incrementa el valor en 1.
+- `void contador_decrementar(contador_t *c)`: decrementa el valor en 1.
+- `int contador_obtener_valor(const contador_t *c)`: retorna el valor actual (o 0 si `c == NULL`).
+- `void contador_destruir(contador_t *c)`: libera de forma segura la memoria del Heap.
 
----
+**Tabla de Vectores de Prueba:**
+
+| Secuencia de Operaciones | Valor Esperado | Estado de Memoria |
+| :--- | :--- | :--- |
+| `crear(10) -> inc() -> inc()` | `12` | Asignado en Heap |
+| `dec() -> dec() -> dec()` | `9` | Asignado en Heap |
+| `destruir()` | N/A | Memoria liberada |
+| Operación sobre puntero nulo | `0` | Seguro ante `NULL` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+struct contador {
+    int valor;
+};
+typedef struct contador contador_t;
+
+contador_t *contador_crear(int valor_inicial) {
+    contador_t *c = malloc(sizeof(contador_t));
+    if (c == NULL) {
+        return NULL;
+    }
+    c->valor = valor_inicial;
+    return c;
+}
+
+void contador_incrementar(contador_t *c) {
+    if (c != NULL) {
+        c->valor++;
+    }
+}
+
+void contador_decrementar(contador_t *c) {
+    if (c != NULL) {
+        c->valor--;
+    }
+}
+
+int contador_obtener_valor(const contador_t *c) {
+    if (c == NULL) {
+        return 0;
+    }
+    return c->valor;
+}
+
+void contador_destruir(contador_t *c) {
+    free(c);
+}
+
+int main(void) {
+    contador_t *c = contador_crear(10);
+    assert(c != NULL);
+    assert(contador_obtener_valor(c) == 10);
+
+    contador_incrementar(c);
+    contador_incrementar(c);
+    assert(contador_obtener_valor(c) == 12);
+
+    contador_decrementar(c);
+    contador_decrementar(c);
+    contador_decrementar(c);
+    assert(contador_obtener_valor(c) == 9);
+
+    /* Casos con puntero nulo */
+    contador_incrementar(NULL);
+    contador_decrementar(NULL);
+    assert(contador_obtener_valor(NULL) == 0);
+
+    contador_destruir(c);
+    contador_destruir(NULL);
+
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b3_c02_13)=
 ## Ejercicio 3.02.13 - TAD Pila (Stack) ⭐⭐☆☆☆

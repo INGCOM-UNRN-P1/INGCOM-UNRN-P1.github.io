@@ -135,18 +135,57 @@ int main(void) {
 :::
 
 (ej_b3_c06_08)=
-### Ejercicio 3.06.08 - Lazo con División ⭐⭐☆☆☆
+### Ejercicio 3.06.08 - Lazo con División Sucesiva ⭐⭐☆☆☆
 
-Analizar la complejidad de:
+:::{exercise}
+:label: ej_b3_c06_08_lazo_division
 
-``` c
-int contador = 0;
-for (int i = n; i > 1; i /= 2)
-{
-    contador++;
+Implementá una función que simule y cuantifique el número de iteraciones realizadas por un lazo con reducción por división entera a la mitad:
+
+```c
+size_t contar_divisiones_sucesivas(size_t n);
+```
+
+El lazo inicializa `i = n` y en cada paso efectúa `i /= 2` mientras `i > 1`.
+Determiná formalmente su complejidad asintótica ($O(\log_2 n)$).
+
+**Tabla de Vectores de Prueba:**
+
+| Entrada $n$ | Secuencia de Valores de $i$ | Conteo de Iteraciones |
+| :--- | :--- | :--- |
+| `0` | Ninguno ($n \le 1$) | `0` |
+| `1` | Ninguno ($n \le 1$) | `0` |
+| `2` | $i=2$ | `1` |
+| `16` | $i=16, 8, 4, 2$ | `4` |
+| `32` | $i=32, 16, 8, 4, 2$ | `5` |
+| `1024` | $i=1024, \dots, 2$ | `10` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stddef.h>
+#include <assert.h>
+
+size_t contar_divisiones_sucesivas(size_t n) {
+    size_t contador = 0;
+    for (size_t i = n; i > 1; i /= 2) {
+        contador++;
+    }
+    return contador;
+}
+
+int main(void) {
+    assert(contar_divisiones_sucesivas(0) == 0);
+    assert(contar_divisiones_sucesivas(1) == 0);
+    assert(contar_divisiones_sucesivas(2) == 1);
+    assert(contar_divisiones_sucesivas(16) == 4);
+    assert(contar_divisiones_sucesivas(32) == 5);
+    assert(contar_divisiones_sucesivas(1024) == 10);
+    return 0;
 }
 ```
-<!-- c -->
+::::
+:::
 
 (ej_b3_c06_09)=
 ## Ejercicio 3.06.09 - Contar Operaciones ⭐☆☆☆☆

@@ -167,62 +167,62 @@ int main(void) {
 (ej_b3_c01_03)=
 ### Ejercicio 3.01.03 - Suma de matrices ⭐⭐⭐☆☆
 
-#### Descripción
-Implementar una función que sume dos matrices, `A` y `B`, y almacene el
-resultado en una tercera matriz, `C`. La suma de matrices solo es posible si
-ambas tienen las mismas dimensiones.
+:::{exercise}
+:label: ej_b3_c01_03_suma_matrices
 
-::::{tab-set}
+Implementá una función que sume dos matrices planas contiguas de enteros, `a` y `b`,
+almacenando el resultado en una tercera matriz de destino `c` de idénticas dimensiones:
 
-:::{tab-item} Entrada
-:sync: tab1
-``` text
-Matriz A: [[1, 2], [3, 4]]
-Matriz B: [[5, 6], [7, 8]]
+```c
+void matriz_sumar(const int *a, const int *b, int *c, size_t filas, size_t cols);
 ```
-<!-- text -->
 
-:::
-<!-- {tab-item} Entrada -->
-:::{tab-item} Salida
-:sync: tab2
-``` text
-Matriz C: [[6, 8], [10, 12]]
+**Tabla de Vectores de Prueba:**
+
+| Dimensiones | Matriz A | Matriz B | Matriz C (Salida) |
+| :--- | :--- | :--- | :--- |
+| $2 \times 2$ | `[1, 2, 3, 4]` | `[5, 6, 7, 8]` | `[6, 8, 10, 12]` |
+| $1 \times 3$ | `[10, -5, 0]` | `[-10, 5, 42]` | `[0, 0, 42]` |
+| $0 \times 0$ | `NULL` | `NULL` | Sin modificaciones |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stddef.h>
+#include <assert.h>
+
+void matriz_sumar(const int *a, const int *b, int *c, size_t filas, size_t cols) {
+    if (a == NULL || b == NULL || c == NULL) {
+        return;
+    }
+    size_t total = filas * cols;
+    for (size_t i = 0; i < total; ++i) {
+        c[i] = a[i] + b[i];
+    }
+}
+
+int main(void) {
+    int a[4] = {1, 2, 3, 4};
+    int b[4] = {5, 6, 7, 8};
+    int c[4] = {0};
+
+    matriz_sumar(a, b, c, 2, 2);
+    assert(c[0] == 6 && c[1] == 8 && c[2] == 10 && c[3] == 12);
+
+    int a2[3] = {10, -5, 0};
+    int b2[3] = {-10, 5, 42};
+    int c2[3] = {0};
+
+    matriz_sumar(a2, b2, c2, 1, 3);
+    assert(c2[0] == 0 && c2[1] == 0 && c2[2] == 42);
+
+    matriz_sumar(NULL, NULL, NULL, 0, 0);
+
+    return 0;
+}
 ```
-<!-- text -->
-
-:::
-<!-- {tab-item} Salida -->
-
 ::::
-<!-- {tab-set} -->
-
-:::{hint} Lógica y Consideraciones
--   **Fórmula:** La suma se realiza elemento a elemento: $c_{ij} = a_{ij} +
-    b_{ij}$.
--   **Precondición:** Las dimensiones de la Matriz A y la Matriz B deben ser
-    idénticas.
--   **Proceso:** Recorrer las matrices con lazos anidados. En cada posición `(f,
-    c)`, calcular `C[f][c] = A[f][c] + B[f][c]`.
 :::
-<!-- {hint} Lógica y Consideraciones -->
-
-:::{hint} Lógica y Consideraciones
-:class: dropdown
-```{code-block} pseudocode
-:linenos:
-PROCEDIMIENTO sumar_matrices(A, B, REF C, filas, columnas)
-INICIO
-    PARA f DESDE 0 HASTA filas-1 HACER
-        PARA c DESDE 0 HASTA columnas-1 HACER
-            C[f][c] = A[f][c] + B[f][c]
-        FIN PARA
-    FIN PARA
-FIN PROCEDIMIENTO
-```
-<!-- {code-block} pseudocode -->
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 (ej_b3_c01_04)=
 ### Ejercicio 3.01.04 - Multiplicación de matrices ⭐⭐⭐☆☆

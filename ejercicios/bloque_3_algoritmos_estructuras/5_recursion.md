@@ -505,19 +505,57 @@ Calculá base^exponente recursivamente.
 ---
 
 (ej_b3_c07_12)=
-## Ejercicio 3.07.12 - Potencia Rápida ⭐⭐⭐☆☆
+### Ejercicio 3.07.12 - Potencia Rápida por Divide y Vencerás ⭐⭐⭐☆☆
 
-Optimizá potencia usando divide y conquista.
+:::{exercise}
+:label: ej_b3_c07_12_potencia_rapida
 
-**Algoritmo:**
-- Si exp es par: `potencia(base, exp) = potencia(base*base, exp/2)`
-- Si exp es impar: `potencia(base, exp) = base * potencia(base, exp-1)`
+Optimizá el cómputo de la potencia entera aplicando el paradigma de divide y conquista:
+- Si el exponente `exp == 0`, el resultado es `1ULL`.
+- Si `exp` es par: `potencia_rapida(base, exp) = potencia_rapida(base * base, exp / 2)`.
+- Si `exp` es impar: `potencia_rapida(base, exp) = base * potencia_rapida(base, exp - 1)`.
 
-**Orientación:**
-- Complejidad: O(log n) en lugar de O(n)
-- Mucho más eficiente para exponentes grandes
+```c
+unsigned long long potencia_rapida_rec(unsigned long long base, unsigned int exp);
+```
 
----
+La complejidad temporal resultante es $O(\log_2 \text{exp})$ en lugar de $O(\text{exp})$.
+
+**Tabla de Vectores de Prueba:**
+
+| Base | Exponente | Salida Esperada | Justificación |
+| :--- | :--- | :--- | :--- |
+| `2` | `0` | `1ULL` | Caso base exponente 0 |
+| `2` | `10` | `1024ULL` | $2^{10} = 1024$ |
+| `3` | `5` | `243ULL` | $3^5 = 243$ |
+| `10` | `4` | `10000ULL` | $10^4 = 10000$ |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <assert.h>
+
+unsigned long long potencia_rapida_rec(unsigned long long base, unsigned int exp) {
+    if (exp == 0) {
+        return 1ULL;
+    }
+    if (exp % 2 == 0) {
+        return potencia_rapida_rec(base * base, exp / 2);
+    }
+    return base * potencia_rapida_rec(base, exp - 1);
+}
+
+int main(void) {
+    assert(potencia_rapida_rec(2, 0) == 1ULL);
+    assert(potencia_rapida_rec(5, 1) == 5ULL);
+    assert(potencia_rapida_rec(2, 10) == 1024ULL);
+    assert(potencia_rapida_rec(3, 5) == 243ULL);
+    assert(potencia_rapida_rec(10, 4) == 10000ULL);
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b3_c07_13)=
 ## Ejercicio 3.07.13 - Suma de Dígitos ⭐⭐☆☆☆
