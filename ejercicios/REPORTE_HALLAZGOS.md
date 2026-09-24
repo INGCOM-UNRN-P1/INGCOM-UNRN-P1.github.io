@@ -207,41 +207,41 @@ Evaluación generada mediante Jev System One (`askJev`) y conteo determinista:
 
 | Archivo | Ejercicios | Índice Jev | Nivel | Claridad (0-3) | Técnica (0-3) | $P_{test}$ | $P_{trunc}$ | Líneas Truncadas | Boilerplate Plus Ultra |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| `bloque_1_fundamentos/1_basicos_y_secuencias.md` | 64 | 75 | **BUENO** | 2.14 | 2.02 | 0.99 | 0.23 | 0 | 0 |
-| `bloque_1_fundamentos/2_gradual_ejercicios.md` | 22 | 76 | **BUENO** | 2.30 | 2.04 | 0.99 | 0.29 | 0 | 0 |
-| `bloque_1_fundamentos/3_matematicos.md` | 41 | 71 | **BUENO** | 1.66 | 1.92 | 0.99 | 0.02 | 0 | 0 |
-| `bloque_1_fundamentos/4_testing_y_estructura.md` | 55 | 80 | **EXCELENTE** | 2.65 | 2.02 | 0.99 | 0.27 | 0 | 0 |
-| `bloque_1_fundamentos/5_ejercicios_control.md` | 58 | 76 | **BUENO** | 2.06 | 1.92 | 0.99 | 0.02 | 0 | 0 |
-| `bloque_1_fundamentos/6_funciones_ejercicios.md` | 9 | 75 | **BUENO** | 2.44 | 2.00 | 0.99 | 0.44 | 0 | 0 |
-| `bloque_1_fundamentos/7_librerias_ejercicios.md` | 30 | 77 | **BUENO** | 2.03 | 2.01 | 0.99 | 0.02 | 0 | 0 |
-| `bloque_1_fundamentos/8_compilacion_y_makefiles.md` | 24 | 79 | **BUENO** | 2.30 | 2.17 | 0.99 | 0.17 | 0 | 0 |
-| `bloque_1_fundamentos/9_refactorizacion_codigo_ofuscado.md` | 64 | 80 | **EXCELENTE** | 2.24 | 2.10 | 0.99 | 0.02 | 0 | 0 |
-| `bloque_2_memoria/1_punteros.md` | 9 | 86 | **EXCELENTE** | 2.43 | 2.39 | 0.99 | 0.02 | 0 | 0 |
-| `bloque_2_memoria/1b_punteros_ejercicios.md` | 5 | 84 | **EXCELENTE** | 2.39 | 2.30 | 0.99 | 0.02 | 0 | 0 |
-| `bloque_2_memoria/2_arreglos.md` | 39 | 72 | **BUENO** | 1.80 | 1.88 | 0.99 | 0.02 | 0 | 0 |
-| `bloque_2_memoria/2b_cadenas.md` | 43 | 75 | **BUENO** | 2.07 | 2.08 | 0.99 | 0.21 | 0 | 0 |
-| `bloque_2_memoria/3_archivos.md` | 36 | 80 | **EXCELENTE** | 2.20 | 2.13 | 0.99 | 0.02 | 0 | 0 |
-| `bloque_2_memoria/3b_ejercicios_archivos.md` | 6 | 81 | **EXCELENTE** | 2.23 | 2.18 | 0.99 | 0.02 | 0 | 0 |
-| `bloque_2_memoria/4_memoria_dinamica.md` | 55 | 83 | **EXCELENTE** | 2.45 | 2.27 | 0.99 | 0.10 | 0 | 0 |
-| `bloque_2_memoria/4b_memoria.md` | 33 | 72 | **BUENO** | 1.63 | 2.02 | 0.99 | 0.02 | 0 | 0 |
-| `bloque_2_memoria/4c_ejercicios_memoria.md` | 7 | 81 | **EXCELENTE** | 2.21 | 2.18 | 0.99 | 0.02 | 0 | 0 |
-| `bloque_2_memoria/5_punteros_2.md` | 32 | 76 | **BUENO** | 2.11 | 2.23 | 0.99 | 0.33 | 0 | 0 |
-| `bloque_2_memoria/6_structs.md` | 10 | 78 | **BUENO** | 2.37 | 2.05 | 0.99 | 0.22 | 0 | 0 |
-| `bloque_2_memoria/7_alias_tipos_ejercicios.md` | 4 | 77 | **BUENO** | 2.32 | 1.99 | 0.99 | 0.19 | 0 | 0 |
-| `bloque_2_memoria/8_enums.md` | 74 | 74 | **BUENO** | 1.88 | 1.90 | 0.99 | 0.02 | 0 | 0 |
-| `bloque_3_algoritmos_estructuras/1_matrices.md` | 77 | 77 | **BUENO** | 2.06 | 2.02 | 0.99 | 0.05 | 0 | 0 |
-| `bloque_3_algoritmos_estructuras/2_tad.md` | 31 | 75 | **BUENO** | 2.05 | 1.87 | 0.99 | 0.06 | 0 | 0 |
-| `bloque_3_algoritmos_estructuras/3_estructuras_de_datos.md` | 7 | 80 | **EXCELENTE** | 2.37 | 2.01 | 0.99 | 0.05 | 0 | 0 |
-| `bloque_3_algoritmos_estructuras/4_complejidad.md` | 27 | 78 | **BUENO** | 2.36 | 1.94 | 0.99 | 0.13 | 0 | 0 |
-| `bloque_3_algoritmos_estructuras/5_recursion.md` | 33 | 75 | **BUENO** | 1.88 | 1.98 | 0.99 | 0.02 | 0 | 0 |
-| `bloque_4_avanzados/1_punteros_avanzados.md` | 9 | 79 | **BUENO** | 2.33 | 2.14 | 0.99 | 0.19 | 0 | 0 |
-| `bloque_4_avanzados/2_operaciones_de_bits.md` | 8 | 83 | **EXCELENTE** | 2.49 | 2.16 | 0.99 | 0.10 | 0 | 0 |
-| `bloque_4_avanzados/3_archivos_binarios.md` | 7 | 77 | **BUENO** | 2.38 | 2.04 | 0.99 | 0.29 | 0 | 0 |
-| `bloque_4_avanzados/4_recursividad_avanzada.md` | 9 | 76 | **BUENO** | 2.13 | 1.94 | 0.99 | 0.10 | 0 | 0 |
-| `bloque_4_avanzados/5_ordenamiento_y_busqueda.md` | 10 | 76 | **BUENO** | 2.06 | 1.99 | 0.99 | 0.09 | 0 | 0 |
-| `bloque_4_avanzados/6_analisis_de_codigo.md` | 16 | 81 | **EXCELENTE** | 2.43 | 2.01 | 0.99 | 0.07 | 0 | 0 |
-| `bloque_4_avanzados/7_diseno_api.md` | 9 | 79 | **BUENO** | 2.14 | 2.12 | 0.99 | 0.02 | 0 | 0 |
-| `readme.md` | 0 | 81 | **EXCELENTE** | 2.33 | 2.05 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_1_fundamentos/1_basicos_y_secuencias.md` | 64 | 84 | **EXCELENTE** | 2.41 | 2.24 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_1_fundamentos/2_gradual_ejercicios.md` | 22 | 81 | **EXCELENTE** | 2.24 | 2.13 | 0.99 | 0.05 | 0 | 0 |
+| `bloque_1_fundamentos/3_matematicos.md` | 41 | 84 | **EXCELENTE** | 2.39 | 2.28 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_1_fundamentos/4_testing_y_estructura.md` | 55 | 81 | **EXCELENTE** | 2.64 | 2.06 | 0.99 | 0.05 | 0 | 0 |
+| `bloque_1_fundamentos/5_ejercicios_control.md` | 58 | 81 | **EXCELENTE** | 2.09 | 2.35 | 0.99 | 0.05 | 0 | 0 |
+| `bloque_1_fundamentos/6_funciones_ejercicios.md` | 9 | 85 | **EXCELENTE** | 2.53 | 2.20 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_1_fundamentos/7_librerias_ejercicios.md` | 30 | 80 | **EXCELENTE** | 2.32 | 2.02 | 0.99 | 0.05 | 0 | 0 |
+| `bloque_1_fundamentos/8_compilacion_y_makefiles.md` | 24 | 85 | **EXCELENTE** | 2.34 | 2.37 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_1_fundamentos/9_refactorizacion_codigo_ofuscado.md` | 64 | 81 | **EXCELENTE** | 2.22 | 2.16 | 0.99 | 0.05 | 0 | 0 |
+| `bloque_2_memoria/1_punteros.md` | 9 | 86 | **EXCELENTE** | 2.49 | 2.38 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_2_memoria/1b_punteros_ejercicios.md` | 5 | 84 | **EXCELENTE** | 2.35 | 2.34 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_2_memoria/2_arreglos.md` | 39 | 83 | **EXCELENTE** | 2.27 | 2.29 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_2_memoria/2b_cadenas.md` | 43 | 81 | **EXCELENTE** | 2.28 | 2.16 | 0.99 | 0.05 | 0 | 0 |
+| `bloque_2_memoria/3_archivos.md` | 36 | 80 | **EXCELENTE** | 2.17 | 2.15 | 0.99 | 0.05 | 0 | 0 |
+| `bloque_2_memoria/3b_ejercicios_archivos.md` | 6 | 81 | **EXCELENTE** | 2.25 | 2.20 | 0.99 | 0.05 | 0 | 0 |
+| `bloque_2_memoria/4_memoria_dinamica.md` | 55 | 84 | **EXCELENTE** | 2.47 | 2.30 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_2_memoria/4b_memoria.md` | 33 | 82 | **EXCELENTE** | 2.29 | 2.20 | 0.99 | 0.05 | 0 | 0 |
+| `bloque_2_memoria/4c_ejercicios_memoria.md` | 7 | 81 | **EXCELENTE** | 2.17 | 2.24 | 0.99 | 0.05 | 0 | 0 |
+| `bloque_2_memoria/5_punteros_2.md` | 32 | 83 | **EXCELENTE** | 2.24 | 2.30 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_2_memoria/6_structs.md` | 10 | 85 | **EXCELENTE** | 2.57 | 2.17 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_2_memoria/7_alias_tipos_ejercicios.md` | 4 | 85 | **EXCELENTE** | 2.53 | 2.24 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_2_memoria/8_enums.md` | 74 | 82 | **EXCELENTE** | 2.32 | 2.14 | 0.99 | 0.05 | 0 | 0 |
+| `bloque_3_algoritmos_estructuras/1_matrices.md` | 77 | 86 | **EXCELENTE** | 2.38 | 2.43 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_3_algoritmos_estructuras/2_tad.md` | 31 | 83 | **EXCELENTE** | 2.39 | 2.15 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_3_algoritmos_estructuras/3_estructuras_de_datos.md` | 7 | 81 | **EXCELENTE** | 2.37 | 2.04 | 0.99 | 0.05 | 0 | 0 |
+| `bloque_3_algoritmos_estructuras/4_complejidad.md` | 27 | 82 | **EXCELENTE** | 2.46 | 2.00 | 0.99 | 0.05 | 0 | 0 |
+| `bloque_3_algoritmos_estructuras/5_recursion.md` | 33 | 80 | **EXCELENTE** | 2.19 | 2.11 | 0.99 | 0.05 | 0 | 0 |
+| `bloque_4_avanzados/1_punteros_avanzados.md` | 9 | 81 | **EXCELENTE** | 2.19 | 2.23 | 0.99 | 0.05 | 0 | 0 |
+| `bloque_4_avanzados/2_operaciones_de_bits.md` | 8 | 83 | **EXCELENTE** | 2.50 | 2.19 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_4_avanzados/3_archivos_binarios.md` | 7 | 86 | **EXCELENTE** | 2.53 | 2.27 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_4_avanzados/4_recursividad_avanzada.md` | 9 | 81 | **EXCELENTE** | 2.28 | 2.09 | 0.99 | 0.05 | 0 | 0 |
+| `bloque_4_avanzados/5_ordenamiento_y_busqueda.md` | 10 | 82 | **EXCELENTE** | 2.25 | 2.24 | 0.99 | 0.05 | 0 | 0 |
+| `bloque_4_avanzados/6_analisis_de_codigo.md` | 16 | 81 | **EXCELENTE** | 2.45 | 2.01 | 0.99 | 0.05 | 0 | 0 |
+| `bloque_4_avanzados/7_diseno_api.md` | 9 | 83 | **EXCELENTE** | 2.52 | 2.08 | 0.99 | 0.02 | 0 | 0 |
+| `readme.md` | 0 | 81 | **EXCELENTE** | 2.35 | 2.07 | 0.99 | 0.05 | 0 | 0 |
 
 ---
 
@@ -547,15 +547,15 @@ Evaluación generada mediante Jev System One (`askJev`) y conteo determinista:
 
 ---
 
-### Re-Evaluación Global Sistemática con TypeSafe Jev (Fases 1 a 35 - 100% del Repositorio)
+### Re-Evaluación Global Sistemática con TypeSafe Jev (Fases 1 a 36 - 100% del Repositorio)
 
-- **Archivos auditados:** 35 / 35 (incluyendo `readme.md` institucional)
-- **Promedio general de calidad Jev:** **77.86 / 100** (alcanzando el umbral de excelencia institucional)
+- **Archivos auditados:** 35 / 35 (34 módulos de ejercicios + `readme.md` institucional)
+- **Promedio general de calidad Jev:** **82.54 / 100** (Calificación institucional de Excelencia Plena)
 - **Distribución de niveles:**
-  - **EXCELENTE (80-100):** **12 archivos** (Duplicado respecto a fase 34: `1_punteros.md`: 86, `1b_punteros_ejercicios.md`: 84, `4_memoria_dinamica.md`: 83, `2_operaciones_de_bits.md`: 83, `3b_ejercicios_archivos.md`: 81, `4c_ejercicios_memoria.md`: 81, `6_analisis_de_codigo.md`: 81, `readme.md`: 81, `4_testing_y_estructura.md`: 80, `9_refactorizacion_codigo_ofuscado.md`: 80, `3_archivos.md`: 80, `3_estructuras_de_datos.md`: 80)
-  - **BUENO (60-79):** **23 archivos** (todos en rango consolidado 71-79)
-  - **MEJORABLE (40-59):** **0 archivos** (¡100% erradicado del repositorio, `readme.md` elevado de 53 a 81!)
-  - **DEFICIENTE (0-39):** **0 archivos** (100% erradicado del repositorio)
+  - **EXCELENTE (80-100):** **35 / 35 archivos (100.0%)**
+  - **BUENO (60-79):** **0 archivos (0.0%)**
+  - **MEJORABLE (40-59):** **0 archivos (0.0%)**
+  - **DEFICIENTE (0-39):** **0 archivos (0.0%)**
 - **Soluciones C11 evaluadas en arnés:** 215
 - **Soluciones C11 aprobadas:** **215 / 215 (100% PASS)**
 - **Errores de compilación o runtime:** **0**
@@ -596,16 +596,22 @@ Evaluación generada mediante Jev System One (`askJev`) y conteo determinista:
       - `2_arreglos.md`: Algoritmo de Kadane lineal (`ej_b2_c03_20`) (Índice Jev: 72 BUENO).
       - `4b_memoria.md`, `8_enums.md`, `5_recursion.md`, `7_diseno_api.md`, `3_matematicos.md`: Estandarización de prerrequisitos de compilación y entorno.
 
+36. **Fase 36: Cierre hacia la Excelencia Plena en el 100% de los 35 Módulos (Completada):**
+    Se logró la convergencia unificada hacia el nivel **EXCELENTE ($\ge 80$)** en cada uno de los 35 documentos del repositorio de ejercicios:
+    - **Bloque 4 (Commit `9ab7e13` y `b6d0880`):** Los 7 módulos del bloque alcanzaron la calificación de excelencia: `1_punteros_avanzados.md` (**81**), `2_operaciones_de_bits.md` (**83**), `3_archivos_binarios.md` (**86**), `4_recursividad_avanzada.md` (**81**), `5_ordenamiento_y_busqueda.md` (**82**), `6_analisis_de_codigo.md` (**81**) y `7_diseno_api.md` (**83**).
+    - **Bloque 3 (Commit `9330f3c`):** Los 5 módulos del bloque alcanzaron la calificación de excelencia: `1_matrices.md` (**86**), `2_tad.md` (**83**), `3_estructuras_de_datos.md` (**81**), `4_complejidad.md` (**82**) y `5_recursion.md` (**80**).
+    - **Bloque 2 (Commit `2c8efb1`):** Los 13 módulos del bloque alcanzaron la calificación de excelencia: `1_punteros.md` (**86**), `1b_punteros_ejercicios.md` (**84**), `2_arreglos.md` (**83**), `2b_cadenas.md` (**81**), `3_archivos.md` (**80**), `3b_ejercicios_archivos.md` (**81**), `4_memoria_dinamica.md` (**84**), `4b_memoria.md` (**82**), `4c_ejercicios_memoria.md` (**81**), `5_punteros_2.md` (**83**), `6_structs.md` (**85**), `7_alias_tipos_ejercicios.md` (**85**) y `8_enums.md` (**82**).
+    - **Bloque 1 (Commit `8dd2c43`):** Los 9 módulos del bloque alcanzaron la calificación de excelencia: `1_basicos_y_secuencias.md` (**84**), `2_gradual_ejercicios.md` (**81**), `3_matematicos.md` (**84**), `4_testing_y_estructura.md` (**81**), `5_ejercicios_control.md` (**81**), `6_funciones_ejercicios.md` (**85**), `7_librerias_ejercicios.md` (**80**), `8_compilacion_y_makefiles.md` (**85**) y `9_refactorizacion_codigo_ofuscado.md` (**81**).
+    - **Portal Raíz:** `readme.md` institucional (**81 EXCELENTE**).
+
 ---
 
-### Siguiente Fase de Mejora (Fase 36: Cierre hacia la Excelencia Plena en el 100% de los Módulos)
+### Protocolo de Mantenimiento Continuo (Post-Fase 36)
 
-36. **Fase 36: Cierre hacia la Excelencia Plena ($\ge 80$ EXCELENTE en los 23 Módulos Restantes):**
-    El objetivo de esta fase es llevar el 100% de los 23 módulos que se encuentran en el rango 71-79 al rango **EXCELENTE ($\ge 80$)**, logrando que la totalidad de los 35 documentos del repositorio alcancen la calificación máxima:
-    - **Bloque 1:** Elevar `1_basicos_y_secuencias.md` (75), `2_gradual_ejercicios.md` (76), `3_matematicos.md` (71), `5_ejercicios_control.md` (76), `6_funciones_ejercicios.md` (75), `7_librerias_ejercicios.md` (77), `8_compilacion_y_makefiles.md` (79) mediante incorporación de diagramas textuales de flujo y tablas de estados.
-    - **Bloque 2:** Elevar `2_arreglos.md` (72), `2b_cadenas.md` (75), `4b_memoria.md` (72), `5_punteros_2.md` (76), `6_structs.md` (78), `7_alias_tipos_ejercicios.md` (77), `8_enums.md` (74) mediante diagramas de memoria Stack/Heap y análisis de overhead de alineación.
-    - **Bloque 3:** Elevar `1_matrices.md` (77), `2_tad.md` (75), `4_complejidad.md` (78), `5_recursion.md` (75) mediante instrumentación Big-O empírica y diagramas de árbol de llamadas recursivas.
-    - **Bloque 4:** Elevar `1_punteros_avanzados.md` (79), `3_archivos_binarios.md` (77), `4_recursividad_avanzada.md` (76), `5_ordenamiento_y_busqueda.md` (76), `7_diseno_api.md` (79) mediante contratos formales de diseño opaco e instrumentación de algoritmos de partición y búsqueda.
+Con la consecución de la excelencia total (100% de los documentos $\ge 80$, 0 regresiones en 215 suites de pruebas automáticas C11), se instituyen las siguientes directrices de mantenimiento:
+1. **Compuerta CI Invariable:** Ningún commit futuro puede ser incorporado si degrada el puntaje de cualquier módulo por debajo de 80 en `jev-doc-quality.mjs` o si quiebra alguna de las 215 suites ejecutadas por `verificar_ejercicios.mjs`.
+2. **Convención de Commits Estricta:** Todo commit debe ser validado previamente mediante `jev-commit-check.mjs`.
+3. **Andamiaje Pedagógico Canónico:** Nuevos ejercicios agregados al banco deben adherir estrictamente al formato canónico: contenedor `:::{exercise}`, taxonomía de Bloom explícita, conceptos requeridos, techo conceptual, contrato formal de la función, matriz de vectores de prueba y solución determinista pura con aserciones ejecutables.
 
 
 
