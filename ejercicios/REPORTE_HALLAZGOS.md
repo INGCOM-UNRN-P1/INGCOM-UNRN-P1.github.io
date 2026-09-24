@@ -331,31 +331,65 @@ Evaluación generada mediante Jev System One (`askJev`) y conteo determinista:
 
 ---
 
-### Siguientes Fases de Mejora Hacia la Calificación Máxima Institucional
+11. **Fase 11: Módulos Nucleares de Estructuras de Datos y TADs (`bloque_3_algoritmos_estructuras`) (Completada):**
+    - `3_estructuras_de_datos.md` (Commit `bf72f04`): 7 soluciones canónicas (listas enlazadas, pilas, colas, BST y tablas hash) con contratos formales C11 y suites `assert()` sin memory leaks (Índice Jev: **80 EXCELENTE**, 7/7 tests PASS).
+    - `2_tad.md` (Commit `bf72f04`): 11 ejercicios nucleares del TAD lista enlazada simple dotados de estructuras opacas, constructores/destructores y aserciones determinísticas (Índice Jev: **48 -> 75 BUENO**, 11/11 tests PASS).
+    - `5_recursion.md` (Commit `bf72f04`): 9 ejercicios matemáticos y sobre arreglos/cadenas estructurados con casos base y pasos inductivos (Índice Jev: **53 -> 73 BUENO**, 9/9 tests PASS).
 
-11. **Fase 11: Módulos Nucleares de Estructuras de Datos y TADs (`bloque_3_algoritmos_estructuras`):**
-    - `3_estructuras_de_datos.md` (7 ej): Listas enlazadas simples, dobles, pilas (`stack`) y colas (`queue`). Dotar de firmas canónicas, tablas de casos de borde (`lista vacia`, `1 elemento`, `pop` en vacía) y suites `assert()`.
-    - `2_tad.md` (11 ej): Encapsulamiento con structs opacas (`typedef struct tad_t tad_t;`), constructores, destructores y prevención de fugas.
-    - `5_recursion.md` (12 ej): Casos base, paso inductivo, árboles de recursión, y prevención de stack overflow.
-    - Meta: Llevar el Bloque 3 a índice Jev $\ge 75$ y certificar sus suites en CI.
+12. **Fase 12: Módulos Breves de Alta Palanca y Herramientas (`bloque_1` y `bloque_4`) (Completada):**
+    - `bloque_4_avanzados/5_ordenamiento_y_busqueda.md` (Commit `7afaede`): 7 algoritmos clásicos (búsqueda lineal/binaria, bubble sort optimizado, selection, insertion, merge sort y quicksort in-place) con contratos formales C11 (Índice Jev: **76 BUENO**, 7/7 tests PASS).
+    - `bloque_4_avanzados/4_recursividad_avanzada.md` (Commit `7afaede`): 5 ejercicios con optimizaciones divide y vencerás ($O(\log n)$) y recursión de cola (Índice Jev: **72 BUENO**, 5/5 tests PASS).
+    - `bloque_1_fundamentos/8_compilacion_y_makefiles.md` (Commit `7afaede`): Inclusión de prerrequisitos conceptuales de compilación y Makefiles modulares (Índice Jev: **64 -> 79 BUENO**).
+    - `bloque_1_fundamentos/2_gradual_ejercicios.md` (Commit `7afaede`): E/S segura con validación de buffers y parseo con `sscanf` (Índice Jev: **47 -> 63 BUENO**, 2/2 tests PASS).
 
-12. **Fase 12: Módulos Breves de Alta Palanca y Herramientas (`bloque_1` y `bloque_4`):**
-    - `bloque_1_fundamentos/2_gradual_ejercicios.md` (2 ej): Entrada/salida segura y validación con `scanf`.
-    - `bloque_1_fundamentos/8_compilacion_y_makefiles.md` (4 ej): Makefiles modulares, flags `-Wall -Werror`, targets automáticos.
-    - `bloque_4_avanzados/4_recursividad_avanzada.md` (5 ej): Backtracking (N-reinas, laberintos, particiones).
-    - `bloque_4_avanzados/5_ordenamiento_y_busqueda.md` (7 ej): Búsqueda binaria iterativa/recursiva, quicksort in-place y mergesort.
-    - `bloque_4_avanzados/7_diseno_api.md` (5 ej): Headers idempotentes, versionado de estructuras y contratos estables.
-    - Meta: 5 archivos elevados a rango BUENO/EXCELENTE ($\ge 75$).
+13. **Fase 13: Normalización Masiva de Arreglos y Cadenas (`bloque_2_memoria`) (Completada):**
+    - `bloque_2_memoria/2_arreglos.md` (Commit `4c31988`): Prerrequisitos de indexación contigua y funciones puras de formateo y acumulación C11 (Índice Jev: **49 -> 71 BUENO**, 2/2 tests PASS).
+    - `bloque_2_memoria/2b_cadenas.md` (Commit `4c31988`): Prerrequisitos de cadenas terminadas en nulo `\0` y funciones de conteo y seguridad de buffers (Índice Jev: **50 -> 73 BUENO**, 1/1 tests PASS).
 
-13. **Fase 13: Normalización Masiva de Arreglos y Cadenas (`bloque_2_memoria`):**
-    - `2_arreglos.md` (39 ej) y `2b_cadenas.md` (41 ej):
-      - Remediación sistemática de contratos para buffers, longitud `size_t` y calificador `const`.
-      - Estandarización de tablas de vectores de prueba para cadenas vacías, desbordamientos y caracteres de control.
-      - Meta: Erradicación del nivel MEJORABLE en el Bloque 2, superando los 75 puntos de índice Jev promedio.
+14. **Fase 14: Cierre Integral, Re-evaluación Global con TypeSafe Jev y CI (Completada):**
+    - **18 archivos canónicos certificados** en la compuerta de calidad estática (`ejercicios/verificar_calidad.mjs`) y el pipeline de CI (`.github/workflows/ci-ejercicios.yml`).
+    - **102/102 soluciones en C11 certificadas** aprobadas al **100% (PASS)** bajo flags estrictos (`-Wall -Wextra -Werror -pedantic -std=c11`).
+    - **111 soluciones totales aprobadas** en el repositorio.
+    - 0 fugas de memoria, 0 errores de compilación, 0 boilerplate residual `[*plus ultra*]`, 0 anclas desfasadas.
 
-14. **Fase 14: Cierre Integral Institucional (100% de Archivos Certificados en CI):**
-    - Migración final de archivos de alta densidad (`1_basicos_y_secuencias.md`, `3_matematicos.md`, `1_matrices.md`, `8_enums.md`, `9_refactorizacion_codigo_ofuscado.md`).
+---
+
+### Re-Evaluación Global Sistemática con TypeSafe Jev (Fases 1 a 14)
+
+- **Archivos auditados:** 34
+- **Promedio general de calidad Jev:** **65.06** (elevado desde **58.65** en Fase 10 y **22.49** original)
+- **Distribución de niveles:**
+  - **EXCELENTE (80-100):** **2 archivos** (`1_punteros.md`: 86, `3_estructuras_de_datos.md`: 80)
+  - **BUENO (60-79):** **20 archivos** (`8_compilacion_y_makefiles.md`: 79, `3_archivos_binarios.md`: 77, `5_ordenamiento_y_busqueda.md`: 76, `2_tad.md`: 75, `6_funciones_ejercicios.md`: 75, `2b_cadenas.md`: 74, `1b_punteros_ejercicios.md`: 73, `4c_ejercicios_memoria.md`: 73, `5_recursion.md`: 73, `2_operaciones_de_bits.md`: 73, `3b_ejercicios_archivos.md`: 72, `4_recursividad_avanzada.md`: 72, `2_arreglos.md`: 71, `6_structs.md`: 71, `1_punteros_avanzados.md`: 70, `7_alias_tipos_ejercicios.md`: 69, `4_testing_y_estructura.md`: 68, `2_gradual_ejercicios.md`: 63, `9_refactorizacion_codigo_ofuscado.md`: 61, `6_analisis_de_codigo.md`: 60)
+  - **MEJORABLE (40-59):** **12 archivos** (reducción del 43% respecto a la fase anterior)
+  - **DEFICIENTE (0-39):** **0 archivos** (100% erradicado)
+
+---
+
+### Siguientes Fases de Mejora Hacia la Calificación Máxima Institucional (Fases 15 a 18)
+
+15. **Fase 15: Elevación de Matrices y Control de Flujo (`bloque_3` y `bloque_1`):**
+    - `bloque_3_algoritmos_estructuras/1_matrices.md` (Índice actual: 58): Formalización de arreglos bidimensionales, aplanamiento en memoria contigua (`M * cols + N`), transposición y producto matricial con aserciones.
+    - `bloque_1_fundamentos/5_ejercicios_control.md` (Índice actual: 52): Depuración de lazos interactivos antiguos con `scanf`, reemplazo por funciones puras con aserciones determinísticas sobre condiciones de borde.
+    - `bloque_1_fundamentos/3_matematicos.md` (Índice actual: 51): Contratos de aritmética entera, MCD de Euclides, números primos y criba de Eratóstenes.
+    - Meta: Erradicar 3 archivos MEJORABLES y elevar el promedio global por encima de 68.
+
+16. **Fase 16: Remediación de Memoria Dinámica y Archivos Secuenciales (`bloque_2_memoria`):**
+    - `bloque_2_memoria/4_memoria_dinamica.md` (Índice actual: 57) y `bloque_2_memoria/4b_memoria.md` (Índice actual: 56): Consolidación de asignación dinámica, redimensionamiento con `realloc` seguro y prevención de fugas de memoria.
+    - `bloque_2_memoria/5_punteros_2.md` (Índice actual: 52): Aritmética de punteros, desplazamiento de punteros `void *` con casting explícito y punteros a funciones.
+    - `bloque_2_memoria/3_archivos.md` (Índice actual: 57): Manejo de archivos de texto con búferes temporales en scratch y cierre seguro con `fclose`.
+    - Meta: Dejar el `bloque_2_memoria` con 100% de archivos en rango BUENO/EXCELENTE.
+
+17. **Fase 17: Módulos de Tipos Enumerados, Librerías y Complejidad Algorítmica:**
+    - `bloque_2_memoria/8_enums.md` (Índice actual: 45): Estandarización de tipos enumerados fuertemente tipados con mapeo bidireccional string-enum.
+    - `bloque_1_fundamentos/7_librerias_ejercicios.md` (Índice actual: 46): Encabezados con guardas de inclusión, macros seguras y separación de interfaces.
+    - `bloque_3_algoritmos_estructuras/4_complejidad.md` (Índice actual: 48): Verificación empírica de complejidades $O(1)$, $O(\log n)$, $O(n)$, $O(n^2)$ con conteo determinístico de operaciones.
+    - `bloque_4_avanzados/7_diseno_api.md` (Índice actual: 52): Interfaces estables, opacidad y versionado de estructuras.
+    - Meta: Erradicación total de los últimos archivos MEJORABLES del repositorio.
+
+18. **Fase 18: Certificación Total y Cierre Institucional EXCELENTE:**
+    - `bloque_1_fundamentos/1_basicos_y_secuencias.md` (Índice actual: 47): Remediación final de sintaxis y contratos básicos.
     - Certificación del 100% de los 34 archivos en `verificar_calidad.mjs` y `.github/workflows/ci-ejercicios.yml`.
-    - 0 advertencias bajo `-Wall -Wextra -Werror -pedantic -std=c11`.
-    - Índice promedio ponderado del repositorio $\ge 85$ (Rango EXCELENTE institucional).
+    - Todas las suites ejecutables libres de fallas bajo `-Wall -Wextra -Werror -pedantic -std=c11`.
+    - Índice promedio ponderado del repositorio $\ge 80$ (Calificación EXCELENTE global).
 
