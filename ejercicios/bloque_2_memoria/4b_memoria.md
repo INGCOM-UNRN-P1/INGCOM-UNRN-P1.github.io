@@ -149,26 +149,99 @@ memoria física.
 ## Patrones de Gestión de Memoria
 
 (ej_b2_c05b_04)=
-### Ejercicio 2.05b.04 - b.4 - Inicialización Consistente ⭐☆☆☆☆
+### Ejercicio 2.05b.04 - Ciclo de Vida Consistente de Producto ⭐⭐☆☆☆
 
-Implementar una función `struct producto_t* crear_producto(const char* nombre,
-double precio)` que:
-1. Verifique que los parámetros sean válidos (nombre no nulo, precio positivo)
-2. Aloje memoria para el struct
-3. Aloje memoria para la cadena `nombre` y la copie
-4. Inicialice todos los campos
-5. Retorne `NULL` si alguna asignación falla
+:::{exercise}
+:label: ej_b2_c05b_04_producto
 
-Implementar también `void destruir_producto(struct producto_t** ptr_producto)`
-que libere toda la memoria y ponga el puntero en `NULL`.
+Implementá el constructor y destructor para un registro de producto con nombre dinámico:
+```c
+typedef struct {
+    char *nombre;
+    double precio;
+} producto_t;
 
-:::{tip} Buena Práctica
+producto_t *producto_crear(const char *nombre, double precio);
+void producto_destruir(producto_t **ptr_prod);
+```
 
-Aquí aplica la regla de {ref}`0x3002h`: siempre poner punteros en `NULL` después
-de liberar para evitar dangling pointers.
+**Requisitos:**
+1. Validar precondiciones: `nombre != NULL` y `precio >= 0.0`. Retornar `NULL` si no se cumplen.
+2. Alojar dinámicamente la estructura y la copia exacta de la cadena `nombre`.
+3. Si la asignación del nombre falla, liberar la estructura antes de retornar `NULL` (*rollback*).
+4. El destructor debe liberar la cadena interna, la estructura y colocar `*ptr_prod = NULL`.
 
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Parámetros Entrada | Retorno Esperado | Post-Condición Destructor |
+| :--- | :--- | :--- | :--- |
+| Creación exitosa | `"Teclado Mecanico", 85.50` | Puntero no nulo | `*ptr_prod == NULL` |
+| Nombre nulo | `NULL, 100.0` | `NULL` | Inalterado |
+| Precio negativo | `"Monitor", -10.0` | `NULL` | Inalterado |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
+
+typedef struct {
+    char *nombre;
+    double precio;
+} producto_t;
+
+producto_t *producto_crear(const char *nombre, double precio) {
+    if (nombre == NULL || precio < 0.0) {
+        return NULL;
+    }
+
+    producto_t *p = (producto_t *)malloc(sizeof(producto_t));
+    if (p == NULL) {
+        return NULL;
+    }
+
+    p->nombre = (char *)malloc(strlen(nombre) + 1);
+    if (p->nombre == NULL) {
+        free(p);
+        return NULL;
+    }
+    strcpy(p->nombre, nombre);
+    p->precio = precio;
+    return p;
+}
+
+void producto_destruir(producto_t **ptr_prod) {
+    if (ptr_prod == NULL || *ptr_prod == NULL) {
+        return;
+    }
+    producto_t *p = *ptr_prod;
+    free(p->nombre);
+    free(p);
+    *ptr_prod = NULL;
+}
+
+int main(void) {
+    producto_t *p = producto_crear("Teclado Mecanico", 85.50);
+    assert(p != NULL);
+    assert(strcmp(p->nombre, "Teclado Mecanico") == 0);
+    assert(p->precio == 85.50);
+
+    producto_destruir(&p);
+    assert(p == NULL);
+
+    /* Casos defensivos */
+    assert(producto_crear(NULL, 50.0) == NULL);
+    assert(producto_crear("Mouse", -5.0) == NULL);
+
+    producto_destruir(&p);
+    producto_destruir(NULL);
+
+    return 0;
+}
+```
+::::
 :::
-<!-- {tip} Buena Práctica -->
 
 (ej_b2_c05b_05)=
 ### Ejercicio 2.05b.05 - b.5 - Manejo de Errores en Cadena ⭐⭐⭐☆☆

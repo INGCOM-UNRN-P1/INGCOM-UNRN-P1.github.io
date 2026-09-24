@@ -253,23 +253,86 @@ formato.
 `./ordena_archivo entrada.txt salida_ordenada.txt asc`
 
 (ej_b2_c04_04)=
-### Ejercicio 2.04.04 - Generador lineal ⭐⭐☆☆☆
+### Ejercicio 2.04.04 - Generador Lineal de Archivos ⭐⭐☆☆☆
 
-Implementar `generar_lineal(ruta, cantidad, inicio, paso)`.
+:::{exercise}
+:label: ej_b2_c04_04_generador_lineal
 
-**Ejemplo**: `generar_lineal("lineal.txt", 5, 10, 2)` debe crear un archivo con:
+Implementá una función `bool generar_lineal(const char *ruta, int cantidad, int inicio, int paso)` que genere un archivo numérico formateado:
+1. La primera línea registra `cantidad`.
+2. Las líneas subsiguientes registran los valores en progresión aritmética: $inicio + i \times paso$.
+3. Retorna `true` si la escritura finalizó con éxito y `false` ante parámetros inválidos (`cantidad < 0` o `ruta == NULL`) o error de apertura.
 
-```{code-block} text
-:linenos:
-5
-10
-12
-14
-16
-18
+**Tabla de Vectores de Prueba:**
 
+| Parámetros `(cantidad, inicio, paso)` | Retorno Esperado | Contenido Escrito |
+| :--- | :--- | :--- |
+| `(5, 10, 2)` | `true` | `5\n10\n12\n14\n16\n18\n` |
+| `(0, 5, 1)` | `true` | `0\n` |
+| `(-3, 1, 1)` | `false` | No crea archivo |
+| `(4, 0, 0)` | `true` | `4\n0\n0\n0\n0\n` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <assert.h>
+
+bool generar_lineal(const char *ruta, int cantidad, int inicio, int paso) {
+    if (ruta == NULL || cantidad < 0) {
+        return false;
+    }
+    FILE *f = fopen(ruta, "w");
+    if (f == NULL) {
+        return false;
+    }
+
+    if (fprintf(f, "%d\n", cantidad) < 0) {
+        fclose(f);
+        return false;
+    }
+
+    int val = inicio;
+    for (int i = 0; i < cantidad; ++i) {
+        if (fprintf(f, "%d\n", val) < 0) {
+            fclose(f);
+            return false;
+        }
+        val += paso;
+    }
+
+    fclose(f);
+    return true;
+}
+
+int main(void) {
+    const char *tmp = "temp_lineal_test.txt";
+
+    assert(generar_lineal(tmp, 5, 10, 2) == true);
+
+    /* Verificar lectura */
+    FILE *f = fopen(tmp, "r");
+    assert(f != NULL);
+    int n = 0;
+    assert(fscanf(f, "%d", &n) == 1 && n == 5);
+    int esperados[] = {10, 12, 14, 16, 18};
+    for (int i = 0; i < 5; ++i) {
+        int v = 0;
+        assert(fscanf(f, "%d", &v) == 1 && v == esperados[i]);
+    }
+    fclose(f);
+    remove(tmp);
+
+    /* Casos defensivos */
+    assert(generar_lineal(NULL, 5, 1, 1) == false);
+    assert(generar_lineal("temp_invalido.txt", -2, 1, 1) == false);
+
+    return 0;
+}
 ```
-<!-- {code-block} text -->
+::::
+:::
 
 (ej_b2_c04_05)=
 ### Ejercicio 2.04.05 - Generador aleatorio ⭐⭐☆☆☆

@@ -13,6 +13,13 @@ C11 para modelar dominios semánticos claros, legibles y robustos contra valores
 ### Capítulos de Apunte Correspondientes
 - [Alias de tipos](../../apunte/bloque_2_memoria/10_alias_tipos.md)
 
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Creación de alias semánticos para tipos primitivos y enumerados mediante `typedef` ({ref}`capitulo-alias-tipos`).
+2. Regla institucional del sufijo obligatorio `_t` para tipos de usuario ({ref}`0x2001h`).
+3. Sentencias `switch` exhaustivas con tratamiento defensivo del caso `default`.
+4. Inmutabilidad de retornos constantes (`const char *`) y verificación con aserciones.
+
 ### Cuestiones de Estilo Aplicables
 - **Nombres de tipos:** Por convención de cátedra ({ref}`0x2001h`), todo tipo definido con `typedef` debe llevar el sufijo `_t` (ej. `dia_semana_t`).
 - **Validación defensiva:** Validar rangos en `switch` incluyendo siempre la cláusula `default` para manejar valores inesperados.
@@ -156,3 +163,64 @@ int main(void)
 
 ::::
 <!-- {solution} enum_basico -->
+
+---
+
+(ej_b2_c10_02)=
+### Ejercicio 2.10.02 - Distancia Manhattan con Alias de Estructura ⭐⭐☆☆☆
+
+:::{exercise}
+:label: alias_punto_manhattan
+
+Definí un alias `punto_2d_t` para un registro con coordenadas enteras `x` e `y`.
+Implementá una función pura que calcule la distancia Manhattan entre dos puntos:
+$d(p_1, p_2) = |p_1.x - p_2.x| + |p_1.y - p_2.y|$.
+
+```c
+typedef struct {
+    int x;
+    int y;
+} punto_2d_t;
+
+int distancia_manhattan(punto_2d_t p1, punto_2d_t p2);
+```
+
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Punto $P_1$ | Punto $P_2$ | Distancia Esperada |
+| :--- | :--- | :--- | :--- |
+| Puntos idénticos | `(0, 0)` | `(0, 0)` | `0` |
+| Primer cuadrante | `(1, 2)` | `(4, 6)` | `3 + 4 = 7` |
+| Cuadrantes opuestos | `(-2, 3)` | `(3, -1)` | `5 + 4 = 9` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+typedef struct {
+    int x;
+    int y;
+} punto_2d_t;
+
+int distancia_manhattan(punto_2d_t p1, punto_2d_t p2) {
+    return abs(p1.x - p2.x) + abs(p1.y - p2.y);
+}
+
+int main(void) {
+    punto_2d_t o = {0, 0};
+    punto_2d_t p1 = {1, 2};
+    punto_2d_t p2 = {4, 6};
+    punto_2d_t p3 = {-2, 3};
+    punto_2d_t p4 = {3, -1};
+
+    assert(distancia_manhattan(o, o) == 0);
+    assert(distancia_manhattan(p1, p2) == 7);
+    assert(distancia_manhattan(p3, p4) == 9);
+
+    return 0;
+}
+```
+::::
+:::

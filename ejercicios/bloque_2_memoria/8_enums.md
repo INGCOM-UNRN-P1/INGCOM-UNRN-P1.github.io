@@ -158,32 +158,115 @@ enum estado_red
 <!-- {code-block} c -->
 
 (ej_b2_c11_04)=
-### Ejercicio 2.11.04 - Máquina de estados ⭐⭐⭐☆☆
+### Ejercicio 2.11.04 - Máquina de Estados de Conexión de Red ⭐⭐⭐☆☆
 
-Implementar una función que procese transiciones de estado. La función debe
-recibir el estado actual y un evento, y retornar el nuevo estado según las
-reglas de transición.
+:::{exercise}
+:label: ej_b2_c11_04_maquina_estados
 
-```{code-block} c
-:linenos:
-enum evento_red
-{
-    EVENTO_CONECTAR,
+Implementá la función de transición para una máquina de estados determinística de conexión de red:
+```c
+enum estado_red procesar_evento(enum estado_red estado, enum evento_red evento);
+```
+
+**Reglas de transición:**
+1. Desde `DESCONECTADO`, `EVENTO_CONECTAR` transiciona a `CONECTANDO`.
+2. Desde `CONECTANDO`, `EVENTO_OK` transiciona a `CONECTADO`; `EVENTO_TIMEOUT` a `ERROR_TIMEOUT`; `EVENTO_ERROR` a `ERROR_AUTH`.
+3. Desde `CONECTADO`, `EVENTO_DESCONECTAR` transiciona a `DESCONECTANDO`.
+4. Desde `DESCONECTANDO`, cualquier evento transiciona a `DESCONECTADO`.
+5. Cualquier evento no contemplado para el estado actual mantiene el estado inalterado.
+
+**Tabla de Vectores de Prueba:**
+
+| Estado Inicial | Evento Recibido | Estado Resultante | Justificación |
+| :--- | :--- | :--- | :--- |
+| `DESCONECTADO` | `EVENTO_CONECTAR` | `CONECTANDO` | Inicio de negociación |
+| `CONECTANDO` | `EVENTO_OK` | `CONECTADO` | Conexión establecida |
+| `CONECTANDO` | `EVENTO_TIMEOUT` | `ERROR_TIMEOUT` | Falla por tiempo |
+| `CONECTADO` | `EVENTO_DESCONECTAR` | `DESCONECTANDO` | Cierre solicitado |
+| `CONECTADO` | `EVENTO_CONECTAR` | `CONECTADO` | Evento inválido ignorado |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <assert.h>
+
+enum estado_red {
+    DESCONECTADO = 0,
+    CONECTANDO,
+    CONECTADO,
+    DESCONECTANDO,
+    ERROR_TIMEOUT,
+    ERROR_AUTH
+};
+
+enum evento_red {
+    EVENTO_CONECTAR = 0,
+    EVENTO_OK,
     EVENTO_DESCONECTAR,
     EVENTO_TIMEOUT,
     EVENTO_ERROR
 };
-enum estado_red procesar_evento(enum estado_red estado,
-                                enum evento_red evento);
-```
-<!-- {code-block} c -->
 
-**Reglas de transición sugeridas:**
-- `DESCONECTADO` + `EVENTO_CONECTAR` → `CONECTANDO`
-- `CONECTANDO` + `EVENTO_TIMEOUT` → `ERROR_TIMEOUT`
-- `CONECTANDO` + `EVENTO_ERROR` → `ERROR_AUTH`
-- `CONECTADO` + `EVENTO_DESCONECTAR` → `DESCONECTANDO`
-- `DESCONECTANDO` + transición completa → `DESCONECTADO`
+enum estado_red procesar_evento(enum estado_red estado, enum evento_red evento) {
+    switch (estado) {
+        case DESCONECTADO:
+            if (evento == EVENTO_CONECTAR) {
+                return CONECTANDO;
+            }
+            break;
+
+        case CONECTANDO:
+            if (evento == EVENTO_OK) {
+                return CONECTADO;
+            }
+            if (evento == EVENTO_TIMEOUT) {
+                return ERROR_TIMEOUT;
+            }
+            if (evento == EVENTO_ERROR) {
+                return ERROR_AUTH;
+            }
+            break;
+
+        case CONECTADO:
+            if (evento == EVENTO_DESCONECTAR) {
+                return DESCONECTANDO;
+            }
+            break;
+
+        case DESCONECTANDO:
+            return DESCONECTADO;
+
+        case ERROR_TIMEOUT:
+        case ERROR_AUTH:
+            if (evento == EVENTO_CONECTAR) {
+                return CONECTANDO;
+            }
+            if (evento == EVENTO_DESCONECTAR) {
+                return DESCONECTADO;
+            }
+            break;
+    }
+    return estado;
+}
+
+int main(void) {
+    assert(procesar_evento(DESCONECTADO, EVENTO_CONECTAR) == CONECTANDO);
+    assert(procesar_evento(DESCONECTADO, EVENTO_DESCONECTAR) == DESCONECTADO);
+
+    assert(procesar_evento(CONECTANDO, EVENTO_OK) == CONECTADO);
+    assert(procesar_evento(CONECTANDO, EVENTO_TIMEOUT) == ERROR_TIMEOUT);
+    assert(procesar_evento(CONECTANDO, EVENTO_ERROR) == ERROR_AUTH);
+
+    assert(procesar_evento(CONECTADO, EVENTO_DESCONECTAR) == DESCONECTANDO);
+    assert(procesar_evento(CONECTADO, EVENTO_CONECTAR) == CONECTADO);
+
+    assert(procesar_evento(DESCONECTANDO, EVENTO_OK) == DESCONECTADO);
+
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b2_c11_05)=
 ### Ejercicio 2.11.05 - Validación de estado ⭐⭐⭐☆☆
