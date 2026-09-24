@@ -5,6 +5,12 @@ short_title: 4b. Punteros II
 
 # Ejercicios de Punteros II
 
+## Prerrequisitos y Entorno Requerido
+Para compilar y verificar las soluciones de este módulo, se requiere:
+1. **Entorno de Compilación:** Compilador GCC 9+ o Clang bajo estándar estricto **ISO C11** (`-std=c11 -Wall -Wextra -Werror -pedantic`).
+2. **Direccionamiento e Indirección:** Dominio del operador de dirección (`&`), operador de desreferencia (`*`), punteros como parámetros de función (pasaje por referencia simulado) y cualificadores de inmutabilidad (`const int *`).
+3. **Manejo Defensivo:** Validación mandatoria mediante `assert(p != NULL)` de la cabecera `<assert.h>` para prevenir accesos a memoria inválida.
+
 ## Acerca de
 
 Estos ejercicios prácticos y aplicados complementan la teoría de punteros,
@@ -12,16 +18,6 @@ pasaje por referencia y aritmética básica de indirección de memoria en C.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-punteros`
-
-### Cuestiones de Estilo Aplicables
-- **Validación con aserciones:** Es mandatorio validar mediante `assert` de la cabecera
-  `<assert.h>` que los punteros recibidos por parámetros en las funciones no
-  sean `NULL` (ver {ref}`0x2008h`).
-- **Aritmética de punteros:** Recorré los arreglos operando de manera directa
-  sobre punteros y evitando índices lógicos cuando la consigna lo requiera,
-  incrementando o decrementando las direcciones físicas de memoria de forma explícita.
-- **Tipado seguro:** Utilizá `size_t` para longitudes y `const` para punteros cuyos
-  datos referenciados no deban ser modificados.
 
 ---
 

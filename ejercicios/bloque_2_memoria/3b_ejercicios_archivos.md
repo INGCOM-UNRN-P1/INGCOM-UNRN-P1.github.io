@@ -6,6 +6,12 @@ subtitle: 'Problemas y soluciones detalladas sobre streams y persistencia en C'
 
 # Ejercicios Resueltos: Archivos de Texto
 
+## Prerrequisitos y Entorno Requerido
+Para abordar y verificar las soluciones de persistencia de este módulo, se requiere:
+1. **Entorno de Compilación:** Compilador GCC 9+ o Clang configurado en estándar estricto **ISO C11** (`-std=c11 -Wall -Wextra -Werror -pedantic`).
+2. **Conceptos de E/S Estándar:** Manejo seguro de flujos (`FILE *`), modos de apertura (`"r"`, `"w"`, `"a"`), buffers con `fgets`, escritura con `fputs`/`fprintf` y cierre estricto con `fclose`.
+3. **Manejo Defensivo de Recursos:** Validación de punteros de archivo nulos y eliminación sistemática de artefactos temporales en pruebas mediante `remove()`.
+
 ## Acerca de
 
 Estos ejercicios profundizan en la manipulación, lectura formateada, escritura y
@@ -13,15 +19,6 @@ persistencia de datos usando streams estándar de E/S (`FILE *`) en C11.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`trabajando-con-archivos-de-texto-en-c`
-
-### Cuestiones de Estilo Aplicables
-- **Manejo defensivo de archivos:** Asegurá siempre la validación del puntero
-  retornado por `fopen` y liberá el descriptor de archivo llamando a `fclose` en
-  todas las ramas de control de errores.
-- **Validación de buffer:** Evitá desbordamientos de buffer pasando siempre la
-  capacidad límite al leer flujos con `fgets`.
-- **Limpieza de recursos:** Si se generan archivos temporales durante la ejecución de
-  pruebas, deben eliminarse sistemáticamente con `remove()` al concluir.
 
 ---
 

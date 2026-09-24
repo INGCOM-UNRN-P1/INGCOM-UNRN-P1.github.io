@@ -5,6 +5,12 @@ short_title: "3. Arreglos"
 
 # Ejercicios de Arreglos (Estáticos)
 
+## Prerrequisitos y Entorno Requerido
+Para abordar y verificar las soluciones de este módulo, se requiere:
+1. **Entorno de Compilación:** Compilador GCC 9+ o Clang bajo estándar estricto **ISO C11** (`-std=c11 -Wall -Wextra -Werror -pedantic`).
+2. **Conceptos de Arreglos Contiguos:** Declaración e inicialización estática (`int arr[N]`), indexación base-cero, verificación rigurosa de cotas (`0 <= i < n`) para prevenir accesos fuera de rango.
+3. **Punteros Decaídos y Const-Correctness:** Paso de arreglos a funciones como puntero decaído y longitud (`const int *arr, size_t n`), preservando inmutabilidad en lecturas y usando `size_t` para índices y dimensiones.
+
 ## Acerca de
 
 Ejercicios para practicar la manipulación de arreglos de tamaño fijo en C11. Un arreglo
@@ -14,18 +20,6 @@ memoria contiguas.
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-arreglos`
 - {ref}`capitulo-secuencias`
-
-### Prerrequisitos Conceptuales
-Antes de resolver esta guía, el estudiante debe dominar:
-1. Declaración e inicialización contigua de arreglos estáticos (`int arr[N]`).
-2. Indexación base-cero y validación estricta de límites (`0 <= i < n`).
-3. Paso de arreglos a funciones como puntero decaído y longitud (`const int *arr, size_t n`).
-4. Calificador `const` para prevenir mutaciones indebidas en funciones de solo lectura.
-
-### Cuestiones de Estilo Aplicables
-- **Calificador const:** Todo arreglo recibido por una función que no deba
-  modificar sus valores debe calificarse como `const tipo *arr`.
-- **Tipos de tamaño:** Empleá siempre `size_t` para índices y dimensiones de arreglos.
 
 ---
 
@@ -946,14 +940,106 @@ FIN PROCEDIMIENTO
 <!-- {tip} Ayuda (pseudocódigo) -->
 
 (ej_b2_c03_20)=
-### Ejercicio 2.03.20 - Algoritmo de Kadane (Suma máxima de subarreglo) ⭐⭐⭐☆☆
+### Ejercicio 2.03.20 - Algoritmo de Kadane (Suma Máxima de Subarreglo Contiguo) ⭐⭐⭐☆☆
 
-Implementar el algoritmo de Kadane para encontrar la suma del subarreglo
-contiguo que tenga la suma más grande. El arreglo puede contener números
-negativos.
+:::{exercise}
+:label: ej_b2_c03_20_kadane
 
-:::{hint} Lógica y Consideraciones
--   **Proceso:** Se recorre el arreglo una sola vez, manteniendo dos variables:
+Implementá el **Algoritmo de Kadane** en tiempo lineal $\mathcal{O}(n)$ y espacio $\mathcal{O}(1)$ para hallar la suma máxima de un subarreglo contiguo no vacío:
+
+```c
+long long max_suma_subarreglo_kadane(const int *arr, size_t n, bool *valido);
+```
+
+**Reglas de cálculo:**
+1. **Dominio con negativos:** Si todos los elementos del arreglo son negativos, la suma máxima corresponde al elemento individual menos negativo (por ejemplo, para `{-5, -2, -8}`, la respuesta es `-2`).
+2. **Manejo defensivo:** Si `arr == NULL` o `n == 0`, la función retorna `0LL` y asigna `false` al puntero `valido` (si no es `NULL`). Ante éxito, asigna `true` a `*valido`.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Entrada `arr` ($n$) | Retorno Esperado | `*valido` | Subarreglo Óptimo |
+| :--- | :--- | :--- | :--- | :--- |
+| **Normal Mixto** | `{-2, 1, -3, 4, -1, 2, 1, -5, 4}`, $n=9$ | `6LL` | `true` | `{4, -1, 2, 1}` |
+| **Todos Negativos** | `{-5, -2, -8, -1}`, $n=4$ | `-1LL` | `true` | `{-1}` |
+| **Todos Positivos** | `{1, 2, 3, 4}`, $n=4$ | `10LL` | `true` | Todo el arreglo |
+| **Elemento Único** | `{-7}`, $n=1$ | `-7LL` | `true` | `{-7}` |
+| **Vector Vacío** | `NULL`, $n=0$ | `0LL` | `false` | Inexistente |
+
+:::
+
+::::{solution} ej_b2_c03_20_kadane
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stddef.h>
+#include <stdbool.h>
+#include <assert.h>
+
+long long max_suma_subarreglo_kadane(const int *arr, size_t n, bool *valido)
+{
+    if (arr == NULL || n == 0)
+    {
+        if (valido != NULL)
+        {
+            *valido = false;
+        }
+        return 0LL;
+    }
+
+    if (valido != NULL)
+    {
+        *valido = true;
+    }
+
+    long long max_global = arr[0];
+    long long max_actual = arr[0];
+
+    for (size_t i = 1; i < n; i++)
+    {
+        long long valor = arr[i];
+        if (max_actual + valor > valor)
+        {
+            max_actual += valor;
+        }
+        else
+        {
+            max_actual = valor;
+        }
+
+        if (max_actual > max_global)
+        {
+            max_global = max_actual;
+        }
+    }
+
+    return max_global;
+}
+
+int main(void)
+{
+    bool ok = false;
+
+    int arr1[] = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+    assert(max_suma_subarreglo_kadane(arr1, 9, &ok) == 6LL && ok == true);
+
+    int arr_neg[] = {-5, -2, -8, -1};
+    assert(max_suma_subarreglo_kadane(arr_neg, 4, &ok) == -1LL && ok == true);
+
+    int arr_pos[] = {1, 2, 3, 4};
+    assert(max_suma_subarreglo_kadane(arr_pos, 4, &ok) == 10LL && ok == true);
+
+    int arr_uno[] = {-7};
+    assert(max_suma_subarreglo_kadane(arr_uno, 1, &ok) == -7LL && ok == true);
+
+    assert(max_suma_subarreglo_kadane(NULL, 0, &ok) == 0LL && ok == false);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} ej_b2_c03_20_kadane -->
     -   `max_actual`: La suma máxima del subarreglo que termina en la posición
         actual.
     -   `max_global`: La suma máxima encontrada en todo el arreglo hasta el

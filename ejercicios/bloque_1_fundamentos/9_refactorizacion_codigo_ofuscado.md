@@ -6,37 +6,27 @@ subtitle: "Deconstrucción, análisis y transformación de código críptico a C
 
 # Ejercicios: Refactorización de Código Ofuscado
 
+## Prerrequisitos Técnicos y Entorno Requerido
+Antes de abordar esta guía de deconstrucción y refactorización, el estudiante requiere:
+1. **Entorno de Compilación:** Compilador GCC 9+ o Clang bajo estándar estricto **ISO C11** (`-std=c11 -Wall -Wextra -Werror -pedantic`).
+2. **Estilo Institucional:** Dominio del catálogo de reglas de estilo de la cátedra: indentación Allman ({ref}`0x0007h`), constantes simbólicas ({ref}`0x0003h`) y nombres autoexplicativos ({ref}`0x0102h`).
+3. **Eliminación de Antipatrones:** Prohibición estricta de variables globales ({ref}`0x2004h`) y reemplazo del operador ternario por bifurcaciones explícitas ({ref}`0x1007h`).
+4. **Verificación de Equivalencia:** Diseño sistemático de suites de prueba con `assert()` en C11 para garantizar invariancia funcional.
+
 ## Acerca de
 
 En el desarrollo profesional de software, la mayor parte del tiempo se destina a
 **leer, entender y mantener código existente**. Con frecuencia te encontrarás
-con
-código mal estructurado, con nombres crípticos de una sola letra, números
-mágicos
-sin explicación, anidaciones excesivas o dependencias ocultas de variables
-globales.
+con código mal estructurado, con nombres crípticos de una sola letra, números mágicos
+sin explicación, anidaciones excesivas o dependencias ocultas de variables globales.
 
 El objetivo de este cuadernillo es desarrollar tu agudeza analítica mediante la
-**deconstrucción y refactorización** de fragmentos de código intencionalmente
-ofuscados.
+**deconstrucción y refactorización** de fragmentos de código intencionalmente ofuscados.
 
 :::{warning} Temas de estos ejercicios
-
-Ojo que estos ejercicios contienen sintaxis que vamos a ver más adelante, en
-particular
-matrices y arreglos.
-
-**Y están construidos con el máximo nivel de aspereza**
-
+Ojo que estos ejercicios contienen sintaxis que vamos a ver más adelante, en particular matrices y arreglos.
 :::
 <!-- {warning} Temas de estos ejercicios -->
-
-### Prerrequisitos Conceptuales
-Antes de resolver esta guía, el estudiante debe dominar:
-1. Estilo y formato institucional de la cátedra: indentación Allman ({ref}`0x0007h`) y nombres autoexplicativos ({ref}`0x0102h`).
-2. Eliminación de estructuras no recomendadas: reemplazo de operador ternario por bifurcaciones explícitas ({ref}`0x1007h`).
-3. Desacople estricto de E/S (`printf`/`scanf`) respecto a la lógica de cálculo ({ref}`0x2002h`).
-4. Verificación de equivalencia funcional mediante suites de pruebas con `assert()` en C11.
 
 ### Metodología de Trabajo para Cada Ejercicio
 

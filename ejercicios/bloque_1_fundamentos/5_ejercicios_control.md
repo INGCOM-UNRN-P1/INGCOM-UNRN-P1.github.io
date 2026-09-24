@@ -7,30 +7,18 @@ subtitle: 'Problemas y soluciones sobre lazos y condicionales en C'
 (control-flujo-ejercicios)=
 # Ejercicios: Control de Flujo
 
+## Prerrequisitos y Entorno Requerido
+Antes de abordar y compilar los ejercicios de esta guía, se requiere:
+1. **Entorno de Compilación:** Compilador GCC 9+ o Clang bajo estándar estricto **ISO C11** (`-std=c11 -Wall -Wextra -Werror -pedantic`).
+2. **Conceptos de Control de Flujo:** Operadores relacionales (`<`, `<=`, `>`, `>=`, `==`, `!=`), operadores lógicos de cortocircuito (`&&`, `||`, `!`) y bifurcaciones `if`/`else if`/`else`/`switch`.
+3. **Lazos Estructurados e Invariantes:** Iteraciones acotadas con `for`, lazos gobernados por condición con `while`/`do-while` y banderas de control booleanas (`stdbool.h`) evitando saltos incondicionales (`break`/`continue`).
+
 ## Acerca de
 
-Estos ejercicios tienen como propósito ejercitar la lógica condicional, las
-estructuras de repetición y el control de flujo estructurado y seguro en C11.
+Estos ejercicios tienen como propósito ejercitar la lógica condicional, las estructuras de repetición y el control de flujo estructurado y seguro en C11.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-control-flujo`
-
-### Prerrequisitos Conceptuales
-Antes de resolver esta guía, el estudiante debe dominar:
-1. Operadores relacionales (`<`, `<=`, `>`, `>=`, `==`, `!=`) y lógicos (`&&`, `||`, `!`).
-2. Estructuras condicionales simples y anidadas (`if`, `else if`, `else`).
-3. Estructuras de repetición (`for`, `while`, `do...while`) y sus invariantes de terminación.
-4. Banderas de control booleanas (`bool` de `<stdbool.h>`) en reemplazo de saltos incondicionales (`break`/`continue`).
-
-### Cuestiones de Estilo Aplicables
-- **Estructuras de control y llaves:** De acuerdo con la {ref}`0x1001h`, todas las estructuras de control
-  deben utilizar llaves (`{}`).
-- **Prohibición de `break` y `continue`:** Según la {ref}`0x1002h`, se encuentra prohibido el uso
-  descontrolado de `break` y `continue`. En su lugar, se deben estructurar lazos
-  controlados mediante banderas lógicas booleanas.
-- **Lazos:** Según la {ref}`0x1003h`,
-  utilizá el lazo `for` para iteraciones con rango o contador definido y `while`
-  para lazos controlados por condiciones lógicas.
 
 ---
 
@@ -693,22 +681,112 @@ desbordamientos de búfer validando la capacidad máxima.
 ---
 
 (ej_b1_c03b_25)=
-## Ejercicio 1.03b.25 - Menú Interactivo ⭐⭐⭐☆☆
+### Ejercicio 1.03b.25 - Validador de Fechas Gregorianas y Regla de Bisiestos ⭐⭐⭐☆☆
 
-Implementá un menú que se repita hasta que el usuario elija "Salir".
+:::{exercise}
+:label: ej_b1_c03b_25_validador_fecha
 
-**Orientación:**
-- Lazo `while (opcion != SALIR)`
-- Mostrá menú
-- Leé opción
-- `switch` para ejecutar acción
-- Opción salir termina el lazo
+Implementá una función pura de validación temporal en el calendario gregoriano:
 
-:::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
+```c
+bool es_bisiesto(int anio);
+bool fecha_es_valida(int dia, int mes, int anio);
+```
+
+**Reglas de cálculo:**
+1. **Regla gregoriana de años bisiestos:** Un año es bisiesto si es divisible por 4, excepto si es divisible por 100, a menos que también sea divisible por 400.
+2. **Validación de rangos:**
+   - `anio >= 1` (era común).
+   - `mes` entre `1` y `12`.
+   - `dia` entre `1` y el límite superior de dicho mes (febrero: 28 días, o 29 en año bisiesto; abril, junio, septiembre, noviembre: 30 días; enero, marzo, mayo, julio, agosto, octubre, diciembre: 31 días).
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Fecha $(D, M, A)$ | Bisiesto | Validación Esperada | Justificación |
+| :--- | :--- | :--- | :--- |
+| `29, 2, 2024` | Sí | `true` | Año bisiesto divisible por 4 y no por 100 |
+| `29, 2, 1900` | No | `false` | Divisible por 100 pero no por 400 (no bisiesto) |
+| `29, 2, 2000` | Sí | `true` | Divisible por 400 (bisiesto secular) |
+| `31, 4, 2023` | No | `false` | Abril tiene 30 días |
+| `31, 12, 2023`| No | `true` | Diciembre tiene 31 días |
+| `0, 5, 2023`  | No | `false` | Día fuera de rango inferior |
+| `15, 13, 2023`| No | `false` | Mes fuera de rango superior |
+
 :::
-<!-- {hint} Lógica y Consideraciones -->
+
+::::{solution} ej_b1_c03b_25_validador_fecha
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdbool.h>
+#include <assert.h>
+
+bool es_bisiesto(int anio)
+{
+    if (anio <= 0)
+    {
+        return false;
+    }
+    return (anio % 4 == 0 && (anio % 100 != 0 || anio % 400 == 0));
+}
+
+bool fecha_es_valida(int dia, int mes, int anio)
+{
+    if (anio < 1 || mes < 1 || mes > 12 || dia < 1)
+    {
+        return false;
+    }
+
+    int dias_mes = 31;
+
+    switch (mes)
+    {
+    case 2:
+        dias_mes = es_bisiesto(anio) ? 29 : 28;
+        break;
+    case 4:
+    case 6:
+    case 9:
+    case 11:
+        dias_mes = 30;
+        break;
+    default:
+        dias_mes = 31;
+        break;
+    }
+
+    return (dia <= dias_mes);
+}
+
+int main(void)
+{
+    /* Pruebas de bisiestos */
+    assert(es_bisiesto(2024) == true);
+    assert(es_bisiesto(1900) == false);
+    assert(es_bisiesto(2000) == true);
+    assert(es_bisiesto(2023) == false);
+
+    /* Fechas válidas */
+    assert(fecha_es_valida(29, 2, 2024) == true);
+    assert(fecha_es_valida(29, 2, 2000) == true);
+    assert(fecha_es_valida(31, 12, 2023) == true);
+    assert(fecha_es_valida(30, 4, 2023) == true);
+
+    /* Fechas inválidas */
+    assert(fecha_es_valida(29, 2, 1900) == false);
+    assert(fecha_es_valida(29, 2, 2023) == false);
+    assert(fecha_es_valida(31, 4, 2023) == false);
+    assert(fecha_es_valida(0, 5, 2023) == false);
+    assert(fecha_es_valida(15, 13, 2023) == false);
+    assert(fecha_es_valida(15, 5, 0) == false);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} ej_b1_c03b_25_validador_fecha -->
 
 ---
 

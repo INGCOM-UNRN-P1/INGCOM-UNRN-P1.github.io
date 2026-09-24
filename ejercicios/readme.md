@@ -3,17 +3,38 @@ title: Repositorio de enunciados
 short_title: Ejercicios
 ---
 
-## ¿Y las prácticas?
+# Repositorio Integral de Ejercicios de Programación 1
 
-La idea de esta sección, como algo separado a las prácticas obligatorias de la
-cátedra, es que dispongas de una colección amplia de problemas complementarios
-para consolidar el aprendizaje. Las prácticas de la cátedra siguen un régimen de
-entrega formal con plazos estrictos y verificación automatizada de estilo y
-corrección.
+Este repositorio constituye la base pedagógica práctica de la asignatura **Programación 1** (UNRN). Su diseño implementa un modelo de **aprendizaje andamiado (*scaffolded learning*)** y progresión gradual según la Taxonomía de Bloom Revisada, guiando al estudiante desde la sintaxis básica hasta la ingeniería de software y tipos abstractos en C11.
+
+## Requisitos Previos y Entorno de Ejecución
+- **Compilador C:** GCC (v9+) o Clang configurado en estándar estricto **ISO C11** (`-std=c11 -Wall -Wextra -Werror -pedantic`).
+- **Sistema y Dependencias:** Entorno POSIX (Linux/macOS), utilidades `make`, terminal Bash y Node.js (v18+) para verificación automática.
+- **Herramientas de Análisis:** Valgrind y LLVM AddressSanitizer (`-fsanitize=address,undefined`) para comprobación rigurosa de memoria.
+- **Conocimientos Previos:** Aritmética elemental, álgebra booleana y manejo básico de la línea de comandos.
+
+## Enfoque Metodológico Formativo y Casos Límite
+Cada ejercicio articula cuatro fases de dominio cognitivo:
+1. **Contratos Formales:** Precondiciones, postcondiciones e invariantes explícitas.
+2. **Modularización Pura:** Descomposición en funciones sin variables globales ni efectos colaterales.
+3. **Casos Borde y Manejo de Errores:** Validación defensiva ante punteros `NULL`, valores frontera (`0`, `NULL`, tamaños vacíos) y prevención estricta de división por cero o desbordamientos.
+4. **Vectores de Prueba:** Pruebas sistemáticas automatizadas en `main(void)` con macro `assert(...)`.
+5. **Higiene de Memoria:** Cero fugas en el Heap, verificación con sanitizers y ausencia de dobles liberaciones.
+
+## Flujo de Trabajo y Verificación Rápida
+- **Compilación manual estricta:** `gcc -Wall -Wextra -Werror -pedantic -std=c11 archivo.c -o programa`
+- **Verificación estructural:** `node ejercicios/verificar_calidad.mjs`
+- **Ejecución automatizada de soluciones:** `node ejercicios/verificar_ejercicios.mjs`
 
 ---
 
-## Consideraciones generales
+## ¿Y las prácticas?
+
+Esta colección complementa las guías obligatorias de la cátedra para consolidar el aprendizaje autónomo mediante problemas graduados.
+
+---
+
+## Consideraciones Generales
 
 A seguir siempre y cuando no esté indicada otra cosa:
 
@@ -32,23 +53,48 @@ A seguir siempre y cuando no esté indicada otra cosa:
 7.  Los ejercicios marcados como \[_plus ultra_\] son variaciones del ejercicio
     para ir «más allá» de la consigna original.
 
-### Plantilla de archivo
+### Plantilla de Archivo y Ejemplo de Referencia
 
-En un archivo llamado `1-1_apellido.c`:
+Cada entrega individual debe estructurarse mediante funciones puras, modularización y un conjunto exhaustivo de pruebas en `main(void)`. A continuación se presenta la plantilla estándar de resolución canónica (`1-1_apellido.c`):
 
 ```{code-block} c
 :linenos:
 /*
-Ejercicio 1.1 – Hola Mundo
-Escribir un programa que imprima "Hola, mundo!" en la pantalla.
-Este ejercicio nos permitirá verificar que el entorno de programación funciona.
------------------
-Nombre y Apellido
-Usuario Github
+===============================================================================
+Cátedra de Programación 1 - Universidad Nacional de Río Negro
+Ejercicio 1.01.01 - Ejemplo de Estructura Canónica
+Consigna: Implementar una función pura que valide si un entero es par.
+Autor: Alumno Ejemplo
+GitHub: @alumno-unrn
+===============================================================================
 */
-// prototipos
-// main
-// implementaciones
+
+#include <assert.h>
+#include <stdbool.h>
+#include <stdio.h>
+
+/**
+ * @brief Determina si un número entero es par.
+ * @param n Número entero de entrada.
+ * @return true si n es divisible por 2, false en caso contrario.
+ */
+bool es_par(int n)
+{
+    return (n % 2 == 0);
+}
+
+int main(void)
+{
+    /* Casos de prueba exhaustivos */
+    assert(es_par(0) == true);
+    assert(es_par(2) == true);
+    assert(es_par(-4) == true);
+    assert(es_par(1) == false);
+    assert(es_par(-7) == false);
+
+    printf("Todos los vectores de prueba superados con éxito.\n");
+    return 0;
+}
 ```
 <!-- {code-block} c -->
 
@@ -77,6 +123,33 @@ ir más allá de la consigna base y profundizar el aprendizaje mediante:
   ejecución y eficiencia algorítmica.
 - **Extensión y Abstracción:** Generalización de soluciones, diseño de
   interfaces reutilizables o soporte para nuevas funcionalidades.
+
+---
+
+## Guía Metodológica de Andamiaje Pedagógico (Scaffolded Learning)
+
+Para asegurar una progresión cognitiva sólida desde los fundamentos sintácticos hasta la creación de arquitecturas complejas de software, recomendamos abordar cada problema aplicando un proceso estructurado en cuatro etapas consecutivas:
+
+### 1. Descomposición y Contratos Formales (Nivel Bloom 1-2: Recordar y Comprender)
+- **Definición de Dominio:** Identificá con precisión el tipo de dato y el rango de las entradas válidas.
+- **Precondiciones y Postcondiciones:** Documentá qué asume la función respecto a sus argumentos (por ejemplo, punteros no nulos, divisores distintos de cero) y qué garantías ofrece al retornar.
+- **Firma Inmutable y Encapsulamiento:** Ocultá detalles internos y utilizá cualificadores `const` en punteros de solo lectura para evitar mutaciones accidentales.
+
+### 2. Implementación Modular Pura (Nivel Bloom 3: Aplicar)
+- **Funciones de Responsabilidad Única:** Descomponé el problema en submódulos pequeños y cohesivos.
+- **Invariantes de Bucle:** Asegurá que cada iteración aproxime el estado hacia la condición de terminación, previniendo lazos infinitos y accesos fuera de rango.
+- **Cero Efectos Secundarios:** Prohibí tajantemente variables globales y mutaciones fuera del ámbito estricto de los parámetros pasados por referencia.
+
+### 3. Construcción Sistemática de Vectores de Prueba (Nivel Bloom 4: Analizar)
+Antes de dar por concluida la implementación, elaborá una tabla de pruebas exhaustiva que contemple cuatro familias críticas de vectores:
+- **Casos Típicos / Nominales:** Valores promedio representativos del dominio habitual.
+- **Casos de Frontera (Edge Cases):** Límites extremos del dominio (arreglos vacíos con tamaño 0, valores neutros `0` y `1`, cadenas vacías `""`).
+- **Casos Patológicos / Error:** Argumentos fuera de rango, punteros `NULL`, divisores nulos o desbordamientos potenciales.
+- **Aserciones Automatizadas:** Trasladá la tabla directamente a llamadas `assert(...)` dentro de la función `main(void)`.
+
+### 4. Auditoría y Verificación Estricta (Nivel Bloom 5-6: Evaluar y Crear)
+- **Higiene de Compilación:** Verificá que la compilación produzca 0 advertencias bajo las directivas institucionales más rigurosas: `-Wall -Wextra -Werror -pedantic -std=c11`.
+- **Integridad Dinámica:** Ejecutá las pruebas bajo AddressSanitizer y Valgrind para garantizar ausencia total de accesos inválidos, desbordamientos de pila/heap o pérdidas de memoria.
 
 ---
 

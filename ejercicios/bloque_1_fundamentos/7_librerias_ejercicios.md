@@ -6,36 +6,23 @@ subtitle: 'Diseño, encapsulamiento e implementación de módulos reutilizables 
 
 # Ejercicios: Creación de Librerías de Funciones
 
-## Acerca de
-
-La creación de librerías de funciones (módulos reutilizables) permite estructurar
-programas de forma limpia, probable y mantenible. 
-
-Para resolver los siguientes ejercicios se recomienda utilizar como base la [**Plantilla para Librerías de la Cátedra (UNRN)**](https://github.com/INGCOM-UNRN-P1/plantilla-libreria), organizando el proyecto con la siguiente estructura modular:
-
-- **`include/`**: Archivos de cabecera (`.h`) públicos con los prototipos, guardas de inclusión (`#ifndef...`) y documentación.
-- **`src/`**: Archivos de implementación (`.c`) con la lógica y funciones auxiliares ocultas mediante `static`.
-- **`examples/`**: Programas de demostración con `main()` que consumen la librería.
-- **`tests/`**: Suite de pruebas unitarias para validar las pre/postcondiciones.
-- **`Makefile`**: Automatización para compilar (`make`), probar (`make test`), ejecutar (`make run`) y limpiar (`make clean`).
-
-Asimismo, mediante el script `./manage.sh` (`rename`, `add-module`, `build`, `test`) podés administrar la librería y posteriormente integrarla en proyectos más grandes o TPs usando `./tp.sh add-lib <nombre_libreria> <url_git>`.
-
-En este bloque de ejercicios vas a diseñar módulos temáticos independientes, definiendo interfaces claras y contratos robustos (precondiciones, postcondiciones y códigos de estado).
-
-### Capítulos de Apunte Correspondientes
-- {ref}`capitulo-funciones-descomposicion`
-- [Compilación](../../apunte/bloque_1_fundamentos/5_compilacion.md)
-
-### Prerrequisitos y Entorno Requerido
+## Prerrequisitos y Entorno de Ejecución Requerido
 Para compilar y resolver los módulos de esta guía se requiere:
-1. **Entorno de compilación:** GCC 11 o superior con soporte para el estándar C11 (`-std=c11`) bajo Linux/POSIX.
+1. **Entorno de compilación:** GCC 9+ o Clang con soporte estricto ISO C11 (`-std=c11 -Wall -Wextra -Werror -pedantic`) bajo Linux/POSIX.
 2. **Dependencias del sistema:** Biblioteca matemática de C (`libm`), enlazada explícitamente mediante el flag `-lm`.
 3. **Conceptos previos de arquitectura de software:**
-   - Separación estricta entre cabecera pública (`.h`) e implementación privada (`.c`) ({ref}`capitulo-funciones-descomposicion`).
-   - Guardas del preprocesador contra inclusión múltiple (`#ifndef LIB_H`, `#define LIB_H`, `#endif`).
+   - Separación estricta entre cabecera pública (`.h`) e implementación privada (`.c`).
+   - Guardas del preprocesador contra inclusión múltiple (`#ifndef`, `#define`, `#endif`).
    - Visibilidad interna y ocultamiento de símbolos auxiliares con el calificador `static`.
-   - Comparación numérica con tolerancia épsilon (`fabs(a - b) < 1e-6`) para aserciones con punto flotante.
+   - Comparación numérica con tolerancia épsilon (`fabs(a - b) < 1e-6`) para punto flotante.
+
+## Acerca de
+
+La creación de librerías de funciones (módulos reutilizables) permite estructurar programas de forma limpia, testeable y mantenible. Se recomienda la estructura canónica modular:
+- **`include/`**: Cabeceras (`.h`) públicas con prototipos y guardas.
+- **`src/`**: Implementaciones (`.c`) con funciones estáticas auxiliares.
+- **`tests/`**: Suite de pruebas unitarias (`assert`) para validar pre/postcondiciones.
+- **`Makefile`**: Automatización de construcción (`make`, `make test`, `make clean`).
 
 ---
 
@@ -504,19 +491,122 @@ Reimplementá funciones estándar de `<string.h>` en la librería `seguras.h` y 
 ---
 
 (ej_b1_c04b_07)=
-### Ejercicio 1.04b.07 - Librería de Transformación de Cadenas Seguras ⭐⭐⭐☆☆
+### Ejercicio 1.04b.07 - Librería de Transformación de Cadenas In-Place ⭐⭐⭐☆☆
 
-Diseñá `str_transform.h` y `str_transform.c`:
-- `void str_a_mayusculas(char *str, size_t len_str)`
-- `void str_a_minusculas(char *str, size_t len_str)`
-- `void str_capitalizar(char *str, size_t len_str)` (primera letra de cada palabra en mayúscula)
-- `void str_invertir(char *str, size_t len_str)`
-- `void str_recortar_espacios(char *str, size_t len_str)` (elimina espacios al inicio y al final)
+:::{exercise}
+:label: ej_b1_c04b_07_str_transform
 
-:::{hint} Lógica y Consideraciones
-- Usá funciones de `<ctype.h>` como `toupper` y `tolower`.
+Diseñá e implementá un módulo de funciones utilitarias para la transformación mutativa in-place sobre cadenas terminadas en `\0`:
+
+```c
+void str_a_mayusculas(char *str);
+void str_a_minusculas(char *str);
+void str_invertir(char *str);
+```
+
+**Reglas de diseño:**
+1. **Seguridad defensiva:** Cada función debe tolerar de forma segura punteros `NULL`, retornando inmediatamente sin provocar violaciones de segmento.
+2. **Transformación in-situ:** Las modificaciones deben realizarse directamente sobre el búfer provisto sin reservar memoria dinámica adicional.
+3. **Inversión simétrica:** `str_invertir` debe intercambiar simétricamente los caracteres desde los extremos hacia el centro hasta converger.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Función Invocada | Entrada Inicial | Salida Esperada | Justificación |
+| :--- | :--- | :--- | :--- |
+| `str_a_mayusculas` | `"Hola Mundo 123!"` | `"HOLA MUNDO 123!"` | Conversión a mayúsculas preservando no alfabéticos |
+| `str_a_minusculas` | `"HOLA MUNDO 123!"` | `"hola mundo 123!"` | Conversión a minúsculas preservando no alfabéticos |
+| `str_invertir` | `"algoritmo"` | `"omtirogla"` | Inversión simétrica in-place de longitud impar |
+| `str_invertir` | `"c11"` | `"11c"` | Inversión simétrica de longitud corta |
+| `str_invertir` | `""` | `""` | Cadena vacía inalterada |
+
 :::
-<!-- {hint} Lógica y Consideraciones -->
+
+::::{solution} ej_b1_c04b_07_str_transform
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <ctype.h>
+#include <string.h>
+#include <assert.h>
+#include <stddef.h>
+
+void str_a_mayusculas(char *str)
+{
+    if (str == NULL)
+    {
+        return;
+    }
+    for (size_t i = 0; str[i] != '\0'; i++)
+    {
+        str[i] = (char)toupper((unsigned char)str[i]);
+    }
+}
+
+void str_a_minusculas(char *str)
+{
+    if (str == NULL)
+    {
+        return;
+    }
+    for (size_t i = 0; str[i] != '\0'; i++)
+    {
+        str[i] = (char)tolower((unsigned char)str[i]);
+    }
+}
+
+void str_invertir(char *str)
+{
+    if (str == NULL)
+    {
+        return;
+    }
+    size_t len = strlen(str);
+    if (len <= 1)
+    {
+        return;
+    }
+
+    size_t i = 0;
+    size_t j = len - 1;
+    while (i < j)
+    {
+        char temp = str[i];
+        str[i] = str[j];
+        str[j] = temp;
+        i++;
+        j--;
+    }
+}
+
+int main(void)
+{
+    char buf1[] = "Hola Mundo 123!";
+    str_a_mayusculas(buf1);
+    assert(strcmp(buf1, "HOLA MUNDO 123!") == 0);
+
+    str_a_minusculas(buf1);
+    assert(strcmp(buf1, "hola mundo 123!") == 0);
+
+    char buf2[] = "algoritmo";
+    str_invertir(buf2);
+    assert(strcmp(buf2, "omtirogla") == 0);
+
+    char buf3[] = "";
+    str_invertir(buf3);
+    assert(strcmp(buf3, "") == 0);
+
+    /* Seguridad defensiva */
+    str_a_mayusculas(NULL);
+    str_a_minusculas(NULL);
+    str_invertir(NULL);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} ej_b1_c04b_07_str_transform -->
 
 ---
 
