@@ -277,27 +277,104 @@ int main(void) {
 ---
 
 (ej_b1_c02_06)=
-## Ejercicio 1.02.06 - Calificación a Letra ⭐⭐☆☆☆
+### Ejercicio 1.02.06 - Calificación Numérica a Letra Escolar ⭐⭐☆☆☆
 
-Convertí una calificación numérica (0-100) a letra (A, B, C, D, F).
+:::{exercise}
+:label: ej_b1_c02_06_calificacion_letra
+:enumerator: gradual-6
 
-**Escala:**
-- 90-100: A
-- 80-89: B
-- 70-79: C
-- 60-69: D
-- 0-59: F
+Implementá una función pura que convierta una calificación numérica porcentual en el rango $[0, 100]$ a su equivalente en escala alfabética estándar:
+- $90 \le \text{nota} \le 100 \implies \text{'A'}$
+- $80 \le \text{nota} < 90 \implies \text{'B'}$
+- $70 \le \text{nota} < 80 \implies \text{'C'}$
+- $60 \le \text{nota} < 70 \implies \text{'D'}$
+- $0 \le \text{nota} < 60 \implies \text{'F'}$
+- Cualquier valor fuera de $[0, 100]$ debe retornar el carácter de error `'?'`.
 
-**Orientación:**
-- Usá `if-else if-else` encadenados
-- Verificá que la calificación esté en rango 0-100
-- Opcionalmente, usá `switch` dividiendo por 10
+```c
+char calificacion_a_letra(int nota);
+```
 
-:::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
+**Nivel de Bloom:** Nivel 2 (Comprensión) y Nivel 3 (Aplicación).  
+**Conceptos requeridos:** Condicionales mutuamente excluyentes (`if-else if-else`), límites de rango defensivos.  
+**Techo conceptual:** Prohibido retornar códigos numéricos arbitrarios o ignorar entradas negativas / superiores a 100.
+
+#### Contrato de la Función
+- **Firma:** `char calificacion_a_letra(int nota);`
+- **Precondiciones:** Ninguna (función total).
+- **Postcondiciones:** Retorna `'A'`, `'B'`, `'C'`, `'D'`, `'F'`, o `'?'` ante nota inválida.
+
+#### Tabla de Vectores de Prueba
+
+| Caso de Prueba | Nota Entrada | Letra Retornada | Justificación Técnica |
+| :--- | :--- | :--- | :--- |
+| Límite superior A | `100` | `'A'` | Extremo superior válido |
+| Límite inferior A | `90` | `'A'` | Umbral exacto |
+| Rango intermedio B | `85` | `'B'` | Caso típico |
+| Límite inferior D | `60` | `'D'` | Nota mínima de aprobación |
+| Rango F | `45` | `'F'` | Desaprobado |
+| Error negativo | `-5` | `'?'` | Entrada fuera de rango |
+| Error desborde | `105` | `'?'` | Entrada superior al máximo |
+
 :::
-<!-- {hint} Lógica y Consideraciones -->
+
+::::{solution} ej_b1_c02_06_calificacion_letra
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <assert.h>
+
+char calificacion_a_letra(int nota)
+{
+    if (nota < 0 || nota > 100)
+    {
+        return '?';
+    }
+
+    if (nota >= 90)
+    {
+        return 'A';
+    }
+    if (nota >= 80)
+    {
+        return 'B';
+    }
+    if (nota >= 70)
+    {
+        return 'C';
+    }
+    if (nota >= 60)
+    {
+        return 'D';
+    }
+
+    return 'F';
+}
+
+int main(void)
+{
+    assert(calificacion_a_letra(100) == 'A');
+    assert(calificacion_a_letra(90) == 'A');
+    assert(calificacion_a_letra(85) == 'B');
+    assert(calificacion_a_letra(80) == 'B');
+    assert(calificacion_a_letra(75) == 'C');
+    assert(calificacion_a_letra(60) == 'D');
+    assert(calificacion_a_letra(59) == 'F');
+    assert(calificacion_a_letra(0) == 'F');
+
+    // Casos fuera de rango
+    assert(calificacion_a_letra(-1) == '?');
+    assert(calificacion_a_letra(-50) == '?');
+    assert(calificacion_a_letra(101) == '?');
+    assert(calificacion_a_letra(200) == '?');
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} ej_b1_c02_06_calificacion_letra -->
 
 ---
 

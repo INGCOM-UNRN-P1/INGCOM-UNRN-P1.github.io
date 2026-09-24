@@ -260,16 +260,139 @@ int main(void) {
 :::
 
 (ej_b3_c06_11)=
-## Ejercicio 3.06.11 - Comparar Algoritmos ⭐⭐☆☆☆
+### Ejercicio 3.06.11 - Comparación Empírica de Pasos: Búsqueda Lineal vs Binaria ⭐⭐☆☆☆
 
-Compará la complejidad de buscar un elemento en:
-- Array no ordenado (búsqueda lineal)
-- Array ordenado (búsqueda binaria)
+:::{exercise}
+:label: ej_b3_c06_11_comparar_busquedas
+:enumerator: complejidad-11
 
-**Orientación:**
-- **Lineal:** O(n) - peor caso revisa todos
-- **Binaria:** O(log n) - divide a la mitad en cada paso
-- Para n=1,000,000: lineal hace ~1M comparaciones, binaria ~20
+Implementá una función instrumentada que compare la cantidad de comparaciones elementales efectuadas por una búsqueda lineal frente a una búsqueda binaria sobre un mismo arreglo ordenado:
+```c
+typedef struct {
+    size_t pasos_lineal;
+    size_t pasos_binaria;
+} comparacion_busqueda_t;
+
+comparacion_busqueda_t comparar_pasos_busqueda(const int *arr, size_t n, int objetivo);
+```
+- **Búsqueda lineal:** Recorre secuencialmente desde el índice $0$; por cada elemento compara si es igual al objetivo e incrementa `pasos_lineal`. Si coincide o si `arr[i] > objetivo` (cortocircuito para arreglo ordenado), se detiene.
+- **Búsqueda binaria:** Inicializa ventana `[izq, der]`. En cada iteración donde `izq <= der`, incrementa `pasos_binaria`, calcula `medio` y compara con `objetivo`.
+
+**Nivel de Bloom:** Nivel 3 (Aplicación) y Nivel 4 (Análisis).  
+**Conceptos requeridos:** Conteo de operaciones clave, divergencia asintótica $O(N)$ vs $O(\log_2 N)$.  
+**Techo conceptual:** El arreglo debe estar estrictamente ordenado de menor a mayor.
+
+#### Contrato de la Función
+- **Firma:** `comparacion_busqueda_t comparar_pasos_busqueda(const int *arr, size_t n, int objetivo);`
+- **Precondiciones:** Arreglo ordenado. Si $n > 0$, `arr != NULL`.
+- **Postcondiciones:** Retorna una estructura con el total de comparaciones realizadas por ambos algoritmos.
+
+#### Tabla de Vectores de Prueba
+
+| Arreglo ($n=16$) | Objetivo | Pasos Lineal | Pasos Binaria | Justificación Técnica |
+| :--- | :--- | :--- | :--- | :--- |
+| `0, 1, 2, ..., 15` | `0` | `1` | $\le 4$ | Mejor caso para búsqueda lineal |
+| `0, 1, 2, ..., 15` | `15` | `16` | $\le 4$ | Peor caso lineal ($O(N)$) vs acotado logarítmico |
+| `0, 1, 2, ..., 15` | `99` (ausente) | `16` | $\le 5$ | Ausencia demostrada con ratio $N / \log_2 N$ |
+| Vacío ($n=0$) | `42` | `0` | `0` | Caso base sin ejecuciones |
+
+:::
+
+::::{solution} ej_b3_c06_11_comparar_busquedas
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <assert.h>
+#include <stddef.h>
+
+typedef struct
+{
+    size_t pasos_lineal;
+    size_t pasos_binaria;
+} comparacion_busqueda_t;
+
+comparacion_busqueda_t comparar_pasos_busqueda(const int *arr, size_t n, int objetivo)
+{
+    comparacion_busqueda_t resultado = {0, 0};
+    if (arr == NULL || n == 0)
+    {
+        return resultado;
+    }
+
+    // 1. Conteo en búsqueda lineal (con poda por orden)
+    for (size_t i = 0; i < n; i++)
+    {
+        resultado.pasos_lineal++;
+        if (arr[i] >= objetivo)
+        {
+            break;
+        }
+    }
+
+    // 2. Conteo en búsqueda binaria
+    size_t izq = 0;
+    size_t der = n - 1;
+
+    while (izq <= der)
+    {
+        resultado.pasos_binaria++;
+        size_t medio = izq + (der - izq) / 2;
+
+        if (arr[medio] == objetivo)
+        {
+            break;
+        }
+        if (arr[medio] < objetivo)
+        {
+            izq = medio + 1;
+        }
+        else
+        {
+            if (medio == 0)
+            {
+                break;
+            }
+            der = medio - 1;
+        }
+    }
+
+    return resultado;
+}
+
+int main(void)
+{
+    int arr[16];
+    for (int i = 0; i < 16; i++)
+    {
+        arr[i] = i * 2; // {0, 2, 4, ..., 30}
+    }
+
+    // Primer elemento: lineal 1 paso
+    comparacion_busqueda_t c1 = comparar_pasos_busqueda(arr, 16, 0);
+    assert(c1.pasos_lineal == 1);
+    assert(c1.pasos_binaria <= 4);
+
+    // Último elemento: lineal 16 pasos, binaria <= 4
+    comparacion_busqueda_t c2 = comparar_pasos_busqueda(arr, 16, 30);
+    assert(c2.pasos_lineal == 16);
+    assert(c2.pasos_binaria <= 5);
+
+    // Elemento ausente grande
+    comparacion_busqueda_t c3 = comparar_pasos_busqueda(arr, 16, 99);
+    assert(c3.pasos_lineal == 16);
+    assert(c3.pasos_binaria <= 5);
+
+    // Arreglo vacío
+    comparacion_busqueda_t c_vacio = comparar_pasos_busqueda(NULL, 0, 10);
+    assert(c_vacio.pasos_lineal == 0 && c_vacio.pasos_binaria == 0);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} ej_b3_c06_11_comparar_busquedas -->
 
 ---
 

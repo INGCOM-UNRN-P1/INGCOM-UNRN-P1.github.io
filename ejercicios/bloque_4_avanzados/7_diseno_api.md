@@ -402,6 +402,186 @@ int main(void) {
 ::::
 :::
 
+---
+
+(ej_b4_c10_08)=
+### Ejercicio 4.10.08 - Iterador Interno con Contexto de Usuario en Tipo Opaco ⭐⭐⭐⭐☆
+
+:::{exercise}
+:label: ej_b4_c10_08_iterador_interno
+:enumerator: diseno-api-8
+
+En el diseño de bibliotecas en C, exponer arreglos internos rompe el encapsulamiento.
+El patrón **Iterador Interno** (o *Visitor*) permite a los usuarios procesar cada elemento de una estructura opaca sin conocer su representación subyacente, recibiendo un puntero de contexto arbitrario (`void *contexto`) y permitiendo detener la iteración prematuramente retornando `false`:
+
+```c
+typedef struct conjunto conjunto_t;
+typedef bool (*iterador_fn)(int elemento, void *contexto);
+
+conjunto_t *conjunto_crear(void);
+bool conjunto_agregar(conjunto_t *c, int elemento);
+size_t conjunto_iterar(const conjunto_t *c, iterador_fn visitar, void *contexto);
+void conjunto_destruir(conjunto_t *c);
+```
+
+Implementá la función `conjunto_iterar`, que invoca `visitar(elem, contexto)` para cada elemento. Si el callback retorna `false`, detiene la iteración de inmediato. Retorna la cantidad de elementos procesados.
+
+**Nivel de Bloom:** Nivel 4 (Análisis) y Nivel 5 (Evaluación).  
+**Conceptos requeridos:** Punteros a función con clausura/contexto `void *`, tipos opacos, cortocircuito de recorrido.  
+**Techo conceptual:** Prohibido exponer la estructura interna o usar variables globales para compartir estado con el callback.
+
+#### Contrato de la Función
+- **Firma:** `size_t conjunto_iterar(const conjunto_t *c, iterador_fn visitar, void *contexto);`
+- **Precondiciones:** `visitar != NULL`. Si `c == NULL`, retorna `0`.
+- **Postcondiciones:** Retorna el número de elementos visitados antes de la detención o el final de la colección.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Colección | Elementos | Callback / Acción | Retorno `conjunto_iterar` | Estado del Contexto |
+| :--- | :--- | :--- | :--- | :--- |
+| `conjunto_t` | `{10, 20, 30}` | Sumar acumulador en `contexto` | `3` | Acumulador = `60` |
+| `conjunto_t` | `{10, 20, 30, 40}` | Detener si `elemento == 20` | `2` | Cortocircuito ejecutado |
+| `NULL` | - | Sumar acumulador | `0` | Acumulador intacto |
+
+:::
+
+::::{solution} ej_b4_c10_08_iterador_interno
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <assert.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdlib.h>
+
+typedef bool (*iterador_fn)(int elemento, void *contexto);
+
+struct conjunto
+{
+    int *datos;
+    size_t cantidad;
+    size_t capacidad;
+};
+
+typedef struct conjunto conjunto_t;
+
+conjunto_t *conjunto_crear(void)
+{
+    conjunto_t *c = (conjunto_t *)malloc(sizeof(conjunto_t));
+    if (c == NULL)
+    {
+        return NULL;
+    }
+    c->datos = (int *)malloc(8 * sizeof(int));
+    if (c->datos == NULL)
+    {
+        free(c);
+        return NULL;
+    }
+    c->cantidad = 0;
+    c->capacidad = 8;
+    return c;
+}
+
+bool conjunto_agregar(conjunto_t *c, int elemento)
+{
+    if (c == NULL)
+    {
+        return false;
+    }
+    if (c->cantidad >= c->capacidad)
+    {
+        size_t nueva_cap = c->capacidad * 2;
+        int *nuevos = (int *)realloc(c->datos, nueva_cap * sizeof(int));
+        if (nuevos == NULL)
+        {
+            return false;
+        }
+        c->datos = nuevos;
+        c->capacidad = nueva_cap;
+    }
+    c->datos[c->cantidad++] = elemento;
+    return true;
+}
+
+size_t conjunto_iterar(const conjunto_t *c, iterador_fn visitar, void *contexto)
+{
+    if (c == NULL || visitar == NULL)
+    {
+        return 0;
+    }
+
+    size_t procesados = 0;
+    for (size_t i = 0; i < c->cantidad; i++)
+    {
+        procesados++;
+        if (!visitar(c->datos[i], contexto))
+        {
+            break;
+        }
+    }
+    return procesados;
+}
+
+void conjunto_destruir(conjunto_t *c)
+{
+    if (c != NULL)
+    {
+        free(c->datos);
+        free(c);
+    }
+}
+
+static bool acumular_suma(int elemento, void *contexto)
+{
+    int *total = (int *)contexto;
+    *total += elemento;
+    return true;
+}
+
+static bool detener_en_veinte(int elemento, void *contexto)
+{
+    int *contador = (int *)contexto;
+    (*contador)++;
+    return (elemento != 20);
+}
+
+int main(void)
+{
+    conjunto_t *c = conjunto_crear();
+    assert(c != NULL);
+
+    conjunto_agregar(c, 10);
+    conjunto_agregar(c, 20);
+    conjunto_agregar(c, 30);
+
+    // Iteración completa acumulando suma
+    int suma = 0;
+    size_t visitados = conjunto_iterar(c, acumular_suma, &suma);
+    assert(visitados == 3);
+    assert(suma == 60);
+
+    // Iteración con cortocircuito
+    conjunto_agregar(c, 40);
+    int cuenta = 0;
+    size_t cortados = conjunto_iterar(c, detener_en_veinte, &cuenta);
+    assert(cortados == 2);
+    assert(cuenta == 2);
+
+    // Manejo defensivo
+    assert(conjunto_iterar(NULL, acumular_suma, &suma) == 0);
+
+    conjunto_destruir(c);
+    return 0;
+}
+```
+
+::::
+<!-- {solution} ej_b4_c10_08_iterador_interno -->
+
+---
+
 ## 3: Contratos de Interfaz y Precondiciones
 
 ### 3.1: Documentación de Contratos

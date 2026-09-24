@@ -347,17 +347,137 @@ int main(void) {
 ---
 
 (ej_b1_c04b_05)=
-### Ejercicio 1.04b.05 - Librería de Trigonometría Compleja ⭐⭐⭐☆☆
+### Ejercicio 1.04b.05 - Librería de Trigonometría y Resolución de Triángulos ⭐⭐⭐☆☆
 
-Diseñá `trigonometria.h` y `trigonometria.c`:
-- `double trigo_hipotenusa(double cateto1, double cateto2)`
-- `double trigo_angulo_vector(double x, double y)`: ángulo respecto al eje X positivo en radianes.
-- `bool trigo_resolver_triangulo_sss(double a, double b, double c, double *alpha, double *beta, double *gamma)`: calcula los 3 ángulos dada la longitud de los 3 lados.
+:::{exercise}
+:label: ej_b1_c04b_05_trigonometria
+:enumerator: librerias-5
 
-:::{hint} Lógica y Consideraciones
-- Usá el teorema del coseno para determinar los ángulos. Devuelve `false` si los lados no forman un triángulo válido.
+Diseñá un módulo de cálculos geométricos y trigonométricos en C11 utilizando `<math.h>`:
+```c
+double trigo_hipotenusa(double cateto1, double cateto2);
+double trigo_angulo_vector(double x, double y);
+bool trigo_resolver_triangulo_sss(double a, double b, double c,
+                                  double *alpha, double *beta, double *gamma);
+```
+- `trigo_hipotenusa`: Calcula $\sqrt{c_1^2 + c_2^2}$ utilizando `hypot` o la fórmula de Pitágoras.
+- `trigo_angulo_vector`: Calcula el ángulo polar en radianes en el rango $[-\pi, \pi]$ mediante `atan2(y, x)`.
+- `trigo_resolver_triangulo_sss`: Determina los tres ángulos interiores (en radianes) a partir de las longitudes de los lados $a, b, c$ usando el teorema del coseno:
+  $$\cos(\alpha) = \frac{b^2 + c^2 - a^2}{2bc}$$
+  Retorna `false` si los lados no cumplen la desigualdad triangular estricta ($a+b>c$, $a+c>b$, $b+c>a$) o si alguno de los punteros de salida es `NULL`.
+
+**Nivel de Bloom:** Nivel 3 (Aplicación) y Nivel 4 (Análisis).  
+**Conceptos requeridos:** Funciones de `<math.h>` (`hypot`, `atan2`, `acos`), validación de desigualdades geométricas, paso por referencia.  
+**Techo conceptual:** Prohibido el uso de valores no numéricos (`NaN`) o divisiones por cero sin validación previa.
+
+#### Contrato de las Funciones
+- **Precondiciones:** Lados y catetos estrictamente positivos. Punteros de salida no nulos para `trigo_resolver_triangulo_sss`.
+- **Postcondiciones:** Retorna `true` y escribe los ángulos cuya suma es exactamente $\pi$ radianes.
+
+#### Tabla de Vectores de Prueba
+
+| Triángulo ($a, b, c$) | Retorno | Ángulos ($\alpha, \beta, \gamma$) | Justificación Técnica |
+| :--- | :--- | :--- | :--- |
+| Equilátero ($2, 2, 2$) | `true` | $\pi/3, \pi/3, \pi/3$ | Tres ángulos iguales a $60^\circ$ |
+| Rectángulo ($3, 4, 5$) | `true` | $\gamma = \pi/2$ | Hipotenusa opuesta al ángulo recto |
+| Inválido ($1, 2, 10$) | `false` | Sin escrituras | Viola desigualdad triangular ($1 + 2 < 10$) |
+| Puntero nulo | `false` | Sin escrituras | Rechazo defensivo |
+
 :::
-<!-- {hint} Lógica y Consideraciones -->
+
+::::{solution} ej_b1_c04b_05_trigonometria
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <assert.h>
+#include <math.h>
+#include <stdbool.h>
+#include <stddef.h>
+
+#define EPSILON 1e-6
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
+static bool casi_iguales(double a, double b)
+{
+    return fabs(a - b) < EPSILON;
+}
+
+double trigo_hipotenusa(double cateto1, double cateto2)
+{
+    return hypot(cateto1, cateto2);
+}
+
+double trigo_angulo_vector(double x, double y)
+{
+    return atan2(y, x);
+}
+
+bool trigo_resolver_triangulo_sss(double a, double b, double c,
+                                  double *alpha, double *beta, double *gamma)
+{
+    if (alpha == NULL || beta == NULL || gamma == NULL)
+    {
+        return false;
+    }
+
+    if (a <= 0.0 || b <= 0.0 || c <= 0.0)
+    {
+        return false;
+    }
+
+    // Desigualdad triangular estricta
+    if ((a + b <= c) || (a + c <= b) || (b + c <= a))
+    {
+        return false;
+    }
+
+    double cos_a = (b * b + c * c - a * a) / (2.0 * b * c);
+    double cos_b = (a * a + c * c - b * b) / (2.0 * a * c);
+    double cos_c = (a * a + b * b - c * c) / (2.0 * a * b);
+
+    *alpha = acos(cos_a);
+    *beta = acos(cos_b);
+    *gamma = acos(cos_c);
+
+    return true;
+}
+
+int main(void)
+{
+    // Hipotenusa
+    assert(casi_iguales(trigo_hipotenusa(3.0, 4.0), 5.0));
+
+    // Ángulo polar vector (1, 1) = pi/4
+    assert(casi_iguales(trigo_angulo_vector(1.0, 1.0), M_PI / 4.0));
+
+    // Triángulo equilátero
+    double a = 0.0, b = 0.0, c = 0.0;
+    assert(trigo_resolver_triangulo_sss(2.0, 2.0, 2.0, &a, &b, &c) == true);
+    assert(casi_iguales(a, M_PI / 3.0));
+    assert(casi_iguales(b, M_PI / 3.0));
+    assert(casi_iguales(c, M_PI / 3.0));
+    assert(casi_iguales(a + b + c, M_PI));
+
+    // Triángulo rectángulo (3, 4, 5) -> gamma opuesto al lado 5 es pi/2
+    assert(trigo_resolver_triangulo_sss(3.0, 4.0, 5.0, &a, &b, &c) == true);
+    assert(casi_iguales(c, M_PI / 2.0));
+
+    // Triángulo inválido
+    assert(trigo_resolver_triangulo_sss(1.0, 2.0, 10.0, &a, &b, &c) == false);
+
+    // Punteros nulos
+    assert(trigo_resolver_triangulo_sss(3.0, 4.0, 5.0, NULL, &b, &c) == false);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} ej_b1_c04b_05_trigonometria -->
 
 ---
 
