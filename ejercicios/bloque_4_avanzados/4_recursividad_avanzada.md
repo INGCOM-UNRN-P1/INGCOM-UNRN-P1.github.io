@@ -332,3 +332,90 @@ int main(void) {
 ```
 ::::
 :::
+
+---
+
+(ej_b4_c07_07)=
+### Ejercicio 4.07.07 - Caminos Únicos en Grilla Bidimensional ⭐⭐⭐☆☆
+
+:::{exercise}
+:label: caminos_grilla_rec
+:enumerator: recursividad-adv-7
+
+Dada una cuadrícula de $m$ filas por $n$ columnas, un robot situado en la esquina superior izquierda $(0, 0)$ necesita alcanzar la esquina inferior derecha $(m-1, n-1)$.
+En cada paso, el robot solo puede desplazarse una casilla hacia la derecha o una casilla hacia abajo.
+
+Implementá una función puramente recursiva:
+```c
+size_t caminos_grilla_rec(size_t m, size_t n);
+```
+que calcule la cantidad total de caminos únicos posibles sin utilizar estructuras iterativas ni variables estáticas.
+
+**Nivel de Bloom:** Nivel 3 (Aplicación) y Nivel 4 (Análisis).  
+**Conceptos requeridos:** Recursión ramificada, caso base de frontera unitaria ($m=1$ o $n=1$), árbol de llamadas recursivas.  
+**Techo conceptual:** Prohibido el uso de lazos `for` / `while` o fórmulas cerradas analíticas con factoriales (debe demostrar descomposición por subproblemas).
+
+#### Contrato de la Función
+- **Firma:** `size_t caminos_grilla_rec(size_t m, size_t n);`
+- **Precondiciones:** $m \ge 0, n \ge 0$.
+- **Postcondiciones:** Si $m == 0$ o $n == 0$, retorna $0$. Si $m == 1$ o $n == 1$, retorna $1$. En caso general retorna `caminos_grilla_rec(m - 1, n) + caminos_grilla_rec(m, n - 1)`.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Dimensiones ($m \times n$) | Caminos Esperados | Justificación Técnica |
+| :--- | :--- | :--- |
+| $3 \times 3$ | `6` | 6 permutaciones de 2 pasos abajo y 2 derecha |
+| $3 \times 2$ | `3` | Permutaciones: `{DDA, DAD, ADD}` |
+| $1 \times 5$ | `1` | Solo existe la trayectoria recta hacia la derecha |
+| $5 \times 1$ | `1` | Solo existe la trayectoria recta hacia abajo |
+| $0 \times 4$ | `0` | Dimensión degenerada sin camino posible |
+
+:::
+<!-- {exercise} -->
+
+::::{solution} caminos_grilla_rec
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <assert.h>
+#include <stddef.h>
+
+size_t caminos_grilla_rec(size_t m, size_t n)
+{
+    if (m == 0 || n == 0)
+    {
+        return 0;
+    }
+
+    if (m == 1 || n == 1)
+    {
+        return 1;
+    }
+
+    return caminos_grilla_rec(m - 1, n) + caminos_grilla_rec(m, n - 1);
+}
+
+int main(void)
+{
+    // Grilla 3x3
+    assert(caminos_grilla_rec(3, 3) == 6);
+
+    // Grilla 3x2
+    assert(caminos_grilla_rec(3, 2) == 3);
+
+    // Grillas unidimensionales
+    assert(caminos_grilla_rec(1, 5) == 1);
+    assert(caminos_grilla_rec(5, 1) == 1);
+
+    // Casos degenerados
+    assert(caminos_grilla_rec(0, 4) == 0);
+    assert(caminos_grilla_rec(4, 0) == 0);
+    assert(caminos_grilla_rec(0, 0) == 0);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} caminos_grilla_rec -->

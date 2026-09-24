@@ -1177,21 +1177,209 @@ int main(void) {
 :::
 
 (ej_b3_c02_14)=
-## Ejercicio 3.02.14 - TAD Cola (Queue) ⭐⭐⭐☆☆
+### Ejercicio 3.02.14 - TAD Cola FIFO Encapsulada ⭐⭐⭐☆☆
 
-Implementá cola FIFO con lista enlazada:
-- `cola_t *crear_cola()`
-- `bool encolar(cola_t *c, int dato)`
-- `bool desencolar(cola_t *c, int *dato)`
-- `bool ver_frente(const cola_t *c, int *dato)`
-- `bool esta_vacia(const cola_t *c)`
-- `size_t obtener_tamanio(const cola_t *c)`
-- `void destruir_cola(cola_t *c)`
+:::{exercise}
+:label: ej_b3_c02_14_cola
+:enumerator: tad-14
 
-**Orientación:**
-- Estructura interna: `nodo_t *primero; nodo_t *ultimo; size_t tamanio;`
-- `encolar` agrega al final
-- `desencolar` quita del frente
+Implementá un Tipo Abstracto de Datos **Cola FIFO** (*First-In, First-Out*) encapsulado mediante una lista simplemente enlazada con punteros a la cabecera (`frente`) y a la cola (`fin`):
+
+```c
+typedef struct cola cola_t;
+
+cola_t *cola_crear(void);
+bool cola_encolar(cola_t *c, int dato);
+bool cola_desencolar(cola_t *c, int *dato);
+bool cola_ver_frente(const cola_t *c, int *dato);
+bool cola_esta_vacia(const cola_t *c);
+size_t cola_tamanio(const cola_t *c);
+void cola_destruir(cola_t *c);
+```
+
+Todas las operaciones de inserción y extracción deben resolverse en tiempo constante estricto $O(1)$.
+
+**Nivel de Bloom:** Nivel 4 (Análisis) y Nivel 5 (Evaluación).  
+**Conceptos requeridos:** Punteros a estructuras opacas, desacoplamiento de interfaz, manejo dinámico con `malloc` y `free`, disciplina FIFO.  
+**Techo conceptual:** Prohibido el recorrido $O(N)$ para encolar o desencolar.
+
+#### Contrato de las Funciones
+- **Precondiciones:** `c != NULL` para operar; si `c == NULL`, las consultas retornan `false` o `0`.
+- **Postcondiciones:** `cola_encolar` inserta al final en $O(1)$; `cola_desencolar` extrae del frente en $O(1)$. Toda la memoria se libera con `cola_destruir`.
+
+#### Tabla de Vectores de Prueba
+
+| Secuencia de Operaciones | Entrada | Salida / Estado | Justificación Técnica |
+| :--- | :--- | :--- | :--- |
+| `crear` -> `esta_vacia` | - | `true`, tamaño `0` | Inicialización de cola vacía |
+| `encolar(10)` -> `encolar(20)` | `10, 20` | `true`, tamaño `2` | Inserción en orden FIFO |
+| `ver_frente(&val)` | - | `true`, `val = 10` | Consulta no destructiva del primer elemento |
+| `desencolar(&val)` | - | `true`, `val = 10` | Primer encolado es el primero en salir |
+| `desencolar(&val)` | - | `true`, `val = 20` | Segundo elemento extraído; cola queda vacía |
+| `desencolar(&val)` sobre vacía | - | `false` | Subflujo (*underflow*) controlado |
+
+:::
+
+::::{solution} ej_b3_c02_14_cola
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <assert.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdlib.h>
+
+typedef struct nodo
+{
+    int dato;
+    struct nodo *siguiente;
+} nodo_t;
+
+struct cola
+{
+    nodo_t *frente;
+    nodo_t *fin;
+    size_t tamanio;
+};
+
+typedef struct cola cola_t;
+
+cola_t *cola_crear(void)
+{
+    cola_t *c = (cola_t *)malloc(sizeof(cola_t));
+    if (c == NULL)
+    {
+        return NULL;
+    }
+    c->frente = NULL;
+    c->fin = NULL;
+    c->tamanio = 0;
+    return c;
+}
+
+bool cola_encolar(cola_t *c, int dato)
+{
+    if (c == NULL)
+    {
+        return false;
+    }
+
+    nodo_t *nuevo = (nodo_t *)malloc(sizeof(nodo_t));
+    if (nuevo == NULL)
+    {
+        return false;
+    }
+
+    nuevo->dato = dato;
+    nuevo->siguiente = NULL;
+
+    if (c->fin == NULL)
+    {
+        c->frente = nuevo;
+        c->fin = nuevo;
+    }
+    else
+    {
+        c->fin->siguiente = nuevo;
+        c->fin = nuevo;
+    }
+
+    c->tamanio++;
+    return true;
+}
+
+bool cola_desencolar(cola_t *c, int *dato)
+{
+    if (c == NULL || c->frente == NULL || dato == NULL)
+    {
+        return false;
+    }
+
+    nodo_t *a_eliminar = c->frente;
+    *dato = a_eliminar->dato;
+
+    c->frente = a_eliminar->siguiente;
+    if (c->frente == NULL)
+    {
+        c->fin = NULL;
+    }
+
+    free(a_eliminar);
+    c->tamanio--;
+    return true;
+}
+
+bool cola_ver_frente(const cola_t *c, int *dato)
+{
+    if (c == NULL || c->frente == NULL || dato == NULL)
+    {
+        return false;
+    }
+    *dato = c->frente->dato;
+    return true;
+}
+
+bool cola_esta_vacia(const cola_t *c)
+{
+    return (c == NULL || c->frente == NULL);
+}
+
+size_t cola_tamanio(const cola_t *c)
+{
+    return (c != NULL) ? c->tamanio : 0;
+}
+
+void cola_destruir(cola_t *c)
+{
+    if (c == NULL)
+    {
+        return;
+    }
+
+    nodo_t *actual = c->frente;
+    while (actual != NULL)
+    {
+        nodo_t *sig = actual->siguiente;
+        free(actual);
+        actual = sig;
+    }
+
+    free(c);
+}
+
+int main(void)
+{
+    cola_t *c = cola_crear();
+    assert(c != NULL);
+    assert(cola_esta_vacia(c) == true);
+    assert(cola_tamanio(c) == 0);
+
+    assert(cola_encolar(c, 10) == true);
+    assert(cola_encolar(c, 20) == true);
+    assert(cola_esta_vacia(c) == false);
+    assert(cola_tamanio(c) == 2);
+
+    int val = 0;
+    assert(cola_ver_frente(c, &val) == true && val == 10);
+
+    assert(cola_desencolar(c, &val) == true && val == 10);
+    assert(cola_desencolar(c, &val) == true && val == 20);
+
+    // Subflujo
+    assert(cola_desencolar(c, &val) == false);
+    assert(cola_esta_vacia(c) == true);
+    assert(cola_tamanio(c) == 0);
+
+    cola_destruir(c);
+    cola_destruir(NULL);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} ej_b3_c02_14_cola -->
 
 ---
 

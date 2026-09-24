@@ -422,16 +422,119 @@ Leé y mostrá todo el contenido de un archivo de texto.
 ---
 
 (ej_b2_c04_15)=
-## Ejercicio 2.04.15 - Contar Líneas ⭐⭐☆☆☆
+### Ejercicio 2.04.15 - Conteo Robusto de Líneas en Archivo de Texto ⭐⭐☆☆☆
 
-Contá cuántas líneas tiene un archivo de texto.
+:::{exercise}
+:label: ej_b2_c04_15_contar_lineas
+:enumerator: archivos-15
 
-**Orientación:**
-- Leé carácter por carácter con `fgetc`
-- Contador de saltos de línea: `if (c == '\n') lineas++;`
-- Considerá última línea sin '\n' al final
+Implementá una función defensiva que cuente la cantidad de líneas en un archivo de texto:
+```c
+long contar_lineas_archivo(const char *ruta);
+```
+La función debe leer el archivo carácter por carácter utilizando `fgetc`.
+Una línea se delimita por el carácter `'\n'`. Si el archivo contiene datos pero el último registro no finaliza con `'\n'`, esa última línea también debe ser contabilizada. Si el archivo está completamente vacío ($0$ bytes), debe retornar `0`. Si `ruta == NULL` o el archivo no puede abrirse, debe retornar `-1`.
 
----
+**Nivel de Bloom:** Nivel 3 (Aplicación).  
+**Conceptos requeridos:** Flujos de entrada de texto (`FILE *`, `fgetc`), detección de fin de archivo (`EOF`), manejo de casos sin delimitador final.  
+**Techo conceptual:** Prohibido el uso de memoria dinámica innecesaria o cargar todo el archivo en un búfer.
+
+#### Contrato de la Función
+- **Firma:** `long contar_lineas_archivo(const char *ruta);`
+- **Precondiciones:** `ruta != NULL`.
+- **Postcondiciones:** Retorna el número de líneas $\ge 0$, o `-1` ante error de apertura. Todo archivo abierto debe cerrarse con `fclose`.
+
+#### Tabla de Vectores de Prueba
+
+| Contenido del Archivo | Retorno Esperado | Justificación Técnica |
+| :--- | :--- | :--- |
+| `"Uno\nDos\nTres\n"` | `3` | Tres líneas terminadas con `'\n'` |
+| `"Linea unica sin salto"` | `1` | Archivo con texto sin salto final |
+| `""` (0 bytes) | `0` | Archivo vacío |
+| Archivo inexistente / `NULL` | `-1` | Error defensivo de apertura |
+
+:::
+
+::::{solution} ej_b2_c04_15_contar_lineas
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <assert.h>
+#include <stdbool.h>
+#include <stdio.h>
+
+long contar_lineas_archivo(const char *ruta)
+{
+    if (ruta == NULL)
+    {
+        return -1;
+    }
+
+    FILE *f = fopen(ruta, "r");
+    if (f == NULL)
+    {
+        return -1;
+    }
+
+    long total_lineas = 0;
+    int c = 0;
+    int ultimo_c = '\n';
+
+    while ((c = fgetc(f)) != EOF)
+    {
+        if (c == '\n')
+        {
+            total_lineas++;
+        }
+        ultimo_c = c;
+    }
+
+    // Si el archivo no termina en '\n' y no estaba vacío
+    if (ultimo_c != '\n')
+    {
+        total_lineas++;
+    }
+
+    fclose(f);
+    return total_lineas;
+}
+
+int main(void)
+{
+    const char *tmp_3 = "test_3_lineas.txt";
+    FILE *f = fopen(tmp_3, "w");
+    assert(f != NULL);
+    fputs("Uno\nDos\nTres\n", f);
+    fclose(f);
+    assert(contar_lineas_archivo(tmp_3) == 3);
+    remove(tmp_3);
+
+    const char *tmp_sin_salto = "test_sin_salto.txt";
+    f = fopen(tmp_sin_salto, "w");
+    assert(f != NULL);
+    fputs("Linea unica sin salto", f);
+    fclose(f);
+    assert(contar_lineas_archivo(tmp_sin_salto) == 1);
+    remove(tmp_sin_salto);
+
+    const char *tmp_vacio = "test_vacio.txt";
+    f = fopen(tmp_vacio, "w");
+    assert(f != NULL);
+    fclose(f);
+    assert(contar_lineas_archivo(tmp_vacio) == 0);
+    remove(tmp_vacio);
+
+    // Archivo inexistente y ruta NULL
+    assert(contar_lineas_archivo("archivo_fantasma_404.txt") == -1);
+    assert(contar_lineas_archivo(NULL) == -1);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} ej_b2_c04_15_contar_lineas -->
 
 (ej_b2_c04_16)=
 ## Ejercicio 2.04.16 - Copiar Archivo ⭐⭐☆☆☆

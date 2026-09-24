@@ -234,17 +234,114 @@ int main(void) {
 :::
 
 (ej_b2_c05_04)=
-### Ejercicio 2.05.04 - Inserción y Eliminación ⭐⭐☆☆☆
+### Ejercicio 2.05.04 - Inserción Dinámica Defensiva con Realloc ⭐⭐⭐☆☆
 
-Crear funciones que modifiquen un arreglo dinámico. Estas operaciones son
-costosas porque pueden requerir realojar toda la estructura.
+:::{exercise}
+:label: ej_b2_c05_04_insercion_dinamica
+:enumerator: memoria-dinamica-4
 
-- **Inserción**: Para insertar un elemento, primero se debe agrandar el arreglo
-  usando `realloc`. Luego, se deben desplazar los elementos existentes (con
-  `memmove`) para hacer espacio, y finalmente colocar el nuevo elemento.
-- **Eliminación**: Para eliminar un elemento, se deben desplazar los elementos
-  posteriores para llenar el vacío. Opcionalmente, se puede usar `realloc` para
-  reducir el tamaño del bloque de memoria.
+Implementá una función defensiva que inserte un nuevo elemento en cualquier posición de un arreglo en el heap, redimensionándolo dinámicamente:
+```c
+bool arreglo_dinamico_insertar(int **arr, size_t *tam, size_t pos, int valor);
+```
+Debés:
+1. Validar que los punteros sean válidos y que `pos <= *tam`.
+2. Asignar un nuevo búfer con `realloc` utilizando una variable temporal para no perder la referencia previa en caso de fallo.
+3. Desplazar los elementos existentes desde `pos` hacia la derecha utilizando `memmove` (evitando solapamientos no definidos).
+4. Escribir `valor` en la posición `pos` e incrementar `*tam`.
+
+**Nivel de Bloom:** Nivel 4 (Análisis).  
+**Conceptos requeridos:** Puntero doble `int **`, realocación defensiva sin fugas de memoria, `memmove` para regiones superpuestas.  
+**Techo conceptual:** Prohibido reasignar directamente el puntero original con `*arr = realloc(*arr, ...)` sin validar el retorno.
+
+#### Contrato de la Función
+- **Firma:** `bool arreglo_dinamico_insertar(int **arr, size_t *tam, size_t pos, int valor);`
+- **Precondiciones:** `arr != NULL`, `tam != NULL`, `pos <= *tam`.
+- **Postcondiciones:** Retorna `true` y actualiza el arreglo; si falla la asignación o los parámetros son inválidos retorna `false` y preserva la memoria original intacta.
+
+#### Tabla de Vectores de Prueba
+
+| Estado Inicial | Posición / Valor | Retorno | Arreglo Resultante | Justificación Técnica |
+| :--- | :--- | :--- | :--- | :--- |
+| `[10, 30]`, tam=2 | `pos=1, val=20` | `true` | `[10, 20, 30]`, tam=3 | Inserción en posición intermedia |
+| `[10, 20]`, tam=2 | `pos=0, val=5` | `true` | `[5, 10, 20]`, tam=3 | Inserción al inicio con desplazamiento completo |
+| `[10, 20]`, tam=2 | `pos=2, val=99` | `true` | `[10, 20, 99]`, tam=3 | Inserción al final sin desplazamiento |
+| `NULL`, tam=0 | `pos=0, val=42` | `true` | `[42]`, tam=1 | Inserción inicial en arreglo vacío |
+| `[10]`, tam=1 | `pos=5, val=100` | `false` | `[10]`, tam=1 | Rechazo seguro de posición fuera de rango |
+
+:::
+
+::::{solution} ej_b2_c05_04_insercion_dinamica
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <assert.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <string.h>
+
+bool arreglo_dinamico_insertar(int **arr, size_t *tam, size_t pos, int valor)
+{
+    if (arr == NULL || tam == NULL || pos > *tam)
+    {
+        return false;
+    }
+
+    size_t nuevo_tam = *tam + 1;
+    int *nuevo_bloque = (int *)realloc(*arr, nuevo_tam * sizeof(int));
+    if (nuevo_bloque == NULL)
+    {
+        return false;
+    }
+
+    *arr = nuevo_bloque;
+
+    // Desplazar elementos desde 'pos' hacia la derecha si no se inserta al final
+    if (pos < *tam)
+    {
+        size_t elementos_a_mover = *tam - pos;
+        memmove(&(*arr)[pos + 1], &(*arr)[pos], elementos_a_mover * sizeof(int));
+    }
+
+    (*arr)[pos] = valor;
+    *tam = nuevo_tam;
+    return true;
+}
+
+int main(void)
+{
+    int *arr = NULL;
+    size_t tam = 0;
+
+    // Inserción en vacío
+    assert(arreglo_dinamico_insertar(&arr, &tam, 0, 10) == true);
+    assert(tam == 1 && arr[0] == 10);
+
+    // Inserción al final
+    assert(arreglo_dinamico_insertar(&arr, &tam, 1, 30) == true);
+    assert(tam == 2 && arr[0] == 10 && arr[1] == 30);
+
+    // Inserción en el medio
+    assert(arreglo_dinamico_insertar(&arr, &tam, 1, 20) == true);
+    assert(tam == 3 && arr[0] == 10 && arr[1] == 20 && arr[2] == 30);
+
+    // Inserción al inicio
+    assert(arreglo_dinamico_insertar(&arr, &tam, 0, 5) == true);
+    assert(tam == 4 && arr[0] == 5 && arr[1] == 10 && arr[2] == 20 && arr[3] == 30);
+
+    // Caso inválido: posición fuera de rango
+    assert(arreglo_dinamico_insertar(&arr, &tam, 99, 100) == false);
+    assert(tam == 4);
+
+    free(arr);
+    return 0;
+}
+```
+
+::::
+<!-- {solution} ej_b2_c05_04_insercion_dinamica -->
 
 ## Cadenas Dinámicas
 
