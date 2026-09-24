@@ -5,37 +5,30 @@ short_title: 1. Básicos
 
 # Ejercicios Básicos y Secuencias
 
-## Acerca de
+## Prerrequisitos y Entorno de Ejecución Requerido
 
-Estos ejercicios están diseñados para afianzar los conceptos más fundamentales
-de la programación en C. A través de ellos, se practicará el uso de variables,
-la entrada y salida por consola, y la implementación de estructuras de control
-básicas (lazos y condicionales) para resolver problemas simples y generar
-secuencias numéricas.
+Para compilar y verificar las soluciones de este módulo bajo el estándar C11 estricto de cátedra, se requiere:
+- **Compilador C11:** GCC 9+ o Clang 11+ configurado con flags `-Wall -Wextra -Werror -pedantic -std=c11`.
+- **Entorno POSIX:** Linux o WSL con utilidades estándar, soporte de aserciones deterministas y verificación lógica.
+- **Herramientas de Verificación:** Valgrind (memcheck) y AddressSanitizer (`-fsanitize=address,undefined`) para garantizar la ausencia de lecturas o escrituras de memoria no inicializada.
+- **Conocimientos Previos:** Función `main(void)`, tipos primitivos escalares (`int`, `double`), lazos `for`/`while`, funciones puras y aserciones con `assert()`.
+
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+
+- **Nivel 2 (Comprensión):** Analizar la estructura canónica de un programa C11, variables, ámbito y evaluación de expresiones.
+- **Nivel 3 (Aplicación):** Implementar funciones puras desacopladas de E/S para cálculo de secuencias numéricas y algoritmos iterativos.
+- **Nivel 4 (Análisis):** Evaluar condiciones de borde en lazos y verificar invariantes numéricos mediante suites de prueba ejecutables.
+- **Andamiaje Progresivo:** Ejercicios andamiados con contratos formales (precondiciones/postcondiciones), tablas de vectores de prueba y suites ejecutables con `assert()`.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-fundamentos-computacion`
 - {ref}`capitulo-introduccion-c`
 
-### Prerrequisitos Conceptuales
-Antes de resolver esta guía, el estudiante debe dominar:
-1. Estructura básica de un programa en C11: función `main(void)` y valor de retorno ({ref}`capitulo-introduccion-c`).
-2. Declaración, inicialización y ámbito de variables de tipos primitivos escalares (`int`, `double`).
-3. Estructuras de control iterativas: sintaxis y semántica de lazos `for` y `while`.
-4. Salida por consola formateada mediante `printf` y pruebas unitarias con aserciones (`assert`).
-
 ### Cuestiones de Estilo Aplicables
-- **Resolución mediante funciones:** Según la {ref}`0x2008h`, la lógica principal que
-  resuelve cada enunciado debe estar contenida en una función, incluso si no se
-  especifica de forma explícitamente.
-- **Separación de entrada/salida:** De acuerdo con la {ref}`0x2002h`, las funciones no deben contener
-  `printf` o `scanf`, a menos que su propósito explícito sea interactuar con el
-  usuario.
-- **Uso de llaves:** Toda estructura de control debe utilizar llaves (`{}`)
-  según la {ref}`0x1001h`.
-- **Lazos:** Según la {ref}`0x1003h`, se
-  debe preferir el uso de lazos `for` para iteraciones con rango o contador
-  definido, y `while` para lazos controlados por condiciones lógicas.
+- **Resolución mediante funciones:** Según la {ref}`0x2008h`, la lógica principal que resuelve cada enunciado debe estar contenida en una función.
+- **Separación de entrada/salida:** De acuerdo con la {ref}`0x2002h`, las funciones de cálculo no deben contener `printf` o `scanf`.
+- **Uso de llaves:** Toda estructura de control debe utilizar llaves (`{}`) según la {ref}`0x1001h`.
+- **Lazos:** Según la {ref}`0x1003h`, se debe preferir el uso de lazos `for` para iteraciones con rango o contador definido, y `while` para lazos controlados por condiciones lógicas.
 
 ---
 

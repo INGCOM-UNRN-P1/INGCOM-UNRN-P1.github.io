@@ -5,28 +5,27 @@ short_title: 2. Entrada/Salida Gradual
 
 # Ejercicios de Entrada y Salida Gradual
 
-## Acerca de
+## Prerrequisitos y Entorno de Ejecución Requerido
 
-Estos ejercicios tienen como fin afianzar las operaciones de entrada y salida
-básica en C empleando `printf` y `scanf`, promoviendo la declaración e
-inicialización correcta de variables con tipos primitivos básicos.
+Para compilar y verificar las soluciones de este módulo bajo el estándar C11 estricto de cátedra, se requiere:
+- **Compilador C11:** GCC 9+ o Clang 11+ configurado con flags `-Wall -Wextra -Werror -pedantic -std=c11`.
+- **Entorno POSIX:** Linux o WSL con utilidades estándar, soporte de flujos `stdin`/`stdout` y aserciones.
+- **Herramientas de Verificación:** Valgrind (memcheck) y AddressSanitizer (`-fsanitize=address,undefined`) para garantizar la ausencia de desbordamientos de búfer en llamadas a `sscanf`/`sprintf`.
+- **Conocimientos Previos:** Función principal `main`, tipos primitivos (`int`, `float`, `char`), especificadores de formato de `printf` y validación defensiva del valor de retorno de `scanf`.
+
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+
+- **Nivel 2 (Comprensión):** Comprender el mecanismo de conversión y formateo de tipos primitivos a texto y viceversa.
+- **Nivel 3 (Aplicación):** Implementar programas con entrada/salida interactiva robusta, purgado de buffer y validación de tipos.
+- **Nivel 4 (Análisis):** Evaluar el comportamiento ante entradas mal formadas y prevenir comportamientos indefinidos por desbordamiento.
+- **Andamiaje Progresivo:** Ejercicios andamiados con contratos formales (precondiciones/postcondiciones), tablas de vectores de prueba y suites ejecutables con `assert()`.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-introduccion-c`
 
-### Prerrequisitos Conceptuales
-Antes de resolver esta guía, el estudiante debe dominar:
-1. Función principal `main` y tipo de retorno `int` ({ref}`capitulo-introduccion-c`).
-2. Declaración e inicialización estricta de tipos de datos primitivos (`int`, `float`, `char`).
-3. Especificadores de formato para salida con `printf` (`%d`, `%.2f`, `%c`).
-4. Especificadores de formato y validación de retorno de lectura segura con `scanf` y `sscanf`.
-
 ### Cuestiones de Estilo Aplicables
-- **Inicialización de Variables:** De acuerdo con la {ref}`0x7001h`, siempre se deben inicializar las
-  variables a un valor conocido en su declaración.
-- **Robustez en Entrada de Datos:** Al utilizar `scanf`, se debe validar su
-  valor de retorno y realizar el purgado del buffer de entrada cuando sea
-  necesario para evitar comportamientos indefinidos (ver {ref}`0x1005h`).
+- **Inicialización de Variables:** De acuerdo con la {ref}`0x7001h`, siempre se deben inicializar las variables a un valor conocido en su declaración.
+- **Robustez en Entrada de Datos:** Al utilizar `scanf`, se debe validar su valor de retorno y realizar el purgado del buffer de entrada cuando sea necesario para evitar comportamientos indefinidos (ver {ref}`0x1005h`).
 
 ---
 

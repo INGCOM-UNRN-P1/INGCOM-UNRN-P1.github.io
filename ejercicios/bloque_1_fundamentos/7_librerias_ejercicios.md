@@ -16,6 +16,13 @@ Para compilar y resolver los módulos de esta guía se requiere:
    - Visibilidad interna y ocultamiento de símbolos auxiliares con el calificador `static`.
    - Comparación numérica con tolerancia épsilon (`fabs(a - b) < 1e-6`) para punto flotante.
 
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+
+- **Nivel 2 (Comprensión):** Comprender el principio de ocultamiento de información y modularidad en C.
+- **Nivel 3 (Aplicación):** Diseñar e implementar bibliotecas cohesivas con prefijo de módulo unificado y funciones auxiliares estáticas.
+- **Nivel 4 (Análisis):** Evaluar el diseño de APIs públicas mínimas, contratos defensivos y suites de verificación con aserciones.
+- **Andamiaje Progresivo:** Ejercicios andamiados con contratos formales (precondiciones/postcondiciones), tablas de vectores de prueba y suites ejecutables con `assert()`.
+
 ## Acerca de
 
 La creación de librerías de funciones (módulos reutilizables) permite estructurar programas de forma limpia, testeable y mantenible. Se recomienda la estructura canónica modular:
@@ -33,20 +40,34 @@ La creación de librerías de funciones (módulos reutilizables) permite estruct
 
 :::{exercise}
 :label: ej_b1_c04b_01_geometria2d
+:enumerator: lib-geom-1
 
-Diseñá e implementá un módulo para cálculos geométricos en 2D:
+Diseñá e implementá un módulo para cálculos geométricos en 2D con tipado de doble precisión (`double`) y tolerancia épsilon en pruebas unitarias:
 - `double geo_distancia(double x1, double y1, double x2, double y2)`: distancia euclídea.
 - `double geo_area_rectangulo(double ancho, double alto)`: área de un rectángulo (retorna `-1.0` si alguna dimensión es negativa).
 - `double geo_perimetro_rectangulo(double ancho, double alto)`: perímetro de un rectángulo (retorna `-1.0` si alguna dimensión es negativa).
 
-**Tabla de Vectores de Prueba:**
+**Nivel de Bloom:** Nivel 3 (Aplicación).  
+**Conceptos requeridos:** Módulos de funciones, punto flotante `double`, funciones de `<math.h>` (`sqrt`, `pow`, `fabs`), y aserciones con épsilon.  
+**Techo conceptual:** Prohibido el uso de variables globales.
 
-| Caso de Prueba | Parámetros Entrada | Función Invocada | Resultado Esperado |
-| :--- | :--- | :--- | :--- |
-| Distancia origen a (3,4) | `(0, 0, 3, 4)` | `geo_distancia` | `5.0` |
-| Rectángulo 4x5 | `(4.0, 5.0)` | `geo_area_rectangulo` | `20.0` |
-| Rectángulo 4x5 | `(4.0, 5.0)` | `geo_perimetro_rectangulo` | `18.0` |
-| Dimensión inválida | `(-2.0, 5.0)` | `geo_area_rectangulo` | `-1.0` |
+#### Contrato de las Funciones
+- **Firma:** `double geo_distancia(double x1, double y1, double x2, double y2);`
+- **Firma:** `double geo_area_rectangulo(double ancho, double alto);`
+- **Firma:** `double geo_perimetro_rectangulo(double ancho, double alto);`
+- **Postcondiciones:** Retornan valores no negativos ante dimensiones válidas; retornan `-1.0` ante dimensiones negativas en rectángulos.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Parámetros Entrada | Función Invocada | Resultado Esperado | Justificación Técnica |
+| :--- | :--- | :--- | :--- | :--- |
+| **Distancia a (3,4)**| `(0, 0, 3, 4)` | `geo_distancia` | `5.0` | Triángulo rectángulo 3-4-5 clásico |
+| **Área Rectángulo** | `(4.0, 5.0)` | `geo_area_rectangulo` | `20.0` | Cálculo exacto $4 \times 5$ |
+| **Perímetro** | `(4.0, 5.0)` | `geo_perimetro_rectangulo` | `18.0` | Cálculo exacto $2(4 + 5)$ |
+| **Dimensión Inválida**| `(-2.0, 5.0)` | `geo_area_rectangulo` | `-1.0` | Manejo defensivo de error |
+
+:::
+<!-- {exercise} -->
 
 ::::{solution}
 ```c

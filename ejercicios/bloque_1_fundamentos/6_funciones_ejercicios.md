@@ -6,24 +6,28 @@ subtitle: 'Problemas y soluciones sobre modularización en C'
 
 # Ejercicios sobre Funciones
 
-## Acerca de
+## Prerrequisitos y Entorno de Ejecución Requerido
 
-Estos ejercicios tienen como finalidad practicar la descomposición modular de
-problemas en funciones puras y reutilizables en C11, definiendo firmas con sus tipos de datos
-adecuados para los parámetros y valores de retorno, respetando contratos pre y postcondición.
+Para compilar y verificar las soluciones de este módulo bajo el estándar C11 estricto de cátedra, se requiere:
+- **Compilador C11:** GCC 9+ o Clang 11+ configurado con flags `-Wall -Wextra -Werror -pedantic -std=c11`.
+- **Entorno POSIX:** Linux o WSL con utilidades estándar, soporte de aserciones y verificación lógica.
+- **Herramientas de Verificación:** Valgrind (memcheck) y AddressSanitizer (`-fsanitize=address,undefined`) para garantizar la ausencia de lecturas o accesos inválidos.
+- **Conocimientos Previos:** Funciones en C, paso por valor, tipos escalares de retorno, contratos pre/postcondición y aserciones unitarias (`assert`).
+
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+
+- **Nivel 2 (Comprensión):** Analizar el mecanismo de paso por valor, aislamiento de ámbito local y ciclo de vida de variables automáticas.
+- **Nivel 3 (Aplicación):** Implementar funciones puras y reutilizables en C11 desacopladas de operaciones de entrada/salida.
+- **Nivel 4 (Análisis):** Evaluar precondiciones aritméticas (prevención de overflow) y postcondiciones mediante contratos formales.
+- **Andamiaje Progresivo:** Ejercicios andamiados con contratos formales (precondiciones/postcondiciones), tablas de vectores de prueba y suites ejecutables con `assert()`.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-funciones-descomposicion`
 
 ### Cuestiones de Estilo Aplicables
-- **Resolución mediante funciones:** Según la {ref}`0x2008h`, la lógica debe ser encapsulada
-  en funciones independientes.
-- **Nomenclatura en funciones:** Los nombres de funciones y variables locales
-  deben seguir la convención `snake_case` en minúsculas, de acuerdo con las
-  reglas {ref}`0x2009h` y {ref}`0x0102h`.
-- **Separación de entrada/salida:** En concordancia con la {ref}`0x2002h`, se debe evitar que las
-  funciones de cálculo realicen entrada/salida (`printf`/`scanf`) a menos que ese sea su propósito
-  explícito. Deben retornar valores o códigos de estado.
+- **Resolución mediante funciones:** Según la {ref}`0x2008h`, la lógica debe ser encapsulada en funciones independientes.
+- **Nomenclatura en funciones:** Los nombres de funciones y variables locales deben seguir la convención `snake_case` en minúsculas, de acuerdo con las reglas {ref}`0x2009h` y {ref}`0x0102h`.
+- **Separación de entrada/salida:** En concordancia con la {ref}`0x2002h`, se debe evitar que las funciones de cálculo realicen entrada/salida (`printf`/`scanf`) a menos que ese sea su propósito explícito. Deben retornar valores o códigos de estado.
 
 ---
 

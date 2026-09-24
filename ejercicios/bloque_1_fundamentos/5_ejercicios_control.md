@@ -4,21 +4,31 @@ short_title: '5. Control'
 subtitle: 'Problemas y soluciones sobre lazos y condicionales en C'
 ---
 
-(control-flujo-ejercicios)=
 # Ejercicios: Control de Flujo
 
-## Prerrequisitos y Entorno Requerido
-Antes de abordar y compilar los ejercicios de esta guía, se requiere:
-1. **Entorno de Compilación:** Compilador GCC 9+ o Clang bajo estándar estricto **ISO C11** (`-std=c11 -Wall -Wextra -Werror -pedantic`).
-2. **Conceptos de Control de Flujo:** Operadores relacionales (`<`, `<=`, `>`, `>=`, `==`, `!=`), operadores lógicos de cortocircuito (`&&`, `||`, `!`) y bifurcaciones `if`/`else if`/`else`/`switch`.
-3. **Lazos Estructurados e Invariantes:** Iteraciones acotadas con `for`, lazos gobernados por condición con `while`/`do-while` y banderas de control booleanas (`stdbool.h`) evitando saltos incondicionales (`break`/`continue`).
+## Prerrequisitos y Entorno de Ejecución Requerido
 
-## Acerca de
+Para compilar y verificar las soluciones de este módulo bajo el estándar C11 estricto de cátedra, se requiere:
+- **Compilador C11:** GCC 9+ o Clang 11+ configurado con flags `-Wall -Wextra -Werror -pedantic -std=c11`.
+- **Entorno POSIX:** Linux o WSL con utilidades estándar, soporte de aserciones deterministas y verificación lógica.
+- **Herramientas de Verificación:** Valgrind (memcheck) y AddressSanitizer (`-fsanitize=address,undefined`) para auditar la integridad de acumuladores y descartar lazos infinitos o desbordamientos aritméticos.
+- **Conocimientos Previos:** Operadores relacionales (`<`, `<=`, `>`, `>=`, `==`, `!=`), operadores lógicos con cortocircuito (`&&`, `||`, `!`), bifurcaciones `if`/`switch` y lazos estructurados `for`/`while`/`do-while`.
 
-Estos ejercicios tienen como propósito ejercitar la lógica condicional, las estructuras de repetición y el control de flujo estructurado y seguro en C11.
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+
+- **Nivel 2 (Comprensión):** Analizar diagramas de flujo, tablas de verdad booleanas, orden de precedencia y evaluación por cortocircuito.
+- **Nivel 3 (Aplicación):** Implementar algoritmos de clasificación condicional, iteraciones deterministas acotadas e invariantes de terminación en C11.
+- **Nivel 4 (Análisis):** Evaluar equivalencia formal entre estructuras de control iterativas y refactorizar código eliminando sentencias prohibidas (`break`, `continue`, `goto`).
+- **Nivel 5 (Evaluación):** Demostrar la corrección de algoritmos iterativos mediante matrices de vectores de prueba y suites ejecutables con `assert()`.
+- **Andamiaje Progresivo:** Ejercicios andamiados con contratos formales (precondiciones/postcondiciones), tablas de vectores de prueba y suites ejecutables con `assert()`.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-control-flujo`
+
+### Cuestiones de Estilo Aplicables
+- **Desacoplamiento de E/S:** De acuerdo con la {ref}`0x2002h`, las funciones de cálculo no deben contener `printf` ni `scanf`.
+- **Prohibición de saltos auxiliares:** Según la {ref}`0x2001h`, está prohibido el uso de `break`, `continue` o `goto` para el control de lazos.
+- **Uso estricto de llaves:** Toda estructura condicional e iterativa debe delimitar su bloque con llaves `{}` alineadas.
 
 ---
 
@@ -29,27 +39,35 @@ Estos ejercicios tienen como propósito ejercitar la lógica condicional, las es
 
 :::{exercise}
 :label: ej_b1_c03b_01_aprobacion
+:enumerator: ctrl-flujo-1
 
-Implementá una función pura que evalúe la condición académica según la nota
-entera recibida:
+Implementá una función pura que evalúe la condición académica según la nota entera recibida:
 - `"Promociona"` si la nota es mayor o igual a 6.
 - `"Aprueba"` si la nota está comprendida entre 4 y 5 inclusive.
 - `"Desaprueba"` si la nota es menor a 4.
 
-```c
-const char *evaluar_condicion_aprobacion(int nota);
-```
+**Nivel de Bloom:** Nivel 2 (Comprensión) y Nivel 3 (Aplicación).  
+**Conceptos requeridos:** Bifurcaciones mutuamente excluyentes (`if - else if - else`), operadores relacionales (`>=`, `<`), y literales de cadena inmutables (`const char *`).  
+**Techo conceptual:** Prohibido el uso de variables mutables globales.
 
-**Tabla de Vectores de Prueba:**
+#### Contrato de la Función
+- **Firma:** `const char *evaluar_condicion_aprobacion(int nota);`
+- **Precondiciones:** `0 <= nota && nota <= 10`.
+- **Postcondiciones:** Retorna un puntero a cadena estática inmutable correspondiente al tramo evaluado.
 
-| Nota de Entrada | Condición Retornada |
-| :--- | :--- |
-| `10` | `"Promociona"` |
-| `6` | `"Promociona"` |
-| `5` | `"Aprueba"` |
-| `4` | `"Aprueba"` |
-| `3` | `"Desaprueba"` |
-| `0` | `"Desaprueba"` |
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Nota de Entrada | Condición Retornada | Justificación Técnica |
+| :--- | :--- | :--- | :--- |
+| **Nota Máxima** | `10` | `"Promociona"` | Rango superior $\ge 6$ |
+| **Límite Promoción** | `6` | `"Promociona"` | Borde inclusivo de promoción |
+| **Aprobación Alta** | `5` | `"Aprueba"` | Intervalo regular $[4, 5]$ |
+| **Límite Aprobación**| `4` | `"Aprueba"` | Borde inferior de aprobación |
+| **Desaprobación** | `3` | `"Desaprueba"` | Tramo menor a 4 |
+| **Nota Mínima** | `0` | `"Desaprueba"` | Cota inferior de nota |
+
+:::
+<!-- {exercise} -->
 
 ::::{solution}
 ```c
@@ -89,96 +107,172 @@ int main(void) {
 
 :::{exercise}
 :label: lazo_while 
-:enumerator: while
-Escribí un programa en C que imprima los números del 10 al 1 de forma
-descendente usando un lazo `while`.
-    valores fuera de rango o tipos inválidos.
-    un lazo hasta que el usuario elija finalizar.
+:enumerator: while-1
+
+Implementá una función `void cuenta_descendente(int inicio, int fin, int *salida, size_t cap)` que genere la secuencia decreciente desde `inicio` hasta `fin` paso unitario en el arreglo `salida`.
+
+**Nivel de Bloom:** Nivel 3 (Aplicación).  
+**Conceptos requeridos:** Lazo `while`, condición de corte (`i >= fin`), decremento ordenado y límites de arreglo.  
+**Techo conceptual:** Prohibido el uso de lazos infinitos con `break`.
+
+#### Contrato de la Función
+- **Firma:** `size_t cuenta_descendente(int inicio, int fin, int *salida, size_t cap);`
+- **Precondiciones:** `salida != NULL`, `cap >= (size_t)(inicio - fin + 1)` cuando `inicio >= fin`.
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Entrada (`inicio`, `fin`) | Capacidad | Elementos Generados | Secuencia Resultante | Justificación Técnica |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Cuenta Estándar** | `10, 1` | `10` | `10` | `[10, 9, ..., 1]` | 10 iteraciones decrecientes |
+| **Paso Unitario** | `5, 5` | `1` | `1` | `[5]` | Caso base inicio igual a fin |
+| **Rango Invertido** | `1, 5` | `5` | `0` | `[]` | Condición falsa inmediata |
 
 :::
 <!-- {exercise} -->
 
-:::{solution} lazo_while
-:label: solucion-lazo_while
-:class: dropdown
-
+::::{solution}
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-int main(void)
-{
-    int i = 10;
-    while (i >= 1)
-    {
-        printf("%d\n", i);
-        i = i - 1;
+#include <stddef.h>
+#include <assert.h>
+
+size_t cuenta_descendente(int inicio, int fin, int *salida, size_t cap) {
+    if (salida == NULL || inicio < fin) {
+        return 0;
     }
+    size_t count = 0;
+    int i = inicio;
+    while (i >= fin && count < cap) {
+        salida[count] = i;
+        count++;
+        i--;
+    }
+    return count;
+}
+
+int main(void) {
+    int buf[10] = {0};
+    size_t n = cuenta_descendente(10, 1, buf, 10);
+    assert(n == 10);
+    assert(buf[0] == 10);
+    assert(buf[9] == 1);
+
+    int uno[1] = {0};
+    assert(cuenta_descendente(5, 5, uno, 1) == 1);
+    assert(uno[0] == 5);
+
+    assert(cuenta_descendente(1, 5, buf, 10) == 0);
     return 0;
 }
 ```
-<!-- {code-block} c -->
-
+::::
 :::
-<!-- {solution} lazo_while -->
 
 (ej_b1_c03b_03)=
 ### Ejercicio 1.03b.03 - Múltiplos de 3 ⭐⭐☆☆☆
 
 :::{exercise}
 :label: lazo_for
-:enumerator: for
-Usá un lazo `for` para mostrar los números múltiplos de 3 comprendidos en el
-rango de 0 a 30 inclusive.
-    desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
+:enumerator: for-1
+
+Usá un lazo `for` para mostrar o recolectar los números múltiplos de 3 comprendidos en el rango de 0 a `limite` inclusive dentro de un arreglo.
+
+**Nivel de Bloom:** Nivel 3 (Aplicación).  
+**Conceptos requeridos:** Lazo `for`, operador módulo (`%`), incremento de contador y comprobación de divisibilidad.  
+**Techo conceptual:** Prohibido el uso de lazos `while` o saltos incondicionales.
+
+#### Contrato de la Función
+- **Firma:** `size_t recolectar_multiplos_tres(int limite, int *salida, size_t cap);`
+- **Precondiciones:** `salida != NULL`, `limite >= 0`.
+- **Postcondiciones:** Almacena los múltiplos de 3 en `[0, limite]` dentro de `salida` sin desbordar `cap` y retorna la cantidad de elementos almacenados.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Límite Máximo | Capacidad Buffer | Cantidad Retornada | Secuencia Almacenada | Justificación Técnica |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Rango Regular 30** | `30` | `15` | `11` | `[0, 3, 6, ..., 30]` | 11 múltiplos en $[0, 30]$ |
+| **Límite Cero** | `0` | `5` | `1` | `[0]` | $0$ es divisible por 3 |
+| **Límite No Múltiplo**| `8` | `5` | `3` | `[0, 3, 6]` | Múltiplos menores a 8 |
+| **Capacidad Insuficiente** | `30` | `3` | `3` | `[0, 3, 6]` | Truncamiento seguro por cota `cap` |
 
 :::
 <!-- {exercise} -->
 
-:::{solution} lazo_for
-:label: solucion-lazo_for
-:class: dropdown
+::::{solution}
 ```{code-block} c
 :linenos:
 #include <stdio.h>
-int main(void)
-{
-    for (int i = 0; i <= 30; i = i + 1)
-    {
-        if (i % 3 == 0)
-        {
-            printf("%d es múltiplo de 3\n", i);
+#include <stddef.h>
+#include <assert.h>
+
+size_t recolectar_multiplos_tres(int limite, int *salida, size_t cap) {
+    if (salida == NULL || cap == 0 || limite < 0) {
+        return 0;
+    }
+    size_t count = 0;
+    for (int i = 0; i <= limite && count < cap; i++) {
+        if (i % 3 == 0) {
+            salida[count] = i;
+            count++;
         }
     }
+    return count;
+}
+
+int main(void) {
+    int buf[15] = {0};
+    size_t n = recolectar_multiplos_tres(30, buf, 15);
+    assert(n == 11);
+    assert(buf[0] == 0);
+    assert(buf[1] == 3);
+    assert(buf[10] == 30);
+
+    size_t n0 = recolectar_multiplos_tres(0, buf, 5);
+    assert(n0 == 1);
+    assert(buf[0] == 0);
+
+    size_t n8 = recolectar_multiplos_tres(8, buf, 5);
+    assert(n8 == 3);
+    assert(buf[0] == 0 && buf[1] == 3 && buf[2] == 6);
+
+    size_t n_trunc = recolectar_multiplos_tres(30, buf, 3);
+    assert(n_trunc == 3);
+
+    assert(recolectar_multiplos_tres(30, NULL, 10) == 0);
     return 0;
 }
 ```
-<!-- {code-block} c -->
-
-:::
-<!-- {solution} lazo_for -->
+::::
 
 (ej_b1_c03b_04)=
 ### Ejercicio 1.03b.04 - Verificación de Clave con Límite de Intentos ⭐⭐☆☆☆
 
 :::{exercise}
 :label: ej_b1_c03b_04_clave_intentos
+:enumerator: ctrl-flujo-4
 
-Implementá una función determinística que procese un arreglo de intentos de clave
-contra una clave secreta esperada, deteniéndose apenas acierte o al agotar los
-intentos, retornando si el acceso fue concedido.
+Implementá una función determinística que procese un arreglo de intentos de clave contra una clave secreta esperada, deteniéndose apenas acierte o al agotar los intentos, retornando si el acceso fue concedido.
 
-```c
-bool verificar_clave_intentos(const int *intentos, size_t n, int clave_secreta);
-```
+**Nivel de Bloom:** Nivel 3 (Aplicación).  
+**Conceptos requeridos:** Lazo `do-while` controlado por bandera lógica, búsqueda secuencial con límite superior y evaluación booleana.  
+**Techo conceptual:** Prohibido el uso de la sentencia `break`.
 
-**Tabla de Vectores de Prueba:**
+#### Contrato de la Función
+- **Firma:** `bool verificar_clave_intentos(const int *intentos, size_t n, int clave_secreta);`
+- **Precondiciones:** Si `intentos != NULL`, debe apuntar a un arreglo de al menos `n` enteros.
+- **Postcondiciones:** Retorna `true` si `clave_secreta` se encuentra en el arreglo en $i < n$; retorna `false` en caso contrario o si `intentos == NULL` / `n == 0`.
 
-| Intentos Ingresados | Clave Secreta | Retorno Esperado |
-| :--- | :--- | :--- |
-| `[1111, 2222, 1234]` | `1234` | `true` (concedido al 3er intento) |
-| `[1234]` | `1234` | `true` (concedido al 1er intento) |
-| `[9999, 8888, 7777]` | `1234` | `false` (agotados) |
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Intentos Ingresados | Clave Secreta | Retorno Esperado | Justificación Técnica |
+| :--- | :--- | :--- | :--- | :--- |
+| **Acierto Final** | `[1111, 2222, 1234]` | `1234` | `true` | Concedido al 3er intento |
+| **Acierto Inmediato**| `[1234]` | `1234` | `true` | Concedido al 1er intento |
+| **Fallido Total** | `[9999, 8888, 7777]` | `1234` | `false` | Intentos agotados |
+| **Puntero Nulo** | `NULL` | `1234` | `false` | Validación defensiva de entrada |
+
+:::
+<!-- {exercise} -->
 
 ::::{solution}
 ```c
@@ -228,9 +322,10 @@ int main(void) {
 
 :::{exercise}
 :label: lazo_break
-:enumerator: break
-Modificá el siguiente programa para eliminar la instrucción `break` prohibida,
-estructurando correctamente el lazo:
+:enumerator: break-1
+
+Modificá el siguiente programa para eliminar la instrucción `break` prohibida por las normas de estilo institucionales ({ref}`0x2001h`), estructurando correctamente la iteración mediante una bandera booleana:
+
 ```{code-block} c
 :linenos:
 #include <stdio.h>
@@ -249,8 +344,10 @@ int main()
 }
 ```
 <!-- {code-block} c -->
-    desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
+
+**Nivel de Bloom:** Nivel 3 (Aplicación) y Nivel 4 (Análisis).  
+**Conceptos requeridos:** Control de flujo estructurado, variables booleanas (`<stdbool.h>`), condición compuesta de lazo.  
+**Techo conceptual:** Prohibido el uso de `break`, `continue` o `goto`.
 
 :::
 <!-- {exercise} -->
@@ -292,8 +389,10 @@ int main(void)
 
 :::{exercise}
 :label: lazo_continue
-:enumerator: continue
-Modificá el siguiente código para eliminar la instrucción `continue` prohibida:
+:enumerator: continue-1
+
+Modificá el siguiente código para eliminar la instrucción `continue` prohibida por las normas de estilo de cátedra ({ref}`0x2001h`), reformulando la condición del lazo con lógica positiva:
+
 ```{code-block} c
 :linenos:
 #include <stdio.h>
@@ -311,8 +410,10 @@ int main()
 }
 ```
 <!-- {code-block} c -->
-    desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
+
+**Nivel de Bloom:** Nivel 3 (Aplicación).  
+**Conceptos requeridos:** Control estructurado, bifurcaciones de predicado positivo (`if (i % 2 != 0)`), eliminación de saltos auxiliares.  
+**Techo conceptual:** Prohibido el uso de `continue`, `break` o `goto`.
 
 :::
 <!-- {exercise} -->
@@ -411,8 +512,6 @@ Escribí un programa que solicite dos números reales al usuario y muestre cuál
 el mayor.
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -486,8 +585,6 @@ Mostrá los números del 1 al 10 usando un lazo `for`.
 - Imprimí cada número en una línea
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -521,8 +618,6 @@ Mostrá la tabla de multiplicar de un número ingresado por el usuario (1 a 10).
 - Lazo de 1 a 10: `printf("%d x %d = %d\n", num, i, num * i);`
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -558,8 +653,6 @@ Mostrá todos los números pares entre dos valores ingresados.
 - Alternativa: `for (i = inicio; i <= fin; i += 2)` empezando en par
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -577,8 +670,6 @@ Leé números enteros hasta que el usuario ingrese 0, luego mostrá la suma tota
 - Caso contrario, sumá al acumulador
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -596,8 +687,6 @@ sea válido.
 - Mostrá mensaje de error en cada intento inválido
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -654,8 +743,6 @@ Generá los primeros N números de Fibonacci.
   - Calculá siguiente: `temp = a + b; a = b; b = temp`
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -673,8 +760,6 @@ Buscá un valor en un array. Si lo encontrás, mostrá su posición y `break`.
 - Después del lazo: verificá si se encontró
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -923,8 +1008,6 @@ de dígitos igual al número).
 - Usá `pow()` de `<math.h>`
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -948,8 +1031,6 @@ Simulá un cajero con saldo inicial. Menú: depositar, retirar, consultar, salir
 - Validaciones antes de modificar saldo
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -975,8 +1056,6 @@ Encontrá todos los números primos hasta N usando la Criba de Eratóstenes.
 - Mostrá todos los marcados como primos
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1044,8 +1123,6 @@ Mostrá tabla de multiplicar del 1 al 10 (todas las tablas).
 - Formato: "3 x 4 = 12"
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1062,8 +1139,6 @@ Mostrá todos los números primos entre A y B.
 - Imprimí solo los primos
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1084,8 +1159,6 @@ El programa elige un número aleatorio. El usuario tiene máximo 7 intentos.
 - Después del lazo: verificar si ganó o perdió
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1210,8 +1283,6 @@ Mostrá todos los argumentos recibidos.
 **Orientación:**
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1264,8 +1335,6 @@ Sumá dos números pasados como argumentos.
 - O mejor: `strtol(argv[1], NULL, 10)` para validación
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1305,8 +1374,6 @@ Procesá flags opcionales `-v` (verbose) y `-h` (help).
 - Argumentos no-flag son archivos u otros datos
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1326,8 +1393,6 @@ Concatená todos los argumentos (excepto argv[0]) en un string.
 - Usá `strcat` o manualmente con índices
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1347,8 +1412,6 @@ Convertí temperatura según flags.
 - Mostrá resultado formateado
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1365,8 +1428,6 @@ Leé texto carácter por carácter desde la entrada estándar (`stdin`) hasta en
 - Imprimí cada carácter procesado con `putchar()`
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1382,8 +1443,6 @@ Procesá flag que requiere un valor: `-n <cantidad>`
 **Orientación:**
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1466,8 +1525,6 @@ Mostrá ayuda si se pasa `-h` o `--help`, o si argumentos son incorrectos.
 **Orientación:**
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1505,8 +1562,6 @@ Buscá patrón en archivo(s).
 - Si línea contiene patrón (`strstr`), mostrala
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1531,8 +1586,6 @@ Contá líneas, palabras y caracteres de archivos.
 - Mostrá según flags activos
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1555,8 +1608,6 @@ Ordená líneas de archivo con opciones.
 - Usá `qsort` con función comparadora apropiada
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1646,8 +1697,6 @@ Implementá tu propia versión simplificada de `getopt` para parsear flags.
 **Orientación:**
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1678,8 +1727,6 @@ Implementá programa con subcomandos estilo Git.
 - `switch` o tabla de funciones para dispatch
 
 :::{hint} Lógica y Consideraciones
-desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 

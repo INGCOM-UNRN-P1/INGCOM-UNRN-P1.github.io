@@ -5,25 +5,26 @@ short_title: "8. Compilación"
 
 # Ejercicios: Compilación y Makefiles
 
-## Acerca de
+## Prerrequisitos y Entorno de Ejecución Requerido
 
-Comprender el proceso de compilación y saber cómo automatizarlo es una habilidad
-esencial para cualquier programador de C. Estos ejercicios te guiarán a través
-de la creación de proyectos multi-archivo, el uso de `gcc` para compilar y
-enlazar, y la escritura de `Makefiles` básicos para gestionar la compilación de
-forma eficiente.
+Para compilar y verificar las soluciones de este módulo bajo el estándar C11 estricto de cátedra, se requiere:
+- **Compilador C11:** GCC 9+ o Clang 11+ configurado con flags `-Wall -Wextra -Werror -pedantic -std=c11`.
+- **Entorno POSIX:** Linux o WSL con utilidades estándar (`make`, `ar`, `diff`, `bash`).
+- **Herramientas de Automatización:** GNU Make 4.0+ y soporte para compilación modular multiobjeto.
+- **Conocimientos Previos:** Etapas de compilación (preprocesado, compilación, ensamblado, enlazado), archivos objeto (`.o`), bibliotecas estáticas (`.a`) y reglas con targets/dependencias.
 
-Para profundizar en los conceptos teóricos, podés consultar los siguientes
-capítulos del apunte:
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+
+- **Nivel 2 (Comprensión):** Analizar el flujo de traducción de código fuente a binario ejecutable y la separación en cabeceras e implementaciones.
+- **Nivel 3 (Aplicación):** Construir Makefiles modulares con variables automáticas (`$@`, `$<`, `$^`), reglas implícitas y targets phony (`all`, `clean`, `test`).
+- **Nivel 4 (Análisis):** Diagnosticar errores de enlazado (*undefined reference* vs *multiple definition*) y optimizar tiempos de compilación incremental.
+- **Andamiaje Progresivo:** Ejercicios andamiados con contratos formales (precondiciones/postcondiciones), tablas de vectores de prueba y suites ejecutables con `assert()`.
+
+### Capítulos de Apunte Correspondientes
 - [Compilación](../../apunte/bloque_1_fundamentos/5_compilacion.md)
 - [Makefiles](../../apunte/bloque_1_fundamentos/8_makefiles.md)
 
-### Prerrequisitos Conceptuales
-Antes de resolver esta guía, el estudiante debe dominar:
-1. Etapas del proceso de traducción en C: preprocesamiento, compilación, ensamblado y enlazado.
-2. Uso básico de la terminal bash y comandos del compilador (`gcc -c`, `gcc -o`, `-Wall`, `-Wextra`).
-3. Estructura de cabeceras `.h` con guardas de inclusión `#ifndef / #define` y archivos fuente `.c`.
-4. Sintaxis de reglas en Makefiles: objetivos (*targets*), dependencias (*prerequisites*) y comandos tabulados.
+---
 
 ## Proyecto Multi-archivo Manual
 

@@ -5,18 +5,20 @@ short_title: 3. Matemáticos
 
 # Ejercicios Matemáticos
 
-## Prerrequisitos y Entorno Requerido
-Para abordar y verificar las soluciones de este módulo, se requiere:
-1. **Entorno de Compilación:** Compilador GCC 9+ o Clang bajo estándar estricto **ISO C11** (`-std=c11 -Wall -Wextra -Werror -pedantic`).
-2. **Aritmética y Rango de Tipos:** Representación entera (`int`, `long long`, `unsigned int`), prevención de desbordamientos (*integer overflow*) y conversión explícita de tipos (*type casting*) en divisiones con punto flotante (`2.0`).
-3. **Control de Flujo Iterativo:** Lazos secuenciales, condiciones de parada bien fundamentadas y funciones puras libres de efectos colaterales.
+## Prerrequisitos y Entorno de Ejecución Requerido
 
-## Acerca de
+Para compilar y verificar las soluciones de este módulo bajo el estándar C11 estricto de cátedra, se requiere:
+- **Compilador C11:** GCC 9+ o Clang 11+ configurado con flags `-Wall -Wextra -Werror -pedantic -std=c11`.
+- **Entorno POSIX:** Linux o WSL con utilidades estándar, soporte de aserciones y biblioteca matemática `-lm`.
+- **Herramientas de Verificación:** Valgrind (memcheck) y AddressSanitizer (`-fsanitize=address,undefined`) para garantizar la ausencia de desbordamiento aritmético con signo (*signed integer overflow*) y divisiones por cero.
+- **Conocimientos Previos:** Aritmética entera y modular (`%`), representación de tipos enteros (`int`, `long long`, `unsigned int`), promociones numéricas y aserciones.
 
-Estos ejercicios están centrados en algoritmos de teoría de números y
-operaciones matemáticas en C11. Te permitirán comprender cómo se implementan los
-cálculos matemáticos de forma iterativa y condicional, y cómo manejar las
-limitaciones de precisión de las variables.
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+
+- **Nivel 2 (Comprensión):** Analizar las limitaciones de rango finito de los enteros en C y la necesidad de promociones a tipos más anchos.
+- **Nivel 3 (Aplicación):** Implementar algoritmos fundamentales de teoría de números (primalidad, MCD, Euclides, criba de Eratóstenes, cambios de base) en C11.
+- **Nivel 4 (Análisis):** Evaluar complejidades temporales en algoritmos de factorización y optimizar lazos con cotas $\sqrt{n}$.
+- **Andamiaje Progresivo:** Ejercicios andamiados con contratos formales (precondiciones/postcondiciones), tablas de vectores de prueba y suites ejecutables con `assert()`.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-aritmetica-numeros`
@@ -31,22 +33,30 @@ limitaciones de precisión de las variables.
 
 :::{exercise}
 :label: ej_b1_c03_01_suma_lenta
+:enumerator: math-1
 
-Implementá una función que sume dos números enteros `n` y `m` utilizando
-únicamente operaciones de incremento o decremento unitario (`+1`, `-1`).
+Implementá una función que sume dos números enteros `n` y `m` utilizando únicamente operaciones de incremento o decremento unitario (`++`, `--`) para modelar la adición mediante el principio de sucesor de Peano.
 
-```c
-int suma_lenta(int n, int m);
-```
+**Nivel de Bloom:** Nivel 3 (Aplicación).  
+**Conceptos requeridos:** Aritmética de Peano, lazos `for` acotados por magnitud absoluta, operadores unarios de incremento y decremento.  
+**Techo conceptual:** Prohibido el uso del operador binario de suma directa (`+`).
 
-**Tabla de Vectores de Prueba:**
+#### Contrato de la Función
+- **Firma:** `int suma_lenta(int n, int m);`
+- **Precondiciones:** La suma matemática $n + m$ no debe desbordar el rango `[INT_MIN, INT_MAX]`.
+- **Postcondiciones:** Retorna el resultado exacto de la suma $n + m$.
 
-| Entrada (`n`, `m`) | Salida Esperada | Comentario |
-| :--- | :--- | :--- |
-| `n = 5, m = 3` | `8` | 3 incrementos |
-| `n = 5, m = -2` | `3` | 2 decrementos |
-| `n = 10, m = 0` | `10` | 0 iteraciones |
-| `n = -4, m = -3` | `-7` | Valores negativos |
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Entrada (`n`, `m`) | Salida Esperada | Justificación Técnica |
+| :--- | :--- | :--- | :--- |
+| **Ambos Positivos** | `n = 5, m = 3` | `8` | 3 incrementos sucesivos |
+| **Segundo Negativo** | `n = 5, m = -2` | `3` | 2 decrementos sucesivos |
+| **Neutro Aditivo** | `n = 10, m = 0` | `10` | 0 iteraciones, caso base |
+| **Ambos Negativos** | `n = -4, m = -3` | `-7` | Decremento acumulado |
+
+:::
+<!-- {exercise} -->
 
 ::::{solution}
 ```c
@@ -435,8 +445,6 @@ Tomar un número entero y devolver otro número con sus dígitos en orden invers
     2.  En un lazo, mientras `n > 0`:
         a. `invertido = (invertido * 10) + (n % 10)`.
         b. `n = n / 10`.
-    desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -740,8 +748,6 @@ elevados a la potencia `k`.
     3.  Recorrer los dígitos de `n` (usando `% 10` y `/ 10`). Para cada dígito,
         calcular `digito^k` y añadirlo a la `suma`.
     4.  Comparar la `suma` final con el número original `n`.
-    desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -848,8 +854,6 @@ encontrar todos los números primos hasta un límite superior $N$ especificado.
         por primos más pequeños.
 -   **Salida:** Al final, se recorre el arreglo `es_primo` y se imprimen todos
     los índices `i` para los cuales `es_primo[i]` es verdadero.
-    desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -909,8 +913,6 @@ Por ejemplo, para 360, la salida sería `2^3 * 3^2 * 5`.
         cantidad de veces.
     4.  Si al final del lazo `n` es mayor que 1, ese `n` restante es también un
         factor primo.
-    desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
@@ -1251,8 +1253,6 @@ Bézout: $ax + by = mcd(a, b)$.
 -   **Proceso:** La implementación recursiva es más intuitiva. La llamada
     recursiva devuelve el MCD y los coeficientes para los números más pequeños,
     y la llamada actual los ajusta para los números originales.
-    desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
