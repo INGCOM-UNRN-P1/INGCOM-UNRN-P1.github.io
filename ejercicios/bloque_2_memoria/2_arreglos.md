@@ -7,103 +7,164 @@ short_title: "3. Arreglos"
 
 ## Acerca de
 
-Ejercicios para practicar la manipulación de arreglos de tamaño fijo. Un arreglo
+Ejercicios para practicar la manipulación de arreglos de tamaño fijo en C11. Un arreglo
 es una colección de elementos del mismo tipo almacenados en ubicaciones de
 memoria contiguas.
 
-Para profundizar en los conceptos teóricos, podés consultar el siguiente
-capítulo del apunte:
-- [Secuencias y
-  Arreglos](../../apunte/bloque_2_memoria/3_secuencias.md)
+### Capítulos de Apunte Correspondientes
+- {ref}`capitulo-arreglos`
+- {ref}`capitulo-secuencias`
+
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Declaración e inicialización contigua de arreglos estáticos (`int arr[N]`).
+2. Indexación base-cero y validación estricta de límites (`0 <= i < n`).
+3. Paso de arreglos a funciones como puntero decaído y longitud (`const int *arr, size_t n`).
+4. Calificador `const` para prevenir mutaciones indebidas en funciones de solo lectura.
+
+### Cuestiones de Estilo Aplicables
+- **Calificador const:** Todo arreglo recibido por una función que no deba
+  modificar sus valores debe calificarse como `const tipo *arr`.
+- **Tipos de tamaño:** Empleá siempre `size_t` para índices y dimensiones de arreglos.
+
+---
 
 ## Operaciones Básicas
 
 (ej_b2_c03_01)=
-### Ejercicio 2.03.01 - Carga y muestra ⭐⭐☆☆☆
+### Ejercicio 2.03.01 - Formateo de Arreglos ⭐⭐☆☆☆
 
-Crear dos funciones complementarias para manejar arreglos: una para que el
-usuario ingrese datos y llene un arreglo, y otra para mostrar el contenido del
-arreglo de una forma clara y legible.
+:::{exercise}
+:label: ej_b2_c03_01_formateo
 
-:::{hint} Lógica y Consideraciones
--   **`cargar_arreglo`:**
-    -   **Entrada:** Un arreglo y su tamaño.
-    -   **Proceso:** Usar un lazo `for` que itere desde 0 hasta `tamaño-1`. En
-        cada iteración, solicitar al usuario un número y almacenarlo en la
-        posición correspondiente del arreglo (`arreglo[i]`).
--   **`mostrar_arreglo`:**
-    -   **Entrada:** Un arreglo y su tamaño.
-    -   **Proceso:** Usar un lazo `for` para recorrer el arreglo.
-    -   **Salida:** Imprimir los elementos de una forma legible, por ejemplo,
-        entre corchetes y separados por comas.
-:::
-<!-- {hint} Lógica y Consideraciones -->
+Implementá una función pura que formatee los elementos de un arreglo entero en un
+búfer de caracteres con el formato `"[10, 20, 30]"`. Debe retornar `true` si el
+búfer tuvo capacidad suficiente, o `false` ante desbordamientos.
 
-:::{tip} Ayuda (pseudocódigo)
-:class: dropdown
-```{code-block} pseudocode
-:linenos:
-PROCEDIMIENTO cargar_arreglo(REF arreglo, tamano)
-INICIO
-    PARA i DESDE 0 HASTA tamano-1 HACER
-        ESCRIBIR "Ingrese el elemento ", i, ":"
-        LEER arreglo[i]
-    FIN PARA
-FIN PROCEDIMIENTO
-
-PROCEDIMIENTO mostrar_arreglo(arreglo, tamano)
-INICIO
-    ESCRIBIR "[" SIN SALTO DE LÍNEA
-    PARA i DESDE 0 HASTA tamano-1 HACER
-        ESCRIBIR arreglo[i]
-        SI i < tamano-1 ENTONCES
-            ESCRIBIR ", " SIN SALTO DE LÍNEA
-        FIN SI
-    FIN PARA
-    ESCRIBIR "]"
-FIN PROCEDIMIENTO
-
+```c
+bool formatear_arreglo(const int *arr, size_t n, char *buffer, size_t capacidad);
 ```
-<!-- {code-block} pseudocode -->
 
+**Tabla de Vectores de Prueba:**
+
+| Arreglo | `n` | Capacidad Búfer | Retorno Esperado | Salida Formateada |
+| :--- | :--- | :--- | :--- | :--- |
+| `[10, 20, 30]` | `3` | `64` | `true` | `"[10, 20, 30]"` |
+| `[42]` | `1` | `32` | `true` | `"[42]"` |
+| `[]` | `0` | `16` | `true` | `"[]"` |
+| `[1, 2, 3]` | `3` | `4` | `false` | Búfer protegido contra overflow |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+#include <assert.h>
+
+bool formatear_arreglo(const int *arr, size_t n, char *buffer, size_t capacidad) {
+    if (buffer == NULL || capacidad < 3) {
+        return false;
+    }
+    if (arr == NULL || n == 0) {
+        snprintf(buffer, capacidad, "[]");
+        return true;
+    }
+    size_t offset = 0;
+    int esc = snprintf(buffer + offset, capacidad - offset, "[");
+    if (esc < 0 || (size_t)esc >= capacidad - offset) return false;
+    offset += (size_t)esc;
+
+    for (size_t i = 0; i < n; ++i) {
+        if (i > 0) {
+            esc = snprintf(buffer + offset, capacidad - offset, ", ");
+            if (esc < 0 || (size_t)esc >= capacidad - offset) return false;
+            offset += (size_t)esc;
+        }
+        esc = snprintf(buffer + offset, capacidad - offset, "%d", arr[i]);
+        if (esc < 0 || (size_t)esc >= capacidad - offset) return false;
+        offset += (size_t)esc;
+    }
+
+    esc = snprintf(buffer + offset, capacidad - offset, "]");
+    if (esc < 0 || (size_t)esc >= capacidad - offset) return false;
+    return true;
+}
+
+int main(void) {
+    char buf[64] = {0};
+    int datos[] = {10, 20, 30};
+
+    assert(formatear_arreglo(datos, 3, buf, sizeof(buf)));
+    assert(strcmp(buf, "[10, 20, 30]") == 0);
+
+    int uno[] = {42};
+    assert(formatear_arreglo(uno, 1, buf, sizeof(buf)));
+    assert(strcmp(buf, "[42]") == 0);
+
+    assert(formatear_arreglo(NULL, 0, buf, sizeof(buf)));
+    assert(strcmp(buf, "[]") == 0);
+
+    /* Capacidad insuficiente */
+    char corto[4] = {0};
+    assert(!formatear_arreglo(datos, 3, corto, sizeof(corto)));
+
+    return 0;
+}
+```
+::::
 :::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
 (ej_b2_c03_02)=
-### Ejercicio 2.03.02 - Suma ⭐⭐☆☆☆
+### Ejercicio 2.03.02 - Suma de Elementos de un Arreglo ⭐⭐☆☆☆
 
-Calcular la suma de todos los elementos contenidos en un arreglo de números.
+:::{exercise}
+:label: ej_b2_c03_02_suma
 
-:::{hint} Lógica y Consideraciones
--   **Entrada:** Un arreglo y su tamaño.
--   **Variables:** Se necesita una variable `acumulador` (o `suma`) inicializada
-    en 0.
--   **Proceso:** Recorrer el arreglo con un lazo `for`. En cada iteración, sumar
-    el elemento actual al `acumulador`.
--   **Salida:** La función debe devolver el valor final del `acumulador`.
-:::
-<!-- {hint} Lógica y Consideraciones -->
+Calculá la suma de todos los enteros de un arreglo contiguo en tiempo $O(n)$
+utilizando acumuladores con rango extendido de 64 bits para prevenir overflow.
 
-:::{tip} Ayuda (pseudocódigo)
-:class: dropdown
-```{code-block} pseudocode
-:linenos:
-FUNCION sumar_arreglo(arreglo, tamano)
-VARIABLES:
-    suma (tipo de dato del arreglo)
-INICIO
-    suma = 0
-    PARA i DESDE 0 HASTA tamano-1 HACER
-        suma = suma + arreglo[i]
-    FIN PARA
-    RETORNAR suma
-FIN FUNCION
-
+```c
+long long sumar_elementos(const int *arr, size_t n);
 ```
-<!-- {code-block} pseudocode -->
 
+**Tabla de Vectores de Prueba:**
+
+| Arreglo | `n` | Suma Esperada |
+| :--- | :--- | :--- |
+| `[1, 2, 3, 4, 5]` | `5` | `15LL` |
+| `[-10, 20, -5]` | `3` | `5LL` |
+| `[]` | `0` | `0LL` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stddef.h>
+#include <assert.h>
+
+long long sumar_elementos(const int *arr, size_t n) {
+    if (arr == NULL || n == 0) {
+        return 0LL;
+    }
+    long long suma = 0LL;
+    for (size_t i = 0; i < n; ++i) {
+        suma += (long long)arr[i];
+    }
+    return suma;
+}
+
+int main(void) {
+    int a1[] = {1, 2, 3, 4, 5};
+    assert(sumar_elementos(a1, 5) == 15LL);
+
+    int a2[] = {-10, 20, -5};
+    assert(sumar_elementos(a2, 3) == 5LL);
+
+    assert(sumar_elementos(NULL, 0) == 0LL);
+    return 0;
+}
+```
+::::
 :::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
 (ej_b2_c03_03)=
 ### Ejercicio 2.03.03 - Promedio ⭐⭐☆☆☆

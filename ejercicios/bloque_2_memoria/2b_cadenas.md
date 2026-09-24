@@ -10,67 +10,89 @@ short_title: "4. Cadenas"
 La manipulación de cadenas es una de las tareas más comunes y, en C, una de las
 más propensas a errores. Estos ejercicios están diseñados para construir una
 base sólida en el manejo de cadenas de caracteres (estilo C, terminadas en
-nulo), enfocándose en la implementación de algoritmos comunes desde cero. Es
+nulo `\0`), enfocándose en la implementación de algoritmos comunes desde cero. Es
 crucial que al resolverlos, se apliquen los principios de manejo de "cadenas
 seguras" ({ref}`0x5003h`), pasando siempre la capacidad del búfer para evitar
 desbordamientos.
 
-Para profundizar en los conceptos teóricos, podés consultar el siguiente
-capítulo del apunte:
-- [Secuencias y
-  Arreglos](../../apunte/bloque_2_memoria/3_secuencias.md)
+### Capítulos de Apunte Correspondientes
+- {ref}`capitulo-cadenas`
+- {ref}`capitulo-arreglos`
+
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Representación contigua en memoria de cadenas terminadas en byte nulo (`'\0'`).
+2. Calificador `const char *` para cadenas de solo lectura y prevención de mutación de literales.
+3. Diferencia entre longitud de texto (`strlen`) y capacidad física del búfer receptor.
+4. Funciones de clasificación y conversión de caracteres (`<ctype.h>`: `tolower`, `isalpha`).
+
+### Cuestiones de Estilo Aplicables
+- **Seguridad en Búferes:** Al escribir sobre una cadena de destino, la función
+  debe recibir explícitamente el parámetro `size_t capacidad_maxima` y garantizar
+  la terminación en `\0` bajo cualquier circunstancia ({ref}`0x5003h`).
+- **Punteros de lectura const:** Toda cadena fuente que no deba modificarse debe
+  ser calificada como `const char *str`.
+
+---
 
 ## Análisis de Cadenas
 
 (ej_b2_c03b_01)=
-### Ejercicio 2.03b.01 - b.1 - Contar vocales ⭐⭐☆☆☆
+### Ejercicio 2.03b.01 - Contar Vocales ⭐⭐☆☆☆
 
-#### Descripción
-Escribir una función que cuente el número total de vocales (a, e, i, o, u) en
-una cadena de texto. La función no debe distinguir entre mayúsculas y
+:::{exercise}
+:label: ej_b2_c03b_01_vocales
+
+Escribí una función pura que cuente el número total de vocales (`'a'`, `'e'`,
+`'i'`, `'o'`, `'u'`) en una cadena ASCII, sin distinguir entre mayúsculas y
 minúsculas.
 
-:::{tip} Lógica y Consideraciones
-
--   **Entrada:** Una cadena de caracteres.
--   **Proceso:**
-    1.  Inicializar un `contador` en 0.
-    2.  Recorrer la cadena carácter por carácter con un lazo hasta encontrar el
-        terminador nulo `\0`.
-    3.  Para cada carácter, es conveniente convertirlo a minúscula para
-        simplificar la comparación (usando `tolower()` de `ctype.h`).
-    4.  Verificar si el carácter es una de las cinco vocales (`'a'`, `'e'`,
-        `'i'`, `'o'`, `'u'`).
-    5.  Si es una vocal, incrementar el `contador`.
--   **Salida:** Devolver el valor final del `contador`.
-
-:::
-<!-- {tip} Lógica y Consideraciones -->
-
-:::{tip} Ayuda (pseudocódigo)
-:class: dropdown
-```{code-block} pseudocode
-:linenos:
-FUNCION contar_vocales(cadena)
-VARIABLES:
-    contador (entero)
-    caracter_actual (caracter)
-INICIO
-    contador = 0
-    PARA cada caracter_actual en cadena HACER
-        c = convertir_a_minuscula(caracter_actual)
-        SI c == 'a' O c == 'e' O c == 'i' O c == 'o' O c == 'u' ENTONCES
-            contador = contador + 1
-        FIN SI
-    FIN PARA
-    RETORNAR contador
-FIN FUNCION
-
+```c
+size_t contar_vocales(const char *cadena);
 ```
-<!-- {code-block} pseudocode -->
 
+**Tabla de Vectores de Prueba:**
+
+| Cadena de Entrada | Salida Esperada | Comentario |
+| :--- | :--- | :--- |
+| `"Hola Mundo"` | `4` | Coincidencias: 'o', 'a', 'u', 'o' |
+| `"AEIOU aeiou"` | `10` | Mayúsculas y minúsculas indistintas |
+| `"Rhythm & Crypts"` | `0` | Cero vocales en el texto |
+| `""` | `0` | Cadena vacía inmediata |
+| `NULL` | `0` | Puntero nulo seguro |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stddef.h>
+#include <ctype.h>
+#include <assert.h>
+
+size_t contar_vocales(const char *cadena) {
+    if (cadena == NULL) {
+        return 0;
+    }
+    size_t contador = 0;
+    for (size_t i = 0; cadena[i] != '\0'; ++i) {
+        char c = (char)tolower((unsigned char)cadena[i]);
+        if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
+            contador++;
+        }
+    }
+    return contador;
+}
+
+int main(void) {
+    assert(contar_vocales("Hola Mundo") == 4);
+    assert(contar_vocales("AEIOU aeiou") == 10);
+    assert(contar_vocales("Rhythm & Crypts") == 0);
+    assert(contar_vocales("") == 0);
+    assert(contar_vocales(NULL) == 0);
+    return 0;
+}
+```
+::::
 :::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
 (ej_b2_c03b_02)=
 ### Ejercicio 2.03b.02 - b.2 - Contabilizador de caracteres ⭐⭐☆☆☆

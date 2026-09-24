@@ -12,6 +12,8 @@ const CANONICAL_FILES = [
   'bloque_1_fundamentos/6_funciones_ejercicios.md',
   'bloque_2_memoria/1_punteros.md',
   'bloque_2_memoria/1b_punteros_ejercicios.md',
+  'bloque_2_memoria/2_arreglos.md',
+  'bloque_2_memoria/2b_cadenas.md',
   'bloque_2_memoria/3b_ejercicios_archivos.md',
   'bloque_2_memoria/4c_ejercicios_memoria.md',
   'bloque_2_memoria/6_structs.md',
