@@ -308,26 +308,77 @@ enum permisos
 <!-- {code-block} c -->
 
 (ej_b2_c11_06)=
-### Ejercicio 2.11.06 - Verificar permiso ⭐⭐☆☆☆
+### Ejercicio 2.11.06 - Verificación y Manipulación de Permisos con Bits ⭐⭐☆☆☆
 
-Implementar una función que verifique si un conjunto de permisos incluye un
-permiso específico.
+:::{exercise}
+:label: ej_b2_c11_06_verificar_permiso
 
-``` c
-bool tiene_permiso(unsigned int permisos_actuales, enum permisos permiso);
+Implementá funciones puras para consultar y mutar un conjunto de permisos representados mediante un enum con potencias de dos:
+```c
+enum permiso {
+    PERMISO_LECTURA   = 1 << 0,
+    PERMISO_ESCRITURA = 1 << 1,
+    PERMISO_EJECUCION = 1 << 2,
+    PERMISO_ELIMINAR  = 1 << 3
+};
+
+bool permiso_tiene(unsigned int permisos, enum permiso objetivo);
+unsigned int permiso_agregar(unsigned int permisos, enum permiso nuevo);
+unsigned int permiso_quitar(unsigned int permisos, enum permiso remover);
 ```
-<!-- c -->
 
-(ej_b2_c11_07)=
-### Ejercicio 2.11.07 - Agregar y quitar permisos ⭐⭐☆☆☆
+**Tabla de Vectores de Prueba:**
 
-Implementar funciones para modificar el conjunto de permisos.
+| Caso de Prueba | Permisos Iniciales | Operación | Retorno / Resultado |
+| :--- | :--- | :--- | :--- |
+| Consulta lectura | `LECTURA \| ESCRITURA` | `permiso_tiene(..., LECTURA)` | `true` |
+| Consulta ejecución | `LECTURA \| ESCRITURA` | `permiso_tiene(..., EJECUCION)` | `false` |
+| Agregar permiso | `LECTURA` | `permiso_agregar(..., EJECUCION)` | `LECTURA \| EJECUCION` |
+| Quitar permiso | `LECTURA \| ESCRITURA` | `permiso_quitar(..., ESCRITURA)` | `LECTURA` |
 
-``` c
-unsigned int agregar_permiso(unsigned int permisos, enum permisos nuevo);
-unsigned int quitar_permiso(unsigned int permisos, enum permisos remover);
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdbool.h>
+#include <assert.h>
+
+enum permiso {
+    PERMISO_LECTURA   = 1 << 0,
+    PERMISO_ESCRITURA = 1 << 1,
+    PERMISO_EJECUCION = 1 << 2,
+    PERMISO_ELIMINAR  = 1 << 3
+};
+
+bool permiso_tiene(unsigned int permisos, enum permiso objetivo) {
+    return (permisos & (unsigned int)objetivo) == (unsigned int)objetivo;
+}
+
+unsigned int permiso_agregar(unsigned int permisos, enum permiso nuevo) {
+    return permisos | (unsigned int)nuevo;
+}
+
+unsigned int permiso_quitar(unsigned int permisos, enum permiso remover) {
+    return permisos & ~(unsigned int)remover;
+}
+
+int main(void) {
+    unsigned int p = PERMISO_LECTURA | PERMISO_ESCRITURA;
+    assert(permiso_tiene(p, PERMISO_LECTURA) == true);
+    assert(permiso_tiene(p, PERMISO_ESCRITURA) == true);
+    assert(permiso_tiene(p, PERMISO_EJECUCION) == false);
+
+    p = permiso_agregar(p, PERMISO_EJECUCION);
+    assert(permiso_tiene(p, PERMISO_EJECUCION) == true);
+
+    p = permiso_quitar(p, PERMISO_ESCRITURA);
+    assert(permiso_tiene(p, PERMISO_ESCRITURA) == false);
+    assert(permiso_tiene(p, PERMISO_LECTURA) == true);
+
+    return 0;
+}
 ```
-<!-- c -->
+::::
+:::
 
 (ej_b2_c11_08)=
 ### Ejercicio 2.11.08 - Listar permisos activos ⭐⭐☆☆☆

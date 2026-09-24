@@ -167,42 +167,67 @@ int main(void) {
 :::
 
 (ej_b2_c03_03)=
-### Ejercicio 2.03.03 - Promedio ⭐⭐☆☆☆
+### Ejercicio 2.03.03 - Promedio Aritmético de Arreglo ⭐⭐☆☆☆
 
-Calcular el valor promedio (media aritmética) de los elementos de un arreglo.
+:::{exercise}
+:label: ej_b2_c03_03_promedio
 
-:::{hint} Lógica y Consideraciones
--   **Entrada:** Un arreglo y su tamaño.
--   **Reutilización:** Se puede reutilizar la función `sumar_arreglo` del
-    ejercicio anterior.
--   **Proceso:**
-    1.  Calcular la suma total de los elementos.
-    2.  Dividir la suma por el número de elementos (tamaño del arreglo).
--   **Tipos de Datos:** Si la suma y el tamaño son enteros, la división puede
-    ser entera. Para un promedio preciso, es importante convertir al menos uno
-    de los operandos a un tipo de punto flotante antes de la división.
-:::
-<!-- {hint} Lógica y Consideraciones -->
+Implementá una función pura que calcule el promedio (media aritmética) de los elementos de un arreglo de enteros, retornando un `double`:
+- Si el arreglo es nulo o $n = 0$, retorna `0.0`.
 
-:::{tip} Ayuda (pseudocódigo)
-:class: dropdown
-```{code-block} pseudocode
-:linenos:
-FUNCION promedio_arreglo(arreglo, tamano)
-VARIABLES:
-    suma (tipo de dato del arreglo)
-INICIO
-    SI tamano == 0 RETORNAR 0
-
-    suma = sumar_arreglo(arreglo, tamano)
-    RETORNAR suma / (real)tamano
-FIN FUNCION
-
+```c
+double calcular_promedio(const int *arr, size_t n);
 ```
-<!-- {code-block} pseudocode -->
 
+**Tabla de Vectores de Prueba:**
+
+| Arreglo | `n` | Promedio Esperado |
+| :--- | :--- | :--- |
+| `[10, 20, 30]` | `3` | `20.0` |
+| `[1, 2]` | `2` | `1.5` |
+| `[-5, 5]` | `2` | `0.0` |
+| `[]` | `0` | `0.0` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stddef.h>
+#include <math.h>
+#include <assert.h>
+
+#define EPSILON 1e-6
+
+static int casi_igual(double a, double b) {
+    return fabs(a - b) < EPSILON;
+}
+
+double calcular_promedio(const int *arr, size_t n) {
+    if (arr == NULL || n == 0) {
+        return 0.0;
+    }
+    long long suma = 0;
+    for (size_t i = 0; i < n; ++i) {
+        suma += arr[i];
+    }
+    return (double)suma / (double)n;
+}
+
+int main(void) {
+    int a1[] = {10, 20, 30};
+    assert(casi_igual(calcular_promedio(a1, 3), 20.0));
+
+    int a2[] = {1, 2};
+    assert(casi_igual(calcular_promedio(a2, 2), 1.5));
+
+    int a3[] = {-5, 5};
+    assert(casi_igual(calcular_promedio(a3, 2), 0.0));
+
+    assert(casi_igual(calcular_promedio(NULL, 0), 0.0));
+    return 0;
+}
+```
+::::
 :::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
 (ej_b2_c03_04)=
 ### Ejercicio 2.03.04 - Productoria ⭐⭐☆☆☆

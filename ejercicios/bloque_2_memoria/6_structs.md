@@ -14,6 +14,13 @@ en C11, así como el paso eficiente por puntero y el acceso a miembros con el op
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-estructuras`
 
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Agrupamiento heterogéneo de datos en C11 mediante la palabra clave `struct` ({ref}`capitulo-estructuras`).
+2. Definición de alias limpios mediante `typedef struct nombre nombre_t;`.
+3. Paso por valor vs paso por referencia mediante punteros a estructuras (`const nombre_t *`).
+4. Operadores de acceso: operador punto (`.`) para variables directas y operador flecha (`->`) para punteros.
+
 ### Cuestiones de Estilo Aplicables
 - **Inicialización de structs:** Inicializá siempre las estructuras utilizando
   llaves en su declaración (ej. `fraccion_t f = {0, 1};`) para evitar basura en
