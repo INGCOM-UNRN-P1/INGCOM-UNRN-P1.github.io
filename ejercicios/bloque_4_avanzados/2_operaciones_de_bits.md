@@ -15,6 +15,13 @@ el uso de enteros sin signo de ancho fijo (`<stdint.h>`) y el diseño de máscar
 ### Capítulos de Apunte Correspondientes
 - [Modelo de Memoria](../../apunte/bloque_2_memoria/1_modelo_memoria.md)
 
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Representación binaria posicional y enteros sin signo de ancho fijo (`<stdint.h>`).
+2. Operadores a nivel de bit en C11: AND (`&`), OR (`|`), XOR (`^`), NOT (`~`), y desplazamientos (`<<`, `>>`).
+3. Construcción y aplicación de máscaras booleanas de bits (`(1U << n)`).
+4. Precedencia de operadores en C y uso estricto de paréntesis defensivos.
+
 ### Cuestiones de Estilo Aplicables
 - **Tipos de ancho fijo:** Utilizá tipos sin signo como `uint32_t` o `uint8_t` de `<stdint.h>`
   para evitar comportamientos dependientes de signo o plataforma en desplazamientos a la derecha.

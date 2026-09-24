@@ -518,3 +518,82 @@ int main(void) {
 ```
 ::::
 :::
+
+---
+
+(ej_b4_c08_08)=
+### Ejercicio 4.08.08 - Esquema de Partición de Hoare ⭐⭐⭐☆☆
+
+:::{exercise}
+:label: ej_b4_c08_08_hoare
+
+Implementá la partición clásica de C.A.R. Hoare para arreglos de enteros:
+- Selecciona como pivote el elemento inicial `arr[bajo]`.
+- Utiliza dos índices convergentes que avanzan desde los extremos hasta cruzarse, minimizando la cantidad promedio de intercambios en comparación con el esquema de Lomuto.
+- Retorna el índice de partición `j`.
+
+```c
+size_t particion_hoare(int *arr, size_t bajo, size_t alto);
+```
+
+**Tabla de Vectores de Prueba:**
+
+| Arreglo Entrada | Rango `[bajo, alto]` | Índice Retornado | Propiedad del Particionado |
+| :--- | :--- | :--- | :--- |
+| `[4, 2, 8, 3, 1, 9]` | `[0, 5]` | `j <= 5` | Todo elemento a la izquierda es $\le$ que los de la derecha |
+| `[1, 2, 3, 4]` | `[0, 3]` | `j <= 3` | Arreglo ya ordenado |
+| `[5, 5, 5]` | `[0, 2]` | `j <= 2` | Elementos repetidos |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stddef.h>
+#include <assert.h>
+
+static void swap_hoare(int *a, int *b) {
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+
+size_t particion_hoare(int *arr, size_t bajo, size_t alto) {
+    int pivote = arr[bajo];
+    size_t i = bajo;
+    size_t j = alto;
+
+    while (1) {
+        while (arr[i] < pivote) {
+            i++;
+        }
+        while (arr[j] > pivote) {
+            j--;
+        }
+        if (i >= j) {
+            return j;
+        }
+        swap_hoare(&arr[i], &arr[j]);
+        i++;
+        j--;
+    }
+}
+
+int main(void) {
+    int arr[] = {4, 2, 8, 3, 1, 9};
+    size_t p = particion_hoare(arr, 0, 5);
+    int max_izq = arr[0];
+    for (size_t k = 1; k <= p; ++k) {
+        if (arr[k] > max_izq) max_izq = arr[k];
+    }
+    for (size_t k = p + 1; k < 6; ++k) {
+        assert(arr[k] >= max_izq);
+    }
+
+    int ya_ordenado[] = {1, 2, 3, 4};
+    size_t p2 = particion_hoare(ya_ordenado, 0, 3);
+    assert(p2 <= 3);
+
+    return 0;
+}
+```
+::::
+:::

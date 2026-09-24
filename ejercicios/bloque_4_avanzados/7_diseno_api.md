@@ -308,24 +308,99 @@ void archivo_cerrar(archivo_handle_t handle);
 2. Validar handles en cada operación
 3. Manejar reutilización de handles cerrados
 
-### 2.4: Acceso Controlado con Getters
+(ej_b4_c10_07)=
+### Ejercicio 4.10.07 - Getters Inmutables y Encapsulamiento de Producto ⭐⭐☆☆☆
 
-Diseñar getters para exponer información sin romper encapsulamiento:
+:::{exercise}
+:label: ej_b4_c10_07_getters_producto
 
-```{code-block} c
-:linenos:
+Implementá el acceso controlado mediante getters inmutables para un tipo opaco de producto:
+```c
 typedef struct producto producto_t;
-// Implementar:
+
+producto_t *producto_crear_inmutable(const char *nombre, double precio, int stock);
+void producto_destruir_inmutable(producto_t *p);
 const char *producto_obtener_nombre(const producto_t *p);
 double producto_obtener_precio(const producto_t *p);
 int producto_obtener_stock(const producto_t *p);
-// ¿Cómo exponer una fecha sin exponer la implementación interna?
-// ¿Debería retornar un puntero a la estructura interna?
-? ? ? producto_obtener_fecha_vencimiento(const producto_t *p);
 ```
-<!-- {code-block} c -->
 
-**Pregunta:** ¿Por qué retornar `const char*` en lugar de `char*`?
+Garantizá que `producto_obtener_nombre` retorne un puntero de solo lectura (`const char *`) y maneje punteros nulos de forma defensiva.
+
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Parámetros Iniciales | Función Getter | Retorno Esperado |
+| :--- | :--- | :--- | :--- |
+| Producto estándar | `("Teclado", 4500.0, 10)` | `obtener_nombre` | `"Teclado"` |
+| Producto estándar | `("Teclado", 4500.0, 10)` | `obtener_precio` | `4500.0` |
+| Producto estándar | `("Teclado", 4500.0, 10)` | `obtener_stock` | `10` |
+| Puntero nulo | `NULL` | Todos los getters | `""`, `0.0`, `0` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
+
+struct producto {
+    char nombre[64];
+    double precio;
+    int stock;
+};
+typedef struct producto producto_t;
+
+producto_t *producto_crear_inmutable(const char *nombre, double precio, int stock) {
+    if (nombre == NULL) {
+        return NULL;
+    }
+    producto_t *p = malloc(sizeof(producto_t));
+    if (p == NULL) {
+        return NULL;
+    }
+    snprintf(p->nombre, sizeof(p->nombre), "%s", nombre);
+    p->precio = precio;
+    p->stock = stock;
+    return p;
+}
+
+void producto_destruir_inmutable(producto_t *p) {
+    free(p);
+}
+
+const char *producto_obtener_nombre(const producto_t *p) {
+    return (p != NULL) ? p->nombre : "";
+}
+
+double producto_obtener_precio(const producto_t *p) {
+    return (p != NULL) ? p->precio : 0.0;
+}
+
+int producto_obtener_stock(const producto_t *p) {
+    return (p != NULL) ? p->stock : 0;
+}
+
+int main(void) {
+    producto_t *prod = producto_crear_inmutable("Teclado Mecanico", 4500.5, 12);
+    assert(prod != NULL);
+
+    assert(strcmp(producto_obtener_nombre(prod), "Teclado Mecanico") == 0);
+    assert(producto_obtener_precio(prod) == 4500.5);
+    assert(producto_obtener_stock(prod) == 12);
+
+    /* Casos con puntero nulo */
+    assert(strcmp(producto_obtener_nombre(NULL), "") == 0);
+    assert(producto_obtener_precio(NULL) == 0.0);
+    assert(producto_obtener_stock(NULL) == 0);
+
+    producto_destruir_inmutable(prod);
+    producto_destruir_inmutable(NULL);
+
+    return 0;
+}
+```
+::::
+:::
 
 ## 3: Contratos de Interfaz y Precondiciones
 
