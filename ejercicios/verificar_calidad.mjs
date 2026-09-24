@@ -15,6 +15,8 @@ const CANONICAL_FILES = [
   'bloque_2_memoria/4c_ejercicios_memoria.md',
   'bloque_2_memoria/6_structs.md',
   'bloque_2_memoria/7_alias_tipos_ejercicios.md',
+  'bloque_4_avanzados/1_punteros_avanzados.md',
+  'bloque_4_avanzados/2_operaciones_de_bits.md',
   'bloque_4_avanzados/3_archivos_binarios.md'
 ];
 
