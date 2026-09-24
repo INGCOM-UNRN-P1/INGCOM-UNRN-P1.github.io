@@ -329,3 +329,33 @@ Evaluación generada mediante Jev System One (`askJev`) y conteo determinista:
   - **MEJORABLE (40-59):** 21 archivos
   - **DEFICIENTE (0-39):** **0 archivos** (eliminación del 100% de la categoría deficiente)
 
+---
+
+### Siguientes Fases de Mejora Hacia la Calificación Máxima Institucional
+
+11. **Fase 11: Módulos Nucleares de Estructuras de Datos y TADs (`bloque_3_algoritmos_estructuras`):**
+    - `3_estructuras_de_datos.md` (7 ej): Listas enlazadas simples, dobles, pilas (`stack`) y colas (`queue`). Dotar de firmas canónicas, tablas de casos de borde (`lista vacia`, `1 elemento`, `pop` en vacía) y suites `assert()`.
+    - `2_tad.md` (11 ej): Encapsulamiento con structs opacas (`typedef struct tad_t tad_t;`), constructores, destructores y prevención de fugas.
+    - `5_recursion.md` (12 ej): Casos base, paso inductivo, árboles de recursión, y prevención de stack overflow.
+    - Meta: Llevar el Bloque 3 a índice Jev $\ge 75$ y certificar sus suites en CI.
+
+12. **Fase 12: Módulos Breves de Alta Palanca y Herramientas (`bloque_1` y `bloque_4`):**
+    - `bloque_1_fundamentos/2_gradual_ejercicios.md` (2 ej): Entrada/salida segura y validación con `scanf`.
+    - `bloque_1_fundamentos/8_compilacion_y_makefiles.md` (4 ej): Makefiles modulares, flags `-Wall -Werror`, targets automáticos.
+    - `bloque_4_avanzados/4_recursividad_avanzada.md` (5 ej): Backtracking (N-reinas, laberintos, particiones).
+    - `bloque_4_avanzados/5_ordenamiento_y_busqueda.md` (7 ej): Búsqueda binaria iterativa/recursiva, quicksort in-place y mergesort.
+    - `bloque_4_avanzados/7_diseno_api.md` (5 ej): Headers idempotentes, versionado de estructuras y contratos estables.
+    - Meta: 5 archivos elevados a rango BUENO/EXCELENTE ($\ge 75$).
+
+13. **Fase 13: Normalización Masiva de Arreglos y Cadenas (`bloque_2_memoria`):**
+    - `2_arreglos.md` (39 ej) y `2b_cadenas.md` (41 ej):
+      - Remediación sistemática de contratos para buffers, longitud `size_t` y calificador `const`.
+      - Estandarización de tablas de vectores de prueba para cadenas vacías, desbordamientos y caracteres de control.
+      - Meta: Erradicación del nivel MEJORABLE en el Bloque 2, superando los 75 puntos de índice Jev promedio.
+
+14. **Fase 14: Cierre Integral Institucional (100% de Archivos Certificados en CI):**
+    - Migración final de archivos de alta densidad (`1_basicos_y_secuencias.md`, `3_matematicos.md`, `1_matrices.md`, `8_enums.md`, `9_refactorizacion_codigo_ofuscado.md`).
+    - Certificación del 100% de los 34 archivos en `verificar_calidad.mjs` y `.github/workflows/ci-ejercicios.yml`.
+    - 0 advertencias bajo `-Wall -Wextra -Werror -pedantic -std=c11`.
+    - Índice promedio ponderado del repositorio $\ge 85$ (Rango EXCELENTE institucional).
+
