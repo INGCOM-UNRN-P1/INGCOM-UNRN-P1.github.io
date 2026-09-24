@@ -5,6 +5,12 @@ short_title: Diseño de APIs
 
 # Ejercicios de Diseño de Interfaces y Librerías en C
 
+## Prerrequisitos y Entorno Requerido
+Para abordar y verificar las soluciones de este módulo, se requiere:
+1. **Entorno de Compilación:** Compilador GCC 9+ o Clang bajo estándar estricto **ISO C11** (`-std=c11 -Wall -Wextra -Werror -pedantic`).
+2. **Encapsulamiento y Tipos Opacos:** Tipos incompletos (`typedef struct tipo tipo_t;`) en cabeceras públicas, ocultando estructuras de representación en archivos fuente (`.c`).
+3. **Contratos y Ciclo de Vida:** Nomenclatura coherente con prefijo de módulo (`modulo_accion`), ciclo de vida simétrico (`crear`/`destruir`), constantes inmutables (`const`) y códigos de estado de error tipificados.
+
 ## Acerca de
 
 Estos ejercicios abordan los criterios profesionales para el diseño y
@@ -13,21 +19,6 @@ seguras y extensibles en el lenguaje C.
 
 ### Capítulos de Apunte Correspondientes
 - [Capítulo de TAD](#capitulo-tad)
-
-### Prerrequisitos Conceptuales
-Antes de resolver esta guía, el estudiante debe dominar:
-1. Punteros opacos y tipos incompletos (`typedef struct tipo tipo_t;`) para encapsulamiento estricto ({ref}`capitulo-tad`).
-2. Convenciones de nomenclatura ortogonal con prefijos unificados (`modulo_accion_objeto`) para evitar colisiones de símbolos globales ({ref}`0x0101h`).
-3. Gestión del ciclo de vida simétrico (`modulo_crear` y `modulo_destruir`) con anulación de punteros ({ref}`0x3002h`).
-4. Retorno de estados y parámetros de salida para manejo defensivo de fallas de memoria y desbordes.
-
-### Cuestiones de Estilo Aplicables
-- **Encapsulamiento opaco:** Exponé únicamente los tipos incompletos (`typedef
-  struct stack stack_t;`) y los prototipos de funciones en los archivos de
-  interfaz `.h` (ver {ref}`0x3002h`).
-- **Nomenclatura consistente:** Seguí siempre la convención de prefijos para
-  evitar colisiones de símbolos globales en el espacio de nombres (ver reglas en
-  {ref}`0x0101h`).
 
 ---
 

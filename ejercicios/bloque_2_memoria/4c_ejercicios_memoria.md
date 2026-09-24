@@ -6,6 +6,12 @@ subtitle: 'Problemas y soluciones detalladas sobre gestión de memoria en C'
 
 # Ejercicios Resueltos: Memoria Dinámica
 
+## Prerrequisitos y Entorno Requerido
+Para abordar y verificar las soluciones de este módulo, se requiere:
+1. **Entorno de Compilación:** Compilador GCC 9+ o Clang bajo estándar estricto **ISO C11** (`-std=c11 -Wall -Wextra -Werror -pedantic`).
+2. **Primitivas de Heap:** Asignación dinámica (`malloc`, `calloc`, `realloc`), dimensionamiento seguro con `sizeof(*p)` y desasignación simétrica estricta con `free`.
+3. **Manejo Defensivo y Fugas:** Comprobación sistemática de punteros `NULL` ante fallos de alocación y validación dinámica de invariantes con AddressSanitizer (`-fsanitize=address,undefined`).
+
 ## Acerca de
 
 Este archivo contiene problemas prácticos y soluciones canónicas sobre la gestión de
@@ -13,14 +19,6 @@ memoria dinámica en el heap utilizando `malloc`, `calloc`, `realloc` y `free` e
 
 ### Capítulos de Apunte Correspondientes
 - [Memoria Dinámica](../../apunte/bloque_2_memoria/5_memoria_dinamica.md)
-
-### Cuestiones de Estilo Aplicables
-- **Verificación de punteros devueltos:** Cada llamada a `malloc`/`calloc` debe verificar
-  que el puntero obtenido no sea `NULL` antes de desreferenciarlo (regla {ref}`0x3001h`).
-- **Liberación simétrica y nulificación:** Todo bloque reservado en heap debe ser liberado
-  con `free` y posteriormente asignado a `NULL` para prevenir punteros colgantes ({ref}`0x3002h`).
-- **Liberación de matrices bidimensionales:** En matrices asignadas con punteros a punteros
-  (`int **`), liberar primero cada fila y finalmente el vector de punteros ({ref}`0x3009h`).
 
 ---
 

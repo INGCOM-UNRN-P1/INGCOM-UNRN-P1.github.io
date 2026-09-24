@@ -5,6 +5,12 @@ short_title: "10. enum/struct/union"
 
 # Ejercicios de enumeraciones
 
+## Prerrequisitos y Entorno Requerido
+Para abordar y verificar las soluciones de este módulo, se requiere:
+1. **Entorno de Compilación:** Compilador GCC 9+ o Clang bajo estándar estricto **ISO C11** (`-std=c11 -Wall -Wextra -Werror -pedantic`).
+2. **Tipos Enumerados y Seguridad Tipográfica:** Sintaxis de `enum`, asignación de valores discretos, representación como constantes con nombre frente a enteros "mágicos".
+3. **Manejo Exhaustivo en Control de Flujo:** Despacho seguro de variantes con `switch-case` exhaustivo y funciones bidireccionales de conversión a cadena (*stringification*).
+
 ## Acerca de
 
 Estos ejercicios te permitirán practicar y consolidar el uso de enumeraciones
@@ -12,16 +18,8 @@ Estos ejercicios te permitirán practicar y consolidar el uso de enumeraciones
 básicos hasta aplicaciones avanzadas en el modelado de estados y la
 configuración de sistemas.
 
-Para profundizar en los conceptos teóricos, podés consultar el siguiente
-capítulo del apunte:
+### Capítulos de Apunte Correspondientes
 - [Enumeraciones y Estructuras de Datos](../../apunte/bloque_2_memoria/11_enums.md)
-
-### Prerrequisitos Conceptuales
-Antes de resolver esta guía, el estudiante debe dominar:
-1. Sintaxis de `enum` en C11 y mapeo subyacente a enteros contiguos o explícitos ({ref}`capitulo-enums`).
-2. Uso de tipos enumerados para aumentar la seguridad tipográfica frente a enteros "mágicos".
-3. Sentencia `switch` con control exhaustivo de casos sin cláusula `default` accidental.
-4. Mapeo bidireccional enum-a-cadena (*stringification*) para registro y depuración.
 
 ---
 

@@ -5,6 +5,12 @@ short_title: 3. Matemáticos
 
 # Ejercicios Matemáticos
 
+## Prerrequisitos y Entorno Requerido
+Para abordar y verificar las soluciones de este módulo, se requiere:
+1. **Entorno de Compilación:** Compilador GCC 9+ o Clang bajo estándar estricto **ISO C11** (`-std=c11 -Wall -Wextra -Werror -pedantic`).
+2. **Aritmética y Rango de Tipos:** Representación entera (`int`, `long long`, `unsigned int`), prevención de desbordamientos (*integer overflow*) y conversión explícita de tipos (*type casting*) en divisiones con punto flotante (`2.0`).
+3. **Control de Flujo Iterativo:** Lazos secuenciales, condiciones de parada bien fundamentadas y funciones puras libres de efectos colaterales.
+
 ## Acerca de
 
 Estos ejercicios están centrados en algoritmos de teoría de números y
@@ -15,22 +21,6 @@ limitaciones de precisión de las variables.
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-aritmetica-numeros`
 - {ref}`capitulo-conversiones-casts`
-
-### Prerrequisitos Conceptuales
-Antes de resolver esta guía, el estudiante debe dominar:
-1. Representación entera con signo y sin signo (`int`, `long long`, `unsigned int`).
-2. Operadores aritméticos fundamentales (`+`, `-`, `*`, `/`, `%`) y precedencia de operadores.
-3. Desbordamientos numéricos por superación de rangos de bits (*integer overflow*).
-4. Conversión explícita de tipos (*type casting*) para división con punto flotante.
-
-### Cuestiones de Estilo Aplicables
-- **Desbordamientos numéricos:** Es fundamental elegir los tipos de datos
-  apropiados (`long long`, `unsigned long long`) al realizar operaciones como
-  factoriales para evitar desbordamientos aritméticos (ver
-  {ref}`capitulo-aritmetica-numeros`).
-- **Uso de tipos reales:** Al dividir enteros para obtener coeficientes reales,
-  recordá realizar el cast explícito o usar constantes reales (como `2.0`) para
-  prevenir la truncación no deseada por división entera.
 
 ---
 

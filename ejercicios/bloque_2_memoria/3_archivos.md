@@ -5,6 +5,12 @@ short_title: 3. Archivos
 
 # Ejercicios de Archivos
 
+## Prerrequisitos y Entorno Requerido
+Para abordar y verificar las soluciones de este módulo, se requiere:
+1. **Entorno de Compilación:** Compilador GCC 9+ o Clang bajo estándar estricto **ISO C11** (`-std=c11 -Wall -Wextra -Werror -pedantic`).
+2. **Flujos de Persistencia Estándar:** Manejo de descriptores `FILE *`, modos de apertura (`"r"`, `"w"`, `"a"`), verificación mandatoria contra `NULL` y cierre estricto de recursos con `fclose`.
+3. **Control Seguro de Lectura:** Validación defensiva mediante retorno de `fgets`/`fscanf`, prevención del antipatrón `while (!feof())` y eliminación de archivos de prueba temporales con `remove()`.
+
 ## Acerca de
 
 Estos ejercicios tienen como fin practicar la interacción de los programas con
@@ -13,22 +19,6 @@ en C.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`trabajando-con-archivos-de-texto-en-c`
-
-### Prerrequisitos Conceptuales
-Antes de resolver esta guía, el estudiante debe dominar:
-1. Descriptor de archivo y streams en C (`FILE *`) ({ref}`trabajando-con-archivos-de-texto-en-c`).
-2. Modos de apertura (`"r"`, `"w"`, `"a"`) y verificación obligatoria contra `NULL` ante archivos inexistentes o sin permisos.
-3. Lectura y escritura segura mediante buffers fijos (`fgets`, `fputs`, `fscanf`, `fprintf`).
-4. Detección precisa de fin de archivo (`feof`, retorno de `fscanf`/`fgets`) sin lectura redundante.
-5. Cierre mandatorio con `fclose` para vaciar búferes y liberar descriptores del sistema operativo.
-
-### Cuestiones de Estilo Aplicables
-- **Cierre de archivos:** Es obligatorio verificar la apertura correcta del
-  puntero `FILE *` contra `NULL` y cerrar siempre el archivo con `fclose` para
-  evitar leaks de descriptores (ver {ref}`0x3002h`).
-- **Control de errores en lectura:** Utilizá la validación del retorno de
-  funciones como `fscanf` o `fgets` para controlar de forma segura el fin del
-  archivo y evitar la lectura duplicada del último elemento.
 
 ---
 

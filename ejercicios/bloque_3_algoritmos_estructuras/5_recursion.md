@@ -5,6 +5,12 @@ short_title: 8. Recursividad
 
 # Ejercicios de Recursividad
 
+## Prerrequisitos y Entorno Requerido
+Para abordar y verificar las soluciones de este módulo, se requiere:
+1. **Entorno de Compilación:** Compilador GCC 9+ o Clang bajo estándar estricto **ISO C11** (`-std=c11 -Wall -Wextra -Werror -pedantic`).
+2. **Modelo de Pila y Recursión:** Marcos de activación (*Stack Frames*), paso de argumentos en memoria, diseño explícito de casos base de corte y paso inductivo hacia el caso trivial.
+3. **Aritmética y Prevención de Desbordamiento:** Segmentación de subarreglos con aritmética de punteros (`ptr + 1`, `len - 1`) y prevención estricta de *Stack Overflow*.
+
 ## Acerca de
 
 Estos ejercicios tienen como fin practicar la recursión como alternativa al
@@ -14,20 +20,6 @@ reducido, hasta converger en un caso base.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-recursividad-basica`
-
-### Prerrequisitos Conceptuales
-Antes de resolver esta guía, el estudiante debe dominar:
-1. Pila de llamadas en memoria (*Stack Frames*) y paso de argumentos por valor y referencia ({ref}`capitulo-memoria-stack`).
-2. Condición de corte y convergencia del caso base inductivo ({ref}`capitulo-recursividad-basica`).
-3. Aritmética de punteros para segmentación de sub-arreglos y cadenas (`ptr + 1`, `len - 1`).
-4. Prevención de recursión infinita y desbordamiento de pila (*Stack Overflow*).
-
-### Cuestiones de Estilo Aplicables
-- **Casos base explícitos:** Asegurate de definir de forma inequívoca el caso de
-  corte en la primera instrucción de la función recursiva.
-- **Punteros y arreglos:** Al pasar arreglos a funciones recursivas, utilizá la
-  aritmética de punteros para desplazar la dirección base del sub-arreglo en
-  cada llamada (ver reglas de estilo en {ref}`0x2008h`).
 
 ---
 

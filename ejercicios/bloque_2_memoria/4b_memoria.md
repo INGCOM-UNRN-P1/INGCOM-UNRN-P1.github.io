@@ -5,6 +5,12 @@ short_title: 11. Memoria Dinámica
 
 # Ejercicios de Gestión de Memoria Dinámica
 
+## Prerrequisitos y Entorno Requerido
+Para abordar y verificar las soluciones de este módulo, se requiere:
+1. **Entorno de Compilación:** Compilador GCC 9+ o Clang bajo estándar estricto **ISO C11** (`-std=c11 -Wall -Wextra -Werror -pedantic`).
+2. **Modelo de Memoria de Procesos:** Arquitectura de segmentos (Stack, Heap, BSS, Data, Text), conversión de punteros a `uintptr_t` (`stdint.h`) para contrastación espacial de direcciones.
+3. **Gestión Dinámica y Sanitizers:** Asignación segura con `malloc`/`calloc`/`realloc`, liberación estricta con `free` y verificación con AddressSanitizer (`-fsanitize=address,undefined`) para garantizar 0 fugas de memoria.
+
 ## Acerca de
 
 Estos ejercicios profundizan en la gestión de memoria dinámica en C11, cubriendo temas
@@ -14,18 +20,6 @@ patrones de gestión de memoria, y la prevención sistemática de fugas.
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-modelo-memoria`
 - {ref}`capitulo-memoria-dinamica`
-
-### Prerrequisitos Conceptuales
-Antes de resolver esta guía, el estudiante debe dominar:
-1. Segmentos de memoria de un proceso: `.text` (código), `.rodata`, `.data`, `.bss`, Heap y Stack.
-2. Comportamiento de las variables automáticas en Stack y asignaciones dinámicas en Heap.
-3. Conversión de punteros a `uintptr_t` de `<stdint.h>` para comparación y aritmética de direcciones.
-4. Prevención de desbordamientos de pila (*Stack Overflow*) y fugas de recursos (*Leaks*).
-
-### Cuestiones de Estilo Aplicables
-- **Liberación adecuada:** Asegurate de seguir la regla de estilo {ref}`0x3002h` para la liberación
-  completa de recursos en Heap.
-- **Punteros genéricos:** Al imprimir direcciones con `%p`, realizá el cast explícito a `(void *)`.
 
 ---
 
