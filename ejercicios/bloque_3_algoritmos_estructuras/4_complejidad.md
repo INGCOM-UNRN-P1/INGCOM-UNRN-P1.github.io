@@ -396,6 +396,147 @@ int main(void)
 
 ---
 
+(ej_b3_c06_29)=
+### Ejercicio 3.06.29 - Comparación Empírica de Pasos: Inserción vs Selección ⭐⭐⭐☆☆
+
+:::{exercise}
+:label: ej_b3_c06_29_comparar_ordenamientos
+
+A diferencia de la notación asintótica abstracta, la instrumentación empírica permite verificar por qué ciertos algoritmos con la misma complejidad en el peor caso ($O(n^2)$) exhiben eficiencias drásticamente dispares según el estado inicial de los datos.
+
+Definí la estructura:
+```c
+typedef struct {
+    size_t comparaciones;
+    size_t movimientos; // Asignaciones o intercambios de elementos
+} metricas_sort_t;
+```
+
+Implementá dos algoritmos de ordenamiento instrumentados:
+1. `metricas_sort_t sort_seleccion_instrumentado(int arr[], size_t n)`:
+   - Ordena por Selección contando cada comparación entre elementos y cada swap.
+2. `metricas_sort_t sort_insercion_instrumentado(int arr[], size_t n)`:
+   - Ordena por Inserción contando cada comparación y cada desplazamiento de elemento hacia la derecha.
+
+Verificá analíticamente y con aserciones que sobre un arreglo **ya ordenado** de tamaño $N=10$:
+- Selección realiza exactamente $\frac{10 \times 9}{2} = 45$ comparaciones ($\Theta(n^2)$ incondicional).
+- Inserción realiza exactamente $N - 1 = 9$ comparaciones y $0$ desplazamientos ($O(n)$ en el mejor caso).
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Arreglo Inicial ($N=5$) | Algoritmo | Comparaciones | Movimientos / Swaps | Complejidad Observable |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Mejor Caso** | `{1, 2, 3, 4, 5}` | Selección | 10 | 0 | $\Theta(n^2)$ |
+| **Mejor Caso** | `{1, 2, 3, 4, 5}` | Inserción | 4 | 0 | $O(n)$ |
+| **Peor Caso** | `{5, 4, 3, 2, 1}` | Selección | 10 | 2 | $\Theta(n^2)$ |
+| **Peor Caso** | `{5, 4, 3, 2, 1}` | Inserción | 10 | 10 | $O(n^2)$ |
+
+:::
+<!-- {exercise} ej_b3_c06_29_comparar_ordenamientos -->
+
+::::{solution} ej_b3_c06_29_comparar_ordenamientos
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <stddef.h>
+#include <assert.h>
+
+typedef struct {
+    size_t comparaciones;
+    size_t movimientos;
+} metricas_sort_t;
+
+metricas_sort_t sort_seleccion_instrumentado(int arr[], size_t n) {
+    metricas_sort_t m = {0, 0};
+    if (arr == NULL || n <= 1) {
+        return m;
+    }
+
+    for (size_t i = 0; i < n - 1; i++) {
+        size_t min_idx = i;
+        for (size_t j = i + 1; j < n; j++) {
+            m.comparaciones++;
+            if (arr[j] < arr[min_idx]) {
+                min_idx = j;
+            }
+        }
+        if (min_idx != i) {
+            int tmp = arr[i];
+            arr[i] = arr[min_idx];
+            arr[min_idx] = tmp;
+            m.movimientos++;
+        }
+    }
+    return m;
+}
+
+metricas_sort_t sort_insercion_instrumentado(int arr[], size_t n) {
+    metricas_sort_t m = {0, 0};
+    if (arr == NULL || n <= 1) {
+        return m;
+    }
+
+    for (size_t i = 1; i < n; i++) {
+        int clave = arr[i];
+        size_t j = i;
+        while (j > 0) {
+            m.comparaciones++;
+            if (arr[j - 1] > clave) {
+                arr[j] = arr[j - 1];
+                m.movimientos++;
+                j--;
+            } else {
+                break;
+            }
+        }
+        arr[j] = clave;
+    }
+    return m;
+}
+
+int main(void) {
+    int ordenado_sel[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int ordenado_ins[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+    metricas_sort_t m_sel = sort_seleccion_instrumentado(ordenado_sel, 10);
+    metricas_sort_t m_ins = sort_insercion_instrumentado(ordenado_ins, 10);
+
+    // Selección en mejor caso es O(n^2): 10 * 9 / 2 = 45 comparaciones
+    assert(m_sel.comparaciones == 45);
+    assert(m_sel.movimientos == 0);
+
+    // Inserción en mejor caso es O(n): n - 1 = 9 comparaciones y 0 movimientos
+    assert(m_ins.comparaciones == 9);
+    assert(m_ins.movimientos == 0);
+
+    // Peor caso: arreglo invertido
+    int invertido_sel[5] = {5, 4, 3, 2, 1};
+    int invertido_ins[5] = {5, 4, 3, 2, 1};
+
+    metricas_sort_t p_sel = sort_seleccion_instrumentado(invertido_sel, 5);
+    metricas_sort_t p_ins = sort_insercion_instrumentado(invertido_ins, 5);
+
+    assert(p_sel.comparaciones == 10); // 4 + 3 + 2 + 1
+    assert(p_ins.comparaciones == 10);
+    assert(p_ins.movimientos == 10);
+
+    // Verificación de estabilidad y orden final
+    for (size_t i = 0; i < 4; i++) {
+        assert(invertido_sel[i] <= invertido_sel[i + 1]);
+        assert(invertido_ins[i] <= invertido_ins[i + 1]);
+    }
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} ej_b3_c06_29_comparar_ordenamientos -->
+
+---
+
 (ej_b3_c06_12)=
 ## Ejercicio 3.06.12 - Identificar Complejidad ⭐⭐☆☆☆
 

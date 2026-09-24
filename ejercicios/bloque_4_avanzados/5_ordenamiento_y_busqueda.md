@@ -724,3 +724,107 @@ int main(void)
 
 ::::
 <!-- {solution} busqueda_exponencial -->
+
+---
+
+(ej_b4_c08_10)=
+### Ejercicio 4.08.10 - Ordenamiento por Cuentas (Counting Sort) Acotado ⭐⭐⭐☆☆
+
+:::{exercise}
+:label: counting_sort_acotado
+:enumerator: ordenamiento-10
+
+Cuando los elementos a ordenar son números enteros pertenecientes a un rango cerrado $[min, max]$ de amplitud moderada $k = max - min + 1$, es posible superar la barrera teórica de comparación $\Omega(n \log n)$ mediante **Counting Sort**, logrando tiempo de ejecución lineal $O(n + k)$.
+
+Implementá la función:
+```c
+bool counting_sort_acotado(int *arr, size_t n, int min_val, int max_val);
+```
+
+- **Precondiciones:** `arr != NULL` (si `n > 0`), `min_val <= max_val`.
+- **Comportamiento:**
+  1. Reserva un arreglo dinámico de conteo de tamaño $k = max\_val - min\_val + 1$. Si falla `malloc`, retorna `false`.
+  2. Inicializa en cero y contabiliza la frecuencia de cada valor en `arr`.
+  3. Reconstruye el arreglo `arr` secuencialmente en orden ascendente según las frecuencias acumuladas.
+  4. Libera la memoria auxiliar de conteo y retorna `true`.
+- **Manejo de errores:** Si algún elemento de `arr` se encuentra fuera del rango $[min\_val, max\_val]$, la función debe abortar la operación, liberar la memoria y retornar `false`.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Arreglo Inicial | Rango $[min, max]$ | Retorno Esperado | Arreglo Ordenado |
+| :--- | :--- | :--- | :--- | :--- |
+| **Normal con Repetidos** | `{4, 2, 2, 8, 3, 3, 1}` | $[1, 8]$ | `true` | `{1, 2, 2, 3, 3, 4, 8}` |
+| **Rango Negativo** | `{-3, 0, -1, -3, 2}` | $[-3, 2]$ | `true` | `{-3, -3, -1, 0, 2}` |
+| **Fuera de Rango** | `{10, 20, 99}` | $[0, 50]$ | `false` | Inalterado |
+| **Rango Inválido** | `{1, 2}` | $[10, 5]$ | `false` | Inalterado |
+
+:::
+<!-- {exercise} counting_sort_acotado -->
+
+::::{solution} counting_sort_acotado
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <assert.h>
+
+bool counting_sort_acotado(int *arr, size_t n, int min_val, int max_val) {
+    if (min_val > max_val) {
+        return false;
+    }
+    if (arr == NULL || n <= 1) {
+        return true;
+    }
+
+    size_t k = (size_t)(max_val - min_val + 1);
+    size_t *conteo = (size_t *)calloc(k, sizeof(size_t));
+    if (conteo == NULL) {
+        return false;
+    }
+
+    for (size_t i = 0; i < n; i++) {
+        if (arr[i] < min_val || arr[i] > max_val) {
+            free(conteo);
+            return false;
+        }
+        size_t idx = (size_t)(arr[i] - min_val);
+        conteo[idx]++;
+    }
+
+    size_t pos = 0;
+    for (size_t i = 0; i < k; i++) {
+        while (conteo[i] > 0) {
+            arr[pos++] = (int)i + min_val;
+            conteo[i]--;
+        }
+    }
+
+    free(conteo);
+    return true;
+}
+
+int main(void) {
+    int arr1[7] = {4, 2, 2, 8, 3, 3, 1};
+    assert(counting_sort_acotado(arr1, 7, 1, 8) == true);
+    assert(arr1[0] == 1 && arr1[1] == 2 && arr1[2] == 2 && arr1[3] == 3 && arr1[4] == 3 && arr1[5] == 4 && arr1[6] == 8);
+
+    int arr2[5] = {-3, 0, -1, -3, 2};
+    assert(counting_sort_acotado(arr2, 5, -3, 2) == true);
+    assert(arr2[0] == -3 && arr2[1] == -3 && arr2[2] == -1 && arr2[3] == 0 && arr2[4] == 2);
+
+    int arr3[3] = {10, 20, 99};
+    assert(counting_sort_acotado(arr3, 3, 0, 50) == false);
+
+    assert(counting_sort_acotado(arr1, 7, 10, 5) == false);
+    assert(counting_sort_acotado(NULL, 0, 0, 10) == true);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} counting_sort_acotado -->
+

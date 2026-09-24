@@ -835,3 +835,134 @@ int main(void) {
 ```
 ::::
 :::
+
+---
+
+(ej_b2_c07_09)=
+### Ejercicio 2.07.09 - Ordenamiento de Arreglo de Estructuras por Fecha Cronológica ⭐⭐⭐☆☆
+
+:::{exercise}
+:label: ordenar_eventos_cronologico
+:enumerator: structs-9
+
+En sistemas de auditoría y bitácoras de eventos (*logging*), los registros deben procesarse en estricto orden cronológico.
+
+Dadas las siguientes estructuras:
+```c
+typedef struct {
+    int anio;
+    int mes;
+    int dia;
+} fecha_t;
+
+typedef struct {
+    int id;
+    fecha_t fecha;
+} evento_t;
+```
+
+Implementá dos funciones:
+1. `int comparar_fechas(fecha_t a, fecha_t b)`: retorna un entero negativo si $a$ es anterior a $b$, cero si son iguales, o positivo si $a$ es posterior a $b$.
+2. `void ordenar_eventos_cronologico(evento_t *eventos, size_t n)`: ordena in-place el arreglo `eventos` de tamaño $n$ en orden cronológico ascendente empleando el algoritmo de ordenamiento por inserción. Si dos eventos coinciden en fecha, deben conservar su orden relativo original (estabilidad).
+
+**Nivel de Bloom:** Nivel 3 (Aplicación) y Nivel 4 (Análisis).  
+**Conceptos requeridos:** Structs anidados, composición de comparadores, ordenamiento por inserción in-place, estabilidad algorítmica.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Arreglo de Entrada ($n=3$) | Arreglo Resultante | Justificación Técnica |
+| :--- | :--- | :--- | :--- |
+| **Años Distintos** | `{{1, {2025, 5, 10}}, {2, {2023, 1, 1}}, {3, {2024, 12, 31}}}` | IDs: `2, 3, 1` | Orden por componente de mayor jerarquía |
+| **Mismo Año y Mes** | `{{1, {2024, 3, 20}}, {2, {2024, 3, 5}}, {3, {2024, 3, 15}}}` | IDs: `2, 3, 1` | Desempate por componente día |
+| **Estabilidad** | `{{10, {2024, 1, 1}}, {20, {2024, 1, 1}}}` | IDs: `10, 20` | Conservación del orden relativo ante fechas idénticas |
+
+:::
+<!-- {exercise} ordenar_eventos_cronologico -->
+
+::::{solution} ordenar_eventos_cronologico
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <stddef.h>
+#include <assert.h>
+
+typedef struct {
+    int anio;
+    int mes;
+    int dia;
+} fecha_t;
+
+typedef struct {
+    int id;
+    fecha_t fecha;
+} evento_t;
+
+int comparar_fechas(fecha_t a, fecha_t b) {
+    if (a.anio != b.anio) {
+        return a.anio - b.anio;
+    }
+    if (a.mes != b.mes) {
+        return a.mes - b.mes;
+    }
+    return a.dia - b.dia;
+}
+
+void ordenar_eventos_cronologico(evento_t *eventos, size_t n) {
+    if (eventos == NULL || n <= 1) {
+        return;
+    }
+
+    for (size_t i = 1; i < n; i++) {
+        evento_t clave = eventos[i];
+        size_t j = i;
+        while (j > 0 && comparar_fechas(eventos[j - 1].fecha, clave.fecha) > 0) {
+            eventos[j] = eventos[j - 1];
+            j--;
+        }
+        eventos[j] = clave;
+    }
+}
+
+int main(void) {
+    evento_t lista1[3] = {
+        {1, {2025, 5, 10}},
+        {2, {2023, 1, 1}},
+        {3, {2024, 12, 31}}
+    };
+
+    ordenar_eventos_cronologico(lista1, 3);
+    assert(lista1[0].id == 2);
+    assert(lista1[1].id == 3);
+    assert(lista1[2].id == 1);
+
+    evento_t lista2[3] = {
+        {1, {2024, 3, 20}},
+        {2, {2024, 3, 5}},
+        {3, {2024, 3, 15}}
+    };
+
+    ordenar_eventos_cronologico(lista2, 3);
+    assert(lista2[0].id == 2);
+    assert(lista2[1].id == 3);
+    assert(lista2[2].id == 1);
+
+    // Verificación de estabilidad con fechas iguales
+    evento_t lista3[2] = {
+        {10, {2024, 1, 1}},
+        {20, {2024, 1, 1}}
+    };
+    ordenar_eventos_cronologico(lista3, 2);
+    assert(lista3[0].id == 10);
+    assert(lista3[1].id == 20);
+
+    // Arreglo vacío o nulo
+    ordenar_eventos_cronologico(NULL, 0);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} ordenar_eventos_cronologico -->

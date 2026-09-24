@@ -577,6 +577,107 @@ int main(void)
 ::::
 <!-- {solution} ej_b3_c01_09_matriz_simetrica -->
 
+---
+
+(ej_b3_c01_28)=
+### Ejercicio 3.01.28 - Transposición In-Place de Matriz Cuadrada ⭐⭐⭐☆☆
+
+:::{exercise}
+:label: ej_b3_c01_28_transponer_inplace
+
+La transposición de una matriz intercambia sus filas por columnas ($A^T_{ij} = A_{ji}$). Para matrices cuadradas ($n \times n$), es posible realizar esta transformación **in-situ** (sin asignar una matriz auxiliar), intercambiando únicamente los elementos simétricos por encima de la diagonal principal.
+
+Implementá la función:
+```c
+void transponer_matriz_cuadrada(int *mat, size_t n);
+```
+
+- **Precondiciones:** `mat != NULL` (si `n > 1`).
+- **Postcondiciones:** Para todo $0 \le i < n$ y $0 \le j < n$, `mat[i * n + j]` posterior es igual a `mat[j * n + i]` original.
+- **Complejidad espacial:** $O(1)$ estricto (prohibido reservar memoria dinámica o búferes auxiliares de orden cuadrático).
+- **Complejidad temporal:** $\frac{n(n-1)}{2}$ intercambios escalares.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Matriz Entrada ($n \times n$) | Matriz Transpuesta Resultante | Justificación Técnica |
+| :--- | :--- | :--- | :--- |
+| **Normal 3x3** | `{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}` | `{{1, 4, 7}, {2, 5, 8}, {3, 6, 9}}` | Intercambio triangular estricto |
+| **Simétrica 2x2** | `{{1, 5}, {5, 9}}` | `{{1, 5}, {5, 9}}` | Invarianza de matrices simétricas |
+| **Unitaria 1x1** | `{{42}}` | `{{42}}` | Lazo nulo, preservación de elemento |
+
+:::
+<!-- {exercise} ej_b3_c01_28_transponer_inplace -->
+
+::::{solution} ej_b3_c01_28_transponer_inplace
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <stddef.h>
+#include <assert.h>
+
+void transponer_matriz_cuadrada(int *mat, size_t n) {
+    if (mat == NULL || n <= 1) {
+        return;
+    }
+
+    for (size_t i = 0; i < n; i++) {
+        for (size_t j = i + 1; j < n; j++) {
+            size_t idx_ij = i * n + j;
+            size_t idx_ji = j * n + i;
+
+            int temp = mat[idx_ij];
+            mat[idx_ij] = mat[idx_ji];
+            mat[idx_ji] = temp;
+        }
+    }
+}
+
+int main(void) {
+    int m3[9] = {
+        1, 2, 3,
+        4, 5, 6,
+        7, 8, 9
+    };
+
+    transponer_matriz_cuadrada(m3, 3);
+
+    int esperado_m3[9] = {
+        1, 4, 7,
+        2, 5, 8,
+        3, 6, 9
+    };
+
+    for (size_t i = 0; i < 9; i++) {
+        assert(m3[i] == esperado_m3[i]);
+    }
+
+    // Matriz simétrica permanece inmutable
+    int sim[4] = {
+        1, 5,
+        5, 9
+    };
+    transponer_matriz_cuadrada(sim, 2);
+    assert(sim[0] == 1 && sim[1] == 5 && sim[2] == 5 && sim[3] == 9);
+
+    // Matriz 1x1
+    int unitaria[1] = {42};
+    transponer_matriz_cuadrada(unitaria, 1);
+    assert(unitaria[0] == 42);
+
+    // Caso nulo
+    transponer_matriz_cuadrada(NULL, 0);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} ej_b3_c01_28_transponer_inplace -->
+
+---
+
 (ej_b3_c01_10)=
 ### Ejercicio 3.01.10 - Suma por Filas y Columnas ⭐⭐☆☆☆
 
