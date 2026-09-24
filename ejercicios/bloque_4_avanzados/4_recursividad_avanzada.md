@@ -5,29 +5,27 @@ short_title: "5. Recursividad"
 
 # Ejercicios de Recursividad y Divide y Vencerás
 
-## Acerca de
+## Prerrequisitos y Entorno de Ejecución Requerido
 
-Estos ejercicios tienen como propósito dominar la recursividad de control y el
-paradigma de diseño "Divide y Vencerás" en C11, profundizando en optimizaciones
-de complejidad temporal y análisis de marcos de pila.
+Para compilar y verificar las soluciones de este módulo bajo el estándar C11 estricto de cátedra, se requiere:
+- **Compilador C11:** GCC 9+ o Clang 11+ configurado con flags `-Wall -Wextra -Werror -pedantic -std=c11`.
+- **Entorno POSIX:** Linux o WSL con utilidades estándar, soporte de llamadas recursivas y análisis de memoria.
+- **Herramientas de Verificación:** Valgrind (memcheck) y AddressSanitizer (`-fsanitize=address,undefined`) para auditar la integridad de la memoria y evitar desbordamientos de pila (*stack overflow*).
+- **Conocimientos Previos:** Pila de llamadas (*call stack frames*), paso por valor y referencia, inducción matemática y relaciones de recurrencia.
+
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+
+- **Nivel 2 (Comprensión):** Analizar el ciclo de vida de los marcos de pila (*stack frames*) y la descomposición recursiva de problemas.
+- **Nivel 3 (Aplicación):** Implementar algoritmos recursivos lineales, divide y vencerás y de cola con tipado estricto en C11.
+- **Nivel 4 (Análisis):** Evaluar cálculos de complejidad temporal y espacial ($O(n)$ vs $O(\log n)$), controlando rigurosamente las condiciones de corte.
+- **Andamiaje Progresivo:** Ejercicios andamiados con contratos formales (precondiciones/postcondiciones), matrices de vectores de prueba y suites de aserciones ejecutables con `assert()`.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-recursividad-basica`
 
-### Prerrequisitos Conceptuales
-Antes de resolver esta guía, el estudiante debe dominar:
-1. Pila de llamadas en memoria (*Stack Frames*) y paso por valor ({ref}`capitulo-memoria-stack`).
-2. Deducción de relaciones de recurrencia y condiciones de corte inductivo.
-3. Técnicas divide y conquista para reducir la complejidad temporal de $O(n)$ a $O(\log n)$.
-4. Análisis de costo espacial en memoria por profundidad de pila.
-
 ### Cuestiones de Estilo Aplicables
-- **Casos de corte explícitos:** Definí el caso base al inicio de la función
-  recursiva para evitar lazos de llamada infinitos y desbordamientos de stack
-  frame (ver {ref}`0x2008h`).
-- **Optimización divide y conquista:** En operaciones aritméticas recursivas,
-  bifurcá el problema en subproblemas de tamaño $n/2$ cuando sea matemáticamente
-  viable.
+- **Casos de corte explícitos:** Definí el caso base al inicio de la función recursiva para evitar lazos de llamada infinitos y desbordamientos de stack frame (ver {ref}`0x2008h`).
+- **Optimización divide y conquista:** En operaciones aritméticas recursivas, bifurcá el problema en subproblemas de tamaño $n/2$ cuando sea matemáticamente viable.
 
 ---
 
@@ -38,22 +36,31 @@ Antes de resolver esta guía, el estudiante debe dominar:
 
 :::{exercise}
 :label: ej_b4_c07_01_factorial
+:enumerator: rec-adv-1
 
-Implementá la función factorial recursiva utilizando enteros de 64 bits sin signo
-para mitigar desbordamientos tempranos.
+Implementá la función factorial recursiva utilizando enteros de 64 bits sin signo (`unsigned long long`) para mitigar desbordamientos tempranos y garantizar precisión en llamadas profundas.
 
-```c
-unsigned long long factorial_avanzado(unsigned int n);
-```
+**Nivel de Bloom:** Nivel 3 (Aplicación) y Nivel 4 (Análisis).  
+**Conceptos requeridos:** Inducción recursiva, tipos enteros de 64 bits (`uint64_t`/`unsigned long long`), caso base e invariante de terminación.  
+**Techo conceptual:** Prohibido el uso de lazos iterativos (`for`, `while`, `do-while`).
 
-**Tabla de Vectores de Prueba:**
+#### Contrato de la Función
+- **Firma:** `unsigned long long factorial_avanzado(unsigned int n);`
+- **Precondición:** `n <= 20` (en aritmética de 64 bits sin signo, $20! \approx 2.43 \times 10^{18} < 2^{64}-1$; valores superiores desbordan el rango representable).
+- **Postcondición:** Retorna $n!$ exacto calculado mediante llamadas recursivas puras.
+- **Caso base:** $n = 0 \lor n = 1 \implies 1\text{ULL}$.
 
-| Caso de Prueba | Entrada `n` | Salida Esperada |
-| :--- | :--- | :--- |
-| Caso base cero | `0` | `1ULL` |
-| Caso base uno | `1` | `1ULL` |
-| Valor intermedio | `5` | `120ULL` |
-| Valor elevado | `12` | `479001600ULL` |
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Entrada `n` | Salida Esperada | Justificación Técnica |
+| :--- | :--- | :--- | :--- |
+| **Base Cero** | `0` | `1ULL` | Definición matemática $0! = 1$, corte inmediato |
+| **Base Uno** | `1` | `1ULL` | Caso base inductivo sin llamadas subsecuentes |
+| **Intermedio** | `5` | `120ULL` | Desenrollado recursivo estándar de 5 marcos |
+| **Borde Rango** | `12` | `479001600ULL` | Comprobación de integridad sin truncamiento en 32 bits |
+
+:::
+<!-- {exercise} -->
 
 ::::{solution}
 ```c
@@ -83,21 +90,30 @@ int main(void) {
 
 :::{exercise}
 :label: ej_b4_c07_02_suma
+:enumerator: rec-adv-2
 
-Implementá la suma recursiva sin utilizar el operador binario `+` en el llamado
-recursivo, decrementando `b` e incrementando `a`.
+Implementá la suma recursiva sin utilizar el operador binario `+` en el llamado recursivo, decrementando `b` e incrementando `a` mediante aritmética sucesiva.
 
-```c
-int suma_recursiva(int a, int b);
-```
+**Nivel de Bloom:** Nivel 3 (Aplicación).  
+**Conceptos requeridos:** Recursión lineal, invariante de suma ($a + b = \text{cte}$), caso base en cero.  
+**Techo conceptual:** Prohibido el uso de lazos iterativos y sumas compuestas directas.
 
-**Tabla de Vectores de Prueba:**
+#### Contrato de la Función
+- **Firma:** `int suma_recursiva(int a, int b);`
+- **Precondición:** `b >= 0` (el decremento recursivo converge monótonamente hacia 0).
+- **Postcondición:** Retorna el valor exacto de la suma matemática $a + b$.
+- **Caso base:** $b = 0 \implies a$.
 
-| Operandos (`a`, `b`) | Salida Esperada |
-| :--- | :--- |
-| `a = 15, b = 0` | `15` |
-| `a = 0, b = 25` | `25` |
-| `a = 10, b = 30` | `40` |
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Tipo de Caso | Operandos (`a`, `b`) | Salida Esperada | Justificación Técnica |
+| :--- | :--- | :--- | :--- |
+| **Neutro Derecho** | `a = 15, b = 0` | `15` | Caso base inmediato, 0 llamadas recursivas |
+| **Neutro Izquierdo** | `a = 0, b = 25` | `25` | Desenrollado recursivo completo de 25 pasos |
+| **Caso General** | `a = 10, b = 30` | `40` | Preservación del invariante $(10+k) + (30-k) = 40$ |
+
+:::
+<!-- {exercise} -->
 
 ::::{solution}
 ```c

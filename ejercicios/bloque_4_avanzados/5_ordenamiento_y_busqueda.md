@@ -5,29 +5,28 @@ short_title: "5. Ordenamiento y Búsqueda"
 
 # Ejercicios de Ordenamiento y Búsqueda
 
-## Acerca de
+## Prerrequisitos y Entorno de Ejecución Requerido
 
-Estos ejercicios tienen como propósito comprender, implementar y analizar la
-complejidad temporal y espacial de los algoritmos clásicos de búsqueda (lineal,
-binaria) y ordenamiento (burbuja, selección, inserción, fusión, rápido) en C11.
+Para compilar y verificar las soluciones de este módulo bajo el estándar C11 estricto de cátedra, se requiere:
+- **Compilador C11:** GCC 9+ o Clang 11+ configurado con flags `-Wall -Wextra -Werror -pedantic -std=c11`.
+- **Entorno POSIX:** Linux o WSL con utilidades estándar, soporte de arreglos contiguos y memoria dinámica.
+- **Herramientas de Verificación:** Valgrind (memcheck) y AddressSanitizer (`-fsanitize=address,undefined`) para auditar límites de arreglos (*buffer bounds*) y memoria dinámica en algoritmos de partición y fusión.
+- **Conocimientos Previos:** Arreglos contiguos, punteros, paso por referencia, notación asintótica Big-O ($O(1)$, $O(\log n)$, $O(n)$, $O(n \log n)$, $O(n^2)$) y recursión.
+
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+
+- **Nivel 2 (Comprensión):** Analizar el comportamiento de particiones, invariantes de bucle y comparación de costos asintóticos en el mejor, peor y caso promedio.
+- **Nivel 3 (Aplicación):** Implementar algoritmos de búsqueda lineal y binaria, así como ordenamientos cuadráticos (burbuja, selección, inserción) y logarítmicos (mergesort, quicksort) en C11.
+- **Nivel 4 (Análisis):** Evaluar estabilidad algorítmica, consumo de memoria auxiliar ($O(1)$ vs $O(n)$) y condiciones de parada recursivas.
+- **Andamiaje Progresivo:** Ejercicios andamiados con contratos formales (precondiciones/postcondiciones), tablas de vectores de prueba y suites ejecutables con `assert()`.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-secuencias`
 - {ref}`capitulo-complejidad`
 
-### Prerrequisitos Conceptuales
-Antes de resolver esta guía, el estudiante debe dominar:
-1. Arreglos contiguos y paso de arreglos por referencia ({ref}`capitulo-arreglos`).
-2. Aritmética de punteros e intercambio de variables por referencia (`swap`).
-3. Notación asintótica Big-O ($O(1)$, $O(\log n)$, $O(n)$, $O(n^2)$, $O(n \log n)$).
-4. Principios de recursividad para algoritmos divide y conquistar.
-
 ### Cuestiones de Estilo Aplicables
-- **Modularidad y genericidad:** Implementá funciones auxiliares de intercambio
-  (`static void intercambiar(int *a, int *b)`) reutilizables (ver reglas en
-  {ref}`0x2008h`).
-- **Invariantes de bucle:** Mantené explícitas las fronteras de segmentos
-  ordenados y no ordenados.
+- **Modularidad y genericidad:** Implementá funciones auxiliares de intercambio (`static void intercambiar(int *a, int *b)`) reutilizables (ver reglas en {ref}`0x2008h`).
+- **Invariantes de bucle:** Mantené explícitas las fronteras de segmentos ordenados y no ordenados.
 
 ---
 
@@ -38,22 +37,30 @@ Antes de resolver esta guía, el estudiante debe dominar:
 
 :::{exercise}
 :label: ej_b4_c08_01_lineal
+:enumerator: ord-busq-1
 
-Implementá la búsqueda lineal o secuencial sobre un arreglo de enteros. Debe
-retornar el índice de la primera coincidencia, o `-1` si no existe.
+Implementá la búsqueda lineal o secuencial sobre un arreglo de enteros. Debe retornar el índice de la primera coincidencia encontrada, o `-1` si el elemento no existe en el arreglo o el puntero es nulo.
 
-```c
-long long busqueda_lineal(const int *arr, size_t n, int objetivo);
-```
+**Nivel de Bloom:** Nivel 3 (Aplicación).  
+**Conceptos requeridos:** Recorrido unidimensional de arreglos contiguos, punteros de sólo lectura (`const int *`), centinelas y complejidad temporal en el peor caso $O(n)$.  
+**Techo conceptual:** Prohibido el uso de variables globales.
 
-**Tabla de Vectores de Prueba:**
+#### Contrato de la Función
+- **Firma:** `long long busqueda_lineal(const int *arr, size_t n, int objetivo);`
+- **Precondiciones:** `arr` apunta a un bloque contiguo de al menos `n` elementos si `n > 0`.
+- **Postcondiciones:** Retorna el índice $0 \le i < n$ de la primera aparición de `objetivo`; retorna `-1` si no existe o si `arr == NULL` con `n > 0`.
 
-| Arreglo | `n` | Objetivo | Retorno Esperado |
-| :--- | :--- | :--- | :--- |
-| `[4, 2, 7, 1, 9]` | `5` | `7` | `2` |
-| `[4, 2, 7, 1, 9]` | `5` | `4` | `0` |
-| `[4, 2, 7, 1, 9]` | `5` | `99` | `-1` |
-| `[]` | `0` | `10` | `-1` |
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Arreglo | `n` | Objetivo | Retorno Esperado | Justificación Técnica |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Elemento Central** | `[4, 2, 7, 1, 9]` | `5` | `7` | `2` | Coincidencia intermedia exitosa |
+| **Primer Elemento** | `[4, 2, 7, 1, 9]` | `5` | `4` | `0` | Mejor caso $O(1)$ en la cabeza |
+| **Inexistente** | `[4, 2, 7, 1, 9]` | `5` | `99` | `-1` | Peor caso $O(n)$, escaneo total |
+| **Arreglo Vacío** | `[]` | `0` | `10` | `-1` | Caso borde cardinalidad cero |
+
+:::
+<!-- {exercise} -->
 
 ::::{solution}
 ```c

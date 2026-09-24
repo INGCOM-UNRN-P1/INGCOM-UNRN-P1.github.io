@@ -11,6 +11,12 @@ Para abordar y verificar las soluciones de este módulo, se requiere:
 2. **Encapsulamiento y Tipos Opacos:** Tipos incompletos (`typedef struct tipo tipo_t;`) en cabeceras públicas, ocultando estructuras de representación en archivos fuente (`.c`).
 3. **Contratos y Ciclo de Vida:** Nomenclatura coherente con prefijo de módulo (`modulo_accion`), ciclo de vida simétrico (`crear`/`destruir`), constantes inmutables (`const`) y códigos de estado de error tipificados.
 
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+- **Nivel Cognitivo:** Nivel 5 (Evaluar) a Nivel 6 (Crear).
+- **Andamiaje Pedagógico Progresivo:** Aprendizaje guiado desde la crítica de nombres y cohesión funcional hasta el diseño arquitectónico de bibliotecas en C11.
+- **Competencias de Arquitectura:** Diseño de interfaces minimalistas y cohesivas, patrón Handle con descriptores opacos e iteradores internos con contexto de usuario.
+- **Rigor Técnico y Estabilidad:** Garantía de encapsulamiento estricto, gestión de memoria sin fugas y verificación sistemática mediante suites ejecutables `assert()`.
+
 ## Acerca de
 
 Estos ejercicios abordan los criterios profesionales para el diseño y

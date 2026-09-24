@@ -5,30 +5,23 @@ short_title: "4. Punteros Avanzados"
 
 # Ejercicios de Punteros Avanzados y Genericidad
 
+## Prerrequisitos y Entorno de Ejecución Requerido
+Para compilar y resolver los módulos de esta guía se requiere:
+1. **Entorno de Compilación:** GCC 9+ o Clang bajo estándar estricto **ISO C11** (`-std=c11 -Wall -Wextra -Werror -pedantic`).
+2. **Indirección Múltiple y Callbacks:** Punteros dobles (`T **`), punteros a funciones (`typedef R (*callback_t)(args)`), genericidad basada en memoria opaca (`void *`), aritmética sobre `char *` y cualificador `const`.
+3. **Gestión Dinámica de Memoria:** Asignación segura con `malloc`/`realloc`, liberación simétrica con `free` y prevención rigurosa de fugas con sanitizers.
+
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+- **Nivel Cognitivo:** Nivel 4 (Analizar) a Nivel 5 (Evaluar).
+- **Competencias Formativas:** Diseño de funciones de orden superior (`map`, `filter`, `fold`), tablas de despacho polimórficas y máquinas de estado finito orientadas a eventos.
+- **Rigor Contractual:** Manejo defensivo ante punteros `NULL`, contratos formales de precondición y verificación determinista con `assert()`.
+
 ## Acerca de
 
-Estos ejercicios tienen como fin dominar la indirección múltiple mediante punteros dobles (`**`)
-y la abstracción procedimental mediante punteros a funciones (`callback`) para implementar
-polimorfismo y genericidad en C11.
+Estos ejercicios tienen como fin dominar la indirección múltiple mediante punteros dobles (`**`) y la abstracción procedimental mediante punteros a funciones (`callback`) para implementar polimorfismo y genericidad en C11.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-punteros-funciones`
-
-### Prerrequisitos Conceptuales
-Antes de abordar estos ejercicios, el estudiante debe dominar:
-1. Punteros simples y operadores de indirección (`*`, `&`) ({ref}`capitulo-punteros`).
-2. Indirección múltiple (`T **`) para mutación de punteros por referencia ({ref}`capitulo-punteros`).
-3. Asignación dinámica y liberación segura en Heap (`malloc`, `free`) ({ref}`capitulo-memoria-dinamica`).
-4. Punteros a funciones (`callback`) y genericidad basada en bloques opacos de bytes `void *` ({ref}`capitulo-punteros-funciones`).
-
-### Cuestiones de Estilo Aplicables
-- **Uso de aserciones en punteros:** Validá siempre que los punteros dobles y de
-  función no sean `NULL` antes de desreferenciarlos o invocarlos (ver {ref}`0x2008h`).
-- **Definición de alias:** Empleá `typedef` para declarar firmas de punteros a
-  funciones legibles en tus programas (ver reglas en {ref}`0x0101h`).
-- **Punteros genéricos (`void *`):** Al manipular bloques de memoria genéricos,
-  realizá la aritmética sobre punteros a bytes (`char *` o `uint8_t *`) multiplicando
-  por el tamaño de cada elemento.
 
 ---
 

@@ -5,21 +5,28 @@ short_title: "5. Archivos Binarios"
 
 # Ejercicios de Archivos Binarios
 
-## Acerca de
+## Prerrequisitos y Entorno de Ejecución Requerido
 
-Estos ejercicios tienen como propósito dominar la manipulación, persistencia estructurada
-y acceso aleatorio mediante flujos binarios en C11 utilizando las primitivas `fopen`,
-`fread`, `fwrite`, `fseek`, y `ftell`.
+Para compilar y verificar las soluciones de este módulo bajo el estándar C11 estricto de cátedra, se requiere:
+- **Compilador C11:** GCC 9+ o Clang 11+ configurado con flags `-Wall -Wextra -Werror -pedantic -std=c11`.
+- **Entorno POSIX:** Linux o WSL con utilidades estándar, soporte de sistema de archivos y memoria dinámica.
+- **Herramientas de Verificación:** Valgrind (memcheck) y AddressSanitizer (`-fsanitize=address,undefined`) para auditar fugas de descriptores de archivo, punteros dangling y desbordamientos de búfer en E/S binaria.
+- **Conocimientos Previos:** Estructuras en C (`struct`), tipos fijos, punteros, flujos de E/S estándar y manejo de memoria contigua.
+
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+
+- **Nivel 2 (Comprensión):** Diferenciar flujos de texto vs flujos binarios puros, serialización contigua y desalineación de bytes.
+- **Nivel 3 (Aplicación):** Implementar persistencia estructurada mediante `fopen`, `fread`, `fwrite`, `fseek` y `ftell`.
+- **Nivel 4 (Análisis):** Evaluar cálculos de offset seguro con `sizeof(tipo_t)`, gestión de errores de E/S y cierre garantizado de recursos con `fclose`.
+- **Andamiaje Progresivo:** Ejercicios andamiados con contratos formales (precondiciones/postcondiciones), matrices de vectores de prueba y suites de aserciones ejecutables con `assert()`.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-estructuras`
 - {ref}`capitulo-archivos-texto`
 
 ### Cuestiones de Estilo Aplicables
-- **Chequeo de E/S binaria:** Al invocar `fread` y `fwrite`, es mandatorio validar que
-  la cantidad de bloques leídos o escritos coincida con el número solicitado.
-- **Acceso aleatorio seguro:** Al utilizar `fseek`, calcular los desplazamientos
-  multiplicando el índice por `sizeof(tipo_t)` con origen explícito (`SEEK_SET`).
+- **Chequeo de E/S binaria:** Al invocar `fread` y `fwrite`, es mandatorio validar que la cantidad de bloques leídos o escritos coincida con el número solicitado.
+- **Acceso aleatorio seguro:** Al utilizar `fseek`, calcular los desplazamientos multiplicando el índice por `sizeof(tipo_t)` con origen explícito (`SEEK_SET`).
 - **Limpieza de recursos:** Todo archivo abierto con `fopen` debe cerrarse con `fclose`.
 
 ---
