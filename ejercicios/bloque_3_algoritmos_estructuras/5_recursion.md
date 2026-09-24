@@ -5,18 +5,20 @@ short_title: 8. Recursividad
 
 # Ejercicios de Recursividad
 
-## Prerrequisitos y Entorno Requerido
-Para abordar y verificar las soluciones de este módulo, se requiere:
-1. **Entorno de Compilación:** Compilador GCC 9+ o Clang bajo estándar estricto **ISO C11** (`-std=c11 -Wall -Wextra -Werror -pedantic`).
-2. **Modelo de Pila y Recursión:** Marcos de activación (*Stack Frames*), paso de argumentos en memoria, diseño explícito de casos base de corte y paso inductivo hacia el caso trivial.
-3. **Aritmética y Prevención de Desbordamiento:** Segmentación de subarreglos con aritmética de punteros (`ptr + 1`, `len - 1`) y prevención estricta de *Stack Overflow*.
+## Prerrequisitos y Entorno de Ejecución Requerido
 
-## Acerca de
+Para compilar y verificar las soluciones de este módulo bajo el estándar C11 estricto de cátedra, se requiere:
+- **Compilador C11:** GCC 9+ o Clang 11+ configurado con flags `-Wall -Wextra -Werror -pedantic -std=c11`.
+- **Entorno POSIX:** Linux o WSL con utilidades estándar, soporte de llamadas a funciones y análisis de memoria.
+- **Herramientas de Verificación:** Valgrind (memcheck) y AddressSanitizer (`-fsanitize=address,undefined`) para auditar la profundidad del marco de pila (*stack frames*) y prevenir *Stack Overflow*.
+- **Conocimientos Previos:** Pila de llamadas en memoria, paso por valor y referencia, inducción matemática, casos de corte explícitos y aritmética de punteros en subarreglos.
 
-Estos ejercicios tienen como fin practicar la recursión como alternativa al
-control de lazos explícitos. La recursión consiste en estructurar la lógica de
-un subprograma de forma que se llame a sí mismo con un subproblema de tamaño
-reducido, hasta converger en un caso base.
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+
+- **Nivel 2 (Comprensión):** Analizar el ciclo de vida de los marcos de activación y la descomposición inductiva de problemas.
+- **Nivel 3 (Aplicación):** Implementar funciones recursivas elementales (aritmética, arreglos, cadenas, divide y conquista) en C11.
+- **Nivel 4 (Análisis):** Evaluar el costo de memoria en pila ($O(n)$) frente a soluciones iterativas ($O(1)$) y optimizaciones de recursión de cola.
+- **Andamiaje Progresivo:** Ejercicios andamiados con contratos formales (precondiciones/postcondiciones), tablas de vectores de prueba y suites ejecutables con `assert()`.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-recursividad-basica`
@@ -30,21 +32,31 @@ reducido, hasta converger en un caso base.
 
 :::{exercise}
 :label: ej_b3_c07_01_factorial
+:enumerator: rec-1
 
-Implementá el cálculo de factorial $n!$ de forma recursiva bajo la firma:
+Implementá el cálculo de factorial $n!$ de forma recursiva utilizando enteros sin signo de 64 bits para prevenir desbordamientos aritméticos tempranos.
 
-```c
-unsigned long long factorial_rec(unsigned int n);
-```
+**Nivel de Bloom:** Nivel 3 (Aplicación).  
+**Conceptos requeridos:** Inducción matemática, diseño de caso base, relación de recurrencia y tipos de 64 bits (`unsigned long long`).  
+**Techo conceptual:** Prohibido el uso de lazos iterativos (`for`, `while`).
 
-**Tabla de Vectores de Prueba:**
+#### Contrato de la Función
+- **Firma:** `unsigned long long factorial_rec(unsigned int n);`
+- **Precondición:** `n <= 20` (en aritmética de 64 bits, $20! \approx 2.43 \times 10^{18} < 2^{64}-1$).
+- **Postcondición:** Retorna $n!$ exacto calculado puramente mediante llamadas recursivas directas.
+- **Caso base:** $n = 0 \lor n = 1 \implies 1\text{ULL}$.
 
-| Caso de Prueba | Entrada `n` | Salida Esperada |
-| :--- | :--- | :--- |
-| Caso base cero | `0` | `1ULL` |
-| Caso base uno | `1` | `1ULL` |
-| Valor intermedio | `5` | `120ULL` |
-| Valor mayor | `10` | `3628800ULL` |
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Entrada `n` | Salida Esperada | Justificación Técnica |
+| :--- | :--- | :--- | :--- |
+| **Base Cero** | `0` | `1ULL` | Definición axiomática $0! = 1$ |
+| **Base Uno** | `1` | `1ULL` | Caso base inductivo sin llamadas subsecuentes |
+| **Intermedio** | `5` | `120ULL` | Ejecución estándar con 5 marcos de pila |
+| **Mayor** | `10` | `3628800ULL` | Comprobación de orden de magnitud y precisión |
+
+:::
+<!-- {exercise} -->
 
 ::::{solution}
 ```c

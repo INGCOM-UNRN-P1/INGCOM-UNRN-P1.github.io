@@ -5,25 +5,27 @@ short_title: "7. Matrices"
 
 # Ejercicios de matrices
 
-## Acerca de
+## Prerrequisitos y Entorno de Ejecución Requerido
 
-Ejercicios para trabajar con arreglos bidimensionales (matrices) en C11, tanto
-estáticas en Stack como planas y contiguas en Heap.
+Para compilar y verificar las soluciones de este módulo bajo el estándar C11 estricto de cátedra, se requiere:
+- **Compilador C11:** GCC 9+ o Clang 11+ configurado con flags `-Wall -Wextra -Werror -pedantic -std=c11`.
+- **Entorno POSIX:** Linux o WSL con utilidades estándar, soporte de arreglos multidimensionales y memoria dinámica.
+- **Herramientas de Verificación:** Valgrind (memcheck) y AddressSanitizer (`-fsanitize=address,undefined`) para garantizar la ausencia de desbordamientos de búfer en indexación bidimensional.
+- **Conocimientos Previos:** Arreglos unidimensionales contiguos, punteros, orden por filas (*row-major order*), aplanamiento de matrices y aritmética de punteros.
+
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+
+- **Nivel 2 (Comprensión):** Comprender el mapeo bidimensional a memoria física contigua mediante la fórmula `f * cols + c`.
+- **Nivel 3 (Aplicación):** Implementar algoritmos de formateo, trasposición, multiplicación, rotación y recorrido diagonal en C11.
+- **Nivel 4 (Análisis):** Evaluar el impacto de la localidad espacial de caché y la complejidad $O(\text{filas} \times \text{columnas})$ en lazos anidados.
+- **Andamiaje Progresivo:** Ejercicios andamiados con contratos formales (precondiciones/postcondiciones), tablas de vectores de prueba y suites ejecutables con `assert()`.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-matrices`
 - {ref}`capitulo-arreglos`
 
-### Prerrequisitos Conceptuales
-Antes de resolver esta guía, el estudiante debe dominar:
-1. Indexación bidimensional y orden de almacenamiento por filas (*row-major order*).
-2. Aplanamiento unidimensional de matrices contiguas: dirección del elemento $(f, c)$ como `f * cols + c`.
-3. Paso de matrices como punteros y dimensiones (`const int *mat, size_t filas, size_t cols`).
-4. Lazos anidados y análisis de complejidad $O(\text{filas} \times \text{columnas})$.
-
 ### Cuestiones de Estilo Aplicables
-- **Calificador const:** Toda matriz de entrada cuyos valores no deban modificarse
-  debe calificarse como `const int *matriz` o `const int mat[][COLS]`.
+- **Calificador const:** Toda matriz de entrada cuyos valores no deban modificarse debe calificarse como `const int *matriz` o `const int mat[][COLS]`.
 - **Dimensiones size_t:** Las filas y columnas deben expresarse con `size_t`.
 
 ---

@@ -5,26 +5,26 @@ short_title: 10. Complejidad
 
 # Ejercicios de Análisis de Complejidad Algorítmica
 
-## Acerca de
+## Prerrequisitos y Entorno de Ejecución Requerido
 
-Estos ejercicios tienen como fin practicar el análisis asintótico de algoritmos,
-el uso de las notaciones Big-O, Omega y Theta, y el cálculo formal e informal
-del costo temporal y espacial de subprogramas iterativos y recursivos en C.
+Para compilar y verificar las soluciones de este módulo bajo el estándar C11 estricto de cátedra, se requiere:
+- **Compilador C11:** GCC 9+ o Clang 11+ configurado con flags `-Wall -Wextra -Werror -pedantic -std=c11`.
+- **Entorno POSIX:** Linux o WSL con utilidades estándar, soporte de medición temporal y estructuras de control.
+- **Herramientas de Verificación:** Valgrind (memcheck) y AddressSanitizer (`-fsanitize=address,undefined`) para garantizar la ausencia de desbordamientos y verificar instrumentaciones empíricas.
+- **Conocimientos Previos:** Notación asintótica Big-O, $\Omega$ y $\Theta$, conteo de pasos en lazos iterativos y llamadas recursivas, y estructuras de datos básicas.
+
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+
+- **Nivel 2 (Comprensión):** Clasificar algoritmos según su orden asintótico y comparar funciones de crecimiento temporal y espacial.
+- **Nivel 3 (Aplicación):** Instrumentar empíricamente algoritmos en C11 para contrastar conteo de pasos teóricos vs reales.
+- **Nivel 4 (Análisis):** Evaluar complejidades en mejor, peor y caso promedio en algoritmos de búsqueda, ordenamiento y recursión.
+- **Andamiaje Progresivo:** Ejercicios andamiados con contratos formales (precondiciones/postcondiciones), tablas de vectores de prueba y suites ejecutables con `assert()`.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-complejidad`
 
-### Prerrequisitos Conceptuales
-Antes de abordar estos ejercicios, el estudiante debe dominar:
-1. Definición formal y reglas asintóticas de Big-O, $\Omega$ y $\Theta$ ({ref}`capitulo-complejidad`).
-2. Conteo de operaciones elementales en lazos deterministas ($O(1)$, $O(n)$, $O(n^2)$).
-3. Lazos con progresión geométrica y complejidad logarítmica ($O(\log n)$).
-4. Instrumentación empírica mediante contadores de pasos en C11 para validación analítica.
-
 ### Cuestiones de Estilo Aplicables
-- **Medición e instrumentación:** Al implementar análisis empíricos, utilizá la
-  biblioteca `<time.h>` o contadores enteros explícitos para auditar iteraciones sin alterar la
-  estructura algorítmica principal del código evaluado.
+- **Medición e instrumentación:** Al implementar análisis empíricos, utilizá la biblioteca `<time.h>` o contadores enteros explícitos para auditar iteraciones sin alterar la estructura algorítmica principal del código evaluado.
 
 ---
 

@@ -5,30 +5,27 @@ short_title: "6. TAD"
 
 # Ejercicios de Tipos de Datos Abstractos
 
-## Acerca de
+## Prerrequisitos y Entorno de Ejecución Requerido
 
-Estos ejercicios tienen como propósito dominar el diseño e implementación de
-Tipos de Datos Abstractos (TAD) en C11, aplicando un encapsulamiento estricto
-mediante punteros opacos y la manipulación de estructuras de datos dinámicas.
+Para compilar y verificar las soluciones de este módulo bajo el estándar C11 estricto de cátedra, se requiere:
+- **Compilador C11:** GCC 9+ o Clang 11+ configurado con flags `-Wall -Wextra -Werror -pedantic -std=c11`.
+- **Entorno POSIX:** Linux o WSL con utilidades estándar, soporte de gestión dinámica de memoria y estructuras enlazadas.
+- **Herramientas de Verificación:** Valgrind (memcheck) y AddressSanitizer (`-fsanitize=address,undefined`) para auditar la liberación simétrica de memoria y garantizar la ausencia de fugas (*memory leaks*) en destructores de TADs.
+- **Conocimientos Previos:** Punteros, operadores de indirección (`*`, `->`), gestión dinámica de memoria con `malloc`/`free`, tipos opacos incompletos y contratos de interfaz.
+
+## Objetivos Pedagógicos y Competencias (Taxonomía de Bloom)
+
+- **Nivel 2 (Comprensión):** Comprender el principio de encapsulamiento estricto, tipos incompletos e invariantes de representación.
+- **Nivel 3 (Aplicación):** Implementar estructuras de datos dinámicas fundamentales (listas enlazadas, pilas, colas, árboles y tablas hash) en C11.
+- **Nivel 4 (Análisis):** Evaluar el costo temporal y espacial de operaciones de inserción, búsqueda y eliminación ($O(1)$ vs $O(n)$).
+- **Andamiaje Progresivo:** Ejercicios andamiados con contratos formales (precondiciones/postcondiciones), tablas de vectores de prueba y suites ejecutables con `assert()`.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-tad`
 
-### Prerrequisitos Conceptuales
-Antes de resolver esta guía, el estudiante debe dominar:
-1. Punteros y operadores de indirección (`*`, `->`) ({ref}`capitulo-punteros`).
-2. Asignación y liberación de memoria en Heap (`malloc`, `free`) ({ref}`capitulo-memoria-dinamica`).
-3. Declaración de tipos incompletos y punteros opacos en archivos de cabecera (`.h`).
-4. Invariantes de representación y preservación del encapsulamiento ({ref}`capitulo-tad`).
-
 ### Cuestiones de Estilo Aplicables
-- **Encapsulamiento estricto:** La estructura del nodo y de la lista debe
-  definirse únicamente en el archivo de implementación `.c`, exponiendo al
-  llamador solo el tipo incompleto (`typedef struct lista lista_t;`) en el `.h`
-  (ver {ref}`0x3002h`).
-- **Gestión de memoria:** El destructor del TAD debe encargarse de recorrer
-  y liberar de forma segura cada nodo individual en el Heap antes de liberar la
-  estructura de control envolvente.
+- **Encapsulamiento estricto:** La estructura del nodo y de la lista debe definirse únicamente en el archivo de implementación `.c`, exponiendo al llamador solo el tipo incompleto (`typedef struct lista lista_t;`) en el `.h` (ver {ref}`0x3002h`).
+- **Gestión de memoria:** El destructor del TAD debe encargarse de recorrer y liberar de forma segura cada nodo individual en el Heap antes de liberar la estructura de control envolvente.
 
 ---
 
@@ -39,21 +36,29 @@ Antes de resolver esta guía, el estudiante debe dominar:
 
 :::{exercise}
 :label: ej_b3_c02_01_insercion_inicio
+:enumerator: tad-1
 
-Implementá la operación de insertar un elemento al principio de una lista enlazada
-encapsulada en el TAD `lista_t`. La operación debe ejecutarse en tiempo $O(1)$.
+Implementá la operación de insertar un elemento al principio de una lista enlazada encapsulada en el TAD `lista_t`. La operación debe ejecutarse en tiempo $O(1)$ sin recorrer la estructura.
 
-```c
-bool lista_insertar_inicio(lista_t *lista, int dato);
-```
+**Nivel de Bloom:** Nivel 3 (Aplicación).  
+**Conceptos requeridos:** Estructuras autorreferenciadas, nodos dinámicos en Heap (`malloc`), actualización de cabecera e invariante de lista.  
+**Techo conceptual:** Prohibido romper el encapsulamiento exponiendo punteros a nodos directamente al usuario.
 
-**Tabla de Vectores de Prueba:**
+#### Contrato de la Función
+- **Firma:** `bool lista_insertar_inicio(lista_t *lista, int dato);`
+- **Precondiciones:** `lista` debe ser un puntero válido retornado por `lista_crear()`.
+- **Postcondiciones:** Inserta un nuevo nodo al frente de la lista conteniendo `dato` y retorna `true`; si `lista == NULL` o falla `malloc`, retorna `false` sin corromper el estado existente.
 
-| Caso de Prueba | Lista Inicial | Elemento | Retorno | Lista Resultante |
-| :--- | :--- | :--- | :--- | :--- |
-| Inserción en vacía | `[]` | `42` | `true` | `[42]` |
-| Inserciones sucesivas | `[42]` | `99` | `true` | `[99, 42]` |
-| Puntero nulo | `NULL` | `10` | `false` | Inalterado |
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Lista Inicial | Elemento | Retorno | Lista Resultante | Justificación Técnica |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Inserción en vacía** | `[]` | `42` | `true` | `[42]` | Primer nodo asignado como cabeza |
+| **Inserciones sucesivas** | `[42]` | `99` | `true` | `[99, 42]` | Enlace de nuevo nodo apuntando al anterior |
+| **Puntero nulo defensivo** | `NULL` | `10` | `false` | Inalterado | Validación de precondición sin fallo de segmentación |
+
+:::
+<!-- {exercise} -->
 
 ::::{solution}
 ```c
