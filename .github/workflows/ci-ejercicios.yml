@@ -40,6 +40,7 @@ jobs:
 
       - name: Compuerta 2 - Compilación y Aserciones C11 (Archivos Certificados)
         run: |
+          node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_1_fundamentos/6_funciones_ejercicios.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/1_punteros.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/1b_punteros_ejercicios.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/3b_ejercicios_archivos.md

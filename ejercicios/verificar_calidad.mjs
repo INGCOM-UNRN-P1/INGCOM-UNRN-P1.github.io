@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename);
 const EJERCICIOS_ROOT = __dirname;
 
 const CANONICAL_FILES = [
+  'bloque_1_fundamentos/6_funciones_ejercicios.md',
   'bloque_2_memoria/1_punteros.md',
   'bloque_2_memoria/1b_punteros_ejercicios.md',
   'bloque_2_memoria/3b_ejercicios_archivos.md',
