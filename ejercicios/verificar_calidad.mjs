@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename);
 const EJERCICIOS_ROOT = __dirname;
 
 const CANONICAL_FILES = [
+  'bloque_1_fundamentos/2_gradual_ejercicios.md',
   'bloque_1_fundamentos/6_funciones_ejercicios.md',
   'bloque_2_memoria/1_punteros.md',
   'bloque_2_memoria/1b_punteros_ejercicios.md',
@@ -20,7 +21,9 @@ const CANONICAL_FILES = [
   'bloque_3_algoritmos_estructuras/5_recursion.md',
   'bloque_4_avanzados/1_punteros_avanzados.md',
   'bloque_4_avanzados/2_operaciones_de_bits.md',
-  'bloque_4_avanzados/3_archivos_binarios.md'
+  'bloque_4_avanzados/3_archivos_binarios.md',
+  'bloque_4_avanzados/4_recursividad_avanzada.md',
+  'bloque_4_avanzados/5_ordenamiento_y_busqueda.md'
 ];
 
 function findMarkdownFiles(dir) {

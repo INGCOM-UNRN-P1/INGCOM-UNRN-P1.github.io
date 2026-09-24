@@ -14,6 +14,13 @@ inicialización correcta de variables con tipos primitivos básicos.
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-introduccion-c`
 
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Función principal `main` y tipo de retorno `int` ({ref}`capitulo-introduccion-c`).
+2. Declaración e inicialización estricta de tipos de datos primitivos (`int`, `float`, `char`).
+3. Especificadores de formato para salida con `printf` (`%d`, `%.2f`, `%c`).
+4. Especificadores de formato y validación de retorno de lectura segura con `scanf` y `sscanf`.
+
 ### Cuestiones de Estilo Aplicables
 - **Inicialización de Variables:** De acuerdo con la {ref}`0x7001h`, siempre se deben inicializar las
   variables a un valor conocido en su declaración.
@@ -26,90 +33,101 @@ inicialización correcta de variables con tipos primitivos básicos.
 ## Lectura y Escritura Básica
 
 (ej_b1_c02_01)=
-### Ejercicio 1.02.01 - Mostrando valores ⭐⭐☆☆☆
+### Ejercicio 1.02.01 - Declaración e Inicialización de Tipos Primitivos ⭐⭐☆☆☆
 
 :::{exercise}
-:label: Mostrando valores
-:enumerator: Valores
-Escribí un programa en C que declare e inicialice variables para tu edad, tu
-altura en metros y tu inicial de nombre, y muestre sus valores en la consola.
-    desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
+:label: ej_b1_c02_01_valores
 
-:::
-<!-- {exercise} -->
+Escribí un programa en C11 que declare e inicialice variables para una edad
+(`int`), una altura en metros (`float`) y la inicial del nombre (`char`),
+formateando los valores en un búfer o en la salida estándar respetando las
+reglas de inicialización estricta.
 
-:::{solution} Mostrando valores
-:class: dropdown
+**Tabla de Vectores de Prueba:**
 
-```{code-block} c
-:linenos:
+| Variable | Tipo | Valor Inicializado | Especificador `printf` | Salida Formateada |
+| :--- | :--- | :--- | :--- | :--- |
+| `edad` | `int` | `20` | `%d` | `Edad: 20` |
+| `altura` | `float` | `1.82f` | `%.2f` | `Altura: 1.82` |
+| `inicial` | `char` | `'J'` | `%c` | `Inicial: J` |
+
+::::{solution}
+```c
 #include <stdio.h>
-int main(void)
-{
+#include <string.h>
+#include <assert.h>
+
+int main(void) {
     int edad = 20;
     float altura = 1.82f;
     char inicial = 'J';
-    printf("Edad: %d\n", edad);
-    printf("Altura: %.2f\n", altura);
-    printf("Inicial: %c\n", inicial);
+
+    char buffer[128] = {0};
+    int escritos = snprintf(buffer, sizeof(buffer), "Edad: %d, Altura: %.2f, Inicial: %c", edad, (double)altura, inicial);
+    assert(escritos > 0 && escritos < (int)sizeof(buffer));
+    assert(strcmp(buffer, "Edad: 20, Altura: 1.82, Inicial: J") == 0);
+
     return 0;
 }
 ```
-<!-- {code-block} c -->
-
+::::
 :::
-<!-- {solution} Mostrando valores -->
 
 (ej_b1_c02_02)=
-### Ejercicio 1.02.02 - Formateo de entrada y salida ⭐⭐☆☆☆
+### Ejercicio 1.02.02 - Validación de Formato de Entrada ⭐⭐☆☆☆
 
 :::{exercise}
-:label: entrada-1
-Pedí al usuario que ingrese su inicial de nombre, edad y calificación promedio,
-y mostralos formateados en pantalla.
-    desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
+:label: ej_b1_c02_02_entrada
 
-:::
-<!-- {exercise} -->
+Diseñá una función pura que procese una cadena de entrada simulando la lectura
+de inicial, edad y promedio, validando que los tres campos se analicen
+correctamente y rechazando entradas malformadas.
 
-:::{solution} entrada-1
-:class: dropdown
-```{code-block} c
-:linenos:
+```c
+bool parsear_datos(const char *entrada, char *inicial, int *edad, float *promedio);
+```
+
+**Tabla de Vectores de Prueba:**
+
+| Cadena de Entrada | Retorno Esperado | Valores Parseados |
+| :--- | :--- | :--- |
+| `"J 20 8.75"` | `true` | `inicial='J', edad=20, promedio=8.75` |
+| `"M 25"` (incompleta) | `false` | Inalterados o rechazados |
+| `""` (vacía) | `false` | Retorno `false` |
+
+::::{solution}
+```c
 #include <stdio.h>
-int main(void)
-{
-    char inicial = ' ';
-    int edad = 0;
-    float promedio = 0.0f;
-    printf("Ingrese su inicial: ");
-    if (scanf(" %c", &inicial) != 1)
-    {
-        printf("Error al leer la inicial.\n");
-        return 1;
+#include <stdbool.h>
+#include <assert.h>
+
+bool parsear_datos(const char *entrada, char *inicial, int *edad, float *promedio) {
+    if (entrada == NULL || inicial == NULL || edad == NULL || promedio == NULL) {
+        return false;
     }
-    printf("Ingrese su edad: ");
-    if (scanf("%d", &edad) != 1)
-    {
-        printf("Error al leer la edad.\n");
-        return 1;
-    }
-    printf("Ingrese su promedio: ");
-    if (scanf("%f", &promedio) != 1)
-    {
-        printf("Error al leer el promedio.\n");
-        return 1;
-    }
-    printf("Inicial: %c, Edad: %d, Promedio: %.2f\n", inicial, edad, promedio);
+    int leidos = sscanf(entrada, " %c %d %f", inicial, edad, promedio);
+    return leidos == 3;
+}
+
+int main(void) {
+    char ini = ' ';
+    int ed = 0;
+    float prom = 0.0f;
+
+    assert(parsear_datos("J 20 8.75", &ini, &ed, &prom));
+    assert(ini == 'J');
+    assert(ed == 20);
+    assert(prom > 8.74f && prom < 8.76f);
+
+    assert(!parsear_datos("M 25", &ini, &ed, &prom));
+    assert(!parsear_datos("", &ini, &ed, &prom));
+    assert(!parsear_datos(NULL, &ini, &ed, &prom));
+
     return 0;
 }
 ```
-<!-- {code-block} c -->
-
+::::
 :::
-<!-- {solution} entrada-1 -->
 
 (ej_b1_c02_03)=
 ## Ejercicio 1.02.03 - Par o Impar ⭐☆☆☆☆

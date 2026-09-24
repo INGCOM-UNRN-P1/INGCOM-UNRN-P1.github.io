@@ -18,6 +18,13 @@ capítulos del apunte:
 - [Compilación](../../apunte/bloque_1_fundamentos/5_compilacion.md)
 - [Makefiles](../../apunte/bloque_1_fundamentos/8_makefiles.md)
 
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Etapas del proceso de traducción en C: preprocesamiento, compilación, ensamblado y enlazado.
+2. Uso básico de la terminal bash y comandos del compilador (`gcc -c`, `gcc -o`, `-Wall`, `-Wextra`).
+3. Estructura de cabeceras `.h` con guardas de inclusión `#ifndef / #define` y archivos fuente `.c`.
+4. Sintaxis de reglas en Makefiles: objetivos (*targets*), dependencias (*prerequisites*) y comandos tabulados.
+
 ## Proyecto Multi-archivo Manual
 
 (ej_b1_c08_01)=
