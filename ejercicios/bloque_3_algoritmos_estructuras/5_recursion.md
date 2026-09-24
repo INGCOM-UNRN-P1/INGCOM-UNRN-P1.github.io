@@ -604,14 +604,128 @@ int main(void) {
 :::
 
 (ej_b3_c07_14)=
-## Ejercicio 3.07.14 - Invertir String ⭐⭐☆☆☆
+### Ejercicio 3.07.14 - Torres de Hanoi con Registro de Movimientos ⭐⭐⭐☆☆
 
-Invertí un string recursivamente.
+:::{exercise}
+:label: ej_b3_c07_14_hanoi
+:enumerator: recursion-14
 
-**Orientación:**
-- Caso base: string vacío o de 1 carácter
-- Caso recursivo: último carácter + invertir(resto)
-- Pensá en índices: `invertir(str, inicio, fin)`
+El clásico problema de las Torres de Hanoi ilustra la descomposición canónica de un problema en tres etapas recursivas:
+1. Mover $n-1$ discos desde la aguja `origen` hasta la aguja `auxiliar` utilizando `destino` como pivote.
+2. Mover el disco restante $n$ desde `origen` hasta `destino`.
+3. Mover los $n-1$ discos desde `auxiliar` hasta `destino` utilizando `origen` como pivote.
+
+Definí la estructura:
+```c
+typedef struct {
+    int disco;
+    char origen;
+    char destino;
+} movimiento_hanoi_t;
+```
+
+Implementá la función recursiva:
+```c
+size_t hanoi_registrar(int n, char origen, char destino, char auxiliar, movimiento_hanoi_t *registro, size_t cap_max, size_t *indice_actual);
+```
+
+- **Invariante y Complejidad:** La cantidad exacta de movimientos mínimos para $n$ discos es siempre $2^n - 1$.
+- Si `registro != NULL`, guarda cada movimiento secuencialmente si `*indice_actual < cap_max`.
+- Retorna el conteo total acumulado de movimientos efectuados.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Discos $n$ | Agujas (Orig, Dest, Aux) | Movimientos Esperados ($2^n - 1$) | Primer Movimiento | Último Movimiento |
+| :--- | :--- | :--- | :--- | :--- |
+| `1` | `'A', 'C', 'B'` | `1` | Disco 1: A $\to$ C | Disco 1: A $\to$ C |
+| `2` | `'A', 'C', 'B'` | `3` | Disco 1: A $\to$ B | Disco 1: B $\to$ C |
+| `3` | `'A', 'C', 'B'` | `7` | Disco 1: A $\to$ C | Disco 1: A $\to$ C |
+| `4` | `'A', 'C', 'B'` | `15` | Disco 1: A $\to$ B | Disco 1: B $\to$ C |
+
+:::
+<!-- {exercise} ej_b3_c07_14_hanoi -->
+
+::::{solution} ej_b3_c07_14_hanoi
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <stddef.h>
+#include <assert.h>
+
+typedef struct {
+    int disco;
+    char origen;
+    char destino;
+} movimiento_hanoi_t;
+
+size_t hanoi_registrar(int n, char origen, char destino, char auxiliar, movimiento_hanoi_t *registro, size_t cap_max, size_t *indice_actual) {
+    if (n <= 0) {
+        return 0;
+    }
+
+    size_t movs = 0;
+
+    // 1. Mover n-1 de origen a auxiliar
+    movs += hanoi_registrar(n - 1, origen, auxiliar, destino, registro, cap_max, indice_actual);
+
+    // 2. Mover disco n de origen a destino
+    if (registro != NULL && indice_actual != NULL && *indice_actual < cap_max) {
+        registro[*indice_actual].disco = n;
+        registro[*indice_actual].origen = origen;
+        registro[*indice_actual].destino = destino;
+        (*indice_actual)++;
+    }
+    movs++;
+
+    // 3. Mover n-1 de auxiliar a destino
+    movs += hanoi_registrar(n - 1, auxiliar, destino, origen, registro, cap_max, indice_actual);
+
+    return movs;
+}
+
+int main(void) {
+    movimiento_hanoi_t buffer[32];
+    size_t idx = 0;
+
+    // Caso n = 1 -> 1 movimiento
+    idx = 0;
+    size_t m1 = hanoi_registrar(1, 'A', 'C', 'B', buffer, 32, &idx);
+    assert(m1 == 1);
+    assert(idx == 1);
+    assert(buffer[0].disco == 1 && buffer[0].origen == 'A' && buffer[0].destino == 'C');
+
+    // Caso n = 2 -> 3 movimientos
+    idx = 0;
+    size_t m2 = hanoi_registrar(2, 'A', 'C', 'B', buffer, 32, &idx);
+    assert(m2 == 3);
+    assert(idx == 3);
+    assert(buffer[0].disco == 1 && buffer[0].origen == 'A' && buffer[0].destino == 'B');
+    assert(buffer[1].disco == 2 && buffer[1].origen == 'A' && buffer[1].destino == 'C');
+    assert(buffer[2].disco == 1 && buffer[2].origen == 'B' && buffer[2].destino == 'C');
+
+    // Caso n = 3 -> 7 movimientos
+    idx = 0;
+    size_t m3 = hanoi_registrar(3, 'A', 'C', 'B', buffer, 32, &idx);
+    assert(m3 == 7);
+    assert(idx == 7);
+
+    // Caso n = 4 -> 15 movimientos
+    idx = 0;
+    size_t m4 = hanoi_registrar(4, 'A', 'C', 'B', buffer, 32, &idx);
+    assert(m4 == 15);
+    assert(idx == 15);
+
+    // Caso degenerado n <= 0
+    assert(hanoi_registrar(0, 'A', 'C', 'B', NULL, 0, NULL) == 0);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} ej_b3_c07_14_hanoi -->
 
 ---
 

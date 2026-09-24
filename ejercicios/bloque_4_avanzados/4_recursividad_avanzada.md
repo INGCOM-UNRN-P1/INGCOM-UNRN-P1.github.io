@@ -419,3 +419,88 @@ int main(void)
 
 ::::
 <!-- {solution} caminos_grilla_rec -->
+
+---
+
+(ej_b4_c07_08)=
+### Ejercicio 4.07.08 - Conteo Recursivo de Subconjuntos con Suma Objetivo (Backtracking) ⭐⭐⭐☆☆
+
+:::{exercise}
+:label: conteo_subconjuntos_suma
+:enumerator: recursividad-8
+
+El problema de la suma de subconjuntos (*Subset Sum*) es un pilar fundamental en algoritmia y complejidad computacional. Dado un conjunto de números enteros y un valor objetivo (*target*), se busca determinar cuántos subconjuntos distintos suman exactamente dicho valor.
+
+Implementá la función recursiva:
+```c
+size_t contar_subconjuntos_suma(const int conjunto[], size_t n, size_t indice, int suma_acumulada, int objetivo);
+```
+
+- **Estrategia recursiva (Backtracking binario):**
+  - Para cada elemento en la posición `indice`, existen exactamente dos ramas de decisión ortogonales:
+    1. **Incluir** el elemento en la suma acumulada: `suma_acumulada + conjunto[indice]`.
+    2. **Excluir** el elemento de la suma acumulada: `suma_acumulada`.
+  - **Caso Base:** Al alcanzar el final del arreglo (`indice == n`), si `suma_acumulada == objetivo` se contabiliza un subconjunto válido (`1`), en caso contrario `0`.
+- **Precondiciones:** `conjunto != NULL` (si `n > 0`).
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Conjunto ($n$) | Objetivo | Subconjuntos Válidos | Conteo Esperado |
+| :--- | :--- | :--- | :--- | :--- |
+| **Normal** | `{1, 2, 3, 4}`, $n=4$ | `5` | `{1, 4}`, `{2, 3}` | `2` |
+| **Elemento Cero** | `{0, 5, -5}`, $n=3$ | `0` | `{}`, `{0}`, `{5, -5}`, `{0, 5, -5}` | `4` |
+| **Suma Inalcanzable**| `{2, 4, 6}`, $n=3$ | `5` | Ninguno | `0` |
+| **Conjunto Vacío** | `{}`, $n=0$ | `0` | `{}` (subconjunto vacío suma 0) | `1` |
+
+:::
+<!-- {exercise} conteo_subconjuntos_suma -->
+
+::::{solution} conteo_subconjuntos_suma
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <stddef.h>
+#include <assert.h>
+
+size_t contar_subconjuntos_suma(const int conjunto[], size_t n, size_t indice, int suma_acumulada, int objetivo) {
+    if (indice == n) {
+        return (suma_acumulada == objetivo) ? 1 : 0;
+    }
+
+    // Rama 1: Incluir el elemento conjunto[indice]
+    size_t incluir = contar_subconjuntos_suma(conjunto, n, indice + 1, suma_acumulada + conjunto[indice], objetivo);
+
+    // Rama 2: Excluir el elemento conjunto[indice]
+    size_t excluir = contar_subconjuntos_suma(conjunto, n, indice + 1, suma_acumulada, objetivo);
+
+    return incluir + excluir;
+}
+
+int main(void) {
+    // Caso 1: {1, 2, 3, 4}, objetivo 5 -> {1,4}, {2,3}
+    int c1[4] = {1, 2, 3, 4};
+    assert(contar_subconjuntos_suma(c1, 4, 0, 0, 5) == 2);
+
+    // Caso 2: {0, 5, -5}, objetivo 0 -> {}, {0}, {5,-5}, {0, 5, -5}
+    int c2[3] = {0, 5, -5};
+    assert(contar_subconjuntos_suma(c2, 3, 0, 0, 0) == 4);
+
+    // Caso 3: Imposible
+    int c3[3] = {2, 4, 6};
+    assert(contar_subconjuntos_suma(c3, 3, 0, 0, 5) == 0);
+
+    // Caso 4: Conjunto vacío con objetivo 0 -> el conjunto vacío suma 0
+    assert(contar_subconjuntos_suma(NULL, 0, 0, 0, 0) == 1);
+
+    // Caso 5: Conjunto vacío con objetivo distinto de 0
+    assert(contar_subconjuntos_suma(NULL, 0, 0, 0, 10) == 0);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} conteo_subconjuntos_suma -->
+

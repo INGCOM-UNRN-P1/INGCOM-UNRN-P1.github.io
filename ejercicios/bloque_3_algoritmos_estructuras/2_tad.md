@@ -1402,22 +1402,203 @@ Implementá lista enlazada simple:
 ---
 
 (ej_b3_c02_16)=
-## Ejercicio 3.02.16 - TAD Conjunto (Set) ⭐⭐⭐⭐☆
+### Ejercicio 3.02.16 - TAD Conjunto de Enteros Encapsulado ⭐⭐⭐⭐☆
 
-Implementá conjunto sin elementos repetidos:
-- `conjunto_t *crear_conjunto()`
-- `bool agregar(conjunto_t *c, int elem)`
-- `bool contiene(const conjunto_t *c, int elem)`
-- `bool eliminar(conjunto_t *c, int elem)`
-- `size_t obtener_cardinalidad(const conjunto_t *c)`
-- `conjunto_t *union_conjuntos(const conjunto_t *a, const conjunto_t *b)`
-- `conjunto_t *interseccion(const conjunto_t *a, const conjunto_t *b)`
-- `void destruir_conjunto(conjunto_t *c)`
+:::{exercise}
+:label: ej_b3_c02_16_tad_conjunto
+:enumerator: tad-16
 
-**Orientación:**
-- Usá array dinámico o lista
-- `agregar` solo inserta si no existe
-- Operaciones de conjuntos crean nuevos conjuntos
+Implementá un Tipo de Dato Abstracto (TAD) **Conjunto de Enteros** (*Set*) dinámico y acotado que garantice la ausencia de elementos duplicados mediante un arreglo redimensionable:
+
+```c
+typedef struct conjunto conjunto_t;
+
+conjunto_t *conjunto_crear(void);
+bool conjunto_agregar(conjunto_t *c, int elem);
+bool conjunto_contiene(const conjunto_t *c, int elem);
+size_t conjunto_cardinalidad(const conjunto_t *c);
+conjunto_t *conjunto_union(const conjunto_t *a, const conjunto_t *b);
+conjunto_t *conjunto_interseccion(const conjunto_t *a, const conjunto_t *b);
+void conjunto_destruir(conjunto_t *c);
+```
+
+- **Invariante de representación:** En todo momento, los elementos en `c` son únicos. `conjunto_agregar` debe verificar pertenencia antes de insertar; si el elemento ya existe, retorna `true` sin duplicarlo.
+- **Operaciones algebraicas:** Las funciones `conjunto_union` e `conjunto_interseccion` deben retornar una nueva instancia independiente asignada en el Heap conteniendo el resultado.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Operación / Secuencia | Estado Conjunto A | Estado Conjunto B | Resultado Retornado | Cardinalidad Resultante |
+| :--- | :--- | :--- | :--- | :--- |
+| **Inserción con Duplicados** | `{10, 20, 10, 30}` | N/A | Exitoso | `3` (únicos: 10, 20, 30) |
+| **Unión de Conjuntos** | `{1, 2, 3}` | `{3, 4, 5}` | Nuevo TAD | `5` (`{1, 2, 3, 4, 5}`) |
+| **Intersección** | `{1, 2, 3, 4}` | `{3, 4, 5, 6}` | Nuevo TAD | `2` (`{3, 4}`) |
+| **Intersección Disjunta** | `{1, 2}` | `{8, 9}` | Nuevo TAD | `0` (conjunto vacío) |
+
+:::
+<!-- {exercise} ej_b3_c02_16_tad_conjunto -->
+
+::::{solution} ej_b3_c02_16_tad_conjunto
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <assert.h>
+
+struct conjunto {
+    int *elementos;
+    size_t cardinalidad;
+    size_t capacidad;
+};
+typedef struct conjunto conjunto_t;
+
+#define CAP_INICIAL 8
+
+conjunto_t *conjunto_crear(void) {
+    conjunto_t *c = (conjunto_t *)malloc(sizeof(conjunto_t));
+    if (c == NULL) {
+        return NULL;
+    }
+    c->elementos = (int *)malloc(CAP_INICIAL * sizeof(int));
+    if (c->elementos == NULL) {
+        free(c);
+        return NULL;
+    }
+    c->cardinalidad = 0;
+    c->capacidad = CAP_INICIAL;
+    return c;
+}
+
+bool conjunto_contiene(const conjunto_t *c, int elem) {
+    if (c == NULL) {
+        return false;
+    }
+    for (size_t i = 0; i < c->cardinalidad; i++) {
+        if (c->elementos[i] == elem) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool conjunto_agregar(conjunto_t *c, int elem) {
+    if (c == NULL) {
+        return false;
+    }
+    if (conjunto_contiene(c, elem)) {
+        return true;
+    }
+
+    if (c->cardinalidad >= c->capacidad) {
+        size_t nueva_cap = c->capacidad * 2;
+        int *nuevos = (int *)realloc(c->elementos, nueva_cap * sizeof(int));
+        if (nuevos == NULL) {
+            return false;
+        }
+        c->elementos = nuevos;
+        c->capacidad = nueva_cap;
+    }
+
+    c->elementos[c->cardinalidad++] = elem;
+    return true;
+}
+
+size_t conjunto_cardinalidad(const conjunto_t *c) {
+    return (c != NULL) ? c->cardinalidad : 0;
+}
+
+conjunto_t *conjunto_union(const conjunto_t *a, const conjunto_t *b) {
+    conjunto_t *res = conjunto_crear();
+    if (res == NULL) {
+        return NULL;
+    }
+
+    if (a != NULL) {
+        for (size_t i = 0; i < a->cardinalidad; i++) {
+            conjunto_agregar(res, a->elementos[i]);
+        }
+    }
+    if (b != NULL) {
+        for (size_t i = 0; i < b->cardinalidad; i++) {
+            conjunto_agregar(res, b->elementos[i]);
+        }
+    }
+    return res;
+}
+
+conjunto_t *conjunto_interseccion(const conjunto_t *a, const conjunto_t *b) {
+    conjunto_t *res = conjunto_crear();
+    if (res == NULL) {
+        return NULL;
+    }
+
+    if (a != NULL && b != NULL) {
+        for (size_t i = 0; i < a->cardinalidad; i++) {
+            if (conjunto_contiene(b, a->elementos[i])) {
+                conjunto_agregar(res, a->elementos[i]);
+            }
+        }
+    }
+    return res;
+}
+
+void conjunto_destruir(conjunto_t *c) {
+    if (c != NULL) {
+        free(c->elementos);
+        free(c);
+    }
+}
+
+int main(void) {
+    conjunto_t *a = conjunto_crear();
+    assert(a != NULL);
+    assert(conjunto_cardinalidad(a) == 0);
+
+    // Inserción y deduplicación
+    assert(conjunto_agregar(a, 10) == true);
+    assert(conjunto_agregar(a, 20) == true);
+    assert(conjunto_agregar(a, 10) == true);
+    assert(conjunto_agregar(a, 30) == true);
+    assert(conjunto_cardinalidad(a) == 3);
+
+    assert(conjunto_contiene(a, 20) == true);
+    assert(conjunto_contiene(a, 99) == false);
+
+    // Conjunto B
+    conjunto_t *b = conjunto_crear();
+    assert(b != NULL);
+    conjunto_agregar(b, 20);
+    conjunto_agregar(b, 30);
+    conjunto_agregar(b, 40);
+
+    // Unión: {10, 20, 30, 40} -> cardinalidad 4
+    conjunto_t *u = conjunto_union(a, b);
+    assert(u != NULL);
+    assert(conjunto_cardinalidad(u) == 4);
+    assert(conjunto_contiene(u, 10) && conjunto_contiene(u, 40));
+
+    // Intersección: {20, 30} -> cardinalidad 2
+    conjunto_t *inter = conjunto_interseccion(a, b);
+    assert(inter != NULL);
+    assert(conjunto_cardinalidad(inter) == 2);
+    assert(conjunto_contiene(inter, 20) && conjunto_contiene(inter, 30));
+    assert(!conjunto_contiene(inter, 10) && !conjunto_contiene(inter, 40));
+
+    // Destrucción limpia
+    conjunto_destruir(a);
+    conjunto_destruir(b);
+    conjunto_destruir(u);
+    conjunto_destruir(inter);
+    conjunto_destruir(NULL);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} ej_b3_c02_16_tad_conjunto -->
 
 ---
 

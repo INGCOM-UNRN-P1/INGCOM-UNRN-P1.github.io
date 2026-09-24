@@ -2146,3 +2146,168 @@ int main(void)
 
 ::::
 <!-- {solution} subcadena_segura -->
+
+---
+
+(ej_b2_c03b_43)=
+### Ejercicio 2.03b.43 - Tokenizador Dinámico de Cadenas ⭐⭐⭐☆☆
+
+:::{exercise}
+:label: tokenizar_cadena_dinamica
+:enumerator: cadenas-43
+
+El parseo de comandos, archivos de configuración CSV y expresiones requiere fraccionar un flujo de texto en componentes discretos (*tokens*) asignados dinámicamente.
+
+Implementá dos funciones para la tokenización segura y gestión de memoria:
+1. `char **tokenizar_cadena(const char *origen, char delimitador, size_t *cant_tokens)`:
+   - Recorre la cadena `origen` y separa las palabras delimitadas por el carácter `delimitador`.
+   - Se ignoran delimitadores contiguos consecutivos y delimitadores al inicio/fin (no genera tokens vacíos).
+   - Reserva memoria dinámica para un arreglo de punteros `char **` de tamaño `cant_tokens + 1` terminado en `NULL`.
+   - Para cada token, reserva con `malloc` el tamaño exacto necesario (`longitud + 1`) y copia la subcadena.
+   - Ante falla de asignación en cualquier etapa, debe liberar todos los bloques reservados previamente (prevención de *memory leak*) y retornar `NULL`.
+2. `void liberar_tokens(char **tokens)`:
+   - Libera secuencialmente cada cadena apuntada y finalmente el bloque del vector de punteros. Es segura ante `tokens == NULL`.
+
+**Nivel de Bloom:** Nivel 4 (Análisis / Síntesis).  
+**Conceptos requeridos:** Punteros dobles `char **`, asignación dinámica escalonada, terminación en centinela `NULL`, manejo estricto de fallas de asignación.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Cadena Entrada | Delimitador | Cantidad de Tokens | Tokens Obtenidos | Centinela Final |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Normal** | `"hola,mundo,lenguaje,c"` | `','` | `4` | `{"hola", "mundo", "lenguaje", "c"}` | `NULL` |
+| **Delimitadores Múltiples** | `"  sistemas   operativos "` | `' '` | `2` | `{"sistemas", "operativos"}` | `NULL` |
+| **Sin Delimitador** | `"computadora"` | `':'` | `1` | `{"computadora"}` | `NULL` |
+| **Cadena Vacía / Solo Delims**| `",,,"` | `','` | `0` | `{}` (arreglo con centinela `NULL`) | `NULL` |
+
+:::
+<!-- {exercise} tokenizar_cadena_dinamica -->
+
+::::{solution} tokenizar_cadena_dinamica
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
+
+void liberar_tokens(char **tokens) {
+    if (tokens == NULL) {
+        return;
+    }
+    for (size_t i = 0; tokens[i] != NULL; i++) {
+        free(tokens[i]);
+    }
+    free(tokens);
+}
+
+char **tokenizar_cadena(const char *origen, char delimitador, size_t *cant_tokens) {
+    if (cant_tokens == NULL) {
+        return NULL;
+    }
+    *cant_tokens = 0;
+    if (origen == NULL) {
+        return NULL;
+    }
+
+    // 1. Contar tokens
+    size_t count = 0;
+    const char *p = origen;
+    while (*p != '\0') {
+        while (*p == delimitador) {
+            p++;
+        }
+        if (*p != '\0') {
+            count++;
+            while (*p != '\0' && *p != delimitador) {
+                p++;
+            }
+        }
+    }
+
+    // 2. Asignar vector de punteros (+1 para centinela NULL)
+    char **resultado = (char **)malloc((count + 1) * sizeof(char *));
+    if (resultado == NULL) {
+        return NULL;
+    }
+
+    // 3. Extraer y copiar tokens
+    size_t idx = 0;
+    p = origen;
+    while (*p != '\0' && idx < count) {
+        while (*p == delimitador) {
+            p++;
+        }
+        if (*p != '\0') {
+            const char *inicio = p;
+            while (*p != '\0' && *p != delimitador) {
+                p++;
+            }
+            size_t len = (size_t)(p - inicio);
+            resultado[idx] = (char *)malloc(len + 1);
+            if (resultado[idx] == NULL) {
+                // Liberar memoria previa ante falla
+                resultado[idx] = NULL;
+                liberar_tokens(resultado);
+                return NULL;
+            }
+            memcpy(resultado[idx], inicio, len);
+            resultado[idx][len] = '\0';
+            idx++;
+        }
+    }
+    resultado[count] = NULL;
+    *cant_tokens = count;
+    return resultado;
+}
+
+int main(void) {
+    size_t n = 0;
+
+    // Caso Normal
+    char **t1 = tokenizar_cadena("hola,mundo,lenguaje,c", ',', &n);
+    assert(t1 != NULL);
+    assert(n == 4);
+    assert(strcmp(t1[0], "hola") == 0);
+    assert(strcmp(t1[1], "mundo") == 0);
+    assert(strcmp(t1[2], "lenguaje") == 0);
+    assert(strcmp(t1[3], "c") == 0);
+    assert(t1[4] == NULL);
+    liberar_tokens(t1);
+
+    // Múltiples delimitadores contiguos
+    char **t2 = tokenizar_cadena("  sistemas   operativos ", ' ', &n);
+    assert(t2 != NULL);
+    assert(n == 2);
+    assert(strcmp(t2[0], "sistemas") == 0);
+    assert(strcmp(t2[1], "operativos") == 0);
+    assert(t2[2] == NULL);
+    liberar_tokens(t2);
+
+    // Sin delimitadores
+    char **t3 = tokenizar_cadena("computadora", ':', &n);
+    assert(t3 != NULL);
+    assert(n == 1);
+    assert(strcmp(t3[0], "computadora") == 0);
+    assert(t3[1] == NULL);
+    liberar_tokens(t3);
+
+    // Cadena vacía o solo delimitadores
+    char **t4 = tokenizar_cadena(",,,", ',', &n);
+    assert(t4 != NULL);
+    assert(n == 0);
+    assert(t4[0] == NULL);
+    liberar_tokens(t4);
+
+    // Puntero nulo
+    assert(tokenizar_cadena(NULL, ' ', &n) == NULL);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} tokenizar_cadena_dinamica -->
+
