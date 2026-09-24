@@ -673,3 +673,165 @@ int main(void)
 
 ::::
 <!-- {solution} reducir_generico -->
+
+---
+
+(ej_b4_c02_08)=
+### Ejercicio 4.02.08 - Máquina de Estados Finita (FSM) con Matriz de Callbacks ⭐⭐⭐⭐☆
+
+:::{exercise}
+:label: fsm_matriz_callbacks
+:enumerator: punteros-adv-8
+
+Implementá una Máquina de Estados Finita (FSM) basada en una matriz bidimensional de punteros a función de transiciones:
+$$\text{TABLA\_TRANSICIONES}[\text{estado}][\text{evento}]$$
+donde cada celda contiene una función de transición pura con la firma:
+```c
+typedef estado_t (*transicion_fn)(void);
+```
+Dadas las definiciones:
+```c
+typedef enum {
+    ESTADO_REPOSO = 0,
+    ESTADO_EJECUCION,
+    ESTADO_PAUSA,
+    CANT_ESTADOS
+} estado_t;
+
+typedef enum {
+    EVENTO_ARRANCAR = 0,
+    EVENTO_PAUSAR,
+    EVENTO_DETENER,
+    CANT_EVENTOS
+} evento_t;
+```
+
+Implementá la función de despacho:
+```c
+estado_t fsm_transicionar(estado_t actual, evento_t evento);
+```
+Si la transición no está permitida para el par $(actual, evento)$ (la celda es `NULL`), la FSM debe permanecer en el estado `actual` sin efectos adversos. Si alguno de los argumentos está fuera de rango, retorna `actual`.
+
+**Nivel de Bloom:** Nivel 4 (Análisis) y Nivel 5 (Evaluación).  
+**Conceptos requeridos:** Matrices de punteros a función, máquinas de estado dirigidas por tablas $O(1)$, desacoplamiento de transiciones sin `switch` anidados.  
+**Techo conceptual:** Prohibido el uso de condicionales `if-else` o `switch` para bifurcar estados y eventos.
+
+#### Contrato de la Función
+- **Firma:** `estado_t fsm_transicionar(estado_t actual, evento_t evento);`
+- **Precondiciones:** Ninguna.
+- **Postcondiciones:** Retorna el nuevo estado tras ejecutar el callback de transición correspondiente, o `actual` si la transición es inválida o nula.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Estado Inicial | Evento | Transición Esperada | Justificación Técnica |
+| :--- | :--- | :--- | :--- |
+| `ESTADO_REPOSO` | `EVENTO_ARRANCAR` | `ESTADO_EJECUCION` | Arranque del sistema |
+| `ESTADO_EJECUCION` | `EVENTO_PAUSAR` | `ESTADO_PAUSA` | Pausa temporal |
+| `ESTADO_PAUSA` | `EVENTO_ARRANCAR` | `ESTADO_EJECUCION` | Reanudación desde pausa |
+| `ESTADO_REPOSO` | `EVENTO_PAUSAR` | `ESTADO_REPOSO` (sin cambio) | Transición no definida (puntero `NULL`) |
+| `ESTADO_EJECUCION` | Evento inválido (`99`) | `ESTADO_EJECUCION` | Rechazo defensivo de evento fuera de rango |
+
+:::
+<!-- {exercise} -->
+
+::::{solution} fsm_matriz_callbacks
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <assert.h>
+#include <stddef.h>
+
+typedef enum
+{
+    ESTADO_REPOSO = 0,
+    ESTADO_EJECUCION,
+    ESTADO_PAUSA,
+    CANT_ESTADOS
+} estado_t;
+
+typedef enum
+{
+    EVENTO_ARRANCAR = 0,
+    EVENTO_PAUSAR,
+    EVENTO_DETENER,
+    CANT_EVENTOS
+} evento_t;
+
+typedef estado_t (*transicion_fn)(void);
+
+static estado_t a_ejecucion(void) { return ESTADO_EJECUCION; }
+static estado_t a_pausa(void) { return ESTADO_PAUSA; }
+static estado_t a_reposo(void) { return ESTADO_REPOSO; }
+
+static const transicion_fn TABLA_FSM[CANT_ESTADOS][CANT_EVENTOS] = {
+    /* ESTADO_REPOSO */
+    [ESTADO_REPOSO] = {
+        [EVENTO_ARRANCAR] = a_ejecucion,
+        [EVENTO_PAUSAR]   = NULL,
+        [EVENTO_DETENER]  = NULL
+    },
+    /* ESTADO_EJECUCION */
+    [ESTADO_EJECUCION] = {
+        [EVENTO_ARRANCAR] = NULL,
+        [EVENTO_PAUSAR]   = a_pausa,
+        [EVENTO_DETENER]  = a_reposo
+    },
+    /* ESTADO_PAUSA */
+    [ESTADO_PAUSA] = {
+        [EVENTO_ARRANCAR] = a_ejecucion,
+        [EVENTO_PAUSAR]   = NULL,
+        [EVENTO_DETENER]  = a_reposo
+    }
+};
+
+estado_t fsm_transicionar(estado_t actual, evento_t evento)
+{
+    if (actual >= CANT_ESTADOS || evento >= CANT_EVENTOS)
+    {
+        return actual;
+    }
+
+    transicion_fn fn = TABLA_FSM[actual][evento];
+    if (fn == NULL)
+    {
+        return actual;
+    }
+
+    return fn();
+}
+
+int main(void)
+{
+    estado_t st = ESTADO_REPOSO;
+
+    // Reposo -> Arrancar -> Ejecución
+    st = fsm_transicionar(st, EVENTO_ARRANCAR);
+    assert(st == ESTADO_EJECUCION);
+
+    // Ejecución -> Pausar -> Pausa
+    st = fsm_transicionar(st, EVENTO_PAUSAR);
+    assert(st == ESTADO_PAUSA);
+
+    // Pausa -> Arrancar -> Ejecución
+    st = fsm_transicionar(st, EVENTO_ARRANCAR);
+    assert(st == ESTADO_EJECUCION);
+
+    // Ejecución -> Detener -> Reposo
+    st = fsm_transicionar(st, EVENTO_DETENER);
+    assert(st == ESTADO_REPOSO);
+
+    // Transición no permitida: Reposo no puede pausarse
+    estado_t mismo = fsm_transicionar(ESTADO_REPOSO, EVENTO_PAUSAR);
+    assert(mismo == ESTADO_REPOSO);
+
+    // Evento fuera de rango
+    assert(fsm_transicionar(ESTADO_EJECUCION, (evento_t)99) == ESTADO_EJECUCION);
+    assert(fsm_transicionar((estado_t)99, EVENTO_ARRANCAR) == (estado_t)99);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} fsm_matriz_callbacks -->

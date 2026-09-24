@@ -180,12 +180,13 @@ int encontrar_maximo(const int arr[], size_t tam, bool *encontrado)
 ```
 <!-- {code-block} c -->
 
-**Tarea**: Identificá el rol de cada variable:
+**Tabla de Vectores de Prueba:**
 
-1. `maximo`
-2. `hay_elementos`
-3. `encontrado` (valor apuntado)
-4. `indice`
+| Caso de Prueba | Arreglo Entrada | Cantidad `tam` | `*encontrado` | Retorno Máximo |
+| :--- | :--- | :--- | :--- | :--- |
+| Elementos positivos y negativos | `[-15, 42, 0, 99, -3]` | `5` | `true` | `99` |
+| Solo negativos | `[-50, -12, -80]` | `3` | `true` | `-12` |
+| Arreglo vacío | `{}` | `0` | `false` | `INT_MIN` |
 
 :::
 <!-- {exercise} rol_busqueda -->
@@ -202,6 +203,60 @@ int encontrar_maximo(const int arr[], size_t tam, bool *encontrado)
 4. **`indice`**: **Variable de Control de lazo/Iterador**. Controla el recorrido
    del arreglo.
 
+**Implementación y Suite de Verificación C11:**
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <stdbool.h>
+#include <limits.h>
+#include <assert.h>
+
+int encontrar_maximo(const int arr[], size_t tam, bool *encontrado) {
+    if (encontrado == NULL) {
+        return INT_MIN;
+    }
+    *encontrado = false;
+    if (arr == NULL || tam == 0) {
+        return INT_MIN;
+    }
+
+    int maximo = INT_MIN;
+    bool hay_elementos = false;
+
+    for (size_t indice = 0; indice < tam; indice++) {
+        if (!hay_elementos || arr[indice] > maximo) {
+            maximo = arr[indice];
+            hay_elementos = true;
+        }
+    }
+
+    *encontrado = hay_elementos;
+    return maximo;
+}
+
+int main(void) {
+    bool ok = false;
+
+    int v1[] = {-15, 42, 0, 99, -3};
+    int m1 = encontrar_maximo(v1, 5, &ok);
+    assert(ok == true);
+    assert(m1 == 99);
+
+    int v2[] = {-50, -12, -80};
+    int m2 = encontrar_maximo(v2, 3, &ok);
+    assert(ok == true);
+    assert(m2 == -12);
+
+    int m3 = encontrar_maximo(NULL, 0, &ok);
+    assert(ok == false);
+    assert(m3 == INT_MIN);
+
+    assert(encontrar_maximo(v1, 5, NULL) == INT_MIN);
+
+    return 0;
+}
+```
+<!-- {code-block} c -->
 :::
 <!-- {solution} rol_busqueda -->
 

@@ -176,33 +176,92 @@ clean:
 (ej_b1_c08_04)=
 ### Ejercicio 1.08.04 - Mensajes de depuración ⭐⭐☆☆☆
 
-**Tarea**: Modificá tu proyecto para incluir mensajes de depuración que solo se
-impriman cuando se compile en "modo debug".
+:::{exercise}
+:label: ej_b1_c08_04_debug
 
-:::{hint} Lógica y Consideraciones
-1.  **En el código**: Encerrá tus `printf` de depuración dentro de bloques de
-    preprocesador:
-    ```c
-    #ifdef DEBUG
-    printf("[DEBUG] La función sumar fue llamada con a=%d, b=%d\n", a, b);
-    #endif
-    ```
-2.  **En el Makefile**: Modificá la regla de compilación para que se pueda pasar
-    una bandera al compilador. La opción `-D` de `gcc` permite definir una macro
-    desde la línea de comandos.
-    ```makefile
-    # Añadir una variable para las macros
-    CPPFLAGS =
-    # Modificar la regla de compilación
-    %.o: %.c
-    	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
-    ```
-3.  **Uso**: Ahora podés compilar normalmente (`make`) o en modo debug (`make
-    CPPFLAGS=-DDEBUG`).
-    errores de E/S con `ferror` y `feof`.
-    archivo en todos los caminos de ejecución.
+Implementá un sistema básico de registro de eventos con compilación condicional y niveles de severidad:
+- Definí niveles `LOG_LEVEL_NONE (0)`, `LOG_LEVEL_INFO (1)`, y `LOG_LEVEL_DEBUG (2)`.
+- Si `LOG_LEVEL` no está definido en el preprocesador, debe establecerse por defecto en `LOG_LEVEL_INFO`.
+- Implementá una función `size_t formatear_log(char *buffer, size_t capacidad, int nivel_mensaje, const char *mensaje)` que guarde en `buffer` el prefijo `"[DEBUG] "` o `"[INFO] "` seguido del mensaje solo si `nivel_mensaje <= LOG_LEVEL`. Si el mensaje no califica por nivel o capacidad, debe retornar 0 y no modificar el buffer.
+
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Nivel de Mensaje | Nivel Activo (`LOG_LEVEL`) | Retorno Esperado | Contenido en Buffer |
+| :--- | :--- | :--- | :--- | :--- |
+| Info en nivel Info | `LOG_LEVEL_INFO` | 1 (`INFO`) | `> 0` | `"[INFO] Sistema listo"` |
+| Debug en nivel Info | `LOG_LEVEL_DEBUG` | 1 (`INFO`) | `0` | `""` (filtrado) |
+| Buffer insuficiente | `LOG_LEVEL_INFO` | 1 (`INFO`) | `0` | Sin desborde |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+#include <assert.h>
+
+#define LOG_LEVEL_NONE  0
+#define LOG_LEVEL_INFO  1
+#define LOG_LEVEL_DEBUG 2
+
+#ifndef LOG_LEVEL
+#define LOG_LEVEL LOG_LEVEL_INFO
+#endif
+
+size_t formatear_log(char *buffer, size_t capacidad, int nivel_mensaje, const char *mensaje) {
+    if (buffer == NULL || capacidad == 0 || mensaje == NULL) {
+        return 0;
+    }
+
+    if (nivel_mensaje > LOG_LEVEL || nivel_mensaje == LOG_LEVEL_NONE) {
+        buffer[0] = '\0';
+        return 0;
+    }
+
+    const char *prefijo = (nivel_mensaje == LOG_LEVEL_DEBUG) ? "[DEBUG] " : "[INFO] ";
+    size_t len_prefijo = strlen(prefijo);
+    size_t len_mensaje = strlen(mensaje);
+
+    if (len_prefijo + len_mensaje + 1 > capacidad) {
+        buffer[0] = '\0';
+        return 0;
+    }
+
+    int escritos = snprintf(buffer, capacidad, "%s%s", prefijo, mensaje);
+    if (escritos < 0 || (size_t)escritos >= capacidad) {
+        buffer[0] = '\0';
+        return 0;
+    }
+
+    return (size_t)escritos;
+}
+
+int main(void) {
+    char buf[64];
+
+    // Con LOG_LEVEL_INFO (1), INFO debe registrarse
+    size_t n1 = formatear_log(buf, sizeof(buf), LOG_LEVEL_INFO, "Operacion iniciada");
+    assert(n1 > 0);
+    assert(strcmp(buf, "[INFO] Operacion iniciada") == 0);
+
+    // Con LOG_LEVEL_INFO (1), DEBUG debe ser descartado
+    size_t n2 = formatear_log(buf, sizeof(buf), LOG_LEVEL_DEBUG, "Detalle interno");
+    assert(n2 == 0);
+    assert(buf[0] == '\0');
+
+    // Buffer demasiado pequeño
+    char pequeno[8];
+    size_t n3 = formatear_log(pequeno, sizeof(pequeno), LOG_LEVEL_INFO, "Texto muy largo");
+    assert(n3 == 0);
+
+    // Parámetros nulos
+    assert(formatear_log(NULL, 10, LOG_LEVEL_INFO, "Test") == 0);
+    assert(formatear_log(buf, sizeof(buf), LOG_LEVEL_INFO, NULL) == 0);
+
+    return 0;
+}
+```
+::::
 :::
-<!-- {hint} Lógica y Consideraciones -->
 
 (ej_b1_c08_05)=
 ## Ejercicio 1.08.05 - Compilación Básica ⭐☆☆☆☆

@@ -687,3 +687,185 @@ int main(void)
 
 ::::
 <!-- {solution} baja_logica_binaria -->
+
+---
+
+(ej_b4_c04_06)=
+### Ejercicio 4.04.06 - Integridad de Cabecera Binaria con Magic Number y Checksum ⭐⭐⭐☆☆
+
+:::{exercise}
+:label: cabecera_binaria_checksum
+:enumerator: binarios-6
+
+En formatos binarios profesionales (como imágenes PNG, ejecutables ELF o contenedores de base de datos), los primeros bytes del archivo forman una **cabecera estructurada** que identifica el formato (*magic number*), la versión del esquema y mecanismos de detección de corrupción mediante sumas de verificación (*checksum*).
+
+Dada la siguiente cabecera empaquetada:
+```c
+#define MAGIC_UNRN 0x50314150U /* "P1AP" */
+
+typedef struct {
+    uint32_t magic;
+    uint16_t version;
+    uint16_t cant_bytes;
+    uint32_t checksum;
+} cabecera_archivo_t;
+```
+
+Implementá dos funciones de persistencia robusta:
+1. `bool escribir_archivo_protegido(const char *ruta, const uint8_t *payload, uint16_t tam)`:
+   - Calcula el *checksum* sumando algebraicamente cada byte de `payload` (`uint32_t`).
+   - Escribe la estructura `cabecera_archivo_t` al inicio y luego el arreglo `payload`.
+   - Cierra el archivo y retorna `true` ante éxito o `false` ante error de E/S o punteros nulos.
+2. `bool verificar_y_leer_archivo(const char *ruta, uint8_t *buffer_out, uint16_t cap, uint16_t *bytes_leidos)`:
+   - Abre el archivo en `"rb"`.
+   - Lee la cabecera y verifica que `magic == MAGIC_UNRN`, `version == 1` y `cant_bytes <= cap`.
+   - Lee `cant_bytes` del payload, calcula la suma de comprobación y verifica que coincida con `checksum`.
+   - Si todo es correcto, escribe `*bytes_leidos = cant_bytes` y retorna `true`. Si hay corrupción o inconsistencia, retorna `false`.
+
+**Nivel de Bloom:** Nivel 4 (Análisis / Aplicación).  
+**Conceptos requeridos:** `uint32_t`, lectura/escritura de cabeceras, cálculo determinístico de sumas de comprobación, validación de integridad.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Entrada de Datos | Acción / Modificación | Retorno Esperado | Estado de Verificación |
+| :--- | :--- | :--- | :--- | :--- |
+| **Normal** | Payload `{0x10, 0x20, 0x30, 0x40}` | Escritura y lectura directa | `true` | Checksum válido (`0xA0`) |
+| **Cabecera Inválida** | Payload normal | Se altera el magic number a `0x00` | `false` | Detección de formato desconocido |
+| **Corrupción de Payload** | Payload normal | Se muta un byte de datos en disco | `false` | Detección de checksum discordante |
+| **Buffer insuficiente** | Payload de 4 bytes | Capacidad de buffer solicitada = 2 | `false` | Prevención de buffer overflow |
+
+:::
+<!-- {exercise} cabecera_binaria_checksum -->
+
+::::{solution} cabecera_binaria_checksum
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include <assert.h>
+
+#define MAGIC_UNRN 0x50314150U /* "P1AP" */
+
+typedef struct {
+    uint32_t magic;
+    uint16_t version;
+    uint16_t cant_bytes;
+    uint32_t checksum;
+} cabecera_archivo_t;
+
+static uint32_t calcular_checksum(const uint8_t *datos, uint16_t tam) {
+    uint32_t suma = 0;
+    for (uint16_t i = 0; i < tam; i++) {
+        suma += datos[i];
+    }
+    return suma;
+}
+
+bool escribir_archivo_protegido(const char *ruta, const uint8_t *payload, uint16_t tam) {
+    if (ruta == NULL || (tam > 0 && payload == NULL)) {
+        return false;
+    }
+
+    FILE *f = fopen(ruta, "wb");
+    if (f == NULL) {
+        return false;
+    }
+
+    cabecera_archivo_t hdr;
+    hdr.magic = MAGIC_UNRN;
+    hdr.version = 1;
+    hdr.cant_bytes = tam;
+    hdr.checksum = calcular_checksum(payload, tam);
+
+    if (fwrite(&hdr, sizeof(cabecera_archivo_t), 1, f) != 1) {
+        fclose(f);
+        return false;
+    }
+
+    if (tam > 0 && fwrite(payload, sizeof(uint8_t), tam, f) != tam) {
+        fclose(f);
+        return false;
+    }
+
+    fclose(f);
+    return true;
+}
+
+bool verificar_y_leer_archivo(const char *ruta, uint8_t *buffer_out, uint16_t cap, uint16_t *bytes_leidos) {
+    if (ruta == NULL || buffer_out == NULL || bytes_leidos == NULL) {
+        return false;
+    }
+
+    FILE *f = fopen(ruta, "rb");
+    if (f == NULL) {
+        return false;
+    }
+
+    cabecera_archivo_t hdr;
+    if (fread(&hdr, sizeof(cabecera_archivo_t), 1, f) != 1) {
+        fclose(f);
+        return false;
+    }
+
+    if (hdr.magic != MAGIC_UNRN || hdr.version != 1 || hdr.cant_bytes > cap) {
+        fclose(f);
+        return false;
+    }
+
+    if (hdr.cant_bytes > 0 && fread(buffer_out, sizeof(uint8_t), hdr.cant_bytes, f) != hdr.cant_bytes) {
+        fclose(f);
+        return false;
+    }
+
+    fclose(f);
+
+    uint32_t suma_calculada = calcular_checksum(buffer_out, hdr.cant_bytes);
+    if (suma_calculada != hdr.checksum) {
+        return false;
+    }
+
+    *bytes_leidos = hdr.cant_bytes;
+    return true;
+}
+
+int main(void) {
+    const char *test_file = "test_chk_tmp.bin";
+    uint8_t datos_orig[4] = {0x10, 0x20, 0x30, 0x40};
+    uint8_t buffer_dest[16];
+    uint16_t leidos = 0;
+
+    // Caso Normal
+    assert(escribir_archivo_protegido(test_file, datos_orig, 4) == true);
+    assert(verificar_y_leer_archivo(test_file, buffer_dest, sizeof(buffer_dest), &leidos) == true);
+    assert(leidos == 4);
+    assert(buffer_dest[0] == 0x10 && buffer_dest[3] == 0x40);
+
+    // Buffer insuficiente
+    assert(verificar_y_leer_archivo(test_file, buffer_dest, 2, &leidos) == false);
+
+    // Corrupción de payload en disco
+    FILE *f = fopen(test_file, "rb+");
+    assert(f != NULL);
+    assert(fseek(f, (long)sizeof(cabecera_archivo_t), SEEK_SET) == 0);
+    fputc(0xFF, f); // Altera el primer byte del payload
+    fclose(f);
+    assert(verificar_y_leer_archivo(test_file, buffer_dest, sizeof(buffer_dest), &leidos) == false);
+
+    // Corrupción de magic number
+    f = fopen(test_file, "rb+");
+    assert(f != NULL);
+    assert(fseek(f, 0, SEEK_SET) == 0);
+    uint32_t bad_magic = 0;
+    fwrite(&bad_magic, sizeof(uint32_t), 1, f);
+    fclose(f);
+    assert(verificar_y_leer_archivo(test_file, buffer_dest, sizeof(buffer_dest), &leidos) == false);
+
+    remove(test_file);
+    return 0;
+}
+```
+::::
+<!-- {solution} cabecera_binaria_checksum -->
