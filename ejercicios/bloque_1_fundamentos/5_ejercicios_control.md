@@ -10,10 +10,17 @@ subtitle: 'Problemas y soluciones sobre lazos y condicionales en C'
 ## Acerca de
 
 Estos ejercicios tienen como propósito ejercitar la lógica condicional, las
-estructuras de repetición y el control de flujo estructurado y seguro en C.
+estructuras de repetición y el control de flujo estructurado y seguro en C11.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-control-flujo`
+
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Operadores relacionales (`<`, `<=`, `>`, `>=`, `==`, `!=`) y lógicos (`&&`, `||`, `!`).
+2. Estructuras condicionales simples y anidadas (`if`, `else if`, `else`).
+3. Estructuras de repetición (`for`, `while`, `do...while`) y sus invariantes de terminación.
+4. Banderas de control booleanas (`bool` de `<stdbool.h>`) en reemplazo de saltos incondicionales (`break`/`continue`).
 
 ### Cuestiones de Estilo Aplicables
 - **Estructuras de control y llaves:** De acuerdo con la {ref}`0x1001h`, todas las estructuras de control
@@ -30,55 +37,60 @@ estructuras de repetición y el control de flujo estructurado y seguro en C.
 ## Estructuras Condicionales
 
 (ej_b1_c03b_01)=
-### Ejercicio 1.03b.01 - Condición de aprobación ⭐⭐☆☆☆
+### Ejercicio 1.03b.01 - Condición de Aprobación ⭐⭐☆☆☆
 
 :::{exercise}
-:label: entrada-2
-:enumerator: entrada-2
-Pedí al usuario que ingrese su nota final (entera) e imprimí su condición:
-- "Promociona" si la nota es mayor o igual a 6.
-- "Aprueba" si la nota es mayor o igual a 4 pero menor a 6.
-- "Desaprueba" si la nota es menor a 4.
-    desbordamientos de búfer validando la capacidad máxima.
-    líneas de manera robusta.
+:label: ej_b1_c03b_01_aprobacion
 
-:::
-<!-- {exercise} -->
+Implementá una función pura que evalúe la condición académica según la nota
+entera recibida:
+- `"Promociona"` si la nota es mayor o igual a 6.
+- `"Aprueba"` si la nota está comprendida entre 4 y 5 inclusive.
+- `"Desaprueba"` si la nota es menor a 4.
 
-:::{solution} entrada-2
-:class: dropdown
+```c
+const char *evaluar_condicion_aprobacion(int nota);
+```
 
-```{code-block} c
-:linenos:
+**Tabla de Vectores de Prueba:**
+
+| Nota de Entrada | Condición Retornada |
+| :--- | :--- |
+| `10` | `"Promociona"` |
+| `6` | `"Promociona"` |
+| `5` | `"Aprueba"` |
+| `4` | `"Aprueba"` |
+| `3` | `"Desaprueba"` |
+| `0` | `"Desaprueba"` |
+
+::::{solution}
+```c
 #include <stdio.h>
-int main(void)
-{
-    int nota = 0;
-    printf("Ingrese la nota: ");
-    if (scanf("%d", &nota) != 1)
-    {
-        printf("Error al leer la nota.\n");
-        return 1;
+#include <string.h>
+#include <assert.h>
+
+const char *evaluar_condicion_aprobacion(int nota) {
+    if (nota >= 6) {
+        return "Promociona";
+    } else if (nota >= 4) {
+        return "Aprueba";
+    } else {
+        return "Desaprueba";
     }
-    if (nota >= 6)
-    {
-        printf("Promociona\n");
-    }
-    else if (nota >= 4)
-    {
-        printf("Aprueba\n");
-    }
-    else
-    {
-        printf("Desaprueba\n");
-    }
+}
+
+int main(void) {
+    assert(strcmp(evaluar_condicion_aprobacion(10), "Promociona") == 0);
+    assert(strcmp(evaluar_condicion_aprobacion(6), "Promociona") == 0);
+    assert(strcmp(evaluar_condicion_aprobacion(5), "Aprueba") == 0);
+    assert(strcmp(evaluar_condicion_aprobacion(4), "Aprueba") == 0);
+    assert(strcmp(evaluar_condicion_aprobacion(3), "Desaprueba") == 0);
+    assert(strcmp(evaluar_condicion_aprobacion(0), "Desaprueba") == 0);
     return 0;
 }
 ```
-<!-- {code-block} c -->
-
+::::
 :::
-<!-- {solution} entrada-2 -->
 
 ---
 
@@ -159,50 +171,65 @@ int main(void)
 <!-- {solution} lazo_for -->
 
 (ej_b1_c03b_04)=
-### Ejercicio 1.03b.04 - Clave de acceso con do-while ⭐⭐☆☆☆
+### Ejercicio 1.03b.04 - Verificación de Clave con Límite de Intentos ⭐⭐☆☆☆
 
 :::{exercise}
-:label: lazo_repeat
-:enumerator: for
-Diseñá un programa con un lazo `do...while` que solicite repetidamente una clave
-de acceso numérica al usuario hasta que ingrese el valor correcto `1234`.
-    valores fuera de rango o tipos inválidos.
-    un lazo hasta que el usuario elija finalizar.
+:label: ej_b1_c03b_04_clave_intentos
 
-:::
-<!-- {exercise} -->
+Implementá una función determinística que procese un arreglo de intentos de clave
+contra una clave secreta esperada, deteniéndose apenas acierte o al agotar los
+intentos, retornando si el acceso fue concedido.
 
-:::{solution} lazo_repeat
-:label: solucion-lazo_repeat
-:class: dropdown
-```{code-block} c
-:linenos:
+```c
+bool verificar_clave_intentos(const int *intentos, size_t n, int clave_secreta);
+```
+
+**Tabla de Vectores de Prueba:**
+
+| Intentos Ingresados | Clave Secreta | Retorno Esperado |
+| :--- | :--- | :--- |
+| `[1111, 2222, 1234]` | `1234` | `true` (concedido al 3er intento) |
+| `[1234]` | `1234` | `true` (concedido al 1er intento) |
+| `[9999, 8888, 7777]` | `1234` | `false` (agotados) |
+
+::::{solution}
+```c
 #include <stdio.h>
-int main(void)
-{
-    int clave = 0;
-    int clave_correcta = 1234;
-    do
-    {
-        printf("Ingrese la clave: ");
-        if (scanf("%d", &clave) != 1)
-        {
-            printf("Error al leer la clave.\n");
-            return 1;
+#include <stdbool.h>
+#include <assert.h>
+
+bool verificar_clave_intentos(const int *intentos, size_t n, int clave_secreta) {
+    if (intentos == NULL || n == 0) {
+        return false;
+    }
+    size_t i = 0;
+    bool concedido = false;
+    do {
+        if (intentos[i] == clave_secreta) {
+            concedido = true;
         }
-        if (clave != clave_correcta)
-        {
-            printf("Clave incorrecta. Reintente.\n");
-        }
-    } while (clave != clave_correcta);
-    printf("Acceso concedido.\n");
+        i++;
+    } while (i < n && !concedido);
+
+    return concedido;
+}
+
+int main(void) {
+    int intentos_ok[] = {1111, 2222, 1234};
+    assert(verificar_clave_intentos(intentos_ok, 3, 1234));
+
+    int inmediato[] = {1234};
+    assert(verificar_clave_intentos(inmediato, 1, 1234));
+
+    int fallidos[] = {9999, 8888, 7777};
+    assert(!verificar_clave_intentos(fallidos, 3, 1234));
+
+    assert(!verificar_clave_intentos(NULL, 0, 1234));
     return 0;
 }
 ```
-<!-- {code-block} c -->
-
+::::
 :::
-<!-- {solution} lazo_repeat -->
 
 ---
 
@@ -330,57 +357,60 @@ int main(void)
 <!-- {solution} lazo_continue -->
 
 (ej_b1_c03b_07)=
-### Ejercicio 1.03b.07 - Lazo de clave con bandera ⭐⭐☆☆☆
+### Ejercicio 1.03b.07 - Lazo de Clave con Bandera y Timeout ⭐⭐☆☆☆
 
 :::{exercise}
-:label: lazo_flag_break
-:enumerator: continue
-Reescribí el ingreso de clave de acceso del Ejercicio 5.4 utilizando un lazo
-controlado por una bandera booleana (`bool`) en lugar de `do...while`.
-    definición interna oculta en el archivo `.c`.
-    para copiar la estructura de forma segura.
+:label: ej_b1_c03b_07_lazo_flag
 
-:::
-<!-- {exercise} -->
+Reescribí la validación de clave empleando un lazo `while` gobernado por una
+bandera booleana de éxito y un contador de intentos máximos para evitar bloqueos.
 
-:::{solution} lazo_flag_break
-:label: solucion-lazo_flag_break
-:class: dropdown
-```{code-block} c
-:linenos:
-#include <stdbool.h>
+```c
+int autenticar_usuario(const int *entradas, size_t n, int clave_esperada, size_t max_intentos);
+```
+
+**Tabla de Vectores de Prueba:**
+
+| Entradas | `clave_esperada` | `max_intentos` | Intentos Consumidos |
+| :--- | :--- | :--- | :--- |
+| `[0000, 1234]` | `1234` | `3` | Retorna `2` (éxito al 2do intento) |
+| `[1111, 2222, 3333, 1234]` | `1234` | `2` | Retorna `-1` (bloqueado por superar 2) |
+
+::::{solution}
+```c
 #include <stdio.h>
-int main(void)
-{
-    int clave = 0;
-    int clave_correcta = 1234;
-    bool clave_correcta_ingresada = false;
-    while (clave_correcta_ingresada == false)
-    {
-        printf("Ingrese la clave de acceso: ");
-        if (scanf("%d", &clave) != 1)
-        {
-            printf("Error al leer la clave.\n");
-            return 1;
-        }
-        if (clave == clave_correcta)
-        {
-            printf("Acceso concedido.\n");
-            clave_correcta_ingresada =
-                true; // Se modifica el estado de la bandera
-        }
-        else
-        {
-            printf("Clave incorrecta. Intente nuevamente.\n");
-        }
+#include <stdbool.h>
+#include <assert.h>
+
+int autenticar_usuario(const int *entradas, size_t n, int clave_esperada, size_t max_intentos) {
+    if (entradas == NULL || n == 0) {
+        return -1;
     }
+    size_t intentos = 0;
+    bool autenticado = false;
+
+    while (intentos < n && intentos < max_intentos && !autenticado) {
+        if (entradas[intentos] == clave_esperada) {
+            autenticado = true;
+        }
+        intentos++;
+    }
+
+    return autenticado ? (int)intentos : -1;
+}
+
+int main(void) {
+    int e1[] = {0, 1234};
+    assert(autenticar_usuario(e1, 2, 1234, 3) == 2);
+
+    int e2[] = {1111, 2222, 3333, 1234};
+    assert(autenticar_usuario(e2, 4, 1234, 2) == -1);
+
     return 0;
 }
 ```
-<!-- {code-block} c -->
-
+::::
 :::
-<!-- {solution} lazo_flag_break -->
 
 ---
 (ejercicio_4_8)=

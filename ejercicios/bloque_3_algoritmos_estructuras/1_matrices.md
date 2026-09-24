@@ -7,167 +7,160 @@ short_title: "7. Matrices"
 
 ## Acerca de
 
-Ejercicios para trabajar con arreglos bidimensionales (matrices), tanto
-estáticas como dinámicas.
+Ejercicios para trabajar con arreglos bidimensionales (matrices) en C11, tanto
+estáticas en Stack como planas y contiguas en Heap.
 
-Para profundizar en los conceptos teóricos, podés consultar el siguiente
-capítulo del apunte:
-- [Matrices](../../apunte/bloque_3_algoritmos_estructuras/1_matrices.md)
+### Capítulos de Apunte Correspondientes
+- {ref}`capitulo-matrices`
+- {ref}`capitulo-arreglos`
+
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Indexación bidimensional y orden de almacenamiento por filas (*row-major order*).
+2. Aplanamiento unidimensional de matrices contiguas: dirección del elemento $(f, c)$ como `f * cols + c`.
+3. Paso de matrices como punteros y dimensiones (`const int *mat, size_t filas, size_t cols`).
+4. Lazos anidados y análisis de complejidad $O(\text{filas} \times \text{columnas})$.
+
+### Cuestiones de Estilo Aplicables
+- **Calificador const:** Toda matriz de entrada cuyos valores no deban modificarse
+  debe calificarse como `const int *matriz` o `const int mat[][COLS]`.
+- **Dimensiones size_t:** Las filas y columnas deben expresarse con `size_t`.
+
+---
 
 ## Operaciones Básicas
 
 (ej_b3_c01_01)=
-### Ejercicio 3.01.01 - Mostrar matriz ⭐⭐⭐☆☆
+### Ejercicio 3.01.01 - Formateo de Matriz Plana ⭐⭐⭐☆☆
 
-#### Descripción
-Escribir una función que reciba una matriz (un arreglo 2D), sus dimensiones
-(filas y columnas), y la imprima en la consola de una forma clara y ordenada,
-fila por fila.
+:::{exercise}
+:label: ej_b3_c01_01_mostrar_matriz
 
-::::{tab-set}
+Implementá una función pura que formatee una matriz plana contigua de enteros en
+un búfer de caracteres, fila por fila entre corchetes, separada por saltos de línea.
+Retorna `true` si el búfer tuvo capacidad suficiente, o `false` si se truncó.
 
-:::{tab-item} Entrada
-:sync: tab1
-``` text
-Una matriz 2x3: 
-[[1, 2, 3], [4, 5, 6]]
+```c
+bool formatear_matriz(const int *mat, size_t filas, size_t cols, char *buf, size_t cap);
 ```
-<!-- text -->
 
-:::
-<!-- {tab-item} Entrada -->
-:::{tab-item} Salida
-:sync: tab2
-``` text
-Matriz (2x3):
-[ 1, 2, 3 ]
-[ 4, 5, 6 ]
+**Tabla de Vectores de Prueba:**
+
+| Matriz ($F \times C$) | Datos Planos | Capacidad Búfer | Retorno | Salida Formateada |
+| :--- | :--- | :--- | :--- | :--- |
+| $2 \times 3$ | `[1, 2, 3, 4, 5, 6]` | `128` | `true` | `"[ 1, 2, 3 ]\n[ 4, 5, 6 ]"` |
+| $1 \times 2$ | `[10, 20]` | `64` | `true` | `"[ 10, 20 ]"` |
+| $0 \times 0$ | `NULL` | `16` | `true` | `""` |
+| $2 \times 2$ | `[1, 2, 3, 4]` | `5` | `false` | Búfer protegido de desbordamiento |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+#include <assert.h>
+
+bool formatear_matriz(const int *mat, size_t filas, size_t cols, char *buf, size_t cap) {
+    if (buf == NULL || cap == 0) {
+        return false;
+    }
+    if (mat == NULL || filas == 0 || cols == 0) {
+        buf[0] = '\0';
+        return true;
+    }
+    size_t off = 0;
+    for (size_t f = 0; f < filas; ++f) {
+        int esc = snprintf(buf + off, cap - off, "%s[ ", (f > 0) ? "\n" : "");
+        if (esc < 0 || (size_t)esc >= cap - off) return false;
+        off += (size_t)esc;
+
+        for (size_t c = 0; c < cols; ++c) {
+            esc = snprintf(buf + off, cap - off, "%d%s", mat[f * cols + c], (c + 1 < cols) ? ", " : " ]");
+            if (esc < 0 || (size_t)esc >= cap - off) return false;
+            off += (size_t)esc;
+        }
+    }
+    return true;
+}
+
+int main(void) {
+    char buffer[128] = {0};
+    int m2x3[6] = {1, 2, 3, 4, 5, 6};
+
+    assert(formatear_matriz(m2x3, 2, 3, buffer, sizeof(buffer)));
+    assert(strcmp(buffer, "[ 1, 2, 3 ]\n[ 4, 5, 6 ]") == 0);
+
+    int m1x2[2] = {10, 20};
+    assert(formatear_matriz(m1x2, 1, 2, buffer, sizeof(buffer)));
+    assert(strcmp(buffer, "[ 10, 20 ]") == 0);
+
+    assert(formatear_matriz(NULL, 0, 0, buffer, sizeof(buffer)));
+    assert(strcmp(buffer, "") == 0);
+
+    /* Capacidad deficiente */
+    char corto[5] = {0};
+    assert(!formatear_matriz(m2x3, 2, 3, corto, sizeof(corto)));
+
+    return 0;
+}
 ```
-<!-- text -->
-
-:::
-<!-- {tab-item} Salida -->
-
 ::::
-<!-- {tab-set} -->
-
-:::{hint} Lógica y Consideraciones
--   **Proceso:** Se necesitan dos lazos `for` anidados para recorrer la matriz.
--   El lazo exterior itera sobre las filas (desde `0` hasta `filas-1`).
--   El lazo interior itera sobre las columnas de la fila actual (desde `0` hasta
-    `columnas-1`).
--   Dentro del lazo interior, se imprime cada elemento `matriz[fila][columna]`.
--   Después de que el lazo interior termina (al final de cada fila), se debe
-    imprimir un carácter de nueva línea (`\n`) para pasar a la siguiente fila.
 :::
-<!-- {hint} Lógica y Consideraciones -->
-
-::::{hint} Lógica y Consideraciones
-:class: dropdown
-:::
-<!-- {hint} Lógica y Consideraciones -->{mermaid}
-
-flowchart TD
-    A["Inicio"] --> B["fila = 0"]
-    B --> C{"fila < num_filas?"}
-    C -- Sí --> D["Imprimir '['"]
-    D --> E["col = 0"]
-    E --> F{"col < num_cols?"}
-    F -- Sí --> G["Imprimir mat[fila][col]"]
-    G --> H["col = col + 1"]
-    H --> F
-    F -- No --> I["Imprimir ']' y Salto de Línea"]
-    I --> J["fila = fila + 1"]
-    J --> C
-    C -- No --> K["Fin"]
-
-:::
-<!-- {mermaid} -->
-
-::::
-<!-- {hint} Diagrama -->
-
-:::{hint} Lógica y Consideraciones
-:class: dropdown
-```{code-block} pseudocode
-:linenos:
-PROCEDIMIENTO mostrar_matriz(matriz, filas, columnas)
-INICIO
-    PARA f DESDE 0 HASTA filas-1 HACER
-        ESCRIBIR "[ " SIN SALTO DE LÍNEA
-        PARA c DESDE 0 HASTA columnas-1 HACER
-            ESCRIBIR matriz[f][c]
-            SI c < columnas-1 ENTONCES
-                ESCRIBIR ", " SIN SALTO DE LÍNEA
-            FIN SI
-        FIN PARA
-        ESCRIBIR " ]" CON SALTO DE LÍNEA
-    FIN PARA
-FIN PROCEDIMIENTO
-```
-<!-- {code-block} pseudocode -->
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 (ej_b3_c01_02)=
-### Ejercicio 3.01.02 - Multiplicación por un escalar ⭐⭐☆☆☆
+### Ejercicio 3.01.02 - Multiplicación por un Escalar in-place ⭐⭐☆☆☆
 
-#### Descripción
-Implementar una función que multiplique cada elemento de una matriz por un
-número escalar dado. La operación modifica la matriz original (_in-place_).
+:::{exercise}
+:label: ej_b3_c01_02_escalar
 
-::::{tab-set}
+Implementá una función que multiplique cada componente de una matriz plana
+por un entero escalar dado, modificando el arreglo en memoria (*in-place*).
 
-:::{tab-item} Entrada
-:sync: tab1
-``` text
-Matriz: [[1, 2], [3, 4]]
-Escalar: 5
+```c
+void matriz_multiplicar_escalar(int *mat, size_t filas, size_t cols, int escalar);
 ```
-<!-- text -->
 
-:::
-<!-- {tab-item} Entrada -->
-:::{tab-item} Salida
-:sync: tab2
-``` text
-Matriz modificada: [[5, 10], [15, 20]]
+**Tabla de Vectores de Prueba:**
+
+| Matriz Inicial ($2 \times 2$) | Escalar | Matriz Resultante |
+| :--- | :--- | :--- |
+| `[1, 2, 3, 4]` | `5` | `[5, 10, 15, 20]` |
+| `[10, -2, 0, 8]` | `-1` | `[-10, 2, 0, -8]` |
+| `[5, 10]` | `0` | `[0, 0]` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stddef.h>
+#include <assert.h>
+
+void matriz_multiplicar_escalar(int *mat, size_t filas, size_t cols, int escalar) {
+    if (mat == NULL) {
+        return;
+    }
+    size_t total = filas * cols;
+    for (size_t i = 0; i < total; ++i) {
+        mat[i] *= escalar;
+    }
+}
+
+int main(void) {
+    int m[4] = {1, 2, 3, 4};
+    matriz_multiplicar_escalar(m, 2, 2, 5);
+    assert(m[0] == 5 && m[1] == 10 && m[2] == 15 && m[3] == 20);
+
+    int m2[4] = {10, -2, 0, 8};
+    matriz_multiplicar_escalar(m2, 2, 2, -1);
+    assert(m2[0] == -10 && m2[1] == 2 && m2[2] == 0 && m2[3] == -8);
+
+    matriz_multiplicar_escalar(m, 2, 2, 0);
+    for (size_t i = 0; i < 4; ++i) assert(m[i] == 0);
+
+    return 0;
+}
 ```
-<!-- text -->
-
-:::
-<!-- {tab-item} Salida -->
-
 ::::
-<!-- {tab-set} -->
-
-:::{hint} Lógica y Consideraciones
--   **Fórmula:** Para cada elemento $a_{ij}$ de la matriz $A$, el nuevo elemento
-    es $b_{ij} = k \cdot a_{ij}$.
--   **Proceso:** Se utilizan dos lazos anidados para recorrer cada elemento de
-    la matriz.
--   En el cuerpo del lazo interior, se multiplica el elemento
-    `matriz[fila][columna]` por el escalar y se guarda el resultado en la misma
-    posición.
 :::
-<!-- {hint} Lógica y Consideraciones -->
-
-:::{hint} Lógica y Consideraciones
-:class: dropdown
-```{code-block} pseudocode
-:linenos:
-PROCEDIMIENTO multiplicar_por_escalar(REF matriz, filas, columnas, escalar)
-INICIO
-    PARA f DESDE 0 HASTA filas-1 HACER
-        PARA c DESDE 0 HASTA columnas-1 HACER
-            matriz[f][c] = matriz[f][c] * escalar
-        FIN PARA
-    FIN PARA
-FIN PROCEDIMIENTO
-```
-<!-- {code-block} pseudocode -->
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ## Aritmética Matricial
 

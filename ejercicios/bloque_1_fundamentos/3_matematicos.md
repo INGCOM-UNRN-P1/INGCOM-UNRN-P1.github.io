@@ -8,13 +8,20 @@ short_title: 3. Matemáticos
 ## Acerca de
 
 Estos ejercicios están centrados en algoritmos de teoría de números y
-operaciones matemáticas en C. Te permitirán comprender cómo se implementan los
+operaciones matemáticas en C11. Te permitirán comprender cómo se implementan los
 cálculos matemáticos de forma iterativa y condicional, y cómo manejar las
 limitaciones de precisión de las variables.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-aritmetica-numeros`
 - {ref}`capitulo-conversiones-casts`
+
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Representación entera con signo y sin signo (`int`, `long long`, `unsigned int`).
+2. Operadores aritméticos fundamentales (`+`, `-`, `*`, `/`, `%`) y precedencia de operadores.
+3. Desbordamientos numéricos por superación de rangos de bits (*integer overflow*).
+4. Conversión explícita de tipos (*type casting*) para división con punto flotante.
 
 ### Cuestiones de Estilo Aplicables
 - **Desbordamientos numéricos:** Es fundamental elegir los tipos de datos
@@ -30,74 +37,116 @@ limitaciones de precisión de las variables.
 ## Aritmética Lenta
 
 (ej_b1_c03_01)=
-### Ejercicio 1.03.01 - Suma lenta ⭐⭐☆☆☆
+### Ejercicio 1.03.01 - Suma Lenta por Incrementos Sucesivos ⭐⭐☆☆☆
 
-#### Descripción
-Implementar una función que simule la adición de dos números enteros, `n` y `m`,
-utilizando únicamente las operaciones más básicas de la unidad
-aritmético-lógica: sumar o restar 1. Este ejercicio ayuda a comprender la suma
-como una serie de incrementos o decrementos sucesivos.
+:::{exercise}
+:label: ej_b1_c03_01_suma_lenta
 
-:::{hint} Lógica y Consideraciones
--   **Entrada:** Dos números enteros, `n` y `m`.
--   **Proceso:** El objetivo es llegar desde `n` al resultado `n+m` aplicando la
-    operación de incremento `m` veces (si `m` es positivo) o la operación de
-    decremento `|m|` veces (si `m` es negativo).
--   Se puede usar un lazo que se repita `abs(m)` veces (el valor absoluto de
-    `m`).
--   Dentro del lazo, se verifica el signo de `m`. Si `m > 0`, se incrementa el
-    resultado. Si `m < 0`, se decrementa.
-    definición interna oculta en el archivo `.c`.
-    para copiar la estructura de forma segura.
-:::
-<!-- {hint} Lógica y Consideraciones -->
+Implementá una función que sume dos números enteros `n` y `m` utilizando
+únicamente operaciones de incremento o decremento unitario (`+1`, `-1`).
 
-:::{tip} Ayuda (pseudocódigo)
-:class: dropdown
-```{code-block} pseudocode
-:linenos:
-FUNCION suma_lenta(n, m)
-VARIABLES:
-    resultado (entero)
-INICIO
-    resultado = n
-    SI m > 0 ENTONCES
-        PARA i DESDE 1 HASTA m HACER
-            resultado = resultado + 1
-        FIN PARA
-    SINO
-        PARA i DESDE 1 HASTA VALOR_ABSOLUTO(m) HACER
-            resultado = resultado - 1
-        FIN PARA
-    FIN SI
-    RETORNAR resultado
-FIN FUNCION
-
+```c
+int suma_lenta(int n, int m);
 ```
-<!-- {code-block} pseudocode -->
 
+**Tabla de Vectores de Prueba:**
+
+| Entrada (`n`, `m`) | Salida Esperada | Comentario |
+| :--- | :--- | :--- |
+| `n = 5, m = 3` | `8` | 3 incrementos |
+| `n = 5, m = -2` | `3` | 2 decrementos |
+| `n = 10, m = 0` | `10` | 0 iteraciones |
+| `n = -4, m = -3` | `-7` | Valores negativos |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+int suma_lenta(int n, int m) {
+    int res = n;
+    if (m > 0) {
+        for (int i = 0; i < m; ++i) {
+            res++;
+        }
+    } else {
+        int veces = -m;
+        for (int i = 0; i < veces; ++i) {
+            res--;
+        }
+    }
+    return res;
+}
+
+int main(void) {
+    assert(suma_lenta(5, 3) == 8);
+    assert(suma_lenta(5, -2) == 3);
+    assert(suma_lenta(10, 0) == 10);
+    assert(suma_lenta(-4, -3) == -7);
+    assert(suma_lenta(0, 0) == 0);
+    return 0;
+}
+```
+::::
 :::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
 (ej_b1_c03_02)=
-### Ejercicio 1.03.02 - División lenta ⭐⭐☆☆☆
+### Ejercicio 1.03.02 - División Lenta por Restas Sucesivas ⭐⭐☆☆☆
 
-#### Descripción
-Implementar la división entera para obtener el cociente y el resto de `a / b`
-utilizando únicamente restas sucesivas. Este método emula cómo se podría
-realizar una división de forma manual o en hardware muy simple.
+:::{exercise}
+:label: ej_b1_c03_02_division_lenta
 
-:::{hint} Lógica y Consideraciones
--   **Entrada:** Dos enteros positivos, `dividendo` y `divisor`.
--   **Proceso:** Se resta el `divisor` del `dividendo` de forma repetida hasta
-    que el `dividendo` sea menor que el `divisor`. Se necesita un contador
-    (`cociente`) que se incrementa en cada resta exitosa.
--   El lazo (preferiblemente `while`) se ejecuta mientras `dividendo >=
-    divisor`.
--   **Salida:** El valor final del contador es el cociente, y el valor final del
-    `dividendo` (lo que sobra) es el resto.
-    definición interna oculta en el archivo `.c`.
-    para copiar la estructura de forma segura.
+Implementá la división entera no negativa mediante restas sucesivas, retornando
+el cociente y el resto por parámetros de salida. Retorna `false` si el divisor es cero.
+
+```c
+bool division_lenta(unsigned int a, unsigned int b, unsigned int *cociente, unsigned int *resto);
+```
+
+**Tabla de Vectores de Prueba:**
+
+| Dividendo `a` | Divisor `b` | Retorno | Cociente | Resto |
+| :--- | :--- | :--- | :--- | :--- |
+| `14` | `4` | `true` | `3` | `2` |
+| `20` | `5` | `true` | `4` | `0` |
+| `3` | `8` | `true` | `0` | `3` |
+| `10` | `0` | `false` | Inalterado | Inalterado |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdbool.h>
+#include <assert.h>
+
+bool division_lenta(unsigned int a, unsigned int b, unsigned int *cociente, unsigned int *resto) {
+    if (b == 0 || cociente == NULL || resto == NULL) {
+        return false;
+    }
+    unsigned int q = 0;
+    unsigned int r = a;
+    while (r >= b) {
+        r -= b;
+        q++;
+    }
+    *cociente = q;
+    *resto = r;
+    return true;
+}
+
+int main(void) {
+    unsigned int coc = 0;
+    unsigned int res = 0;
+
+    assert(division_lenta(14, 4, &coc, &res) && coc == 3 && res == 2);
+    assert(division_lenta(20, 5, &coc, &res) && coc == 4 && res == 0);
+    assert(division_lenta(3, 8, &coc, &res) && coc == 0 && res == 3);
+    assert(!division_lenta(10, 0, &coc, &res));
+    return 0;
+}
+```
+::::
+:::
 :::
 <!-- {hint} Lógica y Consideraciones -->
 
