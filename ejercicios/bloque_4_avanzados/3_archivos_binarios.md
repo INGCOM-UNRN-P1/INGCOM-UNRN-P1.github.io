@@ -869,3 +869,159 @@ int main(void) {
 ```
 ::::
 <!-- {solution} cabecera_binaria_checksum -->
+
+---
+
+(ej_b4_c04_07)=
+### Ejercicio 4.04.07 - Compactación Física de Archivos Binarios con Borrado Lógico ⭐⭐⭐⭐☆
+
+:::{exercise}
+:label: compactar_archivo_binario
+:enumerator: binarios-7
+
+El borrado lógico mediante banderas (`activo = false`) optimiza la latencia de escritura en bases de datos transaccionales, pero genera **fragmentación y espacio muerto en disco** con el paso del tiempo. Periódicamente, los motores de persistencia ejecutan un proceso de **compactación (*vacuum/compaction*)** para purgar físicamente los registros inactivos y reconstruir un archivo limpio.
+
+Dada la estructura:
+```c
+typedef struct {
+    int id;
+    char descripcion[32];
+    double monto;
+    bool activo;
+} registro_cuenta_t;
+```
+
+Implementá la función de compactación segura y atómica:
+```c
+bool compactar_archivo_cuentas(const char *ruta_origen, size_t *purgados);
+```
+
+- **Mecanismo:**
+  1. Abre el archivo de origen en modo lectura binaria `"rb"`.
+  2. Crea un archivo temporal auxiliar `"tmp_compactacion.dat"` en modo `"wb"`.
+  3. Lee secuencialmente cada `registro_cuenta_t`. Si `activo == true`, lo escribe en el archivo temporal. Si `activo == false`, incrementa el contador `*purgados`.
+  4. Cierra ambos streams.
+  5. Elimina el archivo original con `remove` y renombra el archivo temporal al nombre original con `rename`.
+  6. Si ocurre cualquier error de E/S, debe cerrar los archivos abiertos, eliminar el temporal y retornar `false` sin alterar el archivo original.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Estado Inicial en Disco | Registros Inactivos | Acción | Estado Final en Disco | Purgados Reportados |
+| :--- | :--- | :--- | :--- | :--- |
+| 4 registros: `{A(T), B(F), C(T), D(F)}` | 2 registros (`B`, `D`) | Compactación | 2 registros activos (`A`, `C`) | `2` |
+| 3 registros todos activos: `{A(T), B(T), C(T)}` | 0 registros inactivos | Compactación | 3 registros activos | `0` |
+| Archivo inexistente | N/A | Compactación | Retorno `false` | `0` |
+
+:::
+<!-- {exercise} compactar_archivo_binario -->
+
+::::{solution} compactar_archivo_binario
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+#include <assert.h>
+
+typedef struct {
+    int id;
+    char descripcion[32];
+    double monto;
+    bool activo;
+} registro_cuenta_t;
+
+bool compactar_archivo_cuentas(const char *ruta_origen, size_t *purgados) {
+    if (purgados != NULL) {
+        *purgados = 0;
+    }
+    if (ruta_origen == NULL) {
+        return false;
+    }
+
+    FILE *f_in = fopen(ruta_origen, "rb");
+    if (f_in == NULL) {
+        return false;
+    }
+
+    const char *ruta_tmp = "tmp_compactacion_aux.dat";
+    FILE *f_tmp = fopen(ruta_tmp, "wb");
+    if (f_tmp == NULL) {
+        fclose(f_in);
+        return false;
+    }
+
+    registro_cuenta_t reg;
+    size_t count_purgados = 0;
+
+    while (fread(&reg, sizeof(registro_cuenta_t), 1, f_in) == 1) {
+        if (reg.activo) {
+            if (fwrite(&reg, sizeof(registro_cuenta_t), 1, f_tmp) != 1) {
+                fclose(f_in);
+                fclose(f_tmp);
+                remove(ruta_tmp);
+                return false;
+            }
+        } else {
+            count_purgados++;
+        }
+    }
+
+    fclose(f_in);
+    fclose(f_tmp);
+
+    // Reemplazo atómico
+    if (remove(ruta_origen) != 0 || rename(ruta_tmp, ruta_origen) != 0) {
+        remove(ruta_tmp);
+        return false;
+    }
+
+    if (purgados != NULL) {
+        *purgados = count_purgados;
+    }
+    return true;
+}
+
+int main(void) {
+    const char *test_path = "test_cuentas_compactar.dat";
+
+    // 1. Crear archivo con 4 registros (2 activos, 2 inactivos)
+    registro_cuenta_t inicial[4] = {
+        {1, "Cuenta Alpha", 1500.0, true},
+        {2, "Cuenta Beta", 0.0, false},
+        {3, "Cuenta Gamma", 420.5, true},
+        {4, "Cuenta Delta", -50.0, false}
+    };
+
+    FILE *f = fopen(test_path, "wb");
+    assert(f != NULL);
+    assert(fwrite(inicial, sizeof(registro_cuenta_t), 4, f) == 4);
+    fclose(f);
+
+    size_t purgados = 0;
+    assert(compactar_archivo_cuentas(test_path, &purgados) == true);
+    assert(purgados == 2);
+
+    // Verificar contenido compacto en disco
+    FILE *f_post = fopen(test_path, "rb");
+    assert(f_post != NULL);
+    registro_cuenta_t leidos[4];
+    size_t total_leidos = fread(leidos, sizeof(registro_cuenta_t), 4, f_post);
+    fclose(f_post);
+
+    assert(total_leidos == 2);
+    assert(leidos[0].id == 1 && leidos[0].activo == true);
+    assert(leidos[1].id == 3 && leidos[1].activo == true);
+
+    // 2. Archivo inexistente
+    assert(compactar_archivo_cuentas("archivo_inexistente_xyz.dat", &purgados) == false);
+
+    remove(test_path);
+    return 0;
+}
+```
+
+::::
+<!-- {solution} compactar_archivo_binario -->
+

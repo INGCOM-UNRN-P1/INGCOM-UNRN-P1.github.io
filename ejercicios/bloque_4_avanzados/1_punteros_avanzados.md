@@ -835,3 +835,121 @@ int main(void)
 
 ::::
 <!-- {solution} fsm_matriz_callbacks -->
+
+---
+
+(ej_b4_c02_09)=
+### Ejercicio 4.02.09 - Filtrado Funcional Genérico In-Place ⭐⭐⭐⭐☆
+
+:::{exercise}
+:label: filtrar_generico
+:enumerator: punteros-avanzados-9
+
+En el diseño de bibliotecas genéricas en C (al estilo de `qsort` y `bsearch`), es frecuente requerir transformaciones de colecciones contiguas sin conocer a priori el tipo de dato subyacente. La operación de **filtrado funcional (*filter*)** descarta los elementos que no satisfacen un predicado booleano y compacta los elementos retenidos hacia el inicio del arreglo.
+
+Implementá la función genérica in-place:
+```c
+size_t filtrar_generico(void *base, size_t nmemb, size_t size, bool (*predicado)(const void *));
+```
+
+- **Precondiciones:** `base != NULL` (si `nmemb > 0`), `size > 0`, `predicado != NULL`.
+- **Comportamiento:**
+  - Recorre los `nmemb` elementos de ancho `size` bytes.
+  - Para cada elemento `i`, evalúa `predicado(elemento)`.
+  - Si retorna `true`, copia el elemento en la posición de escritura compactada in-situ (`destino != origen`).
+  - Mantiene la **estabilidad**: los elementos retenidos preservan su orden relativo original.
+  - Retorna la nueva cantidad de elementos retenidos ($k \le nmemb$).
+- **Complejidad espacial:** $O(1)$ estricto (prohibido reservar memoria dinámica en el Heap).
+- **Complejidad temporal:** $O(n)$ evaluaciones del predicado y a lo sumo $n$ copias de memoria de tamaño `size`.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Tipo de Caso | Arreglo de Entrada | Predicado de Filtro | Arreglo Resultante | Conteo Retornado |
+| :--- | :--- | :--- | :--- | :--- |
+| **Enteros Pares** | `{1, 2, 3, 4, 5, 6}` | `es_par` | `{2, 4, 6}` | `3` |
+| **Cadenas No Vacías** | `{"alpha", "", "beta", ""}` | `no_vacia` | `{"alpha", "beta"}` | `2` |
+| **Ninguno Pasa** | `{1, 3, 5}` | `es_par` | `{}` | `0` |
+| **Todos Pasan** | `{2, 4, 6}` | `es_par` | `{2, 4, 6}` | `3` |
+
+:::
+<!-- {exercise} filtrar_generico -->
+
+::::{solution} filtrar_generico
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <stddef.h>
+#include <stdbool.h>
+#include <string.h>
+#include <assert.h>
+
+size_t filtrar_generico(void *base, size_t nmemb, size_t size, bool (*predicado)(const void *)) {
+    if (base == NULL || nmemb == 0 || size == 0 || predicado == NULL) {
+        return 0;
+    }
+
+    char *bytes = (char *)base;
+    size_t retenidos = 0;
+
+    for (size_t i = 0; i < nmemb; i++) {
+        char *actual = bytes + (i * size);
+        if (predicado(actual)) {
+            char *destino = bytes + (retenidos * size);
+            if (destino != actual) {
+                memcpy(destino, actual, size);
+            }
+            retenidos++;
+        }
+    }
+
+    return retenidos;
+}
+
+static bool es_par(const void *elem) {
+    const int *val = (const int *)elem;
+    return (*val % 2) == 0;
+}
+
+static bool es_cadena_no_vacia(const void *elem) {
+    const char *const *str = (const char *const *)elem;
+    return (*str != NULL && strlen(*str) > 0);
+}
+
+int main(void) {
+    // 1. Filtrado de enteros pares
+    int numeros[6] = {1, 2, 3, 4, 5, 6};
+    size_t cant_pares = filtrar_generico(numeros, 6, sizeof(int), es_par);
+    assert(cant_pares == 3);
+    assert(numeros[0] == 2);
+    assert(numeros[1] == 4);
+    assert(numeros[2] == 6);
+
+    // 2. Ninguno cumple el predicado
+    int impares[3] = {1, 3, 5};
+    assert(filtrar_generico(impares, 3, sizeof(int), es_par) == 0);
+
+    // 3. Todos cumplen el predicado
+    int pares[3] = {2, 4, 6};
+    assert(filtrar_generico(pares, 3, sizeof(int), es_par) == 3);
+    assert(pares[0] == 2 && pares[1] == 4 && pares[2] == 6);
+
+    // 4. Filtrado de arreglo de cadenas (char *)
+    const char *palabras[4] = {"alpha", "", "beta", ""};
+    size_t cant_str = filtrar_generico(palabras, 4, sizeof(const char *), es_cadena_no_vacia);
+    assert(cant_str == 2);
+    assert(strcmp(palabras[0], "alpha") == 0);
+    assert(strcmp(palabras[1], "beta") == 0);
+
+    // 5. Casos nulos y defensivos
+    assert(filtrar_generico(NULL, 10, sizeof(int), es_par) == 0);
+    assert(filtrar_generico(numeros, 6, sizeof(int), NULL) == 0);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} filtrar_generico -->
+

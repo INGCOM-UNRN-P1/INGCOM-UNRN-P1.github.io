@@ -674,49 +674,109 @@ int maximo(int arr[], int n)
 ---
 
 (ej_b3_c06_16)=
-## Ejercicio 3.06.16 - Duplicados en Array ⭐⭐⭐☆☆
+### Ejercicio 3.06.16 - Detección de Duplicados: Fuerza Bruta Cuadrática vs Ordenamiento Linealítmico ⭐⭐⭐☆☆
 
-Compará dos formas de encontrar duplicados:
+:::{exercise}
+:label: ej_b3_c06_16_duplicados
 
-**Método 1:** Comparar cada par
+Compará analítica y empíricamente dos paradigmas para determinar si un arreglo contiene elementos repetidos:
+1. **Fuerza bruta ($O(n^2)$):** Compara cada elemento con todos los subsiguientes. En ausencia de duplicados (peor caso), realiza exactamente $\frac{n(n-1)}{2}$ comparaciones.
+2. **Ordenamiento previo ($O(n \log n)$):** Ordena el arreglo con `qsort` y luego verifica adyacentes en una única pasada lineal de $n-1$ comparaciones.
 
-```{code-block} c
-:linenos:
-bool tiene_duplicados_1(int arr[], int n)
-{
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = i + 1; j < n; j++)
-        {
-            if (arr[i] == arr[j])
+Implementá ambas funciones instrumentando el conteo de comparaciones:
+- `bool tiene_duplicados_cuadratico(const int arr[], size_t n, size_t *comps);`
+- `bool tiene_duplicados_ordenado(int arr[], size_t n, size_t *comps);`
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Arreglo ($n=5$) | Duplicados | Comparaciones Fuerza Bruta | Complejidad Observada |
+| :--- | :--- | :--- | :--- | :--- |
+| **Peor Caso (Sin Duplicados)** | `{10, 20, 30, 40, 50}` | `false` | Exactamente $10$ ($5 \times 4 / 2$) | $\Theta(n^2)$ |
+| **Mejor Caso (Duplicado al inicio)**| `{10, 10, 20, 30, 40}` | `true` | Exactamente $1$ | $O(1)$ |
+| **Duplicado al final** | `{1, 2, 3, 4, 4}` | `true` | Exactamente $10$ | $\Theta(n^2)$ |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <assert.h>
+
+bool tiene_duplicados_cuadratico(const int arr[], size_t n, size_t *comps) {
+    if (comps != NULL) {
+        *comps = 0;
+    }
+    if (arr == NULL || n <= 1) {
+        return false;
+    }
+
+    for (size_t i = 0; i < n - 1; i++) {
+        for (size_t j = i + 1; j < n; j++) {
+            if (comps != NULL) {
+                (*comps)++;
+            }
+            if (arr[i] == arr[j]) {
                 return true;
+            }
         }
     }
     return false;
 }
-```
-<!-- {code-block} c -->
 
-**Método 2:** Ordenar primero
-```{code-block} c
-:linenos:
-bool tiene_duplicados_2(int arr[], int n)
-{
-    qsort(arr, n, sizeof(int), comparar); // O(n log n)
-    for (int i = 0; i < n - 1; i++)
-    {
-        if (arr[i] == arr[i + 1])
+static int comp_enteros(const void *a, const void *b) {
+    int val_a = *(const int *)a;
+    int val_b = *(const int *)b;
+    return (val_a > val_b) - (val_a < val_b);
+}
+
+bool tiene_duplicados_ordenado(int arr[], size_t n, size_t *comps) {
+    if (comps != NULL) {
+        *comps = 0;
+    }
+    if (arr == NULL || n <= 1) {
+        return false;
+    }
+
+    qsort(arr, n, sizeof(int), comp_enteros);
+
+    for (size_t i = 0; i < n - 1; i++) {
+        if (comps != NULL) {
+            (*comps)++;
+        }
+        if (arr[i] == arr[i + 1]) {
             return true;
+        }
     }
     return false;
 }
-```
-<!-- {code-block} c -->
 
-**Orientación:**
-- **Método 1:** O(n²) tiempo, O(1) espacio
-- **Método 2:** O(n log n) tiempo, O(1) espacio (si qsort es in-place)
-- Para n grande, método 2 es mucho más rápido
+int main(void) {
+    size_t c = 0;
+
+    // Peor caso: sin duplicados
+    int sin_dup[5] = {10, 20, 30, 40, 50};
+    assert(tiene_duplicados_cuadratico(sin_dup, 5, &c) == false);
+    assert(c == 10); // 4 + 3 + 2 + 1 = 10
+
+    // Mejor caso cuadrático: duplicado inmediato
+    int dup_inicio[5] = {10, 10, 20, 30, 40};
+    assert(tiene_duplicados_cuadratico(dup_inicio, 5, &c) == true);
+    assert(c == 1);
+
+    // Método con ordenamiento previo
+    int desordenado[5] = {50, 20, 10, 40, 20};
+    assert(tiene_duplicados_ordenado(desordenado, 5, &c) == true);
+    assert(c > 0);
+
+    // Arreglo vacío o unitario
+    assert(tiene_duplicados_cuadratico(NULL, 0, &c) == false);
+    assert(c == 0);
+
+    return 0;
+}
+```
+::::
+:::
 
 ---
 

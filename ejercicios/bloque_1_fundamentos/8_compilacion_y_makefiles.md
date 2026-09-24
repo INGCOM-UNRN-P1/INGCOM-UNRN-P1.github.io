@@ -311,54 +311,64 @@ gcc -Wall -Wextra -std=c99 -pedantic programa.c -o programa
 ---
 
 (ej_b1_c08_07)=
-## Ejercicio 1.08.07 - Dos Archivos Separados ⭐⭐☆☆☆
+### Ejercicio 1.08.07 - Verificación de Arquitectura en Tiempo de Compilación con `_Static_assert` ⭐⭐☆☆☆
 
-Separáun programa en main.c y funciones.c.
+:::{exercise}
+:label: ej_b1_c08_07_static_assert
 
-**funciones.h:**
+En el desarrollo de software portable y de bajo nivel, los errores de suposición sobre el tamaño de tipos o el modelo de datos de la plataforma deben detectarse **durante la fase de compilación**, no en tiempo de ejecución. El estándar C11 introdujo la directiva `_Static_assert(condicion_constante, "mensaje")` para validar invariantes estáticos sin costo en el binario final.
 
-:::{hint} Lógica y Consideraciones
-errores de E/S con `ferror` y `feof`.
-    archivo en todos los caminos de ejecución.
-:::
-<!-- {hint} Lógica y Consideraciones -->
+Implementá un módulo de verificación de plataforma:
+- Declarar aserciones estáticas que garanticen que `sizeof(int) >= 4`, `sizeof(void *) >= 4` y `sizeof(char) == 1`.
+- Implementar una función `const char *obtener_modelo_datos_arquitectura(void)` que determine en tiempo de ejecución si la arquitectura opera en modelo ILP32 (punteros de 4 bytes) o LP64 / LLP64 (punteros de 8 bytes).
 
-``` c
-#ifndef FUNCIONES_H
-#define FUNCIONES_H
-int sumar(int a, int b);
-#endif
-```
-<!-- c -->
+#### Tabla de Vectores de Prueba Obligatorios
 
-**funciones.c:**
-``` c
-#include "funciones.h"
-int sumar(int a, int b)
-{
-    return a + b;
-}
-```
-<!-- c -->
+| Verificación | Tipo Evaluado | Requisito Mínimo C11 | Comportamiento |
+| :--- | :--- | :--- | :--- |
+| **Tamaño Char** | `char` | Exactamente 1 byte | Compilación exitosa (`_Static_assert`) |
+| **Tamaño Int** | `int` | Al menos 4 bytes | Compilación exitosa (`_Static_assert`) |
+| **Puntero** | `void *` | 4 u 8 bytes | Retorno `"ILP32 (32-bit)"` o `"LP64/LLP64 (64-bit)"` |
 
-**main.c:**
-``` c
-#include "funciones.h"
+::::{solution}
+```c
 #include <stdio.h>
-int main()
-{
-    printf("%d\n", sumar(3, 4));
+#include <stddef.h>
+#include <string.h>
+#include <assert.h>
+
+// Validaciones estrictas en tiempo de compilación (C11)
+_Static_assert(sizeof(char) == 1, "char debe medir exactamente 1 byte");
+_Static_assert(sizeof(int) >= 4, "int debe medir al menos 4 bytes");
+_Static_assert(sizeof(void *) == 4 || sizeof(void *) == 8, "Puntero debe medir 4 u 8 bytes");
+
+const char *obtener_modelo_datos_arquitectura(void) {
+    if (sizeof(void *) == 8) {
+        return "LP64/LLP64 (64-bit)";
+    } else if (sizeof(void *) == 4) {
+        return "ILP32 (32-bit)";
+    }
+    return "Arquitectura desconocida";
+}
+
+int main(void) {
+    const char *modelo = obtener_modelo_datos_arquitectura();
+    assert(modelo != NULL);
+
+    if (sizeof(void *) == 8) {
+        assert(strcmp(modelo, "LP64/LLP64 (64-bit)") == 0);
+    } else {
+        assert(strcmp(modelo, "ILP32 (32-bit)") == 0);
+    }
+
+    assert(sizeof(char) == 1);
+    assert(sizeof(int) >= 4);
+
+    return 0;
 }
 ```
-<!-- c -->
-
-**Compilación:**
-``` bash
-gcc -c funciones.c    # Genera funciones.o
-gcc -c main.c         # Genera main.o
-gcc funciones.o main.o -o programa
-```
-<!-- bash -->
+::::
+:::
 
 ---
 

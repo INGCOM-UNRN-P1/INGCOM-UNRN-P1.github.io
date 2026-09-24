@@ -522,27 +522,27 @@ int main(void) {
 ---
 
 (ej_b4_c08_08)=
-### Ejercicio 4.08.08 - Esquema de Partición de Hoare ⭐⭐⭐☆☆
+### Ejercicio 4.08.08 - Esquema de Partición de Hoare vs Lomuto Instrumentado ⭐⭐⭐☆☆
 
 :::{exercise}
 :label: ej_b4_c08_08_hoare
+:enumerator: ordenamiento-8
 
-Implementá la partición clásica de C.A.R. Hoare para arreglos de enteros:
-- Selecciona como pivote el elemento inicial `arr[bajo]`.
-- Utiliza dos índices convergentes que avanzan desde los extremos hasta cruzarse, minimizando la cantidad promedio de intercambios en comparación con el esquema de Lomuto.
-- Retorna el índice de partición `j`.
+En el algoritmo QuickSort, la rutina de particionado es el núcleo computacional crítico. Existen dos esquemas canónicos:
+1. **Esquema de Lomuto:** Emplea el último elemento como pivote y un puntero secuencial. Es más sencillo conceptualmente, pero realiza hasta tres veces más operaciones de intercambio (*swaps*) y degrada fuertemente ante elementos repetidos.
+2. **Esquema de Hoare:** Emplea dos punteros convergentes desde ambos extremos hacia el centro. Realiza un promedio significativamente menor de intercambios.
 
-```c
-size_t particion_hoare(int *arr, size_t bajo, size_t alto);
-```
+Implementá ambos esquemas instrumentando el conteo de intercambios:
+- `size_t particion_lomuto_contada(int *arr, size_t bajo, size_t alto, size_t *swaps);`
+- `size_t particion_hoare_contada(int *arr, size_t bajo, size_t alto, size_t *swaps);`
 
-**Tabla de Vectores de Prueba:**
+#### Tabla de Vectores de Prueba Obligatorios
 
-| Arreglo Entrada | Rango `[bajo, alto]` | Índice Retornado | Propiedad del Particionado |
-| :--- | :--- | :--- | :--- |
-| `[4, 2, 8, 3, 1, 9]` | `[0, 5]` | `j <= 5` | Todo elemento a la izquierda es $\le$ que los de la derecha |
-| `[1, 2, 3, 4]` | `[0, 3]` | `j <= 3` | Arreglo ya ordenado |
-| `[5, 5, 5]` | `[0, 2]` | `j <= 2` | Elementos repetidos |
+| Caso de Prueba | Arreglo ($n=6$) | Swaps Lomuto | Swaps Hoare | Justificación Técnica |
+| :--- | :--- | :--- | :--- | :--- |
+| **Ya Ordenado** | `{1, 2, 3, 4, 5, 6}` | $6$ | $0$ | Hoare detecta condición ordenada sin intercambios |
+| **Elementos Idénticos** | `{5, 5, 5, 5, 5, 5}` | $6$ | $3$ | Lomuto degrada intercambiando todos; Hoare divide simétricamente |
+| **Desordenado** | `{3, 5, 2, 6, 1, 4}` | $4$ | $2$ | Hoare converge con menor número de swaps promedio |
 
 ::::{solution}
 ```c
@@ -550,13 +550,29 @@ size_t particion_hoare(int *arr, size_t bajo, size_t alto);
 #include <stddef.h>
 #include <assert.h>
 
-static void swap_hoare(int *a, int *b) {
+static void swap(int *a, int *b) {
     int tmp = *a;
     *a = *b;
     *b = tmp;
 }
 
-size_t particion_hoare(int *arr, size_t bajo, size_t alto) {
+size_t particion_lomuto_contada(int *arr, size_t bajo, size_t alto, size_t *swaps) {
+    int pivote = arr[alto];
+    size_t i = bajo;
+
+    for (size_t j = bajo; j < alto; j++) {
+        if (arr[j] <= pivote) {
+            swap(&arr[i], &arr[j]);
+            if (swaps != NULL) (*swaps)++;
+            i++;
+        }
+    }
+    swap(&arr[i], &arr[alto]);
+    if (swaps != NULL) (*swaps)++;
+    return i;
+}
+
+size_t particion_hoare_contada(int *arr, size_t bajo, size_t alto, size_t *swaps) {
     int pivote = arr[bajo];
     size_t i = bajo;
     size_t j = alto;
@@ -571,26 +587,48 @@ size_t particion_hoare(int *arr, size_t bajo, size_t alto) {
         if (i >= j) {
             return j;
         }
-        swap_hoare(&arr[i], &arr[j]);
+        swap(&arr[i], &arr[j]);
+        if (swaps != NULL) (*swaps)++;
         i++;
-        j--;
+        if (j > 0) j--;
     }
 }
 
 int main(void) {
-    int arr[] = {4, 2, 8, 3, 1, 9};
-    size_t p = particion_hoare(arr, 0, 5);
-    int max_izq = arr[0];
-    for (size_t k = 1; k <= p; ++k) {
-        if (arr[k] > max_izq) max_izq = arr[k];
-    }
-    for (size_t k = p + 1; k < 6; ++k) {
-        assert(arr[k] >= max_izq);
-    }
+    // 1. Arreglo ya ordenado: Hoare 0 swaps vs Lomuto 6 swaps
+    int ord_lomuto[6] = {1, 2, 3, 4, 5, 6};
+    int ord_hoare[6] = {1, 2, 3, 4, 5, 6};
+    size_t s_lomuto = 0;
+    size_t s_hoare = 0;
 
-    int ya_ordenado[] = {1, 2, 3, 4};
-    size_t p2 = particion_hoare(ya_ordenado, 0, 3);
-    assert(p2 <= 3);
+    particion_lomuto_contada(ord_lomuto, 0, 5, &s_lomuto);
+    particion_hoare_contada(ord_hoare, 0, 5, &s_hoare);
+    assert(s_hoare == 0);
+    assert(s_lomuto == 6);
+
+    // 2. Arreglo desordenado: Hoare 2 swaps vs Lomuto 4 swaps
+    int des_lomuto[6] = {3, 5, 2, 6, 1, 4};
+    int des_hoare[6] = {3, 5, 2, 6, 1, 4};
+    s_lomuto = 0;
+    s_hoare = 0;
+
+    particion_lomuto_contada(des_lomuto, 0, 5, &s_lomuto);
+    particion_hoare_contada(des_hoare, 0, 5, &s_hoare);
+    assert(s_hoare < s_lomuto);
+    assert(s_hoare == 2);
+    assert(s_lomuto == 4);
+
+    // 3. Arreglo con elementos idénticos: Hoare 3 swaps vs Lomuto 6 swaps
+    int rep_lomuto[6] = {5, 5, 5, 5, 5, 5};
+    int rep_hoare[6] = {5, 5, 5, 5, 5, 5};
+    s_lomuto = 0;
+    s_hoare = 0;
+
+    particion_lomuto_contada(rep_lomuto, 0, 5, &s_lomuto);
+    particion_hoare_contada(rep_hoare, 0, 5, &s_hoare);
+    assert(s_hoare < s_lomuto);
+    assert(s_hoare == 3);
+    assert(s_lomuto == 6);
 
     return 0;
 }

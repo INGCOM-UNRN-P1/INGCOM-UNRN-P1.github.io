@@ -679,81 +679,104 @@ int main(void) {
 ---
 
 (ej_b3_c01_10)=
-### Ejercicio 3.01.10 - Suma por Filas y Columnas ⭐⭐☆☆☆
+### Ejercicio 3.01.10 - Suma por Filas y Columnas de una Matriz ⭐⭐☆☆☆
 
-#### Descripción
-Crear un programa que, dada una matriz, calcule dos arreglos: uno que contenga
-la suma de los elementos de cada fila y otro que contenga la suma de los
-elementos de cada columna.
+:::{exercise}
+:label: ej_b3_c01_10_suma_filas_columnas
 
-::::{tab-set}
+Dada una matriz bidimensional plana de dimensiones $filas \times cols$, implementá la función que compute de forma simultánea la suma acumulada de los elementos de cada fila y de cada columna optimizando el acceso a memoria para maximizar la localidad espacial del caché (*Row-Major*):
 
-:::{tab-item} Entrada
-:sync: tab1
-Matriz (2x3):
-``` text
-[ 1, 2, 3 ]
-[ 4, 5, 6 ]
+```c
+bool sumar_filas_columnas(const int *mat, size_t filas, size_t cols, int *sumas_filas, int *sumas_cols);
 ```
-<!-- text -->
 
-:::
-<!-- {tab-item} Entrada -->
-:::{tab-item} Salida
-:sync: tab2
-``` text
-Suma de filas: [6, 15]
-Suma de columnas: [5, 7, 9]
+- **Precondiciones:** `mat != NULL`, `sumas_filas != NULL`, `sumas_cols != NULL`, `filas > 0`, `cols > 0`.
+- **Complejidad temporal:** $O(filas \times cols)$ recorriendo la matriz por filas.
+- **Complejidad espacial auxiliar:** $O(1)$ sin asignaciones dinámicas.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Matriz Entrada ($2 \times 3$) | Suma de Filas | Suma de Columnas |
+| :--- | :--- | :--- | :--- |
+| **Normal 2x3** | `{{1, 2, 3}, {4, 5, 6}}` | `[6, 15]` | `[5, 7, 9]` |
+| **Valores Negativos** | `{{-5, 10}, {20, -30}}` ($2 \times 2$) | `[5, -10]` | `[15, -20]` |
+| **Matriz 1x1** | `{{42}}` ($1 \times 1$) | `[42]` | `[42]` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stddef.h>
+#include <stdbool.h>
+#include <assert.h>
+
+bool sumar_filas_columnas(const int *mat, size_t filas, size_t cols, int *sumas_filas, int *sumas_cols) {
+    if (mat == NULL || sumas_filas == NULL || sumas_cols == NULL || filas == 0 || cols == 0) {
+        return false;
+    }
+
+    // Inicializar acumuladores en 0
+    for (size_t i = 0; i < filas; i++) {
+        sumas_filas[i] = 0;
+    }
+    for (size_t j = 0; j < cols; j++) {
+        sumas_cols[j] = 0;
+    }
+
+    // Recorrido por filas (Row-Major) amigable con la memoria caché
+    for (size_t i = 0; i < filas; i++) {
+        for (size_t j = 0; j < cols; j++) {
+            int val = mat[i * cols + j];
+            sumas_filas[i] += val;
+            sumas_cols[j] += val;
+        }
+    }
+
+    return true;
+}
+
+int main(void) {
+    // Caso 1: 2x3
+    int m1[6] = {
+        1, 2, 3,
+        4, 5, 6
+    };
+    int s_filas1[2] = {0};
+    int s_cols1[3] = {0};
+
+    assert(sumar_filas_columnas(m1, 2, 3, s_filas1, s_cols1) == true);
+    assert(s_filas1[0] == 6 && s_filas1[1] == 15);
+    assert(s_cols1[0] == 5 && s_cols1[1] == 7 && s_cols1[2] == 9);
+
+    // Caso 2: 2x2 con negativos
+    int m2[4] = {
+        -5, 10,
+        20, -30
+    };
+    int s_filas2[2] = {0};
+    int s_cols2[2] = {0};
+
+    assert(sumar_filas_columnas(m2, 2, 2, s_filas2, s_cols2) == true);
+    assert(s_filas2[0] == 5 && s_filas2[1] == -10);
+    assert(s_cols2[0] == 15 && s_cols2[1] == -20);
+
+    // Caso 3: 1x1
+    int m3[1] = {42};
+    int s_filas3[1] = {0};
+    int s_cols3[1] = {0};
+
+    assert(sumar_filas_columnas(m3, 1, 1, s_filas3, s_cols3) == true);
+    assert(s_filas3[0] == 42 && s_cols3[0] == 42);
+
+    // Parámetros inválidos
+    assert(sumar_filas_columnas(NULL, 2, 2, s_filas2, s_cols2) == false);
+    assert(sumar_filas_columnas(m2, 0, 2, s_filas2, s_cols2) == false);
+    assert(sumar_filas_columnas(m2, 2, 2, NULL, s_cols2) == false);
+
+    return 0;
+}
 ```
-<!-- text -->
-
-:::
-<!-- {tab-item} Salida -->
-
 ::::
-<!-- {tab-set} -->
-
-:::{hint} Lógica y Consideraciones
--   **Suma de Filas:**
-    -   Recorrer cada fila con un lazo exterior.
-    -   Para cada fila, inicializar una `suma_fila` en 0.
-    -   Con un lazo interior, recorrer las columnas de esa fila y acumular los
-        valores en `suma_fila`.
-    -   Guardar el resultado en el arreglo de sumas de filas.
--   **Suma de Columnas:**
-    -   El proceso es inverso. El lazo exterior recorre las columnas.
-    -   El lazo interior recorre las filas de esa columna.
--   **Eficiencia:** Se pueden calcular ambas sumas en un solo par de lazos
-    anidados. Al procesar el elemento `matriz[i][j]`, se añade a `suma_filas[i]`
-    y a `suma_columnas[j]`.
 :::
-<!-- {hint} Lógica y Consideraciones -->
-
-:::{hint} Lógica y Consideraciones
-:class: dropdown
-```{code-block} pseudocode
-:linenos:
-PROCEDIMIENTO sumar_filas_y_columnas(matriz, filas, cols, REF sumas_filas, REF sumas_cols)
-INICIO
-    // Inicializar arreglos de suma en 0
-    PARA i DESDE 0 HASTA filas-1 HACER
-        sumas_filas[i] = 0
-    FIN PARA
-    PARA j DESDE 0 HASTA cols-1 HACER
-        sumas_cols[j] = 0
-    FIN PARA
-    // Calcular ambas sumas en una sola pasada
-    PARA i DESDE 0 HASTA filas-1 HACER
-        PARA j DESDE 0 HASTA cols-1 HACER
-            sumas_filas[i] = sumas_filas[i] + matriz[i][j]
-            sumas_cols[j] = sumas_cols[j] + matriz[i][j]
-        FIN PARA
-    FIN PARA
-FIN PROCEDIMIENTO
-```
-<!-- {code-block} pseudocode -->
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 (ej_b3_c01_11)=
 ### Ejercicio 3.01.11 - Elemento "Silla" ⭐⭐☆☆☆

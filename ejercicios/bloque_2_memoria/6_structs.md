@@ -966,3 +966,128 @@ int main(void) {
 
 ::::
 <!-- {solution} ordenar_eventos_cronologico -->
+
+---
+
+(ej_b2_c07_10)=
+### Ejercicio 2.07.10 - Auditoría de Padding y Reordenamiento de Campos en Memoria ⭐⭐⭐☆☆
+
+:::{exercise}
+:label: auditar_padding_struct
+:enumerator: structs-10
+
+En la arquitectura de computadoras moderna (como x86-64 y ARM64), la CPU requiere que los tipos de datos fundamentales estén alineados en direcciones de memoria múltiplos de su tamaño natural. Cuando los miembros de una estructura se declaran en un orden subóptimo, el compilador inserta bytes de relleno (*padding*) automáticos entre campos y al final de la estructura, provocando desperdicio de memoria.
+
+Dadas dos representaciones de un registro de telemetría:
+```c
+struct telemetria_desalineada {
+    char flag_inicio;  // 1 byte
+    double voltaje;    // 8 bytes (requiere alineación a 8) -> 7 bytes padding antes
+    char flag_alerta;  // 1 byte
+    int codigo_error;  // 4 bytes (requiere alineación a 4) -> 3 bytes padding antes
+                       // + 4 bytes padding al final para múltiplo de 8
+};                     // Total típico: 24 bytes (útiles: 1 + 8 + 1 + 4 = 14)
+
+struct telemetria_optimizada {
+    double voltaje;    // 8 bytes
+    int codigo_error;  // 4 bytes
+    char flag_inicio;  // 1 byte
+    char flag_alerta;  // 1 byte
+                       // + 2 bytes padding al final para múltiplo de 8
+};                     // Total típico: 16 bytes
+```
+
+Implementá una función:
+```c
+size_t calcular_bytes_desperdiciados(size_t tam_struct, size_t suma_miembros);
+size_t calcular_ahorro_porcentaje(size_t tam_original, size_t tam_optimizado);
+```
+
+- **Precondiciones:** `tam_struct >= suma_miembros`, `tam_original >= tam_optimizado`.
+- Verifica analíticamente con aserciones que `sizeof(struct telemetria_optimizada) < sizeof(struct telemetria_desalineada)` y que los desplazamientos `offsetof` coincidan con las reglas de alineación de C11.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Tamaño Total (`sizeof`) | Suma Neta de Campos | Bytes de Padding Calculados | Porcentaje de Ahorro |
+| :--- | :--- | :--- | :--- | :--- |
+| **Estructura Desalineada** | $24$ bytes | $14$ bytes | $10$ bytes de padding | $0\%$ (base) |
+| **Estructura Optimizada** | $16$ bytes | $14$ bytes | $2$ bytes de padding | $33\%$ de reducción frente a $24$ |
+| **Struct Sin Padding** | $8$ bytes | $8$ bytes | $0$ bytes de padding | $0\%$ |
+
+:::
+<!-- {exercise} auditar_padding_struct -->
+
+::::{solution} auditar_padding_struct
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <stddef.h>
+#include <assert.h>
+
+struct telemetria_desalineada {
+    char flag_inicio;
+    double voltaje;
+    char flag_alerta;
+    int codigo_error;
+};
+
+struct telemetria_optimizada {
+    double voltaje;
+    int codigo_error;
+    char flag_inicio;
+    char flag_alerta;
+};
+
+size_t calcular_bytes_desperdiciados(size_t tam_struct, size_t suma_miembros) {
+    if (tam_struct < suma_miembros) {
+        return 0;
+    }
+    return tam_struct - suma_miembros;
+}
+
+size_t calcular_ahorro_porcentaje(size_t tam_original, size_t tam_optimizado) {
+    if (tam_original == 0 || tam_original < tam_optimizado) {
+        return 0;
+    }
+    size_t delta = tam_original - tam_optimizado;
+    return (delta * 100) / tam_original;
+}
+
+int main(void) {
+    size_t suma_util = sizeof(char) + sizeof(double) + sizeof(char) + sizeof(int);
+    assert(suma_util == 14);
+
+    size_t tam_desal = sizeof(struct telemetria_desalineada);
+    size_t tam_opt = sizeof(struct telemetria_optimizada);
+
+    // En arquitecturas estándar de 64 bits con alineación de double a 8 bytes:
+    assert(tam_desal >= 24);
+    assert(tam_opt <= 16);
+    assert(tam_opt < tam_desal);
+
+    size_t pad_desal = calcular_bytes_desperdiciados(tam_desal, suma_util);
+    size_t pad_opt = calcular_bytes_desperdiciados(tam_opt, suma_util);
+
+    assert(pad_desal >= 10);
+    assert(pad_opt <= 2);
+
+    size_t ahorro = calcular_ahorro_porcentaje(tam_desal, tam_opt);
+    assert(ahorro >= 33); // Ahorro de al menos 33% de memoria
+
+    // Verificación de offsets y alineación
+    assert(offsetof(struct telemetria_optimizada, voltaje) == 0);
+    assert(offsetof(struct telemetria_optimizada, codigo_error) == sizeof(double));
+
+    // Casos borde
+    assert(calcular_bytes_desperdiciados(10, 15) == 0);
+    assert(calcular_ahorro_porcentaje(0, 10) == 0);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} auditar_padding_struct -->
+
