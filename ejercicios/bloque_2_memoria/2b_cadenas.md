@@ -2031,3 +2031,118 @@ FIN FUNCION
 
 :::
 <!-- {tip} Ayuda (pseudocódigo) -->
+
+---
+
+(ej_b2_c03b_42)=
+### Ejercicio 2.03b.42 - Extracción Segura de Subcadena ⭐⭐⭐☆☆
+
+:::{exercise}
+:label: subcadena_segura
+
+Implementá una función defensiva que extraiga una porción de una cadena de caracteres:
+```c
+bool subcadena_segura(const char *origen, size_t inicio, size_t longitud,
+                      char *destino, size_t cap_destino);
+```
+La función debe copiar hasta `longitud` caracteres comenzando desde la posición `inicio` de la cadena `origen` hacia el búfer `destino`.
+Debe asegurar siempre la terminación en `\0`. Si `inicio` supera la longitud de `origen` o si el búfer de destino no tiene capacidad suficiente para albergar la subcadena y el terminador nulo, debe rechazar la operación retornando `false` y dejando una cadena vacía en `destino` si `cap_destino > 0`.
+
+**Nivel de Bloom:** Nivel 3 (Aplicación) y Nivel 4 (Análisis).  
+**Conceptos requeridos:** Aritmética de punteros, límites de memoria ({ref}`0x5003h`), validación defensiva contra buffer overruns.  
+**Techo conceptual:** Prohibido el uso de `strncpy` o funciones inseguras sin validación de capacidad.
+
+#### Contrato de la Función
+- **Firma:** `bool subcadena_segura(const char *origen, size_t inicio, size_t longitud, char *destino, size_t cap_destino);`
+- **Precondiciones:** `origen != NULL`, `destino != NULL`, `cap_destino > 0`.
+- **Postcondiciones:** Retorna `true` y escribe la subcadena en `destino` garantizando el terminador nulo.
+
+#### Tabla de Vectores de Prueba
+
+| Tipo de Caso | Cadena Origen | Inicio / Longitud | Capacidad Destino | Retorno | Cadena Destino | Justificación Técnica |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Normal** | `"Estructura de Datos"` | `inicio=0, len=10` | `16` | `true` | `"Estructura"` | Copia exacta de prefijo |
+| **Normal** | `"Programacion"` | `inicio=3, len=4` | `5` | `true` | `"gram"` | Extracción interna con tamaño justo |
+| **Borde (Fin de cadena)**| `"UNRN"` | `inicio=2, len=10` | `10` | `true` | `"RN"` | Trunca sanamente al alcanzar `\0` |
+| **Error (Fuera de rango)**| `"Hola"` | `inicio=10, len=2` | `8` | `false` | `""` | Índice inicial fuera de los límites |
+| **Error (Capacidad escasa)**| `"Algoritmos"` | `inicio=0, len=5` | `5` | `false` | `""` | Búfer insuficiente (necesita 6 con `\0`) |
+
+:::
+
+::::{solution} subcadena_segura
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <assert.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <string.h>
+
+bool subcadena_segura(const char *origen, size_t inicio, size_t longitud,
+                      char *destino, size_t cap_destino)
+{
+    if (origen == NULL || destino == NULL || cap_destino == 0)
+    {
+        return false;
+    }
+
+    size_t len_origen = strlen(origen);
+    if (inicio > len_origen)
+    {
+        destino[0] = '\0';
+        return false;
+    }
+
+    // Determinar cuántos caracteres reales se pueden leer desde 'inicio'
+    size_t disponibles = len_origen - inicio;
+    size_t a_copiar = (longitud < disponibles) ? longitud : disponibles;
+
+    // Verificar si cabe la subcadena + '\0'
+    if (a_copiar + 1 > cap_destino)
+    {
+        destino[0] = '\0';
+        return false;
+    }
+
+    for (size_t i = 0; i < a_copiar; i++)
+    {
+        destino[i] = origen[inicio + i];
+    }
+    destino[a_copiar] = '\0';
+
+    return true;
+}
+
+int main(void)
+{
+    char buf[32];
+
+    // Caso normal prefijo
+    assert(subcadena_segura("Estructura de Datos", 0, 10, buf, sizeof(buf)) == true);
+    assert(strcmp(buf, "Estructura") == 0);
+
+    // Caso normal interno con capacidad justa
+    char buf_justo[5];
+    assert(subcadena_segura("Programacion", 3, 4, buf_justo, sizeof(buf_justo)) == true);
+    assert(strcmp(buf_justo, "gram") == 0);
+
+    // Caso borde alcanza fin de cadena
+    assert(subcadena_segura("UNRN", 2, 10, buf, sizeof(buf)) == true);
+    assert(strcmp(buf, "RN") == 0);
+
+    // Caso error: inicio fuera de rango
+    assert(subcadena_segura("Hola", 10, 2, buf, sizeof(buf)) == false);
+    assert(buf[0] == '\0');
+
+    // Caso error: capacidad escasa (necesita 6 bytes incluyendo '\0')
+    char buf_chico[5];
+    assert(subcadena_segura("Algoritmos", 0, 5, buf_chico, sizeof(buf_chico)) == false);
+    assert(buf_chico[0] == '\0');
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} subcadena_segura -->

@@ -889,39 +889,86 @@ FIN
 ## Control de Flujo Avanzado
 
 (ej_b1_c01_20)=
-### Ejercicio 1.01.20 - Tabla de Multiplicar ⭐⭐☆☆☆
+### Ejercicio 1.01.20 - Generación de Tabla de Multiplicar ⭐⭐☆☆☆
 
-El programa debe solicitar un número entero al usuario y mostrar su tabla de
-multiplicar, desde el 1 hasta el 10.
+:::{exercise}
+:label: ej_b1_c01_20_tabla_multiplicar
 
-:::{hint} Lógica y Consideraciones
--   **Entrada:** Leer un número entero, que será la base de la tabla.
--   **Proceso:** Utilizar un lazo `for` que itere desde 1 hasta 10. En cada
--   **Salida:** Dentro del lazo, imprimir la operación y su resultado en una línea por iteración.
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
-:::{tip} Ayuda (pseudocódigo)
-:class: dropdown
-```{code-block} pseudocode
-:linenos:
-
-ALGORITMO tabla_de_multiplicar
-ENTRADA: numero_base (entero)
-
-INICIO
-    LEER numero_base
-    PARA i DESDE 1 HASTA 10 HACER
-        resultado = numero_base * i
-        ESCRIBIR numero_base, " x ", i, " = ", resultado
-    FIN PARA
-FIN
-
+Implementá una función pura que genere los primeros $n$ múltiplos de una base dada (del 1 al $n$):
+```c
+void generar_tabla_multiplicar(int base, int *salida, size_t n);
 ```
-<!-- {code-block} pseudocode -->
+donde `salida[i]` almacenará el valor `base * (i + 1)`.
+
+**Nivel de Bloom:** Nivel 2 (Comprensión) y Nivel 3 (Aplicación).  
+**Conceptos requeridos:** Lazos secuenciales indexados en 0, punteros a memoria contigua, operaciones aritméticas básicas.  
+**Techo conceptual:** Prohibido el uso de variables globales o efectos colaterales fuera del búfer de salida.
+
+#### Contrato de la Función
+- **Firma:** `void generar_tabla_multiplicar(int base, int *salida, size_t n);`
+- **Precondiciones:** Si $n > 0$, `salida != NULL`.
+- **Postcondiciones:** Cada posición $i \in [0, n-1]$ contiene `base * (i + 1)`.
+
+#### Tabla de Vectores de Prueba
+
+| Tipo de Caso | Base | Cantidad $n$ | Salida Esperada | Justificación Técnica |
+| :--- | :--- | :--- | :--- | :--- |
+| **Normal (Positivo)** | `7` | `5` | `{7, 14, 21, 28, 35}` | Multiplicación secuencial estándar |
+| **Normal (Negativo)** | `-4` | `3` | `{-4, -8, -12}` | Preservación del signo negativo |
+| **Borde (Cero)** | `0` | `4` | `{0, 0, 0, 0}` | Propiedad del elemento absorbente |
+| **Borde (Vacío)** | `9` | `0` | Sin modificaciones | Tamaño cero no ejecuta escrituras |
 
 :::
-<!-- {tip} Ayuda (pseudocódigo) -->
+
+::::{solution} ej_b1_c01_20_tabla_multiplicar
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <assert.h>
+#include <stddef.h>
+
+void generar_tabla_multiplicar(int base, int *salida, size_t n)
+{
+    if (salida == NULL || n == 0)
+    {
+        return;
+    }
+
+    for (size_t i = 0; i < n; i++)
+    {
+        salida[i] = base * (int)(i + 1);
+    }
+}
+
+int main(void)
+{
+    int tabla_7[5];
+    generar_tabla_multiplicar(7, tabla_7, 5);
+    assert(tabla_7[0] == 7);
+    assert(tabla_7[1] == 14);
+    assert(tabla_7[2] == 21);
+    assert(tabla_7[3] == 28);
+    assert(tabla_7[4] == 35);
+
+    int tabla_neg[3];
+    generar_tabla_multiplicar(-4, tabla_neg, 3);
+    assert(tabla_neg[0] == -4);
+    assert(tabla_neg[1] == -8);
+    assert(tabla_neg[2] == -12);
+
+    int tabla_cero[4];
+    generar_tabla_multiplicar(0, tabla_cero, 4);
+    assert(tabla_cero[0] == 0 && tabla_cero[1] == 0 && tabla_cero[2] == 0 && tabla_cero[3] == 0);
+
+    generar_tabla_multiplicar(9, NULL, 0);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} ej_b1_c01_20_tabla_multiplicar -->
 
 (ej_b1_c01_21)=
 ### Ejercicio 1.01.21 - Patrón de Asteriscos (Triángulo) ⭐⭐☆☆☆

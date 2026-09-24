@@ -597,3 +597,130 @@ int main(void) {
 ```
 ::::
 :::
+
+---
+
+(ej_b4_c08_09)=
+### Ejercicio 4.08.09 - Búsqueda Exponencial en Arreglos Ordenados ⭐⭐⭐☆☆
+
+:::{exercise}
+:label: busqueda_exponencial
+:enumerator: ordenamiento-9
+
+La búsqueda exponencial (*Exponential Search*) es especialmente eficiente para buscar en arreglos ordenados cuando se desconoce el tamaño a priori o cuando el elemento buscado se encuentra cerca del inicio del arreglo.
+El algoritmo consta de dos etapas:
+1. Encontrar el rango de búsqueda mediante duplicación sucesiva de índices ($i = 1, 2, 4, 8, \dots$) hasta hallar $i \ge n$ o un elemento `arr[i] >= objetivo`.
+2. Ejecutar una búsqueda binaria estándar dentro del subrango acotado $[\lfloor i/2 \rfloor, \min(i, n - 1)]$.
+
+Implementá la función:
+```c
+int busqueda_exponencial(const int *arr, size_t n, int objetivo);
+```
+que retorne el índice donde reside `objetivo`, o `-1` si no existe en el arreglo.
+
+**Nivel de Bloom:** Nivel 3 (Aplicación) y Nivel 4 (Análisis).  
+**Conceptos requeridos:** Búsqueda binaria, crecimiento exponencial de ventanas, complejidad $O(\log i)$ donde $i$ es la posición del elemento.  
+**Techo conceptual:** El arreglo de entrada debe estar estrictamente ordenado de menor a mayor.
+
+#### Contrato de la Función
+- **Firma:** `int busqueda_exponencial(const int *arr, size_t n, int objetivo);`
+- **Precondiciones:** Arreglo ordenado ascendentemente. Si `n > 0`, `arr != NULL`.
+- **Postcondiciones:** Retorna el índice exacto si el elemento está presente; de lo contrario `-1`.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Tipo de Caso | Arreglo Entrada | Objetivo | Índice Esperado | Justificación Técnica |
+| :--- | :--- | :--- | :--- | :--- |
+| **Normal (Inicio)** | `{2, 5, 8, 12, 16, 23, 38, 56}`, $n=8$ | `2` | `0` | Primer elemento resuelto en $O(1)$ |
+| **Normal (Intermedio)**| Mismo arreglo | `23` | `5` | Rango detectado entre $i=4$ e $i=8$ |
+| **Normal (Final)** | Mismo arreglo | `56` | `7` | Búsqueda en el extremo derecho |
+| **Error (No presente)**| Mismo arreglo | `15` | `-1` | Elemento ausente en ventana acotada |
+| **Borde (Vacío)** | Arreglo vacío, $n=0$ | `42` | `-1` | Manejo seguro de arreglo sin elementos |
+
+:::
+<!-- {exercise} -->
+
+::::{solution} busqueda_exponencial
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <assert.h>
+#include <stddef.h>
+
+static int busqueda_binaria_rango(const int *arr, size_t izq, size_t der, int objetivo)
+{
+    while (izq <= der)
+    {
+        size_t medio = izq + (der - izq) / 2;
+        if (arr[medio] == objetivo)
+        {
+            return (int)medio;
+        }
+        if (arr[medio] < objetivo)
+        {
+            izq = medio + 1;
+        }
+        else
+        {
+            if (medio == 0)
+            {
+                break;
+            }
+            der = medio - 1;
+        }
+    }
+    return -1;
+}
+
+int busqueda_exponencial(const int *arr, size_t n, int objetivo)
+{
+    if (arr == NULL || n == 0)
+    {
+        return -1;
+    }
+
+    if (arr[0] == objetivo)
+    {
+        return 0;
+    }
+
+    size_t i = 1;
+    while (i < n && arr[i] <= objetivo)
+    {
+        i *= 2;
+    }
+
+    size_t izq = i / 2;
+    size_t der = (i < n) ? i : n - 1;
+
+    return busqueda_binaria_rango(arr, izq, der, objetivo);
+}
+
+int main(void)
+{
+    int arr[8] = {2, 5, 8, 12, 16, 23, 38, 56};
+
+    // Caso inicio
+    assert(busqueda_exponencial(arr, 8, 2) == 0);
+
+    // Caso intermedio
+    assert(busqueda_exponencial(arr, 8, 23) == 5);
+
+    // Caso fin
+    assert(busqueda_exponencial(arr, 8, 56) == 7);
+
+    // Elemento no presente
+    assert(busqueda_exponencial(arr, 8, 15) == -1);
+    assert(busqueda_exponencial(arr, 8, 1) == -1);
+    assert(busqueda_exponencial(arr, 8, 100) == -1);
+
+    // Arreglo vacío
+    assert(busqueda_exponencial(NULL, 0, 42) == -1);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} busqueda_exponencial -->

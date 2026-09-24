@@ -487,104 +487,95 @@ FIN PROCEDIMIENTO
 ## Ejercicio 3.01.08 - s Adicionales de Matrices ⭐⭐⭐☆☆
 
 (ej_b3_c01_09)=
-### Ejercicio 3.01.09 - Matriz simétrica ⭐⭐⭐☆☆
+### Ejercicio 3.01.09 - Verificación de Matriz Simétrica ⭐⭐⭐☆☆
 
-#### Descripción
-Escribir una función que verifique si una matriz cuadrada es simétrica. Una
-matriz es simétrica si es igual a su propia transpuesta, lo que significa que el
-elemento en la fila `i`, columna `j` es igual al elemento en la fila `j`,
-columna `i`.
+:::{exercise}
+:label: ej_b3_c01_09_matriz_simetrica
 
-::::{tab-set}
+Escribí una función pura en C11 que determine si una matriz cuadrada contigua es simétrica.
+Una matriz $A$ es simétrica si $A = A^T$, es decir, $A_{i, j} = A_{j, i}$ para todo par de índices $(i, j)$.
+La verificación debe ser eficiente y recorrer únicamente el triángulo superior estricto ($j > i$):
 
-:::{tab-item} Entrada
-:sync: tab1
-Matriz (3x3):
-``` text
-[ 1, 7, 3 ]
-[ 7, 4, 5 ]
-[ 3, 5, 6 ]
+```c
+bool matriz_es_simetrica(const int *mat, size_t n);
 ```
-<!-- text -->
+
+**Nivel de Bloom:** Nivel 3 (Aplicación) y Nivel 4 (Análisis).  
+**Conceptos requeridos:** Mapeo bidimensional plano `mat[i * n + j]`, simetría matricial, cortocircuito booleano.  
+**Techo conceptual:** Prohibido comparar elementos de la diagonal consigo mismos o recorrer el triángulo inferior innecesariamente.
+
+#### Contrato de la Función
+- **Firma:** `bool matriz_es_simetrica(const int *mat, size_t n);`
+- **Precondiciones:** Si $n > 0$, `mat != NULL`.
+- **Postcondiciones:** Retorna `true` si la matriz es simétrica respecto a su diagonal principal; de lo contrario `false`.
+
+#### Tabla de Vectores de Prueba
+
+| Dimensiones | Matriz Contigua | Retorno | Justificación Técnica |
+| :--- | :--- | :--- | :--- |
+| $3 \times 3$ | `[[1, 7, 3], [7, 4, 5], [3, 5, 6]]` | `true` | Simetría perfecta en todos los pares |
+| $2 \times 2$ | `[[1, 2], [3, 4]]` | `false` | $A_{0,1} = 2 \neq A_{1,0} = 3$ |
+| $1 \times 1$ | `[[42]]` | `true` | Caso escalar trivial |
+| $0 \times 0$ | `NULL` ($n=0$) | `true` | Matriz vacía vacuamente simétrica |
 
 :::
-<!-- {tab-item} Entrada -->
-:::{tab-item} Salida
-:sync: tab2
-``` text
-La matriz es simétrica.
-```
-<!-- text -->
 
-:::
-<!-- {tab-item} Salida -->
-
-::::
-<!-- {tab-set} -->
-
-:::{hint} Lógica y Consideraciones
--   **Fórmula:** Una matriz `A` es simétrica si $A_{ij} = A_{ji}$ para todos los
-    `i`, `j`.
--   **Proceso:**
-    1.  Recorrer solo la mitad superior (o inferior) de la matriz es suficiente.
-        Por ejemplo, con lazos anidados donde el lazo interior para `j` comienza
-        en `i+1`.
-    2.  En cada paso, comparar `matriz[i][j]` con `matriz[j][i]`.
-    3.  Si en algún momento no son iguales, la matriz no es simétrica y la
-        función puede devolver `falso` inmediatamente.
--   **Salida:** Si los lazos se completan sin encontrar diferencias, la matriz
-    es simétrica.
-:::
-<!-- {hint} Lógica y Consideraciones -->
-
-::::{hint} Lógica y Consideraciones
+::::{solution} ej_b3_c01_09_matriz_simetrica
 :class: dropdown
-El diagrama muestra los pares de elementos que deben ser iguales. Solo es
-necesario verificar una mitad del triángulo (excluyendo la diagonal).
-:::
-<!-- {hint} Lógica y Consideraciones -->{mermaid}
 
-flowchart TD
-    subgraph Matriz
-        A11["a11"]
-        A12["a12"]
-        A13["a13"]
-        A21["a21"]
-        A22["a22"]
-        A23["a23"]
-        A31["a31"]
-        A32["a32"]
-        A33["a33"]
-    end
-    A12 <-.-> A21
-    A13 <-.-> A31
-    A23 <-.-> A32
-
-:::
-<!-- {mermaid} -->
-
-::::
-<!-- {hint} Diagrama -->
-
-:::{hint} Lógica y Consideraciones
-:class: dropdown
-```{code-block} pseudocode
+```{code-block} c
 :linenos:
-FUNCION es_simetrica(matriz, n)
-INICIO
-    PARA i DESDE 0 HASTA n-1 HACER
-        PARA j DESDE i+1 HASTA n-1 HACER
-            SI matriz[i][j] != matriz[j][i] ENTONCES
-                RETORNAR FALSO
-            FIN SI
-        FIN PARA
-    FIN PARA
-    RETORNAR VERDADERO
-FIN FUNCION
+#include <assert.h>
+#include <stdbool.h>
+#include <stddef.h>
+
+bool matriz_es_simetrica(const int *mat, size_t n)
+{
+    if (mat == NULL || n <= 1)
+    {
+        return true;
+    }
+
+    for (size_t i = 0; i < n; i++)
+    {
+        for (size_t j = i + 1; j < n; j++)
+        {
+            if (mat[i * n + j] != mat[j * n + i])
+            {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+int main(void)
+{
+    int simetrica_3x3[9] = {
+        1, 7, 3,
+        7, 4, 5,
+        3, 5, 6
+    };
+    assert(matriz_es_simetrica(simetrica_3x3, 3) == true);
+
+    int asimetrica_2x2[4] = {
+        1, 2,
+        3, 4
+    };
+    assert(matriz_es_simetrica(asimetrica_2x2, 2) == false);
+
+    int unitaria[1] = {42};
+    assert(matriz_es_simetrica(unitaria, 1) == true);
+
+    assert(matriz_es_simetrica(NULL, 0) == true);
+
+    return 0;
+}
 ```
-<!-- {code-block} pseudocode -->
-:::
-<!-- {hint} Lógica y Consideraciones -->
+
+::::
+<!-- {solution} ej_b3_c01_09_matriz_simetrica -->
 
 (ej_b3_c01_10)=
 ### Ejercicio 3.01.10 - Suma por Filas y Columnas ⭐⭐☆☆☆
