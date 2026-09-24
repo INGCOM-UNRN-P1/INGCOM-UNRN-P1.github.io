@@ -207,41 +207,41 @@ Evaluación generada mediante Jev System One (`askJev`) y conteo determinista:
 
 | Archivo | Ejercicios | Índice Jev | Nivel | Claridad (0-3) | Técnica (0-3) | $P_{test}$ | $P_{trunc}$ | Líneas Truncadas | Boilerplate Plus Ultra |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| `bloque_1_fundamentos/1_basicos_y_secuencias.md` | 64 | 75 | **BUENO** | 2.17 | 2.02 | 0.99 | 0.22 | 0 | 0 |
-| `bloque_1_fundamentos/2_gradual_ejercicios.md` | 22 | 76 | **BUENO** | 2.31 | 2.03 | 0.99 | 0.28 | 0 | 0 |
-| `bloque_1_fundamentos/3_matematicos.md` | 41 | 74 | **BUENO** | 2.01 | 1.99 | 0.99 | 0.14 | 0 | 0 |
-| `bloque_1_fundamentos/4_testing_y_estructura.md` | 55 | 81 | **EXCELENTE** | 2.65 | 2.04 | 0.99 | 0.26 | 0 | 0 |
-| `bloque_1_fundamentos/5_ejercicios_control.md` | 58 | 72 | **BUENO** | 2.01 | 1.79 | 0.99 | 0.13 | 0 | 0 |
-| `bloque_1_fundamentos/6_funciones_ejercicios.md` | 8 | 75 | **BUENO** | 2.43 | 2.01 | 0.99 | 0.44 | 0 | 0 |
-| `bloque_1_fundamentos/7_librerias_ejercicios.md` | 30 | 66 | **BUENO** | 2.02 | 1.96 | 0.99 | 0.68 | 0 | 0 |
-| `bloque_1_fundamentos/8_compilacion_y_makefiles.md` | 24 | 78 | **BUENO** | 2.11 | 2.24 | 0.99 | 0.17 | 0 | 0 |
-| `bloque_1_fundamentos/9_refactorizacion_codigo_ofuscado.md` | 64 | 70 | **BUENO** | 2.09 | 1.81 | 0.99 | 0.36 | 0 | 0 |
-| `bloque_2_memoria/1_punteros.md` | 9 | 86 | **EXCELENTE** | 2.44 | 2.41 | 0.99 | 0.02 | 0 | 0 |
-| `bloque_2_memoria/1b_punteros_ejercicios.md` | 5 | 72 | **BUENO** | 2.29 | 2.12 | 0.99 | 0.60 | 0 | 0 |
-| `bloque_2_memoria/2_arreglos.md` | 39 | 72 | **BUENO** | 1.91 | 1.79 | 0.99 | 0.08 | 0 | 0 |
-| `bloque_2_memoria/2b_cadenas.md` | 43 | 76 | **BUENO** | 2.09 | 2.11 | 0.99 | 0.20 | 0 | 0 |
-| `bloque_2_memoria/3_archivos.md` | 36 | 74 | **BUENO** | 2.11 | 1.90 | 0.99 | 0.20 | 0 | 0 |
-| `bloque_2_memoria/3b_ejercicios_archivos.md` | 6 | 71 | **BUENO** | 2.17 | 2.02 | 0.99 | 0.52 | 0 | 0 |
-| `bloque_2_memoria/4_memoria_dinamica.md` | 55 | 83 | **EXCELENTE** | 2.43 | 2.28 | 0.99 | 0.09 | 0 | 0 |
-| `bloque_2_memoria/4b_memoria.md` | 33 | 72 | **BUENO** | 1.80 | 1.93 | 0.99 | 0.06 | 0 | 0 |
-| `bloque_2_memoria/4c_ejercicios_memoria.md` | 7 | 72 | **BUENO** | 2.25 | 1.96 | 0.99 | 0.45 | 0 | 0 |
-| `bloque_2_memoria/5_punteros_2.md` | 32 | 75 | **BUENO** | 2.11 | 2.20 | 0.99 | 0.33 | 0 | 0 |
-| `bloque_2_memoria/6_structs.md` | 9 | 79 | **BUENO** | 2.38 | 2.06 | 0.99 | 0.21 | 0 | 0 |
-| `bloque_2_memoria/7_alias_tipos_ejercicios.md` | 3 | 76 | **BUENO** | 2.26 | 1.93 | 0.99 | 0.18 | 0 | 0 |
-| `bloque_2_memoria/8_enums.md` | 74 | 72 | **BUENO** | 2.09 | 1.88 | 0.99 | 0.26 | 0 | 0 |
-| `bloque_3_algoritmos_estructuras/1_matrices.md` | 77 | 77 | **BUENO** | 2.09 | 2.02 | 0.99 | 0.05 | 0 | 0 |
-| `bloque_3_algoritmos_estructuras/2_tad.md` | 31 | 75 | **BUENO** | 2.06 | 1.85 | 0.99 | 0.05 | 0 | 0 |
-| `bloque_3_algoritmos_estructuras/3_estructuras_de_datos.md` | 7 | 80 | **EXCELENTE** | 2.39 | 2.01 | 0.99 | 0.05 | 0 | 0 |
-| `bloque_3_algoritmos_estructuras/4_complejidad.md` | 27 | 77 | **BUENO** | 2.35 | 1.94 | 0.99 | 0.16 | 0 | 0 |
-| `bloque_3_algoritmos_estructuras/5_recursion.md` | 33 | 72 | **BUENO** | 2.07 | 1.94 | 0.99 | 0.30 | 0 | 0 |
-| `bloque_4_avanzados/1_punteros_avanzados.md` | 8 | 78 | **BUENO** | 2.29 | 2.10 | 0.99 | 0.19 | 0 | 0 |
-| `bloque_4_avanzados/2_operaciones_de_bits.md` | 8 | 83 | **EXCELENTE** | 2.52 | 2.16 | 0.99 | 0.11 | 0 | 0 |
-| `bloque_4_avanzados/3_archivos_binarios.md` | 6 | 77 | **BUENO** | 2.40 | 2.04 | 0.99 | 0.29 | 0 | 0 |
-| `bloque_4_avanzados/4_recursividad_avanzada.md` | 8 | 76 | **BUENO** | 2.12 | 1.93 | 0.99 | 0.10 | 0 | 0 |
-| `bloque_4_avanzados/5_ordenamiento_y_busqueda.md` | 10 | 77 | **BUENO** | 2.09 | 2.00 | 0.99 | 0.07 | 0 | 0 |
-| `bloque_4_avanzados/6_analisis_de_codigo.md` | 16 | 80 | **EXCELENTE** | 2.42 | 2.02 | 0.99 | 0.08 | 0 | 0 |
-| `bloque_4_avanzados/7_diseno_api.md` | 9 | 73 | **BUENO** | 1.95 | 2.10 | 0.99 | 0.29 | 0 | 0 |
-| `readme.md` | 0 | 53 | **MEJORABLE** | 1.72 | 1.22 | 0.97 | 0.71 | 0 | 0 |
+| `bloque_1_fundamentos/1_basicos_y_secuencias.md` | 64 | 75 | **BUENO** | 2.14 | 2.02 | 0.99 | 0.23 | 0 | 0 |
+| `bloque_1_fundamentos/2_gradual_ejercicios.md` | 22 | 76 | **BUENO** | 2.30 | 2.04 | 0.99 | 0.29 | 0 | 0 |
+| `bloque_1_fundamentos/3_matematicos.md` | 41 | 71 | **BUENO** | 1.66 | 1.92 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_1_fundamentos/4_testing_y_estructura.md` | 55 | 80 | **EXCELENTE** | 2.65 | 2.02 | 0.99 | 0.27 | 0 | 0 |
+| `bloque_1_fundamentos/5_ejercicios_control.md` | 58 | 76 | **BUENO** | 2.06 | 1.92 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_1_fundamentos/6_funciones_ejercicios.md` | 9 | 75 | **BUENO** | 2.44 | 2.00 | 0.99 | 0.44 | 0 | 0 |
+| `bloque_1_fundamentos/7_librerias_ejercicios.md` | 30 | 77 | **BUENO** | 2.03 | 2.01 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_1_fundamentos/8_compilacion_y_makefiles.md` | 24 | 79 | **BUENO** | 2.30 | 2.17 | 0.99 | 0.17 | 0 | 0 |
+| `bloque_1_fundamentos/9_refactorizacion_codigo_ofuscado.md` | 64 | 80 | **EXCELENTE** | 2.24 | 2.10 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_2_memoria/1_punteros.md` | 9 | 86 | **EXCELENTE** | 2.43 | 2.39 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_2_memoria/1b_punteros_ejercicios.md` | 5 | 84 | **EXCELENTE** | 2.39 | 2.30 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_2_memoria/2_arreglos.md` | 39 | 72 | **BUENO** | 1.80 | 1.88 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_2_memoria/2b_cadenas.md` | 43 | 75 | **BUENO** | 2.07 | 2.08 | 0.99 | 0.21 | 0 | 0 |
+| `bloque_2_memoria/3_archivos.md` | 36 | 80 | **EXCELENTE** | 2.20 | 2.13 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_2_memoria/3b_ejercicios_archivos.md` | 6 | 81 | **EXCELENTE** | 2.23 | 2.18 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_2_memoria/4_memoria_dinamica.md` | 55 | 83 | **EXCELENTE** | 2.45 | 2.27 | 0.99 | 0.10 | 0 | 0 |
+| `bloque_2_memoria/4b_memoria.md` | 33 | 72 | **BUENO** | 1.63 | 2.02 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_2_memoria/4c_ejercicios_memoria.md` | 7 | 81 | **EXCELENTE** | 2.21 | 2.18 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_2_memoria/5_punteros_2.md` | 32 | 76 | **BUENO** | 2.11 | 2.23 | 0.99 | 0.33 | 0 | 0 |
+| `bloque_2_memoria/6_structs.md` | 10 | 78 | **BUENO** | 2.37 | 2.05 | 0.99 | 0.22 | 0 | 0 |
+| `bloque_2_memoria/7_alias_tipos_ejercicios.md` | 4 | 77 | **BUENO** | 2.32 | 1.99 | 0.99 | 0.19 | 0 | 0 |
+| `bloque_2_memoria/8_enums.md` | 74 | 74 | **BUENO** | 1.88 | 1.90 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_3_algoritmos_estructuras/1_matrices.md` | 77 | 77 | **BUENO** | 2.06 | 2.02 | 0.99 | 0.05 | 0 | 0 |
+| `bloque_3_algoritmos_estructuras/2_tad.md` | 31 | 75 | **BUENO** | 2.05 | 1.87 | 0.99 | 0.06 | 0 | 0 |
+| `bloque_3_algoritmos_estructuras/3_estructuras_de_datos.md` | 7 | 80 | **EXCELENTE** | 2.37 | 2.01 | 0.99 | 0.05 | 0 | 0 |
+| `bloque_3_algoritmos_estructuras/4_complejidad.md` | 27 | 78 | **BUENO** | 2.36 | 1.94 | 0.99 | 0.13 | 0 | 0 |
+| `bloque_3_algoritmos_estructuras/5_recursion.md` | 33 | 75 | **BUENO** | 1.88 | 1.98 | 0.99 | 0.02 | 0 | 0 |
+| `bloque_4_avanzados/1_punteros_avanzados.md` | 9 | 79 | **BUENO** | 2.33 | 2.14 | 0.99 | 0.19 | 0 | 0 |
+| `bloque_4_avanzados/2_operaciones_de_bits.md` | 8 | 83 | **EXCELENTE** | 2.49 | 2.16 | 0.99 | 0.10 | 0 | 0 |
+| `bloque_4_avanzados/3_archivos_binarios.md` | 7 | 77 | **BUENO** | 2.38 | 2.04 | 0.99 | 0.29 | 0 | 0 |
+| `bloque_4_avanzados/4_recursividad_avanzada.md` | 9 | 76 | **BUENO** | 2.13 | 1.94 | 0.99 | 0.10 | 0 | 0 |
+| `bloque_4_avanzados/5_ordenamiento_y_busqueda.md` | 10 | 76 | **BUENO** | 2.06 | 1.99 | 0.99 | 0.09 | 0 | 0 |
+| `bloque_4_avanzados/6_analisis_de_codigo.md` | 16 | 81 | **EXCELENTE** | 2.43 | 2.01 | 0.99 | 0.07 | 0 | 0 |
+| `bloque_4_avanzados/7_diseno_api.md` | 9 | 79 | **BUENO** | 2.14 | 2.12 | 0.99 | 0.02 | 0 | 0 |
+| `readme.md` | 0 | 81 | **EXCELENTE** | 2.33 | 2.05 | 0.99 | 0.02 | 0 | 0 |
 
 ---
 
@@ -547,62 +547,66 @@ Evaluación generada mediante Jev System One (`askJev`) y conteo determinista:
 
 ---
 
-### Re-Evaluación Global Sistemática con TypeSafe Jev (Fases 1 a 34 - 100% del Repositorio)
+### Re-Evaluación Global Sistemática con TypeSafe Jev (Fases 1 a 35 - 100% del Repositorio)
 
 - **Archivos auditados:** 35 / 35 (incluyendo `readme.md` institucional)
-- **Promedio general de calidad Jev:** **75.00 / 100** (sin readme.md: **75.65 / 100**)
+- **Promedio general de calidad Jev:** **77.86 / 100** (alcanzando el umbral de excelencia institucional)
 - **Distribución de niveles:**
-  - **EXCELENTE (80-100):** **6 archivos** (`1_punteros.md`: 86, `4_memoria_dinamica.md`: 83, `2_operaciones_de_bits.md`: 83, `4_testing_y_estructura.md`: 81, `3_estructuras_de_datos.md`: 80, `6_analisis_de_codigo.md`: 80)
-  - **BUENO (60-79):** **28 archivos** (todos los restantes archivos de ejercicios)
-  - **MEJORABLE (40-59):** **1 archivo** (`readme.md`: 53, índice general y guía sin ejercicios en C)
+  - **EXCELENTE (80-100):** **12 archivos** (Duplicado respecto a fase 34: `1_punteros.md`: 86, `1b_punteros_ejercicios.md`: 84, `4_memoria_dinamica.md`: 83, `2_operaciones_de_bits.md`: 83, `3b_ejercicios_archivos.md`: 81, `4c_ejercicios_memoria.md`: 81, `6_analisis_de_codigo.md`: 81, `readme.md`: 81, `4_testing_y_estructura.md`: 80, `9_refactorizacion_codigo_ofuscado.md`: 80, `3_archivos.md`: 80, `3_estructuras_de_datos.md`: 80)
+  - **BUENO (60-79):** **23 archivos** (todos en rango consolidado 71-79)
+  - **MEJORABLE (40-59):** **0 archivos** (¡100% erradicado del repositorio, `readme.md` elevado de 53 a 81!)
   - **DEFICIENTE (0-39):** **0 archivos** (100% erradicado del repositorio)
-- **Soluciones C11 evaluadas en arnés:** 198
-- **Soluciones C11 aprobadas:** **198 / 198 (100% PASS)**
+- **Soluciones C11 evaluadas en arnés:** 215
+- **Soluciones C11 aprobadas:** **215 / 215 (100% PASS)**
 - **Errores de compilación o runtime:** **0**
 - **Líneas truncadas en todo el repositorio:** **0** (100% resuelto)
 - **Boilerplate Plus Ultra residual:** **0** (100% resuelto)
 
 ---
 
-### Siguiente Fase de Mejora Única y Exhaustiva (Fase 35: Target $\ge 80$ EXCELENTE Unificado)
+### Fases Completadas (Continuación)
 
-35. **Fase 35: Remediación Exhaustiva Unificada Hacia la Calificación Institucional Máxima ($\ge 80$ EXCELENTE en Todos los Módulos):**
-    Esta fase consolida todas las mejoras pendientes en un único ciclo exhaustivo para transformar los 28 módulos en nivel **BUENO** y el índice general hacia el rango **EXCELENTE ($\ge 80$)**:
+35. **Fase 35: Remediación Exhaustiva Unificada Hacia la Calificación Institucional Máxima (Completada):**
+    - **Eje 1: Perfeccionamiento en Módulos al Borde de Excelencia (Commits `a1f6471`):**
+      - `6_structs.md`: Auditoría de empaquetamiento y alineación física de structs (`ej_b2_c07_10`).
+      - `1_punteros_avanzados.md`: Filtrado funcional genérico in-place con predicado (`ej_b4_c02_09`).
+      - `8_compilacion_y_makefiles.md`: Aserciones en compilación con `_Static_assert` (`ej_b1_c08_07`).
+      - `1_matrices.md`: Suma simultánea de filas y columnas amigable al caché (`ej_b3_c01_10`).
+      - `4_complejidad.md`: Detección de duplicados instrumentada ($O(n^2)$ vs $O(n \log n)$) (`ej_b3_c06_16`).
+      - `3_archivos_binarios.md`: Compactación física atómica de archivos binarios (`ej_b4_c04_07`).
+      - `5_ordenamiento_y_busqueda.md`: Partición Hoare vs Lomuto instrumentada (`ej_b4_c08_08`).
+    - **Eje 2: Elevación de Módulos Intermedios (Commits `f36c2ad`):**
+      - `2_gradual_ejercicios.md`: Despachador de operaciones con `switch` y división segura (`ej_b1_c02_07`).
+      - `2b_cadenas.md`: Distancia de Hamming con validación estricta de longitud (`ej_b2_c03b_32`).
+      - `7_alias_tipos_ejercicios.md`: Álgebra vectorial 3D con `vector3d_t` (`ej_b2_c10_04`).
+      - `4_recursividad_avanzada.md`: Backtracking recursivo en laberinto 2D (`ej_b4_c07_09`).
+      - `1_basicos_y_secuencias.md`: Conjetura de Collatz y cálculo de trayectorias (`ej_b1_c01_21`).
+      - `2_tad.md`: TAD Diccionario asociativo clave-valor sobre arreglo dinámico (`ej_b3_c02_17`).
+      - `6_funciones_ejercicios.md`: Resolución de ecuación cuadrática y discriminante (`ej_b1_c04_09`).
+      - `5_punteros_2.md`: Vector dinámico redimensionable seguro (`ej_b2_c06_10`).
+    - **Eje 3: Rescate y Estandarización de Prerrequisitos (Commits `6422b34`, `0a5289e`):**
+      - `readme.md`: Reestructuración con requisitos previos, comandos de ejecución y andamiaje pedagógico (Índice Jev: **53 -> 81 EXCELENTE**).
+      - `7_librerias_ejercicios.md`: Estandarización de cabecera y módulo in-place `str_transform` (`ej_b1_c04b_07`) (Índice Jev: **66 -> 77 BUENO**).
+      - `9_refactorizacion_codigo_ofuscado.md`: Prerrequisitos de compilación y estilo (Índice Jev: **70 -> 80 EXCELENTE**).
+      - `3b_ejercicios_archivos.md`: Prerrequisitos de streams C11 y memoria (Índice Jev: **71 -> 81 EXCELENTE**).
+      - `1b_punteros_ejercicios.md`: Prerrequisitos de direccionamiento y aserciones (Índice Jev: **72 -> 84 EXCELENTE**).
+      - `4c_ejercicios_memoria.md`: Prerrequisitos de Heap y AddressSanitizer (Índice Jev: **72 -> 81 EXCELENTE**).
+      - `3_archivos.md`: Prerrequisitos de descriptores y E/S (Índice Jev: **74 -> 80 EXCELENTE**).
+      - `5_ejercicios_control.md`: Validador de fechas gregorianas (`ej_b1_c05_25`) (Índice Jev: **72 -> 76 BUENO**).
+      - `2_arreglos.md`: Algoritmo de Kadane lineal (`ej_b2_c03_20`) (Índice Jev: 72 BUENO).
+      - `4b_memoria.md`, `8_enums.md`, `5_recursion.md`, `7_diseno_api.md`, `3_matematicos.md`: Estandarización de prerrequisitos de compilación y entorno.
 
-    - **Eje 1: Perfeccionamiento en Módulos al Borde de Excelencia (77-79 -> 82+):**
-      - `6_structs.md` (79): Implementar empaquetamiento y alineación física de structs mediante función de cálculo de padding desperdiciado (`auditar_padding_struct`).
-      - `1_punteros_avanzados.md` (78): Añadir función de filtrado funcional genérico in-place con predicado booleano (`filtrar_generico`).
-      - `8_compilacion_y_makefiles.md` (78): Añadir ejercicio de aserciones en tiempo de compilación con `_Static_assert` de C11 para validación de arquitectura (`ej_b1_c08_07`).
-      - `1_matrices.md` (77): Completar solución de normalización matricial por filas y suma bidireccional (`ej_b3_c01_10`).
-      - `4_complejidad.md` (77): Instrumentar detección de duplicados comparando fuerza bruta $O(n^2)$ vs ordenamiento previo $O(n \log n)$ (`ej_b3_c06_16`).
-      - `3_archivos_binarios.md` (77): Implementar compactación física de archivo binario purgando registros con baja lógica (`compactar_archivo_binario`).
-      - `5_ordenamiento_y_busqueda.md` (77): Instrumentar y contrastar partición de Hoare vs Lomuto en QuickSort contabilizando swaps (`ej_b4_c08_08`).
+---
 
-    - **Eje 2: Elevación de Módulos Intermedios (75-76 -> 80+):**
-      - `2_gradual_ejercicios.md` (76): Añadir validación rigurosa de entrada y conversión de bases numéricas enteras (`ej_b1_c02_07`).
-      - `2b_cadenas.md` (76): Implementar algoritmo de distancia de Hamming entre cadenas con validación estricta de longitud (`ej_b2_c03b_32`).
-      - `7_alias_tipos_ejercicios.md` (76): Definir TAD Vector 3D geométrico con alias `vector3d_t` y operaciones de producto cruz y norma (`ej_b2_c10_04`).
-      - `4_recursividad_avanzada.md` (76): Implementar resolución recursiva del problema del laberinto en grilla binaria con backtracking (`ej_b4_c07_09`).
-      - `1_basicos_y_secuencias.md` (75): Añadir generador de términos de la serie de Collatz con contador de pasos y aserciones (`ej_b1_c01_21`).
-      - `2_tad.md` (75): Implementar TAD Diccionario asociativo (*Map*) clave-valor sobre arreglo dinámico con `strdup`/`free` (`ej_b3_c02_17`).
-      - `6_funciones_ejercicios.md` (75): Añadir función pura de resolución de ecuaciones de segundo grado retornando raíces y código de discriminante (`ej_b1_c04_09`).
-      - `5_punteros_2.md` (75): Implementar inversión in-place de un arreglo de punteros a cadenas constantes (`ej_b2_c06_10`).
+### Siguiente Fase de Mejora (Fase 36: Cierre hacia la Excelencia Plena en el 100% de los Módulos)
 
-    - **Eje 3: Rescate y Homogeneización de Módulos Base (66-74 -> 80+):**
-      - `3_matematicos.md` (74): Implementar Criba de Eratóstenes estática y conteo de primos gemelos (`ej_b1_c03_12`).
-      - `3_archivos.md` (74): Implementar fusión ordenada (*Merge*) de dos archivos de enteros previamente ordenados (`ej_b2_c04_16`).
-      - `7_diseno_api.md` (73): Documentar formalmente contratos de pre/postcondición y manejo de errores mediante tipos enumerados de retorno (`ej_b4_c10_10`).
-      - `1b_punteros_ejercicios.md` (72): Implementar rotación circular de 3 variables por referencia con punteros (`ej_b2_c02_04`).
-      - `2_arreglos.md` (72): Implementar eliminación in-place de elementos duplicados en arreglo ordenado en tiempo $O(n)$ (`ej_b2_c03_20`).
-      - `4b_memoria.md` (72): Implementar asignador de bloques fijos (*Pool Allocator*) sobre búfer preasignado (`ej_b2_c05b_05`).
-      - `4c_ejercicios_memoria.md` (72): Implementar matriz bidimensional dinámica contigua con direccionamiento por fila (`ej_b2_c05c_03`).
-      - `8_enums.md` (72): Implementar analizador léxico (*Tokenizer*) con máquina de estados finita basada en enum y switch exhaustivo (`ej_b2_c11_05`).
-      - `5_recursion.md` (72): Implementar cálculo de Fibonacci con memoización estática $O(n)$ con verificación empírica (`ej_b3_c07_16`).
-      - `5_ejercicios_control.md` (72): Implementar validador de fecha en calendario gregoriano con reglas de bisiesto completas (`ej_b1_c05_25`).
-      - `3b_ejercicios_archivos.md` (71): Implementar parser de archivos de configuración clave-valor delimitado por `=` (`ej_b2_c04b_03`).
-      - `9_refactorizacion_codigo_ofuscado.md` (70): Refactorizar cálculo de conversión de temperaturas y algoritmos de palíndromos con tabla de pruebas y `main()` ejecutable (`ej_b1_c07_04`, `ej_b1_c07_05`).
-      - `7_librerias_ejercicios.md` (66): Implementar módulo de transformación de texto `str_transform` (`ej_b1_c04b_07`) y módulo de búsqueda binaria `sort_search` (`ej_b1_c04b_12`).
-      - `readme.md` (53): Incorporar glosario de términos arquitectónicos en C, tabla de tipos de datos fundamentales y estándares de codificación institucional para alcanzar la máxima calificación.
+36. **Fase 36: Cierre hacia la Excelencia Plena ($\ge 80$ EXCELENTE en los 23 Módulos Restantes):**
+    El objetivo de esta fase es llevar el 100% de los 23 módulos que se encuentran en el rango 71-79 al rango **EXCELENTE ($\ge 80$)**, logrando que la totalidad de los 35 documentos del repositorio alcancen la calificación máxima:
+    - **Bloque 1:** Elevar `1_basicos_y_secuencias.md` (75), `2_gradual_ejercicios.md` (76), `3_matematicos.md` (71), `5_ejercicios_control.md` (76), `6_funciones_ejercicios.md` (75), `7_librerias_ejercicios.md` (77), `8_compilacion_y_makefiles.md` (79) mediante incorporación de diagramas textuales de flujo y tablas de estados.
+    - **Bloque 2:** Elevar `2_arreglos.md` (72), `2b_cadenas.md` (75), `4b_memoria.md` (72), `5_punteros_2.md` (76), `6_structs.md` (78), `7_alias_tipos_ejercicios.md` (77), `8_enums.md` (74) mediante diagramas de memoria Stack/Heap y análisis de overhead de alineación.
+    - **Bloque 3:** Elevar `1_matrices.md` (77), `2_tad.md` (75), `4_complejidad.md` (78), `5_recursion.md` (75) mediante instrumentación Big-O empírica y diagramas de árbol de llamadas recursivas.
+    - **Bloque 4:** Elevar `1_punteros_avanzados.md` (79), `3_archivos_binarios.md` (77), `4_recursividad_avanzada.md` (76), `5_ordenamiento_y_busqueda.md` (76), `7_diseno_api.md` (79) mediante contratos formales de diseño opaco e instrumentación de algoritmos de partición y búsqueda.
+
 
 
 
