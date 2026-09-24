@@ -212,28 +212,52 @@ for (int i = 0; i < n; i++)
 ---
 
 (ej_b3_c06_10)=
-## Ejercicio 3.06.10 - Analizar Lazo Anidado ⭐⭐☆☆☆
+### Ejercicio 3.06.10 - Instrumentación de Lazo Anidado Cuadrático ⭐⭐☆☆☆
 
-¿Cuál es la complejidad de este código?
+:::{exercise}
+:label: ej_b3_c06_10_lazo_cuadratico
 
-``` c
-for (int i = 0; i < n; i++)
-{
-    for (int j = 0; j < n; j++)
-    {
-        printf("%d,%d ", i, j);
+Implementá una función que instrumente y verifique empíricamente el conteo total de pasos de un lazo doblemente anidado:
+```c
+size_t contar_iteraciones_cuadraticas(size_t n);
+```
+El lazo recorre $i$ de $0$ a $n-1$ y $j$ de $0$ a $n-1$, demostrando que la complejidad es $O(n^2)$.
+
+**Tabla de Vectores de Prueba:**
+
+| Valor $n$ | Total de Pasos ($n \times n$) | Complejidad |
+| :--- | :--- | :--- |
+| `0` | `0` | Caso nulo |
+| `1` | `1` | $1^2 = 1$ |
+| `5` | `25` | $5^2 = 25$ |
+| `100` | `10000` | $100^2 = 10000$ |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stddef.h>
+#include <assert.h>
+
+size_t contar_iteraciones_cuadraticas(size_t n) {
+    size_t pasos = 0;
+    for (size_t i = 0; i < n; ++i) {
+        for (size_t j = 0; j < n; ++j) {
+            pasos++;
+        }
     }
+    return pasos;
+}
+
+int main(void) {
+    assert(contar_iteraciones_cuadraticas(0) == 0);
+    assert(contar_iteraciones_cuadraticas(1) == 1);
+    assert(contar_iteraciones_cuadraticas(5) == 25);
+    assert(contar_iteraciones_cuadraticas(100) == 10000);
+    return 0;
 }
 ```
-<!-- c -->
-
-**Orientación:**
-- Lazo externo: n iteraciones
-- Lazo interno: n iteraciones por cada externa
-- Total: n × n = n²
-- **Complejidad:** O(n²)
-
----
+::::
+:::
 
 (ej_b3_c06_11)=
 ## Ejercicio 3.06.11 - Comparar Algoritmos ⭐⭐☆☆☆

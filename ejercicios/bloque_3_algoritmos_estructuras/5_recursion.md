@@ -558,15 +558,50 @@ int main(void) {
 :::
 
 (ej_b3_c07_13)=
-## Ejercicio 3.07.13 - Suma de Dígitos ⭐⭐☆☆☆
+### Ejercicio 3.07.13 - Suma Recursiva de Dígitos ⭐⭐☆☆☆
 
-Sumá los dígitos de un número recursivamente.
+:::{exercise}
+:label: ej_b3_c07_13_suma_digitos
 
-**Orientación:**
-- Caso base: `n < 10` retorna n
-- Caso recursivo: `(n % 10) + suma_digitos(n / 10)`
+Implementá una función pura que sume los dígitos de un entero no negativo de forma recursiva:
+- Caso base: si $n < 10$, retorna $n$.
+- Paso recursivo: $(n \pmod{10}) + \text{suma\_digitos\_rec}(n / 10)$.
 
----
+```c
+unsigned int suma_digitos_rec(unsigned long long n);
+```
+
+**Tabla de Vectores de Prueba:**
+
+| Entrada $n$ | Descomposición | Retorno Esperado |
+| :--- | :--- | :--- |
+| `0` | Caso base | `0` |
+| `7` | Caso base | `7` |
+| `12345` | $5 + 4 + 3 + 2 + 1$ | `15` |
+| `999` | $9 + 9 + 9$ | `27` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <assert.h>
+
+unsigned int suma_digitos_rec(unsigned long long n) {
+    if (n < 10ULL) {
+        return (unsigned int)n;
+    }
+    return (unsigned int)(n % 10ULL) + suma_digitos_rec(n / 10ULL);
+}
+
+int main(void) {
+    assert(suma_digitos_rec(0) == 0);
+    assert(suma_digitos_rec(7) == 7);
+    assert(suma_digitos_rec(12345) == 15);
+    assert(suma_digitos_rec(999) == 27);
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b3_c07_14)=
 ## Ejercicio 3.07.14 - Invertir String ⭐⭐☆☆☆

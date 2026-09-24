@@ -1051,22 +1051,130 @@ int main(void) {
 :::
 
 (ej_b3_c02_13)=
-## Ejercicio 3.02.13 - TAD Pila (Stack) ⭐⭐☆☆☆
+### Ejercicio 3.02.13 - TAD Pila Acotada Encapsulada ⭐⭐☆☆☆
 
-Implementá pila con array estático de tamaño fijo:
-- `pila_t *crear_pila(int capacidad)`
-- `bool apilar(pila_t *p, int dato)`
-- `bool desapilar(pila_t *p, int *dato)`
-- `bool ver_tope(const pila_t *p, int *dato)`
-- `bool esta_vacia(const pila_t *p)`
-- `void destruir_pila(pila_t *p)`
+:::{exercise}
+:label: ej_b3_c02_13_tad_pila
 
-**Orientación:**
-- Estructura interna: `int *datos; int tope; int capacidad;`
-- `apilar` verifica que no esté llena
-- `desapilar` y `ver_tope` retornan `false` si está vacía
+Implementá un Tipo de Dato Abstracto (TAD) de una Pila LIFO de enteros con capacidad fija en el Heap:
+- `pila_t *pila_crear(size_t capacidad)`: reserva la estructura y su búfer dinámico.
+- `bool pila_apilar(pila_t *p, int dato)`: inserta en el tope si hay capacidad disponible.
+- `bool pila_desapilar(pila_t *p, int *dato)`: extrae el elemento superior si no está vacía.
+- `bool pila_ver_tope(const pila_t *p, int *dato)`: consulta el elemento superior sin extraerlo.
+- `bool pila_esta_vacia(const pila_t *p)`: verifica si la pila no tiene elementos.
+- `void pila_destruir(pila_t *p)`: libera la memoria de forma segura.
 
----
+**Tabla de Vectores de Prueba:**
+
+| Secuencia de Operaciones | Resultado Operación | Estado de la Pila |
+| :--- | :--- | :--- |
+| `crear(2) -> apilar(10) -> apilar(20)` | `true, true` | Pila con 2 elementos (llena) |
+| `apilar(30)` | `false` (rechazo por capacidad) | Pila inalterada |
+| `ver_tope(&val)` | `true (val == 20)` | No altera la pila |
+| `desapilar(&val)` | `true (val == 20)` | Pila con 1 elemento |
+| `desapilar(&val) -> desapilar(&val)` | `true (val == 10), false` | Pila vacía |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <assert.h>
+
+struct pila {
+    int *datos;
+    size_t capacidad;
+    size_t tope;
+};
+typedef struct pila pila_t;
+
+pila_t *pila_crear(size_t capacidad) {
+    if (capacidad == 0) {
+        return NULL;
+    }
+    pila_t *p = malloc(sizeof(pila_t));
+    if (p == NULL) {
+        return NULL;
+    }
+    p->datos = malloc(capacidad * sizeof(int));
+    if (p->datos == NULL) {
+        free(p);
+        return NULL;
+    }
+    p->capacidad = capacidad;
+    p->tope = 0;
+    return p;
+}
+
+bool pila_apilar(pila_t *p, int dato) {
+    if (p == NULL || p->tope >= p->capacidad) {
+        return false;
+    }
+    p->datos[p->tope++] = dato;
+    return true;
+}
+
+bool pila_desapilar(pila_t *p, int *dato) {
+    if (p == NULL || dato == NULL || p->tope == 0) {
+        return false;
+    }
+    *dato = p->datos[--p->tope];
+    return true;
+}
+
+bool pila_ver_tope(const pila_t *p, int *dato) {
+    if (p == NULL || dato == NULL || p->tope == 0) {
+        return false;
+    }
+    *dato = p->datos[p->tope - 1];
+    return true;
+}
+
+bool pila_esta_vacia(const pila_t *p) {
+    return (p == NULL || p->tope == 0);
+}
+
+void pila_destruir(pila_t *p) {
+    if (p != NULL) {
+        free(p->datos);
+        free(p);
+    }
+}
+
+int main(void) {
+    pila_t *p = pila_crear(2);
+    assert(p != NULL);
+    assert(pila_esta_vacia(p) == true);
+
+    assert(pila_apilar(p, 10) == true);
+    assert(pila_apilar(p, 20) == true);
+    assert(pila_esta_vacia(p) == false);
+
+    /* Desborde */
+    assert(pila_apilar(p, 30) == false);
+
+    int val = 0;
+    assert(pila_ver_tope(p, &val) == true);
+    assert(val == 20);
+
+    assert(pila_desapilar(p, &val) == true);
+    assert(val == 20);
+
+    assert(pila_desapilar(p, &val) == true);
+    assert(val == 10);
+
+    /* Subflujo */
+    assert(pila_desapilar(p, &val) == false);
+    assert(pila_esta_vacia(p) == true);
+
+    pila_destruir(p);
+    pila_destruir(NULL);
+
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b3_c02_14)=
 ## Ejercicio 3.02.14 - TAD Cola (Queue) ⭐⭐⭐☆☆

@@ -227,92 +227,69 @@ int main(void) {
 (ej_b3_c01_04)=
 ### Ejercicio 3.01.04 - Multiplicación de matrices ⭐⭐⭐☆☆
 
-#### Descripción
-Implementar la multiplicación de dos matrices, `A` (de $m \times n$) y `B` (de
-$n \times p$), cuyo resultado es una nueva matriz `C` (de $m \times p$).
+:::{exercise}
+:label: ej_b3_c01_04_multiplicacion_matrices
 
-::::{tab-set}
+Implementá la multiplicación de dos matrices planas contiguas en C11:
+- Matriz $A$ de dimensiones $m \times n$.
+- Matriz $B$ de dimensiones $n \times p$.
+- Matriz resultado $C$ de dimensiones $m \times p$.
 
-:::{tab-item} Entrada
-:sync: tab1
-``` text
-Matriz A (2x3): [[1, 2, 3], [4, 5, 6]]
-Matriz B (3x2): [[7, 8], [9, 10], [11, 12]]
+```c
+void matriz_multiplicar(const int *a, const int *b, int *c, size_t m, size_t n, size_t p);
 ```
-<!-- text -->
 
-:::
-<!-- {tab-item} Entrada -->
-:::{tab-item} Salida
-:sync: tab2
-``` text
-Matriz C (2x2): [[58, 64], [139, 154]]
+**Tabla de Vectores de Prueba:**
+
+| Dimensiones | Matriz A | Matriz B | Matriz C (Salida) |
+| :--- | :--- | :--- | :--- |
+| $2 \times 3 \times 2$ | `[[1, 2, 3], [4, 5, 6]]` | `[[7, 8], [9, 10], [11, 12]]` | `[[58, 64], [139, 154]]` |
+| $2 \times 2 \times 2$ (Identidad) | `[[1, 2], [3, 4]]` | `[[1, 0], [0, 1]]` | `[[1, 2], [3, 4]]` |
+| $0 \times 0 \times 0$ | `NULL` | `NULL` | Sin modificaciones |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stddef.h>
+#include <assert.h>
+
+void matriz_multiplicar(const int *a, const int *b, int *c, size_t m, size_t n, size_t p) {
+    if (a == NULL || b == NULL || c == NULL || m == 0 || n == 0 || p == 0) {
+        return;
+    }
+    for (size_t i = 0; i < m; ++i) {
+        for (size_t j = 0; j < p; ++j) {
+            int suma = 0;
+            for (size_t k = 0; k < n; ++k) {
+                suma += a[i * n + k] * b[k * p + j];
+            }
+            c[i * p + j] = suma;
+        }
+    }
+}
+
+int main(void) {
+    int a[6] = {1, 2, 3, 4, 5, 6};       // 2x3
+    int b[6] = {7, 8, 9, 10, 11, 12};    // 3x2
+    int c[4] = {0};                      // 2x2
+
+    matriz_multiplicar(a, b, c, 2, 3, 2);
+    assert(c[0] == 58 && c[1] == 64 && c[2] == 139 && c[3] == 154);
+
+    int m2[4] = {1, 2, 3, 4};
+    int id[4] = {1, 0, 0, 1};
+    int res[4] = {0};
+
+    matriz_multiplicar(m2, id, res, 2, 2, 2);
+    assert(res[0] == 1 && res[1] == 2 && res[2] == 3 && res[3] == 4);
+
+    matriz_multiplicar(NULL, NULL, NULL, 0, 0, 0);
+
+    return 0;
+}
 ```
-<!-- text -->
-
-:::
-<!-- {tab-item} Salida -->
-
 ::::
-<!-- {tab-set} -->
-
-:::{hint} Lógica y Consideraciones
--   **Precondición:** El número de columnas de la matriz `A` debe ser igual al
-    número de filas de la matriz `B`.
--   **Fórmula:** Cada elemento $c_{ij}$ de la matriz resultado se calcula como
-    el producto punto de la fila `i` de `A` y la columna `j` de `B`: $c_{ij} =
-    \sum_{k=0}^{n-1} a_{ik} \cdot b_{kj}$.
--   **Proceso:** Se necesitan tres lazos anidados:
-    1.  Lazo para las filas de `C` (y `A`), de `i=0` a `m-1`.
-    2.  Lazo para las columnas de `C` (y `B`), de `j=0` a `p-1`.
-    3.  Lazo para la suma del producto punto, de `k=0` a `n-1`.
 :::
-<!-- {hint} Lógica y Consideraciones -->
-
-::::{hint} Lógica y Consideraciones
-:class: dropdown
-:::
-<!-- {hint} Lógica y Consideraciones -->{mermaid}
-
-flowchart TD
-    A["Inicio"] --> B["i = 0..m-1"]
-    B --> C["j = 0..p-1"]
-    C --> D["suma = 0"]
-    D --> E["k = 0..n-1"]
-    E --> F["suma += A[i][k] * B[k][j]"]
-    F --> E
-    E -- "Fin del lazo k" --> G["C[i][j] = suma"]
-    G --> C
-    C -- "Fin del lazo j" --> B
-    B -- "Fin del lazo i" --> H["Fin"]
-
-:::
-<!-- {mermaid} -->
-
-::::
-<!-- {hint} Diagrama -->
-
-:::{hint} Lógica y Consideraciones
-:class: dropdown
-```{code-block} pseudocode
-:linenos:
-PROCEDIMIENTO multiplicar_matrices(A, m, n, B, p, REF C)
-INICIO
-    // Asumiendo que n == p
-    PARA i DESDE 0 HASTA m-1 HACER
-        PARA j DESDE 0 HASTA p-1 HACER
-            suma = 0
-            PARA k DESDE 0 HASTA n-1 HACER
-                suma = suma + A[i][k] * B[k][j]
-            FIN PARA
-            C[i][j] = suma
-        FIN PARA
-    FIN PARA
-FIN PROCEDIMIENTO
-```
-<!-- {code-block} pseudocode -->
-:::
-<!-- {hint} Lógica y Consideraciones -->
 
 ## Manipulación
 
