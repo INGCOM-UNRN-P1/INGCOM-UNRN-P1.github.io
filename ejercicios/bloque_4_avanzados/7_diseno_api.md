@@ -582,6 +582,149 @@ int main(void)
 
 ---
 
+(ej_b4_c10_09)=
+### Ejercicio 4.10.09 - Patrón Handle con Tabla Interna de Descriptores Opacos ⭐⭐⭐⭐☆
+
+:::{exercise}
+:label: ej_b4_c10_09_patron_handle
+:enumerator: api-09
+
+En APIs de sistemas operativos y entornos de alta seguridad (como POSIX file descriptors, Win32 `HANDLE` o subsistemas gráficos), se prefiere entregar a los usuarios un **descriptor numérico entero (Handle)** en lugar de un puntero directo a una estructura en memoria Heap. Esto previene desreferencias salvajes, corrupción accidental y *use-after-free*.
+
+Implementá una API de sesiones protegida bajo el patrón Handle:
+```c
+#define HANDLE_INVALIDO (-1)
+typedef int handle_sesion_t;
+
+handle_sesion_t sesion_abrir(const char *usuario);
+bool sesion_es_valida(handle_sesion_t h);
+const char *sesion_obtener_usuario(handle_sesion_t h);
+bool sesion_cerrar(handle_sesion_t h);
+```
+
+- **Mecanismo:** La biblioteca mantiene internamente una tabla estática privada de descriptores (`MAX_SESIONES = 4`), con banderas `ocupado` y buffer para el nombre del usuario.
+- El usuario solo recibe un identificador entero no negativo. Si la tabla está saturada o `usuario == NULL`, `sesion_abrir` retorna `HANDLE_INVALIDO`.
+- `sesion_cerrar` invalida el handle liberando el slot para futuras aperturas. Un intento de cerrar un handle ya cerrado o fuera de rango debe retornar `false`.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Operación / Secuencia | Estado de la Tabla | Entrada | Retorno Esperado | Estado Posterior |
+| :--- | :--- | :--- | :--- | :--- |
+| **Apertura Normal** | Tabla vacía | `"alice"` | `Handle >= 0` | 1 sesión activa |
+| **Consulta Válida** | 1 sesión activa | `h_alice` | `"alice"` | Sin mutación |
+| **Cierre Válido** | 1 sesión activa | `h_alice` | `true` | 0 sesiones activas |
+| **Uso tras Cierre** | 0 sesiones activas | `h_alice` | `false` / `NULL` | Rechazo seguro |
+| **Saturación de Tabla**| 4 sesiones ocupadas | `"eve"` | `HANDLE_INVALIDO` | Prevención de desborde |
+
+:::
+<!-- {exercise} ej_b4_c10_09_patron_handle -->
+
+::::{solution} ej_b4_c10_09_patron_handle
+:class: dropdown
+
+```{code-block} c
+:linenos:
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+#include <assert.h>
+
+#define MAX_SESIONES 4
+#define MAX_NOMBRE 32
+#define HANDLE_INVALIDO (-1)
+
+typedef int handle_sesion_t;
+
+typedef struct {
+    bool ocupado;
+    char usuario[MAX_NOMBRE];
+} ranura_sesion_t;
+
+static ranura_sesion_t tabla_sesiones[MAX_SESIONES] = {0};
+
+handle_sesion_t sesion_abrir(const char *usuario) {
+    if (usuario == NULL || strlen(usuario) == 0 || strlen(usuario) >= MAX_NOMBRE) {
+        return HANDLE_INVALIDO;
+    }
+
+    for (int i = 0; i < MAX_SESIONES; i++) {
+        if (!tabla_sesiones[i].ocupado) {
+            tabla_sesiones[i].ocupado = true;
+            strncpy(tabla_sesiones[i].usuario, usuario, MAX_NOMBRE - 1);
+            tabla_sesiones[i].usuario[MAX_NOMBRE - 1] = '\0';
+            return i;
+        }
+    }
+    return HANDLE_INVALIDO;
+}
+
+bool sesion_es_valida(handle_sesion_t h) {
+    if (h < 0 || h >= MAX_SESIONES) {
+        return false;
+    }
+    return tabla_sesiones[h].ocupado;
+}
+
+const char *sesion_obtener_usuario(handle_sesion_t h) {
+    if (!sesion_es_valida(h)) {
+        return NULL;
+    }
+    return tabla_sesiones[h].usuario;
+}
+
+bool sesion_cerrar(handle_sesion_t h) {
+    if (!sesion_es_valida(h)) {
+        return false;
+    }
+    tabla_sesiones[h].ocupado = false;
+    tabla_sesiones[h].usuario[0] = '\0';
+    return true;
+}
+
+int main(void) {
+    // 1. Apertura exitosa
+    handle_sesion_t h1 = sesion_abrir("alice");
+    assert(h1 != HANDLE_INVALIDO);
+    assert(sesion_es_valida(h1) == true);
+    assert(strcmp(sesion_obtener_usuario(h1), "alice") == 0);
+
+    handle_sesion_t h2 = sesion_abrir("bob");
+    handle_sesion_t h3 = sesion_abrir("charlie");
+    handle_sesion_t h4 = sesion_abrir("david");
+    assert(h2 != HANDLE_INVALIDO && h3 != HANDLE_INVALIDO && h4 != HANDLE_INVALIDO);
+
+    // 2. Tabla saturada (capacidad 4)
+    handle_sesion_t h5 = sesion_abrir("eve");
+    assert(h5 == HANDLE_INVALIDO);
+
+    // 3. Cierre y reutilización de slot
+    assert(sesion_cerrar(h2) == true);
+    assert(sesion_es_valida(h2) == false);
+    assert(sesion_obtener_usuario(h2) == NULL);
+
+    // Re-cierre debe fallar (idempotencia y detección de use-after-free)
+    assert(sesion_cerrar(h2) == false);
+
+    // Ahora eve puede ingresar en el slot liberado
+    handle_sesion_t h_eve = sesion_abrir("eve");
+    assert(h_eve == h2);
+    assert(strcmp(sesion_obtener_usuario(h_eve), "eve") == 0);
+
+    // Limpieza final
+    sesion_cerrar(h1);
+    sesion_cerrar(h3);
+    sesion_cerrar(h4);
+    sesion_cerrar(h_eve);
+
+    return 0;
+}
+```
+
+::::
+<!-- {solution} ej_b4_c10_09_patron_handle -->
+
+---
+
 ## 3: Contratos de Interfaz y Precondiciones
 
 ### 3.1: Documentación de Contratos

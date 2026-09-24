@@ -572,17 +572,104 @@ Creá `sanitizer.h` y `sanitizer.c`:
 (ej_b1_c04b_11)=
 ### Ejercicio 1.04b.11 - Librería de Vectores de Enteros ⭐⭐⭐☆☆
 
-Diseñá la librería `vec_int.h` y `vec_int.c` para operar sobre arreglos estáticos de enteros:
-- `void vec_int_imprimir(const int *v, size_t n)`
-- `int vec_int_suma(const int *v, size_t n)`
-- `double vec_int_promedio(const int *v, size_t n)`
-- `ssize_t vec_int_buscar_primero(const int *v, size_t n, int elem)`
-- `size_t vec_int_contar_ocurrencias(const int *v, size_t n, int elem)`
+:::{exercise}
+:label: ej_b1_c04b_11_vec_int
 
-:::{hint} Lógica y Consideraciones
-- Usá `ssize_t` para devolver `-1` cuando el elemento buscado no se encuentre.
+Diseñá la interfaz e implementación de un módulo utilitario de operaciones matemáticas y de consulta sobre vectores contiguos de enteros:
+- `long long vec_int_suma(const int *v, size_t n)`: retorna la suma acumulada de los elementos en tipo de 64 bits para prevenir desbordamientos. Retorna 0 si `v == NULL` o `n == 0`.
+- `bool vec_int_promedio(const int *v, size_t n, double *promedio)`: calcula la media aritmética. Escribe en `*promedio` y retorna `true` ante éxito, o `false` si el vector está vacío o `promedio == NULL`.
+- `long vec_int_buscar_primero(const int *v, size_t n, int elem)`: retorna el índice de la primera coincidencia o `-1` si no existe.
+- `size_t vec_int_contar_ocurrencias(const int *v, size_t n, int elem)`: retorna cuántas veces se repite `elem`.
+
+#### Tabla de Vectores de Prueba Obligatorios
+
+| Caso de Prueba | Vector Entrada ($n$) | Suma | Promedio | Búsqueda (`elem=20`) | Ocurrencias (`elem=20`) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Normal Mixto** | `{10, 20, -5, 20, 15}`, $n=5$ | `60` | `12.0` | Índice `1` | `2` |
+| **Elemento Ausente**| `{1, 2, 3}`, $n=3$ | `6` | `2.0` | `-1` | `0` |
+| **Vector Vacío** | `{}`, $n=0$ | `0` | `false` | `-1` | `0` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stddef.h>
+#include <stdbool.h>
+#include <math.h>
+#include <assert.h>
+
+#define EPSILON 1e-6
+
+long long vec_int_suma(const int *v, size_t n) {
+    if (v == NULL || n == 0) {
+        return 0LL;
+    }
+    long long acum = 0;
+    for (size_t i = 0; i < n; i++) {
+        acum += v[i];
+    }
+    return acum;
+}
+
+bool vec_int_promedio(const int *v, size_t n, double *promedio) {
+    if (v == NULL || n == 0 || promedio == NULL) {
+        return false;
+    }
+    long long suma = vec_int_suma(v, n);
+    *promedio = (double)suma / (double)n;
+    return true;
+}
+
+long vec_int_buscar_primero(const int *v, size_t n, int elem) {
+    if (v == NULL) {
+        return -1;
+    }
+    for (size_t i = 0; i < n; i++) {
+        if (v[i] == elem) {
+            return (long)i;
+        }
+    }
+    return -1;
+}
+
+size_t vec_int_contar_ocurrencias(const int *v, size_t n, int elem) {
+    if (v == NULL) {
+        return 0;
+    }
+    size_t cuenta = 0;
+    for (size_t i = 0; i < n; i++) {
+        if (v[i] == elem) {
+            cuenta++;
+        }
+    }
+    return cuenta;
+}
+
+int main(void) {
+    int v1[5] = {10, 20, -5, 20, 15};
+
+    assert(vec_int_suma(v1, 5) == 60LL);
+
+    double prom = 0.0;
+    assert(vec_int_promedio(v1, 5, &prom) == true);
+    assert(fabs(prom - 12.0) < EPSILON);
+
+    assert(vec_int_buscar_primero(v1, 5, 20) == 1);
+    assert(vec_int_buscar_primero(v1, 5, 99) == -1);
+    assert(vec_int_contar_ocurrencias(v1, 5, 20) == 2);
+    assert(vec_int_contar_ocurrencias(v1, 5, 10) == 1);
+
+    // Vector vacío
+    assert(vec_int_suma(NULL, 0) == 0LL);
+    assert(vec_int_promedio(NULL, 0, &prom) == false);
+    assert(vec_int_promedio(v1, 5, NULL) == false);
+    assert(vec_int_buscar_primero(NULL, 0, 10) == -1);
+    assert(vec_int_contar_ocurrencias(NULL, 0, 10) == 0);
+
+    return 0;
+}
+```
+::::
 :::
-<!-- {hint} Lógica y Consideraciones -->
 
 ---
 

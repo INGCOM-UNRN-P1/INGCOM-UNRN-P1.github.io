@@ -209,3 +209,46 @@ diseño de APIs.
 *   [**7. Diseño Profesional de APIs**](./bloque_4_avanzados/7_diseno_api.md):
     Principios arquitectónicos de claridad, minimalismo, ocultamiento,
     versionado e ingeniería de APIs en C.
+
+---
+
+## Matriz Pedagógica y Resultados de Aprendizaje
+
+El plan formativo de la cátedra articula las competencias según la Taxonomía de Bloom Revisada:
+
+| Bloque Temático | Nivel Cognitivo Principal | Competencia Adquirida | Evidencia Evaluativa |
+| :--- | :--- | :--- | :--- |
+| **Bloque 1: Fundamentos** | Nivel 1 (Recordar) a Nivel 3 (Aplicar) | Control de flujo, descomposición algorítmica modular y compilación limpia | Programas compilables con 0 warnings bajo C11 |
+| **Bloque 2: Memoria** | Nivel 3 (Aplicar) a Nivel 4 (Analizar) | Gestión del direccionamiento físico, aritmética de punteros y Heap seguro | Cero fugas de memoria con ASan y Valgrind |
+| **Bloque 3: Algoritmos** | Nivel 4 (Analizar) a Nivel 5 (Evaluar) | Abstracción con Tipos Opacos (TADs) y medición de complejidad temporal/espacial | Instrumentación empírica y contrastación Big-O |
+| **Bloque 4: Avanzados** | Nivel 5 (Evaluar) a Nivel 6 (Crear) | Diseño de APIs seguras, callbacks de orden superior y persistencia binaria | Arquitecturas basadas en handles y FSM |
+
+---
+
+## Verificación Automatizada y Entorno de Pruebas
+
+Toda solución debe validarse localmente antes de integrarse al repositorio mediante el arnés de verificación institucional:
+
+### 1. Verificación Estructural y de Reglas de Calidad
+Comprueba que los bloques `{exercise}`, tablas de prueba obligatorias y soluciones `{solution}` cumplan con el estándar de documentación:
+```bash
+node ejercicios/verificar_calidad.mjs
+```
+
+### 2. Extracción, Compilación C11 y Ejecución de Aserciones
+Extrae automáticamente los bloques de código C, invoca a `gcc` bajo directivas estrictas y ejecuta las aserciones de prueba en un entorno seguro:
+```bash
+node ejercicios/verificar_ejercicios.mjs
+```
+
+**Banderas de Compilación Requeridas:**
+```bash
+gcc -Wall -Wextra -Werror -pedantic -std=c11 solucion.c -o solucion
+```
+
+### 3. Criterio de Aceptación Institucional
+Una entrega o solución se considera aprobada únicamente cuando:
+1. Compila con **cero advertencias (0 warnings)** y **cero errores**.
+2. Todas las aserciones `assert(...)` del `main(void)` retornan con código de salida `0`.
+3. No existen accesos fuera de límites (*out-of-bounds*) ni dobles liberaciones (*double-free*).
+4. El mensaje de commit respeta la convención de commits semánticos (*Conventional Commits*).

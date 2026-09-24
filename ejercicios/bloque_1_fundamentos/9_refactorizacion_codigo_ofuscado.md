@@ -207,6 +207,15 @@ int p(int n){int s=0;for(int i=1;i<=n;i++)s+=i*i;return s;}
 ```
 <!-- c -->
 
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Límite `n` | Operación Matemática | Retorno Esperado |
+| :--- | :--- | :--- | :--- |
+| **Cero** | `0` | Suma vacía | `0` |
+| **Normal ($n=3$)** | `3` | $1^2 + 2^2 + 3^2 = 1 + 4 + 9$ | `14` |
+| **Normal ($n=4$)** | `4` | $14 + 16$ | `30` |
+| **Error (Negativo)** | `-5` | Fuera de dominio | `-1` |
+
 :::
 <!-- {exercise} -->
 
@@ -238,9 +247,15 @@ void test_suma_cuadrados(void)
 {
     assert(calcular_suma_cuadrados(0) == 0);
     assert(calcular_suma_cuadrados(3) == 14); // 1 + 4 + 9 = 14
+    assert(calcular_suma_cuadrados(4) == 30);
     assert(calcular_suma_cuadrados(-5) == -1);
 }
 
+int main(void)
+{
+    test_suma_cuadrados();
+    return 0;
+}
 ```
 <!-- {code-block} c -->
 
