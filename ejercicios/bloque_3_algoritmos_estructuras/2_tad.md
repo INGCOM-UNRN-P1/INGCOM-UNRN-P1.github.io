@@ -8,82 +8,386 @@ short_title: "6. TAD"
 ## Acerca de
 
 Estos ejercicios tienen como propósito dominar el diseño e implementación de
-Tipos de Datos Abstractos (TAD) en C, aplicando un encapsulamiento estricto
-mediante punteros opacos y la manipulación de listas enlazadas dinámicas.
+Tipos de Datos Abstractos (TAD) en C11, aplicando un encapsulamiento estricto
+mediante punteros opacos y la manipulación de estructuras de datos dinámicas.
 
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-tad`
+
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Punteros y operadores de indirección (`*`, `->`) ({ref}`capitulo-punteros`).
+2. Asignación y liberación de memoria en Heap (`malloc`, `free`) ({ref}`capitulo-memoria-dinamica`).
+3. Declaración de tipos incompletos y punteros opacos en archivos de cabecera (`.h`).
+4. Invariantes de representación y preservación del encapsulamiento ({ref}`capitulo-tad`).
 
 ### Cuestiones de Estilo Aplicables
 - **Encapsulamiento estricto:** La estructura del nodo y de la lista debe
   definirse únicamente en el archivo de implementación `.c`, exponiendo al
   llamador solo el tipo incompleto (`typedef struct lista lista_t;`) en el `.h`
   (ver {ref}`0x3002h`).
-- **Gestión de memoria:** El destructor de la lista debe encargarse de recorrer
+- **Gestión de memoria:** El destructor del TAD debe encargarse de recorrer
   y liberar de forma segura cada nodo individual en el Heap antes de liberar la
-  estructura de control.
+  estructura de control envolvente.
 
 ---
 
 ## Lista Enlazada Simple - Operaciones Básicas
 
-Implementar un TAD de lista enlazada simple con su interfaz completa.
-
-```{code-block} c
-:linenos:
-// lista.h
-typedef struct lista lista_t;
-lista_t *crear_lista(void);
-void destruir_lista(lista_t *lista);
-bool lista_vacia(const lista_t *lista);
-size_t lista_longitud(const lista_t *lista);
-```
-<!-- {code-block} c -->
-
 (ej_b3_c02_01)=
 ### Ejercicio 3.02.01 - Inserción al Inicio ⭐⭐☆☆☆
 
-Implementar la operación de insertar un elemento al principio de la lista. Esta
-operación debe tener complejidad $O(1)$.
+:::{exercise}
+:label: ej_b3_c02_01_insercion_inicio
 
-``` c
-bool insertar_al_inicio(lista_t *lista, int dato);
+Implementá la operación de insertar un elemento al principio de una lista enlazada
+encapsulada en el TAD `lista_t`. La operación debe ejecutarse en tiempo $O(1)$.
+
+```c
+bool lista_insertar_inicio(lista_t *lista, int dato);
 ```
-<!-- c -->
+
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Lista Inicial | Elemento | Retorno | Lista Resultante |
+| :--- | :--- | :--- | :--- | :--- |
+| Inserción en vacía | `[]` | `42` | `true` | `[42]` |
+| Inserciones sucesivas | `[42]` | `99` | `true` | `[99, 42]` |
+| Puntero nulo | `NULL` | `10` | `false` | Inalterado |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <assert.h>
+
+typedef struct nodo {
+    int dato;
+    struct nodo *siguiente;
+} nodo_t;
+
+struct lista {
+    nodo_t *primero;
+    size_t longitud;
+};
+
+typedef struct lista lista_t;
+
+lista_t *lista_crear(void) {
+    lista_t *l = (lista_t *)malloc(sizeof(lista_t));
+    if (l == NULL) {
+        return NULL;
+    }
+    l->primero = NULL;
+    l->longitud = 0;
+    return l;
+}
+
+void lista_destruir(lista_t *lista) {
+    if (lista == NULL) {
+        return;
+    }
+    nodo_t *act = lista->primero;
+    while (act != NULL) {
+        nodo_t *sig = act->siguiente;
+        free(act);
+        act = sig;
+    }
+    free(lista);
+}
+
+bool lista_insertar_inicio(lista_t *lista, int dato) {
+    if (lista == NULL) {
+        return false;
+    }
+    nodo_t *nuevo = (nodo_t *)malloc(sizeof(nodo_t));
+    if (nuevo == NULL) {
+        return false;
+    }
+    nuevo->dato = dato;
+    nuevo->siguiente = lista->primero;
+    lista->primero = nuevo;
+    lista->longitud++;
+    return true;
+}
+
+int main(void) {
+    assert(!lista_insertar_inicio(NULL, 10));
+
+    lista_t *l = lista_crear();
+    assert(l != NULL);
+    assert(l->longitud == 0);
+
+    assert(lista_insertar_inicio(l, 42));
+    assert(l->longitud == 1);
+    assert(l->primero->dato == 42);
+
+    assert(lista_insertar_inicio(l, 99));
+    assert(l->longitud == 2);
+    assert(l->primero->dato == 99);
+    assert(l->primero->siguiente->dato == 42);
+
+    lista_destruir(l);
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b3_c02_02)=
 ### Ejercicio 3.02.02 - Inserción al Final ⭐⭐☆☆☆
 
-Implementar la operación de insertar un elemento al final de la lista. Analizar
-la complejidad: $O(n)$ sin puntero al último, $O(1)$ con puntero al último.
+:::{exercise}
+:label: ej_b3_c02_02_insercion_final
 
-``` c
-bool insertar_al_final(lista_t *lista, int dato);
+Implementá la operación de insertar un elemento al final de la lista.
+
+```c
+bool lista_insertar_final(lista_t *lista, int dato);
 ```
-<!-- c -->
+
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Lista Inicial | Elemento | Retorno | Lista Resultante |
+| :--- | :--- | :--- | :--- | :--- |
+| Inserción en vacía | `[]` | `10` | `true` | `[10]` |
+| Inserción al final existente | `[10]` | `20` | `true` | `[10, 20]` |
+| Inserción múltiple | `[10, 20]` | `30` | `true` | `[10, 20, 30]` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <assert.h>
+
+typedef struct nodo {
+    int dato;
+    struct nodo *siguiente;
+} nodo_t;
+
+struct lista {
+    nodo_t *primero;
+    nodo_t *ultimo;
+    size_t longitud;
+};
+typedef struct lista lista_t;
+
+lista_t *lista_crear(void) {
+    lista_t *l = (lista_t *)malloc(sizeof(lista_t));
+    if (l != NULL) {
+        l->primero = NULL;
+        l->ultimo = NULL;
+        l->longitud = 0;
+    }
+    return l;
+}
+
+void lista_destruir(lista_t *l) {
+    if (l == NULL) return;
+    nodo_t *act = l->primero;
+    while (act != NULL) {
+        nodo_t *sig = act->siguiente;
+        free(act);
+        act = sig;
+    }
+    free(l);
+}
+
+bool lista_insertar_final(lista_t *lista, int dato) {
+    if (lista == NULL) {
+        return false;
+    }
+    nodo_t *nuevo = (nodo_t *)malloc(sizeof(nodo_t));
+    if (nuevo == NULL) {
+        return false;
+    }
+    nuevo->dato = dato;
+    nuevo->siguiente = NULL;
+
+    if (lista->primero == NULL) {
+        lista->primero = nuevo;
+        lista->ultimo = nuevo;
+    } else {
+        lista->ultimo->siguiente = nuevo;
+        lista->ultimo = nuevo;
+    }
+    lista->longitud++;
+    return true;
+}
+
+int main(void) {
+    lista_t *l = lista_crear();
+    assert(l != NULL);
+
+    assert(lista_insertar_final(l, 10));
+    assert(lista_insertar_final(l, 20));
+    assert(lista_insertar_final(l, 30));
+
+    assert(l->longitud == 3);
+    assert(l->primero->dato == 10);
+    assert(l->ultimo->dato == 30);
+
+    lista_destruir(l);
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b3_c02_03)=
 ### Ejercicio 3.02.03 - Ver Primero y Último ⭐⭐☆☆☆
 
-Implementar operaciones para obtener el primer y último elemento sin modificar
-la lista.
+:::{exercise}
+:label: ej_b3_c02_03_ver_extremos
 
-``` c
+Implementá funciones para consultar el primer y último valor de la lista sin mutarla.
+
+```c
 bool ver_primero(const lista_t *lista, int *dato);
 bool ver_ultimo(const lista_t *lista, int *dato);
 ```
-<!-- c -->
+
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Lista | Función | Retorno | Salida (`*dato`) |
+| :--- | :--- | :--- | :--- | :--- |
+| Lista vacía | `[]` | `ver_primero` | `false` | Inalterado |
+| Lista con 1 elemento | `[55]` | `ver_primero` y `ver_ultimo` | `true` | `55` en ambos |
+| Lista con 3 elementos | `[10, 20, 30]` | `ver_primero` | `true` | `10` |
+| Lista con 3 elementos | `[10, 20, 30]` | `ver_ultimo` | `true` | `30` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <assert.h>
+
+typedef struct nodo {
+    int dato;
+    struct nodo *siguiente;
+} nodo_t;
+
+struct lista {
+    nodo_t *primero;
+    nodo_t *ultimo;
+    size_t longitud;
+};
+typedef struct lista lista_t;
+
+bool ver_primero(const lista_t *lista, int *dato) {
+    if (lista == NULL || lista->primero == NULL || dato == NULL) {
+        return false;
+    }
+    *dato = lista->primero->dato;
+    return true;
+}
+
+bool ver_ultimo(const lista_t *lista, int *dato) {
+    if (lista == NULL || lista->ultimo == NULL || dato == NULL) {
+        return false;
+    }
+    *dato = lista->ultimo->dato;
+    return true;
+}
+
+int main(void) {
+    int val = 0;
+    assert(!ver_primero(NULL, &val));
+
+    nodo_t n2 = {20, NULL};
+    nodo_t n1 = {10, &n2};
+    lista_t l = {&n1, &n2, 2};
+
+    assert(ver_primero(&l, &val) && val == 10);
+    assert(ver_ultimo(&l, &val) && val == 20);
+
+    lista_t vacia = {NULL, NULL, 0};
+    assert(!ver_primero(&vacia, &val));
+    assert(!ver_ultimo(&vacia, &val));
+
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b3_c02_04)=
 ### Ejercicio 3.02.04 - Borrar Primero ⭐⭐☆☆☆
 
-Implementar la operación de eliminar el primer elemento y retornar su valor.
-Complejidad: $O(1)$.
+:::{exercise}
+:label: ej_b3_c02_04_borrar_primero
 
-``` c
+Implementá la remoción del nodo frontal en tiempo $O(1)$ retornando el valor extraído.
+
+```c
 bool borrar_primero(lista_t *lista, int *dato);
 ```
-<!-- c -->
+
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Lista Inicial | Retorno | `*dato` | Lista Final |
+| :--- | :--- | :--- | :--- | :--- |
+| Lista vacía | `[]` | `false` | Inalterado | `[]` |
+| Lista de 1 elemento | `[100]` | `true` | `100` | `[]` |
+| Lista de varios elementos | `[1, 2, 3]` | `true` | `1` | `[2, 3]` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <assert.h>
+
+typedef struct nodo {
+    int dato;
+    struct nodo *siguiente;
+} nodo_t;
+
+struct lista {
+    nodo_t *primero;
+    size_t longitud;
+};
+typedef struct lista lista_t;
+
+bool borrar_primero(lista_t *lista, int *dato) {
+    if (lista == NULL || lista->primero == NULL) {
+        return false;
+    }
+    nodo_t *nodo_a_eliminar = lista->primero;
+    if (dato != NULL) {
+        *dato = nodo_a_eliminar->dato;
+    }
+    lista->primero = nodo_a_eliminar->siguiente;
+    lista->longitud--;
+    free(nodo_a_eliminar);
+    return true;
+}
+
+int main(void) {
+    int extraido = 0;
+    assert(!borrar_primero(NULL, &extraido));
+
+    lista_t l = {NULL, 0};
+    assert(!borrar_primero(&l, &extraido));
+
+    nodo_t *n1 = (nodo_t *)malloc(sizeof(nodo_t));
+    assert(n1 != NULL);
+    n1->dato = 100;
+    n1->siguiente = NULL;
+    l.primero = n1;
+    l.longitud = 1;
+
+    assert(borrar_primero(&l, &extraido) && extraido == 100);
+    assert(l.primero == NULL && l.longitud == 0);
+
+    return 0;
+}
+```
+::::
+:::
 
 ---
 
@@ -92,91 +396,566 @@ bool borrar_primero(lista_t *lista, int *dato);
 (ej_b3_c02_05)=
 ### Ejercicio 3.02.05 - Buscar Elemento ⭐⭐☆☆☆
 
-Implementar una función que determine si un elemento está presente en la lista.
-Retornar `true` si lo encuentra.
+:::{exercise}
+:label: ej_b3_c02_05_pertenece
 
-``` c
+Verificá la presencia de un elemento dentro de la lista en tiempo $O(n)$.
+
+```c
 bool lista_pertenece(const lista_t *lista, int dato);
 ```
-<!-- c -->
 
-**Complejidad:** $O(n)$ en el peor caso.
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Lista | Elemento Buscado | Retorno Esperado |
+| :--- | :--- | :--- | :--- |
+| Elemento intermedio | `[5, 10, 15]` | `10` | `true` |
+| Elemento inexistente | `[5, 10, 15]` | `99` | `false` |
+| Lista vacía | `[]` | `5` | `false` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <assert.h>
+
+typedef struct nodo {
+    int dato;
+    struct nodo *siguiente;
+} nodo_t;
+
+struct lista {
+    nodo_t *primero;
+    size_t longitud;
+};
+typedef struct lista lista_t;
+
+bool lista_pertenece(const lista_t *lista, int dato) {
+    if (lista == NULL) {
+        return false;
+    }
+    const nodo_t *actual = lista->primero;
+    while (actual != NULL) {
+        if (actual->dato == dato) {
+            return true;
+        }
+        actual = actual->siguiente;
+    }
+    return false;
+}
+
+int main(void) {
+    assert(!lista_pertenece(NULL, 10));
+
+    nodo_t n3 = {15, NULL};
+    nodo_t n2 = {10, &n3};
+    nodo_t n1 = {5, &n2};
+    lista_t l = {&n1, 3};
+
+    assert(lista_pertenece(&l, 10));
+    assert(lista_pertenece(&l, 5));
+    assert(lista_pertenece(&l, 15));
+    assert(!lista_pertenece(&l, 99));
+
+    lista_t vacia = {NULL, 0};
+    assert(!lista_pertenece(&vacia, 5));
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b3_c02_06)=
 ### Ejercicio 3.02.06 - Obtener Elemento en Posición ⭐⭐☆☆☆
 
-Implementar una función que retorne el elemento en una posición específica
-(índice basado en 0).
+:::{exercise}
+:label: ej_b3_c02_06_obtener_pos
 
-``` c
+Implementá la consulta por índice (0-based) retornando `false` si el índice excede el límite.
+
+```c
 bool lista_obtener(const lista_t *lista, size_t posicion, int *dato);
 ```
-<!-- c -->
 
-Retornar `false` si la posición es inválida.
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Lista | Posición | Retorno | `*dato` |
+| :--- | :--- | :--- | :--- | :--- |
+| Índice inicial 0 | `[10, 20, 30]` | `0` | `true` | `10` |
+| Índice intermedio | `[10, 20, 30]` | `1` | `true` | `20` |
+| Índice fuera de rango | `[10, 20, 30]` | `5` | `false` | Inalterado |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <assert.h>
+
+typedef struct nodo {
+    int dato;
+    struct nodo *siguiente;
+} nodo_t;
+
+struct lista {
+    nodo_t *primero;
+    size_t longitud;
+};
+typedef struct lista lista_t;
+
+bool lista_obtener(const lista_t *lista, size_t posicion, int *dato) {
+    if (lista == NULL || dato == NULL || posicion >= lista->longitud) {
+        return false;
+    }
+    const nodo_t *actual = lista->primero;
+    for (size_t i = 0; i < posicion; ++i) {
+        if (actual == NULL) {
+            return false;
+        }
+        actual = actual->siguiente;
+    }
+    if (actual == NULL) {
+        return false;
+    }
+    *dato = actual->dato;
+    return true;
+}
+
+int main(void) {
+    nodo_t n3 = {30, NULL};
+    nodo_t n2 = {20, &n3};
+    nodo_t n1 = {10, &n2};
+    lista_t l = {&n1, 3};
+
+    int valor = 0;
+    assert(lista_obtener(&l, 0, &valor) && valor == 10);
+    assert(lista_obtener(&l, 1, &valor) && valor == 20);
+    assert(lista_obtener(&l, 2, &valor) && valor == 30);
+    assert(!lista_obtener(&l, 3, &valor));
+    assert(!lista_obtener(&l, 99, &valor));
+
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b3_c02_07)=
 ### Ejercicio 3.02.07 - Contar Ocurrencias ⭐⭐☆☆☆
 
-Implementar una función que cuente cuántas veces aparece un elemento en la
-lista.
+:::{exercise}
+:label: ej_b3_c02_07_contar
 
-``` c
+Contá cuántas veces aparece un entero dado dentro de la lista.
+
+```c
 size_t lista_contar(const lista_t *lista, int dato);
 ```
-<!-- c -->
+
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Lista | Elemento | Ocurrencias Esperadas |
+| :--- | :--- | :--- | :--- |
+| Elementos repetidos | `[7, 3, 7, 7, 2]` | `7` | `3` |
+| Elemento ausente | `[1, 2, 3]` | `9` | `0` |
+| Lista vacía | `[]` | `4` | `0` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+typedef struct nodo {
+    int dato;
+    struct nodo *siguiente;
+} nodo_t;
+
+struct lista {
+    nodo_t *primero;
+    size_t longitud;
+};
+typedef struct lista lista_t;
+
+size_t lista_contar(const lista_t *lista, int dato) {
+    if (lista == NULL) {
+        return 0;
+    }
+    size_t cuenta = 0;
+    const nodo_t *actual = lista->primero;
+    while (actual != NULL) {
+        if (actual->dato == dato) {
+            cuenta++;
+        }
+        actual = actual->siguiente;
+    }
+    return cuenta;
+}
+
+int main(void) {
+    assert(lista_contar(NULL, 5) == 0);
+
+    nodo_t n5 = {2, NULL};
+    nodo_t n4 = {7, &n5};
+    nodo_t n3 = {7, &n4};
+    nodo_t n2 = {3, &n3};
+    nodo_t n1 = {7, &n2};
+    lista_t l = {&n1, 5};
+
+    assert(lista_contar(&l, 7) == 3);
+    assert(lista_contar(&l, 3) == 1);
+    assert(lista_contar(&l, 99) == 0);
+
+    return 0;
+}
+```
+::::
+:::
 
 ---
 
 ## Lista Enlazada - Operaciones Avanzadas
 
 (ej_b3_c02_08)=
-### Ejercicio 3.02.08 - Insertar en Posición ⭐⭐☆☆☆
+### Ejercicio 3.02.08 - Insertar en Posición Arbitraria ⭐⭐☆☆☆
 
-Implementar una función que inserte un elemento en una posición específica.
+:::{exercise}
+:label: ej_b3_c02_08_insertar_en
 
-``` c
+Insertá un nuevo nodo en un índice arbitrario (`0 <= pos <= longitud`).
+
+```c
 bool lista_insertar_en(lista_t *lista, size_t posicion, int dato);
 ```
-<!-- c -->
 
-**Casos especiales:**
-- Posición 0: insertar al inicio.
-- Posición >= longitud: insertar al final.
-- Posición intermedia: recorrer hasta la posición.
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Lista Inicial | Posición | Dato | Lista Final |
+| :--- | :--- | :--- | :--- | :--- |
+| En cabeza (`pos == 0`) | `[10, 20]` | `0` | `5` | `[5, 10, 20]` |
+| En medio (`pos == 1`) | `[5, 20]` | `1` | `15` | `[5, 15, 20]` |
+| Al final (`pos == longitud`) | `[5, 15, 20]` | `3` | `30` | `[5, 15, 20, 30]` |
+| Fuera de rango (`pos > longitud`) | `[5]` | `99` | `1` | Retorna `false` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <assert.h>
+
+typedef struct nodo {
+    int dato;
+    struct nodo *siguiente;
+} nodo_t;
+
+struct lista {
+    nodo_t *primero;
+    size_t longitud;
+};
+typedef struct lista lista_t;
+
+bool lista_insertar_en(lista_t *lista, size_t posicion, int dato) {
+    if (lista == NULL || posicion > lista->longitud) {
+        return false;
+    }
+    nodo_t *nuevo = (nodo_t *)malloc(sizeof(nodo_t));
+    if (nuevo == NULL) {
+        return false;
+    }
+    nuevo->dato = dato;
+
+    if (posicion == 0) {
+        nuevo->siguiente = lista->primero;
+        lista->primero = nuevo;
+    } else {
+        nodo_t *ant = lista->primero;
+        for (size_t i = 0; i < posicion - 1; ++i) {
+            ant = ant->siguiente;
+        }
+        nuevo->siguiente = ant->siguiente;
+        ant->siguiente = nuevo;
+    }
+    lista->longitud++;
+    return true;
+}
+
+int main(void) {
+    lista_t l = {NULL, 0};
+
+    assert(lista_insertar_en(&l, 0, 20));
+    assert(lista_insertar_en(&l, 0, 10));
+    assert(lista_insertar_en(&l, 2, 30));
+    assert(lista_insertar_en(&l, 1, 15));
+    assert(!lista_insertar_en(&l, 10, 99));
+
+    assert(l.longitud == 4);
+    assert(l.primero->dato == 10);
+    assert(l.primero->siguiente->dato == 15);
+    assert(l.primero->siguiente->siguiente->dato == 20);
+    assert(l.primero->siguiente->siguiente->siguiente->dato == 30);
+
+    /* Liberación */
+    nodo_t *act = l.primero;
+    while (act != NULL) {
+        nodo_t *sig = act->siguiente;
+        free(act);
+        act = sig;
+    }
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b3_c02_09)=
 ### Ejercicio 3.02.09 - Eliminar por Valor ⭐⭐☆☆☆
 
-Implementar la operación de eliminar todas las ocurrencias de un elemento y
-liberar sus nodos correspondientes en memoria.
+:::{exercise}
+:label: ej_b3_c02_09_eliminar_valor
 
-``` c
+Eliminá todas las ocurrencias del valor provisto y liberá la memoria de sus nodos.
+
+```c
 bool lista_eliminar(lista_t *lista, int dato);
 ```
-<!-- c -->
+
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Lista Inicial | Valor | Retorno | Lista Resultante |
+| :--- | :--- | :--- | :--- | :--- |
+| Elemento único | `[10, 20, 30]` | `20` | `true` | `[10, 30]` |
+| Elementos repetidos | `[5, 5, 2, 5]` | `5` | `true` | `[2]` |
+| Elemento inexistente | `[1, 2]` | `99` | `false` | `[1, 2]` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <assert.h>
+
+typedef struct nodo {
+    int dato;
+    struct nodo *siguiente;
+} nodo_t;
+
+struct lista {
+    nodo_t *primero;
+    size_t longitud;
+};
+typedef struct lista lista_t;
+
+bool lista_eliminar(lista_t *lista, int dato) {
+    if (lista == NULL || lista->primero == NULL) {
+        return false;
+    }
+    bool eliminado = false;
+
+    /* Eliminar coincidencias en la cabeza */
+    while (lista->primero != NULL && lista->primero->dato == dato) {
+        nodo_t *borrar = lista->primero;
+        lista->primero = borrar->siguiente;
+        free(borrar);
+        lista->longitud--;
+        eliminado = true;
+    }
+
+    /* Eliminar coincidencias internas */
+    nodo_t *actual = lista->primero;
+    while (actual != NULL && actual->siguiente != NULL) {
+        if (actual->siguiente->dato == dato) {
+            nodo_t *borrar = actual->siguiente;
+            actual->siguiente = borrar->siguiente;
+            free(borrar);
+            lista->longitud--;
+            eliminado = true;
+        } else {
+            actual = actual->siguiente;
+        }
+    }
+    return eliminado;
+}
+
+int main(void) {
+    /* Lista con repetidos [5, 5, 2, 5] */
+    nodo_t *n4 = (nodo_t *)malloc(sizeof(nodo_t));
+    nodo_t *n3 = (nodo_t *)malloc(sizeof(nodo_t));
+    nodo_t *n2 = (nodo_t *)malloc(sizeof(nodo_t));
+    nodo_t *n1 = (nodo_t *)malloc(sizeof(nodo_t));
+    assert(n1 && n2 && n3 && n4);
+
+    n1->dato = 5; n1->siguiente = n2;
+    n2->dato = 5; n2->siguiente = n3;
+    n3->dato = 2; n3->siguiente = n4;
+    n4->dato = 5; n4->siguiente = NULL;
+
+    lista_t l = {n1, 4};
+    assert(lista_eliminar(&l, 5));
+    assert(l.longitud == 1);
+    assert(l.primero->dato == 2);
+    assert(l.primero->siguiente == NULL);
+
+    assert(!lista_eliminar(&l, 99));
+
+    free(l.primero);
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b3_c02_10)=
-### Ejercicio 3.02.10 - Invertir Lista ⭐⭐☆☆☆
+### Ejercicio 3.02.10 - Invertir Lista in-place ⭐⭐☆☆☆
 
-Reorganizar los enlaces de los nodos de la lista para invertir su orden de
-manera destructiva (in-place, $O(n)$ tiempo, $O(1)$ memoria).
+:::{exercise}
+:label: ej_b3_c02_10_invertir
 
-``` c
+Reordená destructivamente los punteros de los nodos de la lista para invertirla
+in-place con complejidad temporal $O(n)$ y memoria auxiliar $O(1)$.
+
+```c
 void lista_invertir(lista_t *lista);
 ```
-<!-- c -->
+
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Entrada | Salida |
+| :--- | :--- | :--- |
+| Lista de 3 elementos | `[1, 2, 3]` | `[3, 2, 1]` |
+| Lista de 1 elemento | `[42]` | `[42]` |
+| Lista vacía | `[]` | `[]` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+typedef struct nodo {
+    int dato;
+    struct nodo *siguiente;
+} nodo_t;
+
+struct lista {
+    nodo_t *primero;
+    size_t longitud;
+};
+typedef struct lista lista_t;
+
+void lista_invertir(lista_t *lista) {
+    if (lista == NULL || lista->primero == NULL) {
+        return;
+    }
+    nodo_t *prev = NULL;
+    nodo_t *act = lista->primero;
+    while (act != NULL) {
+        nodo_t *sig = act->siguiente;
+        act->siguiente = prev;
+        prev = act;
+        act = sig;
+    }
+    lista->primero = prev;
+}
+
+int main(void) {
+    lista_invertir(NULL);
+
+    nodo_t n3 = {3, NULL};
+    nodo_t n2 = {2, &n3};
+    nodo_t n1 = {1, &n2};
+    lista_t l = {&n1, 3};
+
+    lista_invertir(&l);
+    assert(l.primero == &n3);
+    assert(l.primero->siguiente == &n2);
+    assert(l.primero->siguiente->siguiente == &n1);
+    assert(l.primero->siguiente->siguiente->siguiente == NULL);
+
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b3_c02_11)=
 ### Ejercicio 3.02.11 - Concatenar Listas ⭐⭐☆☆☆
 
-Desarrollar una función que anexe de forma destructiva todos los elementos de la
-segunda lista al final de la primera.
+:::{exercise}
+:label: ej_b3_c02_11_concatenar
 
-``` c
+Anexá todos los nodos de la lista `origen` al final de `destino`, dejando a `origen` vacía.
+
+```c
 void lista_concatenar(lista_t *destino, lista_t *origen);
 ```
-<!-- c -->
+
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Destino Inicial | Origen Inicial | Destino Final | Origen Final |
+| :--- | :--- | :--- | :--- | :--- |
+| Dos listas no vacías | `[1, 2]` | `[3, 4]` | `[1, 2, 3, 4]` | `[]` |
+| Destino vacío | `[]` | `[10]` | `[10]` | `[]` |
+| Origen vacío | `[10]` | `[]` | `[10]` | `[]` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+typedef struct nodo {
+    int dato;
+    struct nodo *siguiente;
+} nodo_t;
+
+struct lista {
+    nodo_t *primero;
+    size_t longitud;
+};
+typedef struct lista lista_t;
+
+void lista_concatenar(lista_t *destino, lista_t *origen) {
+    if (destino == NULL || origen == NULL || origen->primero == NULL) {
+        return;
+    }
+    if (destino->primero == NULL) {
+        destino->primero = origen->primero;
+    } else {
+        nodo_t *act = destino->primero;
+        while (act->siguiente != NULL) {
+            act = act->siguiente;
+        }
+        act->siguiente = origen->primero;
+    }
+    destino->longitud += origen->longitud;
+    origen->primero = NULL;
+    origen->longitud = 0;
+}
+
+int main(void) {
+    nodo_t b2 = {4, NULL};
+    nodo_t b1 = {3, &b2};
+    lista_t l2 = {&b1, 2};
+
+    nodo_t a2 = {2, NULL};
+    nodo_t a1 = {1, &a2};
+    lista_t l1 = {&a1, 2};
+
+    lista_concatenar(&l1, &l2);
+    assert(l1.longitud == 4);
+    assert(l2.longitud == 0 && l2.primero == NULL);
+    assert(l1.primero->dato == 1);
+    assert(l1.primero->siguiente->dato == 2);
+    assert(l1.primero->siguiente->siguiente->dato == 3);
+    assert(l1.primero->siguiente->siguiente->siguiente->dato == 4);
+
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b3_c02_12)=
 ## Ejercicio 3.02.12 - TAD Contador ⭐☆☆☆☆

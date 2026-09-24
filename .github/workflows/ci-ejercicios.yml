@@ -47,6 +47,9 @@ jobs:
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/4c_ejercicios_memoria.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/6_structs.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_2_memoria/7_alias_tipos_ejercicios.md
+          node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_3_algoritmos_estructuras/2_tad.md
+          node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_3_algoritmos_estructuras/3_estructuras_de_datos.md
+          node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_3_algoritmos_estructuras/5_recursion.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_4_avanzados/1_punteros_avanzados.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_4_avanzados/2_operaciones_de_bits.md
           node ejercicios/verificar_ejercicios.mjs ejercicios/bloque_4_avanzados/3_archivos_binarios.md

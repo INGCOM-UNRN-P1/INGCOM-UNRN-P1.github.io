@@ -15,6 +15,13 @@ reducido, hasta converger en un caso base.
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-recursividad-basica`
 
+### Prerrequisitos Conceptuales
+Antes de resolver esta guía, el estudiante debe dominar:
+1. Pila de llamadas en memoria (*Stack Frames*) y paso de argumentos por valor y referencia ({ref}`capitulo-memoria-stack`).
+2. Condición de corte y convergencia del caso base inductivo ({ref}`capitulo-recursividad-basica`).
+3. Aritmética de punteros para segmentación de sub-arreglos y cadenas (`ptr + 1`, `len - 1`).
+4. Prevención de recursión infinita y desbordamiento de pila (*Stack Overflow*).
+
 ### Cuestiones de Estilo Aplicables
 - **Casos base explícitos:** Asegurate de definir de forma inequívoca el caso de
   corte en la primera instrucción de la función recursiva.
@@ -29,60 +36,178 @@ reducido, hasta converger en un caso base.
 (ej_b3_c07_01)=
 ### Ejercicio 3.07.01 - Factorial ⭐⭐☆☆☆
 
-El factorial de un entero no negativo $n$, denotado como $n!$, es el producto de
-todos los enteros positivos menores o iguales a $n$.
+:::{exercise}
+:label: ej_b3_c07_01_factorial
 
-$$ n! = n \times (n-1) \times (n-2) \times \dots \times 1 $$
+Implementá el cálculo de factorial $n!$ de forma recursiva bajo la firma:
 
-La definición recursiva es:
+```c
+unsigned long long factorial_rec(unsigned int n);
+```
 
-$$ 
-factorial(n) = 
-\begin{cases}
-1 & \text{si } n = 0 \\
-n \times factorial(n-1) & \text{si } n > 0
-\end{cases}
-$$ 
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Entrada `n` | Salida Esperada |
+| :--- | :--- | :--- |
+| Caso base cero | `0` | `1ULL` |
+| Caso base uno | `1` | `1ULL` |
+| Valor intermedio | `5` | `120ULL` |
+| Valor mayor | `10` | `3628800ULL` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <assert.h>
+
+unsigned long long factorial_rec(unsigned int n) {
+    if (n <= 1) {
+        return 1ULL;
+    }
+    return (unsigned long long)n * factorial_rec(n - 1);
+}
+
+int main(void) {
+    assert(factorial_rec(0) == 1ULL);
+    assert(factorial_rec(1) == 1ULL);
+    assert(factorial_rec(2) == 2ULL);
+    assert(factorial_rec(5) == 120ULL);
+    assert(factorial_rec(10) == 3628800ULL);
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b3_c07_02)=
-### Ejercicio 3.07.02 - Suma ⭐⭐☆☆☆
+### Ejercicio 3.07.02 - Suma Recursiva ⭐⭐☆☆☆
 
-Definir la suma de $a+b$ de forma recursiva. La idea es decrementar uno de los
-operandos hasta llegar a un caso base.
+:::{exercise}
+:label: ej_b3_c07_02_suma
 
-$$ 
-suma(a, b) = 
-\begin{cases}
-a & \text{si } b = 0 \\
-suma(a+1, b-1) & \text{si } b > 0
-\end{cases}
-$$ 
+Implementá la suma de dos enteros no negativos $a + b$ decrementando el segundo
+operando hasta converger al caso base $b = 0$.
+
+```c
+unsigned int suma_rec(unsigned int a, unsigned int b);
+```
+
+**Tabla de Vectores de Prueba:**
+
+| Operandos (`a`, `b`) | Salida Esperada |
+| :--- | :--- |
+| `a = 5, b = 0` | `5` |
+| `a = 0, b = 7` | `7` |
+| `a = 12, b = 8` | `20` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <assert.h>
+
+unsigned int suma_rec(unsigned int a, unsigned int b) {
+    if (b == 0) {
+        return a;
+    }
+    return suma_rec(a + 1, b - 1);
+}
+
+int main(void) {
+    assert(suma_rec(5, 0) == 5);
+    assert(suma_rec(0, 7) == 7);
+    assert(suma_rec(12, 8) == 20);
+    assert(suma_rec(0, 0) == 0);
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b3_c07_03)=
-### Ejercicio 3.07.03 - Producto ⭐⭐☆☆☆
+### Ejercicio 3.07.03 - Producto por Sumas Sucesivas ⭐⭐☆☆☆
 
-Definir el producto $a \times b$ usando sumas y recursividad.
+:::{exercise}
+:label: ej_b3_c07_03_producto
 
-$$ 
-producto(a, b) = 
-\begin{cases}
-0 & \text{si } b = 0 \\
-a + producto(a, b-1) & \text{si } b > 0
-\end{cases}
-$$ 
+Implementá la multiplicación recursiva de dos enteros no negativos $a \times b$
+mediante acumulaciones sucesivas.
+
+```c
+unsigned int producto_rec(unsigned int a, unsigned int b);
+```
+
+**Tabla de Vectores de Prueba:**
+
+| Operandos (`a`, `b`) | Salida Esperada |
+| :--- | :--- |
+| `a = 4, b = 0` | `0` |
+| `a = 6, b = 1` | `6` |
+| `a = 7, b = 5` | `35` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <assert.h>
+
+unsigned int producto_rec(unsigned int a, unsigned int b) {
+    if (b == 0) {
+        return 0;
+    }
+    return a + producto_rec(a, b - 1);
+}
+
+int main(void) {
+    assert(producto_rec(4, 0) == 0);
+    assert(producto_rec(0, 9) == 0);
+    assert(producto_rec(6, 1) == 6);
+    assert(producto_rec(7, 5) == 35);
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b3_c07_04)=
-### Ejercicio 3.07.04 - Potencia ⭐⭐☆☆☆
+### Ejercicio 3.07.04 - Potencia Entera ⭐⭐☆☆☆
 
-Definir la potencia $base^{exp}$ usando productos y recursividad.
+:::{exercise}
+:label: ej_b3_c07_04_potencia
 
-$$ 
-potencia(base, exp) = 
-\begin{cases}
-1 & \text{si } exp = 0 \\
-base \times potencia(base, exp-1) & \text{si } exp > 0
-\end{cases}
-$$ 
+Calculá $base^{exp}$ para un exponente entero no negativo de manera recursiva.
+
+```c
+long long potencia_rec(long long base, unsigned int exp);
+```
+
+**Tabla de Vectores de Prueba:**
+
+| Entrada (`base`, `exp`) | Salida Esperada |
+| :--- | :--- |
+| `base = 5, exp = 0` | `1LL` |
+| `base = 2, exp = 8` | `256LL` |
+| `base = -3, exp = 3` | `-27LL` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <assert.h>
+
+long long potencia_rec(long long base, unsigned int exp) {
+    if (exp == 0) {
+        return 1LL;
+    }
+    return base * potencia_rec(base, exp - 1);
+}
+
+int main(void) {
+    assert(potencia_rec(5, 0) == 1LL);
+    assert(potencia_rec(2, 8) == 256LL);
+    assert(potencia_rec(-3, 3) == -27LL);
+    assert(potencia_rec(-3, 2) == 9LL);
+    return 0;
+}
+```
+::::
+:::
 
 ---
 
@@ -91,39 +216,205 @@ $$
 (ej_b3_c07_05)=
 ### Ejercicio 3.07.05 - Fibonacci ⭐⭐☆☆☆
 
-Implementar una función que calcule el n-ésimo término de la serie de Fibonacci,
-definida por la relación de recurrencia:
+:::{exercise}
+:label: ej_b3_c07_05_fibonacci
 
-$$ 
-fib(n) = 
-\begin{cases}
-0 & \text{si } n = 0 \\
-1 & \text{si } n = 1 \\
-fib(n-1) + fib(n-2) & \text{si } n > 1
-\end{cases}
-$$ 
+Calculá el n-ésimo término de Fibonacci respetando:
+$F(0) = 0$, $F(1) = 1$, $F(n) = F(n-1) + F(n-2)$.
+
+```c
+unsigned long long fibonacci_rec(unsigned int n);
+```
+
+**Tabla de Vectores de Prueba:**
+
+| Índice `n` | Fibonacci Esperado |
+| :--- | :--- |
+| `0` | `0ULL` |
+| `1` | `1ULL` |
+| `6` | `8ULL` |
+| `10` | `55ULL` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <assert.h>
+
+unsigned long long fibonacci_rec(unsigned int n) {
+    if (n == 0) {
+        return 0ULL;
+    }
+    if (n == 1) {
+        return 1ULL;
+    }
+    return fibonacci_rec(n - 1) + fibonacci_rec(n - 2);
+}
+
+int main(void) {
+    assert(fibonacci_rec(0) == 0ULL);
+    assert(fibonacci_rec(1) == 1ULL);
+    assert(fibonacci_rec(2) == 1ULL);
+    assert(fibonacci_rec(6) == 8ULL);
+    assert(fibonacci_rec(10) == 55ULL);
+    return 0;
+}
+```
+::::
+:::
 
 ---
 
 ## Arreglos Recursivos
 
 (ej_b3_c07_06)=
-### Ejercicio 3.07.06 - Mostrar arreglo ⭐⭐⭐☆☆
+### Ejercicio 3.07.06 - Copiar Arreglo Recursivo ⭐⭐⭐☆☆
 
-Imprimir el primer elemento y luego llamar a la función con el resto del
-arreglo.
+:::{exercise}
+:label: ej_b3_c07_06_copiar_arr
+
+Copiá los elementos de un arreglo a un búfer destino en el mismo orden usando
+recursión y aritmética de punteros.
+
+```c
+void copiar_arreglo_rec(const int *origen, int *destino, size_t n);
+```
+
+**Tabla de Vectores de Prueba:**
+
+| Arreglo Origen | `n` | Arreglo Destino Resultante |
+| :--- | :--- | :--- |
+| `[10, 20, 30]` | `3` | `[10, 20, 30]` |
+| `[]` | `0` | Sin modificaciones |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <assert.h>
+#include <stddef.h>
+
+void copiar_arreglo_rec(const int *origen, int *destino, size_t n) {
+    if (n == 0) {
+        return;
+    }
+    *destino = *origen;
+    copiar_arreglo_rec(origen + 1, destino + 1, n - 1);
+}
+
+int main(void) {
+    int orig[] = {10, 20, 30, 40};
+    int dest[4] = {0};
+
+    copiar_arreglo_rec(orig, dest, 4);
+    assert(dest[0] == 10 && dest[1] == 20 && dest[2] == 30 && dest[3] == 40);
+
+    /* Caso de longitud cero */
+    int vacio[2] = {99, 99};
+    copiar_arreglo_rec(orig, vacio, 0);
+    assert(vacio[0] == 99 && vacio[1] == 99);
+
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b3_c07_07)=
-### Ejercicio 3.07.07 - Mostrar arreglo invertido ⭐⭐⭐☆☆
+### Ejercicio 3.07.07 - Invertir Arreglo Recursivo ⭐⭐⭐☆☆
 
-Llamar a la función con el resto del arreglo y luego imprimir el primer
-elemento.
+:::{exercise}
+:label: ej_b3_c07_07_invertir_arr
+
+Copiá los elementos de un arreglo a un búfer destino en orden inverso usando recursión.
+
+```c
+void invertir_arreglo_rec(const int *origen, int *destino, size_t n);
+```
+
+**Tabla de Vectores de Prueba:**
+
+| Entrada | `n` | Salida Invertida |
+| :--- | :--- | :--- |
+| `[1, 2, 3, 4]` | `4` | `[4, 3, 2, 1]` |
+| `[42]` | `1` | `[42]` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <assert.h>
+#include <stddef.h>
+
+void invertir_arreglo_rec(const int *origen, int *destino, size_t n) {
+    if (n == 0) {
+        return;
+    }
+    destino[n - 1] = *origen;
+    invertir_arreglo_rec(origen + 1, destino, n - 1);
+}
+
+int main(void) {
+    int orig[] = {1, 2, 3, 4};
+    int dest[4] = {0};
+
+    invertir_arreglo_rec(orig, dest, 4);
+    assert(dest[0] == 4 && dest[1] == 3 && dest[2] == 2 && dest[3] == 1);
+
+    int uno[] = {42};
+    int dest_uno[1] = {0};
+    invertir_arreglo_rec(uno, dest_uno, 1);
+    assert(dest_uno[0] == 42);
+
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b3_c07_08)=
-### Ejercicio 3.07.08 - Suma de valores ⭐⭐☆☆☆
+### Ejercicio 3.07.08 - Suma de Elementos de un Arreglo ⭐⭐☆☆☆
 
-Sumar el primer elemento con el resultado de llamar a la función sobre el resto
-del arreglo.
+:::{exercise}
+:label: ej_b3_c07_08_suma_arr
+
+Sumá todos los enteros de un arreglo de forma recursiva.
+
+```c
+long long suma_arreglo_rec(const int *arr, size_t n);
+```
+
+**Tabla de Vectores de Prueba:**
+
+| Arreglo | `n` | Suma Esperada |
+| :--- | :--- | :--- |
+| `[1, 2, 3, 4, 5]` | `5` | `15LL` |
+| `[-5, 10, -3]` | `3` | `2LL` |
+| `[]` | `0` | `0LL` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <assert.h>
+#include <stddef.h>
+
+long long suma_arreglo_rec(const int *arr, size_t n) {
+    if (n == 0) {
+        return 0LL;
+    }
+    return (long long)*arr + suma_arreglo_rec(arr + 1, n - 1);
+}
+
+int main(void) {
+    int a1[] = {1, 2, 3, 4, 5};
+    assert(suma_arreglo_rec(a1, 5) == 15LL);
+
+    int a2[] = {-5, 10, -3};
+    assert(suma_arreglo_rec(a2, 3) == 2LL);
+
+    assert(suma_arreglo_rec(a1, 0) == 0LL);
+    return 0;
+}
+```
+::::
+:::
 
 ---
 
@@ -132,17 +423,62 @@ del arreglo.
 (ej_b3_c07_09)=
 ### Ejercicio 3.07.09 - Palíndromo ⭐⭐☆☆☆
 
-Implementar una función recursiva que determine si una cadena es un palíndromo.
-Un palíndromo se lee igual en ambos sentidos.
+:::{exercise}
+:label: ej_b3_c07_09_palindromo
 
-**Lógica recursiva:** Una cadena es un palíndromo si:
-1. Su primer y último carácter son iguales, Y
-2. La subcadena entre ellos también es un palíndromo.
+Determiná si una secuencia de caracteres es un palíndromo comprobando los
+extremos y llamando recursivamente al segmento interno.
 
-**Caso Base:** Una cadena vacía o de un solo carácter es un palíndromo.
+```c
+bool es_palindromo_rec(const char *inicio, const char *fin);
+```
 
-**Ejemplo:** `neuquen`
-- `es_palindromo("neuquen")` es verdadero.
+**Tabla de Vectores de Prueba:**
+
+| Cadena | `inicio` / `fin` | Resultado Esperado |
+| :--- | :--- | :--- |
+| `"neuquen"` | Punteros a `'n'` y `'n'` | `true` |
+| `"radar"` | Punteros a `'r'` y `'r'` | `true` |
+| `"caterpillar"` | Punteros a `'c'` y `'r'` | `false` |
+| `""` | `inicio > fin` | `true` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+#include <assert.h>
+
+bool es_palindromo_rec(const char *inicio, const char *fin) {
+    if (inicio >= fin) {
+        return true;
+    }
+    if (*inicio != *fin) {
+        return false;
+    }
+    return es_palindromo_rec(inicio + 1, fin - 1);
+}
+
+static bool verificar_palindromo(const char *str) {
+    size_t len = strlen(str);
+    if (len == 0) {
+        return true;
+    }
+    return es_palindromo_rec(str, str + len - 1);
+}
+
+int main(void) {
+    assert(verificar_palindromo(""));
+    assert(verificar_palindromo("a"));
+    assert(verificar_palindromo("neuquen"));
+    assert(verificar_palindromo("radar"));
+    assert(!verificar_palindromo("caterpillar"));
+    assert(!verificar_palindromo("hola"));
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b3_c07_10)=
 ## Ejercicio 3.07.10 - Factorial Recursivo ⭐☆☆☆☆
