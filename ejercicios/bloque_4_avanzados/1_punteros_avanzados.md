@@ -14,6 +14,13 @@ polimorfismo y genericidad en C11.
 ### Capítulos de Apunte Correspondientes
 - {ref}`capitulo-punteros-funciones`
 
+### Prerrequisitos Conceptuales
+Antes de abordar estos ejercicios, el estudiante debe dominar:
+1. Punteros simples y operadores de indirección (`*`, `&`) ({ref}`capitulo-punteros`).
+2. Indirección múltiple (`T **`) para mutación de punteros por referencia ({ref}`capitulo-punteros`).
+3. Asignación dinámica y liberación segura en Heap (`malloc`, `free`) ({ref}`capitulo-memoria-dinamica`).
+4. Punteros a funciones (`callback`) y genericidad basada en bloques opacos de bytes `void *` ({ref}`capitulo-punteros-funciones`).
+
 ### Cuestiones de Estilo Aplicables
 - **Uso de aserciones en punteros:** Validá siempre que los punteros dobles y de
   función no sean `NULL` antes de desreferenciarlos o invocarlos (ver {ref}`0x2008h`).

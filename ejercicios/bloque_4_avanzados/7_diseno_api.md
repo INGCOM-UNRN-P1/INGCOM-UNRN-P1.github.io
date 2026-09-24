@@ -495,29 +495,78 @@ int lista_buscar_indice_v3(const lista_t *lista, int valor);
 - ¿Cuál es thread-safe?
 - ¿Cuál es más compatible con código existente?
 
-### 4.2: Diseño de Enum de Errores
+(ej_b4_c10_06)=
+### Ejercicio 4.10.06 - Conversión de Códigos de Error a Cadenas ⭐⭐☆☆☆
 
-Diseñar un enum completo de códigos de error para una librería de archivos:
+:::{exercise}
+:label: ej_b4_c10_06_codigos_error
 
-```{code-block} c
-:linenos:
-typedef enum
-{
-    ARCHIVO_OK = 0,        // Éxito siempre debe ser 0
-    ARCHIVO_ERROR_MEMORIA, // malloc falló
-    // [COMPLETAR: agregar al menos 10 códigos más]
-} archivo_error_t;
-/**
- * Convierte código de error a cadena descriptiva.
- */
-const char *archivo_error_str(archivo_error_t error);
+Diseñá un enumerador fuertemente tipado de estados de error de I/O y una función que convierta cada código a su representación legible constante en español:
+
+```c
+typedef enum {
+    IO_ESTADO_OK = 0,
+    IO_ESTADO_ERROR_MEMORIA,
+    IO_ESTADO_ERROR_NO_ENCONTRADO,
+    IO_ESTADO_ERROR_PERMISO_DENEGADO,
+    IO_ESTADO_ERROR_DESCONOCIDO
+} io_estado_t;
+
+const char *io_estado_a_cadena(io_estado_t estado);
 ```
-<!-- {code-block} c -->
 
-**Requisitos:**
-- Cubrir todos los casos de error posibles
-- Nombres claros y con prefijo
-- Documentar cuándo ocurre cada error
+**Tabla de Vectores de Prueba:**
+
+| Código de Error | Cadena Retornada |
+| :--- | :--- |
+| `IO_ESTADO_OK` | `"Operación exitosa"` |
+| `IO_ESTADO_ERROR_MEMORIA` | `"Error de asignación de memoria"` |
+| `IO_ESTADO_ERROR_NO_ENCONTRADO` | `"Recurso no encontrado"` |
+| `IO_ESTADO_ERROR_PERMISO_DENEGADO` | `"Permiso denegado"` |
+| Código arbitrario / inválido | `"Error desconocido"` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <string.h>
+#include <assert.h>
+
+typedef enum {
+    IO_ESTADO_OK = 0,
+    IO_ESTADO_ERROR_MEMORIA,
+    IO_ESTADO_ERROR_NO_ENCONTRADO,
+    IO_ESTADO_ERROR_PERMISO_DENEGADO,
+    IO_ESTADO_ERROR_DESCONOCIDO
+} io_estado_t;
+
+const char *io_estado_a_cadena(io_estado_t estado) {
+    switch (estado) {
+        case IO_ESTADO_OK:
+            return "Operación exitosa";
+        case IO_ESTADO_ERROR_MEMORIA:
+            return "Error de asignación de memoria";
+        case IO_ESTADO_ERROR_NO_ENCONTRADO:
+            return "Recurso no encontrado";
+        case IO_ESTADO_ERROR_PERMISO_DENEGADO:
+            return "Permiso denegado";
+        case IO_ESTADO_ERROR_DESCONOCIDO:
+        default:
+            return "Error desconocido";
+    }
+}
+
+int main(void) {
+    assert(strcmp(io_estado_a_cadena(IO_ESTADO_OK), "Operación exitosa") == 0);
+    assert(strcmp(io_estado_a_cadena(IO_ESTADO_ERROR_MEMORIA), "Error de asignación de memoria") == 0);
+    assert(strcmp(io_estado_a_cadena(IO_ESTADO_ERROR_NO_ENCONTRADO), "Recurso no encontrado") == 0);
+    assert(strcmp(io_estado_a_cadena(IO_ESTADO_ERROR_PERMISO_DENEGADO), "Permiso denegado") == 0);
+    assert(strcmp(io_estado_a_cadena(IO_ESTADO_ERROR_DESCONOCIDO), "Error desconocido") == 0);
+    assert(strcmp(io_estado_a_cadena((io_estado_t)999), "Error desconocido") == 0);
+    return 0;
+}
+```
+::::
+:::
 
 ### 4.3: Propagación de Errores
 

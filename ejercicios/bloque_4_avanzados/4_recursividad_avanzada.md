@@ -272,3 +272,63 @@ int main(void) {
 ```
 ::::
 :::
+
+---
+
+(ej_b4_c07_06)=
+### Ejercicio 4.07.06 - Búsqueda Binaria Recursiva (Divide y Vencerás) ⭐⭐☆☆☆
+
+:::{exercise}
+:label: ej_b4_c07_06_busqueda_binaria_rec
+
+Implementá el algoritmo de búsqueda binaria sobre un arreglo ordenado de enteros utilizando recursión y la estrategia de divide y conquista:
+
+```c
+int busqueda_binaria_rec(const int *arr, int inicio, int fin, int objetivo);
+```
+
+Retorna el índice donde se encuentra `objetivo` dentro del rango `[inicio, fin]`, o `-1` si no existe.
+
+**Tabla de Vectores de Prueba:**
+
+| Arreglo | Rango `[inicio, fin]` | Objetivo | Retorno Esperado |
+| :--- | :--- | :--- | :--- |
+| `[10, 20, 30, 40, 50]` | `[0, 4]` | `30` | `2` (Posición central) |
+| `[10, 20, 30, 40, 50]` | `[0, 4]` | `10` | `0` (Extremo izquierdo) |
+| `[10, 20, 30, 40, 50]` | `[0, 4]` | `50` | `4` (Extremo derecho) |
+| `[10, 20, 30, 40, 50]` | `[0, 4]` | `99` | `-1` (No presente) |
+| `[]` | `[0, -1]` | `5` | `-1` (Rango vacío) |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <assert.h>
+
+int busqueda_binaria_rec(const int *arr, int inicio, int fin, int objetivo) {
+    if (arr == NULL || inicio > fin) {
+        return -1;
+    }
+    int medio = inicio + (fin - inicio) / 2;
+    if (arr[medio] == objetivo) {
+        return medio;
+    }
+    if (arr[medio] > objetivo) {
+        return busqueda_binaria_rec(arr, inicio, medio - 1, objetivo);
+    }
+    return busqueda_binaria_rec(arr, medio + 1, fin, objetivo);
+}
+
+int main(void) {
+    int arr[5] = {10, 20, 30, 40, 50};
+    assert(busqueda_binaria_rec(arr, 0, 4, 30) == 2);
+    assert(busqueda_binaria_rec(arr, 0, 4, 10) == 0);
+    assert(busqueda_binaria_rec(arr, 0, 4, 50) == 4);
+    assert(busqueda_binaria_rec(arr, 0, 4, 99) == -1);
+    assert(busqueda_binaria_rec(arr, 0, 4, 5) == -1);
+    assert(busqueda_binaria_rec(NULL, 0, 0, 10) == -1);
+    assert(busqueda_binaria_rec(arr, 2, 1, 10) == -1);
+    return 0;
+}
+```
+::::
+:::
