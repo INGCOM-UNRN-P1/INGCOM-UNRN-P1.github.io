@@ -124,6 +124,15 @@ Creá un módulo de conversión de unidades termodinámicas y cinemáticas:
 - `double conv_kmh_a_ms(double kmh)`
 - `double conv_ms_a_kmh(double ms)`
 
+**Tabla de Vectores de Prueba:**
+
+| Magnitud | Entrada | Función Invocada | Resultado Esperado | Tolerancia |
+| :--- | :--- | :--- | :--- | :--- |
+| Temperatura | `0.0 °C` | `conv_celsius_a_fahrenheit` | `32.0 °F` | `1e-6` |
+| Temperatura | `212.0 °F`| `conv_fahrenheit_a_celsius` | `100.0 °C` | `1e-6` |
+| Velocidad | `36.0 km/h` | `conv_kmh_a_ms` | `10.0 m/s` | `1e-6` |
+| Velocidad | `10.0 m/s` | `conv_ms_a_kmh` | `36.0 km/h` | `1e-6` |
+
 ::::{solution}
 ```c
 #include <stdio.h>
@@ -172,14 +181,93 @@ int main(void) {
 (ej_b1_c04b_03)=
 ### Ejercicio 1.04b.03 - Librería de Estadística Básica ⭐⭐⭐☆☆
 
-Diseñá `estadistica.h` y `estadistica.c` operando sobre arreglos de `double`:
-- `double est_media(const double *datos, size_t n)`
-- `double est_varianza(const double *datos, size_t n)`
-- `double est_desviacion_estandar(const double *datos, size_t n)`
-- `double est_maximo(const double *datos, size_t n)`
-- `double est_minimo(const double *datos, size_t n)`
+:::{exercise}
+:label: ej_b1_c04b_03_estadistica
 
----
+Implementá un módulo para cálculo de estadísticas básicas sobre arreglos de punto flotante en C11:
+- `double est_media(const double *datos, size_t n)`: retorna la media aritmética, o `0.0` si `n == 0` o `datos == NULL`.
+- `double est_minimo(const double *datos, size_t n)`: retorna el valor mínimo del arreglo.
+- `double est_maximo(const double *datos, size_t n)`: retorna el valor máximo del arreglo.
+
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Arreglo de Datos | Función Invocada | Retorno Esperado |
+| :--- | :--- | :--- | :--- |
+| Muestra estándar | `[2.0, 4.0, 6.0]` | `est_media` | `4.0` |
+| Rango extremos | `[10.5, -3.2, 8.0, 15.1]` | `est_minimo` / `est_maximo` | `-3.2` / `15.1` |
+| Arreglo unitario | `[42.0]` | `est_media` | `42.0` |
+| Puntero nulo | `NULL, 0` | `est_media` | `0.0` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <stddef.h>
+#include <math.h>
+#include <assert.h>
+
+#define EPSILON 1e-6
+
+static int casi_igual(double a, double b) {
+    return fabs(a - b) < EPSILON;
+}
+
+double est_media(const double *datos, size_t n) {
+    if (datos == NULL || n == 0) {
+        return 0.0;
+    }
+    double suma = 0.0;
+    for (size_t i = 0; i < n; ++i) {
+        suma += datos[i];
+    }
+    return suma / (double)n;
+}
+
+double est_minimo(const double *datos, size_t n) {
+    if (datos == NULL || n == 0) {
+        return 0.0;
+    }
+    double min = datos[0];
+    for (size_t i = 1; i < n; ++i) {
+        if (datos[i] < min) {
+            min = datos[i];
+        }
+    }
+    return min;
+}
+
+double est_maximo(const double *datos, size_t n) {
+    if (datos == NULL || n == 0) {
+        return 0.0;
+    }
+    double max = datos[0];
+    for (size_t i = 1; i < n; ++i) {
+        if (datos[i] > max) {
+            max = datos[i];
+        }
+    }
+    return max;
+}
+
+int main(void) {
+    double m1[3] = {2.0, 4.0, 6.0};
+    assert(casi_igual(est_media(m1, 3), 4.0));
+
+    double m2[4] = {10.5, -3.2, 8.0, 15.1};
+    assert(casi_igual(est_minimo(m2, 4), -3.2));
+    assert(casi_igual(est_maximo(m2, 4), 15.1));
+
+    double m3[1] = {42.0};
+    assert(casi_igual(est_media(m3, 1), 42.0));
+
+    assert(casi_igual(est_media(NULL, 0), 0.0));
+    assert(casi_igual(est_minimo(NULL, 0), 0.0));
+    assert(casi_igual(est_maximo(NULL, 0), 0.0));
+
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b1_c04b_04)=
 ### Ejercicio 1.04b.04 - Librería de Números Primos y Factorización ⭐⭐⭐☆☆

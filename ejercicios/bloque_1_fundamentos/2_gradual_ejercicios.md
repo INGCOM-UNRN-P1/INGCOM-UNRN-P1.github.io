@@ -178,14 +178,49 @@ int main(void) {
 (ej_b1_c02_04)=
 ### Ejercicio 1.02.04 - Mayor de Tres Números ⭐⭐☆☆☆
 
-Leé tres números y determiná cuál es el mayor.
+:::{exercise}
+:label: ej_b1_c02_04_mayor_tres
 
-**Orientación:**
-- Usá `if-else` anidados o encadenados
-- Compará primero dos números, luego el mayor con el tercero
-- Considerá el caso de números iguales
+Implementá una función pura que determine el valor máximo entre tres números enteros:
+```c
+int mayor_de_tres(int a, int b, int c);
+```
 
----
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Entrada `(a, b, c)` | Retorno Esperado | Justificación |
+| :--- | :--- | :--- | :--- |
+| Primero mayor | `(30, 10, 20)` | `30` | `30 > 10` y `30 > 20` |
+| Segundo mayor | `(5, 50, -2)` | `50` | `50` es el máximo |
+| Tercero mayor | `(-10, -5, 0)` | `0` | `0` supera a los negativos |
+| Todos iguales | `(7, 7, 7)` | `7` | Valor común |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <assert.h>
+
+int mayor_de_tres(int a, int b, int c) {
+    int max = a;
+    if (b > max) {
+        max = b;
+    }
+    if (c > max) {
+        max = c;
+    }
+    return max;
+}
+
+int main(void) {
+    assert(mayor_de_tres(30, 10, 20) == 30);
+    assert(mayor_de_tres(5, 50, -2) == 50);
+    assert(mayor_de_tres(-10, -5, 0) == 0);
+    assert(mayor_de_tres(7, 7, 7) == 7);
+    return 0;
+}
+```
+::::
+:::
 
 (ej_b1_c02_05)=
 ### Ejercicio 1.02.05 - Determinación de Año Bisiesto ⭐⭐☆☆☆

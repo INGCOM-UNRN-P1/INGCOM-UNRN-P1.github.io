@@ -338,38 +338,56 @@ FIN
 ## Operaciones con Rangos Numéricos
 
 (ej_b1_c01_06)=
-### Ejercicio 1.01.06 - Secuencia Ascendente ⭐⭐☆☆☆
+### Ejercicio 1.01.06 - Secuencia Ascendente y Suma de Rango ⭐⭐☆☆☆
 
-El objetivo es mostrar una secuencia de números enteros que comienza en un
-número `n` y termina justo antes de un número `m`. Esto corresponde al intervalo
-matemático `[n, m)`.
+:::{exercise}
+:label: ej_b1_c01_06_secuencia_ascendente
 
-:::{hint} Lógica y Consideraciones
--   **Entrada:** Leer los enteros `n` (inclusive) y `m` (exclusive).
--   **Proceso:** Utilizar un lazo `for` que se inicialice en `n` y continúe
--   **Salida:** En cada iteración del lazo, imprimir el valor actual del contador de la secuencia.
-:::
-<!-- {hint} Lógica y Consideraciones -->
+Implementá una función que calcule la suma acumulada de la secuencia de números enteros en el intervalo semiabierto $[n, m)$:
+- Si $n \ge m$, el intervalo está vacío y la suma debe ser `0LL`.
+- En caso contrario, suma cada valor entero $i$ desde $n$ hasta $m - 1$.
 
-:::{tip} Ayuda (pseudocódigo)
-:class: dropdown
-```{code-block} pseudocode
-:linenos:
-
-ALGORITMO secuencia_ascendente
-ENTRADA: n, m (enteros)
-
-INICIO
-    PARA i DESDE n HASTA m-1 HACER
-        ESCRIBIR i
-    FIN PARA
-FIN
-
+```c
+long long suma_secuencia_ascendente(int n, int m);
 ```
-<!-- {code-block} pseudocode -->
 
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Intervalo `[n, m)` | Elementos Sumados | Retorno Esperado |
+| :--- | :--- | :--- | :--- |
+| Rango 1 a 5 | `[1, 5)` | `1 + 2 + 3 + 4` | `10LL` |
+| Rango negativo | `[-3, 2)` | `-3 + -2 + -1 + 0 + 1` | `-5LL` |
+| Rango unitario | `[7, 8)` | `7` | `7LL` |
+| Rango vacío ($n \ge m$) | `[5, 5)` | Ninguno | `0LL` |
+| Rango invertido | `[10, 4)` | Ninguno | `0LL` |
+
+::::{solution}
+```c
+#include <stdio.h>
+#include <assert.h>
+
+long long suma_secuencia_ascendente(int n, int m) {
+    if (n >= m) {
+        return 0LL;
+    }
+    long long suma = 0;
+    for (int i = n; i < m; ++i) {
+        suma += i;
+    }
+    return suma;
+}
+
+int main(void) {
+    assert(suma_secuencia_ascendente(1, 5) == 10LL);
+    assert(suma_secuencia_ascendente(-3, 2) == -5LL);
+    assert(suma_secuencia_ascendente(7, 8) == 7LL);
+    assert(suma_secuencia_ascendente(5, 5) == 0LL);
+    assert(suma_secuencia_ascendente(10, 4) == 0LL);
+    return 0;
+}
+```
+::::
 :::
-<!-- {tip} Ayuda (pseudocódigo) -->
 
 (ej_b1_c01_07)=
 ### Ejercicio 1.01.07 - Secuencia Descendente ⭐⭐☆☆☆

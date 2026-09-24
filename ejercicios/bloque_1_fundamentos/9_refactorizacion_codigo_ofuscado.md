@@ -144,6 +144,14 @@ double x(double a,double b){return a*b/2.0;}
 ```
 <!-- c -->
 
+**Tabla de Vectores de Prueba:**
+
+| Caso de Prueba | Base (`a`) | Altura (`b`) | Retorno Esperado |
+| :--- | :--- | :--- | :--- |
+| Estándar | `10.0` | `5.0` | `25.0` |
+| Dimensión inválida | `-2.0` | `5.0` | `-1.0` |
+| Altura nula | `10.0` | `0.0` | `-1.0` |
+
 :::
 <!-- {exercise} -->
 
@@ -170,8 +178,14 @@ void test_area_triangulo(void)
 {
     assert(calcular_area_triangulo(10.0, 5.0) == 25.0);
     assert(calcular_area_triangulo(-2.0, 5.0) == -1.0);
+    assert(calcular_area_triangulo(10.0, 0.0) == -1.0);
 }
 
+int main(void)
+{
+    test_area_triangulo();
+    return 0;
+}
 ```
 <!-- {code-block} c -->
 
